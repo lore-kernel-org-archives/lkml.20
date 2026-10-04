@@ -1,292 +1,120 @@
-Received: from bkemail.birger-koblitz.de (bkemail.birger-koblitz.de [23.88.97.239])
+Received: from mail-m49198.qiye.163.com (mail-m49198.qiye.163.com [45.254.49.198])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3558B3F20ED;
-	Sun,  4 Oct 2026 05:39:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=23.88.97.239
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C3BF73F1678;
+	Sun,  4 Oct 2026 05:39:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=45.254.49.198
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791092378; cv=none; b=ecKHpCNpuuS14nZdE2lEFcrfaXsUDNj3DAYBTBBLlaXMWEoaxF8pMNPrmQUuFbQPuJ1BVQVFQskUWEVfIJvIpUPrjsx6qE40AQP54sS077jreZ3g4TXKYll6Cwe0tFMUHYwoEPlmvBLwEP08J0vt2xEJYWKzyDyVRlh3CybLJbU=
+	t=1791092381; cv=none; b=IbP/hYi1pvF/JivloKpgP0xgCX4aJaDOUrvOKvNJtcHAwbFooLZ3CXa2+fq5ebGavbX2wvt2rxhJ0ANwt7FNVWKbxLU/RMLghRQyQuBr7KXr05oK45Kz4o3i0VrioUHB/GcTDyODlCGr59ub3XxwHHSNHWVdxlzekk47OD6VmQw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791092378; c=relaxed/simple;
-	bh=dVNH8RvZnzc2jMzf7FrztAoqHjVZddddl6WmvLgB28Q=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=mXMv/55tdv9nLheearr78utfqL9CBR/HtNKzWBTL35fjmQ4UYvj83CTlAtJQGjyh6mOC7Yk4gHtZKDK2ObG4gPqTBu546WuXBNrYIFKARpud3ZkauBDpkXypxHfZwrq2dmsJ6sMsYMX1syqfAUxoy8NFRgpg/Qfn3xMn/g8jLvI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=birger-koblitz.de; spf=pass smtp.mailfrom=birger-koblitz.de; dkim=pass (2048-bit key) header.d=birger-koblitz.de header.i=@birger-koblitz.de header.b=paq+6y+z; dkim=pass (2048-bit key) header.d=birger-koblitz.de header.i=@birger-koblitz.de header.b=aE1X97Lp; arc=none smtp.client-ip=23.88.97.239
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=birger-koblitz.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=birger-koblitz.de
+	s=arc-20240116; t=1791092381; c=relaxed/simple;
+	bh=jijZI6yjjfQAW806ygd+9VJR4IpenAUBuh0SyWcBtpc=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=WPdQQkHP7rc7S4Yds8E4AeqZG5CaS54s+urXBfhcy8uvMoLXSSIDpZ0x3t1jPxMTVkLpb9DjGBnJqoCcFA9VBcKzm/8seS2dd6iTGCrw1fKAHhJx5HbTUErXVgUpe00hJOsVq+UQEe4r46mpCnwmdIuNsKBUsqAgzYLfkOdrIJ8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=seu.edu.cn; spf=pass smtp.mailfrom=seu.edu.cn; dkim=pass (1024-bit key) header.d=seu.edu.cn header.i=@seu.edu.cn header.b=CRivSCvw; arc=none smtp.client-ip=45.254.49.198
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=seu.edu.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=seu.edu.cn
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=birger-koblitz.de header.i=@birger-koblitz.de header.b="paq+6y+z";
-	dkim=pass (2048-bit key) header.d=birger-koblitz.de header.i=@birger-koblitz.de header.b="aE1X97Lp"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=birger-koblitz.de;
-	s=default; t=1791092368;
-	bh=dVNH8RvZnzc2jMzf7FrztAoqHjVZddddl6WmvLgB28Q=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
-	b=paq+6y+ziyuDGPJ778Db6aLIkKVOAMwM2qBw6DahA6sjizxnLh4Ia9+GohsvWCj/r
-	 maKgCWeDXRMF8+GovcZQDkP5rGuOL7/9bKd7oe8HNeVgCB9UAdffrfD36baVyHw+IF
-	 nMVXr56uwGdm2rOKYWYF3oEapWucFhWV6llyX7fbRjC9zaRFCwlcT+V8vUiEPO7YQz
-	 wslZgaid2HwPpafwWeWfJYp7OcV5I16vdCWAt1uNeMaCv8n+wMURRB4ndzEVAkcqeL
-	 Pfw4yJAzHsZv4EsGbkgMrY5IpcrsniD7DRz8XdUDvWSFXX8MuYP7qY3S+jnbKz3RqF
-	 F1jTBzIR4ALsw==
-Received: by bkemail.birger-koblitz.de (Postfix, from userid 109)
-	id 886084837E; Sun,  4 Oct 2026 05:39:28 +0000 (UTC)
-X-Spam-Level: 
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=birger-koblitz.de;
-	s=default; t=1791092349;
-	bh=dVNH8RvZnzc2jMzf7FrztAoqHjVZddddl6WmvLgB28Q=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
-	b=aE1X97LpI/Wlr2ivcX5d06ySyv2gCzGEtu5J2zVDI9mzHvjhSTAYTby2zsEtGo8ir
-	 SU76WthmpibngaJL9uzHbqZIg3oPugSEwaYsSdH+1/fDwwG8xEC5JDyoPaX+hKVyh2
-	 0RZevl//dOb+vJEkqYfHC2QQI8ja27fD4t+TdWNh8lniwB4h5JGV4kUxptHD6vVTt2
-	 YSg0Pv58zcVN8AvJiHpEXG0qLnIYAAHJxquPqzcCshQQXG3KEkJY/UE8Kj2bK363RA
-	 R3Ao3HW+0iCu1KTx6WXfPszAKoJ/uwGIhtGmPL+XRFZBcetx6ThUWvy9jO3k4yg9dC
-	 l7ty7mAJCJfqg==
-Received: from AMDDesktop.lan (p5dd1ef42.dip0.t-ipconnect.de [93.209.239.66])
-	by bkemail.birger-koblitz.de (Postfix) with ESMTPSA id 7683448394;
-	Sun,  4 Oct 2026 05:39:09 +0000 (UTC)
-From: Birger Koblitz <mail@birger-koblitz.de>
-Date: Sun, 04 Oct 2026 07:39:17 +0200
-Subject: [PATCH net-next v16 13/13] ax88796b: Add support for AX88772D,
- AX88179A and AX88279
+	dkim=pass (1024-bit key) header.d=seu.edu.cn header.i=@seu.edu.cn header.b="CRivSCvw"
+Received: from PC-202605011814.localdomain (unknown [223.112.146.162])
+	by smtp.qiye.163.com (Hmail) with ESMTP id 4fe9481fc;
+	Sun, 4 Oct 2026 13:39:21 +0800 (GMT+08:00)
+From: Runyu Xiao <runyu.xiao@seu.edu.cn>
+To: Andriy Shevchenko <andriy.shevchenko@intel.com>
+Cc: Jonathan Cameron <jic23@kernel.org>,
+	David Lechner <dlechner@baylibre.com>,
+	=?UTF-8?q?Nuno=20S=C3=A1?= <nuno.sa@analog.com>,
+	Andy Shevchenko <andy@kernel.org>,
+	Karol Wrona <k.wrona@samsung.com>,
+	Kyungmin Park <kyungmin.park@samsung.com>,
+	linux-iio@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	Jianhao Xu <jianhao.xu@seu.edu.cn>
+Subject: Re: [PATCH] iio: ssp: Serialize watchdog timer state changes
+Date: Sun,  4 Oct 2026 13:39:15 +0800
+Message-Id: <20261004053915.1138888-1-runyu.xiao@seu.edu.cn>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <arzdLtzXQ4cvObrL@ashevche-desk.local>
+References: <20260930070319.2933744-1-runyu.xiao@seu.edu.cn> <arzdLtzXQ4cvObrL@ashevche-desk.local>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261004-ax88179a-v16-13-2a9ae4e68f7b@birger-koblitz.de>
-References: <20261004-ax88179a-v16-0-2a9ae4e68f7b@birger-koblitz.de>
-In-Reply-To: <20261004-ax88179a-v16-0-2a9ae4e68f7b@birger-koblitz.de>
-To: Andrew Lunn <andrew+netdev@lunn.ch>, 
- "David S. Miller" <davem@davemloft.net>, Jakub Kicinski <kuba@kernel.org>, 
- Paolo Abeni <pabeni@redhat.com>, Russell King <linux@armlinux.org.uk>, 
- Andrew Lunn <andrew@lunn.ch>, Heiner Kallweit <hkallweit1@gmail.com>, 
- Huacai Chen <chenhuacai@kernel.org>, WANG Xuerui <kernel@xen0n.name>, 
- Eric Dumazet <edumazet@kernel.org>, Eric Dumazet <edumazet@kernel.org>
-Cc: linux-usb@vger.kernel.org, netdev@vger.kernel.org, 
- linux-kernel@vger.kernel.org, loongarch@lists.linux.dev, 
- Jianhui Xu <neuromoments@gmail.com>, 
- Birger Koblitz <mail@birger-koblitz.de>
-X-Mailer: b4 0.14.2
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-HM-Tid: 0aa1056c889c03a1kunme3c6fad532f25b
+X-HM-MType: 10
+X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
+	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVkaHUgeVhkaGEwdQh1PS0hKH1YeHw
+	5VEwETFhoSFyQUDg9ZV1kYEgtZQVlJSUhVSkpJVUpPTVVKTUlZV1kWGg8SFR0UWUFZT0tIVUJCSU
+	5LVUpLS1VKQktCWQY+
+DKIM-Signature: a=rsa-sha256;
+	b=CRivSCvwjjmYzkDdE7uOkhgn1RGYo/GvIXsY4jJ/Vpxv5LN/PnIs7sDchS5dFC3w1bNivRhy51znhEXYxcJVXatgVK0BhHXdWC/rxtNdXjnW22DsOg/IolEboduq85iSVzlUAbZfyfohxg45mM0bHEXCe6q1c1Z0N0cFwOVcF/o=; c=relaxed/relaxed; s=default; d=seu.edu.cn; v=1;
+	bh=jr8ygInJZtEsQ24M0yOeUUNt6jsYaHcKOuwaorNywJI=;
+	h=date:mime-version:subject:message-id:from;
 
-The AX88772D, AX88179A and AX88279 are 100MBit, 1GBit and respectively
-2.5 GBit PHYs that are found in ASIX USB-Ethernet controllers of the
-same name.
+Hi Andy,
 
-Signed-off-by: Birger Koblitz <mail@birger-koblitz.de>
-Reviewed-by: Andrew Lunn <andrew@lunn.ch>
----
- drivers/net/phy/ax88796b.c | 167 +++++++++++++++++++++++++++++++++++++++++++++
- 1 file changed, 167 insertions(+)
+Thanks for the review.
 
-diff --git a/drivers/net/phy/ax88796b.c b/drivers/net/phy/ax88796b.c
-index f20ddf64914993f7097070d1f56c1103ec1e40e8..0f1437d1e3e9b4004bdd240df43c929caf31819c 100644
---- a/drivers/net/phy/ax88796b.c
-+++ b/drivers/net/phy/ax88796b.c
-@@ -13,6 +13,19 @@
- #define PHY_ID_ASIX_AX88772A		0x003b1861
- #define PHY_ID_ASIX_AX88772C		0x003b1881
- #define PHY_ID_ASIX_AX88796B		0x003b1841
-+#define PHY_ID_ASIX_AX88772D		0x003b772d
-+#define PHY_ID_ASIX_AX88179A		0x003b179a
-+#define PHY_ID_ASIX_AX88279		0x003b2790
-+
-+#define AX_ADVERTISE_2500		0x1000
-+
-+/* MII Vendor registers */
-+#define AX_CTRL_STATUS			0x1d
-+#define AX_CTRL_STATUS_SPEED_MASK	0x0c
-+#define   AX_CTRL_STATUS_SPEED_10	0x0
-+#define   AX_CTRL_STATUS_SPEED_100	0x4
-+#define   AX_CTRL_STATUS_SPEED_1000	0x8
-+#define   AX_CTRL_STATUS_SPEED_2500	0xc
- 
- MODULE_DESCRIPTION("Asix PHY driver");
- MODULE_AUTHOR("Michael Schmitz <schmitzmic@gmail.com>");
-@@ -83,6 +96,110 @@ static int asix_ax88772a_read_status(struct phy_device *phydev)
- 	return 0;
- }
- 
-+static int asix_ax88279_read_status(struct phy_device *phydev)
-+{
-+	int ret, val;
-+
-+	ret = genphy_read_status(phydev);
-+	if (ret)
-+		return ret;
-+
-+	if (!phydev->link)
-+		return 0;
-+
-+	/* Read actual speed from vendor register */
-+	val = phy_read(phydev, AX_CTRL_STATUS);
-+	if (val < 0)
-+		return val;
-+
-+	switch (val & AX_CTRL_STATUS_SPEED_MASK) {
-+	case AX_CTRL_STATUS_SPEED_2500:
-+		phydev->speed = SPEED_2500;
-+		break;
-+	case AX_CTRL_STATUS_SPEED_1000:
-+		phydev->speed = SPEED_1000;
-+		break;
-+	case AX_CTRL_STATUS_SPEED_100:
-+		phydev->speed = SPEED_100;
-+		break;
-+	case AX_CTRL_STATUS_SPEED_10:
-+		phydev->speed = SPEED_10;
-+	}
-+
-+	/* MDIO_AN_10GBT_STAT_LP2_5G is broken, but we can deduce that
-+	 * the link-partner advertised 2500M if remotely AN succceded
-+	 * for link speed > 1000M and we locally have a link speed of
-+	 * 2500M
-+	 */
-+	linkmode_clear_bit(ETHTOOL_LINK_MODE_2500baseT_Full_BIT, phydev->lp_advertising);
-+	val = phy_read_mmd(phydev, MDIO_MMD_AN, MDIO_AN_10GBT_STAT);
-+	if (val >= 0 && val & MDIO_AN_10GBT_STAT_REMOK) {
-+		linkmode_mod_bit(ETHTOOL_LINK_MODE_2500baseT_Full_BIT,
-+				 phydev->lp_advertising,
-+				 phydev->speed == SPEED_2500);
-+	}
-+	/* Only supports full duplex */
-+	phydev->duplex = DUPLEX_FULL;
-+
-+	/* PHY switches interface between 2.5GBit and slower modes */
-+	if (phydev->speed == SPEED_2500)
-+		phydev->interface = PHY_INTERFACE_MODE_2500BASEX;
-+	else
-+		phydev->interface = PHY_INTERFACE_MODE_SGMII;
-+
-+	return 0;
-+}
-+
-+static int asix_ax88279_config_aneg(struct phy_device *phydev)
-+{
-+	bool adv_2500;
-+	int ret;
-+
-+	if (phydev->autoneg == AUTONEG_DISABLE) {
-+		phydev_warn(phydev, "Disabling autoneg is not supported\n");
-+		return -EOPNOTSUPP;
-+	}
-+
-+	ret = genphy_config_aneg(phydev);
-+
-+	if (ret < 0)
-+		return ret;
-+
-+	adv_2500 = linkmode_test_bit(ETHTOOL_LINK_MODE_2500baseT_Full_BIT, phydev->advertising);
-+	ret = phy_modify(phydev, MII_ADVERTISE, AX_ADVERTISE_2500,
-+			 adv_2500 ? AX_ADVERTISE_2500 : 0);
-+
-+	return ret;
-+}
-+
-+static int asix_ax88279_get_features(struct phy_device *phydev)
-+{
-+	int ret;
-+
-+	/* MDIO_DEVS1/2 empty, so set mmds_present bits to allow reading abilities */
-+	phydev->c45_ids.mmds_present |= MDIO_DEVS_PMAPMD | MDIO_DEVS_AN;
-+
-+	linkmode_set_bit_array(phy_basic_ports_array, ARRAY_SIZE(phy_basic_ports_array),
-+			       phydev->supported);
-+
-+	ret = genphy_c45_pma_read_abilities(phydev);
-+	if (ret < 0)
-+		return ret;
-+
-+	/* AX88279 does not support reported 100baseT-half duplex mode */
-+	linkmode_clear_bit(ETHTOOL_LINK_MODE_100baseT_Half_BIT, phydev->supported);
-+
-+	return 0;
-+}
-+
-+static int asix_ax88279_config_init(struct phy_device *phydev)
-+{
-+	__set_bit(PHY_INTERFACE_MODE_2500BASEX, phydev->possible_interfaces);
-+	__set_bit(PHY_INTERFACE_MODE_SGMII, phydev->possible_interfaces);
-+
-+	return 0;
-+}
-+
- static void asix_ax88772a_link_change_notify(struct phy_device *phydev)
- {
- 	/* Reset PHY, otherwise MII_LPA will provide outdated information.
-@@ -94,6 +211,24 @@ static void asix_ax88772a_link_change_notify(struct phy_device *phydev)
- 	}
- }
- 
-+static int asix_ax88772D_get_features(struct phy_device *phydev)
-+{
-+	int ret;
-+	__ETHTOOL_DECLARE_LINK_MODE_MASK(mask) = {};
-+
-+	/* MDIO_DEVS1/2 empty, so set mmds_present bits to allow reading abilities */
-+	phydev->c45_ids.mmds_present |= MDIO_DEVS_PMAPMD | MDIO_DEVS_AN;
-+
-+	ret = genphy_read_abilities(phydev);
-+	if (ret < 0)
-+		return ret;
-+
-+	/* AX88772D does not support reported 1000baseT mode */
-+	linkmode_clear_bit(ETHTOOL_LINK_MODE_1000baseT_Full_BIT, phydev->supported);
-+
-+	return 0;
-+}
-+
- static struct phy_driver asix_driver[] = {
- {
- 	PHY_ID_MATCH_EXACT(PHY_ID_ASIX_AX88772A),
-@@ -111,6 +246,35 @@ static struct phy_driver asix_driver[] = {
- 	.suspend	= genphy_suspend,
- 	.resume		= genphy_resume,
- 	.soft_reset	= asix_soft_reset,
-+}, {
-+	PHY_ID_MATCH_EXACT(PHY_ID_ASIX_AX88772D),
-+	.name		= "Asix Electronics AX88772D",
-+	.flags		= PHY_IS_INTERNAL,
-+	.get_features	= asix_ax88772D_get_features,
-+	.read_mmd	= genphy_read_mmd_c45,
-+	.write_mmd	= genphy_write_mmd_c45,
-+	.suspend	= genphy_suspend,
-+	.resume		= genphy_resume,
-+}, {
-+	PHY_ID_MATCH_EXACT(PHY_ID_ASIX_AX88179A),
-+	.name		= "Asix Electronics AX88179A",
-+	.flags		= PHY_IS_INTERNAL,
-+	.suspend	= genphy_suspend,
-+	.resume		= genphy_resume,
-+	.read_mmd	= genphy_read_mmd_c45,
-+	.write_mmd	= genphy_write_mmd_c45,
-+}, {
-+	PHY_ID_MATCH_EXACT(PHY_ID_ASIX_AX88279),
-+	.name		= "Asix Electronics AX88279",
-+	.flags		= PHY_IS_INTERNAL | PHY_BROKEN_FORCED,
-+	.get_features	= asix_ax88279_get_features,
-+	.read_status	= asix_ax88279_read_status,
-+	.config_aneg	= asix_ax88279_config_aneg,
-+	.config_init	= asix_ax88279_config_init,
-+	.read_mmd	= genphy_read_mmd_c45,
-+	.write_mmd	= genphy_write_mmd_c45,
-+	.suspend	= genphy_suspend,
-+	.resume		= genphy_resume,
- }, {
- 	PHY_ID_MATCH_MODEL(PHY_ID_ASIX_AX88796B),
- 	.name		= "Asix Electronics AX88796B",
-@@ -124,6 +288,9 @@ static const struct mdio_device_id __maybe_unused asix_tbl[] = {
- 	{ PHY_ID_MATCH_EXACT(PHY_ID_ASIX_AX88772A) },
- 	{ PHY_ID_MATCH_EXACT(PHY_ID_ASIX_AX88772C) },
- 	{ PHY_ID_MATCH_MODEL(PHY_ID_ASIX_AX88796B) },
-+	{ PHY_ID_MATCH_EXACT(PHY_ID_ASIX_AX88772D) },
-+	{ PHY_ID_MATCH_EXACT(PHY_ID_ASIX_AX88179A) },
-+	{ PHY_ID_MATCH_EXACT(PHY_ID_ASIX_AX88279) },
- 	{ }
- };
- 
+On Wed, Sep 30, 2026 at 03:03:19PM +0800, Runyu Xiao wrote:
+> The SSP watchdog timer rearms itself from its callback, but the driver uses
+> timer_delete_sync() when the last sensor is disabled and during suspend.
+> Those operations do not prevent a concurrent enable or callback from
+> rearming the timer after the deletion has completed. The final remove path
+> also used timer_delete_sync(), which does not provide the shutdown
+> guarantee needed before releasing the device state.
+>
+> Protect the watchdog state and enable reference count with a mutex. The
+> callback checks a state flag before rearming. Reusable stops clear the
+> flag before deleting the timer. Use timer_shutdown_sync() for the final
+> remove path so that any later rearm attempt is rejected permanently.
+>
+> struct ssp_data {
+>     struct timer_list wdt_timer;
+>     struct mutex wdt_lock;
+>     bool wdt_enabled;
+>     struct work_struct work_wdt;
+> };
 
--- 
-2.47.3
+On the x86_64 build, pahole reports wdt_timer at offset 16, wdt_lock at
+56, wdt_enabled at 80, and work_wdt at 88; sizeof(struct ssp_data) is
+816 bytes. There is a 7-byte hole after wdt_enabled.
 
+> _mod:
+> + if (READ_ONCE(data->wdt_enabled))
+> +     mod_timer(&data->wdt_timer, ...);
+>
+> What are we going to do if just after this wdt_enabled becomes false?
+> (Is it a possible case?)
+
+Yes, that is possible. The callback may read true before the stop path
+writes false, then rearm the timer once. timer_delete_sync() waits for the
+running callback and removes that rearmed instance before returning.
+
+> Same Q to all the below. Hmm... It seems they are all protected by the
+> mutex?
+
+All process-context start and stop paths use wdt_lock. The timer callback
+is the exception because it cannot take a mutex; the state check and
+synchronous deletion handle its in-flight rearm. The mutex serializes
+operations, but a start that runs after a reusable stop releases the lock
+can arm the timer again. That is expected after an ordinary sensor enable.
+
+There is also a suspend interleaving. A pending work_refresh can call
+ssp_sync_available_sensors() and ssp_enable_sensor() after ssp_suspend()
+checks enable_refcount. If the count is zero, the first successful sensor
+enable can arm the timer. The first version did not close this path.
+
+In v2, suspend state is tracked under wdt_lock. Sensor enables can update the
+count while suspended but cannot arm the timer. It is restarted only after
+resume succeeds, or if suspend fails. Watchdog work is synchronized before
+the suspend command. I will send v2 separately.
+
+Final removal uses timer_shutdown_sync() to reject later rearm attempts.
+
+Thanks,
+Runyu
