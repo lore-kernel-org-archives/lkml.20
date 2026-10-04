@@ -1,280 +1,161 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from DB3PR0202CU003.outbound.protection.outlook.com (mail-northeuropeazon11010053.outbound.protection.outlook.com [52.101.84.53])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B668638F92F;
-	Sun,  4 Oct 2026 20:13:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791144841; cv=none; b=h1/JyFLDwARXG7P18FU2DfZKXkHuID3DTV90ox5buru2gvAnRC3j0/Nfuj7ndEG3we3fk+nVxxhCAMsdoo0RtdXUsL7PgEk9UQgyvOxyokGiJ5GJ4qbBo5NUAGk37HOvZM66K0h7RP9w0I/xrdzxlR9VFrk1HBeTvSLA1lXl+Lk=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791144841; c=relaxed/simple;
-	bh=JuI4FfFu7Fyt64CymKie/49zNIQ0f4ie5JD09Mb2hTc=;
-	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=TxjY12HHp5pmKYMN4e2lM2vVxidhxaCRunItS4ii6Qwjefsa02mW7fCNONTp7PaIQcpdwS8z+NQ3CYIEYqarMh9aF+PSG3phequ3m4ucEYboT+exYf1ZNaVIVUzVTMyIugIrp00B45lNcsZY982ZOcuyycYNu2eyt1Jf/RHkyvU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jg0JWCa/; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4D6933AB476;
+	Sun,  4 Oct 2026 20:17:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.84.53
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791145037; cv=fail; b=MO4/Iuyh7cMlCVl1t4XTG6Njsa+G8nLD6v8lSyv/iPGDb97Njsq3yTL9tevYuoiiytC8VvZAtWZ280+M+gyZNUG4TS8FcT3rABXMt/aYC91cyrwHBp9IPpHqhe3Uh4JRfC8SXEfKnEpeM6KNYJGxTfu87F/Dfgk02zUZFCK0i2U=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791145037; c=relaxed/simple;
+	bh=SiV4089K/o8U+MyScWK1pAYIiCG4UzhZjMLd7/tt4jk=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-ID:References:
+	 In-Reply-To:To:CC; b=amS6dsuqmG/4jPRVI/3h2ZOeyofkprLoEumGEZb3DPuzMefRsiC5ur6feygkOuMwIzIHPSt5Qa5YRMI6B2nXlfmRKxbV01TuTlU6sJNX+KcYjyjOwhMnIZ/kyqrK3yJydbydXdmUMW69Cw6/dk87iSOtA+E2pxrkB+hdb/vuKgI=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=axis.com; spf=pass smtp.mailfrom=axis.com; dkim=pass (1024-bit key) header.d=axis.com header.i=@axis.com header.b=IQ8yxsj0; arc=fail smtp.client-ip=52.101.84.53
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=axis.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=axis.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jg0JWCa/"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C3BFF1F000FF;
-	Sun,  4 Oct 2026 20:13:58 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791144839;
-	bh=kUIWaC88q0Bw4l+W8HSB54nC9nI/6KV4K3UIv1ypbKY=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=jg0JWCa/by34WL3CmzK/O05a1p/buJChGldkdMlaLCsm8gM+mvk8EduO9B2LJ2wtq
-	 Nhhww3mCRVYJlNH44bI7XMPWzxrKl7gwtnj2kodSY1EvWPwbq8GUPedBdKlgfi6V/y
-	 cEjC44FwvlIUwKZGiFdjTyetP6qpaGjMG0Hqt4UvFp/xnI4jhEDneI7YyL2qH1wQHx
-	 pyiI9v9gedayEb9VZCNz6gGSMcFs4hBKR1wCIPqYy2EkRR4FDYFw9cDWFBW1N4JV1y
-	 XlWhPyeWPsGugh+/sS8rNK8HZY7Bw6riahDO6a5z9T8T5jsUMkUUQDM/d6ZlIQamoZ
-	 QnsfKV0GmlfmA==
-Subject: Re: [PATCH net-next] net: stmmac: mask the MAC interrupt while resume
- resets the MAC
-From: netdev-bot+sashiko@kernel.org
-To: iav@iav.lv
-Cc: maxime.chevallier@bootlin.com, andrew+netdev@lunn.ch, davem@davemloft.net,
- edumazet@google.com, kuba@kernel.org, pabeni@redhat.com,
- linux@armlinux.org.uk, mcoquelin.stm32@gmail.com,
- alexandre.torgue@foss.st.com, netdev@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-Date: Sun, 04 Oct 2026 20:13:58 +0000
-Message-ID: <179114483834.434549.10718571008152168526@kernel.org>
-In-Reply-To: <20260930-stmmac-irq-shut-v1-1-104d1a1dcb28@iav.lv>
-References: <20260930-stmmac-irq-shut-v1-1-104d1a1dcb28@iav.lv>
-X-sashiko-severity: Medium
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (1024-bit key) header.d=axis.com header.i=@axis.com header.b="IQ8yxsj0"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=us6awqAZe/CV693HZ9r18TG1X9BaCIJQIjXLhS8qU71yVEOWdr0p2aZ5t9ZOQSzCeI8/whzMiyOGPlegnInyMCrOY0ruAps6RLQFJLSs9Gyj2c5KGsqf1D3YezBiVlqfAy1JCqcaFsohfC4PEhs5mWvgowo3CSiV8xuYeRQqwCZBd+J06y3JFasUepOepUS7kPCAnTdvZdvmYu0GJN0BPJhWTxPckVGxAbNYEVE52zq1oKeWFTGazUeGUhfA/yW89jxRC+0xrh7csI2J/qBeGwiWZFjhiO7/f9esZV9aiojZzxRn2Kx75y8UNlwlmYq5xiSmZSIJZtPH+edcBZWw6A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=eq8RT1A1Ec4Z2xuxY41bHPQrCOKf5uATOmpYFmS3i6w=;
+ b=iiNBvyHdZumqiexM5aI5dkrBGBkKTncffWTaN9Y2EoS8iCsqb4dHQxXae45YSU3N8GYhHWFSsQCY2B317r3CbI02uU19++sQRrrRgxTKAav0yrdX04MAsABuxPo/1GZozzJVTjZ/ATdtydWxSqlSx3JHpgPDSjxLmu+XCfYDXBf+D0NlEMNUbtTZ9Jlz55OWgbLox/Rc8vX/XC+OilnFdUiTBUprNew45Nr1ubjynLEAzYDzt+OnZ3KCMnruTHM7yDM8sEI6LJCjQ5bcLPTNORWnU0DoD6SXodbxsiNpkJlW2Bx5WxskWstmwE7z6MpEDydXmoxznWkzT/WyWvJW/A==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 195.60.68.100) smtp.rcpttodomain=kernel.org smtp.mailfrom=axis.com;
+ dmarc=pass (p=none sp=none pct=100) action=none header.from=axis.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=axis.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=eq8RT1A1Ec4Z2xuxY41bHPQrCOKf5uATOmpYFmS3i6w=;
+ b=IQ8yxsj0+zwivoG6rtYpwvLSYVyeOlkYYFSldeaz7IKoQFVKr/Va3cwyyUaH3bnUd2BwsTwRD5HekniD8IIkyRg2NofOPeCvuZkpleFgMnY/Dxxe58bTF/+z3PPow+y4uI6iR75WIrSV0K/ynFmVH6OZw/zf0Qjt/QSIdhlWUtk=
+Received: from AS9PR04CA0150.eurprd04.prod.outlook.com (2603:10a6:20b:48a::23)
+ by AMBPR02MB220226.eurprd02.prod.outlook.com (2603:10a6:20b:81c::15) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.472.20; Sun, 4 Oct
+ 2026 20:17:12 +0000
+Received: from DB3PEPF0000885D.eurprd02.prod.outlook.com
+ (2603:10a6:20b:48a:cafe::22) by AS9PR04CA0150.outlook.office365.com
+ (2603:10a6:20b:48a::23) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.472.20 via Frontend Transport; Sun, 4
+ Oct 2026 20:17:12 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 195.60.68.100) smtp.mailfrom=axis.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=axis.com;
+Received-SPF: Pass (protection.outlook.com: domain of axis.com designates
+ 195.60.68.100 as permitted sender) receiver=protection.outlook.com;
+ client-ip=195.60.68.100; helo=mail.axis.com; pr=C
+Received: from mail.axis.com (195.60.68.100) by
+ DB3PEPF0000885D.mail.protection.outlook.com (10.167.242.8) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.472.14 via Frontend Transport; Sun, 4 Oct 2026 20:17:12 +0000
+Received: from se-mail10w.axis.com (10.20.40.10) by se-mail11w.axis.com
+ (10.20.40.11) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1748.39; Sun, 4 Oct
+ 2026 22:17:11 +0200
+Received: from se-intmail01x.se.axis.com (10.4.0.28) by se-mail10w.axis.com
+ (10.20.40.10) with Microsoft SMTP Server id 15.2.1748.39 via Frontend
+ Transport; Sun, 4 Oct 2026 22:17:11 +0200
+Received: from lap5cd525d1j1.sto.se.axis.com (unknown [10.224.134.145])
+	by se-intmail01x.se.axis.com (Postfix) with ESMTP id 377024CE7;
+	Sun,  4 Oct 2026 22:17:11 +0200 (CEST)
+Received: by lap5cd525d1j1.sto.se.axis.com (Postfix, from userid 22105)
+	id 0D8E6803CDC9; Sun,  4 Oct 2026 22:17:11 +0200 (CEST)
+From: Henrik Grimler <henrik.grimler@axis.com>
+Date: Sun, 4 Oct 2026 22:16:06 +0200
+Subject: [PATCH 09/17] ARM: dts: samsung: exynos4210: align all multiline
+ properties
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-ID: <20261004-exynos-arm-cleanup-v1-9-45e435353c56@axis.com>
+References: <20261004-exynos-arm-cleanup-v1-0-45e435353c56@axis.com>
+In-Reply-To: <20261004-exynos-arm-cleanup-v1-0-45e435353c56@axis.com>
+To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, Peter Griffin <peter.griffin@linaro.org>,
+	Alim Akhtar <alim.akhtar@samsung.com>
+CC: <devicetree@vger.kernel.org>, <waqar.hameed@axis.com>,
+	<linux-arm-kernel@lists.infradead.org>, <linux-samsung-soc@vger.kernel.org>,
+	<linux-kernel@vger.kernel.org>, Henrik Grimler <henrik.grimler@axis.com>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1359;
+ i=henrik.grimler@axis.com; h=from:subject:message-id;
+ bh=SiV4089K/o8U+MyScWK1pAYIiCG4UzhZjMLd7/tt4jk=;
+ b=owEBbQGS/pANAwAKAbAHbkkLcWFrAcsmYgBqwrQ13U4CX1+sLs/b8TNx6JNrMY0bsd3r/f2Ll
+ bwTrM8JrkaJATMEAAEKAB0WIQQsfymul4kfZBmp4s2wB25JC3FhawUCasK0NQAKCRCwB25JC3Fh
+ awf9B/9uCfWIQZicW24vTSRCR9ZISENhHcA+hmm6mOHf74+JuXDjpokY8utBDnNE63BMDLzoG7q
+ SZFtcgxVgb4zaGW99vVOpXw63oto1KCCsXF+NWbpC6tuaivrDxl7mB7dD9qxVm9vA1e+uY/tQsu
+ nGzy0AGSWps90vPCoRW45QpgliL4Agoxwjw3+PwZvDH2Po/J3/HRUr0i7CDdVed20KYvbUAng9M
+ ioPkTqTyaxuiveLroyTGvWMx4cNqrEujIlVUQlcUGP8IWZvimlLg3HyicsEhLHbqzZg6gQC6GfO
+ ExjrhKmycpjPNAUKIxy2uglEAyRUsVSVsfA6yMZpjiaPQCQ2
+X-Developer-Key: i=henrik.grimler@axis.com; a=openpgp;
+ fpr=2C7F29AE97891F6419A9E2CDB0076E490B71616B
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DB3PEPF0000885D:EE_|AMBPR02MB220226:EE_
+X-MS-Office365-Filtering-Correlation-Id: c37084e6-60d8-4bff-222b-08df225479d6
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|36860700016|23010399003|82310400026|1800799024|30052699003|376014|22082099003|18002099003|10067099003|11063799006|56012099006;
+X-Microsoft-Antispam-Message-Info:
+	UY+AE9/zvsnP/CUTEsBbm+tJ10Hx6U7hbqzbZoAhm+pbLM5x3oWbXqgx8nj5JQfHEw45MDRO3crb81034bgsL3DRM6rBEKGwAG5nXk9VWMitnzfRTMid2TynS6oN0QZmswDLC7gQ8NqSNIIAQDZpll+HuqQIVXYPCPBdyuLHwCKYECmK/18yoFKtYUPIgiRxa0+NKfai5VNPEx/2TTzQ2XlFLa08Gqe7ClR9kTr5JIOMdBtt73kv1vZBhuUhD5oP9bMHsT6Ozh5ltDP3u/cAv9BUvPUhywEX/uF0SKp17Mw6+FdY7HOJLeyGeiW0urG8XLnXR5OI/BBvqwi566ipXrL8Zo/ha4zDhBQthEwPtRLMRo5SDf0mD4kcxjiQ8PBqVYDrA+9mJXwZKPsvrEE3vbtFS4EUdM8AR1LeToC63fFvryIF0/kwnlWilWpQtUGDoJYSMY6gGTroRhQ4pWPSHa5k5H00i6mu2Fb9rOBNR043DcmyCSXDD4cm+7DeLwDTdt5udazRGO9cJT5iPJhrpSzGlD6KxuLx3EDaB/Otj8v/FDCZ+QMJncVWvL7OjKtImfs1V+1Ft7akfIbuapdwQUKH4/S09Axg9tA2HkZUDG22n5l+ktyza0OcnPrMTH5qFusAmhclhk22u0RKSkm/Xx6bb2Tmdzs1YXFyjrW+S2XpC5/ZggxXFnvBt23Aq4WsPLbKMvnwnCMztpIe4gOShg==
+X-Forefront-Antispam-Report:
+	CIP:195.60.68.100;CTRY:SE;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.axis.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(36860700016)(23010399003)(82310400026)(1800799024)(30052699003)(376014)(22082099003)(18002099003)(10067099003)(11063799006)(56012099006);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	nYw1MMIHrtKh9yv7p/DWHlwXK+NNJNizaRK2/bAyzvBOYXzZb34PqsKqSxibT28yhcarbVbiElk4DVkTTYJFkQWefAbhHSA/B1WGEwdbiYZa1lcNRqhQIi14ThT3maUgWqduIUXEkjXk4mIvSsq7ql1tl5afYGnu/z+p1lNCWD4wKmIF+TuGBL8uOqQUYySdyG9Qa0gkkZZ2ys0c+fq2THtvaiDbAsY8JLYNLvYr5oRcpIx0QGOIhBUbIhidTVn48+ZX4guPATYybb/cKoRXHHqeTlowQ6hQoGVBjabLvKOm2WvdMRF1JKyiwUw5bdm5l5rbKbDk5PTuGGmFY4oyxda4zcOcOBvHkUhdQwO/mtUUjKgfTlThNiYC2Fb7rCcFNj2qqTla2yjWHV3NDqHN/CL7obyzGX9dK6D0P3ZOPQu+RJOOoDvofpXdEW6s6DTz
+X-OriginatorOrg: axis.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Oct 2026 20:17:12.6042
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: c37084e6-60d8-4bff-222b-08df225479d6
+X-MS-Exchange-CrossTenant-Id: 78703d3c-b907-432f-b066-88f7af9ca3af
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=78703d3c-b907-432f-b066-88f7af9ca3af;Ip=[195.60.68.100];Helo=[mail.axis.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	DB3PEPF0000885D.eurprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AMBPR02MB220226
 
-Thank you for your contribution! Sashiko AI review found 4 potential
-issue(s) to consider.
+Properties that span multiple lines should be aligned with " or
+<. Update the nodes where applicable.
 
-Critical: 0 · High: 0 · Medium: 2 · Low: 2
+Fixes warnings from dt-check-style when running in strict mode, like:
 
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
+  samsung/exynos4210.dtsi:543: [continuation-alignment] continuation should align to column 18 (to < or ")
+  samsung/exynos4210.dtsi:545: [continuation-alignment] continuation should align to column 23 (to < or ")
 
-- [Medium] The defect is specific to dwmac1000, but stmmac_resume() now
-  calls disable_irq(ndev->irq) on every core for the whole resume.
-- [Medium] stmmac_resume() now re-enables ndev->irq on every exit path,
-  including error exits where GMAC_INT_MASK was never restored.
-- [Low] The commit message names commit 2e2c878a3141 ("net: stmmac:
-  remove SGMII/RGMII/SMII interrupt handling") as the point after which…
-- [Low] The new comment in the generic stmmac_resume() says 'Resume
-  resets the MAC, leaving every core interrupt unmasked until the mask…
+Signed-off-by: Henrik Grimler <henrik.grimler@axis.com>
+---
+ arch/arm/boot/dts/samsung/exynos4210.dtsi | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
 
---
-
-net: stmmac: mask the MAC interrupt while resume resets the MAC
-
-This patch disables ndev->irq for the whole of stmmac_resume() when the
-interface is running, and enables it again on every exit path. The aim is
-to stop an RGMII interrupt storm on dwmac1000. There, the MAC reset in
-stmmac_hw_setup() clears GMAC_INT_MASK, and it stays clear until
-dwmac1000_core_init() writes it again.
-
-> stmmac_resume() resets the MAC in stmmac_hw_setup(). On dwmac1000 the
-> reset clears the interrupt mask, and all core interrupts stay unmasked
-> until dwmac1000_core_init() writes it again. A link change in that
-> window raises an RGMII interrupt, and no handler clears it since
-> commit 2e2c878a3141 ("net: stmmac: remove SGMII/RGMII/SMII interrupt handling").
-> The line storms:
-
-[ ... ]
-
-> The message repeats every few milliseconds and the network stays down
-> until a power cycle or a watchdog reset.
-
-[Severity: Low]
-Should this carry a Fixes: tag for the commit it names?
-
-Fixes: 2e2c878a3141 ("net: stmmac: remove SGMII/RGMII/SMII interrupt handling")
-
-That commit removed dwmac1000_rgsmii() and its call from
-dwmac1000_irq_status(). That call read GMAC_RGSMIIIS to ack the interrupt:
-
--	if (intr_status & PCS_RGSMIIIS_IRQ)
--		dwmac1000_rgsmii(ioaddr, x);
-
-It also moved GMAC_INT_DISABLE_RGMII into GMAC_INT_DEFAULT_MASK. Since
-then, the mask written by dwmac1000_core_init() is the only protection.
-
-The only trailers are Assisted-by and Signed-off-by, and the note after
-them says the patch was ported to net-next. Both 7.2 and 7.3-rc5 were
-tested as affected. Would net, with a Fixes: tag and possibly Cc: stable,
-be the better target?
-
-> diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-> index 3ad9252bf6aea..6e0415538327b 100644
-> --- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-> +++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-> @@ -8356,16 +8356,26 @@ int stmmac_resume(struct device *dev)
->  {
->  	struct net_device *ndev = dev_get_drvdata(dev);
->  	struct stmmac_priv *priv = netdev_priv(ndev);
-> +	bool irq_off;
->  	int ret;
->  
-> +	/* Resume resets the MAC, leaving every core interrupt unmasked until
-> +	 * the mask is written again: a link change in that window would storm.
-> +	 */
-
-[Severity: Low]
-Does this comment hold for every core that uses stmmac_resume()?
-
-Only dwmac1000 writes a mask register, where 0 means everything is
-unmasked:
-
-drivers/net/ethernet/stmicro/stmmac/dwmac1000_core.c:dwmac1000_core_init() {
-    ...
-	writel(GMAC_INT_DEFAULT_MASK, ioaddr + GMAC_INT_MASK);
-    ...
-}
-
-dwmac4 and xgmac write enable registers instead. On those cores a reset
-leaves the core interrupts disabled, not unmasked:
-
-drivers/net/ethernet/stmicro/stmmac/dwmac4_core.c:dwmac4_core_init() {
-    ...
-	writel(GMAC_INT_DEFAULT_ENABLE, ioaddr + GMAC_INT_EN);
-    ...
-}
-
-drivers/net/ethernet/stmicro/stmmac/dwxgmac2_core.c:dwxgmac2_core_init() {
-    ...
-	writel(XGMAC_INT_DEFAULT_EN, ioaddr + XGMAC_INT_EN);
-    ...
-}
-
-Could the comment say that this is a workaround specific to dwmac1000?
-
-> +	irq_off = netif_running(ndev);
-> +	if (irq_off)
-> +		disable_irq(ndev->irq);
-
-[Severity: Medium]
-What happens to other devices on this line while resume runs? In single
-IRQ mode the line is requested as shared:
-
-stmmac_request_irq_single() {
-    ...
-	ret = request_irq(dev->irq, stmmac_interrupt,
-			  IRQF_SHARED, dev->name, dev);
-    ...
-}
-
-disable_irq() masks the line for every handler on it. The line then stays
-masked through all of these:
-
-  plat->resume()
-  stmmac_mdio_reset()
-  SerDes power-up
-  rtnl_lock()
-  mutex_lock(&priv->lock)
-  stmmac_hw_setup(), including the DMA soft reset poll of up to 200ms
-  in dwmac_dma_reset()
-  PTP init
-  phylink_resume()
-
-No other device on the line gets interrupts during that time. Suppose one
-of them waits for its own interrupt while holding RTNL, or another lock
-that stmmac_resume() needs. Can that stall until a timeout, or forever if
-the wait has no timeout? Lockdep would not see this dependency.
-
-The commit message mentions IRQF_SHARED only as the reason to leave the
-line enabled during suspend.
-
-The problem is specific to dwmac1000. Could the fix avoid the shared line
-altogether? Some options:
-
-  rewrite GMAC_INT_MASK right after the reset
-  restore the read-to-clear of GMAC_RGSMIIIS in dwmac1000
-  disable the line only between the reset and core_init
-
-[ ... ]
-
-> @@ -8451,6 +8462,9 @@ int stmmac_resume(struct device *dev)
->  	stmmac_legacy_serdes_power_down(priv);
->  	mutex_unlock(&priv->lock);
->  	rtnl_unlock();
-> +out:
-> +	if (irq_off)
-> +		enable_irq(ndev->irq);
-
-[Severity: Medium]
-Can this enable the line again while GMAC_INT_MASK is still clear?
-
-If stmmac_init_dma_engine() fails, stmmac_hw_setup() returns before
-stmmac_core_init(). That is the only place where dwmac1000_core_init()
-restores the mask:
-
-stmmac_hw_setup() {
-    ...
-	ret = stmmac_init_dma_engine(priv);
-	if (ret < 0) {
-		phylink_rx_clk_stop_unblock(priv->phylink);
-		...
-		return ret;
-	}
-    ...
-	stmmac_core_init(priv, priv->hw, dev);
-    ...
-}
-
-The failure can come from stmmac_prereset_configure(), or from
-stmmac_reset() timing out ("Failed to reset the dma"). The timeout is a
-known case when clk_rx_i from the PHY is not running yet.
-
-dwmac_dma_reset() returns -ETIMEDOUT and leaves SFT_RESET set:
-
-dwmac_dma_reset() {
-    ...
-	return readl_poll_timeout(ioaddr + DMA_BUS_MODE, value,
-				 !(value & DMA_BUS_MODE_SFT_RESET),
-				 10000, 200000);
-}
-
-So the hardware finishes the reset once the RX clock starts. That usually
-happens when the PHY link comes up, which phylink_prepare_resume() has
-already started. The reset clears the mask just as the RGMII link change
-event arrives.
-
-The error then takes this path:
-
-stmmac_resume()
-  stmmac_hw_setup() fails
-  goto error_unlock
-  out:
-    enable_irq(ndev->irq)
-
-stmmac_interrupt() never acks the RGMII source and always returns
-IRQ_HANDLED:
-
-stmmac_interrupt() {
-    ...
-	stmmac_common_interrupt(priv);
-	stmmac_dma_interrupt(priv);
-	return IRQ_HANDLED;
-}
-
-Because of that, the spurious IRQ detector will not disable the line
-either. Does the storm this patch fixes come back on these exits, with no
-later core_init to close the window?
-
-The commit message says the line is enabled again "on every exit path".
-On these exits, though, it is enabled inside the window the patch is
-meant to close.
-
->  
->  	return ret;
->  }
+diff --git a/arch/arm/boot/dts/samsung/exynos4210.dtsi b/arch/arm/boot/dts/samsung/exynos4210.dtsi
+index 4981bbb7cf31..acb84e34732f 100644
+--- a/arch/arm/boot/dts/samsung/exynos4210.dtsi
++++ b/arch/arm/boot/dts/samsung/exynos4210.dtsi
+@@ -563,10 +563,10 @@ &pmu {
+ 
+ &pmu_system_controller {
+ 	clocks = <&clock CLK_OUT_DMC>, <&clock CLK_OUT_TOP>,
+-		<&clock CLK_OUT_LEFTBUS>, <&clock CLK_OUT_RIGHTBUS>,
+-		<&clock CLK_OUT_CPU>, <&clock CLK_XXTI>, <&clock CLK_XUSBXTI>;
++		 <&clock CLK_OUT_LEFTBUS>, <&clock CLK_OUT_RIGHTBUS>,
++		 <&clock CLK_OUT_CPU>, <&clock CLK_XXTI>, <&clock CLK_XUSBXTI>;
+ 	clock-names = "clkout0", "clkout1", "clkout2", "clkout3",
+-			"clkout4", "clkout8", "clkout9";
++		      "clkout4", "clkout8", "clkout9";
+ 	#clock-cells = <1>;
+ };
+ 
 
 -- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260930-stmmac-irq-shut-v1-1-104d1a1dcb28%40iav.lv
+2.43.0
+
