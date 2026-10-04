@@ -1,149 +1,235 @@
-Received: from mail-qk2-f43.google.com (mail-qk2-f43.google.com [74.125.230.235])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from oss.cyber.gouv.fr (oss.cyber.gouv.fr [51.159.188.251])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 139783EB105
-	for <linux-kernel@vger.kernel.org>; Sun,  4 Oct 2026 18:22:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.235
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2B2493EB105;
+	Sun,  4 Oct 2026 18:22:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=51.159.188.251
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791138148; cv=none; b=QNzWZgkoaYteLJp1tgpYtEQKA15QsG9McVuNgMJ3LNrJYl4PrVx98k/htEJVwjK66Kg8x8vxDzHGCFx+nZSWCQ8iDQYxlDzUcFXgvYk4bfRT2JPr3rm+CyFdkwsZo327mwNRAgf6yg0qkL0pi3lrHp7REL46/IJgoMqcisF8qdQ=
+	t=1791138160; cv=none; b=h07dJ3MPW38uARwmlEuOpJx6KgEdD1BS6z/k1x1yi9NNYZ1+m+EkMflOJ4pU1/0BWqmJsLvoAH3sR4Pvt7vYJoCmQaW+tac6n2ARz8rg8EBr36fA3b19VdFW7aReXQXXuRQdQm8OINDyfhNVB6sscPXKUekUnFAccZvWds/LNiw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791138148; c=relaxed/simple;
-	bh=oWV1x6C2ME/T5Yb2MZ7o3ypqhTuzYDHLFIWMHTAMo24=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=CMQC9pWh2mBSLEKlcg4WZqXmRZJb/YkpD70xOdrarJM9CBcr7UvlB8+oOtDywaNnXN0DtAkf4u6imWYD7XQ8V0SwHYYS3sk3adi4528A7xaBcdfWZAV1b25OmklwM6oIaIi/N4nA0OpmH9hyf5jFO8I+suBDCFpkBfA2pysyJaM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=cLoC9oum; arc=none smtp.client-ip=74.125.230.235
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1791138160; c=relaxed/simple;
+	bh=45LFbBSya6acv2El62U3c+MMKUFAjzx6vOn87uaGYBk=;
+	h=MIME-Version:Date:From:To:Cc:Subject:In-Reply-To:References:
+	 Message-ID:Content-Type; b=SPeZTjAVl68BYVUCxkU4fm49tvoAqQnWUehQlsqV7/HTLg2z+h9BpfQRlNOxrh8Q7RluxzP8QuVlr3BXbmfK71xwqOCfKRONbkVuUmsYvSHxDCvlVmCvBpo4dxhrBPy3nyws/gXtB2WiqCcQ9p+kmIlU8ndnj7s6PMbhcq4L02s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.cyber.gouv.fr; spf=pass smtp.mailfrom=oss.cyber.gouv.fr; dkim=pass (2048-bit key) header.d=oss.cyber.gouv.fr header.i=@oss.cyber.gouv.fr header.b=mcmmBy54; arc=none smtp.client-ip=51.159.188.251
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.cyber.gouv.fr
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.cyber.gouv.fr
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="cLoC9oum"
-Received: by mail-qk2-f43.google.com with SMTP id d75a77b69052e-52fb766bfd3so8209741cf.0
-        for <linux-kernel@vger.kernel.org>; Sun, 04 Oct 2026 11:22:26 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791138146; x=1791742946; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=CF4IOObCfjFDOCjh2XXYxYv4lcIPIAWQIMOn46YsfNw=;
-        b=cLoC9oumtHi2+NPyQvkumHQwBnwGRT0dJCy7UsbLdoy2ZwygQ8v84QDuBBaytPcLQ3
-         xsQ/tQ0G5K6m22T2zAA4NjNlJLJpEqFA9Bh6f8OCbEru4nuSUq5ilL/75fklI9s9cTAQ
-         PjHy5rcN+ttEzR9yAEhMJIX9C+mXb2HZnArrq+URcXj90Gk21fyCVszN4dlEEVLACMlp
-         OMOwCwzKHNOEtURBUNnKKbeVlPlFURK+Y18dWN+6gtPlaEDNC5o48KBQLzclrwu/PJkg
-         tS5Hp6/sxQCjAR6Rn/sevoxvliJwnqbog8C3GihMCfnTVlgDstmEaU8LUTegyNo1w1it
-         qsOQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791138146; x=1791742946;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=CF4IOObCfjFDOCjh2XXYxYv4lcIPIAWQIMOn46YsfNw=;
-        b=Bm4GRmW0vQiclOFebrQj2SwhzZqzGKWfPHYnYYykSNvZVL0qNaiaXbGIKRcyhn44y1
-         fWXJZBOGt8xTQ0gFe5AtpTyYM5aj4L+MgBhQrjRdxjoSj1aiRF+ycPQ7J3v6/G4JvpCQ
-         ICpzscsEyT5qRBoZdm9MsSKQnmuuKyfh5opI3TwIg6Gc1D7skReyHLDK/XJuqoMTYbEo
-         9CSyedoZE+FDmfDJ7muQBQb67IWialabytRtt0jRfYd92kxO3VQjb5xmbK4TCzLdpedh
-         TCCiXHAWhCNk9Eo5995TQXZscKpcmsMt66vCx14JBxjHru1AaDOojIyC9R6jQo6uZB+p
-         g4pQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxlJFhekDpMfiVfmEqjAqwwRjD6mqXb8H36toBV1ht1jhoXdkppf/2WVh+1gbGLEs+EhfF0OXyHZtDV74o=@vger.kernel.org
-X-Gm-Message-State: AFuF++mKKoGo5CMj0ynOPRb6CygJUlhiWogKhX/+7a8Ky4QabBzADTje
-	kMxxP1a3ovKCZdsGNvbwF3YoXyAczt4dUTti6SZj1KiRxIdsarb7LD2k
-X-Gm-Gg: AYBFou0qt7hjrvHxzCabMBrjl1GghA3M/CznHiNl8x4bZk90SawZlhBrYLKi7gg7znW
-	JDby4eky4a91xEyGDXMvSgcPLOiRspVH2qRN5t6kw5FdblOEyUaxakgMR8i5tBfMa64Mc5dX3Ro
-	rJLdrlo63uXoCWW8kNFa5eTlqBQFmPn5qGsxe+b+PLQnWvZfpp5JPUpRDC8RHpgBiUKOi0zQS51
-	PTGLv2AGbTI6Ge1kmmGFUQ7x3WswlTb53w8cm4t2bXeFaV62HZ97ub3YFKLFj+O5lZdjiyJAY1p
-	SgTxUB1LvDskFTI+/UynGukHOt9Qny3uB6G9hAzTQT5rAv9OgE1a+HRXbLVTsqDc5AT6I+c+6t+
-	Reu4lvx2MTO8DBy3XjjpO3Ptt4PCdZ0QXjJwj2yg757L6l82a2ED18AIorIXMrSjvpHrS2KGRDX
-	HJWgFw/BWU9XLZLN+EGX0bodLbVSRwj6G1bE6UGLkDjuZrmavhFBY/U9t7436dc8RBdLiVpdKNH
-	YKBBT7HB9JGmQvlDc5DO20UXzEl9Y82
-X-Received: by 2002:a05:622a:618c:b0:531:ab4:c604 with SMTP id d75a77b69052e-533bc652ea4mr174969861cf.1.1791138145927;
-        Sun, 04 Oct 2026 11:22:25 -0700 (PDT)
-Received: from i4-gl-tmk5904.ad.psu.edu ([130.203.156.186])
-        by smtp.gmail.com with ESMTPSA id d75a77b69052e-5351fd92b58sm27430061cf.21.2026.10.04.11.22.24
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 04 Oct 2026 11:22:25 -0700 (PDT)
-From: Yuho Choi <oss.patchbox@gmail.com>
-To: Jean-Philippe Brucker <jpb@kernel.org>,
-	Joerg Roedel <joro@8bytes.org>,
-	Will Deacon <will@kernel.org>
-Cc: Robin Murphy <robin.murphy@arm.com>,
-	Eric Auger <eric.auger@redhat.com>,
-	"Michael S . Tsirkin" <mst@redhat.com>,
-	Jason Wang <jasowangio@gmail.com>,
-	virtualization@lists.linux.dev,
-	iommu@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	Yuho Choi <oss.patchbox@gmail.com>,
-	stable@vger.kernel.org
-Subject: [PATCH v2] iommu/virtio: Reset device before deleting virtqueues on probe failure
-Date: Sun,  4 Oct 2026 14:21:10 -0400
-Message-ID: <20261004182218.177343-1-oss.patchbox@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key) header.d=oss.cyber.gouv.fr header.i=@oss.cyber.gouv.fr header.b="mcmmBy54"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=oss.cyber.gouv.fr; s=default; h=Content-Transfer-Encoding:Content-Type:
+	Message-ID:References:In-Reply-To:Subject:Cc:To:From:Date:MIME-Version:
+	Reply-To:Sender:Content-ID:Content-Description:Resent-Date:Resent-From:
+	Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID;
+	bh=lyxtMOR60vEEsgEoCbWQ9+m2UQFGn2NRsPcpgpljIy8=; b=mcmmBy54TsIVZ32H3ohw6GLgZ3
+	aIBmHSqSwzpAuymNS1VW5Ui8fRNczyhJL3sJ72+kNcn3p/OxDslD31Hkx2VcBayj6OLF7SrW/YYmz
+	h6WSV7hF6/tIrO7H3tF1rfwYjFDaTnUTIX12sCYUDughQMIdRsVNAfMsal/ql1kFBF+rLT3WcZyHk
+	rhORTx/3F7anQvV8B0DEHlVIhpOYBCJtkJB1xZTj8IcG+wqr7lQbv/yFnR3XpGnXU4Mdv6bJN4ZEa
+	VwSe7DHZFNgWQt+eAAHmQRXhXZ7fDe6Osur8vJ64JCenO+EN9NA3Tmoyg8VVYyBCjpmIyRYZsiZ8g
+	jsjeE6qg==;
+Received: from [::1] (port=54566 helo=pf-012.whm.fr-par.scw.cloud)
+	by pf-012.whm.fr-par.scw.cloud with esmtpa (Exim 4.100.1)
+	(envelope-from <jeremy.jean@oss.cyber.gouv.fr>)
+	id 1xDQr5-00000004b8k-3ZBi;
+	Sun, 04 Oct 2026 20:22:36 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Date: Sun, 04 Oct 2026 20:22:35 +0200
+From: =?UTF-8?Q?J=C3=A9r=C3=A9my_Jean?= <jeremy.jean@oss.cyber.gouv.fr>
+To: Alexei Starovoitov <alexei.starovoitov@gmail.com>
+Cc: Alexei Starovoitov <ast@kernel.org>, Daniel Borkmann
+ <daniel@iogearbox.net>, Andrii Nakryiko <andrii@kernel.org>, Eduard
+ Zingerman <eddyz87@gmail.com>, Kumar Kartikeya Dwivedi <memxor@gmail.com>,
+ Martin KaFai Lau <martin.lau@linux.dev>, bpf@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] bpf, x86: Sign-extend narrow signed kfunc returns
+In-Reply-To: <fe9ae59b603848f59757086c6309aec9@oss.cyber.gouv.fr>
+References: <20260823203944.2084994-2-Jeremy.Jean@oss.cyber.gouv.fr>
+ <DKYHCWYCB5XV.3MSN6ZJGOW2R7@gmail.com>
+ <fe9ae59b603848f59757086c6309aec9@oss.cyber.gouv.fr>
+User-Agent: Roundcube Webmail/1.6.19
+Message-ID: <05edf76be7fac5ebe902d78d672d454c@oss.cyber.gouv.fr>
+X-Sender: jeremy.jean@oss.cyber.gouv.fr
+Content-Type: text/plain; charset=UTF-8;
+ format=flowed
 Content-Transfer-Encoding: 8bit
+X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
+X-AntiAbuse: Primary Hostname - pf-012.whm.fr-par.scw.cloud
+X-AntiAbuse: Original Domain - vger.kernel.org
+X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
+X-AntiAbuse: Sender Address Domain - oss.cyber.gouv.fr
+X-Get-Message-Sender-Via: pf-012.whm.fr-par.scw.cloud: authenticated_id: jeremy.jean@oss.cyber.gouv.fr
+X-Authenticated-Sender: pf-012.whm.fr-par.scw.cloud: jeremy.jean@oss.cyber.gouv.fr
+X-Source: 
+X-Source-Args: 
+X-Source-Dir: 
 
-viommu_probe() marks the device DRIVER_OK before populating the event
-virtqueue and registering the IOMMU device in sysfs.  viommu_fill_evtq()
-hands the device a set of device-writable buffers through
-virtqueue_add_inbuf(), so from that point on the device may write into
-them and into the rings.
+On 2026-08-26 16:20, Jérémy Jean wrote:
+> Hello Alexei,
+> 
+> On 2026-08-26 03:22, Alexei Starovoitov wrote:
+>> On Sun Aug 23, 2026 at 1:39 PM PDT, Jérémy Jean wrote:
+>>> bpf_res_spin_lock() returns a 32-bit int. On failure, the verifier
+>>> models R0 as a signed 64-bit value in [-MAX_ERRNO, -1].
+>>> 
+>>> On x86-64, returning -EDEADLK writes 0xffffffdd to EAX and clears the
+>>> upper half of RAX. Since the JIT leaves the native return value 
+>>> as-is,
+>>> BPF sees 0x00000000ffffffdd instead of the sign-extended
+>>> 0xffffffffffffffdd. A 64-bit signed comparison therefore treats the
+>>> value as positive, while the verifier treats it as -35.
+>>> 
+>>> As a result, a signed comparison against zero can take one path 
+>>> during
+>>> verification and another at run time. With rqspinlock aliases, this 
+>>> can
+>>> lead to unmatched bpf_res_spin_unlock() calls, corrupting the per-CPU
+>>> rqspinlock state and unbalancing the preemption count.
+>> 
+>> Is that a theory? I'm pretty sure we have selftests for negative
+>> error codes from res_spin_lock.
+> 
+>> I'm pretty sure we have selftests for negative
+>> error codes from res_spin_lock.
+> 
+> As far as I could checked, this is not entirely covered: when the
+> returned 32-bit signed int is a negative integer in %eax
+> (0xffffffdd), it is later mapped to 64-bit register r0, which clears
+> the 32 MSB as its value is taken from %rax, and this makes the
+> negative error code a large 32-bit value stored in r0
+> (0x00000000ffffffdd). When writing raw BPF, one could check the
+> return code using r0 instead of w0, and this would introduce a
+> mismatch with the verifier that sees a real negative value.
+> 
+> In my understanding, the current selftests do not exactly verify this?
+> 
+>> Pls craft a selftest if the issue is real.
+> 
+> Below is an attempt for a selftest. I got help from an LLM to write
+> the BPF instructions, and then try my best to shrink it but it is a
+> bit long; hope that's okay. The point is to craft the check on r0
+> manually after the call to bpf_res_spin_lock(), and forces the branch
+> taken to be different between the verifier and the jitted code.
+> 
+> The need for raw BPF instructions is required as the compilation from
+> C correctly uses w0 for the check. I added comments to emphasize this.
+> 
+> SEC("?tc")
+> __arch_x86_64
+> __load_if_JITed()
+> __success
+> __retval(0)
+> __naked int res_spin_lock_return_sign_extension(void)
+> {
+>   asm volatile ("                                                       
+> \
+>   *(u32 *)(r10 - 4) = 0;                                                
+> \
+>   r2 = r10;                                                             
+> \
+>   r2 += -4;                                                             
+> \
+>   r9 = r2;                                                              
+> \
+>   r1 = %[arrmap] ll;                                                    
+> \
+>   call %[bpf_map_lookup_elem];                                          
+> \
+>   if r0 == 0 goto out_%=;                                               
+> \
+>   r6 = r0;                                                              
+> \
+>   /* Adversarial setup: give one map value two verifier pointer IDs. */ 
+> \
+>   r2 = r9;                                                              
+> \
+>   r1 = %[arrmap] ll;                                                    
+> \
+>   call %[bpf_map_lookup_elem];                                          
+> \
+>   if r0 == 0 goto out_%=;                                               
+> \
+>   r7 = r0;                                                              
+> \
+>   r8 = 0;                                                               
+> \
+>   r1 = r6;                                                              
+> \
+>   call %[bpf_res_spin_lock];                                            
+> \
+>   if w0 != 0 goto out_%=;                                               
+> \
+>   r1 = r7;                                                              
+> \
+>   call %[bpf_res_spin_lock];                                            
+> \
+>   /* Adversarial check: treat the negative int return as 64-bit R0. */  
+> \
+>   if r0 s< 0 goto unlock_%=;                                            
+> \
+>   r8 = 1;                                                               
+> \
+>   if r0 != 0 goto unlock_%=;                                            
+> \
+>   r1 = r7;                                                              
+> \
+>   call %[bpf_res_spin_unlock];                                          
+> \
+> unlock_%=:                                                              
+> \
+>   r1 = r6;                                                              
+> \
+>   call %[bpf_res_spin_unlock];                                          
+> \
+>   r0 = r8;                                                              
+> \
+>   exit;                                                                 
+> \
+> out_%=:                                                                 
+> \
+>   exit;                                                                 
+> \
+> "  :
+>  : __imm(bpf_map_lookup_elem),
+>    __imm(bpf_res_spin_lock),
+>    __imm(bpf_res_spin_unlock),
+>    __imm_addr(arrmap)
+>  : __clobber_all);
+> }
+> 
+> When I run the selftest (I used 9328b3b03bdc), I get:
+> 
+> #1/1     res_spin_lock_failure/res_spin_lock_arg:OK
+> #1/2     res_spin_lock_failure/res_spin_lock_AA:OK
+> #1/3     res_spin_lock_failure/res_spin_lock_cond_AA:OK
+> #1/4     res_spin_lock_failure/res_spin_lock_mismatch_1:OK
+> #1/5     res_spin_lock_failure/res_spin_lock_mismatch_2:OK
+> #1/6     res_spin_lock_failure/res_spin_lock_irq_mismatch_1:OK
+> #1/7     res_spin_lock_failure/res_spin_lock_irq_mismatch_2:OK
+> #1/8     res_spin_lock_failure/res_spin_lock_ooo:OK
+> #1/9     res_spin_lock_failure/res_spin_lock_ooo_irq:OK
+> (..snip..)
+> #1/10    res_spin_lock_failure/pin_lock_return_sign_extension:FAIL
+> #1/11    res_spin_lock_failure/res_spin_lock_ooo_unlock:OK
+> #1/12    res_spin_lock_failure/res_spin_lock_bad_off:OK
+> #1/13    res_spin_lock_failure/res_spin_lock_var_off:OK
+> #1/14    res_spin_lock_failure/res_spin_lock_no_lock_map:OK
+> #1/15    res_spin_lock_failure/res_spin_lock_no_lock_kptr:OK
+> 
+> If you confirm this is not yet covered in the selftests, I can send a
+> two-commit patch (one with the previous patch, one with the selftest).
+> 
+> Regards,
+> Jérémy
 
-If either step fails, the error path deletes the virtqueues without
-resetting the device first.  The event buffers are allocated with
-devm_kmalloc_array() and are released as probe unwinds, so the device can
-go on writing to memory that has been freed.
+Hello,
 
-Reset the device before deleting the virtqueues, the way viommu_remove()
-already does.
+I believe this still needs patching.
+Did anyone have some time to check?
 
-Fixes: edcd69ab9a32 ("iommu: Add virtio-iommu driver")
-Cc: stable@vger.kernel.org
-Signed-off-by: Yuho Choi <oss.patchbox@gmail.com>
----
-Changes in v2:
-- No code change.
-- Reword the commit message to explain how the device can write to the
-  freed event buffers.
-- Add Cc: stable.
-- v1 was mistakenly posted twice; this version supersedes both postings.
-
-v1: https://lore.kernel.org/all/20260911011249.1498825-1-oss.patchbox@gmail.com/
-
-Compile-tested only (x86_64 allmodconfig, W=1).
-
- drivers/iommu/virtio-iommu.c | 6 ++++--
- 1 file changed, 4 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/iommu/virtio-iommu.c b/drivers/iommu/virtio-iommu.c
-index 587fc13197f12..fa72ae23b8afa 100644
---- a/drivers/iommu/virtio-iommu.c
-+++ b/drivers/iommu/virtio-iommu.c
-@@ -1227,12 +1227,12 @@ static int viommu_probe(struct virtio_device *vdev)
- 	/* Populate the event queue with buffers */
- 	ret = viommu_fill_evtq(viommu);
- 	if (ret)
--		goto err_free_vqs;
-+		goto err_reset_vdev;
- 
- 	ret = iommu_device_sysfs_add(&viommu->iommu, dev, NULL, "%s",
- 				     virtio_bus_name(vdev));
- 	if (ret)
--		goto err_free_vqs;
-+		goto err_reset_vdev;
- 
- 	vdev->priv = viommu;
- 
-@@ -1244,6 +1244,8 @@ static int viommu_probe(struct virtio_device *vdev)
- 
- 	return 0;
- 
-+err_reset_vdev:
-+	virtio_reset_device(vdev);
- err_free_vqs:
- 	vdev->config->del_vqs(vdev);
- 
-
-base-commit: 7704c4c5bb127673b4f0ead839919db573559e38
--- 
-2.43.0
-
+Thanks,
+Jérémy
