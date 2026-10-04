@@ -1,417 +1,234 @@
-Received: from mail-ed2-f32.google.com (mail-ed2-f32.google.com [74.125.228.96])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E59A323E325
-	for <linux-kernel@vger.kernel.org>; Sun,  4 Oct 2026 09:02:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.228.96
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791104562; cv=pass; b=W1vjicAnAcCWse9kwtff/JGgqRCj8WFOgwo64b7Ya5WHRwcaoxituZFx2BTG/GpJ/Dr6gycm8nmJtN5vjOcj03uU7onu3LbbiPtEMsrSLlEdKwDgjpd8ojJXy9aJGWxY++LPi2sa52s5kOEcMYdQEkpXtqCZBgvkTuvssZQWviU=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791104562; c=relaxed/simple;
-	bh=2iADdXB0u89j4TAc4evJkaJgQVI0i6XZPvplCiNFcAg=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=Jqr56+YeNEEpoo/Qg0qmVyFA1CwMsu45Lk7QcCHs15wksDPXbxTiyzmq5ZgVbqk3eNA8lG4iFNEsGONToUmEoiE3cZuOOJ0rmQIk/EryOk8QwBdUJh1iIn9/tcypB03ve8+iSs2+FXKrZPx9eoBr380aXtBHRFONJdnve1ilg/o=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=seo6/dCG; arc=pass smtp.client-ip=74.125.228.96
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E3598360EF0;
+	Sun,  4 Oct 2026 09:03:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791104589; cv=none; b=GgdSuQDDHkoUvqb/yexLEyBE8eEEm27NrKiqIBOmWF7xLAgMFY/eyl9TLmf4VT20lrcxdJI9DHTvvhtqqexs8t30Q1pR3OnNbOYSqqHBNk3l6XGWCE+egrTZqpl3h7niPljg6l37QavyYsqm+PbNRcXnr8hmC0+vQEUuCyRZg0E=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791104589; c=relaxed/simple;
+	bh=dAyplgO00n0HEE4zcitkVirRbAzdiXQ9O/lh88MDHWE=;
+	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=Ilrk/K/BIyYQyyL33i2rJPdK6NZf40FtbJrwE6bfYOs9ODYYKX2k5+xL4NP7YOHCFobfF8QLGO049wNd+SGPqo0DoMwvpxyD1CFoqQ+3GPWn+/gkExUSsftk11MiHoXZ5N89mf1rbrTw8VCjIL1YcA50BJj1eQ8OnaDZ20zyyUU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Qorac9m/; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="seo6/dCG"
-Received: by mail-ed2-f32.google.com with SMTP id 4fb4d7f45d1cf-6acb6b726b5so1241215a12.0
-        for <linux-kernel@vger.kernel.org>; Sun, 04 Oct 2026 02:02:40 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1791104559; cv=none;
-        d=google.com; s=arc-20260327;
-        b=LQrHlGO64Pg0PSss0w/chBCGxRcounnuV2to4ss6xMjxzJIz04cHySoHm/F+zRDFep
-         vVO7apA47PgxSR8YPE7B5sAcSU/+f0SA+eM4l4HlAVOXuvy89LK+z2qvSE5BCFZzAFoV
-         vigE34EQQH3OtpJI+yYkpGb8VOCzYrDKRYTjt2ykNduY06YuPPQwOmCGSON0yvjsTUl8
-         4HDHVS/hKYNci45JXRR1lnjUw4vqJ0i6Zo2Q5ZJFJv74CdaAsa68jclBhFJo/a/g7miw
-         2lJu69pmYu616IPVunuV9nRElUSv1lkDdHJnHE7JT39E7nR0AKL/H0AOJeeni4QRwLaz
-         XAhA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=4kVu/yq/WaOXMdFOaNW9qNBMm3nKlSEjdOviAUDMdnU=;
-        fh=/sJaF97+0F12OmBn29juaKlN96dXAfMgwbhw7vkN2sw=;
-        b=b8ArdaUWYIQ0MSmCgnvck/D2hwbDy7fVCFFXe+K3c77zOxhq2u6f4jYXFio7CXglCV
-         AKuN8jAVkCidQdYD3BCFs5rJf3hrl3qO23J8PLSs2+BveiNsLuipGl4NA/73vzE+xyQH
-         a9Ga5VxAhQGi1aIfGdVGdUXYxI5oZk6/tQ9o8JjN+7iGWEZ2cbYxDxqG6yIr2ccZFhVr
-         X3QllletYTRUMR0Fq8DsfyxTYZJSqo1AkvwqqhS1yxlvWcTCSkUcT8z8vPXbJAgaZXhD
-         dHwC7ea39sn4Dw6vWMxF7vHL0FnnfL1A3r43yxICGo0AID85fj80KNGyTeKfSr1NnXK1
-         RTJw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791104559; x=1791709359; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=4kVu/yq/WaOXMdFOaNW9qNBMm3nKlSEjdOviAUDMdnU=;
-        b=seo6/dCGJBHmzoZ+l/drKAr6l6gojJLim9pdbQmdKSEVBwKLmRFnBdhgvURHmmodnj
-         CQM/9pnTYiT1l+ms58nNi75DaDLkkrP/StNhPUDzk6fvaJ0i+dIoBq0dRCSaCJorDBYX
-         QUA1K1GHQvEmPmk5/DjAWwAuQ8+4r8BRkP51JOiaTRTUvicb4kDWFeyeTrjzQvswP8KI
-         IkUJNTvR/OrCNgmzqdoButM0a7/+wtLceTPNOjfCAF6EihGct2XQWGWfQpgc3fk7Flr9
-         Ooml+AYV1MchHWh5n1nrE9HqKf/GR/dtPqihD8VhRmFXNBjLxdHyDaMDfKfXGNRUickF
-         39vw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791104559; x=1791709359;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=4kVu/yq/WaOXMdFOaNW9qNBMm3nKlSEjdOviAUDMdnU=;
-        b=rahfIGibszoLI218Kq2ZHku8vHjd1d/7qKt06eCe7DyczQl9FFN0oBTCxhb9T8WSo3
-         wq8snuFxBdWGmWdUyFm3FWGXAVjjLlYmslU1oEC9PPDbdsnhhDNA9X+y0MttywARmO6b
-         MSepzWBGlazPJsBdOCau5j7mBkpSRcm4K2Nbt1sITiXbX3cQnlTeb6SbgdRqaPXSIfIN
-         mzgoSJvviXFW79ZqKk61qf+mif4m9Tgj6Am4EY0LqNFMt50+9RDsRf5bkY3AO7Rqe3rI
-         Ynekjn/jaovDUIIbZDzOY+KyM0sTmtg8ntRtCrTQw16xPKjU36UwvmBv0Yl/mIglc6+h
-         l+2g==
-X-Forwarded-Encrypted: i=1; AKwUvBxqbVzMCv+GPx4Mmp5KVg2fxSTqenJAAl/R0oN/g3XRS55nPlCmyVfyuAvTcqrjKdKjmfM0aB1yDBq1XT8=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJqucRkgeJoP4HAxXmqUhNCpfrJIPtsc3r4AFeF5cbs+8e0u8XO
-	zfC5e5FbaXw3hCqEhnkAVzJeJjBbpIEXTuklezzMb2K5HBKsfj8kkacaAjyUQJXe7Q8hrpGY8jL
-	lHkUcelex7rpjLnvUIEtld7H2L9Ib630=
-X-Gm-Gg: AYBFou36VQClhcB8OR+rYas+/GTOznlFnrsimpIrm3stPeqaz0PWv84KhoJ+F9Sa6tG
-	5jNtlVxtJISNljgrw4DKOeozkLAza9tWSZEFHpPrfvAE9oqXkv6yq1yNjpPWeccMPAQU0EfHUm9
-	Vuqv5j65TSItIRjZgjvgMZ8BPTqAkNk6pcXfJqpAr1RBcJIY4d8tM6ky6d8CNT3WkgpUrJ5kqOy
-	jKvaXhutXHDfEhbMU7Um+Kvmt8TOMNhEWIyTf6UBgX/VFIL8+RqTNGMSpONquHqzARIQZqsdbN0
-	8ebbKZh/UuXOR+Qq1IAZCV0YJob3NcyLnITvqWEWNLrXG4hV0HRQPORSe4EWE8G6CEBGo7aUHp4
-	wu8yjMAWSCjb6V8zC7Kg955yo+gPV1XUFeZkxPVcy9Q==
-X-Received: by 2002:a05:6402:27d0:b0:6ac:b49e:42a with SMTP id
- 4fb4d7f45d1cf-6af9e335cd4mr6612425a12.28.1791104558767; Sun, 04 Oct 2026
- 02:02:38 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Qorac9m/"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 879211F000FF;
+	Sun,  4 Oct 2026 09:03:05 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791104587;
+	bh=Y8NJ7FC8c8jGtpz584cECOONAAKeTFL6PMZgV0gSdks=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=Qorac9m/ftUJFq+xKEyHwMnY5sC5XRrwuHuiDvSOjQ6xI7D8Xk1w6wpeyNwY6u5zm
+	 xdSgiKm54nxhmCkr0rs3fbEo+NZkula/HFZkJwdAJlWUvZ/KKdN7DsNLb8WrfKX4ND
+	 qDi+bkT+5Sog3mLGqw/nCRyHtc0IPEFS82duSOuUnrUNsTtBJF926Eyc3RFQyY0mD+
+	 0I5GucphIlOwcoNlMXopQ44vd7G5T2fkL52X8/u2l7+NeWCHgRyzTFkBs9qsPpJIvq
+	 oF+sR0P2HLUj4JjB1Jyvrm30WMp7TwRjp7QYTakohmfrfh1lxWlf09GFqdWmFdh9o+
+	 a3ZOQF914O7PQ==
+Subject:
+ Re: [PATCH net v3 2/7] net: fec: release IRQs before dependent resources
+From: netdev-bot+sashiko@kernel.org
+To: yaojiale02@163.com
+Cc: theo.lebrun@bootlin.com, conor.dooley@microchip.com, andrew+netdev@lunn.ch,
+ davem@davemloft.net, edumazet@google.com, kuba@kernel.org, pabeni@redhat.com,
+ wei.fang@nxp.com, frank.li@nxp.com, shenwei.wang@nxp.com,
+ shenjian15@huawei.com, shaojijie@huawei.com, niklas.soderlund@ragnatech.se,
+ paul@pbarker.dev, bh74.an@samsung.com, linux@armlinux.org.uk,
+ soren.brinkmann@xilinx.com, nicolas.ferre@microchip.com,
+ fabio.estevam@freescale.com, arnd@arndb.de, dingtianhong@huawei.com,
+ zhangfei.gao@linaro.org, xuejiancheng@hisilicon.com, lidongpo@hisilicon.com,
+ s.shtylyov@omp.ru, claudiu.beznea.uj@bp.renesas.com, vipul.pandya@samsung.com,
+ siva.kallam@samsung.com, ks.giri@samsung.com, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org, imx@lists.linux.dev,
+ linux-renesas-soc@vger.kernel.org
+Date: Sun, 04 Oct 2026 09:03:05 +0000
+Message-ID: <179110458503.434549.14613784745596683672@kernel.org>
+In-Reply-To: <20261003085940.493951-3-yaojiale02@163.com>
+References: <20261003085940.493951-3-yaojiale02@163.com>
+X-sashiko-severity: High
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260927005821.8369-1-kaloz@kernel.org> <20260927005821.8369-3-kaloz@kernel.org>
-In-Reply-To: <20260927005821.8369-3-kaloz@kernel.org>
-From: Magnus Lindholm <linmag7@gmail.com>
-Date: Sun, 4 Oct 2026 11:02:27 +0200
-X-Gm-Features: AclHuK-LuHKkhlhvEtgwByXee8TuF66Nw1OhkzhK6l7LcKAy6Spos4bz3m9Gxjw
-Message-ID: <CA+=Fv5SLKZn6Hs3tcxn_wO8k4RW3C0040fOVMVfe8L+oMhpZSg@mail.gmail.com>
-Subject: Re: [PATCH 2/3] sparc32: emulate casa on V8 CPUs
-To: Imre Kaloz <kaloz@kernel.org>
-Cc: Andreas Larsson <andreas@gaisler.com>, sparclinux@vger.kernel.org, 
-	"David S. Miller" <davem@davemloft.net>, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
 
-Hi Imre,
+Thank you for your contribution! Sashiko AI review found 3 potential
+issue(s) to consider.
 
-On Sun, Sep 27, 2026 at 2:59=E2=80=AFAM Imre Kaloz <kaloz@kernel.org> wrote=
-:
->
-> sun4m implements no compare-and-swap instruction, only ldstub and swap,
-> so the V9 casa opcode is undefined there and raises illegal_instruction.
-> Complete the immediate-ASI form from do_illegal_instruction() for both
-> ASIs a compiler emits -- 0x80, the V9 primary address space, and 0x0A
-> from gcc -mcpu=3Dleon3 -- so a C library can use one casa for its 32-bit
-> atomics on any V8 part. The opcode is unimplemented, so the ASI carries
-> no distinction the emulated CAS has to honour. LEON parts built without
-> casa take the same trap and are the LEON parts this serves.
->
-> The CAS is futex_atomic_cmpxchg_inatomic(), so it is atomic against the
-> futex operations and against itself on SMP. Everything else, including
-> the register-ASI form and casxa, raises SIGILL.
->
-> Confirmed on a dual-SuperSPARC SPARCstation 20.
->
-> Signed-off-by: Imre Kaloz <kaloz@kernel.org>
-> ---
->  arch/sparc/kernel/Makefile     |   1 +
->  arch/sparc/kernel/cas_emu_32.c | 117 +++++++++++++++++++++++++++++++++
->  arch/sparc/kernel/entry.h      |   1 +
->  arch/sparc/kernel/traps_32.c   |   7 ++
->  arch/sparc/kernel/unimp_32.h   |  71 ++++++++++++++++++++
->  5 files changed, 197 insertions(+)
->  create mode 100644 arch/sparc/kernel/cas_emu_32.c
->  create mode 100644 arch/sparc/kernel/unimp_32.h
->
-> diff --git a/arch/sparc/kernel/Makefile b/arch/sparc/kernel/Makefile
-> index 497b5714fa8f..fbea79a4ab58 100644
-> --- a/arch/sparc/kernel/Makefile
-> +++ b/arch/sparc/kernel/Makefile
-> @@ -40,6 +40,7 @@ obj-y                   +=3D sys_sparc_$(BITS).o
->  obj-$(CONFIG_SPARC32)   +=3D systbls_32.o
->  obj-y                   +=3D time_$(BITS).o
->  obj-$(CONFIG_SPARC32)   +=3D windows.o
-> +obj-$(CONFIG_SPARC32)   +=3D cas_emu_32.o
->  obj-y                   +=3D cpu.o
->  obj-$(CONFIG_SPARC32)   +=3D devices.o
->  obj-y                   +=3D ptrace_$(BITS).o
-> diff --git a/arch/sparc/kernel/cas_emu_32.c b/arch/sparc/kernel/cas_emu_3=
-2.c
-> new file mode 100644
-> index 000000000000..257f528d9a2c
-> --- /dev/null
-> +++ b/arch/sparc/kernel/cas_emu_32.c
-> @@ -0,0 +1,117 @@
-> +// SPDX-License-Identifier: GPL-2.0
-> +/*
-> + * Emulation of the V9 casa compare-and-swap for V8 CPUs.
-> + *
-> + * Copyright (C) 2026 Imre Kaloz <kaloz@kernel.org>
-> + *
-> + * sun4m implements no compare-and-swap at all, only ldstub and swap, an=
-d
-> + * casa is optional on LEON. Where it is missing, casa is an undefined o=
-pcode
-> + * and raises illegal_instruction (tt 0x02).
-> + *
-> + * Both immediate ASIs a compiler emits are accepted: 0x80, the V9 prima=
-ry
-> + * address space, and 0x0A, which gcc -mcpu=3Dleon3 uses. The opcode is
-> + * unimplemented wherever this runs, so the ASI carries no distinction t=
-he
-> + * emulated CAS has to honour.
-> + *
-> + * The register-ASI form is not emulated: it reads %asi, which V8 does n=
-ot
-> + * have. casxa is a 64-bit CAS and is meaningless on a 32-bit CPU.
-> + *
-> + * The CAS takes the futex ops' lock, so it is atomic against them and
-> + * against itself, but not against a plain store to the same word.
-> + */
-> +
-> +#include <linux/kernel.h>
-> +#include <linux/sched/signal.h>
-> +#include <linux/mm.h>
-> +#include <linux/uaccess.h>
-> +#include <linux/ptrace.h>
-> +#include <asm/futex.h>
-> +#include <asm/ptrace.h>
-> +
-> +#include "entry.h"
-> +#include "unimp_32.h"
-> +
-> +#define CASA_OP                3       /* insn[31:30] */
-> +#define CASA_OP3       0x3c    /* insn[24:19] */
-> +
-> +#define ASI_P          0x80
-> +#define ASI_LEON       0x0a
-> +
-> +/* A fault returns -EFAULT, and the caller pages the word in. */
-> +static int cas_try(u32 __user *uaddr, u32 cmp, u32 newval, u32 *oldval)
-> +{
-> +       int ret;
-> +
-> +       pagefault_disable();
-> +       ret =3D futex_atomic_cmpxchg_inatomic(oldval, uaddr, cmp, newval)=
-;
-> +       pagefault_enable();
-> +       return ret;
-> +}
-> +
-> +/*
-> + * Returns 1 if the trap was consumed, either by emulating the CAS and
-> + * advancing the PC or by delivering a fault signal for a bad address, a=
-nd 0
-> + * if this is not a casa we emulate, in which case the caller raises SIG=
-ILL.
-> + */
-> +int try_emulate_casa(struct pt_regs *regs, unsigned int insn)
-> +{
-> +       unsigned int rd, rs1, rs2, asi;
-> +       unsigned long addr;
-> +       u32 cmp, newval, old;
-> +       int fault =3D 0, ret;
-> +
-> +       if ((insn >> 30) !=3D CASA_OP)
-> +               return 0;
-> +       if (((insn >> 19) & 0x3f) !=3D CASA_OP3)
-> +               return 0;
-> +       if (insn & (1 << 13))                   /* i =3D=3D 1: register A=
-SI */
-> +               return 0;
-> +       asi =3D (insn >> 5) & 0xff;
-> +       if (asi !=3D ASI_P && asi !=3D ASI_LEON)
-> +               return 0;
-> +
-> +       rd =3D (insn >> 25) & 0x1f;
-> +       rs1 =3D (insn >> 14) & 0x1f;
-> +       rs2 =3D insn & 0x1f;
-> +
-> +       unimp_flush_windows(rs1, rs2, rd);
-> +
-> +       addr =3D unimp_get_reg(rs1, regs, &fault);
-> +       cmp =3D unimp_get_reg(rs2, regs, &fault);
-> +       newval =3D unimp_get_reg(rd, regs, &fault);
-> +       if (fault)
-> +               goto sigsegv;
-> +
-> +       if (addr & 3) {                         /* CAS is naturally align=
-ed */
-> +               send_sig_fault(SIGBUS, BUS_ADRALN, (void __user *)addr, c=
-urrent);
-> +               return 1;
-> +       }
-> +       if (!access_ok((void __user *)addr, sizeof(u32)))
-> +               goto sigsegv;
-> +
-> +       while ((ret =3D cas_try((u32 __user *)addr, cmp, newval, &old)) =
-=3D=3D -EFAULT) {
-> +               /*
-> +                * Page the word in writably and retry, as
-> +                * fault_in_user_writeable() does.
-> +                */
-> +               struct mm_struct *mm =3D current->mm;
-> +               int fx;
-> +
-> +               mmap_read_lock(mm);
-> +               fx =3D fixup_user_fault(mm, addr, FAULT_FLAG_WRITE, NULL)=
-;
-> +               mmap_read_unlock(mm);
-> +               if (fx)
-> +                       goto sigsegv;
-> +       }
-> +
-> +       if (unimp_put_reg(rd, old, regs))
-> +               goto sigsegv;
-> +
-> +       regs->pc =3D regs->npc;
-> +       regs->npc +=3D 4;
-> +       return 1;
-> +
-> +sigsegv:
-> +       send_sig_fault(SIGSEGV, SEGV_MAPERR, (void __user *)addr, current=
-);
-> +       return 1;
-> +}
-> diff --git a/arch/sparc/kernel/entry.h b/arch/sparc/kernel/entry.h
-> index c746c0fd5d6b..2eb2b0be90df 100644
-> --- a/arch/sparc/kernel/entry.h
-> +++ b/arch/sparc/kernel/entry.h
-> @@ -14,6 +14,7 @@ void handler_irq(int irq, struct pt_regs *regs);
->  void do_hw_interrupt(struct pt_regs *regs, unsigned long type);
->  void do_illegal_instruction(struct pt_regs *regs, unsigned long pc,
->                              unsigned long npc, unsigned long psr);
-> +int try_emulate_casa(struct pt_regs *regs, unsigned int insn);
->
->  void do_priv_instruction(struct pt_regs *regs, unsigned long pc,
->                           unsigned long npc, unsigned long psr);
-> diff --git a/arch/sparc/kernel/traps_32.c b/arch/sparc/kernel/traps_32.c
-> index e1d50820c376..69851b19766a 100644
-> --- a/arch/sparc/kernel/traps_32.c
-> +++ b/arch/sparc/kernel/traps_32.c
-> @@ -109,6 +109,8 @@ void do_hw_interrupt(struct pt_regs *regs, unsigned l=
-ong type)
->  void do_illegal_instruction(struct pt_regs *regs, unsigned long pc, unsi=
-gned long npc,
->                             unsigned long psr)
->  {
-> +       unsigned int insn;
-> +
->         if (psr & PSR_PS) {
->                 const struct exception_table_entry *entry;
->
-> @@ -126,6 +128,11 @@ void do_illegal_instruction(struct pt_regs *regs, un=
-signed long pc, unsigned lon
->                regs->pc, *(unsigned long *)regs->pc);
->  #endif
->
-> +       if (!get_user(insn, (unsigned int __user *)pc)) {
-> +               if (try_emulate_casa(regs, insn))
-> +                       return;
-> +       }
-> +
->         send_sig_fault(SIGILL, ILL_ILLOPC, (void __user *)pc, current);
->  }
->
-> diff --git a/arch/sparc/kernel/unimp_32.h b/arch/sparc/kernel/unimp_32.h
-> new file mode 100644
-> index 000000000000..9ab1705b9d04
-> --- /dev/null
-> +++ b/arch/sparc/kernel/unimp_32.h
-> @@ -0,0 +1,71 @@
-> +/* SPDX-License-Identifier: GPL-2.0 */
-> +/*
-> + * Copyright (C) 2026 Imre Kaloz <kaloz@kernel.org>
-> + */
-> +#ifndef _SPARC_UNIMP_32_H
-> +#define _SPARC_UNIMP_32_H
-> +
-> +#include <linux/uaccess.h>
-> +#include <asm/ptrace.h>
-> +
-> +/*
-> + * Operand access for instructions completed out of do_illegal_instructi=
-on().
-> + *
-> + * Like maybe_flush_windows() in unaligned_32.c this has to be inlined: =
-the
-> + * save/restore chain must run in the trapping window, not one level dee=
-per
-> + * behind a call, or the outermost user window is left un-flushed and
-> + * try_to_clear_window_buffer() kills the task on its next fork.
-> + */
-> +static __always_inline void unimp_flush_windows(unsigned int rs1,
-> +                                               unsigned int rs2,
-> +                                               unsigned int rd)
-> +{
-> +       if (rs1 >=3D 16 || rs2 >=3D 16 || rd >=3D 16)
-> +               __asm__ __volatile__("save %sp, -0x40, %sp\n\t"
-> +                                    "save %sp, -0x40, %sp\n\t"
-> +                                    "save %sp, -0x40, %sp\n\t"
-> +                                    "save %sp, -0x40, %sp\n\t"
-> +                                    "save %sp, -0x40, %sp\n\t"
-> +                                    "save %sp, -0x40, %sp\n\t"
-> +                                    "save %sp, -0x40, %sp\n\t"
-> +                                    "restore; restore; restore; restore;=
-\n\t"
-> +                                    "restore; restore; restore;\n\t");
-> +}
-> +
-> +/*
-> + * Globals and outs come from pt_regs, locals and ins from the flushed w=
-indow
-> + * on the user stack. %g0 reads as zero.
-> + */
-> +static inline unsigned long unimp_get_reg(unsigned int reg,
-> +                                         struct pt_regs *regs, int *faul=
-t)
-> +{
-> +       struct reg_window32 __user *win;
-> +       unsigned long val;
-> +
-> +       if (reg < 16)
-> +               return reg ? regs->u_regs[reg] : 0;
-> +
-> +       win =3D (struct reg_window32 __user *)regs->u_regs[UREG_FP];
-> +       if (get_user(val, &win->locals[reg - 16])) {
-> +               *fault =3D 1;
-> +               return 0;
-> +       }
-> +       return val;
-> +}
-> +
-> +/* %g0 discards the result. */
-> +static inline int unimp_put_reg(unsigned int reg, unsigned long val,
-> +                               struct pt_regs *regs)
-> +{
-> +       struct reg_window32 __user *win;
-> +
-> +       if (reg < 16) {
-> +               if (reg)
-> +                       regs->u_regs[reg] =3D val;
-> +               return 0;
-> +       }
-> +       win =3D (struct reg_window32 __user *)regs->u_regs[UREG_FP];
-> +       return put_user(val, &win->locals[reg - 16]);
-> +}
-> +
-> +#endif /* _SPARC_UNIMP_32_H */
-> --
-> 2.47.3
->
+Critical: 0 · High: 2 · Medium: 0 · Low: 1
 
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
 
-Tested on a real SPARCstation 20, on both a HyperSPARC and a
-SuperSPARC-II module, neither has hardware casa. A hand-encoded casa
-instruction completes correctly instead of SIGILL on both.
+- [High] The fix leaves out the PPS/1588 timer IRQ, which is also devm-
+  managed.
+- [High] fec_drv_remove() still calls
+  cancel_work_sync(&fep->tx_timeout_work) first.
+- [Low] fec_drv_remove() bounds its new disable_irq() loop by calling
+  fec_enet_get_irq_cnt(pdev) again, instead of using the number of IRQs…
 
-I also verified the key property this series depends on: userspace
-casa-based locking and real FUTEX_LOCK_PI/UNLOCK_PI callers correctly
-serialize on the same lock word under contention (40000/40000 ops,
-zero lost, on both CPUs).
+--
 
-Tested-by: Magnus Lindholm <linmag7@gmail.com>
+net: fec: release IRQs before dependent resources
+
+In fec_drv_remove(), this commit masks the FEC interrupt sources and calls
+disable_irq() on the main FEC IRQs before unregister_netdev(). It adds the
+same cleanup to the fec_probe() error path. It also switches to
+devm_alloc_etherdev_mqs() so the netdev stays alive until the devm-managed
+IRQs are released.
+
+> diff --git a/drivers/net/ethernet/freescale/fec_main.c b/drivers/net/ethernet/freescale/fec_main.c
+> index 794ec427b0ee6..b0fc5b39c748d 100644
+> --- a/drivers/net/ethernet/freescale/fec_main.c
+> +++ b/drivers/net/ethernet/freescale/fec_main.c
+
+[ ... ]
+
+> @@ -5502,7 +5501,15 @@ fec_drv_remove(struct platform_device *pdev)
+>  	cancel_work_sync(&fep->tx_timeout_work);
+>  	if (fep->bufdesc_ex)
+>  		fec_ptp_stop(pdev);
+> +	if (ret >= 0)
+> +		fec_irqs_disable(ndev);
+> +	irq_cnt = fec_enet_get_irq_cnt(pdev);
+
+[Severity: Low]
+Should this reuse the number of IRQs that probe actually requested, instead
+of computing it again?
+
+fec_enet_get_irq_cnt() maps any platform_irq_count() result <= 0 to 1. That
+includes -EPROBE_DEFER:
+
+	else if (irq_cnt <= 0)
+		irq_cnt = 1;	/* At least 1 irq is needed */
+
+Say a later interrupt's parent deferred at probe time while index 0
+resolved. Then probe requests only fep->irq[0] and still succeeds. At remove
+time the count can be larger, so the loop below would call disable_irq() on
+fep->irq[1] and fep->irq[2]. Both are still 0.
+
+On ARM32 with SPARSE_IRQ, that raises the depth of descriptor 0 and calls
+synchronize_irq(0). On arm64 it does nothing.
+
+> +	for (i = 0; i < irq_cnt; i++)
+> +		disable_irq(fep->irq[i]);
+
+[Severity: High]
+The commit message says the patch will "disable each IRQ" before
+unregistering the netdev. Does this loop also cover the PPS interrupt?
+
+fec_ptp_init() requests a separate devm-managed IRQ, and its number is never
+stored in fep->irq[]:
+
+drivers/net/ethernet/freescale/fec_ptp.c:fec_ptp_init() {
+    ...
+	irq = platform_get_irq_byname_optional(pdev, "pps");
+	if (irq < 0)
+		irq = platform_get_irq_optional(pdev, irq_idx);
+    ...
+	if (irq >= 0) {
+		ret = devm_request_irq(&pdev->dev, irq, fec_pps_interrupt,
+				       0, pdev->name, ndev);
+    ...
+}
+
+So this IRQ stays enabled until devres runs after fec_drv_remove() returns.
+Writing 0 to FEC_IMASK in fec_irqs_disable() does not gate it either. The
+timer channel interrupt is armed by FEC_T_TIE in FEC_TCSR(pps_channel).
+
+fec_ptp_stop() also runs before any IRQ is disabled here. It calls
+ptp_clock_unregister() without synchronizing the PPS IRQ. Meanwhile,
+fec_pps_interrupt() checks pps_enable without taking a lock:
+
+	if (fep->pps_enable) {
+		event.type = PTP_CLOCK_PPS;
+		ptp_clock_event(fep->ptp_clock, &event);
+
+Could a handler already running on another CPU use the ptp_clock after it
+has been freed?
+
+In PTP_CLK_REQ_PEROUT mode, pps_enable is 0. fec_ptp_stop() then only
+cancels the hrtimer, and FEC_TCSR keeps TIE set in toggle mode. On
+FEC_QUIRK_HAS_MULTI_QUEUES parts, fec_stop() also turns EN1588 back on.
+
+Could fec_pps_interrupt() still readl()/writel() FEC_TCSR/FEC_TCCR after
+fec_drv_remove() disables clk_ahb and clk_ipg further down?
+
+The new probe unwind has the same gap:
+
+failed_irq:
+	fec_irqs_disable(ndev);
+	while (i--)
+		disable_irq(fep->irq[i]);
+	fec_enet_deinit(ndev);
+failed_init:
+	if (fep->bufdesc_ex)
+		fec_ptp_stop(pdev);
+
+fec_ptp_init() runs before fec_enet_init(). The PPS IRQ is therefore still
+live through fec_ptp_stop() and through the clock disables at
+failed_regulator.
+
+Would it make sense to store the PPS IRQ number and disable_irq() it before
+fec_ptp_stop()? FEC_TCSR could also be cleared for the PEROUT case. Nothing
+later in the series seems to touch fec.
+
+>  	unregister_netdev(ndev);
+
+[Severity: High]
+cancel_work_sync(&fep->tx_timeout_work) has already run at this point. The
+IRQs are now disabled while the netdev is still registered and running. Can
+the TX watchdog queue tx_timeout_work again in this window?
+
+With the IRQs disabled, fec_enet_interrupt() can no longer schedule NAPI, so
+TX descriptors are not reclaimed. Under traffic, fec_enet_start_xmit()
+eventually stops the queue.
+
+Suppose unregister_netdev() waits for RTNL longer than watchdog_timeo
+(TX_TIMEOUT). The chain would then be:
+
+dev_watchdog()
+  fec_timeout()
+    schedule_work(&fep->tx_timeout_work);
+
+Nothing cancels or flushes the work after this. Once unregister_netdev()
+drops RTNL, fec_enet_timeout_work() runs:
+
+	rtnl_lock();
+	if (netif_device_present(ndev) || netif_running(ndev)) {
+		napi_disable(&fep->napi);
+		netif_tx_lock_bh(ndev);
+		fec_restart(ndev);
+
+netif_device_present() is still true after unregister. The work therefore
+calls napi_disable() on a NAPI that fec_enet_close() has already disabled.
+
+Would napi_disable_locked() then spin forever with RTNL held?
+
+The work could also run later still. The netdev is now freed by devres
+(devm_alloc_etherdev_mqs()), so it would then use fep after the netdev has
+been freed.
+
+Before this patch, this path needed a real TX hang. Now normal TX traffic
+plus RTNL contention looks like enough. Should tx_timeout_work be cancelled
+again after unregister_netdev()? Alternatively, the IRQs could be disabled
+only after the device has been closed.
+
+> +	/* fec_stop() enables the default interrupt mask. */
+> +	if (ret >= 0)
+> +		fec_irqs_disable(ndev);
+>  	fec_enet_mii_remove(fep);
+>  	if (fep->reg_phy)
+>  		regulator_disable(fep->reg_phy);
+
+[ ... ]
+
+-- 
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261003085940.493951-2-yaojiale02%40163.com
