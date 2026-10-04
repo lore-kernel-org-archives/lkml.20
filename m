@@ -1,258 +1,251 @@
-Received: from mail-ed2-f32.google.com (mail-ed2-f32.google.com [74.125.228.96])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from lahtoruutu.iki.fi (lahtoruutu.iki.fi [185.185.170.37])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E68754718FD
-	for <linux-kernel@vger.kernel.org>; Sun,  4 Oct 2026 17:16:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.96
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791134209; cv=none; b=eU1VQNW/wnSYqQNLF7PwjMMLmYPm9NFnepReKxejySTmm9mfozVa5Kk1rfZ24a4YVS/YOm9e6n1YEKftBqLDl+nR9DCHZBdTgD/QTeZ/BZBclLILY257rB38QbEYbEBde+9oMNSFLUAwpsDkxpmO49d512X2lt5Fy+4BsaT8Zgg=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791134209; c=relaxed/simple;
-	bh=Y5qEOgngxBaCHA/kBWEYUs6H+TGmwJHQkFWp/hzC6bs=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=WyQdZmRzL1wGf1ZMoNUzA1LR2o6QB8IeCcMNBgRGdXe8fXRK4Hix+yZ+E6ChyftcVZrmxURYRtT1T1i6hho1h42riCjYKqOcYpFe9xvEijeZbSOUeaqC71M42XOrfecqs9ipbhkWBdJtbZXhMdJwz7Z0rDlG78w2+QOkyzjuo8A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bairaktaris.de; spf=pass smtp.mailfrom=bairaktaris.de; dkim=pass (2048-bit key) header.d=bairaktaris.de header.i=@bairaktaris.de header.b=kWkRmFKX; arc=none smtp.client-ip=74.125.228.96
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bairaktaris.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bairaktaris.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AB7A9223708;
+	Sun,  4 Oct 2026 17:16:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=185.185.170.37
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791134214; cv=pass; b=H59JQ/D9GY2cdMO2nFHX6RRAofo3ZPY9P4jDIlrSQeSbyZqoCiQ4XgPv9zd4NRzabxGXQuh7cevO3TnSw3I9Ca8VKA7W2CfSEPHhOLj+IfI54FtsisLnf57o7qNEsiSA/2WT5eJDcjB0oNuDJTRXCD2fdVZFzkre0O4abLgw+1I=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791134214; c=relaxed/simple;
+	bh=9uM8fw6m2guR7cSseDbThebh8yDVb+s/YIo7WspHacA=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=csY6no8m8T+U2HoNB/QrQq5AmVhol59yJjK310KDUBoRMaWMH0+zLNAAGUhUDiABaMP6SoeMegHme8cQ2ohbNOjdg7IMWy1BafsGfN3E3HvhpPiLYMstDWC19t/LJ96cncz2OKAIUrK0auT7+5zid9U9KFX5Pd61wP0pN1UNkew=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iki.fi; spf=pass smtp.mailfrom=iki.fi; dkim=pass (2048-bit key) header.d=iki.fi header.i=@iki.fi header.b=ecBacQsK; arc=pass smtp.client-ip=185.185.170.37
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iki.fi
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iki.fi
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bairaktaris.de header.i=@bairaktaris.de header.b="kWkRmFKX"
-Received: by mail-ed2-f32.google.com with SMTP id 4fb4d7f45d1cf-6acbdf627ccso1237109a12.2
-        for <linux-kernel@vger.kernel.org>; Sun, 04 Oct 2026 10:16:45 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=bairaktaris.de; s=google; t=1791134204; x=1791739004; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=dHUtQGoQ43VDmpGd3bfBB5J/hFSSTUqRFc74DU6+NPk=;
-        b=kWkRmFKXjXM0xC0FxMJnO6LoQmczqio07l6m6t4SxoS4hPuty0vr9Go9RpcM2pzb8M
-         Vub2TL42Hh8czBNXgG7kSK41MKL8rit7M0ndzb2aTmo9gNhWWQjzHO1W41FmooNv/V7S
-         sYdaVys5n3zPm7S2exm1tEhNyfTSmVOseZSG1j384ijQ5oC6upYTTEQQ/im9yp6mk22C
-         1IRRDgl9Uvs8qWXYKtWcb1eBYpznbB1Zhr11Mu31e7jESXOdA3FvJXPh2CO+ZF9w2tEz
-         JWV+m5Ib4rsI0zRyU07aWI5+pSvv3StVIWrxr2JYWQuc/qRG4guds8OXo/k/7YpZiLNW
-         Rkag==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791134204; x=1791739004;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=dHUtQGoQ43VDmpGd3bfBB5J/hFSSTUqRFc74DU6+NPk=;
-        b=n/cyWVYGmJ2kLxKSnNcL1cnxlZeVeX469n2neREP0vzybu1NrvNuJNVRsMnDHSaIvp
-         2cxZSVNMh1AtCZn1LHMv2ciMr8WkK56qrX+FcA1QNsDK8xKp57B7SfQlE8t99RZ+q0jM
-         QVb+ZhXQUIz0u6AavEdgK++iInPnBt3lM4fptKv9qcpCe5sMJlQZsWrHfE9ASpzDb/UV
-         tqMKN5gini57WKD7clXnTWgbZTlKOBhu5Zk9VTsPBWfng2Mi71lzNssyBBqTB7P1Il0B
-         F6O4UC8Zh1MpCC4cqBsk4ckfcwKdSOPGQ5Twda0HZZsQkAVZrb5bVcifTTsy1HTrlZET
-         /LVQ==
-X-Forwarded-Encrypted: i=1; AKwUvByz/ySNhUEoQbyfG/K6wP6OuvM8zODGcLq0Rt732uaayweyjSs3BpRZxnZgfB65P0XJFhDX/DEVthGLorg=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIm1so7XsGVScw/adtJzfwpGYFPP5cI/TIZED+cetW11mvRenI/
-	4nOHlIH0PE3xLjbvjb01ARUj4QRuxrGXEOrWH1fPB6AmyO88K+RydgUqrcS/T9dSew==
-X-Gm-Gg: AYBFou04P1Nerl5QUL+GLfztQ/9cjcQrv3l0jqCRKPY9+4yHraJ7KVRSCthDYNHmtUr
-	3ze6/VIkRZKTYEzUQWGX9lj9AplDn0UQlSonavYM5lpVe8U1xqMdEOmXVyK6bHTrwTlCZoYpWpb
-	SavLrg7KjZdGJLJ/U8DmK9e46PH8h7q5bWRj5fHOJRrnegGD8eHURLzSTywSvSi+/ojaseks8U1
-	07gV3Wao59VkkuKubneNdck1cro3Wt4ohrnakoklXBaEFuniwqnWxy8TqPfRGpJZGAEiAAyemGQ
-	0HNrwokrrUPq8t/jsybXFFv9DHUruERwODoetFgB6lrTxgc5ckeNPGp/2SvdGewwBIgVDWgHpU+
-	7a8UkH0jwBNocO44Cy2G6Eq2Lsq/f9YyGLXoIjG7y+AwdBkdK63tMAmu17uh6+ex/rk3JlK5XLO
-	knQLKz7/bwH9KzbohReDDCh7prfJg9P4XuYjiN1SHB4Iq6O5WSJR0uJ+qRHJ8CvPxoeNjxKm/fM
-	kQfD7P8dqSp1Vqn2FyFO+fZNhxmo/dHpteonVEF3nAnk4wwhNLWDFWnqGHfDFvygYwdBLsuK5A4
-	s+u2g4Lq7TgI6Jb2MlUylxLRJzykVdEzLM4jToC1bYH46DnIKKlfRlI+OR/M0KfO+v5O9yPRvA2
-	XDzTWWaZ9HJWnt21QP1I9C/5Nv+2YYT4bLWfHesUCaDeBCTFjULqZnS02jRAGooIEL434EwfFX3
-	RMddFUr0y0M2pulyTQDLDhXYs=
-X-Received: by 2002:a05:6402:52c1:b0:6ac:7737:e50d with SMTP id 4fb4d7f45d1cf-6af9e2fd054mr5882545a12.29.1791134203816;
-        Sun, 04 Oct 2026 10:16:43 -0700 (PDT)
-Received: from Desktop (pd9513667.dip0.t-ipconnect.de. [217.81.54.103])
-        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6afb014784bsm2256819a12.3.2026.10.04.10.16.42
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 04 Oct 2026 10:16:42 -0700 (PDT)
-From: Julius Bairaktaris <julius@bairaktaris.de>
-To: pablo@netfilter.org,
-	fw@strlen.de
-Cc: phil@nwl.cc,
-	netfilter-devel@vger.kernel.org,
-	coreteam@netfilter.org,
-	netdev@vger.kernel.org,
-	lorenzo@kernel.org,
-	nbd@nbd.name,
-	matthias.bgg@gmail.com,
-	angelogioacchino.delregno@collabora.com,
-	andrew+netdev@lunn.ch,
-	davem@davemloft.net,
-	edumazet@google.com,
-	kuba@kernel.org,
-	pabeni@redhat.com,
-	horms@kernel.org,
-	corbet@lwn.net,
-	rdunlap@infradead.org,
-	skhan@linuxfoundation.org,
-	linux-doc@vger.kernel.org,
-	linux-kselftest@vger.kernel.org,
-	linux-mediatek@lists.infradead.org,
-	linux-arm-kernel@lists.infradead.org,
-	saeedm@nvidia.com,
-	leon@kernel.org,
-	tariqt@nvidia.com,
-	mbloch@nvidia.com,
-	linux-rdma@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH nf-next v3 3/3] selftests: netfilter: nft_flowtable.sh: check the priority a flow carries
-Date: Sun,  4 Oct 2026 19:16:36 +0200
-Message-ID: <20261004171636.3545085-4-julius@bairaktaris.de>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261004171636.3545085-1-julius@bairaktaris.de>
-References: <20261004171636.3545085-1-julius@bairaktaris.de>
+	dkim=pass (2048-bit key) header.d=iki.fi header.i=@iki.fi header.b="ecBacQsK"
+Received: from [192.168.1.195] (unknown [IPv6:2a02:ed04:3581:1::d001])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange secp256r1 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	(Authenticated sender: pav@iki.fi)
+	by lahtoruutu.iki.fi (Postfix) with ESMTPSA id 4hyThQ29mwz49Q38;
+	Sun, 04 Oct 2026 20:16:38 +0300 (EEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=iki.fi; s=lahtoruutu;
+	t=1791134199;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+	bh=auIRK6r389J6WMqNZPbjgoq3erqxe5KMzzpW35kMKj8=;
+	b=ecBacQsKhUp8toa6CXne65mNKdKbsXRZResdWtCWnJBclGn2KB2BrNRadYwA7+6C5w+bmK
+	QiEJKwUgNclWG/PoarppDpubnScH9J0SPFPnjkvnjSmkRQETkSLgRLCl41KA86NF7E61ts
+	SDYHl83Wad4MVv4O7z+AaQbRM57JTKxLOlhy4XgiNeJbGNCATwL0vcmsJK92tezCtHOgLr
+	qcosI6dnv29COGsfMWJBpkBJq1TiMsDfATt5CK+ukquAZVSCWuGj4DpQX4h+ewkv36Wqbp
+	0wcte2T429IS1pXv2ZrPEp85Z5BP8uhoaGdczY6avPpU7iaRFA0C+TGg2AH3FA==
+ARC-Seal: i=1; a=rsa-sha256; d=iki.fi; s=lahtoruutu; cv=none; t=1791134199;
+	b=uleoP+y3fcrlb2l3Sua7YPLqwf34qFQdF0PtNRnDqqjOZigAxgp+YzyIP9cWg0nP9u/mz1
+	vh2fHAgY3vVpLqBgPeulEgIQol9k/OjE66uWbYEysGOSXAQaeuIXCj4zw9HigCcIBKSLOs
+	1mTLrzjtPMoFhL0FL5FsmMi/X0D7jt9hjUbngM/NOAtU1BYuV7NuBYAvE+xios3JWAAaLu
+	M9lsIHF3DAjr4XwxsdSb6gUAChLBVEJKX/OrQjPxf53DPZphmf8ifXWYnzotJ1Rac1iZSY
+	Twu8l7S/OdD5sBguNchNOaRbw8xFW+LNdX6Xfs68rKPkiap6Xw+Hl7bRvFKhIg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=iki.fi;
+	s=lahtoruutu; t=1791134199;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+	bh=auIRK6r389J6WMqNZPbjgoq3erqxe5KMzzpW35kMKj8=;
+	b=FpFMFQl7impP/8Ljxjed+a6rDXXfYnJ13MGnfWpnw6QuYVsqr76SGxtGqMFZmYKaorPSbR
+	vyVJqKvDRDl6rYppnde6Lt+2RAizJW8JOUSjT8lB7nJPVaVTqOd+vdSr/NTM3N1Xhz0LLq
+	IhyYnZkN7G0QcdqbgnoD4lS5dBCte6zYwdZD26vmVMuRThDiHSJbe9cDAZAwAq/blYDphx
+	bE4Zn+uDm/mBT+wGCM1lha6aIRvYAu2Xb3ktbDXD+DG/AE7VYN2IPuU2znGEcWvuGzWesv
+	Wy810zJ4T/36tCuIYz/cArekeWGVe/dgmiGWuEwWVAkqpXyqo5Jw4kL9efgBcQ==
+ARC-Authentication-Results: i=1;
+	ORIGINATING;
+	auth=pass smtp.auth=pav@iki.fi smtp.mailfrom=pav@iki.fi
+Message-ID: <225d8d84c8e5155d5af0adfbea270eeeda326021.camel@iki.fi>
+Subject: Re: [PATCH] Bluetooth: ISO: Serialize concurrent connect calls
+From: Pauli Virtanen <pav@iki.fi>
+To: Chengfeng Ye <nicoyip.dev@gmail.com>, Marcel Holtmann
+ <marcel@holtmann.org>,  Luiz Augusto von Dentz	 <luiz.dentz@gmail.com>
+Cc: linux-bluetooth@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	stable@vger.kernel.org
+Date: Sun, 04 Oct 2026 20:16:36 +0300
+In-Reply-To: <20261004162458.3968546-1-nicoyip.dev@gmail.com>
+References: <20261004162458.3968546-1-nicoyip.dev@gmail.com>
+Autocrypt: addr=pav@iki.fi; prefer-encrypt=mutual;
+ keydata=mQINBGX+qmEBEACt7O4iYRbX80B2OV+LbX06Mj1Wd67SVWwq2sAlI+6fK1YWbFu5jOWFy
+ ShFCRGmwyzNvkVpK7cu/XOOhwt2URcy6DY3zhmd5gChz/t/NDHGBTezCh8rSO9DsIl1w9nNEbghUl
+ cYmEvIhQjHH3vv2HCOKxSZES/6NXkskByXtkPVP8prHPNl1FHIO0JVVL7/psmWFP/eeB66eAcwIgd
+ aUeWsA9+/AwcjqJV2pa1kblWjfZZw4TxrBgCB72dC7FAYs94ebUmNg3dyv8PQq63EnC8TAUTyph+M
+ cnQiCPz6chp7XHVQdeaxSfcCEsOJaHlS+CtdUHiGYxN4mewPm5JwM1C7PW6QBPIpx6XFvtvMfG+Ny
+ +AZ/jZtXxHmrGEJ5sz5YfqucDV8bMcNgnbFzFWxvVklafpP80O/4VkEZ8Og09kvDBdB6MAhr71b3O
+ n+dE0S83rEiJs4v64/CG8FQ8B9K2p9HE55Iu3AyovR6jKajAi/iMKR/x4KoSq9Jgj9ZI3g86voWxM
+ 4735WC8h7vnhFSA8qKRhsbvlNlMplPjq0f9kVLg9cyNzRQBVrNcH6zGMhkMqbSvCTR5I1kY4SfU4f
+ QqRF1Ai5f9Q9D8ExKb6fy7ct8aDUZ69Ms9N+XmqEL8C3+AAYod1XaXk9/hdTQ1Dhb51VPXAMWTICB
+ dXi5z7be6KALQARAQABtCZQYXVsaSBWaXJ0YW5lbiA8cGF1bGkudmlydGFuZW5AaWtpLmZpPokCWg
+ QTAQgARAIbAwUJEswDAAULCQgHAgIiAgYVCgkICwIEFgIDAQIeBwIXgBYhBGrOSfUCZNEJOswAnOS
+ aCbhLOrBPBQJl/qsDAhkBAAoJEOSaCbhLOrBPB/oP/1j6A7hlzheRhqcj+6sk+OgZZ+5eX7mBomyr
+ 76G+m/3RhPGlKbDxKTWtBZaIDKg2c0Q6yC1TegtxQ2EUD4kk7wKoHKj8dKbR29uS3OvURQR1guCo2
+ /5kzQQVxQwhIoMdHJYF0aYNQgdA+ZJL09lDz+JC89xvup3spxbKYc9Iq6vxVLbVbjF9Uv/ncAC4Bs
+ g1MQoMowhKsxwN5VlUdjqPZ6uGebZyC+gX6YWUHpPWcHQ1TxCD8TtqTbFU3Ltd3AYl7d8ygMNBEe3
+ T7DV2GjBI06Xqdhydhz2G5bWPM0JSodNDE/m6MrmoKSEG0xTNkH2w3TWWD4o1snte9406az0YOwkk
+ xDq9LxEVoeg6POceQG9UdcsKiiAJQXu/I0iUprkybRUkUj+3oTJQECcdfL1QtkuJBh+IParSF14/j
+ Xojwnf7tE5rm7QvMWWSiSRewro1vaXjgGyhKNyJ+HCCgp5mw+ch7KaDHtg0fG48yJgKNpjkzGWfLQ
+ BNXqtd8VYn1mCM3YM7qdtf9bsgjQqpvFiAh7jYGrhYr7geRjary1hTc8WwrxAxaxGvo4xZ1XYps3u
+ ayy5dGHdiddk5KJ4iMTLSLH3Rucl19966COQeCwDvFMjkNZx5ExHshWCV5W7+xX/2nIkKUfwXRKfK
+ dsVTL03FG0YvY/8A98EMbvlf4TnpyyaytBtQYXVsaSBWaXJ0YW5lbiA8cGF2QGlraS5maT6JAlcEE
+ wEIAEEWIQRqzkn1AmTRCTrMAJzkmgm4SzqwTwUCZf6qYQIbAwUJEswDAAULCQgHAgIiAgYVCgkICw
+ IEFgIDAQIeBwIXgAAKCRDkmgm4SzqwTxYZD/9hfC+CaihOESMcTKHoK9JLkO34YC0t8u3JAyetIz3
+ Z9ek42FU8fpf58vbpKUIR6POdiANmKLjeBlT0D3mHW2ta90O1s711NlA1yaaoUw7s4RJb09W2Votb
+ G02pDu2qhupD1GNpufArm3mOcYDJt0Rhh9DkTR2WQ9SzfnfzapjxmRQtMzkrH0GWX5OPv368IzfbJ
+ S1fw79TXmRx/DqyHg+7/bvqeA3ZFCnuC/HQST72ncuQA9wFbrg3ZVOPAjqrjesEOFFL4RSaT0JasS
+ XdcxCbAu9WNrHbtRZu2jo7n4UkQ7F133zKH4B0SD5IclLgK6Zc92gnHylGEPtOFpij/zCRdZw20VH
+ xrPO4eI5Za4iRpnKhCbL85zHE0f8pDaBLD9L56UuTVdRvB6cKncL4T6JmTR6wbH+J+s4L3OLjsyx2
+ LfEcVEh+xFsW87YQgVY7Mm1q+O94P2soUqjU3KslSxgbX5BghY2yDcDMNlfnZ3SdeRNbssgT28PAk
+ 5q9AmX/5YyNbexOCyYKZ9TLcAJJ1QLrHGoZaAIaR72K/kmVxy0oqdtAkvCQw4j2DCQDR0lQXsH2bl
+ WTSfNIdSZd4pMxXHFF5iQbh+uReDc8rISNOFMAZcIMd+9jRNCbyGcoFiLa52yNGOLo7Im+CIlmZEt
+ bzyGkKh2h8XdrYhtDjw9LmrprPQ==
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.60.2 (3.60.2-2.fc44) 
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-Count the forwarded TCP packets that leave with priority 0:3 and those
-that leave with none, first without a priority and then with "meta
-priority set 0:3" ahead of "flow add". With the priority set, every
-packet must carry it, including those the flowtable forwards. Runs for
-IPv4 and IPv6.
+Hi,
 
-Assisted-by: Claude:claude-fable-5-1
-Signed-off-by: Julius Bairaktaris <julius@bairaktaris.de>
----
- .../selftests/net/netfilter/nft_flowtable.sh  | 110 ++++++++++++++++++
- 1 file changed, 110 insertions(+)
+ma, 2026-10-05 kello 00:24 +0800, Chengfeng Ye kirjoitti:
+> iso_sock_connect() checks the socket state before taking the socket lock
+> and drops the lock again before setting up a connection. Two callers can
+> both pass the admission check while the socket is open or bound.
+>=20
+> Caller A can copy its destination for route selection, then caller B can
+> replace the socket destination before A binds or connects the CIS. A
+> then uses B's destination with the route selected for its own request.
+> B can also proceed after A attaches a connection and sets BT_CONNECT.
+> For deferred BIS setup, B can bind a second BIS and overwrite
+> iso_pi(sk)->conn, leaving the first connection's reference and conn->sk
+> back-pointer stranded. Concurrent CIS connects can likewise replace the
 
-diff --git a/tools/testing/selftests/net/netfilter/nft_flowtable.sh b/tools/testing/selftests/net/netfilter/nft_flowtable.sh
-index 449c518bd947..73c7b1ec2208 100755
---- a/tools/testing/selftests/net/netfilter/nft_flowtable.sh
-+++ b/tools/testing/selftests/net/netfilter/nft_flowtable.sh
-@@ -458,6 +458,106 @@ fi
- 	check_dscp "dscp_fwd" "$pmtu"
- }
- 
-+check_priority()
-+{
-+	local what="$1"
-+	local pmtu="$2"
-+	local ok=1
-+
-+	local counter
-+	counter=$(ip netns exec "$nsr1" nft reset counter netdev priocheck prio3 | grep packets)
-+	local pc3=${counter%*bytes*}
-+	pc3=${pc3#*packets}
-+
-+	counter=$(ip netns exec "$nsr1" nft reset counter netdev priocheck prio0 | grep packets)
-+	local pc0=${counter%*bytes*}
-+	pc0=${pc0#*packets}
-+
-+	local failmsg="FAIL: pmtu $pmtu: $what counters do not match, expected"
-+
-+	case "$what" in
-+	"prio_none")
-+		if [ "$pc3" -gt 0 ] || [ "$pc0" -eq 0 ]; then
-+			echo "$failmsg prio3 == 0, prio0 > 0, but got $pc3,$pc0" 1>&2
-+			ret=1
-+			ok=0
-+		fi
-+		;;
-+	"prio_fwd")
-+		if [ "$pc3" -eq 0 ] || [ "$pc0" -gt 0 ]; then
-+			echo "$failmsg prio3 > 0, prio0 == 0, but got $pc3,$pc0" 1>&2
-+			ret=1
-+			ok=0
-+		fi
-+		;;
-+	*)
-+		echo "FAIL: pmtu $pmtu: unknown priority check $what" 1>&2
-+		ret=1
-+		ok=0
-+	esac
-+
-+	if [ "$ok" -eq 1 ] ;then
-+		echo "PASS: $what: priority packet counters match"
-+	fi
-+}
-+
-+test_tcp_forwarding_set_priority()
-+{
-+	local pmtu="$3"
-+	local proto="$4"
-+	local dstip="$5"
-+	local dstport="$6"
-+	local lret=0
-+
-+ip netns exec "$nsr1" nft -f - <<EOF
-+table netdev priocheck {
-+   counter prio0 { }
-+   counter prio3 { }
-+
-+   chain egress0 {
-+      type filter hook egress device "veth0" priority 0; policy accept
-+      meta l4proto tcp meta priority 0:3 counter name "prio3"
-+      meta l4proto tcp meta priority none counter name "prio0"
-+   }
-+
-+   chain egress1 {
-+      type filter hook egress device "veth1" priority 0; policy accept
-+      meta l4proto tcp meta priority 0:3 counter name "prio3"
-+      meta l4proto tcp meta priority none counter name "prio0"
-+   }
-+}
-+EOF
-+	if [ $? -ne 0 ]; then
-+		echo "SKIP: Could not load netdev:egress for veth0 and veth1"
-+		return 0
-+	fi
-+
-+	if ! test_tcp_forwarding_ip "$1" "$2" "$pmtu" "$proto" "$dstip" "$dstport"; then
-+		lret=1
-+	fi
-+	check_priority "prio_none" "$pmtu"
-+
-+	# The flow stores the priority set before it is added, so the packets
-+	# the flowtable forwards leave with it too, in both directions.
-+ip netns exec "$nsr1" nft -f - <<EOF
-+table inet prioset {
-+   chain forward {
-+      type filter hook forward priority -1; policy accept
-+      meta priority set 0:3
-+   }
-+}
-+EOF
-+	if ! test_tcp_forwarding_ip "$1" "$2" "$pmtu" "$proto" "$dstip" "$dstport"; then
-+		lret=1
-+	fi
-+	check_priority "prio_fwd" "$pmtu"
-+
-+	ip netns exec "$nsr1" nft delete table inet prioset
-+	ip netns exec "$nsr1" nft delete table netdev priocheck
-+
-+	return $lret
-+}
-+
- test_tcp_forwarding_nat()
- {
- 	local nsa="$1"
-@@ -516,6 +616,11 @@ else
- 	ret=1
- fi
- 
-+if ! test_tcp_forwarding_set_priority "$ns1" "$ns2" 0 6 "[dead:2::99]" 12345; then
-+	echo "FAIL: IPv6 flow offload for ns1/ns2 with priority update" 1>&2
-+	ret=1
-+fi
-+
- # delete default route, i.e. ns2 won't be able to reach ns1 and
- # will depend on ns1 being masqueraded in nsr1.
- # expect ns1 has nsr1 address.
-@@ -572,6 +677,11 @@ if ! test_tcp_forwarding_set_dscp "$ns1" "$ns2" 1 4 10.0.2.99 12345; then
- 	exit 0
- fi
- 
-+if ! test_tcp_forwarding_set_priority "$ns1" "$ns2" 1 4 10.0.2.99 12345; then
-+	echo "FAIL: flow offload for ns1/ns2 with priority update and pmtu discovery" 1>&2
-+	ret=1
-+fi
-+
- ip netns exec "$nsr1" nft reset counters table inet filter >/dev/null
- 
- if ! test_tcp_forwarding_nat "$ns1" "$ns2" 1 ""; then
--- 
-2.53.0
+Memory safety probably should be enforced somewhat down the calls,
+likely __iso_chan_add() should reject adding a different iso_conn to sk
+if it already has one, since that looks like it leaks the
+iso_conn_hold() reference and the back pointer association.
 
+> socket's connection. Later teardown only detaches the current connection,
+> so a callback on the old connection can race with socket release and
+> access a freed socket.
+>=20
+> KASAN reported:
+>=20
+>   BUG: KASAN: slab-use-after-free in iso_sock_hold+0xf7/0x1b0
+>   Call Trace:
+>    iso_sock_hold+0xf7/0x1b0
+>    iso_conn_del+0x7b/0x1d0
+>    iso_connect_cfm+0x186/0x16a0
+>    hci_conn_failed+0x154/0x280
+>    hci_abort_conn_sync+0x3dc/0x7d0
+>    hci_cmd_sync_work+0x173/0x300
+>=20
+>   Allocated by task 121:
+>    sk_alloc+0x2b/0x6d0
+>    bt_sock_alloc+0x29/0x370
+>    iso_sock_alloc.constprop.0+0x19/0x300
+>    iso_sock_create+0x94/0x100
+>=20
+>   Freed by task 121:
+>    kfree+0x121/0x3c0
+>    __sk_destruct+0x42b/0x540
+>    iso_sock_release+0x29d/0x340
+>    __sock_release+0xa1/0x260
+>=20
+> Check admission under the socket lock and mark the connect operation in
+> progress before publishing its destination. Keep that flag set across
+> route lookup and connection setup, rejecting another connect with
+> -EBADFD before it can change the destination or attach a connection.
+> Clear the flag after either helper returns, including on failure, so a
+> failed setup can be retried.
+>=20
+> A separate flag is needed because the socket lock must be released before
+> acquiring the HCI device lock, while BT_CONNECT requires an attached
+> connection. Keep the existing state transitions and the deferred CIS
+> completion through iso_sock_recvmsg().
+>=20
+> Fixes: ccf74f2390d6 ("Bluetooth: Add BTPROTO_ISO socket type")
+> Cc: stable@vger.kernel.org
+> Assisted-by: GPT-6 Astra
+> Signed-off-by: Chengfeng Ye <nicoyip.dev@gmail.com>
+> ---
+>  net/bluetooth/iso.c | 32 ++++++++++++++++++++++----------
+>  1 file changed, 22 insertions(+), 10 deletions(-)
+>=20
+> diff --git a/net/bluetooth/iso.c b/net/bluetooth/iso.c
+> index 7657c2a0abbf..8113367c796e 100644
+> --- a/net/bluetooth/iso.c
+> +++ b/net/bluetooth/iso.c
+> @@ -61,6 +61,7 @@ enum {
+>  	BT_SK_BIG_SYNC,
+>  	BT_SK_PA_SYNC,
+>  	BT_SK_KILLED,
+> +	BT_SK_CONNECTING,
+>  };
+> =20
+>  struct iso_pinfo {
+> @@ -1269,17 +1270,26 @@ static int iso_sock_connect(struct socket *sock, =
+struct sockaddr_unsized *addr,
+>  	    addr->sa_family !=3D AF_BLUETOOTH)
+>  		return -EINVAL;
+> =20
+> -	if (sk->sk_state !=3D BT_OPEN && sk->sk_state !=3D BT_BOUND)
+> -		return -EBADFD;
+> +	lock_sock(sk);
+> =20
+> -	if (sk->sk_type !=3D SOCK_SEQPACKET)
+> -		return -EINVAL;
+> +	if ((sk->sk_state !=3D BT_OPEN && sk->sk_state !=3D BT_BOUND) ||
+> +	    test_bit(BT_SK_CONNECTING, &iso_pi(sk)->flags)) {
+> +		err =3D -EBADFD;
+> +		goto done;
+> +	}
+> +
+> +	if (sk->sk_type !=3D SOCK_SEQPACKET) {
+> +		err =3D -EINVAL;
+> +		goto done;
+> +	}
+> =20
+>  	/* Check if the address type is of LE type */
+> -	if (!bdaddr_type_is_le(sa->iso_bdaddr_type))
+> -		return -EINVAL;
+> +	if (!bdaddr_type_is_le(sa->iso_bdaddr_type)) {
+> +		err =3D -EINVAL;
+> +		goto done;
+> +	}
+> =20
+> -	lock_sock(sk);
+> +	set_bit(BT_SK_CONNECTING, &iso_pi(sk)->flags);
+> =20
+>  	bacpy(&iso_pi(sk)->dst, &sa->iso_bdaddr);
+>  	iso_pi(sk)->dst_type =3D sa->iso_bdaddr_type;
+> @@ -1291,16 +1301,18 @@ static int iso_sock_connect(struct socket *sock, =
+struct sockaddr_unsized *addr,
+>  	else
+>  		err =3D iso_connect_bis(sk);
+> =20
+> -	if (err)
+> -		return err;
+> -
+>  	lock_sock(sk);
+> =20
+> +	clear_bit(BT_SK_CONNECTING, &iso_pi(sk)->flags);
+> +	if (err)
+> +		goto done;
+> +
+>  	if (!test_bit(BT_SK_DEFER_SETUP, &bt_sk(sk)->flags)) {
+>  		err =3D bt_sock_wait_state(sk, BT_CONNECTED,
+>  					 sock_sndtimeo(sk, flags & O_NONBLOCK));
+>  	}
+> =20
+> +done:
+>  	release_sock(sk);
+>  	return err;
+>  }
+
+--=20
+Pauli Virtanen
