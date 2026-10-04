@@ -1,121 +1,140 @@
-Received: from mail.loongson.cn (mail.loongson.cn [114.242.206.163])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 821C33A6418
-	for <linux-kernel@vger.kernel.org>; Sun,  4 Oct 2026 13:41:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=114.242.206.163
+Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 61DBF43932A;
+	Sun,  4 Oct 2026 13:41:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.84.56
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791121268; cv=none; b=PkJM6+qfk4vauS/OnVJcBeZPqHxV2Goyw/67geiBkIJcXI2joYwPFsFX8g4ICBmGiVeZZZt49zT3hN5GFEZwFqw7WoxFTXygYfdw3Wxht0UJxpKYKD4gVg72CqoA8yODEoy2fq4fmWugU3B7k0vaOAXhzTBEbK17lscNz6ICXcs=
+	t=1791121270; cv=none; b=k64JaX/Swv+MNcXk/xReaZDDLx6Houb85zoOaIIlgzF8vXshtgpvuQVgBikvGq0OjXSLmPfrYZqxIBOBWvLM72jLfWOZcfIxEGHHIavP3Sxp4ZAgaZyr0NN1qGsixbCnynphsJaexPChIkFT8TSNwaBlhsYt1Cf5DWvhDRwaEhs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791121268; c=relaxed/simple;
-	bh=1BlqLPKzLUo6inqf0BaCZQOm3RM26OQqRAV2zy42MzI=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=YmKVJh5sBEn39bHrKBoLTtNUcDDHPjVS2+gBiChgtvvndAkrH+xXxuCFXnYxN0SCYi2Uryi54qgf9B9lfa8Z62iy5b+M5rsQTZrI/FBSumQpYgYHPn7R/TELS4ryfNhHgybtaH0tB9i2GIY9Y16eGw3XTy4ZejqhS96Hn4zJ7u4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=loongson.cn; spf=pass smtp.mailfrom=loongson.cn; arc=none smtp.client-ip=114.242.206.163
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=loongson.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=loongson.cn
-Received: from loongson.cn (unknown [223.64.68.159])
-	by gateway (Coremail) with SMTP id _____8Axj9FoV8JquYYSAA--.54257S3;
-	Sun, 04 Oct 2026 21:40:56 +0800 (CST)
-Received: from kernelserver (unknown [223.64.68.159])
-	by front1 (Coremail) with SMTP id qMiowJAx2c1gV8JqfWUoAA--.19823S2;
-	Sun, 04 Oct 2026 21:40:54 +0800 (CST)
-From: Huacai Chen <chenhuacai@loongson.cn>
-To: Huacai Chen <chenhuacai@kernel.org>,
-	Andrew Morton <akpm@linux-foundation.org>
-Cc: linux-mm@kvack.org,
-	Ingo Molnar <mingo@redhat.com>,
-	Peter Zijlstra <peterz@infradead.org>,
-	Juri Lelli <juri.lelli@redhat.com>,
-	Vincent Guittot <vincent.guittot@linaro.org>,
-	Dietmar Eggemann <dietmar.eggemann@arm.com>,
-	Steven Rostedt <rostedt@goodmis.org>,
-	Ben Segall <bsegall@google.com>,
-	Mel Gorman <mgorman@suse.de>,
-	Valentin Schneider <vschneid@redhat.com>,
-	K Prateek Nayak <kprateek.nayak@amd.com>,
-	Tiezhu Yang <yangtiezhu@loongson.cn>,
-	linux-kernel@vger.kernel.org,
-	Huacai Chen <chenhuacai@loongson.cn>
-Subject: [PATCH V3] sched: Update the THREAD_INFO_IN_TASK description
-Date: Sun,  4 Oct 2026 21:40:34 +0800
-Message-ID: <20261004134034.3622868-1-chenhuacai@loongson.cn>
-X-Mailer: git-send-email 2.52.0
+	s=arc-20240116; t=1791121270; c=relaxed/simple;
+	bh=qYSHF+X139cwmIzUUroDNV1G+HYXki0eyfluRiEVUFo=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=O5pWr5u9UpznAHbdyV+RK7/eT5S1pmoTkqu0CJGSIQdRMk7QPRJBDEngIQ7HLyVQK5vOhUSafyqeUclSGSgoTzddlRXD0k8uKVpQT/yUVc1zGwLbwJPvV44FQfamI4RTAc2WwFb49giORFC2ZtIaKKYLmKcyJj2tG1C6iU+bpG8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=NvJQmWY6; arc=none smtp.client-ip=185.246.84.56
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="NvJQmWY6"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-02.galae.net (Postfix) with ESMTPS id CE4D41A1129;
+	Sun,  4 Oct 2026 13:41:05 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 29736604FE;
+	Sun,  4 Oct 2026 13:41:05 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 2A72C1032817F;
+	Sun,  4 Oct 2026 15:40:56 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1791121263; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:content-language:in-reply-to:references;
+	bh=Ihd+dofvU6Mcgj3MdWdld4bUs480ZOkVZ8XCTiohnu8=;
+	b=NvJQmWY6oV3Ja8xANIq3B3P9pcEN+tee1cqds4XePR5AAnzLOaknyImx+sZw2QP9RrlXLL
+	eHpb9Q6y8Qr3aXJXh6klwYhtolMHCP/1xooHI/SZXhaBSs9O14zhoWt1KBOvYa5aGJyZAt
+	ypm/zMhH98KMkIWI4HKqQWRMz6NE3D1apdac1VRIoszUyE8Iaz30wjhq8UqZACrqPekFTg
+	CnBgGke4wA6VzRxfbOBuPy6jFZGwQjmPCX8usxGOlLV9F34mKppDxW5zsU9wkxnJfRTYjF
+	VcV9c4vtzdMC3s6ZpMKmKAHHk0XGLfT8HIIXKckonFsxD8tXPqvwsrAZNQClLg==
+Message-ID: <c76a27fd-4131-4a4d-a832-de96e0006a55@bootlin.com>
+Date: Sun, 4 Oct 2026 15:40:56 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:qMiowJAx2c1gV8JqfWUoAA--.19823S2
-X-CM-SenderInfo: hfkh0x5xdftxo6or00hjvr0hdfq/
-X-Coremail-Antispam: 1Uk129KBj93XoW7CFWxtw48Aw13Jw1kJw4kXwc_yoW8uF4Upr
-	Z3G3W7Gr45Ar4F9rWkJa4xuFn5Jrs2gay5Gr97J34UK34xGw1jgryfCay3Cr15Ar4v93Wj
-	yr4qg3sxWFWqkabCm3ZEXasCq-sJn29KB7ZKAUJUUUUd529EdanIXcx71UUUUU7KY7ZEXa
-	sCq-sGcSsGvfJ3Ic02F40EFcxC0VAKzVAqx4xG6I80ebIjqfuFe4nvWSU5nxnvy29KBjDU
-	0xBIdaVrnRJUUUBYb4IE77IF4wAFF20E14v26r1j6r4UM7CY07I20VC2zVCF04k26cxKx2
-	IYs7xG6rWj6s0DM7CIcVAFz4kK6r1Y6r17M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48v
-	e4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Gr0_Xr1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI
-	0_Gr0_Cr1l84ACjcxK6I8E87Iv67AKxVW8JVWxJwA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_
-	Gr0_Gr1UM2kKe7AKxVWUtVW8ZwAS0I0E0xvYzxvE52x082IY62kv0487Mc804VCY07AIYI
-	kI8VC2zVCFFI0UMc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0I7IYx2IY67AKxVWUtVWr
-	XwAv7VC2z280aVAFwI0_Gr0_Cr1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0Y48IcxkI7VAKI4
-	8JMxkF7I0En4kS14v26r1q6r43MxAIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4AY6r1j
-	6r4UMxCIbckI1I0E14v26r1q6r43MI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwV
-	AFwI0_JrI_JrWlx4CE17CEb7AF67AKxVW8ZVWrXwCIc40Y0x0EwIxGrwCI42IY6xIIjxv2
-	0xvE14v26r4j6ryUMIIF0xvE2Ix0cI8IcVCY1x0267AKxVW8JVWxJwCI42IY6xAIw20EY4
-	v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Gr0_Cr1lIxAIcVC2z280aVCY1x0267AK
-	xVW8JVW8JrUvcSsGvfC2KfnxnUUI43ZEXa7IU0L0ePUUUUU==
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH net-next v2 3/7] net: stmmac: mediatek: add RX/TX delay
+ stage divider in platform data
+To: Louis-Alexis Eyraud <louisalexis.eyraud@collabora.com>,
+ Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller"
+ <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>,
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>,
+ Richard Cochran <richardcochran@gmail.com>,
+ Matthias Brugger <matthias.bgg@gmail.com>,
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+ Biao Huang <biao.huang@mediatek.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>
+Cc: kernel@collabora.com, netdev@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-mediatek@lists.infradead.org, linux-stm32@st-md-mailman.stormreply.com
+References: <20260924-dwmac-mediatek-mt8189-v2-0-430bd74d5ef9@collabora.com>
+ <20260924-dwmac-mediatek-mt8189-v2-3-430bd74d5ef9@collabora.com>
+Content-Language: en-US
+From: Maxime Chevallier <maxime.chevallier@bootlin.com>
+In-Reply-To: <20260924-dwmac-mediatek-mt8189-v2-3-430bd74d5ef9@collabora.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Last-TLS-Session-Version: TLSv1.3
 
-When commit c65eacbe290b81 ("sched/core: Allow putting thread_info into
-task_struct") introduces THREAD_INFO_IN_TASK in 4.9, the only supported
-architecture is x86 and thread_info only has a flags field. The Kconfig
-description said thread_info should only has the flags field but didn't
-explain the reason.
+Hi,
 
-When commit c02433dd6de32f ("arm64: split thread_info from task stack")
-introduces THREAD_INFO_IN_TASK for arm64 in 4.10, its thread_info has
-more fields than a single flags, and arm64 works well.
+On 9/24/26 09:23, Louis-Alexis Eyraud wrote:
+> In preparation of newer SoC support, that have like MT8189 SoC
+> different RX and TX internal delay stage steps than MT8188/MT8195, add
+> the RX and TX delay stage divider values in the variant platform data
+> and replace the hardcoded value use in mt8195_set_delay.
+> 
+> Signed-off-by: Louis-Alexis Eyraud <louisalexis.eyraud@collabora.com>
 
-Then commit 37a8f7c38339b2 ("x86/asm: Move 'status' from thread_struct
-to thread_info") adds status back to thread_info for x86 in 4.16, and
-x86 still works well.
+Reviewed-by: Maxime Chevallier <maxime.chevallier@bootlin.com>
 
-After that, risc-v, powerpc and many other architectures all introduce
-THREAD_INFO_IN_TASK and their thread_info have more fields rather than
-a single flags field, of course they also work well.
+Maxime
 
-I don't know the exact reason of the original description, but obviously
-it is wrong and misleading, so I update it, let LoongArch and some other
-architectures easier to support THREAD_INFO_IN_TASK.
-
-Also improve the try_get_task_stack() and put_task_stack() description.
-
-Signed-off-by: Huacai Chen <chenhuacai@loongson.cn>
----
-V3: Update the Cc list.
-
- init/Kconfig | 7 ++++---
- 1 file changed, 4 insertions(+), 3 deletions(-)
-
-diff --git a/init/Kconfig b/init/Kconfig
-index 8583d9f06c52..921f2fcdcb30 100644
---- a/init/Kconfig
-+++ b/init/Kconfig
-@@ -210,11 +210,12 @@ config THREAD_INFO_IN_TASK
- 	bool
- 	help
- 	  Select this to move thread_info off the stack into task_struct.  To
--	  make this work, an arch will need to remove all thread_info fields
--	  except flags and fix any runtime bugs.
-+	  make this work, an arch will need to remove the task_struct pointer
-+	  field from thread_info and fix any runtime bugs.
- 
- 	  One subtle change that will be needed is to use try_get_task_stack()
--	  and put_task_stack() in save_thread_stack_tsk() and get_wchan().
-+	  and put_task_stack() in save_thread_stack_tsk(), get_wchan() and any
-+	  other stacktrace functions.
- 
- menu "General setup"
- 
--- 
-2.52.0
+> ---
+>  drivers/net/ethernet/stmicro/stmmac/dwmac-mediatek.c | 20 ++++++++++++++++++--
+>  1 file changed, 18 insertions(+), 2 deletions(-)
+> 
+> diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-mediatek.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-mediatek.c
+> index f7eb85110df0..1c532cc3a975 100644
+> --- a/drivers/net/ethernet/stmicro/stmmac/dwmac-mediatek.c
+> +++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-mediatek.c
+> @@ -100,6 +100,8 @@ struct mediatek_dwmac_variant {
+>  
+>  	u32 rx_delay_max;
+>  	u32 tx_delay_max;
+> +	u16 rx_delay_stage_div;
+> +	u16 tx_delay_stage_div;
+>  	u8 dma_bit_mask;
+>  };
+>  
+> @@ -300,13 +302,25 @@ static int mt8195_set_interface(struct mediatek_dwmac_plat_data *plat,
+>  
+>  static int mt8195_set_delay(struct mediatek_dwmac_plat_data *plat)
+>  {
+> +	u16 rx_delay_stage_div = plat->variant->rx_delay_stage_div;
+> +	u16 tx_delay_stage_div = plat->variant->tx_delay_stage_div;
+>  	struct mac_delay_struct *mac_delay = &plat->mac_delay;
+> -	u32 rx_delay_stage_val = mac_delay->rx_delay / MT8195_DLY_RXC_STAGE_DIV;
+> -	u32 tx_delay_stage_val = mac_delay->tx_delay / MT8195_DLY_TXC_STAGE_DIV;
+> +	u32 rx_delay_stage_val;
+> +	u32 tx_delay_stage_val;
+>  	u32 gtxc_delay_val = 0;
+>  	u32 rmii_delay_val = 0;
+>  	u32 delay_val = 0;
+>  
+> +	if (rx_delay_stage_div)
+> +		rx_delay_stage_val = mac_delay->rx_delay / rx_delay_stage_div;
+> +	else
+> +		rx_delay_stage_val = 0;
+> +
+> +	if (tx_delay_stage_div)
+> +		tx_delay_stage_val = mac_delay->tx_delay / tx_delay_stage_div;
+> +	else
+> +		tx_delay_stage_val = 0;
+> +
+>  	switch (plat->phy_mode) {
+>  	case PHY_INTERFACE_MODE_MII:
+>  		delay_val |= FIELD_PREP(MT8195_DLY_TXC_ENABLE,
+> @@ -415,6 +429,8 @@ static const struct mediatek_dwmac_variant mt8195_gmac_variant = {
+>  	.num_clks = ARRAY_SIZE(mt8195_dwmac_clk_l),
+>  	.rx_delay_max = MT8195_DLY_RXC_MAX,
+>  	.tx_delay_max = MT8195_DLY_TXC_MAX,
+> +	.rx_delay_stage_div = MT8195_DLY_RXC_STAGE_DIV,
+> +	.tx_delay_stage_div = MT8195_DLY_TXC_STAGE_DIV,
+>  	.dma_bit_mask = 35,
+>  };
+>  
+> 
 
