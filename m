@@ -1,150 +1,157 @@
-Received: from mail-wr2-f34.google.com (mail-wr2-f34.google.com [74.125.225.98])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.17])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C66983B14C7
-	for <linux-kernel@vger.kernel.org>; Sun,  4 Oct 2026 08:34:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.98
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5E37D3C9885;
+	Sun,  4 Oct 2026 08:34:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.17
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791102843; cv=none; b=ARhlJPhhZ69/W7Ntiw5CCMePPLYA5bNJOe+WVID0aV47oTxg5Dko0l9167HCb0DPIHjN9WNNM8qWCKAG+vXmMjyqeEGWXOvqWDnE+jdlNplfQI/c0kwd2p3YADidlA0JcIFRSwNqShqZQ3cAKUw5DNXOQr0j/4xujMovvcwB6FE=
+	t=1791102886; cv=none; b=TWt45NKCumVhSgisxcf5AgH8+kBsIrKAdbk1mWnxcxbbeDldeXwiWpZ28U1IFTGjMw0nygtUPbD/v96pADtBhRMBIGUYUgbyC9L2rSJ1Bmc1T5dTZvxMamqG8yWkvvViJNMh5Vc1MbQ8c4DcgiTqNlTjoDRDrTmQLaqK6cE1YPU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791102843; c=relaxed/simple;
-	bh=1sBv2SI3wnHyVQDHUJVigmIehBQG6EXZHnsM+TL5srs=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=NWh6tNneDyHbudRjKwkdpJsfOpPTjQHtS3F5d0lLnP+Go9Q237ct3k1s2uQTVVhDKk91neWAc+pssNjrFezcxoM8gkxYvyu4lvBUiTinD+s48vSYJnnitsVphsZapPNkhTtAFSCCW9BY373WahZlQ3ZOL1Eu4KL51TvvvObleNE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=NdkAUfd2; arc=none smtp.client-ip=74.125.225.98
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1791102886; c=relaxed/simple;
+	bh=Mhi7+Hi041UrB2MzTnYXKOXt0lQgzO82otWdLKr7WgI=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=d9F19MeZiPcaLQ4bjsFRt4HGg0G97eo4gmSmzr71euC72QAZlGC1RmlOTmpqNYMFpu44Nsbg4m1RxsfZHle4tB4mMP6ZQ+SCRS4IWutN+naZvusxNl41k2wBCMWVAMI6vxaulKHqhQZtKUp+9lSPBwnwvjGSL75rDbd9gTleVEY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=SMAXZKsr; arc=none smtp.client-ip=198.175.65.17
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="NdkAUfd2"
-Received: by mail-wr2-f34.google.com with SMTP id ffacd0b85a97d-48b01c41135so478576f8f.0
-        for <linux-kernel@vger.kernel.org>; Sun, 04 Oct 2026 01:34:01 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791102840; x=1791707640; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=0HFDC0D77tUqEmXehAlYyAx2E0DK1wOzX1zKg1ym3bo=;
-        b=NdkAUfd2+KZTf3s9hEpqKwliTej8peJLCSWDISLUjLwt09egN/aiRz2XZCkpPnIhNC
-         aK2B8KkXrAsfSf5UqEl+SqvFza5LHgVUqAccsIdsuUTmlR+g8Uea5bMpAzd2qbdFBiCg
-         t8fADBhEweXTv2ZNQgB7eZ1zF3dsFM6vncUf/ADRkOjyLLHTRGIDP4eOp+lBBA8JuXeu
-         nBJoxu6110IVlbTfAnaegRILWMJ2WNttnECN9/fl0pH8w6q6eG9C43JEnC4p9zNrOs3x
-         cGQa4jIxiwUPFj88RAfsTL3tjVtRaEeC2g1Rjy8xyoFrbRQsWvwMztVhAx2Ih1bK6nsb
-         4faQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791102840; x=1791707640;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=0HFDC0D77tUqEmXehAlYyAx2E0DK1wOzX1zKg1ym3bo=;
-        b=mDr42I4Hf5uTnPrdF0ievcxnan4gty/ePbb0AqgPCyXj3x+VRuWD4kxqTJKvOfS9XN
-         fjwmx2uMDe1tHqRCX8d/qAM13ctA/BrD3Tak5sYitxitCifcIICwUFvoFwBnHCp3ho8j
-         rF2hCdaBFgfD8207e5S0XPb41OpIyKOAXEdAm6VqgZuSKRf1MPxYa/AetO3FS4JFzBut
-         2eLxsORtsTO5ZrNLi/1QGglTiFEzCpCBddygkqRzzkUw4TLhifpiGB7ugcfx8migHJZd
-         mrKQeoCnOjPGUSZxPfHMeZxno+yNpgaDobPOiHu73hpuNyNRUtonKdlmarOICz0sYO3T
-         dEFQ==
-X-Forwarded-Encrypted: i=1; AKwUvBx8VWDMffi/c/9kRwUNeXVxYZSj/2XXYfAHD4lrVe9VYH5ZKahQL5XVg7cx2mq1rQioRCrdsnBgYZ96wAE=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKSlmd0Lgw+d+C0K1RMigg3Ak5q8VchPkb2n11zF50dmbX8kzPb
-	pXs5XQnZVjUG5v8RUj5AyjhqV3SWI4ued9ntqrnLHHwx2m69tv4mAXbK
-X-Gm-Gg: AYBFou1oehW5zsaYQDmqmBpaW5b3glOGveMrbn8WCC4WhViAB7MF4ODvJMe9Fcqqmru
-	74ZjsZjvbGl04X2/RQwVE77RA58rgWEnY2RXnkxHqSl8qfxorvx/XCJ/qehprxAzWejdpbYh1Ey
-	Yl83z3aiJXy/S5W7SrGuJL2jlgxKK7b9PUDujUSISnXzLcvCq16Cc8fJIWy6Wq97JY78N2UAZwk
-	IUkA2kreXdrRlybZlFHb56bA19cqv/8Y7gZY9+FCRxtFNhJn3+C2ms6gbqqREInC2ocnJ9HBT35
-	yG7LbXnvWEAKuRN36C0LQ0CW5hfYS8VzMdDDKpKdtNmyAWflTTCTobATyjrCJc1mGH6zD8XdejI
-	YT69ake5pnGd9k67zBg0EINkkU01KFvC229aQWqlxjWkVoV4YBS5mwIdOm9MuaOCOS7yQ48FkOX
-	LXaERQq4tH+peupwjjYEACwZm6yd8u1RHcpWzUajH+/eitsSRKJ+wx5ZZ8O1ErdDl9YlJXY0Omr
-	jFjKdj6BaD+dgWxCrflA82rTh2137L/BQaJrWHZF+Emew==
-X-Received: by 2002:a5d:5d0f:0:b0:488:83f7:633a with SMTP id ffacd0b85a97d-48b12736b49mr11750202f8f.28.1791102839800;
-        Sun, 04 Oct 2026 01:33:59 -0700 (PDT)
-Received: from pumpkin (82-69-66-36.dsl.in-addr.zen.co.uk. [82.69.66.36])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48b380f04f8sm17350793f8f.9.2026.10.04.01.33.58
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 04 Oct 2026 01:33:59 -0700 (PDT)
-Date: Sun, 4 Oct 2026 09:33:57 +0100
-From: David Laight <david.laight.linux@gmail.com>
-To: Michal Wilczynski <m.wilczynski@samsung.com>
-Cc: Sergey Senozhatsky <senozhatsky@chromium.org>, Nathan Chancellor
- <nathan@kernel.org>, Nick Desaulniers <ndesaulniers@google.com>, Bill
- Wendling <morbo@google.com>, Justin Stitt <justinstitt@google.com>, Russell
- King <linux@armlinux.org.uk>, Thomas Bogendoerfer
- <tsbogend@alpha.franken.de>, "James E.J. Bottomley"
- <James.Bottomley@hansenpartnership.com>, Helge Deller <deller@gmx.de>,
- Heiko Carstens <hca@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>,
- Alexander Gordeev <agordeev@linux.ibm.com>, Christian Borntraeger
- <borntraeger@linux.ibm.com>, Sven Schnelle <svens@linux.ibm.com>, Thomas
- Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>, Borislav Petkov
- <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
- "H. Peter Anvin" <hpa@zytor.com>, Minchan Kim <minchan@kernel.org>, Jens
- Axboe <axboe@kernel.dk>, Andrew Morton <akpm@linux-foundation.org>,
- linux-kernel@vger.kernel.org, llvm@lists.linux.dev,
- linux-arm-kernel@lists.infradead.org, linux-mips@vger.kernel.org,
- linux-parisc@vger.kernel.org, linux-s390@vger.kernel.org,
- linux-block@vger.kernel.org, Yann Collet <yann.collet.73@gmail.com>, Nick
- Terrell <terrelln@meta.com>, Gao Xiang <xiang@kernel.org>, Chao Yu
- <chao@kernel.org>, Jaegeuk Kim <jaegeuk@kernel.org>, Herbert Xu
- <herbert@gondor.apana.org.au>, Phillip Lougher <phillip@squashfs.org.uk>,
- Sungguk <sungguk.na@samsung.com>, Jaehoon Chung <jh80.chung@samsung.com>,
- Marek Szyprowski <m.szyprowski@samsung.com>, linux-erofs@lists.ozlabs.org,
- linux-f2fs-devel@lists.sourceforge.net, linux-crypto@vger.kernel.org
-Subject: Re: [PATCH RFC 1/9] lib/lz4: import upstream LZ4 sources verbatim
-Message-ID: <20261004093357.33a124b4@pumpkin>
-In-Reply-To: <fac0f401-bbd3-444b-a755-53cc393673de@samsung.com>
-References: <20260925-lz4-vendor-upstream-v1-0-1c7ffbe21c4b@samsung.com>
-	<CGME20260925113452eucas1p170bfdb34dfbf670a14a6f8f0c2f5094a@eucas1p1.samsung.com>
-	<20260925-lz4-vendor-upstream-v1-1-1c7ffbe21c4b@samsung.com>
-	<arn3TC7BgjTXWmdG@google.com>
-	<fac0f401-bbd3-444b-a755-53cc393673de@samsung.com>
-X-Mailer: Claws Mail 4.1.1 (GTK 3.24.38; arm-unknown-linux-gnueabihf)
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="SMAXZKsr"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1791102884; x=1822638884;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=Mhi7+Hi041UrB2MzTnYXKOXt0lQgzO82otWdLKr7WgI=;
+  b=SMAXZKsr7NM6Go6b3A1Mcr+c8U0Z5KCCsY3qjoUO4/0tuLcU1jVaEF0W
+   2kk0+U+FKPkRsS2AfiLkCLbQs0stivwfiMQV3bAf8+gw9YnQetdqcDlgH
+   e5i9eJAwSDJA6b8BGFH0K4gkjcZo2+vqIh88rkHX/pQnXLLD50M31+wA/
+   IOfr+cfD/4FMNh+/DbSO3+AHa8cg5ErXoQlQMlD7oGKIU9LQaXvySu9+b
+   tHV+egzUP1OqYT9mr1ZJ2KZakkb/qOknX+YsSpZAMofyqoZtXts8L80ES
+   oGHDZUI0OcULIrQRtq3qr0wLWd1iR4I/SDU7WFrnSnzRgqcSK66l0daOt
+   A==;
+X-CSE-ConnectionGUID: 6sGo83eISZ+fSdtmuN2k9Q==
+X-CSE-MsgGUID: l53SL/NJQL6xb+RhFEThOQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11924"; a="90834725"
+X-IronPort-AV: E=Sophos;i="6.27,139,1787036400"; 
+   d="scan'208";a="90834725"
+Received: from orviesa008.jf.intel.com ([10.64.159.148])
+  by orvoesa109.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 04 Oct 2026 01:34:43 -0700
+X-CSE-ConnectionGUID: nrUIyO1XSTCYN10HdI6xtw==
+X-CSE-MsgGUID: HOGC8YPlQBeD01aSwPqHdw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,139,1787036400"; 
+   d="scan'208";a="275678711"
+Received: from mkosciow-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.100])
+  by orviesa008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 04 Oct 2026 01:34:33 -0700
+Date: Sun, 4 Oct 2026 11:34:30 +0300
+From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+To: Kees Cook <kees@kernel.org>
+Cc: Bill Wendling <morbo@google.com>,
+	"Matthew Wilcox (Oracle)" <willy@infradead.org>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	David Gow <david@davidgow.net>, Petr Mladek <pmladek@suse.com>,
+	Shuvam Pandey <shuvampandey1@gmail.com>,
+	Steven Rostedt <rostedt@goodmis.org>,
+	Jonathan Corbet <corbet@lwn.net>,
+	Sergey Senozhatsky <senozhatsky@chromium.org>,
+	=?iso-8859-1?Q?G=FCnther?= Noack <gnoack@google.com>,
+	=?iso-8859-1?Q?Micka=EBl_Sala=FCn?= <mic@digikod.net>,
+	Masami Hiramatsu <mhiramat@kernel.org>,
+	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
+	Jiri Kosina <jikos@kernel.org>, Alexei Starovoitov <ast@kernel.org>,
+	Daniel Borkmann <daniel@iogearbox.net>,
+	Andrii Nakryiko <andrii@kernel.org>,
+	Eduard Zingerman <eddyz87@gmail.com>,
+	Kumar Kartikeya Dwivedi <memxor@gmail.com>,
+	Martin KaFai Lau <martin.lau@linux.dev>, Song Liu <song@kernel.org>,
+	Yonghong Song <yonghong.song@linux.dev>,
+	Jiri Olsa <jolsa@kernel.org>,
+	Emil Tsalapatis <emil@etsalapatis.com>,
+	Ihor Solodrai <ihor.solodrai@linux.dev>,
+	"Christophe Leroy (CS GROUP)" <chleroy@kernel.org>,
+	Uwe =?iso-8859-1?Q?Kleine-K=F6nig?= <u.kleine-koenig@baylibre.com>,
+	Madhavan Srinivasan <maddy@linux.ibm.com>,
+	Michael Ellerman <mpe@ellerman.id.au>,
+	Nicholas Piggin <npiggin@gmail.com>,
+	Shivaprasad G Bhat <sbhat@linux.ibm.com>,
+	Thorsten Blum <blum@kernel.org>,
+	Alison Schofield <alison.schofield@intel.com>,
+	Dave Jiang <dave.jiang@intel.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Guangshuo Li <lgs201920130244@gmail.com>,
+	Ira Weiny <iweiny@kernel.org>,
+	Uwe =?iso-8859-1?Q?Kleine-K=F6nig?= <u.kleine-koenig@pengutronix.de>,
+	Vishal Verma <vishal.l.verma@intel.com>,
+	Randy Dunlap <rdunlap@infradead.org>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	linux-kernel@vger.kernel.org, bpf@vger.kernel.org,
+	linux-security-module@vger.kernel.org,
+	linux-trace-kernel@vger.kernel.org, linuxppc-dev@lists.ozlabs.org,
+	nvdimm@lists.linux.dev, linux-doc@vger.kernel.org,
+	linux-hardening@vger.kernel.org
+Subject: Re: [PATCH v4 05/11] seq_buf: Add seq_buf_strlen()
+Message-ID: <asIPlnb0noMd33rr@ashevche-desk.local>
+References: <20261003035906.too.263-kees@kernel.org>
+ <20261003035921.1918874-5-kees@kernel.org>
+ <asEhEe0Urb5Wx7yi@ashevche-desk.local>
+ <202610040023.A3865A6@keescook>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <202610040023.A3865A6@keescook>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-On Sun, 4 Oct 2026 01:50:39 +0200
-Michal Wilczynski <m.wilczynski@samsung.com> wrote:
+On Sun, Oct 04, 2026 at 12:26:39AM -0700, Kees Cook wrote:
+> On Sat, Oct 03, 2026 at 06:36:49PM +0300, Andy Shevchenko wrote:
+> > On Fri, Oct 02, 2026 at 08:59:10PM -0700, Kees Cook wrote:
 
-> On 9/28/26 07:19, Sergey Senozhatsky wrote:
-> > On (26/09/25 13:27), Michal Wilczynski wrote:
-> > [..]  
-> >> +int LZ4_compress_fast_extState(void* state, const char* source, char* dest, int inputSize, int maxOutputSize, int acceleration)
-> >> +{
-> >> +    LZ4_stream_t_internal* const ctx = & LZ4_initStream(state, sizeof(LZ4_stream_t)) -> internal_donotuse;
-> >> +    assert(ctx != NULL);  
+...
+
+> > >  static inline const char *seq_buf_str(struct seq_buf *s)
+> > >  {
+> > > -	if (WARN_ON(s->size == 0))
+> > > +	if (s->size == 0)
+> > >  		return "";
+> > >  
+> > > -	if (seq_buf_buffer_left(s))
+> > > -		s->buffer[s->len] = 0;
+> > > -	else
+> > > -		s->buffer[s->size - 1] = 0;
+> > > +	__seq_buf_terminate(s);
+> > >  
+> > >  	return s->buffer;
+> > >  }
 > > 
-> > Probably in some other places as well:
+> > Looking at this again, can't it be rewritten now using _strlen()?
 > > 
-> > LZ4_initStream() can return NULL, but the code immediately derefs
-> > the pointer.  The assert() check seems to be misplaced, unless I'm
-> > missing something.
+> > 	if (seq_buf_strlen(s))
+> > 		return s->buffer;
 > > 
-> > I suppose those need to be decoupled.  First LZ4_initStream() call and
-> > NULL check, then stream->internal_donotuse.  
+> > 	return "";
+> > 
+> > ?
 > 
-> Good catch, this assert() is a noop in the kernel (as any build without
-> LZ4_DEBUG), so a NULL, undersized or misaligned wrkmem oopses in
-> LZ4_compress_fast(), and LZ4_compress_destSize() and LZ4_resetStreamHC()
-> carry on with an uninitialised state.
+> It could, but I'm vaguely nervous about the difference between
+> 	s->buffer[0] == '\0'
+> and
+> 	.data ""
+> 
+> i.e. we only force the return of seq_buf_str() to be _not_ just
+> s->buffer when s->buffer is weirdly impossible (due to size == 0).
+> I'd rather not make all 0-len strings return the .data segment's const
+> "" string...
 
-The assert() is also just a waste of code.
-Debugging the NULL pointer dereference is just as easy.
+Good point. Perhaps then to add a short note to the kernel doc,
+so we won't see patches based on the suggestion like I gave?
 
-David 
- 
-> 
-> No in-tree caller hits it (all use kmalloc/vmalloc), and I listed the
-> alignment requirement as a behaviour change in the cover letter. Still,
-> the vendored files need to stay verbatim.
-> 
-> So in v2 our own entry points can check alignment with a WARN_ON_ONCE()
-> and bail out early. It might be something that we can fix upstream as
-> well.
-> 
-> 
-> >   
-> 
-> Best regards,
+-- 
+With Best Regards,
+Andy Shevchenko
+
 
