@@ -1,102 +1,84 @@
-Received: from vtj.irix.systems (vtj.irix.systems [82.76.27.144])
+Received: from mail-24417.protonmail.ch (mail-24417.protonmail.ch [109.224.244.17])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3A57C3B9DAD;
-	Sun,  4 Oct 2026 11:14:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=82.76.27.144
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8666942255C;
+	Sun,  4 Oct 2026 11:15:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=109.224.244.17
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791112500; cv=none; b=SvJX0j0zNSU+0Luf/L2a8yj5DYz87Tj9fkFMWFTiLDKwMfsLYF8l+lNUnFbWKqV3624BLw7wL87nKYkjopfEzSNUJ4cqzG2UZdFFJyHkN8iYRqzykthPCMiPLsg+64esZogIiXeMvbgbWCqioyhbw1Z5tOX+s7nINJ8CtuIRFXo=
+	t=1791112507; cv=none; b=Ht+cid2cGpfRjvkHlubhnOno/RH/NgwToXpPljF7XxOfDaK1vWvEDWOsi2zf9DaZs3LL+zwVpcRVYwidTdgSvuynbM+JrUJbZMvzk/LUtg3iqRPY06Qr3EQNik35WLPujmOs8/V2vadu343h5h7HznkSxUrOTNKTvnCNIk3cvtQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791112500; c=relaxed/simple;
-	bh=/+oRZ3f7uP3eXIrZITjsb878GJwuVUBJu56S/r/0pVE=;
-	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=BjxaT3xNVb4YiDqPd/DgpfOc0kHlWnLQZSC8LNtf9VsokSIHvq1vBQgNHDBLu2Ob54OpUmnkH7I+v4x6Rn16RyVCmi1bOuXD2sVCq9gcNle/xsGFoBv0EklHDbVnZmDywnS0g5diVhhHI6MJ50ZEz58wF4swjJwPmdzT+oGWf7Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=andrei-z.com; spf=pass smtp.mailfrom=andrei-z.com; dkim=pass (2048-bit key) header.d=andrei-z.com header.i=@andrei-z.com header.b=KwmgdDHU; arc=none smtp.client-ip=82.76.27.144
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=andrei-z.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=andrei-z.com
+	s=arc-20240116; t=1791112507; c=relaxed/simple;
+	bh=hsUe3R8HTIJa107Px4Pv5UjHvCZZlBUMI1qqHQMrE1U=;
+	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=GQ8s8DLM5RJBqVr8TBbD9vso/RD4j/je4jBhTRQASoUtD+kF8umUmLxCgv/Qqd/icOcgXuXoMEpPiLVZpgxGtKa2CB6lX4JJ18Vwoo7jz0kcLjiq1gXE1zge+5UgrNLO8qIvKdwKNB7p6AbReF3W7Iw3riC8KS2Blh/SV7TzNls=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=proton.me; spf=pass smtp.mailfrom=proton.me; dkim=pass (2048-bit key) header.d=proton.me header.i=@proton.me header.b=IO3RWP4M; arc=none smtp.client-ip=109.224.244.17
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=proton.me
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=proton.me
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=andrei-z.com header.i=@andrei-z.com header.b="KwmgdDHU"
-Received: from MAILGW-DELL.dell.vtj.corp.irix.systems (localhost [127.0.0.1])
-	by vtj.irix.systems (Proxmox) with ESMTP id 4148A13BCB;
-	Sun, 04 Oct 2026 14:14:57 +0300 (EEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=andrei-z.com; h=
-	cc:cc:content-transfer-encoding:content-type:content-type:date
-	:from:from:message-id:mime-version:reply-to:subject:subject:to
-	:to; s=sig1; bh=oPPgHQlTrnBHfbNta8PNjL/e8w+pnhWu2Gm5pE5Hink=; b=
-	KwmgdDHU2qDICdiwX8JZXNWbfuo31nB1bK87EGxaZR1lidFc/8sKjsqsc6aCpL4h
-	spfJa9Ps9qRip8mOK3QiwvFsbyHztH+3fG8PLUmVR6/utX9ZtWR+i9A3l5gqPHkh
-	8gaxMFHpZiEPcoQf0HomEh0qeQc3TBRKiY21y3NSbAsSjKvFDF8NCqrH9dIKiO9F
-	/nrCm9TcK1j5HGTJxc8wVoQJd3LMfCFM+jErvashnFp10KD4hkQtk6CSqU/4opul
-	rdYyhHmFZ7LYSkooQZ/IlR0ioyPB+0x3Me5bQMKvNBIQEf/17UgZnrgen5rROyLF
-	g642xjUVdSNT+LtYpzHHeA==
-Received: from VTJ-MX.corp.irix.systems (unknown [IPv6:2a02:2f04:1:9c24::6])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by vtj.irix.systems (Proxmox) with ESMTPS id 1CC0D13D20;
-	Sun, 04 Oct 2026 14:14:56 +0300 (EEST)
-Received: from workspace.corp.irix.systems (2a02:2f04:1:9c23::c) by
- VTJ-MX.corp.irix.systems (2a02:2f04:1:9c24::6) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.49; Sun, 4 Oct 2026 14:14:55 +0300
-From: Andrei-Alexandru Bleortu <me@andrei-z.com>
-To: Johannes Berg <johannes@sipsolutions.net>
-CC: <linux-kernel@vger.kernel.org>, <linux-wireless@vger.kernel.org>, Felix
- Fietkau <nbd@nbd.name>
-Subject: [PATCH wireless-next 0/2] wifi: mac80211: airtime weight op, BSS color during a color change
-Date: Sun, 4 Oct 2026 14:14:48 +0300
-Message-ID: <cover.1791111135.1.git.me@andrei-z.com>
-X-Mailer: git-send-email 2.47.3
+	dkim=pass (2048-bit key) header.d=proton.me header.i=@proton.me header.b="IO3RWP4M"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=proton.me;
+	s=protonmail2; t=1791112496; x=1791371696;
+	bh=axUuY6R+xPUQ9WsKqWZyN6vKAeBDZjWnfhApo6LvrFU=;
+	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
+	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
+	 Message-ID:BIMI-Selector;
+	b=IO3RWP4MxsoympIGLuMgbYvzs9IVs1H4h4EsImXO+KDAGmiMm81gXPq616RUv4pyV
+	 ggy3fdn3B1uimqvqorZcmf+qI98ciJzr1bgAYUSxyXC7UxeaI80pKFqxQD3jg/VIxn
+	 yHonCeDb115PBvkfjUGx6GIifZYHjiEyg/8FNF9vi2HTjprUr4Q2Mvm9qnvxv/Febi
+	 GOkZofTu0EYjJLfFWclkELv5rALS8Rzyacmu4qht+nbVA8iRmVS+G5BBTU2P8RHd3n
+	 qpLtzBjgXdNwsBQtR8DjlHZSW85qIUfycbCeVl3tu19oVcg3Jnc9IH5StFjEjeerUO
+	 cwh9aunD2WP7A==
+Date: Sun, 04 Oct 2026 11:14:50 +0000
+To: wens@kernel.org
+From: Norman Herms <dockseed@proton.me>
+Cc: Junhui Liu <junhui.liu@pigmoral.tech>, Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>, Jerome Brunet <jbrunet+clk@baylibre.com>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Jernej Skrabec <jernej.skrabec@gmail.com>, Samuel Holland <samuel@sholland.org>, Philipp Zabel <p.zabel@pengutronix.de>, Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>, Richard Cochran <richardcochran@gmail.com>, linux-clk@vger.kernel.org, devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, linux-sunxi@lists.linux.dev, linux-kernel@vger.kernel.org, linux-riscv@lists.infradead.org, netdev@vger.kernel.org, Jerome Brunet <jbrunet@baylibre.com>, Enzo Adriano <enzo.adriano.code@gmail.com>, Andre Przywara <andre.przywara@arm.com>
+Subject: AW: Re: [PATCH v5 7/8] clk: sunxi-ng: a733: Add bus clock gates
+Message-ID: <TEcOYCDcz77vYtgXxuHGwhVo6AFFgV2M5rIDAsLiG4T7fD6J41La8o19hf2iMQhaMXd1wHsvqeDardYv7hjy3TbV9oCkfzYKRMn0EGlh7Ww=@proton.me>
+In-Reply-To: <CAGb2v65Lqo7NiFhc2GYdfY7+jkC4Y+p6=Zy85HOFmXJzT0u1fg@mail.gmail.com>
+References: <20260930-a733-clk-v5-0-11175b41cd2d@pigmoral.tech> <20260930-a733-clk-v5-7-11175b41cd2d@pigmoral.tech> <CAGb2v65Lqo7NiFhc2GYdfY7+jkC4Y+p6=Zy85HOFmXJzT0u1fg@mail.gmail.com>
+Feedback-ID: 144388465:user:proton
+X-Pm-Message-ID: 24affaecb9b426f52699549cb7abbc8bb40c0be3
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: VTJ-MX.corp.irix.systems (2a02:2f04:1:9c24::6) To
- VTJ-MX.corp.irix.systems (2a02:2f04:1:9c24::6)
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-Two mac80211 changes an ath11k AP needs; the ath11k patches that use
-them follow in "[PATCH ath-next 0/2] wifi: ath11k: firmware airtime
-fairness, BSS color while disabled"
-(<cover.1791111135.3.git.me@andrei-z.com>).
+On Sun, Oct 4, 2026 at 1:03 PM Chen-Yu Tsai <wens@kernel.org> wrote:
+> > +static SUNXI_CCU_GATE_HWS(ahb_store_clk, "ahb-store", ahb_hws,
+> > +                         0x5c0, BIT(24), CLK_IS_CRITICAL);
+> > +static SUNXI_CCU_GATE_HWS(ahb_cpus_clk, "ahb-cpus", ahb_hws,
+> > +                         0x5c0, BIT(28), CLK_IS_CRITICAL);
+>
+> I suspect these refer to a AHB-AHB bridge for the various subsystems show=
+n
+> in the memory map. That would explain why when the "ahb-store" clock is
+> gated, the storage bits stop working.
+>
+> If that's the case, we should describe it as the parent of each storage
+> peripheral bus gate's parent. Same would go for the other types. I haven'=
+t
+> checked what the BSP does though.
 
-1. Felix Fietkau's sta_set_airtime_weight driver op, carried in OpenWrt,
-   so a driver can program a station's airtime weight into firmware.
-   v2 posted it inside an ath11k series, which is now split by tree.
-2. When a BSS color change starts, mac80211 cleared the color along with
-   the enabled flag, so a driver could no longer keep transmitting the
-   color the BSS still uses (IEEE Std 802.11-2024, 26.11.4).
+Two data points, in case they help.
 
-Both run, with the ath11k patches, on the QCN9074 and IPQ5018 radios of
-two U6 Enterprise access points.
+The vendor BSP (radxa/allwinner-bsp, branch cubie-aiot-v1.5.0,
+drivers/clk/sunxi-ng/ccu-sun60iw2.c) models no hierarchy either. It
+registers every gate in 0x5c0 and 0x5e0 as a keyed gate on the
+oscillator and marks each one CLK_IS_CRITICAL or CLK_IGNORE_UNUSED, so
+clk_disable_unused() never closes any of them.
 
-Changes to patch 1 since v2: Felix's Signed-off-by is back in the
-trailer block.
+On a Cubie A7S running our own 6.18-based tree, with the GPU power
+domain up and ahb-gpu0 (0x5c0 bit 7) and mbus-gpu0 (0x5e0 bit 16) both
+closed, drm/powervr still bound, read the core ID and loaded the
+matching firmware, but the firmware then failed to boot ("Firmware
+failed to boot"). With both bits set, the same modprobe initialized the
+GPU. So for the GPU, register access worked with these two gates
+closed; what failed was the firmware running on the GPU.
 
-The patches by me were written with an AI coding assistant (Claude
-Code), which also drafted the changelogs; the testing described was done
-on the hardware.
+The measurements were run on my boards by AI agents.
 
-v2 of patch 1: https://lore.kernel.org/all/20261003155542.96363-4-me@andrei-z.com/
-
-Andrei-Alexandru Bleortu (1):
-  wifi: mac80211: keep the BSS color while a color change is pending
-
-Felix Fietkau (1):
-  wifi: mac80211: notify driver on airtime weight changes
-
- include/net/mac80211.h    |  5 +++++
- net/mac80211/cfg.c        | 13 +++++++++++--
- net/mac80211/driver-ops.c |  4 ++++
- net/mac80211/driver-ops.h | 19 +++++++++++++++++++
- net/mac80211/sta_info.c   |  7 ++++++-
- net/mac80211/trace.h      | 27 +++++++++++++++++++++++++++
- 6 files changed, 72 insertions(+), 3 deletions(-)
-
-
-base-commit: f49defea7668d8c68ec19fa085ef3da6075561c7
--- 
-2.47.3
-
-
+Norman
