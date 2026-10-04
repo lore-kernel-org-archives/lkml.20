@@ -1,47 +1,56 @@
-Received: from out30-130.freemail.mail.aliyun.com (out30-130.freemail.mail.aliyun.com [115.124.30.130])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CCBB13AC0E4;
-	Sun,  4 Oct 2026 16:28:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.30.130
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9EE252FDC20;
+	Sun,  4 Oct 2026 16:30:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791131289; cv=none; b=UnUwnUSSUJmIquTQb4iPhlexVRH+NWswKsMJTIxJ/VBEu7hrg2ooWDn0XdnKRWG2oF3u2v6AlEAPrZkcUO/IQ3REnjrheDovsX+9r/+U/I3hx/kDkcYRoYzshmVobnVFloqwXxO9Lmot/h7dkgiy8cmUkxlZTqB40/ykXDEwU40=
+	t=1791131402; cv=none; b=T1s2zWnJhNkmdtHUv13VAYia7MDjv+HLMtsuo0lkGB4sPLnMlEKONeMEIYb+CFA3apJfcb6WXOzDXtCLqZpKfJKvTjphn4nsM/NFlY9QLrK//mxYeA0jVCq8zdEn572DE2Y7ztcI+Z4zvouReInmt+b5VfO06BLPvp7gMAdVRbc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791131289; c=relaxed/simple;
-	bh=w9r81eCoveL47+gCXyxD7BCzW5wFdS99rIgSVsnMRZk=;
+	s=arc-20240116; t=1791131402; c=relaxed/simple;
+	bh=KliaJSf/Kubgbv84iSKKMro7NAMVM3nQjDKXNfBSoBY=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=c4LbYajJjG0wiP32PsGzRnhdJDTS5j3iC0cIee6kW4QMqmAkDFY2tK3kuiTZJOhLsy5ZG8cDbBBRuWFCK67kxtdLD0HYszslNFt+hfX0TpLqrBJrKVo9mvI1DU2f5FYIfblUTJCvo46YN56M2PZ5JiXtOw1Uf/j8Xadw4Z4BKd8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com; spf=pass smtp.mailfrom=linux.alibaba.com; dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b=hVZVL8uq; arc=none smtp.client-ip=115.124.30.130
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
+	 MIME-Version; b=TRIa2AM+iwbM+e2Hcq8AQ36cgblZOJ0u5JdVKxxLLl2E5t6qRxYZy3a9zbDfSoY/pmbUnVNAkRv6kR9auYztaTSQJXPAA40wLudyq8BCOGpQ30ALH+cCrFq8rk7vF3WQmMlT0vbMGMTqys/W+h/6W5GwudfUJWd/pcmD+Kdi1wg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dH7NmgBy; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b="hVZVL8uq"
-DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux.alibaba.com; s=default;
-	t=1791131278; h=From:To:Subject:Date:Message-ID:MIME-Version;
-	bh=rdb9mwYU+CLQG44ZORqhDvuNBy6pepzRB8jbksXuEJI=;
-	b=hVZVL8uqkhT0Lj/3FZdLAachdoYYuIU1Q5S17l4yXGruLX3WVQF89e2PB5oClrjHIVeWI5tQBY0wsPTda+vOvZAo7gWXhIQFtRI3Y6ydgofRr2aFCW7gyaGLy0wzamdSLqn0ltljXTwY4VmALsONvqxDFDrRmPXmOu4JsJAUrGM=
-X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R151e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033037026112;MF=guanghuifeng@linux.alibaba.com;NM=1;PH=DS;RN=10;SR=0;TI=SMTPD_---0XC2de7O_1791130933;
-Received: from VM20241011-104.tbsite.net(mailfrom:guanghuifeng@linux.alibaba.com fp:SMTPD_---0XC2de7O_1791130933 cluster:ay36)
-          by smtp.aliyun-inc.com;
-          Mon, 05 Oct 2026 00:22:37 +0800
-From: Guanghui Feng <guanghuifeng@linux.alibaba.com>
-To: jgg@ziepe.ca
-Cc: alex@shazbot.org,
-	guanghuifeng@linux.alibaba.com,
-	iommu@lists.linux.dev,
-	joro@8bytes.org,
-	kevin.tian@intel.com,
-	kvm@vger.kernel.org,
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dH7NmgBy"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3A6B81F000FF;
+	Sun,  4 Oct 2026 16:29:57 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791131401;
+	bh=97WWKyNUowiVmaJRkjk0Al/JXN2jGgBELzTH1zbyjYQ=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=dH7NmgBycpzyrZSdve1C8Fk8TXpjSh7JeCqZ+8ihWJ/HuR3oxJqwF9Oq1hdERXVWE
+	 vyCYzU1ATQKgtRC+7Mmx+PDQ7iclPH8vYwLkg+5EBtCYqof275CGpRJBFmLmFz5IGJ
+	 a//2TC6E5ElJ0act+1CRfkrUcatD0l/qcrIRN0KVZOLAFCQy6lYZ6Sl6jyVcpN06G1
+	 Brj3skB1mAqRz7rypA/HIhAdN942xNbqDo6GN5ZrOcGpKshYNBUvWhoRA+L4TYOYLo
+	 Jz3Be2L/wOr5lJeVqc3yDyFtzgeDrRndW1x64TQJJNDhXKvDkYFn8TQtdsDQnLaSmw
+	 ZU9rGYoJAp7hg==
+From: Sasha Levin <sashal@kernel.org>
+To: ljs@kernel.org,
+	rppt@kernel.org,
+	peterz@infradead.org
+Cc: Sasha Levin <sashal@kernel.org>,
+	akpm@linux-foundation.org,
+	david@kernel.org,
+	mingo@redhat.com,
+	acme@kernel.org,
+	namhyung@kernel.org,
+	linux-mm@kvack.org,
+	linux-perf-users@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	robin.murphy@arm.com,
-	will@kernel.org
-Subject: [PATCH v3 0/2] iommu/iommufd: Expose PCI host bridge MMIO windows for opt-in IOVA avoidance
-Date: Mon,  5 Oct 2026 00:22:11 +0800
-Message-ID: <20261004162213.3787623-1-guanghuifeng@linux.alibaba.com>
-X-Mailer: git-send-email 2.43.7
-In-Reply-To: <20260921115513.GK11599@ziepe.ca>
-References: <20260921115513.GK11599@ziepe.ca>
+	regressions@lists.linux.dev,
+	stable@vger.kernel.org,
+	4ncienth@gmail.com,
+	alexander.motin@truenas.com,
+	caleb.stjohn@truenas.com,
+	ameer.hamza@truenas.com
+Subject: Re: [REGRESSION] secretmem: SIGBUS on memfd_secret() pages while perf record runs
+Date: Sun,  4 Oct 2026 12:29:39 -0400
+Message-ID: <2026-10-04-1-daily-reply-0001-secretmem-requeue@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261002175651.811343-1-ameer.hamza@truenas.com>
+References: <20261002175651.811343-1-ameer.hamza@truenas.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -50,67 +59,15 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-When a device sits behind a PCIe switch and ACS Upstream Forwarding is
-not fully enabled, DMA TLPs whose IOVA happens to fall within a host
-bridge MMIO window may be routed peer-to-peer to another downstream
-device instead of upstream to the root complex for IOMMU translation.
-This can lead to faults, data corruption, or silent misrouting.
+> Since commit 97d34aa65c29 ("mm/secretmem: properly account locked
+> pages"), in v7.3-rc2 and the 6.18.52 and 7.2.5 backports, touching a
+> memfd_secret() page for the first time fails with SIGBUS while the
+> same user is running perf record, and read() into such a page fails
+> with EFAULT.
 
-The DMA IOVA layer already avoids this via iova_reserve_pci_windows().
-However, passthrough paths that let userspace pick IOVAs (VFIO type1,
-iommufd) had no mechanism to learn about these ranges.  Commit
-cd2c9fcf5c66 ("iommu/dma: Move PCI window region reservation back into
-dma specific path.") intentionally keeps this information out of the
-IOMMU reserved-region API to avoid pessimistically restricting
-userspace.
-
-Following Jason Gunthorpe's suggestion [1], this series takes an opt-in
-approach: the kernel reports the information, userspace decides whether
-to avoid it.
-
-  Patch 1 adds iommu_get_pci_resv_windows(), a shared helper that
-  enumerates a device's host bridge MMIO windows as sorted, merged
-  IOMMU_RESV_RESERVED regions.
-
-  Patch 2 adds the IOMMU_GET_PCI_MMIO_WINDOWS ioctl to iommufd, a
-  per-device query that returns these windows to userspace without
-  reserving or enforcing them.
-
-[1] https://lore.kernel.org/all/20260921115513.GK11599@ziepe.ca/
-
-v2: https://lore.kernel.org/all/20260921103922.1113752-1-guanghuifeng@linux.alibaba.com/
-v1: https://lore.kernel.org/all/20260921070234.897736-1-guanghuifeng@linux.alibaba.com/
-
-Changes since v2:
-- Complete redesign per Robin Murphy's and Jason Gunthorpe's review.
-  v2 forced PCI window reservation through iommu_get_group_resv_regions()
-  which was explicitly rejected (this was tried before and reverted by
-  cd2c9fcf5c66).  v3 instead provides an opt-in query interface.
-- Patch 1: add iommu_get_pci_resv_windows() as a standalone helper.
-  No longer touches dma-iommu.c (the existing direct enumeration in
-  iova_reserve_pci_windows() is simpler and allocation-free; refactoring
-  it to use the helper would add unnecessary overhead for no functional
-  benefit).
-- Patch 2: new IOMMU_GET_PCI_MMIO_WINDOWS ioctl replaces the v2
-  iommufd enforce-path change.  Reports windows to userspace without
-  reserving them.
-- io_pagetable.c and dma-iommu.c are unchanged from base.
-
-Changes since v1:
-- (Superseded by v2->v3 changes above.)
-
-Guanghui Feng (2):
-  iommu: Add iommu_get_pci_resv_windows() helper
-  iommufd: Add IOMMU_GET_PCI_MMIO_WINDOWS ioctl
-
- drivers/iommu/iommu-priv.h              | 12 +++++
- drivers/iommu/iommu.c                   | 57 ++++++++++++++++++++++
- drivers/iommu/iommufd/device.c          | 64 +++++++++++++++++++++++++
- drivers/iommu/iommufd/iommufd_private.h |  1 +
- drivers/iommu/iommufd/main.c            |  3 ++
- include/uapi/linux/iommufd.h            | 55 +++++++++++++++++++++
- 6 files changed, 192 insertions(+)
+Re-queued the secretmem accounting fix for 6.12, 6.6 and 6.1, per Lorenzo.
+The perf fix will be needed on these trees once it lands.
 
 -- 
-2.43.7
-
+Thanks,
+Sasha
