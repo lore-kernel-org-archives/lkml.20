@@ -1,96 +1,190 @@
-Received: from vtj.irix.systems (vtj.irix.systems [82.76.27.144])
+Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 948013F482F;
-	Sun,  4 Oct 2026 11:21:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=82.76.27.144
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 97EF335F161;
+	Sun,  4 Oct 2026 11:22:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.251.105.195
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791112892; cv=none; b=BwXpSDuWwmBTB4A0OWSJ6wn8ib2qOAnAJQAmiw/9tq+iQsu4kK5IjgzHQi7xFfSyFdOO4vSF5feZFm1Y65dNRD9nZpQBLmEVE4yLYsIMdyNjlMxg3JLIl6iaGqMHBAZmVRpDSZSMrXyMHLKfvUjW502mg9mxg8GFdq1ZXEgWmq4=
+	t=1791112933; cv=none; b=r+/hUaaTkQTzHN8NVg0HJkIvfnwyie08B+gfwr/gAAUaKGNUzNflEJH8fH1+kJWu4XyHwWJFac02OiJPa2Q8hb4MTVfvtcNw+2PZ7jErUlDxXA4S8LkDcQwavEUaQcc7yLFi6yb/OZAu2/wLaQXSia5ypDlN2LvkngO/MtOqt0Y=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791112892; c=relaxed/simple;
-	bh=gRfyOaDspY3w0AXOixfQJt+LhdKqRWtgqIj7C1luI9Q=;
-	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=rAZojRuO9/9A5FSPdPtEucw2f9NoYUHxna63GTFByLmd18LurBt/aO2eoQH4PMoxT0dGnpmZX1+eA/35RXLRCTQglZVybBc39ykiLHdCg1Rdhq+5GejDLFRb8QVr3GiDeQq45w7Mv7lCMpTP58JUIZuzXl279X6yTrwq9Fuo7p8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=andrei-z.com; spf=pass smtp.mailfrom=andrei-z.com; dkim=pass (2048-bit key) header.d=andrei-z.com header.i=@andrei-z.com header.b=bWam9cm/; arc=none smtp.client-ip=82.76.27.144
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=andrei-z.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=andrei-z.com
+	s=arc-20240116; t=1791112933; c=relaxed/simple;
+	bh=EUT8CXIEWEuHtdvb/fdhF3SZ+ZMOpvpJA9++C1bf6hE=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=E/zHmRPK9eCoTepIDONpvzUkXY4qudd1ziUlyhx0KwPGoaczFtEdyBuZ6PKN5cwEOjlDy/kI8KzY/6cE0b/l3IguM0yNtITE1IDGoGHoviYIRDWKhLsV/ntYZ0yFL7MATiPfFS/z8HciBoKn3290DFoCq/Bg0+Lzk3MiT+EpGhc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=AMY6xSEO; arc=none smtp.client-ip=148.251.105.195
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=andrei-z.com header.i=@andrei-z.com header.b="bWam9cm/"
-Received: from MAILGW-DELL.dell.vtj.corp.irix.systems (localhost [127.0.0.1])
-	by vtj.irix.systems (Proxmox) with ESMTP id 8F27413C3A;
-	Sun, 04 Oct 2026 14:21:29 +0300 (EEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=andrei-z.com; h=
-	cc:cc:content-transfer-encoding:content-type:content-type:date
-	:from:from:in-reply-to:message-id:mime-version:references
-	:reply-to:subject:subject:to:to; s=sig1; bh=8wdFPkKVBD1u4gBOGxIY
-	K1bcdkahVAWWGkvnOUYqIJY=; b=bWam9cm/a1SsiVLrPM2IGcwHz9qKJjBImvzw
-	AbxiZ/uMx96b6aPmcRjhysoFkaKMcne6TfjZAGXS4GPH7GN9wM87gmwWRublxwEf
-	kOAaQdWZrZyKRQBeN9ifMcgGav9btxJfHxDwFlRit+TC52uWSffi55IcFUy5hp8V
-	P/SVcxOkmvVACLgx0hmi3uHvneWHomD0EWzTMozrGuMeDmjuup3uFByy1nWvhT4L
-	LHKOCoWGNLKyfWfIVbR2VkLSP1pAkJVJw/bNDjLtPe6Bj+aR3O4j9hC4C/yIi9Hf
-	5nAsvQL+Ag36iftrWgPKIGrJ/QOuDhEHQuaQMKCYYzjK6f2ihQ==
-Received: from VTJ-MX.corp.irix.systems (unknown [IPv6:2a02:2f04:1:9c24::6])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="AMY6xSEO"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+	s=mail; t=1791112929;
+	bh=EUT8CXIEWEuHtdvb/fdhF3SZ+ZMOpvpJA9++C1bf6hE=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References:From;
+	b=AMY6xSEOpZRFPRHEl0wmIwaFVCtWyZB+yKXGiRixSnlwO4RnxbiVH28BdCBFj30n2
+	 qzHhE9vXQN/ErfgSCtf3AMACsF3vIjAZBkJpdUAVaKhO6iUUEbH/Pv9p6nyDuWI04B
+	 s0rAQKJ9ZRNSK6OwuyXgPtaz1yFqoeqXZhbZ3zkX2mcs+ifiEV+zU9tCXXSQ7rizbX
+	 ktZhTSul6N1DsRu07hXf2pr8Qg0Y9o1lA1wNYlY52Y6jF2HpAlXJkh+3ujr9CZp6UC
+	 rQbDtPAlg9xIYj2dqqLbrUnmum69F1ppPYHCb65V35D2Xg+QQAuooCaFsXys69bjSj
+	 LadNIlr0sqbYQ==
+Received: from [100.64.0.214] (unknown [100.64.0.214])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange secp256r1 server-signature RSA-PSS (4096 bits) server-digest SHA256)
 	(No client certificate requested)
-	by vtj.irix.systems (Proxmox) with ESMTPS id C5AF513D27;
-	Sun, 04 Oct 2026 14:21:28 +0300 (EEST)
-Received: from workspace.corp.irix.systems (2a02:2f04:1:9c23::c) by
- VTJ-MX.corp.irix.systems (2a02:2f04:1:9c24::6) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.49; Sun, 4 Oct 2026 14:21:28 +0300
-From: Andrei-Alexandru Bleortu <me@andrei-z.com>
-To: Jeff Johnson <jjohnson@kernel.org>
-CC: <ath11k@lists.infradead.org>, <linux-kernel@vger.kernel.org>,
-	<linux-wireless@vger.kernel.org>
-Subject: [PATCH ath-next 3/5] wifi: ath11k: leave OBSS PD off when spatial reuse is not configured
-Date: Sun, 4 Oct 2026 14:18:05 +0300
-Message-ID: <794ed7804f86fb8b8b607a703ce110a0b18e9b9f.1791111135.git.me@andrei-z.com>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <cover.1791111135.2.git.me@andrei-z.com>
-References: <cover.1791111135.2.git.me@andrei-z.com>
+	(Authenticated sender: nicolas)
+	by bali.collaboradmins.com (Postfix) with ESMTPSA id 2375917E0163;
+	Sun, 04 Oct 2026 13:22:09 +0200 (CEST)
+Message-ID: <d341e911ddf0831b79a713ae7694d2e4396eeb38.camel@collabora.com>
+Subject: Re: [PATCH] media: verisilicon: rockchip: Fix leaks in init
+From: Nicolas Dufresne <nicolas.dufresne@collabora.com>
+To: Frank Li <Frank.li@oss.nxp.com>, Michail Tatas <michail.tatas@gmail.com>
+Cc: benjamin.gaignard@collabora.com, p.zabel@pengutronix.de,
+ mchehab@kernel.org, 	heiko@sntech.de, linux-media@vger.kernel.org,
+ linux-rockchip@lists.infradead.org, 	linux-arm-kernel@lists.infradead.org,
+ linux-kernel@vger.kernel.org
+Date: Sun, 04 Oct 2026 07:22:08 -0400
+In-Reply-To: <aohrmDgzhRxC6M_D@SMW015318>
+References: <aoV3LLy5hSoKL4QP@michalis-linux>
+	 <aoXgSKnkbWZVKRui@lizhi-Precision-Tower-5810>
+	 <aodup3TleCfdxcF3@michalis-linux> <aohrmDgzhRxC6M_D@SMW015318>
+Autocrypt: addr=nicolas.dufresne@collabora.com; prefer-encrypt=mutual;
+ keydata=mDMEaCN2ixYJKwYBBAHaRw8BAQdAM0EHepTful3JOIzcPv6ekHOenE1u0vDG1gdHFrChD
+ /e0J05pY29sYXMgRHVmcmVzbmUgPG5pY29sYXNAbmR1ZnJlc25lLmNhPoicBBMWCgBEAhsDBQsJCA
+ cCAiICBhUKCQgLAgQWAgMBAh4HAheABQkJZfd1FiEE7w1SgRXEw8IaBG8S2UGUUSlgcvQFAmibrjo
+ CGQEACgkQ2UGUUSlgcvQlQwD/RjpU1SZYcKG6pnfnQ8ivgtTkGDRUJ8gP3fK7+XUjRNIA/iXfhXMN
+ abIWxO2oCXKf3TdD7aQ4070KO6zSxIcxgNQFtDFOaWNvbGFzIER1ZnJlc25lIDxuaWNvbGFzLmR1Z
+ nJlc25lQGNvbGxhYm9yYS5jb20+iJkEExYKAEECGwMFCwkIBwICIgIGFQoJCAsCBBYCAwECHgcCF4
+ AWIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCaCyyxgUJCWX3dQAKCRDZQZRRKWBy9ARJAP96pFmLffZ
+ smBUpkyVBfFAf+zq6BJt769R0al3kHvUKdgD9G7KAHuioxD2v6SX7idpIazjzx8b8rfzwTWyOQWHC
+ AAS0LU5pY29sYXMgRHVmcmVzbmUgPG5pY29sYXMuZHVmcmVzbmVAZ21haWwuY29tPoiZBBMWCgBBF
+ iEE7w1SgRXEw8IaBG8S2UGUUSlgcvQFAmibrGYCGwMFCQll93UFCwkIBwICIgIGFQoJCAsCBBYCAw
+ ECHgcCF4AACgkQ2UGUUSlgcvRObgD/YnQjfi4+L8f4fI7p1pPMTwRTcaRdy6aqkKEmKsCArzQBAK8
+ bRLv9QjuqsE6oQZra/RB4widZPvphs78H0P6NmpIJ
+Organization: Collabora Canada
+Content-Type: multipart/signed; micalg="pgp-sha512";
+	protocol="application/pgp-signature"; boundary="=-syfNJk6+Iel5b9W+gI0r"
+User-Agent: Evolution 3.60.2 (3.60.2-2.fc44) 
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: VTJ-MX.corp.irix.systems (2a02:2f04:1:9c24::6) To
- VTJ-MX.corp.irix.systems (2a02:2f04:1:9c24::6)
-
-mac80211 reports BSS_CHANGED_HE_OBSS_PD when an HE AP starts even if
-user space configured no spatial reuse parameters, with he_obss_pd
-.enable false. ath11k ignored the flag and, with an empty SR Control,
-enabled non-SRG OBSS PD at its default maximum threshold of -62 dBm,
-where IEEE Std 802.11-2024, 26.10.2.4 puts the non-SRG OBSS PD maximum
-at -82 dBm plus an offset that the AP did not advertise.
-
-Disable OBSS PD unless it is enabled, as ath12k does.
-
-Tested-on: QCN9074 hw1.0 PCI WLAN.HK.2.9.0.1-02146-QCAHKSWPL_SILICONZ-1
-
-Assisted-by: LLM
-Signed-off-by: Andrei-Alexandru Bleortu <me@andrei-z.com>
----
- drivers/net/wireless/ath/ath11k/mac.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/net/wireless/ath/ath11k/mac.c b/drivers/net/wireless/ath/ath11k/mac.c
-index c1fa42edd3..a10d191b1a 100644
---- a/drivers/net/wireless/ath/ath11k/mac.c
-+++ b/drivers/net/wireless/ath/ath11k/mac.c
-@@ -3373,7 +3373,8 @@ static int ath11k_mac_config_obss_pd(struct ath11k *ar,
- 
- 	/* Set and enable SRG/non-SRG OBSS PD Threshold */
- 	param_id = WMI_PDEV_PARAM_SET_CMD_OBSS_PD_THRESHOLD;
--	if (test_bit(ATH11K_FLAG_MONITOR_STARTED, &ar->monitor_flags)) {
-+	if (test_bit(ATH11K_FLAG_MONITOR_STARTED, &ar->monitor_flags) ||
-+	    !he_obss_pd->enable) {
- 		ret = ath11k_wmi_pdev_set_param(ar, param_id, 0, pdev_id);
- 		if (ret)
- 			ath11k_warn(ar->ab,
--- 
-2.47.3
 
 
+--=-syfNJk6+Iel5b9W+gI0r
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+Le vendredi 21 ao=C3=BBt 2026 =C3=A0 10:15 -0500, Frank Li a =C3=A9crit=C2=
+=A0:
+> On Fri, Aug 21, 2026 at 12:16:23AM +0300, Michail Tatas wrote:
+> > On Wed, Aug 19, 2026 at 12:56:40PM -0400, Frank Li wrote:
+> > > On Wed, Aug 19, 2026 at 12:28:12PM +0300, Michail Tatas wrote:
+> > > > if one of the dma_alloc_coherent in the init fucntion fails then
+> > > > the previously allocated ones leak.
+> > > >=20
+> > > > Fix by freeing them in the error path.
+> > > >=20
+> > > > Fixes: 727a400686a2 ("media: verisilicon: Add Rockchip AV1 decoder"=
+)
+> > > > Signed-off-by: Michail Tatas <michail.tatas@gmail.com>
+> > > > ---
+> > > >  .../verisilicon/rockchip_vpu981_hw_av1_dec.c  | 68 +++++++++++++++=
+----
+> > > >  1 file changed, 55 insertions(+), 13 deletions(-)
+> > > >=20
+> > > > diff --git a/drivers/media/platform/verisilicon/rockchip_vpu981_hw_=
+av1_dec.c b/drivers/media/platform/verisilicon/rockchip_vpu981_hw_av1_dec.c
+> > > > index e4e21ad37323..fa77fd402412 100644
+> > > > --- a/drivers/media/platform/verisilicon/rockchip_vpu981_hw_av1_dec=
+.c
+> > > > +++ b/drivers/media/platform/verisilicon/rockchip_vpu981_hw_av1_dec=
+.c
+> > > > @@ -369,6 +369,7 @@ void rockchip_vpu981_av1_dec_exit(struct hantro=
+_ctx *ctx)
+> > > >=20
+> > > >  int rockchip_vpu981_av1_dec_init(struct hantro_ctx *ctx)
+> > > >  {
+> > > > +	int ret =3D 0;
+> > > >  	struct hantro_dev *vpu =3D ctx->dev;
+> > > >  	struct hantro_av1_dec_hw_ctx *av1_dec =3D &ctx->av1_dec;
+> > > >=20
+> > > > @@ -377,39 +378,54 @@ int rockchip_vpu981_av1_dec_init(struct hantr=
+o_ctx *ctx)
+> > > >  	av1_dec->global_model.cpu =3D dma_alloc_coherent(vpu->dev, GLOBAL=
+_MODEL_SIZE,
+> > > >  						       &av1_dec->global_model.dma,
+> > > >  						       GFP_KERNEL);
+> > > > -	if (!av1_dec->global_model.cpu)
+> > > > -		return -ENOMEM;
+> > > > +	if (!av1_dec->global_model.cpu) {
+> > > > +		ret =3D -ENOMEM;
+> > > > +		goto global_model_cpu_err;
+> > > > +	}
+> > > > +
+> > > >  	av1_dec->global_model.size =3D GLOBAL_MODEL_SIZE;
+> > > >=20
+> > > >  	av1_dec->tile_info.cpu =3D dma_alloc_coherent(vpu->dev, AV1_TILE_=
+INFO_SIZE,
+> > > >  						    &av1_dec->tile_info.dma,
+> > > >  						    GFP_KERNEL);
+> > > > -	if (!av1_dec->tile_info.cpu)
+> > > > -		return -ENOMEM;
+> > > > +	if (!av1_dec->tile_info.cpu) {
+> > > > +		ret =3D -ENOMEM;
+> > > > +		goto tile_info_cpu_err;
+> > > > +	}
+> > > > +
+> > >=20
+> > > This function is called by hantro_probe() if I am correct
+> > >=20
+> > > there are dmam_alloc_coherent(), use dmam_alloc_coherent() will simpl=
+e
+> > > error handle and tear down.
+> > >=20
+> > > Frank
+> >=20
+> > Hello Frank,
+> >=20
+> > I did not know about the dmam* functions thanks for letting me know.
+> > I read some of the docs about them and they seem to not apply to
+> > this particular case since this code is not called from the probe
+> > function but rather the hantro_start_streaming function. Since
+> > dmam_alloc_coherent() only releases memory at device removal,
+> > it wouldn't free them when the stream ends and a new stream would
+> > re-allocate while the old buffers lingered until detach.
+> > So I think manual dma_free_coherent() error path is the correct
+> > fit here.
+>=20
+> Okay, make sense.
+>=20
+> Reviewed-by: Frank Li <Frank.Li@nxp.com>
+
+Applied, ty, and thanks for the review!
+
+>=20
+> Frank
+>=20
+> >=20
+> > Best regards,
+> > Michail
+>=20
+> _______________________________________________
+> Linux-rockchip mailing list
+> Linux-rockchip@lists.infradead.org
+> http://lists.infradead.org/mailman/listinfo/linux-rockchip
+
+--=-syfNJk6+Iel5b9W+gI0r
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: This is a digitally signed message part
+Content-Transfer-Encoding: 7bit
+
+-----BEGIN PGP SIGNATURE-----
+
+iHUEABYKAB0WIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCasI24AAKCRDZQZRRKWBy
+9MzeAPwLTlwz3JuuObmxyg+u4105o43JLe4Bob4ey9dS0EJDawEA6+5DtSs8KzMp
+H7ZnsmemjvkbNZPbk1eEqzItk5JtOg0=
+=RPVc
+-----END PGP SIGNATURE-----
+
+--=-syfNJk6+Iel5b9W+gI0r--
