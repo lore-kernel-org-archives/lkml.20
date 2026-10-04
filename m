@@ -1,112 +1,116 @@
-Received: from mail-wr1-f50.google.com (mail-wr1-f50.google.com [209.85.221.50])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B6BD4475346
-	for <linux-kernel@vger.kernel.org>; Sun,  4 Oct 2026 21:43:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.50
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C4D5E3BE623
+	for <linux-kernel@vger.kernel.org>; Sun,  4 Oct 2026 21:43:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791150190; cv=none; b=F22dtTpiSXP6l8P3eNjt6b55iSrI3Pz3iqMmp53R5UpRU1L4dvWzYKCMhIxjtZA8NOOMiWSeoniqx8wyffThWLsCjEGzsp4NuW886wy2OY1DlidCN+oSchEa9dRWP1YEeJSoWbu+HN/iInqnQQx/fgWNW2d24pVpguOLujdyZgc=
+	t=1791150205; cv=none; b=ihA3Sf2aJPtmYLdHEilmXHt3weo2Fa9JfF3EnM48YoWB/7bD8DSNtGsI8vNrY89EjawqFqmV9XSp9erAYH1DZtDo7g6C3UyhtgJ1D6o88OkCHcpNyY4s8kaRmp+zOJiS1MsxnWpHHBUrok/oxyuX50tZiJqlTFI76XxRDLQpyhk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791150190; c=relaxed/simple;
-	bh=ONQ3/fm+VvJcbR2hGlWWmoJvTQ4LkcEql3G60OArTd8=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=SLQVOVgDTpbKY6Ab4OO3DD5V+CDTIslQXVSODveMOBiYGh1TpIJPpgPV0tUVKcK4D8XsPddQcbDvH/wIhs0QqiyUF783d9AqZcv9AGvJBTCvlJzsO/eo6SLpY9FoAx4cWh+IAeMgjUw7Nnfh+Ezw2oZba6aGZRFKiV3SWty3P7s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Tw05ZvwO; arc=none smtp.client-ip=209.85.221.50
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1791150205; c=relaxed/simple;
+	bh=IKanhv3Qv6hW4BQlBfT3w6D5rxp3vA4ed5T8VrAYKxo=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=XDR/Zfm4m9dQe/Z9LHdgD9YWsGLmj0kuetst1vI/koyyEUDkDEK+eh6aK9HNA2fWjvb/j3gp2r7okepE4wek5+McUUkAnloVGQ5C9ZBtu9GcWlTqnCGJeH9t072BsXvT+K/o+M0fW+n+xeJmr+Ai8fFRNlEU/qQ+i0o4vc+bmPc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JEF5oJqg; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Tw05ZvwO"
-Received: by mail-wr1-f50.google.com with SMTP id ffacd0b85a97d-48c5358fc28so429371f8f.0
-        for <linux-kernel@vger.kernel.org>; Sun, 04 Oct 2026 14:43:07 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791150185; x=1791754985; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=44L+w1lo0aEfL1hM5su/VJjhXTZhdo5HD8XfCtpMzH4=;
-        b=Tw05ZvwOODV1gx+0jiHCKped/cJPi82G8/unjkIEmDya/VLQZKaBXscApMH/ZHbGBc
-         HrfqA+4hy+nXSBpR/NBvRa71qLYUzVBXZiJOKB9QujsOG13gJo3O0RvPBA7LHLh4UHY8
-         59kiD3YQrCjUlAIX+NYoozOqpc9Ll5oLHIzngtxwbhkVaZJtekABeZXchxpJvbvncP+Z
-         Tw5sfa4MRj5drP6/+hRFjUHznlyeLzMc+1NAtBDRx+MVDUVmFrJCdn7dtVFj5X1dTvJC
-         rwk4/io0813IUk9ESbIa9EL1i/WtkIt99av2M94TNqDoOUhYvVLuTmmiSEROhO9kivzg
-         no2Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791150185; x=1791754985;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=44L+w1lo0aEfL1hM5su/VJjhXTZhdo5HD8XfCtpMzH4=;
-        b=1mKuVBJ3yi+Vmfzfw7GtZ/EL/8aVi5A4BKDV4COS2aWMfSUkq+uzm8IEncEeixI0oZ
-         b6fhsjoY5gvUpKs2bG2wN0KjLpr2tVNikc73F0CbqBmR0rXc0brJLRxhcFBKNXNTBH12
-         1Q9ANnBnTdr3i8E/ehkFQVRycceFWbLkHvRwHhomhjh/rvqNA5FtEvu7t/xO1UJ7eN3e
-         MpLUtCwLGel+wKIE61QM5NMNTh+efpvgOkTOIPGLx/YuiaqRuxGIWl+aJfDIvwnxrOjz
-         +dJErL2GWLpmGXi2zjlf6Zkkff6KsvoIkMU2Ao0rm4BdF8QDg7Rh1O+kBguXVYy5A7eZ
-         uP3A==
-X-Forwarded-Encrypted: i=1; AKwUvBxcmRca5TB+lXVnHEcBhOnSy1mZywbp/jqlAmXdnhYRZLq+s8VIRLA0cAsXJHvupTkXz8HWcRJTArPuQdY=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIZTMbBAiao0QbwJ6s6vD1i33hCpAwx4qyPpCr4bCL/K7mqi/hz
-	9Co4IznsaROcy071VJUjfUpCyCPyvxghhuYpzBwJVkiQFZTCP/SUvZP/
-X-Gm-Gg: AYBFou05Uxz56hyp7+iHB2Fx7ixtphRTvPQg+e7gL0mrNJr8nwSUHjhPZz8QYng+apz
-	0fZoegAfvNJjmcPly7zOivLU0MD2i2mnPx2AHyKT5i6e1UaaMfs4IvxNE3mZlf9pZGAmo6Sr8AQ
-	juoh1QPXN6JqTQO+gyMmU+2U5Mtj6bmPOLlKUqktWM4LJYya5QGlZL5Jf0OWOV2/cKDZJRo8Q7q
-	y7Gw8EQoG8p3v1UuK/9itaJGxq6LGjXyoiRn1IWqcdnp4p+yT+Nmo1mhpaE2xIK+/1E20IUmpzQ
-	cbXswn4Jl2/APQ1t9tJvaFlaQNHfOXaOYWcD8Gb1KlsAh9sP1o9/IY40eCgjzg5J0d+PNBgF19M
-	0BNu5sK+FE+AihC5+NkqU40Y6a9U2VCLv1yphAwvQ+j3+pU36Sr2Sw/nqw5LvR6u2q+5vnlMRQh
-	6pMteNbSmZ5tlFzXpuCppdy2DiY0G9k7eiORZysExuxXvIbxKWWe5QnazQsirs9yA4Xvi0teFPa
-	6bOXOvBFsDNtQrOOPCiKtY00JEDuXbVN09lXxY02wN+B2rEsCiV/LdNvToq
-X-Received: by 2002:a05:6000:491b:b0:487:834:9307 with SMTP id ffacd0b85a97d-48c48023772mr8504789f8f.50.1791150185325;
-        Sun, 04 Oct 2026 14:43:05 -0700 (PDT)
-Received: from andreayoga.localdomain ([195.122.200.174])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48b38104e07sm19331801f8f.31.2026.10.04.14.43.04
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 04 Oct 2026 14:43:04 -0700 (PDT)
-From: Andrea Parri <parri.andrea@gmail.com>
-To: netdev-bot+sinfo@kernel.org
-Cc: Andrea Parri <parri.andrea@gmail.com>,
-	Pablo Neira Ayuso <pablo@netfilter.org>,
-	Florian Westphal <fw@strlen.de>,
-	netfilter-devel@vger.kernel.org,
-	Phil Sutter <phil@nwl.cc>,
-	Nikolay Aleksandrov <razor@blackwall.org>,
-	Ido Schimmel <idosch@nvidia.com>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>,
-	Bernhard Thaler <bernhard.thaler@wvnet.at>,
-	coreteam@netfilter.org,
-	bridge@lists.linux.dev,
-	netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH nf v2 0/2] netfilter: preserve bridge egress VLAN tags
-Date: Sun,  4 Oct 2026 23:42:51 +0200
-Message-ID: <20261004214253.5432-1-parri.andrea@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <179114935323.1402591.1020652042294576959@kernel.org>
-References: <20261004212429.3648-1-parri.andrea@gmail.com> <179114935323.1402591.1020652042294576959@kernel.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JEF5oJqg"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D71CB1F000FF;
+	Sun,  4 Oct 2026 21:43:23 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791150204;
+	bh=gQlzCEAK3U7bGfWnrsR2Mb47o8Np3LZvTSaHLXOZ7gg=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=JEF5oJqgQtmsqzCAnsZ8CCcS1rZZF++4sgYWu0JgxLPsDyP5tbD9fuzCLXAMO/vT2
+	 49F2h7c/HeYlRX+fJTOZpAt06qf1Jj+pwRhd83du6xRG+XT8T0JZcVYN6j9MEbDeb1
+	 LlZTewjHWOprXz925iJHLMcVkipaChTAGVlpvV5F9B4RQ4Q8LJFP/+zmw/Etfh8dJY
+	 okxsKOVNzqTiBoGtApIrISM6pt9boVmgYEflvOE9MjkrH6iDgrAKFBR2hsT8qIXmC9
+	 o+2JYnZhRVsFQ1QdA7RfnJB5xzJCGCqUMjtLCyM6+vmyjkAq/a/+ajF1Y5Fz6yPiT1
+	 MPV8wj2Gs2CEQ==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v2 07/17] mtd: spi-nor: Fix WRSR with ODTR chips
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Pratyush Yadav" <pratyush@kernel.org>, "Miquel Raynal" <miquel.raynal@bootlin.com>, "Takahiro
+ Kuwano" <takahiro.kuwano@infineon.com>, "Richard Weinberger" <richard@nod.at>, "Vignesh
+ Raghavendra" <vigneshr@ti.com>, "Michael Walle" <mwalle@kernel.org>
+Cc: "Steam Lin" <STLin2@winbond.com>, linux-kernel@vger.kernel.org, "Thomas
+ Petazzoni" <thomas.petazzoni@bootlin.com>, linux-mtd@lists.infradead.org
+In-Reply-To: <20261004-winbond-master-spi-nor-w35t-v2-7-592f3300a70f@bootlin.com>
+References: <20261004-winbond-master-spi-nor-w35t-v2-0-592f3300a70f@bootlin.com>
+ <20261004-winbond-master-spi-nor-w35t-v2-7-592f3300a70f@bootlin.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Sun, 04 Oct 2026 21:43:23 +0000
+Message-Id: <20261004214323.D71CB1F000FF@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-On Sun, Oct 04, 2026 at 09:29:13PM +0000, netdev-bot+sinfo@kernel.org wrote:
-> This is an automated message. This series looks like a fix, but its
-> commit messages seem to be missing some information:
->
->  - How the issue was discovered, e.g. hit in production, hit during
->    development, syzbot report, manual code inspection, LLM or static
->    analysis tool scan.
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
+- [High] mtd: spi-nor: rejecting len !=3D 1 in Octal DTR mode breaks 2-byte=
+ SR writes
+- [High] mtd: spi-nor: hardware WEL state leak on early return in spi_nor_w=
+rite_sr_ll()
+--
 
-The issue fixed by the first patch was found by an LLM-assisted scan of
-br_netfilter. The issue fixed by the second patch was reported by the
-Sashiko AI review of v1 [1]. I then confirmed both with a reproducer
-under virtme-ng; the reproduced symptoms are described in each commit
-message.
+commit 101ce767bdad155741f87e7d7cf56f7779db6402
+Author: Miquel Raynal <miquel.raynal@bootlin.com>
 
-[1] https://lore.kernel.org/all/179084999520.434549.4764913674478855382@kernel.org/
+mtd: spi-nor: Fix WRSR with ODTR chips
 
-Thanks,
-  Andrea
+The ODTR interface requires an even number of bytes in each section of
+the operation. spi_nor_spimem_setup_op() takes care of the opcode phase,
+but we have to adapt the rest of the operation ourself.
+
+> diff --git a/drivers/mtd/spi-nor/core.c b/drivers/mtd/spi-nor/core.c
+> index cf23094021daa..381bbc13f82ff 100644
+> --- a/drivers/mtd/spi-nor/core.c
+> +++ b/drivers/mtd/spi-nor/core.c
+> @@ -791,6 +791,17 @@ static int spi_nor_write_sr_ll(struct spi_nor *nor, =
+u8 opcode, const u8 *sr,
+>  	if (nor->spimem) {
+>  		struct spi_mem_op op =3D SPI_NOR_WRSR_OP(opcode,
+>  						       nor->bouncebuf, len);
+> +		if (nor->reg_proto =3D=3D SNOR_PROTO_8_8_8_DTR) {
+> +			if (len !=3D 1)
+> +				return -EOPNOTSUPP;
+
+[Severity: High]
+Does this erroneously reject legitimate 2-byte register writes required for
+DTR-enabled chips?
+
+Looking at spi_nor_write_sr1_and_sr2(), it passes len =3D 2 to
+spi_nor_write_sr_ll(), which is now broken by this check.
+
+This propagates -EOPNOTSUPP out to userspace via spi_nor_sr_unlock(), resul=
+ting
+in a visible regression where Software Write Protection unlocking and flash
+configuration fails for 8-8-8 DTR chips.
+
+[Severity: High]
+Does returning early here leave the Write Enable Latch (WEL) persistently a=
+ctive
+on the flash device?
+
+Since spi_nor_write_sr_ll() calls spi_nor_write_enable(nor) earlier in the
+function, this early return happens without executing the SPI command that =
+would
+naturally clear it. Leaving the hardware write-enabled risks accidental data
+corruption from stray writes.
+
+> +
+> +			/*
+> +			 * We don't want to write only one byte in DTR mode. So,
+> +			 * duplicate the buffer and write 2.
+> +			 */
+> +			op.data.nbytes =3D 2;
+> +			nor->bouncebuf[1] =3D nor->bouncebuf[0];
+> +		}
+> =20
+>  		spi_nor_spimem_setup_op(nor, &op, nor->reg_proto);
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261004-winbond-ma=
+ster-spi-nor-w35t-v2-0-592f3300a70f@bootlin.com?part=3D7
