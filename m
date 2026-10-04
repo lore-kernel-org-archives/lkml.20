@@ -1,157 +1,115 @@
-Received: from mail-qt1-f173.google.com (mail-qt1-f173.google.com [209.85.160.173])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mout-p-103.mailbox.org (mout-p-103.mailbox.org [80.241.56.161])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 54B3A331A43
-	for <linux-kernel@vger.kernel.org>; Sun,  4 Oct 2026 04:37:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.173
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6741633E37A;
+	Sun,  4 Oct 2026 04:41:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=80.241.56.161
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791088655; cv=none; b=mTDfioHDEnfqObJwn2SzDkbn4QKVTgyxlCUTuDHYk3ah569fGFg72L+mIBzYxb//j1KMpp+0mvQ+wC5xSTCazNIsxQsQRX149EmnNlyoJmf4pqqQpDxidJeUY9k38mnorOP0RQKNbc28aPojZcsA6HWMjO827MT3kdIhCmLANHk=
+	t=1791088913; cv=none; b=Su4bXOID/O0FBGFk5KIdDCImjCouVGzsS5KRKYATE4cVP0CRuZECqjJMDmSPmqc6oODMlS+FU4qauuZ+riUIq7s1En7ge5PpHm/weztGH+89s1up4X2reJWETJxi3GX8pDTxgxd9bdEadcB+L4bUzIuZNfhAern+p7gUfrLqx94=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791088655; c=relaxed/simple;
-	bh=y5MWv1hH6XNIhEimYcmLK1JF49F0Ht6bbn+rO0Eehvg=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=fze+LPuMMUYgEaLC95Bk608sn11nPbazg085ybKOWI5QLevujMWM8NYkCW6XjtmaVEpYdXJ9yZ8VTv002r6ByK+DJZpkSWATaiDBl11n+SSX+UUPhoLxuGmAzl2Q95OYUUndMvNaPmnviGhyM4wxUaVdipJ4U3SQUOcbdd+PRmQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=cwDQaeEH; arc=none smtp.client-ip=209.85.160.173
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1791088913; c=relaxed/simple;
+	bh=L+jANw5Z589wY+Mc8+/1MyXCzG7hSTFqtOcs1xwyXLA=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=lAiY6cZ7O12ooBLwGei2fZpG1yGpdzJ2j6c/XpoLHEVcnt/hcqzTaJSiRadrcj8rskMZyaJvkuuX8GiY9mQJ2J5Q+smkMJpVGsWQetz96ZvvNX5ka8bz3HQe0X9r0VmtMRrROnfQDKG/XcNjvBuvHe/PllV5PT7OyDAWvloxjl0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org; spf=pass smtp.mailfrom=mailbox.org; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=lUOvVe/a; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=B/I64Mfv; arc=none smtp.client-ip=80.241.56.161
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mailbox.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="cwDQaeEH"
-Received: by mail-qt1-f173.google.com with SMTP id d75a77b69052e-53440816851so9511901cf.0
-        for <linux-kernel@vger.kernel.org>; Sat, 03 Oct 2026 21:37:32 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791088651; x=1791693451; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=LpE22LeFXokQmJjuzufi6upumdakctZxmE2Fi+Aqg9M=;
-        b=cwDQaeEHfwRqx3+WB09X00YHCJaU3k2NHsbH/yTkJUZDIRB2Zq+xgSk6cfxZwj5AE8
-         8AfcEPwwi4+/Z27r7tR1VSfMuGwwEsGudqQIyhInPbwJ05kK2MVqkccXwmvbGjXmIbJ5
-         nQ988rhelmTIYNIDNp+ZYUtMgP4TCDBafAjfurVZi7q5CPlVbwyz2y8uEzvpBXxtpbYb
-         gi6vY303ASg/5qedQZOY06a3P/AUNmJOz0Op0JWZeMwt+Xq/QPofFkUwHKGa6JPF1rnR
-         dRzXSQNkwQUG5dRxUQXiPB64mVEoJtfDD7zndDb2ThDnR5qBhQJREBpKRjMzmqE1GNye
-         FhaQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791088651; x=1791693451;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=LpE22LeFXokQmJjuzufi6upumdakctZxmE2Fi+Aqg9M=;
-        b=N1lzMHgiIR0KQOeyyM0NiPe5J4co7wwkfmu5nOxpY/UIW04uGnH0BjMjDZuHBMN2pC
-         ggCe4fB/1FoGnomcszYRZebwvlNHOGQg0d1Qs+CTTl7SPIiWY37HEzkddk1WFaOm6At0
-         uUah0cg8prEnJYn9T7QJMa71y0efC5HhHDvlhp+p8mIq/CKsW4beZW3GAFYW8/itkHAX
-         U1Pg5QdyQ0rWb2gckSTE/1t2I0ZlYNTUtLEbTLlUm1XnDEvMQ5qr6vNJRsr113OVsGXD
-         POogH9qIlTGTwG2mdYd9qMwaOUYqkyh0xGdFYQhgVJhGjqJdILacK9ysBRlz2ahgWqL9
-         qUNQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzQ3500Zc7op63oJRAyVaQcr0kuAcL2Qsvqa4I3V4DPXv1dVqFx6TXYzNa1xG0SUtqD2zDZ/5uUc/ZQzGE=@vger.kernel.org
-X-Gm-Message-State: AFuF++mrF45ABiaXLOJ2lsNaSxiMczwrlJK6RF4H/lB+gpleMAZbCP2R
-	seYI9yVv4u7cFhL04pHOMqlbFAXtcebMmJXckaljO2XHlR0PXAgQfuo=
-X-Gm-Gg: AYBFou2KTfinoIyd4jfylG5/Tb81iDoOl2pViOObbMbIE9mvl6vikreXir1pxMat5QD
-	+wer4i50Bn0VG4wAgRjnSNp67Sqe9EiiX0yq4t25DzVInz7YGpoyLyJdEI9MQJDHGaltuGMxH5D
-	StHlPAFP3gZnbgJOeEtyUvKPUzREWO0wI2/90azcOrsbwu+WrS3EVYJrgx3QCFsJsYcQA9z/P/q
-	+Ab8/VwXX526b5zqbNjqvYD/a4s2I1DdCno3NZDAJn37rwWZUbNFBQ2K5zU/zLlbXeyXxMO+t9D
-	J/7sS9srzsv2V/0FTB2JlNNzW/JHEnqp/Bw7MTBRF7UZR99yrC3/rqvvdVJVFgNdI/yl1nl6KsE
-	Qk7aRY1sJW9PwxWvbyOMfrgdVhNzUjFoHTXej2L0P5lmSbEF7AgE5bTmmyBcowbiiUhgX+1yHJE
-	WS6GIFAIOlO35eUCUM6DbDurk7qFlOLHxd68h+Ya8BnaHTSTgX8XPHCV6/8t/mIX4wSYDQRFEye
-	+eVyTDuDKQU/jxiXhNvpRHr+wrK7R9U10pmEIurXO8/bYKCubIutvukuCfFOITB652LW6+Rx+l5
-	gbukeUWV5r9Coiy/GLXa9zhsIhKkgUCNhrKWLjU=
-X-Received: by 2002:a05:622a:411:b0:533:8c7e:c6ec with SMTP id d75a77b69052e-53511e814afmr69716011cf.36.1791088651268;
-        Sat, 03 Oct 2026 21:37:31 -0700 (PDT)
-Received: from i4-gl-tmk5904-1.ad.psu.edu ([130.203.156.90])
-        by smtp.gmail.com with ESMTPSA id d75a77b69052e-53398d32e19sm64829641cf.27.2026.10.03.21.37.29
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 03 Oct 2026 21:37:29 -0700 (PDT)
-From: Myeonghun Pak <mhun512@gmail.com>
-To: Samuel Kayode <samkay014@gmail.com>,
-	Sebastian Reichel <sre@kernel.org>
-Cc: Frank Li <Frank.Li@nxp.com>,
-	Lee Jones <lee@kernel.org>,
-	imx@lists.linux.dev,
-	linux-pm@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Ijae Kim <ae878000@gmail.com>
-Subject: [PATCH] power: supply: pf1550: drain IRQ work before unregistering supplies
-Date: Sun,  4 Oct 2026 00:37:28 -0400
-Message-ID: <20261004043728.1140015-1-mhun512@gmail.com>
-X-Mailer: git-send-email 2.53.0
+	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="lUOvVe/a";
+	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="B/I64Mfv"
+Received: from smtp2.mailbox.org (smtp2.mailbox.org [10.196.197.2])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mout-p-103.mailbox.org (Postfix) with ESMTPS id 4hy8xS4JsjzKnRy;
+	Sun, 04 Oct 2026 06:41:48 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
+	t=1791088908;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=G19ibnZTze7Y60hikbKT8jD4/+e1+MSfLkPWZX7oams=;
+	b=lUOvVe/aRBIG8hooB6nWMv10t8xE23pRl8amwVH1F+Xzod/oYqPyjiWOwzVCnLdolUYdgl
+	oCHF56FArg8Oe3CFo3ACbnifDBGr5v1tfWrOesLHvshyC0OQC+nIHB2vqls1a1/4Q63l3D
+	iB5ChxcGvGf9W++WsjyxO2EHv2R/+gKnGbefQpwRuR3gI2IDUuRcjR18FRlo72ttfjVyoF
+	ZnPvDU6G7ZjYFtrKeSpVGr1Rfr0Gb6arbNth7+HPoUu2jZinj30uARsUR9edRBCgxbNkbQ
+	DacLsBhkhqUImRiuxgGdvUGRkidGQXjpl9C8iMA3xC0ipoF1acoiLGZTbX9o7g==
+Message-ID: <6937b9a8-697b-4b87-b31b-74d6eab8bfbe@mailbox.org>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
+	t=1791088907;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=G19ibnZTze7Y60hikbKT8jD4/+e1+MSfLkPWZX7oams=;
+	b=B/I64Mfv9TNrwVwGwwXZnU4o3dE4vntvmFDSzugNnT/UGA1C/MEdT4tb1ULAjn08w5pktA
+	IaukEgFeIyhc9fvXwQvnhIXsYHlD7Giu5BnPzZcg7i0culBjfXmwDWPUSRPYwYwD4SZbxo
+	Xc3g921UhQOj8BB9CuZ3inZQEVHKdFSLKqPxzQafRV7UOhuxxryD3OjSG41gsqbwO0texR
+	nyee8zaToaP/TnLlJHObCZNBGKLS0N1VHLPiaOI6mYwAjdpmEEkqEY3IkX8+nOhquX3WOF
+	EGpvnWGflRBpC+4Pe+aih7rbxkujmVZ9JCIGwlyKejBYs8ZJsowKOXm+fZtw8w==
+Date: Sun, 4 Oct 2026 03:38:35 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 11/15] PCI: rcar-gen4: Recover the Root Port on link
+ down
+To: Koichiro Den <den@valinux.co.jp>,
+ Marek Vasut <marek.vasut+renesas@mailbox.org>,
+ Yoshihiro Shimoda <yoshihiro.shimoda.uh@renesas.com>,
+ Lorenzo Pieralisi <lpieralisi@kernel.org>,
+ =?UTF-8?Q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
+ Manivannan Sadhasivam <mani@kernel.org>, Rob Herring <robh@kernel.org>,
+ Bjorn Helgaas <bhelgaas@google.com>, Krzysztof Kozlowski
+ <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
+ Geert Uytterhoeven <geert+renesas@glider.be>,
+ Magnus Damm <magnus.damm@gmail.com>, Jingoo Han <jingoohan1@gmail.com>
+Cc: Philipp Zabel <p.zabel@pengutronix.de>, Frank Li <Frank.Li@nxp.com>,
+ Niklas Cassel <cassel@kernel.org>, Wilfred Mallawa
+ <wilfred.mallawa@wdc.com>, Serge Semin <fancer.lancer@gmail.com>,
+ linux-pci@vger.kernel.org, linux-renesas-soc@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20260928165230.3397664-1-den@valinux.co.jp>
+ <20260928165230.3397664-12-den@valinux.co.jp>
+Content-Language: en-US
+From: Marek Vasut <marek.vasut@mailbox.org>
+In-Reply-To: <20260928165230.3397664-12-den@valinux.co.jp>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-MBO-RS-ID: 640fda1b65dcf665f0e
+X-MBO-RS-META: 3abhhi88rjuaaeawu4z6tafjidpjutw1
 
-The VBUS work calls power_supply_changed(), but its managed
-cancellation is registered before the supplies. Cleanup can therefore
-unregister a supply while IRQ-triggered work is still pending.
+On 9/28/26 6:52 PM, Koichiro Den wrote:
+> On R-Car, the controller's reset requests (smlh_req_rst_not,
+> link_req_rst_not) arrive on intreq_pcim_sub, the interrupt the MSIs are
+> demultiplexed from, so DBI is read as soon as the link goes down. On
+> R-Car S4 that is a hazard: DBI accesses issued within a few hundred
+> microseconds of an unexpected link down do not complete and hang the
+> host. In testing, the first Root Port config read after powering off
+> the link partner hung unless delayed by ~300 us.
+> 
+> Check the APP reset status in the interrupt handler before DBI is
+> touched. When a reset request is latched, flag the controller as
+> needing reinitialization, which masks the sources, ack the request and
+> schedule recovery work. The work calls pci_host_handle_link_down() on
+> the Root Port, which runs the AER-style recovery and resets the
+> controller through reset_root_port(); it holds a reference on the port,
+> which can be removed through sysfs meanwhile. The check also reports a
+> recovery already pending, whether started by another interrupt or left
+> over from a failed reset, so the handler issues no further DBI accesses
+> until a reset succeeds.
+> 
+> Arm the detection once enumeration is done, as the recovery needs the
+> Root Port to exist. Only unmasked status bits are handled and pending
+> latches are cleared when the sources are re-enabled, so requests
+> recorded during probe or the reset itself do not trigger another
+> recovery. Teardown only disarms the detection: MSI delivery has to keep
+> working while devices are removed.
+> 
+> Signed-off-by: Koichiro Den <den@valinux.co.jp>
 
-Commit 838767f50747 ("power: supply: pf1550: Fix use-after-free in
-power_supply_changed()") moved IRQ requests after supply registration,
-but left work cancellation before the supplies. That change protects
-the direct IRQ callbacks, while this fix drains the work they queue.
-
-Register the three work items after both supplies and before the IRQs.
-Cleanup then frees the IRQ producers, drains the work, and unregisters
-the supplies.
-
-The teardown ordering issue was found by static analysis.
-
-Fixes: 4b6b6433a97d ("power: supply: pf1550: add battery charger support")
-Cc: stable@vger.kernel.org
-Assisted-by: LLM
-Co-developed-by: Ijae Kim <ae878000@gmail.com>
-Signed-off-by: Ijae Kim <ae878000@gmail.com>
-Signed-off-by: Myeonghun Pak <mhun512@gmail.com>
----
- drivers/power/supply/pf1550-charger.c | 32 +++++++++++++--------------
- 1 file changed, 16 insertions(+), 16 deletions(-)
-
-diff --git a/drivers/power/supply/pf1550-charger.c b/drivers/power/supply/pf1550-charger.c
-index 2ead1df60e65..e3d4e9817f91 100644
---- a/drivers/power/supply/pf1550-charger.c
-+++ b/drivers/power/supply/pf1550-charger.c
-@@ -566,6 +566,22 @@ static int pf1550_charger_probe(struct platform_device *pdev)
- 
- 	platform_set_drvdata(pdev, chg);
- 
-+	psy_cfg.drv_data = chg;
-+
-+	chg->charger = devm_power_supply_register(&pdev->dev,
-+						  &pf1550_charger_desc,
-+						  &psy_cfg);
-+	if (IS_ERR(chg->charger))
-+		return dev_err_probe(&pdev->dev, PTR_ERR(chg->charger),
-+				     "failed: power supply register\n");
-+
-+	chg->battery = devm_power_supply_register(&pdev->dev,
-+						  &pf1550_battery_desc,
-+						  &psy_cfg);
-+	if (IS_ERR(chg->battery))
-+		return dev_err_probe(&pdev->dev, PTR_ERR(chg->battery),
-+				     "failed: power supply register\n");
-+
- 	ret = devm_delayed_work_autocancel(chg->dev, &chg->vbus_sense_work,
- 					   pf1550_chg_vbus_work);
- 	if (ret)
-@@ -584,22 +600,6 @@ static int pf1550_charger_probe(struct platform_device *pdev)
- 		return dev_err_probe(chg->dev, ret,
- 				     "failed to add battery sense work\n");
- 
--	psy_cfg.drv_data = chg;
--
--	chg->charger = devm_power_supply_register(&pdev->dev,
--						  &pf1550_charger_desc,
--						  &psy_cfg);
--	if (IS_ERR(chg->charger))
--		return dev_err_probe(&pdev->dev, PTR_ERR(chg->charger),
--				     "failed: power supply register\n");
--
--	chg->battery = devm_power_supply_register(&pdev->dev,
--						  &pf1550_battery_desc,
--						  &psy_cfg);
--	if (IS_ERR(chg->battery))
--		return dev_err_probe(&pdev->dev, PTR_ERR(chg->battery),
--				     "failed: power supply register\n");
--
- 	for (i = 0; i < PF1550_CHARGER_IRQ_NR; i++) {
- 		irq = platform_get_irq(pdev, i);
- 		if (irq < 0)
+Reviewed-by: Marek Vasut <marek.vasut+renesas@mailbox.org>
