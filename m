@@ -1,201 +1,123 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj2-f40.google.com (mail-pj2-f40.google.com [74.125.227.168])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 95A242566F7
-	for <linux-kernel@vger.kernel.org>; Sun,  4 Oct 2026 13:47:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791121630; cv=none; b=cDo6AQWtpcFcwBjABkNxG9nd8CdF5ew6dxmJWZrHqqOsG445PDvmNrh4UqKulTtIPh3V0SiyIhcln+hOhWP3P0vXEe5IFxCZGOHtVB6oGRwishpQhPtieAVUX+MhjZ/0O1PPyOHlyluB4cYCS/cSU/+6p5/iW1vurZFt+nONn3Y=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791121630; c=relaxed/simple;
-	bh=+H/LK9pldSq75Vnp9Wpnv4t7kL1lHeZdHpTieZtFgX8=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=V43O9/j82MpfFaVO8AyzIW6guEPVBy14XDxkiUOroWPNvtNDpTSurQ8vLVdHXy3yX9xUxgc0zRX2HND8S9rVNhruqin2tnCi7xP0HxBuoFo4nJ+W28HM6aAamaAywVMzR7UJnCBDGh8uJWoMieMIQl2K2hQT1vbGgDvcaD3Iaes=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VxhHcyw1; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CF1DB3955FE
+	for <linux-kernel@vger.kernel.org>; Sun,  4 Oct 2026 13:49:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.227.168
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791121762; cv=pass; b=GXiEJMV8Oev/MT4IsGLXL6tEDvA/CzFB5LDUuA9Yl2RfSoCkICNRO1jR5mpYcU8Yt78XSfRcr/jfVh3GSToGqP2of4gtr0zBvFo2YDX2lBw1LbDOX/jIcdLDMxhV+FXP70JTaTkkk11XnhjPjfwaDud7VuZ1xFpQ9C34Vc2aFXc=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791121762; c=relaxed/simple;
+	bh=LyXYJi1TmEPA7YN4VjpOXnC86f2Qy5TpD0Lev829kQs=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=AqatUpjLCWJS8LK8t8DzgcbRHRO9/lUGLXom53ZzuOOe+pFIqfSBMGt9g/1n5O4Hc1JZ+Hcy3n8ufirPf/nUdKfcKnz7e3/C+9Jm1TagxjPlm3DhUFZfYG04XO9LaLAKGRH1p95Ll63/tbR1WcIqLn+WZgRUP2YRUvKcBlKb3G0=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=T+XPYcow; arc=pass smtp.client-ip=74.125.227.168
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VxhHcyw1"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 915591F000FF;
-	Sun,  4 Oct 2026 13:47:07 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791121629;
-	bh=2Anbtm+pdahgrR9ZC/t4cu36UZjvdx8AEA18HRuyx4U=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date;
-	b=VxhHcyw17121mWewQWnFBlYu36WeLuxLz3s760/ygRpHOFWiW8bTFngobR3fAy91w
-	 F1s4OP2siQlEdbeom+A0c7ukrdAI2zTErw1X22qTFMh7SIi7eE7iw4loPqsHFBobAu
-	 68ewnymwJZ6caC1aE7V/FpxHLPVuPSJLcVQZ+xWsuEMefzBeD9b5Hx+ibfJgVHy5Md
-	 dy/CqZy0oru33VHC2txLf1g9Wd5aS+/axHyLERZhV1qTikLOp6/f0mzSrNb8wT8VJc
-	 S1XnWjiYpj1LRD3+fhTfaWIqZWUtBCe2ufRB0UoVE0z+MQ5gRpnb0kaEAhyKicwLYl
-	 kvo/Uswz0DQbg==
-From: Pratyush Yadav <pratyush@kernel.org>
-To: Tarun Sahu <tarunsahu@google.com>
-Cc: Andrew Morton <akpm@linux-foundation.org>,  Pasha Tatashin
- <pasha.tatashin@soleen.com>,  dmatlack@google.com,  Mike Rapoport
- <rppt@kernel.org>,  kexec@lists.infradead.org,
-  linux-kernel@vger.kernel.org,  dev.jain@arm.com,  Pratyush Yadav
- <pratyush@kernel.org>,  linux-mm@kvack.org
-Subject: Re: [PATCH v3 2/2] memblock: use binary search to locate candidate
- regions
-In-Reply-To: <20260926092448.4090401-2-tarunsahu@google.com> (Tarun Sahu's
-	message of "Sat, 26 Sep 2026 09:24:48 +0000")
-References: <20260926092448.4090401-1-tarunsahu@google.com>
-	<20260926092448.4090401-2-tarunsahu@google.com>
-Date: Sun, 04 Oct 2026 15:47:05 +0200
-Message-ID: <2vxz8q4dlgrq.fsf@kernel.org>
-User-Agent: Gnus/5.13 (Gnus v5.13)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="T+XPYcow"
+Received: by mail-pj2-f40.google.com with SMTP id d9443c01a7336-2e58733c31fso95255ad.0
+        for <linux-kernel@vger.kernel.org>; Sun, 04 Oct 2026 06:49:20 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1791121760; cv=none;
+        d=google.com; s=arc-20260327;
+        b=BEOfcx/2XTgY9WsCGLW338GZokrjo9SLXLw+OEuOjEQjikhs/G40yFamGlNumhH9NS
+         n0CIy3nFOAhTu+YykZ//5irh4pQAs89yjiqo5CBIr73YBbP7+l1SaVxmk/E6+6NuaObI
+         3HTti8kjdSh/tOEyRySc6K+l7tic0C9lFNtT4/Nf/L4kM1cv/gQ1Fk9gnmsSVDD/qWdx
+         6AEgRwK2wTz4Ip7pERMPetttWPH0ywHIAdnME6WJHXvebM2j/F+f4E/UaP/jAR3dfRPH
+         VPthfR9ec6JUcKPtjfYcUwFcZ9mAokM1umSGH9sje/qunlVlGNYXhH44qubPjmiGilcV
+         UZQA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=LyXYJi1TmEPA7YN4VjpOXnC86f2Qy5TpD0Lev829kQs=;
+        fh=AlNAwrfuDSpbPaRQnYSj2XjXOSTG4WqOh90YMR+1LdU=;
+        b=gxbLK75qaL4aghrszZDhuZ/7eprbLA3DoXeZiwreg/yJnWiGiUBjth86+2l3OoKM5q
+         ETtXg6Dh+0Pgv2JHdc0jrjMx587IEb26oxeEaqNadX4GUGgzthwGpPn3clNYo6xOuE9r
+         frQ4NkpPgnkLRssCxDMT7MaeUDB9bSvHT+tPARjPghb3nBVh7t3noaKbOHwaTiGF9jyu
+         WolmekQ1NV5xTMQI5ML3haDn7JcUqBs5IfaKxKroOYuSG2+giO03elRa38R7VwlwFBWD
+         fBPy8dXfPPwuxMKZfZ+zooqDLStcDp170kZ0SkjxGDpHRHcEWL8i4uBZiWKo9MLQuX95
+         InbA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791121760; x=1791726560; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=LyXYJi1TmEPA7YN4VjpOXnC86f2Qy5TpD0Lev829kQs=;
+        b=T+XPYcow1Fp1qKBICG2GU7LbXClqksNRU4Mg1A6ABipnIdRJrx6GkNMyYy3mln3bRf
+         uCKNxv0t0NXEXCnkIVofnH+tSi3FIlRj7rX8nmlpwTZoNHKtrVX7AFJ3kLdwl+6/fI5W
+         HXh+iV4ERcvu5Ze6oy+XgS+zSlu5/MtUJZQJgy3AOVMZ3gkk92UdqF9ooQ6WXuzvQYD1
+         DievlNO2hJdBWNjpkVdjVW6mLlAGaUF090BIkSXJngMeteY9aijasZE4MRCo3NnN33cI
+         +7E5qeZJTrmRcRTZAHmI2r2ZmSKxIaBNQUUYx0Ls7DzbHhaOP2dEDD1qt/Tr2cqueNpN
+         h2vA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791121760; x=1791726560;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=LyXYJi1TmEPA7YN4VjpOXnC86f2Qy5TpD0Lev829kQs=;
+        b=HiUuOJX35FgDPk1lLCmrv1ySAy543sW1BMLeUUkthisxU4VeJ+cipsT87leC86BJ1I
+         l7cuhT7ZFXCeno3P4FT5+jPWftTxJlz46PUOaERk+JXjRw+eUbKYee9N0Xm2m6kdn9MJ
+         lHzrLyMMQDgCiGgVAoqjLEHF1GkLJ+d8x7NNmUSC0M2ul5bjElYo/cpUxvyyYoOyI5Fm
+         Ww1sEwclON5Z+YC50JJ/WJw4GqgfR8b3dQfGJC9tpBuC+3AZbvrP5tBx+8X0GtZGTXE0
+         j2rSbvHqyig5wB3Nn+KvF15LGuMMVzY/lPZHBAEzW3R/470AGTMFCOqcwxXjdwi1K8c7
+         HIcg==
+X-Forwarded-Encrypted: i=1; AKwUvBwEpL+wdPHuyvf6NNmDQuBVV/GJXwu5Gly8h1TTuSdlIOPXOSnHv7PG+0er1Hc4C5wkIeq7q312V/RlLnU=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKw94eXlx4WhQ5s6kPL1awhRpscUfwPPiNzOtiBaDmo27kqmR7A
+	s+s+wxhWDmQK6YTVkzY/OcXbqxgMiPOFT00OV+/zrz+Nx5y8mvD0OXsaMEDI7zbrTiSSmy/+rVP
+	1Gwzshbzy2gBZTIEd8esuly1i8r6iT1s=
+X-Gm-Gg: AYBFou1TlkE+wUr/ulYxDE+F0KyOq630L6ywOLGFE0EptY9sSFPaKxVe9Qc//W7xmSn
+	O/F1F8F4JY0OyS+7nrcCLN9/Q2+hSy01wNJ5y0o5K200ayIQcByx41esNHR+Y9EhgBbfC9JTg4T
+	UPxRz9RXNeSHTeBsQhZMSYMaXr/p0ud9jHrWbPtg8IR9ewdp4ZzLkL11ZvGbZvV0hUOp9Y6FKGb
+	Rg4wNQgUfw5R4iWwtuZBUKT/XXAJg8a93jnJy5Uxk1Uig+EfPNNpguJPUkKSbvXgOHRR6Kz8cbl
+	/TxhjyXTVsdeZpOsMQ5GzpW0+E18hnxYn5kHhZJqCguV++QARcE4o9QXAPmSkp11z8zmjLjwl1S
+	OurRnpTj4qvPRVGjMmxfbT+UAk+uWBmYBWwNa/07HTCVxOnnz8zlmbWP5jFnMjCcXWiYHVqFWLY
+	AMBsDKZBzaBJ9zva4pYzWn+ZNhPQ==
+X-Received: by 2002:a17:902:cf0a:b0:2dd:ad74:6d22 with SMTP id
+ d9443c01a7336-2e49b654fe9mr80221975ad.31.1791121760020; Sun, 04 Oct 2026
+ 06:49:20 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain
+References: <20260811041934.7609-1-phucduc.bui@gmail.com> <ar_fLAeFU4rmrwiH@willie-the-truck>
+ <CAABR9nGqwTGcrr6bKsV5+0GYwkQoP0s_Tu6aTJrhJJW_ZRqFYg@mail.gmail.com>
+ <asCyI2_CNSoDJy1w@willie-the-truck> <CAABR9nH3pkFB-htyrD-Z+iBBcYoVX4Z-hFa_binWCXg9_cHU6A@mail.gmail.com>
+ <asISGdljsG86gUwb@willie-the-truck>
+In-Reply-To: <asISGdljsG86gUwb@willie-the-truck>
+From: Bui Duc Phuc <phucduc.bui@gmail.com>
+Date: Sun, 4 Oct 2026 20:49:07 +0700
+X-Gm-Features: AclHuK-zrgBelXuI-I6swFhIOsgOnzrRzpoelrWImLhb29cQsM2UcUlf5WCmPxw
+Message-ID: <CAABR9nFMR+D0j5kYR+HwLBOHG4WF7PUDrqjE4Bt0-VTUacxmBg@mail.gmail.com>
+Subject: Re: [PATCH] perf/arm-smmuv3: Propagate errors from optional IRQ lookup
+To: Will Deacon <will@kernel.org>
+Cc: Mark Rutland <mark.rutland@arm.com>, linux-perf-users@vger.kernel.org, 
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-On Sat, Sep 26 2026, Tarun Sahu wrote:
+Hi Will,
 
-> Use binary search (memblock_bsearch_start) in memblock_add_range() and
-> memblock_isolate_range() to locate candidate regions instead of linearly
-> scanning from index 0.
 >
-> Under heavy memory fragmentation (such as KHO page preservation registering
-> hundreds of thousands of disjoint folios), scanning from index 0 on every
-> insertion and isolation results in O(N^2) complexity, causing boot-time
-> memory retrieval to take several minutes (~268s for 393k pages).
+> Sorry, but how is failing the probe possibly better than continuing without
+> the optional interrupt? Add a diagnostic if you like, but aborting the probe
+> feels completely unnecessary to me.
 >
-> Using binary search reduces the worst-case complexity to O(N log N)
-> (and O(N) for sequential appends), cutting KHO memory retrieval time
-> from ~268s to ~50ms.
->
-> memblock_search() open codes the same binary search, so reimplement it on
-> top of the new helper.
->
-> Signed-off-by: Tarun Sahu <tarunsahu@google.com>
->
->  mm/memblock.c | 53 +++++++++++++++++++++++++++++++++++----------------
->  1 file changed, 37 insertions(+), 16 deletions(-)
->
-> diff --git a/mm/memblock.c b/mm/memblock.c
-> index 59dda7d085f3..87c71435c80c 100644
-> --- a/mm/memblock.c
-> +++ b/mm/memblock.c
-> @@ -586,6 +586,33 @@ static void __init_memblock memblock_insert_region(struct memblock_type *type,
->  	type->total_size += size;
->  }
->  
-> +/**
-> + * memblock_bsearch_start - Find the first region index where rend > base
-> + * @type: memblock type to search
-> + * @base: base physical address of the candidate range
-> + *
-> + * Returns the first region index that could potentially overlap @base.
-> + */
-> +static int __init_memblock memblock_bsearch_start(struct memblock_type *type,
-> +						  phys_addr_t base)
-> +{
-> +	int mid, low = 0;
-> +	int high = type->cnt;
-> +
-> +	if (type->cnt && base >= type->regions[type->cnt - 1].base +
-> +				 type->regions[type->cnt - 1].size)
-> +		return type->cnt;
 
-In some testing I did of this patch some time ago, I recall that this
-check didn't have much of a difference on performance. The binary search
-is the real optimization.
+My understanding is that the driver is designed to be generic and
+support various hardware configurations, some with this resource (IRQ,
+GPIO, clock, ...) and some without.
 
-Do you think this check is worth keeping?
+If a configuration describes the resource, it means the board is
+designed to use it. For that hardware the "optional" nature of the
+driver no longer applies, so if we fail to get the resource the error
+should be returned.
 
-Other than this, I only have a couple minor nitpicks below.
+A log alone is easy to miss, and the root cause still has to be found
+and fixed later anyway. Failing the probe makes the problem visible
+right away, when the board is being brought up.
 
-Regardless of these small comments, this patch LGTM so feel free to add
-
-Reviewed-by: Pratyush Yadav <pratyush@kernel.org>
-
-> +
-> +	while (low < high) {
-> +		mid = (low + high) / 2;
-> +		if (type->regions[mid].base + type->regions[mid].size <= base)
-> +			low = mid + 1;
-> +		else
-> +			high = mid;
-> +	}
-> +	return low;
-> +}
-> +
->  /**
->   * memblock_add_range - add new memblock region
->   * @type: memblock type to add new region into
-> @@ -609,7 +636,7 @@ static int __init_memblock memblock_add_range(struct memblock_type *type,
->  	bool insert = false;
->  	phys_addr_t obase = base;
->  	phys_addr_t end = base + memblock_cap_size(base, &size);
-> -	int idx, nr_new, start_rgn = -1, end_rgn;
-> +	int idx, start_idx, nr_new, start_rgn = -1, end_rgn;
->  
->  	if (!size)
->  		return 0;
-> @@ -644,8 +671,9 @@ static int __init_memblock memblock_add_range(struct memblock_type *type,
->  	 */
->  	base = obase;
->  	nr_new = 0;
-> +	start_idx = memblock_bsearch_start(type, base);
->  
-> -	for (idx = 0; idx < type->cnt; idx++) {
-> +	for (idx = start_idx; idx < type->cnt; idx++) {
-
-Nit: why have start_idx as a separate variable? Why not assign idx to
-the result of memblock_bsearch_start() directly?
-
->  		struct memblock_region *rgn = &type->regions[idx];
->  		phys_addr_t rbase = rgn->base;
->  		phys_addr_t rend = rbase + rgn->size;
-> @@ -809,7 +837,7 @@ static int __init_memblock memblock_isolate_range(struct memblock_type *type,
->  					int *start_rgn, int *end_rgn)
->  {
->  	phys_addr_t end = base + memblock_cap_size(base, &size);
-> -	int idx;
-> +	int idx, start_idx;
->  
->  	*start_rgn = *end_rgn = 0;
->  
-> @@ -821,7 +849,9 @@ static int __init_memblock memblock_isolate_range(struct memblock_type *type,
->  		if (memblock_double_array(type, base, size) < 0)
->  			return -ENOMEM;
->  
-> -	for (idx = 0; idx < type->cnt; idx++) {
-> +	start_idx = memblock_bsearch_start(type, base);
-> +
-> +	for (idx = start_idx; idx < type->cnt; idx++) {
-
-Same here.
-
->  		struct memblock_region *rgn = &type->regions[idx];
->  		phys_addr_t rbase = rgn->base;
->  		phys_addr_t rend = rbase + rgn->size;
-> @@ -2062,19 +2092,10 @@ void __init memblock_mem_limit_remove_map(phys_addr_t limit)
->  
->  static int __init_memblock memblock_search(struct memblock_type *type, phys_addr_t addr)
->  {
-> -	unsigned int left = 0, right = type->cnt;
-> +	int idx = memblock_bsearch_start(type, addr);
->  
-> -	do {
-> -		unsigned int mid = (right + left) / 2;
-> -
-> -		if (addr < type->regions[mid].base)
-> -			right = mid;
-> -		else if (addr >= (type->regions[mid].base +
-> -				  type->regions[mid].size))
-> -			left = mid + 1;
-> -		else
-> -			return mid;
-> -	} while (left < right);
-> +	if (idx < type->cnt && addr >= type->regions[idx].base)
-> +		return idx;
->  	return -1;
->  }
->  
-> base-commit: 1f18d740165163910df64d3063e1ad31648bc5e0
-
--- 
-Regards,
-Pratyush Yadav
+Best regards,
+Phuc
