@@ -1,149 +1,218 @@
-Received: from PH0PR06CU001.outbound.protection.outlook.com (mail-westus3azon11011030.outbound.protection.outlook.com [40.107.208.30])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 250A9414A3B;
-	Sun,  4 Oct 2026 08:02:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.208.30
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791100967; cv=fail; b=GA/tHbLLW7ygRLIj4xtObO342qsS1db642RsIwyjSVc+4LFfdSaNLkEbcYb25m/p0l/gpMX05mQDx/mU1SAypNWeDQ3LfvgJEIheLvRRgLeH2RBkqkiBgO3Ka0WvlFnNS1M9zP4fj1IHstbJ71XivFIBYazydAYkVPes2krySM8=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id CB945415B7B;
+	Sun,  4 Oct 2026 08:02:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791100967; cv=none; b=UisMfvsOIMb5j7P1HJnaZMEe7E5p09+w8gVmA8+cBOmFSQq9a9S3DhzFXiEL9OjvolDNdZ66c61gucBPK34ucJMRIur7BSrfU3LqfLq4jUJDY8NTK1ZyQC62d/6mVxcCyHnnpSUG/2MqPx9RaYPn/40TbVEzic1m5tLRRq3UMeA=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1791100967; c=relaxed/simple;
-	bh=vfs/yJYtFtoruRJ2jbMiYIEsxe4t7GZwzHuFGrY/TbE=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
-	 Content-Disposition:In-Reply-To:MIME-Version; b=n/fknP8nzk9gJNj14pqMZhlFIwKBKpPFZ6wy4fyFbLoKimqJIu7FTMbeQV+sFHch3MqwkpsFD+UwShXjpk4fSy17IPVno3joawbceAU7n+KkcY7nzvidFXwZyB8j0vTpUWfqJF7WWIfviZrqP/vWTOBXSHGfWhBhmv2hnXrG6Ss=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=Mn1ai1G9; arc=fail smtp.client-ip=40.107.208.30
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	bh=ecGE4X9j2bsticIRcUqHR5bUQyajRHvaoi4JAuiXo/w=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=GySu3WT6uhCHBdYKlpa/3eNCzmropCe6/90cSCOyNT30ISaTFgnuNUdXHEaF1tAC3xayBhHoe++HGKaghdesRRVtincpFSob/gN5M/+VBQ2nOKLo6FZzO/WYETPnDUypCXTMlgErOFLY/5lyEW3IsK8cywUqh7jGC9F/BNVi83c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=nO8nxXOk; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="Mn1ai1G9"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=L1mXi1MSKa+s9vL+pe2Yo3ffME8rD4U8F10aHYfPxvMjPvhhMODSXnZUwx04i758MMoC0HmxozHPuTkrAWzYnlCqormHwHZ09vonMUiRs3orkVm7xU2C+9FCflwOuQxPZwLHz3wzRSGlciX7u9r1Tsgi7yWDqhHBlO6QSugn98p1RdN7ByLcUQt6tqRpuDPaTZS14Tqj87IY0MkwhNKZgMZutXATVwp7k29CMxVLEROLYcgOOR3SN98s7mb0Q00zRi6fui6obw4Om3ppjI9mYTBolEZlZVw13B3sj0dAtT4CCBrgTB7aivz4jBVib0mXEGw+cZI7yGSp8zEARB4HIw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=6RmuSFYJXzpfx8t2GYsyKzDDFvLcdOSiZkcw8l3ddTk=;
- b=pldNIJPUuoMDPnxx2uPhOAse0w2AP0Ax4q3fyCtKO2d7L5syPRz9Z1aSqDlHXfRWr9+7eM3rlYkyQPUFZm6/X3ELEp2YlCtIyCDFjcCimmyGAmsxfiLp2jh3VzDoef7P1jkZW9SrNw/6iisEnyNZcv9ik53xuNXvDn4kJQPAOgVYfZh7bSQnE8LtJMw2sPPgHKL9X/pfEZTyoKMp9wtsCpbaipnl1iszzqcv0msr93I5TWjVKGtRHt7DvDS84JYwKHmkW0NNe/PI9IYrzjagGUUiz5BK9XsLKxTcP+oUVE0fLLfC7yoxBwaIB+wNoZDuLmNFhrGvcTwLGdZFz/SufQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=6RmuSFYJXzpfx8t2GYsyKzDDFvLcdOSiZkcw8l3ddTk=;
- b=Mn1ai1G9ZwPxGdAnWNWVMLuC1Md1KkXzTiY6Ev5eqGNnFrlEIl8RsUnb0ALj0/xQO3RNcZICmTxEcVVVikfx/GQERqgS/DTI9kVHksiaQ6ofc7Y8wm8DVHTBGL6kqZfxcN+66w50GsY/z2DVIlcipzsTU+I8tCydF4nk2If4zutxLzXOrB8VQgy5K9NyanwFICD8q+Y/4CfxBR1Ft5KnrwFc7ZLSfPlejxO8yICVtuuJGshy227y3rABkHy2ozwqYOore1xIZFSSVlgGouDYInhieAMRzTFw3672eEvtWzizeFqk6SaDNsqkfBC82Mo+4ybx7G+e4MaIK69zhZMBQw==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from PH0PR12MB7957.namprd12.prod.outlook.com (2603:10b6:510:281::22)
- by SJ2PR12MB9115.namprd12.prod.outlook.com (2603:10b6:a03:55c::21) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.472.20; Sun, 4 Oct
- 2026 08:02:42 +0000
-Received: from PH0PR12MB7957.namprd12.prod.outlook.com
- ([fe80::9251:acc2:cc63:3499]) by PH0PR12MB7957.namprd12.prod.outlook.com
- ([fe80::9251:acc2:cc63:3499%3]) with mapi id 15.21.0451.026; Sun, 4 Oct 2026
- 08:02:36 +0000
-Date: Sun, 4 Oct 2026 11:02:28 +0300
-From: Ido Schimmel <idosch@nvidia.com>
-To: Daehyeon Ko <4ncienth@gmail.com>
-Cc: David Ahern <dsahern@kernel.org>,
-	"David S . Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>,
-	Vladimir Vdovin <deliran@verdict.gg>,
-	Donald Hunter <donald.hunter@gmail.com>,
-	Amit Cohen <amcohen@nvidia.com>, Roopa Prabhu <roopa@nvidia.com>,
-	netdev@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH net v2 2/3] ipv4: stop exception dump when nexthop group
- shrinks
-Message-ID: <20261004080228.GA92032@shredder>
-References: <cover.1790915964.git.4ncienth@gmail.com>
- <5bb7bd97411eb9db454464bf449107395e760f26.1790915964.git.4ncienth@gmail.com>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <5bb7bd97411eb9db454464bf449107395e760f26.1790915964.git.4ncienth@gmail.com>
-X-ClientProxiedBy: TL2P290CA0021.ISRP290.PROD.OUTLOOK.COM
- (2603:1096:950:3::15) To PH0PR12MB7957.namprd12.prod.outlook.com
- (2603:10b6:510:281::22)
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="nO8nxXOk"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id F337F1A32;
+	Sun,  4 Oct 2026 01:02:41 -0700 (PDT)
+Received: from pluto.fritz.box (usa-sjc-mx-foss1.foss.arm.com [172.31.20.19])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 0903A3F85F;
+	Sun,  4 Oct 2026 01:02:41 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1791100965; bh=ecGE4X9j2bsticIRcUqHR5bUQyajRHvaoi4JAuiXo/w=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+	b=nO8nxXOkwr2jAC73fieVH1P1FuAGj31Y7UUDUWGbXRFPiG2PCCGtiF6FKSU1lMkAH
+	 nL5GWch7DQNqDPOeyuHc5vEInuliBOYIDvWHHg5faIGNSVRoQ9Siqy5BNRCT6vQmoq
+	 jGY5kxjcB75oBimD/z2TZepe37dNCtUNWN1rBsHo=
+From: Cristian Marussi <cristian.marussi@arm.com>
+To: linux-kernel@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	arm-scmi@vger.kernel.org,
+	linux-doc@vger.kernel.org
+Cc: sudeep.holla@kernel.org,
+	james.quinlan@broadcom.com,
+	f.fainelli@gmail.com,
+	vincent.guittot@linaro.org,
+	etienne.carriere@st.com,
+	peng.fan@oss.nxp.com,
+	michal.simek@amd.com,
+	d-gole@ti.com,
+	jonathan.cameron@oss.qualcomm.com,
+	elif.topuz@arm.com,
+	lukasz.luba@arm.com,
+	philip.radford@arm.com,
+	david@kernel.org,
+	souvik.chakravarty@arm.com,
+	leitao@kernel.org,
+	kas@kernel.org,
+	puranjay@kernel.org,
+	usama.arif@linux.dev,
+	kernel-team@meta.com,
+	Cristian Marussi <cristian.marussi@arm.com>
+Subject: [PATCH v13 10/25] firmware: arm_scmi: Add support for Telemetry reset
+Date: Sun,  4 Oct 2026 09:00:51 +0100
+Message-ID: <20261004080106.3355393-11-cristian.marussi@arm.com>
+X-Mailer: git-send-email 2.54.0
+In-Reply-To: <20261004080106.3355393-1-cristian.marussi@arm.com>
+References: <20261004080106.3355393-1-cristian.marussi@arm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH0PR12MB7957:EE_|SJ2PR12MB9115:EE_
-X-MS-Office365-Filtering-Correlation-Id: 8f9ec4ec-c986-426b-1b6e-08df21edda25
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|376014|7416014|366016|23010399003|11063799006|56012099006|4143699003|10067099003|22082099003|18002099003|6133799003;
-X-Microsoft-Antispam-Message-Info:
-	Ym5e9DwGytOFjH3rudycAi9JDSwTFSk+zg61FsdowztHkXgYGHVUcqRuYZkIOfuw3KrG6KSiMn1BZrWXIoqW4JvxDNdpuZqOEWE1KarAHvEhKLDdXcEJfE9BSZcwvLCPNQMeOy3no8gd+N8VSm1ghZV0SGz/B7HKlNMQrFqBQZ4aGC/WbXiMxSpMhnl2fB2n7BVE48dx70FSiVQMIsZJdIsDRsJu2zt8yY6QKfM/ZCoD/k7R0+SiFJ0FW4kNpebwdO+GgCqZgndeSi72H5sbC/K/HDI/56UqhfdY+nZxE7AlGV+O8yt/OTNmOn2t7fCHWNxq5yOv07lC10x4x7kG2hHlZ8shZX5SIz0MbTUt2fbwLyTjstFgb7k0NkeaEM24Aw6KCwZzImE6L6rjJ86R5kjUzLb1GFBs9hlA1RWATZdqo2P0F4Genl7Y48AptegcWEQ9yS18EVTwzsMIoyXx0AD9exXDVF4abb19LtHSq2dWKmNEHIf/50GboryD96CxLgp7+IIeSsQ80I5l5L2v6nelY+0E79QIaidMZqTlxeITwyxdIgxSXWLiTTmS+mkJ9b5VfiFWSSbSr9SG+nVu+XOKNgAWOHRUxDbZcKA2XwJFmyNLhwngrcqtEqyiTaxhHppRBo9yHP/RNK0/3/rrPI5vG36YoreTv66LC3l5MDc=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH0PR12MB7957.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(376014)(7416014)(366016)(23010399003)(11063799006)(56012099006)(4143699003)(10067099003)(22082099003)(18002099003)(6133799003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?WM94sDHotQGofSPFJSbPHyC5obavGF6vlKTLdYdJTCekJSwfUkZKk+59hiI7?=
- =?us-ascii?Q?JTzyMvTDymd8hS6rQ3lyCGXFIOwbzsxdUBeNY9w4+t+POTEfaxA17k1kmGMT?=
- =?us-ascii?Q?vQjP0h604rR9YTkzQdlEMVBf8bog6MsDuDjBN562Y5LAFwiiAKKpb5zi5k7g?=
- =?us-ascii?Q?18X8Xxt24J74lHYf86j0OCpfbl3zcjcr/FRjz0bKwQyE6VpQQX8LrhW7XnSk?=
- =?us-ascii?Q?2s7Vsn7VdhaXyfsV6HUKnYTUcDk34WpnjiaUvoafpJBQlptkHjC9lg8m63fC?=
- =?us-ascii?Q?Vu8LhBx0BFRlFCpinnLxOF+fBKl5Gp9YsZc8il2XebzjZvwBLg/4H66nuQEX?=
- =?us-ascii?Q?alKcYwz5ruopC3JPZhooDyfMtW/qtl3VbX3R/sxbTbcmqQgGTXs02V0ScLGc?=
- =?us-ascii?Q?VTc+SasDFqJBXs3CzXOiMuzfMqegvKhHPgpbCF0LS2aZBIlotX+v+Y3Aoin0?=
- =?us-ascii?Q?mX8IiDQTkgF2h6b5zsugcFzDmVQPhlkdwdCVc23fiwS/XXckHRsWxJpzXRkS?=
- =?us-ascii?Q?l8p8a3fFiVzEiUsRnA55ARYUeJHVo3pF/VTRRxB5CVpCgOCKYYJtIrMVypk/?=
- =?us-ascii?Q?+xpo5aCGNpJ+3zV6HOF0Dsmhr6LUB/JI41hk/cb/bQBbNu+XI73G0UrVFiEt?=
- =?us-ascii?Q?a9Se2iO+PiDVPgh/VeePwrvGoxNIwNZIMl4gkRskhZmKGMMTl3+C0egAhHL4?=
- =?us-ascii?Q?ln1xIS7ca+KsFSdZrkJeeU/hmUM9Q45D6Xs//x5hiH3w5HF2gByH9XeAf5IJ?=
- =?us-ascii?Q?iwRY5aJ7Nr4qmuhaCRij/UFODhJibUGWdry1VuTWuFOhLUZs11hZtGuHza6R?=
- =?us-ascii?Q?D2PZtPp1X+3zOkKuqjE7LcBskuIBQCLkQNal5VyR7QgdVLqQRuKSqaYdBfad?=
- =?us-ascii?Q?V7DUmgJ3DQTJGVb+/ihJhgjmlv2qUygCKm6lAT4ROVMUz3QCFG8QrH1MN2Nb?=
- =?us-ascii?Q?r8RZy+4o4pYA1stpKPjvagXveG7w4xynEVHnj5bQPQKpt+aVcaDfMoDYuuJh?=
- =?us-ascii?Q?/bUhDAKq+2zuS5EXRYLGNS37uh7mJ5FGw9zNTMbv4JaPX323+cXxv3uw14Tt?=
- =?us-ascii?Q?biKY454+F2APJbws5cVslVeBDXg1x5IWf+f+adejZpgxKCtE/+W4jtWMBQLp?=
- =?us-ascii?Q?9BkZArg5t5XjkaOKxwAb1besmjg5XVWJGwX0h89A2wxhv7snK1h9Ep/boskq?=
- =?us-ascii?Q?IX3lpO02Cg5z/fBKCeGjv1jIdnzF8oyyVd4WBLQENhPdnXiI4w4/IT7tjqWc?=
- =?us-ascii?Q?9MEmzm1ArIB70RhbWs52HxD1qe0Gh/pHtdoZFWKYDA68/uyxg+AoOwsPoCp9?=
- =?us-ascii?Q?SKW7eDXG2rjKKonshh40T7Wl8y1FgBTPE7wZnPt28iYi4kTNY0SEk6VkVVLm?=
- =?us-ascii?Q?MKNqnDXeuKMbSIDk1p9SoRf+JldhGVUPFsn2Iiey2SgdSOejLpLohnVUYH9J?=
- =?us-ascii?Q?GyTJLYPKY5NpziX9cmXQZE8t1LMUkZJf7NwYoIadli1aGwlD2xZdcyo8UZQY?=
- =?us-ascii?Q?Ozy0DElXMoBS10zNnszlMsY0IlRvsj+Bu75dk6u+hA51EQADH2IUPtOZUT1L?=
- =?us-ascii?Q?TD9NQsA5NRNCJ77dhjPDdGX5Ffj2LFFEkREAnbVkZKsLGg9cjLvwQWGMFSc8?=
- =?us-ascii?Q?EnsFRww/DnnQFaPp2QwKO/4OwxNW1ptICHGG1qDH35twu4VyLcSjQq71Kqz1?=
- =?us-ascii?Q?NiXB35xxUyneeRaIR8/yx232oDu/mzrBa9dpULo/egsrsEqm?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 8f9ec4ec-c986-426b-1b6e-08df21edda25
-X-MS-Exchange-CrossTenant-AuthSource: PH0PR12MB7957.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Oct 2026 08:02:36.2158
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 4JSCQPOWc1rXTwPKqSlCEkG7x9tUtyi6e4iy/YGfNezjgr2+rkL4nBksobHV2ZMpkTNWmKbxUZBftEoTrZGB3w==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ2PR12MB9115
+Content-Transfer-Encoding: 8bit
 
-On Fri, Oct 02, 2026 at 01:50:59PM +0900, Daehyeon Ko wrote:
-> Commit 4ce5dc9316de ("inet: switch inet_dump_fib() to RCU
-> protection") allowed IPv4 FIB dumps to run concurrently with nexthop
-> replacement.
-> 
-> fib_dump_info_fnhe() uses fib_info_num_path() as the loop bound,
-> then fib_info_nhc() independently reloads nh->nh_grp. If
-> RTM_NEWNEXTHOP replaces a group with fewer paths between those loads,
-> fib_info_nhc() returns NULL and the dump dereferences it through
-> nhc_flags.
-> 
-> Stop the walk when the indexed path is absent. Nexthop groups are
-> dense, so the current snapshot has no later path.
-> 
-> Fixes: 4ce5dc9316de ("inet: switch inet_dump_fib() to RCU protection")
-> Reported-by: Ido Schimmel <idosch@nvidia.com>
-> Link: https://lore.kernel.org/netdev/20261001170513.GA1657889@shredder/
-> Cc: stable@vger.kernel.org
-> Assisted-by: LLM
-> Signed-off-by: Daehyeon Ko <4ncienth@gmail.com>
+Add support for Telemetry operations needed to request platform to
+reset telemetry current configuration and data events values.
 
-Reviewed-by: Ido Schimmel <idosch@nvidia.com>
+Signed-off-by: Cristian Marussi <cristian.marussi@arm.com>
+---
+v12 --> v13
+ - relocate tde->mtx guards higher up and add lockdep assertions
+ - unlink BLKTS under tde->mtx on local free
+v11 --> v12
+ - using config_mtx to sync with ongoing configurations
+ - use proper helpers to update cache state
+v10 --> v11
+ - protect TDE updates on reset
+ - use des_enable mutex when clearing des cache
+ - zero also active_update_interval
+v8 --> v9
+ - add a commment on why NOT unlinking UUID
+v6 --> v7
+ - add proper cleanup of sid/offs/uuids and caches on RESET
+v5 --> v6
+ - added missing reset of global state
+v3 --> v4
+ - reset tracked Telemetry DE state
+v2 --> v3
+ - split from monolithic Telemetry patch
+ - use scmi_telemetry_de_unlink
+---
+ drivers/firmware/arm_scmi/telemetry.c | 79 +++++++++++++++++++++++++++
+ include/linux/scmi_protocol.h         |  2 +
+ 2 files changed, 81 insertions(+)
+
+diff --git a/drivers/firmware/arm_scmi/telemetry.c b/drivers/firmware/arm_scmi/telemetry.c
+index e0efaac1f70c..e5ff3497bc33 100644
+--- a/drivers/firmware/arm_scmi/telemetry.c
++++ b/drivers/firmware/arm_scmi/telemetry.c
+@@ -3343,6 +3343,84 @@ static int scmi_telemetry_des_sample_get(const struct scmi_protocol_handle *ph,
+ 	return ret;
+ }
+ 
++static void scmi_telemetry_local_resources_reset(struct telemetry_info *ti)
++{
++	struct scmi_telemetry_res_info *rinfo;
++
++	ti->info.enabled = false;
++	ti->info.notif_enabled = false;
++	ti->info.current_mode = SCMI_TLM_ONDEMAND;
++	ti->info.active_update_interval = 0;
++
++	/* Get rinfo without triggering an enumeration, cannot be NULL anyway */
++	rinfo = __scmi_telemetry_resources_get(ti);
++
++	/* Clear all local state...*/
++	for (int i = 0; i < rinfo->num_des; i++) {
++		struct telemetry_de *tde = to_tde(rinfo->des[i]);
++
++		scoped_guard(mutex, &tde->mtx) {
++			tde->last_ts = 0;
++			tde->last_val = 0;
++			tde->last_magic = 0;
++			if (!tde->de.fc_support) {
++				tde->sid = SHMTI_ID_INVALID;
++				tde->base = NULL;
++				tde->offset = 0;
++				tde->eplg = NULL;
++			}
++
++			scmi_telemetry_de_state_update(ti, ENA_STATE,
++						       &tde->de.enabled, false);
++
++			if (tde->de.tstamp_support)
++				scmi_telemetry_de_state_update(ti, ENA_TSTAMP,
++							       &tde->de.tstamp_enabled,
++							       false);
++
++			/*
++			 * Unlinking ONLY BLK_TS lines since, per the SCMI spec,
++			 * the UUID/DE associations are permanent within the same
++			 * session boot: after a reset has cleared the server-side
++			 * configuration the next time SHMTIs will be re-populated,
++			 * these same UUID/DE associations will be re-instated.
++			 */
++			scmi_telemetry_blkts_unlink(tde);
++		}
++	}
++
++	for (int i = 0; i < rinfo->num_groups; i++) {
++		rinfo->grps[i].enabled = false;
++		rinfo->grps[i].tstamp_enabled = false;
++		rinfo->grps[i].current_mode = SCMI_TLM_ONDEMAND;
++		rinfo->grps[i].active_update_interval = 0;
++	}
++}
++
++static int scmi_telemetry_reset(const struct scmi_protocol_handle *ph)
++{
++	struct telemetry_info *ti = ph->get_priv(ph);
++	struct scmi_xfer *t;
++	int ret;
++
++	ret = ph->xops->xfer_get_init(ph, TELEMETRY_RESET, sizeof(u32), 0, &t);
++	if (ret)
++		return ret;
++
++	/* Stall concurrent configuration request */
++	guard(mutex)(&ti->config_mtx);
++
++	put_unaligned_le32(0, t->tx.buf);
++	ret = ph->xops->do_xfer(ph, t);
++	if (!ret) {
++		scmi_telemetry_local_resources_reset(ti);
++	}
++
++	ph->xops->xfer_put(ph, t);
++
++	return ret;
++}
++
+ static const struct scmi_telemetry_proto_ops tlm_proto_ops = {
+ 	.info_get = scmi_telemetry_info_get,
+ 	.de_lookup = scmi_telemetry_de_lookup,
+@@ -3353,6 +3431,7 @@ static const struct scmi_telemetry_proto_ops tlm_proto_ops = {
+ 	.de_data_read = scmi_telemetry_de_data_read,
+ 	.des_bulk_read = scmi_telemetry_des_bulk_read,
+ 	.des_sample_get = scmi_telemetry_des_sample_get,
++	.reset = scmi_telemetry_reset,
+ };
+ 
+ /**
+diff --git a/include/linux/scmi_protocol.h b/include/linux/scmi_protocol.h
+index 52c9031c266b..7656db822f30 100644
+--- a/include/linux/scmi_protocol.h
++++ b/include/linux/scmi_protocol.h
+@@ -1016,6 +1016,7 @@ struct scmi_telemetry_de_sample {
+  *		    the ones belonging to a specific group when provided.
+  *		    This causes an immediate update platform-side of all the
+  *		    enabled DEs.
++ * @reset: reset configuration and telemetry data.
+  */
+ struct scmi_telemetry_proto_ops {
+ 	const struct scmi_telemetry_info __must_check *(*info_get)
+@@ -1043,6 +1044,7 @@ struct scmi_telemetry_proto_ops {
+ 	int __must_check (*des_sample_get)(const struct scmi_protocol_handle *ph,
+ 					   int grp_id, int *num_samples,
+ 					   struct scmi_telemetry_de_sample *samples);
++	int (*reset)(const struct scmi_protocol_handle *ph);
+ };
+ 
+ /**
+-- 
+2.54.0
+
