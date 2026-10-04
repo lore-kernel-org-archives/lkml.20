@@ -1,108 +1,132 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 41BD62AE76
-	for <linux-kernel@vger.kernel.org>; Sun,  4 Oct 2026 10:55:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1205F41D118;
+	Sun,  4 Oct 2026 10:56:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791111343; cv=none; b=USj0Pb8umsXphXQ2lyralttkE7wi51Gc2wQtMVb/P2T48rgje0memyFQAnZMmFEm+2pRpo4A8+QJG5d07nFmDUUt0BQINRwsLi61IB3oEfYLviClaow4l3HUGOpdwy+wDX5I0uRyEUQbN1HSDPFg0XLkreIY2JwZiMLbF41E4p8=
+	t=1791111371; cv=none; b=XX+qgdNmyelJDzUbwaQe4gr/Dx+RFPwHzabM+PU4bzOyD94A9/+aiFYm68S4Q4Ljwu6DStM1el48v0K1V68ZfdXnEgXR3/PCI/GqR4R0gzvB+T8C6FkCoC175ToQ07MSPhZ/K0kRcn7dHXxboJy7XYyhVR02GrqyfHyvpyPfutg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791111343; c=relaxed/simple;
-	bh=kNuuBbyxYN3E8NBSQSTa12j9Xbd/aUt5iR6VHVS/HG4=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=aTZMWEkEJk+HKWBjUg1ioZwNMLIu8pXkYlptOWNjNk/h/OCoW2cs1lNQ2DtzkR1ud701r2Eh8RBgUHGAerOo3/4JN1SMnViSml/H/BF+Gv0eNIIlYcEbPsLYTerzILzOAXVXWZr+EXTVM8pmZ2tmNgFzQeTOFjIIXi9X3JjmpnI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=cQOCOn7P; arc=none smtp.client-ip=170.10.133.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	s=arc-20240116; t=1791111371; c=relaxed/simple;
+	bh=eFjR4KJsXCZAmqydFLtrMntzQlJhSfNh3DmVSCds5tg=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=mnKZrb6WiF3mz2PG58tiutwXPSwROYUJ24pbgWtXnsn+g90bUqfVB28E16i6UHI9nbVFCGgaLlYCUUjKvUFlKkbk5F/zxGxRwetGGGkp0xBE9Y8bHSfc32cKeNjS4Y2rh9hXREzkyYK7yOK8tBXONdBBN5S1h4Vi8AIhEejoUhU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LY233FBE; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="cQOCOn7P"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1791111341;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=S7+owvvkHEXqqx1fYEUwRKN6qErhX0u22H9ies2dMo8=;
-	b=cQOCOn7PMlcelKdjE995gOtQ0qDO+HNuSjVKL0Ntl+KTPw2Uql4IDtNPIPK1fO4Gav2/bC
-	Q+SmtUTDSyITxfinMdKK/1Dmg0rb29JGtO3uHJtnXeQaXKFhELecHolFAhrDhXyXyobif1
-	22i9wOPe2f4Euoa3Cjuhx5lpQZ4k/I4=
-Received: from mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-680-9XyyRRYKPa-Bqu11BoR5fw-1; Sun,
- 04 Oct 2026 06:55:39 -0400
-X-MC-Unique: 9XyyRRYKPa-Bqu11BoR5fw-1
-X-Mimecast-MFC-AGG-ID: 9XyyRRYKPa-Bqu11BoR5fw_1791111338
-Received: from mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.12])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 240E21809C8D;
-	Sun,  4 Oct 2026 10:55:38 +0000 (UTC)
-Received: from onestero-thinkpadp1gen7.tpbc.csb (headnet04.pony-001.prod.iad2.dc.redhat.com [10.2.32.116])
-	by mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with SMTP id CC3CD1956041;
-	Sun,  4 Oct 2026 10:55:35 +0000 (UTC)
-Received: by onestero-thinkpadp1gen7.tpbc.csb (nbSMTP-1.00) for uid 13628
-	oleg@redhat.com; Sun,  4 Oct 2026 12:55:37 +0200 (CEST)
-Date: Sun, 4 Oct 2026 12:55:34 +0200
-From: Oleg Nesterov <oleg@redhat.com>
-To: David Laight <david.laight.linux@gmail.com>
-Cc: Babanpreet Singh <bbnpreetsingh@gmail.com>,
-	Christian Brauner <brauner@kernel.org>,
-	Pavel Tikhomirov <ptikhomirov@virtuozzo.com>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	linux-kernel@vger.kernel.org,
-	syzbot+c382ee653fd70f5cf1bb@syzkaller.appspotmail.com
-Subject: Re: [PATCH] pid: use READ_ONCE() in pid_alive()
-Message-ID: <asIwpkNr9bF6gk6Q@redhat.com>
-References: <20261002012141.7-1-bbnpreetsingh@gmail.com>
- <20261003182224.2171b574@pumpkin>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LY233FBE"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7F4231F000FF;
+	Sun,  4 Oct 2026 10:56:08 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791111369;
+	bh=LfT/k0ScXAOXisjeEQ/qvWwYfgZMAcMZgWNtcWyAqJk=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=LY233FBEbWEq/nMece1XDsMtBC7SM0a+FlBaEEuYxHT85glvPLEp1JzkbSPAPExvX
+	 S96U+21kTurFblm1Q+ogkM2MaQtydJlRjzwiRnEtUcVnY7U2QC4CdDK5Xs4wWZZqY1
+	 QMKBS+sCV7/TG8L9zG2Oo1MPTSYA96qMamIyVcnWwXb4mH2NbfI9DvPqdi/C60lgYn
+	 dJVHHU3qXVFjYqsgV0QlmoUgeYhSu2TgycP+LNQe+t4Azyd5Q64bEFjd2eSgDgnUnI
+	 cBoQZ5sWrPR16sIAgG+odA8Un7uuq82xkQ6SHIRBySEUwQCtqRWe++sBzLXmJtmJqy
+	 AlMf2Dkt8TVDQ==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v4] mtd: spi-nor: take the flash lock in
+ spi_nor_restore()
+Reply-To: sashiko-reviews@lists.linux.dev
+To: pratyush@kernel.org, mwalle@kernel.org, "Itai Handler" <itai.handler@gmail.com>
+Cc: linux-kernel@vger.kernel.org, linux-mtd@lists.infradead.org, stable@vger.kernel.org, richard@nod.at, tudor.ambarus@linaro.org, takahiro.kuwano@infineon.com, miquel.raynal@bootlin.com, vigneshr@ti.com
+In-Reply-To: <20261004104311.2196527-1-itai.handler@gmail.com>
+References: <20261004104311.2196527-1-itai.handler@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Sun, 04 Oct 2026 10:56:08 +0000
+Message-Id: <20261004105608.7F4231F000FF@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261003182224.2171b574@pumpkin>
-X-Scanned-By: MIMEDefang 3.0 on 10.30.177.12
 
-On 10/03, David Laight wrote:
->
-> On Fri,  2 Oct 2026 01:21:41 +0000
-> Babanpreet Singh <bbnpreetsingh@gmail.com> wrote:
->
-> > KCSAN reports pid_alive() reading task->thread_pid while it gets cleared
-> > under tasklist_lock. The check only cares about NULL, so READ_ONCE() and
-> > WRITE_ONCE() are enough.
->
-> I just looked at change_pid() - isn't it completely broken?
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
+- [High] mtd: spi-nor: hardware restore skipped on fatal signal during tear=
+down
+- [High] mtd: spi-nor: shutdown and unbind hang waiting for multi-sector er=
+ase
+--
 
-No, but...
+commit 470af3f1f5f19ab1426ba1f38a4c4420e0274e2b
+Author: Itai Handler <itai.handler@gmail.com>
 
-> __change_pid() uses hlist_del_rcu() to remove the item from a list.
-> IIUC this leaves the 'next' pointer valid to allow for concurrent readers.
-> I thought that had to stay valid until the end of the rcu period.
-> But the following attach_pid() adds the item to another list.
+mtd: spi-nor: take the flash lock in spi_nor_restore()
 
-Yep. That is why do_each_pid_task() needs tasklist_lock.
+This commit takes the flash lock during teardown to avoid racing with
+in-flight operations. It waits for active operations to complete so that
+exiting 4-byte address mode and soft resets are not ignored or do not
+abort an ongoing erase. If the lock cannot be acquired, the hardware
+restore is skipped.
 
-This is the known fact, let me quote the part of my old email
-https://lore.kernel.org/all/20200512150936.GA28621@redhat.com/
+> diff --git a/drivers/mtd/spi-nor/core.c b/drivers/mtd/spi-nor/core.c
+> index 8bc117b46e028..94dbf1be776f8 100644
+> --- a/drivers/mtd/spi-nor/core.c
+> +++ b/drivers/mtd/spi-nor/core.c
+> @@ -3455,6 +3455,21 @@ static void spi_nor_restore(struct spi_nor *nor)
+>  {
+>  	int ret;
+> =20
+> +	/*
+> +	 * The MTD device is still registered here, so another thread may
+> +	 * have an operation in flight. Wait for it rather than cut in:
+> +	 * while the chip is busy the address mode exit below is typically
+> +	 * ignored, which silently loses the restore, and the soft reset is
+> +	 * typically accepted, which aborts an erase part way through.
+> +	 */
+> +	ret =3D spi_nor_prep_and_lock(nor);
 
-	> Currently the tasklist_lock is shared mainly in order to observe
-	> the list atomically for the PRIO_PGRP and PRIO_USER cases, as
-	> the actual lookups are already rcu-safe,
+[Severity: High]
+Does this introduce a potential deadlock during shutdown or driver unbind?
 
-	not really...
+The commit message notes that the wait is bounded by the one operation
+already in flight. However, looking at spi_nor_erase(), the exclusive lock
+is acquired before looping over all sectors and is held continuously across
+the entire multi-sector operation:
 
-	do_each_pid_task(PIDTYPE_PGID) can race with change_pid(PIDTYPE_PGID)
-	which moves the task from one hlist to another. Yes, it is safe in
-	that task_struct can't go away. But still this is not right because
-	do_each_pid_task() can scan the wrong (2nd) hlist.
+spi_nor_erase()
+    spi_nor_prep_and_lock_pe(nor, instr->addr, instr->len);
+    ...
+    while (len) {
+        spi_nor_lock_device(nor);
+        spi_nor_erase_sector(nor, addr);
+        spi_nor_unlock_device(nor);
+        ...
+    }
 
-Somehow I thought this was documented, but it isn't. And this is not obvious.
-I think this deserves a comment above do_each_pid_task(), will send the patch.
+Since spi_nor_prep_and_lock() calls spi_nor_rww_start_exclusive() to wait
+for the ongoing erase to finish, it appears this will block the teardown
+thread until the entire batch operation completes. For a full-chip erase,
+could this stall system shutdown or driver unbind for several minutes?
 
-Oleg.
+> +	if (ret) {
+> +		dev_warn(nor->dev,
+> +			 "Failed to lock flash, skipping restore, err =3D %d\n",
+> +			 ret);
+> +		return;
+> +	}
 
+[Severity: High]
+Can a fatal signal cause the device to be left in an incompatible state?
+
+If a long-running erase is taking place during unbind, and a user sends
+SIGKILL to abort the hang, wait_event_killable() inside
+spi_nor_prep_and_lock() will return -ERESTARTSYS.
+
+Because this error path skips the restore entirely, the driver core will
+continue with device unregistration while the hardware is left stuck in
+4-byte address mode. Will this break subsequent driver rebinds or kexec
+kernels that expect the default 3-byte mode?
+
+> +
+>  	/* restore the addressing mode */
+>  	if (nor->addr_nbytes =3D=3D 4 && !(nor->flags & SNOR_F_4B_OPCODES) &&
+>  	    nor->flags & SNOR_F_BROKEN_RESET) {
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261004104311.2196=
+527-1-itai.handler@gmail.com?part=3D1
