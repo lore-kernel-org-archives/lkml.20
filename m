@@ -1,183 +1,267 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qk1-f227.google.com (mail-qk1-f227.google.com [209.85.222.227])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 06A6739FCB1;
-	Sun,  4 Oct 2026 14:30:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D5DD04519BF
+	for <linux-kernel@vger.kernel.org>; Sun,  4 Oct 2026 14:31:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.227
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791124256; cv=none; b=uParkEqkZDg9/J8+6hjzypMTHOWy+i3BBJRvzA0rUwGGexpzUxCPXkMIyW7V0UZphm/IxRfDHsvo37O6a7qvw0qkQoMJAbP0lNT3jICC0O5r3g/lAVqp3y2ypvq4QujuNqS1A+rSROWWVYnAQm+GWS5bMj1vPtPHx6drv4KnM9E=
+	t=1791124278; cv=none; b=nBHsCmijpEUChs1L+twBXo7RufJTOJzpXIlM3KLCCZgneX/dd7tfMw7cIxDxLIwwlHHDP2MeyMwLE0u5+7qGDrbIZDfB/ml1U2cGmwQn5BOIx7JzZMmcvG4HrocKNpRiWI63G7Q1nv3Wlw/DqmLhW/Fuz/KFSv56pl6ufXGQkB8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791124256; c=relaxed/simple;
-	bh=YNbxPIQ7p8bv7Fhpg0feU9GPIOMaC/eJGtbmMcGjXEI=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=cbKT5bzWgSW7OdA5I+BTiKiTLQsBh8csqSVm3wepNLd/WPtQpioawaqgV9KLewT0aM0gbteliRpgA1FFS3z9j4c0MiQ38re3vlLBoyMcYoihI2jzUAvgYkbSbi0XMGwnwNsf0r1GiqB6kXSZKQI/H28XJXxEe7aMeJRpmSxbr0Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Ss5jfB3M; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791124278; c=relaxed/simple;
+	bh=Mn/mtSNymz3fe45FzY+x+c8GUCCvhPfcZV5KpmshgFQ=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=jBg9tnC4r7lOAmQw4wXgaNLtHcbWmwY9A3I7K3hvWOKO06DR520aTWy8xcvYk0IssCnkSvKnTKtyODxpdCh8ylIUXKJ7dZigJCuOXVW6Rzu+IXkxKMf3yN81uGH2HxOe4Nz2U/JmBtsEY1wdPkgAB9dKnQ0kmoYYRXpuRIzqIWg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com; spf=fail smtp.mailfrom=broadcom.com; dkim=pass (1024-bit key) header.d=broadcom.com header.i=@broadcom.com header.b=dn7EqR7x; arc=none smtp.client-ip=209.85.222.227
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=broadcom.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Ss5jfB3M"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8D1911F000FF;
-	Sun,  4 Oct 2026 14:30:51 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791124254;
-	bh=zP++n2LFI62vOgMuMM5u+RRnuthrPhN3WpLjzJ84R2c=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=Ss5jfB3MhhsRyHTAF6FsSmuUzGjA1uPrPc4H7K5us8XNZbF6hMOcusHgQv4RiJ4V6
-	 nAu8uBzE1XhUNAOO8KFN3H1mQ4pVANpgxIHDUyI5YazZpnOTiF9EaNwn/3A8+/MRor
-	 opfkhMKG99d36YuBTQYpQACfURdt87wlfoFdEfmUYHXo7OUYhRIT8//gkjXVOy/Oi4
-	 0MuyfmZyLteevlR31/jWp7BMT2s9PPhC3nPAYZZVlo8Q62BVz02zzNgA/jwCK3ZqC4
-	 bLm88iKCGu+qEhefu/UWEm6ELvoIyOYR/UiUsdWV4/DUAk21fOETlC0hd8IFJRuvxQ
-	 B1IeQhteYwuJA==
-Message-ID: <5b34d2da-6e53-4a93-9d08-7d64e9072562@kernel.org>
-Date: Sun, 4 Oct 2026 16:30:48 +0200
+	dkim=pass (1024-bit key) header.d=broadcom.com header.i=@broadcom.com header.b="dn7EqR7x"
+Received: by mail-qk1-f227.google.com with SMTP id af79cd13be357-93e4c00d71aso1897985a.3
+        for <linux-kernel@vger.kernel.org>; Sun, 04 Oct 2026 07:31:15 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791124274; x=1791729074;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:dkim-signature:x-gm-gg:x-gm-message-state
+         :from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=CraGn8RiQOD2fZCSi9N9UAjM9MxASoDa9DRwR9CVjso=;
+        b=bSKzZMuUDn0BU1pRzxidbsNE51/DrKBcszz/yrUpMnQodlaJOAQQCHUa+PXdIfXAZW
+         488qVBT8pdESMbbmsR/6I86Mj8YkUOFHXHofj06k501aJGw7BtUv3TrQqnDYIul4mJO5
+         MwRAPfmrksgSvycfQlbbfPpd98WGtWj4fyM42/5WZJRr+MICaA9HyGKlMwA+W/cWXAGh
+         gPXf1M9buLtRrQhl/+VfUvvB0raimxjQ8MqQAXy+OTlOIUtPk08Iat8J+uxvWH+P6CbP
+         KJckb3gbbFIfNNZbE6SquW8adzgpOtWkaP/Zt0n23J4uPdIfHvlhrPhDAbJzYWvtvJJl
+         m3+Q==
+X-Forwarded-Encrypted: i=1; AKwUvBys1fjgiDcpTLSuUEu95Joq/D98ibfW+n8LeCZ6iiv5o2+cY9mo5ph5Q+hw8pJoyBWQCOtUnObvf9fb+kY=@vger.kernel.org
+X-Gm-Message-State: AFuF++mq3SYtkSUZZW2Cx82EytUpoBzKBjKpGH+UJ0TH33W3to/imL+f
+	zUbBsIvGPdtKH0BfSmfoC5fIZv04K0Pb3vXcxABSGWihg+ljxG4a4TTacSeO49TQGRtuqHcVzYR
+	3YUaQ1jkl7trBfxl2chvtd1eSOQ4E3pkEJPt0/B5k5tIWYYjR5Ox4vOJHvwePuq7E9nKAYmNBJt
+	xbql5zkaRJqE11vdl94IPqf42Sks+bz77biotoeMf3bVMfTde8pxjFdK0WsztegL4oJlJZ8nWk9
+	i4KyGnTLPPyKT8YJErBAVW/Vw==
+X-Gm-Gg: AYBFou1fI8/pFXsLgU9fBe71N7tterg0Mwr+CSa/3t1kCvU9m6qYKxyNgpLV4b8QT4h
+	d0qPsBevjOLSTD2NKaW39cjpcjXmYOxpeabDUtFk/KkrVf8YjvG9N5YEpnaKl/wr0YQ5PwBvzKx
+	ts3tGpPqTbo2+LTrn+naZ/7j7NfN6J549yr4SC45jZEWKpFQfEW59DgW4Clb30NqJgTL13jm+3z
+	RqRU0lX2brGbBPYjOs7UAd7TIVL/RKi/f++7aRNyghPIEhbh3h9GGZcv9/zppX+dyIFx5lZq8Tk
+	U8btfEik3uHSOwhKXKjR8s5EszfGsCDeKpoKH8c5ornMTn58LvnuFNpBE+wiD0nmw92e0DARCHG
+	sWeygSIohLDBkFB9ZkUjjqXJiIwzZuiQDyVhJ6UN05W6gZ/yuDwntbPPlMZ5yva2YAev2HGK6X3
+	2RlIe8tbJkjeH3JtnCkEriD7JUdPhVY7A0oLGXZsKmVA==
+X-Received: by 2002:a05:620a:2552:b0:939:6dea:374d with SMTP id af79cd13be357-93cf178ab19mr1523528585a.49.1791124274191;
+        Sun, 04 Oct 2026 07:31:14 -0700 (PDT)
+Received: from smtp-us-east1-p01-i01-si01.dlp.protect.broadcom.com (address-144-49-247-16.dlp.protect.broadcom.com. [144.49.247.16])
+        by smtp-relay.gmail.com with ESMTPS id af79cd13be357-93cca29a552sm293240185a.7.2026.10.04.07.31.13
+        for <linux-kernel@vger.kernel.org>
+        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+        Sun, 04 Oct 2026 07:31:14 -0700 (PDT)
+X-Relaying-Domain: broadcom.com
+X-CFilter-Loop: Reflected
+Received: by mail-dy1-f197.google.com with SMTP id 5a478bee46e88-313d1015161so3096104eec.1
+        for <linux-kernel@vger.kernel.org>; Sun, 04 Oct 2026 07:31:13 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=broadcom.com; s=google; t=1791124272; x=1791729072; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=CraGn8RiQOD2fZCSi9N9UAjM9MxASoDa9DRwR9CVjso=;
+        b=dn7EqR7xhx8Jf7zwtDTRVaxPn2ebAh1r+L/ndQq5YsDP9fICXnDYy8ch4dtX1lvJTE
+         RvHiycomwozSbh40PPOE+u2YRSbs09esEcky/gmub8uyb98h1+93pqIFVOVFLnBMieQV
+         ldrQaaQJpVymKT9eSslhi5IsOY5e/+M4QhYZE=
+X-Forwarded-Encrypted: i=1; AKwUvByUrWbxS3sRHnrkgM5rFsJH7E4nJpEtj4xqSR/u+aONl8HyvWd9or5C42qHse24fC4+zUUWRpbFW4glFbw=@vger.kernel.org
+X-Received: by 2002:a05:693c:41cb:20b0:342:810b:9554 with SMTP id 5a478bee46e88-34f21854311mr10099475eec.32.1791124272021;
+        Sun, 04 Oct 2026 07:31:12 -0700 (PDT)
+X-Received: by 2002:a05:693c:41cb:20b0:342:810b:9554 with SMTP id
+ 5a478bee46e88-34f21854311mr10099428eec.32.1791124271336; Sun, 04 Oct 2026
+ 07:31:11 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3] dt-bindings: leds: lacie,netxbig-leds: Convert to DT
- schema
-To: Uday Kiran <challauday369@gmail.com>
-Cc: lee@kernel.org, pavel@kernel.org, robh@kernel.org, krzk+dt@kernel.org,
- conor+dt@kernel.org, skhan@linuxfoundation.org, me@brighamcampbell.com,
- linux-leds@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <20260901170358.176103-1-challauday369@gmail.com>
- <20260909-arcane-yellow-beluga-5ce6f7@quoll>
- <CAAj-GBkiTvFwx+3htJaKGFCYAC0jGdhyxkfUa8dKWPkYmbGViw@mail.gmail.com>
- <f402d93f-4443-4209-a6c7-5c30e7c8751a@kernel.org>
- <CAAj-GBnyFnVhNpuPTBoQhBZJLUYdXnBcxnEYy8rsYqkqX=UK7g@mail.gmail.com>
- <82b71784-4bb9-4165-a0f0-cf00fedde944@kernel.org>
- <CAAj-GBkPTmSxjKcXrzeMA3bz89vPGHt0Ai4Gat3KSz3epusRjw@mail.gmail.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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
-In-Reply-To: <CAAj-GBkPTmSxjKcXrzeMA3bz89vPGHt0Ai4Gat3KSz3epusRjw@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+References: <20260922052904.59237-2-bhargava.marreddy@broadcom.com>
+ <179026966721.2160803.3672240762098051468@kernel.org> <20260926184926.GC13925@horms.kernel.org>
+In-Reply-To: <20260926184926.GC13925@horms.kernel.org>
+From: Bhargava Chenna Marreddy <bhargava.marreddy@broadcom.com>
+Date: Sun, 4 Oct 2026 20:00:57 +0530
+X-Gm-Features: AclHuK9ovojThm6coEwtzF_5gjwZu6S5DTHHdY_M2n52MMUlvkcDOacKpPvGJNg
+Message-ID: <CANXQDtYHw1j2rZkMqirXviYwReg696GUYOxOuYAHRmCqYONLow@mail.gmail.com>
+Subject: Re: [PATCH net-next v2 1/6] bnge: Extract bnapi allocation and
+ cleanup into helpers
+To: Simon Horman <horms@kernel.org>
+Cc: netdev-bot+sashiko@kernel.org, davem@davemloft.net, edumazet@google.com, 
+	kuba@kernel.org, pabeni@redhat.com, andrew+netdev@lunn.ch, 
+	netdev@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	michael.chan@broadcom.com, pavan.chebbi@broadcom.com, 
+	vsrama-krishna.nemani@broadcom.com, vikas.gupta@broadcom.com, 
+	dharmender.garg@broadcom.com
+X-DetectorID-Processed: b00c1d49-9d2e-4205-b15f-d015386d3d5e
+Content-Type: multipart/signed; protocol="application/pkcs7-signature"; micalg=sha-256;
+	boundary="00000000000006a5c7065d049ec4"
 
-On 04/10/2026 16:04, Uday Kiran wrote:
-> On Wed, Sep 16, 2026 at 11:39 AM Krzysztof Kozlowski <krzk@kernel.org> wrote:
->>
->> On 14/09/2026 19:58, Uday Kiran wrote:
->>> On Sat, Sep 12, 2026 at 1:20 PM Krzysztof Kozlowski <krzk@kernel.org> wrote:
->>>>
->>>> On 11/09/2026 16:29, Uday Kiran wrote:
->>>>>>> +properties:
->>>>>>> +  compatible:
->>>>>>> +    const: lacie,netxbig-leds
->>>>>>> +
->>>>>>> +  gpio-ext:
->>>>>>> +    description: Phandle for the gpio-ext bus.
->>>>>>> +    $ref: /schemas/types.yaml#/definitions/phandle
->>>>>>> +
->>>>>>> +  timers:
->>>>>>> +    description: |
->>>>>>> +      Timer array. Each timer entry is represented by three integers:
->>>>>>> +      Mode (gpio-ext bus), delay_on and delay_off.
->>>>>>> +    $ref: /schemas/types.yaml#/definitions/uint32-array
->>>>>>> +
->>>>>>> +patternProperties:
->>>>>>> +  "^(?!gpio-ext$|pinctrl-[0-9]+$)[a-z][a-z0-9]*(-[a-z0-9]+)+$":
->>>>>>
->>>>>> This is an odd pattern. Why is pinctrl an LED? or gpio-ext?
->>>>>>
->>>>>> Actually entire pattern is very odd - it has $ in the middle, but then
->>>>>> followed with other REQUIRED stuff. I am surprised it works, but
->>>>>> regardless it is absolutely not readable. Looks like a begative pattern,
->>>>>> but why would you have negative pattern for known properties?
->>>>>
->>>>> Thanks for the review Krzysztof.
->>>>>
->>>>> The negative lookahead was added because patternProperties matches all top-
->>>>> level property names that fit the pattern, so excluded known top-level
->>>>> properties like gpio-ext and pinctrl-*;
->>>>>
->>>>> In patch v1, I've used additionalProperties which removes the regex entirely
->>>>> and allows arbitrary child-node names. But removed and used patternProperties
->>>>> as per the review feedback.
->>>>>
->>>>> Could you please suggest to me which way to proceed? with additionalProperties
->>>>> or patternProperties
->>>>
->>>>
->>>> The children are leds, so they should use generic node name pattern like
->>>> "^led-[a-z0-9]+$"
->>>
->>> Yes, Krzysztof but the original binding uses blue-power, red-power,
->>> blue-sata0, etc.
->>> as LED child node names. Would you like me to rename these nodes to
->>> led-blue-power, led-red-power, etc. to use the suggested
->>> ^led-[a-z0-9]+$ pattern,
->>> or should I retain the existing node names and use a more specific
->>> pattern for them
->>> like "^(blue|red)-(power|sata[0-9]+)$"
->>
->> I did not see original binding mentioning any names. Neither in the driver.
-> 
-> Sorry for the delayed response, Krzysztof.
-> 
-> You are right that the binding text and the driver do not mandate node names.
-> However, the existing device tree source use names like blue-power,
-> red-sata0, etc.:
-> 
-> arch/arm/boot/dts/marvell/kirkwood-netxbig.dtsi
-> 
-> Also, the driver uses the node name as a fallback LED label when the label
-> property is absent.
-> 
-> drivers/leds/leds-netxbig.c, lines 585-588.
+--00000000000006a5c7065d049ec4
+Content-Type: text/plain; charset="UTF-8"
 
-So what is the problem exactly? You rename the nodes and use label. Does
-anything break?
+> > > diff --git a/drivers/net/ethernet/broadcom/bnge/bnge_netdev.c b/drivers/net/ethernet/broadcom/bnge/bnge_netdev.c
+> > > index a4288f0258f87..c1810a3098883 100644
+> > > --- a/drivers/net/ethernet/broadcom/bnge/bnge_netdev.c
+> > > +++ b/drivers/net/ethernet/broadcom/bnge/bnge_netdev.c
+> > > @@ -825,6 +825,9 @@ static void bnge_free_tpa_info(struct bnge_net *bn)
+> > >     struct bnge_dev *bd = bn->bd;
+> > >     int i, j;
+> > >
+> > > +   if (!bn->rx_ring)
+> > > +           return;
+> > > +
+>
+> The check above appears to be purely defensive.
+> I do not believe it can ever be true.
+> If so, please remove it.
 
-> 
-> If we enforce ^led-[a-z0-9]+$ in the schema, the existing DTS file would fail
-> validation, and renaming the nodes would change the userspace-visible
-> LED names.
+Hi Simon,
 
+Ack, will fix in next version.
 
-Best regards,
-Krzysztof
+> > > @@ -1024,6 +1030,9 @@ static void bnge_free_tx_rings(struct bnge_net *bn)
+> > >     struct bnge_dev *bd = bn->bd;
+> > >     int i;
+> > >
+> > > +   if (!bn->tx_ring)
+> > > +           return;
+> > > +
+> >
+> > [Severity: Medium]
+> > Are these three new NULL checks really just preparation, or do they fix a
+> > reachable NULL pointer dereference that exists today?
+>
+> It seems to me that the two hunks above do fix a bug,
+> can could manifest under memory pressure..
+> And thus should be broken out as a separate patch for net.
+
+Agreed, will send as a separate net fix.
+
+> > >     bn->rx_ring = kzalloc_objs(struct bnge_rx_ring_info, bd->rx_nr_rings);
+> > >     if (!bn->rx_ring)
+> > >             goto err_free_core;
+> >
+> > This is the branch that reaches bnge_free_core() with both bn->rx_ring and
+> > bn->tx_ring still NULL.
+>
+> I will add that they way that this code relies on unwind functions,
+> such as bnge_free_core(), that can unwind from both a fully and partially
+> initialised state is not the preferred approach.
+>
+> E.g. while having bnge_free_core() fully clean up state the taredown
+> patch is fine, the probe path should have a goto ladder that unwinds
+> incrementally based on where initialization failed.
+>
+> For a bug fix, a minimal approach, that adds some conditions, is probably
+> best. But perhaps there are more cases than are covered by this discussion.
+>
+
+Thanks. I found no other cases in the helpers called from bnge_free_core().
+I plan to send a goto-ladder fix for bnge_alloc_core() to net.
+
+Thanks,
+Bhargava Marreddy
+
+--00000000000006a5c7065d049ec4
+Content-Type: application/pkcs7-signature; name="smime.p7s"
+Content-Transfer-Encoding: base64
+Content-Disposition: attachment; filename="smime.p7s"
+Content-Description: S/MIME Cryptographic Signature
+
+MIIVdAYJKoZIhvcNAQcCoIIVZTCCFWECAQExDzANBglghkgBZQMEAgEFADALBgkqhkiG9w0BBwGg
+ghLhMIIGqDCCBJCgAwIBAgIQfofDCS7XZu8vIeKo0KeY9DANBgkqhkiG9w0BAQwFADBMMSAwHgYD
+VQQLExdHbG9iYWxTaWduIFJvb3QgQ0EgLSBSNjETMBEGA1UEChMKR2xvYmFsU2lnbjETMBEGA1UE
+AxMKR2xvYmFsU2lnbjAeFw0yMzA0MTkwMzUzNTNaFw0yOTA0MTkwMDAwMDBaMFIxCzAJBgNVBAYT
+AkJFMRkwFwYDVQQKExBHbG9iYWxTaWduIG52LXNhMSgwJgYDVQQDEx9HbG9iYWxTaWduIEdDQyBS
+NiBTTUlNRSBDQSAyMDIzMIICIjANBgkqhkiG9w0BAQEFAAOCAg8AMIICCgKCAgEAwjAEbSkPcSyn
+26Zn9VtoE/xBvzYmNW29bW1pJZ7jrzKwPJm/GakCvy0IIgObMsx9bpFaq30X1kEJZnLUzuE1/hlc
+hatYqyORVBeHlv5V0QRSXY4faR0dCkIhXhoGknZ2O0bUJithcN1IsEADNizZ1AJIaWsWbQ4tYEYj
+ytEdvfkxz1WtX3SjtecZR+9wLJLt6HNa4sC//QKdjyfr/NhDCzYrdIzAssoXFnp4t+HcMyQTrj0r
+pD8KkPj96sy9axzegLbzte7wgTHbWBeJGp0sKg7BAu+G0Rk6teO1yPd75arbCvfY/NaRRQHk6tmG
+71gpLdB1ZhP9IcNYyeTKXIgfMh2tVK9DnXGaksYCyi6WisJa1Oa+poUroX2ESXO6o03lVxiA1xyf
+G8lUzpUNZonGVrUjhG5+MdY16/6b0uKejZCLbgu6HLPvIyqdTb9XqF4XWWKu+OMDs/rWyQ64v3mv
+Sa0te5Q5tchm4m9K0Pe9LlIKBk/gsgfaOHJDp4hYx4wocDr8DeCZe5d5wCFkxoGc1ckM8ZoMgpUc
+4pgkQE5ShxYMmKbPvNRPa5YFzbFtcFn5RMr1Mju8gt8J0c+dxYco2hi7dEW391KKxGhv7MJBcc+0
+x3FFTnmhU+5t6+CnkKMlrmzyaoeVryRTvOiH4FnTNHtVKUYDsCM0CLDdMNgoxgkCAwEAAaOCAX4w
+ggF6MA4GA1UdDwEB/wQEAwIBhjBMBgNVHSUERTBDBggrBgEFBQcDAgYIKwYBBQUHAwQGCisGAQQB
+gjcUAgIGCisGAQQBgjcKAwwGCisGAQQBgjcKAwQGCSsGAQQBgjcVBjASBgNVHRMBAf8ECDAGAQH/
+AgEAMB0GA1UdDgQWBBQAKTaeXHq6D68tUC3boCOFGLCgkjAfBgNVHSMEGDAWgBSubAWjkxPioufi
+1xzWx/B/yGdToDB7BggrBgEFBQcBAQRvMG0wLgYIKwYBBQUHMAGGImh0dHA6Ly9vY3NwMi5nbG9i
+YWxzaWduLmNvbS9yb290cjYwOwYIKwYBBQUHMAKGL2h0dHA6Ly9zZWN1cmUuZ2xvYmFsc2lnbi5j
+b20vY2FjZXJ0L3Jvb3QtcjYuY3J0MDYGA1UdHwQvMC0wK6ApoCeGJWh0dHA6Ly9jcmwuZ2xvYmFs
+c2lnbi5jb20vcm9vdC1yNi5jcmwwEQYDVR0gBAowCDAGBgRVHSAAMA0GCSqGSIb3DQEBDAUAA4IC
+AQCRkUdr1aIDRmkNI5jx5ggapGUThq0KcM2dzpMu314mJne8yKVXwzfKBtqbBjbUNMODnBkhvZcn
+bHUStur2/nt1tP3ee8KyNhYxzv4DkI0NbV93JChXipfsan7YjdfEk5vI2Fq+wpbGALyyWBgfy79Y
+IgbYWATB158tvEh5UO8kpGpjY95xv+070X3FYuGyeZyIvao26mN872FuxRxYhNLwGHIy38N9ASa1
+Q3BTNKSrHrZngadofHglG5W3TMFR11JOEOAUHhUgpbVVvgCYgGA6dSX0y5z7k3rXVyjFOs7KBSXr
+dJPKadpl4vqYphH7+P40nzBRcxJHrv5FeXlTrb+drjyXNjZSCmzfkOuCqPspBuJ7vab0/9oeNERg
+nz6SLCjLKcDXbMbKcRXgNhFBlzN4OUBqieSBXk80w2Nzx12KvNj758WavxOsXIbX0Zxwo1h3uw75
+AI2v8qwFWXNclO8qW2VXoq6kihWpeiuvDmFfSAwRLxwwIjgUuzG9SaQ+pOomuaC7QTKWMI0hL0b4
+mEPq9GsPPQq1UmwkcYFJ/Z4I93DZuKcXmKMmuANTS6wxwIEw8Q5MQ6y9fbJxGEOgOgYL4QIqNULb
+5CYPnt2LeiIiEnh8Uuh8tawqSjnR0h7Bv5q4mgo3L1Z9QQuexUntWD96t4o0q1jXWLyrpgP7Zcnu
+CzCCBYMwggNroAMCAQICDkXmuwODM8OFZUjm/0VRMA0GCSqGSIb3DQEBDAUAMEwxIDAeBgNVBAsT
+F0dsb2JhbFNpZ24gUm9vdCBDQSAtIFI2MRMwEQYDVQQKEwpHbG9iYWxTaWduMRMwEQYDVQQDEwpH
+bG9iYWxTaWduMB4XDTE0MTIxMDAwMDAwMFoXDTM0MTIxMDAwMDAwMFowTDEgMB4GA1UECxMXR2xv
+YmFsU2lnbiBSb290IENBIC0gUjYxEzARBgNVBAoTCkdsb2JhbFNpZ24xEzARBgNVBAMTCkdsb2Jh
+bFNpZ24wggIiMA0GCSqGSIb3DQEBAQUAA4ICDwAwggIKAoICAQCVB+hzymb57BTKezz3DQjxtEUL
+LIK0SMbrWzyug7hBkjMUpG9/6SrMxrCIa8W2idHGsv8UzlEUIexK3RtaxtaH7k06FQbtZGYLkoDK
+RN5zlE7zp4l/T3hjCMgSUG1CZi9NuXkoTVIaihqAtxmBDn7EirxkTCEcQ2jXPTyKxbJm1ZCatzEG
+xb7ibTIGph75ueuqo7i/voJjUNDwGInf5A959eqiHyrScC5757yTu21T4kh8jBAHOP9msndhfuDq
+jDyqtKT285VKEgdt/Yyyic/QoGF3yFh0sNQjOvddOsqi250J3l1ELZDxgc1Xkvp+vFAEYzTfa5MY
+vms2sjnkrCQ2t/DvthwTV5O23rL44oW3c6K4NapF8uCdNqFvVIrxclZuLojFUUJEFZTuo8U4lptO
+TloLR/MGNkl3MLxxN+Wm7CEIdfzmYRY/d9XZkZeECmzUAk10wBTt/Tn7g/JeFKEEsAvp/u6P4W4L
+sgizYWYJarEGOmWWWcDwNf3J2iiNGhGHcIEKqJp1HZ46hgUAntuA1iX53AWeJ1lMdjlb6vmlodiD
+D9H/3zAR+YXPM0j1ym1kFCx6WE/TSwhJxZVkGmMOeT31s4zKWK2cQkV5bg6HGVxUsWW2v4yb3BPp
+DW+4LtxnbsmLEbWEFIoAGXCDeZGXkdQaJ783HjIH2BRjPChMrwIDAQABo2MwYTAOBgNVHQ8BAf8E
+BAMCAQYwDwYDVR0TAQH/BAUwAwEB/zAdBgNVHQ4EFgQUrmwFo5MT4qLn4tcc1sfwf8hnU6AwHwYD
+VR0jBBgwFoAUrmwFo5MT4qLn4tcc1sfwf8hnU6AwDQYJKoZIhvcNAQEMBQADggIBAIMl7ejR/ZVS
+zZ7ABKCRaeZc0ITe3K2iT+hHeNZlmKlbqDyHfAKK0W63FnPmX8BUmNV0vsHN4hGRrSMYPd3hckSW
+tJVewHuOmXgWQxNWV7Oiszu1d9xAcqyj65s1PrEIIaHnxEM3eTK+teecLEy8QymZjjDTrCHg4x36
+2AczdlQAIiq5TSAucGja5VP8g1zTnfL/RAxEZvLS471GABptArolXY2hMVHdVEYcTduZlu8aHARc
+phXveOB5/l3bPqpMVf2aFalv4ab733Aw6cPuQkbtwpMFifp9Y3s/0HGBfADomK4OeDTDJfuvCp8g
+a907E48SjOJBGkh6c6B3ace2XH+CyB7+WBsoK6hsrV5twAXSe7frgP4lN/4Cm2isQl3D7vXM3PBQ
+ddI2aZzmewTfbgZptt4KCUhZh+t7FGB6ZKppQ++Rx0zsGN1s71MtjJnhXvJyPs9UyL1n7KQPTEX/
+07kwIwdMjxC/hpbZmVq0mVccpMy7FYlTuiwFD+TEnhmxGDTVTJ267fcfrySVBHioA7vugeXaX3yL
+SqGQdCWnsz5LyCxWvcfI7zjiXJLwefechLp0LWEBIH5+0fJPB1lfiy1DUutGDJTh9WZHeXfVVFsf
+rSQ3y0VaTqBESMjYsJnFFYQJ9tZJScBluOYacW6gqPGC6EU+bNYC1wpngwVayaQQMIIGqjCCBJKg
+AwIBAgIMFJTEEB7G+bRSFHogMA0GCSqGSIb3DQEBCwUAMFIxCzAJBgNVBAYTAkJFMRkwFwYDVQQK
+ExBHbG9iYWxTaWduIG52LXNhMSgwJgYDVQQDEx9HbG9iYWxTaWduIEdDQyBSNiBTTUlNRSBDQSAy
+MDIzMB4XDTI1MDYyMDEzNTI1NVoXDTI3MDYyMTEzNTI1NVowge0xCzAJBgNVBAYTAlVTMRMwEQYD
+VQQIEwpDYWxpZm9ybmlhMREwDwYDVQQHEwhTYW4gSm9zZTEZMBcGA1UEYRMQTlRSVVMrREUtNjYx
+MDExNzERMA8GA1UEBBMITWFycmVkZHkxGDAWBgNVBCoTD0JoYXJnYXZhIENoZW5uYTEWMBQGA1UE
+ChMNQlJPQURDT00gSU5DLjEnMCUGA1UEAwweYmhhcmdhdmEubWFycmVkZHlAYnJvYWRjb20uY29t
+MS0wKwYJKoZIhvcNAQkBFh5iaGFyZ2F2YS5tYXJyZWRkeUBicm9hZGNvbS5jb20wggEiMA0GCSqG
+SIb3DQEBAQUAA4IBDwAwggEKAoIBAQCq1sbXItt9Z31lzjb1WqEEegmLi72l7kDsxOJCWBCSkART
+C/LTHOEoELrltkLJnRJiEujzwxS1/cV0LQse38GKog0UmiG5Jsq4YbNxmC7s3BhuuZYSoyCQ7Jg+
+BzqQDU+k9ESjiD/R/11eODWJOxHipYabn/b+qYM+7CTSlVAy7vlJ+z1E/LnygVYHkWFN+IJSuY26
+OWgSyvM8/+TPOrECYbo+kLcjqZfLS9/8EDThXQgg9oCeQOD8pwExycHc9w6ohJLoK7mVWrDol6cl
+vW0XPONZARkdcZ69nJIHt/aMhihlyTUEqD0R8yRHfBp9nQwoSs8z+8xZ+cczX/XvtCVJAgMBAAGj
+ggHiMIIB3jAOBgNVHQ8BAf8EBAMCBaAwDAYDVR0TAQH/BAIwADCBkwYIKwYBBQUHAQEEgYYwgYMw
+RgYIKwYBBQUHMAKGOmh0dHA6Ly9zZWN1cmUuZ2xvYmFsc2lnbi5jb20vY2FjZXJ0L2dzZ2NjcjZz
+bWltZWNhMjAyMy5jcnQwOQYIKwYBBQUHMAGGLWh0dHA6Ly9vY3NwLmdsb2JhbHNpZ24uY29tL2dz
+Z2NjcjZzbWltZWNhMjAyMzBlBgNVHSAEXjBcMAkGB2eBDAEFAwMwCwYJKwYBBAGgMgEoMEIGCisG
+AQQBoDIKAwIwNDAyBggrBgEFBQcCARYmaHR0cHM6Ly93d3cuZ2xvYmFsc2lnbi5jb20vcmVwb3Np
+dG9yeS8wQQYDVR0fBDowODA2oDSgMoYwaHR0cDovL2NybC5nbG9iYWxzaWduLmNvbS9nc2djY3I2
+c21pbWVjYTIwMjMuY3JsMCkGA1UdEQQiMCCBHmJoYXJnYXZhLm1hcnJlZGR5QGJyb2FkY29tLmNv
+bTATBgNVHSUEDDAKBggrBgEFBQcDBDAfBgNVHSMEGDAWgBQAKTaeXHq6D68tUC3boCOFGLCgkjAd
+BgNVHQ4EFgQUkiPQZ5IKnCUHj3xJyO85n4OdVl4wDQYJKoZIhvcNAQELBQADggIBALtu8uco00Hh
+dGp+c7lMOYHnFquYd6CXMYL1sBTi51PmiOKDO2xgfVvR7XI/kkqK5Iut0PYzv7kvUJUpG7zmL+XW
+ABC2V9jvp5rUPlGSfP9Ugwx7yoGYEO+x42LeSKypUNV0UbBO8p32C1C/OkqikHlrQGuy8oUMNvOl
+rrSoYMXdlZEravXgTAGO1PLgwVHEpXKy+D523j8B7GfDKHG7M7FjuqqyuxiDvFSoo3iEjYVzKZO9
+NkcawmbO73W8o/5QE6GiIIvXyc+YUfVSNmX5/XpZFqbJ/uFhmiMmBhsT7xJA+L0NHTR7m09xCfZd
++XauyU42jyqUrgRWA36o20SMf1IURZYWgH4V7gWF2f95BiJs0uV1ddjo5ND4pejlKGkCGBfXSAWP
+Ye5wAfgaC3LLKUnpYc3o6q5rUrhp9JlPey7HcnY9yJzQsw++DgKprh9TM/9jwlek8Kw1SIIiaFry
+iriecfkPEiR9HVip63lbWsOrBFyroVEsNmmWQYKaDM4DLIDItDZNDw0FgM1b6R/E2M0ME1Dibn8P
+alTJmpepLqlS2uwywOFZMLeiiVfTYSHwV/Gikq70KjVLNF59BWZMtRvyD5EoPHQavcOQTr7I/5Gc
+GboBOYvJvkYzugiHmztSchEvGtPA10eDOxR1voXJlPH95MB73ZQwqQNpRPq04ElwMYICVzCCAlMC
+AQEwYjBSMQswCQYDVQQGEwJCRTEZMBcGA1UEChMQR2xvYmFsU2lnbiBudi1zYTEoMCYGA1UEAxMf
+R2xvYmFsU2lnbiBHQ0MgUjYgU01JTUUgQ0EgMjAyMwIMFJTEEB7G+bRSFHogMA0GCWCGSAFlAwQC
+AQUAoIHHMC8GCSqGSIb3DQEJBDEiBCB4p8W6b9XqC2KfA9qd/wKUxky2uV3QEqhwSCGiOZY83zAY
+BgkqhkiG9w0BCQMxCwYJKoZIhvcNAQcBMBwGCSqGSIb3DQEJBTEPFw0yNjEwMDQxNDMxMTJaMFwG
+CSqGSIb3DQEJDzFPME0wCwYJYIZIAWUDBAEqMAsGCWCGSAFlAwQBFjALBglghkgBZQMEAQIwCgYI
+KoZIhvcNAwcwCwYJKoZIhvcNAQEHMAsGCWCGSAFlAwQCATANBgkqhkiG9w0BAQEFAASCAQAz90my
+I55rZbpRVMBsWR0B/dxys5O3EeuqjCB6pCYTFe+5/grWbcKXK+zrQnr/XgbB2cAZuLFWkbw/SDYX
+L6JidtQDiIF80xjGtcj+l5VJBdMw1LVzeU0mtadhNOpPaQV8+TUn2bRBIjU8nJqk9x5uOcuylkTN
+TLEnQIIrSsik7NCQY2lbA3nPaKJqZUEHHu6pXhcLhjRYJSNVciKLr67zU+vp3gJ2xRVB+EnsxUvU
+z9TpEITPgNKnaakiSkA5Aq/RtI1zgUgFUnEIG3TQvzrFUXdYSA80eFPn4tlmPL9a/K8i9rCej5sl
+D+CN7JLgYUGwOpfuO5gcdhKsdsuPjs8K
+--00000000000006a5c7065d049ec4--
