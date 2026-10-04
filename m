@@ -1,115 +1,156 @@
-Received: from mail-pz2-f42.google.com (mail-pz2-f42.google.com [74.125.228.42])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mail.netfilter.org (mail.netfilter.org [217.70.190.124])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 030B7495AE4
-	for <linux-kernel@vger.kernel.org>; Sun,  4 Oct 2026 19:10:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.42
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D84DB2EF653;
+	Sun,  4 Oct 2026 19:13:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.70.190.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791141046; cv=none; b=hzrZ/XAWm/UWrmwjbBloIPBkcpcS4Bh++BxKj3jt7N4YC3BszDn+U2NZ5mzH5+y+jfFzzGkGu7t8uOyzxIi8B9gFb4XGajHnbqUjrg1Xm6hF9V2KrDfuz7WN7UgzjfAacDO+Pnm/wBD7+LBPz3Qa8kFLdlBWkW7Fc5cJh3PsXbU=
+	t=1791141227; cv=none; b=dAKbRqzcXAg0hGaXkPRaL87SgO0Nm+aOn8PbI9momaczgKBuU7r33NxtwnMnSMMiihtCjzYtlH90VLeYfktrk5cKZZCWrgVBOmuBOooyR3RSn+N/C9Q01NEgjcLFpzQccZIGzCB6vKNty96Wu5b34TRDCci+KmmN42QrL91RfIA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791141046; c=relaxed/simple;
-	bh=yfRz0gCmlse4iaV69rfQZ45cJ6QlHrEv8Tvd40l5z5U=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=IrKJQsGUdGHEztpNzQsFMROZxiZheb5aACChIWW6NMs6oCEBIGEKxOLMjcQIJxzWp7NnsZA9LbIZCrNbSnRAtvCvKR6ERrkoabMho3xlCaInBiqTV7lPMEUQ0w+oXihEanXnloazpCQKOY1mL4t1QNxfL98kjo2HJrLSVY30yqM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=aVbXhKrN; arc=none smtp.client-ip=74.125.228.42
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1791141227; c=relaxed/simple;
+	bh=LmT7qUG0+JDTwsZCtUim498HbU/w8AFnWENCKFAEM80=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=fKXcJeQKdP6I7dio/7VIjn7rSxHUtv6dx992Dg0D8mOGPusB6HFl21jh9BJjuT2szrINAP1lLiY/XdCZ+IrZa/rOLjzkMKzOnlD9c6gpe/2wqDWWzHUyeTttWX4uRyPYYExVO0+8+N8N479G646V885Zgaz9y4QAXvqZwc7tGf8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=netfilter.org; spf=pass smtp.mailfrom=netfilter.org; dkim=pass (2048-bit key) header.d=netfilter.org header.i=@netfilter.org header.b=iiW+jCyZ; arc=none smtp.client-ip=217.70.190.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=netfilter.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=netfilter.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="aVbXhKrN"
-Received: by mail-pz2-f42.google.com with SMTP id 41be03b00d2f7-cc797656e44so318737a12.2
-        for <linux-kernel@vger.kernel.org>; Sun, 04 Oct 2026 12:10:44 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791141044; x=1791745844; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=A7qHCKtt5edtxB2hHoADiQ7fMvPvqmsdZvnwWIudO2g=;
-        b=aVbXhKrNSmSjcClkuNmPzZ3P3I/Vj8rp1SyzhWu9uYU/e2opdPBv6C39MU7fE7CxSS
-         N3KqM6cJ2QQcCdTHY4xT42rWjL4p/21mDW7srmwFQfSao6E/g49bLW8HYf3W5y/h4BDK
-         gJR7aT8eVwWnRQcVetxe1unF110ZibdDkxXItxkCrNz8k/QiipgvC5M9XvnfAWgp8BRG
-         DXPVAamdumDo1mhNwK8AW7KkssknKTFlBNqQGw88xUKewqSSv4X+Km66cT2kT/Q+P/Ok
-         YQecUpQHNzosDWtVTdoIi9GBaiEB4d5nphsS6T1zDQhTAtYXvG+q3sZz6iuySCd93QdA
-         JNOA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791141044; x=1791745844;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=A7qHCKtt5edtxB2hHoADiQ7fMvPvqmsdZvnwWIudO2g=;
-        b=jjy21uGMvPRIG4asxmaupVp63fcQWFVdq5mVGPn6Ox5rDiapgG43JtAqOcP1GVmsic
-         3NH9OcNW6+fQCBgfQNbYcFHkgSzvKVZi9TVbHhqInhrQaOntvqyW4Lu46pOsw+S1fwyc
-         88ieAMjZedQ/Z0dv3cIDVW6tkNz3uawlpo0WCEs7vNsdxWnRKE815s3r5nKNzssqpTfa
-         4QguL4vBFdyzEVjL8wMjlP515j+kQgtJOX8dx4nnGmS77mTxhnSVrolNR6aL0GjImctA
-         IV4fD5ggmnF3z+rr+Yqcf8Pc6d+XNzjO9AVfbUYfkVFLTj3t8kFqrYpgi9DC7QFhh0a+
-         yfQg==
-X-Forwarded-Encrypted: i=1; AKwUvBxDXsOloXzKfalyCkF48wH8/t9QhJrUnFBAe2KhYxtoYN5Tr0pIQBDCiXkaP/ckB7J/6ta9neeVymK5ef8=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLgiHftANcrWLimyTN2x+fON6g9z21VuwSLy+EntfITPkZ5cAM3
-	ocRCR8FtOGl6iHy/Dj1ztQdV0YIthXHuO1Ceo8c+FmIWGp1Z6uY5KKkL
-X-Gm-Gg: AYBFou3FQV4BV1mXgSNLft1zVdGJ1LOSZNl5kOlPrI5SEH2TU4gl/xJtmDfEA/eSm6j
-	qLd5tzuPj/MTf16hCUyw9VNANhnPDpqu+nHt+MPW8OmkJAmRlLG1EDg/JBwRlH/4XEV+J3Y+sz0
-	4sL5VRJImndB6qpa/J8H6H5q7JXovqY4uCbkYxyCTnArAN4YniubKtOCHRnYiOLtDM0MAlyHwjh
-	+MMSRnswr9GZ0/Pc1KKCat+wEzmxBwP2G38L3a/D9Jl5iucs9UebXbN0isYcQ0C0yvFaLoQHJiG
-	8MPVw104DHwrxja80QlrAa5hyyvZXsUlJUdt4HpNtyXKhff9dIhQb0ktZTWt7MQ1w+aBpUQ9L7Q
-	dNbnQjDeNLb1tm0W6wwV9uCG0akzTINLKBTENdgnZXO5+5uXD2JjLDYBDTg+id34WpWAHHAYJBi
-	GXhdUOWX4NNLLlKP/hxrqRZf/9GdR3urEsL+QRgh2Nlt1eCvK+GUu/ioitIkgXubwwmPnDt1gLR
-	XEd/nVPPEg6akF/A17q5H+s0mUDQ/wV5rPHqpqca6LY0tOliFu+pCJioTF6uDgGCFEMZwlvt2UN
-	DRNFJYSNYI6gS6djKO076ruvypnbk/PU1lvzzJl/N+Ox8G3N
-X-Received: by 2002:a17:90b:388b:b0:3a6:fec5:c179 with SMTP id 98e67ed59e1d1-3a6fec5d128mr5479549a91.41.1791141044008;
-        Sun, 04 Oct 2026 12:10:44 -0700 (PDT)
-Received: from ryzen.lan ([2601:644:8000:7a86::e35])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a78d7c64b1sm8318957a91.14.2026.10.04.12.10.42
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 04 Oct 2026 12:10:43 -0700 (PDT)
-From: Rosen Penev <rosenp@gmail.com>
-To: devicetree@vger.kernel.org
-Cc: Linus Walleij <linusw@kernel.org>,
-	Bartosz Golaszewski <brgl@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	linux-gpio@vger.kernel.org (open list:GPIO SUBSYSTEM),
-	linux-kernel@vger.kernel.org (open list)
-Subject: [PATCH v2] dt-bindings: gpio: pca95xx: add onnn,pca9655 compatible
-Date: Sun,  4 Oct 2026 12:10:42 -0700
-Message-ID: <20261004191042.143713-1-rosenp@gmail.com>
-X-Mailer: git-send-email 2.56.0
+	dkim=pass (2048-bit key) header.d=netfilter.org header.i=@netfilter.org header.b="iiW+jCyZ"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=netfilter.org;
+	s=2025; t=1791141213;
+	bh=6KYwscBAPThUi2rjcfCeCcgpFd71+oEj095WqmAons0=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=iiW+jCyZC1wbPm1lGzLldTbD1VnW2rM1oWRESBoYa+TwYXW+pAPbCLMN6Y4PsNNv7
+	 ehkubjBjx6ehkHxBKEXJwNUi2AuTEAPhFwVckNnm4m7cOWC+hlxEbrvXmYaTLvOJzs
+	 ObwHBwa5BNQVMGt77Z4tpvMvEOM3ATl4zUQvQYSWW4atazeKLfdvneEKQ49v1Pvp9D
+	 kNHVaiY3AyCqHtGwfprE49tRKwRpzQtVnbzwgxURwI0d9TLDYhWjTIlWViRhcHg3kp
+	 ZdRociy87W6/yaWyBOfUym8nEoGQYLjqZgd6KLad1xBN9KlFEwyamJD6eiijBviPS1
+	 /gJOoVjdaDKTg==
+Received: from netfilter.org (mail-agni [217.70.190.124])
+	by mail.netfilter.org (Postfix) with UTF8SMTPSA id 7889E60060;
+	Sun,  4 Oct 2026 21:13:33 +0200 (CEST)
+Date: Sun, 4 Oct 2026 21:13:30 +0200
+From: Pablo Neira Ayuso <pablo@netfilter.org>
+To: Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>
+Cc: Florian Westphal <fw@strlen.de>, Phil Sutter <phil@nwl.cc>,
+	Fernando Fernandez Mancera <ffmancera@riseup.net>,
+	"David S . Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>, netfilter-devel@vger.kernel.org,
+	coreteam@netfilter.org, netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	syzbot+d7795c8487ca4e20ed88@syzkaller.appspotmail.com,
+	syzbot+d0d2f1a65f45b319d25d@syzkaller.appspotmail.com,
+	syzkaller-bugs@googlegroups.com
+Subject: Re: [PATCH nf] netfilter: nft_synproxy: only handle pure SYN and ACK
+ packets
+Message-ID: <asKkUzOppJayDbvD@chamomile>
+References: <20261004160615.142456-1-ngocthang2710.1999@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20261004160615.142456-1-ngocthang2710.1999@gmail.com>
 
-The pca9655 is the On Semi variant of the pca9555 16-bit I2C GPIO
-expander. "onnn,pca9655" is already used standalone by in-tree DTS
-(armada-388-clearfog, armada-388-helios4) and has a dedicated entry in
-the pca953x driver's OF match table, but was never documented, causing
-dtbs_check failures.
+On Sun, Oct 04, 2026 at 11:06:15PM +0700, Nguyen Ngoc Thang wrote:
+> nft_synproxy treats any segment with SYN set as a client's initial SYN
+> and any segment with ACK set as the client's final ACK. A SYN-ACK thus
+> gets answered with a fresh SYN-ACK cookie.
+> 
+> If that reply is routed back to the same host, e.g. to a peer address
+> covered by an address on lo, it re-enters the input hook, is answered
+> again, and never stops. Every such SYN starts its own endless loop over
+> the loopback backlog, so NET_RX softirq keeps the CPU busy and memory
+> fills with skbs and rtable entries until workqueues stall and the
+> machine OOMs.
+> 
+> Use the same flag checks as ip(6)t_SYNPROXY: SYN without ACK, FIN or
+> RST is an initial SYN; ACK without SYN, FIN or RST is the client ACK.
+> Anything else falls through to the next expression.
 
-Document it alongside the other standalone entries such as
-onnn,pca9654, without an nxp,pca9555 fallback, so that the existing
-DTS remain valid.
+Wrong tree. This proposal has to go through nf-next.
 
-Reported-by: kernel test robot <lkp@intel.com>
-Closes: https://lore.kernel.org/oe-kbuild-all/202610021617.AlVUa9No-lkp@intel.com/
-Assisted-by: LLM
-Signed-off-by: Rosen Penev <rosenp@gmail.com>
----
- v2: rewrite description. Use tags from kernel test bot.
- Documentation/devicetree/bindings/gpio/gpio-pca95xx.yaml | 1 +
- 1 file changed, 1 insertion(+)
-
-diff --git a/Documentation/devicetree/bindings/gpio/gpio-pca95xx.yaml b/Documentation/devicetree/bindings/gpio/gpio-pca95xx.yaml
-index 4631388a7d91..563f61e6e543 100644
---- a/Documentation/devicetree/bindings/gpio/gpio-pca95xx.yaml
-+++ b/Documentation/devicetree/bindings/gpio/gpio-pca95xx.yaml
-@@ -67,6 +67,7 @@ properties:
-               - nxp,pcal9555a
-               - onnn,cat9554
-               - onnn,pca9654
-+              - onnn,pca9655
-               - ti,pca6107
-               - ti,pca9536
-               - ti,tca6408
--- 
-2.56.0
-
+> Fixes: ad49d86e07a4 ("netfilter: nf_tables: Add synproxy support")
+> Reported-by: syzbot+d7795c8487ca4e20ed88@syzkaller.appspotmail.com
+> Closes: https://syzkaller.appspot.com/bug?extid=d7795c8487ca4e20ed88
+> Reported-by: syzbot+d0d2f1a65f45b319d25d@syzkaller.appspotmail.com
+> Closes: https://syzkaller.appspot.com/bug?extid=d0d2f1a65f45b319d25d
+> Signed-off-by: Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>
+> ---
+> Notes (not for the changelog):
+> 
+> Reproduced in QEMU (x86_64, 2 vCPUs, KASAN+lockdep) with syzbot's C
+> repro for d7795c8487ca4e20ed88. Minimised: only the nft batch and the
+> injected SYN matter, which is exactly the d0d2f1a65f45b319d25d program.
+> 
+> The rule is an inet table, base chain on input, with an unconditional
+> "synproxy" expression. The SYN goes from 172.20.20.187 to .170 via tun;
+> syzkaller puts 172.20.20.10/24 on lo, so the whole /24 is local and the
+> SYN-ACK cookie comes back through lo. Instrumented trace:
+> 
+>   synproxy tx .170->.187 in=syz_tun out=lo syn=1 ack=1
+>   synproxy tx .187->.170 in=lo      out=lo syn=1 ack=1
+>   synproxy tx .170->.187 in=lo      out=lo syn=1 ack=1
+>   ...
+> 
+> Before (3fd2ff60f6d6, full C repro):
+>   - synproxy syn_received ~400k per CPU per netns after 15s
+>   - rtable 80k -> 295k, skbuff_head_cache >1M, softirq time explodes
+>   - "BUG: workqueue lockup", then OOM / hung task, VM wedges
+> 
+> After (2 runs x 300s, full C repro):
+>   - no lockup, hung task or OOM
+>   - rtable flat (~2.2k), skbuff_head_cache flat (~80k)
+>   - syn_received grows slowly (~9.5k/300s): real SYNs still answered
+> 
+> ACK|FIN and ACK|RST no longer hit the cookie check (and its NF_DROP);
+> they continue, as with ip(6)t_SYNPROXY's XT_CONTINUE. The usual
+> "ct state invalid drop" rule still catches them.
+> 
+>  net/netfilter/nft_synproxy.c | 8 ++++----
+>  1 file changed, 4 insertions(+), 4 deletions(-)
+> 
+> diff --git a/net/netfilter/nft_synproxy.c b/net/netfilter/nft_synproxy.c
+> index 9ed288c9d168..a580cb7324da 100644
+> --- a/net/netfilter/nft_synproxy.c
+> +++ b/net/netfilter/nft_synproxy.c
+> @@ -53,13 +53,13 @@ static void nft_synproxy_eval_v4(const struct nft_synproxy *priv,
+>  	struct synproxy_net *snet = synproxy_pernet(net);
+>  	struct sk_buff *skb = pkt->skb;
+>  
+> -	if (tcp->syn) {
+> +	if (tcp->syn && !(tcp->ack || tcp->fin || tcp->rst)) {
+>  		/* Initial SYN from client */
+>  		nft_synproxy_tcp_options(opts, tcp, snet, &info);
+>  		synproxy_send_client_synack(net, skb, tcp, opts);
+>  		consume_skb(skb);
+>  		regs->verdict.code = NF_STOLEN;
+> -	} else if (tcp->ack) {
+> +	} else if (tcp->ack && !(tcp->fin || tcp->rst || tcp->syn)) {
+>  		/* ACK from client */
+>  		if (synproxy_recv_client_ack(net, skb, tcp, opts,
+>  					     ntohl(tcp->seq))) {
+> @@ -84,13 +84,13 @@ static void nft_synproxy_eval_v6(const struct nft_synproxy *priv,
+>  	struct synproxy_net *snet = synproxy_pernet(net);
+>  	struct sk_buff *skb = pkt->skb;
+>  
+> -	if (tcp->syn) {
+> +	if (tcp->syn && !(tcp->ack || tcp->fin || tcp->rst)) {
+>  		/* Initial SYN from client */
+>  		nft_synproxy_tcp_options(opts, tcp, snet, &info);
+>  		synproxy_send_client_synack_ipv6(net, skb, tcp, opts);
+>  		consume_skb(skb);
+>  		regs->verdict.code = NF_STOLEN;
+> -	} else if (tcp->ack) {
+> +	} else if (tcp->ack && !(tcp->fin || tcp->rst || tcp->syn)) {
+>  		/* ACK from client */
+>  		if (synproxy_recv_client_ack_ipv6(net, skb, tcp, opts,
+>  						  ntohl(tcp->seq))) {
+> -- 
+> 2.43.0
+> 
