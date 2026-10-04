@@ -1,96 +1,156 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-yx2-f12.google.com (mail-yx2-f12.google.com [74.125.224.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 86AF341DED5;
-	Sun,  4 Oct 2026 22:52:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6958641DED5
+	for <linux-kernel@vger.kernel.org>; Sun,  4 Oct 2026 22:52:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.224.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791154339; cv=none; b=QRjAr7DW6aLWruzoaOC+WHJIv1dmggVHDDei+R5gvI6LJfK8kVTUEZHSYvOpjRMtPgssnTX4E4Fw96bmTM08HWCmqcnXJjqlE5YoiRlsxUdg6kNeHwJuWZJtPeBNDrc55KQZQEBvlndgSY26sDnHmrLXny1XkvVAyy+ImPUI0ZE=
+	t=1791154351; cv=none; b=igqQD8pA3y4/wEThnjlgtfTzd3ygwr+FgJ4jc2FdAwtTTc75vmqpRFASf+MGMfDujCQV7+9Rd9hpmZQez47/nneGWEitRonmIXelWwfL3Unoz+wc99C2GbXNxjMqlnp026hzNPZdEMsQSsSNqIMjq/7HB2T90fxwrw0an75J6dQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791154339; c=relaxed/simple;
-	bh=1YpIQPJxSeEWFFpDwNEi3RFPDu7ZYURr8aCIeXi2MkY=;
-	h=Date:From:To:cc:Subject:In-Reply-To:Message-ID:References:
-	 MIME-Version:Content-Type; b=rx0kqa/bK4l5PCEsUqITHEwksejT8OhE/6+IkGokAC76jYjzUo9Ff6xDuOqoTP3s3wa/o1sgMpGqdisdW+Oem4Bp3vX94yHqP6kph4uVLUZHzIhucJRYAwD5vPgGhXxw83D934hV4lrEp6hAeAJAAFG4bSq6UZDvBzLOkHPrJT0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=lwgN3X7I; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791154351; c=relaxed/simple;
+	bh=iUX0rypZ3xf/SH5sB9G6Uz8fWv/TVGB7aC4y+ZSUuCw=;
+	h=Date:From:To:Cc:Message-ID:In-Reply-To:References:Subject:
+	 MIME-Version:Content-Type; b=P8txiw/Q10dt35FILdD9X8XnV6so6iYqtt8xa2Rp1kNGjtidlpre7F6gayiWhugszAOi3I7tVm836mo2SPqzzVC5jT9lebqw2/8DW1ZnYKHC/YWQaRg7CvcsiqSdu/95jvAehbuixBSExlEfYb9KOLyG7JKDFw24/3rxZTifiVA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=KuWq2JBk; arc=none smtp.client-ip=74.125.224.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="lwgN3X7I"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B80A71F000FF;
-	Sun,  4 Oct 2026 22:52:13 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791154336;
-	bh=0g2Vd/WGDWx11Z5eDEYlSIfjJcLTcCv15IHzPL8eEL8=;
-	h=Date:From:To:cc:Subject:In-Reply-To:References;
-	b=lwgN3X7IEPZrn04fjF+jM8fK5uE4aKHBKxjxKoexZ17Zug641RRd8T0s+2+Hq0fxT
-	 nhSzRlir695dbO4XRQ2NXQsG9vPMLy3cbt6QEfbvmLzyunDdwwqamlky1L271Kdo9R
-	 HIz5cBFDWwX+0SssHEAaBeq9fmdMylzrV2GLogS3PVfDF2dCqdzTKg7JXEXuHW2fCJ
-	 teOx/VyZCfPmU6kExhAloJQ7GUfCL4u8NysKbnAjUZ0UWLOTQA5pqsoxwOvWyeSvFe
-	 A8WJSrC86sT6PkrH8yhbd1F8VpKEL4/uqYDTBHFtPVFFHiIUzTNdoyd22ncTCiyk4i
-	 JeouYLX8Hkjjw==
-Date: Sun, 4 Oct 2026 16:52:12 -0600 (MDT)
-From: Paul Walmsley <pjw@kernel.org>
-To: Wei-Jie Hung <imbigking12@gmail.com>
-cc: Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, 
-    Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>, 
-    Mike Rapoport <rppt@kernel.org>, Xiaofeng Yuan <xiaofengmian@163.com>, 
-    Klara Modin <klara@kasm.eu>, linux-riscv@lists.infradead.org, 
-    bpf@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] riscv: patch: fix handling of bpf-jit execmem
- addresses
-In-Reply-To: <20260914115607.350097-1-imbigking12@gmail.com>
-Message-ID: <19ff2b67-55e9-92f2-5bee-57d36a9074c4@kernel.org>
-References: <20260914115607.350097-1-imbigking12@gmail.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="KuWq2JBk"
+Received: by mail-yx2-f12.google.com with SMTP id 956f58d0204a3-66e50968489so801903d50.0
+        for <linux-kernel@vger.kernel.org>; Sun, 04 Oct 2026 15:52:28 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791154346; x=1791759146; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:subject
+         :references:in-reply-to:message-id:cc:to:from:date:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=gNU7QFwaNW3Vr4qAV6/bo1RjIhjs4Gw/kzl9KhJGzgc=;
+        b=KuWq2JBkOPCrGTA1X+rVWsaQAmyqI80WIIJu6WmBeGPlCwwd8aeX+Ziv0gENeCQyKs
+         UGHRlCC+ZBuDZ0guPAYc6GXacXdznZvAxSmbfW5gwoW3TYT5Tys4eHSC9yqKabxc/xYP
+         Le/wsg8zwNXmxGf8CS9pH1kjFXO4Svr5GKoDk56CWN0ae2gGmGNRLmHJtwdIorSC7VrT
+         N6mnCpRPynClAlODHCki11v9hx8oFuHZJkRlgQdm+t47Dq9obmZjx1ePuOSW92UqRe9i
+         AxswocPnBg5QMVHgk8/H9fR7aKwTD+rjTl6q9KhsK+rG4dRkdWjPmaWXRGUd6f2ApAe2
+         ZtQA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791154346; x=1791759146;
+        h=content-transfer-encoding:content-type:mime-version:subject
+         :references:in-reply-to:message-id:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=gNU7QFwaNW3Vr4qAV6/bo1RjIhjs4Gw/kzl9KhJGzgc=;
+        b=bNsSGiEY+RrCjnCC7YP4BnylTansTpX/h8MdZGQ1Jne0nX/XepPWGslG0nnljQw5gV
+         BbxjatEas/XWn5x8eKUSriC0nhfWbSaBHrf/FDMPUfV9ViPZSHI2uy8k/Z0AbhPnd12u
+         FIfASA1RltqZCcknjFG8Y9wVEL8FTPoiXHOBN+wgcvsi6LY8sk82VZMfcnwuKBYmFyP6
+         kP84c3pSxRCa9MUaLP/3B4LJztxst/oPTx0zgMX96uEGBfvau6niBi9U2OLSLWxA+zYL
+         Pnh+gLrsVYbbT80mVSSVH38eHBJ0ZT6nc1mJ2IRjPa5ucmd7FPkeZ9A3NqS3B7ZXP0ps
+         IB6Q==
+X-Forwarded-Encrypted: i=1; AKwUvByuG0rl3d9TNTi2w2klfroZVCqToDcEG3ig3asZDjvPEZcXdlYDvQne3t0ua6dJG5JYm0TRtQWV9S63I+A=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKMbCEXsQiP9/h0lVPAY9g1a4IZVU4VrtOOhPAqQ/X3ZE+pcj53
+	BEJ8qQzVTyhQQFpmNpNeVAmi/ghQyyojd9ntXQFD5QIB6CQERFvVtKFg
+X-Gm-Gg: AYBFou0BpknfPVqMLx/IsHTqvyq4z+L4eMJ3mqfEBazXDnlAocrwRXnYs9IWyKuL10I
+	5l2Un5G0r2p4uZwnsR50PMBi7SlGsRNI7FvzHStTc5ktbBWCp94AvJDC139CfM8GA6A0M7k9hQw
+	aM0+vF0pUI0l6KJ9hAbWgOJWvg+BcThcIwXkE7uNtVBHLs3M/Wv+qLM5adOdmQniGqC7711RuEm
+	hY9O13Vs8tFMbV0eLMBugsCVMnWUCdisILAcS3JT7/exM+mGiDmgWho0os/Jggng8Ucdz5RQjNk
+	S/LDj6mRvK2aeB1PqbCQjEApSpxAVDeoD94/t5xzzkd+/eveA+XEy0B+L4NKm7dUlg6ttNO5Rgq
+	oJdQrIG5kY2WumuJe9lHzlZm6t2r+6fj7Rc+67sudQq2M7l1nydalNXOZZkkF+bSpcscA4f8awk
+	yNiItFeg/lTnj0AkQWwCRfc+Nt63BCm1AgbUKuT2b2W9BXwiLhAnUmU+gOoRvVnWKMwDFwCzvli
+	WBQUcKA7DinscMY3awZiJzuyDqQ7ok4Jda1f4X6e9Lgc3EURnPG
+X-Received: by 2002:a53:ac88:0:b0:677:c369:ff5b with SMTP id 956f58d0204a3-677c369ffafmr1639953d50.63.1791154346051;
+        Sun, 04 Oct 2026 15:52:26 -0700 (PDT)
+Received: from gmail.com (111.46.245.35.bc.googleusercontent.com. [35.245.46.111])
+        by smtp.gmail.com with ESMTPSA id 956f58d0204a3-677c1baf25bsm2314865d50.14.2026.10.04.15.52.25
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 04 Oct 2026 15:52:25 -0700 (PDT)
+Date: Sun, 04 Oct 2026 18:52:24 -0400
+From: Willem de Bruijn <willemdebruijn.kernel@gmail.com>
+To: Umang Pokhriyal <umangpokhriyall@gmail.com>, 
+ Willem de Bruijn <willemdebruijn.kernel@gmail.com>, 
+ Jason Wang <jasowangio@gmail.com>, 
+ Andrew Lunn <andrew+netdev@lunn.ch>, 
+ "David S. Miller" <davem@davemloft.net>, 
+ Eric Dumazet <edumazet@kernel.org>, 
+ Jakub Kicinski <kuba@kernel.org>, 
+ Paolo Abeni <pabeni@redhat.com>
+Cc: netdev@vger.kernel.org, 
+ linux-kernel@vger.kernel.org
+Message-ID: <willemdebruijn.kernel.3720fccc8b4e4@gmail.com>
+In-Reply-To: <20261004174739.36179-1-umangpokhriyall@gmail.com>
+References: <20261004174739.36179-1-umangpokhriyall@gmail.com>
+Subject: Re: [PATCH net-next v2] tap: report IFF_DETACH_QUEUE in TUNGETIFF
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+Content-Type: text/plain;
+ charset=utf-8
+Content-Transfer-Encoding: 7bit
 
-On Mon, 14 Sep 2026, Wei-Jie Hung wrote:
+Umang Pokhriyal wrote:
+> tun sets IFF_DETACH_QUEUE in the flags returned by TUNGETIFF when the
+> queue is detached, since commit 3d407a80b62f ("tun: Report whether the
+> queue is attached or not"). tap does not, so userspace cannot tell a
+> detached macvtap or ipvtap queue from an attached one.
+> 
+> Cloud Hypervisor ran into this when checking queue state on macvtap.
+> 
+> Report the flag from q->enabled, as tun does. Unlike tun, tap accepts
+> TUNSETIFF on a bound fd, so ignore IFF_DETACH_QUEUE there to keep
+> writing the TUNGETIFF flags back working.
+> 
+> Assisted-by: LLM
+> Signed-off-by: Umang Pokhriyal <umangpokhriyall@gmail.com>
+> ---
+> 
+> Notes:
+>     v2:
+>       - ignore IFF_DETACH_QUEUE in TUNSETIFF so the TUNGETIFF flags can be
+>         written back, and describe the change as parity with tun (Sashiko)
+>       - drop Willem's Reviewed-by because of the new TUNSETIFF hunk
+>     v1: https://lore.kernel.org/netdev/20260929142238.41742-1-umangpokhriyall@gmail.com/
+> 
+>  drivers/net/tap.c | 5 +++++
+>  1 file changed, 5 insertions(+)
+> 
+> diff --git a/drivers/net/tap.c b/drivers/net/tap.c
+> index ff67d99deb39e..832439b8a8988 100644
+> --- a/drivers/net/tap.c
+> +++ b/drivers/net/tap.c
+> @@ -932,6 +932,9 @@ static long tap_ioctl(struct file *file, unsigned int cmd,
+>  		if (get_user(u, &ifr->ifr_flags))
+>  			return -EFAULT;
+>  
+> +		/* TUNGETIFF may report IFF_DETACH_QUEUE, ignore it here */
+> +		u &= ~IFF_DETACH_QUEUE;
+> +
 
-> Commit 8718e5a3090b ("riscv: patch: skip fixmap mapping when kernel text
-> is already writable") gated the core_kernel_text() branch of patch_map()
-> on CONFIG_STRICT_KERNEL_RWX, and explicitly left the vmalloc branch
-> unchanged. That branch has a separate problem.
-> 
-> That branch only creates a temporary writable fixmap alias when
-> CONFIG_STRICT_MODULE_RWX is enabled, and otherwise assumes the target is
-> directly writable and returns the address unchanged. That assumption no
-> longer holds: bpf_prog_pack_alloc calls set_memory_rox() on every pack
-> unconditionally in alloc_new_pack(), independently of any
-> CONFIG_STRICT_*_RWX option, so BPF text in the vmalloc area is read-only
-> regardless of what CONFIG_STRICT_MODULE_RWX says.
-> 
-> With CONFIG_STRICT_MODULE_RWX=n, patch_map() returns the read-only
-> address directly, the subsequent copy_to_kernel_nofault() takes a
-> page fault and returns -EFAULT. bpf_arch_text_copy() turns that into
-> -EINVAL, which propagates through bpf_jit_binary_pack_finalize() to the
-> WARN_ON() in bpf_int_jit_compile() and leaves the program un-JITed.
-> 
-> Note that BPF cannot be fixed the way kprobes was in
-> commit bdc46e507b59 ("riscv: mm: make EXECMEM_KPROBES writable without
-> CONFIG_STRICT_MODULE_RWX"). EXECMEM_BPF is already PAGE_KERNEL, i.e.
-> writable at allocation time; the read-only mapping is established
-> afterwards by generic code in alloc_new_pack(), which arch code cannot
-> influence. The only place this can be handled is patch_map().
-> 
-> This is the same problem that was fixed on arm64 by commit b1480ed230ac
-> ("arm64: patching: fix handling of execmem addresses"), and the fix is
-> the same: CONFIG_EXECMEM is what actually tracks whether the vmalloc
-> area can hold executable memory that needs a temporary alias to be
-> written. CONFIG_BPF_JIT, CONFIG_KPROBES and CONFIG_MODULES all select
-> it.
-> 
-> Note that this is not limited to CONFIG_MODULES=n. Unlike arm64, riscv
-> selects CONFIG_ARCH_OPTIONAL_KERNEL_RWX, so CONFIG_STRICT_MODULE_RWX can
-> be disabled with CONFIG_MODULES=y as well, and the bug is reachable in
-> that configuration too.
-> 
-> The !CONFIG_MMU build is unaffected: it has its own __patch_insn_set()
-> and __patch_insn_write() implementations and never calls patch_map().
+I suppose we want tap to expose this state through TUNGETIFF, like tun,
+because applications already use that?
 
-Thanks, queued for v7.3-rc.
+Else cleaner than working around bits would be a whole new TUNGETQUEUE
+call to match TUNSETQUEUE. Rather than to squish this into TUNGETIFF,
+while that has no equivalent in TUNSETIFF.
+
+But, that approach does not help existing applications.
+
+So this is probably the right way. Just want to quickly check.
+
+>  		ret = 0;
+>  		if ((u & ~TAP_IFFEATURES) != (IFF_NO_PI | IFF_TAP))
+>  			ret = -EINVAL;
+> @@ -950,6 +953,8 @@ static long tap_ioctl(struct file *file, unsigned int cmd,
+>  
+>  		ret = 0;
+>  		u = q->flags;
+> +		if (!q->enabled)
+> +			u |= IFF_DETACH_QUEUE;
+>  		if (copy_to_user(&ifr->ifr_name, tap->dev->name, IFNAMSIZ) ||
+>  		    put_user(u, &ifr->ifr_flags))
+>  			ret = -EFAULT;
+> 
+> base-commit: cfb7793d1bc0f7d90571611979654cf1b3886b29
+> -- 
+> 2.53.0
+> 
 
 
-- Paul
