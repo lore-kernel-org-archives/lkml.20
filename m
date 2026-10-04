@@ -1,64 +1,73 @@
-Received: from pdx-out-008.esa.us-west-2.outbound.mail-perimeter.amazon.com (pdx-out-008.esa.us-west-2.outbound.mail-perimeter.amazon.com [52.42.203.116])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pf1-f181.google.com (mail-pf1-f181.google.com [209.85.210.181])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E385E3F9F5B;
-	Sun,  4 Oct 2026 09:51:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=52.42.203.116
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2C9C03A2E2B
+	for <linux-kernel@vger.kernel.org>; Sun,  4 Oct 2026 09:56:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.181
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791107515; cv=none; b=bqViCsA6SkvIgVH9XqJnJ5Yqsm7NQppe4zvmrSQAL3oZnhZLBm9dXvNkCPyTuKXd24sZIhYQSiXgQ3B4PLgWD4Pbef/zhViw8tMvtvmtulra0cDMA0KN2TJScLlYn/h22ZAxE/cW9M7NbIF5qtzfi5Afmb18JhAmmvEfrIMa3Mk=
+	t=1791107775; cv=none; b=kvAAxc4fFr2QcAtvIDnikxXY/KjBxiNVE636iWVbMFsfiNLVwsNOD/Zw6R1SsmSZPjW0SwMIaPuOXNvcBT+q4oDbVWLpya9q3IIV9df0Zl94FDKQOXc+ot9V3BsDwuPhikc7caFO65BuRtwFeI5l8prokk/ghLW+1FvIhAowG+w=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791107515; c=relaxed/simple;
-	bh=sFxhWSCP0mcaK4JLEjpA5w635bnyYYjPC1eVVHJLC3k=;
-	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=aLFFXhAKn8n7V7Pd30pTZLFVkgAHsuh4Kvb+Mj5SsXLPwieN4eKUCg2HArDTn+adDS0RrX05/lNdyJPXax8em4yVpebglnopLhzwzMZbTGP/E/05ixZgQ/yZkBRaWWhK6zoijF2DeUXIqZD1RJpX1VQ2gweShwkUf2D/R+XA6j8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.com; spf=pass smtp.mailfrom=amazon.com; dkim=pass (2048-bit key) header.d=amazon.com header.i=@amazon.com header.b=eWjZL/pT; arc=none smtp.client-ip=52.42.203.116
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amazon.com
+	s=arc-20240116; t=1791107775; c=relaxed/simple;
+	bh=ZpBnja49FVnQcL435Kbkb+kuHE6T5X0obVqilKKMzjo=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Xkoatm+TNBT/Mbr0mTtmiTDOFKCX1SaIBJpGp4/DK9HaE1sdSh265TcGTNSfgi3NZVp9+2dJK0ykMWDR1arIZwk9Z4ETWNuLuE9FuTBXKfq8nTVAvrfopAZZwh7HhojhXZNWhV0QtoXTAMOFb1AQ9P2B0GB0ubwcPxK2CMz4KbU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=L0cr42Sp; arc=none smtp.client-ip=209.85.210.181
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=amazon.com header.i=@amazon.com header.b="eWjZL/pT"
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="L0cr42Sp"
+Received: by mail-pf1-f181.google.com with SMTP id d2e1a72fcca58-88c72646f03so349174b3a.2
+        for <linux-kernel@vger.kernel.org>; Sun, 04 Oct 2026 02:56:14 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-  d=amazon.com; i=@amazon.com; q=dns/txt; s=amazoncorp2;
-  t=1791107511; x=1822643511;
-  h=from:to:cc:subject:date:message-id:in-reply-to:
-   references:mime-version:content-transfer-encoding;
-  bh=qOHcbtb/VRWrwcQuRj1W7KizObd5F5syz26snzqQx+g=;
-  b=eWjZL/pTFXRXAmJJkjN3akCJN+Uf4qdJfI6tHIp7yb/++PRqoB+1caW5
-   XF+/zxmyfMwwaQw/YTDtLsD1IPjfvbwZ4mGkP+hYyJwFeYSvFl2cvUYCj
-   kyEivbTZ8s+BgxgmfUD9OrOEap2H+e7GZJJOO7UUeXSkkYb/7+5r1HzhP
-   dL37LJ9oH79xClm5mUtZ4pFYbG5cKiGn1Xpjd1pVD5ELJckIRi+W1sEO3
-   l+Vs4l51FFLjC8IT48PyGXnGZDdPl2TIn/W8f1YoY2/HRJItXRtRSPo3w
-   ERiTT+Mmg3MnzV/ZHUgbVUhK9EZRMGnz0CNMkqjnBpklsa6T+Mp5OIPb5
-   A==;
-X-CSE-ConnectionGUID: D2xFCtpiS1WBE4zn8XfXIA==
-X-CSE-MsgGUID: yLnNzBhMTxqwMUEUZ2yIhQ==
-X-IronPort-AV: E=Sophos;i="6.27,139,1787011200"; 
-   d="scan'208";a="30371884"
-Received: from ip-10-5-0-115.us-west-2.compute.internal (HELO smtpout.naws.us-west-2.prod.farcaster.email.amazon.dev) ([10.5.0.115])
-  by internal-pdx-out-008.esa.us-west-2.outbound.mail-perimeter.amazon.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 04 Oct 2026 09:51:47 +0000
-Received: from EX19MTAUWA002.ant.amazon.com [205.251.233.178:22268]
- by smtpin.naws.us-west-2.prod.farcaster.email.amazon.dev [10.0.52.137:2525] with esmtp (Farcaster)
- id 19c6d27f-d39f-48d3-a63a-e9224414ef55; Sun, 4 Oct 2026 09:51:47 +0000 (UTC)
-X-Farcaster-Flow-ID: 19c6d27f-d39f-48d3-a63a-e9224414ef55
-Received: from EX19D001UWA001.ant.amazon.com (10.13.138.214) by
- EX19MTAUWA002.ant.amazon.com (10.250.64.202) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.49;
- Sun, 4 Oct 2026 09:51:47 +0000
-Received: from dev-dsk-lravich-1b-7405803b.eu-west-1.amazon.com (10.13.225.95)
- by EX19D001UWA001.ant.amazon.com (10.13.138.214) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.49;
- Sun, 4 Oct 2026 09:51:45 +0000
-From: Leonid Ravich <lravich@amazon.com>
-To: Herbert Xu <herbert@gondor.apana.org.au>
-CC: Christoph Hellwig <hch@infradead.org>, <linux-crypto@vger.kernel.org>,
-	<dm-devel@lists.linux.dev>, <linux-kernel@vger.kernel.org>,
-	<davem@davemloft.net>, <ebiggers@kernel.org>, <agk@redhat.com>,
-	<snitzer@kernel.org>, <mpatocka@redhat.com>, <bmarzins@redhat.com>
-Subject: Re: [PATCH v6 0/6] crypto: skcipher - multi-data-unit request splitting
-Date: Sun, 4 Oct 2026 09:51:39 +0000
-Message-ID: <20261004095140.24161-1-lravich@amazon.com>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <ar9hjvFGLUKv3lEM@gondor.apana.org.au>
-References: <20260924075846.28203-1-lravich@amazon.com> <ar9hjvFGLUKv3lEM@gondor.apana.org.au>
+        d=gmail.com; s=20251104; t=1791107773; x=1791712573; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=tDHu6N6WqaDVYQcb2PQWKiWT8vncXO+aoop0XtK3ZMY=;
+        b=L0cr42SpvqnvbwpAQAWHrxtu+8AF0yotTivlBrh9ABzhHxn1tbWr2IflzEGnwJeSf2
+         yH5bnbTnJWcf7Uq2HTCJbzDICpUHrS7dGSDozcGz35+c1/9D6+aByPIeLA2lSjxyKWmS
+         rwzAJLMLRgInHisGDTnkwEzWYYomm/+o82NuCT+eCQs8fW3FBrnW2XYvTfy2e4sw8UjI
+         XqPVEI6EcQDlyPPmGDfb2Bul2kWbGx9aMGxJABS5UvAwM7/nEoofinEJzqhIy8lf2iDk
+         xicPUgr2ZXUxqXsh9u0uktlcQ6YVIKVYYJKtjzqbIi4OTUDStO0GFxKQuKl9OgOFxPNL
+         w+Yg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791107773; x=1791712573;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=tDHu6N6WqaDVYQcb2PQWKiWT8vncXO+aoop0XtK3ZMY=;
+        b=dTCcSNbw4eAkSIUpQmBynBgqlJvsO+KBl66O9LpVC8Ya7anRhIBQ5qk+q1UqJ/4dHP
+         FTOuLVmW4KlLPbQbf6su2CIg/OJi57dxMetwkWkn5Q1SKuF69XanxMfp8q/lWlWYDj7Z
+         JjcCDXXKieAjHl6CAU4Uy63KfBoxxp+x95WrbCZPgQJtzvJ30yb4ta6apDJKDdQXURXS
+         nYpCkQsFmefyemFMGxyz2AKhBiZjb5kU9XkNi0nlzZBAGueQjg942MvSDrvF8IpOaPO+
+         mqSNnMdV+ZZCemDGiDcQmSHDa/2gnhwKWJftYUdpuF6knAmo1doUaj9i4irehos1U5Ao
+         J6sA==
+X-Forwarded-Encrypted: i=1; AKwUvBxhktWX9B/c2YmBV3diP86J3tWjGLDP/5ekbbHhF76YtbvdN3YUPAsb7DS8WSAreSqGdHnAamk38E/no/8=@vger.kernel.org
+X-Gm-Message-State: AFuF++nebugkQZs+6L9xHWKo2IoTQ0shbw0/qjXoz/HNxxYMkL/jNh+m
+	aPp26BSV1ON3I9X6lseFPfZKx6q1xR4RJU1nIycp92bZmNiEECPG+BJi
+X-Gm-Gg: AYBFou3gULXSO8erxNMY5TYEH+5s09hL4wAsP1Jgm8Y/ng7/g3vC0dS8riQuUMPUcCE
+	+u6c8b8bZ5AqekjSzwylo2qZp8aTEObtd5vIRCFFVQLtdaDJQB93HFfdVKVT3ENvUCrbfoEqpuj
+	l0cTXdU1CMnmOoj7vzuxHzy324iWqYAadLEgMgTUFWvk2S/bodTDT/HGtonHERmkxvFtQwhvRmr
+	0ISXzFaxO7vrF8oN0BKueC5H8f68MKLLw7Qo/UW4yMGM1hpX4R+zjjEhW0mlzCfm6z1SpWoQLUu
+	Lgdw9CIwNrhGdaPV1cAWmoDwSjAobRRnlDYSDMjR2754IVS9EFBrqrA0vJfkWUQgqaUx/HAc0b7
+	l8xEAJ3l/W8gXU+atpptdCdhfjqiw58bX7tJMdgF5m7uFsai7SdDU9YI9wY9FRMWOVwfIYxt5ib
+	UjGDCzFdmNG6cRu7jMiXUsTvsvjT9m4K55Ukq5kE8SnXbk0ObRshKmXI+5n5yG6BdK/2D0E+mBB
+	ScgC+nJi9vSZc7+oC8U7B3QYSN0uAG8mWAC5VzrL6SJpmIrR3FVVqM9qHv6UvSsoI6DqSEF5wWf
+	HNfsbKp+2BgQ/Ybp8bLRYNQjSHXQJO2MRQfe9LdDJu/17phGwLyqlcqfkN4=
+X-Received: by 2002:a05:6a00:a114:b0:87a:3144:8c4c with SMTP id d2e1a72fcca58-88c64064002mr3596683b3a.59.1791107773270;
+        Sun, 04 Oct 2026 02:56:13 -0700 (PDT)
+Received: from spider.bream-herring.ts.net ([103.6.151.236])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-88b0c3a39f6sm2418175b3a.28.2026.10.04.02.56.10
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 04 Oct 2026 02:56:11 -0700 (PDT)
+From: Matthias Goergens <matthias.goergens@gmail.com>
+To: Namjae Jeon <linkinjeon@kernel.org>,
+	Hyunchul Lee <hyc.lee@gmail.com>
+Cc: Baolin Liu <liubaolin12138@163.com>,
+	ntfs@lists.linux.dev,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v3 0/4] ntfs: fix spurious EIO and ENOSPC on nearly full volumes
+Date: Sun,  4 Oct 2026 17:56:04 +0800
+Message-ID: <cover.1791107674.git.matthias.goergens@gmail.com>
+X-Mailer: git-send-email 2.56.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -66,74 +75,48 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: EX19D033UWA002.ant.amazon.com (10.13.139.10) To
- EX19D001UWA001.ant.amazon.com (10.13.138.214)
 
-On Fri, Oct 02, 2026 at 05:47:26PM +1000, Herbert Xu wrote:
-> I think the issue is that we're generating the IV twice.  Once
-> in the Crypto API and once again in the DM layer.  Not only is
-> this slow, but it is actually wrong for decryption.  You're ignoring
-> the IVs on the disk.
+These fix three errors returned while free space is left, and a
+contiguous cluster allocation that comes back in two runs.  Patch 1
+fixes file creation failing with EIO on a nearly full volume; it now
+goes on until the volume is full and then fails with ENOSPC.  Patch 2
+fixes the cluster allocator missing free clusters when its start hint
+lies at or past the end of the volume, which empties the MFT zone, and
+patch 3 removes the fallocate() check that then fails every later call.
+Together the two bugs make fallocate() refuse space that is free until
+the next mount.  Patch 4 keeps a contiguous request to a single run:
+fallocate() zeroes only the first run, so the clusters of a second one
+kept the data of a deleted file.  Reproducers, run with KASAN and
+lockdep:
+https://github.com/matthiasgoergens/linux/tree/reproducer/2026-10-04-ntfs-nearfull-v3
 
-I don't think either happens in v6, so let me check we are reading
-the same code before I change the design.
+Changes in v3: Namjae Jeon asked whether a contiguous request can still
+get a second run once the search has left the hint, for instance when
+the run reaches the end of a bitmap page and the next page is skipped as
+full.  It can, on that path and on two more: where the search wraps to
+pass 2, and where it shrinks the MFT zone after trying every zone.  On
+ntfs-next each left 16 of 20 fallocated clusters reading the data of a
+deleted file.  New patch 4 does what he suggested: before setting a
+cluster's bit, it checks that the cluster follows the run, and returns
+the run otherwise.  Patches 1 to 3 are unchanged apart from Hyunchul
+Lee's Reviewed-by.  Rebased on ntfs-next.
 
-The IV is generated once per request, not per unit.  In
-crypt_convert_block_skcipher() dm-crypt calls iv_gen_ops->generator()
-for the first sector of the segment only.  The Crypto API then derives
-the IV of each following unit by incrementing the 64-bit little-endian
-sector number in the low 8 bytes.  That is the same value the
-generator would have produced for that sector, so no generator runs
-twice.  Only plain64 and essiv are batched, because those are the
-modes where IV(sector + i) is exactly that increment.
+v2: https://lore.kernel.org/all/cover.1790853718.git.matthias.goergens@gmail.com/
+v1: https://lore.kernel.org/all/cover.1790503811.git.matthias.goergens@gmail.com/
 
-On-disk IVs are never ignored, because batching is never enabled when
-they exist.  The only case where dm-crypt reads an IV from disk is
-the integrity-metadata branch in the same function:
+Matthias Goergens (4):
+  ntfs: set the attribute list size before reserving space for it
+  ntfs: restart the zone search when the allocation hint fails
+  ntfs: do not refuse fallocate() when the MFT zone is empty
+  ntfs: do not give a contiguous cluster allocation a second run
 
-	/* For READs use IV stored in integrity metadata */
-	if (cc->integrity_iv_size && bio_data_dir(ctx->bio_in) != WRITE)
-		memcpy(org_iv, tag_iv, cc->integrity_iv_size);
+ fs/ntfs/attrlist.c |  5 +++--
+ fs/ntfs/file.c     |  3 ---
+ fs/ntfs/lcnalloc.c | 35 ++++++++++++++++++++++++++++++++---
+ 3 files changed, 35 insertions(+), 8 deletions(-)
 
-CRYPT_MULTI_DATA_UNIT is only set when integrity_iv_size is 0 (and
-the target is not AEAD; see crypt_can_batch_units() and its caller
-in crypt_ctr_cipher()).  So a device with stored IVs keeps the
-one-sector-per-request path, and its reads use the stored IV exactly
-as today.
 
-On the cost: the IV part of the ~50 ns is a 16-byte copy and an
-increment per unit.  The rest is re-pointing the scatterlist at each
-unit and the extra call into the algorithm per unit.  An IV array
-would replace the copy and increment with a load from the array, but
-the per-unit scatterlist and call overhead would stay.  I have not
-measured the components separately; I can if that would help.
+base-commit: b2a3b6b6c7b09040e3f44ade6e20a7689e4acd28
+-- 
+2.56.0
 
-> My suggestion is to allocate memory for the IVs.  Of course
-> memory allocation can fail, but we have an easy fallback, which
-> is to use the existing single-unit path.
->
-> IOW if you succeed in allocating memory for storing the IVs,
-> then invoke the multi-unit code path, otherwise fall back to
-> the single-unit code path which iterates over the sectors one-
-> by-one.
->
-> To pass the IVs to the Crypto API (or back), just use the existing
-> IV pointer and extend it by the number of units.
-
-That said, I can see what an IV array would buy beyond the current
-modes.  The Crypto API would no longer need to know how IVs relate
-to each other, so every dm-crypt IV mode could batch (lmk, tcw,
-eboiv, benbi, and plain64be without a template), and so could
-devices that store their IVs in integrity metadata, since dm-crypt
-would fill the array from the tags on read.
-
-So the question for you is about scope rather than correctness: do
-you want the interface to be "one IV per unit, ivsize * nunits bytes
-at req->iv" so that it covers those modes too?  If so, v7 will do it
-that way, with the single-unit fallback when the allocation fails.
-If plain64 and essiv are enough for now, I would keep the counter
-form from v6.
-
-Thanks,
-Leonid
