@@ -1,127 +1,101 @@
-Received: from sender5-op-o11.zoho.com (sender5-op-o11.zoho.com [165.173.182.11])
+Received: from mail.alien8.de (mail.alien8.de [65.109.113.108])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 37D224749DA;
-	Sun,  4 Oct 2026 17:50:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=165.173.182.11
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791136254; cv=pass; b=MUH7O8IAWaGnfUtFMiiY1BAp1e/OZKzuUyLOR6vdIZlmlva3uNS/mdngpdiR6A4FvB/jpqAl+113LoARMUui/hfT2BphVQKclJGLQENsR+4F/hSoi/fEFOmxKJHXQUXhKAbHrgSbFlQVVXSRRMGO1z2aq+CghmfoUSDvD45v7OA=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791136254; c=relaxed/simple;
-	bh=KE6O+ic6eQ3gGXAznmy34UvAcD2loTOqhjV5tcfcjLE=;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D3096414420;
+	Sun,  4 Oct 2026 17:51:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=65.109.113.108
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791136272; cv=none; b=tZMxBdSdf9JeXwyag/uEo0T1USy+CP0iTwNaVhlGnKnyQeOfT0Yr9VNjQrOD19l5gn2bTdsiVa624Xy/lFpznfQxzjJ0dABrTmJPwGSZl7dfbf4T5jLNYFnOZDwIN2uyca+h9WX5InjWBC8YoifTIa4lkO+GANFflM4U/IFJXoU=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791136272; c=relaxed/simple;
+	bh=bSRqYSiG8cm8JeD0ZHg1F1jCtgcSQWKx8GuwlwpRUZE=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=CvtKCUCzdY6Zpk8ux9ZxqGxLyOtILfn7gLHn4cNjfF31OLl9jnAybr2qoiV6ZAL2RPq3LW18riFvB+G6U1NWAfnD93BBqmSu4s/07YX70etnn5o0lfRLCcL05EJt+1eWf93qdunDD/EBrc+ozh9ujeJWEfDeB/JPVD+D02v3ruc=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (1024-bit key) header.d=collabora.com header.i=sebastian.reichel@collabora.com header.b=PZVGUumq; arc=pass smtp.client-ip=165.173.182.11
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=KnNlnvbpfYQvz8qCZ+bqKv/Rp5BXB0/u+PM+J585PsPpK5FWvyJjjvCUMj+xOlLgIY4r5y4WFzLf9B6Ca7ZKEsDBXpUvesMD+q58iii9QP6OVmDj2/Ibt+C1LGspKLOj0dW21r8ybe/E0N+ukaE3MdeNtMTeGdBAp2aH6dO0FEs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alien8.de; spf=pass smtp.mailfrom=alien8.de; dkim=pass (4096-bit key) header.d=alien8.de header.i=@alien8.de header.b=Er9z8Dm5; arc=none smtp.client-ip=65.109.113.108
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alien8.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=alien8.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=collabora.com header.i=sebastian.reichel@collabora.com header.b="PZVGUumq"
-ARC-Seal: i=1; a=rsa-sha256; t=1791136246; cv=none; 
-	d=zohomail.com; s=zohoarc; 
-	b=YgIAXfjrb/enojAX/VTnIA3m/J7MH36DQS/X8l1SIDnch8GPvdAqG+b9JjCgSn+Bnl2emy5O6QuoBiE9hZ/ck13qjBouN1g8AnshgUj3diLxxcefYE+fWRgQ3xYvuAfo3sHf/fimPdhI30J2hnG03fnmTD99qo5iqRjP9y0q2zI=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1791136246; h=Content-Type:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=iDVonFSpj1dP80g+XOnh0LxCDjeikvL0J8bFJ78/Tc4=; 
-	b=YIMfoWrRV/cgaf+HXExHpwjC2YpCY3i0Q4YDQPeU/xjSCdIIco0BlBvePgCZLipERCIRhGzOlDeM7ll8gadua5+FNI1x4/qGkeHL+hx5RS0X8lLJWv3afl1sQWoCcwyuqXKRymZaCL2CCsIGRKYcOP0XNcMc64OfnY+Dley7r+0=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
-	dkim=pass  header.i=collabora.com;
-	spf=pass  smtp.mailfrom=sebastian.reichel@collabora.com;
-	dmarc=pass header.from=<sebastian.reichel@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1791136246;
-	s=zohomail; d=collabora.com; i=sebastian.reichel@collabora.com;
-	h=Date:Date:From:From:To:To:Cc:Cc:Subject:Subject:Message-ID:MIME-Version:Content-Type:In-Reply-To:Message-Id:Reply-To;
-	bh=iDVonFSpj1dP80g+XOnh0LxCDjeikvL0J8bFJ78/Tc4=;
-	b=PZVGUumqEzWBEeXdOunT94vTLbj2noUC8E6ZcG+I9kkbS1jcT0LszL9moFLL0mFy
-	C5bw0KOPc4IsjP4hZh02uaPcXDuhq7vdvuWJ5c11rXRmJ20RyFG7YXvLT8p+7bN4IIS
-	XvYCJ2j5ezEWxnJpwz8OMBZfpEFlmSlkBBu8jsl8=
-Received: by smtp.zohomail.com with SMTPS id 1791136245115194.43775553913508;
-	Sun, 4 Oct 2026 10:50:45 -0700 (PDT)
-Received: by venus (Postfix, from userid 1000)
-	id CFF77180A51; Sun, 04 Oct 2026 19:50:40 +0200 (CEST)
-Date: Sun, 4 Oct 2026 19:50:40 +0200
-From: Sebastian Reichel <sebastian.reichel@collabora.com>
-To: =?utf-8?B?SXbDoW4=?= Ezequiel Rodriguez <ivanrwcm25@gmail.com>
-Cc: linux-pm@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	"Rafael J . Wysocki" <rafael@kernel.org>
-Subject: Re: [PATCH v1 4/5] docs: ABI: complete power_supply type valid values
-Message-ID: <asKRNfzLdbpP_uYY@venus>
-References: <20260831155339.181487-1-ivanrwcm25@gmail.com>
- <20260831155339.181487-5-ivanrwcm25@gmail.com>
+	dkim=pass (4096-bit key) header.d=alien8.de header.i=@alien8.de header.b="Er9z8Dm5"
+Received: from localhost (localhost.localdomain [127.0.0.1])
+	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTP id 3C68340E02B3;
+	Sun,  4 Oct 2026 17:51:07 +0000 (UTC)
+X-Virus-Scanned: Debian amavisd-new at mail.alien8.de
+Authentication-Results: mail.alien8.de (amavisd-new); dkim=pass (4096-bit key)
+	header.d=alien8.de
+Received: from mail.alien8.de ([127.0.0.1])
+	by localhost (mail.alien8.de [127.0.0.1]) (amavisd-new, port 10026)
+	with ESMTP id tmS11KGYzn1e; Sun,  4 Oct 2026 17:50:57 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=alien8.de; s=alien8;
+	t=1791136257; bh=xpY2VretqJoxHmI7Stssjy7eeYaINM6kjBfxKH+WLC0=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=Er9z8Dm5daaK1OhydqLygbNiC11HjSwdZSVM7DsaTrmEv+8yGzdnaGt+RwTw6RLMc
+	 SUw9GrYImiCaICG0KxIjPD0nTZ5U1taS26g/xiPMLqjECIwNeCk87k1JyJEbafh8HS
+	 IRpCZ72Pdw6pqMxh6FbGe5t18l3dJHNN9IrFUdq8WDFoyyCe9GSG3TuFVKJuTDQOKm
+	 zy6Diw+UCC2EBhnEAtNeW8LEqOfA8S9wWynAqy9mFqJnF8L/qreP5xH9ZaKtXn+Rfi
+	 S58qXYSQzpxBGriJ+rh58guiZVg7ihiyggvwJRQwMF19H41G0y1IF4ML+d6p/6p+XR
+	 9OY7FoOcdQDegT8E7kq/r1EXalvOaMpJ3+pJqMc0Mwn+WhwgkKHaoMXQc33gnXGiPY
+	 L/Z1bQwrl1LPPcLXKqJFVPKdCaTkcHuV8xWWIStgnmLU62XZ6P9Vbf8+Y4KCOx0k5w
+	 a/+EiuaabCu/0B46HDGSY8FpUV/yto5N+QIZH0t4EcCpG3RNMEI7E/r8mFMoQFIscy
+	 J9WtduxBLlRs/PE8g7C2jBbDjFRM72NlicMZQF2WgmkNZdjII1mQCoSUQEefH4Pdg9
+	 od+9X1r9tnaQLW3Fv0DbFxcIRROXxzhKX8DzdK6T9x7PuHBZgGhmgo0p5jEnY5J2AV
+	 QFDtLSWevEDOna3zyRh4FcDU=
+Received: from stx.tnic (unknown [IPv6:2600:1700:38ca:c00::3a])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (P-256) server-signature ECDSA (P-256) server-digest SHA256)
+	(No client certificate requested)
+	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTPSA id ABA4D40E015B;
+	Sun,  4 Oct 2026 17:50:51 +0000 (UTC)
+Date: Sun, 4 Oct 2026 10:50:48 -0700
+From: Borislav Petkov <bp@alien8.de>
+To: Yazen Ghannam <yazen.ghannam@amd.com>
+Cc: Vishal Badole <Vishal.Badole@amd.com>, tony.luck@intel.com,
+	linux-edac@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v3 2/2] EDAC/amd64: Set zn_regs_v2 for all Family 1Ah
+ models
+Message-ID: <20261004175048.GBasKR-AA6kPKnbgEa@fat_crate.local>
+References: <20261002113204.3358815-1-Vishal.Badole@amd.com>
+ <20261002113204.3358815-3-Vishal.Badole@amd.com>
+ <20261003012238.GCasBY3rN9K8ps1dDR@fat_crate.local>
+ <20261004151447.GA2673@yaz-khff2.amd.com>
+ <20261004160412.GAasJ4_AhYcuacY6ZM@fat_crate.local>
+ <20261004170525.GC2673@yaz-khff2.amd.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="q235cgcbujrqaark"
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20260831155339.181487-5-ivanrwcm25@gmail.com>
-X-Zoho-Virus-Status: 1
-X-Zoho-AV-Stamp: zmail-av-0.2.13.1.5.4/291.133.86
-X-ZohoMailClient: External
+In-Reply-To: <20261004170525.GC2673@yaz-khff2.amd.com>
 
+On Sun, Oct 04, 2026 at 01:05:25PM -0400, Yazen Ghannam wrote:
+> I'd rather we load unconditionally for all models with the same base
+> behavior using sane defaults. Then we can have model-specific patches
+> for variations, if needed.
 
---q235cgcbujrqaark
-Content-Type: text/plain; protected-headers=v1; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH v1 4/5] docs: ABI: complete power_supply type valid values
-MIME-Version: 1.0
+I'd rather not because I keep getting all those: amd64_edac doesn't load on my
+machine reports. Well, after a while it turns out that it should not load
+there in the first place.
 
-Hi,
+And then there's the managerial checkbox patch which needs to add support for
+their new model just because... does it even make sense to add support? Oh, we
+didn't even think of that but it says "Unsupported" so we thought we should
+"fix" the error message... 
 
-On Mon, Aug 31, 2026 at 12:53:38PM -0300, Iv=E1n Ezequiel Rodriguez wrote:
-> sysfs type already exposes USB_DCP/CDP/ACA, USB_C, USB_PD,
-> USB_PD_DRP, BrickID and Unknown via POWER_SUPPLY_TYPE_TEXT[]. Update
-> the ABI document so Valid values match the implementation.
->=20
-> Signed-off-by: Iv=E1n Ezequiel Rodriguez <ivanrwcm25@gmail.com>
-> ---
->  Documentation/ABI/testing/sysfs-class-power | 4 +++-
->  1 file changed, 3 insertions(+), 1 deletion(-)
->=20
-> diff --git a/Documentation/ABI/testing/sysfs-class-power b/Documentation/=
-ABI/testing/sysfs-class-power
-> index 5641f1fd5fd6..08afb75973d2 100644
-> --- a/Documentation/ABI/testing/sysfs-class-power
-> +++ b/Documentation/ABI/testing/sysfs-class-power
-> @@ -34,7 +34,9 @@ Description:
->  		Describes the main type of the supply.
-> =20
->  		Access: Read
-> -		Valid values: "Battery", "UPS", "Mains", "USB", "Wireless"
-> +		Valid values: "Unknown", "Battery", "UPS", "Mains", "USB",
-> +		"USB_DCP", "USB_CDP", "USB_ACA", "USB_C", "USB_PD",
-> +		"USB_PD_DRP", "BrickID", "Wireless"
+So I don't want to have that unnecessary waste of everything. And if a f/m/s
+would keep my sanity, then I'm perfectly fine with it.
 
-The USB sub-types should have a marking, that they are deprecated in
-favour of using just "USB" and additionally exposing USB_TYPE. There
-is only a small amount of legacy drivers still using the subtypes
-directly.
+> Essentially, we could avoid a whole class of patches for derivative
+> (client, embedded, etc.) products. The module would load with the sane
+> defaults. If the test folks find an issue, then we can have a
+> model-specific patch.
 
-Greetings,
+Only on well-tested and supported configurations. Everything else doesn't
+work.
 
--- Sebastian
+-- 
+Regards/Gruss,
+    Boris.
 
---q235cgcbujrqaark
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEE72YNB0Y/i3JqeVQT2O7X88g7+poFAmrCkewACgkQ2O7X88g7
-+ppGWhAAhpj84EYzKgOaaTSLjS8H4Ka9zipsJqULMw/Y25/HuY/4a5vUO/uciB6Y
-A76feGtWcrDl1ZZGhRCqAINhByY0Lzw3ebe1BfUImysLSDZMD+yIhbSeNVrmC7H7
-fteuwRJcI1j5L7TCgCHmPnXMPPxMvYANAE0GMIBgSDxPnwCS02nL9UvovKllNAcT
-gpGeuZ0HIE+KL+Nqtk9hC/ngtA0/k6xXIhW+rUhGJkVLV/9aSSkAy4r7arJam2NW
-iCPVKOdVn+er+/Vj1kUV+eRbctsfH/NOcn5dO2x96Yj5fQLfRcJSIQF2EnmZ3HA5
-a8bksvH/2flDaBDguhmS3R/pcxHFw16aXlwwJPtAx9+jVUizWZpvYkaa1RTQ6fz3
-sViYHLSPeK27iN1jiHoqY/rOYUGCyUiC29J7Xp9N0gGKVacXoPfbX1pb67O+KYqy
-uWJcFAbWjD3tM3SgyMyk90kUGqoOd4gsQwKcykcMyvS/DfmkaPPHQ8NC2uuTwxDR
-sr7RsyCcrbFdyUl+aworcjtBell5goW0aIxuQjzlSFKCnGqwca6C1CjbbtibNaPb
-zTascJIFl0UQVpNimikVmrlNVNc17/7ez9xIT3ZjJ/ItJAmjrdeRc0zgCHGnjvis
-NNeq92ObRTvnBYq534gzFpM2HkcVMCtmjt2cu/YDyK+lc+UL30w=
-=zwdO
------END PGP SIGNATURE-----
-
---q235cgcbujrqaark--
+https://people.kernel.org/tglx/notes-about-netiquette
