@@ -1,131 +1,228 @@
-Received: from mail-pj2-f38.google.com (mail-pj2-f38.google.com [74.125.227.166])
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4070648095E
-	for <linux-kernel@vger.kernel.org>; Sun,  4 Oct 2026 18:37:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.166
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 157A7480953;
+	Sun,  4 Oct 2026 18:38:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.130
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791139022; cv=none; b=aUUTUKSUDjcPpT+I5C9wTJo/FSukd9WnVvt8sGxQtbGyn7ljNWWydzQ314HH1IHbnO2wwCDCyAuvOMYa788pdyfFe1gyC72sSdPmKbMlPg0s7vLznXhdOeJS+lLx9EC66MGlK6VV+2lKnkU0CGE2q8plSW6gWR/pGQuAMErwQfk=
+	t=1791139086; cv=none; b=j/Tk650N3UJgOzzkL3PoB62cLC7k6lPCNUsWS1WoJIcjN0Wx498sYphsVEoXT5rXau2GCc6ec5XPvXfZ6qiJ1aLLfXL9sJ/p1FeyW9Y+P7Ll6aelMM0IRaPU/iZCe+i6lWR3FhVkWyn5vAMlbWZQb5KHGcKRtxsYGTy5goWDqLY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791139022; c=relaxed/simple;
-	bh=WfeXK5AKDpb64C1NC+XtmGSUdPRTL3vW3SWE84o+1Vs=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=c5uZNHi6BZk9XvRttx66K6ESZQvJZXNN56qAvB3bYKucTaa4G7wOntGtmMITyMf9bkwPcKJj14D3dU3tRDqeR33aPL6YDSxwPf/blAkLPcld8CsDHBWSzLT42BlcSZoC1f6cn4fFoi7BkgyJueJJsKihkFLr4NgHWWb0OLIboQI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=dSEF8Q07; arc=none smtp.client-ip=74.125.227.166
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1791139086; c=relaxed/simple;
+	bh=5OIeb0KQYJAZBbByRplOstp/j05el8GbcAhhBlJrMW0=;
+	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=Bk7OTkSh+l9gJT+WfL4QHcq0i9OX4ZLVXxScHzflbfjyWCRWBoYZa1TwtZVg+Ttt8afINn/dGetgpAZTdd5XQGg8sBtrCU1BUJeXKYfpdD4YlhtDybEZ4bo8jFQlDEpmoJkZxMlD4qIW1QSo1gTrEqetobAKossQ0I6EtPJd/9k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=1MTppv3z; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=/+MGWodF; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=qyd0DvFE; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=5EcoDPj/; arc=none smtp.client-ip=195.135.223.130
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="dSEF8Q07"
-Received: by mail-pj2-f38.google.com with SMTP id 98e67ed59e1d1-3a4c276e1c7so377416a91.0
-        for <linux-kernel@vger.kernel.org>; Sun, 04 Oct 2026 11:37:01 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791139020; x=1791743820; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=H/aRpqoHc1hrkg65nOx0P5OCRcv0ieiLuPj75uB2KS8=;
-        b=dSEF8Q07cSD6D2Lyy02pcHv7+G4+9+5Nqb8gb8/QTI7xHOvaallksLd5GJ2nmjQEVE
-         PsAa/lXfw5/3gMf6AhfNF7G9NxY6WpGXx24c1WIZIAp0gq8uXpfX4VGSzAVbLxud2zEr
-         LAlpkqgWBkrpXV1zQ9yAjZQcAdd/CD5CG21DyHBfAxD+lsMdPZNlkAp3buMJHRn5xcat
-         umo6u7BOIf0IrcjTsPn6v7eBFK6NsTJvd57Vp4k7+KqTyVm8BB4jLzufk0G+162rSFgM
-         5a3h8XEoIHwzqxZayF/DTHd0lDu2ZXzdza92xoZbLOguOEFL+CtlLgHv8I/uq4V0G1V/
-         mOmQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791139020; x=1791743820;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=H/aRpqoHc1hrkg65nOx0P5OCRcv0ieiLuPj75uB2KS8=;
-        b=vTfI3kGV6kHQ9tHdhdb1eoMCBORQ+wrZS5/S6PWyTeAaIn+tuh02xI7CukXtsFVk/D
-         7/SFbdrVVSrQav8OM/9Jd8p+iSn7EM1EERO/Tzvw4748xdwFTBXqTkTHLlnYdfoe0bVG
-         JSDCSrQ7XABGa3ni7u0673DTrEppqfZ6t2NaXBBKXnGF4YcMNQHH0jJOfhLawVDxyb2N
-         AW1+KKLC/Xp2y58RpzGjZkbFeRq4ArTQ99BfbMhSg1LHpwACGw4iIQrun/pqEY/LdiLm
-         x2iSUndjlyO9ngcnrBI8KGNK+tWqH7cQ7eTfhNh/CD49hVDGuY1XAk6TqgPYBseNrulH
-         pQGg==
-X-Forwarded-Encrypted: i=1; AKwUvBy/9n3bJVJRTVn4gsZ8/IX+176i1cSi38ArOp2I5cybhzIP9E+54PmK+e9afORPef6vaNEvoZ70lcNTQtY=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKPqPTDD/LK/T06JMx14wVEEnmqe4UlfUJmWxR0lNQuL/wCiLTX
-	+3C+QDFLR2oYLdHa62hbHKFJ1HkbVp5MJzswzOUmUyEAtJZePqx9pya+83S7yyNg
-X-Gm-Gg: AYBFou2CAFpwvIWi0FS7t5nxt9mzMHYlNGFFSaetSDEq6diE2e2JXmoXg1bgMQa+9BV
-	Hca2K070HgRF4vw2FSuhpq/y0YpEuSSKqOryvEd5L3/AMnGScO3vyo88uYvxyR+yhRPaw4IpoJq
-	2MTOoR8jZ3cf7a3yote6A3lNkNGcyGgH9rTjA9tJYWaGOXdVdYivarAXbYUXqFufNtlAz3rqGJh
-	4DqQ3gVJihEL+h7gLzHzktXiKgUPWqQOUQMFwU03ppKi58PciYE4ba9dR3wTwv3ElOEOfOVKGbW
-	N54epJegk+z6A/w6+4GijpQnoQ3WKxws110GBHvWazNskzIFIeWwXrMmJo+2Yy6svljYAg4DPOb
-	FeTP3FLPCZ1NHpWw7BrytILx57PrEmtqy7su96E0PqXfk072OiwN/eRuSGJceHk41NN6RaF2T8f
-	vQlUWIOnSSDyDifPnQirNBTiExykCkH1+A7/c7e0MbcV6PscSo9hyYnU5pda3ynW3uf+kB4HgJ9
-	FzysfWX23M=
-X-Received: by 2002:a17:90b:52c7:b0:3a7:f45:5cb8 with SMTP id 98e67ed59e1d1-3a70f456892mr2770926a91.23.1791139020479;
-        Sun, 04 Oct 2026 11:37:00 -0700 (PDT)
-Received: from ancienth-X870E-Nova-WiFi ([125.186.72.2])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a78e4262cfsm7522854a91.6.2026.10.04.11.36.57
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 04 Oct 2026 11:37:00 -0700 (PDT)
-From: Daehyeon Ko <4ncienth@gmail.com>
-To: David Ahern <dsahern@kernel.org>,
-	Ido Schimmel <idosch@nvidia.com>
-Cc: "David S . Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>,
-	netdev@vger.kernel.org,
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="1MTppv3z";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="/+MGWodF";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="qyd0DvFE";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="5EcoDPj/"
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out1.suse.de (Postfix) with ESMTPS id B03F221D45;
+	Sun,  4 Oct 2026 18:37:54 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1791139078; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=GqMoXyq5mQHGq/QPLbs3A/r06cDlnqm6ZY93gy7/96Y=;
+	b=1MTppv3zeq0crJHluy1zJX1qaQqlEbRL+WG+jew4e4MhmNu27UlSqaZ210nO31Xw1PBFyc
+	tyVeA1NeSdtFfoiC5ECKhVYVYqhmDgT5nhO3GstRMrjOey+6FEjk2bITb/ulpEXorCtjBS
+	gZZK4iWzn6DMOjswosSVZVGjywdTDa8=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1791139078;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=GqMoXyq5mQHGq/QPLbs3A/r06cDlnqm6ZY93gy7/96Y=;
+	b=/+MGWodFWjLcz3o/r/xJCN1eG6P6uCzZZUS/hMOBEA7XHT43pfwDyCIX4NPHVMuGGvCexn
+	0hvvis+U0quV/MCg==
+Authentication-Results: smtp-out1.suse.de;
+	dkim=pass header.d=suse.de header.s=susede2_rsa header.b=qyd0DvFE;
+	dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b="5EcoDPj/"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1791139074; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=GqMoXyq5mQHGq/QPLbs3A/r06cDlnqm6ZY93gy7/96Y=;
+	b=qyd0DvFE60qzwNHV5Gb46/Fln7MtbjujdMhoBCPhwFbz6ATqqKnJsQAeQqlTHiH74c/jj/
+	YBV1Mr3mqAuDduzjR3Y2PD/pugSKXzNt1Kehqokbj8fZw5hVrHHEnmNIYwIETloUxzabSJ
+	8zrAX6U+yncbqsBgis4CRWLCX0Vzxuc=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1791139074;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=GqMoXyq5mQHGq/QPLbs3A/r06cDlnqm6ZY93gy7/96Y=;
+	b=5EcoDPj//Sb8VtjL6E0udAJWNsYBsyUVWj2rSlPEEQVGBtYf8M6FS7Q/lkVxd/ywUVoVcF
+	dtyUUVX0QGFOD0Cw==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id CA823133CF;
+	Sun,  4 Oct 2026 18:37:53 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id TF7YJwGdwmpCXgAAD6G6ig
+	(envelope-from <tiwai@suse.de>); Sun, 04 Oct 2026 18:37:53 +0000
+Date: Sun, 04 Oct 2026 20:37:53 +0200
+Message-ID: <874if1ia66.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: henrik.enquist@gmail.com
+Cc: Jaroslav Kysela <perex@perex.cz>,
+	Takashi Iwai <tiwai@suse.com>,
+	Mark Brown <broonie@kernel.org>,
+	Shuah Khan <shuah@kernel.org>,
+	linux-sound@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	Daehyeon Ko <4ncienth@gmail.com>
-Subject: [PATCH net v2 2/2] ipv6: remove ifaddr from hash during ifdown list cleanup
-Date: Mon,  5 Oct 2026 03:36:39 +0900
-Message-ID: <20261004183639.3773498-3-4ncienth@gmail.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20261004183639.3773498-1-4ncienth@gmail.com>
-References: <20261004183639.3773498-1-4ncienth@gmail.com>
+	linux-kselftest@vger.kernel.org,
+	Pavel Hofman <pavel.hofman@ivitera.com>,
+	stable@vger.kernel.org
+Subject: Re: [PATCH 0/2] ALSA: aloop: Fix notify mode, add a selftest
+In-Reply-To: <20261003-aloop-notify-fix-v1-0-ba5dfb831bf5@gmail.com>
+References: <20261003-aloop-notify-fix-v1-0-ba5dfb831bf5@gmail.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/30.2 Mule/6.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
+X-Rspamd-Queue-Id: B03F221D45
+X-Rspamd-Action: no action
+X-Spamd-Result: default: False [-2.01 / 50.00];
+	BAYES_HAM(-3.00)[100.00%];
+	SUSPICIOUS_RECIPS(1.50)[];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	MID_CONTAINS_FROM(1.00)[];
+	R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	MX_GOOD(-0.01)[];
+	TAGGED_RCPT(0.00)[];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	ARC_NA(0.00)[];
+	TO_DN_SOME(0.00)[];
+	FREEMAIL_TO(0.00)[gmail.com];
+	FREEMAIL_ENVRCPT(0.00)[gmail.com];
+	DNSWL_BLOCKED(0.00)[2a07:de40:b281:104:10:150:64:97:from];
+	RCVD_TLS_ALL(0.00)[];
+	FROM_EQ_ENVFROM(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	RCPT_COUNT_SEVEN(0.00)[10];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:mid,suse.de:dkim];
+	RCVD_COUNT_TWO(0.00)[2];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	DKIM_TRACE(0.00)[suse.de:+]
+X-Spam-Flag: NO
+X-Spam-Score: -2.01
+X-Spam-Level: 
 
-addrconf_ifdown() clears the address hash before snapshotting the
-per-device address list. When the device is not unregistered, a
-concurrent ipv6_add_addr() can publish an address after the hash scan and
-before the list snapshot.
+On Sat, 03 Oct 2026 15:26:10 +0200,
+Henrik Enquist via B4 Relay wrote:
+> 
+> Hi,
+> 
+> snd-aloop has a notify mode (the pcm_notify module parameter, or the
+> "PCM Notify" control per cable) where the playback side may switch
+> format, rate and channels while a capture is running. The driver then
+> stops the capture and updates the "PCM Slave" controls, so the capture
+> application can reopen with the new parameters. alsaloop enables it in
+> its slave mode, and I'd like to use it in CamillaDSP, which captures
+> from a loopback and needs to follow whatever the player outputs.
+> 
+> This hasn't worked since 2018. Commit 898dfe4687f4 ("ALSA: aloop: Fix
+> racy hw constraints adjustment") moved the hw rules over to the shared
+> cable->hw. That fixed a real race, but it also pins the playback side
+> to the capture's parameters in notify mode. Pavel reported it on
+> alsa-devel in 2020 [1], and Jaroslav reproduced it and pointed at the
+> same commit:
+> 
+>   It seems that 898dfe4687f4 from Takashi broke this functionality
+>   (tied the cable parameters more strictly, so the playback cannot set
+>   freely own parameters for the pcm_notify=1 case). We need to find
+>   another way to detach capture stream in this case.
+> 
+> The thread ended there, without a patch.
+> 
+> The breakage is quiet, which probably explains why it lasted. A player
+> that probes the playback device sees only the capture's rate and
+> format, and resamples to them. aplay prints a warning, most players
+> don't. There's no rate change, no stopped capture and no event.
+> 
+> Patch 1 skips the hw rules for the playback side when notify is on,
+> which gives it back the freedom loopback_open() still intends it to
+> have. That makes the capture stop in loopback_check_format() reachable
+> again. That path was hardened this year by 826af7fa62e3 ("ALSA: aloop:
+> Fix racy access at PCM trigger") and e5c33cdc6f40 ("ALSA: aloop: Fix
+> peer runtime UAF during format-change stop"), and with those in place
+> I'm comfortable turning it back on. They need to go first in any
+> stable backport.
+> 
+> The period bytes rule is skipped as well. It came later, for the sound
+> timer source, but without skipping it a playback that switches rate
+> keeps the old capture's period size. The stream then runs with a period
+> that doesn't match the timer, and every switch fills dmesg with "Period
+> size ... not corresponding to timer resolution".
+> 
+> Patch 2 adds a selftest, so this doesn't break silently again. It
+> doesn't need to go to stable, so it can go via for-next if that's
+> easier.
+> 
+> Testing: for-linus at b4e7fc36e31f, arm64 VM, kernel with KASAN,
+> lockdep, DEBUG_ATOMIC_SLEEP and DEBUG_LIST, comparing the patched
+> driver with the unpatched one built from the same tree. With the
+> jiffies, hrtimer and sound timer (via snd-dummy) sources:
+> - With notify on, rate, format and channel changes on the playback
+>   side now go through, stop the capture and update the controls. With
+>   notify off they're refused as before.
+> - A capture that reopens at "PCM Slave Rate" after each stop follows a
+>   player alternating between 44.1k and 96k files, 20 of 20 switches,
+>   with both RW and mmap access. Unpatched: 10 of 20, the playback stays
+>   pinned to the capture's rate.
+> - A capture opened second is still pinned to the playback.
+> - 2 minutes of random open/start/close on both ends per source gave no
+>   KASAN or lockdep reports. The sound timer source logs an occasional
+>   "snd_timer_stop ... failed with -16", at the same rate unpatched.
+> - The new selftest fails 2 of 4 tests unpatched, and passes 4 of 4
+>   patched, 50 runs in a row.
+> Not tested: real hardware, other architectures, pause/resume, more
+> than two substreams.
+> 
+> One question, following up on Takashi's point in that thread about
+> telling user space that a stream got invalidated. After the stop, the
+> capture drains and then reads return -EBADFD. alsa-lib now documents
+> -ENODATA as meaning the PCM must be completely restarted, which looks
+> like the right signal here. Would you want aloop to report that
+> instead? I left it out since it changes what user space sees, but I'm
+> happy to do it as a follow-up.
+> 
+> AI disclosure: I used Claude Code (Claude Opus 5.5) for this. Starting
+> from my description of the problem and the 2020 thread, it did the
+> root cause analysis from the driver source and git history, set up the
+> test kernels and VM, wrote the test scripts, ran the measurements, and
+> wrote both patches and their changelogs. I reviewed all of it, and both
+> patches carry an Assisted-by tag.
+> 
+> [1] https://lore.kernel.org/all/b4af9071-f8d7-5b47-4d7a-c5743bd67394@ivitera.com/
+> 
+> Henrik
+> 
+> ---
+> Henrik Enquist (2):
+>       ALSA: aloop: Don't constrain playback params in notify mode
+>       selftests/alsa: Add a test for snd-aloop notify mode
 
-The ifdown path then removes the address from the device list and drops
-its last reference while it is still linked in the hash. This triggers
-the WARN_ON() in inet6_ifa_finish_destroy().
+Applied both patches to for-next branch now.  Thanks.
 
-Remove each non-kept address from the hash before marking it dead,
-notifying listeners and removing it from the device list.
-hlist_del_init_rcu() is safe when the earlier hash scan already removed
-the address.
 
-Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
-Cc: stable@vger.kernel.org
-Reported-by: Ido Schimmel <idosch@nvidia.com>
-Link: https://lore.kernel.org/r/20261004135117.GA206930@shredder
-Suggested-by: Ido Schimmel <idosch@nvidia.com>
-Assisted-by: LLM
-Signed-off-by: Daehyeon Ko <4ncienth@gmail.com>
----
- net/ipv6/addrconf.c | 6 ++++++
- 1 file changed, 6 insertions(+)
-
-diff --git a/net/ipv6/addrconf.c b/net/ipv6/addrconf.c
-index 426739abb07440..309c49b2141563 100644
---- a/net/ipv6/addrconf.c
-+++ b/net/ipv6/addrconf.c
-@@ -3996,6 +3996,12 @@ static int addrconf_ifdown(struct net_device *dev, bool unregister)
- 		keep = keep_addr && (ifa->flags & IFA_F_PERMANENT) &&
- 			!addr_is_local(&ifa->addr);
- 
-+		if (!keep) {
-+			spin_lock_bh(&net->ipv6.addrconf_hash_lock);
-+			hlist_del_init_rcu(&ifa->addr_lst);
-+			spin_unlock_bh(&net->ipv6.addrconf_hash_lock);
-+		}
-+
- 		spin_lock_bh(&ifa->lock);
- 
- 		if (keep) {
--- 
-2.55.0
-
+Takashi
