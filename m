@@ -1,78 +1,72 @@
-Received: from mail-pl1-f179.google.com (mail-pl1-f179.google.com [209.85.214.179])
+Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EA5DA199947
-	for <linux-kernel@vger.kernel.org>; Sun,  4 Oct 2026 07:34:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.179
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8FBF73EDADC
+	for <linux-kernel@vger.kernel.org>; Sun,  4 Oct 2026 07:37:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791099284; cv=none; b=qsxrF537JtOKxwqPmB2VCikCMGpGoO/k7xaSl20ZbPjPWxX0yzgfzzzLuTJyUllugzM+dE/BRLm8WAHqD2hAcKgzFBkBO8xA6J6fYsdPqHAiAxDO8qtyJO7cL9F9ZnJVIOjJX7dI/34F/psRwF+fJ3azW7QUhfC02k6uLjZ+vqU=
+	t=1791099462; cv=none; b=Q/iRfB7Gr0b+SbBPdIzWAOD8glfwkSU8jNy4S8IxwOObhRFlb/WKZ5Ub/4OyFLDErSwMpgoYLZkumSbNwFBE97/B2meRGe0N6IWvQ61YGOb0yur72i3HuLcVFm7tjVji3PkYrdXjw5Upx+wJyJDAST1NxN9UuXB0t3Eg+VN2Ip0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791099284; c=relaxed/simple;
-	bh=oV8I52EnEn4Do2vf3jRoStkeuMXWZFI+JGNnneSg3Ug=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Ba/tezvPBOjC6GveapqWRLj3KQHUZNnSevOs/WFaQ5eEBHwFCq0EP8EhGHFh7qC/7i6635VOXiCAOOqaEBGBkE16l1eax0mIAbr/wyYxVnwR2NSelmD7T2x5ULBTJgOlD9hOJo2UAAQnEQESGj70isEbTwo53FX4k/uFEwt0obs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=TlC846XP; arc=none smtp.client-ip=209.85.214.179
+	s=arc-20240116; t=1791099462; c=relaxed/simple;
+	bh=RItvgbLaQ3Vo+TCFzPOddaXRn8McJuRPreP1gE8GHfE=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=feqOlvT3My3pCMw70qAkiuhMlgCLQSfGTbizVK2IpN8CakltuAztNNfJKsGgpStH1iWQXbl+E9UzgHHiUnwKg44hoqYEpnA/igPZqAx/c8MocRPwfLiKU+6W+zqvVj3frOnc2mGT+62m40NnSmUP/mCakha78PjD9tW62rS5cx8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=dX4attVY; arc=none smtp.client-ip=74.125.225.141
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="TlC846XP"
-Received: by mail-pl1-f179.google.com with SMTP id d9443c01a7336-2e4af975346so5391675ad.0
-        for <linux-kernel@vger.kernel.org>; Sun, 04 Oct 2026 00:34:33 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="dX4attVY"
+Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49ce364488dso2671405e9.0
+        for <linux-kernel@vger.kernel.org>; Sun, 04 Oct 2026 00:37:40 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791099271; x=1791704071; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=3TSxZwHRoZMu3vBmEpKbk/Zl8R7mBDI5Id5VQd4Apzw=;
-        b=TlC846XPO2Gv+JsPUu5xUx66cWpftMkB/Z2wAhQWBpx/7mXVNPBCIUSnLiLVna7gCO
-         t99eU3AcaHJRvCi4mkwrsuIhRMrH9FbdI3ylKBv91MO0v/fK9Q37EG4LwYPPn+AiZF1j
-         BpP0PXJL9CbKTjPVT0e0fXuhWA1ch8wOgTy1nGv3fBszLn2hrPqIiH5/E0ZUdjJ6nDXC
-         6MqyWJZWHRYgE+1cqtAuA+pahi/ADtvexVJYyZ3iamzNJjRBYFWjwXEI1+/5Q6bnPGNQ
-         72qRT4b5mVb4TW75tQkwMce3T2PayOTyQI2o/RgDRoazTIdXxpDGEOlPSZ2KEhukV5NM
-         mjQw==
+        d=gmail.com; s=20251104; t=1791099459; x=1791704259; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=d8oi3hJYRwGp21iBvFZ5toif0bQQe4wJElm6vixFNBY=;
+        b=dX4attVYJh/cpr8/1M38DbsTo2U5Hbk0RmfKSNvgdcJDxmHisjJJhDvSgMfPLjXSgL
+         kD3k0Dw+UihjIP2w1EXsN5Uo31qbFXTfs7VsECGiGrF1maMr2jRw8ptnxJoZSOTqTG9Z
+         lYiXaC8BtMbof2Q1JU5u53ws3ZFh258NR5LFgGNg2DigI5bYwhm9ljowROA73vSupH1h
+         UMPAQ8w1vJozNFB08RMppv8woIH0FBzOKammyiK9jsVaiwwVrqJi+VWnOQyUjmVt82b4
+         COL0RPJa13/GZ0vmJa5FxpWFMdPFlmoLiRXR/4APGBe1xhhBiQQMwKX6CF9Yfgk2Rf2+
+         EMzA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791099271; x=1791704071;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=3TSxZwHRoZMu3vBmEpKbk/Zl8R7mBDI5Id5VQd4Apzw=;
-        b=tgPNyB+zNkUPn4Qzoo1lGpUk2qpRf/wGJqyPd/jgYytxLFpj5teFq6e2ue9Ti1YHRC
-         4LtsKN6Up67TGnX//IQ6wIXpkXfCIJb+ppddsu5FX+TK6AwBygQRiFyr3I2k1CeKfIO/
-         xdtUGQhl0F8tM4ss21rWFu0y3xx4681Cymq4CehepFt+f6/9X32tNC7KqKDzcjLb2gPA
-         KJwxPX11ngeSzdLAoHapibC2pXUDi9IK8B1Od1LsxK0DFenHWH9rVvmipBxbScf/i2bX
-         HwC2o2aQXVWxFE5QfPU6jlhEotPBoNTf+Oa9T6zsWfbVPNoYh4iTN5CEfdaTI1Q74YJj
-         edRA==
-X-Forwarded-Encrypted: i=1; AKwUvBynN/xEecjMRAZRKcGQ3lFXORbFpCpOwZiOdJAqkKjTNMoXUfD0A1Wf/b9GDqIWT77f8qvErwd0Y0JdEnI=@vger.kernel.org
-X-Gm-Message-State: AFq9FYL5CXM/1Zur4gcy2LP8tTVYYt5MNrqFMD5vbHjaERYGWMs/+W7S
-	KSt0wly/WvrNmtqdL4QydF3AEr88NxfHNg/w2goQEdP+h7eo4rh1fpil
-X-Gm-Gg: AYBFou3c0p5sC+a6voJQbTrNpxDmstxwLTmk8auI4nhI3AABRUnZI5uTVebPpMNVUIe
-	ABa0DKDSdrxKDR8OX3MFvSo6nKrEk4N1mD9UG3pMILFyU+8Gvh0wbwNm3Z3gJhfG4xxfYgXG6Af
-	z081STaZOSklF4TP7zvSNeiFE1r5USD+oO+2SmCEiTdS/BPx4tmOO658BNNGD6Hd+1ehiwoONau
-	/mLXcUf8GIpmgWiU59F/v+HR3AY+WjMMO2UUdnwVcNcLlfzS5/G0dMeMQfDTcj/RFbA3WT1UTXq
-	/SlY9GEZ8TGk+BsvERG/LHbhDl2hqologFFzktn8NQyHV/XvgPjkWRHxpFAMPt5xpMAptt3iKXm
-	QPebqHvhJyQV2+zSWHBDx9+fecROrHxTxNVUueWk4Wt5MTT9IBHJr8H2FQTxdF/ivNMtQ8xM3bp
-	lqiYHn+Wbve5kJWDWcwfyFxh+JbTAFYt9cgwuSQ2ynxxyOMd7Dno9usuMtjsR7zMpsV/ty13ttE
-	WzFd6cGDXQ=
-X-Received: by 2002:a17:902:f686:b0:2e2:dc50:16a8 with SMTP id d9443c01a7336-2e510573f7cmr31772435ad.27.1791099271346;
-        Sun, 04 Oct 2026 00:34:31 -0700 (PDT)
-Received: from ancienth-X870E-Nova-WiFi ([125.186.72.2])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2e49f7312aasm21800865ad.79.2026.10.04.00.34.27
+        d=1e100.net; s=20260707; t=1791099459; x=1791704259;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=d8oi3hJYRwGp21iBvFZ5toif0bQQe4wJElm6vixFNBY=;
+        b=cpPKWv0oTg3PAIm3qUYBQzwHWtZYQV/pMFIu5OosHw+IcLyuH+zuz3ryi1UiUjt+8S
+         mq0eVYgZOixcFuhGN6c8lf6p8Pp4yput3BBdvvJiuTeZMJfOPIqQ8QEisjbkpY5bZSXF
+         Tw0EH+IOtiQzLMVPSHu5g0VQFQF1zZcuiCaAUKUwEY41QyhdHPB8aVRXihlK4QTmgCw2
+         E/OUTXq+AD8I4PwRv/nL6bA6VEJ8Ub/o5gtkBB+lrtOAjy9ugpd6k91nRtpRAh1GbFLL
+         acALanL3w6qzu83QGhpiCERExlW9SZTKK9bQ4c7GITAmY3l4ojtiphPX8+86S4R6kqHh
+         dWzA==
+X-Forwarded-Encrypted: i=1; AKwUvBzKqC68nxXItnaEYvLWxSbFHY/36KujHSPKQUKqnqQr/QQnymb4n5uv4tx7UzkCNgy9/IVqCphJSpd/PH0=@vger.kernel.org
+X-Gm-Message-State: AFuF++mw4fsC8Y07ajaRSokPThpE6UwgNzsZ7SmBP1+1ZD07hzVEmNDx
+	ioUvHgVHEJdlGY+PDCezJplnUip0H+rq+86uDFRgtNWVaAomw7RK4avV
+X-Gm-Gg: AYBFou1K8WB7fR0t+Ih5RZV6fw1yv9UVKmzfNx8S9KwoqmAK2rE00uyVJi5EK1Ftt8K
+	6zlFi1aym6vOF4l15V/6oz85Ec8Y+RAbTeuxhUmx5fsV7Kp7e4TMOb6YcOqChzq33iwiuKjJlW/
+	DS+00/G+g0N2h+VcCxVIvuLWJUtKj68z+ZhMdFlu4eHuJInR0Jvwmkr7quoyzm1+55fJgAoYFh1
+	Kw3BuOIIxAtGzZ3bPff9XVIb4Kqr+A27yez/nNC+KhDeUD9h9OtE6tttfcY7rcM3IzkzJe8zx9N
+	4/hYEJ80H54GH0vlTIIOayTEZ5UUqymBs9w6W2krAAxllKSoKudUQ/u6eeE7Txdf9l7OZkhK7H4
+	VhlvE8BHVBy6yzich2uH1lfUbHc9rsWbsyPPnKz6gQkt21FoVUvmIE4xdc1Q1o7qf7yaY0jopa6
+	aH/xuDP1aZpftaHVjxdw8k3Z0xHYi/fmGqG7zcEAs4nFM3/Kmv1nyj8BWkqJxJJS7K
+X-Received: by 2002:a05:600c:4e93:b0:4a0:1ef1:b62b with SMTP id 5b1f17b1804b1-4a02754f71emr135458775e9.10.1791099458387;
+        Sun, 04 Oct 2026 00:37:38 -0700 (PDT)
+Received: from acer ([46.196.225.200])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a027698f13sm224931145e9.1.2026.10.04.00.37.37
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 04 Oct 2026 00:34:29 -0700 (PDT)
-From: Daehyeon Ko <4ncienth@gmail.com>
-To: Stefan Hajnoczi <stefanha@redhat.com>,
-	Stefano Garzarella <sgarzare@redhat.com>
-Cc: Daehyeon Ko <4ncienth@gmail.com>,
-	"Michael S . Tsirkin" <mst@redhat.com>,
-	Jason Wang <jasowangio@gmail.com>,
-	=?UTF-8?q?Eugenio=20P=C3=A9rez?= <eperezma@redhat.com>,
-	Xuan Zhuo <xuanzhuo@linux.alibaba.com>,
-	Will Deacon <will@kernel.org>,
-	kvm@vger.kernel.org,
-	virtualization@lists.linux.dev,
-	netdev@vger.kernel.org,
+        Sun, 04 Oct 2026 00:37:37 -0700 (PDT)
+From: =?UTF-8?q?Batuhan=20G=C3=BCvener?= <tuugspeedman@gmail.com>
+To: Hans de Goede <hansg@kernel.org>,
+	=?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
+	"Lee, Chun-Yi" <jlee@suse.com>,
+	platform-driver-x86@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH net v2] vhost/vsock: size receive SKBs from declared payload
-Date: Sun,  4 Oct 2026 16:34:19 +0900
-Message-ID: <20261004073419.4039011-1-4ncienth@gmail.com>
+Cc: =?UTF-8?q?Batuhan=20G=C3=BCvener?= <tuugspeedman@gmail.com>
+Subject: [PATCH] platform/x86: acer-wmi: Add 4-zone RGB keyboard backlight support for Nitro AN515-58
+Date: Sun,  4 Oct 2026 10:33:57 +0300
+Message-ID: <20261004073357.9918-1-tuugspeedman@gmail.com>
 X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -80,121 +74,507 @@ List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-vhost_vsock_alloc_skb() allocates an skb from the total guest descriptor
-length before reading hdr->len.  Descriptor capacity and declared payload
-length are independent, so a guest can supply a large descriptor with a
-zero or short payload.
+Add support for the 4-zone RGB keyboard backlight found on the Acer Nitro
+AN515-58 laptop.
 
-On Linux v7.2, 455 zero-payload packets with 64 KiB descriptors retained
-30,255,680 bytes on a 256 KiB receive buffer while rx_bytes and buf_used
-stayed zero.  A full-payload control retained 265,984 bytes.  The existing
-SKB_TRUESIZE(0) budget caps skb count but does not account for the
-descriptor-sized allocation.
+To establish userspace control, an initial static mode preamble via
+Method 20 is sent during probe and resume to prepare for cases where
+the firmware may already be running a dynamic lighting effect
+that would otherwise interfere with the driver's static per-zone control.
+Subsequent per-zone color and brightness
+adjustments are handled via ACPI Method 6.
 
-Repeating this across connections can exhaust host kernel memory.
+The keyboard backlight consists of four evenly divided zones without a
+dedicated "middle" or "wasd" zone. Therefore, the zones are exposed as
+left, center-left, center-right, and right to match the physical layout.
 
-Trimming after allocation is insufficient.  Linear skbs retain their full
-head, while a nonlinear payload exceeding head tailroom can retain its
-first page fragment.
+The 4-zone RGB implementation in this patch is derived from the
+character-device-based approach in JafarAkhondali's
+acer-predator-turbo-and-rgb-keyboard-linux-module
+adapted here to the standard Linux LED multicolor class. Zone bitmask
+encoding and the WMI enable-method discovery additionally draw on an
+unmerged RFC by Dirga Yuza for the same hardware
+https://lore.kernel.org/all/20260503062131.158944-1-dirgayuza123@gmail.com/
 
-Copy the header into a stack object, validate hdr->len before allocating,
-and size the skb from the declared payload plus the header.  This keeps the
-allocation proportional to receive accounting for both linear and
-nonlinear skbs.
-
-Use payload_len > len - sizeof(hdr) for validation.  This avoids addition
-overflow on 32-bit hosts and ensures payload_len fits the subsequent
-int-length copy path.
-
-Fixes: ab9aa2f3afc2 ("vhost/vsock: Allocate nonlinear SKBs for handling large receive buffers")
-Cc: stable@vger.kernel.org
-Assisted-by: LLM
-Signed-off-by: Daehyeon Ko <4ncienth@gmail.com>
+Signed-off-by: Batuhan Güvener <tuugspeedman@gmail.com>
 ---
-Changes in v2:
-- validate the header before allocation with an overflow-safe bounds check;
-- size the skb from declared payload and remove the global trim-helper
-  change;
-- remove the generic clean-validation statement from the changelog; and
-- add Will Deacon to Cc.
+ drivers/platform/x86/Kconfig    |   1 +
+ drivers/platform/x86/acer-wmi.c | 343 +++++++++++++++++++-------------
+ 2 files changed, 208 insertions(+), 136 deletions(-)
 
-v1: https://lore.kernel.org/netdev/20260930044147.3818241-1-4ncienth@gmail.com/
-
-Built and booted on v7.2 with KASAN, UBSAN and LOCKDEP.  A focused
-allocation/queue probe retained 436,800 and 582,400 bytes for 455 zero and
-341-byte packets, versus 30,255,680 bytes for the vulnerable zero case.  No
-KASAN report, WARN, oops or panic occurred.  The probe injects skbs
-in-kernel rather than through a live guest virtqueue.
- drivers/vhost/vsock.c | 34 ++++++++++++++++------------------
- 1 file changed, 16 insertions(+), 18 deletions(-)
-
-diff --git a/drivers/vhost/vsock.c b/drivers/vhost/vsock.c
-index abed1fbcf66cc5..35f75e23c7497e 100644
---- a/drivers/vhost/vsock.c
-+++ b/drivers/vhost/vsock.c
-@@ -364,7 +364,7 @@ static struct sk_buff *
- vhost_vsock_alloc_skb(struct vhost_virtqueue *vq,
- 		      unsigned int out, unsigned int in)
- {
--	struct virtio_vsock_hdr *hdr;
-+	struct virtio_vsock_hdr hdr;
- 	struct iov_iter iov_iter;
- 	struct sk_buff *skb;
- 	size_t payload_len;
-@@ -382,34 +382,32 @@ vhost_vsock_alloc_skb(struct vhost_virtqueue *vq,
- 	    len > VIRTIO_VSOCK_MAX_PKT_BUF_SIZE + VIRTIO_VSOCK_SKB_HEADROOM)
- 		return NULL;
+diff --git a/drivers/platform/x86/Kconfig b/drivers/platform/x86/Kconfig
+index 957034f..d8bfa73 100644
+--- a/drivers/platform/x86/Kconfig
++++ b/drivers/platform/x86/Kconfig
+@@ -180,6 +180,7 @@ config ACER_WMI
+ 	select INPUT_SPARSEKMAP
+ 	select LEDS_CLASS
+ 	select NEW_LEDS
++	imply LEDS_CLASS_MULTICOLOR
+ 	select ACPI_PLATFORM_PROFILE
+ 	help
+ 	  This is a driver for newer Acer (and Wistron) laptops. It adds
+diff --git a/drivers/platform/x86/acer-wmi.c b/drivers/platform/x86/acer-wmi.c
+index 6a1bf2f..2095e1a 100644
+--- a/drivers/platform/x86/acer-wmi.c
++++ b/drivers/platform/x86/acer-wmi.c
+@@ -20,6 +20,7 @@
+ #include <linux/fixp-arith.h>
+ #include <linux/backlight.h>
+ #include <linux/leds.h>
++#include <linux/led-class-multicolor.h>
+ #include <linux/platform_device.h>
+ #include <linux/platform_profile.h>
+ #include <linux/acpi.h>
+@@ -36,7 +37,9 @@
+ #include <linux/unaligned.h>
+ #include <linux/bitfield.h>
+ #include <linux/bitmap.h>
+-#include <linux/led-class-multicolor.h>
++#include <linux/bits.h>
++#include <linux/container_of.h>
++#include <linux/mutex.h>
  
--	/* len contains both payload and hdr */
--	skb = virtio_vsock_alloc_skb(len, GFP_KERNEL);
--	if (!skb)
--		return NULL;
+ MODULE_AUTHOR("Carlos Corbacho");
+ MODULE_DESCRIPTION("Acer Laptop WMI Extras Driver");
+@@ -77,16 +80,31 @@ MODULE_LICENSE("GPL");
+ #define ACER_WMID_GET_GAMING_FAN_SPEED_METHODID 17
+ #define ACER_WMID_SET_GAMING_MISC_SETTING_METHODID 22
+ #define ACER_WMID_GET_GAMING_MISC_SETTING_METHODID 23
++#define WMID_GUID4 "7A4DDFE7-5B5D-40B4-8595-4408E0CC7F56"
+ #define ACER_WMID_SET_GAMING_STATIC_LED_METHODID 6
++#define ACER_WMID_SET_GAMING_DYNAMIC_LED_METHODID 5
++#define ACER_WMID_SET_GAMINGKBBL_METHODID 20
+ 
+-#define ACER_GAMING_KBL_ZONES 4
++/*
++ * Gaming keyboard backlight enable command payload:
++ * Bit 3: Controller enable flag
++ * Bits [43:40]: Target 4-zone keyboard backlight interface
++ */
++#define ACER_GAMING_LED_KBBL_ENABLE	(BIT_ULL(3) | (15ULL << 40))
++
++/*
++ * Method 6 Gaming Static LED payload format:
++ * Bits [23:16]: Red intensity
++ * Bits [15:8]:  Green intensity
++ * Bits [7:0]:   Blue intensity
++ */
++#define ACER_GAMING_STATIC_LED_RED_MASK   GENMASK(23, 16)
++#define ACER_GAMING_STATIC_LED_GREEN_MASK GENMASK(15, 8)
++#define ACER_GAMING_STATIC_LED_BLUE_MASK  GENMASK(7, 0)
+ 
+ #define ACER_GAMING_FAN_BEHAVIOR_CPU BIT(0)
+ #define ACER_GAMING_FAN_BEHAVIOR_GPU BIT(3)
+ 
+-/* Bit 3 enables keyboard backlight update */
+-#define ACER_GAMING_KBL_SET_ON BIT(3)
 -
- 	iov_iter_init(&iov_iter, ITER_SOURCE, vq->iov, out, len);
+ #define ACER_GAMING_FAN_BEHAVIOR_STATUS_MASK GENMASK_ULL(7, 0)
+ #define ACER_GAMING_FAN_BEHAVIOR_ID_MASK GENMASK_ULL(15, 0)
+ #define ACER_GAMING_FAN_BEHAVIOR_SET_CPU_MODE_MASK GENMASK(17, 16)
+@@ -98,9 +116,6 @@ MODULE_LICENSE("GPL");
+ #define ACER_GAMING_FAN_SPEED_ID_MASK GENMASK_ULL(7, 0)
+ #define ACER_GAMING_FAN_SPEED_VALUE_MASK GENMASK_ULL(15, 8)
  
--	hdr = virtio_vsock_hdr(skb);
--	nbytes = copy_from_iter(hdr, sizeof(*hdr), &iov_iter);
--	if (nbytes != sizeof(*hdr)) {
-+	nbytes = copy_from_iter(&hdr, sizeof(hdr), &iov_iter);
-+	if (nbytes != sizeof(hdr)) {
- 		vq_err(vq, "Expected %zu bytes for pkt->hdr, got %zu bytes\n",
--		       sizeof(*hdr), nbytes);
--		kfree_skb(skb);
-+		       sizeof(hdr), nbytes);
- 		return NULL;
+-/* Bits [43:40] selects target zones, setting all bits targets all zones*/
+-#define ACER_GAMING_KBL_SET_ALL_ZONES GENMASK(43, 40)
+-
+ #define ACER_GAMING_MISC_SETTING_STATUS_MASK GENMASK_ULL(7, 0)
+ #define ACER_GAMING_MISC_SETTING_INDEX_MASK GENMASK_ULL(7, 0)
+ #define ACER_GAMING_MISC_SETTING_VALUE_MASK GENMASK_ULL(15, 8)
+@@ -320,7 +335,6 @@ struct hotkey_function_type_aa {
+ #define ACER_CAP_PLATFORM_PROFILE	BIT(10)
+ #define ACER_CAP_HWMON			BIT(11)
+ #define ACER_CAP_PWM			BIT(12)
+-#define ACER_CAP_KBL_FOUR_ZONE_RGB	BIT(13)
+ 
+ /*
+  * Interface type flags
+@@ -400,6 +414,112 @@ struct wmi_interface {
+ /* The static interface pointer, points to the currently detected interface */
+ static struct wmi_interface *interface;
+ 
++/*Defining payload packages, zone information and general LED protocols */
++static acpi_status WMI_gaming_execute_u64(u32 method_id, u64 in, u64 *out);
++
++struct led_information {
++	struct led_classdev_mc led_general;
++	struct mc_subled led_colors[3];
++	struct rgb_wmi *parent;
++	u8 zone_id;
++}; /* Stores zone-id that's target for function.*/
++
++struct rgb_wmi {
++	struct mutex led_lock; /* Making sure inputs sent to EC don't collide. */
++	struct led_information zones[4];
++}; /* Stores general information (mutex lock and applying previous LED info to 4 zones.)*/
++
++/* Method 20: set KB attributes. We make RGB static to ensure control is at userspace. */
++static int acer_kbd_set_static_preamble(u8 ec_brightness)
++{
++	u8 gm_input[16] = {
++		0,               /* mode = static */
++		0,               /* speed */
++		ec_brightness,   /* brightness, 0-100 */
++		0,               /* reserved */
++		0,               /* direction */
++		0, 0, 0,         /* R/G/B (unused in static per-zone) */
++		3, 1, 0, 0, 0, 0, 0, 0
++	};
++	struct acpi_buffer input = { .length = sizeof(gm_input), .pointer = gm_input };
++	struct acpi_buffer output = { ACPI_ALLOCATE_BUFFER, NULL };
++	union acpi_object *obj;
++	acpi_status status;
++	u64 resp = 0;
++
++	status = wmi_evaluate_method(WMID_GUID4, 0,
++				     ACER_WMID_SET_GAMINGKBBL_METHODID,
++				     &input, &output);
++	if (ACPI_FAILURE(status))
++		return -EIO;
++
++	obj = output.pointer;
++	if (obj && obj->type == ACPI_TYPE_BUFFER) {
++		if (obj->buffer.length >= 8)
++			resp = get_unaligned_le64(obj->buffer.pointer);
++		else if (obj->buffer.length >= 4)
++			resp = get_unaligned_le32(obj->buffer.pointer);
++		else if (obj->buffer.length >= 1)
++			resp = ((u8 *)obj->buffer.pointer)[0];
++	}
++
++	kfree(obj);
++
++	return resp ? -EIO : 0;
++}
++
++/* Method 6: set per-zone color as a u64: (be32(rgb) << 32) | zone_bit */
++static int send_zone_color(u8 zone_bit, u8 r, u8 g, u8 b)
++{
++	acpi_status status;
++	u64 resp = 0;
++	u64 payload;
++	u32 rgb;
++
++	rgb = FIELD_PREP(ACER_GAMING_STATIC_LED_RED_MASK, r) |
++	      FIELD_PREP(ACER_GAMING_STATIC_LED_GREEN_MASK, g) |
++	      FIELD_PREP(ACER_GAMING_STATIC_LED_BLUE_MASK, b);
++
++	payload = (u64)cpu_to_be32(rgb) | zone_bit;
++
++	status = WMI_gaming_execute_u64(ACER_WMID_SET_GAMING_STATIC_LED_METHODID,
++					payload, &resp);
++	if (ACPI_FAILURE(status))
++		return -EIO;
++
++	return resp ? -EIO : 0;
++}
++
++static int rgb_set(struct led_classdev *led_cdev, enum led_brightness brightness)
++{
++	struct led_classdev_mc *general_mcolor = lcdev_to_mccdev(led_cdev);
++	struct led_information *led_info = container_of(general_mcolor,
++							struct led_information,
++							led_general);
++	struct rgb_wmi *data = led_info->parent;
++	u8 r, g, b;
++	int ret;
++
++	mutex_lock(&data->led_lock);
++
++	if (brightness == 0) {
++		r = 0;
++		g = 0;
++		b = 0;
++	} else {
++		led_mc_calc_color_components(general_mcolor, brightness);
++		r = led_info->led_colors[0].brightness;
++		g = led_info->led_colors[1].brightness;
++		b = led_info->led_colors[2].brightness;
++	}
++
++	/* After packet is constructed, we are applying that to desired zone. */
++	ret = send_zone_color((u8)led_info->zone_id, r, g, b);
++
++	mutex_unlock(&data->led_lock);
++	return ret;
++}
++
+ /*
+  * Embedded Controller quirks
+  * Some laptops require us to directly access the EC to either enable or query
+@@ -416,11 +536,71 @@ struct quirk_entry {
+ 	u8 gpu_fans;
+ 	u8 predator_v4;
+ 	u8 pwm;
+-	u8 kbl_four_zone_rgb;
++	u8 kbl_four_zone;
+ };
+ 
+ static struct quirk_entry *quirks;
+ 
++static int acer_kbd_rgb_init(struct platform_device *device, struct rgb_wmi *rgb_data)
++{
++	static const char * const zone_names[] = {
++		"acer-wmi:rgb:kbd_zoned_backlight-left",
++		"acer-wmi:rgb:kbd_zoned_backlight-center-left",
++		"acer-wmi:rgb:kbd_zoned_backlight-center-right",
++		"acer-wmi:rgb:kbd_zoned_backlight-right",
++	};
++	u64 gaming_sysinfo;
++	acpi_status status;
++	int ret, i;
++
++	/* Checking for device model. */
++	if (!quirks || !quirks->kbl_four_zone)
++		return -ENODEV;
++
++	status = WMI_gaming_execute_u64(ACER_WMID_GET_GAMING_SYS_INFO_METHODID, 0, &gaming_sysinfo);
++	if (ACPI_FAILURE(status))
++		return -EIO;
++
++	status = WMI_gaming_execute_u64(ACER_WMID_SET_GAMING_LED_METHODID,
++					ACER_GAMING_LED_KBBL_ENABLE, NULL);
++	if (ACPI_FAILURE(status))
++		return -EIO;
++
++	/* Execute the preamble function on module startup. */
++	ret = acer_kbd_set_static_preamble(100);
++	if (ret)
++		pr_warn("Failed to set static preamble on init: %d\n", ret);
++
++	mutex_init(&rgb_data->led_lock);
++
++	/* Prepare zone attributes and create device paths. */
++	for (i = 0; i < ARRAY_SIZE(zone_names); i++) {
++		struct led_information *zone = &rgb_data->zones[i];
++
++		zone->zone_id = BIT(i);
++		zone->parent  = rgb_data;
++
++		zone->led_colors[0].color_index = LED_COLOR_ID_RED;
++		zone->led_colors[1].color_index = LED_COLOR_ID_GREEN;
++		zone->led_colors[2].color_index = LED_COLOR_ID_BLUE;
++
++		zone->led_general.subled_info = zone->led_colors;
++		zone->led_general.num_colors  = 3;
++
++		zone->led_general.led_cdev.name = zone_names[i];
++		zone->led_general.led_cdev.max_brightness = 255;
++		zone->led_general.led_cdev.brightness_set_blocking = rgb_set;
++		zone->led_general.led_cdev.flags = LED_RETAIN_AT_SHUTDOWN;
++
++		ret = devm_led_classdev_multicolor_register(&device->dev,
++							    &zone->led_general);
++		if (ret)
++			return ret;
++	}
++
++	return 0;
++}
++
+ static void __init set_quirks(void)
+ {
+ 	if (quirks->mailled)
+@@ -439,9 +619,6 @@ static void __init set_quirks(void)
+ 
+ 	if (quirks->pwm)
+ 		interface->capability |= ACER_CAP_PWM;
+-
+-	if (quirks->kbl_four_zone_rgb)
+-		interface->capability |= ACER_CAP_KBL_FOUR_ZONE_RGB;
+ }
+ 
+ static int __init dmi_matched(const struct dmi_system_id *dmi)
+@@ -473,7 +650,9 @@ static struct quirk_entry quirk_acer_travelmate_2490 = {
+ static struct quirk_entry quirk_acer_nitro_an515_58 = {
+ 	.predator_v4 = 1,
+ 	.pwm = 1,
+-	.kbl_four_zone_rgb = 1,
++	.cpu_fans = 1,
++	.gpu_fans = 1,
++	.kbl_four_zone = 1,
+ };
+ 
+ static struct quirk_entry quirk_acer_predator_ph315_53 = {
+@@ -2780,121 +2959,11 @@ static u32 get_wmid_devices(void)
+ 
+ static int acer_wmi_hwmon_init(void);
+ 
+-#if IS_REACHABLE(CONFIG_LEDS_CLASS_MULTICOLOR)
+-
+-static int acer_wmi_poll_and_enable_zones(void)
+-{
+-	acpi_status status;
+-
+-	status = WMI_gaming_execute_u64(ACER_WMID_GET_GAMING_SYS_INFO_METHODID,
+-		0, NULL);
+-	if (ACPI_FAILURE(status))
+-		return -EIO;
+-	status = WMI_gaming_execute_u64(ACER_WMID_GET_GAMING_LED_METHODID,
+-		ACER_GAMING_KBL_SET_ON |
+-		ACER_GAMING_KBL_SET_ALL_ZONES,
+-		NULL);
+-	if (ACPI_FAILURE(status))
+-		return -EIO;
+-
+-	return 0;
+-}
+-
+-struct acer_wmi_led_zone {
+-	struct led_classdev_mc mc_cdev;
+-	struct mc_subled subled_info[3];
+-	u8 zone_id;
+-};
+-
+-struct led_four_zone_set_param {
+-	u8 zone;
+-	u8 red;
+-	u8 green;
+-	u8 blue;
+-} __packed;
+-
+-static struct acer_wmi_led_zone kbl_zones[ACER_GAMING_KBL_ZONES];
+-
+-static int acer_wmi_mc_brightness_set(struct led_classdev *led_cdev,
+-	enum led_brightness brightness)
+-{
+-	int err;
+-	struct led_classdev_mc *mc_cdev = lcdev_to_mccdev(led_cdev);
+-	struct acer_wmi_led_zone *zone = container_of(mc_cdev,
+-		struct acer_wmi_led_zone, mc_cdev);
+-	struct led_four_zone_set_param params;
+-	struct acpi_buffer input;
+-	acpi_status status;
+-
+-	err = led_mc_calc_color_components(mc_cdev, brightness);
+-	if (err)
+-		return err;
+-
+-	led_cdev->brightness = brightness;
+-
+-	params.zone = zone->zone_id;
+-	params.red = mc_cdev->subled_info[0].brightness;
+-	params.green = mc_cdev->subled_info[1].brightness;
+-	params.blue = mc_cdev->subled_info[2].brightness;
+-
+-	input.length = sizeof(params);
+-	input.pointer = &params;
+-
+-	status = wmi_evaluate_method(WMID_GUID4, 0,
+-		ACER_WMID_SET_GAMING_STATIC_LED_METHODID, &input, NULL);
+-	if (ACPI_FAILURE(status))
+-		return -EIO;
+-
+-	return 0;
+-}
+-
+-static enum led_brightness
+-acer_wmi_mc_brightness_get(struct led_classdev *led_cdev)
+-{
+-	return led_cdev->brightness;
+-}
+-
+-static int acer_wmi_register_four_zone_leds(struct device *dev)
+-{
+-	int i, ret;
+-
+-	for (i = 0; i < ACER_GAMING_KBL_ZONES; i++) {
+-		struct acer_wmi_led_zone *zone = &kbl_zones[i];
+-
+-		memset(zone, 0, sizeof(*zone));
+-
+-		zone->subled_info[0].color_index = LED_COLOR_ID_RED;
+-		zone->subled_info[1].color_index = LED_COLOR_ID_GREEN;
+-		zone->subled_info[2].color_index = LED_COLOR_ID_BLUE;
+-
+-		zone->mc_cdev.subled_info = zone->subled_info;
+-		zone->mc_cdev.num_colors = 3;
+-
+-		/* WMI uses a bitmask as for zones. BIT(i) selects zone i */
+-		zone->zone_id = BIT(i);
+-
+-		zone->mc_cdev.led_cdev.name = devm_kasprintf(dev, GFP_KERNEL,
+-			"acer-wmi::kbd_backlight_%d", i + 1);
+-		zone->mc_cdev.led_cdev.dev = dev;
+-		zone->mc_cdev.led_cdev.brightness_set_blocking =
+-			acer_wmi_mc_brightness_set;
+-		zone->mc_cdev.led_cdev.brightness_get =
+-			acer_wmi_mc_brightness_get;
+-		zone->mc_cdev.led_cdev.max_brightness = 255;
+-
+-		ret = devm_led_classdev_multicolor_register(dev,
+-			&zone->mc_cdev);
+-		if (ret)
+-			return ret;
+-	}
+-	return 0;
+-}
+-
+-#endif /* IS_REACHABLE(CONFIG_LEDS_CLASS_MULTICOLOR) */
+-
+ /*
+  * Platform device
+  */
++static struct rgb_wmi acer_rgb_data;
++
+ static int acer_platform_probe(struct platform_device *device)
+ {
+ 	int err;
+@@ -2927,21 +2996,15 @@ static int acer_platform_probe(struct platform_device *device)
+ 			goto error_hwmon;
  	}
  
--	payload_len = le32_to_cpu(hdr->len);
-+	payload_len = le32_to_cpu(hdr.len);
-+
-+	/* The pkt is too big or the length in the header is invalid */
-+	if (payload_len > len - sizeof(hdr))
-+		return NULL;
-+
-+	/* Allocate only for the payload declared in the header. */
-+	skb = virtio_vsock_alloc_skb(payload_len + sizeof(hdr), GFP_KERNEL);
-+	if (!skb)
-+		return NULL;
-+
-+	memcpy(virtio_vsock_hdr(skb), &hdr, sizeof(hdr));
- 
- 	/* No payload */
- 	if (!payload_len)
- 		return skb;
- 
--	/* The pkt is too big or the length in the header is invalid */
--	if (payload_len + sizeof(*hdr) > len) {
--		kfree_skb(skb);
--		return NULL;
--	}
+-	if (has_cap(ACER_CAP_KBL_FOUR_ZONE_RGB)) {
+-#if IS_REACHABLE(CONFIG_LEDS_CLASS_MULTICOLOR)
+-		err = acer_wmi_poll_and_enable_zones();
+-		if (err)
+-			goto error_kbl_four_zone_rgb;
 -
- 	virtio_vsock_skb_put(skb, payload_len);
+-		err = acer_wmi_register_four_zone_leds(&device->dev);
++	/*Defining 4 zone RGB quirk.*/
++	if (quirks->kbl_four_zone) {
++		err = acer_kbd_rgb_init(device, &acer_rgb_data);
+ 		if (err)
+-			goto error_kbl_four_zone_rgb;
+-#endif /* IS_REACHABLE(CONFIG_LEDS_CLASS_MULTICOLOR) */
++			pr_warn("Failed to initialize 4-zone RGB keyboard: %d\n", err);
+ 	}
  
- 	if (skb_copy_datagram_from_iter(skb, 0, &iov_iter, payload_len)) {
-
-base-commit: 6dc989ea46b96ce170840174b4a38c4a387fb005
+ 	return 0;
+ 
+-error_kbl_four_zone_rgb:
+ error_hwmon:
+ error_platform_profile:
+ 	acer_rfkill_exit();
+@@ -2991,6 +3054,7 @@ static int acer_suspend(struct device *dev)
+ static int acer_resume(struct device *dev)
+ {
+ 	struct acer_data *data = &interface->data;
++	int ret;
+ 
+ 	if (!data)
+ 		return -ENOMEM;
+@@ -3004,8 +3068,15 @@ static int acer_resume(struct device *dev)
+ 	if (acer_wmi_accel_dev)
+ 		acer_gsensor_init();
+ 
++	/* Ensuring keyboard is at static mode after resuming from sleep. */
++	if (quirks && quirks->kbl_four_zone) {
++		ret = acer_kbd_set_static_preamble(100);
++		if (ret)
++			pr_warn("Failed to restore keyboard static mode on resume: %d\n", ret);
++	}
+ 	return 0;
+ }
++
+ #else
+ #define acer_suspend	NULL
+ #define acer_resume	NULL
 -- 
 2.55.0
 
