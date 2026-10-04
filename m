@@ -1,158 +1,126 @@
-Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
+Received: from mail-pj1-f51.google.com (mail-pj1-f51.google.com [209.85.216.51])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4CB2C361DA6
-	for <linux-kernel@vger.kernel.org>; Sun,  4 Oct 2026 22:00:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3F06B31A55B
+	for <linux-kernel@vger.kernel.org>; Sun,  4 Oct 2026 22:03:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.51
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791151207; cv=none; b=jEm1D46BntHgCKZ2+L/SWnmOp89hyXslHZ7u44exLGG60tGi558EpreKZR1DcDRA5MgvS5Kxuj5qvYQqdef3eGH/6ZGEPqQtLbyFA2Fd0ZEe9N8NAZgCN95MGkMfnOP88YuZNqERdVorYlw+iAqxxCshZEqeo01V2JPVVSla+DU=
+	t=1791151382; cv=none; b=Wra1b3e/p5Jy7JRPuPOD9RNkoVX4xW00ScA6cLAhmMavohC0iVna0LxayAC6bLKO3mhp0kqiQuiku8xDoLORjjUJBsYOkgx6Crbotg/uk2ApKcgLyZiASJQZCrnREpO/mk6ajA696EuoSYkyECqoR4ex79OFWBHEXr+nBFYqUyA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791151207; c=relaxed/simple;
-	bh=A49zyjjnqqb50pG4MqWzNRlRKAi9xTHYpw2ixK1+k84=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=gRlBNnPKTU0NFIw6PEB4w3ZsbW1yu4txfjfajeDNtp11Nnq7DVdSCz+D7ta+Jj1suwGDKnKI6pOrdYPtYAmDRfNtAxx4/WhoOtF0rIXI9bgrw4eNiuoUHegj5gvuYek4gHZSQnv061fcjneU/gPMzCkWZdwEpUqn7e49BpxH1Bc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=RsNSgBPe; arc=none smtp.client-ip=74.125.225.141
+	s=arc-20240116; t=1791151382; c=relaxed/simple;
+	bh=qYoK+C9hoi1jUXZkwPKcbBZfQYJ0dAYzFXRqVN9Cz4k=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=IVcwqmPXZ8N8ELCEv7XhM2dLnw4Z5YbfMcN/xB/brk9WBkJ2VQzUfUK5XzSdYj7O3gLBg9UTbFI/HIYih6zAALxF0I35n3WTlX6aQ4XZAxfdTlw82OxVXJAmXvz3AYQV0GmD9H00K0XUSF6xzKaaLmy8/IFkveGsjEaC+9LfnwM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=A/Oqb7BJ; arc=none smtp.client-ip=209.85.216.51
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="RsNSgBPe"
-Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-4a169d33ef6so6078375e9.1
-        for <linux-kernel@vger.kernel.org>; Sun, 04 Oct 2026 15:00:05 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="A/Oqb7BJ"
+Received: by mail-pj1-f51.google.com with SMTP id 98e67ed59e1d1-3a49623b865so559595a91.0
+        for <linux-kernel@vger.kernel.org>; Sun, 04 Oct 2026 15:03:01 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791151204; x=1791756004; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=v9ZMcU4NSbtXZ2T+rqlz7vA0bY14DXoiCQpMM48epr0=;
-        b=RsNSgBPeuAwryu6cQEQFTvpMvhmclslYU+UDPuOLsR94lwv0GFEFC21qRMaIunzVd/
-         wKJK0CBl4/WbBWpmfJuE1anC1jtMuzHSeXUmjXmJv9fgOsAwbqgzHS5fUOLCzgzw5Gfd
-         v6Wxoy7XmmGDdfvShzCLKflCAixNZjnHjHhlZXjWVhJgVzF3C1i+mtWUYNYujkd1UQxI
-         3Pbmpm6t5klfqL1cpYFMQ2iKK24I0lPH3wXukZfuNHYTJ5tpzCa/ioYWQMpeudL7MeWM
-         l4Iz0dnV1Akbnts1PEIhpH9SxZZb3LmxCn72dWBbFy2jzf0K0ZNABDLCO1gz60AG4Bak
-         q3Ow==
+        d=gmail.com; s=20251104; t=1791151380; x=1791756180; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=zA7/PnrzVV0kuFjVDODfJEpzsfgOMGEo0xCOYFUWh38=;
+        b=A/Oqb7BJ9bt6Fbd3YPtJssMe09Hki62Ltw68MXqQX3fUe2yKnE7CwdfwyrnxuJMupj
+         LxdMp+MWxVAEKWeJkOiOdvU2E5Pt6mKiBT1qlCpNtoInENni1LYjwKsz5Ocyxlduw6LY
+         AkRq4W5m28qdFYbnhhQrfqH6lgxfkQaj29HrQS/ue0nd4/hBALr0Rw0vzXC2AbrbwimT
+         j2CnIY1eawVFwlGjGJGMTPl2WkyhpkieM+QEYAuwDJHMIyLRdpTKi74oB0IO34vMh6D3
+         TaKhUF6L49y2U8Ts7N/ng0w9oSSVLW4yzxFYmzAp2iXDrKSbliwfGCmojbIkjxwKtP2u
+         wiPQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791151204; x=1791756004;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=v9ZMcU4NSbtXZ2T+rqlz7vA0bY14DXoiCQpMM48epr0=;
-        b=PxDkkfoTHnb48IJ06BGJ3tV5cmhKs8nUwO+YExlzJWa0vTfxyOJFNtBssWd8Q4Tzus
-         nQ2IP3TPVFOONIwL8LoAEBaTpu1vOsy8vEmjWb7aQRhlim8JxP5c7t9HqPy6qwkIiSSC
-         S0/g2/0JfddABi4iTn1D0t+cjz8D7SoJKDkZEqOvC4LdMZMglNzmhG22HZsog5c+T7US
-         87x+kB5B8YcNRjShCmKa2i1AvlwgJZT/O+nD/6uR6KykDcfMosJkG5R6GDZLT+izW7i2
-         d9fESWKTBf/Tj8XXSquUrH7EHknty4DBEEINjyK9GVg9K6lHGF/TJFshcQfeeO5oCAU7
-         EDsg==
-X-Forwarded-Encrypted: i=1; AKwUvBzUfgRRelzqjEz6Sb19kNXi994QuGf7cPgK3jv2l4x+IraNuoX6vkXwd5Dketr6sWbjEnOahikKaXO7f+s=@vger.kernel.org
-X-Gm-Message-State: AFuF++m7Vkf1jYejByi5WpsKZtvJ24HHlrlH7oJjVnaS1TGZ/6KbCARq
-	gBtX3Lor/Y4FMOGsU4FP602zVMNHYyt1OBmGqzqq43EItqjk8YYMMJ24
-X-Gm-Gg: AYBFou2RKA1Av+VIxBixYYQ7nGb4PxfvzZeDCfd1vK4VTXNNjEZG+BRReylme28ngZg
-	JcBWQNpj2QykV/zuFmi4748vNWkk8wx2bp1nkvoMubqLwrOkAt9XVofkTwZifRB0rD+eucyXkWN
-	tiRGnK0Jc6TLN6tIS+65qfXLLWJAigW1FYMf86OpDdlj6VEfRKV/8b8AlWHz0iqsJW6Qx8W/20c
-	VT99lfC8Mv4ERFgOPTZcntaOeORFkxBaZg+agttlLJu97PC0KoD+dKZMOFuwE2naaI5BTdzWgTg
-	phKFep1e6KqQwvAWL6lt0KHfL6pxATx8S2+86OFzXPniAUFDcd8b7mp5oJ9hRh3nGWv3iQFmd+o
-	sDbh+o2B/VFDF9+ePm1xJtWkzYqj4F+XRJqxXSjQhabQjc1fLmgcc3j6J9xM2VUHQFCgyDc/lvQ
-	T0ztiepRyiKBsWqL8avyQ6oov2JXXNg6L7PVzDtuyn93z7ndwBXXVbJ8uN7ctAxNDFcwJlsuXXN
-	IEBFLY=
-X-Received: by 2002:a05:600c:3b1d:b0:4a1:7033:5b55 with SMTP id 5b1f17b1804b1-4a170335d02mr45106945e9.21.1791151204108;
-        Sun, 04 Oct 2026 15:00:04 -0700 (PDT)
-Received: from metepc ([46.197.185.71])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a0a6e894a4sm256671015e9.5.2026.10.04.15.00.02
+        d=1e100.net; s=20260707; t=1791151380; x=1791756180;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=zA7/PnrzVV0kuFjVDODfJEpzsfgOMGEo0xCOYFUWh38=;
+        b=PBm+KxzV0cpVTj9jqniQc4j104axWYSTMDhGlIoHXVQhgHEWAmCdxOQXnoB3AuGssQ
+         15N9LhotsfTMXXJGxSeFFtwThmv8n98MHCH2Dv4C/u3LO8dfMdupWpskhNCn8lSzedWx
+         B21YdeFxYimC5KEyeCN7sF4VtakZFeTpLeUKkDDtChw2A7AfufSax5BWVpF0AdKONetS
+         n0sHvumnzeAJnuPWLQHpmL869uzzqpDzNeaE9Jsxjw7BPdww8JyN0OXrY8/M72Bdx5gK
+         QElWIFFReQzhb+srfF8prFa/CEcqukPmtOdoLZ/suMktspdj3iFmZ9oFB7dWpNu4LW1x
+         rXIQ==
+X-Forwarded-Encrypted: i=1; AKwUvBytXhCjuWBe87lFvzel5C2Lorq3mDsmutIc4OzAvsGUfyvvWTfYQo9NqADo6grSRHSFW+bd2/o239gQPxA=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJlqf5syKPHnF2FylX7/ptlkUcIcr+AmGrAkLMIwbGnY2kPQPyi
+	tsdYU2difhlY8XBNqhevvzMVDU4OjXcLCCaTgNxtASNSAx6s6nQVoHfZ
+X-Gm-Gg: AYBFou2/Z1a11HixfUHsohfDLravdzz/jVl1Zq1JNUnAMJZdSohefUun8UTx1SkcMEs
+	ACaTYqHYGivHD7QZg8qOGxjfnMJmuCfmPddj4aulHWSrl0lHawXEMZ5P/zNqcUF0Dhae5SgfDdz
+	vse6JAenkQVu+naKvzzHfOCXwdY1JmSJkIdUfBCSiIXxinuY/7p3HOBxRVurYNf88wXoi/Ts/m2
+	1cqEzTT+cJA2QJKmkNHskWqfUcl0ZuPZWijRU0lhv3SLNmn4Ji7Pnxl2GUWaeqrQ85sGdPooeGZ
+	802v/U0AJaIP8IAMLrvDZsg08apQC14dZ5JzDgZqF9C5JBIWrtIW0o3Z3vqaTtGKtlLNjkWePT3
+	UA+d/nlRxQpFSMk5HZ1pfBMPWRBzhiWeReQZkMJ4fANKNh8FHYYYgBD0bj+BBv0hkzghicyR91I
+	lG6aBMMZRm5hyJfj5BxJQMH2xdexqG/p3sjGo6aAFuimU+rp4So7J46kKWoF5nu68YOU2x42EtI
+	Laa5NQDbg/Xp1ldmrlCBgL7g/kmfC2WxOclfzfwG23obaQ1j0fEwZr18bx7OvqlQEm+QW9B4Z5i
+	OYcXr5fNkrly9KKlsGvitV2lGGNuYx6r0WiqycIOBqos+ZC3
+X-Received: by 2002:a17:90b:4ecd:b0:3a2:b4bb:91d0 with SMTP id 98e67ed59e1d1-3a7873da1b1mr4484990a91.36.1791151380450;
+        Sun, 04 Oct 2026 15:03:00 -0700 (PDT)
+Received: from ryzen.lan ([2601:644:8000:7a86::e35])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a6dce36d07sm5771328a91.1.2026.10.04.15.02.59
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 04 Oct 2026 15:00:03 -0700 (PDT)
-From: =?UTF-8?q?=C3=96mer=20Mete=20Kaya?= <omermetekaya0@gmail.com>
-To: netdev@vger.kernel.org
-Cc: oneukum@suse.com,
-	andrew+netdev@lunn.ch,
-	davem@davemloft.net,
-	edumazet@google.com,
-	kuba@kernel.org,
-	pabeni@redhat.com,
-	linux-usb@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	david.laight.linux@gmail.com,
-	syzbot+04cd90bb99c6ef81a65d@syzkaller.appspotmail.com,
-	=?UTF-8?q?=C3=96mer=20Mete=20Kaya?= <omermetekaya0@gmail.com>
-Subject: [PATCH net v6] usbnet: fix smp_processor_id() use in preemptible context
-Date: Mon,  5 Oct 2026 00:59:25 +0300
-Message-ID: <20261004215937.302247-1-omermetekaya0@gmail.com>
-X-Mailer: git-send-email 2.55.0
+        Sun, 04 Oct 2026 15:02:59 -0700 (PDT)
+From: Rosen Penev <rosenp@gmail.com>
+To: linux-rtc@vger.kernel.org
+Cc: Hans Ulli Kroll <ulli.kroll@googlemail.com>,
+	Linus Walleij <linusw@kernel.org>,
+	Alexandre Belloni <alexandre.belloni@bootlin.com>,
+	linux-arm-kernel@lists.infradead.org (moderated list:ARM/CORTINA SYSTEMS GEMINI ARM ARCHITECTURE),
+	linux-kernel@vger.kernel.org (open list)
+Subject: [PATCH] rtc: ftrtc010: use devm_platform_ioremap_resource()
+Date: Sun,  4 Oct 2026 15:02:58 -0700
+Message-ID: <20261004220258.401706-1-rosenp@gmail.com>
+X-Mailer: git-send-email 2.56.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-tx_complete() calls this_cpu_ptr() before disabling preemption, which
-triggers a BUG when running with CONFIG_DEBUG_PREEMPT:
+Replace the open-coded platform_get_resource() plus devm_ioremap()
+sequence with devm_platform_ioremap_resource(), and propagate its
+ERR_PTR() directly.
 
-  BUG: using smp_processor_id() in preemptible code in tx_complete
+This also reserves the MMIO region. The only user, gemini.dtsi,
+describes a single 0x100 window at 0x45000000 that no other node
+overlaps, so this introduces no conflict.
 
-Fix by using get_cpu_ptr()/put_cpu_ptr() which disable preemption and
-return the per-CPU pointer atomically. The usbnet_skb_return() hunk
-is a hardening change: that path runs in softirq context so no warning
-fires there, but the same fix is applied for consistency.
-
-Fixes: ed194d136769 ("usb: core: remove local_irq_save() around ->complete() handler")
-Suggested-by: David Laight <david.laight.linux@gmail.com>
-Reported-by: syzbot+04cd90bb99c6ef81a65d@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=04cd90bb99c6ef81a65d
-Signed-off-by: Ömer Mete Kaya <omermetekaya0@gmail.com>
-
+Assisted-by: LLM
+Signed-off-by: Rosen Penev <rosenp@gmail.com>
 ---
-v6: Fix commit message and Fixes tag as pointed out by Sashiko:
-    - BUG is in tx_complete(), not usbnet_skb_return()
-    - usbnet_skb_return() hunk is hardening, not a fix
-    - CONFIG_DEBUG_PREEMPT, not PREEMPT_FULL
-    - Fixes tag updated to ed194d136769
----
- drivers/net/usb/usbnet.c | 8 ++++++--
- 1 file changed, 6 insertions(+), 2 deletions(-)
+ drivers/rtc/rtc-ftrtc010.c | 12 +++---------
+ 1 file changed, 3 insertions(+), 9 deletions(-)
 
-diff --git a/drivers/net/usb/usbnet.c b/drivers/net/usb/usbnet.c
-index a19ecf718f36..84f97f448b2d 100644
---- a/drivers/net/usb/usbnet.c
-+++ b/drivers/net/usb/usbnet.c
-@@ -325,7 +325,7 @@ static void __usbnet_status_stop_force(struct usbnet *dev)
-  */
- void usbnet_skb_return(struct usbnet *dev, struct sk_buff *skb)
- {
--	struct pcpu_sw_netstats *stats64 = this_cpu_ptr(dev->net->tstats);
-+	struct pcpu_sw_netstats *stats64;
- 	unsigned long flags;
- 	int	status;
-
-@@ -338,10 +338,12 @@ void usbnet_skb_return(struct usbnet *dev, struct sk_buff *skb)
- 	if (skb->protocol == 0)
- 		skb->protocol = eth_type_trans(skb, dev->net);
-
-+	stats64 = get_cpu_ptr(dev->net->tstats);
- 	flags = u64_stats_update_begin_irqsave(&stats64->syncp);
- 	u64_stats_inc(&stats64->rx_packets);
- 	u64_stats_add(&stats64->rx_bytes, skb->len);
- 	u64_stats_update_end_irqrestore(&stats64->syncp, flags);
-+	put_cpu_ptr(dev->net->tstats);
-
- 	netif_dbg(dev, rx_status, dev->net, "< rx, len %zu, type 0x%x\n",
- 		  skb->len + sizeof(struct ethhdr), skb->protocol);
-@@ -1298,13 +1300,15 @@ static void tx_complete(struct urb *urb)
- 	struct usbnet		*dev = entry->dev;
-
- 	if (urb->status == 0) {
--		struct pcpu_sw_netstats *stats64 = this_cpu_ptr(dev->net->tstats);
-+		struct pcpu_sw_netstats *stats64;
- 		unsigned long flags;
-
-+		stats64 = get_cpu_ptr(dev->net->tstats);
- 		flags = u64_stats_update_begin_irqsave(&stats64->syncp);
- 		u64_stats_add(&stats64->tx_packets, entry->packets);
- 		u64_stats_add(&stats64->tx_bytes, entry->length);
- 		u64_stats_update_end_irqrestore(&stats64->syncp, flags);
-+		put_cpu_ptr(dev->net->tstats);
- 	} else {
- 		dev->net->stats.tx_errors++;
-
---
-2.55.0
+diff --git a/drivers/rtc/rtc-ftrtc010.c b/drivers/rtc/rtc-ftrtc010.c
+index b29c96be40f4..3e88cb224f67 100644
+--- a/drivers/rtc/rtc-ftrtc010.c
++++ b/drivers/rtc/rtc-ftrtc010.c
+@@ -111,7 +111,6 @@ static int ftrtc010_rtc_probe(struct platform_device *pdev)
+ 	u32 days, hour, min, sec;
+ 	struct ftrtc010_rtc *rtc;
+ 	struct device *dev = &pdev->dev;
+-	struct resource *res;
+ 	struct rtc_device *rtc_dev;
+ 	int ret;
+ 
+@@ -135,14 +134,9 @@ static int ftrtc010_rtc_probe(struct platform_device *pdev)
+ 	if (rtc->rtc_irq < 0)
+ 		return rtc->rtc_irq;
+ 
+-	res = platform_get_resource(pdev, IORESOURCE_MEM, 0);
+-	if (!res)
+-		return -ENODEV;
+-
+-	rtc->rtc_base = devm_ioremap(dev, res->start,
+-				     resource_size(res));
+-	if (!rtc->rtc_base)
+-		return -ENOMEM;
++	rtc->rtc_base = devm_platform_ioremap_resource(pdev, 0);
++	if (IS_ERR(rtc->rtc_base))
++		return PTR_ERR(rtc->rtc_base);
+ 
+ 	rtc_dev = devm_rtc_allocate_device(dev);
+ 	if (IS_ERR(rtc_dev))
+-- 
+2.56.0
 
