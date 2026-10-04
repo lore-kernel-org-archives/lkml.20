@@ -1,48 +1,75 @@
-Received: from out199-18.us.a.mail.aliyun.com (out199-18.us.a.mail.aliyun.com [47.90.199.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-dy2-f42.google.com (mail-dy2-f42.google.com [74.125.229.42])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CD4173769FD;
-	Sun,  4 Oct 2026 16:22:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=47.90.199.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C3A5B3C5525
+	for <linux-kernel@vger.kernel.org>; Sun,  4 Oct 2026 16:24:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.42
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791130980; cv=none; b=Z7m/XZX+ncQwtK6yBNqyxH/Kf6vHZdeQTZ8P0JnUEVp+9oFvZ9MGSlkzXThyFMATeMpAyS5tcvtMNTOKbvyjLkqbwv5iPP1rkqD+YlKrDDQqaWslRsFQ3OHiglZ+dRbEzPROoh/hl3jmaB3nJxedzIxAD34QRqm19atQ4N3SA7M=
+	t=1791131100; cv=none; b=Ss4NbkEoBWYdg7yvFGwCjx9YDWN9P3Ss7AQI/ZrbaWzWvwD30lCL2ZsFz21GTIapkhRL1E6FRCxFK0mbbRmhlCs7ZQI066uurDSPpqzvhgBz7iABIu5q325zPB22edM9UkPI00r8b7SDmxKEknGtJfwfqrhwvhVrkxXWUaz4F7A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791130980; c=relaxed/simple;
-	bh=BsbbOOCBA0Em8sd8nfzRmEV9r3xUsdBFQ2VQ367lio8=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=hvl4f/V3rpl9A/fQH/rxwB//42SWtDl4CQdKnQSDZzp+Y5HIr8/sfkU58XcgkXTtwT853KzkpVL4dQPC8rBs2N1ng6aFGGQ9UNc1XUxTi80oNsdD068p47+czD8slOZrt71hM7iXUQ1TLY20PitlJUDvl2SwsRCBbnu5710J7BI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com; spf=pass smtp.mailfrom=linux.alibaba.com; dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b=p512mk8b; arc=none smtp.client-ip=47.90.199.18
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
+	s=arc-20240116; t=1791131100; c=relaxed/simple;
+	bh=aEgjYHXCubX1djFZnaJrqGx6S2rePES3zkm0ysI6loQ=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=lyA9XUXmtVJq4B6l3aSxMtWSHl2hSfpEAwg+TMZCSobse/iQCf3fd7d5jW/8secRl0tpwqXxbSYdGM4YMM/cpypQBfWJyaUWPb9QaVeG4s12evR5zu3+u4VPkkOs5XGZB+vBEmGC85/gm6gNQ6VWsVlVcW1x+QcnjRne4UriZdo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=oRXmc7Ne; arc=none smtp.client-ip=74.125.229.42
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b="p512mk8b"
-DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux.alibaba.com; s=default;
-	t=1791130959; h=From:To:Subject:Date:Message-ID:MIME-Version;
-	bh=93KOAzHiZgonLIrP05ulmCxduW+JGZwhYIrJjNqbI4I=;
-	b=p512mk8b+U5BC4WNQjgAtxpr52RH4E+PkFgOQOipNjTRehWZzM9tgSCb6r8U3Xu61Lr7hHqXucZiMj7QYSVzbZ745Hx2R0Ly/6ONCZW5nKL3iC66ioQeW0V1jx5ClJjz7kbjSlAgnkIZ7yxBSQN/5GgIb0Bo4s4TQBEr3v2Z1PM=
-X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R201e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam011083073210;MF=guanghuifeng@linux.alibaba.com;NM=1;PH=DS;RN=10;SR=0;TI=SMTPD_---0XC2deBl_1791130958;
-Received: from VM20241011-104.tbsite.net(mailfrom:guanghuifeng@linux.alibaba.com fp:SMTPD_---0XC2deBl_1791130958 cluster:ay36)
-          by smtp.aliyun-inc.com;
-          Mon, 05 Oct 2026 00:22:38 +0800
-From: Guanghui Feng <guanghuifeng@linux.alibaba.com>
-To: jgg@ziepe.ca
-Cc: alex@shazbot.org,
-	guanghuifeng@linux.alibaba.com,
-	iommu@lists.linux.dev,
-	joro@8bytes.org,
-	kevin.tian@intel.com,
-	kvm@vger.kernel.org,
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="oRXmc7Ne"
+Received: by mail-dy2-f42.google.com with SMTP id 5a478bee46e88-35128e255a4so15766eec.2
+        for <linux-kernel@vger.kernel.org>; Sun, 04 Oct 2026 09:24:57 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791131096; x=1791735896; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=Y2eOg21KLKrIZ1ic9K99oaOBWngENzssVlnME5t6zBI=;
+        b=oRXmc7NeW3Ja/e4SDQniTooWkt+XNEf3VVnAseXeikN41YfGa8pPdPIqye9xIhPTA9
+         k+obLooAMMVar31+Kbcrc9YCEAympW63nHip7gUdy9rtkmJAYDt06ArsYlt82njv1k8W
+         CAkU32sM/Z8b1aa0sZ0lEHFGbqsMcEvKOyGyHfBq8N9uFwwQxbcL+sgl7ZD1qRyUfuuc
+         RyTMNs+J+gw5qLMfmYwZR4/zxPT7X3qwkQAF6SchBRipe6FUbuGWoC/Pha/EKONupv8C
+         ZiTFLDGBCI0x+GAKPeAS8fP78io+xYjUGhlKxvKqgyHH2Bgy9hkTfeRnMMNLDIIC9LeQ
+         cfsw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791131096; x=1791735896;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Y2eOg21KLKrIZ1ic9K99oaOBWngENzssVlnME5t6zBI=;
+        b=Rbo3oy/V9DlPYz7HAoUO2J5zXeQXVBrZ9AZW0NoyioEmEsT4VvBPpLMeTloIiJL4mN
+         CJnIx4wkxKct7mrQBu8WqyxnWTHIamW1M7Aie4t2czhxhslNvY9U8nyUK9d5VE2R+sRN
+         AyYU1BlCn9Vysw0nFqTQbuxmG3Gg5WpPWC6u6vA4ApjhRYPFY3664hX/9+jIFLwcPlwm
+         EunTcr4P7f4+Jagtnm1q3HIMR7B/zvNLtsnlzojO+zyVu9yaKckpC2m2Ea2VPqdFjSgP
+         kVHeQI7/QEO82w4g6hAaylOrJEwE2PmPYCRn8aMfC9efSOmNBsg9VvahvKW24A8ym0g7
+         YGIQ==
+X-Forwarded-Encrypted: i=1; AKwUvBz92lZSUmjQpzlWBTufoE5r4vBr4n4ltwFexqMuNAhJS2pxtYeAjwpFnx2fOwQZTRqyPzwHOIHxE3V+KoI=@vger.kernel.org
+X-Gm-Message-State: AFuF++mSHE1aeestsKtbZtYiJVi0OMU1ebJ3HRzKZ0t9oKLG/eBuebpW
+	CX7g0RHdhLSjVzLsGB72qPMUHvlJCLf9z015cxKsxUPzRvirfD1I0UOM
+X-Gm-Gg: AYBFou1hhHrOj7COzTic7ybj5HP2144Adbr76FfCmIZE/Jg8QPjeQlg2xS2NJzpK+8o
+	5hrbE521GQoC7/ABnHVLIje6y3accTvE6PCl+d37SKCAgty+JHkd1jZWb/N44igyNR5qZsbknkc
+	VJ6CZeBvSeSrHRPNn4TWvhEiU+XmiQy6J+vHG3Ytws3ltLRHAuenS8eCpRFCkHO8zP3dqOqlgy6
+	VmcgR0ROZY3Pnj46yyZcvm/8GV5DeHt9btM+6Q0GePje9YmJFPXd4ptplWMhJIjvvfGxhwbT7SY
+	eRJ3d6KQw3gXU8Ylk2hVardpwHd/A6Tj488wzQKQCygWko1ZyXbv7YUI6PwWmF9wmP6qQu3HyL6
+	blBV+ZbzOsCnjZFzWu7tbWDMoiVMAtz7K9oKymepdWvRvtsFSM+mUndzwvUlkV5mK/Ubpfyx8CJ
+	Lx+1P3NQqEMeZw1TeP9K8E7g/+fbJN5DJtIBtnM4mfSof6ZhXGwtUgI1sLcbxItwUyRhUHrodDL
+	5G85NnCFtxVMRoCmhkn3JuQiCWvTkFgoY3mhhIqqscfjpXEqs6eBBh7RevaKceE0PECGvRJAic9
+	PhZI
+X-Received: by 2002:a05:7022:e1a:b0:149:c766:2965 with SMTP id a92af1059eb24-14f5af2713amr19799965c88.2.1791131095772;
+        Sun, 04 Oct 2026 09:24:55 -0700 (PDT)
+Received: from localhost.localdomain (95.169.12.199.16clouds.com. [95.169.12.199])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-151fce90b1esm20522904c88.13.2026.10.04.09.24.53
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 04 Oct 2026 09:24:55 -0700 (PDT)
+From: Chengfeng Ye <nicoyip.dev@gmail.com>
+To: Marcel Holtmann <marcel@holtmann.org>,
+	Luiz Augusto von Dentz <luiz.dentz@gmail.com>,
+	Tetsuo Handa <penguin-kernel@i-love.sakura.ne.jp>
+Cc: linux-bluetooth@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	robin.murphy@arm.com,
-	will@kernel.org
-Subject: [PATCH v3 2/2] iommufd: Add IOMMU_GET_PCI_MMIO_WINDOWS ioctl
-Date: Mon,  5 Oct 2026 00:22:13 +0800
-Message-ID: <20261004162213.3787623-3-guanghuifeng@linux.alibaba.com>
-X-Mailer: git-send-email 2.43.7
-In-Reply-To: <20261004162213.3787623-1-guanghuifeng@linux.alibaba.com>
-References: <20260921115513.GK11599@ziepe.ca>
- <20261004162213.3787623-1-guanghuifeng@linux.alibaba.com>
+	Chengfeng Ye <nicoyip.dev@gmail.com>,
+	stable@vger.kernel.org
+Subject: [PATCH] Bluetooth: hci_sock: Serialize dead-device detachment
+Date: Mon,  5 Oct 2026 00:24:42 +0800
+Message-ID: <20261004162442.3968446-1-nicoyip.dev@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -51,210 +78,61 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Add a new per-device query ioctl that reports the PCI host bridge MMIO
-windows behind a given device.  This allows userspace (e.g. QEMU) to
-learn which address ranges a PCIe switch might misinterpret as
-peer-to-peer DMA targets, and voluntarily keep its IOVA allocations away
-from them.
+Rebinding an HCI socket after its controller is unregistered can race
+monitor control replay and crash the kernel. hci_sock_bind() clears
+hci_pi(sk)->hdev and drops the device reference under only the socket
+lock, whereas send_monitor_control_replay() holds hci_sk_list.lock for
+reading.
 
-The kernel does NOT reserve or enforce these ranges -- it only reports
-them.  Userspace can choose to opt into avoiding these windows based on
-its own topology knowledge and requirements.  This follows the principle
-established by commit cd2c9fcf5c66 ("iommu/dma: Move PCI window region reservation back into dma specific path.")
-that PCI window information should not be forced through the IOMMU
-reserved-region API onto userspace.
+Replay can observe a non-NULL hdev, then bind can clear it and drop the
+last reference before create_monitor_ctrl_open() reads hdev->id. This
+can cause a NULL pointer dereference if the pointer is reloaded, or a
+use-after-free if the old pointer is retained.
 
-The ioctl uses the standard "user provides array + count, kernel fills
-and returns actual count, -EMSGSIZE if too small" pattern established by
-IOMMU_IOAS_IOVA_RANGES.  Per-device granularity is chosen because PCI
-host bridge windows are a property of the device's bus topology and are
-available immediately after VFIO_DEVICE_BIND_IOMMUFD, before any IOAS
-attachment.
+The kernel reported:
 
-Signed-off-by: Guanghui Feng <guanghuifeng@linux.alibaba.com>
+  KASAN: null-ptr-deref in range [0x0000000000000068-0x000000000000006f]
+  RIP: 0010:create_monitor_ctrl_open+0x579/0x800
+  Call Trace:
+   hci_sock_bind+0xd96/0x1190
+   __sys_bind+0x166/0x200
+   __x64_sys_bind+0x6d/0xb0
+   do_syscall_64+0xdd/0x4a0
+   entry_SYSCALL_64_after_hwframe+0x77/0x7f
+
+The same missing serialization lets hci_send_to_sock() select a socket
+for the old device and queue its frame after bind has detached the socket
+or installed a new binding.
+
+Take hci_sk_list.lock for writing when clearing the device pointer and
+resetting the socket state. This waits for existing replay and delivery
+readers to finish before detachment and prevents later readers from
+using the old binding. Keep hci_dev_put() outside the critical section
+because the final device release can sleep.
+
+Fixes: e04480920d1e ("Bluetooth: defer cleanup of resources in hci_unregister_dev()")
+Cc: stable@vger.kernel.org
+Assisted-by: GPT-6 Astra
+Signed-off-by: Chengfeng Ye <nicoyip.dev@gmail.com>
 ---
- drivers/iommu/iommufd/device.c          | 64 +++++++++++++++++++++++++
- drivers/iommu/iommufd/iommufd_private.h |  1 +
- drivers/iommu/iommufd/main.c            |  3 ++
- include/uapi/linux/iommufd.h            | 55 +++++++++++++++++++++
- 4 files changed, 123 insertions(+)
+ net/bluetooth/hci_sock.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
-diff --git a/drivers/iommu/iommufd/device.c b/drivers/iommu/iommufd/device.c
-index a664c70a6fe7..74a0642ff4fb 100644
---- a/drivers/iommu/iommufd/device.c
-+++ b/drivers/iommu/iommufd/device.c
-@@ -1747,3 +1747,67 @@ int iommufd_get_hw_info(struct iommufd_ucmd *ucmd)
- 	iommufd_put_object(ucmd->ictx, &idev->obj);
- 	return rc;
- }
-+
-+int iommufd_device_get_pci_mmio_windows(struct iommufd_ucmd *ucmd)
-+{
-+	struct iommu_pci_mmio_window __user *windows;
-+	struct iommu_pci_mmio_windows *cmd = ucmd->cmd;
-+	struct iommu_resv_region *resv, *next;
-+	struct iommufd_device *idev;
-+	LIST_HEAD(resv_windows);
-+	u32 max_windows;
-+	int rc;
-+
-+	if (cmd->flags)
-+		return -EOPNOTSUPP;
-+
-+	idev = iommufd_get_device(ucmd, cmd->dev_id);
-+	if (IS_ERR(idev))
-+		return PTR_ERR(idev);
-+
-+	if (!dev_is_pci(idev->dev)) {
-+		rc = -EOPNOTSUPP;
-+		goto out_put;
-+	}
-+
-+	rc = iommu_get_pci_resv_windows(to_pci_dev(idev->dev), &resv_windows);
-+	if (rc)
-+		goto out_put;
-+
-+	max_windows = cmd->num_windows;
-+	windows = u64_to_user_ptr(cmd->windows);
-+	cmd->num_windows = 0;
-+	list_for_each_entry(resv, &resv_windows, list) {
-+		if (!resv->length)
-+			continue;
-+
-+		if (cmd->num_windows < max_windows) {
-+			struct iommu_pci_mmio_window elm = {
-+				.start = resv->start,
-+				.last = resv->start + resv->length - 1,
-+			};
-+
-+			if (copy_to_user(&windows[cmd->num_windows], &elm,
-+					 sizeof(elm))) {
-+				rc = -EFAULT;
-+				goto out_free;
-+			}
-+		}
-+		cmd->num_windows++;
-+	}
-+
-+	rc = iommufd_ucmd_respond(ucmd, sizeof(*cmd));
-+	if (rc)
-+		goto out_free;
-+	if (cmd->num_windows > max_windows)
-+		rc = -EMSGSIZE;
-+
-+out_free:
-+	list_for_each_entry_safe(resv, next, &resv_windows, list) {
-+		list_del(&resv->list);
-+		kfree(resv);
-+	}
-+out_put:
-+	iommufd_put_object(ucmd->ictx, &idev->obj);
-+	return rc;
-+}
-diff --git a/drivers/iommu/iommufd/iommufd_private.h b/drivers/iommu/iommufd/iommufd_private.h
-index eb2e85b27e42..557f205e7836 100644
---- a/drivers/iommu/iommufd/iommufd_private.h
-+++ b/drivers/iommu/iommufd/iommufd_private.h
-@@ -535,6 +535,7 @@ iommufd_device_get_iommu_dev(struct iommufd_device *idev)
- void iommufd_device_pre_destroy(struct iommufd_object *obj);
- void iommufd_device_destroy(struct iommufd_object *obj);
- int iommufd_get_hw_info(struct iommufd_ucmd *ucmd);
-+int iommufd_device_get_pci_mmio_windows(struct iommufd_ucmd *ucmd);
- 
- struct device *iommufd_global_device(void);
- 
-diff --git a/drivers/iommu/iommufd/main.c b/drivers/iommu/iommufd/main.c
-index 9a921b153162..0d1be82c1ddd 100644
---- a/drivers/iommu/iommufd/main.c
-+++ b/drivers/iommu/iommufd/main.c
-@@ -449,6 +449,7 @@ union ucmd_buffer {
- 	struct iommu_ioas_map map;
- 	struct iommu_ioas_unmap unmap;
- 	struct iommu_option option;
-+	struct iommu_pci_mmio_windows pci_mmio_windows;
- 	struct iommu_vdevice_alloc vdev;
- 	struct iommu_veventq_alloc veventq;
- 	struct iommu_vfio_ioas vfio_ioas;
-@@ -480,6 +481,8 @@ static const struct iommufd_ioctl_op iommufd_ioctl_ops[] = {
- 		 struct iommu_fault_alloc, out_fault_fd),
- 	IOCTL_OP(IOMMU_GET_HW_INFO, iommufd_get_hw_info, struct iommu_hw_info,
- 		 __reserved),
-+	IOCTL_OP(IOMMU_GET_PCI_MMIO_WINDOWS, iommufd_device_get_pci_mmio_windows,
-+		 struct iommu_pci_mmio_windows, windows),
- 	IOCTL_OP(IOMMU_HW_QUEUE_ALLOC, iommufd_hw_queue_alloc_ioctl,
- 		 struct iommu_hw_queue_alloc, length),
- 	IOCTL_OP(IOMMU_HWPT_ALLOC, iommufd_hwpt_alloc, struct iommu_hwpt_alloc,
-diff --git a/include/uapi/linux/iommufd.h b/include/uapi/linux/iommufd.h
-index 206fa667c782..5707eb6130ee 100644
---- a/include/uapi/linux/iommufd.h
-+++ b/include/uapi/linux/iommufd.h
-@@ -58,6 +58,7 @@ enum {
- 	IOMMUFD_CMD_VEVENTQ_ALLOC = 0x93,
- 	IOMMUFD_CMD_HW_QUEUE_ALLOC = 0x94,
- 	IOMMUFD_CMD_IOAS_NOIOMMU_GET_PA = 0x95,
-+	IOMMUFD_CMD_GET_PCI_MMIO_WINDOWS = 0x96,
- };
- 
- /**
-@@ -1390,4 +1391,58 @@ struct iommu_hw_queue_alloc {
- 	__aligned_u64 length;
- };
- #define IOMMU_HW_QUEUE_ALLOC _IO(IOMMUFD_TYPE, IOMMUFD_CMD_HW_QUEUE_ALLOC)
-+
-+/**
-+ * struct iommu_pci_mmio_window - a PCI host bridge MMIO window
-+ * @start: First PCI bus address of the window
-+ * @last: Inclusive last PCI bus address of the window
-+ *
-+ * A memory window claimed by the PCI host bridge that a device sits
-+ * behind.  Addresses are PCI bus addresses (i.e. what appears in the
-+ * TLP), which differ from CPU physical addresses on platforms where the
-+ * host bridge applies an address translation offset.  For a device
-+ * using an identity (1:1) IOVA layout the IOVA equals the bus address,
-+ * so these are the IOVAs that a PCIe switch could misinterpret as
-+ * peer-to-peer DMA and route to the wrong device instead of memory.
-+ */
-+struct iommu_pci_mmio_window {
-+	__aligned_u64 start;
-+	__aligned_u64 last;
-+};
-+
-+/**
-+ * struct iommu_pci_mmio_windows - ioctl(IOMMU_GET_PCI_MMIO_WINDOWS)
-+ * @size: sizeof(struct iommu_pci_mmio_windows)
-+ * @flags: Must be 0
-+ * @dev_id: The device bound to iommufd to query
-+ * @num_windows: Input/output number of MMIO windows
-+ * @windows: Pointer to the output array of struct iommu_pci_mmio_window
-+ *
-+ * Query the memory windows of the PCI host bridge that @dev_id sits
-+ * behind.  This is advisory: the kernel does not reserve these ranges, it
-+ * only reports them so userspace can choose to keep its IOVA allocations
-+ * away from them and avoid accidental peer-to-peer DMA routing.  The
-+ * reported windows are pessimistic (the whole host bridge window, not the
-+ * precise BAR ranges that may actually conflict).  If a IOAS has devices
-+ * behind multiple host bridges, query each device and take the union.
-+ *
-+ * On input num_windows is the length of the windows array.  On output it
-+ * is the total number of windows.  The ioctl will return -EMSGSIZE and set
-+ * num_windows to the required value if num_windows is too small.  In this
-+ * case the caller should allocate a larger output array and re-issue the
-+ * ioctl.
-+ *
-+ * Return: 0 on success, -EOPNOTSUPP if @dev_id is not a PCI device,
-+ * -ENOENT if @dev_id is invalid, -EMSGSIZE if the output array is too
-+ * small.
-+ */
-+struct iommu_pci_mmio_windows {
-+	__u32 size;
-+	__u32 flags;
-+	__u32 dev_id;
-+	__u32 num_windows;
-+	__aligned_u64 windows;
-+};
-+#define IOMMU_GET_PCI_MMIO_WINDOWS \
-+	_IO(IOMMUFD_TYPE, IOMMUFD_CMD_GET_PCI_MMIO_WINDOWS)
- #endif
+diff --git a/net/bluetooth/hci_sock.c b/net/bluetooth/hci_sock.c
+index 6d56c77741e1..81068b585764 100644
+--- a/net/bluetooth/hci_sock.c
++++ b/net/bluetooth/hci_sock.c
+@@ -1223,8 +1223,10 @@ static int hci_sock_bind(struct socket *sock, struct sockaddr_unsized *addr,
+ 	 */
+ 	hdev = hci_pi(sk)->hdev;
+ 	if (hdev && hci_dev_test_flag(hdev, HCI_UNREGISTER)) {
++		write_lock(&hci_sk_list.lock);
+ 		hci_pi(sk)->hdev = NULL;
+ 		sk->sk_state = BT_OPEN;
++		write_unlock(&hci_sk_list.lock);
+ 		hci_dev_put(hdev);
+ 	}
+ 	hdev = NULL;
 -- 
-2.43.7
+2.43.0
 
