@@ -1,89 +1,147 @@
-Received: from mail-4316.protonmail.ch (mail-4316.protonmail.ch [185.70.43.16])
+Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.5])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 738BD32B12C
-	for <linux-kernel@vger.kernel.org>; Sun,  4 Oct 2026 06:39:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.70.43.16
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 48B823B6359;
+	Sun,  4 Oct 2026 06:45:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.5
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791095948; cv=none; b=gaUVIGlZyefu3albi2AEl6+in6KvffuRh2lobdYMIBsmOT2+7lyaraIcVeOs47B3m9hJejujqtgOkORV0LUlrOHpHrvgZCk+avO5dwO9bFYfSJYhsq2xFlQ69JNyMwmwTRD9C1emIUwvfb0mPBj381GFa8Gw4lcdpsG+80+Vvv4=
+	t=1791096333; cv=none; b=Lkl5Ef5QLy2WWG6XVKQZUPKQEUb+qgSk/LCrnv4H5QeN+2Ibrtk4ahNldm6NhgR7bFD73ErNinGuSUa+DylvfFmg8xiN9LdsBCTTYiQlJHrJUk8qUo7SikO1gE0uNU7lVerA+B7yq58HaIVQ5lQq5iOYNkM3BGSCWQSWQOHQwww=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791095948; c=relaxed/simple;
-	bh=Y7EjX751Z2kdVCaCpsvCYVebDfqPAwGp3Im7F4WlXSk=;
-	h=Date:To:From:Cc:Subject:Message-ID:MIME-Version:Content-Type; b=E66JgMcdOCX/uOokIxrXJ4dZiCv+K466MitEUCZ1Tf8PhtoAX8EU4fOKzdP5sVdpvv8Ttjr/8DUBLbaBIxsX3M1FwWV0VDWvm906oL/Fm+fFvik35eHleTqZCKS++UhvbZOSxNLCNlr9mvBp+IxcQ6TWwyh9BDLF+Z9yVGENEqM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=proton.me; spf=pass smtp.mailfrom=proton.me; dkim=pass (2048-bit key) header.d=proton.me header.i=@proton.me header.b=E2Ez0S4t; arc=none smtp.client-ip=185.70.43.16
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=proton.me
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=proton.me
+	s=arc-20240116; t=1791096333; c=relaxed/simple;
+	bh=kY8hOOuMIhySBpp0UJDPILFK+zvwsjUabytZIXt0mlw=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=kOdj8rLz2hh961yK7v+rLfJz+rfLPEnvJ1z6DDHZQfzl5Xvl/9BvKn5oizDbvBGknV0A3st4hSpMcOVpjsChVCYDIkTYopwRbM2DTrdV19PyAQr40cH6uLSjqUeH5JvUpZi+YeTqkNLuvPl34/jqq9RRXxiABsoNVs3czo5LI3c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=kf+B4JQj; arc=none smtp.client-ip=117.135.210.5
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=proton.me header.i=@proton.me header.b="E2Ez0S4t"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=proton.me;
-	s=ypm3tercgjcidctqjyemeslyim.protonmail2; t=1791095940;
-	x=1791355140; bh=jkeBQXMC0mxk0cVDHkusiZ0VJqmjJ/qXxgzgEOL765k=;
-	h=Date:To:From:Cc:Subject:Message-ID:Feedback-ID:From:To:Cc:Date:
-	 Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
-	b=E2Ez0S4tFO8YVQ8T5qWnVIic2lvgr3uh0+BneFzPTl3KOrw/shTnKvF9OrARpxbl9
-	 p03kHEZDlviTZPO3vjguFBd1Fd/ypPxNdH3jJdwBq/RoGgCD4YK1TeIN2sWZEIpEhw
-	 OL7zWysttLIM+ka6wB+hWoWgcf9VkX7OMObcCozhI68Ej6WGmu3oN4uBs+pFH9Z22E
-	 8F7Elywq9okdORKCk22Y2YHkvW3uHjZb98eHXULmXerj47t2Mfu2TcwSdPb/iccbxm
-	 /CpXcM5zZ3l+WhTyr4imdHXixLGOKvyKTTAb3Om5fQgXWaU1SWErzz5YSU8zImtvjp
-	 84KUwJA+ryfFg==
-Date: Sun, 04 Oct 2026 06:38:56 +0000
-To: Andre Przywara <andre.przywara@arm.com>, Linus Walleij <linusw@kernel.org>
-From: Norman Herms <dockseed@proton.me>
-Cc: Pablo Mazzini <pmazzini@gmail.com>, Chen-Yu Tsai <wens@kernel.org>, Jernej Skrabec <jernej.skrabec@gmail.com>, Samuel Holland <samuel@sholland.org>, "linux-gpio@vger.kernel.org" <linux-gpio@vger.kernel.org>, "linux-sunxi@lists.linux.dev" <linux-sunxi@lists.linux.dev>, "linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>, "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
-Subject: pinctrl: sunxi: a733: irq_banks too small for port K
-Message-ID: <lqyUiTS5jK5vqN8dT8ByLl8sBPTW6eSDG_13v8UAkVIUCnnxLv4UBrlHTm0c7f4brqOd5ur4sDdgld0Ol4usnXOHgJscjqwJl2BrzPpJk5Y=@proton.me>
-Feedback-ID: 144388465:user:proton
-X-Pm-Message-ID: 9d76db5c45f7d18900f3d56a77fb38acbbf9487a
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="kf+B4JQj"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=/d
+	VvElqCG0OzpZUMsbMi5T5zh57UuvfF1vAl7F2/T2Y=; b=kf+B4JQjvrOT+v71Cw
+	o3ZDfNnYfE7YFq5IJT7zg6GcNVMtrJ2l8h4S8gLCO6Bc8NG0f3P3uEjbPPKUq5OF
+	PRuEewc43zd2VjI1/oruCH9SDo1mj9cIxEptx0p9Z/R3FiRAQAY/o3sU4you1D6d
+	vyXuCAJf0hgnndCyNzhxQm7N0=
+Received: from pc.localdomain (unknown [])
+	by gzga-smtp-mtada-g0-3 (Coremail) with SMTP id _____wD3_5nr9cFq7pXhCQ--.20641S2;
+	Sun, 04 Oct 2026 14:45:00 +0800 (CST)
+From: Jiale Yao <yaojiale02@163.com>
+To: Zhu Yanjun <zyjzyj2000@gmail.com>,
+	Jason Gunthorpe <jgg@ziepe.ca>,
+	Leon Romanovsky <leon@kernel.org>,
+	Doug Ledford <dledford@redhat.com>,
+	Moni Shoua <monis@mellanox.com>,
+	Haggai Eran <haggaie@mellanox.com>,
+	Kamal Heib <kamalh@mellanox.com>,
+	Amir Vadai <amirv@mellanox.com>,
+	linux-rdma@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Cc: Jiale Yao <yaojiale02@163.com>
+Subject: [PATCH v3] RDMA/rxe: Validate inline data range in user WQEs
+Date: Sun,  4 Oct 2026 14:44:44 +0800
+Message-Id: <20261004064445.1488753-1-yaojiale02@163.com>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:_____wD3_5nr9cFq7pXhCQ--.20641S2
+X-Coremail-Antispam: 1Uf129KBjvJXoWxJFyUCFyrtw1kWF4fur1Dtrb_yoW5tFykpF
+	W5KF1UKryftw4fWr4qvFsrZFyfK3WDAry7KF9Fgw1vy3Z0grWqvasFvryY9a4UJFnxCa47
+	tF15XFZ3u3W7taDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0pimhF7UUUUU=
+X-CM-SenderInfo: x1dryxhdohiji6rwjhhfrp/xtbC7w-D-WrB9e+j+wAA33
 
-Andre, Linus,
+For a user QP, the send queue is an mmap'd ring which userspace writes
+directly.  rxe_post_send() only schedules the send task for such a QP,
+so userspace can also change WQE fields while rxe_requester() processes
+the WQE.
 
-Observation on "pinctrl: sunxi: add support for the Allwinner A733"
-(Andre's series [2], now in linusw/devel for 7.4):
-the A733 pinctrl description sets .irq_banks =3D 10, but PA does not
-exist there, and prepare_function_table() in pinctrl-sunxi-dt.c counts
-IRQ banks from PA, so PB is 1 and PK is 10. This is the same
-numbering problem as in Pablo's thread [1].
+Commit 126c757e4cd46f866ddc283143b58eb4d9bf52cd ("RDMA/rxe:
+Validate num_sge/cur_sge before indexing wqe->dma.sge[]") added bounds
+checks for two members of the userspace-controlled dma structure, but
+left sge_offset unchecked.  For an inline WQE, finish_packet() uses that
+value directly as an index into inline_data[] and copies dma.resid bytes
+from the resulting pointer into the packet payload.
 
-With irq_banks =3D 10, PK (26 pins, bank 10):
- - sunxi_pinctrl_init_with_flags() allocates irq_array for 320
-   entries but sunxi_pinctrl_build_state() writes PK to 320..345
-   (104 bytes past the end) at every probe;
- - PK gets no parent interrupt and its hwirqs are outside the IRQ
-   domain, so there are no GPIO interrupts on port K.
+A local user with access to uverbs can therefore put an out-of-range
+sge_offset in the mmap'd SQ ring.  This can disclose kernel memory in the
+outgoing packet or cause a vmalloc out-of-bounds access.
 
-Measured on two Radxa Cubie A7S boards, same kernel (v7.3-rc5 plus
-this series), once as is and once with irq_banks =3D 11. Requesting
-edge detection on PK0 through the GPIO v2 character device fails
-with ENXIO as is and works with irq_banks =3D 11. PB0 as a control
-works in both cases.
+Since sge_offset comes from shared memory, validating it in
+rxe_requester() and then reading it again in finish_packet() leaves a
+TOCTOU window.  Load it exactly once with READ_ONCE() in finish_packet(),
+validate that local value, and use the same value for the copy and update.
+Check the offset first and use subtraction for the length check to avoid
+an integer overflow.
 
-KASAN (generic) does not report the overflow on either board. devres
-rounds the allocation up to the whole kmalloc bucket, so the 104
-bytes still lie inside the object. The out-of-bounds write is
-therefore invisible to KASAN here.
+I reproduced this on Linux 7.3-rc4 with an RC user QP, IB_SEND_INLINE,
+a 64-byte residual length, and sge_offset set to 0x100000.  KASAN
+reported:
 
-Regarding Pablo's thread: with the convention Andre preferred there
-(count from PA, placeholder interrupt in the DT), the A733 needs
-irq_banks =3D 11, which also matches the binding (exactly 11
-interrupts). 10 would only be right with the renumbering from
-Pablo's patch, which is not applied.
+  BUG: KASAN: vmalloc-out-of-bounds in rxe_requester+0x1f27/0x4940
+  Read of size 64 at addr ffffc90000191250 by task kworker/u16:0/12
+  Workqueue: rxe_wq do_work
+  Call Trace:
+   __asan_memcpy
+   rxe_requester+0x1f27/0x4940
+   rxe_sender+0xe/0x30
+   do_work+0x184/0x3d0
+   process_scheduled_works+0x7c0/0xf10
 
-I am not a kernel developer. The measurements were run on my boards
-by AI agents, and the analysis was done with the help of an AI
-assistant (Claude). This is a report, not a Tested-by.
+Fixes: 8700e3e7c485 ("Soft RoCE driver")
+Link: https://lore.kernel.org/all/20260708224534.1206-1-security@auditcode.ai/
+Signed-off-by: Jiale Yao <yaojiale02@163.com>
+---
 
-[1] https://lore.kernel.org/linux-sunxi/20260929203634.32998-1-pmazzini@gma=
-il.com/
-[2] https://lore.kernel.org/linux-sunxi/20260910133519.459011-1-andre.przyw=
-ara@arm.com/
+Notes:
+    Changes in v3:
+    - Read sge_offset from the shared WQE with READ_ONCE(), as requested.
+    
+    Changes in v2:
+    - Copy sge_offset into a local variable in finish_packet(), validate that
+      value, and reuse it for the memcpy and update.
 
-Thanks,
-Norman
+ drivers/infiniband/sw/rxe/rxe_req.c | 14 +++++++++++---
+ 1 file changed, 11 insertions(+), 3 deletions(-)
+
+diff --git a/drivers/infiniband/sw/rxe/rxe_req.c b/drivers/infiniband/sw/rxe/rxe_req.c
+index 24f5c044363f..9be753d2e5dd 100644
+--- a/drivers/infiniband/sw/rxe/rxe_req.c
++++ b/drivers/infiniband/sw/rxe/rxe_req.c
+@@ -503,6 +503,7 @@ static int finish_packet(struct rxe_qp *qp, struct rxe_av *av,
+ 			 struct sk_buff *skb, u32 payload)
+ {
+ 	int err;
++	u32 sge_offset;
+ 
+ 	err = rxe_prepare(av, pkt, skb);
+ 	if (err)
+@@ -510,12 +511,19 @@ static int finish_packet(struct rxe_qp *qp, struct rxe_av *av,
+ 
+ 	if (pkt->mask & RXE_WRITE_OR_SEND_MASK) {
+ 		if (wqe->wr.send_flags & IB_SEND_INLINE) {
+-			u8 *tmp = &wqe->dma.inline_data[wqe->dma.sge_offset];
++			sge_offset = READ_ONCE(wqe->dma.sge_offset);
++			if (unlikely(sge_offset > qp->sq.max_inline ||
++				     payload >
++				     qp->sq.max_inline - sge_offset)) {
++				rxe_dbg_qp(qp, "invalid inline data range in send wqe\n");
++				return -EINVAL;
++			}
+ 
+-			memcpy(payload_addr(pkt), tmp, payload);
++			memcpy(payload_addr(pkt),
++			       &wqe->dma.inline_data[sge_offset], payload);
+ 
+ 			wqe->dma.resid -= payload;
+-			wqe->dma.sge_offset += payload;
++			wqe->dma.sge_offset = sge_offset + payload;
+ 		} else {
+ 			err = copy_data(qp->pd, 0, &wqe->dma,
+ 					payload_addr(pkt), payload,
+-- 
+2.34.1
+
