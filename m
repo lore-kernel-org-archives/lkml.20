@@ -1,79 +1,84 @@
-Received: from mail-qt1-f178.google.com (mail-qt1-f178.google.com [209.85.160.178])
+Received: from mail-wr1-f50.google.com (mail-wr1-f50.google.com [209.85.221.50])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1EC452874E6
-	for <linux-kernel@vger.kernel.org>; Sun,  4 Oct 2026 21:24:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.178
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4C401484882
+	for <linux-kernel@vger.kernel.org>; Sun,  4 Oct 2026 21:24:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.50
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791149050; cv=none; b=EpLzIh5rz/W/V6lEq/4JSla5sZ87jtYryCS1zr9FCflagB8+3mJLelNLenmPulZkydkR0IwrnvxstA/SRni/VoSgQaj4nFRyFoPFHKd4LRdzfSWlOxqvmguayWCfAQ39CTWmynNSnZwGue1UdKCftKlQ1ekNKLb8tPXovFltoNo=
+	t=1791149082; cv=none; b=fYBCQvSI1jSu+o3FDeQme8lKcF0sDVY+V7396ClCFHeBdKCZCMNcpIFI1Eh0HxrLPJxSk35rwuviRAKzNf4QYr/pQ4rU3PoKh/K9RnFDAz3uJuM7AnUWEaSILUsv00kXHdw3xpRW4YQ6xRh5ZkG3a2wFHa2EiAMXXu2d02NouDE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791149050; c=relaxed/simple;
-	bh=81+67JwUaP4tF2NJFrH6GPZDTpfDl8PzuP97pVLfUGI=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=RwBlTW/B7fJ4Cws0R4mH04YnGGcZta44ciTZTtgHQ2kPmgSlofyYmOLr78AhL/n/7zgHaFQkwgUY0Wefm+CAijCj420Kif8tIKCY/EU6bI7g/Vkmz3FGTSs8R+ABfA/OVYujxqRNPyHsyDrXUuAjUKlfM6UMd2soMZvnZ0TaRk0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ReqFQ1G3; arc=none smtp.client-ip=209.85.160.178
+	s=arc-20240116; t=1791149082; c=relaxed/simple;
+	bh=g4wrCZPfDP7wCd12CyPcGfR1zTDHVfS0kS2wAb83fj4=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=UwM457aelG/5dYJ4El9yCWpsKrWxEMmIguq5UeDSj2xwM/XECdmQ+vD73UJ0fF92d5MSXrpEs/E1Z56Jeg5Eyt9sRdglxXVXG2SCv5Ei4ntmryIT5ZmjUdjqtMXZMWnQiddniRmJQkmNpqHl///p/BYJ6pio1obiY06ks7hdINM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=CCUpQU01; arc=none smtp.client-ip=209.85.221.50
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ReqFQ1G3"
-Received: by mail-qt1-f178.google.com with SMTP id d75a77b69052e-53519e20d7bso10044481cf.0
-        for <linux-kernel@vger.kernel.org>; Sun, 04 Oct 2026 14:24:08 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="CCUpQU01"
+Received: by mail-wr1-f50.google.com with SMTP id ffacd0b85a97d-48c4649b35bso1152525f8f.3
+        for <linux-kernel@vger.kernel.org>; Sun, 04 Oct 2026 14:24:41 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791149048; x=1791753848; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1791149079; x=1791753879; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=4FDDBOjHId45sAPhEMEOKQ193Q3Lv9uy6bGqIfQK4UI=;
-        b=ReqFQ1G340eCPcoRTkmKmtONlVd3M9Zg2cqmFMOBRv725a51mtlrI5kDsJM9MYhJos
-         2OCR8bhQcH4ciofVcek15fHvvQKZW04Jz3CuNMlbZpkTHG8B0jaou93+lEC8MMyLc1JE
-         dND0mWmf4Qw6lnIrg2OrFfncUWrYCTOx2hZu4ND6P6Dqz0vz5rsOCPoTObghwUWmPY0k
-         DtkGScHh4dZdPeunGVp6UoQUiERbD5k8uG0xMzsXorkjsEWpCt/8qREO4QEDelCnd9eu
-         o/QjZAC+peyRubcrRle3XKTJ9WPYWhNL/ErWHy+/O4jN7o6iupg6V3iEtkGmsQJp+dLY
-         y3qA==
+        bh=iquxO7jnYX2lg3f86GXs02ckl6WQPTZjoaobmRLuQcU=;
+        b=CCUpQU01Lv1NGE+Il3KDrp25QTAZ7kx6DavhIz3lMYR2bCTzwh2NIkk27IiSkGOfJi
+         lqOFssOR4opwNZV8pQ231NsSq2d7xpHAnsZiWqPCEat8Ql2rGV3i77lao7sbuR5VpNHA
+         WB4bgtrPU7axCCS4yEgTFGerXEHg+Sc4eKBFc92K+R4IoT6tSSefqdjwZjK24wCsuRUV
+         Hq6hVIHMIxSpLCAB/XN08xnz4aiR9kiLADBtADMM/EoeRjUPkcm2BejyWZpVZg/HArT2
+         dQdVB/gCI8t0EL87uRj4ZOuReU+bCGPYUhHHuXu5DSjn64Nvz9gE0frIEDRJVjg3t8/U
+         xb8A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791149048; x=1791753848;
+        d=1e100.net; s=20260707; t=1791149079; x=1791753879;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=4FDDBOjHId45sAPhEMEOKQ193Q3Lv9uy6bGqIfQK4UI=;
-        b=sqPT0r3uU8pmDHcJ4kBXY/hh/s9smiUvANhkSxQKda0BMY38uJauFoOPjI6T3sBlgy
-         n2KDHUzE+Hki89O6G/7ksuNP2mPXhD6RTZOI5m41/iYfPe0S97Y6cZOAntjhwe5vrX7R
-         ipIdY7Cu1tDFy92EwzMPLfylrdXlp3VM4iMcTHzUIX9on0WdPzd2zEnNnuley6WUQ4V8
-         Rw5Ov/yyTrjO2xARhzq3vnCSlqPlIvdAe4CkXjh7TnOdv4PaG3Qag/w8msu9tjcvcuUb
-         koR6oh2cSLAjv++mVmvkgUxE9e0NaiYQHDKXdAu7+L6lnZPwgeiePIWCAgq/iFwpwVje
-         aTuw==
-X-Forwarded-Encrypted: i=1; AKwUvByoVV09No0cqYnr+MwzvuPqMNHZntdKHL/q7qtXZjBBZ3Za3iw0F0ZKOw2fvsVqqM8L4+nEJCd7Si3WbBA=@vger.kernel.org
-X-Gm-Message-State: AFuF++llS+UFQUbGthXdf1py98GSROOPy75SVQcleQ/a0OHfCF2vdqbl
-	0CBHQ2Ph/Obxf/7+0SKFsvMk3ATjUxA9jkJPed+dHVcLmIrwWKIZS9Jo
-X-Gm-Gg: AYBFou2Np30qR+etj0PHLyiX8qwZJ9iPSGJu+TacN2nCzJJ52C78EpqwpHeRsp5nkma
-	eS2tZCL6qr/rfXlLNT+3p8WGIo0/MiFuK/FjVcNuPixU0gPVA8wJwBmQsWz88R/lbCsuJkGBYkN
-	XH91H5tx684IlZMDx7Z4U+FMtVmJH13rsDfPjEo64bTJQ18emdmFbx3//zYviusfjWbBAR2hWxX
-	XBFz7iIxVqd+Ku0ExXQ5fx/8W41VunxeRkajE1uO8GZA9n+r6MDfBWTFazPHuNF/t6Zu66kbwpu
-	NPKlzzh7e/V7e8mKcdJZSHwsk3lpoDCXq+TAnMsloJ6xzHIQ7RwbnLUudzkLPEfgm/e92M9oLOM
-	tBukV+glYTQ96OK91O8LndsdCylnzJuZ4Kq/iUiqsa35NEdr0Tllbk6uN4PRSSIGXQzNtGOcMER
-	zBgEVEfqP65ZSgHDhPC/ER0wfx0HfcY3M41pXqpWbNn9wQ4IkKUaUtpxJN80xDgcapx0d9p4TTO
-	XTPL74/Jg9BkceXW96eSA==
-X-Received: by 2002:a05:622a:653:b0:535:1924:d211 with SMTP id d75a77b69052e-5351924d301mr81314081cf.1.1791149047944;
-        Sun, 04 Oct 2026 14:24:07 -0700 (PDT)
-Received: from i4-gl-tmk5904.ad.psu.edu ([130.203.156.186])
-        by smtp.gmail.com with ESMTPSA id d75a77b69052e-5339883034csm81689241cf.3.2026.10.04.14.24.05
+        bh=iquxO7jnYX2lg3f86GXs02ckl6WQPTZjoaobmRLuQcU=;
+        b=oDB6useTz63T9JD3Nt5rHdjrxtrOzMymg6G2/k9I7Sg04ONoAA8+8/HD594WuKFWim
+         SxNBAfjNcftKsdjgh3EdRlo/VQQp8J2lrFiXLeHYCBHf8EWIsDQiGgSOqDJpi8jJaYqH
+         AFX4q3zdHKiJx9BShUnEQzNPHtPDMe4noyYR7q3uMtdhl1YGlDesoWV4EdYbI2GK8c+k
+         M+9novLDE6VeG2TepFSBBJyPh50VMGAKsvL3O9rmZMhj+s1GBa0ntf060VELwjWYT2sT
+         9KMaIrROD4dMsr70okhHMb0XKVmH4E5ZbX2+PxK76lZy9ge6qUci5XHCkt17A4YElWF0
+         m8Zw==
+X-Forwarded-Encrypted: i=1; AKwUvByZQAgbg4/oUEh8aydwmwBDKuo+cKgiQ/zTvr+JpEHZTjghMmXJtNotgihofMDFIHBciqv5phoqr3ZifLo=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJOK4Qe0wOYBwXOtxGRsexjqwLzveLDSEx2OB9CACNXzSenIQdK
+	FmLjnLTFDs43WB3qgNOyA3egkthaSZCBFawAo5qELmDuYbNsF/6nuRJI
+X-Gm-Gg: AYBFou1pkxv44FDw9ka+6YF+wDke44CjlXDowYq6lKbH+yGO1oFj0OydzExcnfC6/9s
+	Ptp/yTYVqAvVIZrmlYn66Zf6VJqzrArcDaxneJUCSqDMG8ct4tHasDDa5pK9Br8OaG9LVgN77+F
+	H+I8b3Wqk9cGWqaDQ4pw3OxOd1KFMLjXqr/IQOVaEbgBRi+0WzVvVnapK6XdePNCZb8NRcHi55l
+	DIpep4arWRx5XqdbP7sUWUnX5ts2+o6he/GkpnfxXAXfy6ODwYlqqF7q1C2QDIpG6V5bTzJ7LsU
+	RlInCmc4m/6/QJWUkhz0eSRj79nUZDoBDor5VGSzKcfe4DFBf2NGTtZ7AfH6a7SqcVEesPbnS3a
+	/6ayNg3vG1wV+++9JOxDv6rSN/OGyH6bhXAS4IF3ZNxHP9HB0BqP2O0L/UeUJjC/V7nZudUEW11
+	5/0vGY3DIFJLIFYwGBkvf5wgnXdXGp+o3H5Y6njgOSMQdhJNtRJoHFLPhi97XRC5JnDQrQ7maFY
+	YZ0te5+jvx+sfW2z+80UV8vfR2cm7E3B1wVQI+vdfQOuWGZO1ogqYbuvbRm
+X-Received: by 2002:a5d:6f01:0:b0:48b:6b4:db5c with SMTP id ffacd0b85a97d-48c47c8d305mr9575410f8f.6.1791149079168;
+        Sun, 04 Oct 2026 14:24:39 -0700 (PDT)
+Received: from andreayoga.localdomain ([195.122.200.174])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48b38104417sm20407354f8f.27.2026.10.04.14.24.37
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 04 Oct 2026 14:24:07 -0700 (PDT)
-From: Yuho Choi <oss.patchbox@gmail.com>
-To: Zhenyu Wang <zhenyuw.linux@gmail.com>,
-	Zhi Wang <zhi.wang.linux@gmail.com>
-Cc: Jani Nikula <jani.nikula@linux.intel.com>,
-	Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
-	Rodrigo Vivi <rodrigo.vivi@intel.com>,
-	Tvrtko Ursulin <tursulin@ursulin.net>,
-	Xiaolin Zhang <xiaolin.zhang@intel.com>,
-	intel-gfx@lists.freedesktop.org,
-	dri-devel@lists.freedesktop.org,
-	linux-kernel@vger.kernel.org,
-	Yuho Choi <oss.patchbox@gmail.com>,
-	stable@vger.kernel.org
-Subject: [PATCH v1] drm/i915/gvt: Don't replace a DMA mapping that is still in use
-Date: Sun,  4 Oct 2026 17:22:39 -0400
-Message-ID: <20261004212403.208681-1-oss.patchbox@gmail.com>
-X-Mailer: git-send-email 2.43.0
+        Sun, 04 Oct 2026 14:24:38 -0700 (PDT)
+From: Andrea Parri <parri.andrea@gmail.com>
+To: Pablo Neira Ayuso <pablo@netfilter.org>,
+	Florian Westphal <fw@strlen.de>,
+	netfilter-devel@vger.kernel.org
+Cc: Andrea Parri <parri.andrea@gmail.com>,
+	Phil Sutter <phil@nwl.cc>,
+	Nikolay Aleksandrov <razor@blackwall.org>,
+	Ido Schimmel <idosch@nvidia.com>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>,
+	Bernhard Thaler <bernhard.thaler@wvnet.at>,
+	coreteam@netfilter.org,
+	bridge@lists.linux.dev,
+	netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH nf v2 0/2] netfilter: preserve bridge egress VLAN tags
+Date: Sun,  4 Oct 2026 23:24:26 +0200
+Message-ID: <20261004212429.3648-1-parri.andrea@gmail.com>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -82,62 +87,34 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-intel_gvt_dma_map_guest_page() unmaps and frees the cache entry of a
-gfn when it is requested with a different size, and maps the page again.
-The entry is still referenced: shadow GTT entries and dma-bufs keep
-using its DMA address after the page is unpinned and the DMA mapping is
-torn down. When the new mapping gets the same DMA address, their later
-intel_gvt_dma_unmap_guest_page() calls also drop the references of the
-new entry.
+Conntrack-reassembled packets forwarded by a VLAN-aware bridge must
+retain the VLAN state selected for their egress port when br_netfilter
+refragments them.
 
-Keep the existing entry instead. A 2M mapping covers a 4K request for
-its first page, so take a reference on it. If the entry is smaller than
-the request, fail and let the caller split the 2M entry into 4K pages,
-as it already does when a 2M mapping cannot be set up.
+The first patch saves the VLAN metadata for IPv6 as well as IPv4. The
+second clears stale ingress tags on reused fragments when the egress
+packet is untagged.
 
-Fixes: 7366aeb77cd8 ("drm/i915/gvt: fix incorrect cache entry for guest page mapping")
-Cc: stable@vger.kernel.org
-Signed-off-by: Yuho Choi <oss.patchbox@gmail.com>
----
-Compile-tested only (x86_64 defconfig + DRM_I915_GVT_KVMGT, W=1, sparse).
+Both patches were tested under virtme-ng on a VLAN-aware bridge with
+br_netfilter and nftables conntrack. With the series applied, all
+fragments have the expected tag. The test is available on request.
 
- drivers/gpu/drm/i915/gvt/kvmgt.c | 20 ++++++++------------
- 1 file changed, 8 insertions(+), 12 deletions(-)
+Changes in v2:
+  - Add a second fix to clear stale ingress VLAN tags from reused
+    frag_list skbs on untagged egress.
+  - Document the reproduced symptoms and the separate IPv4 and IPv6
+    origins, narrow the first fix's claim to newly built fragments,
+    reword the helper comment, and make the helper take a const skb.
 
-diff --git a/drivers/gpu/drm/i915/gvt/kvmgt.c b/drivers/gpu/drm/i915/gvt/kvmgt.c
-index ec62db5cc3675..9a3e305253469 100644
---- a/drivers/gpu/drm/i915/gvt/kvmgt.c
-+++ b/drivers/gpu/drm/i915/gvt/kvmgt.c
-@@ -1626,19 +1626,15 @@ int intel_gvt_dma_map_guest_page(struct intel_vgpu *vgpu, unsigned long gfn,
- 		ret = __gvt_cache_add(vgpu, gfn, *dma_addr, size);
- 		if (ret)
- 			goto err_unmap;
--	} else if (entry->size != size) {
--		/* the same gfn with different size: unmap and re-map */
--		gvt_dma_unmap_page(vgpu, gfn, entry->dma_addr, entry->size);
--		__gvt_cache_remove_entry(vgpu, entry);
--
--		ret = gvt_dma_map_page(vgpu, gfn, dma_addr, size);
--		if (ret)
--			goto err_unlock;
--
--		ret = __gvt_cache_add(vgpu, gfn, *dma_addr, size);
--		if (ret)
--			goto err_unmap;
-+	} else if (entry->size < size) {
-+		/*
-+		 * The smaller mapping may still be in use, so don't replace
-+		 * it. Fail and let the caller map the range in smaller pages.
-+		 */
-+		ret = -EBUSY;
-+		goto err_unlock;
- 	} else {
-+		/* A mapping of the same or a larger size covers the request */
- 		kref_get(&entry->ref);
- 		*dma_addr = entry->dma_addr;
- 	}
+v1: https://lore.kernel.org/all/20260928161830.351199-1-parri.andrea@gmail.com/
 
-base-commit: 7704c4c5bb127673b4f0ead839919db573559e38
+Andrea Parri (2):
+  netfilter: br_netfilter: restore VLAN tag on refragmented IPv6 packets
+  netfilter: br_netfilter: clear stale VLAN tag on refragmented packets
+
+ net/bridge/br_netfilter_hooks.c | 51 +++++++++++++++++----------------
+ 1 file changed, 26 insertions(+), 25 deletions(-)
+
 -- 
-2.43.0
+2.53.0
 
