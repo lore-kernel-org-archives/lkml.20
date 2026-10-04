@@ -1,143 +1,185 @@
-Received: from mail-pg1-f174.google.com (mail-pg1-f174.google.com [209.85.215.174])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7687730E82B
-	for <linux-kernel@vger.kernel.org>; Sun,  4 Oct 2026 09:15:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.215.174
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791105311; cv=pass; b=uc2QBUYHGPni54Gn9owDsdCBU7DP7R1w301EgkczMw4FKnWGIrFdWgoxYRcpbJha7kjB8xzMjFJtKxu7s0LubAzWW9NUTrsFn1PDzlkITlQJ2EwUBE95NbIh1dBsb+s985enRR5zUZyiMbeWMK1XxwF/LpZ9U6L3jEGlAMkHF9c=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791105311; c=relaxed/simple;
-	bh=t/n84oizsmqf30Qmzu71biJDzzYUFf3OYTLdCk6ENu4=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=aTt+fto9DO49Wl5mRSSjpR1q6O2BllT6OSAVBsZcvU09HQIyLrpK1ad/8hJXI1NgBYen6rBzMse36dBBpVC4VJcNRtnUMpQgRRpY71Mfi+Ht+7SL7i8Ae4d6AADB0asGWYjACgXps3h/KHgQNHahe2CD88W8a+ISYRx9mgGSf10=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=XDFFpk3l; arc=pass smtp.client-ip=209.85.215.174
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5CF11EEC0;
+	Sun,  4 Oct 2026 09:16:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791105416; cv=none; b=HNXE/Xk3ldozcCOnPrb1HWJ8IDfYz7iF6tK8BHm+uHo7xK6b4QJUIsdZMzQU6beQ9k2V0aitNVBFAoAESpB17SLAlFQNn61lbsZEqM5DNF+qQCbTZMRFWnuzWydf2LTVEhwf3ZJ3FFZslw865HmATThS5/Xxkwz/LrAP2ClqwkQ=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791105416; c=relaxed/simple;
+	bh=s0J8jpGcFGHV4AOczf24YcjhD3jDp8gujvZpm6R3mgE=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=s0xbp33mJOdHcuip7fMm9KYAxGXNPj6s6CI2kqyWP56pxrDmAOInz8+HnSXjJehd9es6ecS+P6c8vDdUpFnxsiBFHJZuclpfUK14mbKHEk0RfvPkJQqJ72+Ov+xG1arH5C3DVKs3yuX7x86wKWw549Xfu/LUvuSrS29qwpqSsdA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=UbUqdXNq; arc=none smtp.client-ip=213.167.242.64
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="XDFFpk3l"
-Received: by mail-pg1-f174.google.com with SMTP id 41be03b00d2f7-cc4aa18f9afso276013a12.3
-        for <linux-kernel@vger.kernel.org>; Sun, 04 Oct 2026 02:15:10 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1791105310; cv=none;
-        d=google.com; s=arc-20260327;
-        b=VHFB44OYFqNLDO7fKY9EqG9zEeXbudX/pjMvm5Hq9rVWSU3Bz/5wI8kjMnaIg+K5Mf
-         AM5ai0bOFlO0W/Kbrpishiajvp8T6GD7QO/Y6k35oYRPzmxVb+yYpO8dV2kq86OGJ7/t
-         c8gMczU51b6uHo7hYe1T0GPDuYDtl45e4Riz7W9x/0TuYtji/R5O2MVOh+5Hh0i4uFsg
-         qRMuG1qzL2d6m+QcPd1Kmvf4EF/9OIO5fKjSq2XRxEh92GJeYwbWgZvg4M6dFGljTbeF
-         4Sh5AVtRqqzfMghXMr5p3spbuDcLSwz3/yUDBnxcscEQaA2lQhvLEkDjpNCQKRVZVsPw
-         U2yA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=kaMhgqh0cNyzIJvdM7MdSJL/gkpQL52j+U/jEExbMjs=;
-        fh=z+bgvIYS+KvKz5bDKfSSk69iIxbWu/4ntuQoH6SQ3bo=;
-        b=pKfkiAq6W5kagVSX3tkeSPIkL4InmZqQF3uwKtbMGCYQ2F6aILCxH4n6V/HUEb6YRq
-         DnQeHF+slAJBd4BEnF1vM17Vt65CiYXPRA2GBS4g6/Z+fbn14IwlanR7egTlapDUL2o6
-         O/pF8B52LvNTHQuJqvXtWzW4E/Og33wYGH8pHZ+XlJHz1oN7dK92k5abLqbB1Az6GRcb
-         vBKcPA59cZJnnchZSCrw0uLs8+uVz4w91AHv6pNP2B4HnLyLI2CbGQuuaMtEXY9BBYFH
-         OdzzT15zyuC2M06Tppvr/41lB7inMMjSsEzNQhUZlgYypvZghA8QhBkXbj5p1ffWDPtw
-         XHiw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791105310; x=1791710110; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=kaMhgqh0cNyzIJvdM7MdSJL/gkpQL52j+U/jEExbMjs=;
-        b=XDFFpk3lPoJkVJWIf1wXLbSoEYqk9fpO4H1N+Fudy5xgeOHUMsLPvSZ+L4U39y+wPY
-         urxf6CuDd9dMS20bIG3ZwnPehHVUcNquv79hggpTBcmM5ZpwW+nCHAkaWy+4XGZoBHMO
-         4R2GIXs7LWgUBgHf+ZVe8Nz1lrKgCm057DopRvVzaLb1JqqQPcNvW6EDP2VFesftZP5N
-         TJNde97Fa6D5E9fb6e84rnZDF6gWEkdlpc/tgPAZVz5HLkYJot94YfakfvbfeJikINkI
-         /4eXxy1/AoRtjM876zUIT8VS2y0zoGrF33XMVHpNxsSYeLhaABeZRJXwRnstDbVNzHM4
-         GYhw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791105310; x=1791710110;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=kaMhgqh0cNyzIJvdM7MdSJL/gkpQL52j+U/jEExbMjs=;
-        b=EYdHosCqZ75U+apr4F9PDpuzmruz0BtDaNJUypKGjfIUDKNBw9Ug2HXR4fs292mKtt
-         vk+dFrJlQwXQVCFKHj8+j6jotHOb8QarzYH/DPtsJMF0No8Y1kVUjdrjQKryLcXxz0ja
-         b8tYLkThgta0AcFF/C7Q0CHbS0MO4SKECv8d7JDacpLa+kWA5g2OuzrjMFugjxkBZdFY
-         SlAzzJ0xQ7+9CUhN20C/gk+qlly5J0ugO53dw3A+4AaEOSaHkwH1hZaGAWe++3dbtn/v
-         mtF0Th8DcTyTRN2AILqFq89SHKC2Q8aj5Np0Ei2QabGntgpom5b7UTneBprU+qSgu+Mr
-         juXQ==
-X-Forwarded-Encrypted: i=1; AKwUvByq3XIj15KSfQ2vftD4IQp3t7HhK5kWUN1YXMdIj+W8um5f5PMR8D36IApoukrWyipF1mC4d67QsOzYCpc=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJgMhmHCVYvDaTB6TS85omFtYPKAgkZ4wzrO580ZufUJxGM1YWQ
-	8ClRSjeu38N2QeSJKRAt8/oaXn1s+k9sEAYDtr0dGUQPBHHv5EKngDCpImxfKz1nBwUusGVCRAw
-	ysgUryqmJX7/gJl3yPKwnlG6RD1yfBCO1CkMS
-X-Gm-Gg: AYBFou0lkZbtaRtnw3t8cjxSI/ugrIy5v42b8+tcACgHHqcb0HsNBr1Bsuh6R0ztY6R
-	91rBLwqvfUM77Apbk5MQaf8QabeQ2ZcKfSuFvh360PEHwnicgs3M02qk+CdOGKbZl8fhOk/RD2h
-	VIvnJqVCNJkj0KQVC7+v/maEXD6BDogxw3vrAT2UfCHpDz9YqvEbrjCTHT+e1pAnozSzJH9s+Jd
-	hLg0jE8KG0QM5nKk2T4lxRJS5LUqyHdbYImjSrxQKlYte6cE3fEBVWyFC7B0C0k3lOeyvsGj3mf
-	RrDTCKk/EGyYJ6CHvzoAR5Hm6iZ7smfw8SBf3WKghF7xyWvJKtKH2g==
-X-Received: by 2002:a17:90b:2548:b0:3a0:d651:3957 with SMTP id
- 98e67ed59e1d1-3a7873ac66fmr3158501a91.35.1791105309539; Sun, 04 Oct 2026
- 02:15:09 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="UbUqdXNq"
+Received: from ideasonboard.com (unknown [93.65.100.155])
+	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 8154B82A;
+	Sun,  4 Oct 2026 11:14:57 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
+	s=mail; t=1791105297;
+	bh=s0J8jpGcFGHV4AOczf24YcjhD3jDp8gujvZpm6R3mgE=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=UbUqdXNq22Bd3vdEalzZri/OmoFahQqtvjYNmc75GldXAd2+55yPXYfcpnA/uDUk+
+	 ld7MIwi8PgXRri8+xuj5BIBKudAXT8kct5/2u2EM89FrGJPq1shbzUMDPeb4ibmbOd
+	 Y2UXwUitL9YnQzvwJYH+ZxtCGoEsNpP/z31psVSY=
+Date: Sun, 4 Oct 2026 11:16:48 +0200
+From: Jacopo Mondi <jacopo.mondi@ideasonboard.com>
+To: =?utf-8?Q?Barnab=C3=A1s_P=C5=91cze?= <barnabas.pocze+renesas@ideasonboard.com>
+Cc: Niklas =?utf-8?Q?S=C3=B6derlund?= <niklas.soderlund@ragnatech.se>, 
+	Mauro Carvalho Chehab <mchehab@kernel.org>, Geert Uytterhoeven <geert+renesas@glider.be>, 
+	Magnus Damm <magnus.damm@gmail.com>, linux-media@vger.kernel.org, linux-renesas-soc@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2] media: rcar-vin: Implement VIDIOC_ENUM_FRMSIZES
+Message-ID: <asIZcew-rinp5W4z@zed>
+References: <20261001085304.85930-1-barnabas.pocze+renesas@ideasonboard.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20261003212241.3432303-1-lrizzo@google.com> <20261003212241.3432303-2-lrizzo@google.com>
- <7ce092a4-5c85-4391-809a-3d04b638a722@infradead.org>
-In-Reply-To: <7ce092a4-5c85-4391-809a-3d04b638a722@infradead.org>
-From: Luigi Rizzo <rizzo.unipi@gmail.com>
-Date: Sun, 4 Oct 2026 11:14:58 +0200
-X-Gm-Features: AclHuK-h1jLN5HUM25V1KDJrvXlK_1XFkjlYVZ2OmcSjQmXYi39ZO7A1D8RAYWw
-Message-ID: <CA+hQ2+ieCiXpnRzv7t003cHKG-YL+jSOSgVO_KavGEkbKfOeuw@mail.gmail.com>
-Subject: Re: [RFC: DMA_PMD 01/22] iommu/dma: introduce CONFIG_DMA_PMD and
- metadata table
-To: Randy Dunlap <rdunlap@infradead.org>
-Cc: Luigi Rizzo <lrizzo@google.com>, Joerg Roedel <joro@8bytes.org>, Will Deacon <will@kernel.org>, 
-	Robin Murphy <robin.murphy@arm.com>, Christoph Hellwig <hch@lst.de>, 
-	Marek Szyprowski <m.szyprowski@samsung.com>, Andrew Morton <akpm@linux-foundation.org>, 
-	Vlastimil Babka <vbabka@kernel.org>, David Hildenbrand <david@kernel.org>, 
-	"David S . Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, 
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, "Rafael J . Wysocki" <rafael@kernel.org>, 
-	Danilo Krummrich <dakr@kernel.org>, Jonathan Corbet <corbet@lwn.net>, 
-	Jesper Dangaard Brouer <hawk@kernel.org>, Ilias Apalodimas <ilias.apalodimas@linaro.org>, 
-	Willem de Bruijn <willemb@google.com>, Kuniyuki Iwashima <kuniyu@google.com>, 
-	Joshua Washington <joshwash@google.com>, Harshitha Ramamurthy <hramamurthy@google.com>, 
-	Saeed Mahameed <saeedm@nvidia.com>, Tariq Toukan <tariqt@nvidia.com>, 
-	Tony Nguyen <anthony.l.nguyen@intel.com>, Przemek Kitszel <przemyslaw.kitszel@intel.com>, 
-	Alexander Lobakin <aleksander.lobakin@intel.com>, Michael Chan <michael.chan@broadcom.com>, 
-	Pavan Chebbi <pavan.chebbi@broadcom.com>, iommu@lists.linux.dev, netdev@vger.kernel.org, 
-	linux-mm@kvack.org, driver-core@lists.linux.dev, linux-doc@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20261001085304.85930-1-barnabas.pocze+renesas@ideasonboard.com>
 
-On Sat, Oct 3, 2026 at 11:44=E2=80=AFPM Randy Dunlap <rdunlap@infradead.org=
-> wrote:
->
->
->
-> On 10/3/26 2:22 PM, Luigi Rizzo wrote:
-> > diff --git a/drivers/iommu/Kconfig b/drivers/iommu/Kconfig
-> > index 6e07bd69467a3..1bb347fd9da4a 100644
-> > --- a/drivers/iommu/Kconfig
-> > +++ b/drivers/iommu/Kconfig
-> > @@ -158,6 +158,38 @@ config IOMMU_DMA
-> >       select NEED_SG_DMA_LENGTH
-> >       select NEED_SG_DMA_FLAGS if SWIOTLB
-> >
-> > +# PMD_SIZE IOMMU backing for DMA-coherent devices
-> > +config DMA_PMD
-...
-> > +       Costs 128KB of metadata per GB of DMA_PMD buffers, allocated on=
- demand.
->
-> Paragraph 1 of the patch description says 64KB per 1GB, not 128KB.
-> Or am I mixing things up?
+Hi Barnabás
 
-256B per 2MB page, 128KB per 1GB is the correct version.
-The number in the patch description is a leftover from an earlier
-version, I will update.
+On Thu, Oct 01, 2026 at 10:53:04AM +0200, Barnabás Pőcze wrote:
+> Currently there is no way for applications to query the available frame
+> sizes, so implement `VIDIOC_ENUM_FRMSIZES` based on what is allowed in
+> `rvin_format_align()`.
+>
+> Signed-off-by: Barnabás Pőcze <barnabas.pocze+renesas@ideasonboard.com>
+> Reviewed-by: Niklas Söderlund <niklas.soderlund+renesas@ragnatech.se>
 
-cheers
-luigi
+Reviewed-by: Jacopo Mondi <jacopo.mondi@ideasonboard.com>
+
+> ---
+> changes in v2:
+>   * drop ` from title
+>
+> v1: https://lore.kernel.org/linux-media/20260929133720.344955-1-barnabas.pocze+renesas@ideasonboard.com/
+> ---
+>  .../platform/renesas/rcar-vin/rcar-v4l2.c     | 70 ++++++++++++++-----
+>  1 file changed, 51 insertions(+), 19 deletions(-)
+>
+> diff --git a/drivers/media/platform/renesas/rcar-vin/rcar-v4l2.c b/drivers/media/platform/renesas/rcar-vin/rcar-v4l2.c
+> index 9d45e11898c13..4961d28f42c78 100644
+> --- a/drivers/media/platform/renesas/rcar-vin/rcar-v4l2.c
+> +++ b/drivers/media/platform/renesas/rcar-vin/rcar-v4l2.c
+> @@ -19,6 +19,8 @@
+>  #include "rcar-vin.h"
+>
+>  #define RVIN_DEFAULT_FORMAT	V4L2_PIX_FMT_YUYV
+> +#define RVIN_MIN_WIDTH		5
+> +#define RVIN_MIN_HEIGHT		2
+>  #define RVIN_DEFAULT_WIDTH	800
+>  #define RVIN_DEFAULT_HEIGHT	600
+>  #define RVIN_DEFAULT_FIELD	V4L2_FIELD_NONE
+> @@ -187,6 +189,24 @@ static u32 rvin_format_sizeimage(struct v4l2_pix_format *pix)
+>  	}
+>  }
+>
+> +static u32 rvin_format_width_alignment(u32 pixelformat)
+> +{
+> +	/* Hardware limits width alignment based on format. */
+> +	switch (pixelformat) {
+> +	/* Multiple of 32 (2^5) for NV12/16. */
+> +	case V4L2_PIX_FMT_NV12:
+> +	case V4L2_PIX_FMT_NV16:
+> +		return 5;
+> +	/* Multiple of 2 (2^1) for YUV. */
+> +	case V4L2_PIX_FMT_YUYV:
+> +	case V4L2_PIX_FMT_UYVY:
+> +		return 1;
+> +	/* No multiple for RGB. */
+> +	default:
+> +		return 0;
+> +	}
+> +}
+> +
+>  static void rvin_format_align(struct rvin_dev *vin, struct v4l2_pix_format *pix)
+>  {
+>  	u32 walign;
+> @@ -208,27 +228,12 @@ static void rvin_format_align(struct rvin_dev *vin, struct v4l2_pix_format *pix)
+>  		break;
+>  	}
+>
+> -	/* Hardware limits width alignment based on format. */
+> -	switch (pix->pixelformat) {
+> -	/* Multiple of 32 (2^5) for NV12/16. */
+> -	case V4L2_PIX_FMT_NV12:
+> -	case V4L2_PIX_FMT_NV16:
+> -		walign = 5;
+> -		break;
+> -	/* Multiple of 2 (2^1) for YUV. */
+> -	case V4L2_PIX_FMT_YUYV:
+> -	case V4L2_PIX_FMT_UYVY:
+> -		walign = 1;
+> -		break;
+> -	/* No multiple for RGB. */
+> -	default:
+> -		walign = 0;
+> -		break;
+> -	}
+> +	walign = rvin_format_width_alignment(pix->pixelformat);
+>
+>  	/* Limit to VIN capabilities */
+> -	v4l_bound_align_image(&pix->width, 5, vin->info->max_width, walign,
+> -			      &pix->height, 2, vin->info->max_height, 0, 0);
+> +	v4l_bound_align_image(&pix->width, RVIN_MIN_WIDTH, vin->info->max_width, walign,
+> +			      &pix->height, RVIN_MIN_HEIGHT, vin->info->max_height, 0,
+> +			      0);
+>
+>  	pix->bytesperline = rvin_format_bytesperline(vin, pix);
+>  	pix->sizeimage = rvin_format_sizeimage(pix);
+> @@ -343,6 +348,32 @@ static int rvin_enum_fmt_vid_cap(struct file *file, void *priv,
+>  	return -EINVAL;
+>  }
+>
+> +static int rvin_enum_framesizes(struct file *file, void *priv,
+> +				struct v4l2_frmsizeenum *fsize)
+> +{
+> +	struct rvin_dev *vin = video_drvdata(file);
+> +	u32 wstep;
+> +
+> +	if (fsize->index != 0)
+> +		return -EINVAL;
+> +
+> +	if (!rvin_format_from_pixel(vin, fsize->pixel_format))
+> +		return -EINVAL;
+> +
+> +	fsize->type = V4L2_FRMSIZE_TYPE_STEPWISE;
+> +
+> +	wstep = 1u << rvin_format_width_alignment(fsize->pixel_format);
+> +	fsize->stepwise.min_width = round_up(RVIN_MIN_WIDTH, wstep);
+> +	fsize->stepwise.max_width = vin->info->max_width;
+> +	fsize->stepwise.step_width = wstep;
+> +
+> +	fsize->stepwise.min_height = RVIN_MIN_HEIGHT;
+> +	fsize->stepwise.max_height = vin->info->max_height;
+> +	fsize->stepwise.step_height = 1;
+> +
+> +	return 0;
+> +}
+> +
+>  static int rvin_remote_rectangle(struct rvin_dev *vin, struct v4l2_rect *rect)
+>  {
+>  	struct media_pad *pad = media_pad_remote_pad_first(&vin->pad);
+> @@ -564,6 +595,7 @@ static const struct v4l2_ioctl_ops rvin_mc_ioctl_ops = {
+>  	.vidioc_g_fmt_vid_cap		= rvin_g_fmt_vid_cap,
+>  	.vidioc_s_fmt_vid_cap		= rvin_mc_s_fmt_vid_cap,
+>  	.vidioc_enum_fmt_vid_cap	= rvin_enum_fmt_vid_cap,
+> +	.vidioc_enum_framesizes		= rvin_enum_framesizes,
+>
+>  	.vidioc_g_selection		= rvin_g_selection,
+>  	.vidioc_s_selection		= rvin_s_selection,
+> --
+> 2.55.0
+>
+>
