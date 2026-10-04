@@ -1,193 +1,207 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 505FB39A06F
-	for <linux-kernel@vger.kernel.org>; Sun,  4 Oct 2026 15:26:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 56FD71CAA6D
+	for <linux-kernel@vger.kernel.org>; Sun,  4 Oct 2026 15:28:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791127600; cv=none; b=QDTxMeC2kNZDyuDYLO/EDj8sYUWhlvRby5HsNr2Si5RSPEewzD4NDM0Z3aHd7rWivWEbF5Srtgsibb8VVH3HNaGofxwmhJ4KI5rHSke+l7I99n3nG1RFn/aml504Z1gV/eFAY3KyD5pMHk1HYk1yWBi4UdWDOZ3VLc19M3uNh4E=
+	t=1791127708; cv=none; b=AUvvEOd1BsXsQSKVAAqbjigukB2YqSxoMDbfLNOtSr0eOxZOc7dPivD5FJktG6yR8W/evF617OIO1ILMqfRObjjaeGI7D80rBSC0cDdBPfV++1G4lkClu0zwxCpy5HvWb0CtIaU0q/MebG3mJiSqtxw1AgRIcJB/23MCa7bWitQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791127600; c=relaxed/simple;
-	bh=2ch5mNrtmdxQSOSuWG7L73peId4LUbCNr87Fa7anJjI=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=cOIVv7edQNEgV440TlRQTZrv+x7OEc1St+uAuqd2WAiFgs1ByTQX5WJTpGl1u3Pk/CaBU3i+0X7Sx5S5DuYZ3unkPW/QmXsyLilZbKNdt3uDbfXuIaxhs0VQyoyE9pa4RXSFwys3NhxQGMH7LpQJUNBBhozFQ1kTRhfcevkDjp4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=n9J14xJJ; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=dEw3Qlq0; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1791127708; c=relaxed/simple;
+	bh=5mYst5Ullbp+HHdr6Uh5aXV63tNmZJUMGFOFHhbt800=;
+	h=Message-ID:Date:MIME-Version:From:Subject:To:Cc:References:
+	 In-Reply-To:Content-Type; b=n/o4hzA2kYKNexvkWvE/cn4ZPTXHJTJuTNvCsuVTxttpzeYh81zLuxEm8mHSjA9NUO0OVJCiTe9KqbC88+XVRozVtCo4B1GNtOzzfGnrDJOrWS8pBTTP83LGwNYu0DcykyUNn8tPq5p7z7T3daWyXrrzW8SUTXxdQyliBoFD7+w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=HX7Q4eRR; arc=none smtp.client-ip=74.125.225.141
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="n9J14xJJ";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="dEw3Qlq0"
-Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 694EeH8Y3725850
-	for <linux-kernel@vger.kernel.org>; Sun, 4 Oct 2026 15:26:38 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=qcppdkim1; bh=At3ebrOXbtof0F5P/wwaDdSx
-	0o6qxJSpe5weBws8clA=; b=n9J14xJJN1lWY7nq48Qr6iqgFLhmCX0YPV32RQii
-	eWSplHy/WAEVZLxezJ5V5sIob28dYHxEyb9EHDSzB/fmXetCV6wRc68ROQkqDVo1
-	md6g7n8mvu+/GyfN2iz52C0o7IiuWYCXWJJEoAbLRyhHZlj1qyXFr+KxTsvoPOM6
-	Nei2sgYnKkVolyOapJKnya6W9uLEus9iCq6rfTHh4iAXXKwvXC2Zj37cNHALWh48
-	eYMnOwtCPSPxRfdhngAdaNyKSfs4A0I4Qtd3kBvNfUlXH1fXnKbej2+aQGpo5YRH
-	kI/lS0e+AhsZTgX52U3jhOsNdk/XAxhXJMenL8nM1lnanw==
-Received: from mail-dy1-f198.google.com (mail-dy1-f198.google.com [74.125.82.198])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h2spa39j6-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Sun, 04 Oct 2026 15:26:38 +0000 (GMT)
-Received: by mail-dy1-f198.google.com with SMTP id 5a478bee46e88-34ef5fd7934so3018897eec.0
-        for <linux-kernel@vger.kernel.org>; Sun, 04 Oct 2026 08:26:37 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="HX7Q4eRR"
+Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-4a0977b9c20so15287865e9.2
+        for <linux-kernel@vger.kernel.org>; Sun, 04 Oct 2026 08:28:26 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1791127597; x=1791732397; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=At3ebrOXbtof0F5P/wwaDdSx0o6qxJSpe5weBws8clA=;
-        b=dEw3Qlq0CQ26qdBAdLnCKo/E9X9JSzrt3DMfMJAeUu0n6+OPYR73L2jtlAVQWLbqka
-         dUPO9UJMkLSqhpnLkscoJWWDZ/i82h8QHdfIi5aINaCaIztMTf8i2ZO9+wzv3wZN1hlA
-         D2n8Edsi89vrqhPwc/B5O7XK2SwSsqK1F+ZauIOyoUQaCbTgqjixdoBJ8YOvLQgYEeaH
-         v0eixO2dDdzMTBkeQP0Q5k8MCXcY5DNE4cL2cb74ypsT6UXDRXO6kJ5wVY9WJhXRIzEi
-         P0Hq2dz/D5dqk39F2d3hQZz0XFFhdJkleBFTA8vBGqKw0gtjgYMdAt7Zb6N0WaMBQ87e
-         0cIQ==
+        d=linaro.org; s=google; t=1791127704; x=1791732504; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:organization
+         :autocrypt:content-language:references:cc:to:subject:reply-to:from
+         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=WA4cfENfPEbrDvuT53Cr6d7+lPDcZpBsXedFYV5NI20=;
+        b=HX7Q4eRRpcUbqae8boTKZSbgrk+zYFV3KMoptto/dhZHtaGEv7Xb8D/1D63BgaD3j2
+         R+eiHPeSaJIa4s4fbeETuzR1+AnhqgQo7mxI0jsnmbEKkoOumaAyUfd1xJ6+AgAqIzjg
+         mdcf/w5is/dosUMtraMIon8QFgDIoHz6YrLpQRxl63OWIagb1ELSo0E4yx8u5xXQLD2S
+         h8ydZdYq/xL+1XFFR8dfs5d+WiDwmAktDw5Uah/PLX+UtJepbHhwgJIzQQzuG7zwPQI8
+         c8182pFY9F6Mfn+zgEeKQg43EcW4WJfZGHnW9yQzAuD+luPSn4Qffux0W9OK9Wci6fs2
+         21Ow==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791127597; x=1791732397;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=At3ebrOXbtof0F5P/wwaDdSx0o6qxJSpe5weBws8clA=;
-        b=Jkin6ktLSp5ELHX5S1tBDKzlq3y8x6fCagyXOwG9DwtIdymT9Qz/5KA9RwQm3w48M6
-         GgRODsL8vsdydVF+YrEQjUD/+H6b2pOX8B4KesZxpqmwPyE5GsNL29pR74BJDCE3iZX0
-         HimDclYiHBk0wD/KfxwoSlwbaowawHR/B7m1PlyD7exDLrUSrZBt0/YsH0+ikaCx+mw4
-         TWXu4QLpsUHnkP/a9qYjfU0VzEJXRXgN9rGW4VECHPLICxFrLCfS8bf7b1NGHLWVSk6U
-         7q4TurAoSuaSYkdz5eybjlWAPZsRPELEKCkXfc6+EpZyL5KCpYz8Y66dVxCctYG2ihtq
-         vMFA==
-X-Forwarded-Encrypted: i=1; AKwUvBw2YzWaf3NSfrjgc0nUx/eSqMti4L+nhiJNBMYUxQYIDx10l4Kg3RKLFvzMEeaZaNM8vf6Otu38c4jS+lI=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKdMNBcsNTDhizRS5wnqKqGsKTeJeyLe/BFPAIHkKzYihKlwJif
-	WMwaMcgjn0YWBZUfbUCwcRKLBbI/ueVZALeNvda2boYC2tzypWmRKuhRWw77o+q5+O9RQ/OP1M+
-	tdkx2xbqYbMlpeiXoU8CnFf96ItLEu5SIs0oTfbE5uaXLSEgcjdVmcOnYsjcgixeFMfTGSMdPnX
-	o=
-X-Gm-Gg: AYBFou3bAe/oKfzlr8w5NM8DGrDZRnMoehPzt4SPb3AZFMjrDm8sy813Eg29rYuA6g/
-	v7MTZnwY/KP+0X5vMwnkxkmi113P74gC5F2UB8/dpniiOBp+Ud8bOx7xUgqzPI2ZIfa0E3JZo2P
-	xiIP+AV2g+ApWNO529pg3OaxR/QDjy0nm5JV4sqo3mJ7act+3f5I5gl773cuyWpokVqXV5c85yA
-	fGbr0hyLn2/Oh9mCukGv2HmQvjBo99ByGcO5zvlGwuR020Ih9Q2ZoTFNawM4+V7ETCVewtYjf7w
-	QF95HmHnLUUtsnd/9vT7UAyxGEixcktW7oQ4vqKUBvMWO0nAv7zylPYStlzkJBGiSpLptfV16aA
-	IZJwxxUlY6sUU16efLhF/l1TPqcIfrEj79zFz3vuj9A==
-X-Received: by 2002:a05:693c:88dc:20b0:351:985:e729 with SMTP id 5a478bee46e88-35109953237mr8368021eec.12.1791127597008;
-        Sun, 04 Oct 2026 08:26:37 -0700 (PDT)
-X-Received: by 2002:a05:693c:88dc:20b0:351:985:e729 with SMTP id 5a478bee46e88-35109953237mr8367993eec.12.1791127596447;
-        Sun, 04 Oct 2026 08:26:36 -0700 (PDT)
-Received: from QCOM-aGQu4IUr3Y (i-global052.qualcomm.com. [199.106.103.52])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3512713c9a6sm5600553eec.5.2026.10.04.08.26.33
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 04 Oct 2026 08:26:35 -0700 (PDT)
-Date: Sun, 4 Oct 2026 23:26:31 +0800
-From: Shawn Guo <shengchao.guo@oss.qualcomm.com>
-To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-Cc: Bjorn Andersson <andersson@kernel.org>,
-        Mathieu Poirier <mathieu.poirier@linaro.org>,
-        Bartosz Golaszewski <brgl@kernel.org>, linux-arm-msm@vger.kernel.org,
-        linux-remoteproc@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] remoteproc: qcom_q6v5_pas: Drop early_boot flag for Nord
- ADSP
-Message-ID: <asJwJ6cq8FcA0IID@QCOM-aGQu4IUr3Y>
-References: <20260930020745.1940933-1-shengchao.guo@oss.qualcomm.com>
- <58c1c4a9-afad-4059-ba81-cdcc92d0c5dd@oss.qualcomm.com>
+        d=1e100.net; s=20260707; t=1791127704; x=1791732504;
+        h=content-transfer-encoding:content-type:in-reply-to:organization
+         :autocrypt:content-language:references:cc:to:subject:reply-to:from
+         :user-agent:mime-version:date:message-id:x-gm-gg:x-gm-message-state
+         :from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=WA4cfENfPEbrDvuT53Cr6d7+lPDcZpBsXedFYV5NI20=;
+        b=FslbAbCpvsn/B/EWqWf5MJ/0kq60cbfJ8w9L3TBFkKn1VkgrK7rr+UrPN/vR9pNgXC
+         Vy2Z4mHmkppm+ribVG0cYjurA7L3FCWtoD/b6spk0pF/NEIcM/+VBP7jUzUMpgekE2L6
+         KMw6Y34X0WkZTvUYTRIDlxdSyqb+VksAt6g3pFsJBN8byOhCy5Fr27Ksq/jdAUZG4r9V
+         9ROP4Msg5rgypVSnZWq1KoiUDwOolfsacAEN/XPvbMnno2Z8lG0SVUnoIDr3h0DShLHG
+         z++GvNnzXrLQ2hvUkVR9y9BT4Z/hblExFllDf3B3e4HVn9oppI3a5wJL8pUKzhCiOH/9
+         f8hw==
+X-Forwarded-Encrypted: i=1; AKwUvBytSefFW1nAiK04+aV4ol5Bk7C9zDR7HtZ1cAyiXBYt4Zgra8FPtajrLAgH2oWSCe/kCV78ERb+28Iu3kQ=@vger.kernel.org
+X-Gm-Message-State: AFuF++mVR+/TPR1yAZKnhrDbYw5us2hXxcHYfj1kmR2rbVmQXjB2tgu3
+	OOwtzbkfjJUCbEz8BMkzwBvySqn4J2XLfAGiQks+aCb4gBvyEF6HZuv/ITD7OJ9zIDQ=
+X-Gm-Gg: AYBFou3ZFAhiPkam20lqge9NMyyf0ee5QOG7TwjIpI61hN2gtH+G1EsG6oXW+N36J6J
+	tFf1eM/n9y9dspT5DwT7B89LCG6XUxIrb4KwZWhao52bAgxSZ3nYV0YjulwExo7uXokxoVlCvKY
+	zjy9SxY4nAmHO065dOXG3wt6WPOL7wQixbuOHkUXxp/2FwhwNcrxcIYhDq9d/1/WTM9AIFuoNKZ
+	qDuZ92lpYbKtMmngmpgzlF6gG9h6SczUyPoW6gvgmvTRAL0C0/ZzSrkxiCc7PcC5Oh6lTpas07t
+	QYVzvrL4PSLwqrW4C+lopdArdkNDnMtpLBwxaAokYfBz6Tgz1ONs/T8u7x5iP8jusKwTstVQpHm
+	GopUciy65rQlr54CRe9Ce4GldsFUBZDvHXP9Khsbn+w4dQ7AH5u+UxibjhhSxne2W+F/IKlrG8w
+	43EY5NOEcwsIhybusYcA91+pEYqDpi8bmnpn0eep9npk5OYpEg96fh2b8P3bQQQ5IZycW7RPX1x
+	ziXxVXD
+X-Received: by 2002:a05:600c:4e13:b0:49c:cee0:e7c1 with SMTP id 5b1f17b1804b1-4a02757999cmr135331735e9.16.1791127704520;
+        Sun, 04 Oct 2026 08:28:24 -0700 (PDT)
+Received: from [172.20.10.3] ([37.169.53.153])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a0280d1e38sm220380705e9.13.2026.10.04.08.28.21
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Sun, 04 Oct 2026 08:28:23 -0700 (PDT)
+Message-ID: <162c3908-cbf9-4bf2-8594-8592d5e4c3e5@linaro.org>
+Date: Sun, 4 Oct 2026 17:28:21 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <58c1c4a9-afad-4059-ba81-cdcc92d0c5dd@oss.qualcomm.com>
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDA0MDA2MSBTYWx0ZWRfX2xOb80kw0Zie
- 2JQdr64eIaBStS5fMT13rgTSnLMRnORUQ66s8iOaQDPp6Xxd0fBM4BUICyx7Ca4JAwDD35u4p0x
- 2xIO6j7MQ3ZKatBaSPQv/1lv0xFDXjXYWvhv0gw38l8JTS3NOo/z+Hj/txCgmThDLKfWSkRrMky
- 3T3v7gSvzWc7u5nWz/Td30tYZ3GJB0QBq9g3tdgNcOWxSlZZE3UxGE31pZuTVyR5pLvTnFQsGXD
- KKFihAAMqcivEMfBiFakzr40RynOqNMuU3W0hIeiPeXqe0YXHlSe4IJIANzS1uHOQeddoY9rSLo
- DoTsyaYjCbLBafyhocNTUOOVng/HRO48feLXzf0J8zKLkJ/AUZiW5lhRyLVqGr6iGRvTybcLN/W
- anU7lB6vbpQch05SzCi5FcNSraW0tY77taYtyWxf18ufELTAkWF1B7afIav8auYsd4SAyMQ6URV
- f1XGOVwB9Rdm5UfKK3Q==
-X-Authority-Analysis: v=2.4 cv=b7MncdGx c=1 sm=1 tr=0 ts=6ac2702e cx=c_pps
- a=wEP8DlPgTf/vqF+yE6f9lg==:117 a=b9+bayejhc3NMeqCNyeLQQ==:17
- a=kj9zAlcOel0A:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_glEPmIy2e8OvE2BGh3C:22
- a=VwQbUJbxAAAA:8 a=KKAkSRfTAAAA:8 a=EUspDBNiAAAA:8 a=NTnRRJcS9uFvT1zYgXQA:9
- a=CjuIK1q_8ugA:10 a=bBxd6f-gb0O0v-kibOvt:22 a=cvBusfyB2V15izCimMoJ:22
-X-Proofpoint-ORIG-GUID: ZqseUdQc9MtN2MdWuYJvp3Qkrst81xfU
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDA0MDA2MSBTYWx0ZWRfXwrAXt7PzWEJj
- 8DxR/B+p1qFvryEgGqB7w4Rw/UBgCAWQllsjXdoz7sSxcZxzhQR3EQXlp5gmhiHbN+rp94KuOh8
- y9vsEGsD7LE/vb6AlACccgRXX87Zkvk=
-X-Proofpoint-GUID: ZqseUdQc9MtN2MdWuYJvp3Qkrst81xfU
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-10-04_04,2026-10-02_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 impostorscore=0 adultscore=0 clxscore=1015 phishscore=0
- bulkscore=0 malwarescore=0 suspectscore=0 priorityscore=1501
- lowpriorityscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2609040000
- definitions=main-2610040061
+User-Agent: Mozilla Thunderbird
+From: Neil Armstrong <neil.armstrong@linaro.org>
+Reply-To: Neil Armstrong <neil.armstrong@linaro.org>
+Subject: Re: [RFC PATCH 3/6] net: stmmac: dwmac-meson8b: add support for the
+ Amlogic T7
+To: Lucas Tanure <tanure@linux.com>, xianwei.zhao@amlogic.com,
+ Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller"
+ <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>,
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Kevin Hilman <khilman@baylibre.com>,
+ Jerome Brunet <jbrunet@baylibre.com>,
+ Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
+ Maxime Chevallier <maxime.chevallier@bootlin.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>
+Cc: netdev@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-amlogic@lists.infradead.org,
+ linux-kernel@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com
+References: <20261004144046.391444-1-tanure@linux.com>
+ <20261004144046.391444-4-tanure@linux.com>
+Content-Language: en-US, fr
+Autocrypt: addr=neil.armstrong@linaro.org; keydata=
+ xsBNBE1ZBs8BCAD78xVLsXPwV/2qQx2FaO/7mhWL0Qodw8UcQJnkrWmgTFRobtTWxuRx8WWP
+ GTjuhvbleoQ5Cxjr+v+1ARGCH46MxFP5DwauzPekwJUD5QKZlaw/bURTLmS2id5wWi3lqVH4
+ BVF2WzvGyyeV1o4RTCYDnZ9VLLylJ9bneEaIs/7cjCEbipGGFlfIML3sfqnIvMAxIMZrvcl9
+ qPV2k+KQ7q+aXavU5W+yLNn7QtXUB530Zlk/d2ETgzQ5FLYYnUDAaRl+8JUTjc0CNOTpCeik
+ 80TZcE6f8M76Xa6yU8VcNko94Ck7iB4vj70q76P/J7kt98hklrr85/3NU3oti3nrIHmHABEB
+ AAHNKk5laWwgQXJtc3Ryb25nIDxuZWlsLmFybXN0cm9uZ0BsaW5hcm8ub3JnPsLAkQQTAQoA
+ OwIbIwULCQgHAwUVCgkICwUWAgMBAAIeAQIXgBYhBInsPQWERiF0UPIoSBaat7Gkz/iuBQJk
+ Q5wSAhkBAAoJEBaat7Gkz/iuyhMIANiD94qDtUTJRfEW6GwXmtKWwl/mvqQtaTtZID2dos04
+ YqBbshiJbejgVJjy+HODcNUIKBB3PSLaln4ltdsV73SBcwUNdzebfKspAQunCM22Mn6FBIxQ
+ GizsMLcP/0FX4en9NaKGfK6ZdKK6kN1GR9YffMJd2P08EO8mHowmSRe/ExAODhAs9W7XXExw
+ UNCY4pVJyRPpEhv373vvff60bHxc1k/FF9WaPscMt7hlkbFLUs85kHtQAmr8pV5Hy9ezsSRa
+ GzJmiVclkPc2BY592IGBXRDQ38urXeM4nfhhvqA50b/nAEXc6FzqgXqDkEIwR66/Gbp0t3+r
+ yQzpKRyQif3OwE0ETVkGzwEIALyKDN/OGURaHBVzwjgYq+ZtifvekdrSNl8TIDH8g1xicBYp
+ QTbPn6bbSZbdvfeQPNCcD4/EhXZuhQXMcoJsQQQnO4vwVULmPGgtGf8PVc7dxKOeta+qUh6+
+ SRh3vIcAUFHDT3f/Zdspz+e2E0hPV2hiSvICLk11qO6cyJE13zeNFoeY3ggrKY+IzbFomIZY
+ 4yG6xI99NIPEVE9lNBXBKIlewIyVlkOaYvJWSV+p5gdJXOvScNN1epm5YHmf9aE2ZjnqZGoM
+ Mtsyw18YoX9BqMFInxqYQQ3j/HpVgTSvmo5ea5qQDDUaCsaTf8UeDcwYOtgI8iL4oHcsGtUX
+ oUk33HEAEQEAAcLAXwQYAQIACQUCTVkGzwIbDAAKCRAWmrexpM/4rrXiB/sGbkQ6itMrAIfn
+ M7IbRuiSZS1unlySUVYu3SD6YBYnNi3G5EpbwfBNuT3H8//rVvtOFK4OD8cRYkxXRQmTvqa3
+ 3eDIHu/zr1HMKErm+2SD6PO9umRef8V82o2oaCLvf4WeIssFjwB0b6a12opuRP7yo3E3gTCS
+ KmbUuLv1CtxKQF+fUV1cVaTPMyT25Od+RC1K+iOR0F54oUJvJeq7fUzbn/KdlhA8XPGzwGRy
+ 4zcsPWvwnXgfe5tk680fEKZVwOZKIEuJC3v+/yZpQzDvGYJvbyix0lHnrCzq43WefRHI5XTT
+ QbM0WUIBIcGmq38+OgUsMYu4NzLu7uZFAcmp6h8g
+Organization: Linaro
+In-Reply-To: <20261004144046.391444-4-tanure@linux.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Thu, Oct 01, 2026 at 10:42:39AM +0200, Konrad Dybcio wrote:
-> On 9/30/26 4:07 AM, Shawn Guo wrote:
-> > Qualcomm NHLOS team changes XBL for Nord IOT/Embedded variant, leaving
-> > ADSP to be powered up by Linux remoteproc, so that Nord IQ10 Qualcomm
-> > Linux (QLI) behavior gets aligned with IQ8/9. Drop early_boot flag from
-> > Nord ADSP for that purpose.
-> > 
-> > Signed-off-by: Shawn Guo <shengchao.guo@oss.qualcomm.com>
-> > ---
+On 10/4/26 16:40, Lucas Tanure wrote:
+> The glue registers on the T7 are laid out exactly as the G12A ones, RX
+> delay field included, so the T7 can reuse the G12A settings.
 > 
-> What happens if this patch is absent?
-
-ADSP never comes up:
-
-  remoteproc remoteproc0: attaching to adsp
-  remoteproc remoteproc0: can't attach to rproc adsp: -19
-
-Since XBL no longer boots ADSP, the remote never publishes its SMP2P
-inbound item. The smp2p entry stays unmapped, and irq_get_irqchip_state()
-on fatal_irq returns -ENODEV. qcom_pas_attach() treats that as a hard
-error rather than falling back to a firmware boot.
-
-Even the existing fallback (ready bit clear -> RPROC_OFFLINE) doesn't
-work: rproc_boot() takes the attach branch, sees the error and returns
-without loading firmware.
-
+> What the T7 does not share is how the controller reaches DRAM: the bus
+> path goes through a pipeline stage with a gate of its own, and no device
+> other than the controller has any use for that gate. Claim it and hold
+> it enabled for as long as the controller is bound, otherwise it is
+> switched off as unused and a transfer that has been started can never
+> complete.
 > 
-> When the early_boot path was first introduced I was really hoping
-> that this behavior could be made unconditional and Linux would
-> figure out if the rproc may be active by virtue of it sending
-> back signals or not, unfortunately that hasn't made it into the
-> tree..
+> Give the T7 match data of its own so that only it looks the clock up,
+> and require the clock instead of treating it as optional: the controller
+> cannot do DMA without it, and failing the probe with a clear message
+> beats booting and hitting an undiagnosable hang later.
+> 
+> Assisted-by: LLM
+> Signed-off-by: Lucas Tanure <tanure@linux.com>
+> ---
+>   .../ethernet/stmicro/stmmac/dwmac-meson8b.c   | 19 +++++++++++++++++++
+>   1 file changed, 19 insertions(+)
+> 
+> diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-meson8b.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-meson8b.c
+> index e4d5c41294f4..450f7b4b29a6 100644
+> --- a/drivers/net/ethernet/stmicro/stmmac/dwmac-meson8b.c
+> +++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-meson8b.c
+> @@ -81,6 +81,7 @@ struct meson8b_dwmac;
+>   struct meson8b_dwmac_data {
+>   	int (*set_phy_mode)(struct meson8b_dwmac *dwmac);
+>   	bool has_prg_eth1_rgmii_rx_delay;
+> +	bool has_pipeline_clk;
+>   };
+>   
+>   struct meson8b_dwmac {
+> @@ -384,6 +385,7 @@ static int meson8b_dwmac_probe(struct platform_device *pdev)
+>   	struct plat_stmmacenet_data *plat_dat;
+>   	struct stmmac_resources stmmac_res;
+>   	struct meson8b_dwmac *dwmac;
+> +	struct clk *pipeline_clk;
+>   	int ret;
+>   
+>   	ret = stmmac_get_platform_resources(pdev, &stmmac_res);
+> @@ -443,6 +445,13 @@ static int meson8b_dwmac_probe(struct platform_device *pdev)
+>   	if (IS_ERR(dwmac->timing_adj_clk))
+>   		return PTR_ERR(dwmac->timing_adj_clk);
+>   
+> +	if (dwmac->data->has_pipeline_clk) {
+> +		pipeline_clk = devm_clk_get_enabled(dwmac->dev, "pipeline");
+> +		if (IS_ERR(pipeline_clk))
+> +			return dev_err_probe(dwmac->dev, PTR_ERR(pipeline_clk),
+> +					     "missing pipeline clock\n");
+> +	}
+> +
+>   	ret = meson8b_init_rgmii_delays(dwmac);
+>   	if (ret)
+>   		return ret;
+> @@ -479,6 +488,12 @@ static const struct meson8b_dwmac_data meson_g12a_dwmac_data = {
+>   	.has_prg_eth1_rgmii_rx_delay = true,
+>   };
+>   
+> +static const struct meson8b_dwmac_data meson_t7_dwmac_data = {
+> +	.set_phy_mode = meson_axg_set_phy_mode,
+> +	.has_prg_eth1_rgmii_rx_delay = true,
+> +	.has_pipeline_clk = true,
+> +};
+> +
+>   static const struct of_device_id meson8b_dwmac_match[] = {
+>   	{
+>   		.compatible = "amlogic,meson8b-dwmac",
+> @@ -500,6 +515,10 @@ static const struct of_device_id meson8b_dwmac_match[] = {
+>   		.compatible = "amlogic,meson-g12a-dwmac",
+>   		.data = &meson_g12a_dwmac_data,
+>   	},
+> +	{
+> +		.compatible = "amlogic,t7-dwmac",
+> +		.data = &meson_t7_dwmac_data,
+> +	},
+>   	{ }
+>   };
+>   MODULE_DEVICE_TABLE(of, meson8b_dwmac_match);
 
-The difficulty is with the positive signal. As Stephan pointed out [1],
-the ready bit is not cleared when the remote is stopped or force-shutdown,
-so a stop followed by rmmod/modprobe of qcom_q6v5_pas makes the driver
-attach to a remote that is not running. Without ping-pong or a PAS query
-for the remote state, I don't think we can reliably say that a remote
-*is* running.
+Reviewed-by: Neil Armstrong <neil.armstrong@linaro.org>
 
-The negative signal is reliable though. The -ENODEV from
-irq_get_irqchip_state() means the remote has never populated its SMP2P
-entry since cold boot, so it cannot be running. We can fall back to a
-firmware boot in that case. early_boot then becomes a hint that the
-bootloader *may* have started the remote, which matches Nord ADSP:
-it is started by XBL on the Auto variant and by Linux remoteproc on
-the IoT variant.
-
-I'll drop this patch and send two patches instead:
-
-- remoteproc: core: continue to the firmware boot path when .attach()
-  leaves the rproc in RPROC_OFFLINE
-- remoteproc: qcom: pas: treat -ENODEV from the SMP2P state read as
-  "not running" and fall back to start
-
-With those, Nord ADSP keeps early_boot and I've tested it with both XBL
-variants. With the old XBL it attaches as before; with the new one
-it falls back to loading firmware.
-
-Shawn
-
-[1] https://lore.kernel.org/all/ahBG6jKYdSAboWjs@linaro.org/
+Thanks,
+Neil
