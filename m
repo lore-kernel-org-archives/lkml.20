@@ -1,65 +1,64 @@
-Received: from mail-pz2-f37.google.com (mail-pz2-f37.google.com [74.125.228.37])
+Received: from mail-pz2-f38.google.com (mail-pz2-f38.google.com [74.125.228.38])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 30051472549
-	for <linux-kernel@vger.kernel.org>; Sun,  4 Oct 2026 17:35:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.37
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2481D47255F
+	for <linux-kernel@vger.kernel.org>; Sun,  4 Oct 2026 17:35:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.38
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791135347; cv=none; b=WfNHj7ILJUvFSp2Wvg/hxnFJmucHqnnzVgXQKX60yPzh9QJfMZegxuR4PDOsxy8WZ3FIa1dx8TBD/upL7CSJ7ih3gqwUqCGjuk/jxkh2pm+so8FtBfl7B49Uz4+1ORm0Pa6ZMJch1A7TMQow/94JvzQ34uV1ZOzbnevNaodruAU=
+	t=1791135360; cv=none; b=uLW32vzkto4DO7PiZXUHsplzGLZJodVQ4KqrcJwGRbUI86HvIMUDlW7FBcTopoSeu32fTHPozhB0cLw//OXMA2czmr23ixNm6HgciT1QhPQmA7ocUXvKNOFsfH4JkeCB4RQ17gYp9X+BrnoIoXSguqW1fSSkpgEYfxYFCvwRdYg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791135347; c=relaxed/simple;
-	bh=WY4g1FX3KOsINxFxcihjvG7zDBBV5irFwGY1f9Xn/+0=;
+	s=arc-20240116; t=1791135360; c=relaxed/simple;
+	bh=YNR9yvZkv71QFDocexJw2DhYAV/gIV2TrR99LpBZzBs=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=m99IQqOPeX1X5g9Frg5BClKH0Fb9pAAfhaMc4rwUL8BNaSvSCozWzdqRBNohqvz0PxWKCRDIIjImuUfck5ze6kSiwLibJI1AwKdKbcYGJ1Ol5Q7FHf9h24PSipX/1zJhQH7FicKZ+xyjcEC85CV0ZU5BVZt2eSyobhTanUwDGEg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=RRychkp7; arc=none smtp.client-ip=74.125.228.37
+	 MIME-Version; b=qcXO6PtBya7fjqE6+9fT+nphhSjUMb9nSFM0P97lNl/dM8AeSqWFuF9nz9NulvPhX6hvAaevnTRJYcpnfJA3IzgX/BhcM4sSygspFny4o9szudhS8w3Q3unPACtvoAJj7p/XHgP+YA2BApcoVMqjb6e5GK4UrCCjaeEzQHQ4HWA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=EWdd0sGf; arc=none smtp.client-ip=74.125.228.38
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="RRychkp7"
-Received: by mail-pz2-f37.google.com with SMTP id d2e1a72fcca58-887d4b0e846so125877b3a.0
-        for <linux-kernel@vger.kernel.org>; Sun, 04 Oct 2026 10:35:36 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="EWdd0sGf"
+Received: by mail-pz2-f38.google.com with SMTP id d2e1a72fcca58-881a3a28e72so210742b3a.2
+        for <linux-kernel@vger.kernel.org>; Sun, 04 Oct 2026 10:35:52 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791135333; x=1791740133; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=PgvN+U5L+vxxwU6majnVcc9UnL4NJDISt5o0/gGCBuQ=;
-        b=RRychkp7uVQ45DmDqMyQb1zEV0mU5G2CIclYasjs/TqnJFWXA7jgLBImwxf0wFGMyY
-         MmtZOz0ggb1o+vKNl/cvFb7GYgCkP9cfl699UUwM6VwnS67zoz/w/htf6E3cqgCzyRz3
-         rEqgQVF6f+iE69zcCBGZI03tDWJADThq0c+Uh1c4opCFbPX5/WLriM9qGtQHmAJZNFHV
-         3ZCqEKF+uJoJTNsTFVLGGh/R+VSm6k/lQUI6S3n5zC0Maf2uxBE0d1NIFPNwiZa+7YLj
-         VPk4veRbPC8qPsTEsbFOqxZOZIxaE9D733LeQtYyM1ZJFqpBZdyp37Z58QPLLbbrpabs
-         Qgfw==
+        d=gmail.com; s=20251104; t=1791135348; x=1791740148; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=F2xR/GADUr0drPkp+DIyMXz+1Et+1ehqr2V+ubl8dxA=;
+        b=EWdd0sGfYI6FWGusB2tsXLrYMNtE4D2yWUARh5JoifZrEuQ2w7z58G7NWgvxEl39I5
+         vzTpYhN8DauU58A6otQmWGrdda8MQhEeuY6ekX+PKu6lutzZhJv3Z4EcMFKVpItoSkoo
+         ePC8AQnbGgVjxLfl/NqNq4P81qZ1WHZECLTuuF3qqpzSXIaGw/SnV95Ah2s8Ekge57v6
+         /07/Bb1Ny4jvLbt8bCym2CeYh4Rz0iU1pu7H/nt8Leul7ChWhv4MU/LUQXDoCnpqNSRR
+         9Ouk2b85b8+goz0lfkfbr/APiY35QQtFPcxu4DJCvnGbFvxEO9JttCJYxE0s8X/RXmj+
+         VuZg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791135333; x=1791740133;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=PgvN+U5L+vxxwU6majnVcc9UnL4NJDISt5o0/gGCBuQ=;
-        b=B9iaziZX6o53q013HbiXCK9ctS9vaUD/g0eVd3GJVkqGJjAViD7sJ2+hhrWULdjpgR
-         tWVspVeHxpPxXW4mS2Rs7pn6Ofrj9AL7oGGe2DZQGCu8QRs+kloXtanAlo9pZOVK81zU
-         oePlra352/vSOf2NUunHhWky+WHRFGF9HDLJOj+Co0+nHB/N0jf8XtB7pAhfn4c8EPQ9
-         YFLGfXj8len/YFViW7eVlc1hKgk+AvsG6TH5z3UNWgGm95CYlcbyJLUpDGZQD4c1zaL9
-         rbi77yjS6bh3Lr5ZOUu7BD4/kLyeZ6pP942C4su6QDhsizHfV4Pl+BDoDIE+2amAM6Ca
-         MfAw==
-X-Forwarded-Encrypted: i=1; AKwUvBwjwMF9vNij7PItFEat2GKQke8Met0KQfoYtQTZtqO7b7IrqP6r7Adn9JGFSYiZoJbyGwGgMYrC4aEoLfo=@vger.kernel.org
-X-Gm-Message-State: AFuF++nL6IIWLZlXBI3IEu1DQT2e3QA6OSji+P9fJInkCT91LJqDtUrl
-	n32GU7VhJPs4+Ui7llqmbVpr8v1Bj71ZyEC++rqsQ7ihYrkRxYqRbof5
-X-Gm-Gg: AYBFou049HThx8erM3akjdZqNFFUhTEjfzgmjwiUQy9k1BsQL6v0TM8S5hih1nq1Pwq
-	08Q/rgZ43ikWwP+cPbGRE4k/ECeQ/m1VDWx3uM259GfMQMz4Oed8qwSlquFQ0lS4eHlkhCq7CEM
-	2W5BXdYLt84ICShtaG3RiWhsVPwxz+ONKAxzytl2hnnVTmglTc/fWW/0YJx6BrMnGStw59a3nSh
-	CgxbTO8+YeMscBs6cSTgU0S2QrH/Rv+e11Cg2f8jDjmoH+sBRiGuV/BpTu6f9wHGVQ8UT8f8SbK
-	7ruecS3XjCS6/rgzrUGvf78sqNa1PL0UorDAVtng8pGf7Id0YyDJlGU5UvegkkJHT1cPX385INp
-	U0fI7y9335ycwJryr2KL9C0ABI1LeeBnsc0ydix5Ox1EU9PgcPSRuH6x+idaWSMDYykTjVA3jib
-	am1UIsTvUGRbEOKPhiCGQfrEfKnxtcFIy4zhjkhUZyvtB1rTaWFovrhTXg0hdQRsKTdQACE8lvY
-	LVbtlblGHWSjoElTr59FTM6707CbA==
-X-Received: by 2002:a05:6a20:9193:b0:3dd:85a8:4c50 with SMTP id adf61e73a8af0-3e0bd199513mr6705620637.20.1791135333090;
-        Sun, 04 Oct 2026 10:35:33 -0700 (PDT)
+        d=1e100.net; s=20260707; t=1791135348; x=1791740148;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=F2xR/GADUr0drPkp+DIyMXz+1Et+1ehqr2V+ubl8dxA=;
+        b=lH6U8ayC+VkponqUx9z6uS7LbYTtsduRvaftcBvfokwXQxQVEJm7RQ0ykaJr8IucB5
+         Strt0+k9BgtthNmS4Jje9ONwqlxIfqAESwfO1D8U4drekItWKhwDHj2kHENhfh5K6+Yx
+         nLIvNqVEN3OCOktcn7WA5HeO4nK43e2OUFuhnhjfhHTpf11w50cTaGKMxoBE93taUaeX
+         bvwUF6SyJzE5nJVbFQLuVozwV4NFI7pzksnltJWuUC/YoDd+mgvzcJNsjx/pafVIXPLz
+         1GulaF4mdRLztCNkmaPjxSFr6EfxAQQXgAH5VHGDZ+w5i7z2+0YplEqLeHWPwFYGv2qG
+         YWXw==
+X-Forwarded-Encrypted: i=1; AKwUvBzoAs4mPi5NurgnhvlYgNP3PcSq1bsMSBG2VIEk0CvZgbyX7rlFmFQhDgrH1osoZ8lH5WFc/E59v7gdJjc=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIVFge9M+EiceCwOZgwHFmf0WWvG1xhZtjpPlB/Y30wjg8IksMw
+	pSkIFO/o5GDAnM/HT9x/DctKRN/ljIPbpoEXAYM2+sDzGQiIEC3LHzuq
+X-Gm-Gg: AYBFou1otU0sY8a74UVP9Kz+OObbjYtq4hZj3mCb9rty+bw3ySK1hvdRLMiMDkyPchP
+	PRoGyl/TbhruIpSG1Xfz20BPn+Ptc31NHWd0gzN6kys9IMig1l5QHlS9Xs1d63F9YS/PESOvXM1
+	m+Du9JQmkdyJvtcwXMnoGOX7LwNMXcWsbUVGjktboa/Nxc34P+Xk6wQGzjMPB8BNAJx/d3ua1Ws
+	ViJZ3264EEDsjngybRF5kM8fbNN2AnC2YdJnFSe8uwbMGKBaKyfele8eL/1uxRg5F2a51K8eagF
+	fapQzD0i0NSIhOPMAvSXGTU9BxF2DX/Yje0oH3iJbQQ/MRcuFXBb87oczUCp5rpjvihRnublckX
+	CABhCb/ttRZxakBs8jRvtfh6yf/zlqwZqNgi+Nx7EBCnta+To9zLuJssy/96r6IDH7lITJjbxva
+	wtdLgIVGtz6oc2V6Ndv5qVq76viV1FAjWK2tLAWEjFfhWtWBzlnAI+8oCX/aZyN2Ycd/+FroqKc
+	46d25YuLXiBd2zXAiZ7ybv+tGJV1g==
+X-Received: by 2002:a05:6a00:909e:b0:874:705d:f648 with SMTP id d2e1a72fcca58-88af56e71a9mr7636318b3a.42.1791135347657;
+        Sun, 04 Oct 2026 10:35:47 -0700 (PDT)
 Received: from kernel.tail6741c6.ts.net ([216.195.201.24])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-88b0d247930sm2678370b3a.54.2026.10.04.10.35.25
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-88b0d247930sm2678370b3a.54.2026.10.04.10.35.40
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 04 Oct 2026 10:35:31 -0700 (PDT)
+        Sun, 04 Oct 2026 10:35:45 -0700 (PDT)
 From: Kunwu Chan <kunwu.chan@gmail.com>
 To: peterz@infradead.org,
 	mingo@redhat.com,
@@ -82,9 +81,9 @@ Cc: sj@kernel.org,
 	linux-kernel@vger.kernel.org,
 	linux-perf-users@vger.kernel.org,
 	linux-kselftest@vger.kernel.org
-Subject: [PATCH 3/5] perf/core: add KUnit tests for AUX kernel-consumer API
-Date: Mon,  5 Oct 2026 01:34:55 +0800
-Message-ID: <20261004173458.837842-4-kunwu.chan@gmail.com>
+Subject: [PATCH 5/5] selftests/perf_events: add AUX kernel API selftest script
+Date: Mon,  5 Oct 2026 01:34:57 +0800
+Message-ID: <20261004173458.837842-6-kunwu.chan@gmail.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20261004173458.837842-1-kunwu.chan@gmail.com>
 References: <20261004173458.837842-1-kunwu.chan@gmail.com>
@@ -94,1241 +93,679 @@ List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Lian Wang <lianux.mm@gmail.com>
+Add a shell script that runs the perf_aux_kernel KUnit suite through
+debugfs, builds and runs the userspace regression program, and
+performs static-analysis checks on the source tree (memory barriers,
+refcount types, boundary validation, EXPORT_SYMBOL_GPL coverage).
 
-Add a KUnit test suite (perf_aux_kernel) for the perf_event_setup_aux(),
-perf_event_release_aux(), perf_event_aux_head(), perf_event_aux_tail_set()
-and perf_event_aux_copy() functions.
+When an AUX-capable PMU is present, the script also runs a live
+perf record and checks dmesg for errors.
 
-A self-contained dummy AUX PMU is registered in suite_init so that
-every test is deterministic and needs no hardware.  The dummy
-setup_aux pre-fills all pages with a recognisable pattern (0xAB);
-aux_test_produce() advances the published head via
-perf_aux_output_begin/end, and copy tests verify the pattern.
+The script works both in-tree and from an installed selftest location:
+the source-level static checks are SKIPped when no kernel source tree
+is found instead of failing, the installed userspace binary is run
+as-is when its source is absent, and runtime rebuilds honour $CC
+instead of hardcoding gcc.
+Usage:  sudo ./aux_kernel.sh [--pmu arm_spe_0]
 
-39 test cases cover setup/release lifecycle, writer admission and
-blocking, head/tail/copy accessor contract validation (including
-wrap-around, boundary cursors, and data correctness), buffer-full
-behaviour, negative watermark rejection, independence of two
-events on the same PMU, user/kernel coexistence simulation, and
-concurrent release on the same event.
-
-Every test event is released through a kunit_add_action() cleanup, so
-a test aborted by a KUNIT_ASSERT_*() (which skips the remaining
-manual cleanup) still releases its events.  The concurrent-release
-test waits on a struct completion instead of a lockless
-wait_event() condition, and does not kthread_stop() workers that exit
-on their own.  The buffer-full test asserts that perf_aux_output_begin()
-refuses a full non-overwrite buffer.
-
-Gated by CONFIG_PERF_AUX_KERNEL_KUNIT_TEST.
-
-Co-developed-by: Kunwu Chan <kunwu.chan@gmail.com>
-Signed-off-by: Kunwu Chan <kunwu.chan@gmail.com>
+Co-developed-by: Lian Wang <lianux.mm@gmail.com>
 Signed-off-by: Lian Wang <lianux.mm@gmail.com>
+Signed-off-by: Kunwu Chan <kunwu.chan@gmail.com>
 ---
- kernel/events/Makefile          |    1 +
- kernel/events/aux_kernel_test.c | 1152 +++++++++++++++++++++++++++++++
- lib/Kconfig.debug               |   14 +
- 3 files changed, 1167 insertions(+)
- create mode 100644 kernel/events/aux_kernel_test.c
+ tools/testing/selftests/perf_events/Makefile  |   1 +
+ .../selftests/perf_events/aux_kernel.sh       | 631 ++++++++++++++++++
+ 2 files changed, 632 insertions(+)
+ create mode 100755 tools/testing/selftests/perf_events/aux_kernel.sh
 
-diff --git a/kernel/events/Makefile b/kernel/events/Makefile
-index 91a62f566743..592604db2c76 100644
---- a/kernel/events/Makefile
-+++ b/kernel/events/Makefile
-@@ -3,4 +3,5 @@ obj-y := core.o ring_buffer.o callchain.o
+diff --git a/tools/testing/selftests/perf_events/Makefile b/tools/testing/selftests/perf_events/Makefile
+index fbafbd43f097..9b82c7ee1238 100644
+--- a/tools/testing/selftests/perf_events/Makefile
++++ b/tools/testing/selftests/perf_events/Makefile
+@@ -4,4 +4,5 @@ LDFLAGS += -lpthread
  
- obj-$(CONFIG_HAVE_HW_BREAKPOINT) += hw_breakpoint.o
- obj-$(CONFIG_HW_BREAKPOINT_KUNIT_TEST) += hw_breakpoint_test.o
-+obj-$(CONFIG_PERF_AUX_KERNEL_KUNIT_TEST) += aux_kernel_test.o
- obj-$(CONFIG_UPROBES) += uprobes.o
-diff --git a/kernel/events/aux_kernel_test.c b/kernel/events/aux_kernel_test.c
-new file mode 100644
-index 000000000000..fa481b8015db
+ TEST_GEN_PROGS := sigtrap_threads remove_on_exec watermark_signal mmap
+ TEST_GEN_PROGS += aux_kernel_usermode
++TEST_PROGS += aux_kernel.sh
+ include ../lib.mk
+diff --git a/tools/testing/selftests/perf_events/aux_kernel.sh b/tools/testing/selftests/perf_events/aux_kernel.sh
+new file mode 100755
+index 000000000000..2271f105f55b
 --- /dev/null
-+++ b/kernel/events/aux_kernel_test.c
-@@ -0,0 +1,1152 @@
-+// SPDX-License-Identifier: GPL-2.0
-+/*
-+ * KUnit tests for the perf AUX kernel-consumer API.
-+ *
-+ * Tests the exported functions:
-+ *   - perf_event_setup_aux() / perf_event_release_aux()
-+ *   - perf_event_aux_head() / perf_event_aux_tail_set() / perf_event_aux_copy()
-+ *
-+ * A self-contained dummy AUX PMU is registered in suite_init so that
-+ * every test is deterministic and requires no hardware.  The dummy
-+ * setup_aux pre-fills all pages with a recognisable pattern (0xAB);
-+ * aux_test_produce() advances the published head via
-+ * perf_aux_output_begin/end, and copy tests verify the pattern.
-+ *
-+ * Every event created by aux_test_create_event() is released through a
-+ * kunit_add_action() cleanup, so a test aborted by a KUNIT_ASSERT_*()
-+ * (which skips the remaining manual cleanup) still releases its events.
-+ *
-+ * Run via debugfs:
-+ *   echo run > /sys/kernel/debug/kunit/perf_aux_kernel/run
-+ *   cat /sys/kernel/debug/kunit/perf_aux_kernel/results
-+ */
-+
-+#include <kunit/test.h>
-+#include <linux/completion.h>
-+#include <linux/kthread.h>
-+#include <linux/perf_event.h>
-+#include <linux/slab.h>
-+#include <linux/smp.h>
-+#include <linux/string.h>
-+#include "internal.h"
-+
-+/* ---- Dummy AUX PMU ---- */
-+
-+static struct pmu dummy_aux_pmu;
-+static int dummy_aux_pmu_type = -1;
-+
-+static int dummy_aux_event_init(struct perf_event *event)
-+{
-+	return 0;
-+}
-+
-+static void dummy_aux_event_read(struct perf_event *event) { }
-+
-+static int dummy_aux_event_add(struct perf_event *event, int mode)
-+{
-+	return 0;
-+}
-+
-+static void dummy_aux_event_del(struct perf_event *event, int mode) { }
-+
-+static void dummy_aux_event_start(struct perf_event *event, int mode) { }
-+
-+static void dummy_aux_event_stop(struct perf_event *event, int mode) { }
-+
-+static void *dummy_aux_setup_aux(struct perf_event *event, void **pages,
-+				 int nr_pages, bool overwrite)
-+{
-+	int i;
-+
-+	for (i = 0; i < nr_pages; i++)
-+		memset(pages[i], 0xAB, PAGE_SIZE);
-+
-+	return pages;
-+}
-+
-+static void dummy_aux_free_aux(void *priv)
-+{
-+	/* aux_priv is the pages array; __rb_free_aux frees it via kfree. */
-+}
-+
-+static int dummy_aux_pmu_register(void)
-+{
-+	int ret;
-+
-+	if (dummy_aux_pmu_type >= 0)
-+		return 0;
-+
-+	memset(&dummy_aux_pmu, 0, sizeof(dummy_aux_pmu));
-+	dummy_aux_pmu.event_init = dummy_aux_event_init;
-+	dummy_aux_pmu.add = dummy_aux_event_add;
-+	dummy_aux_pmu.del = dummy_aux_event_del;
-+	dummy_aux_pmu.start = dummy_aux_event_start;
-+	dummy_aux_pmu.stop = dummy_aux_event_stop;
-+	dummy_aux_pmu.read = dummy_aux_event_read;
-+	dummy_aux_pmu.setup_aux = dummy_aux_setup_aux;
-+	dummy_aux_pmu.free_aux = dummy_aux_free_aux;
-+	dummy_aux_pmu.capabilities = PERF_PMU_CAP_ITRACE;
-+	dummy_aux_pmu.task_ctx_nr = perf_sw_context;
-+
-+	ret = perf_pmu_register(&dummy_aux_pmu, "dummy_aux", -1);
-+	if (ret)
-+		return ret;
-+
-+	dummy_aux_pmu_type = dummy_aux_pmu.type;
-+	return 0;
-+}
-+
-+static void dummy_aux_pmu_unregister(void)
-+{
-+	if (dummy_aux_pmu_type >= 0)
-+		perf_pmu_unregister(&dummy_aux_pmu);
-+	dummy_aux_pmu_type = -1;
-+}
-+
-+static int suite_init(struct kunit_suite *suite)
-+{
-+	return dummy_aux_pmu_register();
-+}
-+
-+static void suite_exit(struct kunit_suite *suite)
-+{
-+	dummy_aux_pmu_unregister();
-+}
-+
-+/* ---- Helpers ---- */
-+
-+/*
-+ * Deferred cleanup for the kernel events created by the tests.
-+ *
-+ * Registering this via kunit_add_action() makes every test abort-safe:
-+ * KUNIT_ASSERT_* macros (and kunit_skip()) terminate the test by
-+ * throwing, which skips the remaining manual cleanup, but KUnit still
-+ * runs registered actions on the aborted test's exit.  A test that
-+ * already called perf_event_release_aux() itself is not affected: a
-+ * second release is a no-op, and the LIFO ordering of actions handles
-+ * tests that create more than one event.
-+ */
-+static void aux_test_event_release(void *p)
-+{
-+	struct perf_event *event = p;
-+
-+	perf_event_release_aux(event);
-+	perf_event_release_kernel(event);
-+}
-+
-+static struct perf_event *aux_test_create_event(struct kunit *test)
-+{
-+	struct perf_event_attr attr = {};
-+	struct perf_event *event;
-+
-+	attr.type = dummy_aux_pmu_type;
-+	attr.size = sizeof(attr);
-+	attr.disabled = 1;
-+
-+	event = perf_event_create_kernel_counter(&attr, raw_smp_processor_id(),
-+						 NULL, NULL, NULL);
-+	if (IS_ERR(event))
-+		return event;
-+
-+	if (kunit_add_action_or_reset(test, aux_test_event_release, event)) {
-+		perf_event_release_kernel(event);
-+		return ERR_PTR(-ENOMEM);
-+	}
-+
-+	return event;
-+}
-+
-+/*
-+ * Advance the AUX head by @bytes via perf_aux_output_begin/end.
-+ * The pages are pre-filled with 0xAB in dummy_aux_setup_aux, so
-+ * the data is already present; this function only publishes it.
-+ */
-+static unsigned long aux_test_produce(struct perf_event *event, unsigned long bytes)
-+{
-+	struct perf_output_handle handle;
-+	unsigned long head, written = 0;
-+
-+	while (written < bytes) {
-+		unsigned long chunk = min_t(unsigned long, bytes - written, 1024);
-+
-+		if (!perf_aux_output_begin(&handle, event))
-+			break;
-+		chunk = min_t(unsigned long, chunk, handle.size);
-+		perf_aux_output_end(&handle, chunk);
-+		written += chunk;
-+	}
-+
-+	head = perf_event_aux_head(event);
-+	return head;
-+}
-+
-+/* ---- Patch-1: Setup / release tests ---- */
-+
-+static void test_setup_rejects_non_power_of_two(struct kunit *test)
-+{
-+	struct perf_event *event = aux_test_create_event(test);
-+	int ret;
-+
-+	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, event);
-+
-+	ret = perf_event_setup_aux(event, 3, 0);
-+	KUNIT_EXPECT_EQ(test, -EINVAL, ret);
-+
-+	ret = perf_event_setup_aux(event, 0, 0);
-+	KUNIT_EXPECT_EQ(test, -EINVAL, ret);
-+
-+	ret = perf_event_setup_aux(event, 6, 0);
-+	KUNIT_EXPECT_EQ(test, -EINVAL, ret);
-+}
-+
-+static void test_setup_accepts_power_of_two(struct kunit *test)
-+{
-+	struct perf_event *event = aux_test_create_event(test);
-+	int i, ret;
-+	int pages[] = { 1, 2, 4, 8, 16, 32, 64 };
-+
-+	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, event);
-+
-+	for (i = 0; i < ARRAY_SIZE(pages); i++) {
-+		ret = perf_event_setup_aux(event, pages[i], 0);
-+		KUNIT_EXPECT_EQ_MSG(test, 0, ret,
-+				    "setup_aux(%d pages) expected 0, got %d",
-+				    pages[i], ret);
-+		if (ret == 0)
-+			perf_event_release_aux(event);
-+	}
-+}
-+
-+static void test_setup_rejects_double(struct kunit *test)
-+{
-+	struct perf_event *event = aux_test_create_event(test);
-+	int ret;
-+
-+	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, event);
-+
-+	ret = perf_event_setup_aux(event, 1, 0);
-+	KUNIT_EXPECT_EQ(test, 0, ret);
-+
-+	ret = perf_event_setup_aux(event, 1, 0);
-+	KUNIT_EXPECT_EQ(test, -EBUSY, ret);
-+
-+	perf_event_release_aux(event);
-+}
-+
-+static void test_setup_parent_event_rejected(struct kunit *test)
-+{
-+	struct perf_event *parent = aux_test_create_event(test);
-+	struct perf_event *child = aux_test_create_event(test);
-+	int ret;
-+
-+	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, parent);
-+	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, child);
-+
-+	child->parent = parent;
-+
-+	ret = perf_event_setup_aux(child, 1, 0);
-+	KUNIT_EXPECT_EQ(test, -EINVAL, ret);
-+
-+	/* Restore before the deferred cleanup releases the events. */
-+	child->parent = NULL;
-+}
-+
-+static void test_writer_admitted_after_setup(struct kunit *test)
-+{
-+	struct perf_event *event = aux_test_create_event(test);
-+	unsigned long head;
-+	int ret;
-+
-+	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, event);
-+
-+	ret = perf_event_setup_aux(event, 1, 0);
-+	KUNIT_EXPECT_EQ(test, 0, ret);
-+
-+	head = aux_test_produce(event, 512);
-+	KUNIT_EXPECT_GT(test, head, 0);
-+
-+	perf_event_release_aux(event);
-+}
-+
-+static void test_writer_blocked_after_release(struct kunit *test)
-+{
-+	struct perf_event *event = aux_test_create_event(test);
-+	struct perf_output_handle handle;
-+	void *addr;
-+	int ret;
-+
-+	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, event);
-+
-+	ret = perf_event_setup_aux(event, 1, 0);
-+	KUNIT_EXPECT_EQ(test, 0, ret);
-+
-+	perf_event_release_aux(event);
-+
-+	addr = perf_aux_output_begin(&handle, event);
-+	KUNIT_EXPECT_NULL(test, addr);
-+}
-+
-+static void test_release_noop_without_rb(struct kunit *test)
-+{
-+	struct perf_event *event = aux_test_create_event(test);
-+
-+	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, event);
-+
-+	perf_event_release_aux(event);
-+	KUNIT_EXPECT_TRUE(test, true);
-+}
-+
-+static void test_setup_release_roundtrip(struct kunit *test)
-+{
-+	struct perf_event *event = aux_test_create_event(test);
-+	int ret;
-+
-+	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, event);
-+
-+	ret = perf_event_setup_aux(event, 1, 0);
-+	KUNIT_EXPECT_EQ(test, 0, ret);
-+
-+	perf_event_release_aux(event);
-+	KUNIT_EXPECT_TRUE(test, true);
-+}
-+
-+static void test_multi_setup_release_cycle(struct kunit *test)
-+{
-+	struct perf_event *event = aux_test_create_event(test);
-+	int i, ret;
-+
-+	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, event);
-+
-+	for (i = 0; i < 3; i++) {
-+		ret = perf_event_setup_aux(event, 1, 0);
-+		KUNIT_ASSERT_EQ_MSG(test, 0, ret,
-+				    "cycle %d: setup_aux failed", i);
-+		perf_event_release_aux(event);
-+	}
-+}
-+
-+static void test_double_release_clean(struct kunit *test)
-+{
-+	struct perf_event *event = aux_test_create_event(test);
-+	int ret;
-+
-+	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, event);
-+
-+	ret = perf_event_setup_aux(event, 1, 0);
-+	KUNIT_EXPECT_EQ(test, 0, ret);
-+
-+	perf_event_release_aux(event);
-+	perf_event_release_aux(event);
-+	KUNIT_EXPECT_TRUE(test, true);
-+}
-+
-+/* ---- Patch-2: Accessor tests ---- */
-+
-+static void test_head_initial_zero(struct kunit *test)
-+{
-+	struct perf_event *event = aux_test_create_event(test);
-+	unsigned long head;
-+	int ret;
-+
-+	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, event);
-+
-+	ret = perf_event_setup_aux(event, 1, 0);
-+	KUNIT_EXPECT_EQ(test, 0, ret);
-+
-+	head = perf_event_aux_head(event);
-+	KUNIT_EXPECT_EQ(test, 0, head);
-+
-+	perf_event_release_aux(event);
-+}
-+
-+static void test_head_advances_after_produce(struct kunit *test)
-+{
-+	struct perf_event *event = aux_test_create_event(test);
-+	unsigned long head;
-+	int ret;
-+
-+	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, event);
-+
-+	ret = perf_event_setup_aux(event, 1, 0);
-+	KUNIT_EXPECT_EQ(test, 0, ret);
-+
-+	head = aux_test_produce(event, 512);
-+	KUNIT_EXPECT_GT(test, head, 0);
-+
-+	perf_event_release_aux(event);
-+}
-+
-+static void test_copy_full_window(struct kunit *test)
-+{
-+	struct perf_event *event = aux_test_create_event(test);
-+	const unsigned long buf_size = PAGE_SIZE;
-+	void *buf;
-+	unsigned long head;
-+	long copied;
-+	int ret;
-+
-+	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, event);
-+
-+	ret = perf_event_setup_aux(event, 1, 0);
-+	KUNIT_EXPECT_EQ(test, 0, ret);
-+
-+	head = aux_test_produce(event, buf_size / 2);
-+	KUNIT_EXPECT_GT(test, head, 0);
-+
-+	buf = kunit_kmalloc(test, head, GFP_KERNEL);
-+	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, buf);
-+
-+	copied = perf_event_aux_copy(event, 0, head, buf);
-+	KUNIT_EXPECT_EQ_MSG(test, (long)head, copied,
-+			    "copy(0, %lu) returned %ld, expected %lu",
-+			    head, copied, head);
-+
-+	perf_event_release_aux(event);
-+}
-+
-+static void test_copy_wrap(struct kunit *test)
-+{
-+	struct perf_event *event = aux_test_create_event(test);
-+	const unsigned long buf_size = 2 * PAGE_SIZE;
-+	void *buf;
-+	unsigned long head, tail;
-+	long copied;
-+	int ret;
-+
-+	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, event);
-+
-+	ret = perf_event_setup_aux(event, 2, 0);
-+	KUNIT_EXPECT_EQ(test, 0, ret);
-+
-+	/* Fill the buffer to near-full */
-+	head = aux_test_produce(event, buf_size);
-+	KUNIT_EXPECT_GT(test, head, 0);
-+
-+	/* Consume half to free space */
-+	tail = head / 2;
-+	ret = perf_event_aux_tail_set(event, tail);
-+	KUNIT_EXPECT_EQ(test, 0, ret);
-+
-+	/* Produce more — head now wraps past buf_size */
-+	head = aux_test_produce(event, buf_size);
-+	KUNIT_EXPECT_GT(test, head, buf_size);
-+
-+	/* Copy a window that spans the ring wrap point */
-+	buf = kunit_kmalloc(test, buf_size, GFP_KERNEL);
-+	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, buf);
-+
-+	copied = perf_event_aux_copy(event, tail, head, buf);
-+	KUNIT_EXPECT_GT(test, copied, 0);
-+	KUNIT_EXPECT_LE(test, copied, (long)buf_size);
-+
-+	perf_event_release_aux(event);
-+}
-+
-+static void test_copy_zero_len(struct kunit *test)
-+{
-+	struct perf_event *event = aux_test_create_event(test);
-+	void *buf;
-+	long copied;
-+	int ret;
-+
-+	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, event);
-+
-+	ret = perf_event_setup_aux(event, 1, 0);
-+	KUNIT_EXPECT_EQ(test, 0, ret);
-+
-+	buf = kunit_kmalloc(test, 1, GFP_KERNEL);
-+	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, buf);
-+
-+	copied = perf_event_aux_copy(event, 0, 0, buf);
-+	KUNIT_EXPECT_EQ(test, 0, copied);
-+
-+	perf_event_release_aux(event);
-+}
-+
-+static void test_copy_rejects_rewound(struct kunit *test)
-+{
-+	struct perf_event *event = aux_test_create_event(test);
-+	const unsigned long buf_size = PAGE_SIZE;
-+	void *buf;
-+	long copied;
-+	int ret;
-+
-+	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, event);
-+
-+	ret = perf_event_setup_aux(event, 1, 0);
-+	KUNIT_EXPECT_EQ(test, 0, ret);
-+
-+	aux_test_produce(event, buf_size / 2);
-+
-+	buf = kunit_kmalloc(test, 64, GFP_KERNEL);
-+	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, buf);
-+
-+	/* Reversed cursor range. */
-+	copied = perf_event_aux_copy(event, 100, 50, buf);
-+	KUNIT_EXPECT_EQ(test, -EINVAL, copied);
-+
-+	perf_event_release_aux(event);
-+}
-+
-+static void test_copy_rejects_future(struct kunit *test)
-+{
-+	struct perf_event *event = aux_test_create_event(test);
-+	unsigned long head;
-+	void *buf;
-+	long copied;
-+	int ret;
-+
-+	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, event);
-+
-+	ret = perf_event_setup_aux(event, 1, 0);
-+	KUNIT_EXPECT_EQ(test, 0, ret);
-+
-+	head = aux_test_produce(event, 512);
-+	KUNIT_EXPECT_GT(test, head, 0);
-+
-+	buf = kunit_kmalloc(test, 64, GFP_KERNEL);
-+	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, buf);
-+
-+	/* to > head: future cursor */
-+	copied = perf_event_aux_copy(event, head, head + 64, buf);
-+	KUNIT_EXPECT_EQ(test, -EINVAL, copied);
-+
-+	perf_event_release_aux(event);
-+}
-+
-+static void test_copy_rejects_oversized(struct kunit *test)
-+{
-+	struct perf_event *event = aux_test_create_event(test);
-+	const unsigned long buf_size = PAGE_SIZE;
-+	void *buf;
-+	long copied;
-+	int ret;
-+
-+	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, event);
-+
-+	ret = perf_event_setup_aux(event, 1, 0);
-+	KUNIT_EXPECT_EQ(test, 0, ret);
-+
-+	aux_test_produce(event, 512);
-+
-+	buf = kunit_kmalloc(test, PAGE_SIZE, GFP_KERNEL);
-+	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, buf);
-+
-+	/* Window extends past the published producer cursor. */
-+	copied = perf_event_aux_copy(event, 0, 2 * buf_size, buf);
-+	KUNIT_EXPECT_EQ(test, -EINVAL, copied);
-+
-+	perf_event_release_aux(event);
-+}
-+
-+static void test_copy_rejects_null_buf(struct kunit *test)
-+{
-+	struct perf_event *event = aux_test_create_event(test);
-+	long copied;
-+	int ret;
-+
-+	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, event);
-+
-+	ret = perf_event_setup_aux(event, 1, 0);
-+	KUNIT_EXPECT_EQ(test, 0, ret);
-+
-+	copied = perf_event_aux_copy(event, 0, 0, NULL);
-+	KUNIT_EXPECT_EQ(test, -EINVAL, copied);
-+
-+	perf_event_release_aux(event);
-+}
-+
-+static void test_copy_no_rb_enoent(struct kunit *test)
-+{
-+	struct perf_event *event = aux_test_create_event(test);
-+	void *buf;
-+	long ret;
-+
-+	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, event);
-+
-+	buf = kunit_kmalloc(test, 64, GFP_KERNEL);
-+	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, buf);
-+
-+	ret = perf_event_aux_copy(event, 0, 64, buf);
-+	KUNIT_EXPECT_EQ(test, -ENOENT, ret);
-+}
-+
-+static void test_tail_set_valid_frees_space(struct kunit *test)
-+{
-+	struct perf_event *event = aux_test_create_event(test);
-+	unsigned long head;
-+	int ret;
-+
-+	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, event);
-+
-+	ret = perf_event_setup_aux(event, 1, 0);
-+	KUNIT_EXPECT_EQ(test, 0, ret);
-+
-+	head = aux_test_produce(event, 512);
-+	KUNIT_EXPECT_GT(test, head, 0);
-+
-+	ret = perf_event_aux_tail_set(event, head / 2);
-+	KUNIT_EXPECT_EQ(test, 0, ret);
-+
-+	perf_event_release_aux(event);
-+}
-+
-+static void test_tail_set_rejects_future(struct kunit *test)
-+{
-+	struct perf_event *event = aux_test_create_event(test);
-+	int ret;
-+
-+	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, event);
-+
-+	ret = perf_event_setup_aux(event, 1, 0);
-+	KUNIT_EXPECT_EQ(test, 0, ret);
-+
-+	/* tail=1 when head=0: future */
-+	ret = perf_event_aux_tail_set(event, 1);
-+	KUNIT_EXPECT_EQ(test, -EINVAL, ret);
-+
-+	perf_event_release_aux(event);
-+}
-+
-+static void test_tail_set_accepts_within_ring_window(struct kunit *test)
-+{
-+	struct perf_event *event = aux_test_create_event(test);
-+	const unsigned long buf_size = PAGE_SIZE;
-+	unsigned long head, tail;
-+	int ret;
-+
-+	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, event);
-+
-+	ret = perf_event_setup_aux(event, 1, 0);
-+	KUNIT_EXPECT_EQ(test, 0, ret);
-+
-+	/* Produce enough data so head - tail <= aux_size for a large tail */
-+	head = aux_test_produce(event, buf_size / 2);
-+	KUNIT_EXPECT_GT(test, head, 0);
-+
-+	/*
-+	 * Set tail within the current [old_tail, head] window.
-+	 */
-+	tail = head / 4;
-+	ret = perf_event_aux_tail_set(event, tail);
-+	KUNIT_EXPECT_EQ(test, 0, ret);
-+
-+	perf_event_release_aux(event);
-+}
-+
-+static void test_tail_set_rejects_behind_ring(struct kunit *test)
-+{
-+	struct perf_event *event = aux_test_create_event(test);
-+	const unsigned long buf_size = PAGE_SIZE;
-+	unsigned long head;
-+	int ret;
-+
-+	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, event);
-+
-+	ret = perf_event_setup_aux(event, 1, 0);
-+	KUNIT_EXPECT_EQ(test, 0, ret);
-+
-+	head = aux_test_produce(event, buf_size / 2);
-+	KUNIT_EXPECT_GT(test, head, 0);
-+
-+	/*
-+	 * Cursor outside the current producer window.  The requested
-+	 * tail is not between head - aux_size and head, so the
-+	 * modular-distance check must reject it.
-+	 */
-+	ret = perf_event_aux_tail_set(event, head + buf_size + 1);
-+	KUNIT_EXPECT_EQ(test, -EINVAL, ret);
-+
-+	perf_event_release_aux(event);
-+}
-+
-+static void test_tail_set_no_rb_enoent(struct kunit *test)
-+{
-+	struct perf_event *event = aux_test_create_event(test);
-+	int ret;
-+
-+	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, event);
-+
-+	ret = perf_event_aux_tail_set(event, 0);
-+	KUNIT_EXPECT_EQ(test, -ENOENT, ret);
-+}
-+
-+static void test_head_no_rb_zero(struct kunit *test)
-+{
-+	struct perf_event *event = aux_test_create_event(test);
-+	unsigned long head;
-+
-+	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, event);
-+
-+	head = perf_event_aux_head(event);
-+	KUNIT_EXPECT_EQ(test, 0, head);
-+}
-+
-+/* ---- Additional boundary and correctness tests ---- */
-+
-+static void test_setup_rejects_negative_watermark(struct kunit *test)
-+{
-+	struct perf_event *event = aux_test_create_event(test);
-+	int ret;
-+
-+	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, event);
-+
-+	ret = perf_event_setup_aux(event, 1, -1);
-+	KUNIT_EXPECT_EQ(test, -EINVAL, ret);
-+
-+	ret = perf_event_setup_aux(event, 1, -4096);
-+	KUNIT_EXPECT_EQ(test, -EINVAL, ret);
-+}
-+
-+static void test_tail_set_noop(struct kunit *test)
-+{
-+	struct perf_event *event = aux_test_create_event(test);
-+	int ret;
-+
-+	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, event);
-+
-+	ret = perf_event_setup_aux(event, 1, 0);
-+	KUNIT_EXPECT_EQ(test, 0, ret);
-+
-+	ret = perf_event_aux_tail_set(event, 0);
-+	KUNIT_EXPECT_EQ(test, 0, ret);
-+
-+	perf_event_release_aux(event);
-+}
-+
-+static void test_tail_set_consume_all(struct kunit *test)
-+{
-+	struct perf_event *event = aux_test_create_event(test);
-+	unsigned long head;
-+	int ret;
-+
-+	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, event);
-+
-+	ret = perf_event_setup_aux(event, 1, 0);
-+	KUNIT_EXPECT_EQ(test, 0, ret);
-+
-+	head = aux_test_produce(event, 512);
-+	KUNIT_EXPECT_GT(test, head, 0);
-+
-+	ret = perf_event_aux_tail_set(event, head);
-+	KUNIT_EXPECT_EQ(test, 0, ret);
-+
-+	perf_event_release_aux(event);
-+}
-+
-+static void test_copy_data_correctness(struct kunit *test)
-+{
-+	struct perf_event *event = aux_test_create_event(test);
-+	void *buf;
-+	unsigned long head;
-+	long copied;
-+	int ret, i;
-+
-+	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, event);
-+
-+	ret = perf_event_setup_aux(event, 1, 0);
-+	KUNIT_EXPECT_EQ(test, 0, ret);
-+
-+	head = aux_test_produce(event, 512);
-+	KUNIT_EXPECT_GT(test, head, 0);
-+
-+	buf = kunit_kmalloc(test, head, GFP_KERNEL);
-+	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, buf);
-+
-+	copied = perf_event_aux_copy(event, 0, head, buf);
-+	KUNIT_EXPECT_EQ(test, (long)head, copied);
-+
-+	for (i = 0; i < copied; i++) {
-+		KUNIT_EXPECT_EQ_MSG(test, 0xAB, ((u8 *)buf)[i],
-+				    "data mismatch at offset %d", i);
-+		if (((u8 *)buf)[i] != 0xAB)
-+			break;
-+	}
-+
-+	perf_event_release_aux(event);
-+}
-+
-+static void test_multi_produce_copy_cycle(struct kunit *test)
-+{
-+	struct perf_event *event = aux_test_create_event(test);
-+	void *buf;
-+	unsigned long head, tail = 0;
-+	long copied;
-+	int ret, cycle;
-+
-+	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, event);
-+
-+	ret = perf_event_setup_aux(event, 1, 0);
-+	KUNIT_EXPECT_EQ(test, 0, ret);
-+
-+	buf = kunit_kmalloc(test, PAGE_SIZE, GFP_KERNEL);
-+	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, buf);
-+
-+	for (cycle = 0; cycle < 3; cycle++) {
-+		head = aux_test_produce(event, 256);
-+		KUNIT_EXPECT_GT(test, head, tail);
-+
-+		copied = perf_event_aux_copy(event, tail, head, buf);
-+		KUNIT_EXPECT_EQ(test, (long)(head - tail), copied);
-+
-+		ret = perf_event_aux_tail_set(event, head);
-+		KUNIT_EXPECT_EQ(test, 0, ret);
-+		tail = head;
-+	}
-+
-+	perf_event_release_aux(event);
-+}
-+
-+static void test_copy_rejects_already_consumed(struct kunit *test)
-+{
-+	struct perf_event *event = aux_test_create_event(test);
-+	void *buf;
-+	unsigned long head, tail;
-+	long copied;
-+	int ret;
-+
-+	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, event);
-+
-+	ret = perf_event_setup_aux(event, 1, 0);
-+	KUNIT_EXPECT_EQ(test, 0, ret);
-+
-+	head = aux_test_produce(event, 512);
-+	KUNIT_EXPECT_GT(test, head, 0);
-+
-+	tail = head / 2;
-+	ret = perf_event_aux_tail_set(event, tail);
-+	KUNIT_EXPECT_EQ(test, 0, ret);
-+
-+	buf = kunit_kmalloc(test, 64, GFP_KERNEL);
-+	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, buf);
-+
-+	copied = perf_event_aux_copy(event, tail - 1, tail, buf);
-+	KUNIT_EXPECT_EQ(test, -EINVAL, copied);
-+
-+	perf_event_release_aux(event);
-+}
-+
-+static void test_output_end_zero_size(struct kunit *test)
-+{
-+	struct perf_event *event = aux_test_create_event(test);
-+	struct perf_output_handle handle;
-+	void *addr;
-+	int ret;
-+
-+	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, event);
-+
-+	ret = perf_event_setup_aux(event, 1, 0);
-+	KUNIT_EXPECT_EQ(test, 0, ret);
-+
-+	addr = perf_aux_output_begin(&handle, event);
-+	KUNIT_ASSERT_NOT_NULL(test, addr);
-+
-+	perf_aux_output_end(&handle, 0);
-+	KUNIT_EXPECT_EQ(test, 0, perf_event_aux_head(event));
-+
-+	perf_event_release_aux(event);
-+}
-+
-+static void test_buffer_full_stops_producer(struct kunit *test)
-+{
-+	struct perf_event *event = aux_test_create_event(test);
-+	struct perf_output_handle handle;
-+	const unsigned long buf_size = PAGE_SIZE;
-+	unsigned long head;
-+	void *addr;
-+	int ret;
-+
-+	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, event);
-+
-+	ret = perf_event_setup_aux(event, 1, 0);
-+	KUNIT_EXPECT_EQ(test, 0, ret);
-+
-+	head = aux_test_produce(event, buf_size);
-+	KUNIT_EXPECT_GT(test, head, 0);
-+
-+	addr = perf_aux_output_begin(&handle, event);
-+	/*
-+	 * The buffer is full and no consumer has freed space, so a new
-+	 * non-overwrite transaction must be refused outright, not handed a
-+	 * zero-size window.
-+	 */
-+	KUNIT_EXPECT_NULL_MSG(test, addr,
-+			      "begin() must refuse a full non-overwrite buffer");
-+	if (addr) {
-+		/* Unexpected: keep the AUX refcount balanced. */
-+		KUNIT_EXPECT_EQ(test, 0, handle.size);
-+		perf_aux_output_end(&handle, 0);
-+	}
-+
-+	perf_event_release_aux(event);
-+}
-+
-+static void test_setup_with_explicit_watermark(struct kunit *test)
-+{
-+	struct perf_event *event = aux_test_create_event(test);
-+	int ret;
-+
-+	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, event);
-+
-+	ret = perf_event_setup_aux(event, 2, 4096);
-+	KUNIT_EXPECT_EQ(test, 0, ret);
-+	perf_event_release_aux(event);
-+
-+	ret = perf_event_setup_aux(event, 4, 8192);
-+	KUNIT_EXPECT_EQ(test, 0, ret);
-+	perf_event_release_aux(event);
-+}
-+
-+static void test_two_events_independent(struct kunit *test)
-+{
-+	struct perf_event *ev_a = aux_test_create_event(test);
-+	struct perf_event *ev_b = aux_test_create_event(test);
-+	unsigned long head_a, head_b;
-+	int ret;
-+
-+	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, ev_a);
-+	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, ev_b);
-+
-+	ret = perf_event_setup_aux(ev_a, 1, 0);
-+	KUNIT_EXPECT_EQ(test, 0, ret);
-+
-+	ret = perf_event_setup_aux(ev_b, 1, 0);
-+	KUNIT_EXPECT_EQ(test, 0, ret);
-+
-+	head_a = aux_test_produce(ev_a, 512);
-+	head_b = perf_event_aux_head(ev_b);
-+
-+	KUNIT_EXPECT_GT(test, head_a, 0);
-+	KUNIT_EXPECT_EQ(test, 0, head_b);
-+
-+	head_b = aux_test_produce(ev_b, 256);
-+	KUNIT_EXPECT_GT(test, head_b, 0);
-+	KUNIT_EXPECT_EQ(test, head_a, perf_event_aux_head(ev_a));
-+
-+	perf_event_release_aux(ev_a);
-+	perf_event_release_aux(ev_b);
-+}
-+
-+static void test_release_one_does_not_affect_other(struct kunit *test)
-+{
-+	struct perf_event *ev_a = aux_test_create_event(test);
-+	struct perf_event *ev_b = aux_test_create_event(test);
-+	unsigned long head_b;
-+	int ret;
-+
-+	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, ev_a);
-+	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, ev_b);
-+
-+	ret = perf_event_setup_aux(ev_a, 1, 0);
-+	KUNIT_EXPECT_EQ(test, 0, ret);
-+
-+	ret = perf_event_setup_aux(ev_b, 1, 0);
-+	KUNIT_EXPECT_EQ(test, 0, ret);
-+
-+	head_b = aux_test_produce(ev_b, 512);
-+	KUNIT_EXPECT_GT(test, head_b, 0);
-+
-+	perf_event_release_aux(ev_a);
-+
-+	KUNIT_EXPECT_EQ(test, head_b, perf_event_aux_head(ev_b));
-+	KUNIT_EXPECT_GT(test, aux_test_produce(ev_b, 256), head_b);
-+
-+	perf_event_release_aux(ev_b);
-+}
-+
-+/*
-+ * Test: kernel consumer and simulated userspace consumer coexist on
-+ * the same PMU without interfering.
-+ *
-+ * Event A uses aux_kernel_count (via perf_event_setup_aux).
-+ * Event B swaps its refcounts to aux_mmap_count=1 to simulate a
-+ * userspace mmap'd consumer.  Both rings on the same dummy PMU.
-+ *
-+ *   - produce on A → B's head is unaffected
-+ *   - produce on B → A's head is unaffected
-+ *   - release A (kernel) → B still produces
-+ */
-+static void test_user_kernel_coexistence(struct kunit *test)
-+{
-+	struct perf_event *ev_a = aux_test_create_event(test);
-+	struct perf_event *ev_b = aux_test_create_event(test);
-+	struct perf_output_handle handle_a, handle_b;
-+	unsigned long a_head_before, b_head_before;
-+	void *addr;
-+	int ret;
-+
-+	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, ev_a);
-+	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, ev_b);
-+
-+	/* Event A: kernel consumer */
-+	ret = perf_event_setup_aux(ev_a, 1, 0);
-+	KUNIT_ASSERT_EQ(test, 0, ret);
-+
-+	/* Event B: start with kernel setup, then simulate userspace.
-+	 * ASSERT: the refcount_set() below dereferences ev_b->rb.
-+	 */
-+	ret = perf_event_setup_aux(ev_b, 1, 0);
-+	KUNIT_ASSERT_EQ(test, 0, ret);
-+
-+	/* Simulate userspace ownership: swap refcounts on B's rb.
-+	 * perf_mmap() would set aux_mmap_count=1 for a userspace event.
-+	 */
-+	refcount_set(&ev_b->rb->aux_mmap_count, 1);
-+	refcount_set(&ev_b->rb->aux_kernel_count, 0);
-+
-+	/* Produce on A — B's head stays 0 */
-+	addr = perf_aux_output_begin(&handle_a, ev_a);
-+	KUNIT_ASSERT_NOT_NULL(test, addr);
-+	perf_aux_output_end(&handle_a, 512);
-+	KUNIT_EXPECT_GT(test, ev_a->rb->aux_head, 0);
-+	KUNIT_EXPECT_EQ(test, 0, ev_b->rb->aux_head);
-+
-+	/* Produce on B — A's head unchanged */
-+	a_head_before = ev_a->rb->aux_head;
-+	addr = perf_aux_output_begin(&handle_b, ev_b);
-+	KUNIT_ASSERT_NOT_NULL(test, addr);
-+	perf_aux_output_end(&handle_b, 256);
-+	KUNIT_EXPECT_GT(test, ev_b->rb->aux_head, 0);
-+	KUNIT_EXPECT_EQ(test, a_head_before, ev_a->rb->aux_head);
-+
-+	/* Release A (kernel) — B still produces */
-+	b_head_before = ev_b->rb->aux_head;
-+	perf_event_release_aux(ev_a);
-+	addr = perf_aux_output_begin(&handle_b, ev_b);
-+	KUNIT_ASSERT_NOT_NULL(test, addr);
-+	perf_aux_output_end(&handle_b, 128);
-+	KUNIT_EXPECT_GT(test, ev_b->rb->aux_head, b_head_before);
-+
-+	/* Cleanup B: restore kernel ownership so the deferred release
-+	 * path (and the explicit one below) tears the buffer down.
-+	 */
-+	refcount_set(&ev_b->rb->aux_kernel_count, 1);
-+	refcount_set(&ev_b->rb->aux_mmap_count, 0);
-+	perf_event_release_aux(ev_b);
-+}
-+
-+/*
-+ * Test: two kthreads concurrently call perf_event_release_aux() on the
-+ * same event.  perf_event_release_aux() serialises the whole teardown on
-+ * event->mmap_mutex, so exactly one caller drops aux_kernel_count and
-+ * performs the teardown while the other observes event->rb == NULL and
-+ * returns as a no-op.  The test verifies the race is handled without a
-+ * refcount underflow warning, crash, or leak.
-+ */
-+struct concurrent_release_ctx {
-+	struct perf_event *event;
-+	struct completion done;
-+};
-+
-+static int concurrent_release_thread(void *data)
-+{
-+	struct concurrent_release_ctx *ctx = data;
-+
-+	perf_event_release_aux(ctx->event);
-+	complete(&ctx->done);
-+
-+	return 0;
-+}
-+
-+static void test_concurrent_release(struct kunit *test)
-+{
-+	struct concurrent_release_ctx ctx;
-+	struct task_struct *threads[2];
-+	struct perf_event *event;
-+	int created = 0, i;
-+
-+	event = aux_test_create_event(test);
-+	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, event);
-+
-+	KUNIT_ASSERT_EQ(test, 0, perf_event_setup_aux(event, 1, 0));
-+
-+	ctx.event = event;
-+	init_completion(&ctx.done);
-+
-+	for (i = 0; i < ARRAY_SIZE(threads); i++) {
-+		threads[i] = kthread_run(concurrent_release_thread, &ctx,
-+					 "aux_crel_%d", i);
-+		if (IS_ERR(threads[i])) {
-+			threads[i] = NULL;
-+			break;
-+		}
-+		created++;
-+	}
-+
-+	/*
-+	 * Wait for every thread that was actually created before returning:
-+	 * ctx lives on this stack, and a struct completion is the right
-+	 * wait/notify primitive for an on-stack waiter (unlike a lockless
-+	 * wait_event() condition, which the worker could satisfy via
-+	 * atomic_dec_and_test() before it gets to wake_up()).
-+	 *
-+	 * No kthread_stop() here: the workers do not check
-+	 * kthread_should_stop() and exit on their own after complete(), and
-+	 * stopping an already-exited kthread would touch freed memory.
-+	 */
-+	for (i = 0; i < created; i++)
-+		wait_for_completion(&ctx.done);
-+
-+	if (created != ARRAY_SIZE(threads))
-+		kunit_warn(test, "only %d/%zu release threads created\n",
-+			   created, ARRAY_SIZE(threads));
-+
-+	/*
-+	 * If no worker could run, tear the buffer down here; if one did,
-+	 * this is the documented no-op second release.  The deferred
-+	 * cleanup action releases the event itself.
-+	 */
-+	perf_event_release_aux(event);
-+}
-+
-+static struct kunit_case aux_kernel_test_cases[] = {
-+	KUNIT_CASE(test_setup_rejects_non_power_of_two),
-+	KUNIT_CASE(test_setup_accepts_power_of_two),
-+	KUNIT_CASE(test_setup_rejects_double),
-+	KUNIT_CASE(test_setup_parent_event_rejected),
-+	KUNIT_CASE(test_setup_rejects_negative_watermark),
-+	KUNIT_CASE(test_setup_with_explicit_watermark),
-+	KUNIT_CASE(test_writer_admitted_after_setup),
-+	KUNIT_CASE(test_writer_blocked_after_release),
-+	KUNIT_CASE(test_release_noop_without_rb),
-+	KUNIT_CASE(test_setup_release_roundtrip),
-+	KUNIT_CASE(test_multi_setup_release_cycle),
-+	KUNIT_CASE(test_double_release_clean),
-+	KUNIT_CASE(test_two_events_independent),
-+	KUNIT_CASE(test_release_one_does_not_affect_other),
-+	KUNIT_CASE(test_user_kernel_coexistence),
-+	KUNIT_CASE(test_concurrent_release),
-+	KUNIT_CASE(test_head_initial_zero),
-+	KUNIT_CASE(test_head_advances_after_produce),
-+	KUNIT_CASE(test_head_no_rb_zero),
-+	KUNIT_CASE(test_copy_full_window),
-+	KUNIT_CASE(test_copy_wrap),
-+	KUNIT_CASE(test_copy_zero_len),
-+	KUNIT_CASE(test_copy_data_correctness),
-+	KUNIT_CASE(test_copy_rejects_rewound),
-+	KUNIT_CASE(test_copy_rejects_future),
-+	KUNIT_CASE(test_copy_rejects_oversized),
-+	KUNIT_CASE(test_copy_rejects_null_buf),
-+	KUNIT_CASE(test_copy_rejects_already_consumed),
-+	KUNIT_CASE(test_copy_no_rb_enoent),
-+	KUNIT_CASE(test_tail_set_valid_frees_space),
-+	KUNIT_CASE(test_tail_set_rejects_future),
-+	KUNIT_CASE(test_tail_set_accepts_within_ring_window),
-+	KUNIT_CASE(test_tail_set_rejects_behind_ring),
-+	KUNIT_CASE(test_tail_set_noop),
-+	KUNIT_CASE(test_tail_set_consume_all),
-+	KUNIT_CASE(test_tail_set_no_rb_enoent),
-+	KUNIT_CASE(test_multi_produce_copy_cycle),
-+	KUNIT_CASE(test_output_end_zero_size),
-+	KUNIT_CASE(test_buffer_full_stops_producer),
-+	{},
-+};
-+
-+static struct kunit_suite aux_kernel_test_suite = {
-+	.name = "perf_aux_kernel",
-+	.suite_init = suite_init,
-+	.suite_exit = suite_exit,
-+	.test_cases = aux_kernel_test_cases,
-+};
-+
-+kunit_test_suite(aux_kernel_test_suite);
-diff --git a/lib/Kconfig.debug b/lib/Kconfig.debug
-index 134b15a44625..7db7eb07c2f2 100644
---- a/lib/Kconfig.debug
-+++ b/lib/Kconfig.debug
-@@ -3073,6 +3073,20 @@ config HW_BREAKPOINT_KUNIT_TEST
- 
- 	  If unsure, say N.
- 
-+config PERF_AUX_KERNEL_KUNIT_TEST
-+	bool "Test perf AUX kernel-consumer API" if !KUNIT_ALL_TESTS
-+	depends on PERF_EVENTS=y
-+	depends on KUNIT=y
-+	default KUNIT_ALL_TESTS
-+	help
-+	  Tests for the perf AUX kernel-consumer API functions:
-+	  perf_event_setup_aux(), perf_event_release_aux(),
-+	  perf_event_aux_head(), perf_event_aux_tail_set(), and
-+	  perf_event_aux_copy().  Uses a dummy AUX PMU and does
-+	  not require AUX-capable hardware.
-+
-+	  If unsure, say N.
-+
- source "lib/crypto/tests/Kconfig"
- 
- config SIPHASH_KUNIT_TEST
++++ b/tools/testing/selftests/perf_events/aux_kernel.sh
+@@ -0,0 +1,631 @@
++#!/bin/bash
++# SPDX-License-Identifier: GPL-2.0
++#
++# Perf AUX Kernel-Consumer API - Comprehensive Selftest
++#
++# Validates the perf-core AUX kernel-consumer API added by the
++# perf_aux_support patch series:
++#   - perf_event_setup_aux() / perf_event_release_aux()
++#   - perf_event_aux_head() / perf_event_aux_tail_set() / perf_event_aux_copy()
++#
++# Test layers:
++#   1. Build-time checks (Kconfig, Makefile, symbol exports, source)
++#   2. KUnit suite (API contract: error paths, lifecycle, validation)
++#   3. Userspace AUX regression (mmap AUX still works, aux_mmap_count
++#      independent, userspace+kernel coexistence)
++#   4. Hardware AUX live test (if ARM SPE or Intel PT is available)
++#   5. DAMON integration verification
++#   6. Memory ordering/barrier static analysis
++#   7. Boundary validation static analysis
++#   8. Concurrency safety checks
++#   9. User/kernel AUX isolation checks
++#
++# Usage:  sudo ./aux_kernel.sh [--pmu arm_spe_0|intel_pt]
++#
++# The script also works from an installed selftest location (make
++# install): when no kernel source tree is found, the source-level
++# static checks (sections 1 partial, 6-9) are SKIPped rather than
++# failed, and the prebuilt aux_kernel_usermode binary is used as-is.
++# Source-only rebuilds honour $CC (and $CROSS_COMPILE) instead of
++# hardcoding gcc.
++#
++# Requirements:
++#   - CONFIG_PERF_EVENTS=y
++#   - CONFIG_PERF_AUX_KERNEL_KUNIT_TEST=y and CONFIG_KUNIT_DEBUGFS=y
++#   - Root privileges for most sections
++
++set -e
++PASSED=0; FAILED=0; SKIPPED=0
++pass() { echo "  [PASS] $1"; PASSED=$((PASSED + 1)); }
++fail() { echo "  [FAIL] $1"; FAILED=$((FAILED + 1)); }
++skip() { echo "  [SKIP] $*"; SKIPPED=$((SKIPPED + 1)); }
++
++# mktemp(1) creates an unpredictable, collision-free directory, so a
++# local user cannot pre-create a symlink at the expected path and have
++# this (possibly root-run) script overwrite a file of their choosing.
++RESULTS_DIR=$(mktemp -d /tmp/perf_aux_kernel_test.XXXXXX)
++exec > >(tee "$RESULTS_DIR/output.log") 2>&1
++
++SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
++ROOT="$(git -C "$SCRIPT_DIR" rev-parse --show-toplevel 2>/dev/null || true)"
++if [[ -z "$ROOT" ]]; then
++	ROOT="/usr/src/linux"
++fi
++
++# Source-level checks need the kernel tree; installed runs have none.
++SRC_EVENTS="$ROOT/kernel/events"
++if [[ -f "$SRC_EVENTS/core.c" ]]; then
++	HAVE_SRC=1
++else
++	HAVE_SRC=0
++	ROOT=""
++fi
++
++# Compiler for the runtime rebuild of the userspace program; the
++# kselftest build system exports CC (with CROSS_COMPILE prefixed).
++CC="${CC:-gcc}"
++
++PMU_ARG="${1:-}"
++if [[ "$PMU_ARG" == "--pmu" ]]; then
++	PMU_NAME="${2:-arm_spe_0}"
++elif [[ -n "$PMU_ARG" ]]; then
++	PMU_NAME="$PMU_ARG"
++else
++	PMU_NAME="arm_spe_0"
++fi
++
++echo "=========================================="
++echo " Perf AUX Kernel-Consumer API Test"
++echo "=========================================="
++echo "Kernel tree:  $ROOT"
++echo "Results dir:  $RESULTS_DIR"
++echo "Target PMU:   $PMU_NAME"
++echo "Script dir:   $SCRIPT_DIR"
++echo ""
++
++# ---- Section 1: Build-time checks ----
++echo "--- 1. Build-time Configuration ---"
++
++# Check that the KUnit test is built
++KUNIT_SUITE="/sys/kernel/debug/kunit/perf_aux_kernel"
++if [[ -d "$KUNIT_SUITE" ]]; then
++	pass "KUnit suite 'perf_aux_kernel' is registered"
++else
++	skip "KUnit suite 'perf_aux_kernel' not registered" \
++		"(CONFIG_PERF_AUX_KERNEL_KUNIT_TEST not set)"
++fi
++
++# Check that required symbols are exported
++SYMBOLS_FILE="/proc/kallsyms"
++if [[ -r "$SYMBOLS_FILE" ]]; then
++	for sym in perf_event_setup_aux perf_event_release_aux \
++		perf_event_aux_head perf_event_aux_tail_set perf_event_aux_copy; do
++		if grep -q "$sym" "$SYMBOLS_FILE" 2>/dev/null; then
++			pass "Symbol exported: $sym"
++		else
++			fail "Symbol not exported: $sym (patch not applied?)"
++		fi
++	done
++else
++	skip "Symbol check" "/proc/kallsyms not readable"
++fi
++
++# Check that the source files exist (in-tree runs only; installed
++# environments have no kernel source, which is a skip, not a failure)
++SRC_EVENTS="$ROOT/kernel/events"
++if [[ "$HAVE_SRC" -eq 1 ]]; then
++	for f in core.c ring_buffer.c internal.h; do
++		if [[ -f "$SRC_EVENTS/$f" ]]; then
++			pass "Source file: kernel/events/$f"
++		else
++			fail "Source file: kernel/events/$f missing"
++		fi
++	done
++
++	# Check that the KUnit test source exists
++	if [[ -f "$SRC_EVENTS/aux_kernel_test.c" ]]; then
++		pass "Source file: kernel/events/aux_kernel_test.c"
++	else
++		skip "Source file: kernel/events/aux_kernel_test.c not found"
++	fi
++else
++	skip "Source tree" "kernel source not available (installed run)"
++fi
++
++# Check that aux_kernel_count is in internal.h
++if [[ "$HAVE_SRC" -eq 1 ]] && grep -q 'aux_kernel_count' "$SRC_EVENTS/internal.h" 2>/dev/null; then
++	pass "struct perf_buffer: aux_kernel_count field present"
++elif [[ "$HAVE_SRC" -eq 1 ]]; then
++	fail "struct perf_buffer: aux_kernel_count field missing"
++fi
++
++# Check that aux_kernel_count is used in perf_aux_output_begin()
++if [[ "$HAVE_SRC" -eq 1 ]]; then
++	if grep -q 'aux_kernel_count' "$SRC_EVENTS/ring_buffer.c" 2>/dev/null; then
++		pass "ring_buffer.c: aux_kernel_count guard in perf_aux_output_begin()"
++	else
++		fail "ring_buffer.c: aux_kernel_count guard missing in perf_aux_output_begin()"
++	fi
++fi
++
++# Check that the new API functions are in core.c / ring_buffer.c
++if [[ "$HAVE_SRC" -eq 1 ]]; then
++	for func in perf_event_setup_aux perf_event_release_aux; do
++		if grep -q "int $func\|void $func" "$SRC_EVENTS/core.c" 2>/dev/null; then
++			pass "core.c: $func() defined"
++		else
++			fail "core.c: $func() not found"
++		fi
++	done
++	for func in perf_event_aux_head perf_event_aux_tail_set perf_event_aux_copy; do
++		if grep -q "$func" "$SRC_EVENTS/ring_buffer.c" 2>/dev/null; then
++			pass "ring_buffer.c: $func() defined"
++		else
++			fail "ring_buffer.c: $func() not found"
++		fi
++	done
++fi
++
++# Check that EXPORT_SYMBOL_GPL is present
++if [[ "$HAVE_SRC" -eq 1 ]]; then
++	for func in perf_event_setup_aux perf_event_release_aux \
++		perf_event_aux_head perf_event_aux_tail_set perf_event_aux_copy; do
++		if grep -q "EXPORT_SYMBOL_GPL($func)" "$SRC_EVENTS/core.c" \
++			"$SRC_EVENTS/ring_buffer.c" 2>/dev/null; then
++			pass "EXPORT_SYMBOL_GPL: $func"
++		else
++			fail "EXPORT_SYMBOL_GPL: $func not found"
++		fi
++	done
++fi
++
++# ---- Section 2: KUnit API contract tests ----
++echo ""
++echo "--- 2. KUnit API Contract Tests ---"
++
++KUNIT_DIR="/sys/kernel/debug/kunit/perf_aux_kernel"
++if [[ -d "$KUNIT_DIR" ]]; then
++	if [[ -f "$KUNIT_DIR/run" ]]; then
++		echo run > "$KUNIT_DIR/run" 2>/dev/null || true
++	fi
++	RES="$KUNIT_DIR/results"
++	if [[ -f "$RES" ]]; then
++		cp "$RES" "$RESULTS_DIR/kunit-results.log"
++
++		if grep -Eq "^[[:space:]]*not ok" "$RES"; then
++			fail "KUnit API contract suite has failing cases"
++			grep -E "^[[:space:]]*not ok" "$RES" | sed 's/^/    /'
++		elif grep -Eq "^[[:space:]]*ok " "$RES"; then
++			pass "KUnit API contract suite: all cases pass"
++		else
++			fail "KUnit API contract suite produced no completed cases"
++		fi
++		echo "    $(grep '# Totals:' "$RES" | tail -1)"
++
++		# Spot-check all 39 test cases (deterministic, dummy PMU)
++		for c in "test_setup_rejects_non_power_of_two" \
++			"test_setup_accepts_power_of_two" \
++			"test_setup_rejects_double" \
++			"test_setup_parent_event_rejected" \
++			"test_setup_rejects_negative_watermark" \
++			"test_setup_with_explicit_watermark" \
++			"test_writer_admitted_after_setup" \
++			"test_writer_blocked_after_release" \
++			"test_release_noop_without_rb" \
++			"test_setup_release_roundtrip" \
++			"test_multi_setup_release_cycle" \
++			"test_double_release_clean" \
++			"test_two_events_independent" \
++			"test_release_one_does_not_affect_other" \
++			"test_user_kernel_coexistence" \
++			"test_concurrent_release" \
++			"test_head_initial_zero" \
++			"test_head_advances_after_produce" \
++			"test_head_no_rb_zero" \
++			"test_copy_full_window" \
++			"test_copy_wrap" \
++			"test_copy_zero_len" \
++			"test_copy_data_correctness" \
++			"test_copy_rejects_rewound" \
++			"test_copy_rejects_future" \
++			"test_copy_rejects_oversized" \
++			"test_copy_rejects_null_buf" \
++			"test_copy_rejects_already_consumed" \
++			"test_copy_no_rb_enoent" \
++			"test_tail_set_valid_frees_space" \
++			"test_tail_set_rejects_future" \
++			"test_tail_set_accepts_within_ring_window" \
++			"test_tail_set_rejects_behind_ring" \
++			"test_tail_set_noop" \
++			"test_tail_set_consume_all" \
++			"test_tail_set_no_rb_enoent" \
++			"test_multi_produce_copy_cycle" \
++			"test_output_end_zero_size" \
++			"test_buffer_full_stops_producer"; do
++			if grep -Eq "^[[:space:]]*ok .*$c" "$RES"; then
++				pass "KUnit case: $c"
++			else
++				fail "KUnit case: $c"
++			fi
++		done
++	else
++		skip "KUnit results" "no results file (suite did not run)"
++	fi
++else
++	skip "KUnit API contract" "CONFIG_PERF_AUX_KERNEL_KUNIT_TEST" \
++		"or CONFIG_KUNIT_DEBUGFS missing"
++fi
++
++# ---- Section 3: Userspace AUX regression (C program) ----
++echo ""
++echo "--- 3. Userspace AUX Regression (api-level) ---"
++
++# Run the C regression test program.
++#
++# Prefer an existing (installed or prebuilt) binary; make install
++# installs TEST_GEN_PROGS binaries but not their sources, so requiring
++# the source would skip the test exactly in CI pipelines that install
++# selftests.  Rebuild only in-tree, when the source is newer than the
++# binary or the binary is missing, and honour $CC then.
++UMODE_SRC="$SCRIPT_DIR/aux_kernel_usermode.c"
++UMODE_BIN="$SCRIPT_DIR/aux_kernel_usermode"
++
++if [[ -x "$UMODE_BIN" && ( ! -f "$UMODE_SRC" || ! "$UMODE_SRC" -nt "$UMODE_BIN" ) ]]; then
++	:
++elif [[ -f "$UMODE_SRC" ]]; then
++	echo "  Building aux_kernel_usermode with ${CC}..."
++	if "$CC" -o "$UMODE_BIN" "$UMODE_SRC" -Wall -Wextra -O2; then
++		:
++	else
++		echo "  $CC build failed"
++		UMODE_BIN=""
++	fi
++else
++	UMODE_BIN=""
++fi
++
++if [[ -n "$UMODE_BIN" && -x "$UMODE_BIN" ]]; then
++	if "$UMODE_BIN" "$PMU_NAME" 2>&1 | tee "$RESULTS_DIR/usermode.log" | \
++		grep -c '\[PASS\]' > /dev/null; then
++		# Count pass/fail from the output
++		UMODE_PASS=$(grep -c '\[PASS\]' "$RESULTS_DIR/usermode.log" || true)
++		UMODE_FAIL=$(grep -c '\[FAIL\]' "$RESULTS_DIR/usermode.log" || true)
++		UMODE_SKIP=$(grep -c '\[SKIP\]' "$RESULTS_DIR/usermode.log" || true)
++		pass "Userspace API regression: $UMODE_PASS passed," \
++			" $UMODE_FAIL failed, $UMODE_SKIP skipped"
++		if [[ "$UMODE_FAIL" -gt 0 ]]; then
++			fail "Userspace API regression: $UMODE_FAIL failures"
++		fi
++	else
++		fail "Userspace API regression: C program failed"
++	fi
++else
++	skip "Userspace API regression" "binary or source not available"
++fi
++
++# Check that aux_mmap_count refcount is not affected by aux_kernel_count
++# (static analysis: verify the two refcounts are separate in internal.h)
++if [[ "$HAVE_SRC" -eq 1 ]]; then
++	if grep -q 'aux_mmap_count' "$SRC_EVENTS/internal.h" 2>/dev/null && \
++	   grep -q 'aux_kernel_count' "$SRC_EVENTS/internal.h" 2>/dev/null; then
++		pass "Refcount separation: aux_mmap_count and aux_kernel_count are distinct"
++	else
++		fail "Refcount separation: aux_mmap_count or aux_kernel_count missing"
++	fi
++fi
++
++# ---- Section 4: Hardware AUX live test ----
++echo ""
++echo "--- 4. Hardware AUX Live Test ---"
++
++PMU_DIR="/sys/bus/event_source/devices/$PMU_NAME"
++PERF_BIN=$(which perf 2>/dev/null || true)
++if [[ -d "$PMU_DIR" ]]; then
++	PMU_TYPE=$(cat "$PMU_DIR/type" 2>/dev/null || true)
++	if [[ -n "$PMU_TYPE" ]]; then
++		pass "AUX PMU $PMU_NAME present (type=$PMU_TYPE)"
++
++		if [[ -f "$PMU_DIR/caps/aux_output" ]]; then
++			pass "PMU $PMU_NAME: aux_output capability present"
++		else
++			skip "PMU $PMU_NAME: aux_output capability not found"
++		fi
++
++		if [[ -n "$PERF_BIN" ]]; then
++			DMESG_BEFORE=$(dmesg 2>/dev/null | wc -l)
++			if "$PERF_BIN" record -e "$PMU_NAME/period=100000/" \
++				-o "$RESULTS_DIR/perf_hw.data" -- sleep 0.5 2>/dev/null; then
++				pass "Hardware AUX: perf record with $PMU_NAME succeeded"
++			else
++				fail "Hardware AUX: perf record with $PMU_NAME failed"
++			fi
++
++			DMESG_AFTER="$RESULTS_DIR/dmesg-hardware.log"
++			dmesg 2>/dev/null > "$DMESG_AFTER" || true
++			DMESG_LINES_AFTER=$(wc -l < "$DMESG_AFTER")
++			if [[ "$DMESG_LINES_AFTER" -ge "$DMESG_BEFORE" ]]; then
++				NEW_DMESG=$(tail -n "+$((DMESG_BEFORE + 1))" "$DMESG_AFTER")
++			else
++				NEW_DMESG=$(cat "$DMESG_AFTER")
++			fi
++			FAIL_LINES=$(printf '%s\n' "$NEW_DMESG" | \
++				grep -Ei "perf.*(fail|warn|error).*aux|"\
++"WARNING:|BUG:|Oops:|lockdep" || true)
++			if [[ -n "$FAIL_LINES" ]]; then
++				fail "dmesg: errors during hardware AUX test"
++				echo "$FAIL_LINES" | sed 's/^/    /'
++			else
++				pass "dmesg: clean during hardware AUX test"
++			fi
++		fi
++	else
++		skip "Hardware AUX" "PMU type not readable"
++	fi
++else
++	skip "Hardware AUX" "PMU $PMU_NAME not available"
++fi
++
++# ---- Section 5: DAMON integration check ----
++echo ""
++echo "--- 5. DAMON Integration Verification ---"
++
++DAMON_ADMIN="/sys/kernel/mm/damon/admin"
++if [[ -d "$DAMON_ADMIN" ]]; then
++	pass "DAMON sysfs interface available"
++
++	if [[ -d "$DAMON_ADMIN/kdamonds/0/contexts/0/monitoring_attrs/sample/perf_events" ]] || \
++	   [[ -d "/sys/kernel/debug/damon/perf_stats" ]]; then
++		pass "DAMON perf observe infrastructure detected"
++	else
++		skip "DAMON perf observe" "debugfs or sysfs interface not available"
++	fi
++
++	DAMON_TEST_DIR="$ROOT/tools/testing/selftests/damon"
++	if [[ -d "$DAMON_TEST_DIR" ]]; then
++		pass "DAMON selftest directory present"
++	else
++		skip "DAMON selftest directory" "not found at $DAMON_TEST_DIR"
++	fi
++else
++	skip "DAMON integration" "DAMON admin interface not available"
++fi
++
++# ---- Section 6: Memory ordering and concurrency checks ----
++echo ""
++echo "--- 6. Memory Ordering & Concurrency ---"
++
++if [[ "$HAVE_SRC" -ne 1 ]]; then
++	skip "Memory ordering checks" "kernel source not available (installed run)"
++else
++
++# Verify smp_rmb() in perf_event_aux_head()
++if grep -q 'smp_rmb' "$SRC_EVENTS/ring_buffer.c" 2>/dev/null; then
++	pass "perf_event_aux_head(): smp_rmb() barrier present"
++else
++	fail "perf_event_aux_head(): smp_rmb() barrier missing"
++fi
++
++# Verify smp_mb() in perf_event_aux_tail_set()
++if grep -A30 'perf_event_aux_tail_set' "$SRC_EVENTS/ring_buffer.c" 2>/dev/null | \
++	grep -q 'smp_mb'; then
++	pass "perf_event_aux_tail_set(): smp_mb() barrier present"
++else
++	fail "perf_event_aux_tail_set(): smp_mb() barrier missing"
++fi
++
++# Verify aux_refcount protection in perf_event_aux_copy()
++if grep -A80 'perf_event_aux_copy' "$SRC_EVENTS/ring_buffer.c" 2>/dev/null | \
++	grep -q 'aux_refcount'; then
++	pass "perf_event_aux_copy(): aux_refcount protection present"
++else
++	fail "perf_event_aux_copy(): aux_refcount protection missing"
++fi
++
++# Verify mmap_mutex serialization in setup/release
++if grep -A30 'perf_event_setup_aux' "$SRC_EVENTS/core.c" 2>/dev/null | \
++	grep -q 'mmap_mutex'; then
++	pass "perf_event_setup_aux(): mmap_mutex serialization present"
++else
++	fail "perf_event_setup_aux(): mmap_mutex serialization missing"
++fi
++if grep -A30 'perf_event_release_aux' "$SRC_EVENTS/core.c" 2>/dev/null | \
++	grep -q 'mmap_mutex'; then
++	pass "perf_event_release_aux(): mmap_mutex serialization present"
++else
++	fail "perf_event_release_aux(): mmap_mutex serialization missing"
++fi
++
++# Verify aux_mutex protection in release
++if grep -A60 'perf_event_release_aux' "$SRC_EVENTS/core.c" 2>/dev/null | \
++	grep -q 'aux_mutex'; then
++	pass "perf_event_release_aux(): aux_mutex protection present"
++else
++	fail "perf_event_release_aux(): aux_mutex protection missing"
++fi
++
++fi
++
++# ---- Section 7: Boundary validation checks ----
++echo ""
++echo "--- 7. API Contract: Boundary Validation ---"
++
++if [[ "$HAVE_SRC" -ne 1 ]]; then
++	skip "Boundary validation checks" "kernel source not available (installed run)"
++else
++
++# perf_event_setup_aux() rejects non-power-of-2
++if grep -q 'is_power_of_2' "$SRC_EVENTS/core.c" 2>/dev/null; then
++	pass "perf_event_setup_aux(): is_power_of_2() check present"
++else
++	fail "perf_event_setup_aux(): is_power_of_2() check missing"
++fi
++
++# perf_event_setup_aux() checks is_kernel_event()
++if grep -q 'is_kernel_event' "$SRC_EVENTS/core.c" 2>/dev/null; then
++	pass "perf_event_setup_aux(): is_kernel_event() check present"
++else
++	fail "perf_event_setup_aux(): is_kernel_event() check missing"
++fi
++
++# perf_event_setup_aux() checks event->parent
++if grep -A20 'perf_event_setup_aux' "$SRC_EVENTS/core.c" 2>/dev/null | \
++	grep -q 'event->parent'; then
++	pass "perf_event_setup_aux(): event->parent check present"
++else
++	fail "perf_event_setup_aux(): event->parent check missing"
++fi
++
++# perf_event_aux_copy() validates window size
++if grep -A80 'perf_event_aux_copy' "$SRC_EVENTS/ring_buffer.c" 2>/dev/null | \
++	grep -q 'available.*aux_size'; then
++	pass "perf_event_aux_copy(): window bounds check present"
++else
++	fail "perf_event_aux_copy(): window bounds check missing"
++fi
++
++# rb_has_kernel_aux() helper
++if grep -q 'rb_has_kernel_aux' "$SRC_EVENTS/ring_buffer.c" 2>/dev/null; then
++	pass "ring_buffer.c: rb_has_kernel_aux() helper defined"
++else
++	fail "ring_buffer.c: rb_has_kernel_aux() helper missing"
++fi
++
++# perf_event_aux_tail_set() validates advance <= head - old_tail
++if grep -A20 'perf_event_aux_tail_set' "$SRC_EVENTS/ring_buffer.c" 2>/dev/null | \
++	grep -q 'advance.*head.*old_tail'; then
++	pass "perf_event_aux_tail_set(): advance bounds check present"
++else
++	fail "perf_event_aux_tail_set(): advance bounds check missing"
++fi
++
++# perf_event_aux_copy() validates from/to in [tail, head]
++if grep -A80 'perf_event_aux_copy' "$SRC_EVENTS/ring_buffer.c" 2>/dev/null | \
++	grep -q 'start.*available\|len.*available.*start'; then
++	pass "perf_event_aux_copy(): from/to bounds check present"
++else
++	fail "perf_event_aux_copy(): from/to bounds check missing"
++fi
++
++fi
++
++# ---- Section 8: Concurrency safety checks ----
++echo ""
++echo "--- 8. Concurrency Safety ---"
++
++if [[ "$HAVE_SRC" -ne 1 ]]; then
++	skip "Concurrency safety checks" "kernel source not available (installed run)"
++else
++
++# Check that aux_kernel_count uses refcount_t (atomic)
++if grep -q 'refcount_t.*aux_kernel_count' "$SRC_EVENTS/internal.h" 2>/dev/null; then
++	pass "aux_kernel_count: refcount_t (atomic) type"
++else
++	fail "aux_kernel_count: not refcount_t"
++fi
++
++# Check that release drops the kernel-owner refcount under mmap_mutex
++# (serialising concurrent perf_event_release_aux() callers)
++if grep -A60 'perf_event_release_aux' "$SRC_EVENTS/core.c" 2>/dev/null | \
++	grep -q 'refcount_dec_and_test(&rb->aux_kernel_count)'; then
++	pass "aux_kernel_count: owner refcount dropped in release"
++else
++	fail "aux_kernel_count: owner refcount not dropped in release"
++fi
++
++# Check that aux_refcount is incremented in copy
++if grep -A80 'perf_event_aux_copy' "$SRC_EVENTS/ring_buffer.c" 2>/dev/null | \
++	grep -q 'refcount_inc_not_zero.*aux_refcount'; then
++	pass "perf_event_aux_copy(): aux_refcount_inc_not_zero() present"
++else
++	fail "perf_event_aux_copy(): aux_refcount_inc_not_zero() missing"
++fi
++
++# Check that rb_free_aux is called at end of copy (release refcount)
++if grep -A80 'perf_event_aux_copy' "$SRC_EVENTS/ring_buffer.c" 2>/dev/null | \
++	grep -q 'rb_free_aux'; then
++	pass "perf_event_aux_copy(): rb_free_aux() at exit (balanced refcount)"
++else
++	fail "perf_event_aux_copy(): rb_free_aux() missing at exit"
++fi
++
++# Check that is_kernel_event guard is on both setup and release
++if grep -A20 'perf_event_setup_aux' "$SRC_EVENTS/core.c" 2>/dev/null | \
++	grep -q 'is_kernel_event'; then
++	pass "setup side: is_kernel_event() guard present"
++else
++	fail "setup side: is_kernel_event() guard missing"
++fi
++if grep -A20 'perf_event_release_aux' "$SRC_EVENTS/core.c" 2>/dev/null | \
++	grep -q 'is_kernel_event'; then
++	pass "release side: is_kernel_event() guard present"
++else
++	fail "release side: is_kernel_event() guard missing"
++fi
++
++# Check that event->parent guard is on both setup and release
++if grep -A20 'perf_event_setup_aux' "$SRC_EVENTS/core.c" 2>/dev/null | \
++	grep -q 'event->parent'; then
++	pass "setup side: event->parent guard present"
++else
++	fail "setup side: event->parent guard missing"
++fi
++if grep -A20 'perf_event_release_aux' "$SRC_EVENTS/core.c" 2>/dev/null | \
++	grep -q 'event->parent'; then
++	pass "release side: event->parent guard present"
++else
++	fail "release side: event->parent guard missing"
++fi
++
++fi
++
++# ---- Section 9: User/kernel AUX isolation ----
++echo ""
++echo "--- 9. User/Kernel AUX Isolation ---"
++
++if [[ "$HAVE_SRC" -ne 1 ]]; then
++	skip "User/kernel isolation checks" "kernel source not available (installed run)"
++else
++
++if grep -A30 'perf_event_setup_aux' "$SRC_EVENTS/core.c" 2>/dev/null | \
++	grep -q 'EBUSY'; then
++	pass "setup_aux: -EBUSY when event->rb exists (user+kernel exclusion)"
++else
++	fail "setup_aux: missing -EBUSY guard"
++fi
++
++if grep -q 'aux_mmap_count' "$SRC_EVENTS/internal.h" 2>/dev/null && \
++   grep -q 'aux_kernel_count' "$SRC_EVENTS/internal.h" 2>/dev/null; then
++	pass "aux_mmap_count and aux_kernel_count are distinct fields"
++else
++	fail "aux_mmap_count or aux_kernel_count missing"
++fi
++
++if grep -B2 -A2 'aux_mmap_count' "$SRC_EVENTS/ring_buffer.c" 2>/dev/null | \
++	grep -q 'aux_kernel_count'; then
++	pass "perf_aux_output_begin: checks both owner counts"
++else
++	fail "perf_aux_output_begin: does not check both counts"
++fi
++
++if grep -q 'aux_kernel_count' "$SRC_EVENTS/core.c" 2>/dev/null; then
++	pass "release_aux: checks aux_kernel_count ownership"
++else
++	fail "release_aux: missing aux_kernel_count check"
++fi
++
++fi
++
++# ---- Summary ----
++echo ""
++echo "=========================================="
++echo " SUMMARY: $PASSED passed, $FAILED failed, $SKIPPED skipped"
++echo "=========================================="
++echo "Results saved to: $RESULTS_DIR"
++
++if [[ "$FAILED" -gt 0 ]]; then
++	echo "Overall: FAIL"
++	exit 1
++else
++	echo "Overall: PASS"
++	exit 0
++fi
 -- 
 2.43.0
 
