@@ -1,190 +1,202 @@
-Received: from mail-lf1-f41.google.com (mail-lf1-f41.google.com [209.85.167.41])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from shelob.surriel.com (shelob.surriel.com [96.67.55.147])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 95E9941611D
-	for <linux-kernel@vger.kernel.org>; Sun,  4 Oct 2026 22:20:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.167.41
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791152433; cv=pass; b=b649K0Hh6+78I3M0ZlRua8h0mySifyUFdJGdu1G9xZf0QgdGV9Syo/knpDVfIie234WkfTnC6lRnnt+ZhCId3pVVUkwnwBXRUMq0wb+ZEs7kbsa+KeOQOWukKsM2jZWyAQ36/tlHB8yXlOwxy1Y2ktZgPOIMzhmktUD9Cmlbdk4=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791152433; c=relaxed/simple;
-	bh=XgFf0V3Zwk70tdgQVOzBVGpxn9WfToTnVVb8pOQ7a/Q=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=I4b8S1qrzH7Xw7tPTNDWGsFFhUH53u8w7Y5mqCer6JYdsHxIrnwXxWYMhRNlf/BOjbXBAJ2Apjub0g20DRf0aEYBzVC3USET7qhiX350QD5Yf/MxPRDDhnFQqNvq/ShAVMVRUGiU6vZrEsjyV7wyJTGxm1aT1Ml2OOtwlkclEtk=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=s2TpqMbz; arc=pass smtp.client-ip=209.85.167.41
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2EEAA41DDEA
+	for <linux-kernel@vger.kernel.org>; Sun,  4 Oct 2026 22:21:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=96.67.55.147
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791152474; cv=none; b=XlEBF5Ss0Fsd4FBtJYOhrONL5QqjAnVBDKsrmjzhwFQ395Kx8Zjv6UayUN/TagVnAknGLDc8R+3dit3bLsxQamHYFoCZT+GWgBsvwj332Aeh7E/cuOlp7KzedrcQToty1XHNUFFLgIgtxut9Ud3pJHs9uusbsGxVJYSc+CKrGig=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791152474; c=relaxed/simple;
+	bh=qC4IzCdjVe1s87vXlnIodDPObpwOPfFiNB2ve5IjDBA=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=aPNb5SYAQSQNle/Uo42AHw+NL0UXZbm6tbsbMFkJzL09k/KqMZQlQU2Wc8VMd7CTA6zg6rq43tbnU8VIZ/bpe1lJJqMT743VnyyItslr+etNUdIMnyzQ04IFI9yOvWsf60QCIngMCPQ5N2XsJNMpKsK9G8qczn2RVs2EP6kls+Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=surriel.com; spf=pass smtp.mailfrom=surriel.com; dkim=pass (2048-bit key) header.d=surriel.com header.i=@surriel.com header.b=kzh9Oyez; arc=none smtp.client-ip=96.67.55.147
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=surriel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=surriel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="s2TpqMbz"
-Received: by mail-lf1-f41.google.com with SMTP id 2adb3069b0e04-5bcbb378fc9so1654e87.0
-        for <linux-kernel@vger.kernel.org>; Sun, 04 Oct 2026 15:20:28 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1791152425; cv=none;
-        d=google.com; s=arc-20260327;
-        b=tBgZMHyixp6ECvzaUC1clcUJuBmuuj9hTdRdTsOirqpYbamChgLvmbIM/R2O2j0jjd
-         XmRsGKdw+ieOaIJz6kGwUjhHckq5cnwf3vBLAunlVZCi9ElPzOgQpguZXabFhzzwbWxv
-         hUba3bV8w3r0+4T3iQh1FpQ+HqBuKbU/5NVsgeF0wxwCQjU7c0OdiucaSjE9c6aTP+bE
-         XpRc465N2IQkYV8gEidnbEdtrUrqc8G+Xcc9TXcfUyxH03DGe9qsm4OLB8HV/y2pMrSv
-         PzHcVWm5S+Gejyfwldov4RH+g1Elj23rkVKs2dO4sPtS/DjBkwHIhIJOXxNNsYyTB0ib
-         HNQQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=57r++D/W5FdfNaHzmVXc+jEW9QTol9obBS4Hemyq/Zo=;
-        fh=V6mFxgK7+9RUFiQvaanFo7//bAv8q9nnbw1NaNP8D4I=;
-        b=RTKUixeDqqgMpa492l9JvTt9i6RfLypluWn386i1MQ1Mpo3aHM0U/j79PSIqv7nVMg
-         IGiszwsDp6eQOXeKgZAbxUMZVvliVMRFjIyePxFAypxCOTRmaMRLOybFuAE5p3pXHIIs
-         wIVIZ4sjU1BdTd+34EpU8v2kC4k0ZwqjruR0e3iTBKD60OWeLdgtQGalNDDgIa/egH8Z
-         NHla9JvA0TNYtmGJVhZGE4x2B3bt5GWauxKUIgq4Xj9Ia57WNgCVwj7Ff9pXLCNaZIzH
-         WKkOXWeMkLWUeiLpeNP62Rk+79g+4JruvhPndDYNJilOZU+R869sgRxtGtyQ3KMOwHk7
-         uPZA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1791152425; x=1791757225; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=57r++D/W5FdfNaHzmVXc+jEW9QTol9obBS4Hemyq/Zo=;
-        b=s2TpqMbzNr0IdbxeGuoxlQBYiTJk0CgxdaPBdYQ1gdi/yEPNAtfeDKV8BPLtskXmt3
-         bfGtFz1bvErtKi6ZjS0G2eX0JVJ1kvIGF2eaYanjI+a1mprivWFyqbMw0QR/ENyiAnQK
-         DGdiw8BiYQO8hG3b3ruNAeLPZQdddWBzYUCgvyV3bYkNpMZxc0RwmvTR1OrxNMZhNEZ+
-         jOk5etXV9s6KYxXSescT6JpwQNI9vidC0/ShUYBQosNctmkzQvigHBfpYvIw9C/E7X0r
-         7dEPh+/TsQRHUqnUrEBvqjtH56YOh23KQUAjw87Cy/Mm25VshPeSiZvQvHqp7OUWmttW
-         LquA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791152425; x=1791757225;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=57r++D/W5FdfNaHzmVXc+jEW9QTol9obBS4Hemyq/Zo=;
-        b=K7IodIgJ++Kk34DBghbywRDIBGcyIaKdQai6j7ul7uej0ZhSGVwD1ay57AL4IGfPEP
-         jkZGlXSrAJlEnFRq/8QsTllIVxXVAoxrghp2vXDHaBdS5AmFOsx4hvPeUyOmn3gatqqi
-         Wb2cCg6PeeIT2YuyLBD4W3hKoYaucFmKI60af6TRx7dqC0TV8bW2H4F48/Pa3HGfa0s5
-         QNodjNwGMm5ULfmmzh3obuoDGuee1k1zr+CqovJOPqaHde/+oj6+G4lcr8APlZvD2PAT
-         81YUBKzkl5mJ80grP13h1HOPFYC9Y94EYqKKcm68uBLR79WOC7F4Ov2PZ4yZtDn/UWbU
-         bwHQ==
-X-Forwarded-Encrypted: i=1; AKwUvByeICA5WoJgj7ClP7LXYSE3MOcrN1LBEviLGiVo2sY4JT1mATt4/ZBY2N5sGRlwD9+YTrE4Ry2QN/hRJOk=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJL8hBV/7zu0YMGWRg9OmJhnNepejYjRIUoHDKPsZEAXV2vNle0
-	i1epgygooFY79sm7JEIFwxqQ+xd4K/BqHXaDnIGnVrGV8fGNOkDqSApRP9E9J23+lI588N9OHcy
-	QkCF9Uw3GtpTNyERuMMkS6LG+U4poJbxETcFSSNeH
-X-Gm-Gg: AYBFou1OgA14Y1ycfgHIZNkF/OylhPxOsscEcyz723Fq1FYMCLRfny0fXyKsifeNp98
-	HzvDgKfPM1xCwYZq0o8M7yyQ3qhW2KYb4sWHKr32K2rbWTzopC4ghM8c7jo8HMfp7esMvBlIYpD
-	RRw+gAJlXjtLWVBcFlZnuVDIi8fNIjbZQas5M6mkyIypetp+ETsi2RF+hKQ5riweoGeMcifUIrm
-	ZmEQ2Et1bFT6MrHKP1E2Z6V1Z3aCR5W3WO/mF9Vvz65tWwzWiGqTZAaYo5UxWKtHegrEnDXfBHl
-	goHLESBKuhaDIhSv+cH6ll7iDc+dqzY/aM6jrnx/2MNCwPm37o7jpOEbD9KHInIw5YPy9l+BKUd
-	XFZtLmBjM
-X-Received: by 2002:a05:6512:12cc:b0:5b8:c932:f056 with SMTP id
- 2adb3069b0e04-5bcb62a9caamr122163e87.7.1791152424823; Sun, 04 Oct 2026
- 15:20:24 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=surriel.com header.i=@surriel.com header.b="kzh9Oyez"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=surriel.com
+	; s=mail; h=MIME-Version:Content-Transfer-Encoding:Content-Type:References:
+	In-Reply-To:Date:Cc:To:From:Subject:Message-ID:Sender:Reply-To:Content-ID:
+	Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
+	:Resent-Message-ID; bh=wb7gxph3IORTxgMsT1OoGvtue2WX8WwlEpGiimQayxo=; b=kzh9Oy
+	ezuKgD1ELQmY59jqiTCXZMO/iaBk882jo9olUCB8W7d22TfzFudo/clSkvsPu0kheA8NYSYce3yGz
+	d3IU0U1NB3bUkcUWNL4Fjk21MCStalg72U1ksTe4VBqmK1n0Jtzc2LMfozDZX+Zpqm+LxcNrSD9iB
+	S60jStfBnirFrJaF/XHr25I4x6ay8U3NGjMeQyuIIpJiGWzC0NhI6Eaehkuda8frpZTgE58qKuRK9
+	UPB0pdkIONsXEnT7xpwbnd/c83OPZxCFIWF3EfIZ5SQQ9AyG82wwHrM/YkEb5Za0vlSCrhhUmOE4e
+	RUuNiMPCuQnUmkjyBZflblfnJ2sw==;
+Received: from [2601:18c:8100:a0e0:2541:b86e:2586:d219]
+	by shelob.surriel.com with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
+	(Exim 4.99.5)
+	(envelope-from <riel@surriel.com>)
+	id 1xDUZf-00000005xhB-2HwS;
+	Sun, 04 Oct 2026 22:20:51 +0000
+Message-ID: <e31bb97e34de9e37ef27f02ff98f63fb17fc57a0.camel@surriel.com>
+Subject: Re: hunting memory corruption bug in 6.18.x
+From: Rik van Riel <riel@surriel.com>
+To: Nikola Ciprich <nikola.ciprich@linuxbox.cz>, linux-mm@kvack.org
+Cc: linux-kernel@vger.kernel.org, akpm@linux-foundation.org,
+ david@kernel.org, 	ljs@kernel.org
+Date: Sun, 04 Oct 2026 18:20:50 -0400
+In-Reply-To: <arY1Wq6R9OY20ans@pcnci.linuxbox.cz>
+References: <arY1Wq6R9OY20ans@pcnci.linuxbox.cz>
+Autocrypt: addr=riel@surriel.com; prefer-encrypt=mutual;
+ keydata=mQENBFIt3aUBCADCK0LicyCYyMa0E1lodCDUBf6G+6C5UXKG1jEYwQu49cc/gUBTTk33A
+ eo2hjn4JinVaPF3zfZprnKMEGGv4dHvEOCPWiNhlz5RtqH3SKJllq2dpeMS9RqbMvDA36rlJIIo47
+ Z/nl6IA8MDhSqyqdnTY8z7LnQHqq16jAqwo7Ll9qALXz4yG1ZdSCmo80VPetBZZPw7WMjo+1hByv/
+ lvdFnLfiQ52tayuuC1r9x2qZ/SYWd2M4p/f5CLmvG9UcnkbYFsKWz8bwOBWKg1PQcaYHLx06sHGdY
+ dIDaeVvkIfMFwAprSo5EFU+aes2VB2ZjugOTbkkW2aPSWTRsBhPHhV6dABEBAAG0HlJpayB2YW4gU
+ mllbCA8cmllbEByZWRoYXQuY29tPokBHwQwAQIACQUCW5LcVgIdIAAKCRDOed6ShMTeg05SB/986o
+ gEgdq4byrtaBQKFg5LWfd8e+h+QzLOg/T8mSS3dJzFXe5JBOfvYg7Bj47xXi9I5sM+I9Lu9+1XVb/
+ r2rGJrU1DwA09TnmyFtK76bgMF0sBEh1ECILYNQTEIemzNFwOWLZZlEhZFRJsZyX+mtEp/WQIygHV
+ WjwuP69VJw+fPQvLOGn4j8W9QXuvhha7u1QJ7mYx4dLGHrZlHdwDsqpvWsW+3rsIqs1BBe5/Itz9o
+ 6y9gLNtQzwmSDioV8KhF85VmYInslhv5tUtMEppfdTLyX4SUKh8ftNIVmH9mXyRCZclSoa6IMd635
+ Jq1Pj2/Lp64tOzSvN5Y9zaiCc5FucXtB9SaWsgdmFuIFJpZWwgPHJpZWxAc3VycmllbC5jb20+iQE
+ +BBMBAgAoBQJSLd2lAhsjBQkSzAMABgsJCAcDAgYVCAIJCgsEFgIDAQIeAQIXgAAKCRDOed6ShMTe
+ g4PpB/0ZivKYFt0LaB22ssWUrBoeNWCP1NY/lkq2QbPhR3agLB7ZXI97PF2z/5QD9Fuy/FD/jddPx
+ KRTvFCtHcEzTOcFjBmf52uqgt3U40H9GM++0IM0yHusd9EzlaWsbp09vsAV2DwdqS69x9RPbvE/Ne
+ fO5subhocH76okcF/aQiQ+oj2j6LJZGBJBVigOHg+4zyzdDgKM+jp0bvDI51KQ4XfxV593OhvkS3z
+ 3FPx0CE7l62WhWrieHyBblqvkTYgJ6dq4bsYpqxxGJOkQ47WpEUx6onH+rImWmPJbSYGhwBzTo0Mm
+ G1Nb1qGPG+mTrSmJjDRxrwf1zjmYqQreWVSFEt26tBpSaWsgdmFuIFJpZWwgPHJpZWxAZmIuY29tP
+ okBPgQTAQIAKAUCW5LbiAIbIwUJEswDAAYLCQgHAwIGFQgCCQoLBBYCAwECHgECF4AACgkQznneko
+ TE3oOUEQgAsrGxjTC1bGtZyuvyQPcXclap11Ogib6rQywGYu6/Mnkbd6hbyY3wpdyQii/cas2S44N
+ cQj8HkGv91JLVE24/Wt0gITPCH3rLVJJDGQxprHTVDs1t1RAbsbp0XTksZPCNWDGYIBo2aHDwErhI
+ omYQ0Xluo1WBtH/UmHgirHvclsou1Ks9jyTxiPyUKRfae7GNOFiX99+ZlB27P3t8CjtSO831Ij0Ip
+ QrfooZ21YVlUKw0Wy6Ll8EyefyrEYSh8KTm8dQj4O7xxvdg865TLeLpho5PwDRF+/mR3qi8CdGbkE
+ c4pYZQO8UDXUN4S+pe0aTeTqlYw8rRHWF9TnvtpcNzZw==
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.60.2 (3.60.2-1.fc44) 
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <e61df396-356f-4ef2-9c3a-db3c05cb5c52@linux.alibaba.com> <asA7ixFlhNJpANoR@google.com>
-In-Reply-To: <asA7ixFlhNJpANoR@google.com>
-From: Josh Don <joshdon@google.com>
-Date: Mon, 5 Oct 2026 00:20:13 +0200
-X-Gm-Features: AclHuK_mrhmx5Nw1OfCHCYw_l507ZApaU7MPipokAeot-vC-4w_HOGNToVZP06A
-Message-ID: <CABk29Nu5rnd3wZq8XR5Q3BA2dQzT68hHSv1JihxT3V6GTSyRHw@mail.gmail.com>
-Subject: Re: [PATCH v2] x86/kvm: introduce pv idle time
-To: Sean Christopherson <seanjc@google.com>
-Cc: He Rongguang <herongguang@linux.alibaba.com>, pbonzini@redhat.com, tglx@kernel.org, 
-	mingo@redhat.com, bp@alien8.de, dave.hansen@linux.intel.com, hpa@zytor.com, 
-	vkuznets@redhat.com, geert@linux-m68k.org, sammiee5311@gmail.com, 
-	lirongqing@baidu.com, schuster.simon@siemens-energy.com, kai.huang@intel.com, 
-	shannon.zhao@linux.alibaba.com, x86@kernel.org, kvm@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, Vineeth Pillai <vineeth@bitbyteword.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
 
-On Sat, Oct 3, 2026 at 1:17=E2=80=AFAM Sean Christopherson <seanjc@google.c=
-om> wrote:
->
-> +Vineeth and Josh
->
-> On Tue, Jul 21, 2026, He Rongguang wrote:
-> > Hi, this patch introduces a PV mechanism for guests to publish their
-> > vCPU idle state and accumulated idle time to the host. This allows
-> > the host to efficiently determine whether a vCPU is currently in its
-> > idle loop, and knows vCPU idled for how long. QEMU patch and ARM64
-> > support patch will follow in a subsequent series.
-> >
-> > The guest writes a GPA pointing to a struct kvm_idle_time via
-> > MSR_KVM_PV_IDLE_TIME. When entering idle, the guest sets the flag field
-> > to KVM_PV_VCPU_IDLE. On idle exit, it clears the flag back to
-> > KVM_PV_VCPU_RUNNING and adds the elapsed idle duration to idle_accum
-> > (in nanoseconds).
-> >
-> > The host can read the flag at any time through
-> > kvm_arch_is_vcpu_pv_idle() to make better scheduling or resource
-> > allocation decisions. For example, host may overcommit those vCPUs
-> > which are mostly idle. An in-guest agent may be absent, or may not
-> > report the status in time.
-> >
-> > The accumulated idle time provides visibility into per-vCPU usage for
-> > monitoring purposes. An in-guest agent can report VM CPU usage, but
-> > this PV mechanism allows the host to obtain guest CPU usage even when
-> > no agent is installed. This is especially helpful when the hypervisor
-> > enables exitless-hlt/mwait (for better guest performance) or when the
-> > guest uses idle halt-polling, both of which make QEMU vCPU thread usage
-> > deviate from the actual in-guest vCPU usage.
-> >
-> > This feature is advertised via KVM_FEATURE_PV_IDLE_TIME in CPUID leaf
-> > 0x40000001. Guests enable it by writing the appropriate MSR during
-> > initialization, similar to the existing steal time mechanism.
-> >
-> > Signed-off-by: He Rongguang <herongguang@linux.alibaba.com>
-> > ---
-> > v2:
-> > - grab kvm->srcu in kvm_arch_is_vcpu_pv_idle() before calling into
-> >   kvm_read_guest_offset_cached().
-> > - return KVM_MSR_RET_UNSUPPORTED instead of 1 in MSR handling if
-> >   !guest_pv_has(feature).
-> > - in set MSR handling, set vcpu->arch.pv_idle_time.msr_val after
-> >   kvm_gfn_to_hva_cache_init() return success.
-> > - in kvm_arch_is_vcpu_pv_idle(), remove ghc->memslot check, let
-> >   kvm_read_guest_offset_cached() handle it.
-> > - in kvm_arch_is_vcpu_pv_idle(), no need to use struct kvm_idle_time
-> >   local variable, it is too big, just use __u64 flag is enough.
-> > - remove some straightforward code comments.
-> >
-> > v1:
-> > -
-> > https://lore.kernel.org/kvm/36863cf7-61b9-4885-946d-1608179fcab4@linux.=
-alibaba.com/T/#u
-> > ---
-> >  arch/x86/include/asm/kvm_host.h      |  7 +++
-> >  arch/x86/include/asm/kvm_para.h      | 19 ++++++++
-> >  arch/x86/include/uapi/asm/kvm_para.h | 24 ++++++++++
-> >  arch/x86/kernel/kvm.c                | 68 +++++++++++++++++++++++++++
-> >  arch/x86/kernel/process.c            |  7 +++
-> >  arch/x86/kvm/cpuid.c                 |  3 +-
-> >  arch/x86/kvm/x86.c                   | 69 ++++++++++++++++++++++++++++
-> >  7 files changed, 196 insertions(+), 1 deletion(-)
->
-> I really, really, reaaaaally don't want to take on any (more) PV scheduli=
-ng ABI
-> in KVM, if possible.  And I definitely don't want to take a bunch of one-=
-off
-> hooks, e.g. for idle tracking and then for something else a few months/ye=
-ars
-> later.
->
-> Vineeth and Josh are working on PV scheduling via sched_ext and I assume =
-additional
-> communication channels.  I'm guessing idle state is one of the things tha=
-t'll get
-> communicated to the host?  I don't know the exact status of their work, b=
-ut they've
-> got a slot in the sched_ext MC at LPC:
->
-> https://lpc.events/event/20/contributions/2482
+On Fri, 2026-09-25 at 10:48 +0200, Nikola Ciprich wrote:
+> Hi,
+>=20
+> I've been hunting a weird memory corruption bug for the last few
+> weeks,
+> without success so far, so I'd like to report it and kindly ask for
+> help.
+>=20
+> We first hit it after a live VM migration between two KVM hosts:
+> suddenly some dynamic libraries in the host appeared to be corrupted:
+>=20
+> Inconsistency detected by ld.so: ../sysdeps/x86_64/dl-machine.h: 548:
+> elf_machine_rela_relative: Assertion `ELFW(R_TYPE) (reloc->r_info) =3D=3D
+> R_X86_64_RELATIVE' failed!
+>=20
+> (Later we also hit this with libcrypto.so.3 etc.) The files on disk
+> were OK; the problem seemed to exist only in RAM.
+>=20
+>=20
 
-Thanks Sean, yea this looks achievable though the pvsched framework.
-Note that usage of sched_ext is not a requirement. For something like
-this idle time tracking, it would be trivial to extend the pvsched
-guest component, which already tracks guest scheduling state changes
-via guest context switch.
+> I suspect two subsystems that have seen a lot of changes:
+>=20
+> - transparent hugepages
+> - NUMA balancing
+>=20
+THP has a recent patch that may be relevant:
+
+https://lore.kernel.org/all/20260903031608.1194238-1-vernon2gm@gmail.com/
+
+> As a safety measure, we've disabled THP and NUMA balancing on all
+> hosts.
+
+Does the issue still happen with THP and NUMA balancing disabled?
+
+>=20
+> [1924553.414736] Oops: general protection fault, probably for non-
+> canonical address 0xfffffff0c930038: 0000 [#1] SMP NOPTI
+
+This is more than a little curious. That does not look
+like a normal kernel address.
+
+Documentation/arch/x86/x86_64/mm.rst confirms:
+
+   fffffc0000000000 |   -4    TB | fffffdffffffffff |    2 TB | ...
+unused hole
+                    |            |                  |         |
+vaddr_end for KASLR
+   fffffe0000000000 |   -2    TB | fffffe7fffffffff |  0.5 TB |
+cpu_entry_area mapping
+   fffffe8000000000 |   -1.5  TB | fffffeffffffffff |  0.5 TB | ...
+unused hole
+   ffffff0000000000 |   -1    TB | ffffff7fffffffff |  0.5 TB | %esp
+fixup stacks
+   ffffff8000000000 | -512    GB | ffffffeeffffffff |  444 GB | ...
+unused hole
+   ffffffef00000000 |  -68    GB | fffffffeffffffff |   64 GB | EFI
+region mapping space
+   ffffffff00000000 |   -4    GB | ffffffff7fffffff |    2 GB | ...
+unused hole
+   ffffffff80000000 |   -2    GB | ffffffff9fffffff |  512 MB | kernel
+text mapping, mapped to physical address 0
+   ffffffff80000000 |-2048    MB |                  |         |
+   ffffffffa0000000 |-1536    MB | fffffffffeffffff | 1520 MB | module
+mapping space
+   ffffffffff000000 |  -16    MB |                  |         |
+      FIXADDR_START | ~-11    MB | ffffffffff5fffff | ~0.5 MB | kernel-
+internal fixmap range, variable size and offset
+   ffffffffff600000 |  -10    MB | ffffffffff600fff |    4 kB | legacy
+vsyscall ABI
+   ffffffffffe00000 |   -2    MB | ffffffffffffffff |    2 MB | ...
+unused hole
+
+That address is in the unused hole between EFI
+region mapping space, and kernel text mapping.
+
+That is not an address that should be overly
+affected by TLB flushes, since the kernel never
+maps anything there, and never has anything to
+flush at that address, either.
+
+> [1924553.434800] CPU: 23 UID: 189 PID: 7538 Comm: pacemaker-contr
+> Kdump: loaded Tainted: G=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0 E=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 6.18.44lb9.01 #1
+> PREEMPT(voluntary)
+> [1924553.456934] Tainted: [E]=3DUNSIGNED_MODULE
+> [1924553.465551] Hardware name: ASUSTeK COMPUTER INC. RS720A-E12-
+> RS12/K14PP-D24 Series, BIOS 2305 11/21/2025
+> [1924553.484152] RIP: 0010:__d_lookup+0x4a/0xc0
+> [1924553.492878] Code: ff 48 89 c5 c1 e8 07 48 8d 1c c2 e8 60 8f d1
+> ff 48 8b 03 48 89 c3 48 83 e3 fe 48 83 f8 01 77 0a eb 2f 48 8b 1b 48
+> 85 db 74 27 <39> 6b 18 75 f3 4c 8d 63 78 4c 89 e7 e8
+> d5 e1 7c 00 4c 39 6b 10 74
+> [1924553.525191] RSP: 0018:ff7532a13699fda0 EFLAGS: 00010212
+> [1924553.534986] RAX: 0fffffff0c930020 RBX: 0fffffff0c930020 RCX:
+> 0000000000000000
+
+Which suggests it's probably following a bad
+pointer in __d_lookup.
+
+The dcache is allocated with kmalloc, and lives
+in the kernel linear mapping. That is also not
+a range where TLB flushes commonly happen, except
+as a side effect of global flushes, or changes in
+kernel mapping size (CPA flushes).
+
+The filename lives in kernel stack memory, which
+is often allocated with vmalloc. I'm not aware of
+any recent vmalloc TLB issues, but maybe somebody
+else knows something?
+
+By the time memory is allocated to be used as a
+kernel stack, the previous users of those pages
+should be long gone.=C2=A0
+
+This does not feel like the INVLPGB bug, which
+has a very short race window.
+
+Lorenzo's CPA explanation seems like the most
+likely right now.
+
+If it still happens with that fix applied, we
+need to do more digging.
+
+--=20
+All Rights Reversed.
