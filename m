@@ -1,89 +1,46 @@
-Received: from mo4-p01-ob.smtp.rzone.de (mo4-p01-ob.smtp.rzone.de [81.169.146.164])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 54D95360EF0;
-	Sun,  4 Oct 2026 10:10:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=81.169.146.164
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791108662; cv=pass; b=axLSUwtQ0PM7+fIhGaCW/TI8oFGpfCdzSO9biLopROUneSb1tp7QNZfFZ+g9yK47/Bj+VtxMDWOP6A0xW1EjxJFkhuYXWrbPJR5+4/EP9G4+6dKxtzky8Z6klB7UmPQHgzZuyeIjEb56NHJZjddIJTb8TApbi83kG0bH2UHVRqs=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791108662; c=relaxed/simple;
-	bh=37n/ScR6J0FLKpn6j0oLLFJDr7TVcgDbhPeXvOMF2g8=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=BzDbV+LzsDsSAbz3OAxK0mbXgXZ7xs2SV0g4mOAfOQeUKyuUaiHqMuWkLwhHaMhmOBYZVx4a8O1JMqP7h6B3lYwro2hjrH8/u7qZVFgkIWAPKk4xuqsm3H0nm74aW+0+00BtMGOwUDhYrmuoWcF/RaLCHZcEkB3BjO9MEiNbTYg=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=iokpp.de; spf=none smtp.mailfrom=iokpp.de; dkim=pass (2048-bit key) header.d=iokpp.de header.i=@iokpp.de header.b=fYW52qoH; dkim=permerror (0-bit key) header.d=iokpp.de header.i=@iokpp.de header.b=AIy79FH3; arc=pass smtp.client-ip=81.169.146.164
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=iokpp.de
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=iokpp.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 60319360EF0;
+	Sun,  4 Oct 2026 10:11:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791108695; cv=none; b=kSn9jpGx6xzrCq4QAbPk5pi5flbqn1jwQgpGXmx2XQ83aTOoXueqz8bZJ313aeyBHLEnNgf/LwZinFQsLgr046n1Tq/t1sbwW2wEz08r6XRmxIw6Q/Hks819B1gmvBEbqRsisXRhN5Cghcy6Ytp5C9ckwxfJ4vq5W+3QJZ99WjY=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791108695; c=relaxed/simple;
+	bh=btjxOFBncYcxeFTQHEr93pMLtej9EhJUaEBzY4YpKfc=;
+	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=ePa+k9I5uHc5ZnkgqsI9XJ6CduBQ2DC9w8L8Qh+HvXRgJxN2w1bkFRx9I6LjjlSwHXQl9UwEkllyUT5kXxdupwOFJ76x2L2mViB9bqirm96zJQ9zErLlrHj/EmVVLuyUJ1LngkZLjdVEgkB3VOBODNw9+Nq40AJIIkpYJQANoiQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BHXXpBnV; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=iokpp.de header.i=@iokpp.de header.b="fYW52qoH";
-	dkim=permerror (0-bit key) header.d=iokpp.de header.i=@iokpp.de header.b="AIy79FH3"
-ARC-Seal: i=1; a=rsa-sha256; t=1791108650; cv=none;
-    d=strato.com; s=strato-dkim-0002;
-    b=lQflxtnLx0EfQW9sVXJR2hWWyAxzhRMDstsjgGSwb3l6/8ambNWy/iGvBqkXmfYJbQ
-    nZCYWFuW4UTpeKkx9uq6IkCRUOMjo0al+eIBNILf72lHXkpe9RYg2OKwR7FkyqeuLL4m
-    d01X6kgFw3zgHvGdTRtpMfyc6A6g9kVpu+Nw+EX53eWjQAUouytt3uD7zw3fgG4OqXpb
-    xkPM4wNwzF8mwnHcUKpwj0clPlL0ANoGpsBp00BUEeGkrDHN7ouunWWnDx8uU1skuFb4
-    OTLX38dNrajafdWf0QV5obuaA9/0WK5P0QQeT/R7i59ueNpiyMWlY6letIJHDuh9Mbis
-    ITfQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; t=1791108650;
-    s=strato-dkim-0002; d=strato.com;
-    h=References:In-Reply-To:Date:Cc:To:From:Subject:Message-ID:Cc:Date:
-    From:Subject:Sender;
-    bh=37n/ScR6J0FLKpn6j0oLLFJDr7TVcgDbhPeXvOMF2g8=;
-    b=MusQefUN2bZ8+GXFFh+78pOW/qVyg33EYovjcBE3CoMK9axe9iBZYaIot+VpTJkhsB
-    QRIMgMHJrzwaasulBdE797ZRQqXe4H5ji3yC3OVKyE1vHGh658bLkuGFdHZvXbIMxASX
-    dhEaex2ihUNfybeh04fpiTWOJ/vzcnvvaQyYGLl8F1cHCALtjDa0jl1hW9POIUAGrZa5
-    ntypdzRtEv+00GlsJ4NdonWj5BUB2Lx7ctmKHPi0/oRyMyda+n0dX0IZJhJGoNEJ1Y+R
-    zWGlrSgeK0fXa8c8zUoI2sA5v2/NR0/9q+1K+1z1CxeyBeS6ju4+oFGYqVrNtBsklZpG
-    DSwg==
-ARC-Authentication-Results: i=1; strato.com;
-    arc=none;
-    dkim=none
-X-RZG-CLASS-ID: mo01
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1791108650;
-    s=strato-dkim-0002; d=iokpp.de;
-    h=References:In-Reply-To:Date:Cc:To:From:Subject:Message-ID:Cc:Date:
-    From:Subject:Sender;
-    bh=37n/ScR6J0FLKpn6j0oLLFJDr7TVcgDbhPeXvOMF2g8=;
-    b=fYW52qoH4h+lveTfwxbXKV4ddEHCYuhSh4JFJYoOwAXM79BZ3z0VYm8bEVBWFRjl3j
-    55TIH6jzFcyoubda+hxK7+nXlvdBWhIDu5sutn5fOxskGaYLwlgn3go8Ku3he9/fmhFO
-    9oOmq9DtPenJELgj5+aAF1vZWUSzMmkY3MIyVxRcH5PSQJ1demLOJ8P0s2HfQmIoaiRP
-    ++4jJfI+vo0eQAihEQzfhdyBP2+lTnT3mAyybA6amDhvFZxHbsKQ+rjMlCSj340OOLqN
-    f8TcyWNgEnIiv8AaVx00yxh8WtFRqFRYXdqMp01KF7t/yWivkjlLF+YU3R7wZDg5qODZ
-    pnYA==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; t=1791108650;
-    s=strato-dkim-0003; d=iokpp.de;
-    h=References:In-Reply-To:Date:Cc:To:From:Subject:Message-ID:Cc:Date:
-    From:Subject:Sender;
-    bh=37n/ScR6J0FLKpn6j0oLLFJDr7TVcgDbhPeXvOMF2g8=;
-    b=AIy79FH3O7P1j5hVy0FVrT3MCRe7VR+A1TGBPY1S8jDpk3gZegHGjQde1mHWur3XRT
-    WVGJAyAUuP2RkGT3u7CA==
-X-RZG-AUTH: ":LmkFe0i9dN8c2t4QQyGBB/NDXvjDB6pBSe9tgBDSDt0V0zNriHg+YfT0rGeWpIGzMAy/YE6epPbif4XeXVBNcpBUndJue98="
-Received: from p200300c587368422312fd651734ded34.dip0.t-ipconnect.de
-    by smtp.strato.de (RZmta 55.6.2 AUTH)
-    with ESMTPSA id z04e1c294AAoM9C
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256 bits))
-	(Client did not present a certificate);
-    Sun, 4 Oct 2026 12:10:50 +0200 (CEST)
-Message-ID: <481d737323a2925e68f08e1129e1ca904effbea5.camel@iokpp.de>
-Subject: Re: [PATCH] MAINTAINERS: Remove Avri Altman as UFS reviewer
-From: Bean Huo <beanhuo@iokpp.de>
-To: Avri Altman <Avri.Altman@sandisk.com>, Stanley Jhu
- <stanleyjhu@google.com>,  Bart Van Assche <bvanassche@acm.org>
-Cc: "Martin K . Petersen" <martin.petersen@oracle.com>, Alim Akhtar
-	 <alim.akhtar@samsung.com>, "James E . J . Bottomley"
-	 <James.Bottomley@hansenpartnership.com>, "linux-scsi@vger.kernel.org"
-	 <linux-scsi@vger.kernel.org>, "linux-kernel@vger.kernel.org"
-	 <linux-kernel@vger.kernel.org>
-Date: Sun, 04 Oct 2026 12:10:49 +0200
-In-Reply-To: <BL3PR16MB4473EF5053283779F18B4161E5972@BL3PR16MB4473.namprd16.prod.outlook.com>
-References: <20260930135947.2339918-1-stanleyjhu@google.com>
-	 <2fbff86c-f276-4e46-b7d3-549461706d37@acm.org>
-	 <20261002134158.2844652-1-stanleyjhu@google.com>
-	 <BL3PR16MB4473EF5053283779F18B4161E5972@BL3PR16MB4473.namprd16.prod.outlook.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.44.4-0ubuntu2.1 
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BHXXpBnV"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 41CC51F000FF;
+	Sun,  4 Oct 2026 10:11:33 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791108694;
+	bh=CkSaGWts0W4FuW/tGrCciXI8NMI5AFPyJYFUhRRfSWY=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=BHXXpBnV4T4M2ffN2oYCNvYAIwO9HQDmS3AjdA/56LPsmbvxoUrZWasOo5KQTvvr9
+	 zKW/5w/vdH12cMqIz1eG/IHP3cvnijatqlmz2O5leHG8v5PlU66GCb71Kvqs9rhcUM
+	 9EzfQr7a2KJ6UEP3RyUwKU2w1l8OxeuTX7ZMEws9UqBbtbv82DlvqPXjUHnSm/HbXS
+	 Z9KZXPfRsgvMeGmbeD9TfZx305wekzVCCReErQLgaKErUZrya0Ny5giHoyuYIXFx63
+	 Bj8JQXxZgu0dEh1MJZgk49dS6RRUvD7xksf7wjkBlcW5f4MbGW7XmfrAw8B8Pi/UQ6
+	 vQWh9wj3mkpFg==
+Subject:
+ Re: [PATCH net-next v2 2/2] selftests: net: big_tcp_tunnels: Cover bareudp
+From: netdev-bot+sashiko@kernel.org
+To: yanhaishuang@cmss.chinamobile.com
+Cc: netdev@vger.kernel.org, alice.kernel@fastmail.im, daniel@iogearbox.net,
+ andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@kernel.org,
+ kuba@kernel.org, pabeni@redhat.com, shuah@kernel.org,
+ linux-kselftest@vger.kernel.org, linux-kernel@vger.kernel.org
+Date: Sun, 04 Oct 2026 10:11:32 +0000
+Message-ID: <179110869274.434549.7292617532752243045@kernel.org>
+In-Reply-To: <20261003100939.468181-3-yanhaishuang@cmss.chinamobile.com>
+References: <20261003100939.468181-3-yanhaishuang@cmss.chinamobile.com>
+X-sashiko-severity: High
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -91,21 +48,172 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 
-On Sun, 2026-10-04 at 08:21 +0000, Avri Altman wrote:
->=20
-> > It was off-list. I asked Avri on Sep 29 about updating the bouncing wdc=
-.com
-> > address, and he asked to be removed as a reviewer instead.
-> >=20
-> > Avri, could you reply with your Acked-by?
-> Acked-by: Avri Altman <avri.altman@sandisk.com>
->=20
-> Stanley thanks - sorry for my late response.
-> I do feel that the reviewer role is no longer needed for the ufs driver.
->=20
+Thank you for your contribution! Sashiko AI review found 3 potential
+issue(s) to consider.
 
-A sad day for the UFS driver, we=E2=80=99ve just lost a brilliant reviewer!
+Critical: 0 · High: 1 · Medium: 0 · Low: 2
 
-> Thanks,
-> Avri
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
 
+- [High] Seven of the twelve new bareudp test cases cannot pass, so
+  tools/testing/selftests/net/big_tcp_tunnels.sh now always fails.
+- [Low] Comments in tools/testing/selftests/net/big_tcp_tunnels.sh do not
+  match the new coverage.
+- [Low] The return status of the new bareudp setup commands is never
+  checked.
+
+--
+
+selftests: net: big_tcp_tunnels: Cover bareudp
+
+This patch adds bareudp to the tunnel types tested by big_tcp_tunnels.sh.
+The bareudp devices run in external mode with ethertype ipv4 multiproto. A
+tc tunnel_key action on egress supplies the tunnel metadata, and the device
+MTU is lowered to leave room for the IPv6 and UDP headers.
+
+> diff --git a/tools/testing/selftests/net/big_tcp_tunnels.sh b/tools/testing/selftests/net/big_tcp_tunnels.sh
+> index cc0875e52fb9..cf38377f576b 100755
+> --- a/tools/testing/selftests/net/big_tcp_tunnels.sh
+> +++ b/tools/testing/selftests/net/big_tcp_tunnels.sh
+> @@ -53,6 +53,16 @@ setup() {
+>  	DEFAULT_TCP_MIN_TSO_SEGS=$(ip netns exec "$CLIENT_NS" sysctl -n net.ipv4.tcp_min_tso_segs)
+>  }
+>  
+> +# bareudp only works in external mode: attach the tunnel metadata to all
+> +# packets sent through the device. Its MTU does not account for the
+> +# encapsulation either, so leave room for IPv6 and UDP headers.
+> +setup_bareudp() {
+> +	ip -netns "$1" link set "$2" mtu 1452
+> +	tc -netns "$1" qdisc add dev "$2" clsact
+> +	tc -netns "$1" filter add dev "$2" egress matchall \
+> +		action tunnel_key set src_ip "$3" dst_ip "$4" id 0 ttl 64
+> +}
+
+[Severity: Low]
+Should failures from these commands be passed back to the caller?
+setup_bareudp() ignores the exit status of ip link set, tc qdisc add and tc
+filter add. The same is true of the ip link add ... type bareudp ...
+multiproto calls in setup_tunnel().
+
+The exit status of setup_tunnel() comes from its last command:
+
+    ip netns exec "$SERVER_NS" ethtool -K link1 tx-checksumming "$3" > /dev/null
+
+As a result, setup_tunnel ... || exit "$?" never sees these failures. The
+new tc -V check only shows that the tc binary exists. It does not show that
+matchall or tunnel_key work.
+
+Without the tunnel_key filter, bareudp_xmit() drops every packet:
+
+drivers/net/bareudp.c:bareudp_xmit() {
+    ...
+	info = skb_tunnel_info(skb);
+	if (unlikely(!info || !(info->mode & IP_TUNNEL_INFO_TX))) {
+		err = -EINVAL;
+		goto tx_error;
+	}
+    ...
+}
+
+The test then reports a packet-count FAIL rather than a SKIP or a clear
+setup error. The vxlan and geneve setup ignores errors in the same way.
+
+> @@ -64,26 +74,42 @@ setup_tunnel() {
+
+[ ... ]
+
+> +	bareudp)
+> +		ip -netns "$CLIENT_NS" link add tun0 type bareudp \
+> +			dstport 6635 ethertype ipv4 multiproto
+> +		setup_bareudp "$CLIENT_NS" tun0 "$CLIENT_IP" "$SERVER_IP"
+> +		;;
+> +	esac
+
+[Severity: High]
+Can the bareudp cases that use IPv6, inner or outer, with csum offload off
+pass in this configuration?
+
+With tx-checksumming off on link0, every encapsulated GSO skb is segmented
+in software by skb_udp_tunnel_segment(). That function chooses the inner
+handler based on skb->inner_protocol:
+
+net/ipv4/udp_offload.c:skb_udp_tunnel_segment() {
+    ...
+	case ENCAP_TYPE_ETHER:
+		protocol = skb->inner_protocol;
+		gso_inner_segment = skb_mac_gso_segment;
+    ...
+}
+
+On the IPv4 underlay, bareudp_xmit_skb() always stores the configured
+ethertype. It does this even for IPv6 inner traffic in multiproto mode:
+
+drivers/net/bareudp.c:bareudp_xmit_skb() {
+    ...
+	skb_set_inner_protocol(skb, bareudp->ethertype);
+    ...
+}
+
+The IPv6 header is then handed to inet_gso_segment(). There, iph->ihl * 4
+reads the low nibble of the first IPv6 byte, and the ihl < sizeof(*iph)
+check fails.
+
+On the IPv6 underlay, bareudp6_xmit_skb() never sets inner_protocol. The
+field stays 0, so skb_mac_gso_segment() fails:
+
+net/core/gso.c:skb_mac_gso_segment() {
+    ...
+	__be16 type = skb_network_protocol(skb, &vlan_depth);
+
+	if (unlikely(!type))
+		return ERR_PTR(-EINVAL);
+    ...
+}
+
+In both cases validate_xmit_skb() drops the GSO skbs. The bigtcp iptables
+counter on tun1 stays below packets_threshold, and do_test ... || exit "$?"
+stops the run at the first such case: bareudp, tun_family 4,
+traffic_family 6, csum off.
+
+vxlan and geneve are not affected because they set inner_protocol to
+ETH_P_TEB.
+
+This driver behaviour is older than this series. The previous patch,
+"bareudp: Enable BIG TCP packets", only raises tso_max_size and does not
+change it. As a result, the commit message goal to "run the same checks
+over bareudp as for vxlan and geneve" cannot be met as written.
+
+Could the bareudp inner_protocol handling be fixed first? That would mean
+setting it from the actual inner protocol, and also setting it on the IPv6
+path. Alternatively, the bareudp combinations could be limited to the
+cases that work.
+
+[ ... ]
+
+> @@ -205,7 +236,7 @@ fi
+>  WORKDIR=$(mktemp -d)
+>  trap cleanup EXIT
+>  setup
+> -for tunnel in vxlan geneve; do
+> +for tunnel in vxlan geneve bareudp; do
+
+[Severity: Low]
+This isn't a bug, but the comment at the top of the file still reads:
+
+# Testing for IPv4 and IPv6 BIG TCP over VXLAN and GENEVE tunnels.
+
+Should it mention bareudp now?
+
+The comment in do_test() is also out of date:
+
+	# packet to veth. Check BIG TCP packets inside the VXLAN tunnel to verify
+
+That branch runs for every tunnel type. The wording was already wrong once
+geneve was added, and adding bareudp makes it more misleading.
+
+-- 
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261003100939.468181-1-yanhaishuang%40cmss.chinamobile.com
