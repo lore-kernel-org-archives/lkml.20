@@ -1,267 +1,193 @@
-Received: from mail-ed1-f54.google.com (mail-ed1-f54.google.com [209.85.208.54])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C93CE391E72
-	for <linux-kernel@vger.kernel.org>; Sun,  4 Oct 2026 15:24:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.54
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791127482; cv=pass; b=H+Uu6H8hclPYmArgMfhbjlccyiXhCvc3ujkOFd+/WsLnuSMie3zPa6KP4kuRF4ukFzQKPzjd4Ewr9yy2GbC2CVYk+TQfeBD6Nfr2fPq9E/BDtOrhHzy5Rhl5yfJAw25G01AHgzwTMfMh+QHC/dqPqq4hbXYoUsXuO7BFfl05CZs=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791127482; c=relaxed/simple;
-	bh=zfERZtRz42NzMBBtXEPZ9R5a4EowuoieHt1vhQ/10JM=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=aPo98wKkO/FiAI4+1PBRpYCFOy1Th7UL1PTiuOsJ2fbMpnjLtX0bvl4YsiHri7DBooLT0AlOEYdEHd98i7oNQnJvzghWGR9tj4G4DjDlvieZ/Q9T9GRwiDn/S5NVZdCgP6eQYVK75y3REraBeSLOkFcjUO6UVQUsGzm5Ri3L0N4=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=kfG4nfR1; arc=pass smtp.client-ip=209.85.208.54
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 505FB39A06F
+	for <linux-kernel@vger.kernel.org>; Sun,  4 Oct 2026 15:26:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791127600; cv=none; b=QDTxMeC2kNZDyuDYLO/EDj8sYUWhlvRby5HsNr2Si5RSPEewzD4NDM0Z3aHd7rWivWEbF5Srtgsibb8VVH3HNaGofxwmhJ4KI5rHSke+l7I99n3nG1RFn/aml504Z1gV/eFAY3KyD5pMHk1HYk1yWBi4UdWDOZ3VLc19M3uNh4E=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791127600; c=relaxed/simple;
+	bh=2ch5mNrtmdxQSOSuWG7L73peId4LUbCNr87Fa7anJjI=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=cOIVv7edQNEgV440TlRQTZrv+x7OEc1St+uAuqd2WAiFgs1ByTQX5WJTpGl1u3Pk/CaBU3i+0X7Sx5S5DuYZ3unkPW/QmXsyLilZbKNdt3uDbfXuIaxhs0VQyoyE9pa4RXSFwys3NhxQGMH7LpQJUNBBhozFQ1kTRhfcevkDjp4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=n9J14xJJ; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=dEw3Qlq0; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="kfG4nfR1"
-Received: by mail-ed1-f54.google.com with SMTP id 4fb4d7f45d1cf-6af9befd04cso1390848a12.2
-        for <linux-kernel@vger.kernel.org>; Sun, 04 Oct 2026 08:24:40 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1791127479; cv=none;
-        d=google.com; s=arc-20260327;
-        b=WXCSjOETvMWw30ZVCoG/Oeb2vagCfpdXfSR1dbUzMd1TPOq4YMXlFv26+C9x7UvpCe
-         KKMh6ZcaBTRamhFWY96/KVdJ0d/dRnTo4KjihC5fFhb2j7eHGguh+HSH7IVnCpS+OhHd
-         q3JGVrVdsOCKhx6+To33fmnuN5WokzPL3MleRAj2p3xzPo1gzadGXGGdG1GeRL4IuDjd
-         pArvLj1gIciK3UDVvjaR0dXxho358KdPJ6jeHek22x5zVNCcaKI39SxpDB4lOcBG8xR6
-         E8L8jxPoCnieDgIG/+qfA4//p2kISm0z23XpSVyLW1Y+AC+8+0uwDgbn0Jjw31aTjCPF
-         ePTA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=yUFgvHBaR611JuCHX8PR9qGQAU8yeWMF6UssxzuViXQ=;
-        fh=wI1kgTqTbRSr7cFukYEDqv37zHbB/3GtQAw5uYMZAT4=;
-        b=specvzw1uwBziySF4L5Dq81D7cTG3tmkJdkKTxA70wS9HXJi/+On25gRyBa3boeROQ
-         SpjD6zcpuCQYud/MjoMxyBy3OTxQpuFLA1eIuHjFtGI8wORed0D6oH6d5vY/VyI/DYcI
-         TL6ZNtIHYiVgAtvUOlxQxDgsIb1kJQJeqlh8LaPtXOGnc+OWPh2r+TKGK1jjp7z42e3E
-         ZcHeJyPn1rY0B9GRIpymuLSBWsnC3s7F92a/o+rEKycgohYo1MiM7xhJMTnt2hslE6G7
-         UOiYjA/ePRvI7V/7wXQfYE0ile1VJlrDzlyo4HPUxq2pYYYV41zjwyXDOY6Z4RoE7G84
-         k+FQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="n9J14xJJ";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="dEw3Qlq0"
+Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 694EeH8Y3725850
+	for <linux-kernel@vger.kernel.org>; Sun, 4 Oct 2026 15:26:38 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=qcppdkim1; bh=At3ebrOXbtof0F5P/wwaDdSx
+	0o6qxJSpe5weBws8clA=; b=n9J14xJJN1lWY7nq48Qr6iqgFLhmCX0YPV32RQii
+	eWSplHy/WAEVZLxezJ5V5sIob28dYHxEyb9EHDSzB/fmXetCV6wRc68ROQkqDVo1
+	md6g7n8mvu+/GyfN2iz52C0o7IiuWYCXWJJEoAbLRyhHZlj1qyXFr+KxTsvoPOM6
+	Nei2sgYnKkVolyOapJKnya6W9uLEus9iCq6rfTHh4iAXXKwvXC2Zj37cNHALWh48
+	eYMnOwtCPSPxRfdhngAdaNyKSfs4A0I4Qtd3kBvNfUlXH1fXnKbej2+aQGpo5YRH
+	kI/lS0e+AhsZTgX52U3jhOsNdk/XAxhXJMenL8nM1lnanw==
+Received: from mail-dy1-f198.google.com (mail-dy1-f198.google.com [74.125.82.198])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h2spa39j6-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Sun, 04 Oct 2026 15:26:38 +0000 (GMT)
+Received: by mail-dy1-f198.google.com with SMTP id 5a478bee46e88-34ef5fd7934so3018897eec.0
+        for <linux-kernel@vger.kernel.org>; Sun, 04 Oct 2026 08:26:37 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791127479; x=1791732279; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+        d=oss.qualcomm.com; s=google; t=1791127597; x=1791732397; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=yUFgvHBaR611JuCHX8PR9qGQAU8yeWMF6UssxzuViXQ=;
-        b=kfG4nfR1qWOn2/f1Rs4K2CHsIKHlIHQPcyewZjfrjRWiP78ikoHzQhjQWMymOTwq00
-         KeZT0AoiTnDDsYmRdwN3fxYU6hRUKbx+hvDBWiU+RcPtPOeHoULpti0kMtPy5wG2BwqB
-         QmKLkVoUJLxc77WPWY7nvY+/bw1Q8r1rOnRHa2XiCqJnqC7o5apNz39zTc5xO7eVSIhY
-         ukAPKKk71SbLELQDv5lf3uJ8izAcgCD2UqsXaFp9bPp3cWM0VibLNCVuioHWFntEAgOo
-         FCOFzvbD9Lu3czjg9bcuRioOg3jxhf3QZRNXWzrIsszHaHk2TAsByZIQrpeRwPqIlWvf
-         cHbQ==
+        bh=At3ebrOXbtof0F5P/wwaDdSx0o6qxJSpe5weBws8clA=;
+        b=dEw3Qlq0CQ26qdBAdLnCKo/E9X9JSzrt3DMfMJAeUu0n6+OPYR73L2jtlAVQWLbqka
+         dUPO9UJMkLSqhpnLkscoJWWDZ/i82h8QHdfIi5aINaCaIztMTf8i2ZO9+wzv3wZN1hlA
+         D2n8Edsi89vrqhPwc/B5O7XK2SwSsqK1F+ZauIOyoUQaCbTgqjixdoBJ8YOvLQgYEeaH
+         v0eixO2dDdzMTBkeQP0Q5k8MCXcY5DNE4cL2cb74ypsT6UXDRXO6kJ5wVY9WJhXRIzEi
+         P0Hq2dz/D5dqk39F2d3hQZz0XFFhdJkleBFTA8vBGqKw0gtjgYMdAt7Zb6N0WaMBQ87e
+         0cIQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791127479; x=1791732279;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
+        d=1e100.net; s=20260707; t=1791127597; x=1791732397;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=yUFgvHBaR611JuCHX8PR9qGQAU8yeWMF6UssxzuViXQ=;
-        b=g8+JUYIeT0W85RoIutu8nTRuVBzAvG4HvgtlC5fauzpPp6BtHbHmrQAs13UlL7mAPE
-         UFKyJoyDKy6onudF/f2kR5f8BeAKm8uxbAz778pN6JUJX9LQOa4ecRum+NRFaQvnn44T
-         0gIA4e8VvrMiSZ4tyD5VzatYA30/ZnQvo5D8uBMRR1BSwIdZAUuqJcVK5nMuvwmbl9vg
-         S5yRQ/o24mveVpiN3EjA4diKHZhiAN/RU0CZ6XX8VY98M9ou2Uzl7FjhwpHwo26H5KzY
-         tU5UaWp2PN+gTY7wzSJKyGtcnh+A31OSgltBdbVB6ZGu4OFzxUPRMbD8MKvhrUQn+shu
-         gXKg==
-X-Forwarded-Encrypted: i=1; AKwUvBzDoMqGPAEG1RB82Hj5bLn7h8yNHgdly24a2cgrsEfa85dJcbSmkMVfTwrjQUq3Qfhm/TVz0Qm7J3nbPVg=@vger.kernel.org
-X-Gm-Message-State: AFq9FYL0J72D9ABWs61NCDmvRI/eRQT6fWYMILCneyBXDq+5Zl3dDyXy
-	sZhhiODmVI3owJ7tsLONA2QGdmSKzo2bHeXjizhyeZrS014uw2nVrFMb4xQyhO7hY6t3shRiwUK
-	1gDWSiXfUqRSkoxKGxhyDuOJVcJ9QCgw=
-X-Gm-Gg: AYBFou2vcXh6QqbXGVOFGWmD1kMaLXSpExzCJhEeQmio7kyi8xjzH9CAusLWXwJ99vU
-	VsIBtJuaFn3qACtaRZ97UwtrEKYbEDesFH+/n4swuThVRTr1G9HL1U2XljFWfAR7uAdjU9AD1jo
-	OzE8hm/KZv2p2eYacsko4wK9pOj0EbhXWmKj/bk6176rzZCzGOmQnjWHBxar3aMXomBDMII4OB3
-	cFTHHokrP1TWIhAGs8i9dHXKGCUj+wRe0CQ/D9PsENZ4BNvFXmWU+t9bpatFK74Bs7c2tdLIV61
-	ex6S8VDg6tHoafM4X6KJzs1zCIZAEDNfqo+cqDgVa0GwIoBQ8CYRAjW8D/jcRSKKNNzJMJQKpg4
-	itP/v9yUbX99ZLA9nkNCdfpEo5qYw/5dFQ+x9DOgO/jQ=
-X-Received: by 2002:a05:6402:4547:b0:6ac:a828:c0cc with SMTP id
- 4fb4d7f45d1cf-6afad760efemr3521524a12.4.1791127478724; Sun, 04 Oct 2026
- 08:24:38 -0700 (PDT)
+        bh=At3ebrOXbtof0F5P/wwaDdSx0o6qxJSpe5weBws8clA=;
+        b=Jkin6ktLSp5ELHX5S1tBDKzlq3y8x6fCagyXOwG9DwtIdymT9Qz/5KA9RwQm3w48M6
+         GgRODsL8vsdydVF+YrEQjUD/+H6b2pOX8B4KesZxpqmwPyE5GsNL29pR74BJDCE3iZX0
+         HimDclYiHBk0wD/KfxwoSlwbaowawHR/B7m1PlyD7exDLrUSrZBt0/YsH0+ikaCx+mw4
+         TWXu4QLpsUHnkP/a9qYjfU0VzEJXRXgN9rGW4VECHPLICxFrLCfS8bf7b1NGHLWVSk6U
+         7q4TurAoSuaSYkdz5eybjlWAPZsRPELEKCkXfc6+EpZyL5KCpYz8Y66dVxCctYG2ihtq
+         vMFA==
+X-Forwarded-Encrypted: i=1; AKwUvBw2YzWaf3NSfrjgc0nUx/eSqMti4L+nhiJNBMYUxQYIDx10l4Kg3RKLFvzMEeaZaNM8vf6Otu38c4jS+lI=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKdMNBcsNTDhizRS5wnqKqGsKTeJeyLe/BFPAIHkKzYihKlwJif
+	WMwaMcgjn0YWBZUfbUCwcRKLBbI/ueVZALeNvda2boYC2tzypWmRKuhRWw77o+q5+O9RQ/OP1M+
+	tdkx2xbqYbMlpeiXoU8CnFf96ItLEu5SIs0oTfbE5uaXLSEgcjdVmcOnYsjcgixeFMfTGSMdPnX
+	o=
+X-Gm-Gg: AYBFou3bAe/oKfzlr8w5NM8DGrDZRnMoehPzt4SPb3AZFMjrDm8sy813Eg29rYuA6g/
+	v7MTZnwY/KP+0X5vMwnkxkmi113P74gC5F2UB8/dpniiOBp+Ud8bOx7xUgqzPI2ZIfa0E3JZo2P
+	xiIP+AV2g+ApWNO529pg3OaxR/QDjy0nm5JV4sqo3mJ7act+3f5I5gl773cuyWpokVqXV5c85yA
+	fGbr0hyLn2/Oh9mCukGv2HmQvjBo99ByGcO5zvlGwuR020Ih9Q2ZoTFNawM4+V7ETCVewtYjf7w
+	QF95HmHnLUUtsnd/9vT7UAyxGEixcktW7oQ4vqKUBvMWO0nAv7zylPYStlzkJBGiSpLptfV16aA
+	IZJwxxUlY6sUU16efLhF/l1TPqcIfrEj79zFz3vuj9A==
+X-Received: by 2002:a05:693c:88dc:20b0:351:985:e729 with SMTP id 5a478bee46e88-35109953237mr8368021eec.12.1791127597008;
+        Sun, 04 Oct 2026 08:26:37 -0700 (PDT)
+X-Received: by 2002:a05:693c:88dc:20b0:351:985:e729 with SMTP id 5a478bee46e88-35109953237mr8367993eec.12.1791127596447;
+        Sun, 04 Oct 2026 08:26:36 -0700 (PDT)
+Received: from QCOM-aGQu4IUr3Y (i-global052.qualcomm.com. [199.106.103.52])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3512713c9a6sm5600553eec.5.2026.10.04.08.26.33
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 04 Oct 2026 08:26:35 -0700 (PDT)
+Date: Sun, 4 Oct 2026 23:26:31 +0800
+From: Shawn Guo <shengchao.guo@oss.qualcomm.com>
+To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+Cc: Bjorn Andersson <andersson@kernel.org>,
+        Mathieu Poirier <mathieu.poirier@linaro.org>,
+        Bartosz Golaszewski <brgl@kernel.org>, linux-arm-msm@vger.kernel.org,
+        linux-remoteproc@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] remoteproc: qcom_q6v5_pas: Drop early_boot flag for Nord
+ ADSP
+Message-ID: <asJwJ6cq8FcA0IID@QCOM-aGQu4IUr3Y>
+References: <20260930020745.1940933-1-shengchao.guo@oss.qualcomm.com>
+ <58c1c4a9-afad-4059-ba81-cdcc92d0c5dd@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20261002161515.932316-1-linmag7@gmail.com> <20261002161515.932316-8-linmag7@gmail.com>
- <2026100415-impromptu-sultry-ce6b@gregkh>
-In-Reply-To: <2026100415-impromptu-sultry-ce6b@gregkh>
-From: Magnus Lindholm <linmag7@gmail.com>
-Date: Sun, 4 Oct 2026 17:24:26 +0200
-X-Gm-Features: AclHuK-uAAu0JuOLh2P2vcb8AMeHq-JogU2rRgtxPU7ZqlRRcEoJsr_m9gxHF6I
-Message-ID: <CA+=Fv5T6sMOxVmS82_VF=XOWudF06y8tWSWLv3XA1aTyAv3JoA@mail.gmail.com>
-Subject: Re: [PATCH 7/7] hvc: add an M3000 firmware console backend
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: sparclinux@vger.kernel.org, "David S . Miller" <davem@davemloft.net>, 
-	Andreas Larsson <andreas@gaisler.com>, linux-kernel@vger.kernel.org, 
-	Jiri Slaby <jirislaby@kernel.org>, linuxppc-dev@lists.ozlabs.org, 
-	linux-serial@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <58c1c4a9-afad-4059-ba81-cdcc92d0c5dd@oss.qualcomm.com>
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDA0MDA2MSBTYWx0ZWRfX2xOb80kw0Zie
+ 2JQdr64eIaBStS5fMT13rgTSnLMRnORUQ66s8iOaQDPp6Xxd0fBM4BUICyx7Ca4JAwDD35u4p0x
+ 2xIO6j7MQ3ZKatBaSPQv/1lv0xFDXjXYWvhv0gw38l8JTS3NOo/z+Hj/txCgmThDLKfWSkRrMky
+ 3T3v7gSvzWc7u5nWz/Td30tYZ3GJB0QBq9g3tdgNcOWxSlZZE3UxGE31pZuTVyR5pLvTnFQsGXD
+ KKFihAAMqcivEMfBiFakzr40RynOqNMuU3W0hIeiPeXqe0YXHlSe4IJIANzS1uHOQeddoY9rSLo
+ DoTsyaYjCbLBafyhocNTUOOVng/HRO48feLXzf0J8zKLkJ/AUZiW5lhRyLVqGr6iGRvTybcLN/W
+ anU7lB6vbpQch05SzCi5FcNSraW0tY77taYtyWxf18ufELTAkWF1B7afIav8auYsd4SAyMQ6URV
+ f1XGOVwB9Rdm5UfKK3Q==
+X-Authority-Analysis: v=2.4 cv=b7MncdGx c=1 sm=1 tr=0 ts=6ac2702e cx=c_pps
+ a=wEP8DlPgTf/vqF+yE6f9lg==:117 a=b9+bayejhc3NMeqCNyeLQQ==:17
+ a=kj9zAlcOel0A:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_glEPmIy2e8OvE2BGh3C:22
+ a=VwQbUJbxAAAA:8 a=KKAkSRfTAAAA:8 a=EUspDBNiAAAA:8 a=NTnRRJcS9uFvT1zYgXQA:9
+ a=CjuIK1q_8ugA:10 a=bBxd6f-gb0O0v-kibOvt:22 a=cvBusfyB2V15izCimMoJ:22
+X-Proofpoint-ORIG-GUID: ZqseUdQc9MtN2MdWuYJvp3Qkrst81xfU
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDA0MDA2MSBTYWx0ZWRfXwrAXt7PzWEJj
+ 8DxR/B+p1qFvryEgGqB7w4Rw/UBgCAWQllsjXdoz7sSxcZxzhQR3EQXlp5gmhiHbN+rp94KuOh8
+ y9vsEGsD7LE/vb6AlACccgRXX87Zkvk=
+X-Proofpoint-GUID: ZqseUdQc9MtN2MdWuYJvp3Qkrst81xfU
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-04_04,2026-10-02_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ spamscore=0 impostorscore=0 adultscore=0 clxscore=1015 phishscore=0
+ bulkscore=0 malwarescore=0 suspectscore=0 priorityscore=1501
+ lowpriorityscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2609040000
+ definitions=main-2610040061
 
-Hi Greg,
+On Thu, Oct 01, 2026 at 10:42:39AM +0200, Konrad Dybcio wrote:
+> On 9/30/26 4:07 AM, Shawn Guo wrote:
+> > Qualcomm NHLOS team changes XBL for Nord IOT/Embedded variant, leaving
+> > ADSP to be powered up by Linux remoteproc, so that Nord IQ10 Qualcomm
+> > Linux (QLI) behavior gets aligned with IQ8/9. Drop early_boot flag from
+> > Nord ADSP for that purpose.
+> > 
+> > Signed-off-by: Shawn Guo <shengchao.guo@oss.qualcomm.com>
+> > ---
+> 
+> What happens if this patch is absent?
 
-Thanks alot for taking the time to review this.
+ADSP never comes up:
 
-On Sun, Oct 4, 2026 at 2:50=E2=80=AFPM Greg Kroah-Hartman
-<gregkh@linuxfoundation.org> wrote:
+  remoteproc remoteproc0: attaching to adsp
+  remoteproc remoteproc0: can't attach to rproc adsp: -19
 
-> > @@ -11,3 +11,5 @@ obj-$(CONFIG_HVC_IUCV)              +=3D hvc_iucv.o
-> >  obj-$(CONFIG_HVC_UDBG)               +=3D hvc_udbg.o
-> >  obj-$(CONFIG_HVC_RISCV_SBI)  +=3D hvc_riscv_sbi.o
-> >  obj-$(CONFIG_HVCS)           +=3D hvcs.o
-> > +
-> > +obj-$(CONFIG_HVC_M3000) +=3D hvc_m3000.o
->
-> No need for a blank line, right?  And why no tab used here?
->
+Since XBL no longer boots ADSP, the remote never publishes its SMP2P
+inbound item. The smp2p entry stays unmapped, and irq_get_irqchip_state()
+on fatal_irq returns -ENODEV. qcom_pas_attach() treats that as a hard
+error rather than falling back to a firmware boot.
 
-Agreed; I have removed the blank line and matched the Makefile's tab
-alignment.
+Even the existing fallback (ready bit clear -> RPROC_OFFLINE) doesn't
+work: rproc_boot() takes the attach branch, sees the error and returns
+without loading firmware.
 
-> > diff --git a/drivers/tty/hvc/hvc_m3000.c b/drivers/tty/hvc/hvc_m3000.c
-> > new file mode 100644
-> > index 000000000000..0ef4c888a6a2
-> > --- /dev/null
-> > +++ b/drivers/tty/hvc/hvc_m3000.c
-> > @@ -0,0 +1,167 @@
-> > +// SPDX-License-Identifier: GPL-2.0
-> > +/* Experimental M3000 Open Firmware pseudo-console backend. */
->
-> What will make it not "experimental"?
->
+> 
+> When the early_boot path was first introduced I was really hoping
+> that this behavior could be made unconditional and Linux would
+> figure out if the rproc may be active by virtue of it sending
+> back signals or not, unfortunately that hasn't made it into the
+> tree..
 
-That was stale wording from bring-up, rather than a defined support
-status. I have removed it.
+The difficulty is with the positive signal. As Stephan pointed out [1],
+the ready bit is not cleared when the remote is stopped or force-shutdown,
+so a stop followed by rmmod/modprobe of qcom_q6v5_pas makes the driver
+attach to a remote that is not running. Without ping-pong or a PAS query
+for the remote state, I don't think we can reliably say that a remote
+*is* running.
 
-> And no copyright?
->
->
+The negative signal is reliable though. The -ENODEV from
+irq_get_irqchip_state() means the remote has never populated its SMP2P
+entry since cold boot, so it cannot be running. We can fall back to a
+firmware boot in that case. early_boot then becomes a hint that the
+bootloader *may* have started the remote, which matches Nord ADSP:
+it is started by XBL on the Auto variant and by Linux remoteproc on
+the IoT variant.
 
-I'll  add a copyright notice for the v2.
+I'll drop this patch and send two patches instead:
 
-> > +
-> > +#define M3000_WRITE_ATTEMPTS 8
->
-> why 8?
->
+- remoteproc: core: continue to the firmware boot path when .attach()
+  leaves the rproc in RPROC_OFFLINE
+- remoteproc: qcom: pas: treat -ENODEV from the SMP2P state read as
+  "not running" and fall back to start
 
-There is no hardware requirement for eight. The intent was to bound
-no-progress retries because HVC's console write path retries -EAGAIN
-indefinitely; I will revisit the retry policy before sending v2.
+With those, Nord ADSP keeps early_boot and I've tested it with both XBL
+variants. With the old XBL it attaches as before; with the new one
+it falls back to loading firmware.
 
-> > +
-> > +static int m3000_stdin;
-> > +static bool m3000_ready;
-> > +/* Keep firmware buffers within the locked kernel image mappings. */
-> > +static u8 m3000_buffer[256];
-> > +static DEFINE_RAW_SPINLOCK(m3000_buffer_lock);
-> > +static struct timer_list m3000_poll_timer;
-> > +static bool m3000_poll_active;
->
-> Shouldn't these be in a structure attached to the console somewhere?
-> Otherwise you have limited yourself to just one of these.
->
+Shawn
 
-I can group the state into a structure. This backend uses the single
-/chosen stdin/stdout pair, and the buffer must remain in the locked
-kernel image mappings for firmware access. I will also review how the
-state is associated with HVC before finalizing a v2
-
-> > +
-> > +/*
-> > + * HVC's idle backoff can exceed the firmware input FIFO's capacity.
-> > + * Wake its worker each tick while open; keep PROM calls out of the ti=
-mer.
-> > + */
-> > +static void m3000_poll_tick(struct timer_list *timer)
-> > +{
-> > +     if (!READ_ONCE(m3000_poll_active))
-> > +             return;
->
-> Why are you accessing m3000_poll_active like this in an attempt to not
-> use a real lock?  Are you _sure_ a bool will work this way properly?
->
-
-Agreed that READ_ONCE/WRITE_ONCE alone do not explain the timer lifecycle.
-I will review synchronization between open, close and timer rearming,
-and make that protocol explicit in v2.
-
-> > +     hvc_kick();
-> > +     mod_timer(&m3000_poll_timer, jiffies + 1);
-> > +}
-> > +
-> > +static int m3000_open(struct hvc_struct *hp, int data)
-> > +{
-> > +     WRITE_ONCE(m3000_poll_active, true);
-> > +     mod_timer(&m3000_poll_timer, jiffies + 1);
-> > +     return 0;
-> > +}
-> > +
-> > +static void m3000_close(struct hvc_struct *hp, int data)
-> > +{
-> > +     WRITE_ONCE(m3000_poll_active, false);
-> > +     timer_delete_sync(&m3000_poll_timer);
-> > +}
-> > +
-> > +static ssize_t m3000_io(u8 *in, const u8 *out, size_t count)
-> > +{
-> > +     unsigned long args[7], flags;
-> > +     bool input =3D in !=3D NULL;
-> > +     int ret;
-> > +
-> > +     if (!count)
-> > +             return 0;
-> > +     count =3D min_t(size_t, count, input ? 1 : sizeof(m3000_buffer));
->
-> No need for min_t(), why not just min()?
->
-
-Agreed, will change it to min().
-
-> > +     /* Serialize the bounce buffer; p1275 separately serializes firmw=
-are. */
-> > +     raw_spin_lock_irqsave(&m3000_buffer_lock, flags);
->
-> why is this a "raw" spinlock?
->
-
-The intent is to protect the shared firmware buffer in console output
-contexts where sleeping is not allowed. I will check the precise HVC
-calling contexts and lock ordering before deciding whether the raw lock
-is necessary and documenting that choice.
-
-> > +     if (!input)
-> > +             memcpy(m3000_buffer, out, count);
-> > +     args[0] =3D (unsigned long)(input ? "read" : "write");
->
-> A string being cast to an unsigned long?  Are you _sure_?
->
-
-Yes: p1275_cmd_direct() takes unsigned long firmware argument cells,
-and the first cell carries the service-name pointer. The existing
-SPARC prom_console_write_buf() uses the same cast for "write".
-
-> > +     if (!m3000_ready)
-> > +             return -ENODEV;
-> > +     timer_setup(&m3000_poll_timer, m3000_poll_tick, 0);
-> > +     hp =3D hvc_alloc(0, 0, &m3000_ops, sizeof(m3000_buffer));
-> > +     if (IS_ERR(hp))
-> > +             return PTR_ERR(hp);
-> > +     hp->ws.ws_row =3D 24;
-> > +     hp->ws.ws_col =3D 80;
-> > +     pr_info("M3000: firmware-backed hvc0 tty ready (serialized, polle=
-d input)\n");
->
-> When drivers work properly, they are quiet.
->
-
-Agreed; I have removed the initialization message.
-
-Thanks again for the review. I'll prepare a v2 addressing your
-comments and explain the reasoning behind any design choices
-that remain.
-
-Regards
-
-Magnus
+[1] https://lore.kernel.org/all/ahBG6jKYdSAboWjs@linaro.org/
