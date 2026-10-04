@@ -1,194 +1,96 @@
-Received: from mail-dl2-f43.google.com (mail-dl2-f43.google.com [74.125.229.171])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C6E543BB687
-	for <linux-kernel@vger.kernel.org>; Sun,  4 Oct 2026 16:26:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.171
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4DA5C3A6418;
+	Sun,  4 Oct 2026 16:27:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791131180; cv=none; b=EGzORolzqoBOcpit5SZVuu1c6/YGWii9vVAiCkvCq7kGm0YU6stybm9AtbkOvyCfanzvuS02jnDPnLNcHO0uLAI1TiVXMqEm23Sar2KE0lfl49H04UzzotAR2xTpcQ4Hlky77JYNVIwgP+kNSfKeK6KZiqVK8N8/pKpyKVQzHL4=
+	t=1791131249; cv=none; b=EfbAH3L8qhvWJEdNTBpjedw9392kGftE/W/dKUyat10Lh+qi2hhU8mggjT6iHUjfZ8FKqQetqrDUaBgJ73RIwg4LWWBAtZayxwsbxlkAXLqXFTjFE+YAnh0XNuSvrJZV1B+ZDyApwWNzYeSritPYbrLnV3t5VlRxTvtn0LMNcSE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791131180; c=relaxed/simple;
-	bh=Rj63DgR20oiwFDDc12/4Ve6f46BYY+nTaOfWOvX5CNo=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=qfCNS1oclld2KwRBrs73dqzCVcGfrFXie05/2EK3CZqrKeFg44Eqa+T2lHq/23t4FhksDVsHGe/VHJe07aHywBajcKEMQ+9RVIIqX+bMQ+rkiqs+mIJIASAu4P5NgaukwAAkMIGHntDt7CyAgRVL3nLUdDSQwG1uYzRXvQkfe5A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Qvk0aRfI; arc=none smtp.client-ip=74.125.229.171
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1791131249; c=relaxed/simple;
+	bh=Z4gCoAWckmgDXKou2oJF9djMmcXIf7DvsNo6VGAidRw=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=jP2cwd2IjM0OIBpsfvd1jYRhl6F9+oYSxR5FCDH46xZQdlW3wJ5ZodD99YtGdRQ6lK/AjZF/lyB8jo8H+Dynu+BAZ2u7M0eL7TMygQV7tbq0LZy4bDAzHFEwjbzb2f8qngoLFsIZul4PJuJwDTZd7sSbR0CCk5t0AesdYi6u+pw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=DLSOFFNh; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Qvk0aRfI"
-Received: by mail-dl2-f43.google.com with SMTP id a92af1059eb24-15602439e3bso6975c88.3
-        for <linux-kernel@vger.kernel.org>; Sun, 04 Oct 2026 09:26:18 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791131178; x=1791735978; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=yikDAY6J+GlEGObfqqnaCvM3+Krl2SbWGorcnJKWLX8=;
-        b=Qvk0aRfI4PS08pt2e3It3JwW7TiU0iMUNWzS377Mu/KEYZV9SMV4l71WT/RgjPR1pQ
-         cp7ubkA4aUGQoZbK2ZaKqjVIzLXkEaao0NpxuoViDazWZUCms/r2y6+jYMsS+/rMdEgS
-         WXs6Umj0r8GsAjWETon/uol3URFCG/q/HYNhESfkxZ6Am/GW+ZLp8nmT5UvhQUfWbO4j
-         XuTdgKrNmdmG1kMWLasUtS83TtdHI5IKJKeIcVAxPlITmyDdJvqxAOKf9shQVty7skdq
-         ixak08g3IwEHpRX6iZb9Juzjz2XEipv23z9G9RsrRM3zzACu3TtqoIhef8oNVb+ZNOpQ
-         I/aw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791131178; x=1791735978;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=yikDAY6J+GlEGObfqqnaCvM3+Krl2SbWGorcnJKWLX8=;
-        b=qj/7Idfe7wDmxS+MU0DWtQUiyMiQ6b/mrZDFT3vQRHBNO/hEbojI+TuKKIA0R7L06q
-         ca5I9nF7wRRBP7/xw428irzgpVC6JT7T0QxLQkAsAgpYUhjW5Ig5u17D9gn67Jn/vJFg
-         7dbs3LMduIbIMOOMb6BHOsBwcPOOu7rRD1b+ocqqXhejkKMmyjTKhMMeZqoGu0RrGx1g
-         /gmeYeZ9MTnqMdsyHFTzccyGL5rV1NuncG/zLNQCWHl2bmik6OZJVcijLQB+WRDrM2n2
-         MTFRR4Pxqq+wFUogJ8uuzyl5sW0Et6HXQCQpTPfpSaip/RCoaYhb6qN/PWUP8oK27dMv
-         m/CA==
-X-Forwarded-Encrypted: i=1; AKwUvBxygoEKGC81I8WHHfJAYb+Q9INgUutJcTUWzPMFw6U24OaL3hjZA1hJGd7SI+uVuoIhPAY0Uz0X1sDFlzY=@vger.kernel.org
-X-Gm-Message-State: AFuF++lr3XFJsnKVrNwRMUugsZWPcsp8/C76dTP7dDeF4gVKU+Jo0UND
-	q5sFJgmbySkxRsup6JH4vsIbvB7+DugfVQqpd1guELKCx3ixlvmOmNFJ
-X-Gm-Gg: AYBFou3p+E/4flsdQSBeHQMdu9keUc+oaS+8Nh8A+hS0BxMuTPi/nrQKrFTGj2Ch4Yq
-	/4Hon8/rKz34qmqhRN5+xOQWON05PKlLTRdqNhe5eGobOiEaZOuxj9582Ni+LtnTscPhWoswuMv
-	jwekOXGTQmCcOpMw/uJYlX+svE06qN9tYyQhPo5G7AteGhGpsh2CqI6K912UKxFI5S5MmlzGmEI
-	fMH6uMp/UvIkCICzQVExgsx6MvU5OrnsDjzjycTahefV5JtEirnd+Lb0et0sJdcoJS5cPIkp0AB
-	T/R4Hekih3PGdcnYrVEVUvRt2g22PuKvcxp341klvD7tB7TYRr5E1WRJP2FD5UOzC83PrP//eO0
-	4szQQREwIbmLvqKQsJldGTle8eX7yXce/eGP3+uT4TWfFZs2QGHyxbP91596boq2h4k8mPZ6m1+
-	9zrkUVVpVFFGSUlHbqZ397nJJ6bHHv7j052Yoxsm1mjHznrIgGiIQ/MDF+PgQMP2iLIgj0rovbh
-	7MBTvOTz71I3a5xiqRXwpz1eCGDBsCVaYjZ2rNQOnOLoDbsgUVl483jsIwEPI1Zs3PqLQ==
-X-Received: by 2002:a05:7022:b047:20b0:14b:edb2:c3bc with SMTP id a92af1059eb24-14f5625d203mr17992869c88.0.1791131177596;
-        Sun, 04 Oct 2026 09:26:17 -0700 (PDT)
-Received: from localhost.localdomain (95.169.12.199.16clouds.com. [95.169.12.199])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-151fcec9f1dsm15511885c88.16.2026.10.04.09.26.15
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 04 Oct 2026 09:26:17 -0700 (PDT)
-From: Chengfeng Ye <nicoyip.dev@gmail.com>
-To: Marcel Holtmann <marcel@holtmann.org>,
-	Luiz Augusto von Dentz <luiz.dentz@gmail.com>
-Cc: linux-bluetooth@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Chengfeng Ye <nicoyip.dev@gmail.com>,
-	stable@vger.kernel.org
-Subject: [PATCH] Bluetooth: hci_sync: Fix command skb lifetime during scan setup
-Date: Mon,  5 Oct 2026 00:26:12 +0800
-Message-ID: <20261004162612.3968831-1-nicoyip.dev@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="DLSOFFNh"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1ED8A1F000FF;
+	Sun,  4 Oct 2026 16:27:24 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791131247;
+	bh=M/dSWsxmcXiuwTULb1QxS7XuqCbQfn/jziyewxOKFzU=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=DLSOFFNhJ0lM/4jB6UuInsPixhP8D/lP7HPyKN0CNisPUXCqePbMFy7/IR79CgsME
+	 yo10eANrpuD62ulR9+7YRkwNLsRu+IhmdJ2enM6QHVF/Cf9S4BY39O+0aqor/bFNrx
+	 fi/hFpMVd/R80IuMy0kOKDZ95MGJq+ClI7DRwBwqLX/p6K9L0bQGWhzPbwV976vP6w
+	 ZJ6TraTCP3VRGyhx5x9hm07EDa7BNI1RYagXBfz0FT9+E4RDRbvkESM1KUWEpMNvxM
+	 i3hggNTAfF7bo/KhhA582376EuMpydogjtC/F66Btn35ZnOBZbF+/Y+9205M1YxhBg
+	 Qjl5Xa0cmcb9Q==
+Date: Sun, 4 Oct 2026 17:27:21 +0100
+From: Jonathan Cameron <jic23@kernel.org>
+To: Rob Herring <robh@kernel.org>
+Cc: Arka Mondal <arka@arkamondal.net>, Nuno =?UTF-8?B?U8Oh?=
+ <nuno.sa@analog.com>, Michael Hennerich <Michael.Hennerich@analog.com>,
+ David Lechner <dlechner@baylibre.com>, Andy Shevchenko <andy@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, linux@analog.com, linux-iio@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ arkamondalofficial@gmail.com
+Subject: Re: [PATCH 4/5] dt-bindings: iio: dac: adi,ad5758: Fix the 4 mA to
+ 20 mA current range
+Message-ID: <20261004172721.72d6d42e@jic23-hlaptop>
+In-Reply-To: <20260928193449.GA408126-robh@kernel.org>
+References: <20260918122032.134947-1-arka@arkamondal.net>
+	<20260918122032.134947-5-arka@arkamondal.net>
+	<20260920193949.45606414@jic23-hlaptop>
+	<20260928193449.GA408126-robh@kernel.org>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-During PA sync scan setup, hci_le_set_ext_scan_param_sync() gets the
-address used for the PA_LINK lookup from hci_sent_cmd_data(). The
-returned pointer borrows storage from sent_cmd or req_skb, without
-holding a reference to either skb.
+On Mon, 28 Sep 2026 14:34:49 -0500
+Rob Herring <robh@kernel.org> wrote:
 
-The scan worker runs on req_workqueue while hci_cmd_work() runs on the
-separate device workqueue. After the scan worker loads sent_cmd, the
-command worker can free and replace it before hci_sent_cmd_data()
-dereferences the skb. The command payload can also be freed between
-returning from the helper and comparing the address. The connection
-lookup's RCU critical section does not protect the command skb.
+> On Sun, Sep 20, 2026 at 07:39:49PM +0100, Jonathan Cameron wrote:
+> > On Fri, 18 Sep 2026 21:20:31 +0900
+> > Arka Mondal <arka@arkamondal.net> wrote:
+> >   
+> > > adi,range-microamp gives the 4 mA to 20 mA range as <4 24000>. The
+> > > values are in microamps, so this reads as 4 uA to 24 mA. The original
+> > > text binding described <4 24000> as the "4 mA to 20 mA current range",
+> > > and the data sheet (Rev. B, Table 32) confirms range code 1010 is
+> > > 4 mA to 20 mA.
+> > > 
+> > > Add <4000 20000> and mark <4 24000> deprecated, so existing device
+> > > trees still validate.
+> > > 
+> > > Fixes: 777baca07ef1 ("dt-bindings: iio: dac: Add docs for AD5758 DAC")
+> > > Signed-off-by: Arka Mondal <arka@arkamondal.net>  
+> > 
+> > DT reviewers.   Better to paper over a dt that is specifying the wrong
+> > range as this does (deprecated) or just make it obvious by failing
+> > the binding checks?  I'm thinking failing is better as gets any such
+> > dt fixed up faster.  I also suspect no one actually it this because the
+> > disconnect they should have seen when reading the datasheet and considering
+> > what they wanted should have meant they saw this bug!  
+> 
+> No in tree .dts (for which I don't want more warnings), so I would just 
+> drop it.
 
-KASAN reported:
+Works for me. Arka, please send v2 of patches 4 and 5 rebased on my togreg branch.
+Only change being to drop the broken parameter both from binding and from the
+driver.  If anyone screams driver side we might paper over this, but they really
+should have noticed the value was garbage when they wrote their DT!
 
-  BUG: KASAN: slab-use-after-free in hci_sent_cmd_data+0x27c/0x2f0
-  Workqueue: hci0 hci_cmd_sync_work
-  Call Trace:
-   hci_sent_cmd_data+0x27c/0x2f0
-   hci_le_set_scan_param_sync+0x43a/0x850
-   hci_passive_scan_sync+0xb09/0x1460
-   hci_update_passive_scan_sync+0x47c/0x6e0
-   hci_le_pa_create_sync+0x200/0xa70
-   hci_cmd_sync_work+0x13c/0x290
+Jonathan
 
-  Allocated by task 95:
-   skb_clone+0x13f/0x340
-   hci_cmd_work+0x2a9/0x7e0
 
-  Freed by task 95:
-   kmem_cache_free+0xba/0x3a0
-   hci_cmd_work+0x29c/0x7e0
-
-Use hdev->lock to serialize the address snapshot with sent_cmd
-replacement. Protect req_skb replacement and completion cleanup with
-the same lock because the helper falls back to that skb. Copy the
-address before releasing the lock and use the copy for the existing
-RCU-protected connection lookup. Release the mutex before sending or
-waiting for commands, preserving the lookup and completion ordering.
-
-Fixes: 22cbf4f84c00 ("Bluetooth: hci_sync: Use QoS to determine which PHY to scan")
-Cc: stable@vger.kernel.org
-Assisted-by: GPT-6 Astra
-Signed-off-by: Chengfeng Ye <nicoyip.dev@gmail.com>
----
- net/bluetooth/hci_core.c |  4 ++++
- net/bluetooth/hci_sync.c | 10 +++++++++-
- 2 files changed, 13 insertions(+), 1 deletion(-)
-
-diff --git a/net/bluetooth/hci_core.c b/net/bluetooth/hci_core.c
-index 2076689eb302..74d9865e08c2 100644
---- a/net/bluetooth/hci_core.c
-+++ b/net/bluetooth/hci_core.c
-@@ -4115,9 +4115,11 @@ static int hci_send_cmd_sync(struct hci_dev *hdev, struct sk_buff *skb)
- 
- 	bt_dev_dbg(hdev, "skb %p", skb);
- 
-+	hci_dev_lock(hdev);
- 	kfree_skb(hdev->sent_cmd);
- 
- 	hdev->sent_cmd = skb_clone(skb, GFP_KERNEL);
-+	hci_dev_unlock(hdev);
- 	if (!hdev->sent_cmd) {
- 		skb_queue_head(&hdev->cmd_q, skb);
- 		queue_work(hdev->workqueue, &hdev->cmd_work);
-@@ -4138,8 +4140,10 @@ static int hci_send_cmd_sync(struct hci_dev *hdev, struct sk_buff *skb)
- 
- 	if (READ_ONCE(hdev->req_status) == HCI_REQ_PEND &&
- 	    !hci_dev_test_and_set_flag(hdev, HCI_CMD_PENDING)) {
-+		hci_dev_lock(hdev);
- 		kfree_skb(hdev->req_skb);
- 		hdev->req_skb = skb_get(hdev->sent_cmd);
-+		hci_dev_unlock(hdev);
- 	}
- 
- 	return err;
-diff --git a/net/bluetooth/hci_sync.c b/net/bluetooth/hci_sync.c
-index c01c8b58d9e8..a92a81846e9d 100644
---- a/net/bluetooth/hci_sync.c
-+++ b/net/bluetooth/hci_sync.c
-@@ -32,8 +32,10 @@ static void hci_cmd_sync_complete(struct hci_dev *hdev, u8 result, u16 opcode,
- 	WRITE_ONCE(hdev->req_status, HCI_REQ_DONE);
- 
- 	/* Free the request command so it is not used as response */
-+	hci_dev_lock(hdev);
- 	kfree_skb(hdev->req_skb);
- 	hdev->req_skb = NULL;
-+	hci_dev_unlock(hdev);
- 
- 	if (skb) {
- 		struct sock *sk = hci_skb_sk(skb);
-@@ -3064,15 +3066,21 @@ static int hci_le_set_ext_scan_param_sync(struct hci_dev *hdev, u8 type,
- 	 */
- 	if (hci_dev_test_flag(hdev, HCI_PA_SYNC)) {
- 		struct hci_cp_le_add_to_accept_list *sent;
-+		bdaddr_t bdaddr;
- 
-+		hci_dev_lock(hdev);
- 		sent = hci_sent_cmd_data(hdev, HCI_OP_LE_ADD_TO_ACCEPT_LIST);
-+		if (sent)
-+			bacpy(&bdaddr, &sent->bdaddr);
-+		hci_dev_unlock(hdev);
-+
- 		if (sent) {
- 			struct hci_conn *conn;
- 
- 			rcu_read_lock();
- 
- 			conn = hci_conn_hash_lookup_ba(hdev, PA_LINK,
--						       &sent->bdaddr);
-+						       &bdaddr);
- 			if (conn) {
- 				struct bt_iso_qos *qos = &conn->iso_qos;
- 
--- 
-2.43.0
+> 
+> Rob
 
