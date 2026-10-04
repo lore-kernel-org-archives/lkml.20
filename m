@@ -1,44 +1,48 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7A5F52D249B;
-	Mon,  5 Oct 2026 16:03:40 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5E2FB4CCDCB;
+	Mon,  5 Oct 2026 16:03:47 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791216221; cv=none; b=UMErh0zSCBb0EPgl7N3GDdclNVY21YEGoRCehQxSyHXFfM3zttNTNBA4rciTqOuETSIlwUgO4jyG9dwwteXcpSkSNTGzdx+BgRSL1hbWw6Hw83TRGxi5RZ2kVAYjnD9+azEMa5jNqKkV89N1XDYWqUiBBHRZDYEPUh9eSfvXSLA=
+	t=1791216228; cv=none; b=YS9YB1tuqQ3/vtuhxTuGt+peUziE5E5B7d57LHx8OYlZdflVi46G0H91LLaAUn4J2iJRh2JrdGO4Y42/gsVNRhphmFdTFsrrmoCD62+NTTFNI/fcD3OxIprtHTb+Xg2WM6pOM5ei07z/w5Vq985feVs+o6stdX0UyJGYaaFYUQk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791216221; c=relaxed/simple;
-	bh=BrgvY9C1AO5zWbjnc6fnpMokKv5Jds1/AAOuj/pA5OE=;
+	s=arc-20240116; t=1791216228; c=relaxed/simple;
+	bh=TwCApKgSzLwszhlYokP7yH9qXvdd7jTgvIMJN1h2+3Y=;
 	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
-	 MIME-Version:Content-Type; b=tCH7SqO5GuFOu0GWow1xkCFblkdjzRK1Mu1OHq5VtNCuej9nidsLO5sWE2DovaEzt9JR9EZjMj+4UdCHMIYyxgQzSFq4gPrQxGYSgK1V3ryn6s6louxma4qoTxMY7mqjLZspSHUJnRwytk70gasQt9GgM4GkEbmDN5SxldDvVMI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=N6hfV9vw; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=sIZNF8nTlaT1Rz2zGTX4orv1dXeYsHqu9wKcIGZCkT96twvoxFIam1evmaTR4OJg+eUkmcLpI77+S2ZOwZfT8vdb7cf6vLYPVpCvcHK+wrPeo+Jk3lyUcDTlDG30M9MHq4g+Tll9BprkIFpopvsAwlGvBlDBvIsFEwlLUrQMNwQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=naR0LI81; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="N6hfV9vw"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A812A1F000FF;
-	Mon,  5 Oct 2026 16:03:37 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="naR0LI81"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0DDCD1F0089A;
+	Mon,  5 Oct 2026 16:03:43 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791216220;
-	bh=uy9Q3tbdz+bui0y9VTIEUWiKdTD1iXpwWnnbF74qV50=;
+	s=k20260515; t=1791216227;
+	bh=j+VillOJtWalaw/jSDZBznfL15QfMpYdQSSXIanytqE=;
 	h=From:To:Cc:In-Reply-To:References:Subject:Date;
-	b=N6hfV9vwAAcjKw6ywFISMDvvnnopeXYcUCWfAn34XnUogNcOzMktPYH+pxXOdM3S/
-	 1jumCjNGD1Vh94w9SFOm3XxGDWSxohv94SfCKIfoeX15wrSZGeAfw+W+E2saz4ctx4
-	 +BpuPUwwiCZUeXFHGr73EPPaWz8taS13cqMMVbCyBF9T8w0sEiZtWnypEq/zah9m4h
-	 9VEKAmcLyPt/EpdJEJCyXcSc7wnuJseIUZPlxNapLYO0+eW0VD5ZZ0POAxM1sKSgAI
-	 eKrGa1ErfyzAUqEP2ehgUqEkma6GSevWzsps12D/tYaI8lyQ12fMPpLtO2ojxKOMle
-	 9VCTamkP7vm9A==
+	b=naR0LI81YLfOeNm6VeqBbtgI34qRJ+qxJqz/URSBK+YBKRkKjx39zGrqBDH2VouEs
+	 WeM8EwGR6PytDADsMbgQmlK2xcQu6ZJPVZwcYXvt5hHQ/6tXzmcpUHEJAv+PW9Mq6H
+	 YvqCRphUFPLDmxw6A6lt6QL90zj2tTs4L5rQrmZdKemLB9Tcq5rYiwElECAk/aj1dQ
+	 8oogT0JUKKeqMCAkoBJj/1X9zyhqcB6B6jZ2v4n0KhGx9Y5iD8wcE1UNPSSO8PdcXV
+	 gSUbsJrNIChqoidCIGTsengCDZWtrixfnS3FFqANX6Gmxf6PcidvU6vR7mCwT6y/ZH
+	 Sgkg8a8FWiPeQ==
 From: Mark Brown <broonie@kernel.org>
-To: Luca Ceresoli <luca.ceresoli@bootlin.com>, 
- Mizuno Miotsuki <founder@crepuse.com>
-Cc: Liam Girdwood <lgirdwood@gmail.com>, Jaroslav Kysela <perex@perex.cz>, 
- Takashi Iwai <tiwai@suse.com>, Heiko Stuebner <heiko@sntech.de>, 
- linux-sound@vger.kernel.org, linux-kernel@vger.kernel.org, 
- linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org
-In-Reply-To: <20260918125711.94361-1-founder@crepuse.com>
-References: <20260918125711.94361-1-founder@crepuse.com>
-Subject: Re: [RFC PATCH 0/1] ASoC: codecs: rk3308: add support for codec
- revision B
-Message-Id: <179120561124.150114.10537889348334092855.b4-ty@b4>
-Date: Mon, 05 Oct 2026 15:06:51 +0200
+To: Karl Mehltretter <kmehltretter@gmail.com>
+Cc: Nicolas Ferre <nicolas.ferre@microchip.com>, 
+ Alexandre Belloni <alexandre.belloni@bootlin.com>, 
+ Claudiu Beznea <claudiu.beznea@tuxon.dev>, 
+ Tudor Ambarus <tudor.ambarus@linaro.org>, 
+ Varshini Rajendran <varshini.rajendran@microchip.com>, 
+ =?utf-8?q?Bence_Cs=C3=B3k=C3=A1s?= <bence98@sch.bme.hu>, 
+ Robert Marko <robert.marko@sartura.hr>, linux-spi@vger.kernel.org, 
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
+ Sashiko <sashiko-bot@kernel.org>
+In-Reply-To: <20260923012950.15651-1-kmehltretter@gmail.com>
+References: <20260923012950.15651-1-kmehltretter@gmail.com>
+Subject: Re: [PATCH] spi: atmel-quadspi: balance runtime PM and pclk across
+ system sleep
+Message-Id: <179114276714.150114.17193721637289577017.b4-ty@b4>
+Date: Sun, 04 Oct 2026 21:39:27 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -48,38 +52,29 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
 X-Mailer: b4 0.17-dev
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1402; i=broonie@kernel.org;
- h=from:subject:message-id; bh=BrgvY9C1AO5zWbjnc6fnpMokKv5Jds1/AAOuj/pA5OE=;
- b=owEBbQGS/pANAwAKASTWi3JdVIfQAcsmYgBqw8pVUf4HgHtDb0Aiz+dFRtFmIeYir8Vg6yi3P
- 6fSkGw1mTyJATMEAAEKAB0WIQSt5miqZ1cYtZ/in+ok1otyXVSH0AUCasPKVQAKCRAk1otyXVSH
- 0PV8B/0QM7bHgOvqLr1t/W4Jp0YQkUQP0fuX3bM30P11974tTYC1yOxEvb6nHQC1IL+fxcpLT1r
- k/9i5uAxtlhJPs0bfVqkggEI1rCMuJHy+O0LMJdBGn0jcFWs7RaLJGrI1cyXrhkTzufffM1rdoX
- vgDYPDDqB881h8GDF26/LRB4oEzh+w7RVjpfDtnBiI7a4rV4Ox2BtjOOJfPXZ6C9ToQQEAIh0p/
- ZSLLBKcP67iBUSAdaqoJMBkIgABzp55DKVsr8XIcLdhuEzP0xj3fJD80mZNumhH4Tfj6dNK96Iw
- 6Je0apFoibi4lnMlkvICYq4XIFrgjD+TAr9GsCMPkAF8mFqW
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1152; i=broonie@kernel.org;
+ h=from:subject:message-id; bh=TwCApKgSzLwszhlYokP7yH9qXvdd7jTgvIMJN1h2+3Y=;
+ b=owEBbQGS/pANAwAKASTWi3JdVIfQAcsmYgBqw8pcv5EFqGPBUU7JDV4g11HA0yZJRIt92YJam
+ aJoPX64gE+JATMEAAEKAB0WIQSt5miqZ1cYtZ/in+ok1otyXVSH0AUCasPKXAAKCRAk1otyXVSH
+ 0JRzB/49fPpvqUSexwJD8TEcmWyAxxlv4A9Stb2Lnm6F+I56hcwNbR8X1wVPIiKubVfH2KXaV8Y
+ 2/VSWIQAziCxSJ0vnIvPI+S1Z1nmvM1dQpy6XxWY5tilmd2RM/J4jrYwj0akzwemrVVbNF7LWD8
+ FgH2UWkLXXtAWB1cPX8egTQMjmkl2eMUMPEVg0EWgwenfORN7OIhSTjNzh0fn4C6qcou4yDqJ0N
+ zj31DD3WLPB9QB7VbsvcEsF2p6C2at43skxh6VKSkP7hCvLc1Qv5hxu/FV/UYQN6cCHhPzVxPof
+ Q2/PoU0Tz6i21AlITv5uYchIPCY/ZjmVf5claccgF3geCtP4
 X-Developer-Key: i=broonie@kernel.org; a=openpgp;
  fpr=3F2568AAC26998F9E813A1C5C3F436CA30F5D8EB
 
-On Fri, 18 Sep 2026 12:57:18 +0000, Mizuno Miotsuki wrote:
-> ASoC: codecs: rk3308: add support for codec revision B
-> 
-> Hi,
-> 
-> The current RK3308 internal codec driver detects codec revision B
-> (chip ID 0x3308) but explicitly rejects it. The initial 2022 driver
-> supported revision B with a monolithic power sequence; the later DAPM
-> rewrite left it unsupported.
-> 
-> [...]
+On Wed, 23 Sep 2026 03:29:50 +0200, Karl Mehltretter wrote:
+> spi: atmel-quadspi: balance runtime PM and pclk across system sleep
 
 Applied to
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-7.4
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/spi.git for-7.4
 
 Thanks!
 
-[1/1] ASoC: codecs: rk3308: add support for codec revision B
-      https://git.kernel.org/broonie/sound/c/157f7cba77a9
+[1/1] spi: atmel-quadspi: balance runtime PM and pclk across system sleep
+      https://git.kernel.org/broonie/spi/c/717e45f97246
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during
