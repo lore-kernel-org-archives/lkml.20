@@ -1,126 +1,261 @@
-Received: from outpost1.zedat.fu-berlin.de (outpost1.zedat.fu-berlin.de [130.133.4.66])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj2-f40.google.com (mail-pj2-f40.google.com [74.125.227.168])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EEC8A48095D;
-	Sun,  4 Oct 2026 20:34:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=130.133.4.66
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3F08C481641
+	for <linux-kernel@vger.kernel.org>; Sun,  4 Oct 2026 20:45:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.168
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791146104; cv=none; b=My4JEAMvw8ttSTrPLSQLfFpIYD+a5RUIY1BpG/rcsSS8EtRvKNkR9fZ2MfRZRD47jwEBvJecIa+9LLRz6AzeFv3niDkyEvevZD8pv/+ouRq2bhe6/GVtyuWhSGEqfmbI54r+IzUJUnZ6LG1qSnp31bAE6IAuzrxWhFBJ28Zhsdo=
+	t=1791146720; cv=none; b=nBtsZJ8QSHIoPLR8rmTmJN9hmUDlvMCFEc2o2tbDXkdgRWbxm8iLAuFTUMrG9sLKdzBhUmgohAnP5/eUta5Y+/ErUdUXXEdOH++ZyVihMPdDWr7Mo7H8MofWywq8ycSS+CNSTqWJNBaJoO6TItRDxaDli+6cAYFlMy/gD60F3ss=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791146104; c=relaxed/simple;
-	bh=eTjCzurdJlcEL9u/ERcD70Taio0Ybjoa3Kh3I/eyU7o=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=anvP2dnbx+KSs3GYYjrw7MkmJJ3m5V8GxMtKLxbpqMYdZvpLalBBukzaLj56fNJJbYZyLbrWmM3JMuStTVHxq9Q4qzSUxKPdA5E3QrWbThdSG4fqz3kGUFOXD5dKbzk63lLzadY1sJW/iHJhpgFganRHZljIlYonRVKAD6TDibI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=physik.fu-berlin.de; spf=pass smtp.mailfrom=zedat.fu-berlin.de; dkim=pass (2048-bit key) header.d=fu-berlin.de header.i=@fu-berlin.de header.b=N4CzBz7Y; arc=none smtp.client-ip=130.133.4.66
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=physik.fu-berlin.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zedat.fu-berlin.de
+	s=arc-20240116; t=1791146720; c=relaxed/simple;
+	bh=xMoSp4FdgRy1bVhggGuIcX8pZXe1ZK1/2iziGVzC/54=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=EQueLFNO4CUKkIdZ6TETf222mGhg+hsOyVH5chTTOxzuHGBwNzQjQPoC0LGdYI7PLcLCeu4YQutkCeKFDDyGasZprNa+C4ArnzRwFc54w1zVd3eRobq5PSSfiUooyyzN5pqMnSbnyYCjmouwSku/KEpA7Ukp0yXvN0oWpaY26eE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=HjJW3LvZ; arc=none smtp.client-ip=74.125.227.168
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=fu-berlin.de header.i=@fu-berlin.de header.b="N4CzBz7Y"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=fu-berlin.de; s=fub01; h=MIME-Version:Content-Transfer-Encoding:
-	Content-Type:References:In-Reply-To:Date:Cc:To:From:Subject:Message-ID:From:
-	Reply-To:Subject:Date:Message-ID:To:Cc:MIME-Version:Content-Type:
-	Content-Transfer-Encoding:Content-ID:Content-Description:In-Reply-To:
-	References; bh=nIruSnPtZ3jJHwA7r0U5oZva6oH29kymYAEv3KsW6mI=; t=1791146100;
-	x=1791750900; b=N4CzBz7Y0w/5Oc7/NTQ2YT6evIoqpu0tKwRR0oW4y6K830PhpHpuuZMptqYWg
-	BI0FL9qpDS/6MeRrA/cV7FB0/fSKKXujM22J6AGrK5cth6/LzqSMntkr4gn5kZNA9+GUZC3YmW4mZ
-	C5q0z13pblUZLLOYDwZVlrHMD70PdWmknb99HgWgReuOGC/3HN5akyIHQzN47og+nI691x+bsr6tU
-	w8B+m67MdUa499vWr3LKMTXLetAnGzTydzE/dVS5F7z0J6IaqDkDKRKzd9wnvwuU6TqwqBvaxM1PF
-	nXN4KntwxUIy/0JGUrWbxg27rA+MIbontudOb58/hJy55DlKhw==;
-Received: from inpost2.zedat.fu-berlin.de ([130.133.4.69])
-          by outpost.zedat.fu-berlin.de (Exim 4.100)
-          with esmtps (TLS1.3)
-          tls TLS_AES_256_GCM_SHA384
-          (envelope-from <glaubitz@zedat.fu-berlin.de>)
-          id 1xDSv3-00000000RC5-42bU; Sun, 04 Oct 2026 22:34:49 +0200
-Received: from dynamic-092-224-138-137.92.224.pool.telefonica.de ([92.224.138.137] helo=suse-laptop.fritz.box)
-          by inpost2.zedat.fu-berlin.de (Exim 4.100)
-          with esmtpsa (TLS1.3)
-          tls TLS_AES_256_GCM_SHA384
-          (envelope-from <glaubitz@physik.fu-berlin.de>)
-          id 1xDSv3-00000003QVl-2h7L; Sun, 04 Oct 2026 22:34:49 +0200
-Message-ID: <8acb30b9b9fbbd8d5c5754251eb3f1c166e6d41a.camel@physik.fu-berlin.de>
-Subject: Re: [PATCH v2] sh: sh7785lcr: register the PCA9564 as I2C bus 0
-From: John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>
-To: Karl Mehltretter <kmehltretter@gmail.com>, Yoshinori Sato
-	 <yoshinori.sato@nifty.com>, Rich Felker <dalias@libc.org>
-Cc: Geert Uytterhoeven <geert@linux-m68k.org>, linux-sh@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, Geert Uytterhoeven <geert+renesas@glider.be>
-Date: Sun, 04 Oct 2026 22:34:48 +0200
-In-Reply-To: <20261004184644.90750-1-kmehltretter@gmail.com>
-References: <20261004184644.90750-1-kmehltretter@gmail.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.60.2 
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="HjJW3LvZ"
+Received: by mail-pj2-f40.google.com with SMTP id 98e67ed59e1d1-3a0eeda3e03so415982a91.1
+        for <linux-kernel@vger.kernel.org>; Sun, 04 Oct 2026 13:45:19 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791146718; x=1791751518; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=c/J6RbeRxty2BiTTIdArujRf0sFmvP2NG8OiyeIhsdc=;
+        b=HjJW3LvZJD9dchZe7l+R5OKAnpVoMJdPMv4Abp79zyjgteX7pD1/CMm4zf2oorwVHm
+         IJ3PG/IqfBuucTl2SBSNy+QDMjxihURo1KQ2vF+BPttykct8mJn1GabgHvJfN470/ZA2
+         +84/RmvZOJYjU6mqQGcV1aj/hIMVWvVrExtmU8eHCekvHQv+HchQioZwttAENaiZ8lzA
+         1bJxS269xdhDPBup0gTNIutPepbi0lCGF/YiirLx1Fsu/2GmhHtcGJ6xd9CUAoFg1XsV
+         jc1Smd7g6ifNs9jlPaN1RrPiw7YSxFspx2/ryQFgD3KILBQVpoCHdMCk3uboR7p1AXBf
+         OyNQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791146718; x=1791751518;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=c/J6RbeRxty2BiTTIdArujRf0sFmvP2NG8OiyeIhsdc=;
+        b=kDwWQ6MbEssD6crz3sprG8K5lTvg+/LYfW4JxAwSqXGBYQqm5cHp7UCx4AAvr57EH3
+         aAiaIbZjW4FT5x4AHJLciA8q600eEnjWO2V19Ipb7Jl5EPfJ4iFznqAFjSMopl9V799e
+         YY6s9KFiZTdH1Xw8Yit7c3xzYOoIEpRjQdYLxEBrirafixQlYse+82bvjITQTxjNA3c7
+         QKu14WA2rSspJhJt4i8t1iOw9RlE5S4gFjEtM12Qpu8fl6QcOGPIinOsZ7jd2lv/CrNu
+         qmRa7Px76AC+CNXW1ohPl3skcZHN2t/HnPylf6hPtMgIvJkjpLdtyAECMAQyFqaeEECm
+         ERYw==
+X-Forwarded-Encrypted: i=1; AKwUvBxStptI6OPinDDp2lDD74hR3iEEn2zDjayI+nrkq2+kUVq54sRwGlZ1QRWLZBM9pTUC9wvWVDYcZcmtOKw=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIqGHB4XRVfBEccH33aSGMXUuliA87vYvlO1s0dHa2OkqhCt9Ra
+	Ga3P6UNkTKXHOS4iVmvewHZZ+lvUiOsPf3gHVt5l6LTFiYU0+DjsfGPv
+X-Gm-Gg: AYBFou2L0LZo9KvQfcVDE77V/KnnYTMkedGA2jfuCcue4nD7X5ylk8nHmon6gSQrpnu
+	WP5dUH8y0C3F1GlR5lmuSod6Y60zrWMuPs6jrSCMFML4fymfUNiDk26kwwxeVBY0mRVCKoSVVfp
+	g9TcTxixtQu+K+InV8CkMrRBSP31VYKd5pLmcU/+NIRxInt7Ojb+wzQKMkUOiad2+SuRC6uga9d
+	R47Mefh4K/ChNJEz/TnEAod/+j+xd9MEZ2YGDLgMhHoBQnscK8k8gbTrcxkmWMzB312lo5PeefC
+	b7jhN2q4iRAAA+hWR4+RucjcClVrOo2Yhd5n1JOEZYgsH0sOdjMty0eznZOUxNR9ocsZmYpYoiu
+	gX6O3xeFeBYg9RFK+sdqfJaF9vcWZI+pKhsTRsQlNnA22DxSjCZfr8jLVhtj+BX1cDndTJGj4/t
+	zI1nwGsMHzJExxN1XCzC1hrA9ItQkWLAihSndGMgUqptPcr84yDh9tx5TWas9Ilg8HssxpmndO9
+	vEks5nz5hJWBXwdjH8pGkYUgeHPDhrLyS07bJjV7MyFUiCrBwNj4ZWOGLfDQEgrpvJcYj6sRd3Y
+	mSx3t6G62mroqtqDxsOc+omNzgNAKtx1Y1dX6XpQcTrL0h6j
+X-Received: by 2002:a17:90b:3846:b0:3a0:c276:1ec2 with SMTP id 98e67ed59e1d1-3a6ce6af085mr3796668a91.19.1791146718441;
+        Sun, 04 Oct 2026 13:45:18 -0700 (PDT)
+Received: from ryzen.lan ([2601:644:8000:7a86::e35])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a78e4262bcsm7753671a91.5.2026.10.04.13.45.17
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 04 Oct 2026 13:45:17 -0700 (PDT)
+From: Rosen Penev <rosenp@gmail.com>
+To: netdev@vger.kernel.org
+Cc: Andrew Lunn <andrew@lunn.ch>,
+	Heiner Kallweit <hkallweit1@gmail.com>,
+	Russell King <linux@armlinux.org.uk>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Michael Stapelberg <michael@stapelberg.de>,
+	linux-kernel@vger.kernel.org (open list)
+Subject: [PATCH net v2] net: phy: marvell: keep WOL_EIE across interrupt reconfiguration
+Date: Sun,  4 Oct 2026 13:45:16 -0700
+Message-ID: <20261004204516.281201-1-rosenp@gmail.com>
+X-Mailer: git-send-email 2.56.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Original-Sender: glaubitz@physik.fu-berlin.de
-X-ZEDAT-Hint: PO
+Content-Transfer-Encoding: 8bit
 
-Hi Karl,
+marvell_config_intr() rewrote the whole register, so the config_intr
+call from phy_init_hw() on resume silently cleared WOL_EIE on polled
+PHYs: m88e1318_get_wol() still reported WAKE_MAGIC, but a matched magic
+packet was no longer routed to INTn and the board did not wake.
 
-On Sun, 2026-10-04 at 20:46 +0200, Karl Mehltretter wrote:
-> Before commit 44454baa7ca7 ("i2c: Dynamically assign adapter id if it
-> wasn't explictly specified"), a negative ID was replaced by zero, and
-> I2C bus zero was instantiated. Since that commit, a negative ID is passed
-> verbatim, instantiating an I2C bus with a dynamic number. As SH boards
-> still use i2c_register_board_info(0, ...) to register I2C devices, they
-> rely on the I2C bus being bus zero.
->=20
-> The SH7785LCR is the only SH board whose I2C adapter has a negative ID.
-> Its PCA9564 becomes i2c-1, causing registration of the R2025S/D RTC to
-> fail, and hwclock finds no /dev/rtc0.
->=20
-> Set the platform device ID to 0, so that the adapter is registered as
-> bus zero again.
->=20
-> Fixes: 44454baa7ca7 ("i2c: Dynamically assign adapter id if it wasn't exp=
-lictly specified")
-> Tested-by: John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>
-> Reviewed-by: John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>
-> Reviewed-by: Geert Uytterhoeven <geert+renesas@glider.be>
-> Assisted-by: LLM
-> Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
-> ---
->=20
-> v2:
-> - Rewrite the commit message based on Geert's suggested wording.
-> - Add the tags from Adrian and Geert.
-> - No code change.
->=20
-> v1: https://lore.kernel.org/r/20261003082833.21511-1-kmehltretter@gmail.c=
-om/
->=20
->  arch/sh/boards/board-sh7785lcr.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
->=20
-> diff --git a/arch/sh/boards/board-sh7785lcr.c b/arch/sh/boards/board-sh77=
-85lcr.c
-> index 25c4968f0d8b..b93423df582f 100644
-> --- a/arch/sh/boards/board-sh7785lcr.c
-> +++ b/arch/sh/boards/board-sh7785lcr.c
-> @@ -256,7 +256,7 @@ static struct i2c_pca9564_pf_platform_data i2c_platfo=
-rm_data =3D {
-> =20
->  static struct platform_device i2c_device =3D {
->  	.name		=3D "i2c-pca-platform",
-> -	.id		=3D -1,
-> +	.id		=3D 0,
->  	.dev		=3D {
->  		.platform_data	=3D &i2c_platform_data,
->  	},
+Give these two PHYs a dedicated config_intr that sets WOL_EIE from the
+driver's own WoL state rather than from the hardware, so a bit left
+armed by the bootloader or a previous kernel is cleared at probe. On the
+disable path the bit is only kept for polled PHYs; with a PHY interrupt
+the handler is about to be freed or not yet requested, and a latched
+WoL event would be left with nobody to clear it. The enable path re-arms
+it. Add a handle_interrupt that also claims the WoL event mirrored in
+the interrupt status register. m88e1318_set_wol() now also clears WOL_EIE
+when WoL is fully disabled, so "wol d" disarms it immediately.
 
-Thanks a lot! I'll merge it in the upcoming week together with some
-more pending patches. This patch will then be part of v7.4.
+Fixes: 3871c3876f80 ("mv643xx_eth with 88E1318S: support Wake on LAN")
+Assisted-by: LLM
+Signed-off-by: Rosen Penev <rosenp@gmail.com>
+---
+ v2: resolved review warnings, including wol d.
+ drivers/net/phy/marvell.c | 106 ++++++++++++++++++++++++++++++++++++--
+ 1 file changed, 102 insertions(+), 4 deletions(-)
 
-Adrian
+diff --git a/drivers/net/phy/marvell.c b/drivers/net/phy/marvell.c
+index f71cffa88406..46527abab6af 100644
+--- a/drivers/net/phy/marvell.c
++++ b/drivers/net/phy/marvell.c
+@@ -354,6 +354,7 @@ struct marvell_priv {
+ 	u32 step;
+ 	s8 pair;
+ 	u8 vct_phase;
++	bool wol_armed;
+ };
+ 
+ static int marvell_read_page(struct phy_device *phydev)
+@@ -425,6 +426,83 @@ static irqreturn_t marvell_handle_interrupt(struct phy_device *phydev)
+ 	return IRQ_HANDLED;
+ }
+ 
++/*
++ * On the 88E1318S/88E1510, copper page register 0x12 serves two
++ * masters: it is the MII_M1011_IMASK interrupt mask for the generic
++ * Marvell interrupt handling, and m88e1318_set_wol() sets the WoL
++ * interrupt enable bit (MII_88E1318S_PHY_CSIER_WOL_EIE) in it.
++ *
++ * config_intr runs from phy_probe(), from phy_init_hw() on attach and
++ * on resume, and from phy_request_interrupt()/phy_free_interrupt() on
++ * ifup/ifdown. Each of these rewrites the register, so the routines
++ * below re-arm WOL_EIE while WoL is set up; otherwise a resume would
++ * silently disarm Wake-on-LAN for the next suspend.
++ *
++ * WOL_EIE is derived from the driver's own WoL state rather than read
++ * back from the PHY, so a bit left armed by the bootloader or a
++ * previous kernel is cleared at probe/init instead of carried over.
++ */
++static int m88e1318_config_intr(struct phy_device *phydev)
++{
++	struct marvell_priv *priv = phydev->priv;
++	u16 wol_eie = 0;
++	int err;
++
++	if (priv->wol_armed)
++		wol_eie = MII_88E1318S_PHY_CSIER_WOL_EIE;
++
++	if (phydev->interrupts == PHY_INTERRUPT_ENABLED) {
++		err = marvell_ack_interrupt(phydev);
++		if (err < 0)
++			return err;
++
++		err = phy_write(phydev, MII_88E1318S_PHY_CSIER,
++				MII_M1011_IMASK_INIT | wol_eie);
++	} else {
++		/* On a polled PHY, keep WOL_EIE so an armed WoL event
++		 * still asserts INTn across phy_init_hw() on resume.
++		 *
++		 * With a PHY interrupt, being disabled means the handler
++		 * is not requested yet or is about to be freed, and
++		 * nobody would clear a latched WoL event; a shared line
++		 * would then be disabled as "nobody cared". Drop WOL_EIE
++		 * here, the enable path re-arms it.
++		 */
++		if (phy_interrupt_is_valid(phydev))
++			wol_eie = 0;
++
++		err = phy_write(phydev, MII_88E1318S_PHY_CSIER, wol_eie);
++		if (err < 0)
++			return err;
++
++		err = marvell_ack_interrupt(phydev);
++	}
++
++	return err;
++}
++
++static irqreturn_t m88e1318_handle_interrupt(struct phy_device *phydev)
++{
++	int irq_status;
++
++	irq_status = phy_read(phydev, MII_M1011_IEVENT);
++	if (irq_status < 0) {
++		phy_error(phydev);
++		return IRQ_NONE;
++	}
++
++	/* Claim events from the IMASK_INIT set as well as the WoL event
++	 * mirrored from WOL_EIE in the enable register.
++	 */
++	if (!(irq_status & (MII_M1011_IMASK_INIT |
++			    MII_88E1318S_PHY_CSIER_WOL_EIE)))
++		return IRQ_NONE;
++
++	phy_trigger_machine(phydev);
++
++	return IRQ_HANDLED;
++}
++
+ static int marvell_set_polarity(struct phy_device *phydev, int polarity)
+ {
+ 	u16 val;
+@@ -1969,6 +2047,7 @@ static void m88e1318_get_wol(struct phy_device *phydev,
+ static int m88e1318_set_wol(struct phy_device *phydev,
+ 			    struct ethtool_wolinfo *wol)
+ {
++	struct marvell_priv *priv = phydev->priv;
+ 	int err = 0, oldpage;
+ 
+ 	oldpage = phy_save_page(phydev);
+@@ -2074,6 +2153,25 @@ static int m88e1318_set_wol(struct phy_device *phydev,
+ 			goto error;
+ 	}
+ 
++	if (!(wol->wolopts & (WAKE_MAGIC | WAKE_PHY))) {
++		/* Fully disabled: drop the WoL interrupt enable now
++		 * instead of waiting for the next config_intr call.
++		 */
++		err = marvell_write_page(phydev, MII_MARVELL_COPPER_PAGE);
++		if (err < 0)
++			goto error;
++
++		err = __phy_clear_bits(phydev, MII_88E1318S_PHY_CSIER,
++				       MII_88E1318S_PHY_CSIER_WOL_EIE);
++		if (err < 0)
++			goto error;
++	}
++
++	/* Let m88e1318_config_intr() re-arm CSIER.WOL_EIE, or keep it
++	 * cleared once WoL is disabled.
++	 */
++	priv->wol_armed = !!(wol->wolopts & (WAKE_MAGIC | WAKE_PHY));
++
+ error:
+ 	return phy_restore_page(phydev, oldpage, err);
+ }
+@@ -3817,8 +3915,8 @@ static struct phy_driver marvell_drivers[] = {
+ 		.config_init = m88e1318_config_init,
+ 		.config_aneg = m88e1318_config_aneg,
+ 		.read_status = marvell_read_status,
+-		.config_intr = marvell_config_intr,
+-		.handle_interrupt = marvell_handle_interrupt,
++		.config_intr = m88e1318_config_intr,
++		.handle_interrupt = m88e1318_handle_interrupt,
+ 		.get_wol = m88e1318_get_wol,
+ 		.set_wol = m88e1318_set_wol,
+ 		.resume = genphy_resume,
+@@ -3925,8 +4023,8 @@ static struct phy_driver marvell_drivers[] = {
+ 		.config_init = m88e1510_config_init,
+ 		.config_aneg = m88e1510_config_aneg,
+ 		.read_status = marvell_read_status,
+-		.config_intr = marvell_config_intr,
+-		.handle_interrupt = marvell_handle_interrupt,
++		.config_intr = m88e1318_config_intr,
++		.handle_interrupt = m88e1318_handle_interrupt,
+ 		.get_wol = m88e1318_get_wol,
+ 		.set_wol = m88e1318_set_wol,
+ 		.resume = m88e1510_resume,
+-- 
+2.56.0
 
---=20
- .''`.  John Paul Adrian Glaubitz
-: :' :  Debian Developer
-`. `'   Physicist
-  `-    GPG: 62FF 8A75 84E0 2956 9546  0006 7426 3B37 F5B5 F913
