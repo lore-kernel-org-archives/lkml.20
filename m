@@ -1,103 +1,135 @@
-Received: from sg-3-44.ptr.tlmpb.com (sg-3-44.ptr.tlmpb.com [101.45.255.44])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mail.alien8.de (mail.alien8.de [65.109.113.108])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 71A4F3CEBBD
-	for <linux-kernel@vger.kernel.org>; Sun,  4 Oct 2026 03:54:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=101.45.255.44
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BB2641FB1;
+	Sun,  4 Oct 2026 03:59:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=65.109.113.108
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791086077; cv=none; b=KVT7RhOKL4dyZ8L1HRTTtHEOIGgZ82iHDSS4e8lQE3BxMhnOms8bre1HFRcwbdFWNz+lKnPNFSCURJLTxPlhaze4CuPhjkJyK4jFHpWITMSfA7oIruukqCZFmePRuxxw6vsRsTPmH7+90J5GH+dGnnp9P/sVxiYq5L0q8j+uNrE=
+	t=1791086397; cv=none; b=PXmXTZB8I9ra8SDIKCwiVc23Y2ljEVS35zJNXVdumZIGNSHKIIKix61C2XP0vr251P3zjRloUMlKOMc/WqLDVi2rDkMLNkoCFATZnLe+Hkxrhb3qbJcaVKUnYTOViBlIKR7dtTzH1/LjZTLYn/yT4YgupGaKFBr79lXcX4gWCD0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791086077; c=relaxed/simple;
-	bh=Kjz23xee0EkCTSKLH7Jr2MiDr3Ha+F7EK9SH+wKIMoU=;
-	h=References:To:Cc:Mime-Version:Content-Type:In-Reply-To:From:
-	 Subject:Date:Message-Id; b=gfH2/Vw+T7p/tMeCME7N6F1RUrhbjq9fwJhYjhsYVgZZWu7F6tWNvX3OJ6D1oBTE1Mhl7jLhyqZWmAsrGGBu0lDmU8ICVq0PlWUkS4SsD5Zk1B0sIVuZ/k/OD3vrpsSIvNQ8rY+0XHbAKsebbUFw9USfajv4cwgotMdUbrlhx64=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fygo.io; spf=pass smtp.mailfrom=fygo.io; dkim=pass (2048-bit key) header.d=fygo-io.20200929.dkim.larksuite.com header.i=@fygo-io.20200929.dkim.larksuite.com header.b=OvrM1k/M; arc=none smtp.client-ip=101.45.255.44
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fygo.io
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fygo.io
+	s=arc-20240116; t=1791086397; c=relaxed/simple;
+	bh=ZXm5Tp3Cv6uPdj7L5puYAvd6KkreOAA5RvvUD8pUw0Y=;
+	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
+	 Content-Disposition; b=fNE3hp05LMbknOX9Jo7WP1GwebHSyuM87aAroDbyEK4058wWdbuwuJqKU2eULMC9FWWVsE+mFAkFJHTFQOqbY6tkagrG1myR85GwK/r9TC1F4p9a9m4rBi9H/m8GYyoIfQ45YmQfmymvzrkrCXEH6mwbLVKC4a+gbO8G/OfMgEU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alien8.de; spf=pass smtp.mailfrom=alien8.de; dkim=pass (4096-bit key) header.d=alien8.de header.i=@alien8.de header.b=VDd2+3ER; arc=none smtp.client-ip=65.109.113.108
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alien8.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=alien8.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=fygo-io.20200929.dkim.larksuite.com header.i=@fygo-io.20200929.dkim.larksuite.com header.b="OvrM1k/M"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- s=s1; d=fygo-io.20200929.dkim.larksuite.com; t=1791086027;
-  h=from:subject:mime-version:from:date:message-id:subject:to:cc:
- reply-to:content-type:mime-version:in-reply-to:message-id;
- bh=O8QbCgYQZlOQXUSpEPn47jxAv6RL0ZTxjvVmh8r/Vg0=;
- b=OvrM1k/MiFm/VMA+Gy4BBDktkK5HyzcS3DwBU4Q7RLzWOxSDa89EeDu+X7+U/EF0I5C2Pw
- ILhmZUZJJEIt18kAKE0HDJThGvlswae4gryl5zlraMlPGAHaXK+nH3CCAjvSSzL2n2/nwR
- 5NWt/Ncsv2v7kWW85v3EP5R9VjfolKjcjPKc3/STeoWINfRS4daKt00RfW2NYaVKGoJoD3
- qBO+5sxxrsIerkFcFFM7yYh8rKVuPo6nqzwC5fZ4bELEPlbIYWtOVdMWaJwkdJvEw/6g1W
- FyLqIehVMfmY8dIKfHaCWjMx/JZPompF3wuWdkYtnjJ84VnFeaOPZYSIDW72sw==
-References: <20260924162610.10056-1-nsvatoslav515@gmail.com>
-Reply-To: yukuai@fygo.io
-To: "Svyatoslav Nikolenko" <nsvatoslav515@gmail.com>, <song@kernel.org>, 
-	"yu kuai" <yukuai@fygo.io>
-Cc: <magiclinan@didiglobal.com>, <xiao@kernel.org>, 
-	<linux-raid@vger.kernel.org>, <linux-kernel@vger.kernel.org>, 
-	<syzbot+75d7e96ad03ac2dbbd9f@syzkaller.appspotmail.com>
-X-Original-From: yu kuai <yukuai@fygo.io>
+	dkim=pass (4096-bit key) header.d=alien8.de header.i=@alien8.de header.b="VDd2+3ER"
+Received: from localhost (localhost.localdomain [127.0.0.1])
+	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTP id 581D040E021A;
+	Sun,  4 Oct 2026 03:59:47 +0000 (UTC)
+X-Virus-Scanned: Debian amavisd-new at mail.alien8.de
+Authentication-Results: mail.alien8.de (amavisd-new); dkim=pass (4096-bit key)
+	header.d=alien8.de
+Received: from mail.alien8.de ([127.0.0.1])
+	by localhost (mail.alien8.de [127.0.0.1]) (amavisd-new, port 10026)
+	with ESMTP id 5ppTorZNpMu0; Sun,  4 Oct 2026 03:59:37 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=alien8.de; s=alien8;
+	t=1791086377; bh=k1FuTy89Fo5PtSlYo+7PHjRmcLUAPD+fL6taNzxDg+0=;
+	h=Date:From:To:Cc:Subject:From;
+	b=VDd2+3ER8slURJr78NAmowfHVN60nfC+cETjumty9lDeCDhjdHGPO3SWSrK731uKP
+	 OpRvyuvfOvYbhWh6UbW/J7IvMnYfOQm2O011mQrMFzDKE+yHwZFAfdla4ZFGYl64vM
+	 d9Gk5DFivXjOJJA4rAxJmSo/33T3BUlFtgDmNUoU9bLZmJf0xI4EkSg0rv7vKItBAz
+	 LiAfPveJ5nPwo4vMasrVV0mU0DJq0xzGXeDatCivFMlO84FT9yyq1MSLNFp/Qvzetq
+	 ZzQKOjF7Xs5Arm/AmrPSuNcD2DgWr6E9eUTwtJy0nQ8x560o+qqltdvYvn0qrbp9Pw
+	 r99eAJUiAr4GEVLTrXn3CsKQrMQvKOz1/DRkzMAeS3FirPA/XtvevUomMK4/wxjjsv
+	 shbsngHTOgmB3SmqSdDY1KtNbyXP9SiPsWIyniUVDKFhTwAa7EXskAdcMrav0rQScx
+	 k0eHCkV+xQ9YfRNIokgs/1aJ7XUU9xLI5DZwhzNyM0NNNItWIPKfaJg2yd9d3ByBAC
+	 HYt9qJ4A+UP7pXmXAU21UqtLwXuZm6lkj94cs3QkYHVnOTtVr8iIH7eejNlaO2PcW4
+	 SnPotI0hZ6BkCIB4z5Yft8MvDdZoylNwW4vc+ajnFDIHO3G2WM0/ko9PT9913+zSCn
+	 EJuxOSrIlycNsfMfNQzJqiIc=
+Received: from stx.tnic (unknown [IPv6:2600:1700:38ca:c00::3a])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (P-256) server-signature ECDSA (P-256) server-digest SHA256)
+	(No client certificate requested)
+	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTPSA id BA11240E01B4;
+	Sun,  4 Oct 2026 03:59:33 +0000 (UTC)
+Date: Sat, 3 Oct 2026 20:59:29 -0700
+From: Borislav Petkov <bp@alien8.de>
+To: Linus Torvalds <torvalds@linux-foundation.org>
+Cc: linux-edac <linux-edac@vger.kernel.org>,
+	lkml <linux-kernel@vger.kernel.org>
+Subject: [GIT PULL] EDAC urgent for v7.3-rc6
+Message-ID: <20261004035929.GAasHPIYlVqxw08xmc@fat_crate.local>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-X-Lms-Return-Path: <lba+26ac1cdcb+0c656b+vger.kernel.org+yukuai@fygo.io>
-Content-Type: text/plain; charset=UTF-8
-Received: from [192.168.1.104] ([39.182.0.177]) by smtp.larksuite.com with ESMTPS; Sun, 04 Oct 2026 03:53:46 +0000
-In-Reply-To: <20260924162610.10056-1-nsvatoslav515@gmail.com>
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Mozilla Thunderbird
-From: "yu kuai" <yukuai@fygo.io>
-Subject: Re: [PATCH] md/raid5-ppl: check for NULL ppl_conf in ppl_write_stripe_run()
-Date: Sun, 4 Oct 2026 11:53:43 +0800
-Message-Id: <a61c9d13-4c8f-44ac-96e5-6387f4ae6765@fygo.io>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 
-Hi,
+Hi Linus,
 
-=E5=9C=A8 2026/9/25 0:26, Svyatoslav Nikolenko =E5=86=99=E9=81=93:
-> Syzbot reported a general protection fault
-> due to a NULL pointer dereference in ppl_write_stripe_run().
->
-> When a RAID 5 array operates without Partial Parity Log (PPL) enabled or
-> before its initialization, conf->log_private remains NULL.
-> ppl_write_stripe_run() assigns ppl_conf =3D conf->log_private and
-> immediately attempts to access ppl_conf->count in the loop header.
-> This triggers a NULL pointer dereference.
->
-> Fix this by returning early
-> from ppl_write_stripe_run() if ppl_conf is NULL.
->
-> Tested-by: syzbot+75d7e96ad03ac2dbbd9f@syzkaller.appspotmail.com
-> Reported-by: syzbot+75d7e96ad03ac2dbbd9f@syzkaller.appspotmail.com
-> Closes: https://syzkaller.appspot.com/bug?extid=3D75d7e96ad03ac2dbbd9f
-> Fixes: 3418d036c81d ("raid5-ppl: Partial Parity Log write logging impleme=
-ntation")
-> Signed-off-by: Svyatoslav Nikolenko <nsvatoslav515@gmail.com>
-> ---
->   drivers/md/raid5-ppl.c | 3 +++
->   1 file changed, 3 insertions(+)
+please pull the EDAC fixes lineup for v7.3-rc6.
 
-Another patch is applied for this problem, you can check the notes:
+This is more of the new normal of LLM-induced fixes of error paths. Oh well,
+they should be done eventually and hopefully we'll be back to normal
+soon-ish... one would hope... :-P
 
-[PATCH] md: take reconfig_mutex when enabling PPL on an inactive array -=20
-Nguyen Ngoc Thang <https://lore.kernel.org/linux-raid/20260924171345.75894-=
-1-ngocthang2710.1999@gmail.com/>
+Thx.
 
->
-> diff --git a/drivers/md/raid5-ppl.c b/drivers/md/raid5-ppl.c
-> index 7f8a9d3fd578..e54ed4e44b0f 100644
-> --- a/drivers/md/raid5-ppl.c
-> +++ b/drivers/md/raid5-ppl.c
-> @@ -535,6 +535,9 @@ void ppl_write_stripe_run(struct r5conf *conf)
->   	struct ppl_log *log;
->   	int i;
->  =20
-> +	if (!ppl_conf)
-> +		return;
-> +
->   	for (i =3D 0; i < ppl_conf->count; i++) {
->   		log =3D &ppl_conf->child_logs[i];
->  =20
+---
 
---=20
-Thanks,
-Kuai
+The following changes since commit 93f51579e7df248780214094418f205253383cc5:
+
+  Linux 7.3-rc4 (2026-09-20 13:48:15 -0700)
+
+are available in the Git repository at:
+
+  ssh://git@gitolite.kernel.org/pub/scm/linux/kernel/git/ras/ras.git tags/edac_urgent_for_v7.3_rc6
+
+for you to fetch changes up to 5f43a2d35d5e748c09a50a98fc766dc95bb3a6bd:
+
+  EDAC/versalnet: Drop remote processor handle refcount on driver removal (2026-09-27 14:05:10 -0700)
+
+----------------------------------------------------------------
+- In versalnet_edac, properly release a remote processor reference which was
+  acquired at probe time, on memory controller instance remove
+
+- A handful of Altera EDAC driver fixes:
+
+  - Fix device node reference leaks covering both the success path and the
+    various error paths, and route the single-bit setup function through the
+    common exit label
+
+  - Fix a use-after-free by releasing the devres group before freeing the
+    control info structure in the error paths, since managed IRQ handlers
+    could reference the freed dci struct if they fire at just the right time
+
+  - Fix a memory leak by freeing the allocated control info structure when the
+    devres group open fails in the Altera SDMMC setup path
+
+  - Remove the __init marking from the Altera Arria10 setup paths and their
+    helpers so they remain safely callable at runtime, including after
+    deferred or re-triggered probing
+
+  - Prevent the Altera driver from being unbound by removing their ->remove
+    callbacks and marking them to suppress bind/unbind sysfs attributes, since
+    unbinding could erase active system memory
+
+----------------------------------------------------------------
+Dinh Nguyen (4):
+      EDAC/altera: Do not allow driver unbinding
+      EDAC/altera: Drop __init from ECC setup paths for re-probe safety
+      EDAC/altera: Fix memory leak on dci allocation failure
+      EDAC/altera: Fix use-after-free in error paths
+
+Guangshuo Li (1):
+      EDAC/versalnet: Drop remote processor handle refcount on driver removal
+
+Rounak Das (1):
+      EDAC/altera: Fix device node reference leaks in the SDMMC ECC setup
+
+ drivers/edac/altera_edac.c    | 67 ++++++++++++++++++++++---------------------
+ drivers/edac/versalnet_edac.c |  1 +
+ 2 files changed, 36 insertions(+), 32 deletions(-)
+
+
+-- 
+Regards/Gruss,
+    Boris.
+
+https://people.kernel.org/tglx/notes-about-netiquette
