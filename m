@@ -1,92 +1,71 @@
-Received: from 013.lax.mailroute.net (013.lax.mailroute.net [199.89.1.16])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8A0D53F54D1;
-	Sun,  4 Oct 2026 22:42:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=199.89.1.16
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7CD773F54D1;
+	Sun,  4 Oct 2026 22:43:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791153738; cv=none; b=BetXUJHTLYqDmEbahZCXD6UA8qHF+jwxzboN+TXlopKo16vnW/suI36Tavy9pMli/CWaq2T5eDe+lo+vccunHoifcVu1kepKOItbclB1utNab39fqNzTzL4fiX26oYExST4/dAW2FHuwueQylj5XY+FkDFkELgE6WvUAR3i66PY=
+	t=1791153797; cv=none; b=NcFfIlHUQA2pLExb8REWcZJG/JKUfyi/QcWBWKk2mMnQOrNUp4HI+EcsDHB+Yln2buNc7rl3DheneEeDfiHccpS9YC9iMseGeQivYbjm/uoFYgx4LP37Y3QheqS+ufAPDOcEJizMhi5lieSrTu7mTwmN5HTONy8d/Q+gj2RFmpM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791153738; c=relaxed/simple;
-	bh=GtfR5C9b840K08oo+SPYRgQB4SrBLBp6itcK7VpOH0w=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=hNFqPu1gWkhY9kJ4yoPPE3XEiKT3jtbDXUZHEJndPFZNQ5VYkl7ukKAfMh8pu4pIgDm4Os2kPvLzb3YFrNAfm7+ygACcXgQehQNfuXv+Cjdjj5SmmIOx3hPmrZxGigv0qrQ7PyysFVXYI3RupNhXMKF3SCymGqjxI1eWIlElyXk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=acm.org; spf=pass smtp.mailfrom=acm.org; dkim=pass (2048-bit key) header.d=acm.org header.i=@acm.org header.b=wGwwnSDz; arc=none smtp.client-ip=199.89.1.16
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=acm.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=acm.org
+	s=arc-20240116; t=1791153797; c=relaxed/simple;
+	bh=gp7PRv3WjAiMJrp0DvXpRvTv3mwC8R3NiezXzUE7FxE=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=Bm1bY2f4Z1Kv3TF5UfsEDYO2/GHEmZs/Q/DTfGjvQphTLi0vGvJhz2zl8elVdTA3Sh7g7NzTdjiKU1piEhAPy9R4GRny5gD42d0TNPU2nY5iiYpAyW0b+sRGujicYqIA2ldZqgt22wO+jeiRQxUgbjnZkbrcfetbZx5fxFUvEMU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JgMkTesU; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=acm.org header.i=@acm.org header.b="wGwwnSDz"
-Received: from localhost (localhost [127.0.0.1])
-	by 013.lax.mailroute.net (Postfix) with ESMTP id 4hycw867lszlfvpb;
-	Sun,  4 Oct 2026 22:42:16 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=acm.org; h=
-	content-transfer-encoding:content-type:content-type:in-reply-to
-	:from:from:content-language:references:subject:subject
-	:user-agent:mime-version:date:date:message-id:received:received;
-	 s=mr01; t=1791153733; x=1793745734; bh=GtfR5C9b840K08oo+SPYRgQB
-	4SrBLBp6itcK7VpOH0w=; b=wGwwnSDzAcHWSBa3eVI4QdNWCNPuIEDHYi3mMtuP
-	jDvT555QM9nkJiKn6VF64yF+nrCqwp24xjyhVvifAY8qlH+UGjGPHJw6vpsi4mys
-	AbPsvpyVDladucMUE1g87dUBD3WmI/ZjBg05qk7ED+ocqtJNcTRkrf3AH/mALpyn
-	NIVPVxuVHhN1APaZnz8QLM8CRLZu0sx3CBfyZojx3WqSxwF6JOBSrmi6MRcUc4m2
-	xzB3ifsclmqxB2i7nPD8szZNivFRxgzKvwuhT35K9Dcs/SOiQ6XChz7jkNy31Rp+
-	62VVWk9LKBfg9cR7FuQArmB/Y1zS8O/5EgN+CiSup9MQvg==
-X-Virus-Scanned: by MailRoute
-Received: from 013.lax.mailroute.net ([127.0.0.1])
- by localhost (013.lax [127.0.0.1]) (mroute_mailscanner, port 10029) with LMTP
- id LwZAxfT1ooHy; Sun,  4 Oct 2026 22:42:13 +0000 (UTC)
-Received: from [192.168.51.14] (c-24-6-239-25.hsd1.ca.comcast.net [24.6.239.25])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	(Authenticated sender: bvanassche@acm.org)
-	by 013.lax.mailroute.net (Postfix) with ESMTPSA id 4hycw26293zlfvpT;
-	Sun,  4 Oct 2026 22:42:10 +0000 (UTC)
-Message-ID: <21853b19-d02a-4268-80a7-e457ef813522@acm.org>
-Date: Sun, 4 Oct 2026 15:42:09 -0700
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JgMkTesU"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8CAD51F000FF;
+	Sun,  4 Oct 2026 22:43:15 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791153796;
+	bh=Z9zRtXHe/J1k/4/9wAeq1n+PwAt+ioXmV3zyjSNrjDw=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=JgMkTesUDn43h9/C6PLmCExHN1V7Pld3L+trfaKecnsVxqpnoBbN5M3RJySbFn0aF
+	 UcDHr2AZURnQ355dfC6xFwVv0cFZXSaFZ66BiRZqNEEd0eyTIbqBubPKsgwxL0fSG9
+	 Yp47OQUW+yAY8WeNykYMcp4AHq87kZxMIb5tryW+UFxfQHQRrAN8sco8Z5BzFNhTKh
+	 tiTKZVKnDczOFeqUgGA6aU1i2Qk7RhvCY8Q4/93RQITBYCKl9SA8bbwC7UzwVTFsUv
+	 2JlJW3vDpgfDEcoH/+FB6DkefgcGicLVeo2lR/rfGaNRr1goCzG6JvQ8aQRLBL2MdH
+	 YW5pLG6U4jrMA==
+From: netdev-bot+sinfo@kernel.org
+To: =?utf-8?q?=C3=96mer?= Mete Kaya <omermetekaya0@gmail.com>
+Cc: netdev@vger.kernel.org, oneukum@suse.com, andrew+netdev@lunn.ch,
+ davem@davemloft.net, edumazet@google.com, kuba@kernel.org, pabeni@redhat.com,
+ linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org,
+ syzbot+04cd90bb99c6ef81a65d@syzkaller.appspotmail.com
+Subject: 
+ Re: [PATCH net] usbnet: fix EVENT_RX_PAUSED race in usbnet_skb_return()
+Date: Sun, 04 Oct 2026 22:43:15 +0000
+Message-ID: <179115379510.1402591.18007585712452116262@kernel.org>
+In-Reply-To: <20261004223852.312487-1-omermetekaya0@gmail.com>
+References: <20261004223852.312487-1-omermetekaya0@gmail.com>
+Auto-Submitted: auto-generated
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] MAINTAINERS: Remove Avri Altman as UFS reviewer
-To: Bean Huo <beanhuo@iokpp.de>, Avri Altman <Avri.Altman@sandisk.com>,
- Stanley Jhu <stanleyjhu@google.com>
-Cc: "Martin K . Petersen" <martin.petersen@oracle.com>,
- Alim Akhtar <alim.akhtar@samsung.com>,
- "James E . J . Bottomley" <James.Bottomley@hansenpartnership.com>,
- "linux-scsi@vger.kernel.org" <linux-scsi@vger.kernel.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
-References: <20260930135947.2339918-1-stanleyjhu@google.com>
- <2fbff86c-f276-4e46-b7d3-549461706d37@acm.org>
- <20261002134158.2844652-1-stanleyjhu@google.com>
- <BL3PR16MB4473EF5053283779F18B4161E5972@BL3PR16MB4473.namprd16.prod.outlook.com>
- <481d737323a2925e68f08e1129e1ca904effbea5.camel@iokpp.de>
-Content-Language: en-US
-From: Bart Van Assche <bvanassche@acm.org>
-In-Reply-To: <481d737323a2925e68f08e1129e1ca904effbea5.camel@iokpp.de>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: quoted-printable
 
-On 10/4/26 3:10 AM, Bean Huo wrote:
-> On Sun, 2026-10-04 at 08:21 +0000, Avri Altman wrote:
->>
->>> It was off-list. I asked Avri on Sep 29 about updating the bouncing w=
-dc.com
->>> address, and he asked to be removed as a reviewer instead.
->>>
->>> Avri, could you reply with your Acked-by?
->> Acked-by: Avri Altman <avri.altman@sandisk.com>
->>
->> Stanley thanks - sorry for my late response.
->> I do feel that the reviewer role is no longer needed for the ufs drive=
-r.
->=20
-> A sad day for the UFS driver, we=E2=80=99ve just lost a brilliant revie=
-wer!
+Hi!
 
-Thanks Avri for your numerous high-quality reviews of UFS kernel driver
-patches!
+This is an automated message. This series looks like a fix, but its
+commit messages seem to be missing some information:
 
-Bart.
+ - How the issue was discovered, e.g. hit in production, hit during
+   development, syzbot report, manual code inspection, LLM or static
+   analysis tool scan.
+
+ - Whether the issue was actually triggered, or is only theoretical
+   (e.g. found by code inspection). If it was triggered please include
+   the symptoms, like the stack trace or error messages.
+
+Please do not repost the series just to address the above. Instead,
+reply to this email with the missing information, so that reviewers
+can take it into account. If the series needs another revision for
+other reasons, please include the information in the commit messages
+then.
+
+The evaluation is done by an LLM so it may be wrong, if you think
+that is the case please reply and explain.
