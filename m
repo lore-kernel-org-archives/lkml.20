@@ -1,62 +1,44 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.12])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6B4703F0AAF;
-	Sun,  4 Oct 2026 08:43:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.12
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AE16D41442F;
+	Sun,  4 Oct 2026 08:45:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791103386; cv=none; b=Ye1VlTrouUKZZJXcqVb3I33RqBHP2uX0UX5UC6X22ZwxVTz8rGP2PnjIM+x5UBdnEpIGlsQMlFhlrhM2QSvM9SjX+Bsnw7PXkI/l06gwWBI6xudgvIi4X1O7piaE76bWmmtBQWYjUxlyV42YDsnY4V2gY0hAXBJ5O49Ees0zb/I=
+	t=1791103520; cv=none; b=ifpL9A1Y7vi7agaBn3avb5RDOJa2qNdMP/gCQCJbEZ05AF+y6bZj5Cm2waExFwbmCrJR/FYdM7bU6Ug4R3cuY8TDb2DfOUUus23ZBAWK8Dt8EIKQU6e1yFry/dEzYZo88+/kemMqgr0IUJ4qJuqVr+0+L5KXu/LQw0pHamNiNCs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791103386; c=relaxed/simple;
-	bh=2vGAu/0YxMMlosDI7FUBatoN/q3StUPF3WWTMNiH7hk=;
+	s=arc-20240116; t=1791103520; c=relaxed/simple;
+	bh=M2+1n/Et7nEdx2QhvFqH/JrUMuhz223DfjvwVDJTSSc=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=sGtZHdmrfp2vq9yP7EfCgr1EEMgMlH97AIJm+o3zTZS9Nj75bBjuAU37gyv54CDnVW4tgplY6JY7DEpjUKtC6J+37AfgrlJYG554cmyUzA6C3TLFG2PtL8mLk+3RoMQld9zmhwxlYbe2o5JpNfj8gB4kpjSs/4rKSwU5rRoHXqA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=iroGfBfA; arc=none smtp.client-ip=198.175.65.12
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=JPQnCj2vUwNX6ljCYpGu9Eum/9q1tTDHANg9gzJRwEfVco9MPwzB2P9ai6tEE8J4yA1d/qj55hAA0YdmUTLVaFg1QD0ncjnElEL3namiODCSfiA5/BRqyVoMg8jkdDoLnuwhyQbobeYL9tVq6TL6meANyaybpYCBSKpdwUTOWj0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=GZYL6ljQ; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="iroGfBfA"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1791103382; x=1822639382;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=2vGAu/0YxMMlosDI7FUBatoN/q3StUPF3WWTMNiH7hk=;
-  b=iroGfBfAcQ0v5B0AUrDKucjJVqXVplzixYLIUfrn1nhkBt69l7Q2pmbi
-   snT+rPeeqerfY2Z6Z73iwcw2z0jNEnLWdsF6/447/lVAmqljg30a5/0PZ
-   77hmbBOO9dTqynsemTh64Ps0qT4Y+QwkY4M55sdP1Msx2iXdpY6bUB+Q5
-   B8K5tFm3MyCjGajKVUQ/o5LPZ7QUKU9JdRBwZEWf2uxzPtoxGB4pyyb1U
-   YRaC07Yj+AV5xAZ+iD04dVqryDYUwSFM3pbg72zQHxj2l1dEZ3h1UNrDF
-   RFS3xFb97A2Rz2wAFL7UuYf2N9BDf1bEoxBmf8UC3bG0UXkp4pX5GfcqZ
-   w==;
-X-CSE-ConnectionGUID: DryS0mB4RXyk3IrZlA3/Jw==
-X-CSE-MsgGUID: dZ1qAzKZRNqWvJAf8/vYYQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11924"; a="102320740"
-X-IronPort-AV: E=Sophos;i="6.27,139,1787036400"; 
-   d="scan'208";a="102320740"
-Received: from fmviesa007.fm.intel.com ([10.60.135.147])
-  by orvoesa104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 04 Oct 2026 01:43:01 -0700
-X-CSE-ConnectionGUID: GldCbnOhRHGw1VeubeHqHw==
-X-CSE-MsgGUID: dm6UexKKRbyxv78kTMUKyw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,139,1787036400"; 
-   d="scan'208";a="276095244"
-Received: from mkosciow-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.100])
-  by fmviesa007-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 04 Oct 2026 01:42:58 -0700
-Date: Sun, 4 Oct 2026 11:42:56 +0300
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: Rupesh Majhi <zoone.rupert@gmail.com>
-Cc: Andy Shevchenko <andy@kernel.org>,
-	David Lechner <dlechner@baylibre.com>,
-	Jishnu Prakash <jishnu.prakash@oss.qualcomm.com>,
-	Jonathan Cameron <jic23@kernel.org>,
-	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
-	linux-arm-msm@vger.kernel.org, linux-iio@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] iio: adc: qcom-spmi-adc5-gen3: fix lock annotations on
- mutex helpers
-Message-ID: <asIRkK-uUz4FKQBN@ashevche-desk.local>
-References: <20261003214516.128573-1-zoone.rupert@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="GZYL6ljQ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 04E621F000FF;
+	Sun,  4 Oct 2026 08:45:16 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791103518;
+	bh=mWtZc0bjjl64xaANXigV+9F0Zg1QFWUdNiNWNiWvNto=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=GZYL6ljQie/p6P3XjvuAqOTszsXJz0/4NmqMGLHgFUkl6eUusjXheNkOk0TEpslfh
+	 JAkOnL4DRM4wpjzDMk8SLZiZjzMXpRu1J+MdZ0n4p3ci1FtFaDAkvqJRjBEchsi5Cu
+	 ybJ8iRy9gCfwSsI9jFgeLe5ErKoKtR354m35+UW8igrAefAGO+7rCr/R3g1wTZeR46
+	 ZBDCZFWKz+rnZbafxP55dxaRYgrZzpaMMy6RKYLPa/eYexZMgboIc8MjAQeEZk3Ucb
+	 4hxiqVXKKxFhid6v8IrOQJrpqgR9kV+m9eE18hXr2/QbEcILBTg9t4xriL/XkF7mam
+	 pMaHqZmEHDCXA==
+Date: Sun, 4 Oct 2026 09:45:13 +0100
+From: Will Deacon <will@kernel.org>
+To: Bui Duc Phuc <phucduc.bui@gmail.com>
+Cc: Mark Rutland <mark.rutland@arm.com>, linux-perf-users@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] perf/arm-smmuv3: Propagate errors from optional IRQ
+ lookup
+Message-ID: <asISGdljsG86gUwb@willie-the-truck>
+References: <20260811041934.7609-1-phucduc.bui@gmail.com>
+ <ar_fLAeFU4rmrwiH@willie-the-truck>
+ <CAABR9nGqwTGcrr6bKsV5+0GYwkQoP0s_Tu6aTJrhJJW_ZRqFYg@mail.gmail.com>
+ <asCyI2_CNSoDJy1w@willie-the-truck>
+ <CAABR9nH3pkFB-htyrD-Z+iBBcYoVX4Z-hFa_binWCXg9_cHU6A@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -65,26 +47,50 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261003214516.128573-1-zoone.rupert@gmail.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+In-Reply-To: <CAABR9nH3pkFB-htyrD-Z+iBBcYoVX4Z-hFa_binWCXg9_cHU6A@mail.gmail.com>
 
-On Sun, Oct 04, 2026 at 12:45:16AM +0300, Rupesh Majhi wrote:
-> The __acquires() and __releases() on adc5_gen3_mutex_lock() and
-> adc5_gen3_mutex_unlock() name adc, a local declared in the body. With
-> context analysis enabled for this file, the build fails:
+On Sat, Oct 03, 2026 at 06:11:52PM +0700, Bui Duc Phuc wrote:
+> Hi Will,
 > 
->   error: use of undeclared identifier 'adc'
+> > > > Not sure about this. If it's optional, why should we bail the probe if
+> > > > we don't manage to get an irq? Surely it's better to continue without
+> > > > the interrupt in that case?
+> > > >
+> > >
+> > > platform_get_irq_optional() returns -ENXIO when no IRQ is available.
+> > > Other negative return values indicate errors, including -EPROBE_DEFER.
+> > > In the case of -EPROBE_DEFER, we should propagate the error so that
+> > > the probe can be retried later.
+> >
+> > Thanks, The -EPROBE_DEFER case seems more compelling, so perhaps we should
+> > check for the expliitly (because it won't fail the probe altogether)?
+> >
 > 
-> The lock and unlock are split across these two helpers for the ADC_TM
-> driver, so mark them __context_unsafe() instead.
+> The idea of the _optional getters is that only the "not present" case
+> is turned into a special value (-ENXIO here, NULL for
+> devm_clk_get_optional()), while real errors are still reported to the
+> caller.
+> 
+> Besides -EPROBE_DEFER, platform_get_irq_optional() can return other
+> negative error values depending on how the IRQ is obtained. These
+> indicate an actual error rather than the IRQ simply being absent.
+> Ignoring them would leave the device running without its interrupt
+> and no indication of what went wrong.
+>
+> 
+> So I'd rather keep:
+> 
+> -----------------------------------------------------
+> irq = platform_get_irq_optional(pdev, 0);
+> if (irq < 0 && irq != -ENXIO)
+>         return irq;
+> -----------------------------------------------------
+> 
+> and continue without the IRQ only for -ENXIO. This is also the usual
+> pattern for platform_get_irq_optional() users.
 
-Doesn't sound right to me. The __acquires() and __releases() IIRC are sparse
-annotations. If clang has something special, it needs to be addressed in
-the compiler-clang.h, no?
+Sorry, but how is failing the probe possibly better than continuing without
+the optional interrupt? Add a diagnostic if you like, but aborting the probe
+feels completely unnecessary to me.
 
--- 
-With Best Regards,
-Andy Shevchenko
-
-
+Will
