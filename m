@@ -1,148 +1,225 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 775CF134CCF;
-	Sun,  4 Oct 2026 10:14:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9331837207F
+	for <linux-kernel@vger.kernel.org>; Sun,  4 Oct 2026 10:17:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791108880; cv=none; b=gdfA/PJexPMahGmbezWp7CB2yomdThguvFX+Yb+cBpNQHUm8kKHRm/wkYk0yv1oDTNFZ1gdr7QhRKSq5Zi+88eKCVPd66eLMAiqdU1liIJMwwjzYeuMowvlhVGIS/9lJ6Rzg9bjzSq4DY0xmlm3vhQaTB+XNMYPBaojTDeFHApQ=
+	t=1791109028; cv=none; b=TQJT8VgLlrWp4wiJRRrWH6Gq73tJLJQKpWOEYnr2uHVsHlrpWtLcjAhljN0pXs6b6V2pPGRvuNpCVCKEAv7kJm0QuAqyPQzj2Q5pnoKGlZrbEqUckqP6Gadd7HKhLWyGv751edMoCCDJNXgFsH9VTc4ojXIZCu0yz91zTVfLwFk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791108880; c=relaxed/simple;
-	bh=aQBpPbkz7ZDBMOBOV8wDOvq9JzIBpm/LNzyMWA0JHKk=;
-	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=iwjuaJxbtbBiHrdqHTp4Izii0+UosPtZ1hEbGR60MoZEhQQQv4FZYpW69pq97hJnupn9jaCV7OftgSEr/+a1wbDUKf3nxACRNd8o0D+Xzeht1TA5NbtKc0Lp9qDxvMcbOLSYiIwQFukmfkVrb/p9v/jY/IEBLXvbCZrLkSxmp6g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=B1FqCqr7; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791109028; c=relaxed/simple;
+	bh=TqOTmq/yqt4X48ByT3CHpiQMcfSnIr6FZTijTvhLnCw=;
+	h=From:To:Subject:Date:Message-Id:MIME-Version; b=DTXMSWjt0i0593LSTB6isAsBl8Nb9oHkK+ZylAAXadPLs/v+QgRirlAXiuasQcljq9QnFFn3+Si+g16AZgE5vuz1hpm4PnI4uT+I9YszPTSHSIvQwQ3o+Y1GXp4EqeYi3NjWbbj6EQooyIVt2d84dpT+LIfZ2IjW1qMIgkOSD0k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=WhGhCdk1; arc=none smtp.client-ip=74.125.225.141
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="B1FqCqr7"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 55FFF1F000FF;
-	Sun,  4 Oct 2026 10:14:38 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791108879;
-	bh=4r5/C4JCJZeEUGXdTQ3rAADP0uRBtsY2xFNcp4jidH0=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=B1FqCqr7nq9qX1hvafa0Lbd8V5iO0ku/V2kP3bolCqyZq+I7TwiCY0mTNr9X10pEN
-	 McE0C235vtElkMMT9lhx06zpNaUxQ87p6em/bx937n9/L1CxTQ3LtblPyeY/0MYKxo
-	 SwzESCLeTPhse3gAsCQgQf/TIjmyY6lu4fhejkrODtoviIDkScrRSUahjhpsObtLyO
-	 ReNqSsFxrS/FhjmmRRiQ7x68q9iDQ9vt0vJoo4BryfVf25u1icLmq7L2TIKuF3uRNi
-	 Bxnr97zdwov9KC/EPFMVKfclieVusXY5zb+cZSYIflGzf7slx8CU0hqcY6cSEELdp6
-	 J1NgO9hq5bxLA==
-Subject: Re: [PATCH] bnxt: prevent timer rearming during teardown
-From: netdev-bot+sashiko@kernel.org
-To: runyu.xiao@seu.edu.cn
-Cc: michael.chan@broadcom.com, pavan.chebbi@broadcom.com,
- andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com,
- kuba@kernel.org, pabeni@redhat.com, huangjw@broadcom.com,
- eddie.wai@broadcom.com, prashant@broadcom.com, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org, jianhao.xu@seu.edu.cn
-Date: Sun, 04 Oct 2026 10:14:37 +0000
-Message-ID: <179110887788.434549.16288034417298811962@kernel.org>
-In-Reply-To: <20260930092806.2977763-1-runyu.xiao@seu.edu.cn>
-References: <20260930092806.2977763-1-runyu.xiao@seu.edu.cn>
-X-sashiko-severity: Medium
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="WhGhCdk1"
+Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49e6baf77afso405725e9.2
+        for <linux-kernel@vger.kernel.org>; Sun, 04 Oct 2026 03:17:06 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791109025; x=1791713825; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:to
+         :from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=OW15eEn6Sigou5G6oIcfaDItgZ8Hirf/PtUeQhnIzDY=;
+        b=WhGhCdk1Bse4HMDh1yqDpzXVcAt5oolGHxv3LXshhYbdUzd7rxCBEzjcxV54Ts1mFa
+         kbZywKPHd4HJu4yZlNy8EyGiAp1wTRstR64iPA7HUon8VamEYbehVfk31wzWoX44gPyy
+         /aBddSTAkFoMYw6GnLppCqZn/Mzc7pELI7+ECi5XPHMWOZRmDCO+IC29XNgDzk5NzNus
+         wFIyBwOu7ayxP50TTsY15XNtoXhb8JHl1SORXsJYikz6APV+GUG+EIm8CC0DJWgQFuXe
+         sCcEh81CDSYJt1SvP2r1aGf4chJ3B5cm5sESs013uPR1OFt8b+7KaUXB0mITBo86MB6Y
+         vo1Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791109025; x=1791713825;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:to
+         :from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=OW15eEn6Sigou5G6oIcfaDItgZ8Hirf/PtUeQhnIzDY=;
+        b=jkNseSeP51mzZsZiFqaTl3Sb3Qzl7R1NsW7tkvubWZ3VWLBzDwBMo9pWFwQ3/8JoTt
+         AbcZzE91/cY6e2eCtfRiHXTvJKnpmn6AAJX55OXVZGsmPTge8VMrf9WRx7uvbM7LRbO6
+         Sw8ms+bsWuuLfPkRjtUSdWmb+C4YsVBdNZ1hCzev6/1gKz/3G8ccMVXsnOLJh53wkdP5
+         B9GcbrG5NQzMS0DUWScoplzvUqGuK4BTuhQzEn+qx5P0NsaE8Br3dm0M0N7jl0KJGF8z
+         NqhtkIZm++s/Xxpou2+whKVrXrTDQC0NSZGRn7vfIAWY5KucMMONstPl8otEeAlPKfq0
+         zO2A==
+X-Forwarded-Encrypted: i=1; AKwUvBwn85maqDJ63M3EOUT4CdIrGYAEnw9bONL2hthznpw6a9nN0lDFyy0kg8rxEHSY4jvNkJipdzj5/r5ohmI=@vger.kernel.org
+X-Gm-Message-State: AFuF++ljE8Ufwk7dwF6VofCgPNXdVljgyeuYw6ZlSRHb1A69a+61WmcT
+	D1IdfqoNHZXkSNxvd+Mh7X5x6EsT+XoCJkm/qZ/2dmRda0agJMiTDWRN
+X-Gm-Gg: AYBFou0yjKJFv+2ATzabUeo7ZPEHyi1zk0Pyb3EVKdG6cGxMiNhUyeCXfGikne6YFTL
+	BeUtQnoSQOpHwzLF5KxLC63WV9i8T6NJZ1mwZl4fQcip9kOSgG3UPbBeDZmufTCjGrt66BCf2vv
+	OSSR/EBGFfDMOG5J3oeDKtYWB7MjUQG53Jcd5Wu1wh6QczxKctMMbg9VZ1DjNVklrhA24OO0wwS
+	XqKBcnpJPPVhqVpmWZlgO7MNcyPIPc9dQSYOp0OYsOPZSAyN4+bJ2FRLIl1Xgapl+uWeoDcUzna
+	ss216SIbuLfN9O/X6ZlhSe1vYxFr9Q/V60CU3FyG+TlA/945n+O48pxCukvkZikskUhGhn8Cvwn
+	UkPFrwfhM/DKmELy2P31pTnexSV8SBJnhcMxDj+zDSbaDyYNid9ERCMT+7PyOBlvIakPPHV096O
+	Kz67A5J57Ewa+Cv4xipOORctpdI4BACkCNWRZvLRr+b9fzlguHwpRpA9apLLAdYkiC0MwRYJZnt
+	mjf0Iteh7WcOdvgCe4=
+X-Received: by 2002:a05:600c:601:b0:4a0:73b:a222 with SMTP id 5b1f17b1804b1-4a02744cc57mr88146065e9.0.1791109024484;
+        Sun, 04 Oct 2026 03:17:04 -0700 (PDT)
+Received: from L-P-ITAIH2-L-RF.rf.local ([193.169.70.108])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a1698f7910sm73030505e9.3.2026.10.04.03.17.02
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 04 Oct 2026 03:17:04 -0700 (PDT)
+From: Itai Handler <itai.handler@gmail.com>
+To: Alasdair Kergon <agk@redhat.com>,
+	Mike Snitzer <snitzer@kernel.org>,
+	Mikulas Patocka <mpatocka@redhat.com>,
+	Benjamin Marzinski <bmarzins@redhat.com>,
+	Jonathan Corbet <corbet@lwn.net>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Randy Dunlap <rdunlap@infradead.org>,
+	dm-devel@lists.linux.dev,
+	linux-doc@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Milan Broz <gmazyland@gmail.com>,
+	Eric Biggers <ebiggers@kernel.org>
+Subject: [PATCH v3 0/1] dm-crypt: allow encryption sector size up to PAGE_SIZE
+Date: Sun,  4 Oct 2026 13:16:21 +0300
+Message-Id: <20261004101622.2184287-1-itai.handler@gmail.com>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-Thank you for your contribution! Sashiko AI review found 1 potential
-issue(s) to consider.
+dm-crypt caps the "sector_size:" option at 4096 bytes.  Commit
+8f0009a22517 ("dm crypt: optionally support larger encryption sector
+size") gives the reason: the sector has to fit the page limit, so the
+cap was set to the smallest page size any architecture has.  This
+resolves that same rule against the kernel being built instead, so a
+kernel with larger pages is not held to another architecture's limit.
 
-Critical: 0 · High: 0 · Medium: 1 · Low: 0
+v2: https://lore.kernel.org/dm-devel/20260922120330.127262-1-itai.handler@gmail.com/
+v1: https://lore.kernel.org/dm-devel/CAFpOueRBb9y_Fgb3-c6_eFTKZR9DoAXZmxqqx0UH1Yb2rbV0RQ@mail.gmail.com/
 
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
+Changes since v2
+----------------
 
-- [Medium] The commit message describes a bug that does not exist, and
-  the change does not work the way the message says.
+- Dropped the dm-verity comparison.  Milan pointed out that dm-verity is
+  read-only, so its PAGE_SIZE bound says nothing about a writable
+  target.  It was never load-bearing; it is just gone.
 
---
+- Dropped qce as the motivation.  Eric was right that it is slower than
+  the CPU cipher and marked BROKEN, so numbers from it argue for
+  nothing.  The commit message now works from the reason the limit was
+  given when it was introduced, and mentions DMA offload only as a
+  possibility that depends on the driver.
 
-bnxt: prevent timer rearming during teardown
+- Documented in dm-crypt.rst that a sector larger than the device's
+  atomic write unit can be torn by a power failure, and what that costs
+  in each cipher mode, AEAD included.
 
-This patch adds a BNXT_STATE_OPEN check before the final mod_timer() in
-bnxt_timer(). The goal is to stop a callback that is already running from
-rearming the timer once __bnxt_close_nic() has cleared the flag. It is
-tagged Fixes: c0c050c58d84 and Cc: stable.
+- Used MIN_T() rather than min_t() for the bound, so it stays usable as
+  a constant expression; min_t() expands to a statement expression.
 
-> diff --git a/drivers/net/ethernet/broadcom/bnxt/bnxt.c b/drivers/net/ethernet/broadcom/bnxt/bnxt.c
-> index d7728d0c5b6e6..c506b6160902f 100644
-> --- a/drivers/net/ethernet/broadcom/bnxt/bnxt.c
-> +++ b/drivers/net/ethernet/broadcom/bnxt/bnxt.c
-> @@ -14521,7 +14521,8 @@ static void bnxt_timer(struct timer_list *t)
->  		bnxt_queue_sp_work(bp, BNXT_RING_COAL_NOW_SP_EVENT);
->  
->  bnxt_restart_timer:
-> -	mod_timer(&bp->timer, jiffies + bp->current_interval);
-> +	if (test_bit(BNXT_STATE_OPEN, &bp->state))
-> +		mod_timer(&bp->timer, jiffies + bp->current_interval);
+- Dropped the claim that the documented range tops out at 65536.  It
+  does not: without transparent hugepages BLK_MAX_BLOCK_SIZE is
+  PAGE_SIZE, so on a 256K-page configuration the bound is PAGE_SIZE.
+  The documentation now states the rule rather than a number.
 
-[Severity: Medium]
-Is there actually a teardown race here? The commit message says:
+On refusing other cipher modes
+------------------------------
 
-  If teardown clears BNXT_STATE_OPEN while the callback is running, the
-  callback can rearm the timer after __bnxt_close_nic() has started
-  deleting it.
+Mikulas asked for sector sizes above 4096 to be refused for modes other
+than XTS and ECB.  This version does not do that.  Since the decision is
+his rather than mine, the patch for it is written and tested and will go
+out on request.
 
-In __bnxt_close_nic(), the teardown sequence is:
+What gives me pause is only this:
 
-drivers/net/ethernet/broadcom/bnxt/bnxt.c:__bnxt_close_nic() {
-    ...
-	clear_bit(BNXT_STATE_OPEN, &bp->state);
-	smp_mb__after_atomic();
-    ...
-	timer_delete_sync(&bp->timer);
-    ...
-}
+- An allow-list of two mode names has to be revisited whenever a mode is
+  added, by someone who remembers why it is there.
 
-timer_delete_sync() already handles a callback that rearms itself. While
-the callback is running, __timer_delete_sync() keeps retrying:
+- It gives 4096 a safety meaning that the block layer declines to give
+  it.  nvme_configure_atomic_write() trusts only NAWUPF and otherwise
+  falls back to a single logical block, and nvme_update_disk_info() caps
+  physical_block_size by atomic_bs precisely so nothing above it assumes
+  a physical block is written atomically.  A drive advertising no atomic
+  write unit, which is the common case, can already tear a 4096-byte
+  sector.
 
-kernel/time/timer.c:__timer_delete_sync() {
-    ...
-	do {
-		ret = __try_to_del_timer_sync(timer, shutdown);
+- Selecting on tear-tolerance alone admits ecb(), which nobody should
+  use for disk encryption, while refusing cbc().
 
-		if (unlikely(ret < 0)) {
-			del_timer_wait_running(timer);
-			cpu_relax();
-		}
-	} while (ret < 0);
-    ...
-}
+Against that, his point that the modes differ in how badly a tear hurts
+is right, and v3 writes it down per mode in dm-crypt.rst - which is the
+part I should have done in v2 instead of only arguing.
 
-After the callback returns, __try_to_del_timer_sync() sees that
-base->running_timer != timer and calls detach_if_pending(). That removes
-any timer the callback rearmed. The kerneldoc for timer_delete_sync()
-says:
+On a 64K-page kernel the restriction refuses aes-cbc-essiv:sha256 at
+65536 while leaving XTS and ECB working, including ESSIV-wrapped XTS,
+and changes nothing at or below 4096.  Either form works - patch 2/2 of
+a v4, or a standalone follow-up - whichever is preferred.
 
-  Upon exit the timer is not queued and the handler is not running on any
-  CPU.
+Answering Milan on NVMe
+-----------------------
 
-The rearmed timer could also fire before it is detached. In that case the
-entry check in bnxt_timer() returns without rearming, because
-BNXT_STATE_OPEN is already clear. The only other place that arms the
-timer is __bnxt_open_nic(), and it does so after
-set_bit(BNXT_STATE_OPEN).
+"Which NVMe supports 64K sectors?" - none, and none has to.  The
+encryption sector is dm-crypt's own chunking unit, not something the
+backing device has to support.  bdev_logical_block_size() appears once
+in the whole target, inside a max() that aligns the I/O size.  The
+mapped device announces the larger block upward through
+dm_stack_bs_limits(); the device underneath keeps its own.  In the
+testing below the backing device is /dev/ram0 with a 512-byte logical
+block, carrying a 65536-byte encryption sector.
 
-So before this patch, the worst case looks like one extra mod_timer()
-that timer_delete_sync() then detaches.
+Testing
+-------
 
-The commit message also says the new check "prevents a callback already
-in progress from starting another timer period". But test_bit() and
-mod_timer() are two separate steps with no lock around them. A
-clear_bit() on another CPU can land between them, and the callback can
-still rearm. The guarantee still comes from timer_delete_sync().
+Built for x86_64 and for arm64 with 4K and with 64K pages; no new
+warnings.  A temporary static_assert confirmed the bound is 4096 on
+x86_64 and on arm64/4K - so the patch is a no-op on both - and 65536 on
+arm64 with 64K pages.
 
-Would it be better to treat this as a cleanup? That would mean dropping
-the Fixes: and Cc: stable tags and rewording the commit message so it
-doesn't describe a teardown race fix.
+Booted under qemu-system-aarch64, loading crypt tables over /dev/ram0
+with dmsetup and reading back what the kernel recorded:
 
+  sector_size   v1.29.0        v1.30.0, 4K   v1.30.0, 64K
+       512      ok             ok            ok
+      1024      ok             ok            ok
+      4096      ok             ok            ok
+     65536      EINVAL         EINVAL        ok, lbs 65536
+     69632      ok, 4096 (!)   EINVAL        EINVAL
+    131072      EINVAL         EINVAL        EINVAL
+         0      EINVAL         EINVAL        EINVAL
+
+Every row was run with aes-xts-plain64, aes-cbc-essiv:sha256 and
+aes-ecb, and the result was the same for all three: this version refuses
+nothing on the basis of the cipher.
+
+The 69632 row is the truncation the patch fixes.  It wraps to 4096
+today, the table loads, and the device announces a 4096-byte logical
+block.  logical_block_size in sysfs followed the recorded sector size in
+every accepted case.
+
+Also exercised at 65536 on 64K pages: aes-xts-essiv:sha256, the capi:
+form of xts(aes), and iv_large_sectors, which is where sector_shift
+reaches 7.  256 KiB round-tripped through the mapped device
+byte-identical at sector_size 65536 and 4096, with the ciphertext on
+/dev/ram0 confirmed to differ from the plaintext.
+
+Not covered: dm-integrity caps its block_size at 4096, so the AEAD and
+integrity-tag paths cannot be driven above that today and were tested
+only at 4096 and below.
+
+Userspace
+---------
+
+Nothing is needed for this patch.  cryptsetup caps the sector size at
+4096 on every path that writes a LUKS header, so no LUKS device gains a
+larger sector however new the kernel is; on-disk format policy stays in
+userspace, which was Milan's point in v2 and is why no LUKS2 change is
+proposed here.  The LUKS2 header-validation patch posted alongside v2
+was withdrawn - Ondrej was right that the missing bound is deliberate.
+
+Itai Handler (1):
+  dm-crypt: allow encryption sector size up to PAGE_SIZE
+
+ .../admin-guide/device-mapper/dm-crypt.rst    | 20 ++++++++++++-
+ drivers/md/dm-crypt.c                         | 30 +++++++++++++++----
+ 2 files changed, 43 insertions(+), 7 deletions(-)
+
+
+base-commit: c0df022cb0fa2bbee74bd9b90c66790bcd4e3050
 -- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260930092806.2977763-1-runyu.xiao%40seu.edu.cn
+2.34.1
+
