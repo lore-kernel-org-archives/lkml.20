@@ -1,73 +1,78 @@
-Received: from mail-qt1-f181.google.com (mail-qt1-f181.google.com [209.85.160.181])
+Received: from mail-dy2-f42.google.com (mail-dy2-f42.google.com [74.125.229.42])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4BD593EFFA6
-	for <linux-kernel@vger.kernel.org>; Sun,  4 Oct 2026 04:10:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.181
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7AFE940244D
+	for <linux-kernel@vger.kernel.org>; Sun,  4 Oct 2026 04:13:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.42
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791087032; cv=none; b=kAXDxpur0Thuru1T7aKTWCp9NXbX7jxwGF/5GR4DCOtOqNbr9pMtzV0Dnt3/qWLl2oyzhCU6b4o/+2cxLGMe12l58M50NUoCdZQ6xh0dfVHWkLZTb/lCDPs9YYd3vr0H3jXM/ntVZth85tqrf02hi+hgXmGGh0YdeRUOeeKnCjo=
+	t=1791087211; cv=none; b=NByGWnotY4LCXg5UXqR/UH7MZ2zF/tRXmra3hKA2AeGTIevhhvLtn7+m+REdceJ2VylYGIRkIPvnb6xM5lL5tToBxfLdXGNom+KCk3qVYQmPra85sb7d8qTQegyLnLNKeGGlweOUVMH+dsKBQp93eXlPShkiU4RpT4bzebzE9No=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791087032; c=relaxed/simple;
-	bh=NjL6Dz3ATof4xFu51ZKZGgvreurCkfkXi5SOJyRAhac=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=aHqlFb6O/HkGcvHxc8cHgCmBZ0ii/M0sKl2XzZgmu4qJTiIINmL8XwCufBtla5x6580zUMZc9TzgLXMak0TOJw14/12bnLJMKMyly4KEYJD+p+kROE3Ofw0uaDFNnL9jaE1MPlPoIaAH6emplDefpzDNDNkpDKmFZiWi+S7UxEY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Zte3/aaS; arc=none smtp.client-ip=209.85.160.181
+	s=arc-20240116; t=1791087211; c=relaxed/simple;
+	bh=tWTj7sa3HSz20eoE7iU48Ov4FXB/O8yPqTq5z9H7G1k=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=nSFrJt6jDM/I+8m1BZ7rll17Hlkl2mmZfItLx0tkJ0gBlieQiLo/iIAAni4ZJ6Da82RJEFkYZnOyld6OBLC6PnGeKuh2yzEfvQ6OUeW8XxCpGW2zTP+maUtVXLKvh8Scy7CNBSQGa3bYnHsa/4cdx0dw39rZGIZ+v5uqxgG1oNM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ReZajIVL; arc=none smtp.client-ip=74.125.229.42
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Zte3/aaS"
-Received: by mail-qt1-f181.google.com with SMTP id d75a77b69052e-533861a59b8so9385481cf.1
-        for <linux-kernel@vger.kernel.org>; Sat, 03 Oct 2026 21:10:26 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ReZajIVL"
+Received: by mail-dy2-f42.google.com with SMTP id 5a478bee46e88-3510b42f4e3so704918eec.2
+        for <linux-kernel@vger.kernel.org>; Sat, 03 Oct 2026 21:13:28 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791087023; x=1791691823; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1791087207; x=1791692007; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=1gZl0h+Rgpt7vIrQ3DFHi4uK4eDGZkHcBR93y6eKzCg=;
-        b=Zte3/aaSR226cz1HRUtJRct3y3diWGSE0F329TBA9VuqUQTQzkH34DPK2BIKOh+GYA
-         6f6Lzy4h/QZzvvL14L1K+BSetoNcJqdHF0rPoUXyVgb3QP/T4GFWD7cTvDCSmjyFQkPB
-         k1URsnaIvVAkZXqJgp7hydAOP9po774oY+EudvjakLPiCpj7MERbkyi9APbGQn5Km0Ng
-         hEit4OoUYySjzDD45WwRgExIcTRyP6r1KN1hrvoOdNe7MSqksTighBAIdb2qY1I30/Qu
-         g5w2QQNOoXBbcy1ReqYYXbejRrtMMfWqzmxd17a4sVsGaoMAWcERdepCGzC4QRiaN3/V
-         u5bQ==
+        bh=miahjqq1TAdqXeL2Jl7n/7P9i8eCMUOcl23EpJEiCcg=;
+        b=ReZajIVL4l9uPmbbYySvWADbstSCqqZxqnVEUiMxZBIYjT7Lwr6S4N9iEemaieuoRI
+         egy8aI4bIr9NZNXjGdQ8iUmpCP2gWsW30Kce8IL7X0z46hNn0r/KXtbSuZ5hhRbMckDz
+         8NzavNM9vde1j0dGd6G1rlXtufFGjf7koMAlSVTL0VFvky27GxdxhAQqQypDvgbSCoEq
+         XmDJ/+zb5OQTG3g1qr3zpv2hRtMhmqEOm5cK/3ht1EfjaiJhu7CkZJ/UjxEs5Hl8F4tk
+         VqZ+Bx2cKz8gIAvNx2otUXw8oIF7wosiuF339H5CUADh/nqauuVRdhv8ZUklnH5sGjGs
+         3j8w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791087023; x=1791691823;
+        d=1e100.net; s=20260707; t=1791087207; x=1791692007;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=1gZl0h+Rgpt7vIrQ3DFHi4uK4eDGZkHcBR93y6eKzCg=;
-        b=rqbmOlNOtHv4aVKcQvokqgFQvfIGIGlQ3pRciX5DI8J2+qdigoxs1JFNX4Rewp6/Eh
-         +TsLUhml0Ne3wiq/jh7VuutuHgOAxEFNcFFmnv/UG/CnEAPSZJMHFUstgn+PijD5uoUj
-         JyByzx8pIAyzDj8RBMGSacfEf/IFkJrmSFYlZ5HBPfidypXrbzkOdCCRjdWL+7jnpwle
-         ElLdzZKkHKS4d0FX1a5guEcRFNG6EO4xKFHrKDbgPs3wnqmYws7J6BiFNW8Si3eJLiFu
-         6NSFrB3Y7s8fC8keCVkLoiyNCPGD4QVB75wP7rraV8GjBlNJ3d88u7glhv5QNu39W+Rp
-         sgTQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxRnOc2HDX9vFqnFmi67QVmqRYeO+ZtdO/2b+pGSc49Ul1jjj2boiOoyVVdz2HVTQzjl6L/sqw6xVjt9kQ=@vger.kernel.org
-X-Gm-Message-State: AFuF++l17HQhGQvClEWu4vODVe8Z9SViskk6f96Zi2CjO26uy+wcBjbp
-	bvB4Lao8O4LzMCfEprOxOVVqbiYibhmepKCcxWIOL5KE+ENM55M3Vjk=
-X-Gm-Gg: AYBFou1NjYEv1KvjKEfIv5qvfdQp/al+7CgE3kpa36OcrELM5dtLsm7U6bAERTEitQC
-	BR1V3jsWNGaQPfdALDHoY/t8FQNaRaGEXXXkgFXXhaxkz0K2xXFYzieQvTwYBy/tMWpqyazlqoD
-	ibVHxNvnyysvecs1zRdNN/RNlFaWrzOv5GYxe4I7rrQeAKL9qKbwq59QhHwjmf2cUZ+CUJTaixK
-	Cwg64ywMfvbnDlJOL2joEtQqMcIJ7bPClFA9dCmRQrAgDV7PeO7VmyEM1dJan2PTuP6hdfR1ALE
-	KaTnZVKRcNyGUtqrdTNpJPnoTnz7yRSjwsK0b9tWJsBpCvQgfjRuflsWGPkhUXK+lwT/6MSbzMi
-	cPsAJzfLHKQ6xBMrk+2Xawg4B0p4bf9Pn2su0FXCiCYvC77/ObIKGrxTQqT8ZhZbEobmIQAx7aT
-	ReWh2Z5TQNoDaJKedNc67AGRNE7XXkGF3/oruDTvrsSPCyEJStl7VT+tTX0O3304CzROmuHVUB7
-	+LK/Tk9YU/Zpkrs71tuHdEer7cGuZ/7zDDLKggmpU/b7hsC7N01tpgtcVTrkF2wyDxSij/rkKrY
-	YogE8Uda2OHxJowW1OX9jTnUb/+e
-X-Received: by 2002:a05:622a:3c6:b0:530:b2e4:4e28 with SMTP id d75a77b69052e-5351203787amr67100211cf.53.1791087023409;
-        Sat, 03 Oct 2026 21:10:23 -0700 (PDT)
-Received: from i4-gl-tmk5904-1.ad.psu.edu ([130.203.156.90])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-917e0b19424sm57968806d6.15.2026.10.03.21.10.22
+        bh=miahjqq1TAdqXeL2Jl7n/7P9i8eCMUOcl23EpJEiCcg=;
+        b=sUj/hFjGPCY2q/ozF2Ll1CNnd/Zt7nX6WFPljMImDxovKcXqnamTMKF6YzFejyy+91
+         n5SaAgvyvJxbP3zyNyqdvFi1C9eiVzSzvebYZd/zUM7URyVIlmmLXiCI7B9IuOjkggzY
+         mN6F/gRVbrxzTWTJJMak6tiM/vR9sSVw9FJVdfAzWfxASSMYGd1b8IVA+5ACoELcT2/K
+         37dMSQLnQNJtMJy6pvYSvp8tZm6xubh5zGAwfauWb3+iTrW9IBoA3zgK4w9kZ9Ry61nr
+         y32S1LX2+EhD1qIsxEXnUJJLxihK39yEZFUb38swRrMqEc+e/wQTVJCfU2qVBedNaO1w
+         GUKQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwYIBlRHDAqMEOupTI8TdEdiP6P1V/ZYKzXOqdtKwW0k94yvd/fFsCvc4OWm6TGPiL1T3WWzRbuoXFDOD0=@vger.kernel.org
+X-Gm-Message-State: AFq9FYI3pLgX0jWltq3MA0+4D1Movq7cCMMJjE1DxJnfI6NX0BhTRBLc
+	IG/XS+7Yui1/6LOs/XcYb+kUBZv6/8Tv8J4DQ26sv/enfRQRlzSn5K9H
+X-Gm-Gg: AYBFou3wXVqLD7dfCh8LGoQbEmBB9Apo9cpzWD4KcZ3pAARWl63m2fgdwU8xzmz3ais
+	wTm1Ekc3zKOXm1qixpvazfAr+imJXbiYDF7gbxBU4jmu6RsjlRaEGTSGIrNHldooVosKKRqpXCj
+	hwV7cqjfizRC3OWO6Nodqw93ONn2ecs3WTZ5eu/qAFDUTiPjCLhEx5IJCTshKMnl0jvBBI+/4Nt
+	be6JLp//1NO+Xd76zVfQIvtu4f04puntyep+dkTgYdhjQw0KLxybf9j2WhgYPE8LnBGo/ugCxq8
+	ua8PjV7LkDEcNg/yWkalMh9a5v5oHoHoNgcAKZ/IlGZ9SicztI31yCq934W/6wEpTLIXUMMkuA8
+	6xznInw80PJ7p4SH6GrEJQiYJUeTpa1uM/a+VTsE4jAXWbC8Nes6uWWTFMBQWQFnSV46ivgapJM
+	tqrhJVIUDp11NtYelGiU1tAWHaEpikDfuhd+UUdKNnQPEqVq6EUq3nIVG6bH1ceheOc66yXdtf4
+	2wFeZ4=
+X-Received: by 2002:a05:693c:20cd:10b0:34c:e77c:f92f with SMTP id 5a478bee46e88-34f21985e41mr8176034eec.37.1791087206582;
+        Sat, 03 Oct 2026 21:13:26 -0700 (PDT)
+Received: from vscode-11-19.w453y.xyz ([59.164.88.43])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-35127021d1esm1475493eec.4.2026.10.03.21.13.22
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 03 Oct 2026 21:10:22 -0700 (PDT)
-From: Myeonghun Pak <mhun512@gmail.com>
-To: Sebastian Reichel <sre@kernel.org>
-Cc: linux-pm@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Ijae Kim <ae878000@gmail.com>
-Subject: [PATCH] power: supply: sbs-battery: disable polling before supply teardown
-Date: Sun,  4 Oct 2026 00:10:19 -0400
-Message-ID: <20261004041019.1123723-1-mhun512@gmail.com>
-X-Mailer: git-send-email 2.53.0
+        Sat, 03 Oct 2026 21:13:26 -0700 (PDT)
+From: Abdul Wasey <w453y.me@gmail.com>
+To: netdev@vger.kernel.org
+Cc: razor@blackwall.org,
+	idosch@nvidia.com,
+	davem@davemloft.net,
+	edumazet@kernel.org,
+	kuba@kernel.org,
+	pabeni@redhat.com,
+	horms@kernel.org,
+	horatiu.vultur@microchip.com,
+	bridge@lists.linux.dev,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH net-next] net: bridge: cfm: notify userspace on CFM config changes
+Date: Sun,  4 Oct 2026 04:13:20 +0000
+Message-ID: <20261004041320.2684045-1-w453y.me@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -76,59 +81,121 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The managed poll-work cancellation is registered before the power
-supply, so cleanup unregisters the supply before draining polling.
-A pending or running poller can then call power_supply_changed() on
-the released supply.
+CFM status changes are sent to userspace by br_cfm_notify(), but config
+changes are not. br_afspec() calls br_cfm_parse() without the "changed"
+pointer, so creating a MEP, adding a peer or starting CCM transmission
+never sends an RTM_NEWLINK. Today the only way to see these changes is
+to poll RTM_GETLINK with RTEXT_FILTER_CFM_CONFIG.
 
-Commit 8d59cf3887fb ("power: supply: sbs-battery: Fix use-after-free in
-power_supply_changed()") moved the IRQ request after supply registration,
-but did not change the poll-work cancellation order.
+Send one RTM_NEWLINK with RTEXT_FILTER_CFM_CONFIG from br_cfm_parse()
+once any group in the request has been applied. If a later group in the
+same request fails, still send it, since the earlier groups already
+changed the config.
 
-Add a later managed action that disables and drains polling before
-supply teardown. Its retained disabled state prevents external-power
-callbacks from rearming the poll work after it has been drained.
-Keep the original autocancel to initialize work before supply callbacks
-can run and to cover failed supply registration.
+br_ifinfo_notify() is not used because it asks for
+RTEXT_FILTER_BRVLAN_COMPRESSED, so the message would not carry the CFM
+attributes. This calls br_info_notify() the same way br_cfm_notify()
+does for status.
 
-The teardown ordering issue was found by static analysis.
-
-Fixes: 6d0c5de2fd84 ("power: supply: Clean-up few drivers by using managed work init")
-Cc: stable@vger.kernel.org # 6.10+
-Assisted-by: LLM
-Co-developed-by: Ijae Kim <ae878000@gmail.com>
-Signed-off-by: Ijae Kim <ae878000@gmail.com>
-Signed-off-by: Myeonghun Pak <mhun512@gmail.com>
+Signed-off-by: Abdul Wasey <w453y.me@gmail.com>
 ---
- drivers/power/supply/sbs-battery.c | 11 +++++++++++
- 1 file changed, 11 insertions(+)
+ net/bridge/br_cfm_netlink.c | 32 +++++++++++++++++++++++---------
+ 1 file changed, 23 insertions(+), 9 deletions(-)
 
-diff --git a/drivers/power/supply/sbs-battery.c b/drivers/power/supply/sbs-battery.c
-index 501c8e069755..6714313bb3a3 100644
---- a/drivers/power/supply/sbs-battery.c
-+++ b/drivers/power/supply/sbs-battery.c
-@@ -1068,6 +1068,13 @@ static void sbs_alert(struct i2c_client *client, enum i2c_alert_protocol prot,
- 	sbs_supply_changed(i2c_get_clientdata(client));
+diff --git a/net/bridge/br_cfm_netlink.c b/net/bridge/br_cfm_netlink.c
+index 91b9922dc..56309e6f4 100644
+--- a/net/bridge/br_cfm_netlink.c
++++ b/net/bridge/br_cfm_netlink.c
+@@ -382,6 +382,7 @@ int br_cfm_parse(struct net_bridge *br, struct net_bridge_port *p,
+ 		 struct nlattr *attr, int cmd, struct netlink_ext_ack *extack)
+ {
+ 	struct nlattr *tb[IFLA_BRIDGE_CFM_MAX + 1];
++	bool changed = false;
+ 	int err;
+ 
+ 	/* When this function is called for a port then the br pointer is
+@@ -399,59 +400,72 @@ int br_cfm_parse(struct net_bridge *br, struct net_bridge_port *p,
+ 		err = br_mep_create_parse(br, tb[IFLA_BRIDGE_CFM_MEP_CREATE],
+ 					  extack);
+ 		if (err)
+-			return err;
++			goto out;
++		changed = true;
+ 	}
+ 
+ 	if (tb[IFLA_BRIDGE_CFM_MEP_DELETE]) {
+ 		err = br_mep_delete_parse(br, tb[IFLA_BRIDGE_CFM_MEP_DELETE],
+ 					  extack);
+ 		if (err)
+-			return err;
++			goto out;
++		changed = true;
+ 	}
+ 
+ 	if (tb[IFLA_BRIDGE_CFM_MEP_CONFIG]) {
+ 		err = br_mep_config_parse(br, tb[IFLA_BRIDGE_CFM_MEP_CONFIG],
+ 					  extack);
+ 		if (err)
+-			return err;
++			goto out;
++		changed = true;
+ 	}
+ 
+ 	if (tb[IFLA_BRIDGE_CFM_CC_CONFIG]) {
+ 		err = br_cc_config_parse(br, tb[IFLA_BRIDGE_CFM_CC_CONFIG],
+ 					 extack);
+ 		if (err)
+-			return err;
++			goto out;
++		changed = true;
+ 	}
+ 
+ 	if (tb[IFLA_BRIDGE_CFM_CC_PEER_MEP_ADD]) {
+ 		err = br_cc_peer_mep_add_parse(br, tb[IFLA_BRIDGE_CFM_CC_PEER_MEP_ADD],
+ 					       extack);
+ 		if (err)
+-			return err;
++			goto out;
++		changed = true;
+ 	}
+ 
+ 	if (tb[IFLA_BRIDGE_CFM_CC_PEER_MEP_REMOVE]) {
+ 		err = br_cc_peer_mep_remove_parse(br, tb[IFLA_BRIDGE_CFM_CC_PEER_MEP_REMOVE],
+ 						  extack);
+ 		if (err)
+-			return err;
++			goto out;
++		changed = true;
+ 	}
+ 
+ 	if (tb[IFLA_BRIDGE_CFM_CC_RDI]) {
+ 		err = br_cc_rdi_parse(br, tb[IFLA_BRIDGE_CFM_CC_RDI],
+ 				      extack);
+ 		if (err)
+-			return err;
++			goto out;
++		changed = true;
+ 	}
+ 
+ 	if (tb[IFLA_BRIDGE_CFM_CC_CCM_TX]) {
+ 		err = br_cc_ccm_tx_parse(br, tb[IFLA_BRIDGE_CFM_CC_CCM_TX],
+ 					 extack);
+ 		if (err)
+-			return err;
++			goto out;
++		changed = true;
+ 	}
+ 
+-	return 0;
++out:
++	/* Earlier groups may have been applied even if a later one failed */
++	if (changed)
++		br_info_notify(RTM_NEWLINK, br, NULL, RTEXT_FILTER_CFM_CONFIG);
++
++	return err;
  }
  
-+static void sbs_disable_work(void *data)
-+{
-+	struct sbs_info *chip = data;
-+
-+	disable_delayed_work_sync(&chip->work);
-+}
-+
- static void sbs_external_power_changed(struct power_supply *psy)
- {
- 	struct sbs_info *chip = power_supply_get_drvdata(psy);
-@@ -1208,6 +1215,10 @@ static int sbs_probe(struct i2c_client *client)
- 		return dev_err_probe(&client->dev, PTR_ERR(chip->power_supply),
- 				     "Failed to register power supply\n");
- 
-+	rc = devm_add_action_or_reset(&client->dev, sbs_disable_work, chip);
-+	if (rc)
-+		return rc;
-+
- 	if (!chip->gpio_detect)
- 		goto out;
- 
+ int br_cfm_config_fill_info(struct sk_buff *skb, struct net_bridge *br)
+-- 
+2.53.0
+
