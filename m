@@ -1,71 +1,68 @@
-Received: from mail-dy1-f173.google.com (mail-dy1-f173.google.com [74.125.82.173])
+Received: from mail-pz2-f37.google.com (mail-pz2-f37.google.com [74.125.228.37])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 974943F3298
-	for <linux-kernel@vger.kernel.org>; Sun,  4 Oct 2026 23:35:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.173
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6828B233126
+	for <linux-kernel@vger.kernel.org>; Sun,  4 Oct 2026 23:40:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.37
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791156927; cv=none; b=m7AbWh+VpxnJywqbTDTk1Olu+BLTSuRsIBcrlHAJAvRLGgZvL/pJLJsJVtyX0GNRlFAMI8AwM7hdqz4mALg4t6q3AWxJW0y0yJzj3RYiBRN1cXRpiUfo0JIDn9VqZbCUe4zcUrTOEB6yVT2P9rVIkdS3zQu2E4ioaGUO3PS3R4I=
+	t=1791157230; cv=none; b=R9WC6KnM9aXIiv5hs01EwVyqXF6yTCBCPG/4NSDMXatq08q99nlqHtnN2BrqQEfO629G1B8Lm0yZ8LRjlAEMldEcqo8VRWGj1i1MGiXVRt/nC4QL5v00XI6C5gQQg3J2WddT3IY84wgqcsY1pzNStg/Tq1afekzRo/QTLZsn9mE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791156927; c=relaxed/simple;
-	bh=84oNTtoU5TRwLXpVP/C4e/RdQ+WXtPYh57/ceGuME94=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=ljp/0AZPvKEGfm05Jvev+fNYsUhd6x4jbyzRsa0ZMiA5m8jWsfFvDk18HDf/D7/KKvqoNVEwzgD1gdSUXJMQG8YU8JlU3bS3p3K5NZT7VZRt4K1qVNgzNn+2uXtFZPtLwi7hvg8UmfhL2XabmpgU5CfEDT33pTqn/rD0j9yQvJk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=NTpjoFTL; arc=none smtp.client-ip=74.125.82.173
+	s=arc-20240116; t=1791157230; c=relaxed/simple;
+	bh=yvaTxufrIwkho8DX7z6OfgH+JpfarfquEpramxfpBP4=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=r6a+Hq0TvSNu4hFrtyUT4ZogFFbYiSTzccFtXE13MGbYYpNQfGdKSTz+Tajkf8IpDtF4x4l4hmtQELM01pnPkKj51mK1UT9Q8i0BiyY7+BAYZTVyIqW7BqGfW1myY41etTaDL//TxhK8nFH89QPzGNlmY2Fq39zC2Pj2ZX6uX3c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=sWc4jqER; arc=none smtp.client-ip=74.125.228.37
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="NTpjoFTL"
-Received: by mail-dy1-f173.google.com with SMTP id 5a478bee46e88-34ca2d54925so2112868eec.0
-        for <linux-kernel@vger.kernel.org>; Sun, 04 Oct 2026 16:35:26 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="sWc4jqER"
+Received: by mail-pz2-f37.google.com with SMTP id 41be03b00d2f7-cc7d1802740so571609a12.1
+        for <linux-kernel@vger.kernel.org>; Sun, 04 Oct 2026 16:40:29 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791156926; x=1791761726; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1791157229; x=1791762029; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=z0geCidlObjDwsqjGR3bZHWylINcXP3kfe/2o2o6fpA=;
-        b=NTpjoFTLlYM7sRg/L3XOdp1t55LqJBUMQLftf/+zfkp+LebieQPcBwFL4x0rKIba6Z
-         IWRVP6MZYjDSR49HD6P2f5ES5Zh/0yj0RRZTh3Zwl1RF8ABLX8lkXlQooG3os8cgQQgb
-         jVaHxlHbDbO23HMsr4mx+l172oBgVOPRh6kdoPE51R5VWhBjQfA9SpehR/D/3MvkFg6R
-         5cyOleMYOUJJtRMYv5wqZYJOus18IpLpbMJRdpoB+nWVfcyrpID7P+97/MrR2GBAAxiT
-         gKC8IUgQtvfDljsC8iGTc/zQ+IvqFHpOwdYb93crPM7D5wAF+J3FJgNSPXgUnniBZaVX
-         figw==
+        bh=2rXZdTZVRpXf7N+j/R0iaLaKjiIHPei8gO3MrSkIgzc=;
+        b=sWc4jqERkE7x1/ofKM8EM2ZFowP2taPvne0bgc+5OxI3n5GDsRtAph+Sg9rF06jbqA
+         a9fcqRSd0nla5fWVc83fL6BsxMfG7TwOK2FO9CdNavyKRLLva2/geHWu/IjCDfSjBMrg
+         q8QuNEmF/N+Szcc4rmp229gUw/ZklDtw4q8VaAmEfAAODb5IuHnc1/qj/jgwgbUPNr1F
+         1MoDfXFKkfHinz89mNcBRhS7D5CW3iG7Gf9wYFE2M+Po4zGiLO4ek4amT8W0DJbwOogC
+         6pBIZ/697OCCrttExt1KoCZLlGdHd/Gh/KLgrH7uyLGkQQkzOpkDQvVXZPLiRlwx4ykv
+         UP8A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791156926; x=1791761726;
+        d=1e100.net; s=20260707; t=1791157229; x=1791762029;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=z0geCidlObjDwsqjGR3bZHWylINcXP3kfe/2o2o6fpA=;
-        b=GWd22r9NzZFajz3XFQwwZa4TpGPqyGNmrW0u0pzyorhwARngYD/dyIFP00Gi7IJ73Q
-         t4zyh0Bd791PMdDcbdbe51MjB+aR8hv6E3KlfXL7rBtGUhdYFDi+kGAnWujdRNLS3hti
-         w9lH8DfzsHcLAeUvAQnzROI/lohktTNUacqP/0rEaUYdoVvayCmVE36iIGKrRb+WMVIk
-         +f6zQX+0c71n7JFa4t+4zunO81JdJLiITzKWHUFa4Lf/MXv4gMK2+p7OoDTxchoyEKOc
-         ZSKbW4yxTv77saglUzgtdL+SUEQWBFsOknWO3OfRuLgpMLlvKSA6aqPMu9So6JE3Glxa
-         oLOw==
-X-Forwarded-Encrypted: i=1; AKwUvBxZWx2c3nxxbrJ0i0Hi4xAecRUPss9WLZR69DFm4HyVKn7RKPzdT6pXHdwTqLLm+f4NUWC+aQJFSOCq4T0=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLOh1cuNXlpa2mthPIP+NMB3eKaQ8Iqsfga+pO0gYH/Xpa+7r/+
-	oEl3XP+akC8Gt1mQdUvXvJXkNb8SfCWBe1bTdbyzBXYwMDk9zZaS0z6N
-X-Gm-Gg: AYBFou0YfFRMDcinZH5UO95mBEf6p8IVFvmR//XBV5nAxS2W9HIbJsIoOgdq93qj+MW
-	lvKbMet1AWFrbh1ChHCkAnNmFxmL3CFoEruYgtYxN8NIj5aVOLSTWQcuQcLosnk7eSi3RJHykuK
-	Xulx/4KhNOnc65JfRrsvwXBrw/ONqfc2F4y7z7unRUCBDSJ3lUnQav+dFZW1yzmc+UMnX+X3Qe4
-	yD88IY/EkWDDllRv79DsRO0nHnDLC2+GVZA6ySIMarVMXfQ3lcUwFTs3ypN/zrjx7CZihhVjQQf
-	iGKF/+ZIRkcOscqHDWvGFZIBkb3+HoEyLkQM5I9kwvi3/QpsrKHC2jG8SQBoRDTwFvQFpTTW1tK
-	1M3lqJ/tOfC83C6OPxZyg6GJZZ0RU1tDC59zIgtzOfYzef39IPIYS5AMVaUIVPpr8rRYiXzd8dU
-	k1zY9dx1yVnUDZvNnj0uGYmlNR5z5eJzkgK/OiCIetecv6p83twalJWKH/5mh5KTNaQAAoCK953
-	LhkR/vMty1ByGxFm+xoVmUnGwbxwrYSAXZtp1UU5TnEyis1Cwmt5h0C/yf754HgYT2FO/Bt/JFz
-	eaUWGcBE71kISp+NrCyyVX5IE8xg2lmVXq5yoznO8tvEMVhb
-X-Received: by 2002:a05:7301:db82:b0:351:245b:d1e7 with SMTP id 5a478bee46e88-351245bd4aemr3769432eec.0.1791156925455;
-        Sun, 04 Oct 2026 16:35:25 -0700 (PDT)
+        bh=2rXZdTZVRpXf7N+j/R0iaLaKjiIHPei8gO3MrSkIgzc=;
+        b=P9UW4q3DVBfnmeoWMOKfhSxh7WZVgQ7x8Aei02bKqwuXnIZ9tGZDCu6ad+h8hYvm6V
+         inaC4oFuVomh2AWaol/JfSclr15LQsVdXHjMVTFzc932E1qO/SZ33usL2avrg1IjmNvJ
+         uSiOtRG+9rddBcCNX0f+NrHwder7P0gpIdn3mjDx90Cvv0osj/dghMSOo1xZwifywjWe
+         bS49YvLf1nrvSNndhY+BHVhgdk/bI6L5cu0uwBR5Y/pS/1VTw99WlKyOhAS0btxcAejg
+         Tuk29BX3JSYR4Ra0psOdVJ0ipkg9CGCLuDQi5Xm4yAFD6QFce2AE/O5yzC4rZrgsvMUE
+         MZqQ==
+X-Gm-Message-State: AFq9FYI0pS9R57RmoHlqWUccxzXciYfbqDXmo+iKaPjch0qF3KKt2wps
+	Q8fPUR3cJZIxJAcAGCEJ/Un4KO5aO+Dbk/5mYpkOGnwk8z921JXlDAvmqJtcZ4FJ
+X-Gm-Gg: AYBFou053vvv1C8gaPMOctxfsh/m+qJiVHlv4WTcxV6XU6oHpURWwfmVoKO1w3OWBmL
+	+N426bvHMX1u+ZFb4pgmVldHpLfKEn4xZTcdR87mdwrImlOaRAqQVanMMZTI0aFE+2S1SdJ5iAQ
+	xabFUZOcPadX6HBR1uuCvjnxxS83+yb2emGK9wACz9MQcftCiGX6SPnqOzb4jIafwiftq4TXp8B
+	MLL1M0mvhYwpMVkmj7ul4V4PKd/yeSFCdB3WUNBBJZ2OFGt8b511JlXScxWas4fQikD8CwVm/6J
+	xHtSr5mp+MGeBSPxVXbYc/LBsTNGiv3SD1MiOnBFAgSSXhW/dbFU+885VedLNuVFFOhEd+v/eVk
+	cjcDhaxvBeu3u9mctJj+Jl//6t2FMOiehrG7+KVWg9UR2DZJSuuyOLkjDEqua3+xBTrGuunymi4
+	+G2g1aHVGfsyT6DeK8mg8NBlKTLbqIOUoz1Ymb+1dlTycefdUUP48H8Lzgi90lpAVMHT4dNyAsP
+	IDdGwh+OfDWPRAxokrPYYEMbOkb9pawvZwGrLMflc/tDJ+zWxHkrLycPXydl/ABKWmMVlFVfika
+	+pOvnDsuvphlXuiI61D4JwsJfwa26jrebv8bEzJauGX39EY8
+X-Received: by 2002:a17:902:da91:b0:2df:83ce:724f with SMTP id d9443c01a7336-2e49b615cf2mr85031045ad.30.1791157228685;
+        Sun, 04 Oct 2026 16:40:28 -0700 (PDT)
 Received: from ryzen.lan ([2601:644:8000:7a86::e35])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-35126f01924sm7960360eec.0.2026.10.04.16.35.24
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2e49f6a99acsm26962985ad.34.2026.10.04.16.40.26
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 04 Oct 2026 16:35:24 -0700 (PDT)
+        Sun, 04 Oct 2026 16:40:28 -0700 (PDT)
 From: Rosen Penev <rosenp@gmail.com>
-To: linux-bcache@vger.kernel.org
-Cc: Coly Li <colyli@fygo.io>,
-	Kent Overstreet <kent.overstreet@linux.dev>,
-	linux-kernel@vger.kernel.org (open list)
-Subject: [PATCH] bcache: fix kernel-doc warning on CLOSURE_CALLBACK
-Date: Sun,  4 Oct 2026 16:35:23 -0700
-Message-ID: <20261004233523.516891-1-rosenp@gmail.com>
+To: linuxppc-dev@lists.ozlabs.org
+Cc: linux-kernel@vger.kernel.org (open list)
+Subject: [PATCH] macintosh: macio_asic: fix macio_add_one_device() kernel-doc
+Date: Sun,  4 Oct 2026 16:40:25 -0700
+Message-ID: <20261004234025.524281-1-rosenp@gmail.com>
 X-Mailer: git-send-email 2.56.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -75,37 +72,40 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-bch_data_insert() is defined through the CLOSURE_CALLBACK() macro, which
-kernel-doc cannot see through, so the kernel-doc comment above it
-produces:
+The kernel-doc comment for macio_add_one_device() does not describe
+@parent and @parent_res or the return value, and describes @in_bay as
+a flag although it is the media-bay device the new device sits in.
 
-  request.c:308 function parameter 'bch_data_insert' not described in 'CLOSURE_CALLBACK'
-  request.c:308 expecting prototype for bch_data_insert(). Prototype was for CLOSURE_CALLBACK() instead
-
-Turn it into a regular block comment, and drop the @cl line along
-with the kernel-doc markup.
+Document the missing parameters and the return value, and correct the
+@in_bay description.
 
 Assisted-by: LLM
 Signed-off-by: Rosen Penev <rosenp@gmail.com>
 ---
- drivers/md/bcache/request.c | 3 +--
- 1 file changed, 1 insertion(+), 2 deletions(-)
+ drivers/macintosh/macio_asic.c | 6 +++++-
+ 1 file changed, 5 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/md/bcache/request.c b/drivers/md/bcache/request.c
-index 3fa3b13a410f..e7f097346d64 100644
---- a/drivers/md/bcache/request.c
-+++ b/drivers/md/bcache/request.c
-@@ -285,9 +285,8 @@ static CLOSURE_CALLBACK(bch_data_insert_start)
- 	}
- }
- 
--/**
-+/*
-  * bch_data_insert - stick some data in the cache
-- * @cl: closure pointer.
+diff --git a/drivers/macintosh/macio_asic.c b/drivers/macintosh/macio_asic.c
+index ee3caa3d87d1..04fb0ffc2301 100644
+--- a/drivers/macintosh/macio_asic.c
++++ b/drivers/macintosh/macio_asic.c
+@@ -349,11 +349,15 @@ static void macio_setup_resources(struct macio_dev *dev,
+ /**
+  * macio_add_one_device - Add one device from OF node to the device tree
+  * @chip: pointer to the macio_chip holding the device
++ * @parent: device to register the new device under
+  * @np: pointer to the device node in the OF tree
+- * @in_bay: set to 1 if device is part of a media-bay
++ * @in_bay: media-bay device this one sits in, or NULL
++ * @parent_res: resource to insert the device's resources under
   *
-  * This is the starting point for any data to end up in a cache device; it could
-  * be from a normal write, or a writeback write, or a write to a flash only
+  * When media-bay is changed to hotswap drivers, this function will
+  * be exposed to the bay driver some way...
++ *
++ * Return: the new macio_dev, or NULL on failure.
+  */
+ static struct macio_dev * macio_add_one_device(struct macio_chip *chip,
+ 					       struct device *parent,
 -- 
 2.56.0
 
