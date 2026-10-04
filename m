@@ -1,148 +1,157 @@
-Received: from DM1PR04CU001.outbound.protection.outlook.com (mail-centralusazon11010048.outbound.protection.outlook.com [52.101.61.48])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oo2-f8.google.com (mail-oo2-f8.google.com [74.125.231.136])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E58813B14BB
-	for <linux-kernel@vger.kernel.org>; Sun,  4 Oct 2026 20:47:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.61.48
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791146851; cv=fail; b=dp39FjJLXRE3CxWs3uB+eBmqlfa1DQkppmS0qWfR54psjzsiY64Y+1DTXJ3H6Hr+5GhruC+OmZJuMw5JAK47EIUUGYQFTOSud1qLNo2+lb2ZP7sTr6ACOnyWiGPtGTYGq8hBDSoveWoYkN3XHgiv3XFtnBX9Qw32Nz5gSzPfx8A=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791146851; c=relaxed/simple;
-	bh=zRclpK5Q+r778ubDwSS7+pc30HSgTtXGT9q20HKhWRY=;
-	h=Date:From:To:CC:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=E1fSTuG55egaOVkSeV/bS1xlSTaWz2oQotU8x9MBtflU+lZ8q7yqaDb04TVkA221f8a9LGx6e7Ej8V2gWZl61waa9hH3ctTjV70pUuehM8Z7ErVAC70VEodCjHULKHU5puAtEgM2j/NS/C2DFA30j88gTdCqKinF6Yui7tNL0HU=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=L/JzfnmF; arc=fail smtp.client-ip=52.101.61.48
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 80279388377
+	for <linux-kernel@vger.kernel.org>; Sun,  4 Oct 2026 20:48:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.136
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791146936; cv=none; b=JYqS8TXyuGc2TQDjmCkaBRhoWdHAb7To1TtOC3CkQIaJwQKpvzCn/rfNM1prfZiaV3y8J06oqxUUnTUP7Xs3/s/f6cyDihXpP3IhkZkt39tVj38N9oRVOUkFsRZd0/95VDvE3J6Bm8E0MhOQ2LwonXMz9R2hIDE9kJ+lGdIqP2I=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791146936; c=relaxed/simple;
+	bh=OcJVs5yn0YnQaQ4cSxKF5bO4C3o583LMnGdciACqpJE=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=Z/Q/WLRo+/ogt5MI8nx1dE7bHm4nB9wtPckkerbDGSAXbuWuPYks0fhymVaq5PgytwyGW5/qjlyYj+4xF3Oh4i2u9W2N1qBsObJLQB9IwNwSVWJuNuuq+XB7IK2JAhsoc5LZEBN2G3x/P0UEraYWYyPNwRqyvZABB0jq4PioyBU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=SU7b3zuJ; arc=none smtp.client-ip=74.125.231.136
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="L/JzfnmF"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=S/4fQ2u+Axf/ELTBYmGUKt9AaanWOX6hLPMMXLEKYCgrGkC1kiNy5aD+UyeiQ/z+275uhhRTmRUgVVFOMIon8Ru2Q9JXvkTGZJba8o7L83vux688yWvOUDW3e9r1tjWK3iO1va0Ytz7wRD8ub90mJsBl3mRre9ATN7VkogK1D4oe+NAIJ9472cp7rMzoko7m1Pg36HdczYdqVjm6Isp9cZz7h6CBX0upJDHoElHTtoQEWqWGNihaoPSlD9XBFPb9UmPBkApOUYZ+F5MioaOzNyQl6M/AUf8LlZ+l9Uf+8GobWoX0z43B6lrB/o5wCJK7xNbdq4wiOYj2czdrlxO0JA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=AlWAed+/SrqJQekZMX1xSkZKywb/agcxG25UCF/2iIw=;
- b=R5HFI4HeOdiLEb28lZ7KATDP7pu9l/86rUHG9od841vopiupDlicRHY5mfLtjhcENrVQiPYE+hihR+sQoGaMSG5l0aLoWIAByeL5ef+QiAAjWbDIK56/W/ZrluKZ88GVlju0LBH2j6rU+RryCG+7LX98Jhc+n9qyT+k8G07vhykFf8NXaJZMRMRFAzMQ6nOsu1SOCSlZ3O92TocW3UIaQl2Zt33EEaDIJjNR5va3116L8pI6pgbabcbFXf/sk+mBKnxhNodydd8pAzODXps5zynzMywkaRY2n1tqRMwj4fucuxZ6opG0RCsDrfbJV+u5EzerjwExJcikiLNoyMl8Cg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 216.228.117.161) smtp.rcpttodomain=kernel.org smtp.mailfrom=nvidia.com;
- dmarc=pass (p=reject sp=reject pct=100) action=none header.from=nvidia.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=AlWAed+/SrqJQekZMX1xSkZKywb/agcxG25UCF/2iIw=;
- b=L/JzfnmFiHX4XmGzJxIQNhf54prlgwqJmLbL+YksNL5URYDk1DlMY8dhroFz6450WZ7Q9ZI+jsbE0sRQjMwwMGqfarWK9uHmACLdtfPQQxSnwBt07Tl2Rh+6dJCPSl2g6AGw1Jo4KvBzbENEbZVeKReGROKT/uAC4FVDUgbxc0UOHNO4pjneaU11PUc8Hdw2Xq3N8ZCbkC8safmFMrlLcegmTmpUhpUrCbSlSLwtQahPk07LwBVSew+r1ZkKRyaGkmBosKjq90gkyBTo3ivsaHjIC3T8+GRE5DOX6HQluFYw/X9wiskSbdJDDDxESAdStBbv1bhAL1I+8MfqxCmZpw==
-Received: from PH1PEPF00013305.namprd07.prod.outlook.com (2603:10b6:518:1::17)
- by EAYPR12MB923140.namprd12.prod.outlook.com (2603:10b6:303:2fd::15) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.472.20; Sun, 4 Oct
- 2026 20:47:25 +0000
-Received: from SJ5PEPF000001F1.namprd05.prod.outlook.com
- (2a01:111:f403:c902::d) by PH1PEPF00013305.outlook.office365.com
- (2603:1036:903:47::9) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.406.9 via Frontend Transport; Sun, 4
- Oct 2026 20:47:25 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 216.228.117.161) smtp.mailfrom=nvidia.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=nvidia.com;
-Received-SPF: Pass (protection.outlook.com: domain of nvidia.com designates
- 216.228.117.161 as permitted sender) receiver=protection.outlook.com;
- client-ip=216.228.117.161; helo=mail.nvidia.com; pr=C
-Received: from mail.nvidia.com (216.228.117.161) by
- SJ5PEPF000001F1.mail.protection.outlook.com (10.167.242.69) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.472.14 via Frontend Transport; Sun, 4 Oct 2026 20:47:25 +0000
-Received: from rnnvmail204.nvidia.com (10.129.68.6) by mail.nvidia.com
- (10.129.200.67) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Sun, 4 Oct
- 2026 13:47:20 -0700
-Received: from rnnvmail202.nvidia.com (10.129.68.7) by rnnvmail204.nvidia.com
- (10.129.68.6) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Sun, 4 Oct
- 2026 13:47:19 -0700
-Received: from nvidia.com (10.127.8.10) by mail.nvidia.com (10.129.68.7) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49 via Frontend
- Transport; Sun, 4 Oct 2026 13:47:18 -0700
-Date: Sun, 4 Oct 2026 13:47:16 -0700
-From: Nicolin Chen <nicolinc@nvidia.com>
-To: Will Deacon <will@kernel.org>
-CC: <robin.murphy@arm.com>, <jgg@nvidia.com>, <joro@8bytes.org>,
-	<praan@google.com>, <kevin.tian@intel.com>, <smostafa@google.com>,
-	<linux-arm-kernel@lists.infradead.org>, <iommu@lists.linux.dev>,
-	<linux-kernel@vger.kernel.org>, <jamien@nvidia.com>, <kas@kernel.org>
-Subject: Re: [PATCH v10 06/13] iommu/arm-smmu-v3: Add
- ARM_SMMU_OPT_KDUMP_ADOPT for kdump kernel
-Message-ID: <asK7VILK4CgEFjdT@nvidia.com>
-References: <cover.1788130528.git.nicolinc@nvidia.com>
- <d661395d986d3aa78af200f55e43740996ee8a0f.1788130528.git.nicolinc@nvidia.com>
- <asJTsw-oWDlSqNa3@willie-the-truck>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="SU7b3zuJ"
+Received: by mail-oo2-f8.google.com with SMTP id 46e09a7af769-81d53a6ca68so1869565a34.1
+        for <linux-kernel@vger.kernel.org>; Sun, 04 Oct 2026 13:48:54 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791146933; x=1791751733; darn=vger.kernel.org;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=64dx1BbNweAnxiSqrDwTCBobsnxCeoMwaSiq5ZXWTOc=;
+        b=SU7b3zuJsXhyOAer7JoytkYw+EqZANM9AmAA0ZI6DCRECgbLLng9eJOGAKPenWPHGG
+         aanIcJZe3n0nwTN3ewyICmK55otow/G5aez7mGIvUFWnLxo3osp2s53L3pIHmq0/5GXQ
+         zGQAR0LlQVrVKhjiN47+3aqozyqpzh+ifeWP1V8WocdGJnWf6mXUsT8HgZD7Z4Mxxo1j
+         SwaCT/Uoi0hgyocToH13ZNSJh/L830JSiny+ut9ja5KP8FPrwTxUAcAYn8PJMVepz5mf
+         Hi85GXKwiJVKDOTEQxTbfzAgzoYfVhIbeDlHIrZZuv293sI5r6AzTvUmNN2zNFHiGmOL
+         bSug==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791146933; x=1791751733;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=64dx1BbNweAnxiSqrDwTCBobsnxCeoMwaSiq5ZXWTOc=;
+        b=ZShZgaoV9OkBOx/XQzHDBdrQnEMODdB7IvEb4uSrTWordHoWeICbCT8urmvxM555dM
+         mAND9gLNzk7b8NTthOcY91GYCdqv1Xfztp1TcN1KDXGH9rrljmyBPrtLx0TNaeerAgio
+         q0ggLVjnjabTHgUytH4mWd7P8Mv4cDhtEl7aNg+r2Rse1DKa6A2XMgvZGjeWhIJqEmrT
+         6RblPHesCfa73uendvM/s4J/dsboRlMQQlMtNm8blr4+oJYpn86zaG3Q6bznY4U1r00t
+         zU4GaiAfgxm6Msqfo6TuaskK/3W6zyBhmFzk6Gvq6aTr5f0ROoou2WKiDKKYINo24Ikx
+         DmXQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzapAgMJERFHUStfxiZ2V0lBStHmZdgbWE1+K91M8cKPOWNM2Ks5gnuN6Ae7POP3EU43kf42NzS0f/Fd1Q=@vger.kernel.org
+X-Gm-Message-State: AFuF++lOUv7zr2rqfvzh1jt9Q1gfYjuD+QUEaPV9VlwIpBMg5Ta7rYkK
+	VzdVO8cxHMAq2/XLYKO/aFuUNkWp5TSiAuLWdvRe7TYTeYlVbsCzSvwe
+X-Gm-Gg: AYBFou3svWCDRI2SwOvYuQb9WI2jrE1gccJPHIsUzu6quqXjDtbCYyTetXt+amEmEMu
+	P5IkGc+23qeuNFwcfmynUCcIvK1kYJOXLgSdmtut4AQl/M+UF0gDeQcj+vmGm/+dj4PPt70u1Ui
+	VwSWs7A7sIeLY/ERyDWEDFYJnm42MiIGSQFuH1F4pyeQaOqLeFGHYhDsTWgAQWqn8UngTfRTPcX
+	WxDMHR/vBx8PzFuHfVjjuZUvY9xLdBmUZ+V0bscZfc5a0hZo0u5IB1eXZ7LpVlGpuyXU2VGHsfN
+	BhH4k0S7yorWooBluNgEuWGSHOpYaNYMspPNYPQbkc7FdVw5g2lfmAxE7RU457xn9mMxXKXZKMH
+	fVY2+lOxUfezTqRI7HiUokKLmmlW45b4piGCTSjTu1Xf7LqWYXuQFVNi7gCZ3+NwidCD5Kc361q
+	3+oRnZw1zLDQun7A23Qq5sKpecWgwTI2UVvlihge73AprFK4ZyvTUXrqO57RxjQ6zeV7dIiGjZR
+	FYK
+X-Received: by 2002:a05:6820:8cc:b0:6dd:5f11:2772 with SMTP id 006d021491bc7-6e09eb5bb95mr4694735eaf.67.1791146933277;
+        Sun, 04 Oct 2026 13:48:53 -0700 (PDT)
+Received: from [192.168.18.164] ([2600:8804:5716:d800::2620])
+        by smtp.gmail.com with ESMTPSA id 006d021491bc7-6df3bb8ed63sm7997183eaf.15.2026.10.04.13.48.50
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 04 Oct 2026 13:48:52 -0700 (PDT)
+From: Ryan Brue <ryanbrue.dev@gmail.com>
+Date: Sun, 04 Oct 2026 15:48:44 -0500
+Subject: [PATCH RESEND] drm/mediatek: dsi: force command mode in
+ mtk_dsi_poweron()
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-Disposition: inline
-In-Reply-To: <asJTsw-oWDlSqNa3@willie-the-truck>
-X-NV-OnPremToCloud: ExternallySecured
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ5PEPF000001F1:EE_|EAYPR12MB923140:EE_
-X-MS-Office365-Filtering-Correlation-Id: 6b8efcbc-ca6e-4636-048a-08df2258b260
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|7416014|376014|1800799024|36860700016|23010399003|82310400026|56012099006|4143699003|11063799006|10067099003|18002099003|22082099003|6133799003;
-X-Microsoft-Antispam-Message-Info:
-	jM2qrAllgSdQt2RTq3j00ncImY325iB7ZNQ2ofPGP5vOZZQcgUVha6AM3lBUfigrxlhVgFgC+sT9a2E4eOjl6PPE+AKDe2k23CT58hrR+0L4H6LK2OuziwciTjsMZra7wyROIFtggtxE1+tOt7oe5lu7O3vwazOjhI6LPLMnomNewY/NAL02+NyuNRJNEMdImXS/hMEkl8HtB2mjfYR2cJQOujVYS+3aq4Da6mt2cWRV6F4DR24C0tcTOpWE2tS/eTU4aiNIJ+1P7Ko8MKV8UH/CKi8dARI8YlgklVIHy06bNIlpczq3RjCe2XP/yz+dybaAS6qkztOwQ4FPn+BoT/i8u02U+9DSQ78UDdgD85u+UHhpNDH503BoKNyAuSZsH8RxgQfiuEj8gNkB/4+NL8AZYDZU05qxK2w9TTzns1amYgIUM93xO48mIBKj/bw5eckIzjXDS4V/N/kgeyLNhsGi/1wfL02Z0yLFmNd0O5KZ8imC7DNbUg8/DcMAGVQKUt9ymNd1DE5xNVWMCvol6mLS2iNUI+mWZjWwr/zB5hp9S7MuDPCuWzDSOgImAdNHuvDAMzC9kiGS3lIOcCn48jfl3qvs/l/HnKMzfKtd60uF+A42KzEAFXxmYoo6DlgPkCdXUP6Im0O9qDwCTaX4+LT5br1xLG3LYhDTl0DX5N/E/ddvZ4zr6U95hR2T8Y2Tgmcnjw0aFmkjNsyGTv3Hlw==
-X-Forefront-Antispam-Report:
-	CIP:216.228.117.161;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.nvidia.com;PTR:dc6edge2.nvidia.com;CAT:NONE;SFS:(13230040)(7416014)(376014)(1800799024)(36860700016)(23010399003)(82310400026)(56012099006)(4143699003)(11063799006)(10067099003)(18002099003)(22082099003)(6133799003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	bdzZcHIDQ/8xC2Xj/jpzwVq7alsvddXyQdioWv+0quzJ0/XlA//FxVIS8GRAeqdgD1IfVh3QjsyFr1oXqJQRq6iLWjY/0ms12yyfxVV2naadWldnLBqcrRMrTJraSoiwb2mqlp1chbz59qQO3SEwKcwsPQbt0EA4r9oOFutJOfSqfWw2mTWR8wmNDsem36NRPkbzPXGGSx8j1AIomCJjJTF3sw2cQ6vwnVmCGrSo11eWXjuo5/pgA8ztkU98lD3m4DugnYSBXCQk0fvNECLYWl/NH37HmdzH497Wqofv5QZp1VUcwKaOz7wM2Fo27NHJDHcMoyk4kCy/GULjlTY7UuGk1SY6QgHEDtljMx36rwlaQUcb/Mt9aiEJsN71ch+1dwE3okHM07FJYLAg3DfFLTdGz0T0rM94aZeJ7TJo9D4Vy6MsJnEtcl5BFsHMrEIv
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Oct 2026 20:47:25.3763
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 6b8efcbc-ca6e-4636-048a-08df2258b260
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a;Ip=[216.228.117.161];Helo=[mail.nvidia.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	SJ5PEPF000001F1.namprd05.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: EAYPR12MB923140
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261004-rbrue-suez-upstreaming-mtk-dsi-cmd-mode-v1-1-53a4f46ca489@gmail.com>
+To: Chun-Kuang Hu <chunkuang.hu@kernel.org>, 
+ Philipp Zabel <p.zabel@pengutronix.de>, David Airlie <airlied@gmail.com>, 
+ Simona Vetter <simona@ffwll.ch>, Matthias Brugger <matthias.bgg@gmail.com>, 
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+Cc: dri-devel@lists.freedesktop.org, linux-mediatek@lists.infradead.org, 
+ linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+ Ryan Brue <ryanbrue.dev@gmail.com>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1791146930; l=2760;
+ i=ryanbrue.dev@gmail.com; s=20260906; h=from:subject:message-id;
+ bh=OcJVs5yn0YnQaQ4cSxKF5bO4C3o583LMnGdciACqpJE=;
+ b=1l4cNu6iSTNSIv+NG3qt0kh7o+fG3x0bWp03ylDgdgiAL0DWdqVdOTa9xSzUY40MnsckbQ/8g
+ XtXLdSNzganBnvGGX4IVpkwFUR+rd0uh9jLeNxs4jVcDEwbAksd83xb
+X-Developer-Key: i=ryanbrue.dev@gmail.com; a=ed25519;
+ pk=KsUvVaP//v/2q+ZBuacc7cLbsyEYn+AD71Sn28oZWKo=
 
-On Sun, Oct 04, 2026 at 02:25:07PM +0100, Will Deacon wrote:
-> On Sun, Aug 30, 2026 at 04:18:07PM -0700, Nicolin Chen wrote:
-> >  drivers/iommu/arm/arm-smmu-v3/Makefile        |   1 +
-> >  drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.h   |  21 ++
-> >  .../iommu/arm/arm-smmu-v3/arm-smmu-v3-kdump.c | 229 ++++++++++++++++++
-> 
-> Please don't put this here. The live update / handover stuff is going to
-> need very similar logic (see the RFC from Pranjal) and I don't fancy
-> having to rename or resplit this file when that comes along.
-> 
-> Maybe just stick all of arm-smmu-v3-kexec.c and arm-smmu-v3-kdump.c into
-> arm-smmu-v3-handover.c or something?
+mtk_dsi_reset_engine() does not touch DSI_MODE_CTRL, so whatever the
+bootloader left there survives power-on. On boards where the bootloader
+lights the panel for a boot logo and hands the DSI over still running, the
+leftover value is a video mode, and the first mtk_dsi_host_transfer() then
+takes the "already streaming" path: it stops the stream and waits for
+VM_DONE, which never arrives, because the engine reset has already stopped
+the stream. The panel's very first command fails and it is never
+initialised:
 
-Hmm, Pranjal and I already aligned that cleanly. And there is no
-further rename/resplit in his series.
+  [drm] Wait DSI IRQ(0x00000008) Timeout
+  *ERROR* failed to switch cmd mode
+  sending dcs data 8f a5 failed: -62
 
-arm-smmu-v3-kexec: common helpers for both
-arm-smmu-v3-kdump: kdump specific (my series)
-arm-smmu-v3-liveupdate: liveupdate specific (Pranj's)
+Set command mode right after the engine reset, so DSI_MODE_CTRL describes
+the state the reset leaves the engine in. The video mode is programmed by
+mtk_dsi_set_mode() when the stream is actually started, exactly as today.
 
-Each of them is built on a separate config:
- arm_smmu_v3-$(CONFIG_ARM_SMMU_V3_KEXEC) += arm-smmu-v3-kexec.o
- arm_smmu_v3-$(CONFIG_IOMMU_LIVEUPDATE) += arm-smmu-v3-liveupdate.o
- arm_smmu_v3-$(CONFIG_CRASH_DUMP) += arm-smmu-v3-kdump.o
+Seen on the Amazon Fire HD 10 (2017), whose LK bootloader draws its logo
+over DSI in video mode and never stops the stream before jumping to the
+kernel.
 
-If we put everything into one big file, we'd add the two individual
-config guards internally, which isn't as clean as currently IMHO.
+Assisted-by: LLM
+Signed-off-by: Ryan Brue <ryanbrue.dev@gmail.com>
+---
+The board this was found on, an Amazon Fire HD 10 (2017), is not upstream
+yet, so no in-tree board regresses without this. It is a state-consistency
+fix either way: mtk_dsi_reset_engine() stops the stream but leaves
+DSI_MODE_CTRL still describing the mode the bootloader was driving, and
+nothing writes that register again until mtk_dsi_set_mode() at stream start.
 
-Note that the kdump file has a very long notes (kdump specific).
+This touches the same lines as "drm/mediatek: mtk_dsi: Transfer register
+offsets to per-SoC const" from the MT8196 series; I will rebase on top of
+that if it lands first.
+---
+ drivers/gpu/drm/mediatek/mtk_dsi.c | 9 +++++++++
+ 1 file changed, 9 insertions(+)
 
-Thanks
-Nicolin
+diff --git a/drivers/gpu/drm/mediatek/mtk_dsi.c b/drivers/gpu/drm/mediatek/mtk_dsi.c
+index 7961139333ad..4cb486f54653 100644
+--- a/drivers/gpu/drm/mediatek/mtk_dsi.c
++++ b/drivers/gpu/drm/mediatek/mtk_dsi.c
+@@ -737,6 +737,15 @@ static int mtk_dsi_poweron(struct mtk_dsi *dsi)
+ 		       dsi->regs + dsi->driver_data->reg_shadow_dbg_off);
+ 
+ 	mtk_dsi_reset_engine(dsi);
++
++	/*
++	 * mtk_dsi_reset_engine() leaves DSI_MODE_CTRL alone, so a video mode
++	 * left there by a bootloader that handed the panel over still running
++	 * would make the first command wait for a VM_DONE that never arrives.
++	 * mtk_dsi_set_mode() programs the real mode when the stream starts.
++	 */
++	mtk_dsi_set_cmd_mode(dsi);
++
+ 	mtk_dsi_phy_timconfig(dsi);
+ 
+ 	mtk_dsi_ps_control(dsi, true);
+
+---
+base-commit: fd73f4a6659897191fa0d40695fe370925dd3780
+change-id: 20260916-rbrue-suez-upstreaming-mtk-dsi-cmd-mode-d834c029f4b8
+
+Best regards,
+--
+Ryan Brue <ryanbrue.dev@gmail.com>
+-- 
+Ryan Brue <ryanbrue.dev@gmail.com>
+
