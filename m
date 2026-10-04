@@ -1,464 +1,159 @@
-Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-yx2-f38.google.com (mail-yx2-f38.google.com [74.125.224.166])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AB3DA43CEF8;
-	Sun,  4 Oct 2026 12:13:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.85.4
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8853243E06F
+	for <linux-kernel@vger.kernel.org>; Sun,  4 Oct 2026 12:13:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.224.166
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791116003; cv=none; b=tRbXeA+N16AVCrCLXqGfG7CfKH9K241mO2J4xlY5dZOtIQ4hk0JOStVsKt50sFFQyPfl6Je+Ij5iQQTkMJvnA228Q4MiqYEfSelzYC3SsGsazBvXC2pJKVCnzGSa6mpMQmDRo95KLn6yby5gm07v2TKqELPU4a4eKpmk3cNDaII=
+	t=1791116018; cv=none; b=tFxGNDtkj/xQAIZdp9/L4kKGpMjUatQ4BepPRb1RZcrUP2Tr4U4scbM53MSQeeuj+3+kGnMmb00bLTgCKxRiQ0fKzCK4M8yagQXV37+W/qxJnOqBSA10Y+6c8k452jN3aihqDdPRMUtRmCeXOHTjUH4gxo6/uT75A0+WM9kLHq0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791116003; c=relaxed/simple;
-	bh=pPnBwBH7WMyKHTvVMD3cVlnsIcuXKL71WdEv3BqwZZY=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=ZcvKCER8WFxAxcH43w5N8Xk7skcFrqwotC9GZppWbRY8CaDKpHvm+8VAo0WIqPLsJcKluZtwcddzKqLsOpKTeDb3VpUQt/SgtYrY36JuJ8k+mMNhyeppZGf+Wq/BcLPZF5SSruJ57AwfInJz2z/UzunQbEDPyGOlQeau6fgI4/4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=HSKvrShv; arc=none smtp.client-ip=185.246.85.4
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="HSKvrShv"
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-03.galae.net (Postfix) with ESMTPS id 4A85E4E4115A;
-	Sun,  4 Oct 2026 12:13:19 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 1FC21604FE;
-	Sun,  4 Oct 2026 12:13:19 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id A4FAA1032820F;
-	Sun,  4 Oct 2026 14:13:17 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1791115998; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=hWjKDDFEf9/cmSXZw0lrzdeadRh/tBTTwGeiO7x+syg=;
-	b=HSKvrShvmcf1hYkBzKtwNWZ9RARARdxJOiie9i39Mdh4wcEoEljugxlexof0AoTg9fN9NL
-	uMeeWPOWPyZ2EXDw0kWs5uXHkUPP8szqPYMUcs3XCaHGT7yMsYEYmUkesKGAMhPJZGQYu0
-	vlMonGk48bNbhiJ5Q0ejWa6oAhHIedpXJKuu28vQLcd0I9arMduyBcM52dmRgX4fU/YRvA
-	VQ0Xlz8l97KQikZ8uhAfM4BhR3TisE3EbF84AaEaUn4fAyTS5Bo/q/3U4CewKzi+hgabN9
-	H1/zngpwcHXLLy2T8pr05IqkZeWiskBd+yc2FNufUJ2IlyseAAI9kvgvDz+9dQ==
-From: Paul Louvel <paul.louvel@bootlin.com>
-Date: Sun, 04 Oct 2026 14:12:52 +0200
-Subject: [PATCH v3 4/6] watchdog: w83627hf_wdt: Store Super I/O
- configurations in platform data
+	s=arc-20240116; t=1791116018; c=relaxed/simple;
+	bh=5Pr4pI6UHbC0U2MKjSQsGnO4riVPy06dn9dWWcRzV98=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=L2BiglklUHDO/YoxWmvgSGc/1CEM4zMm/E5Xp/f1rAktXuidKFGmk2uWJY/WFUEN6NAr0SADgYXSc87quVkaSzdLsx/Vta9cw1b6G6iupImCKeJd9oBh8v82nxlsEkMgUsZddU+vWD2uMb6+78Pq0KAPuAG+pngJr4YSyxM49GU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.com; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=74.125.224.166
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Received: by mail-yx2-f38.google.com with SMTP id 00721157ae682-8ac4deda6d5so5508047b3.2
+        for <linux-kernel@vger.kernel.org>; Sun, 04 Oct 2026 05:13:37 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791116016; x=1791720816;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:reply-to:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=nfYr76LOTu8jVRzggIwBN8xVUqu42mEkcSJCjGTgQ0g=;
+        b=AB1Lncyhovveq4wlxjLP5ZX6h+9YYjj61lluTJh2PeLFJMPrgFxqcMi280vO25mAko
+         PRcWMEbsHfsPW5j+HXNWTItPWOzv8stFsPQr+AAR0qgmv6YAwoteVOgvu4tTPLdIrw8a
+         gHYMsAFa0mHuBwGwYO3E3wgCg5CKo4cu1nndj3KOxWgv9xZVdRGaUXytusk/ktoZOpq4
+         5DvyNgbsnZU97avx5xktbLlE9R0yH1BX+6hRnEvIYB+tpLykDfmtpxlFW+sd1HUmahEH
+         pg14ruO6AwLIf66jlKQuCdkn+cPr7s45cU29ZxzT7CeDbned07lUpYka7yDIc3iC29hO
+         C1rg==
+X-Forwarded-Encrypted: i=1; AKwUvBzaX46yqILx+4KffVNAkb3XF+sAc1PXNPQzVc2/M/Ubs0ouMTX3uMOWCKS/C34JBc9WqYdH3AUXvaSYFlk=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKoKwUTJWxIeTEjXmYdzoyHgTv/5nBd11t1eg1+JwcCWT7fFokD
+	TgZuHiIts44M9Vi1q0szTarZWM2J9k+dJmxFE6h7haF205kSEr5k6oj6G3XbidWObrw=
+X-Gm-Gg: AYBFou1xEeVZpuVC9hCO5f0+ZF9EUSjCd9C0DXXpx4BQbi9fCmz50rRYOjKS84PYB6W
+	FAhoL1QTeAJ6QKNlyxuOsSreQvs9a96e+kHHnbCYEBthI9n7oYfVAAaR97zcYezfQqkzBFbJrsC
+	L4+l/tG+ZhmVUhLcWGp0OCLOW2X2K0yzN2bPCXXn79YWOnllFi7aucusPdMtXrMnGWP2OZPNcKq
+	EFqJ/jnlzkP2g8hVZ+7wjijC1CF741YKb5Gyrb4HEfgzIeIhpaWcJM8geJnFmGyqG/fxBK5X+eu
+	0VARprgS+Bt+kHkzNbwrwDkpz87nnCAZToprsYizwoIoUiuumyqFdSypLnjT/2wN1/SOyKKBYh5
+	ZgGKnZaRLD535jWqhI5fuHoEDopR3hIEaCWaO9RyxBLyxrnoTrzSBQ8QC0Z9LOL6YWPGe/DJKTl
+	CQEfaTFt1Xahx5AeEl4TUXgCWNCc8W9TlclUyda+a8c7XnbbE2BeyLWv96ZPSJVbzcFZSITaXEO
+	xe5l/NzaZp2Y5tgFtraNzYME5IzGceYU9Sxhwd1ZlUBHurhtNFJMpYIZpNwBvKj
+X-Received: by 2002:a05:690c:e3cf:b0:8a8:8945:c415 with SMTP id 00721157ae682-8ae39bea565mr33020737b3.25.1791116016518;
+        Sun, 04 Oct 2026 05:13:36 -0700 (PDT)
+Received: from mail-yx2-f43.google.com (mail-yx2-f43.google.com. [74.125.224.171])
+        by smtp.gmail.com with ESMTPSA id 00721157ae682-8ae32fe9ed3sm27306457b3.29.2026.10.04.05.13.34
+        for <linux-kernel@vger.kernel.org>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Sun, 04 Oct 2026 05:13:35 -0700 (PDT)
+Received: by mail-yx2-f43.google.com with SMTP id 956f58d0204a3-66e4ab201ecso509565d50.2
+        for <linux-kernel@vger.kernel.org>; Sun, 04 Oct 2026 05:13:34 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBxHVOpDPh50E75ZrxEfLGEcg//XZ/Rbw6po5zP9NyhjX+IgtEjb2AwSUb5MInQHrdo+pititc1dc9XECXY=@vger.kernel.org
+X-Received: by 2002:a05:690e:d01:b0:66f:7e05:c3f8 with SMTP id
+ 956f58d0204a3-677ac00785emr2680725d50.42.1791116014048; Sun, 04 Oct 2026
+ 05:13:34 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261004-w83627hf_wdt-improvements-v3-4-8e27b518595e@bootlin.com>
-References: <20261004-w83627hf_wdt-improvements-v3-0-8e27b518595e@bootlin.com>
-In-Reply-To: <20261004-w83627hf_wdt-improvements-v3-0-8e27b518595e@bootlin.com>
-To: Wim Van Sebroeck <wim@linux-watchdog.org>, 
- Guenter Roeck <linux@roeck-us.net>
-Cc: linux-watchdog@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Thomas Petazzoni <thomas.petazzoni@bootlin.com>, 
- Paul Louvel <paul.louvel@bootlin.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1791115992; l=12725;
- i=paul.louvel@bootlin.com; s=20260313; h=from:subject:message-id;
- bh=pPnBwBH7WMyKHTvVMD3cVlnsIcuXKL71WdEv3BqwZZY=;
- b=7HgKng7sfc1MObTbI6gqOfBLdB4tZh7g4asN+vzd9zfwyzZpwCLVfBiVlHlyMAT81RKzNGx7g
- 0id9zHIZLSvAS4EObJ4OkrDWYrfZrNIo07Cr0ZSbzRfn5tehpvmgOXm
-X-Developer-Key: i=paul.louvel@bootlin.com; a=ed25519;
- pk=eLW50NT18UAvUT5cAcYf88zNbBCZDLFXuptpyLVhVIU=
-X-Last-TLS-Session-Version: TLSv1.3
+References: <20260905153234.133217-1-tanure@linux.com> <20260905153234.133217-5-tanure@linux.com>
+ <aqSX-kUvYaixESxe@redhat.com> <CAJX_Q+2vpcFw-5evCkykwWo6jbHvKvQ4XjYt_EKFyJuQm_ES5g@mail.gmail.com>
+ <1jcxui79k0.fsf@starbuckisacylon.baylibre.com>
+In-Reply-To: <1jcxui79k0.fsf@starbuckisacylon.baylibre.com>
+Reply-To: tanure@linux.com
+From: Lucas Tanure <tanure@linux.com>
+Date: Sun, 4 Oct 2026 13:13:22 +0100
+X-Gmail-Original-Message-ID: <CAJX_Q+0T=k44tHbJ5BSAsD-RvpytA6mLu1FKu_2GZgYucorXNw@mail.gmail.com>
+X-Gm-Features: AclHuK8rosb4K--WkyZLuEcRV46M1KSWdwcM-4rWMY7HfYobH2sNfTEc1o2MX3w
+Message-ID: <CAJX_Q+0T=k44tHbJ5BSAsD-RvpytA6mLu1FKu_2GZgYucorXNw@mail.gmail.com>
+Subject: Re: [PATCH v2 4/4] clk: meson: t7: don't mark sys_ampipe_nand as critical
+To: Jerome Brunet <jbrunet@baylibre.com>
+Cc: Brian Masney <bmasney@redhat.com>, Ulf Hansson <ulfh@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Neil Armstrong <neil.armstrong@linaro.org>, Kevin Hilman <khilman@baylibre.com>, 
+	Martin Blumenstingl <martin.blumenstingl@googlemail.com>, Stephen Boyd <sboyd@kernel.org>, 
+	Brian Masney <bmasney+clk@redhat.com>, Chuan Liu <chuan.liu@amlogic.com>, 
+	Jian Hu <jian.hu@amlogic.com>, Ronald Claveau <linux-kernel-dev@aliel.fr>, 
+	linux-mmc@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-arm-kernel@lists.infradead.org, linux-amlogic@lists.infradead.org, 
+	linux-clk@vger.kernel.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Instead of using global variables, store Super I/O related
-configurations in platform data.
+On Sat, Sep 12, 2026 at 4:51=E2=80=AFPM Jerome Brunet <jbrunet@baylibre.com=
+> wrote:
+>
+> On sam. 12 sept. 2026 at 08:50, Lucas Tanure <tanure@linux.com> wrote:
+>
+> > On Sat, Sep 12, 2026 at 1:08=E2=80=AFAM Brian Masney <bmasney@redhat.co=
+m> wrote:
+> >>
+> >> Hi Lucas,
+> >>
+> >> On Sat, Sep 05, 2026 at 04:32:34PM +0100, Lucas Tanure wrote:
+> >> > sys_ampipe_nand clocks the pipeline stage inserted in the bus path
+> >> > between the SD/eMMC controllers and the NIC_MATRIX fabric. It does h=
+ave
+> >> > identifiable consumers - the three MMC controllers - so marking it
+> >> > critical was the wrong tool: the clock should be referenced from the
+> >> > consumer nodes and claimed by the mmc driver instead.
+> >> >
+> >> > Drop the CLK_IS_CRITICAL flag and update the comment accordingly.
+> >> > sys_am2axi0..2 remain critical as they clock the AXI DMA bus itself =
+and
+> >> > have no single identifiable consumer.
+> >> >
+> >> > Assisted-by: Claude:claude-fable-5
+> >> > Signed-off-by: Lucas Tanure <tanure@linux.com>
+> >> > ---
+> >> > This patch depends on the MMC controllers actually referencing the c=
+lock:
+> >> > the dt-bindings, mmc driver and t7 DTS changes adding the "pipeline"
+> >> > clock must land before this patch, otherwise the boot hangs and memo=
+ry
+> >> > corruption this clock caused are reintroduced.
+> >>
+> >> This series should be merged together in one tree? Which tree? I can
+> >> provide an Acked-by if it should go through the mmc tree.
+> >>
+> >> Brian
+> >>
+> > It's definitely best to keep the series together in one tree to avoid
+> > boot regressions,
+> > but I think the clk tree is the better fit since the core changes
+> > revolve around clock logic.
+> > Could you accept it ?
+>
+> No. This applies on top of another change already queued in the amlogic
+> clock tree. It can't go through the MMC tree at the moment.
+>
+> This clock is not critical in mainline right now, so
+> 1) I could merge this and it and in practice there would be no
+>    regression. The problem you had would still be there until the MMC
+>    change lands
+>
+> 2) Or you can wait for the MMC stuff to land and re-submit this in
+>    the next cycle.
+>
+> Your choice. IMO, (1) is fine.
+>
+> >
+> > thanks
+> > lucas
+>
+> --
+> Jerome
+Hi Jerome,
 
-Signed-off-by: Paul Louvel <paul.louvel@bootlin.com>
----
- drivers/watchdog/w83627hf_wdt.c | 156 +++++++++++++++++++++++-----------------
- 1 file changed, 89 insertions(+), 67 deletions(-)
+Sorry for the late reply. The MMC side is in next now, so the clock has
+a real consumer.
 
-diff --git a/drivers/watchdog/w83627hf_wdt.c b/drivers/watchdog/w83627hf_wdt.c
-index 44ec2f2e23ea..1ef7b61d7e55 100644
---- a/drivers/watchdog/w83627hf_wdt.c
-+++ b/drivers/watchdog/w83627hf_wdt.c
-@@ -41,10 +41,6 @@
- #define WATCHDOG_NAME "w83627hf/thf/hg/dhg WDT"
- #define WATCHDOG_TIMEOUT 60		/* 60 sec default timeout */
- 
--static int wdt_io;
--static int wdt_cfg_enter = 0x87;/* key to unlock configuration space */
--static int wdt_cfg_leave = 0xAA;/* key to lock configuration space */
--
- enum chips { w83627hf, w83627s, w83697hf, w83697ug, w83637hf, w83627thf,
- 	     w83687thf, w83627ehf, w83627dhg, w83627uhg, w83667hg, w83627dhg_p,
- 	     w83667hg_b, nct6775, nct6776, nct6779, nct6791, nct6792, nct6793,
-@@ -76,9 +72,8 @@ MODULE_PARM_DESC(early_disable, "Disable watchdog at boot time (default=0)");
- #define SIO_REG_CONF_ADDR0	0x2E
- #define SIO_REG_CONF_ADDR1	0x4E
- 
--#define WDT_EFER (wdt_io+0)   /* Extended Function Enable Registers */
--#define WDT_EFIR (wdt_io+0)   /* Extended Function Index Register
--							(same as EFER) */
-+#define WDT_EFER (base+0)   /* Extended Function Enable Registers */
-+#define WDT_EFIR (base+0)   /* Extended Function Index Register (same as EFER) */
- #define WDT_EFDR (WDT_EFIR+1) /* Extended Function Data Register */
- 
- #define W83627HF_LD_WDT		0x08
-@@ -127,6 +122,12 @@ MODULE_PARM_DESC(early_disable, "Disable watchdog at boot time (default=0)");
- #define WDT_CTRL_RISING_EDGE_KBD_RESET	BIT(2)
- #define WDT_CTRL_MINUTE_MODE		BIT(3)
- 
-+struct wdt_pdata {
-+	int sioaddr;
-+	int siocfg_enter;
-+	int siocfg_leave;
-+};
-+
- struct w83627hf_data {
- 	struct watchdog_device wdd;
- 	struct watchdog_info info;
-@@ -135,40 +136,43 @@ struct w83627hf_data {
- 		int timeout;
- 		int csr;
- 	} reg;
-+	int sioaddr;
-+	int siocfg_enter;
-+	int siocfg_leave;
- };
- 
--static void superio_outb(int reg, int val)
-+static void superio_outb(int base, int reg, int val)
- {
- 	outb(reg, WDT_EFER);
- 	outb(val, WDT_EFDR);
- }
- 
--static inline int superio_inb(int reg)
-+static inline int superio_inb(int base, int reg)
- {
- 	outb(reg, WDT_EFER);
- 	return inb(WDT_EFDR);
- }
- 
--static int superio_enter(void)
-+static int superio_enter(int base, int enter)
- {
--	if (!request_muxed_region(wdt_io, 2, WATCHDOG_NAME))
-+	if (!request_muxed_region(base, 2, WATCHDOG_NAME))
- 		return -EBUSY;
- 
--	outb_p(wdt_cfg_enter, WDT_EFER); /* Enter extended function mode */
--	outb_p(wdt_cfg_enter, WDT_EFER); /* Again according to manual */
-+	outb_p(enter, WDT_EFER); /* Enter extended function mode */
-+	outb_p(enter, WDT_EFER); /* Again according to manual */
- 
- 	return 0;
- }
- 
--static void superio_select(int ld)
-+static void superio_select(int base, int ld)
- {
--	superio_outb(SIO_REG_LDSEL, ld);
-+	superio_outb(base, SIO_REG_LDSEL, ld);
- }
- 
--static void superio_exit(void)
-+static void superio_exit(int base, int leave)
- {
--	outb_p(wdt_cfg_leave, WDT_EFER); /* Leave extended function mode */
--	release_region(wdt_io, 2);
-+	outb_p(leave, WDT_EFER); /* Leave extended function mode */
-+	release_region(base, 2);
- }
- 
- static int w83627hf_init(struct watchdog_device *wdog, enum chips chip)
-@@ -177,52 +181,52 @@ static int w83627hf_init(struct watchdog_device *wdog, enum chips chip)
- 	int ret;
- 	unsigned char t;
- 
--	ret = superio_enter();
-+	ret = superio_enter(data->sioaddr, data->siocfg_enter);
- 	if (ret)
- 		return ret;
- 
--	superio_select(W83627HF_LD_WDT);
-+	superio_select(data->sioaddr, W83627HF_LD_WDT);
- 
- 	/* set CR30 bit 0 to activate GPIO2 */
--	t = superio_inb(SIO_REG_ENABLE);
-+	t = superio_inb(data->sioaddr, SIO_REG_ENABLE);
- 	if (!(t & 0x01))
--		superio_outb(SIO_REG_ENABLE, t | 0x01);
-+		superio_outb(data->sioaddr, SIO_REG_ENABLE, t | 0x01);
- 
- 	switch (chip) {
- 	case w83627hf:
- 	case w83627s:
--		t = superio_inb(0x2B) & ~0x10;
--		superio_outb(0x2B, t); /* set GPIO24 to WDT0 */
-+		t = superio_inb(data->sioaddr, 0x2B) & ~0x10;
-+		superio_outb(data->sioaddr, 0x2B, t); /* set GPIO24 to WDT0 */
- 		break;
- 	case w83697hf:
- 		/* Set pin 119 to WDTO# mode (= CR29, WDT0) */
--		t = superio_inb(0x29) & ~0x60;
-+		t = superio_inb(data->sioaddr, 0x29) & ~0x60;
- 		t |= 0x20;
--		superio_outb(0x29, t);
-+		superio_outb(data->sioaddr, 0x29, t);
- 		break;
- 	case w83697ug:
- 		/* Set pin 118 to WDTO# mode */
--		t = superio_inb(0x2b) & ~0x04;
--		superio_outb(0x2b, t);
-+		t = superio_inb(data->sioaddr, 0x2b) & ~0x04;
-+		superio_outb(data->sioaddr, 0x2b, t);
- 		break;
- 	case w83627thf:
--		t = (superio_inb(0x2B) & ~0x08) | 0x04;
--		superio_outb(0x2B, t); /* set GPIO3 to WDT0 */
-+		t = (superio_inb(data->sioaddr, 0x2B) & ~0x08) | 0x04;
-+		superio_outb(data->sioaddr, 0x2B, t); /* set GPIO3 to WDT0 */
- 		break;
- 	case w83627dhg:
- 	case w83627dhg_p:
--		t = superio_inb(0x2D) & ~0x01; /* PIN77 -> WDT0# */
--		superio_outb(0x2D, t); /* set GPIO5 to WDT0 */
--		t = superio_inb(data->reg.control);
-+		t = superio_inb(data->sioaddr, 0x2D) & ~0x01; /* PIN77 -> WDT0# */
-+		superio_outb(data->sioaddr, 0x2D, t); /* set GPIO5 to WDT0 */
-+		t = superio_inb(data->sioaddr, data->reg.control);
- 		t |= 0x02;	/* enable the WDTO# output low pulse
- 				 * to the KBRST# pin */
--		superio_outb(data->reg.control, t);
-+		superio_outb(data->sioaddr, data->reg.control, t);
- 		break;
- 	case w83637hf:
- 		break;
- 	case w83687thf:
--		t = superio_inb(0x2C) & ~0x80; /* PIN47 -> WDT0# */
--		superio_outb(0x2C, t);
-+		t = superio_inb(data->sioaddr, 0x2C) & ~0x80; /* PIN47 -> WDT0# */
-+		superio_outb(data->sioaddr, 0x2C, t);
- 		break;
- 	case w83627ehf:
- 	case w83627uhg:
-@@ -245,42 +249,42 @@ static int w83627hf_init(struct watchdog_device *wdog, enum chips chip)
- 		 * Don't touch its configuration, and hope the BIOS
- 		 * does the right thing.
- 		 */
--		t = superio_inb(data->reg.control);
-+		t = superio_inb(data->sioaddr, data->reg.control);
- 		t |= 0x02;	/* enable the WDTO# output low pulse
- 				 * to the KBRST# pin */
--		superio_outb(data->reg.control, t);
-+		superio_outb(data->sioaddr, data->reg.control, t);
- 		break;
- 	default:
- 		break;
- 	}
- 
--	t = superio_inb(data->reg.timeout);
-+	t = superio_inb(data->sioaddr, data->reg.timeout);
- 	if (t != 0) {
- 		if (early_disable) {
- 			pr_warn("Stopping previously enabled watchdog until userland kicks in\n");
--			superio_outb(data->reg.timeout, 0);
-+			superio_outb(data->sioaddr, data->reg.timeout, 0);
- 		} else {
- 			pr_info("Watchdog already running. Resetting timeout to %d sec\n",
- 				wdog->timeout);
--			superio_outb(data->reg.timeout, wdog->timeout);
-+			superio_outb(data->sioaddr, data->reg.timeout, wdog->timeout);
- 			set_bit(WDOG_HW_RUNNING, &wdog->status);
- 		}
- 	}
- 
- 	/* set second mode & disable keyboard reset turning off watchdog */
--	t = superio_inb(data->reg.control) &
-+	t = superio_inb(data->sioaddr, data->reg.control) &
- 	    ~(WDT_CTRL_MINUTE_MODE | WDT_CTRL_RISING_EDGE_KBD_RESET);
--	superio_outb(data->reg.control, t);
-+	superio_outb(data->sioaddr, data->reg.control, t);
- 
--	t = superio_inb(data->reg.csr);
-+	t = superio_inb(data->sioaddr, data->reg.csr);
- 	if (t & WDT_CSR_STATUS)
- 		wdog->bootstatus |= WDIOF_CARDRESET;
- 
- 	/* reset status, disable keyboard & mouse interrupt turning off watchdog */
- 	t &= ~(WDT_CSR_STATUS | WDT_CSR_KBD_INT_RESET | WDT_CSR_MOUSE_INT_RESET);
--	superio_outb(data->reg.csr, t);
-+	superio_outb(data->sioaddr, data->reg.csr, t);
- 
--	superio_exit();
-+	superio_exit(data->sioaddr, data->siocfg_leave);
- 
- 	return 0;
- }
-@@ -290,13 +294,13 @@ static int wdt_set_time(struct watchdog_device *wdog, unsigned int timeout)
- 	struct w83627hf_data *data = watchdog_get_drvdata(wdog);
- 	int ret;
- 
--	ret = superio_enter();
-+	ret = superio_enter(data->sioaddr, data->siocfg_enter);
- 	if (ret)
- 		return ret;
- 
--	superio_select(W83627HF_LD_WDT);
--	superio_outb(data->reg.timeout, timeout);
--	superio_exit();
-+	superio_select(data->sioaddr, W83627HF_LD_WDT);
-+	superio_outb(data->sioaddr, data->reg.timeout, timeout);
-+	superio_exit(data->sioaddr, data->siocfg_leave);
- 
- 	return 0;
- }
-@@ -324,13 +328,13 @@ static unsigned int wdt_get_time(struct watchdog_device *wdog)
- 	unsigned int timeleft;
- 	int ret;
- 
--	ret = superio_enter();
-+	ret = superio_enter(data->sioaddr, data->siocfg_enter);
- 	if (ret)
- 		return 0;
- 
--	superio_select(W83627HF_LD_WDT);
--	timeleft = superio_inb(data->reg.timeout);
--	superio_exit();
-+	superio_select(data->sioaddr, W83627HF_LD_WDT);
-+	timeleft = superio_inb(data->sioaddr, data->reg.timeout);
-+	superio_exit(data->sioaddr, data->siocfg_leave);
- 
- 	return timeleft;
- }
-@@ -352,16 +356,16 @@ static const struct watchdog_ops wdt_ops = {
-  *	turn the timebomb registers off.
-  */
- 
--static int wdt_find(int addr)
-+static int wdt_find(int addr, int enter, int leave)
- {
- 	u8 val;
- 	int ret;
- 
--	ret = superio_enter();
-+	ret = superio_enter(addr, enter);
- 	if (ret)
- 		return ret;
--	superio_select(W83627HF_LD_WDT);
--	val = superio_inb(SIO_REG_DEVID);
-+	superio_select(addr, W83627HF_LD_WDT);
-+	val = superio_inb(addr, SIO_REG_DEVID);
- 	switch (val) {
- 	case W83627HF_ID:
- 		ret = w83627hf;
-@@ -430,7 +434,7 @@ static int wdt_find(int addr)
- 		ret = nct6102;
- 		break;
- 	case NCT6116_ID:
--		val = superio_inb(SIO_REG_DEVID + 1);
-+		val = superio_inb(addr, SIO_REG_DEVID + 1);
- 		if (val == NCT6126_VER_A_LOW_ID || val == NCT6126_VER_B_LOW_ID)
- 			ret = nct6126;
- 		else
-@@ -444,13 +448,14 @@ static int wdt_find(int addr)
- 		pr_err("Unsupported chip ID: 0x%02x\n", val);
- 		break;
- 	}
--	superio_exit();
-+	superio_exit(addr, leave);
- 	return ret;
- }
- 
- static int wdt_probe(struct platform_device *pdev)
- {
- 	const struct platform_device_id *id = platform_get_device_id(pdev);
-+	const struct wdt_pdata *pdata = pdev->dev.platform_data;
- 	struct device *dev = &pdev->dev;
- 	struct watchdog_device *wdd;
- 	struct w83627hf_data *data;
-@@ -462,6 +467,9 @@ static int wdt_probe(struct platform_device *pdev)
- 	if (!id)
- 		return dev_err_probe(dev, -EINVAL, "failed to get chip id\n");
- 
-+	if (!pdata)
-+		return dev_err_probe(dev, -EINVAL, "failed to get pdata\n");
-+
- 	chip = id->driver_data;
- 
- 	data = devm_kzalloc(&pdev->dev, sizeof(*data), GFP_KERNEL);
-@@ -481,6 +489,9 @@ static int wdt_probe(struct platform_device *pdev)
- 	wdd->min_timeout = 1;
- 	wdd->max_timeout = 255;
- 
-+	data->sioaddr = pdata->sioaddr;
-+	data->siocfg_enter = pdata->siocfg_enter;
-+	data->siocfg_leave = pdata->siocfg_leave;
- 	data->reg.timeout = W83627HF_WDT_TIMEOUT;
- 	data->reg.control = W83627HF_WDT_CONTROL;
- 	data->reg.csr = W836X7HF_WDT_CSR;
-@@ -522,12 +533,16 @@ static int wdt_probe(struct platform_device *pdev)
-  */
- static int __init wdt_use_alt_key(const struct dmi_system_id *d)
- {
--	wdt_cfg_enter = 0x88;
--	wdt_cfg_leave = 0xBB;
-+	struct wdt_pdata *pdata = d->driver_data;
-+
-+	pdata->siocfg_enter = 0x88;
-+	pdata->siocfg_leave = 0xBB;
- 
- 	return 0;
- }
- 
-+static struct wdt_pdata pdata;
-+
- static const struct dmi_system_id wdt_dmi_table[] __initconst = {
- 	{
- 		.matches = {
-@@ -537,6 +552,7 @@ static const struct dmi_system_id wdt_dmi_table[] __initconst = {
- 			DMI_EXACT_MATCH(DMI_BOARD_NAME, "SHARKBAY"),
- 		},
- 		.callback = wdt_use_alt_key,
-+		.driver_data = &pdata,
- 	},
- 	{}
- };
-@@ -581,27 +597,33 @@ static struct platform_device *wdt_pdev;
- 
- static int __init wdt_init(void)
- {
-+	int sioaddr;
- 	int ret;
- 	int chip;
- 
-+	pdata.siocfg_enter = 0x87;
-+	pdata.siocfg_leave = 0xAA;
-+
- 	/* Apply system-specific quirks */
- 	dmi_check_system(wdt_dmi_table);
- 
--	wdt_io = SIO_REG_CONF_ADDR0;
--	chip = wdt_find(SIO_REG_CONF_ADDR0);
-+	sioaddr = SIO_REG_CONF_ADDR0;
-+	chip = wdt_find(sioaddr, pdata.siocfg_enter, pdata.siocfg_leave);
- 	if (chip < 0) {
--		wdt_io = SIO_REG_CONF_ADDR1;
--		chip = wdt_find(SIO_REG_CONF_ADDR1);
-+		sioaddr = SIO_REG_CONF_ADDR1;
-+		chip = wdt_find(sioaddr, pdata.siocfg_enter, pdata.siocfg_leave);
- 		if (chip < 0)
- 			return chip;
- 	}
- 
-+	pdata.sioaddr = sioaddr;
-+
- 	ret = platform_driver_register(&wdt_driver);
- 	if (ret)
- 		return ret;
- 
- 	wdt_pdev = platform_device_register_data(NULL, wdt_ids[chip].name,
--						 PLATFORM_DEVID_NONE, NULL, 0);
-+						 PLATFORM_DEVID_NONE, &pdata, sizeof(pdata));
- 	if (IS_ERR(wdt_pdev)) {
- 		platform_driver_unregister(&wdt_driver);
- 		return PTR_ERR(wdt_pdev);
+Can you take this patch dropping the sys_ampipe_nand part or
+should I re-submit a new version dropping sys_ampipe_nand change and
+only marking sys_am2axi0/1/2 as critical?
 
--- 
-2.55.0
-
+Thanks
+Lucas
