@@ -1,159 +1,137 @@
-Received: from mail-pj1-f43.google.com (mail-pj1-f43.google.com [209.85.216.43])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 46688471CE0
-	for <linux-kernel@vger.kernel.org>; Sun,  4 Oct 2026 17:22:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.43
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3FB2F472528;
+	Sun,  4 Oct 2026 17:22:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791134554; cv=none; b=iT3lgcRyihnSwAedcU65ygb3cU/usjNoSGOUbiUBb/slkRZo2JxIyIw2Qe9PIeqW6ChVA/R9FfOWV2F5ZiNPvFimpobfgbJkBcBDL3UDEdz+aF1J4ePIe5h4lY4BE4j0KvLwo0eBOwGHsRK0nv/bO1aao21BMxnBhLuvZKg6DTY=
+	t=1791134554; cv=none; b=FnWSsd4gRLJsTh/1++300UMugJNdwVj+rnK0TJS6tYgseEWYelyaamnIJkIkpv5Lru8pAmQ+21+PY4dFRVpZRkSzoQZeWCiMI6JWkxrRmZUm3I7aRP6aDkutpIm/CsYVEPb6d0laQuSHWFfK2td2I9dmAYuAWAm4xOY6rcY+MAI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1791134554; c=relaxed/simple;
-	bh=GLlt1YeRuUW5WlbWRWsA3akMoS6gmz8sfeOQOa8Ko08=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Sig8f12lfS8z1Jf+EXF0JHS/0Y30eo9O746hiVOKxYS+H8s2lmFH4DduIny6Nfd6itC4h4wy+cI0JfBwfs0DVIJk3UwPzTvfOfeu66sorZmAjfKc2/okfzeUBm7PL0rpFKBS2HI6dT4iqOjIwEklH6NQ2UFUwo87MjFTl3gN8to=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=gx5OR6Ld; arc=none smtp.client-ip=209.85.216.43
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	bh=GdpmcbvOL2HkmBfuLBZwuVeh0T5bgjxmA8MtF/Cgmug=;
+	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=GtwugchKJqNOGLBhVLJiNa+FyK/uW3HiEZuwauGCGhgLca9osSXNZKsUexvrXdB2+tgGk0DtAcpxircmy1JdoeVO0JfU6KxvYNI6vZ6s/waze3l/r4FvkDzxRLDHcAkaaysOT1BrIjCzkHkeoDwiOW2OX9lfIRfzYpMji3GL0NU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=eQ4Fkq0y; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="gx5OR6Ld"
-Received: by mail-pj1-f43.google.com with SMTP id 98e67ed59e1d1-38e42560ebcso455844a91.1
-        for <linux-kernel@vger.kernel.org>; Sun, 04 Oct 2026 10:22:32 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791134551; x=1791739351; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=f7rAIIfQRjf/DZlHIopzmqG8GHaCqWeari8L74hauSs=;
-        b=gx5OR6LdXal6Bfjj6sXUow1ZhAiZYscrkMQVlRlz+pi5zHgvTnLQk+PddsAAvcFodQ
-         hndYH/yTZsGlMy7ZL4jXDYurh0izwA1p7xKy3SOCFswuuIv/TQv8FCM2q4s68wFBxTyT
-         ZTb4ChRTWOrkoZIYuMVO0u8ESz929lyLX3pvD5BPXXcjUaQJsTjk+7V2N7geW8nNK4MO
-         HvG8PAUx4rxYAMqjC5tk6/30sZX+Px02PrTZ0WM0Pdp7q3O4IRDuMv5XptTVRFtqRgn6
-         sKhLVYYJuaQCsc+deBVx554oLIb3M0rNvtAFr/3gbJ0aKc1SMoaoQHRCosMOmXRsVfpE
-         geVg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791134551; x=1791739351;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=f7rAIIfQRjf/DZlHIopzmqG8GHaCqWeari8L74hauSs=;
-        b=gDRS10q74eVzcskdWGqCdseoze5IvBuWztJrkQkUfCg8hX1u41Rl2ieEBXuVYoFoYY
-         Qc53NjJtSNgKtu+8Wdx5F57VQPQOXgDUfjYYoDtkPDhbvJN1qA+FnJUq1KXNDiyazzI0
-         5Gt/Fpkp5VRpRsZ/ZgO4cCJqQF5SGhuYjhLZb5zuJcORmU1zo+eWc1pw+0D4dF7ua1MB
-         wB9NNr0maxC4+b07/3ur6gApuab5NBDlXLTCYXe8iaQ9798f8zUWNccFwXiy4TorFdek
-         +kVGaW4fZ+rE88SZeE/UJk0qbNlcb1n/ViJbg67paoQOpRluV6wFkTDY13hV0TFSHM6u
-         X14A==
-X-Forwarded-Encrypted: i=1; AKwUvBx5oFxgVob4hSB5jXdyyTQXOT+PIdCLfAheUR3xW/OeDr3FuXq8IglOJlS8ElgREWYZKg2WgCMc8q9qKXs=@vger.kernel.org
-X-Gm-Message-State: AFq9FYL0yfaCHJABYUZ2EDQktDDAJgo8h0uaDK7hgiSUx1YHyJUbgSwB
-	/DN0M3WfHGqZ4A5uNYQ37tFkR0kDLgFMwYLeziU7UYOX71MM611igC4TYw2dZAMdk/M=
-X-Gm-Gg: AYBFou0FUZSD0PH8JooBIyJvRi5eY8tstlTrm6zvX0uAdnSXYTZ+8Xu87S1ndSOtKRk
-	vdZpJtX5IQzzT0YaRLU6WAuumH/lTTRhvM0qGshatX5I/ShQJqjldBv0Vw49Q1zEjzZVXKz8dh5
-	Jws6DzWbAzYaTtb+ZHAwvT1zito0ed5sCGkOemiywma7hI2pkTHzb/npZvNuVxoiEgxJ7TVfIz1
-	8WewrPuNDdop19a36hfXtXc4Hbd35a1xBDhOZmXmu/A2E9xWrNOAfpCZ2V3bpgfu0WO8BwN418R
-	cUrnOLxnGDdUeQ7Qi/fOKk6Z/WxEjs+s/4IRu/TaWgDB80yJhPgFjgfB3ORfyRevd4otf3Fc57K
-	JWLPPzgocnCtcZmRUGFOlRtv3GvKACTfdaaWexscgrXU0gZtQg5EO6i0HOlfWP5Fya/M2ky5nem
-	PMkw6U3dTqKhtALqosTpXstdYXA657BkEYgMSeSk8QAo1NP1T6M0aJjvueaqVwaF4oLOEQlKGgL
-	85lWh76/2TqUA==
-X-Received: by 2002:a17:90b:4d:b0:3a4:aee8:76ef with SMTP id 98e67ed59e1d1-3a78717db57mr4586561a91.21.1791134551329;
-        Sun, 04 Oct 2026 10:22:31 -0700 (PDT)
-Received: from SonYoungWon.skbroadband ([121.125.40.90])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a6dd4bd483sm5847677a91.4.2026.10.04.10.22.29
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 04 Oct 2026 10:22:30 -0700 (PDT)
-From: Youngwon Son <yoson5375@gmail.com>
-To: Heiko Stuebner <heiko@sntech.de>
-Cc: Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	devicetree@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-rockchip@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	Youngwon Son <yoson5375@gmail.com>
-Subject: [PATCH] arm64: dts: rockchip: Enable the NPU on ODROID-M2
-Date: Mon,  5 Oct 2026 02:21:15 +0900
-Message-ID: <20261004172115.5105-1-yoson5375@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="eQ4Fkq0y"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9FD671F00899;
+	Sun,  4 Oct 2026 17:22:32 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791134553;
+	bh=Pn5VHpB6AATIC3j+d+ODneVr6Uv/pflDvZXcKBdZi+w=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=eQ4Fkq0ytHb64GkOxJnzVOhnegmqabdgUrK+ZSBAkXGyaFdemGm5mcYezc0g6ySVb
+	 an/q359LEK6DUEGvb+jrs7A8ZoZ983r16YTk5QuDI+o8PFgTtNO45Lu6hh/Sh9MEoX
+	 g1GrPeanFtUeR47AIYQrH77SffQLmgWg3ASbZxrKJKEIgXbrvVjwHohTTJqt4J/fOH
+	 gE4rrgWYJy9Uq+IQY5PsHaMtn9Xnx3JqhIUQKdIQ9VufKKre7d4DOcTpiHe9pJb79I
+	 r6wCxLvrIRDxY2mtjufylB2Jm1sPvRghH6mR4M9cGAXl73j7GjI030yHpq0xC26LkQ
+	 jrPSLy+semVQg==
+Subject: Re: [PATCH 07/16 net-next v3] ipv4: icmp: split IPv4 specific logic
+ into icmp_ipv4.c
+From: netdev-bot+sashiko@kernel.org
+To: fmancera@suse.de
+Cc: netdev@vger.kernel.org, horms@kernel.org, kuba@kernel.org,
+ pabeni@redhat.com, edumazet@kernel.org, davem@davemloft.net,
+ johannes@sipsolutions.net, linux-wireless@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+Date: Sun, 04 Oct 2026 17:22:32 +0000
+Message-ID: <179113455223.434549.11986614057864020926@kernel.org>
+In-Reply-To: <20260930135334.4739-8-fmancera@suse.de>
+References: <20260930135334.4739-8-fmancera@suse.de>
+X-sashiko-severity: Low
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-Enable the NPU cores and their IOMMUs on the ODROID-M2 and wire up
-the vdd_npu_s0 regulator.
+Thank you for your contribution! Sashiko AI review found more severe
+issue(s) in other patches of this series. This mail is only an FYI, in case
+you want to address the nit picks below when you respin.
 
-As the regulator is now controlled through the NPU power domain,
-remove regulator-always-on. regulator-boot-on is not needed either,
-since the RK8602 state can be read back.
+Low priority / nit picks for your consideration:
 
-Tested with the rocket driver and Mesa Teflon (MobileNet V1).
+- [Low] The boot-only per-CPU ICMP control-socket setup loop used to be
+  inside `int __init icmp_init(void)`.
 
-Signed-off-by: Youngwon Son <yoson5375@gmail.com>
----
- .../boot/dts/rockchip/rk3588s-odroid-m2.dts   | 36 +++++++++++++++++--
- 1 file changed, 34 insertions(+), 2 deletions(-)
+--
 
-diff --git a/arch/arm64/boot/dts/rockchip/rk3588s-odroid-m2.dts b/arch/arm64/boot/dts/rockchip/rk3588s-odroid-m2.dts
-index 4e98fa3349..ea4d86a588 100644
---- a/arch/arm64/boot/dts/rockchip/rk3588s-odroid-m2.dts
-+++ b/arch/arm64/boot/dts/rockchip/rk3588s-odroid-m2.dts
-@@ -320,8 +320,6 @@ vdd_npu_s0: regulator@42 {
- 		reg = <0x42>;
- 		fcs,suspend-voltage-selector = <1>;
- 		regulator-name = "vdd_npu_s0";
--		regulator-always-on;
--		regulator-boot-on;
- 		regulator-min-microvolt = <550000>;
- 		regulator-max-microvolt = <950000>;
- 		regulator-ramp-delay = <2300>;
-@@ -441,6 +439,10 @@ &pd_gpu {
- 	domain-supply = <&vdd_gpu_s0>;
- };
- 
-+&pd_npu {
-+	domain-supply = <&vdd_npu_s0>;
-+};
-+
- &pinctrl {
- 	hdmi {
- 		hdmi0_tx_on_h: hdmi0-tx-on-h {
-@@ -514,6 +516,36 @@ &pwm0 {
- 	status = "okay";
- };
- 
-+&rknn_core_0 {
-+	npu-supply = <&vdd_npu_s0>;
-+	sram-supply = <&vdd_npu_s0>;
-+	status = "okay";
-+};
-+
-+&rknn_core_1 {
-+	npu-supply = <&vdd_npu_s0>;
-+	sram-supply = <&vdd_npu_s0>;
-+	status = "okay";
-+};
-+
-+&rknn_core_2 {
-+	npu-supply = <&vdd_npu_s0>;
-+	sram-supply = <&vdd_npu_s0>;
-+	status = "okay";
-+};
-+
-+&rknn_mmu_0 {
-+	status = "okay";
-+};
-+
-+&rknn_mmu_1 {
-+	status = "okay";
-+};
-+
-+&rknn_mmu_2 {
-+	status = "okay";
-+};
-+
- &saradc {
- 	vref-supply = <&vcca_1v8_s0>;
- 	status = "okay";
+ipv4: icmp: split IPv4 specific logic into icmp_ipv4.c
+
+This commit moves the IPv4 specific ICMP code from net/ipv4/icmp.c into
+a new file, net/ipv4/icmp_ipv4.c. That code covers packet processing,
+error handling and the per-CPU control socket setup. The new file is
+built only when CONFIG_IPV4 is enabled, while icmp.c is now always
+built.
+
+> diff --git a/net/ipv4/icmp.c b/net/ipv4/icmp.c
+> index 90c0e22c29bea..5e8dcf71d135f 100644
+> --- a/net/ipv4/icmp.c
+> +++ b/net/ipv4/icmp.c
+
+[ ... ]
+
+> @@ -1757,28 +366,11 @@ static struct pernet_operations __net_initdata icmp_sk_ops = {
+>  
+>  int __init icmp_init(void)
+>  {
+> -	int err, i;
+> -
+> -	for_each_possible_cpu(i) {
+> -		struct sock *sk;
+> +	if (IS_ENABLED(CONFIG_IPV4)) {
+> +		int err = icmp_init_ipv4();
+>  
+> -		err = inet_ctl_sock_create(&sk, PF_INET,
+> -					   SOCK_RAW, IPPROTO_ICMP, &init_net);
+> -		if (err < 0)
+> +		if (err)
+>  			return err;
+
+[ ... ]
+
+> diff --git a/net/ipv4/icmp_ipv4.c b/net/ipv4/icmp_ipv4.c
+> new file mode 100644
+> index 0000000000000..24a1fb497cf6f
+> --- /dev/null
+> +++ b/net/ipv4/icmp_ipv4.c
+
+[ ... ]
+
+> +int icmp_init_ipv4(void)
+> +{
+> +	int err, i;
+> +
+> +	for_each_possible_cpu(i) {
+> +		struct sock *sk;
+> +
+> +		err = inet_ctl_sock_create(&sk, PF_INET,
+> +					   SOCK_RAW, IPPROTO_ICMP, &init_net);
+> +		if (err < 0)
+> +			return err;
+> +
+> +		per_cpu(ipv4_icmp_sk, i) = sk;
+
+[Severity: Low]
+This loop used to run inside the __init icmp_init(). The new
+icmp_init_ipv4() has no __init annotation, but its only caller is still
+icmp_init(). So this code is no longer freed after boot.
+
+Should icmp_init_ipv4() be marked __init, both here and on its prototype
+in include/net/icmp.h?
+
+The prototype also sits in the public header next to the normal ICMP
+entry points, which makes a boot-only helper look like a general API. If
+something called it a second time, it would overwrite the per-CPU
+ipv4_icmp_sk pointers and leak the old sockets. No such caller exists
+today.
+
+The annotation also appears to be missing at the end of the series.
+
+[ ... ]
+
 -- 
-2.43.0
-
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260930135334.4739-1-fmancera%40suse.de
