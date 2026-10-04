@@ -1,112 +1,172 @@
-Received: from mail-lf2-f13.google.com (mail-lf2-f13.google.com [74.125.229.205])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.20])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1DF0C43BDBD
-	for <linux-kernel@vger.kernel.org>; Sun,  4 Oct 2026 11:59:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.229.205
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791115152; cv=pass; b=GZPqI/ckv1P7A6UDqk73ZuO5h72GqlC7hCo7HSGGfpDqWKLma2xvXW2WuBb4pCYr6eaGLPtCvuMg5Cq8APOsTtqq8PolgdbJl1aXCBXBfsZALGcwh+Ixqi+fbNrH6XPxrLXRp8dcUr+axiRtmUEO3WSPNvdpol4fa0oK7p3Qx/Q=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791115152; c=relaxed/simple;
-	bh=YvGJiLLSGEag8VAXDiCkjwNnc51Pcejq5U71ONdSTxw=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=iLfbbR5R5WN0LKD7xSJE7PWPy0WkU9t/+lZ4eqmQF4Dz+j5E+4QrLqKfFIlbCpsLy2CALmJwYS1p53Uw8BS+vfXAvK6hQ1otC39t86r1YxZt6dHjfg2b+kqBYp7R3m9NoRiewU99uDrG6PfWl6DyNdbXCHN6EZw1u+6iY5AqPGg=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=VqMLGH3p; arc=pass smtp.client-ip=74.125.229.205
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5035F3955F0;
+	Sun,  4 Oct 2026 12:02:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.20
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791115381; cv=none; b=t5toPQ5jUUR7PcR2yU84pW6/lmm3BSx3Sesnh6X3XYGMWetV3mbtPxScUnsX7+VIa+Q/xVJ8mbad3ik7ALUqQtqItVyzbgMp0HT/slITjKP+RqcYhjeJNyiJujn2ha9hj4G+EGlMiUhCetbgxzy5RGgSUVCD3yVGr+PtsafNTss=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791115381; c=relaxed/simple;
+	bh=M2PNrZAv5Hh7h3SGcB3Pw+HlvWLVJVPhm3PZ4ZB7DR8=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=WtxlLJ+9mKSgccoiHs5Xj7cBWreRacPEjupUQlNnnr/5rUu7m6eQmSa76gwXKF2nMJ2NSLHA6ptUpqNbwSr34ld0W4D+WaAda1gwwUfk6U+ss/xClid2KrAkg2fQXdML58y+nYlykNqk1hDq21vAX3lh/UcdYDqSaobLkak9eLE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=YgRpr6kH; arc=none smtp.client-ip=198.175.65.20
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="VqMLGH3p"
-Received: by mail-lf2-f13.google.com with SMTP id 2adb3069b0e04-5ba42966d5fso693589e87.2
-        for <linux-kernel@vger.kernel.org>; Sun, 04 Oct 2026 04:59:10 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1791115149; cv=none;
-        d=google.com; s=arc-20260327;
-        b=Cwak8R4nhQYBh3fKSfK766hmCnU8XD0bjK9w5F1XoohnuOKfFvXORgk2qjwMDz0sQA
-         f72K3meLW1z2tW5T8B2JoQDeQjD2LjXs84l6nuCE8E8FbkjEYLdfQHzPADopbUxOuIb9
-         lZr2+VgyYts+QcnayybcYaL1KhRf8nSMmAmDiJX2Y9UDoQOF/WBQ7uxkgoWvlmdEImOv
-         uw/sjvbi9iL84KbGzCWkNgiMdHCILz/hPnXjNUWftoaitLpgpaJU93cpXzWvaTmiki8K
-         Av7zqaH9PDXZddXs24+gTixyVZcCgFxNKSepgyP+eR96Hl986vG0WjuMgiKoL8Ie/DdZ
-         u16g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=YvGJiLLSGEag8VAXDiCkjwNnc51Pcejq5U71ONdSTxw=;
-        fh=3CQwUfxDhXh1y+I4DXSDd7L7jjqIaiJFYp/SPB1X8C0=;
-        b=FpFngD2VxIc7icfd+fR3o3flejwxaSDAjOwW9uinxVHhh44uFlbrRpzfBkQ26OS7Oc
-         CAKSW2K9kQKnDEKDOBnvihzXn6MF0X6Mobt9sQ9lc34Z5H5ejc4KrPbv+iIEv8uaF7qI
-         jhLe9ehzOTCu/rK3+npDyS0Er7iDCvkLagPE7JTvea2j6OR305UXtyq6qFKfp0ZLpFhX
-         kh67jQ6Dku20VeBnQbd27zr1ICTQqUAD4Z7pBELPp6QBufOhJE0cm7lBUoiQgUcqUmmw
-         bqo5punpEjaWvdIrFvXUcnKRzFmdCX0N65+M2easxyPa+lJkAUZllyms23sWCawV1CB/
-         DArA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791115149; x=1791719949; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=YvGJiLLSGEag8VAXDiCkjwNnc51Pcejq5U71ONdSTxw=;
-        b=VqMLGH3pwV5hY7J2/iWBbwzoGS6jiCnk7KAk6ke0Y5Pbrt6TuydcD9N4g2hrXLiZeH
-         nfqcTfyvgbmZBqPRYMm1CrrLcaIfG7CkPST1xEi4FPj1oeTPUkYeJu/O5Zgm6sw7oHXO
-         KF3o+/3OSdPKbPOmCaRirw+/mfU4t87U+nIUcSGRHpM/cToqQHKsl7Dkh6MsqYt89gEj
-         RBMvD9gosXW83TSojA1gmJ+AUPGq2lQ4g+HWct0/fzC0fm9DXy7lE/t+n+Mq1xnDFZjr
-         E0pWQZzloJ5S74WqosP0opk/LVMUy6mA9UQlPVnIIuZfghh0N4ByKelCKkoYTomRoR4/
-         /ygg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791115149; x=1791719949;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=YvGJiLLSGEag8VAXDiCkjwNnc51Pcejq5U71ONdSTxw=;
-        b=SikqeFz4a8oESTzBEMyN4cdyn7VC85AaAw9teCzkDo8qjoEj1BrY4fN+xOH2CTyZ9V
-         m/0/Cgbc9ytqTECl0hbsHPLeikZvj16KWQIY6s/ZjCOB3HuIYd+iFTw1/D7Psl+csm6i
-         2u+6JY4875WhS0ZFio1yd/BJfNae0QQAt5+plVAiW+HBb/SsoCaWHPz31/VdOnDXqJ68
-         NqeD2Vfde9o5gYL8Dul02BVyKGD9/BdjF6WqQZNuQWXsHThrktpweE8njZagfyykCvk6
-         tJjpkfhfLCNnKNTrawJTN0umBqR/WLM7LNq1PhG62KfK42SQeVEIjH1ik/FoTJMVlZIF
-         7nWg==
-X-Forwarded-Encrypted: i=1; AKwUvBzI0X4NoqPDXc/Ns5snAeLBgLHuDuhvYWb+Vl3DzKpZycCGSxpVXkKb/qFPHVtNpBtfO+IdLEGDCoxEsBY=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLtV94+Xrp4ZA3Kb7kDk1ffOQ00MJilsFWATOp95rn0x1qJdCeu
-	00Vqiynb/u6/+dOozj7zyJQ+4fpja5oEa17FAqv+7kYM25MzHZYcVlkuow1Xfh0+GmeFs6G0Vi5
-	FBW1t9DYaTgVl2d3q8nVJ9SeM+aT/aCw=
-X-Gm-Gg: AYBFou16hf6MYyw/ZrvJNX/KyKcuTVl3P6vwzIWcf6YzF4UQC1kwM2/84b5SqOj1jLI
-	yACLPyZ06BcGzBzGb5850Z72p7QQUEPYXRXcuHBkZ4P2EDjirzns4mgW987POoJ/kKRfSM6qkwC
-	/tWPRG5t6CajCuteOEb2aWg5C5r2oEtVkgKkwF9xwefxcdMFvxCrOzbxqWxdUNVaNeJKfNoZAWX
-	wq0fjzFpe5AGIaw+lxzcgmU1UILrYw/vdODjjBK7fneoeRRhGROBgHpe4oOaJtcX4tHPIjqlRPm
-	iXeeS00VXK7+1jQ3LhVDcvh6Mc27+GBlfHPCL6XL5KTPCZH2u5kfsiEoPA==
-X-Received: by 2002:a05:6512:3c84:b0:5bc:b8d8:d766 with SMTP id
- 2adb3069b0e04-5bcb8d8d985mr953656e87.16.1791115148823; Sun, 04 Oct 2026
- 04:59:08 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="YgRpr6kH"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1791115379; x=1822651379;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=M2PNrZAv5Hh7h3SGcB3Pw+HlvWLVJVPhm3PZ4ZB7DR8=;
+  b=YgRpr6kH5JgD9DWkOcxcWUqppFRRU0e3vFRfNN3R7IFlnVrK+fk2Rx45
+   yxPY7ERu69uNAvNJySgMznoiYR3ZvYvWb8Bdv0n6ckhEhJEmvn6w+dyW4
+   +mPbtQtuAQEiMiPIyYb61a78vcjpJ8XZh7aITMHNIYUaOHZum1qhNipBC
+   vYv4Lcg7Y2rwa6yOvsBH6gES0RgJ5iRIBM6ifv1FeC1xhAa+rWGdKxm1N
+   oRWIbrm5aMuJ0R8psEeMigd6DoUs5bn6NclIzSqnr1faxIM1oGRwViFfT
+   vlekUNSH4Wa4Yggf8pVF5+68IU7GDwso6Ua8HdXVvMWBYVb3/0jJ48NCk
+   w==;
+X-CSE-ConnectionGUID: A4QB57bRTT+xtJ5TroN8cw==
+X-CSE-MsgGUID: CdMAebFVR4Cpmbm/+qfMLw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11924"; a="90577554"
+X-IronPort-AV: E=Sophos;i="6.27,139,1787036400"; 
+   d="scan'208";a="90577554"
+Received: from fmviesa009.fm.intel.com ([10.60.135.149])
+  by orvoesa112.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 04 Oct 2026 05:02:59 -0700
+X-CSE-ConnectionGUID: gsp/PxVMRSitNJaaMwt2mQ==
+X-CSE-MsgGUID: SmQ7VjQHRUisVFzZDlpa9w==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,139,1787036400"; 
+   d="scan'208";a="272995443"
+Received: from black.igk.intel.com ([10.91.253.5])
+  by fmviesa009.fm.intel.com with ESMTP; 04 Oct 2026 05:02:57 -0700
+Received: by black.igk.intel.com (Postfix, from userid 1001)
+	id EBA9399; Sun, 04 Oct 2026 14:02:55 +0200 (CEST)
+Date: Sun, 4 Oct 2026 14:02:55 +0200
+From: Mika Westerberg <mika.westerberg@linux.intel.com>
+To: Jonathan Gopel <jgopel@gmail.com>
+Cc: andreas.noever@gmail.com, westeri@kernel.org, YehezkelShB@gmail.com,
+	linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] thunderbolt: Do not RPM complete unrelated subtrees on
+ unplug
+Message-ID: <20261004120255.GI176164@black.igk.intel.com>
+References: <20261004022604.359663-1-jgopel@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20261003-qcom-smbx-chg-state-change-v1-0-fffaef446932@gmail.com>
- <20261003-qcom-smbx-chg-state-change-v1-1-fffaef446932@gmail.com> <20261004-jovial-fancy-ammonite-f9fd1d@quoll>
-In-Reply-To: <20261004-jovial-fancy-ammonite-f9fd1d@quoll>
-From: Fabricio Akio <fabricioakio@gmail.com>
-Date: Sun, 4 Oct 2026 08:58:31 -0300
-X-Gm-Features: AclHuK8XfUMsTrUjezp37dJXnfrGVlkqDXrTvYsOblQTNjNZvnfYIKp_Sma2dwU
-Message-ID: <CANxzQdE8tmPLweN+gfs4DdpFJXpL7ruiyk1cwNA41TL8NbefCQ@mail.gmail.com>
-Subject: Re: [PATCH 1/4] dt-bindings: power: supply: qcom,pmi8998-charger: add chg-state-change
-To: Krzysztof Kozlowski <krzk@kernel.org>
-Cc: Casey Connolly <casey.connolly@linaro.org>, Sebastian Reichel <sre@kernel.org>, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Bjorn Andersson <andersson@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>, 
-	Abel Vesa <abelvesa@kernel.org>, Robin Snyders <robin@snyders.xyz>, 
-	David Heidelberg <david@ixit.cz>, phone-devel@vger.kernel.org, 
-	Richard Acayan <mailingradian@gmail.com>, linux-arm-msm@vger.kernel.org, 
-	linux-pm@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, 
-	Sebastian Reichel <sebastian.reichel@collabora.com>
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20261004022604.359663-1-jgopel@gmail.com>
 
-On Sun, Oct 04, 2026 at 10:06:52AM +0200, Krzysztof Kozlowski wrote:
-> On Sat, Oct 03, 2026 at 04:45:21PM -0300, Fabricio Akio wrote:
-> > The charger raises an interrupt when its charging state changes. Allow
->
-> Each of the ones mentioned in the binding?
+Hi,
 
-Yes, both. PMI8998 and PM660 have it as interrupt 1 of the charger
-peripheral at 0x1000, as the downstream msm-pmi8998.dtsi and
-msm-pm660.dtsi describe.
+On Sat, Oct 03, 2026 at 08:26:04PM -0600, Jonathan Gopel wrote:
+> When a Thunderbolt device is unplugged, that switch and every switch
+> subsequent to it on the bus device list is `complete()`d, not just its
+> child devices. In the case of multiple domains, it may cause, eg, an
+> attempt to `complete()` the uninitialized domain 1 root switch RPM
+> completion on unplug of a switch from domain 0 (though ordering is not
+> guaranteed numerically sorted).
+
+Good catch!
+
+> I initially noticed this issue on a Dell XPS9720 when the system would
+> seem to sporadically not wake after unplugging a Thunderbolt dock. I
+> tried multiple kernel versions including v7.2.7 and v7.3-rc4 to see if
+> that resolved the issue, but the issue persisted. Eventually I found
+> that I could consistently generate a kernel Oops reporting a page fault
+> at 0xffff_ffff_ffff_fff8 on unplug from one side of the laptop and went
+> bug hunting. I became suspicious of the `bus_for_each_dev()` walk that I
+> ultimately ended up changing. To confirm this issue, I did an eBPF trace
+> of `bus_for_each_dev()`, `complete_rpm()`, and `complete()` while
+> unplugging in a variety of situations and found that an unplug from
+> domain 0 tries to `complete_rpm()` domain 1's switch, whose RPM
+> completion is not initialized and thus is holding a null wait-list
+> pointer, triggering the page fault.
+> 
+> Here are the key sections of that eBPF trace. Note that HEAD denotes the
+> completion's own wait-list HEAD:
+> 
+> ```
+> RESCAN_ENTER domain=0
+> 
+> COMPLETE rescan_domain=0 target=0-1 target_domain=0
+>          route=0x1 parent=0-0 unplugged=1
+> COMPLETION done=0 head=HEAD next=HEAD prev=HEAD
+> 
+> BUS_WALK domain=0 start=0-1 callback=complete_rpm
+> CALLBACK_ENTER rescan_domain=0 dev=1-0 parent=domain1 is_switch=1
+> 
+> COMPLETE rescan_domain=0 target=1-0 target_domain=1
+>          route=0x0 parent=domain1 unplugged=0
+> COMPLETION done=0 head=HEAD next=0 prev=0
+> 
+>         complete+5
+>         complete_rpm+43
+>         bus_for_each_dev+133
+>         icm_free_unplugged_children+250
+>         icm_rescan_work+42
+> ```
+> 
+> To fix this, I have reused some of the adjacent logic to recursively
+> walk and `complete()` only the unplugged switch and its descendants.
+> 
+> I only have a single system with multiple Thunderbolt domains - the Dell
+> XPS9720. I am consistently able to reproduce the Oops on that system.
+> Since running with this patch, I have not seen the Oops reoccur. I have
+> also tested it on a Thinkpad X1-Gen12, and that system boots and runs
+> well with it, but it only has a single Thunderbolt domain, so it does
+> not exercise the multi-domain failure case.
+
+This looks like LLM was involved and if that's the case then please add
+Assisted-by: LLM.
+
+> 
+> Signed-off-by: Jonathan Gopel <jgopel@gmail.com>
+> ---
+>  drivers/thunderbolt/icm.c | 16 +++++++++-------
+>  1 file changed, 9 insertions(+), 7 deletions(-)
+> 
+> diff --git a/drivers/thunderbolt/icm.c b/drivers/thunderbolt/icm.c
+> index 669807f0eaf8..d6801d8b669b 100644
+> --- a/drivers/thunderbolt/icm.c
+> +++ b/drivers/thunderbolt/icm.c
+> @@ -2068,13 +2068,16 @@ static void icm_unplug_children(struct tb_switch *sw)
+>  	}
+>  }
+>  
+> -static int complete_rpm(struct device *dev, void *data)
+> +static void complete_rpm(struct tb_switch *sw)
+>  {
+> -	struct tb_switch *sw = tb_to_switch(dev);
+> +	struct tb_port *port;
+
+So instead of this, just check that sw->tb matches what you pass in..
+
+>  
+> -	if (sw)
+> -		complete(&sw->rpm_complete);
+> -	return 0;
+> +	complete(&sw->rpm_complete);
+> +
+> +	tb_switch_for_each_port(sw, port) {
+> +		if (tb_port_has_remote(port))
+> +			complete_rpm(port->remote->sw);
+> +	}
+>  }
+>  
+>  static void remove_unplugged_switch(struct tb_switch *sw)
+> @@ -2088,8 +2091,7 @@ static void remove_unplugged_switch(struct tb_switch *sw)
+>  	 * tb_switch_remove() calls pm_runtime_get_sync() that then waits
+>  	 * for it.
+>  	 */
+> -	complete_rpm(&sw->dev, NULL);
+> -	bus_for_each_dev(&tb_bus_type, &sw->dev, NULL, complete_rpm);
+
+.. here pass sw->tb 
