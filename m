@@ -1,242 +1,284 @@
-Received: from fhigh-b2-smtp.messagingengine.com (fhigh-b2-smtp.messagingengine.com [202.12.124.153])
+Received: from sender6-op-o11.zoho.com (sender6-op-o11.zoho.com [165.173.180.11])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 384BB448BBB
-	for <linux-kernel@vger.kernel.org>; Sun,  4 Oct 2026 21:52:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.12.124.153
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791150758; cv=none; b=GohVIAv5vZnNri9d1BH53EGLje4+meSsazjk4uUSsouv9e5Yu88TeupDAAW0vE/izDF9N2tApl7qJmKmx4ojwxYuZrlHZ5JcQEleMvhUyacPzvUoSu0RYiEADQr1jZlPcfX3EpwxXYManY9R5jZrBlIE+ufL8CQRKX+A+zlu+ew=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791150758; c=relaxed/simple;
-	bh=LHkjvCKwcJJYIrVWirqkuYvEDSFnpbKHR8iSmvZVNWM=;
-	h=Content-Type:MIME-Version:From:To:Cc:Subject:In-reply-to:
-	 References:Date:Message-id; b=ERpAs15KQIbW3/wBAnrYn97TyUkhqKTyuzIkMXzTReHdgNPsN1lEnaHNbw2rRCvGEKs7lzDcJ8z5quTFwjXFteHtYNOz0ziZVqUxvz/dV/LGAEliwYshOVD6XjxEW7lNftZK6r3dL2DXANY4lkLtfyf9kDgsycaOYXA51N3NDa0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ownmail.net; spf=pass smtp.mailfrom=ownmail.net; dkim=pass (2048-bit key) header.d=ownmail.net header.i=@ownmail.net header.b=ZdIjL6h2; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=tBNWqStq; arc=none smtp.client-ip=202.12.124.153
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ownmail.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ownmail.net
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AB4A347D471;
+	Sun,  4 Oct 2026 21:52:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=165.173.180.11
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791150781; cv=pass; b=G4wg9GdQdnZpEpVp9+fvdDmXjPbePUXXhvuzmYCwNPYwHnHjnBs3cXK0Ar14gqQvCo/jdQpMN9f2HV935l/ZAjfc0Ie660qq1V+E1doEFXQvKP7+g4M81aTwOwmPeVbbRpyMl+D0rvQxBsh2TsydPL3JSLl+OQBpFHMMdsqexBc=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791150781; c=relaxed/simple;
+	bh=IE68smQ2L2PQgHpk9opEwb0MG7bGZ+Dy8C3nr8HCpNE=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=lVS7N1HHNVgXO8QM0I4kWBnmdweabs42nnJec3vSruAvbpw9SPLgPeWXvXDZSy75ZX7Sgh/NwMInwqMswza4H+fqfYq5xxnTd8PQ1Kis4rMDDCBeChbdS32vt3u2am7e8q6nkJbXU0todSp0rfoUn+24+kowjVXK0oMZRc/PSQE=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (1024-bit key) header.d=collabora.com header.i=sebastian.reichel@collabora.com header.b=cGV9L5np; arc=pass smtp.client-ip=165.173.180.11
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ownmail.net header.i=@ownmail.net header.b="ZdIjL6h2";
-	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="tBNWqStq"
-Received: from phl-compute-06.internal (phl-compute-06.internal [10.202.2.46])
-	by mailfhigh.stl.internal (Postfix) with ESMTP id A06307A01B2
-	for <linux-kernel@vger.kernel.org>; Sun,  4 Oct 2026 17:52:35 -0400 (EDT)
-Received: from phl-frontend-03 ([10.202.2.162])
-  by phl-compute-06.internal (MEProxy); Sun, 04 Oct 2026 17:52:35 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ownmail.net; h=
-	cc:cc:content-transfer-encoding:content-type:content-type:date
-	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:reply-to:subject:subject:to:to; s=fm2; t=
-	1791150755; x=1791237155; bh=3iy3gzplFIzK0oo8x5TzMGzgroYAGejdHKC
-	gp9FixDs=; b=ZdIjL6h2yB2k8w/kE1K7PeMz5csrzboWtsYNmgvLuecyt4LMvN8
-	QEWdupOIoVh83H5c+g8csuPzRAue6IuU3S8DqIgqpZkX1ZDgfJMFsTmSzzIEivgh
-	lLwyyfouSFMuKw+Hv6lFfczmkh55mcI6qYyLUWAeMosl1MtgHprnf5mydv6QiN8D
-	9/ZaQvn4fcScUwy93Fb9KyZENBYiXb9kCZhoKenRfBgpWayAUocEJxWfZUr0VpEA
-	ljTq8BnhBGaQoCTt51ynGRQr5Nu8oTOtWZSCw3VMwBhBZTUxel+PF0T1PFsHUFOv
-	o47L7D024LfJa9mmm79y06Xlz95dQSzTapQ==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:content-type:date:date:feedback-id:feedback-id
-	:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:reply-to:subject:subject:to:to:x-me-proxy
-	:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=1791150755; x=
-	1791237155; bh=3iy3gzplFIzK0oo8x5TzMGzgroYAGejdHKCgp9FixDs=; b=t
-	BNWqStqn7SCevUZ1a5O7V/ot+H7XjzaGoRA8rijd9cjHNelNvmPBWA0uTdPlsnJ1
-	pIjDYSzxlHKAmFDrS1tHhcKxncqGgIaR5FK5d5KcYlW2ewwpE3jZ6UVtG2vMNxVu
-	lsxwnUDP8zmj35lVN9Ga5LTQNX98Izmkoah/zyfej/DmbAgrqX2YyIbcjoqJbO2K
-	sfWn96HgJZbeYsNTV/Vx+9OSyVtZck++sgqAoXHBAH/HfJePW0cXrhR1OyT8IMYm
-	mVwml1dHlVXo6mGJYbKqZVBvxOV0ryf8hIAe9biIUuua8diTRBiLgYN/N8Y9SgRB
-	9MFT2LEGlkt9f7/luiE8g==
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
-	repo=github.com/dkim2wg/interop; date=2026-09-30; sw=lmtpprox;
-	action=sign d=ownmail.net a=rsa-sha256;
-DKIM2-Signature: i=1; m=1; t=1791150755; d=ownmail.net;
-	mf=PG5laWxiQG93bm1haWwubmV0Pg==;
-	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
-	s=fm2:rsa-sha256:MJpAPvgYX/8usOQTnWrllV5JsO9YpJKIIvSXsXF8TQQq9d6
-	IcLs3/MAz45OeZaidNVtx2o7Xe/YsVy4zi00c0fcA9jPvlicDyeVlIEMAm27chx0
-	CLLvUJFXwfaVD2dIMljNdAAxNeLX7quPwV6SUbPzMqN6P7u4ZqYYiEmRppUro7q/
-	wLDGNfkN5CNi3UDaNLtZj9JzF5ZbqIUrb1fTq0zxiBu68DPCIewlMcVWmd+i+3SC
-	20ZX7JAoJnFSXIa3nFMzVpgINcPzFO1BzQfcnUWW/RCwtg5ALVW6mWHXUkjOqezN
-	8rv8bba78GzXjYmAc/L/86oCRv6wcQk4/lyEkbg==;
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
-	repo=github.com/dkim2wg/interop; date=2026-09-30; sw=lmtpprox;
-	action=mi-m=1; hc=13;
-	hn=cc,content-transfer-encoding,content-type,date,feedback-id,
-	from,in-reply-to,message-id,mime-version,references,reply-to,
-	subject,to;
-Message-Instance: m=1; h=sha256:5j24Q3aiayJpCkb82bY2/76Y4ZmOqVdd8Ysr+rbMniI=:LHkjvCKwcJJYIrVWirqkuYvEDSFnpbKHR8iSmvZVNWM=;
-X-ME-Sender: <xms:osrCanX_lZvwunBGhmyGGWOkXxa4pfRzyD8KM8SxMSIfrOLZfU8N9Q>
-    <xme:osrCairksShLasa3EmLxyR8OC5C6nJ7gP2loBd9QvArYS9cfzOjwDeGA7Rl6akA-O
-    iMNvSXdmMb_PLGq784OhE5tb6yE58OpyWUuA51Oc3i3DGGF7A>
-X-ME-Received: <xmr:osrCauC5kUWJ-5En3V_z0HhhXfH1IHxIWHQXhHfGu0Y54lg_1yCye472MBCWhwikAlqNjwCLILCxLEZ0haXEBN0OS2O8KfI>
-X-ME-Proxy-Cause: dmFkZTELw3NzVe4CSdyd/3EeOMxy34RMNfvct+a14iA3L+E4I4Ey7qTxw/G9k1c02o8BP4
-    mTbdxFZkS5RX3R7a8tB2YfXCzxQIPUxmxqPdXf1YUJd7neQygY5BKkNZoX5nC7b4MNiPn7
-    rOs8bIjCwqzcCctsfNbvJbApjyH/pcT/hbGPc47ArFWHuo1C6gnbi07lJ8AUOL6uMfrRa2
-    Yzx+5/ncZXtKkskY7Lin2aBE35tJz8lSgz50WW/2MF2t4eqloVKyh6Wm2vhn5JUy9GYwc0
-    eyFM9+ucXjERtAOJgHqtJ37ruyWBm+W46/I3I8sW5ZdMRzg33zlpgONx8YF2DCHGfqmtUZ
-    zQ7vESdGQUBrGN2GIwA9yh62x8L5IoajyfzNFi26u0ZPgLSN09MNGIAHrsQnyVX2X4+TUe
-    EBSh8R+pkdElDuRkPyRIY9yEEtE/eR2Ta9oSre697fv+HKzbP8P9+u5I7em6UIaFHS9CoA
-    GJYlgIcbvnCQKD+E0p7+05o0bocVlHd4FbjwxJLOGA9y2JteDvio9L7qWSUeMsqSSYT7n2
-    eROgkl0/kAcMrARk9da6IpDK16t7whiJmeShQBeFlwgR/4fG0LSZVqlAI+opmQm42kuFZd
-    6oY0nN1P89fRQhU3l1qdYu+MYpEeY8kgxiNNPJ6UV+/jYaStTT0yDNmfFXGA
-X-ME-Proxy: <xmx:osrCaujbjf8Ywhy__C1gWnhPkMIu7mZ_qpzjzS1krN3nIKmmCeLL0Q>
-    <xmx:osrCasZ6mcABoZCIN2sZBt5W9_Dg6Lk9hiT-LH7INE3LpWzJj25DUA>
-    <xmx:osrCavk6oYqZ7IC05J5Ud778wbGTLbHgFEvFMgxdh3fIXrri4X7HVg>
-    <xmx:osrCaiiUqLZzlBHkxi-jb9poiEH2DMm_4Zv6hbfCBFbHC2bgzK5FIA>
-    <xmx:o8rCalW-nsszH00SiIg-etaMZCGL1whASqmWNeA4V9c0NYG_4-T24btX>
-Feedback-ID: i9d664b8f:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Sun,
- 4 Oct 2026 17:52:31 -0400 (EDT)
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: quoted-printable
+	dkim=pass (1024-bit key) header.d=collabora.com header.i=sebastian.reichel@collabora.com header.b="cGV9L5np"
+ARC-Seal: i=1; a=rsa-sha256; t=1791150765; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=NUSum8dZf4qxvOnLMzaYn16Sy5TMnGYrZ2I/LYDirJGKnt0hwzyNHgib5iWNvPn3Ko2WeKHYzKfcXFhb1a24X+jLsml5q7zoglx9HyjXFrAYH3miJvjQr4gvrYs0Yr69MN3hOQYJINuTWxPsyJqA0bMd3IJcKe3IWv0BqCRJM90=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1791150765; h=Content-Type:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=09Ti0ZRz0+O/gL3CO61Ctfmj7MKudqwom+5ijasagT8=; 
+	b=kC8fkCR6v0qETMxAC5O6tOl91IKdl/B2atYF+Qu+1gTm8EY6vBSO4Zp/YnhqcXlnM8x3zH6EQmwOOXpA/hdus0VVQw0sbZqrILSmEAor1QuIbnx46aVREGccbBsYQ8MCnO+W0KWcpvoDoNfr3+plrRBXNT3TbQMi1i/gbXekDlE=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=collabora.com;
+	spf=pass  smtp.mailfrom=sebastian.reichel@collabora.com;
+	dmarc=pass header.from=<sebastian.reichel@collabora.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1791150765;
+	s=zohomail; d=collabora.com; i=sebastian.reichel@collabora.com;
+	h=Date:Date:From:From:To:To:Cc:Cc:Subject:Subject:Message-ID:MIME-Version:Content-Type:In-Reply-To:Message-Id:Reply-To;
+	bh=09Ti0ZRz0+O/gL3CO61Ctfmj7MKudqwom+5ijasagT8=;
+	b=cGV9L5npieVO4nAbUR6pn7t8K8RP7KNVGMLRLrn25oWErgTSJ+WT0j18j2wr7d5i
+	5BXha6QIgRVdIgQ3kGq7WNow33hUEz7aI1aNcKnz2pdnE/NeD9+a8ckaKkdRC0ZSJAy
+	Ecw9UxV5CIS4kcvzSVZVIk1t2n5LFtXq3qPe4D3A=
+Received: by smtp.zohomail.com with SMTPS id 1791150762942153.3763859726323;
+	Sun, 4 Oct 2026 14:52:42 -0700 (PDT)
+Received: by venus (Postfix, from userid 1000)
+	id 8D366180951; Sun, 04 Oct 2026 23:52:34 +0200 (CEST)
+Date: Sun, 4 Oct 2026 23:52:34 +0200
+From: Sebastian Reichel <sebastian.reichel@collabora.com>
+To: Icenowy Zheng <uwu@icenowy.me>
+Cc: Han Gao <gaohan@iscas.ac.cn>, Drew Fustini <fustini@kernel.org>, 
+	Guo Ren <guoren@kernel.org>, Fu Wei <wefu@redhat.com>, Ulf Hansson <ulfh@kernel.org>, 
+	Han Gao <rabenda.cn@gmail.com>, linux-riscv@lists.infradead.org, linux-pm@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] power: reset: th1520-aon: send RPCs from sleepable
+ handlers
+Message-ID: <asLJGnsAQIfHr7oj@venus>
+References: <20260916-fix-xuantieaon-v1-1-c6dc530a4884@iscas.ac.cn>
+ <d081ce3c9f0b319e8d8cc41480c0d2862618eed6.camel@icenowy.me>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-From: NeilBrown <neilb@ownmail.net>
-To: "Christian Brauner" <brauner@kernel.org>
-Cc: linux-fsdevel@vger.kernel.org, "Alexander Viro" <viro@zeniv.linux.org.uk>,
- "Jan Kara" <jack@suse.cz>, linux-kernel@vger.kernel.org,
- "Jeff Layton" <jlayton@kernel.org>, "Jann Horn" <jannh@google.com>,
- "Amir Goldstein" <amir73il@gmail.com>,
- "Christian Brauner (Amutable)" <brauner@kernel.org>, stable@vger.kernel.org
-Subject:
- Re: [PATCH 19/21] readdir: take no inode lock on an immutable directory
-In-reply-to: <20261002-work-mount-fixes-4-v1-19-dd44b89d44ce@kernel.org>
-References: <20261002-work-mount-fixes-4-v1-0-dd44b89d44ce@kernel.org>
-  <20261002-work-mount-fixes-4-v1-19-dd44b89d44ce@kernel.org>
-Date: Mon, 05 Oct 2026 08:52:27 +1100
-Message-id: <179115074757.37859.15037820357119617398@noble.neil.brown.name>
-Reply-To: NeilBrown <neil@brown.name>
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="syop2w5cyiogqlqp"
+Content-Disposition: inline
+In-Reply-To: <d081ce3c9f0b319e8d8cc41480c0d2862618eed6.camel@icenowy.me>
+X-Zoho-Virus-Status: 1
+X-Zoho-AV-Stamp: zmail-av-0.2.13.1.5.4/291.146.46
+X-ZohoMailClient: External
 
-On Fri, 02 Oct 2026, Christian Brauner wrote:
-> iterate_dir() takes the directory's i_rwsem shared and holds it across
-> ->iterate_shared(). For a directory that never has an entry and is
-> never removed the lock keeps nothing still, it only orders every reader
-> and every writer of that inode behind each other.
+
+--syop2w5cyiogqlqp
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [PATCH] power: reset: th1520-aon: send RPCs from sleepable
+ handlers
+MIME-Version: 1.0
+
+Hi,
+
+On Wed, Sep 16, 2026 at 03:45:52PM +0800, Icenowy Zheng wrote:
+> =E5=9C=A8 2026-09-16=E4=B8=89=E7=9A=84 14:55 +0800=EF=BC=8CHan Gao=E5=86=
+=99=E9=81=93=EF=BC=9A
+> > The AON RPC takes a mutex and waits for mailbox interrupts. The final
+> > sys-off handlers run on atomic notifier chains, where this can sleep
+> > with interrupts disabled.
+> >=20
+> > Send the requests from the preparation handlers before syscore
+> > shutdown.
+> > Retain a final power-off handler to advertise capability and report
+> > failure without issuing another RPC. Let other providers handle
+> > fallback.
+> >=20
+> > Report RPC errors and allow one second after a successful return for
+> > the
+> > asynchronous operation to take effect. This is a software fallback
+> > timeout, not a hardware timing requirement.
+> >=20
+> > Fixes: 2d81a24a74e5 ("driver: reset: th1520-aon: add driver for
+> > poweroff/reboot via AON FW")
+> > Signed-off-by: Han Gao <gaohan@iscas.ac.cn>
+> > ---
+> > =C2=A0drivers/power/reset/th1520-aon-reboot.c | 49
+> > +++++++++++++++++++++++----------
+> > =C2=A01 file changed, 34 insertions(+), 15 deletions(-)
+> >=20
+> > diff --git a/drivers/power/reset/th1520-aon-reboot.c
+> > b/drivers/power/reset/th1520-aon-reboot.c
+> > index
+> > ec249667a0ffd74829357d57b9e63c3524ea3759..ace70491834dc9a63ed543427e4
+> > 0e4cbc0a9388f 100644
+> > --- a/drivers/power/reset/th1520-aon-reboot.c
+> > +++ b/drivers/power/reset/th1520-aon-reboot.c
+> > @@ -6,6 +6,7 @@
+> > =C2=A0 */
+> > =C2=A0
+> > =C2=A0#include <linux/auxiliary_bus.h>
+> > +#include <linux/delay.h>
+> > =C2=A0#include <linux/firmware/thead/thead,th1520-aon.h>
+> > =C2=A0#include <linux/module.h>
+> > =C2=A0#include <linux/notifier.h>
+> > @@ -14,37 +15,46 @@
+> > =C2=A0#include <linux/slab.h>
+> > =C2=A0
+> > =C2=A0#define TH1520_AON_REBOOT_PRIORITY 200
+> > +/* Allow an accepted asynchronous command to take effect before
+> > fallback. */
+> > +#define TH1520_AON_REBOOT_TIMEOUT_MS 1000
+> > =C2=A0
+> > =C2=A0struct th1520_aon_msg_empty_body {
+> > =C2=A0	struct th1520_aon_rpc_msg_hdr hdr;
+> > =C2=A0	u16 reserved[12];
+> > =C2=A0} __packed __aligned(1);
+> > =C2=A0
+> > -static int th1520_aon_pwroff_handler(struct sys_off_data *data)
+> > +static int th1520_aon_reboot_request(struct sys_off_data *data, u8
+> > func)
+> > =C2=A0{
+> > =C2=A0	struct th1520_aon_chan *aon_chan =3D data->cb_data;
+> > =C2=A0	struct th1520_aon_msg_empty_body msg =3D {};
+> > +	int ret;
+> > =C2=A0
+> > =C2=A0	msg.hdr.svc =3D TH1520_AON_RPC_SVC_WDG;
+> > -	msg.hdr.func =3D TH1520_AON_WDG_FUNC_POWER_OFF;
+> > +	msg.hdr.func =3D func;
+> > =C2=A0	msg.hdr.size =3D TH1520_AON_RPC_MSG_NUM;
+> > =C2=A0
+> > -	th1520_aon_call_rpc(aon_chan, &msg);
+> > +	ret =3D th1520_aon_call_rpc(aon_chan, &msg);
+> > +	if (ret)
+> > +		dev_err(data->dev, "AON WDG command %u failed:
+> > %d\n", func, ret);
+> > +	else
+> > +		msleep(TH1520_AON_REBOOT_TIMEOUT_MS);
+> > =C2=A0
+> > =C2=A0	return NOTIFY_DONE;
+> > =C2=A0}
+> > =C2=A0
+> > -static int th1520_aon_restart_handler(struct sys_off_data *data)
+> > +static int th1520_aon_pwroff_handler(struct sys_off_data *data)
+> > =C2=A0{
+> > -	struct th1520_aon_chan *aon_chan =3D data->cb_data;
+> > -	struct th1520_aon_msg_empty_body msg =3D {};
+> > -
+> > -	msg.hdr.svc =3D TH1520_AON_RPC_SVC_WDG;
+> > -	msg.hdr.func =3D TH1520_AON_WDG_FUNC_RESTART;
+> > -	msg.hdr.size =3D TH1520_AON_RPC_MSG_NUM;
+> > +	return th1520_aon_reboot_request(data,
+> > TH1520_AON_WDG_FUNC_POWER_OFF);
+> > +}
+> > =C2=A0
+> > -	th1520_aon_call_rpc(aon_chan, &msg);
+> > +static int th1520_aon_restart_handler(struct sys_off_data *data)
+> > +{
+> > +	return th1520_aon_reboot_request(data,
+> > TH1520_AON_WDG_FUNC_RESTART);
+> > +}
+> > =C2=A0
+> > +static int th1520_aon_pwroff_failed(struct sys_off_data *data)
+> > +{
+> > +	dev_err(data->dev, "AON did not power off the system\n");
+> > =C2=A0	return NOTIFY_DONE;
+> > =C2=A0}
+> > =C2=A0
+> > @@ -54,8 +64,11 @@ static int th1520_aon_reboot_probe(struct
+> > auxiliary_device *adev,
+> > =C2=A0	struct device *dev =3D &adev->dev;
+> > =C2=A0	int ret;
+> > =C2=A0
+> > -	/* Expect struct th1520_aon_chan to be passed via
+> > platform_data */
+> > -	ret =3D devm_register_sys_off_handler(dev,
+> > SYS_OFF_MODE_POWER_OFF,
+> > +	/*
+> > +	 * RPC takes a mutex and waits for mailbox interrupts. Send
+> > after device
+> > +	 * shutdown, but before syscore shutdown and the final
+> > atomic callbacks.
+> > +	 */
+> > +	ret =3D devm_register_sys_off_handler(dev,
+> > SYS_OFF_MODE_POWER_OFF_PREPARE,
 >=20
-> For the directory of a nullfs instance that matters. The instance of
-> the initial mount namespace is the root of every empty mount namespace
-> and the private instance is the root of every kernel thread, so one
-> inode is shared across users who have nothing else in common. And a
-> reader can hold the lock for as long as it likes: back the getdents()
-> buffer with a mapping of a file on a FUSE mount of your own, let the
-> copy of "." and ".." fault and let the server wait. Queue an exclusive
-> taker behind it, a mkdir() in that directory goes through start_dirop()
-> before the read-only mount is reported, and from then on every lookup
-> that misses the dcache in that directory, every create and every mount
-> on it waits until the server answers. One user of an empty mount
-> namespace stalls all the others.
+> Interestingly I tried to find usage of this key in the kernel, and
+> found that the macsmc-reboot driver has a "enter_atomic" operation.
 >=20
-> Add FOP_IMMUTABLE for the file operations of a directory that never
-> changes and is never removed and let iterate_dir() skip the lock for
-> it. The flag never changes for a file, ->f_pos is protected by
-> f_pos_lock since directories are FMODE_ATOMIC_POS, IS_DEADDIR can't be
-> set on such a directory and neither touch_atime() nor fsnotify take
-> i_rwsem. Set it on the nullfs directory. The placeholder directories of
-> libfs never have an entry either but their owners remove them, so they
-> keep the lock.
-
-It isn't strictly necessary that the directory never changes.  It is
-only necessary that the filesystem doesn't depend of i_rwsem for
-exclusion between iterate_dir() and directory changes, either because
-there are no changes, or because it uses internal locking.
-
-This flag would be good for procfs - those directories that need to
-d_alloc_parallel() any name they find that isn't already is dcache.
-My current approach is to drop the lock and reclaim it after
-d_alloc_parallel().  With FMODE_ATOMIC_POS set there would be nothing
-left to fix.
-
-Reviewed-by: NeilBrown <neil@brown.name>
-
-Thanks,
-NeilBrown
-
-
+> I don't know whether it's a overdesign.
 >=20
-> Fixes: 9d4e752a24f7 ("namespace: allow creating empty mount namespaces")
-> Cc: stable@vger.kernel.org # v7.1+
-> Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
-> ---
->  fs/nullfs.c        |  1 +
->  fs/readdir.c       | 13 +++++++++----
->  include/linux/fs.h |  2 ++
->  3 files changed, 12 insertions(+), 4 deletions(-)
+> The imx_rproc driver even creates its own PREPARE handler that "setup
+> mailbox to non-blocking mode".
 >=20
-> diff --git a/fs/nullfs.c b/fs/nullfs.c
-> index f76b87cf1841..bfc04bca3940 100644
-> --- a/fs/nullfs.c
-> +++ b/fs/nullfs.c
-> @@ -44,6 +44,7 @@ static const struct file_operations nullfs_dir_operations=
- =3D {
->  	.lock		=3D nullfs_nolock,
->  	.flock		=3D nullfs_nolock,
->  	.setlease	=3D nullfs_nolease,
-> +	.fop_flags	=3D FOP_IMMUTABLE,
->  };
-> =20
->  static int nullfs_fs_fill_super(struct super_block *s, struct fs_context *=
-fc)
-> diff --git a/fs/readdir.c b/fs/readdir.c
-> index 76bb1ae3a450..f2288841337a 100644
-> --- a/fs/readdir.c
-> +++ b/fs/readdir.c
-> @@ -87,6 +87,8 @@ EXPORT_SYMBOL(wrap_directory_iterator);
->  int iterate_dir(struct file *file, struct dir_context *ctx)
->  {
->  	struct inode *inode =3D file_inode(file);
-> +	/* never an entry, never removed: nothing for the lock to keep still */
-> +	bool locked =3D !(file->f_op->fop_flags & FOP_IMMUTABLE);
->  	int res =3D -ENOTDIR;
-> =20
->  	if (!file->f_op->iterate_shared)
-> @@ -100,9 +102,11 @@ int iterate_dir(struct file *file, struct dir_context =
-*ctx)
->  	if (res)
->  		goto out;
-> =20
-> -	res =3D down_read_killable(&inode->i_rwsem);
-> -	if (res)
-> -		goto out;
-> +	if (locked) {
-> +		res =3D down_read_killable(&inode->i_rwsem);
-> +		if (res)
-> +			goto out;
-> +	}
-> =20
->  	res =3D -ENOENT;
->  	if (!IS_DEADDIR(inode)) {
-> @@ -112,7 +116,8 @@ int iterate_dir(struct file *file, struct dir_context *=
-ctx)
->  		fsnotify_access(file);
->  		file_accessed(file);
->  	}
-> -	inode_unlock_shared(inode);
-> +	if (locked)
-> +		inode_unlock_shared(inode);
->  out:
->  	return res;
->  }
-> diff --git a/include/linux/fs.h b/include/linux/fs.h
-> index 784fa20217c4..deb411e86661 100644
-> --- a/include/linux/fs.h
-> +++ b/include/linux/fs.h
-> @@ -1978,6 +1978,8 @@ struct file_operations {
->  #define FOP_ASYNC_LOCK		((__force fop_flags_t)(1 << 6))
->  /* File system supports uncached read/write buffered IO */
->  #define FOP_DONTCACHE		((__force fop_flags_t)(1 << 7))
-> +/* Never changes and is never removed, readdir of a directory takes no loc=
-k */
-> +#define FOP_IMMUTABLE		((__force fop_flags_t)(1 << 8))
-> =20
->  /* Wrap a directory iterator that needs exclusive inode access */
->  int wrap_directory_iterator(struct file *, struct dir_context *,
+> Maybe it's better to replicate the behavior of macsmc / imx_rproc in
+> the AON driver?
 >=20
-> --=20
-> 2.53.0
+> > =C2=A0					=C2=A0=C2=A0=C2=A0
+> > TH1520_AON_REBOOT_PRIORITY,
+> > =C2=A0					=C2=A0=C2=A0=C2=A0
+> > th1520_aon_pwroff_handler,
+> > =C2=A0					=C2=A0=C2=A0=C2=A0 adev-
+> > >dev.platform_data);
+> > @@ -65,7 +78,7 @@ static int th1520_aon_reboot_probe(struct
+> > auxiliary_device *adev,
+> > =C2=A0		return ret;
+> > =C2=A0	}
+> > =C2=A0
+> > -	ret =3D devm_register_sys_off_handler(dev,
+> > SYS_OFF_MODE_RESTART,
+> > +	ret =3D devm_register_sys_off_handler(dev,
+> > SYS_OFF_MODE_RESTART_PREPARE,
+> > =C2=A0					=C2=A0=C2=A0=C2=A0
+> > TH1520_AON_REBOOT_PRIORITY,
+> > =C2=A0					=C2=A0=C2=A0=C2=A0
+> > th1520_aon_restart_handler,
+> > =C2=A0					=C2=A0=C2=A0=C2=A0 adev-
+> > >dev.platform_data);
+> > @@ -75,7 +88,13 @@ static int th1520_aon_reboot_probe(struct
+> > auxiliary_device *adev,
+> > =C2=A0		return ret;
+> > =C2=A0	}
+> > =C2=A0
+> > -	return 0;
+> > +	/*
+> > +	 * Advertise power-off capability to kernel_can_power_off().
+> > This final
+> > +	 * callback must not send RPCs; let other providers try if
+> > AON failed.
+> > +	 */
+> > +	return devm_register_sys_off_handler(dev,
+> > SYS_OFF_MODE_POWER_OFF,
+> > +					=C2=A0=C2=A0=C2=A0=C2=A0
+> > TH1520_AON_REBOOT_PRIORITY,
+> > +					=C2=A0=C2=A0=C2=A0=C2=A0
+> > th1520_aon_pwroff_failed, dev_get_platdata(dev));
 >=20
->=20
+> I don't know whether such a handler is necessary when the real power
+> operation is done in PREPARE handler. The odroid-go-ultra-poweroff
+> driver, which also (ab?)uses PREPARE handler for powering off, doesn't
+> register a non-PREPARE handler.
 
+The real operation shouldn't be done in the PREPARE handler as that
+results in the machine loosing power before it went through the
+whole shutdown/reboot process.
+
+Greetings,
+
+-- Sebastian
+
+--syop2w5cyiogqlqp
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCgAdFiEE72YNB0Y/i3JqeVQT2O7X88g7+poFAmrCyp8ACgkQ2O7X88g7
++pp3ThAAooDlRfqsOZDlPAwJ5LVwvZgn2Kcfrt6wweJEbOy7kJibjB8QQcoWGHI0
+RmJL12+QFzyGa2bFXMuBmmRm4M38eQPj2L5t14mRtCf8WjK3t+tsrUSqumDzKzI1
+YeaAVxhssCt0zFAIabFnk1Ui4aTtlpScQpbg6iggRGIYKwyVok5NBM+AkRITom7N
+C8Y/gI3HTEWnHZVikEvlFmz0/q3tAvnNf/y5g+cwjYFGTYOdQNAePdYeRviZXH+u
+8PwTH7NUNigrY1lNM3wZzBy8Ewbj50Hn/SadcIdDAWLbKPY0XGV1T2fWmiJDbDIS
+cplQ0frHXhC6Lytu6MgLUro5sfjXOgIro85Gscz6YYa2ppCyEVcGLKqcq6z5S7dW
+r7UVvmfbvRhDP/om4wuCqtDVX8U9fnnZaOe0Vu5locWV0GKRizP/zkLQIsr/5qEi
+Nl+Qipi86pr8F3jHqukRVBDFLavfG6Y2NEFnZGktic5Y4U16T6jXBGuig97tbtmo
+nxAiALIbAXK3IBMM4zqQzlbvZPah3qsw6CwdZeJqHh+OqpaFGTntZaXs24YWwF/L
+l76+TBbCF1nuqD2P8Vjknyv69i63cmMnFhRoJoBOWAIoKd7pxe3yUECtLr/dAq65
+QegbVk+o88XoY/Sh9H3V4f8yXYqnTg8V1D4azjCmHJtHJyqMRk8=
+=raOf
+-----END PGP SIGNATURE-----
+
+--syop2w5cyiogqlqp--
