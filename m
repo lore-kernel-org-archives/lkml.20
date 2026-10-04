@@ -1,65 +1,67 @@
-Received: from mail-ej2-f43.google.com (mail-ej2-f43.google.com [74.125.228.171])
+Received: from mail-ej2-f42.google.com (mail-ej2-f42.google.com [74.125.228.170])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7ACD73FF8A5
-	for <linux-kernel@vger.kernel.org>; Sun,  4 Oct 2026 17:16:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.171
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3C68546C82A
+	for <linux-kernel@vger.kernel.org>; Sun,  4 Oct 2026 17:16:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.170
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791134185; cv=none; b=FuhV5IR/3rJX8eDcGA99/WcbCnmxoHkvq62G5s335efSi7jx5IDZN56VPFDmv8hvwwlEfGRQWqRm998kZYV8SWkWWNlcE76gFH0zkKGf6VwhLgcpq+O2JcBoKdc4eFz6O4Nl4wDo5shxH59kq94rBjYe3bq3KGnsbafhMJ+vCiM=
+	t=1791134187; cv=none; b=Wh6jO3XKdLgxwRd2rkHcqJ18ZhGW/7Z55AxGwDrBZHz6qN+uw1Xsy6Ju7n7ymcetlzbNUQwCDwRlHB/di9KK2bbOHv7p6Nu3Yv0eodSHKqPWvpHKsP6vKaVk3oDPXXEP4L9rHLp7Dmw3n8VlWrUEzTFi9jveq+n1ld5/ugeC4Us=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791134185; c=relaxed/simple;
-	bh=ITxbZyy/8+4On80Giq8R9Rj7Fl1GPU/lQNDmPuwvfH0=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=rXAem31iKx5kxfCSayibum40ro5xRwONTpeDLVvJl1kBLde5uTXrMVvmc6f6JVuF7TDOpVE1ca64kNTmy+pqmYCX/0U+KogKJ4lmSit5Crp0vGnqB8A2hGVi/qdE2FxnP4QhHd8wUsG6QZbDrPKt25ayk1EHN2y6/ygVasqChnA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bairaktaris.de; spf=pass smtp.mailfrom=bairaktaris.de; dkim=pass (2048-bit key) header.d=bairaktaris.de header.i=@bairaktaris.de header.b=mfNJwzLN; arc=none smtp.client-ip=74.125.228.171
+	s=arc-20240116; t=1791134187; c=relaxed/simple;
+	bh=dj3NwmJPrPWb/bw6YKz6XnTWInhGE7dX0FcP3wklm9Y=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=VCxWptfC/UHeOH9RWXWbIJ7t8HbPxibHKkifViVwv4KV3dzjb413NggpruPOW0BJkN4+3d6/zcn+UdO7mbBZmu038s1yTLckOnCMbWKwGZUXxUHU7eUiVV9LXU0X8VWE9E4Eb3n/w8njgXp6Fl+PHefJENB7xfUb6Y9+eADFXzY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bairaktaris.de; spf=pass smtp.mailfrom=bairaktaris.de; dkim=pass (2048-bit key) header.d=bairaktaris.de header.i=@bairaktaris.de header.b=Mm2sSM17; arc=none smtp.client-ip=74.125.228.170
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bairaktaris.de
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bairaktaris.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bairaktaris.de header.i=@bairaktaris.de header.b="mfNJwzLN"
-Received: by mail-ej2-f43.google.com with SMTP id a640c23a62f3a-c264788fd58so187934766b.1
-        for <linux-kernel@vger.kernel.org>; Sun, 04 Oct 2026 10:16:22 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=bairaktaris.de header.i=@bairaktaris.de header.b="Mm2sSM17"
+Received: by mail-ej2-f42.google.com with SMTP id a640c23a62f3a-c2e4a2f00beso184611966b.3
+        for <linux-kernel@vger.kernel.org>; Sun, 04 Oct 2026 10:16:23 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=bairaktaris.de; s=google; t=1791134180; x=1791738980; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=REM+0eVSevhhqRi1ya4wokt6SQ21EvmCZ8tdDdEeLnE=;
-        b=mfNJwzLNnGo1k+13OZt08ghMO+MTewabqrH3O8b3uR0wZv60U7jgUtjeTT9dAKsd1g
-         HgRHrdJUVJV/7R/WnEePvFkqFgl6malSQiCETefJGVy2N/da4cai7v8re9eGX3LrAlwa
-         lBBO6EnSwamA0dX2Hmwt7sxYHJUYPLiYL6J3fV7A332Z7zdc5oVMjfvqAPiTvemxcz15
-         mevIllKwfabl1+UY2gp6BMhou50p9bo0Mvsn8BuzhgBSar/pogu1rxWo17eA5tQKPWNQ
-         DVxJhGMnHtUZWfN0fc9QwnMcwZtVbcbZmQhZhv78362coqgJomul/K3SO7Dy/5tw7I5f
-         4Mtg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791134180; x=1791738980;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=bairaktaris.de; s=google; t=1791134181; x=1791738981; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=REM+0eVSevhhqRi1ya4wokt6SQ21EvmCZ8tdDdEeLnE=;
-        b=CHgZQ2bojAXNvKX8hnlZlZs7QB6a2rmiR+HOY5LSvKSoSBTs/Cf4SZMSLyw8lGt4lh
-         jm1pMuh07tsoxIPZrw/1ibVtkpBC/uLOLO4Pfb75297UOLPpyN3ZOAhwJiNkOlrK36ce
-         BWZhom0MH5LS2uJkSFNgYcZTpFiuD/hZK1SitclmXgwGxk4CXcvfJWFCtnBlJQ/4BWhC
-         psDHqxAX0BgJ22tsxxzhsoq/CQgWx5L7Vu8+tw/MKTeHVzzyW+x2+6SSgL7gH1iqVl2T
-         NfBk6Y28P/2O2pTFxowZJV8nn53Zz3IMlhaI2BJsUCiVAM8R5+nhhtNfcSVSvNKNbhc1
-         TOCw==
-X-Forwarded-Encrypted: i=1; AKwUvBxWH5xSKHgAS6RClvg1GvUpUR9RsmJoYGp4dNgMtshLNXSj4X6Ik2JEbjbozMIGm+Zh72nqyMTv9QoRUQE=@vger.kernel.org
-X-Gm-Message-State: AFuF++lkzgV8H2De/qS9OPvGXHm9z8Zh4+vzUSSWfBO5oeejtTT+HYfZ
-	aZLGnJt5JjaEGOCfkk/f0Z78J5ECGXGQ5cLjCHq+fQ+AcP5fHlGxHxHxBvYQKFNUoQ==
-X-Gm-Gg: AYBFou06zVu2/z8yOLDIS5L2CSKeu3aLpA4efvelTQOg5M6fmb7EoP0g9N4J3RF8FHm
-	bEUdMGtYzlCbJxabYDy2ZGzd4PQLLZqELIopHSyAz9P+C2s00XhfFtbE502UahK9U0prVBA82+5
-	SDO3I1SpnRHO8ABzn1OLzLPTABW+YEWtpJkVUV1JfCYY7i5MVVisNp7fXIzBhiHoKJutoeUHTE3
-	aVsBifIAxCW/ABC+gf5eiab28XjDnHlDohkE/72KD8kPfdKLsW2kKSVWb7MR3RIGUC1YLh3Hzgd
-	GKvO1EnALZxjOXlHcY2t2uAuG7tlFA4+UF2aYzqxLY096UCChz2PXs/Q/Zltlr+U0bC/iL/qO4k
-	xVeupiJCOt76f3BDPpjY9oVn0VaaKUSC5NvohExILQMHVHPWn8TswGe9ezyhQLijOmvsHOoJ2L8
-	AJgiDkoNj+7xbZAXG+0nA4M3dVmCtVLK/MnVNAELb828to76lTjeENBhKjhioAbtzJvKzb6vASM
-	HHWittpmbqjsxwxV4V/0oQcop7wQzuFZQI7c5TO9cj35TglbkZ5SQjFVav3LMTgpSNOpCREDDaQ
-	L7PCESKMGU+iQ51zg0Sxx1aLzEVOsCowbLF8Z3Q8aqh0IlC/ao5VOXfpiaLjJWW8/5v0KL7AuWu
-	N02ROlNXQdaWDHQoypjaOhiFV0e+9ADTRO1aMQnCEsbqGhB5HJRqK+xLbMH3Dt81wxN/Cnwb9SY
-	pBlIWjRn9QPAM8OJBfLGkjO4I=
-X-Received: by 2002:a17:907:cf86:b0:c26:19de:9ad3 with SMTP id a640c23a62f3a-c2e4af70e4emr698023766b.43.1791134180574;
-        Sun, 04 Oct 2026 10:16:20 -0700 (PDT)
+        bh=DQy1p6uH5D5EZA+BdR7YHzdsKEg9LefUPPRF/B7n4zU=;
+        b=Mm2sSM17vVAzKT20oK0g+uDXswxBLImaEhGqc5eS2W6BQ0fQLZQkSY4HBP/KXxCE7t
+         K327YbYlwP6WbZqWvZBDImm0ULDv9OxztUnJslzzlNrRdaTprV0/CHOonmKFaVQZf+ta
+         7P3LXOTL30Py3LJhv0yMWRrmb2cvMgmYnar2XvOq95pg1wpyB4or1iiKjzo0m0l5n8SY
+         eWdcrTny2rKauowywnxX8IOi510RUd+ZXGUEsDFfkrroIsk2aRFDx9FKW+ovwRXCNHoq
+         XI4nQoCDvZQis7rPLfOPDH7lwjHVEc4T7ciNN2R8kQh2lnJU7ljA9CqcOBuabHZMAHaQ
+         jF0Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791134181; x=1791738981;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=DQy1p6uH5D5EZA+BdR7YHzdsKEg9LefUPPRF/B7n4zU=;
+        b=JPQfueyDTkGGWiD0OYTZOhz8Y8U71YRT5zDZo/F6aeau+m4BRPWWGridLPLk7Esz6W
+         Zw0uF/yVZ2T0fb9yoqgLV8jsoyvB37c95Q5ak9H+wcz+tdPsQDgm2p8SZLiqyP7MZrOl
+         L7pBbyRpkKe5xTUUQ2oKqJOJLmAOKz+raB9VOkNjsDjKrxUs3UvKWmEjG17jrnlFIn0H
+         r1tjH9Mh1EuG9HHZsw3ibBn/8n1zMpAZnKxBdPUNJzyriLNUmd2R9/7U3LHJ82krRHQ4
+         D76Y3UPEYxOqut/bzkIoKsVbx0ASnKn87xsv7H4vY2+k7zat79rFow+8cvROJkG/aQFB
+         AQRg==
+X-Forwarded-Encrypted: i=1; AKwUvByYBXcp/y/8U3vyShktg8Oy/tta9/kRL30L2yLZkHgA+jVcBodVUJad2SghQGV00hcfge9c3VeVvzSDHDg=@vger.kernel.org
+X-Gm-Message-State: AFuF++my0VVphYlzRMnU/xcrI2KI8jzA8DM6rGkE2QnVpuvjQQdhIzFU
+	jiyVA41907wsfHdi+bCL+NYOqN9gVnVx1ErWvQVZwUozdlq2sGbRFjI40kK7yCQuuw==
+X-Gm-Gg: AYBFou1hgtnupkOnP8MAI4xICsLzzJOHRXR5v2X2l+LOR/AiObOGcvl3xofPu4uThWV
+	wrCQi7n6RKyxckevyio9hA6spxLa637qe94MXvs0f0ra2CpSu9T9tvLEpURWK/oFQwdrGkvE5wW
+	CuKWZTLqklPij//Q9ZSJ60cnOue/ARDrk26gFkEsX1yCv0FJqZqINUq3CU9IHZGEhSmsS+TuruF
+	s+eWdY2uWdhOPSpGtPe+hiE00ROvbEMW7PiodNhQthXuP9T7EQquEO267KTxld2WQjPAPeLku1B
+	uReBOJg5VqnEQWT/mpB9lugG2xKiPH63QUFoOpm+gtdB7ddy8CaMsMLnFqzJiK/rWUrDs97VanK
+	Xzl8N+nNizZUh4/x3VrpkaNL/HoZ3qw7BoQHqsY94uvzSYGKZuIgmMZcLmNqCFbItra9Wovl/Sj
+	LT5FOO7yiipWC0SAaT2QIlyw+mc9jCxhnze3qZquJrLvkDc5K8PCUpoztjtsh9LrFQn4BQbBI82
+	LwxLffP23cdQzCd8J5V5r9WNqfNLuoMhwHarDuHYWP7sgMU3Uo1re4bgmJ87uHb6QQks6RhFqEf
+	wyHrdFQfXSSmd/2stBjuJDcOPzt355/UIxv6EGVPxzXeJ111CEmHNKudPtNggq9LxRj7Kg/bPTZ
+	Y2BoTcFE/4QRvKvYI53SmOkrNilx1FUMU7CDyXuSbe5eTSz0aCbSi/uVuH+JKY5jAHEtykWso1f
+	0tBUbHIbAauGA+BrLrvwpAiNAp
+X-Received: by 2002:a17:907:7281:b0:c2d:c6e7:9e9f with SMTP id a640c23a62f3a-c2e4ad3fe21mr707178466b.27.1791134181453;
+        Sun, 04 Oct 2026 10:16:21 -0700 (PDT)
 Received: from Desktop (pd9513667.dip0.t-ipconnect.de. [217.81.54.103])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c2e4cd278cesm314885266b.37.2026.10.04.10.16.17
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c2e4cd278cesm314885266b.37.2026.10.04.10.16.20
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 04 Oct 2026 10:16:19 -0700 (PDT)
+        Sun, 04 Oct 2026 10:16:21 -0700 (PDT)
 From: Julius Bairaktaris <julius@bairaktaris.de>
 To: netfilter-devel@vger.kernel.org
 Cc: pablo@netfilter.org,
@@ -77,10 +79,12 @@ Cc: pablo@netfilter.org,
 	linux-kselftest@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	nbd@nbd.name
-Subject: [PATCH nf-next 0/3] netfilter: flowtable: update upper device stats in the fast path
-Date: Sun,  4 Oct 2026 19:16:13 +0200
-Message-ID: <20261004171616.3544880-1-julius@bairaktaris.de>
+Subject: [PATCH nf-next 1/3] 8021q: add vlan_dev_sw_netstats_rx_add() and vlan_dev_sw_netstats_tx_add()
+Date: Sun,  4 Oct 2026 19:16:14 +0200
+Message-ID: <20261004171616.3544880-2-julius@bairaktaris.de>
 X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261004171616.3544880-1-julius@bairaktaris.de>
+References: <20261004171616.3544880-1-julius@bairaktaris.de>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -89,44 +93,71 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-With the software flowtable, packets bypass the bridge, VLAN, PPPoE and
-tunnel devices above the flowtable device, so their counters only see
-the first packets of each connection. The classic forwarding path
-always counts them, so this series does too, without a flag.
+Let code that forwards packets on behalf of a VLAN device update its
+per-cpu counters, like dev_sw_netstats_rx_add() and
+dev_sw_netstats_tx_add() do for devices with tstats. The netfilter
+flowtable fast path uses them in the next patch.
 
-Patch 1 adds VLAN stats helpers; it touches include/linux/if_vlan.h, so
-a netdev ack would let it go through nf-next. Patch 2 updates the
-counters from the fast path with the lengths the classic path counts.
-Patch 3 adds bridge, VLAN and tunnel counter checks to nft_flowtable.sh,
-which fail without patches 1 and 2.
+Assisted-by: Claude:claude-fable-5-1
+Signed-off-by: Julius Bairaktaris <julius@bairaktaris.de>
+---
+ include/linux/if_vlan.h | 36 ++++++++++++++++++++++++++++++++++++
+ 1 file changed, 36 insertions(+)
 
-Hardware offloaded flows are not counted. A GSO packet sent through a
-PPPoE device counts once, not once per segment.
-
-Cost: struct flow_offload grows from 296 to 328 bytes (slab object 320
-to 384). Forwarding from a bridge with a VLAN port to a veth in an x86
-guest, mean of three interleaved runs without/with the series: TCP
-55.7/55.0 Gbit/s, 64 byte UDP 177/173 kpps.
-
-This series was written with the help of an AI coding assistant. I have
-reviewed and tested it.
-
-Julius Bairaktaris (3):
-  8021q: add vlan_dev_sw_netstats_rx_add() and
-    vlan_dev_sw_netstats_tx_add()
-  netfilter: flowtable: update upper device stats in the fast path
-  selftests: netfilter: nft_flowtable.sh: check upper device counters
-
- include/linux/if_vlan.h                       | 36 ++++++++++
- include/net/netfilter/nf_flow_table.h         |  8 ++-
- net/netfilter/nf_flow_table_core.c            |  3 +
- net/netfilter/nf_flow_table_ip.c              | 53 +++++++++++++++
- net/netfilter/nf_flow_table_path.c            |  9 +++
- .../selftests/net/netfilter/nft_flowtable.sh  | 67 +++++++++++++++++++
- 6 files changed, 175 insertions(+), 1 deletion(-)
-
-
-base-commit: 87b80c2f6b05cad9f0ff9136709c62a0f59923e3
+diff --git a/include/linux/if_vlan.h b/include/linux/if_vlan.h
+index 20cc16ea4e5a..4873a12958da 100644
+--- a/include/linux/if_vlan.h
++++ b/include/linux/if_vlan.h
+@@ -231,6 +231,31 @@ vlan_dev_get_egress_qos_mask(struct net_device *dev, u32 skprio)
+ 	return vlan_qos;
+ }
+ 
++static inline void vlan_dev_sw_netstats_rx_add(struct net_device *dev,
++					       unsigned int len)
++{
++	struct vlan_pcpu_stats *stats;
++
++	stats = this_cpu_ptr(vlan_dev_priv(dev)->vlan_pcpu_stats);
++	u64_stats_update_begin(&stats->syncp);
++	u64_stats_inc(&stats->rx_packets);
++	u64_stats_add(&stats->rx_bytes, len);
++	u64_stats_update_end(&stats->syncp);
++}
++
++static inline void vlan_dev_sw_netstats_tx_add(struct net_device *dev,
++					       unsigned int packets,
++					       unsigned int len)
++{
++	struct vlan_pcpu_stats *stats;
++
++	stats = this_cpu_ptr(vlan_dev_priv(dev)->vlan_pcpu_stats);
++	u64_stats_update_begin(&stats->syncp);
++	u64_stats_add(&stats->tx_packets, packets);
++	u64_stats_add(&stats->tx_bytes, len);
++	u64_stats_update_end(&stats->syncp);
++}
++
+ extern bool vlan_do_receive(struct sk_buff **skb);
+ 
+ extern int vlan_vid_add(struct net_device *dev, __be16 proto, u16 vid);
+@@ -249,6 +274,17 @@ static inline bool is_vlan_dev(const struct net_device *dev)
+ 	return false;
+ }
+ 
++static inline void vlan_dev_sw_netstats_rx_add(struct net_device *dev,
++					       unsigned int len)
++{
++}
++
++static inline void vlan_dev_sw_netstats_tx_add(struct net_device *dev,
++					       unsigned int packets,
++					       unsigned int len)
++{
++}
++
+ static inline struct net_device *
+ __vlan_find_dev_deep_rcu(struct net_device *real_dev,
+ 		     __be16 vlan_proto, u16 vlan_id)
 -- 
 2.53.0
 
