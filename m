@@ -1,139 +1,218 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from relay.hostedemail.com (smtprelay0015.hostedemail.com [216.40.44.15])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 98F7C3B42FE;
-	Sun,  4 Oct 2026 07:59:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7520E242910;
+	Sun,  4 Oct 2026 08:00:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=216.40.44.15
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791100753; cv=none; b=MIY1KJj0QSXht+2/k/gTBQJnek8W6DtXifyd/Eh2rOjvk+fcD89xHcEszN/kr1R76uS1zTT28vnu2+fUIEYMpKbarjFXvLOTkdDLRFzvggMtcSKdhqv+oEzL6VUa5bWgMh4cfy4aXvnbGMX5gIH40Vggrq3XGSCKjY1fXbkwIzA=
+	t=1791100826; cv=none; b=N4Eh32N+VexUuBT44o+h4ZrzGQFxuAFct+Ytr9kRWw6b+dNPyTD3m7a5TUnYfDUNM9HpI8UbNjGs0/jr4vmMi6BR5gXGwb1H5nnU70rVbpcIlswHzNn9e5IQTXQa1uMWK8+/KBB9FOpLZwPTP10xUFVECb8eFRal4enKYeLluYE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791100753; c=relaxed/simple;
-	bh=ip5zwZmfrhsFTFJJSlPPKEZZ+EmEl88CikM38xxmG+g=;
-	h=MIME-Version:Date:From:To:Cc:Message-Id:In-Reply-To:References:
-	 Subject:Content-Type; b=Pw0qTzJ9hhajvtCwYaRAot1ButzNFVqKXa2VU4+3VXUMCwRb30B+VrrzCVKwAnCpss+uToYN9dX6pP2k+8UkejJvEsJb51KR5Sam7M/Gi3jx9bUeEn47VcgbTSbLEgx23cE9Wo0Zq4J6eIfT6FvrFJuZQ+G+3l26dkMGI02PvQE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=eTIY7hjK; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791100826; c=relaxed/simple;
+	bh=Jl0QUKYPMtqla6gmPzUJ5UFFsRghDd02m5R/6Q4bkNw=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=ai8oCiGz5CuD9mqta4ROK3XODJDH3KOw8rkP09koLFdHV1RtGgIiBFYHWwPkfjdB3meddee8X+2CGRT4LEa4/OWmM7rUk+N56IEhEKlzZQ+1TUNb7nfK3kYRbelgu+bDdup1dVzNNj+s9iOWcDgyFMb1DwUgugQ5BtEYnnKNqcU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=goodmis.org; spf=pass smtp.mailfrom=goodmis.org; dkim=pass (1024-bit key) header.d=goodmis.org header.i=@goodmis.org header.b=W1OGuJho; arc=none smtp.client-ip=216.40.44.15
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=goodmis.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=goodmis.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="eTIY7hjK"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7AF411F000FF;
-	Sun,  4 Oct 2026 07:59:10 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791100751;
-	bh=ip5zwZmfrhsFTFJJSlPPKEZZ+EmEl88CikM38xxmG+g=;
-	h=Date:From:To:Cc:In-Reply-To:References:Subject;
-	b=eTIY7hjKl6/ZEFLqsHkTJZfahJrWYIhbkVRAtXOQZnxggiX+r1VbgU6aR+qSzp69T
-	 HPZhLNysQoNXZI/VUt4xhevnzGmbvd3qGHpnrs3Aob4coSNRQGfFcQrAoUTSSdqRo7
-	 gnjOGwwkW8xHiMdktBH3cIjVOQUBbuN/pPhuoU/PpT7tqkT7LU4ppu8C3a1en6Ge5i
-	 fzQ79JE6bARUNP3HqejO7VJiemYT7O8i6DkykDJ+mBrv6h5tTwuniM3tKlBDr5S0Jn
-	 iSGRg2Xdi6eMrvYoFugiBjlB85c9JhiViIlB4/LU0+7/oBzXY1Ms9YKjFQ9Bm8juws
-	 FrTigHwsKHx5g==
-Received: from ams-compute-02.internal (ams-compute-02.internal [10.64.2.62])
-	by mailfauth.ams.internal (Postfix) with ESMTP id E26DF198003A;
-	Sun,  4 Oct 2026 03:59:08 -0400 (EDT)
-Received: from ams-imap-11 ([10.64.2.31])
-  by ams-compute-02.internal (MEProxy); Sun, 04 Oct 2026 03:59:08 -0400
-X-ME-Sender: <xms:SQfCap6qTSTVetAJBUV8gdXl9JhptjSuK4NWLF2OzYPImCobNmJMQA>
-    <xme:SQfCahttkmV9PZoaZLcGPxAa9_lpSOWAIszXqlwor--k032meahulYqFHOcxOg42e
-    casPIKhOkQyTc4aRWyQnbdZn7wV_ApxjmX6u7vDBRFvhBYRxTg5a2g>
-X-ME-Proxy-Cause: dmFkZTGcfh3kb6i3UZvVBmS3UPTh4zYgtegthaQzX1uGiLADSMtq8j1AbGaOmxoTrrlmkL
-    sQwsJ7+WXfIEVRZYxb+1XrepinD4fxRoREBJuZwfE4l3nIcCaNg43EqxpVBclLJeIpXR/w
-    4vfOKKVzmBldF2SNSvypKRJ+eItI3rzAmsKdWlNoi3lEoL1ek8QppdLQNN7aN7BX/hsGhL
-    7hjll2pb1buxolwdq04sgfey1ognkma879vWRNTga7zK4/wP1HGVw8bougW0bBc/UZsZmo
-    PMfLcQ/OAQe7K/Bmy21dQHZWvwbnfjmHnGmJO56ie91GWlhMtaxon/qiU3x93hIHtgXsTe
-    Z+p6rUHxORFmbmaphIxW2xzG9eZB40SC/v7Hnzh3xRhXgUMC3Y+4znbIQDtNSmcjzfP+aG
-    E/1Fsnv4WoQIXPG0mZMhRJ70rsU0p/8c4eBDf4Kvp3N62cppUcWrdBW8gb7h3pgAJL3kDJ
-    8PTHKCTfsywseebdNy76QsBQ1F/28pAVgkgoBEtVyhAshX+ic6bt0TCFPRKXUvEbLh+DW7
-    1gknJlECY3tTspLKHiSU8lk54fyrRy293EeoKXgQI5ejnpx7RAjY08opmGFy796T2OnKws
-    XXbXs30tXvqgPVMQRlxbb2up38w4aW4OH+fNwESJI2fd09DWZlRC8tFZ9Vdw
-X-ME-Proxy: <xmx:TAfCanJI787GI1WvB8JnVrFUpc5M50bmnZYKZMRMXNLRXb2CIWiDgQ>
-    <xmx:TAfCalhZRUM02qYes0s2xQarV8O9UT2WGVzWD1Jgd09Vit6UW_LfYA>
-    <xmx:TAfCal26skyv5yIwCd1d0u5HewZtodtm2oFjHPRxsCYmR1wDywnE5A>
-    <xmx:TAfCargLrMq9kb6n0h57JXF5dA8N3nFtevEYm6oY7R3rHtHH5-0W5A>
-    <xmx:TAfCam9Sk8_ObNI9INf30KjmKxfaM0kOW_iTKe24d4qicTf2KcDv79L2>
-Feedback-ID: ice86485a:Fastmail
-Received: by mailuser.ams.internal (Postfix, from userid 501)
-	id BE055F80086; Sun,  4 Oct 2026 03:59:05 -0400 (EDT)
-X-Mailer: MessagingEngine.com Webmail Interface
+	dkim=pass (1024-bit key) header.d=goodmis.org header.i=@goodmis.org header.b="W1OGuJho"
+Received: from omf20.hostedemail.com (lb01a-stub [10.200.18.249])
+	by unirelay01.hostedemail.com (Postfix) with ESMTP id D18571C3EC8;
+	Sun,  4 Oct 2026 08:00:22 +0000 (UTC)
+Received: from [HIDDEN] (Authenticated sender: rostedt@goodmis.org) by omf20.hostedemail.com (Postfix) with ESMTPA id D202F20028;
+	Sun,  4 Oct 2026 08:00:19 +0000 (UTC)
+Date: Sun, 4 Oct 2026 04:00:16 -0400
+From: Steven Rostedt <rostedt@goodmis.org>
+To: Beau Belgrave <beaub@linux.microsoft.com>
+Cc: Jeff Barnes <jeffbarnes@linux.microsoft.com>,
+ linux-trace-kernel@vger.kernel.org, mhiramat@kernel.org,
+ mathieu.desnoyers@efficios.com, linux-kernel@vger.kernel.org,
+ akpm@linux-foundation.org, kees@kernel.org
+Subject: Re: [PATCH] tracing/user_events: Fail fork when event state
+ duplication fails
+Message-ID: <20261004040016.73e9d705@fedora>
+In-Reply-To: <20261002222639.1964370-1-jeffbarnes@linux.microsoft.com>
+References: <20261002222639.1964370-1-jeffbarnes@linux.microsoft.com>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Date: Sun, 04 Oct 2026 09:58:44 +0200
-From: "Ard Biesheuvel" <ardb@kernel.org>
-To: "Prashant Singh" <singhpra@juniper.net>,
- "Sebastian Andrzej Siewior" <bigeasy@linutronix.de>
-Cc: "Jeremy Kerr" <jk@ozlabs.org>, "Clark Williams" <clrkwllms@kernel.org>,
- "Steven Rostedt" <rostedt@goodmis.org>, "Jonathan Corbet" <corbet@lwn.net>,
- "Shuah Khan" <skhan@linuxfoundation.org>,
- "Randy Dunlap" <rdunlap@infradead.org>,
- "Luis Claudio R. Goncalves" <lgoncalv@redhat.com>,
- "Steve McIntyre" <93sam@debian.org>, linux-efi@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org,
- linux-rt-devel@lists.linux.dev
-Message-Id: <4491d728-64f6-4ab1-aae2-22bce34a9b18@app.fastmail.com>
-In-Reply-To: <20261001012011.30525-1-singhpra@juniper.net>
-References: <20260928203445.72318-1-singhpra@juniper.net>
- <20260929074312.v3jT8uel@linutronix.de>
- <59d5452c-42b1-4784-a593-5e549a2a0f12@app.fastmail.com>
- <20260929151401.doOQX7D0@linutronix.de>
- <20260930013500.10273-1-singhpra@juniper.net>
- <20260930063217.eWGJ_JpZ@linutronix.de>
- <20261001012011.30525-1-singhpra@juniper.net>
-Subject: Re: [PATCH v4] efivarfs: add nostatfs mount option to skip QueryVariableInfo()
-Content-Type: text/plain
+Content-Type: text/plain; charset=US-ASCII
 Content-Transfer-Encoding: 7bit
+X-Stat-Signature: 1i31w1no6s4f9ttqy1bp4h1d4ofyjmj1
+X-Rspamd-Server: rspamout04
+X-Rspamd-Queue-Id: D202F20028
+X-Session-Marker: 726F737465647440676F6F646D69732E6F7267
+X-Session-ID: U2FsdGVkX18fjA6zdy2JHpUiLYwyhxgfp5zsBh3V518=
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=goodmis.org; h=date:from:to:cc:subject:message-id:in-reply-to:references:mime-version:content-type:content-transfer-encoding; s=dkim1; bh=jY0zActzIiPPhJb0/A11zbtc3xvaDD0iYdW7j1Sh59E=; b=W1OGuJhoYIsLiMcYyfGhHHiDu1ocVrz7GZmJRonF8zPY2ERVZ4/9SJl/JGnvQGsD5UFvD1qsl1+uyxGOb2Z3Rn+BCggh0DZ2pZvZzCdgTlFV+fjIhfBPoy1caQZut8YRhSaXWCwmRfhofK4JhcT3OZFu+4WQhwquN9t57BR86aE=
+X-HE-Tag: 1791100819-689535
+X-HE-Meta: U2FsdGVkX1+gTjfo3ihDbWEy5974jSLU8pi2jAygXJZJWIMX0c5+KagDeKWSxJr4QDotZrEhvB743aJGMYcgYn4UCENV1O3h9VLtoeYAJY8hXr7sdgav7mZEUGOrpZn6Dy3Rl0yWJHexxuO5yJ2G4yoEUqs+c4aFj4RQg3fM/3jDvYa2dWPp57yQVAE0Zp/B8iyrl4mDdM1p1NEoSKWlWKPscojkEvfzAiMkaJarpScBVRzOJgXq+Eq+ZUkB4p1J43duHhsi+gSLvMTwUXXKQVDIe7PYJ0ev7FcZ/ZH5brgFbamGkBcLKiDvR56U6lE1qALObtPAHjNMgxjlIc9VDEj7H1vUholN1+dS1DEBkDX/vPpYWuWsJQ==
+
+Beau,
+
+Can you review this?
+
+Thanks,
+
+-- Steve
 
 
-On Thu, 1 Oct 2026, at 03:20, Prashant Singh wrote:
-> Thanks Ard and Sebastian for the comments.
->
-...
->>AFAICT, that would potentially leave KCSAN instrumentation on the reboot
->>path, which might trigger and interfere with the reboot. So instead,
->>I'd like to put this in efi_reboot_required if we can. If it is needed
->>in more places to address an actual KCSAN splat, I don't mind. If it is
->>just to make Sashiko happy, then we shouldn't bother.
->
-> Could you please clarify what you mean by efi_reboot_required here? nostatfs
-> is only read in efivarfs_statfs(), efivarfs_show_options() and
-> efivarfs_init_fs_context(), none of which run on the reboot path, so I'm
-> not sure how it would apply.
->
+On Fri,  2 Oct 2026 18:26:39 -0400
+Jeff Barnes <jeffbarnes@linux.microsoft.com> wrote:
 
-Apologies, I managed to completely confuse myself here. Forget what I said
-here, please :-)
+> Registered user events are retained across fork, but duplicating their
+> state for a child with a separate mm can fail. Both user_event_mm_dup() and
+> user_events_fork() currently return void, so allocation failure silently
+> creates a child without the inherited registration state.
+> 
+> The child can consequently retain a stale copy-on-write enable word and
+> miss later event enable and disable updates.
+> 
+> Return an error from user_event_mm_dup() and user_events_fork(), and
+> perform the duplication in copy_process() while failure can still be
+> unwound. Return -ENOMEM when the child user_event_mm or any of its enablers
+> cannot be duplicated.
+> 
+> Add a cleanup path so successfully acquired user-events state is removed if
+> a later fork operation fails. Preserve the existing CLONE_VM behavior and
+> its task reference accounting.
+> 
+> A deterministic allocation-failure test on upstream master previously
+> allowed fork() to succeed while the child missed an enablement update. With
+> this change, the same fork fails with ENOMEM. The complete user_events ABI
+> suite passes.
+> 
+> Fixes: 7235759084a4 ("tracing/user_events: Use remote writes for event enablement")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Jeff Barnes <jeffbarnes@linux.microsoft.com>
+> ---
+>  include/linux/user_events.h      | 16 +++++++---------
+>  kernel/fork.c                    |  8 ++++++--
+>  kernel/trace/trace_events_user.c |  8 +++++---
+>  3 files changed, 18 insertions(+), 14 deletions(-)
+> 
+> diff --git a/include/linux/user_events.h b/include/linux/user_events.h
+> index 57d1ff006090..75f184126727 100644
+> --- a/include/linux/user_events.h
+> +++ b/include/linux/user_events.h
+> @@ -27,28 +27,26 @@ struct user_event_mm {
+>  	struct rcu_work		put_rwork;
+>  };
+>  
+> -extern void user_event_mm_dup(struct task_struct *t,
+> -			      struct user_event_mm *old_mm);
+> +int user_event_mm_dup(struct task_struct *t, struct user_event_mm *old_mm);
+>  
+>  extern void user_event_mm_remove(struct task_struct *t);
+>  
+> -static inline void user_events_fork(struct task_struct *t,
+> -				    u64 clone_flags)
+> +static inline int user_events_fork(struct task_struct *t, u64 clone_flags)
+>  {
+>  	struct user_event_mm *old_mm;
+>  
+>  	if (!t || !current->user_event_mm)
+> -		return;
+> +		return 0;
+>  
+>  	old_mm = current->user_event_mm;
+>  
+>  	if (clone_flags & CLONE_VM) {
+>  		t->user_event_mm = old_mm;
+>  		refcount_inc(&old_mm->tasks);
+> -		return;
+> +		return 0;
+>  	}
+>  
+> -	user_event_mm_dup(t, old_mm);
+> +	return user_event_mm_dup(t, old_mm);
+>  }
+>  
+>  static inline void user_events_execve(struct task_struct *t)
+> @@ -67,9 +65,9 @@ static inline void user_events_exit(struct task_struct *t)
+>  	user_event_mm_remove(t);
+>  }
+>  #else
+> -static inline void user_events_fork(struct task_struct *t,
+> -				    u64 clone_flags)
+> +static inline int user_events_fork(struct task_struct *t, u64 clone_flags)
+>  {
+> +	return 0;
+>  }
+>  
+>  static inline void user_events_execve(struct task_struct *t)
+> diff --git a/kernel/fork.c b/kernel/fork.c
+> index 10f2d05d816a..9e3da2e6059f 100644
+> --- a/kernel/fork.c
+> +++ b/kernel/fork.c
+> @@ -2311,9 +2311,12 @@ __latent_entropy struct task_struct *copy_process(
+>  	retval = copy_mm(clone_flags, p);
+>  	if (retval)
+>  		goto bad_fork_cleanup_signal;
+> -	retval = copy_namespaces(clone_flags, p);
+> +	retval = user_events_fork(p, clone_flags);
+>  	if (retval)
+>  		goto bad_fork_cleanup_mm;
+> +	retval = copy_namespaces(clone_flags, p);
+> +	if (retval)
+> +		goto bad_fork_cleanup_user_events;
+>  	retval = copy_io(clone_flags, p);
+>  	if (retval)
+>  		goto bad_fork_cleanup_namespaces;
+> @@ -2575,7 +2578,6 @@ __latent_entropy struct task_struct *copy_process(
+>  
+>  	trace_task_newtask(p, clone_flags);
+>  	uprobe_copy_process(p, clone_flags);
+> -	user_events_fork(p, clone_flags);
+>  
+>  	copy_oom_score_adj(clone_flags, p);
+>  
+> @@ -2602,6 +2604,8 @@ __latent_entropy struct task_struct *copy_process(
+>  		exit_io_context(p);
+>  bad_fork_cleanup_namespaces:
+>  	exit_nsproxy_namespaces(p);
+> +bad_fork_cleanup_user_events:
+> +	user_events_exit(p);
+>  bad_fork_cleanup_mm:
+>  	sched_cache_fork_cleanup(p);
+>  	if (p->mm) {
+> diff --git a/kernel/trace/trace_events_user.c b/kernel/trace/trace_events_user.c
+> index f658c3a77aa7..8941c8d7c193 100644
+> --- a/kernel/trace/trace_events_user.c
+> +++ b/kernel/trace/trace_events_user.c
+> @@ -863,7 +863,7 @@ void user_event_mm_remove(struct task_struct *t)
+>  	queue_rcu_work(system_percpu_wq, &mm->put_rwork);
+>  }
+>  
+> -void user_event_mm_dup(struct task_struct *t, struct user_event_mm *old_mm)
+> +int user_event_mm_dup(struct task_struct *t, struct user_event_mm *old_mm)
+>  {
+>  	struct user_event_mm *mm = user_event_mm_alloc(t);
+>  	struct user_event_enabler *enabler;
+> @@ -872,7 +872,7 @@ void user_event_mm_dup(struct task_struct *t, struct user_event_mm *old_mm)
+>  	t->user_event_mm = NULL;
+>  
+>  	if (!mm)
+> -		return;
+> +		return -ENOMEM;
+>  
+>  	rcu_read_lock();
+>  
+> @@ -884,10 +884,12 @@ void user_event_mm_dup(struct task_struct *t, struct user_event_mm *old_mm)
+>  	rcu_read_unlock();
+>  
+>  	user_event_mm_attach(mm, t);
+> -	return;
+> +	return 0;
+>  error:
+>  	rcu_read_unlock();
+>  	user_event_mm_destroy(mm);
+> +
+> +	return -ENOMEM;
+>  }
+>  
+>  static bool current_user_event_enabler_exists(unsigned long uaddr,
 
-> On the annotation itself: an internal review flagged a potential KCSAN
-> data race rather than an observed splat -- statfs() can run concurrently
-> with a remount updating the flag, so it is a genuine (benign) concurrent
-> access. I ran concurrent statfs/remount loops on separate CPUs under
-> KCSAN and didn't trigger a report in a bounded run, which could be
-> expected given KCSAN samples accesses, so it doesn't disprove the race.
-> Since KCSAN only needs one side of the pair marked, data_race() on the
-> write covers both readers and the reads stay plain. I'm happy to drop it
-> entirely if you'd prefer to keep the benign race unannotated.
->
-
-No, let's keep it as you suggest.
-
->>Please keep this description _here_ where you have it. Once this is
->>merged, you could send another patch, extending the documentation with
->>the statfs option (I think the workqueue change is in).
->
-> Sure -- I'll keep it in Documentation/filesystems/efivarfs.rst for now
-> and send a follow-up extending Documentation/core-api/real-time/hardware.rst
-> once this is merged.
->
->>You still have the problem that someone reading the variable leads to
->>the same problem but this requires a privileged user. And if I am not
->>mistaken, someone sent patches to have efi-runtime runtime disabled/
->>enabled.
->
-> Agreed -- the variable-read path is the same, but needs a privileged
-> user unlike the unprivileged statfs()/df trigger.
->
-
-Indeed - this is only about anyone with read permissions on the mount
-point being able to trigger this. And looking at your results, the
-rate limit we added recently might be a bit too permissive as well.
