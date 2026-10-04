@@ -1,79 +1,73 @@
-Received: from mail-106104.protonmail.ch (mail-106104.protonmail.ch [79.135.106.104])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 80D183C1087
-	for <linux-kernel@vger.kernel.org>; Sun,  4 Oct 2026 07:43:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=79.135.106.104
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5170F2E4257
+	for <linux-kernel@vger.kernel.org>; Sun,  4 Oct 2026 07:43:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791099796; cv=none; b=bkNnkZzHwsOCX8+npeXTR1GvtTUZxmzOR/Mo4YF+X4LxnYq7KeYo405YsdB7t8YTirtMoyskqG09iI5lYa3dk9+TcHvjovgiyf/KtZkJ249lYF1Mhm0uVp+A2kahpbRZg0PJW3B/XbFLQn6Q8M6La0kjKFWKppS/o+ePTc/pe2o=
+	t=1791099824; cv=none; b=iR1vtwSqtCGFmvhfgT16NrxafrIlPe8Xju7CE9HHZpA0AfHFe8HHNI25YJC7LYnj6FhBIct2UcYZGz3TP9CngrqHhYykIHpBVEUgDWwQZ1sKoVmPB5eLQNzO2f3MBKvR0Fh3awTpulo3fWyXhpHsZxRx5K+IE99qpCAzX5/ocds=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791099796; c=relaxed/simple;
-	bh=Qdy6vOu1A+6iXuVteDnntXtQtq/5gyAVkxhMeGuCOMc=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=AvmNttUnrwRm0xmOrIpvi/LmGFpW5d2D+nSK1C5nFjZCLorSpaUIbIDtfpzESUzcHuSfPGa13n2hP+AIlXQOMUwq6Cg5/QOkuRK0YCYUQf4eL9oGSEWUDFLt7IfadRLkAtMEVvVuYf4kLPjeRmKFmuJ6UAi6wvugAnO9rS63KL0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=proton.me; spf=pass smtp.mailfrom=proton.me; dkim=pass (2048-bit key) header.d=proton.me header.i=@proton.me header.b=DOd5FFhu; arc=none smtp.client-ip=79.135.106.104
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=proton.me
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=proton.me
+	s=arc-20240116; t=1791099824; c=relaxed/simple;
+	bh=1ftuBpDVqiLs+X/1Z4i/fTkYeG8rnGta3flkDPwSnIQ=;
+	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
+	 Content-Disposition; b=mb+Q05sTrYxZUTJ0/5T4JpIiAuVU5bvtmM194QIBvDFpeEhfu60Sa82p7twJeaZ65qsrw9mp6LtKZ1m0La/DGP6GBMlgGcKCqYf2UFqAutkPd4nHaF34AF/H/niXcNSiRenraHTuz7FMnqVyUjOaQ8ILtvA2PRxMewUDHiRLic8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=k61gGGgZ; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=proton.me header.i=@proton.me header.b="DOd5FFhu"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=proton.me;
-	s=protonmail2; t=1791099783; x=1791358983;
-	bh=yifafxUrjg/Fd7QBGFO2iPLzYAKnyZdf4PUzNYV7Gb0=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
-	 Message-ID:BIMI-Selector;
-	b=DOd5FFhunrt+zD+vNC84E4y045F/9ULue8ekFOziNsN/ICOnKF71W+hvG8WL+ICw1
-	 vrFHHHxOyohSqC5ae6Z7Myrp6pA5xlI/+3zRyJkSDX03W+GjUJaXKA8IIbtJpOelDL
-	 Ms2Mcypo7NtSJkKcBen12+yl63CnZtl8xt8OqNrYtDYvOxwXZ703PX9IVyiy6DDcqO
-	 I2E2FAfcrer5s+OI7NHPZXxNTn3INZeMkIkoVYZVyl09JM9bc6dl1jXDMlHnNDwIFJ
-	 T0wimsKioxLCJSwfiJaILlKNNJBdz58y1i1NMsE1yxvEabitQJgNIYjA887G82QB4n
-	 miYJDnKG5zs6g==
-Date: Sun, 04 Oct 2026 07:42:56 +0000
-To: Eric Dumazet <edumazet@kernel.org>
-From: quanyeyang <quanyeyang@proton.me>
-Cc: John Fastabend <john.fastabend@gmail.com>, Jakub Kicinski <kuba@kernel.org>, Sabrina Dubroca <sd@queasysnail.net>, "David S. Miller" <davem@davemloft.net>, Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, Jakub Sitnicki <jakub@cloudflare.com>, Jiayuan Chen <jiayuan.chen@linux.dev>, netdev@vger.kernel.org, linux-kernel@vger.kernel.org, bpf@vger.kernel.org
-Subject: Re: [PATCH net-next v2 2/2] net: annotate lockless writes to sk->sk_err
-Message-ID: <9NcBQjsEuykTInATuaBUjtFtdQznS1jzk-VuRI7-tbKzaeDqQ2Pfs4YGURFT_x8LJOwEkXgndIfjX1dV_3-hffCHBuBQHoAEFwKZGltO79A=@proton.me>
-In-Reply-To: <CAL4WiirzoFX6W01xKK4uAiQ+BzecwidVDH8uB9f3cPsiVV_iww@mail.gmail.com>
-References: <20261003-tls-fix-sk-kcsan-err-v2-0-e939a2ebdd56@proton.me> <20261003-tls-fix-sk-kcsan-err-v2-2-e939a2ebdd56@proton.me> <CAL4WiirzoFX6W01xKK4uAiQ+BzecwidVDH8uB9f3cPsiVV_iww@mail.gmail.com>
-Feedback-ID: 206494642:user:proton
-X-Pm-Message-ID: b9a41c3cb9bafcb8fcf3de09dd1d623a0e3e70ee
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="k61gGGgZ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1866E1F000FF;
+	Sun,  4 Oct 2026 07:43:40 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791099823;
+	bh=hemtFChyzvGf7rcXcGKutVCVshhWY4Sdwu58nmE2jZU=;
+	h=Date:From:To:Cc:Subject;
+	b=k61gGGgZ6HNpjnCs+b2vLkWNr9gGLuYpIdohF57VGCgKpIB9PtplU6tkx7oZU47fA
+	 ZKJdyHE9/ljURsIeJfXGK2vrvkS9QCJEdjFGZueL15I7RBQRt3V2GFf5urHIFYMFYg
+	 RlXYvLbepE2PXOwvxJ6jlu7HcBrkMHior7NtiLqGrXEtC0SnJFNfH1Xl0JTDftjMNX
+	 ucqXf4p9yXwcF2eGsvJlPDcVDl3x9zQpAMiO/5iQ9ymL6EwTOm/2oFtix+AQIHu8EW
+	 ERwuKN3BITTt98kc+i/N++0yUol01LebtdTNOIat3r4SzF6BYSy5zYoV1qflGyFmIL
+	 +67slhnM5eRmA==
+Date: Sun, 4 Oct 2026 09:43:37 +0200
+From: Ingo Molnar <mingo@kernel.org>
+To: Linus Torvalds <torvalds@linux-foundation.org>
+Cc: linux-kernel@vger.kernel.org, Thomas Gleixner <tglx@linutronix.de>,
+	Daniel Lezcano <daniel.lezcano@linaro.org>,
+	Peter Zijlstra <peterz@infradead.org>,
+	Anna-Maria Behnsen <anna-maria@linutronix.de>,
+	Frederic Weisbecker <frederic@kernel.org>,
+	Oleg Nesterov <oleg@redhat.com>
+Subject: [GIT PULL] timer subsystem fix
+Message-ID: <asIDqVbUHoqIkkfP@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-On Sunday, October 4th, 2026 at AM 12:14, Eric Dumazet <edumazet@kernel.org=
-> wrote:
+Linus,
 
->=20
-> Has this patch changed between V1 and V2 ?
->=20
-> You are supposed to carry the Acked-by and Reviewed-by tags collected
-> during prior iterations.
-On Sun, Oct 4, 2026 at ... Eric Dumazet wrote:
-> Has this patch changed between V1 and V2 ?
->
-> You are supposed to carry the Acked-by and Reviewed-by tags collected
-> during prior iterations.
+Please pull the latest timers/urgent Git tree from:
 
-No, 2/2 is identical to v1. Sorry for the extra pass =E2=80=94 I should hav=
-e
-said "Patch 2: unchanged" in the v2 changelog and kept your tag.
+   git://git.kernel.org/pub/scm/linux/kernel/git/tip/tip.git timers-urgent-2026-10-04
 
-Thanks for the Reviewed-by.
+for you to fetch changes up to 28fa9af353bed2bb738c46e31f9b7d0347b759d1:
 
->=20
-> Please help reviewers, they need to recover their precious time.
+Timer fix:
 
-Thanks, I'll pay attention to this next time.
+ - Fix task work flags management regression in the hrtimer
+   rearming code that can leave task work items unprocessed
+   (Karl Mehltretter)
 
->=20
-> Reviewed-by: Eric Dumazet <edumazet@kernel.org>
->=20
-> Thank you.
-> 
+ Thanks,
+
+	Ingo
+
+------------------>
+Karl Mehltretter (1):
+      hrtimer: Use the mask to clear TIF_HRTIMER_REARM from the exit work
+
+
+ include/linux/hrtimer_rearm.h | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
