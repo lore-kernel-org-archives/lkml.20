@@ -1,115 +1,170 @@
-Received: from mail-pz2-f37.google.com (mail-pz2-f37.google.com [74.125.228.37])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A384235DA47
-	for <linux-kernel@vger.kernel.org>; Sun,  4 Oct 2026 17:20:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.37
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1EDCE3B1ED1
+	for <linux-kernel@vger.kernel.org>; Sun,  4 Oct 2026 17:21:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791134431; cv=none; b=PmSKJj/Thl7+GmuVRZKH8kHMQZW/NGCJTxoJ+3KuOpZVTwNIH9LmR5f2gwUYNxaabNZUi+avLCyj+wr/+u6jhHbrLe5U66G7L4xpuHyG+o8IdZKDr1RHsFrb819vgddED+uH1KbK7ENVPGzZzn3q2qtrtDJ3jJscoeP5bF1qkmY=
+	t=1791134475; cv=none; b=cQrU0uHDzqxcTvULoTMSmLaSjdXhHJb8X89rM9aT5JcvIdWldhwZICAhXzX5efuu1PZilHo3DBY8q5ceaXq8zSZy8hjKqJNaPkehUNI9SWDn4KMla+uznOOzYT8I9fGR+JFMasnQYvIr5UYOQRRUl1OunaEaa0RWPkw1jY1Ad+Q=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791134431; c=relaxed/simple;
-	bh=KAXZBx+vMoqzIwrf2B+z+XaUwa7q7Z784M6ZiaaYhy0=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=JnIpEDaTKAc2BEzoSRyCWKdQSxpRJZRAnHt+w2gJwlw/4ceDyGBCPE8AcqwH43+FeWG7WiUDtkixDaCR0VgvM0ZV2uKFWGBSVuRh3dJ8/KjHdMDVHxieGCGDL4YGa2jmZFWz0IlIGsgOa2kkdhaqGCU0zr+58+UoOGE3gN5nhlc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=snu.ac.kr; spf=pass smtp.mailfrom=snu.ac.kr; dkim=pass (1024-bit key) header.d=snu.ac.kr header.i=@snu.ac.kr header.b=MsdH2Gr0; arc=none smtp.client-ip=74.125.228.37
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=snu.ac.kr
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=snu.ac.kr
+	s=arc-20240116; t=1791134475; c=relaxed/simple;
+	bh=EAAFOqf3wmhorsMh+GsgYfXBmxlYQ3uWSZ47M6cFQ3E=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
+	 MIME-Version:Content-Type; b=oCYP8h+lB8i52s8fLKdxUict88VMSNbysKbM79074yGQaRYBc60kZfLfzYslYpx5ZzOoZFOjwPwcOEkg2+ClJZsdJgPq8uNxv2OTF+JcO6Wczhxsli64Prl+invp7vUS0fkWr7GH/TdnPK30aSS2OR7O5bAdAdOhKobS7HWrjNk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dRc8M5K5; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=snu.ac.kr header.i=@snu.ac.kr header.b="MsdH2Gr0"
-Received: by mail-pz2-f37.google.com with SMTP id d2e1a72fcca58-887c067c816so235604b3a.2
-        for <linux-kernel@vger.kernel.org>; Sun, 04 Oct 2026 10:20:25 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=snu.ac.kr; s=google; t=1791134425; x=1791739225; darn=vger.kernel.org;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=9llYwK8ATqeQ0l/9KM8Jc4lwes7XVac/+xvUv1fpjIw=;
-        b=MsdH2Gr0t07rStMrr5r2L1mwvjNMWKy6sohb8bwE7Gqyyb+WukYwkhGzZyAcBD+LIY
-         BVsEF2PIH819OEQgiU3ioL7rCO1oBpnxuQw2BmUilf0i8ifjmUeEmRuuhA1HUJuy8mGY
-         F0KdE+byBJ7BjQNyc87fX+Vrtb3eRvFNsZvlc=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791134425; x=1791739225;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=9llYwK8ATqeQ0l/9KM8Jc4lwes7XVac/+xvUv1fpjIw=;
-        b=OryaahSJfL9FcK75sQMzlmmuFXBZXPUx4g0o7JzxryBt8FmDbSzZYiNNpUUA+3IKVi
-         uWAn8K7csydF933ZTS6/QijrCrt88QXYvSJkbXBykBGSfZlvKoGdqlYvaS1zNXXLnnOv
-         n4JZ4dUrLYMo7+w5lsENkQhux91R1hNfXoxBMXI2VFDb3jKfCiv+y9GdlEErW5BWI+86
-         7AzePeZMJNYeMIt7dAkVVr3KTWiOf3moWr9bPM/hCBM2tO59yWvXHkskJDm1tlD4EYNS
-         51VDDYtYGWET3PI0GU8i5vFKVEMH5cQ0l8vBYxgOEWRkRjry2Hjco+2hiq9ti2bEbOCL
-         WjPQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwvBZunrB4GFmjqLg2dNKu0RO6TRlYVSYwnt3RlZ03EG9fGrzdTpbCbEWBn+5fWs6mUaVvpuMO4Xkw89Po=@vger.kernel.org
-X-Gm-Message-State: AFuF++mOmRLzWGj9VnpTBaMN7Fn9Vz+YkmYIKufRyOyL6WO+EWp0MZH5
-	J+S+F+ZI7dF17zJj7UHyW9ZeUJaWxuQXrDVcSBQDyaysszO74ZGy1hKtn7rAKPJUTrU=
-X-Gm-Gg: AYBFou2yY8rkLUC6z/pvEzwG/ghvM4B6FwALPTFOGMdwYS1dIvTyhGQazpZA9pAwyab
-	C4ohJG8uq+IGJy0pZZDIKcMLsDNpbXn9fKJsniw+4MSJev4I1BPn1YBRNRnyXSyv2EF8GD/39+K
-	wjZGbYX3SMTUIM8Q1PhPWah1CofwzbPcf24FhCy/MVDtQe/B9yZX18ewktD3KhQgPoy7KKagHdZ
-	m6jC1tZ0O81MiwfeICzbRUKpAywEsyBb1hk1Mi/t8S/yfqGSaaLSrbChJ2mLnKcSYRI+R1n397h
-	sFh3VbOSMUqAT3deyJ1b0yA7+mtUCk9ujJx5cT8Tk2MQsLf5IgcAF4BS7k8YN6Pg9d3Vr0tkoPX
-	Rs/ZblU7Bz2/71Tjot4DaR3t3g9FSvLt4E1Nh3FVL71HjSxbgR3XJs64v/580kSzqzQdFKj8tUi
-	CjCGAKhqXNSJwHkq6rXkvPsC39VwNOHlyZGyF0kDUhdUpRY4VOBkAfPIEf+orMOual
-X-Received: by 2002:a05:6a00:1144:b0:880:5fe5:a818 with SMTP id d2e1a72fcca58-88af8377fb6mr7571704b3a.59.1791134425036;
-        Sun, 04 Oct 2026 10:20:25 -0700 (PDT)
-Received: from [172.19.0.2] ([49.142.45.25])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-88c88759fc5sm1263302b3a.56.2026.10.04.10.20.20
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 04 Oct 2026 10:20:23 -0700 (PDT)
-From: Seongjun Hong <hsj0512@snu.ac.kr>
-Date: Sun, 04 Oct 2026 17:20:10 +0000
-Subject: [PATCH] vfio/mlx5: Fix boundary check in set_report_output()
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dRc8M5K5"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D536B1F000FF;
+	Sun,  4 Oct 2026 17:21:11 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791134473;
+	bh=5DHJ05YuSaH+xr8cKdC4cMoW1ZLSjTRGXK11CvcxzcE=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date;
+	b=dRc8M5K5uZMZIVGAAwj7Y7uhyYSUbAcWbnq+NtuV/keIDnxjDLhJJIcmxQIkLoCzR
+	 33+SxYgjWcYH8y9a1+FKiwzTMFn5drCn7RebxPcOa+PMlUQkU4D7xznSJc25AQfrWJ
+	 I0I5UYHGbP/vnztJHoPEcqicUXsjX2zH8/9PJTh6ZS7/oO/40JhyTmNxxgwQ/6PKVA
+	 tIF9Nu0lWRhVXfnXJUCP49MXSlKlYbsmKS6w9TY6oKunJkslNtsNgrLS1bBdnP7QVD
+	 1SE6+4jXIwIl5NSkUaDznyxrjDrCo33BvokSYO2oeVm86q/I6+pirNn5xN3BNE6URC
+	 2mW0Jacr6qckA==
+From: Pratyush Yadav <pratyush@kernel.org>
+To: Samiullah Khawaja <skhawaja@google.com>
+Cc: Pasha Tatashin <pasha.tatashin@soleen.com>,  Mike Rapoport
+ <rppt@kernel.org>,  Pratyush Yadav <pratyush@kernel.org>,  Alexander Graf
+ <graf@amazon.com>,  David Matlack <dmatlack@google.com>,
+  tarunsahu@google.com,  open list <linux-kernel@vger.kernel.org>,  "open
+ list:KEXEC HANDOVER (KHO)" <kexec@lists.infradead.org>,  "open list:KEXEC
+ HANDOVER (KHO)" <linux-mm@kvack.org>
+Subject: Re: [RFC PATCH 0/6] Introduce file handler dependency level
+In-Reply-To: <20261001005734.1033516-1-skhawaja@google.com> (Samiullah
+	Khawaja's message of "Thu, 1 Oct 2026 00:57:28 +0000")
+References: <20261001005734.1033516-1-skhawaja@google.com>
+Date: Sun, 04 Oct 2026 19:21:10 +0200
+Message-ID: <2vxz4if1l6ux.fsf@kernel.org>
+User-Agent: Gnus/5.13 (Gnus v5.13)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261004-vfio-mlx5-fix-boundary-check-v1-1-1d3b8e55e23f@snu.ac.kr>
-X-B4-Tracking: v=1; b=H4sIAMmKwmoC/x3M3wpAMBSA8VfRuXZq5k94FbmY7eCETVtE8u6Wy
- 199fQ8E8kwB2uQBTycHdjYiSxPQs7ITIZtokEJWmRAFniM73NarxJEvHNxhjfI36pn0gkWdN6Z
- SpAeSEBe7p1j9+65/3w+PkIRwbgAAAA==
-To: Yishai Hadas <yishaih@nvidia.com>, Jason Gunthorpe <jgg@ziepe.ca>, 
- Shameer Kolothum <skolothumtho@nvidia.com>, 
- Kevin Tian <kevin.tian@intel.com>, Alex Williamson <alex@shazbot.org>
-Cc: kvm@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Seongjun Hong <hsj0512@snu.ac.kr>
-X-Mailer: b4 0.13.0
+Content-Type: text/plain
 
-Use > instead of >= on boundary check of recv_buf to avoid the bug which
-the full message in the last slot of recv_buf is ignored even though the
-received data size does not overflow the recv_buf.
+Hi Sami,
 
-Clarify the second boundary condition by removing unnecessary division by
-entry_size. It directly shows that size should be within qp->max_msg_size.
+I've skimmed the patches. I didn't dive too deep into the code, but here
+is at least my first reaction.
 
-Fixes: 9c7c5430bca3 ("vfio/mlx5: Align the page tracking max message size with the device capability")
-Signed-off-by: Seongjun Hong <hsj0512@snu.ac.kr>
----
- drivers/vfio/pci/mlx5/cmd.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+On Thu, Oct 01 2026, Samiullah Khawaja wrote:
 
-diff --git a/drivers/vfio/pci/mlx5/cmd.c b/drivers/vfio/pci/mlx5/cmd.c
-index 5fe0621b5fbd..a49531666e6d 100644
---- a/drivers/vfio/pci/mlx5/cmd.c
-+++ b/drivers/vfio/pci/mlx5/cmd.c
-@@ -1644,8 +1644,8 @@ set_report_output(u32 size, int index, struct mlx5_vhca_qp *qp,
- 	int i;
- 
- 	buf_offset = index * qp->max_msg_size;
--	if (WARN_ON(buf_offset + size >= qp->recv_buf.npages * PAGE_SIZE ||
--		    (nent > qp->max_msg_size / entry_size)))
-+	if (WARN_ON(buf_offset + size > qp->recv_buf.npages * PAGE_SIZE ||
-+		    size > qp->max_msg_size))
- 		return;
- 
- 	do {
+> LUO allows preservation of FDs into sessions. An FD can depend on other
+> FDs, and for some FDs this can mean the dependency must be preserved
+> before it due to various reasons including immutability and performance.
+> See discussion on FD dependency patch series [1] and documentation [2]
+> for details. Also see the Liveupdate IOMMU [3] and guest_memfd
+> preservation [4] patch series for examples. These dependencies are
+> enforced by the file handlers, and userspace is responsible for
+> preserving the FDs in the correct order.
+>
+> This RFC proposes a mechanism that allows userspace to preserve the FDs
+> as a batch, and the kernel preserves them in the required order. This
+> allows the VMM to preserve a bag of FDs without worrying about the
+> order. A new ioctl is added that allows userspace to provide an array of
+> FDs and tokens for preservation. This gives the kernel the token and the
+> intent to preserve every FD in the batch up front.
+>
+> This RFC introduces the concept of file handler levels. Each file
+> handler offers a certain type of resource or functionality that relates
+> to other file handlers. These can be represented by levels. This RFC
+> adds the following levels and more can be added later:
+>
+>  - Default (no level set)
+>  - Memory Providers
+>  - Memory Mappers (or users)
+>  - Devices
+>
+> The levels are optional static configurations of how the file handlers
+> relate to each other. Each level represents a class of file handler,
+> which fixes the order of preservation between them.
+>
+> The levels are spaced out to allow addition of new levels. LUO can use
+> these levels to deduce the order of preservation of a batch of FDs.
 
----
-base-commit: 6addb4f385570ebc11c4eb499a4f1c149f313e84
-change-id: 20261004-vfio-mlx5-fix-boundary-check-4839d6aecbe2
+I think you need to explain what problem you actually solve here.
 
-Best regards,
+This seems like a lot of complexity to essentially turn file handler
+dependencies into heuristics. Because you basically assign a "priority
+number" to each file type. But dependencies can really be complicated
+and I think modelling them as absolute integers is going to paint us in
+a corner real quick.
+
+And I don't get what this buys us. Why not take the much much simpler
+path where a file handler just rejects a file if its dependency isn't
+there? This would force userspace to preserve files in the right order.
+
+And userspace doesn't necessarily have to to anything complicated
+either. It just needs to write the code in a way that a memfd is
+preserved before its iommufd. So we leave it up to userspace to figure
+out the order, and in the kernel we only _enforce_ it.
+
+This also lets us express the real dependencies and we don't have to do
+the dance of giving each file type a number and trying to make sure the
+number sits in the right place on the list for all use cases.
+
+Or, if you _don't_ want to burden userspace with this work, why not take
+the files in any order and do the final check at freeze()?
+
+>
+> The batch is atomic: either all FDs are preserved or none are, and on
+> failure the index of the failing FD is returned to userspace. The
+> existing LIVEUPDATE_SESSION_PRESERVE_FD ioctl is unchanged and behaves
+> as a batch of one. Note that this does not break compatibility and
+> userspace can still attempt to preserve FDs individually using the
+> existing preservation ioctl.
+>
+> The patch series builds on top of the Liveupdate IOMMU series [3] to
+> demonstrate the FD dependency. The full tree, including the
+> dependencies, is available at:
+> https://github.com/samikhawaja/linux/tree/luo/fd-dependency-rfc
+>
+> I will present this at the Live Update MC at LPC 2026. I will also talk
+> about alternative solutions I considered.
+>
+> Future work:
+>
+>  - Allow file handlers to be preserved at multiple levels to allow
+>    resolving circular dependencies.
+>
+> Looking forward to your feedback on this.
+>
+> [1] https://lore.kernel.org/all/alrDpAMknlYN9jL9@google.com/#t
+> [2] https://lore.kernel.org/all/20260910173659.1945246-2-skhawaja@google.com/
+> [3] https://lore.kernel.org/all/20260921004834.2601285-1-skhawaja@google.com/
+> [4] https://lore.kernel.org/all/20260728121138.1103610-9-tarunsahu@google.com/
+>
+> Samiullah Khawaja (6):
+>   liveupdate: Introduce file handler dependency level
+>   mm/memfd_luo: Set Liveupdate level of a memfd file handler
+>   iommufd: Set liveupdate file handler level
+>   vfio/pci: Set live update file handler level
+>   selftests/liveupdate: Add API to preserve a batch of FDs
+>   iommufd/selftests: Preserve all the FDs in a batch
+>
+>  drivers/iommu/iommufd/liveupdate.c            |   1 +
+>  drivers/vfio/pci/vfio_pci_liveupdate.c        |   1 +
+>  include/linux/liveupdate.h                    |  24 ++
+>  include/uapi/linux/liveupdate.h               |  39 +++
+>  kernel/liveupdate/luo_file.c                  | 316 ++++++++++++------
+>  kernel/liveupdate/luo_internal.h              |   2 +
+>  kernel/liveupdate/luo_session.c               |  45 +++
+>  mm/memfd_luo.c                                |   1 +
+>  .../iommu/iommufd_liveupdate_kexec_test.c     |  27 +-
+>  .../liveupdate/lib/include/libliveupdate.h    |   2 +
+>  .../selftests/liveupdate/lib/lu_utils.c       |  20 ++
+>  11 files changed, 379 insertions(+), 99 deletions(-)
+>
+>
+> base-commit: 945d61765894dda2f0344de50cb1ade2e51b66fd
+
 -- 
-Seongjun Hong
-
+Regards,
+Pratyush Yadav
