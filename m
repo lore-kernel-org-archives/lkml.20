@@ -1,105 +1,107 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 200EF2EEE75;
-	Sun,  4 Oct 2026 13:37:33 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C1FF9439F88;
+	Sun,  4 Oct 2026 13:39:29 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791121055; cv=none; b=kfMHJTMUAItOCEsEb/ehJwj4Ch3zrom8/4yfnGDsd/ZqFkwqfD5Z2/DfZSWTQYf72DNSHJwU8pKamDenUIXjncuAVCf6UCwL5pIhDQCOER6MPTVt2sZ/H46P9Ds7Tszdeh6uoJYWOudS2I5qhOblxfpQcl+5W/74jSdDOKGTMx0=
+	t=1791121170; cv=none; b=PPOlHSUX1jZJICRh9vjxwLO87NilXlPyiAHaEMdZArK9b3+m4Pf9w7sm5oEevMUiaqVp0rznOVUJxy3i5FNG+JgS+MUlHil2dxN8sIBi8QSgxbtdiw5DfVYTh0DszTx+D7i/J5LxHmcXxgDMddU97Iw3RIgN1lgoOVAKOmLloNQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791121055; c=relaxed/simple;
-	bh=mtbHayPObhYfgY69k1rblqQ/9CPWpYRtVK6wj/OQJPk=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=jpOE5JAk4EVRWVXUfcJCW3B9C6uCUvE9y4pByxzcjbvJXbFGZUzoOf546fDca3sb/thkDjjl4a2PgVoe4sVp/NVFzhTUP3MegoliLCxOHh5o7ewiDNHNGX9/X3OBe781tgE/e72cv/9KEKJARVIBYfI7Viq6z0X1C1ciqN/WyVs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hmrPEE8O; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791121170; c=relaxed/simple;
+	bh=fsJv2wKQCM7SUQ97KSaro7Q/sQy03qbggMnYw5xwUh4=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
+	 MIME-Version:Content-Type; b=L7CZpr4XUXEmp4wJ67sx+mIFKOMRTY5nAUZ8FYKX1w3X6Q/6LkbIBsBeYLJrYdvnL/zJAkLF0RneHQqE/iMTLp/j8RflbHRCdHqzS+Ag0+dJp6XFS/0axIe/7TVmLyvDsK1dg3xTo0mMUhM7r8TFMWzoMXc3U7vh+JNPbuENTyk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZcOs3bFT; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hmrPEE8O"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 64B641F000FF;
-	Sun,  4 Oct 2026 13:37:33 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZcOs3bFT"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5187D1F000FF;
+	Sun,  4 Oct 2026 13:39:27 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791121053;
-	bh=Pl46IOZhk40Hybov4sG5iF5x9sqFwGsbh8WtArPBWqE=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=hmrPEE8Oj0RN7uFUmMI6LL0KiZaGkJtuRDKzbVwA0mpw74vvu8DRXsJNmVeoWFwfp
-	 5i4SN/TBILjisEC2rU4rCz7aZIxUVwvAraSFJsvp7CdPNcQ2EP4Akew7rpvQDb6pd4
-	 TKrnbYGmSdx9QA337CaF3tls527wOgKdOVjU0EX6JgMhr0fsO9aCxvcpg3a6+OIPTD
-	 OkVkYDXQFYnps0MzDwu7HUbdi0sEisCx7gJrTZOr28cSJX12Pp21q1G5EAqB2AGP4P
-	 pEG/ED2Rqq5U74vJAk4h/5gVFNAwKxcHJCHTyC5FnxcVmMIoAUkzLvzUBVJ+yTZVnR
-	 D3hylO+KsLqAw==
-Received: by traversing.sirena.org.uk (Postfix, from userid 1000)
-	id 4FA3B13546A2; Sun, 04 Oct 2026 14:37:30 +0100 (BST)
-Date: Sun, 4 Oct 2026 15:37:30 +0200
-From: Mark Brown <broonie@kernel.org>
-To: Miquel Raynal <miquel.raynal@bootlin.com>
-Cc: Richard Weinberger <richard@nod.at>,
-	Vignesh Raghavendra <vigneshr@ti.com>,
-	Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
-	linux-spi@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linux-mtd@lists.infradead.org, Michael Walle <mwalle@kernel.org>,
-	Takahiro Kuwano <takahiro.kuwano@infineon.com>,
+	s=k20260515; t=1791121169;
+	bh=GsrDocJZdlQZzp7Ptz2pku4WR7O9fSJpN8UbwntIi3A=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date;
+	b=ZcOs3bFTNsWZukdiTl3x+IP7PA8A2DliLliY5QfGjDg27+Z2MCB18ILo6snmzo0/W
+	 xo7htjt3Fp6s2EEBNA4CZgWLFFiRbq0z8Np7J7OeRAtXN2ddBRb/g5UHnWRAiyd805
+	 Qc+IDCsNXXpmRjHj/+DV/Bccru5g270fmeKKDXoo1IHTf4efZ4MQeDrqM7sKEyhii3
+	 53CjYfZTtvNNSMnt0k7ksGc3imoaU9C3dKqwB7fLCYpqzi5GE9gWTeB9zhvKQNp9me
+	 7tEtoSweYdktzE7hX/E7FHLU55YjOMVMelRl9n/74VzKyJAr8fnxGRYaL696gVLa5a
+	 BuW+FJdbiyOIA==
+From: Pratyush Yadav <pratyush@kernel.org>
+To: Chris Bainbridge <chris.bainbridge@canonical.com>
+Cc: Mike Rapoport <rppt@kernel.org>,
+	Pasha Tatashin <pasha.tatashin@soleen.com>,
+	Jason Miu <jasonmiu@google.com>,
 	Pratyush Yadav <pratyush@kernel.org>,
-	Steam Lin <STLin2@winbond.com>, Santhosh Kumar K <s-k6@ti.com>
-Subject: Re: [PATCH 0/4] spi: spi-mem/mtd: spinand: Prevent SPI NAND
- continuous reads on am65/am62
-Message-ID: <asJWmi_Yim-jsdin@sirena.org.uk>
-References: <20260326-winbond-v7-0-rc1-cadence-cont-read-v1-0-0d626e1dfb2b@bootlin.com>
- <878qa7dzke.fsf@bootlin.com>
- <87mrt177km.fsf@bootlin.com>
- <38290328-a562-4813-a9e0-2fafaa3874c7@sirena.org.uk>
- <87cxttml2j.fsf@bootlin.com>
+	Alexander Graf <graf@amazon.com>,
+	Ran Xiaokai <ran.xiaokai@zte.com.cn>,  regressions@lists.linux.dev,
+	linux-kernel@vger.kernel.org,  kexec@lists.infradead.org,
+	linux-mm@kvack.org, =?utf-8?B?TWljaGHFgiBDxYJhcGnFhHNraQ==?=
+ <mclapinski@google.com>
+Subject: Re: [BUG] KHO handover hangs when memmap reserves PMEM
+In-Reply-To: <asE0R_f2r2TL-3Sy@px13> (Chris Bainbridge's message of "Sat, 3
+	Oct 2026 18:02:27 +0100")
+References: <asE0R_f2r2TL-3Sy@px13>
+Date: Sun, 04 Oct 2026 15:39:25 +0200
+Message-ID: <2vxzcxtplh4i.fsf@kernel.org>
+User-Agent: Gnus/5.13 (Gnus v5.13)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="9Le09z8KgXx1luYP"
-Content-Disposition: inline
-In-Reply-To: <87cxttml2j.fsf@bootlin.com>
-X-Cookie: Orders subject to approval.
+Content-Type: text/plain
 
+Hi,
 
---9Le09z8KgXx1luYP
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+On Sat, Oct 03 2026, Chris Bainbridge wrote:
 
-On Thu, Oct 01, 2026 at 06:39:48PM +0200, Miquel Raynal wrote:
+> Hello,
+>
+> I am reporting a regression in KHO handover.
+>
+> In the most recent Ubuntu 26.10 beta mini-ISO releases (2026-09-18 onwards),
+> the first kernel reserves RAM for the downloaded ISO with a memmap directive
+> such as memmap=<size>!4G, then kexecs a second kernel. On affected kernels, the
+> first kernel reaches "kexec_core: Starting new kernel", but the second kernel
+> produces no further output and QEMU spins at 100% CPU. On unaffected kernels,
+> the second kernel starts and finds /dev/pmem0 with the expected "Persistent
+> Memory (legacy)" range in /proc/iomem.
 
-> > No, they don't apply to even v7.3-rc1.  I didn't see the immutable
-> > branch mentioned in:
+Just to confirm, the first kernel boots without memmap= right?
 
-> >    https://lore.kernel.org/r/1FyLxEwWqNFzX@sirena.co.uk
+If so, I have seen this before. Michal (+Cc) found this originally in
+our downstream test suite.
 
-> > yet?
+I think the main problem is that the radix tree pages can be anywhere in
+memory. So on the first kernel, they can land in an area that the second
+kernel's memmap= reserves. So kho_memory_init() might end up using
+memory that memmap= reserved. I'm not sure why exactly the next kernel
+doesn't produce any output, but IIRC memmap= memory is not mapped to the
+direct map, so accessing those pages likely causes a page fault.
 
-> In theory you should have received a request to merge
-> the immutable mtd/spi-mem-cont-read-for-7.2 tag some time ago:
+It is not easy to fix. We would need to make memmap= aware of KHO and
+skip the radix tree pages, but that is pretty complicated to do for
+early boot code. And honestly, I don't think it is worth it either.
 
-> Subject: [GIT PULL] spi-nand/spi-mem changes for 7.2
-> Date: Tue, 05 May 2026 17:17:42 +0200
+So I'd suggest you turn KHO off for the kexec that adds memmap= if you
+can.
 
-Ah, that wasn't in reply to the thread so didn't find it when looking.
-I'd have expected anything there to have landed in mainline by now
-anyway.
+>
+> A source bisect identified 3f2ad90060f6 ("kho: adopt radix tree for preserved
+> memory tracking") as the first bad commit; reverting it at the bisected
+> revision restored the handover. The regression appears related to KHO metadata
+> being accessed after the receiving kernel's memmap directive changes how the
+> metadata's physical range is mapped.
+>
+> #regzbot introduced: 3f2ad90060f6
+>
+> I have an AI-generated candidate fix that changes 22 files. I have not attached
+> or published it: although the AI did extensive verification on both x64 and
+> arm64, I cannot review or explain the complete change, so I am not submitting
+> it as a fix. If one of you thinks an unreviewed candidate would be useful for
+> further analysis, please let me know.
 
-> But that's not a big deal, I will rebase the remaining SPI and resend ;)
-
-Thanks!
-
---9Le09z8KgXx1luYP
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmrCVnwACgkQJNaLcl1U
-h9AH2wf6A9I5Gjx9ErZA95l6pvSSI3DO/Cn+deMkTuHSICHdD3Mp53sbC1lu1a8R
-OeQiC22eTnPQhlKyqR0rVupYb8JJRfTtNKNasJJDCghUMp2nq3U6AhJRlQZO0QPy
-2uUNkQPivpufMzknAVBUUrVI3ZnDJYGhvUiQJNc6rmpwO5EiKV6gX8r/pBSW2WYL
-vfmKTHWQz34iYFkaIcFmtFFona/6d1ihudtn3mNrbx/p5a3EJZPWKJBiskdI7GJl
-Uwutj7ZpMyocFfxiZcdLi2qEd3W9H7x7RUUfouVUx7vWwmUwy1CE5d6hLbPWs/Zq
-9ASaMSICNxpMg86HC7PmTDPDILQ0/w==
-=69MY
------END PGP SIGNATURE-----
-
---9Le09z8KgXx1luYP--
+-- 
+Regards,
+Pratyush Yadav
