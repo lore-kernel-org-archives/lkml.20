@@ -1,165 +1,79 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from mail-m155101.qiye.163.com (mail-m155101.qiye.163.com [101.71.155.101])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 29150448BBB;
-	Sun,  4 Oct 2026 12:38:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8F01143C7DE;
+	Sun,  4 Oct 2026 12:39:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=101.71.155.101
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791117523; cv=none; b=sF+73MM/9kkGGNxEZvzCySjAFQKPaWb+xy4ExBUBlYk30v7i56Mg0xV8bDVsRkX0KkISVzTEgIMOEnAt6p5lAu2vppiCsaLkt56Kge/r8s70Vx4XvtvTWeGoNgAV1yRAozzhNQQ6ZMWI3a/Zy1NDhGg8gS4xIy8BxCGXe7VRCt8=
+	t=1791117576; cv=none; b=KwTDbdu25hENpSB3EZnbhyGMM86kxdyD10NyZ8durrCiVjJMsqpi1ihFGvH64rs7qOT+fNLSffUOWelNXWZ9lo1y2UpqIfhoNOD4WsXzwYNE+PLWEpMWer4sqIhhKYepThGDOvk8xFU7pa/L3k0A16YGez98iIqDwOO+t6pJLh0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791117523; c=relaxed/simple;
-	bh=TUO8AJBf3E3JvwLPSS+PL+fnZX3uTlkibJ4Pdtsmr28=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=eeiDHnMgerXWr0zF1ILo2ykBx4/QIhUT6EYWDxVmWWkn1Fa/b1c/5yI8ccE0wWDm1MiscPnufb+wJRJC9qFllNqqUqFn9HvC1toAkHjj1mnRZR26RmwGul+dmJrbbSr0y4Jd4FNggfMbwV9YdWmM9DMnWIbLvoHo472ahPsFi94=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=B2PNElOG; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1791117576; c=relaxed/simple;
+	bh=Fl5KYsKPC6oKKSa9VHl4QZzrSQn2typJJOIHX4Tpc48=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=SCACJW7Agc4Wvua6IStBgy1JD2WCA/tRhbixq2vt7KXZxh+Fk/9rNKQVaQu1I7uDUAjcYsRnkMD1B8BOq3izXl9CA3Dv9UysqZCO4ucAdFioQPrQZRS/apoh8oehmKV1V1ECqfsVOBtPQ+JkYGRkAAvchlRnegrWHqIF5MLZxLc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=seu.edu.cn; spf=pass smtp.mailfrom=seu.edu.cn; dkim=pass (1024-bit key) header.d=seu.edu.cn header.i=@seu.edu.cn header.b=fSn9K34I; arc=none smtp.client-ip=101.71.155.101
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=seu.edu.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=seu.edu.cn
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="B2PNElOG"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id B8222C2BCC7;
-	Sun,  4 Oct 2026 12:38:42 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1791117522;
-	bh=TUO8AJBf3E3JvwLPSS+PL+fnZX3uTlkibJ4Pdtsmr28=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=B2PNElOGxfzpLWDsYHG2FHDT0n5XydfnJL6mPJgMVHwy/5pMolf+athIMtfaq91ru
-	 L1cm4OxxaTfPLP+ouEl0yo9BoGvo2/ui4Mh39nbu1ZRkqzk4kh8PoAZ8hoE49FhcLQ
-	 1vn+6G+s/ejz4wJNisN/DySwuh419siYQSbd1W/qI0UBJblkuBZnI+/2cyd6znAhoB
-	 Cfpfw2IQnqrVkbL4lRE7VGZ7BVtvla0ueSV14OJ20IcjVcCZ/LkVcBEcPl3R2stbPp
-	 m788ZSDyLTafX+sQizShhDrrbx0m9F+yOis3JyJCxpkd91lVVMoOsOnI7p5f5eD53V
-	 CEX1+eRv2X9CQ==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 9A17ECA5FEC;
-	Sun,  4 Oct 2026 12:38:42 +0000 (UTC)
-From: Michael Reeves via B4 Relay <devnull+michael.reeves077.gmail.com@kernel.org>
-Date: Sun, 04 Oct 2026 23:38:43 +1100
-Subject: [PATCH v2 2/2] regmap: Drop map lock during cache init and exit
+	dkim=pass (1024-bit key) header.d=seu.edu.cn header.i=@seu.edu.cn header.b="fSn9K34I"
+Received: from PC-202605011814.localdomain (unknown [58.241.16.34])
+	by smtp.qiye.163.com (Hmail) with ESMTP id 4fec26901;
+	Sun, 4 Oct 2026 20:39:29 +0800 (GMT+08:00)
+From: Runyu Xiao <runyu.xiao@seu.edu.cn>
+To: Nicolas Dufresne <nicolas@ndufresne.ca>
+Cc: Runyu Xiao <runyu.xiao@seu.edu.cn>,
+	Tiffany Lin <tiffany.lin@mediatek.com>,
+	Andrew-CT Chen <andrew-ct.chen@mediatek.com>,
+	Yunfei Dong <yunfei.dong@mediatek.com>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Matthias Brugger <matthias.bgg@gmail.com>,
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+	linux-media@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Jianhao Xu <jianhao.xu@seu.edu.cn>,
+	stable@vger.kernel.org
+Subject: Re: [PATCH] media: mediatek: vcodec: Initialize context lock before firmware setup
+Date: Sun,  4 Oct 2026 20:39:20 +0800
+Message-Id: <20261004123920.1251165-1-runyu.xiao@seu.edu.cn>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <8ea77a207f6f99d4f20610670e5f88fc56df3faa.camel@ndufresne.ca>
+References: <20260830144827.2701887-1-runyu.xiao@seu.edu.cn> <8ea77a207f6f99d4f20610670e5f88fc56df3faa.camel@ndufresne.ca>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261004-regcache-lifecycle-submit-v2-2-976d405e89a7@gmail.com>
-References: <20261004-regcache-lifecycle-submit-v2-0-976d405e89a7@gmail.com>
-In-Reply-To: <20261004-regcache-lifecycle-submit-v2-0-976d405e89a7@gmail.com>
-To: Mark Brown <broonie@kernel.org>
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
- "Rafael J. Wysocki" <rafael@kernel.org>, Danilo Krummrich <dakr@kernel.org>, 
- "Liam R. Howlett" <liam@infradead.org>, linux-kernel@vger.kernel.org, 
- driver-core@lists.linux.dev, maple-tree@lists.infradead.org, 
- asahi@lists.linux.dev, Michael Reeves <michael.reeves077@gmail.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1791117521; l=3467;
- i=michael.reeves077@gmail.com; s=fedora-20260918;
- h=from:subject:message-id;
- bh=zvpCev1OcFqijOyG7vtnR5Nx239kVlRoXAF9NZ7PjIY=;
- b=kfCOCpZ3IVQaT/GRKTiufdV47V8aaFOG8VELtL2P9tUyQH6IFf1sE/0th6nFG3zBvqs7RTJeP
- TxEbHRVExQXC5ibFY7HtwNJ+jpLqD206UI7K8I489budoBFNPxE56MH
-X-Developer-Key: i=michael.reeves077@gmail.com; a=ed25519;
- pk=VJ0TvyQ9TvfzYZa908YSE9kpkjFLLD5luv0bERu+boc=
-X-Endpoint-Received: by B4 Relay for
- michael.reeves077@gmail.com/fedora-20260918 with auth_id=1035
-X-Original-From: Michael Reeves <michael.reeves077@gmail.com>
-Reply-To: michael.reeves077@gmail.com
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-HM-Tid: 0aa106ed2c2803a1kunmfd0fbc3733cf0d
+X-HM-MType: 10
+X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
+	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVlCQkxKVk0YGBgeS0pLGE1DH1YeHw
+	5VEwETFhoSFyQUDg9ZV1kYEgtZQVlOQ1VJT0pVSk1VSE9ZV1kWGg8SFR0UWUFZT0tIVUJCSU5LVU
+	pLS1VKQktCWQY+
+DKIM-Signature: a=rsa-sha256;
+	b=fSn9K34I+kGIBaWGMJPHZSX6pI/ityAq1gaD/2tnLIauokW1HPugd6uQEYajWhjwnSHWx0cHYJQKDXN7i518M5ko3NyLRSHRtqg9NUjTZPr6v8xuTWIzOWdqIYj/i2KfiayV5t1ZwygDLKTrgp/sR4rLJuNurd9b5WPWW5kFfTg=; c=relaxed/relaxed; s=default; d=seu.edu.cn; v=1;
+	bh=Fl5KYsKPC6oKKSa9VHl4QZzrSQn2typJJOIHX4Tpc48=;
+	h=date:mime-version:subject:message-id:from;
 
-From: Michael Reeves <michael.reeves077@gmail.com>
+Hi Nicolas,
 
-On systems with CONFIG_PROVE_RAW_LOCK_NESTING enabled, Apple GPIO probe
-triggers an "Invalid wait context" lockdep warning.
+On Sun, 4 Oct 2026 07:17:43 -0400, Nicolas Dufresne wrote:
 
-The driver uses a regmap with a raw spinlock and REGCACHE_FLAT. During
-regcache_init(), regcache_flat_init() allocates memory while holding the
-raw spinlock. The memory allocator can acquire a non-raw spinlock, which
-causes an invalid raw-to-non-raw lock nesting error. The abbreviated call
-chain is:
+> The very first place the lock will be taken is in _open() and that cannot
+> happen before video_register_device(), which is kept last. Please
+> demonstrate what the issue you are suggesting if you'd like to see this
+> merged.
 
-  apple_gpio_pinctrl_probe
-    regcache_init
-      regcache_flat_init
-        __kmalloc_noprof
-          __pcs_replace_empty_main
-            refill_objects
-              _raw_spin_lock_irqsave
+The normal encoder open path is as you describe. On VPU-backed systems,
+firmware setup registers the encoder reset callback before dev_ctx_lock is
+initialized. A timeout on the shared VPU while another client is active
+queues reset work, which invokes registered callbacks. If that work runs
+before spin_lock_init(), the callback takes the uninitialized lock. The
+context list is initialized but empty during probe, so I cannot claim list
+corruption or a user-visible failure. With CONFIG_DEBUG_SPINLOCK, the
+zeroed lock fails the magic check.
 
-Cache allocation occurs before the regmap is published, cache destruction
-occurs after users have stopped accessing it, and regmap_reinit_cache()
-requires callers to prevent concurrent access. Remove the outer map lock
-from cache initialization and destruction. Keep it for cache population
-and normal register access.
-
-The Maple cache still uses its internal spinlock during teardown. That
-lock can also be acquired from hard IRQ context during register access, so
-use spin_lock_irqsave() during teardown to preserve its IRQ-safe lockdep
-state.
-
-Fixes: fd4ebc07b4df ("regmap: Hold the regmap lock when allocating and freeing the cache")
-Signed-off-by: Michael Reeves <michael.reeves077@gmail.com>
----
- drivers/base/regmap/regcache-maple.c | 5 +++--
- drivers/base/regmap/regcache.c       | 6 ------
- 2 files changed, 3 insertions(+), 8 deletions(-)
-
-diff --git a/drivers/base/regmap/regcache-maple.c b/drivers/base/regmap/regcache-maple.c
-index e46fe5c32b..9419dc1be9 100644
---- a/drivers/base/regmap/regcache-maple.c
-+++ b/drivers/base/regmap/regcache-maple.c
-@@ -312,16 +312,17 @@ static void regcache_maple_exit(struct regmap *map)
- 	struct maple_tree *mt = map->cache;
- 	MA_STATE(mas, mt, 0, UINT_MAX);
- 	unsigned int *entry;
-+	unsigned long flags;
- 
- 	/* if we've already been called then just return */
- 	if (!mt)
- 		return;
- 
--	mas_lock(&mas);
-+	spin_lock_irqsave(&mt->ma_lock, flags);
- 	mas_for_each(&mas, entry, UINT_MAX)
- 		kfree(entry);
- 	__mt_destroy(mt);
--	mas_unlock(&mas);
-+	spin_unlock_irqrestore(&mt->ma_lock, flags);
- 
- 	kfree(mt);
- 	map->cache = NULL;
-diff --git a/drivers/base/regmap/regcache.c b/drivers/base/regmap/regcache.c
-index 0d58d900a2..b137ded7fd 100644
---- a/drivers/base/regmap/regcache.c
-+++ b/drivers/base/regmap/regcache.c
-@@ -225,9 +225,7 @@ int regcache_init(struct regmap *map, const struct regmap_config *config)
- 	if (map->cache_ops->init) {
- 		dev_dbg(map->dev, "Initializing %s cache\n",
- 			map->cache_ops->name);
--		map->lock(map->lock_arg);
- 		ret = map->cache_ops->init(map);
--		map->unlock(map->lock_arg);
- 		if (ret)
- 			goto err_free_reg_defaults;
- 	}
-@@ -259,9 +257,7 @@ int regcache_init(struct regmap *map, const struct regmap_config *config)
- err_exit:
- 	if (map->cache_ops->exit) {
- 		dev_dbg(map->dev, "Destroying %s cache\n", map->cache_ops->name);
--		map->lock(map->lock_arg);
- 		map->cache_ops->exit(map);
--		map->unlock(map->lock_arg);
- 	}
- err_free_reg_defaults:
- 	kfree(map->reg_defaults);
-@@ -281,9 +277,7 @@ void regcache_exit(struct regmap *map)
- 	if (map->cache_ops->exit) {
- 		dev_dbg(map->dev, "Destroying %s cache\n",
- 			map->cache_ops->name);
--		map->lock(map->lock_arg);
- 		map->cache_ops->exit(map);
--		map->unlock(map->lock_arg);
- 	}
- 
- 	kfree(map->reg_defaults);
-
--- 
-2.55.0
-
-
+Thanks,
+Runyu
