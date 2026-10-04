@@ -1,73 +1,84 @@
-Received: from mail-qv2-f42.google.com (mail-qv2-f42.google.com [74.125.230.170])
+Received: from mail-pj2-f13.google.com (mail-pj2-f13.google.com [74.125.227.141])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6A57842124D
-	for <linux-kernel@vger.kernel.org>; Sun,  4 Oct 2026 10:26:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.170
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1CCDD3B9DA5
+	for <linux-kernel@vger.kernel.org>; Sun,  4 Oct 2026 10:28:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.141
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791109602; cv=none; b=nS+4Q+RaVPzO8LGfVi06oHon3TKnsYtvV8tPRzR0BxlyDbLP6rWS+wvL5tWEjMZic09OZwhPRrfsUG2hLcSmTo53SvXiS7sdMYQsEdQ+GmWisHk9k7IZMeO0LNc0qHyYm3u/cmCaxQa8IkoDNbnyynmQRpmjt5/4dLpQebSnUsw=
+	t=1791109682; cv=none; b=FRJ4R8ZvhVJbxc8XWAoE41bM8LsNlHTclnCwtFU8U6MYq/anckiGwqgrEcMJFD5sM89hABKwHDJSVzOrLco//gaWlHn2TXJW9mpzm5l/ZgvqraBx55b5K2SiffeUhTwjbsJj2xJ5QbLSdf7FXvOWHGNB62iL5cWoml3s9CQw6dM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791109602; c=relaxed/simple;
-	bh=XhMhcu0Ij3BizMpIdVRfd1wxq8Jalk+FNAh6krVwqwo=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Hu6G8Aq8N+aZsnEk2ZBBCbSFAsQZ9vPYlz+n4Oo16yYg2u7qeHr1Gm7XS8Y06Mkwkc4s4FhG32xmC+wT72ziYGRR48d3xG7ysyAI9XdgJVaaA4hzKwR3Dhb4fuTt8DOKN4PV9MoaIwKYAdl/0sV0I1yHBq1j+4v2ZQdSLTDQvE8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ALrWq9/f; arc=none smtp.client-ip=74.125.230.170
+	s=arc-20240116; t=1791109682; c=relaxed/simple;
+	bh=vWVgNkZiX8R3FefvvDRzUfTtoyujwvKaxxxwA4Shnvk=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=opPooSKgPP5fdRLZjDsiy3vlUUcb6PywwsYkFb+opRZrl290bFFfQCQO7eExkUszxW900e35Eg4yE6QV1PV/0YmO9thE2Rl1KmWB7pXHYzZ4yYfTz9ih5oKxrFmgpQSJx/MC+einSZxQtTulQQRZBhcVOCBCGOdn+l2YjiPfiu8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=QlcV9qDp; arc=none smtp.client-ip=74.125.227.141
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ALrWq9/f"
-Received: by mail-qv2-f42.google.com with SMTP id 6a1803df08f44-917bef0d531so21680036d6.3
-        for <linux-kernel@vger.kernel.org>; Sun, 04 Oct 2026 03:26:37 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="QlcV9qDp"
+Received: by mail-pj2-f13.google.com with SMTP id 98e67ed59e1d1-39b2ad83dc6so517687a91.0
+        for <linux-kernel@vger.kernel.org>; Sun, 04 Oct 2026 03:28:01 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791109596; x=1791714396; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1791109680; x=1791714480; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=1GmjpMu1lVYAdeEK9QKdXTuQ5b/yeAbWm36UPOAVxQ4=;
-        b=ALrWq9/fiIivR0vHuVgvdDPE1KMUfp6VFRihCQjVEBMVLmLN62igHCY2HtPGPRHVmn
-         aEeuENKKM32XYXDMVlYRkCRRRREEjaDS27SkXTW79A8vLrpCMINug/VCKaQyjnmzaH8X
-         anSyjfUFoqsMSqrqCaesdfJLOjw00dT5Cwv7LyEDMDbBmCrX6YmeNMkBD2lHIunaYGo9
-         kP50EWGH7hBhx5llpMtiI4j9ECcWQZ3fZhZSrb96AmQaWKlwtMaoB/3XuMjLJ2pSgeze
-         KAWsuuEPzUx0UGJpzebHq135+ntGrmIDBzgmg5gyIj5yGhz47nCL/zdpUxLnsQFuX6LP
-         hgVw==
+        bh=aOHR60kWFiiTF2Paz1Sgg2dVxODMmAsE+5qedw3hT08=;
+        b=QlcV9qDp+8LdYEgGU9MU5RWK0ZX2EKHWj0lR782gRzKamMotWAC1Kpar5FxSDPELDQ
+         us8uIb6ft6CdpEaN3r8XmeNRoLLK5VUp5o3s/wg6bfB6UWKitIr+YNFmfec2Gt4y+4qe
+         ATf6D84e254bs0oEKhBbhskCJidv7G5N4wON1rEG1ubCiH8eP4fLLp4MNc7UuWaBA951
+         FudWiDSb5lfYrqfgBlw0iEUW9Mp6f++7s4BlxeLUpsdgpi2G4SVOlk2XsQTjT65u8zRk
+         UMM64jyl+vIjtXPKimIBWS5HHC2X6cmuB6QFP8COd7BNxZiF3aZg0y99VAeoxebl9EN8
+         pyRQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791109596; x=1791714396;
+        d=1e100.net; s=20260707; t=1791109680; x=1791714480;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=1GmjpMu1lVYAdeEK9QKdXTuQ5b/yeAbWm36UPOAVxQ4=;
-        b=on6iH/rHqezoqX1TMn+8aLVrbfzPTTnns5Veu5sxm/ntPxEGZ/o/JNuGRXA5kzXJt3
-         +E+bp0qu1BLfBNAsCvKhQLJpjT2BgvGkh4ofVTe+bFpq2ckY7YY3yJe/hJCrsEkgppGB
-         E71Dn+uPx50ocJk0D9GOM35QjIq0IbMbY/POlNKNmTjTvkT/F1maGPR795HMIJGPXkv4
-         NQvEb08bso0I0fJfb89xDz14lD/f5goaTJ/hAJVLmGuyNFi64/Nxa6kp71PBJlKOJSvg
-         PwqaFqlcH3KjHaR28SBSmfU+e/w3DOCJMqDwlzsfybji722Mqua37EcVA+2WAFL9zEbg
-         kalA==
-X-Forwarded-Encrypted: i=1; AKwUvBwCr20Bon+jaIBZBNOrWI5kzpsdq4Uc+rmGgHNDjT4VUw/PHjcJTKn8xlmO+NZzZ+qRZ9wP4aJLmgR5MQ0=@vger.kernel.org
-X-Gm-Message-State: AFq9FYItqZmRcgutXkzARlPzYbkr3pgfxnGlrEaoerFsCL66ki3hnq4g
-	tIjOqBnE1g7XDcslU+ziyzvxgCj1u/hb0iPUu32z6Lh6+Bl4C4JIeMwt
-X-Gm-Gg: AYBFou0hnHDEtDucjP5Gq9pCXfU5GYJeLaKjBrjpHliGVxmlMlPmTqCqSqO5n4miL39
-	JHFL+R0VTTaWrxO/njjl6LoRA0xS7/rWDaqLUiKW96WYn1LgyxRlSayHicpMN2RALYbm/jquP3N
-	JqQlW09REJRaZXtksGBNtTieAMa/QuemIHtjLym7tD1JnAIatflssq5lUI0ZYqVL9JMOG89RPml
-	Dpy6K2uZYIVOZ81OLbmVTdAYtOkGb61SBBhqgGcqxWq5p/Twfkc7hDMjkVZNKpwtPZ39Oz2qHIm
-	qqZouHhxQIwoJ+N4wDJXLf+TIEQXnvXEw7cGUQ3HNHXXMfZtfQylm/UBu/2LU94HpM4+UGTzRph
-	Q+V5ZacmB7WnAg2zWEey2oRwhUElL2jllrTEbRvu5MJXez0dePU6gZ7yPcQ7l44Hb9SUJ0DwiW4
-	zZzc46Tzw/p192jjPZPO4olttiFKmHo2ge4Dw1UFAYryWgkRS8/kg38oRGLzJIARtA5AEdvbycX
-	vgBsys+Qs74TB6rukXOARlTQHEXmL5iYgwC276OyaJtrmtNK3SF/CX8jmGG0w==
-X-Received: by 2002:a05:6214:f6c:b0:917:7d92:6486 with SMTP id 6a1803df08f44-917bff43141mr156594696d6.6.1791109596104;
-        Sun, 04 Oct 2026 03:26:36 -0700 (PDT)
-Received: from Precision-M6500.home.mulloy.xyz ([163.252.155.132])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-917e0b1aef0sm63309096d6.12.2026.10.04.03.26.34
+        bh=aOHR60kWFiiTF2Paz1Sgg2dVxODMmAsE+5qedw3hT08=;
+        b=jZO0/hD0ino2a11GFOepwW+tGrqpvyRtJGivzVRuZ04+XuGfbKgsM22XaGtF+OFM+b
+         6WCvn7PgjTcEJoLzzZP4cIMPOqlYzqTm4H5znCiv+mF6lZFDIm33o98arvztOwNdT/AC
+         L6JsGFlot+ics+c3y2TxmBwQFS2Jap7tZZlYr7vFyrx+gYZUL6BYYbFyuAD6IYpa8C2Q
+         SpIVzL3J9kpVVWs2S1tv9Yxj/0f90m4mc/ixAvf4qBN4HDxb5YSfqq2r/v4ppB1XLrZB
+         rXg6AYDZsQ+v/a7WKVWDY8T7IT8wZlkdtyNpEvgbni0E5GbY5Zh4nGIiKbnYGeGJ0o1F
+         Un3g==
+X-Forwarded-Encrypted: i=1; AKwUvBy5/wT2dNzhp1UMSm9XdnxLkonAab7cmnV6H3l2B3l64JPKkzduogZ1DGiB2r1oSRJdSqKPe/zn3w51Vio=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKo499TuGViQnHkbx4Ia/MiAKXymMyzjilSQcysNVgUtR7d6U8I
+	T4Vv+/MpCd2d5Hr37/VZDKQ68thA6aD4/cNO1R0tv2Sg32M8vGfQ406F
+X-Gm-Gg: AYBFou13wxyoPF3nfvuBfxZLXaUMUfPJxRRBduYuxUxtsNvLinHjDWcbR893oJn2x7f
+	vhW0pJWcuDGCUOVz5jNPDejfSRqB/RWxXJJ/31S7kzCurWSiJu0mYAfBUL0iV8hA4voUFgtpfSH
+	zg7o53zHorEmvV39cPSjRLs+mVpawW8T3pt389UXGRun8HPR9ffLbsEbcVUdn0UMImCPFnVxChf
+	4vOZ04fJsL+9keZfGtSlsdityTHsWXVh9IaC6pr9OkCgLe0Cd1REI22pRANEFLN852787vh8EkG
+	xbM7ccapn70Sia8w4KUxE28fGCVt/yILUuHirWdRFmjF4q8a+FTZJsBTubNLrAziKCw54OuYt9Y
+	Q39jsWuSFrJbxpnW1I9o+Ywwychxhi/uNbI2/8GKbHyeF8YzkYTGjmAQhZeiX2hLqYFBni78FPP
+	fZwKyI8wcK6cqql2vTo2kmjsvv2jS7jvsChdvd8cdXjcp122epje1cKlKioDQwuGN9ujlGUEsYW
+	3gBeZSYyruPCw==
+X-Received: by 2002:a17:90b:4a4a:b0:3a6:f90b:20cd with SMTP id 98e67ed59e1d1-3a6f90b2630mr5714179a91.6.1791109680484;
+        Sun, 04 Oct 2026 03:28:00 -0700 (PDT)
+Received: from DESKTOP-NM9EKIA ([125.134.240.130])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a78e4262cfsm6192927a91.6.2026.10.04.03.27.56
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 04 Oct 2026 03:26:35 -0700 (PDT)
-From: Joshua Mulloy <joshuamulloy@gmail.com>
-To: Alex Dubov <oakad@yahoo.com>,
-	Arnd Bergmann <arnd@arndb.de>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: Danilo Krummrich <dakr@kernel.org>,
-	linux-kernel@vger.kernel.org,
-	Joshua Mulloy <joshuamulloy@gmail.com>
-Subject: [PATCH] misc: tifm: don't clear dev->driver in tifm_device_remove()
-Date: Sun,  4 Oct 2026 06:25:25 -0400
-Message-ID: <20261004102525.34356-1-joshuamulloy@gmail.com>
-X-Mailer: git-send-email 2.53.0
+        Sun, 04 Oct 2026 03:27:59 -0700 (PDT)
+From: Joonhoe Kim <26rote@gmail.com>
+To: Rob Clark <robin.clark@oss.qualcomm.com>,
+	Dmitry Baryshkov <lumag@kernel.org>
+Cc: Abhinav Kumar <abhinav.kumar@linux.dev>,
+	Jessica Zhang <jesszhan0024@gmail.com>,
+	Sean Paul <sean@poorly.run>,
+	Marijn Suijten <marijn.suijten@somainline.org>,
+	David Airlie <airlied@gmail.com>,
+	Simona Vetter <simona@ffwll.ch>,
+	Jun Nie <jun.nie@linaro.org>,
+	Jonathan Marek <jonathan@marek.ca>,
+	Pengyu Luo <mitltlatltl@gmail.com>,
+	Alexander Koskovich <akoskovich@pm.me>,
+	Neil Armstrong <neil.armstrong@linaro.org>,
+	linux-arm-msm@vger.kernel.org,
+	dri-devel@lists.freedesktop.org,
+	freedreno@lists.freedesktop.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH] drm/msm/dpu: round up the compressed INTF width
+Date: Sun,  4 Oct 2026 19:27:58 +0900
+Message-ID: <20261004102758.84436-1-26rote@gmail.com>
+X-Mailer: git-send-email 2.55.0.windows.5
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -76,68 +87,57 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-tifm_device_remove() sets sock->dev.driver to NULL after calling the
-driver's remove() callback. Since commit a995fe1a3aa7 ("rust: driver:
-drop device private data post unbind"), device_unbind_cleanup()
-dereferences dev->driver after the bus remove() callback has returned,
-so removing a card from a TI FlashMedia reader oopses:
+For DSI with DSC, drm_mode_to_intf_timing_params() scales the INTF
+active width by bpp / (3 * bits_per_component) and rounds down. The DSI
+host computes the same width with DIV_ROUND_UP, both for the pixel clock
+(dsi_adjust_pclk_for_compression()) and for the active width it programs
+(dsi_timing_setup(), from bytes per line). When the division is not
+exact the INTF line is one pclk shorter than the DSI line, and the DSI
+FIFO overflows.
 
-  BUG: kernel NULL pointer dereference, address: 0000000000000090
-  Workqueue: tifm tifm_7xx1_switch_media [tifm_7xx1]
-  RIP: 0010:device_unbind_cleanup+0x16/0xb0
-  Call Trace:
-   device_release_driver_internal+0x220/0x260
-   device_release_driver+0x12/0x20
-   bus_remove_device+0xf9/0x1c0
-   device_del+0x161/0x3b0
-   device_unregister+0x17/0x70
-   tifm_7xx1_switch_media.cold+0x6b/0xbd [tifm_7xx1]
-   process_one_work+0x1ac/0x3d0
-   worker_thread+0x1b8/0x360
-   kthread+0xf7/0x130
-   ret_from_fork+0x195/0x2a0
-   ret_from_fork_asm+0x1a/0x30
+Example: a bonded DSI video-mode panel, 952 pixels per link, DSC 8 bpp at
+10 bpc: 952 * 8 / 30 = 253.87, so the INTF uses 253 and the DSI 254.
 
-The driver core clears dev->driver itself in device_unbind_cleanup(), so
-there is no need for the bus code to do it. Remove the assignment.
+Round up, as the DSI host does. Qualcomm's downstream SDE driver also
+rounds this width up, and Pengyu Luo needed the same rounding on the
+Legion Y700 gen 4 [1].
 
-The problem was found and the fix written with the help of an AI coding
-assistant. Tested on a Dell Precision M6500 (TI PCIxx12 FlashMedia,
-104c:803b) running a 7.0 kernel: removing an SD card oopsed every time
-without the fix; with it, insert, read and remove work.
+Tested on a Lenovo Legion Tab Y700 gen 5 (SM8850) with that panel, with a
+module parameter selecting the rounding: rounding down, DPMS off/on gives
+no vblank and 14000-17000 DSI FIFO error interrupts per second
+(dsi_err_worker: status=4); rounding up, the picture comes back and there
+are no errors. Only tested on this device.
 
-Fixes: a995fe1a3aa7 ("rust: driver: drop device private data post unbind")
-Cc: stable@vger.kernel.org
+Link: https://lore.kernel.org/all/CAH2e8h6oinKxN1ndcvHCSc+=bFLXVVDZVAVF0cQHoiaMvEwhPQ@mail.gmail.com/ [1]
+Fixes: f9ce482d7dc0 ("drm/msm/dpu: fix video mode DSC for DSI")
 Assisted-by: LLM
-Signed-off-by: Joshua Mulloy <joshuamulloy@gmail.com>
+Signed-off-by: Joonhoe Kim <26rote@gmail.com>
 ---
-Runtime-tested only on 7.0 (Ubuntu 7.0.0-38), with the patched tifm_core
-built as an out-of-tree module; on current mainline it has only been
-compile-tested (W=1, no warnings).
+This does not touch the divisor discussed in the RGB101010 thread
+(bits_per_component * 3 vs 24, with and without widebus); that patch
+was dropped from the series pending that discussion [2]. This one only
+makes the rounding match the DSI host. The panel here uses widebus.
 
-memstick_device_remove() in drivers/memstick/core/memstick.c has the same
-pattern; a separate patch for it goes to the memstick maintainers. A grep
-found no other bus .remove() callbacks that clear dev->driver, but if
-you'd rather handle this in device_unbind_cleanup() instead, that would
-make both patches unnecessary.
+[2] https://lore.kernel.org/all/20260321-dsi-rgb101010-support-v4-0-eb28ecebbfe8@pm.me/
 
- drivers/misc/tifm_core.c | 1 -
- 1 file changed, 1 deletion(-)
+ drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_vid.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/misc/tifm_core.c b/drivers/misc/tifm_core.c
-index aac8f0933..03d1324bc 100644
---- a/drivers/misc/tifm_core.c
-+++ b/drivers/misc/tifm_core.c
-@@ -97,7 +97,6 @@ static void tifm_device_remove(struct device *dev)
- 		sock->card_event = tifm_dummy_event;
- 		sock->data_event = tifm_dummy_event;
- 		drv->remove(sock);
--		sock->dev.driver = NULL;
+diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_vid.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_vid.c
+index ba810f26ea30..2ac517db50fc 100644
+--- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_vid.c
++++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder_phys_vid.c
+@@ -134,8 +134,8 @@ static void drm_mode_to_intf_timing_params(
+ 		 * TODO: replace drm_dsc_get_bpp_int with logic to handle
+ 		 * fractional part if there is fraction
+ 		 */
+-		timing->width = timing->width * drm_dsc_get_bpp_int(dsc) /
+-				(dsc->bits_per_component * 3);
++		timing->width = DIV_ROUND_UP(timing->width * drm_dsc_get_bpp_int(dsc),
++					     dsc->bits_per_component * 3);
+ 		timing->xres = timing->width;
+ 		timing->dce_bytes_per_line = msm_dsc_get_bytes_per_line(dsc);
  	}
- 
- 	put_device(dev);
-
-base-commit: 6addb4f385570ebc11c4eb499a4f1c149f313e84
 -- 
-2.53.0
+2.43.0
 
