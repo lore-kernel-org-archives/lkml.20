@@ -1,124 +1,210 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.17])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta1.migadu.com (out-158.mta1.migadu.com [95.215.58.158])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2FAE03F824B;
-	Sun,  4 Oct 2026 08:15:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.17
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 403FF15746F
+	for <linux-kernel@vger.kernel.org>; Sun,  4 Oct 2026 08:19:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.158
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791101732; cv=none; b=d5b+dHfxpRBZr7sHVYYToRhQX85U5vByQ6CSkNxiOD2td1tytuttLv/YDs5tkpTBwSeJwY279qSZls9eNtPVxVpCOQsVpPo6uhU5sOJZT7TMlIo7CFsZQz83ZUN+A6sUmBGe623+nYf/dPTubnPxgy//xQW2vV2RUKa4uNv4n6Q=
+	t=1791101968; cv=none; b=hR/9KIAGAOC9G18lyLAH0rwbHfdZJDpIYgrc8607PAnlFlc46DjJHa8dCPlM2iIZeli4MGwCBIhhKmEbZ7bciEA56spKsyuK4ZgKhZ6Sn/Hw/znrMK4p4XzoC9SAKBdusfeyTG8Wu3j1AhHNetXvrnujBqlGiOe8X9AkWsaZaaA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791101732; c=relaxed/simple;
-	bh=l3X9H5L1fj1BmDzj5Rn/tNXmUhlIznfeIXte6hu8p/Y=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=YKlfVCRdtp7f9YKgkfgGNsEL1sAck9IQvl17zjlTw1GkGsXXB3ensq85/F5j64lxUhVTQ9GYcLnmNzHxA/y9lLFQZj+0vZVzV4YJLcZ7y3aghsx10C6YBAFduBys9kkiby3GvOfE8BCxbGxzAKWp1N0/5Aow0H2IC4HAaUJr/6Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=c+fLambX; arc=none smtp.client-ip=198.175.65.17
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	s=arc-20240116; t=1791101968; c=relaxed/simple;
+	bh=N1P1P3jMKJo9ggmNihU/EA7zpJLYlMm+cg9cdHhLxxg=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=c/c91nXwXjnVLhVM2oKN6eb31YDGlHZVJCBqOirMTqV9yqtn09J/Hs3rfTO43/tUU+xHrpmpPchVs9XbkEXRpjZ40JAEsLA+6EiRih6OFhkFuabZfRCaAv82c6ino0a+i0hW9joNoGSGc89VQ2EXCySch5saSDlUTgtbC5kv7Ko=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=o2rBWC/S; arc=none smtp.client-ip=95.215.58.158
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="c+fLambX"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1791101730; x=1822637730;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:content-transfer-encoding:in-reply-to;
-  bh=l3X9H5L1fj1BmDzj5Rn/tNXmUhlIznfeIXte6hu8p/Y=;
-  b=c+fLambXm3TWcPrQ/ItOcxz3yQzmi8E6t+dw/vuEpiRpuA4gvLtJSG2A
-   yjIuWBxxX6V8FrRcWV6FeknJL8oGB+04TQzNUuuPLPmtKcboO5U/zYfmk
-   ovBzybX+sW4vxE9+9mlRZaW2Cu3QXkIc0a0GagZLUKYQvtFBFtfkc/Xx7
-   gFhu13WLPmJbcIzjcFq+A3Gc9UePeU9atG3fOB4HQGEuaYVINzWApHUn8
-   2Mkss8Iq11wcr1LTHwwKAYQFs8ZLb0iTffTrfolSc7fLvp8I2unN0pXKV
-   tXSuJysoRMzFqlaX6brBQ0/F3h4qSV+8HiJ9tvxN0XygMogj5sE4E8HE7
-   Q==;
-X-CSE-ConnectionGUID: xpv6oPNnT8umua0ip/BgGA==
-X-CSE-MsgGUID: UXdZw47/Qoy00L0v54c0Xw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11924"; a="90833984"
-X-IronPort-AV: E=Sophos;i="6.27,139,1787036400"; 
-   d="scan'208";a="90833984"
-Received: from fmviesa006.fm.intel.com ([10.60.135.146])
-  by orvoesa109.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 04 Oct 2026 01:15:29 -0700
-X-CSE-ConnectionGUID: CL6XgozSQiCcd/U3Xfp4Gg==
-X-CSE-MsgGUID: npL6c5ofQv6XSbpjyGehyA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,139,1787036400"; 
-   d="scan'208";a="275216433"
-Received: from mkosciow-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.100])
-  by fmviesa006-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 04 Oct 2026 01:15:26 -0700
-Date: Sun, 4 Oct 2026 11:15:24 +0300
-From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-To: Linus Walleij <linusw@kernel.org>, Danilo Krummrich <dakr@kernel.org>
-Cc: Kim Phillips <kim.phillips@freescale.com>,
-	jiale yao <19888972804@163.com>, Mark Brown <broonie@kernel.org>,
-	linux-spi@vger.kernel.org, Biju Das <biju.das.jz@bp.renesas.com>,
-	"linux-gpio@vger.kernel.org" <linux-gpio@vger.kernel.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
-Subject: Re: RE: Re:RE: [PATCH] pinctrl: mcp23s08: reject devices without
- match data
-Message-ID: <asILHNE0iDP2jVVR@ashevche-desk.local>
-References: <20260925133804.2231004-1-yaojiale02@163.com>
- <TY3PR01MB11346E0C01A9337A3AF4D97DC868F2@TY3PR01MB11346.jpnprd01.prod.outlook.com>
- <34472b57.1961.1a0dd3dff12.Coremail.19888972804@163.com>
- <TY3PR01MB113461CE3C9EB4A175879F5BD868D2@TY3PR01MB11346.jpnprd01.prod.outlook.com>
- <1186ef64.63b1.1a0e6e70a59.Coremail.19888972804@163.com>
- <CAD++jLnVna-E61Z1GiKKX9G0Q+1CMq4GYi8p7vjKzeEtroAFdA@mail.gmail.com>
- <ar9WM0ZtDJD2H5Ii@ashevche-desk.local>
- <CAD++jL=eGjhCM8Xa=T08rPSGpH4p5dsajZa569gsObJma3yZ6g@mail.gmail.com>
- <ar-FDqxMC3F-zkPB@ashevche-desk.local>
- <CAD++jLnia-GyvS57-q2NOTWrqXWC12-HDbU6qsUiWEqOgTPX_Q@mail.gmail.com>
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="o2rBWC/S"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=N1P1P3jMKJo9ggmNihU/EA7zpJLYlMm+cg9cdHhLxxg=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1791101963; v=1; x=1791706763;
+ b=o2rBWC/SDVjK7JddP7bOJWlREDAr3IkA4FsCyfKM73m/XoBLGBSgEZqJEVwliuhxaLgKNE0G
+ GXZFzmMeXAN0/em2cjxGkcChj5bMuI0BU/VBYZig02vHSzEyZCGY37lI1OhqlcI6knhWnAppRUE
+ kN7HAmpyWkh9/6BBMVpDSPoo=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id e992c55305e9727b;
+	Sun, 04 Oct 2026 08:19:22 +0000
+X-Mizu-Trace-ID: e992c55305e9727b
+X-Migadu-Flow: FLOW_OUT
+From: Lance Yang <lance.yang@linux.dev>
+To: usama.arif@linux.dev
+Cc: akpm@linux-foundation.org,
+	david@kernel.org,
+	chrisl@kernel.org,
+	kasong@tencent.com,
+	ljs@kernel.org,
+	ziy@nvidia.com,
+	linux-mm@kvack.org,
+	ying.huang@linux.alibaba.com,
+	baoquan.he@linux.dev,
+	willy@infradead.org,
+	youngjun.park@lge.com,
+	hannes@cmpxchg.org,
+	riel@surriel.com,
+	shakeel.butt@linux.dev,
+	alex@ghiti.fr,
+	kas@kernel.org,
+	baohua@kernel.org,
+	dev.jain@arm.com,
+	baolin.wang@linux.alibaba.com,
+	nico.pache@linux.dev,
+	liam@infradead.org,
+	ryan.roberts@arm.com,
+	vbabka@kernel.org,
+	lance.yang@linux.dev,
+	linux-kernel@vger.kernel.org,
+	nphamcs@gmail.com,
+	shikemeng@huaweicloud.com,
+	yosry@kernel.org,
+	qi.zheng@linux.dev,
+	luizcap@redhat.com,
+	kernel-team@meta.com
+Subject: Re: [PATCH v8 26/30] mm: handle PMD swap entries in UFFDIO_MOVE
+Date: Sun,  4 Oct 2026 16:19:17 +0800
+Message-ID: <20261004081917.20111-1-lance.yang@linux.dev>
+X-Mailer: git-send-email 2.49.0
+In-Reply-To: <20261002095503.3585565-27-usama.arif@linux.dev>
+References: <20261002095503.3585565-27-usama.arif@linux.dev>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <CAD++jLnia-GyvS57-q2NOTWrqXWC12-HDbU6qsUiWEqOgTPX_Q@mail.gmail.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-+Cc: Danilo
-(as you were involved in cleaning this up in the past and being co-maintainer
- of driver core)
+Hey Usama,
 
-On Sun, Oct 04, 2026 at 01:06:07AM +0200, Linus Walleij wrote:
-> On Fri, Oct 2, 2026 at 12:19 PM Andy Shevchenko
-> <andriy.shevchenko@linux.intel.com> wrote:
-> > On Fri, Oct 02, 2026 at 11:52:41AM +0200, Linus Walleij wrote:
-> > > On Fri, Oct 2, 2026 at 8:59 AM Andy Shevchenko
+On Fri, Oct 02, 2026 at 02:52:40AM -0700, Usama Arif wrote:
+[...]
+>+static int move_swap_pmd(struct mm_struct *mm, struct vm_area_struct *dst_vma,
+>+			 unsigned long dst_addr, unsigned long src_addr,
+>+			 pmd_t *dst_pmd, pmd_t *src_pmd,
+>+			 pmd_t orig_dst_pmd, pmd_t orig_src_pmd,
+>+			 spinlock_t *dst_ptl, spinlock_t *src_ptl,
+>+			 struct folio *src_folio, swp_entry_t entry)
+>+{
+[...]
+>+
+>+	moved_pmd = pmdp_huge_get_and_clear(mm, src_addr, src_pmd);
+>+	if (pgtable_supports_soft_dirty())
+>+		moved_pmd = pmd_swp_mksoft_dirty(moved_pmd);
 
+Shouldn't we clear the source UFFD marker here?
+
+	moved_pmd = pmd_swp_clear_uffd(moved_pmd);
+
+just like move_swap_pte(), no?
+
+>+	/* Re-arm RWP on the moved swap entry if dst_vma is RWP-registered. */
+>+	if (userfaultfd_rwp(dst_vma))
+>+		moved_pmd = pmd_swp_mkuffd(moved_pmd);
+>+	set_pmd_at(mm, dst_addr, dst_pmd, moved_pmd);
+
+static int move_swap_pte(struct mm_struct *mm, struct vm_area_struct *dst_vma,
+			 unsigned long dst_addr, unsigned long src_addr,
+			 pte_t *dst_pte, pte_t *src_pte,
+			 pte_t orig_dst_pte, pte_t orig_src_pte,
+			 pmd_t *dst_pmd, pmd_t dst_pmdval,
+			 spinlock_t *dst_ptl, spinlock_t *src_ptl,
+			 struct folio *src_folio,
+			 struct swap_info_struct *si, swp_entry_t entry)
+{
 ...
+	orig_src_pte = ptep_get_and_clear(mm, src_addr, src_pte);
+...
+	orig_src_pte = pte_swp_clear_uffd(orig_src_pte);
+	/* Re-arm RWP on the moved swap entry if dst_vma is RWP-registered. */
+	if (userfaultfd_rwp(dst_vma))
+		orig_src_pte = pte_swp_mkuffd(orig_src_pte);
+	set_pte_at(mm, dst_addr, dst_pte, orig_src_pte);
+...
+}
 
-> > > The entire name of the thing feels like debugfs-footgun
-> > > territory for example.
-> >
-> > Yeah, I can't find neither a thing on LWN.net nor in the in-tree documentation.
-> > The only useful piece of information is (in kernel-doc of struct bus_type):
-> >
-> >   driver_override
-> >     Set to true if this bus supports the driver_override mechanism, which
-> >     allows userspace to force a specific driver to bind to a device via a sysfs
-> >     attribute.
-> 
-> This whole thing is weird, but OK.
-> 
-> Since we have a ton of drivers depending on match data we either
-> have to patch them all to bail out if match data is NULL (like this
-> patch does) or, which is equivalent, opt out of driver_override
-> that much is certain.
-> 
-> What I don't get is what this is intended for. What is the use case?
-> The commit says this is for VFIO. Shouldn't it be opt-in and turned
-> on only for VFIO then?
-> 
-> Kim Phillips is listed as contract for the platform bus driver_override
-> so let's ask! Kim: what is this for?
-> 
-> All of the device tree drivers use the platform bus, what's yhe
-> Unique Selling Point of this for our devices?
+Suppose the source is an exclusive swap PMD carrying a UFFD-WP marker, and
+the destination is an empty hole registered for synchronous UFFD-WP without
+RWP. We haven't write-protected the destination, but a successful whole-PMD
+MOVE carries the source's UFFD-WP marker into it.
 
--- 
-With Best Regards,
-Andy Shevchenko
+On swap-in, that marker is restored in the present PMD, leaving it
+write-protected. The write fault then reaches
+handle_userfault(vmf, VM_UFFD_WP), even though we never write-protected
+the destination ...
 
+That would be quite a surprise for userspace, and could leave the writer
+stuck if the unexpected WP event goes unhandled :)
 
+vm_fault_t do_huge_pmd_swap_page(struct vm_fault *vmf)
+{
+	struct vm_area_struct *vma = vmf->vma;
+...
+	bool exclusive, stable_writes, rwp_restore = false;
+	bool write = vmf->flags & FAULT_FLAG_WRITE;
+...
+	pmd = folio_mk_pmd(folio, vma->vm_page_prot);
+...
+	if (pmd_swp_uffd(vmf->orig_pmd))
+		pmd = pmd_mkuffd(pmd);
+	if (pmd_swp_uffd(vmf->orig_pmd) && userfaultfd_rwp(vma)) {
+		pmd = pmd_modify(pmd, PAGE_NONE);
+		rwp_restore = true;
+	}
+...
+	if (exclusive) {
+		if (!rwp_restore && (vma->vm_flags & VM_WRITE) &&
+		    !userfaultfd_huge_pmd_wp(vma, pmd) &&
+		    !pmd_needs_soft_dirty_wp(vma, pmd)) {
+			pmd = pmd_mkwrite(pmd, vma);
+			if (write)
+				pmd = pmd_mkdirty(pmd);
+		}
+		rmap_flags |= RMAP_EXCLUSIVE;
+	}
+...
+	vmf->orig_pmd = pmd;
+...
+	if (write && !pmd_write(pmd) && !rwp_restore) {
+		vm_fault_t wp_ret = wp_huge_pmd(vmf);
+...
+	}
+...
+}
+
+vm_fault_t wp_huge_pmd(struct vm_fault *vmf)
+{
+	struct vm_area_struct *vma = vmf->vma;
+	const bool unshare = vmf->flags & FAULT_FLAG_UNSHARE;
+...
+	if (vma_is_anonymous(vma)) {
+		if (likely(!unshare) &&
+		    userfaultfd_huge_pmd_wp(vma, vmf->orig_pmd)) {
+			if (userfaultfd_wp_async(vmf->vma))
+				goto split;
+			return handle_userfault(vmf, VM_UFFD_WP);
+		}
+		return do_huge_pmd_wp_page(vmf);
+	}
+...
+}
+
+So, clearing the source UFFD-WP marker before the destination RWP check
+would match the PTE helper and keep the RWP re-arm :)
+
+Am I missing something?
+
+>+	src_pgtable = pgtable_trans_huge_withdraw(mm, src_pmd);
+>+	pgtable_trans_huge_deposit(mm, dst_pmd, src_pgtable);
+>+
+>+	double_pt_unlock(dst_ptl, src_ptl);
+>+	return 0;
+>+}
+>+#endif /* CONFIG_THP_SWAP */
+>+
+
+[...]
+
+Cheers, Lance
