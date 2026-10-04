@@ -1,128 +1,62 @@
-Received: from mail.hallyn.com (mail.hallyn.com [178.63.66.53])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0A34F353A6D;
-	Sun,  4 Oct 2026 22:06:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=178.63.66.53
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CA78C353A6D;
+	Sun,  4 Oct 2026 22:06:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791151567; cv=none; b=VmTC45OmyFIMDy03cqmhNFCD3YQalxYGsVCHB6uQtY6sXaYrjqew940WqOuBcwrOVwf+mAZmS4a2efAGvQRtz9BS8kEkrrhRG7xpkO8Hil1wmiuPsAXMnFE13FGtjOfbx6Szj24eTqNxXKzT8VbAkp21qkvUHRpwmfh3c/v+6O4=
+	t=1791151615; cv=none; b=DBb5bq5uRxVfaJPYU6M7w9yyfZqXCvntw4V0j+TQ0hAFBZxozqz7g3ONeSPbzf9nxZrnB9/tCfJCcoTFULbO7fWPvhW5jn+SZknEojzdNb0RKaL+0iPUIXyGswpVkMi2hkUcPbmh4RrkGb8nD4Z3PxxXhGA4R504bH6ui4PsduM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791151567; c=relaxed/simple;
-	bh=e4/e87GJmDIAzGMrT5lDJ8Od/fqkoi5lw7yjfInlkKA=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Pkd0BD4cbYQmW+5p7B+mV1Td6mpOiip8ITkbsp4Mf+7/+Rl/my6uxmaE0MuuofAddyhJ3XTJAGloRiyMyVg2sb6qGN5lisvoqnkC1D01E5jDj0doZTln4O2KCsNQ06QvGy2Prv471HhmSiAaeVHut0zI0s9+6FWb6LAwidOf0GY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=hallyn.com; spf=unknown smtp.mailfrom=hallyn.com; dkim=pass (2048-bit key) header.d=hallyn.com header.i=@hallyn.com header.b=s/PARN+d; arc=none smtp.client-ip=178.63.66.53
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=hallyn.com
-Authentication-Results: smtp.subspace.kernel.org; spf=tempfail smtp.mailfrom=hallyn.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=hallyn.com header.i=@hallyn.com header.b="s/PARN+d"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=hallyn.com; s=mail;
-	t=1791151556; bh=e4/e87GJmDIAzGMrT5lDJ8Od/fqkoi5lw7yjfInlkKA=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=s/PARN+dX4gsnZ5GlvO1XifnTD4OWnOnsEdXvG0jq6XjlFaOJt6u4he6/fa/w9S4g
-	 4dHz0Jl3RDGGwH6Sl5uZ5wG5TvgthjXo2mugqAVF0MEczV+oDpo1TkHL9bhisP6KTH
-	 8k2PwhDT6zNY379oIlwiKmSUCNhJxTXaCSdgwYgMhybPfrDxw7CwpFD7UBLD9ncDrx
-	 9ncbTkXHPz1QPuy3wWJlJ02GmxNISiFX4eA/bdsi1KUN4T1YNwTGzobIUk+zGs0Jh3
-	 O0sM8sjM8tlxtx/fzCqTcDWJMuUA1KY4ZAb9lgGFmL976QLhM97Np+/XYtlMdYwsya
-	 vo9IbobwBg+5Q==
-Received: by mail.hallyn.com (Postfix, from userid 1001)
-	id 1CF9FE1C; Sun,  4 Oct 2026 17:05:56 -0500 (CDT)
-Date: Sun, 4 Oct 2026 17:05:56 -0500
-From: "Serge E. Hallyn" <serge@hallyn.com>
-To: tjdqudcks0424@naver.com
-Cc: Micah Morton <mortonm@chromium.org>, Paul Moore <paul@paul-moore.com>,
-	linux-security-module@vger.kernel.org,
-	James Morris <jmorris@namei.org>,
-	Thomas Cedeno <thomascedeno@google.com>,
-	Shuah Khan <shuah@kernel.org>,
-	Christian Brauner <brauner@kernel.org>,
-	linux-kselftest@vger.kernel.org, linux-kernel@vger.kernel.org,
-	security@kernel.org
-Subject: Re: [PATCH 1/2] security: safesetid: use real GID for GID policy
- lookup
-Message-ID: <asLNxHYQ/xQ6KaWy@hallyn.com>
-References: <cover.1791023194.git.tjdqudcks0424@naver.com>
- <d7e10b50556ab3b79c7132018249f6f7c608411b.1791023194.git.tjdqudcks0424@naver.com>
+	s=arc-20240116; t=1791151615; c=relaxed/simple;
+	bh=0BlvP+UVoG4Ln1Pg/j68FYQ7OvnVNfsSV31y6kHStCA=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
+	 MIME-Version:Content-Type; b=pucXPGM0OCbKdYr1Y82oBx7SKhd9RS85lgpaqtcTmYx/xFMddM4rO/VIKwfOdFeqQbXR+REZOJzRq8AllM/hfPfzUZGb1F3TaqGCtXTJC4kbqxmmCiz7GymWUqWUjzEBuh0ADvaNpu57wVq6T5UF6Rx1aytq8LaqJTgnFe4Guwk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4E5551F000FF;
+	Sun,  4 Oct 2026 22:06:54 +0000 (UTC)
+Received: by venus (Postfix, from userid 1000)
+	id 5E6BA180A51; Mon, 05 Oct 2026 00:06:50 +0200 (CEST)
+From: Sebastian Reichel <sebastian.reichel@collabora.com>
+To: Samuel Kayode <samkay014@gmail.com>, Sebastian Reichel <sre@kernel.org>, 
+ Myeonghun Pak <mhun512@gmail.com>
+Cc: Frank Li <Frank.Li@nxp.com>, Lee Jones <lee@kernel.org>, 
+ imx@lists.linux.dev, linux-pm@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ stable@vger.kernel.org, Ijae Kim <ae878000@gmail.com>
+In-Reply-To: <20261004043728.1140015-1-mhun512@gmail.com>
+References: <20261004043728.1140015-1-mhun512@gmail.com>
+Subject: Re: [PATCH] power: supply: pf1550: drain IRQ work before
+ unregistering supplies
+Message-Id: <179115161036.234792.14449355885017215498.b4-ty@b4>
+Date: Mon, 05 Oct 2026 00:06:50 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <d7e10b50556ab3b79c7132018249f6f7c608411b.1791023194.git.tjdqudcks0424@naver.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.16.0
 
-On Sat, Oct 03, 2026 at 07:34:15PM +0900, tjdqudcks0424@naver.com wrote:
-> From: Sung Byeongchan <tjdqudcks0424@naver.com>
-> 
-> SafeSetID policies constrain the ID transitions available to a task for
-> each source ID.  id_permitted_for_cred() always builds that source key
-> from the old real UID, even when it is checking a GID transition.  If the
-> real UID and real GID differ, the policy attached to the real GID is
-> therefore missed and the lookup can return the unconstrained default.
-> 
-> On current mainline, a test task with real UID 1000, real GID 2000 and
-> only CAP_SETGID obtained non-allowlisted GID 2002 despite a 2000:2001 GID
-> policy.  The bypass reproduced for setgid(), setegid(), setregid(),
-> setresgid(), setfsgid() and setgroups() across three clean QEMU boots,
-> and enabled access to a synthetic group-protected resource.  This shows
-> a SafeSetID GID policy bypass and group privilege expansion; it does not
-> show direct UID 0 elevation or a universal local privilege escalation.
-> 
-> Build the source key from the old real UID for UID policy checks and the
-> old real GID for GID policy checks.  In three fixed-kernel boots, all
-> tested non-allowlisted transitions were blocked while the allowed target,
-> existing-ID, no-policy and UID-policy controls, and the existing SafeSetID
-> selftest continued to pass.
-> 
-> Fixes: 5294bac97e12 ("LSM: SafeSetID: Add GID security policy handling")
-> Cc: stable@vger.kernel.org
-> Assisted-by: OpenAI Codex
-> Signed-off-by: Sung Byeongchan <tjdqudcks0424@naver.com>
 
-Seems obviously correct.  Thanks for the find and the fix.
-
-Reviewed-by: Serge Hallyn <serge@hallyn.com>
-
-> ---
->  security/safesetid/lsm.c | 8 +++++---
->  1 file changed, 5 insertions(+), 3 deletions(-)
+On Sun, 04 Oct 2026 00:37:28 -0400, Myeonghun Pak wrote:
+> The VBUS work calls power_supply_changed(), but its managed
+> cancellation is registered before the supplies. Cleanup can therefore
+> unregister a supply while IRQ-triggered work is still pending.
 > 
-> diff --git a/security/safesetid/lsm.c b/security/safesetid/lsm.c
-> index d5fb949050dd8..18124fc499dbc 100644
-> --- a/security/safesetid/lsm.c
-> +++ b/security/safesetid/lsm.c
-> @@ -148,13 +148,16 @@ static int safesetid_security_capable(const struct cred *cred,
->  static bool id_permitted_for_cred(const struct cred *old, kid_t new_id, enum setid_type new_type)
->  {
->  	bool permitted;
-> +	kid_t source_id;
->  
->  	/* If our old creds already had this ID in it, it's fine. */
->  	if (new_type == UID) {
-> +		source_id.uid = old->uid;
->  		if (uid_eq(new_id.uid, old->uid) || uid_eq(new_id.uid, old->euid) ||
->  			uid_eq(new_id.uid, old->suid))
->  			return true;
->  	} else if (new_type == GID){
-> +		source_id.gid = old->gid;
->  		if (gid_eq(new_id.gid, old->gid) || gid_eq(new_id.gid, old->egid) ||
->  			gid_eq(new_id.gid, old->sgid))
->  			return true;
-> @@ -162,11 +165,10 @@ static bool id_permitted_for_cred(const struct cred *old, kid_t new_id, enum set
->  		return false;
->  
->  	/*
-> -	 * Transitions to new UIDs require a check against the policy of the old
-> -	 * RUID.
-> +	 * Transitions require a check against the policy of the old real ID.
->  	 */
->  	permitted =
-> -	    setid_policy_lookup((kid_t){.uid = old->uid}, new_id, new_type) != SIDPOL_CONSTRAINED;
-> +	    setid_policy_lookup(source_id, new_id, new_type) != SIDPOL_CONSTRAINED;
->  
->  	if (!permitted) {
->  		if (new_type == UID) {
-> -- 
-> 2.43.0
+> Commit 838767f50747 ("power: supply: pf1550: Fix use-after-free in
+> power_supply_changed()") moved IRQ requests after supply registration,
+> but left work cancellation before the supplies. That change protects
+> the direct IRQ callbacks, while this fix drains the work they queue.
+> 
+> [...]
+
+Applied, thanks!
+
+[1/1] power: supply: pf1550: drain IRQ work before unregistering supplies
+      commit: 4856b49317ccd4ce96a0e8970df7d13ce8975a02
+
+Best regards,
+-- 
+Sebastian Reichel <sebastian.reichel@collabora.com>
+
