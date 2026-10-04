@@ -1,110 +1,114 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3D7F34A0912;
-	Mon,  5 Oct 2026 14:14:37 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9D4224A33E6;
+	Mon,  5 Oct 2026 14:16:23 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791209684; cv=none; b=dOOOJ21wsOuycGezitbJ9iCBx5rT8wRkdq+9RN5QAWjJUf+Aw8iXuv59K6chp8U7FZgGFX7/KSXalCcuoygtBsue3NGHdZAa3U5nwuFztOBHTYwZMgtJyUENI8kwMp0FSEtuiKM8c4sxmIm+voZmQG2ygMyml6Nm4RNh0nKhoKg=
+	t=1791209787; cv=none; b=RoyAjEfHkYcRtfptFV3Hnq+fuYBRmtlSd82bTiARzWG8mFxCGKMBPslfYTRUgAXqEfHvbwcveI7nmvDYu0thl8vlnFzKEilEPANwWLcbonHuaT8xnVYuHjnWZ6QT90+JI+PoUNe2yteN3I5nbau5A9aRsK9rcIiubjFT7DYhHQY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791209684; c=relaxed/simple;
-	bh=UHwh7wFHuN5Ga6uewbclz9cNyo0kJzEZC9uqnAntPpU=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=C05nMpUAOl0uMeNtcjC7ErOtDO7yu1yT8Yo/ZlmVEN0r/beWYME3rD4D2XHHYKRB3kBpwzN0bE4yk8ZRVg3Hbs1lRW/2advY2hUqoKIDtgRvFyeUtlERfPkUEVd51zQCWz/eSBSJ/ciJ4726ast66EIM5U5hlIWZSMfD3BDEaVs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=lFpWSE8A; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791209787; c=relaxed/simple;
+	bh=xKTsDH1Wuv7BqXGmGWhMOxCpi36Ahx5A11lCc7OgMAY=;
+	h=From:To:In-Reply-To:References:Subject:Message-Id:Date:
+	 MIME-Version:Content-Type; b=c5MguEaHnieAflYqNydisZTFVZwrWhcavP/wK7nzEcZ1SUBqSrmUi5ZZO/MifpHxjVBk/4Tqb7zaBJXL96EiJjx/1/hL2TOEAne6Zk4ePqjTfEA3NTxLtbYl/rLh4kvXbK5RisgCAnWq3h1OfwV3Qxmav3pcYyLrfu7tT5KrFJI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Xar1QYVT; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="lFpWSE8A"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 59D6E1F00898;
-	Mon,  5 Oct 2026 14:14:34 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Xar1QYVT"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5BBD71F00893;
+	Mon,  5 Oct 2026 14:16:19 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791209674;
-	bh=rVrrDfv4poJotbfMcfWYdkLo+G1+TYiRY9Y2dnE3WCs=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=lFpWSE8Am/LCLqpkSREObdjxVg+T1lCW1a0IINduLTsAWVcqJj+SlbQU4K5om54Pc
-	 bcXpTmNRqaILdQcsq31uRIjys0bk6szavl93IEAD+GMSw9nOuhc0cqUy9IrC6f1F+Q
-	 raZE5PBu2z+5py2dA/YUf2Qr3oNrcZPsYjNtOkPSnW70w/IGvEhUvnWw83ohkY4jBz
-	 lsR3B6tpSkioz73FDxSJ1Ch8PFxLIfFrCkZMDR0to1qLogNEoAlurvLaNdYPq4xX19
-	 cvYGkS0+AiMVYHDUyPhXaU/H3465WSgFjbJcZD8WVxd0118qTMmFkinrxwSzOWYEam
-	 RIhtfVm5YJAIw==
-Date: Mon, 5 Oct 2026 16:14:32 +0200
-From: Vinod Koul <vkoul@kernel.org>
-To: Bartosz Golaszewski <brgl@kernel.org>
-Cc: Frank Li <Frank.li@oss.nxp.com>,
-	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
-	linux-arm-msm@vger.kernel.org, dmaengine@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	Shawn Guo <shawnguo@kernel.org>, Frank Li <Frank.Li@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>
-Subject: Re: [PATCH] dt-bindings: dma: qcom,gpi: Document the Nord GPI DMA
- engine
-Message-ID: <asOwyLDTFc3gMGXW@parshuram>
-References: <20260916-nord-gpi-dt-bindings-v1-1-857bf9e84999@oss.qualcomm.com>
- <CAMRc=MdVQ4xUFPtcytXt5Tqor5-fUjHiRvnpmxBsJpJbd1rHLw@mail.gmail.com>
- <ar_OXbdMsP43JM9v@SMW015318>
- <CAMRc=Mfb-YspC2DBCfq+gay5Z7FkaK0HzfgwSiULaUZUxjMSgw@mail.gmail.com>
+	s=k20260515; t=1791209781;
+	bh=mCh4YAwjOU+2g6B8jKIlPf8Bdst3nnf69QGA+gm31CU=;
+	h=From:To:In-Reply-To:References:Subject:Date;
+	b=Xar1QYVTGnlhfmV910xIXSuA41WFawNPiJA2pg4WmiYTauXGANXJy2HSNZQK5u19a
+	 iRzjGP34tldbnhHfLA3cqIuNa7jXPZ+83DrYMN7mD6lIyAt+IHyi1YNbEebGzAceWZ
+	 HquQbEHhvN222m/1SU+DLuixsKfIhxI/lxs5iJEu1UHvqwBbpfED7T6E+NlncOJH7B
+	 C/9ZC+wClIqHgl0v1MdB4z6AzmVvlTpSiS7hzsk4BmC7elcUxI3ygiF9/96EPztfTa
+	 y/2No62FVD+7XA+2qosw6bcwup4irtMoyTCLDuMPIIPv3jGTec+6B/Fc/6CJ2B9krL
+	 CNEV4fAqRt3ug==
+From: Mark Brown <broonie@kernel.org>
+To: Oder Chiou <oder_chiou@realtek.com>, 
+ Liam Girdwood <lgirdwood@gmail.com>, Jaroslav Kysela <perex@perex.cz>, 
+ Takashi Iwai <tiwai@suse.com>, 
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.dev>, 
+ Rander Wang <rander.wang@intel.com>, 
+ Bard Liao <yung-chuan.liao@linux.intel.com>, 
+ Shuming Fan <shumingf@realtek.com>, Jack Yu <jack.yu@realtek.com>, 
+ linux-sound@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Jiale Yao <yaojiale02@163.com>
+In-Reply-To: <20260925145019.2290367-1-yaojiale02@163.com>
+References: <20260925145019.2290367-1-yaojiale02@163.com>
+Subject: Re: [PATCH 0/6] ASoC: rt-sdw: always cancel jack work on remove
+Message-Id: <179114354477.150114.17867136562907435840.b4-ty@b4>
+Date: Sun, 04 Oct 2026 21:52:24 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <CAMRc=Mfb-YspC2DBCfq+gay5Z7FkaK0HzfgwSiULaUZUxjMSgw@mail.gmail.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.17-dev
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2131; i=broonie@kernel.org;
+ h=from:subject:message-id; bh=xKTsDH1Wuv7BqXGmGWhMOxCpi36Ahx5A11lCc7OgMAY=;
+ b=owEBbQGS/pANAwAKASTWi3JdVIfQAcsmYgBqw7EvhSsMYivIBSu3G7u3PeWLN8hvCVLGHKIHD
+ ckiAcDyX72JATMEAAEKAB0WIQSt5miqZ1cYtZ/in+ok1otyXVSH0AUCasOxLwAKCRAk1otyXVSH
+ 0NQsB/0TubRu0BU/qQOGzWHLXN9sEDhqsH5hmqikmNIA5ENOR1KDRwgJbDDFUkeC8O7PW6T/TGD
+ Si/GdYx3KY6DLXAyVQrb9etgZ6gBdu4Lvh5rm8yQivjnFUZnFVWlL0EMCGNIpCFhycepVhCdC5i
+ KfREze33i3rFqPgUMZTCYDlEqK7lR8WDtBY84ONOUS+0ayj1kxsd5ZHxufhl7+M5JLaRSRoukgR
+ D1lGuaS9EIi8n2lxASD8TTPTqnHG+e+iXK9peSaJgkCaYRbwusjG1osFgSFifLo2g77fEYSiajs
+ nvoW6dfzPJIo58XcvzXBsFTy6uz4iQrre1WDXllOIRX5Q6YM
+X-Developer-Key: i=broonie@kernel.org; a=openpgp;
+ fpr=3F2568AAC26998F9E813A1C5C3F436CA30F5D8EB
 
-On 02-10-26, 12:28, Bartosz Golaszewski wrote:
-> On Fri, 2 Oct 2026 17:31:41 +0200, Frank Li <Frank.li@oss.nxp.com> said:
-> > On Fri, Oct 02, 2026 at 11:46:57AM +0300, Bartosz Golaszewski wrote:
-> >> On Wed, 16 Sep 2026 17:21:29 +0200, Bartosz Golaszewski
-> >> <bartosz.golaszewski@oss.qualcomm.com> said:
-> >> > Add the compatible string for the GPI DMA engine found on the Nord
-> >> > family of SoCs.
-> >> >
-> >> > Signed-off-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
-> >> > ---
-> >> >  Documentation/devicetree/bindings/dma/qcom,gpi.yaml | 1 +
-> >> >  1 file changed, 1 insertion(+)
-> >> >
-> >> > diff --git a/Documentation/devicetree/bindings/dma/qcom,gpi.yaml b/Documentation/devicetree/bindings/dma/qcom,gpi.yaml
-> >> > index 54dca623223d51373a4d54591f3ebbf5e31fca17..ad70717b5b86e600e74d6cfe42015dc03db25ba9 100644
-> >> > --- a/Documentation/devicetree/bindings/dma/qcom,gpi.yaml
-> >> > +++ b/Documentation/devicetree/bindings/dma/qcom,gpi.yaml
-> >> > @@ -29,6 +29,7 @@ properties:
-> >> >                - qcom,hawi-gpi-dma
-> >> >                - qcom,kaanapali-gpi-dma
-> >> >                - qcom,milos-gpi-dma
-> >> > +              - qcom,nord-gpi-dma
-> >> >                - qcom,qcm2290-gpi-dma
-> >> >                - qcom,qcs8300-gpi-dma
-> >> >                - qcom,qdu1000-gpi-dma
-> >> >
-> >> > ---
-> >> > base-commit: e6e35979777d646fe3c7c94dca7dd32fb25d45f4
-> >> > change-id: 20260916-nord-gpi-dt-bindings-f4b10102d22b
-> >> >
-> >> > Best regards,
-> >> > --
-> >> > Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
-> >> >
-> >> >
-> >>
-> >> Vinod: gentle ping, can this make v7.4, please? Otherwise, can you Ack it
-> >> and let Bjorn pick it up?
-> >
-> > I have not seen dt team's review tags yet. You should ping DT Team firstly.
-> >
-> > And subject:
-> > 	dt-bindings: dmaengine: qcom,gpi, although there some use "dma",
-> > but avoid confuse in future, all will consistently use "dmeangine".
-> >
+On Fri, 25 Sep 2026 22:50:12 +0800, Jiale Yao wrote:
+> ASoC: rt-sdw: always cancel jack work on remove
 > 
-> Do we require DT maintainers' review tags even for a single liner changes
-> like this one that don't carry much potential for errors? For GPIO I typically
-> take small changes like this even without them.
+> The Realtek SoundWire codec remove callbacks cancel jack work only while
+> hw_init is true. hw_init is cleared by update_status() when the slave
+> becomes unattached, but jack work can already have been queued by the
+> interrupt callback or jack initialization path. If remove runs after that
+> state transition, the pending work is not drained and can run after the
+> codec private data has been freed.
+> 
+> [...]
 
-They have been providing :-) I will pick this though...
+Applied to
 
--- 
-~Vinod
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-7.4
+
+Thanks!
+
+[1/6] ASoC: rt5682-sdw: always cancel jack work on remove
+      https://git.kernel.org/broonie/sound/c/9a98f7e955d3
+[2/6] ASoC: rt711-sdw: always cancel jack work on remove
+      https://git.kernel.org/broonie/sound/c/4bf78e3d9e32
+[3/6] ASoC: rt711-sdca: always cancel jack work on remove
+      https://git.kernel.org/broonie/sound/c/ecc2fca6dece
+[4/6] ASoC: rt712-sdca: always cancel jack work on remove
+      https://git.kernel.org/broonie/sound/c/c7d07df95ee7
+[5/6] ASoC: rt721-sdca: always cancel jack work on remove
+      https://git.kernel.org/broonie/sound/c/958d025d6235
+[6/6] ASoC: rt722-sdca: always cancel jack work on remove
+      https://git.kernel.org/broonie/sound/c/9d29132d81a7
+
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.
+
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
+
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
+
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
+
+Thanks,
+Mark
+
