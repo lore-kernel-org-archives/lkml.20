@@ -1,228 +1,203 @@
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+Received: from mail-qt1-f176.google.com (mail-qt1-f176.google.com [209.85.160.176])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 157A7480953;
-	Sun,  4 Oct 2026 18:38:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.130
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791139086; cv=none; b=j/Tk650N3UJgOzzkL3PoB62cLC7k6lPCNUsWS1WoJIcjN0Wx498sYphsVEoXT5rXau2GCc6ec5XPvXfZ6qiJ1aLLfXL9sJ/p1FeyW9Y+P7Ll6aelMM0IRaPU/iZCe+i6lWR3FhVkWyn5vAMlbWZQb5KHGcKRtxsYGTy5goWDqLY=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791139086; c=relaxed/simple;
-	bh=5OIeb0KQYJAZBbByRplOstp/j05el8GbcAhhBlJrMW0=;
-	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=Bk7OTkSh+l9gJT+WfL4QHcq0i9OX4ZLVXxScHzflbfjyWCRWBoYZa1TwtZVg+Ttt8afINn/dGetgpAZTdd5XQGg8sBtrCU1BUJeXKYfpdD4YlhtDybEZ4bo8jFQlDEpmoJkZxMlD4qIW1QSo1gTrEqetobAKossQ0I6EtPJd/9k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=1MTppv3z; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=/+MGWodF; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=qyd0DvFE; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=5EcoDPj/; arc=none smtp.client-ip=195.135.223.130
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6B32D478E3E
+	for <linux-kernel@vger.kernel.org>; Sun,  4 Oct 2026 18:38:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.160.176
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791139091; cv=pass; b=lf3dUg5VLWQpawjKNHxpbEKO16swEMlsQBhoPxfBob2Q0jn77U+iwPOw4BZ2ZXF5r/eonPm0zhYi5+BwqVQKskATtrmPVRFM/CgoOxblq5d6BxRnlKoAKdH0VMz30nt0FmRxFO5RSsJwpmbEu4cbE5ZmqByTb0y4BRvWGtwltvk=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791139091; c=relaxed/simple;
+	bh=czHf1y5s0XiTKD3HwlV6gqG6rPLD25IXCbNXKX3jGrg=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=MbIJzhg6SernBI0bsD0jf7x217PaALTpDvn6AtMrKrBWh3hu8m6lrT90q7pBT130eTSkkfS8EvzosHZSD6Rh6AjAnjTXguSnYEpcAahdvuuO11lIp28neqYOfEpiEdsfPG9u2lhZdhp/JLXyOTLMtVfyHvMNlxySxd4fmF7SNf0=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=cUgA/H2U; arc=pass smtp.client-ip=209.85.160.176
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="1MTppv3z";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="/+MGWodF";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="qyd0DvFE";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="5EcoDPj/"
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id B03F221D45;
-	Sun,  4 Oct 2026 18:37:54 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1791139078; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=GqMoXyq5mQHGq/QPLbs3A/r06cDlnqm6ZY93gy7/96Y=;
-	b=1MTppv3zeq0crJHluy1zJX1qaQqlEbRL+WG+jew4e4MhmNu27UlSqaZ210nO31Xw1PBFyc
-	tyVeA1NeSdtFfoiC5ECKhVYVYqhmDgT5nhO3GstRMrjOey+6FEjk2bITb/ulpEXorCtjBS
-	gZZK4iWzn6DMOjswosSVZVGjywdTDa8=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1791139078;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=GqMoXyq5mQHGq/QPLbs3A/r06cDlnqm6ZY93gy7/96Y=;
-	b=/+MGWodFWjLcz3o/r/xJCN1eG6P6uCzZZUS/hMOBEA7XHT43pfwDyCIX4NPHVMuGGvCexn
-	0hvvis+U0quV/MCg==
-Authentication-Results: smtp-out1.suse.de;
-	dkim=pass header.d=suse.de header.s=susede2_rsa header.b=qyd0DvFE;
-	dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b="5EcoDPj/"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1791139074; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=GqMoXyq5mQHGq/QPLbs3A/r06cDlnqm6ZY93gy7/96Y=;
-	b=qyd0DvFE60qzwNHV5Gb46/Fln7MtbjujdMhoBCPhwFbz6ATqqKnJsQAeQqlTHiH74c/jj/
-	YBV1Mr3mqAuDduzjR3Y2PD/pugSKXzNt1Kehqokbj8fZw5hVrHHEnmNIYwIETloUxzabSJ
-	8zrAX6U+yncbqsBgis4CRWLCX0Vzxuc=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1791139074;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=GqMoXyq5mQHGq/QPLbs3A/r06cDlnqm6ZY93gy7/96Y=;
-	b=5EcoDPj//Sb8VtjL6E0udAJWNsYBsyUVWj2rSlPEEQVGBtYf8M6FS7Q/lkVxd/ywUVoVcF
-	dtyUUVX0QGFOD0Cw==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id CA823133CF;
-	Sun,  4 Oct 2026 18:37:53 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id TF7YJwGdwmpCXgAAD6G6ig
-	(envelope-from <tiwai@suse.de>); Sun, 04 Oct 2026 18:37:53 +0000
-Date: Sun, 04 Oct 2026 20:37:53 +0200
-Message-ID: <874if1ia66.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: henrik.enquist@gmail.com
-Cc: Jaroslav Kysela <perex@perex.cz>,
-	Takashi Iwai <tiwai@suse.com>,
-	Mark Brown <broonie@kernel.org>,
-	Shuah Khan <shuah@kernel.org>,
-	linux-sound@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-kselftest@vger.kernel.org,
-	Pavel Hofman <pavel.hofman@ivitera.com>,
-	stable@vger.kernel.org
-Subject: Re: [PATCH 0/2] ALSA: aloop: Fix notify mode, add a selftest
-In-Reply-To: <20261003-aloop-notify-fix-v1-0-ba5dfb831bf5@gmail.com>
-References: <20261003-aloop-notify-fix-v1-0-ba5dfb831bf5@gmail.com>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/30.2 Mule/6.0
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="cUgA/H2U"
+Received: by mail-qt1-f176.google.com with SMTP id d75a77b69052e-5337c7b9937so265321cf.0
+        for <linux-kernel@vger.kernel.org>; Sun, 04 Oct 2026 11:38:09 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1791139088; cv=none;
+        d=google.com; s=arc-20260327;
+        b=qEQQB2P94O+Oaw0ThsOw+hAw5piUhfatRUfMb7zT0/qf5a+je/twteJRhaew5FfdNH
+         6e2WlVN3T1hvyST4IEiij5MctDrYz1ujXxXlcwq0Y704GXbVCu+F0j6Z+IRP8Gb9WYM6
+         bOU37xmMnkRug8w5kZE0mUZbzfSJSDQyMq+50BHopORS0/1qt8Hpx70oMyJkT7TjkEp7
+         f0qBZcCPWYr4Q+oDcj8XUF8NRgIXDURSOgEfaD7GhmaLIYqrh46s8KEcjC1qaPV7ES+N
+         uDJ6AQxZutf3h2TEOeSCrAMKM/VfSEHmbgP6UUn1h0DoY9Zjt1vuGuN7qK/rCswj9b0X
+         YuSw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=4c7dYjrT6sZNHYJQlTA+JnOu2XHVq9WNP85b0Iivahw=;
+        fh=FjiPBGU4M1tOO4UFbiptet80lrMKGpULaXesHWeYiXM=;
+        b=KJ/qV8EBXWzjpt+k75b2pVo1qqWGKJcx7HS4nRMivbUs7s7b784L6vpVW2Bndi8S2D
+         cbUzCKWYDN3iqPri//8sA08+bMYaFUHcV8PYd7bTzPNDuoKO4zK/Wq2uJaA3wUwvbS/p
+         tALqGCwFI+T2pflCOpR4fKE269urdIWMvUAt4EobWcU6kPNfpo8YxOIPt+siDscHmfDH
+         gra1c4AtRNX0TtUkfSMtkuk7ZcSm1269da8htvf3bxAgastX62/O/5gwh4Licebk4KoJ
+         Q30F3iJGFJDnSn3Co4WEQbQwVZ2r71kRA0A4uR5sMjm1XJA2MVzdhZ6lu6zpb7rszTsV
+         IvmQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1791139088; x=1791743888; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=4c7dYjrT6sZNHYJQlTA+JnOu2XHVq9WNP85b0Iivahw=;
+        b=cUgA/H2UGYjty5o+6+XxOm/pWmTA1x+NpJxEjouio3RqmFvE5jBaLDRh8hzE77DDe6
+         gIaHAWWp37fgVb9W0DH93Ka/t+R95qpqUehK4s+5PIF0gsC4RlzulW4ijRW9G6HPRAc1
+         4u3d6X26e+ZYAzJ23yP14GHWFtQnG59Lk4CQUSgpz9+5UNwDQWlCkrdviru7HB/CpWj+
+         vUeZuCO8u4f7BuCfSA533lzfDtFL00p0ISt6uwz0C9TrPRw5NbSsuF8WdY5Yh81Aw7U4
+         8IWko+WPfdnWGjVKONtU81hsKnC95i/qLSq4aSd5WQBXI03GZSAwuffUVOuLeTpLdK6m
+         5TWQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791139088; x=1791743888;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=4c7dYjrT6sZNHYJQlTA+JnOu2XHVq9WNP85b0Iivahw=;
+        b=CruZGsirTICLCbjTEdBYZCsmycSGaLoqpsY9ioFm5jGBgKRYmMdHxDXXHujUr3JrSP
+         sP3Q3CH0ByyDsnOA8neLSArFgcoMCWi+GSGRyqmA1hzhfYOMG9ujwTzdaC8mQXD+z1GP
+         2XDlj0x3z1da4NXq5i28jhV68xHg9HIkjtF2gVB5dbsFmepAi9fyiGvVIK/B/rWDEvXG
+         jWC1XXHQbHDE7kFRhKx6zC1nMAKrz8lGVvZXN68OgHv1qZbsZrJoKCXdbygiPay+7xTd
+         KiBu7LS/kW9izYm/5l2hVI2v0vKkniFin6ZJAcfX6m8ULJ+PYjPi2/Wl+12m4oSf2OJE
+         Tihw==
+X-Forwarded-Encrypted: i=1; AKwUvBwpk06SfYVgdAVOaPcncKxeiVazYwDGViJUejVhhiZjhjghqJ6jORVHTz2DggqA6Xss+9yHnoLChauIzh0=@vger.kernel.org
+X-Gm-Message-State: AFuF++npPciB/8PY4M2LzUDJaRDxlLJLBlKGAAggiZNcS8uuBVg4rxpW
+	aLgOGI5c63nbtCl68tUX2RTixO6qJIhmiVQWe9zaL+tv3v3ul8ETarMNBfKlVic4vf/Ly63q2Go
+	gHbPhkLWDRnqR5atAILwO+SYR42JnVJNEwgudunVP
+X-Gm-Gg: AYBFou13UYbGlDXOVnXEzmllVioi8jgqbqZg51NNN9N9Lz+gyr9z2fBdAyB1xFQpuoS
+	8HQLY72YS9BTvSTZXWYNqC6rnX63LWVRYGlGj9pCz6hE/wHkWDn7eSL0CzonQF47mq/102pC9im
+	J+ROS8mFVrghA+KG2L2J4wDwtIH7hidKlepeRdliXFeTH0qv1cnSA5leWzbKE1ez5io4Cfyyd45
+	cNnJsOwoo2y8nwSBrcmDCi+46st1s+lRPYFf5Tlc00RpXg682JMBmn+BIcnd9PTw/C7XBtXSEl4
+	W/y8WKQ5JDcbqFvf6oVjKIY/C2MrjU/Zok4V5yk9pDp0crXBW7eFXDF8
+X-Received: by 2002:a05:622a:5984:b0:532:858d:e791 with SMTP id
+ d75a77b69052e-535131b5a91mr17889301cf.8.1791139087466; Sun, 04 Oct 2026
+ 11:38:07 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
-X-Rspamd-Queue-Id: B03F221D45
-X-Rspamd-Action: no action
-X-Spamd-Result: default: False [-2.01 / 50.00];
-	BAYES_HAM(-3.00)[100.00%];
-	SUSPICIOUS_RECIPS(1.50)[];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	MID_CONTAINS_FROM(1.00)[];
-	R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	MX_GOOD(-0.01)[];
-	TAGGED_RCPT(0.00)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	ARC_NA(0.00)[];
-	TO_DN_SOME(0.00)[];
-	FREEMAIL_TO(0.00)[gmail.com];
-	FREEMAIL_ENVRCPT(0.00)[gmail.com];
-	DNSWL_BLOCKED(0.00)[2a07:de40:b281:104:10:150:64:97:from];
-	RCVD_TLS_ALL(0.00)[];
-	FROM_EQ_ENVFROM(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	RCPT_COUNT_SEVEN(0.00)[10];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:mid,suse.de:dkim];
-	RCVD_COUNT_TWO(0.00)[2];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	DKIM_TRACE(0.00)[suse.de:+]
-X-Spam-Flag: NO
-X-Spam-Score: -2.01
-X-Spam-Level: 
+MIME-Version: 1.0
+References: <20260929082014.160587-1-hao.ge@linux.dev> <20260929134401.a1a385ff4369661f879b5d2f@linux-foundation.org>
+ <CAJuCfpFRW3uNUW_VrjpOfLwS1LBHqGEpqK3yBTPSpGOORY5jiQ@mail.gmail.com> <fc4f3d08-393f-43ed-934b-e7e1ba6d0137@linux.dev>
+In-Reply-To: <fc4f3d08-393f-43ed-934b-e7e1ba6d0137@linux.dev>
+From: Suren Baghdasaryan <surenb@google.com>
+Date: Sun, 4 Oct 2026 20:37:54 +0200
+X-Gm-Features: AclHuK-tgnRy3c8tRpdQgoIviLT7ezLMAJcWRyqSp8rv6XK6Qm-JduLkT1yGnnc
+Message-ID: <CAJuCfpGAZUcQnursYh=rvp+EzckvDmXX_KveJvEuyjzzG=9mww@mail.gmail.com>
+Subject: Re: [PATCH v11 0/7] alloc_tag and module codetag section fixes
+To: Hao Ge <hao.ge@linux.dev>
+Cc: Andrew Morton <akpm@linux-foundation.org>, Kent Overstreet <kent.overstreet@linux.dev>, 
+	Luis Chamberlain <mcgrof@kernel.org>, Petr Pavlu <petr.pavlu@suse.com>, 
+	Daniel Gomez <da.gomez@kernel.org>, Sami Tolvanen <samitolvanen@google.com>, 
+	Aaron Tomlin <atomlin@atomlin.com>, Alexander Potapenko <glider@google.com>, Marco Elver <elver@google.com>, 
+	Dmitry Vyukov <dvyukov@google.com>, Vlastimil Babka <vbabka@kernel.org>, Michal Hocko <mhocko@suse.com>, 
+	Brendan Jackman <brendan.jackman@linux.dev>, Johannes Weiner <hannes@cmpxchg.org>, Zi Yan <ziy@nvidia.com>, 
+	Uladzislau Rezki <urezki@gmail.com>, linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
+	linux-modules@vger.kernel.org, kasan-dev@googlegroups.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Sat, 03 Oct 2026 15:26:10 +0200,
-Henrik Enquist via B4 Relay wrote:
-> 
-> Hi,
-> 
-> snd-aloop has a notify mode (the pcm_notify module parameter, or the
-> "PCM Notify" control per cable) where the playback side may switch
-> format, rate and channels while a capture is running. The driver then
-> stops the capture and updates the "PCM Slave" controls, so the capture
-> application can reopen with the new parameters. alsaloop enables it in
-> its slave mode, and I'd like to use it in CamillaDSP, which captures
-> from a loopback and needs to follow whatever the player outputs.
-> 
-> This hasn't worked since 2018. Commit 898dfe4687f4 ("ALSA: aloop: Fix
-> racy hw constraints adjustment") moved the hw rules over to the shared
-> cable->hw. That fixed a real race, but it also pins the playback side
-> to the capture's parameters in notify mode. Pavel reported it on
-> alsa-devel in 2020 [1], and Jaroslav reproduced it and pointed at the
-> same commit:
-> 
->   It seems that 898dfe4687f4 from Takashi broke this functionality
->   (tied the cable parameters more strictly, so the playback cannot set
->   freely own parameters for the pcm_notify=1 case). We need to find
->   another way to detach capture stream in this case.
-> 
-> The thread ended there, without a patch.
-> 
-> The breakage is quiet, which probably explains why it lasted. A player
-> that probes the playback device sees only the capture's rate and
-> format, and resamples to them. aplay prints a warning, most players
-> don't. There's no rate change, no stopped capture and no event.
-> 
-> Patch 1 skips the hw rules for the playback side when notify is on,
-> which gives it back the freedom loopback_open() still intends it to
-> have. That makes the capture stop in loopback_check_format() reachable
-> again. That path was hardened this year by 826af7fa62e3 ("ALSA: aloop:
-> Fix racy access at PCM trigger") and e5c33cdc6f40 ("ALSA: aloop: Fix
-> peer runtime UAF during format-change stop"), and with those in place
-> I'm comfortable turning it back on. They need to go first in any
-> stable backport.
-> 
-> The period bytes rule is skipped as well. It came later, for the sound
-> timer source, but without skipping it a playback that switches rate
-> keeps the old capture's period size. The stream then runs with a period
-> that doesn't match the timer, and every switch fills dmesg with "Period
-> size ... not corresponding to timer resolution".
-> 
-> Patch 2 adds a selftest, so this doesn't break silently again. It
-> doesn't need to go to stable, so it can go via for-next if that's
-> easier.
-> 
-> Testing: for-linus at b4e7fc36e31f, arm64 VM, kernel with KASAN,
-> lockdep, DEBUG_ATOMIC_SLEEP and DEBUG_LIST, comparing the patched
-> driver with the unpatched one built from the same tree. With the
-> jiffies, hrtimer and sound timer (via snd-dummy) sources:
-> - With notify on, rate, format and channel changes on the playback
->   side now go through, stop the capture and update the controls. With
->   notify off they're refused as before.
-> - A capture that reopens at "PCM Slave Rate" after each stop follows a
->   player alternating between 44.1k and 96k files, 20 of 20 switches,
->   with both RW and mmap access. Unpatched: 10 of 20, the playback stays
->   pinned to the capture's rate.
-> - A capture opened second is still pinned to the playback.
-> - 2 minutes of random open/start/close on both ends per source gave no
->   KASAN or lockdep reports. The sound timer source logs an occasional
->   "snd_timer_stop ... failed with -16", at the same rate unpatched.
-> - The new selftest fails 2 of 4 tests unpatched, and passes 4 of 4
->   patched, 50 runs in a row.
-> Not tested: real hardware, other architectures, pause/resume, more
-> than two substreams.
-> 
-> One question, following up on Takashi's point in that thread about
-> telling user space that a stream got invalidated. After the stop, the
-> capture drains and then reads return -EBADFD. alsa-lib now documents
-> -ENODATA as meaning the PCM must be completely restarted, which looks
-> like the right signal here. Would you want aloop to report that
-> instead? I left it out since it changes what user space sees, but I'm
-> happy to do it as a follow-up.
-> 
-> AI disclosure: I used Claude Code (Claude Opus 5.5) for this. Starting
-> from my description of the problem and the 2020 thread, it did the
-> root cause analysis from the driver source and git history, set up the
-> test kernels and VM, wrote the test scripts, ran the measurements, and
-> wrote both patches and their changelogs. I reviewed all of it, and both
-> patches carry an Assisted-by tag.
-> 
-> [1] https://lore.kernel.org/all/b4af9071-f8d7-5b47-4d7a-c5743bd67394@ivitera.com/
-> 
-> Henrik
-> 
-> ---
-> Henrik Enquist (2):
->       ALSA: aloop: Don't constrain playback params in notify mode
->       selftests/alsa: Add a test for snd-aloop notify mode
+On Wed, Sep 30, 2026 at 5:25=E2=80=AFAM Hao Ge <hao.ge@linux.dev> wrote:
+>
+> Hi Suren and Andrew
+>
+>
+> On 2026/9/30 10:39, Suren Baghdasaryan wrote:
+> > On Tue, Sep 29, 2026 at 8:44=E2=80=AFPM Andrew Morton <akpm@linux-found=
+ation.org> wrote:
+> >>
+> >> On Tue, 29 Sep 2026 16:20:07 +0800 Hao Ge <hao.ge@linux.dev> wrote:
+> >>
+> >>> With profiling toggled off, the overflow check in
+> >>> reserve_module_tags() did not run, a module could load with more
+> >>> tags than the page flags can address, and re-enabling profiling
+> >>> then silently corrupted /proc/allocinfo. On overflow the fix shuts
+> >>> profiling down, releases the reservation and returns -EAGAIN, and
+> >>> the codetag section lands as regular module data in the same load,
+> >>> so the module loads without profiling.
+> >>>
+> >>> Review of the earlier series by Sashiko turned up more problems.
+> >>>
+> >>> One is a race. layout_sections() and move_module() both asked
+> >>> codetag_needs_module_section() where a codetag section goes, and
+> >>> mem_profiling_support can change between the two calls, for instance
+> >>> when another module load overflows the tag index and shuts profiling
+> >>> down. move_module() then copied the codetag section to offset 0 of
+> >>> its regular destination and clobbered the first section placed in
+> >>> that region.
+> >>>
+> >>> v7 reworks where codetag sections are allocated, on a prototype by
+> >>> Petr Pavlu [1]. The allocation runs before layout_sections() and the
+> >>> placement is decided in one step, so nothing re-asks the question
+> >>> and the race is gone. The retry is gone too, on -EAGAIN the section
+> >>> is laid out as regular module data right in the same load.
+> >>
+> >> Thanks.
+> >>
+> >> Seven patches, all cc:stable.  Why is a backport proposed?
+> >> Documentation/process/stable-kernel-rules.rst gives guidelines - does
+> >> this series meet them?  Does Suren have thoughts?
+>
+> Thanks, I've just gone through this carefully.
+>
+> >
+> > I think vmalloc fix in patch#2 should be posted separately and clearly
+> > quialifies for backporting as if fixes issues Hao found at [1].
+>
+> Agreed. Patch #2 was added to this patch series because vm_module_tags_po=
+pulate
+> suffers from the same issue. If we want to be more conservative, I'd pref=
+er to keep
+> vm_module_tags_populate as it was in V10:
+> https://lore.kernel.org/all/20260915070001.113559-3-hao.ge@linux.dev/
 
-Applied both patches to for-next branch now.  Thanks.
+I disagree with this approach. That means we are introducing an extra
+code inside vm_module_tags_populate() only to clean it up later.
+Instead please post Patch #2 separately. That posting should have your
+current patch that changes vmap_pages_xxx() to clean up on failure,
+followed by patch(es) which remove unnecessary cleanup that some
+functions currently perform by themselves. This patchset should
+definitely be tagged for stable.
+Once that patchset is accepted, the rest of your current patchset
+fixing alloc_tags can be posted with correct assumption that
+vmap_pages_range() cleans up its partial mapping when it fails.
 
+I know this sequence will take longer to upstream but I think it's the
+right way to go.
 
-Takashi
+>
+> Then we can submit a fix for __GFP_NOFAIL retry loop in __vmalloc_area_no=
+de() as a hotfix together
+> with our new patch #2. While at it, we can also check if there are any un=
+necessary calls to
+> vunmap_range family functions that can be cleaned up now that patch #2 is=
+ applied.
+>
+>
+> >
+> > The rest are also bug fixes but their size is concerning. I'll review
+> > them first before advising on which ones should be backported. Some
+> > fixes address issues that happen very rarely and if a fix is too
+> > complex it might make sense to leave it be or fix it some other way
+> > with less churn. Please give me a couple of days to review them. With
+> > the upcoming LPC I'm trying to multiplex between several projects.
+>
+> Thanks, sorry for all the hassle on you folks.
+>
+> Thanks
+> Best Regards
+> Hao
+>
+> >
+> > [1] https://lore.kernel.org/all/b8005c24-ecac-45c4-840a-fd282f9693b5@li=
+nux.dev/
+> >
+> >>
+> >> Also, Sashiko has been busy again:
+> >>         https://sashiko.dev/#/patchset/20260929082014.160587-1-hao.ge@=
+linux.dev
