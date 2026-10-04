@@ -1,112 +1,134 @@
-Received: from mail-wr2-f35.google.com (mail-wr2-f35.google.com [74.125.225.99])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from gwu.lbox.cz (gwu.lbox.cz [62.245.111.132])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B87693F65EA
-	for <linux-kernel@vger.kernel.org>; Sun,  4 Oct 2026 18:46:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.99
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6B8DD3E7145
+	for <linux-kernel@vger.kernel.org>; Sun,  4 Oct 2026 18:46:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=62.245.111.132
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791139601; cv=none; b=eNz2nGs1ygUL8Nm9k/fME4CVs276gPPxqNMEuDXDa1otzew3VxgBjA+bxpnX+g4UI5FzhpGEZISQ7MN9PfuisAcVt3Uymv2a1a1KGhC80AhrSn8uC6K+KzjACGdJmY7JdFgYBiI0Z0sctGqvkeVK2Mr/SXB96kOlVJALBh3TVfw=
+	t=1791139608; cv=none; b=JHsFzTad8YIrN2mHo43VSv6/Ligh54XtGHjBSYDTR90qcDYap22X5rOgZUDWHVlnWai9kcnkKNFytG0zmnMMrJVXb29T+a/0A8XQvYEhyg9loQFibtDmywgyPRtwbnDjtLJYxAn7Zx2iXhQcG2NXx2FMe5EPaAlEPaQSwMO+K2s=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791139601; c=relaxed/simple;
-	bh=ZEhDPZo7Pi9t2F29hIlWPWIq/RNbNj79JGslseqy9NE=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=tm/I2UjA1NFAsKn409bqAJ51V+D2qb85eXgMrMYTIu4UyOoDj5gYoRp8fcyP99SWDxPzAJQLbU7gPg2upUklVjHZ+C1c2xYIcdWYl1qmZZjl66jSDA8fDuMlL5CxptK/iFHcCpXC0VH/c9zkbex+yanblK4Z8bbmqPczRP0CFA0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=VITKVTdR; arc=none smtp.client-ip=74.125.225.99
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1791139608; c=relaxed/simple;
+	bh=2napi+fOT3h7MJZDPgiIhPBe22fAMuaFdgmet2FOvoI=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=XtN78zIqJTHMZm6dAYMAMMc3xOVb3dnc8sHkF4BeC2IxED90YncAp9PCJfZsgS1n9YAWQPURc9RIWlEZYCOZY2QGg/apfYGbJzIx9VNoZQ5y9Dp/3wNPuMF0DW+mH/PXQYpkke2zI9m6RVL5w7CRE6iEdGUaRlqCvNeGlXnjlTs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linuxbox.cz; spf=pass smtp.mailfrom=linuxbox.cz; dkim=pass (1024-bit key) header.d=linuxbox.cz header.i=@linuxbox.cz header.b=cPsT5ZcH; arc=none smtp.client-ip=62.245.111.132
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linuxbox.cz
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linuxbox.cz
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="VITKVTdR"
-Received: by mail-wr2-f35.google.com with SMTP id ffacd0b85a97d-488811c9ebaso471195f8f.2
-        for <linux-kernel@vger.kernel.org>; Sun, 04 Oct 2026 11:46:39 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791139598; x=1791744398; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=EaKQNPs1qaiOc1buy/JrU9ZbzGwKfhNY3I1FClEqH18=;
-        b=VITKVTdRfGf4qwlCNzWbGS7Df67MlJXxrazzg11XpxlO0JD2+SHVUr5k+mzfh+LtIF
-         QD3zubNTjlI4gpTaZOg/3KO+47yz7veliM8TfozruRggD1/fntLZTLNbXyZnRd3Munem
-         IZBEfrSPQ81yZwLdBvqbP/y7AYl5lXDBcS8upifD7pL7mYItr7/vGYldd+HcnkwFwkQV
-         kWeryncVTpIu7wA2M7QzfG/pGzp2KLpcwo4E/Kytm2xxNHboE3VSeqK7Z0wz2MVGbWr1
-         oC8Vr7UcSNI23Xob1zv/e52ZRXUVZcShC188X6JQxdG1mMXdMHZx1apbC7HtAJh5OuHf
-         46SA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791139598; x=1791744398;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=EaKQNPs1qaiOc1buy/JrU9ZbzGwKfhNY3I1FClEqH18=;
-        b=a5JSGOVlB+apnFkw7ChDCDnVaAx5VuhvipmQAf+X5QHAWOpy4PrHoVcSpPAKBek1M7
-         29vekcRJeJ44V6dCM2pq6HeGR4MFSQVO2xPFTo5EolwrVRZK6hNkYfOkOEKs1SHTXTUW
-         GCHGXUis1lLEDrvantexB59rInRPnCcaqcgTlTREiKJDyc2HAyk2ZtXw77hYcZFxZsGn
-         Q24pDvicUUV7eOYhe4Hl3rFdw5OvZ7iCH3B7GJeYEZmXlN5f02P6RFc8LYH8OWhlYy7z
-         1yj7KRcVK71/xyJJqRSojvtLIQI5bbTPPFmaBdjPid7wwZZXgnR0VrCPaTOypsR/XSHL
-         AWSw==
-X-Forwarded-Encrypted: i=1; AKwUvBzpjoggJCnsN8uFPd/noHu5nwssJjXwfFkU8p35CCzlRZ4qbpi9tvMLUjrhu4V44ewEmDKue1zkCQz0hpA=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJqu8ClPcGRcRfwwrBgYG4H0L8v/oxbZFUTpl14ixwi6bY1kjhf
-	m4tpesrMyAA7mGwjQp3mm8G4VP0DG2lQh+jsSA4v7fJjsV9iSEu/VJRM
-X-Gm-Gg: AYBFou3fJnhVzyDTktysgi7o5DUwUsAq+EJg/pCKS5EVoregMcouvFnfMSMe+7wDC7q
-	x1FCBOrf1bDi05EA8ZY2GBIA0GSd6Nqi97lTJGto4fKHQwiNFYU7z6co52gwNvyel+7jBQZsMCW
-	Ir62+2l49EqWVV68RW77NOyiRYOshO7GmaE9eQjDjAyaA0LqDe6JN9ApbWXx5nvSzJFB1dR0Fg7
-	m4YF3EEW82JN7y0rPqDaINgfg3m564F8gVgmvb0cLIIhku9Z9DhsmeI82oK1Sit96bVn/XgvlJP
-	btAhW8SsL6R7MKxzx4WmV3msBXRTMAsMTQOUEoT6l6GRRwSjaqfPfySc5rDMnzX/iP8r34Yc/tx
-	sKVeVI0LPV4mEhDdG8/TOQgt3qAwcWVsI/PtpNB7r+ptDHCpvDY6eJAHbmq1ULFEivY8g8tsOlI
-	ztL5SRLV5EHEokW5D2y8aZQfzxJH1/9fpVXWjsP1t9j+D36k+awbh92x5MlU+ZHirCcJ4nawmqb
-	0L8oQSOXDcnUtCDRgwBf6grzfMk2MaaRxugPF8NHT+pi9kyjkrpIsoPGxZgFTVReVuxdqp4mCpk
-	7PKS
-X-Received: by 2002:a05:6000:98d:b0:488:7f8b:b4b with SMTP id ffacd0b85a97d-48b12736b30mr16063188f8f.26.1791139597622;
-        Sun, 04 Oct 2026 11:46:37 -0700 (PDT)
-Received: from jjj-x570pro4 ([2a01:e0a:9d5:4a60:d60f:fd1a:fad6:a587])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48c57d927cdsm4988765f8f.6.2026.10.04.11.46.36
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 04 Oct 2026 11:46:37 -0700 (PDT)
-From: Justin Bacle <justin.bacle@gmail.com>
-To: Takashi Iwai <tiwai@suse.com>,
-	Jaroslav Kysela <perex@perex.cz>
-Cc: linux-sound@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Justin Bacle <justin.bacle@gmail.com>
-Subject: [PATCH] ALSA: usb-audio: add sample-rate quirk for Yamaha 01V96i
-Date: Sun,  4 Oct 2026 20:44:45 +0200
-Message-ID: <20261004184618.56779-1-justin.bacle@gmail.com>
-X-Mailer: git-send-email 2.53.0
+	dkim=pass (1024-bit key) header.d=linuxbox.cz header.i=@linuxbox.cz header.b="cPsT5ZcH"
+Received: from linuxbox.linuxbox.cz (linuxbox.linuxbox.cz [10.76.66.10])
+	by gwu.lbox.cz (Sendmail) with ESMTPS id 694IjpYK4062391
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NO);
+	Sun, 4 Oct 2026 20:45:51 +0200
+DKIM-Filter: OpenDKIM Filter v2.11.0 gwu.lbox.cz 694IjpYK4062391
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxbox.cz;
+	s=default; t=1791139553;
+	bh=9HrLouAe+9dAbXUMKxgFdSHX5a0LnpsaBifZX7zcJOM=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=cPsT5ZcHW36/chAnpDmGiHAT7yG5g4jxV+GDs+8iYhqbX/hH1mXRwGzbJn2+EIHQ7
+	 Fz2NyGs083JF/pboieVHuv1Pepeg2TbjhAJD/ine52TroiGHRt4Qy9ptLk25AyPUXl
+	 HHjM/gi/1u0lkd4L6jrlbCLw8KAEpyjx9kk+JGlU=
+Received: from pcnci.linuxbox.cz (pcnci.linuxbox.cz [10.76.3.14])
+	by linuxbox.linuxbox.cz (Sendmail) with ESMTPS id 694Ijool022808
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NO);
+	Sun, 4 Oct 2026 20:45:50 +0200
+Received: from pcnci.linuxbox.cz (localhost [127.0.0.1])
+	by pcnci.linuxbox.cz (8.18.1/8.15.2) with ESMTPS id 694IjmMx2331923
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Sun, 4 Oct 2026 20:45:50 +0200
+Date: Sun, 4 Oct 2026 20:45:48 +0200
+From: Nikola Ciprich <nikola.ciprich@linuxbox.cz>
+To: Borislav Petkov <bp@alien8.de>
+Cc: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>, linux-mm@kvack.org,
+        linux-kernel@vger.kernel.org, akpm@linux-foundation.org,
+        david@kernel.org, Mike Rapoport <rppt@kernel.org>,
+        Dave Hansen <dave.hansen@linux.intel.com>,
+        Pedro Falcato <pfalcato@suse.de>, Kiryl Shutsemau <kas@kernel.org>,
+        luizcap@redhat.com, pbonzini@redhat.com,
+        Tal Zussman <tz2294@columbia.edu>, Rik van Riel <riel@surriel.com>,
+        Matt Fleming <matt@readmodwrite.com>,
+        Nikola Ciprich <nikola.ciprich@linuxbox.cz>
+Subject: Re: hunting memory corruption bug in 6.18.x
+Message-ID: <asKe3M5VRvMvdY7s@pcnci.linuxbox.cz>
+References: <arde/t0zQNEkWqi5@pcnci.linuxbox.cz>
+ <areOeRwZOez0eHm7@gremlin>
+ <arotyz5g6LozSjb1@pcnci.linuxbox.cz>
+ <arwNebjYXyGqrp32@pcnci.linuxbox.cz>
+ <arzRBv9ceJsxJppI@gremlin>
+ <ar1Xl7PE2rcoT9h3@pcnci.linuxbox.cz>
+ <ar63St2LBfCdyhwj@pcnci.linuxbox.cz>
+ <ar9yRqq6cBxHDWKA@gremlin>
+ <ar/F6+OUzj8qQ8YC@pcnci.linuxbox.cz>
+ <20261002220248.GJasAqCFwxOK4l2TbS@fat_crate.local>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <20261002220248.GJasAqCFwxOK4l2TbS@fat_crate.local>
+X-Scanned-By: MIMEDefang 3.7.1 on 10.76.66.3
+X-Scanned-By: MIMEDefang v3.7.1/SpamAssassin v4.000002 on lbxovapx9 (nik)
+X-Scanned-By: MIMEDefang 2.86 on 10.76.66.10
+X-Antivirus: on lbxovapx9 by Antivirus 
+X-Spam-Score: N/A (trusted relay)
+X-Milter-Copy-Status: O
 
-Signed-off-by: Justin Bacle <justin.bacle@gmail.com>
----
- sound/usb/quirks.c | 15 +++++++++++++++
- 1 file changed, 15 insertions(+)
+On Fri, Oct 02, 2026 at 03:02:48PM -0700, Borislav Petkov wrote:
+> On Fri, Oct 02, 2026 at 04:55:39PM +0200, Nikola Ciprich wrote:
+> > I'll leave it running for few hours, and report back. If I'm able to reproduce,
+> > I'll try recommended workarounds and report as well.
+> 
+> I'll venture a guess here and say that Matt's reproducer won't trigger on your
+> machines.
 
-diff --git a/sound/usb/quirks.c b/sound/usb/quirks.c
-index 6176acc04..9a5ea295e 100644
---- a/sound/usb/quirks.c
-+++ b/sound/usb/quirks.c
-@@ -2332,6 +2332,21 @@ void snd_usb_audioformat_attributes_quirk(struct snd_usb_audio *chip,
- 					  int stream)
- {
- 	switch (chip->usb_id) {
-+	case USB_ID(0x0499, 0x5500): /* Yamaha 01V96i */
-+		/*
-+		 * The 01V96i declares its audio streaming interfaces as
-+		 * vendor-specific (class 0xff) and provides no class-specific
-+		 * endpoint descriptor.  parse_uac_endpoint_attributes() therefore
-+		 * returns no attributes, and the driver never issues the SET_CUR
-+		 * sampling-frequency request the hardware needs to engage its USB
-+		 * stream: playback and capture PCMs report RUNNING, but the desk
-+		 * passes no audio.
-+		 *
-+		 * Force the attribute on so the stream is initialised the same way
-+		 * the Windows driver does it.
-+		 */
-+		fp->attributes |= UAC_EP_CS_ATTR_SAMPLE_RATE;
-+		break;
- 	case USB_ID(0x0a92, 0x0053): /* AudioTrak Optoplay */
- 		/* Optoplay sets the sample rate attribute although
- 		 * it seems not supporting it in fact.
+and you're right :(
+
+> 
+> Just to rule out any other issues which got fixed in the meantime, can you try
+> mainline Linux and see if you can reproduce your observation with it?
+that'll be very complicated in production.. it'd help a lot if we could reproduce
+it in lab again..
+
+I guess we'll add more windows guests and more load in them and see if we can reproduce
+it in lab..
+
+> 
+> If so, you could share your crash core along with debug kernels yadda yadda so
+> that I can poke at it.
+> 
+> And before you do, make sure you have the latest BIOS and microcode installed on
+> that machine.
+> 
+> Also, where can I find full dmesg and /proc/cpuinfo from those machines which
+> trigger this?
+
+I'll gather it all and put it on storage to download tomorrow.
+
+cheers
+
+nik
+
+
+> 
+> Thx.
+> 
+> -- 
+> Regards/Gruss,
+>     Boris.
+> 
+> https://people.kernel.org/tglx/notes-about-netiquette
+> 
+
 -- 
-2.53.0
+Ing. Nikola CIPRICH
+technický ředitel
 
++420 591 166 214
++420 777 093 799
+nikola.ciprich@linuxbox.cz
+
+www.linuxbox.cz
