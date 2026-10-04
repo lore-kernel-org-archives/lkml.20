@@ -1,111 +1,131 @@
-Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
+Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 78E4235E1D9;
-	Sun,  4 Oct 2026 21:12:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=156.67.10.101
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9C44947D471
+	for <linux-kernel@vger.kernel.org>; Sun,  4 Oct 2026 21:13:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.85.4
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791148358; cv=none; b=Nv+SwaIW3RbeYCjot15ip+babqABuchzLxzuScde5j2Fg+/7xXlsLUqAG24zD5zD6ZHP5ISjsj4VkQMpfMeLDt4wMw0nScYAuN54umxoTTLzvLTKTPLezgiQ+ANq2FnK9u84brbtMewmpMmuqF/8RG1rK8sImpqgBz1247sPaK4=
+	t=1791148422; cv=none; b=rTe/zMHNN2+dKSvM0auMJpx+hzFLUEg63XgOMppPdAJR4fCTCVUSljrdylwjWQlcDpTF6h+FzISRIj8YEfbwjv0ReEnboRyMkZlp9ABh/6ZZGV1GzcACf9p7mUsK/n+OKINZiPtNflQfvQZScXorURtYX3UqQqm/gEFzakpRZ6Q=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791148358; c=relaxed/simple;
-	bh=NmrH2uqY7UdOuCzorL+84N0i0TF2zr1eCTSHpf3PYcw=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=oQmpUMBQakW0AjhaVq14M/PTi15UdPnrfy70buIvcsmOvkyUG1bvrvFAasMmxe4junVno8yIEK5u40ULG3L2GvvnuXP9KS10476MZHBJVZLUn6f0lqtmaolwK9NC9LNMsNHRUnN+VIPvUFxLcO58h3TfBnq1bVwHUxqWnq7hwf0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch; spf=pass smtp.mailfrom=lunn.ch; dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b=zoy5ZLLh; arc=none smtp.client-ip=156.67.10.101
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
+	s=arc-20240116; t=1791148422; c=relaxed/simple;
+	bh=NFYhCoYyRwrUc0Lyiyp3uLvg7G1eCSWrSipN36e/iwg=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=hCboC5mEUH4ZboFzZ0xDSYMA/YwfYHgtZo3LfQRKw0zhICFjODizLWUqhryM1dwTgktRrAGZxiBp041Qn8awPcMCkGizJzIYfppwvoaXf+s19BRa2N5JoOIv7xkknWqsLgyAd6LFKUapIQSm+Iu4tuFnT+aZoD5IoXZrpQUyeZE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=kCUsydxH; arc=none smtp.client-ip=185.246.85.4
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b="zoy5ZLLh"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
-	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
-	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
-	bh=y1b6HQppxLWXEYQG/mzzRjuSGf9TO9N0vqMhm+H8UvY=; b=zoy5ZLLh9BmbE/V3lUHsRF7Zte
-	t6bYy8nc/Kc226QFCVZJp6qh1/NcSo+XglbSoVkY6QhwB4kjti3L7omn//jlu5WU1V6BsalIMt9Pt
-	YiYflDyaBt+VCLuI+0X7CiJaAQFztNYIPv5YGRZXWJrPB13/mTl2iKa4dmBvL/0z94Dk=;
-Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
-	(envelope-from <andrew@lunn.ch>)
-	id 1xDTVO-008wUB-T0; Sun, 04 Oct 2026 23:12:22 +0200
-Date: Sun, 4 Oct 2026 23:12:22 +0200
-From: Andrew Lunn <andrew@lunn.ch>
-To: BG9OXA <bg9oxa@163.com>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Heiko Stuebner <heiko@sntech.de>, devicetree@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v5 2/2] arm64: dts: rockchip: add ALIENTEK QuarkPi-CA2
-Message-ID: <596745ab-8f98-4e5b-9105-3215a46780a4@lunn.ch>
-References: <20261001-b4-quarkpi-ca2-v5-0-e19296802978@163.com>
- <20261001-b4-quarkpi-ca2-v5-2-e19296802978@163.com>
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="kCUsydxH"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-03.galae.net (Postfix) with ESMTPS id 252944E41168;
+	Sun,  4 Oct 2026 21:13:39 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id D2DFD604FE;
+	Sun,  4 Oct 2026 21:13:38 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id DD9731032820F;
+	Sun,  4 Oct 2026 23:13:30 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1791148417; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:content-language:in-reply-to:references;
+	bh=nXPXirW3eRDsSI9mvG4DFF7E3a00ea/RwmInqyXUVd4=;
+	b=kCUsydxHi1pBYG/VMU/FQcimtNJep3NIuesye/jvgOjSjEhH/76NRdMy4W334dzAh2mwqL
+	NAJrzK4xjqvAQEWVQPuKKWXqgC7W993Gfw7IanqW/t0bd2hSCIZ8YHThNyq8lPs7XLmL+c
+	sj8d3hdOigyOeVezUEzMB0h6XSzD+4RUTVJHTD+EoVPHOHXabzSdpDL6RrFoqjTImoGhlX
+	xk6jjh850A9O8vO5ZjhDzfrhIrbACQKXO3O/G6ycuany91IVzTe3wlEXh6S7EltG9da2Eo
+	INQJBZJLmavvZBTml0LeAhLl7Mt9OxbwWQKNXhSHnfHzXN3ud2jt/NntjLibew==
+Message-ID: <aafea01f-546e-47de-9e1d-e404450e78c5@bootlin.com>
+Date: Sun, 4 Oct 2026 23:13:29 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261001-b4-quarkpi-ca2-v5-2-e19296802978@163.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [RFC PATCH 3/6] net: stmmac: dwmac-meson8b: add support for the
+ Amlogic T7
+To: Lucas Tanure <tanure@linux.com>, xianwei.zhao@amlogic.com,
+ Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller"
+ <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>,
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>,
+ Neil Armstrong <neil.armstrong@linaro.org>,
+ Kevin Hilman <khilman@baylibre.com>, Jerome Brunet <jbrunet@baylibre.com>,
+ Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>
+Cc: netdev@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-amlogic@lists.infradead.org,
+ linux-kernel@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com
+References: <20261004144046.391444-1-tanure@linux.com>
+ <20261004144046.391444-4-tanure@linux.com>
+Content-Language: en-US
+From: Maxime Chevallier <maxime.chevallier@bootlin.com>
+In-Reply-To: <20261004144046.391444-4-tanure@linux.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Last-TLS-Session-Version: TLSv1.3
 
-On Thu, Oct 01, 2026 at 11:19:47PM +0800, BG9OXA wrote:
-> The QuarkPi-CA2 is an RK3588S based single board computer with LPDDR4X
-> RAM, eMMC, microSD, one Gigabit Ethernet port (YT8531 PHY), HDMI 2.1,
-> DisplayPort over USB-C, M.2 PCIe 2.0 x1, USB 2.0 and 3.0 host ports,
-> an ES8388 audio codec with headphone amplifier, a MIPI CSI camera
-> connector, an IR receiver, a PWM controlled fan, ADC keys and a 40-pin
-> GPIO header.
+Hi Lucas,
+
+On 10/4/26 16:40, Lucas Tanure wrote:
+> The glue registers on the T7 are laid out exactly as the G12A ones, RX
+> delay field included, so the T7 can reuse the G12A settings.
 > 
-> The GbE MAC receives its reference clock from the PHY, and the PHY keeps
-> its clock output enabled while the link is down so that the MAC can be
-> initialised.
+> What the T7 does not share is how the controller reaches DRAM: the bus
+> path goes through a pipeline stage with a gate of its own, and no device
+> other than the controller has any use for that gate. Claim it and hold
+> it enabled for as long as the controller is bound, otherwise it is
+> switched off as unused and a transfer that has been started can never
+> complete.
 > 
-> The MDIO bus is described with separate mdio and mdio-child nodes, and
-> the RK3588S RGMII delays are applied on the MAC side (tx_delay).
+> Give the T7 match data of its own so that only it looks the clock up,
+> and require the clock instead of treating it as optional: the controller
+> cannot do DMA without it, and failing the probe with a clear message
+> beats booting and hitting an undiagnosable hang later.
 > 
-> Signed-off-by: BG9OXA <bg9oxa@163.com>
+> Assisted-by: LLM
+> Signed-off-by: Lucas Tanure <tanure@linux.com>
+> ---
 
-I assume BG9OXA is a radio call sign. So it is unique, and nationally
-assigned.
+[...]
 
-https://www.kernel.org/doc/html/latest/process/submitting-patches.html
+>  
+> +static const struct meson8b_dwmac_data meson_t7_dwmac_data = {
+> +	.set_phy_mode = meson_axg_set_phy_mode,
+> +	.has_prg_eth1_rgmii_rx_delay = true,
 
-says it needs to be "a known identity". I've no idea if a call sign
-qualifies. Signed-off-by: is considered a legal statement....
+Hmpf sorry this falls onto your series, but looking at the code it seems
+that this glue has the RGMII handling backwards...
 
-> +&gmac1 {
-> +	phy-mode = "rgmii-id";
-> +	clock_in_out = "input";
-> +
-> +	snps,reset-gpio = <&gpio0 RK_PD5 GPIO_ACTIVE_LOW>;
-> +	snps,reset-active-low;
-> +	snps,reset-delays-us = <0 20000 100000>;
-> +
-> +	pinctrl-names = "default";
-> +	pinctrl-0 = <&gmac1_miim
-> +		     &gmac1_tx_bus2
-> +		     &gmac1_rx_bus2
-> +		     &gmac1_rgmii_clk
-> +		     &gmac1_rgmii_bus
-> +		     &gmac1_clkinout>;
-> +
-> +	phy-handle = <&rgmii_phy1>;
-> +	status = "okay";
-> +};
-> +
-> +&mdio1 {
-> +	rgmii_phy1: ethernet-phy@1 {
-> +		compatible = "ethernet-phy-ieee802.3-c22";
-> +		reg = <0x1>;
-> +
-> +		motorcomm,clk-out-frequency-hz = <125000000>;
-> +		motorcomm,keep-pll-enabled;
-> +	};
-> +};
+In meson8b_init_rgmii_delays :
 
-For these two nodes only:
+         switch (dwmac->phy_mode) {                           
+         case PHY_INTERFACE_MODE_RGMII:                       
+                 delay_config = tx_dly_config | rx_adj_config;
+                 break;                                       
+         case PHY_INTERFACE_MODE_RGMII_RXID:                  
+                 delay_config = tx_dly_config;                
+                 cfg_rxclk_dly = 0;                           
+                 break;                                       
+         case PHY_INTERFACE_MODE_RGMII_TXID:                  
+                 delay_config = rx_adj_config;                
+                 break;                                       
+         case PHY_INTERFACE_MODE_RGMII_ID:                    
+         case PHY_INTERFACE_MODE_RMII:                        
+                 delay_config = 0;                            
+                 cfg_rxclk_dly = 0;                           
 
-Reviewed-by: Andrew Lunn <andrew@lunn.ch>
+This is the behaviour one would expect from a PHY perspective.
 
-    Andrew
+And indeed, 66 amlogic dts have "phy-mode = rgmii".
+
+grep "phy-mode = \"rgmii\"" $(find arch/ | grep amlogic) | wc -l
+66
+
+I really think all these 66 "rgmii" instance should have been "rgmii-id"...
+
+It's probably too late to change that though :(
+
+Maxime
