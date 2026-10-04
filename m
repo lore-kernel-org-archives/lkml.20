@@ -1,105 +1,67 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from relay.hostedemail.com (smtprelay0015.hostedemail.com [216.40.44.15])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E0337412276;
-	Sun,  4 Oct 2026 07:52:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 663DE2853F3;
+	Sun,  4 Oct 2026 07:52:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=216.40.44.15
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791100339; cv=none; b=FKCDd8LSM3UUZE7W6MJAS3MjCdB0v74SUvp6qBZqb9w1NyLWqiWHbBzaEjLFW9TU92ELpMmh/4ZK4+KWWoe5eFPpIfCt07MQsBiSIIaMQFqC+IUk7wPBL7LtwQqhXZ0a9UPzZ2NFk1spHYLY1Z+cXzgqCpkuK9OvUuDairxT5PQ=
+	t=1791100380; cv=none; b=lMKkWqM5q7/+oyzd33OGlYFXf1wKV1JIrf8y1kjYJj5qQNYW9St5/FpchOoxtru9V6WDbOVImEJrm6mJ4Z8HxjOHxJBxFSsj7UruA9iUGjucs1HRNhay8dRaLgGd+HFCxYs0nXPNjZErwf+8sZ+7GvWKOBza5m6kctT9ThD079Q=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791100339; c=relaxed/simple;
-	bh=WXmH2dYXDFZZ2ee/o0Y1LUnNSiAW59zVSwnusNzFKQk=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=oDAF8b6qHxtNU9c8AIA0M9+PiGkqcpJKvseh0/veB0qEPy/B2ZotYVZkXhYCq+03sm1ltPVvtXGIwJuvHNgjvRZiJ1HtVEK70e+1+s7dxxu2mf5+JWmWIqOyMIpPxZsd6+kGNV4XjB6X3voFuQQDExyXGbxhe8uHcwTPoLgaPH8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=l6LwYv+E; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791100380; c=relaxed/simple;
+	bh=qaA3FCUSvghvQp4of7xy8J6K3nfjoP6YXUfDz99COFE=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=A2eUoorOCqSadXY9fRaYXCm3ZgBCZ+1QvPk/5PV98j+RH8VWWabdmJ0bR4XbUyhrUWTNoJJffvzRmhC8I3rhxdlquRh7JYrapZjYNQNuVbja1krgIdumZjGRA3Glo3+AI5hyBTHpD6WFH9QPlsRBbJFo904hNf7xLxfQHdonYjg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=goodmis.org; spf=pass smtp.mailfrom=goodmis.org; dkim=pass (1024-bit key) header.d=goodmis.org header.i=@goodmis.org header.b=JrSlqiVJ; arc=none smtp.client-ip=216.40.44.15
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=goodmis.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=goodmis.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="l6LwYv+E"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C56541F000FF;
-	Sun,  4 Oct 2026 07:52:17 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791100338;
-	bh=HPhnCbH5nfK+KOXs9ChJxFjkxzJXKQLtLRJEkaP4nBU=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=l6LwYv+EDwQI+sAFvT/invRE8QA+hGh7IMbXyDd8hw2rQgbgu2UrKb4X4YbP+HHW8
-	 fbNguDncoz3kP7B+cD7+GE8T49++d80Q4Qff0Dkd7RfghulrYer12hDyEas8Rg/VdH
-	 FNhaIB995odCh0F2EKowN718JQjj/L6FesfyDg/PbKFQPapeZHV5Lwi6ORwBh6N3x/
-	 iJmg3H4ltUSNdT+anEsp4p1JW6dZkyl2YoNsYgD/T9b6bEUci0Hyb1PV4HMmQ2LXx1
-	 WemuxvwVKjx0S9300PG6Ukodhrm1bM0gdzlJh1T57FNf/v5lAdx9QFCC8BZsAqm1B3
-	 Xkk3FC2KtbfNA==
-Date: Sun, 4 Oct 2026 09:52:16 +0200
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: =?utf-8?B?TWljaGHFgiBLb3BlxIc=?= <michal@nozomi.space>
-Cc: linux-input@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-mediatek@lists.infradead.org, linux-arm-kernel@lists.infradead.org, 
-	linux-kernel@vger.kernel.org, Jiri Kosina <jikos@kernel.org>, 
-	Benjamin Tissoires <bentiss@kernel.org>, Dmitry Torokhov <dmitry.torokhov@gmail.com>, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
-	Conor Dooley <conor+dt@kernel.org>, Matthias Brugger <matthias.bgg@gmail.com>, 
-	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, Allen Lin <allencl_lin@hotmail.com>, 
-	Tylor Yang <tylor_yang@himax.corp-partner.google.com>, Felix Kaechele <felix@kaechele.ca>, 
-	Douglas Anderson <dianders@chromium.org>
-Subject: Re: [PATCH v5 3/6] HID: himax: Add DRM panel follower support
-Message-ID: <20261004-walrus-of-angelic-performance-5f09d0@quoll>
-References: <20261003142741.48634-1-michal@nozomi.space>
- <20261003142741.48634-4-michal@nozomi.space>
+	dkim=pass (1024-bit key) header.d=goodmis.org header.i=@goodmis.org header.b="JrSlqiVJ"
+Received: from omf11.hostedemail.com (lb01a-stub [10.200.18.249])
+	by unirelay01.hostedemail.com (Postfix) with ESMTP id 303B61C3E84;
+	Sun,  4 Oct 2026 07:45:26 +0000 (UTC)
+Received: from [HIDDEN] (Authenticated sender: rostedt@goodmis.org) by omf11.hostedemail.com (Postfix) with ESMTPA id 294762002A;
+	Sun,  4 Oct 2026 07:45:22 +0000 (UTC)
+Date: Sun, 4 Oct 2026 03:45:15 -0400
+From: Steven Rostedt <rostedt@goodmis.org>
+To: Peter Zijlstra <peterz@infradead.org>
+Cc: Gabriele Monaco <gmonaco@redhat.com>, linux-kernel@vger.kernel.org,
+ linux-trace-kernel@vger.kernel.org, bpf@vger.kernel.org, Masami Hiramatsu
+ <mhiramat@kernel.org>, Ingo Molnar <mingo@redhat.com>, Nam Cao
+ <namcao@linutronix.de>, K Prateek Nayak <kprateek.nayak@amd.com>, Alexei
+ Starovoitov <alexei.starovoitov@gmail.com>, Wen Yang <wen.yang@linux.dev>,
+ Tobias Schaffner <tobias.schaffner@siemens.com>, Viktor Malik
+ <vmalik@redhat.com>
+Subject: Re: [PATCH v2 01/15] sched: Add task enqueue/dequeue trace points
+Message-ID: <20261004034515.3592947c@fedora>
+In-Reply-To: <20261002102939.GB2823843@noisy.programming.kicks-ass.net>
+References: <20261001152042.124445-1-gmonaco@redhat.com>
+	<20261001152042.124445-2-gmonaco@redhat.com>
+	<20261001154934.GT88198@noisy.programming.kicks-ass.net>
+	<d75888885e2c94c1bc717faa864f609c43db874f.camel@redhat.com>
+	<20261002102939.GB2823843@noisy.programming.kicks-ass.net>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-In-Reply-To: <20261003142741.48634-4-michal@nozomi.space>
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
+X-Rspamd-Server: rspamout05
+X-Rspamd-Queue-Id: 294762002A
+X-Stat-Signature: qfwpz1gpmib1tkbxtes3gznptcofz1at
+X-Session-Marker: 726F737465647440676F6F646D69732E6F7267
+X-Session-ID: U2FsdGVkX1+WjOzEIJBMoRLXH/p6Vwn+z72qSKDM+pU=
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=goodmis.org; h=date:from:to:cc:subject:message-id:in-reply-to:references:mime-version:content-type:content-transfer-encoding; s=dkim1; bh=qaA3FCUSvghvQp4of7xy8J6K3nfjoP6YXUfDz99COFE=; b=JrSlqiVJqG6g/c1IVI6fPZGUsWyQw7uLYL8Y0lkxuDwm83YeSpdR8wlAkEky0s/rybElQfEu0L49azhrOg/a1Hie9uBDiqSifOqY6/+YtK8aQrt8P56Tv2aA9WLcxKT0M/8GdgoHAcBiVjEW+J7cVz5ZEwG9f12qjMgWuUnCYyQ=
+X-HE-Tag: 1791099922-219789
+X-HE-Meta: U2FsdGVkX1+1LvFSPawVsPnS8oyr2Sx+JjRcNfYLmIG6ky6VrWp9Z1JJsULduW88gQ5JVoVdJFvZUl9ST3X4QVUllBtfr+IqdhkR+cMNFfiebtjXCxcQqSDvQKUnn0RvyimIgbLBr0nbbiBHRHPceLYT1b3xj0iQflDuWntW4aYNxHPgGrVPTtP1LgObsom+Yg+u3MJFLGXUxCEL3XpYURrZStndPiE0TMGr7wB+3JeG4FMxQhooM/5G8OKnJLnjoUCiJ1PVKtXbDjkItl6ixop3WZuRZXjL1XzgkDs3coJaI8girgzgtC+XGTIb95ta+OgecalJdDbLAP55nTS3JZ4DyJU76BaZR01zybRNbBivwKe89vhLUH4NDW8EJIpiPbHN0uvVktmryUdYVXCoaw==
 
-On Sat, Oct 03, 2026 at 04:27:38PM +0200, Micha=C5=82 Kope=C4=87 wrote:
-> +/**
-> + * himax_resume_proc() - Chip resume procedure of touch screen
-> + * @ts: Himax touch screen data
-> + *
-> + * This function is used to resume the touch screen. It will call the
-> + * himax_ap_notify_fw_suspend() to notify the FW of AP resume status.
-> + *
-> + * Return: None
-> + */
-> +static void himax_resume_proc(struct himax_ts_data *ts)
-> +{
-> +	himax_ap_notify_fw_suspend(ts, false);
-> +}
-> +
-> +/**
-> + * himax_chip_suspend() - Suspend the touch screen
+On Fri, 2 Oct 2026 12:29:39 +0200
+Peter Zijlstra <peterz@infradead.org> wrote:
 
-Why are you explaining standard PM functions? Not only with comments,
-but with kerneldoc?
+> ...insert rant on what a piece of shit rst is here...
 
-> + * @ts: Himax touch screen data
-> + *
-> + * This function is used to suspend the touch screen. It will disable the
-> + * interrupt and set the reset pin to activate state. Remove the HID at
-> + * the end, to prevent stuck finger when resume.
+Rant from grumpy old guy that doesn't like the new stuff ;-)
 
-Only the last sentence is relevant, all others just repeat the code. We
-can read the code, no need to say what the code is doing. You should
-explain WHY, not WHAT.
-
-> + *
-> + * Return: 0 on success, negative error code on failure
-> + */
-> +static int himax_chip_suspend(struct himax_ts_data *ts)
-> +{
-> +	himax_int_enable(ts, false);
-> +	gpiod_set_value(ts->pdata.gpiod_rst, 1);
-> +	himax_power_set(ts, false);
-> +	himax_hid_remove(ts);
-> +
-> +	return 0;
-> +}
-
-Please take over the series and clean it up from all these vendor kernel
-monstrosities.
-
-Best regards,
-Krzysztof
-
+-- Steve
