@@ -1,50 +1,43 @@
-Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.2])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A3FBE2EEE75;
-	Sun,  4 Oct 2026 13:40:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.2
+Received: from mail.loongson.cn (mail.loongson.cn [114.242.206.163])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 821C33A6418
+	for <linux-kernel@vger.kernel.org>; Sun,  4 Oct 2026 13:41:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=114.242.206.163
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791121258; cv=none; b=XlthzY7dko5wVMZU7zdlC+l210v+lQNjv1CvbAurbcpufDyDU2+mQ8kYDonH9zfgOMDoPlP9p7i/BIxg/jHYLszaX3wZcSLKON3N2GeaoetbzYDC8Qt72qNjHn1PtLl7BMcEqwyf55EF2qrvZ3a8ez5nk5WzaHPlhDxxuYy4ovg=
+	t=1791121268; cv=none; b=PkJM6+qfk4vauS/OnVJcBeZPqHxV2Goyw/67geiBkIJcXI2joYwPFsFX8g4ICBmGiVeZZZt49zT3hN5GFEZwFqw7WoxFTXygYfdw3Wxht0UJxpKYKD4gVg72CqoA8yODEoy2fq4fmWugU3B7k0vaOAXhzTBEbK17lscNz6ICXcs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791121258; c=relaxed/simple;
-	bh=Dv2Ua7MXA5dtZts5viztmq6JwFunwK6yVp7/ORmzEek=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=sewWtA2g0oGuE7Rr+TdUtMIwaZNgVVfIGTFBpi0vzMXvUJtHbL+UvwoNe8UYmBQpjvHnkMS7dAxCZ9yotdvuK33m/kJlRJFBqDfkMeiLovF+7kN20+Ca1WmKg52J1zZq0JObaRSQgwCkhXw+QofjImSC1n/RrLGVpvENP66Ev+4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=KBeav0P7; arc=none smtp.client-ip=117.135.210.2
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="KBeav0P7"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=xa
-	GSrAXnZ+Z3T7RiHauSv5ej51+uW1g/VCDLxuiRwFA=; b=KBeav0P765Hbgzs/Jw
-	dFIoJ479M4zWdKB40qh9Dms7KjxbcSCI40Hcc7LfMSuCmOIBrKdxQ8uwWrYOSVWE
-	FP+OZn4VX+JZFJ/aO9wMzlNrtgxG3FbkzHvtiYyvzuZJh0624jZsaYtnzVhn8eZH
-	+cuaV60UWXBsGdyJwoflUq3Wk=
-Received: from u2.. (unknown [])
-	by gzga-smtp-mtada-g0-0 (Coremail) with SMTP id _____wDX35ELV8Jq3nX5CA--.2906S3;
-	Sun, 04 Oct 2026 21:39:31 +0800 (CST)
-From: taozj888@163.com
-To: theo.lebrun@bootlin.com
-Cc: taozijin <taozj888@163.com>,
-	stable@vger.kernel.org,
-	Conor Dooley <conor.dooley@microchip.com>,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Haavard Skinnemoen <hskinnemoen@atmel.com>,
-	Jeff Garzik <jeff@garzik.org>,
-	netdev@vger.kernel.org (open list:NETWORKING DRIVERS),
-	linux-kernel@vger.kernel.org (open list)
-Subject: [PATCH net v3 1/1] net: macb: rate limit netdev error info print in the data path
-Date: Sun,  4 Oct 2026 13:39:15 +0000
-Message-Id: <20261004133916.559956-2-taozj888@163.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20261004133916.559956-1-taozj888@163.com>
-References: <20261004133916.559956-1-taozj888@163.com>
+	s=arc-20240116; t=1791121268; c=relaxed/simple;
+	bh=1BlqLPKzLUo6inqf0BaCZQOm3RM26OQqRAV2zy42MzI=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=YmKVJh5sBEn39bHrKBoLTtNUcDDHPjVS2+gBiChgtvvndAkrH+xXxuCFXnYxN0SCYi2Uryi54qgf9B9lfa8Z62iy5b+M5rsQTZrI/FBSumQpYgYHPn7R/TELS4ryfNhHgybtaH0tB9i2GIY9Y16eGw3XTy4ZejqhS96Hn4zJ7u4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=loongson.cn; spf=pass smtp.mailfrom=loongson.cn; arc=none smtp.client-ip=114.242.206.163
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=loongson.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=loongson.cn
+Received: from loongson.cn (unknown [223.64.68.159])
+	by gateway (Coremail) with SMTP id _____8Axj9FoV8JquYYSAA--.54257S3;
+	Sun, 04 Oct 2026 21:40:56 +0800 (CST)
+Received: from kernelserver (unknown [223.64.68.159])
+	by front1 (Coremail) with SMTP id qMiowJAx2c1gV8JqfWUoAA--.19823S2;
+	Sun, 04 Oct 2026 21:40:54 +0800 (CST)
+From: Huacai Chen <chenhuacai@loongson.cn>
+To: Huacai Chen <chenhuacai@kernel.org>,
+	Andrew Morton <akpm@linux-foundation.org>
+Cc: linux-mm@kvack.org,
+	Ingo Molnar <mingo@redhat.com>,
+	Peter Zijlstra <peterz@infradead.org>,
+	Juri Lelli <juri.lelli@redhat.com>,
+	Vincent Guittot <vincent.guittot@linaro.org>,
+	Dietmar Eggemann <dietmar.eggemann@arm.com>,
+	Steven Rostedt <rostedt@goodmis.org>,
+	Ben Segall <bsegall@google.com>,
+	Mel Gorman <mgorman@suse.de>,
+	Valentin Schneider <vschneid@redhat.com>,
+	K Prateek Nayak <kprateek.nayak@amd.com>,
+	Tiezhu Yang <yangtiezhu@loongson.cn>,
+	linux-kernel@vger.kernel.org,
+	Huacai Chen <chenhuacai@loongson.cn>
+Subject: [PATCH V3] sched: Update the THREAD_INFO_IN_TASK description
+Date: Sun,  4 Oct 2026 21:40:34 +0800
+Message-ID: <20261004134034.3622868-1-chenhuacai@loongson.cn>
+X-Mailer: git-send-email 2.52.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -52,90 +45,77 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:_____wDX35ELV8Jq3nX5CA--.2906S3
-X-Coremail-Antispam: 1Uf129KBjvJXoWxXFWrAry3tw18ZF1rGr1xXwb_yoW5AF43pa
-	yUA398Ww4kJr47A3Z7try8Ar1rAr98Kry5WrWkK3W3Xw15Ar90gFyagryYkFW8Ga9xAw1S
-	yw1UZayqkan3ZrJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0zig_-PUUUUU=
-X-CM-SenderInfo: hwdr6yqyyyqiywtou0bp/xtbC3hMl7GrCVxNS2AAA3i
+X-CM-TRANSID:qMiowJAx2c1gV8JqfWUoAA--.19823S2
+X-CM-SenderInfo: hfkh0x5xdftxo6or00hjvr0hdfq/
+X-Coremail-Antispam: 1Uk129KBj93XoW7CFWxtw48Aw13Jw1kJw4kXwc_yoW8uF4Upr
+	Z3G3W7Gr45Ar4F9rWkJa4xuFn5Jrs2gay5Gr97J34UK34xGw1jgryfCay3Cr15Ar4v93Wj
+	yr4qg3sxWFWqkabCm3ZEXasCq-sJn29KB7ZKAUJUUUUd529EdanIXcx71UUUUU7KY7ZEXa
+	sCq-sGcSsGvfJ3Ic02F40EFcxC0VAKzVAqx4xG6I80ebIjqfuFe4nvWSU5nxnvy29KBjDU
+	0xBIdaVrnRJUUUBYb4IE77IF4wAFF20E14v26r1j6r4UM7CY07I20VC2zVCF04k26cxKx2
+	IYs7xG6rWj6s0DM7CIcVAFz4kK6r1Y6r17M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48v
+	e4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Gr0_Xr1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI
+	0_Gr0_Cr1l84ACjcxK6I8E87Iv67AKxVW8JVWxJwA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_
+	Gr0_Gr1UM2kKe7AKxVWUtVW8ZwAS0I0E0xvYzxvE52x082IY62kv0487Mc804VCY07AIYI
+	kI8VC2zVCFFI0UMc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0I7IYx2IY67AKxVWUtVWr
+	XwAv7VC2z280aVAFwI0_Gr0_Cr1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0Y48IcxkI7VAKI4
+	8JMxkF7I0En4kS14v26r1q6r43MxAIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4AY6r1j
+	6r4UMxCIbckI1I0E14v26r1q6r43MI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwV
+	AFwI0_JrI_JrWlx4CE17CEb7AF67AKxVW8ZVWrXwCIc40Y0x0EwIxGrwCI42IY6xIIjxv2
+	0xvE14v26r4j6ryUMIIF0xvE2Ix0cI8IcVCY1x0267AKxVW8JVWxJwCI42IY6xAIw20EY4
+	v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Gr0_Cr1lIxAIcVC2z280aVCY1x0267AK
+	xVW8JVW8JrUvcSsGvfC2KfnxnUUI43ZEXa7IU0L0ePUUUUU==
 
-From: taozijin <taozj888@163.com>
+When commit c65eacbe290b81 ("sched/core: Allow putting thread_info into
+task_struct") introduces THREAD_INFO_IN_TASK in 4.9, the only supported
+architecture is x86 and thread_info only has a flags field. The Kconfig
+description said thread_info should only has the flags field but didn't
+explain the reason.
 
-Now the MACB ethernet driver print the netdev error information
-directly by netdev_err(), which would lead to a large number of
-error information print if there was a significant number of
-error or just jumbo packets exceeding the MTU received when booting.
-For example, it would print a large number of:
+When commit c02433dd6de32f ("arm64: split thread_info from task stack")
+introduces THREAD_INFO_IN_TASK for arm64 in 4.10, its thread_info has
+more fields than a single flags, and arm64 works well.
 
-macb PHYT0036:00 eth0: not whole frame pointed by descriptor
-macb PHYT0036:00 eth0: not whole frame pointed by descriptor
-...
+Then commit 37a8f7c38339b2 ("x86/asm: Move 'status' from thread_struct
+to thread_info") adds status back to thread_info for x86 in 4.16, and
+x86 still works well.
 
-in gem_rx() by having received a large number of packets without
-RX_EOF flag set, especially with unknown packet
-type that would penetrate the hardware offload for the IP packets.
+After that, risc-v, powerpc and many other architectures all introduce
+THREAD_INFO_IN_TASK and their thread_info have more fields rather than
+a single flags field, of course they also work well.
 
-The unlimited prints here would greatly bother and delay
-the system booting process unless the source stop sending
-packets since they occupy the console output bandwidth and
-other processes have to wait for the completion of printing those
-messages.
+I don't know the exact reason of the original description, but obviously
+it is wrong and misleading, so I update it, let LoongArch and some other
+architectures easier to support THREAD_INFO_IN_TASK.
 
-So rate limit the netdev error information print in the receive
-and transmit data path.
+Also improve the try_get_task_stack() and put_task_stack() description.
 
-Fixes: 89e5785fc8a6 ("[PATCH] Atmel MACB ethernet driver")
-Cc: stable@vger.kernel.org
-Signed-off-by: Zijin Tao <taozj888@163.com>
+Signed-off-by: Huacai Chen <chenhuacai@loongson.cn>
 ---
- drivers/net/ethernet/cadence/macb_main.c | 14 ++++++++------
- 1 file changed, 8 insertions(+), 6 deletions(-)
+V3: Update the Cc list.
 
-diff --git a/drivers/net/ethernet/cadence/macb_main.c b/drivers/net/ethernet/cadence/macb_main.c
-index 8e5c034dc3a4..ca60960bec36 100644
---- a/drivers/net/ethernet/cadence/macb_main.c
-+++ b/drivers/net/ethernet/cadence/macb_main.c
-@@ -1617,16 +1617,16 @@ static int gem_rx(struct macb_queue *queue, struct napi_struct *napi,
- 		count++;
+ init/Kconfig | 7 ++++---
+ 1 file changed, 4 insertions(+), 3 deletions(-)
+
+diff --git a/init/Kconfig b/init/Kconfig
+index 8583d9f06c52..921f2fcdcb30 100644
+--- a/init/Kconfig
++++ b/init/Kconfig
+@@ -210,11 +210,12 @@ config THREAD_INFO_IN_TASK
+ 	bool
+ 	help
+ 	  Select this to move thread_info off the stack into task_struct.  To
+-	  make this work, an arch will need to remove all thread_info fields
+-	  except flags and fix any runtime bugs.
++	  make this work, an arch will need to remove the task_struct pointer
++	  field from thread_info and fix any runtime bugs.
  
- 		if (!(ctrl & MACB_BIT(RX_SOF) && ctrl & MACB_BIT(RX_EOF))) {
--			netdev_err(bp->netdev,
--				   "not whole frame pointed by descriptor\n");
-+			if (net_ratelimit())
-+				netdev_err(bp->netdev, "not whole frame pointed by descriptor\n");
- 			bp->netdev->stats.rx_dropped++;
- 			queue->stats.rx_dropped++;
- 			break;
- 		}
- 		skb = queue->rx_skbuff[entry];
- 		if (unlikely(!skb)) {
--			netdev_err(bp->netdev,
--				   "inconsistent Rx descriptor chain\n");
-+			if (net_ratelimit())
-+				netdev_err(bp->netdev, "inconsistent Rx descriptor chain\n");
- 			bp->netdev->stats.rx_dropped++;
- 			queue->stats.rx_dropped++;
- 			break;
-@@ -1829,7 +1829,8 @@ static int macb_rx(struct macb_queue *queue, struct napi_struct *napi,
- 		unsigned long flags;
- 		u32 ctrl;
+ 	  One subtle change that will be needed is to use try_get_task_stack()
+-	  and put_task_stack() in save_thread_stack_tsk() and get_wchan().
++	  and put_task_stack() in save_thread_stack_tsk(), get_wchan() and any
++	  other stacktrace functions.
  
--		netdev_err(bp->netdev, "RX queue corruption: reset it\n");
-+		if (net_ratelimit())
-+			netdev_err(bp->netdev, "RX queue corruption: reset it\n");
- 
- 		spin_lock_irqsave(&bp->lock, flags);
- 
-@@ -2102,7 +2103,8 @@ static int macb_interrupt_misc(struct macb_queue *queue, u32 status)
- 
- 	if (status & MACB_BIT(HRESP)) {
- 		queue_work(system_bh_wq, &bp->hresp_err_bh_work);
--		netdev_err(netdev, "DMA bus error: HRESP not OK\n");
-+		if (net_ratelimit())
-+			netdev_err(netdev, "DMA bus error: HRESP not OK\n");
- 		macb_queue_isr_clear(bp, queue, MACB_BIT(HRESP));
- 	}
+ menu "General setup"
  
 -- 
-2.34.1
+2.52.0
 
