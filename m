@@ -1,115 +1,111 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from smtp-relay-internal-1.canonical.com (smtp-relay-internal-1.canonical.com [185.125.188.123])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E528A25B2F4;
-	Sun,  4 Oct 2026 14:59:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 41F0013957E
+	for <linux-kernel@vger.kernel.org>; Sun,  4 Oct 2026 15:09:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.125.188.123
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791125978; cv=none; b=n99W4mBlnUFdrwq5dYqCrCwS1sGXoUe1Z+9lusBlG+ttPZaStKB22EEBrBesXvYACOA9OjNw/c7mhW2SUHFOjTL4n7IAXgSyUXf8Hr1p67HqCNJs4T42KIgjD5EyetJb+M5j79VePlxdJresEF3eEAZXOGBSUSMojSZBeUuAojo=
+	t=1791126549; cv=none; b=VJEiKc4aNr31QExfW0/y9wqzAnOBN4MQT5Aknhbv3deMRMi9YvA9xvb9fxDxiN9h58Y+BvRUVad94l5vcgDKEaqvN4YwK0RPRKEXC8CERqRpuRRgt7UsgfC7c87Dg85N1rgwg66yoAsOhyNRyDrOoI81i5pmrmpNwB0CMKKh3Zw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791125978; c=relaxed/simple;
-	bh=Orlb6LLvhOQgj+NcXKODWX0zj6XSLVD7Bi4tiwCejkI=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=UIZkqvHozg6zo8vMniXykRshorjgW3943PORPZzeOe+gMAQ5CyzuJgrAJyNwZn/FM0vpS9qc0rrm5TaQfoRsObkt8cds3ZGHrWsXNVv5zNdWbsBygVbo8EuBWrTFW2UtqeBl8LgFWMZJom1WvCce+iKC//LnnCwN9IyCWokFsQ0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=UidJR/h7; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791126549; c=relaxed/simple;
+	bh=5P7vT3iSbLKV6feOMsggt3x9Pb5isvTm/Ost7rVA3eM=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=UMZph3NzJmkZ5UksrFj+J9AGywCO+OpBMXZAlDaaH8Hhm5tljaHcxL6VOZ/UyhZCx5BnBCJSCL3tldW152h0MFMGz+oh7cBLQqUljPHVtpLiuO09iNtPZbBTaFxKQ9BnrDUbsCCQ3ZuZwxoeitKEWX6qp8qRQTAJyr/siYFFJu8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=canonical.com; spf=pass smtp.mailfrom=canonical.com; dkim=pass (4096-bit key) header.d=canonical.com header.i=@canonical.com header.b=LpoIUQLT; arc=none smtp.client-ip=185.125.188.123
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=canonical.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=canonical.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="UidJR/h7"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 72F471F000FF;
-	Sun,  4 Oct 2026 14:59:34 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791125976;
-	bh=xAFVTwE4VxFV5EVjNCpnINt1yxDWvySgQ1H1DrMbvxo=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=UidJR/h7UTMK+pBxHSK6oAOgxjbOCaLvSn8E/rFaMPFRwWd1fAI9csrFi+iKsHEIA
-	 3u5c3fcEaDlkYztAunz2PfyRfy3UxZpQ+1kjpjAFmCBcoExYXK1QowstxPQid9i007
-	 s4wGGDMV4fcL0ELzqBo5fzgUi1E8ZVXWQRnQjJxibhlVXn6QZKQ67oeePcsRV4a6gr
-	 4AaRM2puB0jeGz3xJy7/LiIGqLKHSAEMKw113IgEHN8JVup2HnSYhG0VSD9gBLqniO
-	 2Qm6qAVwmWo+dhq8PrvPhUU46SMr4l0oZYiNUo7jiV8npF9ZmISE41BgT2GhroNYH+
-	 95r5F9qsHD1jw==
-Message-ID: <24db4eb5-19ac-404c-9dd8-c3af42bcf4cf@kernel.org>
-Date: Sun, 4 Oct 2026 16:59:32 +0200
+	dkim=pass (4096-bit key) header.d=canonical.com header.i=@canonical.com header.b="LpoIUQLT"
+Received: from mail-wm1-f70.google.com (mail-wm1-f70.google.com [209.85.128.70])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-relay-internal-1.canonical.com (Postfix) with ESMTPS id 37A6F3F290
+	for <linux-kernel@vger.kernel.org>; Sun,  4 Oct 2026 15:09:04 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=canonical.com;
+	s=20251003; t=1791126544;
+	bh=gjPynkeSS8mj+Hdi4I2aqG3Yn3kZVr1yRJIIH48r5Y8=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:In-Reply-To;
+	b=LpoIUQLTpJa75xfXo1Yy4Ab2Q0bqyQRbms1ghZXdeOXBnPr8i1Qu5CRVM+2//H8Zq
+	 wIQhbJdr9ZBbDsE+ysoYGzIgE84pQJouWZH1OUtJbBsbtkiZNWv2y4yiQ0VzA8WMc4
+	 H8eHMKxeiwwhKuD+fCVFDNqjK3JWxSw3NHB38J4Fsoiko8DnefUjJUEoLd+VGLWl2J
+	 GSqIOixwO1L3PwXohEo3UjAMSIFbQ9r3ZjRcx2V9etfNe1i34Q8FwqYDJ2VNOiQpOF
+	 pY6v1A0kiPwCd+UWcFcsSpNukpR5FB/WjGHQXfj3ltQHZDpScgtymlb42SyVjq0fxu
+	 KB82o/Yz0hFQIEobb0bMiCGjHTcfiUeNfpq61uuSq8LMf33MwzUBhnLFYbFa8RUHYb
+	 6B+utuby+DeRxwp2Dh8ZSrSjAc+Fg87feH1fKyIvc3FuVYCYOQC0a4uVpleKI4b1qw
+	 wpRxsryILsERTFqxON+9PmVEYcfby+naORmNENZPD8vY9P3+7M3vQ+A6feA6y9BgUJ
+	 TpRqMgQjkUX86agA7Cp3rzhYPVatl0fN/wh5LViLllONNFymTOVucjI1ySp26veoZE
+	 WOcig20t2D+tOjIVnu364lt6XGTr/4h6TIafRPj9h6ndQzDLlHeME9KlzZPFzOErf3
+	 WdqoH0Wqdaan0Y2+ogDR3Iqs=
+Received: by mail-wm1-f70.google.com with SMTP id 5b1f17b1804b1-4a171b68dfeso1304315e9.2
+        for <linux-kernel@vger.kernel.org>; Sun, 04 Oct 2026 08:09:04 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791126543; x=1791731343;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=gjPynkeSS8mj+Hdi4I2aqG3Yn3kZVr1yRJIIH48r5Y8=;
+        b=WffHdxknj82fKj+zUJ73rUUF7W7oh1aAAf4YNRC0wcn8C5dT5x3m4b17jaQhekrpM2
+         okZPe5a7tTggbEznOjoGmivCz4iyCS6PPYeNJJR4egUkvK3OsgT7FZjwgpYUiCg71BXi
+         jqfiWogTqpQzTn6TGtj3EPdSb0R7Epw2KdCLROWDyki08yIKiMenVN3siY7pVf07flxA
+         pySL+d2ZrjfrXP/LOCocMWYo4lrbJ3NG2CEVE9sx5Sy93/EAcQhf8HzrQ5v/2IFpsBN4
+         VHq15blgedHex/F8aThxrsVK+nOtER4wuYSNEQgVUZUzbAlFkfqbiXbhNlIu7a6+7W3G
+         m+bQ==
+X-Forwarded-Encrypted: i=1; AKwUvBw7l0qqscKk5LDDYRx49i77QK6/jgZslVP6SdB1RNkPeTEY28giN2E3kT75iBpi9udCgFE5qmNiUTpH9GY=@vger.kernel.org
+X-Gm-Message-State: AFuF++nANiq16jM9tR/3bF8TE7N3s+PrIQU25oWTvXGiV7XLB5KYopVi
+	YX+Md4J2CqSKhuY2stYxPk8p1PLgJIyD3AH8F9tdcV5qK/c8OxXUMjw3fq94Qi6OJV+lopJdMSP
+	b1IOtmnNcVISPILfesMBGjXk0dxp0OEJFKvkw6jdYMBigfs4i6ADEmvO374bPf5m1rCrOGmqd8c
+	LDT06ibQ==
+X-Gm-Gg: AYBFou0Bk7FRAkstmTdGoc6WfT6blHyPSOvQ0kgZpi7oohzIIsP49AhrSEqBzpNqfkk
+	k8eW//3Yw8KYStYe8YczeIphImk+Ul579PWifJK+BKMnLiYFddG/SWE00SUAgq1U9IVf0u75XSm
+	98Iwz9R6iuon25yLdiS4NX4TcUFXiXo90cuKDdnDU9EvQlgolZd6SBOpBDJ1F48D03X3kLg1sQ/
+	qiwJyTZSBzoWA2H/VaqUS4NnA5AvVHjrld9IBk2FPuzuEKWXa31w//k6RoUpT2H77NO7Fn2fsWk
+	OdAV5ka9hDpyslHPEbN81V63RhXKdyp3Q/M/ytlFB03iJ5aMtL3dBtIgJnPiKcabrTDJRqQsCLi
+	Se8+3ODw=
+X-Received: by 2002:a05:600c:4453:b0:4a0:2423:946 with SMTP id 5b1f17b1804b1-4a1680f109emr87154295e9.15.1791126543668;
+        Sun, 04 Oct 2026 08:09:03 -0700 (PDT)
+X-Received: by 2002:a05:600c:4453:b0:4a0:2423:946 with SMTP id 5b1f17b1804b1-4a1680f109emr87154015e9.15.1791126543248;
+        Sun, 04 Oct 2026 08:09:03 -0700 (PDT)
+Received: from px13 ([2a06:5902:822:4600:8c2f:7cc8:bd95:9422])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a027727cecsm272425775e9.9.2026.10.04.08.09.02
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 04 Oct 2026 08:09:02 -0700 (PDT)
+Date: Sun, 4 Oct 2026 16:09:00 +0100
+From: Chris Bainbridge <chris.bainbridge@canonical.com>
+To: Pratyush Yadav <pratyush@kernel.org>
+Cc: Mike Rapoport <rppt@kernel.org>, 
+	Pasha Tatashin <pasha.tatashin@soleen.com>, Jason Miu <jasonmiu@google.com>, 
+	Alexander Graf <graf@amazon.com>, Ran Xiaokai <ran.xiaokai@zte.com.cn>, 
+	regressions@lists.linux.dev, linux-kernel@vger.kernel.org, kexec@lists.infradead.org, 
+	linux-mm@kvack.org, =?utf-8?B?TWljaGHFgiBDxYJhcGnFhHNraQ==?= <mclapinski@google.com>
+Subject: Re: [BUG] KHO handover hangs when memmap reserves PMEM
+Message-ID: <asJc1GIBbCJ26akS@px13>
+References: <asE0R_f2r2TL-3Sy@px13>
+ <2vxzcxtplh4i.fsf@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 4/7] sparc64: add SPARC64 VII CPU, MMU and SMP support
-To: Magnus Lindholm <linmag7@gmail.com>, sparclinux@vger.kernel.org,
- "David S . Miller" <davem@davemloft.net>,
- Andreas Larsson <andreas@gaisler.com>
-Cc: linux-kernel@vger.kernel.org, Oleg Nesterov <oleg@redhat.com>
-References: <20261002161515.932316-1-linmag7@gmail.com>
- <20261002161515.932316-5-linmag7@gmail.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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
-In-Reply-To: <20261002161515.932316-5-linmag7@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <2vxzcxtplh4i.fsf@kernel.org>
 
-On 02/10/2026 18:14, Magnus Lindholm wrote:
-> diff --git a/arch/sparc/kernel/prom_64.c b/arch/sparc/kernel/prom_64.c
-> index aa4799cbb9c1..11437bbfc73b 100644
-> --- a/arch/sparc/kernel/prom_64.c
-> +++ b/arch/sparc/kernel/prom_64.c
-> @@ -564,6 +564,12 @@ static void *fill_in_one_cpu(struct device_node *dp, int cpuid, int arg)
->  
->  		cpu_data(cpuid).core_id = portid + 1;
->  		cpu_data(cpuid).proc_id = portid;
-> +		if (tlb_type == sparc64_vii &&
-> +		    of_property_match_string(of_root, "model", "IKKAKU") >= 0) {
+On Sun, Oct 04, 2026 at 03:39:25PM +0200, Pratyush Yadav wrote:
+> 
+> Just to confirm, the first kernel boots without memmap= right?
 
-Are the values documented as ABI anywhere? Usually the compatible is the
-ABI, not the model.
+Yes.
 
-> +			/* IKKAKU: two adjacent ITIDs per physical core. */
-> +			cpu_data(cpuid).core_id = (cpuid >> 1) + 1;
-> +			cpu_data(cpuid).proc_id = 0;
-> +		}
+> I think the main problem is that the radix tree pages can be anywhere in
+> memory. So on the first kernel, they can land in an area that the second
+> kernel's memmap= reserves. So kho_memory_init() might end up using
+> memory that memmap= reserved. I'm not sure why exactly the next kernel
+> doesn't produce any output, but IIRC memmap= memory is not mapped to the
+> direct map, so accessing those pages likely causes a page fault.
 
-Best regards,
-Krzysztof
+That's correct, kho_memory_init() page faults. It happens before the
+serial console is available, so there is no output.
