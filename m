@@ -1,99 +1,73 @@
-Received: from cvsmtppost21.nm.naver.com (cvsmtppost21.nm.naver.com [114.111.35.35])
+Received: from mail-m49198.qiye.163.com (mail-m49198.qiye.163.com [45.254.49.198])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 205054499B4
-	for <linux-kernel@vger.kernel.org>; Sun,  4 Oct 2026 12:36:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=114.111.35.35
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9EE2A4499BA;
+	Sun,  4 Oct 2026 12:37:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=45.254.49.198
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791117410; cv=none; b=ZYqXc5NEso9O6Alxpqw00OKfr7DsPsOGUs07cjbKBXcqY1dihID8mv35iAWdQUHpu2C/gcPa6Toyo/l/oEz04NlCuQj/AC2ICML+JX8xA0fD8rLGZlabK81ArrzQSHH98vCseuBc98tBz6e3PpV95kyLqTSFWjJs9mm/evAdw3o=
+	t=1791117453; cv=none; b=hOOXXBplBSEqkZlnq5WPUzCf8/scwSHo6Cu5B529ucIIb+fg3i78GCWjxrR64pMRavf0cL0NUXKQEEyirr9WW8rLdsu5jeLzovhE7hJN/Z8hG8+ufkGYG6Hk69wiou7y3ETAzlqbDmTD63fB8BCTKHy3JR0k/oe1r3OhoqAp/Rg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791117410; c=relaxed/simple;
-	bh=0M4OSaWXsNitp5wK8fWnunOhHj1CeMqi0Xt7wewH9os=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=s4skEp37YQGtHYXqryUwFC0jpXvksLuoEP8zUPcvcaqK7m/UzCTyyfm90lcBa2iuAeDRGnn8dxnWJsmL0DKIZa3fWDQJeGaSxvzwB2plJHPrdg2T4jt6RLhcW3uzsBKAKnPjTb4RZU/Iose0UpuKF+5XPDEPC6OhZYGZwqQEP9k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=naver.com; spf=pass smtp.mailfrom=naver.com; dkim=pass (2048-bit key) header.d=naver.com header.i=@naver.com header.b=nkUwkIfZ; arc=none smtp.client-ip=114.111.35.35
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=naver.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=naver.com
+	s=arc-20240116; t=1791117453; c=relaxed/simple;
+	bh=1uvB3wMoF3XE9HpvKP1nFWQmlzsVPHKqLCnReKp/hs4=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=k8LmVzkUf/JpL3gaEocaw4JscdgXCGaKhqgveNoWf86rNrSENPflI9yQdIm4mgdEz8soeqpsL49YiBR5pO+q3RoBs71QYvReBaKSG1GdZGLqYNsrUBPkq8eGDMZJyiOtmeufcbWgnzoKX7xUAfxhAxSOVxC+P+u67+C+9IT9rqU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=seu.edu.cn; spf=pass smtp.mailfrom=seu.edu.cn; dkim=pass (1024-bit key) header.d=seu.edu.cn header.i=@seu.edu.cn header.b=Md0YV6be; arc=none smtp.client-ip=45.254.49.198
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=seu.edu.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=seu.edu.cn
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=naver.com header.i=@naver.com header.b="nkUwkIfZ"
-Received: from cvsendbo009.nm ([10.112.18.55])
-  by cvsmtppost21.nm.naver.com with ESMTP id vm6sElT2SMCgkRW8RNnoLg
-  for <linux-kernel@vger.kernel.org>;
-  Sun, 04 Oct 2026 12:36:47 -0000
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=naver.com; s=s20171208;
-	t=1791117407; bh=0M4OSaWXsNitp5wK8fWnunOhHj1CeMqi0Xt7wewH9os=;
-	h=From:To:Subject:Date:Message-ID:From:Subject:Feedback-ID:
-	 X-Works-Security;
-	b=nkUwkIfZ6SGXK5r/yBmZTGRVfpvhz60b7fvw0+6wcNcKJIzT0erKWEk00FsKzMSB4
-	 5VtPVSGgpiFsQTp9bL3s8DAdQVcYbzGIFf1R7TnR0rBK5L/Xei8qvOxysGrSNn2MPp
-	 EfaXg0E/HohZg4AnDrJY9VbZa4y1IbaUUuWN61otpWWEk8gBNduBAcsTngokp0gsrh
-	 hTvrPFB+L5z/id6c4PMkbhULTH7zz80pd51/xMdAqg3SFbgZA4j2NGtXuTn1lw9dbJ
-	 fWP9KliOrnR0TQlhZyy7N2xBrxrPlQyZqQUzHqMdWXe46Jy7QXRq7c1HTL7snnQ4Ti
-	 GMQzzR+GkUsRw==
-X-Session-ID: nbejRPm0TuKm4bdkDC0lvQ
-X-Works-Send-Opt: OlewpzGdjHmdKHFOMr39Ko3YKHmqjAudFqM9KqMqFxIYkEljxBmwjAg=
-X-Works-Smtp-Source: PwY/KAulFqJZ+HmrKAg9+6E=
-Received: from localhost.localdomain ([115.136.205.4])
-  by cvnsmtp005.nm.naver.com with ESMTP id nbejRPm0TuKm4bdkDC0lvQ
-  for <multiple recipients>
-  (version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384);
-  Sun, 04 Oct 2026 12:36:46 -0000
-From: sungbyeongchan <tjdqudcks0424@naver.com>
-To: Konstantin Komarov <almaz.alexandrovich@paragon-software.com>
-Cc: ntfs3@lists.linux.dev,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH] fs/ntfs3: reject overflowing replay bitmap ranges
-Date: Sun,  4 Oct 2026 21:36:37 +0900
-Message-ID: <20261004123637.587015-1-tjdqudcks0424@naver.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (1024-bit key) header.d=seu.edu.cn header.i=@seu.edu.cn header.b="Md0YV6be"
+Received: from PC-202605011814.localdomain (unknown [223.112.146.162])
+	by smtp.qiye.163.com (Hmail) with ESMTP id 4fec268ee;
+	Sun, 4 Oct 2026 20:37:25 +0800 (GMT+08:00)
+From: Runyu Xiao <runyu.xiao@seu.edu.cn>
+To: Sean Young <sean@mess.org>
+Cc: Maxim Levitsky <maximlevitsky@gmail.com>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	linux-media@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	Jianhao Xu <jianhao.xu@seu.edu.cn>,
+	Runyu Xiao <runyu.xiao@seu.edu.cn>
+Subject: Re: [PATCH] media: rc: Fix simulated TX timer lifecycle
+Date: Sun,  4 Oct 2026 20:37:19 +0800
+Message-Id: <20261004123719.1250610-1-runyu.xiao@seu.edu.cn>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <asI2qe_wzS-VYFYX@extorris.mess.org>
+References: <20260929143105.2170272-1-runyu.xiao@seu.edu.cn> <arvlSbG0Z0FGxq3l@extorris.mess.org> <20261004094507.1191384-1-runyu.xiao@seu.edu.cn> <asI2qe_wzS-VYFYX@extorris.mess.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
+X-HM-Tid: 0aa106eb47f503a1kunmeffb81fe33ce05
+X-HM-MType: 10
+X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
+	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVkaQh5DVh8eTkMeTk1IGRpOQlYeHw
+	5VEwETFhoSFyQUDg9ZV1kYEgtZQVlJSUhVSkpJVUpPTVVKTUlZV1kWGg8SFR0UWUFZT0tIVUJCSU
+	5LVUpLS1VKQktCWQY+
+DKIM-Signature: a=rsa-sha256;
+	b=Md0YV6be3wGdkDYA8ODd0bGg55vLiQloS9YJg4A8/DzsOrrYXm2Km3iQdj4kh0r2VdDFESrJSKhA/03uyzUMnu4SwhxQxFB1u8uWoF/YKabKHvnhCm88gEmRH43uj6qUQWl6i3s0+aKDzBM1jLg1ybBvJ6C4JMWFSFX9S//dvRs=; c=relaxed/relaxed; s=default; d=seu.edu.cn; v=1;
+	bh=1uvB3wMoF3XE9HpvKP1nFWQmlzsVPHKqLCnReKp/hs4=;
+	h=date:mime-version:subject:message-id:from;
 
-The BITMAP_RANGE bounds checks perform off + 7 and off + bits + 7 in
-u32.  Crafted journal values can wrap both checks and make the bitmap
-helper perform a word-sized read-modify-write outside the replay buffer.
+On Sun, 4 Oct 2026 12:21:13 +0100, Sean Young wrote:
+> If the hardware has no TX capability then what is the point of those code
+> paths other than exercises the code paths. Might as well go (unless I missed
+> something)
 
-Check every addition before byte rounding for both set and clear actions.
+You're right that `txsim` has no clear supported use case. It enables the TX
+path on hardware that reports no TX capability and uses a timer to fake TX
+completion, while the samples are still written to the hardware TX output
+registers. I have not found evidence that this provides reliable transmission
+on such hardware.
 
-Fixes: b46acd6a6a62 ("fs/ntfs3: Add NTFS journal")
-Signed-off-by: sungbyeongchan <tjdqudcks0424@naver.com>
----
- fs/ntfs3/fslog.c | 12 ++++++++----
- 1 file changed, 8 insertions(+), 4 deletions(-)
+I'll remove the `txsim` parameter and its timer-based simulation path while
+keeping native TX support for hardware that reports the capability. This also
+removes the timer lifecycle issue, so I will revise the patch to remove the
+unsupported simulation path instead of keeping a standalone timer fix.
 
-diff --git a/fs/ntfs3/fslog.c b/fs/ntfs3/fslog.c
-index ed50c1d0c23e..38873c02d30d 100644
---- a/fs/ntfs3/fslog.c
-+++ b/fs/ntfs3/fslog.c
-@@ -3746,8 +3746,10 @@ static int do_action(struct ntfs_log *log, struct OPEN_ATTR_ENRTY *oe,
- 		off = le32_to_cpu(((struct BITMAP_RANGE *)data)->bitmap_off);
- 		bits = le32_to_cpu(((struct BITMAP_RANGE *)data)->bits);
- 
--		if (cbo + (off + 7) / 8 > lco ||
--		    cbo + ((off + bits + 7) / 8) > lco) {
-+		if (check_add_overflow(off, 7u, &nsize) ||
-+		    check_add_overflow(off, bits, &t32) ||
-+		    check_add_overflow(t32, 7u, &t32) ||
-+		    cbo + nsize / 8 > lco || cbo + t32 / 8 > lco) {
- 			goto dirty_vol;
- 		}
- 
-@@ -3759,8 +3761,10 @@ static int do_action(struct ntfs_log *log, struct OPEN_ATTR_ENRTY *oe,
- 		off = le32_to_cpu(((struct BITMAP_RANGE *)data)->bitmap_off);
- 		bits = le32_to_cpu(((struct BITMAP_RANGE *)data)->bits);
- 
--		if (cbo + (off + 7) / 8 > lco ||
--		    cbo + ((off + bits + 7) / 8) > lco) {
-+		if (check_add_overflow(off, 7u, &nsize) ||
-+		    check_add_overflow(off, bits, &t32) ||
-+		    check_add_overflow(t32, 7u, &t32) ||
-+		    cbo + nsize / 8 > lco || cbo + t32 / 8 > lco) {
- 			goto dirty_vol;
- 		}
- 
--- 
-2.43.0
+Thanks,
+Runyu
