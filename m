@@ -1,167 +1,97 @@
-Received: from relay.hostedemail.com (smtprelay0014.hostedemail.com [216.40.44.14])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pf1-f170.google.com (mail-pf1-f170.google.com [209.85.210.170])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 700724078C7;
-	Sun,  4 Oct 2026 09:24:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=216.40.44.14
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2052423E325
+	for <linux-kernel@vger.kernel.org>; Sun,  4 Oct 2026 09:31:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.170
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791105889; cv=none; b=fCKSZoxhHy+sLvrvPAOMS8T+DsM7GQ+Wzm834bX/1tyI/VPwSACSTfeyqzbJCKGzH8YxIE96FLdh3Y5Cs39lzxwOa936mOjgxtPs9/jMGf/PxUXzXkdb7ABM4yLoCMZfN6V32HXeLP9MllmaWo2R+FRyYIm3jX1VqdjjrWEpN0s=
+	t=1791106296; cv=none; b=orMeDkUEsLyEEWnMHDNWg9RmhJIbkB+RstVGOzR5vLJuJKmJeXyq03m0L8/VtTknp8VL83VJtIxAdLY61NTNwsPPzhdo8jCTGeEpgoFdH3dAgmRon8EWkY3TaPJoE0PqciALNqDXPhJizVNzURKjf1qehUAfJTxkxpNzYMc2q6I=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791105889; c=relaxed/simple;
-	bh=+J9cCeIO2vZjSIoP+Vt7+45zvy9SPpS6EtPIbmekiII=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=E3NLT0UN8zUNLNHQcFRpT0XAxVaKxmvn7intnXQ+7Fr/Qz9LLypUJk/5apS09oDybK6KGXAG5+pxeYT9n818A2GiWUH80HwMbSuP+/YKqQTcrVgf4kEKvz9XQlelNmkR+Bnm8IESCLHRjubvKZPRE5EezRHZqVTC8F0XC1MjFWQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=goodmis.org; spf=pass smtp.mailfrom=goodmis.org; dkim=pass (1024-bit key) header.d=goodmis.org header.i=@goodmis.org header.b=UaAwM2oO; arc=none smtp.client-ip=216.40.44.14
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=goodmis.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=goodmis.org
+	s=arc-20240116; t=1791106296; c=relaxed/simple;
+	bh=b4ATKoJIx0zDFM+Q2MfhNTQ29nzp8qB2UeEM5HCTfP0=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=TCtmckCWL5tHPgxoGHBtpsvN5BHpHj5LDOQa9fnSYY/l2EyMYUj8ZKvoP3Ugtclg5/8sQPTnwaVjKDlNxLZjTFTC9WUVacfUbvMW4TZie1qsWgvb/JzxTo8pnLUHIJAlza18m4D99Hk9K3+e5Lo5VJ0y4j1s8XN4keZHrWkA+nM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=UUuYRfBN; arc=none smtp.client-ip=209.85.210.170
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=goodmis.org header.i=@goodmis.org header.b="UaAwM2oO"
-Received: from omf05.hostedemail.com (lb01a-stub [10.200.18.249])
-	by unirelay08.hostedemail.com (Postfix) with ESMTP id 520041403DA;
-	Sun,  4 Oct 2026 09:16:40 +0000 (UTC)
-Received: from [HIDDEN] (Authenticated sender: rostedt@goodmis.org) by omf05.hostedemail.com (Postfix) with ESMTPA id 952BC2000E;
-	Sun,  4 Oct 2026 09:16:35 +0000 (UTC)
-Date: Sun, 4 Oct 2026 05:16:32 -0400
-From: Steven Rostedt <rostedt@goodmis.org>
-To: Ravi Jonnalagadda <ravis.opensrc@gmail.com>
-Cc: Andrew Morton <akpm@linux-foundation.org>, SJ Park <sj@kernel.org>,
- damon@lists.linux.dev, linux-mm@kvack.org, linux-kernel@vger.kernel.org,
- linux-trace-kernel@vger.kernel.org, Masami Hiramatsu <mhiramat@kernel.org>,
- Jonathan Corbet <corbet@lwn.net>, Bijan Tabatabai <bijan311@gmail.com>,
- Ajay Joshi <ajayjoshi@micron.com>, Honggyu Kim <honggyu.kim@sk.com>,
- Yunjeong Mun <yunjeong.mun@sk.com>, Akinobu Mita <akinobu.mita@gmail.com>,
- Lian Wang <lianux.mm@gmail.com>, Kunwu Chan <kunwu.chan@linux.dev>
-Subject: Re: [PATCH] mm/damon: add damos_node_eligible_mem_bp tracepoint
-Message-ID: <20261004051632.71726836@fedora>
-In-Reply-To: <20261003202727.3673-1-ravis.opensrc@gmail.com>
-References: <20261003202727.3673-1-ravis.opensrc@gmail.com>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="UUuYRfBN"
+Received: by mail-pf1-f170.google.com with SMTP id d2e1a72fcca58-88aea027391so342982b3a.0
+        for <linux-kernel@vger.kernel.org>; Sun, 04 Oct 2026 02:31:34 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791106294; x=1791711094; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=V/KrJhVqT2lKVywgTy6x2VTximTEnfp3La/wIY4/WjE=;
+        b=UUuYRfBN0gzIEAZJayiWhdApmPzGtB+g6TMQmhdoHFTkgzgFOBkIOOQnQWDQuZJpFW
+         w2voewsFt0kW8lH+hVTRqbkjj+E0LxwvXFxOBkXY8PQ9duhIj/HbXSTkCW8G2lXqLfBN
+         fbLBUqaIU7M8ElgR70L84u/hnr5cOIHB/KXGrAaH7+gWY8EZl+4zdlPCcGZf+ULHztHu
+         mMUc2vHwIXgNf7nV3Dp8sPuH4NGDb8oIa5jOel0o28Hnej8J5Gy5c9uA1EetrerWys+v
+         nGjlFiLUNybRltilOBkvZZ2jo3+FjG7fOttp2X8Dk1R7FFT+ndrgOob7HCVX64NxYmxU
+         lOig==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791106294; x=1791711094;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=V/KrJhVqT2lKVywgTy6x2VTximTEnfp3La/wIY4/WjE=;
+        b=YqoCCPMla77BnsCktLXCh2MokSG6RxIX3lFBG/PSOxOxtoibIIUpwLZIPByDZDL/Xy
+         SQsCsQKKom4hPGC5Yn3ZqOJkmc8XMAUnbldFsO8YYBHqjnNfBQ7Z/yB7I0VoAhXkizLC
+         hLGnUU11jUKIUHe6av40VOEUcpuxsW4yK7iv1s1oPoBfEF5rIyQTs+pcHTtPVYFQsAlS
+         s864bS7GwrcYdF4BTF7Njzzn+sTxVRS6Lc9rf3LTIxRZdQnGoiaJO+Lj3056xecrvJNd
+         wkru+d6phVo6ed+fwVEaKxm/ZIoD3ZMAQZU5CZkAB5Krej7IjTHsqo5CS8/XqW+hK3g7
+         LbJg==
+X-Forwarded-Encrypted: i=1; AKwUvBz/V6quoHZwaAJZblfQnwJHjWKNeC4BGosYGpssCiH02dUGnFzCtBL3ym3/FywnzUYTrRLHE7Loy4Ft/00=@vger.kernel.org
+X-Gm-Message-State: AFuF++ktNHn2un8etxBOSrxD329dOrynXlfhMb8dQGmSnGePz/FvjpDe
+	47QNwBW4Yu7wrfkpeZxAk/X/fIN/RGZtHDpdqefcnrN0spCc+82oNoo3
+X-Gm-Gg: AYBFou0aoLVC2xrpy7PV2NnlxSQlRtJikeCSI0Al4FT55HCQC4XuQrbZ/v/5WPCeXoH
+	BrEpr2/wuciz1xeWievqb7U2DQMwiL3oiIK0cgpVHvuN2pTwpRXcVAui0ZWEW3G3xcf142seE3a
+	RMPYOqdughatOc86X7rgD+NUATds99g7cOuLuwgtnsL9YU+hVTWhdB8nuuJ71nJKWZiqCdQlG2X
+	F7e28sMrEX6nuSQ/9XPRqIt4mfz4f1hfkCnED8xgiCskpi8nsmUQ697NG9DzSi1blRYMtKlmk9N
+	3N2Ls+hF9y65BDDfrqJHM6nnaiR6wW0enC3SkTwTFjxQ3By96Y2zFTkONystfuLODvHGQky5q+u
+	WPTkUOZ+fFa5tfyc553dXowzGXZLrqFCcttIhE9Mdeqm5lZymcgdtq4ybt5lV/0qI+ZptUTzmkI
+	y1RcRuBIBgksM9nSKYpWxM0xidCeDcSvJMmeVScYwITvbFleyJmLArBOi4sPEzsqwprQ892Y4kt
+	sD8cCEP5Di4cnpKXP/Jd9qq
+X-Received: by 2002:a05:6a20:9c15:b0:3dd:a009:3186 with SMTP id adf61e73a8af0-3e0d6cddee7mr3901067637.46.1791106294105;
+        Sun, 04 Oct 2026 02:31:34 -0700 (PDT)
+Received: from DESKTOP-NM9EKIA ([125.134.240.130])
+        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cc9f737a231sm2758121a12.18.2026.10.04.02.31.31
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 04 Oct 2026 02:31:32 -0700 (PDT)
+From: Joonhoe Kim <26rote@gmail.com>
+To: Fabricio Akio <fabricioakio@gmail.com>
+Cc: Joonhoe Kim <26rote@gmail.com>,
+	Thinh Nguyen <Thinh.Nguyen@synopsys.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	linux-usb@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-arm-msm@vger.kernel.org
+Subject: Re: [PATCH] usb: dwc3: qcom: Check for L2 only when suspending a host with wakeup
+Date: Sun,  4 Oct 2026 18:31:32 +0900
+Message-ID: <20261004093132.74059-1-26rote@gmail.com>
+X-Mailer: git-send-email 2.55.0.windows.5
+In-Reply-To: <20260928-dwc3-qcom-l2-check-v1-1-43c5c6e97922@gmail.com>
+References: <20260928-dwc3-qcom-l2-check-v1-1-43c5c6e97922@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
-X-Rspamd-Queue-Id: 952BC2000E
-X-Stat-Signature: pdnhjatf6s6ij17ydsy69bt89bu8db99
-X-Rspamd-Server: rspamout07
-X-Session-Marker: 726F737465647440676F6F646D69732E6F7267
-X-Session-ID: U2FsdGVkX1++plVshDREp1/65N9g55w+NMnmWqeBIxk=
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=goodmis.org; h=date:from:to:cc:subject:message-id:in-reply-to:references:mime-version:content-type:content-transfer-encoding; s=dkim1; bh=pcvJ+jCMAJmM0AnDK31466hqGai5ZVEENzn8YaAuejw=; b=UaAwM2oO6Vs0SeMXPz9kGc9q2fLKlKqmTw2H6rdSRsVD7Bo3aKpXTFvZwlh8zK+OBavXEnlpEi7YD/bU73MDV7p3sQWLPNmQGBupb04v0nderDm+bKHdQrtF9R0ql3HM0DJZerIz3v2no7DchRC2AEsGq0RF9wRsTHh9R7uqfVg=
-X-HE-Tag: 1791105395-87746
-X-HE-Meta: U2FsdGVkX1/sZ6OkXRl1d895imVbao+eFLq8ZGKTfRYFYqpekrSfk5wwPwGOUTd2Evu4vjL39RNPNr1q9lyU/bShTeEnB+bay1dplCDNECqxSPE0grBiXKG6VZWzuWaKoXV8/P7qmITFW4J+8W4GZlZ6oLk1M+ke2NLS1vWCusYRRVTXHVRGKXQIV3zxlFfP22BVG7l6crUFxIQtjMIEJFOW43D9ETpxzPqLu1stTZaZSZTgbNe24ZHoL6TasLei/52xnMp3KyhxuEDDyfXrvxEM0KPXCWRZyjjLkLcMKCke0GT95/Nvuu1kU50fq5uOSfUjuVm4exp3hZAh+V7TLSl2m7tUZL4H/fw6n1YdYVSUzkLx2DqIAw==
+Content-Transfer-Encoding: 8bit
 
-On Sat,  3 Oct 2026 13:27:27 -0700
-Ravi Jonnalagadda <ravis.opensrc@gmail.com> wrote:
+On Mon, Sep 28, 2026 at 03:16:28PM -0300, Fabricio Akio wrote:
+> Host mode is untested, since this board runs the controller in
+> peripheral mode.
 
-> Add a tracepoint for DAMOS_QUOTA_NODE_ELIGIBLE_MEM_BP quota goal
-> evaluation.  The tracepoint fires once per quota-score computation when
-> the goal metric is DAMOS_QUOTA_NODE_ELIGIBLE_MEM_BP, exposing
-> context_idx, scheme_idx, nid, target_value, and current_value.
-> current_value is reported as the quota tuning sees it, after the goal's
-> complement setting is applied.
-> 
-> The DAMOS_QUOTA_NODE_ELIGIBLE_MEM_BP metric expresses node memory
-> occupancy as basis points of eligible bytes.  This information is not
-> exposed through any existing external interface (perf stat, /proc, or
-> sysfs), so the tracepoint is the only way for userspace to observe the
-> target and current eligible-memory basis point values at quota-scoring
-> time.
-> 
-> Link: https://lore.kernel.org/linux-mm/20260428030520.701-1-ravis.opensrc@gmail.com/
-> Signed-off-by: Ravi Jonnalagadda <ravis.opensrc@gmail.com>
-> ---
->  include/trace/events/damon.h | 31 +++++++++++++++++++++++++++++++
->  mm/damon/core.c              | 16 ++++++++++++++++
->  2 files changed, 47 insertions(+)
-> 
-> diff --git a/include/trace/events/damon.h b/include/trace/events/damon.h
-> index 8851727ae162..2c7249cc7c88 100644
-> --- a/include/trace/events/damon.h
-> +++ b/include/trace/events/damon.h
-> @@ -74,6 +74,37 @@ TRACE_EVENT(damos_esz,
->  			__entry->esz)
->  );
->  
-> +/* Per-tick DAMOS_QUOTA_NODE_ELIGIBLE_MEM_BP goal evaluation. */
-> +TRACE_EVENT(damos_node_eligible_mem_bp,
-> +
-> +	TP_PROTO(unsigned int context_idx, unsigned int scheme_idx,
-> +		int nid,
-> +		unsigned long target_value, unsigned long current_value),
-> +
-> +	TP_ARGS(context_idx, scheme_idx, nid, target_value, current_value),
-> +
-> +	TP_STRUCT__entry(
-> +		__field(unsigned int, context_idx)
-> +		__field(unsigned int, scheme_idx)
-> +		__field(int, nid)
+I tried the host side on a Lenovo Legion Tab Y700 Gen 5 (SM8850,
+dwc3-qcom), v7.3-rc4 plus board patches, s2idle with an RTC wakeup:
 
-Can you move the nid after the two unsigned long values below. This
-creates a structure, and on 64bit machines, this adds a 4 byte padding
-in the middle of the ring buffer.
+ - host with wakeup disabled (USB 2.0 hub, USB 3 flash drive behind
+   it): "HS-PHY not in L2" on every suspend before, none with the
+   patch; the devices are still there after resume
+ - host with wakeup enabled: no message, the port does reach L2
+ - peripheral (connected to a PC): no message
 
-> +		__field(unsigned long, target_value)
-> +		__field(unsigned long, current_value)
-> +	),
-> +
-> +	TP_fast_assign(
-> +		__entry->context_idx = context_idx;
-> +		__entry->scheme_idx = scheme_idx;
-> +		__entry->nid = nid;
-> +		__entry->target_value = target_value;
-> +		__entry->current_value = current_value;
-> +	),
-> +
-> +	TP_printk("ctx_idx=%u scheme_idx=%u nid=%d target_value=%lu current_value=%lu",
-> +			__entry->context_idx, __entry->scheme_idx,
-> +			__entry->nid,
-> +			__entry->target_value, __entry->current_value)
-> +);
-> +
->  TRACE_EVENT_CONDITION(damos_before_apply,
->  
->  	TP_PROTO(unsigned int context_idx, unsigned int scheme_idx,
-> diff --git a/mm/damon/core.c b/mm/damon/core.c
-> index b63e60ef8990..6ddd15dc4f55 100644
-> --- a/mm/damon/core.c
-> +++ b/mm/damon/core.c
-> @@ -3294,6 +3294,22 @@ static unsigned long damos_quota_score(struct damon_ctx *c, struct damos *s)
->  		highest_score = max(highest_score,
->  				mult_frac(goal->current_value, 10000,
->  					goal->target_value));
-> +
-> +		if (goal->metric == DAMOS_QUOTA_NODE_ELIGIBLE_MEM_BP &&
-> +		    trace_damos_node_eligible_mem_bp_enabled()) {
-
-If you move the trace_damos_node_eligible_mem_bp_enabled() before the
-goal->metric check, you will save yourself a branch when tracing is
-off. As the trace_*_enabled() is a static branch (nop or jmp) it has no
-cmp branch, but the above will keep the goal->metric still exposed. By
-swapping the two compares, the goal->metric check will be hidder behind
-the 'nop' when tracing is disabled.
-
--- Steve
-
-
-> +			unsigned int cidx = 0, sidx = 0;
-> +			struct damos *siter;
-> +
-> +			damon_for_each_scheme(siter, c) {
-> +				if (siter == s)
-> +					break;
-> +				sidx++;
-> +			}
-> +			trace_damos_node_eligible_mem_bp(cidx, sidx,
-> +					goal->nid,
-> +					goal->target_value,
-> +					goal->current_value);
-> +		}
->  	}
->  
->  	return highest_score;
-> 
-> base-commit: 763ad0211c7b587344f03bc4d1299810aeb736f4
-
+Tested-by: Joonhoe Kim <26rote@gmail.com>
