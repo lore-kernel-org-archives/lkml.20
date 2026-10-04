@@ -1,149 +1,213 @@
-Received: from mail-wr2-f12.google.com (mail-wr2-f12.google.com [74.125.225.76])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mail.mainlining.org (mail.mainlining.org [5.75.144.95])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ECEEA3CFF61
-	for <linux-kernel@vger.kernel.org>; Sun,  4 Oct 2026 16:51:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.76
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D9DCB3BED66
+	for <linux-kernel@vger.kernel.org>; Sun,  4 Oct 2026 16:52:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=5.75.144.95
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791132701; cv=none; b=I89gD0JA6D/V9ywuOpVF2rH5lHw18bh2IwbRtBvxne7aaSGogPXiF07bnQRNbS4znfHs4Z+Ti7TiJ3oob29r//Jbh+CApcGjZ1NEG42uc/l5WZi2EhwIQASQ7iezm/KzMVy4DSSelB8n0BYRlyQiBFf6sDQLMf33kPFkSkFIxFo=
+	t=1791132733; cv=none; b=cVG4saMkFx7JQd2S30lftR9lIdzGsAtoyeEO6HztRA58EwPVQ/7bd8kzKgnOhFlk26NFNznzJ85g4IYhrm5AMyciD8JANcNGcNiWg7Pzbnso8AXRwplyS77L8tTKLdkqp0uwMFzPsziu2fO8oLRicnBuLWDKGjwP1bCE3PJd8NE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791132701; c=relaxed/simple;
-	bh=cfsNm7503j44sOYlP5f+jD1LcOO+2TqY7kSRBWzmdDQ=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=Nez+bwHAzPbETvTXskDhJkYMeLULbI+Kh3UcVyT/6KJKotRJKGtwnAaMvLLPuvg5MW64GDf1Ox3ikXFf/0Tfny0ftl4Kn59XmGk7vm84N2obJ6GoxDoMKDmoY/09uHFXwEShwKPnV4bjjaTmFi/5wt8+sav+qwUDMksJ/nHMgN4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=CpBn55z3; arc=none smtp.client-ip=74.125.225.76
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1791132733; c=relaxed/simple;
+	bh=2ENNaeAAtpbFqBLkjBvhpXgbldYS98epZqFk8iUUZdM=;
+	h=Date:From:To:CC:Subject:In-Reply-To:References:Message-ID:
+	 MIME-Version:Content-Type; b=h5qErHXlV3aR9LPi0kkJkUfymAwuskpkMXU74nJNdmXSDTOgaQmELLv/n/rmBOLEZoZqtbBrG2eGjIrAYmj92M1nghWqYv80HWdnGHMQStVatJODJPuvGkyzQa5cBHuoQFV9CbE5FCBFIWYaUfKhsN8nvynS2pNn6ou/XerIY6E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org; spf=pass smtp.mailfrom=mainlining.org; dkim=pass (2048-bit key) header.d=mainlining.org header.i=@mainlining.org header.b=iu7j4QgW; dkim=permerror (0-bit key) header.d=mainlining.org header.i=@mainlining.org header.b=b5Nb+a7l; arc=none smtp.client-ip=5.75.144.95
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mainlining.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="CpBn55z3"
-Received: by mail-wr2-f12.google.com with SMTP id ffacd0b85a97d-482f6350f91so415485f8f.1
-        for <linux-kernel@vger.kernel.org>; Sun, 04 Oct 2026 09:51:39 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791132698; x=1791737498; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=5kZgL2+cYaxBr/D7kAopy+ikvsQSWrTTQUGKjBNRtaQ=;
-        b=CpBn55z3SHSdMsixLhW1sMmWFUXoihP2CetQQJt7dFV89Szsrt3fXgXzKMA5+VpHKz
-         brFIN5MiDW3xUm1Z9rLIe7FSTOcfRRsIN5F0JzLM/xaCzsroGSpBuwjuQNBwRTZEkBZu
-         9V97RXlhw96Z8W7Czo3XStbe7m5SwcjNPgURwge0BWc0Gayk51c9M+NBUX0ttFVwshyd
-         uRN6zAckn6fGKdzrZgmvDGdLc8fph4qV6bS1jEaDMdhQNBmbFYzfcXcbPgprETNsoyQ9
-         E8SfO4fpqPN70IFwe9cAtpkCuEZkGn4tCEMAAfYvBaXuNVeVa0W+fhG5oLzo/2NfLYkk
-         yTVA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791132698; x=1791737498;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=5kZgL2+cYaxBr/D7kAopy+ikvsQSWrTTQUGKjBNRtaQ=;
-        b=MQgzY1QQjAV+WMAUjjkzRgAVIwwUULW8VQQ8TFXxAvwG/NtibDw1Poy7RSuRcDoW30
-         a2IfkJLP84HJNj9qjvwTx5UXXe96Eri2Iw+waiU5rxX1zb0rfVA+TBluDQ22IDqcBDnk
-         5qN9ppb8Sm4gB8TVAzBKIrZtbv+TU4MDZyjB3jPE6BlRfATB4x/5O9ptcUVsOcLHZa1e
-         Y23i5LQRwEZGc7jbFB5790kakGBxTlviiV46YWupPUmvInAcunPS63XLpf9eMz6txUYb
-         6/zhGcUNtiyblQIbqgntKhZ8ZI2EoLWZc2a2/gDZc8UlT+TrAQaySbXeTAVRj01VRJ5J
-         JEHQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwC+wq6wKBindNURAZUnh8N7PgRi4LvJ1wgJn1f5EHdehuP2mbts0s+qZ/74BEMdzRgYIMwVPdOkWQdR7Q=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLwAfTuB/lVPIadQDg7D+bdD5fwRDWaKFQvhYszJ8u7nkCQF6M8
-	Ett5fx4krGYU4y3aQHHIIwjJwDwuhW7qQx3FgYTR5vMB7P7hC7TxSnom
-X-Gm-Gg: AYBFou2xLjZdep9LSUjeFsdjkrJvUB3B32g+XZzow94j7iiggNTRWNmHdKD5UBXSF3i
-	G7lbL4vF9H5t3+g4mtrts42KFSvGqiPkojzo2BUhyOlB0o/CLqCs9cgJEI1Nm4QZwwqu0vuAnkp
-	o2qzeGIBC4+WQ/2pKFj9vUY++KmLMXNaAxtzknd0Ir2Z2JNCEZsmt0N20BSXDv1FjDswDuyhYmF
-	6kJH1eHlijd/nddFtWUL5U1uFKHvb28iSUIt6v5vPs6eodxgwr2gI1sOPKHgoRUY37sgbQmkGR0
-	TAssCNjw1y1TnHRZOGXlMmhX0tV75H6vAE5zmQSTnJ0UZcveQpgb0fn7wGSOR5PP0B+gVtx/C8/
-	VUPoLMHzOUM7tSA2jw7Kmz9WfnuhsOgzvX/6HX+XOgMo/th5SudHbgLM4hG/T5l+p7cmRQqb/yQ
-	2jEhcPZhWVR7HIATbv2uo6oYPRDQVQbvvs9uDG2Pr/t0r4ERTNaIk0LQuJ3kyXcTz+9rWSjISea
-	JzGXoiMy0lX
-X-Received: by 2002:a5d:5d13:0:b0:487:8b9:526a with SMTP id ffacd0b85a97d-48b12763357mr18047204f8f.36.1791132698112;
-        Sun, 04 Oct 2026 09:51:38 -0700 (PDT)
-Received: from FranzSP11.fritz.box ([31.31.60.25])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48b383065a4sm18144545f8f.44.2026.10.04.09.51.36
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 04 Oct 2026 09:51:37 -0700 (PDT)
-From: =?UTF-8?q?Fran=C3=A7ois=20Roux?= <franzelfranzel@gmail.com>
-To: Jeff Johnson <jjohnson@kernel.org>
-Cc: Manivannan Sadhasivam <mani@kernel.org>,
-	Krzysztof Kozlowski <krzk@kernel.org>,
-	Konrad Dybcio <konradybcio@kernel.org>,
-	Bjorn Andersson <andersson@kernel.org>,
-	=?UTF-8?q?J=C3=A9r=C3=B4me=20de=20Bretagne?= <jerome.debretagne@gmail.com>,
-	Dale Whinham <daleyo@gmail.com>,
-	ath12k@lists.infradead.org,
-	linux-wireless@vger.kernel.org,
-	linux-arm-msm@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH] wifi: ath12k: skip hardware rfkill setup on Microsoft Surface Pro 11
-Date: Sun,  4 Oct 2026 18:51:32 +0200
-Message-ID: <20261004165132.4313-1-franzelfranzel@gmail.com>
-X-Mailer: git-send-email 2.56.0
+	dkim=pass (2048-bit key) header.d=mainlining.org header.i=@mainlining.org header.b="iu7j4QgW";
+	dkim=permerror (0-bit key) header.d=mainlining.org header.i=@mainlining.org header.b="b5Nb+a7l"
+DKIM-Signature: v=1; a=rsa-sha256; s=202507r; d=mainlining.org; c=relaxed/relaxed;
+	h=Message-ID:Subject:To:From:Date; t=1791132695; bh=DUKvf4KEW9kFZVabVluWgt5
+	RqPGEcg1nrffXzaBOtj4=; b=iu7j4QgWhS3kmFXgMmybM3m6y4tb/6gb96lLIPrMC6k3l36gfS
+	y9SDfc3tCk6MyUo3251kycFhHK1kJtPxRFjyfxIg387Ea1sluPW9lQkpj6DGYG5EkN85CmVPoOw
+	B8zHrbAfHt8znP/VRSg9sN1FCdeUqTHf3blTAQ2ytsxTr5edK47MJvuu+7XtEQl1M+uSSLr9kBl
+	pU8klsM0HmkageiKVTp9JdoJO9QXvZWZyE9KfZVxN9xH8gge7gANTGegn//5IR8BV/Sp+gOc0Si
+	hF5aUUPXueWmJ0OfrYQqcjM3f+b3jsR8W94YTNzND7Os6UodAsGRZHM9cIZhE9wLhRw==;
+DKIM-Signature: v=1; a=ed25519-sha256; s=202507e; d=mainlining.org; c=relaxed/relaxed;
+	h=Message-ID:Subject:To:From:Date; t=1791132695; bh=DUKvf4KEW9kFZVabVluWgt5
+	RqPGEcg1nrffXzaBOtj4=; b=b5Nb+a7lMPy39E0ELwhMJqIzqB6i7Q+G50PpBWWEZwD4nyQAdQ
+	kGM6+WUE/Qf1bb9Yk4TxF2to+6TFostkfMCg==;
+Date: Sun, 04 Oct 2026 17:51:35 +0100
+From: Bradley Morgan <brads@mainlining.org>
+To: Aaron Tomlin <atomlin@atomlin.com>, akpm@linux-foundation.org,
+ lance.yang@linux.dev, mhiramat@kernel.org, pmladek@suse.com
+CC: linux-kernel@vger.kernel.org, david.laight.linux@gmail.com,
+ atomlin@atomlin.com, neelx@suse.com, sean@ashe.io, chjohnst@gmail.com,
+ steve@abita.co, mproche@gmail.com, nick.lange@gmail.com
+Subject: =?US-ASCII?Q?Re=3A_=5BPATCH_v11_1/2=5D_hung=5Ftask=3A_Reset_wa?=
+ =?US-ASCII?Q?rning_budget_when_problem_gets_resolved?=
+In-Reply-To: <20261004163610.413506-2-atomlin@atomlin.com>
+References: <20261004163610.413506-1-atomlin@atomlin.com> <20261004163610.413506-2-atomlin@atomlin.com>
+Message-ID: <6D2CB611-9C42-405E-A127-781EC892703F@mainlining.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain;
+ charset=utf-8
 Content-Transfer-Encoding: 8bit
 
-On the Microsoft Surface Pro 11 (X1E80100, "microsoft,denali"), the
-WCN7850 hardware rfkill input reads as "radio off" and the OS has no
-way to control it. ath12k enables hardware rfkill handling, so Wi-Fi
-stays hard-blocked:
+On 4 October 2026 17:36:09 BST, Aaron Tomlin <atomlin@atomlin.com> wrote:
+>The sysctl hung_task_warnings currently holds both the configured warning
+>limit and the remaining budget. Each detailed report decrements the
+>sysctl, so once it reaches zero, the configured limit is lost and cannot
+>be restored automatically.
+>
+>Keep sysctl_hung_task_warnings as the configured warning limit and make
+>khungtaskd the sole owner of the remaining budget. A check that finds no
+>hung tasks reloads the budget directly from the configured limit. A
+>successful sysctl write publishes an atomic reset request, which
+>khungtaskd consumes at the start of the next check.
+>
+>Suggested-by: Petr Mladek <pmladek@suse.com>
+>Suggested-by: Lance Yang <lance.yang@linux.dev>
+>Tested-by: Lance Yang <lance.yang@linux.dev>
+>Reviewed-by: Lance Yang <lance.yang@linux.dev>
 
-  iwd: Error bringing interface 4 up: Operation not possible due to RF-kill
+LGTM:
 
-ACPI platforms can opt out through ath12k_acpi_get_disable_rfkill(),
-but DT platforms cannot. A DT property was proposed for this and
-rejected, because it describes what the OS should do rather than the
-hardware. The suggested alternative was to handle this machine in the
-driver, keyed on the board compatible and the device ID, until a
-connector binding can describe a broken rfkill line. Do that.
+Reviewed-by: Bradley Morgan <brads@mainlining.org>
 
-Tested on a Surface Pro 11 with next-20260929, booted with the
-unmodified mainline DTB: the interface is no longer blocked and
-connects.
+>Signed-off-by: Aaron Tomlin <atomlin@atomlin.com>
+>---
+> Documentation/admin-guide/sysctl/kernel.rst |  5 ++-
+> kernel/hung_task.c                          | 49 +++++++++++++++++----
+> 2 files changed, 44 insertions(+), 10 deletions(-)
+>
+>diff --git a/Documentation/admin-guide/sysctl/kernel.rst b/Documentation/admin-guide/sysctl/kernel.rst
+>index ffea61d448eb..c03369e234a9 100644
+>--- a/Documentation/admin-guide/sysctl/kernel.rst
+>+++ b/Documentation/admin-guide/sysctl/kernel.rst
+>@@ -459,8 +459,9 @@ hung_task_warnings
+> ==================
+> 
+> The maximum number of warnings to report. During a check interval
+>-if a hung task is detected, this value is decreased by 1.
+>-When this value reaches 0, no more warnings will be reported.
+>+if a hung task is detected, the internal warning budget is decreased by 1.
+>+When this budget reaches 0, no more detailed warnings will be reported. The
+>+warning budget is reset to the configured limit when no hung task is found.
+> This file shows up if ``CONFIG_DETECT_HUNG_TASK`` is enabled.
+> 
+> -1: report an infinite number of warnings.
+>diff --git a/kernel/hung_task.c b/kernel/hung_task.c
+>index 6fcc94ce4ca9..a5043188456d 100644
+>--- a/kernel/hung_task.c
+>+++ b/kernel/hung_task.c
+>@@ -57,8 +57,20 @@ unsigned long __read_mostly sysctl_hung_task_timeout_secs = CONFIG_DEFAULT_HUNG_
+>  */
+> static unsigned long __read_mostly sysctl_hung_task_check_interval_secs;
+> 
+>+/*
+>+ * Limit the number of printed hung tasks to prevent printing
+>+ * the same or similar backtraces repeatedly.
+>+ */
+> static int __read_mostly sysctl_hung_task_warnings = 10;
+> 
+>+/*
+>+ * The number of hung tasks which still can be reported.
+>+ * The budget gets restored to the original limit when
+>+ * the previous stall is resolved.
+>+ */
+>+static int hung_task_warnings_budget = 10;
+>+static atomic_t reset_hung_task_warnings = ATOMIC_INIT(0);
+>+
+> static int __read_mostly did_panic;
+> static bool hung_task_call_panic;
+> 
+>@@ -245,11 +257,11 @@ static void hung_task_info(struct task_struct *t, unsigned long timeout,
+> 	/*
+> 	 * The given task did not get scheduled for more than
+> 	 * CONFIG_DEFAULT_HUNG_TASK_TIMEOUT. Therefore, complain
+>-	 * accordingly
+>+	 * accordingly with full details if the budget is not exhausted.
+> 	 */
+>-	if (sysctl_hung_task_warnings || hung_task_call_panic) {
+>-		if (sysctl_hung_task_warnings > 0)
+>-			sysctl_hung_task_warnings--;
+>+	if (hung_task_warnings_budget || hung_task_call_panic) {
+>+		if (hung_task_warnings_budget > 0)
+>+			hung_task_warnings_budget--;
+> 		pr_err("INFO: task %s:%d blocked%s for more than %ld seconds.\n",
+> 		       t->comm, t->pid, t->in_iowait ? " in I/O wait" : "",
+> 		       (jiffies - t->last_switch_time) / HZ);
+>@@ -264,7 +276,7 @@ static void hung_task_info(struct task_struct *t, unsigned long timeout,
+> 		sched_show_task(t);
+> 		debug_show_blocker(t, timeout);
+> 
+>-		if (!sysctl_hung_task_warnings)
+>+		if (!hung_task_warnings_budget)
+> 			pr_info("Future hung task reports are suppressed, see sysctl kernel.hung_task_warnings\n");
+> 	}
+> 
+>@@ -304,7 +316,7 @@ static void check_hung_uninterruptible_tasks(unsigned long timeout)
+> 	unsigned long last_break = jiffies;
+> 	struct task_struct *g, *t;
+> 	unsigned long this_round_count;
+>-	int need_warning = sysctl_hung_task_warnings;
+>+	int need_warning;
+> 	unsigned long si_mask = hung_task_si_mask;
+> 
+> 	/*
+>@@ -314,6 +326,11 @@ static void check_hung_uninterruptible_tasks(unsigned long timeout)
+> 	if (test_taint(TAINT_DIE) || did_panic)
+> 		return;
+> 
+>+	if (atomic_xchg_acquire(&reset_hung_task_warnings, 0))
+>+		hung_task_warnings_budget =
+>+			READ_ONCE(sysctl_hung_task_warnings);
+>+	need_warning = hung_task_warnings_budget;
+>+
+> 	this_round_count = 0;
+> 	rcu_read_lock();
+> 	for_each_process_thread(g, t) {
+>@@ -340,8 +357,11 @@ static void check_hung_uninterruptible_tasks(unsigned long timeout)
+>  unlock:
+> 	rcu_read_unlock();
+> 
+>-	if (!this_round_count)
+>+	if (!this_round_count) {
+>+		hung_task_warnings_budget =
+>+			READ_ONCE(sysctl_hung_task_warnings);
+> 		return;
+>+	}
+> 
+> 	if (need_warning || hung_task_call_panic) {
+> 		si_mask |= SYS_INFO_LOCKS;
+>@@ -425,6 +445,19 @@ static int proc_dohung_task_timeout_secs(const struct ctl_table *table, int writ
+> 	return ret;
+> }
+> 
+>+static int proc_dohung_task_warnings(const struct ctl_table *table, int write,
+>+				     void *buffer,
+>+				     size_t *lenp, loff_t *ppos)
+>+{
+>+	int ret;
+>+
+>+	ret = proc_dointvec_minmax(table, write, buffer, lenp, ppos);
+>+	if (!ret && write)
+>+		atomic_set_release(&reset_hung_task_warnings, 1);
+>+
+>+	return ret;
+>+}
+>+
+> /*
+>  * This is needed for proc_doulongvec_minmax of sysctl_hung_task_timeout_secs
+>  * and hung_task_check_interval_secs
+>@@ -480,7 +513,7 @@ static const struct ctl_table hung_task_sysctls[] = {
+> 		.data		= &sysctl_hung_task_warnings,
+> 		.maxlen		= sizeof(int),
+> 		.mode		= 0644,
+>-		.proc_handler	= proc_dointvec_minmax,
+>+		.proc_handler	= proc_dohung_task_warnings,
+> 		.extra1		= SYSCTL_NEG_ONE,
+> 	},
+> 	{
+>
 
-Link: https://lore.kernel.org/all/2ixwny6hzumlqmok5cjwutvtk7nzmx4t3dhxc44ao4l2u755pj@n6m7jyxf2o62/
-Suggested-by: Manivannan Sadhasivam <mani@kernel.org>
-Assisted-by: LLM
-Signed-off-by: François Roux <franzelfranzel@gmail.com>
----
-This replaces my RFC series "Allow DT boards to disable WCN7850 hardware
-rfkill", which duplicated the disable-rfkill DT property already proposed
-and rejected in the Surface Pro 11 series:
 
-https://lore.kernel.org/all/20261003091509.4822-1-franzelfranzel@gmail.com/
-https://lore.kernel.org/all/20251220-surface-sp11-for-next-v5-2-16065bef8ef3@gmail.com/
-
-The code is Manivannan's suggestion from that thread. Jérôme reported
-there that the Surface Laptop 7 (microsoft,romulus13/15) has the same
-problem. I left it out because I cannot test it.
-
- drivers/net/wireless/ath/ath12k/core.c | 10 ++++++++++
- 1 file changed, 10 insertions(+)
-
-diff --git a/drivers/net/wireless/ath/ath12k/core.c b/drivers/net/wireless/ath/ath12k/core.c
-index 0c72948f3..dc41a2a7d 100644
---- a/drivers/net/wireless/ath/ath12k/core.c
-+++ b/drivers/net/wireless/ath/ath12k/core.c
-@@ -83,6 +83,16 @@ static int ath12k_core_rfkill_config(struct ath12k_base *ab)
- 	if (ath12k_acpi_get_disable_rfkill(ab))
- 		return 0;
- 
-+	/*
-+	 * TODO: On the Microsoft Surface Pro 11, the OS cannot control the
-+	 * WCN7850 hardware rfkill input, which reads as "radio off". Keep
-+	 * hardware rfkill disabled there. Ideally this would come from the
-+	 * connector node of the board DT, but that binding does not exist
-+	 * yet, so handle it in the driver for now.
-+	 */
-+	if (of_machine_is_compatible("microsoft,denali") && ab->id.device == 0x1107)
-+		return 0;
-+
- 	for (i = 0; i < ab->num_radios; i++) {
- 		ar = ab->pdevs[i].ar;
- 
-
-base-commit: 6474fa070f2b8013b4b87350b775b8c3be6e8aac
-prerequisite-patch-id: aafe3fac38f4020441979665509928f8cc832095
--- 
-2.56.0
-
+--- Thanks!
+"I'm not a very positive person" - Linus torvalds
