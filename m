@@ -1,396 +1,174 @@
-Received: from mail-pj2-f43.google.com (mail-pj2-f43.google.com [74.125.227.171])
+Received: from mail-yx2-f41.google.com (mail-yx2-f41.google.com [74.125.224.169])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 111D543B49D
-	for <linux-kernel@vger.kernel.org>; Sun,  4 Oct 2026 13:57:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.171
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791122241; cv=none; b=IKLPQuJBiwAPo9bcO7J3R/z00lXwJqbbIl2BKPA0tgxgs+3dU3lruG3ktegPqw/C8nXH+OR6LSylrfZpZv3zQV8VEWzZ6PDcOzYKIfNc0lPGt1I178CGEOfsW2NmLRrZbWkvTBP8UNcnqHPO7KLCSgrKIAQPqL1pDI3fTOK9khs=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791122241; c=relaxed/simple;
-	bh=pIQ+IRKIzFQu+nwE6rpRbECGYFdSKs6+qMmd1UYLM8I=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=JeTdoLygy5k9f7tJ5NCXRh4MNSFE8P4br0JV6XFdgAnWg1oHIh71kXze3pFqCxciv4YWMq8dOIbi0jAu3lsHdCQcxZJrPlBlwZKdPEdAJcv6mPjzt2pD/J7AC3TnGx/AM2fYHQc1yxO+nA4rbmqWsp4FLZAn2YI5IOFWUI4qoi8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=mMO/4Oih; arc=none smtp.client-ip=74.125.227.171
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EEBB943A7E9
+	for <linux-kernel@vger.kernel.org>; Sun,  4 Oct 2026 13:58:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.224.169
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791122298; cv=pass; b=l7brT20plAclyGgLxvC1gzv2IsdfsTWcuhFsUf5fpzBAv9OTun9yrZ+bnOzoS97ujT/G7FlEITeMwLX2ZpkboPZfUfUc9yIl8Sb7NJuzVL/vMYEwkJe7pS9Ljf1wQ9JaqfDhJZ+nRdqesvJ2nEgzmFu+TFn7SbMl0B5bvwVodUg=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791122298; c=relaxed/simple;
+	bh=WEaQ6XiqVtg2tmigVy5JhaPpL6oItqqeQ0+x0LG+yaI=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=VcUUh2SKArCsP8IVss1D6TBezY42QEoDsBlEdXmBm1qtlZM5bBxxAXp9s3aM9kpoNUUfcKN70V96flk7a9n6ZZrz3781R4ESuMImAGzEKROo/cMr1/UOod5ER+AmBnX+nimQGUnTVfEP5aqAtdEu8Vba+e2VHUGsXF8hUU3l4qQ=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=tiH6Tam3; arc=pass smtp.client-ip=74.125.224.169
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="mMO/4Oih"
-Received: by mail-pj2-f43.google.com with SMTP id 98e67ed59e1d1-3a49573b8bdso572839a91.2
-        for <linux-kernel@vger.kernel.org>; Sun, 04 Oct 2026 06:57:19 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="tiH6Tam3"
+Received: by mail-yx2-f41.google.com with SMTP id 00721157ae682-8aecf8568b6so4868157b3.2
+        for <linux-kernel@vger.kernel.org>; Sun, 04 Oct 2026 06:58:16 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1791122296; cv=none;
+        d=google.com; s=arc-20260327;
+        b=KcaoWr7aFqPFm93iZyPVmoHshMU3Yl34TNx1Ore84WTj61+6HpwzM1MrZNCGl+QvWq
+         SsxIaNawrUX9XCTyQC2i6TRwlbMWb0ETHcbP6ZFwtcFnpd+W64LPmRUCmUi80LehBylj
+         Y2T/nuT/XGVTtmUDwt3DoV3YyqsmBdXiNfH9nlkPYwpmzUuKKZxFhKX86OXTzf60XZ1b
+         IJjn2o0l/Rmm/zchF3nr+Hw5IzU5K3wTeym3MuXxzGPPlXBlE5jJ6I6emFTwzmj0+fos
+         tHAirsafWioxCyIPsAqYqCv8tfoipFhOiKf3EGQ/VWhx97EP48LNjlDLEDYA6yLf9aOu
+         xMAQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=Sc47DcnOG4SbqUBdnELdeiSnIhxnStqddXLb/q6F8OA=;
+        fh=83TVoZsZu/Wh9JHsO00MOLh0+T5fPrmc3M/rA5+PXNY=;
+        b=UihRSmtPRFKuxI/k/YxV42s/8vE+ol2D1BfR4jwtBP9hlf8KwMhvh6lAsjzUedAPAA
+         ncYsGNDlrnTaFUNLO8ElBeqbKSRx9kBJl/FmLp3FsGZ61Uy3fUFcJf36USLTLtGc26l8
+         e2O+RJl5qWj3xll+tO76+VtVyifalqcty+AG7ZlnwsFSkMQF9+RHOT6W7unPORSPCwb1
+         QT2yc25kruHqbUCztojc4bVKghsvT7/2UnyyhO1uW637/ofwuEPLE4DfyMiPjBeYdIws
+         A9jMqae3WL6hJsp4b9F411cl6KPEarG5JigrMLsyjJOYzEV3FxD1WLGeTp7EGSfgIpj1
+         rynA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791122239; x=1791727039; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=TJmJ3Y08JKcht7kTp4k3VyLvWVZcL/LexUSVXApnbpE=;
-        b=mMO/4Oih6WgfSpctyCV81rkxgFWvVIlFWRErVPpkpmapCMsotQb9SojnyIRdaJaSSX
-         pskpEzjTF49e4rgzGTHXiozNazqgHt8z7VepHqTgsG9WowpCs7VMI48lKmTIYr7MFVrX
-         Bl4GscgqQh98A0olgTqpIQSnWC4yoeHXVviYXOnAnhWv/O4EnFGh0ElJK0TvB4c4Uml+
-         Fq2hGQJJLoIY+G9nVxbVuAr0BaCbX8SCHWQUDwnPNJbo+nbm/bezPE+y3ZP8MI62NIbM
-         WSg/ZA+LxGlqxpOtefO1jQ7LM8QOJb3UYH9ZrJOWhS1DG/18Hxo5NbekIDd6fhTkIOT2
-         PJ1A==
+        d=linaro.org; s=google; t=1791122296; x=1791727096; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=Sc47DcnOG4SbqUBdnELdeiSnIhxnStqddXLb/q6F8OA=;
+        b=tiH6Tam3uTd2FiXGSp4cxy7BQT2SyfuRaZ2ny0fStEJfjXUAfxIDYl47qa3HDFdivA
+         7ptVHFPAq0PEDn6+SxhA+luVp46kSo+f+m86prEP/wUCnjmL5nS0GZY1DNx5EdmIMKoy
+         dUTTItSPg3XFyhJca9mxAl2hSH4xLIN+/RwupcrP8r+k1Asmuc17I6Y3O/eJ/r5cmObt
+         P3ai1msSZCVD/MhY4AfciVOn72dvDsR2VZb2o8Gus4wOlwv5UI62ft2xOoNbJN4ILCK9
+         KowIRK5QzV1LmRwSqx2t0niwkcmMoJqsmlE4XT5bH+ODeig7tDD0UPn0+IE9arsW+VPE
+         FIkg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791122239; x=1791727039;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=TJmJ3Y08JKcht7kTp4k3VyLvWVZcL/LexUSVXApnbpE=;
-        b=mj4627E4naE/45/xrwWbR/x/5ZgdYBRDecPTK88xKgscGq8vhAnZjFiqJ3eX0foU41
-         v27plR8SpK2qNmalZj4FpYldXg4FGdEXBQ/sSwiZGRSORF9sVRL3wsmqpfFm+IZcF36O
-         a6o1r0uRPZK/xWVu0qm8lso7U3MlsWC5851i30IKaCcd4bKvk8/bc35xhwMYIUwYaohe
-         qruuQD+r1elh1UOgrZdxShcq6SMGv9F8OzvneaMQOdjBZANSPlLghfVL0ykdb++KTFgB
-         2MK00sQCxspWRRfGL2srPMo4l1g/cRa2pLOFgoVXRMF2kx7bYnkU6hKIny6cSv0cmZQN
-         vuJQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxP6WI7f1N+iOUWwwJIsh8RZ40kcP3a89ANjCWHJZk2CXDHF46fftt1ddMGEJbfxIlsGBhyr8ujknMbVnc=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLflkHsjdPhXj7H8Zum62nFzii9hccXY3AaqjBZt9KX6lvCAA8t
-	4oCtl76ncRnoj4DTjFPkNFiJRZGqYY5k0ZcTNly7s0YaSEVWauHLCDHm
-X-Gm-Gg: AYBFou1L95kGYZjXZs6fgWXGdoAtlSohqj7lOgjlfT268NsqyxODz+NQCjOhsuxeklO
-	k9grzoDKbY0kNSeErfDv1l/UkXmwuKDoijyWgN/y/C0jRbjJPuV0pYrad/k19+MAtwo+1Uc+VFy
-	ZuBOY6jBrDqAK5E6K0Y8cgJ/tGGo599i6mMmKcYlUzwRy7fD9J2wxISniebaOsRAMBpYl/wBZ7Q
-	L87qP4hEvRlK4wOOWjCcP2YH69q3zojSxvh94osBYl/DFh9k1cPwA2dX4rCEe5L422DXJdCAnI1
-	pUGZvCqLGY/wWTPHg87wX4HkmtwDj4mpYjkRAW41fXIIVdUIXQCBRlOmS1u4NOg6QJm2oMCQEcL
-	Cnu9mK1AsMnQ1ZJWc6bnJzDdehnHicXljZQ7Me06VRdrbxQdx3jFwJohUl/iNjd/yKh2fSONJlG
-	KhwQmsUjI1bnLclOmMExpUKbQYan1FrynNaEWsKklE85xXjW33s7WM6wVs0NppexmzpnOCBTOTO
-	wwDgdFbYWc/
-X-Received: by 2002:a17:90b:5690:b0:3a4:f1f9:2569 with SMTP id 98e67ed59e1d1-3a6ced62a58mr6830062a91.55.1791122239248;
-        Sun, 04 Oct 2026 06:57:19 -0700 (PDT)
-Received: from localhost.localdomain ([47.100.192.162])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a78d7cd433sm6876358a91.15.2026.10.04.06.57.15
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 04 Oct 2026 06:57:18 -0700 (PDT)
-From: Yang Wen <anmuxixixi@gmail.com>
-To: linkinjeon@kernel.org,
-	sj1557.seo@samsung.com,
-	chizhiling@163.com
-Cc: yuezhang.mo@sony.com,
-	exfat@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	Yang Wen <anmuxixixi@gmail.com>
-Subject: [PATCH v7 3/3] exfat: reclaim name filters under memory pressure
-Date: Sun,  4 Oct 2026 21:56:38 +0800
-Message-Id: <20261004135638.1888530-4-anmuxixixi@gmail.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20261004135638.1888530-1-anmuxixixi@gmail.com>
-References: <20261004135638.1888530-1-anmuxixixi@gmail.com>
+        d=1e100.net; s=20260707; t=1791122296; x=1791727096;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Sc47DcnOG4SbqUBdnELdeiSnIhxnStqddXLb/q6F8OA=;
+        b=USKFuKfqIK5btPKbVGsBRUmAEiFgwzyKtGFS96agyqUSUu9YMmlys/FO+IZ5qDGy2B
+         S/F/uAPTmjK5uoWjq2he/Wl0rSCE8RThazGtdqD8aMMjURIe4WgKNIX8BySjPT9zm0HF
+         tL0V/xhsynvm5iP5Ddt9H6v0XPTqkN0vRfZ5TePUIHOoYSa5thUoKU/kUF8tWgcHQzta
+         8uouzkg3yIAPCC03BtUZ3jw8ef83ngOaaRdr1ws3zy3k1YBAVEm9uyJ+AJneroFWzoVa
+         ylIgWZWauGzU6P1oZA69fymgfjQHRmKOHFlrvmYR0E5y2PJ1ZdIA/KLa2+xLfr2DcCfU
+         qyrw==
+X-Forwarded-Encrypted: i=1; AKwUvBzT9tMMs/QyrIfiY4NBd3OlDJrfMSRcqi9vXOyUl4Yp0YKSvYYAYsPu+bbcJQAjSwc2jU9Ps/OBCftO1xY=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJx98hOxbQIChH3u1x3/F6sBOG1JQG6IJc5iEShEMwdmGiKYq0a
+	go08n7859L/jzK0a9mDoiaOuWcmCHuN6E3RaqVCvq8JNn3FiKjZL8X8WhC92pOKRBZ8EGgsfgZ+
+	EpPmGk2/Hul6VZjSNYVxT4cXIXRlxZ7ZWNvziIfSiGLaCrBStuyv3Kzc=
+X-Gm-Gg: AYBFou0C/6QieSjgHxGLbd76sWaiJV0hePC2ZtqLRXcPyebuSrAjK0eaKyJvuECQ4Tp
+	09HfDnd7B2D3KuzH3A2gnQnR74TwSFTI+zMpfNS4k4W3AMqwUEcjB1O2DiuansNyplPv/RRf7Vp
+	aydCEMkS6UeR65LMCvQko1Di3ozELq89MLhJIQ8N9oU9DBTMPngnP0AL2lqnUoebaTwYUi+YmqR
+	p2gyHturDHUMIJzhfasNiXeeCBHLyh5pS6jlTAZSEZ/FAf0l5QOUojjRzmN+rT3OPkkbU8YI1zR
+	BfhxGu75tqO9lc+CQyJbwmkS/nnbSeV7nGXBDIvSXiYcLz+qvecQhCPy7kitmEgO
+X-Received: by 2002:a05:690c:c3ec:b0:8ac:b167:4877 with SMTP id
+ 00721157ae682-8ae39bbdff2mr22844037b3.36.1791122295720; Sun, 04 Oct 2026
+ 06:58:15 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20260727-sm8650-7-1-bonded-dsi-v5-0-c042266b9eeb@linaro.org>
+ <20260727-sm8650-7-1-bonded-dsi-v5-3-c042266b9eeb@linaro.org>
+ <gu22hz3dnttzyu2eewpalgzxtocmlbfvnpwore36ufmyr3xtag@r5bbhafsn562>
+ <CABymUCNtcgbcRNXdMUjVdnH_ybOxjFB31gd6AW-0HCFDSn9w4g@mail.gmail.com> <kgnrsnko7u4g6bpxudfo6yqubhd5gcyrdyovjfkohlgo63yrwn@xbgp7jgv6ns3>
+In-Reply-To: <kgnrsnko7u4g6bpxudfo6yqubhd5gcyrdyovjfkohlgo63yrwn@xbgp7jgv6ns3>
+From: Jun Nie <jun.nie@linaro.org>
+Date: Sun, 4 Oct 2026 21:58:04 +0800
+X-Gm-Features: AclHuK9hzkrn0hz5wdouvmEqGC_OxpKSvbDPHUzvFuTecXtty7kAzmgPFKXJfPw
+Message-ID: <CABymUCMGT32A5gE+a3u7=-3scH_Nu7Amb22-FRfWiNrcEOnAgw@mail.gmail.com>
+Subject: Re: [PATCH v5 3/6] drm/mipi-dsi: Add flag to support dual-panel configurations
+To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Cc: Rob Clark <robin.clark@oss.qualcomm.com>, Dmitry Baryshkov <lumag@kernel.org>, 
+	Abhinav Kumar <abhinav.kumar@linux.dev>, Jessica Zhang <jesszhan0024@gmail.com>, 
+	Sean Paul <sean@poorly.run>, Marijn Suijten <marijn.suijten@somainline.org>, 
+	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, 
+	Thomas Zimmermann <tzimmermann@suse.de>, Neil Armstrong <neil.armstrong@linaro.org>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org, 
+	freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+	devicetree@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Each active large directory can hold a dynamically sized name filter with a
-bitmap of up to 4 MiB. Add a per-superblock LRU and shrinker so filters can
-be reclaimed when memory is tight. Account reclaimable filters in pages so
-reclaim cost tracks their differing allocation sizes.
+Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com> =E4=BA=8E2026=E5=B9=B4=
+10=E6=9C=881=E6=97=A5=E5=91=A8=E5=9B=9B 03:43=E5=86=99=E9=81=93=EF=BC=9A
+>
+> On Wed, Sep 30, 2026 at 09:52:48PM +0800, Jun Nie wrote:
+> > Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com> =E4=BA=8E2026=E5=
+=B9=B49=E6=9C=8830=E6=97=A5=E5=91=A8=E4=B8=89 00:05=E5=86=99=E9=81=93=EF=BC=
+=9A
+> > >
+> > > On Mon, Jul 27, 2026 at 04:08:42PM +0800, Jun Nie wrote:
+> > > > Some devices treat two independent physical DSI panels as a single
+> > > > logical panel from the CRTC's perspective. However, two separate DS=
+I
+> > > > hosts are still required to drive the panels individually.
+> > > >
+> > > > Introduce a `dual_panel` flag to the `mipi_dsi_device` struct. This
+> > > > allows a panel driver to inform the DSI host that it is part of a
+> > > > dual-panel setup, enabling the host to coordinate both physical
+> > > > displays as one.
+> > > >
+> > > > This change does not force individual panel driver to manage
+> > > > system-level display topology if the driver does not intended to
+> > > > support dual panel topology. Only the driver that set the flag to
+> > > > true need to take care of panel topology.
+> > > >
+> > > > Signed-off-by: Jun Nie <jun.nie@linaro.org>
+> > > > ---
+> > > >  include/drm/drm_mipi_dsi.h | 2 ++
+> > > >  1 file changed, 2 insertions(+)
+> > >
+> > > Do you have a single MIPI DSI device, or are there two independent MI=
+PI
+> > > DSI devices? In the latter case, the flag is wrongly placed.
+> >
+> > Yes, there are 2 mipi devices, and 2 mipi hosts. This flag is used for
+> > mipi device
+> > to notify host they are one of dual panels, so that horizontal
+> > configuration(width)
+> > in mipi host can be handled correctly. Where do you suggest to put this=
+ flag?
+> > Thanks!
+>
+> Into the msm DSI structures. We already have several Qualcomm-specific
+> flags. I'm thinking from the 'generic device' point of view. The
+> 'dual_panel' doesn't mean anything if the device has more than two DSI
+> hosts. You need to specify which hosts are mapped to L or R channels, etc=
+.
 
-Keep the scan budget initialized by the shrinker core instead of replacing
-it with the number of filters freed. If the LRU is already empty, return
-SHRINK_STOP. This guarantees that do_shrink_slab() either consumes its scan
-budget or stops, even when the LRU becomes empty before nr_to_scan is
-satisfied.
+How about to add below 3 members regarding multiple physical panels in
+single logic panel. We have h*v panels in a panel wall. The index start fro=
+m
+0 when we iterate panel from left to right of the top array of panel wall. =
+In
+XR case, we have num_panel_h =3D 2;  num_panel_v =3D 1; and
+panel_index =3D 0 for left channel, panel_index =3D 1 for right channel. Th=
+e
+original framebuffer is divided into width/num_panel_h and
+height/num_panel_v for each panel's DSI link.
 
-Signed-off-by: Yang Wen <anmuxixixi@gmail.com>
----
- fs/exfat/dir.c      | 159 +++++++++++++++++++++++++++++++++++++++++++-
- fs/exfat/exfat_fs.h |  10 +++
- fs/exfat/super.c    |   8 +++
- 3 files changed, 174 insertions(+), 3 deletions(-)
+u32 num_panel_h;
+u32 num_panel_v;
+u32 panel_index;
 
-diff --git a/fs/exfat/dir.c b/fs/exfat/dir.c
-index 9f9183116784..cf780f7f540c 100644
---- a/fs/exfat/dir.c
-+++ b/fs/exfat/dir.c
-@@ -10,6 +10,7 @@
- #include <linux/filelock.h>
- #include <linux/hash.h>
- #include <linux/log2.h>
-+#include <linux/shrinker.h>
- #include <linux/stringhash.h>
- 
- #include "exfat_raw.h"
-@@ -127,12 +128,158 @@ static bool exfat_name_filter_set(struct exfat_name_filter *filter,
- 	return filter->nr_set_bits >= nr_bits / 3;
- }
- 
-+static unsigned long
-+exfat_name_filter_nr_pages(const struct exfat_name_filter *filter)
-+{
-+	size_t size = struct_size(filter, bitmap,
-+				  BITS_TO_LONGS(BIT(filter->order)));
-+
-+	return DIV_ROUND_UP(size, PAGE_SIZE);
-+}
-+
-+static struct exfat_name_filter *
-+exfat_name_filter_detach_locked(struct exfat_sb_info *sbi,
-+				struct exfat_inode_info *ei)
-+{
-+	struct exfat_name_filter *filter = ei->name_filter;
-+
-+	if (!filter)
-+		return NULL;
-+
-+	ei->name_filter = NULL;
-+	list_del_init(&ei->name_filter_lru);
-+	sbi->name_filter_pages -= exfat_name_filter_nr_pages(filter);
-+	return filter;
-+}
-+
-+static void exfat_name_filter_touch(struct exfat_inode_info *ei)
-+{
-+	struct exfat_sb_info *sbi = EXFAT_SB(ei->vfs_inode.i_sb);
-+
-+	spin_lock(&sbi->name_filter_lock);
-+	if (ei->name_filter)
-+		list_move_tail(&ei->name_filter_lru, &sbi->name_filter_lru);
-+	spin_unlock(&sbi->name_filter_lock);
-+}
-+
- void exfat_name_filter_free(struct inode *inode)
- {
- 	struct exfat_inode_info *ei = EXFAT_I(inode);
-+	struct exfat_sb_info *sbi;
-+	struct exfat_name_filter *filter;
- 
--	kvfree(ei->name_filter);
--	ei->name_filter = NULL;
-+	if (!READ_ONCE(ei->name_filter))
-+		return;
-+
-+	sbi = EXFAT_SB(inode->i_sb);
-+	spin_lock(&sbi->name_filter_lock);
-+	filter = exfat_name_filter_detach_locked(sbi, ei);
-+	spin_unlock(&sbi->name_filter_lock);
-+	kvfree(filter);
-+}
-+
-+static unsigned long
-+exfat_name_filter_count_objects(struct shrinker *shrinker,
-+				struct shrink_control *sc)
-+{
-+	struct exfat_sb_info *sbi = shrinker->private_data;
-+	unsigned long pages;
-+
-+	spin_lock(&sbi->name_filter_lock);
-+	pages = sbi->name_filter_pages;
-+	spin_unlock(&sbi->name_filter_lock);
-+
-+	return pages ? pages : SHRINK_EMPTY;
-+}
-+
-+static unsigned long
-+exfat_name_filter_scan_objects(struct shrinker *shrinker,
-+			       struct shrink_control *sc)
-+{
-+	struct exfat_sb_info *sbi = shrinker->private_data;
-+	unsigned long freed = 0;
-+	bool empty = false;
-+
-+	/* Avoid reclaim recursion from a GFP_NOFS allocation under s_lock. */
-+	if (!mutex_trylock(&sbi->s_lock)) {
-+		sc->nr_scanned = 0;
-+		return SHRINK_STOP;
-+	}
-+
-+	while (freed < sc->nr_to_scan) {
-+		struct exfat_inode_info *ei;
-+		struct exfat_name_filter *filter;
-+
-+		spin_lock(&sbi->name_filter_lock);
-+		if (list_empty(&sbi->name_filter_lru)) {
-+			spin_unlock(&sbi->name_filter_lock);
-+			empty = true;
-+			break;
-+		}
-+
-+		ei = list_first_entry(&sbi->name_filter_lru,
-+				      struct exfat_inode_info,
-+				      name_filter_lru);
-+		filter = exfat_name_filter_detach_locked(sbi, ei);
-+		spin_unlock(&sbi->name_filter_lock);
-+
-+		freed += exfat_name_filter_nr_pages(filter);
-+		kvfree(filter);
-+		cond_resched();
-+	}
-+
-+	mutex_unlock(&sbi->s_lock);
-+	if (empty && !freed) {
-+		sc->nr_scanned = 0;
-+		return SHRINK_STOP;
-+	}
-+	return freed;
-+}
-+
-+void exfat_name_filter_shrinker_register(struct super_block *sb)
-+{
-+	struct exfat_sb_info *sbi = EXFAT_SB(sb);
-+	struct shrinker *shrinker;
-+
-+	shrinker = shrinker_alloc(SHRINKER_NONSLAB,
-+				  "exfat-name-filter:%s", sb->s_id);
-+	if (!shrinker) {
-+		exfat_warn(sb, "failed to allocate name filter shrinker");
-+		return;
-+	}
-+
-+	shrinker->count_objects = exfat_name_filter_count_objects;
-+	shrinker->scan_objects = exfat_name_filter_scan_objects;
-+	shrinker->private_data = sbi;
-+	shrinker_register(shrinker);
-+	sbi->name_filter_shrinker = shrinker;
-+}
-+
-+void exfat_name_filter_shrinker_unregister(struct super_block *sb)
-+{
-+	struct exfat_sb_info *sbi = EXFAT_SB(sb);
-+	struct shrinker *shrinker = sbi->name_filter_shrinker;
-+
-+	sbi->name_filter_shrinker = NULL;
-+	shrinker_free(shrinker);
-+
-+	for (;;) {
-+		struct exfat_inode_info *ei;
-+		struct exfat_name_filter *filter;
-+
-+		spin_lock(&sbi->name_filter_lock);
-+		if (list_empty(&sbi->name_filter_lru)) {
-+			spin_unlock(&sbi->name_filter_lock);
-+			break;
-+		}
-+
-+		ei = list_first_entry(&sbi->name_filter_lru,
-+				      struct exfat_inode_info,
-+				      name_filter_lru);
-+		filter = exfat_name_filter_detach_locked(sbi, ei);
-+		spin_unlock(&sbi->name_filter_lock);
-+		kvfree(filter);
-+	}
- }
- 
- bool exfat_name_filter_maybe_contains(struct inode *inode,
-@@ -145,6 +292,7 @@ bool exfat_name_filter_maybe_contains(struct inode *inode,
- 	if (!filter)
- 		return true;
- 
-+	exfat_name_filter_touch(ei);
- 	exfat_name_filter_indexes(inode->i_sb, name, filter->order, indexes);
- 	return test_bit(indexes[0], filter->bitmap) &&
- 	       test_bit(indexes[1], filter->bitmap) &&
-@@ -161,6 +309,7 @@ void exfat_name_filter_add(struct inode *inode,
- 	if (!filter)
- 		return;
- 
-+	exfat_name_filter_touch(ei);
- 	if (exfat_name_filter_order(inode) > filter->order) {
- 		exfat_name_filter_free(inode);
- 		return;
-@@ -188,7 +337,7 @@ static void exfat_build_name_filter(struct super_block *sb,
- 	u8 order;
- 	int i;
- 
--	if (ei->name_filter ||
-+	if (!sbi->name_filter_shrinker || ei->name_filter ||
- 	    exfat_bytes_to_dentries(i_size_read(inode)) <
- 					EXFAT_NAME_FILTER_MIN_DENTRIES)
- 		return;
-@@ -240,7 +389,11 @@ static void exfat_build_name_filter(struct super_block *sb,
- 	}
- 
- complete:
-+	spin_lock(&sbi->name_filter_lock);
- 	ei->name_filter = filter;
-+	list_add_tail(&ei->name_filter_lru, &sbi->name_filter_lru);
-+	sbi->name_filter_pages += exfat_name_filter_nr_pages(filter);
-+	spin_unlock(&sbi->name_filter_lock);
- 	return;
- abort:
- 	kvfree(filter);
-diff --git a/fs/exfat/exfat_fs.h b/fs/exfat/exfat_fs.h
-index 70f4e2d4ac81..159c1aa40372 100644
---- a/fs/exfat/exfat_fs.h
-+++ b/fs/exfat/exfat_fs.h
-@@ -14,6 +14,8 @@
- #include <uapi/linux/exfat.h>
- #include <linux/buffer_head.h>
- 
-+struct shrinker;
-+
- #define EXFAT_ROOT_INO		1
- 
- /*
-@@ -265,6 +267,11 @@ struct exfat_sb_info {
- 
- 	spinlock_t inode_hash_lock;
- 	struct hlist_head inode_hashtable[EXFAT_HASH_SIZE];
-+	/* Protects name_filter_lru and name_filter_pages. */
-+	spinlock_t name_filter_lock;
-+	struct list_head name_filter_lru;
-+	unsigned long name_filter_pages;
-+	struct shrinker *name_filter_shrinker;
- 	struct rcu_head rcu;
- };
- 
-@@ -296,6 +303,7 @@ struct exfat_inode_info {
- 	struct exfat_hint_femp hint_femp;
- 	/* Complete, in-memory Bloom filter of directory names */
- 	struct exfat_name_filter *name_filter;
-+	struct list_head name_filter_lru;
- 
- 	spinlock_t cache_lru_lock;
- 	struct list_head cache_lru;
-@@ -637,6 +645,8 @@ bool exfat_name_filter_maybe_contains(struct inode *inode,
- void exfat_name_filter_add(struct inode *inode,
- 			   const struct exfat_uni_name *name);
- void exfat_name_filter_free(struct inode *inode);
-+void exfat_name_filter_shrinker_register(struct super_block *sb);
-+void exfat_name_filter_shrinker_unregister(struct super_block *sb);
- 
- static inline int exfat_chain_advance(struct super_block *sb,
- 		struct exfat_chain *chain, unsigned int step)
-diff --git a/fs/exfat/super.c b/fs/exfat/super.c
-index 4924f0fad836..26b25cc86d1c 100644
---- a/fs/exfat/super.c
-+++ b/fs/exfat/super.c
-@@ -46,6 +46,7 @@ static void exfat_put_super(struct super_block *sb)
- {
- 	struct exfat_sb_info *sbi = EXFAT_SB(sb);
- 
-+	exfat_name_filter_shrinker_unregister(sb);
- 	mutex_lock(&sbi->s_lock);
- 	exfat_clear_volume_dirty(sb);
- 	exfat_free_bitmap(sbi);
-@@ -210,6 +211,7 @@ static struct inode *exfat_alloc_inode(struct super_block *sb)
- 		return NULL;
- 
- 	ei->name_filter = NULL;
-+	INIT_LIST_HEAD(&ei->name_filter_lru);
- 	return &ei->vfs_inode;
- }
- 
-@@ -746,6 +748,8 @@ static int exfat_fill_super(struct super_block *sb, struct fs_context *fc)
- 		goto free_table;
- 	}
- 
-+	exfat_name_filter_shrinker_register(sb);
-+
- 	return 0;
- 
- put_inode:
-@@ -845,6 +849,10 @@ static int exfat_init_fs_context(struct fs_context *fc)
- 
- 	mutex_init(&sbi->s_lock);
- 	mutex_init(&sbi->bitmap_lock);
-+	spin_lock_init(&sbi->name_filter_lock);
-+	INIT_LIST_HEAD(&sbi->name_filter_lru);
-+	sbi->name_filter_pages = 0;
-+	sbi->name_filter_shrinker = NULL;
- 	ratelimit_state_init(&sbi->ratelimit, DEFAULT_RATELIMIT_INTERVAL,
- 			DEFAULT_RATELIMIT_BURST);
- 
--- 
-2.34.1
-
+>
+> --
+> With best wishes
+> Dmitry
