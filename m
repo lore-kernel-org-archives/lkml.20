@@ -1,72 +1,122 @@
-Received: from mail-oi1-f198.google.com (mail-oi1-f198.google.com [209.85.167.198])
+Received: from mail-pj2-f40.google.com (mail-pj2-f40.google.com [74.125.227.168])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3CB89233126
-	for <linux-kernel@vger.kernel.org>; Sun,  4 Oct 2026 23:44:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.198
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A3DD32773F7
+	for <linux-kernel@vger.kernel.org>; Sun,  4 Oct 2026 23:48:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.168
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791157444; cv=none; b=h3EIZMN6Mn4MHHTm8b4K5oQ76SW1VvgNDPY0tiFR0SXUy0Cj29M8OAge8slIPM/Vourc+pf/I1rtMT5bX8O1brBJuCHFsMqc/Z/fDx1VgqkwWszMeN31pKPOKaPEvR+ocO3ZTIDPBze5JupY0I7lJDLdnPpOxV6b0qsmfRhVPhs=
+	t=1791157712; cv=none; b=dxzjbecGt3fSA+qLcl6uKnGOFoq/nRrUmon4XhQEBsrSd4usoNXjjnZy0fyPiH5L+JtfC/WARbgU340821fwTBKcpBtfbscrwT6rowwbA7wDKUvoJm1OX+xYmt2Q4mbkguCLNFpSMx1vMZuhOkdyH5So7JoqLVGJndLSzj6GB/Q=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791157444; c=relaxed/simple;
-	bh=bw3VCdv/9ZLDquClFN5mdJzB34DVYPoFdLhpEz+vvfs=;
-	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:
-	 Content-Type; b=rr59GRjQkyYntf7oQ0d4XbJwtPrkTbQwCFxHfQtgZ1kwpcyF6n1+AuToJdQWgOHfKyDwVXQI4kLgaVgdkAOJQNbWlulRyGNnO9Ns46kqKSpWa/3dAPO+d+bXuwwKIk2+rzJpdqV42YB/ei5tR36RzBqdB+K02e+Ykv5TGSqxeMc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.167.198
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oi1-f198.google.com with SMTP id 5614622812f47-4a41f46d629so2453112b6e.3
-        for <linux-kernel@vger.kernel.org>; Sun, 04 Oct 2026 16:44:03 -0700 (PDT)
+	s=arc-20240116; t=1791157712; c=relaxed/simple;
+	bh=Yakr+ipymN7ZnA+Xz4TDokUUTt0zx6UpbPqxI12sIzE=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=fR31buH0O32zL8VZw/iyqsaDmxbW2i7NBFNhT9T6xm8nxr1akNQhBocFYLwJItL5GsrSh8fuOMQGzeh/Jc6gaqTwr5cwgDs4mnLFWDaGAwqETwlKefFvClS5jtYyKt83ILn7H+vm86b0t9OBuuWDBk725l0OLEGDVP7WKaEPI2Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=C436IMPh; arc=none smtp.client-ip=74.125.227.168
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="C436IMPh"
+Received: by mail-pj2-f40.google.com with SMTP id d9443c01a7336-2e494adf48dso5498285ad.0
+        for <linux-kernel@vger.kernel.org>; Sun, 04 Oct 2026 16:48:30 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791157710; x=1791762510; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=dO6qiiwJ5mjkpx+bVW9ukEfz8rnMpwLVr276QlZKmZE=;
+        b=C436IMPhgzSHcCaPbpqrBCHxhPGVgJCpHq5OadFUyEls0wJerWsJ59E21vBqSUhpBJ
+         RPL1LdK8aVWQx2JB+USXBZofzQeDVaYuqMdZxmKFzar9I7nUScnl41MeO/Q3s0GOQFXE
+         qiK07yKk0dKLcdIK5SB9wcKfV2O3fGMvgPpeTAcjLcv7IaQLOdRgJCJI+Ywk/xarOcLZ
+         Ov1lDGLf0mPydr2QWzmm+sNtWTyZ8DcNlgOz+Vn6mop++D0yJUm3TdFRmkcKSc/N+9ld
+         zx0i9PS1YgZN6aBlaIZOG+a+3h2neZjev+X2/aYvveplS3YIJbGRCghxc3bCROIuzdxS
+         w/Mg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791157442; x=1791762242;
-        h=content-type:to:from:subject:message-id:in-reply-to:date
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=dPgcBNnjGwLxL3Xe7jaem6iDVM6H5b19KgS7Ea3Nc3Y=;
-        b=gIhUVw3gyGTccU9BpcuckyHlWtDUYvhhJj+H4QuPZlAS0H8B8pYQ9jZKMIecuFoAX6
-         7Uxr3j1CTlYTzTRWo/nfvdSbaP9SCJiSSzmtbIm3WHVbJHz+uxs7K9rU8pnhyJIzipRe
-         FDmav7L9fDE8h2Ghfng7+whVkCKRkZKP1HS/zJ1BMLDlmsHx1mF/DbZjnBMLarsM9KjY
-         YKBH/YkQyoV7+jqqWMJ4Vx0w8eVJXzV1RvwC7REkEpxugUBn9a9Ug85pKWx18aux5Xf/
-         pNjzji4VlA6EpsCJumziYYpkbVQPUKTGLYtfTJNIlKKXLmPLYvenZoYIW3+hOZYVfbE6
-         79NA==
-X-Forwarded-Encrypted: i=1; AKwUvBzWdIV7SowaZ8mWO7XIbiY2FziNLHCu/FEWmeS0jEczs/wujGdDDZNt7FGW/1AQnzYzvp1gBF7/nxY/8Fk=@vger.kernel.org
-X-Gm-Message-State: AFuF++lRrDuOAb+MvODnG2AUh4gr/9agttK73aJkTxmRhGNLEWIZKDog
-	0+5DmkMHbUJHOt1iJu02OaDHT6BgeIIyEQyf6fl6Ir0zF4lJEwIbNrIft32MIY+/+tISH0+uMQk
-	QiLW3GPdqHpxz6RzrFR9uGnsH8bKw921aCeJp296EcxkngGWVekVWEBjHIBs=
+        d=1e100.net; s=20260707; t=1791157710; x=1791762510;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=dO6qiiwJ5mjkpx+bVW9ukEfz8rnMpwLVr276QlZKmZE=;
+        b=bbnQvDdUZDqSmnhd9n8H217V6HdGVkNMGTR0k2Q9XcGRML1w5mZZM0+XYvTs7JCm7T
+         xK0BAegrd6WEuw5JMzzVJAZrqk6+s44pEGhAdMSVKj+eG1EcXmnC7V7z4DrjD5wTf6Kt
+         oeqhOVS8LVJUEexpYeP0Yv4VdxnT+HhUAmTgxI5viMg19TSTAIeIFRSRDr4qIE5LL0Tp
+         dt4o0NYbwY9+L2g4pH1nIkOX9y8f7pHMN0HnC9CfzgKydX8V7rYt0R/SCNVpBSLjzTD8
+         ugWE7CjqMfMQmuxpQuqs4dobsLSNLJ7GK/w3PUyvplxq/kEMTr2DivXloe6pfvhCCihY
+         mmLQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzOI8v7L2z+5ix9R5HEiA4n/q4skRe8EQrYSRQIIj0u1KDDMuMJxYZhNWy9d20Z94vZJ+lwJW/J4ekpEk8=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIhii25yiudddWPEMLcbslc+d0rCcwsjqvXrNButAh/KrX3vVEH
+	/pqeNXwW+H59s8vbFo3XUbkW37YV8xZSJM2+L7A0Ocs214YmhXOAXyXi
+X-Gm-Gg: AYBFou2XRdpyhRYV98yEwJF+341aHjTQEEfY3egyG6zz4g+ADs/sAmCCS0QHiU50fuV
+	hzM46MkPU79+mgfaxeCjMZFjCzJPsFT6UhjAPBXFc597QO4nbKYpc7Htomnj8lzdcvnFH6gjwmp
+	R0IMK+XPq4K9JGPBIw7iyvLk9mrvXoq9pkKEbAmBFfGSzuAfDCPXnJ+/nR/OfXgf0arXyCP7QRb
+	pPKFsXw4NZvPaFQ3NbeARR7ZGuvlNemRhNtJ0zOIpfv6TDXaDimygPJ81qPzCjo5A9temk1ehgu
+	6orf4Jk5uTBxHaOH3A8FlJBBF4rWaJBVIImBLRi8KAMopweKOfiXyxGlggWmWH5IZuRuQukP0Y8
+	AgEeXZZW+WbtWmWa7ubDvh+W6G0Xf7eFHdakw84VpiKmZwl5iGjhmuSScTTaEqdMIezlFynnwm2
+	2/oR+4SlvGmPPrsxeSwJmwuLJx2QDBMae8L+JSjYcO88qUsNKRiNdXvZvfNYF78T03sXxJ37rma
+	MGmzUjsGrfR2w3mQA/WtHok27jxTcj1f2rZh+sIpv/ZU2zMfSEKg3QDZy5wEiaXwasXW3NyPnfj
+	u6EXKc6uM1GVD7lSKlzqG9FZTwQPFTVUa9erM5efxnxSrBU2wqQgN8eBTJU=
+X-Received: by 2002:a17:903:8c3:b0:2dd:c0ff:e727 with SMTP id d9443c01a7336-2e49b65f04emr81741455ad.57.1791157709961;
+        Sun, 04 Oct 2026 16:48:29 -0700 (PDT)
+Received: from ryzen.lan ([2601:644:8000:7a86::e35])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2e49f6cd764sm26207215ad.48.2026.10.04.16.48.27
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 04 Oct 2026 16:48:29 -0700 (PDT)
+From: Rosen Penev <rosenp@gmail.com>
+To: linux-mips@vger.kernel.org
+Cc: Thomas Bogendoerfer <tsbogend@alpha.franken.de>,
+	Nathan Chancellor <nathan@kernel.org>,
+	Nick Desaulniers <ndesaulniers@google.com>,
+	Bill Wendling <morbo@google.com>,
+	Justin Stitt <justinstitt@google.com>,
+	Paul Burton <paulburton@kernel.org>,
+	linux-kernel@vger.kernel.org (open list),
+	llvm@lists.linux.dev (open list:CLANG/LLVM BUILD SUPPORT:Keyword:\b(?i:clang|llvm)\b)
+Subject: [PATCH] MIPS: Avoid dead code/data elimination when using recordmcount
+Date: Sun,  4 Oct 2026 16:48:26 -0700
+Message-ID: <20261004234826.541468-1-rosenp@gmail.com>
+X-Mailer: git-send-email 2.56.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Received: by 2002:a05:6808:f88:b0:4b2:8ee8:8a38 with SMTP id
- 5614622812f47-4f673da74d7mr5677515b6e.0.1791157442242; Sun, 04 Oct 2026
- 16:44:02 -0700 (PDT)
-Date: Sun, 04 Oct 2026 16:44:02 -0700
-In-Reply-To: <20261004230133.83303-1-adrianox@gmail.com>
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6ac2e4c2.9ad129c8.3858c0.0039.GAE@google.com>
-Subject: Re: [syzbot] [ext4?] KASAN: slab-use-after-free Write in do_split
-From: syzbot <syzbot+09bec78ee77613a3efdd@syzkaller.appspotmail.com>
-To: adrianox@gmail.com, linux-kernel@vger.kernel.org, 
-	syzkaller-bugs@googlegroups.com
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 
-Hello,
+CONFIG_LD_DEAD_CODE_DATA_ELIMINATION builds with -ffunction-sections,
+placing every function in its own section. recordmcount refuses to use
+weak symbols as section bases, as a strong definition could override
+them, so a weak function alone in its section, such as the generic
+pcibios_fixup_bus() stub, breaks the build:
 
-syzbot has tested the proposed patch and the reproducer did not trigger any issue:
+  Cannot find symbol for section 88: .text.pcibios_fixup_bus.
+  drivers/pci/probe.o: failed
 
-Reported-by: syzbot+09bec78ee77613a3efdd@syzkaller.appspotmail.com
-Tested-by: syzbot+09bec78ee77613a3efdd@syzkaller.appspotmail.com
+MIPS always records mcount locations with recordmcount, so this hits
+any config with the function tracer and dead code elimination enabled,
+e.g. malta_defconfig built with LLVM=1.
 
-Tested on:
+Only offer dead code elimination when recordmcount is not used, as
+powerpc does since commit f8b2336f15f3 ("powerpc: Avoid dead code/data
+elimination when using recordmcount"). In practice this makes it
+unavailable together with the function tracer on MIPS.
 
-commit:         72d3fcf8 Linux 7.3-rc5
-git tree:       git://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git
-console output: https://syzkaller.appspot.com/x/log.txt?x=11c0a835580000
-kernel config:  https://syzkaller.appspot.com/x/.config?x=718e346eb0b8f38
-dashboard link: https://syzkaller.appspot.com/bug?extid=09bec78ee77613a3efdd
-compiler:       Debian clang version 22.1.8 (++20260613092233+e80beda6e255-1~exp1~20260613092250.77), Debian LLD 22.1.8
-patch:          https://syzkaller.appspot.com/x/patch.diff?x=16b527f5580000
+Fixes: c0436b503591 ("MIPS: Enable dead code elimination")
+Signed-off-by: Rosen Penev <rosenp@gmail.com>
+---
+ arch/mips/Kconfig | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-Note: testing is done by a robot and is best-effort only.
+diff --git a/arch/mips/Kconfig b/arch/mips/Kconfig
+index ddabe25d6bf7..f4f82bd75b66 100644
+--- a/arch/mips/Kconfig
++++ b/arch/mips/Kconfig
+@@ -79,7 +79,7 @@ config MIPS
+ 	select HAVE_IRQ_TIME_ACCOUNTING
+ 	select HAVE_KPROBES
+ 	select HAVE_KRETPROBES
+-	select HAVE_LD_DEAD_CODE_DATA_ELIMINATION
++	select HAVE_LD_DEAD_CODE_DATA_ELIMINATION if !FTRACE_MCOUNT_USE_RECORDMCOUNT
+ 	select HAVE_MOD_ARCH_SPECIFIC
+ 	select HAVE_NMI
+ 	select HAVE_PAGE_SIZE_4KB if !CPU_LOONGSON2EF && !CPU_LOONGSON64
+-- 
+2.56.0
+
