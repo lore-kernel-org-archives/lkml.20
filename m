@@ -1,88 +1,78 @@
-Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com [209.85.128.46])
+Received: from mail-wm1-f44.google.com (mail-wm1-f44.google.com [209.85.128.44])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4AA573CFF50
-	for <linux-kernel@vger.kernel.org>; Sun,  4 Oct 2026 16:51:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.46
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 956153D16E9
+	for <linux-kernel@vger.kernel.org>; Sun,  4 Oct 2026 16:51:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.44
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791132688; cv=none; b=PNYVqkFPGofSweASgEDLIn/ld7EI0NDGc/Xb/wSz4Utuw+2spqHwUbSGi9/lc+z4wC6dPAd5+6vBzyZVry6vB+9+2F3rTUGJyNb7QZ7VpjJU6ngBPDivns+PffCOdrG8LlyeayV40cE409wdNS1kYJgxZ21SotmHBn2qG2r4YE0=
+	t=1791132696; cv=none; b=D3YRK2wtZKHmArEJ0dinOJbBNTcIDCb2q9AFZr3p2JZcSY0TbplDWgcrtdQ6iSSdDGO+a72zLIFbzMMfR1phd7b4fSscCDgilx6siUErHYOVVRp6crHh+v7RX/VId4oddQraqPqVJf0K8MhaFv+d4zbv1EpskMCZwuRMaSoBYuc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791132688; c=relaxed/simple;
-	bh=B1NQoDPcpD7pDGtYHOkFZsvr7R+guI6V8OnUcMpSaOk=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=lMEHuaRAxGhLedI61BpmL0cvdxC8G9vdnht8cpsbe7RxjiYkCiYLOkdbIs9GHeYzvYc7UCY2Lt537RdTjNSWBfLYfASTw6M6eBcpALSwvwT6auOHWytD0XUVMuc/ZpIrNJ0vFVZofE8uq9sur/acBaOac5IInh0R5rx2cZO53y0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=QDKxW/BZ; arc=none smtp.client-ip=209.85.128.46
+	s=arc-20240116; t=1791132696; c=relaxed/simple;
+	bh=7wG9Ljo/wLQuUSFyuvqM5SlTjkxmEhtxmQbgpLCzXuA=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=MYjzzVRrWSSfC9sJ7iGa88o8SWLFtwuP05LfPxng+hMpnhPJiYrmIJQcQDT1JilbO3LVQpM/7yzTgxOPgDINXaLGdNtKuZUblK8nqugLmp61smBDX7dlqC0oSnHA9D1cV1nVomtrY3GQJv0QV5XLknJxQbALfh4ja7Zk2tVhoks=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=PV525KoU; arc=none smtp.client-ip=209.85.128.44
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="QDKxW/BZ"
-Received: by mail-wm1-f46.google.com with SMTP id 5b1f17b1804b1-4998b5a63e2so10704625e9.1
-        for <linux-kernel@vger.kernel.org>; Sun, 04 Oct 2026 09:51:26 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="PV525KoU"
+Received: by mail-wm1-f44.google.com with SMTP id 5b1f17b1804b1-4a1728d8dfcso625025e9.1
+        for <linux-kernel@vger.kernel.org>; Sun, 04 Oct 2026 09:51:34 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791132684; x=1791737484; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=B1NQoDPcpD7pDGtYHOkFZsvr7R+guI6V8OnUcMpSaOk=;
-        b=QDKxW/BZ2RUCQIvdERF0IzoPr+3IBkjZX3lvlSWmlv6Ydyd0SWPaYo59b5jnWAdVfT
-         8GLD6JmlteUUbwKmfEqY5fFw1Sk5Hgjy5b0k+6yC1HRqUqvPxbO2hJmFXw+I2z1C3OQ3
-         hcZEsVn3HRC856TBYQtmg3jxUIgacXJA6tl/k9zl2akmqATPvEygwYEn2Pw1op8w09tP
-         jMqD80Dp02a/QyWq3ZpENd7CDOrKFIVtoMYvKqaPeO5+pr8xIAqNreI8emIQMfM1bsdw
-         FS6a98ksWiJPEN190Y7emoosi6Dd8jlR5Q38NfvXnuDBGJ38ebUkGWGgFsJ9+X8e+kk5
-         5esQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791132684; x=1791737484;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+        d=gmail.com; s=20251104; t=1791132692; x=1791737492; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=B1NQoDPcpD7pDGtYHOkFZsvr7R+guI6V8OnUcMpSaOk=;
-        b=XjeZL86LyqX33rGtL3dxRt5AcdFc2ujPGXgAJ82g2lzZwVSc2K/fSwK9xN6W2EXaYI
-         3v4+ZaJWSZRGCz0mDqQ+9furU9dqG3if+9xQCfLv4LHBcqwJgqeRVTdbdyN85FpfnP24
-         ApLhLDLWYvtq75WD3D/1Fb1tUU9Hphu8fXlQ4buuuRicYNjlThZ3kemeAOlzTBt2y06s
-         hzFNXLqJnWLM/vTqYmMiH+e1Uf0iKXdcjjo+n2i63la29R+13O/U4Otxe2SOrZRv9cEh
-         QDERYKFkxn68ujblzJE21lMv36Lt6HKXaIzHdlp8pyUhJsiH1vTdf4qujkxljLf25kfl
-         B8fw==
-X-Forwarded-Encrypted: i=1; AKwUvBw0+MqInaypkqre+WqOZ22nddmWHdEtg2YEeWaD4oUkoApVhVAbH0UJ14xKfZ8jJRiPIM0VkKsRd3v/zE8=@vger.kernel.org
-X-Gm-Message-State: AFuF++mm0rncU3L81B6t4Uv2dWpevVoxnNJgu4jumJo9szEOsDISwukH
-	QH8buuHhoJA2X1Y4vePRnvPjRTg0YTuTHnTQOqwyF9idUehRlTeGqjwx5/I0FWaK839IJg==
-X-Gm-Gg: AYBFou0z6c46hF0hRRrH2JnTKYeqlXpiGPqBi/ir9hvqcqy0yoBEqVlX24GgL3uTRQ0
-	+u/qheCWPByw2przb6ymwrIrmQjOevcPQOX0BO+a9uMmG20As5XA+fyzUKsjVgGJPlWR/EQKE9i
-	eYEhCnK4t75BX8X7Lu1NTcxcOlHo62NY64IEqDKt8W5i6suHEHuzB8MQsZnREVR0VH3YWrlN79X
-	5GOvWAfQnQDjdO+6K7EaBTWqrBAFl/S96Ym6jSeVHf6t/p/mrEOF6qn9iSdGPItqBJGht4SkCGF
-	746oaYwwfWI/fsjtfGKWmW0G+YJOlNHa1AbQtuunWDR1CcyZhbhGGqOCB0RObqjvGGDhys0BIKu
-	wV0x//iN/eWiNjk3wPe9Npg1TkqI6biex38uKNME8Kqts5OLBbqbA0bdadzZJ7MqWilsFSHPDN4
-	123/TP2sUcX7T9fHNW0mTA+lhscd2BWqHo5Ovk4gLICK3g4srBQ93RgGW02sCxAojorcpmsoIkY
-	afIk3c7ty/g17OW9bbWRw==
-X-Received: by 2002:a05:600c:4594:b0:4a0:22d5:908c with SMTP id 5b1f17b1804b1-4a1680eee54mr65008155e9.12.1791132684137;
-        Sun, 04 Oct 2026 09:51:24 -0700 (PDT)
+        bh=NP4InVw4ZvTsXvnaGIApv16AhZMv/UaEABA2B83Ciew=;
+        b=PV525KoUXzx0DE1Myx3pRxTRSvnUKDVXmrKbiBb4tSdxBVHOMS1Kstx30He8HkruKy
+         UNB3or6NsDHzpRVLekX316sW4RtsDIRlJvVh6hVLm/Dofm1Yj1qcXYgYUEp+bY7piWOM
+         ryuwflz0/CfryUbTVTTgBQaru5mAoaHPplMT4EihXPRgq0iKXaP30eyKmpRLByLr7oZG
+         5b3SzvmseEJ+RBbkmIuohSIhx+E7BVEv5L8fJOLGT+nVoaXlP4zCp10U8VX/Tmb76Odc
+         25Qs5dbYncwzqS6Nc9BF0LZi3zhHKSvFlWe17+lSt6XNaggK29I/xFTj5pjKkhd3AATS
+         v3QQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791132692; x=1791737492;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=NP4InVw4ZvTsXvnaGIApv16AhZMv/UaEABA2B83Ciew=;
+        b=q1vHA/Fsn7osNKLO4xqY5Rs8EO6khf03uSMf6Q6vU+yNZQkzgVWV212RNYN3NOFc1m
+         EO+qWBvA12B7LM1dGkxBK2xLx7dAm674cbdIlHl7iGXxksfoAiQ1ux5svzzNXIKZakj5
+         DCcg+EOqQxzEv/GJvORAZrsUtrj01l/FTCdb0FJV4DmThB3mRkpLj0oZOSb9Q2inTZE+
+         ALJciRSEm9JzKBdKj+Uow+KRdsj2ty2Zf76uq7Q3vtYJEhu9gmXsuuZ57JWt2lPcOF42
+         /WJgTB30kjONW80JtosbWVTnjicOGV+0vPyrbWuy1Z2HrZzBV4AQv/KQ0z1yXBDrNlci
+         s4ig==
+X-Forwarded-Encrypted: i=1; AKwUvBwzVenNexFZkkh0p5dcFrqUiHnVkhewiUpzpEF4SXra+kvqCr5FbEJiSobyVTNHG0WVSQPzCleC0ReAJt8=@vger.kernel.org
+X-Gm-Message-State: AFuF++mhXshVaNFwt0xEYhwQym+mD6hWimgq8iUuFhZuOycGN8faMMx1
+	k4ln9/4h8Q/a6hhgpHQLdSI0O8p4BrP1JifjwLZPPKO+GNRuR13hN45b
+X-Gm-Gg: AYBFou129sWy+qxEnhN9H4+g34N4iMLp+06Hr4SutHa5V09ngNI5TSLJuCpTMYByTe3
+	jmUfF5byZ7r0C/69cLWj9/8e5Q/UEhUHdUA7gZKQSpFpEU9CgMMAcpvFpQ4iCaSFxVpTVWTTEtR
+	6on9AFD6WANALtfvkFgzCH7TQpM5Nif/3WwDtxK7rB4fT9VFdHUY4IR+JOrcB/9FP32NsfpuBPD
+	eCjc3813/Z/Lx86ZDqnYCaGLTCKLYWefLwq12OU12QhHoqYhI30Nj0gpU3qkiRS1VZwqSFXwXQ1
+	+3GuBiCaHIOXThqOZCGbX8iGIn5nOEHlDvdU+njx/MkeCA6qLl7sYi81JDVqe7qX10G9Bi5CYNJ
+	muByQyUAlVZaKNr3IMmqAAwn8CTlRbTJ+pkks2ZITcQD21kDB4RSg6bKGW9m3WPz2+M6+2PU7u1
+	pkMEooDVqpuCs5vaBBLTSwX8z2q23Nas3htkWTOMO3oDMWNdG1C8nI2ccPtWiuL6Ai5e0npamuN
+	kZhullhEmc=
+X-Received: by 2002:a05:600c:698d:b0:49d:1842:f001 with SMTP id 5b1f17b1804b1-4a1680e5865mr77354445e9.14.1791132692261;
+        Sun, 04 Oct 2026 09:51:32 -0700 (PDT)
 Received: from FranzSP11.fritz.box ([31.31.60.25])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a027f2a4cfsm233973165e9.1.2026.10.04.09.51.22
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a027725c6asm311375035e9.8.2026.10.04.09.51.30
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 04 Oct 2026 09:51:23 -0700 (PDT)
+        Sun, 04 Oct 2026 09:51:31 -0700 (PDT)
 From: =?UTF-8?q?Fran=C3=A7ois=20Roux?= <franzelfranzel@gmail.com>
-To: Krzysztof Kozlowski <krzk@kernel.org>
-Cc: Jeff Johnson <jjohnson@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Bjorn Andersson <andersson@kernel.org>,
-	Konrad Dybcio <konradybcio@kernel.org>,
-	Johannes Berg <johannes@sipsolutions.net>,
-	Abel Vesa <abelvesa@kernel.org>,
-	Manivannan Sadhasivam <mani@kernel.org>,
-	=?UTF-8?q?J=C3=A9r=C3=B4me=20de=20Bretagne?= <jerome.debretagne@gmail.com>,
-	Dale Whinham <daleyo@gmail.com>,
-	ath12k@lists.infradead.org,
-	linux-wireless@vger.kernel.org,
-	devicetree@vger.kernel.org,
+To: Bartosz Golaszewski <brgl@kernel.org>
+Cc: Manivannan Sadhasivam <mani@kernel.org>,
+	Bjorn Helgaas <bhelgaas@google.com>,
+	Krishna Chaitanya Chundru <krishna.chundru@oss.qualcomm.com>,
+	linux-pm@vger.kernel.org,
+	linux-pci@vger.kernel.org,
 	linux-arm-msm@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH RFC 1/3] dt-bindings: net: wireless: qcom,ath12k: add disable-rfkill
-Date: Sun,  4 Oct 2026 18:50:49 +0200
-Message-ID: <20261004165049.4174-1-franzelfranzel@gmail.com>
+	regressions@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: [PATCH v2] power: sequencing: qcom-wcn: power off WLAN at probe
+Date: Sun,  4 Oct 2026 18:51:24 +0200
+Message-ID: <20261004165124.4277-1-franzelfranzel@gmail.com>
 X-Mailer: git-send-email 2.56.0
-In-Reply-To: <608f9f6c-a405-4903-a1bb-86ca8a0999f3@kernel.org>
-References: <20261003091509.4822-1-franzelfranzel@gmail.com> <20261003091509.4822-2-franzelfranzel@gmail.com> <608f9f6c-a405-4903-a1bb-86ca8a0999f3@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -92,20 +82,100 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On 03/10/2026 11:27, Krzysztof Kozlowski wrote:
-> Please do not duplicate work but build on top or reference previous
-> discussions.
+The WLAN enable GPIO is requested with GPIOD_ASIS and then kept at its
+current level, so that a WLAN module left powered on by the firmware is
+not switched off. The FIXME explains why: toggling it would take the
+PCIe link down, and the controller driver could not recover from that.
 
-Sorry, I missed those threads. Having read them now: a DT property for
-this was already rejected there, so please disregard this RFC series.
+That reasoning held while the PCIe link was trained before the
+sequencer probed. Since commit b921aa3f8dec ("PCI/pwrctrl: Switch to
+pwrctrl create, power on/off, destroy APIs"), qcom_pcie_host_init()
+powers the endpoint through pwrctrl before it starts link training, and
+defers until the pwrctrl driver is bound. That driver cannot bind
+before this sequencer has probed. Power-on therefore always comes
+before link training, and keeping the firmware state is now harmful.
 
-I will instead send a single ath12k patch following Manivannan's
-suggestion from that discussion (board compatible plus device ID,
-handled in the driver), with Jérôme and Dale in Cc.
+On the Microsoft Surface Pro 11 (X1E80100), the WCN7850 sits on a
+PCIe port without a PERST# GPIO. While pci-pwrctrl-pwrseq is not yet
+bound, the host init is deferred about ten times, and each attempt
+powers the PHY and controller back down. The later power-on only sets
+a GPIO that is already high, so the chip is never reset and the link
+never comes up:
 
-On the tags in 2/3: understood. From now on I sign off with my full
-name, and I use the Assisted-by format from
-Documentation/process/coding-assistants.rst.
+  qcom-pcie 1c08000.pcie: Device found, but not active
 
-Thanks,
-François Roux
+The endpoint is not enumerated and ath12k never probes. Bluetooth on
+the same chip fails too ("QCA Failed to send TLV segment (-110)").
+
+Request the GPIO as GPIOD_OUT_LOW. The chip is then off when the
+sequencer probes, and pwrctrl powers it up cleanly right before link
+training. Drop the FIXME and the code that preserved the firmware
+state.
+
+Tested on a Surface Pro 11:
+ - b921aa3f8dec plus a one-line version of this change: endpoint
+   enumerated at 2.4 s, ath12k and Bluetooth working.
+ - next-20260929 plus this patch: "PCIe Gen.3 x2 link up" at 3.4 s,
+   ath12k and Bluetooth working, Wi-Fi connected.
+Without the change, neither kernel enumerates the endpoint.
+
+The culprit was found by bisecting v6.17..v7.1, with the DTB and
+.config held constant.
+
+Fixes: b921aa3f8dec ("PCI/pwrctrl: Switch to pwrctrl create, power on/off, destroy APIs")
+Closes: https://lore.kernel.org/all/CAPjyS8dY0Q_o3XmFjuKZZsjhzhoSNL+ZGJtw5cQt8HiV3sUtxA@mail.gmail.com/
+Cc: stable@vger.kernel.org
+Assisted-by: LLM
+Signed-off-by: François Roux <franzelfranzel@gmail.com>
+---
+Changes in v2:
+- Sign off with my full name.
+- Use the Assisted-by format from Documentation/process/coding-assistants.rst.
+- Add a Closes: tag pointing to the regression report.
+No code change.
+
+v1: https://lore.kernel.org/all/20261003091451.4727-1-franzelfranzel@gmail.com/
+
+ drivers/power/sequencing/pwrseq-qcom-wcn.c | 16 +---------------
+ 1 file changed, 1 insertion(+), 15 deletions(-)
+
+diff --git a/drivers/power/sequencing/pwrseq-qcom-wcn.c b/drivers/power/sequencing/pwrseq-qcom-wcn.c
+index 7f88a29b2..636dd7e63 100644
+--- a/drivers/power/sequencing/pwrseq-qcom-wcn.c
++++ b/drivers/power/sequencing/pwrseq-qcom-wcn.c
+@@ -526,15 +526,8 @@ static int pwrseq_qcom_wcn_probe(struct platform_device *pdev)
+ 		return dev_err_probe(dev, PTR_ERR(ctx->bt_gpio),
+ 				     "Failed to get the Bluetooth enable GPIO\n");
+ 
+-	/*
+-	 * FIXME: This should actually be GPIOD_OUT_LOW, but doing so would
+-	 * cause the WLAN power to be toggled, resulting in PCIe link down.
+-	 * Since the PCIe controller driver is not handling link down currently,
+-	 * the device becomes unusable. So we need to keep this workaround until
+-	 * the link down handling is implemented in the controller driver.
+-	 */
+ 	ctx->wlan_gpio = devm_gpiod_get_optional(dev, "wlan-enable",
+-						 GPIOD_ASIS);
++						 GPIOD_OUT_LOW);
+ 	if (IS_ERR(ctx->wlan_gpio))
+ 		return dev_err_probe(dev, PTR_ERR(ctx->wlan_gpio),
+ 				     "Failed to get the WLAN enable GPIO\n");
+@@ -545,13 +538,6 @@ static int pwrseq_qcom_wcn_probe(struct platform_device *pdev)
+ 		return dev_err_probe(dev, PTR_ERR(ctx->xo_clk_gpio),
+ 				     "Failed to get the XO_CLK GPIO\n");
+ 
+-	/*
+-	 * Set direction to output but keep the current value in order to not
+-	 * disable the WLAN module accidentally if it's already powered on.
+-	 */
+-	gpiod_direction_output(ctx->wlan_gpio,
+-			       gpiod_get_value_cansleep(ctx->wlan_gpio));
+-
+ 	ctx->clk = devm_clk_get_optional(dev, NULL);
+ 	if (IS_ERR(ctx->clk))
+ 		return dev_err_probe(dev, PTR_ERR(ctx->clk),
+
+base-commit: 6474fa070f2b8013b4b87350b775b8c3be6e8aac
+-- 
+2.56.0
+
