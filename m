@@ -1,281 +1,127 @@
-Received: from mail-pj1-f46.google.com (mail-pj1-f46.google.com [209.85.216.46])
+Received: from mail-yx1-f100.google.com (mail-yx1-f100.google.com [74.125.224.100])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A7AB13B71BB
-	for <linux-kernel@vger.kernel.org>; Sun,  4 Oct 2026 12:27:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.46
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 67C5A3B47D5
+	for <linux-kernel@vger.kernel.org>; Sun,  4 Oct 2026 12:28:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.224.100
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791116839; cv=none; b=uwvo9qSuQzcP3tDFsMpyJhUz47nRIrKwtwFDRVuv5NG0BOUYSTdtzXM2vs3hg8Y41dadxR6nBpMNKJ4/0WU8lDVJN71Zm9SQR4AdjZrNebIdVh2p2bCuIwkcbebmXobnJ+0JMvDYTdEqVg6Nu2ErKWXbk1HshUJX+81fxKwgCbc=
+	t=1791116915; cv=none; b=RLWDfuJhwWP9ikuxsudhSVJIlkd65ZVw7eANjeHGE/05aVwyoZM/wtTNBrPKmlYjoPiEHskBotx1pM8svAPje7Fn762ScS2QRokuWrTAYu2+fW/ujdDoVi7qmzYk+z0VwTNLnigE40UScZyVuHenUhWxAT8RAnqRw14KZGkarNk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791116839; c=relaxed/simple;
-	bh=Y7Xj9NnpcIGXYVCOFJvKI6d7fYesormUC6TqXtwyEbA=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=ERBghGl3tj1qcRHzWLNvMP5bzURxw6B8B6hXKf3+usLcW50TEoe2Q/CKFhCdpRcQq8JcElIeEFcRleIMf9zRgUCDixeZj9rI+Kxh3OHVP0LVe7WIQ1+AyW5O/gCeca3BcPnqjneG/E+9k2M578A8RNKiZuKw/LeUOUYdrf9cmWs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=LojKkFVr; arc=none smtp.client-ip=209.85.216.46
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1791116915; c=relaxed/simple;
+	bh=f2x68Pd7As1GqZKJQOjAKYNZhM/BwR7nOPBdxDi+i8c=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=nXJUiDxtXC1WGWm6IfFA0EaOKNluLK4azgfcRM0PUtaqWJEQqdVlhB6H+DaIwRfh++ukbKtOG6Qou34W30/qP5fCrk2Z7VzQ76rjh5u0DHkLHMzYXLOlbcYLZbQNPhpbwsAWhJampJdc3SPZ00mxTs/COO+vbaBvxfl97f1itoQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com; spf=fail smtp.mailfrom=broadcom.com; dkim=pass (1024-bit key) header.d=broadcom.com header.i=@broadcom.com header.b=X1oHkXKS; arc=none smtp.client-ip=74.125.224.100
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=broadcom.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="LojKkFVr"
-Received: by mail-pj1-f46.google.com with SMTP id 98e67ed59e1d1-3a49623b865so421671a91.0
-        for <linux-kernel@vger.kernel.org>; Sun, 04 Oct 2026 05:27:16 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791116836; x=1791721636; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=hiHRKqxAONyxrEHhYO6YMGTpd95L6pjr2E4WdfkyOO8=;
-        b=LojKkFVrUgHBEq83iWeWOnF2XxOVK2s/tEKZF3L+ksWsOEbmynqa6qfnZtTQPHtrjC
-         TF87AK1J/pm1YNhszII62iIeyQxMJege2FlF9YnAM8tLMeKudPbSEsjO0vyJzNUXAfNq
-         U8kUSLtjyP6v2SCmUnr0S1uLSqT+uzy4YGEhpUP47ZMtSxLhDM2UdFQFJL7bdbo3kd42
-         RP4oFFH5RNc1boFtJ6llwTUlLBRBW2bfLJR5C+J188/FlpN6r9xg+VPeaUOMc3i/rGxf
-         KDauaig7RER4Ifr1/rFSoOBjBj7uZtZ8RA1WNpe2iT0rUHfhbdYkZCvf9L2n80dC98un
-         XO6Q==
+	dkim=pass (1024-bit key) header.d=broadcom.com header.i=@broadcom.com header.b="X1oHkXKS"
+Received: by mail-yx1-f100.google.com with SMTP id 956f58d0204a3-67583c777abso460492d50.1
+        for <linux-kernel@vger.kernel.org>; Sun, 04 Oct 2026 05:28:34 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791116836; x=1791721636;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=1e100.net; s=20260707; t=1791116913; x=1791721713;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:dkim-signature:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=5vxCHe50qu0ZSP0ZUfgyqzcneNtbGphUCpsLuMQGyLs=;
+        b=FZpyAM2B4B63xss3L45SuqA2eTJtNgfpSyRWe6KO/kR+FJ9segP36FVrmew6tO/5bw
+         wikZkTGzRUjdV87aRzkbiUEen5zwwFqgSUiyDBknJpo1j0X/I1IOR9qci1pHCyf1m6F8
+         ohZja+lM4+bnolUJoHxjqnv972giCVU+jsGc8jShQpBxLItVw0yxWeNEXQlra50raodI
+         ME3BCTJDccYqcPKg5JILdBtBijjX9VrnVnuJkYtw+mVoVeX70UUjZPZgi2vhQDc7gLbH
+         iv7a+UgHHQ2WvqoRguH+XZmd1kts1/7btwFVQj0lmcct178D7Ne4GEzC3DQhoTLdiiR6
+         uS3Q==
+X-Forwarded-Encrypted: i=1; AKwUvBxr6h6JWBDdsiTG1Qt2oXpOB8jjstb0zkaoqn16VBDm5ZPtrQS+TtLilFiRRenQnU6dqsqLcsuzq0bc4LQ=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJWlX9oDMBn5zAnOL7SgZhEB29nesagGAnrBmcRY13u35eKykth
+	OGvcHWhULsfW897i6cKYWRywWOjaNDWDdXtwPN0dnr6Ez+1kOo6O0UqPH7Psrk3YZ7MwJIbYIJi
+	Pz5ZQzzswVhzTRbb6sESR0Jq/4CQZgt3BA39fEO5dzFzxRznrhqUFVJ12OQY2QzkD3ZpJFrP6d5
+	agSFKdE68holEy4WQ0T2CkIKmMq6HpIPEBZjmeFSTQJg2b3k1IsQhaM8h4XTygx5ohsiuttsKE+
+	Off24zQZj5vdaZy/iMkqZJ/oA==
+X-Gm-Gg: AYBFou37roaVgw0Ct7iDSFiTlE3ALahttswH6GlPeqvpRnixZz+kYcDPCrykCvKDRf3
+	Q5XKJZx/UKIhoxjD6lX0wiLFSAbLf1zZEMSKPjzdRjeGdoR1P7Id+xzqVvgsKXh89q9jC6Jk+EF
+	zUfAN9SpSmVEdQhtPhjs7nPXeDEdxU8rMBfVE2xbFtCPq97fKrtRIQjFCbyuMJPfsDpCvtvHlz0
+	CfOKT0yFvG5od4t4+ooOz5DKFRhEzCAGTX24UGa97EzOJxEhRk918pGjYdzcxUeWLPmGLs0F1MD
+	ylmh7bbtnWaAjz4DQ84BfIiF5xxmJ7cLD6nE1obABFM78nKNDXfF5EfQ9pnHdmo8pzfXT5VNgdl
+	qGbmO3Xd2j+U+hYdmIu3oymmqlaD/8wAh12j20YaNkqozzhOhfrcfXx8JaG4W61Ku8FYqSqrl+T
+	HDcTqKdWe5AucpWlA1QpfHhYYdF4MTth7FJncXBMB+ig==
+X-Received: by 2002:a05:690e:4854:20b0:672:e21d:30af with SMTP id 956f58d0204a3-677abe93b87mr2165519d50.5.1791116913325;
+        Sun, 04 Oct 2026 05:28:33 -0700 (PDT)
+Received: from smtp-us-east1-p01-i01-si01.dlp.protect.broadcom.com (address-144-49-247-120.dlp.protect.broadcom.com. [144.49.247.120])
+        by smtp-relay.gmail.com with ESMTPS id 956f58d0204a3-677c1ae9885sm770892d50.5.2026.10.04.05.28.32
+        for <linux-kernel@vger.kernel.org>
+        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+        Sun, 04 Oct 2026 05:28:33 -0700 (PDT)
+X-Relaying-Domain: broadcom.com
+X-CFilter-Loop: Reflected
+Received: by mail-dy1-f197.google.com with SMTP id 5a478bee46e88-34e676375d9so975854eec.0
+        for <linux-kernel@vger.kernel.org>; Sun, 04 Oct 2026 05:28:31 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=broadcom.com; s=google; t=1791116911; x=1791721711; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=hiHRKqxAONyxrEHhYO6YMGTpd95L6pjr2E4WdfkyOO8=;
-        b=eRkmLAIh8FSGUz61sEXo2esSWc831zwU1zsfwgknvJLYZp6urEhLGKff5fv1dcoL/T
-         JAiXwOYcbI2R/jgQf0AGyi8mHSfkVmEn1fzA6BRzyWJa1iEMDTcsHjLIRFtQ7DVz1LQt
-         mjqXA0ZPDoXkr50BJAsjo9Z/P9WZIJZZoCaMAgiz3D5sNywp6FsgGZKbnNN9W0BZLLI2
-         ylEXF4W98YV3cvokyORmr55Xh5c/3J6+VCFEU4tUMLKQw3Mil1LssQEie6V9slDSwK+c
-         wc2WP4EN25WKon9OIoL+HwJUt8/IbWh+fMJuzMR8kqQJ6sYaJyGv/2z7dmx8MURu3YpG
-         rDdg==
-X-Forwarded-Encrypted: i=1; AKwUvBxTeiBctVv3m2sOv9yFQvvNVVxGzCPn1Hi9LuKDzp4LsrxNHivx0UmdEROfVZbf94KYHEuQ8ENEEFOVzto=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLNWqHDbtaFgCi82HnyPnDdbUEEg82fdhUqg1cBq0kcYBtbMyvM
-	oNMLM9g+hdWQLSqKUyC8g2B48JQZP+Si8GUSyPeuIf3ltYSHGn+M8DwlKOsv+g==
-X-Gm-Gg: AYBFou27O9v/5BdgoKZT8Dxh/CUOVfBKHCDFlmXve80bxw3C4dp6LOr9K0tHmreJyBL
-	0kcQ34exw/6VH9ojaLZy1BiasDSt/YJ9xH79L3FETEjuBzfLZchlhEsAyh63IrgwJ/kDEYC9xdk
-	qZRLmivfe6IePvvbGslTi4WcuYFW9jAUzjmgs0gLhfYisiRy15NqylAhaD0iex8HRyWlT6n0hbD
-	JUp9cqza48cd7IOlS30WMd49y4cv0Jh0oyqYf/dCyDgSM/3iCi7PVWq2ALwWVpgqxl0HIGT++cM
-	rmesMG3CCpBJKXx/dlHuIMW7cBiANJLXjnLlo8HrJe/RIV2iucJH0g/nNMGQTLctbc6exvWK9D6
-	Pgl30Hk3yi+8BDAhHEP5cQSh+g1xcmOzbSDwoYOvudhgiklcn9ceaKxBMjQiTJytMdKHKZvX/Hh
-	Co6K7sGNfWjsKXJI+IgKNUvKqN8QO2F5SdyZnclweVgtIpa/afMxzEc4nLnbmmbqRxX9leeBodE
-	bKnKBYbfiGx5wl4QRJ/J2vyw/gUNqQKG6UEGA3OiEu7+6sr8vC7rA==
-X-Received: by 2002:a17:90b:388b:b0:3a0:903b:f253 with SMTP id 98e67ed59e1d1-3a78717daaemr3574428a91.18.1791116835699;
-        Sun, 04 Oct 2026 05:27:15 -0700 (PDT)
-Received: from [10.0.2.15] (KD106167137155.ppp-bb.dion.ne.jp. [106.167.137.155])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a79a98e7c0sm5282060a91.0.2026.10.04.05.27.14
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sun, 04 Oct 2026 05:27:15 -0700 (PDT)
-Message-ID: <02bf1027-41ab-434b-82af-1fc5ee6c7d3c@gmail.com>
-Date: Sun, 4 Oct 2026 21:27:13 +0900
+        bh=5vxCHe50qu0ZSP0ZUfgyqzcneNtbGphUCpsLuMQGyLs=;
+        b=X1oHkXKSLckgpGA55a2xY9GUl1OHSH8mE1S2DahxzNLba4xIA2XlIkaIFY7bC/nAhv
+         wSkl3xy/mptMU6tLDOfrU1MvUoZbuTxLdwXE86/I3gwpmE+4xSOWQZVtiDq5AL6/OCV2
+         YugwicfaVV3sTlN+VLTVnYwK+CrJXoqojEsAc=
+X-Forwarded-Encrypted: i=1; AKwUvBzwm+23EnyHfWCGGYHLjEooysmVBLd0mAIEHG74XTrAHYf2Odz7miZiCqNK8U8MZNjNvtwGnJ/hJVkCQbs=@vger.kernel.org
+X-Received: by 2002:a05:7300:d08a:b0:339:851c:4c1 with SMTP id 5a478bee46e88-34db6bfe0e0mr12512303eec.18.1791116910764;
+        Sun, 04 Oct 2026 05:28:30 -0700 (PDT)
+X-Received: by 2002:a05:7300:d08a:b0:339:851c:4c1 with SMTP id 5a478bee46e88-34db6bfe0e0mr12512267eec.18.1791116910074;
+        Sun, 04 Oct 2026 05:28:30 -0700 (PDT)
+Received: from bld-bun-02.bun.broadcom.net ([192.19.176.227])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-351271847fbsm7734182eec.15.2026.10.04.05.28.27
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 04 Oct 2026 05:28:29 -0700 (PDT)
+From: Arend van Spriel <arend.vanspriel@broadcom.com>
+To: Andre Eikmeyer <dev@deq.rocks>
+Cc: Arend van Spriel <arend.vanspriel@broadcom.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Aditya Garg <gargaditya08@live.com>,
+	linux-wireless@vger.kernel.org,
+	brcm80211@lists.linux.dev,
+	brcm80211-dev-list.pdl@broadcom.com,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2] wifi: brcmfmac: handle missing D3 ACK on BCM4377 T2 Macs
+Date: Sun,  4 Oct 2026 05:28:24 -0700
+Message-ID: <20261004122824.1390579-1-arend.vanspriel@broadcom.com>
+X-Mailer: git-send-email 2.54.0
+In-Reply-To: <20261001085308.1688049-1-dev@deq.rocks>
+References: <20261001085308.1688049-1-dev@deq.rocks>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 RESEND] docs/ja_JP: translate submitting-patches.rst
- (review and report tags)
-To: Akiyoshi Kurita <weibu@redadmin.org>
-Cc: linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org, corbet@lwn.net
-References: <20260910011432.710551-1-weibu@redadmin.org>
- <20261002060157.223645-1-weibu@redadmin.org>
-Content-Language: en-US
-From: Akira Yokosawa <akiyks@gmail.com>
-In-Reply-To: <20261002060157.223645-1-weibu@redadmin.org>
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
+X-DetectorID-Processed: b00c1d49-9d2e-4205-b15f-d015386d3d5e
 
-Hi,
-
-On Fri,  2 Oct 2026 15:01:57 +0900, Akiyoshi Kurita wrote:
-> Translate the section describing Reported-by, Tested-by, Reviewed-by,
-> Suggested-by, and Fixes tags into Japanese.
+On Thu, 1 Oct 2026 10:53:08 +0200, Andre Eikmeyer wrote:
+> BCM4377 on the affected T2 Macs does not acknowledge HOST_D3_INFORM.
+> The current PCIe suspend callback treats this as fatal and aborts system
+> suspend.
 > 
-> This includes the Reviewer's Statement and the guidance on adding or
-> removing review and testing tags in subsequent patch versions.
+> When this happens on BCM4377, mask the mailbox interrupt, preserve the
+> bus-down state, and let generic PCI/ACPI suspend proceed. On resume the
+> existing recovery path tears down and probes the device again instead of
+> relying on a D0 mailbox transaction.
 > 
-
-I think it is worth mentioning the following point here in Changelog.
-
-   - Keep the Reviewer's Statement in English and add a Japanese
-     tentative translation in a formal style.
-
-> Keep the Japanese submitting-patches documentation aligned with the
-> corresponding English section.
-
-Probably, this part has become redundant now and can be removed.
-
-> 
-> Signed-off-by: Akiyoshi Kurita <weibu@redadmin.org>
+> Tested-on: MacBookAir9,1, MacBookPro15,4, MacBookPro16,3
+> Signed-off-by: Andre Eikmeyer <dev@deq.rocks>
 > ---
-> 
-> Changes in v2:
-> 
->   - Use "レビューア" consistently for "reviewer".
->   - Keep the Reviewer's Statement in English and add a Japanese
->     tentative translation in a formal style.
->   - Reword the Reported-by description as suggested.
->   - Use a file-local reference for "変更内容を記述する".
->   - Drop the duplicate tagging_people label.
-> 
-> 
->  .../ja_JP/process/submitting-patches.rst      | 116 ++++++++++++++++++
->  1 file changed, 116 insertions(+)
-> 
-> diff --git a/Documentation/translations/ja_JP/process/submitting-patches.rst b/Documentation/translations/ja_JP/process/submitting-patches.rst
-> index 797b70b97fa7..dfc5500f420d 100644
-> --- a/Documentation/translations/ja_JP/process/submitting-patches.rst
-> +++ b/Documentation/translations/ja_JP/process/submitting-patches.rst
-> @@ -573,3 +573,119 @@ Acked-by:、Cc:、Co-developed-by: を使用する場合
->      Signed-off-by: From Author <from@author.example.org>
->      Co-developed-by: Submitting Co-Author <sub@coauthor.example.org>
->      Signed-off-by: Submitting Co-Author <sub@coauthor.example.org>
-> +
-> +
-> +Reported-by:、Tested-by:、Reviewed-by:、Suggested-by:、Fixes: の使用
-> +---------------------------------------------------------------------
-> +
-> +``Reported-by:`` タグは、バグを発見して報告した人の功績を示すものであり、
-> +今後も再び協力してもらうきっかけになることが期待されます。このタグは
-> +バグを対象としています。機能追加の要望に対する功績を示すためには
-> +使用しないでください。報告が Web 上で参照できない場合を除き、
-> +``Reported-by:`` タグの後には、その報告を指す ``Closes:`` タグを
-> +付けてください。報告された問題の一部だけを修正するパッチの場合は、
-> +``Closes:`` の代わりに ``Link:`` タグを使用できます。なお、
-> +``Reported-by:`` は、名前を記載される本人の明示的な許可なしに
-> +使用できる可能性がある三つのタグのうちの一つです。詳細については、
-> +後述の「人をタグ付けするには許可が必要」を参照してください。
-> +
-> +``Tested-by:`` タグは、記載された人が（何らかの環境で）パッチを
-> +正常にテストしたことを示します。このタグは、何らかのテストが
-> +実施されたことをメンテナーに知らせ、将来のパッチでテスターを
-> +探す手段を提供するとともに、テスターの功績を記録します。
-> +
-> +一方、``Reviewed-by:`` は、パッチがレビューされ、以下の
-> +レビューアの声明に従って受け入れ可能と判断されたことを示します。
-> +
-> +Reviewer's statement of oversight
-> +^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-> +
-> +By offering my Reviewed-by: tag, I state that:
-> +
+>  drivers/net/wireless/broadcom/brcm80211/brcmfmac/pcie.c | 7 +++++++
+>  1 file changed, 7 insertions(+)
 
-This is from the original in pre-v7.3.  See below.
+Thanks for the patch. However, an earlier patch from Sebastian Reichel
+already addresses this issue generically: "[wireless-next,v2] wifi: brcmfmac:
+Improve D3 substate entering timeout handling" [1].
 
-> +        (a) I have carried out a technical review of this patch to
-> +            evaluate its appropriateness and readiness for inclusion into
-> +            the mainline kernel.
-> +
-> +        (b) Any problems, concerns, or questions relating to the patch
-> +            have been communicated back to the submitter.  I am satisfied
-> +            with the submitter's response to my comments.
-> +
-> +        (c) While there may be things that could be improved with this
-> +            submission, I believe that it is, at this time, (1) a
-> +            worthwhile modification to the kernel, and (2) free of known
-> +            issues which would argue against its inclusion.
-> +
-> +        (d) While I have reviewed the patch and believe it to be sound, I
-> +            do not (unless explicitly stated elsewhere) make any
-> +            warranties or guarantees that it will achieve its stated
-> +            purpose or function properly in any given situation.
-> +
+That patch makes the D3 ACK timeout non-fatal whenever Wake-on-WLAN is not
+enabled, which covers BCM4377 as well and avoids the need for chip-specific
+workarounds. I have accepted Sebastian's patch, so this one is superseded.
 
-Please use the one later than commit 83f71fbc66fb ("docs:
-submitting-patches: Fix section structure around DCO") and fix
-subsection structure. 
+[1] https://lore.kernel.org/linux-wireless/20260915-brcmfmac-bcm43752-suspend-fix-v2-1-1bd84914998b@collabora.com/
 
-> +.. note::
-> +
-> +   〖試訳〗
-> +
-> +   **レビューアによる確認声明**
-> +
-> +   ``Reviewed-by:`` タグを付けることにより、私は以下を表明する。
-> +
-> +   (a) このパッチがメインラインカーネルへの取り込みに適切であり、
-> +       その準備が整っているかを評価するため、技術的なレビューを
-> +       実施した。
-> +
-> +   (b) パッチに関する問題、懸念、または質問はすべて提出者に
-> +       伝えられている。私は、自分のコメントに対する提出者の
-> +       回答に満足している。
-> +
-> +   (c) この提出物には改善できる点が残っている可能性があるが、
-> +       現時点において、(1) カーネルに対する価値のある変更であり、
-> +       かつ (2) その取り込みに反対する理由となる既知の問題が
-> +       存在しないと考える。
-> +
-> +   (d) 私はこのパッチをレビューし、妥当であると考えているが、
-> +       別途明示されていない限り、そのパッチが記載された目的を
-> +       達成すること、またはいかなる状況においても正しく動作する
-> +       ことについて、いかなる保証も行わない。
-> +
-
-And please make your tentative translation a "literal block".
-I mean, something like:
-
-.. note:: 
-
-   〖試訳〗 ::
-
-	レビューアによる確認声明
-
-	Reviewed-by: タグを付けることにより、私は以下を表明する。
-
-        [...]
-
-You need to remove all reST markups in the literal block.
-
-BTW, using "確認声明" for "statement of oversight" can depart from
-the original.  I'd say "監督声明" to indicate the two-way nature of
-"oversight/overseeing".  "確認" can mean one-sided action.
-
-> +``Reviewed-by:`` タグは、そのパッチが重大な技術的問題を残していない、
-> +カーネルに対する適切な変更であるという意見を表明するものです。
-> +必要なレビューを行った既知の身元を持つ人であれば、関心のある
-> +レビューアは誰でもパッチに ``Reviewed-by:`` タグを付けられます。
-> +このタグは、レビューアの功績を示すとともに、どの程度のレビューが
-> +行われたかをメンテナーに知らせる役割を果たします。対象分野を理解し、
-> +十分なレビューを行うことで知られているレビューアが付けた
-> +``Reviewed-by:`` タグは、通常、パッチがカーネルに取り込まれる
-> +可能性を高めます。
-> +
-> +``Tested-by:`` と ``Reviewed-by:`` の両方のタグは、メーリングリスト上で
-> +テスターまたはレビューアから受け取った後、次のバージョンを
-> +送信するときに、作者が該当するパッチへ追加する必要があります。
-> +ただし、次のバージョンでパッチが大幅に変更された場合は、これらのタグが
-> +適用できなくなる可能性があるため、削除する必要があります。
-> +通常、誰かの ``Acked-by:``、``Tested-by:``、または ``Reviewed-by:`` タグを
-> +削除した場合は、その理由をパッチの変更履歴で説明する必要があります
-> +（``---`` 区切りの後）。
-> +
-> +``Suggested-by:`` タグは、パッチのアイデアが記載された人によって
-> +提案されたことを示し、そのアイデアに対する功績を記録します。
-> +アイデアを提案した人の功績をきちんと記録すれば、今後も再び協力して
-> +もらうきっかけになることが期待されます。なお、これは、名前を
-> +記載される本人の明示的な許可なしに使用できる可能性がある三つの
-> +タグのうちの一つです。詳細については、後述の
-> +「人をタグ付けするには許可が必要」を参照してください。
-> +
-> +``Fixes:`` タグは、そのパッチが以前のコミットにあるバグを修正する
-> +ことを示します。これは、問題がどこで発生したのかを容易に特定できる
-> +ようにし、バグ修正のレビューに役立ちます。また、このタグは stable
-> +kernel チームが、どの stable kernel バージョンに修正を適用すべきかを
-> +判断する際にも役立ちます。パッチが修正するバグを示す方法としては、
-> +これが推奨されています。詳細については `変更内容を記述する`_ を
-> +参照してください。
-> +
-> +注意: ``Fixes:`` タグを付けても、stable kernel rules の手順や、
-> +stable 向けパッチ候補すべてで ``Cc: stable@vger.kernel.org`` を
-> +指定する要件がなくなるわけではありません。詳細については、
-> +Documentation/process/stable-kernel-rules.rst を参照してください。
-> +
-> +最後に、タグを付けることは歓迎され、通常は非常にありがたいものですが、
-> +署名者（すなわち、提出者およびメンテナー）は、提示されたタグを
-> +適用するかどうかを自身の判断で決めることができます。
-> 
-> base-commit: d793bcfca6bb493eb8e93900285f951a0c9dbf7c
-
-Finally, Please post a new version of your patch as an independent
-patch (series).  That would help those who use b4 in applying your
-patch(es).
-
-Thanks, Akira
+Regards,
+Arend
