@@ -1,62 +1,64 @@
-Received: from mail-pj2-f43.google.com (mail-pj2-f43.google.com [74.125.227.171])
+Received: from mail-pj1-f41.google.com (mail-pj1-f41.google.com [209.85.216.41])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7A86D405C2F
-	for <linux-kernel@vger.kernel.org>; Sun,  4 Oct 2026 11:15:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.171
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9B8F3405C2F
+	for <linux-kernel@vger.kernel.org>; Sun,  4 Oct 2026 11:15:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.41
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791112530; cv=none; b=Asw6LhKJz1aMT7r3hT/9G3schGwCPY1i7qX8xYl8RtpOf9baPhWxOU1jeQheijScDbNn0v9QB8OR4uV9e1kASDQUPmPugXm6jcY9l8zTBkLyhUtHjOtkdv0z575nFoqstuMTXfKQAA3BRLCMewID70Uc4qoZVg7BzQ+n+j8PMDc=
+	t=1791112537; cv=none; b=XQ0Y9lyI/10ikYCi1bXhZwO3BmEn/Y613JmJrYv5yOAyMciI/7SMpLlMWtec8mRUSLF8Cv090hgGEFGUGIe94yqOAdqM3AEJGDCAdDe53FkrtBJKKnWixOsJ8fctzEJYEW8GFtV6NkSycFLkGo6iPnexvtNgQuq1FvhPmoQU03E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791112530; c=relaxed/simple;
-	bh=yuAe7Cq/oPStaIUgkXR021KjDrz+4BwrSi8Rf1ZVcVI=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Gf3N/50eee1NxodZzW+Pmw3V0ZQyva9UK8RWMBTYazQ/96WqGsR3tmAS1XoWLFNh32qIkN/gHRL0xnnwfZohMUQ+N5XW8MPlfdrSEND2M4JS3csWMbK9oZQ1xTfaJpN4QilbDQowB7KWmECnMckOgX8xE47QZ/Jr1zxkh50vztA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Ge/rVNAI; arc=none smtp.client-ip=74.125.227.171
+	s=arc-20240116; t=1791112537; c=relaxed/simple;
+	bh=5souf5P8cdCDKNKE8Vfd9AYxuOtIE3Hf7UU1MdVziio=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=dq0AujPseTV77+x+3C1JyhphqbTt+UcHavrRNWJ0U7NMScQvmi5k8Yy3bYqXtBju/+RVoEyh87ctD4ITyJa6CS34GSbRwq1HcWAiCM+dryDEAGmjXt30vnk0yVleDlqw/WG2LcTMFaiy7WQu1zoWHPv4LgHgqDNq+LZJ5pV7hcc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=o4fii7NG; arc=none smtp.client-ip=209.85.216.41
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Ge/rVNAI"
-Received: by mail-pj2-f43.google.com with SMTP id 98e67ed59e1d1-396ccb1a98fso507822a91.1
-        for <linux-kernel@vger.kernel.org>; Sun, 04 Oct 2026 04:15:28 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="o4fii7NG"
+Received: by mail-pj1-f41.google.com with SMTP id 98e67ed59e1d1-383b4a3755fso604863a91.3
+        for <linux-kernel@vger.kernel.org>; Sun, 04 Oct 2026 04:15:35 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791112528; x=1791717328; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=h3A2hXOPkh2lM3bdc7NxUKnnvRhD1xa1RuiKPnko66A=;
-        b=Ge/rVNAI9NlyIpHurF9T2meRSeq0WE7Z5+n3s1UBMkeElG/Y6Qlg4PRGyHIMd6v+xH
-         GWP1x/I75T7BY+4SFPtKfXbXOJeQSj5fOUbcvsUqFJ6Vt4Cfcgmsqo9ZjkjQNfpGNkTk
-         KM5as/sOCmLCiAbBH4dOJHBrBqeBVgq461ppG1JIuU8NtEZBJV3lmM4tj7nrdmWAAUJp
-         1tpw2A5l0QaRQrxErNydanqct/ErkoTnl/HDUaCGDURdbLQ9WFXiwjV6nvkXeS7umvTd
-         PDu6J72YT+avSxEGw2LFBIYvZwd4FpvZNpDRiTt5oIrmVz76eFpoprsrqPihJ39Dj4z1
-         7jKg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791112528; x=1791717328;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20251104; t=1791112535; x=1791717335; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=h3A2hXOPkh2lM3bdc7NxUKnnvRhD1xa1RuiKPnko66A=;
-        b=f8vIKTOKb0IGMcFxAmgal/0QPAkr2koNGTlrWgggkOeLgRN9wwHcKfmoqO0st9Z9TP
-         4br44JHGXYYVcaM0r6K8S+152O1LLyjM3z0WjSX8BhNLtrRRt8Rm+5ngOk4Q+txy1VxQ
-         TVWP7b0JMxLlfDBZEyMXCnoGJMNokuC6+PPQuFCnMdE8vW5vTYQAMx85IjnseNBMzcE7
-         e2/5L5J5ZiCuiPkOd4p6RboJ7PNk4SuflSmVO+PNonjufZpBYbtzrvoAmWOSCuJehY0y
-         T2kAn6IIL+uBnlxZ0hVWBoiymVaNCBU0deagMfJZnqjT6uOFQDSkL5zmu7GX7Mi4eLPh
-         NUxA==
-X-Forwarded-Encrypted: i=1; AKwUvByoWmMSvkUlaqu7I9mxDpDvtxkWGE6gZ7X+R2kKYzb5uY7Y1X8M42NQVWBV1P+dlAk79STkPYAqNolx5Dw=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIsCFDrkw6mXcpatUHraW8A2e+nHfvJ0f96cU4Z4AFFjOX9reK7
-	g9iFO+qEYbx8Kmxk+NzU2skSI8dNs+tQSVlUKv4JtBt9wXPxYi6A3wRe
-X-Gm-Gg: AYBFou1rpsraoDy1LkojJAj+oOOS7qjHOiy/rnzM9ThrUUEZSnZZYwLqLE+38DRYT0w
-	2th93ffcsGi2GLWX5gRBMHFGuicCOXrwIFtAcWlo4fwK4X26wbndBCiGtu+dDThUSaKYX6KCXjR
-	nkmSuk5LT8GdkGyg3EQZ894iuE8M5mpQZEZeYaCocrpKKbC2wEyVnsofmesPWdnajvU7GWmYRs6
-	axq41gZmoExw6tgX3eI2bGPl9/8HSi9rnCfUPA/oQ1O5dQx0msop244ADH2Tj9EzMSdDGzk0dOV
-	dt0M/j/j0mojJHx9qkzVnEn3jzD1kwxjnq7jqpT5r01r7c76eWgjUKL6jBrB0GgqGk4Q4FEyVsl
-	qFgpL0q7qYMFpaF8RvekVl5CTnZjPKAjdhyFc/A7R9h5GaEuaHsN+i1a3OOT2Vjb7KTOnUfk+5I
-	vxS/Kv/WE3bCd/2vAZuBch/5jpJkd2sJLZimXCvqKRJSAEIfdHmRKoynU4M7qtjTD4iY0c1owAQ
-	JmcAgQI9nb/St3MaKGGItE=
-X-Received: by 2002:a17:90b:498e:b0:3a7:9ad9:68e1 with SMTP id 98e67ed59e1d1-3a79ad96bd7mr2915110a91.13.1791112527449;
-        Sun, 04 Oct 2026 04:15:27 -0700 (PDT)
+        bh=Tsx+aDb2dwCtUhjqNMOb40F6ukqlNEoo0x6nqwwDid0=;
+        b=o4fii7NGfBvUvDI/+fVjIoC9oPfR3VhAO4DFVri39Kd1n6gF5/6YfJJO7gZ0dtRthp
+         x/bQ12tMNPP8f4KVMS+2DHVHHY9Y37L7bsdHp+CsS6tsXEF9TOfDThE5HaovGPCmtn0T
+         Da/+/jsASYv2s7gt9q7xGRehXeA/X7QL3Ve7leZMH5zyhQNvLcFFjDCj+fdJ2DjsNd3w
+         2LAIeak/P/5gbwFN77gZ2z6M6QRWb3R/Dc5+6TsMlZIyekmOpDsBCjeo93yB7Wkjokzr
+         2scGZrKu+EdiSBX0C+Ri4bxe0rWBAI44vKM9t2ki029kIebOQWcL/1d3exNTDOcwywPs
+         OfyA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791112535; x=1791717335;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=Tsx+aDb2dwCtUhjqNMOb40F6ukqlNEoo0x6nqwwDid0=;
+        b=SrGTmq6wt307YWQs7COXz0i1GCx/UyU0pm7WRfWhxr1abyJw6RWEbXmZAf2ppjDuHb
+         IHvmLuZyCgPjcWDHrsNNng9E8HfM3QsDEXSb1CLJOf7yQ3eKM+BWbyJkfah1rZBNQ/nv
+         pt66KNFaZBF6Ivsco7RyWKg5e+8cdG7X9sbmc6QFKjF3y/Dwqb8/HLcc9udKapD9Q7Ut
+         ZGBqyNQ9K67xUvwBysQjP8+ObGjN+kQ3fqTi9gxyHa+G0RC+tHvGrOcc8QaZMfbsa2np
+         Cx3nu9/THJj9tD40vwYnoAo8a+lD3e14hpzr03283SStya4g23ARxoUCduH8l/P4PU+x
+         5irA==
+X-Forwarded-Encrypted: i=1; AKwUvBw5iZ78fEOlOXmPzIrYYZ8aaTnXCmrERxFMBo18M2NqHptVwy8RbpUsBfitihkwBl3PUtoR+jgE8ERX9/I=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLwHfIhFEMtdqQLMaPh+zlKS9OPJZyGWvCR4U5gXSnHvmq7zHS7
+	kBZApSAD/oXnkWKDMulpyNSbf5v793B87mr/eEBRI4nkNjfwVz6aRM0d
+X-Gm-Gg: AYBFou1WEJgDHG5+uixZiLiOwaTjPE6Zi1ceEKwqKT41sNNhpmgbWsBQEXZ6RD7pPCo
+	DLQ49o53ArS4wjbCJbADlS1QBubX9VPg607nF0ITWtAGOMsZOo6ucDDSZEWVNhBJbA7y2u42wlx
+	MlIuHBwRfCDU4eQcNhtxas4nxaCOzJzxVORyhP3nidvWV1Rt1zr7et20/SZxBy9yfnsT6b5QKXI
+	gA6jBz7dlxhWM+09cWR+7CErKDgpDqHVjsTF+laWkHrOviR0eqxNaVye6M1A23ySktftyEs2rQ6
+	tkA30J44rIpYxjCYrGk3PiSZ7wqxdGS5i2JbdEdxmyIYx8GNIqpKJJ7BRWc0bIOq9uijLWQlzI+
+	zB0Yc8J1mp4F0orGJGcjjc3CgrDJoe34MaGmeG4HHiQPN1oQwPXsNfGC6AWaFRQip8hlyJM7p1Y
+	+V7mInjGL014wQQwZsSekNBD4xn1eEKVRKUR1rZMsON9mRuSzRsnr8L7iFkmLS4/hrmvMSOiEv6
+	Lh8utv4eWxPUVeoBc3xul0=
+X-Received: by 2002:a17:90b:3949:b0:3a4:7d7c:1866 with SMTP id 98e67ed59e1d1-3a787775e3cmr3455592a91.61.1791112534791;
+        Sun, 04 Oct 2026 04:15:34 -0700 (PDT)
 Received: from jmoon ([118.220.156.4])
-        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cc9f73556efsm2776007a12.9.2026.10.04.04.15.24
+        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cc9f73556efsm2776007a12.9.2026.10.04.04.15.31
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 04 Oct 2026 04:15:25 -0700 (PDT)
+        Sun, 04 Oct 2026 04:15:34 -0700 (PDT)
 From: Jinmo Yang <jinmo44.yang@gmail.com>
 To: ping.cheng@wacom.com,
 	jason.gerecke@wacom.com,
@@ -64,11 +66,14 @@ To: ping.cheng@wacom.com,
 	bentiss@kernel.org
 Cc: linux-input@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	Jinmo Yang <jinmo44.yang@gmail.com>
-Subject: [PATCH 0/1] HID: wacom: fix sibling use-after-free in mode change
-Date: Sun,  4 Oct 2026 20:13:25 +0900
-Message-ID: <20261004111353.118025-1-jinmo44.yang@gmail.com>
+	Jinmo Yang <jinmo44.yang@gmail.com>,
+	stable@vger.kernel.org
+Subject: [PATCH 1/1] HID: wacom: serialize mode changes with device removal
+Date: Sun,  4 Oct 2026 20:13:26 +0900
+Message-ID: <20261004111353.118025-2-jinmo44.yang@gmail.com>
 X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261004111353.118025-1-jinmo44.yang@gmail.com>
+References: <20261004111353.118025-1-jinmo44.yang@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -77,241 +82,146 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Hi,
-
-I found the following use-after-free in the wacom HID driver while fuzzing
-with syzkaller, and reproduced it deterministically on hid.git master
-(fe2ec83746e5, v7.3-rc4 based) with a uhid reproducer -- 10 KASAN reports
-out of 10 boots:
-
-  BUG: KASAN: slab-use-after-free in wacom_parse_and_register+0x4fa8/0x58e0
-  Read of size 8 at addr ffff88800be431f8 by task kworker/0:2/75
-
-  CPU: 0 UID: 0 PID: 75 Comm: kworker/0:2 Not tainted 7.3.0-rc4-gfe2ec83746e5-dirty #2 PREEMPT(lazy)
-  Hardware name: QEMU Standard PC (Q35 + ICH9, 2009), BIOS 1.17.0-debian-1.17.0-1 04/01/2014
-  Workqueue: events wacom_mode_change_work
-  Call Trace:
-   <TASK>
-   dump_stack_lvl+0xba/0x110
-   print_report+0x153/0x4c6
-   ? wacom_parse_and_register+0x4fa8/0x58e0
-   ? __virt_addr_valid+0x221/0x4e0
-   ? wacom_parse_and_register+0x4fa8/0x58e0
-   kasan_report+0xe4/0x1a0
-   ? wacom_parse_and_register+0x4fa8/0x58e0
-   wacom_parse_and_register+0x4fa8/0x58e0
-   ? do_raw_spin_lock+0x123/0x260
-   ? __pfx_wacom_parse_and_register+0x10/0x10
-   ? lockdep_hardirqs_on_prepare+0xdc/0x190
-   ? _raw_spin_unlock_irqrestore+0x40/0x50
-   ? trace_hardirqs_on+0x19/0x190
-   ? _raw_spin_unlock_irqrestore+0x40/0x50
-   wacom_mode_change_work+0x333/0x7e0
-   process_one_work+0xa3b/0x19b0
-   ? __pfx_process_one_work+0x10/0x10
-   ? lock_acquire+0x18c/0x300
-   ? lock_is_held_type+0x87/0xf0
-   ? __pfx_wacom_mode_change_work+0x10/0x10
-   worker_thread+0x5eb/0xe50
-   ? __pfx_worker_thread+0x10/0x10
-   ? kthread+0x13a/0x450
-   ? __pfx_worker_thread+0x10/0x10
-   kthread+0x368/0x450
-   ? __pfx_kthread+0x10/0x10
-   ret_from_fork+0x617/0x9e0
-   ? __pfx_ret_from_fork+0x10/0x10
-   ? __switch_to+0x7ec/0x10f0
-   ? pirq_enable_irq.cold+0xb7/0x199
-   ? __pfx_kthread+0x10/0x10
-   ret_from_fork_asm+0x1a/0x30
-   </TASK>
-
-  Allocated by task 11:
-   kasan_save_stack+0x30/0x50
-   kasan_save_track+0x14/0x30
-   __kasan_kmalloc+0x7f/0x90
-   __kmalloc_node_track_caller_noprof+0x26b/0x6e0
-   devm_kmalloc+0xa2/0x290
-   wacom_probe+0xb2/0xdb0
-   hid_device_probe+0x4fb/0x850
-   really_probe+0x235/0x760
-   __driver_probe_device+0x291/0x3c0
-   driver_probe_device+0x4a/0x140
-   __device_attach_driver+0x1d2/0x270
-   bus_for_each_drv+0x152/0x1d0
-   __device_attach+0x1e1/0x470
-   device_initial_probe+0xaf/0xd0
-   bus_probe_device+0x62/0x160
-   device_add+0x111a/0x1930
-   hid_add_device+0x2c2/0x460
-   uhid_device_add_worker+0x37/0x70
-   process_one_work+0xa3b/0x19b0
-   worker_thread+0x5eb/0xe50
-   kthread+0x368/0x450
-   ret_from_fork+0x617/0x9e0
-   ret_from_fork_asm+0x1a/0x30
-
-  Freed by task 82:
-   kasan_save_stack+0x30/0x50
-   kasan_save_track+0x14/0x30
-   kasan_save_free_info+0x3b/0x70
-   __kasan_slab_free+0x47/0x70
-   kfree+0x1b3/0x550
-   release_nodes+0xcc/0x130
-   devres_release_group+0x1c2/0x2d0
-   hid_device_remove+0x107/0x200
-   device_remove+0xc8/0x180
-   device_release_driver_internal+0x448/0x610
-   bus_remove_device+0x2b6/0x460
-   device_del+0x378/0xd10
-   hid_destroy_device+0x1a6/0x250
-   uhid_char_release+0xeb/0x1f0
-   __fput+0x3fd/0xb50
-   fput_close_sync+0x113/0x240
-   __x64_sys_close+0x8b/0x120
-   do_syscall_64+0x106/0x5f0
-   entry_SYSCALL_64_after_hwframe+0x77/0x7f
-
-  The buggy address belongs to the object at ffff88800be43000
-   which belongs to the cache kmalloc-2k of size 2048
-  The buggy address is located 504 bytes inside of
-   freed 2048-byte region [ffff88800be43000, ffff88800be43800)
-
-  The buggy address belongs to the physical page:
-  page: refcount:0 mapcount:0 mapping:0000000000000000 index:0x0 pfn:0xbe40
-  head: order:3 mapcount:0 entire_mapcount:0 nr_pages_mapped:0 pincount:0
-  flags: 0x100000000000040(head|node=0|zone=1)
-  page_type: f5(slab)
-  raw: 0100000000000040 ffff888008c42000 dead000000000100 dead000000000122
-  raw: 0000000000000000 0000000000080008 00000000f5000000 0000000000000000
-  head: 0100000000000040 ffff888008c42000 dead000000000100 dead000000000122
-  head: 0000000000000000 0000000000080008 00000000f5000000 0000000000000000
-  head: 0100000000000003 fffffffffffffe01 00000000ffffffff 00000000ffffffff
-  head: 0000000000000000 0000000000000000 00000000ffffffff 0000000000000000
-  page dumped because: kasan: bad access detected
-
-  Memory state around the buggy address:
-   ffff88800be43080: fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb
-   ffff88800be43100: fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb
-  >ffff88800be43180: fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb
-                                                                  ^
-   ffff88800be43200: fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb
-   ffff88800be43280: fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb
-  ==================================================================
-
-wacom_mode_change_work() obtains both siblings' struct wacom from
+wacom_mode_change_work() takes both siblings' struct wacom out of
 wacom_shared and tears down and rebuilds them, holding no reference to
 either. wacom_remove() cancels only the work owned by the device being
 removed, so a worker owned by the other sibling keeps using this device
-after its remove callback returns; hid_device_remove() then releases the
-driver's devres group and frees struct wacom. Closing one sibling's
-/dev/uhid descriptor is all it takes, with no privilege.
+after its remove callback returns, and hid_device_remove() then frees
+struct wacom along with the driver's devres group.
 
-The report above is the read. On the syzkaller instance where I first hit
-this -- a KASAN linux-next build, not the hid.git master tree I used for
-the 10-boot runs -- the same worker also produced slab-use-after-free
-*writes*, at features->touch_max in wacom_feature_mapping(), four bytes
-at a fixed offset into the freed object with the value taken from a
-feature report; and NULL dereferences in wacom_set_shared_values(), where
-the sibling's wacom_release_resources() had cleared wacom_wac->shared
-while this worker slept in wacom_parse_and_register().
+Reproduced under KASAN on hid.git master (fe2ec83746e5) with a uhid
+reproducer that binds a sibling pair, sends a mode-change report and then
+closes one sibling's descriptor, 10 boots out of 10:
 
-The defect dates to 4082da80f46a ("HID: wacom: generic: add mode change
-touch key") in v4.12, which introduced the worker, the reference-free
-sibling lookup and the incomplete cancellation in one go. The lifetime it
-depends on was already in place in that commit's parent.
+  BUG: KASAN: slab-use-after-free in wacom_parse_and_register+0x4fa8/0x58e0
+  Read of size 8 at addr ffff88800be431f8 by task kworker/0:2/75
+  Workqueue: events wacom_mode_change_work
+   wacom_parse_and_register+0x4fa8/0x58e0
+   wacom_mode_change_work+0x333/0x7e0
+   process_one_work+0xa3b/0x19b0
+  Allocated by task 11:  devm_kmalloc <- wacom_probe
+  Freed by task 82:      devres_release_group <- hid_device_remove,
+                         under uhid_char_release <- __x64_sys_close
 
-This is also the issue 3a523ecf9ac3 ("HID: wacom: Fix Use-After-Free in
-wacom_bamboo_pad") refers to when it notes that "lockless access in the
-latter [wacom_mode_change_work] remains a pre-existing issue". That
-series fixed the lifetime of the shared pointers; this patch fixes the
-lifetime of the struct wacom objects the worker caches across
-hid_hw_stop() and wacom_parse_and_register().
+The same object is also written: wacom_feature_mapping() stores
+features->touch_max into it, four bytes at a fixed offset, with the value
+taken from a feature report. Closing one sibling's /dev/uhid descriptor is
+all it takes, with no privilege, and a reference on the hid_device would
+not help: struct wacom is devm_kzalloc() on &hdev->dev.
 
-Fix and testing
-===============
-The patch serializes mode-change workers with wacom_remove() using a
-driver-wide mutex. Removal cancels its own work before taking the mutex,
-so a worker blocked on it cannot deadlock removal. Because
-wacom_add_shared_data() registers its devres action inside the group
-wacom_parse_and_register() opens, the wacom_release_resources() call in
-wacom_remove() clears this device's shared pen or touch pointer while the
-mutex is held, and a worker that starts later cannot select it.
+Serialize mode-change workers with wacom_remove() using a driver-wide
+mutex, cancelling the device's own work first so that a worker blocked on
+the mutex cannot deadlock removal. wacom_add_shared_data() registers its
+devres action inside the group wacom_parse_and_register() opens, so
+wacom_remove() clears this device's shared pen or touch pointer under the
+mutex and no later worker can pick it up.
 
-x86_64, CONFIG_KASAN_GENERIC=y, CONFIG_PROVE_LOCKING=y,
-CONFIG_DEBUG_ATOMIC_SLEEP=y, CONFIG_DETECT_HUNG_TASK=y, one fresh
-headless QEMU guest per round:
+The worker also snapshots both shared pointers and returns on a NULL
+wacom_wac.shared, because releasing the first sibling's devres can drop
+the last reference to the shared data.
 
-                                  unpatched   patched
-    rounds                               10        10
-    KASAN use-after-free                 10         0
-    lockdep reports                       0         0
-    hung task / RCU stall                 0         0
-    WARNING / BUG / oops                  0         0
-    completed the full workload           0        10
-    wacom interfaces bound               40        60
-    input devices registered             60       150
-
-The unpatched kernel faults about 4.6 s into every round, which is why it
-binds and registers less. On the patched kernel the 150 input registrations
-against 60 bound interfaces are re-registrations, and in this workload only
-wacom_mode_change_work() re-registers, so the serialized path ran about
-ninety times under lockdep without a report. Three further boots of the
-functional path, two siblings bound and unbound with no mode-change report,
-registered both devices every time with no KASAN report, warning or oops.
-
-To make the existing window deterministic I added a one-second delay to
-wacom_set_shared_values() under has_mode_change. That is test-only
-instrumentation and is not part of the patch; with it the patched kernel
-holds the new mutex across the full teardown and rebuild, which is the
-state a lock-order problem would show up in.
-
-Cost of this lock, and what is not fixed
-========================================
-The worker holds the new driver-wide mutex across hid_hw_stop() and
-wacom_parse_and_register(), and that path issues synchronous feature
-reports: wacom_retrieve_hid_descriptor() -> wacom_parse_hid() ->
-wacom_feature_mapping() calls wacom_get_report() for HID_DG_CONTACTMAX
-and, unguarded, for each of WACOM_HID_WD_OFFSET{LEFT,TOP,RIGHT,BOTTOM}.
-On a uhid device every one of those waits up to 5 seconds in
-__uhid_report_queue_and_wait() if the client does not answer, so a uhid
-client that declares those usages and stays silent can hold the mutex for
-tens of seconds and block the unbind of unrelated wacom devices. Without
-the patch that path takes no lock, so this cross-device blocking is new.
-
-I kept the global mutex because this is the minimal shape I could verify
-for a fix going to stable, and because a lock inside wacom_shared cannot
-work here: the worker's own devres release can drop the last reference to
-that object, which is one of the windows being closed. A per sibling
-group lock with a lifetime independent of the shared data is the obvious
-narrower fix, and I am happy to follow up with it if you would rather
-have that than the global mutex.
-
-wacom_wireless_work() has the same shape as the worker fixed here: it
-takes sibling struct wacom pointers from usb_get_intfdata() with no
-reference and calls wacom_release_resources() and
-wacom_parse_and_register() on them. It is USB-only and my reproducer does
-not reach it, so I left it alone rather than extend a fix I cannot test.
-
-The patch applies to hid.git master. It does not apply to for-next:
-480c9cb14ae8 ("HID: wacom: Redesign shared sibling data lifecycle")
-rewrote the same hunks and made shared->pen and shared->touch __rcu. The
-same design works there with rcu_access_pointer() for the snapshot, and I
-can send that variant if you prefer it.
-
-Happy to send the reproducer and the serial logs off-list.
-
-Thanks,
-Jinmo
-
-Jinmo Yang (1):
-  HID: wacom: serialize mode changes with device removal
+Fixes: 4082da80f46a ("HID: wacom: generic: add mode change touch key")
+Cc: stable@vger.kernel.org
+Signed-off-by: Jinmo Yang <jinmo44.yang@gmail.com>
+---
+Applies to hid.git master (fe2ec83746e5). It does not apply to for-next;
+see the cover letter.
 
  drivers/hid/wacom_sys.c | 36 +++++++++++++++++++++++++++---------
  1 file changed, 27 insertions(+), 9 deletions(-)
 
-
-base-commit: fe2ec83746e501645709761605c2464a44fd2929
---
+diff --git a/drivers/hid/wacom_sys.c b/drivers/hid/wacom_sys.c
+index 40770affdbde..ecd7b38b1418 100644
+--- a/drivers/hid/wacom_sys.c
++++ b/drivers/hid/wacom_sys.c
+@@ -764,6 +764,7 @@ struct wacom_hdev_data {
+ 
+ static LIST_HEAD(wacom_udev_list);
+ static DEFINE_MUTEX(wacom_udev_list_lock);
++static DEFINE_MUTEX(wacom_mode_change_lock);
+ 
+ static bool wacom_are_sibling(struct hid_device *hdev,
+ 		struct hid_device *sibling)
+@@ -2783,22 +2784,32 @@ static void wacom_remote_work(struct work_struct *work)
+ static void wacom_mode_change_work(struct work_struct *work)
+ {
+ 	struct wacom *wacom = container_of(work, struct wacom, mode_change_work);
+-	struct wacom_shared *shared = wacom->wacom_wac.shared;
++	struct wacom_shared *shared;
++	struct hid_device *pen;
++	struct hid_device *touch;
+ 	struct wacom *wacom1 = NULL;
+ 	struct wacom *wacom2 = NULL;
+-	bool is_direct = wacom->wacom_wac.is_direct_mode;
++	bool is_direct;
+ 	int error = 0;
+ 
+-	if (shared->pen) {
+-		wacom1 = hid_get_drvdata(shared->pen);
++	mutex_lock(&wacom_mode_change_lock);
++	shared = wacom->wacom_wac.shared;
++	if (!shared)
++		goto out;
++	pen = shared->pen;
++	touch = shared->touch;
++	is_direct = wacom->wacom_wac.is_direct_mode;
++
++	if (pen) {
++		wacom1 = hid_get_drvdata(pen);
+ 		wacom_release_resources(wacom1);
+ 		hid_hw_stop(wacom1->hdev);
+ 		wacom1->wacom_wac.has_mode_change = true;
+ 		wacom1->wacom_wac.is_direct_mode = is_direct;
+ 	}
+ 
+-	if (shared->touch) {
+-		wacom2 = hid_get_drvdata(shared->touch);
++	if (touch) {
++		wacom2 = hid_get_drvdata(touch);
+ 		wacom_release_resources(wacom2);
+ 		hid_hw_stop(wacom2->hdev);
+ 		wacom2->wacom_wac.has_mode_change = true;
+@@ -2808,16 +2819,17 @@ static void wacom_mode_change_work(struct work_struct *work)
+ 	if (wacom1) {
+ 		error = wacom_parse_and_register(wacom1, false);
+ 		if (error)
+-			return;
++			goto out;
+ 	}
+ 
+ 	if (wacom2) {
+ 		error = wacom_parse_and_register(wacom2, false);
+ 		if (error)
+-			return;
++			goto out;
+ 	}
+ 
+-	return;
++out:
++	mutex_unlock(&wacom_mode_change_lock);
+ }
+ 
+ static int wacom_probe(struct hid_device *hdev,
+@@ -2916,6 +2928,10 @@ static void wacom_remove(struct hid_device *hdev)
+ 	cancel_work_sync(&wacom->battery_work);
+ 	cancel_work_sync(&wacom->remote_work);
+ 	cancel_work_sync(&wacom->mode_change_work);
++
++	/* A sibling's mode-change work can also access this device. */
++	mutex_lock(&wacom_mode_change_lock);
++
+ 	timer_delete_sync(&wacom->idleprox_timer);
+ 	if (hdev->bus == BUS_BLUETOOTH)
+ 		device_remove_file(&hdev->dev, &dev_attr_speed);
+@@ -2925,6 +2941,8 @@ static void wacom_remove(struct hid_device *hdev)
+ 
+ 	if (wacom->wacom_wac.features.type != REMOTE)
+ 		wacom_release_resources(wacom);
++
++	mutex_unlock(&wacom_mode_change_lock);
+ }
+ 
+ static int wacom_resume(struct hid_device *hdev)
+-- 
 2.53.0
 
