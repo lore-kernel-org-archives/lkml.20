@@ -1,38 +1,38 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7E8DC3B2D1D;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7E9FC3E558C;
 	Sun,  4 Oct 2026 03:41:13 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791085273; cv=none; b=obftim4AtOKAuYO2zAa5JGoalG2mrSNqXzhoRqNK1LwRBhtXA99ckE2igY2E1Go91xwdobAgkMMk+Mff2cpsEBbp3dQj4aSWXVvTPKvo6darkYSNieFNRO5AiMn6962+0NEf3ZBg4RfBX9u2IsRoi1pX2ys4uNKEwa69G55yv1s=
+	t=1791085273; cv=none; b=TZPANI4bTQ4KS+xzQ9XjHyOpVlcf3fCYQPSzRMD2hod1FuH9M8p7VefP0x1sqNbDTUPFHFBbM67nuALnwV6BzX5vJ02lDPcQr0RXmEF1IGokthb286gVGRdQD0BSwxFp3sWFgVbfrrAaayFp6L9FeeuU8ktK1b2HHRfnnyLiXpo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1791085273; c=relaxed/simple;
-	bh=inqAs95VIiHJ5WXVRJpphZJxiaRo1FRbN1MrR8O/Qmg=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=mRMTejIzIQfhd1Sg7uEnj3jLa0Argvs0k0Qq8dyBbjSYACS4HE+DZK0lqhjOn3acw3SxXr75g2Hot+oOKYJhHr+RT7+Yf9TBUn1xMRnBS4O9KkS8itCsmN/2eJKW0i7GSe8zHgx+YFmssuYla0wq6QqwiUcyEDaI+TlaR835DxY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=rt97WhuO; arc=none smtp.client-ip=10.30.226.201
+	bh=Bw+XAt7hgXsyMtPrXK7VbARjYiUwD53FZixV49JSgUE=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=rM9DmdBRVykwsYL9WT3HxbyA/SQKohIxL9cKXQXyZvqhT3dwUd6+PijH5v/bdoB2gSEHGJ8+zEGkwQvO/StlQAcZYRx9QjA8SEHYVZnU3HiMbnTg6kmibUSt3pZQCQ7e7tYQ3rnyKY6gL8EWQwxyR672fdphFpbEaoo8Z3j+Dl8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=f2oaNSJk; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="rt97WhuO"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 3A39DC4AF62;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="f2oaNSJk"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 0E63BC2BCB9;
 	Sun,  4 Oct 2026 03:41:13 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
 	s=k20201202; t=1791085273;
-	bh=inqAs95VIiHJ5WXVRJpphZJxiaRo1FRbN1MrR8O/Qmg=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=rt97WhuOo92jF7UFQoR/4tOLNeDMaSPLHlNmgRkeZQVVn7PhU1SjzMFGE7nXvf7rJ
-	 QZO3aOBAZducwb6ko8hpA8kd27du6tysmCYtUH13tuq8GQKRTWThX8u88q9qqKHv8E
-	 GmZP4tNC+DHTVS4jVnWnXO8yiM1XwIP4ShCjpwi6J4XesVjBkOyyizHAGGNWeyiHAJ
-	 zqpTxu7aNfkr8wwOhCyyeocK5Y3c5M4/RcP+aoJ6yOrblEOe9pZaNh+VnsU7Q5/NbB
-	 g42iTVzhI4EzqCKMjGRIEmzp198dYt0YuypNZToZSr8MvkYn/XXJqtjOszrMUYMuyy
-	 Fkobb1+cDOLHA==
+	bh=Bw+XAt7hgXsyMtPrXK7VbARjYiUwD53FZixV49JSgUE=;
+	h=From:Subject:Date:To:Cc:Reply-To:From;
+	b=f2oaNSJkzUbfBKLUkXUvQBKjB1iMD6nXU1ySoXZcU46MoS8YFz6ROR1UI27LfavGP
+	 x66tsWFmt2iyYzzLTBKhONXdNRCMCrE7IEHszuzAU8cfmJoA9cYYDVtb9JZhEhYDF7
+	 xpoxJ+5R0npzCKTlYAf67NCCftTe+qx7tTCZfwcKyK/nXXZjgTHYoiJ0rnI/NYZXkv
+	 Y37YyomwBGL2Ba6w98/X0xueL5lDMDDLWTWFKPLjCXCgam0OX2ntog81IDPo/BlFj5
+	 dzcJyZUrUOgDNsUjV2qrC4QD/t+S6qP3Bv4pKExGOEyOYZckUBCTMjz0joiy4E6yz6
+	 zh67m4unCQ4WQ==
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 26A54CA5FF1;
-	Sun,  4 Oct 2026 03:41:13 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id F035FCA5FE4;
+	Sun,  4 Oct 2026 03:41:12 +0000 (UTC)
 From: Amit Sunil Dhamne via B4 Relay <devnull+amitsd.google.com@kernel.org>
-Date: Sun, 04 Oct 2026 03:41:01 +0000
-Subject: [PATCH v2 3/3] usb: typec: tcpci_maxim: implement
- get_current_limit
+Subject: [PATCH v2 0/3] usb: typec: report a current limit for non-PD
+ Rp-def sources
+Date: Sun, 04 Oct 2026 03:40:58 +0000
+Message-Id: <20261004-max77759-icl-typec-v2-0-866caf9e7d9a@google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -40,10 +40,12 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261004-max77759-icl-typec-v2-3-866caf9e7d9a@google.com>
-References: <20261004-max77759-icl-typec-v2-0-866caf9e7d9a@google.com>
-In-Reply-To: <20261004-max77759-icl-typec-v2-0-866caf9e7d9a@google.com>
+Content-Transfer-Encoding: 8bit
+X-B4-Tracking: v=1; b=H4sIAMvKwWoC/22NwQ6DIBAFf8XsudsAjSI99T8aDxQWJVExYIjG+
+ O+lnnucSd68AxJFTwme1QGRsk8+zAXErQIz6Lkn9LYwCCYapniLk96klLVCb0Zc94UMttZ9lGs
+ fVnIBZbhEcn67ou+u8ODTGuJ+fWT+s1eOM8b/5TJHhkppq7lrakP21YfQj3Q3YYLuPM8vzBb+p
+ bUAAAA=
+X-Change-ID: 20260918-max77759-icl-typec-8dfb9f83d712
 To: Badhri Jagan Sridharan <badhri@google.com>, 
  Heikki Krogerus <heikki.krogerus@linux.intel.com>, 
  Greg Kroah-Hartman <gregkh@linuxfoundation.org>
@@ -52,11 +54,11 @@ Cc: linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org,
  RD Babiera <rdbabiera@google.com>, Kyle Tso <kyletso@google.com>, 
  Amit Sunil Dhamne <amitsd@google.com>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1791085272; l=2320;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1791085272; l=2069;
  i=amitsd@google.com; s=20241031; h=from:subject:message-id;
- bh=yMUi/gUZfH42/zMSQVOA/fWV4tfGMcFNCeY/cfMzQYo=;
- b=UGFcTCDafrY65XWH2jvhhFQPU0Lvgum1krcDP5N7we1X1s40tn2q4kqj7W8DWCZvljfx51m1v
- 9bcyBVU5xafDcWPjDUtyO6jNkBrdUe8u6uvdw9kFm3ym+oHIBzCvzDS
+ bh=Bw+XAt7hgXsyMtPrXK7VbARjYiUwD53FZixV49JSgUE=;
+ b=hLMDk5L4bX183mNfyHUFNocqiGpp45N4e1ydwnEREp/RXThhBz0iFcoW0VREHsgJzI6nr2OvC
+ biNiYYShu5GDFuSUKqQDGN0Cm7gw8SkgNJT4weNE/jQ8l4YvyOcQ13M
 X-Developer-Key: i=amitsd@google.com; a=ed25519;
  pk=wD+XZSST4dmnNZf62/lqJpLm7fiyT8iv462zmQ3H6bI=
 X-Endpoint-Received: by B4 Relay for amitsd@google.com/20241031 with
@@ -64,59 +66,49 @@ X-Endpoint-Received: by B4 Relay for amitsd@google.com/20241031 with
 X-Original-From: Amit Sunil Dhamne <amitsd@google.com>
 Reply-To: amitsd@google.com
 
-From: Amit Sunil Dhamne <amitsd@google.com>
+As per Sec. 4.6.2.1 of the Type-C cable & connector spec when the
+source advertises Rp-default, the current limit is set as per the
+USB 2.0/USB 3.2 specification, BC1.2 specification as applicable or the
+PD negotiation.
 
-Implement tcpci_data::get_current_limit for tcpci_maxim driver to report
-a value of 500 mA unconditionally. This is the max current a configured
-USB 2.0 device may draw per the USB Type-C Cable and Connector
-Specification r2.2, Sec. 4.6.2.1. This helps set a current limit and
-thus enable charging for the cases when a port is connected to a non-PD
-Type-C port partner advertising Rp-def. This is until a mechanism for
-USB core to communicate the current limit to the TCPC driver is
-implemented.
+Reset value for the Input Current Limit register for the MAX77759
+charger is 500 mA. Prior to the max77759_charger driver, the battery
+would always charge at that limit since it wasn't re-programmed. Since
+the driver was introduced, for any non-PD source advertising Rp-default,
+the charger turns off as tcpm reports the current limit to be 0. The
+max77759_charger driver reads POWER_SUPPLY_PROP_CURRENT_MAX from the
+"tcpm-source" power supply that tcpm_set_current_limit() updates, and
+programs its input current limit from it. The limit is 0 because the
+tcpm doesn't have visibility on the USB data speed or BC1.2 detection.
+As a workaround for the Rp-default case, let the Type-C stack report a
+USB 2.0 current limit of 500 mA so that the behavior is at parity with
+what was before. This is until we implement a conduit for USB core to
+communicate with the Type-C stack.
 
-Assisted-by: LLM
 Signed-off-by: Amit Sunil Dhamne <amitsd@google.com>
-Reviewed-by: Badhri Jagan Sridharan <badhri@google.com>
 ---
+Changes in v2:
+- Remove greedy initialization of `limit` variable in
+  tcpm_get_current_limit(). (André Draszik)
+- Link to v1: https://lore.kernel.org/r/20261001-max77759-icl-typec-v1-0-99ada1f65ced@google.com
+
+---
+Amit Sunil Dhamne (3):
+      usb: typec: tcpm: only call get_current_limit() for cc=Rp-def
+      usb: typec: tcpci: implement get_current_limit
+      usb: typec: tcpci_maxim: implement get_current_limit
+
+ drivers/usb/typec/tcpm/tcpci.c            | 14 ++++++++++++++
  drivers/usb/typec/tcpm/tcpci_maxim_core.c | 15 +++++++++++++++
- 1 file changed, 15 insertions(+)
+ drivers/usb/typec/tcpm/tcpm.c             |  4 +++-
+ include/linux/usb/tcpci.h                 |  6 ++++++
+ 4 files changed, 38 insertions(+), 1 deletion(-)
+---
+base-commit: 551c722f40809618230001baccf219193e22fc5a
+change-id: 20260918-max77759-icl-typec-8dfb9f83d712
 
-diff --git a/drivers/usb/typec/tcpm/tcpci_maxim_core.c b/drivers/usb/typec/tcpm/tcpci_maxim_core.c
-index 998693a61839..e6f825931ba0 100644
---- a/drivers/usb/typec/tcpm/tcpci_maxim_core.c
-+++ b/drivers/usb/typec/tcpm/tcpci_maxim_core.c
-@@ -482,6 +482,20 @@ static bool max_tcpci_attempt_vconn_swap_discovery(struct tcpci *tcpci, struct t
- 	return true;
- }
- 
-+/*
-+ * This callback is used by the TCPM to determine the current limit to set when
-+ * Rp-def is advertised on the CC pins. The actual current limit comes from
-+ * other subsystems such as the USB gadget/host stack (USB 2.0/USB 3.2) and
-+ * BC1.2. As a workaround, report the USB 2.0 current limit of 500 mA to enable
-+ * charging when the device is connected to a non-PD source advertising Rp-def.
-+ * This can be removed once a mechanism for the USB core to communicate the
-+ * current limit to this driver is implemented.
-+ */
-+static int max_tcpci_get_current_limit(struct tcpci *tcpci, struct tcpci_data *tdata)
-+{
-+	return 500;
-+}
-+
- static void max_tcpci_unregister_tcpci_port(void *tcpci)
- {
- 	tcpci_unregister_port(tcpci);
-@@ -523,6 +537,7 @@ static int max_tcpci_probe(struct i2c_client *client)
- 	chip->data.check_contaminant = max_tcpci_check_contaminant;
- 	chip->data.cable_comm_capable = true;
- 	chip->data.attempt_vconn_swap_discovery = max_tcpci_attempt_vconn_swap_discovery;
-+	chip->data.get_current_limit = max_tcpci_get_current_limit;
- 
- 	max_tcpci_init_regs(chip);
- 	chip->tcpci = tcpci_register_port(chip->dev, &chip->data);
-
+Best regards,
 -- 
-2.56.0.rc1.315.gc6ed9934b7-goog
+Amit Sunil Dhamne <amitsd@google.com>
 
 
