@@ -1,32 +1,31 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B961446DFE3;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B9C32471271;
 	Sun,  4 Oct 2026 17:46:41 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791136002; cv=none; b=TJeFMMhHxww9ZYwKEooJjJuw0/AH2qB/0Pr5+OiCM+lX5D1eyT5GbOrRwsCjiqdeqRV2EwMlNd7yhtV4ERYDrL5nrhWwJR1WPZYwMFP7jethNnlEOj3/GHv5LONBCGe/pGyghG4OsQdMyqEBDWPGXltZGrn/H3xVa5VOEteFvBc=
+	t=1791136002; cv=none; b=X+6T0ZYUz9a9eR300xDgB7600xp050BAOwWFhiI081YaFKfqWmn+9a6tl9zbhNvglZCufbxdwbgDOiIzr5QwKC1WhTn9Rb7B2jGpqS3oskQWtJwd3Uvw1FMPOf92mn90z3qHvmZAZ6WQCFajfgD45kxegWeVZPZRtrdwuNUcwUs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1791136002; c=relaxed/simple;
-	bh=v0xrrBf1xuLShqFGnK8zaunNoXZsrY9DCQw6T6lnJKU=;
+	bh=Cw/fHFl2Eir7zBbt81vKWghnrIwiWXTyrhWSuCFHLkw=;
 	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
-	 MIME-Version:Content-Type; b=qMRzeEcsd+17nPCEj0jIPJwwvMojwtyrYJ6risxj4zaCIMy+VHOHA+yP1PT10abORipLr+33WYGuyGho8jYtfWVkMcp0iWVOVSiHYRtTsNcgjxJXl5ScHTdlftmimQF2EgnDv4OV5rGKZ9UxKG+iXo8zv/ZI7N3Euj1Ligqu/1E=
+	 MIME-Version:Content-Type; b=sPwd7LE9KYf5C0ptgaPgx1HnQLj7IofsFMehC4C3cUtDZVAwn7af56qJAo7sjZ3gBM11KCwcOO1mIcKgMYzi22bINjmnASGCKJvX0Xq2S3jKWCgHs5fqaTKWKKo0zjC0HHnYqSDgvGtubZ0SLoQkIKraXEAK43VdbmooiH+M60U=
 ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1D3381F00898;
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3049F1F0089A;
 	Sun,  4 Oct 2026 17:46:41 +0000 (UTC)
 Received: by venus (Postfix, from userid 1000)
-	id D04A4180A51; Sun, 04 Oct 2026 19:46:37 +0200 (CEST)
+	id DF2F6180B26; Sun, 04 Oct 2026 19:46:37 +0200 (CEST)
 From: Sebastian Reichel <sebastian.reichel@collabora.com>
 To: Sebastian Reichel <sre@kernel.org>, 
- "Mark A. Greer" <mgreer@animalcreek.com>, 
- Anton Vorontsov <anton@enomsg.org>, Ryan Brue <ryanbrue.dev@gmail.com>
+ Maurizio Casciano <mauriziocasciano7@gmail.com>
 Cc: Hans de Goede <hansg@kernel.org>, linux-pm@vger.kernel.org, 
- linux-kernel@vger.kernel.org
-In-Reply-To: <20260928-rbrue-suez-upstreaming-bq24190_charger-no-reset-regs-sys-suspend-v1-1-9a7689f12c05@gmail.com>
-References: <20260928-rbrue-suez-upstreaming-bq24190_charger-no-reset-regs-sys-suspend-v1-1-9a7689f12c05@gmail.com>
-Subject: Re: [PATCH RESEND] power: supply: bq24190_charger: don't reset
- registers across system suspend
-Message-Id: <179113599782.190565.11023865790657472548.b4-ty@b4>
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org
+In-Reply-To: <20260924225152.985489-1-mauriziocasciano7@gmail.com>
+References: <20260924225152.985489-1-mauriziocasciano7@gmail.com>
+Subject: Re: [PATCH v2] power: supply: core: Honor supplied-from with
+ CONFIG_OF=y
+Message-Id: <179113599790.190565.10748898771262119482.b4-ty@b4>
 Date: Sun, 04 Oct 2026 19:46:37 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -39,28 +38,25 @@ Content-Transfer-Encoding: 7bit
 X-Mailer: b4 0.16.0
 
 
-On Mon, 28 Sep 2026 17:26:17 -0500, Ryan Brue wrote:
-> bq24190_pm_suspend() calls bq24190_register_reset(), which returns every
-> register to its power-on default, and bq24190_pm_resume() does it again
-> before re-applying the probe-time configuration. On any board that wires
-> the charger's interrupt this makes system suspend unusable.
+On Fri, 25 Sep 2026 00:51:52 +0200, Maurizio Casciano wrote:
+> The supplied-from device property is the name-based counterpart to
+> firmware-node power-supplies references. It was added for non-DT platforms,
+> but its parser is compiled only when CONFIG_OF is disabled. CONFIG_OF is
+> a global kernel option, so x86 systems commonly enable it even when
+> individual power supplies are described by software nodes.
 > 
-> The reset re-arms the chip's 40 s i2c watchdog. bq24190_set_config() turns
-> that watchdog off at probe, deliberately: as the comment there explains,
-> the same write also takes the part out of default mode into host mode.
-> Nothing pets it while the system is asleep, so it expires, resets the
-> registers again and pulses INT. The charger interrupt is a system wake
-> source -- armed unconditionally in probe since commit f385e6e2a153 ("power:
-> bq24190_charger: Use PM runtime autosuspend"), and still enabled by default
-> after the conversion to the wake irq API [1] -- so the pulse wakes the
-> machine.
+> Consequently, these consumers never populate supplied_from and supplier
+> notifications do not reach their external_power_changed() callbacks. On a
+> Lenovo Yoga Book YB1-X91L, ftrace showed the Whiskey Cove supplier
+> notification running without invoking the BQ25892 callback, leaving the
+> input current limit at its boot-time value.
 > 
 > [...]
 
 Applied, thanks!
 
-[1/1] power: supply: bq24190_charger: don't reset registers across system suspend
-      commit: e0844bd22a9f97885882bde3c4a441710e895240
+[1/1] power: supply: core: Honor supplied-from with CONFIG_OF=y
+      commit: 6bd80f22c764fe8c56c62c118387f86a3ca98cff
 
 Best regards,
 -- 
