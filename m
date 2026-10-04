@@ -1,227 +1,267 @@
-Received: from mail-wr2-f34.google.com (mail-wr2-f34.google.com [74.125.225.98])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E3034420463
-	for <linux-kernel@vger.kernel.org>; Sun,  4 Oct 2026 10:07:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.98
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A3CBE409272
+	for <linux-kernel@vger.kernel.org>; Sun,  4 Oct 2026 10:08:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791108483; cv=none; b=sL83l+RGAdq244vq8XvzkQUgfgKBB16EPRqfK1d1NAaJLTVGyhfwC56kiJ9QuKvy0mvolkm0p7tjY+2RrdmAQ1H4GQr6tR+UDHiWVZCjSU/sW2Gcet+6026pI/BRNJuh8ITLe71RIpmuPaAKNyphzq72W6QV597lP5Fv5u738zk=
+	t=1791108506; cv=none; b=CznFtkdd3C9N9HGbJ6lF0ON4fVP7gK37E/HKqN6HbetcDGr7VqqP/xAvSHvtSkSKT9HKurxUKFsgKJsYK7UR/MEZzO0ozeJsCJgh53to1xOwiMOWP5LQMr56O8c4uS0zL2vr03ex3IhfPx6aFWaLwJH4JYQcqx99uIXIUddN9Hk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791108483; c=relaxed/simple;
-	bh=fAQubV0KGt+mvnDqdtN32qJ6AxjvJFXfRppXX/2h2Lg=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=G2QUyQFmwpG+DbCKsxVzNMpADDb7zGrLt8BUY/xbF8FUUoCKs10hxNuRzTKuUGFkVR0INXEOfEPbqHfqLSqHAgL2G4zyb6//EyHI/goEkj/QEIZNXFzymA3BNQeq6XU8DfY0OpTV1Y0yEbHN8Lmbg0uuK86At/32/j+yrlvCgiE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ibJ7zoyc; arc=none smtp.client-ip=74.125.225.98
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1791108506; c=relaxed/simple;
+	bh=G/R6MGtCJ6DlmiEoXQTuAdjeifQTg6NvJ9XsvCp6R34=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=RIM5dF7QGvbQcBiEzOaTec//0xVblZl8q+TMx7oGeqBu0cQGqaPhPUkKHJlUDGOo2Tg29v1GRXuM9brR5nHSWGzI9VurhBfe7J0VqaBo9DypFlHWoM7rk/UmIVnsd5/sYPpJzGmPH9rK/lROk1x80YhhkAeTlaHsPq9hgKVjPCw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=T6rqwm7E; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ibJ7zoyc"
-Received: by mail-wr2-f34.google.com with SMTP id ffacd0b85a97d-48b01c4f4daso694913f8f.1
-        for <linux-kernel@vger.kernel.org>; Sun, 04 Oct 2026 03:07:57 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791108476; x=1791713276; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=cwYDZcDVJkVuXt8AODa3dug8Nr5ODjsbg15/2zj5OhE=;
-        b=ibJ7zoyc8BfVpUoDWJClQRqLKN9RqG2aIRrzfCRNyyYkb7+S6TDvCMT02pYNxc/BV2
-         n6cFPhnmZq5MZ93EvOLeiTEvzBHCPSUwxei3SZh5ARqS0JE9BD6KjRyBKPVqVjhgsTea
-         +UjBEB5ZleETVOW56ZqQFVl/qV2sdqr5CIKWklD8t9+VSOAU9XnTX9FpgnBXSOT2fS8w
-         RyJvE6uV4Dw2ZOcHHH165y3tbKy59hD0v7YXSCGh3AJH950bKh4SqIrKggd7e7FSI4/Y
-         Mo1ZOR0k4bHrOSKtGh3HAMaODG7KedMxV8cMMzTEMY9X4JRigxL2csMyxnFVXA2A6pI6
-         dEyQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791108476; x=1791713276;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=cwYDZcDVJkVuXt8AODa3dug8Nr5ODjsbg15/2zj5OhE=;
-        b=ozzAtwihlulbl0uLrNUyrfKKqowUkBdbKlyXL4bPsLjB9AH/foj0x2cOo0YPq8v+Ws
-         xrRBHjoi4LosBg7pC9Yw6YwxhBtGvQniZ/+UZkL0CSiiUH/USMCjeweU1ogudKkf7d/L
-         MpnkmWDh29twtub2n8kOm4QQ/Vx5/dVD+3Q0KmnjyvkBjxFEHbS5jgpN+rwirUflHZu/
-         Dh+s5T17oBQP6R6Phs1362gMDQ7ndKfw3aDqFMkIxqBTcY48g+2JvuEi0C18S8sdTbSM
-         koaj0ls6xsObgymqxhb5paKRhfOCswoegAON0Z6QpvgL20BrxSiilAdNeJICibbKBS8N
-         3Cnw==
-X-Forwarded-Encrypted: i=1; AKwUvBxyg2Qp4MyRBORYmNEZhkCmf3avSpy1/14t9p4xPMR9CatE51RKZJBh+zxPgS3F0OwqzvitHDFcRRXuAOQ=@vger.kernel.org
-X-Gm-Message-State: AFq9FYK+S7+iSz7u/wDaPxILiZE/sV1W4QEtLXnu/QqaMauqgueZZzXJ
-	+mBLnaCPqyhXIb116G0GRL2os75br8+kdMgFBRHYJ8/ls1nS5pmnhzJ4oy7ISOoN
-X-Gm-Gg: AYBFou0zDxiVwQmM0u6bIZ8Q2T9Gf9VGhMsDOgq+jvaBVg7R3grbSQoTMBV4TC9akCi
-	LL31PoZh7uIacTm+5lzTl1JXwwDwLEP0elgd2sQyH1pPZ1udY9/AULex66hqn8DiXuiWKP0jc0Q
-	dlZa2NdAkVQCsZZrlKPSGPfBtKW1A9ELbohMuB8eRaS/pfAAoR8Pv/PgduqPrDzkJW56qbIxYyX
-	7Q9VoRdzLJLLU3HAViJHv074OwlN1xDkyc7dxgrszxZuHX2L9FXFQm4xDgWdgGFJhWbQEmrFlfX
-	CMmdc4tKRgtuWVwHjq8gSi8dA7LU0PjBtcGlVuJchUWM0XmOUfwDjJPWE7k83UKPArk69/TcIQD
-	yvr2IQrA3FG6hp/krE8sjIw9/hIINUrk3jTvcYwR9Bmqk2I4lc0WUh40daCHnNrikBpPOjSKyCp
-	oNdbALCYWpLqFEtBLGLu8z90RqYdh6S+YZCMIPe3edDWTZbPFlz6hKJKoSz0R8Ocf1MiLn6TG/3
-	YbTC8IMk7yPjduRoNIw4M5wx5n6hYbIHvTWeXbCAsw3nchgxxNcq3bhqdUPWqItQ4o3HUvRHyXi
-	NGXAjiLBJ/jYgAg8MHlG8fjsSdyAppbd2yXWcybDPxOaoeOIUzx64gB4Lnh74a9G6s0BIw46JC5
-	lBl8wEpxkhYsJ2D1qYvdXF06eKhLrYvAy
-X-Received: by 2002:a05:6000:2909:b0:48a:fc9a:3765 with SMTP id ffacd0b85a97d-48b1273e480mr13971030f8f.46.1791108476108;
-        Sun, 04 Oct 2026 03:07:56 -0700 (PDT)
-Received: from localhost.localdomain (dynamic-2a00-1028-c000-0ddf-b17d-de75-1ac4-0a1a.ipv6.o2.cz. [2a00:1028:c000:ddf:b17d:de75:1ac4:a1a])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48b38104602sm18136032f8f.26.2026.10.04.03.07.55
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Sun, 04 Oct 2026 03:07:55 -0700 (PDT)
-From: Josef Schlehofer <pepe.schlehofer@gmail.com>
-To: Mauro Carvalho Chehab <mchehab@kernel.org>
-Cc: linux-media@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Hyunwoo Kim <imv4bel@gmail.com>,
-	Hans Verkuil <hverkuil@kernel.org>,
-	stable@vger.kernel.org
-Subject: [PATCH v2 5/6] media: dvb-core: dmxdev: wake up readers on release
-Date: Sun,  4 Oct 2026 12:07:40 +0200
-Message-ID: <20261004100741.71711-6-pepe.schlehofer@gmail.com>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20261004100741.71711-1-pepe.schlehofer@gmail.com>
-References: <20261004100741.71711-1-pepe.schlehofer@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="T6rqwm7E"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4A1841F00898
+	for <linux-kernel@vger.kernel.org>; Sun,  4 Oct 2026 10:08:24 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791108504;
+	bh=vKoduvLX5z/YUM9feDBQJrglxz3zcKCNGZ5PZ6GJP60=;
+	h=References:In-Reply-To:Reply-To:From:Date:Subject:To:Cc;
+	b=T6rqwm7ESExS4MLIjLN0ngQpbcP+Y8CYI1EnkaCqr8ErbtEBknpYeBYC86m0tNRSl
+	 bnnGYRh2FWcvXBp4/NizZazdkSA5oEUHpOMVROyceCzZq9P/fjBWbXXNQiD2ui0x/w
+	 D6BLvGhBWlt6q8IGD6cmXV1J5CUIw3zWzcqvLQqg/BbbUyJecVlDGwqk48O27rHbAQ
+	 dyr7hRA6pY11WSrPiFg78UVsANR3d6foPtGTlvLQGyKaRqtlyE3S3xl4V8hxpMBLp2
+	 sToAdI52r3tNOCKZ0zwcV8rQROWHVnLblLigxrqgy9V0G1eqB1q0R9aRtWgrdpw4hZ
+	 dBWHmExJI4QLA==
+Received: by mail-lr2-f42.google.com with SMTP id 38308e7fff4ca-3a87e1f5c81so8156611fa.2
+        for <linux-kernel@vger.kernel.org>; Sun, 04 Oct 2026 03:08:24 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBx0k77eqtDD3QHC+uLOcJBPDEqCnFE66u18+lQNy2CptrMqKCu+2kyWbEnfPY0EG9JDsq7zpTlJyAED6jY=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLd0P8Tke8DFeWP80RlvRT4S7FPzhgeOhNZ6qTgIeX/vFwVSDte
+	r1dNS1uDuJFbRQ3A6YwVjW0tPNBNn9eytdxT4DghOLV1W+ihXXTEeyhnkapiMbPbQOMKXijRoVj
+	BRQkXeiAau5liJB9QJTwhySiDr4qTteM=
+X-Received: by 2002:a05:651c:150e:b0:3a7:8372:61b7 with SMTP id
+ 38308e7fff4ca-3a8877e6611mr23833891fa.25.1791108502268; Sun, 04 Oct 2026
+ 03:08:22 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20260930-a733-clk-v5-0-11175b41cd2d@pigmoral.tech> <20260930-a733-clk-v5-4-11175b41cd2d@pigmoral.tech>
+In-Reply-To: <20260930-a733-clk-v5-4-11175b41cd2d@pigmoral.tech>
+Reply-To: wens@kernel.org
+From: Chen-Yu Tsai <wens@kernel.org>
+Date: Sun, 4 Oct 2026 12:08:09 +0200
+X-Gmail-Original-Message-ID: <CAGb2v67hYTAMBDXOO7WUqyJCJT-iQcv5HPF_AWd=bi9g92cZgg@mail.gmail.com>
+X-Gm-Features: AclHuK_3WsWtq45ADBjf91lBHr1AAi5tH_px4YPNZFZZ2l_iDRXd9C8l96EONSU
+Message-ID: <CAGb2v67hYTAMBDXOO7WUqyJCJT-iQcv5HPF_AWd=bi9g92cZgg@mail.gmail.com>
+Subject: Re: [PATCH v5 4/8] clk: sunxi-ng: a733: Add PLL clocks support
+To: Junhui Liu <junhui.liu@pigmoral.tech>
+Cc: Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>, 
+	Jerome Brunet <jbrunet+clk@baylibre.com>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Jernej Skrabec <jernej.skrabec@gmail.com>, Samuel Holland <samuel@sholland.org>, 
+	Philipp Zabel <p.zabel@pengutronix.de>, Paul Walmsley <pjw@kernel.org>, 
+	Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, 
+	Alexandre Ghiti <alex@ghiti.fr>, Richard Cochran <richardcochran@gmail.com>, linux-clk@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+	linux-sunxi@lists.linux.dev, linux-kernel@vger.kernel.org, 
+	linux-riscv@lists.infradead.org, netdev@vger.kernel.org, 
+	Jerome Brunet <jbrunet@baylibre.com>, Enzo Adriano <enzo.adriano.code@gmail.com>, 
+	Andre Przywara <andre.przywara@arm.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-dvb_dmxdev_release() sets dmxdev->exit and waits for open demux and DVR
-files to close, but readers blocked in dvb_dmxdev_buffer_read() wait
-only for data or buffer->error. Setting exit therefore does not wake a
-blocked read or epoll wait. The release, for example on a USB
-disconnect, then waits forever.
+On Tue, Sep 29, 2026 at 7:28=E2=80=AFPM Junhui Liu <junhui.liu@pigmoral.tec=
+h> wrote:
+>
+> Add PLL clock support for the main CCU of the Allwinner A733 SoC. The
+> structure is mostly similar to the sun55i, with the addition of a
+> PLL_REF clock that normalizes the hardware-detected DCXO/hosc frequency
+> (19.2MHz, 24MHz, or 26MHz) into a consistent 24MHz reference for all
+> subsequent PLLs.
+>
+> Model the independently gated outputs of the peripheral, video, and DE
+> PLLs as programmable-divider child clocks, with each output gate modeled
+> separately. Follow the documented hierarchy for the derived peripheral
+> PLL outputs.
+>
+> PLL_AUDIO0 uses SDM parameters from the vendor driver to provide a
+> 22.5792MHz * 4 output. PLL_AUDIO1 provides fixed /2 and /5 outputs and
+> does not expose fractional rates, but its SDM controls are modeled so
+> that stale firmware settings can be disabled when an integer rate is
+> programmed.
+>
+> Tested-by: Jerome Brunet <jbrunet@baylibre.com>
+> Signed-off-by: Junhui Liu <junhui.liu@pigmoral.tech>
+> ---
+>  drivers/clk/sunxi-ng/Kconfig           |   5 +
+>  drivers/clk/sunxi-ng/Makefile          |   2 +
+>  drivers/clk/sunxi-ng/ccu-sun60i-a733.c | 582 +++++++++++++++++++++++++++=
+++++++
+>  3 files changed, 589 insertions(+)
+>
+> diff --git a/drivers/clk/sunxi-ng/Kconfig b/drivers/clk/sunxi-ng/Kconfig
+> index 202e793dc754..cffa83056934 100644
+> --- a/drivers/clk/sunxi-ng/Kconfig
+> +++ b/drivers/clk/sunxi-ng/Kconfig
+> @@ -67,6 +67,11 @@ config SUN55I_A523_R_CCU
+>         default ARCH_SUNXI
+>         depends on ARM64 || COMPILE_TEST
+>
+> +config SUN60I_A733_CCU
+> +       tristate "Support for the Allwinner A733 CCU"
+> +       default ARCH_SUNXI
+> +       depends on ARM64 || COMPILE_TEST
+> +
+>  config SUN60I_A733_R_CCU
+>         tristate "Support for the Allwinner A733 PRCM CCU"
+>         default ARCH_SUNXI
+> diff --git a/drivers/clk/sunxi-ng/Makefile b/drivers/clk/sunxi-ng/Makefil=
+e
+> index d3702bdb7a23..3a39eb9287da 100644
+> --- a/drivers/clk/sunxi-ng/Makefile
+> +++ b/drivers/clk/sunxi-ng/Makefile
+> @@ -36,6 +36,7 @@ obj-$(CONFIG_SUN50I_H616_CCU) +=3D sun50i-h616-ccu.o
+>  obj-$(CONFIG_SUN55I_A523_CCU)  +=3D sun55i-a523-ccu.o
+>  obj-$(CONFIG_SUN55I_A523_MCU_CCU)      +=3D sun55i-a523-mcu-ccu.o
+>  obj-$(CONFIG_SUN55I_A523_R_CCU)        +=3D sun55i-a523-r-ccu.o
+> +obj-$(CONFIG_SUN60I_A733_CCU)  +=3D sun60i-a733-ccu.o
+>  obj-$(CONFIG_SUN60I_A733_R_CCU)        +=3D sun60i-a733-r-ccu.o
+>  obj-$(CONFIG_SUN4I_A10_CCU)    +=3D sun4i-a10-ccu.o
+>  obj-$(CONFIG_SUN5I_CCU)                +=3D sun5i-ccu.o
+> @@ -65,6 +66,7 @@ sun50i-h616-ccu-y             +=3D ccu-sun50i-h616.o
+>  sun55i-a523-ccu-y              +=3D ccu-sun55i-a523.o
+>  sun55i-a523-mcu-ccu-y          +=3D ccu-sun55i-a523-mcu.o
+>  sun55i-a523-r-ccu-y            +=3D ccu-sun55i-a523-r.o
+> +sun60i-a733-ccu-y              +=3D ccu-sun60i-a733.o
+>  sun60i-a733-r-ccu-y            +=3D ccu-sun60i-a733-r.o
+>  sun4i-a10-ccu-y                        +=3D ccu-sun4i-a10.o
+>  sun5i-ccu-y                    +=3D ccu-sun5i.o
+> diff --git a/drivers/clk/sunxi-ng/ccu-sun60i-a733.c b/drivers/clk/sunxi-n=
+g/ccu-sun60i-a733.c
+> new file mode 100644
+> index 000000000000..430a535919c6
+> --- /dev/null
+> +++ b/drivers/clk/sunxi-ng/ccu-sun60i-a733.c
+> @@ -0,0 +1,582 @@
 
-Wake the DVR and open filter wait queues on release, and make
-dvb_dmxdev_buffer_read() also wait for exit and return -ENODEV once it
-is set. Also return -ENODEV from dvb_demux_read() once exit is set, as
-dvb_dvr_read() already does.
+[...]
 
-Check exit instead of storing -ENODEV in buffer->error. The buffer error
-is cleared by the reader that reports it, and the section timeout and
-ioctls such as DMX_STOP can overwrite or clear it. A second reader of
-the same file could then miss the release and keep it waiting.
+> +#define SUN60I_A733_PLL_VIDEO0_REG     0x120
+> +static struct ccu_nm pll_video0_clk =3D {
+> +       .lock           =3D BIT(28),
+> +       .n              =3D _SUNXI_CCU_MULT_MIN(8, 8, 11),
+> +       .m              =3D _SUNXI_CCU_DIV(1, 1), /* input divider */
+> +       .common         =3D {
+> +               .reg            =3D SUN60I_A733_PLL_VIDEO0_REG,
+> +               .hw.init        =3D CLK_HW_INIT_PARENTS_HW("pll-video0", =
+pll_ref_hws,
+> +                                                        &ccu_nm_ops,
+> +                                                        CLK_SET_RATE_GAT=
+E),
+> +       },
+> +};
+> +
+> +static const struct clk_hw *pll_video0_hws[] =3D {
+> +       &pll_video0_clk.common.hw
+> +};
+> +static SUNXI_CCU_M_HWS_WITH_GATE(pll_video0_4x_clk, "pll-video0-4x",
+> +                                pll_video0_hws, SUN60I_A733_PLL_VIDEO0_R=
+EG,
+> +                                20, 3, BIT(27), 0);
+> +static SUNXI_CCU_M_HWS_WITH_GATE(pll_video0_3x_clk, "pll-video0-3x",
+> +                                pll_video0_hws, SUN60I_A733_PLL_VIDEO0_R=
+EG,
+> +                                16, 3, BIT(26), 0);
 
-Blocking DMX_DQBUF waiters are not covered.
+You probably want CLK_SET_RATE_PARENT on these child clks, otherwise their
+consumers can't properly set any rate they need?
 
-Fixes: 57861b432bda ("V4L/DVB (5511): Fix 2/3 for bug 7819: demux and dvr")
-Cc: stable@vger.kernel.org
-Signed-off-by: Josef Schlehofer <pepe.schlehofer@gmail.com>
----
-v2: check dmxdev->exit in the readers instead of storing -ENODEV in the
-buffer error. A reader could clear an -ENODEV set concurrently by the
-release, as reported by Sashiko [1]. The section timeout and ioctls
-such as DMX_STOP could also overwrite or clear it.
+> +
+> +#define SUN60I_A733_PLL_VIDEO1_REG     0x140
+> +static struct ccu_nm pll_video1_clk =3D {
+> +       .lock           =3D BIT(28),
+> +       .n              =3D _SUNXI_CCU_MULT_MIN(8, 8, 11),
+> +       .m              =3D _SUNXI_CCU_DIV(1, 1), /* input divider */
+> +       .common         =3D {
+> +               .reg            =3D SUN60I_A733_PLL_VIDEO1_REG,
+> +               .hw.init        =3D CLK_HW_INIT_PARENTS_HW("pll-video1", =
+pll_ref_hws,
+> +                                                        &ccu_nm_ops,
+> +                                                        CLK_SET_RATE_GAT=
+E),
+> +       },
+> +};
+> +
+> +static const struct clk_hw *pll_video1_hws[] =3D {
+> +       &pll_video1_clk.common.hw
+> +};
+> +static SUNXI_CCU_M_HWS_WITH_GATE(pll_video1_4x_clk, "pll-video1-4x",
+> +                                pll_video1_hws, SUN60I_A733_PLL_VIDEO1_R=
+EG,
+> +                                20, 3, BIT(27), 0);
+> +static SUNXI_CCU_M_HWS_WITH_GATE(pll_video1_3x_clk, "pll-video1-3x",
+> +                                pll_video1_hws, SUN60I_A733_PLL_VIDEO1_R=
+EG,
+> +                                16, 3, BIT(26), 0);
 
-Pre-existing cases remain where the release waits for users that are
-not woken up, such as a blocking DMX_DQBUF, or an ioctl that waits for
-the filter mutex of a blocked read() while holding dmxdev->mutex. The
-unlocked users check in dvb_dmxdev_release() also still races with a
-concurrent close(), and waking the readers makes that race easier to
-hit.
+Same for these two.
 
-v1: https://lore.kernel.org/r/20260923001410.30297-6-pepe.schlehofer@gmail.com
-[1] https://linuxtv.org/mailman3/hyperkitty/list/media-ci@linuxtv.org/message/N3XJE5MO4HP2LJYOKFHIRB564HATZCTI/
+> +
+> +#define SUN60I_A733_PLL_VIDEO2_REG     0x160
+> +static struct ccu_nm pll_video2_clk =3D {
+> +       .lock           =3D BIT(28),
+> +       .n              =3D _SUNXI_CCU_MULT_MIN(8, 8, 11),
+> +       .m              =3D _SUNXI_CCU_DIV(1, 1), /* input divider */
+> +       .common         =3D {
+> +               .reg            =3D SUN60I_A733_PLL_VIDEO2_REG,
+> +               .hw.init        =3D CLK_HW_INIT_PARENTS_HW("pll-video2", =
+pll_ref_hws,
+> +                                                        &ccu_nm_ops,
+> +                                                        CLK_SET_RATE_GAT=
+E),
+> +       },
+> +};
+> +
+> +static const struct clk_hw *pll_video2_hws[] =3D {
+> +       &pll_video2_clk.common.hw
+> +};
+> +static SUNXI_CCU_M_HWS_WITH_GATE(pll_video2_4x_clk, "pll-video2-4x",
+> +                                pll_video2_hws, SUN60I_A733_PLL_VIDEO2_R=
+EG,
+> +                                20, 3, BIT(27), 0);
+> +static SUNXI_CCU_M_HWS_WITH_GATE(pll_video2_3x_clk, "pll-video2-3x",
+> +                                pll_video2_hws, SUN60I_A733_PLL_VIDEO2_R=
+EG,
+> +                                16, 3, BIT(26), 0);
 
- drivers/media/dvb-core/dmxdev.c | 36 +++++++++++++++++++++++++++------
- 1 file changed, 30 insertions(+), 6 deletions(-)
+And these two.
 
-diff --git a/drivers/media/dvb-core/dmxdev.c b/drivers/media/dvb-core/dmxdev.c
-index 6a825d9bae43..8a744a96bc08 100644
---- a/drivers/media/dvb-core/dmxdev.c
-+++ b/drivers/media/dvb-core/dmxdev.c
-@@ -50,7 +50,8 @@ static int dvb_dmxdev_buffer_write(struct dvb_ringbuffer *buf,
- 	return dvb_ringbuffer_write(buf, src, len);
- }
- 
--static ssize_t dvb_dmxdev_buffer_read(struct dvb_ringbuffer *src,
-+static ssize_t dvb_dmxdev_buffer_read(struct dmxdev *dmxdev,
-+				      struct dvb_ringbuffer *src,
- 				      int non_blocking, char __user *buf,
- 				      size_t count, loff_t *ppos)
- {
-@@ -75,10 +76,16 @@ static ssize_t dvb_dmxdev_buffer_read(struct dvb_ringbuffer *src,
- 
- 		ret = wait_event_interruptible(src->queue,
- 					       !dvb_ringbuffer_empty(src) ||
--					       (src->error != 0));
-+					       (src->error != 0) ||
-+					       dmxdev->exit);
- 		if (ret < 0)
- 			break;
- 
-+		if (dmxdev->exit) {
-+			ret = -ENODEV;
-+			break;
-+		}
-+
- 		if (src->error) {
- 			ret = src->error;
- 			dvb_ringbuffer_flush(src);
-@@ -274,7 +281,7 @@ static ssize_t dvb_dvr_read(struct file *file, char __user *buf, size_t count,
- 	if (dmxdev->exit)
- 		return -ENODEV;
- 
--	return dvb_dmxdev_buffer_read(&dmxdev->dvr_buffer,
-+	return dvb_dmxdev_buffer_read(dmxdev, &dmxdev->dvr_buffer,
- 				      file->f_flags & O_NONBLOCK,
- 				      buf, count, ppos);
- }
-@@ -998,7 +1005,7 @@ static ssize_t dvb_dmxdev_read_sec(struct dmxdev_filter *dfil,
- 		hcount = 3 + dfil->todo;
- 		if (hcount > count)
- 			hcount = count;
--		result = dvb_dmxdev_buffer_read(&dfil->buffer,
-+		result = dvb_dmxdev_buffer_read(dfil->dev, &dfil->buffer,
- 						file->f_flags & O_NONBLOCK,
- 						buf, hcount, ppos);
- 		if (result < 0) {
-@@ -1019,7 +1026,7 @@ static ssize_t dvb_dmxdev_read_sec(struct dmxdev_filter *dfil,
- 	}
- 	if (count > dfil->todo)
- 		count = dfil->todo;
--	result = dvb_dmxdev_buffer_read(&dfil->buffer,
-+	result = dvb_dmxdev_buffer_read(dfil->dev, &dfil->buffer,
- 					file->f_flags & O_NONBLOCK,
- 					buf, count, ppos);
- 	if (result < 0)
-@@ -1035,13 +1042,17 @@ dvb_demux_read(struct file *file, char __user *buf, size_t count,
- 	struct dmxdev_filter *dmxdevfilter = file->private_data;
- 	int ret;
- 
-+	if (dmxdevfilter->dev->exit)
-+		return -ENODEV;
-+
- 	if (mutex_lock_interruptible(&dmxdevfilter->mutex))
- 		return -ERESTARTSYS;
- 
- 	if (dmxdevfilter->type == DMXDEV_TYPE_SEC)
- 		ret = dvb_dmxdev_read_sec(dmxdevfilter, file, buf, count, ppos);
- 	else
--		ret = dvb_dmxdev_buffer_read(&dmxdevfilter->buffer,
-+		ret = dvb_dmxdev_buffer_read(dmxdevfilter->dev,
-+					     &dmxdevfilter->buffer,
- 					     file->f_flags & O_NONBLOCK,
- 					     buf, count, ppos);
- 
-@@ -1457,8 +1468,21 @@ EXPORT_SYMBOL(dvb_dmxdev_init);
- 
- void dvb_dmxdev_release(struct dmxdev *dmxdev)
- {
-+	int i;
-+
- 	mutex_lock(&dmxdev->mutex);
- 	dmxdev->exit = 1;
-+
-+	/*
-+	 * Wake up everyone blocked in read() or poll() on the demux and dvr
-+	 * devices, so that they get -ENODEV or EPOLLERR, close their file
-+	 * handles and let the waits below finish.
-+	 */
-+	wake_up_all(&dmxdev->dvr_buffer.queue);
-+	for (i = 0; i < dmxdev->filternum; i++) {
-+		if (dmxdev->filter[i].state >= DMXDEV_STATE_ALLOCATED)
-+			wake_up_all(&dmxdev->filter[i].buffer.queue);
-+	}
- 	mutex_unlock(&dmxdev->mutex);
- 
- 	if (dmxdev->dvbdev->users > 1) {
--- 
-2.54.0 (Apple Git-157)
+[...]
 
+> +#define SUN60I_A733_PLL_DE_REG         0x2e0
+> +static struct ccu_nm pll_de_clk =3D {
+> +       .lock           =3D BIT(28),
+> +       .n              =3D _SUNXI_CCU_MULT_MIN(8, 8, 11),
+> +       .m              =3D _SUNXI_CCU_DIV(1, 1), /* input divider */
+> +       .common         =3D {
+> +               .reg            =3D SUN60I_A733_PLL_DE_REG,
+> +               .hw.init        =3D CLK_HW_INIT_PARENTS_HW("pll-de", pll_=
+ref_hws,
+> +                                                        &ccu_nm_ops,
+> +                                                        CLK_SET_RATE_GAT=
+E),
+> +       },
+> +};
+> +
+> +static const struct clk_hw *pll_de_hws[] =3D {
+> +       &pll_de_clk.common.hw
+> +};
+> +static SUNXI_CCU_M_HWS_WITH_GATE(pll_de_4x_clk, "pll-de-4x", pll_de_hws,
+> +                                SUN60I_A733_PLL_DE_REG,
+> +                                20, 3, BIT(27), 0);
+> +static SUNXI_CCU_M_HWS_WITH_GATE(pll_de_3x_clk, "pll-de-3x", pll_de_hws,
+> +                                SUN60I_A733_PLL_DE_REG,
+> +                                16, 3, BIT(26), 0);
+
+Same here. Do you need CLK_SET_RATE_PARENT?
+
+The rest looks fine.
+
+
+ChenYu
