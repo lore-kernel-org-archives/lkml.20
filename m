@@ -1,74 +1,79 @@
-Received: from mail-wr1-f49.google.com (mail-wr1-f49.google.com [209.85.221.49])
+Received: from mail-wr2-f33.google.com (mail-wr2-f33.google.com [74.125.225.97])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8AC2834E745
-	for <linux-kernel@vger.kernel.org>; Sun,  4 Oct 2026 10:07:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.49
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C8572417BD2
+	for <linux-kernel@vger.kernel.org>; Sun,  4 Oct 2026 10:07:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.97
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791108471; cv=none; b=AOmh+bxZ5XUHtHFc/BHjdrj32cvSDK3wSyihY6dDgrdYmzjnnWZ28Z0PwfrKGVlpkiWxX8jzdgAxNsCWsjMbUzVsLDyiLgxmF5dIpwtOpmYaiqjiw5LkAw6h766ryqjPDs83vnd23NRUauyG9jtme2EqhS9NZfZMo51XlKYuzhs=
+	t=1791108473; cv=none; b=ZejN5F5chX3SiNknKhXtMwnJ8OT+b+oX3gfDoSCzYGrI+5AP89oq5uFEP8x1fMBQcRakoNsfSKjj6tbZTKEow1UeZegxk5wNU+KtiPvuD8l00sKDz9vXikJjNQcCtvlokgcUsH7MbiskysKsKomwgi/xHQ6ziwz1BBDqKbpVmd4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791108471; c=relaxed/simple;
-	bh=xXuanE7lp9XD4BpJXSob7wWy4xTXql2KIAnl3qBm8qk=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=l/F49uL1lQf8b5rLq4J8wluoctpOtdI1XFZHqbvEBiO6FJoJqB+L3orxK5JsQY1f6/jXOSjcgDdgtTTpYYQoDe0XBNLL9jWMlipXaSav/STWGRbIIPwsbmWAQpsjq2R+x4uP2E9fVh3MBGUZ4eBCCRckr9zfyVxdrULksI1yvww=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=HXEiZV0e; arc=none smtp.client-ip=209.85.221.49
+	s=arc-20240116; t=1791108473; c=relaxed/simple;
+	bh=V8p7f+anGnSoL+KBB359kqfJ1ldhGnObhu2HYkCbO4o=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=gdux6zwZQLCuaASwJtA943HJAMmLGz1XOyhFSykbNf6HXDCXkNGRXXBbW4cGb867xp3rbtRZIZSyJUgWks1Qw3fAZenxqiQnZRuOFs7ZmtKVC5NsdLpF5I4K2AuqECNNO7SYi8ZEpPVxU3gvN1277hc/72ZDregk+msmKQnHXw8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=SpPkL3Qp; arc=none smtp.client-ip=74.125.225.97
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="HXEiZV0e"
-Received: by mail-wr1-f49.google.com with SMTP id ffacd0b85a97d-48afcfc4bf5so639153f8f.1
-        for <linux-kernel@vger.kernel.org>; Sun, 04 Oct 2026 03:07:49 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="SpPkL3Qp"
+Received: by mail-wr2-f33.google.com with SMTP id ffacd0b85a97d-48b9d8056d2so415127f8f.1
+        for <linux-kernel@vger.kernel.org>; Sun, 04 Oct 2026 03:07:51 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791108468; x=1791713268; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=EqbfiYnP7AfNZMrv7JgN82WipdvB2+1MApLa/afvy9c=;
-        b=HXEiZV0ecN8YTt6uBQYOTslITkZJnVbrILycmSzMiHwraOTjfF5vzPWK+29eSi+nB2
-         fBgpT4uNmNccbM6wdolxHAbvtBKhN2maTEj7/xXBGMk80kwFVJ296SXq/hC9owtFKXSF
-         ovaRSGTf2uoxQy7OfutPbg4CLlN4cgq9arM1u08HCUSFXHn59oEL+JrAM8gdhxqLt3rU
-         JBR/jLpoo9IxKWslwHdWlcyA9kaEe6Tz+mgIk2ZENFxC6CpkQzMS3ClVCkONedaKBStX
-         adk7urHkimC7p6oWE4MhOlD5gR8nmApOrUpzlO0D+hlkNTFPtGeJUnBBGn77oARFhMI9
-         //jg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791108468; x=1791713268;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20251104; t=1791108470; x=1791713270; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=EqbfiYnP7AfNZMrv7JgN82WipdvB2+1MApLa/afvy9c=;
-        b=TVbFMacM0iQDCYpqBtVp385xi+GDAul4V/1usfD7e0yQlHZ2ntiQ2lpZdFczv9lpzD
-         shh4xsAQOIcQJnHzJCnWaFeY0GDHLu8P7GlwILAG1o7TPmETPAyMMdhkLInQM6b4Wgvc
-         P/AFN35I6A/gtbaZyQSA2NoJOI1luhrkFyjIGOlLcQ6ujzWns59vogxzP6D4WOJ6qYub
-         DHnpnJtSC4PenSXznX/aFI8fHKSpmvR2hhtcyni8ZVvdtzK73Mcr6TspXzQE79qyQkbu
-         U9rpTFfHuvKaNuIshXebqD8EqvsXJOnyxW9pDGLirWSRxz6NbU6tTKYbWhUEYJByf16X
-         HwhQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxXT6GZnM6QKJQyHRC7/SFBFvbAj0TdYOgDZe1x38Ta5JExcdtDVraLGM7Wyeh/BsfAVQ4C7XntXT33a8A=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJs83ZoIoeE/UjQ086+lfdZEf+ifalmtNSVyaeM1okUdWqHCxQB
-	XZc3L0ugSxZvdHhGVu39hYwgwZC90Er5pfS7T39GfSwcEsD6uu8nyUpl
-X-Gm-Gg: AYBFou3ff4oXT4bMRaTnrEF/pwV1mk0hcJXAD7iPHufoOCC6HhfAk9gN/VgY4Vag8dU
-	XnpVOp6+mHhDQ3dFU5S53n5z7HikI2i2jd4mQ6J+ha1FGVsrvCkNVsFUbVjbzaLANkFxnqbjQTG
-	3LkZbWE851lMs1VByaDrTLeaYQbrfwIk7HWwpmoH4queS8LrV6M1qAbeXI0TNWA+WPe/MLfPSa+
-	kk/Kj+94UdVVo0UTGtB6fMjjYDztPGhFBIRmmvu8vBduCJ4UxG4TTKtW/sySxmYx21GDMDnL+BR
-	XRwWvF/svyyvHYw8A2CM2XK3sy2LpQJabHNhWQyeuCIsso8oyNRvEjL7dPe1bBjXGm/fPPkXYPv
-	babc4s3zeD7aAygdDGyRatRPdsmexfCAyHL2jJWof6O7a7TvU0em9LPjiRAFK/elrGDCxFE8EBP
-	JBAmgMtbp6f23NMIQbVskkhKgvEbSo0yFmabCsNkyJjgPq+n6S8mgKFopTSWQdx1DZ5j/h+WzIp
-	PLztWp4HuYbcvD8wxFq3tSvTDkwlyYr9fLnbzyH8f/2BBev+f488k2Pf20szkv0W+ugOCNAVSaH
-	RjD/hjmMf97g9w2KuuPOXEXMFqGEXNcUa5lwqYiZAOCabsOD4UBtb0bmr9MA6Ftv6gCEpqgda/i
-	4yTEBC2psHyi76uXjye2ImxRgMlfXCMwJ
-X-Received: by 2002:a5d:5848:0:b0:487:169f:d341 with SMTP id ffacd0b85a97d-48c47fc6044mr8779813f8f.12.1791108467504;
-        Sun, 04 Oct 2026 03:07:47 -0700 (PDT)
+        bh=yr4Xk59A6nBEe9AXu0gZsAXZVCEOldu1UBAKss+kKik=;
+        b=SpPkL3Qprtmbmc4Y8rw7hbFhv2TP8pNJxHxSGjVB96GKlOKRzzW4da+H/fvEGJvzvX
+         5pPv8lImD/oRoQ2vsZRjPxm23C1zuOAv42N1zStE3rSKOx214agHIPgTyTTsrbXL1ckg
+         9IPdx0zJSy92FuKGVeS9rQpCCheGNZ77if9KXZxzskJe7mZwMzvBglPuGcOzrbDT/mrH
+         Zk3PYJp9uAgYuT519Akj4DXRYhGToDhsbtOQukmdUZTIUmccLl0k2rODJ+5CnbGS9S2z
+         M+f1ig/9JZP/gvsvCtxa2jqmBXOY6+HUI7j8oXDAU9n7vsdbC9Hm1ybCYL+TD2LWT29V
+         HB0w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791108470; x=1791713270;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=yr4Xk59A6nBEe9AXu0gZsAXZVCEOldu1UBAKss+kKik=;
+        b=J+VaW/i0X3gN+0Ofpx9SaopsDnMjqYegIcFokLFbLAyKS7mOxdD5Y5Z8IRKw4x7kuc
+         BsiFKDSKRE76wx1JtllgHHjnM0/jWjIZnbRd46oN4aNFseCn8xRBxNp3XIheA67wS1Ms
+         tkLtfx4fss/OLPvYD0x2ThzurwG9ic6sOu8tcWFxhV0hBOc8/hmJ3YlZx3NED5xKC9Wy
+         082/+xwirhENrwRhHnDV3MrPV3R/oFmNbKzuN7i2HSIvcGP5HwAyF/BQsdVo/uJ/zohk
+         NWVXdchWKjWDiX1berimzRzgDizUTQWk2ZXzwxju7OwxNbCGpQMaWo+3AAKx3637R8O0
+         KUGw==
+X-Forwarded-Encrypted: i=1; AKwUvBztFTJ8OavNu18R1L2Fvogp3CEnQVRHUawY/2ssRlLa/F37iG2B0rStM2egtoRZHzzK3a955eqH8QLt+eQ=@vger.kernel.org
+X-Gm-Message-State: AFq9FYI17nlbFqdYvNs2V287ivDqh4kSbrGYCpa3UIPJ8udkyiVFLNQW
+	F6rk9dvr+T9PKoemgyXQzWr4pUWv/65HZjeo6MwAxEZxYpCrQhv3524H
+X-Gm-Gg: AYBFou3AkSgND/ZafaacNaBHNdZi0ir/eIMn1EYKZLKejzcqpai/OFp5LRtnvR/sNSB
+	iXUkhon8F6UyxeJoIsRGBrIGu7MaiSR0hw8z8uLAJ4Dqh5miIBU3vFlsJRUXmQf69eY9UFWJAxJ
+	E7eLYXl10CGMFLuk4orX8exOkk8Vx+wOUMMHQLnv4wj7mPXYjbcgOv40HFcPxAZ6RMExA1rCnoG
+	ZFKrPgtVSl58tB0VhaVflmqvWcontvrnpgDNmrg4Sjl1FPBFWtMExcrgFv2yCJ5ZMSn0l5SIB6u
+	MOmK3ESSNaENiKb+D7UFLGn2D2shT8nbXN7j/dJrcerhhoW0tWzEBMFXedP9TI/XXwQdt7jdbgL
+	WVZF+LSer3bPsYm2pmmeEopOK+CDayGrUHVVbWO+88DR+T+0a0c7pl/zZW+gqNyZ49/+ZjYeQpS
+	E5xY6BYM5KpUvs1TrfQNr0myvSBPOmmL07UKB/fElhyrIcdTSO0eeemJ5P0FVYuoLvBLIyc76lM
+	CfGVZrFOOor1jJmAweerhQC9ZKJ9PxUZuTmz4fqHDgStxgW4h0UK/N53ZQUeQTSVLpu0tm9VUCj
+	6goyyauGgi4zd1pNbOKah9o7+UtkHdezi0raaLZsx+8J6oywUbp73TaS02lqrrSxZO30LSTz4JN
+	U5PBbWVaB/P/RpEe6tv2H
+X-Received: by 2002:a05:6000:260e:b0:48b:161:ff26 with SMTP id ffacd0b85a97d-48b12749fabmr13400933f8f.29.1791108469910;
+        Sun, 04 Oct 2026 03:07:49 -0700 (PDT)
 Received: from localhost.localdomain (dynamic-2a00-1028-c000-0ddf-b17d-de75-1ac4-0a1a.ipv6.o2.cz. [2a00:1028:c000:ddf:b17d:de75:1ac4:a1a])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48b38104602sm18136032f8f.26.2026.10.04.03.07.46
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48b38104602sm18136032f8f.26.2026.10.04.03.07.49
         (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Sun, 04 Oct 2026 03:07:47 -0700 (PDT)
+        Sun, 04 Oct 2026 03:07:49 -0700 (PDT)
 From: Josef Schlehofer <pepe.schlehofer@gmail.com>
 To: Mauro Carvalho Chehab <mchehab@kernel.org>
 Cc: linux-media@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	Hyunwoo Kim <imv4bel@gmail.com>,
-	Hans Verkuil <hverkuil@kernel.org>
-Subject: [PATCH v2 0/6] media: az6007/drxk/dvb-core: cope with a tuner unplugged while in use
-Date: Sun,  4 Oct 2026 12:07:35 +0200
-Message-ID: <20261004100741.71711-1-pepe.schlehofer@gmail.com>
+	Hans Verkuil <hverkuil@kernel.org>,
+	stable@vger.kernel.org
+Subject: [PATCH v2 1/6] media: az6007: fix CAM status polling after disconnect
+Date: Sun,  4 Oct 2026 12:07:36 +0200
+Message-ID: <20261004100741.71711-2-pepe.schlehofer@gmail.com>
 X-Mailer: git-send-email 2.54.0
+In-Reply-To: <20261004100741.71711-1-pepe.schlehofer@gmail.com>
+References: <20261004100741.71711-1-pepe.schlehofer@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -77,69 +82,67 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Unplugging an az6007 based tuner while it is in use can leave parts of
-the DVB stack stuck on the disconnected device:
+az6007_ci_poll_slot_status() returns -EIO when the status request fails.
+dvb_ca_en50221 treats the return value as a bitmask, so -EIO is
+interpreted as CAM_PRESENT|CAM_CHANGED. The CA state machine then
+handles a CAM change for every failed poll, without sleeping in between.
 
-- drxk keeps accessing the device and hides the resulting errors,
-- the CA thread can stay stuck polling the removed CAM slot, which
-  keeps the disconnect from completing,
-- userspace waiting on the DVB devices is neither woken up nor told
-  that the device is gone, so the disconnect can wait indefinitely for
-  it to close the devices.
+After an unplug, every poll fails this way and the CA thread can spin
+forever in dvb_ca_en50221_thread_state_machine(), preventing the USB
+disconnect from completing. This happened when unplugging a TechniSat
+CableStar Combo HD CI with a CAM inserted, and rcu_sched reported a
+stall.
 
-This series fixes these issues by:
+Report no CAM when the status request or buffer allocation fails, and
+only inspect the status byte when the request returned data. A read
+error while a CAM is present is then treated as a removal and the CAM is
+reinitialised after the next successful poll.
 
-- treating an unreadable CAM slot status as no CAM,
-- propagating -ENODEV from az6007 to drxk and stopping further device
-  access,
-- waking up the users of the demux, dvr and CA devices and returning
-  -ENODEV or EPOLLERR to them.
+Fixes: 962f8f67e486 ("[media] Add CI support to az6007 driver")
+Cc: stable@vger.kernel.org
+Signed-off-by: Josef Schlehofer <pepe.schlehofer@gmail.com>
+---
+ drivers/media/usb/dvb-usb-v2/az6007.c | 16 +++++++++-------
+ 1 file changed, 9 insertions(+), 7 deletions(-)
 
-Tested on:
-
-- Linux 6.18.44 on a Turris 1.x (v1) and Linux 6.6.151 on a Turris
-  Omnia (v2, series backported), both with a TechniSat CableStar Combo
-  HD CI and a CAM,
-- v7.3-rc2 in QEMU with vidtv and two vidtv fixes from media next [2]
-  (v1 and v2).
-
-The tests covered streaming and scanning in tvheadend, blocked read(),
-poll() and epoll_wait() calls, sysfs unbind, and unplugging the tuner
-or the whole USB hub. In all of them the blocked calls returned and the
-disconnect completed. Without the series, unbinding vidtv with a
-blocked reader hung, which is the hang that the commit message of the
-second vidtv fix [2] asks about.
-
-Changes in v2:
-- Patch 5: check dmxdev->exit in the readers instead of storing -ENODEV
-  in the buffer error, which a concurrent reader could clear, as
-  reported by Sashiko [1]. With a test-only delay, two readers of one
-  file reproduced that race in QEMU with v1 but not with v2.
-- Patches 1-4 and 6 are unchanged.
-
-v1: https://lore.kernel.org/r/20260923001410.30297-1-pepe.schlehofer@gmail.com
-
-[1] https://linuxtv.org/mailman3/hyperkitty/list/media-ci@linuxtv.org/message/N3XJE5MO4HP2LJYOKFHIRB564HATZCTI/
-[2] "media: vidtv: fix frontend reference leak on unbind" and
-    "media: vidtv: fix uaf in vidtv_bridge_on_new_pkts_avail"
-
-Josef Schlehofer (6):
-  media: az6007: fix CAM status polling after disconnect
-  media: az6007: propagate USB errors from I2C transfers
-  media: drxk: stop retrying after disconnect
-  media: drxk: stop accessing a disconnected device
-  media: dvb-core: dmxdev: wake up readers on release
-  media: dvb-core: wake up CA users on release
-
- drivers/media/dvb-core/dmxdev.c         | 36 +++++++++++++++----
- drivers/media/dvb-core/dvb_ca_en50221.c | 24 ++++++++++++-
- drivers/media/dvb-frontends/drxk_hard.c | 48 +++++++++++++++++++------
- drivers/media/dvb-frontends/drxk_hard.h |  2 +-
- drivers/media/usb/dvb-usb-v2/az6007.c   | 23 ++++++------
- 5 files changed, 105 insertions(+), 28 deletions(-)
-
-
-base-commit: df2908090cda368b01ff43709f51890076c56157
+diff --git a/drivers/media/usb/dvb-usb-v2/az6007.c b/drivers/media/usb/dvb-usb-v2/az6007.c
+index 65ef045b74ca..4ce1afe01c3b 100644
+--- a/drivers/media/usb/dvb-usb-v2/az6007.c
++++ b/drivers/media/usb/dvb-usb-v2/az6007.c
+@@ -526,7 +526,7 @@ static int az6007_ci_poll_slot_status(struct dvb_ca_en50221 *ca, int slot, int o
+ 
+ 	b = kmalloc(12, GFP_KERNEL);
+ 	if (!b)
+-		return -ENOMEM;
++		return 0;
+ 	mutex_lock(&state->ca_mutex);
+ 
+ 	req = 0xC5;
+@@ -535,16 +535,18 @@ static int az6007_ci_poll_slot_status(struct dvb_ca_en50221 *ca, int slot, int o
+ 	blen = 1;
+ 
+ 	ret = az6007_read(d, req, value, index, b, blen);
+-	if (ret < 0) {
++	if (ret < 0)
+ 		pr_warn("usb in operation failed. (%d)\n", ret);
+-		ret = -EIO;
+-	} else
+-		ret = 0;
+ 
+-	if (!ret && b[0] == 1) {
++	/*
++	 * The return value is a mask of DVB_CA_EN50221_POLL_* flags, not an
++	 * error code, so report no CAM when the status cannot be read.
++	 */
++	if (ret > 0 && b[0] == 1)
+ 		ret = DVB_CA_EN50221_POLL_CAM_PRESENT |
+ 		      DVB_CA_EN50221_POLL_CAM_READY;
+-	}
++	else
++		ret = 0;
+ 
+ 	mutex_unlock(&state->ca_mutex);
+ 	kfree(b);
 -- 
 2.54.0 (Apple Git-157)
 
