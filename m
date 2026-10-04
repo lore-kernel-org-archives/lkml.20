@@ -1,120 +1,86 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from mx.itxnorge.no (itx-kvm-14.itxnorge.no [91.189.121.228])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BCBC33612F1;
-	Sun,  4 Oct 2026 14:26:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DF6853612F1
+	for <linux-kernel@vger.kernel.org>; Sun,  4 Oct 2026 14:27:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.189.121.228
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791124003; cv=none; b=IxG4DUKVJgvw9hymEu4FCcxazOzoroJ1HRLE78dTJ6RvALDtOG38m+CMIS+LLFidFBFc/775hncidKMBI2Of3XgDvdmo1VfYTkeenbJ/DX8LRNMWoMPkgDWeCUwtibYknb/IsoPPljmIOeAsQws9xPkeYns4guD663awdsmw/eM=
+	t=1791124067; cv=none; b=U53gfOI+vL75pI0dJ67KPmx+QRZX15O3lei/qpPXUXd+9h/hTMouq+mC7c91rB2SrFUPsekWuvq+17ETvPMvgHGz4guokmNbiN8fNX7M6DOAdeljBMC4A72Rvz8opLdVTY7PWjqCETx03BEeGtZSgpigOxQqfOgXErIRZz13xQg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791124003; c=relaxed/simple;
-	bh=mYyoKmz7PztwvOgGfWP9fwPEmOF10/H8tStniHmi9zg=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=YnZLB3RKw+h4arj6PYJd6ZnSnhIlkDKAu5zqC26QsBNfNn4Mi1bycy1n8DsH9P75bL1tDjrqRJgBwe+U8m+hVhmWSRywpp8EAEZ4YqxjKmyMXiwb5CsCyE1F2oMk+Ofqnu3ScjCbwNZHW/fYe2DdknCDM3BnJ2/aAPlefyhUrTE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=IXpfFZiK; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1791124067; c=relaxed/simple;
+	bh=1KdpqyBuIjuLBvWYIW5i5vria/6OVyt65BvBNkWHUCc=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Xib9cGGurdBvKKhq79pkyahXkRHH0TaeDgdQ8pqNebTuJEAUmcQsRowWuu1tlczHqmPeNqvaE7NBDBGu5C86Y3p7/FpwWu4afjTJbWoEl2oydZOI803odVBzATbsaYeF3wbpmOPnDYP9ewa/dQ+AuPiz3JJXetBvR0FPj7lva2w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=itx.no; spf=pass smtp.mailfrom=itx.no; dkim=pass (1024-bit key) header.d=itx.no header.i=@itx.no header.b=p7SipqU1; arc=none smtp.client-ip=91.189.121.228
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=itx.no
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=itx.no
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="IXpfFZiK"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 386A2C2BCB9;
-	Sun,  4 Oct 2026 14:26:43 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1791124003;
-	bh=mYyoKmz7PztwvOgGfWP9fwPEmOF10/H8tStniHmi9zg=;
-	h=From:Date:Subject:To:Cc:Reply-To:From;
-	b=IXpfFZiKL8j2UdAi1xu906FLfp7BAu0jvj/zX2pLxiB4PwdR3KbIckdPUjNDFdpbI
-	 zTVj13J0j+xVuA0a5KFv86ZWnUlKD5sQvFxtMnAFV8tY5yVpcP9uPPeqOMc4RxpV8O
-	 QOI4ElDqbI+X2AvLzMOzhcwA7zBHO7sbrIGaTT5HQkATp77AKp6XcOnvnsh5ywfMBT
-	 r3svFxx0sIcd7hU0YSLEiBqL6gzjh6pZPku74+IkldMygKx694lNcFFG47nT+t2UxD
-	 x3O0RAqRqxuXNef4iHCiaOH/BCdK+DAXDkJdUYQ3l07op6T5y8yejw0A9qrj57YWwd
-	 IwCJE7Uw5cqdA==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 1442ACA5FEF;
-	Sun,  4 Oct 2026 14:26:43 +0000 (UTC)
-From: Matt Layher via B4 Relay <devnull+mdlayher.gmail.com@kernel.org>
-Date: Sun, 04 Oct 2026 10:26:27 -0400
-Subject: [PATCH] hwmon: (asus-ec-sensors) add CPU_Opt fan for ROG STRIX
- X570-E GAMING
+	dkim=pass (1024-bit key) header.d=itx.no header.i=@itx.no header.b="p7SipqU1"
+From: Stian Halseth <stian@itx.no>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=itx.no; s=mx.itx.no;
+	t=1791124057;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=f1mUDrEgHuD4xd6cPadDTTmFU27wOGNSESTtR/jQtY8=;
+	b=p7SipqU1iSvk3dnl5H7B7i2txRvHbGnjP0yF6uF//WDIdV3FFrL3sqF+C7ATM3n30FeTFg
+	dZ4GqX882XwM3OhNpBF1NQDHtZYn52tynDpUiWzsf03IkxDYpbFSlqoYglZ2Pe4bmT4wcn
+	l+kyd1pb7/qk5pq2tYFj1HPFVy2LVVg=
+To: Frederic Weisbecker <frederic@kernel.org>,
+	Thomas Gleixner <tglx@kernel.org>
+Cc: Anna-Maria Behnsen <anna-maria@linutronix.de>,
+	Ingo Molnar <mingo@redhat.com>,
+	Peter Zijlstra <peterz@infradead.org>,
+	Shrikanth Hegde <sshegde@linux.ibm.com>,
+	regressions@lists.linux.dev,
+	linux-kernel@vger.kernel.org
+Subject: [REGRESSION] tick/sched: /proc/stat idle time exceeds wall time since v7.2
+Date: Sun,  4 Oct 2026 16:27:24 +0200
+Message-ID: <20261004142724.3896396-1-stian@itx.no>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261004-asus-ec-x570e-cpu-opt-v1-1-d9ea371c30d5@gmail.com>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMQQ6CMBBA0auQWTvJtEKJXsW4qHWAYQFNpzUkh
- LtTdfkW/++gnIQV7s0OiT+isi4V5tJAmPwyMsq7GixZZ4ha9FoUOeDW9cQYYsE1ZnT26qzxA/U
- 3gtrGxINsv+/j+beW18whf2dwHCcRgOQSeQAAAA==
-X-Change-ID: 20261004-asus-ec-x570e-cpu-opt-623621af0790
-To: Eugene Shalygin <eugene.shalygin@gmail.com>, 
- Guenter Roeck <linux@roeck-us.net>
-Cc: linux-hwmon@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Matt Layher <mdlayher@gmail.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1791124002; l=2211;
- i=mdlayher@gmail.com; s=linuxdev; h=from:subject:message-id;
- bh=HEHb7pz+5CIVTAUXjsxnncxE0oQGAoREpSaAebUx9AQ=;
- b=lH+GY7hQhCIRrlVSwJEabDbMMuuSttNbGlGKto0goC43sa7ced/zA6BldftpntEozBMDear3u
- 374btCATaKDBmZqbkFcVxUwTjxw+zVZyahe44B4ZuLzAzq5fosBTLGC
-X-Developer-Key: i=mdlayher@gmail.com; a=ed25519;
- pk=jO44g3WNw2T0EoKPeB+RUgDmyrZpA5Pmr830ITlwhaA=
-X-Endpoint-Received: by B4 Relay for mdlayher@gmail.com/linuxdev with
- auth_id=1109
-X-Original-From: Matt Layher <mdlayher@gmail.com>
-Reply-To: mdlayher@gmail.com
+Content-Transfer-Encoding: 8bit
 
-From: Matt Layher <mdlayher@gmail.com>
+Hi,
 
-Enable the CPU_Opt fan sensor for ROG STRIX X570-E GAMING.
+Since v7.2-rc1, /proc/stat counts more idle time than wall time on
+NO_HZ_IDLE kernels with TICK_CPU_ACCOUNTING. Monitoring that computes
+CPU usage as 1 minus the idle rate shows negative usage on idle
+machines.
 
-The board has a CPU_OPT fan header, and its UEFI hardware monitor shows a
-fan connected to it spinning at about 2000 RPM, but the driver does not
-expose the sensor and the board's NCT6798D does not report it either.
+Measured over 60 s with /proc/stat and the idle_sleeps counters in
+/proc/timer_list:
 
-Reading the EC directly through ec_sys on this board (BIOS 4408), the
-CPU_Opt register used by the rest of the AMD 500 series family (bank 0,
-0xb0) returns 0x0580, 1408 RPM under the operating system's fan curve,
-while the chipset fan register at 0xb4 returns 0, matching what the
-driver already reports for that fan.
+  SPARC T7-1, 7.3-rc5, HZ=100, 256 CPUs:
+    idle per wall second 1.0057 on average, 1.44 on the worst CPU
+    (92 tick stops/s, 4.8 ms of excess per tick stop)
 
-Assisted-by: LLM sparse
-Signed-off-by: Matt Layher <mdlayher@gmail.com>
----
-An LLM coding assistant did most of the work on this patch: it found the
-missing sensor while auditing this machine's monitoring, compared the
-driver's board table with the BIOS hardware monitor, worked out which EC
-register to read, and drafted the change and this changelog. I
-reviewed both, and every test below ran on my own machines.
+  amd64 (Opteron 1214), 7.2.7, HZ=1000, 2 CPUs:
+    idle machine:                         +0.03% and +0.06%
+    a task waking every 3.7 ms on CPU 1:  +13.1% on CPU 1
+    (285 tick stops/s, 0.46 ms of excess per tick stop)
 
-Testing:
-- Runtime: the same one-line change applied to the driver in v6.18.54,
-  loaded on the board in place of the stock module; CPU_Opt read
-  1454-1463 RPM and the chipset fan 0.
-- Build: hwmon-next with W=1 and sparse (C=1), no warnings;
-  checkpatch --strict reports no errors, warnings or checks.
----
- drivers/hwmon/asus-ec-sensors.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+On both machines the excess is about half a tick per tick stop.
 
-diff --git a/drivers/hwmon/asus-ec-sensors.c b/drivers/hwmon/asus-ec-sensors.c
-index 19f423e45ce5..8261ddd00653 100644
---- a/drivers/hwmon/asus-ec-sensors.c
-+++ b/drivers/hwmon/asus-ec-sensors.c
-@@ -721,7 +721,7 @@ static const struct ec_board_info board_info_strix_x470_i_gaming = {
- 
- static const struct ec_board_info board_info_strix_x570_e_gaming = {
- 	.sensors = SENSOR_SET_TEMP_CHIPSET_CPU_MB |
--		SENSOR_TEMP_T_SENSOR |
-+		SENSOR_TEMP_T_SENSOR | SENSOR_FAN_CPU_OPT |
- 		SENSOR_FAN_CHIPSET | SENSOR_CURR_CPU |
- 		SENSOR_IN_CPU_CORE,
- 	.mutex_path = ASUS_HW_ACCESS_MUTEX_ASMX,
+From reading the code (not bisected), I think the cause is that
+cf6444c3e1bb7 ("tick/sched: Unify idle cputime accounting") made
+dyntick-idle time and tick-sampled time share cpustat[CPUTIME_IDLE].
+On idle exit, kcpustat_dyntick_stop() accounts idle time up to now.
+The tick is then restarted on its old period, and the first tick
+accounts a whole TICK_NSEC through account_process_tick(), although
+the part of that period before the idle exit has just been accounted
+as idle. Before v7.2, /proc/stat read ts->idle_sleeptime, and the tick
+fed a counter it did not use, so nothing was counted twice.
 
----
-base-commit: 4781ca52761e666cf18b591e6bb0478396c90320
-change-id: 20261004-asus-ec-x570e-cpu-opt-623621af0790
+I have a fix that records the overlap in kcpustat_dyntick_stop() and
+leaves it out of the first tick. With it, idle per wall second is
+1.0000 on both machines, and -0.1% under the wakeup load at 280 tick
+stops/s. I am still testing it with IRQ_TIME_ACCOUNTING and with steal
+time in a KVM guest, and will send it when that is done.
 
-Best regards,
---  
-Matt Layher <mdlayher@gmail.com>
+#regzbot introduced: cf6444c3e1bb7
 
-
+Stian
