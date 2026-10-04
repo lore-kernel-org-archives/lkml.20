@@ -1,233 +1,257 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B14D948097E;
-	Sun,  4 Oct 2026 19:51:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 63EE84A6892;
+	Sun,  4 Oct 2026 19:52:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791143461; cv=none; b=eD6DfC6fRQtwDTWHZ/cAtc1BCyad+lCcK6j+Luht40Bqvkd3DZymiptWqJD5krVVoZi+OjGxi9Yaj7WVcBdRzk65Hw0FqCFALVRkcjp5umC7WtYlaS7AIlSlab5Q/sT9J1DzECNWfLv5MkkaX7fczGeCwtpcNdLfhtMb49bdXyU=
+	t=1791143543; cv=none; b=F9yKH2L2qudYH1llUOiSaluiBX5jF5bB9AfhutHmgOiqvKWPjeffMUK7d8kvgW+UdRiJ9eDsVvkxqhgOgrV7jENKTTCtDVLfSOj0rnA1r6ym+1ubuCNyjMLS0//9bngBJCjW1VCDRBLDxX3LTA0oRgrEPKhfpqgmIXt44LrbL2E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791143461; c=relaxed/simple;
-	bh=ER19OUCB7aVdxlSfW6hTiDY/t0kFUw0QV3PpNGlC5Jk=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=mGxdQqw3H91cz5o2UD3rcNLFPjXryIlcUYYP0RmH1pLx627GPUdLI++YUOu4lEDh8Z5XV+cNsD9+o5a1QaTT7ZIdg8HqCIrjLpXXp7FAayUSTLAAewZl4Fy+Q85XsPdFlEtuAJRH+JLmLwg5u0uDLOk1AmvqzaeKrRUllH4QF90=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=tr9Bnzdi; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1791143543; c=relaxed/simple;
+	bh=aJ4JANXBLIE523LUfMvUVrINzD2uPAIdYdywAl7kv5E=;
+	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=IMDLS3BEE7CMoEWvjXy6OctZ67zG6Pt0kmsfHECoDzytgXWmdfGte1jC+2eazXhJlpT4sG/cfSrnSPWKGua1/7HI0+mcwf2ii3mraHH5tmwn6MnH3OhNN+3WjnetsP0/sT4DO3Q4PyeL7r3F5zFEPYBJYdC5/toGCmxVdmtCP9M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=OSMmr221; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="tr9Bnzdi"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 51206C4AF62;
-	Sun,  4 Oct 2026 19:51:01 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1791143461;
-	bh=ER19OUCB7aVdxlSfW6hTiDY/t0kFUw0QV3PpNGlC5Jk=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=tr9Bnzdiz0NbWB2s1eCxQnq5C7YvbTzV5q2zV1+eqQ++AGPwkY1Jo81lXs+t3i1kR
-	 aex1rhgDGP0peNQT/5HnvN3S2MPgm4MN43qSIgvmWFqrnV7kf0Yz2Bqkm/LI9WAee2
-	 Y6KizwyW06BiBcy035ZhNns76v1nBtVxe8FzjY0N46+XgidEvi6sSiqwE5e46nL/tC
-	 /XzS5MLOfaAofAQvdz9Dz8gjrYHAHH7js3CyFxyaM0luT1B/Q1WKIZ3HvcKDddPmdk
-	 AFA7c+cAMo+GWthd4xid3Gn1Dg6QYW9VScORIbHER/Ul4eOLO2A5HApEtr4xaNxkgR
-	 8JAHc8NMkTr8g==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 32040CA5FFA;
-	Sun,  4 Oct 2026 19:51:01 +0000 (UTC)
-From: Lawrence Lin via B4 Relay <devnull+deduce.gmail.com@kernel.org>
-Date: Sun, 04 Oct 2026 14:51:01 -0500
-Subject: [PATCH v2 2/2] ftrace: Drop weak function locations of modules
- when loading them
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="OSMmr221"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9631A1F000FF;
+	Sun,  4 Oct 2026 19:52:18 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791143539;
+	bh=ltr9IuWe66b3dEPQokcAToGLMYH/D9Aig3Tp+730PGE=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=OSMmr2217D9ydx6a2nj9BN6lcTPvtCj3ZMfZV/AIqXXuwrI/C80kQPBzDg0FlX249
+	 T6vrvB/5cBOvFzVD3s51P/R2bCet+b/Wqp++5qz2CG9+/RC2r7Ndo9BXcHHKt1r8+P
+	 bQ8oslBOJxlvJPqADyWK66c99sp4hRt/C7SpuJ3v2mE3al1s8frM7lz9GfK7LAstAA
+	 i8sZ9Kf+dtP8jS7vkr82UQYP8UKd+XwPJlitFTDnxuSop8ACrq2HrjADhZEaYCt6e1
+	 8uy2FQnOgEcloOtPYbJobZGaunH1L01FwMJ2qpywEMqAtzTdX+kB46FYyQSn0jkygv
+	 alXjyxNZ3hnaA==
+Subject: Re: [PATCH net] net: stmmac: dwmac-rk: keep the GMAC powered when the
+ PHY wakes the system
+From: netdev-bot+sashiko@kernel.org
+To: iav@iav.lv
+Cc: maxime.chevallier@bootlin.com, andrew+netdev@lunn.ch, davem@davemloft.net,
+ kuba@kernel.org, pabeni@redhat.com, heiko@sntech.de, edumazet@kernel.org,
+ rmk+kernel@armlinux.org.uk, mcoquelin.stm32@gmail.com,
+ alexandre.torgue@foss.st.com, netdev@vger.kernel.org,
+ linux-rockchip@lists.infradead.org, linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+Date: Sun, 04 Oct 2026 19:52:18 +0000
+Message-ID: <179114353815.434549.32562462811934801@kernel.org>
+In-Reply-To: <20260930-dwmac-rk-phy-wol-v1-1-9fdc50bd9ae4@iav.lv>
+References: <20260930-dwmac-rk-phy-wol-v1-1-9fdc50bd9ae4@iav.lv>
+X-sashiko-severity: Medium
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261004-ftrace-mod-bsearch-v2-2-c1de73e72e73@gmail.com>
-References: <20261004-ftrace-mod-bsearch-v2-0-c1de73e72e73@gmail.com>
-In-Reply-To: <20261004-ftrace-mod-bsearch-v2-0-c1de73e72e73@gmail.com>
-To: Steven Rostedt <rostedt@goodmis.org>, 
- Masami Hiramatsu <mhiramat@kernel.org>, Mark Rutland <mark.rutland@arm.com>, 
- Mathieu Desnoyers <mathieu.desnoyers@efficios.com>, 
- Luis Chamberlain <mcgrof@kernel.org>, Petr Pavlu <petr.pavlu@suse.com>, 
- Daniel Gomez <da.gomez@kernel.org>, Sami Tolvanen <samitolvanen@google.com>
-Cc: Aaron Tomlin <atomlin@atomlin.com>, Stanislaw Gruszka <stf_xl@wp.pl>, 
- David Laight <david.laight.linux@gmail.com>, 
- =?utf-8?q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>, 
- linux-modules@vger.kernel.org, linux-kernel@vger.kernel.org, 
- linux-trace-kernel@vger.kernel.org, Lawrence Lin <deduce@gmail.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1791143460; l=5635;
- i=deduce@gmail.com; s=default; h=from:subject:message-id;
- bh=TJECsMrXSgfNhKlqcwZYwjcb8q/Qy00rtV662XesPT4=;
- b=WlldLGiv9RMmqhQBaBPmYQCx9RepjgSTLsPKpBTVAtFrwUxvcsMLtajqy6nhLW5V8OvzY1haW
- 6OVzumjVAmfB08c/MHmtHQbj5ES57Mkw7mxBHZy6ctvEJ40hdiplR7W
-X-Developer-Key: i=deduce@gmail.com; a=ed25519;
- pk=Ws6hmG/zoco3lMoykbeaYjo9S7a6sDddQY8EALjp9cM=
-X-Endpoint-Received: by B4 Relay for deduce@gmail.com/default with
- auth_id=1106
-X-Original-From: Lawrence Lin <deduce@gmail.com>
-Reply-To: deduce@gmail.com
 
-From: Lawrence Lin <deduce@gmail.com>
+Thank you for your contribution! Sashiko AI review found 3 potential
+issue(s) to consider.
 
-Since commit b39181f7c690 ("ftrace: Add FTRACE_MCOUNT_MAX_OFFSET to avoid
-adding weak function"), ftrace_module_enable() calls test_for_valid_rec()
-for every ftrace record of a module being loaded. For a module address,
-kallsyms_lookup() scans the whole symbol table of the module, so loading a
-module costs O(records * symbols), all of it under ftrace_lock. amdgpu.ko
-has 16821 records and about 67000 symbols, and commit 4099b98203d6
-("ftrace: Fix softlockup in ftrace_module_enable") already had to add a
-cond_resched() to this loop because of it.
+Critical: 0 · High: 0 · Medium: 1 (1) · Low: 2
 
-Commit ef378c3b8233 ("scripts/sorttable: Zero out weak functions in
-mcount_loc table") fixed vmlinux at build time, noting that the real
-solution is to not add a weak function into the ftrace table in the first
-place. Modules are not covered by it, and still have such locations: a
-weak function in virt/kvm that arch/x86 overrides inside the same kvm.ko
-keeps its mcount location but has no symbol. In an x86_64 distribution
-build of v7.2.5, kvm.ko has 18 of them; none of the other 6483 modules has
-any.
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
 
-Do the same for modules when they are loaded. In ftrace_process_locs(),
-after the locations are sorted, find for each symbol of the module, by
-binary search, the locations at most FTRACE_MCOUNT_MAX_OFFSET after it,
-and zero the locations no symbol marked. ftrace_process_locs() already
-skips zeroed locations, so no record is created for them, and
-ftrace_module_enable() no longer has to test every record. This costs one
-bit per location, about 2 KB for amdgpu, and O(symbols * log(records))
-time.
+- [Medium] The new predicate in rk_gmac_suspend() takes 'ndev->phydev ==
+  NULL' to mean 'no PHY needs to stay powered for wake'.
+- [Low] The commit body says Helios64 (RTL8211F, WoL in the PHY) hangs
+  after 6911308d7d11.
+- [Low] rk_gmac_suspend() reads ndev->phydev, an RTNL-protected field,
+  without RTNL and without READ_ONCE(), in `ndev->phydev &&…
 
-On a Ryzen 3 3200U (x86_64, v7.2.5, amdgpu loaded from the initramfs,
-three boots each), amdgpu finishes initializing 6.19 s into boot without
-this patch and 2.00 s with it, and the kernel part of boot reported by
-systemd-analyze drops from 6.65 s to 2.46 s. Loading radeon and nouveau,
-which have no hardware on that machine, goes from 137 ms to 64 ms and from
-457 ms to 118 ms. available_filter_functions loses the 18
-__ftrace_invalid_address___ entries of kvm; its module entries are
-otherwise unchanged.
+Pre-existing issues:
+- [Medium] rk_gmac_resume() ignores the return value of rk_gmac_powerup()
+  and always returns 0.
 
-Fixes: b39181f7c690 ("ftrace: Add FTRACE_MCOUNT_MAX_OFFSET to avoid adding weak function")
-Assisted-by: Claude:claude-opus-5-5
-Signed-off-by: Lawrence Lin <deduce@gmail.com>
----
- kernel/trace/ftrace.c | 82 +++++++++++++++++++++++++++++++++++++++++++--------
- 1 file changed, 70 insertions(+), 12 deletions(-)
+--
 
-diff --git a/kernel/trace/ftrace.c b/kernel/trace/ftrace.c
-index 673a54fdf392..2e1a237ce901 100644
---- a/kernel/trace/ftrace.c
-+++ b/kernel/trace/ftrace.c
-@@ -4445,11 +4445,6 @@ static int print_rec(struct seq_file *m, unsigned long ip)
- 	return ret == NULL ? -1 : 0;
- }
- #else
--static inline int test_for_valid_rec(struct dyn_ftrace *rec)
--{
--	return 1;
--}
--
- static inline int print_rec(struct seq_file *m, unsigned long ip)
- {
- 	seq_printf(m, "%ps", (void *)ip);
-@@ -7611,6 +7606,73 @@ static void test_is_sorted(unsigned long *start, unsigned long count)
- }
- #endif
- 
-+#ifdef FTRACE_MCOUNT_MAX_OFFSET
-+struct ftrace_mod_locs {
-+	unsigned long *start;
-+	unsigned long count;
-+	unsigned long *valid;
-+};
-+
-+/* Mark the locations that lie at most FTRACE_MCOUNT_MAX_OFFSET after @addr. */
-+static void ftrace_mark_valid_locs(void *data, unsigned long addr)
-+{
-+	struct ftrace_mod_locs *locs = data;
-+	unsigned long lo = 0, hi = locs->count, mid, ip;
-+
-+	/*
-+	 * ftrace_call_adjust() moves a location forward by at most
-+	 * FTRACE_MCOUNT_MAX_OFFSET, so start looking that far before @addr.
-+	 */
-+	while (lo < hi) {
-+		mid = lo + (hi - lo) / 2;
-+		if (locs->start[mid] + FTRACE_MCOUNT_MAX_OFFSET < addr)
-+			lo = mid + 1;
-+		else
-+			hi = mid;
-+	}
-+
-+	for (; lo < locs->count; lo++) {
-+		if (locs->start[lo] > addr + FTRACE_MCOUNT_MAX_OFFSET)
-+			break;
-+		ip = ftrace_call_adjust(locs->start[lo]);
-+		if (ip >= addr && ip - addr <= FTRACE_MCOUNT_MAX_OFFSET)
-+			__set_bit(lo, locs->valid);
-+	}
-+}
-+
-+/*
-+ * A weak function overridden within its module keeps its mcount location but
-+ * has no symbol. Zero such locations before they become records, as sorttable
-+ * does for vmlinux: keep only those with a symbol at most
-+ * FTRACE_MCOUNT_MAX_OFFSET before them.
-+ */
-+static int ftrace_zero_weak_locs(struct module *mod, unsigned long *start,
-+				 unsigned long count)
-+{
-+	struct ftrace_mod_locs locs = { .start = start, .count = count };
-+	unsigned long i;
-+
-+	locs.valid = bitmap_zalloc(count, GFP_KERNEL);
-+	if (!locs.valid)
-+		return -ENOMEM;
-+
-+	module_kallsyms_on_each_addr(mod, ftrace_mark_valid_locs, &locs);
-+
-+	for_each_clear_bit(i, locs.valid, count)
-+		start[i] = 0;
-+
-+	bitmap_free(locs.valid);
-+	return 0;
-+}
-+#else
-+static inline int ftrace_zero_weak_locs(struct module *mod,
-+					unsigned long *start,
-+					unsigned long count)
-+{
-+	return 0;
-+}
-+#endif
-+
- static int ftrace_process_locs(struct module *mod,
- 			       unsigned long *start,
- 			       unsigned long *end)
-@@ -7644,6 +7706,9 @@ static int ftrace_process_locs(struct module *mod,
- 		test_is_sorted(start, count);
- 	}
- 
-+	if (mod && ftrace_zero_weak_locs(mod, start, count))
-+		return -ENOMEM;
-+
- 	start_pg = ftrace_allocate_pages(count, &pages);
- 	if (!start_pg)
- 		return -ENOMEM;
-@@ -8049,13 +8114,6 @@ void ftrace_module_enable(struct module *mod)
- 
- 		cond_resched();
- 
--		/* Weak functions should still be ignored */
--		if (!test_for_valid_rec(rec)) {
--			/* Clear all other flags. Should not be enabled anyway */
--			rec->flags = FTRACE_FL_DISABLED;
--			continue;
--		}
--
- 		cnt = 0;
- 
- 		/*
+net: stmmac: dwmac-rk: keep the GMAC powered when the PHY wakes the system
+
+With this patch, rk_gmac_suspend() also skips rk_gmac_powerdown() when the
+attached PHY reports phy_may_wakeup(). Before, it only checked
+device_may_wakeup() on the MAC. The decision is stored in a new
+suspend_powerdown field, and rk_gmac_resume() uses it to decide whether
+to call rk_gmac_powerup().
+
+> When the PHY handles it, device_may_wakeup()
+> is false for the MAC, and rk_gmac_suspend() powers the GMAC down: its
+> clocks stop and phy-supply is released.
+>
+> On Helios64 (RTL8211F, Wake-on-LAN in the PHY) the board then hangs on
+> the first or second suspend with a magic-packet wake.
+
+[Severity: Low]
+Does this describe the in-tree Helios64 configuration?
+
+The gmac node in rk3399-kobol-helios64.dts has no ethernet-phy child. So
+the RTL8211F probe never calls device_set_wakeup_capable() on the PHY, and
+rtl8211f_get_wol() reports no WoL support:
+
+drivers/net/phy/realtek/realtek_main.c:rtl8211f_get_wol() {
+    ...
+	if (!device_can_wakeup(&dev->mdio.dev)) {
+		wol->supported = 0;
+		return;
+	}
+    ...
+}
+
+phylink then passes the request to stmmac_mac_wol_set(), which does:
+
+	device_set_wakeup_enable(priv->device, !!wolopts);
+
+So on the in-tree board, the old !device_may_wakeup(dev) check in
+rk_gmac_suspend() already kept the GMAC powered.
+
+The case fixed here only happens with a DT that gives the PHY node an
+interrupt and wakeup-source. That requirement is mentioned only below the
+--- line. The same goes for the need for the separate interrupt storm fix
+[1] to get the 20 of 20 result. Both notes are dropped when the patch is
+applied.
+
+Also, on Helios64 phy-supply is vcc_lan, which is vcc3v3_sys_s3. That
+regulator has regulator-always-on and regulator-on-in-suspend, so
+releasing it does not cut PHY power on this board. That leaves the stopped
+clocks as the only trigger the message describes.
+
+Could the commit message say which configurations are affected, why the
+board hangs, and that [1] is also needed?
+
+> diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-rk.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-rk.c
+> index 72bdbcb5e863a..06faeb156b97d 100644
+> --- a/drivers/net/ethernet/stmicro/stmmac/dwmac-rk.c
+> +++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-rk.c
+
+[ ... ]
+
+> @@ -1530,10 +1531,13 @@ static int rk_set_clk_tx_rate(void *bsp_priv_, struct clk *clk_tx_i,
+>  
+>  static int rk_gmac_suspend(struct device *dev, void *bsp_priv_)
+>  {
+> +	struct net_device *ndev = dev_get_drvdata(dev);
+>  	struct rk_priv_data *bsp_priv = bsp_priv_;
+>  
+> -	/* Keep the PHY up if we use Wake-on-Lan. */
+> -	if (!device_may_wakeup(dev))
+> +	/* Keep the MAC and PHY powered if either of them wakes the system. */
+> +	bsp_priv->suspend_powerdown = !device_may_wakeup(dev) &&
+> +		!(ndev->phydev && phy_may_wakeup(ndev->phydev));
+
+[Severity: Medium]
+What happens here if PHY WoL was enabled and the interface was brought
+down before suspend?
+
+With the link up, "ethtool -s ethX wol g" is taken by the wakeup-capable
+PHY. phylink masks it out of the MAC request, so device_may_wakeup() stays
+false for the MAC.
+
+"ip link set ethX down" then runs:
+
+stmmac_release()
+  phylink_disconnect_phy()
+    phy_disconnect()
+      phy_detach()
+        phy_suspend()     <- RTL8211F arms PME (PHY_ALWAYS_CALL_SUSPEND)
+        phydev->attached_dev->phydev = NULL;
+
+phylib keeps a detached PHY like this armed on purpose, as shown in
+mdio_bus_phy_may_suspend():
+
+	if (!netdev && phy_may_wakeup(phydev))
+		return false;
+
+On system suspend, stmmac_suspend() jumps to suspend_bsp because the
+interface is not running:
+
+	if (!ndev || !netif_running(ndev))
+		goto suspend_bsp;
+
+Here ndev->phydev is NULL, so suspend_powerdown becomes true.
+rk_gmac_powerdown() then gates the GMAC clocks and drops phy-supply while
+the PHY is still the wake source. How bad this is depends on the board:
+on Helios64 only the clocks stop, but where phy-supply can be switched
+off, the PHY loses power.
+
+Before 6911308d7d11, the MAC wakeup flag stayed set across ifdown for PHY
+WoL, so the glue kept the GMAC powered. Should the new check also cover
+this case?
+
+[Severity: Low]
+Is it safe to read ndev->phydev here without rtnl_lock()?
+
+stmmac_suspend() drops rtnl before it calls the glue hook:
+
+	rtnl_lock();
+	phylink_suspend(priv->phylink, !!priv->wolopts);
+	rtnl_unlock();
+	...
+suspend_bsp:
+	if (priv->plat->suspend)
+		return priv->plat->suspend(dev, priv->plat->bsp_priv);
+
+It also does not cancel the service task. stmmac_reset_subtask() runs on
+priv->wq, which is not freezable. It takes rtnl_lock() and does:
+
+	set_bit(STMMAC_DOWN, &priv->state);
+	dev_close(priv->dev);
+	dev_open(priv->dev, NULL);
+
+This clears ndev->phydev in phy_detach() and sets it again from
+__stmmac_open().
+
+A reset queued by stmmac_global_err() can overlap with rk_gmac_suspend().
+If it does, suspend_powerdown can be decided while the PHY is halfway
+through detach or attach, and rk_gmac_resume() reuses that decision
+without checking again. In theory, if the compiler reloads ndev->phydev
+between the NULL test and the call, phy_may_wakeup() could also be passed
+NULL.
+
+Would it help to read the pointer once with READ_ONCE() into a local, or
+to do the check under rtnl_lock()?
+
+[ ... ]
+
+> @@ -1543,8 +1547,7 @@ static int rk_gmac_resume(struct device *dev, void *bsp_priv_)
+>  {
+>  	struct rk_priv_data *bsp_priv = bsp_priv_;
+>  
+> -	/* The PHY was up for Wake-on-Lan. */
+> -	if (!device_may_wakeup(dev))
+> +	if (bsp_priv->suspend_powerdown)
+>  		rk_gmac_powerup(bsp_priv);
+>  
+>  	return 0;
+
+[Severity: Medium]
+This is a pre-existing issue, but rk_gmac_resume() drops the return value
+of rk_gmac_powerup() and always returns 0.
+
+rk_gmac_powerup() can fail in rk_gmac_check_ops(), rk_get_phy_intf_sel(),
+gmac_clk_enable(), a GRF write, or regulator_enable() in rk_phy_powerup().
+In that case stmmac_resume() never takes its error path:
+
+	if (priv->plat->resume) {
+		ret = priv->plat->resume(dev, priv->plat->bsp_priv);
+		if (ret)
+			return ret;
+	}
+
+Instead it goes on to access MAC registers with the clocks off.
+
+A later rk_gmac_powerdown() would then call pm_runtime_put_sync() without
+a matching get, and regulator_disable() on a regulator that is already
+disabled.
+
+Should rk_gmac_resume() return the error from rk_gmac_powerup()?
 
 -- 
-2.55.0
-
-
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260930-dwmac-rk-phy-wol-v1-1-9fdc50bd9ae4%40iav.lv
