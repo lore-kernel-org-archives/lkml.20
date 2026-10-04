@@ -1,156 +1,93 @@
-Received: from mail.netfilter.org (mail.netfilter.org [217.70.190.124])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D84DB2EF653;
-	Sun,  4 Oct 2026 19:13:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.70.190.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 85500330D25;
+	Sun,  4 Oct 2026 19:17:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791141227; cv=none; b=dAKbRqzcXAg0hGaXkPRaL87SgO0Nm+aOn8PbI9momaczgKBuU7r33NxtwnMnSMMiihtCjzYtlH90VLeYfktrk5cKZZCWrgVBOmuBOooyR3RSn+N/C9Q01NEgjcLFpzQccZIGzCB6vKNty96Wu5b34TRDCci+KmmN42QrL91RfIA=
+	t=1791141437; cv=none; b=mtC2QTNTt7AcP5L8UT+KWULIrRAV3yYAOZCIEag8LtgfcnhYr3Ol+U1qN1+yKJrKGYzuCM+dKOYF7YJKOXa8/dnn1NrYKkVjvwOOSU4cjaY3nsgweVYOAOt+DZu5JfsS/ZL0ipGGRtDkKNcr/Bkk5Vppy7d3QCQdeiG8c2jgtLU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791141227; c=relaxed/simple;
-	bh=LmT7qUG0+JDTwsZCtUim498HbU/w8AFnWENCKFAEM80=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=fKXcJeQKdP6I7dio/7VIjn7rSxHUtv6dx992Dg0D8mOGPusB6HFl21jh9BJjuT2szrINAP1lLiY/XdCZ+IrZa/rOLjzkMKzOnlD9c6gpe/2wqDWWzHUyeTttWX4uRyPYYExVO0+8+N8N479G646V885Zgaz9y4QAXvqZwc7tGf8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=netfilter.org; spf=pass smtp.mailfrom=netfilter.org; dkim=pass (2048-bit key) header.d=netfilter.org header.i=@netfilter.org header.b=iiW+jCyZ; arc=none smtp.client-ip=217.70.190.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=netfilter.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=netfilter.org
+	s=arc-20240116; t=1791141437; c=relaxed/simple;
+	bh=3Ar2x8qgMH6kt24ve/xtWcLygI3njOIiKKqeY2EbVaA=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
+	 MIME-Version:Content-Type; b=WxijkbOXiPjmsGn+J0ggLEbQuuzbInYyF1PdwIXm6+14ksq/uF8mK9vsDgepV3z+UzGnYLKEYQubh3j3QaATh/ooi6PqCrcA4c2WyLh+/xy4qFIOSjxb+M1N3XFStYAVFr/AlJUfssnkDRMx1wOwm5tO15MiOvJfn0s2gDI8HGE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KjzJgyGw; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=netfilter.org header.i=@netfilter.org header.b="iiW+jCyZ"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=netfilter.org;
-	s=2025; t=1791141213;
-	bh=6KYwscBAPThUi2rjcfCeCcgpFd71+oEj095WqmAons0=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=iiW+jCyZC1wbPm1lGzLldTbD1VnW2rM1oWRESBoYa+TwYXW+pAPbCLMN6Y4PsNNv7
-	 ehkubjBjx6ehkHxBKEXJwNUi2AuTEAPhFwVckNnm4m7cOWC+hlxEbrvXmYaTLvOJzs
-	 ObwHBwa5BNQVMGt77Z4tpvMvEOM3ATl4zUQvQYSWW4atazeKLfdvneEKQ49v1Pvp9D
-	 kNHVaiY3AyCqHtGwfprE49tRKwRpzQtVnbzwgxURwI0d9TLDYhWjTIlWViRhcHg3kp
-	 ZdRociy87W6/yaWyBOfUym8nEoGQYLjqZgd6KLad1xBN9KlFEwyamJD6eiijBviPS1
-	 /gJOoVjdaDKTg==
-Received: from netfilter.org (mail-agni [217.70.190.124])
-	by mail.netfilter.org (Postfix) with UTF8SMTPSA id 7889E60060;
-	Sun,  4 Oct 2026 21:13:33 +0200 (CEST)
-Date: Sun, 4 Oct 2026 21:13:30 +0200
-From: Pablo Neira Ayuso <pablo@netfilter.org>
-To: Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>
-Cc: Florian Westphal <fw@strlen.de>, Phil Sutter <phil@nwl.cc>,
-	Fernando Fernandez Mancera <ffmancera@riseup.net>,
-	"David S . Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>, netfilter-devel@vger.kernel.org,
-	coreteam@netfilter.org, netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	syzbot+d7795c8487ca4e20ed88@syzkaller.appspotmail.com,
-	syzbot+d0d2f1a65f45b319d25d@syzkaller.appspotmail.com,
-	syzkaller-bugs@googlegroups.com
-Subject: Re: [PATCH nf] netfilter: nft_synproxy: only handle pure SYN and ACK
- packets
-Message-ID: <asKkUzOppJayDbvD@chamomile>
-References: <20261004160615.142456-1-ngocthang2710.1999@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KjzJgyGw"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 144A81F000FF;
+	Sun,  4 Oct 2026 19:17:12 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791141435;
+	bh=iyBsmxhBIYjLVuF2+AEHDozSNWnMvFBobkeqCwyHVIE=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date;
+	b=KjzJgyGwTtI5vrWvdVaPjKb7TYF93Qu2dKsGKKZb5nAyvEVS/+XnQZKgo8vIdXh0q
+	 8aLyh/BJ0Wp/fb49Y3RcT0FDXF7L0Xc3RTX78Q0BvKvOymqPAG05xWUpO1PMR14yEa
+	 5YwYApPmE/3104pOOv4f+KFzsr/jaJiBh5ntedp2tiPuirLawlq9Z8toohgrOXtUEj
+	 RfjTSvDV9KvX2M43SGfa+3jyokfycIMC7Ym6bBd0xwsFLLa2zbz8dAOEYmVn9JMGsD
+	 l0lqHe9EM9eifBT91+jCeEGB9/Dx15CNBTw/awzf1RkU1bc8jdA+hDPj2Sd2EVOYRm
+	 OUGhyBwFazv/g==
+From: Mark Brown <broonie@kernel.org>
+To: Shenghao Ding <shenghao-ding@ti.com>, Kevin Lu <kevin-lu@ti.com>, 
+ Baojun Xu <baojun.xu@ti.com>, Sen Wang <sen@ti.com>, 
+ Liam Girdwood <lgirdwood@gmail.com>, Jaroslav Kysela <perex@perex.cz>, 
+ Takashi Iwai <tiwai@suse.com>, linux-sound@vger.kernel.org, 
+ Colin Ian King <colin.i.king@gmail.com>
+Cc: kernel-janitors@vger.kernel.org, linux-kernel@vger.kernel.org
+In-Reply-To: <20261002113953.1782731-1-colin.i.king@gmail.com>
+References: <20261002113953.1782731-1-colin.i.king@gmail.com>
+Subject: Re: [PATCH][next] ASoC: tas2781: Fix spelling mistake "config" ->
+ "config"
+Message-Id: <179113127609.150114.13801161604243660987.b4-ty@b4>
+Date: Sun, 04 Oct 2026 18:27:56 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20261004160615.142456-1-ngocthang2710.1999@gmail.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.17-dev
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1132; i=broonie@kernel.org;
+ h=from:subject:message-id; bh=3Ar2x8qgMH6kt24ve/xtWcLygI3njOIiKKqeY2EbVaA=;
+ b=owEBbQGS/pANAwAKASTWi3JdVIfQAcsmYgBqwqY1TpEkaXx0Mmrcj6KdiDRSjQP18mEqPEYT4
+ rU4TogIVweJATMEAAEKAB0WIQSt5miqZ1cYtZ/in+ok1otyXVSH0AUCasKmNQAKCRAk1otyXVSH
+ 0GiRB/0RBz9fLBveTKcF4mMP7iU0446SutT6kDXR/cpxsUWG3vO6YhUpfoiUTHOakVDWcbXadqs
+ U282TTYfg8jly4u0C17uiMVPw9QBuarxZlWqeTCvzW94z/S+80fkZa9S9uZ5QRS/BtxwmcwMKK3
+ uorkYnxEjjqmSmECa42LWp731hF3vWqUnzW6lhRwZLpxc01/2n5xwh9jluO3bQVgY6JyLCt2ihd
+ GlwJMbAKaVB9SwTGJ1SIVjq1cfNRRJDMwGeRX+6uXIHnNb80VNVI4MYJiFDM3RSeU7R/B/ELeD6
+ uxH1FlUgsnPETHvCIu7PQnu5IyTpCMH4eanTrlw7CvgiZkGQ
+X-Developer-Key: i=broonie@kernel.org; a=openpgp;
+ fpr=3F2568AAC26998F9E813A1C5C3F436CA30F5D8EB
 
-On Sun, Oct 04, 2026 at 11:06:15PM +0700, Nguyen Ngoc Thang wrote:
-> nft_synproxy treats any segment with SYN set as a client's initial SYN
-> and any segment with ACK set as the client's final ACK. A SYN-ACK thus
-> gets answered with a fresh SYN-ACK cookie.
-> 
-> If that reply is routed back to the same host, e.g. to a peer address
-> covered by an address on lo, it re-enters the input hook, is answered
-> again, and never stops. Every such SYN starts its own endless loop over
-> the loopback backlog, so NET_RX softirq keeps the CPU busy and memory
-> fills with skbs and rtable entries until workqueues stall and the
-> machine OOMs.
-> 
-> Use the same flag checks as ip(6)t_SYNPROXY: SYN without ACK, FIN or
-> RST is an initial SYN; ACK without SYN, FIN or RST is the client ACK.
-> Anything else falls through to the next expression.
+On Fri, 02 Oct 2026 12:39:52 +0100, Colin Ian King wrote:
+> ASoC: tas2781: Fix spelling mistake "config" -> "config"
 
-Wrong tree. This proposal has to go through nf-next.
+Applied to
 
-> Fixes: ad49d86e07a4 ("netfilter: nf_tables: Add synproxy support")
-> Reported-by: syzbot+d7795c8487ca4e20ed88@syzkaller.appspotmail.com
-> Closes: https://syzkaller.appspot.com/bug?extid=d7795c8487ca4e20ed88
-> Reported-by: syzbot+d0d2f1a65f45b319d25d@syzkaller.appspotmail.com
-> Closes: https://syzkaller.appspot.com/bug?extid=d0d2f1a65f45b319d25d
-> Signed-off-by: Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>
-> ---
-> Notes (not for the changelog):
-> 
-> Reproduced in QEMU (x86_64, 2 vCPUs, KASAN+lockdep) with syzbot's C
-> repro for d7795c8487ca4e20ed88. Minimised: only the nft batch and the
-> injected SYN matter, which is exactly the d0d2f1a65f45b319d25d program.
-> 
-> The rule is an inet table, base chain on input, with an unconditional
-> "synproxy" expression. The SYN goes from 172.20.20.187 to .170 via tun;
-> syzkaller puts 172.20.20.10/24 on lo, so the whole /24 is local and the
-> SYN-ACK cookie comes back through lo. Instrumented trace:
-> 
->   synproxy tx .170->.187 in=syz_tun out=lo syn=1 ack=1
->   synproxy tx .187->.170 in=lo      out=lo syn=1 ack=1
->   synproxy tx .170->.187 in=lo      out=lo syn=1 ack=1
->   ...
-> 
-> Before (3fd2ff60f6d6, full C repro):
->   - synproxy syn_received ~400k per CPU per netns after 15s
->   - rtable 80k -> 295k, skbuff_head_cache >1M, softirq time explodes
->   - "BUG: workqueue lockup", then OOM / hung task, VM wedges
-> 
-> After (2 runs x 300s, full C repro):
->   - no lockup, hung task or OOM
->   - rtable flat (~2.2k), skbuff_head_cache flat (~80k)
->   - syn_received grows slowly (~9.5k/300s): real SYNs still answered
-> 
-> ACK|FIN and ACK|RST no longer hit the cookie check (and its NF_DROP);
-> they continue, as with ip(6)t_SYNPROXY's XT_CONTINUE. The usual
-> "ct state invalid drop" rule still catches them.
-> 
->  net/netfilter/nft_synproxy.c | 8 ++++----
->  1 file changed, 4 insertions(+), 4 deletions(-)
-> 
-> diff --git a/net/netfilter/nft_synproxy.c b/net/netfilter/nft_synproxy.c
-> index 9ed288c9d168..a580cb7324da 100644
-> --- a/net/netfilter/nft_synproxy.c
-> +++ b/net/netfilter/nft_synproxy.c
-> @@ -53,13 +53,13 @@ static void nft_synproxy_eval_v4(const struct nft_synproxy *priv,
->  	struct synproxy_net *snet = synproxy_pernet(net);
->  	struct sk_buff *skb = pkt->skb;
->  
-> -	if (tcp->syn) {
-> +	if (tcp->syn && !(tcp->ack || tcp->fin || tcp->rst)) {
->  		/* Initial SYN from client */
->  		nft_synproxy_tcp_options(opts, tcp, snet, &info);
->  		synproxy_send_client_synack(net, skb, tcp, opts);
->  		consume_skb(skb);
->  		regs->verdict.code = NF_STOLEN;
-> -	} else if (tcp->ack) {
-> +	} else if (tcp->ack && !(tcp->fin || tcp->rst || tcp->syn)) {
->  		/* ACK from client */
->  		if (synproxy_recv_client_ack(net, skb, tcp, opts,
->  					     ntohl(tcp->seq))) {
-> @@ -84,13 +84,13 @@ static void nft_synproxy_eval_v6(const struct nft_synproxy *priv,
->  	struct synproxy_net *snet = synproxy_pernet(net);
->  	struct sk_buff *skb = pkt->skb;
->  
-> -	if (tcp->syn) {
-> +	if (tcp->syn && !(tcp->ack || tcp->fin || tcp->rst)) {
->  		/* Initial SYN from client */
->  		nft_synproxy_tcp_options(opts, tcp, snet, &info);
->  		synproxy_send_client_synack_ipv6(net, skb, tcp, opts);
->  		consume_skb(skb);
->  		regs->verdict.code = NF_STOLEN;
-> -	} else if (tcp->ack) {
-> +	} else if (tcp->ack && !(tcp->fin || tcp->rst || tcp->syn)) {
->  		/* ACK from client */
->  		if (synproxy_recv_client_ack_ipv6(net, skb, tcp, opts,
->  						  ntohl(tcp->seq))) {
-> -- 
-> 2.43.0
-> 
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-7.4
+
+Thanks!
+
+[1/1] ASoC: tas2781: Fix spelling mistake "config" -> "config"
+      https://git.kernel.org/broonie/sound/c/7d6adf283a83
+
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.
+
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
+
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
+
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
+
+Thanks,
+Mark
+
