@@ -1,237 +1,133 @@
-Received: from mta1.migadu.com (out-178.mta1.migadu.com [95.215.58.178])
+Received: from aib29aea145.syd1.oracleemaildelivery.com (aib29aea145.syd1.oracleemaildelivery.com [192.29.151.145])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4888D3A6B89
-	for <linux-kernel@vger.kernel.org>; Sun,  4 Oct 2026 01:27:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.178
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E220C3B47FF
+	for <linux-kernel@vger.kernel.org>; Sun,  4 Oct 2026 01:27:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.29.151.145
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791077261; cv=none; b=uR6P0zf025cucuTvjyujfDdrfoimGLXD6laJoYlGIHVF3uc5Zu0XnSi3jvZuDtsrpv0Ao4Jh99x7tSuuJfyMx1K2MBGO0Wd5+JZOjW/Jx+GSJc09sa1ZBOtO4TEXsdkarHyWbt2OfB4aTqRINpIW4d9faO2Tc1WWNas/5xI8zM4=
+	t=1791077278; cv=none; b=cQcGRXUhOYehzY3Y6UPiaOkmuia0gOm0ZDHmpBuHEDWCARTaj/oY/6TQRUg71rpgjgGCR//ph4p0igtTaJKUX7v8kn6woiEEHj4+9uvEXOgd0sxsO67GPIxAWCYgqjiO05ZYRXPWad3YfQp/jlLneqxWvhXQ7HCN1jfmI2lOtKQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791077261; c=relaxed/simple;
-	bh=wzQ99GICs2Vc4F2iRCLllGQA0ClIQT+EdYMR6WPsm+M=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=V/yFDWQuJ7Ur1cOiZmG2z9Ln9aXbri+5D4aPLhDUilgHp2yVMK31nQ5I+8o3QN1cbfxxR+VkPe8slBYwh+COyJSAcmzfYWN1nyn0RDytq/ehIHXq8+NFdeFtAjV7HNu4iLBfE3qE3LVsbWxJ+XJYqMqAJPVAFJYd8VhKfnj2hCI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=GBYabbwe; arc=none smtp.client-ip=95.215.58.178
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1791077278; c=relaxed/simple;
+	bh=YHwjaGEXhooScUMhN4sjKblUiQTTIR+wIjD3ycbLnbQ=;
+	h=Message-id:Date:MIME-version:Subject:To:Cc:References:From:
+	 In-reply-to:Content-type; b=X3KC9bv+UAY6jfw2drNclIl2/1Ks95qIrmRuDijYWEqY6HSOt74fSGfnaMvKpqkr/gQEw9IYyhetFL1bMLQtiTeMNMw6YOZyyVZlbj9Eo26XMb4nI2DfF5gfTU+iTYbtW87OVtdLnVnJ8BBQqHP0Uunv0Ag1yA2rbbY4qPMCLKI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=stevetech.au; spf=pass smtp.mailfrom=syd1.rp.oracleemaildelivery.com; dkim=pass (2048-bit key) header.d=stevetech.au header.i=@stevetech.au header.b=KLT8iUh1; dkim=pass (2048-bit key) header.d=syd1.rp.oracleemaildelivery.com header.i=@syd1.rp.oracleemaildelivery.com header.b=TSYpW09W; arc=none smtp.client-ip=192.29.151.145
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=stevetech.au
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=syd1.rp.oracleemaildelivery.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="GBYabbwe"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=wzQ99GICs2Vc4F2iRCLllGQA0ClIQT+EdYMR6WPsm+M=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1791077255; v=1; x=1791682055;
- b=GBYabbwe9IIEBOmSr/GqPLVkh386mtqj/wjq1qX4asFApO0QvJBAEgrRxmt3W33Zmp5+o3Mi
- +bxbFUvwdmAPGXLsuOz3ZSpHx5FVIUPsXHfiklJGk2xnkC0hwzMrqbC7RCRluIfTaXD5uTWS2DI
- dHSqP7QWhjuH5wULLqNe5kqE=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 91d63f57de4487cd;
-	Sun, 04 Oct 2026 01:27:34 +0000
-X-Mizu-Trace-ID: 91d63f57de4487cd
-X-Migadu-Flow: FLOW_OUT
-From: Tao Cui <cui.tao@linux.dev>
-To: tj@kernel.org
-Cc: void@manifault.com,
-	arighi@nvidia.com,
-	changwoo@igalia.com,
-	sched-ext@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	cui.tao@linux.dev,
-	Tao Cui <cuitao@kylinos.cn>
-Subject: [PATCH] sched_ext: Reset cpuperf_target when a sub-scheduler loses SCX_CAP_PERF or dies
-Date: Sun,  4 Oct 2026 09:27:21 +0800
-Message-ID: <20261004012721.615419-1-cui.tao@linux.dev>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key) header.d=stevetech.au header.i=@stevetech.au header.b="KLT8iUh1";
+	dkim=pass (2048-bit key) header.d=syd1.rp.oracleemaildelivery.com header.i=@syd1.rp.oracleemaildelivery.com header.b="TSYpW09W"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; s=oracle-2026;
+ d=stevetech.au;
+ h=Date:To:From:Subject:Message-Id:MIME-Version:Sender:List-Unsubscribe:List-Unsubscribe-Post;
+ bh=kpjG6rYXPTe/tizbo7cfjo5Jk+SyMjAmc1fPSNDuai4=;
+ b=KLT8iUh12tOlPLA/FfwVyNm75gg66SVjMAjVFp5C93id1wLv1XjoSwbOLnZtV1lfImFulQo+pXbH
+   sUvz8rbHs9ebay4T7rXMncj2jMwfFlQSHiF24wpj9nVSN9cglgrSQy0Wof9Ud8/AOP1dxDSKhxBN
+   BMeSqDDVyXn3qmiAgS6DnZ0KWlS3+alagNzy3y6w4sUQ8GWRt/bIrxeHRHE8tcjgWXebCaiGvWl6
+   GciO/Fk4mp1+95YKM33W+lmPtK7c071zmhe82EEHoWCWolY/G7lF40u8x20t3SZuMaFsVBkOd6z6
+   y/ymiTc7VpMoFecsL0HsFGyUmuwyVn/5vW3SmA==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; s=prod-syd-20200122;
+ d=syd1.rp.oracleemaildelivery.com;
+ h=Date:To:From:Subject:Message-Id:MIME-Version:Sender:List-Unsubscribe:List-Unsubscribe-Post;
+ bh=kpjG6rYXPTe/tizbo7cfjo5Jk+SyMjAmc1fPSNDuai4=;
+ b=TSYpW09WzZWP1aEdmMMkPbUoQMRStaB+1HTpTiSpxPaa5uv6LZwuZF/1DwsCl1soRaLWa1Zbd8wM
+   bg/nXKZiiAV4tyhSNjZpnevjQrqKf5Rdup1J7pNr7OIUPgm0TA6vrDopp58ibgzJoAhcpWJQNQpB
+   Ej0cSV+PlMoMJk3HMX7Y0sjWYuxHfmKXi4xHgihHRz43koQeY/u1xoRkkcTF/4mpF6uyEhPovkXq
+   afEKaawk3wg60b4leiG+Vaabech8z4BOpDCAqwtwGU+DLgo5CXWtzi92OFT/0IOzQsirw9IP8k9x
+   n4x8IQdvqPOznZGNwJZsKtMU9UN7jUNBpXgnpg==
+Received: by omta-ad1-fd1-1401-ap-sydney-1.omtaad1.vcndpsyd.oraclevcn.com
+ (Oracle Communications Messaging Server 8.1.0.1.20260817 64bit (built Aug 17
+ 2026))
+ with ESMTPS id <0TMD0SVKZ02GK190@omta-ad1-fd1-1401-ap-sydney-1.omtaad1.vcndpsyd.oraclevcn.com> for
+ linux-kernel@vger.kernel.org; Sun, 04 Oct 2026 01:27:52 +0000 (GMT)
+List-Unsubscribe-Post: List-Unsubscribe=One-Click
+Message-id: <736f095c-d7d3-4023-a2c0-0b5fbb1baa78@stevetech.au>
+Date: Sun, 4 Oct 2026 11:27:49 +1000
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+MIME-version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3] usb: xhci-pci: Add AMD 600 series to xhci-pci-prom21
+To: Mirko Jechow <mirko.jechow@gmx.de>,
+ Mathias Nyman <mathias.nyman@intel.com>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: Guenter Roeck <linux@roeck-us.net>, linux-usb@vger.kernel.org,
+ linux-hwmon@vger.kernel.org, linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org, Shyam Sundar S K <Shyam-sundar.S-k@amd.com>,
+ Jihong Min <hurryman2212@gmail.com>
+References: <20261004002731.49927-1-mirko.jechow@gmx.de>
+From: Stephen Horvath <linux@stevetech.au>
+Content-language: en-AU, en-US, en-GB
+In-reply-to: <20261004002731.49927-1-mirko.jechow@gmx.de>
+Content-type: text/plain; charset=UTF-8
+Content-transfer-encoding: 7bit
+Reporting-Meta:
+ AAHV7gL8JXoT6sfqXyJYFrulzXJdLpnzbDVduAssYr0JF2y5vo/IUbz12dA/L56G
+ IrlTQ/k3MADBWKY+uIyBVcindxxYfs1QOPSjJ+g9BmKWLqjWbT0YoupD4OYvWUkh
+ 6xjFTtNJ5HD4VC6iRXwXBLuYyfYLsn+ijm5tNwkG2Aq51+C+1QZFlZy7kZ6sGk7W
+ sw+gMDCUAYFV7SsscHjR2M68XPahxnn9j4Ym1MNiQim2HDe767q1oqQLyZewY2Zm
+ IE0EHzC62zdBDfFxTEc4KWg9LcjMVupLoo1PuL3Qim/S70iws2vrtaqS/g5j9QWo
+ PvQ0hBBFDiJp14vI+EXTupj8kJZVcsSc+O/ZPA1GXvA7dDQniGFAMqmGGLqXt9ZC
+ YExfO9J7YU6iUN3tkNNl09kXvpm72o8uzU6DPQFqtViVlCaxAibySU5qgBq9
 
-From: Tao Cui <cuitao@kylinos.cn>
+Hi Mirko.
 
-When a sub-scheduler holding SCX_CAP_PERF sets a low cpuperf target and
-then goes away - through cap revoke, kill, detach or cgroup removal -
-the target stays behind. scx_bpf_sub_revoke() only clears the pshard
-caps[] bitmaps: the cap gate in scx_cpuperf_set() blocks new writes but
-leaves the old value in place. scx_sub_disable() rehomes the tasks and
-unlinks the scheduler without touching rq->scx.cpuperf_target either.
+On 4/10/26 10:27, Mirko Jechow wrote:
+> From: Stephen Horvath <linux@stevetech.au>
+> 
+> It seems the xhci-pci-prom21 module only has IDs for the 800 series
+> chipsets. However, the 600 series chipsets also have Promontory 21
+> chips, so we should add their IDs to the list as well.
+> 
+> I have tested this on my X670 board featuring DID `0x43f7`.
+> 
+> `1022:43f7` also appears on the PCI ID database
+> (https://pci-ids.ucw.cz/read/PC/1022/43f7).
+> Device IDs `0x43f9` (B665) & `0x43fa` (A620) were suggested by Shyam.
+> 
+> Also list the new IDs in Documentation/hwmon/prom21-xhci.rst.
+> 
+> Cc: stable@vger.kernel.org # 7.2.x
+> Cc: Shyam Sundar S K <Shyam-sundar.S-k@amd.com>
+> Cc: Jihong Min <hurryman2212@gmail.com>
+> Signed-off-by: Stephen Horvath <linux@stevetech.au>
+> Tested-by: Mirko Jechow <mirko.jechow@gmx.de>
+> [mirko.jechow@gmx.de: add new IDs to prom21-xhci.rst]
+> Signed-off-by: Mirko Jechow <mirko.jechow@gmx.de>
+> ---
+> Changes in v3:
+> - List the new IDs on the PCI IDs line of Documentation/hwmon/prom21-xhci.rst
+>   (requested by Jihong Min)
+> - Picked up from Stephen; v2 had no follow-up since 2026-08-23
 
-Nothing ever rewrites the value afterwards. The reader gate
-scx_cpuperf_target() only tests the global scx_enabled(), which still
-holds while the root scheduler is running, so schedutil keeps consuming
-the stale target as its utilization base on every DVFS update. In
-switched-all mode, where sugov_get_util() does not add CFS utilization
-on top, the affected CPU stays pinned at a low frequency until sched_ext
-is disabled and re-enabled as a whole. A root scheduler like scx_simple
-never calls the cpuperf kfuncs, so the pin is unbounded.
+Thanks for picking this up! Sorry I've been busy and forgot about this.
 
-Fix it by restoring the neutral base that the root scheduler establishes
-at enable time whenever a writer goes away: scx_bpf_sub_revoke() queues
-a reset for the CPUs backing the actually-revoked cids, and
-scx_sub_disable() sweeps the scheduler's pshard SCX_CAP_PERF cmasks
-after it is unlinked and drained and queues a reset for every CPU it
-held the cap on.
+> - Link to v2: https://patch.msgid.link/20260820-xhci-pci-prom21-v2-1-638e5958fbbf@stevetech.au
+> ---
+>  Documentation/hwmon/prom21-xhci.rst | 2 +-
+>  drivers/usb/host/xhci-pci-prom21.c  | 3 +++
+>  drivers/usb/host/xhci-pci.c         | 3 +++
+>  drivers/usb/host/xhci-pci.h         | 3 +++
+>  4 files changed, 10 insertions(+), 1 deletion(-)
+> 
+> diff --git a/Documentation/hwmon/prom21-xhci.rst b/Documentation/hwmon/prom21-xhci.rst
+> index 7984fb187bd8a..6c0b6e7368921 100644
+> --- a/Documentation/hwmon/prom21-xhci.rst
+> +++ b/Documentation/hwmon/prom21-xhci.rst
+> @@ -9,7 +9,7 @@ Supported chips:
+>  
+>      Prefix: 'prom21_xhci'
+>  
+> -    PCI IDs: 1022:43fc, 1022:43fd
+> +    PCI IDs: 1022:43f7, 1022:43f9, 1022:43fa, 1022:43fc, 1022:43fd
+>  
+>  Author:
+>  
 
-The reset needs the target rq's lock. scx_bpf_sub_revoke() runs with
-IRQs disabled under pshard locks and may be entered from BPF with
-another rq already locked, so the reset is carried out from a per-CPU
-irq_work on the target CPU instead of taking cross-CPU rq locks.
-CPUs that are offline at reset time are skipped: a queued work would
-trip irq_work's offline-CPU warning and has no guaranteed execution
-point, and any stale target there is cleared when sched_ext is
-re-enabled. Over-resetting is possible when the cap is shared by
-multiple schedulers on one CPU; any scheduler still holding the cap
-rewrites its own target on its next update, and in the worst case the
-CPU runs at the neutral base until then or until a re-enable - still
-bounded, unlike the stale pin it prevents.
+Looks good to me!
 
-Tested on a VM: a sub-scheduler setting target 1 and then being killed
-leaves rq->scx.cpuperf_target at 1 under full load on the baseline; with
-this patch, the target returns to SCX_CPUPERF_ONE immediately on kill.
-
-Fixes: 86094b95efcf ("sched_ext: Add per-shard cap delegation for sub-schedulers")
-Signed-off-by: Tao Cui <cuitao@kylinos.cn>
----
- kernel/sched/ext/sub.c | 103 +++++++++++++++++++++++++++++++++++++++++
- 1 file changed, 103 insertions(+)
-
-diff --git a/kernel/sched/ext/sub.c b/kernel/sched/ext/sub.c
-index 48e17aeb1cb6..378cdabdcaf2 100644
---- a/kernel/sched/ext/sub.c
-+++ b/kernel/sched/ext/sub.c
-@@ -28,6 +28,57 @@
-  */
- DEFINE_STATIC_KEY_FALSE(__scx_has_subs);
- 
-+/*
-+ * Reset rq->scx.cpuperf_target back to the neutral SCX_CPUPERF_ONE base
-+ * when a sub-scheduler that wrote targets loses SCX_CAP_PERF or dies. The
-+ * reset runs from an irq_work on the target CPU so it can take the target
-+ * rq's lock without imposing any rq lock ordering on the callers:
-+ * scx_bpf_sub_revoke() runs with IRQs disabled under pshard locks and may
-+ * be reached from BPF with another rq already locked.
-+ */
-+static DEFINE_PER_CPU(struct irq_work, scx_cpuperf_reset_iw);
-+
-+static void scx_cpuperf_reset_fn(struct irq_work *iw)
-+{
-+	struct rq_flags rf;
-+	struct rq *rq;
-+
-+	if (!scx_enabled())
-+		return;
-+
-+	rq = cpu_rq(smp_processor_id());
-+	rq_lock_irqsave(rq, &rf);
-+	update_rq_clock(rq);
-+	if (rq->scx.cpuperf_target != SCX_CPUPERF_ONE) {
-+		rq->scx.cpuperf_target = SCX_CPUPERF_ONE;
-+		cpufreq_update_util(rq, 0);
-+	}
-+	rq_unlock_irqrestore(rq, &rf);
-+}
-+
-+/*
-+ * Queue a reset of @cpu's cpuperf target. Idempotent: the work is always a
-+ * plain restore of the neutral base, so concurrent queues collapse into one
-+ * run; CPUs that never had a sub-scheduler target no-op.
-+ */
-+static void scx_cpuperf_queue_reset(s32 cpu)
-+{
-+	if (cpu < 0 || cpu >= nr_cpu_ids || !cpu_online(cpu))
-+		return;
-+	irq_work_queue_on(&per_cpu(scx_cpuperf_reset_iw, cpu), cpu);
-+}
-+
-+static int __init scx_cpuperf_reset_init(void)
-+{
-+	int cpu;
-+
-+	for_each_possible_cpu(cpu)
-+		init_irq_work(per_cpu_ptr(&scx_cpuperf_reset_iw, cpu),
-+			      scx_cpuperf_reset_fn);
-+	return 0;
-+}
-+subsys_initcall(scx_cpuperf_reset_init);
-+
- /* latched at root enable before any rescue runs */
- static s32 scx_rescue_bw_1024;
- static s64 scx_rescue_quantum_ns;
-@@ -1457,6 +1508,39 @@ static inline s32 scx_cgroup_claim_subtree(struct scx_sched *sch) { return 0; }
- static inline void scx_cgroup_return_subtree(struct scx_sched *sch) {}
- #endif
- 
-+/*
-+ * Queue cpuperf resets for the CPUs backing the cids in @delta, the set
-+ * SCX_CAP_PERF was just revoked on.
-+ */
-+static void scx_cpuperf_revoke_cids(const struct scx_cmask *delta)
-+{
-+	s32 cid;
-+
-+	scx_cmask_for_each_cid(cid, delta)
-+		scx_cpuperf_queue_reset(__scx_cid_to_cpu(cid));
-+}
-+
-+/*
-+ * Restore the neutral cpuperf base on every CPU @sch holds SCX_CAP_PERF on.
-+ * Over-resetting is safe: any scheduler still holding the cap rewrites its
-+ * own target on its next update. Must be called after @sch is unlinked and
-+ * drained so nothing can race the pshard caps[] reads.
-+ */
-+static void scx_sub_reset_cpuperf(struct scx_sched *sch)
-+{
-+	s32 si, cid;
-+
-+	if (!READ_ONCE(sch->pshard))
-+		return;
-+
-+	for (si = 0; si < sch->nr_pshards; si++) {
-+		struct scx_cmask *cm = &sch->pshard[si]->caps[__SCX_CAP_PERF].cmask;
-+
-+		scx_cmask_for_each_cid(cid, cm)
-+			scx_cpuperf_queue_reset(__scx_cid_to_cpu(cid));
-+	}
-+}
-+
- void scx_sub_disable(struct scx_sched *sch)
- {
- 	struct scx_sched *parent = scx_parent(sch);
-@@ -1585,6 +1669,13 @@ void scx_sub_disable(struct scx_sched *sch)
- 
- 	mutex_unlock(&scx_enable_mutex);
- 
-+	/*
-+	 * @sch can no longer receive grants or writes: queue a cpuperf reset
-+	 * for every CPU it held SCX_CAP_PERF on so schedutil doesn't keep
-+	 * consuming the targets it left behind.
-+	 */
-+	scx_sub_reset_cpuperf(sch);
-+
- 	/*
- 	 * @sch is now unlinked from the parent's children list. Notify and call
- 	 * ops.sub_detach/exit(). Note that ops.sub_detach/exit() must be called
-@@ -2447,6 +2538,18 @@ __bpf_kfunc void scx_bpf_sub_revoke(u64 cgroup_id, u64 caps,
- 					scx_cmask_andnot(cm, delta);
- 					scx_cmask_or(changed_cids, delta);
- 					revoked_caps |= BIT_U64(cap_bit);
-+
-+					/*
-+					 * A lost SCX_CAP_PERF also invalidates
-+					 * the cpuperf targets @pos may have
-+					 * written on the revoked cids. Queue
-+					 * the reset; this runs with IRQs
-+					 * disabled under pshard locks, so the
-+					 * rq locks are taken on the target
-+					 * CPUs from irq_work instead.
-+					 */
-+					if (cap_bit == __SCX_CAP_PERF)
-+						scx_cpuperf_revoke_cids(delta);
- 				}
- 
- 				if (revoked_caps) {
--- 
-2.43.0
-
+Thanks,
+Steve
