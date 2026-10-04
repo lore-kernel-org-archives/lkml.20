@@ -1,277 +1,162 @@
-Received: from CWXP265CU008.outbound.protection.outlook.com (mail-ukwestazon11020111.outbound.protection.outlook.com [52.101.195.111])
+Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.5])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7A3A941E6D6;
-	Sun,  4 Oct 2026 12:15:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.195.111
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791116146; cv=fail; b=eo7GHYdyWz4kOXmNoDp/CTeL8UqlqntAo8czHPducGe+j5KgriP3NLzmucbMdfpaj/Oi/IE7hfIcvtyteQAMmSxqTdOTCls+PzqlEI5/Ncv32HCweqC+E6KczwGkhPJTGEWf40FVhAlqNt03ClDcIt/A/RoocSjM2QAG1+u5ZZo=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791116146; c=relaxed/simple;
-	bh=rWEXrGIHNvTLcdx8sIC15+C7/7fMXc6NVqT6vQFhS8Y=;
-	h=From:To:Cc:Subject:Date:Message-ID:Content-Type:MIME-Version; b=PCre9BXtWNZfRpUqNnDSwH1YmOMJMditX3joMWA0VMr7Nf9HYAV5Kk0SbfgyDMkKAghKAehokjidlo0+A/7/i+kEdKtseD0DdgwVGGy9LQ7jJXbOggRBtbbkZ177Sj7BsmHkJb7vcYTa0g0N4IXeqIU5Jm4gWeNsg/ZIrt/O/Uw=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=atomlin.com; spf=pass smtp.mailfrom=atomlin.com; arc=fail smtp.client-ip=52.101.195.111
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=atomlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=atomlin.com
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=KY7USBrAZ2e40/+9pHS5e3jGorV/vqBBcR6/IsnmtG9FrRhc5kum+dZu/NxZa8zyDzRY0FGWPqqRxLPxncgNxWFsxZXDJegg86nB5G9DCtpywsMPv95grfkT8V+QozMSUT5CIvAV+U03eM+2twT3uLRZ6re/m2b3oejN3SOmo+GLhoSnH+t81kzzU+9LDK/F8KWpeqnPk2ypEpgY1VwF0Z1Ibf29AkDmXNm2+tFI7x2JvXaScVx18kkCfG3+qKFozbiVutDF4OrTDrH5HRt0GnPZUVNDjWC1CFQCMO9+8qrK07bqsdRECheUuVss8JHTjTuW+eeXD6YyuQNqB08ImQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001; h=From:Date:Subject:Message-ID:MIME-Version;
- bh=elbUeuAWjZVql40S6pfQk+l3LRUUsCzsSVr4A6wNsJc=;
- b=fyrqxoYZ6vLyACtbNLn9LPdZn3c4rySBj5z6Q+6BMbRkf0I0ztDJ8u9NJA9TJhladZcossxXdTVRM7ZBsuIP7zid+B1+Gkvlg3V/8ZQv5V2tZTJHDY9DBUEPBplEP575KvTmXbp6+/RTaKq8p4bMLTKIBPnk7ABmWW+Tt8HiOLS+UUR5DaPY/EcEct9+wV0pHq3vKlzkLNlYC+Y1uvCGbCVjBpldYHmYJkVJdO2igmy/PadP9qr3HYNHXgw8+jYE5z72haIYiblSahuTCV1oAk08NDOP9hdCVstqAqG5pXS0y6HDK/qLHkL1vEB4FWP0JjZUTESbjKhb4VpUlM9OjQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=atomlin.com; dmarc=pass action=none header.from=atomlin.com;
- dkim=pass header.d=atomlin.com; arc=none
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=atomlin.com;
-Received: from CWLP123MB6607.GBRP123.PROD.OUTLOOK.COM (2603:10a6:400:183::5)
- by CWLP123MB7012.GBRP123.PROD.OUTLOOK.COM (2603:10a6:400:1f6::12) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.472.20; Sun, 4 Oct
- 2026 12:15:40 +0000
-Received: from CWLP123MB6607.GBRP123.PROD.OUTLOOK.COM
- ([fe80::cec4:77ab:262e:d230]) by CWLP123MB6607.GBRP123.PROD.OUTLOOK.COM
- ([fe80::cec4:77ab:262e:d230%4]) with mapi id 15.21.0472.016; Sun, 4 Oct 2026
- 12:15:33 +0000
-From: Aaron Tomlin <atomlin@atomlin.com>
-To: peterz@infradead.org,
-	mingo@redhat.com,
-	acme@kernel.org,
-	namhyung@kernel.org
-Cc: mark.rutland@arm.com,
-	alexander.shishkin@linux.intel.com,
-	jolsa@kernel.org,
-	irogers@google.com,
-	adrian.hunter@intel.com,
-	atomlin@atomlin.com,
-	linux-perf-users@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v2] perf trace: Support --bitmask-list with --libtraceevent
-Date: Sun,  4 Oct 2026 08:15:31 -0400
-Message-ID: <20261004121531.380660-1-atomlin@atomlin.com>
-X-Mailer: git-send-email 2.55.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: VIUP296CA0116.AUTP296.PROD.OUTLOOK.COM
- (2603:10a6:800:350::14) To CWLP123MB6607.GBRP123.PROD.OUTLOOK.COM
- (2603:10a6:400:183::5)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 58FF834D93C;
+	Sun,  4 Oct 2026 12:16:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.5
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791116173; cv=none; b=mwpajRUdq76yqG/tbeX0CkF/5xZ2A4wXdUKaZ+lPK1pDXIJK4SAWCkVsQxcLSkY33hpPv/mBzf4k0ikAQ3UdC886TeDb9oSljeS3Sx/JmcJtDIhEgTue5KZD2iUiCVxuVv+ZJNWjrQUURfyAUpH6ALi//JL0z+SLznMD/8eHFrk=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791116173; c=relaxed/simple;
+	bh=2a7sjE0Ej82Ld/95ZmU5sYX3XYm6v4XNVe5QDwuwNRo=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References:Content-Type:
+	 MIME-Version:Message-ID; b=TCVJ5GFrZ1TaUtCyAs4n58HFjJzfT+JDnYIVl4yiXh2HItv9Wp36t8kREXhIb+C+db7ufohpzOM+vwE5uerqBN+66FQdCzAZVai4E1pPA9FbsFlcOJa2AEE2DLBagPxyVXcyDGX2eIYHhJv50SFy1lFUWTls+fzq9lYEbr1oIdU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=kKyKWwnD; arc=none smtp.client-ip=220.197.31.5
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="kKyKWwnD"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=Date:From:To:Subject:Content-Type:MIME-Version:
+	Message-ID; bh=2a7sjE0Ej82Ld/95ZmU5sYX3XYm6v4XNVe5QDwuwNRo=; b=k
+	KyKWwnDrTwb3lWXRL6vrpkRMFjK7SmsZbp2+pVyt2CoZx5K+4TGYdBXcm4tiBDRJ
+	a4GJ/Gn3pMJxpgqfGWog9iQSh/0rNkJuOuOR38u7PLb0QXGZQP5NqYeH7n3x69+L
+	RGzPnl6j3Kqmaf449LPmup8xRdmv7iTwXSCx1MhU1w=
+Received: from 19888972804$163.com (
+ [2408:8207:2421:84e0:61d7:4f14:bc92:6eb5] ) by ajax-webmail-wmsvr-40-122
+ (Coremail) ; Sun, 4 Oct 2026 20:14:40 +0800 (CST)
+Date: Sun, 4 Oct 2026 20:14:40 +0800 (CST)
+From: "jiale yao" <19888972804@163.com>
+To: =?GBK?Q?Th=A8=A6o_Lebrun?= <theo.lebrun@bootlin.com>
+Cc: "Conor Dooley" <conor.dooley@microchip.com>,
+	"Andrew Lunn" <andrew+netdev@lunn.ch>,
+	"David S. Miller" <davem@davemloft.net>,
+	"Eric Dumazet" <edumazet@google.com>,
+	"Jakub Kicinski" <kuba@kernel.org>,
+	"Paolo Abeni" <pabeni@redhat.com>,
+	"Russell King" <linux@armlinux.org.uk>,
+	"Nicolas Ferre" <nicolas.ferre@microchip.com>,
+	"Soren Brinkmann" <soren.brinkmann@xilinx.com>,
+	netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH net v3 1/7] net: macb: manage the netdev lifetime with
+ devres
+X-Priority: 3
+X-Mailer: Coremail Webmail Server Version 2023.4-cmXT build
+ 20260511(2e539873) Copyright (c) 2002-2026 www.mailtech.cn 163com
+In-Reply-To: <DLVX7ZLU4GOM.1WCL74N0U7PUP@bootlin.com>
+References: <20261003085940.493951-1-yaojiale02@163.com>
+ <20261003085940.493951-2-yaojiale02@163.com>
+ <DLVX7ZLU4GOM.1WCL74N0U7PUP@bootlin.com>
+X-NTES-SC: AL_Qu2SA/2auUgj5imYZ+kdmE8Uges8WcC0svki1YJUc/AEvQrH+wIGc0daIVzG1sa+NxmGtBuRUShj5upLWoReJAgrODIcUChwF7TRUfAZfg==
+Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset=GBK
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CWLP123MB6607:EE_|CWLP123MB7012:EE_
-X-MS-Office365-Filtering-Correlation-Id: e67acf8f-0366-4d2f-2922-08df221130a4
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|366016|23010399003|1800799024|376014|7416014|18002099003|56012099006|10067099003|6133799003|3023799007;
-X-Microsoft-Antispam-Message-Info:
-	hyesPQUaDS0wdwivZ9rhnizwRBa4mYEwaStZULat0TJKoTj1XzbXgQpuLoCbma1AjgVMCcPXeaFrkf5BJdN+vBhUTdCYM8jgtk+Vxy4bZ0TyxtiSOnNQLZhxwxAUhqiOkSMQ3U0+5CWqO4WtcRWnCyMLctTYQ+37Hyi+4zHxYVptITdIK6g732rpq1HyBQpfFW2Hx7vy53ix2qsprW4CaLG/PHdHEBX0DAyi0iqppgwkSVhtBbRWaYsBl99z3upsTlQ0FobmyVjIVpWfg8arzIGFYS1oRsFnx4+PvmLkFkaqdOfKuWwUjvyhNygxR/J+GYv9lUdZqIXmO5FQA206RjfDX5TFmxzMYL6E3MjbCyv/bRYX3U7aONgkiTlHYRw0T//fHibWTps402sByKjFOplMiR4VLUm+RBFeYVKKmek1Z1MKyNilBQICJHKBWYdzM6jK0Emjfq4ezvZtgCSDoUCWRlPfAvdxmist+Q5llHB9KyvGnnFfQ46jITdN+v9Rbq+SGiB7rLEtSr93g229sBKWg+9u8IkkuzQoooXdSiTfOLxyILr5kIjvVmoCDtddoH+hHjzHQAXaI7SraItanv2q4i4PCx7m6Apm8NxmsIBq3xGRObCG4u0ShP2eqZUdQW6fXDH0Y2S8YOO73bkUmPYjOTMjXMzDD1nGMUf3S4g=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CWLP123MB6607.GBRP123.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(366016)(23010399003)(1800799024)(376014)(7416014)(18002099003)(56012099006)(10067099003)(6133799003)(3023799007);DIR:OUT;SFP:1102;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?CLk4zGTuHukJGGMoTUDfAkkF4tap+eFQAfU5/1L2qHdtRincC8007Wprgcj/?=
- =?us-ascii?Q?76AZtGoOMcGLcYHHAHYAhxuJUE728Gcf8iKGrPLt31yqmDjAzuoLrjFVr/Fb?=
- =?us-ascii?Q?f2wkSoQJvUf6rUcHNYbO6IkjZZzI2KPGzWfNMkX3iSp03575EqPcLMejbQtu?=
- =?us-ascii?Q?+pEUlJlcNjBFP1YnMjxuYjj/ngbjhr0A8E9M4KPBEqmxPk3rmTwQuR9APMbR?=
- =?us-ascii?Q?zpLO1iVWERMzfLle+ya/3IohG+rUpU6fvcC5BcWYAVb+aycJDzG3Q8PWWHlL?=
- =?us-ascii?Q?6+AvtdyE9Sm6xKOZnIemDDbdYUE86jOJJKbYPthY4aG1G3z3FsC8YF6qd5Ou?=
- =?us-ascii?Q?UAKBxhJgQdi51Tl7VoUHq23YvgbW94JjDwYw6tauQLENwMR2Kost787fCrb2?=
- =?us-ascii?Q?168+8aA8jZKxNcLq38/+QVP4VfZBQPo7L6q+PR8mzirRnN0L3ilhR1c+Anss?=
- =?us-ascii?Q?1IZyBxIyhWUlCpcXTorgeR8NLqaESbDlxv4338j77l03yP37cw9a+HiCalva?=
- =?us-ascii?Q?dQHHIbQckAUTlruVlUowTB6/nlDym7p4VWCMCyDTMQSllNvV/A/dTh5ZwpKY?=
- =?us-ascii?Q?iat8X6F1tEX5mIDoXnVewZ2XPjiA37UJuBwF674rxxpHdImSG+Tx33Y5l/Ej?=
- =?us-ascii?Q?RtihGLC8XV70+5SIB2tn0mFY1Lhb21ECjb7+YeH6HRfVyAhO+Z8baxpkjEA9?=
- =?us-ascii?Q?I7C4ApIy1dvhlqcJlJBjaVvMBPBANZnj/lZr85v6QAGtZbRjmTePwwGHO3cE?=
- =?us-ascii?Q?qGZFikpDpUGz+dCzbHByQzsJxpfGZHA9pdri5tJFbHeH4a91eKD2flG5sd6M?=
- =?us-ascii?Q?HUbkkclbfwkhHw6mi8AmcOqdnvS/KLmtPIjeWo9vWNSx1nZsoa4+Hui3kOXq?=
- =?us-ascii?Q?D3VQkR03XAbJzduhxrIW+gMralJkug66sMXbGqhsU52wE5UnhIilsdcEjxHN?=
- =?us-ascii?Q?pWU7OA2SN6Ib7QR5V0rKvXa3OwJqDfX0vjQJ4MLjSI/naJoxbi9+1lN/tYmn?=
- =?us-ascii?Q?MD6RUhsBlhmj60Ayqt7Fpv8JOk648Y811MZL+4SlObl+XKHy6aNwnzR+0Xpl?=
- =?us-ascii?Q?+4kxgNsrdficZxA1uFI3nc51/TM3P9P9WJ+avOXr/WVfBiAOpEFjPAFpAJxC?=
- =?us-ascii?Q?9mdKQixyEUVdggVgcH+XAPsOOEjcfj1hrG/f1LJKFQLySsgE4yBW9RmVL4nY?=
- =?us-ascii?Q?H9zeUlTHoE5IikC838wPJw+xm76cGhEUeHVYwCJIk2amfbzguXQR8di4nNXs?=
- =?us-ascii?Q?Ag6NByKVdV4CDh9V1ny38200l8dvygtGxSDR3a4Aq+aacxxM3wbwbrafVjGg?=
- =?us-ascii?Q?Y3OSpQUpoTvFCjwKyk77NV0lnE5D9TWZwVdhUH3LboxQ5NTgDQXPDRze+dek?=
- =?us-ascii?Q?thf0yu8sPRjfjzlN/N2ZnLyn7G9AR/JcfiTMhQH1PgBH27D1EL6FV9JVxPUf?=
- =?us-ascii?Q?TDrvC8FLBZ7PhRRFjtMcOOuWIBP8BTrVNli1nI/neWtLpctvBHYrTjdHpE82?=
- =?us-ascii?Q?kMkMOZIBk5FKXGwjP0OyPYwGwwVNlCASba+uHT7/eNRA/cItx50iiYOCaHJ3?=
- =?us-ascii?Q?1/nNCl18j1EgviWTHWngYgPFQb98HG8536oGHvfhAP6fSRdv/8Dh3f2P5Cfd?=
- =?us-ascii?Q?+KoSawR/iyBnaA1/97UN7K5C+YM3hPt2jwuTEf8JKYstKqcXMLbe9wyZUskD?=
- =?us-ascii?Q?zEMsAXz9bPQ+7FQegW6yiiSGVVL84Pdp7lUNLvaBye4RUBuTBmlMHFJbycNt?=
- =?us-ascii?Q?+x3+kUTvMA=3D=3D?=
-X-OriginatorOrg: atomlin.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: e67acf8f-0366-4d2f-2922-08df221130a4
-X-MS-Exchange-CrossTenant-AuthSource: CWLP123MB6607.GBRP123.PROD.OUTLOOK.COM
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Oct 2026 12:15:33.6991
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: e6a32402-7d7b-4830-9a2b-76945bbbcb57
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 3aXFJu8xSrYEUzNV7jWlXAACp29WNvQte5VrNEyKS2pwbeM8nIW0tl8omStqufSG7Y9ZgIoutFAkV9HwUJ4W8A==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CWLP123MB7012
+Message-ID: <178a0ccc.167b.1a106d6770f.Coremail.19888972804@163.com>
+X-Coremail-Locale: zh_CN
+X-CM-TRANSID:eigvCgDnTywxQ8JqRlBSAA--.15W
+X-CM-SenderInfo: x1dryxhdohiji6rwjhhfrp/xtbC8BAoYmrCQzDPWgAA3k
+X-Coremail-Antispam: 1U5529EdanIXcx71UUUUU7vcSsGvfC2KfnxnUU==
 
-Commit ab74d1fbe061 ("perf trace: Add --bitmask-list command-line option")
-introduced the --bitmask-list option to display cpumasks and bitmasks as
-condensed, human-readable range lists (e.g. "0,2-5,7") instead of the
-default hexadecimal format.
-
-However, that implementation only augmented trace__fprintf_tp_fields().
-When --libtraceevent is specified, event formatting is delegated to
-event_format__fprintf(), which bypasses trace__fprintf_tp_fields() and
-relies directly on libtraceevent.
-
-In libtraceevent, tracepoint bitmask fields defined using __get_bitmask()
-are parsed into TEP_PRINT_BITMASK AST nodes and unconditionally formatted
-as raw 32-bit hex chunks (e.g. "00000000,00000005"), ignoring the
---bitmask-list command-line option.
-
-While a dedicated configuration API in libtraceevent would be the ideal
-long-term solution, that requires a new upstream libtraceevent release
-and conditional version checks in perf. To provide immediate support for
-existing installations, traverse the event format's print argument AST
-in perf trace and rewrite any TEP_PRINT_BITMASK nodes to TEP_PRINT_CPUMASK
-when --bitmask-list is enabled. Both types share the identical union
-payload (arg->bitmask.field), but TEP_PRINT_CPUMASK instructs
-libtraceevent's print engine (print_cpumask_to_seq()) to render the mask
-as a condensed range list.
-
-As TEP_PRINT_CPUMASK was introduced in libtraceevent 1.7.0, guard this
-transformation behind LIBTRACEEVENT_VERSION >=
-MAKE_LIBTRACEEVENT_VERSION(1, 7, 0). Within the AST walker, cast
-arg->type explicitly to (int) in the switch evaluation; this satisfies
--Wswitch-enum under -Werror while preventing future enumerators added to
-enum tep_print_arg_type from precipitating build breakages.
-To avoid any per-sample overhead in the event handling fast path, perform
-this transformation once during tracepoint setup via
-trace__init_tp_bitmask_list() for both live tracing (cmd_trace()) and
-recording replay (trace__replay()), leaving trace__event_handler()
-untouched. As with existing tracepoint replay in perf trace, this expects
-the evlist to be populated from the session header.
-
-Signed-off-by: Aaron Tomlin <atomlin@atomlin.com>
----
-Changes since v1:
-
- - Guard the AST transformation with LIBTRACEEVENT_VERSION >=
-   MAKE_LIBTRACEEVENT_VERSION(1, 7, 0) in addition to HAVE_LIBTRACEEVENT,
-   as TEP_PRINT_CPUMASK was introduced in libtraceevent 1.7.0. Older
-   versions fallback to the empty trace__init_tp_bitmask_list() stub
-
- - In tep_print_arg__set_bitmask_list(), cast arg->type explicitly to (int)
-   in the switch statement and consolidate unhandled cases into default,
-   satisfying -Wswitch-enum under -Werror while avoiding build failures if
-   new enumerators are added to enum tep_print_arg_type in future
-   libtraceevent releases
-
- - Update commit message to document the libtraceevent 1.7.0 version
-   dependency and the switch casting rationale
-
- - Link to v1: https://lore.kernel.org/lkml/20261002213145.333100-1-atomlin@atomlin.com/
-
- tools/perf/builtin-trace.c | 70 ++++++++++++++++++++++++++++++++++++++
- 1 file changed, 70 insertions(+)
-
-diff --git a/tools/perf/builtin-trace.c b/tools/perf/builtin-trace.c
-index c3c7f1f85c53..57211f4d031e 100644
---- a/tools/perf/builtin-trace.c
-+++ b/tools/perf/builtin-trace.c
-@@ -4857,6 +4857,72 @@ static int trace__run(struct trace *trace, int argc, const char **argv)
- 	goto out_put_evlist;
- }
- 
-+#if defined(HAVE_LIBTRACEEVENT) && \
-+	defined(LIBTRACEEVENT_VERSION) && \
-+	(MAKE_LIBTRACEEVENT_VERSION(1, 7, 0) <= LIBTRACEEVENT_VERSION)
-+static void tep_print_arg__set_bitmask_list(struct tep_print_arg *arg)
-+{
-+	for (; arg; arg = arg->next) {
-+		switch ((int)arg->type) {
-+		case TEP_PRINT_BITMASK:
-+			arg->type = TEP_PRINT_CPUMASK;
-+			break;
-+		case TEP_PRINT_OP:
-+			tep_print_arg__set_bitmask_list(arg->op.left);
-+			tep_print_arg__set_bitmask_list(arg->op.right);
-+			break;
-+		case TEP_PRINT_FUNC:
-+			tep_print_arg__set_bitmask_list(arg->func.args);
-+			break;
-+		case TEP_PRINT_FLAGS:
-+			tep_print_arg__set_bitmask_list(arg->flags.field);
-+			break;
-+		case TEP_PRINT_SYMBOL:
-+			tep_print_arg__set_bitmask_list(arg->symbol.field);
-+			break;
-+		case TEP_PRINT_HEX:
-+		case TEP_PRINT_HEX_STR:
-+			tep_print_arg__set_bitmask_list(arg->hex.field);
-+			tep_print_arg__set_bitmask_list(arg->hex.size);
-+			break;
-+		case TEP_PRINT_INT_ARRAY:
-+			tep_print_arg__set_bitmask_list(arg->int_array.field);
-+			tep_print_arg__set_bitmask_list(arg->int_array.count);
-+			tep_print_arg__set_bitmask_list(arg->int_array.el_size);
-+			break;
-+		case TEP_PRINT_TYPE:
-+			tep_print_arg__set_bitmask_list(arg->typecast.item);
-+			break;
-+		case TEP_PRINT_DYNAMIC_ARRAY:
-+			tep_print_arg__set_bitmask_list(arg->dynarray.index);
-+			break;
-+		default:
-+			break;
-+		}
-+	}
-+}
-+
-+static void trace__init_tp_bitmask_list(struct trace *trace, struct evlist *evlist)
-+{
-+	struct evsel *evsel;
-+
-+	if (!trace->libtraceevent_print || !trace->bitmask_list)
-+		return;
-+
-+	evlist__for_each_entry(evlist, evsel) {
-+		struct tep_event *tp_format = evsel__tp_format(evsel);
-+
-+		if (tp_format)
-+			tep_print_arg__set_bitmask_list(tp_format->print_fmt.args);
-+	}
-+}
-+#else
-+static void trace__init_tp_bitmask_list(struct trace *trace __maybe_unused,
-+					struct evlist *evlist __maybe_unused)
-+{
-+}
-+#endif
-+
- static int trace__replay(struct trace *trace)
- {
- 	const struct evsel_str_handler handlers[] = {
-@@ -4908,6 +4974,8 @@ static int trace__replay(struct trace *trace)
- 	if (err)
- 		goto out;
- 
-+	trace__init_tp_bitmask_list(trace, session->evlist);
-+
- 	evsel = evlist__find_tracepoint_by_name(session->evlist, "raw_syscalls:sys_enter");
- 	trace->syscalls.events.sys_enter = evsel;
- 	/* older kernels have syscalls tp versus raw_syscalls */
-@@ -5814,6 +5882,8 @@ int cmd_trace(int argc, const char **argv)
- 
- 		if (use_btf)
- 			trace__load_vmlinux_btf(&trace);
-+
-+		trace__init_tp_bitmask_list(&trace, trace.evlist);
- 	}
- 
- 	/*
--- 
-2.55.0
-
+QXQgMjAyNi0xMC0wNCAxNjo0NTo1OCwgIlRoqKZvIExlYnJ1biIgPHRoZW8ubGVicnVuQGJvb3Rs
+aW4uY29tPiB3cm90ZToKPkhlbGxvIEppYWxlLAo+Cj5UaG9zZSBMTE0gYnVncyBhcmUgY29kZSBj
+aHVybiwgdGhhdCdzIHdoeSB5b3UgYXJlIHNlZWluZyBwdXNoYmFjay4KPlBsZWFzZSBkb24ndCBp
+Z25vcmUgdGhlIHB1c2hiYWNrLiBGb3IgZXhhbXBsZSBvbiBWMiB5b3UgZ290IGFza2VkIHRvCj5y
+ZXBseSB0byBhbiBhdXRvbWF0ZWQgbWVzc2FnZSwgd2hpY2ggeW91IGRpZG4ndCBkby4KPgo+aHR0
+cHM6Ly9sb3JlLmtlcm5lbC5vcmcvbmV0ZGV2LzIwMjYwOTI3MTUzMDIwLjUzMTFkYmE2QGtlcm5l
+bC5vcmcvCj4KPk9uIFNhdCBPY3QgMywgMjAyNiBhdCAxMDo1OSBBTSBDRVNULCBKaWFsZSBZYW8g
+d3JvdGU6Cj4+IG1hY2JfcmVtb3ZlKCkgZnJlZXMgdGhlIG5ldGRldiB3aGlsZSBpdHMgbWFuYWdl
+ZCBJUlFzIGFyZSBvbmx5Cj4+IHJlbGVhc2VkIGFmdGVyIHRoZSByZW1vdmUgY2FsbGJhY2sgcmV0
+dXJucy4gQW4gaW50ZXJydXB0IGluIHRoYXQgd2luZG93Cj4+IGNhbiBkZXJlZmVyZW5jZSB0aGUg
+ZnJlZWQgbmV0ZGV2IG9yIHF1ZXVlIGRhdGEuCj4KPlBsZWFzZSBpbmRpY2F0ZSBob3cgYW4gaW50
+ZXJydXB0IGNvdWxkIGxhbmQgaW4gdGhhdCB3aW5kb3cuCj5UaGlua2luZyBhYm91dCBpdCBmb3Ig
+YSBicmllZiBpbnN0YW50LCBJIGNhbm5vdCB0aGluayBvZiBvbmUuCgpJIHJlcHJvZHVjZWQgdGhp
+cyBvbiBRRU1VIGFhcmNoNjQgdmlydCArIEtBU0FOOgpJIGFkZGVkIGEgbWFjYiBub2RlIHZpYSBh
+biBleHRlbmRlZCBkZXZpY2UgdHJlZSwgd2l0aCBpdHMgaW50ZXJydXB0CmxpbmUgc2hhcmVkIHdp
+dGggdmlydGlvLXJuZy4gS2VlcGluZyB0aGUgcm5nIGJ1c3kgdHJpZ2dlcnMgYSBzdGVhZHkKc3Ry
+ZWFtIG9mIGludGVycnVwdHMgZHVyaW5nIHVuYmluZC9yZWJpbmQsIGFuZCBtYWNiX2ludGVycnVw
+dCgpIGhpdHMgdGhlCndpbmRvdyBhZnRlciBgZnJlZV9uZXRkZXYoKWAgb24gdGhlIGZpcnN0IGF0
+dGVtcHQuIAoKLS0tClsgICAgNC40NTcwNzddIEJVRzogS0FTQU46IHVzZS1hZnRlci1mcmVlIGlu
+IG1hY2JfaW50ZXJydXB0KzB4YzQwLzB4MTA3NApbICAgIDQuNDU3NTY5XSBSZWFkIG9mIHNpemUg
+OCBhdCBhZGRyIGZmZmYwMDAwMGY4YWNhYzggYnkgdGFzayBwb2MvODIKWyAgICA0LjQ1NzYxNF0g
+ClsgICAgNC40NTc5MzhdIENQVTogMCBVSUQ6IDAgUElEOiA4MiBDb21tOiBwb2MgTm90IHRhaW50
+ZWQgNy4zLjAtcmM0ICMxIFBSRUVNUFQgClsgICAgNC40NTgwMjVdIEhhcmR3YXJlIG5hbWU6IGxp
+bnV4LGR1bW15LXZpcnQgKERUKQpbICAgIDQuNDU4MTY3XSBDYWxsIHRyYWNlOgpbICAgIDQuNDU4
+MjU4XSAgc2hvd19zdGFjaysweDE4LzB4MjQgKEMpClsgICAgNC40NTgzMjFdICBkdW1wX3N0YWNr
+X2x2bCsweDc4LzB4OTAKWyAgICA0LjQ1ODM0MF0gIHByaW50X3JlcG9ydCsweDExNC8weDVjYwpb
+ICAgIDQuNDU4MzUzXSAga2FzYW5fcmVwb3J0KzB4YTQvMHhmMApbICAgIDQuNDU4MzYzXSAgX19h
+c2FuX3JlcG9ydF9sb2FkOF9ub2Fib3J0KzB4MjAvMHgyYwpbICAgIDQuNDU4Mzc0XSAgbWFjYl9p
+bnRlcnJ1cHQrMHhjNDAvMHgxMDc0ClsgICAgNC40NTgzODVdICBfX2hhbmRsZV9pcnFfZXZlbnRf
+cGVyY3B1KzB4YzgvMHgzNDAKWyAgICA0LjQ1ODM5OF0gIGhhbmRsZV9pcnFfZXZlbnQrMHhiMC8w
+eDFkOApbICAgIDQuNDU4NDA3XSAgaGFuZGxlX2Zhc3Rlb2lfaXJxKzB4Mjk4LzB4NmEwClsgICAg
+NC40NTg0MTldICBoYW5kbGVfaXJxX2Rlc2MrMHhjNC8weDEwNApbICAgIDQuNDU4NDU0XSAgZ2Vu
+ZXJpY19oYW5kbGVfZG9tYWluX2lycSsweDE4LzB4MjQKWyAgICA0LjQ1ODQ4NV0gIGdpY19oYW5k
+bGVfaXJxKzB4NTQvMHgxOTQKWyAgICA0LjQ1ODQ5OF0gIGNhbGxfb25faXJxX3N0YWNrKzB4MzAv
+MHg0OApbICAgIDQuNDU4NTExXSAgZG9faW50ZXJydXB0X2hhbmRsZXIrMHhmMC8weDEzMApbICAg
+IDQuNDU4NTIzXSAgZWwxX2ludGVycnVwdCsweDNjLzB4NjAKWyAgICA0LjQ1ODUzOF0gIGVsMWhf
+NjRfaXJxX2hhbmRsZXIrMHgxOC8weDI0ClsgICAgNC40NTg1NTBdICBlbDFoXzY0X2lycSsweDZj
+LzB4NzAKWyAgICA0LjQ1ODYxOV0gIGdldF9wZm5ibG9ja19taWdyYXRldHlwZSsweGQwLzB4MTQ0
+IChQKQpbICAgIDQuNDU4NjM4XSAgX19mcmVlX2Zyb3plbl9wYWdlcysweDJkOC8weGVjNApbICAg
+IDQuNDU4NjUwXSAgZnJlZV9mcm96ZW5fcGFnZXMrMHgxNC8weDIwClsgICAgNC40NTg2NjFdICBm
+cmVlX2xhcmdlX2ttYWxsb2MrMHhhMC8weDEyMApbICAgIDQuNDU4Njc0XSAga2ZyZWUrMHg4NC8w
+eDQyNApbICAgIDQuNDU4Njg0XSAga3ZmcmVlKzB4M2MvMHg0YwpbICAgIDQuNDU4Njk0XSAgbmV0
+ZGV2X3JlbGVhc2UrMHg3MC8weDk4ClsgICAgNC40NTg3MDddICBkZXZpY2VfcmVsZWFzZSsweDEw
+NC8weDIxMApbICAgIDQuNDU4NzIwXSAga29iamVjdF9wdXQrMHgxNDAvMHgyNDAKWyAgICA0LjQ1
+ODczMV0gIHB1dF9kZXZpY2UrMHgxNC8weDI0ClsgICAgNC40NTg3NDBdICBmcmVlX25ldGRldisw
+eDQxNC8weDZjNApbICAgIDQuNDU4NzUyXSAgbWFjYl9yZW1vdmUrMHgxNGMvMHgxOWMKWyAgICA0
+LjQ1ODc2M10gIHBsYXRmb3JtX3JlbW92ZSsweDU4LzB4NzgKWyAgICA0LjQ1ODc3NF0gIGRldmlj
+ZV9yZW1vdmUrMHhiMC8weDE0YwpbICAgIDQuNDU4Nzg1XSAgZGV2aWNlX3JlbGVhc2VfZHJpdmVy
+X2ludGVybmFsKzB4MmZjLzB4NDY4ClsgICAgNC40NTg3OTVdICBkZXZpY2VfZHJpdmVyX2RldGFj
+aCsweDNjLzB4NTQKWyAgICA0LjQ1ODgwNF0gIHVuYmluZF9zdG9yZSsweGVjLzB4MTAwClsgICAg
+NC40NTg4MTRdICBkcnZfYXR0cl9zdG9yZSsweDYwLzB4OWMKWyAgICA0LjQ1ODgyNF0gIHN5c2Zz
+X2tmX3dyaXRlKzB4MTcwLzB4MWU4ClsgICAgNC40NTg4MzhdICBrZXJuZnNfZm9wX3dyaXRlX2l0
+ZXIrMHgyOTgvMHg0MDQKWyAgICA0LjQ1ODg0OF0gIHZmc193cml0ZSsweDY0OC8weDhjYwpbICAg
+IDQuNDU4ODU5XSAga3N5c193cml0ZSsweGYwLzB4MWUwClsgICAgNC40NTg4NjhdICBfX2FybTY0
+X3N5c193cml0ZSsweDcwLzB4YTAKWyAgICA0LjQ1ODg3N10gIGludm9rZV9zeXNjYWxsKzB4NzAv
+MHgyNGMKWyAgICA0LjQ1ODg4N10gIGVsMF9zdmNfY29tbW9uLmNvbnN0cHJvcC4wKzB4YTgvMHgy
+MmMKWyAgICA0LjQ1ODg5Nl0gIGRvX2VsMF9zdmMrMHg0NC8weDVjClsgICAgNC40NTg5MDVdICBl
+bDBfc3ZjKzB4NTgvMHhkMApbICAgIDQuNDU4OTE3XSAgZWwwdF82NF9zeW5jX2hhbmRsZXIrMHhh
+MC8weGU0ClsgICAgNC40NTg5MjldICBlbDB0XzY0X3N5bmMrMHgxOTgvMHgxOWMKWyAgICA0LjQ1
+OTAwN10gClsgICAgNC40NTkwNTNdIFRoZSBidWdneSBhZGRyZXNzIGJlbG9uZ3MgdG8gdGhlIHBo
+eXNpY2FsIHBhZ2U6ClsgICAgNC40NTkyNjFdIHBhZ2U6IHJlZmNvdW50OjAgbWFwY291bnQ6MCBt
+YXBwaW5nOjAwMDAwMDAwMDAwMDAwMDAgaW5kZXg6MHgwIHBmbjoweDRmOGFjClsgICAgNC40NTkz
+ODRdIGZsYWdzOiAweDNmZmZlMDAwMDAwMDAwMChub2RlPTB8em9uZT0wfGxhc3RjcHVwaWQ9MHgx
+ZmZmZikKWyAgICA0LjQ1OTcyMV0gcmF3OiAwM2ZmZmUwMDAwMDAwMDAwIDAwMDAwMDAwMDAwMDAw
+MDAgZGVhZDAwMDAwMDAwMDEyMiAwMDAwMDAwMDAwMDAwMDAwClsgICAgNC40NTk3MzddIHJhdzog
+MDAwMDAwMDAwMDAwMDAwMCAwMDAwMDAwMDAwMDAwMDAwIDAwMDAwMDAwZmZmZmZmZmYgMDAwMDAw
+MDAwMDAwMDAwMApbICAgIDQuNDU5NzgxXSBwYWdlIGR1bXBlZCBiZWNhdXNlOiBrYXNhbjogYmFk
+IGFjY2VzcyBkZXRlY3RlZApbICAgIDQuNDU5NzkyXSAKWyAgICA0LjQ1OTc5OV0gTWVtb3J5IHN0
+YXRlIGFyb3VuZCB0aGUgYnVnZ3kgYWRkcmVzczoKWyAgICA0LjQ1OTkxMl0gIGZmZmYwMDAwMGY4
+YWM5ODA6IGZmIGZmIGZmIGZmIGZmIGZmIGZmIGZmIGZmIGZmIGZmIGZmIGZmIGZmIGZmIGZmClsg
+ICAgNC40NTk5MzVdICBmZmZmMDAwMDBmOGFjYTAwOiBmZiBmZiBmZiBmZiBmZiBmZiBmZiBmZiBm
+ZiBmZiBmZiBmZiBmZiBmZiBmZiBmZgpbICAgIDQuNDU5OTUxXSA+ZmZmZjAwMDAwZjhhY2E4MDog
+ZmYgZmYgZmYgZmYgZmYgZmYgZmYgZmYgZmYgZmYgZmYgZmYgZmYgZmYgZmYgZmYKWyAgICA0LjQ1
+OTk2Ml0gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIF4KWyAg
+ICA0LjQ1OTk5Nl0gIGZmZmYwMDAwMGY4YWNiMDA6IGZmIGZmIGZmIGZmIGZmIGZmIGZmIGZmIGZm
+IGZmIGZmIGZmIGZmIGZmIGZmIGZmClsgICAgNC40NjAwMDJdICBmZmZmMDAwMDBmOGFjYjgwOiBm
+ZiBmZiBmZiBmZiBmZiBmZiBmZiBmZiBmZiBmZiBmZiBmZiBmZiBmZiBmZiBmZgpbICAgIDQuNDYw
+MDIwXSA9PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09
+PT09PT09PT09PT09PT0KLS0tCldpdGggdGhlIGZpeCBhcHBsaWVkLCBzZXZlcmFsIHRob3VzYW5k
+IGN5Y2xlcyBwcm9kdWNlIG5vIHJlcG9ydCBhdCBhbGwuCj4KPj4gQWxsb2NhdGUgdGhlIG5ldGRl
+diB3aXRoIGRldnJlcyBhcyB3ZWxsLiBTaW5jZSB0aGUgSVJRcyBhcmUgcmVnaXN0ZXJlZAo+PiBs
+YXRlciwgZGV2cmVzIHJlbGVhc2VzIHRoZW0gYmVmb3JlIGZyZWVpbmcgdGhlIG5ldGRldiBhbmQg
+Y2xvc2VzIHRoZQo+PiBsaWZldGltZSBnYXAuCj4+Cj4+IFRoaXMgaXNzdWUgd2FzIGZvdW5kIGJ5
+IGEgc3RhdGljIGFuYWx5c2lzIG1ldGhvZCB1c2VkIGluIG91ciByZXNlYXJjaC4KPj4KPj4gRml4
+ZXM6IDBhNGFjZjA4ZWE2MiAoIm5ldDogbWFjYjogVXNlIGRldm1fcmVxdWVzdF9pcnEoKSIpCj4+
+IENjOiBzdGFibGVAdmdlci5rZXJuZWwub3JnCj4+IFNpZ25lZC1vZmYtYnk6IEppYWxlIFlhbyA8
+eWFvamlhbGUwMkAxNjMuY29tPgo+PiAtLS0KPj4gIGRyaXZlcnMvbmV0L2V0aGVybmV0L2NhZGVu
+Y2UvbWFjYl9tYWluLmMgfCAxNyArKysrKysrLS0tLS0tLS0tLQo+PiAgMSBmaWxlIGNoYW5nZWQs
+IDcgaW5zZXJ0aW9ucygrKSwgMTAgZGVsZXRpb25zKC0pCj4KPlJldmlld2VkLWJ5OiBUaKimbyBM
+ZWJydW4gPHRoZW8ubGVicnVuQGJvb3RsaW4uY29tPgo+Cj5JIHN0aWxsIGdpdmUgbXkgUmIgYmVj
+YXVzZSB0aGUgcGF0Y2ggaXMgdmFsaWQuIFRoZSB3YXN0ZWQgdGltZSBpcyBvbiBuZXQKPm1haW50
+YWluZXJzIHRob3VnaDsgdGhleSdsbCBkZWNpZGUgaWYgdGhleSB3YW50IGl0IG9yIG5vdC4KPgo+
+Rm9yIHRoaXMgTUFDQiBwYXRjaCwgaXQgY291bGQgbGFuZCBpbiBuZXQtbmV4dCBhcyBJIGRvbid0
+IHNlZSBhCj5wcmFjdGljYWwgYnVnIGhlcmUgKGluIGxpZ2h0IG9mIHRoZSByZWNlbnQgcHVzaGJh
+Y2sgYWJvdXQgdGhlICMgb2YKPmZpeGVzIGluIG5ldCkuCj4KPlRoYW5rcywKPgo+LS0KPlRoqKZv
+IExlYnJ1biwgQm9vdGxpbgo+RW1iZWRkZWQgTGludXggYW5kIEtlcm5lbCBlbmdpbmVlcmluZwo+
+aHR0cHM6Ly9ib290bGluLmNvbQo=
