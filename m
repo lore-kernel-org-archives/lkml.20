@@ -1,185 +1,126 @@
-Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0AAFE31716D
-	for <linux-kernel@vger.kernel.org>; Sun,  4 Oct 2026 11:28:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3CA5A42377F
+	for <linux-kernel@vger.kernel.org>; Sun,  4 Oct 2026 11:31:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791113285; cv=none; b=Z7a448OlV5j8I1KvZe5W8N0rd6rqmwKeim9RmDZj/2bkQJ49bZ7WXaLzG9ZDs1E2n87tBDePGz+4scOSSuJ85jGZbhEO8+ZYthEM5EfGKHhm6P4CtUgmojJt7rmsfKFyrRM8pUPIFlxee25hhFcUZQQnH1mneNH0+7UC3HQkHPg=
+	t=1791113508; cv=none; b=qGTmq4rJoB0NnaVABZPjkf0YTePtGM05VnRNSfGrQBkL/8S0VYdNH/CO6ySJtrP+Z0Y9nUgM/IUUmF8Ozbf+SWhd0bDl0tU61ghowxeIHVLNXhR+JpUq/lCbbCQT4h6fLiiA/+DG3Hc2kQWdnf+G4hRgDFgIKYGzPBdfvjK9/UA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791113285; c=relaxed/simple;
-	bh=Pw1f81LaODULQmp8OaqxJr/FMx1fA9sb9yTqltmkDn8=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=ifAcErIkI8oN5tmUm8aHbd3eDGHFjPkywFBmv6Hw3W1OlvrFqOlRKme4LBbrE+LwDBfN0Yp6b3hGHjmVWzPHpUKswzqKzg6c0V509hSlcaZ+WVHQ5sA8yx8uxVhMxsLvGw/z6CjeWXMmFS4Bu7VskABGIfmk56DiVoFFJ7aby9o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ndufresne.ca; spf=pass smtp.mailfrom=ndufresne.ca; dkim=pass (2048-bit key) header.d=ndufresne-ca.20251104.gappssmtp.com header.i=@ndufresne-ca.20251104.gappssmtp.com header.b=p62l44Aq; arc=none smtp.client-ip=74.125.225.141
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ndufresne.ca
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ndufresne.ca
+	s=arc-20240116; t=1791113508; c=relaxed/simple;
+	bh=aUgxd9TA7WMOVTILaCBJsOIAFwv3UxVoD9m4EUHKiXY=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Z/1HDJLtC/CiqtrYlyaecgRZ9B0PNviJJ5GMdxSm2TsB7FqezdUXbgnbupWNBdhcXU7ujX5bDCtvRvKLG3M2sidt/u/NxbbL6tmpuDb1EcTpOLnHphLc9QLv9p2pjJ6JyIepG9wgqazsG7NnPO+GLcdmfQUQ/aCocXHzbMDl2LY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=TiezjxQb; arc=none smtp.client-ip=170.10.129.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ndufresne-ca.20251104.gappssmtp.com header.i=@ndufresne-ca.20251104.gappssmtp.com header.b="p62l44Aq"
-Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49fe8bf173aso5411085e9.3
-        for <linux-kernel@vger.kernel.org>; Sun, 04 Oct 2026 04:28:03 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=ndufresne-ca.20251104.gappssmtp.com; s=20251104; t=1791113282; x=1791718082; darn=vger.kernel.org;
-        h=mime-version:user-agent:content-type:autocrypt:references
-         :in-reply-to:date:cc:to:from:subject:message-id:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=AhuCTwJXESFC7GXHK/sAbi8kSiySbX6q8d3D6uLo3NQ=;
-        b=p62l44AqqPikCS03wPMMPIQA9WeNqOT89UWczwQ6xrk5Dj1LAOSvsMuMT3xpR1FS7e
-         dw7bmKZwHLFusXWMwH9chekhaBmWult8nHCVDTJy9DFq5d8d6oRbglqLWjIGA0O3Atpr
-         phjLcyeHOvvfzb8o6FH93747hqybvzlRbTEMkkfGWKmRb74UUrl+QPG+Gx2V+wJibm8z
-         ZgRj+vNz9bhwUm+kqX2pddfU/+G8Zy92fmnbYlqeqNb/hQRJosRHVJvtBldo5ih+hBCh
-         sDFJ3yw6tK2c7uuBtN2qiq+HfivGITTVnLxhU4ghA+KdVjiT0WA7Y1/Jy2urBqiHDRNY
-         PGvw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791113282; x=1791718082;
-        h=mime-version:user-agent:content-type:autocrypt:references
-         :in-reply-to:date:cc:to:from:subject:message-id:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=AhuCTwJXESFC7GXHK/sAbi8kSiySbX6q8d3D6uLo3NQ=;
-        b=WkMDxza1EA7lFk5qDEw28TUduu0USz6HkHqGwu0PWXv5IKAvq756fiBqa83J4MSRrO
-         XAbLn4nnjMAp0NMtLOduqfN4+hTbICTujYqs1iv1aVoEPjvMpT3Di76gf/rQo/+8I96F
-         bSfhHpaH+gu6D+xcu0Kv+pUee0GA+/bSmb8/AziHSam7cPn6Ev1msKqvpj4cMM54lxee
-         s1eX/XtujIjLrP0WNkKUxQi4UR4892mjQdbNYLzMkCCUM0cU5VvLV4ssJ4cnTQKPL8be
-         UTSbRSJjOpg4hjxBo2tfOO51wyHVNJOrwTH+0lDxRfUQPgPoWAeir2halGXzmk/RnNh1
-         e2XQ==
-X-Forwarded-Encrypted: i=1; AKwUvByRdDYjZz2VuOTTngV4Q/xMrRXZ50XvevuF1Cw0wt9J1qFB7kk411Qv9nIDF1SLd0TbYvQgcDXvQyi3W3Y=@vger.kernel.org
-X-Gm-Message-State: AFuF++kRQi8uXdgigQWdcdncxSNpHK2A5ftBdHqrs1AAEkqFr11ZIbgf
-	CFqS/mEIO5Pk/kLI/53pda/1lourqimLGV4KCSrcd/jdKH1U/ANGVYkbn66lCxvn2gU=
-X-Gm-Gg: AYBFou3gNX46BYrsRb37B6L3dpoxEtldpktevm2y2D1JPm/nBUwFLT+PBttwecc4PMU
-	ZLKD4ZoX5/U75YJyMC7vFlnwF18HmJY+E1RSlb3q2OW0XNwoxyckGFtOFQLT28LWRGVWLYpX++k
-	JH0OioWHMtAvBh0CNwTTf4RuxvIvL3VsMEKGffdGhb4dPqO4ZhHDD0c+UrlcBYV22/VMLfspACY
-	jYAvnOov7Tf0pHJ0BCrVJ3gU3POQSem3oUBt4I2Qe1ekHPLPaKXEpI1iyVFZOVirZ4mlaUGnLPT
-	G35NHg1/bqXqiN350Z/ISN+oXHwt5rrMNugeDTNkUUmEenrQUghRPJNPwC68/yNpOYwnfc5aEPg
-	RNUmV0ARD164QOaKACbNAbski3MLqBHjdflprJzTLfUWvTIneryGU78xgh5eAlG5j7CE+LSRG0X
-	i9jctYMgLzsGHvDhyj9hu/TX8dauvF/QfK3qfTavY5kRcLAp1Y/5dR+awtu9h34jReTvohrOyAl
-	4Y/DsbRyn+krrYALAkjH0HH7FebxckLwtK2fuZJfOyUT0nO8nKoGDgQXDBPiwiWSrS6k30ynkpX
-	XP1Fc8wdhxs2M4Qig7nlZGrHplOOzrZYodc9X0zR
-X-Received: by 2002:a05:600c:8717:b0:4a0:2867:d8a9 with SMTP id 5b1f17b1804b1-4a02867da4cmr125457755e9.30.1791113282016;
-        Sun, 04 Oct 2026 04:28:02 -0700 (PDT)
-Received: from ?IPv6:2001:1aeb:400:6f00:73f4:bfe7:a3e6:c16f? (2001-1aeb-400-6f00-73f4-bfe7-a3e6-c16f.ip6.tmcz.cz. [2001:1aeb:400:6f00:73f4:bfe7:a3e6:c16f])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a16d6295f9sm129342815e9.14.2026.10.04.04.28.00
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 04 Oct 2026 04:28:01 -0700 (PDT)
-Message-ID: <0afab6a00aaa0bd7d9085a2573bd3133252a07c7.camel@ndufresne.ca>
-Subject: Re: [PATCH v3] media: mediatek: jpeg: retry HW selection after
- successful wait
-From: Nicolas Dufresne <nicolas@ndufresne.ca>
-To: Pengpeng Hou <pengpeng@iscas.ac.cn>, bin.liu@mediatek.com, Mauro
- Carvalho Chehab <mchehab@kernel.org>
-Cc: Matthias Brugger <matthias.bgg@gmail.com>, AngeloGioacchino Del Regno	
- <angelogioacchino.delregno@collabora.com>, Hans Verkuil
- <hverkuil@kernel.org>,  Irui Wang <irui.wang@mediatek.com>, Kyrie Wu
- <kyrie.wu@mediatek.com>, linux-media@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
-	linux-mediatek@lists.infradead.org
-Date: Sun, 04 Oct 2026 07:27:59 -0400
-In-Reply-To: <20260815134949.49042-1-pengpeng@iscas.ac.cn>
-References: <20260815134949.49042-1-pengpeng@iscas.ac.cn>
-Autocrypt: addr=nicolas@ndufresne.ca; prefer-encrypt=mutual;
- keydata=mDMEaCN2ixYJKwYBBAHaRw8BAQdAM0EHepTful3JOIzcPv6ekHOenE1u0vDG1gdHFrChD
- /e0J05pY29sYXMgRHVmcmVzbmUgPG5pY29sYXNAbmR1ZnJlc25lLmNhPoicBBMWCgBEAhsDBQsJCA
- cCAiICBhUKCQgLAgQWAgMBAh4HAheABQkJZfd1FiEE7w1SgRXEw8IaBG8S2UGUUSlgcvQFAmibrjo
- CGQEACgkQ2UGUUSlgcvQlQwD/RjpU1SZYcKG6pnfnQ8ivgtTkGDRUJ8gP3fK7+XUjRNIA/iXfhXMN
- abIWxO2oCXKf3TdD7aQ4070KO6zSxIcxgNQFtDFOaWNvbGFzIER1ZnJlc25lIDxuaWNvbGFzLmR1Z
- nJlc25lQGNvbGxhYm9yYS5jb20+iJkEExYKAEECGwMFCwkIBwICIgIGFQoJCAsCBBYCAwECHgcCF4
- AWIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCaCyyxgUJCWX3dQAKCRDZQZRRKWBy9ARJAP96pFmLffZ
- smBUpkyVBfFAf+zq6BJt769R0al3kHvUKdgD9G7KAHuioxD2v6SX7idpIazjzx8b8rfzwTWyOQWHC
- AAS0LU5pY29sYXMgRHVmcmVzbmUgPG5pY29sYXMuZHVmcmVzbmVAZ21haWwuY29tPoiZBBMWCgBBF
- iEE7w1SgRXEw8IaBG8S2UGUUSlgcvQFAmibrGYCGwMFCQll93UFCwkIBwICIgIGFQoJCAsCBBYCAw
- ECHgcCF4AACgkQ2UGUUSlgcvRObgD/YnQjfi4+L8f4fI7p1pPMTwRTcaRdy6aqkKEmKsCArzQBAK8
- bRLv9QjuqsE6oQZra/RB4widZPvphs78H0P6NmpIJ
-Content-Type: multipart/signed; micalg="pgp-sha512";
-	protocol="application/pgp-signature"; boundary="=-QpMlAF90W0tCNQZ2Cp7Y"
-User-Agent: Evolution 3.60.2 (3.60.2-2.fc44) 
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="TiezjxQb"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1791113506;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=mkxXo9AfDcNdhvbdcD3GjIhYv53nYGA82heubJlRsjg=;
+	b=TiezjxQb7D62WbUy9rVlvC5EpCIhFKmHvF1YO+ax1dSGEblIgM81yOqn5qc8XqhY/XhCxD
+	9YsPpv0CzUZUvBujxKPb7Oy/X7mdddhNdsOW3+Do2a88tMgXUGuTW9eFZ4lN50f11bmmCd
+	3f0D8lMGmX0U3GkdvL1epEPWMA0qH4M=
+Received: from mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-587-CqjACYORMk6L8s_JE9t3cQ-1; Sun,
+ 04 Oct 2026 07:31:40 -0400
+X-MC-Unique: CqjACYORMk6L8s_JE9t3cQ-1
+X-Mimecast-MFC-AGG-ID: CqjACYORMk6L8s_JE9t3cQ_1791113499
+Received: from mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.93])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id C45CF18413AD;
+	Sun,  4 Oct 2026 11:31:38 +0000 (UTC)
+Received: from onestero-thinkpadp1gen7.tpbc.csb (headnet04.pony-001.prod.iad2.dc.redhat.com [10.2.32.116])
+	by mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with SMTP id 890C7180049F;
+	Sun,  4 Oct 2026 11:31:35 +0000 (UTC)
+Received: by onestero-thinkpadp1gen7.tpbc.csb (nbSMTP-1.00) for uid 13628
+	oleg@redhat.com; Sun,  4 Oct 2026 13:31:38 +0200 (CEST)
+Date: Sun, 4 Oct 2026 13:31:34 +0200
+From: Oleg Nesterov <oleg@redhat.com>
+To: w15303746062@163.com, David Laight <david.laight.linux@gmail.com>
+Cc: jlayton@kernel.org, chuck.lever@oracle.com, viro@zeniv.linux.org.uk,
+	brauner@kernel.org, alex.aring@gmail.com, jack@suse.cz,
+	linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org,
+	Mingyu Wang <25181214217@stu.xidian.edu.cn>
+Subject: Re: [PATCH v2] fs/fcntl: fix SOFTIRQ-unsafe lock order in fasync
+ signaling
+Message-ID: <asI5Fn87_SoEd4G5@redhat.com>
+References: <d15a25fe784b5d4449c7ce4e56f1428d7ff28885.camel@kernel.org>
+ <20260523135210.590928-1-w15303746062@163.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260523135210.590928-1-w15303746062@163.com>
+X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.93
 
+Hi,
 
---=-QpMlAF90W0tCNQZ2Cp7Y
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+On 05/23, w15303746062@163.com wrote:
+>
+> Since PID hashing and do_each_pid_task() traversals are already
+> RCU-protected, the read_lock on tasklist_lock is no longer strictly
+> required for safe traversal. Fix this by replacing tasklist_lock with
+> rcu_read_lock(),
 
-Le samedi 15 ao=C3=BBt 2026 =C3=A0 21:49 +0800, Pengpeng Hou a =C3=A9crit=
-=C2=A0:
-> wait_event_interruptible_timeout() returns a positive value when its
-> condition becomes true before the timeout. mtk_jpegdec_worker() treats
-> every nonzero result as a failure, so a normal decoder wakeup finishes
-> the mem2mem job as though no hardware became available.
->=20
-> Handle interrupted waits and exhausted timeout retries separately, and
-> retry hardware selection after a successful wakeup. Increment the retry
-> count only for actual timeouts. The encoder uses
-> wait_event_interruptible(), whose successful return is zero, so its
-> existing check is correct; leave that separate no-timeout policy
-> unchanged.
->=20
-> Fixes: dedc21500334 ("media: mtk-jpegdec: add jpeg decode worker interfac=
-e")
-> Assisted-by: Codex:gpt-5
-> Signed-off-by: Pengpeng Hou <pengpeng@iscas.ac.cn>
+I don't think we can simply avoid tasklist_lock. Let me quote my old email,
 
-Reviewed-by: Nicolas Dufresne <nicolas.dufresne@collabora.com>
+	do_each_pid_task(PIDTYPE_PGID) can race with change_pid(PIDTYPE_PGID)
+	which moves the task from one hlist to another. Yes, it is safe in
+	that task_struct can't go away. But still this is not right because
+	do_each_pid_task() can scan the wrong (2nd) hlist.
 
-Applied, ty.
+And... I need to recheck, but perhaps signal_struct->multiprocess logic
+is another reason why the lockless do_each_pid_task() is wrong...
 
-> ---
-> Changes since v2:
-> https://lore.kernel.org/all/20260720115322.89784-1-pengpeng@iscas.ac.cn/
-> - add the Fixes tag
-> - revalidate the decoder-only change against current mainline
-> - add the required coding-assistant attribution
->=20
-> Changes since v1:
-> https://lore.kernel.org/all/20260625003142.99598-1-pengpeng@iscas.ac.cn/
-> - split interrupted waits, timeout exhaustion and successful wakeups
-> - use distinct diagnostics and explain why the encoder path is unchanged
->=20
->  drivers/media/platform/mediatek/jpeg/mtk_jpeg_core.c | 12 +++++++++---
->  1 file changed, 9 insertions(+), 3 deletions(-)
->=20
-> diff --git a/drivers/media/platform/mediatek/jpeg/mtk_jpeg_core.c b/drive=
-rs/media/platform/mediatek/jpeg/mtk_jpeg_core.c
-> index d147ec483081..9634c95aaada 100644
-> --- a/drivers/media/platform/mediatek/jpeg/mtk_jpeg_core.c
-> +++ b/drivers/media/platform/mediatek/jpeg/mtk_jpeg_core.c
-> @@ -1697,9 +1697,15 @@ static void mtk_jpegdec_worker(struct work_struct =
-*work)
->  		ret =3D wait_event_interruptible_timeout(jpeg->hw_wq,
->  						       atomic_read(&jpeg->hw_rdy) > 0,
->  						       MTK_JPEG_HW_TIMEOUT_MSEC);
-> -		if (ret !=3D 0 || (i++ > MTK_JPEG_MAX_RETRY_TIME)) {
-> -			dev_err(jpeg->dev, "%s : %d, all HW are busy\n",
-> -				__func__, __LINE__);
-> +		if (ret < 0) {
-> +			dev_err(jpeg->dev, "decoder HW wait interrupted: %d\n",
-> +				ret);
-> +			v4l2_m2m_job_finish(jpeg->m2m_dev, ctx->fh.m2m_ctx);
-> +			return;
-> +		}
-> +
-> +		if (!ret && i++ > MTK_JPEG_MAX_RETRY_TIME) {
-> +			dev_err(jpeg->dev, "all decoder HW are busy\n");
->  			v4l2_m2m_job_finish(jpeg->m2m_dev, ctx->fh.m2m_ctx);
->  			return;
->  		}
->=20
-> base-commit: dac3e89a2c90c2feeb471e1f22a2512ad424b792
+See also the recent discussion
+https://lore.kernel.org/all/20261003182224.2171b574@pumpkin/
 
---=-QpMlAF90W0tCNQZ2Cp7Y
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: This is a digitally signed message part
+Oleg.
 
------BEGIN PGP SIGNATURE-----
+> --- a/fs/fcntl.c
+> +++ b/fs/fcntl.c
+> @@ -929,11 +929,11 @@ void send_sigio(struct fown_struct *fown, int fd, int band)
+>  			send_sigio_to_task(p, fown, fd, band, type);
+>  		rcu_read_unlock();
+>  	} else {
+> -		read_lock(&tasklist_lock);
+> +		rcu_read_lock();
+>  		do_each_pid_task(pid, type, p) {
+>  			send_sigio_to_task(p, fown, fd, band, type);
+>  		} while_each_pid_task(pid, type, p);
+> -		read_unlock(&tasklist_lock);
+> +		rcu_read_unlock();
+>  	}
+>   out_unlock_fown:
+>  	read_unlock_irqrestore(&fown->lock, flags);
+> @@ -975,11 +975,11 @@ int send_sigurg(struct file *file)
+>  			send_sigurg_to_task(p, fown, type);
+>  		rcu_read_unlock();
+>  	} else {
+> -		read_lock(&tasklist_lock);
+> +		rcu_read_lock();
+>  		do_each_pid_task(pid, type, p) {
+>  			send_sigurg_to_task(p, fown, type);
+>  		} while_each_pid_task(pid, type, p);
+> -		read_unlock(&tasklist_lock);
+> +		rcu_read_unlock();
+>  	}
+>   out_unlock_fown:
+>  	read_unlock_irqrestore(&fown->lock, flags);
+> -- 
+> 2.34.1
+> 
 
-iHQEABYKAB0WIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCasI4PwAKCRDZQZRRKWBy
-9NuTAPiH0Pb4Hv6jCeaCxdy/4aZd8Z1R3IzPxbwVYpFmBA/lAQCWv/jVgYefRNok
-CUnniqRpZ//vxqIPJzCA3jzERvecAQ==
-=u5ij
------END PGP SIGNATURE-----
-
---=-QpMlAF90W0tCNQZ2Cp7Y--
