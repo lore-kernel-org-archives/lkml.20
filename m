@@ -1,116 +1,150 @@
-Received: from mail-pz2-f38.google.com (mail-pz2-f38.google.com [74.125.228.38])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.21])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 55BCB3B6BEE
-	for <linux-kernel@vger.kernel.org>; Sun,  4 Oct 2026 12:31:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.228.38
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791117100; cv=pass; b=bPW5SlcvK2jP4H69PG/1xnU66epzs3OL7tLuOMln6IX/pi8F4uc4Bep+rtu2/7DUuMU0U7Pc4iUBjLORhxiJHZZicxlnHEwsr0HDY1L12sCpg2WPgDjL+OxRZTR8y02OrrDF3sc5BhAO57VTNYuxKBqtY6stXo4AJUF9kXGUijY=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791117100; c=relaxed/simple;
-	bh=GXfjk93rqVjkEm8QtrTGYzEWMYxFujv0Lq5SqSgVimE=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=cOssdOm007Kc4viEnC2zcia7P+2GbToB0K7+o7uNHw4oQSmsiVkTBThe8HqkgGYCGaEvKfETpfBQ4PHNaUueNupnmpE3isAcp7FtaqUTmkgaMT0UV1havTI9cVZAdVb3grBUSS81UYWH9T6Wefzb9pWstuQs056YylUz1ZE2FwM=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=oItSJmc5; arc=pass smtp.client-ip=74.125.228.38
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 74EA222126C
+	for <linux-kernel@vger.kernel.org>; Sun,  4 Oct 2026 12:33:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.21
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791117225; cv=none; b=SVa/WcuSZdnKhUgfGTH/n4Bz+yfvWFwIRth4A9dIZaO9Jhy7EuvCUZ8oNHyzNmyv4da7e10/ju14EwUatdmg5wZsij16lOcpDRuPxMI3oLhs4ts7qjiMQmt9uPdffnSvok7RF4/9pNGGLB4VpOW0qYHK9nsaDVT9tHXxksy/ekg=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791117225; c=relaxed/simple;
+	bh=s3YxXS+2yb3yIVQdqR9UufwN5fbh3NH8+SJQatGEj7c=;
+	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type; b=ZvlPCp6mn6VbC8oI3e/5KFUqgVwLayLCZTED+gF+Qk0pDUpijRjUv8rozjfzAoOpbCd8whGWgxAmClZpJRadZWTi8zosU6ZmkuzZjnmc7fihhthwuZ3D9k885w1x3UZocHBDWtFmVSbeDbF1XiqYMdIcTFSC+9oEe6BUheKbn3g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=lXZwkzHO; arc=none smtp.client-ip=198.175.65.21
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="oItSJmc5"
-Received: by mail-pz2-f38.google.com with SMTP id 41be03b00d2f7-cc79a5bdf9fso171714a12.1
-        for <linux-kernel@vger.kernel.org>; Sun, 04 Oct 2026 05:31:39 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1791117099; cv=none;
-        d=google.com; s=arc-20260327;
-        b=eJam/z4ql+spOdp3UdFAgmfSvuHl8yD9rDxltdx9DpZ608LJ3/N0czLICKxLDZpeSx
-         tcCPZvbE5Ta4Jk6aXfj/Gyu8c+228xv3AeJ2tlKglgVHLI7xBqlaCWS9xTUZ+IBY8LdO
-         4Xw01KlvKs/pupgCB1RZZMq64jKmj1UDIDMcJZ1hPgOgz6WMgzLl38cGxkYooxMAUJdf
-         pcbLnKyrHd4VC2gfBJ/fvmyXt1bWb7WJgF+pZW05t7jt+Ss1vOhYjsbg0oGnTnpfGu8m
-         2TcU4H+ZLkayS9HbiU6D12M4/DBfqzmvjg3zAkW7DRDJWwiESfmFU4rLrywGu4svobp/
-         w/lQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=GXfjk93rqVjkEm8QtrTGYzEWMYxFujv0Lq5SqSgVimE=;
-        fh=yiw2eecCTueXIn/y/M/geqk+BylcRNsH6rV8+crN/2w=;
-        b=r72iw1rdJyetkel2ZStLamydxLkxf0zmZ8HF5ZGG5FEwo8LWic7Fc/WL/cTYFWMlFm
-         wkpBGkkZ6Q8v9M4p+i3aX73AyiMhw4GKmeNVSeb1wi/WeAgq7zD7vaATpvIjc9uUFh5r
-         qkiy+YMUrkM7Vbr8/pfBnrjY9TCTJ3g8q8X1SjiGBiE8qHDUW0b67tStiR+fuD4MDhYx
-         TvGsRPj1Xv3008SSlhOKbcwHHELmKvQDeT9cKkJi6Etpnemt2U+gXqTwjR7qBBRFxVnd
-         DIbkBehC9gZg6f38jT+UUFwpazqfeS9Un4fgGbbTWcyNH2ZbxdeU94U/AkrJL+pniSTh
-         R3ZA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791117099; x=1791721899; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=GXfjk93rqVjkEm8QtrTGYzEWMYxFujv0Lq5SqSgVimE=;
-        b=oItSJmc5gplGn+GwGiz/D479gTHCHpP74bE0H2I+RO8okuiDd85BMkhj7l7edgbp19
-         hIwPIhWIXeb08HAt6AqvoSq1VbFPcYa2os5RElxw4TBIleXKGKJ5PD7MQzEBZpUIOoov
-         zO+OGA1EYRuLkGaNwgxDIKChUpYgwHgYLwszFPfmsfG5Z/S3HuyeKNI/ozl/o3ofUHSf
-         vgAU/ps4ydoV+8w1FYlr6Fi6y3mNaQ+Z7a52yrH+vGtqGWRHOWPjNFyGTGfGOK0YJMsp
-         ofD6bcZP96QzcziVT2nIsLY29w67wXHxPIYZO5JQIL6lqMeryxilSBdKuw++Y49uSgB/
-         I8+A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791117099; x=1791721899;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=GXfjk93rqVjkEm8QtrTGYzEWMYxFujv0Lq5SqSgVimE=;
-        b=A/111xfrH47nQIVtX6bwv+xiCWjF4qbVvd7fIrPzvvTP3122QA8fU1L2coTHwbH5Cd
-         2hWktS9yUMI+0qH5OtxSdnpyUWkOU5GzV/zjRmsnQwTsCIlb+jQv/4IUG7cp8BQnUULm
-         oW5hCBXlvnoepwtTfVMCPgKpkBIe+3gehbLqb2ZK+xi7gpiN1WsfJ8452oh4CR4tVUKm
-         58h8sfdX62Dpj8/O3SQjJNiPX2jH8kjA2bOj1bVZkX0Ia4Zh+eACW6FQ9iR1HfjQ9wLE
-         e83dgVW/DBEoqwwndtJxBM+i8+E6Lx2fcHKCJzPsnX09nAi3QRK0n6lH6HiffxQsERQr
-         IB4Q==
-X-Forwarded-Encrypted: i=1; AKwUvBxeozL1uOswAxpXKvpTsxugvnPMAp7lqp6lgwgRNcsaqHCv+fKxN/6y1UbpEgEo9bxVMLWcZHFxe3SoDMU=@vger.kernel.org
-X-Gm-Message-State: AFq9FYL1N///D6ovnyZ9OVhZa74HpOIKYXX3LYSchtIVNty8xsPsDdJm
-	MPaAh+AueABmzd46360LZKjXpRkTIG7FzwSkkJ/F/F+A8SzCDqUiZ5X4qKJeinxUyQ4SszHhFFR
-	flXekzflmrAJmANJ3gdX3bz7M0X3MhOk=
-X-Gm-Gg: AYBFou2zFBuwNfEaSI1yqU1n4eyE6hXGiDy3y43Za2D9BrITARIygpAznA0uoIojMg5
-	Q0U6d+HJkaTl2/U+SM1Vz+Of/zebUIgTzscInJa+OjeSk9Jq5Hv8MDELQqCbWKnoRrCv4S83xiI
-	yBpWxyPxtMlzPm744Y0iPIQtQx8ZNCk5lIJpenG/1Kbkjx/JHkXpwup5Axhb2weLZxFkLmSbbDq
-	RwwUD/MtTceNzsoXkrMRArxi59agINAxeUHwRmzgY7nwrnjROds2XkQZ+MaGrioBO+PPdq+bgMc
-	2E34bkLV/c5+mxNTiecVSn/bMUYKmaDfncm96+gC2CfXJsL7p+Mxr37A
-X-Received: by 2002:a17:90b:268f:b0:3a4:e735:b3a3 with SMTP id
- 98e67ed59e1d1-3a6cec8cd26mr4508237a91.40.1791117098607; Sun, 04 Oct 2026
- 05:31:38 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="lXZwkzHO"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1791117223; x=1822653223;
+  h=date:from:to:cc:subject:message-id:mime-version;
+  bh=s3YxXS+2yb3yIVQdqR9UufwN5fbh3NH8+SJQatGEj7c=;
+  b=lXZwkzHOXHj/PvAl9IVm5vwyJtFnHtTEjtMiO70iTDBqiEkNfKHFJvMy
+   D+Gw0v+OEN8M10Um9OwTD7ildvyG1L6f0VPsyoPIARXIclSaXWhk9+nU/
+   D/8c2UjAum+qjJgywZ0TTr/swHSpCWnxYPDxfG/L7LwjsqOFyGy3oviSy
+   7qnIGlhngq8iRW4JpBgi3lVrJpFdvkJuUcl4RRK+zLGmHYRqF4SlGGMAo
+   /nA4wYoCrv7n/VVjwvPBks9J2uoWSllJrvIG0Oh1UgK2fBACdNNM1yNRQ
+   JqkVkC+xVN3vP1MZne53rtO6bnCDXkEJg+j248gsZiFmISTFoWRCzVtCO
+   A==;
+X-CSE-ConnectionGUID: fMDX/TpNS3GJImCMHlZq/Q==
+X-CSE-MsgGUID: OXYn8gprR7q606rjlP64ng==
+X-IronPort-AV: E=McAfee;i="6800,10657,11924"; a="90665284"
+X-IronPort-AV: E=Sophos;i="6.27,139,1787036400"; 
+   d="scan'208";a="90665284"
+Received: from fmviesa010.fm.intel.com ([10.60.135.150])
+  by orvoesa113.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 04 Oct 2026 05:33:43 -0700
+X-CSE-ConnectionGUID: kidfGGn/RUmVINPG12Z2IQ==
+X-CSE-MsgGUID: YAiqQh+VTW+8N5751PRwdA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,139,1787036400"; 
+   d="scan'208";a="275779200"
+Received: from igk-lkp-server01.igk.intel.com (HELO 3a02ec7efc9f) ([10.211.93.152])
+  by fmviesa010.fm.intel.com with ESMTP; 04 Oct 2026 05:33:41 -0700
+Received: from kbuild by 3a02ec7efc9f with local (Exim 4.98.2)
+	(envelope-from <lkp@intel.com>)
+	id 1xDLPO-000000000Hz-3EnI;
+	Sun, 04 Oct 2026 12:33:38 +0000
+Date: Sun, 04 Oct 2026 14:33:32 +0200
+From: kernel test robot <lkp@intel.com>
+To: "Thomas =?utf-8?Q?Wei=C3=9Fschuh"?= <thomas.weissschuh@linutronix.de>
+Cc: oe-kbuild-all@lists.linux.dev, linux-kernel@vger.kernel.org,
+ Shuah Khan <skhan@linuxfoundation.org>,
+ Johannes Berg <johannes@sipsolutions.net>,
+ David Gow <davidgow@google.com>
+Subject: drivers/clk/bcm/clk-bcm2835.c:952:1-7: WARNING: do_div()
+ does a 64-by-32 division, please consider using div64_ul instead.
+Message-ID: <202610041410.n4VXsQjz-lkp@intel.com>
+User-Agent: s-nail v14.9.25
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20261001213915.1326602-1-adrianox@gmail.com> <20261003171352.10244-1-neganhat@gmail.com>
-In-Reply-To: <20261003171352.10244-1-neganhat@gmail.com>
-From: =?UTF-8?Q?Adriano_C=C3=B3rdova?= <adrianox@gmail.com>
-Date: Sun, 4 Oct 2026 09:31:26 -0300
-X-Gm-Features: AclHuK8R9Jo3-68_DE9TmeC3aACV1AZP1ZEQoMrqadGoXULvBmqZTbxMVHejPuU
-Message-ID: <CAMGU2hUmzd1i0mpLG0M2sj1Ki+2Esz5vFQjqJ6F6RnJM3RafyA@mail.gmail.com>
-Subject: Re: ecryptfs: validate auth tok payload size
-To: Nguyen Duy Nhat Anh <neganhat@gmail.com>
-Cc: code@tyhicks.com, ecryptfs@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	stable@vger.kernel.org, syzbot+03c68e42ce4b33f7ce9b@syzkaller.appspotmail.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
 
-El s=C3=A1b, 3 oct 2026 a las 14:15, Nguyen Duy Nhat Anh
-(<neganhat@gmail.com>) escribi=C3=B3:
->
-> Hi Adriano,
->
-> I noticed this patch touches the exact same lines as a bug fix I submitte=
-d
-> earlier for ecryptfs (the ecryptfs_get_key_payload_data fix):
-> https://lore.kernel.org/all/20260917044558.41677-1-neganhat@gmail.com/T/
->
-> Since your patch expands on this area, could you please add my
-> Co-developed-by or Reported-by tag to this series?
->
-> Thanks,
-> Anh
+Hi Thomas,
 
-Hi Anh,
+First bad commit (maybe != root cause):
 
-Sure, I will send a v2
+tree:   https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git master
+head:   6addb4f385570ebc11c4eb499a4f1c149f313e84
+commit: 031cdd3bc3f369553933c1b0f4cb18000162c8ff kunit: Enable PCI on UML without triggering WARN()
+date:   1 year, 1 month ago
+config: um-randconfig-r2104-20261004 (https://download.01.org/0day-ci/archive/20261004/202610041410.n4VXsQjz-lkp@intel.com/config)
+compiler: clang version 24.0.0git (https://github.com/llvm/llvm-project d7e4505dd447d115d85fdea45cd71030ac1d86ee)
+
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Fixes: 031cdd3bc3f3 ("kunit: Enable PCI on UML without triggering WARN()")
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202610041410.n4VXsQjz-lkp@intel.com/
+
+cocci warnings: (new ones prefixed by >>)
+>> drivers/clk/bcm/clk-bcm2835.c:952:1-7: WARNING: do_div() does a 64-by-32 division, please consider using div64_ul instead.
+   drivers/clk/bcm/clk-bcm2835.c:554:1-7: WARNING: do_div() does a 64-by-32 division, please consider using div64_ul instead.
+--
+>> drivers/phy/rockchip/phy-rockchip-inno-dsidphy.c:327:2-8: WARNING: do_div() does a 64-by-32 division, please consider using div64_ul instead.
+--
+>> drivers/watchdog/rti_wdt.c:187:1-7: WARNING: do_div() does a 64-by-32 division, please consider using div64_ul instead.
+   drivers/watchdog/rti_wdt.c:279:2-8: WARNING: do_div() does a 64-by-32 division, please consider using div64_ul instead.
+--
+>> drivers/gpu/drm/tegra/output.c:167:8-28: WARNING: Threaded IRQ with no primary handler requested without IRQF_ONESHOT (unless it is nested IRQ)
+--
+>> drivers/gpu/drm/kmb/kmb_drv.c:520:2-8: ERROR: missing put_device; call of_find_device_by_node on line 507, but without a corresponding object release within this function.
+   drivers/gpu/drm/kmb/kmb_drv.c:523:2-8: ERROR: missing put_device; call of_find_device_by_node on line 507, but without a corresponding object release within this function.
+   drivers/gpu/drm/kmb/kmb_drv.c:530:2-8: ERROR: missing put_device; call of_find_device_by_node on line 507, but without a corresponding object release within this function.
+   drivers/gpu/drm/kmb/kmb_drv.c:580:1-7: ERROR: missing put_device; call of_find_device_by_node on line 507, but without a corresponding object release within this function.
+--
+>> drivers/gpu/drm/panthor/panthor_heap.c:404:28-33: ERROR: invalid reference to the index variable of the iterator on line 392
+
+vim +952 drivers/clk/bcm/clk-bcm2835.c
+
+41691b8862e2a3 Eric Anholt   2015-10-08  940  
+41691b8862e2a3 Eric Anholt   2015-10-08  941  static u32 bcm2835_clock_choose_div(struct clk_hw *hw,
+41691b8862e2a3 Eric Anholt   2015-10-08  942  				    unsigned long rate,
+8ca011ef4af48a Maxime Ripard 2021-09-22  943  				    unsigned long parent_rate)
+41691b8862e2a3 Eric Anholt   2015-10-08  944  {
+41691b8862e2a3 Eric Anholt   2015-10-08  945  	struct bcm2835_clock *clock = bcm2835_clock_from_hw(hw);
+41691b8862e2a3 Eric Anholt   2015-10-08  946  	const struct bcm2835_clock_data *data = clock->data;
+9c95b32ca09364 Remi Pommarel 2015-12-06  947  	u32 unused_frac_mask =
+9c95b32ca09364 Remi Pommarel 2015-12-06  948  		GENMASK(CM_DIV_FRAC_BITS - data->frac_bits, 0) >> 1;
+41691b8862e2a3 Eric Anholt   2015-10-08  949  	u64 temp = (u64)parent_rate << CM_DIV_FRAC_BITS;
+959ca92a3235fc Martin Sperl  2016-02-29  950  	u32 div, mindiv, maxdiv;
+41691b8862e2a3 Eric Anholt   2015-10-08  951  
+88110a9f6209be Stefan Wahren 2022-04-28 @952  	do_div(temp, rate);
+41691b8862e2a3 Eric Anholt   2015-10-08  953  	div = temp;
+41691b8862e2a3 Eric Anholt   2015-10-08  954  	div &= ~unused_frac_mask;
+41691b8862e2a3 Eric Anholt   2015-10-08  955  
+959ca92a3235fc Martin Sperl  2016-02-29  956  	/* different clamping limits apply for a mash clock */
+959ca92a3235fc Martin Sperl  2016-02-29  957  	if (data->is_mash_clock) {
+959ca92a3235fc Martin Sperl  2016-02-29  958  		/* clamp to min divider of 2 */
+959ca92a3235fc Martin Sperl  2016-02-29  959  		mindiv = 2 << CM_DIV_FRAC_BITS;
+959ca92a3235fc Martin Sperl  2016-02-29  960  		/* clamp to the highest possible integer divider */
+959ca92a3235fc Martin Sperl  2016-02-29  961  		maxdiv = (BIT(data->int_bits) - 1) << CM_DIV_FRAC_BITS;
+959ca92a3235fc Martin Sperl  2016-02-29  962  	} else {
+997f16bd5d2e9b Martin Sperl  2016-02-29  963  		/* clamp to min divider of 1 */
+959ca92a3235fc Martin Sperl  2016-02-29  964  		mindiv = 1 << CM_DIV_FRAC_BITS;
+997f16bd5d2e9b Martin Sperl  2016-02-29  965  		/* clamp to the highest possible fractional divider */
+959ca92a3235fc Martin Sperl  2016-02-29  966  		maxdiv = GENMASK(data->int_bits + CM_DIV_FRAC_BITS - 1,
+959ca92a3235fc Martin Sperl  2016-02-29  967  				 CM_DIV_FRAC_BITS - data->frac_bits);
+959ca92a3235fc Martin Sperl  2016-02-29  968  	}
+959ca92a3235fc Martin Sperl  2016-02-29  969  
+959ca92a3235fc Martin Sperl  2016-02-29  970  	/* apply the clamping  limits */
+959ca92a3235fc Martin Sperl  2016-02-29  971  	div = max_t(u32, div, mindiv);
+959ca92a3235fc Martin Sperl  2016-02-29  972  	div = min_t(u32, div, maxdiv);
+41691b8862e2a3 Eric Anholt   2015-10-08  973  
+41691b8862e2a3 Eric Anholt   2015-10-08  974  	return div;
+41691b8862e2a3 Eric Anholt   2015-10-08  975  }
+41691b8862e2a3 Eric Anholt   2015-10-08  976  
+
+:::::: The code at line 952 was first introduced by commit
+:::::: 88110a9f6209be1ed7312bae029d000bc7c7e88f clk: bcm2835: fix bcm2835_clock_choose_div
+
+:::::: TO: Stefan Wahren <stefan.wahren@i2se.com>
+:::::: CC: Stephen Boyd <sboyd@kernel.org>
+
+--
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
