@@ -1,96 +1,76 @@
-Received: from mail-pj2-f43.google.com (mail-pj2-f43.google.com [74.125.227.171])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5EEC33FF1AE
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1907A40A93D
 	for <linux-kernel@vger.kernel.org>; Sun,  4 Oct 2026 07:34:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.171
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791099250; cv=none; b=bBfwsbKW81dUIjYs9raEgK4Z6Uhh4GrVeKpILVcXWi+62k7s61FtOhA2XFd4g6isfAJhzLRCggFA44u5xt086X4fgFIBOxyPKaO8Zq8JHGAASWsc1ofwj6dffF1RNz2e5EccpOmw0Vv42CeQnhsUYr+PzACr+TA6rubGnLJxy0c=
+	t=1791099256; cv=none; b=fu4Z2DSnDjOrZx3B8pfgCtUR/cIBWFqfpvq5NdGo1bGG9jfuidDOkf3zhr1nwziEKddl+aa1780rYX+V1nd3vMNt9Ne9ovTkXePmOoXkRamfhiZgX+prxEARyawFZBbNuUuuibA/pmPh99gCy/OmGyFG2eja9haE8RKg9ZuneHc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791099250; c=relaxed/simple;
-	bh=PVwIXQQ5/WGjpPJCRs7zgHzHTHu6X07EUwTtNa24yqU=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=hhonmenyHcvKBIogibLtUceDKgW2ZEexu4udEdLKWM2TEMMsqx2OFZ903XBN7omRbemYuXNmOtJm2Rhhc5ryA8VW6cYrX0oEIcFFi7r/6k5d+2SiVboTDqS94tvc9XASUrkI2ea8Mwv4of2uPfY/rw8gnu91G9xzDAUYynPXlvo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=GerNWho1; arc=none smtp.client-ip=74.125.227.171
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1791099256; c=relaxed/simple;
+	bh=K9f82waH5swdL8XFEPiO9i6IYHDv/BaNmSorOXik5YA=;
+	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
+	 Content-Disposition; b=ctiZEUIDkFnTDGxnF3FNC1zchwkrbqOYcmU+8HINVzsKvQLXhaZc+pLT4VuZpeHRqLxlYqdWWo5cJJIyQuEFyuzWRfj3wW5g2RqrSF5Q9AICrfXfNcDn7KJ+yGDaA5faP35iKN5q8gYN3Z62Gn+y8zziNpGRMZUck+XsLWBCh4k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PPWTHPEe; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="GerNWho1"
-Received: by mail-pj2-f43.google.com with SMTP id 98e67ed59e1d1-3a49573b8bdso479597a91.2
-        for <linux-kernel@vger.kernel.org>; Sun, 04 Oct 2026 00:34:06 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791099244; x=1791704044; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=ATqBSGgki2so7eu3mfXFJfLMGYQGWd86CLIs5RcaLgw=;
-        b=GerNWho1PMFs3FM71jALYluT/hDPYCH1rkP7w7ib+mT0SnrbHYaxV2fodt2ANOKpVS
-         +4g3FN1GvpPKMhWR63Nu7Yu5uBv8RaNxn13eX6XX5v4NT8Wus549VEaOmm/THcEgIpNa
-         C6MNRyVj8WOFyZistXcmfax7a1t8Yl8emn/GHJDg9zxTxMhiINTQyAugQOuYVRSzTYb2
-         4Z15R4LvCOkRmeOCt4Vz8Vgj1h3BT4kIe9s3lyziR6BSHNtmrIy3wEAgQQGJSHmi4seJ
-         YRAUrGbPP422oTBGODLjn98gx5gL6aEntC3Ihfg/PYVt/8KqcPKB86YPIbeQJv7H+GpH
-         qXXg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791099244; x=1791704044;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=ATqBSGgki2so7eu3mfXFJfLMGYQGWd86CLIs5RcaLgw=;
-        b=KkHLs5qF2zfrFkSr532oymiKxlfB5Mzk+kJFdrmbEAYlGrC9+18ubL39z+NkY6AxHx
-         dMjxF2iQWey4Kr+WoPhEh3M7UMn9uSmLMeHBKgpOkPCJtyQIGLmO4loAsfWiIJiQA/fB
-         A6ZD8cKb1LjbioPECxUUjd+bi7+vxJ8Saw/QPMjTW9TmdPSjRdWCGMUmprIQwobbV8RE
-         OuBz0puXcLOQOgCHNYc0HwsSSsf4th8ry6z7q7fD8Zzbb9hKqPr5xn0wDxEF72eEIbOs
-         ibzUDJfVfVUrV/rd5OGbzADW1Dxg+GLGsdQZPbcQrSkxjDRwTBJj3hXMN+xX0fkepaYx
-         lIKw==
-X-Forwarded-Encrypted: i=1; AKwUvByaHnQaekZ198GpvP4YH/5wmcpKHVtAYmO9MwaO0y0gRLDWVSNXwkIxH5TMvh1mRmtz5uZw/15chKn83yw=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKPHlmNNcPJcoVUo0mWTz0LlXauoH5/FWO/bzEsl1YJF1YdrfnT
-	55syjbT7AA3uEA+fRivgFdLa/ba8EOc+W9E5DxSZDpsoduPpHKbLH91b
-X-Gm-Gg: AYBFou2fkBZoEE1ofeBJHvSYXZHMM+drf44d0YkZ2ytiO4KxmczQux20iHQGHtmtKY+
-	dcg16GufIWCERiBj6QU5/+qr7Mn1PMeMsSYd7cSiv8/ynwYiznQ1q6UPRt287SUwd6KK3FdMezI
-	0iAMXbGzn7iBNl59s73OSfyFMDfaw5lTeOhymbQTDuHeHN2p1DvZGG4cN4sHEWdYnfjsAEhUm2K
-	2ATw1L+JpO2bIjm2BCMYcjLtBG45xynI8/2rjd4yfOEuHcJiUh9J7DSjgiuZHPwAXDa96m0+V6c
-	wR92K1HFZVyujD1IwKi74C5k1Pk08Kuo0ZYf2ME1DYNfRt5869iDZHwOUyl74g8kVTOa/IPDrL1
-	/o87TASuVH2J2CGxcNPzn+KdYuKlTBBMLJw3S4U+PDzpWssRdnPCRlTmTypyDWEEO7e1lB0kftA
-	pvA355BfYdjIOH8KpjQXyJB7OkNsgB5ZiqSnMsKCidvFnUtyAXJ8OClbaHKguGSmAasdZGvi6uZ
-	bNHOwxcgCg=
-X-Received: by 2002:a17:90b:5310:b0:3a7:b2d4:e411 with SMTP id 98e67ed59e1d1-3a7b2d4e54cmr2200992a91.21.1791099244227;
-        Sun, 04 Oct 2026 00:34:04 -0700 (PDT)
-Received: from ancienth-X870E-Nova-WiFi ([125.186.72.2])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a78e4f3911sm5749884a91.15.2026.10.04.00.34.00
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 04 Oct 2026 00:34:03 -0700 (PDT)
-From: Daehyeon Ko <4ncienth@gmail.com>
-To: netdev-bot+sashiko@kernel.org
-Cc: Daehyeon Ko <4ncienth@gmail.com>,
-	Stefan Hajnoczi <stefanha@redhat.com>,
-	Stefano Garzarella <sgarzare@redhat.com>,
-	"Michael S . Tsirkin" <mst@redhat.com>,
-	Jason Wang <jasowangio@gmail.com>,
-	=?UTF-8?q?Eugenio=20P=C3=A9rez?= <eperezma@redhat.com>,
-	Xuan Zhuo <xuanzhuo@linux.alibaba.com>,
-	Will Deacon <will@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>,
-	kvm@vger.kernel.org,
-	virtualization@lists.linux.dev,
-	netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH net] vhost/vsock: trim nonlinear SKBs to declared payload length
-Date: Sun,  4 Oct 2026 16:33:35 +0900
-Message-ID: <20261004073341.4034680-1-4ncienth@gmail.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <179108986364.434549.5339286904514687491@kernel.org>
-References: <20260930044147.3818241-1-4ncienth@gmail.com> <179108986364.434549.5339286904514687491@kernel.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PPWTHPEe"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 99DFE1F000FF;
+	Sun,  4 Oct 2026 07:34:01 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791099243;
+	bh=E/jNLSYka59rFh7voqa3Qo5urJx3ClV8ZS/bWU3F/H0=;
+	h=Date:From:To:Cc:Subject;
+	b=PPWTHPEejtHKGswxjH5G4hbOi337zpY+puOyVA5IFg5OKa3vSqC/3wcxzBOSeTt4w
+	 gid3u3S61lkZS/ByLBga2n+qpUa+WYHA5riR65O9fRqBF6OXwKCGL2rrBg401d4dJt
+	 OYAUrk30VLOcSSXA1eXpCKcuJFACpg/fmxzaaCvg7lihiLWE2E7p0Jn6pFICE1iTwD
+	 t1qXPdbSGV74K2DgublecBaVoMHKeWZF1d4THFk/FFLr8jC+VWF4C2G3NM601QehTc
+	 0hjJn5RtSKuHQNWBkcpCfCrXMyPQXDCl4I6ekRnmiHwe+IrxJ8UCa3qdwkQ4nCNrrP
+	 Uf/rW1AOLqXAg==
+Date: Sun, 4 Oct 2026 09:33:58 +0200
+From: Ingo Molnar <mingo@kernel.org>
+To: Linus Torvalds <torvalds@linux-foundation.org>
+Cc: linux-kernel@vger.kernel.org, Peter Zijlstra <peterz@infradead.org>,
+	Thomas Gleixner <tglx@linutronix.de>, Will Deacon <will@kernel.org>,
+	Waiman Long <longman@redhat.com>, Boqun Feng <boqun.feng@gmail.com>
+Subject: [GIT PULL] locking fixes
+Message-ID: <asIBZtGFdG_P2c2d@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-Both findings are valid.  V2 validates hdr->len before allocation and sizes
-the skb from the declared payload, which also avoids the 32-bit addition
-overflow.  I am posting it as a separate thread per netdev policy.  Thank you
-for the review.
+Linus,
 
-pw-bot: cr
+Please pull the latest locking/urgent Git tree from:
+
+   git://git.kernel.org/pub/scm/linux/kernel/git/tip/tip.git locking-urgent-2026-10-04
+
+for you to fetch changes up to f35e3b5784221654f9cdbd6222275a7fa203f6c3:
+
+Locking fixes:
+
+ - Don't run refcount kunit self-test when !CONFIG_KUNIT_ALL_TESTS
+   (Kuan-Wei Chiu)
+
+ - Fix futex private hash use-after-free on resize (Chris Mason)
+
+ Thanks,
+
+	Ingo
+
+------------------>
+Chris Mason (1):
+      futex: Fix private hash use-after-free on resize
+
+Kuan-Wei Chiu (1):
+      irq: Make refcount_interrupt kunit test selectable
+
+
+ kernel/futex/core.c | 10 ++++++----
+ kernel/irq/Kconfig  | 12 ++++++++++++
+ kernel/irq/Makefile |  2 +-
+ 3 files changed, 19 insertions(+), 5 deletions(-)
