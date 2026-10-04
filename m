@@ -1,150 +1,201 @@
-Received: from mail-pj2-f13.google.com (mail-pj2-f13.google.com [74.125.227.141])
+Received: from mail-yw1-f176.google.com (mail-yw1-f176.google.com [209.85.128.176])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 07F1F480953
-	for <linux-kernel@vger.kernel.org>; Sun,  4 Oct 2026 18:14:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.141
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791137653; cv=none; b=LqQ5yWEzWWDeI0l9U+YlW+3wbTtrCGAa451thLLYWV3FkrnUDkkC6kIIsSJsX3RCU/9pQCOIo09H0oTtVEuWizXNO8nus6f89Jp354kqmw7w5dEVeYrutWbPrMLhwlB7bUdLtH+VyUfO/gWidco54B/UHbf2QNRxX6C8aASvBDQ=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791137653; c=relaxed/simple;
-	bh=sjH5S0CNZClDmqdFY8S86gTYCINMCORIQDzBcILuZbw=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=CqbqAQMgEk+NfjI6O+OIFyWG4dyWCehLZXpVLNxdUE2Xk0arJDz8mPHXWd26a9zkGkdO4WB/kGudYfuZ3+IfPwiO37/zsuTt+5M8wmUyjgnIPA9DrMPSFXEqLlFobnP0gKhKngVSQ+rIRDPGfY6iVQC0B0bneU6VCjJQwlqYLTY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=K4Sa1s33; arc=none smtp.client-ip=74.125.227.141
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 176FC472533
+	for <linux-kernel@vger.kernel.org>; Sun,  4 Oct 2026 18:17:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.128.176
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791137840; cv=pass; b=sw41kwRrBUQ/hWfXX2lhWwH+XfyWnDFAz0nFeV3JNOpr7pjd/CEGVa6YdyYgso0Bn0Mj6nuUuPfOFdqDhIQqsBHrWwZdEbXoAvE8pMvY7DKRTqq/pHCX24hsBA/BBxVYiCnXzitYiWFcjI3agF4lvTgWzE5iyXoSSc0400S3pIw=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791137840; c=relaxed/simple;
+	bh=cJR4lAp9V5AURTVqP2Gl5OsN2xzomRNzgeycLcomVm8=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=BGugjN5BbJRp0izhDdZzlg4tR5o6Agoev7PWHUufdm6WIZSnB/K0X2h6ZiVLJfCI4+hkpmqz7FHqUPjiDfEvUvVrxeLqEKadEbukejC5D9ZhZzmil0rkLZA5tHhMnp1tdSMovR68Tx6jkmWigU1oZre0v/NF0t6+Xmzo7m1LqXc=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=MAYqgGy9; arc=pass smtp.client-ip=209.85.128.176
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="K4Sa1s33"
-Received: by mail-pj2-f13.google.com with SMTP id 98e67ed59e1d1-396ccc02279so588654a91.1
-        for <linux-kernel@vger.kernel.org>; Sun, 04 Oct 2026 11:14:09 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="MAYqgGy9"
+Received: by mail-yw1-f176.google.com with SMTP id 00721157ae682-836c4474028so8031627b3.0
+        for <linux-kernel@vger.kernel.org>; Sun, 04 Oct 2026 11:17:18 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1791137838; cv=none;
+        d=google.com; s=arc-20260327;
+        b=NQWjSL0pH4uG7v+q8OK8cyvBdVofEk0i8x4TsCrMwa+vd6toIoRvYHKKFja0ALQEhV
+         VOMVJzJk9v+xHLDZAqhKExAmKHZd2VmMv67iiWJlAiC0MY84TsESq/ZcJq9SUDO0a9X7
+         cSCLaaJmLGU+mIu0/iJHk1Kll8DofmImK5CNXXZoRsSZG41L3zQ/Oz+67SHM91guA6YT
+         rsZ13+qvb4iVMeNLWB+ar8HU/grJ5o+OoElmO8lhWNNfac+Yx3k714PzX0P7JaISSJqa
+         cZmZBxxMdajiJpYGWPIxVOl21tYO4fAS2xloElTbUWGthAylSzC7fvw1i9bZALrKx4mM
+         Q6GQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=xFmpccpIR+RbcQ/MVQmCJHkfs/R9fTCLwYQLZmcFH54=;
+        fh=iRBSSLc5EKzQXZb0BXigNBtCy9E1mxYf+IpIYglwmMU=;
+        b=AKaIDAnrCLBWnyXadDGaRMSJSnfueGjs8dT7ghua/kn2+0VCxbmkNOc0tWtE0NX1yo
+         KL2BQa9bRmaUzCHo63r9ugmfSqcBJUVRtC+FF/08UCCUtKP9vcwWJUSmHmQN8eCRZVbn
+         7eu/tp0FN0nWedVQ026lfpe6v+qhTOWtKfiTk+X5hI7Zujb1g6NG3YN6ACYkQq2EgsO/
+         Uj+11R486rd6xdBrJocCGdcAQEYMauHJVsXYwneB/Vv4bGZsH1i8Jtcihq0vOHc7LupL
+         5D8owIeLEdub/PG2NuXfTpUurQWcwB1cWZ25QiRRUBXk41TE/A++zvWrBLBiyjgg/Cab
+         uDRg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791137648; x=1791742448; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+        d=gmail.com; s=20251104; t=1791137838; x=1791742638; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=zvp184+VDrAAELa45MrIVjzHZuD6h0h7teUaAj2z138=;
-        b=K4Sa1s33e0topBLGrjJINZJoi62x44og/j03tLJmjWt2c/pJvzX2HTGqfrHcMxLOGo
-         KxzYBuopU972XPuBVEcR0ycGt415fw4raN5VEPo2z6muL17lWZ/HIG88g123LWJTPd9Q
-         rirdz9jjIW7qf6CNJ02pHhxBu7iA1urwiQXBk8Wvo5pIeMbSY2jZaZ/D1EBhVzv2BTh6
-         jqs959cePI9HiTQN5HMLqSTDbZ4rKf638sNEpvZ7ucTiJSi0gF2+JfvYODsxEmFKBRLK
-         o8+oSJ+fc86F3abO3LxElskwxBc8NX974Oso3GKIkN2Vqx+k+AED2wHfPestHNGGQ+cW
-         BnyQ==
+        bh=xFmpccpIR+RbcQ/MVQmCJHkfs/R9fTCLwYQLZmcFH54=;
+        b=MAYqgGy9y5v1+6oe21qsvjYKYOjtqMCZCAXKdKRrBxJP6obvD5VsSRYhk48kJksZ3T
+         s19bsLQ0z7YSFxqcIzVofZmjwOxf1U3NGExx+Um+hgYRubpXoIwkvqC4BS2Fsz0TFEN5
+         v/Nkq2Q25TrkNRA1osSp8usmyxIPMEg/+jGOq0D/UwizXxP3qmA/CXaRY1FvyfMcumse
+         UC1qZr2ez4JF5lQoeviwIjjfrK/9XwylCv2Yd7Vp3wbDrD7AY8Gf4sDqjQX+YkDhVVSR
+         E1KtL5iTWLs59qX5Jb7nSKKo+ExYlZhfTCBP8xrlNSseBp3phODL3ez3zXnCCS5rqY33
+         6M1g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791137648; x=1791742448;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
+        d=1e100.net; s=20260707; t=1791137838; x=1791742638;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=zvp184+VDrAAELa45MrIVjzHZuD6h0h7teUaAj2z138=;
-        b=CRBZ9x2uGBaP4fH5ySbM0rbrT9dxYSiAd0YzM20udza9CTscKUhoLL1S+DnB09OG3k
-         FrCe7i+cpN9Wt81nZ8nuKdGwXoMQRC+N+pnQepKZ7zgaIju2FFdtuD8zYf4O2CAAmByW
-         PalNh1PsExVOtU7RebS8ArEWhCQzSE6e1xLkqbAIybDUuPPjNaY8of1iP9XgYjeQpukj
-         WzovMyNd2ylMlzBZmZ545KqNaTaI2emGz4H/Eb5Ka4kuTTNWze+yEzG5r6TEGXQd1g8m
-         3M6Fal14omtxUJzLuBk8JtXxGBPu8u3MU07+/UYnQBC4iBb/7ln1PuHIb+7DJA1qnidl
-         H2pg==
-X-Forwarded-Encrypted: i=1; AKwUvBxs1KpE0asfn9qXOLl+taCxXN9WIHSMWw4WzAVdAO5osJDeE/FbaZTgkDSWwMZVvBsmwwlr5la6j4k7OK4=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLmkB6KZaP9liDLCALYW+veNn6J9HKKI+wR/EiQ0+EUnqXAtNlX
-	8+/sqmfxwsaymSB1gFPP0SuFGgawPiQBXfIiiYMjpreJ+HYhFy3hXGU2
-X-Gm-Gg: AYBFou3c6/u7Tp1v5n35bKBiCvEk+Z008QqV9BHuVLIRMI2hi8jnHesSvjrL1F1ba9p
-	vAIJvJTzrw8X0CFSBS1jLuDDjn0OR5/0LcaV1NoVl+0UZR9Sfs2ApNmyXGjAQtwi1OAXS5EIJ2L
-	rWIN8u4pSSYLTf1RwSdDbzY90SFZqIIdWkQk9i7RAyuHYPxygP1eR6UfrtCpTkyu6nxgTvtJnv4
-	FJtfuCY1IH6Ac1xGtE6lyrRoNni3GD0fjGUOv2cPCAWnoGeRjD5llZ7zPsohJazLuZI4xGPzUUw
-	DhdcKhdE1TWsu9U0DPts5fXWr8c8BPPUQL0cNaAKvsdi7xhpUNyUqI/3V8dAaGyyF+YVrf6qHA/
-	Xo8dM3UQ0IBqA6PFMdFMBJ6CJ++0vpGiEqyZQ55dhe2mj3oD651sC1qSzNZs5EE7cY9OlZHTJuW
-	7IpTH5ojRryIYy6ELauWTABUts5LUKXrMAGhsaQivjWl/fZZvS0vUIabTKCIuI+Q42Wnkg43j+M
-	XdIfMUAluDBGczX6wwyzwTORl30DdxnwquoI+BVsA==
-X-Received: by 2002:a17:90b:4ac3:b0:3a0:a781:2c39 with SMTP id 98e67ed59e1d1-3a6ce3a978dmr7662178a91.7.1791137648512;
-        Sun, 04 Oct 2026 11:14:08 -0700 (PDT)
-Received: from gmail.com ([220.85.166.190])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a78d59f1cdsm7460304a91.0.2026.10.04.11.14.00
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 04 Oct 2026 11:14:06 -0700 (PDT)
-Date: Mon, 5 Oct 2026 03:13:58 +0900
-From: Youngjun Park <her0gyugyu@gmail.com>
-To: Matthias Goergens <matthias.goergens@gmail.com>
-Cc: Kairui Song <ryncsn@gmail.com>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Chris Li <chrisl@kernel.org>, Baoquan He <baoquan.he@linux.dev>,
-	Johannes Weiner <hannes@cmpxchg.org>,
-	David Hildenbrand <david@kernel.org>,
-	Michal Hocko <mhocko@kernel.org>,
-	Shakeel Butt <shakeel.butt@linux.dev>,
-	Kemeng Shi <shikemeng@huaweicloud.com>,
-	Nhat Pham <nphamcs@gmail.com>, Yosry Ahmed <yosry@kernel.org>,
-	Barry Song <baohua@kernel.org>, linux-mm@kvack.org,
-	linux-kernel@vger.kernel.org, cgroups@vger.kernel.org,
-	linux-api@vger.kernel.org, Alejandro Colomar <alx@kernel.org>,
-	linux-man@vger.kernel.org, Karel Zak <kzak@redhat.com>,
-	util-linux@vger.kernel.org,
-	Jani Nikula <jani.nikula@linux.intel.com>,
-	Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
-	Rodrigo Vivi <rodrigo.vivi@intel.com>,
-	Tvrtko Ursulin <tursulin@ursulin.net>,
-	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
-	intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
-	"Rafael J . Wysocki" <rafael@kernel.org>,
-	Pavel Machek <pavel@kernel.org>,
-	Catalin Marinas <catalin.marinas@arm.com>,
-	Will Deacon <will@kernel.org>, linux-pm@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org, Shuah Khan <shuah@kernel.org>,
-	linux-kselftest@vger.kernel.org, Kairui Song <kasong@tencent.com>
-Subject: Re: [RFC PATCH v2 0/4] mm/swap: reserve swap areas for deliberate
- offload
-Message-ID: <asKXZv5SxBtxQxqf@gmail.com>
-References: <20260926045517.3458413-1-matthias.goergens@gmail.com>
- <CAMgjq7B7jem_dwtUEX7ZJPQm_pKBegR6WS9+B7nFp-gZugpUng@mail.gmail.com>
- <20260928151944.2686626-1-matthias.goergens@gmail.com>
+        bh=xFmpccpIR+RbcQ/MVQmCJHkfs/R9fTCLwYQLZmcFH54=;
+        b=GAdLITLn1hpdXZV1dvutK6rtubiHZDitV6pF4XsOZX1b76P8Kr5BFdIkFGd6bqFYCe
+         31ZxvduXfv+T+c/0NX1lMj0MYtSbMjO2+z1yg0Et7tDscxrOg4Vd5TQCSe0eK10OOtmk
+         vFd7TcRhpI40cMNoq390U/FxOxfB0tkAw3yFrLyyO7jLpQSvxM7+kZYMbnd1v2pQzOFZ
+         cv0bUPaNWW/NC9da8kMhh3TvJ9+sHycsCOV3bmjUBno7qv5V3d/SkwrunP+62kiY08Si
+         asJCBUTPrcKegKL4Fuj9cK5Hx9WdIrl4TXqTFoW3HzMllQmx1Eb/Q1SXcGkZcLL2ikQD
+         UmeQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwkXv3UCEwuCdz0x80r2mh//9W6tCUHaw0jEe2+cW2Wf9JLV0MurZmxdDR06FuopsD64jlyScuptvCVLS4=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLIG/Zny6JKf/w4xQuQUcr6dBBpeP5Oe1FA+MEJappjce1Gcfk4
+	rAK+JDexSqwl8endQGiUB4ir/SQcIk0qziV+175CQwUZBvznvUh5uo/UczUdosWvWJIf5EF9C/9
+	bghg7sZ2d25uZAr1wngdNBqk/ngKzLlM=
+X-Gm-Gg: AYBFou2/imSDrjO1YwazndQDzfoSY+CegA4pGJh2D4cUH9vGT6rEybGtyvDes1C0V4o
+	lRk5iLRpbZGEHL4HQnSLy+Ghp5IJo9TCvq2608BUe7TmmoCTATKYeQpO0ypCnfCRaxwwHVPgBC7
+	GWVPdcjMuchs0jXLSvLrb6hOh06pKm5qGPE3yhCN7C54DEmwiazQitqjsmRCJ5but8EMHbU1nXL
+	zgkiW5t4U/xnmjGunb+FQI84QrudTZ9IKKNGnduaq4Ys/DrqQE5I/RonFaRG9im9UOXuYEzDJA+
+	U1S7pMZ6Ik5LolvFgjGIXdZyhhtp07KM1wC04VcRMNcjW37qDVzkF+pfwnAmfYQDREw=
+X-Received: by 2002:a05:690c:67c3:b0:8a5:af04:fb1d with SMTP id
+ 00721157ae682-8ae957d3279mr23973447b3.55.1791137838008; Sun, 04 Oct 2026
+ 11:17:18 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260928151944.2686626-1-matthias.goergens@gmail.com>
+References: <20260901170358.176103-1-challauday369@gmail.com>
+ <20260909-arcane-yellow-beluga-5ce6f7@quoll> <CAAj-GBkiTvFwx+3htJaKGFCYAC0jGdhyxkfUa8dKWPkYmbGViw@mail.gmail.com>
+ <f402d93f-4443-4209-a6c7-5c30e7c8751a@kernel.org> <CAAj-GBnyFnVhNpuPTBoQhBZJLUYdXnBcxnEYy8rsYqkqX=UK7g@mail.gmail.com>
+ <82b71784-4bb9-4165-a0f0-cf00fedde944@kernel.org> <CAAj-GBkPTmSxjKcXrzeMA3bz89vPGHt0Ai4Gat3KSz3epusRjw@mail.gmail.com>
+ <5b34d2da-6e53-4a93-9d08-7d64e9072562@kernel.org>
+In-Reply-To: <5b34d2da-6e53-4a93-9d08-7d64e9072562@kernel.org>
+From: Uday Kiran <challauday369@gmail.com>
+Date: Sun, 4 Oct 2026 23:47:06 +0530
+X-Gm-Features: AclHuK8yMHOs5OrM1gtLGut4uFd1mZ5OV0auRu3panCfI1lvD8IXn4aLVjemE3g
+Message-ID: <CAAj-GBnDZ1NoGamjXFpE1wsnnQcUzjoSnsqxjzT6nsetYW0QZw@mail.gmail.com>
+Subject: Re: [PATCH v3] dt-bindings: leds: lacie,netxbig-leds: Convert to DT schema
+To: Krzysztof Kozlowski <krzk@kernel.org>
+Cc: lee@kernel.org, pavel@kernel.org, robh@kernel.org, krzk+dt@kernel.org, 
+	conor+dt@kernel.org, skhan@linuxfoundation.org, me@brighamcampbell.com, 
+	linux-leds@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On 2026-09-28 23:19, Matthias Goergens wrote:
-
-Hi Matthias !
-
-> > Just like we already have a "swappiness=" parameter in the reclaim
-> > interface, perhaps adding a "swap.tier=" would be better and much
-> > cleaner to achieve the same goal? Based on Youngjun's work here:
-> > https://lore.kernel.org/all/20260916183437.2946306-1-youngjun.park@lge.com/
+On Sun, Oct 4, 2026 at 8:00=E2=80=AFPM Krzysztof Kozlowski <krzk@kernel.org=
+> wrote:
 >
-> Thanks, I think that's the right base.  I tried it: on top of
-> Youngjun's v11, a "swap.tier=" argument to memory.reclaim is about 40
-> lines.  In a VM with zram at a higher priority than a disk swap
-> device, and a cgroup whose tier mask allowed only the disk, ordinary
-> reclaim in that cgroup stayed on the disk, while memory.reclaim with
-> "swap.tier=" pointing at zram went to zram only.
+> On 04/10/2026 16:04, Uday Kiran wrote:
+> > On Wed, Sep 16, 2026 at 11:39=E2=80=AFAM Krzysztof Kozlowski <krzk@kern=
+el.org> wrote:
+> >>
+> >> On 14/09/2026 19:58, Uday Kiran wrote:
+> >>> On Sat, Sep 12, 2026 at 1:20=E2=80=AFPM Krzysztof Kozlowski <krzk@ker=
+nel.org> wrote:
+> >>>>
+> >>>> On 11/09/2026 16:29, Uday Kiran wrote:
+> >>>>>>> +properties:
+> >>>>>>> +  compatible:
+> >>>>>>> +    const: lacie,netxbig-leds
+> >>>>>>> +
+> >>>>>>> +  gpio-ext:
+> >>>>>>> +    description: Phandle for the gpio-ext bus.
+> >>>>>>> +    $ref: /schemas/types.yaml#/definitions/phandle
+> >>>>>>> +
+> >>>>>>> +  timers:
+> >>>>>>> +    description: |
+> >>>>>>> +      Timer array. Each timer entry is represented by three inte=
+gers:
+> >>>>>>> +      Mode (gpio-ext bus), delay_on and delay_off.
+> >>>>>>> +    $ref: /schemas/types.yaml#/definitions/uint32-array
+> >>>>>>> +
+> >>>>>>> +patternProperties:
+> >>>>>>> +  "^(?!gpio-ext$|pinctrl-[0-9]+$)[a-z][a-z0-9]*(-[a-z0-9]+)+$":
+> >>>>>>
+> >>>>>> This is an odd pattern. Why is pinctrl an LED? or gpio-ext?
+> >>>>>>
+> >>>>>> Actually entire pattern is very odd - it has $ in the middle, but =
+then
+> >>>>>> followed with other REQUIRED stuff. I am surprised it works, but
+> >>>>>> regardless it is absolutely not readable. Looks like a begative pa=
+ttern,
+> >>>>>> but why would you have negative pattern for known properties?
+> >>>>>
+> >>>>> Thanks for the review Krzysztof.
+> >>>>>
+> >>>>> The negative lookahead was added because patternProperties matches =
+all top-
+> >>>>> level property names that fit the pattern, so excluded known top-le=
+vel
+> >>>>> properties like gpio-ext and pinctrl-*;
+> >>>>>
+> >>>>> In patch v1, I've used additionalProperties which removes the regex=
+ entirely
+> >>>>> and allows arbitrary child-node names. But removed and used pattern=
+Properties
+> >>>>> as per the review feedback.
+> >>>>>
+> >>>>> Could you please suggest to me which way to proceed? with additiona=
+lProperties
+> >>>>> or patternProperties
+> >>>>
+> >>>>
+> >>>> The children are leds, so they should use generic node name pattern =
+like
+> >>>> "^led-[a-z0-9]+$"
+> >>>
+> >>> Yes, Krzysztof but the original binding uses blue-power, red-power,
+> >>> blue-sata0, etc.
+> >>> as LED child node names. Would you like me to rename these nodes to
+> >>> led-blue-power, led-red-power, etc. to use the suggested
+> >>> ^led-[a-z0-9]+$ pattern,
+> >>> or should I retain the existing node names and use a more specific
+> >>> pattern for them
+> >>> like "^(blue|red)-(power|sata[0-9]+)$"
+> >>
+> >> I did not see original binding mentioning any names. Neither in the dr=
+iver.
+> >
+> > Sorry for the delayed response, Krzysztof.
+> >
+> > You are right that the binding text and the driver do not mandate node =
+names.
+> > However, the existing device tree source use names like blue-power,
+> > red-sata0, etc.:
+> >
+> > arch/arm/boot/dts/marvell/kirkwood-netxbig.dtsi
+> >
+> > Also, the driver uses the node name as a fallback LED label when the la=
+bel
+> > property is absent.
+> >
+> > drivers/leds/leds-netxbig.c, lines 585-588.
+>
+> So what is the problem exactly? You rename the nodes and use label. Does
+> anything break?
 
-There is an earlier attempt that may be worth a look.
-https://lore.kernel.org/all/20260618044857.69439-1-jiahao.kernel@gmail.com/
+You are right. It will not break anything. will update the binding and DTS =
+files
+accordingly and send the next revision
 
-If you go this way, the discussion in that thread worth refering too.
-
-> What it doesn't cover yet is reclaim outside any configured cgroup:
-> under global pressure, a cgroup nobody configured still reached the
-
-Right, so for now every cgroup has to be set to exclude zram, unless
-another idea or more code covers it.
-
-> zram tier.  So for v3 I'd like to add a system-wide limit on which
-> tiers pressure reclaim may use, on top of the per-cgroup settings.
-> I'll wait for Youngjun's v12 and build on that.
-
-I have looked through the whole series, and I will keep this use case
-in mind while working on v12. :)
-
-Also, to share what I had in mind, I was planning a sysfs interface
-for each swap tier, /sys/kernel/mm/swap/tiers/<tier name> (exact
-naming TBD). Maybe the system-wide limit could be handled there as one
-of its use cases?
-
-Let's discuss it in more detail after v12.
-
-Thanks,
-Youngjun
+Regards,
+Udaya Kiran Challa
