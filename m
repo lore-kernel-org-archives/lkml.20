@@ -1,80 +1,64 @@
-Received: from mail-dy2-f12.google.com (mail-dy2-f12.google.com [74.125.229.12])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from pdx-out-008.esa.us-west-2.outbound.mail-perimeter.amazon.com (pdx-out-008.esa.us-west-2.outbound.mail-perimeter.amazon.com [52.42.203.116])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A665634D389
-	for <linux-kernel@vger.kernel.org>; Sun,  4 Oct 2026 09:48:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.12
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E385E3F9F5B;
+	Sun,  4 Oct 2026 09:51:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=52.42.203.116
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791107316; cv=none; b=USxdQVYWWth0D1L14Z3FcRsow1Dy+hZ1mYeB7dKhjvOvZMdRm5kBw5KfMUJBqZ5dLh/VD2Pn5Uw/ZneBEXJs8BFAZTnf8D0WExczCEv9HkZtFI8bfaBJlJcy/6Dg4zWM80XKtq5xxSVQDE+m4bT7vNf7BzmMCVBQu9JT+8z9fuQ=
+	t=1791107515; cv=none; b=bqViCsA6SkvIgVH9XqJnJ5Yqsm7NQppe4zvmrSQAL3oZnhZLBm9dXvNkCPyTuKXd24sZIhYQSiXgQ3B4PLgWD4Pbef/zhViw8tMvtvmtulra0cDMA0KN2TJScLlYn/h22ZAxE/cW9M7NbIF5qtzfi5Afmb18JhAmmvEfrIMa3Mk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791107316; c=relaxed/simple;
-	bh=CswC78lXz1dzqRZXt3vONvAE+iE7J82ekn9D2HnfSro=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=pW/8dSdNjXTctmnC4X+AQkHoGQwus3bGmewKmUlWmwQBwlXLrHB3yHjIeeKg6YsBAZTjDg+jtJAUfiBbW7TcUfvK+671DFwnhU2SN7aKB9zT/rXG5ZatvB0Hsro16uhfoy1iQ0x9JzpB/q+DrIMp+MJvMk61qbju4Kp0o5KT6cI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=a9I1avs1; arc=none smtp.client-ip=74.125.229.12
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1791107515; c=relaxed/simple;
+	bh=sFxhWSCP0mcaK4JLEjpA5w635bnyYYjPC1eVVHJLC3k=;
+	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=aLFFXhAKn8n7V7Pd30pTZLFVkgAHsuh4Kvb+Mj5SsXLPwieN4eKUCg2HArDTn+adDS0RrX05/lNdyJPXax8em4yVpebglnopLhzwzMZbTGP/E/05ixZgQ/yZkBRaWWhK6zoijF2DeUXIqZD1RJpX1VQ2gweShwkUf2D/R+XA6j8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.com; spf=pass smtp.mailfrom=amazon.com; dkim=pass (2048-bit key) header.d=amazon.com header.i=@amazon.com header.b=eWjZL/pT; arc=none smtp.client-ip=52.42.203.116
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amazon.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="a9I1avs1"
-Received: by mail-dy2-f12.google.com with SMTP id 5a478bee46e88-3396cec93b6so990676eec.3
-        for <linux-kernel@vger.kernel.org>; Sun, 04 Oct 2026 02:48:33 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=amazon.com header.i=@amazon.com header.b="eWjZL/pT"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791107312; x=1791712112; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=G/M/uzbIn435hHdgJL6sjcq8jBzkdOxqOZH69iw0GIc=;
-        b=a9I1avs1FwylhUv249MHvn1IsEzVB048ZNaGbiz+KniqiF/CMbuHEnckFxi/BQWSE0
-         JAB39wzw02aJ7+DtReqzOaknTeDmG9S0PqcNo2D5OYnZnK4ZoAD8OaIfGHFSfwXM5o4K
-         A092RRRdwCYmdMeGAZhGFzUMecfHnSMPgywFKs1WmsKIkw3Fv78M/2xLux4yvoJKG3e1
-         4guEkNKtleqySFtE3Y7lk9DVLOKiH8eTy1OBfJMNeMHC26roTcgXexWUyLw0z1UToKxT
-         aS/lfeDjEhDagv12EbHtF1GNOmsM49Adn7j79fX54CP5+NdCYVc/i2LZTEXnUOrwEkcq
-         R7YQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791107312; x=1791712112;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=G/M/uzbIn435hHdgJL6sjcq8jBzkdOxqOZH69iw0GIc=;
-        b=Slxs6gmb7ZSWv8bBJB8Mve+onnbgGdNfFslpeGVTQfx50LbB6J9zLo0+V1yLpauGJC
-         LOD2ccU5/pxFtvzG2Fv/whcFExBta5ADRF3RnW/YNHH40eNRXhnvg0i0X+n5I62L7g5Z
-         eStB64svlP/b5gpq69K0uCZnU5LPrw113BflbWNk69jNZYzyINS13Y9arQ+yVVOe4yUf
-         n4bX8se/rHKfj8dD4gFFzcVxQxsYxxzx7RpOAbxuElV9hl4vro7tn6LXiIqHU5x6ummZ
-         +wcYiYgoiNr9n/+/afvAMfRG4e47Ug6I9gX43Oi7tbnMmMlS/Bi1G5UfWgBTtFwLHFrk
-         lpuA==
-X-Forwarded-Encrypted: i=1; AKwUvBwKsfm/sSAY+8hKe4huIXJQxDcam3KVlpwITbHfP1JMANFH7t687xDUVlYTR2RTdAMvLjVoQlEFf2gF+7c=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJYGRzr5POSzymSPqoQTqiS+/jqWORXlDPxeSdU428mivgytS4q
-	R/j0J6BMIk014eorg18aCbYj+9HyL6EH3j9Xb2s90NOJk0Lh6rGlJ608
-X-Gm-Gg: AYBFou05HwhUTj4C5HpeKRVOo7Xq/iHRW+IzIwAIQB5anowyKSW812YQk1FMs3rV4DF
-	tavwRJ+8WpmyKlkU6sw16WsodIQ6P5O4LWQO1qrSxYUZc/jvtGTRWMA5zcijtgcDimyI4zP4U/F
-	y/QJ9AJeC1GieGfEnaUwYYGRjwYfHLrea/i5E4tofbhlnh6rzy1TZZQYRI1t3VOKQgzZ1pgMJZz
-	gmqTTeYkscjwsr0vl6IY/9UzwmyB3DbaW2e5ThODatleNHSvhEh6hwySIxsL/Hnb6dwgLLphgD6
-	NDqGSsG/dVLO3O6JwaZ6sd1VvgLkQyoZsJeWXCx34o4fj3yL296G7+fOYSVqYwoP+aBONoyJFF5
-	JjeQYVC6WSMZmIqUzmEr3WgdjjQVZTnRJmaDUz8AjzZO2vUKtoz/smX/mU+PFK5qAwky0kyTp+y
-	TM9ggjXTpyta/fxWBELG9WTlBG3vcnTMMXBPly4LwGhuWVizmK7H+NAx1+Ui33jurXnueRkdvwr
-	Y16n2Z1QB6BqFTmuOV3aGg2BuCWFLamQ18VVqEg3RjldgqcLm6c4rNpK+bvzQt3ApgWo9ZLQhCS
-	tk8ET33GGJ5ErXOeOBP6bAoNiliuvjOBbR+/aNaC+CcOImDDUltm2/66vvY=
-X-Received: by 2002:a05:693c:87d5:10b0:34b:e2cf:43b6 with SMTP id 5a478bee46e88-34f14f2b9edmr9396416eec.2.1791107311900;
-        Sun, 04 Oct 2026 02:48:31 -0700 (PDT)
-Received: from spider.bream-herring.ts.net ([103.6.151.236])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-35127136b8esm3623589eec.6.2026.10.04.02.48.28
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 04 Oct 2026 02:48:31 -0700 (PDT)
-From: Matthias Goergens <matthias.goergens@gmail.com>
-To: Jani Nikula <jani.nikula@linux.intel.com>,
-	Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
-	Rodrigo Vivi <rodrigo.vivi@intel.com>,
-	Tvrtko Ursulin <tursulin@ursulin.net>
-Cc: Andi Shyti <andi.shyti@kernel.org>,
-	Matthew Wilcox <willy@infradead.org>,
-	Christoph Hellwig <hch@infradead.org>,
-	Christian Brauner <brauner@kernel.org>,
-	intel-gfx@lists.freedesktop.org,
-	dri-devel@lists.freedesktop.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: [PATCH v2] drm/i915: look up shmem folios by index for writeback
-Date: Sun,  4 Oct 2026 17:48:27 +0800
-Message-ID: <20261004094827.174193-1-matthias.goergens@gmail.com>
-X-Mailer: git-send-email 2.56.0
+  d=amazon.com; i=@amazon.com; q=dns/txt; s=amazoncorp2;
+  t=1791107511; x=1822643511;
+  h=from:to:cc:subject:date:message-id:in-reply-to:
+   references:mime-version:content-transfer-encoding;
+  bh=qOHcbtb/VRWrwcQuRj1W7KizObd5F5syz26snzqQx+g=;
+  b=eWjZL/pTFXRXAmJJkjN3akCJN+Uf4qdJfI6tHIp7yb/++PRqoB+1caW5
+   XF+/zxmyfMwwaQw/YTDtLsD1IPjfvbwZ4mGkP+hYyJwFeYSvFl2cvUYCj
+   kyEivbTZ8s+BgxgmfUD9OrOEap2H+e7GZJJOO7UUeXSkkYb/7+5r1HzhP
+   dL37LJ9oH79xClm5mUtZ4pFYbG5cKiGn1Xpjd1pVD5ELJckIRi+W1sEO3
+   l+Vs4l51FFLjC8IT48PyGXnGZDdPl2TIn/W8f1YoY2/HRJItXRtRSPo3w
+   ERiTT+Mmg3MnzV/ZHUgbVUhK9EZRMGnz0CNMkqjnBpklsa6T+Mp5OIPb5
+   A==;
+X-CSE-ConnectionGUID: D2xFCtpiS1WBE4zn8XfXIA==
+X-CSE-MsgGUID: yLnNzBhMTxqwMUEUZ2yIhQ==
+X-IronPort-AV: E=Sophos;i="6.27,139,1787011200"; 
+   d="scan'208";a="30371884"
+Received: from ip-10-5-0-115.us-west-2.compute.internal (HELO smtpout.naws.us-west-2.prod.farcaster.email.amazon.dev) ([10.5.0.115])
+  by internal-pdx-out-008.esa.us-west-2.outbound.mail-perimeter.amazon.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 04 Oct 2026 09:51:47 +0000
+Received: from EX19MTAUWA002.ant.amazon.com [205.251.233.178:22268]
+ by smtpin.naws.us-west-2.prod.farcaster.email.amazon.dev [10.0.52.137:2525] with esmtp (Farcaster)
+ id 19c6d27f-d39f-48d3-a63a-e9224414ef55; Sun, 4 Oct 2026 09:51:47 +0000 (UTC)
+X-Farcaster-Flow-ID: 19c6d27f-d39f-48d3-a63a-e9224414ef55
+Received: from EX19D001UWA001.ant.amazon.com (10.13.138.214) by
+ EX19MTAUWA002.ant.amazon.com (10.250.64.202) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.49;
+ Sun, 4 Oct 2026 09:51:47 +0000
+Received: from dev-dsk-lravich-1b-7405803b.eu-west-1.amazon.com (10.13.225.95)
+ by EX19D001UWA001.ant.amazon.com (10.13.138.214) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.49;
+ Sun, 4 Oct 2026 09:51:45 +0000
+From: Leonid Ravich <lravich@amazon.com>
+To: Herbert Xu <herbert@gondor.apana.org.au>
+CC: Christoph Hellwig <hch@infradead.org>, <linux-crypto@vger.kernel.org>,
+	<dm-devel@lists.linux.dev>, <linux-kernel@vger.kernel.org>,
+	<davem@davemloft.net>, <ebiggers@kernel.org>, <agk@redhat.com>,
+	<snitzer@kernel.org>, <mpatocka@redhat.com>, <bmarzins@redhat.com>
+Subject: Re: [PATCH v6 0/6] crypto: skcipher - multi-data-unit request splitting
+Date: Sun, 4 Oct 2026 09:51:39 +0000
+Message-ID: <20261004095140.24161-1-lravich@amazon.com>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <ar9hjvFGLUKv3lEM@gondor.apana.org.au>
+References: <20260924075846.28203-1-lravich@amazon.com> <ar9hjvFGLUKv3lEM@gondor.apana.org.au>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -82,182 +66,74 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: EX19D033UWA002.ant.amazon.com (10.13.139.10) To
+ EX19D001UWA001.ant.amazon.com (10.13.138.214)
 
-Since commit 776a853a43c9 ("i915: Use writeback_iter()"),
-__shmem_writeback() starts writeback on no folios at all.  In
-WB_SYNC_NONE mode writeback_iter() only returns folios tagged
-PAGECACHE_TAG_DIRTY, and shmem never sets that tag: it dirties folios
-with noop_dirty_folio(), because shmem relies on LRU-based swap writeout
-rather than on the dirty tag (see the comment in __folio_mark_dirty() in
-mm/page-writeback.c).  The loop before that commit looked pages up by
-index and tested the page dirty flag, so it did write.
+On Fri, Oct 02, 2026 at 05:47:26PM +1000, Herbert Xu wrote:
+> I think the issue is that we're generating the IV twice.  Once
+> in the Crypto API and once again in the DM layer.  Not only is
+> this slow, but it is actually wrong for decryption.  You're ignoring
+> the IVs on the disk.
 
-This affects the shrinker's I915_SHRINK_WRITEBACK pass and the i915 TTM
-backend, which both call __shmem_writeback().  The pages stay dirty and
-on the LRU, so reclaim still swaps them out later; what is lost is the
-early writeback.
+I don't think either happens in v6, so let me check we are reading
+the same code before I change the design.
 
-Go back to looking up the folios of the object by index, in batches
-with filemap_get_folios(), and reschedule between batches, as
-writeback_iter() does.  Mapped folios are still skipped.  Unlike the old
-loop, do not wait for a folio lock, since this also runs from the OOM
-notifier; a locked folio is left to reclaim.  shmem_write_folio()
-returns with the folio unlocked except for AOP_WRITEPAGE_ACTIVATE, so
-unlock it only in that case.  It may also split a large folio and leave
-the rest of it dirty, so look the rest up again.
+The IV is generated once per request, not per unit.  In
+crypt_convert_block_skcipher() dm-crypt calls iv_gen_ops->generator()
+for the first sector of the segment only.  The Crypto API then derives
+the IV of each following unit by incrementing the 64-bit little-endian
+sector number in the low 8 bytes.  That is the same value the
+generator would have produced for that sector, so no generator runs
+twice.  Only plain64 and essiv are batched, because those are the
+modes where IV(sector + i) is exactly that increment.
 
-I came across this while measuring an earlier patch of mine to this
-loop, which changed nothing because the loop never visits a folio.
-This patch was measured without Intel hardware, with a test-only mock
-selftest in a QEMU guest with swap.  Dirty, unpinned objects of 1 to
-256 MiB, with and without THP, went through i915_gem_shrink() with
-I915_SHRINK_WRITEBACK.  Before this patch, no page was written in any
-case; with it, every page that was not mmapped was, also when swap-out
-split the large folios.  The contents read back intact after swap-in,
-and the mock selftests give the same results as before.  This has not
-been tested on hardware.
+On-disk IVs are never ignored, because batching is never enabled when
+they exist.  The only case where dm-crypt reads an IV from disk is
+the integrity-metadata branch in the same function:
 
-Fixes: 776a853a43c9 ("i915: Use writeback_iter()")
-Cc: stable@vger.kernel.org # v6.16+
-Signed-off-by: Matthias Goergens <matthias.goergens@gmail.com>
----
-v1: https://lore.kernel.org/all/20261002073107.2209644-1-matthias.goergens@gmail.com/
+	/* For READs use IV stored in integrity metadata */
+	if (cc->integrity_iv_size && bio_data_dir(ctx->bio_in) != WRITE)
+		memcpy(org_iv, tag_iv, cc->integrity_iv_size);
 
-Changes in v2:
-- Look the folios up in batches with filemap_get_folios() and call
-  cond_resched() between batches, instead of one __filemap_get_folio()
-  call per index with no rescheduling, which Sashiko pointed out:
-  https://lore.kernel.org/all/20261002091439.59C611F00899@smtp.kernel.org/
-  Measured with the same test-only harness in the same guest, v1 against
-  v2: on a fully populated 1 GiB object, the longest time the walk ran
-  without reaching cond_resched() went from about 85 ms to under 0.1 ms;
-  on a 3 GiB object (786432 pages) with 1% of its pages present and the
-  rest holes or swapped out, one call made 255 filemap_get_folios()
-  calls instead of 786432 __filemap_get_folio() calls.  A run of swap
-  entries is still stepped over inside a single filemap_get_folios()
-  call: about 2 ms for a fully swapped-out 3 GiB object.  I did not split
-  the range further, since every page of the object was in memory until
-  just before this runs, so holes and swap entries are the exception.
-- A batch is looked up ahead of the writes, so if writing splits a
-  large folio, look the rest of it up again (v1 got this by reading the
-  folio size after the write).
+CRYPT_MULTI_DATA_UNIT is only set when integrity_iv_size is 0 (and
+the target is not AEAD; see crypt_can_batch_units() and its caller
+in crypt_ctr_cipher()).  So a device with stored IVs keeps the
+one-sector-per-request path, and its reads use the stored IV exactly
+as today.
 
-This replaces my two earlier patches to this loop, which can be dropped:
-the loop they change never visits a folio.
+On the cost: the IV part of the ~50 ns is a 16-byte copy and an
+increment per unit.  The rest is re-pointing the scatterlist at each
+unit and the extra call into the algorithm per unit.  An IV array
+would replace the copy and increment with a load from the array, but
+the per-unit scatterlist and call overhead would stay.  I have not
+measured the components separately; I can if that would help.
 
-https://lore.kernel.org/all/20260915062924.2410550-1-matthias.goergens@gmail.com/
-https://lore.kernel.org/all/20260914105606.3997649-1-matthias.goergens@gmail.com/
+> My suggestion is to allocate memory for the IVs.  Of course
+> memory allocation can fail, but we have an easy fallback, which
+> is to use the existing single-unit path.
+>
+> IOW if you succeed in allocating memory for storing the IVs,
+> then invoke the multi-unit code path, otherwise fall back to
+> the single-unit code path which iterates over the sectors one-
+> by-one.
+>
+> To pass the IVs to the Crypto API (or back), just use the existing
+> IV pointer and extend it by the number of units.
 
-In 6.18.y and 7.2.y, the maintained stable trees that have
-776a853a43c9, the call is shmem_writeout(folio, NULL, NULL) instead of
-shmem_write_folio(folio), with the same return convention.
+That said, I can see what an IV array would buy beyond the current
+modes.  The Crypto API would no longer need to know how IVs relate
+to each other, so every dm-crypt IV mode could batch (lmk, tcw,
+eboiv, benbi, and plain64be without a template), and so could
+devices that store their IVs in integrity metadata, since dm-crypt
+would fill the array from the tags on read.
 
-In review of 776a853a43c9, Christoph asked for this loop to move behind
-a shmem API instead of living in drivers, and Matthew agreed:
+So the question for you is about scope rather than correctness: do
+you want the interface to be "one IV per unit, ivsize * nunits bytes
+at req->iv" so that it covers those modes too?  If so, v7 will do it
+that way, with the single-unit fallback when the allocation fails.
+If plain64 and essiv are enough for now, I would keep the counter
+form from v6.
 
-https://lore.kernel.org/all/Z--XtaM7Z3zbjzAu@infradead.org/
-https://lore.kernel.org/all/Z-_hQwNeiOnNYJVp@casper.infradead.org/
-
-I kept this fix inside i915 so that it is one patch for stable.
-
-The test harness is not part of the patch; I can post it if that helps.
-Testing on Intel hardware under memory pressure would be very welcome.
-
- drivers/gpu/drm/i915/gem/i915_gem_shmem.c | 70 ++++++++++++++++++-----
- 1 file changed, 57 insertions(+), 13 deletions(-)
-
-diff --git a/drivers/gpu/drm/i915/gem/i915_gem_shmem.c b/drivers/gpu/drm/i915/gem/i915_gem_shmem.c
-index ef9440166295..d2077b823b1b 100644
---- a/drivers/gpu/drm/i915/gem/i915_gem_shmem.c
-+++ b/drivers/gpu/drm/i915/gem/i915_gem_shmem.c
-@@ -304,28 +304,72 @@ shmem_truncate(struct drm_i915_gem_object *obj)
- 	return 0;
- }
- 
-+/* Start writing a locked folio to swap.  It is unlocked on return. */
-+static void shmem_writeback_folio(struct folio *folio)
-+{
-+	int ret;
-+
-+	folio_set_reclaim(folio);
-+	ret = shmem_write_folio(folio);
-+	if (!folio_test_writeback(folio))
-+		folio_clear_reclaim(folio);
-+
-+	/* shmem_write_folio() unlocks the folio unless it returns this. */
-+	if (ret == AOP_WRITEPAGE_ACTIVATE)
-+		folio_unlock(folio);
-+}
-+
- void __shmem_writeback(size_t size, struct address_space *mapping)
- {
--	struct writeback_control wbc = {
--		.sync_mode = WB_SYNC_NONE,
--		.nr_to_write = SWAP_CLUSTER_MAX,
--		.range_start = 0,
--		.range_end = LLONG_MAX,
--	};
--	struct folio *folio = NULL;
--	int error = 0;
-+	pgoff_t last = (size >> PAGE_SHIFT) - 1;	/* last page, inclusive */
-+	struct folio_batch fbatch;
-+	pgoff_t index = 0;
-+	unsigned int i;
- 
- 	/*
-+	 * shmem marks folios dirty with noop_dirty_folio(), which does not
-+	 * set PAGECACHE_TAG_DIRTY, so writeback_iter() would find none of
-+	 * them.  Look up the folios of the object in batches and write out
-+	 * the dirty ones.
-+	 *
- 	 * Leave mmapings intact (GTT will have been revoked on unbinding,
- 	 * leaving only CPU mmapings around) and add those folios to the LRU
- 	 * instead of invoking writeback so they are aged and paged out
- 	 * as normal.
- 	 */
--	while ((folio = writeback_iter(mapping, &wbc, folio, &error))) {
--		if (folio_mapped(folio))
--			folio_redirty_for_writepage(&wbc, folio);
--		else
--			error = shmem_write_folio(folio);
-+	folio_batch_init(&fbatch);
-+	while (filemap_get_folios(mapping, &index, last, &fbatch)) {
-+		for (i = 0; i < folio_batch_count(&fbatch); i++) {
-+			struct folio *folio = fbatch.folios[i];
-+			long nr_pages = folio_nr_pages(folio);
-+
-+			/*
-+			 * Leave locked folios to reclaim: this runs from the
-+			 * shrinker and the OOM notifier, so do not wait for a
-+			 * lock.
-+			 */
-+			if (!folio_trylock(folio))
-+				continue;
-+
-+			if (folio->mapping != mapping || folio_mapped(folio) ||
-+			    !folio_clear_dirty_for_io(folio)) {
-+				folio_unlock(folio);
-+				continue;
-+			}
-+
-+			shmem_writeback_folio(folio);
-+
-+			/*
-+			 * Writing may have split the folio and left the rest
-+			 * of it dirty; look the rest up again.
-+			 */
-+			if (folio_nr_pages(folio) != nr_pages) {
-+				index = folio_next_index(folio);
-+				break;
-+			}
-+		}
-+		folio_batch_release(&fbatch);
-+		cond_resched();
- 	}
- }
- 
-
-base-commit: ce1e0223d8ad4211275c82a17ed6d43ab81e13d9
--- 
-2.56.0
-
+Thanks,
+Leonid
