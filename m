@@ -1,42 +1,73 @@
-Received: from mail-m155101.qiye.163.com (mail-m155101.qiye.163.com [101.71.155.101])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qv2-f42.google.com (mail-qv2-f42.google.com [74.125.230.170])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1EC7A416842;
-	Sun,  4 Oct 2026 10:24:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=101.71.155.101
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6A57842124D
+	for <linux-kernel@vger.kernel.org>; Sun,  4 Oct 2026 10:26:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.170
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791109450; cv=none; b=HO/pLfuxdaWNXP47J3KGfc3wlzOJ1oIcNSu+Od/vpVof+mUk3O560NbWDFhyEv44WvMN8JmaolK+VnPRIhaaT2P/cC7hMEu3ta7l43JdzJLkLFag0w6PB5qhpdWPUPO3oq8uy1jf6VnJmhCNk5Dhw746OqJOORIWPnQa8TqsG8U=
+	t=1791109602; cv=none; b=nS+4Q+RaVPzO8LGfVi06oHon3TKnsYtvV8tPRzR0BxlyDbLP6rWS+wvL5tWEjMZic09OZwhPRrfsUG2hLcSmTo53SvXiS7sdMYQsEdQ+GmWisHk9k7IZMeO0LNc0qHyYm3u/cmCaxQa8IkoDNbnyynmQRpmjt5/4dLpQebSnUsw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791109450; c=relaxed/simple;
-	bh=/an0Ahh1xrPPkDannssAWcgM8uooqZe/h43gpFs3dW0=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=QzFsQTiclNXI04+fswwWzGJBl5ybJ1snG8O0ZtX3To/WZYwylgCnQ+CAziaUWEHBjhzuk19/V7tu7lZEV5FoB6Qb6y37DSk/sOKxJVr9fqhdQLlpj5JZwPSwcBntXAEbo57fyLRrryX1cINug4gciAkFs+V/3/uT0UE/Qhrkcak=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=seu.edu.cn; spf=pass smtp.mailfrom=seu.edu.cn; dkim=pass (1024-bit key) header.d=seu.edu.cn header.i=@seu.edu.cn header.b=UoVexn+i; arc=none smtp.client-ip=101.71.155.101
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=seu.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=seu.edu.cn
+	s=arc-20240116; t=1791109602; c=relaxed/simple;
+	bh=XhMhcu0Ij3BizMpIdVRfd1wxq8Jalk+FNAh6krVwqwo=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Hu6G8Aq8N+aZsnEk2ZBBCbSFAsQZ9vPYlz+n4Oo16yYg2u7qeHr1Gm7XS8Y06Mkwkc4s4FhG32xmC+wT72ziYGRR48d3xG7ysyAI9XdgJVaaA4hzKwR3Dhb4fuTt8DOKN4PV9MoaIwKYAdl/0sV0I1yHBq1j+4v2ZQdSLTDQvE8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ALrWq9/f; arc=none smtp.client-ip=74.125.230.170
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=seu.edu.cn header.i=@seu.edu.cn header.b="UoVexn+i"
-Received: from PC-202605011814.localdomain (unknown [58.241.16.34])
-	by smtp.qiye.163.com (Hmail) with ESMTP id 4feb7a971;
-	Sun, 4 Oct 2026 18:23:56 +0800 (GMT+08:00)
-From: Runyu Xiao <runyu.xiao@seu.edu.cn>
-To: Srinivas Kandagatla <srini@kernel.org>
-Cc: Liam Girdwood <lgirdwood@gmail.com>,
-	Mark Brown <broonie@kernel.org>,
-	Jaroslav Kysela <perex@perex.cz>,
-	Takashi Iwai <tiwai@suse.com>,
-	Prasad Kumpatla <quic_pkumpatl@quicinc.com>,
-	linux-sound@vger.kernel.org,
-	linux-arm-msm@vger.kernel.org,
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ALrWq9/f"
+Received: by mail-qv2-f42.google.com with SMTP id 6a1803df08f44-917bef0d531so21680036d6.3
+        for <linux-kernel@vger.kernel.org>; Sun, 04 Oct 2026 03:26:37 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791109596; x=1791714396; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=1GmjpMu1lVYAdeEK9QKdXTuQ5b/yeAbWm36UPOAVxQ4=;
+        b=ALrWq9/fiIivR0vHuVgvdDPE1KMUfp6VFRihCQjVEBMVLmLN62igHCY2HtPGPRHVmn
+         aEeuENKKM32XYXDMVlYRkCRRRREEjaDS27SkXTW79A8vLrpCMINug/VCKaQyjnmzaH8X
+         anSyjfUFoqsMSqrqCaesdfJLOjw00dT5Cwv7LyEDMDbBmCrX6YmeNMkBD2lHIunaYGo9
+         kP50EWGH7hBhx5llpMtiI4j9ECcWQZ3fZhZSrb96AmQaWKlwtMaoB/3XuMjLJ2pSgeze
+         KAWsuuEPzUx0UGJpzebHq135+ntGrmIDBzgmg5gyIj5yGhz47nCL/zdpUxLnsQFuX6LP
+         hgVw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791109596; x=1791714396;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=1GmjpMu1lVYAdeEK9QKdXTuQ5b/yeAbWm36UPOAVxQ4=;
+        b=on6iH/rHqezoqX1TMn+8aLVrbfzPTTnns5Veu5sxm/ntPxEGZ/o/JNuGRXA5kzXJt3
+         +E+bp0qu1BLfBNAsCvKhQLJpjT2BgvGkh4ofVTe+bFpq2ckY7YY3yJe/hJCrsEkgppGB
+         E71Dn+uPx50ocJk0D9GOM35QjIq0IbMbY/POlNKNmTjTvkT/F1maGPR795HMIJGPXkv4
+         NQvEb08bso0I0fJfb89xDz14lD/f5goaTJ/hAJVLmGuyNFi64/Nxa6kp71PBJlKOJSvg
+         PwqaFqlcH3KjHaR28SBSmfU+e/w3DOCJMqDwlzsfybji722Mqua37EcVA+2WAFL9zEbg
+         kalA==
+X-Forwarded-Encrypted: i=1; AKwUvBwCr20Bon+jaIBZBNOrWI5kzpsdq4Uc+rmGgHNDjT4VUw/PHjcJTKn8xlmO+NZzZ+qRZ9wP4aJLmgR5MQ0=@vger.kernel.org
+X-Gm-Message-State: AFq9FYItqZmRcgutXkzARlPzYbkr3pgfxnGlrEaoerFsCL66ki3hnq4g
+	tIjOqBnE1g7XDcslU+ziyzvxgCj1u/hb0iPUu32z6Lh6+Bl4C4JIeMwt
+X-Gm-Gg: AYBFou0hnHDEtDucjP5Gq9pCXfU5GYJeLaKjBrjpHliGVxmlMlPmTqCqSqO5n4miL39
+	JHFL+R0VTTaWrxO/njjl6LoRA0xS7/rWDaqLUiKW96WYn1LgyxRlSayHicpMN2RALYbm/jquP3N
+	JqQlW09REJRaZXtksGBNtTieAMa/QuemIHtjLym7tD1JnAIatflssq5lUI0ZYqVL9JMOG89RPml
+	Dpy6K2uZYIVOZ81OLbmVTdAYtOkGb61SBBhqgGcqxWq5p/Twfkc7hDMjkVZNKpwtPZ39Oz2qHIm
+	qqZouHhxQIwoJ+N4wDJXLf+TIEQXnvXEw7cGUQ3HNHXXMfZtfQylm/UBu/2LU94HpM4+UGTzRph
+	Q+V5ZacmB7WnAg2zWEey2oRwhUElL2jllrTEbRvu5MJXez0dePU6gZ7yPcQ7l44Hb9SUJ0DwiW4
+	zZzc46Tzw/p192jjPZPO4olttiFKmHo2ge4Dw1UFAYryWgkRS8/kg38oRGLzJIARtA5AEdvbycX
+	vgBsys+Qs74TB6rukXOARlTQHEXmL5iYgwC276OyaJtrmtNK3SF/CX8jmGG0w==
+X-Received: by 2002:a05:6214:f6c:b0:917:7d92:6486 with SMTP id 6a1803df08f44-917bff43141mr156594696d6.6.1791109596104;
+        Sun, 04 Oct 2026 03:26:36 -0700 (PDT)
+Received: from Precision-M6500.home.mulloy.xyz ([163.252.155.132])
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-917e0b1aef0sm63309096d6.12.2026.10.04.03.26.34
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 04 Oct 2026 03:26:35 -0700 (PDT)
+From: Joshua Mulloy <joshuamulloy@gmail.com>
+To: Alex Dubov <oakad@yahoo.com>,
+	Arnd Bergmann <arnd@arndb.de>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: Danilo Krummrich <dakr@kernel.org>,
 	linux-kernel@vger.kernel.org,
-	Runyu Xiao <runyu.xiao@seu.edu.cn>,
-	Jianhao Xu <jianhao.xu@seu.edu.cn>
-Subject: [PATCH v2] ASoC: codecs: wcd937x: request watchdog IRQs without devm
-Date: Sun,  4 Oct 2026 18:23:46 +0800
-Message-Id: <20261004102346.1203410-1-runyu.xiao@seu.edu.cn>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20260929094223.2086750-1-runyu.xiao@seu.edu.cn>
-References: <20260929094223.2086750-1-runyu.xiao@seu.edu.cn>
+	Joshua Mulloy <joshuamulloy@gmail.com>
+Subject: [PATCH] misc: tifm: don't clear dev->driver in tifm_device_remove()
+Date: Sun,  4 Oct 2026 06:25:25 -0400
+Message-ID: <20261004102525.34356-1-joshuamulloy@gmail.com>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -44,114 +75,69 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-HM-Tid: 0aa10671155b03a1kunmbe4e162033872b
-X-HM-MType: 10
-X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
-	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVkaGh0dVk1MGU0eTkhMSUkaTFYeHw
-	5VEwETFhoSFyQUDg9ZV1kYEgtZQVlOQ1VJT0pVSk1VSE9ZV1kWGg8SFR0UWUFZT0tIVUpLSEpPSE
-	xVSktLVUpCS0tZBg++
-DKIM-Signature: a=rsa-sha256;
-	b=UoVexn+i8wSlmjRPIq+/9RsRjXzY7gcnIV635ED4LSwtpe9FS4msNpk6CytFrcTS+EarP+OfSPxNwHnwCTjBRfAyvZBD4stDUll54nPZe5Un6Aj5kTc0vA6bgy28ChARf3vK8wV/89nH4P9+RX6pe6HQq4cNK0Q7tmT1kE1nxXw=; c=relaxed/relaxed; s=default; d=seu.edu.cn; v=1;
-	bh=EYqnINkQDb70UfTXaXUn3ZfNSoOVKpSu/IdqarVA5H8=;
-	h=date:mime-version:subject:message-id:from;
 
-The watchdog IRQs are requested from the codec component probe and released
-from its remove callback. Use the same non-devm lifetime for both
-operations.
+tifm_device_remove() sets sock->dev.driver to NULL after calling the
+driver's remove() callback. Since commit a995fe1a3aa7 ("rust: driver:
+drop device private data post unbind"), device_unbind_cleanup()
+dereferences dev->driver after the bus remove() callback has returned,
+so removing a card from a TI FlashMedia reader oopses:
 
-Use request_threaded_irq() and keep free_irq() in the component remove
-callback. Return errors from each request and unwind only IRQs that were
-successfully requested, including failures later in component probe.
+  BUG: kernel NULL pointer dereference, address: 0000000000000090
+  Workqueue: tifm tifm_7xx1_switch_media [tifm_7xx1]
+  RIP: 0010:device_unbind_cleanup+0x16/0xb0
+  Call Trace:
+   device_release_driver_internal+0x220/0x260
+   device_release_driver+0x12/0x20
+   bus_remove_device+0xf9/0x1c0
+   device_del+0x161/0x3b0
+   device_unregister+0x17/0x70
+   tifm_7xx1_switch_media.cold+0x6b/0xbd [tifm_7xx1]
+   process_one_work+0x1ac/0x3d0
+   worker_thread+0x1b8/0x360
+   kthread+0xf7/0x130
+   ret_from_fork+0x195/0x2a0
+   ret_from_fork_asm+0x1a/0x30
 
-Fixes: 9be3ec196da4 ("ASoC: codecs: wcd937x: add wcd937x codec driver")
+The driver core clears dev->driver itself in device_unbind_cleanup(), so
+there is no need for the bus code to do it. Remove the assignment.
+
+The problem was found and the fix written with the help of an AI coding
+assistant. Tested on a Dell Precision M6500 (TI PCIxx12 FlashMedia,
+104c:803b) running a 7.0 kernel: removing an SD card oopsed every time
+without the fix; with it, insert, read and remove work.
+
+Fixes: a995fe1a3aa7 ("rust: driver: drop device private data post unbind")
+Cc: stable@vger.kernel.org
 Assisted-by: LLM
-Signed-off-by: Runyu Xiao <runyu.xiao@seu.edu.cn>
+Signed-off-by: Joshua Mulloy <joshuamulloy@gmail.com>
 ---
-v2:
-- Use request_threaded_irq() and free_irq() as suggested by Mark Brown.
-- Keep error unwinding limited to IRQs that were successfully requested.
+Runtime-tested only on 7.0 (Ubuntu 7.0.0-38), with the patched tifm_core
+built as an out-of-tree module; on current mainline it has only been
+compile-tested (W=1, no warnings).
 
- sound/soc/codecs/wcd937x.c | 44 +++++++++++++++++++++++---------------
- 1 file changed, 27 insertions(+), 17 deletions(-)
+memstick_device_remove() in drivers/memstick/core/memstick.c has the same
+pattern; a separate patch for it goes to the memstick maintainers. A grep
+found no other bus .remove() callbacks that clear dev->driver, but if
+you'd rather handle this in device_unbind_cleanup() instead, that would
+make both patches unnecessary.
 
-diff --git a/sound/soc/codecs/wcd937x.c b/sound/soc/codecs/wcd937x.c
-index 0dd05604f5b88..7ffbb445f8ac4 100644
---- a/sound/soc/codecs/wcd937x.c
-+++ b/sound/soc/codecs/wcd937x.c
-@@ -2536,23 +2536,23 @@ static int wcd937x_soc_codec_probe(struct snd_soc_component *component)
- 						      WCD937X_IRQ_AUX_PDM_WD_INT);
- 
- 	/* Request for watchdog interrupt */
--	ret = devm_request_threaded_irq(dev, wcd937x->hphr_pdm_wd_int, NULL, wcd937x_wd_handle_irq,
--					IRQF_ONESHOT | IRQF_TRIGGER_RISING,
--					"HPHR PDM WDOG INT", wcd937x);
-+	ret = request_threaded_irq(wcd937x->hphr_pdm_wd_int, NULL, wcd937x_wd_handle_irq,
-+				   IRQF_ONESHOT | IRQF_TRIGGER_RISING,
-+				   "HPHR PDM WDOG INT", wcd937x);
- 	if (ret)
--		dev_err(dev, "Failed to request HPHR watchdog interrupt (%d)\n", ret);
-+		goto err_free_clsh;
- 
--	ret = devm_request_threaded_irq(dev, wcd937x->hphl_pdm_wd_int, NULL, wcd937x_wd_handle_irq,
--					IRQF_ONESHOT | IRQF_TRIGGER_RISING,
--					"HPHL PDM WDOG INT", wcd937x);
-+	ret = request_threaded_irq(wcd937x->hphl_pdm_wd_int, NULL, wcd937x_wd_handle_irq,
-+				   IRQF_ONESHOT | IRQF_TRIGGER_RISING,
-+				   "HPHL PDM WDOG INT", wcd937x);
- 	if (ret)
--		dev_err(dev, "Failed to request HPHL watchdog interrupt (%d)\n", ret);
-+		goto err_free_hphr_irq;
- 
--	ret = devm_request_threaded_irq(dev, wcd937x->aux_pdm_wd_int, NULL, wcd937x_wd_handle_irq,
--					IRQF_ONESHOT | IRQF_TRIGGER_RISING,
--					"AUX PDM WDOG INT", wcd937x);
-+	ret = request_threaded_irq(wcd937x->aux_pdm_wd_int, NULL, wcd937x_wd_handle_irq,
-+				   IRQF_ONESHOT | IRQF_TRIGGER_RISING,
-+				   "AUX PDM WDOG INT", wcd937x);
- 	if (ret)
--		dev_err(dev, "Failed to request Aux watchdog interrupt (%d)\n", ret);
-+		goto err_free_hphl_irq;
- 
- 	/* Disable watchdog interrupt for HPH and AUX */
- 	disable_irq_nosync(wcd937x->hphr_pdm_wd_int);
-@@ -2564,23 +2564,33 @@ static int wcd937x_soc_codec_probe(struct snd_soc_component *component)
- 						ARRAY_SIZE(wcd9375_dapm_widgets));
- 		if (ret < 0) {
- 			dev_err(component->dev, "Failed to add snd_ctls\n");
--			wcd_clsh_ctrl_free(wcd937x->clsh_info);
--			return ret;
-+			goto err_free_irqs;
- 		}
- 
- 		ret = snd_soc_dapm_add_routes(dapm, wcd9375_audio_map,
- 					      ARRAY_SIZE(wcd9375_audio_map));
- 		if (ret < 0) {
- 			dev_err(component->dev, "Failed to add routes\n");
--			wcd_clsh_ctrl_free(wcd937x->clsh_info);
--			return ret;
-+			goto err_free_irqs;
- 		}
+ drivers/misc/tifm_core.c | 1 -
+ 1 file changed, 1 deletion(-)
+
+diff --git a/drivers/misc/tifm_core.c b/drivers/misc/tifm_core.c
+index aac8f0933..03d1324bc 100644
+--- a/drivers/misc/tifm_core.c
++++ b/drivers/misc/tifm_core.c
+@@ -97,7 +97,6 @@ static void tifm_device_remove(struct device *dev)
+ 		sock->card_event = tifm_dummy_event;
+ 		sock->data_event = tifm_dummy_event;
+ 		drv->remove(sock);
+-		sock->dev.driver = NULL;
  	}
  
- 	ret = wcd937x_mbhc_init(component);
--	if (ret)
-+	if (ret) {
- 		dev_err(component->dev, "mbhc initialization failed\n");
-+		goto err_free_irqs;
-+	}
-+
-+	return ret;
- 
-+err_free_irqs:
-+	free_irq(wcd937x->aux_pdm_wd_int, wcd937x);
-+err_free_hphl_irq:
-+	free_irq(wcd937x->hphl_pdm_wd_int, wcd937x);
-+err_free_hphr_irq:
-+	free_irq(wcd937x->hphr_pdm_wd_int, wcd937x);
-+err_free_clsh:
-+	wcd_clsh_ctrl_free(wcd937x->clsh_info);
- 	return ret;
- }
- 
+ 	put_device(dev);
+
+base-commit: 6addb4f385570ebc11c4eb499a4f1c149f313e84
 -- 
-2.34.1
+2.53.0
+
