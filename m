@@ -1,218 +1,150 @@
-Received: from mail.mindbit.ro (xs1.mindbit.ro [80.86.107.70])
+Received: from sender5-op-o11.zoho.com (sender5-op-o11.zoho.com [165.173.182.11])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9838E4A64EF;
-	Sun,  4 Oct 2026 19:30:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=80.86.107.70
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791142252; cv=none; b=FciYSzw4h08KQJno+g2z9sHzZAPWvs10QwKAjoO6LMEznGAYUsvLnnpzcgyfHAZC3hdKryyeUQSgIRBdCLu3H4vTXYFTqRgmn44sMgXwdmhJvhiyyOuhMRl+tzt6vJvVDEDVinpMsfRrDrXXHlLclT6tlw9VH8AfKgS3tyWdOE8=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791142252; c=relaxed/simple;
-	bh=FjqPubxucxx2dXu8awuKPL1mdmehESgs/hnF/llUpIo=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=VPhcp1nIn13tE1HwhYxtPsxyDertI4sR6UzTWvHXRZLlUuJIa1ePGE4AZ2HwMENFsIspCqmT34Rfi7v9ea8FeQFRpDVjuiRICzNz+Oxn6tMmwdh9uARSRqe7F2WSN4AZiJ74wx2H0299D4/sG/IbVdAPB61qfxE0UCv2/L5tGTY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=rendec.net; spf=pass smtp.mailfrom=rendec.net; dkim=pass (2048-bit key) header.d=rendec.net header.i=@rendec.net header.b=0yCEGg6T; arc=none smtp.client-ip=80.86.107.70
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=rendec.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rendec.net
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2FB4225F7A9;
+	Sun,  4 Oct 2026 19:31:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=165.173.182.11
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791142318; cv=pass; b=c/9P8IKzmF/XdCAzwQNlHe9EIjjtB/mFa01FLDZNcmtBErRmttj+vJ/PoiIaxYcZ7zu1eWsManW982iviqHa+aPvtFbeYyC2AjOm7OW43EMvtLCPnIdoIlRC5fuPyF4CPdBGrL4LIxQ7qlAcWMLabD3+9sfSNwu1W8cgJvuxuco=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791142318; c=relaxed/simple;
+	bh=npAFeNbnUiqL5FuCr3iRamjVN1PG0m2FhKEnJ4LpgTc=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=jcMhbY1DX0LUxs/vU9iEB/XJrYyVvXXtOW44l2dKFuhJiuxsP6aAC142Oc6O1gdhgkszgtFRDGJKXQXoWmgScrFF75W2q14kaunE0OVunsopG48hnoe1rcLUWeTdGsjjDUKZpaHSDqcP/Cvz3MdnRcM6vSXySODQQg5gbQsKgGM=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (1024-bit key) header.d=collabora.com header.i=sebastian.reichel@collabora.com header.b=J1UyGq/U; arc=pass smtp.client-ip=165.173.182.11
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=rendec.net header.i=@rendec.net header.b="0yCEGg6T"
-Received: from dog.kanata.rendec.net (pool-174-112-193-187.cpe.net.cable.rogers.com [174.112.193.187])
-	by mail.mindbit.ro (Postfix) with ESMTPSA id 4280ED194D;
-	Sun,  4 Oct 2026 22:30:31 +0300 (EEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 mail.mindbit.ro 4280ED194D
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=rendec.net;
-	s=default; t=1791142232;
-	bh=J5csTJm5tEw8LAomVACMbclht+KvcDBy+uGJAGgN51s=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References:From;
-	b=0yCEGg6T9f70wOcl4cO84vgMVR4RmTogfAGc+zTkWZES9/QKXjtWgSRYx1UNAb7LS
-	 3FnH0XPfAS3QOpc30Q/R4p/OhFbfR3aCc43OxKvfNqkil1uEWlPP0kLLU6yj9hSGp5
-	 wusJ2DakZXK+R+iCby2PaLhLz/daqjEa0vuFi3JzqDftqvzPiNWvQ56y7pOA9u2Kt9
-	 4dCJWXJWq9cJUPeSMPqvrxQtcdCq+tozUYVQgfvwtEL0nHeumUQr/jOkz27zUiM2Ih
-	 j2gmWr/AL1TxHHBQ4ERcX1q2CR+Zfp70yXp4ZsSZDNTEAigO+rtRYpPWpCcwDCVqZl
-	 6DtM1CpulJgqw==
-Message-ID: <325cca1679899cf7dd84d6e313c183f1c7eaf6f0.camel@rendec.net>
-Subject: Re: [PATCH v2 4/8] irqchip/al-fic: switch to shared parent interrupt
-From: Radu Rendec <radu@rendec.net>
-To: Eliav Farber <farbere@amazon.com>, Thomas Gleixner <tglx@kernel.org>, 
- Talel Shenhar <talel@amazon.com>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
-  Conor Dooley <conor+dt@kernel.org>, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org
-Date: Sun, 04 Oct 2026 15:30:29 -0400
-In-Reply-To: <20260927080637.27285-5-farbere@amazon.com>
-References: <20260927080637.27285-1-farbere@amazon.com>
-	 <20260927080637.27285-5-farbere@amazon.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.58.3 (3.58.3-1.fc43) 
+	dkim=pass (1024-bit key) header.d=collabora.com header.i=sebastian.reichel@collabora.com header.b="J1UyGq/U"
+ARC-Seal: i=1; a=rsa-sha256; t=1791142201; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=Pi/oisytCHp2YKwOVmo7zZbbepwwmwkZDZCb1EC5JWzrkyCXLlwySINedWLlGCwPVbtbBb6srsQLcQSqNUC2Uo5mLGdil22SWH4H7E58k8Gpzbi4tS8ClBLBRqLqAR5Ua012yyz7z5qq1VuA/9kj+EUicoIrWMBpZGj/l7srmk4=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1791142201; h=Content-Type:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=JFR/y46AuH5zhc0c/R6tAYo9y5d3NyankY+Jgutk2ow=; 
+	b=TuepGGdR63PBpIwOlizgrHrTZyvU9DjrLKxJ6aWCpbHOwB/5lUucSX7Bbxbl0vW1pgqKy1nEIaI3Wsxs4/GR+aqEhUPYt5NoQeW/dXZ73tc9FDBCvMPXgefKmwd2JacszF2tJgElI6YAggvcEHvetpfGIwgxyTYvKkC6Ym/aQDY=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=collabora.com;
+	spf=pass  smtp.mailfrom=sebastian.reichel@collabora.com;
+	dmarc=pass header.from=<sebastian.reichel@collabora.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1791142201;
+	s=zohomail; d=collabora.com; i=sebastian.reichel@collabora.com;
+	h=Date:Date:From:From:To:To:Cc:Cc:Subject:Subject:Message-ID:MIME-Version:Content-Type:In-Reply-To:Message-Id:Reply-To;
+	bh=JFR/y46AuH5zhc0c/R6tAYo9y5d3NyankY+Jgutk2ow=;
+	b=J1UyGq/UqBJBipmNwosM7o6xXgF20Kwd4Rrkfb/eAkbWvoL9/zgYXdnNxwiMf1Tt
+	/uaqa8ChNMu/M5250emqUgG861Ht8mDqzroZyf3SgAQHla9DvzBAQ1bzq1Hmh/DZ/e+
+	Pkl3f6MLkWlDs4Mu6l8x9VbQ06IJ3gP4gKGlXQx0=
+Received: by smtp.zohomail.com with SMTPS id 1791142198422180.87438797751383;
+	Sun, 4 Oct 2026 12:29:58 -0700 (PDT)
+Received: by venus (Postfix, from userid 1000)
+	id 092E2180951; Sun, 04 Oct 2026 21:29:35 +0200 (CEST)
+Date: Sun, 4 Oct 2026 21:29:35 +0200
+From: Sebastian Reichel <sebastian.reichel@collabora.com>
+To: Jordan Brough <jordan@brough.org>
+Cc: "Rafael J. Wysocki" <rafael@kernel.org>, Len Brown <lenb@kernel.org>, 
+	Corentin Chary <corentin.chary@gmail.com>, "Luke D. Jones" <luke@ljones.dev>, 
+	Denis Benato <denis.benato@linux.dev>, Hans de Goede <hansg@kernel.org>, 
+	Ilpo =?utf-8?B?SsOkcnZpbmVu?= <ilpo.jarvinen@linux.intel.com>, Antheas Kapenekakis <lkml@antheas.dev>, 
+	Matthew Garrett <mjg59@srcf.ucam.org>, Pali =?utf-8?B?Um9ow6Fy?= <pali@kernel.org>, 
+	Armin Wolf <W_Armin@gmx.de>, Jonathan Woithe <jwoithe@just42.net>, 
+	Mark Pearson <mpearson-lenovo@squebb.ca>, "Derek J. Clark" <derekjohn.clark@gmail.com>, 
+	Ike Panhc <ikepanhc@gmail.com>, Henrique de Moraes Holschuh <hmh@hmh.eng.br>, 
+	Matan Ziv-Av <matan@svgalib.org>, Nikita Kravets <teackot@gmail.com>, 
+	=?utf-8?Q?Joaqu=C3=ADn_Ignacio_Aramend=C3=ADa?= <samsagax@gmail.com>, Joshua Grisham <josh@joshuagrisham.com>, 
+	Jeremy Soller <jeremy@system76.com>, System76 Product Development <productdev@system76.com>, 
+	Azael Avalos <coproscefalo@gmail.com>, Thomas =?utf-8?Q?Wei=C3=9Fschuh?= <linux@weissschuh.net>, 
+	Benson Leung <bleung@chromium.org>, Guenter Roeck <groeck@chromium.org>, linux-acpi@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, platform-driver-x86@vger.kernel.org, 
+	ibm-acpi-devel@lists.sourceforge.net, chrome-platform@lists.linux.dev, linux-pm@vger.kernel.org
+Subject: Re: [PATCH v3 1/3] ACPI: battery: add acpi_ prefix to the battery
+ hook API
+Message-ID: <asKowO4nqSiCC58T@venus>
+References: <20260930222650.1883805-1-jordan@brough.org>
+ <20260930222650.1883805-2-jordan@brough.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="62rwvd636wwykjor"
+Content-Disposition: inline
+In-Reply-To: <20260930222650.1883805-2-jordan@brough.org>
+X-Zoho-Virus-Status: 1
+X-Zoho-AV-Stamp: zmail-av-0.2.13.1.5.4/291.133.86
+X-ZohoMailClient: External
 
-On Sun, 2026-09-27 at 08:06 +0000, Eliav Farber wrote:
-> Until now the driver requested its parent interrupt using the chained IRQ
-> API (irq_set_chained_handler_and_data()), which only works when each
-> parent interrupt is wired to a single FIC instance.
+
+--62rwvd636wwykjor
+Content-Type: text/plain; protected-headers=v1; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [PATCH v3 1/3] ACPI: battery: add acpi_ prefix to the battery
+ hook API
+MIME-Version: 1.0
+
+Hi,
+
+On Wed, Sep 30, 2026 at 04:26:33PM -0600, Jordan Brough wrote:
+> Rename battery_hook_register(), battery_hook_unregister() and
+> devm_battery_hook_register() to acpi_battery_hook_register(),
+> acpi_battery_hook_unregister() and devm_acpi_battery_hook_register(), so
+> that the exported ACPI battery hook API has a consistent namespace, and
+> update all in-tree callers.
 >=20
-> A FIC controller is built from groups, each described by its own DT node,
-> and the groups of one controller share that controller's output line
-> toward the parent. So a real devicetree has several FIC nodes on one
-> parent GIC SPI, and a chained handler can only be installed once per
-> parent. Cascading compounds this: an aggregating group collects several
-> peripherals' outputs onto the line above it.
+> No functional change.
 >=20
-> To support that, request the parent interrupt as a shared interrupt
-> (IRQF_SHARED) instead of installing a chained handler. The handler now ha=
-s
-> the standard irqreturn_t prototype and reports whether it handled any
-> child interrupt, so the shared-IRQ core can dispatch to the correct
-> instance. IRQF_NO_THREAD is set because the handler only demultiplexes to
-> the child domain and must not be forced-threaded; all instances sharing a
-> parent line agree on this flag, as the shared-IRQ core requires.
->=20
-> generic_handle_domain_irq() is retained for dispatch; its return value is
-> used to determine whether a pending child was actually handled so the
-> handler can return IRQ_HANDLED/IRQ_NONE correctly.
->=20
-> request_irq() can fail, unlike irq_set_chained_handler_and_data(), so add
-> an error path for it. It calls irq_domain_remove_generic_chips() before
-> irq_domain_remove(), because irq_domain_remove() frees the generic chips
-> only when the domain carries IRQ_DOMAIN_FLAG_DESTROY_GC.
->=20
-> Co-developed-by: Talel Shenhar <talel@amazon.com>
-> Signed-off-by: Talel Shenhar <talel@amazon.com>
-> Signed-off-by: Eliav Farber <farbere@amazon.com>
+> Signed-off-by: Jordan Brough <jordan@brough.org>
 > ---
-> v2:
-> =C2=A0- Fix the request_irq() error path: v1 called irq_free_generic_chip=
-(gc),
-> =C2=A0=C2=A0 which is kfree(gc) on an interior pointer into the single al=
-location
-> =C2=A0=C2=A0 made by irq_domain_alloc_generic_chips() - an invalid free r=
-eachable
-> =C2=A0=C2=A0 when request_irq() fails at probe. Replace it with
-> =C2=A0=C2=A0 irq_domain_remove_generic_chips() before irq_domain_remove()=
-, and add a
-> =C2=A0=C2=A0 commit-message paragraph explaining the teardown ordering.
-> =C2=A0- Add Co-developed-by/Signed-off-by: Talel Shenhar.
-> =C2=A0- Reworded to state the hardware reason for the shared parent (the =
-groups
-> =C2=A0=C2=A0 of one controller share that controller's output line).
->=20
-> =C2=A0drivers/irqchip/irq-al-fic.c | 31 +++++++++++++++++++------------
-> =C2=A01 file changed, 19 insertions(+), 12 deletions(-)
->=20
-> diff --git a/drivers/irqchip/irq-al-fic.c b/drivers/irqchip/irq-al-fic.c
-> index c7cc2631caf8..091a06abc0bb 100644
-> --- a/drivers/irqchip/irq-al-fic.c
-> +++ b/drivers/irqchip/irq-al-fic.c
-> @@ -4,9 +4,9 @@
-> =C2=A0 */
-> =C2=A0
-> =C2=A0#include <linux/bitfield.h>
-> +#include <linux/interrupt.h>
-> =C2=A0#include <linux/irq.h>
-> =C2=A0#include <linux/irqchip.h>
-> -#include <linux/irqchip/chained_irq.h>
-> =C2=A0#include <linux/irqdomain.h>
-> =C2=A0#include <linux/module.h>
-> =C2=A0#include <linux/of.h>
-> @@ -95,24 +95,24 @@ static int al_fic_irq_set_type(struct irq_data *data,=
- unsigned int flow_type)
-> =C2=A0	return 0;
-> =C2=A0}
-> =C2=A0
-> -static void al_fic_irq_handler(struct irq_desc *desc)
-> +static irqreturn_t al_fic_irq_handler(int irq, void *data)
-> =C2=A0{
-> -	struct al_fic *fic =3D irq_desc_get_handler_data(desc);
-> +	struct al_fic *fic =3D data;
-> =C2=A0	struct irq_domain *domain =3D fic->domain;
-> -	struct irq_chip *irqchip =3D irq_desc_get_chip(desc);
-> =C2=A0	struct irq_chip_generic *gc =3D irq_get_domain_generic_chip(domain=
-, 0);
-> +	irqreturn_t ret =3D IRQ_NONE;
-> =C2=A0	unsigned long pending;
-> =C2=A0	u32 hwirq;
-> =C2=A0
-> -	chained_irq_enter(irqchip, desc);
-> -
-> =C2=A0	pending =3D readl_relaxed(fic->base + AL_FIC_CAUSE);
-> =C2=A0	pending &=3D ~gc->mask_cache;
-> =C2=A0
-> -	for_each_set_bit(hwirq, &pending, NR_FIC_IRQS)
-> -		generic_handle_domain_irq(domain, hwirq);
-> +	for_each_set_bit(hwirq, &pending, NR_FIC_IRQS) {
-> +		if (!generic_handle_domain_irq(domain, hwirq))
-> +			ret =3D IRQ_HANDLED;
+>  drivers/acpi/battery.c                       | 30 ++++++++++----------
+>  drivers/platform/x86/asus-wmi.c              |  4 +--
+>  drivers/platform/x86/ayaneo-ec.c             |  2 +-
+>  drivers/platform/x86/dell/dell-laptop.c      |  4 +--
+>  drivers/platform/x86/dell/dell-wmi-ddv.c     |  2 +-
+>  drivers/platform/x86/fujitsu-laptop.c        |  4 +--
+>  drivers/platform/x86/huawei-wmi.c            |  4 +--
+>  drivers/platform/x86/lenovo/ideapad-laptop.c |  4 +--
+>  drivers/platform/x86/lenovo/thinkpad_acpi.c  |  4 +--
+>  drivers/platform/x86/lenovo/wmi-other.c      |  4 +--
+>  drivers/platform/x86/lg-laptop.c             |  4 +--
+>  drivers/platform/x86/msi-ec.c                |  4 +--
+>  drivers/platform/x86/oxpec.c                 |  2 +-
+>  drivers/platform/x86/samsung-galaxybook.c    |  3 +-
+>  drivers/platform/x86/samsung-laptop.c        |  4 +--
+>  drivers/platform/x86/system76_acpi.c         |  4 +--
+>  drivers/platform/x86/toshiba_acpi.c          |  4 +--
+>  drivers/platform/x86/uniwill/uniwill-acpi.c  |  2 +-
+>  drivers/power/supply/cros_charge-control.c   |  2 +-
+>  include/acpi/battery.h                       |  7 +++--
+>  20 files changed, 50 insertions(+), 48 deletions(-)
 
-I'm not sure about this. The only way generic_handle_domain_irq() can
-fail is if hwirq is invalid and doesn't map back to a virq assigned to
-the domain. The handler itself has a void return type, so this doesn't
-tell you whether the interrupt was handled downstream, it just tells
-you whether the downstream handler was called or not.
+I expect this to be merged via other tree:
 
-Since you're looking at exactly NR_FIC_IRQS bits, which is also the
-domain size, I expect the conversion (from hwirq to virq) to always be
-successful.
+Acked-by: Sebastian Reichel <sebastian.reichel@collabora.com> # power-supply
 
-If you search for "generic_handle_domain_irq" in drivers/irqchip/,
-you'll notice that most drivers don't check the return type. The few
-who do, just log a ratelimited "spurious irq" message.
+Greetings,
 
-When the interrupt is shared, the purpose of the handler return value
-is to identify which of the devices generated the interrupt, or in
-other words to tell the irq core whether it should keep looking at the
-remaining devices. If a bit in AL_FIC_CAUSE is set, I would expect this
-instance to be the one that generated the parent interrupt.
+-- Sebastian
 
-By the way, how is AL_FIC_CAUSE cleared? Is it read-to-clear? I'm just
-curious; I assume it's implemented correctly because this hasn't
-changed with the conversion from chained interrupts to shared, and it
-was probably working before.
+--62rwvd636wwykjor
+Content-Type: application/pgp-signature; name="signature.asc"
 
-> +	}
-> =C2=A0
-> -	chained_irq_exit(irqchip, desc);
-> +	return ret;
-> =C2=A0}
-> =C2=A0
-> =C2=A0static int al_fic_irq_retrigger(struct irq_data *data)
-> @@ -162,11 +162,18 @@ static int al_fic_register(struct device_node *node=
-,
-> =C2=A0	gc->chip_types->chip.flags =3D IRQCHIP_SKIP_SET_WAKE;
-> =C2=A0	gc->private =3D fic;
-> =C2=A0
-> -	irq_set_chained_handler_and_data(fic->parent_irq,
-> -					 al_fic_irq_handler,
-> -					 fic);
-> +	ret =3D request_irq(fic->parent_irq, al_fic_irq_handler,
-> +			=C2=A0 IRQF_NO_THREAD | IRQF_SHARED, fic->node->full_name,
+-----BEGIN PGP SIGNATURE-----
 
-I have the same comment here about fic->node->full_name as I did on the
-previous patch. There is an accessor, so I would use it.
+iQIzBAABCgAdFiEE72YNB0Y/i3JqeVQT2O7X88g7+poFAmrCqRsACgkQ2O7X88g7
++poiWxAAp/QxZ6RBEAi94THiV6q0/NPtT1zDexJhTXn8VS8LlU/lpCKicyuhrLwu
+xb8L+UumNwSbonKI7J6vBgsYc0yulnfdbjgZUQmi3qKfYEX9GD3el84MlNT3OCLF
+pxXS+003OV6xbb754fLN7OnszrFpgIRHtP8pfwTEi6ah65CImiNFUWthTUN4mf4h
+gsyw2Cok5/VP6mX9vj2Q37+UAq7+68i2/vVIrVF/t79mO8T0J4EzkvP3Et893aBz
+s3PXSTDoBD+XizKL2oPzavpY/5w3g1Caf2ZHSiO/WH0WmcJnlr5TftXo8MSlVMxJ
+JWoL9cHnqFjx11pOvRUOjYdhbyIVRvWOgZQdw/lOTrCldsH4KDHjQbjGhAOvRvrr
+XK4tUDWQj+P+Auiqj8FW535zWUPOktMlzBINyklkuzfsgnv9qjTvHmjGP6XEQE8C
+7Y3MgiB+czD5L7+NiWSpRf/7/B4Ln0YeKsQgfs8tYUeY6ukyNgwcnpY/DkQ8DewO
+7WzTm3JUa2PL7dvvlhO3WprobdjKE662PWPN8y8lPD4v8sGc28zRD+sQJ0Lss9gx
+LCxBdF+D8cvz8tTdIjteH/SljVlzcP8Alcr6Sl2PNHb2XtlKd5kgpcnsNyIh0/BE
+SETzWiZDs0b74fY9ls6reAkYRCVXsBVGu6piBJtj5saqeh4om78=
+=qtJe
+-----END PGP SIGNATURE-----
 
-> +			=C2=A0 fic);
-> +	if (ret) {
-> +		pr_err("fail to request irq (%d)\n", ret);
-> +		goto err_remove_generic_chips;
-> +	}
-> +
-> =C2=A0	return 0;
-> =C2=A0
-> +err_remove_generic_chips:
-> +	irq_domain_remove_generic_chips(fic->domain);
-
-As you noted in the commit message, IRQ_DOMAIN_FLAG_DESTROY_GC does
-exactly that, so why not use it? It's safe to set the flag even before
-calling irq_alloc_domain_generic_chips() and knowing it has been
-successful; irq_domain_remove_generic_chips() checks first if the GC
-has been allocated and returns early if not. There is an example of
-using the flag in drivers/irqchip/irq-renesas-irqc.c.
-
-> =C2=A0err_domain_remove:
-> =C2=A0	irq_domain_remove(fic->domain);
-> =C2=A0
+--62rwvd636wwykjor--
