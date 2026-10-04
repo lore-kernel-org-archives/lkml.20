@@ -1,28 +1,28 @@
-Received: from OS0P286CU011.outbound.protection.outlook.com (mail-japanwestazon11010022.outbound.protection.outlook.com [52.101.228.22])
+Received: from OS0P286CU010.outbound.protection.outlook.com (mail-japanwestazon11011007.outbound.protection.outlook.com [40.107.74.7])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0053646EF99
-	for <linux-kernel@vger.kernel.org>; Sun,  4 Oct 2026 17:41:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.228.22
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CB41D4718C6
+	for <linux-kernel@vger.kernel.org>; Sun,  4 Oct 2026 17:41:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.74.7
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791135702; cv=fail; b=fyGutdRwUy+IiyX1Pe/YAyKnYaEsa/ZpVmFX3e9DIVF5YiIlEIGm/5wR/DbKcPX26MSkd6ScMURPUfqdHpR5keS8M11l+PXVIwUCUUmHt0Xww6/ZubL6CXdC027JpiR5DjetkKpX3EWec7K9Ojt2Orlm0PaawAnWFBVcP4k88nc=
+	t=1791135705; cv=fail; b=HUZ9vLe11pw1AaRVPrc7xF4QesFyHAzeC4GDWRgI4zZ7r3xpwkv5PqRXAvAZCTWJijFc5kTz0hAqOTbEy8CFI4rzZ27W4UyG1Gn8+IiQ4PLoJZhdxf9nRkMfLsdlFuw+WFrYwJQhdHjo3zEpa2iJBdrDwj//X6YSxE4PjXxdPbQ=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791135702; c=relaxed/simple;
-	bh=4udUjIndUMch4gigQBgVdOBlIce1dE7GZzuSPZ41FnA=;
+	s=arc-20240116; t=1791135705; c=relaxed/simple;
+	bh=P/gUuZ3L+nck7vC9A+FMnNpb+EZjSJ+V9Got9JR4DKc=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=Q1euuUJby3tj6HT5EiFbYDF7EQ8NdT7afbbSzb4cvvFzhSTZaglL12ph+DFyn6isoUnj66lx/lwjycZYJaydNnHpo/yvz/DFv81Enb2PcRC7P8aGPRJUOZM9Lr2wFFPW6qtVa7SRWGshrMz8GE1U4P1NwepvXogs4nAXJKaXl0M=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=renesas.com; spf=pass smtp.mailfrom=renesas.com; dkim=pass (1024-bit key) header.d=renesas.com header.i=@renesas.com header.b=owlSFhwA; arc=fail smtp.client-ip=52.101.228.22
+	 MIME-Version:Content-Type; b=GPfMEFundaMuI1EhKg58xj7ckmLiFGcNW89Ztw6Hs5rECIf5T22rWhMwHmR+A0XrTNh84jpMvsRTDe9MppEPkc9WKBgdPL/jKBiMNLWbHB3EkQ/KTKO9UIBhtBpu7g5I13rDd9trZQj/wpezJxekflFFrThpDo3Lnkjjpzi/pR8=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=renesas.com; spf=pass smtp.mailfrom=renesas.com; dkim=pass (1024-bit key) header.d=renesas.com header.i=@renesas.com header.b=RPRNH1Gp; arc=fail smtp.client-ip=40.107.74.7
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=renesas.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=renesas.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=renesas.com header.i=@renesas.com header.b="owlSFhwA"
+	dkim=pass (1024-bit key) header.d=renesas.com header.i=@renesas.com header.b="RPRNH1Gp"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=HJx4su8aSyHpaTgJFiTe8MkSNIGAXBmEBvbgfw9KbqtpJdMIvvI68WtttoINiM6Atl0wQknkqoX1bbo04PLH9x+mkkVSfnwPmVrwn64SuqvwdUfug74geRdD1eHRXxschFfZTTFjTzwFJc1u0tH29zZwavOhzDWYPv3yPQj613KW3qkM6n2B9QJP38wmEiQGy/lJ3l/bFQHzXXmHUsrtvQQt5UNZFi5K6GPhi6nX4FkZYCuLHb1ACq5QnT+7y3OEmhaaVfQoeCgahz2OoT0bwGyreOEC2kH3qPd5QKgsIi14sDFNM3vDGQP7RW7vl9pmG44DGmjjK2VgHd5+EQLpEA==
+ b=qPvl7paoJm90Qe54W+/gswUiyOOl5MGMUlXRODQf/5az2lxi3COqMFs2liexxogG0T5au4ECJnzOO/iZKXMOIs2PUFlLpslky0GiIjivJppAVpnFydYAQSGNaoqP94Ji+l2hmBB/xWmS3a1XQOQvgvRyuzhb0gcRLQnb8U5J/bY1PwSWiwcrTOQgUT6zfjLyscTwG/fss09ZO4Y0chE/X0WWSxIVtRpIuGaG8LY5EHy7zUTUosjo2q/xJSUj7Q5G3NviHdEb7TNhif0q5jouFdDpb9+6cUMCTmzMVaIDsO0vBNdsSdroadMi2zwD7BkaA8WeLTp6fhud/VSir9JRAw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=i1m4sPypDNWjlienL51hcDndqembap+HMzp44Uc/Ahs=;
- b=JDe9KCpz67EbKEyrcUSeftNEkpdlJ81tT01XL8ywpZIxchrb9AlbMCm1vGB1nhnr4Hfw5EIQzHIWTPj/HeGb3Zf6wV7AfN17z8/O+Jfrb1ueXzwzgRn2tmdWSasd7u1wsMDGdtbkgW2w2MDWlOyoU+xYvuDXW8J72YEoLO+jjE1voUPrjUppERO1WfeBm4/S0HBQ7LX1DvCEwG2fqpqg/f44Sg2nzGk2tAr6OxuRQZEsA5308EOCTbtJBgPi7RxI/kFu7URsuBMRPvEjK/0mTLba2p6ihyiij7w4E0dLQWxUyyQ/FK4o56n+RYMYr48BdPJT/qNywNuLP9tWHwANvQ==
+ bh=yIASjBkNmUnLRUD2/zjesG4Bv1jqe2QbCTleZXkst+o=;
+ b=GlVL9ZTtlNrNDl5b401AkIc1HZ8PNekXEHiYjI357ZQDlKEuhFuY8xFkjZdZfgqiFd0ZwNgZ2j38mZDtmXBhw6bqQi4UWllAFQlxMVselXvC2Ac+VrUjLK4oHpiEAhJRNoDVFxWKNuuXoC/XjWIRxnWeccH3vPvJSza9Q4Hyykppji2+A7XGwF6BCZr0/wSQNMZE0aqZMsO07/qVFsuuBndlBFyPtMxx6/ENPWVMAzAfPz3NYwN0f3bt+qW3vqDZI7JsAvDYvmEAac+jaL22Sx3U2EWfnAI8b5slOHuvnTuTb6e26JBOfvEiAQLhLACW0Np5nb5aK2TiRbGCuiWDKA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  8.62.32.50) smtp.rcpttodomain=kernel.org smtp.mailfrom=renesas.com;
  dmarc=pass (p=none sp=none pct=100) action=none header.from=renesas.com;
@@ -30,18 +30,18 @@ ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=renesas.com;
  s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=i1m4sPypDNWjlienL51hcDndqembap+HMzp44Uc/Ahs=;
- b=owlSFhwALAcn+Ne/zJkGNF4kWrPVBRBs+M9EUkxUnk3XxVlQVXITWVt5ye6uR8msAzw2zUJvVXL7kwvmKEiEMzgLyvn0+cvTZSSOXxmX6WKJGzs93CN9BSdTzeRl1n4cHzzLix2Q7D6c7dngYBMIN89EPcPkx5pNwRam+liPNy0=
-Received: from TY4P301CA0089.JPNP301.PROD.OUTLOOK.COM (2603:1096:405:37a::10)
- by TY6PR01MB17567.jpnprd01.prod.outlook.com (2603:1096:405:348::10) with
+ bh=yIASjBkNmUnLRUD2/zjesG4Bv1jqe2QbCTleZXkst+o=;
+ b=RPRNH1GpLYP4A79Y3nPJhVIC928c1mVAprTSWi/S7/7bb/n4UeViJA8j9aw0qpqrg5/shMMBCbne+5h8rMBt8z6tGBhRKxQqbOA6QqrfVTLKPO0D0fUEs+MgjOurqMd1tT+PdYI8xDcl7+o5ATdiW6KUhj6mHeR+oKotWVYERWY=
+Received: from OSTPR01CA0077.jpnprd01.prod.outlook.com (2603:1096:604:218::13)
+ by TY4PR01MB17064.jpnprd01.prod.outlook.com (2603:1096:405:339::21) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.472.20; Sun, 4 Oct
- 2026 17:41:36 +0000
-Received: from TY2PEPF00005622.JPNP286.PROD.OUTLOOK.COM
- (2603:1096:405:37a:cafe::a5) by TY4P301CA0089.outlook.office365.com
- (2603:1096:405:37a::10) with Microsoft SMTP Server (version=TLS1_3,
+ 2026 17:41:39 +0000
+Received: from OS1PEPF0000D215.JPNP286.PROD.OUTLOOK.COM
+ (2603:1096:604:218:cafe::4c) by OSTPR01CA0077.outlook.office365.com
+ (2603:1096:604:218::13) with Microsoft SMTP Server (version=TLS1_3,
  cipher=TLS_AES_256_GCM_SHA384) id 15.21.472.20 via Frontend Transport; Sun, 4
- Oct 2026 17:41:36 +0000
+ Oct 2026 17:41:39 +0000
 X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
  is 8.62.32.50) smtp.mailfrom=renesas.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=renesas.com;
@@ -49,20 +49,20 @@ Received-SPF: Pass (protection.outlook.com: domain of renesas.com designates
  8.62.32.50 as permitted sender) receiver=protection.outlook.com;
  client-ip=8.62.32.50; helo=ejcrelay004p.adwin.renesas.com; pr=E
 Received: from ejcrelay004p.adwin.renesas.com (8.62.32.50) by
- TY2PEPF00005622.mail.protection.outlook.com (10.167.240.53) with Microsoft
+ OS1PEPF0000D215.mail.protection.outlook.com (10.167.240.22) with Microsoft
  SMTP Server (version=TLS1_3, cipher=TLS_AES_256_GCM_SHA384) id 15.21.472.14
- via Frontend Transport; Sun, 4 Oct 2026 17:41:36 +0000
+ via Frontend Transport; Sun, 4 Oct 2026 17:41:39 +0000
 Received: from demon-pc (unknown [10.226.92.36])
-	by ejcrelay004p.adwin.renesas.com (Postfix) with ESMTP id 1293E300024E;
-	Mon,  5 Oct 2026 02:41:34 +0900 (JST)
+	by ejcrelay004p.adwin.renesas.com (Postfix) with ESMTP id AA6373000251;
+	Mon,  5 Oct 2026 02:41:37 +0900 (JST)
 From: Cosmin Tanislav <cosmin-gabriel.tanislav.xa@renesas.com>
 To: Lee Jones <lee@kernel.org>
 Cc: mfd@lists.linux.dev,
 	linux-kernel@vger.kernel.org,
 	Cosmin Tanislav <cosmin-gabriel.tanislav.xa@renesas.com>
-Subject: [PATCH v2 1/3] mfd: rz-mtu3: Do not use struct rz_mtu3_channel::dev
-Date: Sun,  4 Oct 2026 20:40:22 +0300
-Message-ID: <20261004174024.502949-2-cosmin-gabriel.tanislav.xa@renesas.com>
+Subject: [PATCH v2 2/3] mfd: rz-mtu3: Reuse shared_reg_update_bit() in start_stop_ch()
+Date: Sun,  4 Oct 2026 20:40:23 +0300
+Message-ID: <20261004174024.502949-3-cosmin-gabriel.tanislav.xa@renesas.com>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20261004174024.502949-1-cosmin-gabriel.tanislav.xa@renesas.com>
 References: <20261004174024.502949-1-cosmin-gabriel.tanislav.xa@renesas.com>
@@ -75,243 +75,90 @@ MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: TY2PEPF00005622:EE_|TY6PR01MB17567:EE_
+X-MS-TrafficTypeDiagnostic: OS1PEPF0000D215:EE_|TY4PR01MB17064:EE_
 Content-Type: text/plain
-X-MS-Office365-Filtering-Correlation-Id: 513d2e17-fc1b-4c70-1ded-08df223ebd21
+X-MS-Office365-Filtering-Correlation-Id: 978d9571-5ac1-433b-20b3-08df223ebebc
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|36860700016|376014|23010399003|82310400026|1800799024|18002099003|22082099003|11063799006|6133799003|10067099003|56012099006;
+	BCL:0;ARA:13230040|376014|82310400026|36860700016|1800799024|23010399003|22082099003|18002099003|10067099003|11063799006|56012099006;
 X-Microsoft-Antispam-Message-Info:
-	H/iSSNt4r+rfqkmNduomZAD9QchafOCe14Tou+2ITJC7NSCK9xJMUE1b1zag3upJSxfPkI8dtCQNm/m3iSsXabeQ9eUusGibCaI4Soj6h6E+dhrgl8zTwafK+hbHf/J7WQx1wp2yEJDbpmfhR51rWJFnKVFMkJKx6DhnCvVPYMbEIOhbhir3ponT2WrMhkXMacfFEblNdYS1hP/BG8irRWtJq0dOxE6unS45j8X02KDiMB4qnrIDGIlU34sTfLSUzMqLaF5nPZpAsWkJCodniNOXhuNPt/FI6I/Dv8d7ukEdkYfWzBxCsb3WZ93HsdfD6ym/iycGFY3ei/A2DSC10vgcrnJBwQZsc6HGeb0tqwG3nfqF08XIaInEocXUvSsoAeF8B98mEjP1tT03XDEXSSbpR6v8xmwQSc8e6O0w+vdstz1Feryoc6J/cHrthEuFpNNGTdKMZ5OCWhjBnmKVlWKWlG66Wods5tQYu4aQ3cs6ZsCh3UOkznQGPK/+giPdOQw3eBY1OJNaNhuJCvYHN6maqBzUbs+mKmnfsdyo8j0zcACmncYEAdVW7gIUtPyWR8OxRgiFenO2Yd6O2fmcvbN2PRYHWfIJEKxYJ+oMcJj1aaPXGfg95UdBKi1robCJZaxdy3PnHWsGCX8zZMZtFP4z7tbhIzcVnqh6PypJhTIuD3K7+LdK047+9mXQZ5ilVkR1Bare8hvXhXar9oFXbQ==
+	jqIUTi5A8bqH9g0XdEZA3y7ah+E/lSTunS5dDRrLFKKbIk7i9XEnAnFtkEqZoZMw7ismiHpyLVRyQJ5SK7pai6U+cuj+UJNCDB7AwDP7KSEVYOnLZFj1gTJ85j2Oz1CdSrv3k2tDxa4SPWO/WQrlfMQQGEBqSN+Q2l5ytAxPDoOysD5rhUqfn71wUgU/EbclRjsm9tXJib3+sEnYUoyd/EVIRGFohEGabGpQk8BX3Yb6iWjgm6+fhSJeeIJGrgf2U01MIh+j+jj45K8MSN5cqGJhO22kLRYqeniXWCNVvJ+8Hoe9CsURi3Pc2yvf2D03SLtezlHeDX9q16JsQWMWR4/f5gsydQ2uLiSM4kBjZOg005bonAoP5MI/jw7Bc48nxUake+0m4cKMOavRavcpLGmRjsDRGGbYxd0Dh8w+XFHtqImLSLhvg2cCmJqUF78laJoVoxnB+0lHsYCFqox8DrbRnzpSrqEOUDBnyDd+J2TAuT77QfVAkiOx/UOFHQYM0dRofdC4jVwLze4pzwUHIq6JoTpdHDmOOFqMyyeU4s1YxQJzbAOm822IXcKHpf0XojPZYxzIuQjpXY6EQNhv5Fj90a14BKC5fevUSRYSo0kbOuYj3cCI6BvOZBWScvkVWVzXbj6G39wPMv5zuOcqtghitFiJ1ZjZY5kWK8uEsI7DsJGF/3O3CgnFZdQMRcSs146conwoKXXS5seK61+HnQ==
 X-Forefront-Antispam-Report:
-	CIP:8.62.32.50;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:ejcrelay004p.adwin.renesas.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(36860700016)(376014)(23010399003)(82310400026)(1800799024)(18002099003)(22082099003)(11063799006)(6133799003)(10067099003)(56012099006);DIR:OUT;SFP:1101;
+	CIP:8.62.32.50;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:ejcrelay004p.adwin.renesas.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(376014)(82310400026)(36860700016)(1800799024)(23010399003)(22082099003)(18002099003)(10067099003)(11063799006)(56012099006);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	pqAr8y0lqmxm1LKQEHhZG/4NrKpFXDZE8ZluCGQho6iLf0wjJSGLsxTUmX0N8zPLRs/lsSE7UI2pl9k/RCpR3KD9hEtVgAy69tLB0296XFNrwjWSb8OuyTV7g69Ce7IL4oE1Pyl5M01/3z6qu3RleXzgo8gn1EFYlhmUdiFVMsA5v5i+87bwFcFo27mDEoNtLvQNmyG4JxlQmxkBII3xiZbmUmWDNKPxHX33LHfg4x64MBBGnwSC6sakYQprYz95cLuVBQivbdMQ0mcDfLB98cZV2xwc0fup0icIAQU5AZfs7aVhxy5HaVBe1h/XgxUZE4buAqhs1y2r5NrEcDbiCVwo548JgULP8YWYm1UxZC4FKwEH224kLqZLY3IEslpBp/dafjuskExEg5FBg6KlkKrpheJRWvfT8Xae+YEHdothc6JZHhYhI8iqObPJsRMW
+	Myp6oD7+EFCSRP+/VdkM3patv/jnLYcU7kEG3OGQEV5p4M/W9vqAKgDDeSRoMBpALsxgbNGEKBolymaF3j6jed3cWEZJUAeXN1wwPgzFn75Vytw9W39jJfe2640ab/snHnKAdilBUn9DVtRQ7/U2EaBnB1w9x6xl6O7tWC2IpbP/wd/udJaNMS3eGsKvJ8iF0+9kzH8rUJqMyR0dijjbUQoWBWol+Pkjv8FAB/8/f0LJm4pXEYo9EZuHUM3PEw39DRdcAX0O0520YH0o1WvHLqehkLbwYhQIH+OT8cNAKNGpLHkSvdBWOVAU/46V3dwziebp3cfo+z5mQD8muoki4ypQ6/uRm6puboMlmCquvl2vuPArGnyb4xJkIP+U+38nnonbeD5uR8iiCB+CWYdJnl6LHvCSo3qoAxvnr7T3Sm8cn8xtctTHqLTrStQkLoB2
 X-OriginatorOrg: renesas.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Oct 2026 17:41:36.5796
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Oct 2026 17:41:39.2586
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 513d2e17-fc1b-4c70-1ded-08df223ebd21
+X-MS-Exchange-CrossTenant-Network-Message-Id: 978d9571-5ac1-433b-20b3-08df223ebebc
 X-MS-Exchange-CrossTenant-Id: 53d82571-da19-47e4-9cb4-625a166a4a2a
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=53d82571-da19-47e4-9cb4-625a166a4a2a;Ip=[8.62.32.50];Helo=[ejcrelay004p.adwin.renesas.com]
-X-MS-Exchange-CrossTenant-AuthSource: TY2PEPF00005622.JPNP286.PROD.OUTLOOK.COM
+X-MS-Exchange-CrossTenant-AuthSource: OS1PEPF0000D215.JPNP286.PROD.OUTLOOK.COM
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: TY6PR01MB17567
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: TY4PR01MB17064
 
-Channels 1 and 2 are used by both the PWM and counter drivers. Both
-subdrivers assign struct rz_mtu3_channel::dev to their own device
-instance for those shared channels, so the value stored in it depends on
-which subdriver binds last.
+rz_mtu3_start_stop_ch() performs the same shared register update
+sequence already implemented by rz_mtu3_shared_reg_update_bit().
 
-The MFD core helpers currently use ch->dev->parent to retrieve the
-parent driver data, which makes them depend on subdriver-populated
-state.
-
-This is fragile for shared channels and unnecessarily couples the core
-to child driver initialization.
-
-Add a priv pointer to struct rz_mtu3_channel, populated by the MFD
-driver at probe time, and use it directly in place of ch->dev->parent
-in every MFD core helper, so the core no longer depends on
-subdriver-assigned state. Remove struct rz_mtu3::priv_data, which
-becomes redundant now that every channel carries its own priv pointer.
-
-Keep struct rz_mtu3_channel::dev for now, as it is still used by the PWM
-and counter drivers.
+Reuse the helper instead of open-coding the read-modify-write sequence.
 
 Signed-off-by: Cosmin Tanislav <cosmin-gabriel.tanislav.xa@renesas.com>
 ---
 
 V2:
  * capitalize subject after prefix
- * switch struct rz_mtu3_priv retrieval to a back-pointer stored in
-   struct rz_mtu3_channel::priv
- * remove struct rz_mtu3::priv_data as it is unused now
 
- drivers/mfd/rz-mtu3.c       | 40 +++++++++++++------------------------
- include/linux/mfd/rz-mtu3.h |  7 ++++---
- 2 files changed, 18 insertions(+), 29 deletions(-)
+ drivers/mfd/rz-mtu3.c | 26 ++++++--------------------
+ 1 file changed, 6 insertions(+), 20 deletions(-)
 
 diff --git a/drivers/mfd/rz-mtu3.c b/drivers/mfd/rz-mtu3.c
-index 0a254e61ec0a..0fca16aaa566 100644
+index 0fca16aaa566..5be1f5a4167e 100644
 --- a/drivers/mfd/rz-mtu3.c
 +++ b/drivers/mfd/rz-mtu3.c
-@@ -62,8 +62,7 @@ static bool rz_mtu3_is_16bit_shared_reg(u16 offset)
- 
- u16 rz_mtu3_shared_reg_read(struct rz_mtu3_channel *ch, u16 offset)
- {
--	struct rz_mtu3 *mtu = dev_get_drvdata(ch->dev->parent);
--	struct rz_mtu3_priv *priv = mtu->priv_data;
-+	struct rz_mtu3_priv *priv = ch->priv;
- 
- 	if (rz_mtu3_is_16bit_shared_reg(offset))
- 		return readw(priv->mmio + offset);
-@@ -74,8 +73,7 @@ EXPORT_SYMBOL_GPL(rz_mtu3_shared_reg_read);
- 
- u8 rz_mtu3_8bit_ch_read(struct rz_mtu3_channel *ch, u16 offset)
- {
--	struct rz_mtu3 *mtu = dev_get_drvdata(ch->dev->parent);
--	struct rz_mtu3_priv *priv = mtu->priv_data;
-+	struct rz_mtu3_priv *priv = ch->priv;
- 	u16 ch_offs;
- 
- 	ch_offs = rz_mtu3_8bit_ch_reg_offs[ch->channel_number][offset];
-@@ -86,8 +84,7 @@ EXPORT_SYMBOL_GPL(rz_mtu3_8bit_ch_read);
- 
- u16 rz_mtu3_16bit_ch_read(struct rz_mtu3_channel *ch, u16 offset)
- {
--	struct rz_mtu3 *mtu = dev_get_drvdata(ch->dev->parent);
--	struct rz_mtu3_priv *priv = mtu->priv_data;
-+	struct rz_mtu3_priv *priv = ch->priv;
- 	u16 ch_offs;
- 
- 	/* MTU8 doesn't have 16-bit registers */
-@@ -102,8 +99,7 @@ EXPORT_SYMBOL_GPL(rz_mtu3_16bit_ch_read);
- 
- u32 rz_mtu3_32bit_ch_read(struct rz_mtu3_channel *ch, u16 offset)
- {
--	struct rz_mtu3 *mtu = dev_get_drvdata(ch->dev->parent);
--	struct rz_mtu3_priv *priv = mtu->priv_data;
-+	struct rz_mtu3_priv *priv = ch->priv;
- 	u16 ch_offs;
- 
- 	if (ch->channel_number != RZ_MTU3_CHAN_1 && ch->channel_number != RZ_MTU3_CHAN_8)
-@@ -117,8 +113,7 @@ EXPORT_SYMBOL_GPL(rz_mtu3_32bit_ch_read);
- 
- void rz_mtu3_8bit_ch_write(struct rz_mtu3_channel *ch, u16 offset, u8 val)
- {
--	struct rz_mtu3 *mtu = dev_get_drvdata(ch->dev->parent);
--	struct rz_mtu3_priv *priv = mtu->priv_data;
-+	struct rz_mtu3_priv *priv = ch->priv;
- 	u16 ch_offs;
- 
- 	ch_offs = rz_mtu3_8bit_ch_reg_offs[ch->channel_number][offset];
-@@ -128,8 +123,7 @@ EXPORT_SYMBOL_GPL(rz_mtu3_8bit_ch_write);
- 
- void rz_mtu3_16bit_ch_write(struct rz_mtu3_channel *ch, u16 offset, u16 val)
- {
--	struct rz_mtu3 *mtu = dev_get_drvdata(ch->dev->parent);
--	struct rz_mtu3_priv *priv = mtu->priv_data;
-+	struct rz_mtu3_priv *priv = ch->priv;
- 	u16 ch_offs;
- 
- 	/* MTU8 doesn't have 16-bit registers */
-@@ -143,8 +137,7 @@ EXPORT_SYMBOL_GPL(rz_mtu3_16bit_ch_write);
- 
- void rz_mtu3_32bit_ch_write(struct rz_mtu3_channel *ch, u16 offset, u32 val)
- {
--	struct rz_mtu3 *mtu = dev_get_drvdata(ch->dev->parent);
--	struct rz_mtu3_priv *priv = mtu->priv_data;
-+	struct rz_mtu3_priv *priv = ch->priv;
- 	u16 ch_offs;
- 
- 	if (ch->channel_number != RZ_MTU3_CHAN_1 && ch->channel_number != RZ_MTU3_CHAN_8)
-@@ -157,8 +150,7 @@ EXPORT_SYMBOL_GPL(rz_mtu3_32bit_ch_write);
- 
- void rz_mtu3_shared_reg_write(struct rz_mtu3_channel *ch, u16 offset, u16 value)
- {
--	struct rz_mtu3 *mtu = dev_get_drvdata(ch->dev->parent);
--	struct rz_mtu3_priv *priv = mtu->priv_data;
-+	struct rz_mtu3_priv *priv = ch->priv;
- 
- 	if (rz_mtu3_is_16bit_shared_reg(offset))
- 		writew(value, priv->mmio + offset);
-@@ -170,8 +162,7 @@ EXPORT_SYMBOL_GPL(rz_mtu3_shared_reg_write);
- void rz_mtu3_shared_reg_update_bit(struct rz_mtu3_channel *ch, u16 offset,
+@@ -163,12 +163,12 @@ void rz_mtu3_shared_reg_update_bit(struct rz_mtu3_channel *ch, u16 offset,
  				   u16 pos, u8 val)
  {
--	struct rz_mtu3 *mtu = dev_get_drvdata(ch->dev->parent);
--	struct rz_mtu3_priv *priv = mtu->priv_data;
-+	struct rz_mtu3_priv *priv = ch->priv;
- 	unsigned long tmdr, flags;
+ 	struct rz_mtu3_priv *priv = ch->priv;
+-	unsigned long tmdr, flags;
++	unsigned long reg_val, flags;
  
  	spin_lock_irqsave(&priv->lock, flags);
-@@ -244,8 +235,7 @@ static u8 rz_mtu3_get_tstr_bit_pos(struct rz_mtu3_channel *ch)
+-	tmdr = rz_mtu3_shared_reg_read(ch, offset);
+-	__assign_bit(pos, &tmdr, !!val);
+-	rz_mtu3_shared_reg_write(ch, offset, tmdr);
++	reg_val = rz_mtu3_shared_reg_read(ch, offset);
++	__assign_bit(pos, &reg_val, !!val);
++	rz_mtu3_shared_reg_write(ch, offset, reg_val);
+ 	spin_unlock_irqrestore(&priv->lock, flags);
+ }
+ EXPORT_SYMBOL_GPL(rz_mtu3_shared_reg_update_bit);
+@@ -235,22 +235,8 @@ static u8 rz_mtu3_get_tstr_bit_pos(struct rz_mtu3_channel *ch)
  
  static void rz_mtu3_start_stop_ch(struct rz_mtu3_channel *ch, bool start)
  {
--	struct rz_mtu3 *mtu = dev_get_drvdata(ch->dev->parent);
--	struct rz_mtu3_priv *priv = mtu->priv_data;
-+	struct rz_mtu3_priv *priv = ch->priv;
- 	unsigned long flags, tstr;
- 	u16 offset;
- 	u8 bitpos;
-@@ -265,8 +255,7 @@ static void rz_mtu3_start_stop_ch(struct rz_mtu3_channel *ch, bool start)
+-	struct rz_mtu3_priv *priv = ch->priv;
+-	unsigned long flags, tstr;
+-	u16 offset;
+-	u8 bitpos;
+-
+-	offset = rz_mtu3_get_tstr_offset(ch);
+-	bitpos = rz_mtu3_get_tstr_bit_pos(ch);
+-
+-	/* start stop register shared by multiple timer channels */
+-	spin_lock_irqsave(&priv->lock, flags);
+-
+-	tstr = rz_mtu3_shared_reg_read(ch, offset);
+-	__assign_bit(bitpos, &tstr, start);
+-	rz_mtu3_shared_reg_write(ch, offset, tstr);
+-
+-	spin_unlock_irqrestore(&priv->lock, flags);
++	rz_mtu3_shared_reg_update_bit(ch, rz_mtu3_get_tstr_offset(ch),
++				      rz_mtu3_get_tstr_bit_pos(ch), start);
+ }
  
  bool rz_mtu3_is_enabled(struct rz_mtu3_channel *ch)
- {
--	struct rz_mtu3 *mtu = dev_get_drvdata(ch->dev->parent);
--	struct rz_mtu3_priv *priv = mtu->priv_data;
-+	struct rz_mtu3_priv *priv = ch->priv;
- 	unsigned long flags, tstr;
- 	u16 offset;
- 	u8 bitpos;
-@@ -320,12 +309,10 @@ static int rz_mtu3_probe(struct platform_device *pdev)
- 	if (!ddata)
- 		return -ENOMEM;
- 
--	ddata->priv_data = devm_kzalloc(dev, sizeof(*priv), GFP_KERNEL);
--	if (!ddata->priv_data)
-+	priv = devm_kzalloc(dev, sizeof(*priv), GFP_KERNEL);
-+	if (!priv)
- 		return -ENOMEM;
- 
--	priv = ddata->priv_data;
--
- 	priv->mmio = devm_platform_ioremap_resource(pdev, 0);
- 	if (IS_ERR(priv->mmio))
- 		return PTR_ERR(priv->mmio);
-@@ -344,6 +331,7 @@ static int rz_mtu3_probe(struct platform_device *pdev)
- 	for (i = 0; i < RZ_MTU_NUM_CHANNELS; i++) {
- 		ddata->channels[i].channel_number = i;
- 		ddata->channels[i].is_busy = false;
-+		ddata->channels[i].priv = priv;
- 		mutex_init(&ddata->channels[i].lock);
- 	}
- 
-diff --git a/include/linux/mfd/rz-mtu3.h b/include/linux/mfd/rz-mtu3.h
-index 8421d49500bf..3884ae5b008c 100644
---- a/include/linux/mfd/rz-mtu3.h
-+++ b/include/linux/mfd/rz-mtu3.h
-@@ -122,6 +122,8 @@ enum rz_mtu3_channels {
- 	RZ_MTU_NUM_CHANNELS
- };
- 
-+struct rz_mtu3_priv;
-+
- /**
-  * struct rz_mtu3_channel - MTU3 channel private data
-  *
-@@ -129,12 +131,14 @@ enum rz_mtu3_channels {
-  * @channel_number: channel number
-  * @lock: Lock to protect channel state
-  * @is_busy: channel state
-+ * @priv: MFD private data
-  */
- struct rz_mtu3_channel {
- 	struct device *dev;
- 	unsigned int channel_number;
- 	struct mutex lock;
- 	bool is_busy;
-+	struct rz_mtu3_priv *priv;
- };
- 
- /**
-@@ -142,13 +146,10 @@ struct rz_mtu3_channel {
-  *
-  * @clk: MTU3 module clock
-  * @rz_mtu3_channel: HW channels
-- * @priv_data: MTU3 core driver private data
-  */
- struct rz_mtu3 {
- 	struct clk *clk;
- 	struct rz_mtu3_channel channels[RZ_MTU_NUM_CHANNELS];
--
--	void *priv_data;
- };
- 
- static inline bool rz_mtu3_request_channel(struct rz_mtu3_channel *ch)
 -- 
 2.55.0
