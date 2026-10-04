@@ -1,163 +1,247 @@
-Received: from BL0PR03CU003.outbound.protection.outlook.com (mail-eastusazon11012024.outbound.protection.outlook.com [52.101.53.24])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-yx2-f40.google.com (mail-yx2-f40.google.com [74.125.224.168])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 10E703B3C12;
-	Sun,  4 Oct 2026 16:15:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.53.24
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E47BB3B4404
+	for <linux-kernel@vger.kernel.org>; Sun,  4 Oct 2026 16:17:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.224.168
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791130561; cv=fail; b=kJ25X3ZgmBZlQmmncI6lhN356D1YLJSph9DuW6JifR/gc4IQMy1BU46k5K3+Mf2VjvyTAOz1ZMS+fBdPNRbAErxQXrWfCrtVbu8lJ1WGWqOB6M5e4iYKSgXlqhpixvDMs3zc8UYpJfOCfkIHT9k7lBXnV+YTq0DbKFhJrHWLQlc=
+	t=1791130673; cv=pass; b=G2j4TBFDZ39k5ivPEKuSPcbJ0x0ctJvNPFCfM6dqRbUuO2tWTKQyT3O0y3+Bb3fdvc0nVGtGqac4gNt4nCMpZmlTACFs6fOrumD/7uljNhthDySTUvcyZpUqnY43Z5MbrDcPwNZurk/PZhGv5RlXiElRGAXOv6uuDnfLrJw3RGA=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791130561; c=relaxed/simple;
-	bh=d5F0Nt8tpWwusGk9V4VsI8IlZQMrXcmb9fxyf9F12Cs=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
-	 Content-Disposition:In-Reply-To:MIME-Version; b=mDvDnMZEtLQbky8CA+RINOyS9NlaV+9vZrh3lvH2004EV0hD8pXE69DcsWnSZmYcoPEknyhVFVNMWmEFB4I1RjTpbjIWYDtC2JKFIqcIr9U+lk64jRB9oCHC4BaZkd9SZeYc0x9baq1NTu94V/GjkRTF8dMxLW0pX0oYDsFzsEs=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=J2iqWt0K; arc=fail smtp.client-ip=52.101.53.24
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	s=arc-20240116; t=1791130673; c=relaxed/simple;
+	bh=k9pXf8maS+y9Iv2VCxa5Upxa72qTSFtba18SXktEYbQ=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=RbnesSvc6gDFFmScUvgleYDqRmqW8EqQ3X5azxXV5EYRZpLj8Jtj6f9WKGLfq9QqPg+mfs3qiJtLxOlt28ACHEzT849xvNZg9bf3A6rvA8vFQI9GquRSKAfNnpVybz+E7zc4kPLRanHToE6FpJl4QYflGeIHXKg68OR1Q/xjtmE=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=cwJra1GA; arc=pass smtp.client-ip=74.125.224.168
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="J2iqWt0K"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=LjbYK5C5UszU4leU/FNeLh6f/hljappIhsrb6ptgiajpZIgkyICC6NOW6DK6Bwh6cf4eVLLirp7Jq0iEBSl+itgoFCqI6jQdYicPwTLu3NVZ6ho8MuMOvM0IvO9P9XlJZqeYPk1tUv4Of+/qXMgag0/rHzZZs3f1z5ha17OCoClNO/X0ShVIowVqANBlipN5/ZSi9/fiy6YKQKiDCc0GDBtiRGljFA1ls1B5UoiFRl5ymUo8rcaQPL+DHRQssc9w/nns9EBH4y9mF/7UVgBQTC7rLpItG5ghhtIKX51b6Ku7C03y/I3sQtCcPyUXPt4Jh307aNRjmBT1A1jkDbJoQQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=8gVSg4aqOp4lE2vtRjqzMEbmMBLDU5KwcNzKG8FzM5g=;
- b=KMEJ1opSDVoYog4Uta3Dbtrz7watdLB9q1kAnxQEUUJsT8kmgSSPWW/+9CnZGxt92bFXm6l/tHl4wx5zfuhLw2oZ7/2T8tMuYtKwWsOPO1PlAbH5C2lxOzaBENapetIdzRpS3ESTsfol/XzaxcgilXImQHclRsNNCb5eEx3iIiFufEJvCP0mrGosaNR0qcc/v10k0TBURyuCVtdfV5oJtJm+7UyCuWp56GzwfrfPKghO2KIV6PhvDtu1qIv46POE21JQALptiHRkYFZBnjLlJ8zZduGOR9DjBvG7XeDcQ6aOIjfw4tipudzkMoajuWYuWuzNHb90t5zY724Qzx1jgQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=8gVSg4aqOp4lE2vtRjqzMEbmMBLDU5KwcNzKG8FzM5g=;
- b=J2iqWt0K2xH7AT7YCuep8XSzaxNeW/RLsxc0NUp0A9u0OjNCZMNWpru4Gv3+LChIlxVOJZFWqOLwSRV9CpNFkgQ+FLi+sZKEqXy72mROuOE4pX/6+0tOljJolSHcH9Opj+XxhSZ81BzjK2qUKNIJ9DgHg7hBaW86IvKgbBMBr9bM+kzNAECiWyBS71QIXC/SbBlxVhm/TQ9+9VEBtaOuH7eLdCE7mu1DvnP0mDqwtaeKkE2FN6+rNrZcU6XskpmcEZQPSEuATF3u2yrwyBvD1l6hfaShh58xZrbQsOAzqymZP6ztSR5/xgV53mEj7fF5IUDvVnt5JJ+0u8kZeso3yQ==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from PH0PR12MB7957.namprd12.prod.outlook.com (2603:10b6:510:281::22)
- by CH3PR12MB297944.namprd12.prod.outlook.com (2603:10b6:610:367::8) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.472.20; Sun, 4 Oct
- 2026 16:15:56 +0000
-Received: from PH0PR12MB7957.namprd12.prod.outlook.com
- ([fe80::9251:acc2:cc63:3499]) by PH0PR12MB7957.namprd12.prod.outlook.com
- ([fe80::9251:acc2:cc63:3499%3]) with mapi id 15.21.0451.026; Sun, 4 Oct 2026
- 16:15:56 +0000
-Date: Sun, 4 Oct 2026 19:15:46 +0300
-From: Ido Schimmel <idosch@nvidia.com>
-To: Anton Danilov <littlesmilingcloud@gmail.com>
-Cc: netdev@vger.kernel.org, "David S . Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>, David Ahern <dsahern@kernel.org>,
-	Andrew Lunn <andrew+netdev@lunn.ch>, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH net-next v5 09/14] ip_tunnel: add drop reasons to the
- transmit path
-Message-ID: <20261004161546.GA346537@shredder>
-References: <20260930183910.3151873-1-littlesmilingcloud@gmail.com>
- <20260930183910.3151873-10-littlesmilingcloud@gmail.com>
- <20261004160820.GB334650@shredder>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261004160820.GB334650@shredder>
-X-ClientProxiedBy: FR4P281CA0113.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:bb::7) To PH0PR12MB7957.namprd12.prod.outlook.com
- (2603:10b6:510:281::22)
+	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="cwJra1GA"
+Received: by mail-yx2-f40.google.com with SMTP id 956f58d0204a3-6762de1c77eso561393d50.1
+        for <linux-kernel@vger.kernel.org>; Sun, 04 Oct 2026 09:17:51 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1791130671; cv=none;
+        d=google.com; s=arc-20260327;
+        b=HySm+iaF6OVBZLMmAXla3CjoUzCqt4x1vPpHUbaXnMwmerb4FGdAXZzjHT8YbEO8WX
+         59+RWZX0m7mu5rONsZyOpUwHwTjUIcE05JfiOmrTJ5XMBnqvIdHNn44HpOj8Fqi77aAP
+         TpjN4C4whXhHNPWRTrRkKJKD/udcHL7S7Yy2cjPcupjcnyniPOUWiiBeusnFTtxbhS1j
+         mg+kUdgzRMTJJQJohV9lfm+0whepX3L8wCUJWEVnCVOGhJ/TBqyfeodElQuDCxPyXZhf
+         gT3bS1nazzIK13NUU0RBMcTy/Bb0TgbzmISURHbVFkcMmTzeQLySsZHseiZ9dUTiHV2r
+         8OFA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=/tchJIk+lKINiAanpGCL5WbtkLidxV2OcRDCiQWNgmo=;
+        fh=VWnG/tnnXSZWerXxVBPR7H9PD1otUpPesiw/9oKh3Tw=;
+        b=OmD2Q/AYmuqVUoRYkIy2+ED7JTvml6LbeTNjqIWhlv+1ww+be1qSPdYUl3EZjT6JOk
+         wC30I1TzN71v98TXQOEYOsNte2EMx8zcbkOkJMANry/ZirE0W1QZw5ytGJQtqzk9kJzR
+         WEqsZxmnbWTw7H3UKywpZdPQW5IrXeP/fhakpGQBGAflJ7mVxZbtB+HFfTDoCW4h9KHp
+         qqtoJfnYR38vOlesqsdX/nMsZKfDJYxdYe/vqQtSPOBGW7Y7nFwANKpOoz2yN8HbMjoS
+         GWHrrxiSzaqcoTxXY1PTxc572SpREu0OKTofSJ7eHwaYS2g5mqvfu74duedRQloPfnnJ
+         T1/g==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=chromium.org; s=google; t=1791130671; x=1791735471; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=/tchJIk+lKINiAanpGCL5WbtkLidxV2OcRDCiQWNgmo=;
+        b=cwJra1GA195R8dJWHGy8COxD5ZGQ3lGCG5IyYeX7hX2ipTjZiOCWF5gAS1NEW1Yf5n
+         xmX4OFs1nXHs5RRdjYXM2araVuMn/+MfdP3xnYWQwFZ2uCddsP0ZMixxO1gV4jc+QNA4
+         L/0qUPt+30mhwpXb/CS1B2CUraX5PchOByfZM=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791130671; x=1791735471;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=/tchJIk+lKINiAanpGCL5WbtkLidxV2OcRDCiQWNgmo=;
+        b=PgaLGuwNViuKGXb55A2xDHPmnZcU/oVBUa0Q3xlYe/6M/agOluL7B3v5K2VHY7twzP
+         /Pdy/nDhL57rk9vAgI6bW5Qml/bvTr2nUPfA9s36rN9uY6OaE6lUoFox/sQXcORnjv0t
+         mbi64qil4SVcaJ1mvF0KwD2sxXWaJdNlPlep7mA8piW6M+HU0Z75l/ti7wZzTW9zHrJk
+         zE9l4ycrcbQ2vgohT8mI/LEhQ+aOkMpJshnF+w1yijEDct+LZI0L9KzXJ2gyYVUOsLvp
+         32Vu38O/MFCd7jFS1K8etDhg0e/5rcC+7ZE/7bADCcMSSvOyBRscngM8aF6ITds7pOYx
+         lRNQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwLOJawyVfQdn9MjBjS9tkOHw+YRYJ8AvVGIjyTMy0N+whfZjWwmP7vISP7J9cjNsWWZHLFqRrvEiUYYAs=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLpPHPe+1IqF7vcvi1nu3IkdyD1F0eu58kgqlI4joZX5JwjoiAI
+	HoQKiOVowCykvsA67/Fkf1JPBbLE3McYR7JQ1zsU+K5LS3NiIlRi/4nHxbE6Q7pLP823SoimB8M
+	47lFhnBmcv7fwgy4NeMPBUBOG8oOjsU/6jDSsmGFl
+X-Gm-Gg: AYBFou2eSZ6zO3tDre2+cUtVmNjSiwxLZ+xsQZrrEzLivcT4POS/kDPZn6RgCBh3EI5
+	udnehb/YxEt6z47zqfPYH45Ru+PqwH8k1tymVzzg5uwWlxkGDkmGedRYyuEOFAlJ1W+RV1ab2YW
+	56YVBaNiz+E5IX1TGkUNBj7k1ysGWuCNEGCi4CQvp3kILOst5mdZUl3pRHWRer0fGUktSgZ60L4
+	jb0u4Ka4mosNhOImLuOdTyRucugKtR/awblhnETG+AFBGprLH0WM7g0Fke3T/r6Xps9wy6TUsDd
+	DYWiOJKy4mj6O+zQNo2aFZKjrRRpq+L8t6TN8WGU4SbP7l+BlNyOMsYd
+X-Received: by 2002:a05:690e:168a:b0:677:af43:e268 with SMTP id
+ 956f58d0204a3-677af43ef66mr2978859d50.113.1791130670771; Sun, 04 Oct 2026
+ 09:17:50 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH0PR12MB7957:EE_|CH3PR12MB297944:EE_
-X-MS-Office365-Filtering-Correlation-Id: 90cfc99d-b1e3-4f31-6871-08df2232c559
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|376014|7416014|1800799024|366016|22082099003|18002099003|10067099003|4143699003|56012099006|11063799006;
-X-Microsoft-Antispam-Message-Info:
-	7RvIaJQvzxGuQD4tNwsVPMd2VpVixy8O2nXJPDdPINcqSh+TdS9oEvGA9/1ex7gL5hg4ORj/JBBEOQNozWmpGM4+VdUds6dGcyInCYtUhnyAJ/b5VuIzm/oH4RonEQ+K2sU0FMu8GRALMntu7Gxq7V7R3hWsT2BJeczlBD07/x3xLfMYIc+4thGrTwkayOekHXVVZNLnyKANDIZrfbwQJViqjQ4APu8SN4NW7ZQSMZPGzO1ipusDdKgszMF6L+BVHr7FqdThyTO/ZU2ztPft9nvYKtZEXtehF5PCg8lVW/tuf7Trh2xL983WFHtIPNqtwHd0FYkscH2J9u635eIMK15EKpBAUYiprDJw7mQ3sHjxiERaV2crRrvG42t1ZKJDFpe30BeuTPrINWiY+cJiSlbSDIhrOqs1KS6L4/nn0rY6qaDHEzflTzu1qHsm45n/BpswzjtFwhHJZjgcMiaFnwGLQzcrnK69qvDITkpck5OQAJWXQX67Ec5fKJbwav86bDB1s+lt8SxLzLID4YKbI8j4E5lN89HCZ3ZAqTkftY3a5vu2LkZ3AzriF1+mvUOssqOINRTU6SkzEnU3wNJbc+PvqYBWJSonBN7nqn6lTSY62v3i0z2UicTH1rJLsR9GPXRkNbT8Idf6/eakSyf95XBFNgbjl/a97ut7TV9LY5E=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH0PR12MB7957.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(376014)(7416014)(1800799024)(366016)(22082099003)(18002099003)(10067099003)(4143699003)(56012099006)(11063799006);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?MPiXC1ha8tVOPiRotmcKuwnOH4H05gUFoIcKSJRSwjpHt3dOQWumizFJmvYi?=
- =?us-ascii?Q?q7tPhP+4npKueYmtNRXNh5caLKAFoB9Afouig8uCnixizDasnGfMHS53d7Sx?=
- =?us-ascii?Q?ARR51p75Hul1uGEbkyM8aDZ0BcA0o4EXmyUlvdlU3ng3PUUQArWCBVUceTEd?=
- =?us-ascii?Q?uei2B0vPGUFKLMmSgPCAs3HRu0iuWMZt1LM/2h8MP4EEfE1e1sZwMS/229To?=
- =?us-ascii?Q?WeO7k4m9rHcv+0bClSPviL051F3GfKFjDyX/bv5gZvF55l6LcSI1yI7TsRxl?=
- =?us-ascii?Q?l+OwLnHCg5MBpxcJ6wpiuIlIEe36/i6wY3JsQj1FZFYZNMAfFsteOv4bwCuB?=
- =?us-ascii?Q?SbtdTdXBlUASBRUSENZ+iDyI4hr10Gx3Hn4DNwbOMvrmLnKqWENsLv/+s70u?=
- =?us-ascii?Q?QD8TACvelMWpEwRI+2X/Zf7IY4rG2v6Zw2hVKB2iYO3PS8WNyp94kBzkF00l?=
- =?us-ascii?Q?tg2O5AoJSWYQl5qH5Bx/TuBO1szOkYA5xA4JjZdtTsgJ8iBKLUWofcw3KA/C?=
- =?us-ascii?Q?ZkbLnH0CRMug2RtpF3Hxel6PFpq8hbP1gPhs8Qs0C9elvib1IzSnbh3Fiibs?=
- =?us-ascii?Q?mJ4dg0myscpxLpasZW/LIqbOrlyX9PdiO2pIPECYW/ARRwzY7x/YEdjJMGcI?=
- =?us-ascii?Q?d4wy07YFfy0P7uTSdrK8jlKbfEstnxIG9qyPGvROELmPRPS21Eour6l4hDxh?=
- =?us-ascii?Q?nJQH3SsGTnpKayK2EJaWxMAx541Wg8NtOjvekfA3BN3vzXv6SsvsB/jZHbTy?=
- =?us-ascii?Q?ueoBASbLfVDPreQoaOniWEhyniasiwYhQl8w/JYpidi/xden5LsdlyjQJLEu?=
- =?us-ascii?Q?Sr6MhiHA4v57r0Eimhrevm4dJ6Gr9CuDy6lleup0W27wVsyTGevw50DWuQzw?=
- =?us-ascii?Q?A3XXBzxG3OBr4Mz4nWQNiW1n0/lAWVkskPTLVZ4CR+qWnIlZnlG98H+Vlkc7?=
- =?us-ascii?Q?FdjvehJPNatRhIfxv1fpqfh7DjpNZNmhd++YZsil29fQ1y8SRFGFWRRER/+d?=
- =?us-ascii?Q?WDktAL8RIMofCT/B/8B12fl6tRs7H2D6ULj5ROff0n3nJ7w/8AwLimEAjkJj?=
- =?us-ascii?Q?EM6RbUbU7PBEmdkez1Pst4P5bSLw+rXe8zpr+2wjlSDTu2NnmYObxi6t2u5g?=
- =?us-ascii?Q?iQlq+WeUnVCPmLxpswMJw4D8eWazWAPuA5REor+CDjxbkOhSaJpjaC5o9k46?=
- =?us-ascii?Q?PWejRLpPQTQsshy/5TqB61OEwE+RGu3XjBnrrBEkyb3hQWhRMq/nJspj1JxX?=
- =?us-ascii?Q?31PgLRXUR1YUlDjQ99ElGJFvRbb2DijhUDQHl/lPBNHNz43W6qxvrJyuBvO/?=
- =?us-ascii?Q?sNl4r7UaKNSBJ8+wTCCmAAeOZXePJBW5rtPt8YNt5o6ZubmJTBJQ03+6Gqvt?=
- =?us-ascii?Q?FBpnOix4ztQxXRWK+3SeJIU9etsjz8DcW0YZBWj0BBJxb1gA3yfDMRrJks1Y?=
- =?us-ascii?Q?CviS8TLLHFPiPEg4uhMBDo2X93iVV1VFl1qKlLSMKe8+W+34X5bk/10e2TQR?=
- =?us-ascii?Q?1FPwLJeweg08GhJgD2C0y2mJQKmXLGV+KQLojD3WZhS17QF1n2VrwbcH9zZS?=
- =?us-ascii?Q?aEItEErMCgnImAkE7OzI8YzxrxhDloum/4U/bcU9+cp7Z1vrj/xNaBsutKj2?=
- =?us-ascii?Q?+a4FjMytd/6d5reMVwm+xAE3ydpKoiOLGaVHlUpOrDaTaXaImBwJKTLjHOYq?=
- =?us-ascii?Q?o3peGSPmjzk29UbP1FouoUVg/JDSlM/P5f2zRBR7gBbHcr/g?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 90cfc99d-b1e3-4f31-6871-08df2232c559
-X-MS-Exchange-CrossTenant-AuthSource: PH0PR12MB7957.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Oct 2026 16:15:56.5680
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 84UD/Ge3fmhVJr+2VbeZyR2ylTGtJDbgIuFNl8ixRcFxb87VM4dhCFmTHLnc6sASJzbyjhm9aPuVsH3lWHDFuQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB297944
+References: <20260803135249.2898083-1-wenst@chromium.org>
+In-Reply-To: <20260803135249.2898083-1-wenst@chromium.org>
+From: Chen-Yu Tsai <wenst@chromium.org>
+Date: Sun, 4 Oct 2026 18:17:38 +0200
+X-Gm-Features: AclHuK8AbiOI1d3O1oMAtq-YB9tfgZCN1siOUfw9uTtQBVIHV68l-lLxUKSjvHc
+Message-ID: <CAGXv+5FS7gLB7-koaPKMqjtMPjOSWguW9NN_tS+8Wi2GTSHYEQ@mail.gmail.com>
+Subject: Re: [PATCH] drm/exynos: Set supported modifiers during plane init
+To: Inki Dae <inki.dae@samsung.com>, Seung-Woo Kim <sw0312.kim@samsung.com>, 
+	Kyungmin Park <kyungmin.park@samsung.com>, Krzysztof Kozlowski <krzk@kernel.org>, 
+	Alim Akhtar <alim.akhtar@samsung.com>
+Cc: David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, dri-devel@lists.freedesktop.org, 
+	linux-samsung-soc@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Sun, Oct 04, 2026 at 07:08:20PM +0300, Ido Schimmel wrote:
-> On Wed, Sep 30, 2026 at 09:39:05PM +0300, Anton Danilov wrote:
-> > @@ -636,6 +641,12 @@ enum skb_drop_reason {
-> >  	SKB_DROP_REASON_TUNNEL_OLD_SEQ,
-> >  	/** @SKB_DROP_REASON_GRE_CSUM: GRE checksum error */
-> >  	SKB_DROP_REASON_GRE_CSUM,
-> > +	/**
-> > +	 * @SKB_DROP_REASON_TUNNEL_ENCAP: failed to build the encapsulation
-> > +	 * header of a tunnel, e.g. an unknown or unregistered encapsulation
-> > +	 * type.
-> > +	 */
-> > +	SKB_DROP_REASON_TUNNEL_ENCAP,
-> >  	/**
-> >  	 * @SKB_DROP_REASON_MAX: the maximum of core drop reasons, which
-> >  	 * shouldn't be used as a real 'reason' - only for tracing code gen
-> 
-> [...]
-> 
-> > @@ -620,8 +623,10 @@ void ip_md_tunnel_xmit(struct sk_buff *skb, struct net_device *dev,
-> >  	if (!tunnel_hlen)
-> >  		tunnel_hlen = ip_encap_hlen(&tun_info->encap);
-> >  
-> > -	if (ip_tunnel_encap(skb, &tun_info->encap, &proto, &fl4) < 0)
-> > +	if (ip_tunnel_encap(skb, &tun_info->encap, &proto, &fl4) < 0) {
-> > +		reason = SKB_DROP_REASON_TUNNEL_ENCAP;
-> 
-> This will also cover the -ENOMEM from the callbacks, where
-> SKB_DROP_REASON_NOMEM is more appropriate. Better to change
-> ip_tunnel_encap() to return the appropriate drop reason like you did
-> with gre_parse_header().
+Hi,
 
-And change ip6_tnl_encap() in a similar fashion.
+On Mon, Aug 3, 2026 at 3:52=E2=80=AFPM Chen-Yu Tsai <wenst@chromium.org> wr=
+ote:
+>
+> The exynos driver currently checks the modifier in a helper called by
+> the plane atomic check helper callback. This check only concerns whether
+> the selected plane supports the tiled format or not. This is tied to
+> the plane's hardware capability.
+>
+> Turns out the tiled support was added around the same time modifiers
+> were being plumbed through DRM planes. The latter provided a way to
+> describe per-plane modifier support.
+>
+> Add a field to the hardware plane capability struct to allow adding
+> an optional list of supported modifiers. This is passed to
+> drm_universal_plane_init(). This also allows the core to generate
+> and pass to userspace a list of supported modifiers for each plane.
+>
+> EXYNOS_DRM_PLANE_CAP_TILE and the existing helper are removed, as the
+> check is now down by the DRM atomic check.
+>
+> Signed-off-by: Chen-Yu Tsai <wenst@chromium.org>
 
-> 
-> >  		goto tx_error;
-> > +	}
-> >  
-> >  	use_cache = ip_tunnel_dst_cache_usable(skb, tun_info);
-> >  	if (use_cache)
+Any chance someone could take a look at this? This drops some redundant
+code.
+
+> ---
+>  drivers/gpu/drm/exynos/exynos_drm_drv.h   |  2 +-
+>  drivers/gpu/drm/exynos/exynos_drm_plane.c | 30 +----------------------
+>  drivers/gpu/drm/exynos/exynos_mixer.c     |  8 +++++-
+>  3 files changed, 9 insertions(+), 31 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/exynos/exynos_drm_drv.h b/drivers/gpu/drm/ex=
+ynos/exynos_drm_drv.h
+> index b126cd129944..ab0edb826261 100644
+> --- a/drivers/gpu/drm/exynos/exynos_drm_drv.h
+> +++ b/drivers/gpu/drm/exynos/exynos_drm_drv.h
+> @@ -92,7 +92,6 @@ struct exynos_drm_plane {
+>  #define EXYNOS_DRM_PLANE_CAP_DOUBLE    (1 << 0)
+>  #define EXYNOS_DRM_PLANE_CAP_SCALE     (1 << 1)
+>  #define EXYNOS_DRM_PLANE_CAP_ZPOS      (1 << 2)
+> -#define EXYNOS_DRM_PLANE_CAP_TILE      (1 << 3)
+>  #define EXYNOS_DRM_PLANE_CAP_PIX_BLEND (1 << 4)
+>  #define EXYNOS_DRM_PLANE_CAP_WIN_BLEND (1 << 5)
+>
+> @@ -112,6 +111,7 @@ struct exynos_drm_plane_config {
+>         const uint32_t *pixel_formats;
+>         unsigned int num_pixel_formats;
+>         unsigned int capabilities;
+> +       const uint64_t *modifiers;
+>  };
+>
+>  /*
+> diff --git a/drivers/gpu/drm/exynos/exynos_drm_plane.c b/drivers/gpu/drm/=
+exynos/exynos_drm_plane.c
+> index 5c04ef87e400..31f5f0941154 100644
+> --- a/drivers/gpu/drm/exynos/exynos_drm_plane.c
+> +++ b/drivers/gpu/drm/exynos/exynos_drm_plane.c
+> @@ -174,30 +174,6 @@ static struct drm_plane_funcs exynos_plane_funcs =3D=
+ {
+>         .atomic_destroy_state =3D exynos_drm_plane_destroy_state,
+>  };
+>
+> -static int
+> -exynos_drm_plane_check_format(const struct exynos_drm_plane_config *conf=
+ig,
+> -                             struct exynos_drm_plane_state *state)
+> -{
+> -       struct drm_framebuffer *fb =3D state->base.fb;
+> -       struct drm_device *dev =3D fb->dev;
+> -
+> -       switch (fb->modifier) {
+> -       case DRM_FORMAT_MOD_SAMSUNG_64_32_TILE:
+> -               if (!(config->capabilities & EXYNOS_DRM_PLANE_CAP_TILE))
+> -                       return -ENOTSUPP;
+> -               break;
+> -
+> -       case DRM_FORMAT_MOD_LINEAR:
+> -               break;
+> -
+> -       default:
+> -               DRM_DEV_ERROR(dev->dev, "unsupported pixel format modifie=
+r");
+> -               return -ENOTSUPP;
+> -       }
+> -
+> -       return 0;
+> -}
+> -
+>  static int
+>  exynos_drm_plane_check_size(const struct exynos_drm_plane_config *config=
+,
+>                             struct exynos_drm_plane_state *state)
+> @@ -245,10 +221,6 @@ static int exynos_plane_atomic_check(struct drm_plan=
+e *plane,
+>         /* translate state into exynos_state */
+>         exynos_plane_mode_set(exynos_state);
+>
+> -       ret =3D exynos_drm_plane_check_format(exynos_plane->config, exyno=
+s_state);
+> -       if (ret)
+> -               return ret;
+> -
+>         ret =3D exynos_drm_plane_check_size(exynos_plane->config, exynos_=
+state);
+>         return ret;
+>  }
+> @@ -312,7 +284,7 @@ int exynos_plane_init(struct drm_device *dev,
+>                                        &exynos_plane_funcs,
+>                                        config->pixel_formats,
+>                                        config->num_pixel_formats,
+> -                                      NULL, config->type, NULL);
+> +                                      config->modifiers, config->type, N=
+ULL);
+>         if (err) {
+>                 DRM_DEV_ERROR(dev->dev, "failed to initialize plane\n");
+>                 return err;
+> diff --git a/drivers/gpu/drm/exynos/exynos_mixer.c b/drivers/gpu/drm/exyn=
+os/exynos_mixer.c
+> index 69dea5049309..d74e605a452b 100644
+> --- a/drivers/gpu/drm/exynos/exynos_mixer.c
+> +++ b/drivers/gpu/drm/exynos/exynos_mixer.c
+> @@ -93,6 +93,12 @@ static const uint32_t vp_formats[] =3D {
+>         DRM_FORMAT_NV21,
+>  };
+>
+> +static const uint64_t vp_modifiers[] =3D {
+> +       DRM_FORMAT_MOD_LINEAR,
+> +       DRM_FORMAT_MOD_SAMSUNG_64_32_TILE,
+> +       DRM_FORMAT_MOD_INVALID
+> +};
+> +
+>  struct mixer_context {
+>         struct platform_device *pdev;
+>         struct device           *dev;
+> @@ -148,8 +154,8 @@ static const struct exynos_drm_plane_config plane_con=
+figs[MIXER_WIN_NR] =3D {
+>                 .num_pixel_formats =3D ARRAY_SIZE(vp_formats),
+>                 .capabilities =3D EXYNOS_DRM_PLANE_CAP_SCALE |
+>                                 EXYNOS_DRM_PLANE_CAP_ZPOS |
+> -                               EXYNOS_DRM_PLANE_CAP_TILE |
+>                                 EXYNOS_DRM_PLANE_CAP_WIN_BLEND,
+> +               .modifiers =3D vp_modifiers,
+>         },
+>  };
+>
+> --
+> 2.55.0.571.g244d577d93-goog
+>
