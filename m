@@ -1,186 +1,237 @@
-Received: from mout-p-201.mailbox.org (mout-p-201.mailbox.org [80.241.56.171])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta1.migadu.com (out-178.mta1.migadu.com [95.215.58.178])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 15ED727442;
-	Sun,  4 Oct 2026 01:18:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=80.241.56.171
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4888D3A6B89
+	for <linux-kernel@vger.kernel.org>; Sun,  4 Oct 2026 01:27:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.178
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791076742; cv=none; b=W1vyyf4Rit13zWVPt3S7xabqSMixWF4thsLeIMn7opFpLCdJPXiU0kuqpeXzikSAax/pbs5OPGkL/mCch6dehAhoQvTBnVPxL3BL4xVeWSkH+8ze8oWmEpPnP6PZ4GMBharQrzuy80b5fUUFuvW0uY/5ktzSCWZMB6CX1n+FiWE=
+	t=1791077261; cv=none; b=uR6P0zf025cucuTvjyujfDdrfoimGLXD6laJoYlGIHVF3uc5Zu0XnSi3jvZuDtsrpv0Ao4Jh99x7tSuuJfyMx1K2MBGO0Wd5+JZOjW/Jx+GSJc09sa1ZBOtO4TEXsdkarHyWbt2OfB4aTqRINpIW4d9faO2Tc1WWNas/5xI8zM4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791076742; c=relaxed/simple;
-	bh=1h/gWQQiJHoKYSKzX/YmfMFxjxyr1KmmDEENQ283Fe0=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=a+yuVQo9BKG5NdZUYrGxv4ib/LVp8fOSE35dCaO65+nxI3LUoV1YTY4Jz/gOO7EO+DJKKJsDj8h5FVz9IbE6hWdgrIZXLp3jjck3kK/3d4mo82ykuX6QCvB9KvMMP5hIF9112n/jKCQEBAcltHDtJ7P/brkeNWCQF0hNyRtxPv4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org; spf=pass smtp.mailfrom=mailbox.org; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=TSV/DXMD; arc=none smtp.client-ip=80.241.56.171
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mailbox.org
+	s=arc-20240116; t=1791077261; c=relaxed/simple;
+	bh=wzQ99GICs2Vc4F2iRCLllGQA0ClIQT+EdYMR6WPsm+M=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=V/yFDWQuJ7Ur1cOiZmG2z9Ln9aXbri+5D4aPLhDUilgHp2yVMK31nQ5I+8o3QN1cbfxxR+VkPe8slBYwh+COyJSAcmzfYWN1nyn0RDytq/ehIHXq8+NFdeFtAjV7HNu4iLBfE3qE3LVsbWxJ+XJYqMqAJPVAFJYd8VhKfnj2hCI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=GBYabbwe; arc=none smtp.client-ip=95.215.58.178
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="TSV/DXMD"
-Received: from smtp202.mailbox.org (smtp202.mailbox.org [IPv6:2001:67c:2050:b231:465::202])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519MLKEM768 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mout-p-201.mailbox.org (Postfix) with ESMTPS id 4hy4RN2n8lzMlSH;
-	Sun, 04 Oct 2026 03:18:56 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
-	t=1791076736;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding;
-	bh=6K74zQYOJYJRfcBo9UYqdfObKDdq20Wwv5QO1BflE2k=;
-	b=TSV/DXMDv106tQWNK2BtS+6YDbbRj8nn5gD1Vxw6A6LgOMYcNBZ7agDCQOr2sm70L2nIzl
-	Yqw5rdiGgtAZ+NLhQg/OPmubHSAlfMIxyDPTaotajXnfyLuG7u11F66LddGTbqpWaL18ox
-	Lk+938V5RLOcVO5gl36UYr0xBNT4rAAH83cKAucuQKR30/zZ49/FVMiG4hdnfy48KLww14
-	gGi+hUCWc2ntyPwu811gbXJ8g6Sp+cc089prqhhdzGRZhWJdkj/uUbpFUlhibx3j91k5Wd
-	ycHA+lsnkITHi0HtuesT0MCRoeal9d745rIAbznBwWQnrwSVEsW0gDsEoH/gKA==
-From: Marek Vasut <marek.vasut+renesas@mailbox.org>
-To: linux-pci@vger.kernel.org
-Cc: Marek Vasut <marek.vasut+renesas@mailbox.org>,
-	Geert Uytterhoeven <geert+renesas@glider.be>,
-	Koichiro Den <den@valinux.co.jp>,
-	=?UTF-8?q?Krzysztof=20Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
-	Bjorn Helgaas <bhelgaas@google.com>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Lorenzo Pieralisi <lpieralisi@kernel.org>,
-	Magnus Damm <magnus.damm@gmail.com>,
-	Manivannan Sadhasivam <mani@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Yoshihiro Shimoda <yoshihiro.shimoda.uh@renesas.com>,
-	devicetree@vger.kernel.org,
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="GBYabbwe"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=wzQ99GICs2Vc4F2iRCLllGQA0ClIQT+EdYMR6WPsm+M=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1791077255; v=1; x=1791682055;
+ b=GBYabbwe9IIEBOmSr/GqPLVkh386mtqj/wjq1qX4asFApO0QvJBAEgrRxmt3W33Zmp5+o3Mi
+ +bxbFUvwdmAPGXLsuOz3ZSpHx5FVIUPsXHfiklJGk2xnkC0hwzMrqbC7RCRluIfTaXD5uTWS2DI
+ dHSqP7QWhjuH5wULLqNe5kqE=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 91d63f57de4487cd;
+	Sun, 04 Oct 2026 01:27:34 +0000
+X-Mizu-Trace-ID: 91d63f57de4487cd
+X-Migadu-Flow: FLOW_OUT
+From: Tao Cui <cui.tao@linux.dev>
+To: tj@kernel.org
+Cc: void@manifault.com,
+	arighi@nvidia.com,
+	changwoo@igalia.com,
+	sched-ext@lists.linux.dev,
 	linux-kernel@vger.kernel.org,
-	linux-renesas-soc@vger.kernel.org
-Subject: [PATCH v5] PCI: rcar-gen4: Add missing PM ops
-Date: Sun,  4 Oct 2026 03:18:13 +0200
-Message-ID: <20261004011851.866833-1-marek.vasut+renesas@mailbox.org>
+	cui.tao@linux.dev,
+	Tao Cui <cuitao@kylinos.cn>
+Subject: [PATCH] sched_ext: Reset cpuperf_target when a sub-scheduler loses SCX_CAP_PERF or dies
+Date: Sun,  4 Oct 2026 09:27:21 +0800
+Message-ID: <20261004012721.615419-1-cui.tao@linux.dev>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-MBO-RS-META: zg3sma315nhdrqi1ieqacsgbsgn4a7yc
-X-MBO-RS-ID: 576233e560cbda28b14
 
-The R-Car Gen4 PCIe controller is part of a power domain. On R-Car S4
-and V4H, this is an always-on power domain which is not shut down in
-suspend. On R-Car V4M, this is a dedicated A2PCIPHY power domain,
-which is shut down during suspend, and the controller loses state,
-which prevents the PCIe from working after resume.
+From: Tao Cui <cuitao@kylinos.cn>
 
-Fix this by adding generic suspend/resume noirq ops for the controller,
-which tear the link down on suspend, and restart it on resume. Use the
-same PM ops on all of R-Car Gen4 to gracefully suspend and resume the
-PCIe link on V4H and S4 too.
+When a sub-scheduler holding SCX_CAP_PERF sets a low cpuperf target and
+then goes away - through cap revoke, kill, detach or cgroup removal -
+the target stays behind. scx_bpf_sub_revoke() only clears the pshard
+caps[] bitmaps: the cap gate in scx_cpuperf_set() blocks new writes but
+leaves the old value in place. scx_sub_disable() rehomes the tasks and
+unlinks the scheduler without touching rq->scx.cpuperf_target either.
 
-Test case which demonstrates the problem on R-Car V4M:
-"
-$ hexdump -vC /sys/bus/pci/devices/0000:00:00.0/config > /tmp/pre
-$ echo s2idle > /sys/power/mem_sleep
-$ echo platform > /sys/power/pm_test
-$ echo mem > /sys/power/state
-$ hexdump -vC /sys/bus/pci/devices/0000:00:00.0/config > /tmp/post
-$ diff -Naru /tmp/pre /tmp/post
-...
--00000000  12 19 32 00 07 05 10 00  00 00 04 06 00 00 01 00
-+00000000  12 19 32 00 07 05 10 00  00 00 00 ff 00 00 80 00
-                                          ^^^^^
-                                    Class 0604->00ff
-"
+Nothing ever rewrites the value afterwards. The reader gate
+scx_cpuperf_target() only tests the global scx_enabled(), which still
+holds while the root scheduler is running, so schedutil keeps consuming
+the stale target as its utilization base on every DVFS update. In
+switched-all mode, where sugov_get_util() does not add CFS utilization
+on top, the affected CPU stays pinned at a low frequency until sched_ext
+is disabled and re-enabled as a whole. A root scheduler like scx_simple
+never calls the cpuperf kfuncs, so the pin is unbounded.
 
-Fixes: 0d0c551011df ("PCI: rcar-gen4: Add R-Car Gen4 PCIe controller support for host mode")
-Reviewed-by: Geert Uytterhoeven <geert+renesas@glider.be>
-Tested-by: Geert Uytterhoeven <geert+renesas@glider.be>
-Tested-by: Koichiro Den <den@valinux.co.jp>
-Reported-by: Geert Uytterhoeven <geert+renesas@glider.be>
-Signed-off-by: Marek Vasut <marek.vasut+renesas@mailbox.org>
+Fix it by restoring the neutral base that the root scheduler establishes
+at enable time whenever a writer goes away: scx_bpf_sub_revoke() queues
+a reset for the CPUs backing the actually-revoked cids, and
+scx_sub_disable() sweeps the scheduler's pshard SCX_CAP_PERF cmasks
+after it is unlinked and drained and queues a reset for every CPU it
+held the cap on.
+
+The reset needs the target rq's lock. scx_bpf_sub_revoke() runs with
+IRQs disabled under pshard locks and may be entered from BPF with
+another rq already locked, so the reset is carried out from a per-CPU
+irq_work on the target CPU instead of taking cross-CPU rq locks.
+CPUs that are offline at reset time are skipped: a queued work would
+trip irq_work's offline-CPU warning and has no guaranteed execution
+point, and any stale target there is cleared when sched_ext is
+re-enabled. Over-resetting is possible when the cap is shared by
+multiple schedulers on one CPU; any scheduler still holding the cap
+rewrites its own target on its next update, and in the worst case the
+CPU runs at the neutral base until then or until a re-enable - still
+bounded, unlike the stale pin it prevents.
+
+Tested on a VM: a sub-scheduler setting target 1 and then being killed
+leaves rq->scx.cpuperf_target at 1 under full load on the baseline; with
+this patch, the target returns to SCX_CPUPERF_ONE immediately on kill.
+
+Fixes: 86094b95efcf ("sched_ext: Add per-shard cap delegation for sub-schedulers")
+Signed-off-by: Tao Cui <cuitao@kylinos.cn>
 ---
-Cc: "Krzysztof Wilczyński" <kwilczynski@kernel.org>
-Cc: Bjorn Helgaas <bhelgaas@google.com>
-Cc: Conor Dooley <conor+dt@kernel.org>
-Cc: Geert Uytterhoeven <geert+renesas@glider.be>
-Cc: Koichiro Den <den@valinux.co.jp>
-Cc: Krzysztof Kozlowski <krzk+dt@kernel.org>
-Cc: Lorenzo Pieralisi <lpieralisi@kernel.org>
-Cc: Magnus Damm <magnus.damm@gmail.com>
-Cc: Manivannan Sadhasivam <mani@kernel.org>
-Cc: Rob Herring <robh@kernel.org>
-Cc: Yoshihiro Shimoda <yoshihiro.shimoda.uh@renesas.com>
-Cc: devicetree@vger.kernel.org
-Cc: linux-kernel@vger.kernel.org
-Cc: linux-pci@vger.kernel.org
-Cc: linux-renesas-soc@vger.kernel.org
----
-V2: - Add TB from Geert for RC mode
-    - Use pm_sleep_ptr()
-    - Call HOST suspend/resume ops only in case the controller is in RC mode
-V3: - Add RB from Geert
-    - Make rcar_gen4_pcie_pm_ops() static
-    - Pull the mode from driver data
-V4: - Add TB from Den-san
-V5: - Set pp->use_atu_msg = true to use generic MSG TLP for sending PME_Turn_Off
-      (as suggested by Den-san)
----
- drivers/pci/controller/dwc/pcie-rcar-gen4.c | 27 +++++++++++++++++++++
- 1 file changed, 27 insertions(+)
+ kernel/sched/ext/sub.c | 103 +++++++++++++++++++++++++++++++++++++++++
+ 1 file changed, 103 insertions(+)
 
-diff --git a/drivers/pci/controller/dwc/pcie-rcar-gen4.c b/drivers/pci/controller/dwc/pcie-rcar-gen4.c
-index 2e7a8d85c0060..fceecbd16355c 100644
---- a/drivers/pci/controller/dwc/pcie-rcar-gen4.c
-+++ b/drivers/pci/controller/dwc/pcie-rcar-gen4.c
-@@ -671,6 +671,8 @@ static int rcar_gen4_add_dw_pcie_rp(struct rcar_gen4_pcie *rcar)
- 		return -ENODEV;
+diff --git a/kernel/sched/ext/sub.c b/kernel/sched/ext/sub.c
+index 48e17aeb1cb6..378cdabdcaf2 100644
+--- a/kernel/sched/ext/sub.c
++++ b/kernel/sched/ext/sub.c
+@@ -28,6 +28,57 @@
+  */
+ DEFINE_STATIC_KEY_FALSE(__scx_has_subs);
  
- 	pp->num_vectors = MAX_MSI_IRQS;
-+	/* Reserve an iATU window for the generic PME_Turn_Off implementation. */
-+	pp->use_atu_msg = true;
- 	pp->ops = &rcar_gen4_pcie_host_ops;
- 
- 	return dw_pcie_host_init(pp);
-@@ -1062,6 +1064,26 @@ static int rcar_gen4_pcie_ltssm_control(struct rcar_gen4_pcie *rcar, bool enable
- 	return 0;
- }
- 
-+static int rcar_gen4_pcie_suspend_noirq(struct device *dev)
++/*
++ * Reset rq->scx.cpuperf_target back to the neutral SCX_CPUPERF_ONE base
++ * when a sub-scheduler that wrote targets loses SCX_CAP_PERF or dies. The
++ * reset runs from an irq_work on the target CPU so it can take the target
++ * rq's lock without imposing any rq lock ordering on the callers:
++ * scx_bpf_sub_revoke() runs with IRQs disabled under pshard locks and may
++ * be reached from BPF with another rq already locked.
++ */
++static DEFINE_PER_CPU(struct irq_work, scx_cpuperf_reset_iw);
++
++static void scx_cpuperf_reset_fn(struct irq_work *iw)
 +{
-+	struct rcar_gen4_pcie *rcar = dev_get_drvdata(dev);
++	struct rq_flags rf;
++	struct rq *rq;
 +
-+	if (rcar->drvdata->mode != DW_PCIE_RC_TYPE)
-+		return 0;
++	if (!scx_enabled())
++		return;
 +
-+	return dw_pcie_suspend_noirq(&rcar->dw);
++	rq = cpu_rq(smp_processor_id());
++	rq_lock_irqsave(rq, &rf);
++	update_rq_clock(rq);
++	if (rq->scx.cpuperf_target != SCX_CPUPERF_ONE) {
++		rq->scx.cpuperf_target = SCX_CPUPERF_ONE;
++		cpufreq_update_util(rq, 0);
++	}
++	rq_unlock_irqrestore(rq, &rf);
 +}
 +
-+static int rcar_gen4_pcie_resume_noirq(struct device *dev)
++/*
++ * Queue a reset of @cpu's cpuperf target. Idempotent: the work is always a
++ * plain restore of the neutral base, so concurrent queues collapse into one
++ * run; CPUs that never had a sub-scheduler target no-op.
++ */
++static void scx_cpuperf_queue_reset(s32 cpu)
 +{
-+	struct rcar_gen4_pcie *rcar = dev_get_drvdata(dev);
-+
-+	if (rcar->drvdata->mode != DW_PCIE_RC_TYPE)
-+		return 0;
-+
-+	return dw_pcie_resume_noirq(&rcar->dw);
++	if (cpu < 0 || cpu >= nr_cpu_ids || !cpu_online(cpu))
++		return;
++	irq_work_queue_on(&per_cpu(scx_cpuperf_reset_iw, cpu), cpu);
 +}
 +
- static struct rcar_gen4_pcie_drvdata drvdata_r8a779f0_pcie = {
- 	.init = rcar_gen4_pcie_common_init,
- 	.deinit = rcar_gen4_pcie_common_deinit,
-@@ -1127,10 +1149,15 @@ static const struct of_device_id rcar_gen4_pcie_of_match[] = {
- };
- MODULE_DEVICE_TABLE(of, rcar_gen4_pcie_of_match);
- 
-+static DEFINE_NOIRQ_DEV_PM_OPS(rcar_gen4_pcie_pm_ops,
-+			       rcar_gen4_pcie_suspend_noirq,
-+			       rcar_gen4_pcie_resume_noirq);
++static int __init scx_cpuperf_reset_init(void)
++{
++	int cpu;
 +
- static struct platform_driver rcar_gen4_pcie_driver = {
- 	.driver = {
- 		.name = "pcie-rcar-gen4",
- 		.of_match_table = rcar_gen4_pcie_of_match,
-+		.pm = pm_sleep_ptr(&rcar_gen4_pcie_pm_ops),
- 		.probe_type = PROBE_PREFER_ASYNCHRONOUS,
- 	},
- 	.probe = rcar_gen4_pcie_probe,
++	for_each_possible_cpu(cpu)
++		init_irq_work(per_cpu_ptr(&scx_cpuperf_reset_iw, cpu),
++			      scx_cpuperf_reset_fn);
++	return 0;
++}
++subsys_initcall(scx_cpuperf_reset_init);
++
+ /* latched at root enable before any rescue runs */
+ static s32 scx_rescue_bw_1024;
+ static s64 scx_rescue_quantum_ns;
+@@ -1457,6 +1508,39 @@ static inline s32 scx_cgroup_claim_subtree(struct scx_sched *sch) { return 0; }
+ static inline void scx_cgroup_return_subtree(struct scx_sched *sch) {}
+ #endif
+ 
++/*
++ * Queue cpuperf resets for the CPUs backing the cids in @delta, the set
++ * SCX_CAP_PERF was just revoked on.
++ */
++static void scx_cpuperf_revoke_cids(const struct scx_cmask *delta)
++{
++	s32 cid;
++
++	scx_cmask_for_each_cid(cid, delta)
++		scx_cpuperf_queue_reset(__scx_cid_to_cpu(cid));
++}
++
++/*
++ * Restore the neutral cpuperf base on every CPU @sch holds SCX_CAP_PERF on.
++ * Over-resetting is safe: any scheduler still holding the cap rewrites its
++ * own target on its next update. Must be called after @sch is unlinked and
++ * drained so nothing can race the pshard caps[] reads.
++ */
++static void scx_sub_reset_cpuperf(struct scx_sched *sch)
++{
++	s32 si, cid;
++
++	if (!READ_ONCE(sch->pshard))
++		return;
++
++	for (si = 0; si < sch->nr_pshards; si++) {
++		struct scx_cmask *cm = &sch->pshard[si]->caps[__SCX_CAP_PERF].cmask;
++
++		scx_cmask_for_each_cid(cid, cm)
++			scx_cpuperf_queue_reset(__scx_cid_to_cpu(cid));
++	}
++}
++
+ void scx_sub_disable(struct scx_sched *sch)
+ {
+ 	struct scx_sched *parent = scx_parent(sch);
+@@ -1585,6 +1669,13 @@ void scx_sub_disable(struct scx_sched *sch)
+ 
+ 	mutex_unlock(&scx_enable_mutex);
+ 
++	/*
++	 * @sch can no longer receive grants or writes: queue a cpuperf reset
++	 * for every CPU it held SCX_CAP_PERF on so schedutil doesn't keep
++	 * consuming the targets it left behind.
++	 */
++	scx_sub_reset_cpuperf(sch);
++
+ 	/*
+ 	 * @sch is now unlinked from the parent's children list. Notify and call
+ 	 * ops.sub_detach/exit(). Note that ops.sub_detach/exit() must be called
+@@ -2447,6 +2538,18 @@ __bpf_kfunc void scx_bpf_sub_revoke(u64 cgroup_id, u64 caps,
+ 					scx_cmask_andnot(cm, delta);
+ 					scx_cmask_or(changed_cids, delta);
+ 					revoked_caps |= BIT_U64(cap_bit);
++
++					/*
++					 * A lost SCX_CAP_PERF also invalidates
++					 * the cpuperf targets @pos may have
++					 * written on the revoked cids. Queue
++					 * the reset; this runs with IRQs
++					 * disabled under pshard locks, so the
++					 * rq locks are taken on the target
++					 * CPUs from irq_work instead.
++					 */
++					if (cap_bit == __SCX_CAP_PERF)
++						scx_cpuperf_revoke_cids(delta);
+ 				}
+ 
+ 				if (revoked_caps) {
 -- 
-2.53.0
+2.43.0
 
