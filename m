@@ -1,231 +1,131 @@
-Received: from mail-qt1-f172.google.com (mail-qt1-f172.google.com [209.85.160.172])
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 68919481257
-	for <linux-kernel@vger.kernel.org>; Sun,  4 Oct 2026 18:39:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.160.172
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791139166; cv=pass; b=rMQ1oVkcRzW/MuUz58XQYfeB+Cwuhpec2npwNAspZbJxza65wCFbRsue3ot+obulXyEfYalC8DzlUr/Hcgf7I6srkh8GfTAYf16tN+sWnUorZZN4mZGvRHTYvvDA1flea5UE7KVgbOI4PEVgrm74/f/kk0oRbLIKNAB75ykh+tc=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791139166; c=relaxed/simple;
-	bh=Q5SKncuQynV4x7Bps+RIZqUEFmiH2TTHOAAQrnnR074=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=LbO5KhUY1kZSrqjpOeGChPevK9ZKQoweEZOzMbSscqHq+MymLBfoRD3nXhpNnPaBEaw3Tdu6aaNwEA3YtKsesVPZhtAvC/DO2KgDjCA30zfxy+6ZK6/Enqoa+6ek/iOjBv06vDdr8VNyfML2tTLVqdfj1ymYJNvJPq4FZhjYqe0=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=l0iHyxjb; arc=pass smtp.client-ip=209.85.160.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B362A48165D;
+	Sun,  4 Oct 2026 18:39:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.130
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791139169; cv=none; b=kcsmRVYEN0b6dSLjuRmieh+yrUpqNClBZ7IqvxB3SbFLyoY6UsnHGLCcJEQcQH0t+8bcPKtJw+g/9gMmAMbytQOE6dPoWwpD+1bGzw67yZNq/Hpj868jpKt9XdY1KwivW+tcBHUaAoJF5eoD42XNhUKvNPM3IVlnRL1iBMla/g4=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791139169; c=relaxed/simple;
+	bh=twifk62AKiRcIDN5SBBJy9wGLXSvHeM8Zd4qXPEvlmc=;
+	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=eLK6SaUQBedBK5DA7WUOVY88EfdL6E+XGzI+NqQNTi+NfF63oYy245h8a8V8xegMhHQ8YGA/9xTQNKJTC7Tbi0GyuvWqUZnguhn1xV5F2mFJULZsdQ1heNCEKGXn4/KtUXcZReh9Nk2/e4apG1dhETRDOKwIx8ntNorrFzVqRAc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=opYHqjey; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=XZMoQLQf; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=yGsb7mCE; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=I2G/YTgG; arc=none smtp.client-ip=195.135.223.130
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="l0iHyxjb"
-Received: by mail-qt1-f172.google.com with SMTP id d75a77b69052e-5337fa12431so187201cf.1
-        for <linux-kernel@vger.kernel.org>; Sun, 04 Oct 2026 11:39:22 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1791139161; cv=none;
-        d=google.com; s=arc-20260327;
-        b=szTTSHk7QgXpGcvia7wjQk/fZX4zNaFn8TxL5IVWfhcS/t1ueiordJs9S8S/PU+GFN
-         St8v0G+s/zmQNW/kLMmmCpCCruEEOgB3vqIe2SRf4WEQU4Yk+AbjlgIc3tJ3zHTlv1lW
-         q3SiznUkMQJfBQtmJyzu0EAEpGNrt1vD+E0rNdNwM3x+2YxyNVgvnFJH8zh+0zZPi2Cp
-         A/ITbkeOs1j3sEB6qfaO/j/6OFH1TSqR7FlxXcpiLHrwFjHMpOqRnnEm7dCc1MwdswKX
-         9ytd1/IeUX+/ORrgMxWkX1J6V/s967Oa5pdveFQqQ9GpUwZNqZD2/oxCmYTVMILfOBs9
-         dFAg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=ZSC0w1neootLkbih9TUxoXkKPCkBI7t1n5ZaTzyKsnU=;
-        fh=qWYMQjxYAwdrQiYS2sgdn9fNK0bamr0FLLj2pq5Zvm8=;
-        b=WWGEKUtShOdkQJUK79mv6WMh/o18VQ/aMduaGiklae9r3eoWNtH3/IXDuZR44KQGQt
-         F7SlcD+XEf5oYSTlOH73H9+WbxBSsNZ149/Oyo3uoP44e/HOeD5W+ZlxVL3ENU9hrSQk
-         RxhAcMealBpm/ainLz4IDbuCXBLc5V60w/qH6ifuOUtB4mU/Ehyx3OKbmzU/eAr/Kahl
-         tzhrfxDZHS37igzV/2SSTbEaQBkNd1PhS4nOm+PujKAjnisTxWj+nI5mqbLJLubVZHOQ
-         vH3q+zMJ7o36FzLkJqe3GaPYDc3PO1+EQmLvqtdcxqaxxLBWS5MJ0oJDkud48y8aYpWW
-         OyPw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1791139161; x=1791743961; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=ZSC0w1neootLkbih9TUxoXkKPCkBI7t1n5ZaTzyKsnU=;
-        b=l0iHyxjbrFA0mj0qSWG3UEuOwCfeu39THooR7JdjvlpS5iPbcpbOGXWgFlwrHqiq17
-         g6OREDzEJg1B4R9e3NlLt/FQGfnUhJDJq9ugUkIwHD8Ouc6I0KCAE+AjFJ5im2Q3teHM
-         xpabytF01LqRy3edoNlhxz/KOOwY/glawDCIRDkU1ItyqnPxe60feD3VqcauD0MIeU4s
-         Cvv/OfjgN/b+SrE6g8xki0vgbqOIO/2Zkxe+N05IzJfOVKCkkH4F7eFCLA6UNgq7uegJ
-         Iz6k97ECHJF0Ws6uFXO0NrKMD645vu6jOd91RLmcYxQ0T3ig64z73JKnKEdXvgZ6oM2B
-         rqAQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791139161; x=1791743961;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=ZSC0w1neootLkbih9TUxoXkKPCkBI7t1n5ZaTzyKsnU=;
-        b=Bv/lJqM11YhbiTQl8ViRdr/IcTvusHL1StTTtaUDeSpmm/9hcc8pVzSxjuytVGSB24
-         X7hI+kqQw9ee4VkJK/gwo/WMMjnS8N2lu4OvQaH0u2WkAITgEB2isnw0CtdVlz7HU2o9
-         A+b+J8TJUDM1B2fC0Kd5mpBJACO5qpUTBO0riUO3XEovXezbR2+lpPQWwaPYKx/Drvcg
-         CReHqBCbnZTuMmeTKd1b8fMg6SN3dwe8G9vrqjAwl40ad0Csngtt8C8dmr0C9obv91se
-         mEQ52pCZw5oF1Rjgfo5swZEWTT/bFWLYfmL9WtB3/eOQUQCy7XcyUW1UsJozVN7Mcxck
-         UyhQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxC47/ViPHeVCRdklwg8VQKeN4TE24aYXojC27OZN1jk8lWNVFZKnf+vh0ULTbDpD7NHaxPkVII1q/2DBQ=@vger.kernel.org
-X-Gm-Message-State: AFuF++lDDgOGBHPnVT7QZ4LcBdVvo+YCUO8/s7ofFKGRFl4IFhCFWvvv
-	Xugb5QvoPkv4OgwOoMjJyymerDQkAlSe2AMBWTOR68GC7QAcHa8cb1QaEpKIEBhe2EWii4tY8Bf
-	li2eVjZ7acfXmwXqth4trfv5vNYaxm5keGeew4XOB
-X-Gm-Gg: AYBFou1h/2JQcDVfbh9rjtT/QTD3QgZEQUn8J0OL4uSUFdLr8nw37gutDk6Z3LMpgPG
-	Do9rC2yF/5qjxuZvsSUf11FurhLWPfoOhpsDW3DKD2m4Nht/vCHKGuwJMYvrmeeq+cfDv4liGxf
-	pOepKPHgZ5YqQZyroTCsn7yXsUYDiaq1SZtzqIBDxOEsIe6YbhJg5JEntjPUUHEgLnLbD6++EHH
-	2uO/5Uq8ZWMq+lt8ydZba4GPdaJXuworJo20wAxyLrNuBDr28E6K5nrKQAHeWfUjexLAG1zEell
-	8Q22FAAuWukvfc4iuBdRmgjg9F4fm95S+u7K2poOcGjofm2LJkwG8BRo
-X-Received: by 2002:a05:622a:a16:b0:531:282:6560 with SMTP id
- d75a77b69052e-5351322e1b3mr19806961cf.15.1791139160071; Sun, 04 Oct 2026
- 11:39:20 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="opYHqjey";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="XZMoQLQf";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="yGsb7mCE";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="I2G/YTgG"
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out1.suse.de (Postfix) with ESMTPS id 9365821D45;
+	Sun,  4 Oct 2026 18:39:17 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1791139161; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=+QpKr0jpUXxdiPwnneTMP6xzMhthlKHBHL8PdoYfvQI=;
+	b=opYHqjeyPkSFOoatHx0D42w0aGZBAzj2F8iK1OSDybLDCVp6QdAiWzoU3n/JtMMtc/vXLC
+	ZMa/42AwcUcsYpU37mlZSrTaufRBFeAKOshqEBvdRTrQH4s5r4tw+0aUy+25nwDtkPXn8s
+	rw8/l2tolsx2VOdyn0UF2zmjLMZW0WI=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1791139161;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=+QpKr0jpUXxdiPwnneTMP6xzMhthlKHBHL8PdoYfvQI=;
+	b=XZMoQLQfPKTqKpQpRayuH1tYaYGktJ0020QjI3j73FVC4ZNtgEOviNzJp/rdMCmTUqwaq3
+	DbR1RCyUT9vxIZCg==
+Authentication-Results: smtp-out1.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1791139157; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=+QpKr0jpUXxdiPwnneTMP6xzMhthlKHBHL8PdoYfvQI=;
+	b=yGsb7mCERCM/rX/8u2Uhk4rPl73fBgWAnASAXkADOcFsrW8ii5//4sXG3FH47dQ02vmA6e
+	XQ6bJJ6WFeOd7XZt0vyN5AogL3l7yT7mzIPTwqEJFxsl6dA/tIjYtRXtS2cH8PFUBp0ruN
+	Q7vnzvVZ5WbuGsnCPOP1Cl5n/YR5Qz8=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1791139157;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=+QpKr0jpUXxdiPwnneTMP6xzMhthlKHBHL8PdoYfvQI=;
+	b=I2G/YTgGcK6awSxNUY9+IgWEgkTWM1g2jyRw8PH3g5FTyA4KcFblnMNywCWWiwCrBJlRZ2
+	kw7CJjRSITM3LzAg==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 62BCE133CF;
+	Sun,  4 Oct 2026 18:39:17 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id mdqcD1WdwmomXwAAD6G6ig
+	(envelope-from <tiwai@suse.de>); Sun, 04 Oct 2026 18:39:17 +0000
+Date: Sun, 04 Oct 2026 20:39:02 +0200
+Message-ID: <8733ulia49.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Georg Wenzel <g.wenzel@gmail.com>
+Cc: alsa-devel@alsa-project.org,
+	linux-sound@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2] ALSA: hda/tas2781: Enable bass speakers support
+In-Reply-To: <20261004071202.89116-1-g.wenzel@gmail.com>
+References: <87cxtw2y8b.wl-tiwai@suse.de>
+	<20261004071202.89116-1-g.wenzel@gmail.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/30.2 Mule/6.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-References: <20261003-b4-mmap-prepare-vma-flag-sanify-v4-0-a1f052500fd7@kernel.org>
- <20261003-b4-mmap-prepare-vma-flag-sanify-v4-21-a1f052500fd7@kernel.org>
-In-Reply-To: <20261003-b4-mmap-prepare-vma-flag-sanify-v4-21-a1f052500fd7@kernel.org>
-From: Suren Baghdasaryan <surenb@google.com>
-Date: Sun, 4 Oct 2026 20:39:04 +0200
-X-Gm-Features: AclHuK-BFFMO7RL_23L1uoIyefqTPzoxo4liaojYggefG4PLZrnFo0OrrSwhSqQ
-Message-ID: <CAJuCfpGtyaqwi__OXcB=iy2+LUVzFnLo-Q=Rdxz728_EHdTaWA@mail.gmail.com>
-Subject: Re: [PATCH v4 21/38] uprobes: remove VM_IO, set VM_MIXEDMAP for
- mapped kernel pages
-To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-Cc: Andrew Morton <akpm@linux-foundation.org>, "Liam R. Howlett" <liam@infradead.org>, 
-	Vlastimil Babka <vbabka@kernel.org>, Jann Horn <jannh@google.com>, Pedro Falcato <pfalcato@suse.de>, 
-	David Hildenbrand <david@kernel.org>, Mike Rapoport <rppt@kernel.org>, Michal Hocko <mhocko@suse.com>, 
-	Jonathan Corbet <corbet@lwn.net>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
-	Dennis Dalessandro <dennis.dalessandro@cornelisnetworks.com>, Jason Gunthorpe <jgg@ziepe.ca>, 
-	Leon Romanovsky <leon@kernel.org>, Paul Moore <paul@paul-moore.com>, 
-	Stephen Smalley <stephen.smalley.work@gmail.com>, Jaroslav Kysela <perex@perex.cz>, 
-	Takashi Iwai <tiwai@suse.com>, Alexei Starovoitov <ast@kernel.org>, Daniel Borkmann <daniel@iogearbox.net>, 
-	Andrii Nakryiko <andrii@kernel.org>, Eduard Zingerman <eddyz87@gmail.com>, 
-	Kumar Kartikeya Dwivedi <memxor@gmail.com>, Zi Yan <ziy@nvidia.com>, 
-	Baolin Wang <baolin.wang@linux.alibaba.com>, Nico Pache <nico.pache@linux.dev>, 
-	Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>, Barry Song <baohua@kernel.org>, 
-	Lance Yang <lance.yang@linux.dev>, Usama Arif <usama.arif@linux.dev>, 
-	Kiryl Shutsemau <kas@kernel.org>, Doug Gilbert <dgilbert@interlog.com>, 
-	"James E.J. Bottomley" <James.Bottomley@hansenpartnership.com>, 
-	"Martin K. Petersen" <mkp@kernel.org>, Simona Vetter <simona@ffwll.ch>, Helge Deller <deller@gmx.de>, 
-	Sebastian Reichel <sre@kernel.org>, John Hubbard <jhubbard@nvidia.com>, Peter Xu <peterx@redhat.com>, 
-	Masami Hiramatsu <mhiramat@kernel.org>, Oleg Nesterov <oleg@redhat.com>, 
-	Peter Zijlstra <peterz@infradead.org>, Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>, 
-	Borislav Petkov <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org, 
-	Arnaldo Carvalho de Melo <acme@kernel.org>, Namhyung Kim <namhyung@kernel.org>, 
-	Mark Rutland <mark.rutland@arm.com>, Rik van Riel <riel@surriel.com>, Harry Yoo <harry@kernel.org>, 
-	Juri Lelli <juri.lelli@redhat.com>, Vincent Guittot <vincent.guittot@linaro.org>, 
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, 
-	Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, Will Deacon <will@kernel.org>, 
-	"Aneesh Kumar K.V" <aneesh.kumar@kernel.org>, Nick Piggin <npiggin@gmail.com>, 
-	Arnd Bergmann <arnd@arndb.de>, Muchun Song <muchun.song@linux.dev>, 
-	Oscar Salvador <osalvador@suse.de>, "Matthew Wilcox (Oracle)" <willy@infradead.org>, Jan Kara <jack@suse.cz>, 
-	Marc Zyngier <maz@kernel.org>, Oliver Upton <oupton@kernel.org>, 
-	Catalin Marinas <catalin.marinas@arm.com>, Madhavan Srinivasan <maddy@linux.ibm.com>, 
-	Anup Patel <anup@brainfault.org>, Paul Walmsley <pjw@kernel.org>, 
-	Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, 
-	Christian Borntraeger <borntraeger@linux.ibm.com>, Janosch Frank <frankja@linux.ibm.com>, 
-	Claudio Imbrenda <imbrenda@linux.ibm.com>, Alexander Gordeev <agordeev@linux.ibm.com>, 
-	Gerald Schaefer <gerald.schaefer@linux.ibm.com>, Heiko Carstens <hca@linux.ibm.com>, 
-	Vasily Gorbik <gor@linux.ibm.com>, "David S. Miller" <davem@davemloft.net>, 
-	Andreas Larsson <andreas@gaisler.com>, Alexander Viro <viro@zeniv.linux.org.uk>, 
-	Christian Brauner <brauner@kernel.org>, Matthew Brost <matthew.brost@intel.com>, 
-	Joshua Hahn <joshua.hahnjy@gmail.com>, Rakie Kim <rakie.kim@sk.com>, 
-	Byungchul Park <byungchul@sk.com>, Gregory Price <gourry@gourry.net>, 
-	Ying Huang <ying.huang@linux.alibaba.com>, Alistair Popple <apopple@nvidia.com>, 
-	Chris Li <chrisl@kernel.org>, Kairui Song <kasong@tencent.com>, 
-	Kemeng Shi <shikemeng@huaweicloud.com>, Nhat Pham <nphamcs@gmail.com>, 
-	Baoquan He <baoquan.he@linux.dev>, Youngjun Park <youngjun.park@lge.com>, 
-	Johannes Weiner <hannes@cmpxchg.org>, Qi Zheng <qi.zheng@linux.dev>, 
-	Shakeel Butt <shakeel.butt@linux.dev>, Axel Rasmussen <axelrasmussen@google.com>, 
-	Yuanchu Xie <yuanchu@google.com>, Wei Xu <weixugc@google.com>, 
-	Chengming Zhou <chengming.zhou@linux.dev>, Michal Hocko <mhocko@kernel.org>, 
-	Miklos Szeredi <miklos@szeredi.hu>, Xu Xin <xu.xin@linux.dev>, linux-mm@kvack.org, 
-	linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org, 
-	linux-usb@vger.kernel.org, linux-rdma@vger.kernel.org, 
-	selinux@vger.kernel.org, linux-sound@vger.kernel.org, bpf@vger.kernel.org, 
-	linux-scsi@vger.kernel.org, linux-fbdev@vger.kernel.org, 
-	dri-devel@lists.freedesktop.org, linux-trace-kernel@vger.kernel.org, 
-	linux-perf-users@vger.kernel.org, linux-arch@vger.kernel.org, 
-	linux-fsdevel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
-	kvmarm@lists.linux.dev, linuxppc-dev@lists.ozlabs.org, kvm@vger.kernel.org, 
-	kvm-riscv@lists.infradead.org, linux-riscv@lists.infradead.org, 
-	linux-s390@vger.kernel.org, sparclinux@vger.kernel.org, 
-	fuse-devel@lists.linux.dev
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+X-Spamd-Result: default: False [-3.30 / 50.00];
+	BAYES_HAM(-3.00)[99.99%];
+	MID_CONTAINS_FROM(1.00)[];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	NEURAL_HAM_SHORT(-0.20)[-0.993];
+	MIME_GOOD(-0.10)[text/plain];
+	ARC_NA(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	FREEMAIL_TO(0.00)[gmail.com];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	FREEMAIL_ENVRCPT(0.00)[gmail.com];
+	RCPT_COUNT_THREE(0.00)[4];
+	TO_DN_SOME(0.00)[];
+	FROM_EQ_ENVFROM(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	RCVD_TLS_ALL(0.00)[];
+	RCVD_COUNT_TWO(0.00)[2];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	TAGGED_RCPT(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:mid]
+X-Spam-Score: -3.30
+X-Spam-Level: 
+X-Spam-Flag: NO
 
-On Sat, Oct 3, 2026 at 6:40=E2=80=AFPM Lorenzo Stoakes (ARM) <ljs@kernel.or=
-g> wrote:
->
-> These are not MMIO pages so VMA_IO_BIT is an inappropriate flag to set.
->
-> Instead, set them VMA_MIXEDMAP_BIT as they are kernel mappings and this i=
-s
-> the appropriate flag to set for those.
->
-> This provides the semantics required - no VMA merging is permitted, but
-> does not prevent GUP.
->
-> However this has no meaningful impact as these are refcounted and thus ca=
-n
-> be GUPed.
->
-> A previous commit already prevented __mm_populate() from being invoked on
-> XOL areas, which VMA_IO_BIT was previously relied upon to do, so that is =
-no
-> longer required.
->
-> Both VMAs set a VMA name, so always_dump_vma() returns true before
-> vma_dump_size() reaches its VMA_IO_BIT check, and thus there is no change
-> in core dump behaviour.
->
-> Change this for both the core xol_add_vma() function and the x86-specific
-> get_uprobe_trampoline() function.
->
-> Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+On Sun, 04 Oct 2026 09:12:00 +0200,
+Georg Wenzel wrote:
+> 
+> Configure the driver to correctly initialize and enable the bass speakers
+> on devices utilizing the TAS2781 amplifier. Without this change, only the
+> tweeters or main speakers are active, leading to thin audio output.
+> 
+> Set up the required register sequences and routing to ensure the bass
+> channels are properly powered and mixed into the audio stream.
+> 
+> Signed-off-by: Georg Wenzel <g.wenzel@gmail.com>
 
-Reviewed-by: Suren Baghdasaryan <surenb@google.com>
+Applied to for-next branch.  Thanks.
 
 
-> ---
->  arch/x86/kernel/uprobes.c | 2 +-
->  kernel/events/uprobes.c   | 4 ++--
->  2 files changed, 3 insertions(+), 3 deletions(-)
->
-> diff --git a/arch/x86/kernel/uprobes.c b/arch/x86/kernel/uprobes.c
-> index 65a2de82ecd2..0f60c0d076b6 100644
-> --- a/arch/x86/kernel/uprobes.c
-> +++ b/arch/x86/kernel/uprobes.c
-> @@ -715,7 +715,7 @@ static struct vm_area_struct *get_uprobe_trampoline(s=
-truct mm_struct *mm, unsign
->
->         *new_mapping =3D true;
->         return _install_special_mapping(mm, vaddr, PAGE_SIZE,
-> -                               VM_READ|VM_EXEC|VM_MAYEXEC|VM_MAYREAD|VM_=
-IO,
-> +                               VM_READ|VM_EXEC|VM_MAYEXEC|VM_MAYREAD|VM_=
-MIXEDMAP,
->                                 &tramp_mapping);
->  }
->
-> diff --git a/kernel/events/uprobes.c b/kernel/events/uprobes.c
-> index 7709ea882477..b89cc5cee002 100644
-> --- a/kernel/events/uprobes.c
-> +++ b/kernel/events/uprobes.c
-> @@ -1726,8 +1726,8 @@ static int xol_add_vma(struct mm_struct *mm, struct=
- xol_area *area)
->         }
->
->         vma =3D _install_special_mapping(mm, area->vaddr, PAGE_SIZE,
-> -                               VM_EXEC|VM_MAYEXEC|VM_DONTCOPY|VM_IO|
-> -                               VM_SEALED_SYSMAP,
-> +                               VM_EXEC|VM_MAYEXEC|VM_DONTCOPY|
-> +                               VM_MIXEDMAP|VM_SEALED_SYSMAP,
->                                 &xol_mapping);
->         if (IS_ERR(vma)) {
->                 ret =3D PTR_ERR(vma);
->
-> --
-> 2.55.0
->
+Takashi
