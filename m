@@ -1,146 +1,144 @@
-Received: from mail-dy2-f43.google.com (mail-dy2-f43.google.com [74.125.229.43])
+Received: from mail-ej1-f54.google.com (mail-ej1-f54.google.com [209.85.218.54])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 18B633E168F
-	for <linux-kernel@vger.kernel.org>; Sun,  4 Oct 2026 03:20:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.43
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791084056; cv=none; b=OHsBA1+Gv66g+44HOCJnDRaKoDIyku6k/5udbAVe9rBQ2JsgvN1zzIeTwDIlrccq/YgrjS02yD9QU/L+jh1Kpjn2nQOio9cpYgArolLylBu4SaOydiCWqvUnqg2HuEfevkFsWhIhLhDwFSxlTvfQmUp2Qbv839d0iVzXikcn/SE=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791084056; c=relaxed/simple;
-	bh=ZuoVLXI9mZ7Ed8I5MUuPHCLNfDIzZ0wmyd2KS2Qgu5M=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=bMN7XeZAWKpFuHhz0xzh6IJDL15Voe/ocSPMKaLRT4QuUGS4jpe+4ydpRMl8nTNlwtwmHPuaIu7huW80n4ZtxsxzkG1YQCNg/Um891/HQ9fK9Ijhll2dHSQOCaqYebQX8Y5d/f12SZmwmYUR6Fg/kFYeRY8ypXdZgkLOZcWYSo8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=B0XgZHiw; arc=none smtp.client-ip=74.125.229.43
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9FE9033998
+	for <linux-kernel@vger.kernel.org>; Sun,  4 Oct 2026 03:30:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.218.54
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791084645; cv=pass; b=ptYKb+JWQZwESoT6P5tAe2nVBlnepnBCdtsGXUQqUEGoLO9R4fC7DJ7kXTTo7R6ZbtZD/HPt4+YooifcQTTIZ//ARYJlL287B4JEZpLqeFczS3Qtb7yyqkzGxg1JskueSglKsU7hvmX9vOZc4iu3SUjmZlCgnsfaiRI/dBN0e1I=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791084645; c=relaxed/simple;
+	bh=C3qe6xrBttWpE47/cr80mPV4srst/5FkKQdl15lo4VM=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=BtxeP6BBS4HQSywAQ2qtR1eCqAyIsnzmg0I3U/FoFtg3CH2vyJ3UlWpMZwpj27eJLmyZUIly9a/mIFlnL0WYpE3d20dpMp/3VxBNFF3VaR/l2uN16J2RQMfT52qi5OPD7tC3Vxun0y92n65mGf/5P8nRraHrpCMzndYRWU5jcvE=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=b+Zs8GyX; arc=pass smtp.client-ip=209.85.218.54
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="B0XgZHiw"
-Received: by mail-dy2-f43.google.com with SMTP id 5a478bee46e88-33c11ef641aso926623eec.1
-        for <linux-kernel@vger.kernel.org>; Sat, 03 Oct 2026 20:20:55 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="b+Zs8GyX"
+Received: by mail-ej1-f54.google.com with SMTP id a640c23a62f3a-c1670dad7a8so151485466b.3
+        for <linux-kernel@vger.kernel.org>; Sat, 03 Oct 2026 20:30:43 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1791084642; cv=none;
+        d=google.com; s=arc-20260327;
+        b=etCHfneNXE4021gylvenybewKNT7zmHKmfzuBkb8v0crFRrDspfVwHR6Zmevc5EcO/
+         YjKwkxnGuBTZDwuSazeZmVrB/LspQYXR8eOpEqxJjtIZjswW/Kfey18DL6hfnZLX1pah
+         hrCnI9Iuvvy/6+n/ou9lyMtV+nHDgOl9O5vlTdlK7dZbQ0EpaeDcljjtfHZwtkkcHwMW
+         dZnfUU2TyYlezdhnKJTup7vP/MPaa+S6gu4e+IS19+MS6wzvDjj97qjzB5lOc2n9TqzQ
+         tgOD0WSQM88qOfAlrXGeO2YEGtevJjSgj6Zju6kOiZzgUeT99JaOxJvhOV7HvOay6Mzf
+         wBXA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=ocMEG1JQitysYEbxaeOoYgeb6SO1YjUdEbtsSzCE3S8=;
+        fh=gy1lrbcsI/U3/UpUB6RlB5U5uZFWsfOPPYuu6ViWIgs=;
+        b=dJZv57+qQ8mVkQOqT+AXDd7Wgy5ZvwJGdcVe+tNU6F8h2rSsw97xUWImFxBogD0mkt
+         Xy+sEGBE79D6pBJQ2THSwPB+0QQ8eIW4licN9e3yyidwyGJJSL2U6OzkkpTFZVad6J8y
+         EpXAqe+qlgKx1G0vTE0VW9/EbUF9Fgx0xVIQM2/Xm3nUfz5HjcG48cAqEo/06Gj2aJUS
+         N6p7+1/ggTqboUKI244v5e9jS8Dp56C91WrUeN/kxSmZoIeNxmhhpcekk/yhmX6ldc/J
+         MW0P6FkHzjxcbL6iEQdGWO761rHfhtHMz/wDuuC6Voxz0NRD4pDz6k5Ps3wWmiazlo+E
+         gE+g==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791084054; x=1791688854; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+        d=gmail.com; s=20251104; t=1791084642; x=1791689442; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=x2thzfSt5QLT8HAsgWdixq/Y9P05apsvpgjsWLwXNuo=;
-        b=B0XgZHiwIuXftckS6QbH+LUuWK7NJZDT3/wKixb7SF2xgjN+IcAmACMyKp3RMn14Go
-         op8+gW0fVXk5In3Gk89F36XPaIhwDc4TYGoaIOsSBpRS2j6CRj6GZUG5305h4dTrsLCO
-         GqJ7Fz6CvTGCBXVHAGDkOQTO8hNn37AvcVSWejREOxelnu7OgwXs13R6mbEIZM2QOcEA
-         FYT05de1UJGniKCblrixXDM3hguvsd9VI2Y1fVaeoiyYOxnQ7qge7S/dK7WLirdrhLkh
-         c/No4shSCuZfOUkHMeiHi5g3ESe6S6RVvZxODTLSSige2A7MVdGT5u74ND/C3RW3a1sW
-         jQgQ==
+        bh=ocMEG1JQitysYEbxaeOoYgeb6SO1YjUdEbtsSzCE3S8=;
+        b=b+Zs8GyXKGtphecIfxq1xDM5EgrLYTw9lH/cKWK028H99nPv/8INSTssARC0sKSEoU
+         mQI+6ci2dRUIQ4JOMQWZOav0mtghWCek1h4LoUHZeKryk/VjgD9hFD8LraoIhgnBUebR
+         tx1ckS+d0Y1t1KgGiw54vupXVSj3f3nhYwdtNcrs6npVB384NDA+47DKy7FlRU68LgZr
+         JHGx5kEjdG/1TE5Zj2pXXEU356vFhlHQhH9OpGug1pUU/OpTc2P5RHDgSs+MTqaqmx10
+         W1Z7WBAXuC57dYTeTC4blwjEFdwuaLlvEKu3K3VdV+4fhqj2od1rCepR7sZNbNh+MqQr
+         h/Bg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791084054; x=1791688854;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
+        d=1e100.net; s=20260707; t=1791084642; x=1791689442;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=x2thzfSt5QLT8HAsgWdixq/Y9P05apsvpgjsWLwXNuo=;
-        b=2V0sax48D0shMJ+4GnjfPklbU25I/R8ip9RXXvQcaZpdmd2FBrjTnIKmoodCklhGzI
-         temzXsjgAJ9HHycMS6Xwh9KMdVV/WingoM479FjjnekPGiKZjsRwD06nxBZYnSOP7eM9
-         4tdtWp8zM0S9NdiF/BiF2YZ9iiLpG15hU/ykwgUsIChci2T1Yx+oUK4HQ8wBsQKuToy4
-         rzfIW+opeJ7HTb1QFH4+p7ip6mZQoKdRRlMshRe7G+51npu/vui27+KTjXIh1MN/+qES
-         5M9kV8CnHsDveQp1DnbCFS1RUJZlBLhpLflHqWnUUlkW3/PE/1zEu4xrzB0AQGPKX3tj
-         6oCQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzpvWpBKu5s+RWegQWCyk4Xi1JxJ3tOdvZmaRG9VyFxTwH02PnruvoG7CnNCbEfQD5NRXkCDGWq1OAiPmU=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKRPA46jYZiY8/e0xSa8oG5NEnB2PeR9eVA7VnmI7HIvqvZdcVj
-	krKCrW8wWr2eXzlBePUjt9m0JODzdZb0wh/P65oNpo+UeiqmvLXg+/eq
-X-Gm-Gg: AYBFou2+eyPB10PqY9YgsTOIZMKNA7vdAk7/H1gxbB1D7jY6Bk9Qu3Kk8RODAEX9frK
-	+qYlmY14XXds2MCbvJ4yBj1lIg9WTGzE4fqiBbQ1NUjt0LCEWs721nUrue/EFSVHaftFn1uLOZj
-	P/8P8ciEfBlM3Nb0zVsWYM6Jr03xAKGXPQiiDPHDOspq2NoQ11c840NIR40UPIiz7o6VdPzbpnh
-	N+9ziu3q5CfJ5hhtVuy3Ngv2SAQqwrRODBRA2zk4iIt4Jh94cWa/WccPwhMXbh0GqCV8OqYuEi+
-	ppqLl1X+HYuba6Ic12qlwHak2yGIvFA4K11h7ZkpB7u/hxE9435RDv9GRarRQXdeMkwBTeSXeRG
-	S/6lXeRimHd8R7hJHzoVfkaZqR63NOGXpwO0UpX21nRDcjys3qmcKo3JkLC+3RK76hdUqlBWEmv
-	VqvsrVZ5Aea5KmFrRtn5t8ba8LzabOB27vyranO4ZPmXODGcbXKOy9DL7c+YutTYc14pbBSfP8E
-	wKAUZ6KF+BduClhU04=
-X-Received: by 2002:a05:7300:6a90:b0:339:8131:424e with SMTP id 5a478bee46e88-34f2185ad93mr8712750eec.34.1791084054190;
-        Sat, 03 Oct 2026 20:20:54 -0700 (PDT)
-Received: from kernel ([103.219.206.69])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-351272bb9basm1070301eec.24.2026.10.03.20.20.50
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 03 Oct 2026 20:20:53 -0700 (PDT)
-Date: Sun, 4 Oct 2026 08:50:47 +0530
-From: Mohamad Raizudeen <raizudeen.kerneldev@gmail.com>
-To: "Jason A. Donenfeld" <Jason@zx2c4.com>
-Cc: ebiggers@kernel.org, ardb@kernel.org, skhan@linuxfoundation.org,
-	me@brighamcampbell.com, jkoolstra@xs4all.nl,
-	linux-crypto@vger.kernel.org, linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH] crypto: chacha20poly1305 - Fix missing state zeroization
- in xchacha decrypt
-Message-ID: <asHGD1_z-N9k0czy@kernel>
-References: <20261003060826.7792-1-raizudeen.kerneldev@gmail.com>
- <asFj6Nxf6fglYfor@zx2c4.com>
+        bh=ocMEG1JQitysYEbxaeOoYgeb6SO1YjUdEbtsSzCE3S8=;
+        b=iI28NHFxC1gBhAeU7hUfizbmm4F702dTPchD5eAcqwTxLHAMxGrRacl2O2UkLfnKaI
+         wHQHi3RswErcG7LO96l1UA+kB7+Eu6iVs0qAwTdOzOqLSy/VqyCQPKEZsw7QT40+s5oj
+         09dUCktW3JxDoUvJOVgH5BuPKddasZJZ2zoU73Q4GaNKlRdytxI1KBkyeoBrkg4i93h8
+         ku9I3Lq8l+m1lIULT4VWsnnRHmwibFGxtLUaEIyrKEcNu0TffKaCjpg2z70YYZBLllpm
+         zGRFwg75uLZNKe2G+YyA4HdYolmmUP9Ts3UDqXD4qggFvc9crcaYkXzuk2txRiMX/aaM
+         gXTQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzTaPYVvFgsy55NskJDCTEZsSg0tLj5/UPbVvu2XCbknxA1rWL61XQRo0HOP/9ywxxri7SGZA0WtVpGvxw=@vger.kernel.org
+X-Gm-Message-State: AFuF++m1OVyL16ibEBBlj9715Y1MCIozFYZW9PzCbEi/S86j/36PWxV7
+	/FBI2eRZDGpI2ka3T1RBfeoT7ERl1sDpCvdBjsAfmFxZDdHkkedBfrIOPZcNb1Miei8V6NzhGFj
+	aYiLOGic/JJr7k48vQYvYWObHAgCGpV0=
+X-Gm-Gg: AYBFou3Ol/oD4dC3LrQprr/XtoQg9n6VkJpjBvneePJnxbS0+9VYDOyWhyGTLIneOqT
+	N9zzmss7TJS4E47BuvLWI4s5aWmJHSdPGD6SYV0WeqrCGudVWxyKEHxErf2Sox1v4yJWHSGJo0J
+	5cSbkKQpRu6kNh5ZibbrwbBEc9xBFTNYJBY+hPJjubGzXZfX52QHicAnl11mB8q5vXgMbvnmvB2
+	eTEhCnwWpgjKO1X5bw3PjejxKC+ItHE3coFxnIUngcya4iQPKpn6WpITDDRpn/FVHb2Ll36Iy8R
+	dX4UoWREMQr0alRGcXmSl6wjDWFgI0VOJtu5Q1QSy/FY5qDjiWN0PpLPTxUt4vslqy7JieySubj
+	bofkTMd4+PIsczabciLM=
+X-Received: by 2002:a17:907:97d3:b0:c29:45f6:6a0b with SMTP id
+ a640c23a62f3a-c2e6edba366mr293421166b.34.1791084641659; Sat, 03 Oct 2026
+ 20:30:41 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <asFj6Nxf6fglYfor@zx2c4.com>
+References: <20261003-mglru-fg-v3-0-cbd4546a5bd9@tencent.com>
+ <20261003-mglru-fg-v3-15-cbd4546a5bd9@tencent.com> <DLVOTZLINBSQ.2FBQBO7G548GA@nvidia.com>
+In-Reply-To: <DLVOTZLINBSQ.2FBQBO7G548GA@nvidia.com>
+From: Kairui Song <ryncsn@gmail.com>
+Date: Sun, 4 Oct 2026 11:30:05 +0800
+X-Gm-Features: AclHuK_0vu692Azs09lD-vnP7S-2xAgVgXDUAR3MwsA-IVgdqMPkuZxdr53J7D4
+Message-ID: <CAMgjq7CNpFbtU5X5bhjMFgb6qcgw0yuLbw73mKOCkE9tpMohkg@mail.gmail.com>
+Subject: Re: [PATCH RFC v3 15/17] mm/khugepaged: check folio referenced state
+ via LRU refs under MGLRU
+To: Zi Yan <ziy@nvidia.com>
+Cc: linux-mm@kvack.org, Andrew Morton <akpm@linux-foundation.org>, 
+	Johannes Weiner <hannes@cmpxchg.org>, Muchun Song <muchun.song@linux.dev>, 
+	Qi Zheng <qi.zheng@linux.dev>, Ying Huang <ying.huang@linux.alibaba.com>, 
+	Chris Li <chrisl@kernel.org>, Baoquan He <baoquan.he@linux.dev>, 
+	Nico Pache <nico.pache@linux.dev>, Usama Arif <usama.arif@linux.dev>, 
+	Michal Hocko <mhocko@kernel.org>, Roman Gushchin <roman.gushchin@linux.dev>, 
+	Shakeel Butt <shakeel.butt@linux.dev>, David Hildenbrand <david@kernel.org>, 
+	Lorenzo Stoakes <ljs@kernel.org>, Barry Song <baohua@kernel.org>, 
+	Axel Rasmussen <axelrasmussen@google.com>, Yuanchu Xie <yuanchu@google.com>, 
+	Wei Xu <weixugc@google.com>, Vlastimil Babka <vbabka@kernel.org>, 
+	Suren Baghdasaryan <surenb@google.com>, Kemeng Shi <shikemeng@huaweicloud.com>, 
+	Nhat Pham <nphamcs@gmail.com>, Youngjun Park <youngjun.park@lge.com>, 
+	Gregory Price <gourry@gourry.net>, "Matthew Wilcox (Oracle)" <willy@infradead.org>, 
+	Baolin Wang <baolin.wang@linux.alibaba.com>, Ryan Roberts <ryan.roberts@arm.com>, 
+	Dev Jain <dev.jain@arm.com>, Lance Yang <lance.yang@linux.dev>, Hugh Dickins <hughd@google.com>, 
+	SeongJae Park <sj@kernel.org>, David Rientjes <rientjes@google.com>, Yu Zhao <yuzhao@google.com>, 
+	Vernon Yang <vernon2gm@gmail.com>, Zicheng Wang <wangzicheng@honor.com>, 
+	Chen Ridong <chenridong@xiaomi.com>, Tal Zussman <tz2294@columbia.edu>, 
+	Xiang Liu <liuxiang.277@bytedance.com>, Ehab Ababneh <ehab.ababneh@intel.com>, 
+	zhaozhengzhuo <zhaozhengzhuo@uniontech.com>, Lian Wang <lianux.mm@gmail.com>, 
+	Kunwu Chan <kunwu.chan@gmail.com>, linux-kernel@vger.kernel.org, 
+	cgroups@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Sat, Oct 03, 2026 at 10:22:00PM +0200, Jason A. Donenfeld wrote:
-> On Sat, Oct 03, 2026 at 11:38:26AM +0530, Mohamad Raizudeen wrote:
-> > The `__chacha20poly1305_decrypt` function does not zeroize the chacha
-> > state, unlike its encrypt counterpart. The regular
-> > `chacha20poly1305_decrypt` function handles this by manually calling
-> > chacha_zeroize_state(). However, `xchacha20poly1305_decrypt` returns
-> > the result directly without clearing the state.
-> > 
-> > This leaves the derived chacha20 subkey on the stack after the function
-> > returns. Fix this by storing the return value, calling
-> > chacha_zeroize_state() and then returning the result, matching the
-> > logic in `chacha20poly1305_decrypt`.
-> > 
-> > Fixes: ed20078b7e333 ("crypto: chacha20poly1305 - import construction and selftest from Zinc")
-> > Cc: stable@vger.kernel.org
-> > Signed-off-by: Mohamad Raizudeen <raizudeen.kerneldev@gmail.com>
-> > ---
-> >  lib/crypto/chacha20poly1305.c | 5 ++++-
-> >  1 file changed, 4 insertions(+), 1 deletion(-)
-> > 
-> > diff --git a/lib/crypto/chacha20poly1305.c b/lib/crypto/chacha20poly1305.c
-> > index ea42a28f4ff7..03b14d272520 100644
-> > --- a/lib/crypto/chacha20poly1305.c
-> > +++ b/lib/crypto/chacha20poly1305.c
-> > @@ -199,10 +199,13 @@ bool xchacha20poly1305_decrypt(u8 *dst, const u8 *src, const size_t src_len,
-> >  			       const u8 key[at_least CHACHA20POLY1305_KEY_SIZE])
-> >  {
-> >  	struct chacha_state chacha_state;
-> > +	bool ret;
-> >  
-> >  	xchacha_init(&chacha_state, key, nonce);
-> > -	return __chacha20poly1305_decrypt(dst, src, src_len, ad, ad_len,
-> > +	ret = __chacha20poly1305_decrypt(dst, src, src_len, ad, ad_len,
-> >  					  &chacha_state);
-> > +	chacha_zeroize_state(&chacha_state);
-> > +	return ret;
-> >  }
-> >  EXPORT_SYMBOL(xchacha20poly1305_decrypt);
-> 
-> In my memory, the reason it's like this is because for WireGuard,
-> xchapoly is just being used to encrypt a cookie value, which has no
-> forward secrecy concerns at all. So it doesn't matter if it's left
-> around on the stack.
-> 
-> Are there other use cases, though, where you think it might matter?
-> 
-> Jason
+On Sun, Oct 4, 2026 at 6:11=E2=80=AFAM Zi Yan <ziy@nvidia.com> wrote:
+>
+> On Sat Oct 3, 2026 at 8:55 AM EDT, Kairui Song via B4 Relay wrote:
+> > From: Kairui Song <kasong@tencent.com>
+> >
+> > For MGLRU, PG_referenced is only the lowest bit of the folio LRU refs
+> > count, so folios with a higher refs count no longer have the bit set.
+> > folio_pte_referenced() testing the raw bit misses hot folios at
+> > refs >=3D 2, under-counting the referenced folios of a candidate range
+> > and aborting otherwise good collapses with SCAN_LACK_REFERENCED_PAGE.
+> >
+> > Test the refs count directly when MGLRU is enabled, mirroring the
+> > smaps conversion.  The classical LRU keeps the plain bit test.
+>
+> Why not reuse the smaps helper function? You can rename the helper to
+> check_folio_referenced() for general use.
+>
 
-No, none that exist today. The only in-tree callers are the wireguard
-cookie code and the kunit test and I agree the cookie has no forward
-secrecy concerns. My only thought is that the function is
-EXPORT_SYMBOL()ed, so a future caller with a long term key would leave
-the derived subkey on the stack and since chacha20poly1305_decrypt()
-already wipes the state, having the xchacha variant do the same seemed
-like safer default.
+That's a very nice idea, will use that.
 
-Also, Eric requested a v2 that moves the zeroization into the helper
-function for consistency with the encrypt path, so I will be sending
-that out shortly.
-
-Thanks,
-Mohamad Raizudeen
+> --
+> Best Regards,
+> Yan, Zi
+>
