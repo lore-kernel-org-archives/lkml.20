@@ -1,207 +1,106 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.14])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 088163A2E2B
-	for <linux-kernel@vger.kernel.org>; Sun,  4 Oct 2026 12:55:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.14
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D2DE84156F0;
+	Sun,  4 Oct 2026 12:56:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791118546; cv=none; b=LOt9TeD+57cU7awKciy6Fa6Xui/Rn8ZIUo217a/HGqrdzzj4GBUOz6+5ZbkJptcikN8ZUi4VOXhtYs9uo9cf1Kr4K7mEn6udirV/CApYqC+tpPzJ4eT/N/OQ3PFSXfug32rYd2ckGiktCuPeDBMskXZZ05U/Lf20enauk3WdiFs=
+	t=1791118566; cv=none; b=LXvJIuUSj1zbz+B66D+uaZL9a0XSJAuGPJ+WokueTtHqL1INn3xwCfkE6SWsA1rSQTJu03eWoMUQDRJas1Vp493G9zH5PaA7fO+6Auf/VxXms22YPo+YCEGYjQpohAGMQQtHGALA1Mui/V/fUUThl8c7Ed/pIbzUDFck8qW20Ks=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791118546; c=relaxed/simple;
-	bh=4ZvQeSN/AuTA//R5gZ1ky9FRUHjS6KAfM7yHmQhXenI=;
-	h=Date:From:To:Cc:Subject:Message-ID; b=BOkLMzzKjYBGHTtov/yxLESAgwHPNNw2CE658J9Hml/df7vTv5x2ynD0LT/pIuB66+Hr2oaUFXqrs93zAJRXaq+dsaekDt3Sxcfr7sqGUX11zUPeKuGHz9suO4a3pWsZHtifTQNBMpSjpY14tOiqpT51EdCGa0HkcTJXuJn9ZZU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=OwiMDjQ3; arc=none smtp.client-ip=192.198.163.14
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1791118566; c=relaxed/simple;
+	bh=a7fEkya+eiLiIllDm+mhWmrv3McI5X/eL0cHkPiNtyw=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Yd1WD4vL8XEHK70Gj4LDsJA3istKsSDTC8XKdxzpEWa1kI3W6xryg8RGvhFE4s1307UYy6Rq/dlc+DuEq9aSCLY9kREGT50zklIWoNWufnlRa8x0WnQ1s2d+z13/pk1gDpkvrzF3A/wPIu1JKdQBo9mBMobPdKOHi8RixBaKWIg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=yshBgo+i; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="OwiMDjQ3"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1791118544; x=1822654544;
-  h=date:from:to:cc:subject:message-id;
-  bh=4ZvQeSN/AuTA//R5gZ1ky9FRUHjS6KAfM7yHmQhXenI=;
-  b=OwiMDjQ3h0LuMa/oZD20vJH3xPO0AiCNLlhpH/Fubrz/tiih74XUZOHV
-   17CITmtWelEkbvLj3O3aWSDR9vOKi5zFBUf6Enzw7ATFyEvKBx/BDnvwK
-   GZaTnN/Vv0SquUB7G4tWfqE2PG1z2p7MXZ+WnTMVh7k8DfWNogJcp0WFW
-   U5iYA6l4oi8y0oQ3hAZt3TYIVY6UWjrt4q71CDTgfxdNJw3X19gOtHkHv
-   rNufbycdpKsO6UgOql8sVUKzc5PW+31rX9KzqwMNwaD1QC5/SoIj9eQso
-   nvdICuK746IYIMac/lrR1811C6mnGJKucnGQrlObGu8fbhRNqCZzNw3/k
-   g==;
-X-CSE-ConnectionGUID: E9t05/l6SFuG8N874QxpDQ==
-X-CSE-MsgGUID: ZfhNerfQTwGEN7c2CZRDvQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11924"; a="91833566"
-X-IronPort-AV: E=Sophos;i="6.27,139,1787036400"; 
-   d="scan'208";a="91833566"
-Received: from orviesa003.jf.intel.com ([10.64.159.143])
-  by fmvoesa108.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 04 Oct 2026 05:55:43 -0700
-X-CSE-ConnectionGUID: q4sxPY5SQ/y3J1j1+Qnh2Q==
-X-CSE-MsgGUID: fkrpoOoiT66uRoOMZBXyRQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,139,1787036400"; 
-   d="scan'208";a="279870939"
-Received: from igk-lkp-server01.igk.intel.com (HELO 3a02ec7efc9f) ([10.211.93.152])
-  by orviesa003.jf.intel.com with ESMTP; 04 Oct 2026 05:55:41 -0700
-Received: from kbuild by 3a02ec7efc9f with local (Exim 4.98.2)
-	(envelope-from <lkp@intel.com>)
-	id 1xDLkh-000000000IH-0C5I;
-	Sun, 04 Oct 2026 12:55:39 +0000
-Date: Sun, 04 Oct 2026 14:54:42 +0200
-From: kernel test robot <lkp@intel.com>
-To: Rosen Penev <rosenp@gmail.com>
-Cc: oe-kbuild-all@lists.linux.dev, linux-kernel@vger.kernel.org,
- Thomas Bogendoerfer <tsbogend@alpha.franken.de>,
- Sergio Paracuellos <sergio.paracuellos@gmail.com>
-Subject: arch/mips/ralink/mt7621.c:68:13: sparse: sparse: cast
- removes address space '__iomem' of expression
-Message-ID: <202610041411.uJXWXF8i-lkp@intel.com>
-User-Agent: s-nail v14.9.25
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="yshBgo+i"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EF7871F000FF;
+	Sun,  4 Oct 2026 12:56:03 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1791118564;
+	bh=+zyDIlut7TP1j+n//D3AqYQMcrNu+Ijij1LbJXSVLPI=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=yshBgo+i7fF7Shqs12G8SVVUGuFA0fiV1ORRHZWol+yLghFe+eEKrWR1jHQBAbZx5
+	 0IXkME2pCN9M1ylMuwoI+Jge97xNtEsp7cbgPLkBIeJWRkRN2n8tEOsm8kknusl5PJ
+	 PKdD0KLV9Kyk0v4r/cgujjMK3/hDbeT1dm5w5Qis=
+Date: Sun, 4 Oct 2026 14:56:00 +0200
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: sungbyeongchan <tjdqudcks0424@naver.com>
+Cc: German Maglione <gmaglione@redhat.com>, Vivek Goyal <vgoyal@redhat.com>,
+	Stefan Hajnoczi <stefanha@redhat.com>,
+	Miklos Szeredi <miklos@szeredi.hu>,
+	Eugenio =?iso-8859-1?Q?P=E9rez?= <eperezma@redhat.com>,
+	virtualization@lists.linux.dev, fuse-devel@lists.linux.dev,
+	linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] virtiofs: validate fixed-output response length
+Message-ID: <2026100445-cataract-anthem-8edb@gregkh>
+References: <20261004123405.586168-1-tjdqudcks0424@naver.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261004123405.586168-1-tjdqudcks0424@naver.com>
 
-tree:   https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git master
-head:   6addb4f385570ebc11c4eb499a4f1c149f313e84
-commit: 4ddaf88aadd3bd09c2eb3734c53d2864af6b144e mips: ralink: mt7621: add missing __iomem
-date:   4 months ago
-config: mips-randconfig-r2304-20261004 (https://download.01.org/0day-ci/archive/20261004/202610041411.uJXWXF8i-lkp@intel.com/config)
-compiler: mips-linux-gcc (GCC) 8.5.0
-sparse: v0.6.5-rc1
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20261004/202610041411.uJXWXF8i-lkp@intel.com/reproduce)
+On Sun, Oct 04, 2026 at 09:34:05PM +0900, sungbyeongchan wrote:
+> A short successful virtiofs response can leave the fixed-output
+> portion of the request argument buffer unwritten. The completion path
+> nevertheless copies the full declared output to the request destination,
+> allowing stale allocator contents to reach callers such as
+> fuse_statfs().
+> 
+> Require successful fixed-output responses to contain their complete
+> declared output. Continue to permit a shorter final argument only for
+> out_argvar requests, and do not copy output arguments from error
+> replies.
+> 
+> A header-only FUSE_STATFS success returned stale fields in nine of
+> nine calls across three boots. The patched kernel rejected the short
+> response in three boots and preserved complete replies and existing
+> error controls.
+> 
+> Fixes: a62a8ef9d97d ("virtio-fs: add virtiofs filesystem")
+> Signed-off-by: sungbyeongchan <tjdqudcks0424@naver.com>
+> ---
+>  fs/fuse/virtio_fs.c | 26 ++++++++++++++++++++++++++
+>  1 file changed, 26 insertions(+)
+> 
 
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Fixes: 4ddaf88aadd3 ("mips: ralink: mt7621: add missing __iomem")
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202610041411.uJXWXF8i-lkp@intel.com/
+Hi,
 
-sparse warnings: (new ones prefixed by >>)
->> arch/mips/ralink/mt7621.c:68:13: sparse: sparse: cast removes address space '__iomem' of expression
-   arch/mips/ralink/mt7621.c: note: in included file (through arch/mips/include/asm/mips-cps.h):
-   arch/mips/include/asm/mips-cm.h:186:1: sparse: sparse: incorrect type in argument 1 (different address spaces) @@     expected void const volatile [noderef] __iomem *mem @@     got void * @@
-   arch/mips/include/asm/mips-cm.h:186:1: sparse:     expected void const volatile [noderef] __iomem *mem
-   arch/mips/include/asm/mips-cm.h:186:1: sparse:     got void *
-   arch/mips/include/asm/mips-cm.h:186:1: sparse: sparse: incorrect type in argument 1 (different address spaces) @@     expected void const volatile [noderef] __iomem *mem @@     got void * @@
-   arch/mips/include/asm/mips-cm.h:186:1: sparse:     expected void const volatile [noderef] __iomem *mem
-   arch/mips/include/asm/mips-cm.h:186:1: sparse:     got void *
-   arch/mips/include/asm/mips-cm.h:186:1: sparse: sparse: incorrect type in argument 1 (different address spaces) @@     expected void const volatile [noderef] __iomem *mem @@     got void * @@
-   arch/mips/include/asm/mips-cm.h:186:1: sparse:     expected void const volatile [noderef] __iomem *mem
-   arch/mips/include/asm/mips-cm.h:186:1: sparse:     got void *
-   arch/mips/include/asm/mips-cm.h:186:1: sparse: sparse: incorrect type in argument 1 (different address spaces) @@     expected void const volatile [noderef] __iomem *mem @@     got void * @@
-   arch/mips/include/asm/mips-cm.h:186:1: sparse:     expected void const volatile [noderef] __iomem *mem
-   arch/mips/include/asm/mips-cm.h:186:1: sparse:     got void *
-   arch/mips/include/asm/mips-cm.h:186:1: sparse: sparse: incorrect type in return expression (different address spaces) @@     expected void * @@     got void [noderef] __iomem * @@
-   arch/mips/include/asm/mips-cm.h:186:1: sparse:     expected void *
-   arch/mips/include/asm/mips-cm.h:186:1: sparse:     got void [noderef] __iomem *
-   arch/mips/include/asm/mips-cm.h:186:1: sparse: sparse: incorrect type in return expression (different address spaces) @@     expected void * @@     got void [noderef] __iomem * @@
-   arch/mips/include/asm/mips-cm.h:186:1: sparse:     expected void *
-   arch/mips/include/asm/mips-cm.h:186:1: sparse:     got void [noderef] __iomem *
-   arch/mips/include/asm/mips-cm.h:186:1: sparse: sparse: incorrect type in return expression (different address spaces) @@     expected void * @@     got void [noderef] __iomem * @@
-   arch/mips/include/asm/mips-cm.h:186:1: sparse:     expected void *
-   arch/mips/include/asm/mips-cm.h:186:1: sparse:     got void [noderef] __iomem *
-   arch/mips/include/asm/mips-cm.h:186:1: sparse: sparse: incorrect type in return expression (different address spaces) @@     expected void * @@     got void [noderef] __iomem * @@
-   arch/mips/include/asm/mips-cm.h:186:1: sparse:     expected void *
-   arch/mips/include/asm/mips-cm.h:186:1: sparse:     got void [noderef] __iomem *
-   arch/mips/include/asm/mips-cm.h:165:1: sparse: sparse: incorrect type in argument 1 (different address spaces) @@     expected void const volatile [noderef] __iomem *mem @@     got void * @@
-   arch/mips/include/asm/mips-cm.h:165:1: sparse:     expected void const volatile [noderef] __iomem *mem
-   arch/mips/include/asm/mips-cm.h:165:1: sparse:     got void *
-   arch/mips/include/asm/mips-cm.h:165:1: sparse: sparse: incorrect type in argument 1 (different address spaces) @@     expected void const volatile [noderef] __iomem *mem @@     got void * @@
-   arch/mips/include/asm/mips-cm.h:165:1: sparse:     expected void const volatile [noderef] __iomem *mem
-   arch/mips/include/asm/mips-cm.h:165:1: sparse:     got void *
-   arch/mips/include/asm/mips-cm.h:165:1: sparse: sparse: incorrect type in argument 1 (different address spaces) @@     expected void const volatile [noderef] __iomem *mem @@     got void * @@
-   arch/mips/include/asm/mips-cm.h:165:1: sparse:     expected void const volatile [noderef] __iomem *mem
-   arch/mips/include/asm/mips-cm.h:165:1: sparse:     got void *
-   arch/mips/include/asm/mips-cm.h:165:1: sparse: sparse: incorrect type in argument 1 (different address spaces) @@     expected void const volatile [noderef] __iomem *mem @@     got void * @@
-   arch/mips/include/asm/mips-cm.h:165:1: sparse:     expected void const volatile [noderef] __iomem *mem
-   arch/mips/include/asm/mips-cm.h:165:1: sparse:     got void *
-   arch/mips/include/asm/mips-cm.h:165:1: sparse: sparse: incorrect type in return expression (different address spaces) @@     expected void * @@     got void [noderef] __iomem * @@
-   arch/mips/include/asm/mips-cm.h:165:1: sparse:     expected void *
-   arch/mips/include/asm/mips-cm.h:165:1: sparse:     got void [noderef] __iomem *
-   arch/mips/include/asm/mips-cm.h:165:1: sparse: sparse: incorrect type in return expression (different address spaces) @@     expected void * @@     got void [noderef] __iomem * @@
-   arch/mips/include/asm/mips-cm.h:165:1: sparse:     expected void *
-   arch/mips/include/asm/mips-cm.h:165:1: sparse:     got void [noderef] __iomem *
-   arch/mips/include/asm/mips-cm.h:165:1: sparse: sparse: incorrect type in return expression (different address spaces) @@     expected void * @@     got void [noderef] __iomem * @@
-   arch/mips/include/asm/mips-cm.h:165:1: sparse:     expected void *
-   arch/mips/include/asm/mips-cm.h:165:1: sparse:     got void [noderef] __iomem *
-   arch/mips/include/asm/mips-cm.h:165:1: sparse: sparse: incorrect type in return expression (different address spaces) @@     expected void * @@     got void [noderef] __iomem * @@
-   arch/mips/include/asm/mips-cm.h:165:1: sparse:     expected void *
-   arch/mips/include/asm/mips-cm.h:165:1: sparse:     got void [noderef] __iomem *
-   arch/mips/ralink/mt7621.c: note: in included file (through arch/mips/include/asm/mips-cps.h):
-   arch/mips/include/asm/mips-cpc.h:100:1: sparse: sparse: incorrect type in argument 1 (different address spaces) @@     expected void const volatile [noderef] __iomem *mem @@     got void * @@
-   arch/mips/include/asm/mips-cpc.h:100:1: sparse:     expected void const volatile [noderef] __iomem *mem
-   arch/mips/include/asm/mips-cpc.h:100:1: sparse:     got void *
-   arch/mips/include/asm/mips-cpc.h:100:1: sparse: sparse: incorrect type in argument 1 (different address spaces) @@     expected void const volatile [noderef] __iomem *mem @@     got void * @@
-   arch/mips/include/asm/mips-cpc.h:100:1: sparse:     expected void const volatile [noderef] __iomem *mem
-   arch/mips/include/asm/mips-cpc.h:100:1: sparse:     got void *
-   arch/mips/include/asm/mips-cpc.h:100:1: sparse: sparse: incorrect type in argument 1 (different address spaces) @@     expected void const volatile [noderef] __iomem *mem @@     got void * @@
-   arch/mips/include/asm/mips-cpc.h:100:1: sparse:     expected void const volatile [noderef] __iomem *mem
-   arch/mips/include/asm/mips-cpc.h:100:1: sparse:     got void *
-   arch/mips/include/asm/mips-cpc.h:100:1: sparse: sparse: incorrect type in argument 1 (different address spaces) @@     expected void const volatile [noderef] __iomem *mem @@     got void * @@
-   arch/mips/include/asm/mips-cpc.h:100:1: sparse:     expected void const volatile [noderef] __iomem *mem
-   arch/mips/include/asm/mips-cpc.h:100:1: sparse:     got void *
-   arch/mips/include/asm/mips-cpc.h:100:1: sparse: sparse: incorrect type in return expression (different address spaces) @@     expected void * @@     got void [noderef] __iomem * @@
-   arch/mips/include/asm/mips-cpc.h:100:1: sparse:     expected void *
-   arch/mips/include/asm/mips-cpc.h:100:1: sparse:     got void [noderef] __iomem *
-   arch/mips/include/asm/mips-cpc.h:100:1: sparse: sparse: incorrect type in return expression (different address spaces) @@     expected void * @@     got void [noderef] __iomem * @@
-   arch/mips/include/asm/mips-cpc.h:100:1: sparse:     expected void *
-   arch/mips/include/asm/mips-cpc.h:100:1: sparse:     got void [noderef] __iomem *
-   arch/mips/include/asm/mips-cpc.h:100:1: sparse: sparse: incorrect type in return expression (different address spaces) @@     expected void * @@     got void [noderef] __iomem * @@
-   arch/mips/include/asm/mips-cpc.h:100:1: sparse:     expected void *
-   arch/mips/include/asm/mips-cpc.h:100:1: sparse:     got void [noderef] __iomem *
-   arch/mips/include/asm/mips-cpc.h:100:1: sparse: sparse: incorrect type in return expression (different address spaces) @@     expected void * @@     got void [noderef] __iomem * @@
-   arch/mips/include/asm/mips-cpc.h:100:1: sparse:     expected void *
-   arch/mips/include/asm/mips-cpc.h:100:1: sparse:     got void [noderef] __iomem *
-   arch/mips/ralink/mt7621.c: note: in included file (through arch/mips/include/asm/mips-cps.h):
-   arch/mips/include/asm/mips-cm.h:237:1: sparse: sparse: incorrect type in argument 2 (different address spaces) @@     expected void volatile [noderef] __iomem *mem @@     got void * @@
-   arch/mips/include/asm/mips-cm.h:237:1: sparse:     expected void volatile [noderef] __iomem *mem
-   arch/mips/include/asm/mips-cm.h:237:1: sparse:     got void *
-   arch/mips/include/asm/mips-cm.h:237:1: sparse: sparse: incorrect type in argument 2 (different address spaces) @@     expected void volatile [noderef] __iomem *mem @@     got void * @@
-   arch/mips/include/asm/mips-cm.h:237:1: sparse:     expected void volatile [noderef] __iomem *mem
-   arch/mips/include/asm/mips-cm.h:237:1: sparse:     got void *
-   arch/mips/include/asm/mips-cm.h:237:1: sparse: sparse: incorrect type in argument 2 (different address spaces) @@     expected void volatile [noderef] __iomem *mem @@     got void * @@
-   arch/mips/include/asm/mips-cm.h:237:1: sparse:     expected void volatile [noderef] __iomem *mem
-   arch/mips/include/asm/mips-cm.h:237:1: sparse:     got void *
-   arch/mips/include/asm/mips-cm.h:237:1: sparse: sparse: incorrect type in argument 2 (different address spaces) @@     expected void volatile [noderef] __iomem *mem @@     got void * @@
-   arch/mips/include/asm/mips-cm.h:237:1: sparse:     expected void volatile [noderef] __iomem *mem
-   arch/mips/include/asm/mips-cm.h:237:1: sparse:     got void *
-   arch/mips/include/asm/mips-cm.h:237:1: sparse: sparse: incorrect type in return expression (different address spaces) @@     expected void * @@     got void [noderef] __iomem * @@
-   arch/mips/include/asm/mips-cm.h:237:1: sparse:     expected void *
-   arch/mips/include/asm/mips-cm.h:237:1: sparse:     got void [noderef] __iomem *
-   arch/mips/include/asm/mips-cm.h:237:1: sparse: sparse: incorrect type in return expression (different address spaces) @@     expected void * @@     got void [noderef] __iomem * @@
-   arch/mips/include/asm/mips-cm.h:237:1: sparse:     expected void *
-   arch/mips/include/asm/mips-cm.h:237:1: sparse:     got void [noderef] __iomem *
-   arch/mips/include/asm/mips-cm.h:237:1: sparse: sparse: incorrect type in return expression (different address spaces) @@     expected void * @@     got void [noderef] __iomem * @@
-   arch/mips/include/asm/mips-cm.h:237:1: sparse:     expected void *
-   arch/mips/include/asm/mips-cm.h:237:1: sparse:     got void [noderef] __iomem *
-   arch/mips/include/asm/mips-cm.h:237:1: sparse: sparse: incorrect type in return expression (different address spaces) @@     expected void * @@     got void [noderef] __iomem * @@
-   arch/mips/include/asm/mips-cm.h:237:1: sparse:     expected void *
-   arch/mips/include/asm/mips-cm.h:237:1: sparse:     got void [noderef] __iomem *
-   arch/mips/include/asm/mips-cm.h:244:1: sparse: sparse: incorrect type in argument 2 (different address spaces) @@     expected void volatile [noderef] __iomem *mem @@     got void * @@
+This is the friendly patch-bot of Greg Kroah-Hartman.  You have sent him
+a patch that has triggered this response.  He used to manually respond
+to these common problems, but in order to save his sanity (he kept
+writing the same thing over and over, yet to different people), I was
+created.  Hopefully you will not take offence and will fix the problem
+in your patch and resubmit it so that it can be accepted into the Linux
+kernel tree.
 
-vim +/__iomem +68 arch/mips/ralink/mt7621.c
+You are receiving this message because of the following common error(s)
+as indicated below:
 
-1df7addb9671ac John Crispin    2016-01-04  63  
-cc19db8b312a6c Chuanhong Guo   2022-02-11  64  static bool __init mt7621_addr_wraparound_test(phys_addr_t size)
-cc19db8b312a6c Chuanhong Guo   2022-02-11  65  {
-4ddaf88aadd3bd Rosen Penev     2026-05-07  66  	void __iomem *dm = (void __iomem *)KSEG1ADDR(&detect_magic);
-cc19db8b312a6c Chuanhong Guo   2022-02-11  67  
-cc19db8b312a6c Chuanhong Guo   2022-02-11 @68  	if (CPHYSADDR(dm + size) >= MT7621_LOWMEM_MAX_SIZE)
-cc19db8b312a6c Chuanhong Guo   2022-02-11  69  		return true;
-cc19db8b312a6c Chuanhong Guo   2022-02-11  70  	__raw_writel(MT7621_MEM_TEST_PATTERN, dm);
-cc19db8b312a6c Chuanhong Guo   2022-02-11  71  	if (__raw_readl(dm) != __raw_readl(dm + size))
-cc19db8b312a6c Chuanhong Guo   2022-02-11  72  		return false;
-5d8965704fe566 Ilya Lipnitskiy 2022-02-28  73  	__raw_writel(~MT7621_MEM_TEST_PATTERN, dm);
-cc19db8b312a6c Chuanhong Guo   2022-02-11  74  	return __raw_readl(dm) == __raw_readl(dm + size);
-cc19db8b312a6c Chuanhong Guo   2022-02-11  75  }
-cc19db8b312a6c Chuanhong Guo   2022-02-11  76  
+- It looks like you did not use your "real" name for the patch on either
+  the Signed-off-by: line, or the From: line (both of which have to
+  match).  Please read the kernel file,
+  Documentation/process/submitting-patches.rst for how to do this
+  correctly.
 
-:::::: The code at line 68 was first introduced by commit
-:::::: cc19db8b312a6c75645645f5cc1b45166b109006 MIPS: ralink: mt7621: do memory detection on KSEG1
+- You have marked a patch with a "Fixes:" tag for a commit that is in an
+  older released kernel, yet you do not have a cc: stable line in the
+  signed-off-by area at all, which means that the patch will not be
+  applied to any older kernel releases.  To properly fix this, please
+  follow the documented rules in the
+  Documentation/process/stable-kernel-rules.rst file for how to resolve
+  this.
 
-:::::: TO: Chuanhong Guo <gch981213@gmail.com>
-:::::: CC: Thomas Bogendoerfer <tsbogend@alpha.franken.de>
+If you wish to discuss this problem further, or you have questions about
+how to resolve this issue, please feel free to respond to this email and
+Greg will reply once he has dug out from the pending patches received
+from other developers.
 
---
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
+thanks,
+
+greg k-h's patch email bot
