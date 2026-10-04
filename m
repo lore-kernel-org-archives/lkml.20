@@ -1,101 +1,75 @@
-Received: from mail-dy2-f42.google.com (mail-dy2-f42.google.com [74.125.229.42])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 697B63BED66
-	for <linux-kernel@vger.kernel.org>; Sun,  4 Oct 2026 17:33:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.42
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E1FB6471CF2;
+	Sun,  4 Oct 2026 17:33:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791135208; cv=none; b=qEdKxCm/tG/YT3candn74OfLWbWbLWzyTNbc9d2EP3Z3hOTL+irMnUcN64b17LG4S9hrlf6RfuP97ZPkEEdDQk8vwctuvtEwUDYfLfSYmqDyR7gr1ng5a2wliFvAIkP2chUhMdBx42JbmQudnouIkvRHj1JZ+5lytwlMPjLnS1g=
+	t=1791135216; cv=none; b=YF2v76Y6YdL36FhinEjardFc87b7rbgukUnkNZ2XzMzVf4FwJg+fx9THyu/fyY557L/rMK70Ug4MLmZQkpdrz0rXJ8xsWZ4sbNCjKia8thmajEb7fYSyF5Ki0wp9/lHzeGMqF9I/P7Y2erRAgu5EfdUuInc2dEL9t3nH6l4nRkY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791135208; c=relaxed/simple;
-	bh=eCJ/xgGOZpf3QBfsJ28uBGeOBNwffgZsfhRIp63slgw=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=AyHIUMOzbtqmCxymQxyX7/jXJ6wHC7pAL1ak+Q/C/TuUA/ssTIcBBx00xfrwNOMZxBjTF1vw1QB+pDg+XNwBPHLx47jrDWtlKn3HEXb7IIba/MAfZdhriwdgCsSiG9nUBTnHqcCM4a/KbRhYpAVSKm2pcEEXy8bYjZ3y266uhgk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=MnFurfGL; arc=none smtp.client-ip=74.125.229.42
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1791135216; c=relaxed/simple;
+	bh=OAza5qqvLnX1YZlIrWAP0SwiY6qke1NjderQpmqNGsM=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=agfDXixXQ054lCWb/Ktil13Is63tz/pfgFm6HqoJP+Lv2Uz96U2xPoeGo+rBk7aTI5BP+sOOmd0eUDqUfuy8s0UXsiQggv/bRxGDX/L+qzn5xZT9B2NxljXKVK6WYO4rYZyi8iiFdbTtr4PGjFQvMIZuWqiOjQynJe/iD0CFgis=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=E1k7p7T9; arc=none smtp.client-ip=213.167.242.64
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="MnFurfGL"
-Received: by mail-dy2-f42.google.com with SMTP id 5a478bee46e88-3510b42f4e3so1013313eec.2
-        for <linux-kernel@vger.kernel.org>; Sun, 04 Oct 2026 10:33:27 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791135206; x=1791740006; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=eCJ/xgGOZpf3QBfsJ28uBGeOBNwffgZsfhRIp63slgw=;
-        b=MnFurfGLZdm1wwOVkmkg+BTyflG0y6kD4pqWYCy8ExSjhsnevDG/6gW6w3RDYrG8JJ
-         4Y0NYFiwCW+/jNePXjKKkDZ9KJkGEJugkQe22jg3SCdNouJxL9SMnlQ+kt/so+9cMnpv
-         /LRW5DUEEh8bCPwnAYjBlTrSIXLQK+MDSchNl6kV/IjZEAAQsO3t+T9MQ9Oc8o5qfXiz
-         6DHYJWMwCDBWv7/dFe0kyecclvQAPQVTRhuxu6Dd5+1Tx6ZvsCYKuHpbw0ZpI0AWJ3Bu
-         JGVbnCpfSXREfWoRtLXD7hhkcX+WEJIo+1X76K5XYLx50nALyPV0pvXeHdyB77akztnT
-         EBqA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791135206; x=1791740006;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=eCJ/xgGOZpf3QBfsJ28uBGeOBNwffgZsfhRIp63slgw=;
-        b=fAPyIA27BtN4Mgo3+aSgsqfE58dlfHcOevtkwXp+6N5zreIm4d3HRsGjYvCPmwuc0V
-         jSNAKmzezqb9QjD3V8J2XadX+1URbx0tJs6I3bE48fbTqJE4xJcjspMQItlPEJtJT07Y
-         U0+ouQy0XjlB7M2eSAaIG/Z+ypWFObgShXh141YlKlJC1Zcjq3ey35iquShmuzKanF96
-         6u9VMA944aH962PMtZdTOQmvlLijyuwXNAIIj+yeit2TtpZflDRq+NqIkSfmyqyLmTKW
-         xt7SUAighUz/I70aYjEibCutP+oYgVq/EkOWNAkH99OWYkJd0aXhv7m8GX/Ut1kQpzl9
-         MkZg==
-X-Forwarded-Encrypted: i=1; AKwUvBy5Fui8AtIk8JzQdoAtmgkgtJVJM7yuZcWmLhgW74BD3sn0j1YQR+/AfRZe4Oc5vTyXPgyrru8P+cv+DDY=@vger.kernel.org
-X-Gm-Message-State: AFuF++mUhQ9Vxq34sMu7XD1JeODwdwRovlU38DEY2IE2N22wFQyYbYDG
-	T2ONik5lVkNw0r/s6bUMN2CUY6vxaLA7d/UuUiDXtwdBmA5SlVfTBDSRf9AV2rxI
-X-Gm-Gg: AYBFou0lV+BO0CfMn/D1XwY2sIdq4w9wT6KCyHw5suG9+Wdevgw/Ze8QiKeq34QdBMB
-	AqAVKpNuC18YmpszKkqOpdGQgCZ/wupLQEX1ORTmsH7SiVoLnFFwlKNwUCvfudJ71wcfGC7rLZJ
-	X45Zfr5oISfJM7DstboDUogpdJDm3j48BLIt/eQKf5q230dX9kQx2ktFI8h9frJQkT7kdoVG1rj
-	x6hz4uFy/JM6lWOwP28IkWcBLlZlbusntdsQmSNyOXkloaJTjmPq4Z7iGwd+UoAJgbwvw323tpo
-	IdZiMB9EjCoR1eZatdYrjn0ytzDKoKfJtZ3bW3J0B8o4qzahEGBvFzQkUHjpFpcv5ASWShJdSei
-	xrh+hCdZtNRx100b+/aor35SX0tN/A/q0TmObUFMYXkG4pn9m47GcvL78xQq4k6RBS/8y2j3d8c
-	7PKK+Tps8cNrm5llDSOE929btoN43Bs1inp0JGDMzM0D5zAflgb1/b8eTWk7KreXOeOg4GLsF/N
-	4rcKFi1sNouexTQgEW/Mw==
-X-Received: by 2002:a05:7301:786:b0:351:3106:4a33 with SMTP id 5a478bee46e88-35131065510mr305442eec.10.1791135206515;
-        Sun, 04 Oct 2026 10:33:26 -0700 (PDT)
-Received: from umang-Inspiron-3501 ([2401:4900:1f3b:8187:3c41:9181:ca6a:23ec])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-35127021d1esm6966533eec.4.2026.10.04.10.33.22
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 04 Oct 2026 10:33:26 -0700 (PDT)
-From: Umang Pokhriyal <umangpokhriyall@gmail.com>
-To: netdev-bot+sashiko@kernel.org
-Cc: Willem de Bruijn <willemdebruijn.kernel@gmail.com>,
-	Jason Wang <jasowangio@gmail.com>,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH net-next] tap: report IFF_DETACH_QUEUE in TUNGETIFF
-Date: Sun,  4 Oct 2026 23:02:23 +0530
-Message-ID: <20261004173224.33809-1-umangpokhriyall@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <179087539624.434549.6585301310404315341@kernel.org>
-References: <179087539624.434549.6585301310404315341@kernel.org>
+	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="E1k7p7T9"
+Received: from killaraus.ideasonboard.com (dynamic-2a00-1028-8389-0276-8139-a635-2d39-b80f.ipv6.o2.cz [IPv6:2a00:1028:8389:276:8139:a635:2d39:b80f])
+	by perceval.ideasonboard.com (Postfix) with ESMTPSA id F26D582A;
+	Sun,  4 Oct 2026 19:31:34 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
+	s=mail; t=1791135095;
+	bh=OAza5qqvLnX1YZlIrWAP0SwiY6qke1NjderQpmqNGsM=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=E1k7p7T98Qj8StwiBIrODijPvUexOKhXyrEC0OqNIXjs46fX+777HqkZofpXien2U
+	 b+mVMc/TW7ibtct/zraBttMUMt+XFu6SgMzGUJXsEkd0jt4IAXUnKtM8HHMlXeTeMh
+	 TsKkdSf8dNcd9gvXhjmVYWvnM1uBpcTBguT4Fcs4=
+Date: Sun, 4 Oct 2026 19:33:28 +0200
+From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+To: workflows@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org
+Subject: Re: Hallway BoF at LPC about generative AI for kernel development
+Message-ID: <20261004173328.GB533673@killaraus.ideasonboard.com>
+References: <20261004172533.GA533673@killaraus.ideasonboard.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20261004172533.GA533673@killaraus.ideasonboard.com>
 
-On Thu, Oct 01, 2026 at 05:23:16PM +0000, netdev-bot+sashiko@kernel.org wrote:
-> [Severity: Medium]
-> Can this break a read-modify-write of TUNGETIFF and TUNSETIFF on a
-> detached queue?
+And of course the subject line should have read "Hallway BoF at LPC
+about generative AI for kernel development". I need to learn to
+proof-read the subject too.
 
-Yes. tap accepts TUNSETIFF on a bound fd and tun does not, so only tap
-has this round trip. v2 will ignore IFF_DETACH_QUEUE in TUNSETIFF.
+On Sun, Oct 04, 2026 at 07:25:35PM +0200, Laurent Pinchart wrote:
+> Hello,
+> 
+> In preparation for the maintainer summit, I have issued a call for
+> opinions regarding usage of generative AI for kernel development ([1]).
+> Multiple people expressed an interest in discussing this topic face to
+> face in Prague during LPC (you are all BCC'ed to this e-mail).
+> 
+> As this topic is orthogonal to most of the discussions that will take
+> place at LPC, I don't expect to find a time that will suit everybody. I
+> will try to organize multiple "hallway BoFs" to give as many people as
+> possible a chance to join. If you would like to participate in the first
+> one, look for me during the Monday morning break at 11:30 in the foyer
+> in front of the Club A room. We may continue the discussion into the
+> next slot, possibling grabbing a BoF room if available.
+> 
+> I will relay this annoucement on Mastodon and in the LPC Hallway Track
+> matrix room. Please keep an eye on the matrix room on Monday morning, I
+> will post updates there in case last minute changes are required.
+> 
+> [1] https://floss.social/@pinchartl/117320477532952626
 
-> [Severity: Low]
-> If it is meant as feature parity for net-next, could the commit message
-> say so instead of calling it a bug?
+-- 
+Regards,
 
-It is meant as parity with tun for net-next. v2 will say so.
-
-pw-bot: cr
+Laurent Pinchart
