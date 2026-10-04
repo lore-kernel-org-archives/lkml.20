@@ -1,64 +1,138 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3CFE63AA9F8;
-	Sun,  4 Oct 2026 20:02:28 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D78A538F947;
+	Sun,  4 Oct 2026 20:07:52 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791144150; cv=none; b=sbdtM4FfqZ6v1DYUuxRb7shGLuBZG/UbZmAu33k6IHtltWJtcSEHgg6Z1RU8xiv6o89SAdopmPWFx+YdnQZsl3qikV9MSdfXPY7GVdJBv/oHb4rdO/2NgxLpajLul9sbiRV7WLO/bwwXzXIwB9AfuXnnq6GWjNrwstvWnuUYiWI=
+	t=1791144474; cv=none; b=ktG08cDnXSLSdVPXN6C9c5UVM730nZP0Zp9MWMeaMCaSgAwMo8Wh7KYZFyg3ZfXqS2tKrEr8X7UZKJ51WL7oYRUoYL+mln6SQKq26rE0WhGH9Pgsj+cg7IZ0eVYvpEGDvGHj+JYsFWTT2G17wasK8wP9ZVF7d1Z0Ai26q1ibjCE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791144150; c=relaxed/simple;
-	bh=DxpxFvysCDaBNq253YTTsWZ9LKYuKqp8urM1Cobx51A=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
-	 MIME-Version:Content-Type; b=Hh1Lihxin+TvLYQvi3xHx/RHyaqwZezzXz7p5cUOShZfKikMXk77xI/1HWJc1D5jcVrFWd7i16dR5bjALkk7iaEBerQDjysrJJwNDIZQeWxWPVTI3FAYPkQXB7SPLV2WUpDq02/VeoiSL12ofV9a5oU69J1Guqujn0Hazqray3g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A1CD41F000FF;
-	Sun,  4 Oct 2026 20:02:28 +0000 (UTC)
-Received: by venus (Postfix, from userid 1000)
-	id 3C20D180A51; Sun, 04 Oct 2026 22:02:27 +0200 (CEST)
-From: Sebastian Reichel <sebastian.reichel@collabora.com>
-To: Sebastian Reichel <sre@kernel.org>, 
- Bjorn Andersson <andersson@kernel.org>, 
- Konrad Dybcio <konradybcio@kernel.org>, Abel Vesa <abelvesa@kernel.org>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Reza Kurniawan <imkyufie@gmail.com>
-Cc: linux-pm@vger.kernel.org, linux-kernel@vger.kernel.org, 
- linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260912-riva-usb-v2-0-997fe0171ee5@gmail.com>
-References: <20260912-riva-usb-v2-0-997fe0171ee5@gmail.com>
-Subject: Re: (subset) [PATCH v2 0/2] Enable USB support (peripheral mode)
- for Xiaomi Redmi 5A (riva)
-Message-Id: <179114414722.223371.6181817407774225572.b4-ty@b4>
-Date: Sun, 04 Oct 2026 22:02:27 +0200
+	s=arc-20240116; t=1791144474; c=relaxed/simple;
+	bh=+V5HdgvvgZEdIQsFusxwujC0aLiKZVBJO9ImZsym+DQ=;
+	h=Date:From:To:Cc:Subject:Message-Id:In-Reply-To:References:
+	 Mime-Version:Content-Type; b=ty/XB1dKw8key4W1MKLIah61U9+0ZY84y5NzaaWRoGCrGSXBkHOT6Z3RXKGBJJ0yX4j+AZ/ptOWrWmiQs84Dtc4HMoQV4DqAbc0N3/y7lkCR0o63AKshGM/1gbYJpP9ucZzCQC3YKj+T+fjBcnlUIaNk6R9g3R2RNrVqQnexIa8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=Mx3OeGyw; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="Mx3OeGyw"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EE9B01F000FF;
+	Sun,  4 Oct 2026 20:07:51 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux-foundation.org; s=korg; t=1791144472;
+	bh=F2CprrIV1+vnrvZtv7aumlrns7J0kiy7ez1pluHWuPI=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=Mx3OeGyw4mBMuZbhxP+kZ8Yze1JJTWm6pV1IAfezi4CT5EdyzeaQ4TdJfJEW6VwBl
+	 p8EdqXusXxKObgj9b4Q4/xfVD61oTz+Gb23FrCuX4GO8LyEuMBBsTXivo5hQR43jZf
+	 Dw65pGexM1LNSYVm+ZFNLaFjxvakbKogJgT96vEI=
+Date: Sun, 4 Oct 2026 13:07:51 -0700
+From: Andrew Morton <akpm@linux-foundation.org>
+To: Donggeun Yoo <donggeunyoo.kernel@gmail.com>
+Cc: rppt@kernel.org, peterx@redhat.com, surenb@google.com,
+ aarcange@redhat.com, david@kernel.org, ljs@kernel.org, liam@infradead.org,
+ vbabka@kernel.org, mhocko@suse.com, shuah@kernel.org, kas@kernel.org,
+ linux-mm@kvack.org, linux-kselftest@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v4 0/2] userfaultfd: clear the inherited uffd bit in
+ move_swap_pte()
+Message-Id: <20261004130751.1cdab825ae521c16e02f66ec@linux-foundation.org>
+In-Reply-To: <20261003103030.63380-1-donggeunyoo.kernel@gmail.com>
+References: <20261003103030.63380-1-donggeunyoo.kernel@gmail.com>
+X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+Mime-Version: 1.0
+Content-Type: text/plain; charset=US-ASCII
 Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.16.0
+
+On Sat,  3 Oct 2026 19:30:28 +0900 Donggeun Yoo <donggeunyoo.kernel@gmail.com> wrote:
+
+> UFFDIO_MOVE on a swapped-out page installs the source PTE at the
+> destination unchanged, so a uffd bit set on a write-protected or
+> RWP-protected source lands in a destination VMA that was never
+> registered for either, and nothing clears it afterwards.  Patch 1 clears
+> the bit, then re-arms it if the destination is RWP-registered, which is
+> what the present-page and zeropage move paths already do.  Patch 2 adds
+> the tests that catch it.
+
+Thanks, I updated mm-hotfixes-unstable with this version.
+
+> Changes in v4:
+>  - patch 1: add Acked-by from David Hildenbrand and Mike Rapoport; no
+>    code change
+>  - patch 2: protect the source right after registering it, open pagemap
+>    at the top, and use a designated initializer for the move (David
+>    Hildenbrand)
+>  - patch 2: fail only the test case, not the whole run, when UFFDIO_MOVE
+>    fails (David Hildenbrand)
+
+Here's how v4 altered mm.git:
 
 
-On Sat, 12 Sep 2026 22:18:10 +0700, Reza Kurniawan wrote:
-> The purpose of this series is to enable the device to act as a USB peripheral.
-> It enables USB-related DT nodes (controller and PHY) and modifies the
-> charger driver (BQ256XX) to expose its VBUS state through extcon.
-> 
-> Driver change is required since the device has its VBUS connected to the
-> charger IC, which means cable connection/disconnection events must be fed
-> from the charger IC, to the controller driver to dynamically enable/disable
-> the USB gadget functionality.
-> 
-> [...]
+ tools/testing/selftests/mm/uffd-unit-tests.c |   36 ++++++++---------
+ 1 file changed, 18 insertions(+), 18 deletions(-)
 
-Applied, thanks!
-
-[1/2] power: supply: bq256xx: Expose VBUS state through extcon
-      commit: b33596a615d163372f5e7519338d860cbfc37217
-
-Best regards,
--- 
-Sebastian Reichel <sebastian.reichel@collabora.com>
+--- a/tools/testing/selftests/mm/uffd-unit-tests.c~b
++++ a/tools/testing/selftests/mm/uffd-unit-tests.c
+@@ -2049,28 +2049,29 @@ static void uffd_move_swap_test_common(u
+ 				       bool rwp)
+ {
+ 	unsigned long page_size = gopts->page_size;
+-	struct uffdio_move move = { };
+-	int pagemap_fd;
++	struct uffdio_move move = {
++		.dst = (unsigned long)gopts->area_dst,
++		.src = (unsigned long)gopts->area_src,
++		.len = page_size,
++	};
++	int pagemap_fd = pagemap_open();
+ 
+ 	if (rwp) {
+ 		if (uffd_register_rwp(gopts->uffd, gopts->area_src, page_size))
+ 			err("register src failure");
+-	} else if (uffd_register(gopts->uffd, gopts->area_src, page_size,
+-				 false, true, false)) {
+-		err("register src failure");
+-	}
+-	if (uffd_register(gopts->uffd, gopts->area_dst, page_size,
+-			  true, false, false))
+-		err("register dst failure");
+-
+-	if (rwp)
+ 		rwprotect_range(gopts->uffd, (unsigned long)gopts->area_src,
+ 				page_size, true);
+-	else
++	} else {
++		if (uffd_register(gopts->uffd, gopts->area_src, page_size,
++				  false, true, false))
++			err("register src failure");
+ 		wp_range(gopts->uffd, (unsigned long)gopts->area_src,
+ 			 page_size, true);
++	}
++	if (uffd_register(gopts->uffd, gopts->area_dst, page_size,
++			  true, false, false))
++		err("register dst failure");
+ 
+-	pagemap_fd = pagemap_open();
+ 	if (madvise(gopts->area_src, page_size, MADV_PAGEOUT))
+ 		err("MADV_PAGEOUT");
+ 	if (!pagemap_is_swapped(pagemap_fd, gopts->area_src)) {
+@@ -2078,11 +2079,10 @@ static void uffd_move_swap_test_common(u
+ 		goto out;
+ 	}
+ 
+-	move.dst = (unsigned long)gopts->area_dst;
+-	move.src = (unsigned long)gopts->area_src;
+-	move.len = page_size;
+-	if (ioctl(gopts->uffd, UFFDIO_MOVE, &move))
+-		err("UFFDIO_MOVE");
++	if (ioctl(gopts->uffd, UFFDIO_MOVE, &move)) {
++		uffd_test_fail("UFFDIO_MOVE failed: %s", strerror(errno));
++		goto out;
++	}
+ 
+ 	if (pagemap_get_entry(pagemap_fd, gopts->area_dst) & PM_UFFD_WP)
+ 		uffd_test_fail("uffd bit moved into an area registered for missing faults only");
+_
 
