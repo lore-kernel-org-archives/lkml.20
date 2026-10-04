@@ -1,152 +1,333 @@
-Received: from OS0P286CU011.outbound.protection.outlook.com (mail-japanwestazon11010020.outbound.protection.outlook.com [52.101.228.20])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qt1-f180.google.com (mail-qt1-f180.google.com [209.85.160.180])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5BBC146EF79
-	for <linux-kernel@vger.kernel.org>; Sun,  4 Oct 2026 17:41:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.228.20
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 96C3946EF99
+	for <linux-kernel@vger.kernel.org>; Sun,  4 Oct 2026 17:42:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.160.180
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791135707; cv=fail; b=fD5qdmUUCoVgKMQCIVwM5kNgYua0cfxzLEaE8Wjz82EZTj3ytLVBFy3rAzPkahDsn/uelIXGtYloeMTyHTSwx77BeDyzuxc12UnFnAGqLjot2n3y+Xl8+3YgW/Ln8VB/k4v06w1lg5ST9Yg0+C24X+Oz3ySzrhpyIIWq6mqpAkU=
+	t=1791135746; cv=pass; b=C8mINFO3doOuOlSZRHNP06OQSQjiIYD6vEpv/gQlFjBsWWdyMI+tvd0DKUtKeQXwXSNaJOrg58qjPA1yDMXSFd4UF35i2RMCWj2UlV+TiuQByNB24SI5OabHVdu4iWdDF9YszYOK1/A35OkHVQ1ERsP5DuKZYKOPJ/t3GC8D8Ew=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791135707; c=relaxed/simple;
-	bh=gZUkxITSYMFuXTpPSxsHiEE8jGm/6OCHRiL293SY2us=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=paVseM3m0JXCq7YSK0k0O3hF/880wmO9OA2ZoCYBVvTfXv5AvSO94CKNTsfTVIzQFOa5347SJdfEu0veipysNU5SJ2+SrrE/yN3XfEK/UOiDpmVbckPpGL7tnarL/2GDd1QKEdbRUZKsJaVxFHYBPfD0qfIXoVPdjIO1lzKC+6Q=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=renesas.com; spf=pass smtp.mailfrom=renesas.com; dkim=pass (1024-bit key) header.d=renesas.com header.i=@renesas.com header.b=Wug4IvpA; arc=fail smtp.client-ip=52.101.228.20
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=renesas.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=renesas.com
+	s=arc-20240116; t=1791135746; c=relaxed/simple;
+	bh=0NIxRm9j8x70g9FR+y+hF4NZwYnxGeMUXTvlqQyCFpU=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=U0n0ifjdhxzjIj58cb7o0V4edQjr8fMzPpqr1C+rzen4v0Zd3ZVhg5Hd6HCtvnIU1BDha4ZxLgi1lG/WNDT7JxeBmJ6CUipSBOysMDqSwhDpB9LoeiUNrZXtpsL+xl+JdfIvRAt0PN7KEYvWKyjUthN4aBe/znBlzJ945LOqyi4=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=ILOiw9pf; arc=pass smtp.client-ip=209.85.160.180
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=renesas.com header.i=@renesas.com header.b="Wug4IvpA"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=ERvHFDYyCNXjuPGRNiymPrNjOtwVH3JzqZIS9N7uvE73U3wmWuvn2b8/FbvdH4UqnWSSphZwwZ+Xm9dbEwBYhjlch0ko2jWxd+BtreiN9Hxm2SAZKvRHn2JuCA/Yn5qi7IT/9XkwYMElPrXXOV9i5kVQazsFZo6eMHos55sInOq+AHJNnV8g/3kOnBmu27N1Vub5aiS+YmaStI7rYEKETvuJTrK2QhpEF55Z+iSPDeUGTxCawqwRG6ahQ8eRsi7LXF6hk/FPCbFLpRrl15W8/zfqghGjRIq3RAgSRzPmc0wLj7hiGbMLm+4eRD/Y6MAmGE/rgASiwHl1de5jJawnwA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=xUcnfkVNAqr85OP0siufQPMfsjO8Z0v6VtXst7Ub0iA=;
- b=M8Dliq3/vCog1fA4GGoPmPMHGOClEsigtPOZsDvH8fd46Lp8rnKP5lMP4hGie8lKi4gZyib+gaeJS7gIzSdUvreNufXKAiilU7wZjF919kWnw6+fZzDjOWCPsdLTUX3bl8dy6qBeKa5mPkMWHyTb9jKmxruQleZxj1VmOMSuWgX20HZaAJvQPD2ZnFp7/QH8UbvYYgUC0dz2H2jqq2kQ1kHAXsDQIFp2bhYS0eSa4gQ8dWQRfE0f+K7uScKBdXgFMIHKjEq0COmnwZ0RWesYnQ9B3M+G5CI1V9HhaWsBWcBMoJw9W9jqnYhs3Yzx4B+n2NmcAvo5uhY9i48JvhTaHQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 8.62.32.50) smtp.rcpttodomain=kernel.org smtp.mailfrom=renesas.com;
- dmarc=pass (p=none sp=none pct=100) action=none header.from=renesas.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=renesas.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=xUcnfkVNAqr85OP0siufQPMfsjO8Z0v6VtXst7Ub0iA=;
- b=Wug4IvpAclLKPAmNWfuSUVralO/NqTfCi/719HYMtp4wG2PuxX1ljeJyRMx+bwBKltCUQiPserURwf06vnQJWAFGHR1sw+KcR9ll17FjVoSHWwxJm2sXKmYpCoWzGtySZjOfnw4KbUTHA0sIcGgVBsEzvwSZOYtebrfn+GfVWMk=
-Received: from OSTPR01CA0083.jpnprd01.prod.outlook.com (2603:1096:604:218::12)
- by TY6PR01MB17314.jpnprd01.prod.outlook.com (2603:1096:405:35a::5) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.472.20; Sun, 4 Oct
- 2026 17:41:41 +0000
-Received: from OS1PEPF0000D215.JPNP286.PROD.OUTLOOK.COM
- (2603:1096:604:218:cafe::89) by OSTPR01CA0083.outlook.office365.com
- (2603:1096:604:218::12) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.472.20 via Frontend Transport; Sun, 4
- Oct 2026 17:41:41 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 8.62.32.50) smtp.mailfrom=renesas.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=renesas.com;
-Received-SPF: Pass (protection.outlook.com: domain of renesas.com designates
- 8.62.32.50 as permitted sender) receiver=protection.outlook.com;
- client-ip=8.62.32.50; helo=ejcrelay004p.adwin.renesas.com; pr=E
-Received: from ejcrelay004p.adwin.renesas.com (8.62.32.50) by
- OS1PEPF0000D215.mail.protection.outlook.com (10.167.240.22) with Microsoft
- SMTP Server (version=TLS1_3, cipher=TLS_AES_256_GCM_SHA384) id 15.21.472.14
- via Frontend Transport; Sun, 4 Oct 2026 17:41:41 +0000
-Received: from demon-pc (unknown [10.226.92.36])
-	by ejcrelay004p.adwin.renesas.com (Postfix) with ESMTP id 1CCE1300024E;
-	Mon,  5 Oct 2026 02:41:39 +0900 (JST)
-From: Cosmin Tanislav <cosmin-gabriel.tanislav.xa@renesas.com>
-To: Lee Jones <lee@kernel.org>
-Cc: mfd@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	Cosmin Tanislav <cosmin-gabriel.tanislav.xa@renesas.com>
-Subject: [PATCH v2 3/3] mfd: rz-mtu3: Enable runtime PM
-Date: Sun,  4 Oct 2026 20:40:24 +0300
-Message-ID: <20261004174024.502949-4-cosmin-gabriel.tanislav.xa@renesas.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20261004174024.502949-1-cosmin-gabriel.tanislav.xa@renesas.com>
-References: <20261004174024.502949-1-cosmin-gabriel.tanislav.xa@renesas.com>
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="ILOiw9pf"
+Received: by mail-qt1-f180.google.com with SMTP id d75a77b69052e-5337c7b9937so261741cf.0
+        for <linux-kernel@vger.kernel.org>; Sun, 04 Oct 2026 10:42:24 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1791135743; cv=none;
+        d=google.com; s=arc-20260327;
+        b=DTaEEKvSx5j8d2pLiZDZsNBBz7gLTHE/eA5c15wHCbJoqN7cINvkZ0Ooyms0vNsAQr
+         lVfoCoRKVNzXD/13N236tJxCEAp+QoT44xXNKJzuRAeQRuXXQM8n+OAb6ubmdHEPrVJi
+         9/9PHVxN+VeqsSqC2xrEZ/PjJiijtKNKJvCGrZNLVX39xTwVfYI7ouytA2mm04zReOiv
+         mI3Ti8lYgQi47LXeMTpWU3cRBx6dC76VyX5ulZWNMfnPyfElcMUUsOenLSeTDkRpqXy+
+         SrvToG/GPqpKp4nvmiJmztqsmKB4YFOCTJhllH//ktcMEXIFv4dt2E14WkOmcuBQGF/v
+         5+xw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=Lc5562D3mWi9zthF4OGWqkURt3JXx0LaNSqwCjnMAYk=;
+        fh=kOQJj/mcnDgThgknM0Z+IOii9k8b/h4XVz0f/V157Vo=;
+        b=JhhSCXkt1gbngYOj7DBv5kNWlQmsAj0d8GqXhjb+CHU0+ETJslVOCEu5NYdfQRs3hU
+         So9mZdI8hvAiN0kVWga9FJHvgv14ik6OZKDykmyeqphmt4CyhTN2JsTALrTx8ldaJ51d
+         QdEQ3IRvRRwWfZXTaClDILRTOv9WBcAqYt/FqmJVc1CEsZSgSm1V5X/kabsa26WlNRvW
+         Rn3xkztKBjRC1EWNlG+MHg7xgPJK5NVp5FAk86+4lhDtRls9sSyvwVdpA0rJL9KWsisR
+         vb8mpv7MlOx+G5NPe23+PfUq178JqzHvDk/Dm5zj7KUF2P8bAnYYIX7m20cjau2CyyzD
+         n0Rw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1791135743; x=1791740543; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=Lc5562D3mWi9zthF4OGWqkURt3JXx0LaNSqwCjnMAYk=;
+        b=ILOiw9pf6KdcSmEjiztckKpeDjPXye7B29Pkv2pXYu5MflCje1tmk02XjxPl/C7fC0
+         TJQ2yC20mZ9Icj1b95YFcFAhU4h1h0E8WzA30HMHYDk0mwN/LCGpHXvsRJ5Wr9i/4EZ2
+         NIvhrezs7hTROTSxkstIQhzJALL9gqyPYweOADFTihlJf54CmUMOQ99geRfCzazmYh5h
+         yh68ECoeU7WNpOEdRQk/9DvX3wjy1dE3bDOmarfbZHqxWT/HIBJ1IRWX1CP/iz4tQnso
+         mMviIlXJpawOWja+wqlHhNZSiHfqCTPZNf+swfDfGoZ45+BmZsi8eD0Oh53j1DgSiWYr
+         +9DQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791135743; x=1791740543;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Lc5562D3mWi9zthF4OGWqkURt3JXx0LaNSqwCjnMAYk=;
+        b=hDlV4PLiV2JN4ctbJpiKLN+X6WtB5xpKsKZkX4O6yJF/xGlLcCgRoQHjxcy6i8WsrL
+         0L71u7F/AhqBL3P7F4LbfdGt0XtW3+/nJDeUMmzwzkvbjKT4aZIe9atd/nzhxzgaK2rq
+         ASc+TtMYVPdCLPGTq0IVoGwqwgJdZvyL7IT7Xe5CQ9louPiHEZBpvZLpMPJjwcLnGRK8
+         MdiYfRymJIZsXq50mGJEMPYb6ZXe8MOdVTUucC2lbkMqsKainjdEOcFc+EYaVpmq2zP1
+         DO6hg61HfXEvpRYMzQnb9gNsW4ZRQAB9AnHjGLh7ZZPa73IEOTH8WlZc1pur6P1+fIJC
+         m3PQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxE0hlDH5CccLjgE2p8G/iVZlaX5+daXgfzU2pusqe8HRGjlQ93qhAl81fmuU7CNuu0OCQQIPKssZNwlX8=@vger.kernel.org
+X-Gm-Message-State: AFuF++lJvel7N4XagxqUCZfBwFgCEG6d+DemLwFsbMAC8Yj2sKwl9D/e
+	3Sp6Xzis33bFBg0ImJ0cirTbaJGDZ2h1OjtZnQQ4puoE8X6yw3vG3jsmEITgiMSw3HzqDInDTQ2
+	T4RdwHiUpLVjazB03kNFhdiwJ1OKTwPcF/vUVpsbq
+X-Gm-Gg: AYBFou1i9P+1DiW9w6tIKEQ9pDcp2/I7PBNkdw2mrsDxUsrBwvhtI7mwQDKxci3Pscv
+	F0nbgnJ7DLZJg83as18nSNVtUewnFkLCinNv/6odorajSFasTwLePr4IeKaUeuzMtNUwUp+PY4y
+	oLEQkwc5L9vaDge2oWjrMKtm6oHSWoq6IC3iroLblyE1tcBYNBZU2bmjThBS3Cj2dkuC4o3Lt+w
+	zXpJm1ysgr1yqrJr11fLDmvBE9oTCo+pXF0xj4RK4QdZdVz/FwXSNC0tcbhFsvuI1N+4bbKIrC9
+	9Gjqi0436+fzy+aRJau4g3hb24AXNGv6A3l39QMD1wqquQiwtHYAL24W
+X-Received: by 2002:a05:622a:606:b0:532:84d3:abb with SMTP id
+ d75a77b69052e-535131b5a84mr14423871cf.7.1791135742728; Sun, 04 Oct 2026
+ 10:42:22 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: OS1PEPF0000D215:EE_|TY6PR01MB17314:EE_
-Content-Type: text/plain
-X-MS-Office365-Filtering-Correlation-Id: 6b0138bd-2dd4-4239-6d12-08df223ec02e
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|36860700016|23010399003|1800799024|376014|82310400026|22082099003|18002099003|10067099003|56012099006|11063799006;
-X-Microsoft-Antispam-Message-Info:
-	xV8sTwL3n6u3doSx8vSm0f0aZHg9T/UYcUzA+fg8LksJh5w2UskU047Ges0Xqb6KYc3+ObnxkiyyRJVIGqJGrha5T68KXHLiywnlCvxfltstlPu3IjEMUcKRKc/qnFWpGG9Mk7dAFhWDOOYVjVhLDSdwMZShwun3dCipXRJTmrnVpZwgyBY7ZA66laRfX1W3G5gb+l8L7YnIYq++AARmRgeBvXePhpUXvyln5sys3k+a2Ze5erZTt+0ofRPtoLMFkv2RJL3I8d61KKivnO4xgikZAzmk0XIAGspO91teMU7+XVqXQu4ZmUQ+k0NU0OjnUNPSb8K7CfGQJaIhxVjDnFZymvmdW/vEQ1qwNt5m8haGg/P32eCRko7Zxp0LZYKKMu45mYFUX6t4DjZgnqleA0d0MwalML8uORxCrM3Pgr6Xc+3i+r5mo+KA/Beman/QFvDeM7jOdk0lKzUzwBbN1fXm3nIAY0X3TI95OBbFAIfSblsVcUTzT2TUok8wWwZk8gBgOQW732zO3GWtLyy9Typ85hhDl9j1jUvJqmKME1sLcIaweFl/zgffVNvxbGz1VIEp+OivE1evekP1MLtR/YxpxfBCh9jqTo1FNwmwkI3AGWBZHnOeCLGdAg5rqlBwOXn78ovD2qZFmXnfXCo3yLa7htImlMYRwAkJiAFGSb1eL2JaxlgPK2nMFKIS0VEZACAG20Q3zY+mo+yRajUNig==
-X-Forefront-Antispam-Report:
-	CIP:8.62.32.50;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:ejcrelay004p.adwin.renesas.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(36860700016)(23010399003)(1800799024)(376014)(82310400026)(22082099003)(18002099003)(10067099003)(56012099006)(11063799006);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	ZwqXVfIrfNEhhsCxvKMA/VtOxq7TKnDzh/QaFa04WRGEBDw9goRRqWd8yB/9GfWSYVZ6iKdvcT5BtB4Bddt7dIg1RDSLWl7sV4hTCHSvHIYvcaHY362xI0m5yzoms4nx9ttqVCmYdp/Datx82t3c5QLOZUpq8vAspar+BciaTzJf+AMwvDLo9IPpxwwvcQgWucSrLAe5W+LNLlkQAILIxGERNmD0z0La79Cw9M58F+fuuX5FCzWOR29A9v8xjm2wTnXbs1nKKDIHn4qhtp/+Xmwi875Q+B02Afs7D3f19gHVaBt3qJh8hlfq9D2aip/BZJsMKnPhISmU32fr3b7DR18U8KQa7y7nVY/0CakLUjOeTmpR0SpO4jyDpYpUW1qXq0l0qNdKZ6F2LaQhWue7uJ9pFo9oS5/USyitjz1jzb4aSRV328xb9ZjpeZy/2qEl
-X-OriginatorOrg: renesas.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Oct 2026 17:41:41.6843
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 6b0138bd-2dd4-4239-6d12-08df223ec02e
-X-MS-Exchange-CrossTenant-Id: 53d82571-da19-47e4-9cb4-625a166a4a2a
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=53d82571-da19-47e4-9cb4-625a166a4a2a;Ip=[8.62.32.50];Helo=[ejcrelay004p.adwin.renesas.com]
-X-MS-Exchange-CrossTenant-AuthSource: OS1PEPF0000D215.JPNP286.PROD.OUTLOOK.COM
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: TY6PR01MB17314
+References: <20260929082014.160587-1-hao.ge@linux.dev> <20260929082014.160587-3-hao.ge@linux.dev>
+ <arzgoe-bXAz1poAt@milan>
+In-Reply-To: <arzgoe-bXAz1poAt@milan>
+From: Suren Baghdasaryan <surenb@google.com>
+Date: Sun, 4 Oct 2026 19:42:10 +0200
+X-Gm-Features: AclHuK_ov-dYU8ZQ3hSK0lFHr-9gA3i8l8r8LsI_kBqLCittdU-KxegpDjovpwQ
+Message-ID: <CAJuCfpHavrwaJ2T6daHnJc+r=9khBwrv_zOp8s3Cwi347SHXRw@mail.gmail.com>
+Subject: Re: [PATCH v11 2/7] mm/vmalloc: undo partial mappings inside the
+ mapping functions
+To: Uladzislau Rezki <urezki@gmail.com>
+Cc: Hao Ge <hao.ge@linux.dev>, "=Kent Overstreet" <kent.overstreet@linux.dev>, 
+	Luis Chamberlain <mcgrof@kernel.org>, Petr Pavlu <petr.pavlu@suse.com>, 
+	Daniel Gomez <da.gomez@kernel.org>, Sami Tolvanen <samitolvanen@google.com>, 
+	Aaron Tomlin <atomlin@atomlin.com>, Andrew Morton <akpm@linux-foundation.org>, 
+	Alexander Potapenko <glider@google.com>, Marco Elver <elver@google.com>, Dmitry Vyukov <dvyukov@google.com>, 
+	Vlastimil Babka <vbabka@kernel.org>, Michal Hocko <mhocko@suse.com>, 
+	Brendan Jackman <brendan.jackman@linux.dev>, Johannes Weiner <hannes@cmpxchg.org>, Zi Yan <ziy@nvidia.com>, 
+	linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
+	linux-modules@vger.kernel.org, kasan-dev@googlegroups.com, 
+	Sashiko <sashiko-bot@kernel.org>, stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-The MTU3 child devices use runtime PM, but the PM domain is attached to
-the parent MFD device rather than to the individual child devices, and
-the child devices open-code their own clock handling instead of using
-the PM domain logic.
+On Wed, Sep 30, 2026 at 12:12=E2=80=AFPM Uladzislau Rezki <urezki@gmail.com=
+> wrote:
+>
+> On Tue, Sep 29, 2026 at 04:20:09PM +0800, Hao Ge wrote:
+> > __vmap_pages_range_noflush() and friends can install some PTEs before
+> > failing and leave them mapped, and the kernel callers do not agree on
+> > who cleans them up. For example, pcpu_map_pages() and
+> > kmsan_ioremap_page_range() unmap the leftovers themselves, while
+> > vm_module_tags_populate() and the __GFP_NOFAIL retry loop in
+> > __vmalloc_area_node() relied on the mapping functions cleaning up and
+> > did not call anything like vunmap_range() themselves. When the same
+> > range is mapped again, the attempt hits the leftovers and fails, with
+> > BUG() in vmap_pte_range() for huge mappings.
+> >
+> > After discussing with Suren and Ulad, we decided the cleanup belongs
+> > to __vmap_pages_range_noflush() and friends, so the callers no longer
+> > need to unmap the partial mappings themselves. Each function now
+> > undoes the PTEs it installed itself.
+> >
+> > The rollback calls the low-level __vunmap_range_noflush(), it just
+> > clears the PTEs of the range it is given, which is all a rollback
+> > needs. It cannot use vunmap_range_noflush() because these mapping
+> > functions also map the KMSAN shadow and origin, and for a metadata
+> > range its hook would look up the metadata of the metadata, get 0
+> > and BUG() on addr >=3D end. The failed mappings were never accessed,
+> > no TLB flush needed.
+> >
+> > Fixes: 9376130c390a ("mm/vmalloc: add support for __GFP_NOFAIL")
+> > Fixes: 0f9b685626da ("alloc_tag: populate memory for module tags as nee=
+ded")
 
-Enable runtime PM on the parent device so runtime PM usage by the child
-devices can propagate to the parent.
+I don't think this fixes 0f9b685626da. I mean it fixes it but
+indirectly. That patch expects vmap_pages_range() to undo the mappings
+when it fails, which is a reasonable assumption. By fixing
+vmap_pages_xxx we fix all its users, including
+vm_module_tags_populate(). So, it indirectly fixes several callers but
+when adding a Fixes tag we do not list all patches we indirectly fix.
 
-Signed-off-by: Cosmin Tanislav <cosmin-gabriel.tanislav.xa@renesas.com>
----
+> > Reported-by: Sashiko <sashiko-bot@kernel.org>
+> > Cc: stable@vger.kernel.org
+> > Signed-off-by: Hao Ge <hao.ge@linux.dev>
+> > ---
+> >  mm/kmsan/shadow.c |  4 ++++
+> >  mm/vmalloc.c      | 31 +++++++++++++++++++++++++++++--
+> >  2 files changed, 33 insertions(+), 2 deletions(-)
+> >
+> > diff --git a/mm/kmsan/shadow.c b/mm/kmsan/shadow.c
+> > index 0c88d89bf0d6..2166086d3dc3 100644
+> > --- a/mm/kmsan/shadow.c
+> > +++ b/mm/kmsan/shadow.c
+> > @@ -258,6 +258,10 @@ int kmsan_vmap_pages_range_noflush(unsigned long s=
+tart, unsigned long end,
+> >                                           o_pages, page_shift);
+> >       kmsan_leave_runtime();
+> >       if (mapped) {
+> > +             /* Undo the shadow mapping set up above. */
+> > +             kmsan_enter_runtime();
+> > +             __vunmap_range_noflush(shadow_start, shadow_end);
+> > +             kmsan_leave_runtime();
+> >               err =3D mapped;
+> >               goto ret;
+> >       }
+> >
+> Can we just do that inside the vmalloc? For example in the
+> __vmap_pages_range_noflush() as entry function for all(?) helpers?
+> So we do not need do it manually?
 
-V2:
- * capitalize subject after prefix
+Agree, that would be better.
 
- drivers/mfd/rz-mtu3.c | 6 ++++++
- 1 file changed, 6 insertions(+)
-
-diff --git a/drivers/mfd/rz-mtu3.c b/drivers/mfd/rz-mtu3.c
-index 5be1f5a4167e..558ed3fbe520 100644
---- a/drivers/mfd/rz-mtu3.c
-+++ b/drivers/mfd/rz-mtu3.c
-@@ -13,6 +13,7 @@
- #include <linux/mfd/rz-mtu3.h>
- #include <linux/module.h>
- #include <linux/platform_device.h>
-+#include <linux/pm_runtime.h>
- #include <linux/reset.h>
- #include <linux/spinlock.h>
- 
-@@ -290,6 +291,7 @@ static int rz_mtu3_probe(struct platform_device *pdev)
- 	struct rz_mtu3 *ddata;
- 	struct reset_control *rstc;
- 	unsigned int i;
-+	int ret;
- 
- 	ddata = devm_kzalloc(dev, sizeof(*ddata), GFP_KERNEL);
- 	if (!ddata)
-@@ -321,6 +323,10 @@ static int rz_mtu3_probe(struct platform_device *pdev)
- 		mutex_init(&ddata->channels[i].lock);
- 	}
- 
-+	ret = devm_pm_runtime_enable(dev);
-+	if (ret)
-+		return ret;
-+
- 	return devm_mfd_add_devices(dev, 0, rz_mtu3_devs,
- 				    ARRAY_SIZE(rz_mtu3_devs), NULL, 0, NULL);
- }
--- 
-2.55.0
+>
+> > diff --git a/mm/vmalloc.c b/mm/vmalloc.c
+> > index 859e6d2d57a3..9bbf75706627 100644
+> > --- a/mm/vmalloc.c
+> > +++ b/mm/vmalloc.c
+> > @@ -349,6 +349,10 @@ static int vmap_range_noflush(unsigned long addr, =
+unsigned long end,
+> >       if (mask & ARCH_PAGE_TABLE_SYNC_MASK)
+> >               arch_sync_kernel_mappings(start, end);
+> >
+> > +     /* Undo the PTEs installed before the failure. */
+> > +     if (err)
+> > +             __vunmap_range_noflush(start, end);
+> > +
+> >       return err;
+> >  }
+> >
+> > @@ -363,6 +367,9 @@ int vmap_page_range(unsigned long addr, unsigned lo=
+ng end,
+> >       if (!err)
+> >               err =3D kmsan_ioremap_page_range(addr, end, phys_addr, pr=
+ot,
+> >                                              ioremap_max_page_shift);
+> > +     if (err)
+> > +             __vunmap_range_noflush(addr, end);
+> > +
+> >       return err;
+> >  }
+> >
+> > @@ -667,6 +674,10 @@ static int vmap_small_pages_range_noflush(unsigned=
+ long addr, unsigned long end,
+> >       if (mask & ARCH_PAGE_TABLE_SYNC_MASK)
+> >               arch_sync_kernel_mappings(start, end);
+> >
+> > +     /* Undo the PTEs installed before the failure. */
+> > +     if (err)
+> > +             __vunmap_range_noflush(start, end);
+> > +
+> >       return err;
+> >  }
+> >
+> The only one user of that function is __vmap_pages_range_noflush()
+> so we can cover both cases there small and huge path.
+>
+> Is that enough just to do unroll in the below:
+>
+> __vmap_pages_range_noflush()
+> vmap_page_range()
+>
+> functions? It will also fix NOFAIL case:
+>
+> <snip>
+> diff --git a/mm/vmalloc.c b/mm/vmalloc.c
+> index 89c327a6ce7d..fa1f357ecf3f 100644
+> --- a/mm/vmalloc.c
+> +++ b/mm/vmalloc.c
+> @@ -359,10 +359,19 @@ int vmap_page_range(unsigned long addr, unsigned lo=
+ng end,
+>
+>         err =3D vmap_range_noflush(addr, end, phys_addr, pgprot_nx(prot),
+>                                  ioremap_max_page_shift);
+> +       if (err)
+> +               goto error_cleanup_range;
+> +
+>         flush_cache_vmap(addr, end);
+> -       if (!err)
+> -               err =3D kmsan_ioremap_page_range(addr, end, phys_addr, pr=
+ot,
+> +       err =3D kmsan_ioremap_page_range(addr, end, phys_addr, prot,
+>                                                ioremap_max_page_shift);
+> +       if (err)
+> +               goto error_cleanup_range;
+> +
+> +       return 0;
+> +
+> +error_cleanup_range:
+> +       __vunmap_range_noflush(addr, end);
+>         return err;
+>  }
+>
+> @@ -683,26 +692,35 @@ int __vmap_pages_range_noflush(unsigned long addr, =
+unsigned long end,
+>                 pgprot_t prot, struct page **pages, unsigned int page_shi=
+ft)
+>  {
+>         unsigned int i, nr =3D (end - addr) >> PAGE_SHIFT;
+> +       unsigned long start =3D addr;
+> +       int err;
+>
+> -       WARN_ON(page_shift < PAGE_SHIFT);
+> -
+> -       if (!IS_ENABLED(CONFIG_HAVE_ARCH_HUGE_VMALLOC) ||
+> -                       page_shift =3D=3D PAGE_SHIFT)
+> -               return vmap_small_pages_range_noflush(addr, end, prot, pa=
+ges);
+> +       if (WARN_ON(addr >=3D end))
+> +               return -EINVAL;
+>
+> -       for (i =3D 0; i < nr; i +=3D 1U << (page_shift - PAGE_SHIFT)) {
+> -               int err;
+> +       if (WARN_ON(page_shift < PAGE_SHIFT))
+> +               return -EINVAL;
+>
+> -               err =3D vmap_range_noflush(addr, addr + (1UL << page_shif=
+t),
+> +       if (!IS_ENABLED(CONFIG_HAVE_ARCH_HUGE_VMALLOC) ||
+> +               page_shift =3D=3D PAGE_SHIFT) {
+> +               err =3D vmap_small_pages_range_noflush(addr, end, prot, p=
+ages);
+> +       } else {
+> +               for (i =3D 0; i < nr; i +=3D 1U << (page_shift - PAGE_SHI=
+FT)) {
+> +                       err =3D vmap_range_noflush(addr, addr + (1UL << p=
+age_shift),
+>                                         page_to_phys(pages[i]), prot,
+>                                         page_shift);
+> -               if (err)
+> -                       return err;
+> +                       if (err)
+> +                               break;
+>
+> -               addr +=3D 1UL << page_shift;
+> +                       addr +=3D 1UL << page_shift;
+> +               }
+>         }
+>
+> -       return 0;
+> +       if (err)
+> +               __vunmap_range_noflush(start, end);
+> +
+> +       /* 0 on success. */
+> +       return err;
+>  }
+>
+>  int vmap_pages_range_noflush(unsigned long addr, unsigned long end,
+> @@ -714,7 +732,13 @@ int vmap_pages_range_noflush(unsigned long addr, uns=
+igned long end,
+>
+>         if (ret)
+>                 return ret;
+> -       return __vmap_pages_range_noflush(addr, end, prot, pages, page_sh=
+ift);
+> +
+> +       ret =3D __vmap_pages_range_noflush(addr, end, prot, pages, page_s=
+hift);
+> +       if (ret)
+> +               /* Cleanup KMSAN metadata. */
+> +               kmsan_vunmap_range_noflush(addr, end);
+> +
+> +       return ret;
+>  }
+>
+>  static int __vmap_pages_range(unsigned long addr, unsigned long end,
+> <snip>
+>
+> --
+> Uladzislau Rezki
