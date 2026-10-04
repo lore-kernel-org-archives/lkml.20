@@ -1,576 +1,160 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj2-f40.google.com (mail-pj2-f40.google.com [74.125.227.168])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8C8953A380E
-	for <linux-kernel@vger.kernel.org>; Sun,  4 Oct 2026 13:55:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 940213A6B8E
+	for <linux-kernel@vger.kernel.org>; Sun,  4 Oct 2026 13:57:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.168
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791122143; cv=none; b=TTVrbmuiEPmvIg+N0WhQWFjwVOopmj1IDdQ1qmBDnKsb3v7LBkH+2CT6rwzMtggXkpRbR8/j5+/icKTTi0L+fGBoJ2Nv8LozRpO+J4P0637RQBPTbn4mOxNI46Nm0BianUaV9gD6GgtZSEV8rurjZYIbDhl/X7f88mwrNmkwSZQ=
+	t=1791122223; cv=none; b=ZBbUKqReyCT8WU/LN7QhV2V3WoY2Ro33Ijbw8iLYbtBmglNm9bVaq9i7OBi02LZmUGH6/FtPtLNSMAQfNbOJWN1iqu8U4yeIrcVvMrdq1r9Of+QTSRsq59ppY8I1R270wFYOZh6TLtRInFMZnx1rIvWaA4Iq+Qetm5yqCIZGLMk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791122143; c=relaxed/simple;
-	bh=8PVZGW4hlZFFimqcLFY9zFxjbYd/8Z+0S5TxqpQ1NUA=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=KRprn1Kk1iX1nFqLT0polezMx1kPSPllwtrJJx8yzsB5TIPvRxyrTgjBAMWK2WzV85Z+G+Nm80z31LsIdZRkJ0loW5/vbpzsUrSDaK4CBwVXZ5ZYU3EmDGP6PXXweJivl49zu7MT04cYK1g2oG9TOLqfT6yuazhduK3I3Q9POAM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=He5WOmT2; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=IkVLde/W; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1791122223; c=relaxed/simple;
+	bh=pmFKQECN/1g2BouKe8+oDUfj61IJz+zyRJ4LXn804/c=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=E48lt/wpOHacKmBixbOz4YG9Pnr0CzD9gN78B72fEHWWAEyjQgkqhN5zA8ewT2SrMhuHaJ9r+AGXeULvm5/uvlT78DC2/guVf+yF90x8YtpPLmDciw+kvqBQX5oOvsk6FaBO5d92Le6WQ46fXnY0HdRRuOGwGG76zH87BKMv7mo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=tGmVPUJH; arc=none smtp.client-ip=74.125.227.168
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="He5WOmT2";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="IkVLde/W"
-Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 694BORKS2203078
-	for <linux-kernel@vger.kernel.org>; Sun, 4 Oct 2026 13:55:40 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	bDgr6XrfEk+tHBIit6qYaX89Ra33y3srxMrizd6STSg=; b=He5WOmT2Pt/TnK7Q
-	uMbWKDihEcLm77n2XR/ri2+uLSJc+ECngldGo1nytdO33piAYoxfq5VrzjhemLgj
-	1OqBMrsKDCT8bA3kIYJRQouo9Jxj8KnnEUBVsC0I4/bNmE/m8xLBuBqkW7XGP9tA
-	YgmyOlY9ISzKFk3u2iCYBhavffTnCmTPLbeE0P9eM2/KDkAxbxwhbe+jfFa202we
-	5nGT20vIxuQToV6Btuzy1o1W6jGIMy7D5gQpGyo3DSmJSF0RCIfd8M4NgXuYP9Ns
-	NaTIWLhbNXcYE59PG8dihBMKlqoKaqquWL+k/gCjnYvwsMB6F4GFOb1IakJUOuvY
-	TLY7Kw==
-Received: from mail-pg1-f198.google.com (mail-pg1-f198.google.com [209.85.215.198])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h2u08k0m4-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Sun, 04 Oct 2026 13:55:39 +0000 (GMT)
-Received: by mail-pg1-f198.google.com with SMTP id 41be03b00d2f7-cc795ad1f5aso559918a12.2
-        for <linux-kernel@vger.kernel.org>; Sun, 04 Oct 2026 06:55:39 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="tGmVPUJH"
+Received: by mail-pj2-f40.google.com with SMTP id 98e67ed59e1d1-3a7e13e2a77so129098a91.3
+        for <linux-kernel@vger.kernel.org>; Sun, 04 Oct 2026 06:57:02 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1791122139; x=1791726939; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=bDgr6XrfEk+tHBIit6qYaX89Ra33y3srxMrizd6STSg=;
-        b=IkVLde/WkA9jYwiX3hdNNAh122pLZllGx2lm9GD4XExcSskyW5Fi25t1shkaPI6WY3
-         Wap+4I4cRC91aQqdYG26MiBZfeIcbD92gQ5cAZ5ff3gxdjEkCXh3scN4FbgUkDdhoFKe
-         ftUzMR5+BPshhNOoI27f39LMOigqv+eyrEyz4QoOTs+eQuvU1l9YmMXbETqmE0B7ZbCA
-         17fGiDXkxu6YBG0+VGeoMRKJg5V43gKJqV2iZ059TDwPOmkhJU+6SIw9mO03ir0/kwg8
-         UEKMZxzb79Ws0jmywTyvaIEx5dUbm4iecUOp5YXF8b4akd/p794mXDzfBHVvV1NjIhCp
-         D6hQ==
+        d=gmail.com; s=20251104; t=1791122221; x=1791727021; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=+DO1yEzfxyadFeHcANw8jUbpWw6KMN2IhkWPDLISq9c=;
+        b=tGmVPUJH0qXpJ0JsG7dAJhEOPoDlCko+EkapKRzrvrY3R3efhXETDjSMRUcCTbMknz
+         f/mDwUYVVYiixpsnqcExeSzLFsdfMyHjK2g4LNnQhjAPdptyw9wy3wYcOKaBYrwLs+n2
+         svw6dbWUVjZBGu5O5QEfjOBpg/PeQh5TDbYUR1fdPB1xcKG6qQcQaejtOksj+Ln/yImH
+         z2g+WMLkD/Gd2HfImNsIRxOuvOfjcJf7SN+9ZSobilUkNoN5xxfGj6SaaMTnVDYZyemT
+         2a81KuuZEl2wf04/kIKEPiVIw2AaFQ+tq/Jg7YIWW3tq6DS2CQxD1gZ02XLZJpRx9b9T
+         GG8Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791122139; x=1791726939;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=1e100.net; s=20260707; t=1791122221; x=1791727021;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=bDgr6XrfEk+tHBIit6qYaX89Ra33y3srxMrizd6STSg=;
-        b=Du7vTurODWbt3gMyq15SEG6fFjamu9uaSABz6qfY2HRAprsqkkPzFDM/JCv1DW3Itg
-         DQdDFk8LejB1DrjE8Dw2GJkv0f3CBI2F3F1s0Qh1p5HZX7MF5WG7DIkVdKTTRNvPvPig
-         vg1DU7TdjPkNMV2UB0XMDvDmKu9xJBJmRkjMuSw5xduOuuiSHxQBLeGI+FLt88DSmVUf
-         BrVM2nR9twvDV6l5f6vRHbyuzwpNvfkXl2zKJ/2FsbVFYwaPgTigzZF0VJzanvyw36PR
-         4OuAU4A7XdL8aOeL1+NvHUCWoIuRv9fSh5zZI00liANifTMU6ZLzG85gw7jDcNhs6cYZ
-         TnBA==
-X-Forwarded-Encrypted: i=1; AKwUvBwwdftDond1JQjncUS8ZhqY9ur8F2GU2saQ7AiZh8D0BLeKmXxkzOHWIXXhcxV2OglNLv/Dkk6Ci6DbSPY=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKjVAzHlrXfVT2oQKoxKbIPuzR5Z1nTRCbl/E9ca8EkW22OIhbO
-	Q6Fe/PNG+M0MRpd9Y2C/impkdW71nUSgSVQ1vg+LLZSs/9rtg4ROSFzocoIBJaRUn3jIYiPK+VZ
-	JlZ3s/D7kgiLNiGSdYTuP3W9mhVMNT4D1nxUuvUB3LcRvGHpJZjyelKHHDvyEj2PUz0E=
-X-Gm-Gg: AYBFou0wQKgJ5bzfiTC5LHUE4DZqKJ8XRAdbfUZaTbVSYEuJzQpE9airmkDdf7FhRhw
-	SIKYevCFb0iT8nOJlmP8ufukQ6qKYyhSxU84QJY8B6bbeS+HDMxwXhEn2TUXW14qJyzBJlReHj4
-	cNEjxhqoQzNhwsKP8r1VyijY9intjFE1qRfm9gSrhHb3hQ/Qn2iHS4tb8TGfBmQT40BUS0vJKKe
-	a+TgOeysv2bUzq8AIbCKGfzR1WTrEG+22I4Uo/ezpL3khSgC5GuXKDUsD0o0Lw/9LeVBvqA0Q3T
-	fuhZv/ptNeWh3ycFkfudF/xP28scMZiNlVkuN6/iRY8Fre95j7c6LpXLKohjMYdsFC4fuzRUUXw
-	vdwR3EaN4fnylgPgjMJv5bd4H0MwIcod0wiH4wJ7jtMh2n14BnEOnNXkjAklhWJKBk8rB7pXy
-X-Received: by 2002:a17:90b:2782:b0:39e:6c69:34d3 with SMTP id 98e67ed59e1d1-3a6ce85582fmr6027724a91.55.1791122138887;
-        Sun, 04 Oct 2026 06:55:38 -0700 (PDT)
-X-Received: by 2002:a17:90b:2782:b0:39e:6c69:34d3 with SMTP id 98e67ed59e1d1-3a6ce85582fmr6027688a91.55.1791122138284;
-        Sun, 04 Oct 2026 06:55:38 -0700 (PDT)
-Received: from [10.133.33.211] (tpe-colo-wan-fw-bordernet.qualcomm.com. [103.229.16.4])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a6dcbdd97fsm5274335a91.0.2026.10.04.06.55.29
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sun, 04 Oct 2026 06:55:36 -0700 (PDT)
-Message-ID: <c6948769-1050-4211-b93c-b72f51c32dd4@oss.qualcomm.com>
-Date: Sun, 4 Oct 2026 21:55:25 +0800
+        bh=+DO1yEzfxyadFeHcANw8jUbpWw6KMN2IhkWPDLISq9c=;
+        b=R30E6zNOQb1mWp1dGbuMp+zPSfaEsTRGbt6AURbzwzPEVMb2CyK6bNadrUM1UhMkW9
+         YmV/CwS2FJz3lZGR3naAQxHChI6lGtWkd8RHZGvzcwEt4fjOx/DCsj+g0JBIrIQDFFrD
+         6NTeNhNycQGSi3lOEdl0OJzWCpO2H8t4IJ3AWxC7A5f4krBbQQ1g32+TIGVi3VXcv26i
+         NM0LILWWZ1CxzQU9tZjMXfeHXqCHPfltDXpG4KDvMDV2SxQwCe3YMy38mjk7eoIBtQmO
+         XbkF9ukvcKcxclRJU8R2RnHC/8HqbDzJYcb8lRaGhJ24qCd3Ebzv+84SPuvJ4nxvULFp
+         HN2A==
+X-Forwarded-Encrypted: i=1; AKwUvBz/ZI/IqxyM/B6b4oK/dzbCMw71fxB4/dVWNMc2BT/bYPtA2Ew18URjlEHPkOaS44CmoexWretwf7OiEDY=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJZhOPQkXijciQ4HIdV1yG7+6TIsPKmq8hvAu1B7lNKPs58Nw1W
+	XbhQ1qz9igGYuuCTvmvQyVMni41X9AgnkzjeOf3Ht5F7eps5vOYmYFNg
+X-Gm-Gg: AYBFou2HbcKsWw8R+XIq2XJ9XkuzV19/QwbmhLxvSjhqZF2r9+iwpaKU11NqKQflHSq
+	5nl21NLIIZpGD7FZzGwSFWTkIoe2zmeQxvxqQ9OnfwQRRwxGBJ7gwd4hdH8yALhmD7lmECnznco
+	2gfOvNz4hUm4AfI/+GikH37gbVZ+ZER2VJWaEuUxKYMnOzSIJMz3zf2f8wAKXnr/O017XNv4D1v
+	6rXcgBKLqaBorYuN5pCtR9h4mJS6WG4DY1oHtdTmAxhy5v/LULVbqNTtwoG3ZnSMzPNsw0tKrcC
+	HLI6lmdnN6s56WzUSFdebDs7rbA4G2LzvQPh6/32hSr0X6ShuNwUe1HAdz1fYxrQbtFOPJ2Y9CE
+	tGNjNwIn/sJc6xtDShLHRD+eQhzOZVV8s9/70GSyZ6vw8E62Yt5jBu1O9mx9r++cGjh2/KsQtzm
+	I76p9yxsZY/q7/VOxMHjp7h7ktiWRo0aMkWiKNi0hc6iq+SL+0g5kTtGcKcdY7X7e8xc4ihq6UF
+	xrCHY9ZAqpT
+X-Received: by 2002:a17:90a:1c17:b0:3a6:f1d2:57f3 with SMTP id 98e67ed59e1d1-3a6f1d26a1dmr3124752a91.58.1791122221416;
+        Sun, 04 Oct 2026 06:57:01 -0700 (PDT)
+Received: from localhost.localdomain ([47.100.192.162])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a78d7cd433sm6876358a91.15.2026.10.04.06.56.56
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 04 Oct 2026 06:57:00 -0700 (PDT)
+From: Yang Wen <anmuxixixi@gmail.com>
+To: linkinjeon@kernel.org,
+	sj1557.seo@samsung.com,
+	chizhiling@163.com
+Cc: yuezhang.mo@sony.com,
+	exfat@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	Yang Wen <anmuxixixi@gmail.com>
+Subject: [PATCH v7 0/3] exfat: speed up file creation in large directories
+Date: Sun,  4 Oct 2026 21:56:35 +0800
+Message-Id: <20261004135638.1888530-1-anmuxixixi@gmail.com>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/3] cpufreq: CPPC: Resolve frequencies to performance
- levels
-To: Christian Loehle <christian.loehle@arm.com>, rafael@kernel.org
-Cc: zhenglifeng1@huawei.com, viresh.kumar@linaro.org,
-        linux-kernel@vger.kernel.org, linux-acpi@vger.kernel.org,
-        linux-arm-kernel@lists.infradead.org, linux-doc@vger.kernel.org,
-        Mario Limonciello <mario.limonciello@amd.com>,
-        K Prateek Nayak <kprateek.nayak@amd.com>,
-        Huang Rui <ray.huang@amd.com>, Perry Yuan <perry.yuan@amd.com>,
-        "Gautham R . Shenoy"
- <gautham.shenoy@amd.com>,
-        Vanshidhar Konda <vanshikonda@os.amperecomputing.com>,
-        Shubhang Kaushik <sh@gentwo.org>,
-        Pierre Gondois <pierre.gondois@arm.com>,
-        Beata Michalska <beata.michalska@arm.com>,
-        Dietmar Eggemann <dietmar.eggemann@arm.com>,
-        Ionela Voinescu <ionela.voinescu@arm.com>,
-        Sudeep Holla <sudeep.holla@kernel.org>,
-        Lukasz Luba <lukasz.luba@arm.com>,
-        Jeremy Linton <jeremy.linton@arm.com>,
-        Peter Zijlstra
- <peterz@infradead.org>, jonathanh@nvidia.com,
-        zhanjie9@hisilicon.com, Vincent Guittot <vincent.guittot@linaro.org>,
-        Jonathan Corbet <corbet@lwn.net>,
-        Shuah Khan <skhan@linuxfoundation.org>,
-        Randy Dunlap <rdunlap@infradead.org>, zhongqiu.han@oss.qualcomm.com
-References: <20260929102957.2591657-1-christian.loehle@arm.com>
- <20260929102957.2591657-3-christian.loehle@arm.com>
- <0a4a28b8-0b26-41df-bd55-c809177a9909@oss.qualcomm.com>
-Content-Language: en-US
-From: Zhongqiu Han <zhongqiu.han@oss.qualcomm.com>
-In-Reply-To: <0a4a28b8-0b26-41df-bd55-c809177a9909@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-Proofpoint-ORIG-GUID: GTxylP-8JhXgOcDS_enHaw3QysUPhkg3
-X-Proofpoint-GUID: GTxylP-8JhXgOcDS_enHaw3QysUPhkg3
-X-Authority-Analysis: v=2.4 cv=JqlkP84C c=1 sm=1 tr=0 ts=6ac25adb cx=c_pps
- a=Qgeoaf8Lrialg5Z894R3/Q==:117 a=nuhDOHQX5FNHPW3J6Bj6AA==:17
- a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=YMgV9FUhrdKAYTUUvYB2:22
- a=7CQSdrXTAAAA:8 a=D87R-bVDKfKZu3bz7LUA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
- a=x9snwWr2DeNwDh03kgHS:22 a=a-qgeE7W1pNrGK8U0ZQC:22
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDA0MDA1NSBTYWx0ZWRfX5cqHdlCsmGJ+
- nmpxf3oaElKYoPPYN9adY92QTN00/taVn8vbS2RIyLIM1X+l+/ihseNPPs+I9u+G/hPuJHeZ7+Q
- oVTKg12ElZ3sKOcHbr/lPHMWEzpwZw8=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDA0MDA1NSBTYWx0ZWRfXzdpN/t+GOFnA
- 6SxPA1ChbNb/aaqERM0zPTjMQOc0ez+9NP8Ijx3eeHDHjVo1PPzvSk4DVkLTogIYSCEreGv7Ou/
- Av+Ndy/U5cmbao+D2rHwjRegOpc9/3/Z4IlamuO7LDS1tDUxvjiEgmHV9Rjy+vRnMW2Nlf9Lo4Z
- Bs8rsSBNyhy6sh8F4h+EatSSgAIEsIunLBhPIFP3mj1J0qH85NkcXQ9ogLX7tH8tcUskwtY6Hd+
- hJODf9hLGkbfvQD8m2JGa/bRxsVmL36pCd7z0SQtz/P2ulbbLVYUpyrX3XO1udFe3++YQMIZDvC
- 2geSE0RiDFVCjsH4VdgxzaB1xMPxYb2Ytg6LroBaVNy4YcXRUqkxCWvS13SzffiT0YLf3rqRviw
- nenbDzBEZdkKHd3867BVsMdIQmIZaUIxKCtLzUNJrF8OJatCLwA0599HSsKx7tVBCqGSZNNAtMl
- Pwu7FvK+cQtC/elNjSw==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-10-04_03,2026-10-02_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- bulkscore=0 malwarescore=0 phishscore=0 suspectscore=0 lowpriorityscore=0
- impostorscore=0 priorityscore=1501 adultscore=0 clxscore=1015 spamscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2610040055
 
-On 10/2/2026 8:29 PM, Zhongqiu Han wrote:
-> Hi Christian,
-> 
-> 
-> On 9/29/2026 6:29 PM, Christian Loehle wrote:
->> Different kHz requests can select the same CPPC performance level.
->> Implement ->resolve_freq() so governors such as schedutil can skip
->> redundant writes.
->>
->> Precompute the affine conversion and invert its integer rounding 
->> directly.
->> Share bounded conversions with ->target() and ->fast_switch(), 
->> choosing the
->> first performance level when several share a kHz value. Recompute limits
->> from each policy snapshot to avoid caching sysfs-shared mutable controls.
->>
->> Cap intervals at or below nominal kHz at Nominal Performance, excluding
->> boosted levels that alias it. Unchanged frequency limits then imply
->> unchanged performance limits across boost toggles.
->>
->> After clamping to CPU limits, snap the limits to supported frequencies.
->> If none lies in the interval, collapse both limits to the highest 
->> supported
->> frequency not above its maximum, as frequency-table verification does.
->>
->> Signed-off-by: Christian Loehle <christian.loehle@arm.com>
->> ---
->>   drivers/cpufreq/cppc_cpufreq.c | 257 ++++++++++++++++++++++++++++++---
->>   1 file changed, 239 insertions(+), 18 deletions(-)
->>
->> diff --git a/drivers/cpufreq/cppc_cpufreq.c b/drivers/cpufreq/ 
->> cppc_cpufreq.c
->> index 4ea444ff889e..fa85efb9f701 100644
->> --- a/drivers/cpufreq/cppc_cpufreq.c
->> +++ b/drivers/cpufreq/cppc_cpufreq.c
->> @@ -18,8 +18,10 @@
->>   #include <linux/cpufreq.h>
->>   #include <linux/irq_work.h>
->>   #include <linux/kthread.h>
->> +#include <linux/math64.h>
->>   #include <linux/mutex.h>
->>   #include <linux/time.h>
->> +#include <linux/units.h>
->>   #include <linux/vmalloc.h>
->>   #include <uapi/linux/sched/types.h>
->> @@ -29,6 +31,24 @@
->>   static struct cpufreq_driver cppc_cpufreq_driver;
->> +struct cppc_perf_freq_map {
->> +    s64 offset;
->> +    u64 multiplier;
->> +    u32 divisor;
->> +};
->> +
->> +struct cppc_cpufreq_data {
->> +    struct cppc_cpudata cpu_data;
->> +    struct cppc_perf_freq_map map;
->> +    unsigned int nominal_khz;
->> +};
->> +
->> +static struct cppc_cpufreq_data *
->> +cppc_cpufreq_data(struct cppc_cpudata *cpu_data)
->> +{
->> +    return container_of(cpu_data, struct cppc_cpufreq_data, cpu_data);
->> +}
->> +
->>   #ifdef CONFIG_ACPI_CPPC_CPUFREQ_FIE
->>   static enum {
->>       FIE_UNSET = -1,
->> @@ -302,11 +322,159 @@ static inline void cppc_freq_invariance_exit(void)
->>   }
->>   #endif /* CONFIG_ACPI_CPPC_CPUFREQ_FIE */
->> +/* Precompute the affine mapping used by cppc_perf_to_khz(). */
->> +static void cppc_cpufreq_init_perf_map(struct cppc_perf_caps *caps,
->> +                       struct cppc_perf_freq_map *map)
->> +{
->> +    if (caps->lowest_freq && caps->nominal_freq) {
->> +        if (caps->lowest_freq == caps->nominal_freq) {
->> +            map->multiplier = (u64)caps->nominal_freq * KHZ_PER_MHZ;
-> 
-> This duplicates the perf<->kHz conversion, but cppc_perf_to_khz() rounds
-> its offset at MHz granularity before scaling to kHz while the new map
-> scales first, so the two can differ by up to 999 kHz. In current patch
-> func cppc_cpufreq_perf_limits() the max_freq operand still derives from
-> cpuinfo.max_freq (old conversion) while data->nominal_khz uses the new
-> one -- with boost off, could the max_freq <= data->nominal_khz test
-> still be relied upon? If it goes false, will policy_max_perf become
-> highest_perf and max_perf seems to end up above nominal_perf?
+Negative name lookups and empty-entry allocation can repeatedly scan a
+directory from the beginning. Bulk creation in a large directory therefore
+approaches O(N^2).
 
-Please ignore this comment. I misread cppc_perf_to_khz(). Sorry about
-that.
+This series separates the optimization into three independently reviewable
+steps. Patch 1 adds the Bloom filter used to reject definite name misses.
+Patch 2 retains and correctly invalidates the next-empty-entry hint.
+Patch 3 adds the LRU and shrinker used to reclaim filters under memory
+pressure.
 
-> 
->> +            map->divisor = caps->nominal_perf;
->> +            map->offset = 0;
->> +        } else {
->> +            map->multiplier = (u64)(caps->nominal_freq -
->> +                       caps->lowest_freq) * KHZ_PER_MHZ;
->> +            map->divisor = caps->nominal_perf - caps->lowest_perf;
->> +            map->offset = (s64)caps->nominal_freq * KHZ_PER_MHZ -
->> +                div64_u64(caps->nominal_perf * map->multiplier,
->> +                      map->divisor);
->> +        }
->> +    } else {
->> +        map->multiplier = cppc_get_dmi_max_khz();
->> +        map->divisor = caps->highest_perf;
->> +        map->offset = 0;
->> +    }
->> +}
->> +
->> +static unsigned int
->> +cppc_cpufreq_perf_to_khz(const struct cppc_perf_freq_map *map, u32 perf)
->> +{
->> +    s64 freq = map->offset + div64_u64(perf * map->multiplier,
->> +                        map->divisor);
->> +
->> +    return freq > 0 ? freq : 0;
->> +}
->> +
->> +/*
->> + * Invert integer-kHz rounding: L finds the first level at or above the
->> + * target frequency, H the last at or below it, within the supplied 
->> bounds.
->> + */
->> +static u32 cppc_cpufreq_perf_for_freq(const struct cppc_perf_freq_map 
->> *map,
->> +                      unsigned int target_freq,
->> +                      u32 min_perf, u32 max_perf,
->> +                      unsigned int relation)
->> +{
->> +    s64 scaled_freq = (s64)target_freq - map->offset;
->> +    u64 perf;
->> +
->> +    switch (relation) {
->> +    case CPUFREQ_RELATION_L:
->> +        if (!target_freq || scaled_freq <= 0)
->> +            perf = 0;
->> +        else
->> +            perf = mul_u64_u64_div_u64_roundup(scaled_freq,
->> +                               map->divisor,
->> +                               map->multiplier);
->> +        break;
->> +
->> +    case CPUFREQ_RELATION_H:
->> +        if (scaled_freq < 0) {
->> +            perf = 0;
->> +        } else {
->> +            perf = mul_u64_u64_div_u64_roundup(scaled_freq + 1,
->> +                               map->divisor,
->> +                               map->multiplier);
->> +            perf--;
->> +        }
->> +        break;
->> +
->> +    default:
->> +        WARN_ON_ONCE(1);
->> +        return min_perf;
->> +    }
->> +
->> +    return clamp_t(u64, perf, min_perf, max_perf);
->> +}
->> +
->> +static void cppc_cpufreq_perf_limits(struct cppc_perf_caps *caps,
->> +                     struct cppc_cpufreq_data *data,
->> +                     unsigned int min_freq,
->> +                     unsigned int max_freq,
->> +                     u32 *min_perf, u32 *max_perf)
->> +{
->> +    u32 policy_max_perf;
->> +
->> +    /* Do not include boosted levels that alias the nominal 
->> frequency. */
->> +    policy_max_perf = max_freq <= data->nominal_khz ?
->> +              caps->nominal_perf : caps->highest_perf;
->> +    *min_perf = cppc_cpufreq_perf_for_freq(&data->map, min_freq,
->> +                           caps->lowest_perf,
->> +                           policy_max_perf,
->> +                           CPUFREQ_RELATION_L);
->> +    *max_perf = cppc_cpufreq_perf_for_freq(&data->map, max_freq,
->> +                           caps->lowest_perf,
->> +                           policy_max_perf,
->> +                           CPUFREQ_RELATION_H);
->> +}
->> +
->> +static unsigned int
->> +cppc_cpufreq_resolve_freq(struct cpufreq_policy *policy,
->> +              unsigned int target_freq,
->> +              unsigned int min_freq,
->> +              unsigned int max_freq,
->> +              unsigned int relation)
->> +{
->> +    struct cppc_cpudata *cpu_data = policy->driver_data;
->> +    struct cppc_perf_caps *caps = &cpu_data->perf_caps;
->> +    struct cppc_cpufreq_data *data = cppc_cpufreq_data(cpu_data);
->> +    const struct cppc_perf_freq_map *map = &data->map;
->> +    u32 min_perf, max_perf, perf;
->> +
->> +    cppc_cpufreq_perf_limits(caps, data, min_freq, max_freq,
->> +                 &min_perf, &max_perf);
->> +    if (WARN_ON_ONCE(min_perf > max_perf))
->> +        return cppc_cpufreq_perf_to_khz(map, max_perf);
->> +
->> +    switch (relation) {
->> +    case CPUFREQ_RELATION_L:
->> +    case CPUFREQ_RELATION_H:
->> +        perf = cppc_cpufreq_perf_for_freq(map, target_freq,
->> +                          min_perf, max_perf, relation);
->> +        break;
->> +    case CPUFREQ_RELATION_C: {
->> +        u32 lower = cppc_cpufreq_perf_for_freq(map, target_freq,
->> +                            min_perf, max_perf,
->> +                            CPUFREQ_RELATION_H);
->> +        u32 upper = cppc_cpufreq_perf_for_freq(map, target_freq,
->> +                            min_perf, max_perf,
->> +                            CPUFREQ_RELATION_L);
->> +        unsigned int lower_freq = cppc_cpufreq_perf_to_khz(map, lower);
->> +        unsigned int upper_freq = cppc_cpufreq_perf_to_khz(map, upper);
->> +
->> +        if (lower_freq >= target_freq)
->> +            perf = lower;
->> +        else if (upper_freq <= target_freq)
->> +            perf = upper;
->> +        else if (target_freq - lower_freq < upper_freq - target_freq)
->> +            perf = lower;
->> +        else
->> +            perf = upper;
->> +        break;
->> +    }
->> +    default:
->> +        WARN_ON_ONCE(1);
->> +        return target_freq;
->> +    }
->> +
->> +    return cppc_cpufreq_perf_to_khz(map, perf);
->> +}
->> +
->>   static void cppc_cpufreq_get_perf_limits(struct cppc_cpudata *cpu_data,
->>                        struct cpufreq_policy *policy,
->>                        u32 *min_perf, u32 *max_perf)
->>   {
->>       struct cppc_perf_caps *caps = &cpu_data->perf_caps;
->> +    struct cppc_cpufreq_data *data = cppc_cpufreq_data(cpu_data);
->>       unsigned int min_freq, max_freq;
->>       u32 min, max;
->> @@ -315,11 +483,11 @@ static void cppc_cpufreq_get_perf_limits(struct 
->> cppc_cpudata *cpu_data,
->>       if (unlikely(min_freq > max_freq))
->>           min_freq = max_freq;
->> -    min = cppc_khz_to_perf(caps, min_freq);
->> -    max = cppc_khz_to_perf(caps, max_freq);
->> +    cppc_cpufreq_perf_limits(caps, data, min_freq, max_freq,
->> +                 &min, &max);
->> -    *min_perf = clamp_t(u32, min, caps->lowest_perf, caps- 
->> >highest_perf);
->> -    *max_perf = clamp_t(u32, max, caps->lowest_perf, caps- 
->> >highest_perf);
->> +    *min_perf = min(min, max);
->> +    *max_perf = max;
->>   }
->>   static void cppc_cpufreq_update_perf_limits(struct cppc_cpudata 
->> *cpu_data,
->> @@ -330,6 +498,26 @@ static void 
->> cppc_cpufreq_update_perf_limits(struct cppc_cpudata *cpu_data,
->>                        &cpu_data->perf_ctrls.max_perf);
->>   }
->> +static unsigned int
->> +cppc_cpufreq_update_perf_ctrls(struct cppc_cpudata *cpu_data,
->> +                   struct cpufreq_policy *policy,
->> +                   unsigned int target_freq)
->> +{
->> +    struct cppc_cpufreq_data *data = cppc_cpufreq_data(cpu_data);
->> +    u32 min_perf, max_perf, desired_perf;
->> +
->> +    cppc_cpufreq_get_perf_limits(cpu_data, policy, &min_perf, 
->> &max_perf);
->> +    /* Use the first level when several share the same integer-kHz 
->> value. */
->> +    desired_perf = cppc_cpufreq_perf_for_freq(&data->map, target_freq,
->> +                          min_perf, max_perf,
->> +                          CPUFREQ_RELATION_L);
->> +    cpu_data->perf_ctrls.min_perf = min_perf;
->> +    cpu_data->perf_ctrls.max_perf = max_perf;
->> +    cpu_data->perf_ctrls.desired_perf = desired_perf;
->> +
->> +    return cppc_cpufreq_perf_to_khz(&data->map, desired_perf);
->> +}
->> +
->>   static int cppc_cpufreq_set_target(struct cpufreq_policy *policy,
->>                      unsigned int target_freq,
->>                      unsigned int relation)
->> @@ -339,12 +527,9 @@ static int cppc_cpufreq_set_target(struct 
->> cpufreq_policy *policy,
->>       struct cpufreq_freqs freqs;
->>       int ret = 0;
->> -    cpu_data->perf_ctrls.desired_perf =
->> -            cppc_khz_to_perf(&cpu_data->perf_caps, target_freq);
->> -    cppc_cpufreq_update_perf_limits(cpu_data, policy);
->> -
->>       freqs.old = policy->cur;
->> -    freqs.new = target_freq;
->> +    freqs.new = cppc_cpufreq_update_perf_ctrls(cpu_data, policy,
->> +                           target_freq);
->>       cpufreq_freq_transition_begin(policy, &freqs);
->>       ret = cppc_set_perf(cpu, &cpu_data->perf_ctrls);
->> @@ -361,13 +546,12 @@ static unsigned int 
->> cppc_cpufreq_fast_switch(struct cpufreq_policy *policy,
->>                             unsigned int target_freq)
->>   {
->>       struct cppc_cpudata *cpu_data = policy->driver_data;
->> +    unsigned int resolved_freq;
->>       unsigned int cpu = policy->cpu;
->> -    u32 desired_perf;
->>       int ret;
->> -    desired_perf = cppc_khz_to_perf(&cpu_data->perf_caps, target_freq);
->> -    cpu_data->perf_ctrls.desired_perf = desired_perf;
->> -    cppc_cpufreq_update_perf_limits(cpu_data, policy);
->> +    resolved_freq = cppc_cpufreq_update_perf_ctrls(cpu_data, policy,
->> +                               target_freq);
->>       ret = cppc_set_perf(cpu, &cpu_data->perf_ctrls);
->>       if (ret) {
->> @@ -376,12 +560,39 @@ static unsigned int 
->> cppc_cpufreq_fast_switch(struct cpufreq_policy *policy,
->>           return 0;
->>       }
->> -    return target_freq;
->> +    return resolved_freq;
->>   }
->>   static int cppc_verify_policy(struct cpufreq_policy_data *policy)
->>   {
->> +    struct cpufreq_policy *cur_policy;
->> +    struct cppc_cpudata *cpu_data;
->> +    struct cppc_cpufreq_data *data;
->> +    struct cppc_perf_caps *caps;
->> +    unsigned int min_freq, max_freq;
->> +    u32 min_perf, max_perf;
->> +
->>       cpufreq_verify_within_cpu_limits(policy);
->> +
->> +    cur_policy = cpufreq_cpu_get_raw(policy->cpu);
->> +    if (WARN_ON_ONCE(!cur_policy || !cur_policy->driver_data))
->> +        return -ENODEV;
->> +
->> +    cpu_data = cur_policy->driver_data;
->> +    data = cppc_cpufreq_data(cpu_data);
->> +    caps = &cpu_data->perf_caps;
->> +    cppc_cpufreq_perf_limits(caps, data, policy->min, policy->max,
->> +                 &min_perf, &max_perf);
->> +    min_freq = cppc_cpufreq_perf_to_khz(&data->map, min_perf);
->> +    max_freq = cppc_cpufreq_perf_to_khz(&data->map, max_perf);
->> +
->> +    /* Favor the maximum if no supported frequency lies in the 
->> interval. */
->> +    if (min_perf > max_perf || min_freq > policy->max ||
->> +        max_freq < policy->min)
->> +        min_freq = max_freq;
->> +
->> +    policy->min = min_freq;
->> +    policy->max = max_freq;
->>       return 0;
->>   }
->> @@ -618,12 +829,14 @@ static void populate_efficiency_class(void)
->>   static struct cppc_cpudata *cppc_cpufreq_get_cpu_data(unsigned int cpu)
->>   {
->> +    struct cppc_cpufreq_data *data;
->>       struct cppc_cpudata *cpu_data;
->>       int ret;
->> -    cpu_data = kzalloc_obj(struct cppc_cpudata);
->> -    if (!cpu_data)
->> +    data = kzalloc_obj(struct cppc_cpufreq_data);
->> +    if (!data)
->>           goto out;
->> +    cpu_data = &data->cpu_data;
->>       if (!zalloc_cpumask_var(&cpu_data->shared_cpu_map, GFP_KERNEL))
->>           goto free_cpu;
->> @@ -640,6 +853,10 @@ static struct cppc_cpudata 
->> *cppc_cpufreq_get_cpu_data(unsigned int cpu)
->>           goto free_mask;
->>       }
->> +    cppc_cpufreq_init_perf_map(&cpu_data->perf_caps, &data->map);
->> +    data->nominal_khz = cppc_cpufreq_perf_to_khz(&data->map,
->> +                             cpu_data->perf_caps.nominal_perf);
->> +
->>       ret = cppc_get_perf(cpu, &cpu_data->perf_ctrls);
->>       if (ret) {
->>           pr_debug("Err reading CPU%d perf ctrls: ret:%d\n", cpu, ret);
->> @@ -651,7 +868,7 @@ static struct cppc_cpudata 
->> *cppc_cpufreq_get_cpu_data(unsigned int cpu)
->>   free_mask:
->>       free_cpumask_var(cpu_data->shared_cpu_map);
->>   free_cpu:
->> -    kfree(cpu_data);
->> +    kfree(data);
->>   out:
->>       return NULL;
->>   }
->> @@ -659,9 +876,12 @@ static struct cppc_cpudata 
->> *cppc_cpufreq_get_cpu_data(unsigned int cpu)
->>   static void cppc_cpufreq_put_cpu_data(struct cpufreq_policy *policy)
->>   {
->>       struct cppc_cpudata *cpu_data = policy->driver_data;
->> +    struct cppc_cpufreq_data *data;
->> +
->> +    data = container_of(cpu_data, struct cppc_cpufreq_data, cpu_data);
->>       free_cpumask_var(cpu_data->shared_cpu_map);
->> -    kfree(cpu_data);
->> +    kfree(data);
->>       policy->driver_data = NULL;
->>   }
->> @@ -1056,6 +1276,7 @@ static struct cpufreq_driver cppc_cpufreq_driver 
->> = {
->>       .flags = CPUFREQ_CONST_LOOPS | CPUFREQ_NEED_UPDATE_LIMITS,
->>       .verify = cppc_verify_policy,
->>       .target = cppc_cpufreq_set_target,
->> +    .resolve_freq = cppc_cpufreq_resolve_freq,
->>       .get = cppc_cpufreq_get_rate,
->>       .fast_switch = cppc_cpufreq_fast_switch,
->>       .init = cppc_cpufreq_cpu_init,
-> 
-> 
+Test environment:
+  QEMU TCG multi-thread, 4 vCPUs, 6 GiB RAM
+  4 GiB exFAT image, 32 KiB clusters
 
+The measured results were:
+
+                         Before          After
+  real                   589.48 s        30.09 s
+  user                     4.72 s         3.40 s
+  sys                    584.63 s        26.65 s
+
+
+Changes in v7:
+- Size each Bloom filter from the allocated directory size, using four bits
+  per on-disk entry and clamping the bitmap between 512 bytes and 4 MiB.
+- Track set bits and discard a filter when one third of its bits are set or
+  directory growth requires a larger bitmap. Rebuild it lazily after a
+  later complete negative lookup.
+- Account reclaimable filters in pages so shrinker accounting follows their
+  dynamic allocation sizes.
+- Preserve the shrinker core's scan budget and return SHRINK_STOP when the
+  LRU is already empty, preventing repeated no-progress scans.
+
+Changes in v6:
+- Invalidate the name filter when committing a new entry set fails, before
+  attempting rollback. Despite the reported write error, the new name may
+  already have reached disk.
+- Move rename/move error invalidation into the Bloom filter patch so that
+  each patch remains correct when applied independently.
+
+Changes in v5:
+- Rebase the series onto the exFAT maintainer's dev branch.
+- Treat every non-negative exfat_find_empty_entry() return value as a
+  successful allocation in the volume-label path.
+- Record the minimum entry-set size for which a saved empty-entry hint is
+  valid. A shorter entry set now rescans from the beginning and can reuse a
+  smaller hole that an earlier, longer entry set could not use.
+
+Changes in v4:
+- Publish the next-empty-entry hint only after the directory entry set is
+  successfully committed, so post-allocation failures cannot skip an unused
+  slot.
+- Invalidate the destination name filter when rename or move fails because
+  the new entry may already exist on disk.
+
+Changes in v3:
+- Split the change into Bloom filter, empty-entry hint, and shrinker
+  patches.
+- Accept filenames containing exactly 255 UTF-16 code units while building
+  the Bloom filter.
+- Invalidate the empty-entry hint in every path that can free directory
+  entries, preventing stale hints from skipping earlier holes.
+
+Changes in v2:
+- Move exfat_name_filter_free() to exfat_evict_inode() because
+  ->free_inode() may run from an RCU callback in softirq context.
+
+Yang Wen (3):
+  exfat: add a Bloom filter for negative name lookups
+  exfat: retain the next empty directory entry hint
+  exfat: reclaim name filters under memory pressure
+
+ fs/exfat/dir.c      | 352 +++++++++++++++++++++++++++++++++++++++++++-
+ fs/exfat/exfat_fs.h |  30 +++-
+ fs/exfat/inode.c    |   1 +
+ fs/exfat/namei.c    |  87 ++++++++++-
+ fs/exfat/super.c    |   9 ++
+ 5 files changed, 470 insertions(+), 9 deletions(-)
 
 -- 
-Thx and BRs,
-Zhongqiu Han
+2.34.1
