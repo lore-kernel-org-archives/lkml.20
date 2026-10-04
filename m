@@ -1,251 +1,121 @@
-Received: from va-2-55.ptr.blmpb.com (va-2-55.ptr.blmpb.com [209.127.231.55])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 24858222599
-	for <linux-kernel@vger.kernel.org>; Sun,  4 Oct 2026 15:54:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.127.231.55
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 47AE83932D3;
+	Sun,  4 Oct 2026 15:56:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791129296; cv=none; b=pA63PwNwlP/XEAkM1amL9MT4AtfHSYymUFqRSyyVYOvTQRLJ6sjommv6tCOyAKjBJCH5NMmU8ZFKwhDx5MWs3elt+eTVCTCVdPSBIYqDYlhJCr4V2mcBxUZrjWTJJ4J++LAkENpW5XAhXghGIFcEzN4H/Nhr5RkM0fJDyl7R3ss=
+	t=1791129396; cv=none; b=qZgHqVABM2C4/UaRXUg0kEh7R4jtQuIMJNxVoc94JXYrN7b6YEnHhEmJjOBjj1cTWk+p0/o608T9G+RFGH6uMh10L2D4QC+MnBbpxeL9rigsZ0FWYruuoT3zHCnNfLoeb+OvTTJEOkOYS2mWmDux2oRO4c0YwVWZgTaZVez2LpM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791129296; c=relaxed/simple;
-	bh=rtPD//bWwu393dOBBUWZx/CheiAozL89AO3KCZYdFBA=;
-	h=References:Cc:From:In-Reply-To:Subject:Message-Id:Date:
-	 Mime-Version:Content-Type:To; b=MKMmwR2o/iAS2kQUKKC3/GL6aSoVQ15UEUx3X7l+xQJt4A+kFdV4GcccRaLxqgJAyga4+MW2uVd/YVF9ZSz5kh72jshuHMecBbbyM6AC5V242y8YDI1Xw15mUUR/xiBwdsT0ezWsGa20t5Ocdk6YjrTDB4Z9uPrwOb18v3oJNfg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fygo.io; spf=pass smtp.mailfrom=fygo.io; dkim=pass (2048-bit key) header.d=fygo-io.20200929.dkim.larksuite.com header.i=@fygo-io.20200929.dkim.larksuite.com header.b=VxkqIgNd; arc=none smtp.client-ip=209.127.231.55
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fygo.io
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fygo.io
+	s=arc-20240116; t=1791129396; c=relaxed/simple;
+	bh=k47fIkXoIve1EcF/DH9wD0vXMxdWxc2LjnMUZ/9jbrA=;
+	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=fNu4Kw8v62aIt+mvarEwwY7ScFCDvOoGCO6rpfGr5xdTTrLWM9ZRQKPsnn0hMCuDGxywzFu2+KFg6u5c6VPMw93XiyRJD9aHdJB/cnEWm5I9AGpAoYaqor/qPZWh+PvJHumjUJ9AFtODHGZL2mP1JiM9XQvnpAx8lEpJRgPHFdo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HoJUo41N; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=fygo-io.20200929.dkim.larksuite.com header.i=@fygo-io.20200929.dkim.larksuite.com header.b="VxkqIgNd"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- s=s1; d=fygo-io.20200929.dkim.larksuite.com; t=1791129290;
-  h=from:subject:mime-version:from:date:message-id:subject:to:cc:
- reply-to:content-type:mime-version:in-reply-to:message-id;
- bh=4vryk1DEKogU2H6y67+W/lTNTWEftQjvJaN1iwXNBN0=;
- b=VxkqIgNdFSXgDlEg4vTk0Ru7sakLFC9itHcH++xpFjUIEbeHx+t0T9M3cCP/CVEuC/oEkp
- 07dOkEF/URi3GdYk34iNCzwaK00A/ymN+9k3qm+VMtGxeNTNEVVP6D4pNw5+gg0lnr8aKI
- suwUEfvs0ee0FXSdpbPvS/U5GUZPTdEaBSdE5Ul0sSklPw2LugrLwyyoUTavxGiFaCVKRC
- Qz80P8uxN5tRCf1DMvbh91T0GbyyLTs2+pPloQ3avehuU/woYAPkJ8p02vSxKw08i/sWnF
- uQOH10Lw4QMFGuYUQQdxyPtQx2NwTr8hT/6Lw/N7dm6Dh/pGM7ZS2WIW9gcqtA==
-References: <20261003101948.1690687-1-dayou5941@163.com>
-Cc: <magiclinan@didiglobal.com>, <xiao@kernel.org>, 
-	<linux-raid@vger.kernel.org>, <linux-kernel@vger.kernel.org>, 
-	"Li Youhong" <liyouhong@kylinos.cn>, 
-	<syzbot+89a9ab2a134d092fffae@syzkaller.appspotmail.com>
-From: "yu kuai" <yukuai@fygo.io>
-In-Reply-To: <20261003101948.1690687-1-dayou5941@163.com>
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH] md: drain active_io before clearing pers on stop
-Message-Id: <44ca54b6-9012-4d25-93ff-743c34231c2b@fygo.io>
-X-Lms-Return-Path: <lba+26ac276c9+f57c47+vger.kernel.org+yukuai@fygo.io>
-X-Original-From: yu kuai <yukuai@fygo.io>
-Received: from [192.168.1.104] ([39.182.0.177]) by smtp.larksuite.com with ESMTPS; Sun, 04 Oct 2026 15:54:48 +0000
-Reply-To: yukuai@fygo.io
-Date: Sun, 4 Oct 2026 23:54:45 +0800
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HoJUo41N"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D39731F000FF;
+	Sun,  4 Oct 2026 15:56:33 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791129394;
+	bh=7PtX34WXxwpxvlKsphurq4J3D1yIHgbIjqnXI/3vFCc=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=HoJUo41NwPEHE6ToxwKp6VjBpW2faalVA4IicaJ/W4VDZkS39I9CIblADPBDLW9F3
+	 fi8Z6PNBoZGPvpQTDTsBQApAvzznbUKy9tr76jGBX/ZCRaa21DYJx/p/Y9md7cF3ph
+	 G9LO3A4hNZyxrvbHCVgWBJpn6y5Z3TV6TJ8NslyYpQyP6fteVmTSnkbvrfmwS5k2Di
+	 6xedtfqEq9PWF59X4w9aNp5Cl1ltYKDVTo5hUr/wkpRl32yc5NMmk6WtXJqnEqMig0
+	 KHAgji8O3EIsFShi7Aze/RGRzv+2mW65mlrUmB1jaaLkoZWQGZkIm0aJUaITbe9JS+
+	 hejGQ9XCv+v2Q==
+Subject: Re: [PATCH net-next v19 1/6] net: dsa: add devlink flash_update
+ callback to dsa_switch_ops
+From: netdev-bot+sashiko@kernel.org
+To: daniel@makrotopia.org
+Cc: jiri@resnulli.us, davem@davemloft.net, edumazet@google.com,
+ kuba@kernel.org, pabeni@redhat.com, horms@kernel.org, corbet@lwn.net,
+ skhan@linuxfoundation.org, rdunlap@infradead.org, gregkh@linuxfoundation.org,
+ rafael@kernel.org, dakr@kernel.org, andrew@lunn.ch, olteanv@gmail.com,
+ linux@armlinux.org.uk, netdev@vger.kernel.org, linux-doc@vger.kernel.org,
+ linux-kernel@vger.kernel.org, driver-core@lists.linux.dev
+Date: Sun, 04 Oct 2026 15:56:33 +0000
+Message-ID: <179112939336.434549.10896420930582445721@kernel.org>
+In-Reply-To: =?utf-8?q?=3C35450d868a8d1918380481420022b618e3758762=2E1791035?=
+ =?utf-8?q?885=2Egit=2Edaniel=40makrotopia=2Eorg=3E?=
+References: =?utf-8?q?=3C35450d868a8d1918380481420022b618e3758762=2E17910358?=
+ =?utf-8?q?85=2Egit=2Edaniel=40makrotopia=2Eorg=3E?=
+X-sashiko-severity: Low
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-To: "Li Youhong" <dayou5941@163.com>, <song@kernel.org>, 
-	"yu kuai" <yukuai@fygo.io>
-User-Agent: Mozilla Thunderbird
+MIME-Version: 1.0
 
-Hi,
+Thank you for your contribution! Sashiko AI review found more severe
+issue(s) in other patches of this series. This mail is only an FYI, in case
+you want to address the nit picks below when you respin.
 
-=E5=9C=A8 2026/10/3 18:19, Li Youhong =E5=86=99=E9=81=93:
-> From: Li Youhong <liyouhong@kylinos.cn>
->
-> STOP_ARRAY clears mddev->pers while a direct bio can already be in
-> md_handle_request(). fork() shares the block-device file, so openers
-> stays 1 and the stop is allowed, and sync_blockdev() does not wait for
-> O_DIRECT. The bio passes the pers check in md_submit_bio(), then pers
-> is cleared and md_handle_request() dereferences pers->make_request.
->
-> Suspend the array before __md_stop() so percpu_ref_kill(active_io) makes
-> later tryget_live fail and the wait runs until every make_request holder
-> has dropped the ref. The suspend taken here is resumed after pers is
-> cleared, which wakes bios blocked in md_handle_request(). They see
-> pers =3D=3D NULL and complete with bio_io_error(). dm-raid already holds
-> its own suspend across md_stop() and that path is unchanged.
->
-> reconfig_mutex is dropped around mddev_suspend() and mddev_resume().
-> stop_draining is set across that window so mddev_lock() returns
-> -EBUSY.
->
-> Reported-by: syzbot+89a9ab2a134d092fffae@syzkaller.appspotmail.com
-> Closes: https://syzkaller.appspot.com/bug?extid=3D89a9ab2a134d092fffae
-> Fixes: 409c57f38017 ("md: enable suspend/resume of md devices.")
-> Signed-off-by: Li Youhong <liyouhong@kylinos.cn>
-> ---
->   drivers/md/md.c | 62 ++++++++++++++++++++++++++++++++++++++++++++++---
->   drivers/md/md.h |  7 ++++++
->   2 files changed, 66 insertions(+), 3 deletions(-)
->
-> diff --git a/drivers/md/md.c b/drivers/md/md.c
-> index 680b34a63cb3..85158a99277f 100644
-> --- a/drivers/md/md.c
-> +++ b/drivers/md/md.c
-> @@ -395,6 +395,8 @@ static bool is_suspended(struct mddev *mddev, struct =
-bio *bio)
->  =20
->   bool md_handle_request(struct mddev *mddev, struct bio *bio)
->   {
-> +	struct md_personality *pers;
-> +
->   check_suspended:
->   	if (unlikely(md_cloned_bio(mddev, bio))) {
->   		/*
-> @@ -402,6 +404,12 @@ bool md_handle_request(struct mddev *mddev, struct b=
-io *bio)
->   		 * active_io reference, so percpu_ref_get() is safe here.
->   		 */
->   		percpu_ref_get(&mddev->active_io);
-> +		pers =3D READ_ONCE(mddev->pers);
-> +		if (!pers) {
-> +			percpu_ref_put(&mddev->active_io);
-> +			bio_io_error(bio);
-> +			return true;
-> +		}
->   	} else {
->   		if (is_suspended(mddev, bio)) {
->   			/* Bail out if REQ_NOWAIT is set for the bio */
-> @@ -409,14 +417,20 @@ bool md_handle_request(struct mddev *mddev, struct =
-bio *bio)
->   				bio_wouldblock_error(bio);
->   				return true;
->   			}
-> -			wait_event(mddev->sb_wait, !is_suspended(mddev, bio));
-> +			wait_event(mddev->sb_wait, !is_suspended(mddev, bio) ||
-> +				   !READ_ONCE(mddev->pers));
-> +		}
-> +		pers =3D READ_ONCE(mddev->pers);
-> +		if (!pers) {
-> +			bio_io_error(bio);
-> +			return true;
->   		}
->   		if (!percpu_ref_tryget_live(&mddev->active_io))
->   			goto check_suspended;
->   	}
-> -	if (!mddev->pers->make_request(mddev, bio)) {
-> +	if (!pers->make_request(mddev, bio)) {
->   		percpu_ref_put(&mddev->active_io);
-> -		if (mddev_is_dm(mddev) && mddev->pers->prepare_suspend)
-> +		if (mddev_is_dm(mddev) && pers->prepare_suspend)
->   			return false;
->   		goto check_suspended;
->   	}
-> @@ -7097,6 +7111,32 @@ static void __md_stop(struct mddev *mddev)
->   	clear_bit(MD_RECOVERY_FROZEN, &mddev->recovery);
->   }
->  =20
-> +/* Drop reconfig_mutex around suspend so in-flight IO can update the sup=
-erblock. */
-> +static int md_suspend_for_stop(struct mddev *mddev, bool interruptible)
-> +{
-> +	int err;
-> +
-> +	lockdep_assert_held(&mddev->reconfig_mutex);
-> +
-> +	WRITE_ONCE(mddev->stop_draining, 1);
-> +	mutex_unlock(&mddev->reconfig_mutex);
+Low priority / nit picks for your consideration:
 
-Creating a new wheel will just make code more complicated. Check following =
-patch for the
-correct fix:
+- [Low] This patch gives every DSA switch a new devlink capability:
+  firmware flash through the new `dsa_switch_ops::devlink_flash_update`…
 
-[PATCH v5] md: Fix the null-ptr-deref of 'mddev->private' while=20
-submitting IO - Zhihao Cheng <https://lore.kernel.org/all/20260922030538.16=
-34904-1-chengzhihao1@huawei.com/>
+--
 
-> +	err =3D mddev_suspend(mddev, interruptible);
-> +	mddev_lock_nointr(mddev);
-> +	WRITE_ONCE(mddev->stop_draining, 0);
-> +	return err;
-> +}
-> +
-> +static void md_resume_for_stop(struct mddev *mddev)
-> +{
-> +	lockdep_assert_held(&mddev->reconfig_mutex);
-> +
-> +	WRITE_ONCE(mddev->stop_draining, 1);
-> +	mutex_unlock(&mddev->reconfig_mutex);
-> +	__mddev_resume(mddev, false);
-> +	mddev_lock_nointr(mddev);
-> +	WRITE_ONCE(mddev->stop_draining, 0);
-> +}
-> +
->   void md_stop(struct mddev *mddev)
->   {
->   	lockdep_assert_held(&mddev->reconfig_mutex);
-> @@ -7164,6 +7204,8 @@ static int do_md_stop(struct mddev *mddev, int mode=
-)
->   	struct gendisk *disk =3D mddev->gendisk;
->   	struct md_rdev *rdev;
->   	int did_freeze =3D 0;
-> +	int err =3D 0;
-> +	int resume =3D 0;
->  =20
->   	if (!test_bit(MD_RECOVERY_FROZEN, &mddev->recovery)) {
->   		did_freeze =3D 1;
-> @@ -7181,6 +7223,18 @@ static int do_md_stop(struct mddev *mddev, int mod=
-e)
->   		}
->   		return -EBUSY;
->   	}
-> +
-> +	if (mddev->pers) {
-> +		err =3D md_suspend_for_stop(mddev, true);
-> +		if (err) {
-> +			if (did_freeze) {
-> +				clear_bit(MD_RECOVERY_FROZEN, &mddev->recovery);
-> +				set_bit(MD_RECOVERY_NEEDED, &mddev->recovery);
-> +			}
-> +			return err;
-> +		}
-> +		resume =3D 1;
-> +	}
->   	if (mddev->pers) {
->   		if (!md_is_rdwr(mddev))
->   			set_disk_ro(disk, 0);
-> @@ -7205,6 +7259,8 @@ static int do_md_stop(struct mddev *mddev, int mode=
-)
->   		if (!md_is_rdwr(mddev))
->   			mddev->ro =3D MD_RDWR;
->   	}
-> +	if (resume)
-> +		md_resume_for_stop(mddev);
->   	/*
->   	 * Free resources if final stop
->   	 */
-> diff --git a/drivers/md/md.h b/drivers/md/md.h
-> index b6d2e8929a0f..745f0c57f669 100644
-> --- a/drivers/md/md.h
-> +++ b/drivers/md/md.h
-> @@ -414,6 +414,8 @@ struct mddev {
->   	unsigned long			sb_flags;
->  =20
->   	int				suspended;
-> +	/* Set while do_md_stop() has dropped reconfig_mutex to drain IO. */
-> +	int				stop_draining;
->   	struct mutex			suspend_mutex;
->   	struct percpu_ref		active_io;
->   	int				ro;
-> @@ -719,6 +721,11 @@ static inline int __must_check mddev_lock(struct mdd=
-ev *mddev)
->   		ret =3D -ENODEV;
->   		mutex_unlock(&mddev->reconfig_mutex);
->   	}
-> +	/* do_md_stop() is waiting for active_io with the mutex dropped. */
-> +	if (!ret && READ_ONCE(mddev->stop_draining)) {
-> +		ret =3D -EBUSY;
-> +		mutex_unlock(&mddev->reconfig_mutex);
-> +	}
->  =20
->   	return ret;
->   }
+net: dsa: add devlink flash_update callback to dsa_switch_ops
 
---=20
-Thanks,
-Kuai
+This adds a devlink_flash_update callback to dsa_switch_ops. It also
+installs a dsa_devlink_flash_update() trampoline in dsa_devlink_ops,
+which returns -EOPNOTSUPP when the driver does not implement the
+callback. The commit message describes how flash requests behave on
+switches without the callback, and the locking context the op is
+called in.
+
+> diff --git a/include/net/dsa.h b/include/net/dsa.h
+> index 5d12191b6f6f5..1fcf4af6c5064 100644
+> --- a/include/net/dsa.h
+> +++ b/include/net/dsa.h
+> @@ -1176,6 +1176,9 @@ struct dsa_switch_ops {
+>  	int	(*devlink_info_get)(struct dsa_switch *ds,
+>  				    struct devlink_info_req *req,
+>  				    struct netlink_ext_ack *extack);
+> +	int	(*devlink_flash_update)(struct dsa_switch *ds,
+> +					struct devlink_flash_update_params *params,
+> +					struct netlink_ext_ack *extack);
+
+[Severity: Low]
+This isn't a bug, but should the Devlink section of
+Documentation/networking/dsa/dsa.rst mention the new op?
+
+That section currently says:
+
+    DSA drivers can make use of the following devlink features:
+
+and lists only Regions, Params, Resources and Shared buffers. It ends
+with a pointer to Documentation/networking/devlink/.
+
+The later patches in the series add only the driver-specific
+Documentation/networking/devlink/mxl862xx.rst. They don't touch dsa.rst.
+
+The calling context in the commit message is not written down anywhere
+in the DSA docs either:
+
+  - the devlink instance lock is held
+  - rtnl_lock is not held
+  - the devlink instance is registered in dsa_switch_setup(), before
+    dsa_tree_setup_ports() creates the user ports
+
+Would a short entry for flash update in that list be useful to driver
+authors? It could also cover these constraints.
+
+The list already left out devlink_info_get before this patch.
+
+>  	int	(*devlink_sb_pool_get)(struct dsa_switch *ds,
+>  				       unsigned int sb_index, u16 pool_index,
+>  				       struct devlink_sb_pool_info *pool_info);
+
+[ ... ]
+
+-- 
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/cover.1791035885.git.daniel%40makrotopia.org
