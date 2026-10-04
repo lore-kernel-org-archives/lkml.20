@@ -1,99 +1,165 @@
-Received: from gloria.sntech.de (gloria.sntech.de [185.11.138.130])
+Received: from mail1.kuutio.org (mail1.kuutio.org [65.108.50.241])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 66C4A47F78E;
-	Sun,  4 Oct 2026 20:52:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.11.138.130
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C730146D547;
+	Sun,  4 Oct 2026 20:53:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=65.108.50.241
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791147125; cv=none; b=GGLqjT9gzSSuA/0hVgivLsvVLcFxbfAljrzdVVTOAZ55ODBC5pTtiPU641+QX5SmNM1B9/GDKe9q0ZBmTwC/l/5oQ0GC/f3qQFKEfzFRpi1E+HSZefOvYeJHpb0YtjX7nSxWqGCIkke6wxqcd0NHbnX55R1BYnVozf+0S1enKVQ=
+	t=1791147214; cv=none; b=X+M7r9xrUtTVTp9pWkJidjVqwPSpGZcLiYWOyO9QQuXtAFtQ3OLHiTq77SB+uLCJq4kCzpFmeFWdELVD9yqp8/A3J28c6TioG9kujDDabuyeRuyVwYTmb1lTJQrjQIZ5f6fAOxkjOCZqqG5VJcpJgPnPBTa3w+cx8QtP/sH7ILE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791147125; c=relaxed/simple;
-	bh=lnrF64LhTotX4oB3FNyQc1r3TNmN3g8NL1+ZMXYK4Nk=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=A7nmvzPADo6zGTGGLyWmua4m3K2Maudh/bzaut+8tKawAj7w01gqasTuUQFZpTFSfbvLquW6IItx3lvS07VHWydyxyq0lcB+anSg8kUJum+pTLSZzYI0RI3QYHlgxlfOnd7Jx6BZFowyJsSLX2jF1oWRpgIFKvlBe6NgnzNL8N4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=sntech.de; spf=pass smtp.mailfrom=sntech.de; dkim=pass (2048-bit key) header.d=sntech.de header.i=@sntech.de header.b=TEdwpFsV; arc=none smtp.client-ip=185.11.138.130
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=sntech.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sntech.de
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=sntech.de header.i=@sntech.de header.b="TEdwpFsV"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=sntech.de;
-	s=gloria202408; h=Content-Transfer-Encoding:Content-Type:MIME-Version:
-	References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Reply-To;
-	bh=ELsLdn+4Qh6lp87H1c3X8IMTeSqRAZu1aVbHKFxqmEo=; b=TEdwpFsVofoNdgj2nTC5BT3t6t
-	jGiu2l1l5uwUbftHZV6UPFekbeT6lbRy2hBiW4tlZCpQgEAe59VN3UmVacUl61uQZ8qxvwUwzTXnd
-	97sHgIf9mrzWbygPYNfNnQIrvWac2Vs3Qv5Z2OENNv+y91gugNyKhKCqB0qm0At0ZMrLL+6J2bHkH
-	3iuEG06pmd6oPcW4/lyCqG8uubKiRSiTsIm97lidPpXrOGzwsPki5Qudlbcof8uvbxxRVyygwwIG/
-	JYYwNcgmr7toSsi9kaxVaPjQgVL9+OA51HLiO7DObKKFg3OGEu8N6Hjnmf+2PpB7ANcQa8SLYtipM
-	maFWfOmw==;
-From: Heiko Stuebner <heiko@sntech.de>
-To: Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Johan Jonker <jbx6244@gmail.com>,
-	Alex Bee <knaerzche@gmail.com>,
-	Christian Hewitt <christianshewitt@gmail.com>,
-	Robin Murphy <robin.murphy@arm.com>,
-	Nicolas Frattaroli <frattaroli.nicolas@gmail.com>,
-	Nicolas Frattaroli <nicolas.frattaroli@collabora.com>,
-	Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
-	David Summers <beagleboard@davidjohnsummers.uk>,
-	Detlev Casanova <detlev.casanova@collabora.com>
-Cc: Heiko Stuebner <heiko@sntech.de>,
-	kernel@collabora.com,
-	devicetree@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-rockchip@lists.infradead.org,
+	s=arc-20240116; t=1791147214; c=relaxed/simple;
+	bh=v49ZB23Kze7PHLcH2i3goNue+IyusDCjZ/u9rJ2G2lU=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=uxthC/dn8OJHPqJEK4aEdafXuo+nw3ilaPNbcEKWM4Y8Ps/TahMYmsoQbnB/b07q4ouK1j5WjplhQ8h4+iKP22LHbFWSyLxiVoG1wyR1mBr5/JYcpzX35TEKB3/pCF9ZKTPcEHeRYJNF/DmcpUjh1+POWbnf/2q2uBbeNZnkejk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=lemmela.net; spf=pass smtp.mailfrom=lemmela.net; arc=none smtp.client-ip=65.108.50.241
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=lemmela.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lemmela.net
+Received: from localhost (mail1.kuutio.org [127.0.0.1])
+	by mail1.kuutio.org (Postfix) with ESMTP id BCC291FD9C;
+	Sun,  4 Oct 2026 20:46:46 +0000 (UTC)
+X-Virus-Scanned: amavis at kuutio.org
+Received: from mail1.kuutio.org ([127.0.0.1])
+ by localhost (mail1.kuutio.org [127.0.0.1]) (amavis, port 10024) with LMTP
+ id vR5kU_o3mZqC; Sun,  4 Oct 2026 20:46:46 +0000 (UTC)
+Received: from muovi.kuutio.org (nbqchc6j3dhrbnnpubi-1.v6.elisa-laajakaista.fi [IPv6:2001:99a:adc:6a00::8be])
+	by mail1.kuutio.org (Postfix) with ESMTPSA id E4A771FD92;
+	Sun,  4 Oct 2026 20:46:45 +0000 (UTC)
+From: Oskari Lemmela <oskari@lemmela.net>
+To: Andrew Lunn <andrew@lunn.ch>,
+	Heiner Kallweit <hkallweit1@gmail.com>,
+	Russell King <linux@armlinux.org.uk>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Damien Dejean <dam.dejean@gmail.com>
+Cc: Manuel Stocker <mensi@mensi.ch>,
+	Oskari Lemmela <oskari@lemmela.net>,
+	netdev@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 0/8] arm(64): dts: rockchip: give HDMI sound cards SoC-specific names
-Date: Sun,  4 Oct 2026 22:51:45 +0200
-Message-ID: <179114705961.3265768.12585686056328294949.b4-ty@sntech.de>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20260910-fix-rockchip-hdmi-audio-names-v2-0-1396a6168e20@collabora.com>
-References: <20260910-fix-rockchip-hdmi-audio-names-v2-0-1396a6168e20@collabora.com>
+Subject: [PATCH net] net: phy: realtek: fix RTL8224 package address selection
+Date: Sun,  4 Oct 2026 23:46:36 +0300
+Message-ID: <20261004204637.721148-1-oskari@lemmela.net>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 
+From: Manuel Stocker <mensi@mensi.ch>
 
-On Thu, 10 Sep 2026 09:34:42 -0400, Detlev Casanova wrote:
-> Some Rockchip SoC that exposes HDMI audio through simple-audio-card
-> currently expose a generic and inconsistent 'simple-audio-card,name':
-> - HDMI on rk3066a, rk3288, rk3328, rk356x and rk3576
-> - hdmi-sound on rk3399
-> - hdmi[01] on rk3588
-> 
-> There is also rockchip,tinker-codec on rk3288.
-> 
-> [...]
+The RTL8224 driver rounds each PHY address down to a multiple of four
+to select the package base and uses the low two address bits as the
+port index. For a package starting at an unaligned MDIO address, this
+accesses shared registers at the wrong address and selects incorrect
+MDI pair order and polarity fields.
 
-Applied, thanks!
+The Hasivo S1100WP-8GT-2S+ uses two RTL8224 packages at MDIO
+addresses 1-4 and 5-8. The aligned-address assumption splits each
+physical package into incorrect software groups rather than using
+the actual package bases of 1 and 5.
 
-[1/8] ARM: dts: rockchip: Rename rk3066a HDMI audio card
-      commit: 92e0587100ef8b2d103c7932750ad4237ef90e97
-[2/8] ARM: dts: rockchip: Rename rk3288-miqi HDMI audio card
-      commit: fbd2ec5bdb267034516f16d392cd52098ab5b7c1
-[3/8] ARM: dts: rockchip: Rename rk3288-tinker HDMI audio card
-      commit: e048e4da69a8362a7eaff26a10052f7d0020974f
-[4/8] arm64: dts: rockchip: Rename rk3328 HDMI audio card
-      commit: daa0db717771d43c25d98c2798fa6a7b0252deb7
-[5/8] arm64: dts: rockchip: Rename rk3399 HDMI audio card
-      commit: 946482033221ce5055721997888739cd57e3e5b2
-[6/8] arm64: dts: rockchip: Rename rk3566 and rk3568 HDMI audio cards
-      commit: 8043ed0f40fe2b49df1c2c25409ab6bd3f88e806
-[7/8] arm64: dts: rockchip: Rename rk3576 HDMI audio card
-      commit: d3d3b67505fa5f10af587a6fc8e6d4640010d52e
-[8/8] arm64: dts: rockchip: Rename rk3588 HDMI audio cards
-      commit: d1b7c3228041f4b3ad888abe6a31f6494279e979
+Use the base address from an ethernet-phy-package node when present
+and calculate each port's offset relative to that address. Reject
+PHY addresses outside the four-port package and propagate explicit
+package errors instead of falling back to another base address.
 
-I felt generous and donated the two ";" that the rk3566/rk3568 patch
-was missing ;-)
+Keep the existing aligned-address assumption when no package node
+is present.
 
+Fixes: 330296ea9e15 ("net: phy: realtek: add RTL8224 pair order support")
+Signed-off-by: Manuel Stocker <mensi@mensi.ch>
+[Oskari: rebased on net/main, reworded commit message]
+Signed-off-by: Oskari Lemmela <oskari@lemmela.net>
+---
+ drivers/net/phy/realtek/realtek_main.c | 49 +++++++++++++++++++++++---
+ 1 file changed, 44 insertions(+), 5 deletions(-)
 
-Best regards,
+diff --git a/drivers/net/phy/realtek/realtek_main.c b/drivers/net/phy/realtek/realtek_main.c
+index 177b62a7b2d1..8405a74d631f 100644
+--- a/drivers/net/phy/realtek/realtek_main.c
++++ b/drivers/net/phy/realtek/realtek_main.c
+@@ -340,6 +340,10 @@ struct rtl821x_priv {
+ 	u16 iner;
+ };
+ 
++struct rtl8224_priv {
++	u8 port_offset;
++};
++
+ struct rtl8261x_priv {
+ 	const char *fw_name;
+ 	bool fw_loaded;
+@@ -2699,7 +2703,8 @@ static int rtl8224_package_modify_mmd(struct phy_device *phydev, int devad,
+ static int rtl8224_mdi_config_order(struct phy_device *phydev)
+ {
+ 	struct device_node *np = phydev->mdio.dev.of_node;
+-	u8 port_offset = phydev->mdio.addr & 3;
++	struct rtl8224_priv *priv = phydev->priv;
++	u8 port_offset = priv->port_offset;
+ 	u32 order = 0;
+ 	int ret;
+ 
+@@ -2724,7 +2729,8 @@ static int rtl8224_mdi_config_order(struct phy_device *phydev)
+ static int rtl8224_mdi_config_polarity(struct phy_device *phydev)
+ {
+ 	struct device_node *np = phydev->mdio.dev.of_node;
+-	u8 offset = (phydev->mdio.addr & 3) * 4;
++	struct rtl8224_priv *priv = phydev->priv;
++	u8 offset = priv->port_offset * 4;
+ 	u32 polarity = 0;
+ 	int ret;
+ 
+@@ -2759,9 +2765,42 @@ static int rtl8224_config_init(struct phy_device *phydev)
+ 
+ static int rtl8224_probe(struct phy_device *phydev)
+ {
+-	/* Chip exposes 4 ports, join all of them in the same package */
+-	return devm_phy_package_join(&phydev->mdio.dev, phydev,
+-				     phydev->mdio.addr & ~3, 0);
++	struct device *dev = &phydev->mdio.dev;
++	u32 base_addr = phydev->mdio.addr & ~3;
++	struct rtl8224_priv *priv;
++	struct device_node *np;
++	int ret;
++
++	priv = devm_kzalloc(dev, sizeof(*priv), GFP_KERNEL);
++	if (!priv)
++		return -ENOMEM;
++
++	np = of_get_parent(dev->of_node);
++	if (of_node_name_eq(np, "ethernet-phy-package")) {
++		ret = of_property_read_u32(np, "reg", &base_addr);
++		of_node_put(np);
++		if (ret)
++			return dev_err_probe(dev, ret,
++					     "Missing or invalid PHY package reg\n");
++
++		if (phydev->mdio.addr < base_addr ||
++		    phydev->mdio.addr - base_addr >= 4)
++			return dev_err_probe(dev, -EINVAL,
++					     "PHY address outside RTL8224 package\n");
++
++		ret = devm_of_phy_package_join(dev, phydev, 0);
++	} else {
++		of_node_put(np);
++		/* Without a package node, assume four aligned PHY addresses. */
++		ret = devm_phy_package_join(dev, phydev, base_addr, 0);
++	}
++	if (ret)
++		return dev_err_probe(dev, ret, "Failed to join PHY package\n");
++
++	priv->port_offset = phydev->mdio.addr - base_addr;
++	phydev->priv = priv;
++
++	return 0;
+ }
+ 
+ static bool rtlgen_supports_2_5gbps(struct phy_device *phydev)
+
+base-commit: 6dc989ea46b96ce170840174b4a38c4a387fb005
 -- 
-Heiko Stuebner <heiko@sntech.de>
+2.55.0
+
