@@ -1,104 +1,89 @@
-Received: from mail-pj2-f40.google.com (mail-pj2-f40.google.com [74.125.227.168])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mail-4316.protonmail.ch (mail-4316.protonmail.ch [185.70.43.16])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6AC531A6803
-	for <linux-kernel@vger.kernel.org>; Sun,  4 Oct 2026 06:35:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.168
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 738BD32B12C
+	for <linux-kernel@vger.kernel.org>; Sun,  4 Oct 2026 06:39:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.70.43.16
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791095703; cv=none; b=YDXY/6o3F/y43Z3sZaUEZ0a1Mnw0huwzxmi/frNvUdn1eoXuAMQ4zU5QcRTIi9i8LBmP4xd1deniFjKTGjS3e4zbc3DI2kzk83lZuNxVH8yWGhB4GtGF9I4IwVluO7CxlI5p86LrAZTWcjeYA/Eqog3mnT1xWcCDwpZhCjwXms8=
+	t=1791095948; cv=none; b=gaUVIGlZyefu3albi2AEl6+in6KvffuRh2lobdYMIBsmOT2+7lyaraIcVeOs47B3m9hJejujqtgOkORV0LUlrOHpHrvgZCk+avO5dwO9bFYfSJYhsq2xFlQ69JNyMwmwTRD9C1emIUwvfb0mPBj381GFa8Gw4lcdpsG+80+Vvv4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791095703; c=relaxed/simple;
-	bh=BfWks0jGGjKyD9Pd/O6cchSXWVGgKzrA1jydKjNmTTA=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=tqCsJm8Mz9au9JqRR5LhRvcElehNVGi8CsTHhFVIWSilm5VdR9tgd9QFU9eoq9b+cdqkd9sqpJSPoLGDRBRn5LXmYMjO2UmesMyzaluq4odCxQQBURqpr4d2zq9kP6dh576Qk8TC/f0e3ByuHxT2+TnSklWK+AuPcjA+Jw5ntIU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=HDkMkAmz; arc=none smtp.client-ip=74.125.227.168
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1791095948; c=relaxed/simple;
+	bh=Y7EjX751Z2kdVCaCpsvCYVebDfqPAwGp3Im7F4WlXSk=;
+	h=Date:To:From:Cc:Subject:Message-ID:MIME-Version:Content-Type; b=E66JgMcdOCX/uOokIxrXJ4dZiCv+K466MitEUCZ1Tf8PhtoAX8EU4fOKzdP5sVdpvv8Ttjr/8DUBLbaBIxsX3M1FwWV0VDWvm906oL/Fm+fFvik35eHleTqZCKS++UhvbZOSxNLCNlr9mvBp+IxcQ6TWwyh9BDLF+Z9yVGENEqM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=proton.me; spf=pass smtp.mailfrom=proton.me; dkim=pass (2048-bit key) header.d=proton.me header.i=@proton.me header.b=E2Ez0S4t; arc=none smtp.client-ip=185.70.43.16
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=proton.me
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=proton.me
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="HDkMkAmz"
-Received: by mail-pj2-f40.google.com with SMTP id 98e67ed59e1d1-3a2adb9bc3cso280259a91.2
-        for <linux-kernel@vger.kernel.org>; Sat, 03 Oct 2026 23:35:02 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791095702; x=1791700502; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=WbnHNbDys2WuStNEMWb1PaflkNK/JWz914uaZlrZP+o=;
-        b=HDkMkAmzL/DRSdFPBJHY62XikNbJfc8zYGoBEPzW3cjzC0ZhXs9O+VUgIqJa/v4hBf
-         XwM9k4MUdOtyrOFFZKfHBScS+NkNLbtiRU+QXPnZrBPmp3Krtrdk9UMCg/zyCakw7e26
-         rkviwcMa4hQ5CPSS029psGahEnUgQlDA0O90nKkThIggzDty/JR4u8NEqVlcRBuQd2Nh
-         1Lge8J3/rPOdb36JpEDSe4hHZSRwmhhDPV0U4rspic0LPhyyDdck6O7Yfc1zYNxVD8C8
-         4y41N8tHLy3mza3ZW16Vuy5wy17cRlP6XTkoFjPuAyw4kb+zGi1HbctUyCoE57phMtVh
-         ScYA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791095702; x=1791700502;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=WbnHNbDys2WuStNEMWb1PaflkNK/JWz914uaZlrZP+o=;
-        b=PU5n0P8mmh2nv22XvGp0H9eZOrnEXJHUFcuDkI/n+HNk3jlBxWvvSp/Y5aSBMtZvR5
-         UB0402xvAhP7KRN1pxJ0mq245ocKiW2iw3w7AWL0LQGoMJGdkotnV07h9wLo6PX6curK
-         UZAfmUfchDEGC4ztFEKD5VVKwFL13u0Cc+5G6ZwnDTNt30B8VI8gO2m4k2S8PUvPDRrH
-         zOoyDAGD0l3aM1iFYE5g8GvPxT9kGeVDLFX/sk/pmQIP/U1iUfKlICEs+r023jQSE8ax
-         kG2RsvenVmMqBn3iiOPJeAn5YNf6gpHstUr7Avo/gT2IAHUdtBGK7z5oLEM/pid4RVTC
-         GqYA==
-X-Forwarded-Encrypted: i=1; AKwUvBzF/tMFshC+0Vde9+FlO1cM68W7b4IJCTXJHRR/dnpD855sYCy9h2jbGbQcDKJ30EIHIE1gqfcYtvTjIjU=@vger.kernel.org
-X-Gm-Message-State: AFq9FYK/jRe7Ii0XSfuKQOYhz9DHqFmVPRxDeD8ewgKHS6A/nD06WhbV
-	+F8bjdY9vby+eQWElFtal7O0y8SDug2QY0aVbJ9ZZ903XP62CZrfGV7B
-X-Gm-Gg: AYBFou1xJ55PfHko4TWENm/bXdB7De84E+FituYi0hnV1vcdgmMNtjDctxTYctgvAkd
-	tGpXp6yZOzLJoqS7KF+FNv5ZzZobM9GuJY4CDT710voF9bsYECiy18Pd8vzICuP7ZonIsTWOwkd
-	RLOdG4WqlRIrl+taPYnEI1KD1qHk8Ca71c3PyZaKBLjCMouGYPhJL1qAAPe5JVrPZ5J2K/oCvDj
-	42d1b6QMVAPpAv1hVvfyxQYf0dIqGkfQSWsyrZxEItMa2TM6U94d/5tPqM/RmWckc5REi5TGMAH
-	NQwSKfhTjLHrqsynR4fyc+ZJtKlPjp36faHbwwUxwhuFWVevBPS0acOYZ3XNL79nJsN3bRMsmTH
-	8v1XLz8blyz+xuPWQ3zneE8UbxxxBEGdI6HQaZsvDhdWbjYp4Mqu4andwWQvEFOBSXU+MOlDx9Y
-	0OHM9QUcrdFSbV/zz702HtvhErTge9k1jlA2PdPvIzHUy6qnheURkhdvyJtgZUvxp6kgvn
-X-Received: by 2002:a17:90b:37cf:b0:3a7:a9bc:729d with SMTP id 98e67ed59e1d1-3a7a9bc9629mr911026a91.0.1791095701612;
-        Sat, 03 Oct 2026 23:35:01 -0700 (PDT)
-Received: from 027.. ([223.215.74.33])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a78d65d85csm5504430a91.4.2026.10.03.23.34.56
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 03 Oct 2026 23:35:00 -0700 (PDT)
-From: Wen Jiang <jiangwenxiaomi@gmail.com>
-To: baohua@kernel.org
-Cc: akpm@linux-foundation.org,
-	dev.jain@arm.com,
-	jiangwen6@xiaomi.com,
-	jiangwenxiaomi@gmail.com,
-	linux-kernel@vger.kernel.org,
-	linux-mm@kvack.org,
-	urezki@gmail.com
-Subject: Re: [PATCH] mm/vmalloc: bail out early on invalid page_shift in __vmap_pages_range_noflush()
-Date: Sun,  4 Oct 2026 14:34:39 +0800
-Message-Id: <20261004063439.95516-1-jiangwenxiaomi@gmail.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <CAGsJ_4xWAd=VHPdGhS2AHKag2WhFA=_3MSOPuyt3ksKH9ezQ7g@mail.gmail.com>
-References: <CAGsJ_4xWAd=VHPdGhS2AHKag2WhFA=_3MSOPuyt3ksKH9ezQ7g@mail.gmail.com>
+	dkim=pass (2048-bit key) header.d=proton.me header.i=@proton.me header.b="E2Ez0S4t"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=proton.me;
+	s=ypm3tercgjcidctqjyemeslyim.protonmail2; t=1791095940;
+	x=1791355140; bh=jkeBQXMC0mxk0cVDHkusiZ0VJqmjJ/qXxgzgEOL765k=;
+	h=Date:To:From:Cc:Subject:Message-ID:Feedback-ID:From:To:Cc:Date:
+	 Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
+	b=E2Ez0S4tFO8YVQ8T5qWnVIic2lvgr3uh0+BneFzPTl3KOrw/shTnKvF9OrARpxbl9
+	 p03kHEZDlviTZPO3vjguFBd1Fd/ypPxNdH3jJdwBq/RoGgCD4YK1TeIN2sWZEIpEhw
+	 OL7zWysttLIM+ka6wB+hWoWgcf9VkX7OMObcCozhI68Ej6WGmu3oN4uBs+pFH9Z22E
+	 8F7Elywq9okdORKCk22Y2YHkvW3uHjZb98eHXULmXerj47t2Mfu2TcwSdPb/iccbxm
+	 /CpXcM5zZ3l+WhTyr4imdHXixLGOKvyKTTAb3Om5fQgXWaU1SWErzz5YSU8zImtvjp
+	 84KUwJA+ryfFg==
+Date: Sun, 04 Oct 2026 06:38:56 +0000
+To: Andre Przywara <andre.przywara@arm.com>, Linus Walleij <linusw@kernel.org>
+From: Norman Herms <dockseed@proton.me>
+Cc: Pablo Mazzini <pmazzini@gmail.com>, Chen-Yu Tsai <wens@kernel.org>, Jernej Skrabec <jernej.skrabec@gmail.com>, Samuel Holland <samuel@sholland.org>, "linux-gpio@vger.kernel.org" <linux-gpio@vger.kernel.org>, "linux-sunxi@lists.linux.dev" <linux-sunxi@lists.linux.dev>, "linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>, "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
+Subject: pinctrl: sunxi: a733: irq_banks too small for port K
+Message-ID: <lqyUiTS5jK5vqN8dT8ByLl8sBPTW6eSDG_13v8UAkVIUCnnxLv4UBrlHTm0c7f4brqOd5ur4sDdgld0Ol4usnXOHgJscjqwJl2BrzPpJk5Y=@proton.me>
+Feedback-ID: 144388465:user:proton
+X-Pm-Message-ID: 9d76db5c45f7d18900f3d56a77fb38acbbf9487a
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-> I have checked this carefully and confirmed that this is a correct cleanup.
->
-> However, when I applied your patch, I noticed that the author and
-> Signed-off-by do not match.
->
-> Author: Wen Jiang <jiangwenxiaomi@gmail.com>
-> Date:   Sat Oct 3 17:04:30 2026 +0800
->
->     mm/vmalloc: bail out early on invalid page_shift in
-> __vmap_pages_range_noflush()
->     ...
->     Signed-off-by: Wen Jiang <jiangwen6@xiaomi.com>
->
+Andre, Linus,
 
-Hi Barry,
+Observation on "pinctrl: sunxi: add support for the Allwinner A733"
+(Andre's series [2], now in linusw/devel for 7.4):
+the A733 pinctrl description sets .irq_banks =3D 10, but PA does not
+exist there, and prepare_function_table() in pinctrl-sunxi-dt.c counts
+IRQ banks from PA, so PB is 1 and PK is 10. This is the same
+numbering problem as in Pablo's thread [1].
 
-I'll send a v2 separately with jiangwen6@xiaomi.com
-for both the author and Signed-off-by.
+With irq_banks =3D 10, PK (26 pins, bank 10):
+ - sunxi_pinctrl_init_with_flags() allocates irq_array for 320
+   entries but sunxi_pinctrl_build_state() writes PK to 320..345
+   (104 bytes past the end) at every probe;
+ - PK gets no parent interrupt and its hwirqs are outside the IRQ
+   domain, so there are no GPIO interrupts on port K.
+
+Measured on two Radxa Cubie A7S boards, same kernel (v7.3-rc5 plus
+this series), once as is and once with irq_banks =3D 11. Requesting
+edge detection on PK0 through the GPIO v2 character device fails
+with ENXIO as is and works with irq_banks =3D 11. PB0 as a control
+works in both cases.
+
+KASAN (generic) does not report the overflow on either board. devres
+rounds the allocation up to the whole kmalloc bucket, so the 104
+bytes still lie inside the object. The out-of-bounds write is
+therefore invisible to KASAN here.
+
+Regarding Pablo's thread: with the convention Andre preferred there
+(count from PA, placeholder interrupt in the DT), the A733 needs
+irq_banks =3D 11, which also matches the binding (exactly 11
+interrupts). 10 would only be right with the renumbering from
+Pablo's patch, which is not applied.
+
+I am not a kernel developer. The measurements were run on my boards
+by AI agents, and the analysis was done with the help of an AI
+assistant (Claude). This is a report, not a Tested-by.
+
+[1] https://lore.kernel.org/linux-sunxi/20260929203634.32998-1-pmazzini@gma=
+il.com/
+[2] https://lore.kernel.org/linux-sunxi/20260910133519.459011-1-andre.przyw=
+ara@arm.com/
 
 Thanks,
-Wen
+Norman
