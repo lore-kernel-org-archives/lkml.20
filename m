@@ -1,72 +1,83 @@
-Received: from mail-pj2-f40.google.com (mail-pj2-f40.google.com [74.125.227.168])
+Received: from mail-qt1-f174.google.com (mail-qt1-f174.google.com [209.85.160.174])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 83BD02F6577
-	for <linux-kernel@vger.kernel.org>; Mon,  5 Oct 2026 20:09:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.168
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 84C8A31D730
+	for <linux-kernel@vger.kernel.org>; Mon,  5 Oct 2026 20:10:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.174
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791230951; cv=none; b=pt9UvmdhY+U8q/6v9WDwHWLFgsozCCaRTgSxunAHxFHSyqxGhvIj4l6qt0L1JIhGGZs1sU5xDTyD3hpjmpFf+fYZlC3kpFvh9tF138pvxWhAtY/x9zm6exVn8PTUWiA0AYn7Lg0+qvYNz52tgMAURH4BYj+ihdtPCjk3vuq7g5I=
+	t=1791231029; cv=none; b=ZRdxC/NTe9ZXhWSryVkshXG6OsarqgHK4z57zAOxGxAWPAVmIQTRaF8b8leV5En6TmWJVjg53fBKi+2EO+P4P2hyuE6GO6uBiZrIwV3ZH1NAUfatsCdX0g8FLCyoC89fUgrGeKFboK0FPqWny/fi3Ux3w6MZ9+cih2tiH8pwlhc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791230951; c=relaxed/simple;
-	bh=DGyHWHzEDdVKWmRcyLbSrbOSBJs/krJ4FIbFkXaTmjM=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=C0htiG2xlFOFp8QTXG7F6DgBcof2yDeIqGgCiHjA8/+Z0mgqpmCXUyHWUgyCaqdE14Fnakd8qPynbezjzZzhoWEjfJKSeWbZ9hVXcKZS9e1q1cCmSUOi98U5Wkcptl0IW9tlwAYM+vodez3TPrQpMfOv2PvtjjDH2Hw1+hJ1cNk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ECARQtzr; arc=none smtp.client-ip=74.125.227.168
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1791231029; c=relaxed/simple;
+	bh=UpAx9mLMIpL3rMBCNwzW5Dq33W6KjPFsFmFYIjlffmw=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=sNhgHq3OPkehvUWbVsdUcq9e7VkhNweuoToxTD9dDy0gVLLeEAjLuSnbIjlZcT5SVJSaQMN6IJs1VVMurxq9MCMtAVsI+avNJey9GtqFVNN8JFUcDOzCGBpuSvNXwet/pVy6IkWU7/U24Xw0Bt3zhtzfTyC9cFYEiGKW/koLqdQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ncsu.edu; spf=pass smtp.mailfrom=ncsu.edu; dkim=pass (2048-bit key) header.d=ncsu.edu header.i=@ncsu.edu header.b=DQqDnFr5; arc=none smtp.client-ip=209.85.160.174
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ncsu.edu
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ncsu.edu
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ECARQtzr"
-Received: by mail-pj2-f40.google.com with SMTP id d9443c01a7336-2e58733c31fso5468805ad.0
-        for <linux-kernel@vger.kernel.org>; Mon, 05 Oct 2026 13:09:09 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=ncsu.edu header.i=@ncsu.edu header.b="DQqDnFr5"
+Received: by mail-qt1-f174.google.com with SMTP id d75a77b69052e-5351d76e1baso13279651cf.1
+        for <linux-kernel@vger.kernel.org>; Mon, 05 Oct 2026 13:10:26 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791230949; x=1791835749; darn=vger.kernel.org;
+        d=ncsu.edu; s=google; t=1791231025; x=1791835825; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=IKvgwHyZG+OMRGAdlmS6VkXWRFQgcIDm6fEeM834xHo=;
-        b=ECARQtzrRkcTp1cYgnuf66cv+HSHTd9zViDoOdfSf1V50RxIaRRsKkBmceJ+hLBBmt
-         6KR1t148VojzWNjvh3rGLQcu4v3w5YNOIwB6p8SMCYvZmg1NYcoJU0WvJHlZt5o/WuqZ
-         2aeSXVFBnfrZ/raerBuufJgy9jP5ugcPv4UMApeU3ksB5mkO2S2wDlLMjFlvx+C8nzMZ
-         ZE14IrfnIvlgSmBDfHSpG9KEgFCc4G4FB08uN2uXOKWH3wHn/FtCrJMqVwdS+95AVejV
-         wPPlsiAogWsZgsm8L54Mk6E8RTJy8PdTfPmeIc/EDSnQApDaIhxtJZfswVTLd6sApz/8
-         oBVg==
+        bh=4ooRBrlgG/+LZ8y1btseMmgSzmfpeb0S+Qh8lEsQpK0=;
+        b=DQqDnFr52RXFZp45HmrNUBkycqnJbXlyrZZEvStaXLSTg5/xciMn0488fPNTEPUBZg
+         VQ1qcLyLtET7q8MpcG3pMU5QdVlTRqrtt7QIrTbOHzyl5Minxu9MwGRdPWu0eYxAj97J
+         dzmOqF5FsbUwDDHQi4ddLPRcXHrnPkc9tt/idfr7mWYPc1pz77eQYmkqp8HzKdoGuCQL
+         mXbnSyHuuennKBLysLyd2CZYQ8rw9JWaM/KFe2pGv6qp+l9XOpHm08kSgP4/lAEa9nuw
+         1vDmGnvcZcZcsGj9k/zWLrMxpTWQL6xVwDV8lhXmMFXQe5FGm8szhdZt/ds8njV8Zsxh
+         AjuA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791230949; x=1791835749;
+        d=1e100.net; s=20260707; t=1791231025; x=1791835825;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=IKvgwHyZG+OMRGAdlmS6VkXWRFQgcIDm6fEeM834xHo=;
-        b=g9UOog6ZLZjXNoPx5XLbDpm1iwolTSkL5iJU/a5VYYu8VfK3cOZ+5fvU+D8bHzeqHo
-         3yLAB437u29mXQ1PxIr3My/vxtyA7Yh3Fg2QjDZnUTc6K+kvq2oryyXKucjYJNLVyoBM
-         tlkypsDGLcQhx59hUskcAoCp//TFa4jgtsqkWQrA3hQx/eEE1JmgeZ3wE/rzOOPItlM7
-         cQAlPqvwnClhJ+ESLbNGC3CjgZMRsW7Ons9vdPVhvGQDR/AxkL50bSDx0l/MBrshVztt
-         dr/gczbzWBFzr6jqdQnXMA9+in1g8Ue/OyOWkF2eVT7hG9RNQBhPCT6OgBsDvliT8SNJ
-         hkUQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxbTqOgKYwwLZXkMYun4e+MdtyltmNutmj8K98/LqXCIKcT0HOoCkIss1qeRtgrYcTOFutHoMj462YJhe4=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKyhqo+/BiS7wEjF+PfHp52oJua0V5Pj4PD37a6y3miTivG2Ci0
-	YmksVzmO8Neha8/MowslLXTE+QFD+0mnhd3tEO5Cacup4XXGzk5m0+21RL4xGgYQ46w=
-X-Gm-Gg: AYBFou09KJeeB9AFA8H0jsl2WKPZrdIcyiYrjnZtiPnXHuaVBA5wcsnpdNeYf+HhyE7
-	9wEAd45nlDnbaF5wWJHJoWOMNwhA4itX6VGGPEPSuBKWv2FJpqVIphyFObiS/LYpaJcVfSYAH0c
-	27GT4kmKrln2Gq90bQ2B15r5rRJp6TlmEunetgkSWwyQRpETvg88QGZqNk4MJdlcFilDGiADZlP
-	XAQRDuxNCXYX8mds0Yty2vMz4bvu5OqXaUGZJdsh0zSY9S88bfop/mCr7swwGC297qJjmbsDOWz
-	dzxV4RUtQCxsU3ZROX2IZr/rUjgxgoRSo8s/rQ1zecMINwQrrMNQWMlfHG2EZcwAXy82DxlwdRD
-	qkwO3cX1+Oq2deaOMzBZtOImHZUmT94tmMn24b8CSTsyn8v6i1zNk+YbBfsaUpjSwzSp1a9O02r
-	2jmvT1SugmIn9Epvwx3VdkDZIuh4bnKq4srw1E0SLPA/YWmGPycCDsNBBv1tGOxMf6wPVrVAiYj
-	9T/Epq5gBboo/7iqaXn8helzOlO78lcT5YOkMPrAaFTMDRUETJg6n0MZr0yTWaVbD5yo2ioFjs0
-	y36N0ic7b3oxOCE8vtZIRp4GMJE8Eellzp5cBngr3n7OeCRX
-X-Received: by 2002:a17:902:e543:b0:2e4:beef:9039 with SMTP id d9443c01a7336-2e4beef95c7mr96936815ad.1.1791230948704;
-        Mon, 05 Oct 2026 13:09:08 -0700 (PDT)
-Received: from ryzen.lan ([2601:644:8000:7a86::e35])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2e5a5cae51asm12516895ad.29.2026.10.05.13.09.07
+        bh=4ooRBrlgG/+LZ8y1btseMmgSzmfpeb0S+Qh8lEsQpK0=;
+        b=P6tJar4sQAyKkMJCOk5NDNXGKdyzFRJWzaOahXj6rTU3qwDVE+XHf5sC7qHYlnWKt+
+         sawJ2aUQQVeFOhuciOaHIFLCDvT4c+NeIbG9Z+kuYMwFC8tSrMn/nnb8DSawFWbXiqOe
+         +am84qbJmn5aBhbX9bmPdFLbMWwlz6y+3DjV9N8QQ10Mj7fKoW1x1CJy6EbgywwxfW3W
+         s/6ND46ONI/0ntkB23b8x7JrhYzIxvFBB02XTR8WTWfTTUh161C3f4Zh+Ikv8hKobKEQ
+         hDPL66g8vYEKZVj1CwWrpiq752yDdONEDfajGBpPUWhG2MrY1/0lQW5V3yne1nnNy95l
+         k88Q==
+X-Forwarded-Encrypted: i=1; AKwUvByTz/5lkHNymS10s890n0M8tApJhgTPqN4cLQDDkkbkn/BiawbBCbjS+X+aow5Bb+VMbh+FO96I2aky4pY=@vger.kernel.org
+X-Gm-Message-State: AFuF++nBkaTb8dNP4TGKZwGSYoKvMUC121u1yL8XWHlTtyLfCrDs5jY2
+	DU/acDzprYLI5gyxkAp9IHOl5ETLydAYdB5Rry7CzvzidgoFVAVsfmRf5a/myJpoRA==
+X-Gm-Gg: AYBFou31bpvZAjRTclL4gsN4akxvkpzCbSO6wp3oLHgNmlC1318oLQupIMnBCS4+GTm
+	mm5JTmcmWBRzUBacXLCNzLvl7oew8WV1oiwaGLKJvTydkhV7EEv7mttGtJ/y8KO6zgFcruoPoAJ
+	9987j61B3gJVHrB4jDaMsTqADivwSRxxo2midSD43fpnx9SylhGQJuJuf5957pzsT+xMVno5VAm
+	R/C3mKG+JlwsfWYXSVW//4rf7w8F5Ii1RsYbeFdAkeCWeObXKjbK43JZ2ceemanTxtuFSuQ5JKz
+	Z5SsZLgEGPXwy3eggtNr4hjprH8Q+ID3URNt5ef/TitcTKXMmtzwp01N2Th3pPN+t6pbBwHtnXT
+	j2ICLJ/tSROdgoEGq2j++Vg6xGBRB/WIOpFEyZd/U7k+GIOg8OQtIBLt49EwuohfgVUYXVJthQX
+	4j/WzdpM3jl6XAyVtlQ+xiKcRG8gM1N5XfncHyHG/QGp4HAT2KVSFpdl2KDzv2i1pMIljSZuxFn
+	l9I8wrjjRAbkFUquRShrBY8/fA9Alyba0SsX6fnoxfclWhRyViI6H7cgKAOi+1Fwec=
+X-Received: by 2002:a05:622a:260e:b0:533:8dbc:1fb5 with SMTP id d75a77b69052e-5353f2018ddmr13658111cf.4.1791231024971;
+        Mon, 05 Oct 2026 13:10:24 -0700 (PDT)
+Received: from flag-System-Product-Name.tail132f98.ts.net ([136.61.118.42])
+        by smtp.gmail.com with ESMTPSA id d75a77b69052e-53398a9c92csm106693991cf.11.2026.10.05.13.10.21
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 05 Oct 2026 13:09:08 -0700 (PDT)
-From: Rosen Penev <rosenp@gmail.com>
-To: linux-leds@vger.kernel.org
-Cc: Lee Jones <lee@kernel.org>,
-	Pavel Machek <pavel@kernel.org>,
-	linux-kernel@vger.kernel.org (open list)
-Subject: [PATCH v2] leds: pca955x: drop platform data and allocate LEDs with the device
-Date: Mon,  5 Oct 2026 13:09:06 -0700
-Message-ID: <20261005200906.188636-1-rosenp@gmail.com>
-X-Mailer: git-send-email 2.56.0
+        Mon, 05 Oct 2026 13:10:22 -0700 (PDT)
+From: Yanbo Zhao <yzhao62@ncsu.edu>
+To: Namhyung Kim <namhyung@kernel.org>,
+	Arnaldo Carvalho de Melo <acme@kernel.org>,
+	Ian Rogers <irogers@google.com>,
+	Kan Liang <kan.liang@linux.intel.com>
+Cc: Jiri Olsa <jolsa@kernel.org>,
+	Adrian Hunter <adrian.hunter@intel.com>,
+	Peter Zijlstra <peterz@infradead.org>,
+	Ingo Molnar <mingo@kernel.org>,
+	Mark Rutland <mark.rutland@arm.com>,
+	Alexander Shishkin <alexander.shishkin@linux.intel.com>,
+	James Clark <james.clark@linaro.org>,
+	Zecheng Li <zli94@ncsu.edu>,
+	Xu Liu <xliuprof@google.com>,
+	linux-perf-users@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Yanbo Zhao <yzhao62@ncsu.edu>
+Subject: [PATCH v3 0/3] perf annotate: Data type profiling support for C++ classes and virtual calls
+Date: Mon,  5 Oct 2026 16:10:07 -0400
+Message-ID: <20261005201010.36493-1-yzhao62@ncsu.edu>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -75,227 +86,143 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-struct pca955x_platform_data has been private to this driver since
-commit ed1f4b9676a8 ("leds: pca955x: add device tree support"), so
-nothing can pass it in through dev_get_platdata() and it only serves
-as an intermediate copy of the per-LED type, default state and fwnode.
-That copy is a full array of struct pca955x_led, the same runtime
-structure that struct pca955x already holds, so the data is stored
-twice.
+Hello,
 
-Remove the platform data and parse the child firmware nodes directly
-into pca955x->leds[]. Make leds[] a flexible array member so it is
-allocated together with struct pca955x. This removes three
-allocations and the num_leds sanity check, which could no longer
-fail.
+Data type profiling currently only understands C struct/union types.
+For C++ workloads, member accesses through base class subobjects
+cannot be resolved, and virtual function calls (indirect calls through
+the vtable) lose the return type of the callee: the register holding
+the returned value becomes unknown, which matters when it's used
+directly to access memory like 'p->next()->val' where no DWARF
+variable describes the temporary.
 
-struct pca955x_led moves above struct pca955x, as a flexible array
-member needs the complete element type.
+This series extends data type profiling to C++:
 
-Assisted-by: LLM
-Signed-off-by: Rosen Penev <rosenp@gmail.com>
----
- v2: remove platform_data.
- drivers/leds/leds-pca955x.c | 94 ++++++++++++-------------------------
- 1 file changed, 31 insertions(+), 63 deletions(-)
+Patch 1 introduces die_is_compound_type() covering DW_TAG_class_type
+as well and accepts DW_TAG_inheritance in the offset-based member
+lookup so that it descends into base class subobjects.  It handles
+empty base classes, members placed in the tail padding of a base and
+virtual base classes.
 
-diff --git a/drivers/leds/leds-pca955x.c b/drivers/leds/leds-pca955x.c
-index 273383351ba0..e4af7a3b639f 100644
---- a/drivers/leds/leds-pca955x.c
-+++ b/drivers/leds/leds-pca955x.c
-@@ -79,6 +79,17 @@ struct pca955x_chipdef {
- 	int			blink_div;	/* PSC divider */
- };
- 
-+struct pca955x_led {
-+	struct pca955x	*pca955x;
-+	struct led_classdev	led_cdev;
-+	int			led_num;	/* 0 .. 15 potentially */
-+	u32			type;
-+	enum led_default_state	default_state;
-+	struct fwnode_handle	*fwnode;
-+};
-+
-+#define led_to_pca955x(l)	container_of(l, struct pca955x_led, led_cdev)
-+
- static const struct pca955x_chipdef pca955x_chipdefs[] = {
- 	[pca9550] = {
- 		.bits		= 2,
-@@ -114,7 +125,6 @@ static const struct pca955x_chipdef pca955x_chipdefs[] = {
- 
- struct pca955x {
- 	struct mutex lock;
--	struct pca955x_led *leds;
- 	const struct pca955x_chipdef	*chipdef;
- 	struct i2c_client	*client;
- 	unsigned long active_blink;
-@@ -123,22 +133,7 @@ struct pca955x {
- #ifdef CONFIG_LEDS_PCA955X_GPIO
- 	struct gpio_chip gpio;
- #endif
--};
--
--struct pca955x_led {
--	struct pca955x	*pca955x;
--	struct led_classdev	led_cdev;
--	int			led_num;	/* 0 .. 15 potentially */
--	u32			type;
--	enum led_default_state	default_state;
--	struct fwnode_handle	*fwnode;
--};
--
--#define led_to_pca955x(l)	container_of(l, struct pca955x_led, led_cdev)
--
--struct pca955x_platform_data {
--	struct pca955x_led	*leds;
--	int			num_leds;
-+	struct pca955x_led leds[];
- };
- 
- /* 8 bits per input register */
-@@ -530,37 +525,27 @@ static int pca955x_gpio_direction_output(struct gpio_chip *gc,
- }
- #endif /* CONFIG_LEDS_PCA955X_GPIO */
- 
--static struct pca955x_platform_data *
--pca955x_get_pdata(struct i2c_client *client, const struct pca955x_chipdef *chip)
-+static int pca955x_parse_fwnode(struct pca955x *pca955x)
- {
--	struct pca955x_platform_data *pdata;
-+	struct device *dev = &pca955x->client->dev;
-+	u8 bits = pca955x->chipdef->bits;
- 	struct pca955x_led *led;
- 	struct fwnode_handle *child;
- 	int count;
- 
--	count = device_get_child_node_count(&client->dev);
--	if (count > chip->bits)
--		return ERR_PTR(-ENODEV);
--
--	pdata = devm_kzalloc(&client->dev, sizeof(*pdata), GFP_KERNEL);
--	if (!pdata)
--		return ERR_PTR(-ENOMEM);
--
--	pdata->leds = devm_kcalloc(&client->dev,
--				   chip->bits, sizeof(struct pca955x_led),
--				   GFP_KERNEL);
--	if (!pdata->leds)
--		return ERR_PTR(-ENOMEM);
-+	count = device_get_child_node_count(dev);
-+	if (count > bits)
-+		return -ENODEV;
- 
--	device_for_each_child_node(&client->dev, child) {
-+	device_for_each_child_node(dev, child) {
- 		u32 reg;
- 		int res;
- 
- 		res = fwnode_property_read_u32(child, "reg", &reg);
--		if ((res != 0) || (reg >= chip->bits))
-+		if ((res != 0) || (reg >= bits))
- 			continue;
- 
--		led = &pdata->leds[reg];
-+		led = &pca955x->leds[reg];
- 		led->type = PCA955X_TYPE_LED;
- 		led->fwnode = child;
- 		led->default_state = led_init_default_state_get(child);
-@@ -568,9 +553,7 @@ pca955x_get_pdata(struct i2c_client *client, const struct pca955x_chipdef *chip)
- 		fwnode_property_read_u32(child, "type", &led->type);
- 	}
- 
--	pdata->num_leds = chip->bits;
--
--	return pdata;
-+	return 0;
- }
- 
- static int pca955x_probe(struct i2c_client *client)
-@@ -584,7 +567,6 @@ static int pca955x_probe(struct i2c_client *client)
- 	u8 i, nls, psc0;
- 	u8 ls1[4];
- 	u8 ls2[4];
--	struct pca955x_platform_data *pdata;
- 	bool keep_psc0 = false;
- 	bool set_default_label = false;
- 	char default_label[4];
-@@ -595,12 +577,6 @@ static int pca955x_probe(struct i2c_client *client)
- 		return dev_err_probe(&client->dev, -ENODEV, "unknown chip\n");
- 
- 	adapter = client->adapter;
--	pdata = dev_get_platdata(&client->dev);
--	if (!pdata) {
--		pdata =	pca955x_get_pdata(client, chip);
--		if (IS_ERR(pdata))
--			return PTR_ERR(pdata);
--	}
- 
- 	/* Make sure the slave address / chip type combo given is possible */
- 	if ((client->addr & ~((1 << chip->slv_addr_shift) - 1)) !=
-@@ -616,22 +592,11 @@ static int pca955x_probe(struct i2c_client *client)
- 	if (!i2c_check_functionality(adapter, I2C_FUNC_SMBUS_BYTE_DATA))
- 		return -EIO;
- 
--	if (pdata->num_leds != chip->bits) {
--		dev_err(&client->dev,
--			"board info claims %d LEDs on a %u-bit chip\n",
--			pdata->num_leds, chip->bits);
--		return -ENODEV;
--	}
--
--	pca955x = devm_kzalloc(&client->dev, sizeof(*pca955x), GFP_KERNEL);
-+	pca955x = devm_kzalloc(&client->dev,
-+			       struct_size(pca955x, leds, chip->bits), GFP_KERNEL);
- 	if (!pca955x)
- 		return -ENOMEM;
- 
--	pca955x->leds = devm_kcalloc(&client->dev, chip->bits,
--				     sizeof(*pca955x_led), GFP_KERNEL);
--	if (!pca955x->leds)
--		return -ENOMEM;
--
- 	i2c_set_clientdata(client, pca955x);
- 
- 	mutex_init(&pca955x->lock);
-@@ -639,6 +604,10 @@ static int pca955x_probe(struct i2c_client *client)
- 	pca955x->chipdef = chip;
- 	pca955x->blink_period = PCA955X_BLINK_DEFAULT_MS;
- 
-+	err = pca955x_parse_fwnode(pca955x);
-+	if (err)
-+		return err;
-+
- 	init_data.devname_mandatory = false;
- 	init_data.devicename = "pca955x";
- 
-@@ -657,7 +626,6 @@ static int pca955x_probe(struct i2c_client *client)
- 		pca955x_led = &pca955x->leds[i];
- 		pca955x_led->led_num = i;
- 		pca955x_led->pca955x = pca955x;
--		pca955x_led->type = pdata->leds[i].type;
- 
- 		switch (pca955x_led->type) {
- 		case PCA955X_TYPE_NONE:
-@@ -671,16 +639,16 @@ static int pca955x_probe(struct i2c_client *client)
- 			led->brightness_get = pca955x_led_get;
- 			led->blink_set = pca955x_led_blink;
- 
--			if (pdata->leds[i].default_state == LEDS_DEFSTATE_OFF)
-+			if (pca955x_led->default_state == LEDS_DEFSTATE_OFF)
- 				ls2[reg] = pca955x_ledsel(ls2[reg], bit, PCA955X_LS_LED_OFF);
--			else if (pdata->leds[i].default_state == LEDS_DEFSTATE_ON)
-+			else if (pca955x_led->default_state == LEDS_DEFSTATE_ON)
- 				ls2[reg] = pca955x_ledsel(ls2[reg], bit, PCA955X_LS_LED_ON);
- 			else if (pca955x_ledstate(ls2[reg], bit) == PCA955X_LS_BLINK0) {
- 				keep_psc0 = true;
- 				set_bit(i, &pca955x->active_blink);
- 			}
- 
--			init_data.fwnode = pdata->leds[i].fwnode;
-+			init_data.fwnode = pca955x_led->fwnode;
- 
- 			if (is_of_node(init_data.fwnode)) {
- 				if (to_of_node(init_data.fwnode)->name[0] ==
+Patch 2 adds the DWARF helpers for virtual calls: the vtable slot index
+of a virtual function, the virtual function at a slot of a class
+(following the primary base class chain), and the class of the vtable
+pointer at an offset of a type.
+
+Patch 3 tracks the vtable pointer and the virtual function pointer
+loaded from it in the x86 instruction tracking, and resolves the
+return type of 'call *N(%reg)' and 'call *%reg' through them.
+
+Tested on x86-64 with GCC 15 (-O2 -g) using small programs covering
+single/multiple inheritance, empty base optimization, tail padding
+reuse, virtual inheritance, direct calls through the vtable and the
+speculatively devirtualized form.  In all cases the access to the
+returned pointer after a virtual call is annotated with the right type
+and member, e.g.:
+
+  movq    (%rbp), %rax           # data-type: struct Node +0 (_vptr.Node)
+  movq    (%rax), %rax
+  cmpq    %r14, %rax
+  je      0x1240
+  movq    %rbp, %rdi
+  callq   *%rax
+  addq    8(%rax), %r12          # data-type: struct Node +0x8 (val)
+
+The existing results for C code are unchanged and the added cost on
+the common path (a pointer dereference) is a tag check on the resolved
+member type.
+
+Changes in v3:
+- Rebased onto the current perf-tools-next.
+
+Patch 1:
+- No change.
+
+Patch 2:
+- Check the value of DW_AT_virtuality instead of its presence (Sashiko,
+  Namhyung).
+- Bound the base class walks in die_find_virtual_func() and
+  die_get_vptr_class() with MAX_TYPE_CHASE (Sashiko, Namhyung).
+
+Patch 3:
+- Check !src->multi_regs when loading a function pointer from the
+  vtable and when marking a register as the vtable pointer (Sashiko,
+  Namhyung).
+- Set ops->target.multi_regs in call__parse() so that an indirect call
+  with an index register is not resolved by the displacement alone.
+
+The recursion depth limit in __die_find_member_offset_cb() reported
+for the patch 1 will be sent as a separate patch on top of this series
+as discussed.
+
+Changes in v2:
+
+Patch 1:
+- Explain DW_TAG_inheritance with an example DWARF in the commit
+  message (Namhyung).
+- Skip virtual base classes whose location is a runtime expression
+  instead of falling back to offset 0 (Sashiko).
+- Match a base class in the offset lookup only if it actually has a
+  member at the offset, to handle empty base optimization and tail
+  padding reuse where a member of the derived class shares the offset
+  with the base (Sashiko).
+- Keep looking at the next sibling in fill_member_name() when an
+  anonymous child (base class) has nothing at the offset.
+
+Patch 2:
+- Drop the non-existent DW_AT_vtable_elem_index and the DW_LANG_*
+  fallback macros (Namhyung).
+- Drop cu_get_language(), cu_is_cplusplus(), die_get_base_class(),
+  die_get_parent() and die_find_member_by_offset() which are not
+  needed anymore (Namhyung).
+- Document that die_get_vtable_index() returns the vtable slot index
+  and that GCC and Clang both emit the index as DW_OP_constu
+  (Namhyung, Sashiko).
+- Fix die_find_virtual_func() to return the function DIE instead of
+  the DW_TAG_inheritance DIE when found in a base class (Sashiko).
+- Follow only the primary base class chain in die_find_virtual_func()
+  since non-primary bases have their own secondary vtables, and skip
+  an empty base at offset 0 which is not the primary base.
+- Add die_get_vptr_class() to find the class of the vtable pointer
+  through base class subobjects, and die_is_vtbl_ptr_type() to
+  identify the vtable pointer by its type ('__vtbl_ptr_type').
+
+Patch 3:
+- Remove the receiver ('this' pointer) register update after the call
+  which was dead code and not needed, and the arg0_reg field (Sashiko,
+  Namhyung).  The 'this' pointer lives in a callee-saved register or
+  on the stack across the call and DWARF location lists cover it.
+- Handle 'call *%reg' by tracking the function pointer loaded from the
+  vtable as TSR_KIND_VFUNC_PTR with its return type (Sashiko).  This
+  form is common due to speculative devirtualization by GCC.
+- Strip the leading '*' of an indirect call operand in call__parse()
+  instead of extract_reg_offset() so that both forms are parsed.
+- Ignore void virtual functions instead of aborting (Namhyung).
+- Keep the existing pointer dereference branch and its fall-through
+  intact; the vtable pointer is detected from the resolved member
+  type there instead of a separate lookup before it.
+- Treat the new register kinds as pointers when saved to the stack.
+
+v2: https://lore.kernel.org/r/20260930210038.196928-1-yzhao62@ncsu.edu
+v1: https://lore.kernel.org/r/20260821050207.4517-1-yzhao62@ncsu.edu
+
+Thanks,
+Yanbo
+
+Yanbo Zhao (3):
+  perf dwarf-aux: Add die_is_compound_type() to handle C++ class types
+  perf dwarf-aux: Add C++ vtable helpers
+  perf annotate: Resolve C++ virtual function calls in x86 insn tracking
+
+ tools/perf/util/annotate-arch/annotate-x86.c |  77 ++++-
+ tools/perf/util/annotate-data.c              |  61 ++--
+ tools/perf/util/annotate-data.h              |   4 +
+ tools/perf/util/disasm.c                     |   7 +
+ tools/perf/util/dwarf-aux.c                  | 282 ++++++++++++++++++-
+ tools/perf/util/dwarf-aux.h                  |  21 ++
+ 6 files changed, 426 insertions(+), 26 deletions(-)
+
+base-commit: 1dc462fc214907671600172280c2e79ef9fe6fcf
 -- 
-2.56.0
+2.53.0
 
