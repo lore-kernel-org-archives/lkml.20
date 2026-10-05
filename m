@@ -1,120 +1,130 @@
-Received: from mail-pj1-f49.google.com (mail-pj1-f49.google.com [209.85.216.49])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EE226478846
-	for <linux-kernel@vger.kernel.org>; Mon,  5 Oct 2026 10:43:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.49
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4EAE5478E2C;
+	Mon,  5 Oct 2026 10:43:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791197033; cv=none; b=a637Wz+VRZVItiU2+hvSLnM2Jz+T8vaqPdhUYK9iBHyWua8u2IytlvKSTOUjoowKuXRay9Ot7ji69h4auMZh0FbqlNSkPWvAJ8aTOFnVMj5cuOBPDiCCuTr2ay0UN4w06LwaEEMDogB18PLeW2rJ9pFETLvsDfNa44k9PVwBsUs=
+	t=1791197036; cv=none; b=YKmhjQKjKfJYgmTTZb+RZOvlT6G4MPshUsmlPfp7B0/cU8Gyh9A3Wa+JbrhYtURT/lmtTvPdUP5DJw0r7VSUnVmTpCLPqvN5JSiq1jaXWKZMAFPFDDJHc9XlrLlWsWkKn++eJ1UmEO4atC2ag/EsifPWgmwIsqEWAjtoCURkF8g=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791197033; c=relaxed/simple;
-	bh=GfNHU99XxoVs03uGEfjX2wwGQ3PijPbgRI3KAFfoh6s=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=IhP80fnL3n0Bjsv6iWfhf4kIzGW0TrC+evDq0Btz9osWhwZRB4PVBp58iAISOPV0zskZowir68aLTaKzbL8AgNDuTqwUDDdkum1iSg4bDxV+m7T0FCYN3Z9hWCjzF/OvxW/uqqpXppdLWuocJJNOTX4HbK3tASg0MXNOL6Kn0qU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=snu.ac.kr; spf=pass smtp.mailfrom=snu.ac.kr; dkim=pass (1024-bit key) header.d=snu.ac.kr header.i=@snu.ac.kr header.b=Yn2xMiyg; arc=none smtp.client-ip=209.85.216.49
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=snu.ac.kr
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=snu.ac.kr
+	s=arc-20240116; t=1791197036; c=relaxed/simple;
+	bh=+Syy2uvKFEEli46sXTLMeSFqCavE7FeW+ue6Wvoqyw8=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=o93OZLUtZXWB9KVnR0br66YtGBxpcK42trQapyI9IXk1VFdHx6mgSEjdBJwNOevap8MFyTErP2np7LG0MYjaLIeX8yiCQ3PKIgIjOssK/1/YBBomewlCBgq8QmO/McCAqqtf7aZBJizpY6sc/a9PB+hWRPJue7NYiw/4tLWUwmM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=YxyjbhaK; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=snu.ac.kr header.i=@snu.ac.kr header.b="Yn2xMiyg"
-Received: by mail-pj1-f49.google.com with SMTP id 98e67ed59e1d1-3a7bf792424so836931a91.1
-        for <linux-kernel@vger.kernel.org>; Mon, 05 Oct 2026 03:43:47 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=snu.ac.kr; s=google; t=1791197027; x=1791801827; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=nyhge/uJYGnijVR9ixeqw1SZu6gs64VLCeBEpS6Zzhc=;
-        b=Yn2xMiyghQYYhW9Oosx9nTi/AR4IFuzRGCXKrSSn93AzmiNJDvSO0N1OzpvQYvc0ea
-         6tpNmkGDMiuuqXc3EDStjpYqtByz2bwadcDE0DTtunf411PNAlmJs6B0ssHBcG00Uos7
-         yeh81RiBvae9NkLb5YiNHjjDDkzuX/JMf2sZU=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791197027; x=1791801827;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=nyhge/uJYGnijVR9ixeqw1SZu6gs64VLCeBEpS6Zzhc=;
-        b=oNKqoYzkG85oNpia+MJOTLe2jLoWbidB+Kg+f3A9SlCRd0KY1+9YsuHu1hOzAYK5AN
-         ZiZZC35HsMwwOri9PvOhAVQK0UTl2gnCv25i35vb5slaQ+BbN+LU1cW1C3F9WIknv0Oo
-         cyBhUnorx/QiW2/tXEU4QH74wW+pu1lG45nRE7ojCNFXXs/kwFsYMhNObDnvt4dtXHZq
-         f/FatHEegIXunj+SAQ4BVWddmsdiZ2eEPYG6fK23L3IjjZUBowGEvEmwP1Uur7JNKyv/
-         jhoMHFrSq/A/BLfBROXbQegPy/vOkIAYXE5xVUTe/3i2oiMLZxFfaw9Qiq1W61u2sXsR
-         3dDQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxIUAz+ug0DwXXJ7MKXiopwzRAUXS5zQIApTqewTf/iwF66JhbN6HLo7yhJXKXiJiNjPaxL+Dds03ptKss=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIROY+IkJ+RNoibA+ABxAgz9ocLWtNiqGamPO7a3GwQKIXn0DMW
-	os9CDW6D1obeCFrpBJrxpv69zbLuMnNLRxyKRVHzx5v9FufvwGuyz6fcPDdr8IRu2tI/5dvMm5L
-	8eMwPWhci6Q==
-X-Gm-Gg: AYBFou0hzrAA3L4aKGMrkkvjHVmTI2ffmvWN2/1OEnQzB+ObjEOFH9+Fxo5yqVafu0x
-	+OstvZRyLlWbIv36nkLybHhzaDkVJrelq7XXL01wgScexBu1pBoRy+Iuqr1d9Res4HZPJ5kvIhy
-	jadoNC9skCI5L1P17yRnRpLhqGXVYLhZsqpxTiWTPd9vZL3E28e1/lNNX1FseMolnYNSYsmXKVB
-	BCTQ+WouY7++6XMfWKKagze7YwjPesTLJzcaoHlX2/RO5/slYZ/ddBK9CXXEFKQexlIgyYpW933
-	5feINlAC0X/pX7piy4cn+fnR14liRiTvN9hgf9mSWOjy16UiZoO8OAMHi+cNS72xGlF8Jy0Yfb0
-	RC6l0+Levi7ViA7c4OCr0aOQwxlQPthKKa14paUq99/eZ8WIm4uoSanw6j82beAO+8kmQhx1aiV
-	HkrUFHzJKMgna23RTKKTHehY5dDwFcvu01yrMZKiWWS66L9f4X8l1FWChHPTobcsTE
-X-Received: by 2002:a17:90b:388e:b0:398:b1eb:136c with SMTP id 98e67ed59e1d1-3a78673670bmr5645882a91.9.1791197027272;
-        Mon, 05 Oct 2026 03:43:47 -0700 (PDT)
-Received: from 1c1aead48890 ([49.142.45.25])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a7dbf4c81asm3142994a91.1.2026.10.05.03.43.45
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 05 Oct 2026 03:43:46 -0700 (PDT)
-Date: Mon, 5 Oct 2026 10:43:42 +0000
-From: Seongjun Hong <hsj0512@snu.ac.kr>
-To: Harry Yoo <harry@kernel.org>
-Cc: Vlastimil Babka <vbabka@kernel.org>, 
-	Andrew Morton <akpm@linux-foundation.org>, Hao Li <hao.li@linux.dev>, Christoph Lameter <cl@gentwo.org>, 
-	David Rientjes <rientjes@google.com>, Roman Gushchin <roman.gushchin@linux.dev>, linux-mm@kvack.org, 
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 1/2] tools/mm/slabinfo: refactor slab attribute reading
-Message-ID: <a6cb4dbli4xaj7dfl2gwklq3suxz2nhrnjvrle4qrj336fxl4f@sf7de4bndqtv>
-References: <20260927-tools-mm-update-slabinfo-v1-0-a4ea0d4dc136@snu.ac.kr>
- <20260927-tools-mm-update-slabinfo-v1-1-a4ea0d4dc136@snu.ac.kr>
- <arqIzSPQVDky8jqc@thinkstation>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="YxyjbhaK"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6530F1F00899;
+	Mon,  5 Oct 2026 10:43:51 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791197035;
+	bh=I9YxIdWVKeJd4/bB5ayzuob5ZI8t2MLqGLq4CqLRU6E=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=YxyjbhaKV4J3KWq5yAbCj043IUW/HILXjLF0F3kkPCQ2WaUvIjK1eq76i4d4auCLp
+	 /KY97mHjSMrICJPPlZd+0gIWHlBgtkFYBX2OoKJwf9/LP0Qe5Ph+XThvZ5E+h0iSqK
+	 Cscwr0iirEuj04JnGdZsrnY0ROtyRGzUeLrCqG80YHmMsLm+pk0DTUxr5O1tWwS2SP
+	 VQA5MkeLjX5LRrWHE3lasxUoRzxmdTB9IROC3KXUwv1kzS5QYGNe/i2V5H21pV2fpc
+	 vVOsRAom5vq9ZevdHDyTHCPbeSp2a/sxNECVbqAGEBjIsUE+TLzx0TD+K2xZsxwGRz
+	 A2l/wGOuFT4cg==
+Message-ID: <4a24f7b1-65f7-4947-a325-7c9e9f642f2a@kernel.org>
+Date: Mon, 5 Oct 2026 12:43:48 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <arqIzSPQVDky8jqc@thinkstation>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4 2/2] selftests/mm: add tests for UFFDIO_MOVE of a
+ uffd-protected swap entry
+To: Donggeun Yoo <donggeunyoo.kernel@gmail.com>, akpm@linux-foundation.org,
+ rppt@kernel.org
+Cc: peterx@redhat.com, surenb@google.com, aarcange@redhat.com,
+ ljs@kernel.org, liam@infradead.org, vbabka@kernel.org, mhocko@suse.com,
+ shuah@kernel.org, kas@kernel.org, linux-mm@kvack.org,
+ linux-kselftest@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20261003103030.63380-1-donggeunyoo.kernel@gmail.com>
+ <20261003103030.63380-3-donggeunyoo.kernel@gmail.com>
+From: "David Hildenbrand (Arm)" <david@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=david@kernel.org; keydata=
+ xsFNBFXLn5EBEAC+zYvAFJxCBY9Tr1xZgcESmxVNI/0ffzE/ZQOiHJl6mGkmA1R7/uUpiCjJ
+ dBrn+lhhOYjjNefFQou6478faXE6o2AhmebqT4KiQoUQFV4R7y1KMEKoSyy8hQaK1umALTdL
+ QZLQMzNE74ap+GDK0wnacPQFpcG1AE9RMq3aeErY5tujekBS32jfC/7AnH7I0v1v1TbbK3Gp
+ XNeiN4QroO+5qaSr0ID2sz5jtBLRb15RMre27E1ImpaIv2Jw8NJgW0k/D1RyKCwaTsgRdwuK
+ Kx/Y91XuSBdz0uOyU/S8kM1+ag0wvsGlpBVxRR/xw/E8M7TEwuCZQArqqTCmkG6HGcXFT0V9
+ PXFNNgV5jXMQRwU0O/ztJIQqsE5LsUomE//bLwzj9IVsaQpKDqW6TAPjcdBDPLHvriq7kGjt
+ WhVhdl0qEYB8lkBEU7V2Yb+SYhmhpDrti9Fq1EsmhiHSkxJcGREoMK/63r9WLZYI3+4W2rAc
+ UucZa4OT27U5ZISjNg3Ev0rxU5UH2/pT4wJCfxwocmqaRr6UYmrtZmND89X0KigoFD/XSeVv
+ jwBRNjPAubK9/k5NoRrYqztM9W6sJqrH8+UWZ1Idd/DdmogJh0gNC0+N42Za9yBRURfIdKSb
+ B3JfpUqcWwE7vUaYrHG1nw54pLUoPG6sAA7Mehl3nd4pZUALHwARAQABzS5EYXZpZCBIaWxk
+ ZW5icmFuZCAoQ3VycmVudCkgPGRhdmlkQGtlcm5lbC5vcmc+wsGQBBMBCAA6AhsDBQkmWAik
+ AgsJBBUKCQgCFgICHgUCF4AWIQQb2cqtc1xMOkYN/MpN3hD3AP+DWgUCaYJt/AIZAQAKCRBN
+ 3hD3AP+DWriiD/9BLGEKG+N8L2AXhikJg6YmXom9ytRwPqDgpHpVg2xdhopoWdMRXjzOrIKD
+ g4LSnFaKneQD0hZhoArEeamG5tyo32xoRsPwkbpIzL0OKSZ8G6mVbFGpjmyDLQCAxteXCLXz
+ ZI0VbsuJKelYnKcXWOIndOrNRvE5eoOfTt2XfBnAapxMYY2IsV+qaUXlO63GgfIOg8RBaj7x
+ 3NxkI3rV0SHhI4GU9K6jCvGghxeS1QX6L/XI9mfAYaIwGy5B68kF26piAVYv/QZDEVIpo3t7
+ /fjSpxKT8plJH6rhhR0epy8dWRHk3qT5tk2P85twasdloWtkMZ7FsCJRKWscm1BLpsDn6EQ4
+ jeMHECiY9kGKKi8dQpv3FRyo2QApZ49NNDbwcR0ZndK0XFo15iH708H5Qja/8TuXCwnPWAcJ
+ DQoNIDFyaxe26Rx3ZwUkRALa3iPcVjE0//TrQ4KnFf+lMBSrS33xDDBfevW9+Dk6IISmDH1R
+ HFq2jpkN+FX/PE8eVhV68B2DsAPZ5rUwyCKUXPTJ/irrCCmAAb5Jpv11S7hUSpqtM/6oVESC
+ 3z/7CzrVtRODzLtNgV4r5EI+wAv/3PgJLlMwgJM90Fb3CB2IgbxhjvmB1WNdvXACVydx55V7
+ LPPKodSTF29rlnQAf9HLgCphuuSrrPn5VQDaYZl4N/7zc2wcWM7BTQRVy5+RARAA59fefSDR
+ 9nMGCb9LbMX+TFAoIQo/wgP5XPyzLYakO+94GrgfZjfhdaxPXMsl2+o8jhp/hlIzG56taNdt
+ VZtPp3ih1AgbR8rHgXw1xwOpuAd5lE1qNd54ndHuADO9a9A0vPimIes78Hi1/yy+ZEEvRkHk
+ /kDa6F3AtTc1m4rbbOk2fiKzzsE9YXweFjQvl9p+AMw6qd/iC4lUk9g0+FQXNdRs+o4o6Qvy
+ iOQJfGQ4UcBuOy1IrkJrd8qq5jet1fcM2j4QvsW8CLDWZS1L7kZ5gT5EycMKxUWb8LuRjxzZ
+ 3QY1aQH2kkzn6acigU3HLtgFyV1gBNV44ehjgvJpRY2cC8VhanTx0dZ9mj1YKIky5N+C0f21
+ zvntBqcxV0+3p8MrxRRcgEtDZNav+xAoT3G0W4SahAaUTWXpsZoOecwtxi74CyneQNPTDjNg
+ azHmvpdBVEfj7k3p4dmJp5i0U66Onmf6mMFpArvBRSMOKU9DlAzMi4IvhiNWjKVaIE2Se9BY
+ FdKVAJaZq85P2y20ZBd08ILnKcj7XKZkLU5FkoA0udEBvQ0f9QLNyyy3DZMCQWcwRuj1m73D
+ sq8DEFBdZ5eEkj1dCyx+t/ga6x2rHyc8Sl86oK1tvAkwBNsfKou3v+jP/l14a7DGBvrmlYjO
+ 59o3t6inu6H7pt7OL6u6BQj7DoMAEQEAAcLBfAQYAQgAJgIbDBYhBBvZyq1zXEw6Rg38yk3e
+ EPcA/4NaBQJonNqrBQkmWAihAAoJEE3eEPcA/4NaKtMQALAJ8PzprBEXbXcEXwDKQu+P/vts
+ IfUb1UNMfMV76BicGa5NCZnJNQASDP/+bFg6O3gx5NbhHHPeaWz/VxlOmYHokHodOvtL0WCC
+ 8A5PEP8tOk6029Z+J+xUcMrJClNVFpzVvOpb1lCbhjwAV465Hy+NUSbbUiRxdzNQtLtgZzOV
+ Zw7jxUCs4UUZLQTCuBpFgb15bBxYZ/BL9MbzxPxvfUQIPbnzQMcqtpUs21CMK2PdfCh5c4gS
+ sDci6D5/ZIBw94UQWmGpM/O1ilGXde2ZzzGYl64glmccD8e87OnEgKnH3FbnJnT4iJchtSvx
+ yJNi1+t0+qDti4m88+/9IuPqCKb6Stl+s2dnLtJNrjXBGJtsQG/sRpqsJz5x1/2nPJSRMsx9
+ 5YfqbdrJSOFXDzZ8/r82HgQEtUvlSXNaXCa95ez0UkOG7+bDm2b3s0XahBQeLVCH0mw3RAQg
+ r7xDAYKIrAwfHHmMTnBQDPJwVqxJjVNr7yBic4yfzVWGCGNE4DnOW0vcIeoyhy9vnIa3w1uZ
+ 3iyY2Nsd7JxfKu1PRhCGwXzRw5TlfEsoRI7V9A8isUCoqE2Dzh3FvYHVeX4Us+bRL/oqareJ
+ CIFqgYMyvHj7Q06kTKmauOe4Nf0l0qEkIuIzfoLJ3qr5UyXc2hLtWyT9Ir+lYlX9efqh7mOY
+ qIws/H2t
+In-Reply-To: <20261003103030.63380-3-donggeunyoo.kernel@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-Hi Harry, thanks for the detailed review and some nice ideas!
-I'll address the comments and prepare a v2.
+On 10/3/26 12:30, Donggeun Yoo wrote:
+> Move a swapped-out page out of a write-protected or RWP-protected area into
+> a destination registered for missing faults only, and read pagemap bit 57
+> at the destination.  The destination was never protected, so the bit must
+> be clear.
+> 
+> Assisted-by: LLM
+> Signed-off-by: Donggeun Yoo <donggeunyoo.kernel@gmail.com>
+> ---
+>  tools/testing/selftests/mm/uffd-unit-tests.c | 84 ++++++++++++++++++++
 
-On Mon, Sep 28, 2026 at 04:52:08PM +0100, Harry Yoo wrote:
-> Would you please separate this patch into multiple patches?
-> It's hard to review when multiple refactorings are done in a single
-> patch.
+The CI complains as reply to this patch:
+...
+Running userfaultfd(2) test
+✗ userfaultfd(2) tests failed
+Running VMA merge test
+# # Totals: pass:27 fail:0 xfail:0 xpass:0 skip:0 error:0
+# SUMMARY: PASS=1 SKIP=0 FAIL=0
+✓ VMA merge tests passed
+Running vmalloc test
+# SUMMARY: PASS=1 SKIP=0 FAIL=0
+✓ vmalloc tests passed
+==========================================
+✗ userfaultfd(2) test failed:
+# not ok 43 minor-collapse on shmem
+------------------------------------------
 
-Sure.
-
-> > +	 * Deprecated files:
-> > +	 * No STAT_ATTR()/SLAB_ATTR() for these exists in mm/slub.c's
-> > +	 * slab_attrs[] anymore.
-> 
-> This part of the comment looks fine, but
-> 
-> > Although cpu_slabs remains as a file,
-> > +	 * it is also outdated and always prints 0. Keep these for backward
-> > +	 * compatibility, but they should be removed later.
-> 
-> This doesn't seem useful information to put in the comment.
-> 
-> We were able to remove some files when
-> Documentation/ABI/testing/sysfs-kernel-slab says
-> "Available when CONFIG_SLUB_STATS is enabled", because that implies that
-> those files may not exist. 
-> 
-> But it's not the case for files like cpu_slabs,
-> and I don't think we're going to remove them in the future.
-> 
-> Probably simply say something like
-> 
-> "Deprecated files: the kernel does not create those files anymore or
->  always prints hardecoded "0" since they are deprecated" ?
-
-I agree. That sounds better.
+Didn't look into the details / trying to reproduce.
 
 -- 
-Seongjun Hong
+Cheers,
+
+David
