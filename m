@@ -1,160 +1,91 @@
-Received: from va-1-111.ptr.blmpb.com (va-1-111.ptr.blmpb.com [209.127.230.111])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.5])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 564942264A7
-	for <linux-kernel@vger.kernel.org>; Mon,  5 Oct 2026 05:58:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.127.230.111
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 94157231839;
+	Mon,  5 Oct 2026 05:58:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.5
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791179918; cv=none; b=d/x1/2VLZGxmlIt/cy7iY/YJmK3LSeQlss0f4IB0sQk9hJqdBAU1dtzKDZfRaiBp8AdYN0N9sqfaO7i8KaVY95tnu5fYZOyBTrAJ8LWHPGeLdB46KKYZgCwQ/NtgCZ0fWFlJjOFpyhgi4UulBBB+hBvDh3nLkC316tUKWRkuKks=
+	t=1791179926; cv=none; b=fZmTiON/U8ma8q7WDbYk457SQimNVceirj3nmnpq6g++61LsQ5C9IEkgONK+tJVRAQg80W7OOZEBjvFYLo2XL1apbeQ9qvXvGQSym7XFm18eSi/8AfoH0MW6AVgAr0h+s+DkplJwvdW0m/dxzeGmYPHjlHEaB3qjOZ0pad6yBNQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791179918; c=relaxed/simple;
-	bh=XhM2ed6P0+m9ZkVGG1tSkuVCtV5u74kQ+mxSfE9WOvI=;
-	h=Cc:From:Subject:Date:Mime-Version:In-Reply-To:To:References:
-	 Content-Type:Message-Id; b=avRlV9WQQ81vBw7VmBMcf5UqtdNbJGbBxLYNSQew1zNQhp3dunoDz0bZOvbOM7fL32R9Ixwf/vvdfGqdjTWl+kmWRRqNMGJfwh9cuu89rBTvH2nDgG79XPFn5zoZI9408kmJsIuuZ8zwDS2fXFfre3OeQjEn0PgbRDu9/5JPU8k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com; spf=pass smtp.mailfrom=bytedance.com; dkim=pass (2048-bit key) header.d=bytedance.com header.i=@bytedance.com header.b=kKy2SbMO; arc=none smtp.client-ip=209.127.230.111
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bytedance.com
+	s=arc-20240116; t=1791179926; c=relaxed/simple;
+	bh=TXwBxYTIiX9ug/RG0QZQlLRINvlnvwtOqwIzSuPtwI8=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=ruBJItPNZx8JMiv3UjwAPM0J82LwIf4OfMG8JiTpY/04089R8tP23J6ZA42u4nDZVPcRni8zPqCPc0nojQ3wrNyxkuR2oKKE3P1EH/Dvq0+fO2ln/RO5gOAF6bcwfQZF2wpsYL6YtDeWkJcFsQpDSUs5GHRO+wHQIx19iP5n86U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=SHzd4OhI; arc=none smtp.client-ip=117.135.210.5
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bytedance.com header.i=@bytedance.com header.b="kKy2SbMO"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- s=2212171451; d=bytedance.com; t=1791179911; h=from:subject:
- mime-version:from:date:message-id:subject:to:cc:reply-to:content-type:
- mime-version:in-reply-to:message-id;
- bh=DPwSIXivw4JTRcaAh2+SSREgVLK9bwyzA3S+zb+8nDE=;
- b=kKy2SbMOEx/vlzVN/Q/khFviLJexsFsX/vD7JnhRv0Lvu/RniirUlZ1nYRy6yT/FdYKjei
- y5YqAr0Rjeazd00dYQm1gPXsqaHtXH2K7tN1QCvNAy7Pgjaio7twU7WN9PObawgR8JG0Fw
- LZbiCTFj7Oo9WvHsi3etsvPFiA39x8bMfmdCyS3UqXRCKLmNL4mVqkB3u65wj7iKpKdv+y
- 4wmIfgD6nvUWHX1s1qRjy3tuZ3BD8aA4fysSqTbgFuyroOrklYcJca6HpSUEe+ZJ66Py0s
- zBVpfZJPdB5Qp+PwcE7gNl1pZNp5430KmldZP7OgA7m7Q64L9MwwQnZUOeOt/g==
-Cc: <linux-kernel@vger.kernel.org>, "Chuyi Zhou" <zhouchuyi@bytedance.com>
-From: "Chuyi Zhou" <zhouchuyi@bytedance.com>
-Subject: [PATCH v2 4/5] x86/mm: Decouple kernel TLB flushes from flush_tlb_info
-Date: Mon,  5 Oct 2026 13:57:13 +0800
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="SHzd4OhI"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=lS
+	EorKISI2ymsZKQ74T2ElUmJzI5QYL1f9qgNV/ozWY=; b=SHzd4OhIxLDtINbls7
+	1O7RysvpPmm0dDW2RKWbHGMefvted90ngR1/+4AOmS9Rp+ukBLODASQ58bzcgZKe
+	s4JcUEIN8Dlv8LL+4QO90EmNVnv2Kx3me+cziC/Xfa+JbonI7LYEq9Zwk/rNNJi2
+	jgAsihbfChEyiFdKlzDFQW2Dk=
+Received: from WIN-TOG0NDEIICD.localdomain (unknown [])
+	by gzga-smtp-mtada-g1-1 (Coremail) with SMTP id _____wD3H1CBPMNq4SggCg--.18055S2;
+	Mon, 05 Oct 2026 13:58:26 +0800 (CST)
+From: Shirong Zhao <shxzhaosr@163.com>
+To: Heiko Carstens <hca@linux.ibm.com>,
+	Vasily Gorbik <gor@linux.ibm.com>,
+	Alexander Gordeev <agordeev@linux.ibm.com>,
+	Christian Borntraeger <borntraeger@linux.ibm.com>,
+	Sven Schnelle <svens@linux.ibm.com>
+Cc: linux-s390@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH] s390/3270: return -ENOTTY for unknown ioctls in fs3270_ioctl()
+Date: Mon,  5 Oct 2026 13:58:25 +0800
+Message-ID: <20261005055825.20-1-shxzhaosr@163.com>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-In-Reply-To: <cover.1791179421.git.zhouchuyi@bytedance.com>
-X-Lms-Return-Path: <lba+26ac33c85+3aa4c4+vger.kernel.org+zhouchuyi@bytedance.com>
-To: <tglx@kernel.org>, <mingo@redhat.com>, <luto@kernel.org>, 
-	<peterz@infradead.org>, <paulmck@kernel.org>, <muchun.song@linux.dev>, 
-	<bp@alien8.de>, <dave.hansen@linux.intel.com>, <pbonzini@redhat.com>, 
-	<bigeasy@linutronix.de>, <clrkwllms@kernel.org>, <rostedt@goodmis.org>, 
-	<nadav.amit@gmail.com>
-X-Mailer: git-send-email 2.20.1
-References: <cover.1791179421.git.zhouchuyi@bytedance.com>
-Content-Type: text/plain; charset=UTF-8
-X-Original-From: Chuyi Zhou <zhouchuyi@bytedance.com>
-Content-Transfer-Encoding: 7bit
-Message-Id: <6c44fd268bf18d1b3947df2d3dee3068a5cc3c67.1791179421.git.zhouchuyi@bytedance.com>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:_____wD3H1CBPMNq4SggCg--.18055S2
+X-Coremail-Antispam: 1Uf129KBjvJXoW7ZF1fZryrAF1DAw4DXFWDArb_yoW8WF45pr
+	4UZrWUC34xtr4v9F1UC34Uua45Ga9rWFWjkay3Z3s8XF4DCa47trW8tF1Sq3yUJrs2vF4S
+	yr90vr4Yva1DCw7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07jsUUUUUUUU=
+X-CM-SenderInfo: hvk06xhdrv2qqrwthudrp/xtbC7gK6+GrDPILhswAA3r
 
-Kernel range flushes only need the start and end addresses, but reuse
-flush_tlb_info and its initialization of mm state, TLB generations and
-the initiating CPU. None of those fields is consumed by the kernel
-flush callbacks. In particular, initializing initiating_cpu imposes a
-CPU-pinning requirement on a path that does not use it.
+fs3270_ioctl() initializes rc to 0 and its cmd switch has no default
+branch, so an unrecognized ioctl command returns success without doing
+anything. Follow the ioctl convention and reject unknown commands with
+-ENOTTY.
 
-Select the full or range flush directly in flush_tlb_kernel_range()
-using the shared threshold predicate. The interface accepts actual
-address ranges; callers requesting an unconditional full flush can use
-flush_tlb_all(). Keep init_flush_tlb_info() and its smp_processor_id()
-check for the mm paths.
+Verified against Linux 7.3-rc6 (a90ee4305c4a5df72c11b31dacfdc76e00fcf78a),
+the current mainline master: rc is initialised to 0, the switch covers
+TUBICMD, TUBOCMD, TUBGETI, TUBGETO and TUBGETMOD only and has no default
+branch, so an unknown command returns success without doing anything. The
+file is byte-identical between 7.3-rc5 and 7.3-rc6.
 
-Pass start and end directly through the kernel range helpers. Package
-them in a private kernel_tlb_range only for the IPI callback, retaining
-the existing payload alignment. The synchronous on_each_cpu() call
-keeps the stack descriptor alive until all callbacks have completed.
+Sibling audit (same snapshot, all NOT bugs -- do not re-report):
+- drivers/s390/char/keyboard.c:kbd_ioctl HAS default -> -ENOIOCTLCMD;
+  do_kdsk/do_kdgkb lack default but only reachable via whitelisted
+  cmds from kbd_ioctl, harmless.
+- drivers/char/nvram.c:nvram_misc_ioctl inits ret=-ENOTTY, safe.
+- drivers/misc/tps6594-pfsm.c inits ret=-ENOIOCTLCMD, safe.
+- drivers/misc/pci_endpoint_test.c inits ret=-EINVAL, safe (error).
+Only fs3270 inits 0 -> true positive.
 
-Retain the outer preemption guard in flush_tlb_kernel_range() so the
-descriptor refactoring does not change the preemption behavior.
-
-Signed-off-by: Chuyi Zhou <zhouchuyi@bytedance.com>
-Link: https://lore.kernel.org/20260522104818.CbT5fyN8@linutronix.de/
+Signed-off-by: Shirong Zhao <shxzhaosr@163.com>
 ---
- arch/x86/mm/tlb.c | 40 ++++++++++++++++++++++++----------------
- 1 file changed, 24 insertions(+), 16 deletions(-)
+ drivers/s390/char/fs3270.c | 3 +++
+ 1 file changed, 3 insertions(+)
 
-diff --git a/arch/x86/mm/tlb.c b/arch/x86/mm/tlb.c
-index 0d03011c6825..b55495765da8 100644
---- a/arch/x86/mm/tlb.c
-+++ b/arch/x86/mm/tlb.c
-@@ -1464,12 +1464,12 @@ void flush_tlb_all(void)
- }
- 
- /* Flush an arbitrarily large range of memory with INVLPGB. */
--static void invlpgb_kernel_range_flush(struct flush_tlb_info *info)
-+static void invlpgb_kernel_range_flush(unsigned long start, unsigned long end)
- {
- 	unsigned long addr, nr;
- 
--	for (addr = info->start; addr < info->end; addr += nr << PAGE_SHIFT) {
--		nr = (info->end - addr) >> PAGE_SHIFT;
-+	for (addr = start; addr < end; addr += nr << PAGE_SHIFT) {
-+		nr = (end - addr) >> PAGE_SHIFT;
- 
- 		/*
- 		 * INVLPGB has a limit on the size of ranges it can
-@@ -1482,38 +1482,46 @@ static void invlpgb_kernel_range_flush(struct flush_tlb_info *info)
- 	__tlbsync();
- }
- 
-+/* Preserve the alignment of the IPI payload shared with remote CPUs. */
-+struct kernel_tlb_range {
-+	unsigned long start;
-+	unsigned long end;
-+} __aligned(FLUSH_TLB_INFO_ALIGN);
-+
- static void do_kernel_range_flush(void *info)
- {
--	struct flush_tlb_info *f = info;
-+	const struct kernel_tlb_range *range = info;
- 	unsigned long addr;
- 
- 	/* flush range by one by one 'invlpg' */
--	for (addr = f->start; addr < f->end; addr += PAGE_SIZE)
-+	for (addr = range->start; addr < range->end; addr += PAGE_SIZE)
- 		flush_tlb_one_kernel(addr);
- }
- 
--static void kernel_tlb_flush_range(struct flush_tlb_info *info)
-+static void kernel_tlb_flush_range(unsigned long start, unsigned long end)
- {
- 	count_vm_tlb_event(NR_TLB_REMOTE_FLUSH);
- 
--	if (cpu_feature_enabled(X86_FEATURE_INVLPGB))
--		invlpgb_kernel_range_flush(info);
--	else
--		on_each_cpu(do_kernel_range_flush, info, 1);
-+	if (cpu_feature_enabled(X86_FEATURE_INVLPGB)) {
-+		invlpgb_kernel_range_flush(start, end);
-+	} else {
-+		struct kernel_tlb_range range = {
-+			.start = start,
-+			.end = end,
-+		};
-+
-+		on_each_cpu(do_kernel_range_flush, &range, 1);
-+	}
- }
- 
- void flush_tlb_kernel_range(unsigned long start, unsigned long end)
- {
--	struct flush_tlb_info info;
--
- 	guard(preempt)();
--	init_flush_tlb_info(&info, NULL, start, end, PAGE_SHIFT, false,
--			    TLB_GENERATION_INVALID);
- 
--	if (info.end == TLB_FLUSH_ALL)
-+	if (tlb_range_exceeds_ceiling(start, end, PAGE_SHIFT))
- 		flush_tlb_all();
- 	else
--		kernel_tlb_flush_range(&info);
-+		kernel_tlb_flush_range(start, end);
- }
- 
- /*
--- 
-2.20.1
+diff --git a/drivers/s390/char/fs3270.c b/drivers/s390/char/fs3270.c
+--- a/drivers/s390/char/fs3270.c
++++ b/drivers/s390/char/fs3270.c
+@@ -358,6 +358,9 @@ static long fs3270_ioctl(struct file *filp, unsigned int cmd, unsigned long arg)
+ 		if (copy_to_user(argp, &iocb, sizeof(struct raw3270_iocb)))
+ 			rc = -EFAULT;
+ 		break;
++	default:
++		rc = -ENOTTY;
++		break;
+ 	}
+ 	mutex_unlock(&fs3270_mutex);
+ 	return rc;
+
