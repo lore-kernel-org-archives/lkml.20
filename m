@@ -1,63 +1,67 @@
-Received: from CH5PR02CU005.outbound.protection.outlook.com (mail-northcentralusazon11012039.outbound.protection.outlook.com [40.107.200.39])
+Received: from CY7PR03CU001.outbound.protection.outlook.com (mail-westcentralusazon11010045.outbound.protection.outlook.com [40.93.198.45])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 36B49468C07;
-	Mon,  5 Oct 2026 09:42:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.200.39
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B1D8837F8CB;
+	Mon,  5 Oct 2026 09:42:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.198.45
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791193378; cv=fail; b=O9v5bGlxshqq0JiZxyCTRYvhQ4tEKke8h1p5QfsGEs/AEKzhJrOLmq47dxR8mhDTcuLRd7BrKqKzpfbEx5eGVeVvdgXnZQfuoKtWMAU9uMGA+1zKg9INnhKJyC4lh/EYw4ZS6aqplELi7ATZW88qHfhYz+t0T99SU0KKZ03PA7o=
+	t=1791193375; cv=fail; b=mq5dFiyNRaSnpqhImDqSXv7UydJia8If+aTYD/DrAvxbQNhIJNiUPxII3j4pQ9ZsRsDFVdv2f4t1atssiO5F2nc+DDnzoZUcmKGB9EnISEUn0ea7lCH7hUxvK+T6t6aKVmg3fV7vXUU4vxOhsfVGKziR3hcD9Zr3ApGZwLMzywE=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791193378; c=relaxed/simple;
-	bh=79ojde34b6PML6S+zqL7vPky8JFyiQ3Oo5xYaehkemE=;
+	s=arc-20240116; t=1791193375; c=relaxed/simple;
+	bh=JZ63G1Q4UJ1Q7BEgYPm6L0lpTzxjJEqHcojWxB5XUJ0=;
 	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=WbpkCDF8RcMG9rOg3MM2WX0mVWwDORRTYq2cPtW1FV71z7cO4jsqRMFks+U/jCkkrMZeJ2zRZotu5MP+bcqGEndL57zWF1R+PmODw2BVlG6RrihQfFR+pwY4yAq1nu05YPDgT6Uszw6ORERRnmvii/5vun/D7FwbLd94om0GDX8=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=HMoXoWLg; arc=fail smtp.client-ip=40.107.200.39
+	 MIME-Version:Content-Type; b=OyTRjQ6GmlxXDdkjltELDmCCE33N7HybZzdRphhd7tY07s5HHP/p0jhIO8kCvJUVLc/Sac1a290k8BoeCClhSxHMr/6lIRu6KAs5A4d+BUbYky+oxbR5VAObQGuziXxSArRXEbub23St99Q10ELcv2hfWsiHDea57knUnUw2x/4=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=EPmR8fcu; arc=fail smtp.client-ip=40.93.198.45
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
 Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="HMoXoWLg"
+	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="EPmR8fcu"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=qWiw5DtTQFyNp1v+NPOwo0TO1U/9p53f2UT7bB57+M3RidCBmJNLetwNf8dfBli46fFSi7V7gLxqHZxm/I83TBPZUk8EO6cIx5sLSiykuBMoMfLVaypDB/GpHPMvvmcZNHTF2+P/OGNNHmd9NdpoNz45nWRx6ZbsQ4Ngz7e8SDGxt0ewm1C6PObKn5T4r+BZRgQpxHip4wm/s/WOiMwsXDIM3mBSccl/1QPFPd+hQSiQNxj/ue2sF/s9QaGJ367DUhepUWg+4I/5NtL1yzuTXJkYEjhCBATWA4Ue+YMi1aM8qE5I3IbgtF1Hc4/AF9T8eo3YvXMi/K9N65DJ+2Tq3A==
+ b=iO+TVy5XU7vaoepQhG5wE698zoW1E1sig61jh149jnW5KOwXWfMb8P3/VgoFf46scI3JiQVLShFUOgg3IjzhPFQH6ajG3z+pOQkOfyYxQLcsgLaK2JNnWuNoIISths2eFWYjrWR2opMaJZm/wwdEhbTbA9Y375IEe+UyaP0HFpBI8oB+8NvQK43EH+nhG97M6UtuKfsPgH5MpAChdQYB2A2ks46lLRq9LhUSZ4+bqIXlqsOzG35dQ3/81ukI0+UkcWu450tVHeiMXgezP/2a7pybHGOMjrdlWvAAKXIkGrPibqn/h2HwIslxwAcfumjeEVkkdgqFyTxwNPi4gfeNBQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=E/pvWMokn1fbJZ37xijxxQTNA2PCE+dR5XdYXXFnx+8=;
- b=f3OgydLZmUC5F9eIKshr8nIuSAjYHf0yyO74HNwVm9trPqyKjgt19PdM6hnVEQD+6O9GiC26MsMKUx0zZsAzMd7OAUZZ4u7zoOO6sUYmkyNzUUDuotMUmBedqxEryoh1pKToytM6zu5H5k5U6pQn1toxeLN/7gszdx5gpZB7oYBv71I8FI8bmzdchgn0D3ph/D5LKotDDl25xi1o9Ju4k1uGGYm0KXVyf19AeO6JreWuZA80v9Q2DcDU6tZWABlIu+/CHUk/nFs3bc/+0LkcDUEw234hPiMutmE9IuzqkqBEo0jnY2/WBSBhdQ65OkRJIzxQr8y6rkUvNg7Xi9I6tQ==
+ bh=jUTUt6lyWcSS9lD2gN/SWjIBAzuOAwO2z1OcM7EVgCQ=;
+ b=eNhUw1sUymJLcswz8OlshLJnL+yaBnZ2eNAAYKNUo6ehbqcywDdogGQGG+js08UPJDTJVLcuswpLKIQJWO6Cd49oWI4QEa0EQftQ8K2zlmuwF+RkEHnyFwb2DGWfL70zsw3fd6wtxJE06TmRDccnm0YUrFO+6n0859yFsJKsd+H/aC6bkngF8Pxy6TonziQJbgUp9gvjnLQ0GBmavMnWDBTltKafQal3rUU3BfJlTrrIKCbVpj7+RvPtD9Prm5BBNbOjXVmnVTXhayM6IkxVpdPWOkQekJlAq2884Iug8of2H9yqx0nR5PGs7oQvYCfFzR6OySmGXZSeE63cw9nMpg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=kernel.org smtp.mailfrom=amd.com; dmarc=pass
  (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
  dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=E/pvWMokn1fbJZ37xijxxQTNA2PCE+dR5XdYXXFnx+8=;
- b=HMoXoWLgqJXUqM0BxL4WdaCRODd3ia9bt9dT8WMWs+3Kf7oQF78qV7MoJQkymSErHpMPHtQUZ3IBZmvzlT0sqqgEF7CyV5eIAF45HYhzfReapw782uOGrVlgIO+JFXP7a4s1GX8dl6eNF7tVrEjborONKuxiKJhFV8LGD32xgjA=
-Received: from CH0PR13CA0010.namprd13.prod.outlook.com (2603:10b6:610:b1::15)
- by LV8PR12MB9450.namprd12.prod.outlook.com (2603:10b6:408:202::13) with
+ bh=jUTUt6lyWcSS9lD2gN/SWjIBAzuOAwO2z1OcM7EVgCQ=;
+ b=EPmR8fcub4Azm9g83nfrf3rNqS4gGb/RfHRoen/vW8Q37LxVvJ32fah+/70VZcjoKlGxthUdim6fjmKn9PSQADZwu25fb3bH5iXueyIG5hBOZWEvS6KnyJbyITd+JrLniBa5zE7ICWw28ubDeHzfaJDz7rfOdWTVrgKu7j1NcJU=
+Received: from BN9PR03CA0081.namprd03.prod.outlook.com (2603:10b6:408:fc::26)
+ by SN7PR12MB7203.namprd12.prod.outlook.com (2603:10b6:806:2aa::8) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.24; Mon, 5 Oct
- 2026 09:42:46 +0000
-Received: from BL02EPF00029929.namprd02.prod.outlook.com
- (2603:10b6:610:b1:cafe::48) by CH0PR13CA0010.outlook.office365.com
- (2603:10b6:610:b1::15) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.496.5 via Frontend Transport; Mon, 5
- Oct 2026 09:42:46 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.472.20; Mon, 5 Oct
+ 2026 09:42:39 +0000
+Received: from BN3PEPF0000B072.namprd04.prod.outlook.com
+ (2603:10b6:408:fc:cafe::17) by BN9PR03CA0081.outlook.office365.com
+ (2603:10b6:408:fc::26) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.472.20 via Frontend Transport; Mon, 5
+ Oct 2026 09:42:39 +0000
 X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
  is 165.204.84.17) smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
 Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- BL02EPF00029929.mail.protection.outlook.com (10.167.249.54) with Microsoft
+ client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
+Received: from satlexmb08.amd.com (165.204.84.17) by
+ BN3PEPF0000B072.mail.protection.outlook.com (10.167.243.117) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.472.14 via Frontend Transport; Mon, 5 Oct 2026 09:42:46 +0000
-Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ 15.21.472.14 via Frontend Transport; Mon, 5 Oct 2026 09:42:39 +0000
+Received: from satlexmb10.amd.com (10.181.42.219) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Mon, 5 Oct
- 2026 04:42:44 -0500
+ 2026 04:42:38 -0500
+Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb10.amd.com
+ (10.181.42.219) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Mon, 5 Oct
+ 2026 04:42:37 -0500
 Received: from xhdappanad40.xilinx.com (10.180.168.240) by satlexmb07.amd.com
  (10.181.42.216) with Microsoft SMTP Server id 15.2.2562.49 via Frontend
- Transport; Mon, 5 Oct 2026 04:42:41 -0500
+ Transport; Mon, 5 Oct 2026 04:42:34 -0500
 From: Dileep Kumar Nagavarapu <dileepkumar.nagavarapu@amd.com>
 To: Jonathan Cameron <jic23@kernel.org>, David Lechner
 	<dlechner@baylibre.com>, =?UTF-8?q?Nuno=20S=C3=A1?= <nuno.sa@analog.com>,
@@ -67,9 +71,9 @@ CC: <linux-iio@vger.kernel.org>, <linux-arm-kernel@lists.infradead.org>,
 	<linux-kernel@vger.kernel.org>, <git@amd.com>, Dileep Kumar Nagavarapu
 	<dileepkumar.nagavarapu@amd.com>, Sai Krishna Potthuri
 	<sai.krishna.potthuri@amd.com>
-Subject: [PATCH v4 07/15] iio: adc: xilinx-xadc: Simplify common coding patterns
-Date: Mon, 5 Oct 2026 15:11:57 +0530
-Message-ID: <20261005094205.1045874-8-dileepkumar.nagavarapu@amd.com>
+Subject: [PATCH v4 05/15] iio: adc: xilinx-xadc: Use bitfield helpers and bit macros
+Date: Mon, 5 Oct 2026 15:11:55 +0530
+Message-ID: <20261005094205.1045874-6-dileepkumar.nagavarapu@amd.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20261005094205.1045874-1-dileepkumar.nagavarapu@amd.com>
 References: <20261005094205.1045874-1-dileepkumar.nagavarapu@amd.com>
@@ -83,101 +87,166 @@ Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BL02EPF00029929:EE_|LV8PR12MB9450:EE_
-X-MS-Office365-Filtering-Correlation-Id: 62894007-b37f-4a81-3188-08df22c502e5
+X-MS-TrafficTypeDiagnostic: BN3PEPF0000B072:EE_|SN7PR12MB7203:EE_
+X-MS-Office365-Filtering-Correlation-Id: 68002387-73a2-4ef1-1c83-08df22c4fec7
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|376014|1800799024|82310400026|36860700016|10067099003|18002099003|11063799006|56012099006|6133799003|22082099003;
+	BCL:0;ARA:13230040|1800799024|36860700016|376014|23010399003|82310400026|18002099003|22082099003|11063799006|56012099006|10067099003;
 X-Microsoft-Antispam-Message-Info:
-	DIYUN/LFSkI/2NPh6Q0E16p7gRdDryP+ojXux+rtV4wTraABle/mi0EFi2IdTZbUfkrU4brHgNm1elLbVsQ3sJrSJH26jHIylGDYU8hrhuhty2ftUFSkPVtxbiU4Q8zjMuyC4ARQ22TRX7J3HuNjRgh3loEU9jn8+773BDBU3o3lnuClSU1CF/atoBW4kr8Ul6sW9uAQbbYcsbgopHG9KNRPlwBPRTd3fu2q+hEHUABN5+Hs/Y5vXVsSy73QrlmbUJwYuEawoPC5k0xOhxHZe0xdDkiZWx7nUE853GWl+lLdPjcnRJ/ARVSIfeL84J9DybhzgEE2l1hRiCp3EAfW6N5nJE9wKn4VHb7nPM8lCzRCq6SdpIYwoW0OVJTOsZ5Cp6NCJLTtZxgLy2DYz1/VSnwDZiLo0QEW/6M4E2KuzkYXizX+raazMTRE3Sh4fX0sVoDMdl2DNPAQIiRXp266La2qoVnxf3vMALDLtaZWtMwtAHVP0TN4ZEjHUIYEcDNd7lTNIqnXCScbAz6fzrz4FPdcnK7RkAxkYb4f57+fs9hHy4fW4uRKqiTGB4eJvNz2j9grNU+kCuTLx95prsPBJudkINjAtdbCJ0e1i5ey4nmefXiWFu/3BLImnzMAM4eM0Z2wyYqE6XyIR7REqd/gGcoghcajC60/DngqLwfC/CJy2RQob4zahx5XvISUoIcAw6wOc4rnWXnnUm4tkUC0jg==
+	rfnb+gjtksM44Yv5IswnkWYVQfsv29A6fFaeZxSuRKuevavD8ry67WXB0qRXIXkKB6jyBfEj/RJ1RQ717bDC2P6SrXT5mZCmsy2gtl9uuWF5gP/wt0zJpuiaLh2qsxKjLXB5FYeHXIvRoGjIeyoYCsW8BcpvAFzCJbEEDN4Xr2qTPWT9ekRAO4KOI3R+ACvtYtatQLEl0KWrAT69VqnJfJGz/G+0luEa/nqsz7EddUE4xVoKZ7UsuA9htZvrdVYqlws/cNchMJQ8MRWlWWi5XluagX8FpQfixbycP2SxnE6VUfZohUVgH0oOLfxW/sjCkzehrAgrJW//zNAWVOLM86ZjfKl5WnCgMJBvB/6FsjXhAp+1z5GF1FtCj6N1zCw039hu8wMdPCrQIf2+f133O1UD5crzxQqe/x9nnUIo+vwgiea9E7gseHP9qsvJtu0KVy95d8maEvpvs2dfxLQNNn4VcUOMaJs00PYTvWOmAFJeZ+EmPXlrGfOugCoYk4SjeCRBiE6On5lqB515FxZLIo3Dds4VLMpMrF/ZWPDPJrVD7v/tb14zwbCt/SLAAp1tBgpmEcWFg93tLv9UF5RU3aWQcamKcNWquEUIhFswFkzXqdINpoHKtRKttjb/w9UzT8qd9/+kRFBbIJfoBqOLxarD6BOEk4sKo8eG/uenIaIe1ZkIZzrCdmBmq6ZdHhwjANLSQPe0pr/JPdi4Txia5Q==
 X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(23010399003)(376014)(1800799024)(82310400026)(36860700016)(10067099003)(18002099003)(11063799006)(56012099006)(6133799003)(22082099003);DIR:OUT;SFP:1101;
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb08.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(1800799024)(36860700016)(376014)(23010399003)(82310400026)(18002099003)(22082099003)(11063799006)(56012099006)(10067099003);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	4N31+TSKfHj71ENpICL5sQ3l87WTCrQIny1GMT9WvpFTl2yseeQXx7z5lqxe2SV7X373Ma9hqMoMCPKQVZBlAEbmsN1IweA1+EMZrEY4Iy4jh14Y7fwZdcUg6j+Es9Q9btAYtF2cP6KmLPJZGi1fhoIT0qblvOIj344ZxpNemahq0yNi19Oxf3KAFhWDLs6v3XDgxZIZAdry+mdtmij19IE4Li17m1+mqTQGKtilnjm+VozxNewzw5AhYQHsx10nkcmbAFipLy22zy8z0fAGhq9FuNXMdPMX9WFRfVqJzBHXc7Ej0zW9m1q9faYtIZvJss3pO3q2cTC6eYlqNf6eD7NTPs+aqqxwS1qBJFnixCuCUmJmGoph3hk4D1Dw3/GLy8iBUw89Ws3LFYy3ebw2f8w2mEEuhX/g/Svd4eTxml+B/w/BwZ4XwUwesEg9uIYM
+	7v2EyKnd/jLL9f+MKFccrhRe00ESjEPunYXYQ9XDtYZRsgOWfO3BUByUHrdVdctvfYnyuRqnA3ZHOM2KMu9HFU68NrCKfehzBEYj0zWP+zlO5cst34jnLGEHdzaaPIWJ+OUp62OnLKk0xMM2orutA0DuOoB0zIAOyDG4S5NNYs472mnspTXMHumxBpfA6+NxxdcI/IhiRVq9HXiv8uND4qhRrIQOn0c0P/lZP5UHDLTxy0b2wfuJHBZu1+zXXzy3rSt8ovX9OUzB7I/pSjFzV9pioswOXvr06xFeMIIOr74gEXYoNhVsa040/O0bGIDV+w/Wz75bimtB0atBVDqj36CwXntDFyqIE0wggKCu+RKpc4YMKcu8MgIna+Ejrlv7FjgvOKTp5ePuoEJnP38bmjj87ULzJRcvav5aS9+qg8Jo9CCBoKjpqCIFtR9/bLCC
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Oct 2026 09:42:46.1937
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Oct 2026 09:42:39.2853
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 62894007-b37f-4a81-3188-08df22c502e5
+X-MS-Exchange-CrossTenant-Network-Message-Id: 68002387-73a2-4ef1-1c83-08df22c4fec7
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb08.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource:
-	BL02EPF00029929.namprd02.prod.outlook.com
+	BN3PEPF0000B072.namprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV8PR12MB9450
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR12MB7203
 
-- Use pointers directly instead of comparing them against NULL.
-- Use logical negation instead of comparing bit masks against zero.
-- Declare loop counters within the scope of the for() loops.
-- Replace the interrupt mask update expression with a
-  simpler form that updates only the bits selected by the mask.
+Replace open-coded bit manipulation with FIELD_GET(),
+FIELD_PREP(), BIT(), and GENMASK() helpers.
 
-The last two items were bundled per Andy Shevchenko's suggestion
-during upstream review.
+Using the kernel bitfield helpers improves readability and
+makes bit operations less error-prone.
 
-No functional change intended.
+No functional changes intended.
 
 Co-developed-by: Sai Krishna Potthuri <sai.krishna.potthuri@amd.com>
 Signed-off-by: Sai Krishna Potthuri <sai.krishna.potthuri@amd.com>
 Signed-off-by: Dileep Kumar Nagavarapu <dileepkumar.nagavarapu@amd.com>
 ---
- drivers/iio/adc/xilinx-xadc-core.c | 13 +++++--------
- 1 file changed, 5 insertions(+), 8 deletions(-)
+ drivers/iio/adc/xilinx-xadc-core.c | 25 +++++++++++++------------
+ drivers/iio/adc/xilinx-xadc.h      | 24 ++++++++++++------------
+ 2 files changed, 25 insertions(+), 24 deletions(-)
 
 diff --git a/drivers/iio/adc/xilinx-xadc-core.c b/drivers/iio/adc/xilinx-xadc-core.c
-index 0234c8301c2e..43d3fc46c05f 100644
+index b4a3e6f967c4..9e4955016bbc 100644
 --- a/drivers/iio/adc/xilinx-xadc-core.c
 +++ b/drivers/iio/adc/xilinx-xadc-core.c
-@@ -124,9 +124,7 @@ static void xadc_read_reg(struct xadc *xadc, unsigned int reg, u32 *val)
+@@ -11,6 +11,8 @@
+  *  - AXI XADC interface: Xilinx PG019
   */
- static void xadc_zynq_write_fifo(struct xadc *xadc, u32 *cmd, unsigned int n)
- {
--	unsigned int i;
--
--	for (i = 0; i < n; i++)
-+	for (unsigned int i = 0; i < n; i++)
- 		xadc_write_reg(xadc, XADC_ZYNQ_REG_CFIFO, cmd[i]);
+ 
++#include <linux/bitfield.h>
++#include <linux/bits.h>
+ #include <linux/clk.h>
+ #include <linux/device.h>
+ #include <linux/err.h>
+@@ -47,18 +49,17 @@ static const unsigned int XADC_ZYNQ_UNMASK_TIMEOUT = 500;
+ #define XADC_ZYNQ_REG_CTL		0x18
+ 
+ #define XADC_ZYNQ_CFG_ENABLE		BIT(31)
+-#define XADC_ZYNQ_CFG_DFIFOTH_MASK	(0xf << 16)
+-#define XADC_ZYNQ_CFG_DFIFOTH_OFFSET	16
+ #define XADC_ZYNQ_CFG_REDGE		BIT(12)
+-#define XADC_ZYNQ_CFG_TCKRATE_MASK	(0x3 << 8)
+-#define XADC_ZYNQ_CFG_TCKRATE_DIV2	(0x0 << 8)
+-#define XADC_ZYNQ_CFG_TCKRATE_DIV4	(0x1 << 8)
+-#define XADC_ZYNQ_CFG_TCKRATE_DIV8	(0x2 << 8)
+-#define XADC_ZYNQ_CFG_TCKRATE_DIV16	(0x3 << 8)
++#define XADC_ZYNQ_CFG_DFIFOTH_MASK	GENMASK(19, 16)
++#define XADC_ZYNQ_CFG_TCKRATE_MASK	GENMASK(9, 8)
++#define XADC_ZYNQ_CFG_TCKRATE_DIV2	0
++#define XADC_ZYNQ_CFG_TCKRATE_DIV4	BIT(8)
++#define XADC_ZYNQ_CFG_TCKRATE_DIV8	BIT(9)
++#define XADC_ZYNQ_CFG_TCKRATE_DIV16	GENMASK(9, 8)
+ #define XADC_ZYNQ_CFG_IGAP(x)		(x)
+ 
+ #define XADC_ZYNQ_INT_DFIFO_GTH		BIT(8)
+-#define XADC_ZYNQ_INT_ALARM_MASK	0xff
++#define XADC_ZYNQ_INT_ALARM_MASK	GENMASK(7, 0)
+ 
+ #define XADC_ZYNQ_STATUS_DFIFOE		BIT(8)
+ 
+@@ -86,7 +87,7 @@ static const unsigned int XADC_ZYNQ_UNMASK_TIMEOUT = 500;
+ #define XADC_AXI_GIER_ENABLE		BIT(31)
+ 
+ #define XADC_AXI_INT_EOS		BIT(4)
+-#define XADC_AXI_INT_ALARM_MASK		0x3c0f
++#define XADC_AXI_INT_ALARM_MASK		(GENMASK(13, 10) | GENMASK(3, 0))
+ 
+ #define XADC_FLAGS_BUFFERED BIT(0)
+ #define XADC_FLAGS_IRQ_OPTIONAL BIT(1)
+@@ -196,7 +197,7 @@ static int xadc_zynq_read_adc_reg(struct xadc *xadc, unsigned int reg, u16 *val)
+ 	xadc_zynq_write_fifo(xadc, cmd, ARRAY_SIZE(cmd));
+ 	xadc_read_reg(xadc, XADC_ZYNQ_REG_CFG, &tmp);
+ 	tmp &= ~XADC_ZYNQ_CFG_DFIFOTH_MASK;
+-	tmp |= 1 << XADC_ZYNQ_CFG_DFIFOTH_OFFSET;
++	tmp |= FIELD_PREP(XADC_ZYNQ_CFG_DFIFOTH_MASK, 1);
+ 	xadc_write_reg(xadc, XADC_ZYNQ_REG_CFG, tmp);
+ 
+ 	xadc_zynq_update_intmsk(xadc, XADC_ZYNQ_INT_DFIFO_GTH, 0);
+@@ -857,7 +858,7 @@ static int xadc_read_samplerate(struct xadc *xadc)
+ 	if (ret)
+ 		return ret;
+ 
+-	div = (val16 & XADC_CONF2_DIV_MASK) >> XADC_CONF2_DIV_OFFSET;
++	div = FIELD_GET(XADC_CONF2_DIV_MASK, val16);
+ 	if (div < 2)
+ 		div = 2;
+ 
+@@ -965,7 +966,7 @@ static int xadc_write_samplerate(struct xadc *xadc, int val)
+ 		div = 0xff;
+ 
+ 	return xadc_update_adc_reg(xadc, XADC_REG_CONF2, XADC_CONF2_DIV_MASK,
+-				   div << XADC_CONF2_DIV_OFFSET);
++				   FIELD_PREP(XADC_CONF2_DIV_MASK, div));
  }
  
-@@ -144,8 +142,7 @@ static void xadc_zynq_drain_fifo(struct xadc *xadc)
+ static int xadc_write_raw(struct iio_dev *indio_dev,
+diff --git a/drivers/iio/adc/xilinx-xadc.h b/drivers/iio/adc/xilinx-xadc.h
+index 8449fb741370..a659b7981b2f 100644
+--- a/drivers/iio/adc/xilinx-xadc.h
++++ b/drivers/iio/adc/xilinx-xadc.h
+@@ -9,6 +9,7 @@
+ #ifndef __IIO_XILINX_XADC__
+ #define __IIO_XILINX_XADC__
  
- static void xadc_zynq_update_intmsk(struct xadc *xadc, unsigned int mask, unsigned int val)
- {
--	xadc->zynq_intmask &= ~mask;
--	xadc->zynq_intmask |= val;
-+	xadc->zynq_intmask = (xadc->zynq_intmask & ~mask) | (val & mask);
++#include <linux/bits.h>
+ #include <linux/interrupt.h>
+ #include <linux/mutex.h>
+ #include <linux/spinlock.h>
+@@ -141,20 +142,19 @@ static inline int xadc_write_adc_reg(struct xadc *xadc, unsigned int reg, u16 va
+ #define XADC_CONF0_MUX			BIT(11)
+ #define XADC_CONF0_CHAN(x)		(x)
  
- 	xadc_write_reg(xadc, XADC_ZYNQ_REG_INTMSK, xadc->zynq_intmask | xadc->zynq_masked_alarm);
- }
-@@ -653,7 +650,7 @@ static int xadc_trigger_set_state(struct iio_trigger *trigger, bool state)
+-#define XADC_CONF1_SEQ_MASK		(0xf << 12)
+-#define XADC_CONF1_SEQ_DEFAULT		(0 << 12)
+-#define XADC_CONF1_SEQ_CONTINUOUS	(2 << 12)
+-#define XADC_CONF1_SEQ_SIMULTANEOUS	(4 << 12)
+-#define XADC_CONF1_SEQ_INDEPENDENT	(8 << 12)
+-#define XADC_CONF1_ALARM_MASK		0x0f0f
++#define XADC_CONF1_SEQ_MASK		GENMASK(15, 12)
++#define XADC_CONF1_SEQ_DEFAULT		0
++#define XADC_CONF1_SEQ_CONTINUOUS	BIT(13)
++#define XADC_CONF1_SEQ_SIMULTANEOUS	BIT(14)
++#define XADC_CONF1_SEQ_INDEPENDENT	BIT(15)
++#define XADC_CONF1_ALARM_MASK		(GENMASK(11, 8) | GENMASK(3, 0))
  
- 	if (state) {
- 		/* Only one of the two triggers can be active at a time. */
--		if (xadc->trigger != NULL) {
-+		if (xadc->trigger) {
- 			ret = -EBUSY;
- 			goto err_out;
- 		} else {
-@@ -698,7 +695,7 @@ static struct iio_trigger *xadc_alloc_trigger(struct iio_dev *indio_dev, const c
+-#define XADC_CONF2_DIV_MASK	0xff00
+-#define XADC_CONF2_DIV_OFFSET	8
++#define XADC_CONF2_DIV_MASK	GENMASK(15, 8)
  
- 	trig = devm_iio_trigger_alloc(dev, "%s%d-%s", indio_dev->name,
- 				      iio_device_id(indio_dev), name);
--	if (trig == NULL)
-+	if (!trig)
- 		return ERR_PTR(-ENOMEM);
+-#define XADC_CONF2_PD_MASK	(0x3 << 4)
+-#define XADC_CONF2_PD_NONE	(0x0 << 4)
+-#define XADC_CONF2_PD_ADC_B	(0x2 << 4)
+-#define XADC_CONF2_PD_BOTH	(0x3 << 4)
++#define XADC_CONF2_PD_MASK	GENMASK(5, 4)
++#define XADC_CONF2_PD_NONE	0
++#define XADC_CONF2_PD_ADC_B	BIT(5)
++#define XADC_CONF2_PD_BOTH	GENMASK(5, 4)
  
- 	trig->ops = &xadc_trigger_ops;
-@@ -749,7 +746,7 @@ static int xadc_get_seq_mode(struct xadc *xadc, unsigned long scan_mode)
- 	if (xadc->external_mux_mode == XADC_EXTERNAL_MUX_DUAL)
- 		return XADC_CONF1_SEQ_SIMULTANEOUS;
- 
--	if ((aux_scan_mode & 0xff00) == 0 || (aux_scan_mode & 0x00ff) == 0)
-+	if (!(aux_scan_mode & 0xff00) || !(aux_scan_mode & 0x00ff))
- 		return XADC_CONF1_SEQ_CONTINUOUS;
- 
- 	return XADC_CONF1_SEQ_SIMULTANEOUS;
+ #define XADC_ALARM_VCCINT_MASK		BIT(1)
+ #define XADC_ALARM_VCCAUX_MASK		BIT(2)
 -- 
 2.34.1
 
