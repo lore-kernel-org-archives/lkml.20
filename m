@@ -1,106 +1,140 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from out-2z4y-a152.jellyfish.systems (out-2z4y-a152.jellyfish.systems [198.54.127.152])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0C7255275B8;
-	Mon,  5 Oct 2026 17:19:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9BE6452845A
+	for <linux-kernel@vger.kernel.org>; Mon,  5 Oct 2026 17:19:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.54.127.152
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791220742; cv=none; b=KAN2agdBYWt3AoHQmAOW3+daEl5HLdtNfuCAxBHgsQvXqD+dSTRq36Z2vUB0sVjJ47jj0UEej9tOMbtx266zBrWY4LAWaIsQvvLLvQggX1srT1JBMNi5VQp12z5Z4zm7yOHameHhRcxUd9ljgPpaUOx2OsSzLPpWS7d/SghNe88=
+	t=1791220744; cv=none; b=KPcqDJv3/Mdt7OOnGugtMniEwzIjZgnu09VMhBLMw+t3Yqi4PzNmV4x94LIAUnilSH0Zws7DW/tWrEKkQF/fpZtxWn+PlMNoF59xV/Z4Ox4WdXLEcR56LDZuUXshdoylsuo41UDF/gRAunagEN/ETtZr9cCBsAksKEnDxOP+gQI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791220742; c=relaxed/simple;
-	bh=yZ2HVuTygVJMzapQCYCssfDOm8otkJGGwtq6aLgbdCk=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=DUS1wL1nMJ4T8Vj/Cj3o9xoIu7miG9hBXmQpzckb4HOuFHuT9nzCr4NUNcjir6MY3Voumgl3MsNjp67JptCY2Ys5djS/nnvhtBIBmsni5BjhogEaOusvXphqekdHTHfaNh1HDXUPaD7EYdvPY+CVILOQ+0Bv1psfC+6Kydt4MWw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=AdGKcaJC; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791220744; c=relaxed/simple;
+	bh=PxafvjuAGaMFJLVz1cGlCF6CkKIE/2m03c3rWTuaOyU=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=Dw94IEmrtkerTi9G/04LxTNaqtvVBDGmuX44eBK2yj5GpOl4zp3qnQ4ibfp3cjiBNOMgtxyQyF3bi6XUDsaarjRxL/NMOVRdvnuqM3AKQEgoZ7W3oID42HR7unfNYuvpF/1OhpahrV1bkvzVgOi/QiqtF6U+b+NE68nSu/qEWHI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ciallo.tech; spf=pass smtp.mailfrom=ciallo.tech; dkim=pass (2048-bit key) header.d=ciallo.tech header.i=@ciallo.tech header.b=m4W7NsaI; arc=none smtp.client-ip=198.54.127.152
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ciallo.tech
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ciallo.tech
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="AdGKcaJC"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DACCE1F00893;
-	Mon,  5 Oct 2026 17:18:57 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791220740;
-	bh=CfRbBBC5BsG4pdm4602y4R/JQAo7FMM0EFzZK8cdzQk=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=AdGKcaJC4uPtEVP+YoXrW0kihvI2CEWPWNo+esOsBKt8enU7D8s8jylVuhcqoNT/c
-	 nfGT7L0pQa/bdcu4AmtKWkxp2I0LTuzDu4hUS0TVbMj5snzA/NZzf2LkSoTMq6MVq3
-	 DDi9WOKXgNLwdn8lhsGKJzauYEXYfUif5UbKqYkK38k4i4C2CYM24MpmS1DUC2hgNA
-	 8V3Sam/0cJyCmapXjDYeNOeCXaO8fU8rVslaCsZcPpNmoGVJ2gV6Jq+iX0PKwJeS9v
-	 NKmxGPxIi87h/Ex/WcqrsNrRoSOo85sFebh/tM5d0H4RLKw2S4lOkmvJ3L73hDe93O
-	 kOUTwX5XSl+/Q==
-From: bod@kernel.org
-Date: Mon, 05 Oct 2026 19:14:26 +0200
-Subject: [PATCH 56/74] media: qcom: camss: csid-gen3: Route IPP completions
- to the port the IPP feeds
+	dkim=pass (2048-bit key) header.d=ciallo.tech header.i=@ciallo.tech header.b="m4W7NsaI"
+Received: from desktop.ciallo.tech (unknown [104.28.208.138])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mail.spacemail.com (Postfix) with ESMTPSA id 4hz5hK1xfSz8sWQ;
+	Mon, 05 Oct 2026 17:18:40 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ciallo.tech;
+	s=spacemail; t=1791220729;
+	bh=cMXDj7Q/DxDEjYDVyZviVrrsZdrgEjY6DcBXtFOm/8k=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+	b=m4W7NsaI8WqLIDNEb6H6T5wzSOeEJtP1SmrBIRtOMYdHD6PrJi/wWnimgNG5BoO8M
+	 IJQTJV3JlxJN4bZabRqAokCTVYhfIEyAwGf26kWJVm8yyURV5Vs4msTnEWwo/A27Ew
+	 TwWZ7S2yPh5d0V8c8pQGoviP4MCgRW0dDZm0/kDqtPgSvVISN+eQ87Q+O+fZiOEnmB
+	 Fw0C6bkWgeNv/2hWYgmNKYvR1O1GPGkCZeN1LDTjW1yOc8SXI1Tf8bvpL7adhOenPf
+	 Xht/dBXaZnvdyjVkutnpNN0VSW3O9FTgVV2N7Z/d/hqBFkRDN15ToRu72+Ugfk6PE4
+	 mHJt63Z0Kn10Q==
+From: sayo <rg32@ciallo.tech>
+To: Thomas Gleixner <tglx@kernel.org>,
+	Ingo Molnar <mingo@redhat.com>,
+	Borislav Petkov <bp@alien8.de>,
+	Dave Hansen <dave.hansen@linux.intel.com>,
+	"H . Peter Anvin" <hpa@zytor.com>
+Cc: x86@kernel.org,
+	linux-kernel@vger.kernel.org,
+	m.younesbadr@gmail.com,
+	nir@lichtman.org
+Subject: [PATCH v3 2/2] x86: claim the parameters consumed by the boot stub and decompressor
+Date: Mon,  5 Oct 2026 13:13:46 -0400
+Message-ID: <20261005171815.49494-3-rg32@ciallo.tech>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20261005171815.49494-1-rg32@ciallo.tech>
+References: <20261005171815.49494-1-rg32@ciallo.tech>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261005-linux-mainline-7-2-sm8650-hdk-rfc-0-v1-56-ed985aefd611@kernel.org>
-References: <20261005-linux-mainline-7-2-sm8650-hdk-rfc-0-v1-0-ed985aefd611@kernel.org>
-In-Reply-To: <20261005-linux-mainline-7-2-sm8650-hdk-rfc-0-v1-0-ed985aefd611@kernel.org>
-To: Bryan O'Donoghue <bryan.odonoghue@linaro.org>, 
- Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>, 
- Loic Poulain <loic.poulain@oss.qualcomm.com>, 
- Mauro Carvalho Chehab <mchehab@kernel.org>, 
- Jacopo Mondi <jacopo.mondi@ideasonboard.com>, 
- Daniel Scally <dan.scally@ideasonboard.com>, Keke Li <keke.li@amlogic.com>, 
- Richard Acayan <mailingradian@gmail.com>, 
- Hans Verkuil <hverkuil@kernel.org>, 
- Gjorgji Rosikopulos <quic_grosikop@quicinc.com>, 
- Radoslav Tsvetkov <quic_rtsvetko@quicinc.com>, 
- Robert Foss <rfoss@kernel.org>, Milen Mitkov <quic_mmitkov@quicinc.com>
-Cc: linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
- linux-kernel@vger.kernel.org, Bryan O'Donoghue <bod@kernel.org>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1115; i=bod@kernel.org;
- h=from:subject:message-id; bh=JISvBcJmWKg6nJyaUMCRJVlQy02ThhkRIddi6R/1SCM=;
- b=owEBbQKS/ZANAwAKASJxO7Ohjcg6AcsmYgBqw9soWl6uPnUaklOFjIucrZ2bnIn+wMS4H1hiR
- syYCl1l4sCJAjMEAAEKAB0WIQTmk/sqq6Nt4Rerb7QicTuzoY3IOgUCasPbKAAKCRAicTuzoY3I
- Ok8+EACcAO4qqp6d9DHInSEC8XYxyod74yunq6RdMwDQZc0iOnovMHM8rH0OlXcqglJJbLCQ3B0
- 8tCd/z6swvGVR9VPwjZRp74yRc21+oIzN9L9rKdgCa1HJndLKpSIJ0YfLjKVVVVMc91BhW6S4xS
- 9gRHELyFqUi2qyG81uGRnDa1F78/KNzeF6dIIwfYEJm3OOU4CDBL94QW/RIzPBJ1iSaydCMPhJp
- 4r6U0YH0iUfq1+n4dM88PdM+irB3UTiivW79JEK4kGK5rG37MU22Bv4oAUN8TtwdBkI8zt+BLgz
- 1Cz7J3LEm0dnWlqNM1Az+BCb49c1dw9oP89lm2Ss7PMdRi0XNOOn4vxhdr59actKaNdNGrAohs6
- uZpIGhp9B9vhRpL40pNv3i16jERcpM28Co7Y7HO+PZt3JP2Zd0KswKk7l9zVA3ygXMJWv4cU1Og
- VXyXeX5IVM1AacgB8H5S7WZ92eeBGKEXPE0zhWM1Vdm8+pzTgnwJWIDFMZGyQA+qbgQBiLeSpj/
- 2p23S0Wz5MvbfCGx/pLs2TUzuJPSiatW/f2U3nEHRz0G1148u5uIs3fH5z1sa9KMbVuObIzfNyE
- 3lTf1Q6rkmHU5fVm2BXwZczsW+wMLYcZ/9ATjcKoBf17HRIa1IfeKgvq85RzKG+x0qoOCrXnYrc
- cO+QWk7UGUQb/2A==
-X-Developer-Key: i=bod@kernel.org; a=openpgp;
- fpr=E693FB2AABA36DE117AB6FB422713BB3A18DC83A
+Content-Transfer-Encoding: 8bit
+X-Envelope-From: rg32@ciallo.tech
 
-From: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
+List the parameters that arch/x86/boot/ and the decompressor consume before
+the main kernel is running, so that unknown_bootoption() no longer forwards
+them to init:
 
-The pixel and stats completion groups sit below the first RDI bit in
-CSID_BUF_DONE_IRQ_STATUS. csid_isr() hands them to port 0, which only
-holds for Valve's NV12-on-RDI, where the IPP output is written through
-RDI0's line.
+  nokaslr	arch/x86/boot/compressed/kaslr.c
+  no5lvl	arch/x86/boot/compressed/pgtable_64.c
+  mem_encrypt=	arch/x86/boot/compressed/misc.c
+  edd=		arch/x86/boot/edd.c
+  forcepae	32-bit only: its __setup() is compiled out on x86-64
 
-Record the source port csid_configure_stream() routed through the IPP
-and complete the groups there. That is the PIX line when it is
-streaming, and RDI0 on the NV12-on-RDI path as before.
+Booted with "nokaslr no5lvl edd=off forcepae mem_encrypt=off foo=bar --
+extra1" (plus the usual console=), before:
 
-Signed-off-by: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
+  Unknown kernel command line parameters "nokaslr no5lvl forcepae edd=off
+  mem_encrypt=off foo=bar", will be passed to user space.
+  argv: {"/init", "nokaslr", "no5lvl", "forcepae", "extra1"}
+  envp: {"HOME=/", "TERM=linux", "edd=off", "mem_encrypt=off", "foo=bar"}
+
+and after:
+
+  Unknown kernel command line parameters "foo=bar", will be passed to
+  user space.
+  argv: {"/init", "extra1"}
+  envp: {"HOME=/", "TERM=linux", "foo=bar"}
+
+which is also what makes the notice useful again: it now only names
+parameters that really are unknown.
+
+Signed-off-by: sayo <rg32@ciallo.tech>
 ---
- drivers/media/platform/qcom/camss/camss-csid.h | 1 +
- 1 file changed, 1 insertion(+)
+ arch/x86/kernel/setup.c | 40 ++++++++++++++++++++++++++++++++++++++++
+ 1 file changed, 40 insertions(+)
 
-diff --git a/drivers/media/platform/qcom/camss/camss-csid.h b/drivers/media/platform/qcom/camss/camss-csid.h
-index 400995f35f0ef..b67cb1306acf2 100644
---- a/drivers/media/platform/qcom/camss/camss-csid.h
-+++ b/drivers/media/platform/qcom/camss/camss-csid.h
-@@ -161,6 +161,7 @@ struct csid_device {
- 	u32 irq;
- 	char irq_name[30];
- 	u32 reg_update;
-+	u8 ipp_port;	/* source port the IPP feeds: PIX, or RDI0 for NV12 compat */
- 	struct camss_clock *clock;
- 	int nclocks;
- 	struct regulator_bulk_data *supplies;
-
--- 
-2.55.0
-
+diff --git a/arch/x86/kernel/setup.c b/arch/x86/kernel/setup.c
+index cda6adb9f69c..34f7add84243 100644
+--- a/arch/x86/kernel/setup.c
++++ b/arch/x86/kernel/setup.c
+@@ -1325,3 +1325,43 @@ bool arch_cpu_is_hotpluggable(int cpu)
+ 	return cpu > 0;
+ }
+ #endif /* CONFIG_HOTPLUG_CPU */
++
++/*
++ * Parameters that the boot code consumes before the main kernel is running.
++ * They are deliberately not registered with early_param()/__setup() here:
++ * what they configure has already been decided by the time this code runs,
++ * and the decompressor (a separate program, arch/x86/boot/compressed/) does
++ * not contribute to any section in this image.
++ *
++ * Without being claimed, they are treated as unknown parameters and handed
++ * to init - valueless ones as arguments, "key=value" ones as environment
++ * variables. openrc-init, for instance, reads the runlevel from argv[1] and
++ * then complains that "nokaslr is an invalid runlevel"; a shell used as init
++ * treats the argument as a script name and exits, which panics the kernel.
++ *
++ * Keep this in sync with the cmdline_find_option*() calls in
++ * arch/x86/boot/ and drivers/firmware/efi/libstub/.
++ */
++static const char * const boot_consumed_params[] __initconst = {
++	"nokaslr",		/* arch/x86/boot/compressed/kaslr.c */
++	"no5lvl",		/* arch/x86/boot/compressed/pgtable_64.c */
++	"mem_encrypt",		/* arch/x86/boot/compressed/misc.c */
++	"edd",			/* arch/x86/boot/edd.c */
++	"forcepae",		/* 32-bit only: __setup() is compiled out on x86-64 */
++};
++
++bool __init boot_param_consumed(const char *param)
++{
++	int i;
++
++	for (i = 0; i < ARRAY_SIZE(boot_consumed_params); i++) {
++		const char *name = boot_consumed_params[i];
++		size_t len = strlen(name);
++
++		if (!strncmp(param, name, len) &&
++		    (param[len] == '\0' || param[len] == '='))
++			return true;
++	}
++
++	return false;
++}
