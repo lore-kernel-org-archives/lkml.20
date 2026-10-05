@@ -1,285 +1,214 @@
-Received: from mail-pj1-f54.google.com (mail-pj1-f54.google.com [209.85.216.54])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 092EA531AF0
-	for <linux-kernel@vger.kernel.org>; Mon,  5 Oct 2026 17:19:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.54
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 482A25326A1;
+	Mon,  5 Oct 2026 17:19:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791220771; cv=none; b=cxT9v6+/7z8wJ1PG8WnCR5WMH2atVToup9X2SGT2NRWrcYSqTng7EzYpu/l/JJjQ1WC7yK7TQJ6u5jSomM6VfWlQg6W4rpaOzRdzZu9kwxEE1QmC09ctU2DSOOigZOAR4tN28VZ5naqqBriqSr1ZcmEovNgvIy2XHvNuqaW1RDA=
+	t=1791220773; cv=none; b=SGqOzP6kzjpbSVjOtc9poyf+S6s/Sqjtz9uD5n8VHb2x+ZDSthGRcDUlYuVw57mTaHy6dvZViCyvpt1VjpLN0uBg24j9qXlopDIuam4i4Jj2xdT3IoplXYsGbY9iPBDXOtQg4acYADG6bUaQL4dV8eNDZo4Pc0bwxCKyItte6x0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791220771; c=relaxed/simple;
-	bh=DSy90Vi1pYW2azdUTwrc0TT6kW6QsQGO8Rlo/8MHFWI=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=fsjf7cU2Sh0UjxEkM3kM5YcjUXcmGvd8rWw6cI/mQ+ry5KjZMU+dwt66GwLAOZnRG4hEpGCyHmIPiT3zJcnqtOLzyNhmE3b9AueJB11uF8yWX6EXhAR7roAGeoBaKz1AiQjG1EZC4A9MD7oqNfZ6sAQGeVcLDMaao6G1O8tY4Qo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=gGnt2UfA; arc=none smtp.client-ip=209.85.216.54
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1791220773; c=relaxed/simple;
+	bh=rMrcWqigr//5GxBoOZNdAyKkTYZZPJ79QLy44EWWQbA=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=QBvNlqmktQWbn5zcoTBrNNH9X7Pt8Y7h9AVY08sLgoO32RDht7O43fA5hKZMN59yeMsZAJHInEx7hnlMgSQ6EVVcKN83txD54lmV+Vn/ZrKgHIVO/vNfMghEJ4l9EdJPW7a0bnj9WtHsulnhjo85hBP/hNfFGvCw9dJPKFGolaU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=moC+waeS; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="gGnt2UfA"
-Received: by mail-pj1-f54.google.com with SMTP id 98e67ed59e1d1-3a7d283e017so1059711a91.3
-        for <linux-kernel@vger.kernel.org>; Mon, 05 Oct 2026 10:19:28 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791220768; x=1791825568; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=j4yfFb6320kdlQ6cch251gfqYxfn4Y6pwvS8rFGl1n0=;
-        b=gGnt2UfAUg8JGW1bFWJFnF7t2rGWUEm8RerDWNKaHe0IPoU+2PYQczquL4Y/sP1+K6
-         /xwns+zHRaVLuX5NbVo4kPcLLWJ+KSbbhC6Y9cjktEFpPYmQDegqOnRceQpPFZ3/jSgT
-         tX46Nt+1DaDU06KHwCjTq14Jmz0NeNtHge1pAmCJwUQBGx5STGlxVHxDAhuUA9lcdH2S
-         8+mYO+2lDIWMgmOIlB+CxKC9e8HogVa3aS3QaHjakCTysQQ/xT1uV7efuW0pAcKpXd2d
-         ptUfmOrUB/w9dEY8138jPEq3eazJO3NDawGjapb/04CPKcRVixg5F/hKHtE/6vRtfyp8
-         ScdQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791220768; x=1791825568;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=j4yfFb6320kdlQ6cch251gfqYxfn4Y6pwvS8rFGl1n0=;
-        b=jfgIKpHFiXxjGjlkWm+O7J1EPnaE4daJjT2e9KwMNWrWJs5MuO6vZBr0WadCeQjQP0
-         P5NYxD0/BHUNvFiFQ0ZDa4Tc+wGNWQq0kLFNbJgRn1iHLxMk2X1CUC70Sn+ytBefNsad
-         16XdqNHGNHomZ8P4yBkjWn+OIsMU/ywgFb4bBj2JfB2U+QF9PYkl6XBeXZ+4eOTtv4gM
-         NZVYrvQCGSzjvyny0/cP8cGweVvVI5zQ5uTh4/6GKAvn4fMwQkAXiC3myy49pdqNLok6
-         6CS+GNFrQweXeYlO3p+z3WIE43UAAbUqnqJExYKFNkgPWvG/D2CPxVSa7+Tq1vEyvRmH
-         ZGWQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxGwlQVXjrLHxbVzJI3gcLXk2JXCVsYWwklMcfA00ybWrA/VQnVy6f7hm5Aac4BAWdpj+sdjMWKY2Nk9qY=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLgdQoId52zG6KurkRquZJymEVOFwCt+9g8fSnBfrK8EGaygBIz
-	8wYJcCauq17Tok0VqB+BVpzgzbEy58VNLPEdDhC5qom1oQSfm2gdV+HQ
-X-Gm-Gg: AYBFou3/PQrGg8tMmR+8RNi9qYrI5ututBJuBP2BFTtXFrS7E+sh8ChbvV5G2vkveni
-	StN+plam1IN+gSjiXN712mwR2C805tVW/V37SaP5n7IUmo7L5rcJpW7Yhqb2vrIwo8LEJlwz0iR
-	500jb4DDWbBDSKMKnOexM4hUimWndDTXklTp3CEmbEnftMxw/e2sBvS7ipiP4KUmaImCsKNSAlB
-	Oi9fhF+FL4eXknVTF3D8HasscJg5ZRvgiZ2sOFaBXIqp74MoqpZ3dPplqN3EvhdnD3sZruqmeSv
-	raCgF1yS0n8cKtwP0TtAHaF9NEzCpjVZrHfsEn74WTriUrLxO6mIH+L+dBiihaA+fAn2YFCeG5f
-	dkzY+hDjw6IgyeEVI/kfqRJEe1qz6LMXGyiKkhvxqImyUEbPfb2st6jmCCl4Y9SMDsoSzT5qXfY
-	+sq2UoI03cGyErhSsC7UvQNYSS15pfzzsYAj/At/B4YGVywxNWiRkznO6ZLKaMsa0qU/yC62R6z
-	2HGFUSyDERGmgf4PzbJ93PASxsdvQ==
-X-Received: by 2002:a17:90a:2cc4:b0:398:c3ca:1ebc with SMTP id 98e67ed59e1d1-3a78eca8911mr3952064a91.18.1791220767601;
-        Mon, 05 Oct 2026 10:19:27 -0700 (PDT)
-Received: from kernel.tail6741c6.ts.net ([216.195.201.24])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a853cafddesm406910a91.10.2026.10.05.10.19.12
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 05 Oct 2026 10:19:26 -0700 (PDT)
-From: Kunwu Chan <kunwu.chan@gmail.com>
-To: paulmck@kernel.org,
-	corbet@lwn.net,
-	mingo@redhat.com,
-	frederic@kernel.org,
-	neeraj.upadhyay@kernel.org,
-	josh@joshtriplett.org,
-	urezki@gmail.com,
-	dave@stgolabs.net,
-	lianux.mm@gmail.com
-Cc: stern@rowland.harvard.edu,
-	parri.andrea@gmail.com,
-	will@kernel.org,
-	peterz@infradead.org,
-	boqun@kernel.org,
-	npiggin@gmail.com,
-	dhowells@redhat.com,
-	j.alglave@ucl.ac.uk,
-	luc.maranget@inria.fr,
-	akiyks@gmail.com,
-	dlustig@nvidia.com,
-	joelagnelf@nvidia.com,
-	skhan@linuxfoundation.org,
-	rdunlap@infradead.org,
-	longman@redhat.com,
-	rostedt@goodmis.org,
-	mathieu.desnoyers@efficios.com,
-	jiangshanlai@gmail.com,
-	qiang.zhang@linux.dev,
-	kunwu.chan@gmail.com,
-	brads@mainlining.org,
-	linux-kernel@vger.kernel.org,
-	linux-arch@vger.kernel.org,
-	lkmm@lists.linux.dev,
-	linux-doc@vger.kernel.org,
-	rcu@vger.kernel.org,
-	linux-kselftest@vger.kernel.org
-Subject: [PATCH RFC v3 15/15] selftests/rcutorture: add hazptr torture test script
-Date: Tue,  6 Oct 2026 01:15:29 +0800
-Message-ID: <20261005171529.1378809-16-kunwu.chan@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261005171529.1378809-1-kunwu.chan@gmail.com>
-References: <20261005171529.1378809-1-kunwu.chan@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="moC+waeS"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 248DA1F0089B;
+	Mon,  5 Oct 2026 17:19:28 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791220772;
+	bh=U6xids41mo7tlCLqN29b91Tl3Fdc8rp6haXCDpWa7kM=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc;
+	b=moC+waeSsME/i4fO51EkMXsCv4IW0Cufitd/A8Ah71uhDsg8BU9cpR7rbUbLpv4M9
+	 G2h/gUtWPGPEb+JZvZw0I81+94tDSUCBiigtcn6FZ480cv3DlZH8/gXIAWvcG/8YBm
+	 vauH3VbNlKME0c/R5hDZPO659tKKmgofpyK5JOJu/Cq9HlvfVOl1I3W+va/gskheB0
+	 2LVAstoJ8BbQPCSi990UMJF9l9lf9z7h+vIwI4gwVKEQq1IokL23B9SHiHjswJ2PD8
+	 xxTCRlmBESIrKa0Rhc6xSJpd7qR9kneHj6kzWRVFpas2+Re7be3O+/iEvE9trOeuer
+	 9sQP4tKzOoPwQ==
+From: bod@kernel.org
+Date: Mon, 05 Oct 2026 19:14:35 +0200
+Subject: [PATCH 65/74] media: qcom: camss: vfe: Complete pixel line outputs
+ on their own completion group
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261005-linux-mainline-7-2-sm8650-hdk-rfc-0-v1-65-ed985aefd611@kernel.org>
+References: <20261005-linux-mainline-7-2-sm8650-hdk-rfc-0-v1-0-ed985aefd611@kernel.org>
+In-Reply-To: <20261005-linux-mainline-7-2-sm8650-hdk-rfc-0-v1-0-ed985aefd611@kernel.org>
+To: Bryan O'Donoghue <bryan.odonoghue@linaro.org>, 
+ Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>, 
+ Loic Poulain <loic.poulain@oss.qualcomm.com>, 
+ Mauro Carvalho Chehab <mchehab@kernel.org>, 
+ Jacopo Mondi <jacopo.mondi@ideasonboard.com>, 
+ Daniel Scally <dan.scally@ideasonboard.com>, Keke Li <keke.li@amlogic.com>, 
+ Richard Acayan <mailingradian@gmail.com>, 
+ Hans Verkuil <hverkuil@kernel.org>, 
+ Gjorgji Rosikopulos <quic_grosikop@quicinc.com>, 
+ Radoslav Tsvetkov <quic_rtsvetko@quicinc.com>, 
+ Robert Foss <rfoss@kernel.org>, Milen Mitkov <quic_mmitkov@quicinc.com>
+Cc: linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, Bryan O'Donoghue <bod@kernel.org>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=openpgp-sha256; l=4752; i=bod@kernel.org;
+ h=from:subject:message-id; bh=Q7fx0+NaUnmKkah1gWGq3GdOsLV5NQMGx+5mQc6mV08=;
+ b=owEBbQKS/ZANAwAKASJxO7Ohjcg6AcsmYgBqw9svOvA02gnskaaIqQq6Ht2GMtps4GRpiTwZL
+ vIrNPRqTh6JAjMEAAEKAB0WIQTmk/sqq6Nt4Rerb7QicTuzoY3IOgUCasPbLwAKCRAicTuzoY3I
+ OlyUD/wOPcSt+9BZjRkcjBUgSM3Ctn9KddnX1CAmPiU1AqWdihK/DBD1DVTB12PAcx7Tyz8JuQ9
+ 16GKN26LF2M1+PGHZPYz+ieOWn0utI4X5l92eM7z5BKRRUjdmM8Wjxj+GfJ8CIqbjj+EIHJBTDA
+ 0e3x8ohiDOtgu77Q3vL7Pr0bul3saZJQIIkrcAy1xnd0fKe/0PH4R0OWuYNROLzgNNr8cs9wAVM
+ RYAaBBsHQkZdjLtzgNA6mz0DKgKrR6UOpol+j8LxjUKk1Imx/+Pdxob4lAdONBfzi37c36mVNOV
+ C1frTJI7gQ2k6KXKXpS/jiyzB6YAyUX+9xO/PK8i1qbWy83JBxaA2S9BTnPF0rvCoDwoS0PWzBp
+ YGzffJKvUSFT10RLdSR8eXybuV22aFkapHLfSNtXQkDadPr0A04D417PBDqq41gdRFrqRLIm8d8
+ /TvSYHaUEWyDtlEJL81O/tz7XmLxoey96kxMIupVHh55D2tv7KDIDDxkDf4lJfub1EmE9rLgoD9
+ DOZdlYTndE45ESXIvJv3+/a0ZWPrRqa/cv8/OwEvwBwrOX+x+T4wC97O/fUNAcpyEe32ArJITCL
+ bl6UY/+lagIgztwoaEOy23AsqgB4YTnin/21V9/9S3iLQkvEVUUNGB201vC5smnt4vYfq7Y+Gwi
+ dy+nOYUspABU8ww==
+X-Developer-Key: i=bod@kernel.org; a=openpgp;
+ fpr=E693FB2AABA36DE117AB6FB422713BB3A18DC83A
 
-Add hazptr.sh as a one-command regression test for the hazptr
-torture configs.
+From: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
 
-Run NOPREEMPT, PREEMPT, READERS0, and READERS4, followed by
-LOCKDEP with wq_churn and SLOWPATH with CONFIG_PROVE_LOCKING=y.
-The latter two also check the console for lockdep warnings.
+vfe_buf_done() always completes the first output of the line. The
+outputs of a pixel line complete on their own completion groups: the
+image on one, statistics on another. Completing the image on any group
+retires it early once a second output runs.
 
-With --allcpus, repeat the PREEMPT test at CPU counts 8, 16, 32,
-and so on up to 256.
+Split the per-output retirement into vfe_output_done() and, when the
+completion carries per-group status, retire each running output whose
+group fired. RDI lines, and completions without per-group status such as
+the TFE's, keep completing the first output.
 
-Follow the pattern of the existing srcu_lockdep.sh script.
-
-Signed-off-by: Kunwu Chan <kunwu.chan@gmail.com>
+Signed-off-by: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
 ---
- .../selftests/rcutorture/bin/hazptr.sh        | 146 ++++++++++++++++++
- 1 file changed, 146 insertions(+)
- create mode 100755 tools/testing/selftests/rcutorture/bin/hazptr.sh
+ drivers/media/platform/qcom/camss/camss-vfe.c | 89 +++++++++++++++++++++------
+ 1 file changed, 69 insertions(+), 20 deletions(-)
 
-diff --git a/tools/testing/selftests/rcutorture/bin/hazptr.sh b/tools/testing/selftests/rcutorture/bin/hazptr.sh
-new file mode 100755
-index 000000000000..ef636e519a55
---- /dev/null
-+++ b/tools/testing/selftests/rcutorture/bin/hazptr.sh
-@@ -0,0 +1,146 @@
-+#!/bin/bash
-+# SPDX-License-Identifier: GPL-2.0+
-+#
-+# Run hazptr torture tests and report any that fail.
-+#
-+# Usage: hazptr.sh [ --cpus N ] [ --allcpus ] [ --datestamp string ]
-+#
-+# Copyright (C) 2026 Kunwu Chan
-+#
-+# Authors: Kunwu Chan <kunwu.chan@gmail.com>
-+
-+usage () {
-+	echo "Usage: $scriptname optional arguments:"
-+	echo "       --cpus N       override CPU count (default: auto-detect)"
-+	echo "       --allcpus      test at CPU counts 8,16,32,...,256"
-+	echo "       --datestamp string"
-+	exit 1
+diff --git a/drivers/media/platform/qcom/camss/camss-vfe.c b/drivers/media/platform/qcom/camss/camss-vfe.c
+index 12d94bdf13bc8..b90b538c1aaaf 100644
+--- a/drivers/media/platform/qcom/camss/camss-vfe.c
++++ b/drivers/media/platform/qcom/camss/camss-vfe.c
+@@ -623,30 +623,35 @@ u32 vfe_hw_version(struct vfe_device *vfe)
+  * @vfe: VFE Device
+  * @wm: Write master id
+  */
+-void vfe_buf_done(struct vfe_device *vfe, int wm, struct camss_buf_done_info *buf_done_info)
++/*
++ * vfe_output_done - Retire the filled buffer of one output
++ * @vfe: VFE device
++ * @line: VFE line
++ * @output: VFE output whose write masters completed a frame
++ * @ts: completion timestamp
++ *
++ * Called with output_lock held. Hands the next pending buffer to the write
++ * masters.
++ *
++ * Return the filled buffer for the caller to complete once the lock is
++ * dropped, or NULL if none was queued
++ */
++static struct camss_buffer *vfe_output_done(struct vfe_device *vfe,
++					    struct vfe_line *line,
++					    struct vfe_output *output, u64 ts)
+ {
+-	struct vfe_line *line = &vfe->line[vfe->wm_output_map[wm]];
+ 	const struct vfe_hw_ops *ops = vfe->res->hw_ops;
+ 	struct camss_buffer *ready_buf;
+-	struct vfe_output *output;
+-	unsigned long flags;
+ 	u32 index;
+-	u64 ts = ktime_get_ns();
+-
+-	spin_lock_irqsave(&vfe->output_lock, flags);
+-
+-	if (vfe->wm_output_map[wm] == VFE_LINE_NONE) {
+-		dev_err_ratelimited(vfe->camss->dev,
+-				    "Received wm done for unmapped index\n");
+-		goto out_unlock;
+-	}
+-	output = &vfe->line[vfe->wm_output_map[wm]].output[0];
+ 
+ 	ready_buf = output->buf[0];
+ 	if (!ready_buf) {
+-		dev_err_ratelimited(vfe->camss->dev,
+-				    "Missing ready buf %d!\n", output->state);
+-		goto out_unlock;
++		/* only the first output must keep up; the others may starve */
++		if (output == &line->output[0])
++			dev_err_ratelimited(vfe->camss->dev,
++					    "Missing ready buf %d!\n",
++					    output->state);
++		return NULL;
+ 	}
+ 
+ 	ready_buf->vb.vb2_buf.timestamp = ts;
+@@ -671,14 +676,58 @@ void vfe_buf_done(struct vfe_device *vfe, int wm, struct camss_buf_done_info *bu
+ 		output->gen2.active_num--;
+ 	}
+ 
+-	spin_unlock_irqrestore(&vfe->output_lock, flags);
++	return ready_buf;
 +}
+ 
+-	vb2_buffer_done(&ready_buf->vb.vb2_buf, VB2_BUF_STATE_DONE);
++/*
++ * vfe_buf_done - Complete the outputs whose completion groups fired
++ * @vfe: VFE device
++ * @wm: port the completion arrived on
++ * @buf_done_info: completion status, one bit per completion group
++ *
++ * An RDI line has one output. The outputs of a pixel line each complete on
++ * their own group, the image on one and statistics on another, when the
++ * completion carries per-group status.
++ */
++void vfe_buf_done(struct vfe_device *vfe, int wm, struct camss_buf_done_info *buf_done_info)
++{
++	struct camss_buffer *ready[MSM_VFE_NUM_OUTPUTS] = { };
++	struct vfe_line *line;
++	unsigned long flags;
++	unsigned int o;
++	u64 ts = ktime_get_ns();
 +
-+ds=`date +%Y.%m.%d-%H.%M.%S`-hazptr
-+scriptname="$0"
++	spin_lock_irqsave(&vfe->output_lock, flags);
 +
-+RCUTORTURE="`pwd`/tools/testing/selftests/rcutorture"; export RCUTORTURE
-+PATH=${RCUTORTURE}/bin:$PATH; export PATH
-+. functions.sh
++	if (vfe->wm_output_map[wm] == VFE_LINE_NONE) {
++		dev_err_ratelimited(vfe->camss->dev,
++				    "Received wm done for unmapped index\n");
++		goto out_unlock;
++	}
++	line = &vfe->line[vfe->wm_output_map[wm]];
+ 
+-	return;
++	/* Without per-group status (RDI lines, TFE) there is a single output */
++	if (!line->is_pix || !buf_done_info || !buf_done_info->status) {
++		ready[0] = vfe_output_done(vfe, line, &line->output[0], ts);
++	} else {
++		for (o = 0; o < line->num_outputs; o++) {
++			struct vfe_output *output = &line->output[o];
 +
-+cpus=""		# empty = let kvm.sh auto-detect
-+allcpus=0
++			if (output->state != VFE_OUTPUT_ON || !output->wm_num ||
++			    !(buf_done_info->status & BIT(output->comp_group)))
++				continue;
 +
-+while test $# -gt 0
-+do
-+	case "$1" in
-+	--datestamp)
-+		checkarg --datestamp "(relative pathname)" "$#" "$2" '^[a-zA-Z0-9._/-]*$' '^--'
-+		ds=$2
-+		shift
-+		;;
-+	--cpus)
-+		checkarg --cpus "(number)" "$#" "$2" '^[0-9]\+$' '^--'
-+		cpus="$2"
-+		shift
-+		;;
-+	--allcpus)
-+		allcpus=1
-+		;;
-+	*)
-+		echo Unknown argument $1
-+		usage
-+		;;
-+	esac
-+	shift
-+done
++			ready[o] = vfe_output_done(vfe, line, output, ts);
++		}
++	}
+ 
+ out_unlock:
+ 	spin_unlock_irqrestore(&vfe->output_lock, flags);
 +
-+nerrs=0
-+
-+run_kvm () {
-+	local ds_suffix="$1"
-+	local configs="$2"
-+	local cpu_arg="$3"
-+	local kconfig="$4"
-+	local resdir="$RCUTORTURE/res/$ds/$ds_suffix"
-+
-+	mkdir -p "$resdir"
-+
-+	tools/testing/selftests/rcutorture/bin/kvm.sh \
-+		--torture hazptr \
-+		--duration 5s \
-+		--configs "$configs" \
-+		${cpu_arg:+--cpus "$cpu_arg"} \
-+		${kconfig:+--kconfig "$kconfig"} \
-+		--trust-make \
-+		--datestamp "$ds/$ds_suffix" > "$resdir/kvm.sh.out" 2>&1
-+	return $?
-+}
-+
-+check_lockdep () {
-+	local ds_suffix="$1" config_dir="$2" label="$3"
-+	local resdir="$RCUTORTURE/res/$ds/$ds_suffix"
-+	local console="$resdir/$config_dir/console.log"
-+
-+	if ! test -f "$console"
-+	then
-+		echo "Missing console.log for $label ($ds_suffix)" > "$resdir/kvm.sh.err"
-+		return 1
-+	fi
-+	if grep -qE "WARNING: possible (recursive locking|circular locking dependency)" "$console"
-+	then
-+		echo "Lockdep warning in $label" > "$resdir/kvm.sh.err"
-+		return 1
-+	fi
-+	return 0
-+}
-+
-+# Basic torture: all hazptr configs, CPU count auto-detected
-+
-+echo "--- hazptr basic torture${cpus:+ ($cpus CPUs)} ---"
-+run_kvm basic "NOPREEMPT PREEMPT READERS0 READERS4" "$cpus" || nerrs=$((nerrs+1))
-+
-+# LOCKDEP: verify no lockdep splats with PROVE_LOCKING + wq_churn
-+
-+echo "--- hazptr lockdep + wq_churn ---"
-+if run_kvm lockdep-wq LOCKDEP "$cpus"
-+then
-+	check_lockdep lockdep-wq LOCKDEP "LOCKDEP wq_churn" ||
-+		nerrs=$((nerrs+1))
-+else
-+	nerrs=$((nerrs+1))
-+fi
-+
-+# SLOWPATH + PROVE_LOCKING: verify forced-slowpath does not deadlock
-+
-+echo "--- hazptr SLOWPATH + lockdep ---"
-+if run_kvm slowpath-lockdep SLOWPATH "$cpus" \
-+	"CONFIG_PROVE_LOCKING=y"
-+then
-+	check_lockdep slowpath-lockdep SLOWPATH \
-+		"SLOWPATH+PROVE_LOCKING" ||
-+		nerrs=$((nerrs+1))
-+else
-+	nerrs=$((nerrs+1))
-+fi
-+
-+# CPU scaling: optionally test at multiple CPU counts
-+
-+if test "$allcpus" -ne 0
-+then
-+	max_cpus=`grep '^processor' /proc/cpuinfo 2>/dev/null | wc -l`
-+	for n in 8 16 32 64 128 256
-+	do
-+		if test "$n" -le "$max_cpus"
-+		then
-+		echo "--- hazptr CPU=$n ---"
-+		run_kvm "cpu$n" "PREEMPT" "$n" "CONFIG_NR_CPUS=$n" || nerrs=$((nerrs+1))
-+		fi
-+	done
-+fi
-+
-+# Report
-+
-+if test "$nerrs" -ne 0
-+then
-+	echo "hazptr.sh: $nerrs test(s) failed"
-+	exit 1
-+fi
-+echo "hazptr.sh: all tests passed"
-+exit 0
++	for (o = 0; o < MSM_VFE_NUM_OUTPUTS; o++)
++		if (ready[o])
++			vb2_buffer_done(&ready[o]->vb.vb2_buf,
++					VB2_BUF_STATE_DONE);
+ }
+ 
+ /*
+
 -- 
-2.43.0
+2.55.0
 
