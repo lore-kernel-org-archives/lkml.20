@@ -1,227 +1,178 @@
-Received: from mail-oi2-f42.google.com (mail-oi2-f42.google.com [74.125.231.234])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from TY3P286CU002.outbound.protection.outlook.com (mail-japaneastazon11010051.outbound.protection.outlook.com [52.101.229.51])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AF77F41BA61
-	for <linux-kernel@vger.kernel.org>; Mon,  5 Oct 2026 11:47:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.231.234
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D454641BA61;
+	Mon,  5 Oct 2026 11:47:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.229.51
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791200825; cv=pass; b=COsWgHoO2ikO/4Buunbr1semH9YSbpgJVTQA+7ms3JIPFylwdXEtDmTNa7YsYqTVb/uiUL41znT2ackvzfEQClw6f2AHw0BLYmgRAy/XwGiZcxN9QNO6tlsrFKdpZ0bGYs+xwNxcMjd575J3YCUsz1rx3mHn3FyGF/HYr7gcKMs=
+	t=1791200838; cv=fail; b=HhaHdZsVioTofL90DQL+lzqbCXSGtVlfF3W34crkyp+k/8klfVVCQZ03i0x2rLunZ+qp+Klf3P5BYc1hijXXxMClxWehQmppF+ig//kVcLSfv5aSPPJAgQRHzFbeIZ6xLi9BXr9rQ19cMLOiqTyWGHVj0F3yqcoSSTq0mFomWJA=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791200825; c=relaxed/simple;
-	bh=5dG4vqKbCleDNCspP7eaU8l32l2SO2D93b4w1i4Gydw=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=garf8h5hrT7JM477NBvCcylj0Ax/0fDeG6D00XMmI/LiJF5d6e1A0MjtjRJiArmd/0YewG8glwjoLSZLNBK9+o/CnFZmOk9FgyIyq8rTq3AFDPKWLl/n9lQQbv1O+AW7deDelGaOfO1vFr8sWQ+rBEXXht2Yk93fu7jMJ+2WWFA=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=A+37A4PS; arc=pass smtp.client-ip=74.125.231.234
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1791200838; c=relaxed/simple;
+	bh=JiQ5T7NKKSQqazszfFpus/CV7VBQ8djYjxgMX9aktQM=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:MIME-Version; b=pFKm8XLTCIHjYaiHiH/Wbi7cZdcF62ku62rozcMOyzqjKV7ltT4xsMLVV8EMv+XaQkHNDo93t/QM1BEzreutYdlcMfIMUKYb9Tup4z3l/6iT27SnAG9RNOCXLY3EvhzbyXvKpeciN/Fbatwndn9PvtACvXUKCSDOjidtx+afGBc=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=renesas.com; spf=pass smtp.mailfrom=renesas.com; dkim=pass (1024-bit key) header.d=renesas.com header.i=@renesas.com header.b=dJBYvUTH; arc=fail smtp.client-ip=52.101.229.51
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=renesas.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=renesas.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="A+37A4PS"
-Received: by mail-oi2-f42.google.com with SMTP id 5614622812f47-4d602bb99e0so42737b6e.0
-        for <linux-kernel@vger.kernel.org>; Mon, 05 Oct 2026 04:47:03 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1791200822; cv=none;
-        d=google.com; s=arc-20260327;
-        b=Tg997HeHWwBkIGeNDMb6GFewzwffeYWxN5SqgoYGMaEg5z8ob9VHKIhEUWdvW5It+G
-         dTxre6KG7n/yu3dDc17lDZJUwWmH/Q6En3ya/Qn1Vwdj4VB7oarm2jITNogfk1CPonjo
-         ApZtlpjpQWfNUjfI38qFZ7R/smg4RCXI5ygBY1anG37im0QstQQ+15IAKnxkfyjcmpia
-         sntME3lYHZNRN0tFgLvFY0At4ZQoawc5q3fDGmr2yKvnDoLb1KkSJed1e/zTnDhmEhXw
-         abwsPkBtAVMJl8ba6eezxxtF7kQxm40nS7b6YWNzt9fi84y5UOTw7AAQHfwcQzUQze3O
-         X8Og==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=pvCiD2TlnrBGUsr9lII6CP6TVaOsiM3kncPZ0M5Ea/c=;
-        fh=c29sAZ0TSybQk6mfW+4odI07+LebphU7wWNwgRzSc8E=;
-        b=HJl7v61Ull4z5iWZgNb9YXiPf2+uRJFf9vA2m5w/AtP8oF6gv/A7esUA4iWTwdyNUF
-         lSnxhzUZOJtNjjxnNXT/dm4ymb/Sq45Fi1y1tOalivTtlV7pjwJNRUFCXuHpwwQ+E3qd
-         5ds61Ra8nW+yYuteblGgzO6I1Ry43hSN6+E5sFNWf6LOHHRw0n4tRBPVV1RWeAvm8KK/
-         mJpVLhLG+vlSo5S0fTkGyVTYzaR8uaUZofMV1DdO4j3kHTPYDs8kKbvDIf40pjy8ArGl
-         frpZRy5paGCnjgCaa2J+ZCIGOm0fniWe9uvZYY4zhjFzD9h/+echPGN9+DUzsEQ+/ZeP
-         F26g==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791200822; x=1791805622; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=pvCiD2TlnrBGUsr9lII6CP6TVaOsiM3kncPZ0M5Ea/c=;
-        b=A+37A4PSiqQqyql/+ptCewXtsXsVmIZdeSgKSSlB97b6llKqdhxlHQwU/SalwdN91o
-         5TQideclEIuX51PWWTUjYg+ltMcOMdP580SRforOcEVnkonTDsLroHD4XOn5L3ZOdjhP
-         LZpof7/w5Ew7jV4yN5K4TDo54RBT+9O5LUY2WPPnUmEvJLJ2ch4H0tQs3C9ZPXZmIgEq
-         FmguQJkm1zV/+PB972T8BjDnFRC//8W/TlsQ/Xa6ZwShp0EwacW1kD5SLgDeRZSK44W7
-         P80AHGXtFTF41+zQHwd4hrkpuR3nUfzqLx+UBEZ+PkyErnLqyI0YWH327d1nu3ZaiLKQ
-         +FGQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791200822; x=1791805622;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=pvCiD2TlnrBGUsr9lII6CP6TVaOsiM3kncPZ0M5Ea/c=;
-        b=A7FWb+IhcjobejH5lEOwgpqlPwFYfIOymFeT4nkPQn6iUJX4hVu2UR8Tok7oyMScvz
-         MZKJqpfWKKOs6R6+ATX20gkrdTkVeN8k9a9T/+rUo8/QfR1fgIylnt8bo+dA+ogkWLsi
-         m1a5uXSkCx7UTpT2lZwgFYZhQkFNumKZjOVolgo03uZ/fCpx1+w8GDn4JOkaKAdA9ld/
-         2DEfXmPAlknCRKTN9z/yix8EpXN+pgyvdx5JIiJWNLP8kH7LU9j0Nf7TKn6xpqp2UTT+
-         9ZVIpcYu0R94zjDiix75Zot/o4pzo5c+GeI4z4tTr1HG8POahPz2ic1urfFkyaVYhE/N
-         k4jA==
-X-Forwarded-Encrypted: i=1; AKwUvBz+TBrwOgXgO14LrgTinI9GjSmfgu2lrQgz0Eq6sSPGT3zhoRFVfUE8A9n47bFw3o8K5MDN2G0k1RmDkzQ=@vger.kernel.org
-X-Gm-Message-State: AFuF++lzsErxszmYQz2uRdIwvkklHDiFUwOZHkDsJZY4Gr5FXkCT2F/B
-	jHFQr8LlyPjCxG9xkVYIng1ejdl9ccnS3+3ocHDBbvXrQHEKO+ZDlx7GqqYWCeUBXXyJ25L+33Z
-	jkNjHfo1aSPNAFsgLEFDpFKeKUHQcrLs=
-X-Gm-Gg: AYBFou2GY5Ow3jpbNwT9fC+5H1ArIEL8jXAEv8cpD3jb4k9EtWIZMSbJDA5PvrrxPHV
-	+NuQH9eKBaldrYW4bKfxRlBDrcyPf+b1d+eLXxGowbk6zaaZP/2L5gxUgtVSld9iY3Cp2Anqie7
-	nCRG+nVKun/3kv7UHWyvcpz41gxR5xond0+6n/3i/nIlDUip0g4dV79MDSsmPOCdryRWmDWko2w
-	3R0H7imZw2OjWVEeK1fMIzFasNVztTwu4cBx+AiDj7zWMamaD7J0Q5rmfs/TmXqzCfhNirfGY/A
-	kl7e+PyU4Q++ME78gEnSW250Mekta1a9f9smo4XJZ85LFklvqtczkLYeXBUkY/6EFe0cGOs=
-X-Received: by 2002:a05:6808:238a:b0:4e8:9e40:a0dc with SMTP id
- 5614622812f47-4f526845500mr13041029b6e.1.1791200822366; Mon, 05 Oct 2026
- 04:47:02 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=renesas.com header.i=@renesas.com header.b="dJBYvUTH"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=aM1YPg2qhx4ezNag0oIdcoFglsVXvdBDnFzKSjlOifpLdzDsCLTRa+otvQwKjUR7d+ARXQEWKsFin2zBuUOwV7WrsB9SFmDY2rD/gcKVwQrDy3JQdrLPZZvYYtx2wHk++wM4Rno/eOrEXc2+Iwg2ER4Q90n/wSgAERnySgXeHS9+KQSIs+RJAaWBLGEHWEzmdmAKIuwzbL4lw6p0awa1qJ1Yra7YoLGxC++OEBHr7Y5/NoSRlEXInCCQyDDqY3nof/1WToyA8LVahfE7YftLavMisdNUx08IV7YXEVMUBh3eSG3+RFoAc59vEdqPxzURcbK9GDpc1mW92sob1sq9lg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=JiQ5T7NKKSQqazszfFpus/CV7VBQ8djYjxgMX9aktQM=;
+ b=lwmWkTBSe+jPi6uSrZVyBPCY/MbNK3+J/SNUQqsSDgsUpOw9Bxyp8fJkgTGTdM297Fe6TjwB5bwSykvP++eRB7QN6j0nYl43/4vswu38vXda1skBfCMUydQAQK6UTq0CIEROok26xzOE1W2NyiQmtcou4C/adDOMeubvuUvGCn1tAl+YlKjtrsDqstMkqKH/GbCktwYOFRDNYuypdvUoek668FaNAcnSSV/m1TxagBDaAGB031GuWFWdVyK6sNmsTsRnkrGA5YdiHmaP37XqRlpk6LPYMBuGwU/TKHHV0yT2EUXBcmB9FUlq8DX7gOQyPn4U7pQitDL18pK2oZqvbg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=renesas.com; dmarc=pass action=none header.from=renesas.com;
+ dkim=pass header.d=renesas.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=renesas.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=JiQ5T7NKKSQqazszfFpus/CV7VBQ8djYjxgMX9aktQM=;
+ b=dJBYvUTHqLRd2WwtGJ7GuF6/OgnnQ2Nx74TEfRAdAZo4zWO7abiC5XpL11xqeP9DVTxAVfyFjkbwxU0lMjmhm3mBLCYqU/PX87P2MEk58g+roulTop5iA8HCCy8IruaVTpeAQnsNvmjx2MbLQKpzB267X3OvlTNWqIoT+64nqjc=
+Received: from TYRPR01MB15619.jpnprd01.prod.outlook.com
+ (2603:1096:405:29b::10) by TYRPR01MB16231.jpnprd01.prod.outlook.com
+ (2603:1096:405:2e8::13) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.472.20; Mon, 5 Oct
+ 2026 11:47:13 +0000
+Received: from TYRPR01MB15619.jpnprd01.prod.outlook.com
+ ([fe80::a68f:5c9:9de8:4fa4]) by TYRPR01MB15619.jpnprd01.prod.outlook.com
+ ([fe80::a68f:5c9:9de8:4fa4%5]) with mapi id 15.21.0472.016; Mon, 5 Oct 2026
+ 11:47:04 +0000
+From: Cosmin-Gabriel Tanislav <cosmin-gabriel.tanislav.xa@renesas.com>
+To: Biju Das <biju.das.jz@bp.renesas.com>, William Breathitt Gray
+	<wbg@kernel.org>, "liyouhong@kylinos.cn" <liyouhong@kylinos.cn>,
+	"dayou5941@163.com" <dayou5941@163.com>
+CC: "linux-iio@vger.kernel.org" <linux-iio@vger.kernel.org>,
+	"linux-renesas-soc@vger.kernel.org" <linux-renesas-soc@vger.kernel.org>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
+Subject: RE: [PATCH v2 00/15] MTU3 counter fixes and improvements
+Thread-Topic: [PATCH v2 00/15] MTU3 counter fixes and improvements
+Thread-Index: AQHdVCieIpLZmXJmUkCGpiK8a4VTHbbuo1iAgAARenA=
+Date: Mon, 5 Oct 2026 11:47:04 +0000
+Message-ID:
+ <TYRPR01MB15619D1AC671680E50A8EF92585962@TYRPR01MB15619.jpnprd01.prod.outlook.com>
+References: <20261004174752.507499-1-cosmin-gabriel.tanislav.xa@renesas.com>
+ <TY3PR01MB113462D03DD936D3A21D13A2486962@TY3PR01MB11346.jpnprd01.prod.outlook.com>
+In-Reply-To:
+ <TY3PR01MB113462D03DD936D3A21D13A2486962@TY3PR01MB11346.jpnprd01.prod.outlook.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+authentication-results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=renesas.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: TYRPR01MB15619:EE_|TYRPR01MB16231:EE_
+x-ms-office365-filtering-correlation-id: 1e32ddc2-d334-4dee-f06f-08df22d66092
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam:
+ BCL:0;ARA:13230040|1800799024|376014|366016|23010399003|38070700021|11063799006|5023799004|56012099006|4143699003|10067099003|22082099003|18002099003;
+x-microsoft-antispam-message-info:
+ 0hjZLn7HQqtV/ViudvRz2YQfoxNqySyZ/hwRHrbdbfY7n58XXR/65sYzfqUsdNdhlMepd7tM+l8bDkOwBpjdFI2h28ZfRgwce8og783aoudVh3xykmnO7GzH5jHUNoJaIiowIaJOb15uxeQ/0lU0ITJspZasGmpTpy8CqqF86ios7gHT6OzWFfmOUR0ZidATzIgdcFDKfqOkD+xIqSePaEZe4PCYH6bB3RbOhB9V0RKE/VvQxWxsDeSApFt2WNErEi7nF015KpAX4fgsC8YbOVqq4wfB/oHkqHj76+J4dWKtNZznyrhi8mAFM/UoD0MS2SU1d7avb7PXVhi8U10Sn4FfM9ewE7CTzhSenQxyi0qmM9Rm4XHe6+xgCTiDT1KsePZhErGqtmGM8EQ8arhODYY/y66Gk0PUol/25/YUzIAguo6h4u3cqXcbYQvQ0Jyif+J2SZmTWWnuTzeSudU0A1Ls2luJAYP9bTFSpEOQN0sJI4vGQ5hISV0gFMZiOPN82rb+omWcXBdOpyLv+agZ1YM3kVA6mT9K5+mT0H29abnvX0wKj4OZZIZnWfzsp8E5OmiJw14dcsuEQGXGZEr3T8NezXdhs9kdQNhHVarHiqfu36cSvya8rTHwJtD3JlDX67pFwJ50lowgbfaYqIQtVC+6uK1S98+TllQpJSNod5+QyWdS684N4LClyoxcMk1GfX1x4WfId8ID90ljjyby4YxMeosnK3Wchsvy2GuYaO4=
+x-forefront-antispam-report:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:TYRPR01MB15619.jpnprd01.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(376014)(366016)(23010399003)(38070700021)(11063799006)(5023799004)(56012099006)(4143699003)(10067099003)(22082099003)(18002099003);DIR:OUT;SFP:1101;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0:
+ =?us-ascii?Q?qFViG9k4vkV5pZmPvIaBth+2Yd7+J+P0hz6vRSiAHQcfyuH8oBYHza3d4dpn?=
+ =?us-ascii?Q?PzkAZUe3gVvQDWGelCyMguj/f9UctRgp03nxe5bCaqG1xTv7yFID3cMNzSia?=
+ =?us-ascii?Q?E9OS+QwlxQwC+GUp1B+WV/AHOup3FDDBR3b6d6VT7t1daN5fbSHYuLHReLoa?=
+ =?us-ascii?Q?pSALgmmMKlM/KoRpkaXNQi0lB2QKXfFfa2VgB01lbiJDyQmZf5e7m0LoDEWC?=
+ =?us-ascii?Q?tAxnP6RGpOjzncwcsOX+RVcBsmPX0zes3UqinVjcIMZdmP6GoYNHbkrVSUza?=
+ =?us-ascii?Q?kQHcdzAJx5ZS8vNGKN18muT+snf5S2GEYEycpjNGkZNytsplf9FDoLZiuYKl?=
+ =?us-ascii?Q?+riDyXWl4pyjQKkYuK4P3UVH34YxH3IfrjPidW/jzf8s0XgqHRm8aTJ5v6uJ?=
+ =?us-ascii?Q?u3ukbpxZ3M0tNed5K6V1IaoizVaP1fdc3qqbA5kIpNfu5pyJIe0reJsTomXg?=
+ =?us-ascii?Q?Nya6hwARaSeyhT+EUUiV+u9uTCWJFVRwLjjuvSnHNYf66WeSxI2sZaJMZ6LA?=
+ =?us-ascii?Q?cgzW68xXtBM/B14jukYJpZZUFq707yRTJgO5CZpuV7tJ/LdoKTHJnaZhgEiZ?=
+ =?us-ascii?Q?EDx+y6fqdAcqfQJvxZR3vo1QwiZrWeEdv/+OCRXlj1A1bUu7boEHGUWbR3gd?=
+ =?us-ascii?Q?N1GRbDbIvwZ4geoLKCJIIP+UY+Q/kkFe1kW6V/vAughkaJhlFYsJMLha6Nzh?=
+ =?us-ascii?Q?fdY3Mts9vCf8fzQL1ihcgdJQ6Ng9DBj42HcTdAFCmtzAULFFrQrV/Ro4W74w?=
+ =?us-ascii?Q?R0YVPVmQNOIPYrKdYcGzSC6DlZ/kLFRbzASCIqNCRvZYJiu4TQym5mesMTKt?=
+ =?us-ascii?Q?g3m0gu94w60LFpL65Res0uYS40zK7TwcMV66GR4dAyhxubyLVDOkbsr0A7fG?=
+ =?us-ascii?Q?3eC971AkuIGWC3G1hEp/1uXNrOXZxvEu4z7iEA+3eTJSR1Ks1IREAz4Q+fFs?=
+ =?us-ascii?Q?k59CNw6CPVQW+US59iLasicmp4vCj2vE7nDjk8hMA7Z1KElt47yp9zC8bZuh?=
+ =?us-ascii?Q?4NjJs9b0Tk8wNYyzBeecw2ymHPaJ9UBGrAEJoWPMF9WMSXLr5h3I0WsNEBO4?=
+ =?us-ascii?Q?0yJVYz1Y/r1QHySuskvFYgx4gQcEiP7HiNc5HkVV/ToFD2UEhqJPjVyAsDSM?=
+ =?us-ascii?Q?yIldct/Ucgufvh1TysHl8rYdBsctIZ2HCkLSuUbDw15xc3rJFmTX0MRt/rQP?=
+ =?us-ascii?Q?LOeuvCkrxSxQV/CgYEMFF/xpI+0x3grR/9ZlTjXU8E3PJAPAdkCiLT6K0jzp?=
+ =?us-ascii?Q?ZHgiljfSrZ7pDhm6No4aSM9ClTvI2LKlNinygh7lhq+xj0zkihNt1ksmZZ1s?=
+ =?us-ascii?Q?E9E+fyhN4kGN3LDGc2V7d43mOgYpV0wSRF3Q5oL8f0OEypAC52TFfmEvoFdk?=
+ =?us-ascii?Q?m6EjDggFTHSooRllGwT+hLAplGriWRyn/dpbS+t5ni+QexJ9BAl7LiLZ/QTB?=
+ =?us-ascii?Q?qQCLYcUXuu1J6/GQnlfgRwAlHvXwpJywMgRtyRWaPdPW+VeSntsMKtmFZ5xC?=
+ =?us-ascii?Q?9AuYfKkFMv0Od934JciO+RrzP2LAKk500mBYcebpZdpCpZ/jVFnSeig1egRV?=
+ =?us-ascii?Q?Nr0fSqZ/peRoXaiphWezTvyBnZMS9fPCMZ4CFJux6YPc+H6hHYEBNlWIibQS?=
+ =?us-ascii?Q?hutxqdMiQhCuTOcESg9zhJ3RbIhzSlWk5of00UxxpSSKn5BQLt7XHrO57xKN?=
+ =?us-ascii?Q?xBm1o8u7mTkjdRNTpyWq3UttsL+u/tR3nyeKFk6pJY2xIDt1WUlUtQEj7/q6?=
+ =?us-ascii?Q?vdEE/opAw0IUKVDUc4APsqdC2ctL96Va+PNsm64+mdvTHI9Z1Gvk?=
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260928-netcons-fixes-v1-3-bb5ffe5e698a@gmail.com> <179084525499.434549.454029290243818186@kernel.org>
-In-Reply-To: <179084525499.434549.454029290243818186@kernel.org>
-From: Gustavo Luiz Duarte <gustavold@gmail.com>
-Date: Mon, 5 Oct 2026 12:46:50 +0100
-X-Gm-Features: AclHuK_VCqFiRp23GjqsOFz6KmqlCD3ZHvlL0enmA62M0GN2prVrFjDkVN5QeTo
-Message-ID: <CAGSyskVROs===6nd6Zu7KYqzuzhommRKPN321KFV6pYv9=j1sw@mail.gmail.com>
-Subject: Re: [PATCH net-next 3/4] netconsole: avoid printing partially updated
- target attributes
-To: netdev-bot+sashiko@kernel.org
-Cc: leitao@debian.org, andrew+netdev@lunn.ch, davem@davemloft.net, 
-	edumazet@google.com, kuba@kernel.org, pabeni@redhat.com, 
-	stephen@networkplumber.org, netdev@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+X-OriginatorOrg: renesas.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: TYRPR01MB15619.jpnprd01.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 1e32ddc2-d334-4dee-f06f-08df22d66092
+X-MS-Exchange-CrossTenant-originalarrivaltime: 05 Oct 2026 11:47:04.8401
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 53d82571-da19-47e4-9cb4-625a166a4a2a
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: veGntpgzhFJkWmxCCKacJZKzHVgjvSgVNzN1PiT92bHx6ZBZEv4j5UZFeg3VXrml1/RGjgwX+2nRNLgBU3wXkgIMZPfF3hMYPcryv5KiYddPm+sZd8BVI2iO68RsSgf9
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: TYRPR01MB16231
 
-On Thu, Oct 1, 2026 at 10:00=E2=80=AFAM <netdev-bot+sashiko@kernel.org> wro=
-te:
->
-> Thank you for your contribution! Sashiko AI review found 2 potential
-> issue(s) to consider.
->
-> Critical: 0 =C2=B7 High: 1 =C2=B7 Medium: 0 =C2=B7 Low: 1
->
-> If you believe none of the issues are legitimate, please reply to each
-> issue of Medium severity or higher and explain why the AI is wrong.
-> If any of them are legitimate and you plan to respin, please let patchwor=
-k
-> know by including "pw-bot: cr" as a separate line at the end of your repl=
-y
-> (one such reply per series is enough).
->
-> - [High] The fix is incomplete for dev_name.
-> - [Low] The commit 'netconsole: avoid printing partially updated target
->   attributes' fixes a user-visible race: configfs *_show() callbacks can=
-=E2=80=A6
->
-> --
->
-> netconsole: avoid printing partially updated target attributes
->
-> This patch takes dynamic_netconsole_mutex in the configfs show callbacks
-> for dev_name, local_ip, remote_ip, remote_mac and the userdatum value.
-> Readers are then serialized against the store callbacks and should no
-> longer see partially updated values.
->
-> Closes: https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260814-netc=
-ons_ipv6-v3-7-bc0915e8c75f@gmail.com
->
-> > Reported-by: Sashiko <netdev-bot+sashiko@kernel.org>
-> > Closes: https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260814-ne=
-tcons_ipv6-v3-7-bc0915e8c75f@gmail.com
-> > Signed-off-by: Gustavo Luiz Duarte <gustavold@gmail.com>
->
-> [Severity: Low]
-> Should this have a Fixes: tag?
->
-> These show callbacks have read the fields without dynamic_netconsole_mute=
-x
-> for a long time. dev_name_show() and local_ip_show() date back to
-> 0bcc1816188e ("[NET] netconsole: Support dynamic reconfiguration using
-> configfs").
->
-> The IPv6 rework (for example 56ddc8d48e75f, 46b3f9e7e761d, f6e96d72f64a8)
-> made the window larger by adding the separate family field.
->
-> The other two fixes in this series, "netconsole: finish enabling the
-> target before releasing RTNL" and "netconsole: read np.dev under the RTNL
-> in local_mac_show()", both carry Fixes: tags.
->
-> > diff --git a/drivers/net/netconsole.c b/drivers/net/netconsole.c
-> > index 5f4311726d11..627475f16383 100644
-> > --- a/drivers/net/netconsole.c
-> > +++ b/drivers/net/netconsole.c
-> > @@ -861,7 +861,14 @@ static ssize_t release_show(struct config_item *it=
-em, char *buf)
+> From: Biju Das <biju.das.jz@bp.renesas.com>
+> Sent: Monday, October 5, 2026 11:45 AM
+>=20
+> Hi Cosmin,
+>=20
+> Thanks for the series.
+>=20
+> > -----Original Message-----
+> > From: Cosmin Tanislav <cosmin-gabriel.tanislav.xa@renesas.com>
+> > Sent: 04 October 2026 18:48
+> > Subject: [PATCH v2 00/15] MTU3 counter fixes and improvements
 > >
-> >  static ssize_t dev_name_show(struct config_item *item, char *buf)
-> >  {
-> > -     return sysfs_emit(buf, "%s\n", to_target(item)->np.dev_name);
-> > +     struct netconsole_target *nt =3D to_target(item);
-> > +     int ret;
-> > +
-> > +     dynamic_netconsole_mutex_lock();
-> > +     ret =3D sysfs_emit(buf, "%s\n", nt->np.dev_name);
-> > +     dynamic_netconsole_mutex_unlock();
->
-> [Severity: High]
-> Does this fully close the torn read for dev_name?
->
-> dynamic_netconsole_mutex only excludes dev_name_store(). The netdev
-> notifier path has two other writers of np.dev_name, and neither of them
-> takes this mutex.
->
-> For an enabled target, the NETDEV_CHANGENAME case rewrites the name in
-> place. It holds RTNL, target_cleanup_list_lock and target_list_lock:
->
-> drivers/net/netconsole.c:netconsole_netdev_event() {
->     ...
->                 if (nt->np.dev =3D=3D dev) {
->                         switch (event) {
->                         case NETDEV_CHANGENAME:
->                                 strscpy(nt->np.dev_name, dev->name, IFNAM=
-SIZ);
->                                 break;
->     ...
-> }
->
-> For MAC-bound targets on unregister, release or join, the notifier calls
-> netconsole_process_cleanups_core()->netcons_release_dev(). That zeroes th=
-e
-> name with only RTNL and target_cleanup_list_lock held:
->
-> drivers/net/netconsole.c:netcons_release_dev() {
->         do_netpoll_cleanup(&nt->np);
->         if (bound_by_mac(nt))
->                 memset(&nt->np.dev_name, 0, IFNAMSIZ);
-> }
->
-> dev_name_store() refuses to write while the target is enabled, so it
-> never overlaps these writers. dev_name_show() has no such state check.
->
-> So a read of /sys/kernel/config/netconsole/<target>/dev_name can still
-> race with "ip link set eth0 name ..." or with deleting the device. The
-> read could return a mix of old and new bytes, or a partly zeroed name.
-> The buffer stays NUL terminated within IFNAMSIZ, so the result is wrong
-> output, not an out of bounds read.
->
-> This looks the same at the tip of the series. The other fields this patch
-> touches (local_ip, remote_ip, remote_mac and the userdatum value) have no
-> writers outside the mutex, so the gap only affects dev_name.
->
-> local_mac_show() in this same series already takes rtnl_lock() to
-> serialize with this notifier. Could dev_name_show() also take RTNL inside
-> the mutex? That would follow the existing dynamic_netconsole_mutex -> RTN=
-L
-> order used by enabled_store().
+> > This series does some code quality improvements to the MTU3 counter sub=
+driver, while also fixing
+> bugs and
+> > adding caching support so that registers are not touched when the count=
+er is disabled, as there is
+> no
+> > request API.
+>=20
+> I believe you need to rebase this series on top of[1].
+>=20
+> Since this patch series is caching userspace values in memory,
+> It can support suspend to RAM as well as in suspend to RAM,we lose
+> the register contents, this patch series can address that limitation.
+> Can you also please prepare a follow up patches for STR support?
+>=20
+> [1] https://lore.kernel.org/all/20260903090719.3498955-1-dayou5941@163.co=
+m/
+>=20
 
-This sounds correct. In dev_name_show() we need an rtnl_lock() in
-addition to the dynamic_netconsole_mutex_lock(), otherwise we would
-race with netconsole_netdev_event(). I will fix this in v2.
+Hi Biju.
 
-pw-bot: cr
+The changes from patch 1 of Li's series will simply be dropped by us if
+I rebase on top of it.
+
+The changes from patch 2 of Li's series are superseded by our cleanups.
+
+The changes from patch 3 of Li's series depend on his patch 2 changes,
+and are equivalent to our patch 1.
+
+I think it would be best if Li re-submitted just patch 3 alone without
+any dependencies, so that it can be accepted, since he also submitted
+it before we did and we duplicated his work accidentally.
+
+After his patch is accepted I will re-submit this series without patch
+1.
+
+What do you think, William, Li?
+
