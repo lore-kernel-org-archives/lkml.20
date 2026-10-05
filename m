@@ -1,130 +1,94 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E7C7938836C;
-	Mon,  5 Oct 2026 08:27:36 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E140338736E;
+	Mon,  5 Oct 2026 08:27:58 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791188860; cv=none; b=fw+IRAy2d7/h6NGf3eolwHEpXk2uGA9Kh5g6LKu8tgVe8x4TG0yS9P/B64besWHdpB+fPYc5QZv/SeFFFslS8UlgArxq3Nxp90FDs0rSdwAgL9OSIUw9/MboSQ76X50XeX2OIZ4CHy4j3yFTSbQTasE2UyHIFD6i5thf0iKmljk=
+	t=1791188881; cv=none; b=ji04css0Si2kUNOu6A+71nwSNaFWzmrR8ZAV0joOuI6j3xuNvW0Pkn9BiWWKT0vAEtuQPziM3n1s3C/9SoZ2jjDd6IbSUNOG9DHFrQt7j5xE/xjQpysSC9pKCrnBqo8sze2RjyaEKRSHP6AqQlhS3sSk9Ne9Z1WOBzrTb62OC2Y=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791188860; c=relaxed/simple;
-	bh=tPVv6cAJ4mS7KxYWT+/8HwELvC3Yq6cmUWBF2ZodqIU=;
-	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=lNSOh023S77KzxjFvyf/oBtFfCCJRGp79QYceQVpLRcu8/UTYjGj7Jk2OTgDfXtKpYEUoSbDV7Noc02eOq2u5dXbXsbOUCyf2/YoLA3LvBt/K8+oCheeut5BW2a7ajomRRnEY+IAfc3QavlhZ79NcYJUHscZ5G6COTABMipTuKo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZFgOJSus; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791188881; c=relaxed/simple;
+	bh=hMzMKrD5GRz4RS04pSGTUAESHa2miNS4pt9QSNa+h+Q=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=SmB+88uDZhDK6xLyY48JXICIQk9SDiZsfRDEVp8eB165NZplOeqREhO+MYwmaAnUgcvXSoARs1QqQggYg1DSIoZXCRNl573jQ9r/dU+SxmBfQlv6F/pPTcTaVU2Co7qXpIO6sZjZo/OFHoWgp+s8YzSQN6DXTrGfdz2xndFJx/I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kSRZ0AiC; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZFgOJSus"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 40A7A1F000FF;
-	Mon,  5 Oct 2026 08:27:34 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kSRZ0AiC"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1021E1F00893;
+	Mon,  5 Oct 2026 08:27:54 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791188854;
-	bh=fsKzr1wwNvOjG1lYsOOgfAPocI7bU4FNx1neeTdXdCU=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=ZFgOJSusJIoSOi11shbnQnrlSzUGgYbaD3c8YdF90OeX7PaXk7RuxWk0/vu9lA0Vj
-	 nUqK2foIIZ5QFyit1d67UQBHX7OkLSBMI8/G+6tmHeTUVMzp2th5bIY7SseS8ZL0sT
-	 bgmcxpLAHJOk7axStkf3y9j1GEnI0teRW0fcb1KwO5YX6na+1uLW1bdzCM0vVYT58i
-	 x3wWG+N/q5f9hzKRfeC3fyYhfWDCb8iE7gSxhkZ6QkAl0OmbMlQykWSGf8aZwyMGVH
-	 0o9PO+y9+MkeUQjKL06AY/4euFiG5MNwK/hm9+JQXTpc/dq2fmvOTxIbF/afYdgjwO
-	 DyWJEkRhLxFHQ==
-Received: from sofa.misterjones.org ([185.219.108.64] helo=lobster-girl.misterjones.org)
-	by disco-boy.misterjones.org with esmtpsa  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
-	(Exim 4.98.2)
-	(envelope-from <maz@kernel.org>)
-	id 1xDe2l-0000000GzC6-42XU;
-	Mon, 05 Oct 2026 08:27:32 +0000
-Date: Mon, 05 Oct 2026 09:30:39 +0100
-Message-ID: <87ece435xs.wl-maz@kernel.org>
-From: Marc Zyngier <maz@kernel.org>
-To: Fuad Tabba <fuad.tabba@linux.dev>
-Cc: oupton@kernel.org,
-	kvmarm@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	catalin.marinas@arm.com,
-	will@kernel.org,
-	joey.gouly@arm.com,
-	seiden@linux.ibm.com,
-	suzuki.poulose@arm.com,
-	yuzenghui@huawei.com,
-	vdonnefort@google.com,
-	qperret@google.com,
-	tabba@google.com,
-	mark.rutland@arm.com
-Subject: Re: [PATCH] KVM: arm64: Pend host SErrors for protected vCPUs through HCR_EL2.VSE
-In-Reply-To: <20261005050352.836980-1-fuad.tabba@linux.dev>
-References: <20261005050352.836980-1-fuad.tabba@linux.dev>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI-EPG/1.14.7 (Harue)
- FLIM-LB/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL-LB/10.8 EasyPG/1.0.0 Emacs/30.1
- (aarch64-unknown-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+	s=k20260515; t=1791188876;
+	bh=qo4xR1q1NsbK0Jqv7gJMpCILZ1T8CSmK9ju1GsfOPWs=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=kSRZ0AiCazN5TjrtDop8t3K6xVt9WxYch2HGvKPMUbczSZ6D0iqg04MNztQXDyLS4
+	 La4LfMLGeGVzM3PGWIpdKx6Vc5phiV20Q1fs+j7VBv+9ljPkDC70xxWvCJXqWuDKiU
+	 8yAs661YvZxdnC5Tghav0ONL1fWlVL+49gB9mJsnWYGEwoT7XeZq8ZnbIet0uqCkA1
+	 W+O3CREIwVOMqTBffehQDMLXX6NgMz+qILZU8rvMzwisJDYCxd3PdJakMdipfW+qbH
+	 2ftDJkxNyN8gZiOEkyWCxsopzMYNaY2ecE+7q1aekSxhytDOhb8Cj764LdJ2JvNf0K
+	 DVni6KUSHK9mg==
+Date: Mon, 5 Oct 2026 09:27:51 +0100
+From: Will Deacon <will@kernel.org>
+To: James Clark <james.clark@linaro.org>
+Cc: Mark Rutland <mark.rutland@arm.com>, Leo Yan <leo.yan@arm.com>,
+	Suzuki Poulose <Suzuki.Poulose@arm.com>,
+	Al Grant <Al.Grant@arm.com>, linux-arm-kernel@lists.infradead.org,
+	linux-perf-users@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 2/3] perf: arm_spe: Factor HW discard mode out of
+ arm_spe_perf_aux_output_begin()
+Message-ID: <asNfh-qywjOPxajj@willie-the-truck>
+References: <20260805-james-spe-software-discard-v1-0-0ff0e44c4c92@linaro.org>
+ <20260805-james-spe-software-discard-v1-2-0ff0e44c4c92@linaro.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-X-SA-Exim-Connect-IP: 185.219.108.64
-X-SA-Exim-Rcpt-To: fuad.tabba@linux.dev, oupton@kernel.org, kvmarm@lists.linux.dev, linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, catalin.marinas@arm.com, will@kernel.org, joey.gouly@arm.com, seiden@linux.ibm.com, suzuki.poulose@arm.com, yuzenghui@huawei.com, vdonnefort@google.com, qperret@google.com, tabba@google.com, mark.rutland@arm.com
-X-SA-Exim-Mail-From: maz@kernel.org
-X-SA-Exim-Scanned: No (on disco-boy.misterjones.org); SAEximRunCond expanded to false
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260805-james-spe-software-discard-v1-2-0ff0e44c4c92@linaro.org>
 
-On Mon, 05 Oct 2026 06:03:52 +0100,
-Fuad Tabba <fuad.tabba@linux.dev> wrote:
+On Wed, Aug 05, 2026 at 04:01:52PM +0100, James Clark wrote:
+> Discard mode doesn't call perf_aux_output_begin() or emit aux records,
+> and enabling it never fails. We'll add a second discard mode in the
+> next commit so it will be cleaner if there is a separate begin function
+> just for discard mode.
 > 
-> kvm_inject_serror_esr() reads PSTATE.A and SCTLR2_EL1.NMEA to decide
-> whether to emulate the SError's exception entry or pend it through
-> HCR_EL2.VSE. For a protected vCPU, the host's copy of those is stale,
-> and when it reads as unmasked KVM emulates the entry on that copy. EL2
-> never delivers it as an SError: its entry handler turns the pending
-> exception into an external abort on the trapped access, and an MMIO
-> completion still pending trips WARN_ON(INCREMENT_PC).
-> 
-> Always pend through HCR_EL2.VSE for a protected vCPU. EL2 forwards it,
-> and the guest's own masking decides when the SError is taken.
-> 
-> Fixes: 872383bd12e11 ("KVM: arm64: Add per-EC entry/exit state marshalling for protected guests")
-> Reported-by: Sashiko <sashiko-bot@kernel.org>
-> Closes: https://lore.kernel.org/all/20261001142109.794CA1F000FF@smtp.kernel.org/
-> Signed-off-by: Fuad Tabba <fuad.tabba@linux.dev>
-> ---
-> Applies on kvmarm/next. A follow-up to "KVM: arm64: Confine protected VM
-> vCPU state to EL2" [1], from Sashiko's review of its v4 patch 12.
-> 
-> [1] https://lore.kernel.org/all/20261001135711.1640520-1-fuad.tabba@linux.dev/
-> 
->  arch/arm64/kvm/inject_fault.c | 5 ++++-
->  1 file changed, 4 insertions(+), 1 deletion(-)
-> 
-> diff --git a/arch/arm64/kvm/inject_fault.c b/arch/arm64/kvm/inject_fault.c
-> index d6c4fc16f8795..49a342b078365 100644
-> --- a/arch/arm64/kvm/inject_fault.c
-> +++ b/arch/arm64/kvm/inject_fault.c
-> @@ -378,8 +378,11 @@ int kvm_inject_serror_esr(struct kvm_vcpu *vcpu, u64 esr)
->  	 *
->  	 * As we're emulating the SError injection we need to explicitly populate
->  	 * ESR_ELx.EC because hardware will not do it on our behalf.
-> +	 *
-> +	 * A protected vCPU's PSTATE and SCTLR2_EL1 live at EL2, so pend through
-> +	 * HCR_EL2.VSE and let the guest's own masking apply.
->  	 */
-> -	if (!serror_is_masked(vcpu)) {
-> +	if (!vcpu_is_protected(vcpu) && !serror_is_masked(vcpu)) {
->  		pend_serror_exception(vcpu);
->  		esr |= FIELD_PREP(ESR_ELx_EC_MASK, ESR_ELx_EC_SERROR) | ESR_ELx_IL;
->  		vcpu_write_sys_reg(vcpu, esr, exception_esr_elx(vcpu));
-> 
+> No functional changes intended.
 
-I thought we had discussed that one before (or am I making things
-up?). Why can't the host always evaluate serror_is_masked() as true?
-Given that PSTATE is never synced back to the host, it would only be a
-matter of set PSTATE.A==1 at vcpu creation time.
+[...]
 
-It'd be more palatable than this sprinkling of vcpu_is_protected(),
-which really do not scale.
+> +static void arm_spe_pmu_begin_discard(struct perf_output_handle *handle,
+> +				      struct perf_event *event)
+> +{
+> +	u64 limit;
+> +
+> +	limit = FIELD_PREP(PMBLIMITR_EL1_FM, PMBLIMITR_EL1_FM_DISCARD);
+> +	limit |= PMBLIMITR_EL1_E;
+> +
+> +	write_sysreg_s(limit, SYS_PMBLIMITR_EL1);
+> +}
+> +
+>  static int arm_spe_perf_aux_output_begin(struct perf_output_handle *handle,
+>  					 struct perf_event *event)
+>  {
+>  	u64 base, limit;
+>  	struct arm_spe_pmu_buf *buf;
 
-Thanks,
+Is it worth checking that we have a discard event in begin_discard() and
+similarly that we don't have a discard event in output_begin()? It looks
+like quite an error-prone interface for the caller, otherwise.
 
-	M.
+> @@ -775,6 +785,12 @@ static irqreturn_t arm_spe_pmu_irq_handler(int irq, void *dev)
+>  		arm_spe_pmu_disable_and_drain_local();
+>  		break;
+>  	case SPE_PMU_BUF_FAULT_ACT_OK:
+> +		if (arm_spe_discard_mode(event)) {
+> +			arm_spe_pmu_begin_discard(handle, event);
+> +			isb();
+> +			break;
+> +		}
 
--- 
-Jazz isn't dead. It just smells funny.
+This looks like new behaviour?
+
+Will
