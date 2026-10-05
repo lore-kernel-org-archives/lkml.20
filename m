@@ -1,170 +1,85 @@
-Received: from mail-oi1-f170.google.com (mail-oi1-f170.google.com [209.85.167.170])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EBCD24854E6
-	for <linux-kernel@vger.kernel.org>; Mon,  5 Oct 2026 17:06:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.167.170
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791219962; cv=pass; b=maT2MkFiEq9HoSnSb20fZNDyyiv8yDyPVCFpPTELTup8IivNYj3UG83f591z/QOPllDbVCHCzr+eNIYEqLLk72LHa2oy77TRhLCRd3y/koWWRiEPfLica3Zjpk3KFawqYemRFeRYy5NPXonexGNt2cKoUSBnrSiPxkWiRlPdxgo=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791219962; c=relaxed/simple;
-	bh=2RXkrvI8XGSx/1oVfdObGE9PLA8OssOwVxQ91HAiD08=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=mPHcomY0AFdqRZSqkSvaM4T7+5b3NlI+1kEhwT/lDJegnmNBSYnDS0DwdOZHiq14pqTdI+VSU9RyE7T5sNDlCHz35CuFh77yPVBCt2e5CJpKRAG1w9ZxiTg+p5nfdXJKwuLgRIfczBtIENKLBsL+CDOqqHuqZpMmnwzt3lWsDa0=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=mLSiFWv4; arc=pass smtp.client-ip=209.85.167.170
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 011262D2394;
+	Mon,  5 Oct 2026 17:06:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=156.67.10.101
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791219982; cv=none; b=nVZtag3kgtkGxz45fecxTf1pBaLbme46DGIhC9Q/9oOp3IEamGQEbwJE0B+cM8uQ6+08FuQ2OnkSm2k9fY3ZnvOWE8XRzYQ9mFOr8Ws4NzcF3IywTaNnB+Luch+P4zkZOZe+6ABITDzYcFyQx+6rTD1XxqTBgXYNuIFPSUZQY/4=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791219982; c=relaxed/simple;
+	bh=wKPbvTUlum8b/MXva9+HkpD0cHg4n8zzHNKigK8mEkM=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=SUDL8EEPMHGquRtWOPdR5Mvc+Tqtax5VpWG6baSiD75PJ6WUtnzRApF8nNbFlVqmykoRExER9A9CvkNoWrEAFUkBGWHR+g7AL9soYfp53r6WHUinXCOWUetZiu5Ogth7/LCu2dvTZAul+vKUnYK5EB5++1yj//PVtdj14QZmHa0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch; spf=pass smtp.mailfrom=lunn.ch; dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b=D/rup/hj; arc=none smtp.client-ip=156.67.10.101
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="mLSiFWv4"
-Received: by mail-oi1-f170.google.com with SMTP id 5614622812f47-4d7034a99a9so1023146b6e.3
-        for <linux-kernel@vger.kernel.org>; Mon, 05 Oct 2026 10:06:00 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1791219959; cv=none;
-        d=google.com; s=arc-20260327;
-        b=PLamHICzrNCVgXV+axp0/0BdJ+YNEYlUhvn5a0PFnQsi5B51NPjAxFVM/f4r5YLqQn
-         vGhpmcu/Snr+4uOjpVviFdN2b/3QT/paruO0zFCHK7uFXSoOhX0XGVVxLVnT67Raydbn
-         RtUmqlb1pHPHv2gNznukKw+4oaNlLGM7q3reS9NXxBCYiWet4dvhX1ex+5qfOHT+lZie
-         N82bPfa7hNx1WAXaAVUbQHt+gDHX4IUU4UzECGMYAlU+AHbc7YvD/1tqFx0cm3iCjRVj
-         YjsC1uK/fw72oelm1SWrGgazEdORSe4hcV/mRBC7zMAxfD7FRNjKVEYHysicBBNTUoK+
-         xsMw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=V3QHsfD9eae4eVmZwhjIqULbQNwImtk17XMJTw0B7T8=;
-        fh=+fdQcBBDSImy+XqphuhPXDofJZDDGSa/luqNGHa9k30=;
-        b=Y4VfZJ4MX7HXJoDxRneyrNA+sRUjrwhXy3zlwwJjW7abPosZiAVFb0dKGUZSrBzTKB
-         YYj/A2Yj5oBJzDflDvDtKI7ciefIrTJ5tCULIKi9HGuKvtV2XspM1NtHx1fe5UgvuDnq
-         q0I0iYyfIogSWb9rYoTJvmuxdzWBpD27Vv/pwzYb+0H0LupJyLKjVbeHm6+ZPKZyFa+L
-         gAut/jITA0U5EviHm3eGDgfEY8FR+y13F/DEeeDgObr2c6wBeZvG6HJiIgCXktitEhvo
-         ELxxQ/vZ4nxVa0c+npde7NtOnct7GlY6x6q83iFlCvuyeLLH/pDDYNei3RxhYucW9K7r
-         bJkQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791219959; x=1791824759; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=V3QHsfD9eae4eVmZwhjIqULbQNwImtk17XMJTw0B7T8=;
-        b=mLSiFWv49QmGqH6AcvhRb/RHPfgAfJ3GHS8U2YOfeN/lFkYaMDoC6pkzyo/gK/cbwv
-         5Ent4KeoVAnvmhRhcQ81oYaPMUgsjM8+zyQbQRoArQGr4fNl5+nf0J6izYYVKPcVk0zn
-         g0HImbOAaNf/CtWtJ3ZqcFzU038XbZuLRt2DHoA+9TT5UYncN9jpWG/ViZ1MtznMmt/J
-         BUPm/SVNj5MGrglli7HOET2qMVIJi9zYBvLn41gnaPltOwb7Fnne2rJwCStg/jblvSmS
-         V0O+s/7RtbA/m8mn5dWnurZy+DIYJdCdU1zeFmGxiLoyAjGkuXV7ktuugjbzIfhv4Lqm
-         oiGA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791219959; x=1791824759;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=V3QHsfD9eae4eVmZwhjIqULbQNwImtk17XMJTw0B7T8=;
-        b=hhhDd4yjNhC/+3M9ctdupR2jJigDt1oc4Yqvmk3IPL1M3alFiCrUt1d6LakOLXy8en
-         jD5NRGX2EFcY2yXiDDJ2e6f/p4N1YcZ7YfykYcRl+Qqdv93KoDCwguU7BcNMNHp1rqXR
-         ynkAB53WxNR7qeUwDAitXj9SHJYJPFXb5tgoLT7MhlFgOQF0BdolOn9tefTZ4drlciDj
-         Mo96sGFK2Le1P9EF4IAhIf6GmHD/BPvNMxHL1DhJIR8z/12sU6t3mZfPIhJd+CA6ZU8t
-         /2YSDpUBNRxFd97bsEbM8161VHgDwaUStegw7hWKua+AWIVWOOqcmOYFftwtQFFXim64
-         YASQ==
-X-Forwarded-Encrypted: i=1; AKwUvBy4Ozj4zs9orWA8So6oCFdZUclbfPUitonwcDDJzkyTt3NTggt9Z/i4NBuKVw7MYGjSHrrguu22KjPJIQ0=@vger.kernel.org
-X-Gm-Message-State: AFuF++nuhCCABdOXTPDtzhohipd3wgWCn3FbT0RboYQeyQK6bMDws6nM
-	xugF7vp3l4aaZlWGvkUEiyqFWpTScwQ7KAb0BOsEjH3kMcgVM5TXLGb3hQKpi+gHZz64HEIbHVF
-	gOV7BnnXUu/pArOQBAAN5SjeEpTyb6Y86u2PfGnk=
-X-Gm-Gg: AYBFou0KJXAxdcujPiO1KSZ/lJYB4OfKId2j166F7saDrqDTFIOqKZIzT08oCdw+U1g
-	cgvln+7smlptrh0+WnSNMuKY8vJuBrjhZWWmKeO5Sj1MtSB15SUdZ+qXpBg3IVhraAcdno6cSFr
-	2+kj3tIlV4G9p4XYlLGWVz8AfDlq3QGZincRrS/4dYF/2JGmQsUsTJPTUaRh+lotAf3OXgkcd6l
-	UcLaDR7KDlFhgr5WZCREg/ByfMDXDYFZqLYf4RkkS1EluMoa3rjEIgUO/ONrGCCNZCs6nN/qVdF
-	5RiIkN+7sFfIrNVoU4vIBbTYkqZz/hWoJ67CWtnPZGilgPEEN5wu0mirogbH37wBpFg0Q0Fw/JE
-	CxCfq1cR4XuRWUQ==
-X-Received: by 2002:a05:6808:6409:b0:4e8:e73e:e945 with SMTP id
- 5614622812f47-4f67b6368eamr6867509b6e.63.1791219959377; Mon, 05 Oct 2026
- 10:05:59 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b="D/rup/hj"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
+	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
+	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
+	bh=2S7gaNWgqQiuKDsfMDn/exk2aU/N8PLaaxbYvBU/GWw=; b=D/rup/hjHssmghRD9ZitXjCE6g
+	fAxqW1TIefOg0kVqvuAawl+lfwY74K2b6fdaQJd0q+i5q9vVkOeeCm0eCjFHPVN8H2aeIaUj3X3Ju
+	3IchrOBLTn2/sYcNV0hqe7SOzdkJxs+QoNtelKEH1nNU/r8fyV0FaTEvQ5krAhyGGuD8=;
+Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
+	(envelope-from <andrew@lunn.ch>)
+	id 1xDm8k-0095dc-F3; Mon, 05 Oct 2026 19:06:14 +0200
+Date: Mon, 5 Oct 2026 19:06:14 +0200
+From: Andrew Lunn <andrew@lunn.ch>
+To: Yongzhao Chen <yongzhao.derek@gmail.com>
+Cc: netdev@vger.kernel.org, Christian Marangi <ansuelsmth@gmail.com>,
+	Vladimir Oltean <olteanv@gmail.com>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	John Crispin <john@phrozen.org>, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH net-next v3 2/3] net: dsa: qca8k: do not clear MASTER_EN
+ after a failed page select
+Message-ID: <6c5a59a0-a75e-4d0b-8231-9a126ed9fa9a@lunn.ch>
+References: <20261003172405.342-1-yongzhao.derek@gmail.com>
+ <20261003172405.342-3-yongzhao.derek@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260923022339.3340694-1-georgeandrout13@gmail.com>
- <arThye_219ruNbM2@google.com> <20260925-stellen-brummen-festrede-266af0305ac7@brauner>
- <20260929044843.GA3909609@ZenIV> <DLRSQRUVOGT2.10ZY01VEJVHCE@garyguo.net>
- <20260929135154.GB989762@ZenIV> <DLRXHGLDR2QQ.WZVRWGY995BT@garyguo.net>
- <20260929170218.GD989762@ZenIV> <DLS0CO1HEGJN.2XX8QX8LW8XJM@garyguo.net> <20260929194726.GE989762@ZenIV>
-In-Reply-To: <20260929194726.GE989762@ZenIV>
-From: Georgios Androutsopoulos <georgeandrout13@gmail.com>
-Date: Mon, 5 Oct 2026 13:05:48 -0400
-X-Gm-Features: AclHuK82zXF_oHnFQwG46GJvuw1FlbpLwvQEpRhqprAmrygF7YVXXrAloo-DO5M
-Message-ID: <CAESH5ocD6j_trFz1GyEXLTJKy5-N19=86wjZTm-b__0uX9YMLg@mail.gmail.com>
-Subject: Re: [PATCH v2] rust: file: handle fd table teardown in file
- descriptor APIs
-To: Al Viro <viro@zeniv.linux.org.uk>
-Cc: Gary Guo <gary@garyguo.net>, Christian Brauner <brauner@kernel.org>, 
-	Alice Ryhl <aliceryhl@google.com>, Miguel Ojeda <ojeda@kernel.org>, Jan Kara <jack@suse.cz>, 
-	Boqun Feng <boqun@kernel.org>, =?UTF-8?Q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
-	Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, 
-	Trevor Gross <tmgross@umich.edu>, Danilo Krummrich <dakr@kernel.org>, 
-	Daniel Almeida <daniel.almeida@collabora.com>, Tamir Duberstein <tamird@kernel.org>, 
-	Alexandre Courbot <acourbot@nvidia.com>, =?UTF-8?Q?Onur_=C3=96zkan?= <work@onurozkan.dev>, 
-	linux-fsdevel@vger.kernel.org, rust-for-linux@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, Al Viro <viro@ftp.linux.org.uk>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261003172405.342-3-yongzhao.derek@gmail.com>
 
-On Tue, Sep 29, 2026 at 3:47=E2=80=AFPM Al Viro <viro@zeniv.linux.org.uk> w=
-rote:
->
-> On Tue, Sep 29, 2026 at 07:22:28PM +0100, Gary Guo wrote:
-> > On Tue Sep 29, 2026 at 6:02 PM BST, Al Viro wrote:
-> > > On Tue, Sep 29, 2026 at 05:07:40PM +0100, Gary Guo wrote:
-> > >
-> > >> The reproducer that Georgios posted on GitHub is some cleanup job be=
-ing added to
-> > >> task_work, which drops FileDescriptorReservation. And since exit_tas=
-k_work()
-> > >> happens after exit_files(), put_unused_fd in that cleanup observe th=
-at
-> > >> current->files is NULL.
-> > >>
-> > >> So it's not from random thread, it's from the current task. And I fi=
-nd that
-> > >> particular case of doing per-task cleanup not unrealistic.
-> > >
-> > > FWIW, descriptor reservation ought to be tied to specific files_struc=
-t
-> > > instance; note that dup_fd() can be called when there are outstanding
-> > > reservations and the copy does *NOT* have those reserved.
-> > >
-> > > What rules would you suggest for such delayed put_unused_fd() wrt e.g=
-.
-> > > files_struct unsharing?
-> >
-> > Ah, is this about `unshare(CLONE_FILES)`? For that case indeed our exis=
-ting
-> > abstraction break down.
->
-> FWIW, the current rules are "you must not have any outstanding reservatio=
-ns when
-> you unshare descriptor table in any manner".  You are adding "... includi=
-ng the
-> ones that would be discarded by an already-scheduled task_work callback".
->
-> It's not just unshare(2) - there are more interesting callchains. For exa=
-mple,
-> unshare_files() from do_coredump(); this one should be fine in face of
-> put_unused_fd() in task_work, due to the task_work_run() in get_signal()
-> being upstream of vfs_coredump() call, but it needs to be considered.
-> Or begin_new_exec() - that has a lot more callchains leading to it.
-> It should be safe at the moment, but that needs to be demonstrated, etc.
+On Sat, Oct 03, 2026 at 07:24:03PM +0200, Yongzhao Chen wrote:
+> qca8k_mdio_write() and qca8k_mdio_read() take the common exit path when
+> selecting the page of QCA8K_MDIO_MASTER_CTRL fails. That path clears
+> MASTER_CTRL[31:16] with a raw write to phy 0x10, reg 0x1f, which only
+> addresses MASTER_CTRL while page 0 is selected. After a failed page
+> select that did not reach the switch, the previous page remains selected.
+> The write can then clear the upper half of an unrelated register at
+> page * 0x200 + 0x3c.
+> 
+> No MDIO master transaction has been started at that point, so there is
+> nothing to clean up. Unlock and return the error directly.
+> 
+> qca8k_set_page() also keeps the old cached page when the page write
+> fails. If the write did reach the switch, a later access to the cached
+> page skips the page select and reaches the wrong register. Invalidate
+> the cache on failure so that the next access selects the page again.
+> 
+> The Sashiko review of v1 identified the stray cleanup write. A userspace
+> model of the driver's functions reproduces both problems by injecting
+> page-select failures with and without a hardware page change; these cases
+> pass after this change.
+> 
+> The cleanup write comes from commit 759bafb8a322 ("net: dsa: qca8k: add
+> support for internal phy and internal mdio"), and the stale page cache
+> from commit ba5707ec58cf ("net: dsa: qca8k: handle qca8k_set_page
+> errors").
+> 
+> Signed-off-by: Yongzhao Chen <yongzhao.derek@gmail.com>
 
-Thanks for the discussion. It looks like the issue is broader than the
-`exit_files()` case I originally reported, since staying on the same task
-does not by itself guarantee the same fd-table context.
+Reviewed-by: Andrew Lunn <andrew@lunn.ch>
 
-It seems that the Rust abstraction needs to account for this stronger
-requirement. Would making some affected Rust file APIs `unsafe`, with
-appropriate `# Safety` documentation, be a reasonable temporary solution?
-
-I'm not familiar enough with the VFS internals to determine the right
-abstraction here, so I'll hold off on sending another version based on the
-current runtime checks.
-
-Thanks,
-Georgios
+    Andrew
