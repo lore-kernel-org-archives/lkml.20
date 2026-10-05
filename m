@@ -1,176 +1,118 @@
-Received: from mail-dy2-f43.google.com (mail-dy2-f43.google.com [74.125.229.43])
+Received: from mail-oo2-f40.google.com (mail-oo2-f40.google.com [74.125.231.168])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7D9774DA9B6
-	for <linux-kernel@vger.kernel.org>; Mon,  5 Oct 2026 19:41:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.43
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791229291; cv=none; b=KnF/FdZWFfDkwUXHASTsB3gX0hvt7ZF37oisgINqs9MTigFnpQ67CAJ2/Vbll3UlzM4a0fbxaeAbKvbmQ8/NvAbmQeBQQIKQqFC364Njfp/q3kkMc+OFUUDszEVSnkhZJQdVj7gTnUhCzVJm5XQYnAz+u8Ngmzfv0WddJspMtBk=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791229291; c=relaxed/simple;
-	bh=+bTXWDMaQZNDFcLiKDdbOjDGn95EDSIv0eXDY3F1Hp4=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=bBhcBmATqdprFdvCezuF2P4yhBvVrc7dxxkzHfuzp7fcVMtbBYQPlrh6KWAEznBN0N2sx4iHWLq95Zegete3Lu4P3+0O1f9ZgZE55r5Om2JMnRdNik1tEbQqmJhRCs5nGn3BaWNK7KtsrNzGozcvzaAPTF6bLnFZpGAjxuPgIXc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=fl6rIVeR; arc=none smtp.client-ip=74.125.229.43
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 601AE2264A9
+	for <linux-kernel@vger.kernel.org>; Mon,  5 Oct 2026 19:45:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.231.168
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791229558; cv=pass; b=ii0DtVi9gBsh9kVmgJdeTHW5miqxiGdW/N2VqLjp56AMtGUH9aGeU8RUEbAat8+rtCTUVYnWLeeQe41Ocea0T3527WZVV75kPubCeklqdBR8k/ZrQ+akjeyZ5kIJmra/uhvlUTzEoWiBAzYxZMa00ASA4HP5jNFgB/QUqET3vdk=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791229558; c=relaxed/simple;
+	bh=YbYeAAPLr81n7CnKFq3+4NoTXD4yO0Ifbs0Ig3aYVPo=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=saoVB1TO/NDfQcGse9FV3bQAD8uPqkH1xV1slPUJRGJL8f6ciU43nl0Yxs4YL/FIYw7DgTk5jJ0bNeleXoNr1PCwGndC5Ke3KiOKkaPhTWGzsrEbes1VxMGBIesLK5c29BFcIGCjDqblk9udijJwTJN3q9PNbMB6CatvtoLPKMk=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=lAiLIYoe; arc=pass smtp.client-ip=74.125.231.168
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="fl6rIVeR"
-Received: by mail-dy2-f43.google.com with SMTP id 5a478bee46e88-33c11ef641aso3527230eec.1
-        for <linux-kernel@vger.kernel.org>; Mon, 05 Oct 2026 12:41:30 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="lAiLIYoe"
+Received: by mail-oo2-f40.google.com with SMTP id 46e09a7af769-82380ef95daso1316590a34.0
+        for <linux-kernel@vger.kernel.org>; Mon, 05 Oct 2026 12:45:57 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1791229556; cv=none;
+        d=google.com; s=arc-20260327;
+        b=h5VsWbyaiMM7bYhwTz/vdCNinK/MZLpJYi3r86UZvc6vg6oCROMlbUk/WnJR2h0uEK
+         EGyaoM+lXjFFqIlymOpXwC/OhDBmLjcg4n2Oc3vme929W8o3RO7fFAM5vk8IUZwKpydc
+         XU1IpZpAzf4LhEOZNY8myvQ0E8HVv/Mtary1mj1ST5r/NQ+v7UZm/PyKu9EyuLL26J65
+         Dr1zopgzy4Jmr0n7dhZ3kIUzhluK2+CJ8qXVRIc4L0atOifa4mg2DPmkL3YDrD500coL
+         O2UITtONpgCC1TQ9/lJ3sRNZ8xPL33PYyF6LCO4Q8EAYR77EjPd1WsVer0ChnSakRQTB
+         pE8Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=YbYeAAPLr81n7CnKFq3+4NoTXD4yO0Ifbs0Ig3aYVPo=;
+        fh=3oyEeA97++h9/TM7wT0L1sR2HT1jpt98Tcrrbk6IJOQ=;
+        b=fVxz6Bk1cL66MxDx+tSsHqqrGJg5a05M7iQjnI0nwnMJp/WM6XShAFq3pIOQds/UHh
+         Oda1CeGF4KL2L2WxNXFVZvYCXORacxpGLWSpkpUOlpxG0zQ+Rl3CZHB7FxytdlHAOXsS
+         ZsS5bmwURm4HFe/KSKW83s46R9YkCZcShlLAasioEaqr671XIECQkpnAeV7G1KdFzTDB
+         qhKLFiBn2TtZ2duwFLESqwCFjNSmpUYaJl1HG7G7ukoHsQH0oGuOI0NxgsvnXtwCdUUv
+         tdRtApkmFHYLVjd6B3ODRSgOgfCxbc3N72AQNPq50JWtYF8g9uebG4zrnidA/qRj4DUp
+         /0Sw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791229289; x=1791834089; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Uv7afzpq7+dnopZxaVqr0Kj31R9b5sq4pmvrJx8z7b8=;
-        b=fl6rIVeR9vUkxIHGTLLADTYZDqO4xnuBdvbkFaegUFE+PGtDXDPyZoQUBEQdRJUTsp
-         +FyFM4G7T+Me0EDpJbqXcOFArsw3cjGuDL5Nisf+RHuQvVrYRfjIZERquj9HpLUA8NKG
-         PDEyj5Az8+1KXhKwfSG6DrSlxQQtwyJPXYyhrXzxZm6OlGrr3KOygimop6Vb0nStoneR
-         5tcdzq7uw0uqENbxa3Hqi/XtPQ/S1wfw+BULKP8nUbL4j8IJ6/IMaEOM0zyu93ndf3ll
-         DJ5B7hOmM1+RG63K4wjmWP1o22UUcuUqkyY420gfKDlzZXx+erH4/ycc38bZBvIbOdBl
-         ArUw==
+        d=gmail.com; s=20251104; t=1791229556; x=1791834356; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=YbYeAAPLr81n7CnKFq3+4NoTXD4yO0Ifbs0Ig3aYVPo=;
+        b=lAiLIYoe5m4p658n3T4QTXhvFOgrndbrU5e8xh9zY5eCs+AB0lODeWw6v2YnR6bTBD
+         uXBSGoLR6lFuxxGE7vWOkT+vhLn7W3GlGpJyHfVyYPxPAEhDaF0dsLnP2J5e28OZTwxZ
+         HES9L18p3CskrWre7t0M0jp2FZEXpmynYeJzyLrIRhaDiDwCZKnp2bqvrig6UBru7i36
+         Ruh9EEsP35aAVEOdVKA5ZeMh3zqXsvGbewo2pcH2KXCPRjaj6Vi8Mr8Bs32OD0RjHlYh
+         UJSpk3KIouGMi09OF8F6WJC/Kr5yzYuAM6L1pVVderf+bAp5qee4d5NuevlMttiH7sXB
+         313A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791229289; x=1791834089;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Uv7afzpq7+dnopZxaVqr0Kj31R9b5sq4pmvrJx8z7b8=;
-        b=H5R1gGQVHsjdq1dtqTCnpA4XgsYV8RNv4HwQOIwHPWKZN0zgqV+rwruCMOQAcu3pmu
-         jr8wNW8Y8/IRDRle3RSQFXfnKv/f6Gczz3NF3mrh5XG3WtBXK33cSVT9DJHbnP5th2/c
-         tu1SoavwBxHcn0h+ARfL/tzJE7mcHFCE5IHMBkjZ5aN1UvaPLojyOe6EPIqALMNF2U8n
-         U9qLxGsXmtCfkKgJdXIn79o3eNFSOvLebxYcvbhyqKq6aN7okXl5ovmJLQLh08AnhMqV
-         C1FXwOFsYE5/kZr1AS0y0/Ybp+8M0beywip4c2Q4ueoCs4HcPEoc2Js1FONrWxZ4lIsP
-         plhQ==
-X-Forwarded-Encrypted: i=1; AKwUvBz2fUjWCQ4IUwmCKJUX45xUMasSWh4kOqijBVmudRQkjGsJmxjXdakp1b0uo4wch88o1niepvNHg9HdewA=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKJNKBGpRKKno0t8VGw3bgOtEfQXHdYK9s8Vwp+/WhIoyDy1TsH
-	iob6BwW7WUGEPWQ/MvzHhGvx7ZS/iQgqQnLnacvRzfus2HszR/V8Lkdt
-X-Gm-Gg: AYBFou1fUWcZ/sQMrV9TFtoHZUVPEu9yQSzkTMzIDOpsOv4u/DnCEwHsemmoL0sBFu1
-	+VEb4aOC4ILYC8PMxERZm9Nm7imeseIFu9AJ30niWgV7zkFo8BcjCkGh8SVVunJ72EWJBHgQnh1
-	AWxSHNfw3hrvGthKwcg1stLU0fSjzSBc09UFFy/VEk3mTh0zEdec+eJjpFcVvAyL4gTJjQM1D4u
-	qpJNa+1H9PfbAxU18tn47ed16pAvQS7COLnYNhwBQD5LvFeTLEGdeGo718pg7JcWO/EOhkT7Whi
-	6aoYLteDC1PVeZHLfITHLzYIY7GsyZh9EOyc47j5wjYHJY48cKVL4OO6oighvoJ6AAgQtCV6VjO
-	6uzWsdLGL7jRMzGaDnSNIr+kCOWAmZRMfY6yxJvimQCSL0oXNraKZWGTPQKZUHe2etYLo/wHvJn
-	eQRIcbeYLFpxQPpkOQcuBqoLVb7Dx/abHR5TgDxCGgZEdA/KadMnEoTdxijpziQyBSjCEATOTUb
-	0OhBUSnQLf1GJX1WiUrA8+6biYdoerkQRlGEpR51UsM7xKuc72XLMbEYhz4zaqaXAUbPAQxYUqD
-	hGdlUkcBw+n7f8lTd9KxLR9CTf/8pK4t8XV6y/330Nvly1Jl
-X-Received: by 2002:a05:693c:65c4:b0:350:2a5c:56c with SMTP id 5a478bee46e88-3502a5c09d7mr14871911eec.20.1791229289353;
-        Mon, 05 Oct 2026 12:41:29 -0700 (PDT)
-Received: from ryzen.lan ([2601:644:8000:7a86::e35])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-35146b3b5aesm848241eec.29.2026.10.05.12.41.28
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 05 Oct 2026 12:41:28 -0700 (PDT)
-From: Rosen Penev <rosenp@gmail.com>
-To: dri-devel@lists.freedesktop.org
-Cc: Alessio Belle <alessio.belle@imgtec.com>,
-	Luigi Santivetti <luigi.santivetti@imgtec.com>,
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-	Maxime Ripard <mripard@kernel.org>,
-	Thomas Zimmermann <tzimmermann@suse.de>,
-	David Airlie <airlied@gmail.com>,
-	Simona Vetter <simona@ffwll.ch>,
-	imagination@lists.freedesktop.org (open list:IMGTEC POWERVR DRM DRIVER),
-	linux-kernel@vger.kernel.org (open list)
-Subject: [PATCH v2] drm/imagination: simplify pvr_fw_trace_seq_data
-Date: Mon,  5 Oct 2026 12:41:27 -0700
-Message-ID: <20261005194127.151181-1-rosenp@gmail.com>
-X-Mailer: git-send-email 2.56.0
+        d=1e100.net; s=20260707; t=1791229556; x=1791834356;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=YbYeAAPLr81n7CnKFq3+4NoTXD4yO0Ifbs0Ig3aYVPo=;
+        b=m8+UdvrbtlkjB2q7AHgg6YblDVqJ7K8saW2gvrs+3f1IQYxPgbebDVM0cQcx54Sc3c
+         cpgze2Y2GU/E4TF9VqLdXDbpNnXBi+FlKHXceYg26LrwLz33yGHvdzlIskYHVaQq+1Iy
+         pcL8YuZLM9W4MpXx3pIfg+kfPldbeAeIaNRGgq4mUNNwgLw7RaUNyfGvGwoTAnA6yfHq
+         GaIDixLowRhguLZCkfSywZF3oXeczK5uMVoQ2DYoOT4Yh6QVxo5l28GnAJfs4vA2UzPa
+         DnhzLRyhQbiD65r4gx8zQ/euOMNzDJ/JJNOcARCsmOYVR23/ooaaux5Sl5PF668wRCLR
+         Z7QA==
+X-Forwarded-Encrypted: i=1; AKwUvBwSDmasWwZx4IPXVcnfdsADZLIApebF8W7Wosls5uvvhI6KDCxnasPCP9PgdnDBNCXnOcx1pmyY0Y4dZgA=@vger.kernel.org
+X-Gm-Message-State: AFuF++k1I4UTBH0TNfAVT9qWJcDKJan5YGe+zxPYGZ3grFFgTTb9p+NG
+	fVKupEFeHJJBt9d8EGPKFA2TAV1xwsmVPIFD0Nav4KX6Ogq094Q3cZLqog2rB09KM3ImHkPCZVt
+	LBNY/G/WHmGzy4U/dNkK6kpMhBDEiEMI=
+X-Gm-Gg: AYBFou2l7PBRdBRpF6y74z+Gnk5QUYPDNUTkKhBsvRVcrgTrehnhS3avJyO7FayPcVJ
+	VVsyYeuivCPzB1LBI2VQVZVxB16qmtqy63MQLjQ2Db99/Ix+QgTElzY78E2pJgaoe/GgrB/CNPs
+	ub18EqDRYquNaEBRz7X27KV1NUYcntvaUHlPsXxnfaY05yBc+2TCqZ5xnRHHYkobCYlSaTbfRGp
+	b50DTnKwHPDzkUn+ImGuaVCCN4GOnSFplI3lLRZxjSIeRwc+8l7GN2hzDFZiCwFIBAJ8Us+/SYY
+	BZuN5FX2O0b6hJM0OcgvRuu0xjz9ocJpgOKT8crvUFTkIBcYJm7ano3WLQK7nBxG16a6AqqqjKu
+	DVFGFuHlvWt8QKVyhcE+ANMjD+MiIqDggYEKP6fF6
+X-Received: by 2002:a05:6808:670d:b0:4cb:f21b:6f8a with SMTP id
+ 5614622812f47-4f529c14cb4mr8766254b6e.29.1791229556230; Mon, 05 Oct 2026
+ 12:45:56 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <cover.1790359547.git.jbingham@gmail.com> <29e5bed16cef4904e9649a9b77d42ec10cd33051.1790359547.git.jbingham@gmail.com>
+ <asNdbGAe7XGL3iBI@infradead.org>
+In-Reply-To: <asNdbGAe7XGL3iBI@infradead.org>
+From: Jeremy Bingham <jbingham@gmail.com>
+Date: Mon, 5 Oct 2026 12:45:45 -0700
+X-Gm-Features: AclHuK9sBR_JMbEJ17GZhtcFZl-KxwJ_VGnMPOWB_hH_tu9odnndxY0jemoRyWM
+Message-ID: <CAMyBmMDqnjR-XFTp4JENa6qTYDXZ6MRP7=7gYTzTwaN=bws9nQ@mail.gmail.com>
+Subject: Re: [PATCH v1 1/1] minix: consolidate itree* files into one itree.c file
+To: Christoph Hellwig <hch@infradead.org>
+Cc: linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	brauner@kernel.org, jkoolstra@xs4all.nl, jack@suse.cz, djwong@kernel.org, 
+	viro@zeniv.linux.org.uk
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-The trace buffer copy always has ROGUE_FW_TRACE_BUF_DEFAULT_SIZE_IN_DWORDS
-entries, so embed it in struct pvr_fw_trace_seq_data as a fixed-size
-array instead of allocating it separately. This removes one allocation
-and its error handling, and lets FORTIFY_SOURCE and UBSAN_BOUNDS see the
-real size of the buffer.
+On Mon, Oct 5, 2026 at 1:18=E2=80=AFAM Christoph Hellwig <hch@infradead.org=
+> wrote:
+>
+> Looks good from the high-level perspective:
+>
+> Reviewed-by: Christoph Hellwig <hch@lst.de>
+>
+> I assume you've run xfstests and checked nothing regresse=D1=95?
 
-At about 48KB, the struct needs an order-4 page allocation, which can
-fail under memory fragmentation. Allocate it with kvzalloc_obj() so it
-falls back to vmalloc in that case, and free it with kvfree().
+Of course. I covered the xfstests suite run for this in the cover
+letter rather than the patch (so I apologize if that was a mistake,
+but it seemed like the logical place for it), but it was the same
+branch I've used in the past for the iomap runs. It ran with no
+regressions compared to the baseline.
 
-Assisted-by: LLM
-Signed-off-by: Rosen Penev <rosenp@gmail.com>
----
- v2: use kvzalloc_obj()
- drivers/gpu/drm/imagination/pvr_fw_trace.c | 25 ++++++----------------
- 1 file changed, 7 insertions(+), 18 deletions(-)
+Thanks,
 
-diff --git a/drivers/gpu/drm/imagination/pvr_fw_trace.c b/drivers/gpu/drm/imagination/pvr_fw_trace.c
-index 6fe478f64f02..27bbc62114b1 100644
---- a/drivers/gpu/drm/imagination/pvr_fw_trace.c
-+++ b/drivers/gpu/drm/imagination/pvr_fw_trace.c
-@@ -240,9 +240,6 @@ update_logtype(struct pvr_device *pvr_dev, u32 group_mask)
- }
- 
- struct pvr_fw_trace_seq_data {
--	/** @buffer: Pointer to copy of trace data. */
--	u32 *buffer;
--
- 	/** @start_offset: Starting offset in trace data, as reported by FW. */
- 	u32 start_offset;
- 
-@@ -251,6 +248,9 @@ struct pvr_fw_trace_seq_data {
- 
- 	/** @assert_buf: Trace assert buffer, as reported by FW. */
- 	struct rogue_fwif_file_info_buf assert_buf;
-+
-+	/** @buffer: Copy of trace data. */
-+	u32 buffer[ROGUE_FW_TRACE_BUF_DEFAULT_SIZE_IN_DWORDS];
- };
- 
- static u32 find_sfid(u32 id)
-@@ -454,17 +454,10 @@ static int fw_trace_open(struct inode *inode, struct file *file)
- 	struct pvr_fw_trace_seq_data *trace_seq_data;
- 	int err;
- 
--	trace_seq_data = kzalloc_obj(*trace_seq_data);
-+	trace_seq_data = kvzalloc_obj(*trace_seq_data);
- 	if (!trace_seq_data)
- 		return -ENOMEM;
- 
--	trace_seq_data->buffer = kcalloc(ROGUE_FW_TRACE_BUF_DEFAULT_SIZE_IN_DWORDS,
--					 sizeof(*trace_seq_data->buffer), GFP_KERNEL);
--	if (!trace_seq_data->buffer) {
--		err = -ENOMEM;
--		goto err_free_data;
--	}
--
- 	/*
- 	 * Take a local copy of the trace buffer, as firmware may still be
- 	 * writing to it. This will exist as long as this file is open.
-@@ -477,17 +470,14 @@ static int fw_trace_open(struct inode *inode, struct file *file)
- 
- 	err = seq_open(file, &pvr_fw_trace_seq_ops);
- 	if (err)
--		goto err_free_buffer;
-+		goto err_free_data;
- 
- 	((struct seq_file *)file->private_data)->private = trace_seq_data;
- 
- 	return 0;
- 
--err_free_buffer:
--	kfree(trace_seq_data->buffer);
--
- err_free_data:
--	kfree(trace_seq_data);
-+	kvfree(trace_seq_data);
- 
- 	return err;
- }
-@@ -498,8 +488,7 @@ static int fw_trace_release(struct inode *inode, struct file *file)
- 		((struct seq_file *)file->private_data)->private;
- 
- 	seq_release(inode, file);
--	kfree(trace_seq_data->buffer);
--	kfree(trace_seq_data);
-+	kvfree(trace_seq_data);
- 
- 	return 0;
- }
--- 
-2.56.0
-
+-j
