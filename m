@@ -1,138 +1,159 @@
-Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj1-f98.google.com (mail-pj1-f98.google.com [209.85.216.98])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EFD863806AD;
-	Mon,  5 Oct 2026 21:45:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=185.203.200.13
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791236755; cv=pass; b=DCr3FpAaiFiVeKs5PAtlnCE4+Yu9bZoIPGui4ur8omtB+XteQnPUPaMRwjbiRyNr+tgEM5/r5y1NrSGxQoNObloRxKnEeAuxgZjkBWhdKOHFetx9nE8YTyXJ4ddz8dH2rmxI15pGKuDlnjpTMDyKrLqTY1QhczsDTHnx2cfBAjY=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791236755; c=relaxed/simple;
-	bh=2MTwAY9VqPBFTxx8gXlu7wj72CYKWUjkAGlMf2bz+GM=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=r3Oebf9QX6wWkKTzT6tPsXQjVFdR/2JaQlEBMGvXlLSdFcYAtmBBGDrzJjbDKGrMzd/EbsyA7VL30acqsOCcSBJQPH5H1uWDTFlOyXaJ+ToBZf/IdOfFSbGGBGOEEwhe6aC9qrrA5JShyohae2K8NP5EymIYA6RRFVMxkQeNUAE=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de; spf=pass smtp.mailfrom=pengutronix.de; dkim=pass (2048-bit key) header.d=pengutronix.de header.i=@pengutronix.de header.b=RWOlNcnf; arc=pass smtp.client-ip=185.203.200.13
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 75990414429
+	for <linux-kernel@vger.kernel.org>; Mon,  5 Oct 2026 21:51:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.98
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791237086; cv=none; b=uANHKNFT8MP1Xw7Re2WPyY6zEMzhnUYlsrAf/lfkHMvm+iPLOvs1UjDQ9LN/wYSb/bfrNih3xPhEkpQ1VlMQAgjVCvJA8Hioq0vstY+Bw7l5d2IlUwzqmBTyEoaKIsaQGwjkUjZa8oe0gX8i3iJ/XOnul2EF+3HRDcCyNaO+3RQ=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791237086; c=relaxed/simple;
+	bh=SRfGe8YUi4yesi7jAbLB72EfeA52rGM0mBJDk5EvxiA=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=CspPu+cOZISyRsVx15b8kHeDkILGlTlzSVRYcx9dJg7r0p8Q3pmswsOlcZQOmRW4j2Gdtrik0bsBpnOfXOhi+bEcZ75uR3GppMcahqZc38xk/DKznEpsDLkpf1GFC7zBo5Zo9B67j5lnP/PtNkJ6RpPxQKkqP+Fz+Nw3mdT63II=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com; spf=fail smtp.mailfrom=broadcom.com; dkim=pass (1024-bit key) header.d=broadcom.com header.i=@broadcom.com header.b=O4RB7jFa; arc=none smtp.client-ip=209.85.216.98
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=broadcom.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=pengutronix.de header.i=@pengutronix.de header.b="RWOlNcnf"
-Received: from drehscheibe.grey.stw.pengutronix.de (drehscheibe.grey.stw.pengutronix.de [IPv6:2a0a:edc0:0:c01:1d::a2])
-	(Authenticated sender: relay-from-drehscheibe.grey.stw.pengutronix.de)
-	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id BA1FE201C87;
-	Mon, 05 Oct 2026 23:45:46 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
-	s=20260414; t=1791236746;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=M2Kgy4yTi5RM8CpV2xL3SMstzRy/ZLl0saPpkIunVPU=;
-	b=RWOlNcnfxJxY4D30d/zKsw/wneK6erMv7eW804Ps+YXxKXpF2K6dSURN0OTKHiMtcUAe4I
-	tazZ20zOFZMoPAj03r8uj6vH6/6BPRTWg7ZqOzOWunevKsSYP9DXvme8mZ4aNaL58VGpTU
-	gLy9GId74gRM30ju/Uoh3BDZgXu+57yQa48Bb12Rb4S3fKyaleXoYQzsIuW4Rf+3Y/8A8q
-	HWrxu50MGmQBR6FLOcryIqNMCuzeSmsev1MdHA+YNwMsdMMs+8oCse1lKK3FMCLSJND5r1
-	Z9R9JAsRf0tRlLkwPzklJJs8CtJlMLp2Ef/7lCbFm1K6lkbYLRZ/5q9XQVso2w==
-ARC-Seal: i=1; s=20260414; d=pengutronix.de; t=1791236746; a=rsa-sha256;
-	cv=none;
-	b=V9iwWyBXMZeNiDCRCSqUiGyHT+UdiTlCx3dC80sLGQ/cmgzNL8JorehLILbogsWNlynQgG
-	YE8TxiP0RRmKv/dkg8IddoxPIfH8yArQ0sWxTgTwMSRPz0iMqoDXsCk6EkL92qEAjYiu/v
-	JPaHaGzwahibtJBTUfRcm0V8lpC4dAiWgqOrvs/ysTYmIUOtmLVKttnPs8sdKfNAUNeJsF
-	eB7qX/Jyw9JWBvtmUE81xKDP7dmR+dfSKn1FmcrbSBuZ+yAW0gtQfd/BoAdpyUBsCNdBhl
-	8OzdfQ64vgcZdbm1mtvq57jeIoNhC0iAvIciuIvwBqQ9ZRzGcZbgMKumnatQDg==
-ARC-Authentication-Results: i=1;
-	ORIGINATING;
-	auth=pass smtp.auth=relay-from-drehscheibe.grey.stw.pengutronix.de smtp.mailfrom=mkl@pengutronix.de
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
-	s=20260414; t=1791236746;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=M2Kgy4yTi5RM8CpV2xL3SMstzRy/ZLl0saPpkIunVPU=;
-	b=J8vNz+4HSyuvt3MCJsCAexvwTYsArHdO4VPch6nF6wqELR5xIQudDbL3L0s+Y7eNNBYfE1
-	s+VIBZ7utZVJv+hlFMGstRNVjBYMScfxpL/XdZemsMhXc+fHxrI7ZKNEsa0jOW9/Q723Tp
-	SEqPtiEtQpXDZd2oxNfjUOK8WHy2LmOd99YqYj+kNrRhGVx7WivEgYP4rDIPmzBJPCjACh
-	99B1bpWHRAvXYLxGE2fv3tWOpz/F5gdiY2BwVLDpOCkz/Id+xFj+71A3Y2qYmAuODbI4WQ
-	Q9bS+18LxKufqQY01Gww9pWy8cJqKiQaINShtuU6S0/1MxqPFd0kiacS1Sq08Q==
-Received: from moin.white.stw.pengutronix.de ([2a0a:edc0:0:b01:1d::7b] helo=bjornoya.blackshift.org)
-	by drehscheibe.grey.stw.pengutronix.de with esmtps  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
-	(Exim 4.96)
-	(envelope-from <mkl@pengutronix.de>)
-	id 1xDqVG-004RkN-22;
-	Mon, 05 Oct 2026 23:45:46 +0200
-Received: from pengutronix.de (unknown [185.249.113.225])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(Client did not present a certificate)
-	(Authenticated sender: mkl-all@blackshift.org)
-	by smtp.blackshift.org (Postfix) with ESMTPSA id 0D4D15BA6E9;
-	Mon, 05 Oct 2026 21:45:45 +0000 (UTC)
-Date: Mon, 5 Oct 2026 23:45:45 +0200
-From: Marc Kleine-Budde <mkl@pengutronix.de>
-To: =?utf-8?B?U3TDqXBoYW5l?= Grosjean <stephane.grosjean@free.fr>
-Cc: mailhol@kernel.org, linux-kernel@vger.kernel.org, 
-	linux-can@vger.kernel.org, kernel@pengutronix.de, s grosjean <s.grosjean@peak-system.fr>, 
-	kuba@kernel.org
-Subject: Re: [PATCH can-next 6/7] can: peak_usb: Add bus error reporting for
- the PCAN-USB FD family
-Message-ID: <20261005-ancient-viper-of-swiftness-c884c3-mkl@pengutronix.de>
-References: <179106844116.1406898.10605612528694983606@kernel.org>
- <1730786945.910525984.1791210132571.JavaMail.root@zimbra65-e11.priv.proxad.net>
+	dkim=pass (1024-bit key) header.d=broadcom.com header.i=@broadcom.com header.b="O4RB7jFa"
+Received: by mail-pj1-f98.google.com with SMTP id 98e67ed59e1d1-3a7d283e017so1262725a91.3
+        for <linux-kernel@vger.kernel.org>; Mon, 05 Oct 2026 14:51:25 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791237085; x=1791841885;
+        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:dkim-signature:x-gm-gg:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=Ok89UhJOJlflXXvwPm7JXDB/KV5PdIv3y4CRaPBGxRw=;
+        b=gnJfVQTKkV52tdpfGyx9C+gYsOzmLr4/7vPiXYrUuaqL+UAAuNcPHYnCTJtsr15aId
+         sPEQsUwURszZEj1rf5HvAdzUemYagctZRi+A2ScE4jvAUtsunBTpt9v1ix+j3E93CsRO
+         i7if7yk2/PTQ4v1MMYbaYu5YgsLJgxilLYGp2uvul01/mE39e38SAcTRRMkMVC0SjLay
+         u/fzy41ipH2Sk9ZjYyF2XnsJyAs7xjskiP1z/PScjimvJ+/BlRxV3gjZzGqMqiG18Caz
+         U8mrcLkAwihCaB8O7SbpGR0f+/8cySz+wDWQBOtFDV86qdgvaPmhDTADHRZIP64Xvx9H
+         8ydA==
+X-Forwarded-Encrypted: i=1; AKwUvBz/UAgCq9tXF9BI6CC+PMbsZ6/0pRsTaHdaTaQBNHCeLG050dcyV08yIOE0Ue2vTOmsCm5/pp7d69ff7tE=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJH+g8ryLHNLw5uQEA9HoXO+a8rXmYpQCOFa9Dkuze9G8sPbi26
+	6h1TjLJmTnFBqOrhOnjlpH3oKGrBwknYCctl5MfbJwEM3LgSfRclTHPaZ19PhxtbrOybgFVDO5y
+	DCUjG5fqn+dlJJnr/4kP/veJm6FoBJKkk03y7FrWr5PESRRUV+a+tjS1o+JGgIgci72IOP2hNCl
+	zLbud8BnlGovtK/SE4Rvv4xxzM2WktYjRHaB7Mdu2iSbVKvTJtdrD5Wjv0h2hmSBUiZ+GFF/5tk
+	None0CSlk1CFfOblM+6HZXP
+X-Gm-Gg: AYBFou07nq2FL4l0aHD+rmegpHMjRm30DX9u8I6KegFJZIoxR+THLAvV4UtkgcPmWv4
+	FsboVUn7rotZLF2Vb6PUDLPaRk0/LpcpFb2wyd12ZOlF+E8+b/uFq97XqdOF29OQeXrLt8Q5ffK
+	Of7U5dk0uXeOxsYcXNxRqpzVbmaL+jwKs/1LX8bVlsCslqLHroJY8u6LpSkJte6+s5x+sx6CDzW
+	mjfJO5fLcEvHBMkizbSZz4I4PujQb4F6BQxA9jIFnOguAm0bQSPW4MhqGFzyv+c4X3848udKgAn
+	tav5TZx41fG++Op8VVR+6ar9ax4a6LBGAu1PJVerfZr1bCeeftkJJ8aYOkiB/43sXUpEJ9q2O8C
+	gGaaPGTihLWgH9fj+2RQMpww3ZmT6hA6tXoKJGdsshbN38JV1Funj3E5AdaxobZ3Z/4MLvqswh/
+	XawYFGViR3or9Fkwy7ERxDBTJouEjYNi89pUeueu4PMl0=
+X-Received: by 2002:a17:90b:510c:b0:3a8:1745:6bf5 with SMTP id 98e67ed59e1d1-3a817456cd8mr2711421a91.53.1791237084723;
+        Mon, 05 Oct 2026 14:51:24 -0700 (PDT)
+Received: from smtp-us-east1-p01-i01-si01.dlp.protect.broadcom.com (address-144-49-247-120.dlp.protect.broadcom.com. [144.49.247.120])
+        by smtp-relay.gmail.com with ESMTPS id 98e67ed59e1d1-3a8543792c8sm370272a91.8.2026.10.05.14.51.23
+        for <linux-kernel@vger.kernel.org>
+        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+        Mon, 05 Oct 2026 14:51:24 -0700 (PDT)
+X-Relaying-Domain: broadcom.com
+X-CFilter-Loop: Reflected
+Received: by mail-dy1-f199.google.com with SMTP id 5a478bee46e88-34d80ca2184so2957164eec.0
+        for <linux-kernel@vger.kernel.org>; Mon, 05 Oct 2026 14:51:22 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=broadcom.com; s=google; t=1791237082; x=1791841882; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Ok89UhJOJlflXXvwPm7JXDB/KV5PdIv3y4CRaPBGxRw=;
+        b=O4RB7jFa1Zh/Nt4uVetOSiozJprarNWu8hy2IIOTDg9bvfcC0xdojgsMd3ZtJtMRDX
+         ehu1Md7jEwsvyGhYfj4XTH7eAeIDrEtnewHEvkT8a4i50x0X3glx/WDYNL2XVUH4Z6v1
+         /Ncfa4bGyQ3VRvemQldHNwrOIze5LQnz5baeU=
+X-Forwarded-Encrypted: i=1; AKwUvBxB+TNcu7gV5enFN92JA61zwE0nikXheTdaAV+oafiuSVE3x3r285xDQKGdjqfNAqKVMDtOSvH7OYxZt8U=@vger.kernel.org
+X-Received: by 2002:a05:693c:8803:20b0:34e:f726:928a with SMTP id 5a478bee46e88-351111bf78amr10545504eec.3.1791237081776;
+        Mon, 05 Oct 2026 14:51:21 -0700 (PDT)
+X-Received: by 2002:a05:693c:8803:20b0:34e:f726:928a with SMTP id 5a478bee46e88-351111bf78amr10545470eec.3.1791237081128;
+        Mon, 05 Oct 2026 14:51:21 -0700 (PDT)
+Received: from [10.67.48.245] ([192.19.223.252])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-35146b5ee6bsm1595026eec.30.2026.10.05.14.51.19
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 05 Oct 2026 14:51:20 -0700 (PDT)
+Message-ID: <1acb8eb0-3443-43e3-ab66-5328b98a6143@broadcom.com>
+Date: Mon, 5 Oct 2026 14:51:18 -0700
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="wbgkbrp2rld2sxso"
-Content-Disposition: inline
-In-Reply-To: <1730786945.910525984.1791210132571.JavaMail.root@zimbra65-e11.priv.proxad.net>
+User-Agent: Mozilla Thunderbird
+Subject: Re: netdev LLM review for backports (WAS: [PATCH 5.10.y] net: sched:
+ cls_u32: Undo tcf_bind_filter if u32_replace_hw_knode)
+To: Jakub Kicinski <kuba@kernel.org>, Sasha Levin <sashal@kernel.org>
+Cc: netdev-bot+sinfo@kernel.org,
+ "Miguel Gazquez (Schneider Electric)" <miguel.gazquez@bootlin.com>,
+ stable@vger.kernel.org, Jamal Hadi Salim <jhs@mojatatu.com>,
+ Cong Wang <xiyou.wangcong@gmail.com>, Jiri Pirko <jiri@resnulli.us>,
+ "David S. Miller" <davem@davemloft.net>,
+ "Samudrala, Sridhar" <sridhar.samudrala@intel.com>,
+ John Fastabend <john.r.fastabend@intel.com>,
+ Benjamin Robin <benjamin.robin@bootlin.com>,
+ Thomas Petazzoni <thomas.petazzoni@bootlin.com>, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Victor Nogueira <victor@mojatatu.com>,
+ Pedro Tammela <pctammela@mojatatu.com>,
+ Simon Horman <simon.horman@corigine.com>
+References: <20261005-cve-2023-53733-v1-1-d716b944802c@bootlin.com>
+ <179119639380.1402591.2155637888002963@kernel.org> <asOtjgd0NMXMjCCZ@laps>
+ <20261005142128.30f80c5b@kernel.org>
+Content-Language: en-US, fr-FR
+From: Florian Fainelli <florian.fainelli@broadcom.com>
+Autocrypt: addr=florian.fainelli@broadcom.com; keydata=
+ xsBNBFPAG8ABCAC3EO02urEwipgbUNJ1r6oI2Vr/+uE389lSEShN2PmL3MVnzhViSAtrYxeT
+ M0Txqn1tOWoIc4QUl6Ggqf5KP6FoRkCrgMMTnUAINsINYXK+3OLe7HjP10h2jDRX4Ajs4Ghs
+ JrZOBru6rH0YrgAhr6O5gG7NE1jhly+EsOa2MpwOiXO4DE/YKZGuVe6Bh87WqmILs9KvnNrQ
+ PcycQnYKTVpqE95d4M824M5cuRB6D1GrYovCsjA9uxo22kPdOoQRAu5gBBn3AdtALFyQj9DQ
+ KQuc39/i/Kt6XLZ/RsBc6qLs+p+JnEuPJngTSfWvzGjpx0nkwCMi4yBb+xk7Hki4kEslABEB
+ AAHNMEZsb3JpYW4gRmFpbmVsbGkgPGZsb3JpYW4uZmFpbmVsbGlAYnJvYWRjb20uY29tPsLB
+ IQQQAQgAywUCZWl41AUJI+Jo+hcKAAG/SMv+fS3xUQWa0NryPuoRGjsA3SAUAAAAAAAWAAFr
+ ZXktdXNhZ2UtbWFza0BwZ3AuY29tjDAUgAAAAAAgAAdwcmVmZXJyZWQtZW1haWwtZW5jb2Rp
+ bmdAcGdwLmNvbXBncG1pbWUICwkIBwMCAQoFF4AAAAAZGGxkYXA6Ly9rZXlzLmJyb2FkY29t
+ Lm5ldAUbAwAAAAMWAgEFHgEAAAAEFQgJChYhBNXZKpfnkVze1+R8aIExtcQpvGagAAoJEIEx
+ tcQpvGagWPEH/2l0DNr9QkTwJUxOoP9wgHfmVhqc0ZlDsBFv91I3BbhGKI5UATbipKNqG13Z
+ TsBrJHcrnCqnTRS+8n9/myOF0ng2A4YT0EJnayzHugXm+hrkO5O9UEPJ8a+0553VqyoFhHqA
+ zjxj8fUu1px5cbb4R9G4UAySqyeLLeqnYLCKb4+GklGSBGsLMYvLmIDNYlkhMdnnzsSUAS61
+ WJYW6jjnzMwuKJ0ZHv7xZvSHyhIsFRiYiEs44kiYjbUUMcXor/uLEuTIazGrE3MahuGdjpT2
+ IOjoMiTsbMc0yfhHp6G/2E769oDXMVxCCbMVpA+LUtVIQEA+8Zr6mX0Yk4nDS7OiBlvOwE0E
+ U8AbwQEIAKxr71oqe+0+MYCc7WafWEcpQHFUwvYLcdBoOnmJPxDwDRpvU5LhqSPvk/yJdh9k
+ 4xUDQu3rm1qIW2I9Puk5n/Jz/lZsqGw8T13DKyu8eMcvaA/irm9lX9El27DPHy/0qsxmxVmU
+ pu9y9S+BmaMb2CM9IuyxMWEl9ruWFS2jAWh/R8CrdnL6+zLk60R7XGzmSJqF09vYNlJ6Bdbs
+ MWDXkYWWP5Ub1ZJGNJQ4qT7g8IN0qXxzLQsmz6tbgLMEHYBGx80bBF8AkdThd6SLhreCN7Uh
+ IR/5NXGqotAZao2xlDpJLuOMQtoH9WVNuuxQQZHVd8if+yp6yRJ5DAmIUt5CCPcAEQEAAcLB
+ gQQYAQIBKwUCU8AbwgUbDAAAAMBdIAQZAQgABgUCU8AbwQAKCRCTYAaomC8PVQ0VCACWk3n+
+ obFABEp5Rg6Qvspi9kWXcwCcfZV41OIYWhXMoc57ssjCand5noZi8bKg0bxw4qsg+9cNgZ3P
+ N/DFWcNKcAT3Z2/4fTnJqdJS//YcEhlr8uGs+ZWFcqAPbteFCM4dGDRruo69IrHfyyQGx16s
+ CcFlrN8vD066RKevFepb/ml7eYEdN5SRALyEdQMKeCSf3mectdoECEqdF/MWpfWIYQ1hEfdm
+ C2Kztm+h3Nkt9ZQLqc3wsPJZmbD9T0c9Rphfypgw/SfTf2/CHoYVkKqwUIzI59itl5Lze+R5
+ wDByhWHx2Ud2R7SudmT9XK1e0x7W7a5z11Q6vrzuED5nQvkhAAoJEIExtcQpvGagugcIAJd5
+ EYe6KM6Y6RvI6TvHp+QgbU5dxvjqSiSvam0Ms3QrLidCtantcGT2Wz/2PlbZqkoJxMQc40rb
+ fXa4xQSvJYj0GWpadrDJUvUu3LEsunDCxdWrmbmwGRKqZraV2oG7YEddmDqOe0Xm/NxeSobc
+ MIlnaE6V0U8f5zNHB7Y46yJjjYT/Ds1TJo3pvwevDWPvv6rdBeV07D9s43frUS6xYd1uFxHC
+ 7dZYWJjZmyUf5evr1W1gCgwLXG0PEi9n3qmz1lelQ8lSocmvxBKtMbX/OKhAfuP/iIwnTsww
+ 95A2SaPiQZA51NywV8OFgsN0ITl2PlZ4Tp9hHERDe6nQCsNI/Us=
+In-Reply-To: <20261005142128.30f80c5b@kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-DetectorID-Processed: b00c1d49-9d2e-4205-b15f-d015386d3d5e
 
+On 10/5/26 14:21, Jakub Kicinski wrote:
+> On Mon, 5 Oct 2026 10:00:46 -0400 Sasha Levin wrote:
+>> I started seeing these reviews on proposed backports of net/ commits, and while
+>> they are REALLY great for upstream commits, I do not think that these comments
+>> make sense in the context of a backport.
+> 
+> Blah, sorry about that.
+> Let me add a regex on the tags to exclude patches with 5.x/6.x/7.x
+> 
 
---wbgkbrp2rld2sxso
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH can-next 6/7] can: peak_usb: Add bus error reporting for
- the PCAN-USB FD family
-MIME-Version: 1.0
+They are useful if the backport does not cleanly cherry pick, because it 
+is possible to introduce bugs in the process of back porting a specific 
+commit. I don't think sashiko is quite smart enough to be able to do 
+that however.
+-- 
+Florian
 
-On 05.10.2026 16:22:12, St=C3=A9phane Grosjean wrote:
-> Can you let me know if I need to make changes myself to these patches
-> you sent,
-
-Sure!
-
-> and if so, how? (Should the new requested changes=E2=80=94which are
-> unrelated to the original patch=E2=80=94be included in a new version? Or =
-in a
-> different series?...)
-
-As I'm not planing to work on this series, feel free to take it
-(including my patches), add your changes and send a v2.
-
-FYI: you can import the series to your b4 with:
-
-| b4 prep -n peak_usb_enhancements -f net-next/main -F 20261002-peak_usb_en=
-hancements-v1-0-50e965755c06@pengutronix.de
-
-regards,
-Marc
-
---=20
-Pengutronix e.K.                 | Marc Kleine-Budde          |
-Embedded Linux                   | https://www.pengutronix.de |
-Vertretung N=C3=BCrnberg              | Phone: +49-5121-206917-129 |
-Amtsgericht Hildesheim, HRA 2686 | Fax:   +49-5121-206917-9   |
-
---wbgkbrp2rld2sxso
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iHUEABYKAB0WIQSl+MghEFFAdY3pYJLMOmT6rpmt0gUCasQahQAKCRDMOmT6rpmt
-0oirAP9772cdydlnoqi2h6jO4aCq62wegPxwMRiKbrTCcFMxuAEA/Bu2pSBHSQHz
-SK50i3qJLXIEkR29If0xeGUZQY6RiQI=
-=CW2k
------END PGP SIGNATURE-----
-
---wbgkbrp2rld2sxso--
