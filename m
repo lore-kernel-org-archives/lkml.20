@@ -1,44 +1,52 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1E2704766A7;
-	Mon,  5 Oct 2026 10:54:04 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7BB6547ACC0;
+	Mon,  5 Oct 2026 10:54:51 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791197645; cv=none; b=KSAkxTl/sH5Rzhpq1K3zpcxucUC5X8FKm3kHWHSivjw7IUFbeushINJ/+Pl2v5QBJ29W/UVuemYJ03FqTvBFzpk0Kb5eRpe5jiHOU7VuKwxs90reP6CoOPR8EQVgTeoXZtK1yIAYA5GMQ5j63pJ1CA1xpePPnmAhHEmfVO5CAwo=
+	t=1791197692; cv=none; b=M3nhYhLf/Ru1d3CvH5SKWrRDzZ0iIhmu8abQjAe5ecdNYWjybEneod/N05fWd7SminEK52ReWllHlgHJvXyq0L8hQXwAFlZhbHK0NFPKRAgy+4MVU6sr9oQuUCBWyMfLoYBJ3+4bSExLIFECTNIoUWR5vtwzODFuLYREQRqhDzo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791197645; c=relaxed/simple;
-	bh=Jo1mU8+O8M1j1DxxhL38J2XFwPd5MPGjkNvak8PIuVk=;
-	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
-	 Content-Disposition; b=gU/9EC8/CTimDpzc12mJ+VzMxr4EPd3jotbQmGno90kwW50ZbYSuCdyAotMpW3fpOwpYa1mjYKz/tmNRn5Gz1Fir151Yh0/czCkH3kBk0siSLXLhYkfeqWZFKk367MFDn4V9C2TtCNHltm65LPMBbe3nAZ4+MWXRBEXqdPEqcEw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=I4dCQcsC; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791197692; c=relaxed/simple;
+	bh=4aOphlxRPVBxuWoEocxLm5Po9OeaVNbNJM8xAl/MU5I=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Ky2Ao50rIa7X0j7nDjKwIWZSK/hZa9KSLDBPMFm/bB0ZMGshgJJ7IBN7wV1jYqVn1E5MIUMonVo20793o6FrlOl5tEksHhv/jULvDnSD4U5q2VlRXJwXzvCIiCZHHM9eur0Yz+hYNmXwbixoupFJYpQx2NXRYMb3LVqmTdRggeA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZaeausFF; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="I4dCQcsC"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BBF4E1F0089A;
-	Mon,  5 Oct 2026 10:54:03 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZaeausFF"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2FCE51F000FF;
+	Mon,  5 Oct 2026 10:54:48 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791197643;
-	bh=PkWMPEeQmQFDxxmbrkJ9DHwD02vrhosTFTc+pj9bTAc=;
-	h=Date:From:To:Cc:Subject;
-	b=I4dCQcsCpm4V4XE8liVPcNVqb1O5XJFcFRctha3b9XH+CgG1CzPABI5hMvmkMFTVJ
-	 gKJugYMNt8FFGWOlnI+pskqkkGCtvOHrm9i5ASsK1wgFpA/aUlhXCJ51wmJMWDhEvs
-	 ZeKYQfl5ESRei9RyHRGLCAA4Km3VZ35JCWWDIPAllEzjpLN9qZ0pT5oUvt9bEpJVvx
-	 DzqMdEI7pV9OIBzrESKb3MKDJ7nO4LUOaKzKmDxJLOhZZ7qJjmy/R2H89bywXp6e5S
-	 Q0nUPb+0IlQckYsMqOufn0KSo202isyZjVxLdbYulRx0dAniwbRPSGVzXxCnOhA4jA
-	 2GZWfTtIhufZw==
-Received: by finisterre.sirena.org.uk (Postfix, from userid 1000)
-	id BC7101AC57CE; Mon, 05 Oct 2026 11:54:00 +0100 (BST)
-Date: Mon, 5 Oct 2026 12:54:00 +0200
-From: Mark Brown <broonie@kernel.org>
-To: Dave Airlie <airlied@redhat.com>, DRI <dri-devel@lists.freedesktop.org>
-Cc: Alex Deucher <alexander.deucher@amd.com>, Alex Hung <alex.hung@amd.com>,
-	Ivan Lipski <ivan.lipski@amd.com>,
-	Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
-	Linux Next Mailing List <linux-next@vger.kernel.org>,
-	Ray Wu <ray.wu@amd.com>, Sasha Levin <sashal@kernel.org>,
-	Wenjing Liu <wenjing.liu@amd.com>
-Subject: linux-next: manual merge of the drm tree with the origin tree
-Message-ID: <asOByBk2DUB9J4qI@sirena.co.uk>
+	s=k20260515; t=1791197691;
+	bh=4aOphlxRPVBxuWoEocxLm5Po9OeaVNbNJM8xAl/MU5I=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=ZaeausFFJYnLsWIPauJzCjGNEytEx2XpHyKTPBa+6hq1wC5ouXkOvcOq0qKPvtpsC
+	 QKw1NrbPto94WEc3DypNPEZDz2NPGyQkfAwxyIqnhZ6/ul+8si2C9W+U3ImMuxZwI0
+	 tWtkivT/kY+1fEYuHawJ4JqoQDvMW0bZgtj8wNanLhb0YqnzeSb6HejFkcMlHbZaRA
+	 DpcOawhFZfu1O26eGAKZmlzkGKd/+pEs0gKQ76aO/c10vf+Z6Hb7vI05D5+7tiL5m2
+	 nyYA/ysEShT3est/VhxLpoG+3QDldT+Jfo0Q63pAZaRjsOCZD7AUF5amKiYJXzABfN
+	 7Largm3793xkw==
+Date: Mon, 5 Oct 2026 11:54:45 +0100
+From: Conor Dooley <conor@kernel.org>
+To: Neil Armstrong <neil.armstrong@linaro.org>
+Cc: Luca Weiss <luca.weiss@fairphone.com>,
+	Jessica Zhang <jesszhan0024@gmail.com>,
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Maxime Ripard <mripard@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, Luca Weiss <luca@lucaweiss.eu>,
+	~postmarketos/upstreaming@lists.sr.ht, phone-devel@vger.kernel.org,
+	dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 1/2] dt-bindings: display: panel: himax,hx83112a: Tighten
+ compatible matching
+Message-ID: <asOB9azB6OCN5fYH@squawk>
+References: <20261002-hx83112-compatible-contains-v1-0-d558635ab7fc@fairphone.com>
+ <20261002-hx83112-compatible-contains-v1-1-d558635ab7fc@fairphone.com>
+ <9be89803-974c-4746-8af0-a13e5a19fb33@linaro.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -46,88 +54,26 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="e7PHVkRnAXL2h9S0"
+	protocol="application/pgp-signature"; boundary="RIqa/r0/keXy6YTE"
 Content-Disposition: inline
+In-Reply-To: <9be89803-974c-4746-8af0-a13e5a19fb33@linaro.org>
 
-
---e7PHVkRnAXL2h9S0
+--RIqa/r0/keXy6YTE
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
 
-Hi all,
+Acked-by: Conor Dooley <conor.dooley@microchip.com>
+pw-bot: not-applicable
 
-Today's linux-next merge of the drm tree got conflicts in:
-
-  drivers/gpu/drm/amd/display/dc/dml2_0/Makefile
-  drivers/gpu/drm/amd/display/dc/dml/Makefile
-
-between commits:
-
-  18779dd84515d ("drm/amd/display: Bump frame warning limit for clang build=
-s of dml")
-  15814c01ac576 ("drm/amd/display: Bump frame warning limit for all builds =
-of dml")
-  fbc988f236a60 ("drm/amd/display: Fix sanitizer check for the DML frame si=
-ze limit")
-
-=66rom the origin tree and commits:
-
-  7e3422ee337f9 ("drm/amd/display: Add dml2_core_dcn6_calcs function pointe=
-r table")
-  ebf8b0fd8508b ("drm/amd/display: Relax DML frame limit with UBSAN")
-  21711b6e66bb7 ("drm/amd/display: Bump frame warning limit for clang build=
-s of dml")
-  76b9706e7fa1a ("drm/amd/display: Bump frame warning limit for all builds =
-of dml")
-
-=66rom the drm tree.
-
-I fixed it up (see below) and can carry the fix as necessary. This
-is now fixed as far as linux-next is concerned, but any non trivial
-conflicts should be mentioned to your upstream maintainer when your tree
-is submitted for merging.  You may also want to consider cooperating
-with the maintainer of the conflicting tree to minimise any particularly
-complex conflicts.
-
-diff --cc drivers/gpu/drm/amd/display/dc/dml/Makefile
-index eb4ce5b1ecfbb,91465ac05c971..0000000000000
---- a/drivers/gpu/drm/amd/display/dc/dml/Makefile
-+++ b/drivers/gpu/drm/amd/display/dc/dml/Makefile
-@@@ -29,7 -29,7 +29,7 @@@ dml_ccflags :=3D $(CC_FLAGS_FPU
-  dml_rcflags :=3D $(CC_FLAGS_NO_FPU)
- =20
-  ifneq ($(CONFIG_FRAME_WARN),0)
--     ifneq ($(filter y,$(CONFIG_KASAN) $(CONFIG_KCSAN) $(CONFIG_UBSAN)),)
- -    ifeq ($(filter y,$(CONFIG_KASAN)$(CONFIG_KCSAN)$(CONFIG_UBSAN)),y)
-++    ifneq ($(filter y,$(CONFIG_KASAN)$(CONFIG_KCSAN)$(CONFIG_UBSAN)),y)
-          ifeq ($(CONFIG_CC_IS_CLANG)$(CONFIG_COMPILE_TEST),yy)
-              frame_warn_limit :=3D 4096
-          else
-diff --cc drivers/gpu/drm/amd/display/dc/dml2_0/Makefile
-index 289bac08c82c1,e8bd061be05c1..0000000000000
---- a/drivers/gpu/drm/amd/display/dc/dml2_0/Makefile
-+++ b/drivers/gpu/drm/amd/display/dc/dml2_0/Makefile
-@@@ -28,7 -28,7 +28,7 @@@ dml2_ccflags :=3D $(CC_FLAGS_FPU
-  dml2_rcflags :=3D $(CC_FLAGS_NO_FPU)
- =20
-  ifneq ($(CONFIG_FRAME_WARN),0)
--     ifneq ($(filter y,$(CONFIG_KASAN) $(CONFIG_KCSAN) $(CONFIG_UBSAN)),)
- -    ifeq ($(filter y,$(CONFIG_KASAN)$(CONFIG_KCSAN)$(CONFIG_UBSAN)),y)
-++    ifneq ($(filter y,$(CONFIG_KASAN)$(CONFIG_KCSAN)$(CONFIG_UBSAN)),y)
-          ifeq ($(CONFIG_CC_IS_CLANG)$(CONFIG_COMPILE_TEST),yy)
-              frame_warn_limit :=3D 4096
-          else
-
---e7PHVkRnAXL2h9S0
-Content-Type: application/pgp-signature; name="signature.asc"
+--RIqa/r0/keXy6YTE
+Content-Type: application/pgp-signature; name=signature.asc
 
 -----BEGIN PGP SIGNATURE-----
 
-iHUEABYKAB0WIQReagvpf3TrrA7BoYYv73Ows9A4iQUCasOBuQAKCRAv73Ows9A4
-iYBRAQDXmlRyfO8Z5gFoo30c29J/qYNzLn9V8jA40CgY529xqwD8CiQzIIHF09hG
-2raGdkXpyzV5a5YZEv/O775dhET0MQg=
-=ZkUC
+iHUEARYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCasOB9QAKCRB4tDGHoIJi
+0ioTAQCm9zEIddkeZKgrUFGRAvTEXyK9EGR5tMTlusa2quGuuAD7BHGyTr47xeBU
+y2PDNwtEgnc2DyFZx2ys0wU/gewdpAY=
+=pQsR
 -----END PGP SIGNATURE-----
 
---e7PHVkRnAXL2h9S0--
+--RIqa/r0/keXy6YTE--
