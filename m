@@ -1,169 +1,103 @@
-Received: from mail-pz2-f39.google.com (mail-pz2-f39.google.com [74.125.228.39])
+Received: from mail-ua1-f43.google.com (mail-ua1-f43.google.com [209.85.222.43])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 46738134CCF
-	for <linux-kernel@vger.kernel.org>; Mon,  5 Oct 2026 00:19:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.39
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2B97019CC0F
+	for <linux-kernel@vger.kernel.org>; Mon,  5 Oct 2026 00:25:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.43
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791159600; cv=none; b=XwF0x0zb5OhvfDm2bMVy9uI8RnEx9lzWm/2sHLrPvZHp3c2xTBYgJq5LtRmD4f8QPYmLNI8JHTRkPd1okCn9HwleMxoZc0qBAgMuZAQUm8t7BfJmMqkT5sImOUZ9JTRVQHovCdIBV7Z9mAWstfO+ZGzirNe2UFs3BbxyrP5zPms=
+	t=1791159940; cv=none; b=PwUJOniMKlAy6vuExJPoFrHmsEp7F/WoZbGTctmO78XnKD9rGjELzOBpacAHzSEtVkl2X1oziVli8riDKiX6eBZ5nb9ifPrtnLwCjykNMRphePw1QALz+LwmQI19WikR08htYY3kYjD4wHsiTHEUwx/xItCwMPSqnP+pryU5YaQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791159600; c=relaxed/simple;
-	bh=/vqS67ZBm4z3Lyj7DyKHKo+hGK6JBe8Hby7kpXQmvhI=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=hBdt+BjnBy0BXnuEauve3cYZFZyoHplZI8zyE0fx8MwlY0nkZMfXif/ZgVpQmER+1cDrV0HyXMYoALoH+WpJvTo4ACwERN81bBDOxeG2QbczYbfNOp8rS2t7VkYYfn1HccisKkIYzR0ewlq8m3pj1ot9E/pI7aX4oTlcd64rjsw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ScXUzp5F; arc=none smtp.client-ip=74.125.228.39
+	s=arc-20240116; t=1791159940; c=relaxed/simple;
+	bh=UjOBKbAKoYtFXedpgYaUu+eAQwTobi8qej6jfEwI434=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=tq9vxEO6bKcfwGv0DHY68GAeEB8qcSA1E/jN+tCE/7Z0RR1FhrJ+a++mB1AAT2tbhIGQrNVBQoY/3nZQWDqOZurQMctlO4HBpQf5HeE2EvMtsp0M3A+sxcFc5iDd4avU5zp9WvWSeSVPnk603gngit77+AOsY5KRfwu9REz4pyY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Th8sWnca; arc=none smtp.client-ip=209.85.222.43
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ScXUzp5F"
-Received: by mail-pz2-f39.google.com with SMTP id 41be03b00d2f7-cc78dd412cfso367473a12.0
-        for <linux-kernel@vger.kernel.org>; Sun, 04 Oct 2026 17:19:58 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Th8sWnca"
+Received: by mail-ua1-f43.google.com with SMTP id a1e0cc1a2514c-988f270d308so799150241.2
+        for <linux-kernel@vger.kernel.org>; Sun, 04 Oct 2026 17:25:39 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791159598; x=1791764398; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=eyhjDtsive9z9y/5PUzMcRP2YBEJQnRy/rcYJL07i/E=;
-        b=ScXUzp5F/JAa9hHKYvOJGaC9R+D66EwOMZI/PpeMWP0f9KkoXEZ2LxveIai3lco+Bf
-         HWDq3n52NykVUAxaZRbSpr/NiozY/9W50IOoI19ibm4Iee3hIi52EswRNeSdOaS+nnar
-         pUlvrlYIQR8ZdN7zWU4Iq4jPur+mxNDYdBvTO5CBPw7Gj6GOQsT8JNYkySZgzNDcErsS
-         yP6eH2qL8XnkiJDVR0WaXWVSS0YchgZrAcCc/DWNLSmGDN01jP2eY3+O1J/N0EY/zXxi
-         0u3PAjTycDN+ZeC93wgH5DjGfyKc3mEDyzmDTPAvrfJB1Iq5hEbOXjVnMNV5gj1kgzS+
-         XRgw==
+        d=gmail.com; s=20251104; t=1791159938; x=1791764738; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=FRktsRR8jsvxEuGT6N6yXFN0RwMzMtvHCyMuqTTf4kI=;
+        b=Th8sWncaWdjYhP4jMWC1EEw+aZyoKR8q7n97nwPoM6nGCE+92S+CZDk+Hit+rlS7Ym
+         6n+mKm2UUA6WDijYmdf7YMdSxjwjQBXF/pwvYiEb+7vP2UkeFJ2dbSliwgTKxVnK4mz6
+         D7uf+hvtht1Z/6BlyKlamFUY5YdfIyX0yjugvkqZ4RnPHGw1kLbwf69BbQVY/SIEJqXP
+         Gu/uBoyEVTLulvuv8X3BZcY+Xt4YwMBFYDvh4bcxP4U5kIf/AiHL88lhdSODrkDhoiyl
+         cj9AJ++9EndUYyahpsuXxbAFBULrdZgr2sTD1bVIhJ+iQr5puYhngy/riFzK8B+M3qjK
+         IhVQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791159598; x=1791764398;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=eyhjDtsive9z9y/5PUzMcRP2YBEJQnRy/rcYJL07i/E=;
-        b=MpvyAPylQIjJiZoodV1T83GzQlboEMc0qQn7MkpT7G7B4Fo9b1gvmXFx+tMBStvS4l
-         CVPRH7Ob5ZPcCfVB65EXYV8zejIW+D+sb4raWqt77S8JC4DkxwDNqhu7R5Frl627aLeN
-         IqIgJngysuHewC9uV8rBu69KYPw23GgVV1AvchfYHvXb5kdamAYysFewFDxhHu+aLaU5
-         aBVKNTQNwB18ISFMVvpACkPVVUpzlIei5DJGicOKb2HekD/X8VPRtzHfrjOoRxLyMKPd
-         eTmnWp6+wur59ZYC6vc3mKEXP3yiK79vzJC9DZj6yP60hW/f1p0DqjFOaMyyKXCpBuyf
-         MlKw==
-X-Forwarded-Encrypted: i=1; AKwUvBzez6NZ+L2BNYWtIlM9bPqd64yo0FlhWe7uqEhCvcRHwBih1cPn4Oq42YJnIY9fKDvM/n/m5Z8O4vwL9TQ=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJRiljlYbZ/HuFJGi9xwDOmS96ozVduOYieVQg1YKZ5Nfw5rbo+
-	KhheEEWy1SKn4anRm6l7Hd3TaMgbmn02IH8jXDv+XJu+VGIcNagsVsyD
-X-Gm-Gg: AYBFou10ikRCDM40+FQIYDyaF2s3oBFuVVoKkkmgYEGEfhJvCsZKRX3/EEZ7k0w2Wkg
-	gcpdnxpq513BAxp2PEh/CzbXqCSsI31GcK0u+ptW01xt/tB47UkVQdxZXMrEcZ/yjvt0qEULQTr
-	xFUh/Q3spov6LDI1wVm9mxfj3U3/T85nBdScuUvCOuA28CVkAl+UuDx+BAuMEA3Dv4ibRUhKoWW
-	I8e8v7tVJbuJxaXvPpbBlVUMjB45Y2Y0bHo+JwUu4XQfWtWzI4soLFcJbitFMNmFpLI+EuhrYy5
-	6f8CGBZ/lS7+LjsKhHKcQkdUFyeDnZXYgvR+S5BDtsXoXlhxIGSWRB4gSCwh3OhlLvyCYNJBqNL
-	C0/mPmsySvkzvg9C9Xzuz/jaE8FNk4sKO5paKz58JWHWJK50aRfGL1lCj2nAIVAdWZV+cO/vLN3
-	7OZDeW5A2l3/UU85Q3UrsrnSDedUmJG7ajV6m2mRRD7Z4EXtRJR9rNuuWsXUnvYsfhN86+tFLiz
-	tsiX4xc+acIceXrXuXI4sGbYSIKQqn/2OnOF/O3XRyVnOaLK1HPy+vXNqQeDXaCPJ5ZmbikGfFl
-	Wh1BF5BL44FXCx3djKhSAhBgg0TlVYy6YYWCX82qmUyXmh66
-X-Received: by 2002:a17:902:da8d:b0:2e5:3972:7ba8 with SMTP id d9443c01a7336-2e539727cb8mr45845925ad.57.1791159598333;
-        Sun, 04 Oct 2026 17:19:58 -0700 (PDT)
-Received: from ryzen.lan ([2601:644:8000:7a86::e35])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a7ae260f19sm3589351a91.4.2026.10.04.17.19.56
+        d=1e100.net; s=20260707; t=1791159938; x=1791764738;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=FRktsRR8jsvxEuGT6N6yXFN0RwMzMtvHCyMuqTTf4kI=;
+        b=B6+fSGPm+coYf51AhJht2JvWoH3tT0834VgLE+T4nFrAoDS6901XZ3dRhWpksC1sxT
+         rXnURHAwWof666qE3JTn9+mHm9gCAVW6enOoX/JEIND4ywMnZ12iFYoxK0ri2e4p08hF
+         Lg/GnHq7MqnZ0OG8OB9yTqGJFZ1uVAeMgDjb+o4AUS3jZCOp8GgExPzPL+nAJ7cofdZ8
+         6O91A6EivZMqJKsbx3isB1GKQPFvLf+UGNGF+fYic3iwL3rFUzrFlSSD2jAZGYmGYLV/
+         MXXMHARH8iQlvNhEvOXrLXsBab63HAcD+j/6BJZyM6h8XaMNC7y9vXj+n04wxZmOPCCD
+         bdqg==
+X-Forwarded-Encrypted: i=1; AKwUvBxYof9LTxcJLcIVwWCXPtPJf6CJAcBrkPnwKBdzTXiqdJ+n5jLHRnax7bYmQK0/Xj2MzjhbE3sWQ11sqEg=@vger.kernel.org
+X-Gm-Message-State: AFq9FYK7jgMKZOHH2zXidFH1hlGANHy992BoG0LPQvX8umCHw2K0ubPJ
+	qOuDFYKsQN4Jll1sPipVU4Q7YuZESDtWAk3Hzy+ovJFmJltVkJyx01Bv
+X-Gm-Gg: AYBFou1f5gBw9j6/WhLvo7kg/qKxzBS0zKhChlfcAWOfkMmtlUCPeATAmILoB5Y1LoC
+	mSM8pHnyUv3py6bBRKIHRmiGBm5RRfFzpGK5ltdNgePeESi2VQ96IRDJL0VOWq3STzOqPnTZRY9
+	2WljYa49pn3fIekqVJzMJIClqw5xqi96Nm8xQdHCV6ivT+dxr/CH2ZzACoiXCKPrOm5KMysSVMr
+	q+5J0isihjA510k9PsxkUP4Y/vOxUiNkuiwEoDjXQXusLOsXP82RfMXFDPC0k4zHwqvlcL0WaoT
+	yqwrfkwpLgOcv5Pe1fjzfJe9PN6j27t8z/ubnjrg2oD42yvVsGRICNtZ670dVhp7DkAVf9w5aAg
+	WodxWvbqZu30bGFArY21eF2pgkgcZzmbK7Klh8/xd5iqeIC2VMAOsT4tHEoFgeltL+pzywfPkJB
+	f1iCulXBjww6mgTqED+v5Txo6ZiHoBu/26lF5/jxPE/PtuT0vLVyOAiRmG1rt05rDbxU34jo5+Y
+	o+z
+X-Received: by 2002:a05:6102:1623:b0:7a2:2068:6e37 with SMTP id ada2fe7eead31-7c244daeec9mr1578540137.15.1791159938090;
+        Sun, 04 Oct 2026 17:25:38 -0700 (PDT)
+Received: from localhost ([2804:30c:96c:bf00:7844:c38c:894:4054])
+        by smtp.gmail.com with ESMTPSA id a1e0cc1a2514c-98b2f115fc9sm8981087241.10.2026.10.04.17.25.35
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 04 Oct 2026 17:19:57 -0700 (PDT)
-From: Rosen Penev <rosenp@gmail.com>
-To: ceph-devel@vger.kernel.org
-Cc: Ilya Dryomov <idryomov@gmail.com>,
-	Alex Markuze <amarkuze@redhat.com>,
-	Viacheslav Dubeyko <slava@dubeyko.com>,
-	Kees Cook <kees@kernel.org>,
-	"Gustavo A. R. Silva" <gustavoars@kernel.org>,
-	linux-kernel@vger.kernel.org (open list),
-	linux-hardening@vger.kernel.org (open list:KERNEL HARDENING (not covered by other areas):Keyword:\b__counted_by(_le|_be|_ptr)?\b)
-Subject: [PATCH] ceph: use a flexible array for monitor addresses
-Date: Sun,  4 Oct 2026 17:19:55 -0700
-Message-ID: <20261005001955.589395-1-rosenp@gmail.com>
-X-Mailer: git-send-email 2.56.0
+        Sun, 04 Oct 2026 17:25:37 -0700 (PDT)
+Date: Sun, 4 Oct 2026 21:25:50 -0300
+From: Marcelo Schmitt <marcelo.schmitt1@gmail.com>
+To: Kanak Shilledar <kanak.shilledar@axis.com>
+Cc: Henrik Grimler <henrik.grimler@axis.com>,
+	Jonathan Cameron <jic23@kernel.org>,
+	David Lechner <dlechner@baylibre.com>,
+	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
+	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Jean-Baptiste Maneyrol <jean-baptiste.maneyrol@tdk.com>,
+	Joshua Crofts <joshua.crofts1@gmail.com>,
+	Chris Morgan <macromorgan@hotmail.com>, kernel@axis.com,
+	linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v5 2/6] iio: imu: inv_icm42607: Simplify IIO channel
+ macros
+Message-ID: <asLujlrqvfRirW5a@debian-BULLSEYE-live-builder-AMD64>
+References: <20261002-b4-inv_icm42370p-v5-0-c65281b745c9@axis.com>
+ <20261002-b4-inv_icm42370p-v5-2-c65281b745c9@axis.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261002-b4-inv_icm42370p-v5-2-c65281b745c9@axis.com>
 
-ceph_alloc_options() allocates the monitor address array separately,
-always sized for CEPH_MAX_MON entries. Make it a flexible array member
-at the end of struct ceph_options and allocate both together with
-kzalloc_flex(). The array was already an 8 KiB slab object, so this
-only drops the separate allocation and its error path.
-
-num_mon is the number of addresses in use, not the capacity, so the
-array cannot be annotated with __counted_by().
-
-ceph_compare_options() memcmp()s the simple fields up to the first
-member that needs a custom comparison. With mon_addr gone from there,
-use num_mon as that boundary; the compared fields are unchanged.
-Document that num_mon has to stay first past that point.
-
-Assisted-by: LLM
-Signed-off-by: Rosen Penev <rosenp@gmail.com>
----
- include/linux/ceph/libceph.h |  7 ++++---
- net/ceph/ceph_common.c       | 11 ++---------
- 2 files changed, 6 insertions(+), 12 deletions(-)
-
-diff --git a/include/linux/ceph/libceph.h b/include/linux/ceph/libceph.h
-index f92fdd853f1f..e585d6d11303 100644
---- a/include/linux/ceph/libceph.h
-+++ b/include/linux/ceph/libceph.h
-@@ -57,15 +57,16 @@ struct ceph_options {
- 	/*
- 	 * any type that can't be simply compared or doesn't need
- 	 * to be compared should go beyond this point,
--	 * ceph_compare_options() should be updated accordingly
-+	 * ceph_compare_options() should be updated accordingly.
-+	 * num_mon must stay the first member past this point, as
-+	 * ceph_compare_options() uses it as the end of the memcmp().
- 	 */
- 
--	struct ceph_entity_addr *mon_addr; /* should be the first
--					      pointer type of args */
- 	int num_mon;
- 	char *name;
- 	struct ceph_crypto_key *key;
- 	struct rb_root crush_locs;
-+	struct ceph_entity_addr mon_addr[];
- };
- 
- /*
-diff --git a/net/ceph/ceph_common.c b/net/ceph/ceph_common.c
-index a797c7360e3c..95dc18257056 100644
---- a/net/ceph/ceph_common.c
-+++ b/net/ceph/ceph_common.c
-@@ -133,7 +133,7 @@ int ceph_compare_options(struct ceph_options *new_opt,
- {
- 	struct ceph_options *opt1 = new_opt;
- 	struct ceph_options *opt2 = client->options;
--	int ofs = offsetof(struct ceph_options, mon_addr);
-+	int ofs = offsetof(struct ceph_options, num_mon);
- 	int i;
- 	int ret;
- 
-@@ -309,17 +309,11 @@ struct ceph_options *ceph_alloc_options(void)
- {
- 	struct ceph_options *opt;
- 
--	opt = kzalloc_obj(*opt);
-+	opt = kzalloc_flex(*opt, mon_addr, CEPH_MAX_MON);
- 	if (!opt)
- 		return NULL;
- 
- 	opt->crush_locs = RB_ROOT;
--	opt->mon_addr = kzalloc_objs(*opt->mon_addr, CEPH_MAX_MON);
--	if (!opt->mon_addr) {
--		kfree(opt);
--		return NULL;
--	}
--
- 	opt->flags = CEPH_OPT_DEFAULT;
- 	opt->osd_keepalive_timeout = CEPH_OSD_KEEPALIVE_DEFAULT;
- 	opt->mount_timeout = CEPH_MOUNT_TIMEOUT_DEFAULT;
-@@ -344,7 +338,6 @@ void ceph_destroy_options(struct ceph_options *opt)
- 		ceph_crypto_key_destroy(opt->key);
- 		kfree(opt->key);
- 	}
--	kfree(opt->mon_addr);
- 	kfree(opt);
- }
- EXPORT_SYMBOL(ceph_destroy_options);
--- 
-2.56.0
-
+On 10/02, Kanak Shilledar wrote:
+> The INV_ICM42607_ACCEL_CHAN and INV_ICM42607_GYRO_CHAN macro had a third
+> parameter of _ext_info, drop it and just point the .ext_info field to
+> the respective inv_icm42607_*_ext_infos. This reduces the repetitive
+> calling of inv_icm42607_*_ext_infos struct in the IIO channel spec
+> struct and makes the code more easy to follow.
+> 
+> Signed-off-by: Kanak Shilledar <kanak.shilledar@axis.com>
+> ---
+LGTM
+Reviewed-by: Marcelo Schmitt <marcelo.schmitt1@gmail.com>
