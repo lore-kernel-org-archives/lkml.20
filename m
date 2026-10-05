@@ -1,234 +1,197 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.9])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-dy2-f43.google.com (mail-dy2-f43.google.com [74.125.229.43])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 73E0648097E;
-	Mon,  5 Oct 2026 18:04:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.9
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1F77F490BF9
+	for <linux-kernel@vger.kernel.org>; Mon,  5 Oct 2026 18:05:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.43
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791223468; cv=none; b=hZzASZQAXgxCqJh27WsxbG9wfNOLrDxJzDzEzHRP/inI7ro+3X52XWeFBXNgUn4WPS7dlK5AxlZVoSeYc5ky3lKYYa5fgb3ywaXZJ7eJy13CWGJvpXk8gIUQ2s/DV0wDN0hMmCzhudDBZ5cn2WEHHLmW0klieBPa/0AE5lk0P1s=
+	t=1791223533; cv=none; b=UUCRaG/4oZQqsUlakX+dHQuVAtaP4TpHdrm9wGW7t/N9XZFW/rA+tKtsZghxcGt4mExW31PE99DEjYt9mQWQWDJIDh83y5GM9MF5br66W5Y7Vforr0RI4WE+a+S3Qf2gJlLROSZovgTx8V3/9N8hWS69ghLCbRMAxnzdnXhS/n8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791223468; c=relaxed/simple;
-	bh=h/CtaGN11E0t8u67h1ojFVZ6txNrQpPjPFLOVlAhaAw=;
-	h=Message-ID:Date:MIME-Version:Subject:From:To:Cc:References:
-	 In-Reply-To:Content-Type; b=uQ6GXsQ4vJG4UlxbxiPzNZDbc80n7TthwqSBdnDaDi4FCSXSErWEwLYZK3410zzyZWlnDk1prdz4iSYYgKGDABCmpgDk8dCZaVg3Z1BCvZfy7uLo8hprmvPi0ax6tD12y/ef/I5E5adlytkzBygkP1fNLHrJmDVJdgEqIk1ZN8A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=m4mw0icx; arc=none smtp.client-ip=192.198.163.9
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	s=arc-20240116; t=1791223533; c=relaxed/simple;
+	bh=e89rjkDSYceXnMXC0C/pj3HLHiG63mGDReiwnzrRHi0=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=QMS7PDCv0WP+YQr+WUIo/QjGO66RI+BzIeSUDlUgwALDzgEW9bbIU1ssbjyreGmWXkm2gU0m6uj2tR/A3I09iBIWPNvtieMnBe6Z0oXo/i+/VSqgUrR90Hxfa76kw1/mGGlxfXl1gp0et0YiyDYlpG/YPPpAotiXtvYheaOgYDU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=PzB0cqvf; arc=none smtp.client-ip=74.125.229.43
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="m4mw0icx"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1791223466; x=1822759466;
-  h=message-id:date:mime-version:subject:from:to:cc:
-   references:in-reply-to:content-transfer-encoding;
-  bh=h/CtaGN11E0t8u67h1ojFVZ6txNrQpPjPFLOVlAhaAw=;
-  b=m4mw0icx8ccFTEO6caopBnRBS2uP7v73Vww+cQbbqXanCK8sHOxiTqao
-   gKks/ZSlaWqj7no7+u2gu6Qz0O2I6VCbfFFw69cVLqRwLN81D3tffaxsR
-   2mqFiMXuSm7hZdpFc+DY9R58pkAvdpxjw3t/NEJh8DqeFJ5CYTy5zG7mb
-   fPDaILnPqfJJ+Qd2xVriCFeuDmaK9hsMd37M7Lwyjgx6bnHyoJ2l6Azo7
-   BCV+Cvi0Hb5ZposmA5SHr4UjH8jBbNGScz4k9B99TWdjfnqwWRZymm3QD
-   VGs5O5BZR49ZqgYOgihCwsVNPUkMc7fw5yFuyr/tTyzD4470T46qYAZDW
-   w==;
-X-CSE-ConnectionGUID: FFRqdM5rSNaGQkR6gQ12kg==
-X-CSE-MsgGUID: eZG9amjkTeGxg7NREU4MnA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11926"; a="102572820"
-X-IronPort-AV: E=Sophos;i="6.27,142,1787036400"; 
-   d="scan'208";a="102572820"
-Received: from fmviesa012.fm.intel.com ([10.60.135.152])
-  by fmvoesa103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 05 Oct 2026 11:04:25 -0700
-X-CSE-ConnectionGUID: ZbI86zzuTv2F+PtGYO9lvQ==
-X-CSE-MsgGUID: aN3h9SmsRSqs7dIlnRhkXw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,142,1787036400"; 
-   d="scan'208";a="941975"
-Received: from soc-pf446t5c.clients.intel.com (HELO [10.24.80.90]) ([10.24.80.90])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 05 Oct 2026 11:04:25 -0700
-Message-ID: <f8a4a8f1-f2c6-46d2-ba5f-370f12b73afd@linux.intel.com>
-Date: Mon, 5 Oct 2026 11:04:25 -0700
+	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="PzB0cqvf"
+Received: by mail-dy2-f43.google.com with SMTP id 5a478bee46e88-34b14db40daso883078eec.0
+        for <linux-kernel@vger.kernel.org>; Mon, 05 Oct 2026 11:05:31 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=chromium.org; s=google; t=1791223531; x=1791828331; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=QWvjrH2OoD5/C+DUCVNhJk1znVlYhkyyNM+I18Y3BXk=;
+        b=PzB0cqvfCbtm33fjtolg2q2KkbWvSH0598oNG9o9Tb9NjhHJoekatNsmRxMHnRp67W
+         lLcjfcy60zoqNoj3l2qlLzkeNsHJOo6NKYElqpQ7OJwZjekJ8fISv9Qb6bJN9BoeSHEC
+         CeIAoAAxO49fFUmpJfy9elmIBs//5Epu8wWHo=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791223531; x=1791828331;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=QWvjrH2OoD5/C+DUCVNhJk1znVlYhkyyNM+I18Y3BXk=;
+        b=vW6mNYn+yhepuRtOcMfcqbhB/sest3fYV1aagMsSE5wKZ4/RZXYFQ427zACVgGUir7
+         VPjX9+jQtFbYkFRYXrct9KUin7+6XaDr97dvm2UM7/j1vk/syVKusOzr4HLRdCUglG+x
+         KLbp6xeoLGLWfyLoO2Yqr54ZHxZ0h2BumyV8FwU/XAkiTf8VeKtQwOerDStYBBoz8G0Q
+         p/jOmtLdsKtsx6FsOr5T99ZKCJBKPFFkXsTmY7SBrs3QimRZ3KdsbUW+u+ywpSx/E2x/
+         BPfGTZTPYDxKim37D4IFuxKw7wu7JiuhXQdEaB97itaulHPftu8c9e3WrT67OXsQcHfY
+         LTEg==
+X-Forwarded-Encrypted: i=1; AKwUvBzA1HdyAL9K9lK7YrbEVoJDOAWccaDnYMZ3UmuoHIdEmJPEJEtPIufoqbIYepBsA2TiP9Kcca4tS3SJaHM=@vger.kernel.org
+X-Gm-Message-State: AFuF++kvbM1nFw4GZOpC3v77Qq2NWOgUpPXK+VySuKt7ET5L5A9q6Qs1
+	aGjn6rMlwlP784UL3ySzJiCkADSBRokF/NNKRddLhgOhMElyERzH0cQohYkloZ+vqg==
+X-Gm-Gg: AYBFou2usrfSBwfy624MXXs32VnKbT6WGhVeQkJEKO+9B5jGsyyOpTBBJ4dC7HikemK
+	XogNCimwem93sx+usONUhrSuxo594z7AIas8OEtOBYUn+XhEEZN39v1Efa/ORdMjF+x9TaRfcnD
+	7SuDiZbEAQrL5M3z9EBzowa9vHG2iRWfigCrw/vi8HYJHGi+MZSqtGPayI1YGm8KLf+s4Ha76UW
+	luaPH1IqgDbwhQC/zJHRpmNOD3FJVpXttLLyZE/dssvniHpNEwSV4KB5GB4jGwr2vuMB7N8D5pg
+	acOgYpG+6aFMV/LPBmdTfSn6ajLRSal/Gt0rYsglYkIerO6fzNCvBw5VGRPSIZhwXbzj4nd1r9G
+	j20DTTtVXokYB+A4R6QQgY7mXVh+p0A5WKv9STuIEkOJLbR4F8UOWX96kiwFZ8t6u0r3I+4/0Kv
+	iQfA13ADrcYpNWfMvhHgF3Zv2BXoMVqBmICIH8vIec3SzBlUX2xmDCHZgTgIZio/qT5M9cHHX6i
+	xuMYsnnY+e1f9o75HMfDV/aBulHDg+i44Ka
+X-Received: by 2002:a05:7022:294:20b0:155:4a09:a228 with SMTP id a92af1059eb24-15d25e09c5dmr375308c88.8.1791223530973;
+        Mon, 05 Oct 2026 11:05:30 -0700 (PDT)
+Received: from localhost ([2a00:79e0:2e7c:8:3452:be62:94e:a46d])
+        by smtp.gmail.com with UTF8SMTPSA id a92af1059eb24-15d819cb585sm54028c88.5.2026.10.05.11.05.29
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 05 Oct 2026 11:05:30 -0700 (PDT)
+Date: Mon, 5 Oct 2026 11:05:28 -0700
+From: Brian Norris <briannorris@chromium.org>
+To: Andy Shevchenko <andriy.shevchenko@intel.com>
+Cc: "Rafael J. Wysocki" <rafael@kernel.org>, linux-pm@vger.kernel.org,
+	linux-iio@vger.kernel.org, Andy Shevchenko <andy@kernel.org>,
+	Alexandre Torgue <alexandre.torgue@foss.st.com>,
+	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
+	linux-stm32@st-md-mailman.stormreply.com,
+	Jonathan Cameron <jic23@kernel.org>,
+	David Lechner <dlechner@baylibre.com>,
+	Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+	linux-kernel@vger.kernel.org,
+	Fabrice Gasnier <fabrice.gasnier@st.com>,
+	linux-arm-kernel@lists.infradead.org
+Subject: Re: [PATCH 3/5] PM: runtime: Propagate last_busy from dependent to
+ dependency
+Message-ID: <asPm6HYpEIAYJ4a3@google.com>
+References: <20261002230714.507921-1-briannorris@chromium.org>
+ <20261002160309.3.I40c0bc917fa0b13111251844e9a54feb1d9cd7d2@changeid>
+ <asEdiIT7l49vhn7i@ashevche-desk.local>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v15 4/4] PCI: Centralize pci_aer_available() checking
-From: Kuppuswamy Sathyanarayanan <sathyanarayanan.kuppuswamy@linux.intel.com>
-To: bhelgaas@google.com
-Cc: linux-pci@vger.kernel.org, linux-acpi@vger.kernel.org,
- linux-kernel@vger.kernel.org, rafael@kernel.org, lukas@wunner.de,
- terry.bowman@amd.com, kanie@linux.alibaba.com, olof@lixom.net
-References: <20261002211828.1293177-1-sathyanarayanan.kuppuswamy@linux.intel.com>
- <20261002211828.1293177-5-sathyanarayanan.kuppuswamy@linux.intel.com>
-Content-Language: en-US
-In-Reply-To: <20261002211828.1293177-5-sathyanarayanan.kuppuswamy@linux.intel.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <asEdiIT7l49vhn7i@ashevche-desk.local>
 
-Hi Bjorn,
+Hi Andy,
 
-On 10/2/2026 2:18 PM, Kuppuswamy Sathyanarayanan wrote:
-> From: Bjorn Helgaas <bhelgaas@google.com>
+On Sat, Oct 03, 2026 at 06:21:44PM +0300, Andy Shevchenko wrote:
+> On Fri, Oct 02, 2026 at 04:03:07PM -0700, Brian Norris wrote:
+> > When a child device suspends, it does not update the last_busy timestamp
+> > for its parent. If that parent configured autosuspend and didn't
+> > otherwise maintain its last_busy timestamp, it may now be immediately
+> > eligible to suspend. This is probably not expected -- the parent should
+> > wait for its autosuspend delay before suspending.
+> > 
+> > The effect of this behavior is that a parent device may suspend sooner
+> > than its autosuspend delay, simply because its usage was accounted by
+> > its children, and not by direct references to the parent device.
+> > 
+> > This was noticed in several cases, and some have implemented
+> > workarounds, such as in commit c537d3457542 ("iio: adc: stm32-adc: fix
+> > runtime autosuspend delay when slow polling"). At the same time, Ulf
+> > suggested these problems "should be solved in the runtime PM core".
+> > 
+> > Instead of working around the problem in drivers, we propagate last_busy
+> > timestamps from a dependent device to its dependencies any time it may
+> > allow a dependency to suspend -- i.e., when releasing a refcount for its
+> > parent or suppliers. We take care to only propagate the timestamp if it
+> > is larger than the existing busy timestamp.
+> > 
+> > Note that this works best if the dependent device is using autosuspend
+> > (and therefore updates its last_busy timestamps appropriately), but even
+> > for a non-autosuspend child, this is still somewhat useful --
+> > non-autosuspend devices still automatically update their last_busy every
+> > time they resume.
 > 
-> "pci=noaer" tells us not to use AER.  pci_aer_available() reports that,
-> and it also reports the other cases where the OS cannot use AER at all,
-> namely CONFIG_PCIEAER=n and MSI being unavailable.
+> > Link: https://lore.kernel.org/all/CAPDyKFp=KTf8=zGBSzPYqhjnZpY8xwvjCeM1e-WTKT1QLSxaDA@mail.gmail.com/
 > 
-> Set host_bridge->native_aer from pci_aer_available() when we initialize
-> the host bridge, so callers only have to look at native_aer and we do not
-> have to test pci_aer_available() separately in each of them.
+> Because Linus might complain on odd Link tags, please make sure you have a
+> reference to it in the text and place it in a form like
 > 
-> Do this in pci_init_host_bridge() rather than in acpi_pci_root_create()
-> so it also covers host bridges that are not described by ACPI and never
-> reach acpi_pci_root_create().
+> Link: $URL [1]
 > 
-> This subsumes the CONFIG_PCIEPORTBUS check for native_aer, since
-> pci_aer_available() is false when CONFIG_PCIEAER=n and PCIEAER depends on
-> PCIEPORTBUS.
+> and respectively in the text use [1] as a reference.
+
+OK, I'll update if/when v2 comes around.
+
+> > Cc: Ulf Hansson <ulfh@kernel.org>
 > 
-> Signed-off-by: Bjorn Helgaas <bhelgaas@google.com>
-> Co-developed-by: Kuppuswamy Sathyanarayanan <sathyanarayanan.kuppuswamy@linux.intel.com>
-> Signed-off-by: Kuppuswamy Sathyanarayanan <sathyanarayanan.kuppuswamy@linux.intel.com>
-> ---
+> Can go under the '---' cutter, so it won't pollute the commit message in the
+> Git history.
 
-Sashiko's comment [1] looks valid to me. quirk_disable_all_msi() calls
-pci_no_msi() during pci_bus_add_devices(), after native_aer has been
-set. That leaves native_aer stale. At boot, pcie_aer_init() checks
-pci_aer_available() again, so the AER driver still won't register. But
-other native_aer users see the stale value.
+This is a well-documented convention.
 
-The patch below clears native_aer in pci_no_msi(). Would you like a v16
-with it before this patch, or would you rather fold it in?
+Documentation/process/submitting-patches.rst
 
-[1] https://lore.kernel.org/linux-pci/20261003013359.A38F61F00898@smtp.kernel.org/
+  If a person has had the opportunity to comment on a patch, but has not
+  provided such comments, you may optionally add a ``Cc:`` tag to the patch.
+  This tag documents that potentially interested parties have been included in
+  the discussion.
 
-Author: Kuppuswamy Sathyanarayanan <sathyanarayanan.kuppuswamy@linux.intel.com>
-Date:   Mon Oct 5 10:29:19 2026 -0700
+I'm directly referencing Ulf's suggestions (Link tag), so I'm also
+making it explicit that I'm CC'ing him.
 
-    PCI/AER: Clear native_aer when MSI is disabled after host bridge init
-
-    pci_aer_available() reports that AER is unusable when MSI is disabled.
-    A quirk such as quirk_disable_all_msi() can call pci_no_msi() during
-    enumeration, after pci_init_host_bridge() and the _OSC negotiation have
-    already set host_bridge->native_aer. In that case native_aer stays set
-    even though the OS can no longer use AER.
-
-    Clear native_aer on all registered host bridges when MSI is disabled.
-    Host bridges added later start with native_aer cleared because
-    pci_aer_available() is already false. _OSC negotiation and
-    "pcie_ports=native" can only clear native_aer, so they cannot set it
-    again.
-
-    This keeps native_aer accurate so callers can rely on it instead of
-    checking pci_aer_available() separately.
-
-    Reported-by: sashiko-bot@kernel.org
-    Closes: https://lore.kernel.org/linux-pci/20261003013359.A38F61F00898@smtp.kernel.org/
-    Signed-off-by: Kuppuswamy Sathyanarayanan <sathyanarayanan.kuppuswamy@linux.intel.com>
-
-diff --git a/drivers/pci/msi/msi.c b/drivers/pci/msi/msi.c
-index 80a9db417dc8..911e61fbda31 100644
---- a/drivers/pci/msi/msi.c
-+++ b/drivers/pci/msi/msi.c
-@@ -995,4 +995,5 @@ EXPORT_SYMBOL(msi_desc_to_pci_dev);
- void pci_no_msi(void)
- {
-        pci_msi_enable = false;
-+       pci_aer_no_msi();
- }
-diff --git a/drivers/pci/pci.h b/drivers/pci/pci.h
-index ba3c3fddddc2..11f47d5fda21 100644
---- a/drivers/pci/pci.h
-+++ b/drivers/pci/pci.h
-@@ -1331,6 +1331,7 @@ static inline void of_pci_remove_host_bridge_node(struct pci_host_bridge *bridge
-
- #ifdef CONFIG_PCIEAER
- void pci_no_aer(void);
-+void pci_aer_no_msi(void);
- void pci_aer_init(struct pci_dev *dev);
- void pci_aer_exit(struct pci_dev *dev);
- extern const struct attribute_group aer_stats_attr_group;
-@@ -1342,6 +1343,7 @@ void pci_save_aer_state(struct pci_dev *dev);
- void pci_restore_aer_state(struct pci_dev *dev);
- #else
- static inline void pci_no_aer(void) { }
-+static inline void pci_aer_no_msi(void) { }
- static inline void pci_aer_init(struct pci_dev *d) { }
- static inline void pci_aer_exit(struct pci_dev *d) { }
- static inline void pci_aer_clear_fatal_status(struct pci_dev *dev) { }
-diff --git a/drivers/pci/pcie/aer.c b/drivers/pci/pcie/aer.c
-index e84dd686582a..494fdd20798d 100644
---- a/drivers/pci/pcie/aer.c
-+++ b/drivers/pci/pcie/aer.c
-@@ -154,6 +154,19 @@ bool pci_aer_available(void)
-        return !pcie_aer_disable && pci_msi_enabled();
- }
-
-+/*
-+ * AER depends on MSI (see pci_aer_available()).  If MSI is disabled after
-+ * host bridges have been initialized, e.g., by a quirk, the OS can no
-+ * longer use AER on them.
-+ */
-+void pci_aer_no_msi(void)
-+{
-+       struct pci_bus *bus = NULL;
-+
-+       while ((bus = pci_find_next_bus(bus)))
-+               pci_find_host_bridge(bus)->native_aer = 0;
-+}
-+
- #ifdef CONFIG_PCIE_ECRC
-
- #define ECRC_POLICY_DEFAULT 0          /* ECRC set by BIOS */
-
-
-> Changes since v14
+> > Signed-off-by: Brian Norris <briannorris@chromium.org>
+> > ---
 > 
->  * No change.
+>  Cc: ...
 > 
-> v14 posting
-> https://lore.kernel.org/r/20260922204548.3884906-1-sathyanarayanan.kuppuswamy@linux.intel.com
+> ...
 > 
-> Changes since v13
+> > +/*
+> > + * Propagate last_busy timestamp from one device to another. This can, for
+> > + * example, prevent overactive suspend when a dependency's usage is primarily
+> > + * driven by one of its dependents.
+> > + */
+> > +static void rpm_propagate_last_busy(struct device *dev, struct device *target)
+> > +{
+> > +	s64 busy = atomic64_read(&dev->power.last_busy);
+> > +	s64 target_busy = atomic64_read(&target->power.last_busy);
+> > +
+> > +	while (target_busy < busy)
 > 
->  * No change.
-> 
-> v13 posting
-> https://lore.kernel.org/r/20260919162655.3499010-1-sathyanarayanan.kuppuswamy@linux.intel.com
-> 
->  drivers/pci/pcie/portdrv.c | 3 +--
->  drivers/pci/probe.c        | 2 +-
->  2 files changed, 2 insertions(+), 3 deletions(-)
-> 
-> diff --git a/drivers/pci/pcie/portdrv.c b/drivers/pci/pcie/portdrv.c
-> index 32fc623dd410..9f8c6dd434c5 100644
-> --- a/drivers/pci/pcie/portdrv.c
-> +++ b/drivers/pci/pcie/portdrv.c
-> @@ -239,8 +239,7 @@ static int get_port_device_capability(struct pci_dev *dev)
->  #ifdef CONFIG_PCIEAER
->  	if ((pci_pcie_type(dev) == PCI_EXP_TYPE_ROOT_PORT ||
->               pci_pcie_type(dev) == PCI_EXP_TYPE_RC_EC) &&
-> -	    dev->aer_cap && pci_aer_available() &&
-> -	    host->native_aer)
-> +	    dev->aer_cap && host->native_aer)
->  		services |= PCIE_PORT_SERVICE_AER;
->  #endif
->  
-> diff --git a/drivers/pci/probe.c b/drivers/pci/probe.c
-> index 1e487a213eb0..e1ca8096bcd5 100644
-> --- a/drivers/pci/probe.c
-> +++ b/drivers/pci/probe.c
-> @@ -670,7 +670,7 @@ static void pci_init_host_bridge(struct pci_host_bridge *bridge)
->  	 * may implement its own AER handling and use _OSC to prevent the
->  	 * OS from interfering.
->  	 */
-> -	bridge->native_aer = port_services;
-> +	bridge->native_aer = pci_aer_available();
->  	bridge->native_pcie_hotplug = port_services;
->  	bridge->native_shpc_hotplug = 1;
->  	bridge->native_pme = port_services;
+> But here you already have an outdated ones, no? Why is this not a problem?
 
--- 
-Sathyanarayanan Kuppuswamy
-Linux Kernel Developer
+The "target" device (a supplier or parent) can't suspend before this
+point, because the dependent device still holds a reference -- so an
+"outdated" last_busy is not relevant yet. The target last_busy *might*
+become relevant after this point, so this is the point at which it needs
+updated (propagated).
 
+That's what I mean in the commit message by:
+
+  propagate last_busy timestamps from a dependent device to its
+  dependencies any time it may allow a dependency to suspend -- i.e.,
+  when releasing a refcount for its parent or suppliers.
+
+Please let me know if I should add some clarification somewhere --
+perhaps also in the comments here on rpm_propagate_last_busy()? Or if
+you see some other problem in the reasoning.
+
+Regards,
+Brian
+
+> > +		if (atomic64_try_cmpxchg(&target->power.last_busy, &target_busy, busy))
+> > +			return;
+> > +}
+> 
+> -- 
+> With Best Regards,
+> Andy Shevchenko
+> 
+> 
