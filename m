@@ -1,42 +1,42 @@
 Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7420C243964
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 77B552773F7
 	for <linux-kernel@vger.kernel.org>; Mon,  5 Oct 2026 00:38:57 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.251.105.195
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791160740; cv=none; b=oa/i+tKBQQGVc8JRzCL7+l8kjI9Cv4TykZaI0GlFmo/BMT3nW6NlMA8WF1edSjzpyqVEjuRGgh9aocn4/EGE4MeZM8/DIwVHzhi5QF3Z8uQk0kMoRiJK1D0X74qzzJaePn8rBwXnX3oSk/TfbMBsjWdJiuzfpBcflChruxdIxeM=
+	t=1791160740; cv=none; b=oe5UL5gS94h1QOxn7LYGVme+dyR28OWi3NQVz6Iil+jSkvPHp6di55DsmLPF+FAgI6ylPOFfaCNa1WgF4DGNN+bN0bSo9dNK0NvSv+oHZJ3g5Bx0MUEhvMMpUt/yuOjaa61G1G0QtIOBRBGJcByDBpo4C7oDgR7trxQnIqYRGWs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1791160740; c=relaxed/simple;
-	bh=I3uk4ZGFS9FKIrsT9vdsouFcemminnmo88qp4GJ00Ys=;
+	bh=v+xGsao6t/i3km4Z8JIHiXE/qnKUhhLznYcwbU6luJM=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=lLJf8YL0beeonkj+lQO8PPZC4h2B6OaSCvWFhGgayFliUof3P7wLJkI/oNh0xE40HPLtmtxBDWHH9fyD6b3bbNPu50IUQCK+9uxnTthAgndpBAtUaDcyE9FA7ksnTE+PylogV2XFTaWsL9TNyTIZWDNEh14YpCgsaRSCWnnCnD8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=bxwAsKhM; arc=none smtp.client-ip=148.251.105.195
+	 In-Reply-To:To:Cc; b=D99D8mKiyrBNIjHmrdAFcenXAmo6+A2KN9SK9WV6hWJUC2joNFcEHUdoz6Whd2SsQlSmVbqZ7RdbiqBGZ7nR7hX7mS1OXDfz475yz0J++cPKdD6Nld4vKcijo/wqJvHAr315iQOdUotEn77td25Xwt2R16pmf/w2YxZ08SvSmA4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=PqD52KTu; arc=none smtp.client-ip=148.251.105.195
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="bxwAsKhM"
+	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="PqD52KTu"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
-	s=mail; t=1791160734;
-	bh=I3uk4ZGFS9FKIrsT9vdsouFcemminnmo88qp4GJ00Ys=;
+	s=mail; t=1791160735;
+	bh=v+xGsao6t/i3km4Z8JIHiXE/qnKUhhLznYcwbU6luJM=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
-	b=bxwAsKhMbAo2163wZ0uNelzGr1iHhcpsYEd2y4q4BJCOrpDFWWZ27xtYThGTYH5z0
-	 pFRy6AODL+essv8TkszCCJHd60hhok2V75h2dvwc7RMoRlE9NxaPL/mcuZgYM9FxYI
-	 fmAsJMfLEmWhRbuckhZSr/QxwRKmU1XqoIDUwfYzJPgb3yKDWhHopSRqFxMGXANCyu
-	 kXWxpygyMOyQAefIjfKgufomAGW7o9Jhlegln/QvfihmLjLpXiA1lqnm+3nPmf2eqj
-	 8JmOVb0MdFIqTdmz7n9H4izIFKDUY8nB0fFPjJ+vrcFlwazi6BYEAR509YtjxevqzW
-	 fPP4DM40QoBUw==
+	b=PqD52KTubPrs746d0B5Zqs0SCsu3fkOlfLjHLBhM2hJf7vcc+2B+xNPyrrEs5UM+S
+	 Ph0asFTO8x4S3WTyWcCi9fOFKpxzs49W8cpWEel21WctOLdM5/qhEI079IYpvH2l9L
+	 YgiW1kUOR0tLiinihQu0rosaYuRqim8ASLjrshFcW5aZYGYyFmCPEAe2RPUaqFYbGw
+	 2Y9ifQHeUIRK+Rn8RGEEdVT+NtDjWeLSHLjWnKdCE4/LIAGf9w3M31VnXTB7g2ic0H
+	 FcYBJewKHVICRs0LX1Fu76+XP9FsSCpuxxju/DF0+Iw9iCLNUMOKCDLQivI24eb/t9
+	 g6iJ03R9+yqNQ==
 Received: from localhost (unknown [100.64.0.241])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange secp256r1 server-signature RSA-PSS (4096 bits) server-digest SHA256)
 	(No client certificate requested)
 	(Authenticated sender: cristicc)
-	by bali.collaboradmins.com (Postfix) with ESMTPSA id DA89B17E1313;
-	Mon, 05 Oct 2026 02:38:53 +0200 (CEST)
+	by bali.collaboradmins.com (Postfix) with ESMTPSA id 37B1817E144B;
+	Mon, 05 Oct 2026 02:38:55 +0200 (CEST)
 From: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
-Date: Mon, 05 Oct 2026 03:38:13 +0300
-Subject: [PATCH v12 12/16] drm/rockchip: dw_hdmi_qp: Implement
- .{enable,disable}_hpd() PHY ops
+Date: Mon, 05 Oct 2026 03:38:15 +0300
+Subject: [PATCH v12 14/16] drm/rockchip: dw_hdmi_qp: Control the HPD IRQ
+ line via the bridge HPD ops
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -45,7 +45,7 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Message-Id: <20261005-dw-hdmi-qp-scramb-v12-12-195157ba0b40@collabora.com>
+Message-Id: <20261005-dw-hdmi-qp-scramb-v12-14-195157ba0b40@collabora.com>
 References: <20261005-dw-hdmi-qp-scramb-v12-0-195157ba0b40@collabora.com>
 In-Reply-To: <20261005-dw-hdmi-qp-scramb-v12-0-195157ba0b40@collabora.com>
 To: Sandy Huang <hjc@rock-chips.com>, 
@@ -62,213 +62,140 @@ To: Sandy Huang <hjc@rock-chips.com>,
 Cc: kernel@collabora.com, dri-devel@lists.freedesktop.org, 
  linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org, 
  linux-arm-kernel@lists.infradead.org, 
- Maud Spierings <maud_spierings@hotmail.com>, 
  Diederik de Haas <diederik@cknow-tech.com>, 
  =?utf-8?q?Robin_R=C3=A4ber?= <robin.raebi@gmail.com>, 
  Igor Paunovic <royalnet026@gmail.com>
 X-Mailer: b4 0.15.2
 
-Implement .enable_hpd() and .disable_hpd() phy ops for RK3576 and RK3588
-SoCs, used by the corresponding bridge callbacks for HPD activation
-control.
+The HPD interrupt must not be delivered before the DRM connector is fully
+set up, and it should be quiesced while the display pipeline is suspended.
+On top of that, the threaded handler re-arms HPD unconditionally after the
+hotplug debounce, which must not override an explicit disable requested by
+the DRM core.
 
-Consolidate the interrupt clear-and-unmask sequence into enable_hpd()
-and the mask-only operation into disable_hpd(), replacing the open-coded
-register writes in the interrupt handlers and io_init().
+Request the HPD IRQ in bind() with IRQF_NO_AUTOEN so it stays disabled
+until the core arms it, and drive enable_irq()/disable_irq() from the
+phy ops invoked by the bridge through its hpd_{enable,disable}()
+callbacks.  This ensures the line is only armed after the connector is
+ready.  disable_irq() additionally waits for the threaded handler to
+finish, so its GRF re-arm can no longer race with and override a
+core-requested disable.
 
-The .setup_hpd() phy op, which was previously called from
-dw_hdmi_qp_init_hw(), is no longer needed and its users are removed.
+Masking the line is not enough on its own, though: the threaded handler
+merely queues hpd_work with a 150 ms debounce, so an event taken shortly
+before the disable would still probe the connector and read the EDID
+long after the core considers HPD quiesced.  Since disable_irq() has
+drained the threaded handler, which is the only site arming the work, it
+can no longer be requeued and dropping it is race-free.
 
-Tested-by: Maud Spierings <maud_spierings@hotmail.com>
+Use the non-syncing cancel_delayed_work() for that: waiting on a running
+callback would pull mode_config.mutex, taken by the work through
+drm_connector_helper_hpd_irq_event(), under the hpd_state_mutex held by
+drm_bridge_hpd_disable().  That inverts the order of the connector probe
+path, which holds mode_config.mutex while reaching hpd_state_mutex via
+drm_kms_helper_poll_enable().  A callback already in progress is drained
+by the system-sleep and unbind paths instead.
+
+Note that IRQF_NO_AUTOEN is incompatible with IRQF_SHARED; the latter is
+dropped as this IRQ has no other users.
+
 Tested-by: Diederik de Haas <diederik@cknow-tech.com>  # NanoPC-T6 LTS, Rock 5B
 Tested-by: Robin Räber <robin.raebi@gmail.com>
 Tested-by: Igor Paunovic <royalnet026@gmail.com> # RK3588 Orange Pi 5 Plus, dual HDMI
 Signed-off-by: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
 ---
- drivers/gpu/drm/rockchip/dw_hdmi_qp-rockchip.c | 78 +++++++++++++-------------
- 1 file changed, 38 insertions(+), 40 deletions(-)
+ drivers/gpu/drm/rockchip/dw_hdmi_qp-rockchip.c | 33 +++++++++++++++++++++-----
+ 1 file changed, 27 insertions(+), 6 deletions(-)
 
 diff --git a/drivers/gpu/drm/rockchip/dw_hdmi_qp-rockchip.c b/drivers/gpu/drm/rockchip/dw_hdmi_qp-rockchip.c
-index bcfa6646546e..9e48ec06eb66 100644
+index ecf12403101d..1c547016ee00 100644
 --- a/drivers/gpu/drm/rockchip/dw_hdmi_qp-rockchip.c
 +++ b/drivers/gpu/drm/rockchip/dw_hdmi_qp-rockchip.c
-@@ -277,7 +277,7 @@ dw_hdmi_qp_rk3588_read_hpd(struct dw_hdmi_qp *dw_hdmi, void *data)
- 	return val ? connector_status_connected : connector_status_disconnected;
+@@ -99,6 +99,7 @@ struct rockchip_hdmi_qp {
+ 	struct phy *phy;
+ 	struct gpio_desc *frl_enable_gpio;
+ 	struct delayed_work hpd_work;
++	int hpd_irq;
+ 	int port_id;
+ 	const struct rockchip_hdmi_qp_ctrl_ops *ctrl_ops;
+ 	unsigned long long tmds_char_rate;
+@@ -308,13 +309,23 @@ static void dw_hdmi_qp_rk3588_enable_hpd(struct dw_hdmi_qp *dw_hdmi, void *data)
+ 	struct rockchip_hdmi_qp *hdmi = (struct rockchip_hdmi_qp *)data;
+ 
+ 	dw_hdmi_qp_rk3588_unmask_hpd(hdmi);
++	enable_irq(hdmi->hpd_irq);
  }
  
--static void dw_hdmi_qp_rk3588_setup_hpd(struct dw_hdmi_qp *dw_hdmi, void *data)
-+static void dw_hdmi_qp_rk3588_enable_hpd(struct dw_hdmi_qp *dw_hdmi, void *data)
+ static void dw_hdmi_qp_rk3588_disable_hpd(struct dw_hdmi_qp *dw_hdmi, void *data)
  {
  	struct rockchip_hdmi_qp *hdmi = (struct rockchip_hdmi_qp *)data;
- 	u32 val;
-@@ -292,11 +292,25 @@ static void dw_hdmi_qp_rk3588_setup_hpd(struct dw_hdmi_qp *dw_hdmi, void *data)
- 	regmap_write(hdmi->regmap, RK3588_GRF_SOC_CON2, val);
+ 
++	disable_irq(hdmi->hpd_irq);
+ 	dw_hdmi_qp_rk3588_mask_hpd(hdmi);
++
++	/*
++	 * Cannot use the _sync() variant: the work takes mode_config.mutex,
++	 * which the connector probe path already holds when acquiring the
++	 * hpd_state_mutex this caller runs under. Requeuing is already ruled
++	 * out by disable_irq().
++	 */
++	cancel_delayed_work(&hdmi->hpd_work);
  }
  
-+static void dw_hdmi_qp_rk3588_disable_hpd(struct dw_hdmi_qp *dw_hdmi, void *data)
-+{
-+	struct rockchip_hdmi_qp *hdmi = (struct rockchip_hdmi_qp *)data;
-+	u32 val;
-+
-+	if (hdmi->port_id)
-+		val = FIELD_PREP_WM16(RK3588_HDMI1_HPD_INT_MSK, 1);
-+	else
-+		val = FIELD_PREP_WM16(RK3588_HDMI0_HPD_INT_MSK, 1);
-+
-+	regmap_write(hdmi->regmap, RK3588_GRF_SOC_CON2, val);
-+}
-+
  static const struct dw_hdmi_qp_phy_ops rk3588_hdmi_phy_ops = {
- 	.init		= dw_hdmi_qp_rk3588_phy_init,
- 	.disable	= dw_hdmi_qp_rk3588_phy_disable,
- 	.read_hpd	= dw_hdmi_qp_rk3588_read_hpd,
--	.setup_hpd	= dw_hdmi_qp_rk3588_setup_hpd,
-+	.enable_hpd	= dw_hdmi_qp_rk3588_enable_hpd,
-+	.disable_hpd	= dw_hdmi_qp_rk3588_disable_hpd,
- };
+@@ -355,13 +366,23 @@ static void dw_hdmi_qp_rk3576_enable_hpd(struct dw_hdmi_qp *dw_hdmi, void *data)
+ 	struct rockchip_hdmi_qp *hdmi = (struct rockchip_hdmi_qp *)data;
  
- static enum drm_connector_status
-@@ -311,7 +325,7 @@ dw_hdmi_qp_rk3576_read_hpd(struct dw_hdmi_qp *dw_hdmi, void *data)
- 		connector_status_connected : connector_status_disconnected;
+ 	dw_hdmi_qp_rk3576_unmask_hpd(hdmi);
++	enable_irq(hdmi->hpd_irq);
  }
  
--static void dw_hdmi_qp_rk3576_setup_hpd(struct dw_hdmi_qp *dw_hdmi, void *data)
-+static void dw_hdmi_qp_rk3576_enable_hpd(struct dw_hdmi_qp *dw_hdmi, void *data)
+ static void dw_hdmi_qp_rk3576_disable_hpd(struct dw_hdmi_qp *dw_hdmi, void *data)
  {
  	struct rockchip_hdmi_qp *hdmi = (struct rockchip_hdmi_qp *)data;
- 	u32 val;
-@@ -320,14 +334,22 @@ static void dw_hdmi_qp_rk3576_setup_hpd(struct dw_hdmi_qp *dw_hdmi, void *data)
- 	       FIELD_PREP_WM16(RK3576_HDMI_HPD_INT_MSK, 0));
  
- 	regmap_write(hdmi->regmap, RK3576_IOC_MISC_CON0, val);
--	regmap_write(hdmi->regmap, 0xa404, 0xffff0102);
-+}
++	disable_irq(hdmi->hpd_irq);
+ 	dw_hdmi_qp_rk3576_mask_hpd(hdmi);
 +
-+static void dw_hdmi_qp_rk3576_disable_hpd(struct dw_hdmi_qp *dw_hdmi, void *data)
-+{
-+	struct rockchip_hdmi_qp *hdmi = (struct rockchip_hdmi_qp *)data;
-+
-+	regmap_write(hdmi->regmap, RK3576_IOC_MISC_CON0,
-+		     FIELD_PREP_WM16(RK3576_HDMI_HPD_INT_MSK, 1));
++	/*
++	 * Cannot use the _sync() variant: the work takes mode_config.mutex,
++	 * which the connector probe path already holds when acquiring the
++	 * hpd_state_mutex this caller runs under. Requeuing is already ruled
++	 * out by disable_irq().
++	 */
++	cancel_delayed_work(&hdmi->hpd_work);
  }
  
  static const struct dw_hdmi_qp_phy_ops rk3576_hdmi_phy_ops = {
- 	.init		= dw_hdmi_qp_rk3588_phy_init,
- 	.disable	= dw_hdmi_qp_rk3588_phy_disable,
- 	.read_hpd	= dw_hdmi_qp_rk3576_read_hpd,
--	.setup_hpd	= dw_hdmi_qp_rk3576_setup_hpd,
-+	.enable_hpd	= dw_hdmi_qp_rk3576_enable_hpd,
-+	.disable_hpd	= dw_hdmi_qp_rk3576_disable_hpd,
- };
+@@ -584,7 +605,7 @@ static int dw_hdmi_qp_rockchip_bind(struct device *dev, struct device *master,
+ 	struct resource *res;
+ 	struct clk_bulk_data *clks;
+ 	struct clk *ref_clk;
+-	int ret, irq, i;
++	int ret, i;
  
- static void dw_hdmi_qp_rk3588_hpd_work(struct work_struct *work)
-@@ -348,13 +370,12 @@ static void dw_hdmi_qp_rk3588_hpd_work(struct work_struct *work)
- static irqreturn_t dw_hdmi_qp_rk3576_hardirq(int irq, void *dev_id)
- {
- 	struct rockchip_hdmi_qp *hdmi = dev_id;
--	u32 intr_stat, val;
-+	u32 intr_stat;
+ 	if (!dev->of_node)
+ 		return -ENODEV;
+@@ -688,14 +709,14 @@ static int dw_hdmi_qp_rockchip_bind(struct device *dev, struct device *master,
+ 	if (plat_data.cec_irq < 0)
+ 		return plat_data.cec_irq;
  
- 	regmap_read(hdmi->regmap, RK3576_IOC_HDMI_HPD_STATUS, &intr_stat);
--	if (intr_stat & RK3576_HDMI_OHPD_INT) {
--		val = FIELD_PREP_WM16(RK3576_HDMI_HPD_INT_MSK, 1);
+-	irq = platform_get_irq_byname(pdev, "hpd");
+-	if (irq < 0)
+-		return irq;
++	hdmi->hpd_irq = platform_get_irq_byname(pdev, "hpd");
++	if (hdmi->hpd_irq < 0)
++		return hdmi->hpd_irq;
  
--		regmap_write(hdmi->regmap, RK3576_IOC_MISC_CON0, val);
-+	if (intr_stat & RK3576_HDMI_OHPD_INT) {
-+		dw_hdmi_qp_rk3576_disable_hpd(NULL, hdmi);
- 		return IRQ_WAKE_THREAD;
- 	}
- 
-@@ -364,15 +385,11 @@ static irqreturn_t dw_hdmi_qp_rk3576_hardirq(int irq, void *dev_id)
- static irqreturn_t dw_hdmi_qp_rk3576_irq(int irq, void *dev_id)
- {
- 	struct rockchip_hdmi_qp *hdmi = dev_id;
--	u32 val;
- 
--	val = FIELD_PREP_WM16(RK3576_HDMI_HPD_INT_CLR, 1);
--	regmap_write(hdmi->regmap, RK3576_IOC_MISC_CON0, val);
- 	mod_delayed_work(system_percpu_wq, &hdmi->hpd_work,
- 			 msecs_to_jiffies(HOTPLUG_DEBOUNCE_MS));
- 
--	val = FIELD_PREP_WM16(RK3576_HDMI_HPD_INT_MSK, 0);
--	regmap_write(hdmi->regmap, RK3576_IOC_MISC_CON0, val);
-+	dw_hdmi_qp_rk3576_enable_hpd(NULL, hdmi);
- 
- 	return IRQ_HANDLED;
- }
-@@ -380,18 +397,14 @@ static irqreturn_t dw_hdmi_qp_rk3576_irq(int irq, void *dev_id)
- static irqreturn_t dw_hdmi_qp_rk3588_hardirq(int irq, void *dev_id)
- {
- 	struct rockchip_hdmi_qp *hdmi = dev_id;
--	u32 intr_stat, val;
-+	u32 intr_stat;
- 
- 	regmap_read(hdmi->regmap, RK3588_GRF_SOC_STATUS1, &intr_stat);
- 
- 	intr_stat &= hdmi->port_id ? RK3588_HDMI1_OHPD_INT : RK3588_HDMI0_OHPD_INT;
- 
- 	if (intr_stat) {
--		if (hdmi->port_id)
--			val = FIELD_PREP_WM16(RK3588_HDMI1_HPD_INT_MSK, 1);
--		else
--			val = FIELD_PREP_WM16(RK3588_HDMI0_HPD_INT_MSK, 1);
--		regmap_write(hdmi->regmap, RK3588_GRF_SOC_CON2, val);
-+		dw_hdmi_qp_rk3588_disable_hpd(NULL, hdmi);
- 		return IRQ_WAKE_THREAD;
- 	}
- 
-@@ -401,22 +414,11 @@ static irqreturn_t dw_hdmi_qp_rk3588_hardirq(int irq, void *dev_id)
- static irqreturn_t dw_hdmi_qp_rk3588_irq(int irq, void *dev_id)
- {
- 	struct rockchip_hdmi_qp *hdmi = dev_id;
--	u32 val;
--
--	if (hdmi->port_id)
--		val = FIELD_PREP_WM16(RK3588_HDMI1_HPD_INT_CLR, 1);
--	else
--		val = FIELD_PREP_WM16(RK3588_HDMI0_HPD_INT_CLR, 1);
--	regmap_write(hdmi->regmap, RK3588_GRF_SOC_CON2, val);
- 
- 	mod_delayed_work(system_percpu_wq, &hdmi->hpd_work,
- 			 msecs_to_jiffies(HOTPLUG_DEBOUNCE_MS));
- 
--	if (hdmi->port_id)
--		val |= FIELD_PREP_WM16(RK3588_HDMI1_HPD_INT_MSK, 0);
--	else
--		val |= FIELD_PREP_WM16(RK3588_HDMI0_HPD_INT_MSK, 0);
--	regmap_write(hdmi->regmap, RK3588_GRF_SOC_CON2, val);
-+	dw_hdmi_qp_rk3588_enable_hpd(NULL, hdmi);
- 
- 	return IRQ_HANDLED;
- }
-@@ -429,11 +431,11 @@ static void dw_hdmi_qp_rk3576_io_init(struct rockchip_hdmi_qp *hdmi)
- 	      FIELD_PREP_WM16(RK3576_SDAIN_MASK, 1) |
- 	      FIELD_PREP_WM16(RK3576_HDMI_GRANT_SEL, 1) |
- 	      FIELD_PREP_WM16(RK3576_I2S_SEL_MASK, 1);
--
- 	regmap_write(hdmi->vo_regmap, RK3576_VO0_GRF_SOC_CON14, val);
- 
--	val = FIELD_PREP_WM16(RK3576_HDMI_HPD_INT_MSK, 1);
--	regmap_write(hdmi->regmap, RK3576_IOC_MISC_CON0, val);
-+	regmap_write(hdmi->regmap, 0xa404, 0xffff0102);
-+
-+	dw_hdmi_qp_rk3576_disable_hpd(NULL, hdmi);
- }
- 
- static void dw_hdmi_qp_rk3588_io_init(struct rockchip_hdmi_qp *hdmi)
-@@ -458,11 +460,7 @@ static void dw_hdmi_qp_rk3588_io_init(struct rockchip_hdmi_qp *hdmi)
- 		val = FIELD_PREP_WM16(RK3588_HDMI0_GRANT_SEL, 1);
- 	regmap_write(hdmi->vo_regmap, RK3588_GRF_VO1_CON9, val);
- 
--	if (hdmi->port_id)
--		val = FIELD_PREP_WM16(RK3588_HDMI1_HPD_INT_MSK, 1);
--	else
--		val = FIELD_PREP_WM16(RK3588_HDMI0_HPD_INT_MSK, 1);
--	regmap_write(hdmi->regmap, RK3588_GRF_SOC_CON2, val);
-+	dw_hdmi_qp_rk3588_disable_hpd(NULL, hdmi);
- }
- 
- static void dw_hdmi_qp_rk3576_enc_init(struct rockchip_hdmi_qp *hdmi,
+-	ret = devm_request_threaded_irq(dev, irq,
++	ret = devm_request_threaded_irq(dev, hdmi->hpd_irq,
+ 					cfg->ctrl_ops->hardirq_callback,
+ 					cfg->ctrl_ops->irq_callback,
+-					IRQF_SHARED, "dw-hdmi-qp-hpd",
++					IRQF_NO_AUTOEN, "dw-hdmi-qp-hpd",
+ 					hdmi);
+ 	if (ret)
+ 		return ret;
 
 -- 
 2.55.0
