@@ -1,246 +1,159 @@
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8DD524B0E3B;
-	Mon,  5 Oct 2026 15:23:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.130
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0A29C47ECFB;
+	Mon,  5 Oct 2026 15:23:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791213791; cv=none; b=K4qUcUKuknJ4beFKkqpEmVDVqSN/T4AMa39j3i8ZbH1fRyoq5HoBza0Z8Rt/cIwg75QNTFoXPYm7TB53kioXikfD79qJ0X4kF8O5xJWji/+LWH/S+aDXcC8OSwD/Jomv6I02qSWaOqN5pOSbmFwlMZ1ghszeR0XzSy+nyIsuj1k=
+	t=1791213810; cv=none; b=qd+B0XkQPCMpfwakqP/r0XgMUheriZrtI3ukP6Wlt4zbbfeRgMFPXhenME925WW64AQpd/WPE+BqDwiyzEIOXT3NJhoAD9NebBPkVUb0k8Lb8QiMmXTKZ78UNEcoVQnwGzxlSsyD2QBO4miQ3FHDQS5YzkKs+dYJEzY0O+1gXPI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791213791; c=relaxed/simple;
-	bh=RG1agnXLBjcZG441O6oFRZ0nobQwKmC/y9ELIPQfKAU=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=cFFuUmXbnzLgPm8vtkJ5S+3QU3UBbj60TfFyB9++d/KUPsVXAk5unNwMR2Tg+vBfzx1tgvT6DUPG+WkArKTTtndwtMdo6ViM6vrMBEyAneEkUQM5AQMEZzuiLOnw4wVAYjZZzpf1vuu9ra6es6Xb/dBhWeog/mHW9tyAurL3Cuw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=ICPvJIG7; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=PxGXBLY+; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=nQ14j51C; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=dIH+mpni; arc=none smtp.client-ip=195.135.223.130
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
+	s=arc-20240116; t=1791213810; c=relaxed/simple;
+	bh=dbxko1Tskh0UHfn8lMh+ZDyKxaEwpceAQxIp+yv4VEc=;
+	h=MIME-Version:Content-Type:Subject:From:To:Cc:In-Reply-To:
+	 References:Date:Message-Id; b=Q3v03owkCbm2gK2tsfkwaLJ/FbMX7ZsBZS7S3ivVBC2TcPkc6MCJZKiInmVQhHQQnbwb8B8hE006NQJDfiUp/jrBYoHxVoMHyXJCy7GkeOpvn5OD3u2dkmoOeliNSImUfklOk8QTbYay8mXhV2f3KrQBNCAyoa6zla4eXSJ7r5E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=IEn/2TGV; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="ICPvJIG7";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="PxGXBLY+";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="nQ14j51C";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="dIH+mpni"
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id F122621DF8;
-	Mon,  5 Oct 2026 15:22:58 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1791213783; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=TtWOvTzDhsbL+fnaDf7hn8RMABYqEKUGcMYsDWK0xRI=;
-	b=ICPvJIG77dMO7DopWY1BM9La9FdlEBUDQeFcPYoxCfs6HuSG7abOWe5348gYc8HU1LGFqP
-	IvmikGCMZfGZTOix/Go543ylzM6uzmtacvWJMuQh5KUlzxgyJnfscSHm+Vz7NiHM5t1KzV
-	XPJpgGABl5hKiryFx9UjbVfXraooeJc=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1791213783;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=TtWOvTzDhsbL+fnaDf7hn8RMABYqEKUGcMYsDWK0xRI=;
-	b=PxGXBLY+sBw49+/lvxY+ac1W0bcl1OeDfPRV7JQZnHe2d2PuyKp15OGkKkaeKW1FBKpGln
-	0fffPRXB7yVMCnDw==
-Authentication-Results: smtp-out1.suse.de;
-	dkim=pass header.d=suse.de header.s=susede2_rsa header.b=nQ14j51C;
-	dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=dIH+mpni
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1791213778; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=TtWOvTzDhsbL+fnaDf7hn8RMABYqEKUGcMYsDWK0xRI=;
-	b=nQ14j51CuWC/cIB0kruN6i6tB+xCe4/p2VcA2pEAwI27C4uME72yTEiD6b5mjr5kri6T2y
-	mOplc5c+c3wGZvJcJM3vKInjmQqChgIfExnCS2+aekuhXf6DxFquEaKssPYwmaD3TQnhst
-	oI0xY/ZLuG0dRgjwzD+DSgCnX0UZlPw=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1791213778;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=TtWOvTzDhsbL+fnaDf7hn8RMABYqEKUGcMYsDWK0xRI=;
-	b=dIH+mpnih/qOlD7xtr2Ya64dfoFdMPpTCMGccl5mS91PRSFFZsqG8WFlNzVF7o5lKFg9J0
-	LIaIE0JdLogkveDg==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id C3EB213B06;
-	Mon,  5 Oct 2026 15:22:57 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id xHu4JtHAw2oLbwAAD6G6ig
-	(envelope-from <fmancera@suse.de>); Mon, 05 Oct 2026 15:22:57 +0000
-Message-ID: <6af568ad-c487-49da-b087-fa0b600b247b@suse.de>
-Date: Mon, 5 Oct 2026 17:21:58 +0200
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="IEn/2TGV"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 563EF1F000FF;
+	Mon,  5 Oct 2026 15:23:23 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791213808;
+	bh=g/JAGXLuoKcmjyycPO+efDbYZ+A0Nw5jhE4IlEY1e9Q=;
+	h=Subject:From:To:Cc:In-Reply-To:References:Date;
+	b=IEn/2TGVQmVfWJzysBgUUpj6pW/dkCAaE4Dw4bTbGlygIokmqLODmT61CAWHv6ov6
+	 GB3o6iaQDWEtEYnu1SBEAOiyaAMy/H6OGCiiiQV+Ac/dT82KhltC2PVpFKCO22PlNt
+	 fTP11ImSAeHJKKnC0BaKx8mpcJYl4ih7Zgh+acyWBjzek5HUZGNTVYjFx8GUVkKnTW
+	 xm1f38L58kAbjFnXcyr6DQEuVJI2qzdSku3qvijr7z9PlWowrjR67rJ/aWmsUM1qGm
+	 e3FYPKVO/70GF5AjlrD0LuAPQJY6loLKBsKPgCe9wa9mHOfjNY4MpjwqbQ11Oixkdn
+	 AWJ9mpIcaX52A==
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH nf-next v2] netfilter: nft_synproxy: only handle pure SYN
- and ACK packets
-To: Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>,
- Pablo Neira Ayuso <pablo@netfilter.org>, Florian Westphal <fw@strlen.de>
-Cc: Phil Sutter <phil@nwl.cc>,
- Fernando Fernandez Mancera <ffmancera@riseup.net>,
- "David S . Miller" <davem@davemloft.net>, Eric Dumazet
- <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>,
- netfilter-devel@vger.kernel.org, coreteam@netfilter.org,
- netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
- syzbot+d7795c8487ca4e20ed88@syzkaller.appspotmail.com,
- syzbot+d0d2f1a65f45b319d25d@syzkaller.appspotmail.com,
- syzkaller-bugs@googlegroups.com
-References: <20261004160615.142456-1-ngocthang2710.1999@gmail.com>
- <20261005151257.9128-1-ngocthang2710.1999@gmail.com>
-Content-Language: en-US
-From: Fernando Fernandez Mancera <fmancera@suse.de>
-In-Reply-To: <20261005151257.9128-1-ngocthang2710.1999@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Spamd-Result: default: False [-3.01 / 50.00];
-	BAYES_HAM(-3.00)[100.00%];
-	SUSPICIOUS_RECIPS(1.50)[];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	MX_GOOD(-0.01)[];
-	MIME_TRACE(0.00)[0:+];
-	RCPT_COUNT_TWELVE(0.00)[17];
-	FREEMAIL_TO(0.00)[gmail.com,netfilter.org,strlen.de];
-	ARC_NA(0.00)[];
-	RCVD_TLS_ALL(0.00)[];
-	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
-	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	DKIM_TRACE(0.00)[suse.de:+];
-	FREEMAIL_ENVRCPT(0.00)[gmail.com];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	SPAMHAUS_XBL(0.00)[2a07:de40:b281:104:10:150:64:97:from];
-	RCVD_COUNT_TWO(0.00)[2];
-	FROM_EQ_ENVFROM(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	TO_DN_SOME(0.00)[];
-	TO_MATCH_ENVRCPT_SOME(0.00)[];
-	MID_RHS_MATCH_FROM(0.00)[];
-	DNSWL_BLOCKED(0.00)[2a07:de40:b281:106:10:150:64:167:received];
-	TAGGED_RCPT(0.00)[d0d2f1a65f45b319d25d,d7795c8487ca4e20ed88];
-	RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,imap1.dmz-prg2.suse.org:rdns,appspotmail.com:email,suse.de:dkim,suse.de:email,suse.de:mid,syzkaller.appspot.com:url]
-X-Spam-Score: -3.01
-X-Spam-Level: 
-X-Rspamd-Action: no action
-X-Rspamd-Queue-Id: F122621DF8
-X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
-X-Spam-Flag: NO
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+Subject: Re: [PATCH v1 0/3] <linux/mod_devicetable.h> deprecation continues
+From: Nathan Chancellor <nathan@kernel.org>
+To: =?utf-8?q?Uwe_Kleine-K=C3=B6nig_=28The_Capable_Hub=29?= <u.kleine-koenig@baylibre.com>
+Cc: Tianrui Zhao <zhaotianrui@loongson.cn>, Bibo Mao <maobibo@loongson.cn>, 
+ Huacai Chen <chenhuacai@kernel.org>, Nathan Chancellor <nathan@kernel.org>, 
+ Nicolas Schier <nsc@kernel.org>, Geert Uytterhoeven <geert@linux-m68k.org>, 
+ Takashi Sakamoto <o-takashi@sakamocchi.jp>, 
+ Raag Jadav <raag.jadav@intel.com>, "Martin K. Petersen" <mkp@kernel.org>, 
+ Heiner Kallweit <hkallweit1@gmail.com>, 
+ Dave Hansen <dave.hansen@linux.intel.com>, Ingo Molnar <mingo@kernel.org>, 
+ Josh Poimboeuf <jpoimboe@kernel.org>, 
+ Jorge Sanjuan Garcia <dev-jorge.sanjuangarcia@duagon.com>, 
+ Jose Javier Rodriguez Barbarin <dev-josejavier.rodriguez@duagon.com>, 
+ =?utf-8?q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>, 
+ Alexey Gladkov <legion@kernel.org>, 
+ Hasan Basbunar <basbunarhasan@gmail.com>, Hugh Dickins <hughd@google.com>, 
+ Armin Wolf <W_Armin@gmx.de>, WANG Xuerui <kernel@xen0n.name>, 
+ kvm@vger.kernel.org, loongarch@lists.linux.dev, 
+ linux-kernel@vger.kernel.org, linux-kbuild@vger.kernel.org, 
+ Sudeep Holla <sudeep.holla@kernel.org>
+In-Reply-To: <cover.1789988540.git.u.kleine-koenig@baylibre.com>
+References: <cover.1789988540.git.u.kleine-koenig@baylibre.com>
+Date: Mon, 05 Oct 2026 17:23:16 +0200
+Message-Id: <179121379654.1159753.4410832336442519712.b4-review@b4>
+X-Mailer: b4 0.17-dev
+X-Developer-Signature: v=1; a=openpgp-sha256; l=4378; i=nathan@kernel.org;
+ h=from:subject:message-id; bh=dbxko1Tskh0UHfn8lMh+ZDyKxaEwpceAQxIp+yv4VEc=;
+ b=owGbwMvMwCUmm602sfCA1DTG02pJDFmHD7z4FrFFbNlr2zsC/unFV0/IM9hq/Fjw/K/npB0v5
+ /b6mHT4d5SyMIhxMciKKbJUP1Y9bmg45yzjjVOTYOawMoEMYeDiFICJVOoz/GZ7eeNY9Oc7IUff
+ aWwuYt1yJ4atdiKDqf/pwBD9Y1HmIryMDIsLG954XN9v8ocx4N1d55IXuYuYK/1TZgoYd7zy1wr
+ +zAoA
+X-Developer-Key: i=nathan@kernel.org; a=openpgp;
+ fpr=2437CB76E544CB6AB3D9DFD399739260CB6CB716
 
-On 10/5/26 5:12 PM, Nguyen Ngoc Thang wrote:
-> nft_synproxy treats any segment with SYN set as a client's initial SYN
-> and any segment with ACK set as the client's final ACK. A SYN-ACK thus
-> gets answered with a fresh SYN-ACK cookie.
-> 
-> If that reply is routed back to the same host, e.g. to a peer address
-> covered by an address on lo, it re-enters the input hook, is answered
-> again, and never stops. Every such SYN starts its own endless loop over
-> the loopback backlog, so NET_RX softirq keeps the CPU busy and memory
-> fills with skbs and rtable entries until workqueues stall and the
-> machine OOMs.
-> 
-> Use the same flag checks as ip(6)t_SYNPROXY: SYN without ACK, FIN or
-> RST is an initial SYN; ACK without SYN, FIN or RST is the client ACK.
-> Anything else falls through to the next expression.
-> 
-> Reported-by: syzbot+d7795c8487ca4e20ed88@syzkaller.appspotmail.com
-> Closes: https://syzkaller.appspot.com/bug?extid=d7795c8487ca4e20ed88
-> Reported-by: syzbot+d0d2f1a65f45b319d25d@syzkaller.appspotmail.com
-> Closes: https://syzkaller.appspot.com/bug?extid=d0d2f1a65f45b319d25d
-> Signed-off-by: Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>
-> ---
-> v2:
-> - Retarget to nf-next (Pablo).
-> - Drop the Fixes: tag accordingly.
+Hi Uwe,
 
-This should have been sent as a standalone thread not as a reply under 
-the v1. In any case, I agree with the patch.
+> this is a next step in the deprecation of <linux/mod_devicetable.h>.
+> scripts/mod/devicetable-offsets.c and scripts/mod/file2alias.c are the
+> only users of that header that use more than a few device-id structs. So
+> their number of lines actually grows when unfolding the needed includes
+> into them. Still it is a reduction in build dependencies.
+> 
+> I suggest to take this via kbuild during the merge window. Would be great to
+> cook in next for a while before.
+> 
+> Best regards
+> Uwe
+> 
+> Uwe Kleine-König (The Capable Hub) (3):
+>   Move struct cpu_feature to <linux/cpufeature.h>
+>   devicetable-offsets: Include the needed device-id headers instead of
+>     the catch-all
+>   file2alias: Include the needed device-id headers instead of the
+>     catch-all
+> 
+>  arch/loongarch/kvm/main.c         |  2 +-
+>  include/linux/cpufeature.h        | 12 ++++++-
+>  include/linux/mod_devicetable.h   | 13 -------
+>  scripts/mod/devicetable-offsets.c | 57 ++++++++++++++++++++++++++++++-
+>  scripts/mod/file2alias.c          | 56 +++++++++++++++++++++++++++++-
+>  5 files changed, 123 insertions(+), 17 deletions(-)
 
-Reviewed-by: Fernando Fernandez Mancera <fmancera@suse.de>
+My apologies for taking some time to get to this. I was planning on
+building it using my personal test matrix on a local machine at home
+while travelling for Plumbers to avoid tying up my main workstation but
+my home's internet connection has been down for two weeks with very
+little hope of getting it online before I am back...
 
-> 
-> v1: https://lore.kernel.org/all/20261004160615.142456-1-ngocthang2710.1999@gmail.com/
-> 
-> Notes (not for the changelog):
-> 
-> Reproduced in QEMU (x86_64, 2 vCPUs, KASAN+lockdep) with syzbot's C
-> repro for d7795c8487ca4e20ed88. Minimised: only the nft batch and the
-> injected SYN matter, which is exactly the d0d2f1a65f45b319d25d program.
-> 
-> The rule is an inet table, base chain on input, with an unconditional
-> "synproxy" expression. The SYN goes from 172.20.20.187 to .170 via tun;
-> syzkaller puts 172.20.20.10/24 on lo, so the whole /24 is local and the
-> SYN-ACK cookie comes back through lo. Instrumented trace:
-> 
->    synproxy tx .170->.187 in=syz_tun out=lo syn=1 ack=1
->    synproxy tx .187->.170 in=lo      out=lo syn=1 ack=1
->    synproxy tx .170->.187 in=lo      out=lo syn=1 ack=1
->    ...
-> 
-> Before (3fd2ff60f6d6, full C repro):
->    - synproxy syn_received ~400k per CPU per netns after 15s
->    - rtable 80k -> 295k, skbuff_head_cache >1M, softirq time explodes
->    - "BUG: workqueue lockup", then OOM / hung task, VM wedges
-> 
-> After (2 runs x 300s, full C repro):
->    - no lockup, hung task or OOM
->    - rtable flat (~2.2k), skbuff_head_cache flat (~80k)
->    - syn_received grows slowly (~9.5k/300s): real SYNs still answered
-> 
-> ACK|FIN and ACK|RST no longer hit the cookie check (and its NF_DROP);
-> they continue, as with ip(6)t_SYNPROXY's XT_CONTINUE. The usual
-> "ct state invalid drop" rule still catches them.
-> 
->   net/netfilter/nft_synproxy.c | 8 ++++----
->   1 file changed, 4 insertions(+), 4 deletions(-)
-> 
-> diff --git a/net/netfilter/nft_synproxy.c b/net/netfilter/nft_synproxy.c
-> index 9ed288c9d168..a580cb7324da 100644
-> --- a/net/netfilter/nft_synproxy.c
-> +++ b/net/netfilter/nft_synproxy.c
-> @@ -53,13 +53,13 @@ static void nft_synproxy_eval_v4(const struct nft_synproxy *priv,
->   	struct synproxy_net *snet = synproxy_pernet(net);
->   	struct sk_buff *skb = pkt->skb;
->   
-> -	if (tcp->syn) {
-> +	if (tcp->syn && !(tcp->ack || tcp->fin || tcp->rst)) {
->   		/* Initial SYN from client */
->   		nft_synproxy_tcp_options(opts, tcp, snet, &info);
->   		synproxy_send_client_synack(net, skb, tcp, opts);
->   		consume_skb(skb);
->   		regs->verdict.code = NF_STOLEN;
-> -	} else if (tcp->ack) {
-> +	} else if (tcp->ack && !(tcp->fin || tcp->rst || tcp->syn)) {
->   		/* ACK from client */
->   		if (synproxy_recv_client_ack(net, skb, tcp, opts,
->   					     ntohl(tcp->seq))) {
-> @@ -84,13 +84,13 @@ static void nft_synproxy_eval_v6(const struct nft_synproxy *priv,
->   	struct synproxy_net *snet = synproxy_pernet(net);
->   	struct sk_buff *skb = pkt->skb;
->   
-> -	if (tcp->syn) {
-> +	if (tcp->syn && !(tcp->ack || tcp->fin || tcp->rst)) {
->   		/* Initial SYN from client */
->   		nft_synproxy_tcp_options(opts, tcp, snet, &info);
->   		synproxy_send_client_synack_ipv6(net, skb, tcp, opts);
->   		consume_skb(skb);
->   		regs->verdict.code = NF_STOLEN;
-> -	} else if (tcp->ack) {
-> +	} else if (tcp->ack && !(tcp->fin || tcp->rst || tcp->syn)) {
->   		/* ACK from client */
->   		if (synproxy_recv_client_ack_ipv6(net, skb, tcp, opts,
->   						  ntohl(tcp->seq))) {
+Sashiko has a few comments that seem relevant (most of them are the same
+issue):
+
+  https://sashiko.dev/#/patchset/cover.1789988540.git.u.kleine-koenig@baylibre.com
+
+I have applied it on top of next-20261005 to see what conflicts are
+looking like. I see a merge conflict with this series from
+
+  d59717cfbe1e ("firmware: arm_scmi: Add SCMI device table alias support")
+
+in the soc tree, which is fairly trivial. There is a semantic conflict
+that results in a build error from
+
+  fe7f2a805443 ("firmware: smccc: Add an Arm SMCCC bus")
+
+in the arm64 tree, which is also trivial but subtle.
+
+  scripts/mod/devicetable-offsets.c:317:2: error: invalid application of 'sizeof' to an incomplete type 'struct arm_smccc_device_id'
+    317 |         DEVID(arm_smccc_device_id);
+        |         ^~~~~~~~~~~~~~~~~~~~~~~~~~
+  scripts/mod/devicetable-offsets.c:62:43: note: expanded from macro 'DEVID'
+     62 | #define DEVID(devid) DEFINE(SIZE_##devid, sizeof(struct devid))
+        |                      ~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~
+  include/linux/kbuild.h:6:62: note: expanded from macro 'DEFINE'
+      6 |         asm volatile("\n.ascii \"->" #sym " %0 " #val "\"" : : "i" (val))
+        |                                                                     ^~~
+  scripts/mod/devicetable-offsets.c:317:8: note: forward declaration of 'struct arm_smccc_device_id'
+    317 |         DEVID(arm_smccc_device_id);
+        |               ^
+  scripts/mod/devicetable-offsets.c:318:2: error: offsetof of incomplete type 'struct arm_smccc_device_id'
+    318 |         DEVID_FIELD(arm_smccc_device_id, func_id);
+        |         ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  scripts/mod/devicetable-offsets.c:64:32: note: expanded from macro 'DEVID_FIELD'
+     64 |         DEFINE(OFF_##devid##_##field, offsetof(struct devid, field))
+        |         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  include/linux/stddef.h:16:32: note: expanded from macro 'offsetof'
+     16 | #define offsetof(TYPE, MEMBER)  __builtin_offsetof(TYPE, MEMBER)
+        |                                 ^
+  include/linux/kbuild.h:6:62: note: expanded from macro 'DEFINE'
+      6 |         asm volatile("\n.ascii \"->" #sym " %0 " #val "\"" : : "i" (val))
+        |                                                                     ^~~
+  scripts/mod/devicetable-offsets.c:317:8: note: forward declaration of 'struct arm_smccc_device_id'
+    317 |         DEVID(arm_smccc_device_id);
+        |               ^
+  2 errors generated.
+
+If you would like this in 7.4-rc1, I am not opposed to sticking your v2
+into -next now but I plan to finalize the Kbuild tree for 7.4 around
+October 15, so we'd only get a week or so of build coverage. If that
+feels like too little, we should defer this until after 7.4-rc1 is out.
+
+-- 
+Cheers,
+Nathan
 
