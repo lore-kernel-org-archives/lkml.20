@@ -1,148 +1,80 @@
-Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com [136.143.188.112])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 20389175A5;
-	Mon,  5 Oct 2026 22:48:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=136.143.188.112
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791240515; cv=pass; b=ZV2aTK4c9+2NFSb1mJLKRgcpbB3uYhRtmlDmoG1icORp9deSN5sf8owxvjGdmbGNf7jTM4HBJNenGRe/1cjRaZ3LIoM06/xtU1VwBTgCyD7A3TyEZdGWX24d/BFFNDYEPRTjM9jsD9wZy0mZvzPoIh0lXQr1U0wj54qS22W5E5o=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791240515; c=relaxed/simple;
-	bh=Oc7ZCEJC07vBOB1HJ0m/snwbshv1AlJHcXiMyMnhnNc=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=ME8cVa+hJxvcRX3uzfn0eUDw4DnM3YoFufTA1Rm1gg+/DVToZtGeKzOoUxR9WvG/rQU2gfmJK9XnU9m6odZbkdTPDUe2GQ08DybO8SsIPfwR7nuLjdqMrYafT1ymXpTw2FQNoixH+CvSI+rWDWFf1GL0Gisf6m7TK12o9m09uTs=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (1024-bit key) header.d=collabora.com header.i=deborah.brouwer@collabora.com header.b=BXEDuZi6; arc=pass smtp.client-ip=136.143.188.112
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F3303403AFB;
+	Mon,  5 Oct 2026 22:50:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791240608; cv=none; b=XRH5pWWHEg03WCLYPT4bH7ccp1nQ9Lu1nnroZLhDwwsXNlGbAXV54fSoGJxyceLMAUMFZfFeA1rGx5KS2+aOEgtOTxB35biuaaUNH6PRg/d47FbJz4+mrS1l6Ro/78UIpAHiRLd+Nx6hiwmz5FwArjZLJUqp4QAiFRpP6Gpbh9g=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791240608; c=relaxed/simple;
+	bh=obumHIxCRzE8M7NlQiLn+Sp0atTGG2qaUGiSZ7AbvIs=;
+	h=Content-Type:MIME-Version:Subject:From:Message-Id:Date:References:
+	 In-Reply-To:To:Cc; b=ae3lynXbB2yBQMsa1FHwtGPRkxzs6lKWMhTvklimeeEfy8n3T95ct5+OgVwQPgcj99iQF0v/ziloU8jzi1MKveEhEXY2gX7IVRVMUFjZXwannIFfIXjTDqiTLfXI9pPEQaMam2HEAL9DZ/4PjGkF+Jdy+JkDY4LiAZkKfK/8ddw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KOXGXeWf; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=collabora.com header.i=deborah.brouwer@collabora.com header.b="BXEDuZi6"
-ARC-Seal: i=1; a=rsa-sha256; t=1791240452; cv=none; 
-	d=zohomail.com; s=zohoarc; 
-	b=X11IIrfVm/W6vJNHgNGmMI3FAg8acPtfYHLjLzAfW6mpqTmFWqT6eUpg05wFriIEjBZk4RlAvUrSYlrouvpjj/u50L7yPoU4/NdBuJAD57GQpKYP0H5J9Tcn16NoZGH64VzCPQ04d2bG2LYReNzj7sFXCF4jzvHYAWQ57Mfh7Tg=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1791240452; h=Content-Type:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=aDPLd6m9eaalIuU0euZ4duF8q18K96/gVEz/CFzsn0A=; 
-	b=Z0btMJ+uLUFkNgO958Usz1ssRX063i/YtURPBBb/LNYMvLpquTN/t9dkUbzNLRJ2lXvsFT1MeUev/x4iE7ic7rCE3nKHODFNNrc1VyT5md65CwZcpLCR0qM3E+8dtfjNBQjXIulT9gNuHpSd1jzvKc2qAC2UULofOYiXlnm5efw=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
-	dkim=pass  header.i=collabora.com;
-	spf=pass  smtp.mailfrom=deborah.brouwer@collabora.com;
-	dmarc=pass header.from=<deborah.brouwer@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1791240452;
-	s=zohomail; d=collabora.com; i=deborah.brouwer@collabora.com;
-	h=Date:Date:From:From:To:To:Cc:Cc:Subject:Subject:Message-ID:MIME-Version:Content-Type:In-Reply-To:Message-Id:Reply-To;
-	bh=aDPLd6m9eaalIuU0euZ4duF8q18K96/gVEz/CFzsn0A=;
-	b=BXEDuZi6Iea1wSlWGLMW/6HR+gxwHv5oW9L/ajt5MGOsR8HNv0t4iiWekyS8FL6i
-	S/qrvhpfQ57mlna6V2ElB/+NltSm4uNdqpcr4plD+y8BavgtEf81m0VsGVX5EiyxqNX
-	8tKW4h0xD8xdyCo9tfQG4s6ieE6oobLQDGoa7vJs=
-Received: by smtp.zohomail.com with SMTPS id 1791240450336816.4858411504894;
-	Mon, 5 Oct 2026 15:47:30 -0700 (PDT)
-Date: Mon, 5 Oct 2026 15:47:29 -0700
-From: Deborah Brouwer <deborah.brouwer@collabora.com>
-To: Gary Guo <gary@garyguo.net>
-Cc: Danilo Krummrich <dakr@kernel.org>, Alice Ryhl <aliceryhl@google.com>,
-	Daniel Almeida <daniel.almeida@collabora.com>,
-	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
-	Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>,
-	=?iso-8859-1?Q?Bj=F6rn?= Roy Baron <bjorn3_gh@protonmail.com>,
-	Benno Lossin <lossin@kernel.org>,
-	Andreas Hindborg <a.hindborg@kernel.org>,
-	Trevor Gross <tmgross@umich.edu>,
-	Tamir Duberstein <tamird@kernel.org>,
-	Alexandre Courbot <acourbot@nvidia.com>,
-	Onur =?iso-8859-1?Q?=D6zkan?= <work@onurozkan.dev>,
-	dri-devel@lists.freedesktop.org, rust-for-linux@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v3 1/2] rust: uapi: add zerocopy/zerocopy_derive
-Message-ID: <asQpARWOjeJRjhq3@um790>
-References: <20260925-b4-gpu_info_intobytes-v3-0-e19bcb71980d@collabora.com>
- <20260925-b4-gpu_info_intobytes-v3-1-e19bcb71980d@collabora.com>
- <DLPD8RQKM8VU.3QWOV9RFLA8S6@garyguo.net>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KOXGXeWf"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 805B61F00893;
+	Mon,  5 Oct 2026 22:50:06 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791240606;
+	bh=FN9wJFMFgdkD8CUh9pfquPqVho9UUrHIcx8HlymlWXg=;
+	h=Subject:From:Date:References:In-Reply-To:To:Cc;
+	b=KOXGXeWfaozqzbDMgoFwHebWj05aVKSkHaAuQgvCu8idsN+TWxXE+C9THj9mlD598
+	 +0A+I6/+8adC+HEtGoLbDIsuspZQoV8W+ksZoHNNVfFI8bUh1nW9GB5VktgJDL/Mah
+	 VE7JWYNTN7JAHWZFwsNN5BAsKYT24Ggrz49S/JicFnJy6dEtilKflglRJIxU3i34bO
+	 UIL4bMWppxSpjEWUe0cHlFHEThXT1k0XicAEWr4lHuJ1bU+tzEXSL9yTk426GlAkM8
+	 hjg2wxK8OFTBbBx8XOm3BigA5mFdddSuXksyzt6gzRF5bgvZSRJSQvZ8NPcid1mzVY
+	 SxNyUXWpRzSjg==
+Received: from [10.30.226.235] (localhost [IPv6:::1])
+	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 772F73926677;
+	Mon,  5 Oct 2026 22:50:06 +0000 (UTC)
+Content-Type: text/plain; charset="utf-8"
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <DLPD8RQKM8VU.3QWOV9RFLA8S6@garyguo.net>
-X-Zoho-Virus-Status: 1
-X-Zoho-AV-Stamp: zmail-av-0.2.13.1.5.4/291.236.60
+Content-Transfer-Encoding: 8bit
+Subject: Re: [PATCH] net: stmmac: Disable unsolicited checksum insertion for
+ AF_XDP TX
+From: patchwork-bot+netdevbpf@kernel.org
+Message-Id: 
+ <179124060528.1926729.1824950688409199711.git-patchwork-notify@kernel.org>
+Date: Mon, 05 Oct 2026 22:50:05 +0000
+References: <20260929121032.20835-1-jszhang@kernel.org>
+In-Reply-To: <20260929121032.20835-1-jszhang@kernel.org>
+To: Jisheng Zhang <jszhang@kernel.org>
+Cc: maxime.chevallier@bootlin.com, andrew+netdev@lunn.ch, davem@davemloft.net,
+ edumazet@google.com, kuba@kernel.org, pabeni@redhat.com,
+ mcoquelin.stm32@gmail.com, alexandre.torgue@foss.st.com,
+ netdev@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-kernel@vger.kernel.org
 
-On Sat, Sep 26, 2026 at 04:50:37PM +0100, Gary Guo wrote:
-> On Sat Sep 26, 2026 at 1:26 AM BST, Deborah Brouwer wrote:
-> > Make the zerocopy and zerocopy_derive crates available for use when
-> > building the UAPI crate and its tests. Then attempt to derive most of
-> > the zerocopy traits for struct drm_panthor_gpu_info when generating its
-> > binding. This will be used by the Tyr driver that needs the traits
-> > IntoBytes and Immutable to safely copy the struct byte-for-byte to
-> > userspace.
-> >
-> > Signed-off-by: Deborah Brouwer <deborah.brouwer@collabora.com>
-> > ---
-> >  rust/Makefile           | 12 +++++++++---
-> >  rust/bindgen_parameters |  3 +++
-> >  2 files changed, 12 insertions(+), 3 deletions(-)
-> >
-> > diff --git a/rust/Makefile b/rust/Makefile
-> > index da1a7409d984..bf02a1efd6f3 100644
-> > --- a/rust/Makefile
-> > +++ b/rust/Makefile
-> > @@ -365,8 +365,11 @@ rusttestlib-bindings: private rustc_target_flags = --extern ffi --extern pin_ini
-> >  rusttestlib-bindings: $(src)/bindings/lib.rs rusttestlib-ffi rusttestlib-pin_init FORCE
-> >  	+$(call if_changed,rustc_test_library)
-> >  
-> > -rusttestlib-uapi: private rustc_target_flags = --extern ffi --extern pin_init
-> > -rusttestlib-uapi: $(src)/uapi/lib.rs rusttestlib-ffi rusttestlib-pin_init FORCE
-> > +rusttestlib-uapi: private rustc_target_flags = --extern ffi --extern pin_init \
-> > +	--extern zerocopy=$(objtree)/$(obj)/test/libzerocopy.rlib \
-> > +	--extern zerocopy_derive=$(objtree)/$(obj)/test/$(libzerocopy_derive_name)
-> > +rusttestlib-uapi: $(src)/uapi/lib.rs rusttestlib-ffi rusttestlib-pin_init \
-> > +	rusttestlib-zerocopy rusttestlib-zerocopy_derive FORCE
-> >  	+$(call if_changed,rustc_test_library)
-> >  
-> >  quiet_cmd_rustdoc_test = RUSTDOC T $<
-> > @@ -782,11 +785,14 @@ $(obj)/bindings.o: $(src)/bindings/lib.rs \
-> >      $(obj)/bindings/bindings_helpers_generated.rs FORCE
-> >  	+$(call if_changed_rule,rustc_library)
-> >  
-> > -$(obj)/uapi.o: private rustc_target_flags = --extern ffi --extern pin_init
-> > +$(obj)/uapi.o: private rustc_target_flags = --extern ffi --extern pin_init \
-> > +	--extern zerocopy --extern zerocopy_derive
-> >  $(obj)/uapi.o: private skip_gendwarfksyms = 1
-> >  $(obj)/uapi.o: $(src)/uapi/lib.rs \
-> >      $(obj)/ffi.o \
-> >      $(obj)/pin_init.o \
-> > +    $(obj)/zerocopy.o \
-> > +    $(obj)/$(libzerocopy_derive_name) \
-> 
-> Please add these to `bindings` crate as well to avoid have it diverging with
-> `uapi`.
+Hello:
 
-Ack.
+This patch was applied to netdev/net-next.git (main)
+by Jakub Kicinski <kuba@kernel.org>:
 
+On Tue, 29 Sep 2026 20:10:32 +0800 you wrote:
+> stmmac enables TX checksum insertion for every AF_XDP packet on queues
+> that support it. The driver does not implement tmo_request_checksum(), so
+> it enables the offload regardless of whether the application requested it
+> and ignores the requested checksum offsets.
 > 
-> >      $(obj)/uapi/uapi_generated.rs FORCE
-> >  	+$(call if_changed_rule,rustc_library)
-> >  
-> > diff --git a/rust/bindgen_parameters b/rust/bindgen_parameters
-> > index 8402b0c93545..332bc8d6a9f7 100644
-> > --- a/rust/bindgen_parameters
-> > +++ b/rust/bindgen_parameters
-> > @@ -71,3 +71,6 @@
-> >  # Structs should implement `Zeroable` when all of their fields do.
-> >  --with-derive-custom-struct .*=MaybeZeroable
-> >  --with-derive-custom-union .*=MaybeZeroable
-> > +
-> > +# `drm_panthor_gpu_info` is copied byte-for-byte to userspace.
-> > +--with-derive-custom-struct '^drm_panthor_gpu_info$'=zerocopy_derive::most_traits
+> Disable checksum insertion in the AF_XDP TX path. Applications must supply
+> complete checksums until the driver can honor AF_XDP checksum metadata.
 > 
-> This is Tyr specific change and should be in patch 2.
+> [...]
 
-Ack, will update in next verion.
+Here is the summary with links:
+  - net: stmmac: Disable unsolicited checksum insertion for AF_XDP TX
+    https://git.kernel.org/netdev/net-next/c/ecf5985006dd
 
-> 
-> Best,
-> Gary
-> 
-> 
+You are awesome, thank you!
+-- 
+Deet-doot-dot, I am a bot.
+https://korg.docs.kernel.org/patchwork/pwbot.html
+
+
