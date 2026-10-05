@@ -1,143 +1,121 @@
-Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
+Received: from mail-pj2-f13.google.com (mail-pj2-f13.google.com [74.125.227.141])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7243847F3D2
-	for <linux-kernel@vger.kernel.org>; Mon,  5 Oct 2026 12:35:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9B2E747FAF3
+	for <linux-kernel@vger.kernel.org>; Mon,  5 Oct 2026 12:36:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.141
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791203710; cv=none; b=u/y8hDZ66rH+g+AlrHhM0qBiJzIsfCJJ7F8CYicON4NbfpyPJu0acgLSHhkwCXpG6yyQKjzUdDOOwo9Ef5LAbVOdbudRpBuhU57wYeUcFMKiJqZhINWLrxQ5emh9I7ZlMMk9Vmjmg3UHGde4bVEugkF1FkviuDFBsXGSBo8tSzU=
+	t=1791203768; cv=none; b=sj2EaGovgR3voeqKGDuHaF+dwnuWDFUlmx6HllCKCKc657KGWJL6nxWxXjr3/5Gpv4+Rs7HqJEMgD1HXRP6HBZQfxnhpRMHqlvSUGWx8B4RZl+2180m0hjN79T3m8yXzyIa22E520rloWUEu2oFjNacRFlA0egMkVObNm7PRPyc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791203710; c=relaxed/simple;
-	bh=GjpLzScGvDT5+IF4EJ/jQV9Td5tyjYNGeOCPSv5ZJso=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=awrywKvrUoa0SCb+4SBLS8WUIj7RhYL3aep+yJhSoaRYY5nYln5nChBC0Nk9wvBq00h3iSiOFAiDn2AatYRrdc0yx0ALPQrpMb2AGh1U80SUFvO3V2Wjx++u4Bk9AGFI8rNBBiWsMQsH+yxygK2pcLJt88Z8ceqwALMnTiaf5hY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=Rqp/7dV8; arc=none smtp.client-ip=74.125.225.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	s=arc-20240116; t=1791203768; c=relaxed/simple;
+	bh=QQ//D5UNEFrMdGNsE0x2XqrDjRfkmbQnZlSDOkPsLjM=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=iZ/YJXxiABx7UZg2m0S1Jxn4Wmu8ASOfWH5HKWnierC63LFODH47iCcDwNUxWVKMaa52iHRcaf/O+KIMaqQ9W1t2ucA6C7ZMB162Q89b4lr6INPsOtEMpD5xo8kpmFMk2E5lWQuQErPWxJg5GhofWUq5E+YZySC3iYXNVJ1Hq/E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=isslab.korea.ac.kr; spf=none smtp.mailfrom=isslab.korea.ac.kr; dkim=pass (2048-bit key) header.d=isslab-korea-ac-kr.20251104.gappssmtp.com header.i=@isslab-korea-ac-kr.20251104.gappssmtp.com header.b=LRrDNRz0; arc=none smtp.client-ip=74.125.227.141
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=isslab.korea.ac.kr
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=isslab.korea.ac.kr
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="Rqp/7dV8"
-Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49e66390995so10931645e9.2
-        for <linux-kernel@vger.kernel.org>; Mon, 05 Oct 2026 05:35:08 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=isslab-korea-ac-kr.20251104.gappssmtp.com header.i=@isslab-korea-ac-kr.20251104.gappssmtp.com header.b="LRrDNRz0"
+Received: by mail-pj2-f13.google.com with SMTP id d9443c01a7336-2db1ca069c8so7008705ad.3
+        for <linux-kernel@vger.kernel.org>; Mon, 05 Oct 2026 05:36:06 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1791203706; x=1791808506; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=MtOkhtouXdYxuMzn6oEg118/G/+iHWMuCiEVkeqGr/E=;
-        b=Rqp/7dV8d/rrMhrJ6MAiBPt8bmYPA9b4U84tQb0OA+Cmvwhcby5ZW5eMQVA33N/4X2
-         aZvODjWnRc+dX7YZQ0Ji1P5XBacQMTnGQR5FBTvkHXYSBfE64m9j0t+Hc/hM5zpOIUuu
-         3dWeHXbCMYeQv6C8mK0zvdYfsZof1L8+eLOaDa4Fq6pBv6IbBUDOiG7fCT8vXz6pGUAR
-         AZ+2CkyZzwJoH/Gq+OU0f5LhsHEgJ2s8eCqTUuYx+BUUxJGEPkURJRaXpjv0c6+m5hzA
-         XgT2bWGXBf55WTLs0SMJYDfnWD6EgMvRbMf8cNQ3QwzsYmY6vPhPzn6iZy0B+4qKsDjv
-         smtg==
+        d=isslab-korea-ac-kr.20251104.gappssmtp.com; s=20251104; t=1791203765; x=1791808565; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=4jU8vbkoMdpm/iDka5HS8l6OLmahdMWqgTkrbnwvknU=;
+        b=LRrDNRz0pHvIpLpLE2H9qGw9RxTzk6KPEJByVvSTdcI1tFZDoj7i+fjzwbHLVVRtD3
+         gpxJcOa4kN5oAMIlIIjX1aH+s8EW5f2m+zEsQ0s0JRIef8mYDo7iUh3DyU5lxbT6Pz/2
+         VaDBzU9Zm50NzDVD66drpFqOyuGdNHTdU+qlxAPuLgVheNowU5BjxlMs7iSq4mNQBw+F
+         2P33Z9u4PwhNUfLS7hEM5vv8FstSBsKehuH2jAuPUTI1YONbm59kB2rWd+BWBf1PMNOi
+         wOKSm2Afa2Xi9OR/yzXxBQekswq5Y2sTrn8y/56E2bCtDBDH/RxV01xpAnDMSqw/89me
+         c4bw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791203706; x=1791808506;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=MtOkhtouXdYxuMzn6oEg118/G/+iHWMuCiEVkeqGr/E=;
-        b=hgRHJpBjqdBha+igQ3jbF8Athrnago99QMqhqEM62as9LJanxo+fdftSfGDhPTkoHr
-         PVmBljzwKQmt5wgExqoXAfYnuarq7NGGeZ9aEqlrcfKn8fdhOwxm9AfebeaL8ro/RVvs
-         6Zc3g9bjR6VIDW8oUa6ZHDzLC2Yt7pZyRj4SlGAFTjswuEDyZAvKusId4t/dwXyyHVii
-         jMpQx8KJWYPcx+gMcpI8BG4zcegq6E2WDjixtVYjOZpGGv76jdOW/X6/AiHXGqwSvnDq
-         isTr/UB9d7T/AvPc2WNn+pGVru5gvVdFAEzpwQIZWdqiTaGWMPJH8aZ4nYbSG9MpoZJD
-         UNBw==
-X-Forwarded-Encrypted: i=1; AKwUvByhRR6WEDU2z34bkKRcWH1WEkPwbtdY6nraXpMJyoxoT73KR/p/sJIbABQ2mnT3MPrrPT7V/EdWRyhNQYQ=@vger.kernel.org
-X-Gm-Message-State: AFuF++nkMyKKsYkpthTaxcSxz5uMMJ91lpArcw/G2vvhkMcn701WPyZm
-	PqWfQdYOnxJf9HvSOZ4UrEJg98QproHyLaLRUn2ccFxmpDXsFGPg/xb9NQA355hOriw=
-X-Gm-Gg: AYBFou0mCvmburwanH6gPpGiGbAvVD4M+v4SnqNUR7+MxJwUrfN07JVBFqWbgNtUItn
-	Wkretud4T+aW1m1txOWz6gUwx3twPbhxfe/C90vc5qu70gUZHe/zzeOPwJS2hsOi+SXxiBnCpzW
-	GqJU53ZRTIVR/buKAab2ZUtEpLg7qSRy8UpDBnI3yAOF8D1etCQFZWYYX8GZao6MwX8SakEvVs4
-	IEo7DnIFt9fEqjc92d+V5XvAnCIKJFXHcphKgNUYIFCJ/6mn7IGKjrKcGIV/ofHOY4mBWXpSy0y
-	fEz2Tw9avLU78mB32LkFghlpCEFXbJOUERknSwUmgpU0Sdi/RoszG/b9n+8IsLUpEURguxdXy7r
-	Bx4wu+pUpzDafkle+aLK3VBMtIwv8Ovn2II0KAdbP+Mo+QmpSIz8sTeTUWehZBJM3r1idLKjZi+
-	Sbdl44X69jMhBvz6A/VjmJtHQfMml3MNvuZ4DHlDFKuBtxcwwGWSuIsVxPM5L2DQ0xootCE2Qzn
-	X2J6ViSZfs=
-X-Received: by 2002:a05:600c:1f8f:b0:49d:1df6:2592 with SMTP id 5b1f17b1804b1-4a027698a2fmr183289125e9.21.1791203706473;
-        Mon, 05 Oct 2026 05:35:06 -0700 (PDT)
-Received: from linaro.org ([2a02:2454:ff25:4f41:ec49:36a8:7075:6d05])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a166bfaf73sm169425895e9.4.2026.10.05.05.35.05
+        d=1e100.net; s=20260707; t=1791203765; x=1791808565;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=4jU8vbkoMdpm/iDka5HS8l6OLmahdMWqgTkrbnwvknU=;
+        b=FfkVOH93QACyzk7pEFC89Oc7BhL31dbiGz6v+KvfBX8QkD4Rga5Y40Zr+4mCZEit3T
+         RQm3Mb6sipSFZZITF6Ubb21Jaoh4PG6if/x4m+/hR9MoThhxkUlKIIakyBKtS+JjtzSW
+         f3XKUNPgjFec4hiK/GCGD1U4n6FdCk8n+4472yUFGbKMeMiTiVS4RGqVC24Yd58r7Dv/
+         ZBNVHgcklzD+jGcdv5UTvAle18N39Z3PERTuz6kr2+qpp+g+LhKgtdyCNQYY2YZ2zfJX
+         TmiUjrv5xZCVzjNuO45hwVzOk5ArSc4toUu8NCMnj/BwpMLQ8olGwLKOvV3Ldmmr7GtG
+         qTFQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzQ2iBF8DBQSQ1PS58Z1pITrlSYtznTzkEDwbi6rz3IxeLgFdQp1BTYTexzWinoXETt+SBbAhqHWzsd0qU=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKLeg9fiYcasR6e3QD4mD1Vxox0fdPRyKUR2B1mA4IfFR6ofLLh
+	ANyBfvE9uEIkoQE7Pc+C/trlwDpNjblYwDspkvOO04INPwH3kvBC/K7gFPG66IPMh/Y=
+X-Gm-Gg: AYBFou3EAXoZM/hWclO/mJEJTaVw7j9LT6BO/Bjw1zz65qjhIEk0vQ4sFiUsu4DZ2xO
+	4gFGXPQt8rPRuFU2UWuCH58hUeJhQI1WjRLOZOXs+0K0KgqfQJ7cHt3SiYysk5oJE9xzzqmbI5y
+	/o/Tu5oLObypzDxIrqUulcgwSd9D0bI0d9UsfbgfvwdVvfOHirmZYJW5NzlFhlEDaRi014bOzVr
+	s1vkxrKuC6YFQgBoJRjCSbmW81TQ3YS1VV4ngft1YEImfH/Tuvi+PnqaK84nWxzmVhEiTDboHTX
+	h4kQgsTFdjVJoY8CY54lNFDKra4DGfaCD1D1G17Pi2mKcoRhzRcikwmAkcHKfVMCdpCsznoovXj
+	+f5vSpQmOm+i7Ez3OTjJVMbFe8uMFgSV282/QgtTr4ywim9xiEvPFBuaDfis9yskv662m9aSwjF
+	70J6oKCt84UkyQs2aRwoW2cVuV3gmjnv+C/IIRkXMN7zKlS6vqrugtLhrtXTe01QKF4nSDLHMs+
+	zFZ/euPc4qLwdjGp0LrQA==
+X-Received: by 2002:a17:903:186:b0:2dd:c053:c209 with SMTP id d9443c01a7336-2e49b6df076mr106567665ad.37.1791203765331;
+        Mon, 05 Oct 2026 05:36:05 -0700 (PDT)
+Received: from yhlee-960QFG.Davolink ([2406:5900:1044:110c:5364:bba9:2adf:d611])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2e5a5caea48sm6542495ad.14.2026.10.05.05.36.01
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 05 Oct 2026 05:35:06 -0700 (PDT)
-Date: Mon, 5 Oct 2026 14:35:01 +0200
-From: Stephan Gerhold <stephan.gerhold@linaro.org>
-To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
-	Imran Shaik <imran.shaik@oss.qualcomm.com>
-Cc: Bjorn Andersson <andersson@kernel.org>, Stephen Boyd <sboyd@kernel.org>,
-	Brian Masney <bmasney+clk@redhat.com>,
-	Jerome Brunet <jbrunet+clk@baylibre.com>,
-	Rob Herring <robh@kernel.org>, Georgi Djakov <djakov@kernel.org>,
-	Ajit Pandey <ajit.pandey@oss.qualcomm.com>,
-	Taniya Das <taniya.das@oss.qualcomm.com>,
-	Jagadeesh Kona <jagadeesh.kona@oss.qualcomm.com>,
-	Stephen Boyd <sboyd@codeaurora.org>, linux-arm-msm@vger.kernel.org,
-	linux-clk@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] clk: qcom: smd-rpm: Skip proxy votes on clocks for
- QCM2290
-Message-ID: <asOZdcWpfEtEm-5X@linaro.org>
-References: <20260910-clk-smd-rpm-skip-proxy-v1-1-1cb5694a99d9@oss.qualcomm.com>
- <dab99b27-ebc2-477e-b56a-26250aceee23@oss.qualcomm.com>
- <ad4aff4f-2d66-425a-a358-6cefaaa1319e@oss.qualcomm.com>
- <bbf2e7e8-42cf-4146-a2ec-b5182a161109@oss.qualcomm.com>
+        Mon, 05 Oct 2026 05:36:04 -0700 (PDT)
+From: Yehyeong Lee <yhlee@isslab.korea.ac.kr>
+To: Juergen Gross <jgross@suse.com>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
+	"James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>,
+	"Martin K. Petersen" <martin.petersen@oracle.com>,
+	Boris Ostrovsky <boris.ostrovsky@oracle.com>,
+	xen-devel@lists.xenproject.org,
+	linux-scsi@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Cc: stable@vger.kernel.org
+Subject: [PATCH] xen/scsifront: check for a NULL shadow entry on a backend response
+Date: Mon,  5 Oct 2026 21:35:54 +0900
+Message-ID: <20261005123555.253995-1-yhlee@isslab.korea.ac.kr>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <bbf2e7e8-42cf-4146-a2ec-b5182a161109@oss.qualcomm.com>
+Content-Transfer-Encoding: 8bit
 
-On Mon, Sep 21, 2026 at 10:53:40AM +0200, Konrad Dybcio wrote:
-> On 9/16/26 1:05 PM, Imran Shaik wrote:
-> > 
-> > 
-> > On 11-09-2026 02:36 pm, Konrad Dybcio wrote:
-> >> On 9/10/26 3:44 PM, Imran Shaik wrote:
-> >>> clk_smd_rpm_handoff() votes both active and sleep RPM resource states for
-> >>> every clock, keeping them non-zero until a consumer takes over. If there
-> >>> is no consumer, those clocks will remain active in the idle scenario as
-> >>> well, and the sleep vote is never cleared, blocking XO shutdown.
-> >>>
-> >>> Introduce the skip_clks_handoff flag to handle this on QCM2290 clocks,
-> >>> keeping other targets unaffected.
-> >>>
-> >>> Fixes: 00f64b58874e ("clk: qcom: Add support for SMD-RPM Clocks")
-> >>> Signed-off-by: Imran Shaik <imran.shaik@oss.qualcomm.com>
-> >>> ---
-> >>
-> >> Are you booting with clk_ignore_unused?
-> >>
-> > 
-> > No Konrad, clk_ignore_unused is not present.
-> > 
-> > Irrespective of clk_ignore_unused, the proxy votes are placed to RPM
-> > during handoff. If no consumer takes over, those votes remain active,
-> > keeping the resource ON in idle and preventing XO shutdown.
-> 
-> I re-read this and yeah you're right
-> 
-> Is the handoff functionality necessary at all for non-icc clocks?
-> I'm suspecting that this was just a port of the ancient msm-3.10
-> logic where the (modified) clock framework had a handoff mechanism
-> similar to today's sync_state, except the toning-down of these
-> clocks was never added
-> 
+scsifront_do_response() validates the rqid in a backend response against
+VSCSIIF_MAX_REQS before using it to index info->shadow[], but then
+dereferences the entry to test ->inflight without checking that the slot
+is populated.  Shadow slots are NULL before a command is submitted (the
+host private area is zeroed at allocation) and are reset to NULL in
+_scsifront_put_rqid() once a request completes, so an in-range rqid that
+does not correspond to an outstanding request makes the frontend
+dereference a NULL pointer.
 
-The purpose of the handoff functionality is to sync the RPM vote state
-with the Linux vote state. Since we don't have any "read status"
-implemented, we do need to make a vote for every RPM clock to guarantee
-it is in the expected state.
+A malicious or buggy backend can thus crash the guest by returning a
+response whose rqid is in range but not in flight -- for example a
+spurious response before any command has been issued, or a duplicate of
+one already completed.  The ring has only VSCSIIF_MAX_REQS (16) slots, so
+before the first command every in-range rqid selects a NULL slot.
 
-Simply skipping the proxy/handover votes does not fully solve the
-problem, since you will still leave unused clocks enabled by the boot
-firmware always-on.
+Reject a response whose shadow slot is not populated.
 
-I don't think we need to force on all clocks though, we could probably
-also unconditionally send a "disable clock" after sync_state (once/if
-the clock unused cleanup is actually managed by sync_state).
+Fixes: 6d1c2f48f3fc ("xen/scsifront: harden driver against malicious backend")
+Cc: stable@vger.kernel.org
+Signed-off-by: Yehyeong Lee <yhlee@isslab.korea.ac.kr>
+---
+ drivers/scsi/xen-scsifront.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-Thanks,
-Stephan
+diff --git a/drivers/scsi/xen-scsifront.c b/drivers/scsi/xen-scsifront.c
+index 989bcaee42caf..aa44a233eac8d 100644
+--- a/drivers/scsi/xen-scsifront.c
++++ b/drivers/scsi/xen-scsifront.c
+@@ -367,6 +367,7 @@ static void scsifront_do_response(struct vscsifrnt_info *info,
+ 	struct vscsifrnt_shadow *shadow;
+ 
+ 	if (ring_rsp->rqid >= VSCSIIF_MAX_REQS ||
++	    !info->shadow[ring_rsp->rqid] ||
+ 	    !info->shadow[ring_rsp->rqid]->inflight) {
+ 		scsifront_set_error(info, "illegal rqid returned by backend!");
+ 		return;
+-- 
+2.43.0
+
