@@ -1,318 +1,117 @@
-Received: from relay.yourmailgateway.de (relay.yourmailgateway.de [188.68.61.107])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com [209.85.128.41])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8E00F227BB9
-	for <linux-kernel@vger.kernel.org>; Mon,  5 Oct 2026 04:25:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=188.68.61.107
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5FAB52E5429
+	for <linux-kernel@vger.kernel.org>; Mon,  5 Oct 2026 04:25:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.41
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791174318; cv=none; b=VoD88DxsmGS4o5hL2iWe2nemfdWVa/S1UWbBHRF2N/rLCOsd3LriLC3dzAiRGXmxaINfVbpZwWU+3P90n3dSqKo9tkFp3/V+4vTTBwbWWlZpQausrM2YPcFsQZfRjb/LvGdekdrCI2Q1yRYBhlF5r4l+ozUQUFCOyd45RgpmBI8=
+	t=1791174351; cv=none; b=YWJvNoRthRZW4ogDwEWRQYRSwuMc+RsxH0lBVyAm4m2OHS9etPl5pFkt4R+pemuEAR3rDKuh8xW8gdKJuv/Wp9xW3gBd6MmGUU9/b4w2rG5qpy2X+pTtd8CPN60B+qLcQbpBVcsTdRHTXPWgPjmeIu1s5ZfZtMQ/V855v3Z3etw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791174318; c=relaxed/simple;
-	bh=k3nTfOdHo4Mj3rYj9hMlANPBYY2XirlzuB4f4/BK6uA=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=I8LA5B2MUnwD1OpMAucLx8RnHNPz6jop1rjvadxB1fTlxL/R3C+WNpmtygX2tFtLbtmfBK2UKkoQYcIwJxaEN9cAswuzuRh/spDJJB551KPsLRGVIP1P2FZASCxvW4wkar8JS91l4gkNcM/K3Uq2N/i4qiQDu/lwt8ZUNZ3IWB0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=leemhuis.info; spf=pass smtp.mailfrom=leemhuis.info; dkim=pass (2048-bit key) header.d=leemhuis.info header.i=@leemhuis.info header.b=JJv3R0GF; arc=none smtp.client-ip=188.68.61.107
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=leemhuis.info
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=leemhuis.info
+	s=arc-20240116; t=1791174351; c=relaxed/simple;
+	bh=fPZioazYkPzjSMjHIymVpmo3SG9e0aMYWmg3rnmT1X4=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=mH7fkGjOPFoCgCF+JZj7X+gHn79CbKpSR872jELod1d3E9sr7s1wJPIS2gXxnMBiA7mx4O1K7omvEdcYQ/6XnkqlL1Qf6NGBF3Fq7FNqcnBY1XnfpDtFCZO7e0PQL15ZvWAJnkSUGm1QDV+ppZmiGeF2dg3sOu+2HfiEKvY6MX8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=TfGSFTxp; arc=none smtp.client-ip=209.85.128.41
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=leemhuis.info header.i=@leemhuis.info header.b="JJv3R0GF"
-Received: from mors-relay-8405.netcup.net (localhost [127.0.0.1])
-	by mors-relay-8405.netcup.net (Postfix) with ESMTPS id 4hymWr3lh3z77S3;
-	Mon,  5 Oct 2026 06:25:12 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=leemhuis.info;
-	s=key2; t=1791174312;
-	bh=k3nTfOdHo4Mj3rYj9hMlANPBYY2XirlzuB4f4/BK6uA=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=JJv3R0GFH/j+IpuoP0R7j6v/faiR6wEX2cNVUywjEWoiRy+mUiSRmiMk2TKhjWV8Q
-	 BIonn28MSinB24xlT9fx6N9F1gLtT6C4Z6XZCT2vDd0zoSv865ucJTPmSJ6v3Db7uj
-	 i4KfHiaCcybcLZBRtHdKNtaeCax95eefbt2/KOwKqRwu2pEltVivfq6zA+E1B9Uk97
-	 IBYORFwsPsH3JO/PfX3ckYSKzC9zukJUZ/X5XCJUZ0PnrKLpsmOXQSnee5bZlxF4XK
-	 vn8tPgtBvNV3S1RFE2o9Ns6DkH2w0pvGG1lqHho57VCH/Af02V/7U96PV97RceBHue
-	 KzKSSSJHwRs4g==
-Received: from policy01-mors.netcup.net (unknown [46.38.225.35])
-	by mors-relay-8405.netcup.net (Postfix) with ESMTPS id 4hymWr33cHz77Nd;
-	Mon,  5 Oct 2026 06:25:12 +0200 (CEST)
-X-Virus-Scanned: Debian amavisd-new at policy01-mors.netcup.net
-X-Spam-Flag: NO
-X-Spam-Score: -2.898
-X-Spam-Level: 
-Received: from mxe9fb.netcup.net (unknown [10.243.12.53])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (P-256) server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by policy01-mors.netcup.net (Postfix) with ESMTPS id 4hymWp5lVlz8tfD;
-	Mon,  5 Oct 2026 06:25:10 +0200 (CEST)
-Received: from [10.100.0.149] (90-177-213-3.rck.o2.cz [90.177.213.3])
-	by mxe9fb.netcup.net (Postfix) with ESMTPSA id 29E005FAB3;
-	Mon,  5 Oct 2026 06:25:10 +0200 (CEST)
-Authentication-Results: mxe9fb;
-        spf=pass (sender IP is 90.177.213.3) smtp.mailfrom=regressions@leemhuis.info smtp.helo=[10.100.0.149]
-Received-SPF: pass (mxe9fb: connection is authenticated)
-Message-ID: <26e8c75d-a2d1-4803-a369-be38acc13af5@leemhuis.info>
-Date: Mon, 5 Oct 2026 06:25:09 +0200
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="TfGSFTxp"
+Received: by mail-wm1-f41.google.com with SMTP id 5b1f17b1804b1-4a16aaf2067so12517145e9.0
+        for <linux-kernel@vger.kernel.org>; Sun, 04 Oct 2026 21:25:50 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791174348; x=1791779148; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=961ay0gWzbSVe8vqtS0Eg+hS7Wb99URak0c/SwD/AlI=;
+        b=TfGSFTxpjxuFoUCBe1JXlOMkq5/qSH1UgON8qN8GHPWG0CY6UOHOGzYWo0B+w6BYvp
+         olxZ9GQFhFvsfd8v6WgAjUhGDaeTcmPv1jCV4+FhS7QPUk8mkUFopdgtBDJmlUSxdvGJ
+         jylhTYPSv0KzZY3r7NWZYIX3EgVvUALEvkkweRvtrl97yvskyT2yTr4PVSv58amIXqPa
+         0H+qAMJG51O/MFy+JyGs94fb8YEpN7lWu/Am2K1HQFepvDUtOSdC9xir4FejVO1CTcv7
+         5pSjwh/1eleBsJkgB8Wsa/KpsFniOOTd9ujyWtsGoNh4es8wY+brHF1PyE53+Z0ATP8e
+         6+jA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791174348; x=1791779148;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=961ay0gWzbSVe8vqtS0Eg+hS7Wb99URak0c/SwD/AlI=;
+        b=f7r5eTkRX1+j//rbXSGKROlpPi69jBSyFYljwtLNujrDjajRPzkIXoGe8cVBHOmyRD
+         fYuklWk7ObF6yK5q0/X9psYgFdVUvwskLf33tok/VbfQBcymNpJ/HqLa78arCFq17inY
+         QTn42JFfo2VgDtxe2T9QZYE/0giOjkEiLxoGlem1JU9A+pPGNAdY6SP3nnoTO/28u6li
+         XfB8EqLzr9TyxfKApD0HfZB7cZ+eZB1uXiokDhXUItaKx/3CbTTSYVFhD11La8x5EbcJ
+         5AXHChAF2uvukNyLK4Dpmc3p1ESCH8m7sH8i1d/Nml+3jm+wKh2nagDFvc7GDy2cLu5N
+         48Xw==
+X-Forwarded-Encrypted: i=1; AKwUvBybuVcc1l7OdPPlZr6H4cS2+ClWixCUBK8VXypsrlEvWlF5Xmeircr6NZjZLkDZT/eQRuZOz20SnlnAFG8=@vger.kernel.org
+X-Gm-Message-State: AFuF++kNYE8O7lztqCJofqA0wraDjiNZXcvBXqDxFk4bjF/jdLFpp8bv
+	bzCGs6dFuqMce0/KAhqgQFWsAELXiAhEgxLVBKWgvXnNZSbyl2OtaCnBKLQbp7xV
+X-Gm-Gg: AYBFou07cTmrNwUscX6uZd0teali3Gvy4CBE+JNLwRm0dXMlgZ32BJx6hgU1Ah8Tv9M
+	YQjyCx/JWGvmfuZ+i6J+e3VgkG0dsXpJgfrI7e8BUJuV4bKW2HFfeACtpZ5NODm92KHEztOK678
+	LEzP1wQ5RI8DOzuug/hw+AOGxJNLPgNRx/efmGY+DGLDPWV6xTm3sCtvzI9Hwrd/FWRPfS4gpgM
+	j4WUd1PTqjCaIVqNNifqeHYjJVCbRYNJHAc56mK6qDdKZInw7LAP+o15/BQ8Vjco/9vc7x6+cSY
+	tXPortNAgn73f4I5FncQODXi8/udNWIbX2igLbMc96PUSuH/lS80wQu1IAW90c8obIS/8JkcwP9
+	CNwPQD0X6wpJ/Vpj5Z0YGFp9JnjTaEv7reVw6x0wLpGGsRv8KntJFXlhtBTEIAoYsdkHCTtBtLF
+	RE5y++d2hT763maTVnQgQM9pTjgfQDqPw6xjpTznYGaYfpS7d9pmKv7elcI2EZaQda6uSW16WgQ
+	OgUrYWfaXAbCxn+Z+9smTXhs/PPX9/Y2VwOcSpfwX1obhi91UtrkvUnxvdCGl2FAu7cuo67u7R6
+	LU+Yg2GyDUhRy7aELXhUI2q75im5ThQlzuBBWLMgQ1WixhNUIp+h2C/KsOq+XtOrvg==
+X-Received: by 2002:a05:600c:b90:b0:4a1:62b8:9aa1 with SMTP id 5b1f17b1804b1-4a1680b5402mr109857695e9.2.1791174348517;
+        Sun, 04 Oct 2026 21:25:48 -0700 (PDT)
+Received: from MBP-von-Karl (dynamic-2a02-3100-b305-2001-39fa-3d24-821a-4eae.310.pool.telefonica.de. [2a02:3100:b305:2001:39fa:3d24:821a:4eae])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48c6227fa65sm869179f8f.16.2026.10.04.21.25.47
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 04 Oct 2026 21:25:47 -0700 (PDT)
+Date: Mon, 5 Oct 2026 06:25:46 +0200
+From: Karl Mehltretter <kmehltretter@gmail.com>
+To: Geert Uytterhoeven <geert@linux-m68k.org>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+	John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>, linux-usb@vger.kernel.org, linux-sh@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] usb: r8a66597-hcd: fix buffer overflow on odd-length
+ FIFO reads
+Message-ID: <asMl-yIKQoAbpwzA@gmail.com>
+References: <20261002213225.27834-1-kmehltretter@gmail.com>
+ <CAMuHMdWEYkBra+3G_+-TfT23BAWPxG5o2KHqGRuHcdp8x0Vskg@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] sched/cputime: Don't account idle time twice after
- dyntick-idle
-To: Stian Halseth <stian@itx.no>, Frederic Weisbecker <frederic@kernel.org>,
- Thomas Gleixner <tglx@kernel.org>
-Cc: Anna-Maria Behnsen <anna-maria@linutronix.de>,
- Ingo Molnar <mingo@redhat.com>, Peter Zijlstra <peterz@infradead.org>,
- Shrikanth Hegde <sshegde@linux.ibm.com>, regressions@lists.linux.dev,
- linux-kernel@vger.kernel.org,
- Ahmed Shaltout <ahmedshaltout.payment@gmail.com>
-References: <20261004142724.3896396-1-stian@itx.no>
- <20261004184701.4112237-1-stian@itx.no>
-From: Thorsten Leemhuis <regressions@leemhuis.info>
-Content-Language: de-DE, en-US
-In-Reply-To: <20261004184701.4112237-1-stian@itx.no>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-PPP-Message-ID: <179117431049.2181402.3013835236448673423@mxe9fb.netcup.net>
-X-NC-CID: rKtIzsjtCgCahAHYC3INDZy3a/iafdjV+fJCtQKB3r5OzDzhEt0=
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <CAMuHMdWEYkBra+3G_+-TfT23BAWPxG5o2KHqGRuHcdp8x0Vskg@mail.gmail.com>
 
-On 10/4/26 20:47, Stian Halseth wrote:
-> On idle exit the dyntick-idle accounting accounts the time up to now,
-> then the tick is restarted on its old period. The first tick accounts a
-> whole TICK_NSEC to whatever runs, although the part of that period
-> before the idle exit has just been accounted as idle time, or with
-> IRQ_TIME_ACCOUNTING as IRQ time. That is up to a full tick per idle
-> exit, and /proc/stat reports more idle time than wall time.
-> 
-> Record how much of the tick period had passed since the tick was
-> stopped, and leave it out of the first tick.
+Hi Geert,
 
-+CC Ahmed Shaltout, who reported a problem that sounded somewhat similar
-to me and might be helped by this (but I might be wrong there, this is
-not my area of expertise):
-https://lore.kernel.org/all/E76BE609-83E4-4FB6-88B8-191F7816EFD6@gmail.com/
+On Sat, Oct 03, 2026 at 02:42:48PM +0100, Geert Uytterhoeven wrote:
+> > +               count = len / 2;
+> > +               ioread16_rep(fifoaddr, buf, count);
+> 
+> Or just:
+> 
+>     ioread16_rep(fifoaddr, buf, len / 2);
+> 
+> > +
+> > +               if (len & 0x00000001) {
+> 
+> "len & 1"?
+> 
 
-@Ahmed, see also:
-https://lore.kernel.org/all/20261004142724.3896396-1-stian@itx.no/
+Thanks for suggesting that! I will use len / 2 and len & 1, and a
+plain byte store instead of the memcpy().
 
-Ciao, Thorsten
-> Fixes: cf6444c3e1bb7 ("tick/sched: Unify idle cputime accounting")
-> Link: https://lore.kernel.org/all/20261004142724.3896396-1-stian@itx.no/
-> Signed-off-by: Stian Halseth <stian@itx.no>
-> ---
-> Tested by comparing /proc/stat with CLOCK_MONOTONIC per CPU over 30 to
-> 60 s, with a task on one CPU that sleeps in a loop. Total CPU time per
-> wall second on that CPU:
 > 
->                                          before   after
->   SPARC T7-1, HZ=100, busiest CPU*       1.44     1.0000
->   SPARC T7-1, HZ=100, 3.7 ms sleeps               1.0001
->   SPARC T7-1, HZ=100, 25 ms sleeps                0.9996
->   Opteron, HZ=1000, 3.7 ms sleeps        1.131    0.999
->   x86_64 KVM guest, HZ=250, 3.7 ms       1.53     0.998
->   same guest, 9 ms sleeps                1.195    0.982
+> Seriously: a *_rep() function for a single iteration?
 > 
->   * under its normal load, about 95 tick stops/s
-> 
-> The guest was tested with and without IRQ_TIME_ACCOUNTING, with
-> highres=off, with steal time from a busy loop on the host CPU, and with
-> a test-only change that forces tick_nohz_idle_restart_tick() on every
-> idle loop iteration with the tick stopped.
-> 
-> The -1.8% left with long sleeps in the guest is time between an idle
-> tick's expiry and its delivery to the halted vCPU, which nothing
-> accounts. The summed lateness of those ticks matches it within 2 ms/s,
-> or within 8 ms/s with steal time, also with highres=off. It is there
-> without this patch as well, where the double counting hides it. On the
-> T7-1 it is within noise.
-> 
-> With 3.7 ms sleeps and steal time, +0.3% to +1.3% is left, which I
-> have not explained.
-> 
->  include/linux/kernel_stat.h |  6 ++++--
->  kernel/sched/cputime.c      | 31 +++++++++++++++++++++++++------
->  kernel/time/tick-sched.c    | 23 ++++++++++++++++++++---
->  3 files changed, 49 insertions(+), 11 deletions(-)
-> 
-> diff --git a/include/linux/kernel_stat.h b/include/linux/kernel_stat.h
-> index 9ca6c2259dfea..950867deea29f 100644
-> --- a/include/linux/kernel_stat.h
-> +++ b/include/linux/kernel_stat.h
-> @@ -40,6 +40,8 @@ struct kernel_cpustat {
->  	seqcount_t	idle_sleeptime_seq;
->  	u64		idle_entrytime;
->  	u64		idle_stealtime[2];
-> +	u64		idle_dyntick_entry;
-> +	u64		idle_tick_overlap;
->  #endif
->  	u64		cpustat[NR_STATS];
->  };
-> @@ -111,7 +113,7 @@ static inline unsigned long kstat_cpu_irqs_sum(unsigned int cpu)
->  #ifdef CONFIG_HAVE_VIRT_CPU_ACCOUNTING_IDLE
->  
->  static inline void kcpustat_dyntick_start(u64 now) { }
-> -static inline void kcpustat_dyntick_stop(u64 now) { }
-> +static inline void kcpustat_dyntick_stop(u64 now, u64 tick_start) { }
->  static inline void kcpustat_irq_enter(u64 now) { }
->  static inline void kcpustat_irq_exit(u64 now) { }
->  static inline bool kcpustat_idle_dyntick(void) { return false; }
-> @@ -132,7 +134,7 @@ static inline u64 kcpustat_field_iowait(int cpu)
->  #else /* !CONFIG_HAVE_VIRT_CPU_ACCOUNTING_IDLE */
->  
->  extern void kcpustat_dyntick_start(u64 now);
-> -extern void kcpustat_dyntick_stop(u64 now);
-> +extern void kcpustat_dyntick_stop(u64 now, u64 tick_start);
->  extern void kcpustat_irq_enter(u64 now);
->  extern void kcpustat_irq_exit(u64 now);
->  extern u64 kcpustat_field_idle(int cpu);
-> diff --git a/kernel/sched/cputime.c b/kernel/sched/cputime.c
-> index 06bddaa738e52..9205e92680943 100644
-> --- a/kernel/sched/cputime.c
-> +++ b/kernel/sched/cputime.c
-> @@ -358,6 +358,19 @@ void thread_group_cputime(struct task_struct *tsk, struct task_cputime *times)
->  	}
->  }
->  
-> +/*
-> + * The first tick after dyntick-idle covers a period that the dyntick-idle
-> + * accounting may already have accounted up to the idle exit.
-> + */
-> +static u64 tick_cputime(void)
-> +{
-> +#if defined(CONFIG_NO_HZ_COMMON) && !defined(CONFIG_HAVE_VIRT_CPU_ACCOUNTING_IDLE)
-> +	return TICK_NSEC - __this_cpu_xchg(kernel_cpustat.idle_tick_overlap, 0);
-> +#else
-> +	return TICK_NSEC;
-> +#endif
-> +}
-> +
->  #ifdef CONFIG_IRQ_TIME_ACCOUNTING
->  /*
->   * Account a tick to a process and cpustat
-> @@ -381,9 +394,9 @@ void thread_group_cputime(struct task_struct *tsk, struct task_cputime *times)
->   * softirq as those do not count in task exec_runtime any more.
->   */
->  static void irqtime_account_process_tick(struct task_struct *p, int user_tick,
-> -					 int ticks)
-> +					 u64 cputime)
->  {
-> -	u64 other, cputime = TICK_NSEC * ticks;
-> +	u64 other;
->  
->  	/*
->  	 * When returning from idle, many ticks can get accounted at
-> @@ -418,7 +431,7 @@ static void irqtime_account_process_tick(struct task_struct *p, int user_tick,
->  
->  #else /* !CONFIG_IRQ_TIME_ACCOUNTING: */
->  static inline void irqtime_account_process_tick(struct task_struct *p, int user_tick,
-> -						int nr_ticks) { }
-> +						u64 cputime) { }
->  #endif /* !CONFIG_IRQ_TIME_ACCOUNTING */
->  
->  #if defined(CONFIG_NO_HZ_COMMON) && !defined(CONFIG_HAVE_VIRT_CPU_ACCOUNTING_IDLE)
-> @@ -468,12 +481,15 @@ static void kcpustat_idle_start(struct kernel_cpustat *kc, u64 now)
->  	write_seqcount_end(&kc->idle_sleeptime_seq);
->  }
->  
-> -void kcpustat_dyntick_stop(u64 now)
-> +void kcpustat_dyntick_stop(u64 now, u64 tick_start)
->  {
->  	struct kernel_cpustat *kc = kcpustat_this_cpu;
->  
->  	if (!vtime_generic_enabled_this_cpu()) {
->  		WARN_ON_ONCE(!kc->idle_dyntick);
-> +		tick_start = max(tick_start, kc->idle_dyntick_entry);
-> +		if (now > tick_start)
-> +			kc->idle_tick_overlap = now - tick_start;
->  		kcpustat_idle_stop(kc, now);
->  		kc->idle_dyntick = false;
->  		vtime_dyntick_stop();
-> @@ -487,6 +503,8 @@ void kcpustat_dyntick_start(u64 now)
->  	if (!vtime_generic_enabled_this_cpu()) {
->  		vtime_dyntick_start();
->  		kc->idle_dyntick = true;
-> +		kc->idle_dyntick_entry = now;
-> +		kc->idle_tick_overlap = 0;
->  		kcpustat_idle_start(kc, now);
->  	}
->  }
-> @@ -695,12 +713,13 @@ void account_process_tick(struct task_struct *p, int user_tick)
->  	if (kcpustat_idle_dyntick())
->  		return;
->  
-> +	cputime = tick_cputime();
-> +
->  	if (irqtime_enabled()) {
-> -		irqtime_account_process_tick(p, user_tick, 1);
-> +		irqtime_account_process_tick(p, user_tick, cputime);
->  		return;
->  	}
->  
-> -	cputime = TICK_NSEC;
->  	steal = steal_account_process_time(ULONG_MAX);
->  
->  	if (steal >= cputime)
-> diff --git a/kernel/time/tick-sched.c b/kernel/time/tick-sched.c
-> index 6c3fea3867139..1c5cefbb10812 100644
-> --- a/kernel/time/tick-sched.c
-> +++ b/kernel/time/tick-sched.c
-> @@ -763,13 +763,20 @@ static ktime_t tick_forward_now(ktime_t expires, ktime_t now)
->  	return expires + TICK_NSEC;
->  }
->  
-> -static void tick_nohz_restart(struct tick_sched *ts, ktime_t now)
-> +static ktime_t tick_nohz_restart_expires(struct tick_sched *ts, ktime_t now)
->  {
->  	ktime_t expires = ts->last_tick;
->  
->  	if (now >= expires)
->  		expires = tick_forward_now(expires, now);
->  
-> +	return expires;
-> +}
-> +
-> +static void tick_nohz_restart(struct tick_sched *ts, ktime_t now)
-> +{
-> +	ktime_t expires = tick_nohz_restart_expires(ts, now);
-> +
->  	if (tick_sched_flag_test(ts, TS_FLAG_HIGHRES)) {
->  		hrtimer_start(&ts->sched_timer,	expires, HRTIMER_MODE_ABS_PINNED_HARD);
->  	} else {
-> @@ -1329,6 +1336,16 @@ unsigned long tick_nohz_get_idle_calls_cpu(int cpu)
->  	return ts->idle_calls;
->  }
->  
-> +static void tick_nohz_dyntick_stop(struct tick_sched *ts, ktime_t now)
-> +{
-> +	ktime_t tick_start = now;
-> +
-> +	if (!tick_nohz_full_cpu(smp_processor_id()))
-> +		tick_start = tick_nohz_restart_expires(ts, now) - TICK_NSEC;
-> +
-> +	kcpustat_dyntick_stop(now, tick_start);
-> +}
-> +
->  void tick_nohz_idle_restart_tick(void)
->  {
->  	struct tick_sched *ts = this_cpu_ptr(&tick_cpu_sched);
-> @@ -1341,7 +1358,7 @@ void tick_nohz_idle_restart_tick(void)
->  		 * no tiny amount of idle time is accounted twice.
->  		 */
->  		ts->idle_entrytime = ktime_get();
-> -		kcpustat_dyntick_stop(ts->idle_entrytime);
-> +		tick_nohz_dyntick_stop(ts, ts->idle_entrytime);
->  		tick_nohz_restart_sched_tick(ts, ts->idle_entrytime);
->  	}
->  }
-> @@ -1385,7 +1402,7 @@ void tick_nohz_idle_exit(void)
->  
->  	if (tick_sched_flag_test(ts, TS_FLAG_STOPPED)) {
->  		now = ktime_get();
-> -		kcpustat_dyntick_stop(now);
-> +		tick_nohz_dyntick_stop(ts, now);
->  		tick_nohz_idle_update_tick(ts, now);
->  	}
->  
-> 
-> base-commit: 72d3fcf802c45d00b300f25b848a93c3a2bd7c7e
 
+I'd like to keep this one. ioread16_rep() does not byte swap.
+ioread16() goes through readw(), which swaps on big endian on most
+architectures.
+
+The words before the last one are read with ioread16_rep(), so reading
+the last word the same way puts its first FIFO byte first in memory on
+every architecture.
+
+Thanks,
+Karl
