@@ -1,257 +1,272 @@
-Received: from CH1PR05CU001.outbound.protection.outlook.com (mail-northcentralusazon11010025.outbound.protection.outlook.com [52.101.193.25])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EBD363B05BA;
-	Mon,  5 Oct 2026 10:09:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.193.25
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791194944; cv=fail; b=q/p3MCjqdfgdNV3GB63bZXWLn6iLErTzp7IZxd327sjqdEov+LgI8bfTsijLrTSV3trW+TGbD3zPe8YdUmPqtWuFMGhKg8CvuTMRkdEBUKmYVCcYLt77Mvctv1Bpn/qqcKq4L4kTGfC6zVhQxH033rvIRVm2f3vz2/CCoeLxMAM=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791194944; c=relaxed/simple;
-	bh=b+tx8K95LDpM5KSkY/UelrSRpaqt9uo2EW3FiP90WwI=;
-	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
-	 Content-Type:MIME-Version; b=d5qldzzDsz7PRtusG5EmdfBkiyeyWV0cjwJQjFJNuYuc1zt5fT9S/gB07QA7fKTrjZHIj/Q95n7NBqZgkgGIq315k7wBlTOQNCF8M1ljIQp1+flBqo9YKcOiWjV6OPjVqOKDXEEpGftjqZVmd6W7YWauowbkTf5XIshjaeltRa8=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=iU+b86M2; arc=fail smtp.client-ip=52.101.193.25
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B2DBD463B83
+	for <linux-kernel@vger.kernel.org>; Mon,  5 Oct 2026 10:09:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791194993; cv=none; b=LrqaXKB4Kj+o7v9xK3vyv9FgnywkszsKpiLlxv37E6/DtlDux/uKoSojGxeF1gCOJFKsNq7w5b7/LAftQ0G46M3BZSz3hUP/kE3i7pzZA1dvwnTA5y6LF9rsLZKZ/GlfBgzzqQxbxq4GxEbPuhLwJ/BraUyHnzuS4OV+0pYvarg=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791194993; c=relaxed/simple;
+	bh=F/3Ral9Y1JF0253NsPqcvdFonuL+abvMZayZd3zy7ik=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=JBeCFDiD8Jg8lilipXrzqMg1oIGnHzC2mkTXFnTiqHfNGI9rxKdtyaHsUIzok9EYl5sySkzshZLD6c3xCfMY1Qr8plaEtNpIz/E4WDQjw9b7TLyRf4ppWaBGa3aGq4Wc8cRNf3AsPtkx0Pt/BmBQOTX4kP730g/BTfi56hDttSw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=hHt52A2E; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=VrkYCMjq; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="iU+b86M2"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=C3ILky1M5EvunATQtP6LL1IT6Iu+/xU3FlPOD5JgiB3X5/pXx1OcKDyGU4blvuLblq7kXNfcPaPIba0VZp3sBEppebJZVAZO3HlkEcCyPy0IJv0REyLNjfQk32c5Vz2HS6JLddowR66+W5zgCdoelXr2PMjbvLKUZmORR3924YRM1Sx2nqxiTAnCppJmEsH6gXSF2pCHPolS9kk3DoAg30oVe9eHMSocyhWeo1e6iDJMRdIjrLSw0W2h8f9ZnipVIA9J3/G4GwRgV2V3kcSnxVPF8wI1DE5cH1vu3nDqI4c4U5wNqnvANmUh9E8D7IDL6cBBjxAGmXECmAw7ioaWeA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=PRuchyLASPNs/Idu1XzTq6YGjzxyPtWok/wuyzbhaUw=;
- b=dZp1uf81F0z1hcTyZ40w/nk2Al5Fkcf25+7dY+3cbndnxSQehQN2X2rLULodtk47nrPMekJZGmrnhha9WhskY+pBfU1VtiV+E3bbIsL1GMVQH/boHbbYv7Y//attyV38r1MXSc5DoddJ16y3571PGq5Vfzhoscq/aUYu7VyPiLGU72KSghxdj964N3AJNPAVj84x+DZt4UA8/qjmXbzpdhm9ChpwtgiWYcR/RNti2VuqJKsFODzPagz1CPQ4t+nrPkJ2sspEUfW+Rkmb5qPI2telrxtU3sjpwH+K4zz3wMzSioy3hwBnX4tyChVJnHHo+mn3e4TdsLKfmU2S0wtgdg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=PRuchyLASPNs/Idu1XzTq6YGjzxyPtWok/wuyzbhaUw=;
- b=iU+b86M23XPv08q/GW3BRpEKWrTPeCz61MDZMZPqvWaSBpqWSdOXMevuy+ULMc8gEtcQgCwKdsPQpmVeZsCMaWYbrQy4tOayx4solxnCMWN50fRbIKclUx/7EamKf4j+YvXev5JHk+yxxM0WNXQp3lGgwPsik1EEhPYTmrk0Kf8=
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
- by BY5PR12MB4228.namprd12.prod.outlook.com (2603:10b6:a03:20b::22) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.472.20; Mon, 5 Oct
- 2026 10:08:59 +0000
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c%3]) with mapi id 15.21.0472.016; Mon, 5 Oct 2026
- 10:08:59 +0000
-Message-ID: <189054b2-3899-429f-b5fb-5be6917f7960@amd.com>
-Date: Mon, 5 Oct 2026 12:08:48 +0200
-User-Agent: Mozilla Thunderbird
-Subject: Re: [RFC PATCH 3/6] dma-buf: Add ranged mapping invalidation
-To: Fred Griffoul <griffoul@gmail.com>, Paolo Bonzini <pbonzini@redhat.com>,
- Sean Christopherson <seanjc@google.com>, Marc Zyngier <maz@kernel.org>,
- Oliver Upton <oupton@kernel.org>, Sumit Semwal <sumit.semwal@linaro.org>,
- Jason Gunthorpe <jgg@ziepe.ca>, Kevin Tian <kevin.tian@intel.com>
-Cc: David Woodhouse <dwmw2@infradead.org>,
- Ackerley Tng <ackerleytng@google.com>, Joey Gouly <joey.gouly@arm.com>,
- Suzuki K Poulose <suzuki.poulose@arm.com>, Zenghui Yu
- <yuzenghui@huawei.com>, Steffen Eiden <seiden@linux.ibm.com>,
- Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>,
- Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>,
- Borislav Petkov <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>,
- "H . Peter Anvin" <hpa@zytor.com>, Joerg Roedel <joro@8bytes.org>,
- Robin Murphy <robin.murphy@arm.com>, Alex Williamson <alex@shazbot.org>,
- Shuah Khan <shuah@kernel.org>, Steven Rostedt <rostedt@goodmis.org>,
- Masami Hiramatsu <mhiramat@kernel.org>,
- Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
- linux-kernel@vger.kernel.org, kvm@vger.kernel.org, kvmarm@lists.linux.dev,
- linux-arm-kernel@lists.infradead.org, iommu@lists.linux.dev,
- linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linaro-mm-sig@lists.linaro.org, linux-kselftest@vger.kernel.org,
- linux-trace-kernel@vger.kernel.org, x86@kernel.org
-References: <20260720111259.122911-1-dwmw2@infradead.org>
- <20261005095552.52748-1-griffoul@gmail.com>
- <20261005095552.52748-4-griffoul@gmail.com>
-Content-Language: en-US
-From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-In-Reply-To: <20261005095552.52748-4-griffoul@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: YT4PR01CA0304.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:b01:10e::20) To PH7PR12MB5685.namprd12.prod.outlook.com
- (2603:10b6:510:13c::22)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="hHt52A2E";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="VrkYCMjq"
+Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6958xQoI1102554
+	for <linux-kernel@vger.kernel.org>; Mon, 5 Oct 2026 10:09:46 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	emKGw6rm4cR1mwCY7FGTF8gcjw/YmbLxMFdIuBtcbuM=; b=hHt52A2EdBiBL9kl
+	QCo64vOOztqI6lpUDqROgw7qt9jYXih4ftOxo6wY9bdPcgxrd2Fd/pK7HcHASsgR
+	IT3KERbFyjmh8/i2C9kMVcvm9Xok2tPfkIrSQW0XO9B9ias6jKVoZHdPSL89a5Pc
+	DAy5nuywW59BSOw9aaA3vNrxQfPLUT6UJrk7qew5lt2h/yKAhKsSu+5O6d9xE+8K
+	a7iXJi7OOPyYBKZ5XNrMefuCUIVDjGp24jwym2VKucPMjMJlfxg3KDU7n8Z6PLfB
+	wD1Zg8um2qg4WLr6kvcD2SKxBYA//0F0Ys/3EHdm6ZFcNKyZD0aH0urJq2aUGmoy
+	aCytvQ==
+Received: from mail-pj1-f71.google.com (mail-pj1-f71.google.com [209.85.216.71])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h2ssu5ckv-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Mon, 05 Oct 2026 10:09:46 +0000 (GMT)
+Received: by mail-pj1-f71.google.com with SMTP id 98e67ed59e1d1-3a4b70941efso1208167a91.0
+        for <linux-kernel@vger.kernel.org>; Mon, 05 Oct 2026 03:09:46 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1791194986; x=1791799786; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=emKGw6rm4cR1mwCY7FGTF8gcjw/YmbLxMFdIuBtcbuM=;
+        b=VrkYCMjq/IDwWBG+PHNczFWwGp0uTyR3jEwJTMPnBNYq2YkvDiq9IDH6hn93LNC3Am
+         mitOWmhDKeqDRAKgD091wGexw756NPHJnKHJhlqxklYpnmBXikbnGkTFVpLhXLsi7jH/
+         j9kLq8+RW/OxJaa7kffIoQhpnFPy24RsBBgI7T3nl0GIX2q8k3tasYT3slvrnv4RrgZF
+         ZgR8oncZ3uT5Wy2ap58QuK8QAhakVQwsAv3DJ0Gydr1gACGCGpNZG6YAaboo+knYI5Cx
+         QFhi9IAqiD78YzvtBiR9Epkm11CblMuVOEPIA6p0Xj5hTOyc7fw5+WScse7DVEYqJTuC
+         PB8g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791194986; x=1791799786;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=emKGw6rm4cR1mwCY7FGTF8gcjw/YmbLxMFdIuBtcbuM=;
+        b=V2r+pnVJDlWDj+FgUrZw3xoqugynQw73qjtHWd/1n2qrS+rxSSsdQUVIOkObvVOkNJ
+         eSc5NMCiiHTJaX5c+/Yktlf/yg1N2d1QdC79h84+oR7qyiz1rnLwF1NEetqpEse+QUfn
+         JzL8MPhzv5aO4Easw8TpMOCrSCkJp6WfndZxGpQ2UKX26mlu5SP6f3wGuzuZU3GiO1AL
+         txtLSGHIa3g+/YzzKDvJcBSwSx5S7OphCh7rLh6lSVUbkFwCWnfehND+GEFWC9hLfcxm
+         kyRSueuIasYD2IaP7MTDXYvLx5npWgp6nOG0niK+IJbiaadjwPQlYpBfQqyEIqvl4r8b
+         QTNw==
+X-Forwarded-Encrypted: i=1; AKwUvBxZk2MZdGKwglYqtdquZnljBnggfgxKFfPUjLLmWvtVHTxdpKqOhJzhfxEPaztXKl+H/dwghTsJLYYYgQs=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJOUiYguxW4gO7INbYsPKZZzZ2EgsvlwS3AnvqKxhTwM0c+tia/
+	ZkdbXV6YJZBqXHmC1pfGFIBwIE5eTEg/8ddsqfh9oj0nEw+PJpq3yYVPDA5LkXea98tzSvIhq+K
+	9b8g9nd/i7z+RCfmVdaIX+UB/pROKxWhmk+Zz+6D3vmKHbbgaUYl7nTh+s0/njSvaCQw=
+X-Gm-Gg: AYBFou0xBDZVVWTXp1MgdUahji+ft3WAblsLD8UOrPU5mc07VnxwA2HBloIbkbc/Pf6
+	t3JniGP4lw2DxgGzxCWfXbOuFwFFTjSOHw+y4zld15gf8Kw0ORxDin73yfc9lLj8kJjbNW+PX2M
+	ZHqh+kJycZiTFNXKsi+U7ZpNqhBImqpB9bxMQJNssynqyXgiy+OJudLaRMyQ7OiFSusqZeWOVp4
+	VIswFuc/N7FYfL3ATmY0THWRnoYNSjpm3NhaJoNWnEf+VL47Dk221PfDCRCL/ZQuyjFSTquEqYp
+	/gk/r8yx9VBCV2WRVSRF3LGjoCyPzy9usFUUMGJFfSEOux+AH2C7hg0UejRprbR483jLpffDU1+
+	wcisLVIOHMeYN/fMZFZsB7Jb0nJI=
+X-Received: by 2002:a17:90b:518d:b0:3a2:a576:f67a with SMTP id 98e67ed59e1d1-3a6ce84bc3emr7488176a91.52.1791194985550;
+        Mon, 05 Oct 2026 03:09:45 -0700 (PDT)
+X-Received: by 2002:a17:90b:518d:b0:3a2:a576:f67a with SMTP id 98e67ed59e1d1-3a6ce84bc3emr7488141a91.52.1791194985008;
+        Mon, 05 Oct 2026 03:09:45 -0700 (PDT)
+Received: from [10.218.30.203] ([202.46.22.19])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a78daef465sm11066805a91.1.2026.10.05.03.09.39
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 05 Oct 2026 03:09:44 -0700 (PDT)
+Message-ID: <c42c8f3e-fb8b-48fb-bbc6-5b6532ea9d72@oss.qualcomm.com>
+Date: Mon, 5 Oct 2026 15:39:38 +0530
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|BY5PR12MB4228:EE_
-X-MS-Office365-Filtering-Correlation-Id: e3cefb0a-155e-4bd5-fb0d-08df22c8aca4
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|1800799024|366016|376014|7416014|18002099003|22082099003|10067099003|4143699003|11063799006|56012099006;
-X-Microsoft-Antispam-Message-Info:
-	aKS7Plx6L4aE2cwQY4Kl8/biwQ+YvW9UckTYYYjPmFbIbga+HbrKCXwwqgAt4NaEGs4SWPOt4yyoc5UrszxWnm4hOnVmdRm5Koir+eXUBwvkgvSvLJ/PmZ/z/kBLUApd/nSwGBkA6dzUYuYhiyDJnn0nTw6KFEnBRt6Bgi1QKCoW96YgwLJ7uO6ZgLzSt50yiB4Vzc1dJxN8CdtieOB1QvaGjnvRM6IskuYzIirFpWMyH08cjcI+gbR/j+h7UTLbB/fBnqKOqjjM72cBdfmkk/1mrigsAN/Tua47pj7xpcpYXTWvn5ACl5RVPySjbFI/3pSzmd1jEAe+HcNbG7Jcgr0eqfQjRU7qTEaaCxEfTfZU6EG//V0BnaR318cAUB7ODylrukN7Hxb97TGkDj468l+/MoblIaWJlxJT3skxiqvve3FZAXY/sMMEjlhZtdQNJKNfWMkWHqK3Nb1Dy8HngZDIoiHF61Uv0zxQ4QDRva3dGNfOgCWTe4HIgf9nCcvnWfY8jJ9z32wouVX6SQ/ycSzZ9Dw5WJqi1kWx0mExOghfVysZA+9xEqwLVKBPn6y96jrJg4Vv8cmmXbzRZfpt1eTbe40wZHHFPsMkfZXFHemqC8gLmL5/sF8Nw4wfu1uw6TE790LGK9q5ANBVJxfhsE5JzUlB16wpd7+R645t0Tk=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH7PR12MB5685.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(1800799024)(366016)(376014)(7416014)(18002099003)(22082099003)(10067099003)(4143699003)(11063799006)(56012099006);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?NnZab3ZLTk1zOW4rM2hUeE45K0pMZXE1c3pSZXdidG9meDFWMkVuclc4YVlJ?=
- =?utf-8?B?SHF4MUJMdTVDcUt0b3phR0lnRWJtRWtnV292bWs0eG9oazFKUld2cXp4NnNC?=
- =?utf-8?B?UGNUaUtndHhIOWhFTUhmdTBkdDR1ejZ4VkNHeGVTLzhnUVErQ2VWMVk4LzBm?=
- =?utf-8?B?bUcvN0o0Zy9xRmNUZUtXQ3cybWhwZkMvQXZ4VzlwV1JUbEVFckNJNVFrTVk2?=
- =?utf-8?B?U3ZUZStMU01QK3VFWHNpTnlrdXZVWGNRK1VDSFd6cTE1ZmxQSXlPWDZTOGVT?=
- =?utf-8?B?SjI1akh4RTBueU1pcUZkSForalpTWHIrb3FNRXVHZ2Z4VHpvUUJKbHR2THB5?=
- =?utf-8?B?cTBPaWxRQkRXbVB3cGU1M2NCbnJTYm14VDVLd1VnV2JJdzAzOHoyaHBLRktH?=
- =?utf-8?B?Ky8xdnBlc3hLbElwdUZFUUpTdkVxQk5hZ0lqTEJYQW1hUUJKbWdjcytQUm50?=
- =?utf-8?B?T3JZYlZKa1JRWS9LUHZoVURqUUJpTVBKblpxWU5JZjdEVDVtU3M1bkFDMEM2?=
- =?utf-8?B?Y0MyM0NTOWM0blJlbXcxN0tDS2VtRFlQL1lObjFGbjV3SFY0c3RDRURXU0tu?=
- =?utf-8?B?OGtZRUlENjd6ODFhcmhzMDhiaCtSSDlQZGF2bUxXVHIxQksvN2JLWi9NaEQv?=
- =?utf-8?B?NjA4VUtuWVc2bmpVUWxPMG8xWnBjQkZCODFZMXZxbFVTbkl2VU10cXBnUHZu?=
- =?utf-8?B?M080RlljNnpuY2FOR200TnZIM3ZKb2d2eE8yemh1T29xejN3L1E1Q1BvRklI?=
- =?utf-8?B?cXNKRlh6amdoOS9OVE52M1NYVFZrb04wMW9wdXJkV0hTcG9HQkM5M2hFYTNW?=
- =?utf-8?B?ZTdzMWNNWURpNHNMWW9QemcxNWw0QUxVWjVCY0RXYzR5QkFCMWdCTGYvUmFG?=
- =?utf-8?B?UVk3QTJjT2QyVXdCbUhqSFBSN2lYUWF3MnJxQzNqVzE1YjVNc2kzODdDeExw?=
- =?utf-8?B?R3F3NGJKdUpwak9va1hndERuc3hOeHFqd3Y4RW5WN28waC8wdzFuMEtlaXpY?=
- =?utf-8?B?Z2oraEUyTjBuVW1adWJzS1ZITkhJditIWm5PMHRUa08wZnNHYnBSLzRVT3k5?=
- =?utf-8?B?T0hRVDdGL2NDcy81YzhCQlhRUkpNTFBzVGVWYm5GY29seEZsNEk5RURSRlRs?=
- =?utf-8?B?RFFSZmhLVHU1aEwwUTU5RjRXSEJmNVcrYnd3TWN5TnhKbXZrMWJsajJjaGNS?=
- =?utf-8?B?REZzSTNVTmszY29KMjFFcC9pbzcrQVk3d2w1TXhVMStTOVRGWGtRdW0ySW1M?=
- =?utf-8?B?ckx3cGFHbG9Qb0JNMkFxTVR4aE9pQ1MyUERTYVN2a01UeU1Fa0ZDRVpXTGNP?=
- =?utf-8?B?b3RXSHBLQlJpbndHWERkOHRlenFEaXhWNHNDVlY1ajFmZVFiSWlYOFg4ZW5U?=
- =?utf-8?B?YUF0Zmp5TXh3SkVqa1dMZXVVTEYzZ2hjbHFSMFM3aC9Dd2FwR2dYSEtDOE5o?=
- =?utf-8?B?bmt1VWVDZ0t4M1FuakdoR0xFVjVxYzRmc0hoQk9aNWVhYkFqOXNuQlA3RlJa?=
- =?utf-8?B?UXo5RUFBUXlzeTRJOUdsRUVJekg3dkd0YkNlM3BKdUE3L1YxNnRMUTM2Q1NH?=
- =?utf-8?B?enIxUGtMNkhJcHNjWXV2bEIwakp2RFZwOUQwSEtVbGJDQWVTclhnbGJDdmxL?=
- =?utf-8?B?UExlZE0ySzd1bHZKY0VqbGFiVkZVbzl0L1NoV0RCMjRZaFJ5Rjk0TnpBeU1q?=
- =?utf-8?B?V2ZHRXMvR1JhVFl6TzluTkxmQUNmbjg2eVNhOE13NFVSSTRQVUhnNmhNRmNo?=
- =?utf-8?B?TmpDRGdqa1JaY1psTFNPL0oxcmtkcWRlenNYamxMNHphMVJaQ1c2cGFVZDht?=
- =?utf-8?B?UDZTc1JIbmtYMGxINXE4bDBZR0Q2SUp0L29LbUxMdE5rcGY1NUFRUW1qY00w?=
- =?utf-8?B?NExZQ3NyTlByejFvVk1PNjlLcUVmYmhoYjcwbGJJVlk1QWh4UzZrTFFOWWNH?=
- =?utf-8?B?WFlEWUJ3MS94REZ6Z3d0a1QrOENqWU1NMk1LeWp3bGs1ZldMRnBobjRReXFU?=
- =?utf-8?B?V0k2clZNRzdvSjJLa2QzdUxpTU9SVzdBOXMyMml6YUFQZlJBRjFscmdYVDNW?=
- =?utf-8?B?Z3B2TjBvdUFhWklOaVl5eWJtVW13SW1qa0Zpd2hjb0U3cnNRWjFYQ1o2bjYv?=
- =?utf-8?B?c1VVN012cVdCUWtlaXQ0cVpsRFpiSERIRERVYzNRd1UwcGo5alZ6WkpxZTha?=
- =?utf-8?B?YWI4U21yNHduK2RFQ2pxK1Vaak0xVzE2R3JqTkhDa1lMS0ZzbFgvSDBaaVBr?=
- =?utf-8?B?eWNyZzUyK1k2czR4VjlHNVMzamFvOEV2Yjl5VTVlNlJMaWtGNEJvQkw5aFRP?=
- =?utf-8?Q?0B9+nKmnBkEpZMvJ56?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: e3cefb0a-155e-4bd5-fb0d-08df22c8aca4
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Oct 2026 10:08:59.6509
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: AJl+UFqf0sYUVm4UPyg78W8ujOjnfVAn24iraIuxrxj9SmFrtYLh67EZcYWDlmw+
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BY5PR12MB4228
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v9 0/3] Add DT Support for USB on Shikra
+To: Bjorn Andersson <andersson@kernel.org>
+Cc: Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley
+ <conor+dt@kernel.org>, linux-arm-msm@vger.kernel.org,
+        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+        Abel Vesa <abel.vesa@oss.qualcomm.com>,
+        Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+        Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+        Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>,
+        Krishna Kurapati <krishna.kurapati@oss.qualcomm.com>,
+        Rakesh Kota <rakesh.kota@oss.qualcomm.com>
+References: <20260912-usb-shikra-v7-v9-0-c7b507a0ec27@oss.qualcomm.com>
+ <ar50erRON6cMF9Oz@zenbook>
+Content-Language: en-US
+From: Komal Bajaj <komal.bajaj@oss.qualcomm.com>
+In-Reply-To: <ar50erRON6cMF9Oz@zenbook>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDA1MDAzOSBTYWx0ZWRfX1q3OXqXsF2sQ
+ ZQHi6zsLRUV+MhtVhW42XN78wXbRDy6yF2uwN8NL6n3DD/lY3pMz1FAEZAHepl8VPm7NhhwKyN5
+ M39TH7Iuk39MQ9GZhpHUrwFWzp94Xtssx+DupYdlQRI7EC9rKn8iDKXEJTKKWni+iTw1i4/2GNG
+ H3b8+6pQF3v0PEHtKrbPZrGHPaVHBXdBpj5F0YsygbnR8sDUZDp9EC+5XY/Vjj7kVQB3+07CY4H
+ 8abHDyxSO7gpzC+xuvDdhIvcQlPTIA4QFQ6mPa5QnIk0UflWmTm0OaS3XJq46x+H8F9BBtEEJaD
+ ZJb6MECfqpi6VSgV6K+k2Z218naU3dWyHqkEq3pMscZBkViXV5O6ab3nxzkzLLcbZ6q/cW6CkGV
+ j3DhUfcL3P3PM/JEguGzdTiDXNamTlnuw4/S6tbYp/zy+Rqml6MJNbE5PHavlDz8VvjOXjhO5Mk
+ YuQiFoRIKxj/V3ihiHg==
+X-Proofpoint-ORIG-GUID: N9Y70fALG6ZrqbKCxPT6_8A-xsdJiwbm
+X-Proofpoint-GUID: N9Y70fALG6ZrqbKCxPT6_8A-xsdJiwbm
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDA1MDAzOSBTYWx0ZWRfX4U8pST9x0yNq
+ /ekn4EBr1RCSd+KNNf0RrI7RfzQiSN2e6KzP3c8PN/VtWKNTWWLUnBmVhdQB4JWrG/+PWULpis9
+ Si7kAsVPg4IdLwvDucFZFxHONrkWpDg=
+X-Authority-Analysis: v=2.4 cv=XPSl2ghE c=1 sm=1 tr=0 ts=6ac3776a cx=c_pps
+ a=UNFcQwm+pnOIJct1K4W+Mw==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
+ a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=ZpdpYltYx_vBUK5n70dp:22
+ a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=bC-a23v3AAAA:8 a=fgocQaM1e1r3VjC9RBkA:9
+ a=QEXdDO2ut3YA:10 a=uKXjsCUrEbL0IQVhDsJ9:22 a=FO4_E8m0qiDe52t0p3_H:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-05_01,2026-10-02_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ impostorscore=0 suspectscore=0 adultscore=0 malwarescore=0 spamscore=0
+ priorityscore=1501 bulkscore=0 clxscore=1015 phishscore=0 lowpriorityscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2610050039
 
-On 10/5/26 11:55, Fred Griffoul wrote:
-> From: Fred Griffoul <fgriffo@amazon.co.uk>
-> 
-> dma_buf_invalidate_mappings() tells every importer that the whole
-> buffer changed. An exporter that changes one part of its memory cannot
-> say which bytes changed, so importers throw away mappings that are
-> still valid.
-> 
-> Add an exporter helper that invalidates a byte range, and an importer
-> callback that receives it. The callback means that the address, the
-> attributes or the backing of the range changed. If part of the range is
-> no longer backed, get_phys() returns -ENOENT for it. Importers must stop
-> using their old answer before the callback returns. Importers that do
-> not implement the callback still receive a whole-buffer invalidation.
+On 10/1/2026 8:32 PM, Bjorn Andersson wrote:
+> On Sat, Sep 12, 2026 at 08:17:00PM +0530, Komal Bajaj wrote:
+>> Shikra has two USB controllers. Adding both USB controllers support
+>> in device mode in this series. Also squashing Type-C enablement on
+>> CQS/CQM platforms [1] into base USB enablement changes on these
+>> platforms [2] based on feedback to squash related subsystem changes.
+>>
+>> While at it, also sorting subnodes under soc@0 for consistency.
+>>
+> When you repackage scattered patches like this into new series patchwork
+> is often unable to determine that these patches supersed the previous
+> version.
+>
+> The result is that for each patch I now have (at least) 2 similar and
+> conflicting patches in my queue. As the patches was altered to the point
+> that patchwork doesn't detect it and nobody told me that the previous
+> versions are no longer to be considered, we now manually have to spend
+> time to detangle this.
 
-Yeah that is exactly one of the reasons why we don't allow that.
+I understand your concern, and thank you for pointing this out.
+By repackaging patches into a new series, I should have made it explicit 
+that the previous submissions were superseded. I will keep this in mid 
+for future submissions.
 
-Clear NAK to the whole approach. See the reply to patch #2 for a detailed description.
+>
+> In other words, this series doesn't apply - please determine if there
+> are any remaining parts of these changes that isn't accounted for in
+> linux-next and resubmit those.
 
-Regards,
-Christian.
+I see that one of the patches has already been merged into linux-next. I 
+will review the remaining changes and resubmit only those that are not 
+yet applied.
 
-> 
-> Signed-off-by: Fred Griffoul <fgriffo@amazon.co.uk>
-> ---
->  drivers/dma-buf/dma-buf.c | 30 ++++++++++++++++++++++++++++++
->  include/linux/dma-buf.h   | 16 ++++++++++++++++
->  2 files changed, 46 insertions(+)
-> 
-> diff --git a/drivers/dma-buf/dma-buf.c b/drivers/dma-buf/dma-buf.c
-> index 66b85d53ed22..e7010163eb2f 100644
-> --- a/drivers/dma-buf/dma-buf.c
-> +++ b/drivers/dma-buf/dma-buf.c
-> @@ -1389,6 +1389,36 @@ void dma_buf_invalidate_mappings(struct dma_buf *dmabuf)
->  }
->  EXPORT_SYMBOL_NS_GPL(dma_buf_invalidate_mappings, "DMA_BUF");
-> 
-> +/**
-> + * dma_buf_invalidate_mappings_range - notify attachments that a range changed
-> + * @dmabuf: buffer whose layout changed
-> + * @offset: first changed byte
-> + * @length: number of changed bytes
-> + *
-> + * Importers with a ranged callback stop using their old mappings of the range
-> + * before returning. Other importers receive the existing whole-buffer
-> + * callback, which is correct but coarser. The reservation lock must be held.
-> + */
-> +void dma_buf_invalidate_mappings_range(struct dma_buf *dmabuf,
-> +                                      unsigned long offset,
-> +                                      unsigned long length)
-> +{
-> +       struct dma_buf_attachment *attach;
-> +
-> +       dma_resv_assert_held(dmabuf->resv);
-> +       list_for_each_entry(attach, &dmabuf->attachments, node) {
-> +               const struct dma_buf_attach_ops *ops = attach->importer_ops;
-> +
-> +               if (!ops)
-> +                       continue;
-> +               if (ops->invalidate_mappings_range)
-> +                       ops->invalidate_mappings_range(attach, offset, length);
-> +               else if (ops->invalidate_mappings)
-> +                       ops->invalidate_mappings(attach);
-> +       }
-> +}
-> +EXPORT_SYMBOL_NS_GPL(dma_buf_invalidate_mappings_range, "DMA_BUF");
-> +
->  /**
->   * dma_buf_get_phys - describe the run that starts at an offset
->   * @attach: attachment to query
-> diff --git a/include/linux/dma-buf.h b/include/linux/dma-buf.h
-> index b223962e20c2..55c3fe60a0ba 100644
-> --- a/include/linux/dma-buf.h
-> +++ b/include/linux/dma-buf.h
-> @@ -485,6 +485,19 @@ struct dma_buf_attach_ops {
->          * required behavior.
->          */
->         void (*invalidate_mappings)(struct dma_buf_attachment *attach);
-> +
-> +       /**
-> +        * @invalidate_mappings_range: [optional] a byte range changed
-> +        *
-> +        * The exporter changed the address, attributes or backing of
-> +        * [@offset, @offset + @length). The importer must stop using its old
-> +        * answer for that range before returning.
-> +        * Importers without this callback receive @invalidate_mappings for
-> +        * the whole buffer instead.
-> +        */
-> +       void (*invalidate_mappings_range)(struct dma_buf_attachment *attach,
-> +                                         unsigned long offset,
-> +                                         unsigned long length);
->  };
-> 
->  /**
-> @@ -600,6 +613,9 @@ struct sg_table *dma_buf_map_attachment(struct dma_buf_attachment *,
->  void dma_buf_unmap_attachment(struct dma_buf_attachment *, struct sg_table *,
->                                 enum dma_data_direction);
->  void dma_buf_invalidate_mappings(struct dma_buf *dma_buf);
-> +void dma_buf_invalidate_mappings_range(struct dma_buf *dma_buf,
-> +                                      unsigned long offset,
-> +                                      unsigned long length);
->  bool dma_buf_attach_revocable(struct dma_buf_attachment *attach);
->  /* bits 0-7: memory type (a value, not flags) */
->  #define DMA_BUF_PHYS_ATTR_TYPE_MASK    GENMASK(7, 0)
-> --
-> 2.47.3
-> 
+Thanks
+Komal
+
+>
+> Regards,
+> Bjorn
+>
+>> [1]: https://lore.kernel.org/all/20260818-pm4125_typec_changes-v1-1-6e6ede93db19@oss.qualcomm.com/
+>> [2]: https://lore.kernel.org/all/20260811-usb-shikra-v7-v7-2-753e928f37ae@oss.qualcomm.com/
+>>
+>> Changes in v9:
+>> - Move usb_2_hsphy above usb_qmpphy to maintain alphabetical ordering
+>>
+>> Link to v8:
+>> https://lore.kernel.org/r/20260911-usb-shikra-v7-v8-0-851ee4bc0eec@oss.qualcomm.com
+>>
+>> Changes in v8:
+>>   - Rebase on top of latest linux-next branch
+>>   - Sort /soc@0 subnodes in ascending order of unit address
+>>   - Squashed with Type-C support change
+>>   - Individual patches were previously reviewed by Abel, Dmitry, Konrad and
+>>     Mani; however, those reviews do not apply to the squashed commit and
+>>     are therefore being dropped
+>>
+>>   Link to v7:
+>>   https://lore.kernel.org/all/20260811-usb-shikra-v7-v7-0-753e928f37ae@oss.qualcomm.com/
+>>
+>> Changes in v7:
+>> - Rebased on top of latest for-next branch
+>> - Added Mani's tag from cover letter to both the induvidual patches.
+>>
+>> Link to v6:
+>> https://lore.kernel.org/all/20260729-shikra-usb-v6-dt-v6-0-72ffb4796a08@oss.qualcomm.com/
+>>
+>> Changes in v6:
+>> - Moved dr_mode property to shikra-evk.dtsi
+>> - Merged platform specific changes into one patch
+>>
+>> Link to v5:
+>> https://lore.kernel.org/all/20260723-usb-shikra-dt-v4-v5-0-5b69d9eb0888@oss.qualcomm.com/
+>>
+>> Changes in v5:
+>> - Added interconnects and sorted nodes alphanumerically - Dmitry
+>> - Updated commit text mentioning that device mode is being enabled
+>>    since role switching changes are not yet present.
+>>
+>> Link to v4:
+>> https://patch.msgid.link/20260721-usb-shikra-dt-v4-v4-0-2e7a092d7f27@oss.qualcomm.com
+>>
+>> Changes in v4:
+>> - Enable both controllers in CQS/CQM platform
+>> - Fixed iface clock in usb_2 node
+>> - Skipped adding RB tags obtained from Konrad since on CQM/CQS, second
+>>    controller also is enabled in v4. Also specified dr_mode as peripheral
+>>    for first controller.
+>>
+>> Link to v3:
+>> https://lore.kernel.org/all/20260716-shikra-usb-dt-v3-v3-0-13f73a0571bb@oss.qualcomm.com/
+>>
+>> Changes in v3:
+>> - USB changes were sent as part of consolidated submission in v2, but
+>>    they were later dropped since bindings had to be updated.
+>> - Remove double vote on USB3_PRIM_CLKREF and also removed xo clock.
+>> - Uses &mpm as interrupt reference (sashiko bot)
+>>
+>> Link to v2:
+>> https://lore.kernel.org/all/20260519-shikra-dt-v2-0-c01b90fb4395@oss.qualcomm.com/
+>>
+>> Changes in v2:
+>> - Moved to using mpm interrupt handler for ss phy irq (sashiko bot)
+>>
+>> Link to v1:
+>> https://lore.kernel.org/all/20260512-shikra-dt-v1-0-716438330dd0@oss.qualcomm.com/
+>>
+>> Signed-off-by: Krishna Kurapati <krishna.kurapati@oss.qualcomm.com>
+>> Signed-off-by: Komal Bajaj <komal.bajaj@oss.qualcomm.com>
+>> ---
+>> Komal Bajaj (1):
+>>        arm64: dts: qcom: shikra: sort /soc@0 nodes by unit address
+>>
+>> Krishna Kurapati (2):
+>>        arm64: dts: qcom: Add support for usb nodes on Shikra
+>>        arm64: dts: qcom: shikra: Enable USB controllers and primary Type-C support
+>>
+>>   arch/arm64/boot/dts/qcom/shikra-cqm-evk.dts  |  43 +++
+>>   arch/arm64/boot/dts/qcom/shikra-cqm-som.dtsi |  41 +++
+>>   arch/arm64/boot/dts/qcom/shikra-cqs-evk.dts  |  43 +++
+>>   arch/arm64/boot/dts/qcom/shikra-evk.dtsi     |  12 +
+>>   arch/arm64/boot/dts/qcom/shikra-iqs-evk.dts  |  23 ++
+>>   arch/arm64/boot/dts/qcom/shikra.dtsi         | 515 +++++++++++++++++++--------
+>>   6 files changed, 536 insertions(+), 141 deletions(-)
+>> ---
+>> base-commit: f2bfbc3554ca6919484030729424b9dee2942d24
+>> change-id: 20260811-usb-shikra-v7-2dc0d3afc3d4
+>>
+>> Best regards,
+>> -- 
+>> Komal Bajaj <komal.bajaj@oss.qualcomm.com>
+>>
 
