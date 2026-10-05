@@ -1,77 +1,78 @@
-Received: from DM1PR04CU001.outbound.protection.outlook.com (mail-centralusazon11010037.outbound.protection.outlook.com [52.101.61.37])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-dy2-f43.google.com (mail-dy2-f43.google.com [74.125.229.43])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C179E4D9561;
-	Mon,  5 Oct 2026 18:44:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.61.37
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791225859; cv=fail; b=gV6z0aJqldo6irY71LBtaXGcY8ITtvIwlOQSY0WDccnoqDAgOUNgA6Xv3078bcEFA+4p+9atD9TKvddiL6FM1saRJ2XxFnGbsZ0zAreNa2Fei+l1pV22pZOCKde35IWXih2pkLo74dKfzUVlb9/CSGQjyAHQlLDK27FVQb7Hm/c=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791225859; c=relaxed/simple;
-	bh=LZYI7/F4DtSWR+vEDqzk2zKEVbQ6AusG17ARbZvED6w=;
-	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=m8liwJLkdJYC1ZZRkP72EjWu3BaznVgCYsyBaf0FuIfAC9IXpPbl6WvRr9FaS9eXEm6DLLTRUXdeSORBsNydbmdpP2ZB2m+w2UiYRtmnnSlGSchVj+0b0omhdmVHUnA//2ahbbOC6GGG6jddq9GHDaOAiRFlrtLM0SgFDxOElc4=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=eMK7JHN4; arc=fail smtp.client-ip=52.101.61.37
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1334535C6A7
+	for <linux-kernel@vger.kernel.org>; Mon,  5 Oct 2026 18:45:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.43
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791225916; cv=none; b=Xni7Bdtlm3UeI3H49w8y0ikSz4DXmwhWbRzoZ+N7Ey8JyQSCUMnI7qgaHJ8u9lPsHCegEOmUdBLADiqwrL8VbE1ygs88sDi9yE5ksiS4tAL+uewPlNiX0LyUgxMtDonGLraZ6J8IiRVWS+itA0IPgoZAhiquZpmT/ZoVcp9YQPw=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791225916; c=relaxed/simple;
+	bh=Pa/B/6lzvNosJmOlBb1hGpthqBVdJojogY7Q5t5iEpg=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=S15Iwft3i8APsEO8lO94zFX0zQa3VpsDg+GCmvI2Xgx3QpcnjIUIhed0O4j/dFBEGX2Ui+emHAfU+TAfvbh5DXEi0wwZ2eSBsvDTz8cRrtsJWewzzx5eWF9oxQ9uN+PjyaWghKm+uhgBtPVFJO3sSXSjDlNCPiKeJCzqjrvYSXA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ktob5S+q; arc=none smtp.client-ip=74.125.229.43
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="eMK7JHN4"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=AjpBSzyOHV2pVTfyJKm8W9pbH6qvDsxyZqivXB07zBItXQKYSPwUzw5KAJ6dlMFCl0oOiBWjD7uYBK+qJObLwQjh9gmKvXXRdgHCa4R59gI+Iwklt+i8V05egVP71dtY9WsrO+vM1Xa/ns+MhvMNXI9NZYEXzH54ePpf34rn70DpZoPUT/1KwIKvd+MXU/p8dNrOeuOle2Midx2gk4kMsxzlWut8Miw3C9YFgBz3RjeEMT85GyDAX0/ff4KcUCHFdBCLFDmuUhTwElTfdBG5eXatCLupytTt/X04k0yHzLqFpEBo2ksRiVBYm2z4UJhQTvTRTFyUXX958MvC78tQPw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=fdR5kFp2s6s992zptQr5Npnl2AzsI/qNY5TCX+6Yr3Q=;
- b=ddt59f59FlStsHMiKtyBDFpXXv/EZM+pCg4mdHxmAW9i8hQBMUKxAlzbjmNrRgLJ7OVosDFuHKrQssqS2yuSTS/IX9wH+6O0/3UF1dBsAfOcQzJ4g/h+vWiioTkmyD/oAs+oE8axwZsiBUGdj7wYoHKMWRg4AASu95DjcX/k8o7Equ91orNdlrm5uoLpw152suGNgM0mmwf72oYQZoLGzTOT9NwtPNzYhM4AF/SmMbUwngMAJOIVSAqWNP65Bm5FspWEeGP13DgB81XqjyYdmH1jHLKp0Pf3s7pxpjB07eB0vaqFnAlGKi1Ouj1Sbd2gixmMK/vHdS8/QmysGRfG1Q==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 216.228.117.161) smtp.rcpttodomain=shazbot.org smtp.mailfrom=nvidia.com;
- dmarc=pass (p=reject sp=reject pct=100) action=none header.from=nvidia.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=fdR5kFp2s6s992zptQr5Npnl2AzsI/qNY5TCX+6Yr3Q=;
- b=eMK7JHN4uVaS9rytd78J0Ok2fq7DjdiQpJK3qJAKdpTxtieKyeIqbD+mDDNTxthYR8Pf6dP+HTtEDQIYiD5P8AAc2/U3Q7enf75FWq2HsUl25xpQJAzc+/RV1/uswOshOrEEjigVspnVkeHCBz+ZANL/X299ILZ/tvRIpaqkUJ4uIFg8fyZCfxBSgZJb0x7fIospyyUH3atUiblPz/7gi9qSjZxhww50zi1F6IZoiqeQFX0Uhq4kgTCU9HX7qbU0MNT7ZnBrbdFGhyHcLWju860JF6pIC+n7gWCe1uBQl0WodSZLGPEXN9LDenICze96HwpnqY8zNdU2Vr6RPRd0iA==
-Received: from DS1PR02CA0015.namprd02.prod.outlook.com (2603:10b6:8:44a::13)
- by IA1PR12MB7616.namprd12.prod.outlook.com (2603:10b6:208:427::11) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.472.20; Mon, 5 Oct
- 2026 18:43:37 +0000
-Received: from DS8PEPF000000E0.namprd05.prod.outlook.com
- (2603:10b6:8:44a:cafe::1d) by DS1PR02CA0015.outlook.office365.com
- (2603:10b6:8:44a::13) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.472.20 via Frontend Transport; Mon, 5
- Oct 2026 18:43:36 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 216.228.117.161) smtp.mailfrom=nvidia.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=nvidia.com;
-Received-SPF: Pass (protection.outlook.com: domain of nvidia.com designates
- 216.228.117.161 as permitted sender) receiver=protection.outlook.com;
- client-ip=216.228.117.161; helo=mail.nvidia.com; pr=C
-Received: from mail.nvidia.com (216.228.117.161) by
- DS8PEPF000000E0.mail.protection.outlook.com (10.167.23.203) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.496.14 via Frontend Transport; Mon, 5 Oct 2026 18:43:36 +0000
-Received: from rnnvmail201.nvidia.com (10.129.68.8) by mail.nvidia.com
- (10.129.200.67) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Mon, 5 Oct
- 2026 11:43:15 -0700
-Received: from xinmengs-dev-vm-linux.nvidia.com (10.126.231.37) by
- rnnvmail201.nvidia.com (10.129.68.8) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.49; Mon, 5 Oct 2026 11:43:13 -0700
-From: Simon Song <xinmengs@nvidia.com>
-To: <alex@shazbot.org>, <jgg@nvidia.com>
-CC: <dakr@kernel.org>, <acourbot@nvidia.com>, <yishaih@nvidia.com>,
-	<skolothumtho@nvidia.com>, <kevin.tian@intel.com>, <jhubbard@nvidia.com>,
-	<ecourtney@nvidia.com>, <cjia@nvidia.com>, <smitra@nvidia.com>,
-	<kjaju@nvidia.com>, <alkumar@nvidia.com>, <ankita@nvidia.com>,
-	<aniketa@nvidia.com>, <kwankhede@nvidia.com>, <targupta@nvidia.com>,
-	<linux-kernel@vger.kernel.org>, <kvm@vger.kernel.org>, <zhiwang@kernel.org>,
-	<zhiw@nvidia.com>, Simon Song <xinmengs@nvidia.com>
-Subject: [PATCH v3 0/1] vfio/pci: Give drivers control of PCI driver_data
-Date: Mon, 5 Oct 2026 11:42:35 -0700
-Message-ID: <20261005184236.1946167-1-xinmengs@nvidia.com>
-X-Mailer: git-send-email 2.43.7
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ktob5S+q"
+Received: by mail-dy2-f43.google.com with SMTP id 5a478bee46e88-34b3a9cd8edso1067042eec.1
+        for <linux-kernel@vger.kernel.org>; Mon, 05 Oct 2026 11:45:14 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791225914; x=1791830714; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=oKRGgL1d9laQKntKJ5ZCtPSXyeLDiiH4qMSXoJCCJ0Y=;
+        b=ktob5S+qXBoaZjJRjkOZIopPZ/AeuYn4NIJ3BjKMQ6L4z5dhODGmWMNsImwQ7wWhou
+         YAsUKB+Yck70JIykFYpLcIOKEaRX84NFcofrulbTcKl7E6Z0pnyGKzuMrOuOoLSxxMSG
+         FpNc8Nu28eg6qQT16aWxXB9hMBq0raKXZVmR+6NuIY9obMXwLpdqLy6WWGeIuKnIklHe
+         QWNvcBhjeSrNvAZF9XoBQ/FpHJqmoIb5uIvb2dQTGY3K4tflHRPf0oY3CFRK5+wTB+FZ
+         KM6kihhAwB3VJJTNYslqoxaiUzY0HbhVZJm5XcBIwQGTNg3ETBqtcp6zTV3X9+xRKVQ/
+         9ecQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791225914; x=1791830714;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=oKRGgL1d9laQKntKJ5ZCtPSXyeLDiiH4qMSXoJCCJ0Y=;
+        b=WxIvoYlz2B7/GriamN2IX8ygLP0Eog65QnzMp5JddX4nEE10kW/k/PuJhdfIU/ZtHS
+         U9n45LqsKMAl+BkMqdS0YJLnl5T6I1cDPSNoeN6eJfmOm4MQRe32aRQjFNdE4WMx1XIg
+         dOPZJYebA+cnqxhkSidHACipu/sze80xkJ6Z8RIBZ1MfTO++vpHyiOirjRV0jaJis4Rt
+         +SuU3fTNrKfqfRdqSmybq2oQdAnJE2fIj33ygAy8cGHK4m8yG9RqWPGkTA4muXDnDQ76
+         T4rdrLVe3rkJQaGSRLBEPRUyMTgHQiBofJDh1XG4eRu4JkY/fCvaDNi5YLowCfuey+sS
+         3afQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwJ4xy839Oofk7ld3DXXaFFZfY/OedsjRkt/TfUu6Mm4fpiHzfbnHBPglMlzW8bDCMYrLbjbJetxy1ZlnQ=@vger.kernel.org
+X-Gm-Message-State: AFuF++mJEYnCoF1NT3XCZF5dUq19FgZ1sFmw7MUwdWY2aI97h+B3XV/P
+	2IT0MDZnqWOar39vJs+B4hda0EC8ZqZeWLi5Y3drkTrkwbKzqjmxV/FA
+X-Gm-Gg: AYBFou2zq6UjfNEpPyPK7jM12yQ2ySTjZtEu3oq+eeGop4W/2t8xw11IR1tdl4W99D1
+	58V5nmffhFqxp62Uugf4BLlPJDN7bOXRErXbqCqWRARjhsF/DVUE1IrVdLh+ZWpCmF4WScbjGL8
+	5vhIpKfQO0UTKd6E9ZlhX1rQmntmwqYkGYmGivJB7ea4fLKNkvnlGqAoyNeiEQpHfD1mFnVrSgI
+	+R4LZF9cwEnwFVAJ7PcABunN+n85a59a6BAfFAHO2ig5siuQUSJYQ16zh9eiNYyZdc44jhJ22U/
+	gvg1pM9NSzymo7ijfha9/OVK4kjL7tKrssVRdABLgqS0USFaeYEPLXdUf4Ypg5j/Sq7mrqqdWoo
+	uYxlfIUwyfJ0URI0A6NOMuma7zHoeM2gegYbRykvE+o+FQoS5H7eUA9Xn/pmHpdTrV+PsCKpz3R
+	Bl/b/mDpnGztLRjxrTy4w4Kok1nycvr266akVS6eZw+wWgOM+17Zy+28vK3ZQzdj0V5mcF4ksYf
+	IfHGoq7vnqhdTfQ6D0ay3jObtJN
+X-Received: by 2002:a05:7301:550e:b0:347:a3d9:dfa3 with SMTP id 5a478bee46e88-351450c21bbmr455348eec.7.1791225913995;
+        Mon, 05 Oct 2026 11:45:13 -0700 (PDT)
+Received: from inhnjlux1020.ls.ege.ds ([2406:b400:53:bc23:13ce:62d6:5ad0:c521])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-35146a2add7sm191248eec.13.2026.10.05.11.45.09
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 05 Oct 2026 11:45:12 -0700 (PDT)
+From: Udaya Kiran Challa <challauday369@gmail.com>
+To: lee@kernel.org,
+	pavel@kernel.org,
+	robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org
+Cc: skhan@linuxfoundation.org,
+	me@brighamcampbell.com,
+	linux-leds@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Udaya Kiran Challa <challauday369@gmail.com>
+Subject: [PATCH v4 1/2] dt-bindings: leds: lacie,netxbig-leds: Convert to DT schema
+Date: Tue,  6 Oct 2026 00:14:28 +0530
+Message-Id: <20261005184428.251868-1-challauday369@gmail.com>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -79,89 +80,279 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: rnnvmail202.nvidia.com (10.129.68.7) To
- rnnvmail201.nvidia.com (10.129.68.8)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS8PEPF000000E0:EE_|IA1PR12MB7616:EE_
-X-MS-Office365-Filtering-Correlation-Id: 99f9dd2a-abfe-4183-9f0a-08df23109103
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|82310400026|376014|23010399003|1800799024|36860700016|6133799003|18002099003|10067099003|13003099007|56012099006|11063799006;
-X-Microsoft-Antispam-Message-Info:
-	B1kc9dDrLVbtWxI34hz/wXR5pD2tI34ORYb5yTpt6oHuc5ErXFPU8p6EDyYfk9zEvAYxUdFMufKJgVHBWFnmZvcxxPBxh4Q0eitEfZRtW54mTeR89iZ58y6Hv4HQKkwkMeGsXQhHE+KJrkybjga5ceOU0CqkesDyw0oAINRhfRFODW5RFv2nGOL0QG/6MzY7YshG51AuqsHehKWHzg+V4oju3u6QfdQ7GkM+SeZFQHbLP8ykluowOBV52rVr6se/fHkg/BIvmegWPBalUDMJl6KLamrMOSpwKGm2wsdUhzP6ysy6gxoISTxs2+gQtRAUiolbt8mFk8tl3sWfbVq1H86Sqa2P9uNdpfdYa5qVtS55AA6aFDVleFBSq6HA5+t1VLkWIHaavOYQTxKICWMdRxQFtDIit0LPQdmO3FJcUp79Heu8JaPhOGWb+iEgWj4zSzc0deqITz2ksww3MJmQm22+ouPeTyK6kNmFaFTJR6nJ3/mixR4BSdMJEmcoHE2ghsgD3sSoQc+l2i7Ena4DDkqknYmNU9C7wWicWKDFNh6k0AWTx4EGdS21vuP/tJ4kEpmVHK9VszhXJI+ITNfAkNQW1b8F4gbaX9yVZhIgFNUmMROTIXb7lQlfIdbAdTwLtgxf5YFiXFaeu3/QPeqfzWw2vfuZcLNcgg3LxobPq3XtpuXhLhkSodH4yY28YMbhtOBndzxka+hKOQ92aZb9aw==
-X-Forefront-Antispam-Report:
-	CIP:216.228.117.161;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.nvidia.com;PTR:dc6edge2.nvidia.com;CAT:NONE;SFS:(13230040)(82310400026)(376014)(23010399003)(1800799024)(36860700016)(6133799003)(18002099003)(10067099003)(13003099007)(56012099006)(11063799006);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	eEp//bUkD9NaboIdQZUBSqGDKe8jaw2sYoqfnGpI91geprHn/LCaSTsFXezql1mv7yQ1Ot9Uugt79CqmVNKx2qGAo/XxxA8ChoVyawbYoNCBY6OoQ0BNiumFiLEcKTHYPzBIB+HuSDqpnH3FAN6qweO816xy9M5WCYZlCJgl5+7fxKMFMrTunFStdj5Ydwh0z8WZTLozNwb9k5VmQ5ovJEx7Kl49HTbUVWYo9Je3y96tjJuTzAL5D2/0m+KfjYDslzMG/s9PlrdLo9Mp6CIF0suAAoNUB69fb5svYjQDWWGPd5RrPgW5PknOz+mkPfG6BWTl1JNcbGGW936w5141ggWi4GrFE16g+YVVCOEc14qLRQugrLOb7mz+mcB2Gg7hKs/jqUveM9l+f9Z/1aPBVCjJj7zUx26nkb2i+1q0BMgn9lJcGbTxVt36urW3cPzR
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Oct 2026 18:43:36.7859
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 99f9dd2a-abfe-4183-9f0a-08df23109103
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a;Ip=[216.228.117.161];Helo=[mail.nvidia.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	DS8PEPF000000E0.namprd05.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB7616
 
-Hi all,
+Convert lacie,netxbig-leds devicetree binding from legacy
+text format to DT schema.
 
-This patch lets VFIO PCI variant drivers store their private structures
-in PCI driver_data, removing the requirement that it point directly to
-struct vfio_pci_core_device. This also accommodates the typed driver data
-used by the Rust PCI infrastructure, as discussed for the proposed Rust
-NVIDIA vGPU VFIO driver [1].
+Signed-off-by: Udaya Kiran Challa <challauday369@gmail.com>
+---
+Changelog:
+Changes since v3:
+- Correct patternProperties to use generic led node names
+- Rename example device name to leds
+- Drop optional subnode properties
 
-Runtime PM and AER helpers receive an explicit vfio_pci_core_device
-pointer. VFIO_PCI_CORE_DEFINE_CALLBACKS() generates per-driver wrappers
-that retrieve the driver's private data and pass its embedded core device
-to these helpers. Each driver installs its own PM ops table.
+Link to v3:https://lore.kernel.org/all/20260901170358.176103-1-challauday369@gmail.com/
 
-VGA initialization selects the decode callback in vfio_pci_vga_init()
-based on vfio_vga_disabled(vdev). Both callbacks use pci_dev directly and
-do not depend on driver_data.
+Changes since v2:
+- Add reference to led common.yaml
+- Drop type for all common properties
 
-Changes since v2 [2]:
-- Drop the unused pci_channel_state_t argument from the core AER helper
-  and its callers, preserving the PCI callback signature (Danilo).
-- Wrap each driver's PM ops pointer with pm_ptr() so unused tables can
-  be removed when CONFIG_PM=n (Sashiko).
+Link to v2:https://lore.kernel.org/all/20260821123723.198286-1-challauday369@gmail.com/
 
 Changes since v1:
-- Extend VFIO_PCI_CORE_DEFINE_CALLBACKS() to accept the driver's private
-  structure type and the member containing vfio_pci_core_device.
-- Store each variant driver's private structure in PCI driver_data.
-- Select the VGA decode callback in the core and retain the one-argument
-  vfio_pci_core_register_device() interface.
+- Use pattenProperties for LED child nodes instead of additionalProperties
+- Explicitly list the two optional properties supported by the binding
+- Place the top-level required block after child-node definition
 
-[1] https://lore.kernel.org/all/DLFD2ZDSK9YQ.3A4R66G8UJMD8@kernel.org/
-[2] https://lore.kernel.org/r/20260930143641.4160785-1-xinmengs@nvidia.com/
+Link to v1:https://lore.kernel.org/all/20260820150223.108374-1-challauday369@gmail.com/
+---
+ .../bindings/leds/lacie,netxbig-leds.yaml     | 136 ++++++++++++++++++
+ .../devicetree/bindings/leds/leds-netxbig.txt |  92 ------------
+ 2 files changed, 136 insertions(+), 92 deletions(-)
+ create mode 100644 Documentation/devicetree/bindings/leds/lacie,netxbig-leds.yaml
+ delete mode 100644 Documentation/devicetree/bindings/leds/leds-netxbig.txt
 
-Thanks,
-Simon
-
-Simon Song (1):
-  vfio/pci: Remove the core dependency on driver data
-
- .../vfio/pci/hisilicon/hisi_acc_vfio_pci.c    | 27 ++++----
- drivers/vfio/pci/ism/main.c                   | 19 +++---
- drivers/vfio/pci/mlx5/main.c                  | 13 ++--
- drivers/vfio/pci/nvgrace-gpu/main.c           | 19 +++---
- drivers/vfio/pci/pds/pci_drv.c                |  8 ++-
- drivers/vfio/pci/pds/vfio_dev.c               |  5 +-
- drivers/vfio/pci/qat/main.c                   | 12 ++--
- drivers/vfio/pci/vfio_pci.c                   | 33 +++++++++-
- drivers/vfio/pci/vfio_pci_core.c              | 61 +++++++------------
- drivers/vfio/pci/virtio/main.c                |  8 ++-
- drivers/vfio/pci/xe/main.c                    |  8 ++-
- include/linux/vfio_pci_core.h                 | 41 ++++++++++++-
- 12 files changed, 159 insertions(+), 95 deletions(-)
-
+diff --git a/Documentation/devicetree/bindings/leds/lacie,netxbig-leds.yaml b/Documentation/devicetree/bindings/leds/lacie,netxbig-leds.yaml
+new file mode 100644
+index 000000000000..fe47c12044da
+--- /dev/null
++++ b/Documentation/devicetree/bindings/leds/lacie,netxbig-leds.yaml
+@@ -0,0 +1,136 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/leds/lacie,netxbig-leds.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: LaCie/Seagate netxbig CPLD LEDs
++
++maintainers:
++  - Simon Guinot <simon.guinot@sequanux.org>
++
++description: |
++  Binding for the CPLD LEDs (GPIO extension bus) found on some LaCie/Seagate
++  boards (Example: 2Big/5Big Network v2, 2Big NAS).
++
++properties:
++  compatible:
++    const: lacie,netxbig-leds
++
++  gpio-ext:
++    description: Phandle for the gpio-ext bus.
++    $ref: /schemas/types.yaml#/definitions/phandle
++
++  timers:
++    description:
++      Timer array. Each timer entry is represented by three integers -
++      Mode (gpio-ext bus), delay_on and delay_off.
++    $ref: /schemas/types.yaml#/definitions/uint32-array
++
++patternProperties:
++  "^led-[a-z0-9]+$":
++    type: object
++    $ref: common.yaml#
++    unevaluatedProperties: false
++
++    properties:
++      mode-addr:
++        description: Mode register address on gpio-ext bus.
++        $ref: /schemas/types.yaml#/definitions/uint32
++
++      mode-val:
++        description:
++          Mode to value mapping. Each entry is represented by two integers -
++          a mode and the corresponding value on the gpio-ext bus.
++        $ref: /schemas/types.yaml#/definitions/uint32-array
++
++      bright-addr:
++        description: Brightness register address on gpio-ext bus.
++        $ref: /schemas/types.yaml#/definitions/uint32
++
++      max-brightness:
++        description: Maximum brightness value.
++        $ref: /schemas/types.yaml#/definitions/uint32
++
++    required:
++      - mode-addr
++      - mode-val
++      - bright-addr
++      - max-brightness
++
++required:
++  - compatible
++  - gpio-ext
++
++additionalProperties: false
++
++examples:
++  - |
++    #include <dt-bindings/leds/leds-netxbig.h>
++
++    leds {
++        compatible = "lacie,netxbig-leds";
++
++        gpio-ext = <&netxbig_gpio_ext>;
++
++        timers = <NETXBIG_LED_TIMER1 500 500
++                  NETXBIG_LED_TIMER2 500 1000>;
++
++        led-0 {
++            label = "netxbig:blue:power";
++            mode-addr = <0>;
++            mode-val = <NETXBIG_LED_OFF 0
++                        NETXBIG_LED_ON 1
++                        NETXBIG_LED_TIMER1 3
++                        NETXBIG_LED_TIMER2 7>;
++            bright-addr = <1>;
++            max-brightness = <7>;
++        };
++        led-1 {
++            label = "netxbig:red:power";
++            mode-addr = <0>;
++            mode-val = <NETXBIG_LED_OFF 0
++                        NETXBIG_LED_ON 2
++                        NETXBIG_LED_TIMER1 4>;
++            bright-addr = <1>;
++            max-brightness = <7>;
++        };
++        led-2 {
++            label = "netxbig:blue:sata0";
++            mode-addr = <3>;
++            mode-val = <NETXBIG_LED_OFF 0
++                        NETXBIG_LED_ON 7
++                        NETXBIG_LED_SATA 1
++                        NETXBIG_LED_TIMER1 3>;
++            bright-addr = <2>;
++            max-brightness = <7>;
++        };
++        led-3 {
++            label = "netxbig:red:sata0";
++            mode-addr = <3>;
++            mode-val = <NETXBIG_LED_OFF 0
++                        NETXBIG_LED_ON 2
++                        NETXBIG_LED_TIMER1 4>;
++            bright-addr = <2>;
++            max-brightness = <7>;
++        };
++        led-4 {
++            label = "netxbig:blue:sata1";
++            mode-addr = <4>;
++            mode-val = <NETXBIG_LED_OFF 0
++                        NETXBIG_LED_ON 7
++                        NETXBIG_LED_SATA 1
++                        NETXBIG_LED_TIMER1 3>;
++            bright-addr = <2>;
++            max-brightness = <7>;
++        };
++        led-5 {
++            label = "netxbig:red:sata1";
++            mode-addr = <4>;
++            mode-val = <NETXBIG_LED_OFF 0
++                        NETXBIG_LED_ON 2
++                        NETXBIG_LED_TIMER1 4>;
++            bright-addr = <2>;
++            max-brightness = <7>;
++        };
++    };
+diff --git a/Documentation/devicetree/bindings/leds/leds-netxbig.txt b/Documentation/devicetree/bindings/leds/leds-netxbig.txt
+deleted file mode 100644
+index 5ef92a26d768..000000000000
+--- a/Documentation/devicetree/bindings/leds/leds-netxbig.txt
++++ /dev/null
+@@ -1,92 +0,0 @@
+-Binding for the CPLD LEDs (GPIO extension bus) found on some LaCie/Seagate
+-boards (Example: 2Big/5Big Network v2, 2Big NAS).
+-
+-Required properties:
+-- compatible: "lacie,netxbig-leds".
+-- gpio-ext: Phandle for the gpio-ext bus.
+-
+-Optional properties:
+-- timers: Timer array. Each timer entry is represented by three integers:
+-  Mode (gpio-ext bus), delay_on and delay_off.
+-
+-Each LED is represented as a sub-node of the netxbig-leds device.
+-
+-Required sub-node properties:
+-- mode-addr: Mode register address on gpio-ext bus.
+-- mode-val: Mode to value mapping. Each entry is represented by two integers:
+-  A mode and the corresponding value on the gpio-ext bus.
+-- bright-addr: Brightness register address on gpio-ext bus.
+-- max-brightness: Maximum brightness value.
+-
+-Optional sub-node properties:
+-- label: Name for this LED. If omitted, the label is taken from the node name.
+-- linux,default-trigger: Trigger assigned to the LED.
+-
+-Example:
+-
+-netxbig-leds {
+-	compatible = "lacie,netxbig-leds";
+-
+-	gpio-ext = &gpio_ext;
+-
+-	timers = <NETXBIG_LED_TIMER1 500 500
+-		  NETXBIG_LED_TIMER2 500 1000>;
+-
+-	blue-power {
+-		label = "netxbig:blue:power";
+-		mode-addr = <0>;
+-		mode-val = <NETXBIG_LED_OFF 0
+-			    NETXBIG_LED_ON 1
+-			    NETXBIG_LED_TIMER1 3
+-			    NETXBIG_LED_TIMER2 7>;
+-		bright-addr = <1>;
+-		max-brightness = <7>;
+-	};
+-	red-power {
+-		label = "netxbig:red:power";
+-		mode-addr = <0>;
+-		mode-val = <NETXBIG_LED_OFF 0
+-			    NETXBIG_LED_ON 2
+-			    NETXBIG_LED_TIMER1 4>;
+-		bright-addr = <1>;
+-		max-brightness = <7>;
+-	};
+-	blue-sata0 {
+-		label = "netxbig:blue:sata0";
+-		mode-addr = <3>;
+-		mode-val = <NETXBIG_LED_OFF 0
+-			    NETXBIG_LED_ON 7
+-			    NETXBIG_LED_SATA 1
+-			    NETXBIG_LED_TIMER1 3>;
+-		bright-addr = <2>;
+-		max-brightness = <7>;
+-	};
+-	red-sata0 {
+-		label = "netxbig:red:sata0";
+-		mode-addr = <3>;
+-		mode-val = <NETXBIG_LED_OFF 0
+-			    NETXBIG_LED_ON 2
+-			    NETXBIG_LED_TIMER1 4>;
+-		bright-addr = <2>;
+-		max-brightness = <7>;
+-	};
+-	blue-sata1 {
+-		label = "netxbig:blue:sata1";
+-		mode-addr = <4>;
+-		mode-val = <NETXBIG_LED_OFF 0
+-			    NETXBIG_LED_ON 7
+-			    NETXBIG_LED_SATA 1
+-			    NETXBIG_LED_TIMER1 3>;
+-		bright-addr = <2>;
+-		max-brightness = <7>;
+-	};
+-	red-sata1 {
+-		label = "netxbig:red:sata1";
+-		mode-addr = <4>;
+-		mode-val = <NETXBIG_LED_OFF 0
+-			    NETXBIG_LED_ON 2
+-			    NETXBIG_LED_TIMER1 4>;
+-		bright-addr = <2>;
+-		max-brightness = <7>;
+-	};
+-};
 -- 
-2.43.7
+2.34.1
 
