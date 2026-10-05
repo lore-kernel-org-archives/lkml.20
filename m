@@ -1,171 +1,145 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from mailtransmit05.runbox.com (mailtransmit05.runbox.com [185.226.149.38])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C5B991F12FB
-	for <linux-kernel@vger.kernel.org>; Mon,  5 Oct 2026 01:05:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2DB6E1F12FB;
+	Mon,  5 Oct 2026 01:05:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.226.149.38
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791162312; cv=none; b=kT3T7LEtKGPsLnOz7baqTldZhHfdhh55prCoRoyywp8+2tgEhn/qPOhxLLeCHwvzjDpIvLOt9qGxI7jOQTBr+JyFl3PJn7N/BNVAydSHCF0Uk1s1aJEpxthnWrLiqeLCT6NqaX44jWfm0h3t9yi4gJ8+AI4W43QD3bAcTaguFlY=
+	t=1791162361; cv=none; b=f6ALM2jnBzhGWCZ06yrKvxRDUs7AySXRu0+WXqNRJLHwm7aW5MZLJL/D/LNG8oIpT+fCie2NJtfVpfTQSNYJNHDaMhIcCCq6ai+ip3ycPi6U70syBovyy3swj4PJQSy4Lqn4XBpR/TJ9oSTjCWKRzHotgTTJlgHuL0prnmo4qgI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791162312; c=relaxed/simple;
-	bh=HzobHuB97vln8orF4P76Yesl4HMPmBN6MNE38k7GSuQ=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=WxnPXwg86ZXQwGoAOroZwUZtb1t9DGlJQ6IocnggvUqYcIVWDAvMtLz35GfewTqnHTgM6ZGGzgfKrhw++UMHIa5KG80aipy7kjJcXcQaPOhhQcA+wZdM0VaDNT5256xGoCJ0e3HSDy4ntQWC0L6NhQ8Fz6GD9eRlsxk3/GRgnhc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=CHIl7WMc; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=LC2LdyDK; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1791162361; c=relaxed/simple;
+	bh=6hKZyAxMsAcaXlL1jQNmLGPEHssZUOfzDofJ9l3AAYs=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=f/EJxTspQegO1JDBpC0AWvMrP3lVUMxxlX0m8fZUcW4dk6SoR1Mq9HqSxUUzksbT31rBBMy6QDowZx4QTbRn2+ywSP3Yps2tLdVyjLLQ636vRzRhkA0rinXs0dkRDj7iyUdok4tsDnnnaWQBXL4Ktb6QxMlAnaxirVgxzquJxBc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rbox.co; spf=pass smtp.mailfrom=rbox.co; dkim=pass (2048-bit key) header.d=rbox.co header.i=@rbox.co header.b=f/7fNSml; arc=none smtp.client-ip=185.226.149.38
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rbox.co
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rbox.co
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="CHIl7WMc";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="LC2LdyDK"
-Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6951042o3688190
-	for <linux-kernel@vger.kernel.org>; Mon, 5 Oct 2026 01:05:09 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=qcppdkim1; bh=+4pnXRuP5CcnmgcmUqfYx2/q
-	Ua4INOWTnjZBnXUGk14=; b=CHIl7WMcpYP1PU+FDQHLoT6+mprWCeWMYCUVHH/c
-	BUNZOoUx6dIMOqmiBd9BBo5FN6c2ZYYy0B8zQkDLtSGKiJpaO7w6yz84LqpbBeGw
-	47fnTybdS4ldS+E+a11p0GovalhEcTHVJ4m9xT14gMFAD/DArUqVc6qnNUfT2Isp
-	c5mn6s+IIjDXLrZQ7Sc+XredfzjTPdI6joZMM8vhmLNgXoQap4gN/kuaIPpBQoFL
-	oMo4jHHXvP9fNk20VcsrXJyW43frcOECg/6MRSJ+33JTSYu/wfKGwczrLg0fQSde
-	Zisk8lJgVi5pBT2lOKwz8VvsLUpE0kV5dPVmA1Ea+OqsiA==
-Received: from mail-qk1-f198.google.com (mail-qk1-f198.google.com [209.85.222.198])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h3chfhyyq-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Mon, 05 Oct 2026 01:05:09 +0000 (GMT)
-Received: by mail-qk1-f198.google.com with SMTP id af79cd13be357-939c30aa9a0so124386385a.0
-        for <linux-kernel@vger.kernel.org>; Sun, 04 Oct 2026 18:05:09 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1791162309; x=1791767109; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=+4pnXRuP5CcnmgcmUqfYx2/qUa4INOWTnjZBnXUGk14=;
-        b=LC2LdyDKqaJnx6kN3T9EuBAr2hVWyi4d3ebiMsWH4r8U9YJG9bTwmdR4GgN/iCp350
-         ZhvLzEbl8E5E9f9iYDagBCds4CtuzMZwUf8ZrVoitbvSJjtOd1ahJwOw94bl2Lxi4P3F
-         CevGyd7X94CuSBTvhF3CRZBrQ0f5EE1NoXSJNGhIK8CF+3r659Y8W469UCzAF2mFrUig
-         vbXTgVrWwE2X3GKvzBZHubcJLHtPY74IUFesdYlZ7EnFnCB/iTbRP65RSH66nlMdFRDk
-         8IhwdpICLC89V3eM6clp12gp/4T20YNfLhcQSp2/HXiy4B+KufJr0O7h08Pu8ES7Ja8W
-         yAEA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791162309; x=1791767109;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=+4pnXRuP5CcnmgcmUqfYx2/qUa4INOWTnjZBnXUGk14=;
-        b=q0EG6YwG/0ZavWuF29PRrwqOjQj1L8gYRhxrUluufzh+n4kGG1etLiEMptp1IuJzUG
-         20m0oZMrJcUgaeeBdOmqBXq5WAevPVt3tEBpkVeh/dtg2m5VSpqT3t9WI93HwJ3hTaKL
-         CTZcL3IsLBFEa9vpzTdGbW63tcuwtP+8F8dxZ0hI0ba5dNjwan7r0QCcIWSxzNcMCYn9
-         5kQ3wh2fJqBRKDJYxOpmh0HfCjKEhgopndMY4qjcUaSHchNGvll2c+jlK2fNKN4xJ2IE
-         2mHXmqrZCKVxAuorvm/pDZvN9C2Oo+vqjm+HW3qSUlNLRQjbGr84SkNd0wMVnBPGIenl
-         f4pA==
-X-Forwarded-Encrypted: i=1; AKwUvBwRPJUFUB2sguqPPckwHrzxjgdHfF+jFaUD0ZXSh3yq+mGSGDlfbgl0iugBVJNOkkUd3xZIKUQrLVzxgA0=@vger.kernel.org
-X-Gm-Message-State: AFuF++m+oiXq3m5YFf0pcZhAJe49m3KPS20rgEc2toVNgIC2Vy5cvZfQ
-	uzBONzmNKFgf9vjQ9+HrzpPFOY6JRMmUB4RsF7ATevChgj8OJGK+QkSpxlxBt35HmHAf5v3BGE+
-	D5e2rzQVjCF0+vdJakvYt0VlL8HFzxSH9t7sRTvcYdzJIYKyGGs3x6mEEtn8P6ydigPk=
-X-Gm-Gg: AYBFou2SXpVipYROJ6UjufkAInCsdhGr3+biDoR5JZhGZwaua/2ljLwckpjR2BSg46L
-	tO/F9Qqe7FATGdJMzcCyznHlPvgnvuZb/Xx1Q83yMoEsBamAyvs+wspXStrjicmJjWcvFIUHHdx
-	9JPHNqg05YzBVF7/cJ7ACvjO4G/52mS35qikpsEebRstgwonvsSG1wPFcllCSTQ8u+2XxkrNUvl
-	d5UqM7P4/cAOz0rhRRdWcXB0yQPA9fMUIbaz40EoZUPUucyM6OwGys40v09P69P/ZmXwo8FgwMw
-	FbIbuF9dToHrDsLoG/shtBsMgBmMqvfc+XZoTxoB2I9TbWKLawqE9zyDxmPf3hGooHqUALP6JWH
-	9n9/RTXd9pzvEIqEIJLxaRqn9JTg5cvXBfeT/yhe48tZdHOY0RjSA/KScEYwdTDOcg6aIIn83zX
-	PEPYy+GdT86694
-X-Received: by 2002:a05:620a:684a:b0:93c:70f9:8961 with SMTP id af79cd13be357-93e51122d54mr1195941285a.61.1791162309044;
-        Sun, 04 Oct 2026 18:05:09 -0700 (PDT)
-X-Received: by 2002:a05:620a:684a:b0:93c:70f9:8961 with SMTP id af79cd13be357-93e51122d54mr1195935985a.61.1791162308512;
-        Sun, 04 Oct 2026 18:05:08 -0700 (PDT)
-Received: from umbar.lan (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi. [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
-        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5bb7c78bd83sm2760522e87.14.2026.10.04.18.05.05
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 04 Oct 2026 18:05:07 -0700 (PDT)
-Date: Mon, 5 Oct 2026 04:05:03 +0300
-From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-To: Yongxing Mou <yongxing.mou@oss.qualcomm.com>
-Cc: Rob Clark <robin.clark@oss.qualcomm.com>,
-        Dmitry Baryshkov <lumag@kernel.org>,
-        Abhinav Kumar <abhinav.kumar@linux.dev>,
-        Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
-        Marijn Suijten <marijn.suijten@somainline.org>,
-        David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
-        Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-        Maxime Ripard <mripard@kernel.org>,
-        Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Krishna Manikandan <quic_mkrishn@quicinc.com>,
-        Abel Vesa <abelvesa@kernel.org>,
-        Yuanjie Yang <yuanjie.yang@oss.qualcomm.com>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>, linux-arm-msm@vger.kernel.org,
-        dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
-        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 2/3] drm/msm/dpu: Attach INT2 power domain alongside
- MMCX on Kaanapali
-Message-ID: <4nmgi3mec35nnvxuruonq5zx3npr5psjicdn6kgxy26t3alwa6@oz2csuuzwpbf>
-References: <20260915-msm_gdsc2-v2-0-9157237b8382@oss.qualcomm.com>
- <20260915-msm_gdsc2-v2-2-9157237b8382@oss.qualcomm.com>
+	dkim=pass (2048-bit key) header.d=rbox.co header.i=@rbox.co header.b="f/7fNSml"
+Received: from mailtransmit02.runbox ([10.9.9.162] helo=aibo.runbox.com)
+	by mailtransmit05.runbox.com with esmtps  (TLS1.2) tls TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256
+	(Exim 4.93)
+	(envelope-from <mhal@rbox.co>)
+	id 1xDWXr-00BeDO-IT; Mon, 05 Oct 2026 02:27:07 +0200
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=rbox.co;
+	s=selector1; h=Cc:To:In-Reply-To:References:Message-Id:
+	Content-Transfer-Encoding:Content-Type:MIME-Version:Subject:Date:From;
+	bh=jPeu6T7GcllC8FvZxJ+u0tfvoOw0GMjN0KPHe/0xo9A=; b=f/7fNSmlGhH7nEcWnhDBuZzxLi
+	4lOsnQ4H4OON59k0kuS6tUydl1nKO9pMhnCZq2mSyvjuVxA41sssatUVGtQeqa1uneZpnnyT2s1ph
+	Q3v7Yu5mYUJ6kg4VSpI7xc7+4KqTXXTo3Syd3Y06g4M9CSJyyuD5KRNG9Ou6p00+utr/tossk2yWP
+	EDyO6l8Vi/QKn7QdSZTAK1AS2daYRIx/efcJgNYe+rN+zbMp4ELw7NsOOpjJaV8L2tEVdP7hM8CQ9
+	HxsP/ZrD3julwogz4d86CacmCcpwSW5y0QRcBw+sWrNdt93RJF9ZjE+6R+0qb0c1+Gfll9rr/CeKR
+	504ICkDw==;
+Received: from [10.9.9.72] (helo=submission01.runbox)
+	by mailtransmit02.runbox with esmtp (Exim 4.86_2)
+	(envelope-from <mhal@rbox.co>)
+	id 1xDWXd-0002qY-EG; Mon, 05 Oct 2026 02:26:55 +0200
+Received: by submission01.runbox with esmtpsa  [Authenticated ID (604044)]  (TLS1.2:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256)
+	(Exim 4.95)
+	id 1xDWXL-00AQqX-TB;
+	Mon, 05 Oct 2026 02:26:36 +0200
+From: Michal Luczaj <mhal@rbox.co>
+Date: Mon, 05 Oct 2026 02:26:22 +0200
+Subject: [PATCH net v4] vsock: treat TCP_CLOSING as once-established
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260915-msm_gdsc2-v2-2-9157237b8382@oss.qualcomm.com>
-X-Proofpoint-ORIG-GUID: 4xL-IyUPfb-Gsoa4Ow0pcdrAhTABaYNE
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDA1MDAwNCBTYWx0ZWRfX3WMQPsdzI9tg
- CDaUHxs0o475nXgV/4s64rUvb8g5JeRU80jz4pcwE+cacv16zj/V1L9x5BEJsrSeJ6rQxE7aAt7
- 6ddyP45IKq2QiOrWJrnyjuhfta4N4Sk=
-X-Authority-Analysis: v=2.4 cv=eZSo7LEH c=1 sm=1 tr=0 ts=6ac2f7c5 cx=c_pps
- a=qKBjSQ1v91RyAK45QCPf5w==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
- a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=yx91gb_oNiZeI1HMLzn7:22 a=EUspDBNiAAAA:8
- a=8KN31ognrfrXisba-IgA:9 a=CjuIK1q_8ugA:10 a=NFOGd7dJGGMPyQGDc5-O:22
-X-Proofpoint-GUID: 4xL-IyUPfb-Gsoa4Ow0pcdrAhTABaYNE
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDA1MDAwNCBTYWx0ZWRfXyFj4zat794Lm
- dv7YbxnJcg684h3eIc0DacSbmUaSeUrnwXk/OEEr88LOLg8jrjTeYlqvtATMyskwr5C7RSX0NJ6
- LJBRiIn4wjPbnECWoXrF0/tPvma169Dzu+LD7M+xahipAoZOXWrVPLQXcot8N2/sdkmHOcPmiZp
- ySMino8go4vqckDEgB5vQndR5PI0Qa9U5aC7SFct+oTFLqBxpc7wUTp+dFGS6caNZtLIOwjtUBx
- 1idXFJ1Sl2tZOwCbV4xP15OmiODKmivSUSCSMeY0mWzPnIF3UQG4FS8qDdn1apTfJp37AKI0/g3
- I6qoQNwy/e6jAjbRWk+htF7vGlIdtcgFEDOqLeGJcrgZGOm09MpGfHMiJHUcKyFOomXTQEG/Z/9
- c4E3pb0hsT+H4gXZlgeU+gUQ12RZq2qUay8dv+e8wPu6aT7ShMK7dt08jztylEA0KMO8sgzLQUz
- ZJJOPWi+UQnttdF8unw==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-10-05_01,2026-10-02_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 clxscore=1015 impostorscore=0 priorityscore=1501
- lowpriorityscore=0 suspectscore=0 malwarescore=0 adultscore=0 bulkscore=0
- phishscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2609040000
- definitions=main-2610050004
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261005-vsock-connect-reset-closing-v4-1-15d41cfda3ed@rbox.co>
+References: <20261005-vsock-connect-reset-closing-v4-0-15d41cfda3ed@rbox.co>
+In-Reply-To: <20261005-vsock-connect-reset-closing-v4-0-15d41cfda3ed@rbox.co>
+To: Stefan Hajnoczi <stefanha@redhat.com>, 
+ Stefano Garzarella <sgarzare@redhat.com>, 
+ "Michael S. Tsirkin" <mst@redhat.com>, Jason Wang <jasowangio@gmail.com>, 
+ =?utf-8?q?Eugenio_P=C3=A9rez?= <eperezma@redhat.com>, 
+ "David S. Miller" <davem@davemloft.net>, 
+ Xuan Zhuo <xuanzhuo@linux.alibaba.com>, Jakub Kicinski <kuba@kernel.org>, 
+ Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, 
+ Eric Dumazet <edumazet@kernel.org>
+Cc: kvm@vger.kernel.org, virtualization@lists.linux.dev, 
+ netdev@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Hyunwoo Kim <imv4bel@gmail.com>, Michal Luczaj <mhal@rbox.co>
+X-Mailer: b4 0.15.2
 
-On Tue, Sep 15, 2026 at 05:27:49PM +0800, Yongxing Mou wrote:
-> Kaanapali's DPU node lists two power domains when its DT provides
-> both MMCX and INT2 GDSC. The power-domain core only auto-attaches a
-> single power domain; with two phandles it leaves the device
-> unattached to either, so attach both explicitly.
-> 
-> MMCX keeps PD_FLAG_REQUIRED_OPP, preserving its existing OPP-based
-> performance-state voting. INT2 has no OPP of its own and is attached
-> as a plain runtime-PM supplier, via the device link the attach API
-> creates automatically, so it needs no manual pm_runtime get/put in
-> the enable/disable paths.
-> 
-> Platforms with a single power domain are unaffected and continue to
-> rely on the core's existing single-domain auto-attach.
-> 
-> Signed-off-by: Yongxing Mou <yongxing.mou@oss.qualcomm.com>
-> ---
->  drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c | 32 ++++++++++++++++++++++++++++++++
->  1 file changed, 32 insertions(+)
-> 
+Handle the TCP_ESTABLISHED -> TCP_CLOSING transition on OP_RST, which can
+race with the connect loop. Immediately break and return 0 on
+ESTABLISHED/CLOSING. The return value of connect() should reflect what
+happened up to the point the connection was established or failed. Events
+that occur afterwards must not affect it. E.g. even if OP_RW has already
+set sk_err, connect() should still return 0, not ENOBUFS because of it.
+Adapt the inaccurate comment above signal_pending().
 
-Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Resetting a socket that is still present in connected_table can lead to
+memory corruption. The reporter noted lost transports for in-flight skbs,
+and I have reproduced crashes caused by re-insertion into connected_table.
 
+  list_add double add: new=, prev=, next=.
+  kernel BUG at lib/list_debug.c:35!
+  Oops: invalid opcode: 0000 [#1] SMP KASAN NOPTI
+  Workqueue: vsock-loopback vsock_loopback_work
+  RIP: 0010:__list_add_valid_or_report+0x11f/0x130
+  Call Trace:
+   vsock_insert_connected.cold+0xe/0x13
+   virtio_transport_recv_pkt+0x10e9/0x1460
+   vsock_loopback_work+0x305/0x480
+   process_one_work+0xe4c/0x1560
+   worker_thread+0x4f1/0xd60
+   kthread+0x36e/0x470
+   ret_from_fork+0x47b/0x6b0
+   ret_from_fork_asm+0x1a/0x30
+
+This fix is supplementary to commit 002541ef650b ("vsock: Ignore
+signal/timeout on connect() if already established"). Details under Link.
+
+Fixes: d021c344051a ("VSOCK: Introduce VM Sockets")
+Reported-by: Hyunwoo Kim <imv4bel@gmail.com>
+Link: https://lore.kernel.org/netdev/anzT1fREOSyHT99k@v4bel/
+Signed-off-by: Michal Luczaj <mhal@rbox.co>
+---
+ net/vmw_vsock/af_vsock.c | 17 ++++++++---------
+ 1 file changed, 8 insertions(+), 9 deletions(-)
+
+diff --git a/net/vmw_vsock/af_vsock.c b/net/vmw_vsock/af_vsock.c
+index 9b71479a2b29..14fe24b05f9c 100644
+--- a/net/vmw_vsock/af_vsock.c
++++ b/net/vmw_vsock/af_vsock.c
+@@ -1834,23 +1834,22 @@ static int vsock_connect(struct socket *sock, struct sockaddr_unsized *addr,
+ 		timeout = schedule_timeout(timeout);
+ 		lock_sock(sk);
+ 
+-		/* Connection established. Whatever happens to socket once we
+-		 * release it, that's not connect()'s concern. No need to go
++		/* Connection was established. Whatever happens to socket once
++		 * we release it, that's not connect()'s concern. No need to go
+ 		 * into signal and timeout handling. Call it a day.
+ 		 *
+ 		 * Note that allowing to "reset" an already established socket
+ 		 * here is racy and insecure.
+ 		 */
+-		if (sk->sk_state == TCP_ESTABLISHED)
+-			break;
++		if (sk->sk_state == TCP_ESTABLISHED ||
++		    sk->sk_state == TCP_CLOSING) {
++			err = 0;
++			goto out_wait;
++		}
+ 
+ 		/* If connection was _not_ established and a signal/timeout came
+ 		 * to be, we want the socket's state reset. User space may want
+-		 * to retry.
+-		 *
+-		 * sk_state != TCP_ESTABLISHED implies that socket is not on
+-		 * vsock_connected_table. We keep the binding and the transport
+-		 * assigned.
++		 * to retry, so we keep the binding and the transport assigned.
+ 		 */
+ 		if (signal_pending(current) || timeout == 0) {
+ 			err = timeout == 0 ? -ETIMEDOUT : sock_intr_errno(timeout);
 
 -- 
-With best wishes
-Dmitry
+2.56.0
+
