@@ -1,72 +1,47 @@
-Received: from rtits2.realtek.com.tw (rtits2.realtek.com [211.75.126.72])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B1C009460;
-	Mon,  5 Oct 2026 05:31:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=211.75.126.72
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CE79926ED3C;
+	Mon,  5 Oct 2026 05:31:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791178268; cv=none; b=pK5MoBmyg5z8dICjYC2alFZhAAhKy4SsT0Q2ZaBr826EgfSrgHH5+FyrM/Cxr6+kgqkPjzUCM+cI9FryCtJgOXlT5Z7y1BeX8rAr3Kuzt5NtXGoPliue9Lr+N3wkSqget1myvR1NFGu2MxQOoCmilNhrNGSHLNOWNTOnDcDJP5w=
+	t=1791178285; cv=none; b=dzi4qEngy0fu5YV4edobQGKWYNxr6ODjVHl+ksDZQLXXRTgvBx5OphbX2wo0iPxGzhicRttgWKeq8FKWO4uqcosQKzWS1MRJI0rTE5M9ROMoHqtwZCBLVQL9mFajc8ladMGmWjiwHEI1reNzDQ4NSklz+MVfYPEuZe6q1XOTLmE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791178268; c=relaxed/simple;
-	bh=ZB4D+4teW5DXUeFs9cCbrVbL/WvsoSbXiBRjVLIMe/Y=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:MIME-Version; b=tX35b8ePQBVZflyfPK3w5vOumol6vYnDY60iMxTns3srqZbUD+lW/I8PESPkcri51WlmDkvZYDyfLgp2JVP2Fncpq0oiKhL9Q33fRgzU1xAsG3kWakyvemt8nSGwP/PMo+iQqt070ReSc5+1PkBs04LeGqIU2CT+QcwhJl2caNw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=realtek.com; spf=pass smtp.mailfrom=realtek.com; dkim=pass (2048-bit key) header.d=realtek.com header.i=@realtek.com header.b=AmTzkeGK; arc=none smtp.client-ip=211.75.126.72
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=realtek.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=realtek.com
+	s=arc-20240116; t=1791178285; c=relaxed/simple;
+	bh=UrDPmVbL5jhp0wWomsAHSOwAkMLW2b7PAdgJQ0AtHbo=;
+	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=RxZPCPtWqRXduHPMIQkMjJ5iDFi055EBEyIH6zIMrNHtv3gGFgsovGHOZKEdu3USSjCSSai1UxiqtVAponhlCwrI5vOq+G955GFEkTer0HvQewqMcCacPujxAVDahVp/c3i229Pv5krKLChg5ZaD5EuUkP61B53woy5OpUgn9a4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZVVOmTF1; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=realtek.com header.i=@realtek.com header.b="AmTzkeGK"
-X-SpamFilter-By: ArmorX SpamTrap 5.80 with qID 6955Ufr261690584, This message is accepted by code: ctloc85258
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=realtek.com; s=dkim;
-	t=1791178241; bh=ZB4D+4teW5DXUeFs9cCbrVbL/WvsoSbXiBRjVLIMe/Y=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:MIME-Version;
-	b=AmTzkeGKKp0fsaIJTSKZL1KXJBQQrQQRMOTH9pbQGx7Tpmk0OgyrbjXGhXRirh1px
-	 SOeoCycuJ1lncQCvt+PwTx9CKpCF4Z6BGF9hogfiPpIr4qscTCeYlHpYWvFiKF5nHt
-	 oaamP3UF2sl0D/Vxyz56awrUTz7BU/gn41zIjDISeyEEBmCGGQcZZia12ndSFs4bqW
-	 +jDShjoixlRSnYgrVhKpia1iAD81xuqwT0VAsa6NVW0np+JBcwB43L/ILy1QiWx544
-	 DOrF7Uh9wezdcGEm52D6JrevmgLWeGKaqBDbHVsOID+T1v0uXvw63kC267jUQEshO2
-	 xud03HVEmwwhg==
-Received: from mail.realtek.com (rtkexhmbs02.realtek.com.tw[172.21.6.41])
-	by rtits2.realtek.com.tw (8.15.2/3.29/5.94) with ESMTPS id 6955Ufr261690584
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
-	Mon, 5 Oct 2026 13:30:41 +0800
-Received: from RTKEXHMBS05.realtek.com.tw (10.21.1.55) by
- RTKEXHMBS02.realtek.com.tw (172.21.6.41) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.49; Mon, 5 Oct 2026 13:30:41 +0800
-Received: from RTKEXHMBS06.realtek.com.tw (10.21.1.56) by
- RTKEXHMBS05.realtek.com.tw (10.21.1.55) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.49; Mon, 5 Oct 2026 13:30:41 +0800
-Received: from RTKEXHMBS06.realtek.com.tw ([::1]) by
- RTKEXHMBS06.realtek.com.tw ([fe80::b3cc:c263:b82d:e87c%10]) with mapi id
- 15.02.2562.049; Mon, 5 Oct 2026 13:30:41 +0800
-From: Ping-Ke Shih <pkshih@realtek.com>
-To: Luka Gejak <luka.gejak@linux.dev>, Alastair D'Silva
-	<alastair@d-silva.org>, "linux-wireless@vger.kernel.org"
-	<linux-wireless@vger.kernel.org>
-CC: Martin Blumenstingl <martin.blumenstingl@googlemail.com>, Ulf Hansson
-	<ulfh@kernel.org>, Jernej Skrabec <jernej.skrabec@gmail.com>, Kalle Valo
-	<kvalo@kernel.org>, "linux-kernel@vger.kernel.org"
-	<linux-kernel@vger.kernel.org>, "stable@vger.kernel.org"
-	<stable@vger.kernel.org>
-Subject: RE: [PATCH v3 1/2] wifi: rtw88: sdio: Fix unhandled RX request
- interrupt storm
-Thread-Topic: [PATCH v3 1/2] wifi: rtw88: sdio: Fix unhandled RX request
- interrupt storm
-Thread-Index: AQHdUThjHehNiw0xlkuYT1bxT/PheLbuUbcg//+M34CAAJPnEA==
-Date: Mon, 5 Oct 2026 05:30:40 +0000
-Message-ID: <c852aa23403e4ec7ad80a17a6dc18d0e@realtek.com>
-References: <20261001000303.3505264-1-alastair@d-silva.org>
- <20261001000303.3505264-2-alastair@d-silva.org>
- <661b9fc47ce942a491f8c53d90fdf39a@realtek.com>
- <6ef33599cc268fa12e4663461248f1700969df34@linux.dev>
-In-Reply-To: <6ef33599cc268fa12e4663461248f1700969df34@linux.dev>
-Accept-Language: en-US, zh-TW
-Content-Language: zh-TW
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZVVOmTF1"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7FFCE1F00893;
+	Mon,  5 Oct 2026 05:31:22 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791178283;
+	bh=AZEgy0bGABGsZy2Uv/VEreaEIDQ6n/6e79/9aCsLZbU=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=ZVVOmTF1wFCvy+DwgflZ1WKk66QSFUZ19Gpo3F3e2yvm9e023uM77mCyU5r4aF3Ah
+	 9Ld0PS9piwjFlgMUr3s8mUTkoy/u/CPs99NzMGTQx+agXlGcSSPgVKwUoSnccBYjH1
+	 Ray04Ays6xYadCn8UHnajfmQ9L8GEhLXa6wk+yzjo2OguGkiEAS4TUY8DQQLu1PBC2
+	 61v0AaWdY9FWUjal7QqbpLdo/tTAC+Mn7DfBBocBHTpNFnrmyzN8h82nmVLyXk6Vku
+	 gi29dzp2DmPn4a+OIMDh2MfSuvkmRw5ly/jECznwTJaK3gYFIJbnsjzImwJzda0qgU
+	 EfmS41vJemOOg==
+Subject: Re: [PATCH net] xsk: freeze deferred pool teardown without blocking
+ unregister
+From: netdev-bot+sashiko@kernel.org
+To: james.hilliard1@gmail.com
+Cc: netdev@vger.kernel.org, pabeni@redhat.com, kuba@kernel.org,
+ magnus.karlsson@intel.com, maciej.fijalkowski@intel.com, sdf@fomichev.me,
+ horms@kernel.org, ast@kernel.org, daniel@iogearbox.net, hawk@kernel.org,
+ john.fastabend@gmail.com, edumazet@kernel.org, davem@davemloft.net,
+ bjorn@kernel.org, bpf@vger.kernel.org, linux-kernel@vger.kernel.org
+Date: Mon, 05 Oct 2026 05:31:22 +0000
+Message-ID: <179117828200.434549.5174779969634122541@kernel.org>
+In-Reply-To: <20260930-xsk-suspend-teardown-v1-1-a6cac8c030be@gmail.com>
+References: <20260930-xsk-suspend-teardown-v1-1-a6cac8c030be@gmail.com>
+X-sashiko-severity: Medium
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -74,8 +49,95 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 
-THVrYSBHZWphayA8bHVrYS5nZWpha0BsaW51eC5kZXY+IHdyb3RlOg0KPiBJIHRoaW5rIHlvdSBt
-aXNzZWQgbXkgcmV2aWV3IGF0IFsxXS4NCj4gDQo+IFsxXTpodHRwczovL2xvcmUua2VybmVsLm9y
-Zy9hbGwvMjAyNjEwMDEwNjAyMTMuMjQ3NTktMS1sdWthLmdlamFrQGxpbnV4LmRldi8NCg0KSSBm
-ZWVsIGxpa2UgdGhhdCBtaWdodCBiZSBleGlzdGluZyBpc3N1ZT8gSWYgc28sIHVzZSBvdGhlciBw
-YXRjaGVzIHRvIGZpeA0KdGhlbS4gDQoNCg0K
+Thank you for your contribution! Sashiko AI review found 1 potential
+issue(s) to consider.
+
+Critical: 0 · High: 0 · Medium: 1 · Low: 0
+
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
+
+- [Medium] The patch adds one global list, xsk_dev_pools
+  (net/xdp/xsk_buff_pool.c), that holds every assigned XSK buffer pool…
+
+--
+
+xsk: freeze deferred pool teardown without blocking unregister
+
+This moves deferred XSK buffer pool destruction from system_wq to
+system_freezable_wq, so ndo_bpf() is not called on a suspended device. It
+also adds a global list of assigned pools. NETDEV_UNREGISTER uses that
+list to detach pools whose sockets have already left net->xdp.list.
+
+> diff --git a/net/xdp/xsk.c b/net/xdp/xsk.c
+> index 33475b180ea6f..a2ae0e10d8933 100644
+> --- a/net/xdp/xsk.c
+> +++ b/net/xdp/xsk.c
+> @@ -2145,6 +2145,10 @@ static int xsk_notifier(struct notifier_block *this,
+>  			mutex_unlock(&xs->mutex);
+>  		}
+>  		mutex_unlock(&net->xdp.lock);
+> +		/* A released socket is no longer on xdp.list. Its pool can still
+> +		 * hold a device reference on the frozen release workqueue.
+> +		 */
+> +		xp_clear_dev_all(dev);
+>  		break;
+>  	}
+>  	return NOTIFY_DONE;
+> diff --git a/net/xdp/xsk_buff_pool.c b/net/xdp/xsk_buff_pool.c
+> index 9d2d94f1fb759..b5fd0850db5bb 100644
+> --- a/net/xdp/xsk_buff_pool.c
+> +++ b/net/xdp/xsk_buff_pool.c
+> @@ -12,6 +12,11 @@
+>  
+>  #define ETH_PAD_LEN (ETH_HLEN + 2 * VLAN_HLEN  + ETH_FCS_LEN)
+>  
+> +/* Socket removal precedes the final pool put. Keep assigned pools visible to
+> + * NETDEV_UNREGISTER even while their release work is waiting for process thaw.
+> + */
+> +static LIST_HEAD(xsk_dev_pools);
+> +
+
+[ ... ]
+
+> +void xp_clear_dev_all(struct net_device *dev)
+> +{
+> +	struct xsk_buff_pool *pool, *next;
+> +
+> +	ASSERT_RTNL();
+> +	list_for_each_entry_safe(pool, next, &xsk_dev_pools, dev_list)
+> +		if (pool->netdev == dev)
+> +			xp_clear_dev(pool);
+> +}
+
+[Severity: Medium]
+Should xsk_dev_pools be scoped per netns or per netdev, rather than being
+one global list?
+
+As written, xsk_dev_pools holds every assigned pool from every network
+namespace. xsk_notifier()->xp_clear_dev_all() walks the whole list under
+RTNL on every NETDEV_UNREGISTER, in any namespace.
+
+Before this patch, the notifier only walked net->xdp.list of the namespace
+that owns the device. With this change, each unregister costs O(total pools
+in the system). A batched unregister, such as netns teardown, costs
+O(devices x global pools), all while RTNL is held.
+
+xsk_create() only checks ns_capable(net->user_ns, CAP_NET_RAW). A user
+inside a user namespace can therefore create many pools, for example with
+copy-mode binds to veth or dummy queues, or with XDP_SHARED_UMEM backing
+many pools from one umem. That would lengthen RTNL hold times during device
+and netns teardown in unrelated namespaces.
+
+Would tracking the pools per netdev or per netns limit the walk to pools
+that can actually match dev?
+
+>  static void xp_release_deferred(struct work_struct *work)
+>  {
+>  	struct xsk_buff_pool *pool = container_of(work, struct xsk_buff_pool,
+
+-- 
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260930-xsk-suspend-teardown-v1-1-a6cac8c030be%40gmail.com
