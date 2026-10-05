@@ -1,139 +1,75 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 69E084334AB;
-	Mon,  5 Oct 2026 09:09:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D309442FCDB
+	for <linux-kernel@vger.kernel.org>; Mon,  5 Oct 2026 09:09:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791191344; cv=none; b=H6FhrwLxxvhA9PCDznbbRpMLn7xtETZ91YCkJzO/OV6tqgGCn5+vvSCPP5mRwsBVHEF+hE8godD7/0sOHLLYJjRo7SmyuuVXYRrXM2jp0j2QjzJmLVN8AZb/8ETrcgS/H7caXiqvQJMKS6PNnLMkXlEM8kF+rE4CpudRFaJItG4=
+	t=1791191346; cv=none; b=jtnJIbj1TjBGOBHLXvTWzmIFPTqgYql9bgnfeEneNsJGLmf17RD31XrMWCGsgGa+VPw6LmkGJDAk8NGQFuwdPmW4H8QAGwuyNZVnIncbdmXOObf4jDLwjRf7hJ0bAO7LO+bWk0nwqegIjpl0LUvMQ+gPa7CjYCVkscr9/PCRjEY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791191344; c=relaxed/simple;
-	bh=H+4kqsPac3dmJA9PfDo6eks6Egeh4gjjwuOEOQNZra0=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=J5OEdgyN85XLeLWrYHGZmY1T4NfPG7e1M4ymt4q9pRHDqw8Foph+zWGLDjCxCU3jOlDZTjOYNxW928oTCN5hant78KCA37XWl0TVtj1izlEuDI9uaTVxv1escgxI/VbLaeP12YHE/B/1mCQFj26ztG0He7X9C48KXEE2De6BBww=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=kB5cmTdC; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	s=arc-20240116; t=1791191346; c=relaxed/simple;
+	bh=uzv9HpiXrao0nGGoBNyEG3/YbCbiCTi1NS9wib5tO3U=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=mUL5p1jTH/sXxHHJWuxBaiSk7tG+DZedSCGD5+qZwXECtEXSoCw0R+o7+cu8wT0G8fHHUT1j8S3A0MR0LZNv2+PRiIQKiEymCN3dhGfuFO3sn9aTz8uJM3t3XDgHgwBIaQeQLUbqyE+I7dAmbMpudkmtDDTJVI0s3krIAvJRWEU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=IdlVfxcW; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="kB5cmTdC"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 8C7351684;
-	Mon,  5 Oct 2026 02:08:59 -0700 (PDT)
-Received: from ewhatever.cambridge.arm.com (ewhatever.cambridge.arm.com [10.2.197.99])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id EE1EE3F66F;
-	Mon,  5 Oct 2026 02:08:59 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1791191342; bh=H+4kqsPac3dmJA9PfDo6eks6Egeh4gjjwuOEOQNZra0=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=kB5cmTdC3/QvQPvMHhhzr4ilHk/vLTJ1DRe2iz5TSOF2On9v/1dzIXbH56Gwkbwl+
-	 b0krWpkb3oZRm5uF33KjmSbe6YwXjH0/CvoItNnd/E31DdN23kaLqCuBiFjA3SS8p8
-	 Rg3oLAyj+i0TZVIrar8E2auShoGvx5Iyyg3ELDTo=
-From: Suzuki K Poulose <suzuki.poulose@arm.com>
-To: kvm@vger.kernel.org,
-	kvmarm@lists.linux.dev
-Cc: maz@kernel.org,
-	will@kernel.org,
-	catalin.marinas@arm.com,
-	linux-kernel@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	steven.price@arm.com,
-	aneesh.kumar@kernel.org,
-	oupton@kernel.org,
-	gshan@redhat.com,
-	joey.gouly@arm.com,
-	tabba@google.com,
-	yuzenghui@huawei.com,
-	linux-coco@lists.linux.dev,
-	gankulkarni@os.amperecomputing.com,
-	sdonthineni@nvidia.com,
-	alpergun@google.com,
-	fj0570is@fujitsu.com,
-	WeiLin.Chang@arm.com,
-	lpieralisi@kernel.org,
-	enju.kohei@fujitsu.com,
-	sudeep.holla@arm.com,
-	jonathan.cameron@oss.qualcomm.com,
-	Suzuki K Poulose <suzuki.poulose@arm.com>
-Subject: [PATCH v22 17/23] KVM: arm64: CCA: Add bare minimal S2 operations for Realm
-Date: Mon,  5 Oct 2026 10:07:48 +0100
-Message-ID: <20261005090754.2140522-18-suzuki.poulose@arm.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261005090754.2140522-1-suzuki.poulose@arm.com>
-References: <20261005090754.2140522-1-suzuki.poulose@arm.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="IdlVfxcW"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 859611F00893
+	for <linux-kernel@vger.kernel.org>; Mon,  5 Oct 2026 09:09:04 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791191344;
+	bh=syhVDDXw2GZrQUkbGrWdUrAGQuwG3IBkkSkYzaePM0k=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=IdlVfxcWJm8hPpz4Dklv3MszlB39XdId7xg7gyBwKqw1cmkmBYxDe1DYxU3NsnXo+
+	 KJXKvHhIVWiabkOkuVxaR9Ze+gyaLW8QtYJqhNKh72SlxLX6s9pCVNzEoZ7ScLv4I1
+	 JWgs0jE8qy8m+b5g7MRRWf7jrYYyvMkclonGT0fZhlBCfm/9UTzawI5NrAFmMuyF9V
+	 U8Nk6fmSFt8bM6LqkpM+wTeu8d9JH08gqCupIAyaJicYbwAD03Iy074vSBT60BISRa
+	 kMx/+ter5gwl7156y4fo4EOonARGciH/JUanhnduJ9TPObKbgQxL2ZeyKUz0nNt0m7
+	 409yC17Z+hM7g==
+Received: by mail-ej1-f54.google.com with SMTP id a640c23a62f3a-c2e69aa07c3so213069866b.1
+        for <linux-kernel@vger.kernel.org>; Mon, 05 Oct 2026 02:09:04 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBys+y1qoo4My1SOK521mBdRmVziq7mz6FJ/qC9wq0T/cFfH++O3ocKdNW1qq4Rb/ma2xzwzVN0exUqQo9g=@vger.kernel.org
+X-Gm-Message-State: AFuF++n+ZFSP+Wq5zFLVCSqEGdwTaz7wboYGBr+jF0sVWYDX8mQti6nm
+	ntCEpwRZjUJXu8cqadCkRA7l7XKLQCSXvUKsssBrL69XFHW3P/6NW2Shg2LC19lLyfssgF9nQ5N
+	a/RylCcHRvZuEKQBJ4e3vkpKmNcI8rQE=
+X-Received: by 2002:a17:907:97d1:b0:c26:19e3:e982 with SMTP id
+ a640c23a62f3a-c2e6ee4df56mr565098166b.34.1791191343195; Mon, 05 Oct 2026
+ 02:09:03 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20261004101934.1975655-1-chizhiling@163.com> <20261004101934.1975655-4-chizhiling@163.com>
+In-Reply-To: <20261004101934.1975655-4-chizhiling@163.com>
+From: Namjae Jeon <linkinjeon@kernel.org>
+Date: Mon, 5 Oct 2026 18:08:50 +0900
+X-Gmail-Original-Message-ID: <CAKYAXd-2cSYwBcAfGtcAYbK95FfpASRrptz4YUf7Ke-cXK00PA@mail.gmail.com>
+X-Gm-Features: AclHuK_oef4vdZXEsyaNt9PY15FR2Wz4DHbLxRcVMypxvH34O0r-MnWM8TZEA1w
+Message-ID: <CAKYAXd-2cSYwBcAfGtcAYbK95FfpASRrptz4YUf7Ke-cXK00PA@mail.gmail.com>
+Subject: Re: [PATCH v2 3/4] exfat: dirty all new pages when extending valid_size
+To: Chi Zhiling <chizhiling@163.com>
+Cc: exfat@lists.linux.dev, linux-kernel@vger.kernel.org, Yuezhang.Mo@sony.com, 
+	dxdt@dev.snart.me, sj1557.seo@samsung.com, 
+	Chi Zhiling <chizhiling@kylinos.cn>
+Content-Type: text/plain; charset="UTF-8"
 
-Add bare minimal MMU operation hooks for Realms. The mem_abort handling
-is chosen as the default KVM variant. However this cannot be reached for
-Realms yet and we would need real RMI command support to make it fully
-functional. Similarly, unmapping stage2 requires RMI command support.
-Until then reuse follow protected pKVM hook and ignore unmapping.
-This will be addressed in the later series.
+> @@ -664,90 +664,30 @@ int exfat_file_fsync(struct file *filp, loff_t start, loff_t end, int datasync)
+>  static int exfat_zero_new_range(struct inode *inode, loff_t start, loff_t end)
+Function name and comments no longer seem to match. What do you think
+about changing them like this?
 
-RMM takes care of the TLB flushing as required, when the Stage2 is
-modified. So host doesn't need to do anything explicitly. RMM doesn't
-support access flags for the stage2, even for the shared IPA.
+/*
+ * exfat_prepare_valid_range - populate and dirty folios covering [start, end)
+ *
+ * Populate missing blocks via the read path, which zero-fills data
+ * beyond the current valid_size while preserving uptodate blocks.
+ * Mark entire folios dirty so the newly valid range is written back.
+ *
+ * Call before advancing valid_size.
+ */
 
-Signed-off-by: Suzuki K Poulose <suzuki.poulose@arm.com>
----
-Changes since v21:
- - Reuse no_age_gfn for Realms. Also use no_stage2_unmap_range for
-   now, until we get proper RMI backed driver.
----
- arch/arm64/kvm/mmu.c | 23 +++++++++++++++++++++++
- 1 file changed, 23 insertions(+)
-
-diff --git a/arch/arm64/kvm/mmu.c b/arch/arm64/kvm/mmu.c
-index 909ea3f545e83..58bc6a85f48b4 100644
---- a/arch/arm64/kvm/mmu.c
-+++ b/arch/arm64/kvm/mmu.c
-@@ -180,6 +180,12 @@ static int kvm_vm_flush_remote_tlbs(struct kvm *kvm)
- 	return 0;
- }
- 
-+static int realm_flush_remote_tlbs(struct kvm *kvm)
-+{
-+	/* Nothing to do here, RMM does the job */
-+	return 0;
-+}
-+
- /**
-  * kvm_arch_flush_remote_tlbs() - flush all VM TLB entries for v7/8
-  * @kvm:	pointer to kvm structure.
-@@ -207,6 +213,13 @@ static int kvm_vm_flush_remote_tlbs_range(struct kvm *kvm,
- 	return 0;
- }
- 
-+static int realm_flush_remote_tlbs_range(struct kvm *kvm,
-+					 gfn_t gfn, u64 nr_pages)
-+{
-+	/* Nothing to do here, RMM does the job */
-+	return 0;
-+}
-+
- int kvm_arch_flush_remote_tlbs_range(struct kvm *kvm,
- 				     gfn_t gfn, u64 nr_pages)
- {
-@@ -2896,6 +2909,16 @@ static const struct kvm_vm_s2_ops kvm_default_vm_s2_ops = {
- 	.vm_mem_abort			= kvm_vm_mem_abort,
- };
- 
-+static const struct kvm_vm_s2_ops realm_vm_s2_ops = {
-+	.vm_flush_remote_tlbs		= realm_flush_remote_tlbs,
-+	.vm_flush_remote_tlbs_range	= realm_flush_remote_tlbs_range,
-+	.vm_age_gfn			= no_age_gfn,
-+	.vm_test_age_gfn		= no_age_gfn,
-+	/* Until we get proper support for unmap */
-+	.vm_stage2_unmap_range		= no_stage2_unmap_range,
-+	.vm_mem_abort			= kvm_vm_mem_abort,
-+};
-+
- #define KVM_VM_S2_OPS(flavor, ops)		\
- 		[flavor] = &(ops)
- 
--- 
-2.43.0
-
+And generic/538 test fails with this patch set. Please check if this
+test failure is reproducible for you as well.
+Thanks.
