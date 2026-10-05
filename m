@@ -1,107 +1,195 @@
-Received: from mail-wr2-f34.google.com (mail-wr2-f34.google.com [74.125.225.98])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B3B40231836
-	for <linux-kernel@vger.kernel.org>; Mon,  5 Oct 2026 18:46:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.98
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5C28036F429;
+	Mon,  5 Oct 2026 18:47:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791226020; cv=none; b=WvShOA96CupzybjhIDNnOoBmb99nAuX27YnZXUgLFIj+jBkUE5ofYJwTUUQK5cq/KQ2oyqSOvml2cRit1ybfKM2GTf81u3sij+stUBmTZCbLx5/AF0DEWS1Tld49ahbBj9MWOs78KbOyB9Qd+NR+vm/o3OgIyJI7cQ4jGGxhix0=
+	t=1791226061; cv=none; b=F2sMM4TD6P62toY27rYcNW/TE278rf+TBNAvaNwZ5PQlpNe9bKQXYPcoTRIrgOF4IBZbInZwrgf4yt2jGgeRmepCH6iWLLfLOoifMR9yVhiokZUnDdVKGedMWfvajBkLVAK/tsOiwMIKOsiWlDU7hXU5BDiXuoFK/PxNHQ0Yy30=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791226020; c=relaxed/simple;
-	bh=F1ijpYANID3xLVMHVmK5U2Z+BXQgaXvQfo3vjZejkAk=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=VOHh8UiR4iPsxjzshpROddR84u89hrdV7x86PcJ6eQKdtq4+vPfhg2EgqrgBXjiAbPpCa7aBnPxiqRWLP4BcAGJJbWqbcPR1h1gw8Lh3loJ1ipZYx/ybu3IJgfgnx8o53mpKEqayNzW3o5TopQeOmFP8+0EpTGvZpXTQF10mccs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=qHyzbvQb; arc=none smtp.client-ip=74.125.225.98
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1791226061; c=relaxed/simple;
+	bh=JUpDVe4jtYSwy3TAdZ9ZBsId4WkpsPKdPqIPOquQ7bQ=;
+	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To; b=Fx5sPI2M4dS7FdG81fcojpPSI/83Dp/+tJtoyUrVH5dC9c2V4n+7pGJ3KQhOO/d6RUd6jhNT0AGnCTCRoFul3GsiC9AxnoGmDySO+Xc15ww/yK6mXtptlJG8DHPAq3TKnHrazHDRzhFcBqph2kWG2oX+YC+N6u+V10BpWrYhXCM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HBh3yv0F; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="qHyzbvQb"
-Received: by mail-wr2-f34.google.com with SMTP id ffacd0b85a97d-48b01d89b23so1099458f8f.2
-        for <linux-kernel@vger.kernel.org>; Mon, 05 Oct 2026 11:46:58 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791226017; x=1791830817; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=eOi8eynqTk2PQ9A1YtVNTzOJuded8lsvFakB4HYF7xg=;
-        b=qHyzbvQbTGF/6wsERgbsUR7AHFtwUJPsGhHBD3q1EnCMHH5AM6QbaHrwGQP417nNe8
-         mwOGqWkqUXPSB14Ys+vCxOlOrVl+4H1DArV0v7f3Yq25wR3UyJNqeG45hrljs7TKigx7
-         cAgN22zmz8vFyc4sE4QApJer6OvG+KQgAsvJkjy80nZjSrtN0o5UMLkGs4ddNrB0aBdV
-         Xrj0l3poT+yYUinYlynfIPWk7sJEFW/A/oZwDuUUKR++2AyzTQrytTqIvUIXmfe3w6s6
-         ExfxBJbQQJov9A19oZipKu6JwFJFQ80fPcNzP2tCL7t+ZuqL7bIQ0KUTgdHxCVSTq4vy
-         yObg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791226017; x=1791830817;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=eOi8eynqTk2PQ9A1YtVNTzOJuded8lsvFakB4HYF7xg=;
-        b=th2YVJDoZw7UElKyROGlhdmEtlG35XhGUxO7nwzPD9KyXZNomEi1TYdevCd4bVseJo
-         W4oMeqTTRRImULbiLzThFDiilSkPyzwTwHmq05n2RIQP/5UO0UkXdZMkXzHxjZ9RkfsW
-         O3M9jcH39BcsLlJWvYoJmJAGK5Md/ADbTE/fFU/oLzQIaHwOsTfpOVG6hsQ9l50b4zLe
-         tSLBasVTeH5xwf5QZsru5Y/F4V1pekLpVl5WYOUP6q3a1NQQeCYQlmmX2HDTe6VVQL/6
-         SV/wIJgGbptAf190EBYarA+FCCBx1weL5nhCnXUE7V6xrirCoOCzXA3r1oBlQhaz6aeq
-         x3UQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxdtV3JA1QIXP0L/YwmCLweZbRQUvqlh4Aqd2jK17/7l2ewLpk6OmvG+LJfOtzYP8b09rCe932p2/7GTqI=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLumceerjJnP6pXfjdgQnPDaHWMu3tvhXLgnDJ6RZ76nrFzGby5
-	H4TmvIh1ItF1qO5xMpcnD9N9utovJ/ymvR8eZLciggebiIZa4dbA1901
-X-Gm-Gg: AYBFou131/vtVv+vRr2fr5BLnpF/oFuAzDfvetrdsYpErENLIGTPw1gxcZGRauK9b8y
-	CM2+QRRk1TVM6jd/FFxow6yEwsqGbQTgugW2KNSRyti4euQCxxkh3ZN9vQv7MMBkjlbFHBzkhMP
-	kqt0vzprP9crN2+0HUAm4QwxLdD/sI1rMHg6ubaPYKQB8iHUXak0qXGFtPTBQuti/dVRnHnXGFY
-	IGstJeZIcMIqbVanfvjxJCBAy6qzPKdwtS7419nxw9sMbXVpFTn7dL4Ed2XqZKu/MNNeraXgME4
-	RFgLg+Cl9x2UAwP6Y0tJa6KAvt91zmbc0Uqx6K7g/aygQdp7FxiZ1aJujBHBtqa49G3oucV4Bdd
-	ZO6JfcOpL/BDJUu8wZSMQAtRvnR7azfw7r6J47pe/FW1p+5ew1biEDaReGINyZWaQGwWxISCSHE
-	LGJ5aJkNU6w6iQKu56gf9eWafoSH3Lgmzv2GcAsGSLPkyld7WGTuaoaWbog6JuVGzRGcPAFXwIQ
-	bPIO9Eoa1NWByewIqe8+OfPQ01cyPjOOIqUFxyTTrxPWQ==
-X-Received: by 2002:adf:f04f:0:b0:488:88f6:36a9 with SMTP id ffacd0b85a97d-48b12717780mr14643263f8f.21.1791226016957;
-        Mon, 05 Oct 2026 11:46:56 -0700 (PDT)
-Received: from pumpkin (82-69-66-36.dsl.in-addr.zen.co.uk. [82.69.66.36])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48c622704a5sm12255235f8f.15.2026.10.05.11.46.56
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 05 Oct 2026 11:46:56 -0700 (PDT)
-Date: Mon, 5 Oct 2026 19:46:55 +0100
-From: David Laight <david.laight.linux@gmail.com>
-To: Oleg Nesterov <oleg@redhat.com>
-Cc: Babanpreet Singh <bbnpreetsingh@gmail.com>, Christian Brauner
- <brauner@kernel.org>, Pavel Tikhomirov <ptikhomirov@virtuozzo.com>, Andrew
- Morton <akpm@linux-foundation.org>, linux-kernel@vger.kernel.org,
- syzbot+c382ee653fd70f5cf1bb@syzkaller.appspotmail.com
-Subject: Re: [PATCH] pid: use READ_ONCE() in pid_alive()
-Message-ID: <20261005194655.18e8d3a2@pumpkin>
-In-Reply-To: <asO8TiCfByNjBHWK@redhat.com>
-References: <20261002012141.7-1-bbnpreetsingh@gmail.com>
-	<20261003182224.2171b574@pumpkin>
-	<asIwpkNr9bF6gk6Q@redhat.com>
-	<20261004125118.7de53b47@pumpkin>
-	<asJRMhSXz5XhljNi@redhat.com>
-	<20261004143108.4b851713@pumpkin>
-	<asO8TiCfByNjBHWK@redhat.com>
-X-Mailer: Claws Mail 4.1.1 (GTK 3.24.38; arm-unknown-linux-gnueabihf)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HBh3yv0F"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B46DF1F00893;
+	Mon,  5 Oct 2026 18:47:39 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791226059;
+	bh=LY9clA3d6BIa1hGpy8fB/s486ZnuYpX4F4oJ47Qj8+0=;
+	h=Date:From:To:Cc:Subject:In-Reply-To;
+	b=HBh3yv0Ffq5r9iIfRZ3+FcKXuNRPzbKN/OUiWxHz97tKYSeG2UHsZTxbwJKICo6/r
+	 aVhMT6pEpkv7ttH/4KLJ8F9JAXIvkZbWDowgY8pHIJWgvZYtjhTuwCoH5SW9lzQvw3
+	 HifRIeMO+L25UraAqZVjpHtpAAvbYUrpg1+lDh5AflcDsBjwd0HrKl4pwepZn2VF3q
+	 kn6bKhWr3wSq97WDZXsygW0yHKFbl9wtz++895Q3uUMC6k1GZ4payTGmL5OmuiCN0V
+	 El18u1e9MEDcsNWbg2pG0qOyFpnfzlnsN0Pr4UTRSA++dvcUySN4ogpVe7zeR9iwVm
+	 xpvot7WFDw/0A==
+Date: Mon, 5 Oct 2026 13:47:38 -0500
+From: Bjorn Helgaas <helgaas@kernel.org>
+To: Ilpo =?utf-8?B?SsOkcnZpbmVu?= <ilpo.jarvinen@linux.intel.com>
+Cc: Maciej Grochowski <Maciej.Grochowski@sony.com>,
+	Nikolas Joshua Britton <nbritton@exabit.io>,
+	Geramy Loveless <gloveless@jqluv.com>,
+	Eric Auger <eauger@redhat.com>,
+	Alexey Fomenko <alexey.fomenko@intel.com>,
+	Bjorn Helgaas <bhelgaas@google.com>, linux-pci@vger.kernel.org,
+	Lorenzo Pieralisi <lorenzo.pieralisi@arm.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof =?utf-8?Q?Wilczy=C5=84ski?= <kw@linux.com>,
+	linux-kernel@vger.kernel.org, Bradley Morgan <brads@mainlining.org>,
+	Mario Limonciello <mario.limonciello@amd.com>,
+	Borislav Petkov <bp@alien8.de>
+Subject: Re: [PATCH v2 7/7] PCI/quirks: Avoid certain address on Genoa systems
+Message-ID: <20261005184738.GA585498@bhelgaas>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20261002113319.6652-8-ilpo.jarvinen@linux.intel.com>
 
-On Mon, 5 Oct 2026 17:03:42 +0200
-Oleg Nesterov <oleg@redhat.com> wrote:
+[+cc Boris]
 
-> On 10/04, David Laight wrote:
-...
-> > If the 'add code' all the readers and have to hold the lock then does that
-> > leave anything other than task exit doing an rcu-delete.
-> > I wouldn't have though acquiring the lock in the task exit code would
-> > be noticeable.  
+On Fri, Oct 02, 2026 at 02:33:15PM +0300, Ilpo Järvinen wrote:
+> While testing the resource placement changes, tests hit a case where
+> igb fails to probe when BAR 0 is placed at 0x9c000000:
 > 
-> Still can't understand. The exiting task does take tasklist when it calls
-> detach_pid().
+>    90000000-9cffffff : PCI Bus 0000:a0
+>   -  90000000-902fffff : PCI Bus 0000:a1
+>   -    90000000-900fffff : 0000:a1:00.0
+>   -      90000000-900fffff : igb
+>   -    90100000-901fffff : 0000:a1:00.0
+>   -    90200000-90203fff : 0000:a1:00.0
+>   -      90200000-90203fff : igb
+>   +  9be00000-9c0fffff : PCI Bus 0000:a1
+>   +    9be00000-9befffff : 0000:a1:00.0
+>   +    9bf00000-9bf03fff : 0000:a1:00.0
+>   +    9c000000-9c0fffff : 0000:a1:00.0
+>      9c100000-9c17ffff : amd_iommu
+>      9c180000-9c1803ff : IOAPIC 8
+> 
+>   -       Region 0: Memory at 90000000 (32-bit, non-prefetchable) [size=1M]
+>   -       Region 3: Memory at 90200000 (32-bit, non-prefetchable) [size=16K]
+>   -       Expansion ROM at 90100000 [disabled] [size=1M]
+>   +       Region 0: Memory at 9c000000 (32-bit, non-prefetchable) [size=1M]
+>   +       Region 3: Memory at 9bf00000 (32-bit, non-prefetchable) [size=16K]
+>   +       Expansion ROM at 9be00000 [disabled] [size=1M]
+> 
+> igb 0000:a1:00.0 0000:a1:00.0 (uninitialized): PCIe link lost
+> ------------[ cut here ]------------
+> igb: Failed to read reg 0x18!
+> WARNING: drivers/net/ethernet/intel/igb/igb_main.c:724 at igb_rd32.cold+0x3c/0x4f [igb], CPU#32: kworker/32:1/706
+> ...
+>  igb_get_invariants_82575+0xff/0xf00 [igb]
+>  igb_probe+0x3c8/0x1190 [igb]
+>  local_pci_probe+0x3b/0x80
+> 
+> It turns out there is a 64kB iomem black hole at 9c000000 that returns
+> ~0 and this is where igb's BAR 0 resides. If another BAR of the same
+> card is placed into that address, it is similarly black holed.
+> 
+> Mark the problematic 64kB range reserved using a quirk bound to the
+> bridge found in the problematic system.
 
-I think I've confused myself :-)
-The delete needs the lock to avoid corrupting the list.
-It would be safe for an rcu protected reader - but it doesn't help you.
+I think this is my fault, or at least it looks like it's related to
+07eab0901ede ("efi/x86: Remove EfiMemoryMappedIO from E820 map").
 
-David
+This platform describes the [0x9c000000-0x9cffffff] range as
+E820_TYPE_RESERVED in the E820 table and as EFI_MEMORY_MAPPED_IO in
+the EFI memory map (from the dmesg at
+https://bugzilla.kernel.org/show_bug.cgi?id=222074):
+
+  BIOS-e820: [gap 0x0000000090000000-0x000000009bffffff]
+  BIOS-e820: [mem 0x000000009c000000-0x000000009cffffff]  device reserved
+  efi: Remove mem49: MMIO range=[0x9c000000-0x9cffffff] (16MB) from e820 map
+  e820: remove [mem 0x9c000000-0x9cffffff] device reserved
+  pci_bus 0000:a0: root bus resource [mem 0x90000000-0x9cffffff window]
+
+/proc/iomem:
+
+  90000000-9cffffff : PCI Bus 0000:a0
+    9c100000-9c17ffff : amd_iommu
+    9c180000-9c1803ff : IOAPIC 8
+
+I haven't worked out all the details, but I bet that if 07eab0901ede
+had not removed [0x9c000000-0x9cffffff] from the E820 table, it would
+show up in /proc/iomem as "Reserved" and would not be available for
+use by a BAR.  amd_iommu and IOAPIC 8 occupy some of that space, and I
+suspect there are other devices in there that we don't know about.
+
+It looks like the last 16MB of every 32-bit PCI host bridge window is
+EFI_MEMORY_MAPPED_IO, so if you can move the igb device to a different
+host bridge, I suspect the same problem would happen if you put the
+BAR at 16MB below the end.
+
+> Closes: https://bugzilla.kernel.org/show_bug.cgi?id=222074
+> Suggested-by: Mario Limonciello <mario.limonciello@amd.com>
+> Signed-off-by: Ilpo Järvinen <ilpo.jarvinen@linux.intel.com>
+> ---
+> 
+> Mario suggested the quirk to be based on the bridge instead of the 
+> endpoint device which certainly looks better and cleaner than the
+> approach used in v1.
+> 
+> The current plan is to try a different card in the same slot but it is
+> a bit hard for me to predictable on what timescale that can be done.
+> 
+> ---
+>  drivers/pci/quirks.c | 35 +++++++++++++++++++++++++++++++++++
+>  1 file changed, 35 insertions(+)
+> 
+> diff --git a/drivers/pci/quirks.c b/drivers/pci/quirks.c
+> index de9bbccda21f..5483b47d8d54 100644
+> --- a/drivers/pci/quirks.c
+> +++ b/drivers/pci/quirks.c
+> @@ -6288,6 +6288,41 @@ DECLARE_PCI_FIXUP_EARLY(PCI_VENDOR_ID_INTEL, 0x1536, rom_bar_overlap_defect);
+>  DECLARE_PCI_FIXUP_EARLY(PCI_VENDOR_ID_INTEL, 0x1537, rom_bar_overlap_defect);
+>  DECLARE_PCI_FIXUP_EARLY(PCI_VENDOR_ID_INTEL, 0x1538, rom_bar_overlap_defect);
+>  
+> +/*
+> + * TODO: Remove when/if root cause is found.
+> + *
+> + * Genoa appears to have a 64kB iomem black hole starting at 0x9c000000
+> + * address for which all reads return ~0 blocking an overlapping BAR from
+> + * working.
+> + *
+> + * Work around the problem by reserving the space prior to making any iomem
+> + * allocations that could overlap with the black hole.
+> + */
+> +static struct resource black_hole_res = DEFINE_RES_MEM_NAMED(0x9c000000, SZ_64K,
+> +							     "reserved");
+> +
+> +static void genoa_iomem_black_hole(struct pci_dev *dev)
+> +{
+> +	struct resource *r;
+> +
+> +	pci_bus_for_each_resource(dev->bus, r) {
+> +		if (!r || !r->flags || !resource_assigned(r))
+> +			continue;
+> +
+> +		if (!__resource_contains_unbound(r, &black_hole_res))
+> +			continue;
+> +
+> +		if (resource_assigned(&black_hole_res))
+> +			pci_dbg(dev, "iomem black hole workaround already applied\n");
+> +		else if (!insert_resource(r, &black_hole_res))
+> +			pci_info(dev, "iomem black hole workaround enabled\n");
+> +		else
+> +			pci_dbg(dev, "iomem black hole workaround add failed\n");
+> +		return;
+> +	}
+> +}
+> +DECLARE_PCI_FIXUP_HEADER(PCI_VENDOR_ID_AMD, 0x14ab, genoa_iomem_black_hole);
+> +
+>  #ifdef CONFIG_PCIEASPM
+>  /*
+>   * Several Intel DG2 graphics devices advertise that they can only tolerate
+> -- 
+> 2.47.3
+> 
