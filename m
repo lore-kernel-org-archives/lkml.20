@@ -1,163 +1,114 @@
-Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 31954377ABE
-	for <linux-kernel@vger.kernel.org>; Mon,  5 Oct 2026 07:10:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D918B377019;
+	Mon,  5 Oct 2026 07:10:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791184247; cv=none; b=mPAYWr+laH7Z6rCB1uWhpqtCsFxvNO5Ha4eS4zlwj2C21rLNSZWa8DM7mcqc9HJMLIHMXisR62I57Ii8E6SfBObZR9/UACqO1XnYkA0B/2qlfR9Y01Y1CtF0MhVWZ/UTtIDblR5JoMFdF2r/t+kCLpwhPTB2B+UxkIy+puonJbs=
+	t=1791184247; cv=none; b=egqmPCac9bXvTuBLwocmY0F6ft+l7CZ4eYSRUH3yZ/HCmKS3A4ezhH1vylnMNZIVXjh6AUmZ7ivwy3rf23TnDkjzwMOdisHftS6fzO+CLeIkIzh4OdFJ2Uyd/TTmoVYPst/V5lxcbPyKSdjiNka0bkvLj4bNxOyG6chz3+S0iGk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1791184247; c=relaxed/simple;
-	bh=DCokXdATGPIggSgFw3/QiZFiz3LeqkJtGjMK9ckNik0=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=eOQ9y3xKo8AiL3FUh0k+DD2asROyyCFX2SBMNwFnA9hUruF5+z4jnDLs2ltgJSY310A35+WGjNC9KRv4H9w+1N+pPe4zXT6R3KDro63zY+NKyL1qt2oqLtUdzp60Ik4gbjEB543LlQy7PKQXhzu2gHlobwZWuoiI+O4DfUyARGc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=VQWh1fjK; arc=none smtp.client-ip=74.125.225.141
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	bh=/FTZKXzlSbj1Qu4aUjm3DPWDwD4aGAHpPQhwec2f760=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=g1tCjLgMkd0fJTdV9ESLBnKcJGxTdMQEonjMGCYbbiEplsTnejusA/ETotsQ0KAF9ogCvYdsdhv22I5gXKJEWIjttiahE32LoRRgflVol++A3+xvzphn56EiZXHSanndygYN9h/PevWJH/Orwy6FQvdBmvooGZZv+Pk4Hpqlgtg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Sa2bZ0Hn; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="VQWh1fjK"
-Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49fe8bf173aso7977585e9.3
-        for <linux-kernel@vger.kernel.org>; Mon, 05 Oct 2026 00:10:43 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791184241; x=1791789041; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Yp/IMZwSWJ7KU6BBKiPJnaYZoJ/BB8B0UGfzVWC27XU=;
-        b=VQWh1fjKwaJYFDckIA39+mDWXAkvtbvw+X/y1lS+vncphw/+CrWWxkAq4SccRuCrNH
-         ebukjYyCnmxUUI/Q8/n5brX3wxarUmQ846jW0ImC9b2udbecIvoolpcvrHo2xgifJYBn
-         /v4jXTnbg0Vtj1Y2+oLk0kHpEHsdqsf/CsEJ+Cd8pVPuZhpbYk62twTWvQA+6ZbFsl1e
-         BykjfG1dtd8IB8J5NOH3AyVBwjjKtJJ5xVuUEiZ1Oh5oE9LR10WHPFIEnmKQcJyZ1XNL
-         ucqrlT4Dlcz1yb/JUxbI63kd2lggDm1z5OOQ5n17TjCsbttI0i4tiGW8Y3oNiEvIPWIT
-         kcdg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791184241; x=1791789041;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Yp/IMZwSWJ7KU6BBKiPJnaYZoJ/BB8B0UGfzVWC27XU=;
-        b=ZCmbj6nRPPCfITzup51a6LIWY+hTQMYhbqS407ycHOHwZ2NYKt6OBvYCxLN+WbfzNs
-         rjuCdxJJ45qslVSH+OiGWrfMNIKVxQzewy7iQZIAuJiEGeT5IbmMZ+WtKeeTg9ES4+wp
-         HGnJ/CDj1b0ohTwGGFLiSv1gBZeb52Nf6yVCoaWcph4hxS58JVQrhsLkh0TqOY9wMf7w
-         Q7EokzSZArxedfRZOmJ6Qq+vw11pPrthePI9B5x5/M5pdl63rFWRI1x7G+QnKGf9e1Ca
-         /QzlhRi4jz/AgTccsSUwG3fVp9FOTV0bv7cIaX1mdSvoM8Ldmbe48NpDy/1wpvUV6bXS
-         ox+w==
-X-Forwarded-Encrypted: i=1; AKwUvBzdh84i4Cmjunt3MsjBDMvzI2Rh7XUZ8Kcsxhqx0ZifSQKXyMsIu+EaPGl89eQSBiMYobI4J9OkcSMc/BA=@vger.kernel.org
-X-Gm-Message-State: AFuF++l4nyodL/3kFj/FqYOPX2p6LS/AHoxM296uj1vnOx5/5CC8sy9N
-	3GscztkBeyS4wsXZfSqMTEhQrnQHCxM6t4++bVOYdVvoHcXswmzke6BA
-X-Gm-Gg: AYBFou2SXjipp9LNy7T/ubZYjjsceMkB4Mr8sW0Bb116xxQFwcuPmTxnO8Ben0WVdL/
-	eX/P+vEIWBS8umsc19q/+g0Zo+nlFL3cxlJM2XsYvQBIVqvdEwN2UnLKc7l6E9Ij+vQT9u7G+3q
-	k3V1Xnt3EdFZyLHj01WUXCpsWer01nvmSerUY06tWAME5D/HiUIpSLTXZme/M0V/rRF120BRuwx
-	VOOENLinaF4PfLQoeZjrEIZ1iLMvkjIFJ3b7to5Azt+DmqtLlpjNfHNl1dFW2u3rNhyeHIgFu5z
-	pGNGU0wsIME3LEHjke2kWUNoNqliLYqqdHJ9HKGJpYso2ME3p/WaEudpvoO76Si+DySOxqTvV7s
-	xJZcqLUQApA4cbi3mnQwgA7M89HIUnmtc1PlCegLCmp2oGgVSqtuxvIZKMrkZb5AsTbwy/M0yvn
-	3gaVKGRVkYvIPZDCP4BASPGPBnF/80hrXefY4SdhgKhPP/AIoXhsXD5thHraWlE76rN1WRG3Ftt
-	OI1ORk4vKv5q2S6YXHWK8m8sP9V2rbsSN6nTchGn9n2LN6fKAsbUQhIW+ofYNluNa3lZLzajPX6
-	eTyFI3v83xQhMuhg2qX7hPP5DY36QaN067gk
-X-Received: by 2002:a05:600c:5391:b0:4a0:c2a:485e with SMTP id 5b1f17b1804b1-4a02769a99cmr177202295e9.33.1791184241452;
-        Mon, 05 Oct 2026 00:10:41 -0700 (PDT)
-Received: from robert-83cx (static-dsl-191.87-197-115.telecom.sk. [87.197.115.191])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a027741586sm316749855e9.14.2026.10.05.00.10.39
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 05 Oct 2026 00:10:40 -0700 (PDT)
-From: Robert Bozik <robertbozik@gmail.com>
-To: linux-media@vger.kernel.org
-Cc: Sakari Ailus <sakari.ailus@linux.intel.com>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Robert Bozik <robertbozik@gmail.com>
-Subject: [PATCH v4 3/3] media: ipu-bridge: Add OmniVision OV32C4
-Date: Mon,  5 Oct 2026 09:10:10 +0200
-Message-ID: <20261005071010.7191-4-robertbozik@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261005071010.7191-1-robertbozik@gmail.com>
-References: <20261005071010.7191-1-robertbozik@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Sa2bZ0Hn"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 679C9C4AF0B;
+	Mon,  5 Oct 2026 07:10:47 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1791184247;
+	bh=/FTZKXzlSbj1Qu4aUjm3DPWDwD4aGAHpPQhwec2f760=;
+	h=From:Date:Subject:To:Cc:Reply-To:From;
+	b=Sa2bZ0HnA8sak6TN/VzHR/qzl1S6U19EKIcdDpG/glqCBiaSEOG2OSTFhPsmNuapo
+	 +q8Dm9ESHOUzMLy9exM09eqDFnzQcKSDAPYWcMrDwcX7yuIM4L50O62CYon2qabq5g
+	 LfNSAxf8J5DSoboiynqHQ9gVFe1zae4+QGPuza6VrcPkOY2jgQZdlz3xkVCdODhE7u
+	 jqk3YfW9l9nLxApq6LxnEdM9liOA/Ar5k/vH8X3Kp0kxeUSJ4oYFC0zBUJu1IEVhJb
+	 W9lsj/nx6E8ssaHk0wMU5C2tlJYV1WoeZdEVT0GhPadCTjZXY9cjKf8Yr4LUoSCbET
+	 u5lEcNWv/Owsw==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 516BECA5FFD;
+	Mon,  5 Oct 2026 07:10:47 +0000 (UTC)
+From: Michael Garland via B4 Relay <devnull+minimelkav.gmail.com@kernel.org>
+Date: Mon, 05 Oct 2026 01:10:32 -0600
+Subject: [PATCH] ASoC: amd: yc: Add DMI quirk for Acer Aspire Go 15
+ (AG15-21P)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261005-acp6x-herbag2-quirk-v1-1-a1f2683d758f@gmail.com>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMTQqDMBBA4avIrDuQCak/vUpxEeOo04LaiYog3
+ r1pXX6L9w6IrMIRHtkByptEmcYEumUQBj/2jNImgzU2J2Pu6MOc7ziwNr63+FlF3+gckQtFWVH
+ rIZWzcif7//qsL8e1eXFYfis4zy9UYpbSdwAAAA==
+X-Change-ID: 20261005-acp6x-herbag2-quirk-44114c7891da
+To: Vijendar Mukunda <Vijendar.Mukunda@amd.com>, 
+ Venkata Prasad Potturu <venkataprasad.potturu@amd.com>, 
+ Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, 
+ Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>
+Cc: linux-sound@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ stable@vger.kernel.org, Michael Garland <minimelkav@gmail.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1791184246; l=1417;
+ i=minimelkav@gmail.com; s=20261005; h=from:subject:message-id;
+ bh=Rc372Nll5VxRtwlHdHYkmK+PKfsdL8c4K22pmtyJb7E=;
+ b=Q7WbuefFzM3v8XRdrT7tEayQ3HnLgqisFG8NVVaLcVLDclOEm1h6lmzaqqryhtlNflI/Bq7dN
+ Wx0jHN9JUqMDMqgjKfrJBBkKhvEZyFHspRvzcOQx+3ZIZeo4ZQX0vHK
+X-Developer-Key: i=minimelkav@gmail.com; a=ed25519;
+ pk=YgP8zoqOpwmElHd5xoqUtKJTkGSY9Jg/LavDAoXazjs=
+X-Endpoint-Received: by B4 Relay for minimelkav@gmail.com/20261005 with
+ auth_id=1113
+X-Original-From: Michael Garland <minimelkav@gmail.com>
+Reply-To: minimelkav@gmail.com
 
-Add the sensor configuration for the OV32C4, matching the _HID the
-sensor enumerates with. Without this entry the bridge does not build a
-software node graph for the sensor, so its driver defers probing on the
-missing fwnode endpoint forever and the camera never binds.
+From: Michael Garland <minimelkav@gmail.com>
 
-The SSDB of this sensor declares a VCM, and ipu-bridge would instantiate
-a dw9714 client on the sensor's second I2C address. There is no lens
-driver there: the address belongs to a register block of the sensor
-itself, which the sensor driver claims and needs. A dw9714 client on it
-takes the address away from the sensor driver, and dw9714 has no id
-register, so it binds to anything. Do not instantiate a VCM for this
-sensor, whatever the SSDB says.
+The Acer Aspire Go 15 (AG15-21P, board MDC Herbag2_MDU) has two PDM
+DMICs connected to the ACP. The BIOS does not set the AcpDmicConnected
+_DSD property, so the acp6x machine driver never registers the DMIC
+card. The existing Herbag_MDU entry does not match this board name, so
+add a DMI quirk for it.
 
-Signed-off-by: Robert Bozik <robertbozik@gmail.com>
+Tested on BIOS V1.11: the acp6x DMIC capture device is registered and
+records audio on both channels.
+
+Cc: stable@vger.kernel.org
+Signed-off-by: Michael Garland <minimelkav@gmail.com>
 ---
-Changes in v4:
-- Do not instantiate the VCM the SSDB declares for this sensor; the
-  address it names is the sensor's own second address, which the sensor
-  driver now claims.
+The board name differs from the existing Herbag_MDU entry by one
+character, so DMI_MATCH() does not cover it.
+---
+ sound/soc/amd/yc/acp6x-mach.c | 7 +++++++
+ 1 file changed, 7 insertions(+)
 
- drivers/media/pci/intel/ipu-bridge.c | 26 +++++++++++++++++++++++++-
- 1 file changed, 25 insertions(+), 1 deletion(-)
+diff --git a/sound/soc/amd/yc/acp6x-mach.c b/sound/soc/amd/yc/acp6x-mach.c
+index e798bf6a9cd0..1be8504571ad 100644
+--- a/sound/soc/amd/yc/acp6x-mach.c
++++ b/sound/soc/amd/yc/acp6x-mach.c
+@@ -787,6 +787,13 @@ static const struct dmi_system_id yc_acp_quirk_table[] = {
+ 			DMI_MATCH(DMI_BOARD_NAME, "Herbag_MDU"),
+ 		}
+ 	},
++	{
++		.driver_data = &acp6x_card,
++		.matches = {
++			DMI_MATCH(DMI_BOARD_VENDOR, "MDC"),
++			DMI_MATCH(DMI_BOARD_NAME, "Herbag2_MDU"),
++		}
++	},
+ 	{
+ 		.driver_data = &acp6x_card,
+ 		.matches = {
 
-diff --git a/drivers/media/pci/intel/ipu-bridge.c b/drivers/media/pci/intel/ipu-bridge.c
-index 1bb3a3e98..a0ba323d4 100644
---- a/drivers/media/pci/intel/ipu-bridge.c
-+++ b/drivers/media/pci/intel/ipu-bridge.c
-@@ -93,6 +93,8 @@ static const struct ipu_sensor_config ipu_supported_sensors[] = {
- 	IPU_SENSOR_CONFIG("OVTIDB10", 1, 560000000),
- 	/* Omnivision OV2680 */
- 	IPU_SENSOR_CONFIG("OVTI2680", 1, 331200000),
-+	/* Omnivision OV32C4 */
-+	IPU_SENSOR_CONFIG("OVTI32C4", 1, 400000000),
- 	/* Omnivision OV5675 */
- 	IPU_SENSOR_CONFIG("OVTI5675", 1, 450000000),
- 	/* Omnivision OV8856 */
-@@ -217,6 +219,28 @@ static const char * const ipu_vcm_types[] = {
- 	"lc898212axb",
- };
- 
-+/*
-+ * Sensors whose second I2C resource is not a lens driver, whatever the SSDB
-+ * calls it. The OV32C4 keeps a register block of its own at that address,
-+ * part of the sensor and owned by its driver; a VCM client there would take
-+ * the address away and leave the notifier waiting for a lens subdev that
-+ * never appears.
-+ */
-+static const char * const ipu_no_vcm_hids[] = {
-+	"OVTI32C4",
-+};
-+
-+static bool ipu_bridge_sensor_has_no_vcm(struct acpi_device *adev)
-+{
-+	unsigned int i;
-+
-+	for (i = 0; i < ARRAY_SIZE(ipu_no_vcm_hids); i++)
-+		if (acpi_dev_hid_match(adev, ipu_no_vcm_hids[i]))
-+			return true;
-+
-+	return false;
-+}
-+
- /*
-  * Used to figure out IVSC acpi device by ipu_bridge_get_ivsc_acpi_dev()
-  * instead of device and driver match to probe IVSC device.
-@@ -435,7 +459,7 @@ int ipu_bridge_parse_ssdb(struct acpi_device *adev, struct ipu_sensor *sensor)
- 	sensor->rotation = ipu_bridge_parse_rotation(adev, &ssdb);
- 	sensor->orientation = ipu_bridge_parse_orientation(adev);
- 
--	if (ssdb.vcmtype)
-+	if (ssdb.vcmtype && !ipu_bridge_sensor_has_no_vcm(adev))
- 		sensor->vcm_type = ipu_vcm_types[ssdb.vcmtype - 1];
- 
- 	return 0;
--- 
-2.53.0
+---
+base-commit: 695f659d296fb05a76f03967733e79b6c2085bae
+change-id: 20261005-acp6x-herbag2-quirk-44114c7891da
+
+Best regards,
+--  
+Michael Garland <minimelkav@gmail.com>
+
 
