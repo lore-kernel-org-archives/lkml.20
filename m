@@ -1,97 +1,69 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-yw1-f178.google.com (mail-yw1-f178.google.com [209.85.128.178])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8A8AF4C10C5
-	for <linux-kernel@vger.kernel.org>; Mon,  5 Oct 2026 15:09:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9B6814C10F2
+	for <linux-kernel@vger.kernel.org>; Mon,  5 Oct 2026 15:09:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.178
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791212994; cv=none; b=ufmnIRkpd620K5JnMy0mSiWbBVG1swVeB0rbGL0zCpetYDGYzK5+5G84GTWqGIXcFtXiFhg62BXq1JNtSoxfCTxjpBm/1RUkAPY4QTJX/rLQ0X0nv2A/wic7rv8KVPwD2xMklvpyAOgVanx7WTxMNtDVYXcx0KwqsOp5EhCinGs=
+	t=1791212995; cv=none; b=lJ7DfcRlotHh0EPflwEvOZ5EDSyj2EckAJ1uQ7AaW6wYg5qTQ6QOdSae4VKMt3Hc7vH6oqbPG8xadcRpfrouuDU4jhAdVd/1NDMNJpgpMwdk6tPqxWta+x20IzsI1Stme8C6XTKPTVgFfPA84LqEayTlfrCcl6EspyP9+SWkDSQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791212994; c=relaxed/simple;
-	bh=wtI7oVDUhsht2iKk+bjn2I94OjNNDcnadTbMhHCgNyA=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
-	 MIME-Version:Content-Type; b=UFt3WPrLXR+vx/bnk+S/ACmFRCqTku2S27IdQ9J3e+EmlI8RkdXdN/BS0wHXRQFhBq+S6l93asENUSUpldSl1QLpusbcLlrT2SQ27ylsR1Bbk3Faqssg7S0+zWw3MBUqAPH6IhOnbwtjcHYjg3VzVmoGlIFOLztkxVIWBd0422w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=VPgqw66d; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=F4NbScrJ; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1791212995; c=relaxed/simple;
+	bh=XyVR6Z39eA5zyjac0UsK09fwwnAKlUDpWY2E2WEE91c=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=kYkiV5Py96u0/xzlQtH1DwktapkQBU4KPQ3Q5SWcLw6BJrM3hsqisPd7jGHJ5RrrnsxSnKE/esWvhvdhPYBtVoBOja9bCAgbw6ilBWqLsElgtkFlydZdwx36GfgwySDpQ7PgShkew7caNcLhQFxnrHY+CRnoRhiv70jaDm0iRjE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=amutable.com; spf=pass smtp.mailfrom=amutable.com; dkim=pass (2048-bit key) header.d=amutable-com.20251104.gappssmtp.com header.i=@amutable-com.20251104.gappssmtp.com header.b=aHGLU/Lu; arc=none smtp.client-ip=209.85.128.178
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=amutable.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amutable.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="VPgqw66d";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="F4NbScrJ"
-Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 695EOv9B1358096
-	for <linux-kernel@vger.kernel.org>; Mon, 5 Oct 2026 15:09:50 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	oVaB5GQWmscg0rsYJbxE8vQsJhAyc7OQmJS8eF/75jc=; b=VPgqw66dCbZZr3T/
-	vYEoQZULY6WyvCrsI/P22CIqOIEadYzZVxzY14pyaJlSd+yltII6PJxxBHl9k7J3
-	5oxliKGHkUHU90GQRkFDEd3tyl1Ec7nb6LYZLOSRTJuqBQczZW/jOLweqb38AU+q
-	ky/Eon8/vfFpLt03MWF0F36i/Et/sa6/GNdA5qO6YbpRJManxLQbNa9R8vyNVq+J
-	4CiW+TO1N8wFKBNuszUVlQHF48fPXxhdT/970tADddSWuQLQrPX1yVj8TsBPIR1q
-	yg1CUFnnoSYmB8v3saYAzx3q+QYgMvw4wCcCTTAl7fV/2NXLiS/wFvLPkHeOnWfQ
-	+Uz/8w==
-Received: from mail-pl1-f198.google.com (mail-pl1-f198.google.com [209.85.214.198])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h4cvngcne-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Mon, 05 Oct 2026 15:09:50 +0000 (GMT)
-Received: by mail-pl1-f198.google.com with SMTP id d9443c01a7336-2df8d1e91c9so34150975ad.0
-        for <linux-kernel@vger.kernel.org>; Mon, 05 Oct 2026 08:09:50 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=amutable-com.20251104.gappssmtp.com header.i=@amutable-com.20251104.gappssmtp.com header.b="aHGLU/Lu"
+Received: by mail-yw1-f178.google.com with SMTP id 00721157ae682-8ac9d666d4eso17116387b3.3
+        for <linux-kernel@vger.kernel.org>; Mon, 05 Oct 2026 08:09:52 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1791212990; x=1791817790; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:date:message-id
-         :subject:references:in-reply-to:cc:to:from:from:to:cc:subject:date
+        d=amutable-com.20251104.gappssmtp.com; s=20251104; t=1791212991; x=1791817791; darn=vger.kernel.org;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=oVaB5GQWmscg0rsYJbxE8vQsJhAyc7OQmJS8eF/75jc=;
-        b=F4NbScrJw2JA/WrD27NlTBEtS1KVgToyP0YPQxo/lAlwyMzpPSp4yRJ1rTIxOqNOtG
-         lmCD9s8vsM+QQBf1tJukryCCdWXFZX8SXlETGj/lD4R0smpFaTHJU16wbZti7jZjyu8h
-         GIXMoXMEuFgxjhDoxg6/jwLwP2G9mn9XusMMr2UfjfLcNrZiaD2Oft9vZ1tB22mPMMix
-         Eve3D1bO8eoHVyglD8A3Jk4bpNDx1CEGF/WfN+izWK35QfRzNU+et/3oXNVvsLIEd4EU
-         ETpYUGxf7ZnD0t7551JOxDJa1/OPvDNrRT1ZLd60tmNEDGwxoOQwN8F4OOzc3i2aL+PK
-         V2Kw==
+        bh=vlXzFGZotE9UMMZtn0AdDxO1akAHhbmhs0KxtWboHE0=;
+        b=aHGLU/LuWwxbroKB1zrfzRGCdPQmk/7oFDjXLr2iog2SLAccQGFAFi8NypKqKS+lQw
+         xT6/FQ0kKvDfIwdCLxxoUberjL/tt//2BGo60xvqBeThM7bPhfv5hGdH6oyxs9ZflDzh
+         gi/lY5QWTb1dirt6QOzVQhxo138Kkvcxa42sBIcpevL/w2IPH8DhxK4HPutZAQSltcQt
+         joww1z2v3aktuSUHzzFpob8cMLQzay4cHXrXcQp6Q26WUF4BkzMeSzDlEpG4w3aWPbfs
+         JYfERj5ecqqKILO1TJvg5czl2FvdsYHxaIL0m16XbNQ6dAnkok5DPdxvp5VTfoBAMqS3
+         zh2w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791212990; x=1791817790;
-        h=content-transfer-encoding:content-type:mime-version:date:message-id
-         :subject:references:in-reply-to:cc:to:from:x-gm-gg
+        d=1e100.net; s=20260707; t=1791212991; x=1791817791;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=oVaB5GQWmscg0rsYJbxE8vQsJhAyc7OQmJS8eF/75jc=;
-        b=bQ7P4v3aF0XUDHy7mT5MCdIB15ksQvH+KM9TBFlolaXL71qnjeh1zG5YoPkdd3s3VU
-         Csc2G5013aarj50F20pXgOoO66zVq5PgwXON49JfM9ahNGJqlFZ4yz4Lyu9S73jxf68d
-         3GnB4MBI+RELp2XzB2X1EwqZT7kfYBoQRa7m68pU9zALrsZFPVRI69UttAxzs8uTBF+0
-         r5Qtl/5Hwtjkva5dAC8KayhCp2zSlBL8XbpQYRxJdu4mPKMb/Cmy6EqyH0xoMbZcuySz
-         +UOXnxwD99U9hKmOT8+jJxiOehHuFngEr2nItT0IKP/+O7fjqeDuDpqnRCfTvinLKM76
-         A1xg==
-X-Forwarded-Encrypted: i=1; AKwUvBwqggi6H1lTbNupJbw4XSNu6xJMgOFHelLN4QdUhWf5Gp/2A0Y28EhwGj7mNRpUM/MUzAQx9RzQjJ4PeJs=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKaumtV3KHYGVrCt6Q5L8zhVJ0oryrrkL0VGar+Ln7NUucmvIJD
-	4l8wQGQul89z2km3nAeQ+x0N05Tpf6JOW9c2AmGo2hfct+nNsJSaf5XXdoQa1WAfxbPwrMoRG8w
-	ayVN6iBTZYOUexI2cs2O8t20QvIA5rIpuUd5k15M6ZjRoeRrROkkgHfCc5wlvEzSEQUw=
-X-Gm-Gg: AYBFou2nSMN7ZAuqXa71mgUmr4oJd4GUplug0fFhXL8kdvnVqzE9OR31INwsJGG+Edw
-	KV2IYKH952D5H/V/7oIGWqXSG9xLL1b6Wwbdr/222AXlbraGZy7COk6JRUtvoTdeMRUStursHvL
-	GSw0iD/Gr/lAq1SDtpOZjM2GES4GLJvGBrn9frRJxZ24pOeSgwBV3YVSGCLLHeRxNJVUc1P/Cie
-	p+Nu6ZOPs5RQvaUTIEUcd9na/K+0IKmWI3RoIe29TCJPqjmAT47hVu2MriQqukYYzWa3d1QcRxE
-	48NRsWqyB1z55EwwLCtmzvtK1MipLiWq97JR/Z7CtpIDpo/TJqDHon1NMhtY+cunI/GOg7oQPsE
-	xNx+SIwbIFSvZ/W5tNPiSRyYhyvg/oF12aBtkph/WZh1rtrJvJCj9hzw=
-X-Received: by 2002:a17:902:d4cd:b0:2e5:a350:34f8 with SMTP id d9443c01a7336-2e5a3503728mr21624195ad.3.1791212989865;
-        Mon, 05 Oct 2026 08:09:49 -0700 (PDT)
-X-Received: by 2002:a17:902:d4cd:b0:2e5:a350:34f8 with SMTP id d9443c01a7336-2e5a3503728mr21623775ad.3.1791212989310;
-        Mon, 05 Oct 2026 08:09:49 -0700 (PDT)
-Received: from hu-jjohnson-lv.qualcomm.com (Global_NAT1.qualcomm.com. [129.46.96.20])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2e5a5cae1bfsm9130075ad.28.2026.10.05.08.09.47
+        bh=vlXzFGZotE9UMMZtn0AdDxO1akAHhbmhs0KxtWboHE0=;
+        b=rWWJ0oXAfQn9jDlYRrOqaeZoNIaxjbj0U330t7vO2lCp0s2CL4u8+G0bDbCZQ4wU1Y
+         fGREPDxJlz1rKyp91nFd+nY3piDZSqDhaSVZy9/KxiR2APgPXHGw6qZdfck4LsFI3sV5
+         eMulosENinulrJdn9UQStOSg97DvQ0ThC6AuH65xYTRWLyumS7r5I3EUnia4HnRB8uQQ
+         pQhdykFUXGbPbFpeLe4xDfWLVgpOZibn7Z3nptfyrf/B2HbfirNuqIigM9QU4912bDsH
+         g4uCG9Jhy7MkCcXUu7CTj4WULZytVxDCe1W/QP0uksK7y4dSYQTZVNm2xAEjcakpj7qd
+         rjEw==
+X-Forwarded-Encrypted: i=1; AKwUvBwYaBXXHyBnWlpGjMxbPwsjWDwAFfwePOaFCMzE0CtVTddbBHxMXrUSPMyiVYclkhqheK+c9ptxBhk62mM=@vger.kernel.org
+X-Gm-Message-State: AFq9FYI+hKOy7WRIED4SgtgqA+lGYRjby3vCdl9DkrpgaQ9oDS6ZrTWc
+	VneLyMJuBG1Ws0R1fGsnFA1s0c4L68yFfIZJR5CZbCCGF7UTxfOjtUKxLvS5fSFRZB9c
+X-Gm-Gg: AYBFou3EThGY0YhnUE2P9Uvgit2ZTHKHOqU4WbEXYWOY11wbc6zyXjNpdXMr01Ag+fR
+	L0uy2fNBPSuTgWo9bGTdaqFmq2eh3Q1JlrSYyuhRV7NX/WhTIblDszt2MrSTNXGjRvpmZPgPET0
+	vY1iTI/leE1EDdiePzJIngqNpQi/U6oRTctZflCTNLXNCjP2ycE6m3Bs9Vslg9ngq/n8C5nGbMb
+	m7PGcmFkhtkS0cl6W8bmW8qDnhqICFXHGFRJmudVUSGvBL5dqECIQoh7prKLZG1EjNL9crHB/Yc
+	pamPDhTrNScEB9Tlxb5aBALCQsXs/fK+4UayH7XBromOO9adVb7vpLKdLm/i82zRyTRVxoK3tdh
+	bK5tALG9YxS3DWNgVLptpv31r63luWyIY9UfQJNuiHlqOOt94cLKD3Tg58x+wnRmerKkdlxNgcP
+	WgytaH6kPF4trf+JIPTJT1/LOoMo7zfZ2jWLxhnJqO5fyWrh8RB/S2O2vCwlRHAFbNb8fOC5TFX
+	fpid2aztIbeXLSdp4L0csSXLxrU5b5/4ypRT6eyRUewof0GeDC+GNc=
+X-Received: by 2002:a05:690c:480c:b0:8ab:415c:d733 with SMTP id 00721157ae682-8ae948ab9f8mr27618037b3.7.1791212990698;
+        Mon, 05 Oct 2026 08:09:50 -0700 (PDT)
+Received: from [192.168.1.110] (104-53-165-62.lightspeed.stlsmo.sbcglobal.net. [104.53.165.62])
+        by smtp.gmail.com with ESMTPSA id 00721157ae682-8ae33fe81fdsm41210467b3.47.2026.10.05.08.09.49
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 05 Oct 2026 08:09:48 -0700 (PDT)
-From: Jeff Johnson <jeff.johnson@oss.qualcomm.com>
-To: Jeff Johnson <jjohnson@kernel.org>,
-        Vasanthakumar Thiagarajan <vasanthakumar.thiagarajan@oss.qualcomm.com>,
-        Dan Carpenter <error27@gmail.com>, linux-wireless@vger.kernel.org,
-        ath12k@lists.infradead.org, linux-kernel@vger.kernel.org,
-        Jiale Yao <yaojiale02@163.com>
-Cc: Rameshkumar Sundaram <rameshkumar.sundaram@oss.qualcomm.com>,
-        Baochen Qiang <baochen.qiang@oss.qualcomm.com>
-In-Reply-To: <20261003095913.575108-1-yaojiale02@163.com>
-References: <20261003095913.575108-1-yaojiale02@163.com>
-Subject: Re: [PATCH] wifi: ath12k: Reserve space for a string terminator
-Message-Id: <179121298789.2358654.17588785788531487721.b4-ty@oss.qualcomm.com>
-Date: Mon, 05 Oct 2026 08:09:47 -0700
+        Mon, 05 Oct 2026 08:09:50 -0700 (PDT)
+From: Andrew Halaney <andrew@amutable.com>
+Date: Mon, 05 Oct 2026 10:09:33 -0500
+Subject: [PATCH v4 03/10] net: add SO_PASSPIDFD_THREAD to get a
+ thread-specific SCM_PIDFD
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -100,52 +72,295 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
+Message-Id: <20261005-work-unix-passpidfd-v4-3-350183b6e02a@amutable.com>
+References: <20261005-work-unix-passpidfd-v4-0-350183b6e02a@amutable.com>
+In-Reply-To: <20261005-work-unix-passpidfd-v4-0-350183b6e02a@amutable.com>
+To: Jakub Kicinski <kuba@kernel.org>, Kuniyuki Iwashima <kuniyu@google.com>, 
+ Oleg Nesterov <oleg@redhat.com>
+Cc: "David S. Miller" <davem@davemloft.net>, 
+ Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, 
+ Willem de Bruijn <willemb@google.com>, netdev@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, Alexander Viro <viro@zeniv.linux.org.uk>, 
+ Jan Kara <jack@suse.cz>, linux-fsdevel@vger.kernel.org, 
+ Alexander Mikhalitsyn <alexander@mihalicyn.com>, 
+ "Christian Brauner (Amutable)" <brauner@kernel.org>, 
+ Andrew Halaney <andrew@amutable.com>, Eric Dumazet <edumazet@kernel.org>
 X-Mailer: b4 0.14.3
-X-Proofpoint-ORIG-GUID: TKZKUyJcwPZseAD49hz587VIpSaEsYQY
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDA1MDA1OSBTYWx0ZWRfX2CTCmyL3ri75
- 5CA62NGGKkGVOGcQNzg4AzBFZOtVemOKrYPO4urxXQ/k0GfjxnydDUy8ggPVN5huj0kwXlPqsCj
- +UrmZruAjwssEx1g5FbaqjjOXbeWPK7vcgawQ6zsJBz8/KQB6bn5/gmwiZoF5XDocquCFgcFQe5
- aAnIgvy3Jj3K6y7pUpolJmS4mPonPOOZbq0AW/DqtrGJq2a6EVOfOu/Y9YPWMRf5vLlmprbk2Qv
- RmNCWC8TgYplWcj9dUdVkQZPeNqFB1MP1Vu7dguoT9r+cQxyyqoeziLaTvbpQrWHV052S8jdJi9
- uLwChw6Tu1zX8/SL4zj/6jKAk7K6D6PdQoW+T+vQQ0TgxIfCpPFTVKUwVKuu/Iuvhd2gXgkDVib
- 2f651Na1/NBcouGYIweSNkeLWv9ha+WbLUFm4JaS9N/y36YhTWj2gPt+iSGKL5N/79bwWavWcc8
- CJakpKCzk4sjFFcvQsA==
-X-Proofpoint-GUID: TKZKUyJcwPZseAD49hz587VIpSaEsYQY
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDA1MDA1OSBTYWx0ZWRfX7KLsSJJEZiNw
- DC5WLKXSX5U52yBw92M8uTnT+Btjr+ePTfbvVle41grMctFldw629DWJoSNrbCf0o6T5DySnXXp
- GhdpIMk0f5Kfp3qVG5otajjWzKI/gKw=
-X-Authority-Analysis: v=2.4 cv=ZYeIpcVA c=1 sm=1 tr=0 ts=6ac3bdbe cx=c_pps
- a=MTSHoo12Qbhz2p7MsH1ifg==:117 a=ouPCqIW2jiPt+lZRy3xVPw==:17
- a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=YMgV9FUhrdKAYTUUvYB2:22
- a=EUspDBNiAAAA:8 a=oz8bYcBotx4uxxnimfgA:9 a=QEXdDO2ut3YA:10
- a=GvdueXVYPmCkWapjIL-Q:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-10-05_04,2026-10-05_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- adultscore=0 suspectscore=0 malwarescore=0 bulkscore=0 impostorscore=0
- priorityscore=1501 lowpriorityscore=0 spamscore=0 clxscore=1015 phishscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2610050059
 
+From: Christian Brauner <brauner@kernel.org>
 
-On Sat, 03 Oct 2026 17:59:13 +0800, Jiale Yao wrote:
-> ath12k_write_htt_stats_type() accepts count == size, which fills the
-> zero-initialized buffer without a terminating NUL. sscanf() then reads
-> beyond the buffer.
-> 
-> Reject input that leaves no room for the trailing NUL.
-> 
-> 
-> [...]
+Currently, SCM_PIDFD carries a pidfd for the thread-group leader. A
+broker or the coredump server cannot learn the identity of the specific
+thread that sent a given message. Now that both struct pids are recorded
+a receiver can ask for the specific identity it needs.
 
-Applied, thanks!
+So add SO_PASSPIDFD_THREAD as a sibling of SO_PASSPIDFD.
+SO_PASSPIDFD_THREAD delivers an SCM_PIDFD_THREAD, i.e. scoped
+to the specific thread sending. This is completely independent of
+SO_PASSPIDFD, meaning you can use both options and get both cmsgs.
 
-[1/1] wifi: ath12k: Reserve space for a string terminator
-      commit: 13b15eabe2c541b80406166964cdc8ccb5e9c32a
+On SOCK_STREAM sockets recvmsg() only stops merging data at a thread
+boundary when the receiver asked for a thread pidfd. For SO_PASSCRED and
+SO_PASSPIDFD receivers all threads of one process remain a single
+writer.
 
-Best regards,
+Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
+Co-developed-by: Andrew Halaney <andrew@amutable.com>
+Signed-off-by: Andrew Halaney <andrew@amutable.com>
+---
+ arch/alpha/include/uapi/asm/socket.h  |  2 ++
+ arch/mips/include/uapi/asm/socket.h   |  2 ++
+ arch/parisc/include/uapi/asm/socket.h |  2 ++
+ arch/sparc/include/uapi/asm/socket.h  |  2 ++
+ include/linux/socket.h                |  9 +++++----
+ include/net/sock.h                    |  4 +++-
+ include/uapi/asm-generic/socket.h     |  2 ++
+ net/core/scm.c                        | 23 +++++++++++++++++------
+ net/core/sock.c                       | 14 ++++++++++++++
+ net/unix/af_unix.c                    | 12 +++++++++---
+ 10 files changed, 58 insertions(+), 14 deletions(-)
+
+diff --git a/arch/alpha/include/uapi/asm/socket.h b/arch/alpha/include/uapi/asm/socket.h
+index 946a5fad2691..bb3d534826bb 100644
+--- a/arch/alpha/include/uapi/asm/socket.h
++++ b/arch/alpha/include/uapi/asm/socket.h
+@@ -157,6 +157,8 @@
+ 
+ #define SO_RIGHTS_NOTRUNC      85
+ 
++#define SO_PASSPIDFD_THREAD    86
++
+ #if !defined(__KERNEL__)
+ 
+ #if __BITS_PER_LONG == 64
+diff --git a/arch/mips/include/uapi/asm/socket.h b/arch/mips/include/uapi/asm/socket.h
+index f1641dde135f..269badcaa086 100644
+--- a/arch/mips/include/uapi/asm/socket.h
++++ b/arch/mips/include/uapi/asm/socket.h
+@@ -168,6 +168,8 @@
+ 
+ #define SO_RIGHTS_NOTRUNC      85
+ 
++#define SO_PASSPIDFD_THREAD    86
++
+ #if !defined(__KERNEL__)
+ 
+ #if __BITS_PER_LONG == 64
+diff --git a/arch/parisc/include/uapi/asm/socket.h b/arch/parisc/include/uapi/asm/socket.h
+index f3a3815c7dc2..313aee10a52c 100644
+--- a/arch/parisc/include/uapi/asm/socket.h
++++ b/arch/parisc/include/uapi/asm/socket.h
+@@ -149,6 +149,8 @@
+ 
+ #define SO_RIGHTS_NOTRUNC	0x4053
+ 
++#define SO_PASSPIDFD_THREAD	0x4054
++
+ #if !defined(__KERNEL__)
+ 
+ #if __BITS_PER_LONG == 64
+diff --git a/arch/sparc/include/uapi/asm/socket.h b/arch/sparc/include/uapi/asm/socket.h
+index 7907f3b1f0ee..bd3e69bcce7a 100644
+--- a/arch/sparc/include/uapi/asm/socket.h
++++ b/arch/sparc/include/uapi/asm/socket.h
+@@ -150,6 +150,8 @@
+ 
+ #define SO_RIGHTS_NOTRUNC        0x005e
+ 
++#define SO_PASSPIDFD_THREAD      0x005f
++
+ #if !defined(__KERNEL__)
+ 
+ 
+diff --git a/include/linux/socket.h b/include/linux/socket.h
+index 5a5eb1250103..b17fdb7d38a7 100644
+--- a/include/linux/socket.h
++++ b/include/linux/socket.h
+@@ -189,10 +189,11 @@ static inline size_t msg_data_left(const struct msghdr *msg)
+ 
+ /* "Socket"-level control message types: */
+ 
+-#define	SCM_RIGHTS	0x01		/* rw: access rights (array of int) */
+-#define SCM_CREDENTIALS 0x02		/* rw: struct ucred		*/
+-#define SCM_SECURITY	0x03		/* rw: security label		*/
+-#define SCM_PIDFD	0x04		/* ro: pidfd (int)		*/
++#define	SCM_RIGHTS		0x01	/* rw: access rights (array of int) */
++#define SCM_CREDENTIALS		0x02	/* rw: struct ucred		*/
++#define SCM_SECURITY		0x03	/* rw: security label		*/
++#define SCM_PIDFD		0x04	/* ro: pidfd (int)		*/
++#define SCM_PIDFD_THREAD	0x05	/* ro: thread pidfd (int)	*/
+ 
+ struct ucred {
+ 	__u32	pid;
+diff --git a/include/net/sock.h b/include/net/sock.h
+index 60ea55dc1885..2c4f754b498b 100644
+--- a/include/net/sock.h
++++ b/include/net/sock.h
+@@ -356,6 +356,7 @@ struct sk_filter;
+   *	@sk_scm_security: flagged by SO_PASSSEC to recv SCM_SECURITY
+   *	@sk_scm_pidfd: flagged by SO_PASSPIDFD to recv SCM_PIDFD
+   *	@sk_scm_rights: flagged by SO_PASSRIGHTS to recv SCM_RIGHTS
++  *	@sk_scm_pidfd_thread: flagged by SO_PASSPIDFD_THREAD to recv a thread SCM_PIDFD
+   *	@sk_scm_unused: unused flags for scm_recv()
+   *	@ns_tracker: tracker for netns reference
+   *	@sk_user_frags: xarray of pages the user is holding a reference on.
+@@ -562,7 +563,8 @@ struct sock {
+ 				sk_scm_security : 1,
+ 				sk_scm_pidfd : 1,
+ 				sk_scm_rights : 1,
+-				sk_scm_unused : 4;
++				sk_scm_pidfd_thread : 1,
++				sk_scm_unused : 3;
+ 		};
+ 	};
+ 	u8			sk_clockid;
+diff --git a/include/uapi/asm-generic/socket.h b/include/uapi/asm-generic/socket.h
+index 84ea7b92936e..d1e5c6de146d 100644
+--- a/include/uapi/asm-generic/socket.h
++++ b/include/uapi/asm-generic/socket.h
+@@ -152,6 +152,8 @@
+ 
+ #define SO_RIGHTS_NOTRUNC	85
+ 
++#define SO_PASSPIDFD_THREAD	86
++
+ #if !defined(__KERNEL__)
+ 
+ #if __BITS_PER_LONG == 64 || (defined(__x86_64__) && defined(__ILP32__))
+diff --git a/net/core/scm.c b/net/core/scm.c
+index 9b9e119c353a..00025579d53e 100644
+--- a/net/core/scm.c
++++ b/net/core/scm.c
+@@ -499,11 +499,16 @@ static bool scm_has_secdata(struct sock *sk)
+ }
+ #endif
+ 
+-static void scm_pidfd_recv(struct msghdr *msg, struct scm_cookie *scm)
++static void scm_pidfd_recv(struct msghdr *msg, struct scm_cookie *scm,
++			   enum pid_type type, int cmsg_type)
+ {
++	unsigned int flags = PIDFD_STALE;
+ 	struct file *pidfd_file = NULL;
++	struct pid *pid;
+ 	int len, pidfd;
+ 
++	pid = scm->pid[type];
++
+ 	/* put_cmsg() doesn't return an error if CMSG is truncated,
+ 	 * that's why we need to opencode these checks here.
+ 	 */
+@@ -517,12 +522,15 @@ static void scm_pidfd_recv(struct msghdr *msg, struct scm_cookie *scm)
+ 		return;
+ 	}
+ 
+-	if (!scm->pid[PIDTYPE_TGID])
++	if (!pid)
+ 		return;
+ 
+-	pidfd = pidfd_prepare(scm->pid[PIDTYPE_TGID], PIDFD_STALE, &pidfd_file);
++	if (type == PIDTYPE_PID)
++		flags |= PIDFD_THREAD;
+ 
+-	if (put_cmsg(msg, SOL_SOCKET, SCM_PIDFD, sizeof(int), &pidfd)) {
++	pidfd = pidfd_prepare(pid, flags, &pidfd_file);
++
++	if (put_cmsg(msg, SOL_SOCKET, cmsg_type, sizeof(int), &pidfd)) {
+ 		if (pidfd_file) {
+ 			put_unused_fd(pidfd);
+ 			fput(pidfd_file);
+@@ -540,7 +548,7 @@ static bool __scm_recv_common(struct sock *sk, struct msghdr *msg,
+ {
+ 	if (!msg->msg_control) {
+ 		if (sk->sk_scm_credentials || sk->sk_scm_pidfd ||
+-		    scm->fp || scm_has_secdata(sk))
++		    sk->sk_scm_pidfd_thread || scm->fp || scm_has_secdata(sk))
+ 			msg->msg_flags |= MSG_CTRUNC;
+ 
+ 		scm_destroy(scm);
+@@ -587,7 +595,10 @@ void scm_recv_unix(struct socket *sock, struct msghdr *msg,
+ 	}
+ 
+ 	if (sock->sk->sk_scm_pidfd)
+-		scm_pidfd_recv(msg, scm);
++		scm_pidfd_recv(msg, scm, PIDTYPE_TGID, SCM_PIDFD);
++
++	if (sock->sk->sk_scm_pidfd_thread)
++		scm_pidfd_recv(msg, scm, PIDTYPE_PID, SCM_PIDFD_THREAD);
+ 
+ 	scm_destroy_cred(scm);
+ }
+diff --git a/net/core/sock.c b/net/core/sock.c
+index e8551df8330f..c6f33fcbea43 100644
+--- a/net/core/sock.c
++++ b/net/core/sock.c
+@@ -1578,6 +1578,13 @@ int sk_setsockopt(struct sock *sk, int level, int optname,
+ 			ret = -EOPNOTSUPP;
+ 		break;
+ 
++	case SO_PASSPIDFD_THREAD:
++		if (sk_is_unix(sk))
++			sk->sk_scm_pidfd_thread = valbool;
++		else
++			ret = -EOPNOTSUPP;
++		break;
++
+ 	case SO_PASSRIGHTS:
+ 		if (sk_is_unix(sk))
+ 			sk->sk_scm_rights = valbool;
+@@ -1893,6 +1900,13 @@ int sk_getsockopt(struct sock *sk, int level, int optname,
+ 		v.val = sk->sk_scm_pidfd;
+ 		break;
+ 
++	case SO_PASSPIDFD_THREAD:
++		if (!sk_is_unix(sk))
++			return -EOPNOTSUPP;
++
++		v.val = sk->sk_scm_pidfd_thread;
++		break;
++
+ 	case SO_PASSRIGHTS:
+ 		if (!sk_is_unix(sk))
+ 			return -EOPNOTSUPP;
+diff --git a/net/unix/af_unix.c b/net/unix/af_unix.c
+index 64e720bd289b..e44afb059abf 100644
+--- a/net/unix/af_unix.c
++++ b/net/unix/af_unix.c
+@@ -803,7 +803,8 @@ static void copy_peercred(struct sock *sk, struct sock *peersk)
+ 
+ static bool unix_may_passcred(const struct sock *sk)
+ {
+-	return sk->sk_scm_credentials || sk->sk_scm_pidfd;
++	return sk->sk_scm_credentials || sk->sk_scm_pidfd ||
++		sk->sk_scm_pidfd_thread;
+ }
+ 
+ static int unix_listen(struct socket *sock, int backlog)
+@@ -2046,9 +2047,14 @@ static int unix_maybe_add_creds(struct sk_buff *skb, const struct sock *sk,
+ 	return 0;
+ }
+ 
+-static bool unix_skb_scm_eq(struct sk_buff *skb,
++static bool unix_skb_scm_eq(const struct sock *sk, struct sk_buff *skb,
+ 			    struct scm_cookie *scm)
+ {
++	/* Only a thread pidfd receiver can tell threads of one process apart. */
++	if (sk->sk_scm_pidfd_thread &&
++	    UNIXCB(skb).pid[PIDTYPE_PID] != scm->pid[PIDTYPE_PID])
++		return false;
++
+ 	return UNIXCB(skb).pid[PIDTYPE_TGID] == scm->pid[PIDTYPE_TGID] &&
+ 	       uid_eq(UNIXCB(skb).uid, scm->creds.uid) &&
+ 	       gid_eq(UNIXCB(skb).gid, scm->creds.gid) &&
+@@ -3031,7 +3037,7 @@ static int unix_stream_read_generic(struct unix_stream_read_state *state,
+ 
+ 		if (check_creds) {
+ 			/* Never glue messages from different writers */
+-			if (!unix_skb_scm_eq(skb, &scm))
++			if (!unix_skb_scm_eq(sk, skb, &scm))
+ 				break;
+ 		} else if (unix_may_passcred(sk)) {
+ 			/* Copy credentials */
+
 -- 
-Jeff Johnson <jeff.johnson@oss.qualcomm.com>
+2.55.0
 
