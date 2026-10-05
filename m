@@ -1,95 +1,94 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.11])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0E29B4BD7AF;
-	Mon,  5 Oct 2026 15:38:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.11
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B4A144AF9FA;
+	Mon,  5 Oct 2026 15:39:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791214689; cv=none; b=p01C5NWVPxLJ1Hz4tEe+tPlIz+lvHsCS4jXtlATj5UhpO+XcZlcp2wkn1o56qvgz8xlqybxi1QCo1KObrBeepfgYMnhfyGrIHFN2F76ukTP5z8aBn63XH4yAcpMJmEqEsdwMBXjGZPOEtpKmk23eqTX4joEq0BCo9eZkXd+R52s=
+	t=1791214759; cv=none; b=KhmRKFV+zRv0GPDna7DpmJFTw/cf+Rf/ds7kqz0Oen6QlN/UyyT4pXCfDNYTdjtQwxgKhYdrTu52V2mdcUda9b5DJU4lieD4vRh/iLbnM+XpVBQ0EW6tEATpOO2mfaiufxkHONPnu3O8F3ku8cBLJyi67DE832qGefZa6Q4rhGE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791214689; c=relaxed/simple;
-	bh=b/dKJBIY24HTRZ63CQ4I+3YJ8eYilY/BaiTI46Z8wSI=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
-	 MIME-Version:Content-Type; b=EaDCEzLtBBBpxxHJ/j5NADTf8okwjrJGHzn1ReBGJ06H/2hsZTyH9tbSx5/6u8wvQUx7VcWatLSOPKedJlhCmn28NnXZ9Pv3K4eE4VvEQffIViXlsu3uGci4qqFi0ZpYfJQCT3HwS8fZf9+SmABTDiFHcfbYATbfBZN7JtAVuUk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=RnIJ8Vht; arc=none smtp.client-ip=192.198.163.11
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	s=arc-20240116; t=1791214759; c=relaxed/simple;
+	bh=NdDAmGKSfysWHMXCSJbk65A4t0KhXlWdzk3AMSzy/yM=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=uRLRDHEnNlfWLl7lvpjhZcquIl2gft+ANR7FxNObJuMhC2bmHotOBobwvd11JpE7B/qU2jEIfeHsTzzsbGnv7xa4GrSPhr7WmFvugnm4l6ogijU4MD0BSD5YDHpFKl2xUS4rqnHgTW4mazdggWwyVwoKoTlh4CnRQl39ptbzIow=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=cnmYAUhw; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="RnIJ8Vht"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1791214688; x=1822750688;
-  h=from:to:cc:in-reply-to:references:subject:message-id:
-   date:mime-version:content-transfer-encoding;
-  bh=b/dKJBIY24HTRZ63CQ4I+3YJ8eYilY/BaiTI46Z8wSI=;
-  b=RnIJ8Vht8qPALIR8FMvk/dZ/guoy7v+P/aYWDydf5bgvsE80y33cE6c+
-   Yqg9mM7P7uyUNEoLwB0TtybtXK5HV40OavbAogqacS65AbB49uDYIiwr1
-   yIlsrUzzCa+ExVJzC9uaTnSpeD78Bub1XNCtEKIigABHdNQ3Mzbnal2sL
-   ddQG73VM4zAYcuuO3AhlFl/W2zg3TVOlzliV57zbm4M078v7FsSg+GYGT
-   2FAYBuqCh6HzJyPgMaAaD/EtZYn+653X1ZtoQVMY3QEc3p4RfAV6WFxXX
-   C/qvzdK0gHNKp8eKPXGuak2L6TQiGClBREw8COZWZu0K/QBTcMLv0ujoF
-   A==;
-X-CSE-ConnectionGUID: Lclko0yVTHCbi1nt8xZhfA==
-X-CSE-MsgGUID: 3h37ickESf6/rptolXTG2A==
-X-IronPort-AV: E=McAfee;i="6800,10657,11926"; a="102468551"
-X-IronPort-AV: E=Sophos;i="6.27,142,1787036400"; 
-   d="scan'208";a="102468551"
-Received: from orviesa005.jf.intel.com ([10.64.159.145])
-  by fmvoesa105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 05 Oct 2026 08:38:07 -0700
-X-CSE-ConnectionGUID: dZTmJc1gTMmxuietg9n/4A==
-X-CSE-MsgGUID: Ay7KpX13S02rAz1GV+P5eg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,142,1787036400"; 
-   d="scan'208";a="280585766"
-Received: from ijarvine-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.199])
-  by orviesa005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 05 Oct 2026 08:38:04 -0700
-From: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
-To: Corentin Chary <corentin.chary@gmail.com>, 
- "Luke D. Jones" <luke@ljones.dev>, Denis Benato <denis.benato@linux.dev>, 
- Hans de Goede <hansg@kernel.org>, Ahmed Yaseen <yaseen@ghoul.dev>
-Cc: platform-driver-x86@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Nir Yehoshua <nir@ciphersecuritylabs.com>
-In-Reply-To: <20260831-fan-curve-validation-v2-1-7274ca16c8fe@ghoul.dev>
-References: <20260831-fan-curve-validation-v2-1-7274ca16c8fe@ghoul.dev>
-Subject: Re: [PATCH v2] platform/x86: asus-wmi: validate custom fan curves
- on enable
-Message-Id: <179121467980.12659.16542259089072017816.b4-ty@b4>
-Date: Mon, 05 Oct 2026 18:37:59 +0300
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="cnmYAUhw"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9A5DF1F00893;
+	Mon,  5 Oct 2026 15:39:15 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791214758;
+	bh=ST8JvTfWiVBzR+UC4P+DeoNgfhkeK7Pj4K0yMpN+dnA=;
+	h=From:To:Cc:Subject:Date;
+	b=cnmYAUhwCCAkM+s6t6LelFAr8lCfZM5Rex7/SvUi3ujGbPZQHyeAu6c9lViL+KMMo
+	 eqVWhnd5KOcaPEtpSypEXT7+QBL4D8QD+9UEHGEbWGu5Yk4t/Inu7x4GgF55D45iwp
+	 gCVMtrQ5a53/F1hrCuke/TZXfm6nXkXP5hUXyW0Wo6eSpR+si+NPrlPDu9l5hXiC2J
+	 hRP80gBeI73gJJhmG9tLaAFxK2WLC9ug8F2H9kEmX4aabJ1RoAicIjNcs30AFR888L
+	 cjNKLeeQJ/6XUeMNBneVycVJvVFYhrP9aaXQ1KDhMP4Ov0YOJ3tyGp5htTFdQV5Aqh
+	 z89CZdS6P13NA==
+From: Jisheng Zhang <jszhang@kernel.org>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Jiri Slaby <jirislaby@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>
+Cc: linux-kernel@vger.kernel.org,
+	linux-serial@vger.kernel.org,
+	devicetree@vger.kernel.org
+Subject: [PATCH v2] dt-bindings: serial: snps-dw-apb-uart: Add Synaptics sl2610 uart
+Date: Mon,  5 Oct 2026 23:19:18 +0800
+Message-ID: <20261005151918.25259-1-jszhang@kernel.org>
+X-Mailer: git-send-email 2.51.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.15.2
+Content-Transfer-Encoding: 8bit
 
-On Mon, 31 Aug 2026 18:48:08 +0000, Ahmed Yaseen wrote:
+Add the compatible for the UARTs of the Synaptics SL2610, which are
+compatible with the Synopsys DesignWare APB UART.
 
-> Custom fan curves reach firmware unchecked, so a curve whose temperature
-> or PWM decreases from one point to the next is accepted. The firmware
-> does not respect such a curve: a first point of 100% followed by 50%
-> leaves every point running at 100%. The kernel keeps reporting the
-> points that were written, so sysfs stops describing what the fans are
-> actually doing.
-> 
-> [...]
+Signed-off-by: Jisheng Zhang <jszhang@kernel.org>
+---
 
-Thank you for your contribution, it has been applied to my local
-review-ilpo-next branch. Note it will show up in the public
-platform-drivers-x86/review-ilpo-next branch only once I've pushed my
-local branch there, which might take a while.
+since v1:
+ - use sl2610 instead of sl261x
+ - send as a separate patch
 
-FYI [if applicable to your patch], as per Linus' policy change, also
-fixes are mostly routed through for-next unless the fix is for a
-commit introduced in the most recent cycle or is clearly a regression
-fix.
+ .../devicetree/bindings/serial/snps-dw-apb-uart.yaml | 12 +++++++++++-
+ 1 file changed, 11 insertions(+), 1 deletion(-)
 
-The list of commits applied:
-[1/1] platform/x86: asus-wmi: validate custom fan curves on enable
-      commit: ff7edee7842cba8c28845f5a63d2cc7f0e05586d
-
---
- i.
+diff --git a/Documentation/devicetree/bindings/serial/snps-dw-apb-uart.yaml b/Documentation/devicetree/bindings/serial/snps-dw-apb-uart.yaml
+index 664305de4986..a40f2737e71b 100644
+--- a/Documentation/devicetree/bindings/serial/snps-dw-apb-uart.yaml
++++ b/Documentation/devicetree/bindings/serial/snps-dw-apb-uart.yaml
+@@ -34,7 +34,16 @@ allOf:
+       properties:
+         resets:
+           minItems: 2
+-    else:
++
++  - if:
++      not:
++        properties:
++          compatible:
++            contains:
++              enum:
++                - starfive,jh7110-uart
++                - syna,sl2610-uart
++    then:
+       properties:
+         resets:
+           maxItems: 1
+@@ -80,6 +89,7 @@ properties:
+               - starfive,jh7100-hsuart
+               - starfive,jh7100-uart
+               - starfive,jh7110-uart
++              - syna,sl2610-uart
+               - ultrarisc,dp1000-uart
+           - const: snps,dw-apb-uart
+       - const: snps,dw-apb-uart
+-- 
+2.53.0
 
