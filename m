@@ -1,272 +1,167 @@
-Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6E4DC33689A;
-	Mon,  5 Oct 2026 06:09:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.156.1
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8673D32E128;
+	Mon,  5 Oct 2026 06:09:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.130
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791180588; cv=none; b=RE7d5BFsJhdFJ+J1jS4kVkNRH3e1PsYduWVe/kIXY4MQfz6rHfmeyb46qhwBcumM7GOk1SoBSAdGx2UCnjx2iJZ7PV6o4ir+QJOCZj4GjaGB+ha/EyFn0Df7zP1ozG6G5GiHJLdvIvy9r1iAy13E4kfsLxwevhiSGk3aWzs00+0=
+	t=1791180589; cv=none; b=I5i5uG0AiOjQdEUgXz2JIHfwmRguwCFjerrR5/wkGzi79MnpA3WP+jRmBR/VVHYItHgfSlHk9BDss8tBk4VnNo2YpQpYi+m2gG8RQLf/SMNVMudiG4y86AoVF/pbeDlop7/jSbwKT6aFsngs9nk55oHifn+WHY6RG+w5RHTkzAI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791180588; c=relaxed/simple;
-	bh=39zXM7oHMIK28SXfAL7Z0ODr2Bul3ruHfIHVSG1DClU=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=f8ENNqpefGkkTVD3Joq0JIEb45dJ9EL5jRLDEaCId9kw0s6no8WX0XOj+VZVNuCokoBDx5bGh+NKMMlcxtx8C+39hgZsZicAWJT1UZy49GGGOZ21w1bXIbYFIUGSlHfm46CkEN6ATOcIBcOypf04ObU+zbANX0YMPYAVdarj4Ec=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=kN/E7Pb4; arc=none smtp.client-ip=148.163.156.1
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
+	s=arc-20240116; t=1791180589; c=relaxed/simple;
+	bh=DdYtC2idGqrXoP58FxPkiOC3c/hKm551aqQAaJQcVvw=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=A+1o0jbzr56Ff0/S944nTmrnnPNuiDZr/sRcg826TGShspL/boPY0Ub31t5+U5cxWTlGehIIz8yy1QKyqRxIswtG+1U6yxMM3rjfkdPOFKVYMCD5RyLuYX4pHTuCm6aJ/WZMo11z+S7UauGbfqFSV+AaW/Wy4G2mrD6ooccnEjc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=ry9geKI6; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=//qhazbQ; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=SJbVbon5; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=B8Z8v9rg; arc=none smtp.client-ip=195.135.223.130
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="kN/E7Pb4"
-Received: from pps.filterd (m0360083.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69515R9C3343841;
-	Mon, 5 Oct 2026 06:09:20 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
-	:content-transfer-encoding:date:from:in-reply-to:message-id
-	:mime-version:references:subject:to; s=pp1; bh=Aluqrs4QmgMRDQwSP
-	/TN8259vQgzm7Wfkmmxx/BWBpA=; b=kN/E7Pb4r5vZyJ1lx1hyN2zRuOYa5m1ea
-	i0NOixBDudNMqe19CJbLwiQRBd9K+nM1Vr+Cawi9Jn7tA3z1nzZDHGUvFqO/B+1A
-	ZkIYSukvF3zo3RMpvdOBE1V8LtuU4scPScBxuxqcLEhdyT45bZ0fr8oZSVt2nzFY
-	akRjisF8fvx+SKs3MOOY1tDfUnaxUN9WMzP5j+KoiLGhlyn5TnuZpR6Kx6rgesPP
-	pj/fz/PX7bin685e7/IJ/Oapkrlb29W81Y8vJRDkdA7kVs+U2sPWhvcyIKwOUPxJ
-	t/NDNIofFUFT7HLrupsFLNeXECe26feS7+mk9VcT47f3etONOvr7Q==
-Received: from ppma23.wdc07v.mail.ibm.com (5d.69.3da9.ip4.static.sl-reverse.com [169.61.105.93])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4h2s74gpar-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Mon, 05 Oct 2026 06:09:19 +0000 (GMT)
-Received: from pps.filterd (ppma23.wdc07v.mail.ibm.com [127.0.0.1])
-	by ppma23.wdc07v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 69512ZbL2203895;
-	Mon, 5 Oct 2026 06:09:18 GMT
-Received: from smtprelay04.wdc07v.mail.ibm.com ([172.16.1.71])
-	by ppma23.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4h3dhgm4aj-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Mon, 05 Oct 2026 06:09:18 +0000 (GMT)
-Received: from smtpav02.wdc07v.mail.ibm.com (smtpav02.wdc07v.mail.ibm.com [10.39.53.229])
-	by smtprelay04.wdc07v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 69569Go211010686
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Mon, 5 Oct 2026 06:09:16 GMT
-Received: from smtpav02.wdc07v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 835DA58059;
-	Mon,  5 Oct 2026 06:09:16 +0000 (GMT)
-Received: from smtpav02.wdc07v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 60D495805D;
-	Mon,  5 Oct 2026 06:09:13 +0000 (GMT)
-Received: from localhost.localdomain (unknown [9.67.97.222])
-	by smtpav02.wdc07v.mail.ibm.com (Postfix) with ESMTP;
-	Mon,  5 Oct 2026 06:09:13 +0000 (GMT)
-From: Mingming Cao <mmc@linux.ibm.com>
-To: netdev@vger.kernel.org
-Cc: horms@kernel.org, davemarq@linux.ibm.com, bjking1@linux.ibm.com,
-        Mingming Cao <mmc@linux.ibm.com>, maddy@linux.ibm.com,
-        mpe@ellerman.id.au, npiggin@gmail.com, chleroy@kernel.org,
-        ritesh.list@gmail.com, sshegde@linux.ibm.com, nnac123@linux.ibm.com,
-        andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@kernel.org,
-        kuba@kernel.org, pabeni@redhat.com, jeff@garzik.org,
-        linuxppc-dev@lists.ozlabs.org, linux-kernel@vger.kernel.org
-Subject: [PATCH net-next v2 5/8] ibmveth: release the pool kobjects when probe fails
-Date: Sun,  4 Oct 2026 23:06:06 -0700
-Message-Id: <34c7b4a7ff001425f89f4401309481c098d319cf.1791178212.git.mmc@linux.ibm.com>
-X-Mailer: git-send-email 2.39.3 (Apple Git-146)
-In-Reply-To: <cover.1791178212.git.mmc@linux.ibm.com>
-References: <cover.1791178212.git.mmc@linux.ibm.com>
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="ry9geKI6";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="//qhazbQ";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="SJbVbon5";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="B8Z8v9rg"
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out1.suse.de (Postfix) with ESMTPS id BA62A21E86;
+	Mon,  5 Oct 2026 06:09:36 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1791180580; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=s/ejuC82x28bAndFLSItnOGKHqAeicBTwXUq8uK5v1Q=;
+	b=ry9geKI6pF6M9QVELgUcIpqEQ1VAuj2yrQmleMftMLPZATU/dwl0qyKb7B8r0bOjnkqvf0
+	L8x5kSRDo/CjphWS/wnmUarWkywSKnrJINMOaPu2WnmR3/WQwPc8AbGNytuZ0OIM2t5RfQ
+	+0jLOqGdTDbZwjaTtXKifrQXReOReE8=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1791180580;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=s/ejuC82x28bAndFLSItnOGKHqAeicBTwXUq8uK5v1Q=;
+	b=//qhazbQCMNmF5Go41k/pRzufO5Rjb3yi/U7HM5ED0wRsmGLuKk9aF6Ll8GiIpM2Nil3Km
+	DVonZWNtJdEiSqCg==
+Authentication-Results: smtp-out1.suse.de;
+	dkim=pass header.d=suse.de header.s=susede2_rsa header.b=SJbVbon5;
+	dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=B8Z8v9rg
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1791180576; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=s/ejuC82x28bAndFLSItnOGKHqAeicBTwXUq8uK5v1Q=;
+	b=SJbVbon5JV5mnQRgQ0jGovGLeXzEt4BOwiYjz6efFIVmmOQkAr0PEjfUM/7P0ASQNPcgfD
+	9GBwCkzf84o8MK42Ov2jVfGvsI/LBoB9onMzzRqsp7PQVNCPlC1W/bTb7O+rQEcrba+DED
+	NtdXomhXQ7CZLLvurEp0yRa8A6JgdEo=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1791180576;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=s/ejuC82x28bAndFLSItnOGKHqAeicBTwXUq8uK5v1Q=;
+	b=B8Z8v9rgicrwKF/cCc2/ox4K/Z+vy5h9dn8QcYR2drEnQhtfKAe5ccHZQeLXeVWBocQRFw
+	SnTv6tpReDGIOpDA==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 43831132D3;
+	Mon,  5 Oct 2026 06:09:36 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id Z2cGASA/w2oBDwAAD6G6ig
+	(envelope-from <pfalcato@suse.de>); Mon, 05 Oct 2026 06:09:36 +0000
+Date: Mon, 5 Oct 2026 08:09:30 +0200
+From: Pedro Falcato <pfalcato@suse.de>
+To: Lance Yang <lance.yang@linux.dev>
+Cc: dave.hansen@linux.intel.com, luto@kernel.org, peterz@infradead.org, 
+	tglx@kernel.org, mingo@redhat.com, bp@alien8.de, x86@kernel.org, hpa@zytor.com, 
+	riel@surriel.com, linux-kernel@vger.kernel.org, qi.zheng@linux.dev, 
+	nadav.amit@gmail.com, thomas.lendacky@amd.com, kernel-team@meta.com, 
+	linux-mm@kvack.org, akpm@linux-foundation.org, brendan.jackman@linux.dev, 
+	jannh@google.com, mhklinux@outlook.com, andrew.cooper3@citrix.com, 
+	Manali.Shukla@amd.com, mingo@kernel.org, stable@vger.kernel.org, toshi.kani@hpe.com, 
+	david@kernel.org, mikhail.v.gavrilov@gmail.com
+Subject: Re: [PATCH 1/1] x86/mm: fix incomplete page-table invalidation with
+ TCE
+Message-ID: <asM7b8ECO34-jiwi@pedro-suse.tail5790ac.ts.net>
+References: <20261005052302.43042-1-lance.yang@linux.dev>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-TM-AS-GCONF: 00
-X-Proofpoint-Reinject: loops=2 maxloops=12
-X-Proofpoint-ORIG-GUID: qbsQGSZfKfdAFDtzkPploCLFP6pA5g3F
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDA1MDAyNCBTYWx0ZWRfX2qJlKbSp5H1z
- 1Ye0RzfHj5ZhKuTMUuM5czbQjj/c3IYZJOfcD0nTNzB+ZkTf5vmMa1xAx4oCatSGzHbMRgwcI+3
- vXLrYBXOCKB/dua46sEyjsku6IHfu/E=
-X-Proofpoint-GUID: BCBKVmXYgAWRqAX0E1DaxJlgI5suNSxq
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDA1MDAyNCBTYWx0ZWRfX6Fu383iTlb1T
- wXcDMJqZL97JTWx6N/tjdjvJcjga/oOmQts1rAYVlmIoGWC5rkgqz/1hjLTViG/fCjEov9CrnNr
- YXr2TGxQN5zVlGncIjWEDILy+5YizaIa/TKIpS3El+BRKbqlyffGpPdmkO6RrLD/z19iT/xOO7z
- iod/NIeWjWCfPA7Xegngap1N47CuQJHKhkYFuie3I4ORx14C0FMh0RJFYwmai8ZXEE1sZHj9UZy
- rG+akyxkwVOL5YEwYIzDSmCY2N8nRG/PNQW/+Vvasph3alEd/v46hPXcx/JfUdexxEmKOGrKNmr
- jhXx+KkS5LlusE8szZjRQiDxl8iA0c9hksvDLKP/mmjQgLMO992WYD7k3h3aGJu2UQzkGRqeYig
- vTnsStkFtxgfaMtO8RHrX6COPZvHl8WoYiG/0Me7zZl15liQ4rr1VpVBmVHpn2kwxTKbPzFyP4z
- m7FH/gTBxILQAbvs6xw==
-X-Authority-Analysis: v=2.4 cv=fM2sTpae c=1 sm=1 tr=0 ts=6ac33f10 cx=c_pps
- a=3Bg1Hr4SwmMryq2xdFQyZA==:117 a=3Bg1Hr4SwmMryq2xdFQyZA==:17
- a=660iZSQnnn4A:10 a=VkNPw1HP01LnGYTKEx00:22 a=RnoormkPH1_aCDwRdu11:22
- a=iQ6ETzBq9ecOQQE5vZCe:22 a=VnNF1IyMAAAA:8 a=9zeWAwZ5pCssfL0I92cA:9
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-10-05_01,2026-10-02_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0 bulkscore=0 priorityscore=1501 spamscore=0 lowpriorityscore=0
- phishscore=0 adultscore=0 malwarescore=0 clxscore=1011 suspectscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2610050024
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261005052302.43042-1-lance.yang@linux.dev>
+X-Spamd-Result: default: False [-3.01 / 50.00];
+	BAYES_HAM(-3.00)[100.00%];
+	SUSPICIOUS_RECIPS(1.50)[];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	MX_GOOD(-0.01)[];
+	URIBL_BLOCKED(0.00)[suse.de:dkim,imap1.dmz-prg2.suse.org:helo,imap1.dmz-prg2.suse.org:rdns,linux.dev:email,pedro-suse.tail5790ac.ts.net:mid];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	FREEMAIL_ENVRCPT(0.00)[gmail.com,outlook.com];
+	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
+	RCPT_COUNT_TWELVE(0.00)[27];
+	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	MIME_TRACE(0.00)[0:+];
+	ARC_NA(0.00)[];
+	FREEMAIL_CC(0.00)[linux.intel.com,kernel.org,infradead.org,redhat.com,alien8.de,zytor.com,surriel.com,vger.kernel.org,linux.dev,gmail.com,amd.com,meta.com,kvack.org,linux-foundation.org,google.com,outlook.com,citrix.com,hpe.com];
+	RCVD_TLS_ALL(0.00)[];
+	DKIM_TRACE(0.00)[suse.de:+];
+	SPAMHAUS_XBL(0.00)[2a07:de40:b281:104:10:150:64:97:from];
+	RCVD_COUNT_TWO(0.00)[2];
+	FROM_EQ_ENVFROM(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	TO_DN_SOME(0.00)[];
+	DNSWL_BLOCKED(0.00)[2a07:de40:b281:104:10:150:64:97:from,2a07:de40:b281:106:10:150:64:167:received];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	TAGGED_RCPT(0.00)[];
+	R_RATELIMIT(0.00)[to_ip_from(RLziudqfrzo6b7hzgpxksh1d9i)];
+	MISSING_XM_UA(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[pedro-suse.tail5790ac.ts.net:mid,linux.dev:email,imap1.dmz-prg2.suse.org:helo,imap1.dmz-prg2.suse.org:rdns,suse.de:dkim]
+X-Spam-Score: -3.01
+X-Spam-Level: 
+X-Rspamd-Action: no action
+X-Rspamd-Queue-Id: BA62A21E86
+X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
+X-Spam-Flag: NO
 
-If register_netdev() fails in ibmveth_probe(), for example with -EINTR
-when the binding task is killed, probe frees the netdev but leaves the
-pool%d kobjects embedded in it registered in sysfs. Reading
-/sys/devices/vio/<unit>/pool0/num is then a use-after-free, and the
-next probe cannot add pool0.
+On Mon, Oct 05, 2026 at 01:23:02PM +0800, Lance Yang wrote:
+> pud_free_pmd_page() uses a single-address invalidation to flush the
+> paging-structure caches before freeing the page tables. With AMD TCE
+> enabled, this only invalidates upper-level entries associated with the
+> target address. Cached PMD entries for other addresses in the PUD range can
+> still reference the PTE pages being freed.
+> 
+> The AMD manual quoted in the commit enabling TCE says these instructions
+> remove
+> 
+>   "only those upper-level entries that lead to the target PTE in the page
+>   table hierarchy, leaving unrelated upper-level entries intact."
+> 
+> Even with all PTEs cleared, speculative page walks can cache present PMD
+> entries after the earlier TLB purge.
+> 
+> Use a full TLB flush before freeing the page tables on CPUs with TCE. Keep
+> the single-address invalidation otherwise.
+> 
+> Fixes: 440a65b7d25f ("x86/mm: Enable AMD translation cache extensions")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Lance Yang <lance.yang@linux.dev>
 
-Put the kobjects before freeing the netdev, as ibmveth_remove() does,
-on this path and on the netif_set_real_num_tx_queues() one.
+I'm not sure this is correct. The PUD is clear. We invalidate the TLB, which
+invalidates the translation caches for that walk. invlpg will notice the PUD
+isn't present. I don't see a case where it can ever not clear the rest
+of the translation caches for all leaves. And, in fact, by that point the CPU
+can (does?) probably formally treat the PUD as the leaf.
 
-The kobjects also have no release(). With CONFIG_DEBUG_KOBJECT_RELEASE,
-kobject_put() defers their cleanup, including removing the sysfs files,
-to a work item, so free_netdev() can free them first, here and in
-remove(). Add a release() that signals a per-pool completion, and wait
-for it in both places before free_netdev(). Without that config,
-release() runs from kobject_put() and the wait returns at once.
+Did you repro any bug related to this? The functionality is perhaps
+underspecified in the AMD manual.
 
-Found by AI-assisted review of the ibmveth multi-queue RX series and
-confirmed by code inspection; the release() part was raised by the
-Sashiko AI review of the first version. Tested on a POWER10 LPAR with
-register_netdev() forced to fail with -EINTR by a test-only module
-parameter (not part of this patch): no pool%d directories remain and the
-device binds again. No kernel selftests cover ibmveth.
-
-Fixes: 860f242eb534 ("[PATCH] ibmveth change buffer pools dynamically")
-Signed-off-by: Mingming Cao <mmc@linux.ibm.com>
----
-
-Changes in v2:
-- give the pool kobjects a release() that signals a per-pool
-  completion, and wait for it before free_netdev() in probe and
-  remove(); with CONFIG_DEBUG_KOBJECT_RELEASE the deferred cleanup
-  could run after the free (Sashiko review of v1)
-- put the kobjects through one helper, ibmveth_put_pool_kobjs(),
-  and an err_put_pools label for both probe failure paths
-
- drivers/net/ethernet/ibm/ibmveth.c | 52 +++++++++++++++++++++++++-----
- drivers/net/ethernet/ibm/ibmveth.h |  3 ++
- 2 files changed, 47 insertions(+), 8 deletions(-)
-
-diff --git a/drivers/net/ethernet/ibm/ibmveth.c b/drivers/net/ethernet/ibm/ibmveth.c
-index 3bac6cabbbb4..a10ebaca9081 100644
---- a/drivers/net/ethernet/ibm/ibmveth.c
-+++ b/drivers/net/ethernet/ibm/ibmveth.c
-@@ -1850,6 +1850,40 @@ static const struct net_device_ops ibmveth_netdev_ops = {
- 	.ndo_features_check	= ibmveth_features_check,
- };
- 
-+/**
-+ * ibmveth_pool_kobj_release - Mark a pool kobject finished
-+ * @kobj: kobject embedded in the pool
-+ *
-+ * The pool kobjects live in netdev_priv(), so the last put must wait
-+ * for this before free_netdev().
-+ */
-+static void ibmveth_pool_kobj_release(struct kobject *kobj)
-+{
-+	struct ibmveth_buff_pool *pool = container_of(kobj,
-+						      struct ibmveth_buff_pool,
-+						      kobj);
-+
-+	complete(&pool->released);
-+}
-+
-+/**
-+ * ibmveth_put_pool_kobjs - Drop the pool kobjects and wait for release
-+ * @adapter: ibmveth adapter
-+ *
-+ * With CONFIG_DEBUG_KOBJECT_RELEASE the cleanup, including removing the
-+ * sysfs files, runs later from a work item in the kobject; wait for it
-+ * so free_netdev() cannot free the pools first.
-+ */
-+static void ibmveth_put_pool_kobjs(struct ibmveth_adapter *adapter)
-+{
-+	int i;
-+
-+	for (i = 0; i < IBMVETH_NUM_BUFF_POOLS; i++)
-+		kobject_put(&adapter->rx_buff_pool[i].kobj);
-+	for (i = 0; i < IBMVETH_NUM_BUFF_POOLS; i++)
-+		wait_for_completion(&adapter->rx_buff_pool[i].released);
-+}
-+
- static int ibmveth_probe(struct vio_dev *dev, const struct vio_device_id *id)
- {
- 	int rc, i, mac_len;
-@@ -1960,6 +1994,7 @@ static int ibmveth_probe(struct vio_dev *dev, const struct vio_device_id *id)
- 		ibmveth_init_buffer_pool(&adapter->rx_buff_pool[i], i,
- 					 pool_count[i], pool_size[i],
- 					 pool_active[i]);
-+		init_completion(&adapter->rx_buff_pool[i].released);
- 		error = kobject_init_and_add(kobj, &ktype_veth_pool,
- 					     &dev->dev.kobj, "pool%d", i);
- 		if (!error)
-@@ -1971,8 +2006,7 @@ static int ibmveth_probe(struct vio_dev *dev, const struct vio_device_id *id)
- 	if (rc) {
- 		netdev_dbg(netdev, "failed to set number of tx queues rc=%d\n",
- 			   rc);
--		free_netdev(netdev);
--		return rc;
-+		goto err_put_pools;
- 	}
- 	adapter->tx_ltb_size = PAGE_ALIGN(IBMVETH_MAX_TX_BUF_SIZE);
- 	for (i = 0; i < IBMVETH_MAX_QUEUES; i++)
-@@ -1987,25 +2021,27 @@ static int ibmveth_probe(struct vio_dev *dev, const struct vio_device_id *id)
- 
- 	if (rc) {
- 		netdev_dbg(netdev, "failed to register netdev rc=%d\n", rc);
--		free_netdev(netdev);
--		return rc;
-+		goto err_put_pools;
- 	}
- 
- 	netdev_dbg(netdev, "registered\n");
- 
- 	return 0;
-+
-+err_put_pools:
-+	ibmveth_put_pool_kobjs(adapter);
-+	free_netdev(netdev);
-+	return rc;
- }
- 
- static void ibmveth_remove(struct vio_dev *dev)
- {
- 	struct net_device *netdev = dev_get_drvdata(&dev->dev);
- 	struct ibmveth_adapter *adapter = netdev_priv(netdev);
--	int i;
- 
- 	disable_work_sync(&adapter->work);
- 
--	for (i = 0; i < IBMVETH_NUM_BUFF_POOLS; i++)
--		kobject_put(&adapter->rx_buff_pool[i].kobj);
-+	ibmveth_put_pool_kobjs(adapter);
- 
- 	unregister_netdev(netdev);
- 
-@@ -2181,7 +2217,7 @@ static const struct sysfs_ops veth_pool_ops = {
- };
- 
- static struct kobj_type ktype_veth_pool = {
--	.release        = NULL,
-+	.release        = ibmveth_pool_kobj_release,
- 	.sysfs_ops      = &veth_pool_ops,
- 	.default_groups = veth_pool_groups,
- };
-diff --git a/drivers/net/ethernet/ibm/ibmveth.h b/drivers/net/ethernet/ibm/ibmveth.h
-index 3f2240823f6a..be0939caa328 100644
---- a/drivers/net/ethernet/ibm/ibmveth.h
-+++ b/drivers/net/ethernet/ibm/ibmveth.h
-@@ -14,6 +14,8 @@
- #ifndef _IBMVETH_H
- #define _IBMVETH_H
- 
-+#include <linux/completion.h>
-+
- /* constants for H_MULTICAST_CTRL */
- #define IbmVethMcastReceptionModifyBit     0x80000UL
- #define IbmVethMcastReceptionEnableBit     0x20000UL
-@@ -143,6 +145,7 @@ struct ibmveth_buff_pool {
-     struct sk_buff **skbuff;
-     int active;
-     struct kobject kobj;
-+	struct completion released;
- };
- 
- struct ibmveth_rx_q {
 -- 
-2.39.3 (Apple Git-146)
-
+Pedro
