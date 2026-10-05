@@ -1,203 +1,141 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2970F31578E;
-	Mon,  5 Oct 2026 08:26:34 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AE3B937F00D;
+	Mon,  5 Oct 2026 08:26:57 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791188796; cv=none; b=fTGM/OxZVvgLCiEyr+pn1MzvbkEcoORsMg8+pRvdkVhI+GJObuspFiFHmq2goyvu5dnhy9VXr6DFOJtHvjEdqU9unXgfyOSOrQI3yr4fnHrpbTp47xRXXx5OWo5Vt8WUEcfMVKvYmkHlE/MLYtZ1z7mqTcHGlL6mD/duCwTYbp8=
+	t=1791188820; cv=none; b=BlMTMmroMcjrGJlDPmGEbvuyTmqPK8+bUVJkw8vkhoO7VzdcFcVtlH3lbeVfJXV+3D8LIjymEtMsuNaejxu1YsJNNS7Ve3Ns9HCJETdfLXGRMxpCysfRrJ6S61kq/YR3jAQ6TpyFgymdAg+W9QNoS52kO2q/Ef+xsIsRUa+GrSA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791188796; c=relaxed/simple;
-	bh=Sn3eYayrOBPCyjo2eZpCtuKeZxDukyJIWkj/nzdogTw=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=H9qPnLvP/lLhPT6ALZR67rlGeWfRhP3kb7WV7ZI2ENwaiF+SpYHtruqjc0zDypBvIeaaNxkcZUAufZ/Yd2MHJt+G2QdalGsfdTwf0xD39Auo13CzZfGHXjHD2zjVr0gIJOoAi9u2I7Koagqpm3cVlv6rccH19nrFrIYqB4at7oE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=YiBcFX9X; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791188820; c=relaxed/simple;
+	bh=xf49CLyiZOHevEEMuvpzWUilJ6+dv8H6yvAxMpwHTTk=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=RMWYRvqPAMbCd3NMXLLmBIPlhOlpLwHgQNJL6pV/4SMX6l/ctpBJ47yUopHe724CRXBjK7iKNeQjnKNinUwi/fgjorF+Jhaw+91Em751gxASRS251wXvEEZjohZ1F4s6xZcW3f6/IFymj/B+ZOHDT/Pl43gLfNwCGvhdvOJaCSw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Aac/b0B3; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="YiBcFX9X"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F1B581F000FF;
-	Mon,  5 Oct 2026 08:26:33 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Aac/b0B3"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 214361F000FF;
+	Mon,  5 Oct 2026 08:26:52 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791188794;
-	bh=xqk28xZRdSDRZtA317ls6P+30aviR4Fq7ab529tSLFY=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=YiBcFX9XxA1jw2BijSs+c8QvPx4VTAqYHyWThLI0JjYs7Ab/4CDFB4FrpVqOpKfwN
-	 JrRZMXlMKsm2rXxJMQxjVeNAwvSX4tlDTDJV0L78OrlCu7lwwJ3tZEuU2osE1fjigx
-	 JOFBRUPH4a6R0fvrNEg29YsF85/xR4RpYhXu4QuSMHEhVo/CRsnRZUlZyH3jyEz5LS
-	 IcA6AG2/RuXWeNmsbrSyVjTYQ/+COWWxXUN9ckN/VG1EzPxUIaSAaAojJdG3xDcxXc
-	 Fpr0JZlJrvFevgSLTfcKFOF/k2TsdUV0S/K6AGYdVc+oXZ79GIyOuK+9UypeS5I938
-	 Fl6HQQSX0zqvA==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 5/5] spi: cadence-xspi: Add support for panic writes
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Miquel Raynal" <miquel.raynal@bootlin.com>, "Vignesh Raghavendra" <vigneshr@ti.com>, "Thomas
- Petazzoni" <thomas.petazzoni@bootlin.com>, "Michael Walle" <mwalle@kernel.org>, "Takahiro
- Kuwano" <takahiro.kuwano@infineon.com>, "Richard Weinberger" <richard@nod.at>, "Pratyush
- Yadav" <pratyush@kernel.org>, "Mark Brown" <broonie@kernel.org>, "Paul
- Cercueil" <paul.cercueil@bootlin.com>
-Cc: linux-kernel@vger.kernel.org, linux-spi@vger.kernel.org, "Guilherme G .
- Piccoli" <gpiccoli@igalia.com>, "Tony Luck" <tony.luck@intel.com>, "Tanmay
- Jagdale" <tanmay@marvell.com>, linux-mtd@lists.infradead.org, "Kees Cook" <kees@kernel.org>
-In-Reply-To: <20261005081141.33688-6-paul.cercueil@bootlin.com>
-References: <20261005081141.33688-1-paul.cercueil@bootlin.com>
- <20261005081141.33688-6-paul.cercueil@bootlin.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 05 Oct 2026 08:26:33 +0000
-Message-Id: <20261005082633.F1B581F000FF@smtp.kernel.org>
+	s=k20260515; t=1791188816;
+	bh=d6fLeRl3aR+E2ePxkPX9leInvYo16Bu4KYF4dHKWIKU=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=Aac/b0B34S+E7vUOvx08y0QczcJ2OBuE4MJAYHFCFCDZbnRBTUw3q6Naid03BCWB9
+	 iLC3SJ28Lk1FxcP8Lj63v7wRRQlzqeMxbbMAXuU7d/TIQ7vxrBqfW6RmN8zhZpq0Ng
+	 RRAU5Gm5H5wa9NkDAOFrOB/bULSPSGDrlcWpxPM1h7ZFIz2LV+P8ZMdT6kF3j3xCIO
+	 XB9JE5Uzo8SZjhoV7HbcXdaBrcrK4kRk9YhuyVBrtVR8DBLKLeN9IDokSoawGdVkf0
+	 MrSU1XflbTwvZGqEBNjKp8DYxWBWwoi1h57NQ1YEooa731n1p4zZE5QgnGpE+EybHn
+	 rzlplJhja2ZVA==
+Date: Mon, 5 Oct 2026 10:26:49 +0200
+From: Thorsten Blum <blum@kernel.org>
+To: Sourabh Jain <sourabhjain@linux.ibm.com>
+Cc: Thorsten Blum <thorsten.blum@linux.dev>,
+	Madhavan Srinivasan <maddy@linux.ibm.com>,
+	Michael Ellerman <mpe@ellerman.id.au>,
+	Nicholas Piggin <npiggin@gmail.com>,
+	"Christophe Leroy (CS GROUP)" <chleroy@kernel.org>,
+	Kees Cook <kees@kernel.org>,
+	"Gustavo A. R. Silva" <gustavoars@kernel.org>,
+	Aditya Gupta <adityag@linux.ibm.com>,
+	Hari Bathini <hbathini@linux.ibm.com>,
+	linuxppc-dev@lists.ozlabs.org, linux-kernel@vger.kernel.org,
+	linux-hardening@vger.kernel.org
+Subject: Re: [PATCH] powerpc/kexec: Annotate umem_info members with
+ __counted_by_ptr
+Message-ID: <asNfSSp-AckyeO7P@kernel.org>
+References: <20260730130248.597249-2-thorsten.blum@linux.dev>
+ <7d99725f-9c90-48ca-bee1-30e2e6c06617@linux.ibm.com>
+ <asDClaRrHuKB44X-@kernel.org>
+ <dbb4580d-7e20-4c38-9716-f39cf81a4942@linux.ibm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <dbb4580d-7e20-4c38-9716-f39cf81a4942@linux.ibm.com>
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
-s) to consider:
-- [High] spi: cadence-xspi: missing PHY wakeup in panic write path
-- [High] spi: cadence-xspi: deadlock in panic write via ktime_get()
-- [High] spi: cadence-xspi: unmasked interrupts leak in polling mode
---
+On Mon, Oct 05, 2026 at 01:42:01PM +0530, Sourabh Jain wrote:
+> On 03/10/26 14:23, Thorsten Blum wrote:
+> > On Fri, Sep 25, 2026 at 11:49:04AM +0530, Sourabh Jain wrote:
+> > > On 30/07/26 18:32, Thorsten Blum wrote:
+> > > > Add __counted_by_ptr() to umem_info::buf and umem_info::ranges to
+> > > > improve access bounds checking via CONFIG_UBSAN_BOUNDS and
+> > > > CONFIG_FORTIFY_SOURCE.
+> > > > 
+> > > > Set the count fields before assigning the corresponding pointers, return
+> > > > early on krealloc() failure, and use sizeof(*buf) when deriving
+> > > > max_entries from the allocation size.
+> > > > 
+> > > > Signed-off-by: Thorsten Blum <thorsten.blum@linux.dev>
+> > > > ---
+> > > >    arch/powerpc/kexec/file_load_64.c | 22 ++++++++++++----------
+> > > >    1 file changed, 12 insertions(+), 10 deletions(-)
+> > > > 
+> > > > diff --git a/arch/powerpc/kexec/file_load_64.c b/arch/powerpc/kexec/file_load_64.c
+> > > > index 8c72e12ea44e..6424b668f0e9 100644
+> > > > --- a/arch/powerpc/kexec/file_load_64.c
+> > > > +++ b/arch/powerpc/kexec/file_load_64.c
+> > > > @@ -34,14 +34,15 @@
+> > > >    #include <asm/cputhreads.h>
+> > > >    struct umem_info {
+> > > > -	__be64 *buf;		/* data buffer for usable-memory property */
+> > > > +	/* data buffer for usable-memory property */
+> > > > +	__be64 *buf __counted_by_ptr(max_entries);
+> > > >    	u32 size;		/* size allocated for the data buffer */
+> > > >    	u32 max_entries;	/* maximum no. of entries */
+> > > >    	u32 idx;		/* index of current entry */
+> > > >    	/* usable memory ranges to look up */
+> > > >    	unsigned int nr_ranges;
+> > > > -	const struct range *ranges;
+> > > > +	const struct range *ranges __counted_by_ptr(nr_ranges);
+> > > >    };
+> > > [...]
+> > > >    const struct kexec_file_ops * const kexec_file_loaders[] = {
+> > > > @@ -83,11 +84,12 @@ static __be64 *check_realloc_usable_mem(struct umem_info *um_info, int cnt)
+> > > >    	new_size = um_info->size + MEM_RANGE_CHUNK_SZ;
+> > > >    	tbuf = krealloc(um_info->buf, new_size, GFP_KERNEL);
+> > > > -	if (tbuf) {
+> > > > -		um_info->buf = tbuf;
+> > > > -		um_info->size = new_size;
+> > > > -		um_info->max_entries = (um_info->size / sizeof(u64));
+> > > > -	}
+> > > > +	if (!tbuf)
+> > > > +		return NULL;
+> > > > +
+> > > > +	um_info->size = new_size;
+> > > > +	um_info->max_entries = um_info->size / sizeof(*um_info->buf);
+> > > > +	um_info->buf = tbuf;
+> > > 
+> > > Could you please explain why size and max_entries are updated before the
+> > > buffer itself?
+> > __counted_by_ptr() requires the counter ->max_entries to be set before
+> > the ->buf pointer is assigned; otherwise you have an inconsistent state
+> > where the counter doesn't match the pointer.
+> 
+> But isn't updating the counter holding the buffer size before the actual
+> buffer
+> can cause problems?
+> 
+> Can you share the document link of __counted_by_ptr() which says that size
+> counter to be
+> updated before the buffer pointer.
+> 
+> Here is an example in fs/coredump.c file where size counter is updated after
+> the buffer
+> with __counter_by_ptr():
+> 
+> https://github.com/torvalds/linux/blob/a90ee4305c4a5df72c11b31dacfdc76e00fcf78a/fs/coredump.c#L98
+> https://github.com/torvalds/linux/blob/a90ee4305c4a5df72c11b31dacfdc76e00fcf78a/fs/coredump.c#L115
 
-commit 61aacaab4ca9e95d9f29e2f99754ac08cf18616e
-Author: Tanmay Jagdale <tanmay@marvell.com>
+Maybe the order only matters for flexible arrays and __counted_by(), but
+not for __counted_by_ptr(). I reordered it mostly out of habit from
+__counted_by() annotations and assumed the same rules apply for
+__counted_by_ptr(). Happy to restore the old order if it's not required.
 
-spi: cadence-xspi: Add support for panic writes
-   =20
-This commit adds support for panic writes to the Cadence XSPI driver by
-checking the panic flag on memory operations. When a panic write is request=
-ed,
-the driver operates without relying on interrupts or sleeping.
+Kees or Gustavo, what's your take on this?
 
-> diff --git a/drivers/spi/spi-cadence-xspi.c b/drivers/spi/spi-cadence-xsp=
-i.c
-> index 09ed2afbd4af3..0b7162740940f 100644
-> --- a/drivers/spi/spi-cadence-xspi.c
-> +++ b/drivers/spi/spi-cadence-xspi.c
-> @@ -350,10 +350,11 @@ struct cdns_xspi_dev {
->  	void (*set_interrupts_handler)(struct cdns_xspi_dev *cdns_xspi, bool en=
-abled);
-> =20
->  	bool xfer_in_progress;
-> +	bool panic_write;
->  	int current_xfer_qword;
->  };
-> =20
-> -static int cdns_xspi_wait_for_controller_idle(struct cdns_xspi_dev *cdns=
-_xspi)
-> +static int cdns_xspi_wait_for_controller_idle(struct cdns_xspi_dev *cdns=
-_xspi, bool sleep)
->  {
->  	u32 ctrl_stat;
-> =20
-> @@ -362,7 +363,7 @@ static int cdns_xspi_wait_for_controller_idle(struct =
-cdns_xspi_dev *cdns_xspi)
->  					  ctrl_stat,
->  					  ((ctrl_stat &
->  					    CDNS_XSPI_CTRL_BUSY) =3D=3D 0),
-> -					  100, 1000);
-> +					  sleep ? 100 : 0, 1000);
-
-[Severity: High]
-Does this code cause a deadlock during a kernel panic?
-
-readl_relaxed_poll_timeout() expands to read_poll_timeout(), which evaluates
-ktime_get() to enforce the timeout, even when the delay is 0. If another CPU
-was halted by an NMI or IPI while holding the write lock for the timekeeping
-sequence lock (tk_core.seq) during the panic, calling ktime_get() will hang
-the system.
-
-Should this use readl_relaxed_poll_timeout_atomic() instead to avoid
-timekeeping functions during a panic?
-
-[ ... ]
-> @@ -586,23 +587,23 @@ static int cdns_xspi_send_stig_command(struct cdns_=
-xspi_dev *cdns_xspi,
-> =20
->  		cdns_xspi_trigger_command(cdns_xspi, cmd_regs);
-> =20
-> -		if (cdns_xspi->irq >=3D 0) {
-> +		if (cdns_xspi->irq >=3D 0 && !op->panic_write) {
->  			wait_for_completion(&cdns_xspi->sdma_complete);
->  			if (cdns_xspi->sdma_error) {
->  				cdns_xspi->set_interrupts_handler(cdns_xspi, false);
->  				return -EIO;
->  			}
-> -		} else if (!cdns_xspi_is_sdma_ready(cdns_xspi, true)) {
-> +		} else if (!cdns_xspi_is_sdma_ready(cdns_xspi, !op->panic_write)) {
->  			return -EIO;
->  		}
-> =20
->  		cdns_xspi->sdma_handler(cdns_xspi);
->  	}
-> =20
-> -	if (cdns_xspi->irq >=3D 0) {
-> +	if (cdns_xspi->irq >=3D 0 && !op->panic_write) {
->  		wait_for_completion(&cdns_xspi->cmd_complete);
->  		cdns_xspi->set_interrupts_handler(cdns_xspi, false);
-> -	} else if (!cdns_xspi_is_stig_ready(cdns_xspi, true)) {
-> +	} else if (!cdns_xspi_is_stig_ready(cdns_xspi, !op->panic_write)) {
->  		return -EIO;
->  	}
-
-[Severity: High]
-Does this leak unmasked interrupts in polling mode?
-
-Earlier in cdns_xspi_send_stig_command(), interrupts are unconditionally
-enabled:
-
-    cdns_xspi->set_interrupts_handler(cdns_xspi, true);
-
-If the controller is in polling mode (irq < 0), this code takes the else-if
-branch. Whether cdns_xspi_is_stig_ready() succeeds or fails, the function
-returns without calling cdns_xspi->set_interrupts_handler(cdns_xspi, false).
-
-Will this cause an unhandled interrupt storm if the hardware IRQ line
-is physically shared with other devices?
-
-[ ... ]
-> @@ -622,6 +623,8 @@ static int cdns_xspi_mem_op(struct cdns_xspi_dev *cdn=
-s_xspi,
->  	if (cdns_xspi->cur_cs !=3D spi_get_chipselect(mem->spi, 0))
->  		cdns_xspi->cur_cs =3D spi_get_chipselect(mem->spi, 0);
-> =20
-> +	cdns_xspi->panic_write =3D op->panic_write;
-> +
->  	return cdns_xspi_send_stig_command(cdns_xspi, op,
->  					   (dir !=3D SPI_MEM_NO_DATA));
->  }
-
-[Severity: High]
-Does this entry point fail to wake up the PHY from suspend during a panic
-write?
-
-If the system panics while the device is suspended, the controller will
-attempt to execute STIG commands while the PHY is still suspended, which
-could lead to bus faults or hardware lockups.
-
-Should this path call cdns_xspi_configure_phy() to wake up the PHY before
-sending commands during a panic write?
-
-[ ... ]
-> @@ -831,9 +834,11 @@ static bool cdns_xspi_is_dll_locked(struct cdns_xspi=
-_dev *cdns_xspi)
->  {
->  	u32 dll_lock;
-> =20
-> +	/* Busy-wait in case we wake up the PHY from suspend to do a panic writ=
-e */
->  	return !readl_relaxed_poll_timeout(cdns_xspi->iobase +
->  		CDNS_XSPI_INTR_STATUS_REG,
-> -		dll_lock, ((dll_lock & CDNS_XSPI_DLL_LOCK) =3D=3D 1), 10, 10000);
-> +		dll_lock, ((dll_lock & CDNS_XSPI_DLL_LOCK) =3D=3D 1),
-> +		cdns_xspi->panic_write ? 0 : 10, 10000);
->  }
-
-[Severity: High]
-Is this code reachable during a panic write?
-
-The comment indicates this handles waking up the PHY during a panic write.
-However, this function is only called from cdns_xspi_configure_phy(), which
-is entirely omitted from the cdns_xspi_mem_op() panic write execution path.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261005081141.3368=
-8-1-paul.cercueil@bootlin.com?part=3D5
+Thanks,
+Thorsten
