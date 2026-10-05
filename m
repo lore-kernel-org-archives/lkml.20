@@ -1,112 +1,158 @@
-Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com [136.143.188.112])
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.14])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CF18340B0E8;
-	Mon,  5 Oct 2026 22:50:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=136.143.188.112
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791240609; cv=pass; b=XH5he/XW8BsGnx8NuQb73KEId0AMtxQjaPthW4+7a3l6LGlcCu5efDCeOsZ2C6t65TmEQQvydwQ2Xhf2MQ2VPudW4+5hqlBr5HaXRPd5z7lmPkyvyka/Eytw4dqGrkIglGB/AoDMIY2zhWExjLe05mFIR3HiaJXkGG+K2eE9iKA=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791240609; c=relaxed/simple;
-	bh=VFepN7h5qqTbJbhyEV8U0xpPziyJ72GfiGBwv5VldSE=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=nPItX+7+958XwiLchWBTKSCf1yT55Svp3F5A99jNZqTO6j11P+svlP8vRY2nFObnj0FZSoCuVIecCeU03VPBZlU97TW5waZef7tuEH/0yV5Di+G/HmafXvDShKL4AHSvxFUKA81dBn3FdUEJJGI8LgYamI7j/5c4u+6OV08Hhks=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (1024-bit key) header.d=collabora.com header.i=deborah.brouwer@collabora.com header.b=bUgjn8iQ; arc=pass smtp.client-ip=136.143.188.112
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 171C24302FC;
+	Mon,  5 Oct 2026 22:50:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.14
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791240626; cv=none; b=pwk++69/dAtVIZyKssswOWJlLuOY7iRxdfqVsrDUTBzg9o+Fj2Lj5IhHf2krJHghcJuRbMzB6z5k5xs5X98jbNN9PBxwVt4kMqd8jXA4GeiA41nX79xSlX44oQ6v5usKxidXofOGHDTLQkWi0z2n4seD0gv/pFA9CmG1t7R34iE=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791240626; c=relaxed/simple;
+	bh=SdsGJ8xqSDaaQyoYBqei7X+VtMmyV2viAQXFMQwEmPY=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=Hq25hfQdWr3J1r1xjjXPQ96j4f9HGvzj1PUwA2o1n/DKyqQhWPoNU4gI/YsnJSE2jlAGy7E2qUL9327+YGgTxOqz3h/eUY5wet+0kuc+a5KymzzEyML0i0frmWzwEK9APOaHLeAwzm1BmZsbn5IgdeLCuTgkJ5jEfzR0BIsU8iE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=lZu9fVvw; arc=none smtp.client-ip=198.175.65.14
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=collabora.com header.i=deborah.brouwer@collabora.com header.b="bUgjn8iQ"
-ARC-Seal: i=1; a=rsa-sha256; t=1791240584; cv=none; 
-	d=zohomail.com; s=zohoarc; 
-	b=RcYwHBqWZ15+iEM5RiLujJWlBVELidKGw3sXMC7t+M++X2uQrORaKDeMANPrDRgOUzqGwdvZ2LXrS6sbVTjixCizJQhRQPOg+knfzdeYUJY9rUbfaatXMqDQTiJVJdiNstACQi10AfLRSIzl7bLm+yPtA6unytDlAVqg4PxtSmk=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1791240584; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=KbgkUmImB3gJ/Dbx30iIP/KkThXAz28Dg0j80jo2Deg=; 
-	b=QbUumb3KsAzMa3CmAT8aLJjkUct5suvA7HAwx9JQBkyRe1gxKCEvuqXb49CB9H6YIOT75yskmpfo7t3bh+Ra5yX82rvacZYBr7YHzrdhBLlN+xNBVWrvj7WmyaFWewe6+ktDx4aTM3uuwFhVT1hN/Lo/5lipo1Gy8qwVW2ISZOc=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
-	dkim=pass  header.i=collabora.com;
-	spf=pass  smtp.mailfrom=deborah.brouwer@collabora.com;
-	dmarc=pass header.from=<deborah.brouwer@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1791240584;
-	s=zohomail; d=collabora.com; i=deborah.brouwer@collabora.com;
-	h=Date:Date:From:From:To:To:Cc:Cc:Subject:Subject:Message-ID:MIME-Version:Content-Type:Content-Transfer-Encoding:In-Reply-To:Message-Id:Reply-To;
-	bh=KbgkUmImB3gJ/Dbx30iIP/KkThXAz28Dg0j80jo2Deg=;
-	b=bUgjn8iQ8aiQnhTY/6FCDgwrnStJJnQWpl8dzBNrDiRZiDet0FTyXsae2FDVlIAG
-	g9JmI4Jpy1+VLvzYb61B/JkLNPNiqFAgWi1EKTuGttaxyCEmeKnbq6ZY84M1j/QYljW
-	/cdmwbSGqw1fNj2m58CbStEp+/aV5PylejjN0fZQ=
-Received: by smtp.zohomail.com with SMTPS id 179124058317319.807065784842052;
-	Mon, 5 Oct 2026 15:49:43 -0700 (PDT)
-Date: Mon, 5 Oct 2026 15:49:42 -0700
-From: Deborah Brouwer <deborah.brouwer@collabora.com>
-To: Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>
-Cc: Gary Guo <gary@garyguo.net>, Danilo Krummrich <dakr@kernel.org>,
-	Alice Ryhl <aliceryhl@google.com>,
-	Daniel Almeida <daniel.almeida@collabora.com>,
-	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
-	Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>,
-	=?iso-8859-1?Q?Bj=F6rn?= Roy Baron <bjorn3_gh@protonmail.com>,
-	Benno Lossin <lossin@kernel.org>,
-	Andreas Hindborg <a.hindborg@kernel.org>,
-	Trevor Gross <tmgross@umich.edu>,
-	Tamir Duberstein <tamird@kernel.org>,
-	Alexandre Courbot <acourbot@nvidia.com>,
-	Onur =?iso-8859-1?Q?=D6zkan?= <work@onurozkan.dev>,
-	dri-devel@lists.freedesktop.org, rust-for-linux@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v3 1/2] rust: uapi: add zerocopy/zerocopy_derive
-Message-ID: <asQphgGWe9KmQa5r@um790>
-References: <20260925-b4-gpu_info_intobytes-v3-0-e19bcb71980d@collabora.com>
- <20260925-b4-gpu_info_intobytes-v3-1-e19bcb71980d@collabora.com>
- <DLPD8RQKM8VU.3QWOV9RFLA8S6@garyguo.net>
- <DLPE0D8F96DE.91C7E0MAERDS@kernel.org>
- <DLPJT1IUSKQO.1CAWHDECQAFPO@garyguo.net>
- <DLPKN532X7JJ.14Z51ZIBUIK94@kernel.org>
- <DLPNFF0JNNOQ.14JE7RL8LT79Q@garyguo.net>
- <CANiq72kvkAWmJEgOathMVwuXFzUURK1dVN=OWmczykVWpSTv6A@mail.gmail.com>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="lZu9fVvw"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1791240623; x=1822776623;
+  h=from:subject:date:message-id:mime-version:
+   content-transfer-encoding:to:cc;
+  bh=SdsGJ8xqSDaaQyoYBqei7X+VtMmyV2viAQXFMQwEmPY=;
+  b=lZu9fVvwUdMYwSbm3pmxZjD6UqTfz6BCPmrw9efvbfL7dSZ4UJLyOzrd
+   Kfvcf4aGQwCr+qYvP+kk1kiRze4w6TOzrb/VAH9pUWQYK2rVXoY9q9S3u
+   w7S0hS9FJVqYS8wF6bnJuyJTkLS5Ixx2v+cD6NRRj5OZMNF5sXtCklI5M
+   awAr7+DAggAlFQuo7jsLdgPoqz/m0vvmzHKfr10uN+ZFGlIDUBdA+4XRB
+   pOUafqcFA0yvA/JhVxIXLMu2DSdaK9SVtyKXCZJQZVAdORPkycWO+WZ2w
+   0kX5GY7zkMI3DdPg2GbGZ6TEftukoDBpFSqSuW6NdiC/ssFyIR7Leq1Qf
+   A==;
+X-CSE-ConnectionGUID: 75fFCzB0ShKZDnqwoAf0Xw==
+X-CSE-MsgGUID: 5nJgwFGlSMynbwIJa/xBpw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11926"; a="94798732"
+X-IronPort-AV: E=Sophos;i="6.27,142,1787036400"; 
+   d="scan'208";a="94798732"
+Received: from orviesa009.jf.intel.com ([10.64.159.149])
+  by orvoesa106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 05 Oct 2026 15:50:23 -0700
+X-CSE-ConnectionGUID: vXZD3QIuSGaLTwpBrwmq/g==
+X-CSE-MsgGUID: Pb/xQbQORemo/oiZ8qSHvg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,142,1787036400"; 
+   d="scan'208";a="277063563"
+Received: from vverma7-desk1.amr.corp.intel.com (HELO [192.168.1.200]) ([10.125.108.147])
+  by orviesa009-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 05 Oct 2026 15:50:22 -0700
+From: Vishal Verma <vishal.l.verma@intel.com>
+Subject: [PATCH v4 0/2] x86/tdx: Use TDVMCALLs directly for earlyprintk
+Date: Mon, 05 Oct 2026 16:50:05 -0600
+Message-Id: <20261005-b4-tdx_earlyprintk_tdcalls-v4-0-3f7c56dd568a@intel.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <CANiq72kvkAWmJEgOathMVwuXFzUURK1dVN=OWmczykVWpSTv6A@mail.gmail.com>
-X-Zoho-Virus-Status: 1
-X-Zoho-AV-Stamp: zmail-av-0.2.13.1.5.4/291.236.60
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/33NQY7CMAyF4augrAmy3YKmrLgHQihunCEzpUVJq
+ ECodycFFhWLLp9sff9DRQleotouHipI76Pv2jzK5ULVJ9P+ivY2b0VAG6ig0FzqZG9HMaG5X4J
+ v0/8x2do0TdQlWGRC88OGVAYuQZy/vfD94b3jlf+kTqM4fpx8TF24v+o9jn+fEMJcqEcNumRiZ
+ FcBIO/yWZpV3Z3VGOppQhHOUpQpY9FZKRytnf2miilFs1SRqY2wMeuqsg5hSg3D8AQZmpTnbAE
+ AAA==
+X-Change-ID: 20260903-b4-tdx_earlyprintk_tdcalls-40d1b21a8ba2
+To: x86@kernel.org, Dave Hansen <dave.hansen@linux.intel.com>, 
+ Kiryl Shutsemau <kas@kernel.org>, 
+ Rick Edgecombe <rick.p.edgecombe@intel.com>, 
+ Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>, 
+ Randy Dunlap <rdunlap@infradead.org>
+Cc: linux-kernel@vger.kernel.org, linux-coco@lists.linux.dev, 
+ kvm@vger.kernel.org, linux-doc@vger.kernel.org, 
+ Vishal Verma <vishal.l.verma@intel.com>
+X-Mailer: b4 0.17-dev-e5168
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2861;
+ i=vishal.l.verma@intel.com; h=from:subject:message-id;
+ bh=SdsGJ8xqSDaaQyoYBqei7X+VtMmyV2viAQXFMQwEmPY=;
+ b=owGbwMvMwCXGf25diOft7jLG02pJDFlHNFcYiYbcmei5/bBFcqxZ7MG8pU+nTY1O7Lp/devUF
+ o/5x26+6ihlYRDjYpAVU2T5u+cj4zG57fk8gQmOMHNYmUCGMHBxCsBEtHMYGXbYWZpePMUfmaRr
+ s2LN21OvlJZsef99krLEwUlvdocHvOpkZNgWcuiYFFeyzuHivFOcFW8nxFwLMnlzw17rz14uzzW
+ 5mdwA
+X-Developer-Key: i=vishal.l.verma@intel.com; a=openpgp;
+ fpr=F8682BE134C67A12332A2ED07AFA61BEA3B84DFF
 
-On Sun, Sep 27, 2026 at 02:08:36AM +0200, Miguel Ojeda wrote:
-> On Sun, Sep 27, 2026 at 1:49 AM Gary Guo <gary@garyguo.net> wrote:
-> >
-> > I think the skip-on-error default was added in a version newer than what we've
-> > vendored.
-> 
-> I was going to update, so that shouldn't be a big problem.
-> 
+Background
+==========
 
-The skip_on_error() method is available in the kernel’s vendored copy of zerocopy-derive
-v0.8.54 and it doesn’t change in the latest version so I don’t think that updating to
-0.8.59 would help us here if that's what you mean?
+TDX guests have early_printk support, but it is through a roundabout way
+using a #VE exception as a functional mechanism. The exception handler
+has to use TDG.VP.VEINFO.GET to find out what faulted, and then issue
+the TDVMCALL. Simplify this by using a TDVMCALL from the guest which can
+directly perform the port I/O.
 
-The problem is that skip_on_error() has a small scope; it only skips errors when
-generating the implementation blocks for these traits. (For example if it’s a binding
-for an unsupported representation type.) Otherwise, zerocopy-derive will generate impl
-blocks with trait bound requirements (e.g. on struct fields) which only fail later at
-compile-time type checking.
+Patch details
+=============
 
-For example, when I tried deriving most_traits for all of the generated structs I got
-about 300 compile errors due to unions inside structs that did not implement KnownLayout
-When I derived most_traits for unions as well, I got an error that deriving IntoBytes
-for unions needs a special cfg to enable because its soundness is still under discussion.
-  error: requires --cfg zerocopy_derive_union_into_bytes;
-  please let us know you use this feature: https://github.com/google/zerocopy/discussions/1802
+Patch 1 is a cleanup that moves the port I/O direction constants to
+arch/x86/include/asm/shared/tdx.h.
 
-Also, I get about 200 compile errors complaining that KnownLayout can’t currently be
-implemented for bindgen’s incomplete array field helper.
+Patch 2: Add a new earlyprintk=tdx option, which calls the new
+tdx_serial_in() / tdx_serial_out() helpers to perform the port I/O
+directly using TDVMCALLs.
 
-So I do think it’s reasonable to implement these traits using zerocopy-derive on a
-case-by-case basis.
+The serial earlyprintk path is left as is - TD guests using this will
+still take a #VE exception, and the exception handler will perform the
+I/O.
 
-> Cheers,
-> Miguel
+Testing
+=======
+
+Added a counter for the number of COM1 port I/O #VEs handled:
+
+  no earlyprintk     -  ~63000
+  earlyprintk=ttyS0  -  ~61000
+  earlyprintk=tdx    -  ~35000
+
+The new tdx option nearly halves the number of #VEs handled.
+
+Additionally, ran the usual suite of CI testing, which covers KVM self
+tests, KVM unit tests, and Avocado KVM tests without any regressions.
+
+Signed-off-by: Vishal Verma <vishal.l.verma@intel.com>
+---
+Changes in v4:
+- Rename the tdx_inb()/tdx_outb() helpers directly to the serial
+  accessors with __noendbr annotations, and remove the config ifdefs
+  from early_printk.c. (Kiryl)
+- Rebase to v7.3-rc6
+- Link to v3: https://patch.msgid.link/20260922-b4-tdx_earlyprintk_tdcalls-v3-0-6ebaa599df10@intel.com
+
+Changes in v3:
+- Drop the ttySN and baudrate option parsing for earlyprintk=tdx (Dave Hansen)
+- Link to v2: https://patch.msgid.link/20260921-b4-tdx_earlyprintk_tdcalls-v2-0-ad1fde3f25fd@intel.com
+
+Changes in v2:
+- Rebase to v7.3-rc4
+- Move the TDX hypercall helpers into coco/tdx/tdx.c (Kiryl)
+- Add a new earlyprintk=tdx option that implements the direct TDVMCALL
+  path (Dave Hansen)
+- Link to v1: https://patch.msgid.link/20260910-b4-tdx_earlyprintk_tdcalls-v1-0-4b2b1bf9001b@intel.com
+
+---
+Vishal Verma (2):
+      x86/tdx: Move port I/O definitions to a shared header
+      x86/early_printk: Add earlyprintk=tdx to drive the UART with TDVMCALLs
+
+ Documentation/admin-guide/kernel-parameters.txt |  8 ++++++
+ arch/x86/include/asm/shared/tdx.h               |  6 ++++
+ arch/x86/include/asm/tdx.h                      |  4 +++
+ arch/x86/boot/compressed/tdx.c                  |  4 +--
+ arch/x86/coco/tdx/tdx.c                         | 37 +++++++++++++++++++++----
+ arch/x86/kernel/early_printk.c                  | 20 +++++++++++++
+ 6 files changed, 71 insertions(+), 8 deletions(-)
+---
+base-commit: a90ee4305c4a5df72c11b31dacfdc76e00fcf78a
+change-id: 20260903-b4-tdx_earlyprintk_tdcalls-40d1b21a8ba2
+
+Best regards,
+--  
+Vishal Verma <vishal.l.verma@intel.com>
+
