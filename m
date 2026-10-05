@@ -1,217 +1,162 @@
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from pdx-out-013.esa.us-west-2.outbound.mail-perimeter.amazon.com (pdx-out-013.esa.us-west-2.outbound.mail-perimeter.amazon.com [34.218.115.239])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EAE0844064F;
-	Mon,  5 Oct 2026 11:24:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.130
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9C33D2E401;
+	Mon,  5 Oct 2026 11:25:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=34.218.115.239
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791199463; cv=none; b=FlAxvWKiyod2UWSr3zxeDLvDhQyjtDER7uZS+czgHU7EeqiqXmF1lGAyk+uJzRDf1vigAHhv5nvzz78CaSlX3H2iVhv0mS9RD4schaJMzgbmkWmsRqr11WpZB5Iw4C/JwY4a4TYwQ8MmoIHX1UzbXTUwPpxLs95iNx5mQalJul8=
+	t=1791199508; cv=none; b=fxfMW8LffHcrcAJ8cq7LlCmmnpf9s12mnCxiu66l5Usaxe3l58OrSD2KTRMQnllaupbwjtfWhOcaJKHxBD8OcV9popA+Txf85WBb4tEN5YVWhCznWJm+VmQnlLHjsnvx8WTW5lTG4cpIP9OzRDufHBn84QUzn5BLL0zND38cfLQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791199463; c=relaxed/simple;
-	bh=CSmPIaDtkWmRAxvi4z+Q9eQC29zs0bT3atX6Q0/C5Ik=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=cHw92CWMuWSzDmbx9rfEQ6XZDObhZKU2FiUAHDvBzHE3GY60WK3ir12TvQwKk348XyAKvAd/zvQLXeDbushxdpMdFuJhLTqEgOkB0SWjkhUcasp6khuExmnCPqePrMN9Ix4Vp/VMJ5RXdQ5YHxIxCjFx3p54uk8hRkdiLjgb2lc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz; spf=pass smtp.mailfrom=suse.cz; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=nnzImiYC; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=Kl54yzLG; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=Ki1VvQnq; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=VwKRGgiA; arc=none smtp.client-ip=195.135.223.130
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.cz
+	s=arc-20240116; t=1791199508; c=relaxed/simple;
+	bh=lsiuQCisNnRKJ2Ci6DHugfMl2rXdW2qNDLtm3ytqnDs=;
+	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=rNbYzhA7uDWX0VsqwLO9ptUsYHip2k6M7KgVuA8n8CmC0CAmMcR5s3U30Ef/vFl7gPrGsGtVf/GOTigOeYagsb4lHxSW97/nxmAr9Y47eXF+Up8zy2iY+cX0/PttzI6vmBF4cZWGegu6o2zBx/L4Dr3IGrAzZ7h+y9jkudNCMuE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.com; spf=pass smtp.mailfrom=amazon.com; dkim=pass (2048-bit key) header.d=amazon.com header.i=@amazon.com header.b=q/3MlC3C; arc=none smtp.client-ip=34.218.115.239
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amazon.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="nnzImiYC";
-	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="Kl54yzLG";
-	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="Ki1VvQnq";
-	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="VwKRGgiA"
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id 8CDBA21E1D;
-	Mon,  5 Oct 2026 11:24:11 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
-	t=1791199455; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=TxuTGo+tTIY0PEAiPDgmHhIZ8B8hxAoW13unw98BYfg=;
-	b=nnzImiYCQ6kvgG+WQsafICCmJR6sBtcg8ywK9RAdI7lCenpKlSC78+jXmEZcR3aTXnNJXw
-	UISI6ailJCmxCNgN8Mlmoi+3rOHVmUyB6PlH470Z5RaDLErxHciuK+IZBakSOomwDL85hU
-	KoUKCw2rhra0OepCCOyXeWPcs16Xb9E=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
-	s=susede2_ed25519; t=1791199455;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=TxuTGo+tTIY0PEAiPDgmHhIZ8B8hxAoW13unw98BYfg=;
-	b=Kl54yzLGqVtE9ws4tSmmYQ0cGmr0uDesz8wQHzLRkWbNir4CtlxdUDiSgHRs8pu3mXNWbw
-	z9jlikUGaSJ2kOAw==
-Authentication-Results: smtp-out1.suse.de;
-	dkim=pass header.d=suse.cz header.s=susede2_rsa header.b=Ki1VvQnq;
-	dkim=pass header.d=suse.cz header.s=susede2_ed25519 header.b=VwKRGgiA
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
-	t=1791199451; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=TxuTGo+tTIY0PEAiPDgmHhIZ8B8hxAoW13unw98BYfg=;
-	b=Ki1VvQnqOv8JnHDjKcdV6r06Y9JVXFBx2i9PNEZNJuqmSkMGkHvaR3V4HtHbZ9gpvzZXBS
-	9/j8/AWlsUL54OlemVs/75iH4yMvC97rR5pC1PGAhdjcO457D2efPELpHXxDPD35Rxev0S
-	+D04PO94Od8ldvpIvm2+5fNGSB2zBZs=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
-	s=susede2_ed25519; t=1791199451;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=TxuTGo+tTIY0PEAiPDgmHhIZ8B8hxAoW13unw98BYfg=;
-	b=VwKRGgiA98NAQVkvbHfjx35QDyISzXeNYTnCM7Z5PpENiA0rSQ2/xLmgQYaXlJFISAbEE6
-	kjGvzGxG0D3F4JBw==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 55B6913A58;
-	Mon,  5 Oct 2026 11:24:11 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id ll5FDNuIw2p9YgAAD6G6ig
-	(envelope-from <jack@suse.cz>); Mon, 05 Oct 2026 11:24:11 +0000
-Received: by quack3.suse.cz (Postfix, from userid 1000)
-	id 723E8A13FB; Mon, 05 Oct 2026 13:15:56 +0200 (CEST)
-Date: Mon, 5 Oct 2026 13:15:56 +0200
-From: Jan Kara <jack@suse.cz>
-To: Adriano Cordova <adrianox@gmail.com>
-Cc: tytso@mit.edu, adilger.kernel@dilger.ca, libaokun@linux.alibaba.com, 
-	jack@suse.cz, ojaswin@linux.ibm.com, ritesh.list@gmail.com, 
-	yi.zhang@huawei.com, linux-ext4@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	syzbot+09bec78ee77613a3efdd@syzkaller.appspotmail.com
-Subject: Re: [PATCH v2] ext4: don't append a directory block already mapped
- in the inode
-Message-ID: <ypwk5uwc6zmjksnqwsdj3wuajns5khoelq5uzln35opszdpfpd@rluzpxvpfroe>
-References: <20261005003528.92046-1-adrianox@gmail.com>
+	dkim=pass (2048-bit key) header.d=amazon.com header.i=@amazon.com header.b="q/3MlC3C"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+  d=amazon.com; i=@amazon.com; q=dns/txt; s=amazoncorp2;
+  t=1791199507; x=1822735507;
+  h=from:to:cc:subject:date:message-id:mime-version:
+   content-transfer-encoding;
+  bh=mkNbuN3d+jIbvrPDd+18NnL5Hjxe+/IRmYAm1E729tQ=;
+  b=q/3MlC3CuSTxbGpQx7KS44PXC3NsQjUAcO1E9Z/EHLcoMERv7fBhegsi
+   6xXjS1+01uta6ekZWMrSheOlgmEs/KRmOJ4vCbq+/PMNNjExYpTeqs78K
+   MThVEGWz6GyBJEcTuL7b26rRcNb2MCDYg7fw8PH7P9PTOij3jjpL1j1u2
+   2gXl3M91gRqtoPn2y3s8I1rCaEbIwsaFOjsCL9GrZdDzYOFFg+zFLSsjm
+   5FOUYEJnEqslwR8J6S+35CmRbYurC/26HRvlK6lV3PHK0mMIiuaHBLXsj
+   pYf8WZMDCVRx1Jhbt15tFedXda/7XIWxDRAmjYZowCIbbuKnQWqSVqED8
+   g==;
+X-CSE-ConnectionGUID: 8B6kUveqQ5a5DLgubZjYJA==
+X-CSE-MsgGUID: VopySfgeTbqqEikA4gPAyw==
+X-IronPort-AV: E=Sophos;i="6.27,141,1787011200"; 
+   d="scan'208";a="30206218"
+Received: from ip-10-5-9-48.us-west-2.compute.internal (HELO smtpout.naws.us-west-2.prod.farcaster.email.amazon.dev) ([10.5.9.48])
+  by internal-pdx-out-013.esa.us-west-2.outbound.mail-perimeter.amazon.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 05 Oct 2026 11:25:05 +0000
+Received: from EX19MTAUWC001.ant.amazon.com [205.251.233.53:2788]
+ by smtpin.naws.us-west-2.prod.farcaster.email.amazon.dev [10.0.44.113:2525] with esmtp (Farcaster)
+ id 0cadce7a-a239-44dc-ba16-3a66c350d848; Mon, 5 Oct 2026 11:25:04 +0000 (UTC)
+X-Farcaster-Flow-ID: 0cadce7a-a239-44dc-ba16-3a66c350d848
+Received: from EX19D001UWA001.ant.amazon.com (10.13.138.214) by
+ EX19MTAUWC001.ant.amazon.com (10.250.64.174) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.49;
+ Mon, 5 Oct 2026 11:25:04 +0000
+Received: from dev-dsk-farbere-1a-46ecabed.eu-west-1.amazon.com
+ (172.19.116.181) by EX19D001UWA001.ant.amazon.com (10.13.138.214) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.49; Mon, 5 Oct 2026
+ 11:25:02 +0000
+From: Eliav Farber <farbere@amazon.com>
+To: Thomas Gleixner <tglx@kernel.org>, Talel Shenhar <talel@amazon.com>
+CC: Radu Rendec <radu@rendec.net>, Rob Herring <robh@kernel.org>, "Krzysztof
+ Kozlowski" <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, "Eliav
+ Farber" <farbere@amazon.com>, <devicetree@vger.kernel.org>,
+	<linux-kernel@vger.kernel.org>
+Subject: [PATCH v3 0/8] irqchip/al-fic: shared parent IRQ, error/fatal outputs and affinity
+Date: Mon, 5 Oct 2026 11:24:50 +0000
+Message-ID: <20261005112458.22291-1-farbere@amazon.com>
+X-Mailer: git-send-email 2.47.3
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261005003528.92046-1-adrianox@gmail.com>
-X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
-X-Rspamd-Queue-Id: 8CDBA21E1D
-X-Rspamd-Action: no action
-X-Spamd-Result: default: False [-2.51 / 50.00];
-	BAYES_HAM(-3.00)[100.00%];
-	SUSPICIOUS_RECIPS(1.50)[];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	MID_RHS_NOT_FQDN(0.50)[];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	R_DKIM_ALLOW(-0.20)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
-	MIME_GOOD(-0.10)[text/plain];
-	MX_GOOD(-0.01)[];
-	RCVD_COUNT_THREE(0.00)[3];
-	TO_DN_SOME(0.00)[];
-	RCVD_TLS_LAST(0.00)[];
-	FREEMAIL_TO(0.00)[gmail.com];
-	MIME_TRACE(0.00)[0:+];
-	DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
-	ARC_NA(0.00)[];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	FREEMAIL_ENVRCPT(0.00)[gmail.com];
-	FREEMAIL_CC(0.00)[mit.edu,dilger.ca,linux.alibaba.com,suse.cz,linux.ibm.com,gmail.com,huawei.com,vger.kernel.org,syzkaller.appspotmail.com];
-	DNSWL_BLOCKED(0.00)[2a07:de40:b281:106:10:150:64:167:received];
-	FROM_EQ_ENVFROM(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	SPAMHAUS_XBL(0.00)[2a07:de40:b281:104:10:150:64:97:from];
-	RCPT_COUNT_SEVEN(0.00)[11];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	TAGGED_RCPT(0.00)[09bec78ee77613a3efdd];
-	DKIM_TRACE(0.00)[suse.cz:+];
-	MISSING_XM_UA(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,imap1.dmz-prg2.suse.org:rdns,suse.cz:dkim,suse.com:email]
-X-Spam-Flag: NO
-X-Spam-Score: -2.51
-X-Spam-Level: 
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: EX19D039UWA001.ant.amazon.com (10.13.139.110) To
+ EX19D001UWA001.ant.amazon.com (10.13.138.214)
 
-Hello!
+This series extends the Amazon Annapurna Labs Fabric Interrupt Controller
+(FIC) driver to support newer hardware revisions found on later Annapurna
+Labs SoCs, plus a few smaller fixes and cleanups.
 
-On Sun 04-10-26 21:35:28, Adriano Cordova wrote:
-> ext4_append() grows a directory by one block.  It checks that the target
-> logical block is a hole, but a corrupt block bitmap can still make the
-> allocator hand back a physical block that is already in use by this
-> inode.  The in-memory copy of a block is keyed by its physical block
-> number, so the "new" block and that existing one are the same memory;
-> callers that split a directory (make_indexed_dir()/do_split()) then move
-> entries between two aliased buffers and corrupt the directory, until a
-> bogus rec_len read from the middle of a name runs the wipe out of bounds:
-> 
->   BUG: KASAN: slab-use-after-free in dx_move_dirents [inline]
->   Write of size 90458 ...
-> 
-> Reject the block and report the corrupt bitmap instead of corrupting
-> memory.
-> 
-> Reported-by: syzbot+09bec78ee77613a3efdd@syzkaller.appspotmail.com
-> Closes: https://syzkaller.appspot.com/bug?extid=09bec78ee77613a3efdd
-> Tested-by: syzbot+09bec78ee77613a3efdd@syzkaller.appspotmail.com
-> Signed-off-by: Adriano Cordova <adrianox@gmail.com>
+The block the driver calls a FIC is the generic Annapurna Labs interrupt
+controller, built from groups of up to 32 triggers each. A device tree node
+describes one group, not a whole controller, and the groups of one
+controller share that controller's output line toward the parent GIC SPI.
+Later revisions add two interrupt outputs on top of the original "info"
+output - an "error" output and a "fatal" output - each with its own mask
+register. Which output a group drives is fixed when the SoC is wired.
 
-Good that you tracked down the reason for the corruption. But what you do
-below isn't really a good fix and I don't think you've put too much thought
-into it. Firstly, it would work only in the specific case this syzkaller
-reproducer triggers where the same block is claimed twice by the same inode
-(but other inodes can end up claiming the block as well!). Secondly, it
-would heavily slow down appending to large directories.
+The series is organised as follows:
 
-Frankly, I don't think this case of multiply claimed blocks is easy to deal
-with. To properly solve it you would need something like storing in the
-struct buffer_head the type of metadata (and perhaps inode & offset owning
-it) when loading metadata from the disk and then validating this when
-getting the buffer head from cache. But it's a lot of work and practically
-only to make fuzzer of disk images happy so I'm not really sure it's worth
-it.
+  1. Fix an argument alignment and a repeated word flagged by checkpatch.
+     No functional change.
+  2. Use %pOF in log messages and raise the successful-init message to
+     pr_info, so each FIC instance is identifiable at boot.
+  3. Keep the device_node in struct al_fic instead of a cached name string
+     that aliased node storage.
+  4. Request the parent interrupt as shared (IRQF_SHARED) instead of a
+     chained handler, so the several nodes of one controller can share one
+     GIC SPI.
+  5. Extend the binding with an optional amazon,al-fic-mask property
+     (info, error or fatal; default info) selecting which output a group
+     drives.
+  6. Add error/fatal output support and FIC v2: version detection from the
+     control register, the two extra mask registers, and a mask_cache
+     workaround for a v2 erratum where the error and fatal mask registers
+     always read back as 0.
+  7. Add FIC v3 support. v3 shares v2's group layout but fixes the mask
+     read-back erratum, so the v2 workaround is deliberately not applied.
+  8. Add an irq_set_affinity callback so drivers that call
+     irq_set_affinity() (which fails with -EINVAL when the irqchip has no
+     such callback) can probe when routed through a FIC instance.
 
-								Honza
+Patches 4 and 8 are co-developed with Talel Shenhar, the al-fic driver
+maintainer, and carry his Signed-off-by.
+
+Changes in v3 - all from Radu Rendec's review of the v2 series. Patches
+1, 2, 5 and 7 are unchanged and carry the tags he and Conor Dooley gave
+them; patches 3, 4 and 6 changed; patch 8 is unchanged and its open
+question is still being discussed on the v2 thread.
+ - patch 3: use of_node_full_name() instead of reaching into
+   node->full_name. The commit message is rewritten to say plainly that
+   this patch does not fix a lifetime bug - of_irq_init() pins the node
+   for the life of the system on a successful init, so node->name was
+   never at risk of dangling. The value is making the dependency
+   explicit.
+ - patch 4: al_fic_irq_handler() no longer derives its return value from
+   generic_handle_domain_irq(), which only reports whether the hwirq
+   mapping succeeded. It now returns IRQ_HANDLED when the masked CAUSE
+   snapshot is non-zero, which is the correct signal for a shared
+   interrupt.
+ - patch 4: set IRQ_DOMAIN_FLAG_DESTROY_GC on the domain and let
+   irq_domain_remove() free the generic chips, instead of calling
+   irq_domain_remove_generic_chips() by hand. Both error paths collapse
+   into one label. The invalid-free fix from v2 is unaffected; only the
+   teardown mechanism changed.
+ - patch 4: use of_node_full_name() in the request_irq() call.
+ - patch 6: initialise gc_flags to IRQ_GC_INIT_MASK_CACHE at its
+   declaration and only clear it on the v2 error/fatal path, dropping the
+   else branch.
+ - patch 6: use ~0U instead of 0xFFFFFFFF for the mask_cache seed and the
+   three mask register writes.
+ - patch 6: the commit message now explains the control register
+   read-modify-write. Every writable bit in that register resets to 0, so
+   preserving the other bits is equivalent to the previous plain write at
+   probe time; it is not a behaviour fix.
+
+v2: https://lore.kernel.org/all/20260927080637.27285-1-farbere@amazon.com/
+v1: https://lore.kernel.org/all/20260924062311.37308-1-farbere@amazon.com/
+
+Eliav Farber (8):
+  irqchip/al-fic: fix argument alignment and a repeated word
+  irqchip/al-fic: use %pOF and raise init log level
+  irqchip/al-fic: keep the device_node instead of a cached name string
+  irqchip/al-fic: switch to shared parent interrupt
+  dt-bindings: interrupt-controller: amazon,al-fic: add mask selection
+  irqchip/al-fic: support error and fatal outputs and FIC v2
+  irqchip/al-fic: add support for FIC v3
+  irqchip/al-fic: add irq_set_affinity callback
+
+ .../interrupt-controller/amazon,al-fic.yaml   |  16 +-
+ drivers/irqchip/irq-al-fic.c                  | 228 +++++++++++++++---
+ 2 files changed, 203 insertions(+), 41 deletions(-)
 
 
-> ---
-> Changes in v2:
-> - Rework after review of v1 ("ext4: wipe moved dirents with their real
->   length"). dx_make_map() already validates each entry, so the bad
->   rec_len does not come from disk. The problem is that the block
->   allocator was handing back a block already mapped by the inode.
-> 
->  fs/ext4/namei.c | 19 +++++++++++++++++++
->  1 file changed, 19 insertions(+)
-> 
-> diff --git a/fs/ext4/namei.c b/fs/ext4/namei.c
-> index 3b9740c1c16d..ff6013306b74 100644
-> --- a/fs/ext4/namei.c
-> +++ b/fs/ext4/namei.c
-> @@ -83,6 +83,25 @@ static struct buffer_head *ext4_append(handle_t *handle,
->  	bh = ext4_bread(handle, inode, *block, EXT4_GET_BLOCKS_CREATE);
->  	if (IS_ERR(bh))
->  		return bh;
-> +
-> +	for (map.m_lblk = 0; map.m_lblk < *block; map.m_lblk += map.m_len) {
-> +		map.m_len = *block - map.m_lblk;
-> +		err = ext4_map_blocks(NULL, inode, &map, 0);
-> +		if (err < 0)
-> +			goto out;
-> +		if (err == 0) {
-> +			map.m_len = 1;
-> +			continue;
-> +		}
-> +		if (unlikely(map.m_pblk == bh->b_blocknr)) {
-> +			EXT4_ERROR_INODE(inode,
-> +					 "new block %llu already mapped",
-> +					 (unsigned long long)bh->b_blocknr);
-> +			err = -EFSCORRUPTED;
-> +			goto out;
-> +		}
-> +	}
-> +
->  	inode->i_size += inode->i_sb->s_blocksize;
->  	EXT4_I(inode)->i_disksize = inode->i_size;
->  	err = ext4_mark_inode_dirty(handle, inode);
-> -- 
-> 2.51.0
-> 
+base-commit: e767a4ea70a3992c37ed604157d32f0dfbf9b1e3
 -- 
-Jan Kara <jack@suse.com>
-SUSE Labs, CR
+2.47.3
+
