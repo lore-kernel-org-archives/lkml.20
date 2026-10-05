@@ -1,128 +1,93 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from out162-62-57-137.mail.qq.com (out162-62-57-137.mail.qq.com [162.62.57.137])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 41E734CEE48;
-	Mon,  5 Oct 2026 17:30:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0EB484E8E18;
+	Mon,  5 Oct 2026 17:30:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=162.62.57.137
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791221429; cv=none; b=LNR4cvKL+g4PkBfAcF3Rnw5Pfg+Sua4oVdsA8f/n6SqUSPIZx15Jx6Mfe1DO7bCbkWfPD2vYpZHu7L/T7UBPOApMmlmWbMUE0mxDigQ61z+ap++whG31H8xEc6TAHCxFc+C/48s1q6zNOALkDegsnCz9VSlAZ9zGGqqDlWR4ShE=
+	t=1791221459; cv=none; b=IsR0sjR1HJq7P8dK+MGZ9sZOAHyD1YbyUxiNWdjpSCy8m6o+M9KChiPNBGr99GEmkZ30h9zc+Yzk3TXwdkgtHWtVjvLMw8fn5Op8j4jRZCxniMWVe709ukqRO/kels9Sx73qG22ZY0Kvc9xBMMwxPhHio5zCA64m0FFyDJn9I7k=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791221429; c=relaxed/simple;
-	bh=y80eDF61NqDQ0A/qHnQbb89yvEVcB2/CncyjErSWxdY=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=MkVWrqoWGnyM4g8vj2LpmRcW0mQrl73PqJDQmcYUcjN5D2hg4sGqSkOIGOesD+w+CYTLnOc+XdM1DBhU4sCL1Q4Ob5tNxUWGofuxkplLHBSVnTfn+126MaoAEdxSWqMG90qyTeaODjAHB3q10VDr6Nfs8XYi+DR8BH1kQq3nWSo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Fnn/nFq8; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791221459; c=relaxed/simple;
+	bh=ru+ebgapaq/0AmUGGrPeE8LajveSkFkh91VhizWmxKo=;
+	h=Message-ID:From:To:Cc:Subject:Date:In-Reply-To:References:
+	 MIME-Version; b=pMYEe5CZKikhlzFV9A2BOfcy12cBb30O+3VNkHSuDN4O+24x8GMceXUPjWpwTV+PPm3T+REKwIuWrJR1qzUsCfm1YKOslLk9rh+Pm+0g5CvI5jRAGzTU2CzYluiUEtwGYnnFJO06RGL2w9sZQk+5LiQy8CiCtO587hlfLe12A2g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com; spf=pass smtp.mailfrom=qq.com; dkim=pass (1024-bit key) header.d=qq.com header.i=@qq.com header.b=CnYcGjsz; arc=none smtp.client-ip=162.62.57.137
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qq.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Fnn/nFq8"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C5AE31F000FF;
-	Mon,  5 Oct 2026 17:30:21 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791221422;
-	bh=2S8sboOkN30YQsk+3u7LYDimtoghpZTYWEdAeieFXzg=;
-	h=From:Date:Subject:To:Cc;
-	b=Fnn/nFq8gDkyi/mqILoELEuRVOYUka59OFcCA+TVO8aYMfYIBRVl3mgRwTqzcfJyl
-	 S+p04j17tqVP9i5uucXvmFQ7UInN/cHNa1vF42qT/WIigef6KNZW0XQvj6Rkh4tGFV
-	 RfOeA2pTmozB1pE3c3Xof+p8Ec8eo9e4X/P1QUstQ3IJsjZDAiQFa7En1lTxx17JGq
-	 yBrIkU66ma4MzTUdOpYN3VVKCw4nngHLl71ElCYBjjL0pWcmMolJQdfiDCFB9id6TZ
-	 jQPPLWk5aqr+o5XEYafzKbEx1TfFDWAfHDe2/bNRDV7PB/2adEaPFY+1MVq2MJz1cY
-	 hdPwMQBarB8Zg==
-From: "Matthieu Baerts (NGI0)" <matttbe@kernel.org>
-Date: Mon, 05 Oct 2026 19:30:12 +0200
-Subject: [PATCH kselftest v2] selftests/lib.mk: run_tests: print summary at
- the end
+	dkim=pass (1024-bit key) header.d=qq.com header.i=@qq.com header.b="CnYcGjsz"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
+	t=1791221444; bh=xsQ6WpVz6dLVvH0jIBhmi25p6i3B1TGiyxsQ84fsA2k=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=CnYcGjszzX4vLRX+c/tVUCcO8hGJMp1q3PVyJoN/6xjb7xwekfJD9bwP5tCOTH3vE
+	 6Yw+uEBODCQKULOXuUcv8G2UJKRUqeoXlC5fy6EMEFe7XBVN18VjtPkPl79IEbg//B
+	 2pKdVO0heDyI5kpKDuqIh7mKZzkA/ylJbOWzKsHs=
+Received: from AERO17.taila7786d.ts.net ([2409:8a7c:21c:8010:c675:1308:618e:14ff])
+	by newxmesmtplogicsvrszc43-0.qq.com (NewEsmtp) with SMTP
+	id 7A82281B; Tue, 06 Oct 2026 01:30:40 +0800
+X-QQ-mid: xmsmtpt1791221442t6kaszaez
+Message-ID: <tencent_C77DAF0026980C137B8C46907F855FC9E506@qq.com>
+X-QQ-XMAILINFO: M2SvzgchpLqf+ciKQjAvwfVmEe4sr15OLSKB4SNAmTOQmrBm32CGsyNdYdTAaG
+	 I8j/Cid2dyzy1w5em+7qNt5yIbjAxZ2KXvvAfu3Vb36iuzTRscsKxRCED8KQlwpsqRW1xBS6Aal0
+	 mqa0OL1koXEqMm2ec8V26dy3crIuSE9w050iTVBZnhsH/zckZTXUp2nj59xqR58os5P+9KlzXZfv
+	 SyOHPQ9S2bLxEfKKot1KmrelxxGNd8wgavvGDyLoaCLBcsaAMEipw7zfMRcSjdSoBMXwiNQaV+jZ
+	 rtF9KIvaviVkH0qYMkMRcozEpiVVAzcgMt+0o+xeqR+wZiP1O0AdDvWyIY6+7L4/yjdAKlDs8bro
+	 uPIBuyx5mEjCUwtyROvC8bJwgCbsJNfgadFINjkd3yx7amXqhYnh3em5ze+jGlurDJ6xec4hIIIb
+	 b1Vgu8eTb55FvomtDeeEJr9XMFZleh3zyoyDw4uhV+4wFad+iZ0w56pzgLCzueOUBZWPNd0vFek9
+	 pg4wvIIj5SdIUpXCOFhqXDNNm40m076RTEXJQJmg+FfOvL1bZQB+Oly+QrNa1NoBW6FyfvuDp5RP
+	 U7MzTKzxyxn+q7ACzB5NwIppxsrB8xPqEGiFa8Suhty0dZE8AswJTFzrb6o+U2IPhXm7g79nkmV4
+	 2wdPU0kclAQDpIAY9mfe5d8UBF8iJGpVLN3tQV6EGtVIrmjz37tP4m8HsK+nop2Palky4Rn3qohO
+	 TooJgjZX/6xKqcVO+PEhye68xsZ1t+0/N/r/LGdsc4xE9TELcMszYwGFNpcpk6YZdxs8riZy8O+D
+	 NcxXdcqCGXEl4IXvZDz8KCcr0QDNxEU+MyOWU0KLv/JpjVNrS8+cRvIdXvM2IOCna4EUYHppowpM
+	 /lp7O4BeGj6v+UllWYbHCKgOxUQsXubsI/On5Gv+EoQE3sFJRcR5eKj4YZ3ng2R5h6Ogztfjitm/
+	 FI3VL51J+dlUgUCtaO2lyg28bIpnKDqDGwkXBi+pGflec7mWoa0GbifAZIGHrv/pq7zl/eE5AHqz
+	 smzbeoNG+yasZyhsaEcg5nEf5v9u2W93mC0C1WBhQ5eNR/UQ0dXXwcpRGkWLWymCikkDlGOlSWyb
+	 XK065aFcyMJdB4Sg4=
+X-QQ-XMRINFO: Nq+8W0+stu50tPAe92KXseR0ZZmBTk3gLg==
+From: Pufan Jin <2254650260@qq.com>
+To: Conor Dooley <conor+dt@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Michal Simek <michal.simek@amd.com>,
+	Rob Herring <robh@kernel.org>
+Cc: devicetree@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	andrew@lunn.ch
+Subject: [PATCH v2 1/3] dt-bindings: vendor-prefixes: Add ALINX vendor prefix
+Date: Tue,  6 Oct 2026 01:30:37 +0800
+X-OQ-MSGID: <20261005173039.707304-2-2254650260@qq.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20261005173039.707304-1-2254650260@qq.com>
+References: <20261005173039.707304-1-2254650260@qq.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261005-sft-run-tests-print-totals-v2-1-29c45c0e2fe6@kernel.org>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/42PQQqDMBREr1Ky7i8maEi76j2ki2h/NFUSyf9Ki
- 3j3RnuBroaZgTfMKgiTRxK30yoSLp58DNmo80m0vQ0dgn9mL1ShdKFVBeQY0hyAkZhgSj4wcGQ
- 7ElhpEK2RZYMoMmBKSHPzwpZ3wp70njimz7G2yCz1X+BFgoTGYWWM0lqV1/uAKeB4iakTj+035
- fz7+FGLgXB0OyZ32xdDuGEd4gAAAA==
-X-Change-ID: 20260625-sft-run-tests-print-totals-a18eea814bee
-To: Shuah Khan <shuah@kernel.org>
-Cc: linux-kselftest@vger.kernel.org, linux-kernel@vger.kernel.org, 
- "Matthieu Baerts (NGI0)" <matttbe@kernel.org>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2472; i=matttbe@kernel.org;
- h=from:subject:message-id; bh=y80eDF61NqDQ0A/qHnQbb89yvEVcB2/CncyjErSWxdY=;
- b=owGbwMvMwCVWo/Th0Gd3rumMp9WSGLIO31ubufPJhytPHz+NVK1hbb407U/4gXUOkouXuOaFP
- lf34Zbz7ShlYRDjYpAVU2SRbovMn/m8irfEy88CZg4rE8gQBi5OAZjI/lmMDAcKVRkusO9IuXVp
- Vd5qtgW3T/YvnWF/u6BvRbncDVNR8X2MDLPaDhZ/699plfl+S/RNxrP3BfOqo+xTlePbK258O+f
- TxAQA
-X-Developer-Key: i=matttbe@kernel.org; a=openpgp;
- fpr=E8CB85F76877057A6E27F77AF6B7824F4269A073
+Content-Transfer-Encoding: 8bit
 
-When there are many tests and/or many log lines, it is difficult to
-quickly find out how the different tests went when running:
+Add vendor prefix for ALINX (Shanghai Xin'yi Electronics Technology
+Co., Ltd.).
 
-    make -C tools/testing/selftests run_tests
-
-This run_tests target executes 'run_many' from runner.sh, which relies
-on ktap_helpers.sh. At the end of the execution, the KTAP_CNT_* counters
-have been populated, and the total can then be simply printed with the
-ktap_print_totals helper.
-
-Now a summary is printed at the end, e.g. here with the two last lines:
-
-    $ make -sC tools/testing/selftests TARGETS=(...) run_tests
-    # timeout set to (...)
-    # selftests: (...)
-    (...)
-    ok 1 selftests: (...)
-    # timeout set to (...)
-    # selftests: (...)
-    (...)
-    ok 2 selftests: (...) # SKIP
-    # timeout set to (...)
-    # selftests: (...)
-    (...)
-    not ok 3 selftests: (...)
-    # 1 skipped test(s) detected.  Consider enabling relevant config options to improve coverage.
-    # Totals: pass:1 fail:1 xfail:0 xpass:0 skip:1 error:0
-
-This summary is printed, using '#' as prefix to be treated as a comment
-in the TAP format. The summary is also printed when summary=1 is used to
-redirect log lines in different files because it still looks useful when
-there are many tests, not to have to check each line.
-
-Note that this 'make' command will continue to exit without errors
-(returned code is 0) when the tests can be executed. I guess it is
-better not to change this behaviour to be able to continue detecting
-kselftests failures.
-
-Signed-off-by: Matthieu Baerts (NGI0) <matttbe@kernel.org>
+Signed-off-by: Pufan Jin <2254650260@qq.com>
 ---
-Changes in v2:
-- Fix typo in the title: s/=/:/
-- Link to v1: https://patch.msgid.link/20260625-sft-run-tests-print-totals-v1-1-bfe588266249@kernel.org
----
- tools/testing/selftests/lib.mk | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+ Documentation/devicetree/bindings/vendor-prefixes.yaml | 2 ++
+ 1 file changed, 2 insertions(+)
 
-diff --git a/tools/testing/selftests/lib.mk b/tools/testing/selftests/lib.mk
-index f02cc8a2e4ae..de15e63bc6b4 100644
---- a/tools/testing/selftests/lib.mk
-+++ b/tools/testing/selftests/lib.mk
-@@ -106,7 +106,8 @@ define RUN_TESTS
- 	if [ "X$(summary)" != "X" ]; then       \
- 		per_test_logging=1;		\
- 	fi;                                     \
--	run_many $(1)
-+	run_many $(1);				\
-+	ktap_print_totals
- endef
- 
- define INSTALL_INCLUDES
-
----
-base-commit: 30af56a227e27b892d34bc44c23298b5274913e3
-change-id: 20260625-sft-run-tests-print-totals-a18eea814bee
-
-Best regards,
---  
-Matthieu Baerts (NGI0) <matttbe@kernel.org>
+diff --git a/Documentation/devicetree/bindings/vendor-prefixes.yaml b/Documentation/devicetree/bindings/vendor-prefixes.yaml
+index ba2002969..97e7ef340 100644
+--- a/Documentation/devicetree/bindings/vendor-prefixes.yaml
++++ b/Documentation/devicetree/bindings/vendor-prefixes.yaml
+@@ -90,6 +90,8 @@ patternProperties:
+     description: AlgolTek, Inc.
+   "^alientek,.*":
+     description: Guangzhou Xingyi Intelligent Technology Co., Ltd.
++  "^alinx,.*":
++    description: Shanghai Xin'yi Electronics Technology Co., Ltd. (ALINX)
+   "^allegro,.*":
+     description: Allegro DVT
+   "^allegromicro,.*":
+-- 
+2.55.0
 
