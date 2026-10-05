@@ -1,93 +1,191 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qv2-f43.google.com (mail-qv2-f43.google.com [74.125.230.171])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F164B4BE45C
-	for <linux-kernel@vger.kernel.org>; Mon,  5 Oct 2026 15:13:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 287374BE45C
+	for <linux-kernel@vger.kernel.org>; Mon,  5 Oct 2026 15:13:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.171
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791213182; cv=none; b=CI3t5MnqTl+nnhPkY/FXl1TjjotUS/Aj8sMKoI/UEzUV6L7blPCxNaBdGFkIW+wkRQGGnk9XRVVvdjtTJGsBb9QoKVpE+KOC4hCAvzyp9Fcc47SjcDzYVm2AWHdLB4NVE+RchlABGEkxiJkQrjq6VoKQUkml2YK37k7/RSJflyQ=
+	t=1791213192; cv=none; b=VcjneYVBliH8JgKx3uhMHssKFvEvoUu1dnjrXpk/lpn0lqwzflmJv87DfoMY3wXKrapVomQS70gS45V1lmGmAeoY0EcD2KKTzIqotAcTX96wf7QqLopJguXwjWSvIkV0dMcdCz6fXl0Cv1KIgrqs7vtNTSs60LK8fguEKV1nYAk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791213182; c=relaxed/simple;
-	bh=bs0Qo5kBM1JXtwtJBPF64JlV5l8X8iTgcgO3zRrUsf0=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=dRpZbrwPBViE376BpKhln8UO1YXNmmUhSbS5HGwFhAp0loJFdVQnnjZFjjXJJpYE9h6YPwOxvV/PRuNc6F8nuOw5gEuLWOXhiYDKHIB1HhL1tY71FT8AlM4zZ0Lk1o1Gk3EjsLC1EBn8AbTMEDP7OjdRuYfMqzJKMzYH0OQpS+I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Uj+hbZTS; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791213192; c=relaxed/simple;
+	bh=v2CL7NzerBT0Gb9nktqrtaTmkdEXL7HiVRShTTS6Tss=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=bFcQ4seue2N+9bcAwRGw4FRNfYXcivkcCUOBpZAgZ3vtbcwA7KaqyWquQWcF4AZezgX+82B12K8SSqiSmFdIe2oCUUfpikKReORskvE3hYMtJ8JfK/TZvkWGa75QA2ZvOIghYWqn2P+Hd6wHfJJogw6IFwmyeBvl8BzeFSrJR5g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=DhBdzYlX; arc=none smtp.client-ip=74.125.230.171
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Uj+hbZTS"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CE8661F0089F
-	for <linux-kernel@vger.kernel.org>; Mon,  5 Oct 2026 15:13:00 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791213180;
-	bh=bs0Qo5kBM1JXtwtJBPF64JlV5l8X8iTgcgO3zRrUsf0=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=Uj+hbZTSlESKUfXULAN17eMtlIkaxakIOFAGpv+0ciyC/jG/VFE447MXncT3bvNEV
-	 jZgNgqJIiLrr/WMbqhaUVBtlSf5+ZGwfFmm+SMTTgMW6oDOSSM2OtWavk9k5q9ZFx5
-	 41Nu6SLHjUNFBLdwWsTwg5eIi4Cwu3mLbyTyBfRYCRL5HgDZb9SGkBKvePeGWp9C+h
-	 C15UT57EzeZVfo1lNyQ8JOW89FlH0DFJZu27wW6tcv9MW+w4hoA3He/BKkRF98Lia7
-	 k0INPeYU87ka92DAe50ShbckC+N0KBkrR8ahjDMtI9OKo2tsVVn/5X1nFOYnL4qRlG
-	 LXH4EImL3maPQ==
-Received: by mail-lf2-f13.google.com with SMTP id 2adb3069b0e04-5ba42939bfeso1720904e87.0
-        for <linux-kernel@vger.kernel.org>; Mon, 05 Oct 2026 08:13:00 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBzdQTezx5+raStH16DW+PX8W0iI8gEKDoYOFAV7cYno6wCgBc41DqMdKXWih9CeUDK2mr5lVIufycai9Yw=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKS/f+zPgj6h1joc+YflZgoQPPFexiXrlgg8N4xQdwKDE29Q9aJ
-	J/9r9DD6j9MsogEl8xTnxng4CYZmIrYYhY2pTYX4rqKU/ME0v+Ud/KqpbN+75VueClExytDAFS1
-	pIFgbyp0JdveVs0BvMi2PeDnlKuT9cds=
-X-Received: by 2002:a05:6512:32c9:b0:5ba:3ce0:b238 with SMTP id
- 2adb3069b0e04-5bb93a38f37mr3497099e87.14.1791213179553; Mon, 05 Oct 2026
- 08:12:59 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="DhBdzYlX"
+Received: by mail-qv2-f43.google.com with SMTP id 6a1803df08f44-919552173fbso23157526d6.3
+        for <linux-kernel@vger.kernel.org>; Mon, 05 Oct 2026 08:13:10 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791213190; x=1791817990; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=tD1DJkux8VkZcN5TNfoztkwmQYTd0VlzT09CyOrF6zg=;
+        b=DhBdzYlXQfa9l4Ns8vm3hVSshlp0u3vt4ashHNaUoMypukGBW6zVQvhXqMUq7HlABt
+         nrTo7FqIG2JlsG4aDZwonfF48sXclDZrWlVrlxbKkTxDMCzzrlkbJRKWBMPkTjc7MCzY
+         /3jDxi2L2JhzjbP5uhu5jHCJFWmrisHJnYryqQrPWuhq5YG4Mj2A2989t01jSM4hmkb8
+         WyduLHEzCpYaRkY6mGdw4T9rmP4WcV8I+akfysgrCjOpoTEYGAyeTHQRb+L6y2VjuOde
+         GhVpwsm/tinBb7RlfIvrdF/AJ/FbIrC1DZVnnPpd4NqVzimZ6jTJZZjsmL/svdhPbIZL
+         GDsw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791213190; x=1791817990;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=tD1DJkux8VkZcN5TNfoztkwmQYTd0VlzT09CyOrF6zg=;
+        b=uY0lN06RXkl8SPAdzCrh1KyKF7PjQQejmWKjJPpMgUu/cm0vauxSpqsmQuOWjXgo2h
+         Bh1L/ZiWPke6iZIWj0sHb9r6AUpDCmjEuT/CiTK/VZ12D+u/tl8gLqEmtX7qRKaeOsKB
+         HhDVKyQbZSMgkK6dpA4LrQoV/JfBou3NzpzwHjpyQ7w8aOoUZkVfQeMCw9xAC2ywfNqs
+         X+7Pfwc7s8WAWfQGLTNci86OS5YbZbGVrbmq88IrIS33YngDgBtU3Erm0aX6lpPdnB2Q
+         JFxa0CbKzFNRe0bkeNBL9VadT9qnp8yfBYuKP7EBFlA8d5kwQ9k50en/Aepwg7kOHimk
+         KUOw==
+X-Forwarded-Encrypted: i=1; AKwUvByUFGIurERKmYGE4k/ugIgNi3LSRm6lKaIRD4TqG/CLsGlkMEuMauv1XLMacR2CHkFX07nYZsU7pR/bhPw=@vger.kernel.org
+X-Gm-Message-State: AFuF++lTVDy0oxZmY55RdwGKprInEHpFnhL+AcU+AG2F8PEcNMnlE8TD
+	gwS9KSNOzh418fTgb4b9OyAJ170WWxr4TrH5ona7T0NmXVGzoYPpMl0m
+X-Gm-Gg: AYBFou38ClnAWH/9DHUAcub+0J97DH+8CDApSN85S5Joywwlz3Vky8akoy0mndYj6dp
+	uFIL6DxxdN0cMoPIGSdI8R2kS0Ki/1LoHj9LWG0Qk/PJWwEYOv03GDgCa+/umkUiIqQBlZTt43l
+	rmzdaD7l7YM9tFPsrdjwr4XdSK+LTIcc4AzxWrm11vDyYpKOyWbkFfjnttHtcXbBg9jLE4R4K0c
+	DuPljHm0yoWXvxVZrjYfa9vysILhsWGAGLNpP8zQ6HKPwYcQfe2DTPawAnI0H+5eiMQvBrMmMxh
+	EwQQcABqZDTi86MZqa3KJ6Tl1R3WuT2hk4Gn4KwJJrbSM8c1qIGq47ydmdgpwi/R8c+VBr5xmjd
+	3cKET7kfoatkSgLe7zGwMgvxDlxFgivAqJkv9PfOduENCINQzHZzEMF+5SAQBtEg8R/ayafY4w3
+	/XffS0jDu5YYBZ3RPYv9trhK3wnV9YAQOq53u0jHBMCLvaEAdfKTPQMOWuPal15igh1uU1Dw==
+X-Received: by 2002:a05:6214:240f:b0:917:b048:8611 with SMTP id 6a1803df08f44-917c007daddmr214685736d6.20.1791213188187;
+        Mon, 05 Oct 2026 08:13:08 -0700 (PDT)
+Received: from thangnn-ASUS.. ([2a09:bac1:7ae0:50::3d0:67])
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-917e0b1a108sm89482716d6.13.2026.10.05.08.13.02
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 05 Oct 2026 08:13:07 -0700 (PDT)
+From: Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>
+To: Pablo Neira Ayuso <pablo@netfilter.org>,
+	Florian Westphal <fw@strlen.de>
+Cc: Phil Sutter <phil@nwl.cc>,
+	Fernando Fernandez Mancera <ffmancera@riseup.net>,
+	"David S . Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>,
+	netfilter-devel@vger.kernel.org,
+	coreteam@netfilter.org,
+	netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	syzbot+d7795c8487ca4e20ed88@syzkaller.appspotmail.com,
+	syzbot+d0d2f1a65f45b319d25d@syzkaller.appspotmail.com,
+	syzkaller-bugs@googlegroups.com,
+	Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>
+Subject: [PATCH nf-next v2] netfilter: nft_synproxy: only handle pure SYN and ACK packets
+Date: Mon,  5 Oct 2026 22:12:57 +0700
+Message-ID: <20261005151257.9128-1-ngocthang2710.1999@gmail.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20261004160615.142456-1-ngocthang2710.1999@gmail.com>
+References: <20261004160615.142456-1-ngocthang2710.1999@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20261002115850.962676-1-o.rempel@pengutronix.de>
- <20261002115850.962676-6-o.rempel@pengutronix.de> <CAD++jLmPfzi6FqF+xYFJoAjqz+Q9Ax9vhUp-MjUSFNTwOPAn4g@mail.gmail.com>
-In-Reply-To: <CAD++jLmPfzi6FqF+xYFJoAjqz+Q9Ax9vhUp-MjUSFNTwOPAn4g@mail.gmail.com>
-From: Linus Walleij <linusw@kernel.org>
-Date: Mon, 5 Oct 2026 17:12:46 +0200
-X-Gmail-Original-Message-ID: <CAD++jLnYB2ec6yOF2so7W8kkq3PR-+c2kCscTSxPuGVC-L5G4Q@mail.gmail.com>
-X-Gm-Features: AclHuK_lBLUvKCZgIdRftzi0JSbJ2MwHoG_nvSOx3QCjboHQ2WvPYTIxqnjS3mc
-Message-ID: <CAD++jLnYB2ec6yOF2so7W8kkq3PR-+c2kCscTSxPuGVC-L5G4Q@mail.gmail.com>
-Subject: Re: [PATCH net-next v1 5/8] net: dsa: realtek: rtl8365mb: store the
- egress queue count per chip
-To: Oleksij Rempel <o.rempel@pengutronix.de>
-Cc: Luiz Angelo Daros de Luca <luizluca@gmail.com>, Andrew Lunn <andrew@lunn.ch>, 
-	Vladimir Oltean <olteanv@gmail.com>, "David S. Miller" <davem@davemloft.net>, 
-	Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
-	kernel@pengutronix.de, linux-kernel@vger.kernel.org, 
-	=?UTF-8?Q?Alvin_=C5=A0ipraga?= <alvin.sipraga@analog.com>, 
-	netdev@vger.kernel.org, Simon Horman <horms@kernel.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On Mon, Oct 5, 2026 at 5:10=E2=80=AFPM Linus Walleij <linusw@kernel.org> wr=
-ote:
-> On Fri, Oct 2, 2026 at 1:58=E2=80=AFPM Oleksij Rempel <o.rempel@pengutron=
-ix.de> wrote:
->
-> > Store the number of egress queues in the per-chip info structure and
-> > advertise it through ds->num_tx_queues, following the ksz driver
-> > (struct ksz_chip_data.num_tx_queues).
-> >
-> > The queue count is a per-chip hardware property, and this driver suppor=
-ts
-> > several chips of the rtl8367c family. All currently-supported chips exp=
-ose
-> > eight queues, but keeping the count in chip_info lets the QoS code that
-> > follows program the priority-to-queue map via the ieee8021q helpers for
-> > whatever queue count a chip carries, so the 802.1Q collapse is correct
-> > rather than hard-coded to eight.
-> >
-> > Signed-off-by: Oleksij Rempel <o.rempel@pengutronix.de>
->
-> RTL8366RB has 8 queues so it's fine to keep this separate
-> per-subdriver.
-> Reviewed-by: Linus Walleij <linusw@kernel.org>
+nft_synproxy treats any segment with SYN set as a client's initial SYN
+and any segment with ACK set as the client's final ACK. A SYN-ACK thus
+gets answered with a fresh SYN-ACK cookie.
 
-I meant RTL8366RB has 6 queues. Hm maybe you rather want to
-store this in struct realtek_variant and have the core
-helper instead?
+If that reply is routed back to the same host, e.g. to a peer address
+covered by an address on lo, it re-enters the input hook, is answered
+again, and never stops. Every such SYN starts its own endless loop over
+the loopback backlog, so NET_RX softirq keeps the CPU busy and memory
+fills with skbs and rtable entries until workqueues stall and the
+machine OOMs.
 
-Yours,
-Linus Walleij
+Use the same flag checks as ip(6)t_SYNPROXY: SYN without ACK, FIN or
+RST is an initial SYN; ACK without SYN, FIN or RST is the client ACK.
+Anything else falls through to the next expression.
+
+Reported-by: syzbot+d7795c8487ca4e20ed88@syzkaller.appspotmail.com
+Closes: https://syzkaller.appspot.com/bug?extid=d7795c8487ca4e20ed88
+Reported-by: syzbot+d0d2f1a65f45b319d25d@syzkaller.appspotmail.com
+Closes: https://syzkaller.appspot.com/bug?extid=d0d2f1a65f45b319d25d
+Signed-off-by: Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>
+---
+v2:
+- Retarget to nf-next (Pablo).
+- Drop the Fixes: tag accordingly.
+
+v1: https://lore.kernel.org/all/20261004160615.142456-1-ngocthang2710.1999@gmail.com/
+
+Notes (not for the changelog):
+
+Reproduced in QEMU (x86_64, 2 vCPUs, KASAN+lockdep) with syzbot's C
+repro for d7795c8487ca4e20ed88. Minimised: only the nft batch and the
+injected SYN matter, which is exactly the d0d2f1a65f45b319d25d program.
+
+The rule is an inet table, base chain on input, with an unconditional
+"synproxy" expression. The SYN goes from 172.20.20.187 to .170 via tun;
+syzkaller puts 172.20.20.10/24 on lo, so the whole /24 is local and the
+SYN-ACK cookie comes back through lo. Instrumented trace:
+
+  synproxy tx .170->.187 in=syz_tun out=lo syn=1 ack=1
+  synproxy tx .187->.170 in=lo      out=lo syn=1 ack=1
+  synproxy tx .170->.187 in=lo      out=lo syn=1 ack=1
+  ...
+
+Before (3fd2ff60f6d6, full C repro):
+  - synproxy syn_received ~400k per CPU per netns after 15s
+  - rtable 80k -> 295k, skbuff_head_cache >1M, softirq time explodes
+  - "BUG: workqueue lockup", then OOM / hung task, VM wedges
+
+After (2 runs x 300s, full C repro):
+  - no lockup, hung task or OOM
+  - rtable flat (~2.2k), skbuff_head_cache flat (~80k)
+  - syn_received grows slowly (~9.5k/300s): real SYNs still answered
+
+ACK|FIN and ACK|RST no longer hit the cookie check (and its NF_DROP);
+they continue, as with ip(6)t_SYNPROXY's XT_CONTINUE. The usual
+"ct state invalid drop" rule still catches them.
+
+ net/netfilter/nft_synproxy.c | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
+
+diff --git a/net/netfilter/nft_synproxy.c b/net/netfilter/nft_synproxy.c
+index 9ed288c9d168..a580cb7324da 100644
+--- a/net/netfilter/nft_synproxy.c
++++ b/net/netfilter/nft_synproxy.c
+@@ -53,13 +53,13 @@ static void nft_synproxy_eval_v4(const struct nft_synproxy *priv,
+ 	struct synproxy_net *snet = synproxy_pernet(net);
+ 	struct sk_buff *skb = pkt->skb;
+ 
+-	if (tcp->syn) {
++	if (tcp->syn && !(tcp->ack || tcp->fin || tcp->rst)) {
+ 		/* Initial SYN from client */
+ 		nft_synproxy_tcp_options(opts, tcp, snet, &info);
+ 		synproxy_send_client_synack(net, skb, tcp, opts);
+ 		consume_skb(skb);
+ 		regs->verdict.code = NF_STOLEN;
+-	} else if (tcp->ack) {
++	} else if (tcp->ack && !(tcp->fin || tcp->rst || tcp->syn)) {
+ 		/* ACK from client */
+ 		if (synproxy_recv_client_ack(net, skb, tcp, opts,
+ 					     ntohl(tcp->seq))) {
+@@ -84,13 +84,13 @@ static void nft_synproxy_eval_v6(const struct nft_synproxy *priv,
+ 	struct synproxy_net *snet = synproxy_pernet(net);
+ 	struct sk_buff *skb = pkt->skb;
+ 
+-	if (tcp->syn) {
++	if (tcp->syn && !(tcp->ack || tcp->fin || tcp->rst)) {
+ 		/* Initial SYN from client */
+ 		nft_synproxy_tcp_options(opts, tcp, snet, &info);
+ 		synproxy_send_client_synack_ipv6(net, skb, tcp, opts);
+ 		consume_skb(skb);
+ 		regs->verdict.code = NF_STOLEN;
+-	} else if (tcp->ack) {
++	} else if (tcp->ack && !(tcp->fin || tcp->rst || tcp->syn)) {
+ 		/* ACK from client */
+ 		if (synproxy_recv_client_ack_ipv6(net, skb, tcp, opts,
+ 						  ntohl(tcp->seq))) {
+-- 
+2.43.0
+
