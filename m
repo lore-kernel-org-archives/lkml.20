@@ -1,115 +1,112 @@
-Received: from mail-pf1-f179.google.com (mail-pf1-f179.google.com [209.85.210.179])
+Received: from mail-oi1-f198.google.com (mail-oi1-f198.google.com [209.85.167.198])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6027D30D3FD
-	for <linux-kernel@vger.kernel.org>; Mon,  5 Oct 2026 19:49:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.179
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6E18730B529
+	for <linux-kernel@vger.kernel.org>; Mon,  5 Oct 2026 19:51:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.198
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791229768; cv=none; b=dlM6rnote2gyPDeR+gw4g+70KkCwPFFRXum94QFr84LyPPJI0tkon2RfQnVUTAwOtZG9PKJL6gWbWMT5CVkbnqbwZREoMlljx3+MW+XL4K/kDG3glYBgihRGsDDUJz9CPz2KAYquPSP0Sx9IRjKAS1k5u/l8r/ojEwIuNWDYgSw=
+	t=1791229899; cv=none; b=SrNCcAAhd1afFNcemC8YUiKfs4GpUo/nxN/2c1RTeO522SfrOejsJhLR6vhCrtiv0OxMXYR2bBamV/tNGxW0++DRAWDrcPoi3wMx/uNqvW4j94ZDhP7F8lrev8SH1EE4yYZ1JSRR+9iFhZmCLU02g5/FppeZRBzqf5Ivgvw59RM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791229768; c=relaxed/simple;
-	bh=1aacAFrJpfNCprPgES36RkWlNl2rUmkGLybrOS647Jw=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=iNB9mlUXfrN4v7T6GHb+tcrMTEhH3Mw7ZY6qFkd35Ejvl+AbD1O7ustO8iUEfWYvW+0h/7LU0pUZm2DfozxF2TntdAQeDjnvr7z1sgxgLscDbALoSuno9u9VJ3iEfeGAn/cXrmvnRlAlgI60V2IktFcTQmApb5HWrBE1QhZgoIk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ZsrgsYy8; arc=none smtp.client-ip=209.85.210.179
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ZsrgsYy8"
-Received: by mail-pf1-f179.google.com with SMTP id d2e1a72fcca58-88cfa501c5cso656166b3a.3
-        for <linux-kernel@vger.kernel.org>; Mon, 05 Oct 2026 12:49:27 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791229767; x=1791834567; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=24q49npE6pjQQ1gSDN86TRYKVZaBhieHztgMr+e5WT4=;
-        b=ZsrgsYy8EQeF8haRs36TSqs+fpGw0+q6W7pYyInAyRPAg7oL4NVuxHFxlOTSoL/e8C
-         BLBIiAfuizQaw2EPgu/gtTEvDDTjZr3lHzbuIziJE/u1RrP/9WalK6B2uJ2hAUvz+c0P
-         PXXsH0b1jS1kweSLfGj+3odrTseSQxXRooGfyyxIy3bxLZvJlP4rLUat5x0YETYFpcSH
-         jpkIaC3PfIafWsVd4/0vVV6j93Qe9rxZbrwO+1XupEvCiQVHLf4F5wA6P+tD7w2a6gte
-         Jat6b1kLjQAYXGTbg5Wf5i1Tszmu4aabmv8kgYCh9Z1vfBvBSWYX2PCT0W8fJRPgDEX4
-         pTZA==
+	s=arc-20240116; t=1791229899; c=relaxed/simple;
+	bh=NvrK19xSRqV5UwLEr8ZIBkEz/xP0OEWjMxzG35qRPS0=;
+	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:
+	 Content-Type; b=s0JDBgGsceiiWoE/zHQsVznPI3oAouSwSBKO+IzdanQmOQdsR2hM0+mQVJyae80fquWnBenazf5A/LvkOQOQom0HExMQgaX0vgTun3q6FA7mIo/Evwvvfr71Onh9nZIA+SNU3GV+89E3JHxvpyLjI9HHH0Vwiump3fAajKr8b4g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.167.198
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-oi1-f198.google.com with SMTP id 5614622812f47-4eb0b989f0eso413410b6e.0
+        for <linux-kernel@vger.kernel.org>; Mon, 05 Oct 2026 12:51:38 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791229767; x=1791834567;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=24q49npE6pjQQ1gSDN86TRYKVZaBhieHztgMr+e5WT4=;
-        b=L9RW6KHSOBfBiLKjknQtC2BeUKY598yFTIc53vHgj1qUfhNoWYmVd0ICv9rZqrGbD6
-         a1W26LBRqqjHvcMLA/DxUcQjbypzkaQiCNC+AFvD1awq1DioPUwIHrMM4ohfnF34CUw9
-         NZNggyiaHPLGUD29ZHh6Lwzq666UKnu5MkDFxh9iPmoOTlmOthh0olRNYdmL5iPi4qNt
-         o137qPou8LXfxo6+Q5FPguUQv0sCzk61G8saw/eAKOK5wHGN6SY5eFCji/sylnNbr4aO
-         Wg9euSCgE/r4WzF/9XTRANjIbOpo6R6vlzrbVlMtZaIurFheFADp2Mm7KnEUcMeasuw8
-         MKKQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxqU0DcOlwzM6ECh1kcEJQn8u5SeDKRDrhfejEsSmcnfEUNpneXDeP89RGVH19UufKR0zEqtHtZVW56scI=@vger.kernel.org
-X-Gm-Message-State: AFuF++lfLWSeoWkS8lvKi+e07yuqB8ABISmbX/UyM2Rsytfh6kxuSVX8
-	IE67r8LvJyr2uLazAHJObrFqRp4R/ZNFONXBvXehs7s9+i4mAPegk+lV
-X-Gm-Gg: AYBFou2vUTGJ7oX/uMmspGbuhrzXiqH6EesYM9ij6hwOyyV1fDWtpMXv+mMDzahZLzf
-	hsGbWlabtUDSpaZfJfUR2CthBv4f9zE7xjV28T8JGcdeFhK1LQqt/JUlYwwwkfJXkQ0rIB7s/Fn
-	NVC5EXlePC5GcF+ylDJT4/OYz4zXmj+E8OFELEgjZ23mUfptr7qfrMLL/x41SseG8PRIgOB/DEq
-	D9kdT9Sw2PedRzqmTF+yoR0eQamHK9gdyTCe3jVKleXfKiBNRAjfD0qhKXq0MHuCv0jWsR88Pe7
-	UOyChMi8exqHBcUt6z/+r1fHJLM3aBohBSFD3KvEi7pGOcGlKzr4RDIiw/5g0m21CzlNCa83GsB
-	O9eHzHOomUR8MwZRYRs1a2xuaGPBCMxaUNOv+x7Pqi75/s5vdNZDh5sFXhbQKtoRkkfunYLk3SI
-	KFYKox1LJ7skX9n9xPjKYJC43qu4Auri2AsdYN3kvkS1imyqkc0jrRiUqiVAj9BE7spY52M5UIB
-	rPHkMxyktnQYh/YDY8Uy0vV55Xfei9YBocvx4ZBEavkbW+bM/kJFqFQkKR6okgWvF0CuerKKlGK
-	YoUT+7z/ukM2MKtvq6WdLRjdjATxDVVo69MxCqyzIJEDuF0X
-X-Received: by 2002:a05:6a00:4c87:b0:88b:71cb:8a02 with SMTP id d2e1a72fcca58-88c5d67130amr7579564b3a.0.1791229766638;
-        Mon, 05 Oct 2026 12:49:26 -0700 (PDT)
-Received: from ryzen.lan ([2601:644:8000:7a86::e35])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-88b0bfc3805sm4008252b3a.21.2026.10.05.12.49.24
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 05 Oct 2026 12:49:26 -0700 (PDT)
-From: Rosen Penev <rosenp@gmail.com>
-To: linux-leds@vger.kernel.org
-Cc: Lee Jones <lee@kernel.org>,
-	Pavel Machek <pavel@kernel.org>,
-	=?UTF-8?q?Marek=20Beh=C3=BAn?= <kabel@kernel.org>,
-	linux-kernel@vger.kernel.org (open list)
-Subject: [PATCH] leds: is31fl32xx: Fix NULL pointer dereference when binding via I2C ID table
-Date: Mon,  5 Oct 2026 12:49:23 -0700
-Message-ID: <20261005194923.161411-1-rosenp@gmail.com>
-X-Mailer: git-send-email 2.56.0
+        d=1e100.net; s=20260707; t=1791229897; x=1791834697;
+        h=content-type:to:from:subject:message-id:in-reply-to:date
+         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=wI7otykpoXnhYA8HU0VJLL5aQ0E6EyHfUyxGHFX7K/U=;
+        b=eL5h4bYiBIFjY00R4N56tE+sFB11BN5s3fMp8QfkQ1YUBSxp0cC7FXTlDSIKYsa87z
+         Lt+lQfJa1t20zXf4azIGYLNO0rAhV12f1+b5YYMLK07VkHpNzrYSMXudbydRG+ck1iIi
+         2UqNofacYTkgszNJ59Gxj3mQvSBy/TiVpnH3J2/nKEad7YXr/RnZhBO3fPv9va2k2NWz
+         L8MNEsFgM8hP1HgXqDivQB3U1g3Owgmxr74ZkjPmD/GFy24skZde0pUqnIKYL8LhxQ5X
+         pgK8qFF0vPW0Uz23lW6ZV4zJGbcQ00r2u8AJS4kcIrMZf0bRooa87x/zBISMFtD9MzOH
+         0UpQ==
+X-Forwarded-Encrypted: i=1; AKwUvBws+Jmo3uPLs/LsZQNosbHwfO7zXAi0/3qQA8RMP2iO2tzeKvDuO5/f0a1tfPWQoEqXusAkKN1GewAeC3g=@vger.kernel.org
+X-Gm-Message-State: AFuF++mKcgPEI/6WemHrjYuTZfmkokSyR+YDm8jqQ51Oi/hJchS0PU34
+	KXFsQHjr0zvHRQj/G7ahV/Zvcz09Yq6SYl74wYo+S0EFVE4nJ7zcpjc+Bt25QCWlmrxSHFdaDFn
+	ZhgjeQp7mcH8bL7XfMVmsbSTExZF8GqrbmN3o9FhYeH1SkeKPOfyxB3rjmks=
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-Received: by 2002:a05:6808:10cd:b0:4ea:b118:c436 with SMTP id
+ 5614622812f47-4faab5946ecmr565375b6e.5.1791229897379; Mon, 05 Oct 2026
+ 12:51:37 -0700 (PDT)
+Date: Mon, 05 Oct 2026 12:51:37 -0700
+In-Reply-To: <6abadfc1.69bd487b.a6f8c.0008.GAE@google.com>
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6ac3ffc9.34119e79.2f92f3.0037.GAE@google.com>
+Subject: Re: [syzbot] [nilfs?] WARNING in nilfs_rmdir (3)
+From: syzbot <syzbot+c388db0347b7fc88fa7a@syzkaller.appspotmail.com>
+To: konishi.ryusuke@gmail.com, linux-kernel@vger.kernel.org, 
+	linux-nilfs@vger.kernel.org, slava@dubeyko.com, 
+	syzkaller-bugs@googlegroups.com
+Content-Type: text/plain; charset="UTF-8"
 
-If the device binds via the I2C ID table (e.g., fallback matching by
-node name, sysfs new_device, or software node),
-device_get_match_data() in is31fl32xx_probe() returns NULL because
-the is31fl32xx_id table entries have no .driver_data.
+syzbot has found a reproducer for the following issue on:
 
-Without a NULL check, is31fl32xx_parse_dt() will unconditionally
-dereference cdef when checking cdef->output_frequency_setting_reg,
-and is31fl32xx_parse_child_dt() will dereference cdef->channels,
-leading to a NULL pointer dereference and kernel oops.
+HEAD commit:    67f0943b394d Merge tag 'selinux-pr-20261005' of git://git...
+git tree:       git://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git
+console output: https://syzkaller.appspot.com/x/log.txt?x=11cb9835580000
+kernel config:  https://syzkaller.appspot.com/x/.config?x=341a98f91c13ec9
+dashboard link: https://syzkaller.appspot.com/bug?extid=c388db0347b7fc88fa7a
+compiler:       Debian clang version 22.1.8 (++20260613092233+e80beda6e255-1~exp1~20260613092250.77), Debian LLD 22.1.8
+C reproducer:   https://syzkaller.appspot.com/x/repro.c?x=11d47ec9580000
 
-Add a NULL check for cdef alongside the existing child count check in
-is31fl32xx_probe(), returning -EINVAL if no match data is available.
+IMPORTANT: if you fix the issue, please add the following tag to the commit:
+Reported-by: syzbot+c388db0347b7fc88fa7a@syzkaller.appspotmail.com
 
-Fixes: 2779f4724b2f ("leds: various: use device_get_match_data")
-Cc: stable@vger.kernel.org
-Assisted-by: LLM
-Signed-off-by: Rosen Penev <rosenp@gmail.com>
+NILFS (loop0): broken superblock, retrying with spare superblock (blocksize = 1024)
+NILFS (loop0): broken superblock, retrying with spare superblock (blocksize = 4096)
+------------[ cut here ]------------
+inode->i_nlink == 0
+WARNING: fs/inode.c:408 at drop_nlink+0xc5/0x110 fs/inode.c:408, CPU#1: syz-executor166/5936
+Modules linked in:
+CPU: 1 UID: 0 PID: 5936 Comm: syz-executor166 Not tainted syzkaller #0 PREEMPT_{RT,(full)} 
+Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 09/16/2026
+RIP: 0010:drop_nlink+0xc5/0x110 fs/inode.c:408
+Code: 50 09 00 00 be 08 00 00 00 e8 e7 45 e9 ff f0 48 ff 83 50 09 00 00 5b 41 5c 41 5e 41 5f 5d c3 cc cc cc cc cc e8 bc 47 7d ff 90 <0f> 0b 90 eb 81 44 89 f1 80 e1 07 80 c1 03 38 c1 0f 8c 5b ff ff ff
+RSP: 0018:ffffc9000392fc70 EFLAGS: 00010293
+RAX: ffffffff82498df4 RBX: ffff88805e9c9558 RCX: ffff888032d7ddc0
+RDX: 0000000000000000 RSI: 0000000000000000 RDI: 0000000000000000
+RBP: 0000000000000000 R08: 0000000000000000 R09: 0000000000000000
+R10: dffffc0000000000 R11: ffffed100535792b R12: 1ffff1100bd392b4
+R13: ffff88805e9c9558 R14: ffff88805e9c95a0 R15: dffffc0000000000
+FS:  000055555fff0400(0000) GS:ffff888125cc2000(0000) knlGS:0000000000000000
+CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+CR2: 00007fb871d39286 CR3: 00000000361f2000 CR4: 00000000003526f0
+Call Trace:
+ <TASK>
+ nilfs_rmdir+0x1b4/0x250 fs/nilfs2/namei.c:347
+ vfs_rmdir+0x3e9/0x6b0 fs/namei.c:5515
+ filename_rmdir+0x292/0x520 fs/namei.c:5572
+ __do_sys_rmdir fs/namei.c:5595 [inline]
+ __se_sys_rmdir+0x2e/0x140 fs/namei.c:5592
+ do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
+ do_syscall_64+0x166/0x520 arch/x86/entry/syscall_64.c:84
+ entry_SYSCALL_64_after_hwframe+0x77/0x7f
+RIP: 0033:0x7f8f87bafa97
+Code: 00 00 90 48 83 ec 10 48 63 ff 45 31 c9 45 31 c0 6a 00 31 c9 e8 4a 07 02 00 48 83 c4 18 c3 0f 1f 44 00 00 b8 54 00 00 00 0f 05 <48> 3d 00 f0 ff ff 77 01 c3 48 c7 c2 d8 ff ff ff f7 d8 64 89 02 b8
+RSP: 002b:00007ffd6579c7f8 EFLAGS: 00000206 ORIG_RAX: 0000000000000054
+RAX: ffffffffffffffda RBX: 0000000000000003 RCX: 00007f8f87bafa97
+RDX: 0000000000000000 RSI: 00007f8f87c393a3 RDI: 00007f8f87c0cc45
+RBP: 00007f8f87c0cbee R08: 0000000000000000 R09: 0000000000000000
+R10: 0000000000000000 R11: 0000000000000206 R12: 00007ffd6579c800
+R13: 0000000000000000 R14: 00007f8f87c34cc0 R15: 0000000000000002
+ </TASK>
+
+
 ---
- drivers/leds/leds-is31fl32xx.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/drivers/leds/leds-is31fl32xx.c b/drivers/leds/leds-is31fl32xx.c
-index 285085d27453..7bb0295b0b49 100644
---- a/drivers/leds/leds-is31fl32xx.c
-+++ b/drivers/leds/leds-is31fl32xx.c
-@@ -577,7 +577,7 @@ static int is31fl32xx_probe(struct i2c_client *client)
- 	cdef = device_get_match_data(dev);
- 
- 	count = device_get_child_node_count(dev);
--	if (!count)
-+	if (!cdef || !count)
- 		return -EINVAL;
- 
- 	priv = devm_kzalloc(dev, struct_size(priv, leds, count),
--- 
-2.56.0
-
+If you want syzbot to run the reproducer, reply with:
+#syz test: git://repo/address.git branch-or-commit-hash
+If you attach or paste a git patch, syzbot will apply it before testing.
