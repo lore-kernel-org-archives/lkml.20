@@ -1,158 +1,212 @@
-Received: from mail-ua1-f98.google.com (mail-ua1-f98.google.com [209.85.222.98])
+Received: from mail-lf2-f12.google.com (mail-lf2-f12.google.com [74.125.229.204])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C4A61443E2F
-	for <linux-kernel@vger.kernel.org>; Mon,  5 Oct 2026 23:11:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.98
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0FD15411FB1
+	for <linux-kernel@vger.kernel.org>; Mon,  5 Oct 2026 23:14:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.204
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791241921; cv=none; b=URkHBNIFWDNrtV9HEULZq7NGHDAriikL1HSCK9HloHu1hFZLTSAF6L3N6kSU2NLU8gJstldztJ6xK6SLLCVdDXy22vJIii4xEQgENecnG8eOnTfmOhX4ahvwj3peQ8UESaOJOAMMp0thny0l/FCBnA1A+0IV7sWMyjal8f6bsRM=
+	t=1791242062; cv=none; b=NtMi749VcFaERoo0Jgytm0+fEEORCRFUhXYK2G9bKh4TGVpMM5uHtqR+8gbFpmV40zQzqZZp9SdunOfaZCq+rjEWW+rBqoHqUSGaCLgPLu8F4AAY2pRv74C6M2sRSAPdCL9YsVGbphMKjTRFZTu3oYUpsVlRwsL8UUUwKJ7FH28=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791241921; c=relaxed/simple;
-	bh=NClSQG2nR5RIo/DxjpVhsRM+ggSNw5Mni8L1nmeSRhM=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=uijl6tL5Des5coa17YlhET5ZqNepamlvygVjyxn7p84k14SsniUQfimfa+dBSKRiSvPnNEXc9nXAX7P2BmGO9BZmqz83jjVi6RwJsAlsFfVhZR/Pi60H3dcCm/Njs2hHaxBwsnNGLqccyfn8RCns8Q/woCBCeq6xDC4/5jzEq6E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com; spf=fail smtp.mailfrom=broadcom.com; dkim=pass (1024-bit key) header.d=broadcom.com header.i=@broadcom.com header.b=P6fFjsAD; arc=none smtp.client-ip=209.85.222.98
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=broadcom.com
+	s=arc-20240116; t=1791242062; c=relaxed/simple;
+	bh=gS+zNwut3yzsGJCudT/8JAJzPmhC/N/xQ6WP5CkudTU=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=nrEF78wOwyN7ArWROAG0OhcLXG+rRKJUvNdphIMve2MAbw6tNKF2LkCI59ooio4OEArTBd1uOTs0UdDbvZ/5NdbpOGWRK+Oo053scL+UywdMTAt6GC7UepIsWu+a1Dhoh5hXdK/Jvxc0pmwQnYrxJAIZDqU3m1PsB/vFg9LtLqs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=EvOVZu7m; arc=none smtp.client-ip=74.125.229.204
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=broadcom.com header.i=@broadcom.com header.b="P6fFjsAD"
-Received: by mail-ua1-f98.google.com with SMTP id a1e0cc1a2514c-98c7353395fso5407241.3
-        for <linux-kernel@vger.kernel.org>; Mon, 05 Oct 2026 16:11:59 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791241919; x=1791846719;
-        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:dkim-signature:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=94iLiTY8vyM8AFBst9Xq87yk06idrSO1lJMkk9ngQeo=;
-        b=FFt1aIX3ffZduk3LtgXcvDlMwh1ubpNjaM+ghrolo2t840PDUUOY7lz1G+3WVjZyqs
-         DDrTKfNbxQ7CSPTwto2jzAq84xKec58nsphJp+J4HW26TAtdhkhIGIATUHtqA8oRauQq
-         nWBzMYP5jNbdpuOPbBCEt3QFJMSNbt4aZhtyLEd5CX8Kw1pzK1Qhw+FPwEQRGzIWcPRJ
-         Zg1xLPOjHQn3TOCQXQ/BUlYMrHisyctMo9MGhqSfwCyaaI8CqX/X+uq4OsMjxOoMnzM6
-         Zq+6YiWN84sCAMvWIw2qTnfK8g9OBJOHTf8LyRAU6iCIgLAUYxpD8FQLZWrc8bDV5z3t
-         pLkQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxKtvv+iWvX9tmjpDfPnvCPaDlSCebcrLqtcWmV2mAavc5SqD6qZRL0VcglEyFsIOVWVqNNODJuqVxd7Cc=@vger.kernel.org
-X-Gm-Message-State: AFuF++la09kwhsOB/EnYMQq5QHGh6LS6jXj2mxisz0kWd83TtyO+oQKW
-	f32ABdgmot/JFB+Vx+R96w+DSu8dX6ynqp886X7B+b8eebC0B5gnLBPdSUbcxy5ITlX8D/XgucV
-	GuOHwx92ZJtxvc+ZbuJP9AQVFNVmdwsP/gtnG1RfpBHxaLdAwmjxlWo9hhX182PtF/EIE++grnI
-	8LiJ2vZBJlOMJLF+yVG/Szc3Hrc3TAmuDN/2f6xAC5dTDksXMRPNkSbCnyAMi9HDBpWs/kDr5SY
-	sVIokLjxsZXRnZxW6xT8LXk
-X-Gm-Gg: AYBFou0MOfVAeIHrWqRW52TUs0e3zRUiKKz0N3C9QDFXQYg4GJODoPOO5ajg15+UAVs
-	CnK90lINg5+ijYJH+fj0w2rM8fEbD0KBpe434pkPt1CuXW9CeGciq1E72U9RB8GVEyGJltcNkCY
-	DimlStYFGlaa6xc5VWcb6whN1ka9Sib80cvJ+E8nxa0FRwPNoIKxYVzsQhrOcwZiajD4mk7LhhO
-	Ukuzj48TPBwAK+fR4voVBPEePIpjSFiT/LRL5BNgmURHwT+Gswsz7j50/XXUralQmAdzwKBzqUt
-	NQeCT9Q14kjwI2sao6Ctx/+DIuTPwXidtZpItaFrV0EH/DUp7F45GsFi4sNMaOqw5DzHAfHMPuc
-	GtjNF11fh/Xuz0EaBJtsbMLo+kwu/4/tbFD4JZjJNikH3Y3gPBBAnWY2tHFrAEK9SQfRjYdvjd7
-	kv27MX3X9KZnH161/1jeN4vudU4BNGd3G4Ki88Ugn1
-X-Received: by 2002:a05:6122:3c4b:b0:5df:682a:5d14 with SMTP id 71dfb90a1353d-5df682a68b3mr2244297e0c.4.1791241918446;
-        Mon, 05 Oct 2026 16:11:58 -0700 (PDT)
-Received: from smtp-us-east1-p01-i01-si01.dlp.protect.broadcom.com (address-144-49-247-25.dlp.protect.broadcom.com. [144.49.247.25])
-        by smtp-relay.gmail.com with ESMTPS id 71dfb90a1353d-5e54c79fbd0sm48272e0c.1.2026.10.05.16.11.58
-        for <linux-kernel@vger.kernel.org>
-        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
-        Mon, 05 Oct 2026 16:11:58 -0700 (PDT)
-X-Relaying-Domain: broadcom.com
-X-CFilter-Loop: Reflected
-Received: by mail-dy1-f200.google.com with SMTP id 5a478bee46e88-313d1015161so6628872eec.1
-        for <linux-kernel@vger.kernel.org>; Mon, 05 Oct 2026 16:11:57 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="EvOVZu7m"
+Received: by mail-lf2-f12.google.com with SMTP id 2adb3069b0e04-5bcc24e8fc8so1181753e87.2
+        for <linux-kernel@vger.kernel.org>; Mon, 05 Oct 2026 16:14:18 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=broadcom.com; s=google; t=1791241917; x=1791846717; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=94iLiTY8vyM8AFBst9Xq87yk06idrSO1lJMkk9ngQeo=;
-        b=P6fFjsADraItraC0EA4lDRjeeT2d2tB+I8X00TZ9LxIcdpEA3wtpjT2Ks4OlELfnKl
-         UMgI+raZcYxngOYBM1f96zELTm/+QPXOJmlu9A/AGSaQmJoXN29tLZdwa6PCjqQTd7Km
-         ypabUFuqViFZq21Uf7E6UcZSCR1aPEh95vdNU=
-X-Forwarded-Encrypted: i=1; AKwUvBzmdqcSHPcZUbK4t3qH25YtbHju6p77mHC51/7BNSLcoljlmdRY+v61A3eqlAVLb3leOjjwF6cK2eBjcSo=@vger.kernel.org
-X-Received: by 2002:a05:7301:dd88:b0:34b:efa3:ea63 with SMTP id 5a478bee46e88-34f179f68e6mr15021944eec.28.1791241917034;
-        Mon, 05 Oct 2026 16:11:57 -0700 (PDT)
-X-Received: by 2002:a05:7301:dd88:b0:34b:efa3:ea63 with SMTP id 5a478bee46e88-34f179f68e6mr15021910eec.28.1791241916349;
-        Mon, 05 Oct 2026 16:11:56 -0700 (PDT)
-Received: from [10.67.48.245] ([192.19.223.252])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-35146b16846sm2868121eec.28.2026.10.05.16.11.55
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 05 Oct 2026 16:11:55 -0700 (PDT)
-Message-ID: <ac05e2aa-df42-47ea-8142-f1e1fc9f5164@broadcom.com>
-Date: Mon, 5 Oct 2026 16:11:54 -0700
+        d=gmail.com; s=20251104; t=1791242057; x=1791846857; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=Im0cJAeREuNEud0rN/fkI3qzH2PGAN0Ll6jA64yc3hs=;
+        b=EvOVZu7muvkzzsLMV9wq/lohyPo5fZm9Zmuqs80ThQ06jsg5WPhgIxV9IsdBeux8BL
+         HESh4GE45+nsVNB7GNhjBwozg2h+m4+5cvWkNsEiQGs9/bhDae/KyCBcT1gbTInQUqzK
+         OfvBYxyf9nrgbvNbHUd9GU9ZJ+EB4qgIPH+Qa4cXZ8s43rjIRb2wEB7r+bS3uPy+I80f
+         LAarLBuomRC+CPVhp825Qx8CTmEIWX8mMbmp/ZTXaQFiDet7/Zw+k7vr+6Xutz4lNS7r
+         NbmgfGb3Nl6VBMw0sgo0/wkQy30F55MRjRnfvUBBfu2/kjEbhuo4nYgALIGF8O7HLe+M
+         3oZw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791242057; x=1791846857;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Im0cJAeREuNEud0rN/fkI3qzH2PGAN0Ll6jA64yc3hs=;
+        b=wsUozKNy5ecigBfEefmOAkqUVWVQOfg+iO1jfUV/QTo5uO8dJ1HdvpesvTIrDgTGRM
+         eRo5WfA0KTrlwz5WHqmvM3L7wCD8NhP9zKcsUu9x96nr4Bccgcv4/3dQ4+6sXUtUl3no
+         MXwbnP0W1Ypxu5ejnZlSL+NzqPAw86Z85IuKhuSbjUOGvmbHZaDqKeDY8HFIAddQIfY8
+         hL5LqIm1/B10/fCRRiWz99PE03ba+PfUH2HsdcMqYwX5PABqmJruTKEALZity7Lsii+k
+         xVlx7/1okksS1bMVxmPd/qngGDmHtXUMgVa2vKSkyokFDUSIRwoLO6zI3uFbWx7yH+xP
+         DuKA==
+X-Forwarded-Encrypted: i=1; AKwUvBwi15ZZUFApAiSKb4W1P5YvPFOXKTQyCexkTyZUazpcEdAaLd/kqM2fRS1qHUtdIHB4WiFEPxt3GtXbVKM=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJI+Jd17aSmHRJwFO7Llu4Izih+BSi8lZ/XoEzIW50nSYLyH7hl
+	urA0VKynmXX5L47yGDTBROQG5smUuSHd6oGaMJ7PcnqcXezVv77DaTnu2wF3uKsV
+X-Gm-Gg: AYBFou0BQtgeVmKp9SRc5RWicqfqBfrRVvgN6MSJUCe1Br3rnvDTDESfI6cktrmca5L
+	G5EJJ8rf0lu6fGxqXsBt++k3Pk3EgzmSPSBB4sHsZg0sZEngnH+4CTe98kmUDlA/CnFXwBYAPru
+	gfcF8vfdwtlKCILsnDBjv7rDgcCCb+kh7Gk/XG6Bxd3t4VJiKjealVYYUBqfC6wU0bd9wcNAmmp
+	IS5PKRpIt8iYGFmQDYY7GMBNddneDzeui158HdwXUY+sLmdHBUIaTXW8CUj52DgRdsjfFGAXGNB
+	SNX1Ou/NPn/nOHLWGPo+b8Drp/YAr6syUJwXv8CtjJ00cSPbxzkmCgFf/0/H5IaABbA5wToumPV
+	IgKtbMdqWv1RNKoewWD3riQFlRKE7li2cIDegQPyvTb9h+kVIh5FuoMPs8xNCUI0zO7UNHcdq1k
+	CSx/NvMNfDswTtewW9DMmBOohkeF3kOL+9KO7iihV3HumTlqcLsGx7vGFyfONtGtTrICvSEga8u
+	5ZNJmtxV2DnVD+2KYGHUyPOozD5hOtJ3Zs2sh8qew==
+X-Received: by 2002:a05:6512:3ca5:b0:5ba:3109:4617 with SMTP id 2adb3069b0e04-5bb93808df5mr3907389e87.1.1791242056468;
+        Mon, 05 Oct 2026 16:14:16 -0700 (PDT)
+Received: from dau-home-pc.. ([212.35.161.1])
+        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5bb7c78c286sm3572387e87.20.2026.10.05.16.14.15
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 05 Oct 2026 16:14:15 -0700 (PDT)
+From: Anton Danilov <littlesmilingcloud@gmail.com>
+To: netdev@vger.kernel.org
+Cc: Eric Dumazet <edumazet@kernel.org>,
+	Florian Westphal <fw@strlen.de>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	"David S . Miller" <davem@davemloft.net>,
+	Simon Horman <horms@kernel.org>,
+	David Ahern <dsahern@kernel.org>,
+	Ido Schimmel <idosch@nvidia.com>,
+	Mazin Al Haddad <mazin@getstate.dev>,
+	Matthias May <matthias.may@westermo.com>,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: [PATCH net v5] ip6_gre: use skb_vlan_inet_prepare() instead of pskb_inet_may_pull()
+Date: Tue,  6 Oct 2026 02:14:14 +0300
+Message-ID: <20261005231414.932997-1-littlesmilingcloud@gmail.com>
+X-Mailer: git-send-email 2.47.3
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH net-next v2 4/7] net: bcmgenet: derive the receive buffer
- length from the MTU
-To: Nicolai Buchwitz <nb@tipi-net.de>, Doug Berger <opendmb@gmail.com>,
- Broadcom internal kernel review list
- <bcm-kernel-feedback-list@broadcom.com>, Andrew Lunn
- <andrew+netdev@lunn.ch>, "David S. Miller" <davem@davemloft.net>,
- Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>
-Cc: netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
- Dave Stevenson <dave.stevenson@raspberrypi.com>,
- Justin Chen <justin.chen@broadcom.com>,
- Pierre-Marin Leclercq <pierremarinleclercq88@gmail.com>
-References: <20261006-nb-genet-mtu-nn-v2-v2-0-c4be21151912@tipi-net.de>
- <20261006-nb-genet-mtu-nn-v2-v2-4-c4be21151912@tipi-net.de>
-Content-Language: en-US, fr-FR
-From: Florian Fainelli <florian.fainelli@broadcom.com>
-Autocrypt: addr=florian.fainelli@broadcom.com; keydata=
- xsBNBFPAG8ABCAC3EO02urEwipgbUNJ1r6oI2Vr/+uE389lSEShN2PmL3MVnzhViSAtrYxeT
- M0Txqn1tOWoIc4QUl6Ggqf5KP6FoRkCrgMMTnUAINsINYXK+3OLe7HjP10h2jDRX4Ajs4Ghs
- JrZOBru6rH0YrgAhr6O5gG7NE1jhly+EsOa2MpwOiXO4DE/YKZGuVe6Bh87WqmILs9KvnNrQ
- PcycQnYKTVpqE95d4M824M5cuRB6D1GrYovCsjA9uxo22kPdOoQRAu5gBBn3AdtALFyQj9DQ
- KQuc39/i/Kt6XLZ/RsBc6qLs+p+JnEuPJngTSfWvzGjpx0nkwCMi4yBb+xk7Hki4kEslABEB
- AAHNMEZsb3JpYW4gRmFpbmVsbGkgPGZsb3JpYW4uZmFpbmVsbGlAYnJvYWRjb20uY29tPsLB
- IQQQAQgAywUCZWl41AUJI+Jo+hcKAAG/SMv+fS3xUQWa0NryPuoRGjsA3SAUAAAAAAAWAAFr
- ZXktdXNhZ2UtbWFza0BwZ3AuY29tjDAUgAAAAAAgAAdwcmVmZXJyZWQtZW1haWwtZW5jb2Rp
- bmdAcGdwLmNvbXBncG1pbWUICwkIBwMCAQoFF4AAAAAZGGxkYXA6Ly9rZXlzLmJyb2FkY29t
- Lm5ldAUbAwAAAAMWAgEFHgEAAAAEFQgJChYhBNXZKpfnkVze1+R8aIExtcQpvGagAAoJEIEx
- tcQpvGagWPEH/2l0DNr9QkTwJUxOoP9wgHfmVhqc0ZlDsBFv91I3BbhGKI5UATbipKNqG13Z
- TsBrJHcrnCqnTRS+8n9/myOF0ng2A4YT0EJnayzHugXm+hrkO5O9UEPJ8a+0553VqyoFhHqA
- zjxj8fUu1px5cbb4R9G4UAySqyeLLeqnYLCKb4+GklGSBGsLMYvLmIDNYlkhMdnnzsSUAS61
- WJYW6jjnzMwuKJ0ZHv7xZvSHyhIsFRiYiEs44kiYjbUUMcXor/uLEuTIazGrE3MahuGdjpT2
- IOjoMiTsbMc0yfhHp6G/2E769oDXMVxCCbMVpA+LUtVIQEA+8Zr6mX0Yk4nDS7OiBlvOwE0E
- U8AbwQEIAKxr71oqe+0+MYCc7WafWEcpQHFUwvYLcdBoOnmJPxDwDRpvU5LhqSPvk/yJdh9k
- 4xUDQu3rm1qIW2I9Puk5n/Jz/lZsqGw8T13DKyu8eMcvaA/irm9lX9El27DPHy/0qsxmxVmU
- pu9y9S+BmaMb2CM9IuyxMWEl9ruWFS2jAWh/R8CrdnL6+zLk60R7XGzmSJqF09vYNlJ6Bdbs
- MWDXkYWWP5Ub1ZJGNJQ4qT7g8IN0qXxzLQsmz6tbgLMEHYBGx80bBF8AkdThd6SLhreCN7Uh
- IR/5NXGqotAZao2xlDpJLuOMQtoH9WVNuuxQQZHVd8if+yp6yRJ5DAmIUt5CCPcAEQEAAcLB
- gQQYAQIBKwUCU8AbwgUbDAAAAMBdIAQZAQgABgUCU8AbwQAKCRCTYAaomC8PVQ0VCACWk3n+
- obFABEp5Rg6Qvspi9kWXcwCcfZV41OIYWhXMoc57ssjCand5noZi8bKg0bxw4qsg+9cNgZ3P
- N/DFWcNKcAT3Z2/4fTnJqdJS//YcEhlr8uGs+ZWFcqAPbteFCM4dGDRruo69IrHfyyQGx16s
- CcFlrN8vD066RKevFepb/ml7eYEdN5SRALyEdQMKeCSf3mectdoECEqdF/MWpfWIYQ1hEfdm
- C2Kztm+h3Nkt9ZQLqc3wsPJZmbD9T0c9Rphfypgw/SfTf2/CHoYVkKqwUIzI59itl5Lze+R5
- wDByhWHx2Ud2R7SudmT9XK1e0x7W7a5z11Q6vrzuED5nQvkhAAoJEIExtcQpvGagugcIAJd5
- EYe6KM6Y6RvI6TvHp+QgbU5dxvjqSiSvam0Ms3QrLidCtantcGT2Wz/2PlbZqkoJxMQc40rb
- fXa4xQSvJYj0GWpadrDJUvUu3LEsunDCxdWrmbmwGRKqZraV2oG7YEddmDqOe0Xm/NxeSobc
- MIlnaE6V0U8f5zNHB7Y46yJjjYT/Ds1TJo3pvwevDWPvv6rdBeV07D9s43frUS6xYd1uFxHC
- 7dZYWJjZmyUf5evr1W1gCgwLXG0PEi9n3qmz1lelQ8lSocmvxBKtMbX/OKhAfuP/iIwnTsww
- 95A2SaPiQZA51NywV8OFgsN0ITl2PlZ4Tp9hHERDe6nQCsNI/Us=
-In-Reply-To: <20261006-nb-genet-mtu-nn-v2-v2-4-c4be21151912@tipi-net.de>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-DetectorID-Processed: b00c1d49-9d2e-4205-b15f-d015386d3d5e
+Content-Transfer-Encoding: 8bit
 
-On 10/5/26 15:24, Nicolai Buchwitz wrote:
-> The receive buffer length is a fixed 2048 bytes. The packet ready
-> thresholds keep whatever value the reset left. Neither follows the MTU.
-> 
-> Compute the receive threshold from the MTU and program it into RBUF. The
-> buffer length follows from it, with the status block on top. The MTU is
-> still fixed at ETH_DATA_LEN, so the threshold comes out at the reset
-> default and the buffer only grows by the status block the hardware already
-> wrote.
-> 
-> Program the transmit threshold at its maximum as well. It sets how much of
-> a frame the MAC holds before it starts sending, and holding less buys
-> nothing. A later patch lowers it for the few MTUs that need the room.
-> 
-> Suggested-by: Dave Stevenson <dave.stevenson@raspberrypi.com>
-> Signed-off-by: Nicolai Buchwitz <nb@tipi-net.de>
+ip6gre_tunnel_xmit() and ip6erspan_tunnel_xmit() check the packet length
+with pskb_inet_may_pull(), which looks at skb->protocol only, while the
+code that follows parses the packet through VLAN tags with
+skb_protocol(skb, true). The parsing started to look through the tags
+with the two commits in the Fixes tags; the check was left as it was.
+A VLAN-tagged frame whose inner IPv4/IPv6 header is not in the linear
+area passes the check, and the inner header is read anyway. A 20 byte
+tagged frame on ip6gretap and a 10 byte frame on ip6erspan are sent
+out, while an untagged frame that is too short for its IP header is
+already dropped.
 
-Reviewed-by: Florian Fainelli <florian.fainelli@broadcom.com>
+Use skb_vlan_inet_prepare(), as the IPv6 receive path does since
+commit 81c734dae203 ("ip6_tunnel: use skb_vlan_inet_prepare() in
+__ip6_tnl_rcv()"). The second argument (inner_proto_inherit) depends on
+the device: ip6gre_tunnel_xmit() serves both ip6gre (ARPHRD_IP6GRE, no
+MAC header) and ip6gretap (ARPHRD_ETHER), so it is
+dev->type != ARPHRD_ETHER there; ip6erspan is always an Ethernet device,
+so it is false. vxlan does the same with no_eth_encap.
+
+skb_vlan_inet_prepare() walks the VLAN tags from skb->mac_len - VLAN_HLEN,
+or from ETH_HLEN if skb->mac_len is 0, and on transmit skb->mac_len is
+still what the skb was received with. For a packet that came in through
+an NBMA gre device and is routed out of a VLAN on ip6gretap or ip6erspan,
+the walk starts inside the inner IPv4 header. Clear skb->mac_len for
+Ethernet devices first.
+
+An ip6gre device created without a remote uses ip6gre_header_ops, and
+ip6gre_header() pushes a pseudo IPv6 header in front of the packet, so
+there skb->data is not where the packet starts. skb_vlan_inet_prepare()
+would move the network header onto that pseudo header, whose payload
+length and GRE words are never written, and an ICMPv6 error for the
+packet then quotes them: KMSAN reports uninit-value in
+icmpv6_push_pending_frames(). Keep pskb_inet_may_pull() for that case,
+as before this change.
+
+With this change the two short frames above are dropped. gre_gso.sh,
+l2_tos_ttl_inherit.sh and the mirror_gre, mirror_gre_vlan,
+mirror_gre_bridge_1q and mirror_gre_changes forwarding selftests pass.
+A constant true instead breaks the ip6gretap cases of mirror_gre.sh,
+and a constant false breaks the ip6gre GSO cases of gre_gso.sh.
+
+This fixes the check and the skb_protocol() dispatch in
+ip6gre_tunnel_xmit(). Three related, pre-existing problems are left for
+follow-up patches: ip6_tnl_xmit() parses the VLAN tags once more after
+the GRE header has been pushed, so TTL and traffic class inheritance for
+a tagged frame on ip6gretap with a key or on ip6erspan is still taken
+from the wrong offset; the ip6gre header_ops branch kept above still has
+the check/parse mismatch once a remote is set with changelink; and
+gre_tap_xmit(), erspan_xmit() and ip_tunnel_rcv() on the IPv4 side have
+the same mismatch.
+
+Fixes: 3f8a8447fd0b ("ip6_gre: use actual protocol to select xmit")
+Fixes: b09ab9c92e50 ("ip6_tunnel: allow to inherit from VLAN encapsulated IP")
+Reported-by: syzbot+6023ea32e206eef7920a@syzkaller.appspotmail.com
+Closes: https://syzkaller.appspot.com/bug?extid=6023ea32e206eef7920a
+Suggested-by: Eric Dumazet <edumazet@kernel.org>
+Cc: stable@vger.kernel.org
+Assisted-by: LLM
+Signed-off-by: Anton Danilov <littlesmilingcloud@gmail.com>
+
+---
+v5: no functional change from v4; only the commit message and two
+    comments. The AI review asked whether the check/parse mismatch is
+    fully fixed here. I compared v4 against net on the cases it named:
+    no regression. The ip6gretap-with-key and ip6erspan outer headers
+    are unchanged, the forwarded ip6gretap-without-key case starts to
+    inherit correctly, and the short tagged frames are now dropped.
+    Spell out in the message and the comments what is and is not fixed
+    here; ip6_tnl_xmit(), the header_ops branch and the IPv4 paths are
+    follow-ups.
+    Link: https://lore.kernel.org/netdev/179121211133.434549.1381649683777834470@kernel.org/
+v4: https://lore.kernel.org/netdev/20261004145205.226974-1-littlesmilingcloud@gmail.com/
+v3: https://lore.kernel.org/netdev/20260119112512.28196-1-fw@strlen.de/
+v2: https://lore.kernel.org/netdev/20260106144529.1424886-1-edumazet@google.com/
+v1: https://lore.kernel.org/netdev/20260105100330.2258612-1-edumazet@google.com/
+
+ net/ipv6/ip6_gre.c | 27 ++++++++++++++++++++++++---
+ 1 file changed, 24 insertions(+), 3 deletions(-)
+
+diff --git a/net/ipv6/ip6_gre.c b/net/ipv6/ip6_gre.c
+index e61cb10b50dc..8b286bfd2c4c 100644
+--- a/net/ipv6/ip6_gre.c
++++ b/net/ipv6/ip6_gre.c
+@@ -883,8 +883,23 @@ static netdev_tx_t ip6gre_tunnel_xmit(struct sk_buff *skb,
+ 	__be16 payload_protocol;
+ 	int ret;
+ 
+-	if (!pskb_inet_may_pull(skb))
+-		goto tx_err;
++	if (dev->type != ARPHRD_ETHER && dev->header_ops) {
++		/* ip6gre_header() has pushed a pseudo header in front of
++		 * the packet, so skb->data is not where the packet starts.
++		 */
++		if (!pskb_inet_may_pull(skb))
++			goto tx_err;
++	} else {
++		/* skb_vlan_inet_prepare() and the skb_protocol() dispatch
++		 * below walk the VLAN tags from skb->mac_len - VLAN_HLEN, or
++		 * from ETH_HLEN if it is 0; a forwarded skb still has the
++		 * mac_len of the device it was received on.
++		 */
++		if (dev->type == ARPHRD_ETHER)
++			skb->mac_len = 0;
++		if (skb_vlan_inet_prepare(skb, dev->type != ARPHRD_ETHER))
++			goto tx_err;
++	}
+ 
+ 	if (!ip6_tnl_xmit_ctl(t, &t->parms.laddr, &t->parms.raddr))
+ 		goto tx_err;
+@@ -934,7 +949,13 @@ static netdev_tx_t ip6erspan_tunnel_xmit(struct sk_buff *skb,
+ 	__u32 mtu;
+ 	int nhoff;
+ 
+-	if (!pskb_inet_may_pull(skb))
++	/* skb_vlan_inet_prepare() below walks the VLAN tags from
++	 * skb->mac_len - VLAN_HLEN, or from ETH_HLEN if it is 0, to check
++	 * the length; a forwarded skb still has the mac_len of the device
++	 * it was received on.
++	 */
++	skb->mac_len = 0;
++	if (skb_vlan_inet_prepare(skb, false))
+ 		goto tx_err;
+ 
+ 	if (!ip6_tnl_xmit_ctl(t, &t->parms.laddr, &t->parms.raddr))
 -- 
-Florian
+2.47.3
+
