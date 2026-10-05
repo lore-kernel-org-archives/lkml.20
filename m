@@ -1,98 +1,107 @@
-Received: from mail.alien8.de (mail.alien8.de [65.109.113.108])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr2-f34.google.com (mail-wr2-f34.google.com [74.125.225.98])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C813F363C5A;
-	Mon,  5 Oct 2026 18:46:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=65.109.113.108
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B3B40231836
+	for <linux-kernel@vger.kernel.org>; Mon,  5 Oct 2026 18:46:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.98
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791226016; cv=none; b=Qxy6JGbufe5/HmPDGimzPPxl6w7JDHWFqi9gJVHo85MVZMAkdFNq+RUH2USd+y8huywBKK1kV4zUEW6/bORsPkPAD5S3MsutASGexGXXQ4x1eMeCN4LxKt58HIlCdl4IoBCRg6EWrpsDBhGbkLK+mk5/t3tDcw49FPR/rQEtulI=
+	t=1791226020; cv=none; b=WvShOA96CupzybjhIDNnOoBmb99nAuX27YnZXUgLFIj+jBkUE5ofYJwTUUQK5cq/KQ2oyqSOvml2cRit1ybfKM2GTf81u3sij+stUBmTZCbLx5/AF0DEWS1Tld49ahbBj9MWOs78KbOyB9Qd+NR+vm/o3OgIyJI7cQ4jGGxhix0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791226016; c=relaxed/simple;
-	bh=zJy94wq+pxsvLL8zQ2fDXpGOCF5NanZqgXUp1EvccIA=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=GApkF7HAvQK1jhT68RyTTTF79Kxg8L07MWdNNVY3QKuYh89NTCrUvL/pmgfX5Gr0hd2uhfkp6XPPooZ4rB4r5cgmf+0L/an51gwaTNWPzxAOQpmy2rHJw597SkAl/4qXTB3A713+gO0ejMTJYINiOftzyBlqVNZVdVhl/Qr/TaE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alien8.de; spf=pass smtp.mailfrom=alien8.de; dkim=pass (4096-bit key) header.d=alien8.de header.i=@alien8.de header.b=MABR9Alz; arc=none smtp.client-ip=65.109.113.108
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alien8.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=alien8.de
+	s=arc-20240116; t=1791226020; c=relaxed/simple;
+	bh=F1ijpYANID3xLVMHVmK5U2Z+BXQgaXvQfo3vjZejkAk=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=VOHh8UiR4iPsxjzshpROddR84u89hrdV7x86PcJ6eQKdtq4+vPfhg2EgqrgBXjiAbPpCa7aBnPxiqRWLP4BcAGJJbWqbcPR1h1gw8Lh3loJ1ipZYx/ybu3IJgfgnx8o53mpKEqayNzW3o5TopQeOmFP8+0EpTGvZpXTQF10mccs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=qHyzbvQb; arc=none smtp.client-ip=74.125.225.98
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (4096-bit key) header.d=alien8.de header.i=@alien8.de header.b="MABR9Alz"
-Received: from localhost (localhost.localdomain [127.0.0.1])
-	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTP id 8863040E02A8;
-	Mon,  5 Oct 2026 18:46:51 +0000 (UTC)
-X-Virus-Scanned: Debian amavisd-new at mail.alien8.de
-Authentication-Results: mail.alien8.de (amavisd-new); dkim=pass (4096-bit key)
-	header.d=alien8.de
-Received: from mail.alien8.de ([127.0.0.1])
-	by localhost (mail.alien8.de [127.0.0.1]) (amavisd-new, port 10026)
-	with ESMTP id WqRemdZ8-rBP; Mon,  5 Oct 2026 18:46:41 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=alien8.de; s=alien8;
-	t=1791226000; bh=JkX2GDHCaUk/bsmTXqai5KaSceDht0IEE6x+doMIyr8=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=MABR9AlzoRB85EV/neOIxFXDjqhHkp0L0wp90cXC6dd3DOnHWA3dNmY5pNasCZiSb
-	 EIPqNQqPosZmIszXkCYnPItHiiOWVIW8Mr8ISjpjmVsQA9Qct0zYuTiNM+SyB9/kHF
-	 WhkPM2Y3V3xwq4A4iXZioYoAVHi5eDT3v9dwTBDv/HVojfnSjFPejJrSELSTNt1gtS
-	 tjRJlNKdgCCqd8QHJJgTxmi1A10KkJssn87bnWLfNYAgX3SxQrVT3NpeTeRATvzPc9
-	 fqqvZGy3FQvPTYh2l6izrCSD8Y3vrF/QqogSUvyT3p/x4iehzwqBkTd6h+XaRYY/j7
-	 KsakRUPELSVqdi84fMiDFGMdmTTuZk2Cdk2Hc6pj3LX0pCAW/gQErUw25P4t5TwYlw
-	 DwebbyJFBMSL2WKUcymrvLwLwPVLf6vhRtaB6tyy5Za1ePysipRLcIzKS1/V5oqizw
-	 sinyfw9/lmUFzU0s5/0nvKBsPz3IAY10vcRw+f7OKR73bP0EOhytit/jXaWZCSJbNj
-	 EGGZN8rWxyaExoH+5854LfTQZyGNiljANILgNMy2sPWT91hseJhT5Tdo1vKSGANtS6
-	 RThngi+aXsm9ue9+xNhY+/tjFmQM3OsFPLhwmE5NlHBSYZIb7KNz2t48HJoRJkfxN6
-	 gi+doYG5AJJwwsPg6qMXg2a8=
-Received: from stx.tnic (unknown [IPv6:2600:1700:38ca:c00::3a])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (P-256) server-signature ECDSA (P-256) server-digest SHA256)
-	(No client certificate requested)
-	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTPSA id A50BC40E01B4;
-	Mon,  5 Oct 2026 18:46:24 +0000 (UTC)
-Date: Mon, 5 Oct 2026 11:46:21 -0700
-From: Borislav Petkov <bp@alien8.de>
-To: Paul Louvel <paul.louvel@bootlin.com>
-Cc: Tony Luck <tony.luck@intel.com>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Geert Uytterhoeven <geert+renesas@glider.be>,
-	Magnus Damm <magnus.damm@gmail.com>, linux-kernel@vger.kernel.org,
-	linux-renesas-soc@vger.kernel.org, linux-edac@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
-	Miquel Raynal <miquel.raynal@bootlin.com>,
-	Herve Codina <herve.codina@bootlin.com>,
-	Wolfram Sang <wsa+renesas@sang-engineering.com>
-Subject: Re: [PATCH v5 1/3] dt-bindings: edac: cdns,ddr-edac: add Cadence DDR
- EDAC
-Message-ID: <20261005184621.GCasPwfaQNE0q6zykP@fat_crate.local>
-References: <20261005-paul-v7-3-rc1-edac-v5-0-140a0f124bc0@bootlin.com>
- <20261005-paul-v7-3-rc1-edac-v5-1-140a0f124bc0@bootlin.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="qHyzbvQb"
+Received: by mail-wr2-f34.google.com with SMTP id ffacd0b85a97d-48b01d89b23so1099458f8f.2
+        for <linux-kernel@vger.kernel.org>; Mon, 05 Oct 2026 11:46:58 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791226017; x=1791830817; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=eOi8eynqTk2PQ9A1YtVNTzOJuded8lsvFakB4HYF7xg=;
+        b=qHyzbvQbTGF/6wsERgbsUR7AHFtwUJPsGhHBD3q1EnCMHH5AM6QbaHrwGQP417nNe8
+         mwOGqWkqUXPSB14Ys+vCxOlOrVl+4H1DArV0v7f3Yq25wR3UyJNqeG45hrljs7TKigx7
+         cAgN22zmz8vFyc4sE4QApJer6OvG+KQgAsvJkjy80nZjSrtN0o5UMLkGs4ddNrB0aBdV
+         Xrj0l3poT+yYUinYlynfIPWk7sJEFW/A/oZwDuUUKR++2AyzTQrytTqIvUIXmfe3w6s6
+         ExfxBJbQQJov9A19oZipKu6JwFJFQ80fPcNzP2tCL7t+ZuqL7bIQ0KUTgdHxCVSTq4vy
+         yObg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791226017; x=1791830817;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=eOi8eynqTk2PQ9A1YtVNTzOJuded8lsvFakB4HYF7xg=;
+        b=th2YVJDoZw7UElKyROGlhdmEtlG35XhGUxO7nwzPD9KyXZNomEi1TYdevCd4bVseJo
+         W4oMeqTTRRImULbiLzThFDiilSkPyzwTwHmq05n2RIQP/5UO0UkXdZMkXzHxjZ9RkfsW
+         O3M9jcH39BcsLlJWvYoJmJAGK5Md/ADbTE/fFU/oLzQIaHwOsTfpOVG6hsQ9l50b4zLe
+         tSLBasVTeH5xwf5QZsru5Y/F4V1pekLpVl5WYOUP6q3a1NQQeCYQlmmX2HDTe6VVQL/6
+         SV/wIJgGbptAf190EBYarA+FCCBx1weL5nhCnXUE7V6xrirCoOCzXA3r1oBlQhaz6aeq
+         x3UQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxdtV3JA1QIXP0L/YwmCLweZbRQUvqlh4Aqd2jK17/7l2ewLpk6OmvG+LJfOtzYP8b09rCe932p2/7GTqI=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLumceerjJnP6pXfjdgQnPDaHWMu3tvhXLgnDJ6RZ76nrFzGby5
+	H4TmvIh1ItF1qO5xMpcnD9N9utovJ/ymvR8eZLciggebiIZa4dbA1901
+X-Gm-Gg: AYBFou131/vtVv+vRr2fr5BLnpF/oFuAzDfvetrdsYpErENLIGTPw1gxcZGRauK9b8y
+	CM2+QRRk1TVM6jd/FFxow6yEwsqGbQTgugW2KNSRyti4euQCxxkh3ZN9vQv7MMBkjlbFHBzkhMP
+	kqt0vzprP9crN2+0HUAm4QwxLdD/sI1rMHg6ubaPYKQB8iHUXak0qXGFtPTBQuti/dVRnHnXGFY
+	IGstJeZIcMIqbVanfvjxJCBAy6qzPKdwtS7419nxw9sMbXVpFTn7dL4Ed2XqZKu/MNNeraXgME4
+	RFgLg+Cl9x2UAwP6Y0tJa6KAvt91zmbc0Uqx6K7g/aygQdp7FxiZ1aJujBHBtqa49G3oucV4Bdd
+	ZO6JfcOpL/BDJUu8wZSMQAtRvnR7azfw7r6J47pe/FW1p+5ew1biEDaReGINyZWaQGwWxISCSHE
+	LGJ5aJkNU6w6iQKu56gf9eWafoSH3Lgmzv2GcAsGSLPkyld7WGTuaoaWbog6JuVGzRGcPAFXwIQ
+	bPIO9Eoa1NWByewIqe8+OfPQ01cyPjOOIqUFxyTTrxPWQ==
+X-Received: by 2002:adf:f04f:0:b0:488:88f6:36a9 with SMTP id ffacd0b85a97d-48b12717780mr14643263f8f.21.1791226016957;
+        Mon, 05 Oct 2026 11:46:56 -0700 (PDT)
+Received: from pumpkin (82-69-66-36.dsl.in-addr.zen.co.uk. [82.69.66.36])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48c622704a5sm12255235f8f.15.2026.10.05.11.46.56
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 05 Oct 2026 11:46:56 -0700 (PDT)
+Date: Mon, 5 Oct 2026 19:46:55 +0100
+From: David Laight <david.laight.linux@gmail.com>
+To: Oleg Nesterov <oleg@redhat.com>
+Cc: Babanpreet Singh <bbnpreetsingh@gmail.com>, Christian Brauner
+ <brauner@kernel.org>, Pavel Tikhomirov <ptikhomirov@virtuozzo.com>, Andrew
+ Morton <akpm@linux-foundation.org>, linux-kernel@vger.kernel.org,
+ syzbot+c382ee653fd70f5cf1bb@syzkaller.appspotmail.com
+Subject: Re: [PATCH] pid: use READ_ONCE() in pid_alive()
+Message-ID: <20261005194655.18e8d3a2@pumpkin>
+In-Reply-To: <asO8TiCfByNjBHWK@redhat.com>
+References: <20261002012141.7-1-bbnpreetsingh@gmail.com>
+	<20261003182224.2171b574@pumpkin>
+	<asIwpkNr9bF6gk6Q@redhat.com>
+	<20261004125118.7de53b47@pumpkin>
+	<asJRMhSXz5XhljNi@redhat.com>
+	<20261004143108.4b851713@pumpkin>
+	<asO8TiCfByNjBHWK@redhat.com>
+X-Mailer: Claws Mail 4.1.1 (GTK 3.24.38; arm-unknown-linux-gnueabihf)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20261005-paul-v7-3-rc1-edac-v5-1-140a0f124bc0@bootlin.com>
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-On Mon, Oct 05, 2026 at 02:49:22PM +0200, Paul Louvel wrote:
-> Add the Cadence EDAC dt binding.
-> The memory controller optionally supports ECC SECDED with DDR2/DDR3
-> memory.
+On Mon, 5 Oct 2026 17:03:42 +0200
+Oleg Nesterov <oleg@redhat.com> wrote:
+
+> On 10/04, David Laight wrote:
+...
+> > If the 'add code' all the readers and have to hold the lock then does that
+> > leave anything other than task exit doing an rcu-delete.
+> > I wouldn't have though acquiring the lock in the task exit code would
+> > be noticeable.  
 > 
-> Reviewed-by: Wolfram Sang <wsa+renesas@sang-engineering.com>
-> Signed-off-by: Paul Louvel (Schneider Electric) <paul.louvel@bootlin.com>
-> ---
->  .../devicetree/bindings/edac/cdns,ddr-edac.yaml    | 61 ++++++++++++++++++++++
->  MAINTAINERS                                        |  6 +++
->  2 files changed, 67 insertions(+)
+> Still can't understand. The exiting task does take tasklist when it calls
+> detach_pid().
 
-Needs review by DT maintainers if it is going to go through the EDAC tree, see
-output of:
+I think I've confused myself :-)
+The delete needs the lock to avoid corrupting the list.
+It would be safe for an rcu protected reader - but it doesn't help you.
 
-./scripts/get_maintainer.pl -f Documentation/devicetree/bindings/edac/
-
--- 
-Regards/Gruss,
-    Boris.
-
-https://people.kernel.org/tglx/notes-about-netiquette
+David
