@@ -1,75 +1,53 @@
-Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com [148.163.158.5])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail11.truemail.it (mail11.truemail.it [217.194.8.81])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D864137D133;
-	Mon,  5 Oct 2026 07:53:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.158.5
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4B1FE2E5B2D;
+	Mon,  5 Oct 2026 07:53:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.194.8.81
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791186797; cv=none; b=iSz+b9tfcewVjihD7++Md5I7uF/nOm7ZDGiu1NgrvMqSnMKe/newc37OzB+fA8por2CZ8OWD+JjgIBBpe9la1TMk+ebClXH7LV5hdlGZWAQMecyUieKiOhxMYhrKgExpjFWHDT8wACM4jW2Fs3EjspbpacoW42YzV5jB+DKkKmo=
+	t=1791186818; cv=none; b=B96Z6j7M5ltqmmiK9qYVJjF9dq1Rmuc1XMBN3s4b4X92hiPQ9Bpk9qJHyoD2QyR5I0dhCgbb23YrHmS2hxbSCqh2YoRYaxk6i7+KG4hs1aCAODCW4Kkh+hLPQqzVMZ3+6214xqj7doSpDYTeArtYLI/BTEqou7tB59LCWSoUiaA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791186797; c=relaxed/simple;
-	bh=cZoKzXfW+ICxc0xbdGx+9g/g9nxFz7RtNyJINpsT5Sg=;
+	s=arc-20240116; t=1791186818; c=relaxed/simple;
+	bh=R3v7hxzfchd5jXcTK5Uwr+RIKgrbMtFTqdzK7Qkbgbc=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=E707YrmoKb9WIm60/CCGA4dMwZ58Rg37iGzUhgmZIGePmfeE/57SqCFEuHMrY+yvjf25afSnrjxHXLND4F6GkhNuN7+0u3yLQj2ZTuz6cNDqy3U0O2dt1sOIbz91cjM5YXw5Oh/0NezBZwhTiAN/4IV9PmCXMX/suxpjxv5KZKg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=TCmTSY5Z; arc=none smtp.client-ip=148.163.158.5
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=aFZj0xwaIVSrOo3yALwsNlIaajnKNbD50veBZQoSjr2mkq+6bzyKolaMSyRfjtrpwppcrK0rVj7qxJL4FTUUWk7sgn6zyQIw8gauUW/3B/p7hLtpjJcjHW1481ufToqir0Q9LkiCa8WPFmcevH65CqGWn3Ww9TYwu+1vlNt/CuQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=dolcini.it; spf=pass smtp.mailfrom=dolcini.it; dkim=pass (2048-bit key) header.d=dolcini.it header.i=@dolcini.it header.b=h57Gf9RI; arc=none smtp.client-ip=217.194.8.81
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=dolcini.it
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=dolcini.it
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="TCmTSY5Z"
-Received: from pps.filterd (m0353725.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69515Y7c2065822;
-	Mon, 5 Oct 2026 07:52:56 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
-	:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=pp1; bh=wovB45gTblG2t7xU0qO9DxtlTJom+P
-	bKDVPM7twlFec=; b=TCmTSY5Zh9AKcHz80FXkejP0Z01sDWYfwb2RBkH1jbIXM3
-	sMRHTTsCfANAYCF7vGoDzuLqimMOpLjhDVh2RpN6zvEa8AVHQK+9wCiBi5w322H5
-	HXZqIP8vzgueFu/cdLvYfka/eKtBAjvUDLRZcM1bGQ9ZdlcQ8YHqgzQY+PF35Fnr
-	epuHoJIWoQurHpmiIFD2sfM3W5TfhsOR1mrRdeJPURO19bkob+r6g6/wTTzEgoIk
-	8x+oVrZIwMHkp+VBi9PJI1AF63X5LP6Lf8O5rhHwVkEgYy1ZI/ThVfIeHrHdZ+tg
-	u3YSAPg5rdylSaR3oNiOzz1rWfWo9x2NBBSrguSQ==
-Received: from ppma23.wdc07v.mail.ibm.com (5d.69.3da9.ip4.static.sl-reverse.com [169.61.105.93])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4h2r4frg3s-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Mon, 05 Oct 2026 07:52:55 +0000 (GMT)
-Received: from pps.filterd (ppma23.wdc07v.mail.ibm.com [127.0.0.1])
-	by ppma23.wdc07v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 69569p1v2203886;
-	Mon, 5 Oct 2026 07:52:55 GMT
-Received: from smtprelay01.fra02v.mail.ibm.com ([9.218.2.227])
-	by ppma23.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4h3dhgmed1-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Mon, 05 Oct 2026 07:52:55 +0000 (GMT)
-Received: from smtpav03.fra02v.mail.ibm.com (smtpav03.fra02v.mail.ibm.com [10.20.54.102])
-	by smtprelay01.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 6957qo6h35455236
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Mon, 5 Oct 2026 07:52:50 GMT
-Received: from smtpav03.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id B3D972004F;
-	Mon,  5 Oct 2026 07:52:50 +0000 (GMT)
-Received: from smtpav03.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 2757F2004B;
-	Mon,  5 Oct 2026 07:52:48 +0000 (GMT)
-Received: from fedora (unknown [9.5.7.39])
-	by smtpav03.fra02v.mail.ibm.com (Postfix) with ESMTPS;
-	Mon,  5 Oct 2026 07:52:47 +0000 (GMT)
-Date: Mon, 5 Oct 2026 13:30:59 +0530
-From: Amit Machhiwal <amachhiw@linux.ibm.com>
-To: Gautam Menghani <gautam@linux.ibm.com>
-Cc: maddy@linux.ibm.com, npiggin@gmail.com, mpe@ellerman.id.au,
-        chleroy@kernel.org, ritesh.list@gmail.com, sshegde@linux.ibm.com,
-        nnmlinux@linux.ibm.com, amachhiw@linux.ibm.com,
-        linuxppc-dev@lists.ozlabs.org, kvm@vger.kernel.org,
-        linux-kernel@vger.kernel.org, stable@vger.kernel.org,
-        Timothy Pearson <tpearson@raptorengineering.com>
-Subject: Re: [PATCH v3] KVM: PPC: Book3S HV: Avoid spurious interrupts caused
- by LPCR_MER bit
-Message-ID: <20261005131832.8f6b2b14-d5-amachhiw@linux.ibm.com>
-Mail-Followup-To: Gautam Menghani <gautam@linux.ibm.com>, 
-	maddy@linux.ibm.com, npiggin@gmail.com, mpe@ellerman.id.au, chleroy@kernel.org, 
-	ritesh.list@gmail.com, sshegde@linux.ibm.com, nnmlinux@linux.ibm.com, 
-	linuxppc-dev@lists.ozlabs.org, kvm@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	stable@vger.kernel.org, Timothy Pearson <tpearson@raptorengineering.com>
-References: <20260921111043.49825-1-gautam@linux.ibm.com>
+	dkim=pass (2048-bit key) header.d=dolcini.it header.i=@dolcini.it header.b="h57Gf9RI"
+Received: from francesco-nb (93-33-55-11.ip43.fastwebnet.it [93.33.55.11])
+	by mail11.truemail.it (Postfix) with ESMTPA id 0D35F1F8C7;
+	Mon,  5 Oct 2026 09:53:24 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=dolcini.it;
+	s=default; t=1791186805;
+	bh=dTFZ0+ppaHBeezrtAiXyT5t0v4Qt5fwZihigO50o4zQ=; h=From:To:Subject;
+	b=h57Gf9RI09DzmwL75inBBQ5foOdIGCIJSc7QKVYyYRpAJbhG31YkAMPL4Eg3RGbg+
+	 wdq4NW9Z3lNBZrjpXPrbWL4cJNnV21WAKXeEUTY1p0y0Dn9nPMUVc+Mvv1bmdYRtUR
+	 R/h+uA9QsUGCxhMB0Gzb/LgXIolV2czzzopaAzEdwppBmxqgA/0gc0ajoODJdgBTT0
+	 jn7xCCkIG9w1lr+1aGfIi3TxznGdxdMq+CksPOQoVpHnlEwuAfqKtUyRFjPhsI9oES
+	 2p7T/spnYnDrEl5dWYPpkOXY7utsl2EfsQX5GyxE6jb/Jy8hF23xElW+L/TN6Bpmke
+	 LndTKF9pg2wbg==
+Date: Mon, 5 Oct 2026 09:53:19 +0200
+From: Francesco Dolcini <francesco@dolcini.it>
+To: Frank Li <Frank.li@oss.nxp.com>
+Cc: Francesco Dolcini <francesco@dolcini.it>,
+	Leonardo Costa <leoreis.costa@gmail.com>, robh@kernel.org,
+	krzk+dt@kernel.org, conor+dt@kernel.org, Frank.Li@nxp.com,
+	s.hauer@pengutronix.de, kernel@pengutronix.de, festevam@gmail.com,
+	francesco.dolcini@toradex.com, leonardo.costa@toradex.com,
+	hvilleneuve@dimonoff.com, marex@nabladev.com,
+	stefano.r@variscite.com, devicetree@vger.kernel.org,
+	imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 3/7] ARM: dts: imx6q-apalis: Add Toradex Capacitive Touch
+ Display 10.1" LVDS
+Message-ID: <20261005075319.GA7692@francesco-nb>
+References: <20261001155412.3177428-1-leoreis.costa@gmail.com>
+ <20261001155412.3177428-4-leoreis.costa@gmail.com>
+ <ar6JnZp1jBvlc8bx@SMW015318>
+ <20261002081824.GA7222@francesco-nb>
+ <ar_bsQbD-IbvUf86@SMW015318>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -78,128 +56,195 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260921111043.49825-1-gautam@linux.ibm.com>
-X-TM-AS-GCONF: 00
-X-Proofpoint-Reinject: loops=2 maxloops=12
-X-Authority-Analysis: v=2.4 cv=TOPQ2Fla c=1 sm=1 tr=0 ts=6ac35758 cx=c_pps
- a=3Bg1Hr4SwmMryq2xdFQyZA==:117 a=3Bg1Hr4SwmMryq2xdFQyZA==:17
- a=kj9zAlcOel0A:10 a=660iZSQnnn4A:10 a=VkNPw1HP01LnGYTKEx00:22
- a=RnoormkPH1_aCDwRdu11:22 a=V8glGbnc2Ofi9Qvn3v5h:22 a=VwQbUJbxAAAA:8
- a=yKAn6K1XAAAA:8 a=_AprYWD3AAAA:8 a=VnNF1IyMAAAA:8 a=EThlqOoKbmT7VKALfbcA:9
- a=CjuIK1q_8ugA:10 a=6M1ixcW_PCWoKiWyFx5v:22 a=fKH2wJO7VO9AkD4yHysb:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDA1MDAzMCBTYWx0ZWRfX2InbMOps9S09
- JI+jwuFS/ZBJCj7AAFdKAc8Wis3oh+tm2iyOkkOBXYk5rOsUx4OPGw6qD98MbVu0I5Oo/dVfLNC
- rfMKo7sN31SO7dEBQmfK5c1yEy1WGXKPgzdIHwGEzMwmvYFh30YdUB7JrzjleyCD/Kc54Wl1t4+
- NOCUjRVZFeS+3jwuIujjxRkxPyXJg5JYqHLM6X4TJpOi1ztnoujWXPyHcfqsZRlzNkaH3N+nPqk
- tDa6zEK+ZPCGp9t2em/YmPqWL9gQwmHXQ4tw48Ldw67mCjI+ofPc53DUQatEzJOFH/pPbWnNpC+
- vU6s0sZTZeX7W2mFA1nMOjJD+8DVJdbxNLlFzGR19LRrMocxYKdlPLntstwDDyZ9BQBudjE5QxQ
- UK8yD2/gXh+hiQUICAn3IcrKxejyyM9AEg38XpUSDmovniqVUuAUY3Vog0lQWHP9VSZ4ofeBzVr
- NulN/EI6QqioziJ8wLA==
-X-Proofpoint-GUID: z3VeellNhN-20HClfkBmum5rlFaw0hFJ
-X-Proofpoint-ORIG-GUID: is6NVzq44xhVgSXksG9snG8P5amf8ebg
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDA1MDAzMCBTYWx0ZWRfX6INeK+u8IbeW
- 9yV2bMXqmwIx1n4til78OiMAuYtKetphFSAXcTv7HLO3RKb5DTu9ZhDkxNq+hNIvwJX6s3B+WCv
- OkDWbsYrtFWXHmIX2XBrql0x+PmqUFU=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-10-05_01,2026-10-02_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- malwarescore=0 priorityscore=1501 spamscore=0 adultscore=0 clxscore=1011
- lowpriorityscore=0 impostorscore=0 bulkscore=0 phishscore=0 suspectscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2610050030
+In-Reply-To: <ar_bsQbD-IbvUf86@SMW015318>
 
-Hi Gautam,
+Hello Frank,
 
-Thanks for the patch and working on this.  I have a couple of questions though.
+On Fri, Oct 02, 2026 at 11:28:33AM -0500, Frank Li wrote:
+> On Fri, Oct 02, 2026 at 10:18:24AM +0200, Francesco Dolcini wrote:
+> > On Thu, Oct 01, 2026 at 11:26:05AM -0500, Frank Li wrote:
+> > > On Thu, Oct 01, 2026 at 12:52:53PM -0300, Leonardo Costa wrote:
+> > > > From: Leonardo Costa <leonardo.costa@toradex.com>
+> > > >
+> > > > Add a device tree overlay for the Toradex Capacitive Touch Display 10.1"
+> > > > LVDS connected via the Apalis iMX6 LDB.
+> > > >
+> > > > The panel is a LogicTechno LT170410-2WHC 10.1" WXGA IPS LCD and the
+> > > > touch input is provided by an Atmel MaxTouch capacitive touch
+> > > > controller.
+> > > >
+> > > > Remove the panel-lvds node from the Apalis iMX6 dtsi, as it is an
+> > > > external component that does not exist at the SoM level.
+> > > >
+> > > > The overlay is also combined with the Apalis iMX6 V1.2 Ixora Carrier
+> > > > Board V1.2 device tree to provide a ready-to-use DTB.
+> > > >
+> > > > Link: https://developer.toradex.com/hardware/accessories/displays/capacitive-touch-display-101inch-lvds
+> > > > Signed-off-by: Leonardo Costa <leonardo.costa@toradex.com>
+> > > > ---
+> > > >  arch/arm/boot/dts/nxp/imx/Makefile            |  6 +++
+> > > >  ...6q-apalis-panel-cap-touch-10inch-lvds.dtso | 53 +++++++++++++++++++
+> > > >  arch/arm/boot/dts/nxp/imx/imx6qdl-apalis.dtsi | 13 -----
+> > > >  3 files changed, 59 insertions(+), 13 deletions(-)
+> > > >  create mode 100644 arch/arm/boot/dts/nxp/imx/imx6q-apalis-panel-cap-touch-10inch-lvds.dtso
+> > >
+> > > similar 7" case, add panel module name in file
+> > >
+> > > imx6q-apalis-lvds-panel-lt170410.dtso
+> >
+> > This does not work, sorry, the current name is the correct one, for
+> > various reasons:
+> >
+> >  - the product is a display made with a specific connector, touch
+> >    controller and display and more. The actual panel is just part of it
+> >  - the current name wholly describe the product, it's a public product
+> >    with an official name, all of that is clearly linked in the commit
+> >    message and comments. there is no ambiguity.
+> >  - the same toradex accessories are not module specific, they are used
+> >    across multiple families/carrier board. It is a whole ecosystem that is
+> >    building on top of standardized interfaces and connectors. The same
+> >    overlay file is available for multiple boards and in multiple SoC
+> >    vendor directory (as of now TI and NXP, soon we are going to have
+> >    also QCOM). Having a consistent naming scheme is important, we cannot
+> >    call the same things differently every time.
+> >  - there was a situation in which we did a new product revision of a
+> >    display, specifically the "Toradex Capacitive Touch Display 10.1"
+> >    LVDS" there are two versions. The official product name is the same,
+> >    apart an additional version number, one is version1, the other is
+> >    version2. They have differences, and it's not just the panel, more
+> >    stuff changed, so having the panel name in the filename will not
+> >    help. v2 support is already in [1], for reference.
+> >  - the toradex naming scheme is not encoding the actual part number used
+> >    in the product name, for example we have apalis imx6 v1.2 that uses a
+> >    different touch/adc than previous apalis imx v1.1. The product has a
+> >    different schematics, different BoM and so on
+> 
+> Do you have schematics number to identify it?
 
-On 2026/09/21 04:40 PM, Gautam Menghani wrote:
-> A huge number of spurious interrupts can be seen immediately after a KVM
-> on PowerNV guest boots up in XIVE mode.
-> 
-> $ cat /proc/interrupts  | grep SPU
-> SPU:     223705     192439     273526     147623   Spurious interrupts
-> 
-> This bug was introduced by commit ecd10702baae5 ("KVM: PPC: Book3S HV:
-> Handle pending exceptions on guest entry with MSR_EE"). The root cause
-> is that once LPCR_MER bit is set, it is supposed to be reset by
-> software. But when a vCPU starts running with LPCR_MER set, the vCPU does
-> not exit back to the host until the decrementer expires or there is an
-> hcall, etc. This is because KVM on PowerNV guests have support for
-> native XIVE, so they are not dependent on host for interrupt emulation.
-> Due to this behaviour, a huge number of spurious interrupts are seen
-> since LPCR_MER continues to be set and LPCR_MER cannot be reset until the
-> vCPU exits to the host.
-> 
-> Fix this behaviour by not using the LPCR_MER bit whenever native XIVE is
-> available (currently in case of KVM on PowerNV only), as the XIVE hardware
-> can present interrupts to the KVM guest vCPU directly. So the LPCR_MER
-> functionality is not required. This reduces the number of spurious
-> interrupts drastically.
-> 
-> Fixes: ecd10702baae5 ("KVM: PPC: Book3S HV: Handle pending exceptions on guest entry with MSR_EE")
-> Cc: stable@vger.kernel.org # 6.8+
-> Reported-by: Timothy Pearson <tpearson@raptorengineering.com>
-> Closes: https://lore.kernel.org/linuxppc-dev/582904882.11159.1786719390349.JavaMail.zimbra@raptorengineeringinc.com
-> Signed-off-by: Gautam Menghani <gautam@linux.ibm.com>
-> ---
-> v3:
-> 1. Continue the use of LPCR_MER when kernel-irqchip=off (Sashiko)
-> 
-> v2:
-> 1. Handle the case where xive_interrupt_pending() is true and also the
-> external exception bit is set. (Narayana)
-> 
->  arch/powerpc/include/asm/kvm_ppc.h | 7 +++++++
->  arch/powerpc/kvm/book3s_hv.c       | 2 +-
->  2 files changed, 8 insertions(+), 1 deletion(-)
-> 
-> diff --git a/arch/powerpc/include/asm/kvm_ppc.h b/arch/powerpc/include/asm/kvm_ppc.h
-> index 169ea6a7fbad..580ad2548c2b 100644
-> --- a/arch/powerpc/include/asm/kvm_ppc.h
-> +++ b/arch/powerpc/include/asm/kvm_ppc.h
-> @@ -747,6 +747,11 @@ static inline int kvmppc_xive_enabled(struct kvm_vcpu *vcpu)
->  	return vcpu->arch.irq_type == KVMPPC_IRQ_XIVE;
->  }
->  
-> +static inline bool kvmppc_xive_native_enabled(struct kvm *kvm)
-> +{
-> +	return kvm->arch.xive_devices.native;
-> +}
-> +
->  extern int kvmppc_xive_native_connect_vcpu(struct kvm_device *dev,
->  					   struct kvm_vcpu *vcpu, u32 cpu);
->  extern void kvmppc_xive_native_cleanup_vcpu(struct kvm_vcpu *vcpu);
-> @@ -782,6 +787,8 @@ static inline bool kvmppc_xive_rearm_escalation(struct kvm_vcpu *vcpu) { return
->  
->  static inline int kvmppc_xive_enabled(struct kvm_vcpu *vcpu)
->  	{ return 0; }
-> +static inline bool kvmppc_xive_native_enabled(struct kvm *kvm) { return false; }
-> +
->  static inline int kvmppc_xive_native_connect_vcpu(struct kvm_device *dev,
->  			  struct kvm_vcpu *vcpu, u32 cpu) { return -EBUSY; }
->  static inline void kvmppc_xive_native_cleanup_vcpu(struct kvm_vcpu *vcpu) { }
-> diff --git a/arch/powerpc/kvm/book3s_hv.c b/arch/powerpc/kvm/book3s_hv.c
-> index dbac3573b2c8..cb2bb29451a7 100644
-> --- a/arch/powerpc/kvm/book3s_hv.c
-> +++ b/arch/powerpc/kvm/book3s_hv.c
-> @@ -4980,7 +4980,7 @@ int kvmhv_run_single_vcpu(struct kvm_vcpu *vcpu, u64 time_limit,
->  			if (!kvmhv_on_pseries() && (__kvmppc_get_msr_hv(vcpu) & MSR_EE))
->  				kvmppc_inject_interrupt_hv(vcpu,
->  							   BOOK3S_INTERRUPT_EXTERNAL, 0);
-> -			else
-> +			else if (!kvmppc_xive_native_enabled(vcpu->kvm))
->  				lpcr |= LPCR_MER;
+Why do you ask specifically about schematics? We have schematics and we
+have a way to identify a product to the related schematic. The way we
+identify schematics, whatever is a number, a string, or anything else
+seems not relevant to me.
 
-1. What happens when an L1 KVM guest is booted with (native) XIVE and then the
-   guest is rebooted with `xive=off` i.e., with XICS?  Will we stop setting
-   LPCR_MER as kvm->arch.xive_devices.native would still be set?
-2. What happends when an L1 KVM guest is booted with XIVE and then we kexec into
-   a new kernel with `xive=off`?  You did mention in your other reply that with
-   kexec, `xive=off` is ignored currently but IMO, we would want to understand
-   where this limiation lies and fix that if need be.  I do understand we are
-   trying to fix spurious interrupts problem with XIVE in this patch and this
-   particular problem can be taken separately but it worth investigating.
+But yes, answering you question, we do have schematics and a unique
+way to identify them, and it's not using "numbers".
 
-Thanks,
-Amit
+What matters here, is that Toradex products have a unique number,
+and we have a way to trace product revisions.
+
+So, for each product we have
+
+<product name> <pid>
+
+and <pid> is 8 digits, the first 4 digits is the end customer product
+definition, and it matches with the product name, and the last 4 digits
+is the product revision.
+
+All of that is documented, see https://developer.toradex.com/hardware/hardware-resources/general-product-information/ordering-information-and-product-identification-pid-pid4-and-pid8/,
+and this is what is used for any kind of product traceability.
+
+Staying on our LVDS 10inch panel example
+
+Capacitive Touch Display 10.1" LVDS | PID4: 1212 | PID8: 12121000 | (version 1)
+Capacitive Touch Display 10.1" LVDS | PID4: 1212 | PID8: 12122000 | (version 2)
+
+
+> > , and there is no
+> >    reference of the difference touch/adc in the name. You can see this
+> >    information from the public documentation just looking at the
+> >    version. or you can check yourself comparing the two DTS in the linux
+> >    kernel tree.
+> >
+> > [1]
+> >  arch/arm64/boot/dts/ti/k3-am625-verdin-panel-cap-touch-10inch-lvds.dtso
+> >  arch/arm64/boot/dts/ti/k3-am625-verdin-panel-cap-touch-10inch-lvds-v2.dtso
+> 
+> V2 is okay, but "panel-cap-touch-10inch-lvds" is too common. This may
+> cause naming pollution if we implement shared one panel dtso for all boards.
+
+This is the product name, what is missing is the vendor. Given the
+vendor (Toradex), the product is unique.
+
+We could rename all of our accessories dtbo adding a "tdx" prefix (when
+they are Toradex products, of course).
+
+So for example we could have
+
+k3-am625-verdin-tdx-panel-cap-touch-10inch-lvds.dtso
+k3-am625-verdin-tdx-panel-cap-touch-10inch-lvds-v2.dtso
+
+This way your concern on name pollution is solved using the vendor
+("tdx") as prefix in the accessory name.
+
+It's going to be a pain to rename this stuff, and it's going to have an
+impact on users (that as I keep writing and insisting are the one that
+matter). On the other hand, when we have a toradex product ("verdin", or
+"apalis", ...), having a matching Toradex accessory to me is the default
+and this info is not needed.
+
+When adding non-toradex accessory to a toradex board we make explicit
+the vendor of the accessory, see
+
+arch/arm64/boot/dts/ti/k3-am625-verdin-rpi-display-2-7in.dtso
+
+where we have the "rpi" prefix.
+
+So, my proposal would be to accept that for dtbo, combined with Toradex
+board, the default is to be a Toradex accessory, therefore there is no
+need of any additional string in the name. The second option, would be
+to add a redundant "tdx" prefix. It will create a rename mess and it
+will have an impact to the user, but it will not be wrong.
+
+Your proposal, onthe other hand, is not working, and not matching the
+reality of the product described by the dtbo.
+
+> > > > +/dts-v1/;
+> > > > +/plugin/;
+> > > > +
+> > > > +&{/} {
+> > > > +	panel-lvds {
+> > > > +		compatible = "logictechno,lt170410-2whc";
+> > > > +		backlight = <&backlight>;
+> > > > +		power-supply = <&reg_3v3_sw>;
+> > >
+> > > use name reg_lvds_panel, it help improve reusablity.
+> >
+> > I disagree.
+> >
+> > The regulator should be the one that is physically used on
+> > the board. The DTS *must* describe the HW as accurately as possible, we
+> > are not supposed to invent non existing regulator and more in general
+> > non existing HW.
+> 
+> It reflact hardware, it connect by a connectors HEAD. In Connect HEADER,
+> VCC for panel is fixed naming, like vcc_lcd_xxxx. Difference mainboards
+> route it to difference supply.
+> 
+> Dtso file should use name in HEADER.  The main dts descript how connect
+> it to provider, currently use additional label for it.
+
+The power supply it is not the pin number on the connector.
+
+The power supply is in the board. We have board in which the power
+supply can be controlled by a gpio, board in which it is fixed, board in
+which this power supply is shared with other peripherals. So no, the
+power supply is not the pin number in the connector. What you write here
+is wrong.
+
+> > I see your need to avoid duplication, and I agree with it. But an
+> > accurate HW description and the user experience trumps this need.
+> > And I insist on the user experience, what we are doing is for someone to
+> > use, we should not make the life of people hard because we decide on
+> > non-descriptive or inaccurate names.
+> 
+> We take an iterative approach, learning and improving as we progress. New
+> issues are addressed step by step, and better solutions are adopted
+> whenever they are identified. Once a new approach proves to be more
+> effective, we gradually transition to it, especially for new drivers and
+> DTS changes.
+
+Yes, of course. I agree. And this has nothing to do with that we are
+discussing here.
+
+Francesco
+
