@@ -1,234 +1,269 @@
-Received: from mx0a-0002e601.pphosted.com (mx0a-0002e601.pphosted.com [148.163.150.75])
+Received: from mx0a-0064b401.pphosted.com (mx0a-0064b401.pphosted.com [205.220.166.238])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 071884825A5;
-	Mon,  5 Oct 2026 12:50:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=148.163.150.75
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 37AA231B10B
+	for <linux-kernel@vger.kernel.org>; Mon,  5 Oct 2026 12:52:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=205.220.166.238
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791204646; cv=fail; b=g0NmoDFCtfNom6oil0svWyLppajCJKSCjzZLFC7G+uLePAehYrno97tFq+hss5F5cuvTmUMmMONz3v7+rRMp52ZUNIfX6wK3dWM0SeUnHUdlumXuzS7lI3cFfDuP+Zt/glBLBHsEZVnuzTgVhO3pm0kdDZrERW5Tq2PHoJ7C7v4=
+	t=1791204737; cv=fail; b=gqqxRhVZFDJ/D7idQVcgekmF+YlXmcP2KYdyoDvveP/IY6v/zuHQJiDWA70x8b2ibrxXLQJzc/WcQKDOUI/PLawFOHpSEigWDVNiOU9lgGFQovTjWzBLMsBBMPtr0ix+JUlon1pIzJ3o17g/aA5hTW3AyvgqHOpFfggQpNGzUl4=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791204646; c=relaxed/simple;
-	bh=lvtcVCISasiYjVCRNNxPvp0xGCQaWlIRJmle6+1DiMY=;
-	h=Date:From:To:CC:Subject:Message-ID:MIME-Version:Content-Type:
-	 Content-Disposition; b=gvxomcAVNEO/eNh7RKJeSso7NiX4neqk0wz76rCNRkikJhm1vS1Z+YPJC7aBuTrlivkqJ37HON5R1OD7Z6KUGXOSVRCJNFkL7kUvKJZgyLwSj0LcnmjtPyf3U0c/jFVrZmkM3xkM36VlIP1e4bf7jTZMQV3qbc8umLGEUXAeqPU=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com; spf=pass smtp.mailfrom=ti.com; dkim=pass (2048-bit key) header.d=ti.com header.i=@ti.com header.b=MCWuJ1zJ; dkim=pass (1024-bit key) header.d=ticloud.onmicrosoft.com header.i=@ticloud.onmicrosoft.com header.b=MS5OfQHr; arc=fail smtp.client-ip=148.163.150.75
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ti.com
+	s=arc-20240116; t=1791204737; c=relaxed/simple;
+	bh=x3lZlAJxMgvsk1V5qLSa18bTxaX3s6YETKpAMcCbHSQ=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=dgyVqLSssVyL7N9KM9B9WQUVjYIlxLEluezJeH2ptkoKcoVDve0fsUaMNGVBYVgok8S8Ow8L7dhyzZtLq8ZBUo0AihMJXPPPQiNXLhZLz1QvzFdIEIBuuJ/w+EZP9t0CucA6A36SXFBWkAAddlKjaUhNuZDgmr7rn4VhO3Qzdro=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=windriver.com; spf=pass smtp.mailfrom=windriver.com; dkim=pass (2048-bit key) header.d=windriver.com header.i=@windriver.com header.b=o+HYDcvT; arc=fail smtp.client-ip=205.220.166.238
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=windriver.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=windriver.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ti.com header.i=@ti.com header.b="MCWuJ1zJ";
-	dkim=pass (1024-bit key) header.d=ticloud.onmicrosoft.com header.i=@ticloud.onmicrosoft.com header.b="MS5OfQHr"
-Received: from pps.filterd (m0380145.ppops.net [127.0.0.1])
-	by m0380145.ppops.net (8.18.1.11/8.18.1.11) with ESMTP id 695CHb143906194;
-	Mon, 5 Oct 2026 07:50:39 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com; h=cc
-	:content-type:date:from:message-id:mime-version:subject:to; s=
-	proofpoint-05-2026; bh=MHeqMTeqgG3kx3NRlfL9xjSCS0fBuE33Tex7WsAOS
-	DY=; b=MCWuJ1zJp8YoBVmZQQfwr+Y9lFV93eSEfFfkNhvXb06eMXU/EbcU2gk6I
-	gBlC8YUK6Ldd7Mil/iLjDB7533ynFdChdmjwotRewydFnAcd1vEDJ/5l/2NiWVLZ
-	DMc3GU9NHxwuqCExEuxPGdzc6YEkebrcJ5VHno0YD4bPVOdFb5K/ogX3j5KPgA4l
-	l80o66ymOhjBsLDcsNqQzbpktzF9Syg90a+WVXU3sMhbSkpDvNR52xc257QG7Ze5
-	7PHD9n5pT6k8kBh7GCUxkk7F0xWxYx2OVZZOUqK0z/BNW4zLPq9zYLNjz0a/Wnnw
-	ABV/9zl4EepWMpJrRB7L5NLV/LRtA==
-Received: from dm5pr21cu001.outbound.protection.outlook.com (mail-centralusazon11011041.outbound.protection.outlook.com [52.101.62.41])
-	by m0380145.ppops.net (PPS) with ESMTPS id 4h3jqnd3j8-1
+	dkim=pass (2048-bit key) header.d=windriver.com header.i=@windriver.com header.b="o+HYDcvT"
+Received: from pps.filterd (m0250810.ppops.net [127.0.0.1])
+	by mx0a-0064b401.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 695CH9E32257678;
+	Mon, 5 Oct 2026 05:50:36 -0700
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=windriver.com;
+	 h=cc:content-transfer-encoding:content-type:date:from
+	:in-reply-to:message-id:mime-version:references:subject:to; s=
+	PPS06212021; bh=YWAO/XTQXiX8Z8pmNp0xpCemEQnMSWoJdc3wD7FxK80=; b=
+	o+HYDcvTxJ+pdeQEy+H6O8GZON61QigL2WkNl51NaYs1zb3Z6RTKnh3KM1Hnahma
+	mcPXzcybF22DkrqS4F4VfCKL8dIFpAbzndOeKW8kdk0IwQHSrvok2pZWr/pcwUK0
+	u9f+S5VPMJgwqXcr351+VYcIVL0Oe7BT0J7Sue8hWS61a+5fGaIfKThQ/AhatrkT
+	d7BH0SYLFHPvdcLMJcE/YeKjNgvlRfPFV40EdgEPDqHvNaAL6p68vuJ3tmlfhYnW
+	ADQ5idKGgqHYYGTpwP3nRbs75tuRrhsQA+Vroxn+yFeaQw50215NdsyHtzL6TOdf
+	5r8Q9T+APR6BsxPU07O/cw==
+Received: from sn4pr0501cu005.outbound.protection.outlook.com (mail-southcentralusazon11021113.outbound.protection.outlook.com [40.93.194.113])
+	by mx0a-0064b401.pphosted.com (PPS) with ESMTPS id 4h2w01256b-1
 	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Mon, 05 Oct 2026 07:50:38 -0500 (CDT)
+	Mon, 05 Oct 2026 05:50:36 -0700 (PDT)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=sFap6O37rQxOMr8ZvlR9qfWE+fO1tzCZi/D35ZbUHYHYOBpGwVcF/OjD3OYRUcPNmF7eR4p931ioEbMb6Sm5hYqQEFxibQYWo20Cor7aTwR4+ObeX+FaGDeNS27HpzF43t3T6N6jhW632onNiXYkzYfxEe3mTC2Dt/K9aSjSDVObYD7iLrz0M+AwG8RTqhgQwrkqtx4mkwP11J28Gna1rFJx6TGXVxAPMxNzdFaPFSsfQ4rx+F3S6BNtW48N/GZd3jWpakjFashKfkKW+xc1sZqFONcCfVKx6VZXefLBUmDS/iwcdwgqmqpFkilkGjvmkPs16XsnPWTxQRCtm/Owrg==
+ b=T7HV+InhZUCvEHhfz+8gFp50gM19c1rsJA1605YOvxwFr0Xg9oRW1uMFB9zfm0D6PSf+DomCqFZ9SJzjjB+nOWTeAZkkdYem93atSQQAv51bacvjeoKaIVLyHVVQCW/L6AuwUek2W/U8aToY8Mr+5g1KbvNqMDLJhZRnqYVQ0sPmiTdsDZS/tsmY6MyQVWNbophtVHg1PA4D0RGkhA6F4EtMTk/rjDBYlnY+ujOFRqhUp91t4YtJefwlDmV3BE24QyuCTnipiO5ZkwplEhWDQvliToNkGFm4LPImwVO1ALaWdZGTQvBT4Msk3WEcZSCia73QCoCsjhf5yV/JR0jBGQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=MHeqMTeqgG3kx3NRlfL9xjSCS0fBuE33Tex7WsAOSDY=;
- b=pRak+2ayzk5skdb5KPQEJkZtcpvgH9f05EDoxfSXTUZxL1RUHLXO6347htFwzYpwGQc6t2DaOeOY8QV0cQu72eEAKoAAMFK5fEVbS4J9slrBtFM6/nmeJKcivx9Ey76/vcold/GZie1nXX556bmrImydP0xYfVk/YhAu07iNP1VCpI7kz4OiDOuG8uxSQeE7R8aN7/xA8lPxFFiijAl2oHk2oxQE78K75iXTJ4DMUVcYCDcG+6D7S314e0dgmEUePZNfVPahGfn1vRfW8H9IfqS3zot8dVKXcwKCrQjj4KPCQB7jpx0aptyiiw1BD9eyGDHsqgX7+mQSlH+ynxWd+w==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 198.47.21.195) smtp.rcpttodomain=kernel.org smtp.mailfrom=ti.com; dmarc=pass
- (p=quarantine sp=none pct=100) action=none header.from=ti.com; dkim=none
- (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=ticloud.onmicrosoft.com; s=selector1-ticloud-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=MHeqMTeqgG3kx3NRlfL9xjSCS0fBuE33Tex7WsAOSDY=;
- b=MS5OfQHrvtwkXZ76en4NCS24yLezaV2MQjvUj+QzvAWGXXqUoFHgSfY0HWVl6wH4whs0CrouIyh9ug68NvZ8AxyGca2I5MqFVkdC/O20ZCiAtI2ap4bHtpVGt/trLZv/ee9BfG2XDA29E/VsmCHP9wl4RsdAGYWLL7Q3yp9raQ8=
-Received: from BY1P220CA0003.NAMP220.PROD.OUTLOOK.COM (2603:10b6:a03:59d::10)
- by DS4PPF4F3334483.namprd10.prod.outlook.com (2603:10b6:f:fc00::d1c) with
+ bh=YWAO/XTQXiX8Z8pmNp0xpCemEQnMSWoJdc3wD7FxK80=;
+ b=xggChznW2hJ8uYs5NKYNdVO1EQAaNu4VVD4A7h9LgJ7t8ntxGcQvQrKLrhK4FxP7wzojnNiQmCdzvqNryPYek9TlgLAVqXWr4qJPh3qIsfBBDGKJGIwwEGMZAz335B6a1PyUaBbc0ib3qP2pYbxUT2XZALSMgYcOYmkOXPNTxEKy6iTjKld79bbsblC2VTgnpmOLRFyX2jrCkQcRQmL6+yB+iylGfqIVxLbMvlcP+7Bk7z9z6BeqMuvpITyVB17IHAsSLo/al2nQBy56BGtPfCunO3jq+Ud3A/uSYpke1DFKeD+IB1gcAeX5ZMie8AWwBDJ8Ifb9TlfOiDPFkyPXKQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=windriver.com; dmarc=pass action=none
+ header.from=windriver.com; dkim=pass header.d=windriver.com; arc=none
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=windriver.com;
+Received: from SJ2PR11MB7546.namprd11.prod.outlook.com (2603:10b6:a03:4cc::8)
+ by DM6PR11MB4755.namprd11.prod.outlook.com (2603:10b6:5:2ae::18) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.472.18; Mon, 5 Oct
- 2026 12:50:04 +0000
-Received: from MW1PEPF0001888D.namprd03.prod.outlook.com
- (2603:10b6:a03:59d:cafe::2e) by BY1P220CA0003.outlook.office365.com
- (2603:10b6:a03:59d::10) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.472.20 via Frontend Transport; Mon, 5
- Oct 2026 12:50:03 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 198.47.21.195) smtp.mailfrom=ti.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=ti.com;
-Received-SPF: Pass (protection.outlook.com: domain of ti.com designates
- 198.47.21.195 as permitted sender) receiver=protection.outlook.com;
- client-ip=198.47.21.195; helo=flwvzet201.ext.ti.com; pr=C
-Received: from flwvzet201.ext.ti.com (198.47.21.195) by
- MW1PEPF0001888D.mail.protection.outlook.com (10.167.249.164) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.496.14 via Frontend Transport; Mon, 5 Oct 2026 12:50:02 +0000
-Received: from DFLE208.ent.ti.com (10.64.6.66) by flwvzet201.ext.ti.com
- (10.248.192.32) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Mon, 5 Oct
- 2026 07:49:26 -0500
-Received: from DFLE210.ent.ti.com (10.64.6.68) by DFLE208.ent.ti.com
- (10.64.6.66) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Mon, 5 Oct
- 2026 07:49:26 -0500
-Received: from lelvem-mr05.itg.ti.com (10.180.75.9) by DFLE210.ent.ti.com
- (10.64.6.68) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45 via Frontend
- Transport; Mon, 5 Oct 2026 07:49:26 -0500
-Received: from localhost (uda0133052.dhcp.ti.com [128.247.81.232] (may be forged))
-	by lelvem-mr05.itg.ti.com (8.18.1/8.18.1) with ESMTP id 695CnPue1158713;
-	Mon, 5 Oct 2026 07:49:25 -0500
-Date: Mon, 5 Oct 2026 07:49:25 -0500
-From: Nishanth Menon <nm@ti.com>
-To: SoC <soc@kernel.org>, <arm@kernel.org>
-CC: SoC list <soc@lists.linux.dev>, <linux-arm-kernel@lists.infradead.org>,
-        <linux-kernel@vger.kernel.org>, Vignesh Raghavendra <vigneshr@ti.com>,
-        Nishanth Menon <nm@ti.com>, Tero Kristo <kristo@kernel.org>,
-        Tony Lindgren
-	<tony@atomide.com>,
-        Santosh Shilimkar <ssantosh@kernel.org>
-Subject: [GIT PULL 2/5] arm64: defconfig: TI K3 config updates for v7.4
-Message-ID: <20261005124925.nqh52qxxnoqveqod@bloating>
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.472.20; Mon, 5 Oct
+ 2026 12:50:32 +0000
+Received: from SJ2PR11MB7546.namprd11.prod.outlook.com
+ ([fe80::ca9b:dcf:8881:bced]) by SJ2PR11MB7546.namprd11.prod.outlook.com
+ ([fe80::ca9b:dcf:8881:bced%4]) with mapi id 15.21.0472.016; Mon, 5 Oct 2026
+ 12:50:32 +0000
+From: "Ionut Nechita (Wind River)" <ionut.nechita@windriver.com>
+To: juri.lelli@redhat.com
+Cc: mingo@redhat.com, peterz@infradead.org, vincent.guittot@linaro.org,
+        dietmar.eggemann@arm.com, rostedt@goodmis.org, bsegall@google.com,
+        mgorman@suse.de, vschneid@redhat.com, kprateek.nayak@amd.com,
+        arighi@nvidia.com, frederic@kernel.org, linux-kernel@vger.kernel.org,
+        dhaufe@simplextrading.com, create0818@163.com, frn1furkan10@gmail.com
+Subject: Re: [PATCH v2] sched/deadline: Make dl-server nohz full aware
+Date: Mon,  5 Oct 2026 15:49:37 +0300
+Message-ID: <20261005125013.324327-1-ionut.nechita@windriver.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <araOR8aTAU_R5lwQ@jlelli-thinkpadt14gen4.remote.csb>
+References: <araOR8aTAU_R5lwQ@jlelli-thinkpadt14gen4.remote.csb>
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: FR4P281CA0423.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:d1::13) To SJ2PR11MB7546.namprd11.prod.outlook.com
+ (2603:10b6:a03:4cc::8)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="x4misxjap467bpor"
-Content-Disposition: inline
-X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MW1PEPF0001888D:EE_|DS4PPF4F3334483:EE_
-X-MS-Office365-Filtering-Correlation-Id: c6791ea7-8814-411d-5e94-08df22df2c10
-X-LD-Processed: e5b49634-450b-4709-8abb-1e2b19b982b7,ExtAddr
+X-MS-TrafficTypeDiagnostic: SJ2PR11MB7546:EE_|DM6PR11MB4755:EE_
+X-MS-Office365-Filtering-Correlation-Id: cc597150-8fd3-48f4-b610-08df22df3dbe
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|82310400026|36860700016|1800799024|23010399003|376014|13003099007|10067099003|56012099006|18002099003;
+	BCL:0;ARA:13230040|7416014|52116014|376014|366016|23010399003|1800799024|10067099003|56012099006|6133799003|11063799006|38350700014|22082099003|18002099003;
 X-Microsoft-Antispam-Message-Info:
-	vfgGlm5HVd+JRmCkqEQXaJNMx4Vl1HooSUy173wrckQCa9t2d3Ctx26MnJx02mIjnepVP8v1d5Yrs9JD25IsUlsHJkUVlAxr8ha2FILW1rF5IkciHCwRRUnKcwBOFaCnQ7hjUEBtDBdpik7MCA9oS6eAyu9wKmP8geWinDMajVTOna1uc1It8fbtdOzDPk+MY+nKNL/WL6c7wLRbC9rzv+VDkGcRShZhWnLWa9qNO2+RUwACri+4IB8C+X+YXtIJxhKWv5J6nkd8arspGUcHTkBLeylwY8pIb3lcblRSAuMCuO4Vi6s+CfXy2LLkdHhEMtPg89BGjByUZqmrXEC8kmcChy+DVZu0pdxjQjPgxZn+XX4GekOxRL5xpIKxZNptH2sdpn47eeK3lfm8/HPNUZ2TQ2kmeR5f+a6vvRh8q3cbnHwGeRwxisDDoyfqFbWfsr7h/+caKQr5it7jsNFco9dfJBA546/Kmzrs5XVkwSVSeyox0GMG7fc/OeUnDFJJL6fKAfCZBM68vqDwIwuTUImHB8IkE1+gSRNSc3faSGYNr6K1Rih4lohcnYaEsCuk4x0O/CgFFZrQuJZdjs4euRQw5aXFDMvzURZ6BGV5ZcBqx/KLpPDFCugi7Z++zolNptDU+haDNd/kIC010FT97g==
+	IAfyZOlgTckn3s4h6VREOVWYH8/vGkpvb4laxQnbHJ2v1SvlsOiRPtgE23Ec+vp+4/kqrLjiTfS3B8RgUOuZflJFdqnCHxazj+UDK7FyPKIh4dYbHpc4wsNygyrO7n3DYMgu6CAdg95JX2JzS52AlnOXB8u9nsCj8/9YWLnUFAQ5JWCrgTGExceO91OgUCUf/vEor7OLE6xs96LNpQ3fzdMfp1CQJLZrUaOBG4+ZuHLSIGXZg06q8bdfYUOyocJ/QOjRbCGf+nIDO+xTBLDOjn/DI2SvF2scumN/TZerHdV0QMo20sXi9c4dkU01loRD5a/AurRB7ScykaU5nRlEm/2nuMTVFMfALfGgcIwdYmgIjE8gA3b+iT9G34EoDMWGbzSeNpdzG9O+f4TrgBq+zrzVy57evTKmzUQmsiR7Po0a7dtGJoadp7rq1/0RDIdkkqa4kJnjU7DjwClsenwDRNROf1Vib8OpZtkD7gTELNaY2Y+Q6C8SKN+ft5UdSuwl2G73TWFsdJyMBJ8N00uTJAKPBwh+BeWOvqvj0TQWkK8da1sLuhztk2n5VjdYM+ejK3YQsCsEuhuI0gNidVLVdU8wPslEem0Vi15ZL5mK8Slxcb3xxukRsAt69Qao3TmWAh1Hj2A0elwSUgEwVkToz9wgEKsgNymcevUQWfnBpqXfkEh7Qf7iU5++4PJG6WHjt42gsAHx9N9LnYXXVjNEpA==
 X-Forefront-Antispam-Report:
-	CIP:198.47.21.195;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:flwvzet201.ext.ti.com;PTR:ErrorRetry;CAT:NONE;SFS:(13230040)(82310400026)(36860700016)(1800799024)(23010399003)(376014)(13003099007)(10067099003)(56012099006)(18002099003);DIR:OUT;SFP:1101;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SJ2PR11MB7546.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(7416014)(52116014)(376014)(366016)(23010399003)(1800799024)(10067099003)(56012099006)(6133799003)(11063799006)(38350700014)(22082099003)(18002099003);DIR:OUT;SFP:1102;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	jnqESR3tlwkyd9znx82KHRvslAnpijzbRDSt2VKAzJo+M7b9KqeYeGNNXmfRFI0nhLXeRQbOiu01VKCgC0ayrhoyK5aFPgBKnM2nGRtFZuvQ/vbZNvAn3LgqqadEwD3+F+nJUvVWy5qhuaG09TVyJY3Vwn+keG7I+IIqdSyt5wbYiZfqIoIU388pE9j9SujW8ZyqQFco7lFeVhF+6p+fcnYztkamv4qdsCl50h2qAiJ4zCh4aZJwyQn0JWvKLSGkBOTdBuIgT5FfuGdz+MzH5rtki1b05IlFCxMIOB7KAX7xCdib9eFuHuQU37+Xwsn9LrAoNHaWRVjUbqM7QbDVaKxvro3bmQNmvADToZL8YhT7O64fE+7jwsSc+5CX6snbBQ0Ql6YhxJCL0Ot6aX80NHtMDdAZ5O3AxGf8pYycxyFu4DvWMwhInZ9jSm2N69jU
+	=?us-ascii?Q?BRNRC1J2zaceJjzVJKu5it36JhBbFiAk4CgypZSGSH7iZkuSGCfC5vAzaS/C?=
+ =?us-ascii?Q?a9kzpPd0+CbqWrlVNDPIOk6XcgYXrtmbgM+hVrFpajIixAS6rrXmnqVS27BM?=
+ =?us-ascii?Q?hnT0s+f5oxKN+IZwCnZchTKdHg600gmw8UvtLUmQB0VqXJjQ+FIpS8kBPf5E?=
+ =?us-ascii?Q?4iPbhw/5UXAV/zL2gZpSmd+h/xOavpEKvLkEx35Or9oggvUv5jK0OILkVDfN?=
+ =?us-ascii?Q?LlFk8p4+jXl7w6VJ9nUE4qFz+cN7rh6xJddJqMBpHZ0nqnbOD/ME5pGgip/J?=
+ =?us-ascii?Q?my82WJa09YWXG1fuYisDTg9AUQTRNgrORyOpDyDz2cKM8POWopYhBX64u61e?=
+ =?us-ascii?Q?sbOXZVC4TKUtWmqh5jsCzESk7JF2grZt9ziaisUMrpieOMJHpqpJWj0t7XEg?=
+ =?us-ascii?Q?n/Sm76+1Npi4dQGxQxbet6wQtC1llL1TrI0rpuLIRKoq+/NGv2QBOV5XNV/3?=
+ =?us-ascii?Q?qam0TpqUjyZJS88P3SNwBMPD532olR7vB8W7jj26FEDyOtC+F8o4nv35osWE?=
+ =?us-ascii?Q?LHyM2p/m0YQaGa5JKr7ifGiTEKhxYSfTc3mK6zKRYBd8BryQS9DnRTtPk2kP?=
+ =?us-ascii?Q?Ez7Q874w879NAQLyhLDb14GWGD8UTILnOcpcJCfUM8ReQBrzXI7bQ87hOS6m?=
+ =?us-ascii?Q?jqrhZNJeau6ziBIrVtK+/fAH3CFbLFUH4WeWYMr4vurzF5+dJ17EGjChAcNO?=
+ =?us-ascii?Q?ClYdBnAz7BdaRW13/fjo800Hz5iz3sobeCTuc12WNQi6OIg6nyGZOFjJvQf+?=
+ =?us-ascii?Q?cy3ghG7dPoK3tYp+LdsOsS+7nMjmfous4kIMjGLebxUe+dRArM05QXqf5yD/?=
+ =?us-ascii?Q?v3hoFfEBAbdG6RCww0qwbieRv5e447Axdppz0TZwejAMmkQMMphu0CM5HmJH?=
+ =?us-ascii?Q?axySsJtesMCR4J6QkrzfaaAU1ijekvYcc6jD8O0GeunnzvZtVC24a9CpzAgB?=
+ =?us-ascii?Q?2aDa4TpsD+IBhEJsZ+PM46uaWWbnkaXZmYWI+Z3NW+F9qVAiAQqbJ9vddilV?=
+ =?us-ascii?Q?SiC/cvusM4+wwSO/VzKwN8Y6Z1eHqguAmvF2R2lmhHl8M5E0VwwVCfoTC8wv?=
+ =?us-ascii?Q?Ni+i08IjyvQ+r6j+qrbacd16PF10RLRUBqkHdbG079lxAMFvdy4cG5rGKO7y?=
+ =?us-ascii?Q?CJv20o9aEdHi+fR+DJm6CxdhQ/F/Nfo+zJh0zUT+GI3+g6cbI8+xJE+KOM64?=
+ =?us-ascii?Q?oxTTEINoatNFRfwLs6SlzjKcG7eKorhTW4fdx9sYKQDWGKmeJE+s7gWN3M11?=
+ =?us-ascii?Q?07OkpcABaVrMN+to+wetHpvvuuYc6SWjsjYzKrRvZxCGv0NbXrZcTZtbu8Yt?=
+ =?us-ascii?Q?GFcNg4C3aW5kp2uc/NIqy5Avr+fuZ27sapnZ/68K1lMO2FLMjXuPGi9IcTTT?=
+ =?us-ascii?Q?8BgRGsHaNzefZm1UUV83D1wtBgpOWst+7g4fLwbeRpPzwRVjaQCfH5MjuO3N?=
+ =?us-ascii?Q?sdOJcTUWAIaCoZBsRSOxw4sw+h0WjroaBePZ8S3SDGzIwtVb/RXp0NhcTx7G?=
+ =?us-ascii?Q?Y0/IjigADGuyxoz1BXBK9qrPO4JcD/vK8+l2RoobaJLYlJIG+ELjjjK8f6uM?=
+ =?us-ascii?Q?Xo4mIxd1JEbhX16v0VDyf34YZPOQIsfVCWdWVQdqKaydIl/zt21Bql2TSjxk?=
+ =?us-ascii?Q?Kw3kfttRZ8ZYu/xrdegbpRa/HgOuWBQxu/Vck3O8029fLFijNZfmO6J9Set0?=
+ =?us-ascii?Q?vWNM9uwoWU6OgOST9/LjQb67ULG3eB8DCDlgrNgbRujl0mYF+MFhY5EwqzN+?=
+ =?us-ascii?Q?FpNrWBKo0wUxMCNTMXYy0xKwAJNeqvs=3D?=
 X-Exchange-RoutingPolicyChecked:
-	kaPZUQKsIEsMRaQGEpPPFUu5rd6ZzVBWpVNyrGB4bQuIsEiihJwKVIS4bQJ/Ui8m3X4Pxl2j49vzpyhONMyD9TS1vOMKg9o8tCU0LIsuRV6gfE+9PWYTtWinRbjqi/qhmRJVJ8wIpXfpOxSuKh9VjIGQEZxHzw7ul6CSs00dEqLc4tW23cPjmWJqkNqM6K5cvpOkRVXzW4DYjm487d5jN2GLtuyJDy9mBjWiQ3TeIxUkbTUU90tKJ+6SbnS/P/oiQ4EtfXcwE4/G2fBFxPnBNT/1vj97y3Eqt5NhDbRCBUvK2RrtjN2luYhWxUqrMSMHPYG+kuXiPUxc5Wq6VCucnw==
-X-OriginatorOrg: ti.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Oct 2026 12:50:02.0816
+	Gtpenj6SGPFN3OJA98xYmsmZMQf5Z/D44j68wGNfFeojjra2xen/yJBydGrXvG30XJj+BepCNM6KH25+z9ocy6A9FIyEptVJmYCk8NWjyVQ+0BMQeDMgr3urSTjJ/jtebBi4vsKJs2ZwY2fl6m/zNpvEKSi3fgD+ABDFZaoznGZzySlZTdpq+3Kv1D89vBe1S4yV5b9JDkkRUyCGqdjOChD7Tu4aVvD5E5iuw91fnoG0EOzBkRJ+PCqUFXkFTEgOCcITAElR2R1RPp0cdM5BehL33DDzWRG+CsOH7ZoEd6kLs+CA1uyVc+tiGgwZsrdxz0Sc4hzISsvRhSV05JGDZw==
+X-OriginatorOrg: windriver.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: cc597150-8fd3-48f4-b610-08df22df3dbe
+X-MS-Exchange-CrossTenant-AuthSource: SJ2PR11MB7546.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Oct 2026 12:50:32.3010
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: c6791ea7-8814-411d-5e94-08df22df2c10
-X-MS-Exchange-CrossTenant-Id: e5b49634-450b-4709-8abb-1e2b19b982b7
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=e5b49634-450b-4709-8abb-1e2b19b982b7;Ip=[198.47.21.195];Helo=[flwvzet201.ext.ti.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	MW1PEPF0001888D.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS4PPF4F3334483
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDA1MDA0OSBTYWx0ZWRfX1NzfsWfqAxC1
- SMUzSslThGpdHW1Aa1FZ1njsoqhYdQnBXmPgr3I6UCzjRDAOBf37TQwPgGtbNpC9nb+tXcljwBP
- K+DnmlbEah6N9BlQrpi/OVog62b99U0=
-X-Authority-Analysis: v=2.4 cv=I6/w19gg c=1 sm=1 tr=0 ts=6ac39d1e cx=c_pps
- a=ouBVT1c3MJkzDXWVqRnxag==:117 a=tJyPKKxUohctrY4NYmUjkA==:17
- a=6eWqkTHjU83fiwn7nKZWdM+Sl24=:19 a=660iZSQnnn4A:10 a=AlMIdn_sM9wA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=Z8NIEmU8O1QQgoT56wFK:22 a=gO1vWkAQAl3rybz1DQOp:22
- a=VwQbUJbxAAAA:8 a=sozttTNsAAAA:8 a=MJwXx7QtVkOLgzW8-9MA:9 a=CjuIK1q_8ugA:10
- a=Rst_Ys0BOuL8nKRb8v4A:9 a=FfaGCDsud1wA:10
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDA1MDA0OSBTYWx0ZWRfX5tGAbepGS3SQ
- zzZ+mvr34LQQmLQ1eW+3mFFQuTUIPCrUP8wxjGvabD8FqdGr5iw4TlR3K8Y6fKRfZLu0XPtzrvj
- 1djxPTSlSYUBaf6usJKeAlaKWzWxy1lQyXnt2Ayi+aoeSDLk/MMyZ7dhWpvXGoNix/Y6k8Q7dtW
- aOLevoQ78qHZ3pyk4PEHjuphRP4H6JIi3HBR2TLZbg4qZUYutwNYkdXSYZBmiz8T3ffkgSLAcDV
- /jpD16p37aRzXRJtFrBFSc3xKLztMGrwfsCkf83xYMAaLnqdE+xTku9qATokJEe40quWex4ExIy
- GSyEBBK8F0kN/gnGK9jFnAxRtHWmGS1b89Drt4XPNeGNSYvstFJE2GoouvJ+pJltXX1Ur3iXTzk
- 4PCsaBNMx11jTZqarha+BfaF9cgj9851Q51zhJy1znMuRPdr51OOodjotil2WUROJgnDw4/X1IE
- 4lUTMRNeRNWcd38U36w==
-X-Proofpoint-ORIG-GUID: bZD4wMrgumCBMpWOxPEPBaUXg48mJfRP
-X-Proofpoint-GUID: bZD4wMrgumCBMpWOxPEPBaUXg48mJfRP
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 8ddb2873-a1ad-4a18-ae4e-4644631433be
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: Maycu3nVXSZ9WfRtjAqRNcatxVAngXHekCT9yyZGf0srVwhMKPtOaJf9epLI/j3DZJfo1yTAoohWd04YC/XAghIi95jrSXPGJqUZT8hgp2A=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR11MB4755
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDA1MDA0OSBTYWx0ZWRfX81fyzar4UJQK
+ 3Kf76gVyEVqGzNga4omf0nLhXu5rqjiIpMSbOGnTQyRhAHdr1/GQju80LpzH0Zsg2jHKuP9UgUL
+ UbnsHaStlAE0GTjlEIRGq/nSDnwL4HAFa6ebxFdB+MjxgJZa0Ms7
+X-Authority-Analysis: v=2.4 cv=fKesTpae c=1 sm=1 tr=0 ts=6ac39d1c cx=c_pps
+ a=+jjOclGHkOGhuepu6R0Llw==:117 a=6eWqkTHjU83fiwn7nKZWdM+Sl24=:19
+ a=z/mQ4Ysz8XfWz/Q5cLBRGdckG28=:19 a=lCpzRmAYbLLaTzLvsPZ7Mbvzbb8=:19
+ a=xqWC_Br6kY4A:10 a=660iZSQnnn4A:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=bi6dqmuHe4P4UrxVR6um:22 a=HK-ge7EqtdluswH-FwHe:22 a=X_z1PM53mAG21iaj9jsA:9
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDA1MDA0OSBTYWx0ZWRfX51qgYuoN67Wo
+ PSHaDykegovrt1JRSlwzotEkE1Tft/T7lfbvBH2lG+MM4UiRkMnL7jQpV2tMsKNBX93uPdtl33h
+ Vlp3phmyqqPmjjOPMa9tGtdRrVmLISHnVy4hy+szL/lkTMVsIitJnhSL7L88ZuoHdgQC+QO/7sl
+ mzesrjYyHZOPelCaYwvyMziJJlMaDyJchZm1UMtfYp3iZ8yaJwiB7xZNn1wfTAd5Tul202iDxcz
+ tDzQZytzPXt/MyXj5yvAjMhjAdVhDeLJofddmYyAe36KlUKEyXVVEFv75Iasf207MhppK26mjd3
+ djh0t9utYFoLyxk7/ogg84Yzkhbm90Bj5CKQ3atTeuL1a+DEoQpf0+UULY9IemPpSlYEshVTNDV
+ DpDOANlGe4kSc0Su/t5g8zcJTbv4x5Mv3iAhl+CyVLFnr6EN6ng5KTVruJgZr+1ojC430bf5CJ/
+ tKhgowE7S516Pp7KY9Q==
+X-Proofpoint-ORIG-GUID: h4XgqeFe1i8IXMR2Ksej7gMCPaOcHZZh
+X-Proofpoint-GUID: h4XgqeFe1i8IXMR2Ksej7gMCPaOcHZZh
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
  definitions=2026-10-05_03,2026-10-05_01,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- bulkscore=0 malwarescore=0 impostorscore=0 adultscore=0 lowpriorityscore=0
- phishscore=0 suspectscore=0 clxscore=1015 priorityscore=1501 spamscore=0
+ bulkscore=0 suspectscore=0 malwarescore=0 impostorscore=0 priorityscore=1501
+ phishscore=0 lowpriorityscore=0 clxscore=1015 adultscore=0 spamscore=0
  classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
  reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2610050049
 
---x4misxjap467bpor
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+Hi Juri,
 
-Hi,
+Following up on the dl_servers_stop_all() hazard I mentioned earlier: you
+said you had not been able to reproduce it, so here is a reliable
+reproducer and the splats, in case it is useful before a v3 lands.
 
-There is a minor conflict against bd94bea7165be450903c6d64bbcb4862e36798f9 =
-see[1]
+The setup is the one from my earlier mail (PREEMPT_RT, isolated nohz_full
+CPU 2, fair_server defaults 50ms/1s), plus a churn of short-lived tasks on
+the isolated core: a SCHED_FIFO hog and CFS tasks coexist, so the
+fair_server is armed, while perf and a fork()/exit() loop keep coming and
+going on that same CPU. That drives dl_server_start()/dl_server_stop()
+through the "active contending" / "active non contending" running_bw
+bandwidth-accounting state machine (with an inactive_timer in between) at
+wakeup/dequeue rate.
 
-Please pull
+When a stop finds the inactive_timer still armed, it subtracts running_bw
+that the matching start never added back. running_bw underflows and trips
+both WARNs:
 
-The following changes since commit cee9395acd8043be0644b25c34bfa86623f2b935:
+  - deadline.c:239  WARN_ON_ONCE(dl_rq->running_bw > old) in __sub_running_bw()
+  - deadline.c:425  WARN_ON(dl_se->dl_non_contending)      in task_non_contending()
 
-  Linux 7.3-rc1 (2026-08-30 13:34:40 -0700)
+It fires from both the schedule path (pick_task_dl -> task_non_contending)
+and the hrtimer path (hrtimer_interrupt -> inactive_task_timer). 15 splats
+over ~4 minutes on this node; three representative ones (both WARN sites,
+both paths) are below.
 
-are available in the Git repository at:
+The change that triggers it, for reference, is an earlier version of my
+own variant that stopped the server from the tick-stop paths (the version
+I run now does not stop it there and is clean):
 
-  https://git.kernel.org/pub/scm/linux/kernel/git/ti/linux.git tags/ti-k3-c=
-onfig-for-v7.4
+	+static inline void sched_tick_stop_fair_server(struct rq *rq)
+	+{
+	+	if (!rq->rt.rt_nr_running || !rq->cfs.h_nr_queued)
+	+		dl_server_stop(&rq->fair_server);
+	+}
+	...
+	 	if (rq->rt.rr_nr_running) {
+	-		if (rq->rt.rr_nr_running == 1)
+	+		if (rq->rt.rr_nr_running == 1) {
+	+			sched_tick_stop_fair_server(rq);
+	 			return true;
+	...
+	 	fifo_nr_running = rq->rt.rt_nr_running - rq->rt.rr_nr_running;
+	-	if (fifo_nr_running)
+	+	if (fifo_nr_running) {
+	+		sched_tick_stop_fair_server(rq);
+	 		return true;
 
-for you to fetch changes up to e557da9b756dba66f9b1ae8bb27add2b7719baf4:
+sched_can_stop_tick() runs on every add_nr_running()/sub_nr_running(), so
+this stops a server that a wakeup a few microseconds later arms again.
+This is structurally the same as the dl_servers_stop_all() call on the
+RT-only path in your v2: a stop driven at enqueue/dequeue rate. To be
+clear, I have not reproduced it with your v2 as posted, and it did not
+fire in the measurement runs from my earlier mail - but it is the same
+interleaving, so it seems worth confining the stop to the path that
+actually stops the tick (as Peter also noted on the v2) rather than
+running it on every sched_can_stop_tick() evaluation.
 
-  arm64: configs: defconfig: Convert TISCI to modules (2026-09-22 08:59:57 =
--0500)
+Representative splats (15 fired over ~4 minutes on the isolated core,
+trimmed to three: both WARN sites and both the schedule and the hrtimer
+path). Kernel 6.18.15-rt, PREEMPT_RT, isolated nohz_full CPU 2, Dell
+PowerEdge R750. Short-lived tasks (perf, a fork/exit loop) churning on the
+isolated core while a SCHED_FIFO hog and CFS tasks coexist, i.e. the
+fair_server is armed and dl_server_start()/dl_server_stop() are being
+cycled at wakeup/dequeue rate.
 
-----------------------------------------------------------------
-TI K3 defconfig updates for v7.4
+[ 3079.520930] WARNING: CPU: 2 PID: 410093 at kernel/sched/deadline.c:239 task_non_contending+0x242/0x390
+[ 3079.521037] Call Trace:
+[ 3079.521039]  <TASK>
+[ 3079.521042]  pick_task_dl+0x50/0xb0
+[ 3079.521046]  __schedule+0x99a/0xfb0
+[ 3079.521053]  preempt_schedule_irq+0x2b/0x50
+[ 3079.521055]  asm_sysvec_irq_work+0x16/0x20
+...
+[ 3079.521081]  </TASK>
+[ 3079.521081] ---[ end trace 0000000000000000 ]---
 
-- Convert the TI System Control Interface (TISCI) drivers in the arm64
-  defconfig from built-in to loadable modules. This reduces the size of
-  the default kernel image, while the drivers remain available on K3
-  platforms through the initramfs or root filesystem.
+[ 3087.363420] WARNING: CPU: 2 PID: 411091 at kernel/sched/deadline.c:425 task_non_contending+0x297/0x390
+[ 3087.363525] Call Trace:
+[ 3087.363526]  <TASK>
+[ 3087.363530]  pick_task_dl+0x50/0xb0
+[ 3087.363533]  __schedule+0x99a/0xfb0
+[ 3087.363538]  schedule+0x23/0xd0
+[ 3087.363541]  do_wait+0x58/0x110
+[ 3087.363544]  kernel_wait4+0x9c/0x140
+[ 3087.363548]  __do_sys_wait4+0x36/0xb0
+[ 3087.363571]  do_syscall_64+0x7b/0xe30
+[ 3087.363600]  entry_SYSCALL_64_after_hwframe+0x76/0x7e
+[ 3087.363614]  </TASK>
+[ 3087.363615] ---[ end trace 0000000000000000 ]---
 
-----------------------------------------------------------------
-Nishanth Menon (1):
-      arm64: configs: defconfig: Convert TISCI to modules
+[ 3087.363885] WARNING: CPU: 2 PID: 411092 at kernel/sched/deadline.c:239 inactive_task_timer+0x370/0x480
+[ 3087.363948] Call Trace:
+[ 3087.363949]  <TASK>
+[ 3087.363951]  ? __pfx_inactive_task_timer+0x10/0x10
+[ 3087.363953]  __hrtimer_run_queues+0x145/0x280
+[ 3087.363957]  hrtimer_interrupt+0xf6/0x210
+[ 3087.363960]  __sysvec_apic_timer_interrupt+0x51/0xf0
+[ 3087.363965]  sysvec_apic_timer_interrupt+0x34/0x90
+[ 3087.363970]  asm_sysvec_apic_timer_interrupt+0x16/0x20
+[ 3087.363980]  </TASK>
+[ 3087.363981] ---[ end trace 0000000000000000 ]---
 
- arch/arm64/configs/defconfig | 15 ++++++++-------
- 1 file changed, 8 insertions(+), 7 deletions(-)
-
-[1] https://lore.kernel.org/all/20260923134108.uu3hrqznlvfuyexu@recollect/
-
---=20
-Regards,
-Nishanth Menon
-Key (0xDDB5849D1736249D) / Fingerprint: F8A2 8693 54EB 8232 17A3  1A34 DDB5=
- 849D 1736 249D
-https://ti.com/opensource
-
---x4misxjap467bpor
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEE+KKGk1TrgjIXoxo03bWEnRc2JJ0FAmrDnM4ACgkQ3bWEnRc2
-JJ0hCw/+JyaAXQcoMD9TqC26UqJRnAK9mTz47V4UKM9xE2NTjxZsR9Tp4bkexoYb
-hzfY7GsZZPDuffV0H3uCYzammL2ecwENYlUEkt1JQ/P8EfNewE00SE8ndXm8csXa
-lmUXeJPq6gBtBawAL2TTwxDoV9QvXDfhi9F+Z/zaLUT00DU063ZMuPX5qzScVGVa
-1Z+G8GBaA/Wx7d3TIdc8/gpRrZfHJeo21MuMmB7T4N+QVwwGxg+yRUhi1He2zCOy
-c88HvGnTlY9LFsK5QZnMOVUszP8TcQzrj+Rhv36rnlD8/E/gSu2mJNoPAW0PsDC5
-Tc0RWGs8xltlSfso/ngenLpN+6tVTNnOrEHiMaI/PBBfUIEsdK5KrxohsBG3I2Ok
-iYSv+Yyu2N0k8kguWf/AhKDhjvLEOES5qC7gUcU1vAlV9NamC1KeVJHnQEuHLvr9
-YAMZy3Hh1ydLz7YgW0QnoNYFcKZlJd+2CpiyxVLjVwJQEjVxdi+nlMl2aqC1R7UO
-fcT5v5pKXRBG+lpbF0MqoEU5uW2d0VlLBaQDWF7NXOKH9weP3GTdBUsSgNoSMxnx
-3LQzFJ8ezySrl0BYpYgD3uXmX0axr/yeqpqx+OAgDcQQU9UE9PPaWkwHGrAf1Wa6
-JO6GtAFmGumQEviKHjW8ZMaq41vLlfHLJWM5dsGSh3+t6y5g8TE=
-=xurk
------END PGP SIGNATURE-----
-
---x4misxjap467bpor--
+Thanks,
+Ionut
