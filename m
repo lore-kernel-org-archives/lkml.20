@@ -1,436 +1,103 @@
-Received: from mail-qt1-f178.google.com (mail-qt1-f178.google.com [209.85.160.178])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 630BE4D2ECF
-	for <linux-kernel@vger.kernel.org>; Mon,  5 Oct 2026 20:10:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.178
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 739842F6577
+	for <linux-kernel@vger.kernel.org>; Mon,  5 Oct 2026 20:12:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791231036; cv=none; b=PnuvBs9g6GnpGwT8lckDnnB8YyBcu+5c6rS2eWNvB+xxlbY5NsiybalpzbWfk7lHUlOIbUM1PWV3wUmgYfSzMJup3tVanVk0jXf3ox+CfqPU7Qr6Lv7ycb83SE45il6kxzHSFv+5rvE/7qnuxf0YfV8OolYhReLwzhhjM7Df8wQ=
+	t=1791231123; cv=none; b=ptHlpwzdbuJ48W9J5cXF4l95qiRFnwkUx2hcXyCmdAawzgTTMudgQheZOXldvaaOw01ZcwHVP46Wq7w5kOkrzatKY4/RhNA6TAme3td35IB+vs/wo57rqFnmnpdm8oDi+xNxr4gd2LqOhELH2coWvwfWLouhfLfr7IalfKt5juU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791231036; c=relaxed/simple;
-	bh=sb5GxFe77M+3rtDdve1mkdVNszT4n3HbKzL+62cRNcI=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=MSyAM5De9V5Ppe0lFNb7pWzxIH7PCdRcOMXKI+7qm5RGkEcUy+gpVGKE43DoumziRVN6zcrL7YFjTVpC3LA0/NfzfOYR1sli8l5zS7lJINGYjspJUQmfvpW30Vh1qN2hmQ1nOMw9VqVKcHdEXjqLMbPvWHkIHqPNZpduInLsZvE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ncsu.edu; spf=pass smtp.mailfrom=ncsu.edu; dkim=pass (2048-bit key) header.d=ncsu.edu header.i=@ncsu.edu header.b=KSothwaC; arc=none smtp.client-ip=209.85.160.178
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ncsu.edu
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ncsu.edu
+	s=arc-20240116; t=1791231123; c=relaxed/simple;
+	bh=TpEdy4DCcdsagqlBe35r4ZMR6HgNJhGBruP8PXLo8fs=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=bsaCTbmAVRB1b9A5C7TyQlkKSDrkq8kiWc2byflJUaYoh/ofjortTHBXBQCdAGVJu9tdATuU3LuAAVt5fwdRXy+f6TP5W2hBiTWZGBMkYXC7hj36239FubP0Scidh3SVicmA68tc/7tQy4Q6CbReGdl3WRQfqekyQFPjCE48zvc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=c5Pt8+sj; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ncsu.edu header.i=@ncsu.edu header.b="KSothwaC"
-Received: by mail-qt1-f178.google.com with SMTP id d75a77b69052e-5350c1b9e0dso29869431cf.0
-        for <linux-kernel@vger.kernel.org>; Mon, 05 Oct 2026 13:10:34 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=ncsu.edu; s=google; t=1791231033; x=1791835833; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=lxI75vFHFBW2/Wrv4tZ02g7W513WF9IJgPbeUSMsVpc=;
-        b=KSothwaCEwS0uYaI8+T8c4M5j2z3woi9dUFo9Y5lfjcSKzeMAU1hBxVG6VFQHHN6Kl
-         z+whzl9bXKJsZdE6xQeRtguG/7q/4Oe8hd1JodUF2cuGNEOOK/buHMEWWKHCvXEV68Q9
-         1jk9SXHLRj/CZD99nGv0+JQwKbr8gOPUHqQ0ydjKsHlWYePJGm3hlGWMHJRR4iz+vrXu
-         wjwpI4EU+JMSIbLezBXUjE7p1C88H9BvHY9CIeyqqewu2Nf6piSNEn5eAJuugIrMiQng
-         rLn2Whv04a+hG5bt97G36nmNL7dbFxO8+EMQWBeh5KdO4c9lAUne/oPRwUnOkS+TprYx
-         NaZQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791231033; x=1791835833;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=lxI75vFHFBW2/Wrv4tZ02g7W513WF9IJgPbeUSMsVpc=;
-        b=kh6T7Nzo9LwGBNeRf0D8nZc6Qhk72ORQZW0vslASIwCfq1ZyI6omOLqYFW9GxTDhOa
-         vGDTM0qT04k9eTfVA+rfmPWPJ+YjNzFTvx1/j8NFP/jgIy3fnf6zdtVNez2yDK+pHHbm
-         4hCeiQnE0H7ODmJtE70vhx6p9YbMhBsMo7wvZFExtFIfuFkSRtariCO8OH4/i5GYz4Yn
-         EE+fBE/75BXTG/R2B7JkK3KqCnPS/cAEk4dU26WeTrjQ1VwUSlxQtakKrdfKYEeLkgLk
-         CEJK/1wEs10SO5cKLkP3p5yKPhuLv+A2q3la4ddcP4EkripMX/gg0M2dK3lA2Pxy+Ab1
-         3G9w==
-X-Forwarded-Encrypted: i=1; AKwUvBxxoQTSlRgkmiHq9dDh3Te+ePfzcLH65Cbg6VTqGd3m6hRoghSaDgoqILNTVeHGov4tzetdF2OUCPOuIuY=@vger.kernel.org
-X-Gm-Message-State: AFuF++k4mAGGX/7Mhr/0SDov0f8194ShRhck9kbUbS5mW0Zy5A8U1QSe
-	gbJaqzLYd4GpisEU6Ac/Nt9CX6lRqQqmFf7yR9hiobs7q7cA+5hcjyt7gfRr1agRSg==
-X-Gm-Gg: AYBFou1fIx4t3ZVrXItpz3gz91mn5v2RfvM7m+LT5F+FeAZHLmCGGKN5Eo8Me12pKx6
-	SqQgdjVAdjUe97T7M9sKTtSwtmvs1fKsm9L+iPozQIcltEXsCmY78Ap/j8erajsW3z3Igqib1Wd
-	Sy8DakCoepXcqpe3ecwouvJ6V/v6dFS3rvnxrd0hl6sKanZwvMR8KywrklS/732S8U+vjlXLurF
-	BlWLhEhuS6dsbOa+re04OccFiOprBAYWhrA4oJcSMu+ZDi7G6usg5if91zAo0dhVxd/BV1Ujyzk
-	8oNxoVnsVvxVVxchexeXyecgdkTIEKG9L0zQ9qDLZ/rOQiTqtn0tplIrx9jMpODSxEV64/3Uadk
-	lWCdprC9Gt1Kn5EmOkjt2s3apQRrZ4MqE4BVMJUYP7Odgg70Wmd7ngI4B5fQgiPivwjxSHlZb90
-	MfZDMfnSK521dK9+td7YT0/0zQcmOOfFmagra5y32mL9mQVDs2WW5AAPdDB1XCTKJVqOV8H76VH
-	71OHP+J2CXuaO6y7nLBBxUc/WvlExeWAdpqZ2q34dCxqGuOEG0Uhc1JjebFA+EO8w3SfyWg5qDv
-	vw==
-X-Received: by 2002:a05:622a:1ba1:b0:532:9a2a:f37 with SMTP id d75a77b69052e-53511e43578mr155548501cf.18.1791231032795;
-        Mon, 05 Oct 2026 13:10:32 -0700 (PDT)
-Received: from flag-System-Product-Name.tail132f98.ts.net ([136.61.118.42])
-        by smtp.gmail.com with ESMTPSA id d75a77b69052e-53398a9c92csm106693991cf.11.2026.10.05.13.10.30
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 05 Oct 2026 13:10:30 -0700 (PDT)
-From: Yanbo Zhao <yzhao62@ncsu.edu>
-To: Namhyung Kim <namhyung@kernel.org>,
-	Arnaldo Carvalho de Melo <acme@kernel.org>,
-	Ian Rogers <irogers@google.com>,
-	Kan Liang <kan.liang@linux.intel.com>
-Cc: Jiri Olsa <jolsa@kernel.org>,
-	Adrian Hunter <adrian.hunter@intel.com>,
-	Peter Zijlstra <peterz@infradead.org>,
-	Ingo Molnar <mingo@kernel.org>,
-	Mark Rutland <mark.rutland@arm.com>,
-	Alexander Shishkin <alexander.shishkin@linux.intel.com>,
-	James Clark <james.clark@linaro.org>,
-	Zecheng Li <zli94@ncsu.edu>,
-	Xu Liu <xliuprof@google.com>,
-	linux-perf-users@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Yanbo Zhao <yzhao62@ncsu.edu>
-Subject: [PATCH v3 3/3] perf annotate: Resolve C++ virtual function calls in x86 insn tracking
-Date: Mon,  5 Oct 2026 16:10:10 -0400
-Message-ID: <20261005201010.36493-4-yzhao62@ncsu.edu>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261005201010.36493-1-yzhao62@ncsu.edu>
-References: <20261005201010.36493-1-yzhao62@ncsu.edu>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="c5Pt8+sj"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0A4A41F0089C
+	for <linux-kernel@vger.kernel.org>; Mon,  5 Oct 2026 20:12:02 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791231122;
+	bh=07TxSlYygyGizwu2KJq+nLfuTWfbhdZOQVcdtdrnwls=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=c5Pt8+sj+g+xAgirRed94Gdw/2uljCk2ktu7r2MyCBmrici9L0mvH8wA9ncKxI6MZ
+	 UGDc7UnwBhD4L09R9tr8ToiiYMO/GhXN00+kEysVl2Clym2VHn33SOXVyHsCuMYmzv
+	 Joj4CvdL8dgi9j2+XMfzHWSK3h5CU9T/XKkeqRvlomc7WP7jApvfVh6y8VoFRYalgF
+	 FOKP6SYY0AdMU6r2ae9kDCk+AihKmTPgp7bu91G+xMm/ZNOAqivGlIdkr3dbdInvSK
+	 f4upYFl7G8RphV9CtcvN2JzdUk8pBJ1F5bvALdA2FyW8AW7cHSVr0l4mmUoPE3BtQI
+	 +8q902OxzQYzw==
+Received: by mail-ej1-f43.google.com with SMTP id a640c23a62f3a-c2e43f3d1fdso301365266b.3
+        for <linux-kernel@vger.kernel.org>; Mon, 05 Oct 2026 13:12:01 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvByHW+Hk202SfG1gAE5DNoEh+0SnAPkI3QmQhkXoqdrIsLWbr+sd7L0RRvvp+yNNCH+Vb1ZRfIqYKKAStco=@vger.kernel.org
+X-Gm-Message-State: AFuF++mtUIPWlB2IchnbnMbDflwAKf5u+LFWTRhQNIuYWzr1xK6jILtO
+	ZIfr6mOiKyMzUAOX0yMH23LK1iLlQ2AYhV1t9GrSnoVYbx2k+iShgjDFaoMcb30Wrfzhzql3Vcl
+	rm1VZ+vOEO6FlVlgH5gEx7hrDS85VBJw=
+X-Received: by 2002:a17:907:c011:b0:c29:d33e:9ba3 with SMTP id
+ a640c23a62f3a-c2e6e9ca0e8mr731438166b.6.1791231120621; Mon, 05 Oct 2026
+ 13:12:00 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <CAO9r8zNJ3mSRf5YyRQYYW-eM2eiFvQMXW4Rh0cT=31jsKZpuSQ@mail.gmail.com>
+ <20260903072625.62694-2-itazur@amazon.com> <CAO9r8zMxdg2BTFguwcRQn8n-2CPaEJJfg+T8dWcgO2eV4uNaHQ@mail.gmail.com>
+ <aqlpxa61SrzhWF1O@gourry-fedora-PF4VCD3F>
+In-Reply-To: <aqlpxa61SrzhWF1O@gourry-fedora-PF4VCD3F>
+From: Yosry Ahmed <yosry@kernel.org>
+Date: Mon, 5 Oct 2026 13:11:48 -0700
+X-Gmail-Original-Message-ID: <CAO9r8zNjeUz1sjOo5VVKefRXkFHF_=H7rAyCghJ4zGSp8Mupsw@mail.gmail.com>
+X-Gm-Features: AclHuK9_Dkkt3de2FR8OeLNm291y3_bXQtNm-SuLQJP9zgu2zzwzjIBMyyyGpc0
+Message-ID: <CAO9r8zNjeUz1sjOo5VVKefRXkFHF_=H7rAyCghJ4zGSp8Mupsw@mail.gmail.com>
+Subject: Re: [PATCH v3 03/26] mm: introduce AS_NO_DIRECT_MAP
+To: Gregory Price <gourry@gourry.net>
+Cc: Takahiro Itazuri <itazur@amazon.com>, Sean Christopherson <seanjc@google.com>, 
+	Brendan Jackman <brendan.jackman@linux.dev>, Borislav Petkov <bp@alien8.de>, 
+	Dave Hansen <dave.hansen@linux.intel.com>, Peter Zijlstra <peterz@infradead.org>, 
+	Andrew Morton <akpm@linux-foundation.org>, David Hildenbrand <david@kernel.org>, 
+	Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>, Wei Xu <weixugc@google.com>, 
+	Johannes Weiner <hannes@cmpxchg.org>, Zi Yan <ziy@nvidia.com>, Lorenzo Stoakes <ljs@kernel.org>, 
+	linux-mm@kvack.org, linux-kernel@vger.kernel.org, x86@kernel.org, 
+	Sumit Garg <sumit.garg@oss.qualcomm.com>, Will Deacon <will@kernel.org>, rientjes@google.com, 
+	Roy Patrick <patrick.roy@linux.dev>, Andy Lutomirski <luto@kernel.org>, 
+	David Kaplan <david.kaplan@amd.com>, Thomas Gleixner <tglx@kernel.org>, 
+	Patrick Bellasi <derkling@google.com>, Reiji Watanabe <reijiw@google.com>, 
+	Nikita Kalyazin <nikita.kalyazin@linux.dev>, Ackerley Tng <ackerleytng@google.com>, 
+	Takahiro Itazuri <zulinx86@gmail.com>, cc-open-source@amazon.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-A C++ virtual function call is an indirect call through the vtable.
-The instruction tracking of the data type profiling cannot resolve the
-callee name for it, so the return type is lost and the type of the
-register holding the returned value is unknown after the call.  It
-matters when the returned value is used directly to access memory, like
-in 'p->next()->val', where no DWARF variable describes the temporary.
+On Tue, Sep 15, 2026 at 9:01=E2=80=AFAM Gregory Price <gourry@gourry.net> w=
+rote:
+>
+> On Thu, Sep 03, 2026 at 07:06:02AM -0700, Yosry Ahmed wrote:
+> > > As far as I know, Brendan is no longer at Google.  I do not know whet=
+her
+> > > he plans to continue the ALLOC_UNMAPPED / mermap work, or whether som=
+eone
+> > > else at Google has taken it over.
+> >
+> > I am currently working on a new version of the ALLOC_UNMAPPED series,
+> > I am hoping to send something out soon.
+> >
+>
+> Hi Yosry,
+>
+> I've been trying to pull just the alloc_flags extensions (bulk and folio
+> allocator API extensions) out of this set and my private-node work.
+>
+> I was taking another browse to make sure I didn't miss anything.
+> I just saw this, and noticed i should have probably been cc'ing you
+> here instead of Brendan:
+>
+> https://lore.kernel.org/linux-mm/20260914155115.439742-1-gourry@gourry.ne=
+t/
+>
+> Do you have any concerns with me trying to pull this plumbing out ahead?
+> Trying my best not to cause annoying conflicts.
 
-The vtable pointer and the slot index are known statically from the
-type of the object pointer, so the callee can be found by DWARF.  Track
-the two steps of a virtual call in update_insn_state_x86():
-
-1. Loading the vtable pointer from the object.  When a load from a
-   register with a pointer type hits the '_vptr' member of the class
-   (or one of its base classes), the destination register is marked as
-   TSR_KIND_VTABLE_PTR with the class DIE returned by
-   die_get_vptr_class().
-
-2. Calling through the vtable.  GCC emits the call in two forms:
-
-     mov    (%rbx),%rax          # vtable pointer
-     call   *0x8(%rax)           # slot 1
-
-   or, with speculative devirtualization when it can guess the target,
-   the function pointer is loaded first and compared with the guess:
-
-     mov    (%rbx),%rax          # vtable pointer
-     mov    0x8(%rax),%rax       # function pointer at slot 1
-     cmp    %r14,%rax
-     je     <inlined copy>
-     call   *%rax
-
-   For the first form, the call handler resolves the slot from the
-   offset of the target operand when the base register is a vtable
-   pointer.  For the second form, the load from a vtable pointer
-   register marks the destination as TSR_KIND_VFUNC_PTR holding the
-   return type of the function at the slot, and the call handler uses
-   it when the target operand is such a register.  In both cases the
-   function DIE is found by die_find_virtual_func() and its return
-   type is set to the return value register like a direct call.  Void
-   functions have no return type and are simply ignored.
-
-The resolution happens before the caller-saved registers are
-invalidated since the register used for the call is one of them.
-
-A load or a call with an index register (multi_regs) is not handled as
-the offset alone doesn't tell the member or the vtable slot.  It's what
-a call through a pointer to member function looks like.
-
-To let the call handler see the target operand, call__parse() saves
-the operand of an indirect call (without the leading '*') to
-ops->target.raw so that annotate_get_insn_location() can extract the
-register and offset for both '*0x8(%rax)' and '*%rax'.  It also sets
-ops->target.multi_regs so that a call with an index register like
-'*0x8(%rax,%rcx,8)' can be told apart.
-
-The new kinds are pointer-sized and not compound when saved to the
-stack, and pr_debug_type_name() knows how to print them.
-
-The slot index is calculated with the host pointer size like the
-other places for now.  Only the primary vtable is handled: a virtual
-call through a pointer to a non-primary base class subobject (multiple
-inheritance) gets the class of that base from die_get_vptr_class() so
-the slot index is looked up in the right vtable, but the receiver
-adjustment (this pointer thunks) is not tracked.
-
-For example, with the following code built with -O2 -g:
-
-  struct Node {
-      long val;
-      Node *nxt;
-      virtual Node *next() { return nxt; }
-      ...
-  };
-
-  long run(Node *p, long n)
-  {
-      long s = 0;
-      for (long i = 0; i < n; i++)
-          s += p->next()->val;
-      return s;
-  }
-
-'perf annotate --code-with-type' now shows the type for the access to
-the returned pointer after the call which was unknown before:
-
-  1251:  movq  (%rbp), %rax      # data-type: struct Node +0 (_vptr.Node)
-  1255:  movq  (%rax), %rax
-  1258:  cmpq  %r14, %rax
-  125b:  je    0x1240
-  125d:  movq  %rbp, %rdi
-  1260:  addq  $1, %rbx
-  1264:  callq *%rax
-  1266:  addq  8(%rax), %r12     # data-type: struct Node +0x8 (val)
-
-Signed-off-by: Yanbo Zhao <yzhao62@ncsu.edu>
----
-Changes in v3:
-- Check !src->multi_regs when loading a function pointer from the
-  vtable, since the offset doesn't tell the slot with an index
-  register (Sashiko, Namhyung).  Do the same when marking a register
-  as the vtable pointer.
-- Set ops->target.multi_regs in call__parse() for an indirect call.
-  It was never set for calls, so the !dst->multi_regs check in the
-  call handler had no effect and 'call *0x8(%rax,%rcx,8)' was resolved
-  as the slot 1 by the displacement.
-
-Changes in v2:
-- Remove the receiver ('this' pointer) register update after the call
-  and the type_state::arg0_reg field.  The code was unreachable since
-  the register is caller-saved and already invalidated, and it's not
-  needed: the 'this' pointer lives in a callee-saved register or on
-  the stack across the call and the DWARF location lists cover it
-  (Sashiko, Namhyung).
-- Handle 'call *%reg' in addition to 'call *N(%reg)'.  GCC emits it
-  with speculative devirtualization: the function pointer is loaded
-  from the vtable, compared with the guessed target and then called.
-  The load is tracked as TSR_KIND_VFUNC_PTR holding the return type
-  of the function at the slot (Sashiko).
-- Strip the leading '*' of an indirect call operand in call__parse()
-  when saving ops->target.raw, instead of in extract_reg_offset()
-  which is not reached for '*%reg' (Sashiko).
-- Ignore virtual functions returning void (no return type) instead of
-  treating it as a failure (Namhyung).
-- Keep the existing pointer dereference branch and its fall-through
-  to the multi-register and per-cpu paths intact.  The vtable pointer
-  is detected from the member type resolved there, so the common
-  path only pays a tag check.
-- Treat the new register kinds as pointer-sized and non-compound when
-  saved to the stack.
-- Drop the unnecessary include of dwarf-aux.h and hist.h.
-
- tools/perf/util/annotate-arch/annotate-x86.c | 77 +++++++++++++++++++-
- tools/perf/util/annotate-data.c              | 15 +++-
- tools/perf/util/annotate-data.h              |  4 +
- tools/perf/util/disasm.c                     |  7 ++
- 4 files changed, 99 insertions(+), 4 deletions(-)
-
-diff --git a/tools/perf/util/annotate-arch/annotate-x86.c b/tools/perf/util/annotate-arch/annotate-x86.c
-index 1acf31a2c759..36b51f1bab3d 100644
---- a/tools/perf/util/annotate-arch/annotate-x86.c
-+++ b/tools/perf/util/annotate-arch/annotate-x86.c
-@@ -216,6 +216,29 @@ static void invalidate_reg_state(struct type_state_reg *reg)
- 	reg->copied_from = -1;
- }
- 
-+/*
-+ * Get the return type of the C++ virtual function at the @offset in the
-+ * vtable of @class_die.  Returns false if it's not found or the function
-+ * returns void.
-+ */
-+static bool vtable_get_rettype(Dwarf_Die *class_die, int offset,
-+			       Dwarf_Die *type_die)
-+{
-+	Dwarf_Die func_die;
-+	int index;
-+
-+	if (offset < 0)
-+		return false;
-+
-+	/* TODO: arch-dependent pointer size */
-+	index = offset / sizeof(void *);
-+
-+	if (die_find_virtual_func(class_die, index, &func_die) == NULL)
-+		return false;
-+
-+	return die_get_real_type(&func_die, type_die) != NULL;
-+}
-+
- static void update_insn_state_x86(struct type_state *state,
- 				  struct data_loc_info *dloc, Dwarf_Die *cu_die,
- 				  struct disasm_line *dl)
-@@ -236,6 +259,7 @@ static void update_insn_state_x86(struct type_state *state,
- 		struct symbol *func = dl->ops.target.sym;
- 		const char *call_name;
- 		u64 call_addr;
-+		bool has_rettype = false;
- 
- 		/* Try to resolve the call target name */
- 		if (func)
-@@ -252,6 +276,26 @@ static void update_insn_state_x86(struct type_state *state,
- 		else
- 			pr_debug_dtp("call [%x] <unknown>\n", insn_offset);
- 
-+		/*
-+		 * Resolve the return type of a C++ virtual function call
-+		 * before invalidating the caller-saved register used for the
-+		 * indirect call.  It's either through the vtable pointer
-+		 * directly like 'call *0x8(%rax)' or through the function
-+		 * pointer loaded from the vtable like 'call *%rax'.
-+		 */
-+		if (has_reg_type(state, dst->reg1) && state->regs[dst->reg1].ok) {
-+			tsr = &state->regs[dst->reg1];
-+
-+			if (dst->mem_ref && !dst->multi_regs &&
-+			    tsr->kind == TSR_KIND_VTABLE_PTR &&
-+			    vtable_get_rettype(&tsr->type, dst->offset, &type_die)) {
-+				has_rettype = true;
-+			} else if (!dst->mem_ref && tsr->kind == TSR_KIND_VFUNC_PTR) {
-+				type_die = tsr->type;
-+				has_rettype = true;
-+			}
-+		}
-+
- 		/* Invalidate caller-saved registers after call */
- 		call_addr = map__rip_2objdump(dloc->ms->map,
- 					      dloc->ms->sym->start + dl->al.offset);
-@@ -267,7 +311,10 @@ static void update_insn_state_x86(struct type_state *state,
- 		}
- 
- 		/* Update register with the return type (if any) */
--		if (call_name && die_find_func_rettype(cu_die, call_name, &type_die)) {
-+		if (call_name && die_find_func_rettype(cu_die, call_name, &type_die))
-+			has_rettype = true;
-+
-+		if (has_rettype) {
- 			tsr = &state->regs[state->ret_reg];
- 			tsr->type = type_die;
- 			tsr->kind = TSR_KIND_TYPE;
-@@ -622,13 +669,39 @@ static void update_insn_state_x86(struct type_state *state,
- 			}
- 			pr_debug_type_name(&tsr->type, tsr->kind);
- 		}
-+		/* Load a function pointer from the vtable (for 'call *%reg') */
-+		else if (has_reg_type(state, sreg) && state->regs[sreg].ok &&
-+			 state->regs[sreg].kind == TSR_KIND_VTABLE_PTR &&
-+			 !src->multi_regs &&
-+			 vtable_get_rettype(&state->regs[sreg].type, src->offset,
-+					    &type_die)) {
-+			tsr->type = type_die;
-+			tsr->kind = TSR_KIND_VFUNC_PTR;
-+			tsr->offset = 0;
-+			tsr->ok = true;
-+
-+			pr_debug_dtp("mov [%x] %#x(reg%d) -> reg%d",
-+				     insn_offset, src->offset, sreg, dst->reg1);
-+			pr_debug_type_name(&tsr->type, tsr->kind);
-+		}
- 		/* And then dereference the pointer if it has one */
- 		else if (has_reg_type(state, sreg) && state->regs[sreg].ok &&
- 			 state->regs[sreg].kind == TSR_KIND_TYPE &&
- 			 die_deref_ptr_type(&state->regs[sreg].type,
- 					    src->offset + state->regs[sreg].offset, &type_die)) {
-+			/*
-+			 * The vtable pointer of a C++ object needs the class
-+			 * to resolve virtual calls through it.
-+			 */
-+			if (!src->multi_regs && die_is_vtbl_ptr_type(&type_die) &&
-+			    die_deref_vptr_class(&state->regs[sreg].type,
-+						 src->offset + state->regs[sreg].offset,
-+						 &type_die))
-+				tsr->kind = TSR_KIND_VTABLE_PTR;
-+			else
-+				tsr->kind = TSR_KIND_TYPE;
-+
- 			tsr->type = type_die;
--			tsr->kind = TSR_KIND_TYPE;
- 			tsr->offset = 0;
- 			tsr->ok = true;
- 
-diff --git a/tools/perf/util/annotate-data.c b/tools/perf/util/annotate-data.c
-index 8a9d3f2eec4d..e9bf76cc2863 100644
---- a/tools/perf/util/annotate-data.c
-+++ b/tools/perf/util/annotate-data.c
-@@ -67,6 +67,14 @@ void pr_debug_type_name(Dwarf_Die *die, enum type_state_kind kind)
- 		pr_info(" pointer");
- 		/* it also prints the type info */
- 		break;
-+	case TSR_KIND_VTABLE_PTR:
-+		pr_info(" vtable pointer");
-+		/* it also prints the type info */
-+		break;
-+	case TSR_KIND_VFUNC_PTR:
-+		pr_info(" virtual function pointer returning");
-+		/* it also prints the type info */
-+		break;
- 	case TSR_KIND_CANARY:
- 		pr_info(" stack canary\n");
- 		return;
-@@ -715,8 +723,11 @@ void set_stack_state(struct type_state_stack *stack, int offset, u8 kind,
- 			    Dwarf_Die *type_die, int ptr_offset)
- {
- 	Dwarf_Word size;
-+	bool is_pointer = (kind == TSR_KIND_POINTER ||
-+			   kind == TSR_KIND_VTABLE_PTR ||
-+			   kind == TSR_KIND_VFUNC_PTR);
- 
--	if (kind == TSR_KIND_POINTER) {
-+	if (is_pointer) {
- 		/* TODO: arch-dependent pointer size */
- 		size = sizeof(void *);
- 	}
-@@ -729,7 +740,7 @@ void set_stack_state(struct type_state_stack *stack, int offset, u8 kind,
- 	stack->ptr_offset = ptr_offset;
- 	stack->kind = kind;
- 
--	if (kind == TSR_KIND_POINTER) {
-+	if (is_pointer) {
- 		stack->compound = false;
- 		return;
- 	}
-diff --git a/tools/perf/util/annotate-data.h b/tools/perf/util/annotate-data.h
-index bbf4fd35c1d7..14dab1beae2c 100644
---- a/tools/perf/util/annotate-data.h
-+++ b/tools/perf/util/annotate-data.h
-@@ -36,6 +36,10 @@ enum type_state_kind {
- 	TSR_KIND_CONST,
- 	TSR_KIND_PERCPU_POINTER,
- 	TSR_KIND_POINTER,
-+	/* C++ vtable pointer of the class in 'type' */
-+	TSR_KIND_VTABLE_PTR,
-+	/* C++ virtual function pointer with the return type in 'type' */
-+	TSR_KIND_VFUNC_PTR,
- 	TSR_KIND_CANARY,
- };
- 
-diff --git a/tools/perf/util/disasm.c b/tools/perf/util/disasm.c
-index 5478c134e7e3..47097dc769ee 100644
---- a/tools/perf/util/disasm.c
-+++ b/tools/perf/util/disasm.c
-@@ -53,6 +53,7 @@ const struct ins_ops arithmetic_ops;
- static void ins__sort(struct arch *arch);
- static int disasm_line__parse(char *line, const char **namep, char **rawp);
- static int disasm_line__parse_powerpc(struct disasm_line *dl, struct annotate_args *args);
-+static bool check_multi_regs(const struct arch *arch, const char *op);
- 
- static __attribute__((constructor)) void symbol__init_regexpr(void)
- {
-@@ -300,6 +301,12 @@ static int call__parse(const struct arch *arch, struct ins_operands *ops, struct
- 	if (tok != NULL) {
- 		endptr++;
- 
-+		/* Save the operand (without '*') to extract register and offset */
-+		ops->target.raw = strdup(tok + 1);
-+		if (ops->target.raw == NULL)
-+			return -1;
-+		ops->target.multi_regs = check_multi_regs(arch, ops->target.raw);
-+
- 		/* Indirect call can use a non-rip register and offset: callq  *0x8(%rbx).
- 		 * Do not parse such instruction.  */
- 		if (strstr(endptr, "(%r") == NULL)
--- 
-2.53.0
-
+Not at all. I have been poking at ALLOC_UNMAPPED to post v4, but I
+have run into several issues (which is why I haven't posted anything
+yet). So please feel free to pull out whatever you want, do not block
+on this :)
