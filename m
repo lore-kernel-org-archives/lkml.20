@@ -1,175 +1,144 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from sendmail.purelymail.com (sendmail.purelymail.com [34.202.193.197])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4833F30D3FE;
-	Mon,  5 Oct 2026 05:28:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0A8BD313547
+	for <linux-kernel@vger.kernel.org>; Mon,  5 Oct 2026 05:29:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=34.202.193.197
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791178114; cv=none; b=AtmdiNjdInpEsf2bhiNBnwhg6szZy1wW7PIAypSi0ZboCvIfeBTl0O+GpLn3Cyx599O+WhNc/0+NlnRNwtgIQmFwbvzRYxsCoRax+2YmnVy2wEbhAJ2D5w98Fi3VVk5jbpb2Xcjvge7isYfpEl8T7J/sFS6ZtoYej7W8cDZAH20=
+	t=1791178166; cv=none; b=SW4pwJ8FwrCLwP7IGmxncVcISYGY2sSUL5Q5XdkAr8EtdlL6tjk1WVz4cQvBWX05lXSuPZCpbe3QdwScBzF1cDeX+wpi/hp+DtNpCUhGFk+42iZWfuwj0ccf48j/WIROiyFjkyOb2E8zl25TWZBgpoLutilZaOeOMJ8KU3d9GIw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791178114; c=relaxed/simple;
-	bh=BSvLA8UYIc7DgC8JwFdwNw9pz+87ezvmuLz6ySurQZ8=;
-	h=Date:From:To:Cc:Subject:Message-Id:In-Reply-To:References:
-	 Mime-Version:Content-Type; b=cKspjHNJCaxf4ZDJ0+2dc9SUl+0eFUv6GvI3QDqT2Ddnp79PEmQKa+t25RPfY47yQbzu0blqWiDvvgUe3kO+Fj7Nu7T+usSE1K0STkQu4WsJhNZsCHWErI/44Iw7S+Sm8HpVu3TyKguxdvBbzBingD3JUdHMrZ/qx/NJT83F+SE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=J0AUaOTS; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791178166; c=relaxed/simple;
+	bh=Vn3zjnwgyF/pasgQ2mGKhSYal+8VdI+0lX/7JlzOwXI=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=g71yPOPYQff/LL2xHxXpNj+A0kxq7JEWRMJoDK6YmqV/4krREuKjJ1aIHl054JxdRPnltE4+2dNY8dhTu7xvI3FyCeZCnytK8PXPQMk+Ovr7du0tSfam/4o7aAe9HxCqUW7QrbwdE2ZkaChWucxuEn+4KuhJwg3LA2CQ2HoyBxI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=q-lab.dev; spf=pass smtp.mailfrom=q-lab.dev; dkim=pass (2048-bit key) header.d=q-lab.dev header.i=@q-lab.dev header.b=UNGHZEpE; dkim=pass (2048-bit key) header.d=purelymail.com header.i=@purelymail.com header.b=MXj6K+MX; arc=none smtp.client-ip=34.202.193.197
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=q-lab.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=q-lab.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="J0AUaOTS"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 70BC21F000FF;
-	Mon,  5 Oct 2026 05:28:32 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux-foundation.org; s=korg; t=1791178112;
-	bh=/AbI6aiQv0q0ubJ9FMKBNe/Rn1IMhw37If5/SzZ9nl0=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=J0AUaOTSJyOUBdnKaYJ27RfHiTmlcQWaqN4uLvpUd73xVbR108/OBQlFMU7hRoYRB
-	 GDCSom7+8HiWw58v7h4+9ejEvMC7onVbGWgmfYnv0nkhrQbP6w0E3bV049hQJweae5
-	 nayRApGuB1es+0tW69f1/VjhWXm4tuCNJVx9v+cg=
-Date: Sun, 4 Oct 2026 22:28:31 -0700
-From: Andrew Morton <akpm@linux-foundation.org>
-To: Ayush Ranjan <ayushr@modal.com>
-Cc: Pedro Falcato <pfalcato@suse.de>, Hugh Dickins <hughd@google.com>,
- Matthew Wilcox <willy@infradead.org>, Jan Kara <jack@suse.cz>, Baolin Wang
- <baolin.wang@linux.alibaba.com>, David Hildenbrand <david@kernel.org>,
- Gregory Price <gourry@gourry.net>, linux-mm@kvack.org,
- linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [BUG] shmem: FALLOC_FL_PUNCH_HOLE vs fault-around race corrupts
- page cache / rss counters
-Message-Id: <20261004222831.bdd648a2b406f02747dd9e40@linux-foundation.org>
-In-Reply-To: <20261003033107.1488699-1-ayushr@modal.com>
-References: <20260924061708.1645968-1-ayushr@modal.com>
-	<arTdLsBENhrpOyk-@pedro-suse.tail5790ac.ts.net>
-	<20260925053027.1998394-1-ayushr@modal.com>
-	<20260925065013.3682431-1-ayushr@modal.com>
-	<20261003033107.1488699-1-ayushr@modal.com>
-X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
+	dkim=pass (2048-bit key) header.d=q-lab.dev header.i=@q-lab.dev header.b="UNGHZEpE";
+	dkim=pass (2048-bit key) header.d=purelymail.com header.i=@purelymail.com header.b="MXj6K+MX"
+DKIM-Signature: a=rsa-sha256; b=UNGHZEpEiaD159QgaaDCEFfkcvxSa8QJjY+ciWNpxzDdPxsKsm98VDBPcpNYcjP0iizZx4cBjuCkbaBZajCKAPNp1a4ChmuSFWL3vl+UBfLS3FWgQ4IWJl+vL8XP4RKntLSAYU7GGvlJo1NI7uqBR7zX0ey6jE0gXhcpBldSwsVrKmUs95LGf4epmZjVv5jz19YnZgOJ5y7cpi3zPk7omiBHGtvjDvlbuK563LX2xNFFtyVH4V7wOB643uBJPlfSIxU98mGmMvetlOEtMbnwOdKYBkN5hnekEufx1oO98OefFZr1CaqATNCZxocwoC7ADXaO0CwFlePEAqHytaJ7jQ==; s=purelymail1; d=q-lab.dev; v=1; bh=Vn3zjnwgyF/pasgQ2mGKhSYal+8VdI+0lX/7JlzOwXI=; h=Received:From:To:Subject:Date;
+DKIM-Signature: a=rsa-sha256; b=MXj6K+MXIMn/S7FkQ/jHU2nHJpWDQKj5OolVBlh/A8PLmRubDeTULqA+WGmnphHSXiwPP06+XDuv1BXwD2hiJLmcNkzpYEuRzle4CxM9lk2REF8NXO9EnPwoYbTYzldYBPpPMhEw7jKYlHb/MA/x1ga1FJO3aAo3TSLRgAqvqRLAK1uQAL8DX5amYBhg4D16AvH+uqIbDFNgGBWwT5V8IXxDrmD4Hjtq/L09gAdZdhdplXkG3EhG/vyN7RR0a910+paFM4qrPDW18zhYyRiojYDK0hhbnqYClhDJjYKXNETKkxtPaGQSNNYMtyNeEADiMAgeeSpE8o8bmFbWd3wfvA==; s=purelymail1; d=purelymail.com; v=1; bh=Vn3zjnwgyF/pasgQ2mGKhSYal+8VdI+0lX/7JlzOwXI=; h=Feedback-ID:Received:From:To:Subject:Date;
+Feedback-ID: 284201:25281:null:purelymail
+X-Pm-Original-To: linux-kernel@vger.kernel.org
+Authentication-Results: purelymail.com; auth=pass
+Received: by smtp.purelymail.com (Purelymail SMTP) with ESMTPSA id -1344933009;
+          (version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384);
+          Mon, 05 Oct 2026 05:29:02 +0000 (UTC)
+From: Quentin Freimanis <quentin@q-lab.dev>
+To: netdev@vger.kernel.org
+Cc: Daniel Machon <daniel.machon@microchip.com>,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Steen Hegelund <Steen.Hegelund@microchip.com>,
+	UNGLinuxDriver@microchip.com,
+	Richard Cochran <richardcochran@gmail.com>,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH net v2] net: sparx5: start the TOD counters on non-PTP lan969x variants
+Date: Sun,  4 Oct 2026 22:28:26 -0700
+Message-ID: <20261005052826.14251-1-quentin@q-lab.dev>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+MIME-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+X-MIME-Autoconverted: from 8bit to quoted-printable by Purelymail
+Content-Type: text/plain; charset=UTF-8
 
-On Sat,  3 Oct 2026 03:31:03 +0000 Ayush Ranjan <ayushr@modal.com> wrote:
+Currently the base non-PTP-capable lan969x variants don't forward any
+Ethernet frames:
 
-> Hi all,
-> 
-> Gentle ping on this. The reproducer in my previous mail [1] triggers
-> "Bad page cache ... still mapped when deleted" on 6.18.46 within a
-> couple of minutes on a 128-CPU bare-metal box, with no fork() and no
-> gVisor involved.
-> 
-> We continue to hit this in production at low frequency, so I am happy
-> to test patches or collect more data if that would help.
-> 
+  $ ip link set eth10 up
 
-fwiw I made gpt and gemini argue about this for a while and ended up
-with the below.
+  $ ip addr add 10.0.0.54/24 dev eth10
 
+  $ ping 10.0.0.1
+  PING 10.0.0.1 (10.0.0.1): 56 data bytes
 
-From: Andrew Morton <akpm@linux-foundation.org>
-Subject: mm: shmem: serialize fault-around against hole punching
-Date: Sun Oct 4 09:05:31 PM PDT 2026
+  --- 10.0.0.1 ping statistics ---
+  7 packets transmitted, 0 packets received, 100% packet loss
 
-shmem uses filemap_map_pages() for fault-around.  Unlike shmem_fault(),
-filemap_map_pages() does not participate in shmem's fallocate exclusion
-protocol.
+  $ cat /proc/interrupts | grep fdma
+    20:          0  GIC-0  120 Level     sparx5-fdma
 
-During a partial hole punch of a large shmem folio, the folio can be split
-and the resulting smaller folios can remain temporarily visible in the page
-cache while shmem_undo_range() restarts its walk.  Fault-around can then map
-one of those folios again before the hole-punch path removes it.
+  $ ip -s link show dev eth10
+      RX:  bytes packets errors dropped  missed   mcast
+           20828     102      0       0       0      72
+      TX:  bytes packets errors dropped carrier collsns
+               0       0      0       0       0       0
 
-shmem_undo_range() may subsequently delete that folio from the page cache
-despite the new userspace mapping.  This can trigger "still mapped when
-deleted" warnings and leave stale mappings or inconsistent RSS/page-table
-accounting behind.
+Testing showed that starting the domain 0 TOD counter gets networking
+working again, but start all three for consistency with the PTP variants.
 
-The race dates back to d7c1755179b8 ("mm: implement ->map_pages for
-shmem/tmpfs"), which enabled generic fault-around for shmem without making
-it participate in shmem's hole-punch exclusion protocol.
-
-Serialize shmem fault-around against the hole-punch unmap/truncate sequence
-with mapping->invalidate_lock.  The hole-punch side holds the lock
-exclusively while unmapping and removing pages.
-
-do_fault_around() invokes ->map_pages() under rcu_read_lock(), so the
-fault-around side cannot block on invalidate_lock.  Use the shared trylock
-instead.  If the trylock fails, skip fault-around and let the normal shmem
-fault path handle the fault.  Otherwise hold the shared lock while
-filemap_map_pages() installs mappings.
-
-This preserves fault-around in the uncontended case while ensuring that
-pages in a punched range cannot be remapped between unmap_mapping_range()
-and shmem_truncate_range().
-
-Fixes: d7c1755179b8 ("mm: implement ->map_pages for shmem/tmpfs")
-Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+Fixes: 207966787b71 ("net: sparx5: add feature support")
+Suggested-by: Daniel Machon <daniel.machon@microchip.com>
+Signed-off-by: Quentin Freimanis <quentin@q-lab.dev>
 ---
+Changes in v2:
+- Drop the TOD start helper and start all three counters (Daniel)
+- Fix capitalization in comment explaining why non-PTP parts
+  need the TOD counters running (Daniel)
+- Add test log showing user impact
 
- mm/shmem.c |   27 +++++++++++++++++++++++++--
- 1 file changed, 25 insertions(+), 2 deletions(-)
+v1: https://lore.kernel.org/netdev/20260928044955.29647-1-quentin@q-lab.dev=
+/
 
---- a/mm/shmem.c~a
-+++ a/mm/shmem.c
-@@ -2938,6 +2938,27 @@ static vm_fault_t shmem_fault(struct vm_
- 	return ret;
- }
- 
-+/*
-+ * A hole punch can temporarily leave split folios visible in the page cache
-+ * after it has unmapped the range.  Do not let fault-around map them again
-+ * before shmem_truncate_range() removes them.  ->map_pages() runs under
-+ * rcu_read_lock(), so this exclusion must be non-blocking.
-+ */
-+static vm_fault_t shmem_map_pages(struct vm_fault *vmf,
-+				  pgoff_t start_pgoff, pgoff_t end_pgoff)
-+{
-+	struct address_space *mapping = vmf->vma->vm_file->f_mapping;
-+	vm_fault_t ret;
+ .../ethernet/microchip/sparx5/sparx5_ptp.c    | 28 +++++++++++--------
+ 1 file changed, 16 insertions(+), 12 deletions(-)
+
+diff --git a/drivers/net/ethernet/microchip/sparx5/sparx5_ptp.c b/drivers/n=
+et/ethernet/microchip/sparx5/sparx5_ptp.c
+index 5953e04ef14e..2826e48af103 100644
+--- a/drivers/net/ethernet/microchip/sparx5/sparx5_ptp.c
++++ b/drivers/net/ethernet/microchip/sparx5/sparx5_ptp.c
+@@ -622,18 +622,9 @@ int sparx5_ptp_init(struct sparx5 *sparx5)
+ =09=09sparx5->ptp =3D 1;
+ =09}
+=20
+-=09if (!sparx5->ptp)
+-=09=09return 0;
+-
+-=09for (i =3D 0; i < SPARX5_PHC_COUNT; ++i) {
+-=09=09err =3D sparx5_ptp_phc_init(sparx5, i, &sparx5_ptp_clock_info);
+-=09=09if (err)
+-=09=09=09return err;
+-=09}
+-
+-=09spin_lock_init(&sparx5->ptp_clock_lock);
+-=09spin_lock_init(&sparx5->ptp_ts_id_lock);
+-=09mutex_init(&sparx5->ptp_lock);
++=09/* The base, non-PTP-capable lan969x variants need the
++=09 * first TOD counter running to forward frames.
++=09 */
+=20
+ =09/* Disable master counters */
+ =09spx5_wr(PTP_PTP_DOM_CFG_PTP_ENA_SET(0), sparx5, PTP_PTP_DOM_CFG);
+@@ -657,6 +648,19 @@ int sparx5_ptp_init(struct sparx5 *sparx5)
+ =09/* Enable master counters */
+ =09spx5_wr(PTP_PTP_DOM_CFG_PTP_ENA_SET(0x7), sparx5, PTP_PTP_DOM_CFG);
+=20
++=09if (!sparx5->ptp)
++=09=09return 0;
 +
-+	if (!filemap_invalidate_trylock_shared(mapping))
-+		return 0;
++=09for (i =3D 0; i < SPARX5_PHC_COUNT; ++i) {
++=09=09err =3D sparx5_ptp_phc_init(sparx5, i, &sparx5_ptp_clock_info);
++=09=09if (err)
++=09=09=09return err;
++=09}
 +
-+	ret = filemap_map_pages(vmf, start_pgoff, end_pgoff);
-+	filemap_invalidate_unlock_shared(mapping);
++=09spin_lock_init(&sparx5->ptp_clock_lock);
++=09spin_lock_init(&sparx5->ptp_ts_id_lock);
++=09mutex_init(&sparx5->ptp_lock);
 +
-+	return ret;
-+}
-+
- unsigned long shmem_get_unmapped_area(struct file *file,
- 				      unsigned long uaddr, unsigned long len,
- 				      unsigned long pgoff, unsigned long flags)
-@@ -3865,10 +3886,12 @@ static long shmem_fallocate(struct file
- 		WRITE_ONCE(inode->i_private, &shmem_falloc);
- 		spin_unlock(&inode->i_lock);
- 
-+		filemap_invalidate_lock(mapping);
- 		if ((u64)unmap_end > (u64)unmap_start)
- 			unmap_mapping_range(mapping, unmap_start,
- 					    1 + unmap_end - unmap_start, 0);
- 		shmem_truncate_range(inode, offset, offset + len - 1);
-+		filemap_invalidate_unlock(mapping);
- 		/* No need to unmap again: hole-punching leaves COWed pages */
- 
- 		spin_lock(&inode->i_lock);
-@@ -5467,7 +5490,7 @@ static const struct super_operations shm
- 
- static const struct vm_operations_struct shmem_vm_ops = {
- 	.fault		= shmem_fault,
--	.map_pages	= filemap_map_pages,
-+	.map_pages	= shmem_map_pages,
- #ifdef CONFIG_NUMA
- 	.set_policy     = shmem_set_policy,
- 	.get_policy     = shmem_get_policy,
-@@ -5479,7 +5502,7 @@ static const struct vm_operations_struct
- 
- static const struct vm_operations_struct shmem_anon_vm_ops = {
- 	.fault		= shmem_fault,
--	.map_pages	= filemap_map_pages,
-+	.map_pages	= shmem_map_pages,
- #ifdef CONFIG_NUMA
- 	.set_policy     = shmem_set_policy,
- 	.get_policy     = shmem_get_policy,
-_
+ =09for (i =3D 0; i < sparx5->data->consts->n_ports; i++) {
+ =09=09port =3D sparx5->ports[i];
+ =09=09if (!port)
+--=20
+2.55.0
 
