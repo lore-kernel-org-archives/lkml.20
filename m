@@ -1,147 +1,269 @@
-Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
+Received: from mo4-p01-ob.smtp.rzone.de (mo4-p01-ob.smtp.rzone.de [81.169.146.164])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B9C297081E
-	for <linux-kernel@vger.kernel.org>; Mon,  5 Oct 2026 11:53:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.251.105.195
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791201207; cv=none; b=YgH4IA8m/xlL2DDnxjxBreb9qxtGIsVI+OY1x4QFfJm2F1kz97NX5Ll/dOp5Sf+Li2IP4I95K2VnzHKRF1cnBpQASkeT3tZBoBNS3s2B0OC9vTslJcMlOoDbEUkMkvwPsjM+7LcqvEgm0g9LjVH3VCsVfD+XeYc3fOeVhKJKDgg=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791201207; c=relaxed/simple;
-	bh=1cvRFs3e3GOgEv20ZHhlqN3hVJ2EwB0TmbkyrTnmpbY=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=SEZySo4ckxWYCMH4PcDCED3bDcOWRCsDSc5kWBr+1birtauJRk59SeTwShb3VqZ/4Iqs940jsC2PXuBCg/IKXhaaGvQ272HvyfQEfrB5s0FdlxEgg0O7PLY8IYkTbepMSheZoEERqjykVjTRgDxZtoF/fOcfaNz3qKKLv8NJ8i8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=lNZ6aA3S; arc=none smtp.client-ip=148.251.105.195
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 70A16221FD4;
+	Mon,  5 Oct 2026 11:55:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=81.169.146.164
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791201323; cv=pass; b=n5lhiRPr2iin1YsuDrcp4pe/bWdSA66uL9nSBHE374niE4P8+gp62YYjn4/gRc4f8RFNnQL/Y0QNrJo6Z6xbJZyGsUEMGqm4wofxjm0yy8Hz6sYDfOpzNWy43+xi8BvqfmY1H5fLCdR8YuBznWHbwZTzLvTWkt7Oy9agum6Xir8=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791201323; c=relaxed/simple;
+	bh=ck8/UTx5CCxvmelK4jSyBm8N+nwsqu5R9ItOFQBEQH8=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=UYjhxmKe7nh5Qyywe3sWLLrh4Y/213XxBywNulMMvdjiQDISfrxCEdwLLs7LCh/VI7w8mKE2ViWZR585b7jpL+a6H7zO0Xw6qGS6SRrBOlDIcebgkCdaB7POH1KCqwkLI8vkm2HOFN7FapcAgotNDsH28BJLM2Xb9yMA6gbogNQ=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=iokpp.de; spf=none smtp.mailfrom=iokpp.de; dkim=pass (2048-bit key) header.d=iokpp.de header.i=@iokpp.de header.b=GQJ/rxyY; dkim=permerror (0-bit key) header.d=iokpp.de header.i=@iokpp.de header.b=BjTpxYHY; arc=pass smtp.client-ip=81.169.146.164
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=iokpp.de
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=iokpp.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="lNZ6aA3S"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
-	s=mail; t=1791201203;
-	bh=1cvRFs3e3GOgEv20ZHhlqN3hVJ2EwB0TmbkyrTnmpbY=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
-	b=lNZ6aA3SkHmVAFvrtWo7caeNZEV9FCAt43KunoyBwuP7UPLdDLDQFrLumCxxG5kgv
-	 GW5QLGgL8AnNEv6MPWcYaOkcWmmYAAvUja9oip5jELj5Kvj1pG1cY9kxqvUlRnEHmL
-	 6CU6+mLl3c/Z3qyp/wH8q6V2WttayIRfCRgUD8dWp4vaEokGHtMh3i4Tw6y99qN8Aa
-	 NEUsJ9hEhNeXcOF1x0PjSeJ/Mg0N8JRtyM6tZphJMynOKxOI1zWJKf8XWSXYyQRIVZ
-	 qoNbF9ojBADZ8bTgLZXzv2hVwBT7h0v6UBpfbv9b8PFIDAy9KiIAAo6verCGED/+Qe
-	 VhnJjgZg5FyhQ==
-Received: from fedora-61.home (unknown [100.64.0.11])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange secp256r1 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	(Authenticated sender: bbrezillon)
-	by bali.collaboradmins.com (Postfix) with ESMTPSA id 3761E17E006F;
-	Mon, 05 Oct 2026 13:53:23 +0200 (CEST)
-Date: Mon, 5 Oct 2026 13:53:12 +0200
-From: Boris Brezillon <boris.brezillon@collabora.com>
-To: Steven Price <steven.price@arm.com>
-Cc: Liviu Dudau <liviu.dudau@arm.com>, =?UTF-8?B?QWRyacOhbg==?= Larumbe
- <adrian.larumbe@collabora.com>, Akash Goel <akash.goel@arm.com>, Maarten
- Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard
- <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, David Airlie
- <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 4/5] drm/panthor: Actually check huge-page mapping on
- sparse regions
-Message-ID: <20261005135312.43d132cf@fedora-61.home>
-In-Reply-To: <678b9346-a53d-49bd-9c90-fa63e6c81169@arm.com>
-References: <20260924-panthor-fix-partial-unmap-v2-0-59a68a1f9e14@collabora.com>
-	<20260924-panthor-fix-partial-unmap-v2-4-59a68a1f9e14@collabora.com>
-	<678b9346-a53d-49bd-9c90-fa63e6c81169@arm.com>
-Organization: Collabora
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
+	dkim=pass (2048-bit key) header.d=iokpp.de header.i=@iokpp.de header.b="GQJ/rxyY";
+	dkim=permerror (0-bit key) header.d=iokpp.de header.i=@iokpp.de header.b="BjTpxYHY"
+ARC-Seal: i=1; a=rsa-sha256; t=1791201271; cv=none;
+    d=strato.com; s=strato-dkim-0002;
+    b=GZjD9ZxuN4+NRA9jvrOsL27KMR/E04LwmXRwbn3flrtQXOCS5tCwajYixVuLsyns9h
+    OerJLKd5xnDtpHTXjkT9IZG4EBR1jBNIzcQ88ZlbV2UH0I9d63iSPkG/PZlKCkCqQNAk
+    rHrxOFxJ4aNg56i+Lw3Msd7GoDwxwSpvF9kfViYweYn8O7XBjPW93daBRuMksB3op+jG
+    HqEL/QFfPClPV9Qc3kkRfLWz0BymR4S2rNVy1fOkXWYEugLHvUS455z8SHd0NvDa9O9o
+    mS46X9UKuXFK+45Fd9Fa4gauOAbBHhJSUCMlLsknxgfJZVIZXQMtlONaS6JMGLsOBWsb
+    kDoQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; t=1791201271;
+    s=strato-dkim-0002; d=strato.com;
+    h=References:In-Reply-To:Date:Cc:To:From:Subject:Message-ID:Cc:Date:
+    From:Subject:Sender;
+    bh=ck8/UTx5CCxvmelK4jSyBm8N+nwsqu5R9ItOFQBEQH8=;
+    b=e+ktHQR7CNoduKojQMY3gFx5Kn1ucuyGEjn1rTQo0Mjk9lpZk9Fo8IdY4XHsDuegmc
+    uA0GSAxwwB59aCLULGrr4+fkMYXRiUPS1qV+AiHdhtDF0QNXehMWxGMDPvttDwxRV8PE
+    3q6SJibcRN+E7rLe2HN95j5lY07ntV4/caRcRakCGqlz9QPz9JGczaufzs1/BunwC52t
+    e9ggp/BKZwMA3KD5vMM6mQJq2ZvVMoKk2mhkHa5jkffqnPe3wgfjQpk2VlXm5Wws/SzN
+    KT3Cb1Jg3NrkhXiui0Ma/zDbjzNJlcpgIoQ03jxp3tmk4TPk3NnvIhzsdH9O/f9ONyXE
+    jhJw==
+ARC-Authentication-Results: i=1; strato.com;
+    arc=none;
+    dkim=none
+X-RZG-CLASS-ID: mo01
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1791201271;
+    s=strato-dkim-0002; d=iokpp.de;
+    h=References:In-Reply-To:Date:Cc:To:From:Subject:Message-ID:Cc:Date:
+    From:Subject:Sender;
+    bh=ck8/UTx5CCxvmelK4jSyBm8N+nwsqu5R9ItOFQBEQH8=;
+    b=GQJ/rxyYVHg2reXyHUkB1teDDR55KuAGVsA5mYGvlFb1DGbIr0/tm2yWOGiOb8XqqF
+    5kqK02aTX6penZxg/9c7SyIRsH1O92TPkpeSuVeqwsH1HhhyPbowXm7NMMP+RjO+jV+h
+    RHLbQmccyJ8rSIupA/IxJh0wvjblTFI2NE7GvnHkCeF/LLcAXRdcBwI1zuhqpi4i1Lx4
+    6FkXYFgqvU7bYynUvPMCpWG2coLC2Axu0zIL+Lo9cRDHrYwRMRRcD88h6yTx8J1b3O9v
+    IMo9MYPDyFmP5BjfbnB/g10k0MdSF6z0J6DsKnhw9WiJBiBMUPpcB433busY8BzvqxbR
+    SCgQ==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; t=1791201271;
+    s=strato-dkim-0003; d=iokpp.de;
+    h=References:In-Reply-To:Date:Cc:To:From:Subject:Message-ID:Cc:Date:
+    From:Subject:Sender;
+    bh=ck8/UTx5CCxvmelK4jSyBm8N+nwsqu5R9ItOFQBEQH8=;
+    b=BjTpxYHYhclzhR1ha2zFbnNNVuuyZTHA9ELB+Ty4toBOFsrKsSAZR8q3EgQI7FgF2H
+    KKPhn2W9H0Z6dptrzKBg==
+X-RZG-AUTH: ":LmkFe0i9dN8c2t4QQyGBB/NDXvjDB6pBSe9tgBDSDt0V0DBslXBtZUxPOub3IZuk"
+Received: from [10.176.237.163]
+    by smtp.strato.de (RZmta 55.6.2 AUTH)
+    with ESMTPSA id z04e1c295BsTQ3d
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256 bits))
+	(Client did not present a certificate);
+    Mon, 5 Oct 2026 13:54:29 +0200 (CEST)
+Message-ID: <1912caf84d99bc2388960c907184f06689806ee6.camel@iokpp.de>
+Subject: Re: [PATCH 6.18.y] scsi: ufs: core: Re-arm the device command
+ completion before submitting
+From: Bean Huo <beanhuo@iokpp.de>
+To: alice.chao@mediatek.com, stable@vger.kernel.org
+Cc: linux-scsi@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ martin.petersen@oracle.com, James.Bottomley@HansenPartnership.com, 
+ bvanassche@acm.org, avri.altman@sandisk.com, alim.akhtar@samsung.com, 
+ wsd_upstream@mediatek.com, linux-mediatek@lists.infradead.org, 
+ peter.wang@mediatek.com, chun-hung.wu@mediatek.com, cc.chou@mediatek.com, 
+ chaotian.jing@mediatek.com, tun-yu.yu@mediatek.com, naomi.chu@mediatek.com,
+  ed.tsai@mediatek.com
+Date: Mon, 05 Oct 2026 13:54:28 +0200
+In-Reply-To: <20260915052638.459390-1-alice.chao@mediatek.com>
+References: <20260915052638.459390-1-alice.chao@mediatek.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.44.4-0ubuntu2.1 
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
 
-On Mon, 5 Oct 2026 12:03:26 +0100
-Steven Price <steven.price@arm.com> wrote:
+On Tue, 2026-09-15 at 13:26 +0800, alice.chao@mediatek.com wrote:
+> From: Alice Chao <alice.chao@mediatek.com>
+>=20
+> Commit 20b97acc4caf ("scsi: ufs: core: Fix a race condition related to
+> device commands") moved the device management command completion into
+> struct ufs_hba, initialized once by ufshcd_init(), and dropped the
+>=20
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0hba->dev_cmd.complete =3D=
+ NULL;
+>=20
+> assignments that used to make ufshcd_compl_one_cqe() discard completions
+> the submitter had already given up on. Nothing replaced them, so the
+> completion is never reset between two device commands:
+>=20
+> =C2=A0 Task A (device command submitter) IRQ (tag =3D=3D hba->reserved_sl=
+ot)
+> =C2=A0 --------------------------------- ------------------------------
+> =C2=A0 ufshcd_read_desc_param()
+> =C2=A0=C2=A0 ufshcd_query_descriptor_retry()
+> =C2=A0=C2=A0=C2=A0 __ufshcd_query_descriptor()
+> =C2=A0=C2=A0=C2=A0=C2=A0 ufshcd_exec_dev_cmd()
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 ufshcd_issue_dev_cmd()
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 ufshcd_send_command()
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 ufshcd_wait_for_dev_cmd()
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 wait_for_completion_timeout()
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 /* times out, done =3D=3D 0 */
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 ufshcd_clear_cmd()
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 /* returns 0, no effect */
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 return -EAGAIN
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 ufs_mtk_mcq=
+_intr()
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 ufshc=
+d_mcq_poll_cqe_lock()
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+ ufshcd_mcq_process_cqe()
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0 ufshcd_compl_one_cqe()
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0 /* lrbp->cmd =3D=3D NULL */
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0 complete(&hba->dev_cmd.complete)
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0 /* done: 0 -> 1 */
+> =C2=A0 ufshcd_query_attr_retry()
+> =C2=A0=C2=A0 ufshcd_query_attr()
+> =C2=A0=C2=A0=C2=A0 ufshcd_exec_dev_cmd()
+> =C2=A0=C2=A0=C2=A0=C2=A0 ufshcd_issue_dev_cmd()
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 ufshcd_send_command()
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 ufshcd_wait_for_dev_cmd()
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 wait_for_completion_timeout()
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 /* returns at once, done: 1 -> 0 */
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 ufshcd_dev_cmd_completion()
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 /* response UPIU not written yet */
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 return -EINVAL
+>=20
+> Task A then rejects what it reads out of the response UPIU:
+>=20
+> =C2=A0 ufshcd_dev_cmd_completion: Invalid device management cmd response:=
+ 0
+> =C2=A0 ufshcd_dev_cmd_completion: unexpected response in Query RSP: ff
+>=20
+> The skew does not self-correct. On a UFS 4.0 controller in MCQ mode it
+> persisted across more than a thousand consecutive device commands,
+> failing every descriptor and attribute read until the link was reset.
+>=20
+> The controller can still complete the timed-out command because in MCQ
+> mode ufshcd_clear_cmd() only issues an SQ cleanup (SQRTC.ICU), which
+> shows the command left the submission queue but not that a CQE is not
+> already posted. The MCQ path also skips the hba->outstanding_reqs
+> re-check that the SDB path does, so it returns -EAGAIN with the
+> completion still armed.
+>=20
+> Re-arm the completion in ufshcd_issue_dev_cmd(), immediately before
+> submitting. All submitters - ufshcd_exec_dev_cmd(),
+> ufshcd_issue_devman_upiu_cmd() and ufshcd_advanced_rpmb_op() - reach it
+> holding hba->dev_cmd.lock, so no extra serialization is needed.
+>=20
+> This narrows the window rather than closing it: the CQE only carries the
+> tag and every device command uses hba->reserved_slot, so a late
+> completion is still indistinguishable from the expected one. It no
+> longer spans the idle time between two commands.
+>=20
+> No mainline commit: commit 08b12cda6c44 ("scsi: ufs: core: Switch to
+> scsi_get_internal_cmd()") moved this path onto the block layer and
+> removed struct ufs_dev_cmd::complete and ufshcd_wait_for_dev_cmd(). Each
+> device command now waits on its own request via blk_execute_rq(), so
+> mainline has no shared completion to skew. That refactor is not a
+> reasonable stable backport; this is the minimal alternative.
+>=20
+> Affected versions: v6.15 through v6.18, i.e. the kernels that carry the
+> commit named in the Fixes: tag but not the mainline rewrite above.
+>=20
+> Fixes: 20b97acc4caf ("scsi: ufs: core: Fix a race condition related to de=
+vice
+> commands")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Alice Chao <alice.chao@mediatek.com>
+> ---
+> =C2=A0drivers/ufs/core/ufshcd.c | 9 +++++++++
+> =C2=A01 file changed, 9 insertions(+)
+>=20
+> diff --git a/drivers/ufs/core/ufshcd.c b/drivers/ufs/core/ufshcd.c
+> index 87578e8824d2..003fa8af4f4d 100644
+> --- a/drivers/ufs/core/ufshcd.c
+> +++ b/drivers/ufs/core/ufshcd.c
+> @@ -3312,6 +3312,15 @@ static int ufshcd_issue_dev_cmd(struct ufs_hba *hb=
+a,
+> struct ufshcd_lrb *lrbp,
+> =C2=A0{
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0int err;
+> =C2=A0
+> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0/*
+> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 * A device command that timed=
+ out may still be completed by the
+> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 * controller later on. hba->d=
+ev_cmd.complete is shared by all device
+> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 * commands, so re-arm it here=
+, immediately before submitting, to keep
+> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 * such a late completion from=
+ being mistaken for the completion of
+> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 * this command.
+> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 */
+> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0reinit_completion(&hba->dev_cm=
+d.complete);
+> +
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0ufshcd_add_query_upiu_tra=
+ce(hba, UFS_QUERY_SEND, lrbp->ucd_req_ptr);
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0ufshcd_send_command(hba, =
+tag, hba->dev_cmd_queue);
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0err =3D ufshcd_wait_for_d=
+ev_cmd(hba, lrbp, timeout);
+> --
 
-> On 24/09/2026 12:04, Boris Brezillon wrote:
-> > With the recent changes to iova_mapped_as_huge_page(), the check for
-> > huge-page mapping of sparse BOs is actually simple:
-> > 
-> > - for a sparse mapping, we know the BO offset any VA in this regions is
-> >   va & (SZ_2M - 1)
-> > - the VA we're searching the BO offset for is the 2M-aligned
-> >   aligned_va value
-> > 
-> > This guarantees that the BO offset to check is always zero in that case.
-> > 
-> > This is simple enough to let the code check if page 0 is a huge page
-> > and save the unmap+map dance when the dummy BO is not backed by a
-> > a huge page. So let's do that and kill the comment that says it's too
-> > complicated.
-> > 
-> > Reviewed-by: Liviu Dudau <liviu.dudau@arm.com>
-> > Reviewed-by: Akash Goel <akash.goel@arm.com>
-> > Signed-off-by: Boris Brezillon <boris.brezillon@collabora.com>  
-> 
-> In itself I can't see anything wrong with this change, so:
-> 
-> Reviewed-by: Steven Price <steven.price@arm.com>
-> 
-> However...
-> 
-> > ---
-> >  drivers/gpu/drm/panthor/panthor_mmu.c | 15 ++++++++-------
-> >  1 file changed, 8 insertions(+), 7 deletions(-)
-> > 
-> > diff --git a/drivers/gpu/drm/panthor/panthor_mmu.c b/drivers/gpu/drm/panthor/panthor_mmu.c
-> > index d2897099763e..01564d250adf 100644
-> > --- a/drivers/gpu/drm/panthor/panthor_mmu.c
-> > +++ b/drivers/gpu/drm/panthor/panthor_mmu.c
-> > @@ -2337,18 +2337,18 @@ iova_mapped_as_huge_page(struct drm_gpuva *mapping, u64 va)
-> >  
-> >  		return false;
-> >  	} else {
-> > -		const struct page *pg = bo->backing.pages[bo_offset >> PAGE_SHIFT];
-> >  		struct panthor_vma *vma = container_of(mapping, struct panthor_vma, base);
-> >  		bool is_sparse = vma->flags & DRM_PANTHOR_VM_BIND_OP_MAP_SPARSE;
-> > +		const struct page *pg;
-> >  
-> > -		/* If the unmapped VMA stands for a sparse mapping, always
-> > -		 * assume the backing storage is a THP, since the overhead of
-> > -		 * unmapping 2MiB worth of 4KiB pages and remapping some of
-> > -		 * them is offset by the logic of working out whether it's
-> > -		 * the opposite case right below.
-> > +		/* BO offset on a sparse mapping is chosen so that 2M-aligned
-> > +		 * VAs point to the start of the BO. Since aligned_va (the
-> > +		 * address we check huge-page against) is 2M-aligned, the BO
-> > +		 * offset is guaranteed to be zero.
-> > +		 * Check panthor_fix_sparse_map_offset() for more details.
-> >  		 */
-> >  		if (is_sparse)
-> > -			return true;
-> > +			bo_offset = 0;
-> >  
-> >  		/* In case of shmem backing, we know we can only have a huge
-> >  		 * mapping if the bo_offset is 2M aligned, meaning we can skip
-> > @@ -2357,6 +2357,7 @@ iova_mapped_as_huge_page(struct drm_gpuva *mapping, u64 va)
-> >  		if (!IS_ALIGNED(bo_offset, SZ_2M))
-> >  			return false;
-> >  
-> > +		pg = bo->backing.pages[bo_offset >> PAGE_SHIFT];
-> >  		return folio_size(page_folio(pg)) >= SZ_2M;  
-> 
-> ... this seems like it could be problematic. On the mapping side we use
-> the scatter list to decide whether the region is huge page mapped or
-> not. The scatter list code can merge segments that are contiguous (see
-> pages_are_mergeable()), so if we have a region which has small folios we
-> fail this check even though the pages might have been mapped as huge pages.
-> 
-> This is a problem on the non-sparse path as well (hence not really
-> related to this patch). I'm not really sure how to test this though - I
-> may well have overlooked something here.
 
-So, this is based on the assumption that shmem backing is allocated
-with the buddy allocator, and because of how this allocator splits
-bigger order blocks to service smaller allocations, it's my
-understanding that two consecutive folios of the same size/order can't
-be physically contiguous.
+I have one question:
+
+The late CQE can come after the re-arm:
+
+timeout -> cleanup -> retry B -> re-arm -> send B -> A's CQE arrives, and t=
+hen B
+is woken up early and fails, if B's own CQE in turn comes after C's re-arm,=
+ C
+fails the same way, and C may even read B's response as its own.=C2=A0
+
+Whether this stops depends on device latency against our retry path, not on=
+ the
+patch.=C2=A0
+
+The root cause is that all device commands share hba->reserved_slot and the=
+ CQE
+carries only the tag. Since a successful SQ cleanup must post an ABORTED CQ=
+E,
+could the MCQ timeout path wait for and consume that CQE before=C2=A0return=
+ing -
+EAGAIN?=C2=A0
+
+does this patch only covers a late CQE arriving while no device command is =
+in
+flight. Did you test it with injected timeouts to see whether it recovers?
+
+
+Kind regards,
+Bean
