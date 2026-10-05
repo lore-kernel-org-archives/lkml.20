@@ -1,100 +1,122 @@
-Received: from out162-62-57-87.mail.qq.com (out162-62-57-87.mail.qq.com [162.62.57.87])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-yx2-f0.google.com (mail-yx2-f0.google.com [74.125.224.128])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4E5354C33D1;
-	Mon,  5 Oct 2026 15:59:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=162.62.57.87
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 75F424CDA31
+	for <linux-kernel@vger.kernel.org>; Mon,  5 Oct 2026 15:59:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.224.128
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791215967; cv=none; b=Afy0pmYmBgtHV1cassreMCfkQKA37tKuB7f/qlKLXYbtZ8NiSNE8EhwyF82zbJSHLpbT6lgwzABPniFBQz8cSp/LDrjFVS/mhDePr0SorOizDhTZ0v1spRyIhF8PNQgVZbSNz65EQRWwBX7WrIRfKYPOVnjgy3e4/gqsMewLVhw=
+	t=1791215970; cv=none; b=uZTMVqebhuUPBIlPY6SS6zcPaPezE9B/8ozWJK+tKK2Xk7jP+cLzQSsEAENWhCxIkQIFj14JCfqfBw7qVy7L1hbnJRv8edJC6swvq4MGZYKl3dqfaRLICunPPbM0mfiOyWI8pF+dzI4uxZkntZiTu8MViO0xegQF54L/j6S8vQg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791215967; c=relaxed/simple;
-	bh=wWUV3emk7ULpEee/9G63NluqNobYqArTy8HB1/MEtJY=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=N1moaZv+WtDMk8Snb73pl3IQfA4EPB/WhCDXqFAqA/rFkfFrJAk8XVtUrUAwodKs6I7lcX5JR1S31iHkmvc7rINUJPpEAmLi1r4LuWWLcs1tzIEW/0AYRc71GAGmuQmzwW/Q9w00/hOmxLktT4gKf57rSKBUB+l+L3H16hymb2k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com; spf=pass smtp.mailfrom=qq.com; dkim=pass (1024-bit key) header.d=qq.com header.i=@qq.com header.b=q6YVYBE8; arc=none smtp.client-ip=162.62.57.87
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qq.com
+	s=arc-20240116; t=1791215970; c=relaxed/simple;
+	bh=c3qxAorHfh38vflfMPUBH0Ur8Gz0Oqq0Sn71Zrw4KYI=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=f2m3JYctWpGcthkXfCIDqzyBELP3CKesd+Ckp926ZbD3I7MHiPThdX43NZ8OIEFd3pPmBnFBU43T8AuD+Gb7vPIqMbrHC4RnHS5Xd3BsP2uXW8gjRe9X8mf3Z+Dg+mWHj8dlQnjDm1DjWeI9nHesexg4ejpx6gyMzV/M8CajBgA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=MDWMIqrP; arc=none smtp.client-ip=74.125.224.128
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=qq.com header.i=@qq.com header.b="q6YVYBE8"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
-	t=1791215953; bh=wWUV3emk7ULpEee/9G63NluqNobYqArTy8HB1/MEtJY=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=q6YVYBE88V85PRYuvbIq3neymOFilDrh8cO5qqWizFRHMcK9SRpLyPHt8eRZJni7Y
-	 AhKt8fy55tPNH8CsIQjBLqWSSSxlOWUz1zluf+zzrhlW37b1Qt4B/fIXqOR5d3oOCn
-	 V0ik3x92lqC62BA97RBRf05IWe3tL4K+cSNtOyvU=
-Received: from [198.18.0.1] ([112.43.117.189])
-	by newxmesmtplogicsvrsza53-0.qq.com (NewEsmtp) with SMTP
-	id ECAA2E19; Mon, 05 Oct 2026 23:59:10 +0800
-X-QQ-mid: xmsmtpt1791215950tdkxd44af
-Message-ID: <tencent_F21509258CF77A024260954C593157414F08@qq.com>
-X-QQ-XMAILINFO: MhK4DKsBP06iQ0lS0hbC/UsLm9tt/MybcZCBA3F8VcY7H+aZeqAd8AROVa4pXO
-	 d0pIei1IbKnZP6DIoAZ63YcKKcIIkGQ3lkGuWRWClueza9+PIxnIIKTf8t8nr/fD59D89U+EIBVL
-	 pJFEJqG/ddtw5tSjxy2YFSR+z9MfRNKc9ZRI/oUaJVVtgZgVMtgcmxujBACCn8EYlTkhkOy0abr5
-	 UIrmORpcPUMjDgrISxSTXiW5LEzQkcaCECIfYULE7jpwPQ9JpmJnpalM9QCqCCgEvpqM+MXLOR9R
-	 rieP/2H5nNw/HcFtxJEy8tf99kEmztlQhucqRvsYMdswUg39IwpMehiIqPOj5UsRax51j6bWULQd
-	 MfimKaKfYpn6P9dkwjxbcByDoMLz5WUT4SkljPAo4/lpKlU+Rw3BktTsSqhBDHsf8jCztjIrKWAQ
-	 XDBmKvZFD2PA64M1mbBuk/kGfHlewP1vX0rf5xKn3oi9VHXm59MUd1DvSgJrOKYRDf96S/BftjSI
-	 xBJnmgL1W61ajxRpkwW/FRSpkD1EpgOq6XOIgx9uQLwTL5NnEpv2PmN7mHMZlhN8KDyjwLjioN/M
-	 cKqmzeUks5/DOyjXIydFIQc8XU1LjrdqhxZhFerDTBvdj6/xfeCP2EmnPbaGq9TLwKQy+JRS6bDP
-	 9uGeerVZETCB01xMQ08u8Vg5lw3fGgFE3pUQ84v8LFXlCPVLrRdlFiLT7uBAST08rJVbbYLoKHwT
-	 8gmRwww+uZG7+jl95rniYFUkuf7qerHqPYFLGuiWx+0n2tB2/0zveOW771jTcHcy1MFD/K5dHQSM
-	 JNVCpywNHClD+uLOE0pS5cvCEiSHRElx8K2HMhhtkcvVzFW4hXxNzR9TGd5defYSxt3C8dAAeSIs
-	 DUmd5qUZr5M4PF+goJFu0Jv9zkfT+17Drz7uukSJJTPfuh3Ht3fLXtutvMBzqjzXtcq1atYFt+wu
-	 dbEw1n9AsI99ZeU9EbxG4Kag8ygSlF+NQbK7v21Rt9cC1+0tN+4vI4cR2Bm0zj7qt0n665bJexjb
-	 PVd9o2DAmUBQtthosmwrLPWjIwWhwLHgcCd6sQb39CZIa9YZkfnPbX5y913nQ=
-X-QQ-XMRINFO: M/715EihBoGS47X28/vv4NpnfpeBLnr4Qg==
-X-OQ-MSGID: <322103a8-cf74-4213-bc95-e65c34366dd1@qq.com>
-Date: Mon, 5 Oct 2026 23:59:10 +0800
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="MDWMIqrP"
+Received: by mail-yx2-f0.google.com with SMTP id 00721157ae682-8ae7b865b4bso6466377b3.0
+        for <linux-kernel@vger.kernel.org>; Mon, 05 Oct 2026 08:59:29 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791215968; x=1791820768; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=Ee5rySe2ispQ9mLUw+vla1nzkwDJ4O9A8IBEsYRC2hk=;
+        b=MDWMIqrP33x78/GSVamq/u6qrR1gspN1BSGu15mQgrgvleWyfyJzpuD30+UjywurMU
+         KZzWX/8eIaLnCFAEctNMmi30L1uKhmnIVVNOw1NFUGMfjXu5y7KoZL+T6zFPE6EadCXu
+         oHQq++I8LA5g2SfHc2vojxFeNne5hmZKNMV6BVLquAn28EzCNsiAoo14A+wcjSsWf7C3
+         9vae331YSZZ2mq8XzoA04J256uju/B0w6yIB/QGUQax9wYu7kPKki0kGfUenG9DTedKQ
+         qX+8+lPy4aQx9Le1tTSJt4Z2QAaFzT8hS5It9DxPRoMOVNvSF41BYEH1mRgmRod85uOt
+         d3lg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791215968; x=1791820768;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Ee5rySe2ispQ9mLUw+vla1nzkwDJ4O9A8IBEsYRC2hk=;
+        b=Y8NJaKqIw0KKXf3ETSMfHvoUIT7pfhgUaUzI4Fdy+JE1HsVglzuZDOuibvQfqjiqbw
+         iA5EntBbOPaI4PbztFkHwLHlo+mWS20m+JT99GqnYjdl/lD4++CDB4NIDsf+Bax0BTPN
+         X/FWDOPgDLyi2eLtGUakUl1bmPT5MeMN94wTfHoSlOVR6SYjrvoKQJm2qBk3dO4KW4Vw
+         RpcBC/lwT6OgggjYg/GPq9xhN4wgZeSuN21LCQ5Ku7l6608fQKWCiArdUOlLQwh+Tq6T
+         HL5S7LrLFHpQTxXBEf7VGDDKOPFFqXUuAbE06p5lG5jOAdfihxKNMTxSOv19Pjdi8knJ
+         gBbA==
+X-Forwarded-Encrypted: i=1; AKwUvBxLY8bMN/x1aKrVPn7qLWQDWo5NAfaqEjCvmDXQy5AXF9xHJUQ8TwFeS1fuQMJRDtsN13vffzvHXfmiIkw=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLl21HVPqHztq2FZK1XJa49ojX4HJHbLdOjP58feheaaslP5nwX
+	XBx6B/QJ2Da2im12ACD4mXtAyfU2FnKd1shVoFRpNgykYZa6eYlE7edP
+X-Gm-Gg: AYBFou0Qsli0KEvVAXpqUnmgh7DrjS19bxXDwwJflMxM2LMKKwpLzHVuc8MkVqW2Lmq
+	9/McZHmQTCPvu0XE3kz1XyupzyCM168O5BXPCqhWPsqbrn/zJGP9QMGQJCJFlhY5m7gUimmeuif
+	2N6Pu1l//uWJ9HGznFrmUSIt2Opyo5J/O04S6ucYSUG357qrDQlXtI976mS3L+tupQj8h4ixf1v
+	w0mnlzhL4von5RBa4yESNVcI6TuCURSL8KymHBKH45B0Eavar7ZYiECVpvsp3mpShFElpYO9BQN
+	aP3d5Z+g1wwqR0vtMcETMZ9Vqc7fnXX3cPSj/EZMptW33xgNxtkco56EnJAexH10SH4QemJPjj7
+	Hv63gFyDDJoJMAcwPVPt4R/sG5BXD9Y1wr0sDMZkVl1oXi4vqLLmVuNknZo5dFSG4wMK5VV9uzC
+	5VEjeLT/dyNWniRfEPqQYZILfsgg1AepXEWmnAEc9z582eALkd5fzM0RLb3qTsw5whJXA/OR8OG
+	+MIAXDNGgVX9FiuSyUWiTkJ2rAcp08925lJw28t1yhKUFGOdrn4
+X-Received: by 2002:a05:690c:113:b0:8ac:42c5:a7b7 with SMTP id 00721157ae682-8ae39bd9f85mr47899477b3.39.1791215968309;
+        Mon, 05 Oct 2026 08:59:28 -0700 (PDT)
+Received: from Xinshengs-MBP.attlocal.net ([2600:1702:7d20:7d20:edd1:61d6:442f:e3ff])
+        by smtp.gmail.com with ESMTPSA id 00721157ae682-8ae8a2d41easm33779167b3.45.2026.10.05.08.59.27
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Mon, 05 Oct 2026 08:59:28 -0700 (PDT)
+From: Xinsheng Zhu <xinsheng.zhu.ny@gmail.com>
+To: netdev@vger.kernel.org
+Cc: linux-usb@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	andrew+netdev@lunn.ch,
+	davem@davemloft.net,
+	edumazet@kernel.org,
+	kuba@kernel.org,
+	pabeni@redhat.com,
+	rfiler@sierrawireless.com,
+	epasheva@sierrawireless.com
+Subject: [PATCH net] net: usb: sierra_net: reject short firmware attribute reads
+Date: Mon,  5 Oct 2026 11:59:20 -0400
+Message-ID: <20261005155920.27735-1-xinsheng.zhu.ny@gmail.com>
+X-Mailer: git-send-email 2.54.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/3] dt-bindings: Add EBDEE vendor prefix
-To: Krzysztof Kozlowski <krzk@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Michal Simek <michal.simek@amd.com>,
- Rob Herring <robh@kernel.org>
-Cc: devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-kernel@vger.kernel.org
-References: <20261003194625.936288-1-2254650260@qq.com>
- <tencent_E21E2A584AF8EE0505C2C0809838621C8209@qq.com>
- <387c02a6-1298-44a7-952e-47d1d8535541@kernel.org>
-Content-Language: en-US
-From: Pufan Jin <2254650260@qq.com>
-In-Reply-To: <387c02a6-1298-44a7-952e-47d1d8535541@kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
+sierra_net_get_fw_attr() only checks usbnet_read_cmd() for negative
+return values before converting attrdata and storing it in *datap.
+A zero-length or one-byte response leaves attrdata wholly or partially
+uninitialized.
 
-On 2026/10/4 05:14, Krzysztof Kozlowski wrote:
-> On 03/10/2026 21:46, Pufan Jin wrote:
->> Shanghai Xin'yI Electronics Technology Co., Ltd. (EBDEE) manufactures
->> the EdgeBoard series of embedded compute cards, including Zynq
->> UltraScale+ based designs.
->>
-> What does EBDEE mean? What is the company website?
->
-> Best regards,
-> Krzysztof
+Although sierra_net_bind() rejects responses of unexpected length, its
+dev_dbg() call uses fwattr before that check. When the debug message is
+enabled, the incomplete value may therefore be used in the debug output.
 
-Hi Krzysztof,
+Require the return value to equal sizeof(attrdata) before accessing the
+buffer. Return -EIO for short reads, retaining the existing handling of
+negative errors and leaving the output parameter untouched on failure.
 
+Found by manual code inspection with LLM assistance. The issue has not
+been reproduced at runtime.
 
-Thank you for pointing this out. "EBDEE" was an improper local acronym
-derived from "EdgeBoard Developer Edition".
+Fixes: eb4fd8cd355c ("net/usb: add sierra_net.c driver")
+Signed-off-by: Xinsheng Zhu <xinsheng.zhu.ny@gmail.com>
+---
+ drivers/net/usb/sierra_net.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-The actual commercial brand and manufacturer of the board is ALINX
-(Shanghai Xin'yi Electronics Technology Co., Ltd.). The official
-company website is:
-https://www.alinx.com/
+diff --git a/drivers/net/usb/sierra_net.c b/drivers/net/usb/sierra_net.c
+index 4d3ed642b3e7..95668a5ccd5f 100644
+--- a/drivers/net/usb/sierra_net.c
++++ b/drivers/net/usb/sierra_net.c
+@@ -637,7 +637,7 @@ static int sierra_net_get_fw_attr(struct usbnet *dev, u16 *datap)
+ 				sizeof(attrdata)	/* __u16 size */
+ 				);
+ 
+-	if (result < 0)
++	if (result != sizeof(attrdata))
+ 		return -EIO;
+ 
+ 	*datap = le16_to_cpu(attrdata);
 
-I have dropped the "ebdee" prefix and replaced it with "alinx" in v2
-to properly match the manufacturer and board schematics.
-
-Best regards,
-Pufan Jin
-
-
+base-commit: 8b4e7209c842d8cb9516f1f5ef0a88aa2d8831a6
+-- 
+2.54.0 (Apple Git-157)
 
