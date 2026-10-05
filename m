@@ -1,133 +1,132 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 90EDC310652;
-	Mon,  5 Oct 2026 09:02:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from va-1-114.ptr.blmpb.com (va-1-114.ptr.blmpb.com [209.127.230.114])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 203443AB476
+	for <linux-kernel@vger.kernel.org>; Mon,  5 Oct 2026 09:03:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.127.230.114
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791190947; cv=none; b=Yfu7ph1w7lq+gKCWYeHuepyyLGj1OUX/eZZCUTuE1hs5S54p74NxtdUqg+5pIvI3TsJ28SKKvfXOGy7XcaBcd5jOWsiJdZJnytS/diPWXg2jqKv0T1aPwn+SDRltY5Me4s2PloHUPjAEfSPeSantpY+Z0vqxA5oC5qEt0tYQH/8=
+	t=1791191042; cv=none; b=q145xm4dMDwa09D9xsdfeP7euZ3dmA6zKn5R9kDnvK8Ji8A/xc2deLol/5sXrzNpQ3AcAk217SIba/dWL741pvYxReBEeBA3y0NislMyw5tTyO/kA/ZhhyxPiW0kI1aNaQHjmWhLg620agoXMVOuN3Ar/Hb0TspvJpwYkcbnA4Q=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791190947; c=relaxed/simple;
-	bh=wzKbXcm9aX7tddsl1dJRDbixjLaOCm42RIzbP5lg+5Y=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=d6Krn9zogvrqUzFD+OsrQs79wzdsUn7xS9aoJBwUR4uPKiJw7tXopNCdQN/DAOnKfA+1DMMcFiB8nrcu8m3VkLq4r3oHPL5BlSC2VcJit08TCqWALanjcvhlMzBPQq+vPsxp+ddbYg10N3QmjLEUob0VI8JzbmQ4VPCjfV8bccM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=BWUNNiOd; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	s=arc-20240116; t=1791191042; c=relaxed/simple;
+	bh=/9IavnXlYV+SONlG7zCUUKiL8FXLiXpUhlC0PZd2v7E=;
+	h=In-Reply-To:To:References:Cc:Date:Message-Id:Content-Type:From:
+	 Mime-Version:Subject; b=TBDMK5yk3M7lca1IvjISUswAxdsqq8/3DpjN3jIkPIfT/Tsl2YB/2Qx/V6UO9p78iztXCjaP+NVV5WXs5ApOPgNo5gDKqc1tHigTicp720ZQuL+Y5IgRjUlQAVBm5o8zeG3OS9gU/4Erxb4UEtWc3lG/Snp7SOyFXLzynCoGTKI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com; spf=pass smtp.mailfrom=bytedance.com; dkim=pass (2048-bit key) header.d=bytedance.com header.i=@bytedance.com header.b=UgIMrKyp; arc=none smtp.client-ip=209.127.230.114
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bytedance.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="BWUNNiOd"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 50279152B;
-	Mon,  5 Oct 2026 02:02:13 -0700 (PDT)
-Received: from [192.168.178.24] (usa-sjc-mx-foss1.foss.arm.com [172.31.20.19])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 62B473F66F;
-	Mon,  5 Oct 2026 02:02:14 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1791190936; bh=wzKbXcm9aX7tddsl1dJRDbixjLaOCm42RIzbP5lg+5Y=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=BWUNNiOdSkAjCx/IrsnnuZPHK2MQ2nujJ8LoSUkIn6VrEYUzdLL9Mv9EF+A4BPRIL
-	 d6U7CO5/r+w7SziIcjVnSQD3GMX1h6pWF2pAJuVXXkAZrSVCM3Lgw60iN35eQx1/e6
-	 5aMEwUajUHrIWyqQwVtsBi4/l5dMrhFp18PkN6I4=
-Message-ID: <2c75983e-5e63-4613-a9a8-055015d04bbf@arm.com>
-Date: Mon, 5 Oct 2026 11:02:05 +0200
+	dkim=pass (2048-bit key) header.d=bytedance.com header.i=@bytedance.com header.b="UgIMrKyp"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ s=2212171451; d=bytedance.com; t=1791191028; h=from:subject:
+ mime-version:from:date:message-id:subject:to:cc:reply-to:content-type:
+ mime-version:in-reply-to:message-id;
+ bh=lg3JTsD4Fv1cl+EWpET5q4ztDTVbrGh6J6Dc7vTY9rk=;
+ b=UgIMrKypWcATpv6vSBbvAAFYmMdYtrXSLSlI0Galx+1zzASPvGO5DERI8DbYJRyBPNH8GZ
+ bpz5/XnP+RhKLeaJJzLs8eVBLDeviS5tlQypC0yq/w2Na2sxgYIv7pyJWYdyH0JiHz5Xcl
+ LK0jwSbJ+0OwkksE/ShQO3eUYfDa8MWHniW5CMcj/APA9BCIcx3Za7GKU5IJy5rAjSfoCj
+ ZaNQURmTluHXspwnZJRDAu4KEyFKuCn7A6SF2GBUSnrlNqXfgaObYRm3aCj3Q7OkpIXCVt
+ byyMqMiF6XIXSXmZ7WLIqqkoyuneADCLChQwNbQANU4eIGgHVHGWvSkAxeVPWA==
+In-Reply-To: <arzVaC2IYkqSb0_U@gmail.com>
+X-Lms-Return-Path: <lba+26ac367f2+d69f34+vger.kernel.org+lizhe.67@bytedance.com>
+To: "Jose A. Perez de Azpillaga" <azpijr@gmail.com>
+X-Original-From: Li Zhe <lizhe.67@bytedance.com>
+References: <20260930064308.58159-1-lizhe.67@bytedance.com> <arzVaC2IYkqSb0_U@gmail.com>
+Cc: <akpm@linux-foundation.org>, <muchun.song@linux.dev>, 
+	<osalvador@suse.de>, <david@kernel.org>, <linux-mm@kvack.org>, 
+	<linux-kernel@vger.kernel.org>
+Date: Mon, 5 Oct 2026 17:03:28 +0800
+Message-Id: <9a7c026e-f5f2-40e0-84aa-919c988cc136@bytedance.com>
+Content-Type: text/plain; charset=UTF-8
+User-Agent: Mozilla Thunderbird
+From: "Li Zhe" <lizhe.67@bytedance.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/2] ARM: dts: sun8i-r40: Add SID node and THS calibration
-To: Otavio Salvador <otavio@ossystems.com.br>, Chen-Yu Tsai
- <wens@kernel.org>, Jernej Skrabec <jernej.skrabec@gmail.com>,
- Samuel Holland <samuel@sholland.org>, Srinivas Kandagatla
- <srini@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>
-Cc: Maxime Ripard <mripard@kernel.org>, devicetree@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-sunxi@lists.linux.dev,
- linux-kernel@vger.kernel.org
-References: <20261003012534.418820-3-otavio@ossystems.com.br>
- <20261003012534.418820-5-otavio@ossystems.com.br>
-Content-Language: en-GB
-From: Andre Przywara <andre.przywara@arm.com>
-In-Reply-To: <20261003012534.418820-5-otavio@ossystems.com.br>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Mime-Version: 1.0
 Content-Transfer-Encoding: 7bit
+Subject: Re: [PATCH] mm/hugetlb: avoid recursive i_mmap_rwsem in PMD sharing
 
-Hi Otavio,
+On 9/30/26 5:31 PM, Jose A. Perez de Azpillaga wrote:
+> On Wed, Sep 30, 2026 at 02:43:08PM +0800, Li Zhe wrote:
+>> huge_pmd_share() always takes i_mmap_rwsem for read before looking for a
+>> shareable PMD page table.
+>>
+>> That is unsafe for callers that already hold the same mapping lock for
+>> write.  In particular, move_hugetlb_page_tables() takes i_mmap_rwsem for
+>> write to prevent truncation races, then calls huge_pte_alloc() for the
+>> destination address.  If the destination PUD is empty and PMD sharing is
+>> possible, huge_pte_alloc() can call huge_pmd_share(), which then tries to
+>> take the same rwsem for read and can deadlock on itself.
+>>
+>> PMD sharing is only an optimization.  If the read side of i_mmap_rwsem
+>> cannot be acquired immediately, fall back to allocating a private PMD
+>> table instead of blocking in the sharing path.
+>>
+>> Signed-off-by: Li Zhe <lizhe.67@bytedance.com>
+>> ---
+>>   mm/hugetlb.c | 14 ++++++++++++--
+>>   1 file changed, 12 insertions(+), 2 deletions(-)
+>>
+>> diff --git a/mm/hugetlb.c b/mm/hugetlb.c
+>> index cea25773a6c95..75631101a6807 100644
+>> --- a/mm/hugetlb.c
+>> +++ b/mm/hugetlb.c
+>> @@ -6995,7 +6995,15 @@ pte_t *huge_pmd_share(struct mm_struct *mm, struct vm_area_struct *vma,
+>>   	pte_t *spte = NULL;
+>>   	pte_t *pte;
+>>
+>> -	i_mmap_lock_read(mapping);
+>> +	/*
+>> +	 * Some callers already hold i_mmap_rwsem for write, for example
+>> +	 * move_hugetlb_page_tables(). PMD sharing is only an optimization, so
+>> +	 * fall back to a private PMD table instead of blocking on the same
+>> +	 * rwsem in read mode.
+>> +	 */
+>> +	if (!i_mmap_trylock_read(mapping))
+>> +		goto alloc;
+> try deadlock is not a fallback here. both callers already hold the write
+> lock, and that is enough for the walk, so sharing is never attempted on
+> these paths.
+>
+> hugetlb_change_protection() does thr same thing on the uffd-wp path and
+> is not in the changelog.
+>
+> and no Fixes tag either. does this want Cc: stable?
 
-thanks for sending the patch!
 
-On 10/3/26 03:25, Otavio Salvador wrote:
-> Without the calibration cell, the THS driver leaves the sensor
-> calibration registers at their reset value (0x800) and the reported
-> temperatures drift from the real die temperature by a chip-dependent
-> offset.
-> 
-> Add the SID node at 0x01c1b000 and wire the thermal sensor to its
-> factory calibration at eFuse offset 0x40, one 16-bit word for each of
-> the two sensors.
-> 
-> The R40 user manual gives the size of the thermal sensor key (32 bits)
-> but not its offset. The vendor SDK key map names 0x48 "thermal_sensor",
-> but that word is zero on all the boards checked. On an A40i running the
-> Boardcon vendor kernel, the THS_0_1_CDATA register holds exactly the
-> eFuse word at 0x40 (0x08780875), which confirms the location.
+Thanks for the review.
 
-So in some U-Boot BSP sources on github I see 
-arch/arm/include/asm/arch-sun8iw11p1/sid.h putting the sensor at 0x34 
-(like the H3 or A64).
-Can you check the values there? I see that Tina-Linux puts them at 0x40, 
-as you reported, and it's probably more reliable there than in the 
-U-Boot sources, but it's worth double checking.
+I agree that holding the write lock should be enough for the walk, and
+that avoiding PMD sharing on these paths is not the right direction.
 
-The rest looks alright (checked the manual and how the compatible string 
-is handled in the driver), so if you can confirm that it's 0x40:
-
-Reviewed-by: Andre Przywara <andre.przywara@arm.com>
+David mentioned that Oscar was planning to send a proper fix for this
+issue, so I will wait for that patch instead of moving forward with this
+trylock fallback approach.
 
 Thanks,
-Andre
+Zhe
 
-> 
-> Tested on two Boardcon EMA40i (A40i) boards: THS_0_1_CDATA now holds
-> the eFuse word at 0x40 of each chip (0x082d0822 and 0x083d0838) instead
-> of the reset value 0x08000800.
-> 
-> Signed-off-by: Otavio Salvador <otavio@ossystems.com.br>
-> ---
->   arch/arm/boot/dts/allwinner/sun8i-r40.dtsi | 15 ++++++++++++++-
->   1 file changed, 14 insertions(+), 1 deletion(-)
-> 
-> diff --git a/arch/arm/boot/dts/allwinner/sun8i-r40.dtsi b/arch/arm/boot/dts/allwinner/sun8i-r40.dtsi
-> index f0ed802a9d08e..c7c9cad695ca4 100644
-> --- a/arch/arm/boot/dts/allwinner/sun8i-r40.dtsi
-> +++ b/arch/arm/boot/dts/allwinner/sun8i-r40.dtsi
-> @@ -485,6 +485,18 @@ ohci1: usb@1c19400 {
->   			status = "disabled";
->   		};
->   
-> +		sid: efuse@1c1b000 {
-> +			compatible = "allwinner,sun8i-r40-sid",
-> +				     "allwinner,sun50i-a64-sid";
-> +			reg = <0x01c1b000 0x400>;
-> +			#address-cells = <1>;
-> +			#size-cells = <1>;
-> +
-> +			ths_calibration: thermal-sensor-calibration@40 {
-> +				reg = <0x40 0x4>;
-> +			};
-> +		};
-> +
->   		ehci2: usb@1c1c000 {
->   			compatible = "allwinner,sun8i-r40-ehci", "generic-ehci";
->   			reg = <0x01c1c000 0x100>;
-> @@ -832,7 +844,8 @@ ths: thermal-sensor@1c24c00 {
->   			clock-names = "bus", "mod";
->   			interrupts = <GIC_SPI 36 IRQ_TYPE_LEVEL_HIGH>;
->   			resets = <&ccu RST_BUS_THS>;
-> -			/* TODO: add nvmem-cells for calibration */
-> +			nvmem-cells = <&ths_calibration>;
-> +			nvmem-cell-names = "calibration";
->   			#thermal-sensor-cells = <1>;
->   		};
->   
-
+>
+>>   	mapping_rmap_tree_foreach(svma, mapping, idx, idx) {
+>>   		if (svma == vma)
+>>   			continue;
+>> @@ -7024,8 +7032,10 @@ pte_t *huge_pmd_share(struct mm_struct *mm, struct vm_area_struct *vma,
+>>   	}
+>>   	spin_unlock(&mm->page_table_lock);
+>>   out:
+>> -	pte = (pte_t *)pmd_alloc(mm, pud, addr);
+>>   	i_mmap_unlock_read(mapping);
+>> +
+>> +alloc:
+>> +	pte = (pte_t *)pmd_alloc(mm, pud, addr);
+>>   	return pte;
+>>   }
+>>
+>> --
+>> 2.20.1
+>>
+> --
+> cheers,
+> jose a. p-a
