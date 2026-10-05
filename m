@@ -1,56 +1,56 @@
-Received: from mail-wm1-f70.google.com (mail-wm1-f70.google.com [209.85.128.70])
+Received: from mail-ej1-f71.google.com (mail-ej1-f71.google.com [209.85.218.71])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E0B2046AF03
-	for <linux-kernel@vger.kernel.org>; Mon,  5 Oct 2026 09:47:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.70
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 37249463B83
+	for <linux-kernel@vger.kernel.org>; Mon,  5 Oct 2026 09:47:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.71
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791193676; cv=none; b=Ubmt2LZ4UJlUP9n7hsMlqvwfSrt32zcoEq8rDgilZlnFIl9OIzd4/b9NvsVAhJRlyfaGwYwz69WqUHix35Z48IT3/zjGPyUDezQkbUlQmFoY7hpjY2wwJhiEsT8GAqWEO4iRJIo+nYNbVZHLs2vsYk8oiYPOWDnHdkhGdM5XN9I=
+	t=1791193680; cv=none; b=IHsJcA7b/ShiFZOH1Qp0896hdlV5UXRL1F0kZmX9o+No45qybZakKH60dERrnfKUr3BXaDFWNtoWjjbmhzfZcJiMUcgdau+A9SqZpLmhVv/NGWf+CPzz/wdX9ukyAlN2g1X8yY5uOOFxRgfenANFtirFGKxTYIeN7u1h5nX9W8Q=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791193676; c=relaxed/simple;
-	bh=28uiTWIIABkfwULio8qpodsyvAtD54gc+3tq5EFHoJM=;
+	s=arc-20240116; t=1791193680; c=relaxed/simple;
+	bh=CbBsgcoFQqhzB9X8FxVIVPwtT/gD2BSFLE+Sv3uIDFA=;
 	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
-	 To:Cc:Content-Type; b=FGGiROt1jGpMe8AKT67uEoRJC+B/wQiXoxJ9hcts9r/QxAWkZUzWYWdJ30HFtet3qIF3jb+8bTLc2PZ2ailEyBgVyQRzlo7pUIde6/QsSqS4haoJ3SqNjrrUJP//C10z9UeRy4+3mbYI2qnxweG+v/fN2itgs3UU9DSvKZsGLOM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--aliceryhl.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=ppyv0vLx; arc=none smtp.client-ip=209.85.128.70
+	 To:Cc:Content-Type; b=l9sjA1SYN5jYqlf8LCZinT5pAbuYYBA4lr+V2UGjjt6xQkhLAR+NAcF8hy1dETZysT5SAEB9+zJkotgijed1eE4FIHutIYA5Zn7mjAHQ599cI11fxE+LqI8uaoStVHCQFGw9kzOakHVADK3bir6u8VvM69BQbRBqxX1UbsnapoE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--aliceryhl.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=RWXP3XTb; arc=none smtp.client-ip=209.85.218.71
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--aliceryhl.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="ppyv0vLx"
-Received: by mail-wm1-f70.google.com with SMTP id 5b1f17b1804b1-4a0101292baso17551635e9.2
-        for <linux-kernel@vger.kernel.org>; Mon, 05 Oct 2026 02:47:49 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="RWXP3XTb"
+Received: by mail-ej1-f71.google.com with SMTP id a640c23a62f3a-c25edb54d22so176517266b.1
+        for <linux-kernel@vger.kernel.org>; Mon, 05 Oct 2026 02:47:53 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1791193667; x=1791798467; darn=vger.kernel.org;
+        d=google.com; s=20251104; t=1791193669; x=1791798469; darn=vger.kernel.org;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=0jMEn+uojeugEvTLf+dfsz2SFwaZUIeudYt/IVuG/qU=;
-        b=ppyv0vLxx9Pp2WNjtrD40LZXZyU8AuYCb5OSo/lIThuYpJRgoSKYvroSFwLDGeudRS
-         qXyAQiDE6jA09G2yaRi+jxme41H5WP5w1csEEkMrFYRTNl+laWIfcBpc/rxcAI+szjjg
-         uGSKUeCCW6THHI1wfHL+OaJgJPNc3R76RiB5Toioz+6BvBx+X3HE2TttSojJ/8stNGdR
-         IrGcylA3IeU2TtCNYh780BDgkTNaX4IiudRSzBDEix/gqyLCpdv8mRZ0sO05MBgLFYBS
-         fh3u2CaG/GGKeopTKB7lT3kSqygx6hy9K5l9j9rSjqqqkUOLSdAxvrM7/h9x2yRuTraP
-         Q5mA==
+        bh=fDR531f1kJBuWB4fk6q8SQd8GDQ9jmjZIPjXS1HCN/w=;
+        b=RWXP3XTbXTRz/7M2Kq5PEXV0A7JwbCWYHLbsInYlKa7YFO03uHuW7A0W28KYHbYwtK
+         ly7D6LuZDFSlDPz6uNipI2jDRQWFlgUC6OX6KbUvLkf8135sxaC85SWBZBIHVrgAyFZe
+         J6EHO75KxkuwuTq7kadOOtURHdTZfZp6J4PNW1QeT0vs0g0pH8AmueAZw7uzM7xmlbJi
+         1d/kscUP6KBv3rIw3G75x0cDIs2s1d2jyUqeVRnARQgEgG96IBDf9Xlx/pD2+HwRyRwN
+         btcmQHgnaXrsSf4zjqaDWI9vfYEfhqneHMm9ocImNV0jA0ygNBDG6D5247tGT6xCfNmW
+         YH5g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791193667; x=1791798467;
+        d=1e100.net; s=20260707; t=1791193669; x=1791798469;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=0jMEn+uojeugEvTLf+dfsz2SFwaZUIeudYt/IVuG/qU=;
-        b=bFo8vEr0z/zNtaXz9g5uuNJ4BK+LmcD8wZ9rxSMRPmm2QkSc8nm1hZTNcZV9ivN5z7
-         bMJYv5Y/yTA9jhfiAU+764B078NdUWvm2oWjwaDBCMcpYZtBeld/3CRHhBMGyiKACpCz
-         fDKRpI90sMc74+ocZGMTiO+gvA+l6h1wovCsftAomG1RtkJACxxvKAb3bs0ORQ75pRmk
-         H75MzSnATDEaQXxi4dXjekoqi8FLoGtNvm1G191+kQmFl0aAFI8npBmiu28hERZcZ0Zr
-         wmRWYU33wKtgdhkwUkdhyFohNfAqYEfm4qv3Er+2hNn/Wi2qCYQaZmPIlqiOyFoxRPat
-         hTnw==
-X-Forwarded-Encrypted: i=1; AKwUvBy7EGtMnM5T3U7c2L6+pM10+St+IaL81hcU9U5VPGO7zctMK01/E765j51P0PNiNAjt8TmJaZHQ9VqPxjQ=@vger.kernel.org
-X-Gm-Message-State: AFuF++mlu6rmrbQ6QtwYz55HWfDTFJtQ3Xgo0zeZUZ33ZEDIgnzxEmUh
-	V/J0FF7OZDpbGAro+BLFkwJKg6/LFCX5jCD7lpqGP4DHQVwxsMeqWdi6sfBC7ADIYd/hI4CSbhD
-	hQ5EsEdGE1xjazs5BGQ==
-X-Received: from wmok21.prod.google.com ([2002:a05:600c:4795:b0:4a0:2845:31c9])
+        bh=fDR531f1kJBuWB4fk6q8SQd8GDQ9jmjZIPjXS1HCN/w=;
+        b=gvNxp1m58HVPbnorTluckc7MrUrodHT4W1ykvu44XBiFqDFZ/a/WZo/mss+3NYdneW
+         BeVdyj0GMYJ4dqk/DVVkrZkgkAKwus+XoxIKIvYmWSPRNRjBMzRaxvbE+0YQcxDJWAlt
+         4fG034eob+2xFQnBOBneASji2mV96e4vl329ziA0t+52crOKXIc66Qw4iRlU/FndrJRZ
+         0y0JniZjrhYtCE2syNAl84uvgpaRG71pnyil2UjNskXSYUKj0CfeCGA+TsKaOFiWpBO6
+         oFdm/1kcH+cZJxwqet9M4ZXYNc/AEByItASHBm989V5vtS/Ax4uNPg0HXHiEOBaqgDTy
+         fdtw==
+X-Forwarded-Encrypted: i=1; AKwUvByC/+7QeOkdY5Fs9ZRtnaN1iXgt+hYVY/grgWql7+1+gT7udlr1eWDtpVldYr+p0kZ4HELILbJaHOxgesc=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJj/rsnLViOYdplqT3m5T+55gmGBkahvtizzuvZomr4ZF42kFEd
+	RMO4lKa3F2X+SB4bjqtGBcNeq6zNbJxFrTHfBG4EA15xjcL1701HDUXI9QiXyLiG2ljvtGrY10u
+	Gp0XjekunEGk+4XM/TA==
+X-Received: from ejcfv18.prod.google.com ([2002:a17:907:5092:b0:c2e:4d0a:d961])
  (user=aliceryhl job=prod-delivery.src-stubby-dispatcher) by
- 2002:a05:600c:4ec6:b0:49d:1cc7:5ec3 with SMTP id 5b1f17b1804b1-4a02756637cmr181239935e9.9.1791193666905;
- Mon, 05 Oct 2026 02:47:46 -0700 (PDT)
-Date: Mon, 05 Oct 2026 09:47:29 +0000
+ 2002:a17:906:f594:b0:c29:53ba:a4cd with SMTP id a640c23a62f3a-c2e4ad13e7amr829699966b.11.1791193668617;
+ Mon, 05 Oct 2026 02:47:48 -0700 (PDT)
+Date: Mon, 05 Oct 2026 09:47:30 +0000
 In-Reply-To: <20261005-devres-6-18-backport-v1-0-06dcf0e592d5@google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -60,23 +60,22 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 Mime-Version: 1.0
 References: <20261005-devres-6-18-backport-v1-0-06dcf0e592d5@google.com>
 X-Developer-Key: i=aliceryhl@google.com; a=openpgp; fpr=49F6C1FAA74960F43A5B86A1EE7A392FDE96209F
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2717; i=aliceryhl@google.com;
- h=from:subject:message-id; bh=7I4O+g3s8+7UkGcF3WGN5dLLRIwv6sGTRiTYgZQAeNk=;
- b=owEBbQKS/ZANAwAKAQRYvu5YxjlGAcsmYgBqw3I6z25lJhoxLkMfeGvQ3dP+jgpGUCfhYI96v
- goLu5RRKzeJAjMEAAEKAB0WIQSDkqKUTWQHCvFIvbIEWL7uWMY5RgUCasNyOgAKCRAEWL7uWMY5
- Ru4CD/9vz3AJzlCzvqxa/3mkfoBpYmcTc1JCDPk3w1aMhCzC1FtotJKcy2S5mrXiz+rrWigrSTq
- iXyTPoF6/KXur8twcF63idkdC75PuHlvuW85UM76Kz13xd8hDcTrHZbZwBNtufxtT56WZZFEWsS
- YPYwChI67vhUqRLSti8BPuVTWD3dUuuugI+hghsgUR1zuZYc5rmove2UGibFEmfP1YOgt60fsaY
- McUj4+YCthMIrErLl2QF1c3OHNy6YXhwRBvBJpIhU7gZdL4uNGVfBj6iL99iZzJUVXr0Bs38ASt
- Ic0fMzxwZ+LoSaYSFRN+x4ejYoMxKszdmUTBU+wBaNTgh0ODrVB5pEgrf7YdJwj1jZgW0w83sD4
- u7PjT0PiksnaXt74Q35hUm+CTOsp0aPoma3C4qLIqdc1A3XaYMmOJugk5a046CsSxcVwUT6UVGE
- mBcmNycTTLqfQqu4qPrc1GxWWym9FipycnJJNUyVE1p58nVXclWOykaht0Qa66ons3rWHQ8CIPM
- H2f7ojJ433PvM0/pCU5LWT91L21Bp/9vWMwm4kUz1/sXhuTfdkIGxHYMDqrdWx9ktPDcCbJRsSk
- eTmdobXTbNnXYH4sjjt9GAQY+NQbQaDtQSpPZZRxQkZsT2a3QaIZZroW+7qINd3DFWVz0o41v8c 6VKI2tUPiKPW7vw==
+X-Developer-Signature: v=1; a=openpgp-sha256; l=10538; i=aliceryhl@google.com;
+ h=from:subject:message-id; bh=CbBsgcoFQqhzB9X8FxVIVPwtT/gD2BSFLE+Sv3uIDFA=;
+ b=owEBbQKS/ZANAwAKAQRYvu5YxjlGAcsmYgBqw3I6DRApiGhCdXXJ3PwzAl0mMhE76tM4SmfGp
+ 8yIkeX6xHKJAjMEAAEKAB0WIQSDkqKUTWQHCvFIvbIEWL7uWMY5RgUCasNyOgAKCRAEWL7uWMY5
+ RsS+D/4jO9cZ0DGotCFpkFzu0YKj6NiHGR6dK9ajnJR+VkWIVaDU0xvMBqybrIjayPW8DOMjQiV
+ Q5KVLHvqiTAvtwXmZJR69E9RAhGGJ2F3mSZPioCl4EP1YsifnwdwuEh8VAIID7cCgSyxR7O6PPw
+ /ZptwGtqil20EJniMB3+z3z7860icirU+zg1RBIWg70njICEiFIp99XO0dwKcOFjGisIRjT4IJf
+ eXJbaWyP0iihYPAnFXWdg2yDCufwZfUORNLf+nObUy2CS/nF0Kjnom6zGCG2o5Q1UP0XvJT1ea2
+ TNatAF4KzDbJFJfzZ/vA2/rPwuNoMRgugpUAsg9ZbUN2V4ene5kYz8a1DK7d1Xs1lT9r7OTSMzs
+ pyRe4OtdW2XDMm89PbVHvrWj8Ijmusyk6oTLz0qWpMlzYB6bQyA+KKgRt6lHA5z1NRm2UTfvtNh
+ bHRuF0bh5pRvKz8j6o12tVM+gpOnSgfEdJ14xQD89Y+r5khT3uwcpwtdwR/3Mi0P5SdlKVPZ4pV
+ /T/MYENWZvIBYNfaiHpx04+++NP7pZ6yP+x1i1Yu/JDiGEXmEsTzOpcfoMo4LRtZLykbehjLpxl
+ KWW/ZXJNtTPAKBjA9xb70+RaFihfk84ay6pY9vgDFS36n83FyMBlWkzn+pyAsNl4wQYdEjFAEBw +85e1L5N5OxGRFQ==
 X-Mailer: b4 0.14.3
-Message-ID: <20261005-devres-6-18-backport-v1-4-06dcf0e592d5@google.com>
-Subject: [PATCH 6.18.y 4/5] rust: devres: ensure revocation is complete before
- device finishes unbinding
+Message-ID: <20261005-devres-6-18-backport-v1-5-06dcf0e592d5@google.com>
+Subject: [PATCH 6.18.y 5/5] rust: irq: pass RegistrationInner as cookie to request_irq
 From: Alice Ryhl <aliceryhl@google.com>
 To: stable@vger.kernel.org, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
 	Sasha Levin <sashal@kernel.org>, Danilo Krummrich <dakr@kernel.org>
@@ -91,64 +90,229 @@ Cc: Alexandre Courbot <acourbot@nvidia.com>, Andreas Hindborg <a.hindborg@kernel
 	Alice Ryhl <aliceryhl@google.com>
 Content-Type: text/plain; charset="utf-8"
 
-From: Danilo Krummrich <dakr@kernel.org>
+With commit ba268514ea14 ("rust: devres: fix race condition due to
+nesting"), Devres::new() returns Result<Self> by value instead of
+initializing in-place via PinInit. Because request_irq() is called
+inside Devres::new(), registration.inner is still uninitialized when the
+IRQ is enabled, so accessing registration.inner.device() in the IRQ
+callback can read uninitialized memory.
 
-commit a10639966fd72fff8f7fbf3c8e733307daabd38f upstream.
+Fix this by storing the Device and handler pointer in RegistrationInner
+and passing RegistrationInner as the IRQ cookie after its fields are
+initialized.
 
-Now that the revocation Completion is in place, also address the
-symmetric case. When Devres::drop() wins the is_available swap and the
-devres callback loses, the callback returns to devres_release_all()
-without waiting. This means device unbinding can complete while
-Devres::drop() is still executing drop_in_place() on another CPU, which
-is a problem if T's destructor accesses device state.
+This is not needed in mainline because commit 98c63ce4d760 ("rust: irq:
+make Registration compatible with lifetime-bound drivers") removed
+Devres from irq::Registration.
 
-Make the synchronization bidirectional. Whichever side performs
-drop_in_place() signals the Completion, and the other side waits.
-
-This does not reintroduce the nested Devres deadlock fixed by commit
-ba268514ea14 ("rust: devres: fix race condition due to nesting"),
-because that deadlock was caused by drop waiting for the release
-callback to return (the old 'devm' Completion). Here, both sides only
-wait for drop_in_place() to finish, which completes within the current
-call chain. The Arc<Inner<T>> keeps the Inner allocation alive
-independently.
-
-Cc: stable@vger.kernel.org
+Fixes: 29e16fcd67ee ("rust: irq: add &Device<Bound> argument to irq callbacks")
 Fixes: ba268514ea14 ("rust: devres: fix race condition due to nesting")
-Reviewed-by: Gary Guo <gary@garyguo.net>
-Reviewed-by: Alice Ryhl <aliceryhl@google.com>
-Link: https://patch.msgid.link/20260628200304.2365598-1-dakr@kernel.org
-Signed-off-by: Danilo Krummrich <dakr@kernel.org>
 Signed-off-by: Alice Ryhl <aliceryhl@google.com>
 ---
- rust/kernel/devres.rs | 7 +++++++
- 1 file changed, 7 insertions(+)
+ rust/kernel/irq/request.rs | 89 ++++++++++++++++++++++++++++------------------
+ 1 file changed, 54 insertions(+), 35 deletions(-)
 
-diff --git a/rust/kernel/devres.rs b/rust/kernel/devres.rs
-index 02916f80db5a..fc0d8b2cb7b2 100644
---- a/rust/kernel/devres.rs
-+++ b/rust/kernel/devres.rs
-@@ -173,6 +173,11 @@ fn data(&self) -> &Revocable<T> {
+diff --git a/rust/kernel/irq/request.rs b/rust/kernel/irq/request.rs
+index 2ceeaeb0543a..70700f43ddd3 100644
+--- a/rust/kernel/irq/request.rs
++++ b/rust/kernel/irq/request.rs
+@@ -14,7 +14,7 @@
+ use crate::irq::flags::Flags;
+ use crate::prelude::*;
+ use crate::str::CStr;
+-use crate::sync::Arc;
++use crate::sync::{aref::ARef, Arc};
  
-         if inner.data.revoke() {
-             inner.revocation.complete_all();
-+        } else {
-+            // Devres::drop() is concurrently revoking; wait for it to finish `drop_in_place()`
-+            // before returning to `devres_release_all()`, ensuring `T` is fully torn down before
-+            // the device finishes unbinding.
-+            inner.revocation.wait_for_completion();
-         }
+ /// The value that can be returned from a [`Handler`] or a [`ThreadedHandler`].
+ #[repr(u32)]
+@@ -54,13 +54,18 @@ fn handle(&self, device: &Device<Bound>) -> IrqReturn {
+ /// # Invariants
+ ///
+ /// - `self.irq` is the same as the one passed to `request_{threaded}_irq`.
+-/// - `cookie` was passed to `request_{threaded}_irq` as the cookie. It is guaranteed to be unique
++/// - `&self` was passed to `request_{threaded}_irq` as the cookie. It is guaranteed to be unique
+ ///   by the type system, since each call to `new` will return a different instance of
+ ///   `Registration`.
++/// - `self.handler` points to a valid instance of the handler `T` that lives at least until
++///   `Self::drop` completes.
+ #[pin_data(PinnedDrop)]
+ struct RegistrationInner {
+     irq: u32,
+-    cookie: *mut c_void,
++    dev: ARef<Device>,
++    handler: *const c_void,
++    #[pin]
++    _pin: PhantomPinned,
+ }
+ 
+ impl RegistrationInner {
+@@ -77,18 +82,22 @@ fn drop(self: Pin<&mut Self>) {
+         //
+         // Safe as per the invariants of `RegistrationInner` and:
+         //
+-        // - The containing struct is `!Unpin` and was initialized using
++        // - `RegistrationInner` is `!Unpin` and was initialized using
+         // pin-init, so it occupied the same memory location for the entirety of
+         // its lifetime.
+         //
+         // Notice that this will block until all handlers finish executing,
+         // i.e.: at no point will &self be invalid while the handler is running.
+-        unsafe { bindings::free_irq(self.irq, self.cookie) };
++        unsafe {
++            bindings::free_irq(
++                self.irq,
++                core::ptr::from_mut::<Self>(self.get_unchecked_mut()).cast::<c_void>(),
++            )
++        };
      }
+ }
  
-@@ -261,6 +266,8 @@ fn drop(&mut self) {
-         // SAFETY: When `drop` runs, it is guaranteed that nobody is accessing the revocable data
-         // anymore, hence it is safe not to wait for the grace period to finish.
-         if unsafe { self.data().revoke_nosync() } {
-+            self.inner.revocation.complete_all();
-+
-             // We revoked `self.data` before the devres action did, hence try to remove it.
-             if self.remove_action() {
-                 // SAFETY: In `Self::new` we have taken an additional reference count of `self.inner`
+-// SAFETY: We only use `inner` on drop, which called at most once with no
+-// concurrent access.
++// SAFETY: `RegistrationInner` has no interior mutability and `handler` points to a `Sync` handler.
+ unsafe impl Sync for RegistrationInner {}
+ 
+ // SAFETY: It is safe to send `RegistrationInner` across threads.
+@@ -180,7 +189,7 @@ pub fn irq(&self) -> u32 {
+ ///
+ /// # Invariants
+ ///
+-/// * We own an irq handler whose cookie is a pointer to `Self`.
++/// * We own an irq handler whose cookie is a pointer to `Self::inner`.
+ #[pin_data]
+ pub struct Registration<T: Handler + 'static> {
+     #[pin]
+@@ -207,10 +216,13 @@ pub fn new<'a>(
+             handler <- handler,
+             inner <- Devres::new(
+                 request.dev,
+-                try_pin_init!(RegistrationInner {
+-                    // INVARIANT: `this` is a valid pointer to the `Registration` instance
+-                    cookie: this.as_ptr().cast::<c_void>(),
+-                    irq: {
++                try_pin_init!(&inner_this in RegistrationInner {
++                    irq: request.irq,
++                    dev: request.dev.into(),
++                    // SAFETY: `this` is a valid pointer to the `Registration` instance.
++                    handler: unsafe { &raw const (*this.as_ptr()).handler }.cast(),
++                    _pin: PhantomPinned,
++                    _: {
+                         // SAFETY:
+                         // - The callbacks are valid for use with request_irq.
+                         // - If this succeeds, the slot is guaranteed to be valid until the
+@@ -225,11 +237,10 @@ pub fn new<'a>(
+                                 Some(handle_irq_callback::<T>),
+                                 flags.into_inner(),
+                                 name.as_char_ptr(),
+-                                this.as_ptr().cast::<c_void>(),
++                                inner_this.as_ptr().cast::<c_void>(),
+                             )
+                         })?;
+-                        request.irq
+-                    }
++                    },
+                 })
+             ),
+             _pin: PhantomPinned,
+@@ -265,13 +276,15 @@ pub fn synchronize(&self, dev: &Device<Bound>) -> Result {
+     _irq: i32,
+     ptr: *mut c_void,
+ ) -> c_uint {
+-    // SAFETY: `ptr` is a pointer to `Registration<T>` set in `Registration::new`
+-    let registration = unsafe { &*(ptr as *const Registration<T>) };
++    // SAFETY: `ptr` is a pointer to `RegistrationInner` set in `Registration::new`
++    let inner = unsafe { &*(ptr as *const RegistrationInner) };
++    // SAFETY: `inner.handler` is a pointer to `T` set in `Registration::new`
++    let handler = unsafe { &*inner.handler.cast::<T>() };
+     // SAFETY: The irq callback is removed before the device is unbound, so the fact that the irq
+     // callback is running implies that the device has not yet been unbound.
+-    let device = unsafe { registration.inner.device().as_bound() };
++    let device = unsafe { inner.dev.as_bound() };
+ 
+-    T::handle(&registration.handler, device) as c_uint
++    T::handle(handler, device) as c_uint
+ }
+ 
+ /// The value that can be returned from [`ThreadedHandler::handle`].
+@@ -401,7 +414,7 @@ fn handle_threaded(&self, device: &Device<Bound>) -> IrqReturn {
+ ///
+ /// # Invariants
+ ///
+-/// * We own an irq handler whose cookie is a pointer to `Self`.
++/// * We own an irq handler whose cookie is a pointer to `Self::inner`.
+ #[pin_data]
+ pub struct ThreadedRegistration<T: ThreadedHandler + 'static> {
+     #[pin]
+@@ -428,10 +441,13 @@ pub fn new<'a>(
+             handler <- handler,
+             inner <- Devres::new(
+                 request.dev,
+-                try_pin_init!(RegistrationInner {
+-                    // INVARIANT: `this` is a valid pointer to the `ThreadedRegistration` instance.
+-                    cookie: this.as_ptr().cast::<c_void>(),
+-                    irq: {
++                try_pin_init!(&inner_this in RegistrationInner {
++                    irq: request.irq,
++                    dev: request.dev.into(),
++                    // SAFETY: `this` is a valid pointer to the `ThreadedRegistration` instance.
++                    handler: unsafe { &raw const (*this.as_ptr()).handler }.cast(),
++                    _pin: PhantomPinned,
++                    _: {
+                         // SAFETY:
+                         // - The callbacks are valid for use with request_threaded_irq.
+                         // - If this succeeds, the slot is guaranteed to be valid until the
+@@ -447,11 +463,10 @@ pub fn new<'a>(
+                                 Some(thread_fn_callback::<T>),
+                                 flags.into_inner(),
+                                 name.as_char_ptr(),
+-                                this.as_ptr().cast::<c_void>(),
++                                inner_this.as_ptr().cast::<c_void>(),
+                             )
+                         })?;
+-                        request.irq
+-                    }
++                    },
+                 })
+             ),
+             _pin: PhantomPinned,
+@@ -487,13 +502,15 @@ pub fn synchronize(&self, dev: &Device<Bound>) -> Result {
+     _irq: i32,
+     ptr: *mut c_void,
+ ) -> c_uint {
+-    // SAFETY: `ptr` is a pointer to `ThreadedRegistration<T>` set in `ThreadedRegistration::new`
+-    let registration = unsafe { &*(ptr as *const ThreadedRegistration<T>) };
++    // SAFETY: `ptr` is a pointer to `RegistrationInner` set in `ThreadedRegistration::new`
++    let inner = unsafe { &*(ptr as *const RegistrationInner) };
++    // SAFETY: `inner.handler` is a pointer to `T` set in `ThreadedRegistration::new`
++    let handler = unsafe { &*inner.handler.cast::<T>() };
+     // SAFETY: The irq callback is removed before the device is unbound, so the fact that the irq
+     // callback is running implies that the device has not yet been unbound.
+-    let device = unsafe { registration.inner.device().as_bound() };
++    let device = unsafe { inner.dev.as_bound() };
+ 
+-    T::handle(&registration.handler, device) as c_uint
++    T::handle(handler, device) as c_uint
+ }
+ 
+ /// # Safety
+@@ -503,11 +520,13 @@ pub fn synchronize(&self, dev: &Device<Bound>) -> Result {
+     _irq: i32,
+     ptr: *mut c_void,
+ ) -> c_uint {
+-    // SAFETY: `ptr` is a pointer to `ThreadedRegistration<T>` set in `ThreadedRegistration::new`
+-    let registration = unsafe { &*(ptr as *const ThreadedRegistration<T>) };
++    // SAFETY: `ptr` is a pointer to `RegistrationInner` set in `ThreadedRegistration::new`
++    let inner = unsafe { &*(ptr as *const RegistrationInner) };
++    // SAFETY: `inner.handler` is a pointer to `T` set in `ThreadedRegistration::new`
++    let handler = unsafe { &*inner.handler.cast::<T>() };
+     // SAFETY: The irq callback is removed before the device is unbound, so the fact that the irq
+     // callback is running implies that the device has not yet been unbound.
+-    let device = unsafe { registration.inner.device().as_bound() };
++    let device = unsafe { inner.dev.as_bound() };
+ 
+-    T::handle_threaded(&registration.handler, device) as c_uint
++    T::handle_threaded(handler, device) as c_uint
+ }
 
 -- 
 2.56.0.360.g66cac248cb-goog
