@@ -1,201 +1,140 @@
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
+Received: from verein.lst.de (verein.lst.de [213.95.11.211])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ADBA64078C5;
-	Mon,  5 Oct 2026 08:55:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8D01A401492;
+	Mon,  5 Oct 2026 08:56:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.95.11.211
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791190513; cv=none; b=ZwGA+iL6ogkDiq8RmkbucPiEygu9XwkFyLyVkg8tGKvwrsr6TK9BAn5mfWDHgv44WUsxfqoiNsd/rh0rXk81awj8/7PzC5AIz299ye7wCS6ED5qWc4aFd0MZ2R2cRyITYJlFYDD8YmCX9F8UPGYLj4xeKjVJaQwd+JrUFNcxpZ8=
+	t=1791190580; cv=none; b=WD8p9kWpwVvP/av52rFnPH4kbKuJ8kvkIctH0X09QaYwgkSm5opwpdkBGXCtPR6ympFOaWKP0XDFAQCZI5NdNptoAV03goQsJHSZ7AfIKGIC7Wk34xHhFBtywIC/aRMXSCC5idM8sPVXVTKWCCDyaYlAHIQluTINysE2r5EKh/8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791190513; c=relaxed/simple;
-	bh=iZyHdHq86W3PEOFd0HAUwzoifmohiFy/cOSf06sJW3g=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=FY3evI7rvYchV2htFVK8ijdbLn+WG8ibrj4YpjRNQhAZDQIf50HNmyp1++uOOHz4VBf1u3XBk4y2VAY4mvRrIV3N47ndwrrbH7PnvDwHnfRfjwHXk/AMARygE1TJabO0b6cJikPncYk/yL73cTFegAKoGyD+cl4y7DnGt0FGscg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=vdXBxllS; arc=none smtp.client-ip=213.167.242.64
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="vdXBxllS"
-Received: from [192.168.33.82] (185.221.140.22.nat.pool.zt.hu [185.221.140.22])
-	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 5D6444F1;
-	Mon,  5 Oct 2026 10:53:10 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
-	s=mail; t=1791190391;
-	bh=iZyHdHq86W3PEOFd0HAUwzoifmohiFy/cOSf06sJW3g=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=vdXBxllSc5kkTZ4MxbWHj5eZvBumOxrpQYbAWnfb87qZ7eQiNxcBiIixVfxM9Oj+A
-	 tXYM0S3RyOgcWnFmlo34dk5cl6i/28OGMgS1VWJNVvo1kHT0Gqz3dXhXpbX70zFC4n
-	 lPQvfQq63j4t92kTQkefYtMGoSprqraaFO3P1OLg=
-Message-ID: <58f364aa-0960-4ae1-95e6-1313b9d08bdd@ideasonboard.com>
-Date: Mon, 5 Oct 2026 10:55:00 +0200
+	s=arc-20240116; t=1791190580; c=relaxed/simple;
+	bh=lmzl3i3Eu5fcNfLgReC8s0rQZ7zIUSnmHYRnCTrbNfM=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=ojhoCcO9ZHjswnk36wgrypIOvI3tVVaH2ajk+2vg8aD8hf6pC7a/jA7UM7LA1JOt5aeKxBz0K2/JBsOx5+3rd+cSpAlw7rE1C7JzeO1mymoQZNjXKHum0XKnvwegGVh7jXM2nAmRLZQ2luF0LugHZqtrgjmM1f7j5g56WvRed9Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lst.de; spf=pass smtp.mailfrom=lst.de; arc=none smtp.client-ip=213.95.11.211
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lst.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lst.de
+Received: by verein.lst.de (Postfix, from userid 2407)
+	id AA0C168BFE; Mon,  5 Oct 2026 10:56:13 +0200 (CEST)
+Date: Mon, 5 Oct 2026 10:56:13 +0200
+From: Christoph Hellwig <hch@lst.de>
+To: Md Haris Iqbal <haris.iqbal@linux.dev>
+Cc: Jens Axboe <axboe@kernel.dk>, linux-block@vger.kernel.org,
+	linux-kernel@vger.kernel.org, Christoph Hellwig <hch@lst.de>,
+	Keith Busch <kbusch@kernel.org>, Jonathan Corbet <corbet@lwn.net>,
+	linux-doc@vger.kernel.org
+Subject: Re: [v3 for-next 2/3] block: allow error injection rules to delay
+ bios
+Message-ID: <20261005085613.GB9160@lst.de>
+References: <20260928221634.43239-1-haris.iqbal@linux.dev> <20260928221634.43239-3-haris.iqbal@linux.dev>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] media: rcar-isp: ispcore: Fix inconsistent step sizes
-To: Jacopo Mondi <jacopo.mondi@ideasonboard.com>
-Cc: =?UTF-8?Q?Niklas_S=C3=B6derlund?= <niklas.soderlund@ragnatech.se>,
- Mauro Carvalho Chehab <mchehab@kernel.org>,
- Geert Uytterhoeven <geert+renesas@glider.be>,
- Magnus Damm <magnus.damm@gmail.com>,
- Jacopo Mondi <jacopo.mondi+renesas@ideasonboard.com>,
- Sakari Ailus <sakari.ailus@linux.intel.com>, linux-media@vger.kernel.org,
- linux-renesas-soc@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20261001085130.84565-1-barnabas.pocze+renesas@ideasonboard.com>
- <asIXMIVjbusYLbaR@zed>
-From: =?UTF-8?Q?Barnab=C3=A1s_P=C5=91cze?= <barnabas.pocze@ideasonboard.com>
-Content-Language: en-US, hu-HU
-In-Reply-To: <asIXMIVjbusYLbaR@zed>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260928221634.43239-3-haris.iqbal@linux.dev>
+User-Agent: Mutt/1.5.17 (2007-11-01)
 
-2026. 10. 04. 11:14 keltezéssel, Jacopo Mondi írta:
-> Hi Barnabás
-> 
-> On Thu, Oct 01, 2026 at 10:51:30AM +0200, Barnabás Pőcze wrote:
->> `risp_io_{input,capture}_enum_framesizes()` sets the horizontal and vertical
->> step size to 2. However, `risp_io_{input,capture}_try_format()` passes 2
->> to `v4l_bound_align_image()`, which corresponds to a step size of 2^2 = 4.
->>
->> So move these constants into macros to avoid the repetition, and with that,
->> use 4 as the step size everywhere.
-> 
-> Why 4 ?
-> 
-> I can't find any such limit in documentation.
-> 
-> For input I don't find alignment constraints nor in CS or VSPX
-> documentation.
-> 
-> For output I only see a requirement that the stride is 256 bits
-> aligned, something that is enforced by risp_io_capture_try_format()
-> already.
-> 
-> I see Niklas has reviewed the patch, so he might have found somewhere
-> in the long documentation where the alignment for both input and
-> capture nodes is described.
+On Tue, Sep 29, 2026 at 12:16:33AM +0200, Md Haris Iqbal wrote:
+> +static void blk_error_inject_delay_work(struct work_struct *work)
+> +{
+> +	struct blk_error_inject_delay *d = container_of(to_delayed_work(work),
+> +			struct blk_error_inject_delay, dwork);
+> +	struct bio *bio = d->bio;
+> +	struct gendisk *disk = bio->bi_bdev->bd_disk;
+> +	blk_status_t status = d->status;
+> +
+> +	kfree(d);
+> +
+> +	if (status != BLK_STS_OK) {
+> +		pr_info_ratelimited("%pg: injecting %s error for %s at sector %llu:%u\n",
+> +				disk->part0, blk_status_to_str(status),
+> +				blk_op_str(bio_op(bio)), bio->bi_iter.bi_sector,
+> +				bio_sectors(bio));
+> +		bio->bi_status = status;
+> +		bio_endio(bio);
 
-My primary goal was to remove the inconsistency between the reported and applied
-step sizes. So I went with 4 because that was the applied step size, so with that,
-it's quite certain that nothing that has worked will break.
+This duplicates the tail of __blk_error_inject, please share the code.
 
-Admittedly I do not know if that is the correct number, but I think that can
-be considered a separate issue.
+> +	} else {
 
+And return after this to keep the other path straight line.
 
+> +/*
+> + * Hand the bio to a workqueue that submits or fails it once the delay has
+> + * expired.  Both blk_mq_submit_bio() and ->submit_bio can sleep, so this can't
+> + * be completed from the timer itself.
+> + *
+> + * Returns false if the bio can't be delayed, in which case the caller handles
+> + * it immediately instead.
+> + */
 
-> 
->>
->> Fixes: 2151350f60d1 ("media: rcar-isp: Add support for ISPCORE")
->> Signed-off-by: Barnabás Pőcze <barnabas.pocze+renesas@ideasonboard.com>
->> Reviewed-by: Niklas Söderlund <niklas.soderlund+renesas@ragnatech.se>
->> ---
->> changes in v2:
->>    * fix typo
->>
->> v1: https://lore.kernel.org/linux-media/20260929133020.342677-2-barnabas.pocze+renesas@ideasonboard.com
->> ---
->>   .../media/platform/renesas/rcar-isp/core-io.c | 40 +++++++++++--------
->>   1 file changed, 24 insertions(+), 16 deletions(-)
->>
->> diff --git a/drivers/media/platform/renesas/rcar-isp/core-io.c b/drivers/media/platform/renesas/rcar-isp/core-io.c
->> index 820af506f896c..b60b91f43d42d 100644
->> --- a/drivers/media/platform/renesas/rcar-isp/core-io.c
->> +++ b/drivers/media/platform/renesas/rcar-isp/core-io.c
->> @@ -15,6 +15,12 @@
->>
->>   #include "risp-core.h"
->>
->> +#define RISP_MIN_WIDTH 128
->> +#define RISP_MAX_WIDTH 5120
->> +#define RISP_MIN_HEIGHT 128
->> +#define RISP_MAX_HEIGHT 4096
->> +#define RISP_SIZE_ALIGNMENT 2 /* 2^2 = 4 */
-> 
-> The fact that 2 means 2^2 is only because of how
-> v4l_bound_align_image() is implemented
-> 
->> +
->>   #define risp_io_err(d, fmt, arg...)         dev_err((d)->core->dev, fmt, ##arg)
->>
->>   static struct risp_buffer *risp_io_vb2buf(struct vb2_v4l2_buffer *vb)
->> @@ -330,8 +336,9 @@ static void risp_io_input_try_format(struct rcar_isp_core_io *io,
->>   {
->>   	unsigned int bpp = 0;
->>
->> -	v4l_bound_align_image(&pix->width, 128, 5120, 2,
->> -			      &pix->height, 128, 4096, 2, 0);
->> +	v4l_bound_align_image(&pix->width, RISP_MIN_WIDTH, RISP_MAX_WIDTH, RISP_SIZE_ALIGNMENT,
->> +			      &pix->height, RISP_MIN_HEIGHT, RISP_MAX_HEIGHT, RISP_SIZE_ALIGNMENT,
-> 
-> Should we maybe use 1 here, unless it is documented that 4 is a
-> requirement ?
-> 
-> My suspicion is that we originally meant '2' everywhere, but
-> v4l_bound_align_image() is weird and if you pass '2' in it means
-> '2^2' and this went unnoticed.
-> 
->> +			      0);
->>
->>   	for (unsigned int i = 0; i < ARRAY_SIZE(risp_io_input_formats); i++) {
->>   		if (risp_io_input_formats[i].fourcc == pix->pixelformat) {
->> @@ -423,13 +430,13 @@ static int risp_io_input_enum_framesizes(struct file *file, void *fh,
->>
->>   	fsize->type = V4L2_FRMSIZE_TYPE_STEPWISE;
->>
->> -	fsize->stepwise.min_width = 128;
->> -	fsize->stepwise.max_width = 5120;
->> -	fsize->stepwise.step_width = 2;
->> +	fsize->stepwise.min_width = RISP_MIN_WIDTH;
->> +	fsize->stepwise.max_width = RISP_MAX_WIDTH;
->> +	fsize->stepwise.step_width = 1u << RISP_SIZE_ALIGNMENT;
->>
->> -	fsize->stepwise.min_height = 128;
->> -	fsize->stepwise.max_height = 4096;
->> -	fsize->stepwise.step_height = 2;
->> +	fsize->stepwise.min_height = RISP_MIN_HEIGHT;
->> +	fsize->stepwise.max_height = RISP_MAX_HEIGHT;
->> +	fsize->stepwise.step_height = 1u << RISP_SIZE_ALIGNMENT;
->>
->>   	return 0;
->>   }
->> @@ -720,8 +727,9 @@ static const struct v4l2_pix_format_mplane risp_io_capture_default_format = {
->>   static void risp_io_capture_try_format(struct rcar_isp_core_io *io,
->>   				       struct v4l2_pix_format_mplane *pix)
->>   {
->> -	v4l_bound_align_image(&pix->width, 128, 5120, 2,
->> -			      &pix->height, 128, 4096, 2, 0);
->> +	v4l_bound_align_image(&pix->width, RISP_MIN_WIDTH, RISP_MAX_WIDTH, RISP_SIZE_ALIGNMENT,
->> +			      &pix->height, RISP_MIN_HEIGHT, RISP_MAX_HEIGHT, RISP_SIZE_ALIGNMENT,
->> +			      0);
->>
->>   	pix->field = V4L2_FIELD_NONE;
->>   	pix->colorspace = V4L2_COLORSPACE_SRGB;
->> @@ -824,13 +832,13 @@ static int risp_io_capture_enum_framesizes(struct file *file, void *fh,
->>
->>   	fsize->type = V4L2_FRMSIZE_TYPE_STEPWISE;
->>
->> -	fsize->stepwise.min_width = 128;
->> -	fsize->stepwise.max_width = 5120;
->> -	fsize->stepwise.step_width = 2;
->> +	fsize->stepwise.min_width = RISP_MIN_WIDTH;
->> +	fsize->stepwise.max_width = RISP_MAX_WIDTH;
->> +	fsize->stepwise.step_width = 1u << RISP_SIZE_ALIGNMENT;
->>
->> -	fsize->stepwise.min_height = 128;
->> -	fsize->stepwise.max_height = 4096;
->> -	fsize->stepwise.step_height = 2;
->> +	fsize->stepwise.min_height = RISP_MIN_HEIGHT;
->> +	fsize->stepwise.max_height = RISP_MAX_HEIGHT;
->> +	fsize->stepwise.step_height = 1u << RISP_SIZE_ALIGNMENT;
->>
->>   	return 0;
->>   }
->> --
->> 2.55.0
->>
->>
+I'd drop the comment, it just states what is obvious from the code
+below.
+
+> +static bool blk_error_inject_delay(struct gendisk *disk, struct bio *bio,
+> +		blk_status_t status, unsigned int delay_us)
+> +{
+> +	struct blk_error_inject_delay *d;
+> +
+> +	/* never block a bio that asked not to be blocked */
+> +	if (bio->bi_opf & REQ_NOWAIT)
+> +		return false;
+
+We should probably complete it with BLK_STS_AGAIN as we would do
+for a real delay? 
+
+> +
+> +	d = kmalloc_obj(*d, GFP_NOIO);
+> +	if (!d)
+> +		return false;
+
+Should we log a warning that the intended delay did not happen?
+
+> +	/*
+> +	 * Mark the bio before queueing the work, which can complete it as soon
+> +	 * as it is queued.  Splitting happens below the injection hook, but
+> +	 * bio_submit_split_bioset() resubmits the remainder through the hook
+> +	 * again, and as bio_split() only advances the original bio that
+> +	 * remainder still matches the same rule.  Without this a bio would be
+> +	 * delayed once per split.
+> +	 */
+
+Over-eager comment.  But we should probably also set the flag for
+non-delayed bios anyway and do it as soon as any rule matches?
+
+> +static int __init blk_error_injection_init_wq(void)
+> +{
+> +	/*
+> +	 * WQ_MEM_RECLAIM so that a delayed bio on the reclaim path can still
+> +	 * find a worker under memory pressure.  Note that this only guarantees
+> +	 * a worker exists, not that it is free: submitting a bio can block on
+> +	 * a queue freeze or on tag allocation, so a delayed bio can still be
+> +	 * held up behind another one.
+> +	 */
+
+Very long comment explaining the obvious, everything doing I/O needs
+WQ_MEM_RECLAIM.  Please drop it.
+
+> +	blk_error_inject_wq = alloc_workqueue("blk_error_inject", WQ_MEM_RECLAIM | WQ_UNBOUND, 0);
+
+Overly long line.
+
+> diff --git a/include/linux/blk_types.h b/include/linux/blk_types.h
+> index 98e21b4cbf32..50e28dc0f1f9 100644
+> --- a/include/linux/blk_types.h
+> +++ b/include/linux/blk_types.h
+> @@ -323,6 +323,7 @@ enum {
+>  	BIO_ZONE_WRITE_PLUGGING, /* bio handled through zone write plugging */
+>  	BIO_EMULATES_ZONE_APPEND, /* bio emulates a zone append operation */
+>  	BIO_COMPLETE_IN_TASK, /* complete bi_end_io() in task context */
+> +	BIO_ERROR_INJECTED, /* error injection rules already applied */
+>  	BIO_FLAG_LAST
+>  };
+
+With this we've used up the last BIO_ flag.  I hope this won't
+cause problems in the future..
 
