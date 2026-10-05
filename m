@@ -1,73 +1,181 @@
-Received: from sender-op-o15.zoho.eu (sender-op-o15.zoho.eu [136.143.169.15])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-dy2-f43.google.com (mail-dy2-f43.google.com [74.125.229.43])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2E3161F12FB
-	for <linux-kernel@vger.kernel.org>; Mon,  5 Oct 2026 04:06:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=136.143.169.15
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791173181; cv=pass; b=P4Dp35yYR687qIk95MhhuXOqZaIuKiZbPxj0RihWhIs5eoJufDXwufkBxclgL5yC4JlrOEg0wS4bPhw3VtkWxw2IVG7pIEWpBcx7MYjyTZjF7MCAxekvHQn738bKyiDs90++wKFZ0qCqbiobafTyf8zIFXsvx4YYo6n5uPPS+6s=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791173181; c=relaxed/simple;
-	bh=KCfCPAeQ2dsseQwbHe228EObJTEGbDN83Xg76shbAkU=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 Content-Type:MIME-Version; b=ZDTGHCDBE1ziQ3dw09PuCi7srouJ3tyewR2xr5OhX+Aq9aRLaNHzHHOETrt+10pwboN28xQhK39n6wv3AnJG7PieAkTJzSpoPxTLjrIRxQplSk1fSkY6V2QSE7nJ0Xf/JqzIwcfuNDor8bIPJdd/mcaW/5giK5TsXSXwrJtdaPo=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iav.lv; spf=pass smtp.mailfrom=iav.lv; dkim=pass (1024-bit key) header.d=iav.lv header.i=iav@iav.lv header.b=bqbiKfi8; arc=pass smtp.client-ip=136.143.169.15
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iav.lv
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iav.lv
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 443D12E2EEE
+	for <linux-kernel@vger.kernel.org>; Mon,  5 Oct 2026 04:08:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.43
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791173283; cv=none; b=YYpukF1nR7qPlG+lhoMjzerQ24hm4nG6v0ctfIqrDkp3VH57YGRrr4SMPe19HFdUOL0dp7wQ7KRcBuB4RzjGvYmSvlioGNchn9rPjTFM4mdg74MmfKSxbE/cjwAf5xy0drQYvIBS4zoqcmIWC48oFwmudUVfenUig3C8axbqs/4=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791173283; c=relaxed/simple;
+	bh=LMDE8Z0gPoVrNprdeBHN/Jw/1zoG7YryqwLWnWMRDUM=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=dNUslyXNUd+BtGFs2xzrqn8hyFhxI5nAoQKhnnut8RRvd2G1O4MA4qb4fMm0aP80M6PYHa1UrPgZq7ea5r+DkphHcmxWS5w/yrY0SeB/QVWq1HMpG+TBuVOnYv0wYulJjwCZoTJy1tiPUujKGGVMIoKbS4hZjFDKr2rKHvkwCwo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=FZCLOl72; arc=none smtp.client-ip=74.125.229.43
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=iav.lv header.i=iav@iav.lv header.b="bqbiKfi8"
-ARC-Seal: i=1; a=rsa-sha256; t=1791173148; cv=none; 
-	d=zohomail.eu; s=zohoarc; 
-	b=SwmUQkGBNrCNT8h7YxNxVq1RdmSI27hn/XMwSeMr8Au0APQa7PWgX7u8B7Q+sV/dspD/kT/Eo0ZJawvCoKkKXvPN6usue5+BGDQq9Rz+ZXveSWwNKpoo+yvutqG0tVWdZaPgOz+oDyUSZWQ4rTvBPUhsGeoxMmhEpA9mhu68jEk=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.eu; s=zohoarc; 
-	t=1791173148; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=KCfCPAeQ2dsseQwbHe228EObJTEGbDN83Xg76shbAkU=; 
-	b=YT8jGJ9W8GSyrJlyCO84nfgw/6y5hzNO/tBwdAq/0ICaUnBmZ6QDo/nn5ihcvljS0wePcev1IqY00xse4a7KMxshJcFxThMEXNzbn3eqRTzceoDTHI5uCZ4mk+rOWFt1XA1vN9GPsVj8hGF1K0X4DXkQxI3b1VE+1j+m6jJ0dq4=
-ARC-Authentication-Results: i=1; mx.zohomail.eu;
-	dkim=pass  header.i=iav.lv;
-	spf=pass  smtp.mailfrom=iav@iav.lv;
-	dmarc=pass header.from=<iav@iav.lv>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1791173148;
-	s=zoho; d=iav.lv; i=iav@iav.lv;
-	h=From:From:To:To:Cc:Cc:Subject:Subject:In-Reply-To:Date:Date:Message-ID:Content-Type:Content-Transfer-Encoding:MIME-Version:Message-Id:Reply-To;
-	bh=KCfCPAeQ2dsseQwbHe228EObJTEGbDN83Xg76shbAkU=;
-	b=bqbiKfi8xG3NedUxaGgDpRaZjBSIkAhXc1byN5HWAr+MGrRYJhbhCc38+tjxqtgI
-	5KJRrZefr3f4CKJq7IlrA8v6uyUV4LnV40ZUcE+LJdp/dPME/LuecdXyN/+jKH+c7hL
-	nIXCOKMaObwYVL6rybImgnJhNmQx/Ui11/pAAgKo=
-Received: by smtp.zoho.eu with SMTPS id 1791173145981475.33248736530936;
-	Mon, 5 Oct 2026 06:05:45 +0200 (CEST)
-From: Igor Velkov <iav@iav.lv>
-To: Thomas Gleixner <tglx@kernel.org>
-Cc: sashiko-reviews@lists.linux.dev, Radu Rendec <radu@rendec.net>,
- Marc Zyngier <maz@kernel.org>, Eliav Farber <farbere@amazon.com>,
- Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>,
- Mark Rutland <mark.rutland@arm.com>, Baoquan He <baoquan.he@linux.dev>,
- Heiko Stuebner <heiko@sntech.de>, kexec@lists.infradead.org,
- linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org,
- linux-kernel@vger.kernel.org, Igor Velkov <iav@iav.lv>
-Subject: Re: [PATCH RFC] genirq/kexec: Do not take the bus lock of an interrupt chip on the crash path
-In-Reply-To: <20261005014155.BD56B1F000FF@smtp.kernel.org>
-References: <20261005-kexec-irq-bus-lock-v1-1-09f6b5323460@iav.lv>
- <20261005014155.BD56B1F000FF@smtp.kernel.org>
-Date: Mon, 05 Oct 2026 07:04:02 +0300
-Message-ID: <1791173042898471846.39598@iav.lv>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="FZCLOl72"
+Received: by mail-dy2-f43.google.com with SMTP id 5a478bee46e88-33e62211987so1911265eec.2
+        for <linux-kernel@vger.kernel.org>; Sun, 04 Oct 2026 21:08:02 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1791173281; x=1791778081; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=LoOBU3dKUoijTmAk3p1LupdivqwWNOCTytdFGuDGRd8=;
+        b=FZCLOl725yvAXJfQ9eLu9am/rf6zMLVircXZ/8pNIq+jG4ik8ukMAi41yWoO2vtoDN
+         Rhrnb6pt3+RhBcUkGKdk7pYhXvZRWrp4/wovL+wrbwzWmW7LEYLr9vulpPE+sAwH4woP
+         4NW2BxGeyXZuhhB1tQUJS8y8EeCtpox86/GQvTA74MDuZLWm6X/brdF0kff7PvNNSaok
+         ME5mU3LOqPfd8dAJY7lr1umCNgel727B4sTzxDmIa2M+MuoQRnSznCrUpYg+2PlV2opo
+         fQsen6Pp+xkA/qPhMqjMO6/QCar9Gops9KQcglpmRC7ZG1fsrlfNYk5iuzF/pdmVH0nD
+         jzAA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791173281; x=1791778081;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=LoOBU3dKUoijTmAk3p1LupdivqwWNOCTytdFGuDGRd8=;
+        b=Bfr6NB9UIK6UubYtZfkmzklvWciZp+zjEJCYGO/cSX52iJckUfX+wt2+Kb55/EG9dI
+         4GupdSXdsuOIkB4QSrsw2fhN6OuCpoO71I47MgJQqiQzllEXo0aahE3vGBS9ldDnsAQP
+         fscJmPcvl4mptn17P4rZ3HbOmDkLdHEc5HDmq8lYO/1olAjy/kFi/ZC6hSUImFzHgKxJ
+         zFrQp/+RIB5Qi3edkjzuwmcsgHhzaP+KR/1nNBlTp+e3lkp4BawTlVGjS/IlW/uaps1O
+         9YILLaSpP3uhZENosssHeTmJxpe0a5O0kdcv0Tlb3yKNpW0dgiBSWKZlNRWZuriPK5v4
+         21Jw==
+X-Forwarded-Encrypted: i=1; AKwUvBxvW5pAmujr1BDVQDNlFjWYoPhEymvo0WYFYR/Uu8AHRrxnqu43AWSp7xbplMvF7oG+ZDvhlLhWvoPmpt0=@vger.kernel.org
+X-Gm-Message-State: AFuF++kD9lrFh2G50/c4BIughbm7Bxx2/fRsF07wOl71EReyaIbAftle
+	LCVGrwDvmJ03FQFAeOk3YTVqfGFd+xiUODt1FfidYZQPmfzt/9kqvBWon6khDlaPlmo=
+X-Gm-Gg: AYBFou3ScXBSQKLuqqNHgSZC8cLRV5JW3yKelnuMxjnG/HMHqSBYVqXxRqQ4BMhZo2N
+	KAiWmmPVwslJmOo3Arh4W5FsamKhXWQ/+zo09QCJKY17H0ttB4ddFtkwTi1RUpPikXNf1j2cEFz
+	6QtyvY2CiREvhwUtA3RxklYp4MonGXV2K2tlVAH0m51GppulrFgKUWa26nVAe9IZ7quDyPBQnST
+	xV4rojX/Ndp0e0sCzQvAlLrdRVPAbxfxMxJzAaSYxneuRSvudLoTO7PSNkHuBlOneGxflhWQny+
+	lALf6Gg0Zb7AnBmJ0KSkhRTIl5PQfgdA7SgszP0pz296Bug9G0HDXCm1Yj/STmnfF6QAPPVKAuR
+	dJOBfeyXYbMv8p9K1+NSJnbZvTYbKMaLCCZBp1QFOxGXwLxT242RL1PmSWi7yFTwh1I88wPDXL1
+	B6iwHVzGE7/VHP47DYBxB2u3jy71QoGeOg0ffNMvO7ouLk8DcwSMJFohpwIKOphAWvniPqqzJw
+X-Received: by 2002:a05:701b:2810:b0:149:cfa4:9b3b with SMTP id a92af1059eb24-14f58de5451mr12982932c88.3.1791173281135;
+        Sun, 04 Oct 2026 21:08:01 -0700 (PDT)
+Received: from localhost ([122.172.87.224])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-151fcec9a95sm18805270c88.15.2026.10.04.21.07.59
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 04 Oct 2026 21:08:00 -0700 (PDT)
+Date: Mon, 5 Oct 2026 09:37:57 +0530
+From: Viresh Kumar <viresh.kumar@linaro.org>
+To: Sumeet Pawnikar <sumeet4linux@gmail.com>
+Cc: rafael@kernel.org, krzk@kernel.org, amit.kachhap@gmail.com,
+	daniel.lezcano@kernel.org, thara.gopinath@gmail.com,
+	talel@amazon.com, hayashi.kunihiko@socionext.com,
+	mhiramat@kernel.org, mmayer@broadcom.com, sumitg@nvidia.com,
+	peter.griffin@linaro.org, myungjoo.ham@samsung.com,
+	kyungmin.park@samsung.com, cw00.choi@samsung.com, Frank.Li@nxp.com,
+	s.hauer@pengutronix.de, matthias.bgg@gmail.com,
+	angelogioacchino.delregno@collabora.com, sven@kernel.org,
+	j@jannau.net, marcan@marcan.st, casey.connolly@linaro.org,
+	sre@kernel.org, wens@kernel.org, t.schramm@manjaro.org,
+	bcm-kernel-feedback-list@broadcom.com,
+	linux-samsung-soc@vger.kernel.org, kernel@pengutronix.de,
+	imx@lists.linux.dev, linux-mediatek@lists.infradead.org,
+	linux-arm-kernel@lists.infradead.org, linux-arm-msm@vger.kernel.org,
+	linux-pm@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 3/5] cpufreq: Use %pe to print error pointers
+ symbolically
+Message-ID: <asMinVwyd7gcvRlo@vireshk-B250M-D3H>
+References: <20260912191156.185448-1-sumeet4linux@gmail.com>
+ <20260912191156.185448-4-sumeet4linux@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260912191156.185448-4-sumeet4linux@gmail.com>
 
-On Mon, 05 Oct 2026 01:41:55 +0000, sashiko-bot@kernel.org wrote:
-> If an irqchip implements irq_bus_sync_unlock but omits irq_bus_lock, this
-> condition evaluates to true and irq_set_irqchip_state() is called.
-[...]
-> Should this check also ensure !chip->irq_bus_sync_unlock?
+On 13-09-26, 00:41, Sumeet Pawnikar wrote:
+> Replace PTR_ERR() and %ld with %pe and pass the original pointer directly
+> to pr_err() and pr_warn(). The %pe format specifier prints a symbolic error
+> name (e.g. -ENOMEM) when CONFIG_SYMBOLIC_ERRNAME is enabled, otherwise it
+> falls back gracefully and prints the raw integer value. This makes messages
+> more readable without any functional change.
+> 
+> Signed-off-by: Sumeet Pawnikar <sumeet4linux@gmail.com>
+> ---
+>  drivers/cpufreq/bmips-cpufreq.c   | 4 ++--
+>  drivers/cpufreq/cppc_cpufreq.c    | 4 ++--
+>  drivers/cpufreq/qoriq-cpufreq.c   | 4 ++--
+>  drivers/cpufreq/s3c64xx-cpufreq.c | 5 ++---
+>  4 files changed, 8 insertions(+), 9 deletions(-)
+> 
+> diff --git a/drivers/cpufreq/bmips-cpufreq.c b/drivers/cpufreq/bmips-cpufreq.c
+> index a8e35bc75fb2..389fff5e6f65 100644
+> --- a/drivers/cpufreq/bmips-cpufreq.c
+> +++ b/drivers/cpufreq/bmips-cpufreq.c
+> @@ -132,8 +132,8 @@ static int bmips_cpufreq_init(struct cpufreq_policy *policy)
+>  
+>  	freq_table = bmips_cpufreq_get_freq_table(policy);
+>  	if (IS_ERR(freq_table)) {
+> -		pr_err("%s: couldn't determine frequency table (%ld).\n",
+> -			BMIPS_CPUFREQ_NAME, PTR_ERR(freq_table));
+> +		pr_err("%s: couldn't determine frequency table (%pe).\n",
+> +			BMIPS_CPUFREQ_NAME, freq_table);
+>  		return PTR_ERR(freq_table);
+>  	}
+>  
+> diff --git a/drivers/cpufreq/cppc_cpufreq.c b/drivers/cpufreq/cppc_cpufreq.c
+> index 80893844353c..f767898ebfb5 100644
+> --- a/drivers/cpufreq/cppc_cpufreq.c
+> +++ b/drivers/cpufreq/cppc_cpufreq.c
+> @@ -230,8 +230,8 @@ static void cppc_fie_kworker_init(void)
+>  
+>  	kworker_fie = kthread_run_worker(0, "cppc_fie");
+>  	if (IS_ERR(kworker_fie)) {
+> -		pr_warn("%s: failed to create kworker_fie: %ld\n", __func__,
+> -			PTR_ERR(kworker_fie));
+> +		pr_warn("%s: failed to create kworker_fie: %pe\n", __func__,
+> +			kworker_fie);
+>  		fie_disabled = FIE_DISABLED;
+>  		kworker_fie = NULL;
+>  		return;
+> diff --git a/drivers/cpufreq/qoriq-cpufreq.c b/drivers/cpufreq/qoriq-cpufreq.c
+> index 42edb41ad459..0652e5df0278 100644
+> --- a/drivers/cpufreq/qoriq-cpufreq.c
+> +++ b/drivers/cpufreq/qoriq-cpufreq.c
+> @@ -57,8 +57,8 @@ static u32 get_bus_freq(void)
+>  	/* get platform freq by its clock name */
+>  	pltclk = clk_get(NULL, "cg-pll0-div1");
+>  	if (IS_ERR(pltclk)) {
+> -		pr_err("%s: can't get bus frequency %ld\n",
+> -		       __func__, PTR_ERR(pltclk));
+> +		pr_err("%s: can't get bus frequency %pe\n",
+> +		       __func__, pltclk);
+>  		return PTR_ERR(pltclk);
+>  	}
+>  
+> diff --git a/drivers/cpufreq/s3c64xx-cpufreq.c b/drivers/cpufreq/s3c64xx-cpufreq.c
+> index 9cef71528076..9a01592425ee 100644
+> --- a/drivers/cpufreq/s3c64xx-cpufreq.c
+> +++ b/drivers/cpufreq/s3c64xx-cpufreq.c
+> @@ -152,15 +152,14 @@ static int s3c64xx_cpufreq_driver_init(struct cpufreq_policy *policy)
+>  
+>  	policy->clk = clk_get(NULL, "armclk");
+>  	if (IS_ERR(policy->clk)) {
+> -		pr_err("Unable to obtain ARMCLK: %ld\n",
+> -		       PTR_ERR(policy->clk));
+> +		pr_err("Unable to obtain ARMCLK: %pe\n", policy->clk);
+>  		return PTR_ERR(policy->clk);
+>  	}
+>  
+>  #ifdef CONFIG_REGULATOR
+>  	vddarm = regulator_get(NULL, "vddarm");
+>  	if (IS_ERR(vddarm)) {
+> -		pr_err("Failed to obtain VDDARM: %ld\n", PTR_ERR(vddarm));
+> +		pr_err("Failed to obtain VDDARM: %pe\n", vddarm);
+>  		pr_err("Only frequency scaling available\n");
+>  		vddarm = NULL;
+>  	} else {
 
-Yes. The next version will test both callbacks, as irq_supports_nmi()
-does. No chip in tip/irq/core sets only one of them, as far as I can
-grep, so nothing changes for current users.
+Applied. Thanks.
 
-Igor
+-- 
+viresh
