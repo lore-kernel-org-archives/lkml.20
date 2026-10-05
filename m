@@ -1,189 +1,207 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj2-f41.google.com (mail-pj2-f41.google.com [74.125.227.169])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2E0D751CF50;
-	Mon,  5 Oct 2026 17:18:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 72FA951CF5A
+	for <linux-kernel@vger.kernel.org>; Mon,  5 Oct 2026 17:18:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.169
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791220710; cv=none; b=CJAoufanzCP61OEGJTtHUQaKROqFT0VLEGQJv9FOJrfKG/zyeyq3NsiV3ny8Y7+/hTZ69oxAX2tJtm14zh2B9Akwy44EXEKUzqC7wqLtHuQLNuWSD0OuaaHbNUy7rm5YnMx5bJ0HNHszk+C8vt45Jf9QJG64l0LAKgierKPA+QU=
+	t=1791220711; cv=none; b=qPTOnwSNtQwwnpt31ccQmZviIRlAeg3Gen34ufGFkzprlhavvZqT1B6mYIdFgop+2vo/Zp13HJtMixORI8uj150uL7k/6MM5tN5n9CM+gCLh8Ds20ajz7uDwj71iOtibYMqG64qXOpW+B9bWc7GUVJ6ozJmetvG/d143mfB/+KA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791220710; c=relaxed/simple;
-	bh=Q8MpsbsN4rMHNi18N2B30JWanKj85QwRxbgBE6Ry7ck=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=l8HVS6NpNoIwcBOY67RKRBiLYiP0ALbvqWYPexRZu42h2s7m+/Nzzvm5iuGRryV3DPtSFLi61ocSbSLNen2gXQA8nGM8w5lRPt0sbAISPhbC8NYKifJ8bB1AheJu+pZ1tArymLJx4NpRq6kXgWv9QJAUx+C3S1MVat6XJUw/sf4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=E5LB/JGS; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791220711; c=relaxed/simple;
+	bh=VRRvq3zLEbjKyIt2UhIB5bfMCL6WQ+2ygOmVvN1KkXo=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=RqK5pnu8sumpujFzaG+Po4LMahPshSYSd+gfIqP/k2y8W2D16JgbLyrea2A8GBB9dqv/EHcqvsNhBTLD0T7gSHd3PzrodnB6/7Gzkod9SR+0fCuK7ip9El9yo0PAYPc17KMrNuwWxI+peg5d+79+Vhg+b9wI0TMoZkh2UH3FVPg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=eZI6elm2; arc=none smtp.client-ip=74.125.227.169
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="E5LB/JGS"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EDAA01F000FF;
-	Mon,  5 Oct 2026 17:18:25 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791220709;
-	bh=ZBm2O6AztdOMwKrXVqy1hEMlhuAiH3VcbKRO7AUFTDc=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=E5LB/JGS6ZD2QE3NfY/0GUnDeyrOyMR6xlH56pB8+jzyljtAHXLu48jEncCdBuJxE
-	 Zjx3JNZ2R5YxBHSqlzhYxF9jxpp02KYqkQNnWZEftGCRXXcWLJUky8gJE5moYe39lz
-	 n5q56kJ4+uNqQcleSe/CrWo31C3xeG8oHWFWLLvYt7tkRhtExgeCpWiJiRntTqO7iO
-	 9rcmI9unih3QZkU+HOa6Gu6xFWnCirnLeN1Vnwmy7oRMDoOhAt49k3Ra9dcSGmz01j
-	 ncJUGh2Ka8NVXz1HOvfIMRv+7UuJ08vHw1aDVyajIyE+yKwBmmq9QZTmHqjWYGK2wu
-	 NTXVZq39G2WEw==
-From: bod@kernel.org
-Date: Mon, 05 Oct 2026 19:14:17 +0200
-Subject: [PATCH 47/74] media: qcom: camss: Pass new struct
- camss_buf_done_info to camss_buf_done
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="eZI6elm2"
+Received: by mail-pj2-f41.google.com with SMTP id 98e67ed59e1d1-3a7906f463dso1601266a91.3
+        for <linux-kernel@vger.kernel.org>; Mon, 05 Oct 2026 10:18:29 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791220709; x=1791825509; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=aQJb7vr8ZMuFWHiL+RnTPMV3r43UUmwaGCJuJ+OyJv4=;
+        b=eZI6elm2ZWLe1z4EUhPXxPUuRWeyQ/T3QgF+iNd4qtEBgDAzb2HTJYrf59DX/nw8FQ
+         X19RbX693PaJwIgsX75DmJEaJpfTrh5fv//S51rijQFmw5XeffUjf7zaAM3bWekOUPWE
+         0gu8vWfbshp1mwy9aoqCV6/xVw+Fmh86nsg6b9gO8+o09QQERfnNJ9SVCfIviHKeySQ+
+         bK+fXcxo83sh9iFrAOM/QzS3mHx+h8SY9sxkgt2bijktpgkeSFwr/Zvi6U7nW+eh0VLR
+         KIl+LT8cHfi9WY6ajIbLO5KrxPemNK46ByOLotl1BWBfHU8GdCEOIiYIYtpzbfmPluAF
+         BoCg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791220709; x=1791825509;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=aQJb7vr8ZMuFWHiL+RnTPMV3r43UUmwaGCJuJ+OyJv4=;
+        b=Y6oN5NpjPRAnQPf3TWhfkkfy1qye//6aO5LQYsr9Xu6vYvr+I7klpKn/ooYZaFoiLA
+         sZKf02Boj4PDnCBkxUp1cvppL4Abst9mSNmRmy824Wa/e4S0pX3EXIn2coglXScMbM0H
+         iVNx1ONFIgZOM5BsmPbgNVAD6yIrXqDKmvAFMtQw6vvLe4Eoh/ZxwqFb4WAbOIgI672k
+         3OVUQGTlk68FHtP26ntUZ9ImsYJ1eq/Mb4D86ipzHLy1v/RaMPF1vKTKzZKu6rgDaBqK
+         uZG6d6AvfHfuYhdItfVaanPmBx40BPTWTOp61qEvbPZJP3fsl/Ej2+CoK1kXQHpxRmuh
+         Ykeg==
+X-Forwarded-Encrypted: i=1; AKwUvBw/bB7LCjtgL4RRnSORtycq5++O2NjrpoEf9t9kNA3Im4pa5KFV+MfFT7U3CC8C9OJjpBmWiNBGzWkwZPY=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLC2co3CsoRTHabDXtodMaZp66plJrB9KCFM8VLi1lZsDey8dnT
+	68POsc9b1MoinLSHFf2694jhn05LNBUvemtweDpBJtl3S/FX6g5vWrrH
+X-Gm-Gg: AYBFou2CCcmuezVS7lTJMuuJ1GRwXqYjMpjzK3kbP5AITTbBbQze0rXje0t8kj87B4s
+	aJu2BXOKJUaFl2vru2y50gIYaSn1iCEfJRqtDkbdQ8MvHem1c59u8QoI/kq8qD1CsXhW/fNfRlx
+	emDpCEQbqFGI1Vnc+uig5VOnIuhO75bThrGOnwjJd1C23eeqQX7v4cwon5KCJ95NkkjyYmDpF76
+	Bttf1dW8hp4OoRuRBGz4DVFdOHx9t/Ws1EsdyS5/Xlv/h/kTc0pn9y7btHkxg9sUe+/QXgDxa1S
+	JooDCGwFd64RXsb4nR+l/kGysTGvY4J6+wDh2VNGjtYabA8QBIawxA0zgJwHo+pE59PogYcs8RN
+	jSlN9pV8jextnIXNgdmlH/gsa0Fv36Lju8xpkdELQWp36RQqQPbu4WP3Bk/fPaS01OV2ahXYne/
+	irPo80Uzxsan+7OGM6DGaiRWWmrx3idD1BUtcqhkIZ4QEjTwWXLWwfOzaJC0sLjkq5oHfDKFCpG
+	VoiQCfrAglJqKmnSRELAwE5tb/Kpg==
+X-Received: by 2002:a17:90b:270d:b0:3a4:97ea:f0d8 with SMTP id 98e67ed59e1d1-3a6ced37137mr10733555a91.51.1791220708564;
+        Mon, 05 Oct 2026 10:18:28 -0700 (PDT)
+Received: from kernel.tail6741c6.ts.net ([216.195.201.24])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a853cafddesm406910a91.10.2026.10.05.10.18.11
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 05 Oct 2026 10:18:28 -0700 (PDT)
+From: Kunwu Chan <kunwu.chan@gmail.com>
+To: paulmck@kernel.org,
+	corbet@lwn.net,
+	mingo@redhat.com,
+	frederic@kernel.org,
+	neeraj.upadhyay@kernel.org,
+	josh@joshtriplett.org,
+	urezki@gmail.com,
+	dave@stgolabs.net,
+	lianux.mm@gmail.com
+Cc: stern@rowland.harvard.edu,
+	parri.andrea@gmail.com,
+	will@kernel.org,
+	peterz@infradead.org,
+	boqun@kernel.org,
+	npiggin@gmail.com,
+	dhowells@redhat.com,
+	j.alglave@ucl.ac.uk,
+	luc.maranget@inria.fr,
+	akiyks@gmail.com,
+	dlustig@nvidia.com,
+	joelagnelf@nvidia.com,
+	skhan@linuxfoundation.org,
+	rdunlap@infradead.org,
+	longman@redhat.com,
+	rostedt@goodmis.org,
+	mathieu.desnoyers@efficios.com,
+	jiangshanlai@gmail.com,
+	qiang.zhang@linux.dev,
+	kunwu.chan@gmail.com,
+	brads@mainlining.org,
+	linux-kernel@vger.kernel.org,
+	linux-arch@vger.kernel.org,
+	lkmm@lists.linux.dev,
+	linux-doc@vger.kernel.org,
+	rcu@vger.kernel.org,
+	linux-kselftest@vger.kernel.org
+Subject: [PATCH RFC v3 11/15] Documentation/litmus-tests: add hazptr acquire-before-scan test
+Date: Tue,  6 Oct 2026 01:15:25 +0800
+Message-ID: <20261005171529.1378809-12-kunwu.chan@gmail.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20261005171529.1378809-1-kunwu.chan@gmail.com>
+References: <20261005171529.1378809-1-kunwu.chan@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261005-linux-mainline-7-2-sm8650-hdk-rfc-0-v1-47-ed985aefd611@kernel.org>
-References: <20261005-linux-mainline-7-2-sm8650-hdk-rfc-0-v1-0-ed985aefd611@kernel.org>
-In-Reply-To: <20261005-linux-mainline-7-2-sm8650-hdk-rfc-0-v1-0-ed985aefd611@kernel.org>
-To: Bryan O'Donoghue <bryan.odonoghue@linaro.org>, 
- Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>, 
- Loic Poulain <loic.poulain@oss.qualcomm.com>, 
- Mauro Carvalho Chehab <mchehab@kernel.org>, 
- Jacopo Mondi <jacopo.mondi@ideasonboard.com>, 
- Daniel Scally <dan.scally@ideasonboard.com>, Keke Li <keke.li@amlogic.com>, 
- Richard Acayan <mailingradian@gmail.com>, 
- Hans Verkuil <hverkuil@kernel.org>, 
- Gjorgji Rosikopulos <quic_grosikop@quicinc.com>, 
- Radoslav Tsvetkov <quic_rtsvetko@quicinc.com>, 
- Robert Foss <rfoss@kernel.org>, Milen Mitkov <quic_mmitkov@quicinc.com>
-Cc: linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
- linux-kernel@vger.kernel.org, Bryan O'Donoghue <bod@kernel.org>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=4288; i=bod@kernel.org;
- h=from:subject:message-id; bh=PUHHmV/hhP/W13esYVvcz9GZrS/vw7l9MnIaHRi//ls=;
- b=owEBbQKS/ZANAwAKASJxO7Ohjcg6AcsmYgBqw9si3tSLA7o9/0p0/VVaG6IqfslPXsuwPtI+L
- USyPCLmE4aJAjMEAAEKAB0WIQTmk/sqq6Nt4Rerb7QicTuzoY3IOgUCasPbIgAKCRAicTuzoY3I
- OkR5D/9V81l3YnRAR73XeLEvwkEl9SwIePHH1Tn4qR1j58/ZvdYDuRj67SHisq2TUK2+XNXMQci
- qSUlxZeiBi/lMUMFQu+nww2I6jyj1jUrn+hz6jzQqqTZOTAw7rTB9In+4g7UwRNCyJS3rgTRWyb
- CY63eTNWjf+O+dqfgWjol5KheyXsDSH8QpX1/wBDODfnCtaeupKnZBTSSPgZoFwdDU9mKCtKnHO
- nLKdfked9+I0F39j41czUwAXcDo6w5h6ihSkAzEJPa2bbCBx1Cv+48WkmUiJl0/XQ2x0bmu0DNR
- KbFg+JN7TusjLjdJo5PZH/pUm3K8M9N87hmcvbg5+eHx3e9bqPFWKOhgt9alpJ/jFJXYjwwvauJ
- dAMmXPIRqQ+0oF6j7tjVN6cvzp5SWa71b0E91XfX/h3+Y3D7M/dv89Yex3sMcF17T0H/w5nxrt1
- lPJ1PBbRM3rYo2TLI4JJQubfL/6EnkuGTAfqLk2JPG8d37IxInnN3Zp8jyl47FRnjd8ncQ/8NDv
- XkyWb5vXZS/Dfx4dkfnJH+qXo4X9SaLzngbXaWERjUkfv3yjUhk1ZqSPiRA26fH/hx4HhbfpDgH
- ko2jVP3hcSKG8nz+im26JNduq3zMe0R/8w8JbJKRs/2SO4LEZ/KjUpRNzWbsjL0sINzFcZJXJbI
- AcV450BKCrl5iQQ==
-X-Developer-Key: i=bod@kernel.org; a=openpgp;
- fpr=E693FB2AABA36DE117AB6FB422713BB3A18DC83A
+Content-Transfer-Encoding: 8bit
 
-From: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
+Add an LKMM test for the hazard-pointer publication protocol used
+by the lockdep conversion.
 
-Right now we pass hw_id and port_id to camss_buf_done. That data will be
-useful outside of this method so in preparation for better passing of
-data-around define camss_buf_done_info including the two data fields.
+The test checks that a scan cannot miss a hazard-pointer
+publication while the reader still observes the pre-unpublish
+pointer.  The smp_mb() pair provides the required ordering.
 
-Signed-off-by: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
+This covers the resolved-publication case.  The in-flight wildcard
+window of the wildcard-flip scan is covered by
+hazptr-wildcard-flip-escape.litmus.
+
+Verified with herd7: Never 0 3.
+
+Signed-off-by: Kunwu Chan <kunwu.chan@gmail.com>
 ---
- drivers/media/platform/qcom/camss/camss-csid-680.c  | 8 ++++++--
- drivers/media/platform/qcom/camss/camss-csid-gen3.c | 5 ++++-
- drivers/media/platform/qcom/camss/camss.c           | 8 ++++----
- drivers/media/platform/qcom/camss/camss.h           | 7 ++++++-
- 4 files changed, 20 insertions(+), 8 deletions(-)
+ Documentation/litmus-tests/README             | 13 ++++++
+ .../hazptr/hazptr-acquire-before-scan.litmus  | 45 +++++++++++++++++++
+ 2 files changed, 58 insertions(+)
+ create mode 100644 Documentation/litmus-tests/hazptr/hazptr-acquire-before-scan.litmus
 
-diff --git a/drivers/media/platform/qcom/camss/camss-csid-680.c b/drivers/media/platform/qcom/camss/camss-csid-680.c
-index 345a67c8fb947..8ed190db5b528 100644
---- a/drivers/media/platform/qcom/camss/camss-csid-680.c
-+++ b/drivers/media/platform/qcom/camss/camss-csid-680.c
-@@ -373,6 +373,7 @@ static void csid_rup_complete(struct csid_device *csid, int rdi)
-  */
- static irqreturn_t csid_isr(int irq, void *dev)
- {
-+	struct camss_buf_done_info info;
- 	struct csid_device *csid = dev;
- 	u32 buf_done_val, val, val_top;
- 	int i;
-@@ -398,8 +399,11 @@ static irqreturn_t csid_isr(int irq, void *dev)
- 		if (val & CSID_CSI2_RDIN_RUP_DONE)
- 			csid_rup_complete(csid, i);
- 
--		if (buf_done_val & BIT(BUF_DONE_IRQ_STATUS_RDI_OFFSET + i))
--			camss_buf_done(csid->camss, csid->id, i);
-+		if (buf_done_val & BIT(BUF_DONE_IRQ_STATUS_RDI_OFFSET + i)) {
-+			info.hw_id = csid->id;
-+			info.port_id = i;
-+			camss_buf_done(csid->camss, &info);
-+		}
- 	}
- 
- 	/* Issue clear command */
-diff --git a/drivers/media/platform/qcom/camss/camss-csid-gen3.c b/drivers/media/platform/qcom/camss/camss-csid-gen3.c
-index 0fdbf75fb27db..3a48bd072e0df 100644
---- a/drivers/media/platform/qcom/camss/camss-csid-gen3.c
-+++ b/drivers/media/platform/qcom/camss/camss-csid-gen3.c
-@@ -258,6 +258,7 @@ static void csid_subdev_reg_update(struct csid_device *csid, int port_id, bool c
-  */
- static irqreturn_t csid_isr(int irq, void *dev)
- {
-+	struct camss_buf_done_info info;
- 	struct csid_device *csid = dev;
- 	u32 val, buf_done_val;
- 	u8 reset_done;
-@@ -289,7 +290,9 @@ static irqreturn_t csid_isr(int irq, void *dev)
- 				 * CSID from VFE. Once CSID received bus done, need notify
- 				 * VFE of this event. Trigger VFE to handle bus done process.
- 				 */
--				camss_buf_done(csid->camss, csid->id, i);
-+				info.hw_id = csid->id;
-+				info.port_id = i;
-+				camss_buf_done(csid->camss, &info);
- 			}
- 		}
- 
-diff --git a/drivers/media/platform/qcom/camss/camss.c b/drivers/media/platform/qcom/camss/camss.c
-index 2551f0dfa37bb..065d14a872526 100644
---- a/drivers/media/platform/qcom/camss/camss.c
-+++ b/drivers/media/platform/qcom/camss/camss.c
-@@ -5033,14 +5033,14 @@ void camss_reg_update(struct camss *camss, int hw_id, int port_id, bool is_clear
- 	}
- }
- 
--void camss_buf_done(struct camss *camss, int hw_id, int port_id)
-+void camss_buf_done(struct camss *camss, struct camss_buf_done_info *info)
- {
- 	struct vfe_device *vfe;
- 
--	if (hw_id < camss->res->vfe_num) {
--		vfe = &camss->vfe[hw_id];
-+	if (info->hw_id < camss->res->vfe_num) {
-+		vfe = &camss->vfe[info->hw_id];
- 
--		vfe->res->hw_ops->vfe_buf_done(vfe, port_id);
-+		vfe->res->hw_ops->vfe_buf_done(vfe, info->port_id);
- 	}
- }
- 
-diff --git a/drivers/media/platform/qcom/camss/camss.h b/drivers/media/platform/qcom/camss/camss.h
-index 93d691c8ac63b..6a0d781ae7951 100644
---- a/drivers/media/platform/qcom/camss/camss.h
-+++ b/drivers/media/platform/qcom/camss/camss.h
-@@ -140,6 +140,11 @@ struct camss {
- 	const struct camss_resources *res;
- };
- 
-+struct camss_buf_done_info {
-+	int hw_id;
-+	int port_id;
-+};
+diff --git a/Documentation/litmus-tests/README b/Documentation/litmus-tests/README
+index 4d4ec9c6f2cc..c2bf20fa4092 100644
+--- a/Documentation/litmus-tests/README
++++ b/Documentation/litmus-tests/README
+@@ -97,3 +97,16 @@ SRCU-fastpath-scan-before-anchor.litmus
+     period, violating the SRCU grace-period guarantee.  See
+     SRCU-fastpath-anchor-before-scan.litmus for the opposite
+     ordering.
 +
- struct camss_camera_interface {
- 	u8 csiphy_id;
- 	struct csiphy_csi2_cfg csi2;
-@@ -176,7 +181,7 @@ void camss_pm_domain_off(struct camss *camss, int id);
- int camss_vfe_get(struct camss *camss, int id);
- void camss_vfe_put(struct camss *camss, int id);
- void camss_delete(struct camss *camss);
--void camss_buf_done(struct camss *camss, int hw_id, int port_id);
-+void camss_buf_done(struct camss *camss, struct camss_buf_done_info *info);
- void camss_reg_update(struct camss *camss, int hw_id,
- 		      int port_id, bool is_clear);
- 
-
++
++hazptr (/hazptr directory)
++--------------------------
++
++hazptr-acquire-before-scan.litmus
++    Test the resolved-publication ordering between hazard-pointer
++    publication and the scan.
++
++hazptr-wildcard-flip-escape.litmus
++    Test the in-flight wildcard window of the single-pass wildcard-flip
++    scan: a straggling acquire that published the old wildcard after
++    the final walk cannot still load the unpublished object.
+diff --git a/Documentation/litmus-tests/hazptr/hazptr-acquire-before-scan.litmus b/Documentation/litmus-tests/hazptr/hazptr-acquire-before-scan.litmus
+new file mode 100644
+index 000000000000..6dc13830c07c
+--- /dev/null
++++ b/Documentation/litmus-tests/hazptr/hazptr-acquire-before-scan.litmus
+@@ -0,0 +1,45 @@
++C hazptr-acquire-before-scan
++
++(*
++ * Result: Never
++ *
++ * The reclaimer unpublishes the pointer, executes smp_mb(), then
++ * scans the hazard-pointer slot.  The reader publishes the
++ * protected address, executes smp_mb(), then loads the pointer.
++ *
++ * The smp_mb() pair forbids the reclaimer from missing the
++ * publication while the reader still observes the pre-unpublish
++ * pointer.
++ *
++ * This is the publication protocol used by the lockdep
++ * is_dynamic_key()/lockdep_unregister_key() conversion.
++ *
++ * This models the resolved-publication case.  The in-flight
++ * wildcard window of the wildcard-flip scan is covered by
++ * hazptr-wildcard-flip-escape.litmus.
++ *)
++
++{
++int ptr = 1;
++int hp = 0;
++}
++
++P0(int *ptr, int *hp)
++{
++	int r0;
++
++	WRITE_ONCE(*ptr, 0);	/* Unpublish. */
++	smp_mb();
++	r0 = READ_ONCE(*hp);	/* Scan. */
++}
++
++P1(int *ptr, int *hp)
++{
++	int r0;
++
++	WRITE_ONCE(*hp, 1);	/* Publish. */
++	smp_mb();
++	r0 = READ_ONCE(*ptr);	/* Load pointer. */
++}
++
++exists (0:r0=0 /\ 1:r0=1)
 -- 
-2.55.0
+2.43.0
 
