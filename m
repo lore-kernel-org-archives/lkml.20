@@ -1,302 +1,359 @@
-Received: from CH4PR04CU002.outbound.protection.outlook.com (mail-northcentralusazon11013005.outbound.protection.outlook.com [40.107.201.5])
+Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5E6E4456DED;
-	Mon,  5 Oct 2026 09:42:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.201.5
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791193351; cv=fail; b=hba1gMo5zB1CUukKf8lNfmTapRt9KlZWdDbRixg1d4ENo1LISe+vQlWc9L82ARVkk+EcV9eI6qSeVyggjg1bRKDlB13SpV5UVSXLt0w3gtfD/2BeNIvJ51oiBou0WlT577jW3Vs7tCD03SgY0Ed4woKAUhDC+lT2wKKBBgX0Imw=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791193351; c=relaxed/simple;
-	bh=EvmLBw/94YSyPaNAFVdJBJ0qL8hZgCgk+Q97DPpiikg=;
-	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=jozrgvqxs+zX9/sxhl093Xl+10jOBQUoDRMuCXl9F8/VFhzmBEkE3BT/JR+tQIIuOiKTW6JL70fx64LLUR3rv2UgnU/SAqFGKtQwa3jaKjfrghfmt/jMexsxwRtMC1ICHuw3Go48AkjGuEdLhbfszxIyMHtUowmLsBN+QkOr8Lg=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=LebH3fH4; arc=fail smtp.client-ip=40.107.201.5
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3482E440635;
+	Mon,  5 Oct 2026 09:42:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.85.4
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791193348; cv=none; b=AB4t+dmFWrGmw3oeqwNlBCLk4qBkQcbqFXSrHtCfx9c7abntP3HrXno5AU17AJ8PFjxjq7o6/dLJkPwfO7fbwAtIncfgBzlwW3UaSM+wILhbhBKLeqn0Y0Ce6QYadzCXfdeE1PCRMGdzjLQpqE9bZPPtPVUYRKuB9qFJoc/CCa4=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791193348; c=relaxed/simple;
+	bh=xwS+dM9MR3PElIsksHhyrTZR/0e1YiPd2zkimhOVSaU=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=S57PidFlmDdH7KkFIfH3OPp3Cs/pDwx+wlQTIZ8dmaeEyaEc75Lnwuqix6pGYvm4txlIcTalgvnNBGmLk0IZosGjzqvaIR0885Cuy7WCUrrFyuNJckdrY54BwAfo3YPlVampiKhFePc7JftbDtV5DFe1QfbzJPY2JaodOckXuDc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=bRNFQCQk; arc=none smtp.client-ip=185.246.85.4
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="LebH3fH4"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=bN6BetfuRRaJR1SrS/8Q6VoJvzdzYd+kotmItSl4gBz4fDxdu9P55+CTzukJk0GJbCqvmmCU1RHZ4T1/t7Wwm+7mVWddztRhtNvVH0G5hpLEacvNU2HMNmu1C6AYAubBbbmRxSVZ6ktk5Vp7h8Kef62I0j5MuQct+bmvMyeftVDloWkivM0vazj40p5RiuNH7kh+XfWnbTB/ARyRTQrgShBbmMzysRBRmjr3Kcpy7yFOs4+ohUGhhES0xDUfanKCj5Czw5fKZVn9EAQ3Id7qPhGfEWzDj2+N7KCf7eTcmM0Is61vBUqy61cKR+1ZWcpFKhCm7s1xzicdMxy/SubKgQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=lWij291icpKy8bPpa5RUBdgXZWDSijHQWCeSPglfL2Y=;
- b=npPDH2buYgv2BMsws+9S1SMhO25Wg9IPc7QgDZA/tacE1o7+M6VCfLhs6gnC4n/AaP4p7Nb7ND+2U7zD/lcHq7TbTOF14MqllP8STRYluBY1fzUcT1V1ItEir3L07uvlVGu3xTJ5axludmLpCkuKN3P/6Ko94Z6ZD3DnwrOkjpgIkTP48uoEfR7TJ/6J7rnanmsH+ABO2v6WSsw8XI7twe4WxlJ1lyHIXmcGtjKPSkzXZzFeZTXNxZ7Vo6WONToFtSa7hvUAsUolyVDrQkR9+WDcAtcxZU8weiBQqCFbYiVg9PF334DderL7/JY6JmOKoAv1WcxxjEPAahz+y8JFJw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=kernel.org smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=lWij291icpKy8bPpa5RUBdgXZWDSijHQWCeSPglfL2Y=;
- b=LebH3fH4PEscJ0s5jrvA/JKQP84c53vzqm2jJs6uotVLfP6EEu8MNAR1Xhj7Z9m7tS5VSWI0jc5etv2x81YM0F2l/860qaFoBPdbdD+VzFkjCJwXHSAZuvndjnTEEDLtGZSU247UQWMyf37lVo8PBg5ier0dXLcHQF2vMYPxeYQ=
-Received: from BN9PR03CA0957.namprd03.prod.outlook.com (2603:10b6:408:108::32)
- by DS0PR12MB7850.namprd12.prod.outlook.com (2603:10b6:8:146::18) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.19; Mon, 5 Oct
- 2026 09:42:17 +0000
-Received: from BN3PEPF00022BD5.namprd03.prod.outlook.com
- (2603:10b6:408:108:cafe::1b) by BN9PR03CA0957.outlook.office365.com
- (2603:10b6:408:108::32) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.472.20 via Frontend Transport; Mon, 5
- Oct 2026 09:42:17 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 165.204.84.17) smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
-Received: from satlexmb08.amd.com (165.204.84.17) by
- BN3PEPF00022BD5.mail.protection.outlook.com (10.167.248.100) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.472.14 via Frontend Transport; Mon, 5 Oct 2026 09:42:17 +0000
-Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Mon, 5 Oct
- 2026 04:42:15 -0500
-Received: from xhdappanad40.xilinx.com (10.180.168.240) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server id 15.2.2562.49 via Frontend
- Transport; Mon, 5 Oct 2026 04:42:12 -0500
-From: Dileep Kumar Nagavarapu <dileepkumar.nagavarapu@amd.com>
-To: Jonathan Cameron <jic23@kernel.org>, David Lechner
-	<dlechner@baylibre.com>, =?UTF-8?q?Nuno=20S=C3=A1?= <nuno.sa@analog.com>,
-	Andy Shevchenko <andy@kernel.org>, Michal Simek <michal.simek@amd.com>,
-	Conall O'Griofa <conall.ogriofa@amd.com>
-CC: <linux-iio@vger.kernel.org>, <linux-arm-kernel@lists.infradead.org>,
-	<linux-kernel@vger.kernel.org>, <git@amd.com>, Dileep Kumar Nagavarapu
-	<dileepkumar.nagavarapu@amd.com>
-Subject: [PATCH v4 00/15] iio: adc: xilinx-xadc: Add I2C interface support for System Management Wizard
-Date: Mon, 5 Oct 2026 15:11:50 +0530
-Message-ID: <20261005094205.1045874-1-dileepkumar.nagavarapu@amd.com>
-X-Mailer: git-send-email 2.34.1
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="bRNFQCQk"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-03.galae.net (Postfix) with ESMTPS id A4BAA4E4118C;
+	Mon,  5 Oct 2026 09:42:12 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 6AE0D604FE;
+	Mon,  5 Oct 2026 09:42:12 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id A6C5B103306B9;
+	Mon,  5 Oct 2026 11:42:05 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1791193331; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:content-language:in-reply-to:references;
+	bh=73AYElbtEmVWL6vDctqxranKQ1VJ7OLTU3RbIiA1qgY=;
+	b=bRNFQCQkltUfpB5MVOFS1CVO3sVp+Pn5fJvIjmjwE9JnJ0WBUTCGHO1cNrLHTs0rW69WlB
+	AhhiXdPbBg8cWRaJeJbGh9F8F9+Q/K5Eyvj68btVktJOwemLoLWmO6Ufv961JIKFUlmEWe
+	iwgH/wNM5gpUs5YmNGCsQmWapfCxZ67usLkzZ/+5zYAtgMwMVfBLWCKl84KI4rHUd0/PEZ
+	vfUoa05ZOPui51liNuZX0GTpRDC0dYgSSytTuhfJ9o3ZFRg2FjRGeY+uEFxJEcFv8Qui9e
+	Cij8sfzbu9iTx55tXXZybqOR4t77zCGynD4ORDwOmewuUr2pw3zntHWqLDcHOQ==
+Message-ID: <fc208b6e-7808-4b6a-bb49-9d4e27e757bb@bootlin.com>
+Date: Mon, 5 Oct 2026 11:42:04 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="yes"
+User-Agent: Betterbird (Linux)
+Subject: Re: [PATCH net-next v3 2/2] net: pse-pd: Add LTC4266 PSE controller
+ driver
+To: Kyle Swenson <kyle.swenson@est.tech>,
+ "netdev-bot+sashiko@kernel.org" <netdev-bot+sashiko@kernel.org>
+Cc: "o.rempel@pengutronix.de" <o.rempel@pengutronix.de>,
+ "andrew+netdev@lunn.ch" <andrew+netdev@lunn.ch>,
+ "davem@davemloft.net" <davem@davemloft.net>,
+ "edumazet@google.com" <edumazet@google.com>,
+ "kuba@kernel.org" <kuba@kernel.org>, "pabeni@redhat.com"
+ <pabeni@redhat.com>, "robh@kernel.org" <robh@kernel.org>,
+ "krzk+dt@kernel.org" <krzk+dt@kernel.org>,
+ "conor+dt@kernel.org" <conor+dt@kernel.org>,
+ "netdev@vger.kernel.org" <netdev@vger.kernel.org>,
+ "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ =?UTF-8?Q?Roland_Kov=C3=A1cs?= <roland.kovacs@est.tech>,
+ =?UTF-8?Q?David_Nystr=C3=B6m?= <david.nystrom@est.tech>
+References: <20260927212929.593366-3-kyle.swenson@est.tech>
+ <179080386247.434549.15817042587071985098@kernel.org>
+ <asM8rcKC1n1Tn4JD@est-xps15>
+From: Kory Maincent <kory.maincent@bootlin.com>
+Content-Language: en-US
+In-Reply-To: <asM8rcKC1n1Tn4JD@est-xps15>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN3PEPF00022BD5:EE_|DS0PR12MB7850:EE_
-X-MS-Office365-Filtering-Correlation-Id: dc85669e-c8df-4a44-b84d-08df22c4f1a0
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|1800799024|376014|36860700016|82310400026|13003099007|6133799003|10067099003|11063799006|5023799004|3023799007|56012099006|20046099003|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	xpIE4kH9sXSZiHekW5F0qXbuGBE0FLkixQ1Tzr/EJEjdaUgABn2/v7/QgGRe2yM5v9UIFRd4g8+kiQW8cRal+H/qn1YHeHpKJ51VKc1Q2tkc8aotAU2nPAlEl5NI4oK+6R9aMjA6qyYrK8sKyY4SEF7Yqr1oJ7J2GIivDjybKMbrI/2n6ADScRqxhkDy9O4eQBntIPXJV7uxcZXA/xij6Ku7W5RoQXSKN1hVy5LU42yQp7BdYc3DvX/4Uqa2yHnU4v0pbl6RGn2nCGjBz2ThLixAoT185TnTrZBEFoiKHLXiVmCj6GNDG9e+9C7XD+zoT2TgblGlJ6rNZEbttpM53jogixITnn8aEiHjQ7xWEEKtQSPfFt3gvnM7ahZ9Mrqe9RLmQ/TNJ5Mkp9a3aL3PpjblLRWfB66YbKbF8qs1utz6pUklGrMMlcYGNexHe8hNPBnsqxzyih/RTJfYTm63ZFd8xbHKKDj2XKcnFkSjBhv9keD3U3X1Grvxom0i5sX/B8kvq36ZAbGlr2I30htj18jZVrpBDDeiEPfCo/q7O8nZRot3KdtQyfNR4k3CUjPK3rvV6eNI/x0jFjQ6nNqWNEi6eGKWqIp+npenHaUt8bY4tYtjPvYXy3eusl6t2pZ+YdhBXd4AzqpEQpnECOZF+QTeEyyswLEEAwy/8bc9FE5NWJ08jen5vHgNYc0oyPn1bqJHewvuMb2vRzpgJF1zFA==
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb08.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(23010399003)(1800799024)(376014)(36860700016)(82310400026)(13003099007)(6133799003)(10067099003)(11063799006)(5023799004)(3023799007)(56012099006)(20046099003)(18002099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	E7nHFXoWgO7prA/pq633ZzzgcwfC7zAvAhCe7tNHKL0bYlpPUjCNuFvXo8KJU1XJStOZWnINAdCdtJ+eyexCVGaZZ8FI9xF8mB8N9JnVstG06WUHLLqFtxptThx2DdxTxEpTPmgSEJHf2p9CoDOYU+dyv1HnCrLICFDULpLXWn8fFRkJeRFai3rMHMEMxITNFziB/jpCTcehDKBU4l0P+QHg89kjpdtjr8Bw2+ttVimNB3ftdGiqK+OYlNi/2gTKZ9ozMizuCLameVIKMMEeCD6VzpFEdIb/z0o3wyRvgysF+QTgk+XAKby7Tc4evFdhPKUd+cK5hmmroJaWXSUAU56xjUWV7FzkppJe0s3SsUerMptzFCTi6cf9YhHQ6quzaoWu9FTkVJNXTd2tau3U+fFMj6mrQLG5cO7LnBwbVMznuMkTJKhGsjnTBk0f23rS
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Oct 2026 09:42:17.2236
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: dc85669e-c8df-4a44-b84d-08df22c4f1a0
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb08.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	BN3PEPF00022BD5.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB7850
+X-Last-TLS-Session-Version: TLSv1.3
 
-The existing driver only supported AXI memory-mapped access to the System
-Management Wizard IP. This series extends the driver to support I2C-based
-access, which is particularly useful for System Controller usecases.
+Hello Kyle,
 
-Key Changes:
-- Split the xilinx-xadc-core.c file into two files(xilinx-xadc-core.c and
-  xilinx-xadc-platform.c)
-- Add required helper functions and callbacks
-- Add channel configuration via callback mechanism
-- New I2C driver for UltraScale+ System Management Wizard for basic
-  voltage and temperature monitoring
+On 10/5/26 08:00, Kyle Swenson wrote:
+> Hello,
+> 
+> On Wed, Sep 30, 2026 at 09:31:02PM +0000, netdev-bot+sashiko@kernel.org wrote:
+>> Thank you for your contribution! Sashiko AI review found 9 potential
+>> issue(s) to consider.
+>>
+>> Critical: 0 · High: 1 (2) · Medium: 6 (3) · Low: 2
+>>
+>> If you believe none of the issues are legitimate, please reply to each
+>> issue of Medium severity or higher and explain why the AI is wrong.
+>> If any of them are legitimate and you plan to respin, please let patchwork
+>> know by including "pw-bot: cr" as a separate line at the end of your reply
+>> (one such reply per series is enough).
+>>
+>> - [High] If a PI's vpwr-supply is described in DT but not yet registered
+>>    when the LTC4266 probes, ltc4266_pi_nominal_uv() carries on (warn plus…
+>> - [Medium] ltc4266_pi_get_pw_class() reports the wrong power class to
+>>    userspace.
+>> - [Medium] ltc4266_pi_nominal_uv() swallows -EPROBE_DEFER from
+>>    of_regulator_get_optional().
+>> - [Medium] ltc4266_map_event() loses hardware events on every error exit.
+>> - [Medium] ltc4266_pi_set_pw_limit() treats every negative
+>>    ltc4266_port_get_class() result as 'not classified', including…
+>> - [Medium] ltc4266_map_event() reports
+>>    ETHTOOL_C33_PSE_EVENT_CLASSIFICATION whenever the detevn high nibble…
+>> - [Medium] ltc4266_pi_disable() is carried out by ltc4266_port_init(),
+>>    whose first write (RSTPB = BIT(chan)) removes power from the port.
+>> - [Low] The LTC4266 binding sets maxItems: 1 for pse-pi 'pairsets' but
+>>    does not list it as required, and pse-controller.yaml requires only…
+>> - [Low] ltc4266_regmap_config sets only reg_bits, val_bits and
+>>    max_register (0x5F), with no precious_reg or readable_reg callbacks.
+>>
+>> Pre-existing issues:
+>> - [High] This problem wasn't introduced by this patch, but the new driver
+>>    makes it easy to hit.
+>> - [High] This problem wasn't introduced by this patch, but the new driver
+>>    opts into the affected path.
+>> - [Medium] This problem wasn't introduced by this patch, but: when
+>>    ops->setup_pi_matrix() fails, pse_controller_register() returns…
+>> - [Medium] This problem wasn't introduced by this patch, but:
+>>    pse_controller_unregister() calls pse_release_pis() (kfree(pcdev->pi))…
+>> - [Medium] This problem wasn't introduced by this patch, but:
+>>    pse_control_get_internal() calls try_module_get(pcdev->owner) and…
+>>
+>> --
+>>
+>> net: pse-pd: Add LTC4266 PSE controller driver
+>>
+>> This commit adds a new I2C driver for the Linear Technology LTC4266 PoE PSE
+>> controller and hooks it into the PSE controller core. The driver runs the
+>> chip in semi-auto mode and maps PSE PIs to delivery channels from the
+>> device tree. It uses the chip interrupt together with the static power
+>> budget evaluation strategy.
+>>
+>>> diff --git a/drivers/net/pse-pd/ltc4266.c b/drivers/net/pse-pd/ltc4266.c
+>>> new file mode 100644
+>>> index 0000000000000..37dea467811a4
+>>> --- /dev/null
+>>> +++ b/drivers/net/pse-pd/ltc4266.c
+>>> @@ -0,0 +1,1386 @@
+>>
+>> [ ... ]
+>>
+>>> +static int ltc4266_pi_disable(struct pse_controller_dev *pcdev, int id)
+>>> +{
+>>> +	struct ltc4266_port *port = ltc4266_pi_port(pcdev, id);
+>>> +
+>>> +	/* Resetting the port (RSTPB, issued at the start of ltc4266_port_init)
+>>> +	 * removes power, disables detection and classification, and clears the
+>>> +	 * port's status register. Re-init the port so that detection and
+>>> +	 * classification can happen again.
+>>> +	 */
+>>> +	return ltc4266_port_init(port);
+>>> +}
+>>
+>> [Severity: Medium]
+>> What happens if one of the writes after the RSTPB reset in
+>> ltc4266_port_init() fails?
+>>
+>> The first write in ltc4266_port_init() has already removed power from the
+>> port. A later failure in the OPMD, HPEN, HPMD, TLIM, DISENA or DETPB write
+>> is still returned as a failed disable, and _pse_pi_disable() then skips
+>> the budget release:
+>>
+>> drivers/net/pse-pd/pse_core.c:_pse_pi_disable() {
+>>      ...
+>> 	ret = ops->pi_disable(pcdev, id);
+>> 	if (ret)
+>> 		return ret;
+>>
+>> 	pse_pi_deallocate_pw_budget(&pcdev->pi[id]);
+>>      ...
+>> }
+>>
+>> Would the core then keep budget allocated and admin_state_enabled set for
+>> a port that has no power? DETPB was never written, so detection stays off.
+>> No later classification interrupt would arrive to resync the state.
+>>
+> 
+> Yes, it appears the TPS23881 driver has this issue as well.  I can see
+> the contract go in one of two directions: drivers only return non-zero
+> if the port wasn't able to be disabled enough to give back power budget
+> or the core's _pse_pi_disable should always free the budget after
+> calling pi_disable and then return the error at the end of the
+> _pse_pi_disable.
+> 
+> Kory, Oleksij, what are your thoughts?
 
-Note: We are working on x86 platform support where fixed channel
-configuration is used(no DT support). The .setup_channels() function
-pointer introduced in patch 2/4 enables different channel configuration
-approaches for various platforms.
+Mmh that's indeed a policy we need to decide.
+My first thought was in favor of always freeing the budget with a 
+warning message. But after a second though we need to decide what is the 
+harmless. Deallocating the budget while the PI is still power on could 
+lead to an hardware over budget which mean there could be smoke.
+So I think the first option is the safer. It would be good to add kdoc 
+and a warning to explain this.
 
-This series was originally posted by Sai Krishna Potthuri.
+>> [ ... ]
+>>
+>>> +static int ltc4266_pi_get_admin_state(struct pse_controller_dev *pcdev, int id,
+>>> +				      struct pse_admin_state *admin_state)
+>>> +{
+>>
+>> [ ... ]
+>>
+>>> +	ret = regmap_read(port->ltc4266->regmap, LTC4266_REG_STATPWR, &val);
+>>> +	if (ret < 0)
+>>> +		return ret;
+>>
+>> [Severity: Medium]
+>> This isn't a bug introduced by this patch, but an I2C error returned here
+>> reaches a module reference leak that already exists in the PSE core.
+>> pse_control_get_internal() calls try_module_get(pcdev->owner) and then
+>> does this:
+>>
+>> drivers/net/pse-pd/pse_core.c:pse_control_get_internal() {
+>>      ...
+>> 	ret = pse_pi_is_hw_enabled(pcdev, index);
+>> 	if (ret < 0)
+>> 		goto free_psec;
+>>      ...
+>> }
+>>
+>> That jump skips the put_module label. If an I2C error happens while a PHY
+>> is acquiring its PSE control, does the ltc4266 module stay pinned?
+>>
+> 
+> Sure seems like it.  It appears like it'd also stay pinned in a few of
+> the other goto free_psec; statements after the try_module_get.  I'll
+> plan on pushing a separate patch with an appropriate Fixes: tag later,
+> since I'm hesitant to mix it in with a v4 of this series.
 
-Link:https://lore.kernel.org/all/20260323074505.3853353-1-sai.krishna.potthuri@amd.com/
+If there are fixes to be sent please send them standalone to net and 
+with the fixes tag.
 
-I will be maintaining the series going forward and posting updated
-revisions.
+>> [Severity: High]
+>> Continuing with a deferred vpwr-supply also has a functional effect. Can
+>> the PI end up with no PSE power domain for good?
+>>
+>> If the supply is not registered yet, regulator_resolve_supply() returns
+>> -EPROBE_DEFER and regulator_register() leaves rdev->supply NULL for the PI
+>> regulator. pse_register_pw_ds() runs only once, from
+>> pse_controller_register():
+>>
+>> drivers/net/pse-pd/pse_core.c:pse_register_pw_ds() {
+>>      ...
+>> 		if (!rdev || !rdev->supply)
+>> 			continue;
+>>      ...
+>> }
+>>
+>> So pi->pw_d stays NULL even after the supply resolves, and
+>> pse_pw_d_is_sw_pw_control() returns false for this PI. Two things follow.
+>>
+>> First, pse_isr() never calls pse_set_config_isr(). The CLASSIFICATION and
+>> DISCONNECTION events from ltc4266_map_event() then never power the port
+>> or re-arm it.
+>>
+>> Second, on admin enable pse_pi_enable() calls ltc4266_pi_enable()
+>> directly. That fails in ltc4266_port_get_class() with -EINVAL or -EAGAIN
+>> when no PD has been classified.
+>>
+>> The chip runs in semi-auto mode and never powers a port without a PWRPB
+>> write. Would a PD that is plugged in later stay unpowered until the
+>> driver is rebound?
+>>
+>> This only affects a supply that is described but deferred. When
+>> vpwr-supply is missing entirely, the dummy regulator is used and a power
+>> domain is still created.
+>>
+> 
+> This seems correct to me, and I'm pretty sure the cleanest option is to
+> fix the pse-core.
 
-Changes in v4:
--> Updated the sign-off email from uppercase letters to all lowercase
-   letters
--> Dropped the commit message related to the binding YAML schema
-   format from the cover letter, since it was sent separately
--> Dropped the MAINTAINERS entry from this patch series
--> Split the previous 1/6 "Modernize driver code" patch into 10 smaller,
-   single-concern patches (2/15 - 10/15) as per the Joshua Crofts and 
-   radhey review comments.
-   the combined result is equivalent to v3's patch 1/6:
-    2/15 - Fix coding style issues
-    3/15 - Use kernel integer types
-    4/15 - Drop unnecessary masking and dead code
-    5/15 - Use bitfield helpers and bit macros
-    6/15 - Use guard()/scoped_guard() for spinlock locking
-    7/15 - Simplify common coding patterns
-    8/15 - Add unit suffixes to macro names
-    9/15 - Drop unused header files
-    10/15 - Add clarifying comments
-    11/15 - Refine Zynq read/write error handling on timeout/interrupt
--> Patches 2/6 - 5/6 from v3 carry forward and renumbered to
-    11/15 - 15/15.
--> 1/15
-    - Reworded the commit message and subject
-    - Added stable@vger.kernel.org to after the Signed-off-by block
-    - Added Co-developed-by: Conall O'Griofa immediately before
-      his Signed-off-by line
-    (Comments from David Lechner)
-    - Moved patch 6/6 "Correct Write edge in CFG" to 1/15
-    - Updated the Fixes tag and explaining a commit message
-      for write edge configuration issue.
--> 3/15
-    (Comments from Joshua Crofts)
-    - Included <linux/types.h> header
--> 5/15
-    - Dropped unused macros
--> 8/15
-    - Reformatted the XADC_ZYNQ_TCK_RATE_MAX_HZ,
-      XADC_ZYNQ_IGAP_DEFAULT_CYCLES, and XADC_ZYNQ_PCAP_RATE_MAX_HZ
-      macro definitions to use the standard "#define NAME<TAB>VALUE"
-      style, instead of the single-line run-together form.
--> 9/15
-    - Replaced #include <linux/kernel.h> with the required headers
-      array_size.h, bitops.h, and container_of.h
--> 11/15
-    - Changed the timeout errno from -EIO to -ETIMEDOUT in both
-      xadc_zynq_read_adc_reg() and xadc_zynq_write_adc_reg(), for
-      a more precise error code on wait_for_completion timeout.
-    - Kept propagating an interrupted wait's error instead of
-      forcing ret = 0 (success) in both functions
-    - Added xadc_read_reg after the
-      wait_for_completion_interruptible_timeout, Now DFIFO read
-      unconditional so it always runs immediately after the wait
-      completes, regardless of whether it timed out, was
-      interrupted, or succeeded — avoiding a stale response word
-      being left for the next transaction.
--> 12/15
-    - Reordered dev/xadc declarations in
-      xadc_setup_buffer_and_triggers() (reverse christmas tree).
-    - Dropped the unused dev parameter from xadc_device_configure(),
-      keeping the header prototype and definition in sync.
-    - Added a commit-message note that the bipolar_mask computation
-      is also moved to run immediately after xadc_parse_dt().
-    - Removed the error handling from xadc_zynq_write_adc_reg()
-      in patch 2/6 of v3 and moved it to a separate error handling 
-      patch 11/15 in v4.
--> 13/15
-    - Changed the new xilinx-xadc-platform.c SPDX identifier from
-      GPL-2.0 to GPL-2.0-only, for consistency with core.c and
-      the header.
-    - Tab-aligned XADC_MAX_SAMPLERATE_SPS, XADC_FLAGS_BUFFERED, and
-      XADC_FLAGS_IRQ_OPTIONAL to match the XADC_AXI_* block below
-      them.
-    (Comments from Uwe Kleine-König)
-    - Removed <linux/mod_devicetable.h> header file
--> 14/15(Comments from David Lechner)
-    - Added a commit message explaining the export of xadc_parse_dt()
--> 15/15
-    - Fixed missing spaces before opening parens in the commit
-      message ("DRP(Dynamic" and 'string("xlnx,...")').
-    - Consolidated the four redundant deferred-init rationale
-      bullets into a single explanation.
-    - Fixed the Kconfig typo "can also be build" -> "built" in the
-      new XILINX_XADC_I2C entry.
-    - Changed write_buffer/read_buffer from char to u8 in
-      xadc_i2c_read_transaction()/xadc_i2c_write_transaction().
-    - Added named defines for the DRP packet byte offsets
-      (XADC_I2C_DRP_DATA_LOW etc.) instead of bare 0/1/2/3
-      literals.
-    - Dropped the redundant "xadc->clk = NULL;" in xadc_i2c_probe().
-    - Fixed the devm_mutex_init(xadc->mutex) build error to
-      devm_mutex_init(dev, &xadc->mutex).
-    - Added the missing MODULE_IMPORT_NS("IIO_XADC").
-    - Added Dileep Kumar Nagavarapu to MODULE_AUTHOR alongside
-      Sai Krishna Potthuri.
+It seems there are still several flaws in the PSE core.
+If you have the time, please fix them, but tell me if you don't. I will 
+tackle them.
 
-Changes in v3:
--> 1/6 - Modernized the driver code with latest kernel coding styles
-         and guidelines.
-       - Restored one-variable-per-line declarations where no
-         functional change  was intended.
-       - Added unit suffixes to timing and clock-rate constants.
-       - Replaced GENMASK() and FIELD_PREP() in appropriate places.
-       - Added guard(spinlock_irq) helper to manage the spinlock
-         automatically on scope exit.
-       - Added MAINTAINERS entry for XILINX XADC driver.
--> 2/6 - Refactored the xadc_setup_buffer_and_triggers function
-         with only two arguments.
-       - Added xadc_device_setup() and xadc_device_configure() to handle
-         device initialization and configuration separately.
--> 3/6 - Added IIO_XADC namespace to all exported symbols and
-         imported the namespace in platform specific modulue.
-       - Spliting the driver with modrern driver changes.
--> 4/6 - Added .setup_channels() to handle custom channel setup
-         and configuration.
--> 5/6 - Replaced mutex initialization with devm_mutex_init()
-       - Removed unused i2c_set_clientdata() usage.
-       - Added comments describing the DRP packet layout used
-         for I2C  transactions.
-       - Added comment for hardware initialization check from xadc i2c
-         write and read functions.
-       - Wrapped Kconfig help text to conform to kernel style guidelines.
-       - Switched device setup error handling to dev_err_probe().
--> 6/6 - Removed write edge default configuration in XADCIF_CFG register.
--> Dropped the binding to YAML conversion patch as this is already sent by
-   Pramod Maurya and is in discussion.
+>> [Severity: High]
+>> This isn't a bug introduced by this patch, but choosing the static budget
+>> strategy exposes a lock ordering problem that already exists in the PSE
+>> core.
+>>
+>> pse_isr() holds pcdev->lock and ends up taking the supply regulator lock:
+>>
+>> pse_isr()
+>>    pse_set_config_isr()
+>>      _pse_pi_delivery_power_sw_pw_ctrl()
+>>        pse_pi_allocate_pw_budget_static_prio()
+>>          regulator_request_power_budget(pw_d->supply)
+>>            regulator_lock(rdev)
+>>
+>> An admin enable running at the same time takes the locks in the opposite
+>> order:
+>>
+>> regulator_enable(psec->ps)
+>>    regulator_lock_dependent()    (PI rdev, then its supply rdev)
+>>      _regulator_enable()
+>>        pse_pi_is_enabled() / pse_pi_enable()
+>>          mutex_lock(&pcdev->lock)
+>>
+>> Can a classification interrupt on one PI, racing with an admin enable of
+>> another PI on the same supply, deadlock both the IRQ thread and the
+>> ethtool task? The ww_mutex scheme cannot break a cycle that includes the
+>> plain pcdev->lock mutex.
+>>
+>>> +
+>>> +	ret = devm_pse_controller_register(ltc4266->dev, &ltc4266->pcdev);
+>>> +	if (ret)
+>>> +		return dev_err_probe(&client->dev, ret,
+>>> +				     "Failed to register PSE controller\n");
+>>
+> 
+> Yes, this is a deadlock I've hit in my testing, and it's unclear to me
+> why lockdep doesn't seem to catch it.  This is another thing I'll fix
+> separately but it'll take some time for me to get it figured out.
 
-Changes in v2:
--> 1/4 - Split the xilinx-xadc-core.c file into two files
-         xilinx-xadc-core.c and xilinx-xadc-platform.c(comments from Andy).
--> 2/4 - Referred as .setup_channels instead of setup_channels.
--> 3/4 - Created separate functions for i2c read and write.
-       - Created separate file for i2c interface handling.
--> 4/4(comments from Krzysztof)
-       - Removed $defs and use it directly under xlnx,channels.
-       - Documented the error information in the commit message due to
-         vendor prefix properties.
-       - Kept only one example as there is not much differences.
+Meh there is still a lock issue, again related to the regulator lock.
+It's painful.
 
-
-Dileep Kumar Nagavarapu (15):
-  iio: adc: xilinx-xadc: Correct write edge in CFG
-  iio: adc: xilinx-xadc: Fix coding style issues
-  iio: adc: xilinx-xadc: Use kernel integer types
-  iio: adc: xilinx-xadc: Drop unnecessary masking and dead code
-  iio: adc: xilinx-xadc: Use bitfield helpers and bit macros
-  iio: adc: xilinx-xadc: Use guard()/scoped_guard() for spinlock locking
-  iio: adc: xilinx-xadc: Simplify common coding patterns
-  iio: adc: xilinx-xadc: Add unit suffixes to macro names
-  iio: adc: xilinx-xadc: Drop unused header files
-  iio: adc: xilinx-xadc: Add clarifying comments
-  iio: adc: xilinx-xadc: Refine Zynq read/write error handling on
-    timeout/interrupt
-  iio: adc: xilinx-xadc: Add helper functions for the device setup
-  iio: adc: xilinx-xadc: Split driver into core and platform files
-  iio: adc: xilinx-xadc: Add .setup_channels() to struct xadc_ops
-  iio: adc: xilinx-xadc: Add I2C interface support
-
- drivers/iio/adc/Kconfig                       |   23 +-
- drivers/iio/adc/Makefile                      |    6 +-
- drivers/iio/adc/xilinx-xadc-core.c            |  894 +++-----------
- drivers/iio/adc/xilinx-xadc-events.c          |   55 +-
- drivers/iio/adc/xilinx-xadc-i2c.c             |  236 ++++
- ...inx-xadc-core.c => xilinx-xadc-platform.c} | 1064 ++---------------
- drivers/iio/adc/xilinx-xadc.h                 |  140 +--
- 7 files changed, 615 insertions(+), 1803 deletions(-)
- create mode 100644 drivers/iio/adc/xilinx-xadc-i2c.c
- copy drivers/iio/adc/{xilinx-xadc-core.c => xilinx-xadc-platform.c} (32%)
+>> -- 
+>> Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260927212929.593366-1-kyle.swenson%40est.tech
+> 
+> So just to summarize, for me mostly, I'll change several things in this
+> driver:
+> 
+> - ltc4266_pi_get_pw_class() will return the raw class to match
+>    tps23881_pi_get_pw_class().
+> - ltc4266_pi_set_pw_limit() will set port->pw_limit first.
+> - I'll rework the error path in ltc4266_map_event() to balance clearing
+>    stuck event registers on a persistent I2C failure against not
+>    discarding events on a single transient one.
+> - The lltc,ltc4266.yaml binding will list pairsets as required under
+>    pse-pi.
+> - Mark the COR registers "precious."
+> 
+> But I'd contend the remaining fixes should be in the pse core, and I'll
+> push a series for that before re-spinning this series on top:
+> 
+> - Unwind pse_pi array and the notification fifo allocation when
+>    pse_controller_register() fails after of_load_pse_pis(), instead of
+>    leaking them on probe failure.
+> - Return -EPROBE_DEFER from pse_register_pw_ds() when a PI's supply is
+>    described but has not registered yet.
+> - Fix the pse_power_domain use-after-free on unbind when multiple
+>    drivers share a supply and the first one unbinds.
+> - Stop the notification worker before releasing the PI array in
+>    pse_controller_unregister().
+> - Fix the try_module_get reference leak
+> - Fix the deadlock in the pse_core that can happen when PI enable
+>    races with map_event.
+> - Fix the possible double budget allocation in the PSE core.
+> 
+> 
+> Thanks for your credits, it's appreciated.
+> 
+> Cheers,
+> Kyle
+> 
+> pw-bot: cr
 
 -- 
-2.34.1
+Köry Maincent, Bootlin
+Embedded Linux and kernel engineering
+https://bootlin.com
 
