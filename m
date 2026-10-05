@@ -1,93 +1,83 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 16045304BDF;
-	Mon,  5 Oct 2026 17:07:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4D92B305674;
+	Mon,  5 Oct 2026 17:07:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=156.67.10.101
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791220046; cv=none; b=ROqc3+wNwNRFuisTEAbDx3jU2CHsKrOUsw02l4wzrj3kCkEEH+1/L4DJqaO9+mN2n0Oir+asrjNfs6KGtWPoMMAT57sfSkwW5EB5OQ1nyQXgoBSk5pQYQApaDJdBquDzBAlNi9BOFLRSH2oifBg5VsohUazcS5uEaDlSAqLttIA=
+	t=1791220051; cv=none; b=rZ5w1FdTSIVZl/i95T6aZHTf3rDwjKPfTmQDeG0NqZN9Z5gNwNsoXFYmBxBMl3r3xXHS9SaujdnJ1dPSWVhUv17hKoXU/RoP/Irb7yVmM/5j/IyY3h2mgl1TcE3AGTCgr+s2LzcxsC9r3EmF4mr33j4ijCz9kBAR8VeUlYuUZRA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791220046; c=relaxed/simple;
-	bh=SDjpdbBFZ39k/DuqZfet4sOJQevVkxnoFhNHPvfFt4Y=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
-	 MIME-Version:Content-Type; b=hRLSAK201si3wTwDAftLI+0ywrmf3P8Sl58iMQie3jZZaeHDKEMsi65oSuUqeW97iAxjBWeO8o24xQ89mUziYg4c9vpafp+UMKw6uFri/kjDZ9px5hnx+6tKm4WrPqMelKAEcIrCjmyosZ+fQ7hFbk1G6sZNvTfZECZG+LqXVfQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Q6wh+Y1K; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791220051; c=relaxed/simple;
+	bh=NKPat69VdyRRxeucmul7oD2+f5c+2rs8coJTsYSLt8o=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=W5fqnZZ9t5bTA9Zi/Nv0i6jlECn/YWQJa6F3qq/2St2uwtKJVZ32IJQxWuKNvtLmt/LLI+IWWKIhNCbeiRwz3C3R9RsBAtAR75556LBJBLxjXVGabTapJh0wK5Ag/Eww448FgqNYF7PkpmlFzccvXoQaP4tyQrt0w7LyL2DhSJ0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch; spf=pass smtp.mailfrom=lunn.ch; dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b=3qUwBt81; arc=none smtp.client-ip=156.67.10.101
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Q6wh+Y1K"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 69CF81F00893;
-	Mon,  5 Oct 2026 17:07:22 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791220044;
-	bh=U8ACKpVjEQV/kPL7mmZHikjht6n4jtDDawHP4b8fP7M=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date;
-	b=Q6wh+Y1KgHgLvqHu9MuuYV/+J8PMmpgB9CNHZEvHAzvulFE8NySCQXZ8DWU5GOr7O
-	 bUE1F3pvpiUHPCfO/3KyxS6BCResJ6OIJUsVJHm9NmyEc6+q67Vy9b06Svfv/VS2FJ
-	 IPlCf+3XztbWqZkg+PJRbbIAAQPtUm+kdEy/XSwQcigDIFAW4BqRGWcPUiw6urtwB7
-	 V4zRWt+jjEg+r5KvNdOeDdPxtXvKZdQ+uABjfqdTMxyIVZ6PM4llDkXecuP18PzstM
-	 59Am1qceqX/Vd7wKgcifPetMEiucw7wqRFJRRhdOgVX2f2fWd+ZcJtRyx1qp9Pk/tP
-	 o4dKel6AqWk4Q==
-From: Mark Brown <broonie@kernel.org>
-To: Vijendar Mukunda <Vijendar.Mukunda@amd.com>, 
- Venkata Prasad Potturu <venkataprasad.potturu@amd.com>, 
- Liam Girdwood <lgirdwood@gmail.com>, Jaroslav Kysela <perex@perex.cz>, 
- Takashi Iwai <tiwai@suse.com>, Michael Garland <minimelkav@gmail.com>
-Cc: linux-sound@vger.kernel.org, linux-kernel@vger.kernel.org, 
- stable@vger.kernel.org
-In-Reply-To: <20261005-acp6x-herbag2-quirk-v1-1-a1f2683d758f@gmail.com>
-References: <20261005-acp6x-herbag2-quirk-v1-1-a1f2683d758f@gmail.com>
-Subject: Re: [PATCH] ASoC: amd: yc: Add DMI quirk for Acer Aspire Go 15
- (AG15-21P)
-Message-Id: <179121031605.150114.10620784342608818331.b4-ty@b4>
-Date: Mon, 05 Oct 2026 16:25:16 +0200
+	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b="3qUwBt81"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
+	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
+	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
+	bh=KNYKyPv1ZJsDcW5BAzMAF1YFbZZMWHKFPAkA22JHz1Q=; b=3qUwBt81UYgQwJWeFeYX3i2Jli
+	8ZC17yIKjGn/1FABubeh9UOCqaU7A7ukF2wmNjbcYsHagApVjPryzrznBa5gMf0ZDYlEvr3JVxwBu
+	ZLBlP2r44wLOMzdLJXtnZmfvC5s9FNptDWjjWL8TMBT59tA3chS95kv3O6rgdqSZKDH0=;
+Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
+	(envelope-from <andrew@lunn.ch>)
+	id 1xDm9s-0095ey-Uv; Mon, 05 Oct 2026 19:07:24 +0200
+Date: Mon, 5 Oct 2026 19:07:24 +0200
+From: Andrew Lunn <andrew@lunn.ch>
+To: Yongzhao Chen <yongzhao.derek@gmail.com>
+Cc: netdev@vger.kernel.org, Christian Marangi <ansuelsmth@gmail.com>,
+	Vladimir Oltean <olteanv@gmail.com>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	John Crispin <john@phrozen.org>, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH net-next v3 3/3] net: dsa: qca8k: fail mgmt Ethernet MDIO
+ access on busy wait errors
+Message-ID: <acbcea38-30e5-4aba-908a-7ff986bc4da0@lunn.ch>
+References: <20261003172405.342-1-yongzhao.derek@gmail.com>
+ <20261003172405.342-4-yongzhao.derek@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.17-dev
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1143; i=broonie@kernel.org;
- h=from:subject:message-id; bh=SDjpdbBFZ39k/DuqZfet4sOJQevVkxnoFhNHPvfFt4Y=;
- b=owEBbQGS/pANAwAKASTWi3JdVIfQAcsmYgBqw9lFtv8Aw42JM0ECioEstsSSwCsracVcxIzmh
- wvyDqUSUSaJATMEAAEKAB0WIQSt5miqZ1cYtZ/in+ok1otyXVSH0AUCasPZRQAKCRAk1otyXVSH
- 0FomB/4p/kAK6GCLm3616PNjTn0bLe56yfbLjXoEtl/PvrknAokPR8vcW+07psTlIvNV5IMtx6k
- Q+AB+PfeIwJ4So4eeT21njlH+vu5tacIpHl3yw5cgMRVi31NpThtlsMTnu4yCZvPnKj8IkiJsZw
- 8RsD0TQiSYkv/n/4jyg+lICPP4NcDnxsxwdSTkFRHshFXf8GbvqX45wSGl/4Xj80QnC9/Fih3wn
- F0wNm5Vx+BztQ0vZCCpBYk+Lg50MSSG1X/Lt/MPbZcCLK9BQ+yiSQ+5N5q/NJ+zqaYM70PoCXR5
- J9S27LM8t4k77JKVa5vVm3065YOFVgwLYT6mMdeRuBmQF9K0
-X-Developer-Key: i=broonie@kernel.org; a=openpgp;
- fpr=3F2568AAC26998F9E813A1C5C3F436CA30F5D8EB
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261003172405.342-4-yongzhao.derek@gmail.com>
 
-On Mon, 05 Oct 2026 01:10:32 -0600, Michael Garland wrote:
-> ASoC: amd: yc: Add DMI quirk for Acer Aspire Go 15 (AG15-21P)
+On Sat, Oct 03, 2026 at 07:24:04PM +0200, Yongzhao Chen wrote:
+> qca8k_phy_eth_command() polls MASTER_CTRL over management Ethernet until
+> BUSY clears, but only bails out when the poll timed out and the last
+> poll request also failed. If every request succeeds while BUSY stays
+> set, the -ETIMEDOUT is dropped. A read then returns MASTER_CTRL data
+> from a transaction that has not completed, and
+> qca8k_internal_mdio_read() does not fall back to the MDIO bus.
+> 
+> A failed poll request does not stop the loop either.
+> qca8k_phy_eth_busy_wait() leaves the value unchanged on failure, so the
+> BUSY test then uses the previous value, or an uninitialized one if the
+> first request fails.
+> 
+> Stop polling when a request fails and return the poll error or timeout.
+> The poll-error path also leaked read_skb, which is only consumed when the
+> read request is sent; free it on this path.
+> 
+> The Sashiko review of v1 identified the dropped timeout. A userspace
+> model of the driver's functions reproduces it and the poll-error path
+> with scripted BUSY responses and failed poll requests; these cases pass
+> after this change.
+> 
+> The polling loop comes from commit 2cd548566384 ("net: dsa: qca8k: add
+> support for phy read/write with mgmt Ethernet").
+> 
+> Signed-off-by: Yongzhao Chen <yongzhao.derek@gmail.com>
 
-Applied to
+Reviewed-by: Andrew Lunn <andrew@lunn.ch>
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-7.3
-
-Thanks!
-
-[1/1] ASoC: amd: yc: Add DMI quirk for Acer Aspire Go 15 (AG15-21P)
-      https://git.kernel.org/broonie/sound/c/d0cb7a7b2a49
-
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.
-
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
-
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
-
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
-
-Thanks,
-Mark
-
+    Andrew
