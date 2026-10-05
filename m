@@ -1,85 +1,93 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7B92F49E5C9
-	for <linux-kernel@vger.kernel.org>; Mon,  5 Oct 2026 17:07:22 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 16045304BDF;
+	Mon,  5 Oct 2026 17:07:24 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791220043; cv=none; b=nPIEC9m4XYJB4G1nIT5F6+nkbhKc1cDtV+Q8mpsC9CShpB69i9BzfBJcYNT4fDloeSZSP2E0sWXzcL5o7Xr692KJX1cbwwFV3sIqhp1efkQ+dagy39uENRvb/LlkgWxQ2lPl+LJ19BbUMZtZL9J37OKdMSQxcRvtG9gbwCS/Bl8=
+	t=1791220046; cv=none; b=ROqc3+wNwNRFuisTEAbDx3jU2CHsKrOUsw02l4wzrj3kCkEEH+1/L4DJqaO9+mN2n0Oir+asrjNfs6KGtWPoMMAT57sfSkwW5EB5OQ1nyQXgoBSk5pQYQApaDJdBquDzBAlNi9BOFLRSH2oifBg5VsohUazcS5uEaDlSAqLttIA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791220043; c=relaxed/simple;
-	bh=Tbjl7QCyd3XUz0f7QK7uBnlsLmdS/Tdn0PtBhGquPE0=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=gRYF7AkadJ+kjDzu/7mFxoAelkzupn7xCcCmM2iXlfpVNfhVVFnYxno1viYSZCoarEAdU4nnMhd53rIfm+va41wLC9Bz66VSqkbpoBnUDklIYt+3vRi7fl6aa9p6g0OOzn2kj3B7PpLdLTO4j2C9THCtxnBrQD7NBK2jcHllhdw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=b3LSS7V1; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791220046; c=relaxed/simple;
+	bh=SDjpdbBFZ39k/DuqZfet4sOJQevVkxnoFhNHPvfFt4Y=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
+	 MIME-Version:Content-Type; b=hRLSAK201si3wTwDAftLI+0ywrmf3P8Sl58iMQie3jZZaeHDKEMsi65oSuUqeW97iAxjBWeO8o24xQ89mUziYg4c9vpafp+UMKw6uFri/kjDZ9px5hnx+6tKm4WrPqMelKAEcIrCjmyosZ+fQ7hFbk1G6sZNvTfZECZG+LqXVfQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Q6wh+Y1K; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="b3LSS7V1"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D949D1F000FF;
-	Mon,  5 Oct 2026 17:07:19 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Q6wh+Y1K"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 69CF81F00893;
+	Mon,  5 Oct 2026 17:07:22 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791220042;
-	bh=mOi4oGFPPbeQhM3FWgE/6O7CyK7xCJC3sQnulZRZB1c=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=b3LSS7V1BwwESZVnWv2XIhBfqkxY9a8RwcFE0m86fXEd5xr3DOVHYiVkxK4Qear0z
-	 Xp3ocelE6Buu1reNIo7BsB+BObIoDiGxiknA/+L/x4XXaBJnA3djP24uYOsfRFL/AK
-	 P0lnvnkTDiAFBkQFoOf3MIAGEwJ08iYXQbIEBib40Y2NePVXrt7F/i906pM/hvnEdZ
-	 X2HqxpH4MncFO4KluMkHfYD/8deFRU0L6lBnQCop5qjl6MtVT36xFV8ANHsachEcAG
-	 s0japRKyJ0qmm6CBBMRLhUxD9T6ZzVTWBeu/1zCdu++Hb1R8uHAhbe+epJBtOWiHpB
-	 kme0o5SRJFRUQ==
-Date: Mon, 5 Oct 2026 19:07:16 +0200
-From: Thorsten Blum <blum@kernel.org>
-To: Habil Eren =?iso-8859-1?Q?T=FCrker?= <habilerenturker@hotmail.com>
-Cc: "luto@kernel.org" <luto@kernel.org>,
-	"tglx@kernel.org" <tglx@kernel.org>,
-	"mingo@redhat.com" <mingo@redhat.com>,
-	"bp@alien8.de" <bp@alien8.de>,
-	"dave.hansen@linux.intel.com" <dave.hansen@linux.intel.com>,
-	"x86@kernel.org" <x86@kernel.org>, "hpa@zytor.com" <hpa@zytor.com>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH v2 0/2] x86/vdso: Replace deprecated simple_strtoul()
- with kstrtouint()
-Message-ID: <asPZRBSZy9jf06As@kernel.org>
-References: <20261005163335.6716-1-habilerenturker@hotmail.com>
+	s=k20260515; t=1791220044;
+	bh=U8ACKpVjEQV/kPL7mmZHikjht6n4jtDDawHP4b8fP7M=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date;
+	b=Q6wh+Y1KgHgLvqHu9MuuYV/+J8PMmpgB9CNHZEvHAzvulFE8NySCQXZ8DWU5GOr7O
+	 bUE1F3pvpiUHPCfO/3KyxS6BCResJ6OIJUsVJHm9NmyEc6+q67Vy9b06Svfv/VS2FJ
+	 IPlCf+3XztbWqZkg+PJRbbIAAQPtUm+kdEy/XSwQcigDIFAW4BqRGWcPUiw6urtwB7
+	 V4zRWt+jjEg+r5KvNdOeDdPxtXvKZdQ+uABjfqdTMxyIVZ6PM4llDkXecuP18PzstM
+	 59Am1qceqX/Vd7wKgcifPetMEiucw7wqRFJRRhdOgVX2f2fWd+ZcJtRyx1qp9Pk/tP
+	 o4dKel6AqWk4Q==
+From: Mark Brown <broonie@kernel.org>
+To: Vijendar Mukunda <Vijendar.Mukunda@amd.com>, 
+ Venkata Prasad Potturu <venkataprasad.potturu@amd.com>, 
+ Liam Girdwood <lgirdwood@gmail.com>, Jaroslav Kysela <perex@perex.cz>, 
+ Takashi Iwai <tiwai@suse.com>, Michael Garland <minimelkav@gmail.com>
+Cc: linux-sound@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ stable@vger.kernel.org
+In-Reply-To: <20261005-acp6x-herbag2-quirk-v1-1-a1f2683d758f@gmail.com>
+References: <20261005-acp6x-herbag2-quirk-v1-1-a1f2683d758f@gmail.com>
+Subject: Re: [PATCH] ASoC: amd: yc: Add DMI quirk for Acer Aspire Go 15
+ (AG15-21P)
+Message-Id: <179121031605.150114.10620784342608818331.b4-ty@b4>
+Date: Mon, 05 Oct 2026 16:25:16 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20261005163335.6716-1-habilerenturker@hotmail.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.17-dev
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1143; i=broonie@kernel.org;
+ h=from:subject:message-id; bh=SDjpdbBFZ39k/DuqZfet4sOJQevVkxnoFhNHPvfFt4Y=;
+ b=owEBbQGS/pANAwAKASTWi3JdVIfQAcsmYgBqw9lFtv8Aw42JM0ECioEstsSSwCsracVcxIzmh
+ wvyDqUSUSaJATMEAAEKAB0WIQSt5miqZ1cYtZ/in+ok1otyXVSH0AUCasPZRQAKCRAk1otyXVSH
+ 0FomB/4p/kAK6GCLm3616PNjTn0bLe56yfbLjXoEtl/PvrknAokPR8vcW+07psTlIvNV5IMtx6k
+ Q+AB+PfeIwJ4So4eeT21njlH+vu5tacIpHl3yw5cgMRVi31NpThtlsMTnu4yCZvPnKj8IkiJsZw
+ 8RsD0TQiSYkv/n/4jyg+lICPP4NcDnxsxwdSTkFRHshFXf8GbvqX45wSGl/4Xj80QnC9/Fih3wn
+ F0wNm5Vx+BztQ0vZCCpBYk+Lg50MSSG1X/Lt/MPbZcCLK9BQ+yiSQ+5N5q/NJ+zqaYM70PoCXR5
+ J9S27LM8t4k77JKVa5vVm3065YOFVgwLYT6mMdeRuBmQF9K0
+X-Developer-Key: i=broonie@kernel.org; a=openpgp;
+ fpr=3F2568AAC26998F9E813A1C5C3F436CA30F5D8EB
 
-On Mon, Oct 05, 2026 at 04:33:37PM +0000, Habil Eren Türker wrote:
-> This patch series replaces the deprecated simple_strtoul() function
-> with the safer kstrtouint() variant in the x86 vdso setup code.
-> 
-> The simple_strtoul() function is deprecated as it silently ignores
-> overflows. Proper bounds and lineer error checking are introduced.
-> 
-> Changes in v2:
-> - Fixed the logical short-circuit operator bug in parsing error paths
->   where invalid inputs could trigger deceptive warning logs.
-> - Refactored error handling into a linear flow with unlikely() macros
->   to avoid branch misprediction.
->  
-> Habil Eren Türker (2):
->   x86/vdso: Replace deprecated simple_strtoul() with kstrtouint()
->   x86/vdso: Replace deprecated simple_strtoul() with kstrtouint() in
->     vdso_setup
-> 
->  arch/x86/entry/vdso/vdso32-setup.c | 11 +++++++++--
->  arch/x86/entry/vdso/vma.c          | 15 ++++++++++++++-
->  2 files changed, 23 insertions(+), 3 deletions(-)
+On Mon, 05 Oct 2026 01:10:32 -0600, Michael Garland wrote:
+> ASoC: amd: yc: Add DMI quirk for Acer Aspire Go 15 (AG15-21P)
 
-I submitted a very similar series a while ago [1], but haven't received
-feedback yet (besides a Reviewed-by from Randy on the documentation
-change).
+Applied to
 
-Dave, did you have a chance to take a look at my series yet?
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-7.3
+
+Thanks!
+
+[1/1] ASoC: amd: yc: Add DMI quirk for Acer Aspire Go 15 (AG15-21P)
+      https://git.kernel.org/broonie/sound/c/d0cb7a7b2a49
+
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.
+
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
+
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
+
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
 
 Thanks,
-Thorsten
+Mark
 
-[1] https://lore.kernel.org/lkml/20260831101657.2947-5-blum@kernel.org/
