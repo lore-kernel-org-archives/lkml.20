@@ -1,96 +1,106 @@
-Received: from smtpcmd11116.aruba.it (smtpcmd11116.aruba.it [62.149.156.116])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8F88D36E47A
-	for <linux-kernel@vger.kernel.org>; Mon,  5 Oct 2026 08:35:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=62.149.156.116
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7ADBD3F7873
+	for <linux-kernel@vger.kernel.org>; Mon,  5 Oct 2026 08:36:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791189353; cv=none; b=Aee9ZxRbzkABWneF5xNICy7BuAgGQoGbKn0DPUK4HgNX3FscJyWnULIIYPs9NDAo45JITb75EJyYeNPN18qqfY/3TkhbTLDbHbndJxXWenX12iVpvD/mRuHCObqB0W2cMyMjv1BWBZ9iDeR4+3Utr5cy0LAHELE9rKojZDkJvxE=
+	t=1791189407; cv=none; b=aANeI0JaBRmd5G45B1BmveX24TKkjloAp1o1wd6rGGV3Qn/Bb4hB/8ZBr/Q1aUXm5XE7o9xUQpSinGB/FrmsQtyAmMyOkhg6/W6yBB1hdDosHkQOv20IhvhVtHp62Hdrh7J4DHaiEUmWjhbQcB9xCcReFLEuNsYeMfMviMu9aHk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791189353; c=relaxed/simple;
-	bh=6PkHJhi1Hyzs0Xy73ugDZL+OPDEvkLStoC3GoxL7zEQ=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=qzVaOw2QHpe38sQEqDpbSX9Wdymf4IBr7BSw4ouf+BhjS7XlT0IPxnTdUhiZY+mN+z6xGiiNS6M7fI0+2j2CVrSI0e67KTcOfd83wrHqOY2DZNP6pw6fB7lXSC5lbGIJVENYbQ/22lkx7/oyuKwuyNjOv3TLHCPF8Ch1RuQyUDk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=enneenne.com; spf=pass smtp.mailfrom=enneenne.com; dkim=pass (2048-bit key) header.d=aruba.it header.i=@aruba.it header.b=dVWzTQ94; arc=none smtp.client-ip=62.149.156.116
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=enneenne.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=enneenne.com
+	s=arc-20240116; t=1791189407; c=relaxed/simple;
+	bh=xVWhoI1lNUOU6HwKrdL16M8Wcy17FpNv6JjlWtBiFHw=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=d3eIeFnJd0B0L2h0olEbMxrXpCRFKTfUE8+RGlYb1H9gEpGXFNfPpkQTrb+kQTY7BVx042RuaiwyyEJ/HXPXTJR7qXdRJ2p72EnAYyNk/TykPsdz8kt3mHsyTorkHg4SS54ffvTEj7KSCd+r9UbWY3Q5IhEGDH7I6ZfKpGcVzng=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=W3Rn2Sw4; arc=none smtp.client-ip=74.125.225.141
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=aruba.it header.i=@aruba.it header.b="dVWzTQ94"
-Received: from [192.168.0.186] ([101.57.122.26])
-	by Aruba SMTP with ESMTPSA
-	id DeAlxMctKXXg5DeAlxn2O1; Mon, 05 Oct 2026 10:35:48 +0200
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=aruba.it; s=a1;
-	t=1791189348; bh=6PkHJhi1Hyzs0Xy73ugDZL+OPDEvkLStoC3GoxL7zEQ=;
-	h=Date:MIME-Version:Subject:To:From:Content-Type;
-	b=dVWzTQ94ZOzqP5OctB3N5Wg37EtO1e6JpQWkg4hgDMoOibhmavIkPudBm6db1RFCR
-	 fsz9AR7TPQLRr2tvaUu5vNstSTwtIasH9dkFLF8pzZC/VjtciQU91uzRTJ6Fv1fGQ8
-	 zea+viT70j4d7bvkR/L+hmgOY1hWLFfAQwearuDfi+eI+u6+4vUxEWglJ7KUdPhT2x
-	 U1rqRRsp+hI2b+R+pPCDwYuDOum2flOlo5sKZWde3ICJhJKGVCkPQ/L+cBPBSz/tmf
-	 3cg8Xh+rFY817wNMXnrqojD8tjN3NXbAX0p3o6A3DX6vemX0llM8UXUg2YWyTNWqYT
-	 lKVbIUyYdjyZA==
-Message-ID: <d352287f-156c-436e-8fa5-b203771a6a84@enneenne.com>
-Date: Mon, 5 Oct 2026 10:35:47 +0200
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="W3Rn2Sw4"
+Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-4a0977b9c20so20173755e9.2
+        for <linux-kernel@vger.kernel.org>; Mon, 05 Oct 2026 01:36:46 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791189405; x=1791794205; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=WdBlTkVU5Ix+L6SuwkpBVt4AjcxSBhXQvwOG+kfCA84=;
+        b=W3Rn2Sw4fmV+JEy9l/LRs2sdd2M0OqA85K9pcdruSRtQPUX24/Ozxpm8GgMKHXs33a
+         NrlEVeJs/iUdXLZJ83eYePucLoiUh0Xxb0x9JRDqw8ZVD901Ysgx2/vLRjIFdaJaaKEk
+         4HIgirjGIjg6apKmmRYHHrq+eu6F+9B8AMBX0U3Mh57Sr3DtMdZ6Mqm87iLV29IhYkb7
+         aCG1mF+3RR6UFyMbcglHEdXvw0AArduKougLV4enqRdQQFX6fTCHzyZtr4YKxzpPaNjr
+         ta8EkiHk4Glpj2pccjkqrsS72Hn4mxanb30SZeBmYoSpweZf1cljOlMhxZE5RlAZvICk
+         7Erw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791189405; x=1791794205;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=WdBlTkVU5Ix+L6SuwkpBVt4AjcxSBhXQvwOG+kfCA84=;
+        b=A3Y2m4Vcp/Ut60w8JAiUwh9RyIRjmQeWxUgHFPvjLE3xfkPH8qPjFvms0p2F6+pAvw
+         xj4K6wi8jGm0jk/GZQd+4dQCAGiQN3JN8OHW8PvVHz3RrN0YS+Nk2Q1L72UT1t+A5A7s
+         8AV+JaIvANNNxYnpG9yWCsYWRgjN/KgHMuPK2xPWaHfSeapxi5/3pZ8BCkR2p4ulpWav
+         /44x+1fzMueV7bAiLaHxbKa8/+qEpsbqDLE1gEwJWr/WTtsR2iaNJuEit39fFu7qMEBI
+         SZy/Un7LNmEFsYlRjJ4XIZKi6kl7EtYTw/pMr+dRsBklA2KNwJN/0JM0pvrOrcdARmRk
+         N5qw==
+X-Forwarded-Encrypted: i=1; AKwUvBw3vMy/LbOBl9jz9gWmJYtP0LxFf10rX/UTIuUukL9FpvFaxH63JHlfG1BHus7H9hpwoAOTroH7QRLf5Kc=@vger.kernel.org
+X-Gm-Message-State: AFuF++lKAO4bFuT4uMxhEiU0pEjFoLh4lN7Y59y5vr0ucV68mB8uNKD5
+	MBtBLzbt/MHYoCfaEptnVlCgmozDMxA6tUF6p/nizyBsco8JcYWzQfJt
+X-Gm-Gg: AYBFou1PXDGWNwWwaOx18BE/jEJk9S1eBZgdcM3QAr72fS+u4Jh6STcdpj/7ayViDMm
+	+2FaEDwGwKj3tinAMZnryq0rKDZaFDFeGBtuuEIoqosnWb0qO1jdNAyR+K38F3vZnr7S2zo7waP
+	kCcrCdRGoBWzmHZiMHAtExRhlekAqvslbbY0vzRwmvcHC6ceLC1jvV/gsJ1avpTupb+/ygMBcDN
+	8fuvAeDBE0rbNdrO1P6qq1aKAaIaNdcMRK6f3AkzrOBGzJ/pNI0KxedglHYSfnXwZnGEgyUv8FZ
+	6nCxSxvGzHcRbWkQbyW7iRIl6NlbYsbK5szac4agdwm59jI0ow/Vms4//qI7+b5gouHaQ5neCho
+	rEEVS+jXmxmp0MRiQOV8+frYDbamAj6ktGB/zp5JmAOSye/RXKiPcb0WZL199ULR+YWbSpoS/Jm
+	2Wff4NLVz5eqbiVSBdjhBwqtgmgd2GZGxfUpKpyLIIHG0GY7JnC44YuSB63FylZvZHZ0vsEDqem
+	5grnRJxuXJO9CDQFGwOY+Co8lwEm7l4sVVUUguqeL6gVGpUHJbu7bNSAkycFt6DZyxyldqrdgoH
+	QuQAVkux6EL04Bgr3+6/uVjZag==
+X-Received: by 2002:a05:600c:a010:b0:4a0:251f:a726 with SMTP id 5b1f17b1804b1-4a02759badbmr163677825e9.24.1791189404503;
+        Mon, 05 Oct 2026 01:36:44 -0700 (PDT)
+Received: from robert-83cx (static-dsl-191.87-197-115.telecom.sk. [87.197.115.191])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a16620dbdfsm219210615e9.0.2026.10.05.01.36.43
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 05 Oct 2026 01:36:43 -0700 (PDT)
+From: Robert Bozik <robertbozik@gmail.com>
+To: sakari.ailus@linux.intel.com
+Cc: linux-media@vger.kernel.org,
+	mchehab@kernel.org,
+	robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org,
+	conor.dooley@microchip.com,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v4 1/3] dt-bindings: media: i2c: Add OmniVision OV32C4
+Date: Mon,  5 Oct 2026 10:36:42 +0200
+Message-ID: <20261005083642.11511-1-robertbozik@gmail.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <asNbwhGCuxF6e6Ba@kekkonen.localdomain>
+References: <20261005071010.7191-1-robertbozik@gmail.com> <20261005071010.7191-2-robertbozik@gmail.com> <asNbwhGCuxF6e6Ba@kekkonen.localdomain>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH net-next 1/2] dt-bindings: net: dsa: microchip: add reset
- timing properties
-Content-Language: en-US
-To: Krzysztof Kozlowski <krzk@kernel.org>
-Cc: Woojung Huh <woojung.huh@microchip.com>, UNGLinuxDriver@microchip.com,
- Andrew Lunn <andrew@lunn.ch>, Vladimir Oltean <olteanv@gmail.com>,
- "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>,
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Marek Vasut <marex@denx.de>,
- netdev@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <20261002135542.359756-1-giometti@enneenne.com>
- <20261002135542.359756-2-giometti@enneenne.com>
- <20261004-transparent-cuscus-of-honor-8ccbb4@quoll>
-From: Rodolfo Giometti <giometti@enneenne.com>
-In-Reply-To: <20261004-transparent-cuscus-of-honor-8ccbb4@quoll>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-CMAE-Envelope: MS4xfOLT+fep3IaGm7pk4NDL3zAI+995bto4w0a/HX9/i6B+QfIZ9RI2II9ouB6WG4fAZhul8rv8wxzxWLlbVNwweb5ZBkDjFVxugec/ozCQ38qVh8j4YJyE
- tCl9V3gDcUkcr+p3LTYMv1fEecmqfJ3uex6oz9ar4CTDiSXCl7WUHXLzl7WEQBv1diTVoKFPF0SiCrCHuMOw5qVj3rpSHc94fCn6e4UcQO/iy6ez4tz3G8Mq
- 3OSQmVmuWS9ZN+T12BqY+Thk8WP5cT0wZGzbMeOTg49Ft6rrKBYsxjZPC+Sj4AfQ5A6qALBpQhl7XR7RRVUCAlWA+Ltgk5crbwx4Kx/RMYIQa+1i/6jb+MiY
- 2G727GEitCKo7oWeQxNxvKe/h40svZS53PMYzEf/LlYcWV4SlcyqShAqG/QIwA14DZB4jrRehWeTbwd/50NSZQC+lhP9zDZX3WWHz3UDqG/uduOzYCYvptAT
- Ze6SdTkCCvqLa3vrF0gH3BFTp8BtmWv7TQPZwytMUFcczqnqAlDLbwC7vnN4hfQjWa2kDQYgEeWpURNr4X53GU9E7nPAGtoQAEJ4dpaarzKZEgOZ7nW8ngF/
- ezEC61JDSk13UJqfpgtaLIWrwBppzzxJCfrxpN7df4lbS+2DM/uNMjtqATIzRskfBXM=
+Content-Transfer-Encoding: 8bit
 
-On Sun, Oct 04, 2026 at 09:27:04AM +0200, Krzysztof Kozlowski wrote:
-> On Fri, Oct 02, 2026 at 03:55:41PM +0200, Rodolfo Giometti wrote:
-> > How long a KSZ switch needs before it answers on its management bus
-> > after the reset line is released depends on the board it sits on, and a
-> > board that needs longer than the driver waits has no way to say so.
->
-> Not completely. This is implied by compatible. Individual phys/mdios
-> have their own delays but not the entire device.
+Hi Sakari,
 
-I see. Honestly speaking, what I measured is the switch itself needing
-longer after a long reset: 95-120ms after a 10ms pulse, ~160ms after 1s
-held in reset, on one board, while a second board gets through the same
-sequence in under 100ms. So I cannot tell whether the difference comes
-from the board or from the part.
+On Mon, Oct 05, 2026 at 11:11:46AM +0300, Sakari Ailus wrote:
+> On Mon, Oct 05, 2026 at 09:10:08AM +0200, Robert Bozik wrote:
+> > +  reg:
+> > +    maxItems: 1
+> 
+> minItems should be 2 here, for the always-on client.
 
-I will drop the binding patch, then. For v2 I am thinking of keeping the
-fixed wait and then polling the chip ID until the switch answers, with
-an upper bound in the driver, so that no property is needed: a generous
-bound costs nothing to a switch that answers early.
+Yes - will do in v5: two entries, the sensor and the always-on block,
+with the example as reg = <0x36>, <0x3e>. The driver will take the
+second address from reg on DT and keep the _CRS lookup for ACPI, and
+fail probe when there is none, now that the binding requires it. I'll
+drop Conor's ack since the binding changes.
 
-If that is not the right direction, I'd be glad to hear it before posting.
+I can compile the DT path but have no DT platform to run it on; the
+ACPI path is what I can test.
 
-Ciao,
-
-Rodolfo
-
--- 
-GNU/Linux Solutions                  e-mail: giometti@enneenne.com
-Linux Device Driver                          giometti@linux.it
-Embedded Systems                     phone:  +39 349 2432127
-UNIX programming
+Thanks,
+Robert
