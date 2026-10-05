@@ -1,268 +1,205 @@
-Received: from mail-yx2-f42.google.com (mail-yx2-f42.google.com [74.125.224.170])
+Received: from mail-pj2-f43.google.com (mail-pj2-f43.google.com [74.125.227.171])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E7B8D2F7EF4
-	for <linux-kernel@vger.kernel.org>; Mon,  5 Oct 2026 19:16:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.224.170
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0289330AAD8
+	for <linux-kernel@vger.kernel.org>; Mon,  5 Oct 2026 19:18:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.171
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791227805; cv=none; b=PPJuMCAT/m5az6hs4jx+PlKCqpOZV4Fs7slSX+HzlVNiWF8C+b/Z5MfOKQ8/64zsqce1H/tle901pgPDsxarVSnneEpYM6vavB0mAhb4hSbY6Q3fYBqhqdo+LxdJ6D0Uuwbl38GPLb31ZOQIBZIa0qXUXOWvfAZK7w7FLFaVaZA=
+	t=1791227940; cv=none; b=WNGkIiLMsrV4rVaNzglrV5bj22I+DraiU0qsHutQTAM2DptmZjjm8h62CrV4P26fiXq/ZwqxjtAYo1l/jsg/3+TvPTCjyR5gHwu5qPdNOcpr9wKrP/7TCzcaEN3oYRIQd7NPBKplYE4BO1FjChsHsfJccOO8tF5cFKkPXg33BEI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791227805; c=relaxed/simple;
-	bh=ulQA5cvJgKQcqUv21AfRSI+EJFD+UJHNlzoqx4tqBmU=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=nSizwGndYpu0BWbMAedPS3SgkCIMgzUoVSji5M7QPNkFwAHw2As9h7zjKZws5hvkAlGc8sn1RJDKljmrXcO6G3gsVfcULYmbXomMCwE1PJfaNVDGtzRa+EcfcPZrXwFy5Td6stabPlfyIKd7HzHYtEQr5EobsqME7uwNe/qeZs4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=dubeyko.com; spf=pass smtp.mailfrom=dubeyko.com; dkim=pass (2048-bit key) header.d=dubeyko-com.20251104.gappssmtp.com header.i=@dubeyko-com.20251104.gappssmtp.com header.b=GwSVEqYW; arc=none smtp.client-ip=74.125.224.170
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=dubeyko.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=dubeyko.com
+	s=arc-20240116; t=1791227940; c=relaxed/simple;
+	bh=Qef6evUi2G4yjczQH3lndRw0J5twWf88Bw4M2ky/1xE=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=cJdh/CMJll+DKxypxPfT8g2xuz8qjWArIGBrQ9alO7+tFOKvSd6s9oUzdnALA6XMhXqXUQNaCm4t1Hf+sR5OCRHPyg/rJdJmIVujKVHax4O2egyAwwnzk6KPmyR/9QQBCcfUG8fVmEAalzVjAlGNTm4n9uyPO7sv/5MZiUguaDE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=E6Nom2Oq; arc=none smtp.client-ip=74.125.227.171
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=dubeyko-com.20251104.gappssmtp.com header.i=@dubeyko-com.20251104.gappssmtp.com header.b="GwSVEqYW"
-Received: by mail-yx2-f42.google.com with SMTP id 956f58d0204a3-672f4b7091dso844540d50.0
-        for <linux-kernel@vger.kernel.org>; Mon, 05 Oct 2026 12:16:43 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="E6Nom2Oq"
+Received: by mail-pj2-f43.google.com with SMTP id 98e67ed59e1d1-396ccb652d7so1354445a91.0
+        for <linux-kernel@vger.kernel.org>; Mon, 05 Oct 2026 12:18:58 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=dubeyko-com.20251104.gappssmtp.com; s=20251104; t=1791227803; x=1791832603; darn=vger.kernel.org;
-        h=mime-version:user-agent:content-transfer-encoding:content-type
-         :autocrypt:references:in-reply-to:date:cc:to:from:subject:message-id
-         :from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=AD8CeJIlG5hCbH4+fGlxBDHvP5Fa9LzqNq1Ik5KKPnE=;
-        b=GwSVEqYWtHHC96q7n4WUPWI9F3MOO5GW3DMhHtagv6MLw8qVPMjkauq5R+GGBZaY86
-         Xl4vVyFH5K92wgp/wPw91ZdwWKmr44VU+in5rQrg0MQxWTIVN9t20mdIkpaYSDIhnQWA
-         QrMYQAS3MdyHUrLaW18G1G0Rl256DksndlZOnUwpwqRGsBDDnpzFxypdN2D9xmswXrGE
-         wiI7H+WkcIhxnMQSWWarBslI4jK0EIT1W4ABcD1cTvq8f697JYwcA4fxq0CddaRgMHXL
-         lVfqyUr0CeCsAfqq6GBzCN166EUFMxvpeAFMEDE44ecVfF7T2LAY2efctkjvM4UwDU40
-         tCxw==
+        d=gmail.com; s=20251104; t=1791227938; x=1791832738; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=bn5bbgyZyDecjZPI18WaWxFgg4DefMuMpoggO6iLfzw=;
+        b=E6Nom2OqKeb0lOx1wzcwdfCeJ1k+ThHWcEvXJe6niQbuR9z9i9jZJKjYefnm1yrXQ/
+         xMp4N9ct435Ah0ShYAa8lmHKe43TzIJgikCff97NESmHfuSttM/N8vldSD5tOUdJLLpA
+         iclpHd0C1iHseXXAD3OrZV80KS0aMoVRPoNFu7slRU8n5uAsTLeLwgMf3kqYUa6OKiAX
+         GyLcwAx6K9ExYTLijk3rfmSjbn49aN8IldvDtb+NJdC4hpF7t6cX+6g9L3DoYF5tDnTZ
+         +t+65DPB1fsr1X6Q+ZrX8yFVEkW7C+C7OLxvzHSvtP8cYTcSgvuX96v1SHoDeliyp5dI
+         MpHw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791227803; x=1791832603;
-        h=mime-version:user-agent:content-transfer-encoding:content-type
-         :autocrypt:references:in-reply-to:date:cc:to:from:subject:message-id
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=AD8CeJIlG5hCbH4+fGlxBDHvP5Fa9LzqNq1Ik5KKPnE=;
-        b=syoLHuORiJWFlyqN1c3fk+EQXBRKU7CNbM2iXgL/yMsXzsi7agEi4JL7EjmySgHplt
-         x6l1VCxRuAtb5BjZomFmJT1l3wsRpLfiA5o71JUCI7bM5IYg9j1U51LTa/eY03zcRQdm
-         YYVNgkVl3vS2Nr4rIWCgWXwmce0119rqvPDmdaiYGj76YM0x5MCcGKjzK8TAJ3Nj20Dy
-         VYRiUO2v8ewY45pGz/fIwTuwGcQBUDJYDzoidyQbdiPSM6gIzALBrIPqM+5UeDrh4FjQ
-         eJpPIEKSFWjAoESyMyXIK5osrvuiechDCMVIXMfI8PDjPf2kZJa/tdA2ku0SuBqtk6Tu
-         2Ong==
-X-Forwarded-Encrypted: i=1; AKwUvBybOkBmkT72Sep5+/uChuD/e4o3o3HzsOubfKjX5DvdqdRqxIpHVoo2CAuM7PjOfQYO1URGfjm5/Qbk5ck=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLZiVynp2PtCyVI7pkGI15BBksA0HGkHjCRhWRv9KumiJqEZz4N
-	px1QTHeoxiaPtXOjuNVnzdBK2i4jUPKBIfqM19d3M+9Gp6iT6mRK/03VjzV0BO/Bs2M=
-X-Gm-Gg: AYBFou0Rdn01DVWYTwL5nIcXqkWidrrvd/mjnBO649GLvAV6FuglCvcoQFKIAj8TRCp
-	URSUMOVgx4dxdLapmUW5iXJnwdAlAOWMxY1s/gxjUgPxr6OWz8yrhXRY5nnMTf4smImsDiEE38b
-	o83KiDb1C7HuGpmoovzkS6S2s/Td8Axi31/FKzzw0XvmsqOoikD+aK3lTfhQqy2pLKGsDeIQslh
-	9TGA+EiI60dbhjM9x52dXvStVO03hic+G4QXd8vfj8VFt+/K601NoguFLM2vSPxIUwS7m5XwCUl
-	61wlDz7oHmyt/VLoCRGvHzQ5v96EbvC4wPTeUJ3gvazdUQNp1kd6U9WGt9gFqUJN8CgXTe+Fy9l
-	AkHl1DORprQVOqRKcit/gLs8OjJaeHQvIodS7Ina8fivyEH38e5XRfNsmxslrE0Nql4MBKKMzk7
-	griE9N1pu6wXWXLmIZRsLd7LFkhZWkHxUp71TEADd4y0bHOqNpNBK2bmWfHn6uFXWpbcv+xqw8E
-	XWLChfetNPXRw0emwamNxQlxTifsfvbdj/h//5ZtgpajRp0tLA4YKKS+bf3iE/G97X6HqW2AuwB
-	hSD0o9XziCH5kp8Y/GrnrLWnxRLrdneAbAhY54FOsRjeM2jiT1WBtjC4FJw1nsT0
-X-Received: by 2002:a05:690e:4093:b0:675:449d:3d72 with SMTP id 956f58d0204a3-677f15a6050mr281171d50.32.1791227802743;
-        Mon, 05 Oct 2026 12:16:42 -0700 (PDT)
-Received: from ?IPv6:2600:1700:6476:1430:3aa0:911f:4e09:b45d? ([2600:1700:6476:1430:3aa0:911f:4e09:b45d])
-        by smtp.gmail.com with ESMTPSA id 956f58d0204a3-677c1b1a214sm3304995d50.6.2026.10.05.12.16.38
+        d=1e100.net; s=20260707; t=1791227938; x=1791832738;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=bn5bbgyZyDecjZPI18WaWxFgg4DefMuMpoggO6iLfzw=;
+        b=Zk75eLROY9OGXFO5RhYEfvciC201J5/OWGIeilxX8ww74nk8aMhXx6qSTbl82EZBUp
+         2Ze/1tA8KnxKodhvrQHhYffecl6zeHQT416VaSmF7hyObNlQAcstGiGLAbAl24v+Jmra
+         1hZ+IIDsNWEYCJmlNzu3kg+lMXtsnAr0OffuAgzht3TtuQd+zy5wuUnfagXz2uoAcCY8
+         ypEhuTqd+6juJzWGIPTU/gkax1gM7XQ26uUjd1Y8mx53rLzHfDrJ8nKMsw9ud+tyRuuT
+         reso5qwCXXoellqJB1PEwIqwIM3brpWjvSovUFZ0rjVj/2jeUTWPbhEZ/zgGCw67msNx
+         F82Q==
+X-Forwarded-Encrypted: i=1; AKwUvBwFDlSuLaq57R5qahpG45fj7rE2DlIt7/EKBmGnP/OkwE4+lAKEptsiMwBi0F4Z9QRpBu+wZj7yjS+PSOQ=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJI/rLVecFipSdnqm2oq8pt7XZUnUOisLh+1a6orax6SnmUafaq
+	ecXXA/7vFcWSvuNVWUqJepS+FVCZ629yIUn9Z40wEAMo7UzDrV2Gil7Z
+X-Gm-Gg: AYBFou3KkUU5VtHjlIAv3CmbDuzzckIMkPc7fsmIU2LrlaZAlCGEoaXJXhdpLlI1e3d
+	XaK+kgtaB7rewva+VL4xEu+cuDpzIMw1xhT4Et2uG9I/OWjXYrGvWdVTkT/0YDBwuMIsWFYWNho
+	gpi+tx+9oLJEcHfG7Z0Ezr8tTgGWSC/ifDNXX+jVkzYMdFgaTIpFXCmn8apLhFZBBKbkfqj164A
+	Fe9bMLmJu73gDvc5Ro1PxADSNKQ2uHjOhl8F2ZJs33zANezJhIxsftVGOVQYHoq5t08VcbDuGYd
+	sOj6E6+i8jyIfTOGiDVkxDYf9KnLbopF49CZDoWtByeshACdBniKDgNIxnB/lLsfUiUipNqBW24
+	1zM84gCV8JFJ+mQAtyBnQvwYeKuM5Spfs4Y0JSW+9kEffIM/wUr/HoVif89dWavALHRwI67wYcD
+	62WfFEP8Az0h2puywO5xKQNJpMDp+5Dj/2rJziLqhPm+GSvN7tQxIhEFfRWdylFXZ/bijlCVcec
+	ltxbptuQFbRbDBUhRDxjp6QVx5iStXxGQRiqMIyg+DioVzC9trKIAqBY/IQEUsx+JETvU0LjUW6
+	p+QaELVQQYr2zF7ZNMKgedzTNvtoOj9eXyYd8pqDVPVfUp2U
+X-Received: by 2002:a17:90b:3843:b0:3a4:fa1a:2b1d with SMTP id 98e67ed59e1d1-3a6ce983720mr9469973a91.62.1791227938253;
+        Mon, 05 Oct 2026 12:18:58 -0700 (PDT)
+Received: from ryzen.lan ([2601:644:8000:7a86::e35])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a85436a39dsm806267a91.9.2026.10.05.12.18.57
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 05 Oct 2026 12:16:40 -0700 (PDT)
-Message-ID: <0eb39e561e4c81c0fe2198a2ba352ba81f8d94b7.camel@dubeyko.com>
-Subject: Re: [PATCH v3 1/2] hfsplus: free cached B-tree nodes on
- hfs_btree_open() error path
-From: Viacheslav Dubeyko <slava@dubeyko.com>
-To: Mahmut Emin Kurhan <guvenlik@noroxi.com>, linux-fsdevel@vger.kernel.org
-Cc: glaubitz@physik.fu-berlin.de, frank.li@vivo.com, 
-	linux-kernel@vger.kernel.org
-Date: Mon, 05 Oct 2026 12:16:37 -0700
-In-Reply-To: <20261001213807.1519745-2-guvenlik@noroxi.com>
-References: <0de056179e3e0a7c4ef525cdb143647b7493dc71.camel@dubeyko.com>
-	 <20261001213807.1519745-1-guvenlik@noroxi.com>
-	 <20261001213807.1519745-2-guvenlik@noroxi.com>
-Autocrypt: addr=slava@dubeyko.com; prefer-encrypt=mutual;
- keydata=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
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.60.1 (by Flathub.org) 
+        Mon, 05 Oct 2026 12:18:57 -0700 (PDT)
+From: Rosen Penev <rosenp@gmail.com>
+To: dri-devel@lists.freedesktop.org
+Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Maxime Ripard <mripard@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	David Airlie <airlied@gmail.com>,
+	Simona Vetter <simona@ffwll.ch>,
+	Kees Cook <kees@kernel.org>,
+	"Gustavo A. R. Silva" <gustavoars@kernel.org>,
+	linux-kernel@vger.kernel.org (open list),
+	linux-hardening@vger.kernel.org (open list:KERNEL HARDENING (not covered by other areas):Keyword:\b__counted_by(_le|_be|_ptr)?\b)
+Subject: [PATCH v2] drm: property: use kzalloc_flex
+Date: Mon,  5 Oct 2026 12:18:56 -0700
+Message-ID: <20261005191856.90267-1-rosenp@gmail.com>
+X-Mailer: git-send-email 2.56.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-On Thu, 2026-10-01 at 23:38 +0200, Mahmut Emin Kurhan wrote:
-> hfs_btree_open() can fail after hfs_bnode_find(tree,
-> HFSPLUS_TREE_HEAD) has
-> already inserted the head node into tree->node_hash.
->=20
-> __hfs_bnode_create() inserts the new bnode into tree->node_hash
-> before it
-> reads the node pages; if a page read fails it sets HFS_BNODE_ERROR
-> and
-> returns the node still hashed. hfs_bnode_find() then takes its
-> node_error
-> path and calls hfs_bnode_put(), which only frees a node once its
-> refcount
-> reaches zero *and* HFS_BNODE_DELETED is set. For the errored head
-> node that
-> flag is not set, so it stays in tree->node_hash with a zero refcount.
->=20
-> hfs_btree_open() then sees IS_ERR(node) and jumps to free_tree:,
-> doing a
-> bare kfree(tree). Only hfs_btree_close() walks tree->node_hash[] and
-> frees
-> the cached nodes, so the head node is leaked. Mounting a crafted HFS+
-> image
-> whose head B-tree node fails to read leaks kernel memory on every
-> attempt.
->=20
-> Factor the node-hash freeing out of hfs_btree_close() into a small
-> helper
-> hfs_bnode_hash_free() and call it from both hfs_btree_close() and the
-> hfs_btree_open() error path. The helper keeps the hash_lock
-> serialization
-> added in commit dce0e0248205 ("hfs/hfsplus: serialize B-tree close
+Store the property values as a flexible array member instead of a
+separately allocated array. This removes an allocation and its error
+handling.
 
-I think it is not good idea of mentioning this. This patch is not
-upstream yet.
+Add __counted_by for extra runtime analysis. Move the counting variable
+assignment to right after allocation as required by __counted_by.
 
-> against
-> folio release"); on the open error path the tree has not been
-> published yet,
-> so the lock is uncontended but harmless.
->=20
-> Found via coverage-guided fuzzing (syzkaller + kmemleak) by Noroxi.
+struct drm_property now ends in a flexible array, so move it to the end
+of struct drm_damage_mock in the damage helper KUnit test to avoid
+-Wflex-array-member-not-at-end.
 
-Should we use Reported-by: tag?
+Assisted-by: LLM
+Signed-off-by: Rosen Penev <rosenp@gmail.com>
+---
+ v2: move test struct member
+ drivers/gpu/drm/drm_property.c                 | 14 ++------------
+ drivers/gpu/drm/tests/drm_damage_helper_test.c |  2 +-
+ include/drm/drm_property.h                     | 16 ++++++++--------
+ 3 files changed, 11 insertions(+), 21 deletions(-)
 
->=20
-> Signed-off-by: Mahmut Emin Kurhan <guvenlik@noroxi.com>
-> ---
-> =C2=A0fs/hfsplus/btree.c | 41 +++++++++++++++++++++++------------------
-> =C2=A01 file changed, 23 insertions(+), 18 deletions(-)
->=20
-> diff --git a/fs/hfsplus/btree.c b/fs/hfsplus/btree.c
-> index bd4dbdbc8f..2183828d5d 100644
-> --- a/fs/hfsplus/btree.c
-> +++ b/fs/hfsplus/btree.c
-> @@ -265,6 +265,27 @@ static const char *hfs_btree_name(u32 cnid)
-> =C2=A0}
-> =C2=A0
-> =C2=A0/* Get a reference to a B*Tree and do some initial checks */
+diff --git a/drivers/gpu/drm/drm_property.c b/drivers/gpu/drm/drm_property.c
+index f38f2c5437e6..a6008e5c2b58 100644
+--- a/drivers/gpu/drm/drm_property.c
++++ b/drivers/gpu/drm/drm_property.c
+@@ -107,25 +107,18 @@ struct drm_property *drm_property_create(struct drm_device *dev,
+ 	if (WARN_ON(strlen(name) >= DRM_PROP_NAME_LEN))
+ 		return NULL;
+ 
+-	property = kzalloc_obj(struct drm_property);
++	property = kzalloc_flex(*property, values, num_values);
+ 	if (!property)
+ 		return NULL;
+ 
++	property->num_values = num_values;
+ 	property->dev = dev;
+ 
+-	if (num_values) {
+-		property->values = kcalloc(num_values, sizeof(uint64_t),
+-					   GFP_KERNEL);
+-		if (!property->values)
+-			goto fail;
+-	}
+-
+ 	ret = drm_mode_object_add(dev, &property->base, DRM_MODE_OBJECT_PROPERTY);
+ 	if (ret)
+ 		goto fail;
+ 
+ 	property->flags = flags;
+-	property->num_values = num_values;
+ 	INIT_LIST_HEAD(&property->enum_list);
+ 
+ 	strscpy_pad(property->name, name, DRM_PROP_NAME_LEN);
+@@ -134,7 +127,6 @@ struct drm_property *drm_property_create(struct drm_device *dev,
+ 
+ 	return property;
+ fail:
+-	kfree(property->values);
+ 	kfree(property);
+ 	return NULL;
+ }
+@@ -447,8 +439,6 @@ void drm_property_destroy(struct drm_device *dev, struct drm_property *property)
+ 		kfree(prop_enum);
+ 	}
+ 
+-	if (property->num_values)
+-		kfree(property->values);
+ 	drm_mode_object_unregister(dev, &property->base);
+ 	list_del(&property->head);
+ 	kfree(property);
+diff --git a/drivers/gpu/drm/tests/drm_damage_helper_test.c b/drivers/gpu/drm/tests/drm_damage_helper_test.c
+index 0df2e1a54b0d..c0da8dc591a9 100644
+--- a/drivers/gpu/drm/tests/drm_damage_helper_test.c
++++ b/drivers/gpu/drm/tests/drm_damage_helper_test.c
+@@ -17,10 +17,10 @@ struct drm_damage_mock {
+ 	struct drm_device device;
+ 	struct drm_object_properties obj_props;
+ 	struct drm_plane plane;
+-	struct drm_property prop;
+ 	struct drm_framebuffer fb;
+ 	struct drm_plane_state state;
+ 	struct drm_plane_state old_state;
++	struct drm_property prop;	/* has a flexible array, must be last */
+ };
+ 
+ static int drm_damage_helper_init(struct kunit *test)
+diff --git a/include/drm/drm_property.h b/include/drm/drm_property.h
+index aa49b5a42bb5..8c7cef4418c4 100644
+--- a/include/drm/drm_property.h
++++ b/include/drm/drm_property.h
+@@ -175,14 +175,6 @@ struct drm_property {
+ 	 */
+ 	uint32_t num_values;
+ 
+-	/**
+-	 * @values:
+-	 *
+-	 * Array with limits and values for the property. The
+-	 * interpretation of these limits is dependent upon the type per @flags.
+-	 */
+-	uint64_t *values;
+-
+ 	/**
+ 	 * @dev: DRM device
+ 	 */
+@@ -195,6 +187,14 @@ struct drm_property {
+ 	 * enum and bitmask values.
+ 	 */
+ 	struct list_head enum_list;
++
++	/**
++	 * @values:
++	 *
++	 * Array with limits and values for the property. The
++	 * interpretation of these limits is dependent upon the type per @flags.
++	 */
++	uint64_t values[] __counted_by(num_values);
+ };
+ 
+ /**
+-- 
+2.56.0
 
-Are you sure that it is correct place for the comment?
-
-> +static void hfs_bnode_hash_free(struct hfs_btree *tree)
-
-Maybe, hfs_btree_free_nodes() because function lives in btree.c?
-
-> +{
-> +	struct hfs_bnode *node;
-> +	int i;
-> +
-> +	for (i =3D 0; i < NODE_HASH_SIZE; i++) {
-> +		spin_lock(&tree->hash_lock);
-> +		while ((node =3D tree->node_hash[i])) {
-> +			hfs_bnode_unhash(node);
-> +			spin_unlock(&tree->hash_lock);
-> +			if (atomic_read(&node->refcnt))
-> +				pr_crit("node %d:%d still has %d
-> user(s)!\n",
-> +					node->tree->cnid, node-
-> >this,
-> +					atomic_read(&node->refcnt));
-> +			hfs_bnode_free(node);
-> +			spin_lock(&tree->hash_lock);
-> +		}
-> +		spin_unlock(&tree->hash_lock);
-> +	}
-> +}
-> +
-> =C2=A0struct hfs_btree *hfs_btree_open(struct super_block *sb, u32 id)
-> =C2=A0{
-> =C2=A0	struct hfs_btree *tree;
-> @@ -403,6 +424,7 @@ struct hfs_btree *hfs_btree_open(struct
-> super_block *sb, u32 id)
-> =C2=A0	tree->inode->i_mapping->a_ops =3D &hfsplus_aops;
-> =C2=A0	iput(tree->inode);
-> =C2=A0 free_tree:
-> +	hfs_bnode_hash_free(tree);
-
-We have inconsistency here. The hfs_btree_close() calls
-hfs_bnode_hash_free() and iput() then. Here we have opposite sequence.
-
-Thanks,
-Slava.
-
-> =C2=A0	kfree(tree);
-> =C2=A0	return NULL;
-> =C2=A0}
-> @@ -410,27 +432,10 @@ struct hfs_btree *hfs_btree_open(struct
-> super_block *sb, u32 id)
-> =C2=A0/* Release resources used by a btree */
-> =C2=A0void hfs_btree_close(struct hfs_btree *tree)
-> =C2=A0{
-> -	struct hfs_bnode *node;
-> -	int i;
-> -
-> =C2=A0	if (!tree)
-> =C2=A0		return;
-> =C2=A0
-> -	for (i =3D 0; i < NODE_HASH_SIZE; i++) {
-> -		spin_lock(&tree->hash_lock);
-> -		while ((node =3D tree->node_hash[i])) {
-> -			hfs_bnode_unhash(node);
-> -			spin_unlock(&tree->hash_lock);
-> -			if (atomic_read(&node->refcnt))
-> -				pr_crit("node %d:%d "
-> -						"still has %d
-> user(s)!\n",
-> -					node->tree->cnid, node-
-> >this,
-> -					atomic_read(&node->refcnt));
-> -			hfs_bnode_free(node);
-> -			spin_lock(&tree->hash_lock);
-> -		}
-> -		spin_unlock(&tree->hash_lock);
-> -	}
-> +	hfs_bnode_hash_free(tree);
-> =C2=A0	iput(tree->inode);
-> =C2=A0	kfree(tree);
-> =C2=A0}
