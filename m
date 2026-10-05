@@ -1,179 +1,121 @@
-Received: from www.nmnhosting.com (watt.d-silva.org [119.15.109.137])
+Received: from desiato.infradead.org (desiato.infradead.org [90.155.92.199])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 41CF240A95F;
-	Mon,  5 Oct 2026 08:49:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=119.15.109.137
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EBC9737F322
+	for <linux-kernel@vger.kernel.org>; Mon,  5 Oct 2026 08:50:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=90.155.92.199
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791190170; cv=none; b=X/vVwWlraQH/+HHrzWgzSH2cu0bVPdl28aBJ+Mkl3U8nudOjYUfQ/62WGhYp2hSQdvTjUEt3IWUmxn5/TGTVr/pszoPbTMxLaUOyMoVHD93epBH4dutGr8Yc6R8TAcL//neLxKABRSGg6HJEjhUkuZWqN7n3MGEO9VGr5+giDYQ=
+	t=1791190214; cv=none; b=PCbUebjXNYjvw/XezU5c8YFfM2r6pT10kr502TDh2t5Ep1Y4KDQQAagMNq/EOGvTq5GdqvsoXnPfR919jkCtTtlQvTUXH2ar0cnIzVWhJ20sqjoT7U4kgGUfrFNWB1IoSoittB53WSt6RoyJBQdoMrz9qgtXV+6Y1sxzLCR5PXY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791190170; c=relaxed/simple;
-	bh=kawkzcMAtBLCtija+Jyr8gsMxXqYDt/q8ae3xcHWSFQ=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=XINVNkYe+IcNNyLPP/tynjCyUkiyQYUsHnp2h5gPTPajstJpWSbdjUTIyHCdeiV558zC5R6xwO6J+63WjbcjUpAAjgdpMTCZ8w2Glqk/lJ3RIuyiqlUnFVbZRF9oU+dhQ7P0ELezu1NB6PAsPIf6oyegZHSRSkSHz1AAmyyNIWw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=d-silva.org; spf=pass smtp.mailfrom=d-silva.org; dkim=pass (2048-bit key) header.d=d-silva.org header.i=@d-silva.org header.b=mPmTzUBC; arc=none smtp.client-ip=119.15.109.137
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=d-silva.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=d-silva.org
+	s=arc-20240116; t=1791190214; c=relaxed/simple;
+	bh=pFAflNl01LfRk5qvOvEIrVh2M1JZcZOvuCZxUFHabFA=;
+	h=Date:From:To:CC:Subject:In-Reply-To:References:Message-ID:
+	 MIME-Version:Content-Type; b=SEj1sAXLdI6kXtXG9li8io3ZtYihx26yZlIrUxLLEwmPMlKMgzOiEN9eQFsh9JyxQAXrJYCA+9Wbp67u5RkWhThoMENp7plqKpy1OE6z6VZYMRfmZZvJow5diFzg8cpwjEMmxaJ+zJc+g1ku8Rfir0zL/65zxU4ODsDdr0txhZ0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org; spf=none smtp.mailfrom=desiato.srs.infradead.org; dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b=Lla6hFjM; arc=none smtp.client-ip=90.155.92.199
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=desiato.srs.infradead.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=d-silva.org header.i=@d-silva.org header.b="mPmTzUBC"
-Received: from Hawking.lan (hawking.lan [10.0.1.4])
-	by www.nmnhosting.com (Postfix) with ESMTP id 6D19F42DAC;
-	Mon,  5 Oct 2026 19:49:17 +1100 (AEDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=d-silva.org; s=2025a;
-	t=1791190157;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=O1XKMkJpYnvbxUlu+WxfAOsWKe8oWGBMCMFWNSNDQww=;
-	b=mPmTzUBChZtZFn5ZOhdj03swICEzSVX5koxXt9jP6CdM5g5+RfseyHyWtRZWcUULIdyV9H
-	l80qwZ1vq/D5QttDRJUo8LclQiBCVhmYhoxk8+Wn8cfcCVTO5OrbqcDsdC8B7AX+ocwm3C
-	h8WE6JcXJDPi886dntxTtpiTcREzHlao4to5lqlub74B/MQqI3kDoYSRvN8HXHhL+HWtkV
-	ZBoZgcS2h/MCdoGtxlg9K/mNKNnix/GDaG+RpH46uRcGa75mproVtjpwjWsPZo2XBH2y59
-	qVAmS5bCx/2uMZunsNyyHEDsSoweWRxVby/z3hPK/kT24SCSlrNieuBGMcJUpw==
-X-GPT-Reason: legitimate_transactional_personal_code_submission.
-	The email is a technical patch submission for a Linux kernel driver
-	(rtw88), which perfectly aligns with the personal/professional
-	identity of the sender (alastair@d-silva.org). The content contains
-	a standard "diff" format showing code refactoring for WiFi drivers,
-	includes specific technical logic regarding register sizes (8051
-	vs 3081), and lacks any phishing markers, urgency, or suspicious
-	links. The mailbox is expected to receive such professional/technical
-	correspondence.
-From: Alastair D'Silva <alastair@d-silva.org>
-To: linux-wireless@vger.kernel.org,
-	Ping-Ke Shih <pkshih@realtek.com>,
-	Kalle Valo <kvalo@kernel.org>
-Cc: Luka Gejak <luka.gejak@linux.dev>,
-	Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
-	Jernej Skrabec <jernej.skrabec@gmail.com>,
-	Ulf Hansson <ulfh@kernel.org>,
-	linux-kernel@vger.kernel.org,
-	Alastair D'Silva <alastair@d-silva.org>
-Subject: [PATCH rtw-next v4 4/4] wifi: rtw88: sdio: Split rtw_sdio_rx_isr into 8051 and 3081 variants
-Date: Mon,  5 Oct 2026 19:48:49 +1100
-Message-ID: <20261005084849.3109337-5-alastair@d-silva.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261005084849.3109337-1-alastair@d-silva.org>
-References: <20261005084849.3109337-1-alastair@d-silva.org>
+	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="Lla6hFjM"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=infradead.org; s=desiato.20200630; h=Content-Transfer-Encoding:Content-Type
+	:MIME-Version:Message-ID:References:In-Reply-To:Subject:CC:To:From:Date:
+	Sender:Reply-To:Content-ID:Content-Description;
+	bh=pFAflNl01LfRk5qvOvEIrVh2M1JZcZOvuCZxUFHabFA=; b=Lla6hFjM+YAL8EyyNHkF/Xce64
+	0yokWyLahzcENzcHtBos5qZsHLBUWzYttp5INbF1R7d6JOueOHd3107tMlBN5TxR54jCD+pNDAKb0
+	CO8SLuOvEwLVBcyuc2VPI4bSXKeaTl7RdjF7yZhb8EtapkNWzjwNTZUa+1LpwPBVzUqAvrEL29Xm9
+	kSXBZagrfZOEiTpZd9sOdM1GW0z1mnSj95a5VuAHtKVE+HGQHzrirCp0DE2Q6G9oLNNxggUHgMnyG
+	A/iDiQurFRfk/2zDUeBHCH8fNNxNYGdC1u1WglZrgPtXgIuSViIKoceJGmdkBuoamV51w2HjxaoLB
+	bfeM0BiQ==;
+Received: from 90-182-211-1.rcp.o2.cz ([90.182.211.1] helo=ehlo.thunderbird.net)
+	by desiato.infradead.org with esmtpsa (Exim 4.99.2 #2 (Red Hat Linux))
+	id 1xDeOU-00000007juH-1w9m;
+	Mon, 05 Oct 2026 08:49:58 +0000
+Date: Mon, 05 Oct 2026 10:49:57 +0200
+From: David Woodhouse <dwmw2@infradead.org>
+To: Rodolfo Giometti <giometti@enneenne.com>, Thomas Gleixner <tglx@kernel.org>,
+ John Stultz <jstultz@google.com>
+CC: Stephen Boyd <sboyd@kernel.org>, Miroslav Lichvar <mlichvar@redhat.com>,
+ Ryan Luu <rluu@amazon.com>, Julien Ridoux <ridouxj@amazon.com>,
+ linux-kernel@vger.kernel.org
+Subject: =?US-ASCII?Q?Re=3A_=5BPATCH_5/5=5D_=5BDO_NOT_MERGE=5D_timekeeping=3A_A?=
+ =?US-ASCII?Q?pply_extrapolated_ntp=5Ferror_to_clock_snapshots?=
+User-Agent: K-9 Mail for Android
+In-Reply-To: <f432aee3-9bda-430c-9cb6-e35248c87b3d@enneenne.com>
+References: <20261001202134.33929-1-dwmw2@infradead.org> <20261001202134.33929-6-dwmw2@infradead.org> <0d5d56ca-89fa-4f09-bd24-9c730dd27656@enneenne.com> <4751c410a0cb17270e6c2b43e70d01bfd7d6f0d0.camel@infradead.org> <7274f4ef-edec-4282-9c92-b6f7918b8320@enneenne.com> <46df3bedea175007a6480b4cb8ba070c6ff3d527.camel@infradead.org> <f432aee3-9bda-430c-9cb6-e35248c87b3d@enneenne.com>
+Message-ID: <80DBB2AF-6C1D-43E2-BB1A-ADABACABE3FE@infradead.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain;
+ charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+X-SRS-Rewrite: SMTP reverse-path rewritten from <dwmw2@infradead.org> by desiato.infradead.org. See http://www.infradead.org/rpr.html
 
-Split rtw_sdio_rx_isr() into separate 8051 and 3081 variants to be
-clear. The two differences between the architectures are:
-- Register size: REG_SDIO_RX0_REQ_LEN is 16-bit on 8051, 32-bit on 3081.
-- HISR behavior: 8051 re-reads REG_SDIO_HISR on each iteration, while
-  3081 drains based on rx_len without re-reading HISR.
+On 5 October 2026 10:15:01 CEST, Rodolfo Giometti <giometti@enneenne=2Ecom>=
+ wrote:
+>On 03/10/2026 00:47, David Woodhouse wrote:
+>> On Fri, 2026-10-02 at 12:26 +0200, Rodolfo Giometti wrote:
+>>> =20
+>>>> So I think we do need it, and my inclination is to hold off on enabli=
+ng
+>>>> CONFIG_NTP_PPS for tickless kernels until we do=2E But I'll defer to =
+your
+>>>> preference=2E If you want to merge it sooner on the basis that with a
+>>>> 1PPS signal the system doesn't get to sleep for long *anyway*, I can =
+do
+>>>> another test run with just patches 1-4=2E
+>>>>
+>>>
+>>> Yes, please do that run=2E This patch changes what PPS_FETCH returns t=
+o
+>>> userspace, so it has to wait for the chrony and ntpd people anyway; if
+>>> 1-4 alone are good enough at 1PPS I'd rather not tie the tickless
+>>> enablement to it=2E
+>>=20
+>> https://david=2Ewoodhou=2Ese/ntptest-r64/rodolfo-14-tickless-1hz/
+>>=20
+>> Fairly much identical to the full series running tickless, which was
+>> https://david=2Ewoodhou=2Ese/ntptest-r64/tickless-1hz/
+>>=20
+>> And not really much worse than the tickful variant
+>> https://david=2Ewoodhou=2Ese/ntptest-r64/tickful-1hz/
+>>=20
+>> The ntp_error isn't measured because it's the clean series and most of
+>> the instrumentation is gone=2E I'll set the 5s pulse version running
+>> overnight=2E
+>>=20
+>> The series is also tested on four virtual machines on the same host,
+>> tickful and tickless, patches vs=2E baseline=2E You can see the tickles=
+s
+>> baseline wobble when the actual frequency changes, while the other
+>> three remain stable=2E You can also see ntp_error on both baseline
+>> kernels spiking during the initial sync=2E
+>> https://david=2Ewoodhou=2Ese/ntptest-virt/
+>
+>Thanks, that's convincing: with 1-4 alone tickless at 1Hz looks the
+>same as with the full series, so I'm fine with the tickless enablement
+>not depending on this patch=2E :-)
+>
+>Please put these numbers, and the 5s ones when you have them, in the comm=
+it
+>message of the patch dropping !NO_HZ_COMMON=2E
 
-This is a refactoring without any logic changes.
+Will do=2E I'll let these four patches progress at least to the point wher=
+e they have stable commit IDs before doing so =E2=80=94 I don't think there=
+'s any rush for the PPS change, as it's been quite a few years already :)
 
-Assisted-by: LLM
-Signed-off-by: Alastair D'Silva <alastair@d-silva.org>
----
- drivers/net/wireless/realtek/rtw88/sdio.c | 57 +++++++++++++----------
- 1 file changed, 32 insertions(+), 25 deletions(-)
+In the meantime since I'm working on the filtering=2E Mills's median-of-3 =
+helps, but min-of-3 seems to work better for the frequency side, because la=
+te pulses are less believable than early ones, yet two late pulses out of t=
+hree is enough to pollute the median=2E I won't subject you to stream-of-co=
+nsciousness testing on those; my test candidates are doing full 24h runs wh=
+ile I'm at LPC this week=2E
 
-diff --git a/drivers/net/wireless/realtek/rtw88/sdio.c b/drivers/net/wireless/realtek/rtw88/sdio.c
-index c74644bf14ba..8f4d18b03f68 100644
---- a/drivers/net/wireless/realtek/rtw88/sdio.c
-+++ b/drivers/net/wireless/realtek/rtw88/sdio.c
-@@ -1426,17 +1426,13 @@ static int rtw_sdio_rxfifo_recv(struct rtw_dev *rtwdev, u32 rx_len)
- 	return 0;
- }
- 
--static void rtw_sdio_rx_isr(struct rtw_dev *rtwdev)
-+static void rtw_sdio_rx_isr_8051(struct rtw_dev *rtwdev)
- {
- 	u32 rx_len, hisr, total_rx_bytes = 0;
- 	int ret;
- 
- 	do {
--		if (rtw_chip_wcpu_8051(rtwdev))
--			rx_len = rtw_read16(rtwdev, REG_SDIO_RX0_REQ_LEN);
--		else
--			rx_len = rtw_read32(rtwdev, REG_SDIO_RX0_REQ_LEN);
--
-+		rx_len = rtw_read16(rtwdev, REG_SDIO_RX0_REQ_LEN);
- 		if (!rx_len)
- 			break;
- 
-@@ -1446,33 +1442,44 @@ static void rtw_sdio_rx_isr(struct rtw_dev *rtwdev)
- 
- 		total_rx_bytes += rx_len;
- 
--		if (rtw_chip_wcpu_8051(rtwdev)) {
--			/* Stop if no more RX requests are pending, even if
--			 * rx_len could be greater than zero in the next
--			 * iteration. This is needed because the RX buffer may
--			 * already contain data while either HW or FW are not
--			 * done filling that buffer yet. Still reading the
--			 * buffer can result in packets where
--			 * rtw_rx_pkt_stat.pkt_len is zero or points beyond the
--			 * end of the buffer.
--			 */
--			hisr = rtw_read32(rtwdev, REG_SDIO_HISR);
--		} else {
--			/* RTW_WCPU_3081 chips have improved hardware or
--			 * firmware and can use rx_len unconditionally.
--			 */
--			hisr = REG_SDIO_HISR_RX_REQUEST;
--		}
-+		/* Stop if no more RX requests are pending, even if
-+		 * rx_len could be greater than zero in the next
-+		 * iteration. This is needed because the RX buffer may
-+		 * already contain data while either HW or FW are not
-+		 * done filling that buffer yet. Still reading the
-+		 * buffer can result in packets where
-+		 * rtw_rx_pkt_stat.pkt_len is zero or points beyond the
-+		 * end of the buffer.
-+		 */
-+		hisr = rtw_read32(rtwdev, REG_SDIO_HISR);
- 	} while (total_rx_bytes < SZ_64K && hisr & REG_SDIO_HISR_RX_REQUEST);
- }
- 
-+static void rtw_sdio_rx_isr_3081(struct rtw_dev *rtwdev)
-+{
-+	u32 rx_len, total_rx_bytes = 0;
-+	int ret;
-+
-+	do {
-+		rx_len = rtw_read32(rtwdev, REG_SDIO_RX0_REQ_LEN);
-+		if (!rx_len)
-+			break;
-+
-+		ret = rtw_sdio_rxfifo_recv(rtwdev, rx_len);
-+		if (ret)
-+			break;
-+
-+		total_rx_bytes += rx_len;
-+	} while (total_rx_bytes < SZ_64K);
-+}
-+
- static void rtw_sdio_handle_interrupt_8051(struct rtw_dev *rtwdev, u32 hisr)
- {
- 	if (hisr & REG_SDIO_HISR_TXERR)
- 		rtw_sdio_tx_err_isr(rtwdev);
- 	if (hisr & REG_SDIO_HISR_RX_REQUEST) {
- 		hisr &= ~REG_SDIO_HISR_RX_REQUEST;
--		rtw_sdio_rx_isr(rtwdev);
-+		rtw_sdio_rx_isr_8051(rtwdev);
- 	}
- 
- 	/*
-@@ -1496,7 +1503,7 @@ static void rtw_sdio_handle_interrupt_3081(struct rtw_dev *rtwdev, u32 hisr)
- 	if (hisr & REG_SDIO_HISR_TXERR)
- 		rtw_sdio_tx_err_isr(rtwdev);
- 	if (hisr & REG_SDIO_HISR_RX_REQUEST)
--		rtw_sdio_rx_isr(rtwdev);
-+		rtw_sdio_rx_isr_3081(rtwdev);
- 
- 	/* Unmasking HIMR re-asserts the IRQ line if new packets arrived */
- 	if (rtwsdio->running)
--- 
-2.53.0
-
+As a parallel thread I'll also look at unconditionally using the existing =
+(non-correcting) ktime_get_snapshot_id() so that we have the corresponding =
+counter values, and an ioctl for reporting those to userspace alongside the=
+ ts_real=2E I am leaning towards using raw counter values even when an offs=
+et has been applied to the realtime value, but still vacillating a bit=2E
