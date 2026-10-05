@@ -1,60 +1,63 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.13])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.15])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7487620E023;
-	Mon,  5 Oct 2026 17:44:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.13
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9FA9B2E62B3;
+	Mon,  5 Oct 2026 17:45:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.15
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791222298; cv=none; b=rueyn7MLfOr/XsP153ugLFPKSbkzC8NOdsUJ2fFjL9DBJlr/+UDZzN7D18QHchgCJMzTt+lOBO/FKGm8jpg3qufLEVU3qc8k/EoRV0aoiKZvpWaAYSnBSex0XDBumEEb+o1dTYycu8lPvJAO0H+Q6h7lhhFvJfE/zrvzfp/tVNs=
+	t=1791222313; cv=none; b=rnF0smH5UUgb1SZkIU3DGCyqSa+XUot1MhbcdeGDt3KGX4ltXfIXBNASPUS1vGqLJk+UaKwrrnHzZsp93A+Tm1JrY1D6LdTOq0Pl6CeXMJGjWkNrYQ7bMk5+uTHTSx5l7Fg0gwqC2vEAhTy6pbRLmu5Zcgk0pXLO+dWYKC4sCIs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791222298; c=relaxed/simple;
-	bh=PZ34xtNrbmdDwRo8oAM75wRaxkfuQ/u+Rvb0EJ5jNlk=;
+	s=arc-20240116; t=1791222313; c=relaxed/simple;
+	bh=8WaIA6iboPc4IMJWRyUiFZoNvpxg4UDIxTE+Lsk7RMc=;
 	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
-	 MIME-Version:Content-Type; b=p4SLuOjaTx2EoAHkxZqjOqIse9VPa6qdtlBLVTd0dawxHeCN1fv3FuJOAPyQfRpQ0T8mIgF0XljgwzbM6F2QTHSdZuKHZAC5idGE0hfs7BpdiysKeU09uocFiVPl8idUKETu2CSrhglpyW8w8VHNhpSA0X8lotRQEAk/oC4d7CU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=ftk0gv62; arc=none smtp.client-ip=198.175.65.13
+	 MIME-Version:Content-Type; b=LQDhy020v+H2UdAXdPT6uFAeR/oaFW5kgMszUVW4r8hJRvHj9w5/gnpN5AUnkQmkMbD39G4Gn2hmyYly9nXW+HZvXeSimdDR/2z1vLxCNJk6vPgxa987M3csp7kbaQ2+ifgVSTz6+lgokvLVd8BnIOhCZNFyz/Zd/it5Pp0pQnY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=Y5aZI362; arc=none smtp.client-ip=192.198.163.15
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="ftk0gv62"
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="Y5aZI362"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1791222297; x=1822758297;
+  t=1791222312; x=1822758312;
   h=from:to:cc:in-reply-to:references:subject:message-id:
    date:mime-version:content-transfer-encoding;
-  bh=PZ34xtNrbmdDwRo8oAM75wRaxkfuQ/u+Rvb0EJ5jNlk=;
-  b=ftk0gv62V0uFjSAB631dBTLRYavmhGj4ZajO8D0Ieg5rW8eT0O7aDHlF
-   N4dCxPyWqZRCNaXS1W55WuomXIhv0QEU8mj7tqOgnWAnFJ9UtbsQAvcfM
-   g4vooEjKv19SeYbYyokcflIG35p7xUbWm5rMsfyZxh+Am0ACWvGWKLC38
-   EKpEu5PyWngPWfW1xSxBubiw3AGocWJIgQP2Zo0aY3OsPAGcHZsnonzDs
-   sWGgWz4zgen7EsOc0iGSIH1HLhWMlKiB8pMWDPiHRXHRT9syyj0BhW/t8
-   Wv2Hzmtq8wB6VjMNQEpo1booLspZWVCwjVO2EXYPsXrB2e3FSurhWncvq
-   A==;
-X-CSE-ConnectionGUID: LIc7q6xsRZW2chSk+pIA8g==
-X-CSE-MsgGUID: EbqdHUAqSlGdK3Pc/fjGCw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11926"; a="102064011"
+  bh=8WaIA6iboPc4IMJWRyUiFZoNvpxg4UDIxTE+Lsk7RMc=;
+  b=Y5aZI362eOCdGT/kGOHoX99262eldp093SS9kP07gdwEoukWaGvxH2wn
+   RsV6BZjjOwsKNoT4CXpaZ/QRAME5nJ4njqvAxuzatu50+u0sZTA2gqSf6
+   eEYhjw+VVUdt7dsw0tN4wsQYs1mAYxBox6x3gx+4810npYZY5ksvkDvFZ
+   ZQArz1lwBb+LtkU4x+1j2kh9F0KCGksuYy9VAT/4pHJaDfjmfmvHAqvRS
+   d7vsiSQkMv//Eiv00lTVQfhQP9FEPLyzXQJlB944QJ7GXKf5M8ZD5BrHM
+   nHNYYvbsCAdIxtbfQH+iHpSuxOBFlg15rDjMteBU/hg+7egW0DebMb/jb
+   w==;
+X-CSE-ConnectionGUID: XRLreusoQ4yybnyWNjr5Cg==
+X-CSE-MsgGUID: mGSlAMf2RlmxI2egL9bLLg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11926"; a="92009836"
 X-IronPort-AV: E=Sophos;i="6.27,142,1787036400"; 
-   d="scan'208";a="102064011"
-Received: from fmviesa012.fm.intel.com ([10.60.135.152])
-  by orvoesa105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 05 Oct 2026 10:44:57 -0700
-X-CSE-ConnectionGUID: Vevv1ClTQP6DONBMIyL50A==
-X-CSE-MsgGUID: chqxonyITlC1aQRSlGAoVA==
+   d="scan'208";a="92009836"
+Received: from fmviesa004.fm.intel.com ([10.60.135.144])
+  by fmvoesa109.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 05 Oct 2026 10:45:12 -0700
+X-CSE-ConnectionGUID: a8bkmyrsSJWtbjIx6w9mIA==
+X-CSE-MsgGUID: Y6Bbkw9MTlWBvz5nvLRfHQ==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.27,142,1787036400"; 
-   d="scan'208";a="937180"
+   d="scan'208";a="281663896"
 Received: from ijarvine-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.199])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 05 Oct 2026 10:44:54 -0700
+  by fmviesa004-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 05 Oct 2026 10:45:09 -0700
 From: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
-To: platform-driver-x86@vger.kernel.org, 
- Marco Scardovi <scardracs@disroot.org>
-Cc: linux-kernel@vger.kernel.org, Hans de Goede <hansg@kernel.org>, 
- "Luke D . Jones" <luke@ljones.dev>, Denis Benato <denis.benato@linux.dev>, 
- Corentin Chary <corentin.chary@gmail.com>, stable@vger.kernel.org
-In-Reply-To: <cover.1789722252.git.scardracs@disroot.org>
-References: <cover.1789722252.git.scardracs@disroot.org>
-Subject: Re: [PATCH 0/2] platform/x86: asus-wmi: Serialize WMI evaluations
- and drop redundant rfkill lock
-Message-Id: <179122228971.27048.14573857783638253323.b4-ty@b4>
-Date: Mon, 05 Oct 2026 20:44:49 +0300
+To: Hans de Goede <hansg@kernel.org>, 
+ Shuwen Bao <baoshuwen2013@outlook.com>
+Cc: Krishna Chomal <krishna.chomal108@gmail.com>, 
+ Emre Cecanpunar <emreleno@gmail.com>, 
+ Suryansh Singh <technosfan14@gmail.com>, 
+ Radhey Kalra <radheykalra901@gmail.com>, 
+ =?utf-8?q?K=C3=BCr=C5=9Fat_Abayl=C4=B1?= <hello@kursatabayli.dev>, 
+ platform-driver-x86@vger.kernel.org, linux-kernel@vger.kernel.org
+In-Reply-To: <SI2PR04MB58957D08A31E56D73C751885A2862@SI2PR04MB5895.apcprd04.prod.outlook.com>
+References: <SI2PR04MB58957D08A31E56D73C751885A2862@SI2PR04MB5895.apcprd04.prod.outlook.com>
+Subject: Re: [PATCH v2] platform/x86: hp-wmi: add support for OMEN
+ 16-am2xxx boards
+Message-Id: <179122230394.27048.9839062081057759183.b4-ty@b4>
+Date: Mon, 05 Oct 2026 20:45:03 +0300
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -65,16 +68,15 @@ Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
 X-Mailer: b4 0.15.2
 
-On Fri, 18 Sep 2026 11:14:58 +0200, Marco Scardovi wrote:
+On Sat, 19 Sep 2026 09:24:25 +0800, Shuwen Bao wrote:
 
-> ASUS WMI management methods share a single firmware/EC mailbox that is
-> not re-entrant. Concurrent evaluations from ACPI notify, sysfs, HID
-> callers (hid-asus, asus-armoury) and debugfs can trigger nested SMIs or
-> corrupt the mailbox.
-> 
-> This series serializes every ASUS_WMI_MGMT_GUID evaluation through a
-> global mutex, then drops the old per-device wmi_lock that only covered
-> WLAN rfkill hotplug.
+> The HP HyperX OMEN 16-am2xxx (DMI board 8F1C, 26C1 platform cycle,
+> Arrow Lake-HXR) is listed in the OMEN Command Center device
+> capability table with DisplayName "HyperX OMEN 16" and the
+> "PerformanceControl" feature, but is missing from the kernel's
+> omen_thermal_profile_boards whitelist. The thermal profile path is
+> therefore not enabled and the embedded controller keeps the CPU
+> pinned at the default frequency cap while running Linux.
 > 
 > [...]
 
@@ -89,10 +91,8 @@ commit introduced in the most recent cycle or is clearly a regression
 fix.
 
 The list of commits applied:
-[1/2] platform/x86: asus-wmi: Serialize WMI method evaluations with a mutex
-      commit: cb63a1472d982dd837fb148eabfcf1ad0dee161c
-[2/2] platform/x86: asus-wmi: Remove redundant per-device wmi_lock and duplicate rfkill ops
-      commit: 293806b33aec63f2d47f51dae9ad26bd47afc552
+[1/1] platform/x86: hp-wmi: add support for OMEN 16-am2xxx boards
+      commit: b631ab75e946ba7a4adf95ba8b2fb42e72f14e0e
 
 --
  i.
