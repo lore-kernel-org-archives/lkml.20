@@ -1,119 +1,127 @@
-Received: from mail-wr2-f34.google.com (mail-wr2-f34.google.com [74.125.225.98])
+Received: from mta1.migadu.com (out-80.mta1.migadu.com [95.215.58.80])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CEA4F37882B
-	for <linux-kernel@vger.kernel.org>; Mon,  5 Oct 2026 07:22:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.98
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EAD041C5D72
+	for <linux-kernel@vger.kernel.org>; Mon,  5 Oct 2026 07:23:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.80
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791184936; cv=none; b=B9W7Hl2KfbtslKJclJ7hXm8L+n7KBMbBwGkzMLklzB+i9tSPXSXrbRqB7wDwun/a6yEVxB+bxLL8wroJAukOlwL5Jvyh31kXcW/POSSSSgZFeL8/S81Vn5K3QcOKMxQobvhUHIPCMC9NR/ftKhmOp8IbrLVKC+IWqewezGADihg=
+	t=1791185042; cv=none; b=mQY5GnCc/gVwPVZoWnGdBamVEaM/F2xltPWacrlrNxgsX/TP00Pvd/0bp5VvsJepGMsg8xcsoLYNYXjBdHa9sgKrVTPtvRhlwj2BUU/fJRRIypbKt7FHZpJxAXVQHYdPj/TLPfYNss9b1F/Zjd2UScuEfhjG5lHFWFYjwx8Ul9g=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791184936; c=relaxed/simple;
-	bh=Pb9pP7DCmWh8PRBTVTFxpapJkTRbJ69H744kGtzqF8c=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=kOYjEetx+ETTRpyQShd69paoHngRXoJv6ODjLKY8cutIxqhgCMFSqpS4H3qzCDGFh94/Ns8mvxjtETiACcVt5iSsMLkQcE4kxKOtJaDKiVVRKSQU36VGu6tf/yUpLGr/O4m1fKh3eIURH964AXdXRCdCek515Bp2lgJ6WVDg/hM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=djwEgbCR; arc=none smtp.client-ip=74.125.225.98
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1791185042; c=relaxed/simple;
+	bh=Gmsh/yjeWQhuRRzt7tOzKvgXe8nse8xEadBQY+u8XjM=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=udr56FIspxtQWkVXEpkMS8KEAmcuIrQ//RVs62n5+CfUf2uPQ4p///euNpaL4YoQ8zpv3tBFgS9bzzSLnv6bL4MKBXepe0xrOti1pFktcridBmPZ0Yo+BMBkTazK0VmZszgBJIa+Qba9M+icynpMGClIZ2W7FXaHE14sLBeS/gk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=wchswUTx; arc=none smtp.client-ip=95.215.58.80
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="djwEgbCR"
-Received: by mail-wr2-f34.google.com with SMTP id ffacd0b85a97d-48af0707d41so644839f8f.1
-        for <linux-kernel@vger.kernel.org>; Mon, 05 Oct 2026 00:22:14 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791184933; x=1791789733; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=yWSA/QTkYQRPkO7iv6tttaOq45N/puN7vAoxmF26+iA=;
-        b=djwEgbCRICudKPvHU0Bl2FI/Gyhxwn7s38nDNeeJ8FZCuaOqpEazFnI/xq2MbLWCDb
-         zXqGruTIapVhca2US6tLWwDXBICzkdZeHB5n8Mtx7UDDm+V99EhiZCzOt3N1mluOSnWf
-         QRdB5UWiC0yMhqwaCKjQcZnbQYsX9o+ZnrHPwW6h7ChDc4wclMLa21FmXX2gcCxOOUL1
-         i2G8btEqC4Rpoa6LitgpmJtVQTXg8gza+YdEGb/jYoUPCg4LUanhRZGXi5kr0w91NTSx
-         CdB1jFzvwdQqiaUb+ZSPAmHn/KXaT0+VynmtNInVseRJXORMFESdsM3uDZc1GWi7el2j
-         sDgw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791184933; x=1791789733;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=yWSA/QTkYQRPkO7iv6tttaOq45N/puN7vAoxmF26+iA=;
-        b=XdwmKtIV9ZMpBO8Dnfbp9WOOF2YlSEoKJsbaGBER7Hf7NxDZcD/oSayx5VwPyElq9c
-         dgI7y/wSS5lpqgwLUrgZz1J3uYCVZSdGW/Stv5U0Wvn+xkOnj6Wn/4dX62iGJOEjmTTR
-         DG/mYTzyZolVkIxFGF/CE2zN00AnKHUHL4jhhgqOpw9ab2QHkX7mOI+SZMX2EYPVsFvR
-         T7t6LbOovRUs5/mqFkm+1AqI0Q5K2TDSEmez9F75wzgGsj4GR4nejCLL3DxOIYxAmZIH
-         4VX3QoepcxyBOt8raxWX7hsLa2PyticQ1C1ARbpHj2MYGJ96q64IuDicg0qGbg1/gnFh
-         9V8w==
-X-Forwarded-Encrypted: i=1; AKwUvBzkUGlv+ytL8ZDr/7JdeLP6lZEM6tUlpdSMjF4Sy6jMsaYnabgDpNRk/29nCY9YKSA9Bu38pEtndbKdcjg=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIa2oWBzhL0wcgYyQO5Yg1kzEwEgw+GD7b9yoHd88rebEMWYLxq
-	9L1CqkvXKDjpX/ur8xs52hXzYVR59wUcEPk2dKTHKwQORkt60BgjO6mE
-X-Gm-Gg: AYBFou2fiVlaxV3sArfR7tQLxIUUKr4E6lKu90E/1zVLbSYFSDIOBn+ShEsqYR2czWJ
-	r9V8Hy3rtP1/2gnixslUhL+9Z7DYdj+jHV17f1be3INP5gwKwjT9VGhY2kTykqid/hNlQPsPKuC
-	Stsx7AzgscGYJLKv5E9oJfPed79uXpv0hYM+c3qYwbe3fO4sgsEsMxedS/A+EQ6/0Hcswhy092R
-	W6sNb9j7F9stpS+MUmiLj/ldHrmQovPxwGxfGXB1VB/m6+WSTrX10r0K7qPmxXv6VZHEbMJDEaE
-	ypM27s0WdMRwrgYnE7Rei65x+fBCLVfIdbdHf6LTaVLferm6KmA4M7tYxRfWwZkjVRCT4F3YKMt
-	aVh5CrFxCrQs3vWojMAcoSHZpN18XaFH8VGz7A1pvbF8HCZgiLGDgbHgZeslaYePbXv+wCI3Qaw
-	6Thr1XiZUvZpGmqaerJdFuHQbk/A7zNaf2APBs5ac1Sw0rP2TwWDBMYZavt0zoQ7Cn+yNNIDYQ3
-	7GG
-X-Received: by 2002:a5d:5e0f:0:b0:488:8347:a110 with SMTP id ffacd0b85a97d-48b1272892cmr11686252f8f.7.1791184932933;
-        Mon, 05 Oct 2026 00:22:12 -0700 (PDT)
-Received: from deb05.proceq.com ([213.160.61.66])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48c622affadsm1642847f8f.40.2026.10.05.00.22.12
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 05 Oct 2026 00:22:12 -0700 (PDT)
-From: Mehmet Fide <mehmet.fide@gmail.com>
-To: =?UTF-8?q?Toke=20H=C3=B8iland-J=C3=B8rgensen?= <toke@toke.dk>
-Cc: Jeff Johnson <jeff.johnson@oss.qualcomm.com>,
-	linux-wireless@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	mehmet.fide@screeningeagle.com
-Subject: [PATCH ath-current 2/2] wifi: ath9k_htc: start ANI when an AP interface begins to beacon
-Date: Mon,  5 Oct 2026 09:22:09 +0200
-Message-ID: <20261005072209.4101009-3-mehmet.fide@gmail.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20261005072209.4101009-1-mehmet.fide@gmail.com>
-References: <20261005072209.4101009-1-mehmet.fide@gmail.com>
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="wchswUTx"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=Gmsh/yjeWQhuRRzt7tOzKvgXe8nse8xEadBQY+u8XjM=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1791185037; v=1; x=1791789837;
+ b=wchswUTx3q4XFhZr3lr+cgPzLyyaYnbldXpuAa9VsE3xssRtOj4zVsJIpyLPxu3HEhVRX2ME
+ M3HYnlJv8VM/2eyRq3DwN4cP+SlhP/xQuacqs9sKiTsnAyr7bF6c6H+kpfYvFo7D/R9u7eNhQ0k
+ wR66Obpf1Ms+0IuHeSUFnnL4=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 943f59b3aa53cf7d;
+	Mon, 05 Oct 2026 07:23:57 +0000
+X-Mizu-Trace-ID: 943f59b3aa53cf7d
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <c6421cab-1a21-4d39-87ff-05dc7be6bc02@linux.dev>
+Date: Mon, 5 Oct 2026 15:23:45 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/1] x86/mm: fix incomplete page-table invalidation with
+ TCE
+To: Nadav Amit <nadav.amit@gmail.com>
+Cc: dave.hansen@linux.intel.com, luto@kernel.org, peterz@infradead.org,
+ tglx@kernel.org, mingo@redhat.com, bp@alien8.de, x86@kernel.org,
+ hpa@zytor.com, riel@surriel.com, linux-kernel@vger.kernel.org,
+ qi.zheng@linux.dev, thomas.lendacky@amd.com, kernel-team@meta.com,
+ linux-mm@kvack.org, akpm@linux-foundation.org, brendan.jackman@linux.dev,
+ jannh@google.com, mhklinux@outlook.com, andrew.cooper3@citrix.com,
+ Manali.Shukla@amd.com, mingo@kernel.org, stable@vger.kernel.org,
+ toshi.kani@hpe.com, david@kernel.org, mikhail.v.gavrilov@gmail.com,
+ pfalcato@suse.de
+References: <20261005052302.43042-1-lance.yang@linux.dev>
+ <D8AEF6EF-D92A-4838-95A7-EB93BE319BE1@gmail.com>
+Content-Language: en-US
+From: Lance Yang <lance.yang@linux.dev>
+In-Reply-To: <D8AEF6EF-D92A-4838-95A7-EB93BE319BE1@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-From: Mehmet Fide <mehmet.fide@screeningeagle.com>
 
-ath9k_htc_vif_reconfig() re-arms ANI after a channel change when an AP
-interface beacons. mac80211 configures the channel before it enables
-the beacon, so during a normal AP start that never triggers, and the
-start from add_interface that the previous patch removed was cancelled
-by the same channel configuration: with hostapd, ANI and the periodic
-calibration it drives did not run in AP mode until a later channel
-change.
 
-Start ANI when the beacon is enabled. The channel and its calibration
-data are in place by then, which is the state vif_reconfig() re-arms
-it in, and remove_interface() already stops it with the last AP
-interface.
+On 2026/10/5 14:38, Nadav Amit wrote:
+> 
+> 
+>>
+>>
+>> On 5 Oct 2026, at 8:23, Lance Yang <lance.yang@linux.dev> wrote:
+>>
+>> pud_free_pmd_page() uses a single-address invalidation to flush the
+>> paging-structure caches before freeing the page tables. With AMD TCE
+>> enabled, this only invalidates upper-level entries associated with the
+>> target address. Cached PMD entries for other addresses in the PUD range can
+>> still reference the PTE pages being freed.
+>>
+>> The AMD manual quoted in the commit enabling TCE says these instructions
+>> remove
+>>
+>>   "only those upper-level entries that lead to the target PTE in the page
+>>   table hierarchy, leaving unrelated upper-level entries intact."
+>>
+>> Even with all PTEs cleared, speculative page walks can cache present PMD
+>> entries after the earlier TLB purge.
+>>
+>> Use a full TLB flush before freeing the page tables on CPUs with TCE. Keep
+>> the single-address invalidation otherwise.
+>>
+>> Fixes: 440a65b7d25f ("x86/mm: Enable AMD translation cache extensions")
+>> Cc: stable@vger.kernel.org
+>> Signed-off-by: Lance Yang <lance.yang@linux.dev>
+>> ---
+>> arch/x86/mm/pgtable.c | 11 ++++++++++-
+>> 1 file changed, 10 insertions(+), 1 deletion(-)
+>>
+>> diff --git a/arch/x86/mm/pgtable.c b/arch/x86/mm/pgtable.c
+>> index 4a105f283cfb..6b7fa44f1bf6 100644
+>> --- a/arch/x86/mm/pgtable.c
+>> +++ b/arch/x86/mm/pgtable.c
+>> @@ -727,7 +727,16 @@ int pud_free_pmd_page(pud_t *pud, unsigned long addr)
+>> 	 * via normal page walks. Make them unreachable
+>> 	 * in cached mid-level walks too:
+>> 	 */
+>> -	flush_tlb_kernel_range(addr, addr + PAGE_SIZE-1);
+>> +	if (boot_cpu_has(X86_FEATURE_TCE)) {
+>> +		/*
+>> +		 * With TCE enabled, a single-address flush does not invalidate
+>> +		 * cached PMD entries for the rest of the PUD range.
+>> +		 */
+>> +		flush_tlb_all();
+>> +	} else {
+>> +		/* INVLPG to clear all paging-structure caches */
+>> +		flush_tlb_kernel_range(addr, addr + PAGE_SIZE-1);
+>> +	}
+>>
+> 
+> 
+> It might be cleaner to replace flush_tlb_all() with:
+> 
+> 	flush_tlb_kernel_range(addr, addr + PUD_SIZE - 1);
 
-Fixes: a236254c35f0 ("ath9k_htc: Add ANI for AP mode")
-Signed-off-by: Mehmet Fide <mehmet.fide@screeningeagle.com>
----
- drivers/net/wireless/ath/ath9k/htc_drv_main.c | 3 +++
- 1 file changed, 3 insertions(+)
+Looks much cleaner, Thanks!
 
-diff --git a/drivers/net/wireless/ath/ath9k/htc_drv_main.c b/drivers/net/wireless/ath/ath9k/htc_drv_main.c
-index a86dd28b0ab7..6578114a4019 100644
---- a/drivers/net/wireless/ath/ath9k/htc_drv_main.c
-+++ b/drivers/net/wireless/ath/ath9k/htc_drv_main.c
-@@ -1551,6 +1551,9 @@ static void ath9k_htc_bss_info_changed(struct ieee80211_hw *hw,
- 		ath9k_htc_set_tsfadjust(priv, vif);
- 		priv->cur_beacon_conf.enable_beacon = 1;
- 		ath9k_htc_beacon_config(priv, vif);
-+		if (priv->ah->opmode == NL80211_IFTYPE_AP &&
-+		    !test_bit(ATH_OP_ANI_RUN, &common->op_flags))
-+			ath9k_htc_start_ani(priv);
- 	}
- 
- 	if ((changed & BSS_CHANGED_BEACON_ENABLED) && !bss_conf->enable_beacon) {
--- 
-2.55.0
+> While the flush-ceiling would usually end up doing a full flush, the
+> code would be easier to follow (the very least). Maybe adding stride
+> to kernel TLB range flushing would make sense in the future.
 
+Ack.
