@@ -1,220 +1,233 @@
-Received: from danaos.cslab.ece.ntua.gr (danaos.cslab.ece.ntua.gr [147.102.3.1])
+Received: from CH1PR05CU001.outbound.protection.outlook.com (mail-northcentralusazon11010042.outbound.protection.outlook.com [52.101.193.42])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 36FBD47FB0E
-	for <linux-kernel@vger.kernel.org>; Mon,  5 Oct 2026 12:55:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=147.102.3.1
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791204927; cv=none; b=G1baWpKhWzpdiZ6DRsq+1xDht55eFUm8CZXC1X6GDHyHUIye00lGCuo+J3GsrJYS0q3b+ZBM2RLc3//a1tPWNMef70uCn0VmW2WG0JfsDNaSbYQoq4r20l74pAQIwavr1M7fhjbKcnWQt71GYMlEYOQMdqxqDrH0TV0p8lc9Cs0=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791204927; c=relaxed/simple;
-	bh=fXp7h2rHbHsWDFrqkaM8imFFBwCEum9UGuEfbc0UrnI=;
-	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=C0+0UheEEqVDGhjBNYWEzluYZx0/gBH+A8sKTStZcY0BwQtLHFBui75xa4VaiRS9lMgrirSJeR+QvPVJ5Hg1RiXkgbgVP2fBxqRBNK3Vi1M/tjW46FagOEfhM1r0NFRjA0PJxJAk78nyJKbXvDhjkaVXtWNr//MWL1I56zrUBq4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cslab.ece.ntua.gr; spf=pass smtp.mailfrom=cslab.ece.ntua.gr; dkim=pass (1024-bit key) header.d=cslab.ece.ntua.gr header.i=@cslab.ece.ntua.gr header.b=rBHfoPJ5; arc=none smtp.client-ip=147.102.3.1
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cslab.ece.ntua.gr
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cslab.ece.ntua.gr
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EC518248867;
+	Mon,  5 Oct 2026 12:56:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.193.42
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791204996; cv=fail; b=lMfIksFCeTDK2PRpVCM2NFLa1dbWVwT/Ip/6OUMfNkFRyVO8wTlialvkjOZDyb0UbjmGYw4ObhO/SwJ+A4ZUp8gzzUvWkjzQWmbByziwAvEY8uhWW0p+s/OIbmhHrxQUAcYhddyvF74IYETbFE8yDHjr6BnkKYMkRmh/3bCUKQw=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791204996; c=relaxed/simple;
+	bh=reybL2doTeJhOmv+aJD9erxT+aE6e8miXIbwgJl/uSc=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:MIME-Version; b=WGgLFgQhv2zkVyqOLFKH8hdW1EqU2XbdILQUABC37S90J4su1Z8DJpoBau9tLpeP5IWj9xZBQXSFh9tLUCGOL5VPUxX5+W5GoUF7hpj0Q3zc4F8KFXv9y14Nptq3EX+YghaGHLH3Q1Xt1DkJsNAs8VoaVL8O4ENJ6oDeWNlt0oo=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=DatXNvYv; arc=fail smtp.client-ip=52.101.193.42
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=cslab.ece.ntua.gr header.i=@cslab.ece.ntua.gr header.b="rBHfoPJ5"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=cslab.ece.ntua.gr;
-	s=smtp-cslab; t=1791204479;
-	bh=fXp7h2rHbHsWDFrqkaM8imFFBwCEum9UGuEfbc0UrnI=;
-	h=From:Subject:Date:To:Cc:From;
-	b=rBHfoPJ55o+ajFEUQvdu9OsjAWoX+mpWgDOGV007ng4iU+Z1hgdGbTBu2IBHgioOl
-	 VemXHcY63Y8RWgYT/MMgMyQyLRxy1vOsuAeb4F1hESm6K2xtQe3eP8mTqULT7hCOAN
-	 zN0g2exXPZs1OM96KV0xhDMEHfCZ5bUF7FLUuoIw=
-Received: from [127.0.0.1] (armor.cslab.ece.ntua.gr [147.102.4.33])
-	by danaos.cslab.ece.ntua.gr (Postfix) with ESMTPSA id 264E21200FD;
-	Mon,  5 Oct 2026 15:47:59 +0300 (EEST)
-From: Dimitris Charisis <dchar@cslab.ece.ntua.gr>
-Subject: [PATCH v3 0/2] maple_tree: fix maple_range_64 crashes in RCU mode
-Date: Mon, 05 Oct 2026 12:47:26 +0000
-Message-Id: <20261005-fix-maple-tree-range64-rcu-v3-0-ebe7fb278e20@cslab.ece.ntua.gr>
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="DatXNvYv"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=Ni+/mkX1e62PVR+q+5QZJC9Cz/VUPf4ZCWZevbznh9XwfJ7WcJfSPuyT4FnvRLFe5vke8Ox1XD1s7wPDPlPnYBo5R50Te+ws5mCB7di2VkYwaMCED4qWdk0xx3zGbZHGx3RlmLadAYvsuicukWqMK20GzQO/WD0cRC+viCTkdMz/tfuDCdHlikMyDRDP1sZNpSHd0o751vRWY4aCQ5oe0UsztEtkx5rpkNIqdLilxaQP4o4ZIXeGPSNI56mBXSDBII3PcXYglk3eX4/e3OrKbwi+KVMXkt7cvPTELlBh/GhX6TCXqVtgY9AaIMLzOEvS27RgqqYuAhbpBqjm4y+6cQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=reybL2doTeJhOmv+aJD9erxT+aE6e8miXIbwgJl/uSc=;
+ b=Zlh5QiKH/0dnPSDgetdoHI1aRbexVkeEJw66HQLHaukrZZ5Jk6CMwcYfR9afSG6Um+s378Fx9y+z8oHYa4GzERggZip5DiImXgiz36csajIj+kGI0a8q6UZQOfYOqlMRFK9kn56Zq+ydwAzO3To6WzeK4pBHs1s0NiGvPBeFMNq3aWe3i2NdkSSBbTPOw0G79N/wFsKYA12AX9TBMY0IqkXX+cotguzg9+xYyfQh8Ljj/vnvXVDE27wsfC7ojn53ZOm5dihJ+qi+Bshignx7v4usVERdHC9+qBoXiAUrD+J2NDlv7glvDxYfmb7ePqUadGjWTdm0AAyCwRbNFORwnA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=reybL2doTeJhOmv+aJD9erxT+aE6e8miXIbwgJl/uSc=;
+ b=DatXNvYvFqDh2Afi31Gh7fdeERnhJaMKny0oK7TFMjx8l5yJW51+blYi5uk6+SrMYMUuueHl5ZcN71oIjau4cyPESeJfbpUVQmp2fAZgKLMvL162iq7NNDoQf7ApEJifv1TrWLHBI2ymNY16DKc3swEbt0AY25FxM9nj/RPxHVLI7ONu8QyaQp5cC2LH6+xsrE2c8kmZwhPQKmn+WEvhyzd5ZKFxEGPYhQfOXukfki/d0su8mo9hkgugI0haC0sMreODUs0wDIa8B1P8bpnKec0QVhhg+u7Pbd+HIlV42k/Rb/+oPClkEu+9Ge/nYXKoIKhCMQi0vZ+6voxswoiSqA==
+Received: from CY5PR12MB6479.namprd12.prod.outlook.com (2603:10b6:930:34::17)
+ by IA1PR12MB6161.namprd12.prod.outlook.com (2603:10b6:208:3eb::21) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.23; Mon, 5 Oct
+ 2026 12:56:30 +0000
+Received: from CY5PR12MB6479.namprd12.prod.outlook.com
+ ([fe80::229a:704f:1349:5056]) by CY5PR12MB6479.namprd12.prod.outlook.com
+ ([fe80::229a:704f:1349:5056%4]) with mapi id 15.21.0472.015; Mon, 5 Oct 2026
+ 12:56:30 +0000
+From: Joel Fernandes <joelagnelf@nvidia.com>
+To: Cunlong Li <shenxiaogll@gmail.com>
+CC: Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>,
+	Randy Dunlap <rdunlap@infradead.org>, "Paul E. McKenney"
+	<paulmck@kernel.org>, Frederic Weisbecker <frederic@kernel.org>, Neeraj
+ Upadhyay <neeraj.upadhyay@kernel.org>, Josh Triplett <josh@joshtriplett.org>,
+	Boqun Feng <boqun@kernel.org>, Uladzislau Rezki <urezki@gmail.com>, Steven
+ Rostedt <rostedt@goodmis.org>, Mathieu Desnoyers
+	<mathieu.desnoyers@efficios.com>, Lai Jiangshan <jiangshanlai@gmail.com>,
+	Zqiang <qiang.zhang@linux.dev>, "linux-doc@vger.kernel.org"
+	<linux-doc@vger.kernel.org>, "linux-kernel@vger.kernel.org"
+	<linux-kernel@vger.kernel.org>, "rcu@vger.kernel.org" <rcu@vger.kernel.org>,
+	Cunlong Li <shenxiaogll@gmail.com>
+Subject: Re: [PATCH] rcu: Enable runtime reset of the RCU stall panic count
+Thread-Topic: [PATCH] rcu: Enable runtime reset of the RCU stall panic count
+Thread-Index: AQHdU526ny8tIQKGAkCWrNqZ8LpGfbbu6qay
+Date: Mon, 5 Oct 2026 12:56:30 +0000
+Message-ID: <00F6D386-FE41-42E3-9B89-07381A49E061@nvidia.com>
+References: <20261004-rcu-v1-1-3799a44367f1@gmail.com>
+In-Reply-To: <20261004-rcu-v1-1-3799a44367f1@gmail.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+authentication-results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: CY5PR12MB6479:EE_|IA1PR12MB6161:EE_
+x-ms-office365-filtering-correlation-id: d75e9520-f84e-42ac-fbc8-08df22e01388
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam:
+ BCL:0;ARA:13230040|1800799024|376014|23010399003|7416014|366016|5023799004|10067099003|11063799006|56012099006|3023799007|6133799003|22082099003|18002099003|38070700021;
+x-microsoft-antispam-message-info:
+ VLBwd010gW19xMuKhWyGi4n8CaJb7o+JSMmeiOjgCyla0uLN3ntQQsezcn9ME0QCzN6NIe8vtcVZhnivnYCwI3F1PPA01yMIXocb8UD9L7Qc9jFY2YLjYEXcHs7V36wRknk38H9zWD96KVoZUlt4X1KWKYmf5z26/BXhR7r8pstNWtc/RwLjO+ZDuebZHArMKtzqfaMsyLX1zUj7VjPpPg+SKjwGzzP+nGH7/VYxzaEftoZNJ3Ktm+ZEgWeeigmeoxqey1t/7EsPZXCMo2XUoxLJ+0BoCohHYJmdRXAfZBxTLp0rhPzX0fLZ/4APevt1m7DyF1o/TOzo5a7smH3J/OHfLNEBWeHfsY7IC0JzBFCSNhkj9cpN20MgkL9ICvVTrbB0PfeeLG5PM+9CI81PRVUB2m+vNzlG/T4B3Ef8DQTqdS0L/4o1mZFpPikPZlcHYJsfgnU+aEa5/5n7pF+kL86InPUxZCaFWVo0hoYl2KqDTnSuwHoJe1P53q1xzkPP8LFOhlj9RnqLUS2sIAl9ZrrMHTQoN3HMTfaV9d/2xKVa/dEqC6V+FHMbU74nrRj0j2ITr586KxU3Zc3vQZqOFz51CNJbD2bIvlp8RUB79/fSqh8MMVcimdd7oEfe3foWH/qRbdLfQDaWfvzah1MNio9nQChC5FDcdIZRXTYixpu8OkRBBoimzxAdDTxqMsQdfwnw7nQWmCn2cU3Ym6Z5leLc6+/9+jZ0AGXSDv3XhME=
+x-forefront-antispam-report:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CY5PR12MB6479.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(376014)(23010399003)(7416014)(366016)(5023799004)(10067099003)(11063799006)(56012099006)(3023799007)(6133799003)(22082099003)(18002099003)(38070700021);DIR:OUT;SFP:1101;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0:
+ =?utf-8?B?akN0YnZSTkxlMmNzZm9lZzJOU0FBZ3NOTmNqc3NsVW9sMWpZTmU0MzZIaDRv?=
+ =?utf-8?B?SENqZncvMkZwMEs2M0dMaCtIa0lSTGE0c0xPcmxBSmNPWWtPc0V2SWh6S29m?=
+ =?utf-8?B?VVJlV0FhSUNxS1B3R2NVdi9UWlB0WWlWdWVYOTd0ZEFmY2hpYlRFZ1ptbjZ0?=
+ =?utf-8?B?WW5VMmlsd01UZEhGa3h6QVVsUm1GSlVkaFZhVkpBTXZVQkdnNlczV29zUm5o?=
+ =?utf-8?B?bU5Qd3NnU3VWY3NBMjY0Z1ZLdXF0VGNDWXZ4WFpvOUZvYy93Qlh4aWx6Q2N4?=
+ =?utf-8?B?T1FybDNmWlFFSVlNOVUwTDJvM2dncHJDbG5QSG5taGhJalZueDdPaEFLQkFB?=
+ =?utf-8?B?NlA2eFR4UDN3YUxhVG9OSUhEUnNvRUpKb2tuR3Z4VU9mM0l1UGZST0VEeXJF?=
+ =?utf-8?B?OENYcGFiUDBYeGVNcWtBZ1d6Z1BRUEJWRnlaRDhkbXcvV0VUSHV4c1dPU3VS?=
+ =?utf-8?B?Mk10ZkxvOUNBamcrRVVIL0hUY0N5MmowaDhybVdWS0gvTzNqQUxxamcvVWJq?=
+ =?utf-8?B?ZjFFcytKM0lyYjV2ZmlpMUVLcTNLdUhSSkJ3c1R0WEhlOW9pcVRWTzl2NTQy?=
+ =?utf-8?B?WlZpeTdiNXYwTUk2OEsrQkU5bWNsYmNJd0RjRS9TV0tqSTlqR0V0UmU2WXl5?=
+ =?utf-8?B?WjFUcnhzVXAvZXUzMzh5SVpzTjA5anc4RlBVZHVCR0JaM3ZxT3hVVGF5bEx2?=
+ =?utf-8?B?Y2owZjNNYitHcThmeHRNcmllR2lva1lWNUljY3EvMlBRZG01OGlCVTdRNllB?=
+ =?utf-8?B?ZW41Wmc5SFBrOEh2WDR4K2lXcllwMDVaRUJWdldBT3Z0d1BpNlJ1ZmRzTFIy?=
+ =?utf-8?B?UW5KUENaWVR4Q1Y5RGYrSWFENDdpUSt5MnFJNDZrUmZRYmlnZnRMNWVJdXAw?=
+ =?utf-8?B?V1dMdGRUQk1BTndFZ0llT05DN1I2UUVNdlVIbzBYZm01YUJxK2lybWh1a3Ro?=
+ =?utf-8?B?eTN2L05uUWF2YjFOUkNIc09VWjY0dHVDQjlzaVNnajhTT00rc1RSd0VQbGE3?=
+ =?utf-8?B?VCtqTkRrLzg4cWFNZzN0N3U3ZnI0YVhYNTBUM2lLOXlhaDk3bnhGb1NXdUJr?=
+ =?utf-8?B?MkRUQ3l1Z2tkYnl0aWM0SE0rUjY3K2hWSnZqaUVscmNhRElLb3RGWWtQRHha?=
+ =?utf-8?B?NkhqYVV0YUVZWnY2Ymd0blpaYTFXVlB3WGF5c1JtUTc2NC9yRnlSTnordVJG?=
+ =?utf-8?B?SU1OTmVWQjJTc01qVmk0bGV2S0ZDcXRHWDl4VjlHTDJhUkFoeDRpekZRWWZM?=
+ =?utf-8?B?cGMyVlJSczkzUjNKUzU1WHFFdWoxWGd3SzJRVit4SFZRWmpZNGJYcm1nZTNr?=
+ =?utf-8?B?Zlg5MURRL21xeHVuM0lqdDdWOVpERTlmZHpwVk9EeUM4YWpGVXB6Wi8yVTN2?=
+ =?utf-8?B?Z2ZVVWI2Y1BMZ2s0d1J5K0lWejZncmVMUUxEVEFaRWlUYWhnU0FSMWYvMFdY?=
+ =?utf-8?B?VDRpMFp2MWVMQUxINitUZmtiQjRMNldqMTlVYlUxcjMydksrQ2srcy9Feis5?=
+ =?utf-8?B?TjB1RUhRcnMyQkdnSUdmVXpKMjVGNVpydVBmVitXMGMyb3NnSVczMXFwcDJS?=
+ =?utf-8?B?K3JjVC9NVVZHeGJRTEFRVUdsYlBGMUU3M0VlVFVrSy83UFUvdG1RK3IrOGpF?=
+ =?utf-8?B?amNKQTI5WVJGZnRHUGl1dnZYdlNHbVk2NGRtaGwzRWhueEJaRHJxV0VrQjhp?=
+ =?utf-8?B?YnpKMUNCc3hJWUhOR3lPZWxvdjl2VlJaL2d0UzFWS01UVjdpVXgyNTNRSXZh?=
+ =?utf-8?B?VXd5dnN2bm1BVDNQR3VXdmNKTkRNSmpSQXJONlU0ZWFGbG54RnZzcHRMeS96?=
+ =?utf-8?B?bnF0anAwckNwQkcyZFpna05zSEhPREFwQjU3LzJGMDRkaWcwUE1DNkNRaDU1?=
+ =?utf-8?B?cDRxekJsZ3paSFl1MVdWa1dRSHBqQkpPNStkVEk3ODdZcG1KVEhuY01FRXdq?=
+ =?utf-8?B?RG9HR0tTYUpvR3FLQnZVeDB4U0RRaS9PL0RvUllaTDZrQ1FXMGVuN2k1bS9C?=
+ =?utf-8?B?Smh5eGJoTVpYV1F2K0pEVC9DUlJ4OC90QlhFblNxS1JoUithRVd4K0VYcUtn?=
+ =?utf-8?B?Z2dQN3ZaM3FYdGFxdnRWRWpRM3BEcjQ1SGdZV21lTHZDMXl4citmUkU0YzlC?=
+ =?utf-8?B?dUwwK0hHbk5lU2NRa3JqN3M5UjhxUDlYR3pPWkxEcmpRM2RjSVFKS3ZGSFAr?=
+ =?utf-8?B?aU5NRUtpamYzYnd2dWN6RmM0ZWtpdDVWdU1YNyszM3diYWJpdVhuSlZpVW9Y?=
+ =?utf-8?B?U1crUm5EOHhxbkxmS2dadWs1U1dSRXRQRHd5R2RDTmZBT3RBNWlsS01KU0k4?=
+ =?utf-8?B?MjQ2emF2ekNOWDByVmIvZVlzb0NXbzczRmlTWWpucTBoakR6bXMrQT09?=
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAF6cw2oC/33NTQ6CMBCG4auYrh3SHy3iynsYF20ZoAkCmUKjI
- dzdQmLiwrB8J1+emVlA8hjY9TAzwuiD77sU6nhgrjFdjeDL1ExyqXkhJFT+BU8ztAgjIQKtG30
- CchNwWRlVSjwXJmcJGAjTesPvj9SND2NP7+1XFOv1y6o9NgrgoIQRilt7cba6udAam6HDrBsnk
- 9XEVj7KX1LvkjKR3PKiRJWj1cU/clmWD8v1+6ofAQAA
-X-Change-ID: 20260912-fix-maple-tree-range64-rcu-02fa3d2e59a7
-To: Andrew Morton <akpm@linux-foundation.org>, 
- "Liam R. Howlett" <liam@infradead.org>, Alice Ryhl <aliceryhl@google.com>, 
- Andrew Ballance <andrewjballance@gmail.com>, 
- Suren Baghdasaryan <surenb@google.com>, 
- "Matthew Wilcox (Oracle)" <willy@infradead.org>
-Cc: maple-tree@lists.infradead.org, linux-mm@kvack.org, 
- linux-kernel@vger.kernel.org, Dimitris Charisis <dchar@cslab.ece.ntua.gr>
-X-Mailer: b4 0.14.2
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: CY5PR12MB6479.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: d75e9520-f84e-42ac-fbc8-08df22e01388
+X-MS-Exchange-CrossTenant-originalarrivaltime: 05 Oct 2026 12:56:30.5336
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: qaY7Yp3dputrv36z03X78HnDnkFVlH6YYnQ+hRoVkuO4oqPPsnOVxWSFykuo+jryrPqbV44pOxDrWDgMyQr0Hw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB6161
 
-The patch series fixes two RCU destroy path issues on maple_range_64
-nodes. Both arising from the fact that a maple_range_64 node repurposes
-the last slot to hold metadata when the node is not full. Patch 1
-addresses the issues, and patch 2 adds a test used to catch them.
-
-Currently there is no in-tree user of maple_range_64 nodes in RCU mode.
-All in-tree users of MT_FLAGS_USE_RCU also set MT_FLAGS_ALLOC_RANGE
-which makes the internal nodes maple_arange_64.
-
-Below is the minimal reproducer used during debugging:
-
-static DEFINE_MTREE(tree);
-static int __init maple_fix_init(void)
-{
-        unsigned long i, j;
-
-        for (i = 10; i < 4000; i++) {
-                mt_init_flags(&tree, MT_FLAGS_USE_RCU);
-
-                for (j = 0; j < i; j++) {
-                        mtree_insert_range(&tree, j * 10, j * 10 + 9,
-                                        xa_mk_value(j), GFP_KERNEL);
-                }
-
-                mtree_destroy(&tree);
-                rcu_barrier();
-        }
-        return 0;
-}
-
-The splat for the first issue addressed by the first patch is shown
-below. mt_clear_meta() runs after the slots have been rewritten with raw
-pointers by mte_dead_leaves(), so it cannot recognize a valid last
-pointer because the type information is stripped. On my 64-bit LE
-machine, it clears bytes 248 and 249 of the maple_range_64 which are the
-two least significant bytes of the last pointer. The lowest byte is
-already zero, since nodes are 256-byte aligned, but zeroing byte 249
-corrupts the pointer.
-
-KASAN catches it as a double-free, because that corrupted pointer
-happens to land on a node that was freed previously. The splat appears
-at 226 insertions in the reproducer. This is when the tree has a full
-root node on a 64-bit build.
-
-  ==================================================================
-  BUG: KASAN: double-free in mt_free_walk+0x138/0x3a0
-  Free of addr ffff0000f3d40000 by task swapper/2/0
-  [...]
-  Call trace:
-   [...]
-   kmem_cache_free_bulk+0x5b8/0xc18
-   mt_free_walk+0x138/0x3a0
-   rcu_core+0x5d0/0x1638
-   rcu_core_si+0x18/0x30
-   [...]
-
-  Allocated by task 1218:
-   [...]
-   kmem_cache_alloc_from_sheaf_noprof+0xa8/0x2f0
-   dst_setup+0x210/0x630
-   mas_wr_split+0x568/0x26e0
-   mas_wr_store_entry+0x98c/0x1de0
-   mas_insert.isra.0+0x3d0/0x5d8
-   mtree_insert_range+0xec/0x1c8
-   maple_fix_init+0x94/0xff8 [maple_fix_obj]
-   [...]
-
-  Freed by task 0:
-   [...]
-   __kasan_slab_free+0x88/0xb8
-   __rcu_free_sheaf_prepare+0x94/0x360
-   rcu_free_sheaf+0x30/0x138
-   rcu_core+0x5d0/0x1638
-   rcu_core_si+0x18/0x30
-   [...]
-
-  The buggy address belongs to the object at ffff0000f3d40000
-   which belongs to the cache maple_node of size 256
-  The buggy address is located 0 bytes inside of
-   256-byte region [ffff0000f3d40000, ffff0000f3d40100)
-
-  [...]
-  Memory state around the buggy address:
-   ffff0000f3d3ff00: fc fc fc fc fc fc fc fc fc fc fc fc fc fc fc fc
-   ffff0000f3d3ff80: fc fc fc fc fc fc fc fc fc fc fc fc fc fc fc fc
-  >ffff0000f3d40000: fa fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb
-                     ^
-   ffff0000f3d40080: fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb
-   ffff0000f3d40100: fc fc fc fc fc fc fc fc fc fc fc fc fc fc fc fc
-  ==================================================================
-
-The second issue fixed in the first patch is in the mt_free_walk().
-mt_free_walk() descends by checking if the corresponding slot[offset]
-entry is non-zero. In a maple_range_64 node that has
-MAPLE_RANGE64_SLOTS-1 valid pointers to child nodes, all slots will be
-non-zero, since the last slot holds the metadata. Thus, mte_dead_walk()
-dereferences the metadata as if it were a node and hits the
-null-ptr-deref as shown in the splat below.
-
-After fixing the first issue, the reproducer reaches this case at 3166
-insertions. The affected node is the root on a tree with height 3 and it
-has 15 valid child nodes on a 64-bit machine. The first fix does not
-introduce this bug, but it exposes it for the root node because it no
-longer clears the root metadata. On an unmodified kernel, the same bug
-exists and is reachable when such a maple_range_64 node appears below
-the root, where mt_clear_meta() is not called.
-
-Second KASAN splat:
-
-  Unable to handle kernel paging request at virtual address dfff800000000006
-  KASAN: null-ptr-deref in range [0x0000000000000030-0x0000000000000037]
-  [...]
-  Call trace:
-   mte_dead_walk+0x78/0x140 (P)
-   mt_free_walk+0x1f8/0x3a0
-   rcu_core+0x5d0/0x1638
-   rcu_core_si+0x18/0x30
-   [..]
-
-Both splats are from an arm64 QEMU guest. The test_maple_tree and the
-userspace suite pass after each patch in the series.
-
----
-Note for reviewers:
-
-* Before commit 790e1fa86b34 ("maple_tree: add RCU lock checking to rcu
-  callback functions") mas_clear_meta() was called while descending the
-  tree, so metadata was cleared on every node. That commit removed the
-  call from the descend path leaving only the final call for the root
-  node, and renamed it to mt_clear_meta().
-
-  An alternative fix would be to restore metadata clearing for every
-  node and fix mt_clear_meta() for full maple_range_64 nodes. I
-  preferred removing the clearing and use slot_len to identify the valid
-  slots directly.
-
-Signed-off-by: Dimitris Charisis <dchar@cslab.ece.ntua.gr>
-
----
-Changes in v3:
-- Combine both fixes into one patch, as suggested by Liam, to avoid
-  leaving an intermediate commit where removing mt_clear_meta() exposes
-  the second bug at the root node.
-- Combine both regression tests into the next patch.
-- Link to v2: https://lore.kernel.org/r/20260916-fix-maple-tree-range64-rcu-v2-0-0b09de37eb69@cslab.ece.ntua.gr
-
-Changes in v2:
-- Add one test after each fix.
-- Reword the cover letter.
-- Link to v1: https://lore.kernel.org/r/20260913-fix-maple-tree-range64-rcu-v1-0-31a130bb8cbf@cslab.ece.ntua.gr
-
----
-Dimitris Charisis (2):
-      maple_tree: fix maple_range_64 crashes in RCU mode
-      test_maple_tree: test maple_range_64 node in RCU mode
-
- lib/maple_tree.c      | 43 +------------------------------------------
- lib/test_maple_tree.c | 32 ++++++++++++++++++++++++++++++++
- 2 files changed, 33 insertions(+), 42 deletions(-)
----
-base-commit: e2e54005e20fb42d4a5e140d70a65be4a2363045
-change-id: 20260912-fix-maple-tree-range64-rcu-02fa3d2e59a7
-
-Best regards,
--- 
-Dimitris Charisis <dchar@cslab.ece.ntua.gr>
-
+DQoNCj4gT24gT2N0IDMsIDIwMjYsIGF0IDk6MTTigK9QTSwgQ3VubG9uZyBMaSA8c2hlbnhpYW9n
+bGxAZ21haWwuY29tPiB3cm90ZToNCj4gDQo+IO+7v1RoZSBrZXJuZWwucGFuaWNfb25fcmN1X3N0
+YWxsIGFuZCBrZXJuZWwubWF4X3JjdV9zdGFsbF90b19wYW5pYyBzeXNjdGxzDQo+IGNvdW50IFJD
+VSBDUFUgc3RhbGxzIHNpbmNlIHN5c3RlbSBib290LCBhbmQgaW52b2tlIHBhbmljKCkgb25jZQ0K
+PiBtYXhfcmN1X3N0YWxsX3RvX3BhbmljIHN0YWxscyBoYXZlIGVsYXBzZWQuICBUaGlzIGNvdW50
+IGlzIG5ldmVyIHJlc2V0LA0KPiBzbyBzdGFsbHMgY2F1c2VkIGJ5IHRyYW5zaWVudCBpbmNpZGVu
+dHMga2VlcCBjb25zdW1pbmcgdGhlIGJ1ZGdldCBvZiBhDQo+IGxvbmctcnVubmluZyBzeXN0ZW0s
+IGFuZCBhIGxhdGVyIHVucmVsYXRlZCBzdGFsbCBjYW4NCg0KUGxlYXNlIHByb3ZpZGUgZXhhbXBs
+ZXMgb2Ygc3BlY2lmaWMgdHJhbnNpZW50IGV2ZW50cyB5b3UgcmFuIGludG8sIGFuZCByZWNvdmVy
+ZWQgZnJvbT8NCg0KPiBpbW1lZGlhdGVseQ0KPiB0cmlnZ2VyIHBhbmljKCkgaW5zdGVhZCBvZiBh
+bGxvd2luZyB0aGUgaW50ZW5kZWQgZnJlc2ggd2luZG93IG9mDQo+IHN0YWxscy4NCj4gDQo+IFRo
+aXMgY29tbWl0IHRoZXJlZm9yZSBpbnRyb2R1Y2VzIHRoZSBrZXJuZWwucmN1X3N0YWxsX3Bhbmlj
+X2NvdW50DQo+IHN5c2N0bC4gIFJlYWRpbmcgdGhpcyBmaWxlIHJlcG9ydHMgdGhlIG51bWJlciBv
+ZiBzdGFsbHMgY291bnRlZCBzbyBmYXIsDQo+IGFuZCB3cml0aW5nIDAgdG8gaXQgcmVzZXRzIHRo
+ZSBjb3VudC4gIFRoaXMgYWxsb3dzIHRoZSBjdW11bGF0aXZlIHN0YWxsDQo+IGhpc3RvcnkgdG8g
+YmUgY2xlYXJlZCBhZnRlciBhbiBpbmNpZGVudCBoYXMgYmVlbiByZXNvbHZlZCwgYW5kIGFsc28N
+Cj4gYWxsb3dzIHVzZXJzcGFjZSB0byBjbGVhciB0aGUgY291bnQgcGVyaW9kaWNhbGx5LCBzbyB0
+aGF0IHBhbmljKCkgaXMNCj4gb25seSB0cmlnZ2VyZWQgYnkgYSBidXJzdCBvZiBzdGFsbHMgb2Nj
+dXJyaW5nIHdpdGhpbiBhIHNob3J0IHBlcmlvZC4NCg0KQ291bGQgeW91IHByb3ZpZGUgZGV0YWls
+cyBvZiBzdWNoIGFuIGluY2lkZW50IHRoYXQgZ290IHJlc29sdmVkIHdpdGhvdXQgcmVxdWlyaW5n
+IGEgcmVib290Pw0KDQoNCj4gDQo+IFNpZ25lZC1vZmYtYnk6IEN1bmxvbmcgTGkgPHNoZW54aWFv
+Z2xsQGdtYWlsLmNvbT4NCg0KSWYgdGhlIGNvbW1pdCBpcyBBSSBhc3Npc3RlZCwgcGxlYXNlIGFk
+ZCBhbiBhc3Npc3RlZCB0YWcuDQoNClRoYW5rcywNCg0KSm9lbA0KDQo+IC0tLQ0KPiBEb2N1bWVu
+dGF0aW9uL2FkbWluLWd1aWRlL3N5c2N0bC9rZXJuZWwucnN0IHwgMTUgKysrKysrKysrKysrKyst
+DQo+IGtlcm5lbC9yY3UvdHJlZV9zdGFsbC5oICAgICAgICAgICAgICAgICAgICAgfCAyOCArKysr
+KysrKysrKysrKysrKysrKysrKysrKy0tDQo+IDIgZmlsZXMgY2hhbmdlZCwgNDAgaW5zZXJ0aW9u
+cygrKSwgMyBkZWxldGlvbnMoLSkNCj4gDQo+IGRpZmYgLS1naXQgYS9Eb2N1bWVudGF0aW9uL2Fk
+bWluLWd1aWRlL3N5c2N0bC9rZXJuZWwucnN0IGIvRG9jdW1lbnRhdGlvbi9hZG1pbi1ndWlkZS9z
+eXNjdGwva2VybmVsLnJzdA0KPiBpbmRleCBmZmVhNjFkNDQ4ZWIuLjY0ZmUyOTg1ZTM1OCAxMDA2
+NDQNCj4gLS0tIGEvRG9jdW1lbnRhdGlvbi9hZG1pbi1ndWlkZS9zeXNjdGwva2VybmVsLnJzdA0K
+PiArKysgYi9Eb2N1bWVudGF0aW9uL2FkbWluLWd1aWRlL3N5c2N0bC9rZXJuZWwucnN0DQo+IEBA
+IC05NTksNyArOTU5LDIwIEBAIG1heF9yY3Vfc3RhbGxfdG9fcGFuaWMNCj4gV2hlbiBgYHBhbmlj
+X29uX3JjdV9zdGFsbGBgIGlzIHNldCB0byAxLCB0aGlzIHZhbHVlIGRldGVybWluZXMgdGhlDQo+
+IG51bWJlciBvZiB0aW1lcyB0aGF0IFJDVSBjYW4gc3RhbGwgYmVmb3JlIHBhbmljKCkgaXMgY2Fs
+bGVkLg0KPiANCj4gLVdoZW4gYGBwYW5pY19vbl9yY3Vfc3RhbGxgYCBpcyBzZXQgdG8gMCwgdGhp
+cyB2YWx1ZSBpcyBoYXMgbm8gZWZmZWN0Lg0KPiArV2hlbiBgYHBhbmljX29uX3JjdV9zdGFsbGBg
+IGlzIHNldCB0byAwLCB0aGlzIHZhbHVlIGhhcyBubyBlZmZlY3QuDQo+ICsNCj4gK3JjdV9zdGFs
+bF9wYW5pY19jb3VudA0KPiArPT09PT09PT09PT09PT09PT09PT09DQo+ICsNCj4gK0luZGljYXRl
+cyB0aGUgbnVtYmVyIG9mIFJDVSBDUFUgc3RhbGxzIHRoYXQgaGF2ZSBiZWVuIGNvdW50ZWQgc2lu
+Y2UNCj4gK3N5c3RlbSBib290IG9yIHNpbmNlIHRoZSBjb3VudGVyIHdhcyByZXNldC4gV2hlbiBg
+YHBhbmljX29uX3JjdV9zdGFsbGBgDQo+ICtpcyBzZXQgdG8gMSwgdGhpcyBjb3VudCBpcyBjb21w
+YXJlZCBhZ2FpbnN0IGBgbWF4X3JjdV9zdGFsbF90b19wYW5pY2BgDQo+ICt0byBkZWNpZGUgd2hl
+dGhlciBwYW5pYygpIHNob3VsZCBiZSBjYWxsZWQuDQo+ICsNCj4gK1dyaXRpbmcgMCB0byB0aGlz
+IGZpbGUgcmVzZXRzIHRoZSBjb3VudGVyIHRvIHplcm8sIHdoaWNoIHJlc3RhcnRzIHRoZQ0KPiAr
+YGBtYXhfcmN1X3N0YWxsX3RvX3BhbmljYGAgd2luZG93IG9mIHN0YWxscy4gVGhpcyBhbGxvd3Mg
+c3lzdGVtDQo+ICthZG1pbmlzdHJhdG9ycyB0byBjbGVhciB0aGUgY3VtdWxhdGl2ZSBzdGFsbCBj
+b3VudCBhZnRlciBhbiBpbmNpZGVudA0KPiAraGFzIGJlZW4gcmVzb2x2ZWQsIHdpdGhvdXQgcmVx
+dWlyaW5nIGEgc3lzdGVtIHJlc3RhcnQuDQo+IA0KPiBwZXJmX2NwdV90aW1lX21heF9wZXJjZW50
+DQo+ID09PT09PT09PT09PT09PT09PT09PT09PT0NCj4gZGlmZiAtLWdpdCBhL2tlcm5lbC9yY3Uv
+dHJlZV9zdGFsbC5oIGIva2VybmVsL3JjdS90cmVlX3N0YWxsLmgNCj4gaW5kZXggMDkxZTc4NTBh
+YjZlLi5hODBmMDNlMWM3ZWEgMTAwNjQ0DQo+IC0tLSBhL2tlcm5lbC9yY3UvdHJlZV9zdGFsbC5o
+DQo+ICsrKyBiL2tlcm5lbC9yY3UvdHJlZV9zdGFsbC5oDQo+IEBAIC0xOSw2ICsxOSwyMCBAQA0K
+PiAvKiBwYW5pYygpIG9uIFJDVSBTdGFsbCBzeXNjdGwuICovDQo+IHN0YXRpYyBpbnQgc3lzY3Rs
+X3BhbmljX29uX3JjdV9zdGFsbCBfX3JlYWRfbW9zdGx5Ow0KPiBzdGF0aWMgaW50IHN5c2N0bF9t
+YXhfcmN1X3N0YWxsX3RvX3BhbmljIF9fcmVhZF9tb3N0bHk7DQo+ICtzdGF0aWMgdW5zaWduZWQg
+bG9uZyBzeXNjdGxfcmN1X3N0YWxsX3BhbmljX2NvdW50Ow0KPiArDQo+ICsvKiBSZXNldCB0aGUg
+UkNVIHN0YWxsIHBhbmljIGNvdW50IHdoZW4gd3JpdHRlbiB0by4gKi8NCj4gK3N0YXRpYyBpbnQg
+cHJvY19kb19yY3Vfc3RhbGxfcGFuaWNfY291bnQoY29uc3Qgc3RydWN0IGN0bF90YWJsZSAqdGFi
+bGUsIGludCB3cml0ZSwNCj4gKyAgICAgICAgICAgICAgICAgICAgIHZvaWQgKmJ1ZmZlciwgc2l6
+ZV90ICpsZW5wLCBsb2ZmX3QgKnBwb3MpDQo+ICt7DQo+ICsgICAgaWYgKCF3cml0ZSkNCj4gKyAg
+ICAgICAgcmV0dXJuIHByb2NfZG91bG9uZ3ZlY19taW5tYXgodGFibGUsIHdyaXRlLCBidWZmZXIs
+IGxlbnAsIHBwb3MpOw0KPiArDQo+ICsgICAgV1JJVEVfT05DRShzeXNjdGxfcmN1X3N0YWxsX3Bh
+bmljX2NvdW50LCAwKTsNCj4gKyAgICAqcHBvcyArPSAqbGVucDsNCj4gKw0KPiArICAgIHJldHVy
+biAwOw0KPiArfQ0KPiANCj4gc3RhdGljIGNvbnN0IHN0cnVjdCBjdGxfdGFibGUgcmN1X3N0YWxs
+X3N5c2N0bF90YWJsZVtdID0gew0KPiAgICB7DQo+IEBAIC0zOSw2ICs1MywxMyBAQCBzdGF0aWMg
+Y29uc3Qgc3RydWN0IGN0bF90YWJsZSByY3Vfc3RhbGxfc3lzY3RsX3RhYmxlW10gPSB7DQo+ICAg
+ICAgICAuZXh0cmExICAgICAgICA9IFNZU0NUTF9PTkUsDQo+ICAgICAgICAuZXh0cmEyICAgICAg
+ICA9IFNZU0NUTF9JTlRfTUFYLA0KPiAgICB9LA0KPiArICAgIHsNCj4gKyAgICAgICAgLnByb2Nu
+YW1lICAgID0gInJjdV9zdGFsbF9wYW5pY19jb3VudCIsDQo+ICsgICAgICAgIC5kYXRhICAgICAg
+ICA9ICZzeXNjdGxfcmN1X3N0YWxsX3BhbmljX2NvdW50LA0KPiArICAgICAgICAubWF4bGVuICAg
+ICAgICA9IHNpemVvZihzeXNjdGxfcmN1X3N0YWxsX3BhbmljX2NvdW50KSwNCj4gKyAgICAgICAg
+Lm1vZGUgICAgICAgID0gMDY0NCwNCj4gKyAgICAgICAgLnByb2NfaGFuZGxlciAgICA9IHByb2Nf
+ZG9fcmN1X3N0YWxsX3BhbmljX2NvdW50LA0KPiArICAgIH0sDQo+IH07DQo+IA0KPiBzdGF0aWMg
+aW50IF9faW5pdCBpbml0X3JjdV9zdGFsbF9zeXNjdGwodm9pZCkNCj4gQEAgLTE2MSw3ICsxODIs
+NyBAQCBlYXJseV9pbml0Y2FsbChjaGVja19jcHVfc3RhbGxfaW5pdCk7DQo+IC8qIElmIHNvIHNw
+ZWNpZmllZCB2aWEgc3lzY3RsLCBwYW5pYywgeWllbGRpbmcgY2xlYW5lciBzdGFsbC13YXJuaW5n
+IG91dHB1dC4gKi8NCj4gc3RhdGljIHZvaWQgcGFuaWNfb25fcmN1X3N0YWxsKGNvbnN0IHN0cnVj
+dCBjcHVtYXNrICpzdGFsbGVkX21hc2spDQo+IHsNCj4gLSAgICBzdGF0aWMgaW50IGNwdV9zdGFs
+bDsNCj4gKyAgICB1bnNpZ25lZCBsb25nIGNvdW50Ow0KPiANCj4gICAgLyoNCj4gICAgICogQXR0
+ZW1wdCB0byBraWNrIG91dCB0aGUgQlBGIHNjaGVkdWxlciBpZiBpdCdzIGluc3RhbGxlZCBhbmQg
+ZGVmZXINCj4gQEAgLTE3MCw3ICsxOTEsMTAgQEAgc3RhdGljIHZvaWQgcGFuaWNfb25fcmN1X3N0
+YWxsKGNvbnN0IHN0cnVjdCBjcHVtYXNrICpzdGFsbGVkX21hc2spDQo+ICAgIGlmIChzY3hfcmN1
+X2NwdV9zdGFsbChzdGFsbGVkX21hc2spKQ0KPiAgICAgICAgcmV0dXJuOw0KPiANCj4gLSAgICBp
+ZiAoKytjcHVfc3RhbGwgPCBzeXNjdGxfbWF4X3JjdV9zdGFsbF90b19wYW5pYykNCj4gKyAgICAv
+KiBBIGxvc3QgUk1XIHVwZGF0ZSBvbmx5IGRlbGF5cyB0aGUgcGFuaWMgYnkgb25lIHN0YWxsLiAq
+Lw0KPiArICAgIGNvdW50ID0gUkVBRF9PTkNFKHN5c2N0bF9yY3Vfc3RhbGxfcGFuaWNfY291bnQp
+ICsgMTsNCj4gKyAgICBXUklURV9PTkNFKHN5c2N0bF9yY3Vfc3RhbGxfcGFuaWNfY291bnQsIGNv
+dW50KTsNCj4gKyAgICBpZiAoY291bnQgPCAodW5zaWduZWQgbG9uZylSRUFEX09OQ0Uoc3lzY3Rs
+X21heF9yY3Vfc3RhbGxfdG9fcGFuaWMpKQ0KPiAgICAgICAgcmV0dXJuOw0KPiANCj4gICAgaWYg
+KHN5c2N0bF9wYW5pY19vbl9yY3Vfc3RhbGwpDQo+IA0KPiAtLS0NCj4gYmFzZS1jb21taXQ6IGNl
+MWUwMjIzZDhhZDQyMTEyNzVjODJhMTdlZDZkNDNhYjgxZTEzZDkNCj4gY2hhbmdlLWlkOiAyMDI2
+MTAwMy1yY3UtMzc1NDk2ZDc3MDRlDQo+IA0KPiBCZXN0IHJlZ2FyZHMsDQo+IC0tDQo+IEN1bmxv
+bmcgTGkgPHNoZW54aWFvZ2xsQGdtYWlsLmNvbT4NCj4gDQo=
