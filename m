@@ -1,163 +1,192 @@
-Received: from MW6PR02CU001.outbound.protection.outlook.com (mail-westus2azon11012061.outbound.protection.outlook.com [52.101.48.61])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3BBCF37C936
-	for <linux-kernel@vger.kernel.org>; Mon,  5 Oct 2026 07:57:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.48.61
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791187024; cv=fail; b=etLkqogxHVtMlumXcarSjcKyNsQi5Vy9YSftN8LDrW5Sx0oFndZjv+z01BXH8DZ6fvyaLKnPfoU4ArccYHmnDfN6jgdxnT+8N6v7iCInFHpi1+EhkXbRHukHm/iVoOgaCul09RGlLVNFymbEa+3fb5Fo4IaP4D/DkqsTW/yfziU=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791187024; c=relaxed/simple;
-	bh=lpiTOk4fFsQqRJWAJiHIDf9qUNCJyQZw1PUcOKl2nhY=;
-	h=Date:From:To:CC:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=iDc/WgpLNkyK7h9qdRemOic4lIr2hEgjqFiLWnLmYOZPm4GsidPI+1puDfImdyUuemjeDvo02gwF71H94hRiz6EpVHhzuvMrvy2N8nok6dDN2jJGip8tZN2b1OI7H/t8gSitjL3hR7MO+yC0vroqw9AUR6nGLXDUkYiAPS2LtR8=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=GDFJ6GZ+; arc=fail smtp.client-ip=52.101.48.61
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5A70937C90F;
+	Mon,  5 Oct 2026 07:57:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791187048; cv=none; b=RKTsXT53qxgughp0s1e0zDgzHhhj/FyhNjp7gC/UtiZTjH7Nz+eo5q/nORoGOaVa+NJivgjK8biwHU8O+VLDXpGD6YR/rZl0M22Liep2SQmbfi7GUKqHFXSwhdAEzTVnVNep0EmWuvCrHrUx6KKbIiY52j7Pi7aVQpJ3hJJCXZ8=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791187048; c=relaxed/simple;
+	bh=FAQ8n3PGF/42A7LPCVEPREYfeRmK3GVQTiDb9OmWKb8=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=b5hVB0K8IbQebVpmc0Yi95SPjxtzv3S8orIcP5aIcsTguoAfNzpuq92p+NZorvb0ygcyttKUauloPLMjsjLADoIxcdUy5RcbNdiR35x/rQVdgY9+FJ+FyOuEyR12RbErEzV+eNYCXHtMdSHaOXg9iBU08EFlzPGIWvu5iZb0S34=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=tcn3TpZq; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="GDFJ6GZ+"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=yUjGznyiuMfZG4sK5EmCKGlc0dv7gw40jBVZSZ/Rk8OwrWiAP29xr0O/kf34BtFX977TmTP6p0eYT3TRS1FhIhFZ6/ZNEYUqy8tNGqXCQ1nMYGIgrkvr3M+HdmGp8s6ba/QPr8vVxIqmCFiU4eeCX1fu2QhGW6aQlKRRdt1L46X2ZU+sEUPf5LNeIWIx7utPDikuV9xro5tNBWPAS8PDehfbNGGIJPGirBQieM89xbJ2RipGU8abpmAhHT/4fuF6qAKsnasX6WuWQxKbaSQHvulIgQMk56wUQ4rO5xY8dE3U8yP+TsOmWPDwfAL4XQ5/tXWIwJOXLL1gs7JcOWOYTg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=xAVQMT6mdhsNRSuRByO+cLEzQhlwcOKja0nvC5l/Hb4=;
- b=j2fqJOesR1cZBBC5q/XCY390pT9m11EtEP6GTe15Wz+yLTX/9+1pyhLsqM1+1mUFGKxFg6QA/4xFrDzFXXRNRm6iX6bwxXWQ+biIxu6KEoH7OjJCHNYGBZqci/+ub5jfFiuXAJFqGeLSWpwczqUUJoEeOEMuyyjpVR6YGU2gjPcjlKa8YKwnJ1vIFiMhchoMRM5bLydT+V9T6y+qvnF7/Jy19rnk1+5lsLh669PUY1BtLI9h765InBqIssIAj9N3iTwGGeoKSByq2CgQsov8pfEDMse8jjmsToepKg6ZmEYZVT8fVKrik9Q3DjXzWg67ijcoZOh1FbFOpN54A6IKXQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 216.228.118.232) smtp.rcpttodomain=kernel.org smtp.mailfrom=nvidia.com;
- dmarc=pass (p=reject sp=reject pct=100) action=none header.from=nvidia.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=xAVQMT6mdhsNRSuRByO+cLEzQhlwcOKja0nvC5l/Hb4=;
- b=GDFJ6GZ+6En6UUsvN8Mkx9kZhAPOUxM1SPG0MPm/nTfixcbrT6Ilp4S6ldjdPOyDnzAKI1YZ2cryqzKCWN5aGSdtNR3W2Rcp6bitEI1f0khiCf/y6VqF9hYSrD6JUGyqagHcS2P2EgwO9F8b9OWdpsTfKXgLwVMuSGwXllVbWIBIQjjttpM8ZVUZaJoT+zU4i/J3VnQF2GRno3TbsAvkCe9Zmfh3mV6+eAo1WzfO9yzNMPtqLN6IokruR3Ifu85XXiEMQSmu0hUmfuVA6Ta4tH6Di/R2GFbZE6CmJuHRrKQ2qzXnprOUraGIXayHTSzqnOWkcQ+mrANiWYRTNbIeRg==
-Received: from PH7P220CA0024.NAMP220.PROD.OUTLOOK.COM (2603:10b6:510:326::11)
- by SA3PR12MB9179.namprd12.prod.outlook.com (2603:10b6:806:3a1::12) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.472.20; Mon, 5 Oct
- 2026 07:56:59 +0000
-Received: from SJ5PEPF000001EE.namprd05.prod.outlook.com
- (2603:10b6:510:326:cafe::a0) by PH7P220CA0024.outlook.office365.com
- (2603:10b6:510:326::11) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.472.19 via Frontend Transport; Mon, 5
- Oct 2026 07:56:58 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 216.228.118.232) smtp.mailfrom=nvidia.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=nvidia.com;
-Received-SPF: Pass (protection.outlook.com: domain of nvidia.com designates
- 216.228.118.232 as permitted sender) receiver=protection.outlook.com;
- client-ip=216.228.118.232; helo=mail.nvidia.com; pr=C
-Received: from mail.nvidia.com (216.228.118.232) by
- SJ5PEPF000001EE.mail.protection.outlook.com (10.167.242.202) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.472.14 via Frontend Transport; Mon, 5 Oct 2026 07:56:58 +0000
-Received: from drhqmail203.nvidia.com (10.126.190.182) by mail.nvidia.com
- (10.127.129.5) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Mon, 5 Oct
- 2026 00:56:37 -0700
-Received: from drhqmail201.nvidia.com (10.126.190.180) by
- drhqmail203.nvidia.com (10.126.190.182) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.49; Mon, 5 Oct 2026 00:56:37 -0700
-Received: from nvidia.com (10.127.8.10) by mail.nvidia.com (10.126.190.180)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49 via Frontend
- Transport; Mon, 5 Oct 2026 00:56:36 -0700
-Date: Mon, 5 Oct 2026 00:56:34 -0700
-From: Nicolin Chen <nicolinc@nvidia.com>
-To: Will Deacon <will@kernel.org>
-CC: <robin.murphy@arm.com>, <jgg@nvidia.com>, <joro@8bytes.org>,
-	<praan@google.com>, <kevin.tian@intel.com>, <smostafa@google.com>,
-	<linux-arm-kernel@lists.infradead.org>, <iommu@lists.linux.dev>,
-	<linux-kernel@vger.kernel.org>, <jamien@nvidia.com>, <kas@kernel.org>
-Subject: Re: [PATCH v10 06/13] iommu/arm-smmu-v3: Add
- ARM_SMMU_OPT_KDUMP_ADOPT for kdump kernel
-Message-ID: <asNYMpZfyMHakuZ6@nvidia.com>
-References: <cover.1788130528.git.nicolinc@nvidia.com>
- <d661395d986d3aa78af200f55e43740996ee8a0f.1788130528.git.nicolinc@nvidia.com>
- <asJTsw-oWDlSqNa3@willie-the-truck>
- <asK7VILK4CgEFjdT@nvidia.com>
- <asNEmjxZ73ezL4I3@willie-the-truck>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="tcn3TpZq"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 04EE8C4AF60;
+	Mon,  5 Oct 2026 07:57:28 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1791187048;
+	bh=FAQ8n3PGF/42A7LPCVEPREYfeRmK3GVQTiDb9OmWKb8=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
+	b=tcn3TpZq3jhTWZ4nmt9BzZVzEbRcP+T3fr+1LIP/8d5Waln6S4/R0lhSxOIfOWHUd
+	 zBno1cAtRvwEkimhou2HvGGQBLfc727ocdnmfJkQTFDTUuqcnJvZ+RuKwPUme4D7Zk
+	 fmCt+YIJMBQTjKa9k4iiclz+HdJYGfMBS47ArZTtYDUlPInjABUyY1Zi3OtqQ2tsKN
+	 S5ybHCy1wzdLY7fa4y1IjJOct2ibpAq9M2XOKx3rF4ddBqN19PRuJluXrDbAssQojO
+	 GXfvDUPC22Vjuwi+oeXZ4szletrvg2lIA4HmXfTwWUpSS27bxYCml5K+hxvjrUB4e5
+	 J5R9qGCrZznpQ==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id DBF09CA5FFD;
+	Mon,  5 Oct 2026 07:57:27 +0000 (UTC)
+From: Pawel Laszczak via B4 Relay <devnull+pawell.cadence.com@kernel.org>
+Date: Mon, 05 Oct 2026 10:18:25 +0200
+Subject: [PATCH v3 2/3] usb: gadget: composite: Support eUSB2v2 bulk MPS
+ update
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-Disposition: inline
-In-Reply-To: <asNEmjxZ73ezL4I3@willie-the-truck>
-X-NV-OnPremToCloud: ExternallySecured
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ5PEPF000001EE:EE_|SA3PR12MB9179:EE_
-X-MS-Office365-Filtering-Correlation-Id: 23c6e39a-2e6a-44fd-0cfa-08df22b63b9b
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|36860700016|1800799024|82310400026|376014|7416014|23010399003|11063799006|56012099006|4143699003|10067099003|22082099003|18002099003|6133799003;
-X-Microsoft-Antispam-Message-Info:
-	meNuGWJPZwkFhs4VQJegb5s3BgbHhOy9Pt7cATVmFPSuNtFEcGn2h4hrnkA7Zc9YfDynK1ELPefMfcPdeP6XdyFWRJdF7nl65J8NJ03szoWT4mc6azoGaCG1QmBeHslHJaCUBgrcx1C/T0pV7MM7UwTzpJggKc/QkexVCasW2u8ehUNJiP0xmUdyBdW1zMCAjgb/TWqG3gAPVakGbinRmoptluRIDAEiNKLDdbUit4gneNJKpOm3gpNbfzrua55SlPjr8CW08tvfMtzQuepiAjNKG6OUBO1c5bc5Co+eHgJGLYPCwQXUtWxuswqE2R9IIptPjX2nqsTw2EplU6kvMp5Y2IX7cnlfmvp0N3oUqjK4E4HsXWxTytsc1+kIbmvn4EcYhpNAGimU8apEQ50u3TfXSiO2/cvkol69hGvOa/zAsMeChT0t9ss8DOojPpk5ieYm5uTWXLPII0EPt3mo3nfNJXf9dTzyBw0fqx0Bvyv1HxsHw/dB+Ikb0rqtruJCsZQccj2EGnfwUhhJ/yvagO+SVJ0r4vqhDBueNHpKHK//x8WT9C+KzUIrlzSRvuMjC5AP0Pq7PT3cKGCT5fQIj3Fc+DFuU2o146Ri9HdCuGbobgRUPxgu7XO1iKS8fyDnxIRx8zJhPisByuZMaM9L7iOWdNjrXcnEdkzuRNSCtwhqPR8kXuO3eNzwreNdUqp7Wp6h3QpendE2FCiMSU+afg==
-X-Forefront-Antispam-Report:
-	CIP:216.228.118.232;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.nvidia.com;PTR:dc7edge1.nvidia.com;CAT:NONE;SFS:(13230040)(36860700016)(1800799024)(82310400026)(376014)(7416014)(23010399003)(11063799006)(56012099006)(4143699003)(10067099003)(22082099003)(18002099003)(6133799003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	vfXX90Z6IzULzgLbwjyUpxCXsgykg9rhk6mDmgzZxjhC8GWilxkber58WdLtNu6TSvKnq6juJzs6Yb45uot6FzCr+xB+rfvUFncXC7ig1XrskqQCMXqbO0IULdJlTkl5PdyHDipCyMT3OmIg2g/J/PmWiOFX7UnVmfcDJJ3qrPrMn3nkgRnRhHGIOdCcnd6ZF3yPfuGF/UtYK+WA4fFwN+YlbPkMgfG9cR7GryK8i5Izt6a5R8t2whhznLZObyqYQ+caSqY4f6MhqL41zf/fhmyaKfXHgKq4Px8sVQy+ymiZch2q5xSAhJ2YKLEBqv7Ml0ShwTNrSZe1pSdOOsjKNYUU8RCaKKK/62RPGxOY1HvzkvgWpYNTiCx+XAmKzt4jV3pV57sRzKDoY3InfzTtfZM2WIu+lK0Cl3v8Pd5n0hJEzWBQK1X04pTEn5Q8N3yJ
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Oct 2026 07:56:58.9100
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 23c6e39a-2e6a-44fd-0cfa-08df22b63b9b
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a;Ip=[216.228.118.232];Helo=[mail.nvidia.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	SJ5PEPF000001EE.namprd05.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA3PR12MB9179
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261005-eusb2v2-packet-size-v3-2-fde610a3c47a@cadence.com>
+References: <20261005-eusb2v2-packet-size-v3-0-fde610a3c47a@cadence.com>
+In-Reply-To: <20261005-eusb2v2-packet-size-v3-0-fde610a3c47a@cadence.com>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+ Mathias Nyman <mathias.nyman@intel.com>
+Cc: linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Pawel Laszczak <pawell@cadence.com>
+X-Mailer: b4 0.15.1
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1791188311; l=4850;
+ i=pawell@cadence.com; h=from:subject:message-id;
+ bh=zMlRfIGeiVArfKEGBytmUlu/A6QFWPNjhtTKXEPQGZI=;
+ b=LrlAcBxM8hxtKmxiL4h7gKeb58UjALg1CrbqtsIQyay8KlDymTGCtkDaPYy+P3mo/7WbkPrw2
+ TTyqNs42sAqBXVtSNtLUr00Vu2phMYz8ur1Sbr3HDVMl2Q6S8B8oGwI
+X-Developer-Key: i=pawell@cadence.com; a=ed25519;
+ pk=EUPBvLO9CDg7j6defeDl2iqi+z5Ivqu4Z46aiqe7dYc=
+X-Endpoint-Received: by B4 Relay for pawell@cadence.com/default with
+ auth_id=707
+X-Original-From: Pawel Laszczak <pawell@cadence.com>
+Reply-To: pawell@cadence.com
 
-On Mon, Oct 05, 2026 at 07:32:58AM +0100, Will Deacon wrote:
-> On Sun, Oct 04, 2026 at 01:47:16PM -0700, Nicolin Chen wrote:
-> > On Sun, Oct 04, 2026 at 02:25:07PM +0100, Will Deacon wrote:
-> > > On Sun, Aug 30, 2026 at 04:18:07PM -0700, Nicolin Chen wrote:
-> > > >  drivers/iommu/arm/arm-smmu-v3/Makefile        |   1 +
-> > > >  drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.h   |  21 ++
-> > > >  .../iommu/arm/arm-smmu-v3/arm-smmu-v3-kdump.c | 229 ++++++++++++++++++
-> > > 
-> > > Please don't put this here. The live update / handover stuff is going to
-> > > need very similar logic (see the RFC from Pranjal) and I don't fancy
-> > > having to rename or resplit this file when that comes along.
-> > > 
-> > > Maybe just stick all of arm-smmu-v3-kexec.c and arm-smmu-v3-kdump.c into
-> > > arm-smmu-v3-handover.c or something?
-> > 
-> > Hmm, Pranjal and I already aligned that cleanly. And there is no
-> > further rename/resplit in his series.
-> > 
-> > arm-smmu-v3-kexec: common helpers for both
-> > arm-smmu-v3-kdump: kdump specific (my series)
-> > arm-smmu-v3-liveupdate: liveupdate specific (Pranj's)
-> > 
-> > Each of them is built on a separate config:
-> >  arm_smmu_v3-$(CONFIG_ARM_SMMU_V3_KEXEC) += arm-smmu-v3-kexec.o
-> >  arm_smmu_v3-$(CONFIG_IOMMU_LIVEUPDATE) += arm-smmu-v3-liveupdate.o
-> >  arm_smmu_v3-$(CONFIG_CRASH_DUMP) += arm-smmu-v3-kdump.o
-> > 
-> > If we put everything into one big file, we'd add the two individual
-> > config guards internally, which isn't as clean as currently IMHO.
-> > 
-> > Note that the kdump file has a very long notes (kdump specific).
-> 
-> I dunno, three files seems way over the top for this imo. I'd rather have
-> one (even if it uses preprocessor guards internally) otherwise it just
-> seems inevitable that we'll have random internals exposed from one file
-> to the other, or duplication of logic or both. Even if we end up splitting
-> it eventually, I'd much rather start from a position where everything is
-> in one place.
+From: Pawel Laszczak <pawell@cadence.com>
 
-OK. I'll merge them, maybe into arm-smmu-v3-kexec as Jason suggested?
+Add support for eUSB2v2 1024-byte Bulk MPS negotiation to the Gadget
+Composite framework.
 
-Or do you still prefer handover?
+If 'gadget->is_eusb2v2' is set, force bcdUSB to 0x0230 and bMaxPacketSize0
+to 64 bytes. Handle the USB_DEVICE_BULK_MAX_PACKET_UPDATE Feature Selector
+request by activating the new 'eusb2v2_mps_active' gadget flag.
 
-Thanks
-Nicolin
+This flag allows the UDC (USB Device Controller) driver to dynamically
+configure its hardware endpoints for 1024-byte packet mode, while the
+Composite framework continues to report 512 bytes in the Configuration
+Descriptor, ensuring strict compliance with eUSB2v2 specification
+section 5.2. The flag is cleared upon device reset or disconnect.
+
+Signed-off-by: Pawel Laszczak <pawell@cadence.com>
+---
+Changes in v3:
+- composite.c: Do not overwrite ep->desc.wMaxPacketSize to 1024, as the eUSB2v2
+  spec section 5.2 mandates that the endpoint descriptor always reports 512 bytes
+  to the host. Instead, introduce gadget->eusb2v2_mps_active flag.
+- gadget.h: Add eusb2v2_mps_active to struct usb_gadget.
+
+Changes in v2:
+- composite.c: CLEAR_FEATURE(BULK_MAX_PACKET_UPDATE) is not defined in the
+  eUSB2v2 spec; stall it instead of incorrectly setting 1024-byte mode.
+- restore MPS in __composite_disconnect
+---
+ drivers/usb/gadget/composite.c | 28 +++++++++++++++++++++-------
+ include/linux/usb/gadget.h     |  4 ++++
+ 2 files changed, 25 insertions(+), 7 deletions(-)
+
+diff --git a/drivers/usb/gadget/composite.c b/drivers/usb/gadget/composite.c
+index dc3664374596..9678ed4e4aee 100644
+--- a/drivers/usb/gadget/composite.c
++++ b/drivers/usb/gadget/composite.c
+@@ -924,7 +924,6 @@ static void device_qual(struct usb_composite_dev *cdev)
+ }
+ 
+ /*-------------------------------------------------------------------------*/
+-
+ static void reset_config(struct usb_composite_dev *cdev)
+ {
+ 	struct usb_function		*f;
+@@ -971,8 +970,10 @@ static int set_config(struct usb_composite_dev *cdev,
+ 		if (result < 0)
+ 			goto done;
+ 	} else { /* Zero configuration value - need to reset the config */
+-		if (cdev->config)
++		if (cdev->config) {
+ 			reset_config(cdev);
++			cdev->gadget->eusb2v2_mps_active = 0;
++		}
+ 		result = 0;
+ 	}
+ 
+@@ -1807,7 +1808,11 @@ composite_setup(struct usb_gadget *gadget, const struct usb_ctrlrequest *ctrl)
+ 				count_configs(cdev, USB_DT_DEVICE);
+ 			cdev->desc.bMaxPacketSize0 =
+ 				cdev->gadget->ep0->maxpacket;
+-			if (gadget_is_superspeed(gadget)) {
++
++			if (gadget->is_eusb2v2) {
++				cdev->desc.bcdUSB = cpu_to_le16(0x0230);
++				cdev->desc.bMaxPacketSize0 = 64;
++			} else if (gadget_is_superspeed(gadget)) {
+ 				if (gadget->speed >= USB_SPEED_SUPER) {
+ 					cdev->desc.bcdUSB = cpu_to_le16(0x0320);
+ 					cdev->desc.bMaxPacketSize0 = 9;
+@@ -2005,12 +2010,20 @@ composite_setup(struct usb_gadget *gadget, const struct usb_ctrlrequest *ctrl)
+ 	 */
+ 	case USB_REQ_CLEAR_FEATURE:
+ 	case USB_REQ_SET_FEATURE:
+-		if (!gadget_is_superspeed(gadget))
+-			goto unknown;
+-		if (ctrl->bRequestType != (USB_DIR_OUT | USB_RECIP_INTERFACE))
+-			goto unknown;
+ 		switch (w_value) {
++		case USB_DEVICE_BULK_MAX_PACKET_UPDATE:
++			if (ctrl->bRequestType != (USB_DIR_OUT | USB_RECIP_DEVICE))
++				goto unknown;
++			if (ctrl->bRequest != USB_REQ_SET_FEATURE)
++				goto unknown;
++			gadget->eusb2v2_mps_active = 1;
++			value = 0;
++			break;
+ 		case USB_INTRF_FUNC_SUSPEND:
++			if (!gadget_is_superspeed(gadget))
++				goto unknown;
++			if (ctrl->bRequestType != (USB_DIR_OUT | USB_RECIP_INTERFACE))
++				goto unknown;
+ 			if (!cdev->config || intf >= MAX_CONFIG_INTERFACES)
+ 				break;
+ 			f = cdev->config->interface[intf];
+@@ -2293,6 +2306,7 @@ static void __composite_disconnect(struct usb_gadget *gadget)
+ 	 * disconnect callbacks?
+ 	 */
+ 	spin_lock_irqsave(&cdev->lock, flags);
++	cdev->gadget->eusb2v2_mps_active = 0;
+ 	cdev->suspended = 0;
+ 	if (cdev->config)
+ 		reset_config(cdev);
+diff --git a/include/linux/usb/gadget.h b/include/linux/usb/gadget.h
+index 8285b19a25e0..5f691f80fd68 100644
+--- a/include/linux/usb/gadget.h
++++ b/include/linux/usb/gadget.h
+@@ -420,6 +420,8 @@ struct usb_gadget_ops {
+  * @wakeup_armed: True if gadget is armed by the host for remote wakeup.
+  * @irq: the interrupt number for device controller.
+  * @id_number: a unique ID number for ensuring that gadget names are distinct
++ * @is_eusb2v2: True if controller is Embedded usb2.
++ * @eusb2v2_mps_active: 1024-byte bulk mode is active.
+  *
+  * Gadgets have a mostly-portable "gadget driver" implementing device
+  * functions, handling all usb configurations and interfaces.  Gadget
+@@ -483,6 +485,8 @@ struct usb_gadget {
+ 	unsigned			lpm_capable:1;
+ 	unsigned			wakeup_capable:1;
+ 	unsigned			wakeup_armed:1;
++	unsigned			is_eusb2v2:1;
++	unsigned			eusb2v2_mps_active:1;
+ 	int				irq;
+ 	int				id_number;
+ };
+
+-- 
+2.43.0
+
+
