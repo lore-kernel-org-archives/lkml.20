@@ -1,89 +1,115 @@
-Received: from mail.mainlining.org (mail.mainlining.org [5.75.144.95])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta0.migadu.com (out-225.mta0.migadu.com [91.218.175.225])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5FFE947F3A2;
-	Mon,  5 Oct 2026 12:10:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=5.75.144.95
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E454547ECED
+	for <linux-kernel@vger.kernel.org>; Mon,  5 Oct 2026 12:10:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.225
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791202228; cv=none; b=MZC5LltKz0esD7SUe3NQg5FA9IhZVkiS8E2lcgdZfYxgZ+gaurudB9M9sMcRprngeI+NlnGHmehnEy7uzoyaC7fdNRur+5+Z9MeXkHcKu0G1nVivrjIZsivMonYH2oEgwtFKfcXnPJvmA9ZKrXmN+oR8ij9AokTj5PD3xJn9TI4=
+	t=1791202241; cv=none; b=SLTRxlZgvKp883oc8VXrQryD2cnXFmItm5VMShhgSvDt9O6EZ24lzpCKyvgz1Gf19CL5NIWNv28m3KH71vmVw37B8aburV+3ebrUSVfw+z4G7DziQb7hD/yHPTYScYJXmw6WK2p3ntJxyTCE8fiaGK0KS0i3TbHngsU3mEh4j1c=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791202228; c=relaxed/simple;
-	bh=1ZU2HGvW/qHhlSDRb+S6ynyl6gwYxOPBMdLafetnF8M=;
-	h=Date:From:To:CC:Subject:In-Reply-To:References:Message-ID:
-	 MIME-Version:Content-Type; b=hrOrC4MGRFvB/Bz7NtpIy9XfX/O30sZnn8fTFfdbOYRR0xQ5yzhXDjpuczJg8dAhXchl7FrMd8SsDw2+7HCtl4SW1ZsVx7lhpID/nHWE9MxQDgQKgR14fkSFAm379newGDOTUaKK+dOiIdgI+lKNT7IQ84TqxzvRbprgIyQ6ltw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org; spf=pass smtp.mailfrom=mainlining.org; dkim=pass (2048-bit key) header.d=mainlining.org header.i=@mainlining.org header.b=ChSIBjgC; dkim=permerror (0-bit key) header.d=mainlining.org header.i=@mainlining.org header.b=61+Af8PJ; arc=none smtp.client-ip=5.75.144.95
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mainlining.org
+	s=arc-20240116; t=1791202241; c=relaxed/simple;
+	bh=f+hFXIzzuMe3tcXs0GPJ00JVOEjMIu0ORPYVIQIfNH4=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=lU8k+XREf31d9I2ZZwSOBELg/N7vWR+WX2EbuIrnyRQ7dUH3+PhEeIKwfg/O6GWife6Ex6hQEIU9TkEXx1dX89uDhzdX4J3WgnOKaJ75iJpcZhxJbMr2IkLUVQIoZJJn6WcjMM2xi+yPy8XBDH+/MeonjR5pHZYFimj8fdvkFMs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=qc4uRKrd; arc=none smtp.client-ip=91.218.175.225
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=mainlining.org header.i=@mainlining.org header.b="ChSIBjgC";
-	dkim=permerror (0-bit key) header.d=mainlining.org header.i=@mainlining.org header.b="61+Af8PJ"
-DKIM-Signature: v=1; a=rsa-sha256; s=202507r; d=mainlining.org; c=relaxed/relaxed;
-	h=Message-ID:Subject:To:From:Date; t=1791202084; bh=c8blceBjpnicYTX0j9XL6TT
-	+wvS5GLIS98CfSPeQ2So=; b=ChSIBjgC7DJbuoj/hq7PaoY2Khp4WzR5BqDkJa6jmQg/jjXsl+
-	VmcjNTSVigwDsUo6NRJbhYBilUXRgjMICH4pDmHGTvx9spdUnOj/Cz9YyUQ3fX/GMu8CHoJg1tY
-	BtZiCtrnWdAd5VukqFHdMyVo54B2s/YqToJtCdMjY/jNMQ9yz6Mxg6iuGo+uUJlW5SlYOhdfQID
-	f63H8AKR/KuaSHBqHImS+JoZtAj1+0qWDMfIPrHL1AAOfxdQGQHK1e/7AxIuWHm1EtdvESl1tNR
-	XCUNunKXIX7pwWkk3ldyqQUmgcEPcGpOgmYGrJSq2QY5JVtWnxF6CKycRL3IAUVZNtw==;
-DKIM-Signature: v=1; a=ed25519-sha256; s=202507e; d=mainlining.org; c=relaxed/relaxed;
-	h=Message-ID:Subject:To:From:Date; t=1791202084; bh=c8blceBjpnicYTX0j9XL6TT
-	+wvS5GLIS98CfSPeQ2So=; b=61+Af8PJELF/8wkGVGMZLlzU/KpTjAlFsFmdjLYcCJKFG7YYOj
-	MQ0Gh/Lq6D1KBGlISidzf8IttNb8Uvr+FIAg==;
-Date: Mon, 05 Oct 2026 13:08:05 +0100
-From: Bradley Morgan <brads@mainlining.org>
-To: akpm@linux-foundation.org, vgupta@kernel.org, guoren@kernel.org,
- chris@zankel.net, jcmvbkbc@gmail.com
-CC: arnd@arndb.de, paulmck@kernel.org, david.laight.linux@gmail.com,
- glaubitz@physik.fu-berlin.de, ysato@users.sourceforge.jp, dalias@libc.org,
- linux-snps-arc@lists.infradead.org, linux-csky@vger.kernel.org,
- linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v5 1/3] ARC: Emulate two-byte cmpxchg
-In-Reply-To: <20261005120556.383004-2-brads@mainlining.org>
-References: <20261005120556.383004-1-brads@mainlining.org> <20261005120556.383004-2-brads@mainlining.org>
-Message-ID: <DFEBDABC-BF95-4AF7-863C-7C25F1443B28@mainlining.org>
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="qc4uRKrd"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=f+hFXIzzuMe3tcXs0GPJ00JVOEjMIu0ORPYVIQIfNH4=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1791202237; v=1; x=1791807037;
+ b=qc4uRKrdD6qeP5GjqsjJ4Cz/Rrj6iackxl9sFUoPmCvOaYE8EX8Hbl6TnvA+elrpiXZPs0Du
+ GJRdmcMJ+6fTBQ47KSYs4kVRaEXBale69wybiJ6i3YGqbb45Hmy9hpcsA559USq/HiU1/NaGSUH
+ 19T5pTfp6wE6ki5goZxoBEDg=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id b52a094f8f923b80;
+	Mon, 05 Oct 2026 12:10:37 +0000
+X-Mizu-Trace-ID: b52a094f8f923b80
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <c07ede42-408a-4959-9ca5-bb94ff851b0f@linux.dev>
+Date: Mon, 5 Oct 2026 20:10:24 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain;
- charset=utf-8
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/1] x86/mm: fix incomplete page-table invalidation with
+ TCE
+Content-Language: en-US
+To: Pedro Falcato <pfalcato@suse.de>
+Cc: dave.hansen@linux.intel.com, luto@kernel.org, peterz@infradead.org,
+ tglx@kernel.org, mingo@redhat.com, bp@alien8.de, x86@kernel.org,
+ hpa@zytor.com, riel@surriel.com, linux-kernel@vger.kernel.org,
+ qi.zheng@linux.dev, nadav.amit@gmail.com, thomas.lendacky@amd.com,
+ kernel-team@meta.com, linux-mm@kvack.org, akpm@linux-foundation.org,
+ brendan.jackman@linux.dev, jannh@google.com, mhklinux@outlook.com,
+ andrew.cooper3@citrix.com, Manali.Shukla@amd.com, mingo@kernel.org,
+ stable@vger.kernel.org, toshi.kani@hpe.com, david@kernel.org,
+ mikhail.v.gavrilov@gmail.com
+References: <20261005052302.43042-1-lance.yang@linux.dev>
+ <asM7b8ECO34-jiwi@pedro-suse.tail5790ac.ts.net>
+ <60d5db86-8002-4d87-b8d3-c161d674122b@linux.dev>
+ <asN4wjUbDAIcrfA-@pedro-suse.tail5790ac.ts.net>
+From: Lance Yang <lance.yang@linux.dev>
+In-Reply-To: <asN4wjUbDAIcrfA-@pedro-suse.tail5790ac.ts.net>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On 5 October 2026 13:05:54 BST, Bradley Morgan <brads@mainlining.org>
-wrote:
->ARC has no two-byte atomic compare and swap, so the
->arch_cmpxchg_relaxed() macro switch lets case 2 fall through to
->BUILD_BUG() via default, and a two-byte cmpxchg() fails the build.
->
->Route case 2 through the new cmpxchg_emu_u16(), which narrows the
->old and new values itself, so the dispatch keeps the (uintptr_t)
->casts the case 1 path already uses.
->
->The sizeof(*(_p_)) fix that v4 folded in here landed separately
->through Vineet's f050c3e61d2a, so this patch is now only the
->case 2 wiring.
->
->Signed-off-by: Bradley Morgan <brads@mainlining.org>
->---
-> arch/arc/include/asm/cmpxchg.h | 3 +++
-> 1 file changed, 3 insertions(+)
->
->diff --git a/arch/arc/include/asm/cmpxchg.h b/arch/arc/include/asm/cmpxchg.h
->index 66b3743c9400..b30b20933f32 100644
->--- a/arch/arc/include/asm/cmpxchg.h
->+++ b/arch/arc/include/asm/cmpxchg.h
->@@ -50,6 +50,9 @@
-> 	case 1:								\
-> 		_prev_ = (__typeof__(*(ptr)))cmpxchg_emu_u8((volatile u8 *__force)_p_, (uintptr_t)_o_, (uintptr_t)_n_);	\
-> 		break;							\
->+	case 2:								\
->+		_prev_ = (__typeof__(*(ptr)))cmpxchg_emu_u16((volatile u16 *__force)_p_, (unsigned long)_o_, (unsigned long)_n_);	\
->+		break;							\
-> 	case 4:								\
-> 		_prev_ = __cmpxchg(_p_, _o_, _n_);			\
-> 		break;							\
->
-Sorry, resent email, internet went out ;(
---- Thanks!
-"I'm not a very positive person" - Linus torvalds
+
+
+On 2026/10/5 18:24, Pedro Falcato wrote:
+> On Mon, Oct 05, 2026 at 03:29:22PM +0800, Lance Yang wrote:
+>>
+>>
+>> On 2026/10/5 14:09, Pedro Falcato wrote:
+>>> On Mon, Oct 05, 2026 at 01:23:02PM +0800, Lance Yang wrote:
+>>>> pud_free_pmd_page() uses a single-address invalidation to flush the
+>>>> paging-structure caches before freeing the page tables. With AMD TCE
+>>>> enabled, this only invalidates upper-level entries associated with the
+>>>> target address. Cached PMD entries for other addresses in the PUD range can
+>>>> still reference the PTE pages being freed.
+>>>>
+>>>> The AMD manual quoted in the commit enabling TCE says these instructions
+>>>> remove
+>>>>
+>>>>     "only those upper-level entries that lead to the target PTE in the page
+>>>>     table hierarchy, leaving unrelated upper-level entries intact."
+>>>>
+>>>> Even with all PTEs cleared, speculative page walks can cache present PMD
+>>>> entries after the earlier TLB purge.
+>>>>
+>>>> Use a full TLB flush before freeing the page tables on CPUs with TCE. Keep
+>>>> the single-address invalidation otherwise.
+>>>>
+>>>> Fixes: 440a65b7d25f ("x86/mm: Enable AMD translation cache extensions")
+>>>> Cc: stable@vger.kernel.org
+>>>> Signed-off-by: Lance Yang <lance.yang@linux.dev>
+>>>
+>>> I'm not sure this is correct. The PUD is clear. We invalidate the TLB, which
+>>> invalidates the translation caches for that walk. invlpg will notice the PUD
+>>> isn't present. I don't see a case where it can ever not clear the rest
+>>> of the translation caches for all leaves. And, in fact, by that point the CPU
+>>> can (does?) probably formally treat the PUD as the leaf.
+>>
+>> IIUC, clearing the PUD in memory doesn't invalidate cached PMD entries by
+>> itself. With TCE enabled, flushing one address only invalidates the entries
+>> associated with that address ...
+>>
+>> (That's how I read the manual, but AMD folks, please correct me if I'm
+>> missing something.)
+>>
+>> So couldn't other cached PMDs under the same PUD survive?
+> 
+> I don't read it as that. I read it as "flushing one address only invalidates
+> the entries on that path". So, if you flush one address, you'll flush the
+> whole translation cache for that range. And page table zapping agrees; if you
+> follow the code from zap_pte_range() -> pte_free_tlb(), it will do a single flush
+> for each PTE table (if the whole table is empty/non-present).
+
+Let's wait for AMD folks to clarify whether a single-address flush is
+sufficient :)
