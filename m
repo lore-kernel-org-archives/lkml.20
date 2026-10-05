@@ -1,68 +1,68 @@
-Received: from mail-wr1-f44.google.com (mail-wr1-f44.google.com [209.85.221.44])
+Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CB569477E2E
-	for <linux-kernel@vger.kernel.org>; Mon,  5 Oct 2026 11:45:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.44
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2D13347DD74
+	for <linux-kernel@vger.kernel.org>; Mon,  5 Oct 2026 11:45:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791200703; cv=none; b=X5eH4u9EMF5zv0KxfxxTrusYfyos+8dUp5Oq6RVaMsmtRqTQ3FBtSgHfCXdGxhIlmH2Y2JIGicNVn5Ctg9xbAF6/2FjRKCvJE8EgNWQbDmo4emgWv2F7K/KidfkvTzBdqpOgq0B418575tqlbe6cEKE4f35R9i650MBi+adHTwg=
+	t=1791200749; cv=none; b=jJClEtt7/XEMR8Qtm69LidNhLxjwuFB/qGJxEZbYVgLzmXv6UAI1eaEHrbAKOwPDxMP8q05mFTiUoe5Qjvx+e7MNrpZCPYkizcs/yJZL3NEq2N0sJMsiarxTyYLaBKMe3D6lURx5/n1Kp4PTnqgBJPIMqfLpj9jQRPBOiCc5R00=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791200703; c=relaxed/simple;
-	bh=AgYzF9zCDCjhvarDhGELV8SCCxmRmAduCDS+Ac4RoTo=;
+	s=arc-20240116; t=1791200749; c=relaxed/simple;
+	bh=ZkH2ZoyFF8jXmocTrDGUE79ENJOStFm8UfOKX52vbLw=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=lMkV9rGcpmT3l1staWLIe/PXRA8ya0MksDJvvlTLCT90yDHQz1iziI0X1TxaxTsZW7fmWnOO1RXNDKbuxyF8Ko63euz5b23CG/Mn4AbKzkAHuy6OTTxxaPSoagBpR5BA9JxU8AcCzPKEFPx/czSSFgWvt8kyLiJbIZaHRIlcc2o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=dPgdYdX3; arc=none smtp.client-ip=209.85.221.44
+	 In-Reply-To:Content-Type; b=j31jb9Oxik/4FkbT+3nPX0GWcE2id/k5ULyA8uwN3b/tDRB6T0Kd2fAHKoRkO4X6fpzD35jR7bxeFrapEzA3zEH7lrRswpqOkxq8lSjsPSrbxAsUnhVPrqES/iV97r7E0SJWyZzROgQsdhZCXlZ0dKT3StubqEXpsJtS/TYVLf8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=oLvkzRQj; arc=none smtp.client-ip=74.125.225.140
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="dPgdYdX3"
-Received: by mail-wr1-f44.google.com with SMTP id ffacd0b85a97d-48441a2ba1bso915607f8f.1
-        for <linux-kernel@vger.kernel.org>; Mon, 05 Oct 2026 04:45:01 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="oLvkzRQj"
+Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-4a1706a2b24so6919835e9.1
+        for <linux-kernel@vger.kernel.org>; Mon, 05 Oct 2026 04:45:46 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791200699; x=1791805499; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1791200744; x=1791805544; darn=vger.kernel.org;
         h=content-transfer-encoding:content-type:in-reply-to:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=ZTSRnK/72f03OAFyRZNcD9D1Hs2QM4XwAkI8vZWB3T4=;
-        b=dPgdYdX3mXchRgU1mWLReepLwb6EYksD9oVqP61wtHE1mACXWLZ5ufSTynlOmDVbtI
-         NTh/irS5FDLmy/lXohPIsU1I71+iJUNM4Sto/wO5hReO5gkWpujUw7sH/f5zn4o2ycWr
-         Tkfm5sZitIcSLTK08Pljy9lcVHc5tEH+Ozpk5Vm3CDpQuoq2+arY2DVHdXfRnwH86vaW
-         Ffpbe9a9MNbEJXpWsFnz3F5Bh2uZnkkc2Vwug15VXNAl2hOOERzJ3o0mIH4E+roy+6Y1
-         qSueKyN42cVluThyRvgOJ0gYC0gTcdbm3WhEMryVYcVmEDSNiLaOdVmNZA418wadbe1g
-         BdUA==
+        bh=CiogbugpChE2nuDY1/c0G9NHgdsv6JGGhiKd4//mw4Q=;
+        b=oLvkzRQj6B3wn6g+GBOQbg4QEY801fSpX6Y+iaT5nUVCpccBnw3PpAFJhBhX3LBn/V
+         h9Z36ZH3SCRn9BLxEVVMI861hisMPix9IzSAO3CvO0sQaoUsCVEsdQJOQNPFmcxrlV1J
+         4CIiZTiUW5Naal1BuFM4b003nBctAm6EQbEH661idHug8xIePQAeyo17ZDj9ypZaKxY3
+         XHm8EiUQERz46r5sN4J6JDMBMJhXLjsT7fYQ/d2V+wCh/iEb59dyeVxJVAWCJ56pckQr
+         Lhx1qA4iwvMMeKu71T6xgF6dCJPlRDPY5FxH9bShzzu2/C1/FiLRhlMuM4l17N3cDCi+
+         7XnA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791200699; x=1791805499;
+        d=1e100.net; s=20260707; t=1791200744; x=1791805544;
         h=content-transfer-encoding:content-type:in-reply-to:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=ZTSRnK/72f03OAFyRZNcD9D1Hs2QM4XwAkI8vZWB3T4=;
-        b=uUla2IzO8eVO9wKXylS4ixai1d0lJyQ4w7G47qSaEpku3DRa3b8FOt/A9B738uEAre
-         TDfPJikURRt56qN6C+8YAM5lvOibM7PrKmqDLH698L2QkYeMkn6sZSdj+VecIdCmwFMS
-         ezV80UltzRGsIHZ0EVybgp5iRyJMlCpj37Hd8tfKhxU/Ttwv0lRV29/ZmMMSMZVLRok9
-         TETGGD4YkkDPeRnuoQLSvnXdITXaizCy76lGelOLiHiUD8BbxbWmBfj9lv3NxWqErXoR
-         wnMHByBcEWkkQfn6ngDtn6hf//FVfUdbe0rSkgu3FPUhxDbf8jYc7SJdwYiTh4g/PsHG
-         GS6Q==
-X-Forwarded-Encrypted: i=1; AKwUvBxXYJJyD46WhTWyqwUArG4dlWbEW1reoIJBzjYS+hcmpjL5M2XWhKEemxUWjy9Y7VNTkOrXb/8gpBGOVvU=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKO/2KwjhGPWpp7jSt7++mSGBQNm+ETD+xqPc/c6apQ6d6bpRY1
-	qK0nWS1sSLkGXrW4fXzNeGh9mh97RzUs/7ABl8zZv99GV+h1/ZuIirXc
-X-Gm-Gg: AYBFou1JHlSmgaoS8Fh7K90M75aE3LWQe5RTSoyZ0UaMZhMX2BGBgsZ/ThT1Z9ojDkr
-	n7dz1ihRl1UPosx7YQJDSMnRB8uzR6XdVKyOrTcpJqFUSbNLMyt3kGEMiRHosyklut+ETqZ3R5U
-	/ICb8gyAe6ZGipJhMqYBxwnb1W32LivgmnAVI6q5nC9myd2ebeRaDNqU9YroRHP4cmru14HO73d
-	3iqMDAcU3keRvFpIJ9gMO2UEaxFsASviV6et+1Yz4FBqwmi2YLYK0y7nJOn60KDXMfULIs0gIZj
-	oBO/5WYXJ3Mfw04HSFnCLi5RIGEDDr5K4z5dhdDPZ0T4AUDiLsylF7sub4R/i85g6ttCiwf3HAy
-	uFuqkv6ueL++Gi38nVx57dkMktHGfcqgMlaCosu5O12y24esJBByRbsuz7gCm5z9V5ywcC7vUEq
-	qThOi1At9Q8+zsy7Td8DA1L10EkAiDMfftsmK3+vuzfy9KbSNvXwbYfLp/cg8FctTkuW6dXTIhY
-	E4nBw3TwKRwcwx5gUo94AuTBX9V1T3wxTYq2HVgKMldiAl/rrS75jKTIhkoohbBo6X/ivynNXI=
-X-Received: by 2002:a05:6000:186a:b0:48b:6bd:1af6 with SMTP id ffacd0b85a97d-48c48000099mr10478688f8f.40.1791200699411;
-        Mon, 05 Oct 2026 04:44:59 -0700 (PDT)
+        bh=CiogbugpChE2nuDY1/c0G9NHgdsv6JGGhiKd4//mw4Q=;
+        b=RgF2y5i2XIHUG0XnBwza7gH9DUxdz+Pm+/j8mMzcLLir9MVNszs3k4hnxmeAoZyOqx
+         m8xgxSJWViHdgUqe+Td8+Bjq24s5QaXgtsYTKnZOiQpe/BmlLwlj1j6LEXH1oyU60F9J
+         SmwTxMLFDZH0udd4gIiOckUaesCWv1AbQf+1wPBqL3LgjFTZ9l+KTSpHJAAZpKXfZCVu
+         +HpFJ9HQLAct35LnezaAW3kw5Qzf6spfrxRNINY/IBN1CpTPOKa1vf4jcGeSPKXDs4cA
+         2u0q69m5ijWuy41GOaj4J83PV+GoLGhgABFhoGLDCGqXrMCgzhDqtr3/UFg244igbjBU
+         /D5A==
+X-Forwarded-Encrypted: i=1; AKwUvBwovGAj+kz+t8ec04to4qSJ5er2Wd0IJ+brTHlwmmUYaGettdH1c32Q+bSrvcSECkqUfeGEFV8qFqmtkwc=@vger.kernel.org
+X-Gm-Message-State: AFuF++mXPZxDunpTuide/6Eh0zoA47UAS8ezPYndWbvxEi6O69w1f3O3
+	Mv2lUDOoW7V9GAp40+Gt4myAJlyGBqBvKDvuDufwxjxgYTch37MORGLV
+X-Gm-Gg: AYBFou22E2SNrdBHThPz7Dkhy/eTl5yDZyC+SBaRlz01BtIMLP8sunSEOguAO7RoIat
+	/ocifH4Aq5zleWfHOP0Ou2KmclPJqoAYd4kJLVd1/C6E5X2F2l7uC8qxkZixEOUKf7+7kEnzUHZ
+	ox9lOyLQS9sb4xWsVAbf7UcF0KmcLt2imCqw6Xi7SLxt4b4bNeuC3wJFJIpyFlg98mBRiMVnv5X
+	wfBpmtgvWXxIIJxxWLHAQaxm248bPtD54TGbo1ghQV74e+K4ZxiY8VX9anK8LyQcvuxECBgZGfY
+	H/VX34wotXSYOUNlh8S/uyBapGUnN3NqhXCNGM4RUIzq41ksISm2QH7FDPbQPhsqKHsxWK6CSAp
+	2wG5Z3qAibYQpe2AotW1rLYjZicB8FQjMtdKJIfAUgpXG41CpaQBPLRqfmSN2VQQ31bhMobJAcZ
+	jH27579w4KPisv1EHl30IiaONZapQLQff2RMIynPogyp/tyHP9M+NA/+hHFrHzLsrPJ9d/u59Cw
+	h7oEb31orptCvJpF1aGorFN+qdwDCWypPC0SN1UuCeNt4ZFYkHJE8/D6oJH6lnN6xhut4n2d9c=
+X-Received: by 2002:a05:600c:c165:b0:4a0:108:3b54 with SMTP id 5b1f17b1804b1-4a02758e674mr183842705e9.32.1791200744219;
+        Mon, 05 Oct 2026 04:45:44 -0700 (PDT)
 Received: from [10.41.30.1] ([161.12.45.16])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48c62270751sm3087877f8f.13.2026.10.05.04.44.57
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a027735be1sm472096485e9.11.2026.10.05.04.45.42
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 05 Oct 2026 04:44:58 -0700 (PDT)
-Message-ID: <fb0ec34e-deca-4365-8802-23d5688612e6@gmail.com>
-Date: Mon, 5 Oct 2026 12:44:55 +0100
+        Mon, 05 Oct 2026 04:45:43 -0700 (PDT)
+Message-ID: <cc7fb229-7e6f-4ccf-bea4-864ddbd36a02@gmail.com>
+Date: Mon, 5 Oct 2026 12:45:40 +0100
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -70,7 +70,7 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v7 02/13] iov_iter: add iterator type for dmabuf maps
+Subject: Re: [PATCH v7 06/13] nvme-pci: implement dma-buf backed requests
 To: Christoph Hellwig <hch@lst.de>
 Cc: linux-block@vger.kernel.org, linux-kernel@vger.kernel.org,
  linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org,
@@ -90,35 +90,36 @@ Cc: linux-block@vger.kernel.org, linux-kernel@vger.kernel.org,
  Mikulas Patocka <mpatocka@redhat.com>,
  Benjamin Marzinski <bmarzins@redhat.com>, dm-devel@lists.linux.dev
 References: <cover.1790602223.git.asml.silence@gmail.com>
- <74a9d65f5c4f9acce5f57ad5921a9fadc6eda712.1790602223.git.asml.silence@gmail.com>
- <20261005091008.GA10727@lst.de>
+ <e99dd5221c71cbf9aafb5737468d814cb83b9174.1790602223.git.asml.silence@gmail.com>
+ <20261005091554.GD10727@lst.de>
 Content-Language: en-US
 From: Pavel Begunkov <asml.silence@gmail.com>
-In-Reply-To: <20261005091008.GA10727@lst.de>
+In-Reply-To: <20261005091554.GD10727@lst.de>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
-On 10/5/26 10:10, Christoph Hellwig wrote:
-> On Mon, Sep 28, 2026 at 02:32:18PM +0100, Pavel Begunkov wrote:
->> Introduce a new iterator type for dmabuf maps. The map in an opaque
->> object with internals and format specific to the subsystem / driver, and
->> only it can use that subsystem / driver for issuing IO. The task of the
->> middle layers is to pass the map / iterator further down, maybe doing
->> basic splitting and length checking. The iterator can only be used by
->> operations of the file the associated map was created for.
->>
->> Suggested-by: Keith Busch <kbusch@kernel.org>
->> Reviewed-by: Christoph Hellwig <hch@lst.de>
->> Signed-off-by: Pavel Begunkov <asml.silence@gmail.com>
+On 10/5/26 10:15, Christoph Hellwig wrote:
+> On Mon, Sep 28, 2026 at 02:32:22PM +0100, Pavel Begunkov wrote:
+>> +static void nvme_dmabuf_map_sync_for_cpu(struct nvme_dev *nvme_dev,
+>> +		struct request *req)
+>> +{
+>> +	struct device *dev = nvme_dev->dev;
+>> +	enum dma_data_direction dma_dir;
+>> +	struct bio *bio = req->bio;
+>> +	struct nvme_dmabuf_map *map = to_nvme_dmabuf_map(bio->bi_dmabuf_map);
+>> +
+>> +	dma_dir = rq_data_dir(req) == READ ? DMA_FROM_DEVICE : DMA_TO_DEVICE;
+>> +	dma_sync_sgtable_for_cpu(dev, map->sgt, dma_dir);
 > 
-> FYI, I think the Sashiko complaint about iterate_and_advance2
-> is correct here.  We don't really hit that in the series, but leaving
-> iov_iter methods partially implemented and fall through to others
-> seems dangerous.  At minimum that needs a WARN_ON to catch that case.
+> This can use rq_dma_dir in the argument.  Same for the other DMA API
+> calls.
 
-v7 already covers iterate_and_advance2(). It complains about
-iterate_and_advance_kernel() but there are many types this one
-doesn't support.
+Will change
+
+> Btw, given how larger the dmabuf code is now, have you considered
+> splitting it into a new nvme-pci-dmabuf.c file?
+
+Let me see
 
 -- 
 Pavel Begunkov
