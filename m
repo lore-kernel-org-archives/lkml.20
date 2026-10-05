@@ -1,194 +1,203 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E10B534DB56;
-	Mon,  5 Oct 2026 07:39:16 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 85527311C2C;
+	Mon,  5 Oct 2026 07:39:23 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791185958; cv=none; b=E3jSs+3rnKfH48OOzhfomkr4TFETA8TP+QK+R2bcIZAe+/07g1CenLcdlGL61g01DYXciYDkLLziOca/sp9SW6icZWEamG9sP9rPlBdvcQ3eLxlo/V7AW67lNsoCra+ijj1xxWjTjbWH8zZE5K6frCtv2H7de0AqsSrOlrD0ctc=
+	t=1791185964; cv=none; b=tepjaulAHpn3lkiYOmU3q2+OP32kHY3IvbQNbxQD1rSuO647ndrfYns0RQixkVNyAqnQjAhvJ1BDyJklipi/dDcNN/3J+m8d2WSm6euAmsw9/o5M9ioxy5P0f+ntwWwSl6zgSQEJlaX04fc7x7F6yYcFfm09zDwkRQhsRMTMQYs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791185958; c=relaxed/simple;
-	bh=FBHakGryps74VWRpsW6RxcIjv8H+CCla+beRxFON5q4=;
-	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=ucwldsXgaP3uz5uGm7AjwgUqFQcfB4mT7WtS0PjVs72QCIW2I38i19aADKaUk/D8OHyzKQQc1zFHPniSUWbbYnlt/++K1D/IhWNkBn4JdtuWS1ihhxI2YsYs02qHUeiSEMnJpIb9wsiZQGkBrHV9NCbPbPLz57qPbYRGjewCwFY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gWVxXrB4; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791185964; c=relaxed/simple;
+	bh=R0UMO0ZisrBL/9mzVTcUKMICQaS+k7EaK7/N1YAvpbA=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=uUEI2hN0sHP7CbJhejHOu+Mv2PtD3ZVwP2AM6hfauo9FV8FSvGQmtktjXPlLlAesm8/QQ2M4xQ7icvYfOGEUv0MfmbmlYo2w0HUC1WO4AiUO4y+fpqy7JtAoLHpnQBo1rrvuLwwX6C8CzQCfsrxCSE9A4gj209Xe/YnXtiwK46w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=m8PJtDAs; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gWVxXrB4"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CC8151F000FF;
-	Mon,  5 Oct 2026 07:39:15 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="m8PJtDAs"
+Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id 3F75B1F000FF;
+	Mon,  5 Oct 2026 07:39:22 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791185956;
-	bh=q4QkilO6Wz+2Ci6IB2te9amWlWhgHlAM/4zp+BDg/wk=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=gWVxXrB4vWKt2NL98LWTejrQIsuv3XFHuqspjad15iV90xAgJN0Ukr3XY6OF3jAMR
-	 DbPnEBTB2d0L0r096T09v1mWyhoBibHsO73bSYXEjiz4lAMiwWJ2Ho5tLnuPdNinA5
-	 BnNgxmjQ/4DAAQotURFkU9IgayQSgOewraipPFy8R6h+m/TV9Etdh4kn2ZzRtlGeds
-	 iMMQAA1wvYGLvGGau3k8qAndBAibSxvNte/4NqpRTas2DkEy/0CfW1At7l6Xdxn2XZ
-	 fdJ9qMrfDNQdXJvWTwN2l0Fh6V2nuOLpN0XiMK94cpmBjE54ff1eyjyoi0op3x4m/j
-	 m7TwOKLCWQgjQ==
-Subject: Re: [PATCH net] net: phylink: allow stopping a suspended instance
-From: netdev-bot+sashiko@kernel.org
-To: james.hilliard1@gmail.com
-Cc: netdev@vger.kernel.org, linux@armlinux.org.uk, andrew@lunn.ch,
- hkallweit1@gmail.com, davem@davemloft.net, edumazet@kernel.org,
- kuba@kernel.org, pabeni@redhat.com, rmk+kernel@armlinux.org.uk,
- linux-kernel@vger.kernel.org
-Date: Mon, 05 Oct 2026 07:39:15 +0000
-Message-ID: <179118595534.434549.13886697155302109114@kernel.org>
-In-Reply-To:
- <20261001-submit-phylink-suspended-stop-v1-v1-1-0669fdb4a93b@gmail.com>
-References:
- <20261001-submit-phylink-suspended-stop-v1-v1-1-0669fdb4a93b@gmail.com>
-X-sashiko-severity: Medium
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	s=k20260515; t=1791185962;
+	bh=qeTjX6V1/llBNwNhy/HZwmi3JE2ekGp1kdz0gFyfevE=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=m8PJtDAsHKPHd57Pw+KhqhcB2US210H6q7vyvNP9BdSo1uqcjoztKg9n34GewIKiL
+	 K1SZ5p1ZxWYgOfdIN/k215pRoDdxI+7wvY5SgxMwtcgRU9O28/DM5isVxrXKlWAIbh
+	 2iPnOThmZXlGcMBjhwk/QOlYG5Xl31bQuTbvuJ0BoZcy2Gbm7KkD0YuB2EZ5dV7Bv3
+	 WaKNp4yo3XiyQ8Jm6XpWvrXbWM7lv/Ft1O/IKhPWvHHjxn5IYfbzh8/z2GXb1A/7XA
+	 lbZu8yPkPT12AgkGhtaUFqbt8rkBv9/3FaJ5V+IpDgY3DYK394g/f2ksNR8pFiRbvz
+	 CyoIli5UmvOUg==
+Date: Mon, 5 Oct 2026 10:39:18 +0300
+From: Jarkko Sakkinen <jarkko@kernel.org>
+To: Srish Srinivasan <ssrish@linux.ibm.com>
+Cc: linux-integrity@vger.kernel.org, keyrings@vger.kernel.org,
+	James.Bottomley@hansenpartnership.com, zohar@linux.ibm.com,
+	stefanb@linux.ibm.com, linux-kernel@vger.kernel.org,
+	linux-security-module@vger.kernel.org, nayna@linux.ibm.com,
+	rnsastry@linux.ibm.com
+Subject: Re: [PATCH v3] keys/trusted_keys: reuse TPM version in option
+ handling
+Message-ID: <asNUJlc-cIB1R0xP@kernel.org>
+References: <20261005062732.140733-1-ssrish@linux.ibm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261005062732.140733-1-ssrish@linux.ibm.com>
 
-Thank you for your contribution! Sashiko AI review found 1 potential
-issue(s) to consider.
-
-Critical: 0 · High: 0 · Medium: 1 · Low: 0
-
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
-
-- [Medium] The patch does not handle the state where
-  PHYLINK_DISABLE_STOPPED and PHYLINK_DISABLE_MAC_WOL are both set.
-
---
-
-net: phylink: allow stopping a suspended instance
-
-This patch lets drivers call phylink_stop() on a suspended phylink
-instance after a failed MAC resume. For MAC WoL it finishes the deferred
-link-down and clears PHYLINK_DISABLE_MAC_WOL. It also keeps the saved
-link state when MAC WoL suspend is repeated, and tracks suspend-time PHY
-speed-down separately.
-
-> diff --git a/drivers/net/phy/phylink.c b/drivers/net/phy/phylink.c
-> index 1bbcf46c83566..08f06ae5213fa 100644
-> --- a/drivers/net/phy/phylink.c
-> +++ b/drivers/net/phy/phylink.c
-
-[ ... ]
-
-> @@ -2509,11 +2518,30 @@ EXPORT_SYMBOL_GPL(phylink_start);
->   *
->   * This will synchronously bring down the link if the link is not already
->   * down (in other words, it will trigger a mac_link_down() method call.)
-> + * A suspended instance may be stopped without first calling phylink_resume().
-> + * In particular, closing a device after a failed resume must not restart the
-> + * link or reconfigure the MAC just to finish shutting it down.
-
-[ ... ]
-
->  void phylink_stop(struct phylink *pl)
+On Mon, Oct 05, 2026 at 11:57:32AM +0530, Srish Srinivasan wrote:
+> Determine the TPM version once in the seal and unseal paths, and reuse
+> it when allocating and parsing trusted key options.
+> 
+> This reduces the number of fallible calls to tpm_is_tpm2() and avoids
+> unnecessary I/O between the kernel and the TPM.
+> 
+> Signed-off-by: Srish Srinivasan <ssrish@linux.ibm.com>
+> Reviewed-by: Stefan Berger <stefanb@linux.ibm.com>
+> ---
+> Changelog:
+> 
+>  v3:
+>   - Tweak the commit message to highlight the reduced failure surface and
+>     TPM I/O
+> 
+>  v2:
+>   - Use bool to indicate whether the chip is TPM 2.0 in the option helpers
+> 
+>  security/keys/trusted-keys/trusted_tpm1.c | 35 +++++++++--------------
+>  1 file changed, 13 insertions(+), 22 deletions(-)
+> 
+> diff --git a/security/keys/trusted-keys/trusted_tpm1.c b/security/keys/trusted-keys/trusted_tpm1.c
+> index 3ec078ca3f97..6dbce058368f 100644
+> --- a/security/keys/trusted-keys/trusted_tpm1.c
+> +++ b/security/keys/trusted-keys/trusted_tpm1.c
+> @@ -700,7 +700,7 @@ static const match_table_t key_tokens = {
+>  
+>  /* can have zero or more token= options */
+>  static int getoptions(char *c, struct trusted_key_payload *pay,
+> -		      struct trusted_key_options *opt)
+> +		      struct trusted_key_options *opt, bool is_tpm2)
 >  {
->  	ASSERT_RTNL();
+>  	struct trusted_key_tpm *private = opt->private;
+>  	substring_t args[MAX_OPT_ARGS];
+> @@ -712,13 +712,8 @@ static int getoptions(char *c, struct trusted_key_payload *pay,
+>  	unsigned long token_mask = 0;
+>  	unsigned int digest_len;
+>  	int i;
+> -	int tpm2;
+> -
+> -	tpm2 = tpm_is_tpm2(chip);
+> -	if (tpm2 < 0)
+> -		return tpm2;
 >  
-> +	/* Also undo PHY speed control when terminating a suspended instance. */
-> +	phylink_restore_suspend_speed(pl);
-> +
-> +	if (test_bit(PHYLINK_DISABLE_STOPPED, &pl->phylink_disable_state)) {
-> +		/* A failed MAC resume may have called phylink_prepare_resume()
-> +		 * and powered the stopped PHY back up to supply its RX clock.
-> +		 */
-> +		if (pl->phydev)
-> +			phy_suspend(pl->phydev);
-> +		return;
-> +	}
-> +
->  	if (pl->sfp_bus)
->  		sfp_upstream_stop(pl->sfp_bus);
->  	if (pl->phydev)
-> @@ -2526,6 +2554,16 @@ void phylink_stop(struct phylink *pl)
+> -	private->hash = tpm2 ? HASH_ALGO_SHA256 : HASH_ALGO_SHA1;
+> +	private->hash = is_tpm2 ? HASH_ALGO_SHA256 : HASH_ALGO_SHA1;
 >  
->  	phylink_run_resolve_and_disable(pl, PHYLINK_DISABLE_STOPPED);
+>  	if (!c)
+>  		return 0;
+> @@ -773,7 +768,7 @@ static int getoptions(char *c, struct trusted_key_payload *pay,
+>  				break;
+>  			}
 >  
-> +	if (test_bit(PHYLINK_DISABLE_MAC_WOL, &pl->phylink_disable_state)) {
-> +		/* Finish the link-down deferred by MAC WoL, without restarting. */
-> +		flush_work(&pl->resolve);
-> +		mutex_lock(&pl->state_mutex);
-> +		if (pl->suspend_link_up)
-> +			phylink_link_down(pl);
-> +		__clear_bit(PHYLINK_DISABLE_MAC_WOL, &pl->phylink_disable_state);
-> +		mutex_unlock(&pl->state_mutex);
-> +	}
-> +
-
-[Severity: Medium]
-What happens when PHYLINK_DISABLE_STOPPED and PHYLINK_DISABLE_MAC_WOL
-are both set?
-
-phylink_suspend() takes the MAC WoL branch without checking
-PHYLINK_DISABLE_STOPPED, so this sequence looks possible:
-
-  phylink_suspend(pl, false)   /* non-WoL, phylink_stop() sets STOPPED */
-  <MAC resume fails before phylink_resume() is called>
-  phylink_suspend(pl, true)    /* MAC WoL, sets MAC_WOL */
-
-At that point suspend_link_up is false, because the carrier is already
-off.
-
-If phylink_stop() is called next, the new STOPPED early return runs
-before the MAC_WOL block above. That block is the only place that clears
-PHYLINK_DISABLE_MAC_WOL, so the bit survives the stop. The next
-phylink_start() only clears STOPPED:
-
-  phylink_start()
-    phylink_enable_and_run_resolve(pl, PHYLINK_DISABLE_STOPPED)
-      phylink_run_resolve()
-        if (!pl->phylink_disable_state)
-            queue_work(system_power_efficient_wq, &pl->resolve);
-
-Does this leave the resolver gated, so the link stays down until another
-stop/start cycle?
-
-If phylink_resume() is called instead, it takes the MAC_WOL branch. It
-calls phylink_mac_initial_config() and clears only MAC_WOL.
-phylink_start() never runs, so STOPPED stays set, phy_start() and
-sfp_upstream_start() are skipped, and the resolver stays gated. This
-patch doesn't change that part of phylink_resume(). Still, the patch is
-meant to make re-suspend and stop after a failed resume behave
-correctly.
-
-fbnic looks like it can reach this. fbnic_stop() passes a firmware
-derived value as mac_wol:
-
-  phylink_suspend(fbn->phylink, fbnic_bmc_present(fbn->fbd));
-
-The BMC presence is re-read from firmware during resume, before
-__fbnic_open() runs. So the mode can change between a failed resume (for
-example, fbnic_mac_request_irq() failing) and the next suspend. Since
-fbnic only uses phylink_suspend() and phylink_resume(), the link could
-stay down across open/close cycles while fbnic_bmc_present() stays true.
-
-For stmmac (stmmac_resume() failing in stmmac_hw_setup()) and ucc_geth,
-ethtool rejects WoL changes with -ENODEV while the device is detached. So
-the mode change seems harder to hit on those drivers.
-
-The new kernel-doc says "A suspended instance may be stopped without
-first calling phylink_resume()". The commit message says "For MAC WoL,
-finish the deferred link-down and clear the WoL disable bit".
-
-Should the STOPPED early return also handle a pending
-PHYLINK_DISABLE_MAC_WOL? Separately, should phylink_suspend() avoid
-setting MAC_WOL on an instance that is already stopped, or should
-phylink_resume() fall back to phylink_start() in that case?
-
->  	pl->pcs_state = PCS_STATE_DOWN;
+> -			if (tpm2 &&
+> +			if (is_tpm2 &&
+>  			    private->blobauth_len <=
+>  			    sizeof(private->blobauth)) {
+>  				memcpy(private->blobauth, args[0].from,
+> @@ -808,14 +803,15 @@ static int getoptions(char *c, struct trusted_key_payload *pay,
+>  			}
+>  			if (i == HASH_ALGO__LAST)
+>  				return -EINVAL;
+> -			if  (!tpm2 && i != HASH_ALGO_SHA1) {
+> +			if (!is_tpm2 && i != HASH_ALGO_SHA1) {
+>  				pr_info("TPM 1.x only supports SHA-1.\n");
+>  				return -EINVAL;
+>  			}
+>  			break;
+>  		case Opt_policydigest:
+>  			digest_len = hash_digest_size[private->hash];
+> -			if (!tpm2 || strlen(args[0].from) != (2 * digest_len))
+> +			if (!is_tpm2 ||
+> +			    strlen(args[0].from) != (2 * digest_len))
+>  				return -EINVAL;
+>  			res = hex2bin(private->policydigest, args[0].from,
+>  				      digest_len);
+> @@ -824,7 +820,7 @@ static int getoptions(char *c, struct trusted_key_payload *pay,
+>  			private->policydigest_len = digest_len;
+>  			break;
+>  		case Opt_policyhandle:
+> -			if (!tpm2)
+> +			if (!is_tpm2)
+>  				return -EINVAL;
+>  			res = kstrtoul(args[0].from, 16, &handle);
+>  			if (res < 0)
+> @@ -838,15 +834,10 @@ static int getoptions(char *c, struct trusted_key_payload *pay,
+>  	return 0;
+>  }
 >  
->  	phylink_pcs_disable(pl->pcs);
+> -static struct trusted_key_options *trusted_options_alloc(void)
+> +static struct trusted_key_options *trusted_options_alloc(bool is_tpm2)
+>  {
+>  	struct trusted_key_tpm *private;
+>  	struct trusted_key_options *options;
+> -	int tpm2;
+> -
+> -	tpm2 = tpm_is_tpm2(chip);
+> -	if (tpm2 < 0)
+> -		return NULL;
+>  
+>  	options = kzalloc_obj(*options);
+>  	if (options) {
+> @@ -858,7 +849,7 @@ static struct trusted_key_options *trusted_options_alloc(void)
+>  			kfree_sensitive(options);
+>  			options = NULL;
+>  		} else {
+> -			if (!tpm2)
+> +			if (!is_tpm2)
+>  				private->keyhandle = SRKHANDLE;
+>  			options->private = private;
+>  		}
+> @@ -877,13 +868,13 @@ static int trusted_tpm_seal(struct trusted_key_payload *p, char *datablob)
+>  	if (tpm2 < 0)
+>  		return tpm2;
+>  
+> -	options = trusted_options_alloc();
+> +	options = trusted_options_alloc(tpm2);
+>  	if (!options)
+>  		return -ENOMEM;
+>  
+>  	private = options->private;
+>  
+> -	ret = getoptions(datablob, p, options);
+> +	ret = getoptions(datablob, p, options, tpm2);
+>  	if (ret < 0)
+>  		return ret;
+>  	dump_options(options);
+> @@ -922,12 +913,12 @@ static int trusted_tpm_unseal(struct trusted_key_payload *p, char *datablob)
+>  	if (tpm2 < 0)
+>  		return tpm2;
+>  
+> -	options = trusted_options_alloc();
+> +	options = trusted_options_alloc(tpm2);
+>  	if (!options)
+>  		return -ENOMEM;
+>  	private = options->private;
+>  
+> -	ret = getoptions(datablob, p, options);
+> +	ret = getoptions(datablob, p, options, tpm2);
+>  	if (ret < 0)
+>  		return ret;
+>  	dump_options(options);
+> -- 
+> 2.53.0
+> 
 
-[ ... ]
+Great, applied thank you.
 
--- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261001-submit-phylink-suspended-stop-v1-v1-1-0669fdb4a93b%40gmail.com
+
+Reviewed-by: Jarkko Sakkinen <jarkko@kernel.org>
+
+Br, Jarkko
