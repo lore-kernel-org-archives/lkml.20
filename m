@@ -1,190 +1,225 @@
-Received: from sender5-op-o11.zoho.com (sender5-op-o11.zoho.com [165.173.182.11])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qt1-f176.google.com (mail-qt1-f176.google.com [209.85.160.176])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6E48D49CF26
-	for <linux-kernel@vger.kernel.org>; Tue,  6 Oct 2026 17:18:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=165.173.182.11
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791307131; cv=pass; b=OstrU76tbh1IMS4DDFD/G+Kl5V0A/i2J7Uf/YPy9dPWr+5Mdjp8UCvPjyuIx1Dfw+7nIPdJ9eYhfeBsOaScC1If1XmsgQrhcNfmOk6W4f6Zls79sQAI06tV9+OZCCWAy7X/f9w8zH7stkYgFdwCYefm9TjMiAnQUk7jF+2MgcSE=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791307131; c=relaxed/simple;
-	bh=KH6ZKcJBkF+E3qcs6J1FuVg8hcjrj4CvuWvbn7rmvi0=;
-	h=MIME-Version:Content-Type:Subject:From:To:Cc:In-Reply-To:
-	 References:Date:Message-Id; b=mFm/WnLS3j5F6RcBhNJ5Un5XTrebxtyMV9LH5cLLyrIgrh3v+6Yfn5MRTacfG9867dpwCIwarNhXGzDHkhZ+BhFmBhDw5Y8M6/mlRQz+dXQPWvwmHZhpQxvXBZgPe8/wQX4ZpOqEQRGjirgmPHCWK3EedhNI/yio+hPqDW5QMx4=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (1024-bit key) header.d=collabora.com header.i=adrian.larumbe@collabora.com header.b=HOlGHupv; arc=pass smtp.client-ip=165.173.182.11
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3F9344195C8
+	for <linux-kernel@vger.kernel.org>; Tue,  6 Oct 2026 17:20:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.176
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791307215; cv=none; b=AlMtreu55UC6SvLsddzIJjxfA7XZ3+BZ2Bijg+snRD75dL4Uln9Vbw454PlW/BUAKPNY3Yb86nduKeF1jyLQWg1oukIIux7rqf7y9cac45L/2PyhkH2pq0/A5g3mS+KPndzyettukUoqC2NKCUJRW8QxFZRksVRD0aTWaEA/llw=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791307215; c=relaxed/simple;
+	bh=8UrfGrgp42qNQU1NimZqWk+yfFirL0kYvAJnchl0BIc=;
+	h=Message-ID:In-Reply-To:References:From:Date:Subject:To:Cc; b=UV0U9IdxFm/8gVhE9GupK9kkdGzRoK5zyzbe8EFblk29u+J+IEWhoX0653SxZHTWApApVeQK6T8YOhL3YsVqAremmJL7FN80RCEx1Oy4L5Zws7ybJq97BpA3422RPizi6JRg3iHablUdbW8lx8BLcUkcTzdZL4gpjL3u24QBWUM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=toxicpanda.com; spf=pass smtp.mailfrom=toxicpanda.com; dkim=pass (2048-bit key) header.d=toxicpanda.com header.i=@toxicpanda.com header.b=MjSgsyiF; arc=none smtp.client-ip=209.85.160.176
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=toxicpanda.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=toxicpanda.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=collabora.com header.i=adrian.larumbe@collabora.com header.b="HOlGHupv"
-ARC-Seal: i=1; a=rsa-sha256; t=1791307096; cv=none; 
-	d=zohomail.com; s=zohoarc; 
-	b=hB62AdVTW3x1ecqefvoG2W/JW41ycYHB40LUiQ8GXGthlU5XqE+zPmV10dcW+KX944xbtu70B9bjByqqq5HhaflPnc+kz20Ggtjmi6MwSFmukXVNaLrAy566t7OqjVVifdeHxmsBUSIf2FbmYJKLNoL0qziIuIo9tLZQ2R0bugk=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1791307096; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=iS1yf3CNwcl80VFN3tKnDuJ+FW28sI/p4KBTK3BXXMU=; 
-	b=YUjWQtNIxXqsRIpr+ItlK8Z4Jo6mRJmjjm3q+btJZkAAbI/aB/xKscYNjOHSncXOyZJTpFR4SI2bBnnT5fBopvbXDRgmE0fghzOIh8PhMg/CeAX/mQXWsk3tSptL/a7NbgVnLk0MLxdT5F7rMA5OSzgva8eWDaDJKYDi/hf7IdE=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
-	dkim=pass  header.i=collabora.com;
-	spf=pass  smtp.mailfrom=adrian.larumbe@collabora.com;
-	dmarc=pass header.from=<adrian.larumbe@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1791307096;
-	s=zohomail; d=collabora.com; i=adrian.larumbe@collabora.com;
-	h=MIME-Version:Content-Type:Content-Transfer-Encoding:Subject:Subject:From:From:To:To:Cc:Cc:In-Reply-To:Date:Date:Message-Id:Message-Id:Reply-To;
-	bh=iS1yf3CNwcl80VFN3tKnDuJ+FW28sI/p4KBTK3BXXMU=;
-	b=HOlGHupv0PAVAXR5ZVGpLM4ESoejT7ewfW0/m8TIC2+bFeFHQ+eKaifWn/el9y5K
-	/P2IbqlP+MDw8uquzwWU42Leo8MkNVV//KnzwiOPymYTVg4iPVTyoWiUyySrLSOytra
-	26MaTwSDAyMXBa0nc4ag5z8bFcQ1LX6KvS0WCCGw=
-Received: by smtp.zohomail.com with SMTPS id 1791307095879578.8132568543292;
-	Tue, 6 Oct 2026 10:18:15 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=toxicpanda.com header.i=@toxicpanda.com header.b="MjSgsyiF"
+Received: by mail-qt1-f176.google.com with SMTP id d75a77b69052e-5356b6a7fe5so5601081cf.1
+        for <linux-kernel@vger.kernel.org>; Tue, 06 Oct 2026 10:20:10 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=toxicpanda.com; s=google; t=1791307208; x=1791912008; darn=vger.kernel.org;
+        h=cc:to:subject:date:from:references:in-reply-to:message-id:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=ulDmc4vWLYDEpDWER1pNlz3EcN+6UD7sdaSKpKBxXwg=;
+        b=MjSgsyiFDYLLapM0B1YiwaXDUoZaA9fOvwLnqULqbFG2kK8KRpl+dR81ryRWm2datN
+         Bm37feEsvoD28MdGM1ZT3FpHwsyetP7E+5J6z4itOhla8kvCOFedTGmHPCtQA/qudLqD
+         gDZBGS1CDB5Bktp2Pn6gGHhw5Mh89SG497icuMYugF7Qi53vNrsOOCFvmQpePAU4mZSh
+         1oE2IcPqAxpSe8FQ7dfoO+0IvdQ2RqXe8KdQ3asAlDn+npU3+nQTF+pzd0WIFksmiKWV
+         AfaAmsLHxd33Cp5lpELgw0L1fFTRCTk2k546XqTmdFjjq3o6noym57QXn5AlK074aPL7
+         7Ubg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791307208; x=1791912008;
+        h=cc:to:subject:date:from:references:in-reply-to:message-id:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=ulDmc4vWLYDEpDWER1pNlz3EcN+6UD7sdaSKpKBxXwg=;
+        b=dqYJHYarR7EaGVVT5WmqScT+aZ785/HaULIUcq51fSkPLzQS5j5mdjxnPcEmINsiFL
+         hd1rrhzwoAjpV+CuyVX9EZYTEzlByrM5DHfrycMdEtAO/zU7CS26C7wUVSNEQ6duyWX4
+         nMHEtqIiZ1UO/tOV2LWVyV6NZOS9+G92w+fHyer/vWzbUBnNCk7Eh08RSv1U+qcsYiPx
+         8GtPs8p5WuTrNwdIKJnUBPX02MOoVgkCezKj/XU4gtQ0wb71sqVBBZbOfbKefcjnN02J
+         8UterMxIgkCg9aTBph3PNIpHq9t8gMKLaSMrZxmEiqkUkP/d035MINOTOyeHzlb7QJf9
+         IIyw==
+X-Forwarded-Encrypted: i=1; AKwUvBw08FQeEUVQ/CJH56YsDyHxXjhTs5bwNEUpiYzWDOOX/KrsgrHoqdlVokOyDl3mPlR5GR2CaMGvojTc3wE=@vger.kernel.org
+X-Gm-Message-State: AFuF++lC+mNvlqPVUv/2572BUbQImEn788QLFNRv9FkYl9AUsZ31YLsB
+	RCgnBu8FQXcyVEJIkpVt6o7b9Wip5Oy8han2qR1kPnunBrHI1quL2DlnYzDUXneSK1w=
+X-Gm-Gg: AYBFou0RhxLePFtyACMVS3EfaoIXwxy+k0edGRy/2fn8uAodlX6k64/sA8KVeXrU1Ix
+	BZEEk85xT2czgeXDNUksXmJIJbGULDY2jHUZdIHwIUkH1yRNvQZCQVVMi3YoHxkhOlwcjdUEfXd
+	JBGWl+kkFEGl1tRWIHEXPAgAdSAKcqhyXKhW+R6HLmFHvrwEN6bBZC6Y+MW7oZ3boMzJyUpKatJ
+	TLZE8EqA8L3DZ3zFeWzzGO6I3o2CVBXdwkTg/LlFd1dc1UZhvCBjOlkZzSyv/exVhG7VqOqi939
+	DrHPrSM7uBvyYgMr3ZJBg0Sx0oI7aTF1OtXMCGsxqXmyU5l/2Oax1Wkr6N1doWLwyJqfvRzLvmV
+	71oqLlHEEkx9k9iUPJe/r7TVJkEuY+rwELhsn6tU0AeTCOmv6EKVBS6EHYbDgzJ0Bbb7Mzu5FaF
+	dbe4DfKpV41jarkbjn5N6qI9DAPZirIjiEIQoij+37qQa4/o7fYsVNrfIP+N3nEEiG4Zqjdv3W8
+	sPtNA7Tf0iezWY=
+X-Received: by 2002:a05:622a:11c3:b0:535:e77:e37c with SMTP id d75a77b69052e-535671e2e35mr35390061cf.57.1791307208137;
+        Tue, 06 Oct 2026 10:20:08 -0700 (PDT)
+Received: from toxicpanda.com ([153.61.196.248])
+        by smtp.gmail.com with ESMTPSA id d75a77b69052e-53571f162e7sm762851cf.1.2026.10.06.10.20.06
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 06 Oct 2026 10:20:06 -0700 (PDT)
+Message-ID: <fa008e794e050059f67469ddf006298ea028ce24.1791307183.git.josef@toxicpanda.com>
+In-Reply-To: <asUCWjKXMxXFwBNQ@fedora-laptop>
+References: <asUCWjKXMxXFwBNQ@fedora-laptop>
+From: Josef Bacik <josef@toxicpanda.com>
+Date: Mon, 5 Oct 2026 16:23:51 +0000
+Subject: [PATCH v2] ublk: refuse to go live after an io command was canceled
+To: Ming Lei <tom.leiming@gmail.com>,
+    Jens Axboe <axboe@kernel.dk>
+Cc: Caleb Sander Mateos <csander@purestorage.com>,
+    linux-block@vger.kernel.org,
+    linux-kernel@vger.kernel.org,
+    linux-doc@vger.kernel.org
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-Subject: Re: [PATCH v12 12/15] drm/panfrost: Skip cache flush/invalidate
- when enabling perfcnt
-From: =?utf-8?q?Adri=C3=A1n_Larumbe?= <adrian.larumbe@collabora.com>
-To: Steven Price <steven.price@arm.com>
-Cc: Boris Brezillon <boris.brezillon@collabora.com>, 
- =?utf-8?q?Adri=C3=A1n_Larumbe?= <adrian.larumbe@collabora.com>, 
- Rob Herring <robh@kernel.org>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Faith Ekstrand <faith.ekstrand@collabora.com>, 
- "Marty E. Plummer" <hanetzer@startmail.com>, 
- Tomeu Vizoso <tomeu@tomeuvizoso.net>, Eric Anholt <eric@anholt.net>, 
- Robin Murphy <robin.murphy@arm.com>, Philipp Zabel <p.zabel@pengutronix.de>, 
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
- Collabora Kernel Team <kernel@collabora.com>, 
- Neil Armstrong <neil.armstrong@linaro.org>
-In-Reply-To: <5af99ba3-97e7-4a05-b91c-7d53a508b635@arm.com>
-References: <20260929-claude-fixes-v12-0-62beb08de207@collabora.com>
- <20260929-claude-fixes-v12-12-62beb08de207@collabora.com>
- <95174a67-0eee-4bf7-b883-9f1138c74a6f@arm.com>
- <20261005103855.655f8199@fedora-61.home>
- <5af99ba3-97e7-4a05-b91c-7d53a508b635@arm.com>
-Date: Tue, 06 Oct 2026 18:18:10 +0100
-Message-Id: <179130709099.1018806.10936869787038535987.b4-reply@b4>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=5063;
- i=adrian.larumbe@collabora.com; h=from:subject:message-id;
- bh=KH6ZKcJBkF+E3qcs6J1FuVg8hcjrj4CvuWvbn7rmvi0=;
- b=owEB7QES/pANAwAKAQ4mfkzuU0M9AcsmYgBqxS1TaUUGJgIw/uGz2vGNewjkbRtHcbSaI0pau
- En7BlrDSJuJAbMEAAEKAB0WIQQyQDDowAUXXfk3B6QOJn5M7lNDPQUCasUtUwAKCRAOJn5M7lND
- PbAAC/9daAfZfkD39wUdWvyKDydoDKLe+sHRVtmGFOKwpkx2wL5xedeLfa2ywdWNamnElfgKBIa
- IEh8Muo4+Q0oUzWs3XsfEEV0cqdJpIdiIBpTwhS8otjHqdSj9mJlgp1ptf0L5SP9iTvzzFP4Kyi
- l/xCK0wOr8p27BjU/oL6js5ah+UHl+mHeIfUbBL4WWaPmeRGk1nyG75OGsaq1jqaOSbokvmI/3+
- mZxfbI6vp7tSVjhuPnapE33o+vGdVyAbC32ffctU0F8Z/C67cz+fSEIQOc2WJBnCT25v660rKq4
- 07omGogXa6gmui9b5mei3LUH1JirJtnCRgIAWZRFqK4hP/WbCWIkms0x/jsQQJAOssuiTtu/Bit
- MVghZ8P6WonkZxGN5756C3ld1dU8dcU2y8e2gBqXZnJJ/UEE2QqsuGU23oqz7f4t5o47iji7x/f
- xsycNQJaGXfwxtPMITRVt4pODB9u6vPH7t1rdiSfZi05UiWRqMQHXy2tEeQ672tnl6fKY=
-X-Developer-Key: i=adrian.larumbe@collabora.com; a=openpgp;
- fpr=324030E8C005175DF93707A40E267E4CEE53433D
 
-On 2026-10-05 16:06:02+01:00, Steven Price wrote:
-> On 05/10/2026 09:38, Boris Brezillon wrote:
-> 
-> > On Fri, 2 Oct 2026 16:14:38 +0100
-> > Steven Price <steven.price@arm.com> wrote:
-> > 
-> > 
-> > I don't think this can happen though, because _enable_locked() is
-> > creating a BO (and its GPU mapping) just before enabling the perfcnt
-> > block, meaning the buffer is known to have no dirty cacheline pointing
-> > to it until the first dump happens. And we do flush and invalidate GPU
-> > caches after each dump, so again, we should be covered.
-> 
-> The situation isn't actually a dirty cache line at the start, but a
-> stale one. We start off with the memory matching a clean line in the
-> GPU's cache. But because we don't have coherency the clean line can stay
-> even if it's inconsistent with everything else.
-> 
-> CPU		|	GPU		| Memory
-> ----------------+-----------------------+--------------------
->                 | clean line            | matches GPU cache
-> ----------------+-----------------------+--------------------
->    CPU allocates new buffer and writes zeros
-> ----------------+-----------------------+--------------------
-> Dirty cache line| stale clean line      | unknown (cache line
->                 |                       | might be evicted)
-> ----------------+-----------------------+--------------------
->    CPU cleans its own cache to memory
+Since commit "ublk: keep a canceled FETCH round canceling until the
+server is gone", a device whose FETCH round saw a cancel keeps its
+queues canceling until the server goes away, but START_DEV and
+END_USER_RECOVERY still bring it up. Without UBLK_F_USER_RECOVERY, or
+with UBLK_F_USER_RECOVERY_FAIL_IO, every request of the new disk fails.
+With UBLK_F_USER_RECOVERY, requests are requeued and never kicked: after
+START_DEV the partition scan hangs under disk->open_mutex, and after
+END_USER_RECOVERY every read parks while the command returned 0. The
+server cannot fetch the canceled commands again, so the device can't
+serve I/O until it restarts anyway.
 
-We're not doing this explicitly for BO memory from the CPU. AFAIK the only way to
-do that manually is calling dma_sync_single_for_device() on physical addresses. I
-suppose this means the reason why the CPU can see up-to-date dump data is because
-a GPU cache flush also invalidates CPU caches for the same lines?
+Return -EBUSY from START_DEV and END_USER_RECOVERY while ub->canceling
+is set. In ublk_ctrl_start_dev() check it and publish ub->ub_disk in one
+cancel_mutex section, and have ublk_start_cancel() read the disk in its
+cancel_mutex section. Today ublk_start_cancel() samples the disk before
+taking the mutex, so a server dying during its own START_DEV can mark
+the queues without quiescing a disk START_DEV published in between, with
+its first I/O past the canceling check. Now either START_DEV sees the
+cancel, or the cancel sees the disk and quiesces it before marking. The
+END_USER_RECOVERY check is best effort: the disk exists there, and a
+cancel after it is the ordinary death of the new server, which
+ublk_start_cancel() handles by quiescing and marking.
 
-> ----------------+-----------------------+--------------------
-> Potential clean | stale clean line      | Matches CPU
-> cache line      |                       |
-> ----------------+-----------------------+--------------------
->    Start dump without invaliding GPU
-> ----------------+-----------------------+--------------------
-> Potential clean | GPU writes data, and  | Unknown
-> cache line      | hits in the clean line|
->                 | even though it's stale|
-> ----------------+-----------------------+--------------------
->    CPU flushes the GPU's cache and invalidates it's own
-> ----------------+-----------------------+--------------------
-> No-cache line   | writes out clean line | Matches GPU
-> 
-> 
-> Of course for the GPU to have ended up with that stale clean cache line
-> means that the physical memory was previously used for something else on
-> the GPU, so the newly allocated BO has to reuse memory from a previous
-> BO that the GPU has accessed. And it's all "unlikely" due to the small
-> size of the GPU's cache.
-> 
-> >>
-> > 
-> > I agree, but that's not a case we can hit in the enable path. I think I
-> > mentioned the commit message was misleading, and that we should instead
-> > talk about the fact the GPU is not supposed to have cached anything up
-> > until the first SAMPLE following a the ENABLE step.
-> > 
-> > 
-> > I think I was the one suggesting dropping this flush so that
-> > panfrost_perfcnt_hw_enable() (in the last patch) has one less fallible
-> > operation. Besides, I find it confusing to have a cache flush+inval in
-> > a path where the GPU is not supposed to have accessed the buffer yet
-> > (or later on, when we re-enable after a RESET, in a path where the GPU
-> > has been reset and the caches are known to be empty).
-> 
-> So I agree this Should Be Safe™ because of how the driver is currently
-> using the performance counters. If we really want to drop the invalidate
-> then I think we need a comment explaining the logic. My worry is that
-> someone extends this in the future (e.g. allow selecting which counters
-> to enable) and breaks assumptions without them being documentead.
+Assisted-by: LLM
+Reviewed-by: Ming Lei <tom.leiming@gmail.com>
+Signed-off-by: Josef Bacik <josef@toxicpanda.com>
+---
+v2: -EBUSY instead of -ENODEV, the device isn't gone (Ming)
 
-Perfcnt ioctl's are currently marked as unstable, but even so, adding the
-initial flush/invalidate back in case anyone ever wanted to redefine the
-uAPI to add support for fine-grained selection of counters shouldn't be
-much of an issue. It's just that, as things stand now, it simplifies error
-handling quite a bit, and I guess it's a reasonable trade-off.
+This applies on top of Ming's "[PATCH 0/8] ublk: don't dispatch to
+canceled io commands" and needs patch 1 of it for ub->canceling to stay
+set for the whole FETCH round.
 
-I'll add a comment explaining why it's safe not to do the initial
-flush/invalidate in a new revision.
+ Documentation/block/ublk.rst | 10 ++++++++--
+ drivers/block/ublk_drv.c     | 38 ++++++++++++++++++++++++++++++++++--
+ 2 files changed, 44 insertions(+), 4 deletions(-)
 
-> We normally do perform an invalidate when the GPU first touches a buffer
-> (e.g. for a BO) - it's just normally more implicit because it's done as
-> part of the job manager(/command stream).
-
-Does this mean instructions that are part of the command stream passed to the
-submit ioctl can trigger a flush/invalidate without CPU intervention?
-
-> 
-> Also "caches known to be empty" is a dangerous thing to assume on
-> anything that could involve speculation - AFAIK Mali doesn't really
-> perform any form of speculation, but I'm not 100% sure on that.
-> Certainly with CPUs you don't get such a luxury of knowing what it might
-> have populated in the caches.
-> 
-> Thanks,
-> Steve
-
+diff --git a/Documentation/block/ublk.rst b/Documentation/block/ublk.rst
+index 28300fee22bf..6c5536ebd987 100644
+--- a/Documentation/block/ublk.rst
++++ b/Documentation/block/ublk.rst
+@@ -118,7 +118,11 @@ managing and controlling ublk devices with help of several control commands:
+   After the server prepares userspace resources (such as creating I/O handler
+   threads & io_uring for handling ublk IO), this command is sent to the
+   driver for allocating & exposing ``/dev/ublkb*``. Parameters set via
+-  ``UBLK_CMD_SET_PARAMS`` are applied for creating the device.
++  ``UBLK_CMD_SET_PARAMS`` are applied for creating the device. The command
++  fails with ``-EBUSY`` if an I/O command fetched by the current server
++  was canceled, because its io_uring is gone. The server can't fetch it
++  again, and the device can be started again once the server has closed
++  ``/dev/ublkc*``.
+ 
+ - ``UBLK_CMD_STOP_DEV``
+ 
+@@ -195,7 +199,9 @@ managing and controlling ublk devices with help of several control commands:
+   command is accepted after ublk device is quiesced and a new process has
+   opened ``/dev/ublkc*`` and get all ublk queues be ready. When this command
+   returns, ublk device is unquiesced and new I/O requests are passed to the
+-  new process.
++  new process. It fails with ``-EBUSY`` if an I/O command of the new
++  process was canceled already. The recovery can be started over once the
++  new process has closed ``/dev/ublkc*``.
+ 
+ - user recovery feature description
+ 
+diff --git a/drivers/block/ublk_drv.c b/drivers/block/ublk_drv.c
+index f57d544c1da2..015aff07703c 100644
+--- a/drivers/block/ublk_drv.c
++++ b/drivers/block/ublk_drv.c
+@@ -2759,9 +2759,11 @@ static void ublk_abort_queue(struct ublk_device *ub, struct ublk_queue *ubq)
+ 
+ static void ublk_start_cancel(struct ublk_device *ub)
+ {
+-	struct gendisk *disk = ublk_get_disk(ub);
++	struct gendisk *disk;
+ 
++	/* sync with ublk_ctrl_start_dev() publishing the disk */
+ 	mutex_lock(&ub->cancel_mutex);
++	disk = ublk_get_disk(ub);
+ 	if (ub->canceling)
+ 		goto out;
+ 
+@@ -4575,6 +4577,7 @@ static int ublk_ctrl_start_dev(struct ublk_device *ub,
+ 		.dma_alignment		= 3,
+ 	};
+ 	struct gendisk *disk;
++	bool canceled;
+ 	int ret = -EINVAL;
+ 
+ 	if (ublksrv_pid <= 0)
+@@ -4665,8 +4668,24 @@ static int ublk_ctrl_start_dev(struct ublk_device *ub,
+ 	disk->fops = &ub_fops;
+ 	disk->private_data = ub;
+ 
++	/*
++	 * A command of this FETCH round was canceled and can't be fetched
++	 * again, don't bring up a disk over it.  Check and publish the disk
++	 * in one cancel_mutex section: either this sees ub->canceling, or
++	 * ublk_start_cancel() sees the disk and quiesces it before marking
++	 * the queues.
++	 */
++	mutex_lock(&ub->cancel_mutex);
++	canceled = ub->canceling;
++	if (!canceled)
++		ub->ub_disk = disk;
++	mutex_unlock(&ub->cancel_mutex);
++	if (canceled) {
++		put_disk(disk);
++		ret = -EBUSY;
++		goto out_unlock;
++	}
+ 	ub->dev_info.ublksrv_pid = ub->ublksrv_tgid;
+-	ub->ub_disk = disk;
+ 
+ 	ublk_apply_params(ub);
+ 
+@@ -5238,6 +5257,7 @@ static int ublk_ctrl_end_recovery(struct ublk_device *ub,
+ 		const struct ublksrv_ctrl_cmd *header)
+ {
+ 	int ublksrv_pid = (int)header->data[0];
++	bool canceled;
+ 	int ret = -EINVAL;
+ 
+ 	pr_devel("%s: Waiting for all FETCH_REQs, dev id %d...\n", __func__,
+@@ -5261,6 +5281,20 @@ static int ublk_ctrl_end_recovery(struct ublk_device *ub,
+ 		ret = -EBUSY;
+ 		goto out_unlock;
+ 	}
++
++	/*
++	 * As in ublk_ctrl_start_dev(), a canceled command can't be fetched
++	 * again.  Best effort: the disk exists here, and a cancel after this
++	 * check is the ordinary death of the new server, which
++	 * ublk_start_cancel() handles by quiescing and marking.
++	 */
++	mutex_lock(&ub->cancel_mutex);
++	canceled = ub->canceling;
++	mutex_unlock(&ub->cancel_mutex);
++	if (canceled) {
++		ret = -EBUSY;
++		goto out_unlock;
++	}
+ 	ub->dev_info.ublksrv_pid = ub->ublksrv_tgid;
+ 	ub->dev_info.state = UBLK_S_DEV_LIVE;
+ 	pr_devel("%s: new ublksrv_pid %d, dev id %d\n",
+-- 
+2.55.0
 
