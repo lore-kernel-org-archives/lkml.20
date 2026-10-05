@@ -1,115 +1,189 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj2-f38.google.com (mail-pj2-f38.google.com [74.125.227.166])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 52B764FE2C6;
-	Mon,  5 Oct 2026 17:17:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 487D74FECF1
+	for <linux-kernel@vger.kernel.org>; Mon,  5 Oct 2026 17:17:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.166
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791220654; cv=none; b=eIpOEEYk2Ry5MSMjps+vWNRTRKnnGYcJXG5XRTevbK4St+N6GppUxU2i3H+YOlzVVXRxUZbGuoqa+Gm9X0u8z1SZDzk4KvCEJwZnFnq5cPyC0ylFZe+5+ZdtsjqXEw8TNbsF5FcTEgCm/n+1EmQPCUTCF1K2iDAopUgiAWH5jhI=
+	t=1791220657; cv=none; b=r0yJwHJqQYkphttrsH+HiMj1WWKWNpCIFVurcrDGZ4CKyZnziazu6E6b1Pod7pwy9y4ib4D6bUc6CEHxRozaPl/PQ3J0Dv1sxs0Zd7Dl41Ze4bo2DnE3E/+4YSZQvx7uiACR4LonYqHfTKAR499PixbH7Sutf268CCBvPAkPupI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791220654; c=relaxed/simple;
-	bh=q/Mq5k29Pd5Q/VG6hX3SwIcl/+/m5v3nSG1R1XxsBXc=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=F3uCa1iZ/FHNYjDdorjUPh88SG+epfbseC3+e7e5Kp/dVI/vIiDZxdF5CFk5ix8dUH1H0Wx+XIG628aEsiZR9Uk9oC6sLiyLYV5pO7DUCW0CjU7xMkgvIMSNJqFym1bMkvLMcXEOg5WW+3RqDZuTinnH37seRcLLF2Iut3GSHmQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Eg+wr0W+; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791220657; c=relaxed/simple;
+	bh=efWEPmj0Vc93yD7ksoAs6CSfVahXXbn88QWzVR/N9r8=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=Pj0/q1QLYyKTBeK38oWSCY61PxD0CQh+yH6+emZYSEWj4MVdJxIciDMLeWvatDjjA/VmQ/hjUpJGbtfpBWUl31A99bxQqIKp1YDQKdmb5fNdbf5jgbijKH7hn0Vx+fBPPWUDGliIygPI+NUSZxeJXaUJ9iYCMQKmoYzt6GfJzFY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=a0lBslDP; arc=none smtp.client-ip=74.125.227.166
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Eg+wr0W+"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EA3CF1F00898;
-	Mon,  5 Oct 2026 17:17:29 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791220653;
-	bh=Vf7bahP3WYdgiJp1b9P/oFdoqOuDgOIFK0rUJ6QQCEQ=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=Eg+wr0W+f4m/wg5aOsUc0+aX+hQY2w0XmCPsC+vVqCfmh6m+DUYcO9oRnwZNOOpZV
-	 0VNM7G5v3A+niHuvwxSmSw3oZQBYF4ucB8hYoxg6qXv+kGkEmUi47uiShXPBN6rEsy
-	 /SPVr2lUcZFHGQyFTQxAaVtr/fY+fuKoY7/vjbQ1RpcMCDO+pizTVjDQLMhcVYq9NB
-	 mngG/U5nRGxcF6Y5xh86nN9IGwOmECYwameJv6suFqY1pKuLru3Dylgyhw2Erxdzjg
-	 cTAdvYHqfEw6e7r8EQvu1BmEq+tGowPm+HVls0iSddFFgj3qhlLEsFVyHYDXSG+Q20
-	 Wur87AL6hroKg==
-From: Bryan O'Donoghue <bod@kernel.org>
-Date: Mon, 05 Oct 2026 19:14:01 +0200
-Subject: [PATCH 31/74] media: qcom: camss: vfe: Add support for updating
- multiple write-masters within an output group
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="a0lBslDP"
+Received: by mail-pj2-f38.google.com with SMTP id 98e67ed59e1d1-3a81350dd08so612145a91.3
+        for <linux-kernel@vger.kernel.org>; Mon, 05 Oct 2026 10:17:35 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791220655; x=1791825455; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=3aHGH1btHKyA9bPipQiTAK39EsUtmJmoqAt6kx41g10=;
+        b=a0lBslDPZ3dDRoOrfiI5aRABoVV+zGl5c3sgcChOzILoj4MTjYOxcRUIH6V+Bbs+sI
+         QVOP2kOWoyPOU1J/Cj9rMILbsMeGDzb3lNJACfU1+YdytR8XITlnq3lE53d5XuldD6qu
+         j9u8JTP72DymGLGPT/XiB3aSe7VGpzkJfn7s8a+KoM2Ckk9y+gM/aFc8SZnqjPFLOdIB
+         4OelxiULczkDOgCxOGNVoVxKkH/rdX0BJlX5c200FYpABzGWjy//1tNS9cclLK7cTUGo
+         SUktYMstu1roIstoIKHrfpP3OyjLjtkHUzRh5TG+PhtX6HurtL2HslSxMjioBfEFu5oS
+         evtg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791220655; x=1791825455;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=3aHGH1btHKyA9bPipQiTAK39EsUtmJmoqAt6kx41g10=;
+        b=e/6mXZ/33zknij+X0WaRzlgXrst1Z8fHiymsy2mQ5qhtAQtmA0hV2AX6vK+z/ZdDnH
+         YaiueCE2d6ypR9tgXz9H3Ii+0OASs8Lfn23BKPL+CEoFrWAhZstVRmQ1CutylSKigMho
+         4HfySuAII8WiexjppUdElRuuLzNrfb4ASccFZg21So3ldvZj9WR1E5rn5zoU5ZeREl/+
+         RBe3hlPWCVzzRnFjiBMSWydmRmMHx4g2UDPL4LumPawmHgisnV/Koi/FQTXDsY72LCim
+         E/Q2TOy/LgF0skTKAFiOH3tTkccpB3qZOtlnmpZXXENZpO2kZFtO4GhrHFBqNHM6CE62
+         uiQg==
+X-Forwarded-Encrypted: i=1; AKwUvByrSHxTlEMDEQ8++fiejBF7ueb5BGza8f17Bpv6hw0pX0fsy+FmsdGtE27lnunJuvlvQQqskXoP7r/hRWI=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLSNMLUXODcjGOwhGsN6GsIa7rUE2zppqcjH40tVjC+hKRx+eig
+	npbyPoRPHfmbiuQ46XK1HPAAV0mloXxb07oYXVObTZQT8ceHDCe+G+rt
+X-Gm-Gg: AYBFou3SFvM/ZHDKa6j1RMGvnZjRuUZMoGjUm2E/VUgYh8m+3tlHQVDqWXpWAuLEMYc
+	6WTuvPvN0h1/3AJ+GR+oQlHccVssB8IdcETMBN7Zp5QgakJt08MuHjddYv8rdGEoPnGJyny8tKm
+	xnntZArGGo3u1429w4ue6ZFqBAxsjyEkbwOXS5dlSTuzgsYR8CIIAS5/moScrmWgnu+UhLaNMDF
+	BojJVFzt2UGCsBdFOy5qhzuyFnQwPFMePc1qpvFuwtVEaKtPtse/u/6ccRmBwQ4tRdfiiMnJLTs
+	MzV1PkCIrj0WUXyW2X4FiXZg6YJlLMC/sbV+UA+wK+JbPXxWV3PP7ysr8Xg3WkKbIMykIOQ+NfY
+	YkGcl2mzx44VUzUIHRoex8L26dpId/AAfc6Kw8aXzC5zMMKjdFLxTMfN/IGQbqOryVqIWOtFEtk
+	kKI30DZ0KwgMBzQtlfA3EABiLXgqqYyNMbo7qRM88idv4JIwRGLelwrOa+k1l5zFYsVlMDF7sw4
+	DZI6wq67A9fTwB6knikwD80/8hd7fAPlig/gW+3
+X-Received: by 2002:a17:90b:4c52:b0:3a0:5413:49b4 with SMTP id 98e67ed59e1d1-3a6ce7fba39mr9628210a91.39.1791220654194;
+        Mon, 05 Oct 2026 10:17:34 -0700 (PDT)
+Received: from kernel.tail6741c6.ts.net ([216.195.201.24])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a853cafddesm406910a91.10.2026.10.05.10.17.21
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 05 Oct 2026 10:17:33 -0700 (PDT)
+From: Kunwu Chan <kunwu.chan@gmail.com>
+To: paulmck@kernel.org,
+	corbet@lwn.net,
+	mingo@redhat.com,
+	frederic@kernel.org,
+	neeraj.upadhyay@kernel.org,
+	josh@joshtriplett.org,
+	urezki@gmail.com,
+	dave@stgolabs.net,
+	lianux.mm@gmail.com
+Cc: stern@rowland.harvard.edu,
+	parri.andrea@gmail.com,
+	will@kernel.org,
+	peterz@infradead.org,
+	boqun@kernel.org,
+	npiggin@gmail.com,
+	dhowells@redhat.com,
+	j.alglave@ucl.ac.uk,
+	luc.maranget@inria.fr,
+	akiyks@gmail.com,
+	dlustig@nvidia.com,
+	joelagnelf@nvidia.com,
+	skhan@linuxfoundation.org,
+	rdunlap@infradead.org,
+	longman@redhat.com,
+	rostedt@goodmis.org,
+	mathieu.desnoyers@efficios.com,
+	jiangshanlai@gmail.com,
+	qiang.zhang@linux.dev,
+	kunwu.chan@gmail.com,
+	brads@mainlining.org,
+	linux-kernel@vger.kernel.org,
+	linux-arch@vger.kernel.org,
+	lkmm@lists.linux.dev,
+	linux-doc@vger.kernel.org,
+	rcu@vger.kernel.org,
+	linux-kselftest@vger.kernel.org
+Subject: [PATCH RFC v3 08/15] locking/lockdep: use hazptr to wait for dynamic key lookups
+Date: Tue,  6 Oct 2026 01:15:22 +0800
+Message-ID: <20261005171529.1378809-9-kunwu.chan@gmail.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20261005171529.1378809-1-kunwu.chan@gmail.com>
+References: <20261005171529.1378809-1-kunwu.chan@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261005-linux-mainline-7-2-sm8650-hdk-rfc-0-v1-31-ed985aefd611@kernel.org>
-References: <20261005-linux-mainline-7-2-sm8650-hdk-rfc-0-v1-0-ed985aefd611@kernel.org>
-In-Reply-To: <20261005-linux-mainline-7-2-sm8650-hdk-rfc-0-v1-0-ed985aefd611@kernel.org>
-To: Bryan O'Donoghue <bryan.odonoghue@linaro.org>, 
- Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>, 
- Loic Poulain <loic.poulain@oss.qualcomm.com>, 
- Mauro Carvalho Chehab <mchehab@kernel.org>, 
- Jacopo Mondi <jacopo.mondi@ideasonboard.com>, 
- Daniel Scally <dan.scally@ideasonboard.com>, Keke Li <keke.li@amlogic.com>, 
- Richard Acayan <mailingradian@gmail.com>, 
- Hans Verkuil <hverkuil@kernel.org>, 
- Gjorgji Rosikopulos <quic_grosikop@quicinc.com>, 
- Radoslav Tsvetkov <quic_rtsvetko@quicinc.com>, 
- Robert Foss <rfoss@kernel.org>, Milen Mitkov <quic_mmitkov@quicinc.com>
-Cc: linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
- linux-kernel@vger.kernel.org, Bryan O'Donoghue <bod@kernel.org>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1498; i=bod@kernel.org;
- h=from:subject:message-id; bh=q/Mq5k29Pd5Q/VG6hX3SwIcl/+/m5v3nSG1R1XxsBXc=;
- b=owEBbQKS/ZANAwAKASJxO7Ohjcg6AcsmYgBqw9sWOLkHZx2M0VwiR+aglxhbsMHLr98bQXwwt
- PJP572mrj+JAjMEAAEKAB0WIQTmk/sqq6Nt4Rerb7QicTuzoY3IOgUCasPbFgAKCRAicTuzoY3I
- Otw+EACfw5KgW5I5RBpQPbwYEnLrvrtZb0IaF+AzM+jDR/xbN5SiIAeziOiMk72z3tFmrxUhVD0
- 7xrVpFoyfK5sfGhiqoBkHRZ3/zIn6aGsuEeeSgozAJhtgdNkDoK6weaKGzT0/65uD437fxnH7M9
- DLtnzR9CDAQ02fzOiLQodwx1SwiMpP8F0Vx6Iybdc1Er+nXFK1tt06q3aZgUbqOqJ/PcQRksQl8
- R7Ri2nuBOwg0zOkAffq92xE/YJeCpQv/qAR3L2LisynvdX48DT5DJHtv6oEJSAq6A0yF3ZeBtFH
- 954oB7jGuCacTiLEMM9NCt556prjFIXSLL3EcWsbiJIQXn5L/0lqqYyRdQMuKUjriUwH19owJig
- VSdDnx0hPVPDQTioAmCA3detvUf8PWYirZgyLu89ffoCwoPIrSdQP4qc4vuKNuXuzeE2G3ONrIk
- SnrQLF7D0EevergW3+Z6vkYMEaPBWvy8fV2m8W4vrWsDgXB3tva9dri3+LtgBzp4erk7lhlSPiv
- mCPOOuv1k9y+G6h3Q0r3n6pjmSxaF//RgSsSO60gS7J0AMP6PAchN4uQlSUMeEi4lGI1xOCBBrG
- xESpxgzflJmn8DtlNqh0g41EJVb8Vmyxe5sRojIMiQpYjB6cDqdxWEXzqezX87IGxVMr1XADd/c
- OcF4LSfAOkYFAOg==
-X-Developer-Key: i=bod@kernel.org; a=openpgp;
- fpr=E693FB2AABA36DE117AB6FB422713BB3A18DC83A
+Content-Transfer-Encoding: 8bit
 
-Signed-off-by: Bryan O'Donoghue <bod@kernel.org>
+lockdep_unregister_key() waits for is_dynamic_key() callers with
+synchronize_rcu_expedited(), which requires system-wide coordination.
+Make is_dynamic_key() protect the hash bucket with a hazard pointer
+and use hazptr_synchronize() to wait for traversals of that bucket.
+
+The hash bucket returned by keyhashentry() has a stable address, so
+it can be used as the hazptr synchronization target.  Keep the key
+hashlist lifetime RCU-based with hlist_del_rcu() and call_rcu().
+
+Protect the traversal with the hazptr scoped_guard() added earlier
+in this series.
+
+This adapts the lockdep use case from Boqun Feng's shazptr series
+to the current hazptr API.
+
+Link: https://lore.kernel.org/lkml/20250625031101.12555-1-boqun.feng@gmail.com/
+Signed-off-by: Kunwu Chan <kunwu.chan@gmail.com>
 ---
- drivers/media/platform/qcom/camss/camss-vfe.c | 14 ++++++++++----
- 1 file changed, 10 insertions(+), 4 deletions(-)
+ kernel/locking/lockdep.c | 25 +++++++++++++++----------
+ 1 file changed, 15 insertions(+), 10 deletions(-)
 
-diff --git a/drivers/media/platform/qcom/camss/camss-vfe.c b/drivers/media/platform/qcom/camss/camss-vfe.c
-index c078af53b0758..20d8b3e1e4459 100644
---- a/drivers/media/platform/qcom/camss/camss-vfe.c
-+++ b/drivers/media/platform/qcom/camss/camss-vfe.c
-@@ -673,8 +673,11 @@ static int vfe_enable_one_output(struct vfe_line *line, struct vfe_output *outpu
- 		if (!output->buf[i])
- 			break;
- 		output->gen2.active_num++;
--		ops->vfe_wm_update(vfe, output->wm[0].bus_client,
--				   output->buf[i]->addr[0], line);
-+		if (ops->vfe_output_update)
-+			ops->vfe_output_update(vfe, output, output->buf[i]);
-+		else
-+			ops->vfe_wm_update(vfe, output->wm[0].bus_client,
-+					   output->buf[i]->addr[0], line);
- 		ops->reg_update(vfe, line->id);
- 	}
+diff --git a/kernel/locking/lockdep.c b/kernel/locking/lockdep.c
+index c56a7f91d72e..d1ce5ace7fbf 100644
+--- a/kernel/locking/lockdep.c
++++ b/kernel/locking/lockdep.c
+@@ -58,6 +58,7 @@
+ #include <linux/context_tracking.h>
+ #include <linux/console.h>
+ #include <linux/kasan.h>
++#include <linux/hazptr.h>
  
-@@ -741,8 +744,11 @@ int vfe_queue_buffer_v2(struct camss_video *vid,
- 	if (output->state == VFE_OUTPUT_ON &&
- 	    output->gen2.active_num < 2) {
- 		output->buf[output->gen2.active_num++] = buf;
--		ops->vfe_wm_update(vfe, output->wm[0].bus_client,
--				   buf->addr[0], line);
-+		if (ops->vfe_output_update)
-+			ops->vfe_output_update(vfe, output, buf);
-+		else
-+			ops->vfe_wm_update(vfe, output->wm[0].bus_client,
-+					   buf->addr[0], line);
- 		ops->reg_update(vfe, line->id);
- 	} else {
- 		vfe_buf_add_pending(output, buf);
-
+ #include <asm/sections.h>
+ 
+@@ -1280,14 +1281,19 @@ static bool is_dynamic_key(const struct lock_class_key *key)
+ 
+ 	hash_head = keyhashentry(key);
+ 
+-	rcu_read_lock();
+-	hlist_for_each_entry_rcu(k, hash_head, hash_entry) {
+-		if (k == key) {
+-			found = true;
+-			break;
++	{
++		struct hazptr_ctx ctx;
++		void *bucket = hash_head;
++
++		scoped_guard(hazptr, &ctx, &bucket) {
++			hlist_for_each_entry_rcu(k, hash_head, hash_entry, 1) {
++				if (k == key) {
++					found = true;
++					break;
++				}
++			}
+ 		}
+ 	}
+-	rcu_read_unlock();
+ 
+ 	return found;
+ }
+@@ -6683,11 +6689,10 @@ void lockdep_unregister_key(struct lock_class_key *key)
+ 	 *
+ 	 * Some operations like __qdisc_destroy() will call this in a debug
+ 	 * kernel, and the network traffic is disabled while waiting, hence
+-	 * the delay of the wait matters in debugging cases. Currently use a
+-	 * synchronize_rcu_expedited() to speed up the wait at the cost of
+-	 * system IPIs. TODO: Replace RCU with hazptr for this.
++	 * the delay of the wait matters in debugging cases. Replace the
++	 * expedited RCU wait with hazptr_synchronize().
+ 	 */
+-	synchronize_rcu_expedited();
++	hazptr_synchronize(keyhashentry(key));
+ }
+ EXPORT_SYMBOL_GPL(lockdep_unregister_key);
+ 
 -- 
-2.55.0
+2.43.0
 
