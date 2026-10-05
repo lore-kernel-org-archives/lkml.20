@@ -1,172 +1,141 @@
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 452094825BE;
-	Mon,  5 Oct 2026 13:26:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D82E344780F;
+	Mon,  5 Oct 2026 13:26:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791206831; cv=none; b=r2CIaJjXUXvWM7Fp3Pxp+PeWcZ7jJJWbbNi0+0Hbi15r053crIfsaTTFNpZy8LgLBG748lQgXMfm8Kgx0HxwJgJPaoTKUM9157r1jR1M4aYIjh0VE74Wq8KZiWmjR5AM2D+xX+94wcJiVkhQCxgMDDJNqJl62lbEtJfr+j3GXj4=
+	t=1791206833; cv=none; b=h2Sx+qYhEs+G9IWHqXuCPaCPHi6wfcSuUt89GyOYGl+IkLTq/1nvbuY7cxW2Mpyi1s5Pncv8Ieh6JcJma1WBcnTsR1jlz3R1GyWPtiiBkfX+FLDgjg90ML4GR8tFapzEyNE4otO2dgD5NLE6DzjbjifZnvIUsN+gYVEl/wb2Bng=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791206831; c=relaxed/simple;
-	bh=OBuKhnAld9DbBDrN9DMDLsM/V8Bk+3+MGjoVHuzdbyY=;
-	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=BjR51bV3QPvQ2SHKMYJjesImAumRtIQLbNHlWNUjXdIMdVV0oRSla5KHjBZ42pTfm31mWmYRE/jZalmkPXUzWmE2ZmGtOXRrUzT/Q+cCb+cIiSCxH6Dbfc5oh+svEsbrpRqTbX3YI95LZtFFLnjuC4FXB+MHh3gM3fp//5VDS6U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=OGckAGu7; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=Byu8TZIP; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=ZbI+APpX; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=PNh3YpmB; arc=none smtp.client-ip=195.135.223.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
+	s=arc-20240116; t=1791206833; c=relaxed/simple;
+	bh=cOQRX7zlYK29AazHSlnsUCFvh5fQjnyuPjUrCAziMeY=;
+	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=qkMX1n+UnnLnBh/dl2FKCPT+ULbGx71QhQ+ARhdqTDnDBScpL+TQyyaLPCwbyQyIDGZlthBmDSXRCJHFgrMXLLRlpKkKF8Syu9A2y0AFMtQRgnUsi6eanUQ3jHERBtSLhG4iFwWBx1CMtVVjddnCPZfLhowxyNy1vwHIS82VMxI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=MatDQ2TZ; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="OGckAGu7";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="Byu8TZIP";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="ZbI+APpX";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="PNh3YpmB"
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id 9673E1F7A5;
-	Mon,  5 Oct 2026 13:26:26 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1791206790; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=CL7At3AqohyJipgTvTsjYpAaZfcPG0euVlHVnAIERE0=;
-	b=OGckAGu7Ng6ACGs3dzv2kDPo3E6jCSEBykPtOQt4vWP2c3TfwvH0SGREOe6/HB20YOTpLT
-	wioJKQ59IsnwxRE1FsIzveVzfrXS0JWTwHx/IWhsHDL9FK/SEy4VfBocVSfyQCdEHg6I2m
-	HLYlh/YyjxOnXwYQFzQ9cqEOvlw3cT0=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1791206790;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=CL7At3AqohyJipgTvTsjYpAaZfcPG0euVlHVnAIERE0=;
-	b=Byu8TZIP5uzG5uM+zXxwKskUxPmyyZXbAb+ufjH+iOwA4e8slSicB/EvxYCCQAUixYN8rG
-	nMeJikJn75c2/zBQ==
-Authentication-Results: smtp-out2.suse.de;
-	dkim=pass header.d=suse.de header.s=susede2_rsa header.b=ZbI+APpX;
-	dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=PNh3YpmB
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1791206786; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=CL7At3AqohyJipgTvTsjYpAaZfcPG0euVlHVnAIERE0=;
-	b=ZbI+APpXt6+lYfOrLayVU5asXqTuf5gjPL6Dv24bb9kS+ziDa4J3uzaZG3q41E/sQBjiHg
-	m/eR3RWs1iMG0j7jL5YPEMXmZA9Oq0WduxR9rxkqGYYUfG1HvSQFA/Zg0NBw6xw6kuY1kS
-	3id0KeYPgsZeOI1YU2jE4adYVghGCYw=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1791206786;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=CL7At3AqohyJipgTvTsjYpAaZfcPG0euVlHVnAIERE0=;
-	b=PNh3YpmB9jsOlsuoUQgR1vwdq0uzgucH6zeNoLEcCjOtFlfAI4cRB4u78L5YiyLNJn/qZS
-	M9A+5nkNeNa7IHBQ==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 5AB9C132D3;
-	Mon,  5 Oct 2026 13:26:26 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id 0tPODYKlw2oPbQAAD6G6ig
-	(envelope-from <tiwai@suse.de>); Mon, 05 Oct 2026 13:26:26 +0000
-Date: Mon, 05 Oct 2026 15:26:18 +0200
-Message-ID: <87bj98s2h1.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Andrew Morton <akpm@linux-foundation.org>
-Cc: Mark Brown <broonie@kernel.org>,
-	Takashi Iwai <tiwai@suse.de>,
-	Baoquan He <hebaoquan@kylinos.cn>,
-	David
- Hildenbrand <david@kernel.org>,
-	Linux Kernel Mailing List
- <linux-kernel@vger.kernel.org>,
-	Linux Next Mailing List
- <linux-next@vger.kernel.org>,
-	Mike Rapoport <rppt@kernel.org>,
-	Vlastimil
- Babka <vbabka@kernel.org>
-Subject: Re: linux-next: manual merge of the sound tree with the mm tree
-In-Reply-To: <20261005061403.750dc014ce53e441a3ee6271@linux-foundation.org>
-References: <asOIPgOu7MHRPLWU@sirena.co.uk>
-	<20261005061403.750dc014ce53e441a3ee6271@linux-foundation.org>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/30.2 Mule/6.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="MatDQ2TZ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 121071F000FF;
+	Mon,  5 Oct 2026 13:26:38 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791206798;
+	bh=tagE5Gg1FsrS7WWoiusWHMWvZZqHJEgLVoBN0QGwgR0=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=MatDQ2TZQ3oBTlwLl4wRmWtXYSHAPKfWoCutznQnaLm/4B0TbOiNkvrXGSZMuqIxL
+	 oqedWYwl9/j1Xlkb178ruCKbbwthUw4Y7fd/EKjaQ44JtM0C8mgR2y8cHmNZu31VXb
+	 mVeKr5h8J+ksZhn56QilKDLm0pbL+7KFC+ukaLtokeyEssc18R89A6PK9iEG2GSBFt
+	 dAQqdaEY2EO+7313QH/R01ZXZycFXWKtcskxM7RqntLkKdihjxG65w76LSnfIRJqgm
+	 VVgtu3oeOp7Tu2cwhuPsSmE4tgyl9UCRxu01GhGduUvw1wBG9qZCkzmYiF+cGDzFY7
+	 jCcQkZEjNJgRQ==
+Subject: Re: [PATCH net v13 3/4] net: phy: take the interrupt back from the
+ bus on detach
+From: netdev-bot+sashiko@kernel.org
+To: f@lex.la
+Cc: netdev@vger.kernel.org, andrew@lunn.ch, andrew+netdev@lunn.ch,
+ hkallweit1@gmail.com, linux@armlinux.org.uk, davem@davemloft.net,
+ edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com, horms@kernel.org,
+ olteanv@gmail.com, Thangaraj.S@microchip.com, UNGLinuxDriver@microchip.com,
+ steve.glendinning@shawell.net, f.fainelli@gmail.com,
+ linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org
+Date: Mon, 05 Oct 2026 13:26:37 +0000
+Message-ID: <179120679761.434549.12466957475136887665@kernel.org>
+In-Reply-To: <20261001130236.106059-4-f@lex.la>
+References: <20261001130236.106059-4-f@lex.la>
+X-sashiko-severity: Medium
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-X-Spamd-Result: default: False [-3.51 / 50.00];
-	BAYES_HAM(-3.00)[99.99%];
-	MID_CONTAINS_FROM(1.00)[];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	NEURAL_HAM_SHORT(-0.20)[-0.981];
-	MIME_GOOD(-0.10)[text/plain];
-	MX_GOOD(-0.01)[];
-	RCPT_COUNT_SEVEN(0.00)[9];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	SPAMHAUS_XBL(0.00)[2a07:de40:b281:104:10:150:64:97:from];
-	MIME_TRACE(0.00)[0:+];
-	ARC_NA(0.00)[];
-	RCVD_TLS_ALL(0.00)[];
-	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	FROM_EQ_ENVFROM(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	DNSWL_BLOCKED(0.00)[2a07:de40:b281:104:10:150:64:97:from];
-	RCVD_COUNT_TWO(0.00)[2];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,imap1.dmz-prg2.suse.org:rdns,suse.de:dkim,suse.de:mid];
-	TO_DN_ALL(0.00)[];
-	DKIM_TRACE(0.00)[suse.de:+]
-X-Spam-Score: -3.51
-X-Spam-Level: 
-X-Rspamd-Action: no action
-X-Rspamd-Queue-Id: 9673E1F7A5
-X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
-X-Spam-Flag: NO
+MIME-Version: 1.0
 
-On Mon, 05 Oct 2026 15:14:03 +0200,
-Andrew Morton wrote:
-> 
-> On Mon, 5 Oct 2026 13:21:34 +0200 Mark Brown <broonie@kernel.org> wrote:
-> 
-> > Hi all,
-> > 
-> > Today's linux-next merge of the sound tree got a conflict in:
-> > 
-> >   sound/mips/snd-n64.c
-> > 
-> > between commit:
-> > 
-> >   0d62c52af5499 ("ALSA: n64: don't use GFP_DMA when calling dma_alloc_coherent()")
-> > 
-> > from the mm tree and commit:
-> > 
-> >   e81f85fd3ca66 ("ALSA: mips: n64: Handle card removal properly")
-> > 
-> > from the sound tree.
-> > 
-> > I fixed it up (see below) and can carry the fix as necessary. This
-> > is now fixed as far as linux-next is concerned, but any non trivial
-> > conflicts should be mentioned to your upstream maintainer when your tree
-> > is submitted for merging.  You may also want to consider cooperating
-> > with the maintainer of the conflicting tree to minimise any particularly
-> > complex conflicts.
-> 
-> Thanks.
-> 
-> Easy fix: move mm's little one-liner into the alsa tree.
-> 
-> Takashi, please can you add this?
+Thank you for your contribution! Sashiko AI review found 1 potential
+issue(s) to consider.
 
-Sure, I applied now to sound.git tree for-next branch.
+Critical: 0 · High: 0 · Medium: 1 · Low: 0
 
-> I'll drop the mm.git copy now.
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
 
+- [Medium] In this commit only, the interrupt restore lives only in
+  phy_detach() (drivers/net/phy/phy_device.c:1969).
 
-thanks,
+--
 
-Takashi
+net: phy: take the interrupt back from the bus on detach
+
+This commit makes phy_detach() restore phydev->irq from the bus table
+(mdio.bus->irq[]) when the generic driver was bound by
+phy_attach_direct(). It undoes the PHY_POLL substitution done by
+phy_probe() for genphy, so that a real driver bound later can use the
+interrupt.
+
+> diff --git a/drivers/net/phy/phy_device.c b/drivers/net/phy/phy_device.c
+> index 94b2e85e00a37..a9c71a2861186 100644
+> --- a/drivers/net/phy/phy_device.c
+> +++ b/drivers/net/phy/phy_device.c
+> @@ -1965,6 +1965,8 @@ void phy_detach(struct phy_device *phydev)
+>  	 * real driver could be loaded
+>  	 */
+>  	if (phydev->is_genphy_driven) {
+> +		/* The release below lets phy_probe() write this field. */
+> +		phydev->irq = phydev->mdio.bus->irq[phydev->mdio.addr];
+
+[Severity: Medium]
+This patch only restores the irq in phy_detach(). Is there a second way
+out of the genphy bind cycle that still leaves phydev->irq at PHY_POLL?
+
+In phy_attach_direct(), the generic probe and bind failures go straight
+to error_module_put. That path never reaches the error label that calls
+phy_detach():
+
+drivers/net/phy/phy_device.c:phy_attach_direct() {
+    ...
+	if (phydev->is_genphy_driven) {
+		err = d->driver->probe(d);
+		if (err >= 0)
+			err = device_bind_driver(d);
+
+		if (err)
+			goto error_module_put;
+	}
+    ...
+error_module_put:
+	module_put(d->driver->owner);
+	phydev->is_genphy_driven = 0;
+	d->driver = NULL;
+    ...
+}
+
+phy_probe() overwrites the irq before any of its steps that can fail:
+
+drivers/net/phy/phy_device.c:phy_probe() {
+    ...
+	if (!phy_drv_supports_irq(phydrv) && phy_interrupt_is_valid(phydev))
+		phydev->irq = PHY_POLL;
+    ...
+}
+
+The later steps include get_features, genphy_read_abilities() and
+genphy_c45_pma_read_abilities() (all MDIO reads), phy_setup_ports() and
+genphy_c45_read_eee_adv(). If one of them fails, or device_bind_driver()
+fails, error_module_put clears is_genphy_driven and d->driver but does
+not touch phydev->irq. A real driver that binds later would then still
+poll, which is the symptom the commit message describes.
+
+The last patch of this series, "net: phy: restore the interrupt when the
+generic bind cycle fails", appears to close this gap. It saves
+phydev->irq at the start of phy_attach_direct() and restores it under
+error_module_put. At this commit on its own, though, the restore covers
+only the phy_detach() path.
+
+>  		device_release_driver(&phydev->mdio.dev);
+>  		phydev->is_genphy_driven = 0;
+>  	}
+
+-- 
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261001130236.106059-1-f%40lex.la
