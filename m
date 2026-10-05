@@ -1,112 +1,215 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 694943E3160;
-	Mon,  5 Oct 2026 21:16:25 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 420F03F58C9;
+	Mon,  5 Oct 2026 21:18:39 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791234989; cv=none; b=IZ1YeoaLSLfBvgJvYXQP96qfCw8RQvIty1isDu4aCjik1GQRTkyTwcfV85t3NUOPH/RF40+BW9oQlH8wctcNdDnnBFW0gmlNMuUpn5p1oTRolrRCo/0csAoO1ASMMlBKKZkZ2G4vzWd5iR0UXnHxoK/RChq9tzr30g1jq0kJn2M=
+	t=1791235122; cv=none; b=gp0ywc9B2GTTFifexo29vzKajv2OkXW/YbyY17yFZjKjdcxhSt8O+Z1Q8qIvdV89gNg7WoADFduJuLzdUNCVRviUNmqWnPHCN0wdobQ2l4livSrA+TC0hMlU50jBhZ/fxaBYOlEdWuLvk0P5sbD3bh927DR7nljZe0nkeezFjYY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791234989; c=relaxed/simple;
-	bh=3AUvzXDQL4kuSbQFhArkXddzAXsMmjRZtgwD212he/k=;
-	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=sqpKnCwQ1vKE7L4vOBi/Fy4X1ASitI/QVqXKi3OniA8p8jZo/jiuz5Em8VLkMOCEo9d+nHl49YUZQ0TLwUq/HD/G5PdwWWe3CjOt/7i3O8979L9b5UZzlbWWYSjEA1Bq+GCbowGQRNZVSVz9OFk4BR+cqcWqSfQFYbgGy2swleM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=UZpHJZ3H; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791235122; c=relaxed/simple;
+	bh=uzRxCjrPOby7teDpJTsYpBxFtosuVxFM0j1PPjdNbIA=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=EMP1kEFzz/ING0koKhMEJqUEsDznybgbOtPz0vsF8qsW1krjshfoN4enzpw6GY7MvC/vFemdGl+a9H1i0ODN2SvOwUTpaxNCdUK1k4CHKP06r6RFd+w3SEixRnG9yde3D3EYPDEZ+i2qqZ9vC30hLhXkePLqWoE0QW1B5uNfy74=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=zx2c4.com header.i=@zx2c4.com header.b=EYeFbHym; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="UZpHJZ3H"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 58D021F00893;
-	Mon,  5 Oct 2026 21:16:24 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791234984;
-	bh=JUuzn4BozKLyD2U5Ray7RjZjsj0+RJHYfNsNSjzHUEs=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=UZpHJZ3HNCgYAvGjg3sfumYuwKuhidRMzRghCfSmUorILlvOZm517ldoYPlpuIJis
-	 wdcbqKkVSIi3/871dEBXwjItIPNJNbHOWiidbPLbRlh56+Yrdy8mnKETzoYY4g3PXw
-	 JVfu+4rY5E1z7t2PwI/KzSObJsPMcinrZdZyhorzd6+YnlCGKJUpQh3upELQrBduSk
-	 vXgXGvYYcaCEa7vcvvlxX7uoL5WEALWUIK9bzJzIwSPPhr/3V0uCPRC8JscXzrnsfS
-	 97OKyo5aSUYukZAXrtVjei2O/X5HszMzlXGraQz0dcUycl+iCtKoPh3goXkVSVJP77
-	 LQ8c4BIdKErvA==
-Subject: Re: [PATCH net-next v2 5/5] net: dsa: motorcomm: Add TC prio support
-From: netdev-bot+sashiko@kernel.org
-To: mmyangfl@gmail.com
-Cc: netdev@vger.kernel.org, andrew@lunn.ch, olteanv@gmail.com,
- davem@davemloft.net, edumazet@google.com, kuba@kernel.org, pabeni@redhat.com,
- linux@armlinux.org.uk, linux-kernel@vger.kernel.org
-Date: Mon, 05 Oct 2026 21:16:23 +0000
-Message-ID: <179123498388.434549.1033733684417706688@kernel.org>
-In-Reply-To: <20261001204851.2576101-6-mmyangfl@gmail.com>
-References: <20261001204851.2576101-6-mmyangfl@gmail.com>
-X-sashiko-severity: Low
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (1024-bit key) header.d=zx2c4.com header.i=@zx2c4.com header.b="EYeFbHym"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0767B1F000FF;
+	Mon,  5 Oct 2026 21:18:37 +0000 (UTC)
+Authentication-Results: smtp.kernel.org;
+	dkim=pass (1024-bit key, unprotected) header.d=zx2c4.com header.i=@zx2c4.com header.a=rsa-sha256 header.s=20210105 header.b=EYeFbHym
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=zx2c4.com; s=20210105;
+	t=1791235116;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=ArXPZwkOS21svTqyVFuDaFFdnY9qfU5vfWtScr/h5DQ=;
+	b=EYeFbHymVSJkadjsLFpufo37mu0pzdItcuzxYQSucZfWL3N4HCOGN+/Rx5ZANWm8cmtZwO
+	scY1MxjrSOus2i0osYjaZHf7hE94krpdUm3jwnBcK7iMGzw/703W5soEUcZGz4nbqO/75n
+	VNJwL+yAI3OzCgdtSAyuPuvMFupqf9Q=
+Received: 
+	by mail.zx2c4.com (OpenSMTPD) with ESMTPSA id 7b51b2b2 (TLSv1.3:TLS_AES_256_GCM_SHA384:256:NO);
+	Mon, 5 Oct 2026 21:18:35 +0000 (UTC)
+Date: Mon, 5 Oct 2026 23:18:33 +0200
+From: "Jason A. Donenfeld" <Jason@zx2c4.com>
+To: =?utf-8?B?SsOpcsOpbXk=?= Jean <Jeremy.Jean@oss.cyber.gouv.fr>
+Cc: wireguard@lists.zx2c4.com, netdev@vger.kernel.org,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH net] wireguard: noise: reject responses for replaced
+ initiations
+Message-ID: <asQUKTOiEn6GB5sy@zx2c4.com>
+References: <20261005203555.3552816-2-Jeremy.Jean@oss.cyber.gouv.fr>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20261005203555.3552816-2-Jeremy.Jean@oss.cyber.gouv.fr>
 
-Thank you for your contribution! Sashiko AI review found more severe
-issue(s) in other patches of this series. This mail is only an FYI, in case
-you want to address the nit picks below when you respin.
+Hi,
 
-Low priority / nit picks for your consideration:
-
-- [Low] The new comment in yt921x_acl_rule_ext_parse_flow()
-  (drivers/net/dsa/motorcomm/tc.c) says "map 1...U16_MAX to (ACL_ORD_NUM…
-
---
-
-net: dsa: motorcomm: Add TC prio support
-
-This commit maps TC flower priorities onto the hardware ACL order field.
-TC priorities that are multiples of (U16_MAX + 1) / YT921X_ACL_ORD_NUM are
-scaled down. 65535 maps to order 0, and every other value is rejected.
-
-> diff --git a/drivers/net/dsa/motorcomm/tc.c b/drivers/net/dsa/motorcomm/tc.c
-> index 95ed0f245b1fa..c5581e85208f3 100644
-> --- a/drivers/net/dsa/motorcomm/tc.c
-> +++ b/drivers/net/dsa/motorcomm/tc.c
-
-[ ... ]
-
-> @@ -1042,6 +1045,20 @@ yt921x_acl_rule_ext_parse_flow(struct yt921x_acl_rule_ext *ruleext, int port,
->  		return -EOPNOTSUPP;
->  	}
+On Mon, Oct 05, 2026 at 08:35:55PM +0000, Jérémy Jean wrote:
+> WireGuard can accept an old handshake response after starting a new
+> handshake. This reinstalls old keys and resets transport counters and
+> replay state, enabling nonce reuse, replay and packet forgery. This
+> breaks confidentiality and integrity guarantees.
+> 
+> Compare ephemeral secrets under the write lock to reject responses for
+> replaced initiations.
+> 
+> Fixes: e7096c131e51 ("net: WireGuard secure network tunnel")
+> Cc: stable@vger.kernel.org
+> Assisted-by: LLM
+> Signed-off-by: Jérémy Jean <Jeremy.Jean@oss.cyber.gouv.fr>
+> ---
+>  drivers/net/wireguard/noise.c | 8 +++++---
+>  1 file changed, 5 insertions(+), 3 deletions(-)
+> 
+> diff --git a/drivers/net/wireguard/noise.c b/drivers/net/wireguard/noise.c
+> index 9c0a09bf6c95..88cc9acc7dc7 100644
+> --- a/drivers/net/wireguard/noise.c
+> +++ b/drivers/net/wireguard/noise.c
+> @@ -784,10 +784,12 @@ wg_noise_handshake_consume_response(struct message_handshake_response *src,
 >  
-> +	/* TC prio can't be 0 & TC lowest first -> HW highest first
-> +	 * map 1...U16_MAX to (ACL_ORD_NUM - 1)...0
-> +	 */
+>  	/* Success! Copy everything to peer */
+>  	down_write(&handshake->lock);
+> -	/* It's important to check that the state is still the same, while we
+> -	 * have an exclusive lock.
+> +	/* Check that this is still the initiation we authenticated against,
+> +	 * while we have an exclusive lock.
+>  	 */
+> -	if (handshake->state != state) {
+> +	if (handshake->state != state ||
+> +	    crypto_memneq(handshake->ephemeral_private, ephemeral_private,
+> +			  NOISE_PUBLIC_KEY_LEN)) {
+>  		up_write(&handshake->lock);
+>  		goto fail;
+>  	}
 
-[Severity: Low]
-This isn't a bug, but the comment doesn't match what the code below
-does.
+Could you describe the flow that you think causes a bug? Trying
+to recreate your mental model. Something like this?
 
-With scale = 65536 / 512 = 128, the only values accepted are:
+== thread 1 ==
 
-  prio == k * 128 (k = 1..511)  ->  ord = 512 - k
-  prio == 65535                 ->  ord = 0
+	down_read(&handshake->lock);
+	state = handshake->state;
+	memcpy(hash, handshake->hash, NOISE_HASH_LEN);
+	memcpy(chaining_key, handshake->chaining_key, NOISE_HASH_LEN);
+	memcpy(ephemeral_private, handshake->ephemeral_private,
+	       NOISE_PUBLIC_KEY_LEN);
+	memcpy(preshared_key, handshake->preshared_key,
+	       NOISE_SYMMETRIC_KEY_LEN);
+	up_read(&handshake->lock);
 
-The other values in 1...U16_MAX are rejected with -EOPNOTSUPP. That
-includes prio 1, which is where the comment says the range starts.
-Ord 511 comes from prio 128, not prio 1.
+	if (state != HANDSHAKE_CREATED_INITIATION)
+		goto fail;
 
-Could the comment describe the discrete mapping instead, in line with
-the extack message "must be a multiple of %u or 65535"?
+	/* e */
+	message_ephemeral(e, src->unencrypted_ephemeral, chaining_key, hash);
 
-> +	if (prio == U16_MAX) {
-> +		ord = 0;
-> +	} else if (!(prio % scale)) {
-> +		ord = YT921X_ACL_ORD_NUM - prio / scale;
-> +	} else {
-> +		NL_SET_ERR_MSG_FMT_MOD(extack,
-> +				       "Invalid priority %u, must be a multiple of %u or 65535",
-> +				       prio, scale);
-> +		return -EOPNOTSUPP;
-> +	}
-> +
+	/* ee */
+	if (!mix_dh(chaining_key, NULL, ephemeral_private, e))
+		goto fail;
 
-[ ... ]
+	/* se */
+	if (!mix_dh(chaining_key, NULL, wg->static_identity.static_private, e))
+		goto fail;
 
--- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261001204851.2576101-1-mmyangfl%40gmail.com
+	/* psk */
+	mix_psk(chaining_key, hash, key, preshared_key);
+
+	/* {} */
+	if (!message_decrypt(NULL, src->encrypted_nothing,
+			     sizeof(src->encrypted_nothing), key, hash))
+		goto fail;
+
+== thread 2 ==
+
+	down_read(&handshake->static_identity->lock);
+	down_write(&handshake->lock);
+
+	if (unlikely(!handshake->static_identity->has_identity))
+		goto out;
+
+	dst->header.type = cpu_to_le32(MESSAGE_HANDSHAKE_INITIATION);
+
+	handshake_init(handshake->chaining_key, handshake->hash,
+		       handshake->remote_static);
+
+	/* e */
+	curve25519_generate_secret(handshake->ephemeral_private);
+	if (!curve25519_generate_public(dst->unencrypted_ephemeral,
+					handshake->ephemeral_private))
+		goto out;
+	message_ephemeral(dst->unencrypted_ephemeral,
+			  dst->unencrypted_ephemeral, handshake->chaining_key,
+			  handshake->hash);
+
+	/* es */
+	if (!mix_dh(handshake->chaining_key, key, handshake->ephemeral_private,
+		    handshake->remote_static))
+		goto out;
+
+	/* s */
+	message_encrypt(dst->encrypted_static,
+			handshake->static_identity->static_public,
+			NOISE_PUBLIC_KEY_LEN, key, handshake->hash);
+
+	/* ss */
+	if (!mix_precomputed_dh(handshake->chaining_key, key,
+				handshake->precomputed_static_static))
+		goto out;
+
+	/* {t} */
+	tai64n_now(timestamp);
+	message_encrypt(dst->encrypted_timestamp, timestamp,
+			NOISE_TIMESTAMP_LEN, key, handshake->hash);
+
+	dst->sender_index = wg_index_hashtable_insert(
+		handshake->entry.peer->device->index_hashtable,
+		&handshake->entry);
+
+	handshake->state = HANDSHAKE_CREATED_INITIATION;
+	ret = true;
+
+out:
+	up_write(&handshake->lock);
+	up_read(&handshake->static_identity->lock);
+
+== thread 1 ==
+
+	down_write(&handshake->lock);
+	/* It's important to check that the state is still the same, while we
+	 * have an exclusive lock.
+	 */
+	if (handshake->state != state) {
+		up_write(&handshake->lock);
+		goto fail;
+	}
+	memcpy(handshake->remote_ephemeral, e, NOISE_PUBLIC_KEY_LEN);
+	memcpy(handshake->hash, hash, NOISE_HASH_LEN);
+	memcpy(handshake->chaining_key, chaining_key, NOISE_HASH_LEN);
+	handshake->remote_index = src->sender_index;
+	handshake->state = HANDSHAKE_CONSUMED_RESPONSE;
+	up_write(&handshake->lock);
+	ret_peer = peer;
+	goto out;
+
+And now begin_session is called on the older completed handshake rather
+than the half-completed newer handshake?
+
+Or did you see some other flow?
+
+Let me know.
+
+Thanks,
+Jason
