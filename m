@@ -1,94 +1,97 @@
-Received: from mta0.migadu.com (out-198.mta0.migadu.com [91.218.175.198])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.15])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B52FF4BD7AF
-	for <linux-kernel@vger.kernel.org>; Mon,  5 Oct 2026 15:37:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.198
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A7234481AAD;
+	Mon,  5 Oct 2026 15:37:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.15
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791214653; cv=none; b=UwCw9sDCR+KOiDVIzxAS3jO4F33R5T+UkLRsTHJZjPdew6pcOPbExAPmr/1oEGuHWwQj5SzWdWI02U/tC8GZjymnz/AZ9VkYQ/odwJXBJF1uGH44/U2vGecC/uQkn/LnuvuUBmUz5B7zEPjxVBvZSBY6dkirBDsrg823Z/mdOwA=
+	t=1791214654; cv=none; b=LzOJW9kCCHlwuxmBG38CfpUTlxPnkE/rENOMBmgzEhgzWgOgtN4w/y3O6Ze35dt9gZo+tyPOKBv+MtNjSB5IaYx/AAoSz8MuHJZIdGE3l9wqJynTmd/DY2TEmBXGfI7vsEcwAXC18jGJxfBOZzzIIcgnqnDyZewI7Z/voVW6bpY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791214653; c=relaxed/simple;
-	bh=FKotCGMw7JFlVthC3POWKatbcuPz2i306Y5Jwy9RYaQ=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=N19tpyBcSKkKPmZj6NT9Hd9G/+2Se3wxg8FT3lYUsJ7/t9YNmypq7veuIITP9NMBVt2EOTmAgFfeBy8txQ5qJFRYrblK1kYn3MfcBMwCx2/uwTuPAEuRPF8ywVnvbV0os73joAR0ZwUrKuwQN/dV+a0u/d6vbRpIBy1ZaL/hRN8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=q8ZNpPO4; arc=none smtp.client-ip=91.218.175.198
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1791214654; c=relaxed/simple;
+	bh=bE8clMPJTr0SHUvixWvY/DACBls2szEtGhkk8jc0Z/k=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
+	 MIME-Version:Content-Type; b=R/3Q35Y/fiDS2lIXR0W3oPVvHO08u5ncfxSFC6iXQU4ZsBampk2kwi5CShDFjLms+LWBCNgr/BncEfYuqtiNJTS4RT2ILNG8vO6o9sy46idRLMTe+mVduicSrB2JpDBg1kzxvwuvN+i8PKrbooP+UMz8klFpXCscZrHt2QNemo4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=h87ce3aY; arc=none smtp.client-ip=192.198.163.15
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="q8ZNpPO4"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=FKotCGMw7JFlVthC3POWKatbcuPz2i306Y5Jwy9RYaQ=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1791214648; v=1; x=1791819448;
- b=q8ZNpPO4YYU8mX7DKuYFT184Fkoja+BeaAy38r/8IAqfNBK8eMoXCqj503qDYwZoGRTgFNtq
- ZKI2kK8zvrOoD/GLPfkOxCRnqP1o/6VVbSRh5n3VHgLexnaY2O5jzMPBUm9Ry/4Hw4WowJwS78C
- P2FnD+APJj+28F7SjZ6a/qC4=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id f99529c0cd29c776;
-	Mon, 05 Oct 2026 15:37:28 +0000
-X-Mizu-Trace-ID: f99529c0cd29c776
-X-Migadu-Flow: FLOW_OUT
-From: Fuad Tabba <fuad.tabba@linux.dev>
-To: "Rafael J. Wysocki" <rafael@kernel.org>
-Cc: Len Brown <lenb@kernel.org>,
-	Maciej Wieczor-Retman <maciej.wieczor-retman@intel.com>,
-	Pawel Chmielewski <pawel.chmielewski@intel.com>,
-	linux-acpi@vger.kernel.org,
-	acpica-devel@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	Fuad Tabba <tabba@google.com>
-Subject: [PATCH 2/2] ACPI: tools: Rebuild objects when a header they include changes
-Date: Mon,  5 Oct 2026 16:37:23 +0100
-Message-Id: <20261005153723.2644331-3-fuad.tabba@linux.dev>
-X-Mailer: git-send-email 2.39.5
-In-Reply-To: <20261005153723.2644331-1-fuad.tabba@linux.dev>
-References: <20261005153723.2644331-1-fuad.tabba@linux.dev>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="h87ce3aY"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1791214652; x=1822750652;
+  h=from:to:cc:in-reply-to:references:subject:message-id:
+   date:mime-version:content-transfer-encoding;
+  bh=bE8clMPJTr0SHUvixWvY/DACBls2szEtGhkk8jc0Z/k=;
+  b=h87ce3aYh77jRkKIA6UwbX/hVlG+3mWeetu+hQk9Zm2fhatPRUUQCOJM
+   V58HNf9R0hehShwpAvXIZP+oZYo9PH2J/0/DbqAOgK9Wv0jwMGVnykWMf
+   Gz4pypCpJhAmBnw0bAIdfijrz2VIuP4azU2RKQ7OZ2G8ZVRlcKdwuq0E0
+   iUmN67jK9MjMmihdJROnDxaDOn4NuzOE9Eu873Oyf9rsblfNrvsVNnFO8
+   A/ZyzuwkhYOzAGl8+3mVlHqRFL1kMKaOATLhoJOiQGsK7jtfyb61iC3/h
+   psnXcQ7soyBqxPvssEbvpZOp2ioZ5WAzkkrtwvc9tExvWyBIgTzBQvivN
+   g==;
+X-CSE-ConnectionGUID: FhNRQP67RCKfi6Qvup4wRg==
+X-CSE-MsgGUID: /b7XRdQZQmaVS7aGNm0xMw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11926"; a="91995638"
+X-IronPort-AV: E=Sophos;i="6.27,142,1787036400"; 
+   d="scan'208";a="91995638"
+Received: from fmviesa013.fm.intel.com ([10.60.135.153])
+  by fmvoesa109.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 05 Oct 2026 08:37:32 -0700
+X-CSE-ConnectionGUID: jYvcXt+NRNiITAcF7gOFmQ==
+X-CSE-MsgGUID: cH7XUnmeS6a6zG5pUaOCWg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,142,1787036400"; 
+   d="scan'208";a="873948"
+Received: from ijarvine-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.199])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 05 Oct 2026 08:37:30 -0700
+From: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
+To: Jorge Lopez <jorge.lopez2@hp.com>, Hans de Goede <hansg@kernel.org>, 
+ Muhammad Bilal <meatuni001@gmail.com>
+Cc: =?utf-8?q?Thomas_Wei=C3=9Fschuh?= <linux@weissschuh.net>, 
+ platform-driver-x86@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ stable@vger.kernel.org, Josh Snyder <josh@code406.com>
+In-Reply-To: <20260919060037.84602-1-meatuni001@gmail.com>
+References: <20260919060037.84602-1-meatuni001@gmail.com>
+Subject: Re: [PATCH v4] platform/x86: hp-bioscfg: fix 16-byte heap overflow
+ for empty auth token
+Message-Id: <179121464568.12659.4986176178438441338.b4-ty@b4>
+Date: Mon, 05 Oct 2026 18:37:25 +0300
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.15.2
 
-An incremental build of the ACPI tools recompiles an object only when
-its .c file changes. The objects have no dependencies on the headers
-they include, from include/acpi, drivers/acpi/acpica or the tools
-themselves, so a header change leaves them built against the old one.
+On Sat, 19 Sep 2026 11:00:37 +0500, Muhammad Bilal wrote:
 
-Generate a dependency file beside each object with -MMD, adding -MP so
-that a removed header doesn't break the build, include those files, and
-remove them on clean.
+> hp_calculate_security_buffer() special-cases an empty authentication
+> string and returns a fixed 4 bytes (sizeof(u16) * 2). But
+> hp_populate_security_buffer() does not special-case that same input:
+> for any authentication string that does not start with BEAM_PREFIX,
+> including the empty string, it always builds "UTF_PREFIX +
+> authentication" and converts the result to UTF-16, writing a 2-byte
+> length header plus 2 bytes per character of "<utf-16/>" (9 characters),
+> 20 bytes total, regardless of how long "authentication" itself is.
+> 
+> [...]
 
-Assisted-by: LLM
-Signed-off-by: Fuad Tabba <fuad.tabba@linux.dev>
----
- tools/power/acpi/Makefile.rules | 6 ++++--
- 1 file changed, 4 insertions(+), 2 deletions(-)
+Thank you for your contribution, it has been applied to my local
+review-ilpo-next branch. Note it will show up in the public
+platform-drivers-x86/review-ilpo-next branch only once I've pushed my
+local branch there, which might take a while.
 
-diff --git a/tools/power/acpi/Makefile.rules b/tools/power/acpi/Makefile.rules
-index 48d9280a63f72..b520a966c1c1b 100644
---- a/tools/power/acpi/Makefile.rules
-+++ b/tools/power/acpi/Makefile.rules
-@@ -21,13 +21,15 @@ $(KERNEL_INCLUDE)/acpi: FORCE
- $(objdir)%.o: %.c | $(KERNEL_INCLUDE)/acpi
- 	$(ECHO) "  CC      " $(subst $(OUTPUT),,$@)
- 	$(QUIET) $(MKDIR) -p $(objdir) 2>/dev/null
--	$(QUIET) $(CC) -c $(CFLAGS) -o $@ $<
-+	$(QUIET) $(CC) -c $(CFLAGS) -MMD -MP -o $@ $<
-+
-+-include $(toolobjs:.o=.d)
- 
- all: $(OUTPUT)$(TOOL)
- clean:
- 	$(ECHO) "  RMOBJ   " $(subst $(OUTPUT),,$(objdir))
- 	$(QUIET) find $(objdir) \( -not -type d \)\
--		 -and \( -name '*~' -o -name '*.[oas]' \)\
-+		 -and \( -name '*~' -o -name '*.[oasd]' \)\
- 		 -type f -print | xargs rm -f
- 	$(ECHO) "  RM      " $(TOOL)
- 	$(QUIET) rm -f $(OUTPUT)$(TOOL)
--- 
-2.39.5
+FYI [if applicable to your patch], as per Linus' policy change, also
+fixes are mostly routed through for-next unless the fix is for a
+commit introduced in the most recent cycle or is clearly a regression
+fix.
+
+The list of commits applied:
+[1/1] platform/x86: hp-bioscfg: fix 16-byte heap overflow for empty auth token
+      commit: 67e222d412cc51d05380f2b7482a998cd4b4c638
+
+--
+ i.
 
