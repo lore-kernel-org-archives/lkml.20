@@ -1,230 +1,153 @@
-Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com [148.163.158.5])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pf1-f200.google.com (mail-pf1-f200.google.com [209.85.210.200])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9092C27FD43;
-	Mon,  5 Oct 2026 06:07:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.158.5
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1D9945474E
+	for <linux-kernel@vger.kernel.org>; Mon,  5 Oct 2026 06:08:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.200
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791180471; cv=none; b=T8gX7yv/+EYiHIy5krGbqHpN+BPVx1vD3ZeWpTw3QxxJMI/qqPtubgHCHLNkFR0PPDNI4VD6Go9Yj9qNBeFr2a+ajQqnacRq3Zd/VASqJiTVIO+LMbCt2CIq1lPjRHrxGmgbHePOBjKdbKGnkWNHDqNDKQ3p88VxSVEI6jhGAm8=
+	t=1791180506; cv=none; b=bC73hJS3PR1iN8B6a2RbbiMLWb8uw5cVy39KCwKAI8Vj2DMn233lyIZj30FpTdrjISyfsjCL8N8y6HFFFA7cjCcyC1VU3Ktgx4nXoW9C5y/UkSsho/5ITQF0l/ocT0ecDjG0WZ9V+jNzUt3G5ufqFr7OQTY9dZNXEblToVXmDlU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791180471; c=relaxed/simple;
-	bh=z6bEdOBQ5ec2iTfHeZdbvC/mTffVSC2ugRoOBizf8qE=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=ttHKLGQucofdyCeer5XoXVCF298LYd1NUSM3QJI7tjHyFlb0hWIfdBaUeKdWGGb5q2wQsv87gGBqy0HCQDZbXzkgCeQeLxEJg/n6wxGgqLXgil3Ek0U1tijiMYED/tQr60cn7vprr3VMWllbHDJmziiAsjnh7lvnxLXP9Hkts/0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=mqzTA50C; arc=none smtp.client-ip=148.163.158.5
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
+	s=arc-20240116; t=1791180506; c=relaxed/simple;
+	bh=/szOEFlEuCK8HzH40tWXZI0IjYEZzIV5NiqgkgiQ/q8=;
+	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
+	 To:Cc:Content-Type; b=GzkNWqttfwfvwRBrn1ulYehzoe+fHEGiOl2x4JEIFERLpf7RsYX8NGx/bMaYgQ5K5UiVyX0oCf2HJh9mGJkP15VuDN00/zI1H2GY2iu233ux6yY8XDMpw+TLeDd6LoyUwmR8WdaleC2/G/GrhPZAWsFLXyEOLZxft9MCvVlpktw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=CBzKuRp6; arc=none smtp.client-ip=209.85.210.200
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="mqzTA50C"
-Received: from pps.filterd (m0353725.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69515PGE2065654;
-	Mon, 5 Oct 2026 06:07:19 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
-	:content-transfer-encoding:date:from:in-reply-to:message-id
-	:mime-version:references:subject:to; s=pp1; bh=E5rkQjd/Ryuda49pA
-	bQfLqYEszgayqOEnQMRdlQc7O4=; b=mqzTA50CJOf7J7Pe58AvCWy10ps3JSI+9
-	b27PQnWRXke42Fr14akVT5c4SznnOcCH1b8crLqHJcaj5QAAGZU7GFbY9V4nFqXq
-	IYuYEuvDsAaLFGMa+xMRqyI4JakvtZ3o7gheIrOCnptsWp3lO524+aVA4KzG3y7z
-	eE1gN49zQ4sTSJirhc41TZVxuVn36LEJV66DPgCNZ9OowEKCrxHQG2U3mAA27y9o
-	g2dJADSxfKJFmxFZCDhvEirzFxx+6iWOL3MjlIDfu9MGxNxtn4w1Y1FGl1hnOuxI
-	JcS+So8zQEYZrP0SjetD3T/8x32E0yKAKj0bcwxwUX17NM05USy6g==
-Received: from ppma22.wdc07v.mail.ibm.com (5c.69.3da9.ip4.static.sl-reverse.com [169.61.105.92])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4h2r4fr3d9-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Mon, 05 Oct 2026 06:07:18 +0000 (GMT)
-Received: from pps.filterd (ppma22.wdc07v.mail.ibm.com [127.0.0.1])
-	by ppma22.wdc07v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 6951HMdH2163432;
-	Mon, 5 Oct 2026 06:07:17 GMT
-Received: from smtprelay07.dal12v.mail.ibm.com ([172.16.1.9])
-	by ppma22.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4h3cdvm9jw-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Mon, 05 Oct 2026 06:07:17 +0000 (GMT)
-Received: from smtpav02.wdc07v.mail.ibm.com (smtpav02.wdc07v.mail.ibm.com [10.39.53.229])
-	by smtprelay07.dal12v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 69567Fmb4850178
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Mon, 5 Oct 2026 06:07:16 GMT
-Received: from smtpav02.wdc07v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id AA86A5806A;
-	Mon,  5 Oct 2026 06:07:15 +0000 (GMT)
-Received: from smtpav02.wdc07v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 373855805E;
-	Mon,  5 Oct 2026 06:07:12 +0000 (GMT)
-Received: from localhost.localdomain (unknown [9.67.97.222])
-	by smtpav02.wdc07v.mail.ibm.com (Postfix) with ESMTP;
-	Mon,  5 Oct 2026 06:07:11 +0000 (GMT)
-From: Mingming Cao <mmc@linux.ibm.com>
-To: netdev@vger.kernel.org
-Cc: horms@kernel.org, davemarq@linux.ibm.com, bjking1@linux.ibm.com,
-        Mingming Cao <mmc@linux.ibm.com>, nnac123@linux.ibm.com,
-        maddy@linux.ibm.com, mpe@ellerman.id.au, npiggin@gmail.com,
-        chleroy@kernel.org, ritesh.list@gmail.com, sshegde@linux.ibm.com,
-        andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@kernel.org,
-        kuba@kernel.org, pabeni@redhat.com, santil@us.ibm.com, jeff@garzik.org,
-        stephen@networkplumber.org, linuxppc-dev@lists.ozlabs.org,
-        linux-kernel@vger.kernel.org
-Subject: [PATCH net-next v2 1/8] ibmveth: fix netpoll races with RX replenish
-Date: Sun,  4 Oct 2026 23:06:02 -0700
-Message-Id: <c193ccda2af0b2e91e839d5caa9928274b80f498.1791178212.git.mmc@linux.ibm.com>
-X-Mailer: git-send-email 2.39.3 (Apple Git-146)
-In-Reply-To: <cover.1791178212.git.mmc@linux.ibm.com>
-References: <cover.1791178212.git.mmc@linux.ibm.com>
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="CBzKuRp6"
+Received: by mail-pf1-f200.google.com with SMTP id d2e1a72fcca58-88b9d8c9e55so1186856b3a.1
+        for <linux-kernel@vger.kernel.org>; Sun, 04 Oct 2026 23:08:24 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1791180504; x=1791785304; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=IITz2XbwrAyv27W8DNZJyeO2sE+zaKLd0NzyMXZbO5I=;
+        b=CBzKuRp6NUdR1iVhRMhStG+t8DgZsrWN3udvwyk4jhHo8qX2g2yLzD8k8KPaIfnkwo
+         lHwFZbJd2KhjYLkxQG6qD34vAMBcKjjbIJ99dMrYuenovomgB2WDQvjIHe8KtGbJDzMy
+         dwX8duBOLDFMpiMHRgJljxmtXMErfaKBBulzKh8nEBxmdB5CTEayxPtinOrkBLTvXSlp
+         /3TbucqyOD1oNjejh116hgdvC6h1aP3EIRxlpXpOOB9HiWQT42u11EgEBMUeRk3+uGGI
+         vL2bwTHVHjkgrvBplbhysprpArScuLDetpJSIe3EWV4RZg1wGvpxW9zx3vB+w9ha0qm/
+         9bAA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791180504; x=1791785304;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=IITz2XbwrAyv27W8DNZJyeO2sE+zaKLd0NzyMXZbO5I=;
+        b=wQr7Y69vAoBEDB88Yal7KesbrLC0OuD90LBiwFxK+fkfeo4Ug8MgmH4gdbsnDIQihv
+         j8KCRztwbOP+LWwg1O9qomwBqViGlmBs05n9z5Vmitw8lez+yYADEmVQUKO2LVWLXSd2
+         k0WLDfaq4j5UsxgRzC88IWZb74bpF3sQoqcDuSVg2FYesYya8k2rMH5Zv2LWnL4PK5R+
+         /t0NfrrwXez7s02YeTDtuA+mZpAxh0jUEtD88ex6v5YlC+PQLxucTWS5MdYaoXUVr/Mh
+         2aaDfSqjF1PZwKKFJGd4rcK5C4vHc+RndGdcP8Rt7bSS28bWRPPtd/sX+hNlnrzX8qai
+         8iPw==
+X-Forwarded-Encrypted: i=1; AKwUvBwYo8PkltlHUyOwauQq6VytaTUebwF5nV9A+TbQ3k9n49aXIOptYoapK0v4AdSWM4hsVlzY9xEx1JwApmc=@vger.kernel.org
+X-Gm-Message-State: AFuF++lAXKLryP7gXCMeQEFal5RSrC8e/zaW6zPTULmJM5D5mQxs72R3
+	iL+5t5dHpWNjbzbDEl8rVzzN23fSndhuMzHES+xesrIrZWYdJVeLDgU+ZtIMocclkl3CLmdytHd
+	QK/t+Wg==
+X-Received: from pfbga7.prod.google.com ([2002:a05:6a00:6207:b0:87f:22a2:2139])
+ (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a05:6a00:1da4:b0:884:e190:1b94
+ with SMTP id d2e1a72fcca58-887fe2e5855mr8812734b3a.34.1791180504209; Sun, 04
+ Oct 2026 23:08:24 -0700 (PDT)
+Date: Sun, 4 Oct 2026 23:08:23 -0700
+In-Reply-To: <fqykkc3j.ritesh.list@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-TM-AS-GCONF: 00
-X-Proofpoint-Reinject: loops=2 maxloops=12
-X-Authority-Analysis: v=2.4 cv=TOPQ2Fla c=1 sm=1 tr=0 ts=6ac33e96 cx=c_pps
- a=5BHTudwdYE3Te8bg5FgnPg==:117 a=5BHTudwdYE3Te8bg5FgnPg==:17
- a=660iZSQnnn4A:10 a=VkNPw1HP01LnGYTKEx00:22 a=RnoormkPH1_aCDwRdu11:22
- a=V8glGbnc2Ofi9Qvn3v5h:22 a=VnNF1IyMAAAA:8 a=qzTZ72RhqM2DaLNR-rAA:9
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDA1MDAyNCBTYWx0ZWRfX4o7jVZuAl+QA
- sssX6H9Wg1hzgUwjQY5Jlw6izOY1lR6XJEbx2VKXqQ8MDcUdlIm/BfpyfKqPFhcS8fLKTud67XD
- Gj3gSTufCcvKDd+SyqkPN68AKVEaXyGRSG1CJTayJGW0ohiALvwG09iBYG81Cdmc8MhRKpXMELR
- D/8BhJLxU14zcLVB++y57rAxMjysbALQeYDN1HM9HICL1os4axT8324aa6WVDYwgqm/zEF8bM8g
- 01RpPFoDAa+4O3XbHMjGFP9Y4X5VhhtcvRAyiRIt0SZ3m99aQSq18g4rA3//KPdR/7Xa2sDuYkE
- +MOC1l0EOD9rgDW4YoEjrR0TygpzA/niejn4gAepTr41ODW+9P84KIc4g02R1usd0HsKFAf4hzM
- HdcjuTLNH2ZdFktQ6HIcvcRp5pX3ISNDmiIYT0Kl8282RwNAqhAiET0vI5nlzZP8j1Tff3MHxDa
- C0T7vk3y1frhlW5ochw==
-X-Proofpoint-GUID: Td8gs81fWhhR07w6oRKmcYwxExOPI6F3
-X-Proofpoint-ORIG-GUID: -pwJkgSvnEbODkjnCbZFNdd_cNkLE3ye
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDA1MDAyNCBTYWx0ZWRfXwF3yd+YpsGZu
- 1vcZ3dCnjgfWIpa23ibqJ/xltBi20TEO++kglDsPtmMotFreMbzgr8jIXtHr02hUjCHxaPHX/9N
- N8pqPJgC1PkiRpzmjh9td8zeJrQow94=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-10-05_01,2026-10-02_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- malwarescore=0 priorityscore=1501 spamscore=0 adultscore=0 clxscore=1011
- lowpriorityscore=0 impostorscore=0 bulkscore=0 phishscore=0 suspectscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2610050024
+Mime-Version: 1.0
+References: <cover.1790101179.git.ritesh.list@gmail.com> <pkxwkffc.ritesh.list@gmail.com>
+ <asAydfQLscU6rXQL@google.com> <h5j3jn86.ritesh.list@gmail.com>
+ <asMN_TAX-1_J3jiP@google.com> <fqykkc3j.ritesh.list@gmail.com>
+Message-ID: <asM-1-ptu1b_URqR@google.com>
+Subject: Re: [PATCH v5 0/9] KVM: selftests: add powerpc support
+From: Sean Christopherson <seanjc@google.com>
+To: Ritesh Harjani <ritesh.list@gmail.com>
+Cc: kvm@vger.kernel.org, Paolo Bonzini <pbonzini@redhat.com>, linuxppc-dev@lists.ozlabs.org, 
+	Michael Ellerman <mpe@ellerman.id.au>, Christophe Leroy <chleroy@kernel.org>, 
+	Anushree Mathur <anushree.mathur@linux.ibm.com>, 
+	Venkat Rao Bagalkote <venkat88@linux.ibm.com>, Harsh Prateek Bora <harshpb@linux.ibm.com>, 
+	Madhavan Srinivasan <maddy@linux.ibm.com>, Shrikanth Hegde <sshegde@linux.ibm.com>, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="us-ascii"
 
-ibmveth_poll_controller() runs RX replenish outside NAPI and without
-a lock, racing NAPI's replenish on another CPU. Both can fill the
-same slot, so an skb and its DMA mapping leak and PHYP can write
-into an unmapped buffer. netpoll calls it from netconsole and from
-netpoll-enabled bonds.
+On Mon, Oct 05, 2026, Ritesh Harjani wrote:
+ > I think I'd even prefer to take on an #ifdef (to scope it to PPC if necessary)
+> > over open coding TEST_GEN_PROGS_COMMON.
+> 
+> Sure, so will add this check for kvm_create_max_vcpus()
+> 
+> #ifdef __powerpc64__
+>        TEST_REQUIRE(!is_pseries_lpar());
+> #endif 
 
-ibmveth_open() also enables NAPI before the RX resources exist.
-ibmveth_change_mtu(), veth_pool_store(), ibmveth_set_csum_offload()
-and ibmveth_set_tso() call close() and open() directly, so while
-open() is still setting up, netpoll and the direct ibmveth_interrupt()
-calls can replenish NULL pools and read freed memory.
+Or maybe to avoid too many ifdefs, something like:
 
-Remove the callback, as Eric Dumazet did for many drivers after
-commit ac3d9dd034e5 ("netpoll: make ndo_poll_controller() optional"),
-including ibmvnic in commit 0c3b9d1b37df ("ibmvnic: remove
-ndo_poll_controller"). netpoll then polls NAPI itself with budget 0.
-napi->poll_owner serializes that with NAPI, but not with a NAPI poll
-that was already running when netpoll was set up, so skip RX
-replenish at budget 0, which netpoll uses for TX only. TX completes
-synchronously, so ibmveth_poll() has nothing else to do for netpoll.
+  static inline kvm_is_ppc_pseries_lpar(void)
+  {
+          /*
+           * Comment about how this setup has unique limitations and isn't
+           * compatible with tests that create many VMs and/or vCPUs.
+           */
+  #ifdef __powerpc64___
+          return !access("/proc/device-tree/rtas/ibm,hypertas-functions", F_OK);
+  #else
+          return false;
+  #endif
+  }
 
-Enable NAPI just before request_irq(), once everything
-ibmveth_poll() touches exists.
+Probably redundant naming to some extent, but having "ppc" in there would make it
+super obvious it's a PPC-only check.
+ 
+> Actually I was thinking we may as well use the same check for now for
+> skipping hardware_disable_test on pseries. Because there also we suffer
+> from the same resource limitation. Let me know if that sounds ok to you
+> or do you want us to skip kvm_create_max_vcpus() only for now, since it
+> is part of TEST_GEN_PROGS_COMMON?
+> 
+> > LoongArch open coded its full test list
+> > for some reason, and in less than a year it has started missing out on new common
+> > tests.
+> >
+> >> (& maybe few others like vm_types_test) from that in v6.
+> >
+> > What's wrong with VM types test?  That one really should Just Work on all
+> > architectures.  It doesn't run on LoongArch, but I assume that's
+> > oversight?
+> 
+> So the test doesn't fail (it gets skipped). However this cap
+> "KVM_CAP_VM_TYPES" is only supported on x86 and since I was planning to
+> open code all common tests, hence I thought I may as well not add this
+> in the first place.
 
-Found by AI-assisted review of the ibmveth multi-queue RX series and
-confirmed by code inspection of poll_one_napi() and the direct
-close()/open() callers; neither race was reproduced. Tested on a POWER10
-LPAR with netconsole over ibmveth: a ping flood (678,470 packets, no
-loss) during a printk flood, and MTU changes and buffer pool toggles
-under traffic, with no warnings. No kernel selftests cover ibmveth.
+/facepalm
 
-Fixes: 6b4223748895 ("[PATCH] ibmveth: Add netpoll function")
-Fixes: bea3348eef27 ("[NET]: Make NAPI polling independent of struct net_device objects.")
-Signed-off-by: Mingming Cao <mmc@linux.ibm.com>
----
+I completely forgot KVM_CAP_VM_TYPES is x86-only.  FWIW, I'd still say use
+TEST_GEN_PROGS_COMMON if possible.
 
-Changes in v2:
-- skip RX replenish when ibmveth_poll() runs with budget 0:
-  napi->poll_owner does not serialize netpoll with a NAPI poll
-  that was already running when netpoll was set up
+> BTW, based on this discussion, I think I will re-arrange the patches in
+> the following order and send a v7. (The Makefile.kvm changes will only
+> get added after the main patch which adds powerpc support).
+> 
+> cfabdb049bd7 2026-10-05 [Ritesh Harjani (IBM)] (HEAD -> feat-ppc-kvm-selftests-new-sean-v7) KVM: selftests: Skip hardware_disable_test on pseries
+> 2b51fab87b95 2026-09-22 [Ritesh Harjani (IBM)] KVM: PPC: selftests: Skip idle-page check when running nested on pseries LPAR
+> f5d1de1be4e9 2026-10-05 [Ritesh Harjani (IBM)] KVM: selftests: Skip kvm_create_max_vcpus on pseries
+> e45ba15cea25 2026-10-03 [Ritesh Harjani (IBM)] KVM: PPC: selftests: Add helper for checking if running nested
 
- drivers/net/ethernet/ibm/ibmveth.c | 28 +++++++++++++---------------
- 1 file changed, 13 insertions(+), 15 deletions(-)
+Doesn't this one need to come first?  Or is this different than pseries LPAR?
 
-diff --git a/drivers/net/ethernet/ibm/ibmveth.c b/drivers/net/ethernet/ibm/ibmveth.c
-index 73e051d26b9d..33af8e57be6e 100644
---- a/drivers/net/ethernet/ibm/ibmveth.c
-+++ b/drivers/net/ethernet/ibm/ibmveth.c
-@@ -623,8 +623,6 @@ static int ibmveth_open(struct net_device *netdev)
+> 178c9bca0e20 2026-09-22 [Nicholas Piggin] KVM: PPC: selftests: add support for powerpc
+> 22320662e776 2026-09-11 [Ritesh Harjani (IBM)] KVM: selftests: Fix kvm_create_max_vcpus test for powerpc
 
- 	netdev_dbg(netdev, "open starting\n");
+This should come before "add support for powerpc", and should have a shortlog
+more like "Skip max vCPU IDs test on PPC with <whatever is a good description of the SMT cap>"
 
--	napi_enable(&adapter->napi);
--
- 	for(i = 0; i < IBMVETH_NUM_BUFF_POOLS; i++)
- 		rxq_entries += adapter->rx_buff_pool[i].size;
+> 11b5712b213b 2026-09-22 [Ritesh Harjani (IBM)] KVM: selftests: Move memslot_perf_test off the 256M ELF load address
+> 63c900860b5f 2026-09-22 [Ritesh Harjani (IBM)] KVM: selftests: Don't limit LE dirty-bitmap bitops to s390x
+> 
+> 
+> Please let me know if this sounds ok?
 
-@@ -712,10 +710,18 @@ static int ibmveth_open(struct net_device *netdev)
- 		}
- 	}
-
-+	/* NAPI can run as soon as it is enabled, from netpoll during the
-+	 * direct close()/open() pairs or from a direct ibmveth_interrupt()
-+	 * call, so enable it only once everything ibmveth_poll() touches
-+	 * exists.
-+	 */
-+	napi_enable(&adapter->napi);
-+
- 	netdev_dbg(netdev, "registering irq 0x%x\n", netdev->irq);
- 	rc = request_irq(netdev->irq, ibmveth_interrupt, 0, netdev->name,
- 			 netdev);
- 	if (rc != 0) {
-+		napi_disable(&adapter->napi);
- 		netdev_err(netdev, "unable to request irq 0x%x, rc %d\n",
- 			   netdev->irq, rc);
- 		do {
-@@ -763,7 +769,6 @@ static int ibmveth_open(struct net_device *netdev)
- out_free_buffer_list:
- 	free_page((unsigned long)adapter->buffer_list_addr);
- out:
--	napi_disable(&adapter->napi);
- 	return rc;
- }
-
-@@ -1540,7 +1545,11 @@ static int ibmveth_poll(struct napi_struct *napi, int budget)
- 		}
- 	}
-
--	ibmveth_replenish_task(adapter);
-+	/* netpoll polls with budget 0 for TX only, and is not serialized
-+	 * with a NAPI poll that was already running when it was set up
-+	 */
-+	if (budget)
-+		ibmveth_replenish_task(adapter);
-
- 	if (frames_processed == budget)
- 		goto out;
-@@ -1680,14 +1689,6 @@ static int ibmveth_change_mtu(struct net_device *dev, int new_mtu)
- 	return -EINVAL;
- }
-
--#ifdef CONFIG_NET_POLL_CONTROLLER
--static void ibmveth_poll_controller(struct net_device *dev)
--{
--	ibmveth_replenish_task(netdev_priv(dev));
--	ibmveth_interrupt(dev->irq, dev);
--}
--#endif
--
- /**
-  * ibmveth_get_desired_dma - Calculate IO memory desired by the driver
-  *
-@@ -1789,9 +1790,6 @@ static const struct net_device_ops ibmveth_netdev_ops = {
- 	.ndo_validate_addr	= eth_validate_addr,
- 	.ndo_set_mac_address    = ibmveth_set_mac_addr,
- 	.ndo_features_check	= ibmveth_features_check,
--#ifdef CONFIG_NET_POLL_CONTROLLER
--	.ndo_poll_controller	= ibmveth_poll_controller,
--#endif
- };
-
- static int ibmveth_probe(struct vio_dev *dev, const struct vio_device_id *id)
---
-2.39.3 (Apple Git-146)
-
+Ya, works for me!
