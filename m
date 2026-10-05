@@ -1,99 +1,86 @@
-Received: from pidgin.makrotopia.org (pidgin.makrotopia.org [185.142.180.65])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oa1-f71.google.com (mail-oa1-f71.google.com [209.85.160.71])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9520F304BDF;
-	Mon,  5 Oct 2026 17:08:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.142.180.65
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A3CCC3002AB
+	for <linux-kernel@vger.kernel.org>; Mon,  5 Oct 2026 17:08:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.71
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791220087; cv=none; b=VHB05+Ejf9EnCIBBmIEbU1VcF19xRXShUh3uni/2zZ/MrtMM+ajOFo4KgWMfTrdiRlZTGjj//Np1Y5hrJWPFqjWzpEoOXN5rE/Qlx5PL86572dwhJfiti5h4SWozw/m8ZR1zhQdWxT6ubvFQKfAIiTgJzpkQWv8JYlqFxnnu+zk=
+	t=1791220126; cv=none; b=Sb/3TJPWZcFN36bQCZvrjHCucrfFx1DJYmuRB7QQZ0J4JfX3JMc/K8oi7jx80a8ajzHaQxh/cnydyihNWgPZqs0zVs9DrmtxHB8oVgovRDtCmfLj0jpgp114mQdKiRHqr1H2y5Q9r1U39jIZaLDKsDiz6Itwf67jZ+Cf8mDdMws=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791220087; c=relaxed/simple;
-	bh=kjfeDDCSUq07CACGdCMkRub8JM0Xwqasras+7cQQc+0=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=oyHrzA0J8jA5H20j0efKqHt8jmUV3Qml3pcG2hY7T46a3FNbJvnXKQ6SOuHwCMUBFcNe6SS2Ps6ZHnkGpilSIb+pR1gsNs5gK90a4fT1RyACixnKnbNJcsmlWb6SPi6XDYOmxuYMsTAElNRNwOkxycd6uk/2k8wzgrXEZeEgank=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=makrotopia.org; spf=pass smtp.mailfrom=makrotopia.org; arc=none smtp.client-ip=185.142.180.65
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=makrotopia.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=makrotopia.org
-Received: from local
-	by pidgin.makrotopia.org with esmtpsa (TLS1.3:TLS_AES_256_GCM_SHA384:256:X25519MLKEM768)
-	 (Exim 4.100.1)
-	(envelope-from <daniel@makrotopia.org>)
-	id 1xDmAM-000000004jk-2moA;
-	Mon, 05 Oct 2026 17:07:54 +0000
-Date: Mon, 5 Oct 2026 18:07:51 +0100
-From: Daniel Golle <daniel@makrotopia.org>
-To: Oleh Kuzhylnyi <kuzhylol@gmail.com>
-Cc: Dmitry Torokhov <dmitry.torokhov@gmail.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Hendrik Noack <hendrik-noack@gmx.de>, Arnd Bergmann <arnd@arndb.de>,
-	Ferass El Hafidi <funderscore@postmarketos.org>,
-	Uwe Kleine-Koenig <u.kleine-koenig@baylibre.com>,
-	linux-input@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org, Chad Monroe <chad@monroe.io>,
-	John Crispin <john@phrozen.org>
-Subject: Re: [PATCH v2 3/5] Input: hynitron-cst816x: release gesture keys
-Message-ID: <asPZZ4Dk56iO7NYF@makrotopia.org>
-References: <cover.1790944534.git.daniel@makrotopia.org>
- <7199967eb45b1c3adcb7efc859380f6f3dbf7bdd.1790944534.git.daniel@makrotopia.org>
- <XXX-PASTE-MESSAGE-ID-OF-OLEHS-MAIL>
+	s=arc-20240116; t=1791220126; c=relaxed/simple;
+	bh=q70HH/mBfJdgqeNuRYqidh7qDOCYq4fuR1vmgUYmijc=;
+	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:
+	 Content-Type; b=KKOo6Ph+7Ve/jNblwwfVW1LMfDGHBKyqL3PvHdNyKiTVXDoPeEUodLQzO1akcdmAdzTdfbsVPSjel3d4bwib2a7nmaywE881NP6fQ1plCg0umTn7sF0KPFrojZYJ0237NZIvDYKJAqXWOBJ3MPHbajrf6EUS5clhOFNoee580hE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.160.71
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-oa1-f71.google.com with SMTP id 586e51a60fabf-469debb526fso2146574fac.0
+        for <linux-kernel@vger.kernel.org>; Mon, 05 Oct 2026 10:08:44 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791220123; x=1791824923;
+        h=content-type:to:from:subject:message-id:in-reply-to:date
+         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=pJdrtc10ArNA5uw/Q0FBfJopjkuBAZtUDip0eoty9G0=;
+        b=DautTsu3vBc0DhQe+7AfyniN3nQPfrdFVZIIfvvWQAZ5y5O9QY7uJb1zjQsxo98EDv
+         MTOBMpPt98FdsciIsZOnHskRNPUMV8fCPN9xR1xQyXaxYx1YMOp7bEtAeHuznpSVALUi
+         keuBqBijmTsFshuN61xxflvJq6w7IPENcjG/tErQ9Tlz/LL0eqB2/RzNTPjmON5FAkhq
+         JMHfOT1TTLocYoDh0Z1/peWP8cOqEcQjPPyDIS2YQ6hlWVRXExXy79GKX8NCpP32A6y/
+         1Tj9NhFo72A9e5t5qGMiQ+Kx67A5nOi8Dd66niuHR4b6twVQM0nWzP01iNvRgEZCj4cU
+         FPSg==
+X-Gm-Message-State: AFuF++kRwLXCAe6D0i/C+rByOaxz2iawv1TQpCz7BqxpKEp/AVINywT7
+	tjnAmhM3+4q48wD2mZxQ8Om49qcyWohqguTnAyRdyVp66PBpl9Ar57t0F/HO3clG7FAtRtHhZbx
+	rZlfOBxGO+EjvlYBDFlNt9WqvasXMVZ6KJW8kDZiztJYdDrqZJdyM2WvaBuM=
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <XXX-PASTE-MESSAGE-ID-OF-OLEHS-MAIL>
+X-Received: by 2002:a05:6808:1190:b0:4ec:b083:c6a7 with SMTP id
+ 5614622812f47-4f67a1f7da0mr7791164b6e.36.1791220123581; Mon, 05 Oct 2026
+ 10:08:43 -0700 (PDT)
+Date: Mon, 05 Oct 2026 10:08:43 -0700
+In-Reply-To: <6ac332eb.598348e0.18b15.0000.GAE@google.com>
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6ac3d99b.34119e79.2f92f3.0036.GAE@google.com>
+Subject: Forwarded: [PATCH] media: usb: siano: Test fix
+From: syzbot <syzbot+d627b1495de0e851be32@syzkaller.appspotmail.com>
+To: linux-kernel@vger.kernel.org, syzkaller-bugs@googlegroups.com
+Content-Type: text/plain; charset="UTF-8"
 
-Hi!
+For archival purposes, forwarding an incoming command email to
+linux-kernel@vger.kernel.org, syzkaller-bugs@googlegroups.com.
 
-Thank you for testing, and for reporting the issue.
+***
 
-> I suggest either gate the gesture branch on tch.active so a finger-up
-> single-click never fires a key, or fix cst816x_gest_idx() to map 0x5/0xC
-> to their own valid slots so they stop aliasing the TRIPLETAP keycode.
+Subject: [PATCH] media: usb: siano: Test fix
+Author: jakovnovak30@gmail.com
 
-v3 takes the second route. cst816x_gest_idx() returned
-CST816X_NUM_KEYS - 1 for every code its switch did not name, so single
-click, 0x05, shared the long-press slot. Reporting the key with a
-fixed value of 1 is what made that alias visible as the
-BTN_TOOL_TRIPLETAP pair in your log.
+#syz test
 
-The lookup now yields a keycode instead of an index:
+---
+ drivers/media/usb/siano/smsusb.c | 6 ++++--
+ 1 file changed, 4 insertions(+), 2 deletions(-)
 
-  static unsigned int cst816x_gest_keycode(struct cst816x_priv *priv,
-                                           u8 gest)
-  {
-          switch (gest) {
-          case 0x01: /* Slide up gesture */
-          case 0x02: /* Slide down gesture */
-          case 0x03: /* Slide left gesture */
-          case 0x04: /* Slide right gesture */
-                  return priv->keycode[gest - 1];
-          case 0x0c: /* Long press gesture */
-                  return priv->keycode[CST816X_NUM_KEYS - 1];
-          default:
-                  return KEY_RESERVED;
-          }
-  }
+diff --git a/drivers/media/usb/siano/smsusb.c b/drivers/media/usb/siano/smsusb.c
+index 0fdc2e0950b7..ef400d01af31 100644
+--- a/drivers/media/usb/siano/smsusb.c
++++ b/drivers/media/usb/siano/smsusb.c
+@@ -348,8 +348,10 @@ static void smsusb_term_device(struct usb_interface *intf)
+ 		if (dev->coredev)
+ 			smscore_unregister_device(dev->coredev);
+ 
+-		for (i = 0; i < MAX_URBS; i++)
+-			usb_free_urb(dev->surbs[i].urb);
++		for (i = 0; i < MAX_URBS; i++) {
++			// if (dev->surbs[i].urb)
++			// 	usb_free_urb(dev->surbs[i].urb);
++		}
+ 
+ 		pr_debug("device 0x%p destroyed\n", dev);
+ 		kfree(dev);
+-- 
+2.56.0
 
-A code the driver does not map is handled like a report that carries
-no gesture code at all: it releases whatever the input core still
-holds down, rather than pressing a key that belongs to another
-gesture. Single click reports nothing of its own, so a tap is
-described by BTN_TOUCH alone.
-
-I left the gate on tch.active out, because your trace shows the
-gesture codes arriving with t: 0 on both the finger-down and the
-finger-up report, and that t is tch.active. Slide gestures reach the
-driver the same way, at lift, so the gate would silence the keys this
-series is meant to report, not only the single click.
-
-If a key for single click is wanted, that is a linux,keycodes
-extension in the binding and can follow on its own.
-
-v3 with that change follows. A retest on your CST816S would be most
-welcome.
