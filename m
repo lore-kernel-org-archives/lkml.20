@@ -1,117 +1,156 @@
-Received: from mta1.migadu.com (out-250.mta1.migadu.com [95.215.58.250])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from oss.cyber.gouv.fr (oss.cyber.gouv.fr [51.159.188.251])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 715AC30C171
-	for <linux-kernel@vger.kernel.org>; Mon,  5 Oct 2026 19:01:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.250
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C465C79CD;
+	Mon,  5 Oct 2026 19:01:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=51.159.188.251
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791226895; cv=none; b=SGkny8Bytp+TkPEc1RJYcu2SVaxdLL8HRyu/O9Yj18/qihggT54bPy7Yx6RPDIVMsdIIq83R/kNc8syMWNt+VLszeK65pFVkEPi3NLEI9plTlpO48nxv2+enN6eF78jGE8gFXTibCRpwqJFJLIBoRBgLQfdg86N0u7IGkch+EhA=
+	t=1791226913; cv=none; b=bQsmc1YPTuTMDXRW5vTaa6LX6FJOma0fbebR495maURxZZBBsRN/opMK742nZI8fSAS2kKAAQd24VFBRzL5sygV4sGamVq5/wc8BM4XTdNB4Kc9O5odd9qHXNI3qD4IxMU1QeBkp48N8uxkSe/wtqGSRXZ/1eTUvO68jF1fWP5I=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791226895; c=relaxed/simple;
-	bh=rJT8G0sgga4UeEHY50WFHahh2k7AQRpW/V4C83LPcM4=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=T++hxqVn/V8H76KlBdRyIxV0VGTzLhNgZRbvHyDElImvve90Wpl2vQD1/LpMHIRlRsZh/4n1ARWt/rXwEWrZp2EOQfhkP3lpwK5FDGvXiZ2dXQyJ57m0cbBWbkib9sLdz4B+/hZjxB81xq1CL9kBoPB6CmZjYhokc62ucKeXtxQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=rpgOxRCu; arc=none smtp.client-ip=95.215.58.250
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1791226913; c=relaxed/simple;
+	bh=hnm6bOUZbgMgPBRT4+7ffT/wy4OyP5ZauIF5q/q0wHw=;
+	h=MIME-Version:Date:From:To:Cc:Subject:In-Reply-To:References:
+	 Message-ID:Content-Type; b=aOQd7UTtDGY7Z0gNOBpg+Ga448cX/0XY/TlzML/fgu9RMamsZav8WPO3wCd5ihdig/619a9uek48TXXzqWndtt9UJ1bqxnrmEEHPc+WR/0CImrHE8ml91uiKaWS9i2tKs6wGqd+gg/AiCeKWFb/YiU9fMTR+W8T4QsyRfjormyc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.cyber.gouv.fr; spf=pass smtp.mailfrom=oss.cyber.gouv.fr; dkim=pass (2048-bit key) header.d=oss.cyber.gouv.fr header.i=@oss.cyber.gouv.fr header.b=OEBkDISV; arc=none smtp.client-ip=51.159.188.251
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.cyber.gouv.fr
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.cyber.gouv.fr
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="rpgOxRCu"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=rJT8G0sgga4UeEHY50WFHahh2k7AQRpW/V4C83LPcM4=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1791226891; v=1; x=1791831691;
- b=rpgOxRCuBdRBG9Cruva0qem46KyAXqHLWajd0ZjIRz0kgD8tNqxyOJ2IoAc2uiVFYp0AWqwU
- fYK9s+nOEwPq6TEVKyQTb7ZG9spRm+B0UmWQ9BG569oC3jH+5BUQFc768yIcjo1AEuCsOtbT9Nt
- bjqyL+C+m3j1OwXepyyLRNU0=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 3eee9485e3972e9f;
-	Mon, 05 Oct 2026 19:01:30 +0000
-X-Mizu-Trace-ID: 3eee9485e3972e9f
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <7844ef03-d9b2-4a10-8f14-1b498ada9043@linux.dev>
-Date: Mon, 5 Oct 2026 12:01:17 -0700
+	dkim=pass (2048-bit key) header.d=oss.cyber.gouv.fr header.i=@oss.cyber.gouv.fr header.b="OEBkDISV"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=oss.cyber.gouv.fr; s=default; h=Content-Transfer-Encoding:Content-Type:
+	Message-ID:References:In-Reply-To:Subject:Cc:To:From:Date:MIME-Version:
+	Reply-To:Sender:Content-ID:Content-Description:Resent-Date:Resent-From:
+	Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID;
+	bh=MFmvViKGM02BTIPHCsWBHeyAcfFFDZ4nwZbqK2y2Fco=; b=OEBkDISVDy6iMQlVMG44QL6uCr
+	m7Jh0cTlwe6WWjkOummiuJA9pYYzUJPfMV1wu2IGzlDVYoEHacByBGJfDrEqUPIW6mwECm9oUofpE
+	esdQoaVhTdDToNBTBEyBFbFs9kf4CcPqQCpRytEetWsyp36oiq5r1WbQItM6wPEsROad3qcV4udZ2
+	wRSYP3TA16RiPdCxOp4Uq8FJXpjrP0W4j5r+6OVcjzXpuuc82QgoGeoi4P6NbK6H4dG6tk1JiDmiE
+	PskV7AiU7Dsiq/DYBiw2s2hYNuf40NkNXExUXl33wk3HJdtjfnL0l8htSANWB0J0YQ7aKjDn41E3i
+	xUwUiJew==;
+Received: from [::1] (port=36386 helo=pf-012.whm.fr-par.scw.cloud)
+	by pf-012.whm.fr-par.scw.cloud with esmtpa (Exim 4.100.1)
+	(envelope-from <jeremy.jean@oss.cyber.gouv.fr>)
+	id 1xDnwc-0000000E0B2-0Qa3;
+	Mon, 05 Oct 2026 21:01:49 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH bpf-next v4 00/12] bpf: make the vmlinux BTF an on-demand
- loadable module (CONFIG_DEBUG_INFO_BTF=m) to save ~5.4 MB memory
-To: Jay Wang <wanjay@amazon.com>, bpf@vger.kernel.org, ast@kernel.org,
- daniel@iogearbox.net, andrii@kernel.org, eddyz87@gmail.com, memxor@gmail.com
-Cc: alan.maguire@oracle.com, martin.lau@linux.dev, yonghong.song@linux.dev,
- jolsa@kernel.org, qmo@kernel.org, nathan@kernel.org, nsc@kernel.org,
- linux-kbuild@vger.kernel.org, linux@weissschuh.net, christian@heusel.eu,
- mcgrof@kernel.org, petr.pavlu@suse.com, samitolvanen@google.com,
- linux-modules@vger.kernel.org, rostedt@goodmis.org, mhiramat@kernel.org,
- mathieu.desnoyers@efficios.com, linux-trace-kernel@vger.kernel.org,
- acme@kernel.org, namhyung@kernel.org, irogers@google.com,
- linux-perf-users@vger.kernel.org, jikos@kernel.org, bentiss@kernel.org,
- linux-input@vger.kernel.org, tj@kernel.org, void@manifault.com,
- arighi@nvidia.com, changwoo@igalia.com, sched-ext@lists.linux.dev,
- shuah@kernel.org, linux-kselftest@vger.kernel.org, ojeda@kernel.org,
- rust-for-linux@vger.kernel.org, arnd@arndb.de, linux-doc@vger.kernel.org,
- linux-kernel@vger.kernel.org, abuehaze@amazon.com, doebel@amazon.de,
- mpohlack@amazon.de, jay.wang.upstream@gmail.com
-References: <44315425-c505-46fe-8379-f19d78ff3abb@linux.dev>
- <20261004222127.31128-1-wanjay@amazon.com>
-Content-Language: en-US
-From: Ihor Solodrai <ihor.solodrai@linux.dev>
-In-Reply-To: <20261004222127.31128-1-wanjay@amazon.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Date: Mon, 05 Oct 2026 21:01:49 +0200
+From: =?UTF-8?Q?J=C3=A9r=C3=A9my_Jean?= <jeremy.jean@oss.cyber.gouv.fr>
+To: Tung Quang Nguyen <tung.quang.nguyen@est.tech>
+Cc: netdev@vger.kernel.org, tipc-discussion@lists.sourceforge.net,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org, Jon Maloy
+ <jmaloy@redhat.com>
+Subject: Re: [PATCH net v2] tipc: protect received keys from concurrent flush
+In-Reply-To: <DU4P189MB37501CA7DBF5D6C3C8752349C6962@DU4P189MB3750.EURP189.PROD.OUTLOOK.COM>
+References: <20261002205932.1874012-2-Jeremy.Jean@oss.cyber.gouv.fr>
+ <DU4P189MB37501CA7DBF5D6C3C8752349C6962@DU4P189MB3750.EURP189.PROD.OUTLOOK.COM>
+User-Agent: Roundcube Webmail/1.6.19
+Message-ID: <2ac35bd0a3d8c774d0ee2bc977a45cf0@oss.cyber.gouv.fr>
+X-Sender: jeremy.jean@oss.cyber.gouv.fr
+Content-Type: text/plain; charset=UTF-8;
+ format=flowed
+Content-Transfer-Encoding: 8bit
+X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
+X-AntiAbuse: Primary Hostname - pf-012.whm.fr-par.scw.cloud
+X-AntiAbuse: Original Domain - vger.kernel.org
+X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
+X-AntiAbuse: Sender Address Domain - oss.cyber.gouv.fr
+X-Get-Message-Sender-Via: pf-012.whm.fr-par.scw.cloud: authenticated_id: jeremy.jean@oss.cyber.gouv.fr
+X-Authenticated-Sender: pf-012.whm.fr-par.scw.cloud: jeremy.jean@oss.cyber.gouv.fr
+X-Source: 
+X-Source-Args: 
+X-Source-Dir: 
 
-On 10/4/26 3:21 PM, Jay Wang wrote:
->>    - If I know I don't need BPF on the workload, and these 5.4 MB
->>      bite me, I can just turn off BPF
+Hello,
+
+On 2026-10-05 04:14, Tung Quang Nguyen wrote:
+>> 	/* Attach it to the crypto */
+>> 	if (likely(!rc)) {
+>> -		rc = tipc_crypto_key_attach(c, aead, 0, master_key);
+>> +		spin_lock_bh(&c->lock);
+>> +		if (ukey == c->skey_in_use && c->skey != ukey)
+>> +			rc = -ECANCELED;
 > 
-> They cannot, even when they know they do not need it.  As the cover
-> letter says, the cloud provider usually ships one kernel build to all of
-> its customers. [...]
+> This check should be done earlier, before calling tipc_ahead_init() ?
 
-Ah, I get it now. Thanks.
+Would moving the check before tipc_aead_init() be enough, given that a
+flush can still happen while AEAD setup is running and before the key
+is attached?
 
-So the constraint is that the cloud provider ships a single kernel
-revision to all users, and there is currently no mechanism to on/off
-BPF other than a kernel build flag.
+Indeed, the race goes something like:
+1. Worker starts tipc_aead_init()
+2. Flush clears rx->skey
+3. Worker finishes AEAD setup
 
-I'd be tempted to say "just ship two kernels", it's simpler than the
-upstream change. But I understand the downsides of that as well.
-
-And obviously a good upstream feature may benefit many more users.
-
-> [...]
->>      Keep zstd-compressed blob in the kernel image and decompress and
->>      parse it synchronously on first use.
-> 
-> Thanks for putting this forward.  This compression approach is simpler 
-> than loading a module.  I expect the overall code complexity to stay similar
-> to v3, since both need to find the first user and defer the module BTF parsing
-> until then, but it should be easier to merge into mainline because it avoids
-> the request_module() deadlocks.
-> 
-> Would you like to prepare it for a formal submission, or would you
-> like me to do so?  Either works for me.  Ideally it lands in time for
-> the next LTS kernel, so that we can adopt it there.
-
-Please go ahead and submit the compression approach. Looks like we are
-converging on that. Feel free to use the prototype code if it's
-useful, it uses parts of your series anyway.
+AFAIU, we still need the check under c->lock, immediately before
+tipc_crypto_key_attach(), so that a revoked key cannot be published
+after flush.
 
 > 
-> From what I can see, most of the work left is in that deferral.
-> Whoever needs the BTF first also parses the waiting module BTFs and
-> replays the queued registrations, struct_ops ->init() included, under
-> whatever locks it holds at that point, e.g. event_mutex or
-> bpf_verifier_lock, or inside the module notifier.  So the
-> cand_cache_mutex ABBA you found may not be the only deadlock.  Besides
-> that, only x86_64 was touched so far, so it needs extending to the
-> other architectures as well.
+>> +		else
+>> +			rc = tipc_crypto_key_attach(c, aead, 0, master_key);
+>> +		spin_unlock_bh(&c->lock);
+>> 		if (rc < 0)
+>> 			tipc_aead_free(&aead->rcu);
+>> 	}
+>> @@ -1151,6 +1158,8 @@ int tipc_crypto_key_init(struct tipc_crypto *c, 
+>> struct
+>> tipc_aead_key *ukey,
+>>  * @pos: desired slot in the crypto key array, = 0 if any!
+>>  * @master_key: specify this is a cluster master key
+>>  *
+>> + * The caller must hold c->lock.
+>> + *
+>>  * Return: new key id in case of success, otherwise: -EBUSY
+>>  */
+>> static int tipc_crypto_key_attach(struct tipc_crypto *c, @@ -1158,20 
+>> +1167,19
+>> @@ static int tipc_crypto_key_attach(struct tipc_crypto *c,
+>> 				  bool master_key)
+>> {
+>> 	struct tipc_key key;
+>> -	int rc = -EBUSY;
+>> 	u8 new_key;
+>> 
+>> -	spin_lock_bh(&c->lock);
+>> +	lockdep_assert_held(&c->lock);
+>> 	key = c->key;
+>> 	if (master_key) {
+>> 		new_key = KEY_MASTER;
+>> 		goto attach;
+>> 	}
+>> 	if (key.active && key.passive)
+>> -		goto exit;
+>> +		return -EBUSY;
+>> 	if (key.pending) {
+>> 		if (tipc_aead_users(c->aead[key.pending]) > 0)
+>> -			goto exit;
+>> +			return -EBUSY;
+>> 		/* if (pos): ok with replacing, will be aligned when needed */
+>> 		/* Replace it */
+>> 		new_key = key.pending;
+>> @@ -1201,11 +1209,7 @@ attach:
+>> 	c->working = 1;
+>> 	c->nokey = 0;
+>> 	c->key_master |= master_key;
+>> -	rc = new_key;
+>> -
+>> -exit:
+>> -	spin_unlock_bh(&c->lock);
+>> -	return rc;
+>> +	return new_key;
+> 
+> Remove lock from tipc_crypto_key_attach() is enough. Why adding many 
+> irrelevant changes that do not seem necessary ?
 
-Yes, I think you are right that the hard part here is the deferral,
-because everything expects vmlinux BTF to just be there.  I don't
-think this is avoidable whatever memory saving approach we choose.
+Those extra changes in tipc_crypto_key_attach() are more cleanup than
+anything else; I preferred the direct returns since the function no
+longer owns the lock, but I can reduce the patch and keep the exit
+label.
 
+Thanks,
+Jérémy
