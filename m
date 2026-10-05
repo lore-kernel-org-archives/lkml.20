@@ -1,110 +1,87 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.5])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2100D41F7FD;
-	Mon,  5 Oct 2026 10:19:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A342725B08E
+	for <linux-kernel@vger.kernel.org>; Mon,  5 Oct 2026 10:19:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.5
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791195547; cv=none; b=DbvsmoCooyXVgcWinwWstfo/eHMN8akv2jiXyME9t42hjVIGfv8WWCwXpLOSXVu1IfHbIr1EXIigd9JNu0nPOzXrkPOM3SevIgz0uKzvQnnEMFpEF0n7Rv5g0vB087ePia4ERNZ5o2gn8d0yzLMC1EBDAyKqFazFGE2OtU/WBJA=
+	t=1791195591; cv=none; b=E9AKeyaaYx0z5Zirmh46VESAIHbfKhkcIQdIGlhvxYhFbWqQpw2JDAfXATtUXG3npO0ZkP2UyIxHnaCkXPARqN+3SSPkNlMs8HjoF9oh60fgPxyutwq9pl/Ggoufb3Pr2in9gCrOJGeD4DMGspQMJs+yrTZjXrVpsO+K/IYMaKc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791195547; c=relaxed/simple;
-	bh=J4wnzUkbFzSsjqh9eOxmqZc3vB/DrZrd5sVl7aANEpk=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=T2hJJaLhTbmBfR1aOrTeVWXtlhUA7gC04H446GeEG5qy3aSjFwoiJ6SdV0s6vK3KKSrSGfdVUCPd9Iej7jComXiP3wOgkCijw76uCkiityTYQDoFC2ngOYMq1j4LruETEnUbCbHfN4W83XEVkjiXJkNQqCgjtvsurAppB4/iZT0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XVSIsfNT; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791195591; c=relaxed/simple;
+	bh=m8VC3pRHpIqrv1YWkEuKGNAG7iLcdWy3U39CgI31IGs=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=sw5wbD5zDRZ7LFcu8ui4AoMp9u9ijAXNaNjH9h68M69bbWbxSuSZgwWIYJZ60AyiIXJnyWle4xvcL+K7l6JfwtZGIY/uQwpMmDOsFcDNONDPTK7iGDAp025CIMmU9jSnnEtfLWx8ta+vQRlXHy1jesQ8e6B31VaqzOMopUF8So8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=jpWYfDXr; arc=none smtp.client-ip=117.135.210.5
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XVSIsfNT"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BAF071F00893;
-	Mon,  5 Oct 2026 10:19:03 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791195545;
-	bh=rvwI9egWUv2laKFYKZYn2hBYItXRY3VXq3rv903ql14=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=XVSIsfNTjOk7dq2udzYZk4OcRgP88EZJU48+gTsFU5AGARQxmQi6fvbZ4TGnaPdkN
-	 WMd1NmFvmE3BvADQ28GaMoa5dAJdC5PW9vLantH7sIWF7JF799lxfQkmHu6WFcb5w0
-	 RmSOyIzBKXLLzvx3oqyJj6aaK/sb1pAcsUOhHpi15yZ81BVoHPVdwtgt+H4vuWYjjm
-	 Y44k8gRsSeYtt/b4lAPCXhbPV8/yicFY+JpvUGLjBe69sYdfxiuNozKcFOQIE4G/eh
-	 IA+IfzIjwIfkmtxWYZzGfONAlFWsjdHq74bwtpjD1WsnVsZiJsyQ7be+6S1nQPILnl
-	 eVsXW2fle5gNg==
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: soc@lists.linux.dev
-Cc: Krzysztof Kozlowski <krzk@kernel.org>,
-	Alim Akhtar <alim.akhtar@samsung.com>,
-	Peter Griffin <peter.griffin@linaro.org>,
-	linux-arm-kernel@lists.infradead.org,
-	linux-samsung-soc@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [GIT PULL 4/4] ARM: samsung: mach for v7.4
-Date: Mon,  5 Oct 2026 12:18:47 +0200
-Message-ID: <20261005101845.34752-8-krzk@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261005101845.34752-5-krzk@kernel.org>
-References: <20261005101845.34752-5-krzk@kernel.org>
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="jpWYfDXr"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=Message-ID:Date:MIME-Version:Subject:To:From:
+	Content-Type; bh=3eZ6GNi20XHQW1yJA5fWUBUG2ACfvX8eDYNXUASk5oo=;
+	b=jpWYfDXrlUzu2FUveGhF15ZQPEc42X+Pb/31nlEWQ9MfjRS8cp6duM+kuvsqza
+	wVKIzXU87SFcYzVzR/3SSMa1mqm+xKHLc2Ik1I63gNI6q9yGclIwj5hz5x0G7fsq
+	B2g9/Tdvx0NOrq3sgqpOQwYqWm4jzcMbeJ0WTKVUKd9i8=
+Message-ID: <5b101dea-77ef-4ae7-b8d9-54df20b0a6a5@163.com>
+Date: Mon, 5 Oct 2026 18:18:54 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2627; i=krzk@kernel.org; h=from:subject; bh=J4wnzUkbFzSsjqh9eOxmqZc3vB/DrZrd5sVl7aANEpk=; b=owEBbQKS/ZANAwAKAcE3ZuaGi4PXAcsmYgBqw3mIwmuEuT5oS40keu/q2ExmOGvzS5EzHK6a+ mzrofvILjyJAjMEAAEKAB0WIQTd0mIoPREbIztuuKjBN2bmhouD1wUCasN5iAAKCRDBN2bmhouD 1za5D/9FjQq6CtEE7GTWhJuS7na5LqxgNLDRh5U1fsO/KwCNIL8N4Owkor4xKqT6HZB6iYa0Hew yNfzh1azGmVB9kizCZs/aII4hEd9e8u2rBUanbIlY3NK1ztjtNf+mOIldECpSLEWaJm0GSDY6V/ LFJRs/0taTHTvhKWp/irU+7TH+GnFZRPTNaD8lfRRZyF1jZ2jsUltNEJQEU+dHh2TLfTKWWF+8W zmMYkvvoZH1/EF306USZOVGZ6KvHX2S2X4tg6Cz8Jn7ej0dzHzlvtVH9HF1u9yMLSWDUxKoy4kb IbEWFDj7vPg6eczsKBxx7pnhUFaXRxjv+ZFvNsVF84+EtgkX0a674V3qAHZJ1lP6j8+y1DW5bgH 3Fvbyc75Bnw7D5JBbE/K6td9Qs59+r7Dt+y6zMuAqsmzHQSfQHhKs9jj7EoBxYLKSx6KKJmDEmb I9kQfYQ8TbQB3aP/AsSO071fG726opVSe4GmhzpxoJs4CytF7TDuj7aWq/E7n+RIXXWLxMugGmK 1VQrAf8amLyRYhtH3sVOIO1liyRMCSaQTEdzMSKjhiEN7MVi6IBKcZO3Of3HBACj8n7Bz5ueLcb kkffFlyXU3X7I4tzbbWBdIpWuX5CzWtbEOU29P5LrPTcQtJJWjrL16/pi3v0tBPXootFN+9EI8y 7MgjaR1vOVpGLOA==
-X-Developer-Key: i=krzk@kernel.org; a=openpgp; fpr=9BD07E0E0C51F8D59677B7541B93437D3B41629B
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 3/4] exfat: dirty all new pages when extending
+ valid_size
+To: Namjae Jeon <linkinjeon@kernel.org>
+Cc: exfat@lists.linux.dev, linux-kernel@vger.kernel.org,
+ Yuezhang.Mo@sony.com, dxdt@dev.snart.me, sj1557.seo@samsung.com,
+ Chi Zhiling <chizhiling@kylinos.cn>, Jiale Yao <yaojiale02@163.com>
+References: <20261004101934.1975655-1-chizhiling@163.com>
+ <20261004101934.1975655-4-chizhiling@163.com>
+ <CAKYAXd-2cSYwBcAfGtcAYbK95FfpASRrptz4YUf7Ke-cXK00PA@mail.gmail.com>
+From: Chi Zhiling <chizhiling@163.com>
+In-Reply-To: <CAKYAXd-2cSYwBcAfGtcAYbK95FfpASRrptz4YUf7Ke-cXK00PA@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-CM-TRANSID:PygvCgCHJ1aOecNqakDWCw--.17545S2
+X-Coremail-Antispam: 1Uf129KBjvJXoWruFy8ZFW5CF1DtF4UZFWUJwb_yoW8Jr1DpF
+	yqgw45JrW8Ww18Gan7tF4xXF1F939xWF4fW3s8X34UAa15WFyDCFWrC3yjkF1ftw4Dt34j
+	va98Xr98uryDCrJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07UL2-OUUUUU=
+X-CM-SenderInfo: hfkl6xxlol0wi6rwjhhfrp/xtbC3BEOq2rDeZGB-gAA3W
 
-Hi Arnd and SoC folks,
+On 10/5/26 5:08 PM, Namjae Jeon wrote:
+>> @@ -664,90 +664,30 @@ int exfat_file_fsync(struct file *filp, loff_t start, loff_t end, int datasync)
+>>   static int exfat_zero_new_range(struct inode *inode, loff_t start, loff_t end)
+> Function name and comments no longer seem to match. What do you think
+> about changing them like this?
+> 
+> /*
+>   * exfat_prepare_valid_range - populate and dirty folios covering [start, end)
+>   *
+>   * Populate missing blocks via the read path, which zero-fills data
+>   * beyond the current valid_size while preserving uptodate blocks.
+>   * Mark entire folios dirty so the newly valid range is written back.
+>   *
+>   * Call before advancing valid_size.
+>   */
 
-This includes Input subsystem code, which got acks from Dmitry.
+Okay, I'll add it to v3.
 
-Best regards,
-Krzysztof
+> 
+> And generic/538 test fails with this patch set. Please check if this
+> test failure is reproducible for you as well.
+
+I ran the tests, but I wasn't able to reproduce the failure. Could you 
+tell me the block size and cluster size used to reproduce it?
+
+There is also a new failure in generic/551. This failure can be fixed by 
+adding inode_dio_wait() to exfat_extend_valid_size(). Jiale's patch 
+includes this fix:
+
+https://lore.kernel.org/exfat/20261003093035.532916-4-yaojiale02@163.com/T/#u
 
 
-The following changes since commit cee9395acd8043be0644b25c34bfa86623f2b935:
+Thanks.
 
-  Linux 7.3-rc1 (2026-08-30 13:34:40 -0700)
-
-are available in the Git repository at:
-
-  https://git.kernel.org/pub/scm/linux/kernel/git/krzk/linux.git tags/samsung-soc-7.4
-
-for you to fetch changes up to 80c92d1f1a4e3000e6eb351ad8af16267b1d4e63:
-
-  ARM: EXYNOS: Replace __ASSEMBLY__ with __ASSEMBLER__ (2026-09-04 16:09:17 +0200)
-
-----------------------------------------------------------------
-Samsung mach/soc changes for v7.4
-
-Switch to software nodes for GPIO keys, which will allow later dropping
-platform data from gpio-keys driver.  Likewise improve samsung-keypad
-input driver and drop platform data there as well.
-
-----------------------------------------------------------------
-Dmitry Torokhov (6):
-      dt-bindings: input: samsung,s3c6410-keypad: introduce compact binding
-      Input: samsung-keypad - handle compact binding
-      ARM: s3c: register and attach software nodes for Samsung gpio_chips
-      ARM: s3c: crag6410: switch keypad device to software properties
-      Input: samsung-keypad - remove support for platform data
-      ARM: s3c: crag6410: use software nodes/properties to set up GPIO keys
-
-Thomas Huth (1):
-      ARM: EXYNOS: Replace __ASSEMBLY__ with __ASSEMBLER__
-
- .../bindings/input/samsung,s3c6410-keypad.yaml     |  53 +++++-
- arch/arm/mach-exynos/smc.h                         |   4 +-
- arch/arm/mach-s3c/Kconfig                          |   5 -
- arch/arm/mach-s3c/Kconfig.s3c64xx                  |   7 -
- arch/arm/mach-s3c/Makefile.s3c64xx                 |   1 -
- arch/arm/mach-s3c/devs.c                           |  27 ---
- arch/arm/mach-s3c/devs.h                           |   1 -
- arch/arm/mach-s3c/gpio-core.h                      |   3 +
- arch/arm/mach-s3c/gpio-samsung-s3c64xx.h           |   5 +
- arch/arm/mach-s3c/gpio-samsung.c                   |  72 ++++++--
- arch/arm/mach-s3c/keypad.h                         |  27 ---
- arch/arm/mach-s3c/mach-crag6410.c                  | 135 ++++++++++----
- arch/arm/mach-s3c/setup-keypad-s3c64xx.c           |  20 ---
- drivers/input/keyboard/samsung-keypad.c            | 200 +++++++++------------
- include/linux/input/samsung-keypad.h               |  39 ----
- 15 files changed, 299 insertions(+), 300 deletions(-)
- delete mode 100644 arch/arm/mach-s3c/keypad.h
- delete mode 100644 arch/arm/mach-s3c/setup-keypad-s3c64xx.c
- delete mode 100644 include/linux/input/samsung-keypad.h
