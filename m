@@ -1,177 +1,158 @@
-Received: from mail2.kuutio.org (mail2.kuutio.org [91.107.195.44])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oi1-f198.google.com (mail-oi1-f198.google.com [209.85.167.198])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6678137F315;
-	Mon,  5 Oct 2026 20:23:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.107.195.44
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 485A74A3841
+	for <linux-kernel@vger.kernel.org>; Mon,  5 Oct 2026 20:24:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.198
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791231825; cv=none; b=Eaki83n+AcTEJWEm3AFbHTG30kQOeQV3mZrfotJcBHE3+mJCWuKtd2QqQERRlegrqH1jIwH4WM0kG0DNvEndWXGMlaifBRuQ1KiZhZgQBX8s5qPxMTH8ue04VINOgu+nW4MbuXFPTJhywfy78nvbyzvSX/9pg8FjSJrikjQAJQk=
+	t=1791231845; cv=none; b=OUR73kyhRQbOgEuPTg2DbkeOlBfQ01v/DOuipQ9+nhTobBWa3D6QCefVYxKvIDkS1nAonLdJZWyQv41PlA82jBk1T7SMyzx9XwJTE3qzPLUluQcB4e2nEvvQ0WDKyrL7Kh1OQPu9d3Hmc6Zx323KJ5hb/0nKKnhIm6SpiDLWGO4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791231825; c=relaxed/simple;
-	bh=89sofIcNTgVT385DSHgi0C6SE9AGj2Zgb5fRhg3LUQM=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=DZrZ+Od2wh4kfCIgaz8E+KyTJ+emly/51xPogGsb+o/2mA7otIy/4fdnKF+Ud4XqDccmI+7rGCgXowDZYN1Cl1Pdkb4K40OeQzuPnFmHjKSvMqqyVIKrF0gKchdjFdc5HiDlHP/XlsiWU5YCxEZtKORr/0QwNVVdm3E10n/fWbk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=lemmela.net; spf=pass smtp.mailfrom=lemmela.net; arc=none smtp.client-ip=91.107.195.44
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=lemmela.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lemmela.net
-Received: from localhost (mail2.kuutio.org [127.0.0.1])
-	by mail2.kuutio.org (Postfix) with ESMTP id AB4A920F0A;
-	Mon,  5 Oct 2026 20:17:26 +0000 (UTC)
-X-Virus-Scanned: amavis at kuutio.org
-Received: from mail2.kuutio.org ([127.0.0.1])
- by localhost (mail2.kuutio.org [127.0.0.1]) (amavis, port 10024) with LMTP
- id sJ1HkoharcWx; Mon,  5 Oct 2026 20:17:26 +0000 (UTC)
-Received: from muovi.kuutio.org (nbqchc6j3dhrbnnpubi-1.v6.elisa-laajakaista.fi [IPv6:2001:99a:adc:6a00::8be])
-	by mail2.kuutio.org (Postfix) with ESMTPSA id 36C281FD40;
-	Mon,  5 Oct 2026 20:17:25 +0000 (UTC)
-From: Oskari Lemmela <oskari@lemmela.net>
-To: Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Heiner Kallweit <hkallweit1@gmail.com>,
-	Daniel Golle <daniel@makrotopia.org>,
-	Javen Xu <javen_xu@realsil.com.cn>,
-	Vladimir Oltean <vladimir.oltean@nxp.com>,
-	Aleksander Jan Bajkowski <olek2@wp.pl>,
-	Oleksij Rempel <o.rempel@pengutronix.de>,
-	Issam Hamdi <ih@simonwunderlich.de>,
-	Chukun Pan <amadeus@jmu.edu.cn>,
-	Jan Hoffmann <jan@3e8.eu>,
-	Florian Fainelli <f.fainelli@gmail.com>
-Cc: Russell King <linux@armlinux.org.uk>,
-	Andrew Lunn <andrew@lunn.ch>,
-	netdev@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Manuel Stocker <mensi@mensi.ch>,
-	Oskari Lemmela <oskari@lemmela.net>
-Subject: [PATCH net-next v2 2/2] net: phy: realtek: support unaligned RTL8224 PHY packages
-Date: Mon,  5 Oct 2026 23:15:40 +0300
-Message-ID: <20261005201540.913977-3-oskari@lemmela.net>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20261005201540.913977-1-oskari@lemmela.net>
-References: <20261005201540.913977-1-oskari@lemmela.net>
+	s=arc-20240116; t=1791231845; c=relaxed/simple;
+	bh=RDO4C/DaZVx3nnecMh5u+Z+MeIOraeIPiPNou6rth+8=;
+	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:
+	 Content-Type; b=qT7tNUyIiHVG019oG3BWUpm3j/K2MgYEA+NhEHNgGsZuKej7Eyi9aYcprgp6YYKs6/DFKZsMTipnTOKvC1KM78gM2E5IuMfxCNoGEqIR95Cv+A7Qce/k8cCJmaKDVLZkmFjSPGTnBNrYhP7DZzizTsVhTYvea85Qj4tOAlMOkQ4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.167.198
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-oi1-f198.google.com with SMTP id 5614622812f47-4cc89e86e4dso31015b6e.2
+        for <linux-kernel@vger.kernel.org>; Mon, 05 Oct 2026 13:24:04 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791231843; x=1791836643;
+        h=content-type:to:from:subject:message-id:in-reply-to:date
+         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=1ARtNH/TFJitDHaFt4Vy/AzHdG0TWjp1Ix2WaMBlobM=;
+        b=DOB46Q4ENFqs+6rmRUwA/dqMxirVsFVLEtMCzaGs+ptBWy5n0KRKYHdbkH8QiRTaT9
+         FUacySSc6sPawYZoStcOCCjP1ZUN4/69gavVz8dCJ4aHJTI4YRXJpmtCEynlEH2fHFje
+         kKhi4JeopZuOgq5fa2Bo0P8U2fD6c80jXGxkGYRexhWRY/5kVnqJ2Pi5//SrWYXq3TSI
+         UFkMUnCR29zNYIol7b3a5OyJfw5nU9IlUR/Zjzksc0IUfGnJUco3B/U6uoBV/ohSHxu2
+         NzMVQes9on0x7q1cmMWJwQ1ewkomYDV+F0Gq3IevFufgpjw7fPHow6WT73nCNaNZemue
+         rzzA==
+X-Forwarded-Encrypted: i=1; AKwUvBxaLu5STy6IrmYHBVPomOletLctnZRVOPRwbPiRLR4zhX69r5X6MDSSIWh+/F5mDxlqBcPgpJ8xli86F7k=@vger.kernel.org
+X-Gm-Message-State: AFuF++nhyVgA9BABCoRg2RgfAU9dwhyxlMB6Ek7zYokETodKgFktHWSB
+	s+Aoxdj/ImxZQeYalst0PaX8Pfp0e6BQ1jLu9FwWsZApmqVhG3nobqGQjU2InkhHr0fd5E17dlX
+	nNCDC7jxF2ICq3yVLtMs83uWFmOn9Lg9k+KRSTKYwy3HX9aHWLPim2R0g8ME=
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-Received: by 2002:a05:6808:bc6:b0:4f4:dd0d:207a with SMTP id
+ 5614622812f47-4f52683fd3cmr10387450b6e.4.1791231843085; Mon, 05 Oct 2026
+ 13:24:03 -0700 (PDT)
+Date: Mon, 05 Oct 2026 13:24:03 -0700
+In-Reply-To: <20261005170717.9242-2-jakovnovak30@gmail.com>
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6ac40763.34119e79.2f92f3.0038.GAE@google.com>
+Subject: Re: [syzbot] [media?] [usb?] WARNING in smsusb_term_device (2)
+From: syzbot <syzbot+d627b1495de0e851be32@syzkaller.appspotmail.com>
+To: jakovnovak30@gmail.com, linux-kernel@vger.kernel.org, 
+	syzkaller-bugs@googlegroups.com
+Content-Type: text/plain; charset="UTF-8"
 
-From: Manuel Stocker <mensi@mensi.ch>
+Hello,
 
-The RTL8224 driver groups its four ports by rounding each PHY address
-down to a multiple of four and uses the low two address bits as the
-port index. This assumes that the first port's MDIO address is aligned
-to a multiple of four.
+syzbot has tested the proposed patch but the reproducer is still triggering an issue:
+WARNING in enable_work
 
-The Hasivo S1100WP-8GT-2S+ uses two RTL8224 packages at MDIO addresses
-1-4 and 5-8. Extend the driver to support such configurations by using
-the base address from an ethernet-phy-package node when present and
-calculating each port's offset relative to that address.
+------------[ cut here ]------------
+workqueue: work disable count underflowed
+WARNING: kernel/workqueue.c:4530 at work_offqd_enable kernel/workqueue.c:4530 [inline], CPU#1: kworker/1:0/31
+WARNING: kernel/workqueue.c:4530 at enable_work+0x1c7/0x230 kernel/workqueue.c:4701, CPU#1: kworker/1:0/31
+Modules linked in:
+CPU: 1 UID: 0 PID: 31 Comm: kworker/1:0 Not tainted syzkaller #0 PREEMPT_{RT,(full)} 
+Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 09/16/2026
+Workqueue: usb_hub_wq hub_event
+RIP: 0010:work_offqd_enable kernel/workqueue.c:4530 [inline]
+RIP: 0010:enable_work+0x1c7/0x230 kernel/workqueue.c:4701
+Code: cf 19 38 00 4d 85 f6 75 48 e8 c5 19 38 00 eb 47 e8 be 19 38 00 90 0f 0b 90 e9 bc fe ff ff e8 b0 19 38 00 48 8d 3d 99 1c 26 0e <67> 48 0f b9 3a e9 d2 fe ff ff e8 9a 19 38 00 90 0f 0b 90 e9 1d ff
+RSP: 0018:ffffc90000a5eae0 EFLAGS: 00010093
+RAX: ffffffff818ebc00 RBX: 0000000000000000 RCX: ffff88801d2c0000
+RDX: 0000000000000000 RSI: 0000000000000000 RDI: ffffffff8fb4d8a0
+RBP: 0000000000000000 R08: 0000000000000000 R09: 0000000000000000
+R10: dffffc0000000000 R11: ffffed10170e7719 R12: 1ffff11006c07c5b
+R13: 0000000001800001 R14: ffff88803603e2d8 R15: 0000000000000000
+FS:  0000000000000000(0000) GS:ffff888125cc2000(0000) knlGS:0000000000000000
+CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+CR2: 000055cbac78e1a8 CR3: 000000003f5e0000 CR4: 00000000003526f0
+Call Trace:
+ <TASK>
+ __cancel_work_sync+0xf8/0x110 kernel/workqueue.c:4571
+ smsusb_stop_streaming drivers/media/usb/siano/smsusb.c:183 [inline]
+ smsusb_term_device+0xdd/0x260 drivers/media/usb/siano/smsusb.c:345
+ smsusb_init_device drivers/media/usb/siano/smsusb.c:499 [inline]
+ smsusb_probe+0x1aba/0x2280 drivers/media/usb/siano/smsusb.c:577
+ usb_probe_interface+0x788/0xe50 drivers/usb/core/driver.c:399
+ call_driver_probe drivers/base/dd.c:-1 [inline]
+ really_probe+0x254/0xae0 drivers/base/dd.c:706
+ __driver_probe_device+0x1e8/0x360 drivers/base/dd.c:868
+ driver_probe_device+0x4f/0x240 drivers/base/dd.c:898
+ __device_attach_driver+0x270/0x410 drivers/base/dd.c:1026
+ bus_for_each_drv+0x25b/0x2f0 drivers/base/bus.c:500
+ __device_attach+0x2c7/0x450 drivers/base/dd.c:1098
+ device_initial_probe+0xa1/0xd0 drivers/base/dd.c:1153
+ bus_probe_device+0x12d/0x220 drivers/base/bus.c:620
+ device_add+0x7d7/0xb80 drivers/base/core.c:3776
+ usb_set_configuration+0x1bb5/0x2260 drivers/usb/core/message.c:2274
+ usb_generic_driver_probe+0x8d/0x150 drivers/usb/core/generic.c:250
+ usb_probe_device+0x1c3/0x3b0 drivers/usb/core/driver.c:293
+ call_driver_probe drivers/base/dd.c:-1 [inline]
+ really_probe+0x254/0xae0 drivers/base/dd.c:706
+ __driver_probe_device+0x1e8/0x360 drivers/base/dd.c:868
+ driver_probe_device+0x4f/0x240 drivers/base/dd.c:898
+ __device_attach_driver+0x270/0x410 drivers/base/dd.c:1026
+ bus_for_each_drv+0x25b/0x2f0 drivers/base/bus.c:500
+ __device_attach+0x2c7/0x450 drivers/base/dd.c:1098
+ device_initial_probe+0xa1/0xd0 drivers/base/dd.c:1153
+ bus_probe_device+0x12d/0x220 drivers/base/bus.c:620
+ device_add+0x7d7/0xb80 drivers/base/core.c:3776
+ usb_new_device+0x99a/0x1680 drivers/usb/core/hub.c:2713
+ hub_port_connect drivers/usb/core/hub.c:5585 [inline]
+ hub_port_connect_change drivers/usb/core/hub.c:5725 [inline]
+ port_event drivers/usb/core/hub.c:5889 [inline]
+ hub_event+0x28cf/0x4cf0 drivers/usb/core/hub.c:5971
+ process_one_work kernel/workqueue.c:3396 [inline]
+ process_scheduled_works+0xc3d/0x1630 kernel/workqueue.c:3479
+ worker_thread+0xa47/0xfb0 kernel/workqueue.c:3560
+ kthread+0x38b/0x470 kernel/kthread.c:436
+ ret_from_fork+0x514/0xb70 arch/x86/kernel/process.c:158
+ ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
+ </TASK>
+----------------
+Code disassembly (best guess):
+   0:	cf                   	iret
+   1:	19 38                	sbb    %edi,(%rax)
+   3:	00 4d 85             	add    %cl,-0x7b(%rbp)
+   6:	f6 75 48             	divb   0x48(%rbp)
+   9:	e8 c5 19 38 00       	call   0x3819d3
+   e:	eb 47                	jmp    0x57
+  10:	e8 be 19 38 00       	call   0x3819d3
+  15:	90                   	nop
+  16:	0f 0b                	ud2
+  18:	90                   	nop
+  19:	e9 bc fe ff ff       	jmp    0xfffffeda
+  1e:	e8 b0 19 38 00       	call   0x3819d3
+  23:	48 8d 3d 99 1c 26 0e 	lea    0xe261c99(%rip),%rdi        # 0xe261cc3
+* 2a:	67 48 0f b9 3a       	ud1    (%edx),%rdi <-- trapping instruction
+  2f:	e9 d2 fe ff ff       	jmp    0xffffff06
+  34:	e8 9a 19 38 00       	call   0x3819d3
+  39:	90                   	nop
+  3a:	0f 0b                	ud2
+  3c:	90                   	nop
+  3d:	e9                   	.byte 0xe9
+  3e:	1d                   	.byte 0x1d
+  3f:	ff                   	.byte 0xff
 
-Use the package-relative port index to select the MDI pair order and
-polarity fields. Reject PHY addresses outside the four-port package
-and propagate explicit package errors rather than falling back to
-another base address.
 
-Keep the existing aligned-address assumption when no package node
-is present.
+Tested on:
 
-Signed-off-by: Manuel Stocker <mensi@mensi.ch>
-[Oskari: rebased on net-next/main, reworded commit message]
-Signed-off-by: Oskari Lemmela <oskari@lemmela.net>
----
- drivers/net/phy/realtek/realtek_main.c | 49 +++++++++++++++++++++++---
- 1 file changed, 44 insertions(+), 5 deletions(-)
-
-diff --git a/drivers/net/phy/realtek/realtek_main.c b/drivers/net/phy/realtek/realtek_main.c
-index e14960192e79..91cf34d13420 100644
---- a/drivers/net/phy/realtek/realtek_main.c
-+++ b/drivers/net/phy/realtek/realtek_main.c
-@@ -355,6 +355,10 @@ struct rtl821x_priv {
- 	u16 iner;
- };
- 
-+struct rtl8224_priv {
-+	u8 port_offset;
-+};
-+
- struct rtl8261x_priv {
- 	const char *fw_name;
- 	u32 fw_sub_magic;
-@@ -2723,7 +2727,8 @@ static int rtl8224_package_modify_mmd(struct phy_device *phydev, int devad,
- static int rtl8224_mdi_config_order(struct phy_device *phydev)
- {
- 	struct device_node *np = phydev->mdio.dev.of_node;
--	u8 port_offset = phydev->mdio.addr & 3;
-+	struct rtl8224_priv *priv = phydev->priv;
-+	u8 port_offset = priv->port_offset;
- 	u32 order = 0;
- 	int ret;
- 
-@@ -2748,7 +2753,8 @@ static int rtl8224_mdi_config_order(struct phy_device *phydev)
- static int rtl8224_mdi_config_polarity(struct phy_device *phydev)
- {
- 	struct device_node *np = phydev->mdio.dev.of_node;
--	u8 offset = (phydev->mdio.addr & 3) * 4;
-+	struct rtl8224_priv *priv = phydev->priv;
-+	u8 offset = priv->port_offset * 4;
- 	u32 polarity = 0;
- 	int ret;
- 
-@@ -2783,9 +2789,42 @@ static int rtl8224_config_init(struct phy_device *phydev)
- 
- static int rtl8224_probe(struct phy_device *phydev)
- {
--	/* Chip exposes 4 ports, join all of them in the same package */
--	return devm_phy_package_join(&phydev->mdio.dev, phydev,
--				     phydev->mdio.addr & ~3, 0);
-+	struct device *dev = &phydev->mdio.dev;
-+	u32 base_addr = phydev->mdio.addr & ~3;
-+	struct rtl8224_priv *priv;
-+	struct device_node *np;
-+	int ret;
-+
-+	priv = devm_kzalloc(dev, sizeof(*priv), GFP_KERNEL);
-+	if (!priv)
-+		return -ENOMEM;
-+
-+	np = of_get_parent(dev->of_node);
-+	if (of_node_name_eq(np, "ethernet-phy-package")) {
-+		ret = of_property_read_u32(np, "reg", &base_addr);
-+		of_node_put(np);
-+		if (ret)
-+			return dev_err_probe(dev, ret,
-+					     "Missing or invalid PHY package reg\n");
-+
-+		if (phydev->mdio.addr < base_addr ||
-+		    phydev->mdio.addr - base_addr >= 4)
-+			return dev_err_probe(dev, -EINVAL,
-+					     "PHY address outside RTL8224 package\n");
-+
-+		ret = devm_of_phy_package_join(dev, phydev, 0);
-+	} else {
-+		of_node_put(np);
-+		/* Without a package node, assume four aligned PHY addresses. */
-+		ret = devm_phy_package_join(dev, phydev, base_addr, 0);
-+	}
-+	if (ret)
-+		return dev_err_probe(dev, ret, "Failed to join PHY package\n");
-+
-+	priv->port_offset = phydev->mdio.addr - base_addr;
-+	phydev->priv = priv;
-+
-+	return 0;
- }
- 
- static bool rtlgen_supports_2_5gbps(struct phy_device *phydev)
--- 
-2.55.0
+commit:         67f0943b Merge tag 'selinux-pr-20261005' of git://git...
+git tree:       upstream
+console output: https://syzkaller.appspot.com/x/log.txt?x=14fc4ff5580000
+kernel config:  https://syzkaller.appspot.com/x/.config?x=341a98f91c13ec9
+dashboard link: https://syzkaller.appspot.com/bug?extid=d627b1495de0e851be32
+compiler:       Debian clang version 22.1.8 (++20260613092233+e80beda6e255-1~exp1~20260613092250.77), Debian LLD 22.1.8
+patch:          https://syzkaller.appspot.com/x/patch.diff?x=147f2ff5580000
 
