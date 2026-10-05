@@ -1,86 +1,66 @@
-Received: from mail-oi1-f197.google.com (mail-oi1-f197.google.com [209.85.167.197])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 775E82D876B
-	for <linux-kernel@vger.kernel.org>; Mon,  5 Oct 2026 18:05:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.197
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 81F2F79CD;
+	Mon,  5 Oct 2026 18:06:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791223549; cv=none; b=d1lTaa+v7Dvblxnmm9TCTbVgUUrIm5vCOdwddf065HZ9WsNYlgdOh+UXoMSnU9ykxFJqZ3B3ZmeXpqNewJVFjwTsSGjNYvdnDjH7c8W7M5lwK4XtArGXnTKVut2afWiLQ7IkqCDi9XhSrfCkYzo9o++kPEzqUV/dQcpuuQRJev8=
+	t=1791223598; cv=none; b=nqSHrNxql/fpzfHzPzvqws39TMIRQKKrcFmGGjb3fFRc+9sgl5ewQJ27aOBYK+Q8x2D41EOYfWE6kr3lUTFJHMXzaUZVvhibqmgZE4q7mpkQ7+scEsBDm898zoW7gOB2Z78Ofbg3Y+k6Bbrfn+7uoK971axgJvxtBunbLk8zbJ8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791223549; c=relaxed/simple;
-	bh=q70HH/mBfJdgqeNuRYqidh7qDOCYq4fuR1vmgUYmijc=;
-	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:
-	 Content-Type; b=KdUJiZHVfXN9WJ/CynPzaTC8u4smC6wihjjzzcchOBiwIphVTON/W8Pqde+vvpBOMZM6AcXicsa21plobX8c2Yk/Yp4X2G2FboYau7Csly+PXI1zo/i5x30oHhlCfjE9NcUWTHOaWEhj7dc7WXTrtan12BNrXkjaUAezThJonuc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.167.197
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oi1-f197.google.com with SMTP id 5614622812f47-4f8281066c4so2105145b6e.2
-        for <linux-kernel@vger.kernel.org>; Mon, 05 Oct 2026 11:05:48 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791223547; x=1791828347;
-        h=content-type:to:from:subject:message-id:in-reply-to:date
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=pJdrtc10ArNA5uw/Q0FBfJopjkuBAZtUDip0eoty9G0=;
-        b=hK90m3vhNH/GA0CSeikNSu/376yB1wYFY9KdDcNhG0slqZ+y8GLcvRmrVi2TNmp+lb
-         Y6MbvGobmYekemICtZGBsGyeWucIFL72ovIFyXyo1bUx5sGPl0qJDQ8TOa3ksAkQPBB0
-         JSfjgXk3sse7WzxoBcsaHOH+sUsVYuFpbuV1hE8X/jiO5lLwiUPnVdy0lCc8bdcko7l6
-         xQXqtBIwyd503xuap83tl7ijXoD3/kSNy6GXPn2tfV6Ohf04kpv7b2uQ+rYhDdHfufX1
-         YUYKFzo0h1G1xJRTSJ3QOg7bmK9WWg5hGQvvsf25+1n9amQoMKDNlrFSTYCuUMCB9MpG
-         V2dA==
-X-Gm-Message-State: AFuF++mzFijEbuuIGMPJqsroAX2Dh5lQ4VetIAL8ZHlnfT+469wIH3uj
-	b/tUqIWbi6BekyZxMtG6cI17TKz7XPMipfaXqnT72aWfILxTlmeMEUZb5jyhYr/5t74KD8xS1KW
-	KSfVtkZiJzrouu1ve0dVd0Ryc0uvxxCbSxB+4jb4PlAfypdgJRYxayxnRlpE=
+	s=arc-20240116; t=1791223598; c=relaxed/simple;
+	bh=NHC7UPdSv21B+xczMv8ax/94E1S5+wHW0SiRyFbLp3Y=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
+	 MIME-Version:Content-Type; b=X7KXMX0fyi6uKqkFSd+aGYAmpRNb991mO8iUn3zVgnB5R5KYoil4N0azpD3GFSr+MDvyPr3geYnYR7pjvittKElyJECIjmcaNGYyEfgtoU/9G7e/2GBx+6T179FB7TnnPvuY2lEllMdUmp7MWZ+vzTpwsNzW5fvH/iFL3f6l+Zk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=OrDZQi+G; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="OrDZQi+G"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 585151F00893;
+	Mon,  5 Oct 2026 18:06:36 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791223597;
+	bh=NaUv/XuPYFWxQcwoZYq++jlTHd+q2e4+QQ5BadkgTmk=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date;
+	b=OrDZQi+GLNMQXBkd5xa0dPSqjB5oGLJB2zNB437Lp0LZuoL5uPNgo7zuJKob0PAmd
+	 ISWFCd5IGNuKhqEKbNhq5LWDv1epsc3nwusGb3Aoj3vBJrrR35QS9jRvSdyOGrYxH/
+	 wm6LjZm8CD41dh9mcNve3rcPQRXyUzOVISAp0pkG1J+Cxr50OlSPI58TPIk6XQunoR
+	 GB1mZJ0ode8iVKEio1i5XiEutIHaAdac1SxsR/01etlL+J042hp29CrR9qHsJu3FQV
+	 Q2/vOJQJTtqMx+NTDam1tRxD3/1IiiLynIKFOQhu8F8vvMs+OrjiqzaO3qVqAv0pAn
+	 443kTPyYoYqBw==
+From: Carlos Maiolino <cem@kernel.org>
+To: Yun Zhou <yun.zhou@windriver.com>
+Cc: linux-xfs@vger.kernel.org, linux-kernel@vger.kernel.org
+In-Reply-To: <20260916004335.228753-1-yun.zhou@windriver.com>
+References: <20260916004335.228753-1-yun.zhou@windriver.com>
+Subject: Re: [PATCH] xfs: move xfs_sync_sb_buf() out of libxfs into
+ xfs_ioctl.c
+Message-Id: <179122359604.102066.989822171795256366.b4-ty@kernel.org>
+Date: Mon, 05 Oct 2026 20:06:36 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Received: by 2002:a05:6809:24c:10b0:4d6:90f3:74a6 with SMTP id
- 5614622812f47-4f5435f8aafmr6571247b6e.49.1791223547252; Mon, 05 Oct 2026
- 11:05:47 -0700 (PDT)
-Date: Mon, 05 Oct 2026 11:05:47 -0700
-In-Reply-To: <6ac332eb.598348e0.18b15.0000.GAE@google.com>
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6ac3e6fb.9ad129c8.3858c0.003e.GAE@google.com>
-Subject: Forwarded: [PATCH] media: usb: siano: Test fix
-From: syzbot <syzbot+d627b1495de0e851be32@syzkaller.appspotmail.com>
-To: linux-kernel@vger.kernel.org, syzkaller-bugs@googlegroups.com
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.14.3
 
-For archival purposes, forwarding an incoming command email to
-linux-kernel@vger.kernel.org, syzkaller-bugs@googlegroups.com.
+On Wed, 16 Sep 2026 08:43:35 +0800, Yun Zhou wrote:
+> xfs_sync_sb_buf() dereferences mp->m_sb_bp and mp->m_rtsb_bp, which
+> only exist in the kernel's struct xfs_mount, not in xfsprogs' libxfs.
+> Keeping it in libxfs is a porting hazard.
+> 
+> Its only caller, xfs_ioc_setlabel(), is kernel-only, so move it there
+> and make it static.
+> 
+> [...]
 
-***
+Applied to for-next, thanks!
 
-Subject: [PATCH] media: usb: siano: Test fix
-Author: jakovnovak30@gmail.com
+[1/1] xfs: move xfs_sync_sb_buf() out of libxfs into xfs_ioctl.c
+      commit: 6654fca702b28b87cd365242498262080b1c223f
 
-#syz test
-
----
- drivers/media/usb/siano/smsusb.c | 6 ++++--
- 1 file changed, 4 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/media/usb/siano/smsusb.c b/drivers/media/usb/siano/smsusb.c
-index 0fdc2e0950b7..ef400d01af31 100644
---- a/drivers/media/usb/siano/smsusb.c
-+++ b/drivers/media/usb/siano/smsusb.c
-@@ -348,8 +348,10 @@ static void smsusb_term_device(struct usb_interface *intf)
- 		if (dev->coredev)
- 			smscore_unregister_device(dev->coredev);
- 
--		for (i = 0; i < MAX_URBS; i++)
--			usb_free_urb(dev->surbs[i].urb);
-+		for (i = 0; i < MAX_URBS; i++) {
-+			// if (dev->surbs[i].urb)
-+			// 	usb_free_urb(dev->surbs[i].urb);
-+		}
- 
- 		pr_debug("device 0x%p destroyed\n", dev);
- 		kfree(dev);
+Best regards,
 -- 
-2.56.0
+Carlos Maiolino <cem@kernel.org>
 
