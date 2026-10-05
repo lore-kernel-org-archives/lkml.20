@@ -1,198 +1,264 @@
-Received: from OSPPR02CU001.outbound.protection.outlook.com (mail-norwayeastazon11013061.outbound.protection.outlook.com [40.107.159.61])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ed2-f12.google.com (mail-ed2-f12.google.com [74.125.228.76])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 576E613C9C4
-	for <linux-kernel@vger.kernel.org>; Mon,  5 Oct 2026 04:55:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.159.61
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 080171FF7C5
+	for <linux-kernel@vger.kernel.org>; Mon,  5 Oct 2026 04:57:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.228.76
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791176147; cv=fail; b=n01FPSfV/xIPBO890B6kSj0qVU+h2wH0NYbfpJi6P8zaJ/4vfG7C7K2LOkAJOBoD4f16MOEBXvCOfZvRe6x2df14S2ZNEUtQjtjbWm8ibCbq3HT0YfE7SIcGzD+KQzcDWCSFij/RvsphqdAYgbYb34vCCQS0DsLYNrOyfxvuTZY=
+	t=1791176257; cv=pass; b=UKmsXRwhItzlNtzz5wkT0FMnvRZnuvWZZSlRb2ILYzFDuRM2uNCUCK0zf10VzNoN35ywvMoeKwVPx3N7nzoUS/6GAwfRbao0CfBexgdvXRlqKuQX/yTkMj1d3c+IZxPZ4bjXczWCUsW0iNoaQSeq2Hrk/z4H2HNl5svxrYPGnjI=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791176147; c=relaxed/simple;
-	bh=nPEb/8a2cGn67nq2k1mkuW7ZVRq+eCDF67m6uNcZhoE=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:MIME-Version; b=KkhMylldPiJAiA9NFg2HXOsak2T8mjZR8QVjkbQF4mG6X/vEp1zj9ft4LJdP2KG/B9+nvd9QFDcS0Y9BzQD1ZNoANU6wHrTpd8axnaDRXp17a0rURZ/nh7j1EYU1ASgbd08pfBBxEN9Ju2HGuxbtOONiOVmXXaNj7xASJx7ldRs=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=cs-soprasteria.com; spf=pass smtp.mailfrom=cs-soprasteria.com; dkim=pass (2048-bit key) header.d=cs-soprasteria.com header.i=@cs-soprasteria.com header.b=FyQkGA1e; arc=fail smtp.client-ip=40.107.159.61
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=cs-soprasteria.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cs-soprasteria.com
+	s=arc-20240116; t=1791176257; c=relaxed/simple;
+	bh=DtOfma5MPjlTA7AJUO+fjtKRY4VF59cg25jlM6rQ7Pg=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=G7Hu2Uxc7OB+gWgFoD7PsubSzWmnoJRHLIZ+wJ2pXZpWNhzn2dT4kX79dAF5SddkhUj6AATlEoPv+FFKA80ziih/DnYlRVEWw+t1RH6kmwptJbAhlWiwmMleE6tVBXyKA0zU8izcS1hJTCcbxRbaUedISyR9vB0AJfzkaY/rnNY=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cloud.ionos.com; spf=pass smtp.mailfrom=ionos.com; dkim=pass (2048-bit key) header.d=cloud.ionos.com header.i=@cloud.ionos.com header.b=ErXR7xkT; arc=pass smtp.client-ip=74.125.228.76
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cloud.ionos.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ionos.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=cs-soprasteria.com header.i=@cs-soprasteria.com header.b="FyQkGA1e"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=BQbfT4o20vGPiqWUmSIMPUAxZroiQzzfvnW65GERwkU+3RTNFR7RyT6UewYZ4LYU0QX+Ucq4x4/10kcv415dX6Uu3wrNAV0wIN1LEOoXRjfakbE8kbbf+DdeRFgkcVFjII6qEXinaJOE1aZMlnKU3IeZuFia5S63mlhDk8Fk8Rj9fpyYqZqCEwPCim0DUiaTpShy8Jkeu9a6n+PZumrby1aeSJaPuthAkWM/kdVcLV2roLvP7IzHh29D4N6Hxf46YWRnKpLwazOMx8yAeoB3BUfMKUWJDga15OYEknlgIupF6qxXk+vkbp6am+1qCUa+n1n130QSW/ALPoY1w8djAg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=nPEb/8a2cGn67nq2k1mkuW7ZVRq+eCDF67m6uNcZhoE=;
- b=vc53EAvipnfjjLIAdxIgjxEC7ZKMak50BpPnolw3EIajykkPk8G0z5I1KKxOw5ZCCpC/zCzjW3cgyIhir9/8JTpCacHGfnVIExgHYvLZFG7Z5ETv4FjWIOtOyYCUmr59tf4lVpJXPD6qxW4LISDgG+Ftbnv6ROR9hgd2Q/8rThlLyUKqW9LmO0bplOLbIZZpKaWjxumtkyvEnXefC9rdF2r6MMHCtKa5RjBMuOtvB6jy/o9wVwABlaOg7cKc76cOv+UIAdE2pIGFB9uk/VVuCiCw2lgVe+UfHkBVvu/xm5vlWI8rm3pRPz1NAzHTc9XLySsP8arcUOnd9rFj0dgPTQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=cs-soprasteria.com; dmarc=pass action=none
- header.from=cs-soprasteria.com; dkim=pass header.d=cs-soprasteria.com;
- arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cs-soprasteria.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=nPEb/8a2cGn67nq2k1mkuW7ZVRq+eCDF67m6uNcZhoE=;
- b=FyQkGA1eHtnNrjSXEmkGxw1VJsHRbymqIVP1qj+YYG1I13tnxB/PbTHlbXhKo8NvHNDYMEtwLXfQ0JeUulD9rJe03cjtf5Alszye5KO+wHuvGsJDcV/rPAhl3m42ySqDmMDPqOUX4mWPFoDLjR00TNNPIRqlhEPMQ9hXdjywQhy+KiMeAh2v0GF7z3+tg/zoE0mRXB1vF5ZuP/iJ9SWOhoxRnPb29X5v7UhvemU+DJQYJPmWmCoayqfqz1IGQgPr3fLI612NJLSVrI9xqWhPplib9YgL9a2iXynSljAvsMO0ZsRuwNLG19j8o7LR7hQfSpOuoCaWvznkzXdXvoYL+w==
-Received: from PA1PR07MB117361.eurprd07.prod.outlook.com
- (2603:10a6:102:54f::13) by PAXPR07MB7792.eurprd07.prod.outlook.com
- (2603:10a6:102:13b::10) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.472.15; Mon, 5 Oct
- 2026 04:55:39 +0000
-Received: from PA1PR07MB117361.eurprd07.prod.outlook.com
- ([fe80::1d89:eaf6:2e3:6d71]) by PA1PR07MB117361.eurprd07.prod.outlook.com
- ([fe80::1d89:eaf6:2e3:6d71%6]) with mapi id 15.21.0472.016; Mon, 5 Oct 2026
- 04:55:39 +0000
-From: LEROY Christophe <christophe.leroy2@cs-soprasteria.com>
-To: Usama Arif <usama.arif@linux.dev>, Andrew Morton
-	<akpm@linux-foundation.org>, "david@kernel.org" <david@kernel.org>,
-	"chrisl@kernel.org" <chrisl@kernel.org>, "kasong@tencent.com"
-	<kasong@tencent.com>, "ljs@kernel.org" <ljs@kernel.org>, "ziy@nvidia.com"
-	<ziy@nvidia.com>, "linux-mm@kvack.org" <linux-mm@kvack.org>,
-	"linuxppc-dev@lists.ozlabs.org" <linuxppc-dev@lists.ozlabs.org>
-CC: "ying.huang@linux.alibaba.com" <ying.huang@linux.alibaba.com>, Baoquan He
-	<baoquan.he@linux.dev>, "willy@infradead.org" <willy@infradead.org>,
-	"youngjun.park@lge.com" <youngjun.park@lge.com>, "hannes@cmpxchg.org"
-	<hannes@cmpxchg.org>, "riel@surriel.com" <riel@surriel.com>,
-	"shakeel.butt@linux.dev" <shakeel.butt@linux.dev>, "alex@ghiti.fr"
-	<alex@ghiti.fr>, "kas@kernel.org" <kas@kernel.org>, "baohua@kernel.org"
-	<baohua@kernel.org>, "dev.jain@arm.com" <dev.jain@arm.com>,
-	"baolin.wang@linux.alibaba.com" <baolin.wang@linux.alibaba.com>, Nico Pache
-	<nico.pache@linux.dev>, "Liam R. Howlett" <liam@infradead.org>,
-	"ryan.roberts@arm.com" <ryan.roberts@arm.com>, Vlastimil Babka
-	<vbabka@kernel.org>, "lance.yang@linux.dev" <lance.yang@linux.dev>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
-	"nphamcs@gmail.com" <nphamcs@gmail.com>, "shikemeng@huaweicloud.com"
-	<shikemeng@huaweicloud.com>, "yosry@kernel.org" <yosry@kernel.org>,
-	"qi.zheng@linux.dev" <qi.zheng@linux.dev>, "luizcap@redhat.com"
-	<luizcap@redhat.com>, "kernel-team@meta.com" <kernel-team@meta.com>, Madhavan
- Srinivasan <maddy@linux.ibm.com>
-Subject: Re: [PATCH v8 04/30] powerpc: mm: add PMD swap-exclusive helpers
-Thread-Topic: [PATCH v8 04/30] powerpc: mm: add PMD swap-exclusive helpers
-Thread-Index: AQHdUlRCbJ7VUIjfwUWpnFYkjf5EvLbuZt4A
-Date: Mon, 5 Oct 2026 04:55:39 +0000
-Message-ID: <4a4bf0ca-b21b-4b37-b2e3-9bd8ba343bd6@cs-soprasteria.com>
-References: <20261002095503.3585565-1-usama.arif@linux.dev>
- <20261002095503.3585565-5-usama.arif@linux.dev>
-In-Reply-To: <20261002095503.3585565-5-usama.arif@linux.dev>
-Accept-Language: fr-FR, en-US
-Content-Language: fr-FR
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-user-agent: Mozilla Thunderbird
-authentication-results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=cs-soprasteria.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: PA1PR07MB117361:EE_|PAXPR07MB7792:EE_
-x-ms-office365-filtering-correlation-id: ea2bd5a3-be65-4503-7307-08df229ce6f3
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam:
- BCL:0;ARA:13230040|7416014|10070799003|23010399003|1800799024|366016|376014|10067099003|11063799006|56012099006|4143699003|22082099003|18002099003|38070700021;
-x-microsoft-antispam-message-info:
- TBk+02B+Ty63RhVauyueoiA0Giq/gAr7pzQZC+Z+fUSdVEjUUDFZet1105DehuX7Wn3ICbI3smHXOe2FOfuA+OzP5FdZQCjgEZBwdxY8ZyPjHQncWODtr3PYk4GsMWg6wDBMjvAmABUyGun82i15kGNVltJOp9LipXl591SQXkeH+4d7Yqc0nm9OHtPu8UDRFTE69aqajB4rFXNN/6UxJuSbe9wJ7mq32R7uzLx7l6beTDy5+zwKw75LbrYopEEJ1u4UOVYJu1f+pTFg78grf5OHIqnxoiHjjInkVWrvMCEinCZRJZhivfqik07WW/nVa7w8eVbLN/VQEcF2tz7DUmw5ywmwoKXmKxtmWVI8txALtwDJJsbHyvhf1d/tAGgtYqVIl8KrTGrA5PHAFTZCq2uZytY22E1pqnmrMz9Lm31qDfVmrrDz3+Nise5AmNjD3sifkCail6YbSGtW4qpN1mZqLrFF/RKDsLrQsVC7Fd+5cFcMYcN8ETZt9qgeWnwbd59GwqgIYoG5lypWZFaHnI8P2pT8rbTs7fEcKop3TjsJdwBjgeHNRlO0sZHsuy+qlkS23QF6D87UnnToWC45cpYVsZn/pdL2MYDIfZSioT+1LIhN2VybBvLXldpKcuwyd22HxSmOE8RG00eo/PZGiBJAvMkYvDjMV7OYT10Omy1tL7bVx09e6I0QdIjK+iEnwAArBipcgrTOaWSzOGy6LA==
-x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PA1PR07MB117361.eurprd07.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(7416014)(10070799003)(23010399003)(1800799024)(366016)(376014)(10067099003)(11063799006)(56012099006)(4143699003)(22082099003)(18002099003)(38070700021);DIR:OUT;SFP:1101;
-x-ms-exchange-antispam-messagedata-chunkcount: 2
-x-ms-exchange-antispam-messagedata-0:
- =?utf-8?B?VGdFZVlhajJKemE0ZUVPeG9hdUx4elB2OCsyNk01MElQSFRnOWkvVTVBSTY0?=
- =?utf-8?B?NEFVVEdmeWgxSE5pa2o0ZWduTjU2U21vS08waHlWMFcyQ1grUlJUeEZNV3Va?=
- =?utf-8?B?TldsOGlDcmY0dTJqL05DVU81cWYxU2RGZGYxTVZnUDNOaUFaU3QrUDNuL1Ix?=
- =?utf-8?B?K1NFNTRVZDdHbGJkOE5lZDFPY0ZPNmlnODBwVVVtQStuRjd4U1RKUThZS1kz?=
- =?utf-8?B?REppUXdwbFdZVEpmaUV0UFZFUEE5L3F3enJJdkpWVTNDcmd1ODVzZ3F4QWEv?=
- =?utf-8?B?MXdKZndvWGJXSm1DNXdJd29BZ2ZCaTFMYjBQcXkxR2JqT1VJTmNDWndpcEhX?=
- =?utf-8?B?cnRZMFlpOC9UUUo0ZzZJNy9icS9FalpRRTNxa0M5TFdOMXpMVkNmNTBKcEVp?=
- =?utf-8?B?SytROTh6Zm10bzVxemw1c3cza0p4enNMMklZSVVEU01xVm1CQTJkS051L21x?=
- =?utf-8?B?akdYMlRiMGdCdkdSLzIraEtvUG5jQmlyVFZOVkJwZy9LY0h3ZmpINFZaZWlP?=
- =?utf-8?B?K3RYQzYwV0VncTBqSDBQN3hsYy8wckp6c3JlaEJSUE1IdVYwTjVJdEpGNGo0?=
- =?utf-8?B?eHZNRnZvOGppc2RJWEVQdG5PZXU4ZXd6eDl1WmY1Y3V1NkJhcEcxUlpLQW1P?=
- =?utf-8?B?RlFVVjhhT21mZGhOSTBxV2JvajRUdk1hU1hEZEFqN1Y4UTJSeWhlQ1VPZmxM?=
- =?utf-8?B?TUIzY3RaQkxNZTFocmRING1lQ2hhUVErN0hoaVpvUVpwd0cwcGhpZmZObzVi?=
- =?utf-8?B?SHBiNExaaHlxV3NNOGxJaDhPSGtCZmtJYVE5VE03Q1pKYitUTXF2ZjlMSlhv?=
- =?utf-8?B?QVNUK0lyUVQ4ZEhRRG5NVDYxcEJmcmhDQW5UOExEV1lVQXVsMUVkWEYwNUI1?=
- =?utf-8?B?LzFocHNqOUwyNmphOXJUVVRRR1BwWkZNWVlhbmRUaVdVT2pBb1BUbHptRUtM?=
- =?utf-8?B?ck9mM3Z3S2c5MFRGb1p1RldnWXhvaWxSK3pJejhpcFlyYzJqN2k0ZmRrSFc3?=
- =?utf-8?B?N3ZqSGN3N0t5dG00ZENrRWZYV200R0NUV3FQc05ZdFNITWo3b0hGN0JxSjZ2?=
- =?utf-8?B?c2JOa1g1ZFpFY0VWM1hPSDF1aEl3bG9idXYzUGlsNkRuWUNIN20rM1NFQ2Fa?=
- =?utf-8?B?QWVHa2pBOG1oSjFkZXdBZVRYdVpwcytKL0dnT21UazhCSzdWRzRVQUViVnJu?=
- =?utf-8?B?S09MZDlQNzhQRnBBY3FIeFUyQkRHYk1Zc3dGSXdRcnpFb2dUT0tqUGsybXJt?=
- =?utf-8?B?ZWJTMERtVkFqbnFvUHNzN1k1RE9sY0xtdmdlTVFpb081bFNHWTRUOXBaUURr?=
- =?utf-8?B?N2QxWkpJb3FxQUx4Y0ZmRHB6eWJUb0Zzc3dIanI5c012dnhobGl2UmI0R2hx?=
- =?utf-8?B?U0hhTG83OEFZNnB2VDZMc2ZSVlpGVmRubjhFdWUrazFJUDlJVHZFd2pobC9l?=
- =?utf-8?B?UTBXM2hwTFlnMjNlcERPRGdOMmtCTlY2Nk9CMHFBZGR1YjhGaURGeldtUE15?=
- =?utf-8?B?RlcwZlhINGtuVVJ1aGp5VklVcEFSQzdJUW9lOTZXa1hFV3AwYnd2MHVBR0dv?=
- =?utf-8?B?eS9CaFdOa1QxL0d5UzZONXFCUHJZQWJ2NVZjU1ZJR2QreC9rNTgwaVVLZkVm?=
- =?utf-8?B?RUE3c3lHam9zTDhSUDZWL0pHbTdkMjRyRE1lTzU3MHVxZTRORFRNdjZFV0M1?=
- =?utf-8?B?RHE3SGRocmh0Yk9MOGk2NGhPY1RwSCtxbU1LLzJWYUo2SVF1L0VUVUNQUjZx?=
- =?utf-8?B?b0R5aGEvazZScDU5NXRGUTRObTVEYkQ2ZVNHZmJlc3JDRHdZTWIwKzVrVEo4?=
- =?utf-8?B?ZDhOY2xCdlpOZDNIeDBOUE9vOW42RThDRTFTTlIwcnEraUpGSy9rSTgwK282?=
- =?utf-8?B?TGpuQVkrSHc1b2s4b3JaNjVzd0pGaUtTbTl2cTNpdzhpTnVUdzcwNUQzZkxU?=
- =?utf-8?B?Q3BTYmVkQWVPVHpMcjdweTV2ZEVOd0F1cjlxRGt5MXBZU3IxcHM4aEVaVWdv?=
- =?utf-8?B?eEd0clV0VFNobE14STdlSHB4elpXQ1BBUXZHcFFvK3N5R1NaRERwRDF1WXFB?=
- =?utf-8?B?N1lKSGVFNTRidWhnWVlidVJDOUJMcWhFT2N2cXdrWVdjNGtjbStXaGpzeGRp?=
- =?utf-8?B?SmVuWkVpQkIvU3lYZWFWQWdDbng1VkR6QnROYXpRV2I2bDFvSjFpN1F4Y2VD?=
- =?utf-8?B?L1daWTlLNUpOVHVobkNONk00UkYrTkxCSmNMTUorR1BhMHRKb0Z5cjdVWFV0?=
- =?utf-8?B?QWttRXByTEs2TEwzV0Q5UXdJMzIza1lBajRiNkdKVHZPMDQvT0Q3cjJCSFpI?=
- =?utf-8?B?bzhkektKcDFKUWYxd0tjNkZkajJqRzBkeDJQQ0FidmRrOGRnWDd4bnd2Y3RE?=
- =?utf-8?Q?0cLb+mKYYymIRcNYw1+AEfftqiED/M9shkbBelVQyDRzA?=
-x-ms-exchange-antispam-messagedata-1: He6QZ0k6Vj3Z+00b5nmgf/swPqFZNDMDSQc=
-Content-Type: text/plain; charset="utf-8"
-Content-ID: <8752F736EA7F8341A815E5AC9A86A31C@eurprd07.prod.outlook.com>
-Content-Transfer-Encoding: base64
+	dkim=pass (2048-bit key) header.d=cloud.ionos.com header.i=@cloud.ionos.com header.b="ErXR7xkT"
+Received: by mail-ed2-f12.google.com with SMTP id 4fb4d7f45d1cf-6a9a26ce219so137907a12.3
+        for <linux-kernel@vger.kernel.org>; Sun, 04 Oct 2026 21:57:34 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1791176253; cv=none;
+        d=google.com; s=arc-20260327;
+        b=Wtb7Ugnq27bitAoZ4N8lR8STVMEQN5agS9XyCwLjyLJ4oTA4OMWa0ep7EIS1mw2xHN
+         Un2cUPWI0QiIAxZlsecvOJby9bnLx5PT4QsKDQwY3fRYnUmXVWehyfnNWnVK2HimLcRq
+         px7rav3uChLkTEVOd3wSvZZyIuLL73mFZGwmEIWthK13yi2xRjx7ARVYrKZB5AmBhXTu
+         iAh9Bzd1+F3KdPDoYsWRynS7AllI+2K6uPrj/aQtue18Y0M1gkNKjaD6z3AJcqbESI+k
+         LGRAwuPUBMMxDSkUENa/G2i1Myy/vChZg0Ws01EUq5SWcJ5f1ZmYfjUUgb5XyMHnLWdw
+         WcQg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=Ldf5q0KJzU01llaoPctyqNRPOtaXKGmPGYAJmWxRprM=;
+        fh=3vPt6L+oaAc3m59JqrjewyWlI8ND0EBLmSLYGi4+8SI=;
+        b=I6VW4Pe+qtkusbANDBQtgbeEhIPa1z7zU6tdutsSMkDSrkD0w/gWpXL3pPVybAqrdr
+         N9E5QIfDBbottwekuuUF9x1G4R7DVnMpqI1E8DKbtQaBv+nzCrizQACjYHm9wq2hiucB
+         aXKhLI1tZkAElVM0bs+DeVr6bENS2shvGM1tB0qm8yL5nMHdEwUMDNkk6n2C6E4lFOUk
+         bNihzuY13KCUiJM8pebshf3lzuD2/V+UENcb4djsNktT3B/C2MGLPzASHUzNkY0wn94b
+         mQNl/jKawgsWBXjNmfTE5B5TLiu8ENyAOBcoTWF0Id1bvjzv9hs9HF1mCsQntFRNzdv8
+         1UzA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=cloud.ionos.com; s=google; t=1791176253; x=1791781053; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=Ldf5q0KJzU01llaoPctyqNRPOtaXKGmPGYAJmWxRprM=;
+        b=ErXR7xkTtHU9Oce+731OYcl3dITzj9lTiPGkJqAStGNoHqZN5hR/3YYC81EPCPxlvB
+         49Mjq9dxUH1HdzrekHAi2DUPPa/+lGiBidoYZzUGKCwaO2Y3jmp4tf98DOxAIth8AjEq
+         tUBVFZ/srKNZ63Bvidr+s5G/3z9hpkycEYYITMtO/8SA4BFtYcJossxxQjIpVOPkVa9v
+         iZeYQLDXW+OpUTy3BH57Ko+lUdJaIqRuIvxENB6p2JywinZRgZyhHc8cZrS23NHnOT0P
+         LIKiFcVk5fGrpJtj46yYPwA99NbuQDebMTWEBVzOA5tz2XoJb4MAhrsekCRVYeoOH4Zt
+         v6oQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791176253; x=1791781053;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Ldf5q0KJzU01llaoPctyqNRPOtaXKGmPGYAJmWxRprM=;
+        b=x1xAmGuxyC9CenEvStZaHdd6f4JqcfRyFELvxWroPr6Mmr4Ch9LGGMopxlbqoz27Mh
+         KRdNHtKP9vubu0QWupCtmLzC97b35/hYB75JVhtAVTE3Qoq1Lg47CIGv2rgfPyQm5bYt
+         SCKEt8pWTKGqRCpN5e/rA9lFLm+bjgVv4gsPErlMNoIl6hSStax3T3h/3DPws5NEn4+F
+         lZRXCYyp89PZSrSMshVsg6RxWucJSisqVPuBfRvzqKjSjbZm5fViBUqlCj3Keoonki+d
+         PWETFeoGMeYjPHUI9+bDQayA0uDLIQn/sKjJMIiva+44d+kz+/FCxN2cgHlqUgeWvfER
+         4ysg==
+X-Forwarded-Encrypted: i=1; AKwUvBxne43w8yYT58yoCp8OcUhBNIAAbYZ9sif8g/ZBvvHzEuAOx0p/s7rTJj+QfnyiESc6ePzlTiMUD0UnJCA=@vger.kernel.org
+X-Gm-Message-State: AFuF++lapxr46RHF6UoZanCtxQF46a4CPs67eXmW7fLWcm4pliVO6tz8
+	Nklwy3U2L1nqa3Eszm3tSvdkhNT2RsCUZKnw2/IT2/c0uKSyhJcL2c9/5nSnVEHgHE850We8tHZ
+	HkbQnIO/ss1PUNdrp5s4GWpUxfYaow/Ix4M37NOOTFw==
+X-Gm-Gg: AYBFou1DoWskFO/AYzu7YfY8k2WXVjdn8i/2XCXdE+LUX78EurbyQqHTSWz0Puaax3Y
+	A5atEZFqsoxRfzMt4ieOsgl5ATHL5J8cXDF9fCBVyAxUpLGbh+PKQeTDvEPG22i6ILjUBH1EaL7
+	tbOVdcYXi+R2kT4/y/SQRKbzbEI+V3vqdde+JNRzaRoS7VsatvcjDWlHKfPWL4Uo/e1dpETHJGF
+	9wPkeSD/uQOzC19e6zIMB+dnBx8OmVKX15YHD9szndZNt4dF+EbBHks3m/AKM+PCN3+FWS5vbuR
+	rtVFyLxvMVdbz0cYHUOrnARim6jvC1zn44sZdFBxs7ckS4yruxx9ieg=
+X-Received: by 2002:a17:907:7296:b0:c12:6db4:4bf4 with SMTP id
+ a640c23a62f3a-c2e4a7292f1mr783960966b.0.1791176253197; Sun, 04 Oct 2026
+ 21:57:33 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-OriginatorOrg: cs-soprasteria.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: PA1PR07MB117361.eurprd07.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: ea2bd5a3-be65-4503-7307-08df229ce6f3
-X-MS-Exchange-CrossTenant-originalarrivaltime: 05 Oct 2026 04:55:39.4320
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 8b87af7d-8647-4dc7-8df4-5f69a2011bb5
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: 8POoKcuh8h1hx0OdeByBQyzt/sW5WtGwcTn+kWtVwnNTBvKBr1kuteeI4w7UEWOaDJhWBY7+BWXjtxytUSU8vAGEQZGnwANhOaWjyGpn5s1jmKZx9UpUqSJUlAIsYjHJ
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PAXPR07MB7792
-X-MS-Exchange-CrossPremises-AuthAs: Internal
-X-MS-Exchange-CrossPremises-AuthMechanism: 04
-X-MS-Exchange-CrossPremises-AuthSource: PA1PR07MB117361.eurprd07.prod.outlook.com
-X-MS-Exchange-CrossPremises-TransportTrafficType: Email
-X-MS-Exchange-CrossPremises-SCL: 1
-X-MS-Exchange-CrossPremises-messagesource: StoreDriver
-X-MS-Exchange-CrossPremises-BCC:
-X-MS-Exchange-CrossPremises-originalclientipaddress: 2a01:e0a:1268:92c0:9afc:451a:f254:8766
-X-MS-Exchange-CrossPremises-transporttraffictype: Email
-X-MS-Exchange-CrossPremises-antispam-scancontext: DIR:Originating;SFV:NSPM;SKIP:0;
-X-MS-Exchange-CrossPremises-processed-by-journaling: Journal Agent
-X-OrganizationHeadersPreserved: PAXPR07MB7792.eurprd07.prod.outlook.com
+References: <20260921-rtrs-fix-ib-drain-rq-v1-1-11b1637958ba@proton.me>
+ <20260928191837.GC563127@unreal> <CAMGffEn2HGaj_20v0eQCTvk_akKM1RL-WQbUSXx0VND47PEhJw@mail.gmail.com>
+In-Reply-To: <CAMGffEn2HGaj_20v0eQCTvk_akKM1RL-WQbUSXx0VND47PEhJw@mail.gmail.com>
+From: Jinpu Wang <jinpu.wang@cloud.ionos.com>
+Date: Mon, 5 Oct 2026 06:57:21 +0200
+X-Gm-Features: AclHuK9k5cTpzxbEHriXq1AXf5k_lZt1PaMuCp4V222ovefk7uK6kijw2FR7XTI
+Message-ID: <CAMGffEkM0-jrWzX8Joa4w6uXAg-xhQf8OQyMX0v8uJc_3q73OA@mail.gmail.com>
+Subject: Re: [PATCH] RDMA/rtrs-clt: Fix recv repost to satisfy ib_drain_rq
+To: Leon Romanovsky <leon@kernel.org>, quanyeyang@proton.me
+Cc: "Md. Haris Iqbal" <haris.iqbal@ionos.com>, Jason Gunthorpe <jgg@ziepe.ca>, linux-rdma@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, Farhad Alemi <farhad.alemi@berkeley.edu>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-RG9uJ3QgZm9yZ2V0IHRvIENDIDxsaW51eHBwYy1kZXZAbGlzdHMub3psYWJzLm9yZz4gd2hlbiBh
-ZGRyZXNzaW5nIA0KcG93ZXJwYyBhcmNoaXRlY3R1cmUuDQoNCkxlIDAyLzEwLzIwMjYgw6AgMTE6
-NTIsIFVzYW1hIEFyaWYgYSDDqWNyaXTCoDoNCj4gUHJlcGFyZSBmb3Iga2VlcGluZyBhIFBNRC1t
-YXBwZWQgYW5vbnltb3VzIFRIUCBtYXBwZWQgYnkgYSBQTUQgYWNyb3NzIHRoZQ0KPiBzd2FwIHJv
-dW5kLXRyaXAsIHdoaWNoIG1ha2VzIFBHX2Fub25fZXhjbHVzaXZlIGhhdmUgdG8gc3Vydml2ZSBp
-biBhIHN3YXANCj4gUE1EIGFuZCBub3QganVzdCBpbiBhIHN3YXAgUFRFLg0KPiANCj4gYm9vazNz
-NjQgYnVpbGRzIGEgc3dhcCBQTUQgYnkgcnVubmluZyB0aGUgUFRFIGVuY29kaW5nIG92ZXIgcG1k
-X3B0ZSgpLCBzbw0KPiB0aGUgUE1EIGhlbHBlcnMgd3JhcCB0aGUgUFRFIG9uZXMgYW5kIHJldXNl
-IF9QQUdFX1NXUF9FWENMVVNJVkUsIGV4YWN0bHkNCj4gYXMgdGhlIHNvZnQtZGlydHkgUE1EIGhl
-bHBlcnMgbmV4dCB0byB0aGVtIGRvLiBJdCBpcyBhbHNvIHRoZSBvbmx5IHBvd2VycGMNCj4gdmFy
-aWFudCB0aGF0IHNlbGVjdHMgQVJDSF9IQVNfUE1EX1NPRlRMRUFWRVMsIHZpYSBQUENfVEhQLg0K
-PiANCj4gQ2M6IE1hZGhhdmFuIFNyaW5pdmFzYW4gPG1hZGR5QGxpbnV4LmlibS5jb20+DQo+IFNp
-Z25lZC1vZmYtYnk6IFVzYW1hIEFyaWYgPHVzYW1hLmFyaWZAbGludXguZGV2Pg0KPiAtLS0NCj4g
-ICBhcmNoL3Bvd2VycGMvaW5jbHVkZS9hc20vYm9vazNzLzY0L3BndGFibGUuaCB8IDYgKysrKysr
-DQo+ICAgMSBmaWxlIGNoYW5nZWQsIDYgaW5zZXJ0aW9ucygrKQ0KPiANCj4gZGlmZiAtLWdpdCBh
-L2FyY2gvcG93ZXJwYy9pbmNsdWRlL2FzbS9ib29rM3MvNjQvcGd0YWJsZS5oIGIvYXJjaC9wb3dl
-cnBjL2luY2x1ZGUvYXNtL2Jvb2szcy82NC9wZ3RhYmxlLmgNCj4gaW5kZXggZGZmODc5MGEwNDdk
-Yi4uNDU4Yzg1Y2ViZmE2NSAxMDA2NDQNCj4gLS0tIGEvYXJjaC9wb3dlcnBjL2luY2x1ZGUvYXNt
-L2Jvb2szcy82NC9wZ3RhYmxlLmgNCj4gKysrIGIvYXJjaC9wb3dlcnBjL2luY2x1ZGUvYXNtL2Jv
-b2szcy82NC9wZ3RhYmxlLmgNCj4gQEAgLTEwNjAsNiArMTA2MCwxMiBAQCBzdGF0aWMgaW5saW5l
-IHB0ZV90ICpwbWRwX3B0ZXAocG1kX3QgKnBtZCkNCj4gICAjZW5kaWYNCj4gICAjZW5kaWYgLyog
-Q09ORklHX0hBVkVfQVJDSF9TT0ZUX0RJUlRZICovDQo+ICAgDQo+ICsjaWZkZWYgQ09ORklHX0FS
-Q0hfSEFTX1BNRF9TT0ZUTEVBVkVTDQo+ICsjZGVmaW5lIHBtZF9zd3BfbWtleGNsdXNpdmUocG1k
-KQlwdGVfcG1kKHB0ZV9zd3BfbWtleGNsdXNpdmUocG1kX3B0ZShwbWQpKSkNCj4gKyNkZWZpbmUg
-cG1kX3N3cF9leGNsdXNpdmUocG1kKQkJcHRlX3N3cF9leGNsdXNpdmUocG1kX3B0ZShwbWQpKQ0K
-PiArI2RlZmluZSBwbWRfc3dwX2NsZWFyX2V4Y2x1c2l2ZShwbWQpCXB0ZV9wbWQocHRlX3N3cF9j
-bGVhcl9leGNsdXNpdmUocG1kX3B0ZShwbWQpKSkNCj4gKyNlbmRpZg0KPiArDQo+ICAgI2lmZGVm
-IENPTkZJR19BUkNIX0hBU19QVEVfUFJPVE5PTkUNCj4gICBzdGF0aWMgaW5saW5lIGludCBwbWRf
-cHJvdG5vbmUocG1kX3QgcG1kKQ0KPiAgIHsNCg0K
+On Tue, Sep 29, 2026 at 9:20=E2=80=AFAM Jinpu Wang <jinpu.wang@cloud.ionos.=
+com> wrote:
+>
+> On Mon, Sep 28, 2026 at 9:18=E2=80=AFPM Leon Romanovsky <leon@kernel.org>=
+ wrote:
+> >
+> > On Mon, Sep 21, 2026 at 07:04:47AM -0700, Quanye Yang via B4 Relay wrot=
+e:
+> > > From: Quanye Yang <quanyeyang@proton.me>
+> > >
+> > > On disconnect the client error recovery path calls ib_drain_qp(), whi=
+ch
+> > > requires one free RQ slot and that no recv WQEs are posted while the
+> > > queue is being drained.
+> > >
+> > > The legacy recv completion path deferred reposting invalidate receive=
+s
+> > > and instead posted two empty recv WQEs when handling RDMA-with-IMM
+> > > responses marked with invalidation.  If an invalidate receive never
+> > > arrived, each such response increased RQ occupancy by one until
+> > > ib_post_recv() started returning -ENOMEM and __ib_drain_rq() failed w=
+ith:
+> > >
+> > >   failed to drain recv queue: -12
+> > >
+> > > Repost one empty recv WQE for every receive completion, including leg=
+acy
+> > > SEND_WITH_INV invalidates, and only while the path is still connected
+> > > so CQ polling cannot race with ib_drain_qp().  Size IO connection RQs=
+ to
+> > > 2 * queue_depth + 1 to match the posted recv count and leave the drai=
+n
+> > > slot.
+> >
+> > Could you clarify what =E2=80=9Clegacy=E2=80=9D means in this commit me=
+ssage?
+> > Haris, Jack, does this patch look good to you?
+> >
+> I will check in the coming days. A bit unsure about the removal of
+> rtrs_post_recv_empty_x2,
+> want to check into history if there is any side effect.
+> > Thanks
+>
+> Thanks.
+> >
+> > >
+> > > Tested with a synthetic RTRS client flooding unpaired
+> > > RTRS_IO_RSP_W_INV_IMM messages; error recovery no longer triggers
+> > > __ib_drain_rq() warnings.
+> > >
+> > > Fixes: 6a98d71daea1 ("RDMA/rtrs: client: main functionality")
+> > > Signed-off-by: Quanye Yang <quanyeyang@proton.me>
+> > > Tested-by: Quanye Yang <quanyeyang@proton.me>
+> > > Reported-by: Farhad Alemi <farhad.alemi@berkeley.edu>
+> > > Link: https://lore.kernel.org/linux-rdma/CA+0ovCihE2_pxLimjmmR8NMz4g-=
+ie8dvvq1jmAj-Om33y3Vzfg@mail.gmail.com
+The change looks fine, please refine the commit message as Leon asked.
+Acked-by: Jack Wang <jinpu.wang@cloud.ionos.com>
+> > > ---
+> > >  drivers/infiniband/ulp/rtrs/rtrs-clt.c | 45 ++++++++++++------------=
+----------
+> > >  1 file changed, 15 insertions(+), 30 deletions(-)
+> > >
+> > > diff --git a/drivers/infiniband/ulp/rtrs/rtrs-clt.c b/drivers/infinib=
+and/ulp/rtrs/rtrs-clt.c
+> > > index eac38b57b00d..ee6d5c3de16c 100644
+> > > --- a/drivers/infiniband/ulp/rtrs/rtrs-clt.c
+> > > +++ b/drivers/infiniband/ulp/rtrs/rtrs-clt.c
+> > > @@ -577,25 +577,21 @@ static struct ib_cqe io_comp_cqe =3D {
+> > >       .done =3D rtrs_clt_rdma_done
+> > >  };
+> > >
+> > > -/*
+> > > - * Post x2 empty WRs: first is for this RDMA with IMM,
+> > > - * second is for RECV with INV, which happened earlier.
+> > > - */
+> > > -static int rtrs_post_recv_empty_x2(struct rtrs_con *con, struct ib_c=
+qe *cqe)
+> > > +static int rtrs_clt_repost_recv(struct rtrs_clt_con *con)
+> > >  {
+> > > -     struct ib_recv_wr wr_arr[2], *wr;
+> > > -     int i;
+> > > +     struct rtrs_clt_path *clt_path =3D to_clt_path(con->c.path);
+> > > +     int err;
+> > >
+> > > -     memset(wr_arr, 0, sizeof(wr_arr));
+> > > -     for (i =3D 0; i < ARRAY_SIZE(wr_arr); i++) {
+> > > -             wr =3D &wr_arr[i];
+> > > -             wr->wr_cqe  =3D cqe;
+> > > -             if (i)
+> > > -                     /* Chain backwards */
+> > > -                     wr->next =3D &wr_arr[i - 1];
+> > > -     }
+> > > +     if (READ_ONCE(clt_path->state) !=3D RTRS_CLT_CONNECTED)
+> > > +             return 0;
+> > >
+> > > -     return ib_post_recv(con->qp, wr, NULL);
+> > > +     err =3D rtrs_post_recv_empty(&con->c, &io_comp_cqe);
+> > > +     if (err) {
+> > > +             rtrs_err(con->c.path, "rtrs_post_recv_empty(): %pe\n",
+> > > +                      ERR_PTR(err));
+> > > +             rtrs_rdma_error_recovery(con);
+> > > +     }
+> > > +     return err;
+> > >  }
+> > >
+> > >  static void rtrs_clt_rdma_done(struct ib_cq *cq, struct ib_wc *wc)
+> > > @@ -650,19 +646,7 @@ static void rtrs_clt_rdma_done(struct ib_cq *cq,=
+ struct ib_wc *wc)
+> > >                       rtrs_wrn(con->c.path, "Unknown IMM type %u\n",
+> > >                                 imm_type);
+> > >               }
+> > > -             if (w_inval)
+> > > -                     /*
+> > > -                      * Post x2 empty WRs: first is for this RDMA wi=
+th IMM,
+> > > -                      * second is for RECV with INV, which happened =
+earlier.
+> > > -                      */
+> > > -                     err =3D rtrs_post_recv_empty_x2(&con->c, &io_co=
+mp_cqe);
+> > > -             else
+> > > -                     err =3D rtrs_post_recv_empty(&con->c, &io_comp_=
+cqe);
+> > > -             if (err) {
+> > > -                     rtrs_err(con->c.path, "rtrs_post_recv_empty(): =
+%pe\n",
+> > > -                              ERR_PTR(err));
+> > > -                     rtrs_rdma_error_recovery(con);
+> > > -             }
+> > > +             rtrs_clt_repost_recv(con);
+> > >               break;
+> > >       case IB_WC_RECV:
+> > >               /*
+> > > @@ -678,6 +662,7 @@ static void rtrs_clt_rdma_done(struct ib_cq *cq, =
+struct ib_wc *wc)
+> > >
+> > >                       return  rtrs_clt_rkey_rsp_done(con, wc);
+> > >               }
+> > > +             rtrs_clt_repost_recv(con);
+> > >               break;
+> > >       case IB_WC_RDMA_WRITE:
+> > >               /*
+> > > @@ -1693,7 +1678,7 @@ static int create_con_cq_qp(struct rtrs_clt_con=
+ *con)
+> > >               clt_path->s.dev_ref++;
+> > >               /* QD * (REQ + RSP + FR REGS or INVS) + drain */
+> > >               max_send_wr =3D min(wr_limit, clt_path->queue_depth * 4=
+ + 1);
+> > > -             max_recv_wr =3D min(wr_limit, clt_path->queue_depth * 3=
+ + 1);
+> > > +             max_recv_wr =3D min(wr_limit, clt_path->queue_depth * 2=
+ + 1);
+> > >               max_send_sge =3D 2;
+> > >       }
+> > >       atomic_set(&con->c.sq_wr_avail, max_send_wr);
+> > >
+> > > ---
+> > > base-commit: 93f51579e7df248780214094418f205253383cc5
+> > > change-id: 20260921-rtrs-fix-ib-drain-rq-61dc85d0d759
+> > >
+> > > Best regards,
+> > > --
+> > > Quanye Yang <quanyeyang@proton.me>
+> > >
+> > >
