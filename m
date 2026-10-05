@@ -1,541 +1,203 @@
-Received: from mailgw01.mediatek.com (unknown [60.244.123.138])
+Received: from iad-out-015.esa.us-east-1.outbound.mail-perimeter.amazon.com (iad-out-015.esa.us-east-1.outbound.mail-perimeter.amazon.com [44.210.169.44])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0FA0E4052B6;
-	Mon,  5 Oct 2026 11:19:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=60.244.123.138
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791199199; cv=none; b=STRmtox0RT8fXNTfWVRzeXcKWtVRpYtIuEM2VUYK5B+NR2qhCBXJRmLWRza575cVt6M3uNcM41EVKEj2qb7lDCQym39XStRvEuCqjLyU9PBsvBYQtBT6A0r4ZnIqYFJ5pDoNGqT81fvPELRt0Gg1hBh8pnindry/DfQY7wwWVQM=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791199199; c=relaxed/simple;
-	bh=bZkKFTEOKCSBNKWBICI7W4S1ffjnYddZ/cQBLWuV16s=;
-	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=jtDJ3HdyiETxBFHunx6+RRwK/3F1SJ2mHtiE1kbKTwbnGNnlmaRqOMMpRN5cssSb5sG0oeyk+ExSuFgTJKjaQziF5ba1C2Z1Hw+4legAYPFkyetREn8HuULozqcMS/p++VNX4IcS6WEf0azU5fuKzHsju1vZx/y8xIdro02i4tk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mediatek.com; spf=pass smtp.mailfrom=mediatek.com; dkim=pass (1024-bit key) header.d=mediatek.com header.i=@mediatek.com header.b=AysCdQ8j; arc=none smtp.client-ip=60.244.123.138
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mediatek.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mediatek.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 761B04078E8;
+	Mon,  5 Oct 2026 11:20:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=44.210.169.44
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791199253; cv=fail; b=FNwRppWfe3CdwT7CkGyWHAgeIwUD8zcepKVGulAmGFFktOkHUFRSIbtvTEi4JH0a9sAzsyq6lAi2gueFTQt/KWDw1jeH0FY+E/MM74F3Ej1DDlUxMSU/vzBjIOA4zbNWz5VNYe8oAlstwhcfjPqKgJpnhIaTElDNiXc44bxHjmU=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791199253; c=relaxed/simple;
+	bh=jKEdl6J7QnVH9N3ueO8d6/7s7yUZzbOu+mMiQM23d5Y=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:MIME-Version; b=V/tcHvjGBBRkZ3jhWevMpFJAUkg7N0ZBle+B/1sQh6N4CfbK572nGsGwC6FpYFPQEgokUF+FrEoKNrhNRQ46biyVHaW+0yJluj6t+tUxQTrq6Q+AwhnZO2uHOBl/6JvsPLNREwTydnQEfXI6j1LB2a+VrSoA5ZgFGoBgaKj5g2w=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.com; spf=pass smtp.mailfrom=amazon.com; dkim=pass (2048-bit key) header.d=amazon.com header.i=@amazon.com header.b=phN9XyLe; arc=fail smtp.client-ip=44.210.169.44
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amazon.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=mediatek.com header.i=@mediatek.com header.b="AysCdQ8j"
-X-UUID: ada7a44ec0ae11f1b1788b6acf885367-20261005
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=mediatek.com; s=dk;
-	h=Content-Type:Content-Transfer-Encoding:MIME-Version:Message-ID:Date:Subject:CC:To:From; bh=kvpTf8mMBbKbspl3w7SLBnqh+GxvxtJzvZ6JYZZzij0=;
-	b=AysCdQ8jYeeTh5r+2Y2vG8VfTy8xIKFIyHZ1mOs6YZHqHix+tB0TW+imAJJ5dORsOEcdx3vlbDurcouAndTxOfuV/5/66ACmnKpFjvSuto2YNyo5bfz0mLt1lf4ymAYkOEAeblgyJb04HYSNlEV4+BU9kqVTxpsWv7d6Zw0HKDU=;
-X-CID-P-RULE: Release_Ham
-X-CID-O-INFO: VERSION:1.3.20,REQID:519331d7-5b27-4a37-abbc-4259039fc105,IP:0,U
-	RL:0,TC:0,Content:-25,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTIO
-	N:release,TS:-25
-X-CID-META: VersionHash:291e20b,CLOUDID:f07e15f2-1b1b-4e78-a2b0-48c3f94393b9,B
-	ulkID:nil,BulkQuantity:0,SF:102|136|836|865|888|898,TC:-5,Content:0|15|50|
-	99,EDM:-3|-100,IP:nil,URL:0,File:130,RT:0,Bulk:nil,QS:nil,BEC:-1,COL:0,OSI
-	:0,OSA:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
-X-CID-BVR: 2,SSN|SDN
-X-CID-BAS: 2,SSN|SDN,0,_
-X-CID-FACTOR: TF_CID_SPAM_SNR
-X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
-X-UUID: ada7a44ec0ae11f1b1788b6acf885367-20261005
-Received: from mtkmbs13n2.mediatek.inc [(172.21.101.108)] by mailgw01.mediatek.com
-	(envelope-from <chris.lu@mediatek.com>)
-	(Generic MTA with TLSv1.2 ECDHE-RSA-AES256-GCM-SHA384 256/256)
-	with ESMTP id 642573757; Mon, 05 Oct 2026 19:19:49 +0800
-Received: from mtkmbs11n1.mediatek.inc (172.21.101.185) by
- mtkmbs13n2.mediatek.inc (172.21.101.108) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.29; Mon, 5 Oct 2026 19:19:48 +0800
-Received: from mtksitap99.mediatek.inc (10.233.130.16) by
- mtkmbs11n1.mediatek.inc (172.21.101.73) with Microsoft SMTP Server id
- 15.2.2562.29 via Frontend Transport; Mon, 5 Oct 2026 19:19:48 +0800
-From: Chris Lu <chris.lu@mediatek.com>
-To: Marcel Holtmann <marcel@holtmann.org>, Johan Hedberg
-	<johan.hedberg@gmail.com>, Luiz Von Dentz <luiz.dentz@gmail.com>
-CC: Sean Wang <sean.wang@mediatek.com>, Will Lee <will-cy.Lee@mediatek.com>,
-	SS Wu <ss.wu@mediatek.com>, linux-bluetooth
-	<linux-bluetooth@vger.kernel.org>, linux-kernel
-	<linux-kernel@vger.kernel.org>, linux-mediatek
-	<linux-mediatek@lists.infradead.org>, Chris Lu <chris.lu@mediatek.com>
-Subject: [PATCH] Bluetooth: btmtk: Add MT7928 support
-Date: Mon, 5 Oct 2026 19:19:46 +0800
-Message-ID: <20261005111946.550573-1-chris.lu@mediatek.com>
-X-Mailer: git-send-email 2.45.2
+	dkim=pass (2048-bit key) header.d=amazon.com header.i=@amazon.com header.b="phN9XyLe"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+  d=amazon.com; i=@amazon.com; q=dns/txt; s=amazoncorp2;
+  t=1791199252; x=1822735252;
+  h=from:to:cc:subject:date:message-id:references:
+   in-reply-to:content-transfer-encoding:mime-version;
+  bh=jKEdl6J7QnVH9N3ueO8d6/7s7yUZzbOu+mMiQM23d5Y=;
+  b=phN9XyLeyt3xJyi4ZWDbINWCYtFPDf46IgqmviOab4PchbIX3i4smShR
+   y9qMtBzZq8q1ScyIEpj/tw2CqmfQNv/nID1FT3nOHMbYnKsNXtu5P28nE
+   mwZsqsXVlsj9ONxmrryT7PIh8DtyV5reDSDGe8cjxXk0tYkNlfE5TRGV3
+   xZWX6Gu+xwi9zCdeHQgpK+DGUg6u9R5euC7uvHVlYS/UT0riwdEFK2yGJ
+   PG4xqPq8dnALBFHQVuCEnp+lJ9ne8bGKv66jTUO++hXPpm9NpMtpaYJVo
+   7l7Y4N4N9DKo3dPWdzLelQWNsQz3e4FkIwp5unWzzE+y4xWdfwh0bnc+Y
+   A==;
+X-CSE-ConnectionGUID: svYSn+yiSzGXzGqvgl+Fww==
+X-CSE-MsgGUID: IlffhollRtGw8hGLf/tpnA==
+X-IronPort-AV: E=Sophos;i="6.27,141,1787011200"; 
+   d="scan'208";a="28317530"
+Received: from ip-10-4-7-229.ec2.internal (HELO smtpout.naws.us-east-1.prod.farcaster.email.amazon.dev) ([10.4.7.229])
+  by internal-iad-out-015.esa.us-east-1.outbound.mail-perimeter.amazon.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 05 Oct 2026 11:20:49 +0000
+Received: from EX19MTAUEC002.ant.amazon.com [52.94.133.130:12764]
+ by smtpin.naws.us-east-1.prod.farcaster.email.amazon.dev [10.0.14.71:2525] with esmtp (Farcaster)
+ id bbc7d5c7-622b-4e52-98fa-f312a25fc472; Mon, 5 Oct 2026 11:20:48 +0000 (UTC)
+X-Farcaster-Flow-ID: bbc7d5c7-622b-4e52-98fa-f312a25fc472
+Received: from EX19EXOUEA002.ant.amazon.com (10.252.134.207) by
+ EX19MTAUEC002.ant.amazon.com (10.252.135.253) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.49;
+ Mon, 5 Oct 2026 11:20:48 +0000
+Received: from EX19EXOUEB001.ant.amazon.com (10.252.135.46) by
+ EX19EXOUEA002.ant.amazon.com (10.252.134.207) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.49;
+ Mon, 5 Oct 2026 11:20:48 +0000
+Received: from DM5PR08CU004.outbound.protection.outlook.com (10.252.135.199)
+ by EX19EXOUEB001.ant.amazon.com (10.252.135.46) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.49
+ via Frontend Transport; Mon, 5 Oct 2026 11:20:48 +0000
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=nkDnb8fuJwXpqgYLeEFYsrjekPZo8Cib96K+7yvZ5I+x3HLc/oj2p2sC+I9+Y+VE1CKRm2GTzHzcrnB8bdXIvSFQItprwSpw7LOjOsPPUAFACXK9ygU2gBI6XSHETwxytdQPW7x8v1NlUyXvk/eMQX8mh/STaUmum5mblYkzLzxoSNQZTpen7i37JK+m1A7H3omrmrjN/WQSEs2zcNPuAuXLXSIQ7iduBHKttibDZv3u9oY2dMTnSXjH+RLfKEoXiYfr09LQLCjaq40mDpfz/ptYoEwdUUAZo7SoZxNCenGkeqMP4p1u/D07o3b0/knC3F+pUsuetQE1zlzhBqMC3w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=jKEdl6J7QnVH9N3ueO8d6/7s7yUZzbOu+mMiQM23d5Y=;
+ b=e9M6Q8NWkQSe9cbqYCgaAYsIGk+jXu6BN+qEG9RaJLVdRJtQNu2FD3JOq8OE5uk23w9D9UgpVecNDlZLi+qpv8b6XYZZLtQwGSQZPDFt65SJ6zm+Pd6gIJfnhB1q/FLnFdnH0Ko1Ms/NJ/9iyD5Ct+R6mHEf9POTltbczbBOhojjrAPst3jCdo6Ln5ZqlP8JI+hV2TcTgHEQxvsnBYFC1pWqnPvpBAL7lnT89q1mGyVhoO8+qzoKfohjy/BsX4kGYF3tH43ZVLTWt59BKeRkYuumLP4A2U7oaBPO+KizI7wQOj8JJ1wbl/8U+IRXs4sFC9BhbBMN1sP8KkbMi73xxA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amazon.com; dmarc=pass action=none header.from=amazon.com;
+ dkim=pass header.d=amazon.com; arc=none
+Received: from BY3PR18MB4722.namprd18.prod.outlook.com (2603:10b6:a03:3c9::19)
+ by DM3PPFA08CB310A.namprd18.prod.outlook.com (2603:10b6:f:fc00::6ba) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.472.20; Mon, 5 Oct
+ 2026 11:20:43 +0000
+Received: from BY3PR18MB4722.namprd18.prod.outlook.com
+ ([fe80::e307:5f61:2694:b219]) by BY3PR18MB4722.namprd18.prod.outlook.com
+ ([fe80::e307:5f61:2694:b219%4]) with mapi id 15.21.0451.022; Mon, 5 Oct 2026
+ 11:20:43 +0000
+From: "Farber, Eliav" <farbere@amazon.com>
+To: Radu Rendec <radu@rendec.net>, Thomas Gleixner <tglx@kernel.org>,
+	"Shenhar, Talel" <talel@amazon.com>
+CC: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, "devicetree@vger.kernel.org"
+	<devicetree@vger.kernel.org>, "linux-kernel@vger.kernel.org"
+	<linux-kernel@vger.kernel.org>
+Subject: RE: [PATCH v2 8/8] irqchip/al-fic: add irq_set_affinity callback
+Thread-Topic: [PATCH v2 8/8] irqchip/al-fic: add irq_set_affinity callback
+Thread-Index: AQHdVLuPdJqLz0WHFk6i5z+MFtKgtg==
+Date: Mon, 5 Oct 2026 11:20:43 +0000
+Message-ID: <BY3PR18MB4722F4AFC8E300C4D01BE217C6962@BY3PR18MB4722.namprd18.prod.outlook.com>
+References: <20260927080637.27285-1-farbere@amazon.com>
+	 <20260927080637.27285-9-farbere@amazon.com>
+ <c28806ad779b972c94b9dd89fb70ee64cefb63cc.camel@rendec.net>
+In-Reply-To: <c28806ad779b972c94b9dd89fb70ee64cefb63cc.camel@rendec.net>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+authentication-results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amazon.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: BY3PR18MB4722:EE_|DM3PPFA08CB310A:EE_
+x-ms-office365-filtering-correlation-id: 3fdc1240-9cce-400b-66e7-08df22d2b210
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;ARA:13230040|376014|1800799024|23010399003|366016|18002099003|22082099003|38070700021|4143699003|11063799006|10067099003|56012099006;
+x-microsoft-antispam-message-info: 3fNX7X+z3mq/2OFJu8KyOl/yYjfmsFVOMrllMsuHlMzUJ/mLrFe4rt6kbfUjUq6DAi84/0g0w5rQq7nNcLkG8eVEQ5gEVnV3aZycDj3GZidtdYE4gihDW+SaEOGpf3dWOhxWv5kaUh0KfjgspeBpRq6OniYTlmmaEyQlf89hZM/F3X16e+q7uTKK1EaTKuSvy07oIpH4th9b7m0qTEGznfPHRQhQohdqpbRhyigpCxpLjmzQXgLJ9AXH35+v/C/Dye/6Fo1V7fvlnYjciuzmZvcL05Ml0Iw2LMkL9AY9eG96vko9yJi3kTdpW1ofQTpEZYLDakhLY9L/JSOnKFVvAGjN5nsi+zIP4iHEKGEsc32w6L1aMQv9da0yx1QdNuVi8/hpNwShDboevryoq2Osvs41BjkC1DRo/OqAlhOB3gJb4C5AUaFk9V/WEvPSBKhnAMWDcFxu0pUaEGetsLxsLdi/NjDLXb1EG2g/3Mc8MnI4L9hOQ1rqNLbM2a80zk8nkQ+amiz+PxCx/5eBhD2WabcZfIot4OfN4iKn++fNFLmHDauaPwgi8FjIqeFR7naZY6xmONMJwxBiN0COZj/KsJ3advv6OHXUrqp7WxD3R8x7ZikhXto46I8MNnzIaH4stwCm+0Kkaobie5bhcERP6HVQmmOgF6pruACRVA/HkbIxKaC8WwpAwz+HEWlPL8QagfoC8vZ6r2FgqIln0bhyntVBJkrZaJ/XSg2PrcH34hU=
+x-forefront-antispam-report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:BY3PR18MB4722.namprd18.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(1800799024)(23010399003)(366016)(18002099003)(22082099003)(38070700021)(4143699003)(11063799006)(10067099003)(56012099006);DIR:OUT;SFP:1101;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?utf-8?B?VW9uNldaRmhEa1M5NDgrTVdSNE1DRjlVNHZZVGVMbXAyRmN2VEw3eXpHSWpE?=
+ =?utf-8?B?d1RHMmpnN2ZuNXRUT3M0YmJPY2p1cVQxb2NWOU9tUW44ZDdEUDQ1WUZJdGVL?=
+ =?utf-8?B?d0NUSURxZ1dFSUEwOVQ5VjRCUkZSclZ1SjNRdVA3Vzc5TmM2OXMrZWRHS1hi?=
+ =?utf-8?B?bWZsdFB3VmpPbWhkd25UQS9MK0daU1NBS2ZZTnIzSXhRTGRjS01tRDh1VGs4?=
+ =?utf-8?B?TExndHlhaUpJU0ZFZFp6dkIyUnM2MDdIam5hemFOL2o0OFNKNlgwTExwSVVL?=
+ =?utf-8?B?ZEQ4Y1dWeTd4bU11Nk5KOHkwVW1yVnVNcVR4NHYrYjlGUVN1bXhtNWpScGdx?=
+ =?utf-8?B?eDJES0sveGIyODJvUHh2OHB3eFBxVjh4ajcyaThxcDhzbmRuMWtWbmpKaEJu?=
+ =?utf-8?B?SXBTTGFuZWExdUdRU0xMR0cvVmJvVFJreE1hbjFaTTA2Uy9DV0pkQWhXYWdt?=
+ =?utf-8?B?eHpwUWg5OGoxUVJrUTh5NDNmMXhPQVhyS1JLUzkxamxqQmJkWlMwYzZwSmFo?=
+ =?utf-8?B?bVFaVnB6Mlh0MVF0bUZOVVhFWERNenl2bXlGWCtFa2N4SkVySnhkZzhoek9t?=
+ =?utf-8?B?dUVBUnJRZHkzai9EL2NLV2UxNkdjVDhXU2U4Z2JGdk5QMVJWWjR1NlgvRTRO?=
+ =?utf-8?B?K3VpMko2ZGNLdFBGUzZraUZZSGJkVjVVbFp1NHhJeVRubWtpZ043RWNFemZt?=
+ =?utf-8?B?eTZrcW5ZQVk2NmJkWDVWZTAzRVFxU2huaUxZTmN0VTloVXA3QmNrRXFlcnV0?=
+ =?utf-8?B?Q3BDdTNkYTB1YkFLejlKd0d2ZGlBZ3kxRXFSeGR6cjB5aFJlQXZ1ZHU3R3dH?=
+ =?utf-8?B?aEFqRjJQQ2R3U1RCMW5GZ2RZcmwzLzJjeGJLVFZJcThvVitMK0c5cDc5b3pS?=
+ =?utf-8?B?cUc2bkVGMzJUVjFKQmRyVklmQlFna2pEQXBsaHlHMVF0ZlFNdDdmSEZvaDJr?=
+ =?utf-8?B?Z1EyQ1Bza2pJUTRQVE92NGNJelQ4dHVETUNIanEzbVJhYWUwQTZiOFBXMHI1?=
+ =?utf-8?B?dDdJU0xYSmx2TXl0VWJTcXNTMWFZbll0RE5OY1ZpS0xOVyt4dVZMZ00vSTFE?=
+ =?utf-8?B?MEM1eDZjVWZqRU5qTGNRd3VEOUhMT1A4OXpyR0JHbXdOczYxQXlhaUlFK1dq?=
+ =?utf-8?B?L3VERC9JSjNNd084UnpRS3dmNnFuaGxycXNXT2w4OEoxK0wzMnBSRVhyNTli?=
+ =?utf-8?B?cXQvMmdTZnFlTUFNLzhvOW5WZzlXTUJsODd1UG50VXJBa2o5YUM1YWxjRDlo?=
+ =?utf-8?B?ZE1NaVF2b25xR29Kc0hlS1lvZWpSYUdOYzZLV09WOWhtWFYyMzVVRGFYelZj?=
+ =?utf-8?B?OW9tRHljOFRGSEE3QWZ6N3hRZSt2akhGcThBWXVQRFRNYmF4d1laZXhVY3Vm?=
+ =?utf-8?B?U21HUUYxNkY2anZRVjluUC9KTHFrVHU4NnU4N3plbmloTU9pcEQ3NjJTVVJz?=
+ =?utf-8?B?aThkYSsrUXZZSERIREsxNFNzQU11Z0NnY1dmVHJZbmQrVHVHdTFPbTJlT21T?=
+ =?utf-8?B?YXFMbEc0U3FmbEJRd2JaeUlxUzJ1aXJPVXY2Y2JBMjJCYXJ2cnlTMXNjVnRz?=
+ =?utf-8?B?bUxkdGxVZUhwZ3N0aksvbUJGUklmc2QxOFJrM2ViMTBwZElzZUtuZEVYMU9n?=
+ =?utf-8?B?TnI5cG9OY2luc20rQm9TV1JrMWJuSlJFUklxZXprU25ZSEpvNzdLeHBEc05n?=
+ =?utf-8?B?OE1GSEVLNjhLTjVtSXNhUW0wVjhYZkF2dEdDS1M5ZGg2TWI4ZFZOYTQ4VHRu?=
+ =?utf-8?B?UGU1ZXVUN0lqamgyK3BCQmUvVG9VUy9qSlNvUUlLL0ZXaXFFQ3RGZWx3OXlt?=
+ =?utf-8?B?SEh0cHdjN0xDUDh4b1B6Z2xhMzEwcUUxY0F3U0FJVkwvRmV6QW1ENGZ0aXNn?=
+ =?utf-8?B?eHNHZnYrVTRJYnByUXlUYkpwT0tEUlE2dFdITjljUXRNcUo2Yk9maXdneno3?=
+ =?utf-8?B?Tk4wMEI4NFJldnIzdm5kUzhOc1QzRFkxdzdNTlU5NXRzRXA5aHJLeHBLL0hq?=
+ =?utf-8?B?bDlMVzFNWUVSZEs1YmZjR3B5VkdHQVNsaUhFQVN4eTE3RGRyWnpQTTJOclgy?=
+ =?utf-8?B?anJCb1hoSnI2OUhOU3RUKyt2RWdPRUNQLzk3TkY1bFJBd0JJb09xMW00MFZX?=
+ =?utf-8?B?ckxMT0tKNjNSemg4SmUzQ2lzUWQrT3hIUlU0YjB0YnFOQnVEeHlCeTZPbncx?=
+ =?utf-8?B?WWFQYVE2aFZtdWpDVVlzeWN1UE8wT0xwcVJoUHJMSzVsWUlyZ25vRGVtMVFK?=
+ =?utf-8?B?T2NZQ1ZwajFocjU2TDl5T0IyNjhLSVo4WHoyV2RBYjZDdWg4YStyd2FjbzF3?=
+ =?utf-8?Q?T6CK97Bhr+FlczqAu5?=
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
+X-Exchange-RoutingPolicyChecked: VDX5d2oPmU8cilBX1EkUB0WbuCBGhlFUN+M3vq6AQJHD83dfK9SI+8i+trDCO8CvY6Ll0+H+i9UY5dlK44E2nPBYIQQjm1g4C6S6V6fpwmo40llGgzyyESgsFYLCitQndvhzJamq5yIsD2Rqa7E+lj75cF97y+SM1jKjPRSJVFJrqRsydPdZH+JgbO01gUDBKFqQGPdV0JsX561y39XLl3y/T4S2RZCwcNLi4rUCzSMRtAGcLXq9cVaOCvImox7aSLJue/Yks7SAu49xuh1Jr9aBzz0K9QtejNp/Uyhb85aB3mxRINcC3+JwwbSyQkzMSj1o4yLBm8rE500bGiO2Xw==
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: BY3PR18MB4722.namprd18.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 3fdc1240-9cce-400b-66e7-08df22d2b210
+X-MS-Exchange-CrossTenant-originalarrivaltime: 05 Oct 2026 11:20:43.5237
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 5280104a-472d-4538-9ccf-1e1d0efe8b1b
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: 3mgM74VKaLqqDjS1N5GmEH3M3vKbxfwfL/hXqDGwsue6xBdlFJRsCSZgciGE13mR+oe+QdwUAs5wbRuS4cxQ7Q==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM3PPFA08CB310A
+X-OriginatorOrg: amazon.com
 
-Add support for MT7928 (internal device ID is MT7935) which requires
-additional firmware (CBMCU firmware) loading before Bluetooth firmware.
-
-CBMCU is a new component on MT7928 to handle common part shared across
-the combo chip, providing a better user experience through improved
-coordination between subsystems.
-
-Implement two-phase CBMCU firmware download: Phase 1 loads section with
-type 0x5 containing global descriptor, section maps and signature data;
-Phase 2 loads remaining firmware sections. The firmware is rejected if it
-has no Phase 1 section. The CBMCU patch status is polled while another
-download is in progress, to protect against concurrent downloads.
-
-After CBMCU firmware loads successfully, the driver continues to load
-corresponding BT firmware based on device ID through fallthrough to
-case 0x7922/0x7925.
-
-The CBMCU firmware layout and section-map bounds are validated by
-reusing btmtk_fw_validate_layout() and btmtk_fw_validate_section(),
-the same helpers btmtk_setup_firmware_79xx() uses, instead of
-duplicating the overflow checks.
-
-Add the MT7928 (0x7935) case to btmtk_usb_subsys_reset(), which triggers
-the subsystem reset by setting BIT(31) of MTK_BT_RESET_REG_CONNV3.
-
-MT7928 bring-up kernel log:
-[ 6931.197167] usb 1-3: New USB device found, idVendor=0e8d, idProduct=7935, bcdDevice= 1.00
-[ 6931.197212] usb 1-3: New USB device strings: Mfr=5, Product=6, SerialNumber=7
-[ 6931.197237] usb 1-3: Product: Wireless_Device
-[ 6931.197258] usb 1-3: Manufacturer: MediaTek Inc.
-[ 6931.197279] usb 1-3: SerialNumber: 000000000
-[ 6931.213478] Bluetooth: hci1: Loading CBMCU firmware: mediatek/mt7928/CBMCU_CODE_MT7935_1_1.bin
-[ 6931.215214] Bluetooth: hci1: CBMCU HW ver: 0x7935, SW ver: 0x0000, Build Time: 20260601T161751+
-[ 6931.623962] Bluetooth: hci1: CBMCU firmware download completed
-[ 6931.643916] Bluetooth: hci1: Loading BT firmware: mediatek/mt7928/BT_RAM_CODE_MT7935_1_1_hdr.bin
-[ 6931.650467] Bluetooth: hci1: BT HW ver: 0x7935, SW ver: 0x0000, Build Time: 20260527000816
-[ 6935.039790] Bluetooth: hci1: Device setup in 3369644 usecs
-[ 6935.039833] Bluetooth: hci1: HCI Enhanced Setup Synchronous Connection command is advertised, but not supported.
-[ 6935.160654] Bluetooth: hci1: AOSP extensions version v2.00
-[ 6935.160710] Bluetooth: hci1: AOSP quality report is supported
-[ 6935.162954] Bluetooth: MGMT ver 1.23
-
-Signed-off-by: Chris Lu <chris.lu@mediatek.com>
-Assisted-by: Claude:Sonnet-5
----
- drivers/bluetooth/btmtk.c | 352 ++++++++++++++++++++++++++++++++++++++
- drivers/bluetooth/btmtk.h |   3 +
- 2 files changed, 355 insertions(+)
-
-diff --git a/drivers/bluetooth/btmtk.c b/drivers/bluetooth/btmtk.c
-index 115a11fcb254..87116fbb2b04 100644
---- a/drivers/bluetooth/btmtk.c
-+++ b/drivers/bluetooth/btmtk.c
-@@ -22,6 +22,12 @@
- #define MTK_FW_ROM_PATCH_SEC_MAP_SIZE	64
- #define MTK_SEC_MAP_COMMON_SIZE	12
- #define MTK_SEC_MAP_NEED_SEND_SIZE	52
-+#define MTK_SEC_MAP_LENGTH_SIZE	4
-+#define MTK_SEC_CBMCU_DESC	0x5
-+
-+/* CBMCU WMT command flags */
-+#define BTMTK_CBMCU_FLAG_QUERY_STATUS	0xF0
-+#define BTMTK_CBMCU_FLAG_ENABLE_PATCH	0xF1
- 
- /* It is for mt79xx iso data transmission setting */
- #define MTK_ISO_THRESHOLD	264
-@@ -182,6 +188,11 @@ void btmtk_fw_get_filename(char *buf, size_t size, u32 dev_id, u32 fw_ver,
- 		snprintf(buf, size,
- 			 "mediatek/mt%04x/BT_RAM_CODE_MT%04x_1_%x_hdr.bin",
- 			 dev_id & 0xffff, dev_id & 0xffff, (fw_ver & 0xff) + 1);
-+	/* MT7928 */
-+	else if (dev_id == 0x7935)
-+		snprintf(buf, size,
-+			 "mediatek/mt7928/BT_RAM_CODE_MT%04x_1_1_hdr.bin",
-+			 dev_id & 0xffff);
- 	else if (dev_id == 0x7961 && fw_flavor)
- 		snprintf(buf, size,
- 			 "mediatek/BT_RAM_CODE_MT%04x_1a_%x_hdr.bin",
-@@ -809,6 +820,7 @@ static int btmtk_usb_hci_wmt_sync(struct hci_dev *hdev,
- 			status = BTMTK_WMT_ON_UNDONE;
- 		break;
- 	case BTMTK_WMT_PATCH_DWNLD:
-+	case BTMTK_WMT_CBMCU_DWNLD:
- 		if (wmt_evt->whdr.flag == 2)
- 			status = BTMTK_WMT_PATCH_DONE;
- 		else if (wmt_evt->whdr.flag == 1)
-@@ -933,6 +945,327 @@ static u32 btmtk_usb_reset_done(struct hci_dev *hdev)
- 	return val & MTK_BT_RST_DONE;
- }
- 
-+static int btmtk_cbmcu_patch_status(struct hci_dev *hdev,
-+				    wmt_cmd_sync_func_t wmt_cmd_sync,
-+				    u8 *patch_status)
-+{
-+	struct btmtk_hci_wmt_params wmt_params;
-+	int status = BTMTK_WMT_INVALID, err, retry = 20;
-+
-+	do {
-+		wmt_params.op = BTMTK_WMT_CBMCU_DWNLD;
-+		wmt_params.flag = BTMTK_CBMCU_FLAG_QUERY_STATUS;
-+		wmt_params.dlen = 0;
-+		wmt_params.data = NULL;
-+		wmt_params.status = &status;
-+
-+		err = wmt_cmd_sync(hdev, &wmt_params);
-+		if (err < 0) {
-+			bt_dev_err(hdev, "Failed to query CBMCU patch status (%d)", err);
-+			return err;
-+		}
-+
-+		*patch_status = (u8)status;
-+
-+		if (*patch_status == BTMTK_WMT_PATCH_PROGRESS) {
-+			msleep(100);
-+			retry--;
-+		} else {
-+			break;
-+		}
-+	} while (retry > 0);
-+
-+	if (*patch_status == BTMTK_WMT_PATCH_PROGRESS) {
-+		bt_dev_err(hdev, "CBMCU patch status query timeout");
-+		return -ETIMEDOUT;
-+	}
-+
-+	return 0;
-+}
-+
-+static int btmtk_query_cbmcu_section(struct hci_dev *hdev,
-+				     wmt_cmd_sync_func_t wmt_cmd_sync,
-+				     u8 cbmcu_type,
-+				     const u8 *section_map,
-+				     u32 cert_len)
-+{
-+	struct btmtk_hci_wmt_params wmt_params;
-+	u8 cmd[64];
-+	int status = BTMTK_WMT_INVALID, err;
-+
-+	cmd[0] = 0;
-+	cmd[1] = cbmcu_type;
-+
-+	if (cbmcu_type == 0)
-+		put_unaligned_le32(cert_len, &cmd[2]);
-+	else
-+		memcpy(&cmd[2], section_map, MTK_SEC_MAP_NEED_SEND_SIZE);
-+
-+	wmt_params.op = BTMTK_WMT_CBMCU_DWNLD;
-+	wmt_params.flag = 0;
-+	wmt_params.dlen = cbmcu_type ?
-+		MTK_SEC_MAP_NEED_SEND_SIZE + 2 :
-+		MTK_SEC_MAP_LENGTH_SIZE + 2;
-+	wmt_params.data = cmd;
-+	wmt_params.status = &status;
-+
-+	err = wmt_cmd_sync(hdev, &wmt_params);
-+	if (err < 0) {
-+		bt_dev_err(hdev, "Failed to query CBMCU section (%d)", err);
-+		return err;
-+	}
-+
-+	/* Query should return UNDONE status for successful section query */
-+	if (status != BTMTK_WMT_PATCH_UNDONE) {
-+		bt_dev_err(hdev, "CBMCU section query status error (%d)", status);
-+		return -EIO;
-+	}
-+
-+	return 0;
-+}
-+
-+static int btmtk_download_cbmcu_section(struct hci_dev *hdev,
-+					wmt_cmd_sync_func_t wmt_cmd_sync,
-+					const u8 *fw_data,
-+					u32 dl_size)
-+{
-+	struct btmtk_hci_wmt_params wmt_params;
-+	u32 sent_len, total_size = dl_size;
-+	int err;
-+
-+	wmt_params.op = BTMTK_WMT_CBMCU_DWNLD;
-+	wmt_params.status = NULL;
-+
-+	while (dl_size > 0) {
-+		sent_len = min_t(u32, 250, dl_size);
-+
-+		if (dl_size == total_size)
-+			wmt_params.flag = BTMTK_WMT_PKT_START;
-+		else if (dl_size == sent_len)
-+			wmt_params.flag = BTMTK_WMT_PKT_END;
-+		else
-+			wmt_params.flag = BTMTK_WMT_PKT_CONTINUE;
-+
-+		wmt_params.dlen = sent_len;
-+		wmt_params.data = fw_data;
-+
-+		err = wmt_cmd_sync(hdev, &wmt_params);
-+		if (err < 0) {
-+			bt_dev_err(hdev, "Failed to send CBMCU section data (%d)", err);
-+			return err;
-+		}
-+
-+		dl_size -= sent_len;
-+		fw_data += sent_len;
-+	}
-+
-+	return 0;
-+}
-+
-+static int btmtk_enable_cbmcu_patch(struct hci_dev *hdev,
-+				    wmt_cmd_sync_func_t wmt_cmd_sync)
-+{
-+	struct btmtk_hci_wmt_params wmt_params;
-+	int err;
-+
-+	wmt_params.op = BTMTK_WMT_CBMCU_DWNLD;
-+	wmt_params.flag = BTMTK_CBMCU_FLAG_ENABLE_PATCH;
-+	wmt_params.dlen = 0;
-+	wmt_params.data = NULL;
-+	wmt_params.status = NULL;
-+
-+	err = wmt_cmd_sync(hdev, &wmt_params);
-+	if (err < 0) {
-+		bt_dev_err(hdev, "Failed to enable CBMCU patch (%d)", err);
-+		return err;
-+	}
-+
-+	return 0;
-+}
-+
-+static int btmtk_load_cbmcu_firmware(struct hci_dev *hdev,
-+				     const char *fwname,
-+				     wmt_cmd_sync_func_t wmt_cmd_sync,
-+				     u32 dev_id)
-+{
-+	struct btmtk_patch_header *hdr;
-+	struct btmtk_section_map *sectionmap;
-+	const struct firmware *fw;
-+	const u8 *fw_ptr;
-+	u8 *cert_buf = NULL;
-+	u32 section_num, section_offset, dl_size, cert_len;
-+	bool phase1_done = false;
-+	int i, err;
-+
-+	err = request_firmware(&fw, fwname, &hdev->dev);
-+	if (err < 0) {
-+		bt_dev_err(hdev, "Failed to load CBMCU firmware file %s (%d)",
-+			   fwname, err);
-+		return err;
-+	}
-+
-+	err = btmtk_fw_validate_layout(hdev, fw, &section_num);
-+	if (err < 0)
-+		goto err_release_fw;
-+
-+	fw_ptr = fw->data;
-+	hdr = (struct btmtk_patch_header *)fw_ptr;
-+
-+	bt_dev_info(hdev, "CBMCU HW ver: 0x%04x, SW ver: 0x%04x, Build Time: %.16s",
-+		    dev_id & 0xffff, le16_to_cpu(hdr->swver), hdr->datetime);
-+
-+	/* Phase 1: Download section type MTK_SEC_CBMCU_DESC */
-+	for (i = 0; i < section_num; i++) {
-+		sectionmap = (struct btmtk_section_map *)
-+			(fw_ptr + MTK_FW_ROM_PATCH_HEADER_SIZE +
-+			 MTK_FW_ROM_PATCH_GD_SIZE +
-+			 MTK_FW_ROM_PATCH_SEC_MAP_SIZE * i);
-+
-+		/* Only process MTK_SEC_CBMCU_DESC section in Phase 1 */
-+		if ((le32_to_cpu(sectionmap->sectype) & 0xFFFF) != MTK_SEC_CBMCU_DESC)
-+			continue;
-+
-+		section_offset = le32_to_cpu(sectionmap->secoffset);
-+		dl_size = le32_to_cpu(sectionmap->secsize);
-+
-+		if (dl_size == 0)
-+			continue;
-+
-+		err = btmtk_fw_validate_section(hdev, fw, i,
-+						section_offset, dl_size);
-+		if (err < 0)
-+			goto err_release_fw;
-+
-+		cert_len = MTK_FW_ROM_PATCH_GD_SIZE +
-+			   MTK_FW_ROM_PATCH_SEC_MAP_SIZE * section_num +
-+			   dl_size;
-+
-+		/* Query cbmcu section */
-+		err = btmtk_query_cbmcu_section(hdev, wmt_cmd_sync, 0, NULL,
-+						cert_len);
-+		if (err < 0)
-+			goto err_release_fw;
-+
-+		cert_buf = kmalloc(cert_len, GFP_KERNEL);
-+		if (!cert_buf) {
-+			err = -ENOMEM;
-+			goto err_release_fw;
-+		}
-+
-+		/* Copy Global Descriptor + All Section Maps */
-+		memcpy(cert_buf,
-+		       fw_ptr + MTK_FW_ROM_PATCH_HEADER_SIZE,
-+		       MTK_FW_ROM_PATCH_GD_SIZE + MTK_FW_ROM_PATCH_SEC_MAP_SIZE * section_num);
-+
-+		/* Copy Phase 1 section data */
-+		memcpy(cert_buf + MTK_FW_ROM_PATCH_GD_SIZE +
-+		       MTK_FW_ROM_PATCH_SEC_MAP_SIZE * section_num,
-+		       fw_ptr + section_offset,
-+		       dl_size);
-+
-+		/* Download Phase 1 section */
-+		err = btmtk_download_cbmcu_section(hdev, wmt_cmd_sync,
-+						   cert_buf, cert_len);
-+		kfree(cert_buf);
-+		cert_buf = NULL;
-+
-+		if (err < 0) {
-+			bt_dev_err(hdev, "Failed to download CBMCU Phase 1 section (%d)", err);
-+			goto err_release_fw;
-+		}
-+
-+		phase1_done = true;
-+		break;
-+	}
-+
-+	if (!phase1_done) {
-+		bt_dev_err(hdev, "CBMCU firmware has no Phase 1 section");
-+		err = -EINVAL;
-+		goto err_release_fw;
-+	}
-+
-+	/* Phase 2: Download other sections (type != MTK_SEC_CBMCU_DESC) */
-+	for (i = 0; i < section_num; i++) {
-+		sectionmap = (struct btmtk_section_map *)
-+			(fw_ptr + MTK_FW_ROM_PATCH_HEADER_SIZE +
-+			 MTK_FW_ROM_PATCH_GD_SIZE +
-+			 MTK_FW_ROM_PATCH_SEC_MAP_SIZE * i);
-+
-+		/* Skip MTK_SEC_CBMCU_DESC section in Phase 2 */
-+		if ((le32_to_cpu(sectionmap->sectype) & 0xFFFF) == MTK_SEC_CBMCU_DESC)
-+			continue;
-+
-+		section_offset = le32_to_cpu(sectionmap->secoffset);
-+		dl_size = le32_to_cpu(sectionmap->bin_info_spec.dlsize);
-+
-+		if (dl_size == 0)
-+			continue;
-+
-+		err = btmtk_fw_validate_section(hdev, fw, i,
-+						section_offset, dl_size);
-+		if (err < 0)
-+			goto err_release_fw;
-+
-+		/* Query cbmcu section */
-+		err = btmtk_query_cbmcu_section(hdev, wmt_cmd_sync, 1,
-+						(u8 *)&sectionmap->bin_info_spec,
-+						0);
-+		if (err < 0)
-+			goto err_release_fw;
-+
-+		/* Download section data */
-+		err = btmtk_download_cbmcu_section(hdev, wmt_cmd_sync,
-+						   fw_ptr + section_offset,
-+						   dl_size);
-+		if (err < 0) {
-+			bt_dev_err(hdev, "Failed to download CBMCU section %d (%d)", i, err);
-+			goto err_release_fw;
-+		}
-+	}
-+
-+	bt_dev_info(hdev, "CBMCU firmware download completed");
-+
-+err_release_fw:
-+	release_firmware(fw);
-+	return err;
-+}
-+
-+static int btmtk_setup_cbmcu_firmware(struct hci_dev *hdev,
-+				      wmt_cmd_sync_func_t wmt_cmd_sync,
-+				      u32 dev_id)
-+{
-+	char cbmcu_fwname[64];
-+	u8 patch_status;
-+	int err;
-+
-+	err = btmtk_cbmcu_patch_status(hdev, wmt_cmd_sync, &patch_status);
-+	if (err < 0)
-+		return err;
-+
-+	bt_dev_dbg(hdev, "CBMCU patch status: 0x%02x", patch_status);
-+
-+	if (patch_status != BTMTK_WMT_PATCH_UNDONE)
-+		return 0;
-+
-+	snprintf(cbmcu_fwname, sizeof(cbmcu_fwname),
-+		 "mediatek/mt7928/CBMCU_CODE_MT%04x_1_1.bin",
-+		 dev_id & 0xffff);
-+
-+	bt_dev_info(hdev, "Loading CBMCU firmware: %s", cbmcu_fwname);
-+
-+	err = btmtk_load_cbmcu_firmware(hdev, cbmcu_fwname, wmt_cmd_sync, dev_id);
-+	if (err < 0) {
-+		bt_dev_err(hdev, "Failed to download CBMCU firmware (%d)", err);
-+		return err;
-+	}
-+
-+	err = btmtk_enable_cbmcu_patch(hdev, wmt_cmd_sync);
-+	if (err < 0)
-+		return err;
-+
-+	return 0;
-+}
-+
- int btmtk_usb_subsys_reset(struct hci_dev *hdev, u32 dev_id)
- {
- 	int reset_err = 0;
-@@ -997,6 +1330,14 @@ int btmtk_usb_subsys_reset(struct hci_dev *hdev, u32 dev_id)
- 		if (err)
- 			return err;
- 		msleep(100);
-+	} else if (dev_id == 0x7935) {
-+		err = btmtk_usb_uhw_reg_read(hdev, MTK_BT_RESET_REG_CONNV3, &val);
-+		if (err)
-+			return err;
-+		val |= BIT(31);
-+		err = btmtk_usb_uhw_reg_write(hdev, MTK_BT_RESET_REG_CONNV3, val);
-+		if (err < 0)
-+			return err;
- 	} else {
- 		/* It's Device EndPoint Reset Option Register */
- 		bt_dev_dbg(hdev, "Initiating reset mechanism via uhw");
-@@ -1455,6 +1796,15 @@ int btmtk_usb_setup(struct hci_dev *hdev)
- 	case 0x7668:
- 		fwname = FIRMWARE_MT7668;
- 		break;
-+	case 0x7935:
-+		/* Requires CBMCU firmware before BT firmware */
-+		err = btmtk_setup_cbmcu_firmware(hdev, btmtk_usb_hci_wmt_sync,
-+						 dev_id);
-+		if (err < 0) {
-+			bt_dev_err(hdev, "Failed to set up CBMCU firmware (%d)", err);
-+			return err;
-+		}
-+		fallthrough;
- 	case 0x7922:
- 	case 0x7925:
- 	case 0x7961:
-@@ -1667,3 +2017,5 @@ MODULE_FIRMWARE(FIRMWARE_MT7961);
- MODULE_FIRMWARE(FIRMWARE_MT7920);
- MODULE_FIRMWARE(FIRMWARE_MT7925);
- MODULE_FIRMWARE(FIRMWARE_MT7927);
-+MODULE_FIRMWARE(FIRMWARE_MT7928);
-+MODULE_FIRMWARE(FIRMWARE_MT7928_CBMCU);
-diff --git a/drivers/bluetooth/btmtk.h b/drivers/bluetooth/btmtk.h
-index e8ad281a93a0..58643ec39667 100644
---- a/drivers/bluetooth/btmtk.h
-+++ b/drivers/bluetooth/btmtk.h
-@@ -10,6 +10,8 @@
- #define FIRMWARE_MT7920		"mediatek/BT_RAM_CODE_MT7961_1a_2_hdr.bin"
- #define FIRMWARE_MT7925		"mediatek/mt7925/BT_RAM_CODE_MT7925_1_1_hdr.bin"
- #define FIRMWARE_MT7927		"mediatek/mt7927/BT_RAM_CODE_MT6639_2_1_hdr.bin"
-+#define FIRMWARE_MT7928		"mediatek/mt7928/BT_RAM_CODE_MT7935_1_1_hdr.bin"
-+#define FIRMWARE_MT7928_CBMCU	"mediatek/mt7928/CBMCU_CODE_MT7935_1_1.bin"
- 
- #define HCI_EV_WMT 0xe4
- #define HCI_WMT_MAX_EVENT_SIZE		64
-@@ -55,6 +57,7 @@ enum {
- 	BTMTK_WMT_RST = 0x7,
- 	BTMTK_WMT_REGISTER = 0x8,
- 	BTMTK_WMT_SEMAPHORE = 0x17,
-+	BTMTK_WMT_CBMCU_DWNLD = 0x58,
- };
- 
- enum {
--- 
-2.45.2
-
+T24gU3VuLCAyMDI2LTEwLTA1IGF0IDAxOjI1ICswMDAwLCBSYWR1IFJlbmRlYyB3cm90ZToNCj4g
+VGhpcyBpcyBhIGNvbW1vbiBwcm9ibGVtIHRvIGFsbCBtdWx0aXBsZXhpbmcgaXJxIGRyaXZlcnM7
+IG5vdCBiZWNhdXNlDQo+IHRoZSBwYXJlbnQgaW50ZXJydXB0IGlzIHNoYXJlZCBidXQgYmVjYXVz
+ZSBjaGFuZ2luZyB0aGUgYWZmaW5pdHkgb2Ygb25lDQo+IGNoaWxkIGludGVycnVwdCAoYnkgY2hh
+bmdpbmcgdGhlIHBhcmVudCBpbnRlcnJ1cHQncyBhZmZpbml0eSB1bmRlciB0aGUNCj4gaG9vZCkg
+d291bGQgaGF2ZSB0aGUgc2lkZSBlZmZlY3Qgb2YgY2hhbmdpbmcgdGhlIGFmZmluaXR5IG9mIGFs
+bCBpdHMNCj4gc2libGluZ3MuDQo+DQo+IEkgdGhpbmsgdGhlIGNvcnJlY3QgYmVoYXZpb3IgaXMg
+dG8gZmFpbCB3aXRoIC1FSU5WQUwgaW4gdGhpcyBjYXNlLg0KDQotRUlOVkFMIGlzIG5vdCB1c2Fi
+bGUgaGVyZSBiZWNhdXNlIGl0IHJlc3RvcmVzIHRoZSBmYWlsdXJlIHRoaXMgcGF0Y2gNCmZpeGVz
+LiBUaGUgY29uc3VtZXIgaXMgYXJtLWNtbi4gV2UgaGF2ZSBhIFNvQyB3aGVyZSBpdHMgaW50ZXJy
+dXB0IGlzDQpyb3V0ZWQgdGhyb3VnaCBhIEZJQyBncm91cCBpbnN0ZWFkIG9mIGEgZGlyZWN0IEdJ
+QyBTUEksIGFuZA0KZHJpdmVycy9wZXJmL2FybS1jbW4uYyBkb2VzDQoNCiAgICAgICAgZXJyID0g
+aXJxX3NldF9hZmZpbml0eShpcnEsIGNwdW1hc2tfb2YoY21uLT5jcHUpKTsNCiAgICAgICAgaWYg
+KGVycikNCiAgICAgICAgICAgICAgICByZXR1cm4gZXJyOw0KDQphdCBwcm9iZSwgc28gd2l0aCBu
+byAuaXJxX3NldF9hZmZpbml0eSBjYWxsYmFjayB0aGUgUE1VIGRvZXMgbm90IHByb2JlIGF0DQph
+bGwuDQoNCj4gSWYgeW91IGluc2lzdCBvbiBoYXZpbmcgdGhlIGFiaWxpdHkgdG8gY2hhbmdlIHRo
+ZSBjaGlsZCBpbnRlcnJ1cHRzJw0KPiBhZmZpbml0eSwgeW91IG1heSB3YW50IHRvIGxvb2sgYXQg
+dGhpcyBwYXRjaCBhbmQgZG8gc29tZXRoaW5nIHNpbWlsYXI6DQo+IGh0dHBzOi8vbG9yZS5rZXJu
+ZWwub3JnL2FsbC8yMDI1MTEyODIxMjA1NS4xNDA5MDkzLTQtcnJlbmRlY0ByZWRoYXQuY29tLw0K
+DQpJIGltcGxlbWVudGVkIHRoYXQgZm9yIGFsLWZpYyBhbmQgdGVzdGVkIGl0IG9uIGhhcmR3YXJl
+LiBJdCBzZWVtcyB0bw0Kd29yazogd2l0aCB0aGUgcGFyZW50IFNQSSBwaW5uZWQgdG8gb25lIENQ
+VSBhbmQgdGhlIGNoaWxkJ3MgYWZmaW5pdHkgc2V0DQp0byBhbm90aGVyLCB0aGUgY2hpbGQgZGlz
+cGF0Y2ggaXMgYWNjb3VudGVkIG9uIHRoZSB0YXJnZXQgQ1BVLCBvbmUNCmRpc3BhdGNoIHBlciBw
+YXJlbnQgaW50ZXJydXB0LCBubyByZS1maXJlIHN0b3JtLg0KDQpXaGF0IHN0b3BzIG1lIGZyb20g
+anVzdCBzZW5kaW5nIGl0IGlzIHRoYXQgaXQgY2hhbmdlcyB0aGUgaW50ZXJydXB0IHBhdGgNCmZv
+ciBldmVyeSBjaGlsZCBvZiBldmVyeSBGSUMgaW5zdGFuY2UsIG5vdCBvbmx5IGZvciBhIGNoaWxk
+IHRoYXQgYXNrcyBmb3INCmFmZmluaXR5LiAuaXJxX3ByZV9yZWRpcmVjdCBpcyBjYWxsZWQgYmVm
+b3JlIHRoZSBhZmZpbml0eSBjaGVjaywgc28gaXQNCnJ1bnMgb24gZXZlcnkgZGlzcGF0Y2guIFRo
+ZSBhY2sgdGhlcmVmb3JlIGhhcyB0byBsZWF2ZSB0aGUgZmxvdyBoYW5kbGVyDQphbmQgYmUgZG9u
+ZSBpbiB0aGUgcGFyZW50IGNvbnRleHQgYWx3YXlzLCBhbmQgLmlycV9hY2sgaGFzIHRvIGJlY29t
+ZSBhDQpub29wIHNvIGl0IGlzIG5vdCBkb25lIHR3aWNlLiBBIGxldmVsIGNvbmZpZ3VyZWQgZ3Jv
+dXAgaGFzIHRvIGJlIG1hc2tlZA0KaW4gLmlycV9wcmVfcmVkaXJlY3QgYXMgd2VsbCwgYmVjYXVz
+ZSB0aGUgRklDIHJlLWFzc2VydHMgdGhlIGNhdXNlIGJpdA0Kd2hpbGUgdGhlIHNvdXJjZSBpcyBz
+dGlsbCBhc3NlcnRlZCwgc28gZm9yIHRob3NlIGdyb3VwcyB0aGUgbWFzayBtb3Zlcw0KaW50byB0
+aGUgcGFyZW50IGNvbnRleHQgdG9vLiBUb2RheSBhbGwgb2YgdGhpcyBoYXBwZW5zIGluc2lkZQ0K
+aGFuZGxlX2xldmVsX2lycSgpIGFuZCBoYW5kbGVfZWRnZV9pcnEoKSwgdW5kZXIgZGVzYy0+bG9j
+ay4NCg0KRG8geW91IHN0aWxsIGNvbnNpZGVyIHRoYXQganVzdGlmaWVkIGZvciB0aGlzIGRyaXZl
+ciwgZ2l2ZW4gdGhhdCB0aGUgb25seQ0KY2FsbGVyIG5lZWRpbmcgYW55dGhpbmcgaGVyZSBpcyBv
+bmUgdGhhdCBqdXN0IG5lZWRzIHRoZSBjYWxsIG5vdCB0byBmYWlsPw0KDQpUaGFua3MsDQpFbGlh
+dg0K
