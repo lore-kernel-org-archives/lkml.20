@@ -1,112 +1,73 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from gloria.sntech.de (gloria.sntech.de [185.11.138.130])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 640C731D730;
-	Mon,  5 Oct 2026 19:06:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E1C1B314B66;
+	Mon,  5 Oct 2026 19:07:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.11.138.130
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791227162; cv=none; b=Iqs/ikb9Ez2q32XCLzxgPQPhEqGlRB6/SHRZt2KTQ0YXEw01/NFDN7xSLFxMGr0X7QwFGY2eB2ITPhxfC8t+q9n4Pw9Vj6SLaYV+Gz78uSd+YPNLGIdQ527KphTQIMzr4cbihAM8E1keqk1dmQI+Kzqdwrro0KH2cRx7j3YtLC8=
+	t=1791227226; cv=none; b=Ik0MjIHVh5Rs0Nxr7NDTHOApqJBFYvRJLmS2gmlOHPhgZb3Dm5+UARiTylIFNbn5TpCDWXuPMCOgylbV4Ot4/jl8GqGVr5xDtitmCpnrPlclqMu+V2s18eKjYVWDqsZOmmBvhFW7DnuFTbPzN38r2G9qvGolWXQwYJjRVJPG96g=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791227162; c=relaxed/simple;
-	bh=jd3cIebWslGe2SluqUeOouUcjNDtvQn8n5sEySelsZ8=;
-	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To; b=O8MgJAELuMxJDmFXIBiMWfqgxuy/TpZMoS23YHmQIkY3KpQA1KbmSXHiQp+J8GvocjTBF9SdkOrq0XRbvApsnXgGb4IqqJzxcyh7BV57gMpuf7H+rtVzYVLnHdE17VH+Nbz5O6BFKyvKd9whJRWHDEwX03OwrcWKpLkzyVirBHo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nHHkwOPu; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791227226; c=relaxed/simple;
+	bh=vPWqLX0bZAFj08SJiYYgzy8773Bjd7ezsX6EZ17ZJH0=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=LjqhJjW6c1DwUE9uKLxnpB0cN24CKfmvdTfbihTbx2QPrgK6xLK6PH/7mmXMw639NUL1Od+Y2c6MXftFzrITcGTqW8LP7yivMDPohaMoAf2bKN7hxKcUhcVxZ9WQW8yWJqAnco7LeF1U7oROd6oFlTPESxzi8kw3x8Z/NQ4xmcc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=sntech.de; spf=pass smtp.mailfrom=sntech.de; dkim=pass (2048-bit key) header.d=sntech.de header.i=@sntech.de header.b=Rx5f9B67; arc=none smtp.client-ip=185.11.138.130
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=sntech.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sntech.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nHHkwOPu"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A0F0E1F000FF;
-	Mon,  5 Oct 2026 19:06:00 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791227160;
-	bh=SNODs5FbLpBfmraE85X0V3Oi5UUM7z6D6PE8VhoZEoo=;
-	h=Date:From:To:Cc:Subject:In-Reply-To;
-	b=nHHkwOPuimd70cQZVRVzcCQ1MH+35tAUZ/tpFxE2p8QJbR9YZG5YKTOa5xAN5GzjV
-	 4tW9WcKuG/a90atgTnVKXYmXqT6iZcc9gcEAUYBJHF4gsGCXqsqPvXsO9rLgIz7joC
-	 8xVGt0EtEVvsk8p1zgFVzhPcUuDm8Zqg+v57EFVGzfmfosV6HXHBqa1qR1f5KoXU9Y
-	 QQbhJGBwEWa63xjLl8gUhPPU+KKT9yu6UambZmUAFCJ2wu+Nribtw4AQr5s2ljSy1P
-	 daMYHhqYhSFt1dQckdGBR1I6J2fTYEEA+brz22UvLqQyLW6qeiMjB3gLkd3kyxw8T9
-	 xg77jhZ2FI9ZQ==
-Date: Mon, 5 Oct 2026 14:05:59 -0500
-From: Bjorn Helgaas <helgaas@kernel.org>
-To: Yehyeong Lee <yhlee@isslab.korea.ac.kr>
-Cc: jgross@suse.com, sstabellini@kernel.org, oleksandr_tyshchenko@epam.com,
-	bhelgaas@google.com, jbeulich@suse.com, konrad.wilk@oracle.com,
-	xen-devel@lists.xenproject.org, linux-pci@vger.kernel.org,
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org,
-	Jan Beulich <JBeulich@novell.com>
-Subject: Re: [PATCH] xen/pcifront: check that an AER callback exists before
- calling it
-Message-ID: <20261005190559.GA601702@bhelgaas>
+	dkim=pass (2048-bit key) header.d=sntech.de header.i=@sntech.de header.b="Rx5f9B67"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=sntech.de;
+	s=gloria202408; h=Content-Transfer-Encoding:Content-Type:MIME-Version:
+	References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Reply-To;
+	bh=0iMyjjmTU9UJGjFhBX4xQCZ5Or9tqnivx5Sft6lCQdU=; b=Rx5f9B679fWG3UMPXQv37ZDcYh
+	FXDYTOydla9FqTuweIsT9Ucf8nWiV9Rdax+VMf+M6jGUiIrgkTtpxalCnZiXUB9TgEFM7d0si8h+S
+	S79iGZTwJW+fq9orsPAx+UmFC9yUcMgzD0Ifa1MciCD1p4jcTJ7NCnFsWkFeYcIrryNXVRxkHw9a/
+	iFDZyF7aHN/tcWi+1h9nt3dYM7aWzqAG+NmJb34iR9WpZZdk4CgwlWSLMCGYmNCE8HCdY3pXibNQ8
+	ahniwyNzEliyvXZzO7ZN36hal9fTKuPb4UtDGbzTJvDPJeux4Fvhk+YSRgOCNoMW8zuK//CECU2+J
+	Sp3CDumg==;
+From: Heiko Stuebner <heiko@sntech.de>
+To: Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Amin Gattout <amin.gattout@gmail.com>
+Cc: Heiko Stuebner <heiko@sntech.de>,
+	devicetree@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-rockchip@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	Michael Riesch <michael.riesch@collabora.com>
+Subject: Re: [PATCH] arm64: dts: rockchip: add radxa camera 4k on rock 4d
+Date: Mon,  5 Oct 2026 21:06:51 +0200
+Message-ID: <179122712930.3317128.4716546981671475974.b4-ty@sntech.de>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20260925-rock4d-cam4k-v1-1-c9519c794fb3@gmail.com>
+References: <20260925-rock4d-cam4k-v1-1-c9519c794fb3@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261005133019.284053-1-yhlee@isslab.korea.ac.kr>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 
-On Mon, Oct 05, 2026 at 10:30:18PM +0900, Yehyeong Lee wrote:
-> pcifront_common_process() handles an AER request from the backend by
-> dispatching on aer_op.cmd to the bound driver's PCI error handler.  It
-> only checks that err_handler and err_handler->error_detected are present,
-> then for the mmio_enabled, slot_reset and resume commands it calls the
-> corresponding callback unconditionally.  Those three callbacks are
-> optional -- the PCI core NULL-checks each of them individually before
-> use -- and many drivers (for example igb, igc, ice and ixgbevf) install
-> error_detected without all of them.
-> 
-> aer_op.cmd comes from the shared ring, so a malicious or buggy backend
-> can send XEN_PCI_OP_aer_mmio (or _slotreset/_resume) for a device whose
-> driver leaves that callback NULL and make the frontend call through a
-> NULL pointer, crashing the guest.
-> 
-> Check each callback before calling it, as the PCI core already does, and
-> fall through to PCI_ERS_RESULT_NONE when it is absent.
-> 
-> Fixes: 956a9202cd12 ("xen-pcifront: Xen PCI frontend driver.")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Yehyeong Lee <yhlee@isslab.korea.ac.kr>
 
-Seems right to me, but I assume the Xen folks will pick this up.
+On Fri, 25 Sep 2026 14:16:34 +0200, Amin Gattout wrote:
+> Add a device tree overlay for the Radxa Camera 4K (featuring the Sony
+> IMX415 image sensor) to be applied on the Radxa ROCK 4D camera
+> connector. The camera connects to CSI HOST1 through the MIPI D-PHY0
+> in full mode.
+> 
+> 
 
-Acked-by: Bjorn Helgaas <bhelgaas@google.com>
+Applied, thanks!
 
-> ---
-> There is an in-flight fix for a refcount leak in this same function
-> ("xen/pcifront: Fix PCI device reference leak in AER handling"); this
-> change is orthogonal and applies in either order.
-> 
->  drivers/pci/xen-pcifront.c | 13 +++++++++----
->  1 file changed, 9 insertions(+), 4 deletions(-)
-> 
-> diff --git a/drivers/pci/xen-pcifront.c b/drivers/pci/xen-pcifront.c
-> index cffc32d660327..490913676f244 100644
-> --- a/drivers/pci/xen-pcifront.c
-> +++ b/drivers/pci/xen-pcifront.c
-> @@ -599,12 +599,17 @@ static pci_ers_result_t pcifront_common_process(int cmd,
->  		case XEN_PCI_OP_aer_detected:
->  			return pdrv->err_handler->error_detected(pcidev, state);
->  		case XEN_PCI_OP_aer_mmio:
-> -			return pdrv->err_handler->mmio_enabled(pcidev);
-> +			if (pdrv->err_handler->mmio_enabled)
-> +				return pdrv->err_handler->mmio_enabled(pcidev);
-> +			break;
->  		case XEN_PCI_OP_aer_slotreset:
-> -			return pdrv->err_handler->slot_reset(pcidev);
-> +			if (pdrv->err_handler->slot_reset)
-> +				return pdrv->err_handler->slot_reset(pcidev);
-> +			break;
->  		case XEN_PCI_OP_aer_resume:
-> -			pdrv->err_handler->resume(pcidev);
-> -			return PCI_ERS_RESULT_NONE;
-> +			if (pdrv->err_handler->resume)
-> +				pdrv->err_handler->resume(pcidev);
-> +			break;
->  		default:
->  			dev_err(&pdev->xdev->dev,
->  				"bad request in aer recovery operation!\n");
-> -- 
-> 2.43.0
-> 
+[1/1] arm64: dts: rockchip: add radxa camera 4k on rock 4d
+      commit: eea8ce042825cea71009cffc13bf564afaf7dbe4
+
+moved the &csi* nodes to their alphabetical correct position
+above &i2c5
+
+Best regards,
+-- 
+Heiko Stuebner <heiko@sntech.de>
