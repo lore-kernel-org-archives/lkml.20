@@ -1,285 +1,245 @@
-Received: from mail-ed2-f31.google.com (mail-ed2-f31.google.com [74.125.228.95])
+Received: from mail-oo2-f0.google.com (mail-oo2-f0.google.com [74.125.231.128])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7C32030EF91
-	for <linux-kernel@vger.kernel.org>; Mon,  5 Oct 2026 05:53:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.228.95
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791179625; cv=pass; b=lmmfYZht4BWEvBBuxFarX+3vyqb02UuoLR3fB2nA9QDzZduWJc0G4cV2RX6o4ehMCX4B6fqnzf2pKhK3nhXbMqaiiTyNR2iX1bjfEowvd+/xWhxKSyiJeV7Q6XJU1qcxZ2XX8uu7tc0QHRaUYfQQIDN19JO6EWVpg960UzXPG5Q=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791179625; c=relaxed/simple;
-	bh=/Ze/jOMdibKyIRE9oGzvxNmCM4QVvN890ZX2bkJzS98=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=F6fvhGI0UX/7KsRixkemUrGCx0CXTxy89Ah3P1En5VpCPFypRjUnHLqY39m/C7apSji/WJ84Q457kkjUlrQpRwyCX3vQALbBA5VqNGEOaKG+QEVS1XqKvD7V+ULi9NJYJv923Cz5MjhdfVqDpa+LZRPWtl6aehTh+eBy5cl9E8E=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=IxGWPgLk; arc=pass smtp.client-ip=74.125.228.95
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DE81D2BE043
+	for <linux-kernel@vger.kernel.org>; Mon,  5 Oct 2026 05:55:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.128
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791179704; cv=none; b=sSAVWFLfT8PtNGNjgaMv2W6QkAex1eIKFfMoD4Tyz8DqvH1qfMpwK851cm0bV9wHGqJzhwLoKwsAzTLnSxpA0Vqaln3WpYAFYj61Z/92naYlTakGnPaIKmUwj9zTPCdpJwW6DpAziq+2U0aJ3R3TZjbRz7oFEdhrZC0AOLd38YI=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791179704; c=relaxed/simple;
+	bh=83Mi4SsZo+QdKUXzamfbXcZtg0H47QSB/stlHzfJ0/0=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=S8Jn6xJBk4ih7GVA90hxLHyTK3ziyISe+ssmF0pWWomNaknEQh3Y3CKSBrSuBpJZae4EWbLud2gOtWLdIgDc1KhXCwWLDj56ArjJ7kcmgcCdUQZT7xlUTWtw3DtNSeFzxN+k1lTCRZuH/nGNghXVuNfbqlY18z5WnLK/fTzppnI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=d51itECR; arc=none smtp.client-ip=74.125.231.128
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="IxGWPgLk"
-Received: by mail-ed2-f31.google.com with SMTP id 4fb4d7f45d1cf-6ae17fcdebaso287552a12.0
-        for <linux-kernel@vger.kernel.org>; Sun, 04 Oct 2026 22:53:43 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1791179622; cv=none;
-        d=google.com; s=arc-20260327;
-        b=OtUIEcfVSbx+mc6o3h32YhCSOUEiyyu8PT1oti2YsS+XuB/xiv7D9in9X3UBDVf5+X
-         yZc3XCm6tNuAx2U37n0sPvTIGyAabCKfGSmVJWFsZBiMW93T13ocOrT+jXI8gqAzeHX8
-         pNYeto1muRhyS/Ic3Wh9YaPAFphVsNaKE64QlWaXrWhy7IBT74atnEP1TMZ5M3mN5Qq7
-         FPS8H/R3dcKEqtNa1Lm98iyg50EenKLZ4Nj04Gf0dnh3M4igT1NKu0XlyUlTZBCrqwTZ
-         BKarpybtdnar73o7abLFttbYPQYC8CCqoeUSdXeH6WAvEHrrXBjjO5ez79kSoVbCYfeU
-         7Rug==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=gt/7oieYk6ShKB4VNuH1F4baGZHTdzQ+zwU/Jbje3pE=;
-        fh=8Q+lyL4fvME5+oz+xkKbALSU7mCcZKL3cMOeWBt68x8=;
-        b=jKJORDWp9Eo4KBogBNjVkuDkvo5qrw4l6IDtQ7HIYBTfdKv2gxtLSEcY4XKZy+OPxM
-         WW4+8KVbFfk2mOu7meJWhfiwvRFuVQcdquTxpG8zee5523kaw2IXvaKcstTElCu+XVnU
-         MG0yQ6VnPCQrNkOEUB+w72W4wmc69JtpDtfZzb8Dfg/ncJRgT6dvW9mo9WexET+CGlDz
-         CBA+lAsERatXxoGwEoIR0JKxW4frrGMdlIA3Y68BtOoLquwpZE92ZWsYpdBji5z/08Y2
-         Mi+KpPyLfCkuA7vUU/RXNesEaXgQERBVfX3VTkGWlJ6JcyDmMKt4hzwZEQfoluvDe0Dj
-         QT7A==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="d51itECR"
+Received: by mail-oo2-f0.google.com with SMTP id 46e09a7af769-824040a3379so997369a34.0
+        for <linux-kernel@vger.kernel.org>; Sun, 04 Oct 2026 22:55:02 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791179622; x=1791784422; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=gt/7oieYk6ShKB4VNuH1F4baGZHTdzQ+zwU/Jbje3pE=;
-        b=IxGWPgLkO3H1hY3Eeu8f1TNXcRx//SHxDFYpI/LHwpgY/ep4Ne1N2H4BeKUHWo/rA0
-         zFDgMof8Ok1+4ivJIYo+ZYXr3Kbl9iYrP9MX4YRkTuHxJQ2fzTp0BLHI5I9MRnSiXl/R
-         66kfvaRovFY8aYcHqb1xuouKD5zOGSBNMwC4pwlvA6UWkvoC/S5G4gSN7pblXO0CdGL8
-         5oqMTP9eyIYEj+8YthAzuoEQG3iHLDnCbqXtVKuZnmP/ePB7rHsWVu3HgFEW0dyn0UAU
-         ptpcpYS72RyihM7jGe7zP7iiVLYtMJcsLijH2acFBRDIySyIJ35G+n+zLfRsFfs0W8NR
-         EZjg==
+        d=gmail.com; s=20251104; t=1791179702; x=1791784502; darn=vger.kernel.org;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=lhTQnb1kgZA65UjKBvAFkiBVW/FpkzMZCe1zIAscI2s=;
+        b=d51itECRdaTZFxtrgUHIoZs/4WHUpVu5DmjkoDkeQc0GCJTe3pBr98LJwtL1yZ1lt/
+         M474fNQ1L/wtGHDdFIplnt3DWh43pEsqS3yORFg3oXAQcUKvioTvMEWY05OniH21CXXN
+         WhmJvVvoOX9hMGccc+AoRZ7uvV1uTKegBmWZsmSP4fUsAnPx0argfTox/IRz887nGgAc
+         PhHRWrWURc/MQ7w8tcsa/ci57pGGlVs63CbAM+C8em/M5TI5PSoXdHsu9bMmqcAazB42
+         CInweWmLQmrjCWqIvrpfERmfM6zr9Us8LrHkL09ch8xIpQ+7djBuCLU6JdP7dpGbY9Tr
+         FSmw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791179622; x=1791784422;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=gt/7oieYk6ShKB4VNuH1F4baGZHTdzQ+zwU/Jbje3pE=;
-        b=PTUOSkzI2qtnvrQgP+2/GAaopn4Pb93E1vIsCTneOFnsUKM1DpwUPzE19OZnj4vIXU
-         /5YuZbFqP0nC1w9mKCpuiGthTiT37TBDsB9d6RMqA1Lv2Y/YcxrTbta/xCAOFW/Q2FBc
-         G6qkBHg40/RCTWZe3adqwD1kOWYRe1RQA11pQ0KwNYYdMMnVlQWKWga+dyV7nNl9I5bh
-         e0Y+CN0x/CxZGHWxjQsVm2vOJfO2/uiZfIBljzmjL3S+eb7QlMETaxIB/X1mhjme9FFk
-         kxS8grh89ER7cU3unAYA92wd2x3pUJiQ/eHBmlYWHRejw3uoUU8g31cQMMJpP/FpIzm/
-         hqNg==
-X-Forwarded-Encrypted: i=1; AKwUvBzvlKs4/Emsmc1rsbT91uvnQf2PCeazxgfMlXHXCd+hBYSkuCBt6dsPvaLV+X//vAbQo9TjbfmyGZlm6cA=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJGyLVLroC6GPycILdZgMdbs+4ww7OrBR6pVI0BYVzY54Ry6r7B
-	nUV/l9ybOaT+cDUgmUDkTZCAeO+WqxJudUWby1dZGDJ2SPT5OazRhvTILwGJtr3k9sbH1fV7u8V
-	3XNM5/18e3I6hv/zgbUt7rivuxP30MTE=
-X-Gm-Gg: AYBFou1LpwDLy9GTQVh+ujMWEmUR4WCgw5pQW/oT+MA22Y+w1eY3hRPwvfyuXTWnD48
-	itmDCej+tTHzYVCAl9V4lBCC9/jORK2fg8kB4U9PNQdLJpRlgCIGRq2agBZvrkGxJAADIQQpD5t
-	LbdAumUJKM2isgF0h8he4oTdK+PnBt6wXYxK499fnabu5xU8FE7AF+ReQ5d0g6IsvZc2Fe5WoY4
-	EZf/xPnbY4VanG7EkZrNXyvyPrWlRi5wn2RVyx9FBCpezE/aF3wQ9fkFC3oqdsheTMHRZfhzU6E
-	E5+Br/O6XoQyYp7UA1OhfeDaRNEpdQHw6OZ4L/cbWpKE71gENWEJgZnC5alrsl+JMvpoLZ5qgwX
-	1yjY15luXLE8=
-X-Received: by 2002:a05:6402:1d4f:b0:6ad:723:1d6c with SMTP id
- 4fb4d7f45d1cf-6af9e2ae5f7mr8588577a12.2.1791179621643; Sun, 04 Oct 2026
- 22:53:41 -0700 (PDT)
+        d=1e100.net; s=20260707; t=1791179702; x=1791784502;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=lhTQnb1kgZA65UjKBvAFkiBVW/FpkzMZCe1zIAscI2s=;
+        b=sd494sbsTehxPFOch7G7GIWSjd39z+DfMzoOv/YYwu/i18/UdDP2DJSq7uw4vy+p/R
+         xFDI21c33ghR1SCnjElFBQryU3dR3R7OqI1iVDu3hn2wC30PtoSFqnVdiQ22G6eTZi/U
+         Jo3e+A4mbZs2ZUskLU4NKnAGGNHze9+TCs3XiU6dSo0i0iQ0iJ6bvAEtIhHJHf/73rgi
+         VvUcnAw+eaf7SeMGR51OMMu+h0EtpSEuEyFwEBMzYVnsWMrFDd4czV5WjI6BXblELsgh
+         T9YY0UsJN4qoCwk6xiy8bHUFa1oSxZD8PJ/4ieECUTScr3F2r24SxaZTG1jWWU3ENrFD
+         AjWw==
+X-Forwarded-Encrypted: i=1; AKwUvBxWQEbIAzf4qJoP3HfS81HYoibxLHScfuG3J39plIBBwqot+hVZ8tqlrLYjAfyM106BjoKW3/zf47I2IdU=@vger.kernel.org
+X-Gm-Message-State: AFuF++nIeRrXKWCFqpUF6239E4mR41RZ1/R/SclIN+BYbGbdtp1BjP9F
+	R9lVX6RikQC6JbL1o+oeCcLHj3TbAIYztmXf12igHOqHyEwV+ge37dNb
+X-Gm-Gg: AYBFou29YEcN8yInyV8decy3eQ4l5dBMUmx4kIiGHXwPno4x7nEy626wiQF4vw+XbkZ
+	3YePNMxoSteCJa715cv7geJzsfZbXRHxDb+pYEIhBGYHjwHuatY7MQk0lRs3yc2wDceo29+Pfk7
+	A9PJFiH4+rYZx0+f9WqcdetmN7Xh3EIESdGX77UTO1O20c4Ifg2fDn/YqkwlaWvV7/ThaQwufWa
+	vO9a/gtwtPoifK6twkfuqjLYxQkvYS1LlocxuDtfB6tec6D+LopGYXk1XTnOtnqe6MD+IEHSaZz
+	MYCpk7/cTpKOJ203gCkHVhgw+AmJHFovoFTkNWAuX2r35wqzDdYVMSqbkdc7r6kLTpDePbWXatf
+	H+jxJS3Rv7hoyAwi1lW4oTgEgErLmR4C4ZHwAHC16Dk5YT22eluIQDi5tbq/ZUpO157aitH3Qse
+	lK5qUuviv5ZI86Wm2iWNkoBfNSwIwAQkLMDjTEK3gC9zvLVezHdq/itkdvoET4+6iXcg==
+X-Received: by 2002:a05:6808:67c2:b0:4d6:9293:9bc3 with SMTP id 5614622812f47-4f52a572fc0mr8970595b6e.61.1791179701812;
+        Sun, 04 Oct 2026 22:55:01 -0700 (PDT)
+Received: from [192.168.18.164] ([2600:8804:5716:d800::2620])
+        by smtp.gmail.com with ESMTPSA id 5614622812f47-4f523d9e947sm9334247b6e.3.2026.10.04.22.54.59
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 04 Oct 2026 22:55:00 -0700 (PDT)
+From: Ryan Brue <ryanbrue.dev@gmail.com>
+Date: Mon, 05 Oct 2026 00:54:47 -0500
+Subject: [PATCH v3] pci: Add broken-GPE quirk for some Lenovo Legions with
+ Nvidia GPUs
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260927162528.943886-1-nicoyip.dev@gmail.com>
- <20260927162528.943886-3-nicoyip.dev@gmail.com> <asMIwpXXWQaD3gAD@kernel.org> <asMQMzqVkmYhwgMB@kernel.org>
-In-Reply-To: <asMQMzqVkmYhwgMB@kernel.org>
-From: Chengfeng Ye <nicoyip.dev@gmail.com>
-Date: Mon, 5 Oct 2026 13:53:29 +0800
-X-Gm-Features: AclHuK-pkRL-PIEptFTZp1svoeb3zjIH2fPWO872zakO885qLUCTEslthC1wtlc
-Message-ID: <CAAo+4rULBiu6tOrdOjsgFcudjvyQO+DR9oZK=wms_3KxgFPNHA@mail.gmail.com>
-Subject: Re: [PATCH v3 2/2] keys: Serialize ownership transfers with key accounting
-To: Jarkko Sakkinen <jarkko@kernel.org>
-Cc: David Howells <dhowells@redhat.com>, Paul Moore <paul@paul-moore.com>, 
-	James Morris <jmorris@namei.org>, "Serge E . Hallyn" <serge@hallyn.com>, keyrings@vger.kernel.org, 
-	linux-security-module@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261005-broken-gpe-legion-v3-1-f49f465d48ec@gmail.com>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/z2MQQ6CMBAAv0L27JJtESie/IfxUMoCVaGkBaMh/
+ N2iicdJZmaFwN5ygFOyguenDdaNEbJDAqbXY8dom8ggSRaCKMfauzuP2E2MD+6ijZWpWlXqXFX
+ KQOwmz619fZ+X64/DUt/YzPtoN1rvBpx7z/r/JiWFJCqoTAspsqNAgY/30vDZc9PrOTVugG37A
+ Irx4r+wAAAA
+X-Change-ID: 20261005-broken-gpe-legion-9c9f87a5898c
+To: Bjorn Helgaas <bhelgaas@google.com>
+Cc: linux-pci@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Lyude Paul <lyude@redhat.com>, Ryan Brue <ryanbrue.dev@gmail.com>, 
+ stable@vger.kernel.org
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1791179699; l=5640;
+ i=ryanbrue.dev@gmail.com; s=20260906; h=from:subject:message-id;
+ bh=c05AaGWDZKzjXa+WhVJk65Zt6xdn0T7JDM0GokWQMdo=;
+ b=olXC+Jmtb1R5QjvWm3MWfQWKr30nDcCDpueqGqFQ+k1ulyp+WNZfu1IYO0dTgOqk3rZHM0IBC
+ u2IH593ewWfDSg11vJaYMGSva5tFxDLlMaEeRMKnlfGwKhZkj5Y9Xl/
+X-Developer-Key: i=ryanbrue.dev@gmail.com; a=ed25519;
+ pk=KsUvVaP//v/2q+ZBuacc7cLbsyEYn+AD71Sn28oZWKo=
 
-On Mon, Oct 5, 2026 at 10:49=E2=80=AFAM Jarkko Sakkinen <jarkko@kernel.org>=
- wrote:
->
-> On Mon, Oct 05, 2026 at 05:17:42AM +0300, Jarkko Sakkinen wrote:
-> > On Mon, Sep 28, 2026 at 12:25:28AM +0800, Chengfeng Ye wrote:
-> > > Protecting individual accesses to key->user does not make ownership
-> > > transfers atomic with accounting updates. keyctl_chown_key() holds
-> > > key->sem, but instantiation is serialized by key_construction_mutex a=
-nd
-> > > need not hold that semaphore. KEY_LOOKUP_PARTIAL also permits chown o=
-f
-> > > an uninstantiated key.
-> > >
-> > > The instantiated-key count can therefore be charged to the wrong owne=
-r:
-> > >
-> > >   instantiate                       keyctl_chown_key()
-> > >   lock key_user_lock
-> > >   increment old->nikeys
-> > >   unlock key_user_lock
-> > >                                     observe KEY_IS_UNINSTANTIATED
-> > >                                     skip the nikeys transfer
-> > >                                     replace key->user
-> > >   mark key instantiated
-> > >
-> > > The key becomes instantiated under the new owner while the increment
-> > > remains with the old owner. Negative instantiation has the same race.
-> > >
-> > > Quota reservation can likewise run between charging the new owner and
-> > > replacing key->user. It then adjusts the old owner's quota and change=
-s
-> > > key->quotalen while chown is transferring that quota burden.
-> > >
-> > > Extend the key_user_lock critical section in keyctl_chown_key() acros=
-s
-> > > the quota and key-count transfers, state check, and owner replacement=
-.
-> > > Also extend the instantiation critical sections across the state upda=
-te,
-> > > so chown observes the count increment and instantiated state together=
-.
-> > > The existing per-user quota locks continue to serialize quota changes
-> > > against other keys owned by the same user.
-> > >
-> > > Keep allocations, notifications and reference release outside
-> > > key_user_lock, and release it on the quota-overrun path.
-> > >
-> > > Fixes: 5801649d8b83 ("[PATCH] keys: let keyctl_chown() change a key's=
- owner")
-> > > Cc: stable@vger.kernel.org
-> > > Signed-off-by: Chengfeng Ye <nicoyip.dev@gmail.com>
-> > > ---
-> > > Changes in v3:
-> > > - Split from v2 as patch 2/2; see the cover letter for the full split=
-.
-> > > - Rebase onto current mainline and retain explicit reader-side lockin=
-g.
-> > >
-> > > v2: https://lore.kernel.org/r/20260904080940.575882-1-nicoyip.dev@gma=
-il.com/
-> > >
-> > >  security/keys/key.c    | 4 ++--
-> > >  security/keys/keyctl.c | 6 ++++--
-> > >  2 files changed, 6 insertions(+), 4 deletions(-)
-> > >
-> > > diff --git a/security/keys/key.c b/security/keys/key.c
-> > > index d0d583194b05..54c675b3b58d 100644
-> > > --- a/security/keys/key.c
-> > > +++ b/security/keys/key.c
-> > > @@ -454,8 +454,8 @@ static int __key_instantiate_and_link(struct key =
-*key,
-> > >                     /* mark the key as being instantiated */
-> > >                     spin_lock(&key_user_lock);
-> > >                     atomic_inc(&key->user->nikeys);
-> > > -                   spin_unlock(&key_user_lock);
-> > >                     mark_key_instantiated(key, 0);
-> > > +                   spin_unlock(&key_user_lock);
-> > >                     notify_key(key, NOTIFY_KEY_INSTANTIATED, 0);
-> > >
-> > >                     if (test_and_clear_bit(KEY_FLAG_USER_CONSTRUCT, &=
-key->flags))
-> > > @@ -613,8 +613,8 @@ int key_reject_and_link(struct key *key,
-> > >             /* mark the key as being negatively instantiated */
-> > >             spin_lock(&key_user_lock);
-> > >             atomic_inc(&key->user->nikeys);
-> > > -           spin_unlock(&key_user_lock);
-> > >             mark_key_instantiated(key, -error);
-> > > +           spin_unlock(&key_user_lock);
-> > >             notify_key(key, NOTIFY_KEY_INSTANTIATED, -error);
-> > >             key_set_expiry(key, ktime_get_real_seconds() + timeout);
-> > >
-> > > diff --git a/security/keys/keyctl.c b/security/keys/keyctl.c
-> > > index c17924609317..83a9575b084e 100644
-> > > --- a/security/keys/keyctl.c
-> > > +++ b/security/keys/keyctl.c
-> > > @@ -1004,6 +1004,8 @@ long keyctl_chown_key(key_serial_t id, uid_t us=
-er, gid_t group)
-> > >             if (!newowner)
-> > >                     goto error_put;
-> > >
-> > > +           spin_lock(&key_user_lock);
-> > > +
-> > >             /* transfer the quota burden to the new user */
-> > >             if (test_bit(KEY_FLAG_IN_QUOTA, &key->flags)) {
-> > >                     unsigned maxkeys =3D uid_eq(uid, GLOBAL_ROOT_UID)=
- ?
-> > > @@ -1036,11 +1038,10 @@ long keyctl_chown_key(key_serial_t id, uid_t =
-user, gid_t group)
-> > >                     atomic_inc(&newowner->nikeys);
-> > >             }
-> > >
-> > > -           spin_lock(&key_user_lock);
-> > >             zapowner =3D key->user;
-> > >             key->user =3D newowner;
-> > > -           spin_unlock(&key_user_lock);
-> > >             key->uid =3D uid;
-> > > +           spin_unlock(&key_user_lock);
-> > >     }
-> > >
-> > >     /* change the GID */
-> > > @@ -1060,6 +1061,7 @@ long keyctl_chown_key(key_serial_t id, uid_t us=
-er, gid_t group)
-> > >
-> > >  quota_overrun:
-> > >     spin_unlock_irqrestore(&newowner->lock, flags);
-> > > +   spin_unlock(&key_user_lock);
-> > >     zapowner =3D newowner;
-> > >     ret =3D -EDQUOT;
-> > >     goto error_put;
-> > > --
-> > > 2.43.0
-> > >
-> >
-> > I double-checked this patch too given the concerns on 1/2 but nope, thi=
-s
-> > does not raise similar concerns as every critical section is strictly
-> > related to ownership change.
-> >
-> > E.g., I can be sure that the granularity is where it should be and lock=
-s
-> > are actually needed in the first place.
-> >
-> > Thus, I'm still including this patch to my next PR, and drop the first
-> > one.
->
-> By dropping 1/2 I found out that 2/2 key.c becomes:
->
-> diff --git a/security/keys/key.c b/security/keys/key.c
-> index a438c4508595..de63120c51ad 100644
-> --- a/security/keys/key.c
-> +++ b/security/keys/key.c
-> @@ -449,6 +449,7 @@ static int __key_instantiate_and_link(struct key *key=
-,
->                         /* mark the key as being instantiated */
->                         atomic_inc(&key->user->nikeys);
->                         mark_key_instantiated(key, 0);
-> +                       spin_unlock(&key_user_lock);
->                         notify_key(key, NOTIFY_KEY_INSTANTIATED, 0);
->
->                         if (test_and_clear_bit(KEY_FLAG_USER_CONSTRUCT, &=
-key->flags))
-> @@ -606,6 +607,7 @@ int key_reject_and_link(struct key *key,
->                 /* mark the key as being negatively instantiated */
->                 atomic_inc(&key->user->nikeys);
->                 mark_key_instantiated(key, -error);
-> +               spin_unlock(&key_user_lock);
->                 notify_key(key, NOTIFY_KEY_INSTANTIATED, -error);
->                 key_set_expiry(key, ktime_get_real_seconds() + timeout);
->
-> This type of interleaving should never happen in a patch series.
->
-> Please don't rush your changes like this in future.
->
-> Br, Jarkko
+From: Lyude Paul <lyude@redhat.com>
 
-Sorry for the mistake, I should have carefully verified that the tree
-remained valid at each step of the series.
+On certain Lenovo Legion devices (including the 16APH8, 16AHP9, and
+15AHP9), the firmware appears to enjoy firing a GPE on the parent PCIe
+port of the nvidia GPU very shortly after the GPU enters D3Cold. This means
+that every time the GPU is runtime suspended, ACPI firmware immediately
+wakes up its parent PCIe port, which then wakes up the GPU. Once it falls
+asleep again, the cycle repeats.
 
-I will rework the locking on 1/2 to inspect if there might be any
-unnecessary coverage, and verify each intermediate commit
-independently before sending a revised version for the patch series.
+Note, this bug doesn't require Nvidia's driver. It happens on nouveau and
+nova as well, and it even seems possible for this to happen without any
+driver loaded.
+
+This seems to simply be a bug. Luckily, there is nothing that we actually
+need ACPI wakeup events for on the GPU. Events such as display connector
+hotplug events in D3Cold come through as ACPI_VIDEO events which aren't
+affected by this quirk.
+
+Reported-by: Ryan Brue <ryanbrue.dev@gmail.com>
+Link: https://github.com/NVIDIA/open-gpu-kernel-modules/issues/905
+Co-developed-by: Ryan Brue <ryanbrue.dev@gmail.com>
+Signed-off-by: Ryan Brue <ryanbrue.dev@gmail.com>
+Signed-off-by: Lyude Paul <lyude@redhat.com>
+Cc: stable@vger.kernel.org
+---
+V3:
+* Add the Lenovo LOQ 15AHP9 to the quirk table (@jindalpratik on GitHub)
+* Also match Nvidia RTX 4070 Max-Q (0x2860), which similarly refuses to
+  stay in D3Cold (@inigo001 on GitHub)
+V2:
+* Don't forget to actually use parent_adev with acpi_remove_pm_notifier()
+* Check if parent_adev is NULL (could happen if booted with acpi=off), just
+  consider it a no-op if it is.
+* Base the patch off Linux master instead, I based it off drm-misc-next by
+  mistake because I'm too used to working on DRM drivers :).
+---
+Tested on all the modified Legion devices. The Nvidia dGPU properly goes
+into D3Cold with the patch, whereas without it, the dGPU will wake up
+shortly after going to D3Cold. See the linked open-gpu-kernel-modules
+issue for more details.
+
+Lyude gave me permission to send out the v3 with modifications, as she has
+been busy.
+---
+ drivers/pci/quirks.c | 88 ++++++++++++++++++++++++++++++++++++++++++++++++++++
+ 1 file changed, 88 insertions(+)
+
+diff --git a/drivers/pci/quirks.c b/drivers/pci/quirks.c
+index de9bbccda21f..f0ea0a722183 100644
+--- a/drivers/pci/quirks.c
++++ b/drivers/pci/quirks.c
+@@ -6169,6 +6169,94 @@ DECLARE_PCI_FIXUP_CLASS_FINAL(PCI_VENDOR_ID_NVIDIA, 0x13b1,
+ 			      PCI_CLASS_DISPLAY_VGA, 8,
+ 			      quirk_reset_lenovo_thinkpad_p50_nvgpu);
+ 
++#ifdef CONFIG_ACPI
++#ifdef CONFIG_DMI
++static const struct dmi_system_id nvidia_dgpu_broken_gpe_quirk_table[] = {
++	{
++		.matches = {
++			DMI_EXACT_MATCH(DMI_SYS_VENDOR, "LENOVO"),
++			DMI_MATCH(DMI_PRODUCT_VERSION, "15AHP9"),
++		},
++	},
++	{
++		.matches = {
++			DMI_EXACT_MATCH(DMI_SYS_VENDOR, "LENOVO"),
++			DMI_MATCH(DMI_PRODUCT_VERSION, "16APH8"),
++		},
++	},
++	{
++		.matches = {
++			DMI_EXACT_MATCH(DMI_SYS_VENDOR, "LENOVO"),
++			DMI_MATCH(DMI_PRODUCT_VERSION, "16AHP9"),
++		},
++	},
++	{}
++};
++
++/*
++ * On the Lenovo Legion Slim 5 16APH8 and 16AHP9, the firmware appears to enjoy
++ * firing a GPE on the parent PCIe port of the nvidia GPU very shortly after the
++ * GPU enters D3Cold. This means that every time the GPU is runtime suspended,
++ * ACPI firmware immediately wakes up its parent PCIe port, which then wakes up
++ * the GPU. Once it falls asleep again, the cycle repeats.
++ *
++ * See: https://github.com/NVIDIA/open-gpu-kernel-modules/issues/905
++ *
++ * Note, this bug doesn't require Nvidia's driver. It happens on nouveau and
++ * nova as well, and it even seems possible for this to happen without any
++ * driver loaded.
++ *
++ * This seems to simply be a bug. Luckily, there is nothing that we actually
++ * need ACPI wakeup events for on the GPU. Events such as display connector
++ * hotplug events in D3Cold come through as ACPI_VIDEO events which aren't
++ * affected by this quirk.
++ *
++ * So, workaround this by disabling wakeup events for the parent PCIe port of
++ * the GPU.
++ */
++static void quirk_nvidia_dgpu_broken_gpe(struct pci_dev *pdev)
++{
++	struct acpi_device *parent_adev;
++	struct device *parent_dev;
++	int ret;
++
++	/* Just to be extra safe and make sure we don't try this on an eGPU */
++	if (pci_is_thunderbolt_attached(pdev))
++		return;
++
++	ret = dmi_check_system(nvidia_dgpu_broken_gpe_quirk_table);
++	if (ret == 0)
++		return;
++
++	pci_info(pdev, FW_BUG "GPU PCIe port has broken wakeup events, disabling\n");
++
++	parent_dev = pci_physfn(pdev)->dev.parent;
++	if (!parent_dev) {
++		pci_err(pdev,
++			"Can't find PCIe parent? Your Nvidia GPU will have broken runtime PM\n");
++		return;
++	}
++
++	parent_adev = ACPI_COMPANION(parent_dev);
++	if (!parent_adev) /* No ACPI? That means no GPE, and nothing to do here. */
++		return;
++
++	/* The spurious GPEs will be sent from the ACPI device for the PCIe port this GPU is
++	 * connected to, so remove our PM notifier to turn them into a no-op.
++	 */
++	ret = acpi_remove_pm_notifier(parent_adev);
++	if (ACPI_FAILURE(ret))
++		pci_err(pdev, "Removing PM notifier failed: %d\n", ret);
++}
++DECLARE_PCI_FIXUP_CLASS_FINAL(PCI_VENDOR_ID_NVIDIA, 0x28e0,
++			      PCI_CLASS_DISPLAY_VGA, 8,
++			      quirk_nvidia_dgpu_broken_gpe);
++DECLARE_PCI_FIXUP_CLASS_FINAL(PCI_VENDOR_ID_NVIDIA, 0x2860,
++			      PCI_CLASS_DISPLAY_VGA, 8,
++			      quirk_nvidia_dgpu_broken_gpe);
++#endif
++#endif
++
+ /*
+  * Device [1b21:2142]
+  * When in D0, PME# doesn't get asserted when plugging USB 3.0 device.
+
+---
+base-commit: a90ee4305c4a5df72c11b31dacfdc76e00fcf78a
+change-id: 20261005-broken-gpe-legion-9c9f87a5898c
 
 Best regards,
-Chengfeng
+--  
+Ryan Brue <ryanbrue.dev@gmail.com>
+
