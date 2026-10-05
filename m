@@ -1,121 +1,94 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id B78A7547072
-	for <linux-kernel@vger.kernel.org>; Mon,  5 Oct 2026 02:37:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from mail-pg1-f199.google.com (mail-pg1-f199.google.com [209.85.215.199])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 469641F3B85
+	for <linux-kernel@vger.kernel.org>; Mon,  5 Oct 2026 02:40:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.199
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791167825; cv=none; b=FH6Si8z/df6vJNTymRsql8BOdfauiemuRmmILrfHhy2oV4We0iTRgYstIZDedoTo3SD3RJKw7QG4K7ADUPrtH3kHSkwy+hNOxn6xr5oU7V5+XZmAbqQ40t7H4w42Cp7CPWCNBE1zIM8+wBr2pWYnTZ40t2e6jv3iMeyhzMR29/k=
+	t=1791168002; cv=none; b=gscLRuVfq+W8M9ySJGnwtQDS+EmrpD+lOAZxgoS5kz9wOzJnI/EepoJWP3UVD8TjIQ/TTJWmVBjV4ezCFb4ULlFblW07Sq7XOUJEl8GIOJiaf17n3g9ODa3CT1Mxn7o397CRzlMBxOn5/MFF5foez+wKWH/b2rirdg+xyVM9ios=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791167825; c=relaxed/simple;
-	bh=vl5s19mW9JNXxaeLZH+yT4sg+eJntMKRYJiYiz2MomI=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=OFbuLoiCRT2Pe9PIYN15Nxo41g9TpapKK5ydeBPdMgYCj3lcoJkBoPejV7gTraUoVSR/Gnii+JDGop9UFQO0LFWrj2FThxGlS5WQpLTduGxTS2HrRECBIPhV86RdCbBVEucwfZTdJEPZ3UXMOZY0xtQpFSGMybs9BJ7H2rr1840=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=rnGKV3nE; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	s=arc-20240116; t=1791168002; c=relaxed/simple;
+	bh=VOGPZRYZ665kECnYosasWRGv4iW89S9j9spuV8erKuI=;
+	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
+	 To:Cc:Content-Type; b=HQzC61nUCEUge2A5WcQU6aDn1TFa8l914fzpFoRCNle/0zok2+Uu7+1xxrF9PibtIiAJJ9+X//QLo7Y6jC3n1L+QfGiz2KLOD2LmBRGBL0rTtW//xWUDx47fhIQ2xzNyntsxFjKP41fmu//nDFeVGGcFOAIuWkq3hK666kUUfuE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=ivh3Dg5Y; arc=none smtp.client-ip=209.85.215.199
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="rnGKV3nE"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id F37D81595;
-	Sun,  4 Oct 2026 19:36:57 -0700 (PDT)
-Received: from localhost (a085714.arm.com [10.164.19.28])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 9D30B3F763;
-	Sun,  4 Oct 2026 19:37:00 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1791167821; bh=vl5s19mW9JNXxaeLZH+yT4sg+eJntMKRYJiYiz2MomI=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=rnGKV3nEwlK1X7k2zdzTLzFY3mWapTTQwNrztTtOi3ummT0/lyYsdvlaUhu45qvFY
-	 xpwyQmnpwBWKkCvOdt+6ByczUIMmQ23umDaPucYD6k+OSjQ5ZsFEXF3+XcahbKsM9i
-	 XYobLAf2SI5KCsWqouvorXCBMdU284WPfwjFxhIc=
-Date: Mon, 5 Oct 2026 08:06:57 +0530
-From: Anshuman Khandual <anshuman.khandual@arm.com>
-To: Sang-Heon Jeon <ekffu200098@gmail.com>
-Cc: Andrew Morton <akpm@linux-foundation.org>, 
-	David Hildenbrand <david@kernel.org>, "Jose A . Perez de Azpillaga" <azpijr@gmail.com>, 
-	"Liam R. Howlett" <liam@infradead.org>, linux-kernel@vger.kernel.org, linux-mm@kvack.org, 
-	Lorenzo Stoakes <ljs@kernel.org>, Michal Hocko <mhocko@suse.com>, Mike Rapoport <rppt@kernel.org>, 
-	Suren Baghdasaryan <surenb@google.com>, Vlastimil Babka <vbabka@kernel.org>
-Subject: Re: [PATCH v2 1/3] mm/memory: remove unused
- vmf_insert_mixed_mkwrite()
-Message-ID: <d7bksa3fzrynovdlajlvlnlwzgkyw433dyp7zkvme562hrxap6@xfifh46fce5n>
-References: <20261002160535.661399-1-ekffu200098@gmail.com>
- <20261002160535.661399-2-ekffu200098@gmail.com>
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="ivh3Dg5Y"
+Received: by mail-pg1-f199.google.com with SMTP id 41be03b00d2f7-cc11b5dd54dso2356184a12.3
+        for <linux-kernel@vger.kernel.org>; Sun, 04 Oct 2026 19:40:01 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1791168000; x=1791772800; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=o9HTQO2rUlDTOnGrtLyq1XH041/gAEdrB3b/I0PgRl8=;
+        b=ivh3Dg5Y1m+NP02W3Skd74aSlF/vWfBhpKQ2j0vKXCsa4Bh6MVILkLepbu6dsU7qQh
+         FgLuN71QtyG3IJQ0283aOknIqr8cnyBWKh8HTbOB0UGtw8oj8Ixl1UutvOFBT/byrprB
+         f0z2dop1aV/pprw2Z6KfyCMvsz2nhqjnebCvKuxj2MreAyDHJRzwftjz4mAwYqVKUtDQ
+         8tZl/rRZe5jbxHTPPUnPZfQf5uFVC8ibAi8wWfKi+LL25iHTWolb4IFxYa3yJsAzSNgx
+         A8JQLkujYe+4WI2uHSxHJsY3hGtJlYN140BypHXMOrF0Cw2ggLetXW8yy2K/Yc6d4yA4
+         L03Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791168000; x=1791772800;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=o9HTQO2rUlDTOnGrtLyq1XH041/gAEdrB3b/I0PgRl8=;
+        b=k5BromXKHC7H1qjssDCO784p3GMDJJKjvewHxY2nMfKhLohSwbYVqTtTk2TAMDTq7J
+         SSK/f4tcXfSHP6U+qe+ezng1URil1iipwuc2o/2Gx01pF6qJxjQDDhxlFb6XMuKtEPC8
+         48gppRcPdBn8laa9Vvu0zGZt8qvpgzu6fk7WNnpNqAoQAV69ZHVTSsYsgIygz30p0Z1s
+         FNWL4vM5+y4yODzTimjEZDEJAvajqtNhdrs+T8xYiPTEzVbsj7bmRolwY8XOEaGBWSy4
+         kmi+EdEDwtQ0O45RprhzT8kigxcC4d26luvxQqBQ+9rSOcG4qn/Xl8TpVWf9dwYJNA0f
+         UY/w==
+X-Forwarded-Encrypted: i=1; AKwUvBzjdgIqRn6m6R9ugg8BSZ1dvjzKisVQC/wxf+1l2Tfd447yJ6obLFLZ6FesueR2mOPdz/+YCWbwY2xLuV0=@vger.kernel.org
+X-Gm-Message-State: AFuF++ndYYsYTV+EQjlU6h7bQyksAknBZ9vs2h4dcQfQ86oS/tfTiTZT
+	K81aPJ7vGqB0A7LIhudtfsDaHyiblMzuJkY8rH0Q/ermTOiJYRUjQaYHO/PQHSGTFktrbVNtnYh
+	wTojlog==
+X-Received: from pfm17.prod.google.com ([2002:a05:6a00:731:b0:88f:62f8:bdbc])
+ (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a05:6a21:6e92:b0:3e0:651a:d150
+ with SMTP id adf61e73a8af0-3e0d6b1e9damr5767266637.43.1791168000327; Sun, 04
+ Oct 2026 19:40:00 -0700 (PDT)
+Date: Sun, 4 Oct 2026 19:39:57 -0700
+In-Reply-To: <h5j3jn86.ritesh.list@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261002160535.661399-2-ekffu200098@gmail.com>
+Mime-Version: 1.0
+References: <cover.1790101179.git.ritesh.list@gmail.com> <pkxwkffc.ritesh.list@gmail.com>
+ <asAydfQLscU6rXQL@google.com> <h5j3jn86.ritesh.list@gmail.com>
+Message-ID: <asMN_TAX-1_J3jiP@google.com>
+Subject: Re: [PATCH v5 0/9] KVM: selftests: add powerpc support
+From: Sean Christopherson <seanjc@google.com>
+To: Ritesh Harjani <ritesh.list@gmail.com>
+Cc: kvm@vger.kernel.org, Paolo Bonzini <pbonzini@redhat.com>, linuxppc-dev@lists.ozlabs.org, 
+	Michael Ellerman <mpe@ellerman.id.au>, Christophe Leroy <chleroy@kernel.org>, 
+	Anushree Mathur <anushree.mathur@linux.ibm.com>, 
+	Venkat Rao Bagalkote <venkat88@linux.ibm.com>, Harsh Prateek Bora <harshpb@linux.ibm.com>, 
+	Madhavan Srinivasan <maddy@linux.ibm.com>, Shrikanth Hegde <sshegde@linux.ibm.com>, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="us-ascii"
 
-On Sat, Oct 03, 2026 at 01:05:32AM +0900, Sang-Heon Jeon wrote:
-> Since commit 38607c62b34b ("fs/dax: properly refcount fs dax pages"),
-> vmf_insert_mixed_mkwrite() has no callers.
-> 
-> So remove the function and its declaration.
-> 
-> The comment above the function describes the -EBUSY handling in
-> __vm_insert_mixed(). Move it above that check.
-> 
-> No functional change.
-> 
-> Signed-off-by: Sang-Heon Jeon <ekffu200098@gmail.com>
+On Sat, Oct 03, 2026, Ritesh Harjani wrote:
+> Sean Christopherson <seanjc@google.com> writes:
+> Also note - I will open code the TEST_GEN_PROGS_COMMON and will skip the
+> kvm_create_max_vcpus
 
-Reviewed-by: Anshuman Khandual <anshuman.khandual@arm.com>
+Oh, right, kvm_create_max_vcpus is a common test.  Can userspace detect that it's
+running KVM-on-PowerVM (in a not completely unpleasant way)?  If so, an alternative
+would be to keep the KVM_CAP_PPC_SMT change in v6 (patch 2) as a prep patch (before
+adding PPC support to Makefile.kvm), and then add a
+TEST_REQUIRE(!kvm_is_on_ppc_powervm()) or whatever.
 
-> ---
->  include/linux/mm.h |  2 --
->  mm/memory.c        | 16 +++++-----------
->  2 files changed, 5 insertions(+), 13 deletions(-)
-> 
-> diff --git a/include/linux/mm.h b/include/linux/mm.h
-> index c038d06825c3..2ac734efd4ec 100644
-> --- a/include/linux/mm.h
-> +++ b/include/linux/mm.h
-> @@ -5008,8 +5008,6 @@ vm_fault_t vmf_insert_pfn_prot(struct vm_area_struct *vma, unsigned long addr,
->  			unsigned long pfn, pgprot_t pgprot);
->  vm_fault_t vmf_insert_mixed(struct vm_area_struct *vma, unsigned long addr,
->  			unsigned long pfn);
-> -vm_fault_t vmf_insert_mixed_mkwrite(struct vm_area_struct *vma,
-> -		unsigned long addr, unsigned long pfn);
->  int vm_iomap_memory(struct vm_area_struct *vma, phys_addr_t start, unsigned long len);
->  
->  static inline vm_fault_t vmf_insert_page(struct vm_area_struct *vma,
-> diff --git a/mm/memory.c b/mm/memory.c
-> index 330cde31bf8b..4b2e4be28031 100644
-> --- a/mm/memory.c
-> +++ b/mm/memory.c
-> @@ -3052,6 +3052,11 @@ static vm_fault_t __vm_insert_mixed(struct vm_area_struct *vma,
->  
->  	if (err == -ENOMEM)
->  		return VM_FAULT_OOM;
-> +	/*
-> +	 *  If the insertion of PTE failed because someone else already added a
-> +	 *  different entry in the mean time, we treat that as success as we assume
-> +	 *  the same entry was actually inserted.
-> +	 */
->  	if (err < 0 && err != -EBUSY)
->  		return VM_FAULT_SIGBUS;
->  
-> @@ -3085,17 +3090,6 @@ vm_fault_t vmf_insert_mixed(struct vm_area_struct *vma, unsigned long addr,
->  }
->  EXPORT_SYMBOL(vmf_insert_mixed);
->  
-> -/*
-> - *  If the insertion of PTE failed because someone else already added a
-> - *  different entry in the mean time, we treat that as success as we assume
-> - *  the same entry was actually inserted.
-> - */
-> -vm_fault_t vmf_insert_mixed_mkwrite(struct vm_area_struct *vma,
-> -		unsigned long addr, unsigned long pfn)
-> -{
-> -	return __vm_insert_mixed(vma, addr, pfn, true);
-> -}
-> -
->  /*
->   * maps a range of physical memory into the requested pages. the old
->   * mappings are removed. any references to nonexistent pages results
-> -- 
-> 2.43.0
-> 
+I think I'd even prefer to take on an #ifdef (to scope it to PPC if necessary)
+over open coding TEST_GEN_PROGS_COMMON.  LoongArch open coded its full test list
+for some reason, and in less than a year it has started missing out on new common
+tests.
+
+> (& maybe few others like vm_types_test) from that in v6.
+
+What's wrong with VM types test?  That one really should Just Work on all
+architectures.  It doesn't run on LoongArch, but I assume that's oversight?
