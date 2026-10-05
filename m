@@ -1,115 +1,94 @@
-Received: from shelob.surriel.com (shelob.surriel.com [96.67.55.147])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0416346C4AE
-	for <linux-kernel@vger.kernel.org>; Mon,  5 Oct 2026 10:58:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=96.67.55.147
+Received: from linux.microsoft.com (linux.microsoft.com [13.77.154.182])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 9E10943E9FC;
+	Mon,  5 Oct 2026 10:58:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=13.77.154.182
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791197919; cv=none; b=CRKh2wMD7EXjqXVNETGSJjLq4AWYLm5falIP04l2beiuYyB8V92Q0vNXdEgkhxApyKqfQTHS+qZAYl1HgoVgfYfhJkKG/mA5OOpXeBIlXuKQpMbJQ/K7Tpie4HlSDl1JN+MES5Cr04dAe6aTrM2DurXxKIAKl7LJfo++++J0OCM=
+	t=1791197935; cv=none; b=aHaFlZkTmKVDa5yLVLF8An64xDPuEZlr8X9gOSHLNmUCu8nWOLqbcfyX9ewUWfyi0OHDEZD97v8N8QvnsnRfxZtiKr+HFluhwtvu9vs2la+/7fv74V/cCvpNgWgRqniX2YLRth+SHlkYn3lm55k+87HrK4t/lQza9B6gP2gh1uQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791197919; c=relaxed/simple;
-	bh=MnjNsZvLBxlh06WEotH4Sv0vETbpUxjht0MF5KzNVik=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=AWZkGjS8mwkm7aTKiU1abz2cPFEdVjdTLMdvS08x3GLdBh7AcPBmTwZ3Dh1okBNaDDMBzKer57pHsL0Z0qtyk4DpzIx++/yrE/HNQOPOhPvzWL5pXtDyuZxQsDMKHPkbB1vSOuNWteZbQToA5bozlAZvM02mMPdUKFTYuEPiZ1w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=surriel.com; spf=pass smtp.mailfrom=surriel.com; dkim=pass (2048-bit key) header.d=surriel.com header.i=@surriel.com header.b=OLkmd7K9; arc=none smtp.client-ip=96.67.55.147
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=surriel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=surriel.com
+	s=arc-20240116; t=1791197935; c=relaxed/simple;
+	bh=XKivEEfqJ1Loxg/zjvRlcQxbdujmDiM0i6o6RGWb0X0=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=sy6oM5o478XnI4EZrKO1EHE3hYb6N4aG2PNOH9hI6L6Kdp3KIVP2OimPW2LYls8BDgVZWEbpJ7wvkivNm79fbs0b8Hy3lwLLbREyDdjhwyfgrcL1kBReRMcbedebIR2Xwv98tf67uQbqb8rwnj1hLH5qHs9Jwr+N+4BtzI34OmI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com; spf=pass smtp.mailfrom=linux.microsoft.com; dkim=pass (1024-bit key) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.b=Z7J/MNr0; arc=none smtp.client-ip=13.77.154.182
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.microsoft.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=surriel.com header.i=@surriel.com header.b="OLkmd7K9"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=surriel.com
-	; s=mail; h=MIME-Version:Content-Transfer-Encoding:Content-Type:References:
-	In-Reply-To:Date:Cc:To:From:Subject:Message-ID:Sender:Reply-To:Content-ID:
-	Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
-	:Resent-Message-ID; bh=MnjNsZvLBxlh06WEotH4Sv0vETbpUxjht0MF5KzNVik=; b=OLkmd7
-	K991WN4E1A3Yoki6X/aL+GxIm7cGVR9lvUjfl9DyfmB//E/pNrVsdP/ojFz4kdzToWpV8NWfu5AZc
-	VBoYv4nlMeb6pcRv/4CAyyUBEFuIynVu+LZb2bJg0TAG+K3D2+vInIw1mrMBjppQWQZFcB5gE7Vm1
-	zLYXaQ59k0QYtIlIQuaPQQ7iEZHltLga4jfLg9sDhKZo3Unojbt/f5haCAM2KBW8HDrbvib8IwNzw
-	O6MUTGOWXoEiPNOCFyDQqROJI5v1nXuBZ9uHYhTc2Rb54MO07fGFhxrz2oT8jUFTOoMO/2EBuXW/G
-	TKVtdnYb4O5pzOd9zrS2aGVl8HVg==;
-Received: from [2601:18c:8100:a0e0:2541:b86e:2586:d219]
-	by shelob.surriel.com with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
-	(Exim 4.99.5)
-	(envelope-from <riel@surriel.com>)
-	id 1xDgOc-00000006ENN-1cWN;
-	Mon, 05 Oct 2026 10:58:14 +0000
-Message-ID: <6047f10bc230a7d34628c0021373e407279bf3dd.camel@surriel.com>
-Subject: Re: hunting memory corruption bug in 6.18.x
-From: Rik van Riel <riel@surriel.com>
-To: Nikola Ciprich <nikola.ciprich@linuxbox.cz>, "Lorenzo Stoakes (ARM)"
-	 <ljs@kernel.org>
-Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org,
- akpm@linux-foundation.org, 	david@kernel.org, Mike Rapoport
- <rppt@kernel.org>, Dave Hansen	 <dave.hansen@linux.intel.com>, Pedro
- Falcato <pfalcato@suse.de>, Kiryl Shutsemau <kas@kernel.org>,
- luizcap@redhat.com, pbonzini@redhat.com
-Date: Mon, 05 Oct 2026 06:58:13 -0400
-In-Reply-To: <ar63St2LBfCdyhwj@pcnci.linuxbox.cz>
-References: <arY1Wq6R9OY20ans@pcnci.linuxbox.cz> <arZHp8hjYFXE8Rkt@gremlin>
-	 <arde/t0zQNEkWqi5@pcnci.linuxbox.cz> <areOeRwZOez0eHm7@gremlin>
-	 <arotyz5g6LozSjb1@pcnci.linuxbox.cz> <arwNebjYXyGqrp32@pcnci.linuxbox.cz>
-	 <arzRBv9ceJsxJppI@gremlin> <ar1Xl7PE2rcoT9h3@pcnci.linuxbox.cz>
-	 <ar63St2LBfCdyhwj@pcnci.linuxbox.cz>
-Autocrypt: addr=riel@surriel.com; prefer-encrypt=mutual;
- keydata=mQENBFIt3aUBCADCK0LicyCYyMa0E1lodCDUBf6G+6C5UXKG1jEYwQu49cc/gUBTTk33A
- eo2hjn4JinVaPF3zfZprnKMEGGv4dHvEOCPWiNhlz5RtqH3SKJllq2dpeMS9RqbMvDA36rlJIIo47
- Z/nl6IA8MDhSqyqdnTY8z7LnQHqq16jAqwo7Ll9qALXz4yG1ZdSCmo80VPetBZZPw7WMjo+1hByv/
- lvdFnLfiQ52tayuuC1r9x2qZ/SYWd2M4p/f5CLmvG9UcnkbYFsKWz8bwOBWKg1PQcaYHLx06sHGdY
- dIDaeVvkIfMFwAprSo5EFU+aes2VB2ZjugOTbkkW2aPSWTRsBhPHhV6dABEBAAG0HlJpayB2YW4gU
- mllbCA8cmllbEByZWRoYXQuY29tPokBHwQwAQIACQUCW5LcVgIdIAAKCRDOed6ShMTeg05SB/986o
- gEgdq4byrtaBQKFg5LWfd8e+h+QzLOg/T8mSS3dJzFXe5JBOfvYg7Bj47xXi9I5sM+I9Lu9+1XVb/
- r2rGJrU1DwA09TnmyFtK76bgMF0sBEh1ECILYNQTEIemzNFwOWLZZlEhZFRJsZyX+mtEp/WQIygHV
- WjwuP69VJw+fPQvLOGn4j8W9QXuvhha7u1QJ7mYx4dLGHrZlHdwDsqpvWsW+3rsIqs1BBe5/Itz9o
- 6y9gLNtQzwmSDioV8KhF85VmYInslhv5tUtMEppfdTLyX4SUKh8ftNIVmH9mXyRCZclSoa6IMd635
- Jq1Pj2/Lp64tOzSvN5Y9zaiCc5FucXtB9SaWsgdmFuIFJpZWwgPHJpZWxAc3VycmllbC5jb20+iQE
- +BBMBAgAoBQJSLd2lAhsjBQkSzAMABgsJCAcDAgYVCAIJCgsEFgIDAQIeAQIXgAAKCRDOed6ShMTe
- g4PpB/0ZivKYFt0LaB22ssWUrBoeNWCP1NY/lkq2QbPhR3agLB7ZXI97PF2z/5QD9Fuy/FD/jddPx
- KRTvFCtHcEzTOcFjBmf52uqgt3U40H9GM++0IM0yHusd9EzlaWsbp09vsAV2DwdqS69x9RPbvE/Ne
- fO5subhocH76okcF/aQiQ+oj2j6LJZGBJBVigOHg+4zyzdDgKM+jp0bvDI51KQ4XfxV593OhvkS3z
- 3FPx0CE7l62WhWrieHyBblqvkTYgJ6dq4bsYpqxxGJOkQ47WpEUx6onH+rImWmPJbSYGhwBzTo0Mm
- G1Nb1qGPG+mTrSmJjDRxrwf1zjmYqQreWVSFEt26tBpSaWsgdmFuIFJpZWwgPHJpZWxAZmIuY29tP
- okBPgQTAQIAKAUCW5LbiAIbIwUJEswDAAYLCQgHAwIGFQgCCQoLBBYCAwECHgECF4AACgkQznneko
- TE3oOUEQgAsrGxjTC1bGtZyuvyQPcXclap11Ogib6rQywGYu6/Mnkbd6hbyY3wpdyQii/cas2S44N
- cQj8HkGv91JLVE24/Wt0gITPCH3rLVJJDGQxprHTVDs1t1RAbsbp0XTksZPCNWDGYIBo2aHDwErhI
- omYQ0Xluo1WBtH/UmHgirHvclsou1Ks9jyTxiPyUKRfae7GNOFiX99+ZlB27P3t8CjtSO831Ij0Ip
- QrfooZ21YVlUKw0Wy6Ll8EyefyrEYSh8KTm8dQj4O7xxvdg865TLeLpho5PwDRF+/mR3qi8CdGbkE
- c4pYZQO8UDXUN4S+pe0aTeTqlYw8rRHWF9TnvtpcNzZw==
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.60.2 (3.60.2-1.fc44) 
+	dkim=pass (1024-bit key) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.b="Z7J/MNr0"
+Received: from example.com (unknown [167.220.208.46])
+	by linux.microsoft.com (Postfix) with ESMTPSA id C2BD820B7166;
+	Mon,  5 Oct 2026 03:48:57 -0700 (PDT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com C2BD820B7166
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.microsoft.com;
+	s=default; t=1791197340;
+	bh=bOV1KkbqIPodySJYR8HJdIIEeWJmHDi+JcH9/BuX10U=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=Z7J/MNr0Z+/8N6JcXho3uzFWfTC8ak5iHhEr/WXHDfYyB7OKrmrNPjGig6cPjHQed
+	 wJf9dq0hEYjlpStr10GQg6Oes0mW9u2acxH7FP4SgWVzooYRdt2SAPWdVfSUalNj6j
+	 3J0I7gap/hd01KLpVeLYmG4C76lOBl3LFZ+0kwTs=
+Date: Mon, 5 Oct 2026 12:49:49 +0200
+From: Magnus Kulke <magnuskulke@linux.microsoft.com>
+To: Michael Kelley <mhklinux@outlook.com>
+Cc: "linux-hyperv@vger.kernel.org" <linux-hyperv@vger.kernel.org>,
+	Paolo Bonzini <pbonzini@redhat.com>,
+	Souradeep Chakrabarti <schakrabarti@microsoft.com>,
+	Wei Liu <liuwe@microsoft.com>,
+	Haiyang Zhang <haiyangz@microsoft.com>,
+	Dexuan Cui <decui@microsoft.com>,
+	Magnus Kulke <magnuskulke@microsoft.com>,
+	"linux-arch@vger.kernel.org" <linux-arch@vger.kernel.org>,
+	"K. Y. Srinivasan" <kys@microsoft.com>,
+	Anirudh Rayabharam <Anirudh.Rayabharam@microsoft.com>,
+	Arnd Bergmann <arnd@arndb.de>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+	Wei Liu <wei.liu@kernel.org>
+Subject: Re: [PATCH v3] drivers/hv: remove deposited pages from direct map
+Message-ID: <asOAzTuyT3XxeRK4@example.com>
+References: <20260917201052.2123701-1-magnuskulke@linux.microsoft.com>
+ <SN6PR02MB4157B2D3C47289305C6E487CD4802@SN6PR02MB4157.namprd02.prod.outlook.com>
+ <arzzghes/vN/1WSf@example.com>
+ <SN6PR02MB41576BE36A94FC74D3C4687ED48A2@SN6PR02MB4157.namprd02.prod.outlook.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <SN6PR02MB41576BE36A94FC74D3C4687ED48A2@SN6PR02MB4157.namprd02.prod.outlook.com>
 
-On Thu, 2026-10-01 at 21:40 +0200, Nikola Ciprich wrote:
->=20
-> Oops:
-> general protection fault, probably for non-canonical address
-> 0xfffffff0c930038
-> RIP: __d_lookup+0x4a/0xc0
-> Comm: systemd PID: 1274600 CPU: 23
-> Call trace:
-> __d_lookup
-> lookup_fast
-> walk_component
-> link_path_walk
-> path_openat
+On Thu, Oct 01, 2026 at 05:10:14AM +0000, Michael Kelley wrote:
+> From: Magnus Kulke <magnuskulke@linux.microsoft.com> Sent: Wednesday, September 30, 2026 4:33 AM
+> 
+> I went back and refreshed my memory on the discussion from July
+> 2023. At least on x86, the faulting address is used only as a sanity
+> check in ex_handler_zeropad(). The #GP exception handler already
+> calls fixup_exception(), but it calls with fault_addr set to zero, so
+> ex_handler_zeropad() always returns false (i.e., it says it can't do the
+> fixup). From looking at the code, it appears the deposited pages case
+> would "just work" if the sanity test against fault_addr was removed in
+> ex_handler_zeropad(). There was a past discussion about removing
+> the sanity test [1], but at the time there wasn't a strong reason for
+> or against, so it was left in (having been added relatively recently in
+> c4e34dd99f2e). An option for the deposited pages problem would
+> be to make the case now for removing the sanity test.
+> 
+> I haven't looked at the situation on arm64.
+> 
+> It's your call on how to proceed -- I just wanted to make sure the
+> full context is available to you.
+> 
+> Michael
+> 
 
-That is the exact same memory address as the
-crash in your original report.
+Thanks for the context, that's indeed helpful. I'll discuss this with
+the mshv team. I'm still leaning towards disabling deposited pages from
+the direct map because this seems semantically the right thing, but
+Linus' statement gives some confidence that we can make the fixup work
+for #GPs.
 
-Do you capture any crashes with other memory
-addresses, or do they always crash with this
-same address?
+best,
 
-If it's always the same address, we may not
-be looking at random corruption at all, but
-instead at some bug that results in the same
-bad address every time.
+magnus
 
-That might narrow the problem space a little.
-
---=20
-All Rights Reversed.
+> [1] https://lore.kernel.org/lkml/CAHk-=wipev18s9sErt+iNO_rzgyvGTce38fr1CYO0U_hGVGy2Q@mail.gmail.com/
