@@ -1,122 +1,179 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id F00AC4854ED;
-	Mon,  5 Oct 2026 15:46:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EA04E4854ED;
+	Mon,  5 Oct 2026 15:46:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791215178; cv=none; b=k7vvmfYcZsfAbH/rxdGzPCGXUC09jap1GxM3mNU82T/7bkBL3CejT2d7y/LCagtiHeA15va7GxTFiOvcObXVxSdWrl0xNzYsuf1anDD7neZbCyjV9lOZTSpZH6SAeWDwH918dxar1lfJlxp68ZX0joxAto6Z7d9VyCUrTf5g/0o=
+	t=1791215183; cv=none; b=jJIFm46IeWsqgJ+RBKC/MzHVhg2H1W0wTb3z97TwkLt4eO7NlIR+w3OIDLCZOmRbHgme9DcnJEIqkp7F0HIm2lq9DfwJafye7DJHMJ6YwAL2jflBxdSeFx+Ux4s50EcgfJhRghlkFF9xPYkVlzO952U6P4yw6j2CcqM8gBdRp5I=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791215178; c=relaxed/simple;
-	bh=xGeq5sjx9eaLEDMjBTfqpruQ01UNAsCYZ0+dN1RMZXQ=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=LZFrFUFqyUEDdy/9Ov6zYenOG/sPDagGyrxgxUQAFJm5ZObxMrAQ6K8RwddFBlaM/vcXyHjcikAN6h5RbZgfX8yFMieO1guPhpd08LXgv+nQsMsybHp0F7h1DKD5k0PO0Ahuy2KSV8BSYjTiegL8xrBjNRR3Tyhdp25LG9QTtL4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=KOzJIn+b; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	s=arc-20240116; t=1791215183; c=relaxed/simple;
+	bh=Tm4QouRk0x2Wa6QbwGwe3xbo7L5KYG//7pwWfoGqHI0=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=HNDxsZqcKm7rM4xfU57gOiLljz0YP7baczZt5sH63qkX44raNsuzBSMfYgaKXIcDrLzjvhkrExuGQWsE2NaEJqug0ngxIvhmJmLlrfzf6jZ9+ayCk/oUvzre9Cl4ysVePSQJzHzfMiTek/uz6gDw/LYhkdGHG21Jjehg+3G0WCc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=lV4zmBmj; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="KOzJIn+b"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id AEDD4152B;
-	Mon,  5 Oct 2026 08:46:12 -0700 (PDT)
-Received: from [10.57.9.139] (unknown [10.57.9.139])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 74EF93F66F;
-	Mon,  5 Oct 2026 08:46:13 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1791215176; bh=xGeq5sjx9eaLEDMjBTfqpruQ01UNAsCYZ0+dN1RMZXQ=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=KOzJIn+bGIW6NU1Xx33KHwE/5cj0DOGw8D6P2vU6AiCyEd9gjEZKpAyDDFsJiKR4U
-	 uR7cHNQriGaf6hzMGPgFd26YhcjpHY5T+bX9++s+XDiJBKb65r9abfpweJ0M6CbCUK
-	 v0RV+vxW/Vr0peIfIesWvkrxuiuFTYoepguQOZ6I=
-Message-ID: <254599ef-ace5-423b-bc31-56150909d96f@arm.com>
-Date: Mon, 5 Oct 2026 17:46:11 +0200
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="lV4zmBmj"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CFAEC1F000FF;
+	Mon,  5 Oct 2026 15:46:20 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791215181;
+	bh=22A7Ie5xqbZmB45xFidjN3s7sl8pmcD//SVzUGLYRAw=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=lV4zmBmj5HvZnez9W30i/G8yWiYZrHwTes5SpSM3lPzu8exUoucY+AZJ8T94aOgbI
+	 ujVravOdBvre5SA7iM5wvYrk2NU4oW5kz0z4hcjBL0fSkT22g5KFxS4Ylu0TsVptxX
+	 42ctyXySRwKKt9T8d89nLyC+uuhwr/7b6nk2HhK1aKV3CjqQUByX1CLjg4NtOwXVT8
+	 aQOAkbk5HVsSMge0IlHWzOByOJp/U9VjD0dfEaZ0oC0UYnkF7xSr6Vns605B6QfqZi
+	 N3WBQKbl07ZuG0STMWeVym/0mSTogQzLWZkoCdKJkysf/2FQff+WcUReLy4Z5eTYa2
+	 /ZJvdvkXg/gKA==
+Date: Mon, 5 Oct 2026 17:46:17 +0200
+From: Vinod Koul <vkoul@kernel.org>
+To: Frank Li <Frank.li@oss.nxp.com>
+Cc: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
+	Frank Li <Frank.Li@kernel.org>, Andy Gross <agross@codeaurora.org>,
+	linux-arm-msm@vger.kernel.org, dmaengine@vger.kernel.org,
+	linux-kernel@vger.kernel.org, brgl@kernel.org,
+	stable@vger.kernel.org, Sashiko <sashiko-bot@kernel.org>,
+	Manivannan Sadhasivam <mani@kernel.org>
+Subject: Re: [PATCH v25] dmaengine: qcom: bam_dma: free interrupt before the
+ clock in error path
+Message-ID: <asPGSUbsCJNEZxa0@parshuram>
+References: <20261002-bam-dma-free-irq-v25-1-f39e01d19910@oss.qualcomm.com>
+ <ar_gqlHElQOGN9KV@lizhi-Precision-Tower-5810>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/2] perf/core: Return errors from
- perf_report_aux_output_id()
-Content-Language: en-GB
-To: James Clark <james.clark@linaro.org>,
- Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>,
- Arnaldo Carvalho de Melo <acme@kernel.org>,
- Namhyung Kim <namhyung@kernel.org>, Mark Rutland <mark.rutland@arm.com>,
- Alexander Shishkin <alexander.shishkin@linux.intel.com>,
- Jiri Olsa <jolsa@kernel.org>, Ian Rogers <irogers@google.com>,
- Adrian Hunter <adrian.hunter@intel.com>, Mike Leach <mike.leach@arm.com>,
- Leo Yan <leo.yan@arm.com>
-Cc: linux-perf-users@vger.kernel.org, linux-kernel@vger.kernel.org,
- coresight@lists.linaro.org, linux-arm-kernel@lists.infradead.org
-References: <20261001-james-cs-retry-hw_id-v1-0-4d45ab46cde7@linaro.org>
- <20261001-james-cs-retry-hw_id-v1-1-4d45ab46cde7@linaro.org>
-From: Suzuki K Poulose <suzuki.poulose@arm.com>
-In-Reply-To: <20261001-james-cs-retry-hw_id-v1-1-4d45ab46cde7@linaro.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <ar_gqlHElQOGN9KV@lizhi-Precision-Tower-5810>
 
-Hi Peter, Arnaldo, Mark, Ingo et al
-
-
-
-On 01/10/2026 15:21, James Clark wrote:
-> It's useful to know if this failed or not so a retry can be attempted
-> later. Return the error code or success.
+On 02-10-26, 12:49, Frank Li wrote:
+> On Fri, Oct 02, 2026 at 10:51:47AM +0200, Bartosz Golaszewski wrote:
+> > The BAM interrupt is requested with a devres helper and so on error it's
+> > freed after probe() returns. We disable the clock before freeing or
+> > masking it so it may still fire and we may end up reading BAM registers
+> > with clock disabled.
 > 
-> Signed-off-by: James Clark <james.clark@linaro.org>
-> ---
->   include/linux/perf_event.h | 2 +-
->   kernel/events/core.c       | 6 ++++--
->   2 files changed, 5 insertions(+), 3 deletions(-)
+> It is less possible to happen. I see other methods to fix similar issues
+
+Actually this is the right change. devres for irq was a bad idea IMO. We
+need to ensure device is quiesced on free and ensure no tasklets can be
+triggered. devm acts later and at such time we might get supurious/valid
+irq triggering tasklet while we are unwinding...
+
 > 
-> diff --git a/include/linux/perf_event.h b/include/linux/perf_event.h
-> index 48d851fbd8ea..01d318a4de50 100644
-> --- a/include/linux/perf_event.h
-> +++ b/include/linux/perf_event.h
-> @@ -1896,7 +1896,7 @@ static inline struct fasync_struct **perf_event_fasync(struct perf_event *event)
->   }
->   
->   extern void perf_event_addr_filters_sync(struct perf_event *event);
-> -extern void perf_report_aux_output_id(struct perf_event *event, u64 hw_id);
-> +extern int perf_report_aux_output_id(struct perf_event *event, u64 hw_id);
-
-This looks a trivial change with minor impact. Are you happy for me to
-pull this via the coresight tree ? Please could I have an Ack on this ?
-
-
-Cheers
-Suzuki
->   
->   extern int perf_output_begin(struct perf_output_handle *handle,
->   			     struct perf_sample_data *data,
-> diff --git a/kernel/events/core.c b/kernel/events/core.c
-> index d7f3e2c2ecb1..232da3b6f393 100644
-> --- a/kernel/events/core.c
-> +++ b/kernel/events/core.c
-> @@ -10563,7 +10563,7 @@ static void perf_log_itrace_start(struct perf_event *event)
->   	perf_output_end(&handle);
->   }
->   
-> -void perf_report_aux_output_id(struct perf_event *event, u64 hw_id)
-> +int perf_report_aux_output_id(struct perf_event *event, u64 hw_id)
->   {
->   	struct perf_output_handle handle;
->   	struct perf_sample_data sample;
-> @@ -10585,12 +10585,14 @@ void perf_report_aux_output_id(struct perf_event *event, u64 hw_id)
->   	ret = perf_output_begin(&handle, &sample, event, rec.header.size);
->   
->   	if (ret)
-> -		return;
-> +		return ret;
->   
->   	perf_output_put(&handle, rec);
->   	perf_event__output_id_sample(event, &handle, &sample);
->   
->   	perf_output_end(&handle);
-> +
-> +	return 0;
->   }
->   EXPORT_SYMBOL_GPL(perf_report_aux_output_id);
->   
+> https://lore.kernel.org/all/20260608001128.80090-1-dennylin0707@gmail.com/
+> https://lore.kernel.org/dmaengine/20260927-dma40-fixes-v7-6-89f595e8851d@kernel.org/
 > 
+> >
+> > Stop using devres for interrupts as we free it in remove() manually
+> > anyway. Add an appropriate label and free the interrupt before disabling
+> > the clock in error path and in remove().
+> 
+> Just want to avoid bounce in future, change back to devm version.
+> 
+> >
+> > Cc: stable@vger.kernel.org
+> > Fixes: e7c0fe2a5c84 ("dmaengine: add Qualcomm BAM dma driver")
+> > Reported-by: Sashiko <sashiko-bot@kernel.org>
+> > Closes: https://sashiko.dev/#/patchset/20260427-qcom-qce-cmd-descr-v16-0-945fd1cafbbc%40oss.qualcomm.com?part=2
+> > Reviewed-by: Manivannan Sadhasivam <mani@kernel.org>
+> > Signed-off-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+> > ---
+> > This used to be part of the larger BAM DMA pipe locking series and never
+> > got picked up despite months on the list. I'm resending it separately.
+> > ---
+> > Changes in v25:
+> > - Don't touch remove(), it's not wrong in its current version
+> > - Link to v24: https://patch.msgid.link/20260723-qcom-qce-cmd-descr-v24-0-4f87bb4d9938@oss.qualcomm.com
+> > ---
+> >  drivers/dma/qcom/bam_dma.c | 10 ++++++----
+> >  1 file changed, 6 insertions(+), 4 deletions(-)
+> >
+> > diff --git a/drivers/dma/qcom/bam_dma.c b/drivers/dma/qcom/bam_dma.c
+> > index 05a3b1f9e0c23dc5f861488fae03494867970523..a626746b5c93496e5c5e885b35a856d38c284448 100644
+> > --- a/drivers/dma/qcom/bam_dma.c
+> > +++ b/drivers/dma/qcom/bam_dma.c
+> > @@ -1332,8 +1332,8 @@ static int bam_dma_probe(struct platform_device *pdev)
+> >  	for (i = 0; i < bdev->num_channels; i++)
+> >  		bam_channel_init(bdev, &bdev->channels[i], i);
+> >
+> > -	ret = devm_request_irq(bdev->dev, bdev->irq, bam_dma_irq,
+> > -			IRQF_TRIGGER_HIGH, "bam_dma", bdev);
+> > +	ret = request_irq(bdev->irq, bam_dma_irq, IRQF_TRIGGER_HIGH,
+> > +			  "bam_dma", bdev);
+> >  	if (ret)
+> >  		goto err_bam_channel_exit;
+> >
+> > @@ -1366,7 +1366,7 @@ static int bam_dma_probe(struct platform_device *pdev)
+> >  	ret = dma_async_device_register(&bdev->common);
+> 
+> Can you update it use dmaenginem_sync_device_register() to update current
+> base?
+> 
+> >  	if (ret) {
+> >  		dev_err(bdev->dev, "failed to register dma async device\n");
+> > -		goto err_bam_channel_exit;
+> > +		goto err_free_irq;
+> >  	}
+> >
+> >  	ret = of_dma_controller_register(pdev->dev.of_node, bam_dma_xlate,
+> 
+> devm_of_dma_controller_register()
+> 
+> > @@ -1385,6 +1385,8 @@ static int bam_dma_probe(struct platform_device *pdev)
+> >
+> >  err_unregister_dma:
+> >  	dma_async_device_unregister(&bdev->common);
+> > +err_free_irq:
+> > +	free_irq(bdev->irq, bdev);
+> >  err_bam_channel_exit:
+> >  	for (i = 0; i < bdev->num_channels; i++)
+> >  		tasklet_kill(&bdev->channels[i].vc.task);
+> > @@ -1410,7 +1412,7 @@ static void bam_dma_remove(struct platform_device *pdev)
+> >  	/* mask all interrupts for this execution environment */
+> >  	writel_relaxed(0, bam_addr(bdev, 0,  BAM_IRQ_SRCS_MSK_EE));
+> 
+> Actually there are problem
+> 
+> pm_runtime_force_suspend(&pdev->dev);  it will call suspend, which disable
+> clk,
+> 
+> ...
+> writel_relaxed(0, bam_addr(bdev, 0,  BAM_IRQ_SRCS_MSK_EE));
+> access register
+> 
+> clk_disable_unprepare(bdev->bamclk);
+> 
+> Maybe cause refcount overflow because previous pm_runtime_force_suspend().
+> 
+> Actually DMA driver seldom remove. It has another issue if still have
+> consumer acquire channel because miss dev link between consumer and
+> provider.
+> 
+> Anyways, if you resolve above runtime pm problem, irq problem may not
+> existing.
+> 
+> Frank
+> 
+> >
+> > -	devm_free_irq(bdev->dev, bdev->irq, bdev);
+> > +	free_irq(bdev->irq, bdev);
+> >
+> >  	for (i = 0; i < bdev->num_channels; i++) {
+> >  		bam_dma_terminate_all(&bdev->channels[i].vc.chan);
+> >
+> > ---
+> > base-commit: 9f24d789f03b22941b905ded43cb5ff8eea9ce62
+> > change-id: 20261002-bam-dma-free-irq-cac4b268c465
+> >
+> > Best regards,
+> > --
+> > Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+> >
 
+-- 
+~Vinod
