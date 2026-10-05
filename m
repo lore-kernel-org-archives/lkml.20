@@ -1,62 +1,62 @@
-Received: from pdx-out-005.esa.us-west-2.outbound.mail-perimeter.amazon.com (pdx-out-005.esa.us-west-2.outbound.mail-perimeter.amazon.com [52.13.214.179])
+Received: from pdx-out-009.esa.us-west-2.outbound.mail-perimeter.amazon.com (pdx-out-009.esa.us-west-2.outbound.mail-perimeter.amazon.com [35.155.198.111])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A904947DF97;
-	Mon,  5 Oct 2026 11:25:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=52.13.214.179
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 81CD1427F9C;
+	Mon,  5 Oct 2026 11:25:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=35.155.198.111
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791199511; cv=none; b=nQ7drSzOvvRHJ7+zx32rYCb4wAk63JfaBd8JPIRVMZ48PLoly5T4sKGZmCHE9+9VYliceRAVXaPfr6xTVf+0wyEmGkhI8D4dqmvpBxt/gsXilZzYx6/B9FDwYNZVKqKRb3hFTxw0D2t3NLTMA8H8A+tNTw09ITaZ1D598Bov2tU=
+	t=1791199511; cv=none; b=fS8h1bTVgr7b+JFGDJ5BcOSCePHYdi3CpxkpIRMTRlxsMd4iZLnJeM8eC3IjQaojHGKA8SdU/2yTT25B13ZeVvSAkfzQw9HunGa/UHFvkzyfRDm1MnNs5oN1beug/WyfORNkh8t+P+sKUzTdXbrvxCMVM1mH8RMiNzGqJ8Ba0iQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1791199511; c=relaxed/simple;
-	bh=8CVO6J3w4Q0ArG3vrTWu7p+CbFrxOL7DhiE4vYINQvM=;
+	bh=/EPpBaL3y9kbMDxxFiYxFzJhAuO9dd2DtOPfbazarOk=;
 	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=ghSsK03PQ/1H8DyuCCOTQS5Go6PlpE0BpGuVN+z3hR/J6AB1pkxTQKmRKqE2H4wOxE/fhuf0yOI+MEkVKc8gqUJRYx2WAU8jUmgVKCqnVn83olR/a3H4uVvUdgnOyv+qUC63SK3z60wvOZBJHuFXi8GR4emzTkbG4RuIY1t52bY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.com; spf=pass smtp.mailfrom=amazon.com; dkim=pass (2048-bit key) header.d=amazon.com header.i=@amazon.com header.b=gZ9pqAb7; arc=none smtp.client-ip=52.13.214.179
+	 MIME-Version:Content-Type; b=S1CdvjTk/ot5GC76y7BSzM20bwVwiqQUTYhYdhnCapHYtiVhueJR+KEq1f+afAKRNzFRkrKhXxlrtALOK1LLJfkS02cwL+l5N3y3SxyIC8xp8MvMqM+DcJ9DTn4Mcm9h7nF2unfLUnJVVxOzZXrNgvMLAd7hcmb+tKGSENv67fc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.com; spf=pass smtp.mailfrom=amazon.com; dkim=pass (2048-bit key) header.d=amazon.com header.i=@amazon.com header.b=HMgKTDPH; arc=none smtp.client-ip=35.155.198.111
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amazon.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=amazon.com header.i=@amazon.com header.b="gZ9pqAb7"
+	dkim=pass (2048-bit key) header.d=amazon.com header.i=@amazon.com header.b="HMgKTDPH"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
   d=amazon.com; i=@amazon.com; q=dns/txt; s=amazoncorp2;
-  t=1791199509; x=1822735509;
+  t=1791199510; x=1822735510;
   h=from:to:cc:subject:date:message-id:in-reply-to:
    references:mime-version:content-transfer-encoding;
-  bh=Hsoh0vA39o/rcCx9IHnSYbMF3qklRpfwp00XGc6Xkf4=;
-  b=gZ9pqAb7VhMZMg52fidqoRVryutxb8sHxP8ff5hKGosfeOsHGLjgVYG0
-   rlE/Zlp1d4pSmuzFlu5821oIm9dk9UudKDFMz47cGJf2aS1I8V586Bi6A
-   lOvnZZK4lX/6KoRJJnBzddl6i4x0JfgzWQd+CKu+ayjfEdB25g9cxD/fm
-   kQa5HiyIqSEKFRhLzAXL8jUaJyEiPilGZdm4U591alUjOYd/NzFXty+Lk
-   56zSeycoq/Kc00z1wRloV+djRr/iao8cwTpXfABctZRrUNM2qrQhT1Vpc
-   nW7gGvMjNY+tc1wRFXgqeLnQQNie9NaHal5ydTv0c+JKMUwOoHLvavdEl
-   A==;
-X-CSE-ConnectionGUID: gmO1t9epTvWTFq9pGvUBIQ==
-X-CSE-MsgGUID: eMMgx3EQROawmPqCC2f2iw==
+  bh=kJgs9QB7Ca7YePc4EhMgArHydbCMhKsqF2LHkqyoJL8=;
+  b=HMgKTDPHDtrO5j4yVLE0fjT56HqGsgJ3yETGTjhDT90ONmSzFa/b2Sg/
+   E5UEoItsXzQPwqrfmCIMu72My4aFlkhQfEK8S74q9k3pzE96RkQJsHF8l
+   39FiH30fxUOoJI6t1RaaneFAN2G3agq2NXxS1MFjtBT9LC3GtvHc4gK41
+   mPSNuHaW7WCj/KeQESbI/oMcIa1GpU5+fVvWV0Zz8RdhCHxqLek3YKdzt
+   MNDK2mVpNgoVpT40lfBlEQJWqbkNiF77dxX14ITPF1EpoBi63gPzcOcu6
+   yamHalrWdW8bOz4TtC+ISpYlV1FLxgctnTXVxhfAKKFz7cGWPiNPdlPzV
+   Q==;
+X-CSE-ConnectionGUID: 6H7hLBGoSMuKQYxAgwNFWQ==
+X-CSE-MsgGUID: FUGU9i34R8qf8Ymd1vNB4g==
 X-IronPort-AV: E=Sophos;i="6.27,141,1787011200"; 
-   d="scan'208";a="30399577"
+   d="scan'208";a="30325840"
 Received: from ip-10-5-6-203.us-west-2.compute.internal (HELO smtpout.naws.us-west-2.prod.farcaster.email.amazon.dev) ([10.5.6.203])
-  by internal-pdx-out-005.esa.us-west-2.outbound.mail-perimeter.amazon.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 05 Oct 2026 11:25:06 +0000
-Received: from EX19MTAUWB002.ant.amazon.com [205.251.233.111:24500]
- by smtpin.naws.us-west-2.prod.farcaster.email.amazon.dev [10.0.10.141:2525] with esmtp (Farcaster)
- id 00960bab-5b37-4344-869a-67da0b48625d; Mon, 5 Oct 2026 11:25:06 +0000 (UTC)
-X-Farcaster-Flow-ID: 00960bab-5b37-4344-869a-67da0b48625d
+  by internal-pdx-out-009.esa.us-west-2.outbound.mail-perimeter.amazon.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 05 Oct 2026 11:25:08 +0000
+Received: from EX19MTAUWA002.ant.amazon.com [205.251.233.178:20927]
+ by smtpin.naws.us-west-2.prod.farcaster.email.amazon.dev [10.0.36.96:2525] with esmtp (Farcaster)
+ id 94205088-ed3e-4d15-bbb4-6f4f987fd027; Mon, 5 Oct 2026 11:25:07 +0000 (UTC)
+X-Farcaster-Flow-ID: 94205088-ed3e-4d15-bbb4-6f4f987fd027
 Received: from EX19D001UWA001.ant.amazon.com (10.13.138.214) by
- EX19MTAUWB002.ant.amazon.com (10.250.64.231) with Microsoft SMTP Server
+ EX19MTAUWA002.ant.amazon.com (10.250.64.202) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.49;
- Mon, 5 Oct 2026 11:25:06 +0000
+ Mon, 5 Oct 2026 11:25:07 +0000
 Received: from dev-dsk-farbere-1a-46ecabed.eu-west-1.amazon.com
  (172.19.116.181) by EX19D001UWA001.ant.amazon.com (10.13.138.214) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.49; Mon, 5 Oct 2026
- 11:25:04 +0000
+ 11:25:06 +0000
 From: Eliav Farber <farbere@amazon.com>
 To: Thomas Gleixner <tglx@kernel.org>, Talel Shenhar <talel@amazon.com>
 CC: Radu Rendec <radu@rendec.net>, Rob Herring <robh@kernel.org>, "Krzysztof
  Kozlowski" <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, "Eliav
  Farber" <farbere@amazon.com>, <devicetree@vger.kernel.org>,
 	<linux-kernel@vger.kernel.org>
-Subject: [PATCH v3 1/8] irqchip/al-fic: fix argument alignment and a repeated word
-Date: Mon, 5 Oct 2026 11:24:51 +0000
-Message-ID: <20261005112458.22291-2-farbere@amazon.com>
+Subject: [PATCH v3 2/8] irqchip/al-fic: use %pOF and raise init log level
+Date: Mon, 5 Oct 2026 11:24:52 +0000
+Message-ID: <20261005112458.22291-3-farbere@amazon.com>
 X-Mailer: git-send-email 2.47.3
 In-Reply-To: <20261005112458.22291-1-farbere@amazon.com>
 References: <20261005112458.22291-1-farbere@amazon.com>
@@ -71,56 +71,89 @@ Content-Type: text/plain
 X-ClientProxiedBy: EX19D039UWA001.ant.amazon.com (10.13.139.110) To
  EX19D001UWA001.ant.amazon.com (10.13.138.214)
 
-The continuation lines of the irq_domain_create_linear() call sit three
-columns short of the open parenthesis. They were aligned for
-irq_domain_add_linear(); commit affdc0d1bdfa ("irqchip: Switch to
-irq_domain_create_*()") renamed the function to one three characters longer
-and left the indentation as it was. checkpatch --strict reports "Alignment
-should match open parenthesis".
+Use %pOF in the driver's log messages, so that both the success and the
+error paths identify the specific FIC instance by its full devicetree
+path rather than by its bare node name, e.g.:
 
-al_fic_wire_init()'s kernel-doc reads "the fic hardware to to work in wire
-mode". checkpatch reports "Possible repeated word: 'to'".
+  /soc/interrupt-controller@fd803000 initialized successfully in Legacy mode (parent-irq=3)
 
-No functional change.
+A single controller is described by several FIC nodes that share the same
+bare node name (e.g. "interrupt-controller"), so the bare name cannot tell
+one instance from another. The full path includes the unit address and
+keeps the instances distinguishable.
+
+While converting the parent-missing message, fix a grammar typo in it
+("device require a parent" -> "device requires a parent").
+
+Raise the successful-initialization message from pr_debug to pr_info, as
+this single boot-time printout is useful when dynamic debug is not enabled
+at this stage of boot.
 
 Signed-off-by: Eliav Farber <farbere@amazon.com>
 Reviewed-by: Radu Rendec <radu@rendec.net>
 ---
 v3: no change. Added Reviewed-by: Radu Rendec.
 
-v2: new patch. checkpatch --strict cleanups (argument alignment and a
-    repeated word) split out ahead of the functional changes; the touched
-    lines also appear as context in patches 3 and 6.
+v2: reworded to explain why %pOF matters (several nodes of one controller
+    share the same bare node name, so only the full path with the unit
+    address distinguishes them). Also switched from full_name string to
+    %pOF. No functional change from v1's "use full node name" patch beyond
+    the log level and the grammar fix.
 
- drivers/irqchip/irq-al-fic.c | 8 ++++----
- 1 file changed, 4 insertions(+), 4 deletions(-)
+ drivers/irqchip/irq-al-fic.c | 16 +++++++---------
+ 1 file changed, 7 insertions(+), 9 deletions(-)
 
 diff --git a/drivers/irqchip/irq-al-fic.c b/drivers/irqchip/irq-al-fic.c
-index d10ac9b63c99..35581332b40e 100644
+index 35581332b40e..760bd08dcff4 100644
 --- a/drivers/irqchip/irq-al-fic.c
 +++ b/drivers/irqchip/irq-al-fic.c
-@@ -132,9 +132,9 @@ static int al_fic_register(struct device_node *node,
- 	int ret;
+@@ -216,8 +216,8 @@ static struct al_fic *al_fic_wire_init(struct device_node *node,
+ 		goto err_free;
+ 	}
  
- 	fic->domain = irq_domain_create_linear(of_fwnode_handle(node),
--					    NR_FIC_IRQS,
--					    &irq_generic_chip_ops,
--					    fic);
-+					       NR_FIC_IRQS,
-+					       &irq_generic_chip_ops,
-+					       fic);
- 	if (!fic->domain) {
- 		pr_err("fail to add irq domain\n");
+-	pr_debug("%s initialized successfully in Legacy mode (parent-irq=%u)\n",
+-		 fic->name, parent_irq);
++	pr_info("%pOF initialized successfully in Legacy mode (parent-irq=%u)\n",
++		node, parent_irq);
+ 
+ 	return fic;
+ 
+@@ -235,20 +235,19 @@ static int __init al_fic_init_dt(struct device_node *node,
+ 	struct al_fic *fic;
+ 
+ 	if (!parent) {
+-		pr_err("%s: unsupported - device require a parent\n",
+-		       node->name);
++		pr_err("%pOF: unsupported - device requires a parent\n", node);
+ 		return -EINVAL;
+ 	}
+ 
+ 	base = of_iomap(node, 0);
+ 	if (!base) {
+-		pr_err("%s: fail to map memory\n", node->name);
++		pr_err("%pOF: fail to map memory\n", node);
  		return -ENOMEM;
-@@ -180,7 +180,7 @@ static int al_fic_register(struct device_node *node,
-  * @name: name of the fic
-  * @parent_irq: interrupt of parent
-  *
-- * This API will configure the fic hardware to to work in wire mode.
-+ * This API will configure the fic hardware to work in wire mode.
-  * In wire mode, fic hardware is generating a wire ("wired") interrupt.
-  * Interrupt can be generated based on positive edge or level - configuration is
-  * to be determined based on connected hardware to this fic.
+ 	}
+ 
+ 	parent_irq = irq_of_parse_and_map(node, 0);
+ 	if (!parent_irq) {
+-		pr_err("%s: fail to map irq\n", node->name);
++		pr_err("%pOF: fail to map irq\n", node);
+ 		ret = -EINVAL;
+ 		goto err_unmap;
+ 	}
+@@ -258,9 +257,8 @@ static int __init al_fic_init_dt(struct device_node *node,
+ 			       node->name,
+ 			       parent_irq);
+ 	if (IS_ERR(fic)) {
+-		pr_err("%s: fail to initialize irqchip (%lu)\n",
+-		       node->name,
+-		       PTR_ERR(fic));
++		pr_err("%pOF: fail to initialize irqchip (%lu)\n",
++		       node, PTR_ERR(fic));
+ 		ret = PTR_ERR(fic);
+ 		goto err_irq_dispose;
+ 	}
 -- 
 2.47.3
 
