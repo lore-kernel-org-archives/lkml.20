@@ -1,82 +1,47 @@
-Received: from mail-ed2-f33.google.com (mail-ed2-f33.google.com [74.125.228.97])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CEDCA134CCF
-	for <linux-kernel@vger.kernel.org>; Mon,  5 Oct 2026 20:28:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.97
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CAC444E50C7;
+	Mon,  5 Oct 2026 20:29:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791232141; cv=none; b=WjqSw4ZXNzymkm1DEATMGLscJgXKTu9JDvUlJIBClbeHhF2XoRUjG9HdZcc5bwSsJvXFQT1InkBoae4eIykeqJs8Zz9KIXuPvYSfRKSKaDOWmUJYbiVX3tezymjyOnO5eyQgCJFrnW3qVZ/NEl4mofO38QkLaEyn8zGPZDzPNh8=
+	t=1791232170; cv=none; b=A/uBYIka4XFQBAPtVfUgTpKYNJ22o62O9RRwCs/UVVBQJcEJHaaQjRTM/poH8nqRawgE2yOmTm0w+SsAN6hMfmuzSi9lVQWqNlR/jSgTOv+5rw6UUZE00XMoKz5QsbUIYVvfLLc/Bxnz0oosdOAQJ7VbLsoakH4P1RJd6+zpPz8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791232141; c=relaxed/simple;
-	bh=YZBLXfeQB1l3o/DZB18yK0eNqztDWOMKgbV+XVMA4zM=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=SXPkxhwFBU8v+UHRerlzHG4zxkZ9uNCn87xoOO/pyFjLXh7zSQYS7+bYjLWugFwtoqDVaNMe7w+RBEgJkG13k5mMIC8cBPVcMKhwXJM+aNiBA66mHRfmHtSA2kOhUnxMp7F4GN8VhbNx1VvOskvumvcO/Oy4mnc9LAU/8lBkons=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=hFVLgclJ; arc=none smtp.client-ip=74.125.228.97
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1791232170; c=relaxed/simple;
+	bh=o0D8pbbn/kyVlqxRb8CcuxR/o3BHaIgIdiXzlWC6sHw=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=ACy+U2gr2h8YQ7Bkk3nPCX2kylyO2aP9S3l5n63peq56DTZcMCczylYsuZtcFbD1/hmV6FuT59dfKIWFuTtUY9h1SWl+HWRbK50eiZY+PxcbqYSjV+6Z5waNYh8nGkiHfLEEjG79Vwe988I8xbspb8v6a0MsXoHC7iRQwC0M564=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PP5ynW/O; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="hFVLgclJ"
-Received: by mail-ed2-f33.google.com with SMTP id 4fb4d7f45d1cf-6ac6fa788e6so2760196a12.1
-        for <linux-kernel@vger.kernel.org>; Mon, 05 Oct 2026 13:28:40 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791232116; x=1791836916; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=lngvV3FBuEfkmR/eOgCU094o1/RwaIUjzlpowVfZV8Y=;
-        b=hFVLgclJorJsgOfDM/Vejkt284GuOqqUc2V0LaycDtb3K1740w+/7ZhrnnByI7GusX
-         SptNWfGAfR+zzLeTUk8O8B3NI+3Gfpxq84S1iNzT1VJYpWV2Tdb9m/RoIxXLVQRBmDGa
-         qUYY8nDosT8fEorf150hXgsfEhhrbYZjGHZArofs6t/gYhcACFPDGruV1TG/v3PeIy5t
-         0DTSLVnoW+sKs2GhyGep2t0tqf0NaXmNcX/VfFeYAiClu8bFesK8tan81AW2oyzfn17W
-         6SEuUpKaI9y3eLDrwDPGdHYPhq5SiBYCJmjTu93UTdcAEPIb5ocGtRaeaTk1yxBL/5H5
-         bT/g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791232116; x=1791836916;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=lngvV3FBuEfkmR/eOgCU094o1/RwaIUjzlpowVfZV8Y=;
-        b=BTxLk/UZEtYXZivE9XlJElL2sCeQggpGN12Bb17Dz1Zy1THoTYnStejj3wxNeVfhb1
-         ulZhpZG5VoExYOwWrHefpM1c8zxCjGQ3GqvCVbCZrLx1RvUTfgQSwvIV2om3qnY099/z
-         ime98symUj04oL1ZNX2pfnyusotrFGaSxVLPUESSU5VTLf4bJjFYOFrWp+OhnM7uIrM4
-         jxT3aIIknjDmm8AXQSejFX4OVCZ1rTra2FdtTDnK7pfgUmThqjRY2z6A9IpoVR9ck4g5
-         w0MPevroGbREomAPxQi9jxjHpiTOvdHeqx8ad8TtssYRjKR3D2rqJCZQs4Ep8smkNNDt
-         a14Q==
-X-Forwarded-Encrypted: i=1; AKwUvBy69LuBlXrZiVQ1qcGzbSfm/QwoYU/kdU6YnO7Uzn2stUOc0z3oFF+xF51kBlI6aYI5afIZgyMiP4mvTpw=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJoIHeg7J+dKhOy/xOB7ZmWAY3un1yxglp6WJ6xcreMD8xLHllK
-	ziYRb2ISMP81p/CTCVHgEoa+gz+bwzEBHNw38UQGAdpUJ4Rw8VRd44qq
-X-Gm-Gg: AYBFou3lWE8lRBrj/FAc9NsjivkbFcUQQ9doShv2LYO1fzDc7oi6I47n6VRMoga9WRo
-	q/vOXyTKvhxFiy7E5Kf//32ufpeSZSLGRyG8PcRkrdeZ/Ca7VVYHQCV4AgM8etBbsNfgjVPb4J6
-	bUCx7l8MGOE+fvfGL2WZ5rNIit4TfHRvOzZ3NbsPOs/ZVKR8WRoeLT97qVehyP/CCOv0OjCcvne
-	xkYO02ALjwbe2fJWBCs9BDkQmcyVzeYNtZj+bEF9rP18PQDQtSCU7+/3hlAppQ7fsuWVPt8uvOW
-	oBWD9rbQLYTIkihFAgJzqygoj5cUx4ap/9li5sCbIBeS6caXk0hrDKojwElUzwfu1vp2aw2Glr3
-	t5N+CXyqzDcG808TMyLQiVmQEHZ5jiW+5JgtNe8BSg7TNhEZ6EkjyJHKkd481E2IHsiEpOeMaOQ
-	gPP+4M+ny7/J1bFimgPU2fq7keaOHlx9VnnDc3glB2dkgy4jY1p3ynuxhZznczcOTk7E0FgmqVX
-	h7qvEgnrfgXXHdZTtpYMoVqi53dm8Mh
-X-Received: by 2002:a05:6402:24c6:b0:6ac:7077:6c4b with SMTP id 4fb4d7f45d1cf-6af9e021817mr7765457a12.5.1791232116509;
-        Mon, 05 Oct 2026 13:28:36 -0700 (PDT)
-Received: from debian (ip-78-137-176-146.broadband.digiweb.ie. [78.137.176.146])
-        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6afb01e572asm3801024a12.13.2026.10.05.13.28.33
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 05 Oct 2026 13:28:34 -0700 (PDT)
-From: Pablo Mazzini <pmazzini@gmail.com>
-To: Chen-Yu Tsai <wens@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Jernej Skrabec <jernej.skrabec@gmail.com>,
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PP5ynW/O"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 25C571F000FF;
+	Mon,  5 Oct 2026 20:29:18 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791232158;
+	bh=TRGfGq9Szoti9y54aNwyfNn/t4OPuYp21Qrq9BCxdDg=;
+	h=From:To:Cc:Subject:Date;
+	b=PP5ynW/OeaJfi/j1moETKkydlGFWYuadCnXJLD3QidDdawOFlZTzWhtuab37P3OHR
+	 AhqPqo087xYhWW30CbkEtAkD/KB4w+L57p1AtglROBTqCmi4E+KJG0MhACrdbN1z2F
+	 38WqxPkGGPGF1xFcWoIYCuTRGaM/PIpJP8PeWPzzmPW4mhLHSVPDDp4WZZFUSpaeVJ
+	 D3IsswBrYORRaUMDQMzaH17YIHpR9xPwfqhUJeH1XZCOMRQKVzvNDBXIbpOIFAo7JG
+	 GIOJrGX2QBV9OkFXjG7+EXUJEOANjAKto1wKVBNZPC84zG2wUokMweKETSNs1P27qq
+	 U2fC/E9dGv7yQ==
+From: "Rob Herring (Arm)" <robh@kernel.org>
+To: Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Samuel Holland <samuel@sholland.org>
-Cc: Pablo Mazzini <pmazzini@gmail.com>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Jian Shen <shenjian15@huawei.com>,
+	Jijie Shao <shaojijie@huawei.com>
+Cc: netdev@vger.kernel.org,
 	devicetree@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	linux-sunxi@lists.linux.dev
-Subject: [PATCH v3 11/11] ARM: dts: allwinner: add B288 and the PocketBook Verse
-Date: Mon,  5 Oct 2026 21:27:31 +0100
-Message-ID: <20261005202731.153971-12-pmazzini@gmail.com>
+	linux-kernel@vger.kernel.org
+Subject: [PATCH net-next v3] dt-bindings: net: Convert HiSilicon hns-dsaf to DT schema
+Date: Mon,  5 Oct 2026 15:28:08 -0500
+Message-ID: <20261005202808.1982164-2-robh@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261005202731.153971-1-pmazzini@gmail.com>
-References: <20261005202731.153971-1-pmazzini@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -85,445 +50,304 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Add the B288 SoC .dtsi and the PocketBook Verse (PB629) board.
+Convert the HiSilicon hns-dsaf binding to DT schema format.
 
-Signed-off-by: Pablo Mazzini <pmazzini@gmail.com>
+Drop 'phy-handle' at top level as there are no users. Add undocumented
+'media-type' property.
+
+Support for 4 'reg' regions is dropped as that has long been deprecated
+and there are no known users of it.
+
+Assisted-by: LLM
+Signed-off-by: Rob Herring (Arm) <robh@kernel.org>
 ---
- arch/arm/boot/dts/allwinner/Makefile          |   1 +
- .../allwinner/sun8i-b288-pocketbook-verse.dts | 114 +++++++
- arch/arm/boot/dts/allwinner/sun8i-b288.dtsi   | 290 ++++++++++++++++++
- 3 files changed, 405 insertions(+)
- create mode 100644 arch/arm/boot/dts/allwinner/sun8i-b288-pocketbook-verse.dts
- create mode 100644 arch/arm/boot/dts/allwinner/sun8i-b288.dtsi
+v3:
+ - Make subctrl-syscon, buf-size and desc-num required
 
-diff --git a/arch/arm/boot/dts/allwinner/Makefile b/arch/arm/boot/dts/allwinner/Makefile
-index 75b2b6a2f7a6..2dfdc01e4825 100644
---- a/arch/arm/boot/dts/allwinner/Makefile
-+++ b/arch/arm/boot/dts/allwinner/Makefile
-@@ -227,6 +227,7 @@ dtb-$(CONFIG_MACH_SUN8I) += \
- 	sun8i-a83t-bananapi-m3.dtb \
- 	sun8i-a83t-cubietruck-plus.dtb \
- 	sun8i-a83t-tbs-a711.dtb \
-+	sun8i-b288-pocketbook-verse.dtb \
- 	sun8i-h2-plus-bananapi-m2-zero.dtb \
- 	sun8i-h2-plus-libretech-all-h3-cc.dtb \
- 	sun8i-h2-plus-orangepi-r1.dtb \
-diff --git a/arch/arm/boot/dts/allwinner/sun8i-b288-pocketbook-verse.dts b/arch/arm/boot/dts/allwinner/sun8i-b288-pocketbook-verse.dts
+v2:
+ - Add constraints for buf-size and desc-num
+ - Drop erroneous 1st 2 'reg' entries
+ - Fix example 'reg' cell sizes
+ - Add 'backplane' to 'media-type' property
+---
+ .../bindings/net/hisilicon,hns-dsaf-v1.yaml   | 170 ++++++++++++++++++
+ .../bindings/net/hisilicon-hns-dsaf.txt       |  90 ----------
+ 2 files changed, 170 insertions(+), 90 deletions(-)
+ create mode 100644 Documentation/devicetree/bindings/net/hisilicon,hns-dsaf-v1.yaml
+ delete mode 100644 Documentation/devicetree/bindings/net/hisilicon-hns-dsaf.txt
+
+diff --git a/Documentation/devicetree/bindings/net/hisilicon,hns-dsaf-v1.yaml b/Documentation/devicetree/bindings/net/hisilicon,hns-dsaf-v1.yaml
 new file mode 100644
-index 000000000000..a60cbb638019
+index 000000000000..4629acbba810
 --- /dev/null
-+++ b/arch/arm/boot/dts/allwinner/sun8i-b288-pocketbook-verse.dts
-@@ -0,0 +1,114 @@
-+// SPDX-License-Identifier: (GPL-2.0+ OR MIT)
-+/*
-+ * PocketBook Verse (PB629), an Allwinner B288 based e-reader.
-+ */
++++ b/Documentation/devicetree/bindings/net/hisilicon,hns-dsaf-v1.yaml
+@@ -0,0 +1,170 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++# Copyright 2025 Hisilicon Ltd.
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/net/hisilicon,hns-dsaf-v1.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
 +
-+/dts-v1/;
-+#include "sun8i-b288.dtsi"
++title: Hisilicon DSA Fabric device controller
 +
-+#include <dt-bindings/gpio/gpio.h>
++maintainers:
++  - Jian Shen <shenjian15@huawei.com>
++  - Jijie Shao <shaojijie@huawei.com>
 +
-+/ {
-+	model = "PocketBook Verse";
-+	compatible = "pocketbook,verse", "allwinner,sun8i-b288";
++properties:
++  compatible:
++    items:
++      - enum:
++          - hisilicon,hns-dsaf-v1
++          - hisilicon,hns-dsaf-v2
 +
-+	aliases {
-+		serial0 = &uart0;
-+	};
++  reg:
++    minItems: 1
++    items:
++      - description:
++          PPE register base and size
++      - description:
++          DSA Fabric base register and size (not required for single-port mode)
 +
-+	chosen {
-+		stdout-path = "serial0:115200n8";
-+	};
-+};
++  reg-names:
++    minItems: 1
++    items:
++      - const: ppe-base
++      - const: dsaf-base
 +
-+&uart0 {
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&uart0_pb_pins>;
-+	status = "okay";
-+};
++  interrupts:
++    minItems: 1
++    maxItems: 409
 +
-+&mmc0 {
-+	vmmc-supply = <&reg_dldo2>;
-+	bus-width = <4>;
-+	cd-gpios = <&pio 5 6 GPIO_ACTIVE_LOW>;	/* PF6 */
-+	disable-wp;
-+	status = "okay";
-+};
++  dma-coherent: true
 +
-+&mmc3 {
-+	vmmc-supply = <&reg_dcdc1>;
-+	vqmmc-supply = <&reg_dldo1>;
-+	bus-width = <8>;
-+	non-removable;
-+	cap-mmc-hw-reset;
-+	mmc-ddr-1_8v;
-+	mmc-hs200-1_8v;
-+	status = "okay";
-+};
++  '#address-cells':
++    const: 1
 +
-+&pio {
-+	vcc-pc-supply = <&reg_dldo1>;
-+	vcc-pd-supply = <&reg_dldo1>;
-+};
++  '#size-cells':
++    const: 0
 +
-+&i2c0 {
-+	status = "okay";
++  mode:
++    description: DSA Fabric mode string
++    $ref: /schemas/types.yaml#/definitions/string
++    enum:
++      - 2port-64vf
++      - 6port-16rss
++      - 6port-16vf
++      - single-port
 +
-+	axp22x: pmic@34 {
-+		/* labelled AXP227 */
-+		compatible = "x-powers,axp221";
-+		reg = <0x34>;
-+		interrupt-parent = <&nmi_intc>;
-+		interrupts = <0 IRQ_TYPE_LEVEL_LOW>;
-+	};
-+};
++  subctrl-syscon:
++    description: syscon handle for external interface control register
++    $ref: /schemas/types.yaml#/definitions/phandle
 +
-+#include "axp22x.dtsi"
++  reset-field-offset:
++    description: offset of reset field in the control register
++    $ref: /schemas/types.yaml#/definitions/uint32
 +
-+&reg_dcdc1 {
-+	regulator-always-on;
-+	regulator-min-microvolt = <3000000>;
-+	regulator-max-microvolt = <3000000>;
-+	regulator-name = "vcc-io";
-+};
++  buf-size:
++    description: RX buffer size (bytes)
++    $ref: /schemas/types.yaml#/definitions/uint32
++    enum: [512, 1024, 2048, 4096]
 +
-+&reg_dcdc2 {
-+	regulator-always-on;
-+	regulator-min-microvolt = <1260000>;
-+	regulator-max-microvolt = <1260000>;
-+	regulator-name = "vdd-cpu";
-+};
++  desc-num:
++    description: number of descriptors in TX and RX queue
++    $ref: /schemas/types.yaml#/definitions/uint32
++    minimum: 16
++    maximum: 1024
 +
-+&reg_dcdc4 {
-+	regulator-always-on;
-+	regulator-min-microvolt = <1100000>;
-+	regulator-max-microvolt = <1100000>;
-+	regulator-name = "vdd-sys";
-+};
++patternProperties:
++  "^port@[0-5]$":
++    description: DSA Fabric port node
++    $ref: ethernet-switch-port.yaml#
++    additionalProperties: false
 +
-+&reg_dcdc5 {
-+	regulator-always-on;
-+	regulator-min-microvolt = <1350000>;
-+	regulator-max-microvolt = <1350000>;
-+	regulator-name = "vcc-dram";
-+};
++    properties:
++      reg:
++        maximum: 5
 +
-+&reg_aldo3 {
-+	regulator-always-on;
-+	regulator-min-microvolt = <3000000>;
-+	regulator-max-microvolt = <3000000>;
-+	regulator-name = "avcc";
-+};
++      phy-handle: true
 +
-+&reg_dldo1 {
-+	regulator-min-microvolt = <1800000>;
-+	regulator-max-microvolt = <1800000>;
-+	regulator-name = "vcc-pc";
-+};
++      serdes-syscon:
++        description: syscon handle for SerDes register
++        $ref: /schemas/types.yaml#/definitions/phandle
 +
-+&reg_dldo2 {
-+	/* microSD slot */
-+	regulator-min-microvolt = <3300000>;
-+	regulator-max-microvolt = <3300000>;
-+	regulator-name = "vcc-sdcv";
-+};
-diff --git a/arch/arm/boot/dts/allwinner/sun8i-b288.dtsi b/arch/arm/boot/dts/allwinner/sun8i-b288.dtsi
-new file mode 100644
-index 000000000000..dc8264a547cf
---- /dev/null
-+++ b/arch/arm/boot/dts/allwinner/sun8i-b288.dtsi
-@@ -0,0 +1,290 @@
-+// SPDX-License-Identifier: (GPL-2.0+ OR MIT)
-+/*
-+ * Allwinner B288 (sun8iw10p1) SoC
-+ */
++      cpld-syscon:
++        description: syscon handle plus register offset for CPLD register
++        $ref: /schemas/types.yaml#/definitions/phandle-array
++        items:
++          - items:
++              - description: CPLD phandle
++              - description: offset
 +
-+#include <dt-bindings/interrupt-controller/arm-gic.h>
-+#include <dt-bindings/clock/sun8i-b288-ccu.h>
-+#include <dt-bindings/reset/sun8i-b288-ccu.h>
++      port-rst-offset:
++        description: reset field offset for this port
++        $ref: /schemas/types.yaml#/definitions/uint32
 +
-+/ {
-+	#address-cells = <1>;
-+	#size-cells = <1>;
-+	interrupt-parent = <&gic>;
++      port-mode-offset:
++        description: port mode field offset for this port
++        $ref: /schemas/types.yaml#/definitions/uint32
 +
-+	osc24M: osc24M-clk {
-+		#clock-cells = <0>;
-+		compatible = "fixed-clock";
-+		clock-frequency = <24000000>;
-+		clock-output-names = "osc24M";
-+	};
++      mc-mac-mask:
++        description: multicast MAC address mask
++        $ref: /schemas/types.yaml#/definitions/uint8-array
++        maxItems: 6
 +
-+	osc32k: osc32k-clk {
-+		#clock-cells = <0>;
-+		compatible = "fixed-clock";
-+		clock-frequency = <32768>;
-+		clock-output-names = "osc32k";
-+	};
++      media-type:
++        $ref: /schemas/types.yaml#/definitions/string
++        enum:
++          - backplane
++          - copper
++          - fiber
 +
-+	cpus {
-+		#address-cells = <1>;
-+		#size-cells = <0>;
++    required:
++      - reg
++      - serdes-syscon
 +
-+		cpu0: cpu@0 {
-+			compatible = "arm,cortex-a7";
-+			device_type = "cpu";
-+			reg = <0>;
-+			clocks = <&ccu CLK_CPUX>;
-+			clock-names = "cpu";
-+		};
++required:
++  - compatible
++  - reg
++  - reg-names
++  - interrupts
++  - subctrl-syscon
++  - mode
++  - buf-size
++  - desc-num
 +
-+		cpu1: cpu@1 {
-+			compatible = "arm,cortex-a7";
-+			device_type = "cpu";
-+			reg = <1>;
-+			clocks = <&ccu CLK_CPUX>;
-+			clock-names = "cpu";
-+		};
-+	};
++additionalProperties: false
 +
-+	timer {
-+		compatible = "arm,armv7-timer";
-+		interrupts = <GIC_PPI 13 (GIC_CPU_MASK_SIMPLE(2) | IRQ_TYPE_LEVEL_LOW)>,
-+			     <GIC_PPI 14 (GIC_CPU_MASK_SIMPLE(2) | IRQ_TYPE_LEVEL_LOW)>,
-+			     <GIC_PPI 11 (GIC_CPU_MASK_SIMPLE(2) | IRQ_TYPE_LEVEL_LOW)>,
-+			     <GIC_PPI 10 (GIC_CPU_MASK_SIMPLE(2) | IRQ_TYPE_LEVEL_LOW)>;
-+	};
++examples:
++  - |
++    dsa@c5000000 {
++        compatible = "hisilicon,hns-dsaf-v1";
++        #address-cells = <1>;
++        #size-cells = <0>;
++        mode = "6port-16rss";
++        reg = <0xc5000000 0x890000
++               0xc7000000 0x60000>;
++        reg-names = "ppe-base", "dsaf-base";
++        subctrl-syscon = <&subctrl>;
++        reset-field-offset = <0>;
++        interrupts = <131 4>, <132 4>, <133 4>, <134 4>,
++                     <135 4>, <136 4>, <137 4>, <138 4>,
++                     <139 4>, <140 4>, <141 4>, <142 4>,
++                     <143 4>, <144 4>, <145 4>, <146 4>,
++                     <147 4>, <148 4>, <384 1>, <385 1>,
++                     <386 1>, <387 1>, <388 1>, <389 1>,
++                     <390 1>, <391 1>;
++        buf-size = <4096>;
++        desc-num = <1024>;
++        dma-coherent;
 +
-+	soc {
-+		compatible = "simple-bus";
-+		#address-cells = <1>;
-+		#size-cells = <1>;
-+		ranges;
++        port@0 {
++            reg = <0>;
++            phy-handle = <&phy0>;
++            serdes-syscon = <&serdes>;
++            mc-mac-mask = [ff f0 00 00 00 00];
++        };
 +
-+		nmi_intc: interrupt-controller@1c000d0 {
-+			compatible = "allwinner,sun8i-b288-nmi",
-+				     "allwinner,sun9i-a80-nmi";
-+			interrupt-controller;
-+			#interrupt-cells = <2>;
-+			reg = <0x01c000d0 0x0c>;
-+			interrupts = <GIC_SPI 32 IRQ_TYPE_LEVEL_HIGH>;
-+		};
-+
-+		/*
-+		 * mmc0 is a v4p1x controller, so it runs in the old timing
-+		 * mode and needs the sample and output phase clocks.
-+		 */
-+		mmc0: mmc@1c0f000 {
-+			compatible = "allwinner,sun8i-b288-mmc",
-+				     "allwinner,sun7i-a20-mmc";
-+			reg = <0x01c0f000 0x1000>;
-+			clocks = <&ccu CLK_BUS_SDMMC0_BUS>,
-+				 <&ccu CLK_MMC0>,
-+				 <&ccu CLK_MMC0_OUTPUT>,
-+				 <&ccu CLK_MMC0_SAMPLE>;
-+			clock-names = "ahb", "mmc", "output", "sample";
-+			resets = <&ccu RST_BUS_MMC0>;
-+			reset-names = "ahb";
-+			interrupts = <GIC_SPI 60 IRQ_TYPE_LEVEL_HIGH>;
-+			pinctrl-names = "default";
-+			pinctrl-0 = <&mmc0_pins>;
-+			status = "disabled";
-+			#address-cells = <1>;
-+			#size-cells = <0>;
-+		};
-+
-+		mmc3: mmc@1c12000 {
-+			compatible = "allwinner,sun8i-b288-emmc",
-+				     "allwinner,sun50i-a64-emmc";
-+			reg = <0x01c12000 0x1000>;
-+			clocks = <&ccu CLK_BUS_SDMMC3_BUS>, <&ccu CLK_MMC3>;
-+			clock-names = "ahb", "mmc";
-+			resets = <&ccu RST_BUS_MMC3>;
-+			reset-names = "ahb";
-+			interrupts = <GIC_SPI 63 IRQ_TYPE_LEVEL_HIGH>;
-+			pinctrl-names = "default";
-+			pinctrl-0 = <&mmc3_pins>;
-+			status = "disabled";
-+			#address-cells = <1>;
-+			#size-cells = <0>;
-+		};
-+
-+		/* mmc2 @0x01c11000 is an unsupported SDHCI-style controller. */
-+
-+		ccu: clock-controller@1c20000 {
-+			compatible = "allwinner,sun8i-b288-ccu";
-+			reg = <0x01c20000 0x400>;
-+			clocks = <&osc24M>, <&osc32k>;
-+			clock-names = "hosc", "losc";
-+			#clock-cells = <1>;
-+			#reset-cells = <1>;
-+		};
-+
-+		rtc: rtc@1c20400 {
-+			compatible = "allwinner,sun8i-b288-rtc";
-+			reg = <0x01c20400 0x400>;
-+			interrupts = <GIC_SPI 40 IRQ_TYPE_LEVEL_HIGH>;
-+			clock-output-names = "osc32k", "osc32k-out";
-+			clocks = <&osc32k>;
-+			#clock-cells = <1>;
-+		};
-+
-+		pio: pinctrl@1c20800 {
-+			compatible = "allwinner,sun8i-b288-pinctrl";
-+			reg = <0x01c20800 0x400>;
-+			interrupts = <GIC_SPI 15 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_SPI 16 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_SPI 21 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_SPI 17 IRQ_TYPE_LEVEL_HIGH>;
-+			clocks = <&ccu CLK_BUS_PIO>, <&osc24M>, <&osc32k>;
-+			clock-names = "apb", "hosc", "losc";
-+			gpio-controller;
-+			#gpio-cells = <3>;
-+			interrupt-controller;
-+			#interrupt-cells = <3>;
-+
-+			mmc0_pins: mmc0-pins {
-+				pins = "PF0", "PF1", "PF2",
-+				       "PF3", "PF4", "PF5";
-+				function = "mmc0";
-+				allwinner,pinmux = <2>;
-+				drive-strength = <30>;
-+				bias-pull-up;
-+			};
-+
-+			i2c0_pins: i2c0-pins {
-+				pins = "PB6", "PB7";
-+				function = "i2c0";
-+				allwinner,pinmux = <2>;
-+			};
-+
-+			mmc3_pins: mmc3-pins {
-+				pins = "PC1", "PC4", "PC5", "PC6",
-+				       "PC7", "PC8", "PC9", "PC10",
-+				       "PC11", "PC12", "PC13", "PC14";
-+				function = "mmc3";
-+				allwinner,pinmux = <5>;
-+				drive-strength = <40>;
-+				bias-pull-up;
-+			};
-+
-+			uart0_pb_pins: uart0-pb-pins {
-+				pins = "PB4", "PB5";
-+				function = "uart0";
-+				allwinner,pinmux = <2>;
-+			};
-+		};
-+
-+		wdt: watchdog@1c20ca0 {
-+			compatible = "allwinner,sun8i-b288-wdt",
-+				     "allwinner,sun6i-a31-wdt";
-+			reg = <0x01c20ca0 0x20>;
-+			interrupts = <GIC_SPI 25 IRQ_TYPE_LEVEL_HIGH>;
-+			clocks = <&osc24M>;
-+		};
-+
-+		uart0: serial@1c28000 {
-+			compatible = "snps,dw-apb-uart";
-+			reg = <0x01c28000 0x400>;
-+			interrupts = <GIC_SPI 0 IRQ_TYPE_LEVEL_HIGH>;
-+			reg-shift = <2>;
-+			reg-io-width = <4>;
-+			clocks = <&ccu CLK_BUS_UART0>;
-+			resets = <&ccu RST_BUS_UART0>;
-+			status = "disabled";
-+		};
-+
-+		uart1: serial@1c28400 {
-+			compatible = "snps,dw-apb-uart";
-+			reg = <0x01c28400 0x400>;
-+			interrupts = <GIC_SPI 1 IRQ_TYPE_LEVEL_HIGH>;
-+			reg-shift = <2>;
-+			reg-io-width = <4>;
-+			clocks = <&ccu CLK_BUS_UART1>;
-+			resets = <&ccu RST_BUS_UART1>;
-+			status = "disabled";
-+		};
-+
-+		uart2: serial@1c28800 {
-+			compatible = "snps,dw-apb-uart";
-+			reg = <0x01c28800 0x400>;
-+			interrupts = <GIC_SPI 2 IRQ_TYPE_LEVEL_HIGH>;
-+			reg-shift = <2>;
-+			reg-io-width = <4>;
-+			clocks = <&ccu CLK_BUS_UART2>;
-+			resets = <&ccu RST_BUS_UART2>;
-+			status = "disabled";
-+		};
-+
-+		uart3: serial@1c28c00 {
-+			compatible = "snps,dw-apb-uart";
-+			reg = <0x01c28c00 0x400>;
-+			interrupts = <GIC_SPI 3 IRQ_TYPE_LEVEL_HIGH>;
-+			reg-shift = <2>;
-+			reg-io-width = <4>;
-+			clocks = <&ccu CLK_BUS_UART3>;
-+			resets = <&ccu RST_BUS_UART3>;
-+			status = "disabled";
-+		};
-+
-+		uart4: serial@1c29000 {
-+			compatible = "snps,dw-apb-uart";
-+			reg = <0x01c29000 0x400>;
-+			interrupts = <GIC_SPI 4 IRQ_TYPE_LEVEL_HIGH>;
-+			reg-shift = <2>;
-+			reg-io-width = <4>;
-+			clocks = <&ccu CLK_BUS_UART4>;
-+			resets = <&ccu RST_BUS_UART4>;
-+			status = "disabled";
-+		};
-+
-+		i2c0: i2c@1c2ac00 {
-+			compatible = "allwinner,sun8i-b288-i2c",
-+				     "allwinner,sun6i-a31-i2c";
-+			reg = <0x01c2ac00 0x400>;
-+			interrupts = <GIC_SPI 6 IRQ_TYPE_LEVEL_HIGH>;
-+			clocks = <&ccu CLK_BUS_TWI0>;
-+			resets = <&ccu RST_BUS_I2C0>;
-+			pinctrl-names = "default";
-+			pinctrl-0 = <&i2c0_pins>;
-+			status = "disabled";
-+			#address-cells = <1>;
-+			#size-cells = <0>;
-+		};
-+
-+		i2c1: i2c@1c2b000 {
-+			compatible = "allwinner,sun8i-b288-i2c",
-+				     "allwinner,sun6i-a31-i2c";
-+			reg = <0x01c2b000 0x400>;
-+			interrupts = <GIC_SPI 7 IRQ_TYPE_LEVEL_HIGH>;
-+			clocks = <&ccu CLK_BUS_TWI1>;
-+			resets = <&ccu RST_BUS_I2C1>;
-+			status = "disabled";
-+			#address-cells = <1>;
-+			#size-cells = <0>;
-+		};
-+
-+		i2c2: i2c@1c2b400 {
-+			compatible = "allwinner,sun8i-b288-i2c",
-+				     "allwinner,sun6i-a31-i2c";
-+			reg = <0x01c2b400 0x400>;
-+			interrupts = <GIC_SPI 8 IRQ_TYPE_LEVEL_HIGH>;
-+			clocks = <&ccu CLK_BUS_TWI2>;
-+			resets = <&ccu RST_BUS_I2C2>;
-+			status = "disabled";
-+			#address-cells = <1>;
-+			#size-cells = <0>;
-+		};
-+
-+		gic: interrupt-controller@1c81000 {
-+			compatible = "arm,gic-400";
-+			reg = <0x01c81000 0x1000>,
-+			      <0x01c82000 0x2000>,
-+			      <0x01c84000 0x2000>,
-+			      <0x01c86000 0x2000>;
-+			interrupts = <GIC_PPI 9 (GIC_CPU_MASK_SIMPLE(2) | IRQ_TYPE_LEVEL_HIGH)>;
-+			interrupt-controller;
-+			#interrupt-cells = <3>;
-+		};
-+	};
-+};
++        port@1 {
++            reg = <1>;
++            serdes-syscon = <&serdes>;
++            mc-mac-mask = [ff f0 00 00 00 00];
++        };
++    };
+diff --git a/Documentation/devicetree/bindings/net/hisilicon-hns-dsaf.txt b/Documentation/devicetree/bindings/net/hisilicon-hns-dsaf.txt
+deleted file mode 100644
+index 8ee4b1cedae8..000000000000
+--- a/Documentation/devicetree/bindings/net/hisilicon-hns-dsaf.txt
++++ /dev/null
+@@ -1,90 +0,0 @@
+-Hisilicon DSA Fabric device controller
+-
+-Required properties:
+-- compatible: should be "hisilicon,hns-dsaf-v1" or "hisilicon,hns-dsaf-v2".
+-  "hisilicon,hns-dsaf-v1" is for hip05.
+-  "hisilicon,hns-dsaf-v2" is for Hi1610 and Hi1612.
+-- mode: dsa fabric mode string. only support one of dsaf modes like these:
+-		"2port-64vf",
+-		"6port-16rss",
+-		"6port-16vf",
+-		"single-port".
+-- interrupts: should contain the DSA Fabric and rcb interrupt.
+-- reg: specifies base physical address(es) and size of the device registers.
+-  The first region is external interface control register base and size(optional,
+-  only used when subctrl-syscon does not exist). It is recommended using
+-  subctrl-syscon rather than this address.
+-  The second region is SerDes base register and size(optional, only used when
+-  serdes-syscon in port node does not exist). It is recommended using
+-  serdes-syscon rather than this address.
+-  The third region is the PPE register base and size.
+-  The fourth region is dsa fabric base register and size. It is not required for
+-  single-port mode.
+-- reg-names: may be ppe-base and(or) dsaf-base. It is used to find the
+-  corresponding reg's index.
+-
+-- phy-handle: phy handle of physical port, 0 if not any phy device. It is optional
+-  attribute. If port node exists, phy-handle in each port node will be used.
+-  see ethernet.txt [1].
+-- subctrl-syscon: is syscon handle for external interface control register.
+-- reset-field-offset: is offset of reset field. Its value depends on the hardware
+-  user manual.
+-- buf-size: rx buffer size, should be 16-1024.
+-- desc-num: number of description in TX and RX queue, should be 512, 1024, 2048 or 4096.
+-
+-- port: subnodes of dsaf. A dsaf node may contain several port nodes(Depending
+-  on mode of dsaf). Port node contain some attributes listed below:
+-- reg: is physical port index in one dsaf.
+-- phy-handle: phy handle of physical port. It is not required if there isn't
+-  phy device. see ethernet.txt [1].
+-- serdes-syscon: is syscon handle for SerDes register.
+-- cpld-syscon: is syscon handle + register offset pair for cpld register. It is
+-  not required if there isn't cpld device.
+-- port-rst-offset: is offset of reset field for each port in dsaf. Its value
+-  depends on the hardware user manual.
+-- port-mode-offset: is offset of port mode field for each port in dsaf. Its
+-  value depends on the hardware user manual.
+-- mc-mac-mask: mask of multicast address, determines bit in multicast address
+-  to set:
+-  1 stands for this bit will be precisely matched, TCAM will check this bit of
+-    MAC address.
+-  0 stands for this bit will be fuzzy matched, TCAM won't care about this bit
+-    of MAC address.
+-
+-[1] Documentation/devicetree/bindings/net/phy.txt
+-
+-Example:
+-
+-dsaf0: dsa@c7000000 {
+-	compatible = "hisilicon,hns-dsaf-v1";
+-	mode = "6port-16rss";
+-	interrupt-parent = <&mbigen_dsa>;
+-	reg = <0x0 0xc5000000 0x0 0x890000
+-	       0x0 0xc7000000 0x0 0x60000>;
+-	reg-names = "ppe-base", "dsaf-base";
+-	subctrl-syscon = <&subctrl>;
+-	reset-field-offset = 0;
+-	interrupts = <131 4>,<132 4>, <133 4>,<134 4>,
+-		     <135 4>,<136 4>, <137 4>,<138 4>,
+-		     <139 4>,<140 4>, <141 4>,<142 4>,
+-		     <143 4>,<144 4>, <145 4>,<146 4>,
+-		     <147 4>,<148 4>, <384 1>,<385 1>,
+-		     <386 1>,<387 1>, <388 1>,<389 1>,
+-		     <390 1>,<391 1>,
+-	buf-size = <4096>;
+-	desc-num = <1024>;
+-	dma-coherent;
+-
+-	port@0 {
+-		reg = 0;
+-		phy-handle = <&phy0>;
+-		serdes-syscon = <&serdes>;
+-		mc-mac-mask = [ff f0 00 00 00 00];
+-	};
+-
+-	port@1 {
+-                reg = 1;
+-                serdes-syscon = <&serdes>;
+-		mc-mac-mask = [ff f0 00 00 00 00];
+-        };
+-};
 -- 
-2.52.0
+2.53.0
 
