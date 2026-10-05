@@ -1,91 +1,162 @@
-Received: from mail-pj1-f70.google.com (mail-pj1-f70.google.com [209.85.216.70])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mail.hugovil.com (mail.hugovil.com [162.243.120.170])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0B71B4CEE71
-	for <linux-kernel@vger.kernel.org>; Mon,  5 Oct 2026 15:45:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.70
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E1BD44CDDCA;
+	Mon,  5 Oct 2026 15:45:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=162.243.120.170
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791215156; cv=none; b=JKNKX97XqfPSsLKG7PdNWgwQcMCnGa/ZEfpMnUdp4dZbV5GHfj6G/DpIp1jS3f3cWoULG5C9yk4Me5Q59yv7aHja/ZHj89cAFf0XxppYARjM+XY9Ore94DZGL0EgbkDVcqP23xAjdLUNEIIFm3K7wH0DuPx2sEAUmwB1Lz3HJYI=
+	t=1791215155; cv=none; b=NxyXRTKqUH4AbGFg2aTSTmlo1cIRPssUEvKNDfRM0i6BgMiug//KspQqrTWwZ1XMdtYXZ+O5tUMyq44qHqNadz9ZKNZRm1n3ezGxx10fRC7x+8LweGaWTbfRSHxFzso4/waxSUclYg1NdV3YqU9cJIiin4oooVTaSub1iUU13+0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791215156; c=relaxed/simple;
-	bh=KZIMzSNQ5PyWeZjaT/gpYYDCkTtRb/oLmdPXdsZuR/8=;
-	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
-	 To:Cc:Content-Type; b=N9xW7xiw6gv6q9z1EsxL8umnNFOZcG3Xc0m/b8QdJc0CeRZdfuCmh75ebmUG0qHzWwASrU1uIH1tUJtAaHxZ1TTc8CYysoSoHL5apf2nijMs7xFemR8d9HlnE1V6EN20CL3B3e9jf3FFV8EpgnkCPrdTiB3ICbefdU52k0LJ8t4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--rathodpriyank.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=eV/moQtU; arc=none smtp.client-ip=209.85.216.70
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--rathodpriyank.bounces.google.com
+	s=arc-20240116; t=1791215155; c=relaxed/simple;
+	bh=pjKjnNLNtpL/SCqwL2/Wv1J4bwS4096iwxHuiyTCoRk=;
+	h=Date:From:To:Cc:Subject:Message-Id:In-Reply-To:References:
+	 Mime-Version:Content-Type; b=M4OsY7oA3Ypn3TV6pr7OajqUaDAEnZv+QFC33sqSrGyXJh+yvDEKTgW2bilfpa/PAgTFhGcfsAvh4+Iq8Cdmkp081iu7xoJCJCl5+9BPwP3G/Noayo/RRWb2X9QZqw9MmgkB3/yIPVBzwSfDTqT8TdfvmcEN5TvlBJvcUYsRDIs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=hugovil.com; spf=pass smtp.mailfrom=hugovil.com; dkim=pass (1024-bit key) header.d=hugovil.com header.i=@hugovil.com header.b=PfEU3Eja; arc=none smtp.client-ip=162.243.120.170
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=hugovil.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=hugovil.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="eV/moQtU"
-Received: by mail-pj1-f70.google.com with SMTP id 98e67ed59e1d1-39e3c10ac70so2823601a91.2
-        for <linux-kernel@vger.kernel.org>; Mon, 05 Oct 2026 08:45:53 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1791215152; x=1791819952; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=KZIMzSNQ5PyWeZjaT/gpYYDCkTtRb/oLmdPXdsZuR/8=;
-        b=eV/moQtUL6Zrxl9PxK0o8foQXNnvmgcixjoCNhm+bPWcTo8bM9A/MFhi2+kCVn+znw
-         vKLUF6wArmv+20ghPBIx0xYTSQHWkhq+ljMKI+EnqS/x5Mh+OQmSEG71pihYdluqDaip
-         aJRlEGFJrehrA9jzx/OV+ij0vAG4ZNS0rtuHWBN5t2BsPEc2KRSATIWz+a7dPOMGdxQp
-         Zmp/UxVuwA1H+pcB9GZjK/OW9erBcnkF8cs60XKGbEhMhiKZ7PhEe1F44x2WqKy6E20C
-         eOXYZ+9F9t6WwoVmVWfHg7fPGr2FIYX0CtxIkX6OajBcR9ui9Uf4tFDkZWmXAItoL4Mu
-         A4kA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791215152; x=1791819952;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=KZIMzSNQ5PyWeZjaT/gpYYDCkTtRb/oLmdPXdsZuR/8=;
-        b=JzUnraeO7lkNCwtnhx0UipVR/RYtlmQTsmm6t9fCrWHTgcdlusUWgnw7Xq2XfGR3EH
-         6PczQfS7abZF7rrr/FgC80Q1GNmd1r+lCMFSlAJIUDeYFUPgfOuEIanf63xXHIK0ePLV
-         s1azgd7zzsy76NSl40EkWNZUYYyrPWF5ShjhbuqJLiICBaIptuQ0Ns5JJw+LgtBil6Pm
-         aWRr5yie3HDgTUCwSEjMX+Zc41fQMT8ZLltA2sr+b0hSrVj222GDAaKbcQdzglAPfRLZ
-         6XAvYXxGa7nMGgkHtjad6db6BY21NU/Rvh2T/q3EzQypL7oIrIaUZaq4MfXeNqzdOtGp
-         0sIA==
-X-Forwarded-Encrypted: i=1; AKwUvBykV+orRLKZqRvxPqTIKQlRLIlBmWdwew6yywGfyXJc5WYFgw80IJ+zJ4mKWZZcY0RnxkV0a/VF7Ffa0RQ=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJh2Y1JIkqkMAAsNXlaqB3T1+/nIXHIPU51vb1fMGzUDgYLVEW8
-	H3yIYSxj7Fa17arSnjDrcxjErWmKo3zuNrOute9cnU2K+daVz4pSiRTpx/B/6U3q6P3ZLJoAnVl
-	WDZFvVXQPSSE1aoLtOlGwNXhJHdIpJOvEpA==
-X-Received: from pgby17-n1.prod.google.com ([2002:a05:6a02:6511:10b0:cc7:d4f0:846d])
- (user=rathodpriyank job=prod-delivery.src-stubby-dispatcher) by
- 2002:a17:90b:380b:b0:3a7:d9d9:b309 with SMTP id 98e67ed59e1d1-3a7d9d9b6c2mr4026235a91.41.1791215152003;
- Mon, 05 Oct 2026 08:45:52 -0700 (PDT)
-Date: Mon,  5 Oct 2026 15:45:51 +0000
-In-Reply-To: <20260928-b4-fix-aer-memleaks-v5-0-ba6b94c9c9a6@google.com>
+	dkim=pass (1024-bit key) header.d=hugovil.com header.i=@hugovil.com header.b="PfEU3Eja"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=hugovil.com
+	; s=default; h=Content-Transfer-Encoding:Mime-Version:Message-Id:Subject:Cc:
+	To:From:Date:subject:date:message-id:reply-to;
+	bh=7e9GMwhuF4F9yCfe61G+u9tWCIpCD/dkfhRhkg8Lbp4=; b=PfEU3Eja0+5/Iu1O57U7R3rCwe
+	YcRS1pp0vhjIau1UzZnCi7ZBWA1hnya06NQEZvSsEkjwk4shH1ehRrYPM7tDNM+TMV1arfHdwuPOG
+	K4o/C2i0Yegn989+11pYy2TqARkG2/49mLysKafCmdb6GI5D2W2YnY5oB3opnXhR2wJc=;
+Received: from modemcable168.174-80-70.mc.videotron.ca ([70.80.174.168] helo=pettiford.lan)
+	by mail.hugovil.com with esmtpa (Exim 4.98.2)
+	(envelope-from <hugo@hugovil.com>)
+	id 1xDksk-000000001m3-2iyY;
+	Mon, 05 Oct 2026 11:45:40 -0400
+Date: Mon, 5 Oct 2026 11:45:39 -0400
+From: Hugo Villeneuve <hugo@hugovil.com>
+To: Tapio Reijonen <tapio.reijonen@vaisala.com>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Jiri Slaby
+ <jirislaby@kernel.org>, <linux-kernel@vger.kernel.org>,
+ <linux-serial@vger.kernel.org>, Hugo Villeneuve <hvilleneuve@dimonoff.com>,
+ Tapio Reijonen <tapio.reijonen@kolumbus.fi>
+Subject: Re: [PATCH v6 1/9] serial: max310x: don't clobber the TX break bit
+ in set_termios
+Message-Id: <20261005114539.a7244a974fb7a63414095517@hugovil.com>
+In-Reply-To: <20261004-max310x-rs485-sw-delay-v6-1-3a0ef13ed9e3@vaisala.com>
+References: <20261004-max310x-rs485-sw-delay-v6-0-3a0ef13ed9e3@vaisala.com>
+	<20261004-max310x-rs485-sw-delay-v6-1-3a0ef13ed9e3@vaisala.com>
+X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 Mime-Version: 1.0
-References: <20260928-b4-fix-aer-memleaks-v5-0-ba6b94c9c9a6@google.com>
-X-Mailer: git-send-email 2.56.0.360.g66cac248cb-goog
-Message-ID: <20261005154551.1508146-1-rathodpriyank@google.com>
-Subject: Re: [PATCH v5 0/3] PCI/AER: Fix ghes_estatus_pool memory leaks in
- error handling
-From: Priyank Rathod <rathodpriyank@google.com>
-To: Bjorn Helgaas <bhelgaas@google.com>
-Cc: Mahesh J Salgaonkar <mahesh@linux.ibm.com>, "Oliver O'Halloran" <oohall@gmail.com>, 
-	Lukas Wunner <lukas@wunner.de>, 
-	Kuppuswamy Sathyanarayanan <sathyanarayanan.kuppuswamy@linux.intel.com>, 
-	Jonathan Cameron <jic23@kernel.org>, 
-	"=?UTF-8?q?Ilpo=20J=C3=A4rvinen?=" <ilpo.jarvinen@linux.intel.com>, Dave Jiang <dave.jiang@intel.com>, 
-	Shiju Jose <shiju.jose@huawei.com>, "Rafael J. Wysocki" <rafael.j.wysocki@intel.com>, 
-	linuxppc-dev@lists.ozlabs.org, linux-pci@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
+X-Spam_score: -2.0
+X-Spam_bar: --
 
-Hi Bjorn,
+Hi Tapio,
 
-Gentle ping on this series. Patches 1 and 2 carry Kuppuswamy's
-Reviewed-by, and patch 3 is the kernel-doc comment he suggested. All
-three still apply cleanly to current pci/next.
+On Sun, 04 Oct 2026 12:16:21 +0000
+Tapio Reijonen <tapio.reijonen@vaisala.com> wrote:
 
-Is there anything you would like changed before it can be considered
-for v7.4? I am happy to respin.
+> max310x_set_termios() overwrites the whole LCR register, but LCR
+> also carries the TX break bit that max310x_break_ctl() drives. A break
+> is a state, not an event: TIOCSBRK sets the bit and it must stay set
+> until TIOCCBRK. Any termios change in between - no concurrency
+> required - rewrites LCR from the termios bits alone and silently ends
+> the break early.
 
-Kuppuswamy, if patch 3 matches what you had in mind, a Reviewed-by on
-it would be appreciated.
+A little bit confusing, because termios bits alone would not clear Tx
+break. Maybe:
 
-Thanks,
-Priyank
+"rewrites LCR from the termios bits with Tx break cleared, thus
+silently ending the break early" ?
+
+
+> 
+> Update only the LCR bits that are derived from termios and leave the
+> TX break and RTS pin control bits untouched. Since nothing clears a
+> break when a port is closed with the break still asserted - the tty
+> core sends no break-off on release, and the unconditional write here
+> was the accidental recovery - clear TXBREAK in startup(), the same way
+> 8250 does.
+
+You say that Tx break bit must stay set until TIOCCBRK, but you clear
+it in startup, so does the comment should indicate that it must stay
+set until TIOCCBRK or port closing or startup?
+
+
+
+> 
+> Fixes: f65444187a66 ("serial: New serial driver MAX310X")
+> Assisted-by: Claude:claude-fable-5
+> Signed-off-by: Tapio Reijonen <tapio.reijonen@vaisala.com>
+> ---
+>  drivers/tty/serial/max310x.c | 17 +++++++++++++++--
+>  1 file changed, 15 insertions(+), 2 deletions(-)
+> 
+> diff --git a/drivers/tty/serial/max310x.c b/drivers/tty/serial/max310x.c
+> index 022502986c5fcf1ff4de9328746ddc71677be730..fead9c51163d8372d1b609ee9cd5b87faa917fc1 100644
+> --- a/drivers/tty/serial/max310x.c
+> +++ b/drivers/tty/serial/max310x.c
+> @@ -158,6 +158,8 @@
+>  #define MAX310X_LCR_FORCEPARITY_BIT	(1 << 5) /* 9-bit multidrop parity */
+>  #define MAX310X_LCR_TXBREAK_BIT		(1 << 6) /* TX break enable */
+>  #define MAX310X_LCR_RTS_BIT		(1 << 7) /* RTS pin control */
+> +/* LCR bits owned by termios; TX break and RTS are driven elsewhere */
+> +#define MAX310X_LCR_TERMIOS_MASK	GENMASK(5, 0)
+
+owned -> modified ?
+
+driven -> configured or modified?
+
+>  
+>  /* IRDA register bits */
+>  #define MAX310X_IRDA_IRDAEN_BIT		(1 << 0) /* IRDA mode enable */
+> @@ -969,8 +971,12 @@ static void max310x_set_termios(struct uart_port *port,
+>  	if (termios->c_cflag & CSTOPB)
+>  		lcr |= MAX310X_LCR_STOPLEN_BIT; /* 2 stops */
+>  
+> -	/* Update LCR register */
+> -	max310x_port_write(port, MAX310X_LCR_REG, lcr);
+> +	/*
+> +	 * Update LCR register. Leave the TX break bit alone: it is driven by
+> +	 * break_ctl(), and a whole-register write here would end a break in
+> +	 * progress.
+
+Maybe simpler:
+
+"Update LCR register except TX break and RTS. Clearing TX break would
+end..." ?
+
+
+> +	 */
+> +	max310x_port_update(port, MAX310X_LCR_REG, MAX310X_LCR_TERMIOS_MASK, lcr);
+>  
+>  	/* Set read status mask */
+>  	port->read_status_mask = MAX310X_LSR_RXOVR_BIT;
+> @@ -1088,6 +1094,13 @@ static int max310x_startup(struct uart_port *port)
+>  
+>  	max310x_power(port, 1);
+>  
+> +	/*
+> +	 * Clear a latched break: nothing clears TXBREAK when a port is
+> +	 * closed with a break still asserted, and set_termios() no longer
+> +	 * rewrites it.
+
+TXBREAK -> "TX break" (consistent with your previous comments)
+
+rewrites -> clears
+
+> +	 */
+> +	max310x_port_update(port, MAX310X_LCR_REG, MAX310X_LCR_TXBREAK_BIT, 0);
+> +
+>  	/* Configure MODE1 register */
+>  	max310x_port_update(port, MAX310X_MODE1_REG,
+>  			    MAX310X_MODE1_TRNSCVCTRL_BIT, 0);
+> 
+> -- 
+> 2.47.3
+> 
+
+
+-- 
+Hugo Villeneuve
