@@ -1,104 +1,195 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A87BD313E36;
-	Mon,  5 Oct 2026 16:41:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 9B075313E36
+	for <linux-kernel@vger.kernel.org>; Mon,  5 Oct 2026 16:42:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791218504; cv=none; b=lQelC+a5pOt9Q6hBYUZalkjGNoqU7s6erOLmtblwvSOHEWE0aZgY9HUFmCn0gxOvvYadXT5XwG1VeAC7EQ5i3BfznfQxM5QdaluE/8FHd9sRlc4PP25uRySY7gvbG3ZIIYqFfZ8EJoM+BJIo4C+wklMK0g5W4znjs/SqrLYAzIk=
+	t=1791218544; cv=none; b=J/90kYxphLpEgiLjcm2GhxEefAYa1E/nDhj0pmGm8jgUG4GuScGR1i6ipSd/Ip7ho4hk3H01qy2PYccPgL5zbMhyT8PqEoAAKQP3eAOtR+P3LnzHePHlKMnaGSY3pLDyrlvCriN7YOir7u2jSF//fd9waAivV1IuM8Av+DmhIpg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791218504; c=relaxed/simple;
-	bh=+X2OntxrMTq2KSrF/FK1TbUaOawdn0FYEbaeGy3cIa8=;
-	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To; b=bk/ekS7blznSbsrS59suNtJBpd4B8kuKpDksrDi8BkSViGMmN8xWIAB0w/Sh1QSKv3bCuGa7mPYcm4HI1fYuFD+w2SpkNdVJK8Osah/skvFFRzLAJ2/HKMRhyy2qCapQ58C8UjtJZkyYCQ3wa4oFk+ZTmzOkoyzluuO1YutNy2Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hmEars6e; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791218544; c=relaxed/simple;
+	bh=2BnlRaekwJa1zpDI6gqSZacNqin8Ey/6G0b7goZB50g=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=Diygyzn3Lf0JEZigAJBDaIjtypIVw1ko/BxeXqP7N+V7w817VXqfwYSUhrwqkIdhp6V0qN0z6NQnt5lQEFHr9leCRf0Tzcruhicai0wUB/VzdklkoqUsFcwEiQa8ewlRNKsoRBnPagRngn9Tib5tHJe8BIgwwBWIMdEWsQmUaw4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=qyhDh8CB; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hmEars6e"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F0E841F000FF;
-	Mon,  5 Oct 2026 16:41:42 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791218503;
-	bh=ACSssUGKie/5eVZn/j7clwXvC4MTmISK/f7AzHTT/3A=;
-	h=Date:From:To:Cc:Subject:In-Reply-To;
-	b=hmEars6ew5+YbrRD+7XLCHSA9cc1J3iBUUrqtEQ7cEbqkGUIC2ch7qbL8VmiPjUQT
-	 XlduUY3JUBTpbVMnZx+7LLH9rETL1YIlR+PwqK2+x1iNA60y3QJ4+sYhvWVFhBKm0i
-	 MEkiWKRHfQVXfTW82ZNrJ2R3AfKVdKuHLEdmL7FMpxQVwIkoWT8vPUEOnPLnPCHTjw
-	 8Pv+aQmncE1OfyyDaAqYzTbv96s/SCAZh/SviCUvZCmltKHAA0rm0ksnofutqgH2SX
-	 cMokhwVuYDjTOFpUKbQSD8k1vKLUskl58yfzGvTyHX+hRbLxdtTqLglJgZEw8KmJZq
-	 DwXOhjqIy9FZQ==
-Date: Mon, 5 Oct 2026 11:41:41 -0500
-From: Bjorn Helgaas <helgaas@kernel.org>
-To: Jose Ignacio Tornos Martinez <jtornosm@redhat.com>
-Cc: bhelgaas@google.com, alex@shazbot.org, mani@kernel.org,
-	jjohnson@kernel.org, linux-pci@vger.kernel.org,
-	linux-wireless@vger.kernel.org, ath11k@lists.infradead.org,
-	ath12k@lists.infradead.org, mhi@lists.linux.dev,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v15 0/2] PCI: Add device-specific reset for Qualcomm
- devices
-Message-ID: <20261005164141.GA574887@bhelgaas>
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="qyhDh8CB"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 8B02D152B;
+	Mon,  5 Oct 2026 09:42:18 -0700 (PDT)
+Received: from [10.2.212.23] (e121345-lin.cambridge.arm.com [10.2.212.23])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 5BD493F66F;
+	Mon,  5 Oct 2026 09:42:20 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1791218541; bh=2BnlRaekwJa1zpDI6gqSZacNqin8Ey/6G0b7goZB50g=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=qyhDh8CBsi951EOcBfBUDIHumzCLo47ccOMIUJDsSuohreAS7MXXrJo4dOkI8aj4O
+	 MrB+rBKHKC8Y6BoNArUQec2mz+M0U8RjTpFR6eod3zbw0+MlftqBbASthksqHol57V
+	 sbEGMZlCj5sszfJ4YWbwnh4qxo7TJGzUXBK2ZdHU=
+Message-ID: <92758f79-d5b7-4c15-a55d-6bea5f84a028@arm.com>
+Date: Mon, 5 Oct 2026 17:42:18 +0100
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261005105436.83962-1-jtornosm@redhat.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2] iommu/arm-smmu-v3: Align memory attributes for
+ SMMU-originated accesses
+To: Daniel Mentz <danielmentz@google.com>, iommu@lists.linux.dev
+Cc: will@kernel.org, joro@8bytes.org, nicolinc@nvidia.com,
+ smostafa@google.com, linux-arm-kernel@lists.infradead.org,
+ linux-kernel@vger.kernel.org, dawei.li@linux.dev, jgg@ziepe.ca,
+ praan@google.com
+References: <20261004195027.227748-1-danielmentz@google.com>
+From: Robin Murphy <robin.murphy@arm.com>
+Content-Language: en-GB
+In-Reply-To: <20261004195027.227748-1-danielmentz@google.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Mon, Oct 05, 2026 at 12:54:34PM +0200, Jose Ignacio Tornos Martinez wrote:
-> Some Qualcomm PCIe devices (WCN6855, WCN7850 WLAN; SDX62/SDX65 modems)
-> lack working reset methods for VFIO passthrough scenarios. These devices
-> have no FLR capability, advertise NoSoftRst+ (blocking PM reset), and have
-> broken bus reset.
+On 04/10/2026 8:50 pm, Daniel Mentz wrote:
+> The SMMU specification defines several types of SMMU-originated memory
+> accesses, including Stage 1 and Stage 2 translation table walks, stream
+> table accesses (L1STD and STE fetches), CD table accesses (L1CD and CD
+> fetches), and queue accesses (CMDQ fetch, EVENTQ write, PRIQ write).
 > 
-> Standard reset methods were already disabled for these devices by commit
-> 6a4f64c3a3ad ("PCI: Avoid SBR for Qualcomm WCN6855/WCN7850 WiFi,
-> SDX62/SDX65 modems") because they were not working (quirk_no_bus_reset).
+> While the memory attributes used for Stage 1 and Stage 2 translation
+> table walks are configured in io-pgtable-arm based on whether the SMMU
+> is coherent (ARM_SMMU_FEAT_COHERENCY), the attributes for stream tables,
+> CD tables, and queues are currently hardcoded to Inner Shareable,
+> Write-Back.
 > 
-> VFIO attempts to reset devices on every reassignment:
-> - For the listed modems, without a proper reset capability, these devices
-> never successfully initialize even on first VM assignment.
-> - For the listed WLAN devices, without a working reset method, the attempt
-> fails. On clean VM shutdown, the guest driver properly deinitializes the
-> device via .shutdown/.remove callbacks, leaving it in a usable state despite
-> the failed reset. However, on unclean VM termination (crash, force-off), the
-> guest driver callbacks are not triggered, the device remains in an undefined
-> state (DMA active, interrupts enabled, etc.), and without a working reset it
-> cannot be reused.
+> On non-coherent systems, however, memory for stream tables, CD tables,
+> and queues is allocated via dma_alloc_coherent() /
+> dmam_alloc_coherent(), which provides CPU mappings with Normal
+> Non-Cacheable attributes. Having a non-coherent SMMU access these
+> buffers with Inner Shareable, Write-Back attributes results in
+> mismatched memory attributes between the CPU and the SMMU.
 > 
-> Add device-specific reset methods using BAR-space hardware reset registers
-> that exist in these devices:
-> 
->   Patch 1: SDX62/SDX65 modem reset via MHI SoC reset
->   Patch 2: WCN6855/WCN7850 WLAN reset via SoC global reset
-> 
-> These are true hardware reset mechanisms (not power management or firmware
-> error recovery), providing proper device reset for VFIO scenarios, allowing
-> to enforce isolation between successive passthrough users.
-> 
-> Testing shows stable operation over 100+ VM crash/reset cycles. Device-
-> specific reset is position #1 in the reset hierarchy, so these devices
-> will use hardware reset as their primary reset method.
-> 
-> Jose Ignacio Tornos Martinez (2):
->   PCI: Add device-specific reset for Qualcomm SDX62/SDX65 modems
->   PCI: Add device-specific reset for Qualcomm WCN6855/WCN7850 WLAN
-> 
->  drivers/pci/quirks.c | 116 +++++++++++++++++++++++++++++++++++++++++++
->  1 file changed, 116 insertions(+)
+> Configure the memory attributes for tables and queues in
+> arm_smmu_device_reset() and arm_smmu_make_cdtable_ste() based on
+> ARM_SMMU_FEAT_COHERENCY, matching the attributes used for translation
+> table walks:
 
-Applied to pci/reset for v7.4, thanks!
+This still isn't answering the question of "why?" though. Yes the 
+architecture says some things, but if we were strict about avoiding 
+mismatched attributes then Linux couldn't ever support non-coherent DMA 
+at all! Similarly while the architecture does permit SMMU 
+implementations to be picky about their output attributes, does any such 
+implementation actually exist at all, let alone in a system capable of 
+running mainline Linux?
 
+And yes, io-pgtable-arm does happen to be a little more fastidious with 
+attributes, but that is more to do with Qualcomm SMMUv2 platforms that 
+gave a magic meaning to the outer-cacheable attribute on a 
+still-otherwise-non-coherent downstream interconnect - which we support 
+via IO_PGTABLE_QUIRK_ARM_OUTER_WBWA - but is not directly relevant to 
+arm-smmu-v3 itself.
+
+So, short of a justification why it is unavoidably _necessary_ to change 
+an assumption that in practice has held since day one, I'm still going 
+to hold the opinion that at worst this smells like a sneaky hack around 
+DT/ACPI describing coherency incorrectly, which really should be fixed 
+in the firmware; or at best is just churn for no practical benefit that 
+will only help hide that bug in future. And if someone does have a 
+justifiable use-case for wanting to use a coherent SMMU non-coherently, 
+then it's all the more reason to add proper DMA API support for that 
+rather than bodging firmware to try to trick Linux, as there's already a 
+wishlist of similar use-cases (PCIe No Snoop, Panfrost's tiler heap, etc.)
+
+Thanks,
+Robin.
+
+> - In SMMU_CR1, use Outer Shareable, Non-Cacheable for non-coherent
+>    SMMUs, while retaining Inner Shareable, Write-Back for coherent SMMUs.
+>    This applies to stream table accesses as well as queue accesses (CMDQ
+>    fetch, EVENTQ write, PRIQ write).
+> - In STE.{S1CIR, S1COR, S1CSH}, use Outer Shareable, Non-Cacheable for
+>    non-coherent SMMUs, while retaining Inner Shareable, Write-Back
+>    Read-Allocate for coherent SMMUs. This applies to CD table accesses.
+> 
+> Assisted-by: LLM
+> Reviewed-by: Nicolin Chen <nicolinc@nvidia.com>
+> Signed-off-by: Daniel Mentz <danielmentz@google.com>
 > ---
-> v15: Address Bjorn Helgaas feedback:
->   - Explain the relationship with 6a4f64c3a3ad ("PCI: Avoid SBR for Qualcomm
->     WCN6855/WCN7850 WiFi, SDX62/SDX65 modems") and previous status.
->   - No code changes from v14, only commit message clarifications (Mani's
->     Reviewed-by and Alex's Acked-by retained)
-> v14: https://lore.kernel.org/all/20260917071651.14174-1-jtornosm@redhat.com/
+> Changes in v2:
+> - Rename local variables 'cache' and 'sh' to 'cr1_cache' and 'cr1_sh' in
+>    arm_smmu_device_reset() (Nicolin, Will)
+> - Collect Reviewed-by from Nicolin
+> - Link to v1: https://lore.kernel.org/linux-iommu/20260929032229.3532247-1-danielmentz@google.com/
 > 
-> --
-> 2.54.0
+>   drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.c | 37 +++++++++++++++------
+>   1 file changed, 27 insertions(+), 10 deletions(-)
 > 
+> diff --git a/drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.c b/drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.c
+> index 34e916ea339f..02cc6fb83461 100644
+> --- a/drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.c
+> +++ b/drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.c
+> @@ -1905,6 +1905,15 @@ void arm_smmu_make_cdtable_ste(struct arm_smmu_ste *target,
+>   {
+>   	struct arm_smmu_ctx_desc_cfg *cd_table = &master->cd_table;
+>   	struct arm_smmu_device *smmu = master->smmu;
+> +	u64 s1c, s1csh;
+> +
+> +	if (smmu->features & ARM_SMMU_FEAT_COHERENCY) {
+> +		s1c = STRTAB_STE_1_S1C_CACHE_WBRA;
+> +		s1csh = ARM_SMMU_SH_ISH;
+> +	} else {
+> +		s1c = STRTAB_STE_1_S1C_CACHE_NC;
+> +		s1csh = ARM_SMMU_SH_OSH;
+> +	}
+>   
+>   	memset(target, 0, sizeof(*target));
+>   	target->data[0] = cpu_to_le64(
+> @@ -1916,9 +1925,9 @@ void arm_smmu_make_cdtable_ste(struct arm_smmu_ste *target,
+>   
+>   	target->data[1] = cpu_to_le64(
+>   		FIELD_PREP(STRTAB_STE_1_S1DSS, s1dss) |
+> -		FIELD_PREP(STRTAB_STE_1_S1CIR, STRTAB_STE_1_S1C_CACHE_WBRA) |
+> -		FIELD_PREP(STRTAB_STE_1_S1COR, STRTAB_STE_1_S1C_CACHE_WBRA) |
+> -		FIELD_PREP(STRTAB_STE_1_S1CSH, ARM_SMMU_SH_ISH) |
+> +		FIELD_PREP(STRTAB_STE_1_S1CIR, s1c) |
+> +		FIELD_PREP(STRTAB_STE_1_S1COR, s1c) |
+> +		FIELD_PREP(STRTAB_STE_1_S1CSH, s1csh) |
+>   		((smmu->features & ARM_SMMU_FEAT_STALLS &&
+>   		  !master->stall_enabled) ?
+>   			 STRTAB_STE_1_S1STALLD :
+> @@ -5102,7 +5111,7 @@ static void arm_smmu_write_strtab(struct arm_smmu_device *smmu)
+>   static int arm_smmu_device_reset(struct arm_smmu_device *smmu)
+>   {
+>   	int ret;
+> -	u32 reg, enables;
+> +	u32 reg, enables, cr1_cache, cr1_sh;
+>   
+>   	/* Clear CR0 and sync (disables SMMU and queue processing) */
+>   	reg = readl_relaxed(smmu->base + ARM_SMMU_CR0);
+> @@ -5116,12 +5125,20 @@ static int arm_smmu_device_reset(struct arm_smmu_device *smmu)
+>   		return ret;
+>   
+>   	/* CR1 (table and queue memory attributes) */
+> -	reg = FIELD_PREP(CR1_TABLE_SH, ARM_SMMU_SH_ISH) |
+> -	      FIELD_PREP(CR1_TABLE_OC, CR1_CACHE_WB) |
+> -	      FIELD_PREP(CR1_TABLE_IC, CR1_CACHE_WB) |
+> -	      FIELD_PREP(CR1_QUEUE_SH, ARM_SMMU_SH_ISH) |
+> -	      FIELD_PREP(CR1_QUEUE_OC, CR1_CACHE_WB) |
+> -	      FIELD_PREP(CR1_QUEUE_IC, CR1_CACHE_WB);
+> +	if (smmu->features & ARM_SMMU_FEAT_COHERENCY) {
+> +		cr1_cache = CR1_CACHE_WB;
+> +		cr1_sh = ARM_SMMU_SH_ISH;
+> +	} else {
+> +		cr1_cache = CR1_CACHE_NC;
+> +		cr1_sh = ARM_SMMU_SH_OSH;
+> +	}
+> +
+> +	reg = FIELD_PREP(CR1_TABLE_SH, cr1_sh) |
+> +	      FIELD_PREP(CR1_TABLE_OC, cr1_cache) |
+> +	      FIELD_PREP(CR1_TABLE_IC, cr1_cache) |
+> +	      FIELD_PREP(CR1_QUEUE_SH, cr1_sh) |
+> +	      FIELD_PREP(CR1_QUEUE_OC, cr1_cache) |
+> +	      FIELD_PREP(CR1_QUEUE_IC, cr1_cache);
+>   	writel_relaxed(reg, smmu->base + ARM_SMMU_CR1);
+>   
+>   	/* CR2 (random crap) */
+
