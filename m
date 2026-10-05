@@ -1,87 +1,147 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com [148.163.158.5])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CB94A25B08E;
-	Mon,  5 Oct 2026 12:03:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C807947ECEE;
+	Mon,  5 Oct 2026 12:03:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.158.5
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791201795; cv=none; b=UwT8+5dHVsPhCgjKrVRqjrTuX/PeQ1zO0Vu+j9vJLfm8HtIT3AWtw5pli8Cyyl5TPZemD4orhm80f74/oa3kzZs3pjDKvjm6d4aTI4tpmS43J0YAIP0Xe1YMIqdoJ5JDOF9pD/sTNZhXM/KO5OIzIEiqjENVdWkGdO++3t2UPB0=
+	t=1791201812; cv=none; b=JQnPmHrINFx9w/8aItCaD37v+A44pjv0GE5mdkyEIlS7Cyp3y5cZFmFNcRoMgrlfhllwUI1EeJmFc8HJu1vNO1eDcoLR2fqzXClk4tMuR7ouiI3x9zSZvaYtyC3oZJcol4S8TgqonLCR69KXRFC3TXS4SwFfpGXQqg1VvAZ/zV0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791201795; c=relaxed/simple;
-	bh=RX07QNDI5QhhlnhG8e/m3mlqTvkzSyuwwbOZThDqoSs=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=VNVwd3+gB9hly5J+gy7Qpo3E939JTR30SpberqIoav+Al3Sjdn4vasiKZZqEBiYUJ5vDxIsGjpqzGZHQyDBJNWDD5+UpHInZDrPe5IHq/X/mTevxCwIfwxlJnETcX8mjfrvgHZt3xlFAOxBHHrh0zYZCIVMIkCYIUZlW3UcipOk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nN9HVINB; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791201812; c=relaxed/simple;
+	bh=+z68eEBWRU3/NTrNfR88Exghdp8xeVPhNaHUBFgSGFA=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=EUM8Ziiy3rMbB5hFck/xPdPZvw1ssDI6QEDc3ySQNYoDl/r8OL1VcseFX2sOb68EXYiPmux0Ddp36mWG+YejjHMx6iWDPf/bjI2VGdlgy6iLHTu7avZN+h1xHCxsew4+TT3lO8tb2F92q0P2CU8Qvj2lKFM3pQBYSDB4xH/T5IE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=W4BYK/z1; arc=none smtp.client-ip=148.163.158.5
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nN9HVINB"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3AD4D1F000FF;
-	Mon,  5 Oct 2026 12:03:14 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791201794;
-	bh=kD4+uzw7bhovQE/d/0mn0fYUS7lXjKnjKcbPTc8WVK8=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=nN9HVINB+ZC7FQUj2kczJFE3oEIw/ooD3qD2guVDS6DTuTV8v096dOTvBAOyRxqWy
-	 R3I210N+Bu2Braa/np6DXGVxHG6mYMmwboM7O4bajwrSlX0wN8AXjyirzzo4YWz+mp
-	 9SuRWRpp51E6nJl2LlCcxBhNK9tImqtnPwzftT98lLSRzwaZv0fYGNElZeqfUeAbn/
-	 yWzcq4TBAxayFPxXMzg8lCupsPjwOGlZYWsmSutuughAt6+uSU6M2YJg5E9ND1NUrN
-	 RJubjJxXuxLXVrIIuxL+f3FLP/5in3isOJKXFOwIjVhdmhAMA67DpFN+Hnb6vMIcZ3
-	 1pcuQovZG9N3w==
-Received: by finisterre.sirena.org.uk (Postfix, from userid 1000)
-	id E1E261AC57CE; Mon, 05 Oct 2026 13:03:10 +0100 (BST)
-Date: Mon, 5 Oct 2026 14:03:10 +0200
-From: Mark Brown <broonie@kernel.org>
-To: michael.reeves077@gmail.com
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	"Rafael J. Wysocki" <rafael@kernel.org>,
-	Danilo Krummrich <dakr@kernel.org>,
-	"Liam R. Howlett" <liam@infradead.org>,
-	linux-kernel@vger.kernel.org, driver-core@lists.linux.dev,
-	maple-tree@lists.infradead.org, asahi@lists.linux.dev
-Subject: Re: [PATCH v2 2/2] regmap: Drop map lock during cache init and exit
-Message-ID: <asOR_mP6pc2Dy3OA@sirena.co.uk>
-References: <20261004-regcache-lifecycle-submit-v2-0-976d405e89a7@gmail.com>
- <20261004-regcache-lifecycle-submit-v2-2-976d405e89a7@gmail.com>
+	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="W4BYK/z1"
+Received: from pps.filterd (m0360072.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 695Ba2ea527279;
+	Mon, 5 Oct 2026 12:03:29 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+	:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=pp1; bh=c2YHpK
+	p+8vdnIcKrbHfV34zRwDceo1uq96jBKijqWg8=; b=W4BYK/z1C6nnmxiNEXf+ae
+	i/KUyVv/omsRc47/8SZlhUNT6EE7FrJfzX6u2MbvBPxHIHgSPf5XANZxGwWd7ndx
+	xYEYn9IWYeybGn/fAT4/8nd12MlR0kUqGI+XrfWZim/F+ebY8lysljEMNLj5oJi6
+	UZNgdh9yZGCpY0wocDMYGw2MKTdYSg33W2cFSHUSV6lF6faEf67IB3sF+LtjOEXg
+	M/stOTdM4l+Ewh99bKGrKPVCrtKY2+6TNeAf9g88MyGP+tyegG5yTens/wlDuJ9v
+	94vBIyjLXFRs3CRJDYQwlmcIptpo6tj5EXgItg9XXbkSA/YM8QATPn92JtnRrNwA
+	==
+Received: from ppma11.dal12v.mail.ibm.com (db.9e.1632.ip4.static.sl-reverse.com [50.22.158.219])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4h2sbv196e-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Mon, 05 Oct 2026 12:03:29 +0000 (GMT)
+Received: from pps.filterd (ppma11.dal12v.mail.ibm.com [127.0.0.1])
+	by ppma11.dal12v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 695BWbQk2862890;
+	Mon, 5 Oct 2026 12:03:29 GMT
+Received: from smtprelay04.fra02v.mail.ibm.com ([9.218.2.228])
+	by ppma11.dal12v.mail.ibm.com (PPS) with ESMTPS id 4h3eqy53fh-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Mon, 05 Oct 2026 12:03:28 +0000 (GMT)
+Received: from smtpav02.fra02v.mail.ibm.com (smtpav02.fra02v.mail.ibm.com [10.20.54.101])
+	by smtprelay04.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 695C3PI831064628
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Mon, 5 Oct 2026 12:03:25 GMT
+Received: from smtpav02.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 009BF2004B;
+	Mon,  5 Oct 2026 12:03:24 +0000 (GMT)
+Received: from smtpav02.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id C52B720067;
+	Mon,  5 Oct 2026 12:03:24 +0000 (GMT)
+Received: from [127.0.1.1] (unknown [9.87.85.9])
+	by smtpav02.fra02v.mail.ibm.com (Postfix) with ESMTP;
+	Mon,  5 Oct 2026 12:03:24 +0000 (GMT)
+From: Tobias Schumacher <ts@linux.ibm.com>
+Date: Mon, 05 Oct 2026 14:03:17 +0200
+Subject: [PATCH v2 2/7] s390/pci: Fix resource leak in zpci MSI setup
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="AiTCInaMmJm64Z9z"
-Content-Disposition: inline
-In-Reply-To: <20261004-regcache-lifecycle-submit-v2-2-976d405e89a7@gmail.com>
-X-Cookie: You will forget that you ever knew me.
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261005-s390_irq_domain_fixes-v2-2-d45b824874c0@linux.ibm.com>
+References: <20261005-s390_irq_domain_fixes-v2-0-d45b824874c0@linux.ibm.com>
+In-Reply-To: <20261005-s390_irq_domain_fixes-v2-0-d45b824874c0@linux.ibm.com>
+To: Niklas Schnelle <schnelle@linux.ibm.com>,
+        Gerd Bayer <gbayer@linux.ibm.com>,
+        Julian Ruess <julianr@linux.ibm.com>, Farhan Ali <alifm@linux.ibm.com>,
+        Christian Borntraeger <borntraeger@linux.ibm.com>,
+        Halil Pasic <pasic@linux.ibm.com>,
+        Matthew Rosato <mjrosato@linux.ibm.com>
+Cc: Heiko Carstens <hca@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>,
+        Alexander Gordeev <agordeev@linux.ibm.com>,
+        Sven Schnelle <svens@linux.ibm.com>, linux-s390@vger.kernel.org,
+        linux-kernel@vger.kernel.org, Tobias Schumacher <ts@linux.ibm.com>
+X-Mailer: b4 0.14.3
+X-TM-AS-GCONF: 00
+X-Proofpoint-ORIG-GUID: pCa-zGH0mqPnptTgKoNbXANXKS4uaVYu
+X-Authority-Analysis: v=2.4 cv=KJHPn1Fo c=1 sm=1 tr=0 ts=6ac39211 cx=c_pps
+ a=aDMHemPKRhS1OARIsFnwRA==:117 a=aDMHemPKRhS1OARIsFnwRA==:17
+ a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=RnoormkPH1_aCDwRdu11:22 a=RzCfie-kr_QcCd8fBx8p:22 a=VwQbUJbxAAAA:8
+ a=VnNF1IyMAAAA:8 a=fzb7yXF3lHBN6XHo5OoA:9 a=QEXdDO2ut3YA:10
+X-Proofpoint-GUID: pCa-zGH0mqPnptTgKoNbXANXKS4uaVYu
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDA1MDA0NSBTYWx0ZWRfXwKqp5T1v5uv3
+ kHRkBVptaT3l0XvYoIAikYdS58vEeNehwhSnZ2kBgQG8YRQzCU1ZWl/S38w+ah0Yxx+qtgbrVy4
+ Ep1GkFry1tQ7ec8km0RfQrLmachXkWx5Lf2+jS8ytuuXQ6rIDkXyQ1urDAnxn6oEsN07HrM+GMl
+ uI3h/62as7s4IworHZhQ6pUnQwXtUC9NLjLy2dtvqmsEGLV1waSsPpkf7R2hy9CzIWAKrYIZvvY
+ QKx2mdu/YxLsR63fipwTGpfc+U8+INVuLAOpKGV5y31Hzex+5CCBFMwD56cMMK8OYThCz6fnHIa
+ S5wxlYP9Z4VzS/BVbnk+/TavVr5nDGvdDzBQN2E2rsmnsK9D1pNvKWJ8u/TrbFsD6tX32ujxOY4
+ wi8GFf7NveKtJvKS1X+k93v9Dukp9XAuepeaRIQcigfaqERFQw0Bl8uOLrqRoacmiHWG2Mm1/mY
+ 4KIoHDNT1KQA7uw/VAw==
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDA1MDA0NSBTYWx0ZWRfX3VSgAH0npnOA
+ FgSJOTClAa8BCy2IRqSlT10F6txHcauDF3XtMzLlGbB8EnJbjG/JhlyfTGdtqYVaG7b6W7l7FH0
+ c4Ro1vY73IFKDLVMZd/nuMwnKr8NCO0=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-05_03,2026-10-02_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ suspectscore=0 malwarescore=0 spamscore=0 lowpriorityscore=0
+ priorityscore=1501 phishscore=0 impostorscore=0 adultscore=0 clxscore=1015
+ bulkscore=0 classifier=typeunknown authscore=0 authtc= authcc= route=outbound
+ adjust=0 reason=mlx scancount=1 engine=8.22.0-2609040000
+ definitions=main-2610050045
 
+If airq_iv_create() fails in __alloc_airq(), the zpci_sbv bit allocated
+by airq_iv_alloc_bit() is never freed. This permanently leaks one of the
+ZPCI_NR_DEVICES summary bits, reducing system capacity with each failed
+device hotplug. In systems with repeated device insertion failures or
+under memory pressure, all summary bits can be exhausted, preventing new
+PCI devices from being added until reboot.
 
---AiTCInaMmJm64Z9z
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+Add proper error handling to free the zpci_sbv bit and reset zdev->aisb
+if the AIBV creation fails.
 
-On Sun, Oct 04, 2026 at 11:38:43PM +1100, Michael Reeves via B4 Relay wrote:
-> From: Michael Reeves <michael.reeves077@gmail.com>
->=20
-> On systems with CONFIG_PROVE_RAW_LOCK_NESTING enabled, Apple GPIO probe
-> triggers an "Invalid wait context" lockdep warning.
+Fixes: f770950a4709 ("s390/pci: Migrate s390 IRQ logic to IRQ domain API")
+Cc: stable@vger.kernel.org
+Signed-off-by: Tobias Schumacher <ts@linux.ibm.com>
+---
+ arch/s390/pci/pci_irq.c | 5 ++++-
+ 1 file changed, 4 insertions(+), 1 deletion(-)
 
-> -	mas_lock(&mas);
-> +	spin_lock_irqsave(&mt->ma_lock, flags);
+diff --git a/arch/s390/pci/pci_irq.c b/arch/s390/pci/pci_irq.c
+index c9520a16ca75..134f8f4a5cfa 100644
+--- a/arch/s390/pci/pci_irq.c
++++ b/arch/s390/pci/pci_irq.c
+@@ -313,8 +313,11 @@ static int __alloc_airq(struct zpci_dev *zdev, int msi_vecs,
+ 		zdev->aibv = airq_iv_create(msi_vecs,
+ 					    AIRQ_IV_PTR | AIRQ_IV_DATA | AIRQ_IV_BITLOCK,
+ 					    NULL);
+-		if (!zdev->aibv)
++		if (!zdev->aibv) {
++			airq_iv_free_bit(zpci_sbv, *bit);
++			zdev->aisb = -1UL;
+ 			return -ENOMEM;
++		}
+ 
+ 		/* Wire up shortcut pointer */
+ 		zpci_ibv[*bit] = zdev->aibv;
 
-I think this needs at least a comment explaining why we're not using
-mas_lock(), otherwise people will try to change to using mas_lock()
-since there's no obvious reason we need to exclude interrupts and we're
-peering inside the maple tree internals.
+-- 
+2.53.0
 
---AiTCInaMmJm64Z9z
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iHUEABYKAB0WIQReagvpf3TrrA7BoYYv73Ows9A4iQUCasOR6QAKCRAv73Ows9A4
-iTMoAP4o0zrTEfz/KK1WqqxX/lOzdx2SwIkQtzyY0HTAhAlCzwD/Rgigj//3JoGr
-LajYpbwuwOeLuZ2alcDAf//8Rpb47AE=
-=q+EZ
------END PGP SIGNATURE-----
-
---AiTCInaMmJm64Z9z--
