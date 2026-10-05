@@ -1,140 +1,155 @@
-Received: from mail-pj1-f43.google.com (mail-pj1-f43.google.com [209.85.216.43])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 95CD230E0EE
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 11F08360EF7
 	for <linux-kernel@vger.kernel.org>; Mon,  5 Oct 2026 07:12:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.216.43
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791184372; cv=pass; b=J3DM4JJPL31/EpeJimGhtVCgh6dHlywuK8qfGl3TDgtK49aKhpZJq1NKqGoaNZ/RPFSMoTmNhZy5vMLoDYIMig5orjM+e35olnYQI9vEWratBV5FQapJ8lXc4RQnV/p8unC/o/+pYK/Y+Jy4pMTFUJkcem6e2jirjJS8UNxRz7M=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791184372; c=relaxed/simple;
-	bh=0gAlBEipPZBKRrUqwm974maAwlf7zgpPnUeo7CeAfKY=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=AIbRfeFnT0nNUWKlhduTVEPcKXQ3J8K7n5FuFCR3v2ZDBRPFLz96izSzvs/3WYkrmLAD8iL2JJZwSyRMxf9MZm235QQnyq/eeRhA0dPOdSo+YWpJbtgA7NtvIm2TzLSo82N/2SET47bvscz1QVnnahj329sm6wHqhWCy2e0u9d4=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=MRgVPPQU; arc=pass smtp.client-ip=209.85.216.43
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791184373; cv=none; b=r0bQ0Hp1gtXRd5WyV1e1jzkU7RlVTArsW0HHRmuULSIzxoEGsQCfCGvhpCNTxRpXvb2t4QbaA+lxQryp+cTSSGFJNio/8aXWDueqeL2rYGAFvFkegBKf+gDN+J96oUW73tdGYwG4iHVi43POGGATqL6uoO/FkiEa7kiJchF6vxM=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791184373; c=relaxed/simple;
+	bh=0TFVNxlW3vvQr0CysToctEJKeYMjBvQLlIgyergyrlM=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=EoNS7IbflY4r4V4avaVewN39GqQ5l0uh8CYXrpOqdMICQIH7HmbaVWtuqrDgB8KzScZty2RV2pK0ZhFj2tXa9kAERrqRY/5CRLx9khIDUyXaOPl83BIQj4d4Zbzkz0F8dURoVRCzPoU9z5hgVjJj22UwoMZ9sxcTHjDY/Um8Dl0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=T1+7FoiW; arc=none smtp.client-ip=170.10.129.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="MRgVPPQU"
-Received: by mail-pj1-f43.google.com with SMTP id 98e67ed59e1d1-3856d6fbcb3so683065a91.2
-        for <linux-kernel@vger.kernel.org>; Mon, 05 Oct 2026 00:12:51 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1791184371; cv=none;
-        d=google.com; s=arc-20260327;
-        b=V/+j+HiWhfp6u5i55hRog+OKfDy7aCYqe21azJLkBD2xeaQi0b/g6WKWhf7xrfrMY6
-         jlMxeFC1cy9gtjqIPf7BG+3RoOQbUArKyJK5ckytiO/Tl4o7ow/lVICeWt+4+w58A/Yx
-         dP9yJX0DV7eKnbZRrBRbZjZ4UYp1N+L9yDGQKnQznDRx8c02u5l+Lyiof46mdoTNDdWh
-         vR6m0sNCxdgQ7K6g4VHTNw0H9Ov4sSNI1ezBmSpFoX/kVjlW0CCSTs4b8LuYeQ+w1WGQ
-         PNXb0hY3CvD5fjtRUcD27Ltvwx7cXHLWW/9BAwQgMuRDbUNJyR1iJD8QCCbe7zAZmh9e
-         6iTA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=OpaxwB2ZrsJszCEJA0sJve13Y/99r5lc2MZ3LWkGqeM=;
-        fh=igwXfoa0g74+6Noh4tVA6Hmi5Mk5s7XwNMxZlc3Bk0E=;
-        b=Bjo0EhfHYfc6Fn5zql871SxaeAmioLzTkQHUq0dzxHAOJp6tT5eMX+QCVOU0/x6Uvz
-         xR/litTKvPsrKlXxqct62eAmOPmyVnjJPA9WDxkxQhtvriSBanjzEBJOGEPYA9fUxtB0
-         uqf9bvWFpwo9MEcR8dF4yw5RnXGqHKni02rmeY56X7R87j9bUr5567M3uuobr5xwy9Og
-         cGU6j4apQ7KS2Aq7Wjfgp/JE/3HGyUI8XJXcHNZMEhhLUmNp+1nC+NuZ/+TnW8xbRaVg
-         NydThwqyW398kW4kEM/fTY7JHJ7ZDRtIQ1wk9bUOPZdPEl4seVT1tEcEGRxdLI/4yZcb
-         TKJg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791184371; x=1791789171; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=OpaxwB2ZrsJszCEJA0sJve13Y/99r5lc2MZ3LWkGqeM=;
-        b=MRgVPPQUa/00pwkNZJyU+AC/pFVmcKWX68kYKkS/iN0/LnuNqwy+LC4ke5pxjknVzr
-         mhkqSnKzfkMytUJ/jyr5bKFmjrX+7qN4RJwVeOrZiXA8Aoh/B2IHHOsjdwrMRJVfUNOj
-         Nx8hJy3cOJSY4jNS0uMSHLH78OUNThJZt8sL9zwvytJW5WIbzURG542OwuAbshWT3qEw
-         Xu8witYY2zBkl+zlIDsiRtr0ExXzXPwDkLDOGQpwt6nnurw3TFpAwicY7n/4pvsHreEc
-         R5pgCExqcEHUTe9f0mo/O6p0U/dLDWqR12dGxk9Q4N/WRM+cMLNTp51M3V3RN4T3omDi
-         MMHw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791184371; x=1791789171;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=OpaxwB2ZrsJszCEJA0sJve13Y/99r5lc2MZ3LWkGqeM=;
-        b=IrlgC4Hj3JAaTBxOb8fMedQ7RV54TAemecnfZHse9zjiVnpDXAKZC/rSdwXvZdZHoi
-         yZg2D1wvlQjUMyuvks76xWCUCQ2WvZ7/AWZTwKDNPglfsBtWL4GdVuahq0I5FBuU1/Wf
-         a7jTLhnuiY/RWOt197COyFaluhmSRDXVdTaYeffMytev8309EjYH6ZUtt9id2gzjMhky
-         jyHGFzA7LRUPIPWqIo9HPkSUa0SKRrFU8BQAtcDmMaWtHDkkChfmCZVvmwyOJgpQOt7d
-         PMOIzBeiakRg2vhpBS3diVamjWpIvAvauatVRguh/+lIDoObrwlqDSOVtu4V3UvXNFbN
-         NSJg==
-X-Forwarded-Encrypted: i=1; AKwUvByK1EMo+eD11GKnV3iWHGAo6jfuv4dbrKjjPK6fMmy3iXo7gD+nJ5eSAswW0QP6jkLNl626szIPJVrw1EQ=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJJj90mLf9lRicnBZRrKLJsnpyg4JdVmZV3O2k2Gh153/3Pk1If
-	EWuRO5B18t5G4eGXHwzF3Ns2/krS1VJ1mTh6tYCMp9f4Lde4HHafccEzo31u+1wAhPvY6gA5TXU
-	krK18CjOgAD8tBSxLGSdqM2hQqwVYd/I=
-X-Gm-Gg: AYBFou0vA2AT4RCXpmaEOGVNgSJVm3agTBvulPKlzIEQ5kCN/dz0uaP5JuORziBECWT
-	Ot4ub2UO/O0abfyFLjM/8pSxQCDzKWMiZBoDGe1SclYWqJSdF5r+C0VHiS+5cAbaGxmZ5EawDHw
-	RqOD4PFyWSMNXdKsv8i3DByRFJUhyc+2felXiHMVLqmM8B3gc4pLEt1nNQBDlEgHB1YwyyzHp/X
-	0EY8QADuVfE/EsE1dbDIovwEGyMZs1//eDuRvPJqJUeV2gvWcNM/5REPWr4kdEs1HzQdfTChtAd
-	XqFMVZpeU09RGjrlpV79wox7Wu7uCgtzr+/myLbyEv81WgKU2PsYwAdhBMQqlHqtQD+ckB2PffX
-	FL0RQ6BTK8MvA16dUqpGeDc1nU0qB4WhupZx4nWxmHV2VNytvKSNZ2fGDj5Hb9EkKKCxgrWUVjS
-	BMJw==
-X-Received: by 2002:a17:90b:514e:b0:3a8:10e2:ad05 with SMTP id
- 98e67ed59e1d1-3a810e2d610mr1367843a91.50.1791184370925; Mon, 05 Oct 2026
- 00:12:50 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="T1+7FoiW"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1791184371;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=un0sOdMzGIB0ugj0c9sRuvRA31Lh2M8UPL/TEXn4uR4=;
+	b=T1+7FoiW1TDgfrbnaFaHJ/PgDSSCyECcW272jWH+BFMgYkFsaaciFwbJKWMgRNytOaHxJ/
+	UsUfzdl9Vc6j1VKe4WID1ZPOzIs2SbjjW7XZnJTBYWBKJl9zeEB/SNkmcHm531sVfGdaNH
+	/fn7wpLRGPalpm4IhK19x/IMO1uA/nc=
+Received: from mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-25-hbnd5JVLMZS7HNUkhIydkw-1; Mon,
+ 05 Oct 2026 03:12:47 -0400
+X-MC-Unique: hbnd5JVLMZS7HNUkhIydkw-1
+X-Mimecast-MFC-AGG-ID: hbnd5JVLMZS7HNUkhIydkw_1791184365
+Received: from mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.12])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 823841955BED;
+	Mon,  5 Oct 2026 07:12:44 +0000 (UTC)
+Received: from warthog.com (unknown [10.44.32.90])
+	by mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id 9D51D1956087;
+	Mon,  5 Oct 2026 07:12:37 +0000 (UTC)
+From: David Howells <dhowells@redhat.com>
+To: Christian Brauner <christian@brauner.io>
+Cc: David Howells <dhowells@redhat.com>,
+	Paulo Alcantara <pc@manguebit.org>,
+	Matthew Wilcox <willy@infradead.org>,
+	Namjae Jeon <linkinjeon@kernel.org>,
+	Marc Dionne <marc.dionne@auristor.com>,
+	Stefan Metzmacher <metze@samba.org>,
+	Eric Van Hensbergen <ericvh@kernel.org>,
+	Dominique Martinet <asmadeus@codewreck.org>,
+	Ilya Dryomov <idryomov@gmail.com>,
+	netfs@lists.linux.dev,
+	linux-afs@lists.infradead.org,
+	linux-cifs@vger.kernel.org,
+	linux-nfs@vger.kernel.org,
+	ceph-devel@vger.kernel.org,
+	v9fs@lists.linux.dev,
+	linux-fsdevel@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v12 0/8] netfs: Use a bvecq chain position abstraction
+Date: Mon,  5 Oct 2026 08:12:17 +0100
+Message-ID: <20261005071227.147182-1-dhowells@redhat.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260925044908.450775-1-phucduc.bui@gmail.com>
- <20260925044908.450775-7-phucduc.bui@gmail.com> <asKt42FgsbhSbQUP@sirena.org.uk>
-In-Reply-To: <asKt42FgsbhSbQUP@sirena.org.uk>
-From: Bui Duc Phuc <phucduc.bui@gmail.com>
-Date: Mon, 5 Oct 2026 14:12:38 +0700
-X-Gm-Features: AclHuK-Et_fC8GWEQTaTqwFWDt-VY_3yjba5DhCZkN25S8jgTJ6mltQqi4wer9o
-Message-ID: <CAABR9nFyEJBwXP=4SjuGNfGQJub2y_DPE87c6j6BPmqMBgjESA@mail.gmail.com>
-Subject: Re: [PATCH 06/14] ASoC: mediatek: mt8195: Fix FE startup error handling
-To: Mark Brown <broonie@kernel.org>
-Cc: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, 
-	Trevor Wu <trevor.wu@mediatek.com>, Liam Girdwood <lgirdwood@gmail.com>, 
-	Matthias Brugger <matthias.bgg@gmail.com>, Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, 
-	Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>, cassiogabrielcontato@gmail.com, 
-	Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>, Liviu Dudau <liviu.dudau@arm.com>, 
-	Haotian Zhang <vulab@iscas.ac.cn>, HariKrishna Sagala <hariconscious@gmail.com>, linux-sound@vger.kernel.org, 
-	linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+X-Scanned-By: MIMEDefang 3.0 on 10.30.177.12
 
-Hi Mark,
+Hi Christian,
 
-Thank you for your review.
+Could you pull these patches please into your vfs-7.4.netfs branch?  This
+is the fourth of five batches.  The primary purpose of this batch is to add
+an abstraction for a position in a bvecq chain and make use of it.
 
-> > +     ret = snd_pcm_hw_constraint_step(runtime, 0,
-> > +                                      SNDRV_PCM_HW_PARAM_BUFFER_BYTES,
-> > +                                      MT8195_MEMIF_BUFFER_BYTES_ALIGN);
-> > +     if (ret)
-> > +             goto err_fe_shutdow;
->
-> This will return 1 if a new constraint is installed which is not a
-> failure.
+With that in mind, this patchset does the following:
 
-Do you mean snd_pcm_hw_constraint_integer() rather than
-snd_pcm_hw_constraint_step()?
+ (1) Add a struct, bvecq_pos, to refer to a position in a bvecq chain.
+     This is a tuple of ( bvecq pointer, slot and offset } and the position
+     struct holds (for now) a ref on the bvecq pointed to.
 
-snd_pcm_hw_constraint_step() returns zero on success or a negative
-error code on failure,
-so it does not return 1 when a new constraint is installed.
+ (2) Change unbuffered/DIO to extract the supplied user buffers into a
+     bvecq chain rather than a bio_vec[] up front.  This means that
+     netfslib then uses bvecq chains for everything.
 
-snd_pcm_hw_constraint_integer() is also called from
-mtk_afe_fe_startup(), and it can
-return a positive value when the interval is changed, zero when it is
-unchanged,
-or a negative error code on failure.
+ (3) Add a folio count to the readahead_control struct and then makes
+     readahead pre-create its buffer using that count to determine how many
+     slots are required.
 
-I will change the caller to check for a negative return value:
+ (4) Change netfslib to use the bvecq_pos struct to keep track of the whole
+     request buffer and various points in it where loading, dispatch and
+     collection are taking place and to also keep track of the slice given
+     to each subrequest.
 
--------------------------------------------------------
-ret = mtk_afe_fe_startup(substream, dai);
-if (ret < 0)
-        goto err_clk_unprepare;
--------------------------------------------------------
+This was split from v11 of a larger netfslib series[1].
 
-Best regards,
-Phuc
+The patches can also be found here:
+
+	https://git.kernel.org/pub/scm/linux/kernel/git/dhowells/linux-fs.git/log/?h=netfs-next-4
+
+Thanks,
+David
+
+Changes
+=======
+ver #12)
+- Split from v11 of "netfs: Keep track of folios in a segmented bio_vec[]
+  chain"[1]
+
+[1] https://lore.kernel.org/r/20260902173350.3468672-1-dhowells@redhat.com/
+
+David Howells (8):
+  mm: Make readahead store folio count in readahead_control
+  netfs: Add a function to extract from an iter into a bvecq
+  netfs: Make unbuffered/DIO read and write use bvecq
+  netfs: Add some tools for managing a position in a bvecq chain
+  netfs: Provide a func to load the readahead buffers into a bvecq chain
+  netfs: Use bvecq_pos to hold the buffer positions
+  netfs: Remove the rolling_buffer implementation
+  netfs: Remove netfs_extract_user_iter()
+
+ fs/afs/dir.c                   |   5 +-
+ fs/afs/symlink.c               |   6 +-
+ fs/cachefiles/io.c             |  12 -
+ fs/netfs/Makefile              |   1 -
+ fs/netfs/buffered_read.c       | 169 ++++++++------
+ fs/netfs/bvecq.c               | 310 ++++++++++++++++++++++++++
+ fs/netfs/direct_read.c         |  77 +++----
+ fs/netfs/direct_write.c        |  67 +++---
+ fs/netfs/internal.h            |   4 +-
+ fs/netfs/iterator.c            | 392 ++++++++++-----------------------
+ fs/netfs/misc.c                |  18 --
+ fs/netfs/objects.c             |  16 +-
+ fs/netfs/read_collect.c        |  92 ++++----
+ fs/netfs/read_pgpriv2.c        |  87 +++++---
+ fs/netfs/read_retry.c          |  86 ++++----
+ fs/netfs/read_single.c         |  16 +-
+ fs/netfs/rolling_buffer.c      | 182 ---------------
+ fs/netfs/write_collect.c       |  55 ++---
+ fs/netfs/write_issue.c         | 166 +++++++++-----
+ fs/netfs/write_retry.c         |  61 +++--
+ include/linux/bvecq.h          | 184 ++++++++++++++++
+ include/linux/netfs.h          |  25 ++-
+ include/linux/pagemap.h        |  10 +
+ include/linux/rolling_buffer.h |  47 ----
+ include/trace/events/netfs.h   |  32 ++-
+ mm/readahead.c                 |   5 +
+ 26 files changed, 1195 insertions(+), 930 deletions(-)
+ delete mode 100644 fs/netfs/rolling_buffer.c
+ delete mode 100644 include/linux/rolling_buffer.h
+
