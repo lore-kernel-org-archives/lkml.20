@@ -1,229 +1,181 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-dy1-f200.google.com (mail-dy1-f200.google.com [74.125.82.200])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 957A83DC4C9;
-	Mon,  5 Oct 2026 21:03:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 194343AFB0C
+	for <linux-kernel@vger.kernel.org>; Mon,  5 Oct 2026 21:04:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.200
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791234203; cv=none; b=YKGDlFHfANzWxuH+/gl0FFWV24wynQgzjt8V3MKf0FCJK2PEgL0uQg7/dVlastrNvX/E4gfLecj8Iux9JcvYE0D83rlvM8J3JU7+QpoCUutHpPMm5bgMoABQIte+4Vv00HZrfiRGQpHXyD1A95wYf8T75xUSyvgYkocVhefJvqQ=
+	t=1791234253; cv=none; b=DVLjv2R6MvnatBtNOvNBmfhVC0Aw5pcOQG/fczNi4EQL65a1iW2pAHZEh2zumAlo1xEnxSfxfxoOtP6cPTT8Gn350qSETl0sXOfQ4ZBGvvKW5LvrNk3GPQHgknP4aagS0FTSQ+kPWX/DfprNmIA0NuM4gnAkFO8iFwJnYUiNy6M=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791234203; c=relaxed/simple;
-	bh=lOUO35f3j7w5DYfrecFPedQEqQvAZsNWCE76tojm9Nw=;
-	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=NQTnj4iJJtzcJq5Ar8pFENJoz2of6LNFHZViR+Vl542TIbflSKgma6pTMjjHuLYIBh68uSQonmOPQPBpHAM3ffnKsuSmctwDvwaNbjfmnUsZIWsg8weG+2uz6F8UfMqKhQK6IdwwCQ4gZmN4CKX0CytjvJIF8oWGrAPYDnv/8bY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PeKg3F6K; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791234253; c=relaxed/simple;
+	bh=TmqEykrRbiCeVgmK3AIV82QcHK8mCtpYZEu6FYVJNtU=;
+	h=Date:Mime-Version:Message-ID:Subject:From:To:Cc:Content-Type; b=msGP5YxCNY+0rU3ccSkWCxIW7ulfoKJcvwtDi9xkAuzWTOQtckjG7IcBjg1wjJcFt5LUluQAre9uUfsqs+qee535gVJgJTf6OE+f4aQQ2uGHDScNbycrFp30NZ77rGXRRXMGvhD3/LXnz8HyjUk4M52T422tZjx9g+C+2I0MMik=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--kaifengw.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=Plo3XmAR; arc=none smtp.client-ip=74.125.82.200
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--kaifengw.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PeKg3F6K"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1BA7E1F000FF;
-	Mon,  5 Oct 2026 21:03:21 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791234201;
-	bh=jwv0HVGjzrN5FFLbgJcuw1J8O6A9CSjgD+2/fVQWRCM=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=PeKg3F6KGFyqK8rqNkfgvNJeRlXlWOET6jXV1V08EvejfYCyXrF2qcNBTWc9Y4Qfk
-	 o4nv+6ywq5vbdv26+j3AmuMPHv5cf8V0Zn61TAiJF8wxnYMr/9yaY7JGwh0jQhqLcz
-	 M9ZP8wyqfPg1BiSqC9Qy6lhPFXRoO4SChX/SiElWdxnMWZz7tGkHzl/RkPiPr9DdvS
-	 bZBUPwsmGVu0h5p7CtT9E/O/Aj5WxEmhqWBephwV7h1ufVFIUWHj/gy8i8lMvoTbUV
-	 AatKsDT9PhnlKd/B+AoJCemWirmM60znlqzZ9NWIpkE8v7EKS4yrfyOgdzIctqFm7m
-	 7cBAdr8BPjaWA==
-Subject:
- Re: [PATCH v2 1/2] tipc: skip socketless connections in topsrv teardown
-From: netdev-bot+sashiko@kernel.org
-To: Jeremy.Jean@oss.cyber.gouv.fr
-Cc: tung.quang.nguyen@est.tech, jmaloy@redhat.com, netdev@vger.kernel.org,
- tipc-discussion@lists.sourceforge.net, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org, kuba@kernel.org
-Date: Mon, 05 Oct 2026 21:03:20 +0000
-Message-ID: <179123420070.434549.7498402204710379095@kernel.org>
-In-Reply-To: <20261004210016.3051310-2-Jeremy.Jean@oss.cyber.gouv.fr>
-References: <20261004210016.3051310-2-Jeremy.Jean@oss.cyber.gouv.fr>
-X-sashiko-severity: High
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="Plo3XmAR"
+Received: by mail-dy1-f200.google.com with SMTP id 5a478bee46e88-34d49d8dee1so3823035eec.0
+        for <linux-kernel@vger.kernel.org>; Mon, 05 Oct 2026 14:04:11 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1791234251; x=1791839051; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=KI04OHVNMk1iREh5Vcyr0z3kyY0Bw6/QOTWCwAjjS5Q=;
+        b=Plo3XmAR6IOMiP0lTk5KvpNlKyZWqwB19e54yf4iL6tFOKMsUlyEuBOCfNvutzyZbn
+         dLRBEsPWkFe9ezeGyKWscIlqW/+pdIt4gsnHbOXHlG1nOg+08uT6sLSirL4dHG/jMOyV
+         eHVU4QF0dfuIOVdrU2dghkwPZaxJE3Pb+Gya2YyTNlrrpQczEfBIlVMmmR2T4u/+E4YA
+         diCLDL0Nzr93yS/vTEehkdYhyyedpi3+cQf1J5HpQanM7QYKG/27zzYyrKwBdqTzif1N
+         oyNEbvKFq3qT7NxI3aZQGic/NaS9G8wBZmclffubhTVnjeu9Jx/8qej8cX5lVcnMRjwl
+         /W1A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791234251; x=1791839051;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=KI04OHVNMk1iREh5Vcyr0z3kyY0Bw6/QOTWCwAjjS5Q=;
+        b=QdXod3Wd3utXZgPWTbS3QWfNClXeyWZBsWff4DLY8FODRw1IxVW1V7zThCdLvuvMv/
+         Lx0e6kEAfiHNw7Qj0Wwrz3gts/FWaHH2G4ykYNA2EqG++aT6HaOjQdZG0PV5TV6MWKeF
+         WIMZT7OR8+ozCkTTSt5wJ3xVdTF8E+qxiNsksv8ANsD2NWpMbz7afqd81IgY+Dvgcel1
+         JFJJTzYHzgWp776TRoLimbFoqO9sd7nH8CfEisxHkTvvcXlrQm76wxuN86frYhi3sLIH
+         T1MuNxPgoQrsYE5Q00q5CYOUsXx7GjLKBh0U7tp3wCqKFJxMb6bDVzvznur/RnOCPc3n
+         0f7Q==
+X-Forwarded-Encrypted: i=1; AKwUvBxkzCKZ7uehOPWCun97fSttrfgBLjuVU5TAZYGz/qDem9zYpbPVEwBX+5Dpu29xKK5XIwwMKwZgVUkuKRs=@vger.kernel.org
+X-Gm-Message-State: AFuF++k0xHEZ+CJssz4OqC63isnnwFoS7SazmRuI9gWKacQu9yL2HgrW
+	/frBKsqVSgsIk9CS7B9mInPj6lVNapUtQOwb0YGuYpzedsv29gY56kGZQpwsbKgwvMtpla9rBYb
+	9l6qfU7a3c5jPPA==
+X-Received: from dycpr6.prod.google.com ([2002:a05:7301:fd86:b0:347:7fea:9fec])
+ (user=kaifengw job=prod-delivery.src-stubby-dispatcher) by
+ 2002:a05:7301:4208:b0:351:1e3f:812d with SMTP id 5a478bee46e88-3511e3f8878mr8117223eec.36.1791234250456;
+ Mon, 05 Oct 2026 14:04:10 -0700 (PDT)
+Date: Mon,  5 Oct 2026 21:04:03 +0000
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
+Mime-Version: 1.0
+X-Mailer: git-send-email 2.56.0.rc1.315.gc6ed9934b7-goog
+Message-ID: <20261005210403.3206872-1-kaifengw@google.com>
+Subject: [PATCH net] net: devmem: check uid and netns in net_devmem_get_binding()
+From: Kaifeng Wang <kaifengw@google.com>
+To: netdev@vger.kernel.org
+Cc: almasrymina@google.com, edumazet@google.com, pabeni@redhat.com, 
+	willemb@google.com, davem@davemloft.net, kuba@kernel.org, horms@kernel.org, 
+	sdf@fomichev.me, bobbyeshleman@meta.com, kaiyuanz@google.com, 
+	linux-kernel@vger.kernel.org, Kaifeng Wang <kaifengw@google.com>
+Content-Type: text/plain; charset="UTF-8"
 
-Thank you for your contribution! Sashiko AI review found 1 potential
-issue(s) to consider.
+NETDEV_CMD_BIND_TX is unprivileged, and dmabuf binding IDs are allocated
+from a single global xarray. Currently net_devmem_get_binding() looks up
+the binding by ID without checking whether the sending socket belongs to
+the same user or network namespace that created the binding.
 
-Critical: 0 · High: 1 (2) · Medium: 0 · Low: 0
+Record the creating netlink socket's network namespace and UID on the
+binding, and verify both in net_devmem_get_binding() before checking the
+route destination device. Return -EINVAL on mismatch so callers cannot
+distinguish non-existent IDs from bindings owned by other users.
 
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
+Fixes: bd61848900bf ("net: devmem: Implement TX path")
+Signed-off-by: Kaifeng Wang <kaifengw@google.com>
+---
+ net/core/devmem.c      | 7 ++++++-
+ net/core/devmem.h      | 5 +++++
+ net/core/netdev-genl.c | 5 +++--
+ 3 files changed, 14 insertions(+), 3 deletions(-)
 
-- [High] This patch is not complete on its own.
-
-Pre-existing issues:
-- [High] This problem wasn't introduced by this patch, but the same
-  livelock already exists for socket-backed conns.
-- [High] This problem wasn't introduced by this patch, but
-  tipc_topsrv_stop() calls conn_get() (plain kref_get()) on any conn…
-
---
-
-tipc: skip socketless connections in topsrv teardown
-
-This patch makes tipc_topsrv_stop() skip tipc_conn_close() for kernel
-subscription connections, which have no socket. These connections can
-stay in conn_idr after unsubscribe while send work is still pending.
-Calling tipc_conn_close() on them dereferences a NULL con->sock during
-netns teardown.
-
-> diff --git a/net/tipc/topsrv.c b/net/tipc/topsrv.c
-> index af530c9ed8402..01dd34b758f4b 100644
-> --- a/net/tipc/topsrv.c
-> +++ b/net/tipc/topsrv.c
-> @@ -706,7 +706,8 @@ static void tipc_topsrv_stop(struct net *net)
->  		if (con) {
->  			conn_get(con);
->  			spin_unlock_bh(&srv->idr_lock);
-> -			tipc_conn_close(con);
-> +			if (con->sock)
-> +				tipc_conn_close(con);
->  			conn_put(con);
->  			spin_lock_bh(&srv->idr_lock);
->  		}
-
-[Severity: High]
-This avoids the NULL dereference. In the scenario from the commit
-message, though, can netns teardown still stall and then hit a
-use-after-free on con?
-
-In that scenario, tipc_topsrv_queue_evt() passes its lookup reference
-to con->swork:
-
-	if (queue_work(srv->send_wq, &con->swork))
-		return;
-
-tipc_topsrv_kern_unsubscr() then drops its two references:
-
-	test_and_clear_bit(CF_CONNECTED, &con->flags);
-	tipc_conn_delete_sub(con, NULL);
-	conn_put(con);
-	conn_put(con);
-
-After that, the pending swork holds the last reference.
-
-At this commit the loop in tipc_topsrv_stop() is:
-
-	spin_lock_bh(&srv->idr_lock);
-	for (id = 0; srv->idr_in_use; id++) {
-		con = idr_find(&srv->conn_idr, id);
-		if (con) {
-		[ ... ]
-
-With the new check, the socketless conn gets conn_get() and conn_put(),
-which leaves the refcount at 1. The loop then retakes idr_lock and moves
-on.
-
-idr_find() returns NULL for every higher id. So idr_lock stays held with
-BH disabled and no cond_resched().
-
-Meanwhile the send_wq worker runs:
-
-tipc_conn_send_work()
-    conn_put(con)
-        tipc_conn_kref_release()
-            spin_lock_bh(&s->idr_lock);   <- blocks on the stop loop
-
-tipc_conn_kref_release() is the only place that calls idr_remove() and
-decrements s->idr_in_use. So the loop only ends after int id wraps
-around, which takes about 2^32 lookups under the spinlock. Won't that
-cause soft lockup and RCU stall warnings?
-
-When id gets back to the conn's slot, conn_get() raises a zero refcount.
-After spin_unlock_bh(), the release path calls kfree(con). The stop path
-then reads con->sock and calls conn_put() on freed memory.
-
-The path is reachable from an unprivileged user in a user+net namespace:
-
-  1. TIPC_GROUP_JOIN (tipc_group_create()->tipc_topsrv_kern_subscr()).
-  2. Leave the group or close the socket while topology events are
-     queued (tipc_group_delete()->tipc_topsrv_kern_unsubscr()).
-  3. Tear down the netns.
-
-The later patch in this series, "tipc: fix use-after-free in netns
-teardown", fixes this. Its loop uses idr_get_next_ul() with
-kref_get_unless_zero() and drops idr_lock with cond_resched() on every
-iteration. Remaining work references are left to
-tipc_topsrv_work_stop(). So the problem only exists at this commit.
-
-The two patches carry different Fixes: tags. Could that cause trouble
-for bisection, or for stable trees that take this patch without the
-follow-up?
-
-[Severity: High]
-This isn't a bug introduced by this patch, but the same livelock looks
-possible for socket-backed conns too.
-
-Suppose recv or send work already cleared CF_CONNECTED through
-tipc_conn_close(), while rwork or swork still holds a reference. The
-call to tipc_conn_close() from the stop loop then returns early without
-a conn_put():
-
-	disconnect = test_and_clear_bit(CF_CONNECTED, &con->flags);
-	[ ... ]
-	if (!disconnect)
-		return;
-
-The loop's own conn_get()/conn_put() pair leaves the work's reference
-in place. The loop then scans empty ids under idr_lock, waiting for
-idr_in_use to reach 0.
-
-The worker's final conn_put()->tipc_conn_kref_release() blocks in
-spin_lock_bh(&s->idr_lock). Can idr_in_use ever drop while the stop
-loop spins?
-
-The later patch in this series, "tipc: fix use-after-free in netns
-teardown", also fixes this. With it, the loop ends when
-idr_get_next_ul() returns NULL and drops idr_lock on every iteration.
-
-[Severity: High]
-This is a pre-existing issue, but can the conn_get() here bring back a
-zero refcount? conn_get() is a plain kref_get():
-
-static void conn_get(struct tipc_conn *con)
-{
-	kref_get(&con->kref);
-}
-
-tipc_conn_lookup() uses kref_get_unless_zero() instead.
-
-Say a final conn_put() from rwork, swork or tipc_conn_close() runs on
-another CPU while the stop loop holds idr_lock. The conn is then still
-visible in conn_idr with a refcount of 0:
-
-CPU1                              CPU2 tipc_topsrv_stop()
-                                  spin_lock_bh(&srv->idr_lock)
-conn_put(con)
-  tipc_conn_kref_release()
-    spin_lock_bh(&s->idr_lock)
-      (blocks)
-                                  con = idr_find(&srv->conn_idr, id)
-                                  conn_get(con)    <- refcount from 0
-                                  spin_unlock_bh(&srv->idr_lock)
-    idr_remove(&s->conn_idr, ...)
-    [ ... ]
-    kfree(con)
-                                  if (con->sock)   <- freed memory
-                                      tipc_conn_close(con)
-                                  conn_put(con)
-
-Before this patch, tipc_conn_close() already dereferenced con->sock->sk
-on the same freed object. The new con->sock read touches the same
-memory.
-
-This seems to match the KASAN slab-use-after-free described in the next
-patch in the series, "tipc: fix use-after-free in netns teardown". That
-patch replaces conn_get() with kref_get_unless_zero() under idr_lock
-and sets con = NULL when it fails.
-
+diff --git a/net/core/devmem.c b/net/core/devmem.c
+index f4d60654ce7f..9a773b1ce92d 100644
+--- a/net/core/devmem.c
++++ b/net/core/devmem.c
+@@ -191,6 +191,7 @@ net_devmem_bind_dmabuf(struct net_device *dev, void *vdev,
+ 		       enum dma_data_direction direction,
+ 		       unsigned int dmabuf_fd, unsigned int niov_shift,
+ 		       struct netdev_nl_sock *priv,
++		       const struct sock *nl_sk,
+ 		       struct netlink_ext_ack *extack)
+ {
+ 	struct net_devmem_dmabuf_binding *binding;
+@@ -220,6 +221,8 @@ net_devmem_bind_dmabuf(struct net_device *dev, void *vdev,
+ 
+ 	binding->dev = dev;
+ 	binding->vdev = vdev;
++	write_pnet(&binding->net, sock_net(nl_sk));
++	binding->uid = sk_uid(nl_sk);
+ 	binding->niov_shift = niov_shift;
+ 	xa_init_flags(&binding->bound_rxqs, XA_FLAGS_ALLOC);
+ 
+@@ -390,7 +393,9 @@ struct net_devmem_dmabuf_binding *net_devmem_get_binding(struct sock *sk,
+ 	int err = 0;
+ 
+ 	binding = net_devmem_lookup_dmabuf(dmabuf_id);
+-	if (!binding || !binding->tx_vec) {
++	if (!binding || !binding->tx_vec ||
++	    !net_eq(sock_net(sk), read_pnet(&binding->net)) ||
++	    !uid_eq(sk_uid(sk), binding->uid)) {
+ 		err = -EINVAL;
+ 		goto out_err;
+ 	}
+diff --git a/net/core/devmem.h b/net/core/devmem.h
+index 4a293a7d1149..7b9d3e04367c 100644
+--- a/net/core/devmem.h
++++ b/net/core/devmem.h
+@@ -10,6 +10,7 @@
+ #ifndef _NET_DEVMEM_H
+ #define _NET_DEVMEM_H
+ 
++#include <net/net_namespace.h>
+ #include <net/netmem.h>
+ #include <net/netdev_netlink.h>
+ 
+@@ -26,6 +27,8 @@ struct net_devmem_dmabuf_binding {
+ 	 * dereferenced.
+ 	 */
+ 	void *vdev;
++	possible_net_t net;
++	kuid_t uid;
+ 	struct gen_pool *chunk_pool;
+ 	/* Protect dev */
+ 	struct mutex lock;
+@@ -97,6 +100,7 @@ net_devmem_bind_dmabuf(struct net_device *dev, void *vdev,
+ 		       enum dma_data_direction direction,
+ 		       unsigned int dmabuf_fd, unsigned int niov_shift,
+ 		       struct netdev_nl_sock *priv,
++		       const struct sock *nl_sk,
+ 		       struct netlink_ext_ack *extack);
+ struct net_devmem_dmabuf_binding *net_devmem_lookup_dmabuf(u32 id);
+ void net_devmem_unbind_dmabuf(struct net_devmem_dmabuf_binding *binding);
+@@ -181,6 +185,7 @@ net_devmem_bind_dmabuf(struct net_device *dev, void *vdev,
+ 		       unsigned int dmabuf_fd,
+ 		       unsigned int niov_shift,
+ 		       struct netdev_nl_sock *priv,
++		       const struct sock *nl_sk,
+ 		       struct netlink_ext_ack *extack)
+ {
+ 	return ERR_PTR(-EOPNOTSUPP);
+diff --git a/net/core/netdev-genl.c b/net/core/netdev-genl.c
+index 33b9f4eb9565..847814e3df3f 100644
+--- a/net/core/netdev-genl.c
++++ b/net/core/netdev-genl.c
+@@ -1094,7 +1094,7 @@ int netdev_nl_bind_rx_doit(struct sk_buff *skb, struct genl_info *info)
+ 
+ 	binding = net_devmem_bind_dmabuf(netdev, NULL, dma_dev, DMA_FROM_DEVICE,
+ 					 dmabuf_fd, niov_shift, priv,
+-					 info->extack);
++					 NETLINK_CB(skb).sk, info->extack);
+ 	if (IS_ERR(binding)) {
+ 		err = PTR_ERR(binding);
+ 		goto err_rxq_bitmap;
+@@ -1243,7 +1243,8 @@ int netdev_nl_bind_tx_doit(struct sk_buff *skb, struct genl_info *info)
+ 	binding = net_devmem_bind_dmabuf(bind_dev,
+ 					 bind_dev != netdev ? netdev : NULL,
+ 					 dma_dev, DMA_TO_DEVICE, dmabuf_fd,
+-					 PAGE_SHIFT, priv, info->extack);
++					 PAGE_SHIFT, priv, NETLINK_CB(skb).sk,
++					 info->extack);
+ 	if (IS_ERR(binding)) {
+ 		err = PTR_ERR(binding);
+ 		goto err_unlock_bind_dev;
 -- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261004210016.3051310-1-Jeremy.Jean%40oss.cyber.gouv.fr
+2.56.0.rc1.315.gc6ed9934b7-goog
+
