@@ -1,87 +1,91 @@
-Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B88F44ACC7A;
-	Mon,  5 Oct 2026 16:55:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=156.67.10.101
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4634047DD76
+	for <linux-kernel@vger.kernel.org>; Mon,  5 Oct 2026 16:56:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791219350; cv=none; b=Wrfqzjl6nNqhJCd6gExNWw/4xLOMJPdcx1+MCtet/OzRQIrFwuPd7gxhl7oOSoRk0WqRlRxQUGvXQ22IiPtT6lMK56x7tRPIrP33X3aq9I1dAKkhDPO3iJ9k1eH8Jb9xPabyC8ZYp6GlXTrQIE/wq+j5h0YQOLaXy+JyCXxa8+4=
+	t=1791219413; cv=none; b=lYMerb3X9bP2feDmlh9n05/BXEUqT8EAp87bwmlo9og00OfD/nBIswq9W7RDgNXynZD/YFMUEdu208VsDG8r/azJAW90lpvQVNmbSDA8iuxSGDrUmYxKF0OCkFRnKPeAywjv+oGJIbxVshxYiB3ty4eTVp1EUMhpLSDrDChXUOs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791219350; c=relaxed/simple;
-	bh=tH4kt4KKzkl8e/5IwFOkVlSjdwTMP0CegCI52k5oMLg=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Opql9bwPDYw2z/uqeX3IiFmHEUS4busNgDBqGIRy3DBM92QQqjKZ15UKbP0fcLPVbszrRqtd+I2NuYYg2W1MDdTr6mSs1bb0UP59zCUxgUWfmxVg7JKM5f/Voq0zYCF5/7+Hld1nn+ChrhtcUc5psuuI/91rNCtmPnNxfcMzHGQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch; spf=pass smtp.mailfrom=lunn.ch; dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b=3cMOjZsH; arc=none smtp.client-ip=156.67.10.101
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
+	s=arc-20240116; t=1791219413; c=relaxed/simple;
+	bh=eK0efl7gVPnlNTQgkT91yDXwUSJa2bFpZVKfGBPksIc=;
+	h=Date:From:To:cc:Subject:In-Reply-To:Message-ID:References:
+	 MIME-Version:Content-Type; b=GPPDMNJCfajtZD4VU8rjGBBvVq6Q2LK6b0fxsrZPdwdV2mEPJciy6ThrPo66LjoVle2SfQWvp9t/NVOOlIboeCeNSMvM6SYIXQx8yKGLGFgIL5HI6RpGDHSbEGSH5aqJ0Ei0gIIkTxUkbEoAq16SKFhbUR7I1Pgor8QzbAfsXbs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=iEKGslQ9; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b="3cMOjZsH"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
-	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
-	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
-	bh=nEpuGRktx/E9kEVloTN+f3kgD/f2s5E0WF96GrA2Ut8=; b=3cMOjZsHa+j+Jew+xMbWJ0VeVW
-	EJfgoMkN2afJgVcmykjn+wPKbxUyCDvMOcXt7/oMpGlL7hH98gmY6Ul0u6epw0cevzM7uKPLBeuy3
-	0f3zEiQCSnBrXRP3P3r7aFxzLRu9sVCnPuvimjUSEBo/0CB1M5nh7pXfjf5ABc+FWqoc=;
-Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
-	(envelope-from <andrew@lunn.ch>)
-	id 1xDlyV-0095UL-MO; Mon, 05 Oct 2026 18:55:39 +0200
-Date: Mon, 5 Oct 2026 18:55:39 +0200
-From: Andrew Lunn <andrew@lunn.ch>
-To: Aleksei Sviridkin <f@lex.la>
-Cc: netdev@vger.kernel.org, andrew+netdev@lunn.ch, hkallweit1@gmail.com,
-	linux@armlinux.org.uk, davem@davemloft.net, edumazet@kernel.org,
-	kuba@kernel.org, pabeni@redhat.com, horms@kernel.org,
-	olteanv@gmail.com, Thangaraj.S@microchip.com,
-	UNGLinuxDriver@microchip.com, steve.glendinning@shawell.net,
-	f.fainelli@gmail.com, linux-usb@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH net v13 3/4] net: phy: take the interrupt back from the
- bus on detach
-Message-ID: <15cfe73f-9547-4cbd-9c70-52d39766d85d@lunn.ch>
-References: <20261001130236.106059-1-f@lex.la>
- <20261001130236.106059-4-f@lex.la>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="iEKGslQ9"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1DF681F000FF;
+	Mon,  5 Oct 2026 16:56:47 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791219411;
+	bh=VntT4RkPFOQ0dJ5Ht0LsaK5Uv30Dq1nWSggbDQYoUaM=;
+	h=Date:From:To:cc:Subject:In-Reply-To:References;
+	b=iEKGslQ95+amOYKHJGOgxAgYFmHfRthoQ0afvbazzErDzUFLzICGr5Rx4IgRfonmI
+	 Ag3lw5lvThEh+HdoqJdfQ9gbLLYC38dVxsw8MnisgsrYQlDjj7UkFscHsDkPAOsvhE
+	 huxXPXd77Jp+kGS+OYybVP6KwbA1+kv+91euw3ElwAGpBc88xPwtijxD4TzXMoTyX1
+	 J/QAFJfvXgZwjLUWA7RX2Usad1X6+UMVogfEfjccq2zYYcl4z1e0az97v4bldfRerT
+	 NrKhkG9WXoF5cj8VMnLo7aAQNY+Wct2K2ks0LLjyncYmO1CM2I4OpkYRcrZvAVUr+A
+	 lyYbVPbpHXBww==
+Date: Mon, 5 Oct 2026 10:56:45 -0600 (MDT)
+From: Paul Walmsley <pjw@kernel.org>
+To: sun.wenhan@zte.com.cn
+cc: pjw@kernel.org, palmer@dabbelt.com, aou@eecs.berkeley.edu, alex@ghiti.fr, 
+    linux-riscv@lists.infradead.org, linux-kernel@vger.kernel.org, 
+    jianjun.wang@linux.alibaba.com, liu.qingtao2@zte.com.cn, 
+    lv.yating@zte.com.cn, guo.chang2@zte.com.cn, deng.weixian@zte.com.cn, 
+    hu.yuye@zte.com.cn
+Subject: Re: [PATCH] riscv: align pcie bus assign logic with ARM64
+In-Reply-To: <20260929173053186td0a5D4tn7cNBN-R8JyEp@zte.com.cn>
+Message-ID: <fd6c0052-5592-45b0-809c-83ea2cf8af64@kernel.org>
+References: 202609220934.68M9Y2eC015972@mse-db.zte.com.cn,c8bd7448-e9f3-72fc-9c91-db0c2525a3a1@kernel.org <20260929173053186td0a5D4tn7cNBN-R8JyEp@zte.com.cn>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261001130236.106059-4-f@lex.la>
+Content-Type: text/plain; charset=US-ASCII
 
-On Thu, Oct 01, 2026 at 04:02:35PM +0300, Aleksei Sviridkin wrote:
-> When a PHY's driver is a module that is not loaded yet when the MAC
-> connects, the PHY gets the generic driver first. phy_probe() then
-> replaces phydev->irq with PHY_POLL, because genphy has no interrupt
-> support. Nothing puts the number back, so after the real driver binds
-> the PHY is polled for the rest of the uptime.
-> 
-> Seen on a Keenetic KN-1012: the Airoha EN8811H behind an MT7531 port
-> has its driver on the root filesystem. Its devicetree interrupt maps to
-> irq 15, and after the real driver binds phydev->irq reads -1.
-> 
-> Restore the number when the PHY detaches. It comes from the bus table,
-> mdiobus->irq[], where the bus or the MAC driver recorded it. Do it only
-> when phy_attach_direct() bound the generic driver, since that is the
-> substitution being undone; otherwise the field belongs to whoever wrote
-> it. Do it before device_release_driver(), because after the release a
-> probing driver can write the same field.
-> 
-> The store is ordered before the release rather than locked against it:
-> device_release_driver() takes the device lock itself. A MAC that sets
-> phydev->irq before phy_start(), as phy.rst describes, is not affected,
-> since the restore runs on detach, between connections.
-> 
-> Tested on the KN-1012 with a 6.18 distribution kernel: phydev->irq
-> reads 15 after the real driver binds, and -1 without this patch.
-> 
-> Fixes: 00db8189d984 ("This patch adds a PHY Abstraction Layer to the Linux Kernel, enabling ethernet drivers to remain as ignorant as is reasonable of the connected PHY's design and operation details.")
-> Assisted-by: LLM
-> Signed-off-by: Aleksei Sviridkin <f@lex.la>
+Hi,
 
-Reviewed-by: Andrew Lunn <andrew@lunn.ch>
+Thanks for updating the patch.  A few comments:
 
-    Andrew
+On Tue, 29 Sep 2026, sun.wenhan@zte.com.cn wrote:
+
+> RISC-V currently relies on the asm-generic default of
+> pcibios_assign_all_busses() returning 1, so the kernel always
+> re-assigns all PCI bus numbers and ignores the bus numbers already
+> set up by the firmware. This has two downsides.
+> 
+> As UEFI 2.8 has brought mature firmware support to RISC-V servers,
+> the OS can trust and inherit the PCI bus enumeration done by the
+> BIOS, skipping a redundant re-enumeration at boot and improving the
+> boot time.
+> 
+> The unconditional re-assignment also causes bus numbering conflicts
+> during PCI rescan. When a root port that is not the last one in the
+> hierarchy is removed and the bus is rescanned, the kernel fails
+> with:
+> 
+>     pci_bus 0000:01: busn_res: can not insert [bus 01-ff] under
+>     [bus 00-ff] (conflicts with (null) [bus 02])
+> 
+> Define pcibios_assign_all_busses() the same way as ARM64, so that
+> RISC-V also preserves the bus numbers assigned by the firmware by
+> default instead of always re-assigning them. This keeps RISC-V
+> consistent with the other major architectures.
+> 
+> Signed-off-by: sun wenhan <sun.wenhan@zte.com.cn>
+
+- Please start your subject line with "[PATCH v2]" etc. when sending 
+  updated versions of patches.  Please see
+  https://www.kernel.org/doc/html/latest/process/submitting-patches.html#subject-line
+
+- Some tools break when the name in your E-mail is an E-mail address.  I 
+  fixed this up to match the same in your Signed-off-by:, but please fix 
+  this for future patches.
+
+Queued for v7.4, thanks.
+
+
+- Paul
