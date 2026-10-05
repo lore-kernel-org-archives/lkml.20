@@ -1,192 +1,135 @@
-Received: from mail-pj2-f40.google.com (mail-pj2-f40.google.com [74.125.227.168])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4D1114D9F87
-	for <linux-kernel@vger.kernel.org>; Mon,  5 Oct 2026 17:17:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.168
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 536D14FC8E9;
+	Mon,  5 Oct 2026 17:17:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791220644; cv=none; b=Vm5p2K0sno3+qkaDvOK2P3vS8WSTCgBUqf3miBGJ4vsUpEHKcHPgTFlUTpdbTfq6kwGy0/4lUC8kgrhKQe0i0sEblQ9zPhT8EhoSSAhDe+TEqwiq0aIfKcFa75B3p5dUwj+D98J5d8c4sdZ0WTarTLytwt7JDIe2Qft3BEihwxU=
+	t=1791220647; cv=none; b=gadt8UbIaWkrgI+xTqA8QkN7Ga+eeOuxAKPnUakb/5beFgBJIzxnqBotNeksJfA9FRQjScxWElCVcYukGOLr1qt7mXha9Vjf1H6VYTkNtyhftEu9SgQkNL5L/OKT2VnxDwIJNLun5+oijcK/zm5s3UhZ41JKeyWv0fIoDa84bfA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791220644; c=relaxed/simple;
-	bh=+3MpZXZDrpG3qLkvzfnf9AFNVYrh8OCkchmfy1w7NKk=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=nbW4htIqrA1wI3yr8/VUNHrBbjbVJ/xB//8udmJVzyw1LYZ8WSTvmMZ/4uaRcDu+ENwJZiJ9PXw8gLLdN3VNl3IHVLfN7Ise7+N35G8fao9wUMiaRXvHMJIc7y7dytVFNMwDqBO20hcH4Pr61YISTg5SkozjKkul7AnePQ81v4A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Smt9EFxv; arc=none smtp.client-ip=74.125.227.168
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1791220647; c=relaxed/simple;
+	bh=uZHOtdZ7ZkW6QiUCgDAfjmufnCYVcRTVAreppc0Lbfg=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=GV1Wmlv8WGYLaaMGe6sMy6DBQkb41gUDCMRlF1tzzSTxeqXayZZKvnep4qSe8WB3AiBZD4HUpPSZqOyabmRBo0+hbhv3wAR3sMiMNXKAkHIIzo4G7wpjCTSb7CVUgq6Vanp38YHKcloZik0j6ZMsMIUHNpYCzFtb79kroM64dps=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=AhzIxkUJ; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Smt9EFxv"
-Received: by mail-pj2-f40.google.com with SMTP id 98e67ed59e1d1-3a0eeda3e03so940161a91.1
-        for <linux-kernel@vger.kernel.org>; Mon, 05 Oct 2026 10:17:22 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791220642; x=1791825442; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=fgimI6/+2euHwRm1MdlOUoQLnXLe8HSbpGa41J2vK6A=;
-        b=Smt9EFxvekpVrMOMqaRC5TFTpCRG74WHzK5c6xcGumUvBjmUfPtWC8jJZ1kKJGBZeb
-         L2m4RTt3eAqpw1RM0U7HrzSAnzSGVfxcpcyRvfGVH3fRpQYvWAplmT08ajhkuA6alUSJ
-         BUgGV/o58GiXsdEnmehpVyiEG+o6OPlDh4G5uX86DnOtCzGzIKfi9tZ+gUnvq6Kx++5X
-         bKQV3vX96eP71PymYYPR505GVRtITize85QI0vxpkUnEEaLlQoo4FBzPwnBISdIl9xxF
-         jMrrSD/MsKMSlbSv9fe9rcBRDeTNGXZaw6Tuc06DTr9SIQzKKQcAS2wEgaR4R5oFG7Qd
-         e54g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791220642; x=1791825442;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=fgimI6/+2euHwRm1MdlOUoQLnXLe8HSbpGa41J2vK6A=;
-        b=hQW0QohjYF2qt+cQ6kiFfs2Pvgm1FCV65ZL8HGGwaSVo54iMGUwy9P9JQD/RBInsrK
-         vO7n7jQUZ25AeJUds5SKD/GR6x0APK+SmjgpLL5Td63NMIPu5Y5huCPe3RnRqwwTT5ks
-         o8HNAXkVM9JDbghN47dZuczbg8cqQSPY4Uywf+W5KmyupxStpUuA8IS+pufQRoXQNKVW
-         ElD20YasCStvi0DopzinfLkgfTl24S8TF17Geh5jX3SLT7fDHBs212UZPaGq3EuMI9jk
-         oNeQLX+3qVJe0OQzxEzn/cTT9caq7vESaG8aPQGlZ6KF/1hdqyO0pvl/uErEP0sVOhxI
-         4gfw==
-X-Forwarded-Encrypted: i=1; AKwUvByaaONaXby5JfYobA70N6blxHiThDpea+anTNN499b2wHNnZMFAvMiPJ1hW6PuMHdH6mC09X5iK4wYt8Yg=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLfYkAcGO5dQ3yCRIbOIvcTz5UW0gkHyaa0vnuK8QGWHulxj60c
-	X6SLUixVqYgZqBtpKMDruwBgXyZim9vY/IIS2xkyDtxKfWUkO9OLkGF/
-X-Gm-Gg: AYBFou1bG3KBRpibLMX3FsjuBQgLwviiMPseafSV/WWWJ18BbiA2L1dLFnZXwLzoprR
-	GKsnVNLaPTB78dBVtuWwn//Lbp5aWfS8dBq89ocABJAU50eseOwuDhqeAEBeAFWWZxUcjbDolM9
-	yJ36bDkpMooq1YBokDFA1Z2nS0AKWkUYVXH0380wv/jUUaBWBnNscXDb2A1EvWDGhFaigYdLBP+
-	xYoXxFNYW4Tx2j+vA3wkPAFlZ4eJwSJkmbQmluyCt+U+VxQ/2C79IDFBplSeqVLzn7qjq5LPD7L
-	Q3hIMWPjr3H5P/06t5HvZ9kbVTKZPCq5AY/l33nT+is0VvNcTqT6sNDVn9jjqemqJ772eMahrUt
-	g9xzjPb6Sp8Ow/Q4wzLTXLWBGxkJrSbx+x52d1q3CBv29YoADEG4ERDsTnHSJRw0rjkxf9ncBvN
-	Nvr1L6k9LIPTPRpVBDAJLc6k5GWxRuNAQgds0/lBN6xaPMPOonWhuW9Yu02B1kwCiJNyJC2X01c
-	ha4bEAcxNUr7MWIOhP9l5irutlJmA==
-X-Received: by 2002:a17:90b:4f84:b0:3a7:ee74:e8d2 with SMTP id 98e67ed59e1d1-3a7ee74eac6mr1974037a91.25.1791220641154;
-        Mon, 05 Oct 2026 10:17:21 -0700 (PDT)
-Received: from kernel.tail6741c6.ts.net ([216.195.201.24])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a853cafddesm406910a91.10.2026.10.05.10.17.09
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 05 Oct 2026 10:17:20 -0700 (PDT)
-From: Kunwu Chan <kunwu.chan@gmail.com>
-To: paulmck@kernel.org,
-	corbet@lwn.net,
-	mingo@redhat.com,
-	frederic@kernel.org,
-	neeraj.upadhyay@kernel.org,
-	josh@joshtriplett.org,
-	urezki@gmail.com,
-	dave@stgolabs.net,
-	lianux.mm@gmail.com
-Cc: stern@rowland.harvard.edu,
-	parri.andrea@gmail.com,
-	will@kernel.org,
-	peterz@infradead.org,
-	boqun@kernel.org,
-	npiggin@gmail.com,
-	dhowells@redhat.com,
-	j.alglave@ucl.ac.uk,
-	luc.maranget@inria.fr,
-	akiyks@gmail.com,
-	dlustig@nvidia.com,
-	joelagnelf@nvidia.com,
-	skhan@linuxfoundation.org,
-	rdunlap@infradead.org,
-	longman@redhat.com,
-	rostedt@goodmis.org,
-	mathieu.desnoyers@efficios.com,
-	jiangshanlai@gmail.com,
-	qiang.zhang@linux.dev,
-	kunwu.chan@gmail.com,
-	brads@mainlining.org,
-	linux-kernel@vger.kernel.org,
-	linux-arch@vger.kernel.org,
-	lkmm@lists.linux.dev,
-	linux-doc@vger.kernel.org,
-	rcu@vger.kernel.org,
-	linux-kselftest@vger.kernel.org
-Subject: [PATCH RFC v3 07/15] Documentation/litmus-tests: add hazptr wildcard-flip escape test
-Date: Tue,  6 Oct 2026 01:15:21 +0800
-Message-ID: <20261005171529.1378809-8-kunwu.chan@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261005171529.1378809-1-kunwu.chan@gmail.com>
-References: <20261005171529.1378809-1-kunwu.chan@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="AhzIxkUJ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EFF391F000FF;
+	Mon,  5 Oct 2026 17:17:22 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791220646;
+	bh=jdDSWGXfAz9URm8xuQSLbjl4wrv80HkRSDxjJn5tPfU=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc;
+	b=AhzIxkUJFiotjmbM4mmR1mWSH2LgBTbN0gVn1E6yJPnHLfFWgliz3r1IuLgqE6sFW
+	 rtz8wdT2tRfpfUwhOhCwb57JE5S/wq7fhWkF/nsH7Qmi+Sh0MtDqmigqDDIUpO7Bc0
+	 M5z3LM7LmIplYvPdOUGHdxc4NptJG+Ufz1LxClyzJP/XrYqbYwUdo19Z61TWDkowdz
+	 PJ5ZIjk/al2LNlj1YB332LFiLWU96yDaW0DMpQYAmFoS8InSacddLPGj12yQ1MCyeO
+	 2SH5gXiFgUK8a5+BLTd/5OGP6TeczF+WSUbAPWaNQw4uqCmj6EPZJI8wa1U1Vw9uwB
+	 f6RMTJL2XTCPQ==
+From: Bryan O'Donoghue <bod@kernel.org>
+Date: Mon, 05 Oct 2026 19:13:59 +0200
+Subject: [PATCH 29/74] media: qcom: camss: vfe: Specify number of pads via
+ line->num_pads
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261005-linux-mainline-7-2-sm8650-hdk-rfc-0-v1-29-ed985aefd611@kernel.org>
+References: <20261005-linux-mainline-7-2-sm8650-hdk-rfc-0-v1-0-ed985aefd611@kernel.org>
+In-Reply-To: <20261005-linux-mainline-7-2-sm8650-hdk-rfc-0-v1-0-ed985aefd611@kernel.org>
+To: Bryan O'Donoghue <bryan.odonoghue@linaro.org>, 
+ Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>, 
+ Loic Poulain <loic.poulain@oss.qualcomm.com>, 
+ Mauro Carvalho Chehab <mchehab@kernel.org>, 
+ Jacopo Mondi <jacopo.mondi@ideasonboard.com>, 
+ Daniel Scally <dan.scally@ideasonboard.com>, Keke Li <keke.li@amlogic.com>, 
+ Richard Acayan <mailingradian@gmail.com>, 
+ Hans Verkuil <hverkuil@kernel.org>, 
+ Gjorgji Rosikopulos <quic_grosikop@quicinc.com>, 
+ Radoslav Tsvetkov <quic_rtsvetko@quicinc.com>, 
+ Robert Foss <rfoss@kernel.org>, Milen Mitkov <quic_mmitkov@quicinc.com>
+Cc: linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, Bryan O'Donoghue <bod@kernel.org>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2292; i=bod@kernel.org;
+ h=from:subject:message-id; bh=uZHOtdZ7ZkW6QiUCgDAfjmufnCYVcRTVAreppc0Lbfg=;
+ b=owEBbQKS/ZANAwAKASJxO7Ohjcg6AcsmYgBqw9sVO5WRjH81aPnjNbCLfFhE+w3WUMEDc7iL1
+ qUgaDoxtG2JAjMEAAEKAB0WIQTmk/sqq6Nt4Rerb7QicTuzoY3IOgUCasPbFQAKCRAicTuzoY3I
+ OphfEADA4PPJbA1u0hmw7vmtgJWfzTpT69vd33l/Tec8GyvXn0Vgxpd50XHP+KKasyt+5o6K4nc
+ aWN85qYKRux4sV4g3hXSXd0yIJgcXHG9csUg8K54T8+OQS1wjifvbJp3j9HXALbBR0fBm7lEZ0d
+ 0JKXwoG99WJcskMXY03Qqs9XwQzOqMNyuRlfgMY7OU0cAT4PDhGnyFEtNfa39ldn/vJ6bgVe95/
+ GIXFzhzi7y8Bz1tu/EYJfMkxOc9/1ZXwJ+Qn7BGdH4qD1/E9+Mb3/pQ032aR8NEvPdyKZVisNqf
+ buH8eoRwkNBWjNMe1lz3afKPhLug6Grlt+JRgwkn6pEWycAKJVqBnBhpwDAxEhJ7rKn5YQyUzVV
+ wJqd3O/Ac7sn4upRrN3WSrK+viuBTTm9ddOPG42QUCBBUIg5XxM+JKBg/Fs2eJRh1q28I7tPwE0
+ PMKf9hNCz2smXYwHsD8Xf5H5P3jTh2i6DIQEAOKWJEETcU1Xz+WR+SQM3lLE9Z/W2WR7ln79NTH
+ 5bwJmfEuVoPRV3pLkhmUL3/SprzGkJzI5OWS6aHqrWORKJp7KaLR8m6Wvw0P6L/tmARjCuRd/NQ
+ UE/A3d921XmO2KHawpPEW7YMOlopDmySdpfaQ6aTJ9vX1HvbJY8F5GqIIG6CdACWaIIpDo6yDTk
+ CTK6ZzfLjDMN37w==
+X-Developer-Key: i=bod@kernel.org; a=openpgp;
+ fpr=E693FB2AABA36DE117AB6FB422713BB3A18DC83A
 
-Add a three-process litmus test for the in-flight wildcard window
-of the single-pass wildcard-flip scan.
+We will need more pads to support the pix path - allow the code to specify
+the number of pads via variable instead of via fixed define.
 
-P0 models hazptr_synchronize(): it unpublishes the object and
-enqueues the waiter after its memory barrier.
-
-P1 models the scan kthread: it picks up the waiter, flips the
-wildcard, and performs the final hazard-pointer walk.
-
-P2 models a straggling hazptr_acquire(): it reads and publishes
-the old wildcard, then loads the object after its publication
-barrier.
-
-The forbidden outcome is that the final walk misses the
-straggler's slot while the straggler still loads the unpublished
-object.
-
-Verified with herd7 (linux-kernel.cfg): Never 0 13.
-
-Signed-off-by: Kunwu Chan <kunwu.chan@gmail.com>
+Signed-off-by: Bryan O'Donoghue <bod@kernel.org>
 ---
- .../hazptr/hazptr-wildcard-flip-escape.litmus | 46 +++++++++++++++++++
- 1 file changed, 46 insertions(+)
- create mode 100644 Documentation/litmus-tests/hazptr/hazptr-wildcard-flip-escape.litmus
+ drivers/media/platform/qcom/camss/camss-vfe.c | 4 +++-
+ drivers/media/platform/qcom/camss/camss-vfe.h | 8 +++++---
+ 2 files changed, 8 insertions(+), 4 deletions(-)
 
-diff --git a/Documentation/litmus-tests/hazptr/hazptr-wildcard-flip-escape.litmus b/Documentation/litmus-tests/hazptr/hazptr-wildcard-flip-escape.litmus
-new file mode 100644
-index 000000000000..de467bb82d20
---- /dev/null
-+++ b/Documentation/litmus-tests/hazptr/hazptr-wildcard-flip-escape.litmus
-@@ -0,0 +1,46 @@
-+C hazptr-wildcard-flip-escape
+diff --git a/drivers/media/platform/qcom/camss/camss-vfe.c b/drivers/media/platform/qcom/camss/camss-vfe.c
+index 35ab3203d75af..3fe0139f82d16 100644
+--- a/drivers/media/platform/qcom/camss/camss-vfe.c
++++ b/drivers/media/platform/qcom/camss/camss-vfe.c
+@@ -2050,6 +2050,8 @@ int msm_vfe_subdev_init(struct camss *camss, struct vfe_device *vfe,
+ 		l->output[0].wm_num = 1;
+ 		l->output[0].wm[0].bus_client = l->id;
+ 
++		l->num_pads = MSM_VFE_PAD_NUM_RDI;
 +
-+(*
-+ * Result: Never
-+ *
-+ * Check that a straggling acquire which published the old
-+ * wildcard after the final walk cannot still load the
-+ * unpublished object.
-+ *)
-+
-+{
-+	int ptr = 3;
-+	int hp = 0;
-+	int wildcard = 1;
-+	int enq = 0;
-+}
-+
-+P0(int *ptr, int *enq)
-+{
-+	WRITE_ONCE(*ptr, 0);
-+	smp_mb();
-+	smp_store_release(enq, 1);
-+}
-+
-+P1(int *enq, int *wildcard, int *hp)
-+{
-+	int r1;
-+	int r2;
-+
-+	r1 = smp_load_acquire(enq);
-+	WRITE_ONCE(*wildcard, 2);
-+	r2 = READ_ONCE(*hp);
-+}
-+
-+P2(int *wildcard, int *hp, int *ptr)
-+{
-+	int r0;
-+	int r3;
-+
-+	r0 = READ_ONCE(*wildcard);
-+	WRITE_ONCE(*hp, r0);
-+	smp_mb();
-+	r3 = READ_ONCE(*ptr);
-+}
-+
-+exists (1:r1=1 /\ 1:r2=0 /\ 2:r3=3)
+ 		init_completion(&l->output[0].sof);
+ 		init_completion(&l->output[0].reg_update);
+ 
+@@ -2231,7 +2233,7 @@ int msm_vfe_register_entities(struct vfe_device *vfe,
+ 
+ 		sd->entity.function = MEDIA_ENT_F_PROC_VIDEO_PIXEL_FORMATTER;
+ 		sd->entity.ops = &vfe_media_ops;
+-		ret = media_entity_pads_init(&sd->entity, MSM_VFE_PADS_NUM,
++		ret = media_entity_pads_init(&sd->entity, vfe->line[i].num_pads,
+ 					     pads);
+ 		if (ret < 0) {
+ 			dev_err(dev, "Failed to init media entity: %d\n", ret);
+diff --git a/drivers/media/platform/qcom/camss/camss-vfe.h b/drivers/media/platform/qcom/camss/camss-vfe.h
+index 8bc07fe7798e1..8fee26a0dc2e6 100644
+--- a/drivers/media/platform/qcom/camss/camss-vfe.h
++++ b/drivers/media/platform/qcom/camss/camss-vfe.h
+@@ -21,7 +21,8 @@
+ 
+ #define MSM_VFE_PAD_SINK 0
+ #define MSM_VFE_PAD_SRC 1
+-#define MSM_VFE_PADS_NUM 2
++#define MSM_VFE_PAD_NUM_RDI 2
++#define MSM_VFE_MAX_PADS MSM_VFE_PAD_NUM_RDI
+ #define MSM_VFE_NUM_OUTPUTS 1
+ 
+ #define MSM_VFE_IMAGE_MASTERS_NUM 7
+@@ -141,8 +142,9 @@ struct vfe_line {
+ 	enum vfe_line_id id;
+ 	bool is_pix;
+ 	struct v4l2_subdev subdev;
+-	struct media_pad pads[MSM_VFE_PADS_NUM];
+-	struct v4l2_mbus_framefmt fmt[MSM_VFE_PADS_NUM];
++	struct media_pad pads[MSM_VFE_MAX_PADS];
++	struct v4l2_mbus_framefmt fmt[MSM_VFE_MAX_PADS];
++	u32 num_pads;
+ 	struct v4l2_rect compose;
+ 	struct v4l2_rect crop;
+ 	struct vfe_output output[MSM_VFE_NUM_OUTPUTS];
+
 -- 
-2.43.0
+2.55.0
 
