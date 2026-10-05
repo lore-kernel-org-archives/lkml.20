@@ -1,305 +1,132 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.19])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 818DA318BB8;
-	Mon,  5 Oct 2026 17:56:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.19
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 35C6A489FC8;
+	Mon,  5 Oct 2026 17:59:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791223016; cv=none; b=TuQW9pjniiBGNjKXj70u7x6vO44quXoWAXxG1r78k/y6N8fG1MtoNbHi7mXRIVvJHtMZKS6Vzu55Lx3pT2OhR184BlIAnXvynl3c54g/92XBiCdTFCIVtNTkkHZqgUnpWCnfACE4hNe3gzIAbt/EA1comKM5wnTsw0jJ6eL1XtU=
+	t=1791223193; cv=none; b=ocPNppY9tjNezwVD6pW6R6iktdlU/qz9vOH0ttatKK49X+HmWlMlGAb4bUcwV+c3O90DqoDNHhL69YWVrXm1Av7YGeRq3dkdsrnPVMQfsFbCt89wyNP2qJtLEfu+XyJc6kMG1SQZppQtlr33aTHoyECEoFSA8C/oRpVuZmAfGhA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791223016; c=relaxed/simple;
-	bh=OZ/r5GWDJFDbXR2EYR3Z7zBySEbFAHVzmhjUpChzQis=;
-	h=From:Date:To:cc:Subject:In-Reply-To:Message-ID:References:
-	 MIME-Version:Content-Type; b=AHGWn1BYS2GS0WymzpnJoJN7Zg34CJhcxYdXnQ8KwXlLpdDQ8/cvVJux6BQ6fcQgoYOIkZ10S8crJurb+bCF4et4CP9LtK/7TcaUZbUqIiDBkT9fbhXtAAZTZ3sI1YonrAHNSUZMND4ZCUpcaOeEKlaznTdD75JFY4jHjSRCG6Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=jv7XZHe1; arc=none smtp.client-ip=192.198.163.19
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	s=arc-20240116; t=1791223193; c=relaxed/simple;
+	bh=cRiCIWvgrOFVHHfKVQ0qn93tLHDE7Dwo5Noh1dy8EtA=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=DCjaO6aZHInc8qjRJ0UWYx07hhb6OFXTrYWv8VKx04UX2PGkxO6e4tyIl2Gpqy0bVUGQUpvzzxhCU3PPfg+nkGryjZnfd6RjyKPKOhMMASBuLhQ/7/n/RgVA5i3njzBIhBDo2JsavxtAkTAiSpq79XDHqfG+i3O1P0iKH2tOOy0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=AwnX6RbW; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="jv7XZHe1"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1791223015; x=1822759015;
-  h=from:date:to:cc:subject:in-reply-to:message-id:
-   references:mime-version;
-  bh=OZ/r5GWDJFDbXR2EYR3Z7zBySEbFAHVzmhjUpChzQis=;
-  b=jv7XZHe1lQw7neHxSUiwii92kfqCPfV3xeLW2Ttl0c28BeQTdR4e9/fI
-   mlKqAlQ+OVr6RKUQoZ8dJd9Z9bS5/YGNg8NGsU2zkAUcvt02ejwkPcVxi
-   4lc+tYyf4zmxgyLCbvI7aI+s0nxU9I37bPUux4VQMHiMiISHmNvCDmUv0
-   vaE0SmFajoMFyvx87WY5dVOq0WuQC+OZZnICzoutEgpOjntDaCXnTvMQO
-   VGE+JXO7Yw+p6LKvduXL3hyYG9fB7pjsPZpeZu5qTZLYlyjMVHzYyC8/K
-   fQOBQ5+u8hE0zkRRkHSEh0ntb2ozxGQ59ejaDFq1UntTth+8uC5ND5j+K
-   w==;
-X-CSE-ConnectionGUID: nZ0CFnvfToajvY9YOVUtGw==
-X-CSE-MsgGUID: paTwt6MTRMqJboPXx0/7iQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11926"; a="51857"
-X-IronPort-AV: E=Sophos;i="6.27,142,1787036400"; 
-   d="scan'208";a="51857"
-Received: from orviesa006.jf.intel.com ([10.64.159.146])
-  by fmvoesa113.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 05 Oct 2026 10:56:54 -0700
-X-CSE-ConnectionGUID: xHeCN9U0SYKTPbSEK00QbA==
-X-CSE-MsgGUID: g3Unrkq2RXGgbiflfEgxzw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,142,1787036400"; 
-   d="scan'208";a="274677223"
-Received: from ijarvine-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.199])
-  by orviesa006-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 05 Oct 2026 10:56:50 -0700
-From: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
-Date: Mon, 5 Oct 2026 20:56:47 +0300 (EEST)
-To: Antheas Kapenekakis <lkml@antheas.dev>
-cc: platform-driver-x86@vger.kernel.org, LKML <linux-kernel@vger.kernel.org>, 
-    Derek John Clark <derekjohn.clark@gmail.com>, 
-    =?ISO-8859-15?Q?Joaqu=EDn_Ignacio_Aramend=EDa?= <samsagax@gmail.com>, 
-    Hans de Goede <hansg@kernel.org>, Eileen <eileen@one-netbook.com>
-Subject: Re: [PATCH v1 1/2] platform/x86: oxpec: Fix Apex charge limit
- control
-In-Reply-To: <20260920190438.3444923-1-lkml@antheas.dev>
-Message-ID: <272b2d3c-243a-cfb8-bf34-c6cffc7e5fec@linux.intel.com>
-References: <20260920190438.3444923-1-lkml@antheas.dev>
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="AwnX6RbW"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id DC63E152B;
+	Mon,  5 Oct 2026 10:59:38 -0700 (PDT)
+Received: from ryzen.lan (usa-sjc-mx-foss1.foss.arm.com [172.31.20.19])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 8945B3F86F;
+	Mon,  5 Oct 2026 10:59:39 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1791223182; bh=cRiCIWvgrOFVHHfKVQ0qn93tLHDE7Dwo5Noh1dy8EtA=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
+	b=AwnX6RbWnAxHYsHmazTdgBo+b1/m6pn5xh6PtT9gyzU7SeYlXRBbbFZx9KP1nXjfv
+	 dBlFOJCVlBelU38PvNQAeT5rP+2h+3FyFAxUT4kOcHpYC0qkjqqYOAcbTPloyfNR1q
+	 GsnoQhY/6jlIlq+7O9QMMAVU/IcfIBBvya3fEAk0=
+Date: Mon, 5 Oct 2026 19:54:38 +0200
+From: Andre Przywara <andre.przywara@arm.com>
+To: Otavio Salvador <otavio.salvador@ossystems.com.br>
+Cc: Otavio Salvador <otavio@ossystems.com.br>, Chen-Yu Tsai
+ <wens@kernel.org>, Jernej Skrabec <jernej.skrabec@gmail.com>, Samuel
+ Holland <samuel@sholland.org>, Srinivas Kandagatla <srini@kernel.org>, Rob
+ Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor
+ Dooley <conor+dt@kernel.org>, Maxime Ripard <mripard@kernel.org>,
+ devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-sunxi@lists.linux.dev, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 2/2] ARM: dts: sun8i-r40: Add SID node and THS
+ calibration
+Message-ID: <20261005195438.6368d092@ryzen.lan>
+In-Reply-To: <CAP9ODKr2FQ2xeg-u_UQ-krUGsaU3mcWjWYfPAPd7V=ks2=GwzQ@mail.gmail.com>
+References: <20261003012534.418820-3-otavio@ossystems.com.br>
+	<20261003012534.418820-5-otavio@ossystems.com.br>
+	<2c75983e-5e63-4613-a9a8-055015d04bbf@arm.com>
+	<CAP9ODKr2FQ2xeg-u_UQ-krUGsaU3mcWjWYfPAPd7V=ks2=GwzQ@mail.gmail.com>
+Organization: Arm Ltd.
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.31; x86_64-slackware-linux-gnu)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
 
-On Sun, 20 Sep 2026, Antheas Kapenekakis wrote:
+On Mon, 5 Oct 2026 12:49:57 -0300
+Otavio Salvador <otavio.salvador@ossystems.com.br> wrote:
 
-> The OneXPlayer Apex uses E5/E6 for battery bypass / charge limit, making
-> it the first device to deviate. This was verified by a user on Windows
-> with BIOS version 2.17 and later by running this kernel patch.
-> 
-> Drop X1_ from the MASK variables as they are common in all devices,
-> introduce a board enum for Apex, and make it use the new E5/E6 registers
-> for charge limit / bypass. Apply the same quirks as oxp_fly, since APEX
-> uses the same registers otherwise.
-> 
-> Fixes: 3385ea97c14d ("platform/x86: oxpec: Add support for OneXPlayer APEX")
-> Signed-off-by: Antheas Kapenekakis <lkml@antheas.dev>
-> ---
->  drivers/platform/x86/oxpec.c | 68 ++++++++++++++++++++++++++++--------
->  1 file changed, 53 insertions(+), 15 deletions(-)
-> 
-> diff --git a/drivers/platform/x86/oxpec.c b/drivers/platform/x86/oxpec.c
-> index 34bb17fca148..38c272995437 100644
-> --- a/drivers/platform/x86/oxpec.c
-> +++ b/drivers/platform/x86/oxpec.c
-> @@ -50,6 +50,7 @@ enum oxp_board {
->  	oxp_x1,
->  	oxp_g1_i,
->  	oxp_g1_a,
-> +	oxp_apex,
->  };
->  
->  static enum oxp_board board;
-> @@ -93,11 +94,14 @@ static struct device *oxp_dev;
->  #define OXP_X1_CHARGE_LIMIT_REG		0xA3 /* X1 charge limit (%) */
->  #define OXP_X1_CHARGE_INHIBIT_REG	0xA4 /* X1 bypass charging */
->  
-> -#define OXP_X1_CHARGE_INHIBIT_MASK_AWAKE	0x01
-> +#define OXP_APEX_CHARGE_LIMIT_REG	0xE5 /* Apex charge limit (%) */
-> +#define OXP_APEX_CHARGE_INHIBIT_REG	0xE6 /* Apex bypass charging */
-> +
-> +#define OXP_CHARGE_INHIBIT_MASK_AWAKE	0x01
->  /* X1 Mask is 0x0A, F1Pro is 0x02 but the extra bit on the X1 does nothing. */
-> -#define OXP_X1_CHARGE_INHIBIT_MASK_OFF		0x02
-> -#define OXP_X1_CHARGE_INHIBIT_MASK_ALWAYS	(OXP_X1_CHARGE_INHIBIT_MASK_AWAKE | \
-> -						 OXP_X1_CHARGE_INHIBIT_MASK_OFF)
-> +#define OXP_CHARGE_INHIBIT_MASK_OFF		0x02
-> +#define OXP_CHARGE_INHIBIT_MASK_ALWAYS	(OXP_CHARGE_INHIBIT_MASK_AWAKE | \
-> +					 OXP_CHARGE_INHIBIT_MASK_OFF)
->  
->  static const struct dmi_system_id dmi_table[] = {
->  	{
-> @@ -154,7 +158,7 @@ static const struct dmi_system_id dmi_table[] = {
->  			DMI_MATCH(DMI_BOARD_VENDOR, "ONE-NETBOOK"),
->  			DMI_EXACT_MATCH(DMI_BOARD_NAME, "ONEXPLAYER APEX"),
->  		},
-> -		.driver_data = (void *)oxp_fly,
-> +		.driver_data = (void *)oxp_apex,
->  	},
->  	{
->  		.matches = {
-> @@ -352,6 +356,7 @@ static umode_t tt_toggle_is_visible(struct kobject *kobj,
->  	case oxp_x1:
->  	case oxp_g1_i:
->  	case oxp_g1_a:
-> +	case oxp_apex:
->  		return attr->mode;
->  	default:
->  		break;
-> @@ -381,6 +386,7 @@ static ssize_t tt_toggle_store(struct device *dev,
->  	case oxp_fly:
->  	case oxp_mini_amd_pro:
->  	case oxp_g1_a:
-> +	case oxp_apex:
->  		reg = OXP_TURBO_SWITCH_REG;
->  		mask = OXP_TURBO_TAKE_VAL;
->  		break;
-> @@ -427,6 +433,7 @@ static ssize_t tt_toggle_show(struct device *dev,
->  	case oxp_fly:
->  	case oxp_mini_amd_pro:
->  	case oxp_g1_a:
-> +	case oxp_apex:
->  		reg = OXP_TURBO_SWITCH_REG;
->  		mask = OXP_TURBO_TAKE_VAL;
->  		break;
-> @@ -524,6 +531,7 @@ static bool oxp_psy_ext_supported(void)
->  	case oxp_g1_i:
->  	case oxp_g1_a:
->  	case oxp_fly:
-> +	case oxp_apex:
->  		return true;
->  	default:
->  		break;
-> @@ -537,12 +545,24 @@ static int oxp_psy_ext_get_prop(struct power_supply *psy,
->  				enum power_supply_property psp,
->  				union power_supply_propval *val)
->  {
-> +	u8 limit_reg, inhibit_reg;
->  	long raw_val;
->  	int ret;
->  
-> +	switch (board) {
-> +	case oxp_apex:
-> +		limit_reg = OXP_APEX_CHARGE_LIMIT_REG;
-> +		inhibit_reg = OXP_APEX_CHARGE_INHIBIT_REG;
-> +		break;
-> +	default:
-> +		limit_reg = OXP_X1_CHARGE_LIMIT_REG;
-> +		inhibit_reg = OXP_X1_CHARGE_INHIBIT_REG;
-> +		break;
-> +	}
-> +
->  	switch (psp) {
->  	case POWER_SUPPLY_PROP_CHARGE_CONTROL_END_THRESHOLD:
-> -		ret = read_from_ec(OXP_X1_CHARGE_LIMIT_REG, 1, &raw_val);
-> +		ret = read_from_ec(limit_reg, 1, &raw_val);
->  		if (ret)
->  			return ret;
->  		if (raw_val < 0 || raw_val > 100)
-> @@ -550,14 +570,14 @@ static int oxp_psy_ext_get_prop(struct power_supply *psy,
->  		val->intval = raw_val;
->  		return 0;
->  	case POWER_SUPPLY_PROP_CHARGE_BEHAVIOUR:
-> -		ret = read_from_ec(OXP_X1_CHARGE_INHIBIT_REG, 1, &raw_val);
-> +		ret = read_from_ec(inhibit_reg, 1, &raw_val);
->  		if (ret)
->  			return ret;
-> -		if ((raw_val & OXP_X1_CHARGE_INHIBIT_MASK_ALWAYS) ==
-> -		    OXP_X1_CHARGE_INHIBIT_MASK_ALWAYS)
-> +		if ((raw_val & OXP_CHARGE_INHIBIT_MASK_ALWAYS) ==
-> +		    OXP_CHARGE_INHIBIT_MASK_ALWAYS)
->  			val->intval = POWER_SUPPLY_CHARGE_BEHAVIOUR_INHIBIT_CHARGE;
-> -		else if ((raw_val & OXP_X1_CHARGE_INHIBIT_MASK_AWAKE) ==
-> -			 OXP_X1_CHARGE_INHIBIT_MASK_AWAKE)
-> +		else if ((raw_val & OXP_CHARGE_INHIBIT_MASK_AWAKE) ==
-> +			 OXP_CHARGE_INHIBIT_MASK_AWAKE)
->  			val->intval = POWER_SUPPLY_CHARGE_BEHAVIOUR_INHIBIT_CHARGE_AWAKE;
->  		else
->  			val->intval = POWER_SUPPLY_CHARGE_BEHAVIOUR_AUTO;
-> @@ -573,29 +593,41 @@ static int oxp_psy_ext_set_prop(struct power_supply *psy,
->  				enum power_supply_property psp,
->  				const union power_supply_propval *val)
->  {
-> +	u8 limit_reg, inhibit_reg;
->  	long raw_val;
->  
-> +	switch (board) {
-> +	case oxp_apex:
-> +		limit_reg = OXP_APEX_CHARGE_LIMIT_REG;
-> +		inhibit_reg = OXP_APEX_CHARGE_INHIBIT_REG;
-> +		break;
-> +	default:
-> +		limit_reg = OXP_X1_CHARGE_LIMIT_REG;
-> +		inhibit_reg = OXP_X1_CHARGE_INHIBIT_REG;
+Hi Otavio,
 
-I took this series as is, but in future you should look into implementing 
-all these variations through a struct in .driver_data, not using 
-ever-growing switch/case blocks.
+> Thanks for the review.
+>=20
+> Em seg., 5 de out. de 2026 =C3=A0s 06:02, Andre Przywara
+> <andre.przywara@arm.com> escreveu:
+> >
+> > Hi Otavio,
+> >
+> > thanks for sending the patch!
+> >
+> > On 10/3/26 03:25, Otavio Salvador wrote:
+> > > Without the calibration cell, the THS driver leaves the sensor
+> > > calibration registers at their reset value (0x800) and the reported
+> > > temperatures drift from the real die temperature by a chip-dependent
+> > > offset.
+> > >
+> > > Add the SID node at 0x01c1b000 and wire the thermal sensor to its
+> > > factory calibration at eFuse offset 0x40, one 16-bit word for each of
+> > > the two sensors.
+> > >
+> > > The R40 user manual gives the size of the thermal sensor key (32 bits)
+> > > but not its offset. The vendor SDK key map names 0x48 "thermal_sensor=
+",
+> > > but that word is zero on all the boards checked. On an A40i running t=
+he
+> > > Boardcon vendor kernel, the THS_0_1_CDATA register holds exactly the
+> > > eFuse word at 0x40 (0x08780875), which confirms the location.
+> >
+> > So in some U-Boot BSP sources on github I see
+> > arch/arm/include/asm/arch-sun8iw11p1/sid.h putting the sensor at 0x34
+> > (like the H3 or A64).
+> > Can you check the values there? I see that Tina-Linux puts them at 0x40,
+> > as you reported, and it's probably more reliable there than in the
+> > U-Boot sources, but it's worth double checking.
+> >
+> > The rest looks alright (checked the manual and how the compatible string
+> > is handled in the driver), so if you can confirm that it's 0x40:
+> >
+> > Reviewed-by: Andre Przywara <andre.przywara@arm.com>
+>=20
+> Yes, I checked 0x34. The BPI U-Boot sid.h for sun8iw11p1 puts the
+> thermal key there, but that word is zero on every A40i I dumped: three
+> boards on mainline with this patch, and the Boardcon board on its
+> vendor kernel. 0x48 is zero too. Only 0x40 holds two plausible 12-bit
+> values:
 
--- 
- i.
+Yes, I found my BananaPi-M2 Berry, and can confirm that 0x34 holds 0,
+and 0x40 reads 0x085a0857.
 
-> +		break;
-> +	}
-> +
->  	switch (psp) {
->  	case POWER_SUPPLY_PROP_CHARGE_CONTROL_END_THRESHOLD:
->  		if (val->intval < 0 || val->intval > 100)
->  			return -EINVAL;
-> -		return write_to_ec(OXP_X1_CHARGE_LIMIT_REG, val->intval);
-> +		return write_to_ec(limit_reg, val->intval);
->  	case POWER_SUPPLY_PROP_CHARGE_BEHAVIOUR:
->  		switch (val->intval) {
->  		case POWER_SUPPLY_CHARGE_BEHAVIOUR_AUTO:
->  			raw_val = 0;
->  			break;
->  		case POWER_SUPPLY_CHARGE_BEHAVIOUR_INHIBIT_CHARGE_AWAKE:
-> -			raw_val = OXP_X1_CHARGE_INHIBIT_MASK_AWAKE;
-> +			raw_val = OXP_CHARGE_INHIBIT_MASK_AWAKE;
->  			break;
->  		case POWER_SUPPLY_CHARGE_BEHAVIOUR_INHIBIT_CHARGE:
-> -			raw_val = OXP_X1_CHARGE_INHIBIT_MASK_ALWAYS;
-> +			raw_val = OXP_CHARGE_INHIBIT_MASK_ALWAYS;
->  			break;
->  		default:
->  			return -EINVAL;
->  		}
->  
-> -		return write_to_ec(OXP_X1_CHARGE_INHIBIT_REG, raw_val);
-> +		return write_to_ec(inhibit_reg, raw_val);
->  	default:
->  		return -EINVAL;
->  	}
-> @@ -656,6 +688,7 @@ static int oxp_pwm_enable(void)
->  	case oxp_x1:
->  	case oxp_g1_i:
->  	case oxp_g1_a:
-> +	case oxp_apex:
->  		return write_to_ec(OXP_SENSOR_PWM_ENABLE_REG, PWM_MODE_MANUAL);
->  	default:
->  		return -EINVAL;
-> @@ -676,6 +709,7 @@ static int oxp_pwm_disable(void)
->  	case oxp_x1:
->  	case oxp_g1_i:
->  	case oxp_g1_a:
-> +	case oxp_apex:
->  		return write_to_ec(OXP_SENSOR_PWM_ENABLE_REG, PWM_MODE_AUTO);
->  	default:
->  		return -EINVAL;
-> @@ -696,6 +730,7 @@ static int oxp_pwm_read(long *val)
->  	case oxp_x1:
->  	case oxp_g1_i:
->  	case oxp_g1_a:
-> +	case oxp_apex:
->  		return read_from_ec(OXP_SENSOR_PWM_ENABLE_REG, 1, val);
->  	default:
->  		return -EOPNOTSUPP;
-> @@ -732,6 +767,7 @@ static int oxp_pwm_fan_speed(long *val)
->  	case oxp_mini_amd_a07:
->  	case oxp_mini_amd_pro:
->  	case oxp_g1_a:
-> +	case oxp_apex:
->  		return read_from_ec(OXP_SENSOR_FAN_REG, 2, val);
->  	default:
->  		return -EOPNOTSUPP;
-> @@ -764,6 +800,7 @@ static int oxp_pwm_input_write(long val)
->  	case oxp_fly:
->  	case oxp_mini_amd_pro:
->  	case oxp_g1_a:
-> +	case oxp_apex:
->  		return write_to_ec(OXP_SENSOR_PWM_REG, val);
->  	default:
->  		return -EOPNOTSUPP;
-> @@ -803,6 +840,7 @@ static int oxp_pwm_input_read(long *val)
->  	case oxp_fly:
->  	case oxp_mini_amd_pro:
->  	case oxp_g1_a:
-> +	case oxp_apex:
->  	default:
->  		ret = read_from_ec(OXP_SENSOR_PWM_REG, 1, val);
->  		if (ret)
-> 
-> base-commit: fd73f4a6659897191fa0d40695fe370925dd3780
-> 
+So all fine, 0x40 it is.
+
+Thanks for checking, and my tag of course stands.
+
+>=20
+>   board 1: 0x08780875 (vendor kernel, THS_0_1_CDATA =3D 0x08780875)
+>   board 2: 0x082d0822
+>   board 3: 0x083d0838
+>=20
+> The value differs per board, and on the vendor kernel THS_0_1_CDATA
+> holds exactly the word at 0x40. With this patch, CDATA on boards 2 and
+> 3 also matches their word at 0x40. So 0x40 it is, matching Tina Linux.
+>=20
+> I also compared the MMIO window at SID + 0x200 with the register-based
+> readout (the H3 method) across several boots. All 64 words matched, so
+> the R40 doesn't seem to have the H3 readout problem.
+
+Yes, we have never seen this issue again, it seems to have been a
+one-off bug.
+
+Cheers,
+Andre
