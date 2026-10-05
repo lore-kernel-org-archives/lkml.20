@@ -1,121 +1,162 @@
-Received: from mta0.migadu.com (out-107.mta0.migadu.com [91.218.175.107])
+Received: from mail-oa1-f72.google.com (mail-oa1-f72.google.com [209.85.160.72])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 790DA30D3FE
-	for <linux-kernel@vger.kernel.org>; Mon,  5 Oct 2026 05:23:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.107
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 41165282F01
+	for <linux-kernel@vger.kernel.org>; Mon,  5 Oct 2026 05:28:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.72
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791177810; cv=none; b=abtEoO1ZfHH4q4jPCclO0/5kg9fd6XgqBy+j5hdfD6y+3XtGHwlgyioFfZWls4kBXophq4cV+hInt9QaQ+WWlsvAbFYrPkAq0Qan1x9NCZYkdG1DNzATKhP1PPLSQrhgBMJA9y1mvKOxI//nm8mRFF9ifq+DiNPqb8lpwceoSMc=
+	t=1791178105; cv=none; b=mo5YC2x7eyQ5IY2+7QO+vEY3UXFZEIZPmXjE6RfFl3Q7k4u82dOiDk2j54IpDHbovBiPKccKa60H2+sXIWFRUcFrqnTPyIziAappOuwDPMSF13FyR7thQ79L73aOJRM3g3yPkymzq/W04507tdlZfzdYq4FHz3ODpVRM1gGK5PE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791177810; c=relaxed/simple;
-	bh=HvCCfJG7Kj4AzwyPWL74XPayQRFxzYMNbzWN/592PQA=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=D1M/SiCPjMAiIKWAAsEmKawrE+AB7U1brFQ7VV/G6d0YuNQ+0jWjt9Xrnkdy6pPVAoek4i76pDzInEwqZ5rhNK5t2th0BWQPFkKL/kxlsyJJlYz5iJg0eNspRw4a5W7tZEoIMPlnrTXWCtFPqk1efcntUwgvFCbcJXajFVxLFFQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=WURD1nUr; arc=none smtp.client-ip=91.218.175.107
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="WURD1nUr"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=HvCCfJG7Kj4AzwyPWL74XPayQRFxzYMNbzWN/592PQA=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1791177805; v=1; x=1791782605;
- b=WURD1nUrNRywGdAH/ahqBV765jVFyZjWlqn+PesyZVNjXFbNXdguqQjYRL0jjCoSX0tnbGeZ
- nEsUk5f0aYWhv2QBC+fcZOvzSF5kmDyVXJzoDAPybe0z9OTyjaso+AIs7ddtIM/CKq5HXsUcAei
- hQla7Si6ixOuAOvwt4WSVh98=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 0fbe826855e32b70;
-	Mon, 05 Oct 2026 05:23:15 +0000
-X-Mizu-Trace-ID: 0fbe826855e32b70
-X-Migadu-Flow: FLOW_OUT
-From: Lance Yang <lance.yang@linux.dev>
-To: dave.hansen@linux.intel.com
-Cc: luto@kernel.org,
-	peterz@infradead.org,
-	tglx@kernel.org,
-	mingo@redhat.com,
-	bp@alien8.de,
-	x86@kernel.org,
-	hpa@zytor.com,
-	riel@surriel.com,
-	linux-kernel@vger.kernel.org,
-	qi.zheng@linux.dev,
-	nadav.amit@gmail.com,
-	thomas.lendacky@amd.com,
-	kernel-team@meta.com,
-	linux-mm@kvack.org,
-	akpm@linux-foundation.org,
-	brendan.jackman@linux.dev,
-	jannh@google.com,
-	mhklinux@outlook.com,
-	andrew.cooper3@citrix.com,
-	Manali.Shukla@amd.com,
-	mingo@kernel.org,
-	stable@vger.kernel.org,
-	toshi.kani@hpe.com,
-	david@kernel.org,
-	mikhail.v.gavrilov@gmail.com,
-	pfalcato@suse.de,
-	Lance Yang <lance.yang@linux.dev>
-Subject: [PATCH 1/1] x86/mm: fix incomplete page-table invalidation with TCE
-Date: Mon,  5 Oct 2026 13:23:02 +0800
-Message-ID: <20261005052302.43042-1-lance.yang@linux.dev>
-X-Mailer: git-send-email 2.49.0
+	s=arc-20240116; t=1791178105; c=relaxed/simple;
+	bh=AIYWRZ4YPnh9ZCVIIvCg/hpg7gMM4O8IM7/Jq8WPxCs=;
+	h=MIME-Version:Date:Message-ID:Subject:From:To:Content-Type; b=lDp0P/1400WY7SQqsfOUY4Y6nFZjOPZDNgTydbWA4pxJ3njx89GuoUpObhn/G3hw+4gawoVl3uQO8mist+zBHx8dEWmGvf8JvSMpc7Bjc9KnnVPZF1psahXh3hc+7Wl5IUSvREkMF4fimMfjIdX/dzTYzCbXp6VjtI6U2RvqqUw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.160.72
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-oa1-f72.google.com with SMTP id 586e51a60fabf-46a12cfc288so1678900fac.2
+        for <linux-kernel@vger.kernel.org>; Sun, 04 Oct 2026 22:28:23 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791178103; x=1791782903;
+        h=content-type:to:from:subject:message-id:date:mime-version
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=BkyXZbYMCtvs8D6wKoOix7C+Vk31t3PribzbBIf6BP8=;
+        b=o9assm0s/ytaUktjpG22LisK2j4F7kL0IrvK0/EmaBEDCPgClcplhRdXi4q4/l1QiH
+         m9r26JYPfyznKZjF8GdqGDItwfbcgKIhRfvO1klg3kPS2+uB6DdhFeN7tYqRxZLqF/5l
+         Az8SOYOAU7YWHVi+dqCo33yC/fLSTSJvaG0r9Hb6kPnXvr6Nuj8JnXncAlbWz7DUtwg6
+         T/wryYwnfdwBL5lDGWNz1e7/XZyw/x4zoI9HVXiDOQH/zt92/U9P6GNrR7SlLi9shqq/
+         ynea53gZ5oQ2DJxtuTe8MWJqK8Q35iOaH7rSilqY1T2j6HneiPymbrLS4fNhXHOh6v9J
+         CwmA==
+X-Forwarded-Encrypted: i=1; AKwUvBzfe94Zfjsdyct4BJIrdd8qNFgQ/0GZDexhGUGJEGjIng5jK9bNRoezCmugaUmk1Y6LBotm1kREDm82gf0=@vger.kernel.org
+X-Gm-Message-State: AFuF++luYsgUcpKTMLJDAmWhZwMiGZKs+oXDfgQesiw2X2y5rD8NYCtG
+	QxKgkPo5cloZui9jWlVaB4rk1h+00hLBfbDaDd+7L4Ov24HV7wGC2NF6ZSsWN9qBNr0muY9Uuuf
+	q23kVmSm1kbxGmGcU4Q0SMKLdGhpTrKSeg+GSNkMBV/ak0qxgxzf1TQfHX9Q=
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-Received: by 2002:a05:6808:1a1d:b0:4cb:f21b:6f8d with SMTP id
+ 5614622812f47-4f529d35c9amr8250049b6e.32.1791178102976; Sun, 04 Oct 2026
+ 22:28:22 -0700 (PDT)
+Date: Sun, 04 Oct 2026 22:28:22 -0700
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6ac33576.53659fcc.25f34.0004.GAE@google.com>
+Subject: [syzbot] [pm?] kernel BUG in mark_free_pages
+From: syzbot <syzbot+609c80047e3e808b465c@syzkaller.appspotmail.com>
+To: lenb@kernel.org, linux-kernel@vger.kernel.org, linux-pm@vger.kernel.org, 
+	pavel@kernel.org, rafael@kernel.org, syzkaller-bugs@googlegroups.com
+Content-Type: text/plain; charset="UTF-8"
 
-pud_free_pmd_page() uses a single-address invalidation to flush the
-paging-structure caches before freeing the page tables. With AMD TCE
-enabled, this only invalidates upper-level entries associated with the
-target address. Cached PMD entries for other addresses in the PUD range can
-still reference the PTE pages being freed.
+Hello,
 
-The AMD manual quoted in the commit enabling TCE says these instructions
-remove
+syzbot found the following issue on:
 
-  "only those upper-level entries that lead to the target PTE in the page
-  table hierarchy, leaving unrelated upper-level entries intact."
+HEAD commit:    6addb4f38557 Merge tag 'edac_urgent_for_v7.3_rc6' of git:/..
+git tree:       upstream
+console+strace: https://syzkaller.appspot.com/x/log.txt?x=16d3d7f5580000
+kernel config:  https://syzkaller.appspot.com/x/.config?x=23e5acac5c98285f
+dashboard link: https://syzkaller.appspot.com/bug?extid=609c80047e3e808b465c
+compiler:       Debian clang version 22.1.8 (++20260613092233+e80beda6e255-1~exp1~20260613092250.77), Debian LLD 22.1.8
+syz repro:      https://syzkaller.appspot.com/x/repro.syz?x=121d2835580000
+C reproducer:   https://syzkaller.appspot.com/x/repro.c?x=161d2835580000
 
-Even with all PTEs cleared, speculative page walks can cache present PMD
-entries after the earlier TLB purge.
+Downloadable assets:
+disk image: https://storage.googleapis.com/syzbot-assets/484fafd2304b/disk-6addb4f3.raw.xz
+vmlinux: https://storage.googleapis.com/syzbot-assets/3a897e82997f/vmlinux-6addb4f3.xz
+kernel image: https://storage.googleapis.com/syzbot-assets/57fc9f6de4c3/bzImage-6addb4f3.xz
 
-Use a full TLB flush before freeing the page tables on CPUs with TCE. Keep
-the single-address invalidation otherwise.
+IMPORTANT: if you fix the issue, please add the following tag to the commit:
+Reported-by: syzbot+609c80047e3e808b465c@syzkaller.appspotmail.com
 
-Fixes: 440a65b7d25f ("x86/mm: Enable AMD translation cache extensions")
-Cc: stable@vger.kernel.org
-Signed-off-by: Lance Yang <lance.yang@linux.dev>
+Freezing user space processes
+Freezing user space processes completed (elapsed 0.009 seconds)
+OOM killer disabled.
+PM: hibernation: Preallocating image memory
+page:ffffea0005400000 is uninitialized and poisoned
+page dumped because: VM_BUG_ON_PAGE(PagePoisoned(page))
+There is not page extension available.
+------------[ cut here ]------------
+kernel BUG at ./include/linux/mm.h:2402!
+Oops: invalid opcode: 0000 [#1] SMP KASAN NOPTI
+CPU: 0 UID: 0 PID: 5632 Comm: syz-executor292 Not tainted syzkaller #0 PREEMPT(full) 
+Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 08/26/2026
+RIP: 0010:page_to_nid include/linux/mm.h:2402 [inline]
+RIP: 0010:page_zone include/linux/mm.h:2622 [inline]
+RIP: 0010:mark_free_pages+0x49a/0x4b0 kernel/power/snapshot.c:1266
+Code: 5d e9 3a b9 44 0a e8 15 c9 22 00 90 0f 0b e8 0d fe 41 0a e8 08 c9 22 00 48 8b 7c 24 08 48 c7 c6 64 6c 48 8e e8 97 db 82 ff 90 <0f> 0b e8 ef c8 22 00 90 0f 0b e8 e7 c8 22 00 90 0f 0b 0f 1f 40 00
+RSP: 0018:ffffc900035a7ad8 EFLAGS: 00010046
+RAX: 26156de6b9890800 RBX: 0000000000010000 RCX: 26156de6b9890800
+RDX: 0000000000000000 RSI: 8000000000000001 RDI: 0000000000000000
+RBP: 0000000000000000 R08: ffffffff8f6917a3 R09: 1ffffffff1ed22f4
+R10: dffffc0000000000 R11: fffffbfff1ed22f5 R12: ffff88823fff8100
+R13: 0000000000150000 R14: ffffffffffffffff R15: 0300000000000000
+FS:  00007f23975186c0(0000) GS:ffff888124cc6000(0000) knlGS:0000000000000000
+CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+CR2: 00007ffe53995418 CR3: 0000000021bc3000 CR4: 0000000000350ef0
+Call Trace:
+ <TASK>
+ count_data_pages kernel/power/snapshot.c:1417 [inline]
+ hibernate_preallocate_memory+0x14f/0x750 kernel/power/snapshot.c:1859
+ hibernation_snapshot+0xd5/0x3d0 kernel/power/hibernate.c:416
+ hibernate+0x28f/0x680 kernel/power/hibernate.c:813
+ state_store+0x234/0x290 kernel/power/main.c:821
+ kernfs_fop_write_iter+0x3a4/0x540 fs/kernfs/file.c:345
+ new_sync_write fs/read_write.c:595 [inline]
+ vfs_write+0x612/0xba0 fs/read_write.c:687
+ ksys_write+0x150/0x270 fs/read_write.c:739
+ do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
+ do_syscall_64+0x166/0x520 arch/x86/entry/syscall_64.c:84
+ entry_SYSCALL_64_after_hwframe+0x77/0x7f
+RIP: 0033:0x7f23975400a9
+Code: c0 79 93 eb d5 48 8d 7c 1d 00 eb 99 0f 1f 44 00 00 48 89 f8 48 89 f7 48 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c 24 08 0f 05 <48> 3d 01 f0 ff ff 73 01 c3 48 c7 c1 d0 ff ff ff f7 d8 64 89 01 48
+RSP: 002b:00007f23975181d8 EFLAGS: 00000246 ORIG_RAX: 0000000000000001
+RAX: ffffffffffffffda RBX: 00007f23975f0b48 RCX: 00007f23975400a9
+RDX: 0000000000000005 RSI: 0000200000000100 RDI: 0000000000000003
+RBP: 00007f23975f0b40 R08: 35203a6b63617473 R09: 35203a6b63617473
+R10: 35203a6b63617473 R11: 0000000000000246 R12: 00007f23975c2378
+R13: 0000200000000500 R14: 0000200000000600 R15: 00656e696c66666f
+ </TASK>
+Modules linked in:
+---[ end trace 0000000000000000 ]---
+RIP: 0010:page_to_nid include/linux/mm.h:2402 [inline]
+RIP: 0010:page_zone include/linux/mm.h:2622 [inline]
+RIP: 0010:mark_free_pages+0x49a/0x4b0 kernel/power/snapshot.c:1266
+Code: 5d e9 3a b9 44 0a e8 15 c9 22 00 90 0f 0b e8 0d fe 41 0a e8 08 c9 22 00 48 8b 7c 24 08 48 c7 c6 64 6c 48 8e e8 97 db 82 ff 90 <0f> 0b e8 ef c8 22 00 90 0f 0b e8 e7 c8 22 00 90 0f 0b 0f 1f 40 00
+RSP: 0018:ffffc900035a7ad8 EFLAGS: 00010046
+RAX: 26156de6b9890800 RBX: 0000000000010000 RCX: 26156de6b9890800
+RDX: 0000000000000000 RSI: 8000000000000001 RDI: 0000000000000000
+RBP: 0000000000000000 R08: ffffffff8f6917a3 R09: 1ffffffff1ed22f4
+R10: dffffc0000000000 R11: fffffbfff1ed22f5 R12: ffff88823fff8100
+R13: 0000000000150000 R14: ffffffffffffffff R15: 0300000000000000
+FS:  00007f23975186c0(0000) GS:ffff888124cc6000(0000) knlGS:0000000000000000
+CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+CR2: 00007ffe53995418 CR3: 0000000021bc3000 CR4: 0000000000350ef0
+
+
 ---
- arch/x86/mm/pgtable.c | 11 ++++++++++-
- 1 file changed, 10 insertions(+), 1 deletion(-)
+This report is generated by a bot. It may contain errors.
+See https://goo.gl/tpsmEJ for more information about syzbot.
+syzbot engineers can be reached at syzkaller@googlegroups.com.
 
-diff --git a/arch/x86/mm/pgtable.c b/arch/x86/mm/pgtable.c
-index 4a105f283cfb..6b7fa44f1bf6 100644
---- a/arch/x86/mm/pgtable.c
-+++ b/arch/x86/mm/pgtable.c
-@@ -727,7 +727,16 @@ int pud_free_pmd_page(pud_t *pud, unsigned long addr)
- 	 * via normal page walks. Make them unreachable
- 	 * in cached mid-level walks too:
- 	 */
--	flush_tlb_kernel_range(addr, addr + PAGE_SIZE-1);
-+	if (boot_cpu_has(X86_FEATURE_TCE)) {
-+		/*
-+		 * With TCE enabled, a single-address flush does not invalidate
-+		 * cached PMD entries for the rest of the PUD range.
-+		 */
-+		flush_tlb_all();
-+	} else {
-+		/* INVLPG to clear all paging-structure caches */
-+		flush_tlb_kernel_range(addr, addr + PAGE_SIZE-1);
-+	}
- 
- 	for (i = 0; i < PTRS_PER_PMD; i++) {
- 		if (!pmd_none(pmd[i])) {
--- 
-2.49.0
+syzbot will keep track of this issue. See:
+https://goo.gl/tpsmEJ#status for how to communicate with syzbot.
 
+If the report is already addressed, let syzbot know by replying with:
+#syz fix: exact-commit-title
+
+If you want syzbot to run the reproducer, reply with:
+#syz test: git://repo/address.git branch-or-commit-hash
+If you attach or paste a git patch, syzbot will apply it before testing.
+
+If you want to overwrite report's subsystems, reply with:
+#syz set subsystems: new-subsystem
+(See the list of subsystem names on the web dashboard)
+
+If the report is a duplicate of another one, reply with:
+#syz dup: exact-subject-of-another-report
+
+If you want to undo deduplication, reply with:
+#syz undup
