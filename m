@@ -1,143 +1,157 @@
-Received: from mail-dl2-f40.google.com (mail-dl2-f40.google.com [74.125.229.168])
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E7FA4476683
-	for <linux-kernel@vger.kernel.org>; Mon,  5 Oct 2026 10:29:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.168
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D542F470440;
+	Mon,  5 Oct 2026 10:29:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.130
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791196156; cv=none; b=p3KoYW70aEA4W3NsPx18D7JXPtw1AslI+43ziKjKmWk1yC7NSiL9WZyWv1++k7XRTIMze9XT9JjWklfBg0hlOhuK377DXwidaLJPFREMupf5U78qaKPdsNR6SaVJ1psDukBW8TCN9z+MaRmZNiFOc3QRKYHD4frE5Je2UkoAZgc=
+	t=1791196162; cv=none; b=WgKWC9mtIfADa7Wj02vUVyDFFE2pnmPg6iDvVhg+Vzd1uOmVN8uSJXcmFiZUlHFCiT2c7DAdbycKkv06Vku4QacoI8gw1hXWB/A0NCP9GVOEdL+bQ8nLsFDoogc3UuPFO7XKyu8cdO0Vc7D71VsEDdEFaWoaTvdEirMSqQvkLQs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791196156; c=relaxed/simple;
-	bh=ZqrknraJrh16BFHTcAGNuZS9Sw54k4nkDA1XB6fk0zk=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=I98uMwiZSAzOQ1Nmf4RD19o5VPgQpUg0nyHxHvwn3aizONTjwzh99P+wISTsgZMmNhv+/vv4m30ZIYyU4rcEnDMkdIcTQvj1tSDds60o+ENhKL86Un2jPgJSefTNqedChuOtkGSfrODndqRDRGKoM6PPNZLPgW7SKrmNOVwj4ZM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=nes35Bnb; arc=none smtp.client-ip=74.125.229.168
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1791196162; c=relaxed/simple;
+	bh=mic/QPK+HcksLw4JJjL/VeyApNa5QytTXSeoqCcnXgo=;
+	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=D3syO5co5uLgBUm8UPjGkI5DrrfjGinb5ip4nvbLCKIRfCkiB4rXVUQpcM8SV6Lt+Zi9Nwx41/jIxHYmW/EoV2cd+3p6Gg8068UdrOj71FjhFc92jngLak6a2i0c8KYSS/+bpq2J1ABIpCwNJX4RT2jILzMe5nvpqsnnf0m74h0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=isFZPm5w; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=B34hAaAN; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=kxcbl+k3; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=ipCB1KEh; arc=none smtp.client-ip=195.135.223.130
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="nes35Bnb"
-Received: by mail-dl2-f40.google.com with SMTP id a92af1059eb24-142dd04be84so1457705c88.3
-        for <linux-kernel@vger.kernel.org>; Mon, 05 Oct 2026 03:29:14 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791196153; x=1791800953; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Oukphk47V539pkBOqAi5PYDeCD+s84orlhv2/lpFlbo=;
-        b=nes35Bnb9Vw4H6qvAeMjmbQ1jWqGEbILqR16OCzepHPkralqmIIXsUgdcSqVUWytle
-         6R5u09tPSMs4sm6f0LGDOY+J1xa1BE6Hnu6U2NYEFMPB6i5PWRYUY3FGyo8UoL0+PAcl
-         c80ateXjKgf3WiSOh+/Rv/5M7NVCNd/k3bXmHA4XCgto8+GNwFeEOK97jcjrH9+tGLpw
-         2d5K2emj4q3yj0BDoFYAewg9wa3y956o+oZkKLi9uzFMQPO8UMEXYccTk2VCQfyeaYkU
-         sDjTeIS2R9toTl236NHSkUDNllFAvzoXatn0Iy88ZQGKpqOlp3okuhVdAoDTN+zamebB
-         2ZSA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791196153; x=1791800953;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Oukphk47V539pkBOqAi5PYDeCD+s84orlhv2/lpFlbo=;
-        b=GUMUZR0u1MkKf1OSYpLUEcPSZIMW9ObrXO+otmzJVhq3+qdaCbTIXHjmnsWkSDWkUo
-         TIlICFMQe/vEKwDyWG+abckri5zkQyaCiAcANoKlx03eq15WC10GEYTEUDgYOVzErjXY
-         H7udfrhsxHen1SSQoU+d5EAbLR9t3vwC8Ej1yc2M3K+qdSJzdUaMzudGGRglgYChgEIs
-         eeDiwyErUAWCoUNpNzGhRdDCLal5yQ8efz/yCAHFc9lC8grZndrCAkXOXBxQtu0FUI01
-         V4uLg17YQc0jeEzZdTwdIr07OielYt2NyJltsHVXkLXtGpB4Qpbsq/hZnLM7YE10WmaL
-         51Lg==
-X-Forwarded-Encrypted: i=1; AKwUvBy9BrS2k8gu1IgPugMmDuQdqf2OGba9DNANJewHnAxK/yGUTn5I/hFapn6fjjnHFQEpzrmsEm+kX1hyeeU=@vger.kernel.org
-X-Gm-Message-State: AFuF++lj3/uGfTT/WJdtNiNNeJ/1C0SUZZ5BtZZM+nTICp54OUEGrbXH
-	dD3M//4MklQfDUyFkAYycHXfup14IXsDXQxUMA8lrgRatT/6WdEY0DUi
-X-Gm-Gg: AYBFou3rLnCqEyr5Kc5SwDdXsT+T9VPgzTvNSlPMfLLpNb328PyPbzK2SHVeLPnz5SS
-	XIQXjwfOx6Nkqd4wfWLcDjnVLgEMPXJLkEvzMQ+3LLxS/4s/iUiqOkzbeWihCgD+WsOPpdoCs3v
-	kpXHombXrYB1aYOsz9MYS3xCPBbEg/C1/SjIOMuUc3N8InhaKDCInUH9v01pcKwXYde0K96yloV
-	fnNSDf3rr0j+UntLQ/MjwjF7ngIknC7b8ylHAxqybo0TavUtvfOL2jcVlszFW0Q9P9WZt0v9oAE
-	3+1P+w/0LgYvthfTKxYG0HdbCmDmAFcr7NWtfqKvhLMDoqtZCk+xEhBPovR18qGNQFI+IViuQVQ
-	2/RijggOCOQSIndrinutsUA1mxCg82Bl9H3aiZHFOuovh3s3+BYuSDc+IgKwC3j6dhYUSf2XA8O
-	XmHGDT7o6T9VzWmCmgfbcHA0/5xXAShYltKMWWHwE1EEV+HcbyL3wbDlIruKVl3UoEzr5/cJ98o
-	DPxdvx65hz3BjHK0F9XNKQ=
-X-Received: by 2002:a05:701b:21c5:b0:151:2068:e81f with SMTP id a92af1059eb24-1512068e899mr11215456c88.27.1791196153405;
-        Mon, 05 Oct 2026 03:29:13 -0700 (PDT)
-Received: from LAPTOP-450UDG4J ([223.185.132.231])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-351272a45a8sm13399093eec.22.2026.10.05.03.29.04
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 05 Oct 2026 03:29:11 -0700 (PDT)
-From: Yogesh Gaur <yogeshgaur.83@gmail.com>
-To: David Heidelberg <david@ixit.cz>,
-	"David S . Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>
-Cc: Simon Horman <horms@kernel.org>,
-	Ian Ray <ian.ray@gehealthcare.com>,
-	oe-linux-nfc@lists.linux.dev,
-	netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Yogesh Gaur <yogeshgaur.83@gmail.com>,
-	syzbot+ebbbf06f152da8ea4716@syzkaller.appspotmail.com
-Subject: [PATCH] nfc: nci: drain rx_wq before cmd_wq on unregister
-Date: Mon,  5 Oct 2026 15:58:48 +0530
-Message-ID: <20261005102849.486-1-yogeshgaur.83@gmail.com>
-X-Mailer: git-send-email 2.55.0.windows.5
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="isFZPm5w";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="B34hAaAN";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="kxcbl+k3";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="ipCB1KEh"
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out1.suse.de (Postfix) with ESMTPS id 6DE9821A56;
+	Mon,  5 Oct 2026 10:29:10 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1791196154; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=doFU5Ou9ColtE4a2X1Z4jm8WX5qy8wFA5HtGjLUD4l4=;
+	b=isFZPm5wGnlPnO7UZGC/AGCJrNQIhAfwAXeTWc9uHD9eS0KW3dPFTdrZUXNoTkq/ysv9cC
+	zQT9Wcv+MpSO5NAi2+p/TFXgu3xjQ2DcGEp2w+cuh49tTfZbTVvMffQunAJJsoRForOpJC
+	6MEmMprjNagAQo+SN44NuNHMhBwCnXw=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1791196154;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=doFU5Ou9ColtE4a2X1Z4jm8WX5qy8wFA5HtGjLUD4l4=;
+	b=B34hAaANSMFiJAEzxpglh/PyuuSkuzdMrpECJAc48vB30oWzzJbYcwOhuGyPO1uCWiN/U6
+	jkDc9X7aETRK5RAA==
+Authentication-Results: smtp-out1.suse.de;
+	dkim=pass header.d=suse.de header.s=susede2_rsa header.b=kxcbl+k3;
+	dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=ipCB1KEh
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1791196150; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=doFU5Ou9ColtE4a2X1Z4jm8WX5qy8wFA5HtGjLUD4l4=;
+	b=kxcbl+k3d0NnDCrFBw4W/oUhDksD6noMz98hqpdGtzeG0J4YOuGcuqJYdqDy8v+yd00EkE
+	h1ZlQYQSVkYl18SQposC//zk80nwpN1Ks6oIwTlfgEtWyRmMrjt4QvyrrFzolZJm00fxsf
+	CsHAsKdMNSwE2EpRk/oNdJpGRYFvmJ0=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1791196150;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=doFU5Ou9ColtE4a2X1Z4jm8WX5qy8wFA5HtGjLUD4l4=;
+	b=ipCB1KEhQ0839YZ+RQat5piyUQwHdNi7/S3vsKNbi66WUjlW+59PijK5vFA4aEL1ZL1MGU
+	lM7wvmuqCWjwHQAw==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 3DA3E132D3;
+	Mon,  5 Oct 2026 10:29:10 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id 2C2CBvZ7w2rZJgAAD6G6ig
+	(envelope-from <tiwai@suse.de>); Mon, 05 Oct 2026 10:29:10 +0000
+Date: Mon, 05 Oct 2026 12:29:05 +0200
+Message-ID: <87qzi4saoe.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Justin Bacle <justin.bacle@gmail.com>
+Cc: Takashi Iwai <tiwai@suse.com>,
+	Jaroslav Kysela <perex@perex.cz>,
+	linux-sound@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2] ALSA: usb-audio: add sample-rate quirk for Yamaha 01V96i
+In-Reply-To: <20261004192102.59312-1-justin.bacle@gmail.com>
+References: <20261004192102.59312-1-justin.bacle@gmail.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/30.2 Mule/6.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
+X-Rspamd-Queue-Id: 6DE9821A56
+X-Rspamd-Action: no action
+X-Spamd-Result: default: False [-2.01 / 50.00];
+	BAYES_HAM(-3.00)[99.99%];
+	SUSPICIOUS_RECIPS(1.50)[];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	MID_CONTAINS_FROM(1.00)[];
+	R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	MX_GOOD(-0.01)[];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	TO_DN_SOME(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	SPAMHAUS_XBL(0.00)[2a07:de40:b281:104:10:150:64:97:from];
+	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	ARC_NA(0.00)[];
+	FREEMAIL_TO(0.00)[gmail.com];
+	FREEMAIL_ENVRCPT(0.00)[gmail.com];
+	RCVD_TLS_ALL(0.00)[];
+	RCVD_COUNT_TWO(0.00)[2];
+	FROM_EQ_ENVFROM(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	RCPT_COUNT_FIVE(0.00)[5];
+	DNSWL_BLOCKED(0.00)[2a07:de40:b281:106:10:150:64:167:received];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	TAGGED_RCPT(0.00)[];
+	DKIM_TRACE(0.00)[suse.de:+];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,imap1.dmz-prg2.suse.org:rdns,suse.de:mid,suse.de:dkim]
+X-Spam-Flag: NO
+X-Spam-Score: -2.01
+X-Spam-Level: 
 
-nci_unregister_device() destroys cmd_wq first and rx_wq second. Any
-rx_work still running at that point can handle a response and queue
-cmd_work from nci_rsp_packet(), which is refused because cmd_wq is
-already draining:
+On Sun, 04 Oct 2026 21:20:50 +0200,
+Justin Bacle wrote:
+> 
+> The Yamaha 01V96i exposes its audio streaming interfaces as
+> vendor-specific USB class 0xff and ships no class-specific endpoint
+> descriptor.  parse_uac_endpoint_attributes() therefore returns no
+> attributes for the device, and without UAC_EP_CS_ATTR_SAMPLE_RATE the
+> driver never issues the SET_CUR sampling-frequency request the hardware
+> needs to start its USB audio stream.  The playback and capture PCMs are
+> reported as RUNNING and their pointers advance, but the mixer passes no
+> audio in either direction.
+> 
+> The vendor (Yamaha Steinberg) driver on Windows sends this request at
+> startup; the generic driver does not.  Add the 01V96i to
+> snd_usb_audioformat_attributes_quirk() to force the attribute on, so the
+> stream is initialised the same way.
+> 
+> Confirmed against a usbmon capture of the Windows vendor driver: SET_CUR
+> CS_SAMPLING_FREQ_CONTROL to endpoints 0x07 and 0x86 is the only
+> non-standard control transfer it issues that completes successfully.
+> 
+> Verified on a mainline 7.2.9 kernel with a loopback test: playing a
+> 440 Hz tone on USB channels 1/2 and recording USB channels 9/10 returns
+> the tone unchanged at 44100, 48000, 88200 and 96000 Hz.
+> 
+> Tested-by: Justin Bacle <justin.bacle@gmail.com>
+> Signed-off-by: Justin Bacle <justin.bacle@gmail.com>
 
-  workqueue: cannot queue nci_cmd_work on wq nfc2_nci_cmd_wq
-  WARNING: kernel/workqueue.c:2352 at __queue_work+0xdb7/0x1370 kernel/workqueue.c:2351, CPU#3: kworker/u32:0/12
-  Workqueue: nfc2_nci_rx_wq nci_rx_work
-  Call Trace:
-   queue_work_on+0x180/0x1e0 kernel/workqueue.c:2501
-   queue_work include/linux/workqueue.h:700 [inline]
-   nci_rsp_packet+0x297/0x3420 net/nfc/nci/rsp.c:463
-   nci_rx_work+0x29c/0x430 net/nfc/nci/core.c:1579
-   process_one_work+0xac7/0x1b10 kernel/workqueue.c:3396
+Applied to for-next branch now.  Thanks.
 
-nci_close_device() does not stop rx_work from running again
-afterwards: when the device was never brought up it does not flush
-rx_wq at all, and the driver can still deliver frames through
-nci_recv_frame() until it has stopped calling it.
 
-Destroy the queues in dependency order instead. rx_work queues
-cmd_work and tx_work, so rx_wq goes first. The cmd and data timers
-queue cmd_work and rx_work, and cmd_work and tx_work re-arm them, so
-shut both timers down before any of the queues go away; after
-timer_shutdown_sync() the re-arming is a no-op.
-
-Fixes: 6a2968aaf50c ("NFC: basic NCI protocol implementation")
-Reported-by: syzbot+ebbbf06f152da8ea4716@syzkaller.appspotmail.com
-Assisted-by: LLM
-Signed-off-by: Yogesh Gaur <yogeshgaur.83@gmail.com>
----
-Built with W=1 only. syzbot has no reproducer for this report, so the
-fix has not been runtime-tested
-
- net/nfc/nci/core.c | 7 ++++++-
- 1 file changed, 6 insertions(+), 1 deletion(-)
-
-diff --git a/net/nfc/nci/core.c b/net/nfc/nci/core.c
-index 73e3a96470ac..aa417f863f96 100644
---- a/net/nfc/nci/core.c
-+++ b/net/nfc/nci/core.c
-@@ -1329,8 +1329,13 @@ void nci_unregister_device(struct nci_dev *ndev)
- 
- 	nci_close_device(ndev);
- 
--	destroy_workqueue(ndev->cmd_wq);
-+	/* cmd_work and tx_work re-arm these, and they queue cmd/rx work */
-+	timer_shutdown_sync(&ndev->cmd_timer);
-+	timer_shutdown_sync(&ndev->data_timer);
-+
-+	/* rx_work queues cmd_work and tx_work, so drain rx_wq first */
- 	destroy_workqueue(ndev->rx_wq);
-+	destroy_workqueue(ndev->cmd_wq);
- 	destroy_workqueue(ndev->tx_wq);
- 
- 	list_for_each_entry_safe(conn_info, n, &ndev->conn_info_list, list) {
--- 
-2.55.0.windows.5
-
+Takashi
