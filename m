@@ -1,35 +1,35 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 409A051616C;
-	Mon,  5 Oct 2026 17:18:01 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BE49E5172E9;
+	Mon,  5 Oct 2026 17:18:04 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791220682; cv=none; b=WyF7JhjBfU5GcrAFkaNgbdVsKIv2ZRmkg19cmQ3faID78w60N3jdh7eyy6kgTw8cJRxR55Vca0LUb/pvr+BmxkkEyyJl8sVpA6zu07euqd1oj6Cv/KZ71wmTkssuhrKj5A7eFGCmCHhjuWqOW23rwtaurnXunC1ryJnDucCm73M=
+	t=1791220685; cv=none; b=aHV7M7YTaPj47VHiWh73O2tHaurY9WV6mbwNk95uI0VgPWBRwx6XWe8Tc1TW0NtAJAgzSDTXuWUpROfWHSU/bNrvIBcyjQbLk7fxdbk9a7TnVoNU9Yru9knQr4+5G9JY0q3aHIrrNcDmc9gkYIKZNDX+zzfawZv5J9hnqZ9qFGQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791220682; c=relaxed/simple;
-	bh=TVptcZbAue7LCcNv1tnF8H9YQ0Yk79KzMkicFzSAt58=;
+	s=arc-20240116; t=1791220685; c=relaxed/simple;
+	bh=WfRvhk3MYpzswYMwhoL1fB2M6XWyLC0Luin+lDHgQvw=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=hE+WyQmoDNaoZpy2phjTZ6rkNiPgUWTa8IqPFAXm3eyrqI5RcElvfumovvOkL4E/VQubbpow5ukPJY9YgmdcJV1bpIeIjJq9cOi3091nEFBbLl7G4fdJp6m3uYH1xjZadGJuLa002iWXuPKITHDLeO6Iq7c6llz/ECwCxs2SSjI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=efjP8Q+Z; arc=none smtp.client-ip=100.103.45.18
+	 In-Reply-To:To:Cc; b=X8CKGlbXqEUCwQzqADrkhl1BRTx3lRgqQog1JiPL87w+rr2Axka1chWlho6yURQG2yQ/4Lj2NtO3HKdiiykMnKHPOXiP3N4ZvurEyg4rNDUHwYL8R58ZWjsIxhVpEsyUwEsds/lhzzuJVZli8fl8LsdsfYrOI3keA/HcGoYrbEA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=cjziWnSG; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="efjP8Q+Z"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 214501F00899;
-	Mon,  5 Oct 2026 17:17:57 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="cjziWnSG"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 902B01F00893;
+	Mon,  5 Oct 2026 17:18:01 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791220681;
-	bh=XP+A94BAz+z1f4vxkxptHsF8jaPsZwkeDbnBtq96maQ=;
+	s=k20260515; t=1791220684;
+	bh=IydbXxA+TdL1VCUZdzAGOv0LcibHYsj53sAyI5LhWbE=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=efjP8Q+ZzE8nbmTcs+r9SoKiDbG0D5uJu35niZIcFTlswxjSjHmhKRuCPGtMAwGuz
-	 r7Km6/D8IZTMcgNv/LngzLWjpalryO23OYclY5lgn2DJVlgIXcmWDIu8S59H3OhX2j
-	 j4gVQVDGODJqDCBcWZbIdVg/p9Mj4UPLxzLanR8jukWYB4TlCc3dMhAuWKQ/b6R5dH
-	 OE/6QZMvQ9jZHaTFMX6f0+U/3SHamQAXGt7WfWTyR+qT+GGdpEeU2jo/tiC95rv4oP
-	 U8Ph8Qn8nWDiyV4pqdRiSZRL0f5De2ji/cw5Fnb7Fw1a5z2RJgxhaO3gyIc7+bn3eL
-	 pfZpEBtR0xsVA==
+	b=cjziWnSGWi4Y0xKCjtWpT0/nFbDzCX8PX6e1QJgOarw/Hs69RIl+5UfGSTanfPaqa
+	 KoIl9BOZanEcLbVru9wu8TioFDSh/Zg37CUYYvq3D3d+mSRvi8U5RW57eDsjbec3cF
+	 VAgvUrDsPtRe7nhnmhoS4sQ2Tp8RtvUCaAuO3ACTmQW59Q0xnVeftNjXgkIFHIYYN5
+	 Jkm8htTy6I3da32pR+HsH3GMV6T6mwKOuHMs9f9b7qfIRH10Tcwfvumsa4lV49Uz4c
+	 +imd8Uc6Lv+ow9v+PudT3Vmg0aWUNSvX/gam571CRpVwASEmjUuDHeWR7EFXwRM0xc
+	 YB+3++IR+6LGw==
 From: Bryan O'Donoghue <bod@kernel.org>
-Date: Mon, 05 Oct 2026 19:14:09 +0200
-Subject: [PATCH 39/74] media: qcom: camss: vfe: Add Bayer to YUV conversion
- switch cases for PIX
+Date: Mon, 05 Oct 2026 19:14:10 +0200
+Subject: [PATCH 40/74] media: qcom: camss: vfe-gen3: Define full array of
+ write-masters
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -38,7 +38,7 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261005-linux-mainline-7-2-sm8650-hdk-rfc-0-v1-39-ed985aefd611@kernel.org>
+Message-Id: <20261005-linux-mainline-7-2-sm8650-hdk-rfc-0-v1-40-ed985aefd611@kernel.org>
 References: <20261005-linux-mainline-7-2-sm8650-hdk-rfc-0-v1-0-ed985aefd611@kernel.org>
 In-Reply-To: <20261005-linux-mainline-7-2-sm8650-hdk-rfc-0-v1-0-ed985aefd611@kernel.org>
 To: Bryan O'Donoghue <bryan.odonoghue@linaro.org>, 
@@ -55,76 +55,79 @@ To: Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
 Cc: linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
  linux-kernel@vger.kernel.org, Bryan O'Donoghue <bod@kernel.org>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1870; i=bod@kernel.org;
- h=from:subject:message-id; bh=TVptcZbAue7LCcNv1tnF8H9YQ0Yk79KzMkicFzSAt58=;
- b=owEBbQKS/ZANAwAKASJxO7Ohjcg6AcsmYgBqw9scubt/cuDGoCvZgD+2odXZk3ZT0YGiUws9+
- vDyiNArdfqJAjMEAAEKAB0WIQTmk/sqq6Nt4Rerb7QicTuzoY3IOgUCasPbHAAKCRAicTuzoY3I
- OjI1EACweciP5vJeBE+h4b7LHa4jwiAtkg9S6br/3KkkpCii8VIXbXdn67CbI+o+1HTJL7ABNhB
- IMbch2dJvcA0rWGoQb9NZnpiAZnvRb5PjefrNkXFpv7iCS4i3fD921GxLBJow0UknCNJO0CTjQQ
- EMvteA4RTcT6ouliKvFq3uir6LIhtRv13QysE+04gKd/gqWQ/q59fxe0vdXeo+nsVZGex3cSMrg
- ydfqel5gh/cf3FAo6ctDKiqLqZe4EjVCqlRA6lVZRt5X+9ZYqwuIYhGjAeKli3k42JFiWShsz2h
- inow5zh7eDlVCuOq4C/bFIqycFeNiWOSAAx2QjnhVY4UORI5wbyzPYEDbpUyUetlIjmzsIbApOu
- 41YIOeoE7FxI5YZfQPSHigpv5J1UQKOpmHbBifs/aViYxl+fQpTKPgiBEcJmH3V/ji/E4c6HZWs
- 26nkOK1utLYYx6UGgC72WBEMSCWCl16mPq+v4QuD28LK0u+/t7FXpwSExaJg72ugtt6tRlmQNHI
- fMkUVMgGwXh+KGjDR5f2vEQl9WQBmfLmWJDCs5dp/302KFwH3rgfn/COEkdz7v3R+xJzm0kyvjQ
- k6a5O6NYogyIAQrl/XsV6t6V7fHdQXuzRnfIJ882eNdHjRqpI6lMKb6TuA3CRU4CvKJGfZbpb8O
- dBQejtjt3giSG3g==
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1493; i=bod@kernel.org;
+ h=from:subject:message-id; bh=WfRvhk3MYpzswYMwhoL1fB2M6XWyLC0Luin+lDHgQvw=;
+ b=owEBbQKS/ZANAwAKASJxO7Ohjcg6AcsmYgBqw9sdXbXNGhzSyufCppMGIYbYVBM3f3618fbV9
+ 6JD8oATvcuJAjMEAAEKAB0WIQTmk/sqq6Nt4Rerb7QicTuzoY3IOgUCasPbHQAKCRAicTuzoY3I
+ OszND/9dHpe7OP7fb2JlOwqjJp7K1uy3F2aJd0xY5YMYjdRhUs3Y/M6HWLBGKaY/zfpk1yt9GJ+
+ 6PGQPpg8obl3xcWpX9/y9mZ/J7ved0Dyg0tdYR1wfqeLMnnoyAuJ48DddA8IoVR+wt3O/3ZiqSe
+ c1+V4dAsGY4Dz2M02ezSWeYXCGF2jcojRNRj6+p2BK0Rc5YfEJ828g+acR1Pele7S5xnh3AYQdR
+ BTv14G8eA2bqR+qzjZ9pbCuLNhSTOwq6PuYzRcMkuN2HnMxwiNzUbFHrRGNSa06evPhvzocWNKL
+ /Mz2YeZ0pbPa6Kq0Mb64lvAqKnHxeqI7GfHShdSmtCO5Nl8r/Hua3IQuWL/sHuJoFSvVudARaCt
+ FX/aFMp3wwMGGBbingLAh+6d77WkpKketPCYZJaOe4ydMwHaiqLxym/L25b0fPK+EDOAzAOlMhu
+ y1nbF1sTx57EI5aBV73+hqNYx+xSgwVjzE1oCHhmrPjGGOuEd99q2Wa/vVEjSplA2/uNZVWRqY3
+ YRIQdwmZo6yXoTq+sQs1TMKrg0hOvZbe9qMqV0Hbwc82ADRfhxslBbYQrL5bBnf8O7cNHa+uPW4
+ 3kdzlxYLD1Sf9xu1daSXYZ7LNuXQ9MmbAr9kwGTrnYnhbcptSqrnY0m0EnYHvhz+qvMNj8OWJ9j
+ 136tXSWJhRzWp5Q==
 X-Developer-Key: i=bod@kernel.org; a=openpgp;
  fpr=E693FB2AABA36DE117AB6FB422713BB3A18DC83A
 
 Signed-off-by: Bryan O'Donoghue <bod@kernel.org>
 ---
- drivers/media/platform/qcom/camss/camss-vfe.c | 37 +++++++++++++++++++++++++++
- 1 file changed, 37 insertions(+)
+ drivers/media/platform/qcom/camss/camss-vfe-780.c | 40 +++++++++++++++++++++++
+ 1 file changed, 40 insertions(+)
 
-diff --git a/drivers/media/platform/qcom/camss/camss-vfe.c b/drivers/media/platform/qcom/camss/camss-vfe.c
-index 900f8ec79c8dc..926cb7559f78e 100644
---- a/drivers/media/platform/qcom/camss/camss-vfe.c
-+++ b/drivers/media/platform/qcom/camss/camss-vfe.c
-@@ -551,6 +551,43 @@ static u32 vfe_src_pad_code(struct vfe_line *line, u32 sink_code,
- 			return camss_format_find_code(src_code, ARRAY_SIZE(src_code),
- 						      index, src_req_code);
- 		}
-+		case MEDIA_BUS_FMT_SBGGR8_1X8:
-+		case MEDIA_BUS_FMT_SGBRG8_1X8:
-+		case MEDIA_BUS_FMT_SGRBG8_1X8:
-+		case MEDIA_BUS_FMT_SRGGB8_1X8:
-+		case MEDIA_BUS_FMT_SBGGR10_1X10:
-+		case MEDIA_BUS_FMT_SGBRG10_1X10:
-+		case MEDIA_BUS_FMT_SGRBG10_1X10:
-+		case MEDIA_BUS_FMT_SRGGB10_1X10:
-+		case MEDIA_BUS_FMT_SBGGR12_1X12:
-+		case MEDIA_BUS_FMT_SGBRG12_1X12:
-+		case MEDIA_BUS_FMT_SGRBG12_1X12:
-+		case MEDIA_BUS_FMT_SRGGB12_1X12:
-+		case MEDIA_BUS_FMT_SBGGR14_1X14:
-+		case MEDIA_BUS_FMT_SGBRG14_1X14:
-+		case MEDIA_BUS_FMT_SGRBG14_1X14:
-+		case MEDIA_BUS_FMT_SRGGB14_1X14:
-+		case MEDIA_BUS_FMT_Y8_1X8:
-+		case MEDIA_BUS_FMT_Y10_1X10:
-+		{
-+			if (!line->is_pix)
-+				return __vfe_src_pad_default(index, sink_code);
+diff --git a/drivers/media/platform/qcom/camss/camss-vfe-780.c b/drivers/media/platform/qcom/camss/camss-vfe-780.c
+index a4a2beb0c38b7..32b6565aa91df 100644
+--- a/drivers/media/platform/qcom/camss/camss-vfe-780.c
++++ b/drivers/media/platform/qcom/camss/camss-vfe-780.c
+@@ -12,6 +12,46 @@
+ #include "camss.h"
+ #include "camss-vfe.h"
+ 
++typedef enum {
++	VFE_WM_VIDEO_FULL_Y = 0,
++	VFE_WM_VIDEO_FULL_C,
++	VFE_WM_VIDEO_DS_4,
++	VFE_WM_VIDEO_DS_16,
++	VFE_WM_DISPLAY_FULL_Y,
++	VFE_WM_DISPLAY_FULL_C,
++	VFE_WM_DISPLAY_DS_4,
++	VFE_WM_DISPLAY_DS_16,
++	VFE_WM_FD_Y,
++	VFE_WM_FD_C,
++	VFE_WM_PIXEL_RAW,
++	VFE_WM_STATS_AEC_BE,
++	VFE_WM_STATS_AEC_BHIST,
++	VFE_WM_STATS_TINTLESS_BG,
++	VFE_WM_STATS_AWB_BG,
++	VFE_WM_STATS_AWB_BFW,
++	VFE_WM_STATS_BF,
++	VFE_WM_STATS_GTM_BHIST,
++	VFE_WM_STATS_RS,
++	VFE_WM_STATS_IHIST,
++	VFE_WM_PDAF_2PD,
++	VFE_WM_PDAF_PREPROCESS_2PD,
++	VFE_WM_PDAF_PARSED,
++	VFE_WM_RDI0,
++	VFE_WM_RDI1,
++	VFE_WM_RDI2,
++	VFE_WM_LTM,
++	VFE_WM_STATS_ALSC,
++}vfe_wm_t;
 +
-+			u32 src_code[] = {
-+				sink_code,
-+				MEDIA_BUS_FMT_UYVY8_1X16,
-+				MEDIA_BUS_FMT_VYUY8_1X16,
-+				MEDIA_BUS_FMT_YUYV8_1X16,
-+				MEDIA_BUS_FMT_YVYU8_1X16,
-+				MEDIA_BUS_FMT_UYVY8_1_5X8,
-+				MEDIA_BUS_FMT_VYUY8_1_5X8,
-+				MEDIA_BUS_FMT_YUYV8_1_5X8,
-+				MEDIA_BUS_FMT_YVYU8_1_5X8,
-+			};
++typedef enum {
++	VFE_LITE_WM_RDI0 = 0,
++	VFE_LITE_WM_RDI1,
++	VFE_LITE_WM_RDI2,
++	VFE_LITE_WM_RDI3,
++	VFE_LITE_WM_PREPROCESS_RAW,
++	VFE_LITE_WM_STATS_BG,
++} vfe_lite_wm_t;
 +
-+			return camss_format_find_code(src_code, ARRAY_SIZE(src_code),
-+						      index, src_req_code);
-+		}
- 		default:
- 			return __vfe_src_pad_default(index, sink_code);
- 		}
+ #define BUS_REG_BASE (vfe_is_lite(vfe) ? 0x200 : 0xC00)
+ 
+ #define VFE_BUS_WM_TEST_BUS_CTRL (BUS_REG_BASE + 0xDC)
 
 -- 
 2.55.0
