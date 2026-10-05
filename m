@@ -1,70 +1,70 @@
-Received: from mail-oo2-f40.google.com (mail-oo2-f40.google.com [74.125.231.168])
+Received: from mail-oo1-f48.google.com (mail-oo1-f48.google.com [209.85.161.48])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8792E40F756
-	for <linux-kernel@vger.kernel.org>; Mon,  5 Oct 2026 08:57:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.168
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7BFA03002CF
+	for <linux-kernel@vger.kernel.org>; Mon,  5 Oct 2026 08:57:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.161.48
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791190646; cv=none; b=t9efxcy0YO7yqYPAe4Wu6luL23zNcDUgcaQCjsUT5z31/4HUUqbowUWbB/JeQ0mb+G1AH83eBpmlyu1BIiDFUKO7X+GW2FXkkbqyb2c6TUZVTX7VV/Mm1jph8rH3IA4gevB7aZ/kaYXmIM1GxgObQBRVxuEvE1NoREZY2rx/klI=
+	t=1791190657; cv=none; b=KG3bz7YJSy3YgDT57Y8pv2VQ7P/PQFJ3W7g/HzSm//15JzkJoDaT9G3htlX5yQrK994kz3PdTVpZYTPyKD9PMjBBpEZyNF9Kh5x0K54ZdaBbvmSPaui6cJIH8YpeBFmnwITvSJdt1pmDjqH8O/WXQBNArtEMOxKYA56FqcJWe0s=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791190646; c=relaxed/simple;
-	bh=NHLrGDj2AVwfF29rehwcpxT52670+b9rM0oZXGtXMcs=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=epzkyDnJU7/IDBOhhQPNS2rU2/fIEKwPUF2g5tU1O5/Se8uVQG7N/nkms+jCLp8TeKQvYU8KLN/Jj+2ImpYyvNWSor1Mdro+g1Uqj8kp+ct1WlrpoQSwVS57CO5/WGUC5yHRP6zDzGeSZCGCLaYto4dFboQGn45x0V3XFXiRwzo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=K9/wYM+H; arc=none smtp.client-ip=74.125.231.168
+	s=arc-20240116; t=1791190657; c=relaxed/simple;
+	bh=meebE/h5u6rOUA/vPbZJJdVkADIHNr9DhZxBNZm44SM=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=OlixnN93aApwic0UsMq4E9ZT3e7Ney279RJjeLA7W6way1Nddkg+zqHP4ExPpr7USjhyMZZIlAnMgfwmDOEf6RVIZwwrn90TIov/bscYc0ZK1cKqLDPdufH8R5NFlDVda+JLEyhxFhHwzWK/SEM/awi8tcT9lsSFsBS3Mehk9S4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=LsEe6koi; arc=none smtp.client-ip=209.85.161.48
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="K9/wYM+H"
-Received: by mail-oo2-f40.google.com with SMTP id 46e09a7af769-82389b6da4dso1612049a34.0
-        for <linux-kernel@vger.kernel.org>; Mon, 05 Oct 2026 01:57:24 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="LsEe6koi"
+Received: by mail-oo1-f48.google.com with SMTP id 006d021491bc7-6ddef424972so1516353eaf.3
+        for <linux-kernel@vger.kernel.org>; Mon, 05 Oct 2026 01:57:36 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791190643; x=1791795443; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1791190655; x=1791795455; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=ls09vRpVyxcWEXhPUqAPY03MSrTBdQPEwSBcpvvkVHs=;
-        b=K9/wYM+HeXiKQ0XinP+S/BkRm+0BcHkU+UWTIUS9LO80gQ5hY1uGt8R4RJgVVbBQ/l
-         joarE1zB5hDB0P0RFGJrKISPBua/vPXLYpVI8aPBCBxCEbK2ZiDG70IGpck5ZCyP/6eN
-         Ar/0N9Lnmb0opAzDE3sIqKSUN1LNuxEHcqZ2hB8zh0e2ovADzlqZ0X69kzSMCrRhSXGC
-         +F7ysx42iI+zVUrVZowHRGiU3Z0u/ReIT9olm11b9CGbcYPYRFJt/AuK85679Y2EPI/s
-         UGDGBVGgN3uA2nPQO/Awol1xnlVuLzUbKeUrIdCi3mbfAKLl21d3Wyqik7bLycNIbeCR
-         3RKA==
+        bh=hgapWjxckwHwiqh7aA0j5a3SO6MCzmt6cYgXvBBHOoU=;
+        b=LsEe6koiwv3jLSOLOdFuvIYrSflTXrO71IkQiPuWjR2IQbilgTk1Q/tb8dsqjGSkLQ
+         fyWfHTvFnD1UDocwa+2M83MBU8gBJ/b8M8Jk+6R2UCXwseRp3pMpEryDnoOBYW6Cp1i7
+         WCa3mx6LBBUhkCzT3cYDW8CKmdoR80DlWZNXBVSppQCBnxbwcG1M9QlKYpuIxrfKxfCl
+         YWUcQTu/duueFB55GLclQQoclraHoaeWyqDkAH4gwyaCRyIlBkpn4WuPv2NBMlWHo58Z
+         Z6tf4DVbMJs2QdP6SmGb720nRv+uC5dHRFBuMKyQpDdfsOh7irOpFaVUkVU00wOmqNbr
+         51EQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791190643; x=1791795443;
+        d=1e100.net; s=20260707; t=1791190655; x=1791795455;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=ls09vRpVyxcWEXhPUqAPY03MSrTBdQPEwSBcpvvkVHs=;
-        b=Cq4yKmhrnATKkBrJaRRTaw8Y+nEUQdh3NH1sYV/kW9Wv0uKImf0uNdwUzjmcDbkmbk
-         F05o8X0A/d6u1QnBrIRyJhBa40l2mhIbNe+X0lp/C+9CY+Eyyj1Z7TL3w+pWHOzXlXDp
-         aoBZ7dJ+fLyOhbvN80MAdguZf+CrNiWN+0a1VhU19m/IhBGPCOxnE/tW9wyPzNxlcMnK
-         Ug1+h02aksKbyEfnuTzCm6AmfVG28Cufg8n9nPFyzXfd1AF1IjIeEeNb0I7bdwSrA3Xy
-         9jUyLlDF9kesWnXznAQIH4Fd2H6yptmVh205D27cCTeUFiP1NG7FgVCF1ooqrkReY/8J
-         u3HQ==
-X-Forwarded-Encrypted: i=1; AKwUvBx/K6yiX8IWp1S2l6uvUZjk00k8PRbqkOkSLGXzn8vV+D3XBZFev79t27AvfqV6DAq1q083XW/NzlFOFWc=@vger.kernel.org
-X-Gm-Message-State: AFuF++lQ9XXu6V9+jj8L1fMhIwk6JIPGVZnqVKPzeoAwOXDRanNeJkj1
-	CxzWtlh3Nwjrito/SgVaMopKT7Lsvdu7KIaUTakOV4SOYywEo1uaF3ExlyXilX76t+g=
-X-Gm-Gg: AYBFou2tDb+C411Hq97MsnO1dzWQhD+q0wP+tUa6omwq2T7YlPWL0QKiYMH/WA+Sxpx
-	3kfJb2v7XQ+8ySbra9b3FlDi3RhFQqNPJ6MZBrUDlKT9BrQYyqlXyu7kELoeT9eUBWXYkdfItYQ
-	8HLBtleV0tzGXlE0hzbUgsyklPakla6A9M3tTHmtqh/KYQ8/ad19db9sjDiN6HNWZ0qJA047c4U
-	BVxWAQQwdbJdZio856tGe9JHz6oFeGNQvC/At30acuH35XLyE7Jx9e3ehpTuh9Fa46aCE/QdIws
-	wWMvQOPkWWpqZZpT0S7kAKsQYYvB1XMCDuC1NvmGtpJu+q5a0nCXMdRfMZ3oNFN0FSm+T3U6yly
-	0htMftTphKB79mcqrHYjrbzfpa2+m6c8ldEj/YK8P2Jby8LriZndo1rh/aJSbH/JpQYA/gJUC2D
-	zgrbGPy+qa2MSmX30gkvYNtWjiywFs+ojogOfPYq0bcvpUtcLsk/+/7U1u3oQ7BK1CI7klR6i6E
-	XZLXPXxY6ld
-X-Received: by 2002:a05:6830:442a:b0:80c:d34f:5f5f with SMTP id 46e09a7af769-8228327c070mr11933612a34.24.1791190643359;
-        Mon, 05 Oct 2026 01:57:23 -0700 (PDT)
+        bh=hgapWjxckwHwiqh7aA0j5a3SO6MCzmt6cYgXvBBHOoU=;
+        b=d6B0lEke70p1OJCEd26fMW4IsnymDKz7H+MRMEKJ/9xkjJwX3i34QuUqxqmpPZApD3
+         648nlxrs0+J36xgtkw/CxDHIQjUb3/sRfzROTPQnQmQzzKdBoRWa8kKarVc4tnI9sOd7
+         l9vNwMRwRMp5CskicjCtGkHypmqZkzcDDc0V8x1BNl0QzXpL3OB816a/NH7x2zYjHhFi
+         AxhsMZCElsGWcFWNnQs5eeEhqjOt6DKF08YelAtwTDWg1OidXEoK3wrik+3tsrCuc7iy
+         4rGsP9SNXKDyGwaTxHGxgbyJVtzDTpBRkKBGCaCs3N5nBi0qYRK1D8Maniwydj9+ogGE
+         Omlg==
+X-Forwarded-Encrypted: i=1; AKwUvBwrr47Y7sGsqdBO+q2+5KSJM44DAbgUhOlQylZYAuIV8w5UKittoIn31DTUX9H+OMq7rCbMOmdlV2ljx3M=@vger.kernel.org
+X-Gm-Message-State: AFuF++kcawhg8y7O7y1qlubwacxV5MxMSPOFqZcM/6KqvuhUacuZIcU0
+	6S4rj6g9o1s5fg7+t3QR+LZ+J/Dk/8GT7AQZhNzOZkLzzAP26qpeTM3k
+X-Gm-Gg: AYBFou3dkqNxggrcOFZV6cMxoMW+VGkVlNTXBytSKamy1m3GhyhhZZW6d6a12QBIx1x
+	/Bx8iPvTxSc20rSK7Zn/sGHmED67l3YTiK/sZm/vO/B6lwzww1I75576Ep5FYL0x1/t2jlInDwV
+	XRLBnP6c67b/mxj8gn4D7xs5/Tmg79ouRKG67ogURjbNykixXUF/vJ0JjQPmzeL581z2ygoSjAK
+	Ob7+XKApnMPOM3ONtXFf25OOamMDrbAG7d1BZBdQvozokkP7fXmZ5JypfKADihptf59lNdiQDp8
+	7Hi25qSYlsX3yzWKCdEJwwNzuzhc8P25E7Ser/fcpAi2D0nT9ebVQb4TmAc1DDKomX5zFmpdXUI
+	eo/fCb2AWivctree+0kUXMqSTFOwwiuFNixeo4aVQTIw3bjG83R9D3kQ3QMDP144tcJbpfgo5yH
+	mqqxIfR5kmWNrrfpU/Pc0K6FaoJuo4fAklJVGe/RWXGxlXgfcRStuLc1A+GLLEpZqgh1FyJVv4q
+	LRGX9vUI2hX
+X-Received: by 2002:a05:6820:310b:b0:6dd:40e5:3788 with SMTP id 006d021491bc7-6e09fafc51dmr4924556eaf.83.1791190655282;
+        Mon, 05 Oct 2026 01:57:35 -0700 (PDT)
 Received: from sheng2080.cmix.louisiana.edu ([130.70.15.5])
-        by smtp.gmail.com with ESMTPSA id 46e09a7af769-8227aa6cdf1sm11808006a34.26.2026.10.05.01.57.20
+        by smtp.gmail.com with ESMTPSA id 586e51a60fabf-49e1b2e3664sm7670463fac.7.2026.10.05.01.57.32
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 05 Oct 2026 01:57:22 -0700 (PDT)
+        Mon, 05 Oct 2026 01:57:34 -0700 (PDT)
 From: lzhan011 <lzsx618@gmail.com>
-To: dhowells@redhat.com,
-	akpm@linux-foundation.org
-Cc: keyrings@vger.kernel.org,
+To: nathan@kernel.org,
+	nsc@kernel.org
+Cc: linux-kbuild@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH] asn1_compiler: fix heap overflows on small or token-dense grammars
-Date: Mon,  5 Oct 2026 03:57:07 -0500
-Message-Id: <20261005085707.872193-1-lzsx618@gmail.com>
+Subject: [PATCH] gen_init_cpio: stop parsing on lines with a missing argument list
+Date: Mon,  5 Oct 2026 03:57:29 -0500
+Message-Id: <20261005085729.872402-1-lzsx618@gmail.com>
 X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -74,82 +74,43 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-tokenise() allocates (len / 2) tokens on the assumption that there are
-never more tokens than half the number of input characters. That doesn't
-hold: single-character tokens may be adjacent, so "{}" yields two tokens
-from two bytes while only one slot is allocated, and a 1-byte grammar
-gets a zero-sized array. The tokeniser then writes past the end of the
-heap buffer:
+When a line in the cpio list consists of a file type followed only by
+whitespace and no newline (e.g. "slink " as the last line of the file),
+strtok(NULL, "\n") returns NULL. main() prints an error and sets ec, but
+then carries on and passes the NULL args pointer to the type handler,
+which hands it to sscanf() and crashes:
 
-  AddressSanitizer: heap-buffer-overflow
-  WRITE of size 2 ... in tokenise scripts/asn1_compiler.c:407
+  AddressSanitizer: SEGV on unknown address 0x000000000000
+    #4 __isoc99_sscanf
+    #5 cpio_mkslink_line usr/gen_init_cpio.c:169
 
-Every token consumes at least one character, so size the array by the
-input length instead. Allocate one extra, zeroed slot as well, since
-build_type_list() points the stop-marker type at token_list[nr_tokens].
+Break out of the loop as is already done for the other format error, so
+that the error is reported and gen_init_cpio exits with a failure status.
 
-Additionally, build_type_list() iterates with "n < nr_tokens - 1" where
-nr_tokens is unsigned. A grammar that contains no tokens (for example a
-file holding only a comment) makes this underflow and read far beyond
-token_list:
+Found by fuzzing gen_init_cpio built with ASan/UBSan.
 
-  AddressSanitizer: heap-buffer-overflow
-  READ of size 1 ... in build_type_list scripts/asn1_compiler.c:753
+Reproducer:
+  printf 'slink ' > list && usr/gen_init_cpio list
 
-Use "n + 1 < nr_tokens" instead, so that such input is rejected with the
-existing "No defined types" error.
-
-The generated output for all in-tree .asn1 grammars is unchanged.
-
-Found by fuzzing asn1_compiler built with ASan/UBSan.
-
-Reproducers:
-  printf '{}' > a.asn1 && scripts/asn1_compiler a.asn1 a.c a.h
-  printf -- '-- x\n' > b.asn1 && scripts/asn1_compiler b.asn1 b.c b.h
-
-Fixes: 4520c6a49af8 ("X.509: Add simple ASN.1 grammar compiler")
+Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
 Assisted-by: Claude:claude-opus-5-5 ASan UBSan
 Signed-off-by: lzhan011 <lzsx618@gmail.com>
 ---
- scripts/asn1_compiler.c | 10 +++++-----
- 1 file changed, 5 insertions(+), 5 deletions(-)
+ usr/gen_init_cpio.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/scripts/asn1_compiler.c b/scripts/asn1_compiler.c
-index 4c3f64506..1ae89637d 100644
---- a/scripts/asn1_compiler.c
-+++ b/scripts/asn1_compiler.c
-@@ -349,10 +349,10 @@ static void tokenise(char *buffer, char *end)
- 	char *line, *nl, *start, *p, *q;
- 	unsigned tix, lineno;
+diff --git a/usr/gen_init_cpio.c b/usr/gen_init_cpio.c
+index b7296edc6..0f0c61ec2 100644
+--- a/usr/gen_init_cpio.c
++++ b/usr/gen_init_cpio.c
+@@ -756,6 +756,7 @@ int main (int argc, char *argv[])
+ 				"ERROR: incorrect format, newline required line %d: '%s'\n",
+ 				line_nr, line);
+ 			ec = -1;
++			break;
+ 		}
  
--	/* Assume we're going to have half as many tokens as we have
--	 * characters
-+	/* Every token consumes at least one character, so we can't have
-+	 * more tokens than we have characters
- 	 */
--	token_list = tokens = calloc((end - buffer) / 2, sizeof(struct token));
-+	token_list = tokens = calloc(end - buffer + 1, sizeof(struct token));
- 	if (!tokens) {
- 		perror(NULL);
- 		exit(1);
-@@ -749,7 +749,7 @@ static void build_type_list(void)
- 	unsigned nr, t, n;
- 
- 	nr = 0;
--	for (n = 0; n < nr_tokens - 1; n++)
-+	for (n = 0; n + 1 < nr_tokens; n++)
- 		if (token_list[n + 0].token_type == TOKEN_TYPE_NAME &&
- 		    token_list[n + 1].token_type == TOKEN_ASSIGNMENT)
- 			nr++;
-@@ -773,7 +773,7 @@ static void build_type_list(void)
- 
- 	t = 0;
- 	types[t].flags |= TYPE_BEGIN;
--	for (n = 0; n < nr_tokens - 1; n++) {
-+	for (n = 0; n + 1 < nr_tokens; n++) {
- 		if (token_list[n + 0].token_type == TOKEN_TYPE_NAME &&
- 		    token_list[n + 1].token_type == TOKEN_ASSIGNMENT) {
- 			types[t].name = &token_list[n];
+ 		for (type_idx = 0; file_handler_table[type_idx].type; type_idx++) {
 -- 
 2.34.1
 
