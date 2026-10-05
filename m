@@ -1,79 +1,106 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 66C0F4779A1;
-	Mon,  5 Oct 2026 10:32:42 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 41A2946D09A;
+	Mon,  5 Oct 2026 10:33:06 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791196364; cv=none; b=NSgBluhqWJYDltLUqUXZrsoSh+RF3CqlGeSxuypY5Dep2ObT5eNaYlHWwRXN7k3Jcuhu8GA+ultUWGoveHGms03abd347XSybM9TTNmpdHlK5SddkBRBrZX8Br87Vhoe03vcewP/28akhrqF357Xb3guzk/018XCasZiXhzCmq0=
+	t=1791196387; cv=none; b=MJVy1M8U5x1Bkf0dP8dNpz9nlbUY2EiDD21PQjVqqpK7vw/wzALEuxdsTuBSlPKY8KWUpQXiR+l2kVkNLiVGUurbajkRqjt5PVcuhEPtvMfCQMXD2Vu5Ox8Lv/Ne15XpApqbzWnsBF1YksPZdU6QowDHxhS4pFRLHquGDVUnmb0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791196364; c=relaxed/simple;
-	bh=LlCPOUvM9WMpK08kANDZYAT8KZzPLS5enR/RzvToJaM=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=fzV6dJFvlxSxr6EDS/xdwVg8VMqJVopwN2Z9fFBXqKas+d5N3ZOoS4UHSR9YdQQHQBoYjfzQCgmCGnaU8POB1VF2DsJeef2aLI6QrvtH0cOD7GTKfdepxwMs04vPNn3MM71UjWtHFyP5RbVd2BN+ryu9YU0kuZQZOBwy3PIyHks=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Qg9d6ujq; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791196387; c=relaxed/simple;
+	bh=HeYnKht+rbXkuUa4EohCDb03waSQr6SlS8L/YvVyIcI=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=qOV5u9GlmJiz306NsASNY1vCHAmpOUqSdomi8JiAUUXDESdRIBZ1JK3yBEWpJQV8MSUXS5ekf727vFoImaOt4iSeiI/zHSbCG13nr6H4Z2OH2+QCelyiQu+PKMGhzCVcIQ1eLL2WwxfMRh7OxgT+1Q3OFZj+wqW7HiKy+CI4Zag=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XIKbOsTL; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Qg9d6ujq"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4B5241F00893;
-	Mon,  5 Oct 2026 10:32:41 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XIKbOsTL"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 619791F000FF;
+	Mon,  5 Oct 2026 10:33:04 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791196362;
-	bh=jY57LCuzIB5cNlu7Zk9xX9Q8qlrsSL3Pf/+RUB89afs=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Qg9d6ujqzge+IpM1ektEAwAf0FC8IWgedGirL+BlhF59dKLVL0a3LWOAN5pZOJO+n
-	 LmLchH4o6Wjuo3Sw+L7vvZ6ba9ojzBwIJlUYBqF/ELZ0AV3H4JbFfkduVVJ9yk1KQF
-	 6+SOseFUNx6xZJ6rlqF1p8xZTWf3t1ayZ+bOhKBk4ijM1n9T1fAXp095457dkwz3KH
-	 XOEP4hMz9t8SHHWKForvJzW++YHHsflktY37eDQ34Y2s207+Jy1abgDb1Ihf3pSDKr
-	 Nat0KTX9Vq3Qlehjrch7+qAC2ht/qQ2EKgCdlClwbT97/Rwnu3NbCNVWv1r02XUOU+
-	 n1qoqIgEV5Asw==
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: soc@lists.linux.dev
-Cc: Krzysztof Kozlowski <krzk@kernel.org>,
-	linux-arm-kernel@lists.infradead.org,
-	linux-samsung-soc@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [GIT PULL 2/2] ARM: dts: dt cleanup for v7.4
-Date: Mon,  5 Oct 2026 12:32:32 +0200
-Message-ID: <20261005103232.37247-4-krzk@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261005103232.37247-3-krzk@kernel.org>
-References: <20261005103232.37247-3-krzk@kernel.org>
+	s=k20260515; t=1791196386;
+	bh=mJAWf/W409wQdx9doBOu157lRcmZ2hxa/1jrWIjHjcM=;
+	h=From:Date:Subject:To:Cc;
+	b=XIKbOsTLThS/39UM4QHfq9nlzcCJ1R0cIhknq74mI4QBHNxaliTFmlLNd/f398uyH
+	 puooWoXQmtSZbuJECh1j93tK/2E+OFNdUMc/2r5xbLLeW8RcDuT/08PhI7KFyR36v1
+	 r21t85yWTIwlUA8scSga1+drWWdTZ8vZ0NSLBQoUVAQ8U5Po//9OtgKfKIUOl0kjVg
+	 3DkM1s+wbon/NJuL8RaoUOb1i6H9TXBUf0bg5Mil9y6ivrgVPf0UgiI15tpDHY+6eQ
+	 G7qRvTeiazBFvk4Xmpz5rKTh5J8rhk8iiK8d6s/hyPTEk0Bsl8oyfBQmHirb7sAlQB
+	 FK0KPuKYjMNHg==
+From: Nathan Chancellor <nathan@kernel.org>
+Date: Mon, 05 Oct 2026 12:32:59 +0200
+Subject: [PATCH] wifi: brcmsmac: Adjust txpwrindex value in
+ nphy_ipa_rxcal_gaintbl_2GHz
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1292; i=krzk@kernel.org; h=from:subject; bh=LlCPOUvM9WMpK08kANDZYAT8KZzPLS5enR/RzvToJaM=; b=owEBbQKS/ZANAwAKAcE3ZuaGi4PXAcsmYgBqw3zBnjHD6v/uV/d1peYGEvHkch8KOGBVcvEP6 UKiivz8TIqJAjMEAAEKAB0WIQTd0mIoPREbIztuuKjBN2bmhouD1wUCasN8wQAKCRDBN2bmhouD 1/82D/99F8nJVOUMSUxl38vWKbGP5Sg7qGlA6RUiGDRoVo5GU2rCvPLXaPfaWdTUBpKP828H8tb 7NlKRi9L9Wu1+rY6Hid1JS3594YWSubHpvTwXyiCcvsYLoCo6lpN3KgSzYWt3FZlgwblwg7VBii GmcLOyiSmdnqkmbbRtHknrbrVQrK7swAUfcZhB0NP6/usEj8syYHyiGIuFcgA3dwxE9uhI3s5K6 Z+2FLDzwTpFafz7BEWz9hAfEIOyPmtMnbNQH8FA4xyU6VfLD3O/jtgfb6YAOVrjt1aJMZMW4hxX vapTi2AKpNKWIOYfZJDVbscQJR8aWld3W/VvTkAGMbJKsL+QbZwoZ4j733q3xu25edwea1xZOLm 6+KJe5j6fQl7um2zQ7BnU4ZOeUmOkC1zG9fwq3ZiR4/7EuLdH9kdsGNMbayF5CCLiAIj3D3eFFj gveds3G+kRkMVp3cXfyIp2A6cEQVN1pHZlEL1q2NajncdhopC8Umy3BOdnGsls7paStujRmjWGu chgZYRE43jHyKo59VmpYSBSkQTCZ5hprzGNhb0LeKw0fxIGnnfuHEK4NIPytbFUjaAKkuCIuexI 3cxSroPcvTnIoRjl0O6tWcx85rZVevNe/1kAMr4jtxfpgFckXTeDAb9jKMn9eqS3646IaAWsxzg eN3VYKYu8Rs5a6g==
-X-Developer-Key: i=krzk@kernel.org; a=openpgp; fpr=9BD07E0E0C51F8D59677B7541B93437D3B41629B
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261005-brcmsmac-clang-24-constant-conversion-v1-1-a30c5692d582@kernel.org>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yWNQQrCMBBFr1Jm7UAa00K8irhIx4mO2FQysQild
+ zfR3X98eG8D5SyscOo2yLyKypIq9IcO6B7SjVGulcEaO/bGDDhlmnUOhPSsN1qHtCQtIZU2Vs7
+ NgEw++nh0g/MjVNcrc5TPr3O+/Fnf04OpNDns+xdb4z/UiQAAAA==
+X-Change-ID: 20261005-brcmsmac-clang-24-constant-conversion-ec9f9f345496
+To: Arend van Spriel <arend.vanspriel@broadcom.com>, 
+ linux-wireless@vger.kernel.org
+Cc: brcm80211@lists.linux.dev, brcm80211-dev-list.pdl@broadcom.com, 
+ linux-kernel@vger.kernel.org, llvm@lists.linux.dev, stable@vger.kernel.org, 
+ Nathan Chancellor <nathan@kernel.org>
+X-Mailer: b4 0.17-dev
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2170; i=nathan@kernel.org;
+ h=from:subject:message-id; bh=HeYnKht+rbXkuUa4EohCDb03waSQr6SlS8L/YvVyIcI=;
+ b=owGbwMvMwCUmm602sfCA1DTG02pJDFmHa+7OqKl//f6v2ekg54VvzsyYEW1z5dVbjVl3dqZ/P
+ cCfey3QrKOUhUGMi0FWTJGl+rHqcUPDOWcZb5yaBDOHlQlkCAMXpwBMJMOP4X+CcVz9hJmGs4qY
+ LULjbtzJitWcmjn7arPuF3n/+LBvvaaMDBPqTweXba2dYlH4ZPFrsYPJqnY2Wz/5rC79q8yj/2P
+ 7Z14A
+X-Developer-Key: i=nathan@kernel.org; a=openpgp;
+ fpr=2437CB76E544CB6AB3D9DFD399739260CB6CB716
 
-The following changes since commit cee9395acd8043be0644b25c34bfa86623f2b935:
+After a recent change in clang to warn on signed char conversions within
+array initializers [1], there is a warning (or error with
+CONFIG_WERROR=y / W=e) from nphy_ipa_rxcal_gaintbl_2GHz:
 
-  Linux 7.3-rc1 (2026-08-30 13:34:40 -0700)
+  drivers/net/wireless/broadcom/brcm80211/brcmsmac/phy/phy_n.c:224:18: error: implicit conversion from 'int' to 's8' (aka 'signed char') changes value from 128 to -128 [-Werror,-Wconstant-conversion]
+    224 |         {0, 0, 0, 0, 0, 128},
+        |         ~               ^~~
+  1 error generated.
 
-are available in the Git repository at:
+This value was introduced in the original staging merge of brcmsmac in
+commit a9533e7ea3c4 ("Staging: Add initial release of brcm80211 - Broadcom
+802.11n wireless LAN driver.") and it is the same in the proprietary
+driver [2]. Presumably it is correct since there have been no reported issues,
+so update the value to '-128' to be type correct and clear up the warning.
 
-  https://git.kernel.org/pub/scm/linux/kernel/git/krzk/linux-dt.git tags/dt-cleanup-7.4
+Cc: stable@vger.kernel.org
+Fixes: a9533e7ea3c4 ("Staging: Add initial release of brcm80211 - Broadcom 802.11n wireless LAN driver.")
+Link: https://github.com/llvm/llvm-project/commit/a5ef934a8d295dc03be3960f2b3744ec2e53238e [1]
+Link: https://lore.kernel.org/1a107e21b08.2873.9b12b7fc0a3841636cfb5e919b41b954@broadcom.com/ [2]
+Signed-off-by: Nathan Chancellor <nathan@kernel.org>
+---
+ drivers/net/wireless/broadcom/brcm80211/brcmsmac/phy/phy_n.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-for you to fetch changes up to 5b21342479d303b98796ee50a50642843318e92f:
+diff --git a/drivers/net/wireless/broadcom/brcm80211/brcmsmac/phy/phy_n.c b/drivers/net/wireless/broadcom/brcm80211/brcmsmac/phy/phy_n.c
+index 86cfa3e87a04..9ddd5d519893 100644
+--- a/drivers/net/wireless/broadcom/brcm80211/brcmsmac/phy/phy_n.c
++++ b/drivers/net/wireless/broadcom/brcm80211/brcmsmac/phy/phy_n.c
+@@ -221,7 +221,7 @@ static const struct nphy_ipa_txrxgain nphy_ipa_rxcal_gaintbl_5GHz[] = {
+ };
+ 
+ static const struct nphy_ipa_txrxgain nphy_ipa_rxcal_gaintbl_2GHz[] = {
+-	{0, 0, 0, 0, 0, 128},
++	{0, 0, 0, 0, 0, -128},
+ 	{0, 0, 0, 0, 0, 70},
+ 	{0, 0, 0, 0, 0, 20},
+ 	{0, 0, 0, 3, 0, 20},
 
-  ARM: dts: aspeed: Replace spaces indentation with tabs (2026-09-19 08:41:20 +0200)
+---
+base-commit: d24e8ac715de2e16a53c144005b1863660a5fbea
+change-id: 20261005-brcmsmac-clang-24-constant-conversion-ec9f9f345496
 
-----------------------------------------------------------------
-Minor improvements in arm DTS for v7.4
+Best regards,
+--  
+Cheers,
+Nathan
 
-A few more or less trivial style cleanups pointed out by dt-check-style
-for Actions, Aspeed and ARM vexpress platforms.
-
-----------------------------------------------------------------
-Krzysztof Kozlowski (3):
-      ARM: dts: actions: owl-s500: Replace spaces indentation with tabs
-      ARM: dts: vexpress-v2p-ca5s: Replace spaces indentation with tabs
-      ARM: dts: aspeed: Replace spaces indentation with tabs
-
- arch/arm/boot/dts/actions/owl-s500.dtsi                   | 12 ++++++------
- arch/arm/boot/dts/arm/vexpress-v2p-ca5s.dts               |  2 +-
- arch/arm/boot/dts/aspeed/aspeed-bmc-opp-witherspoon.dts   |  2 +-
- arch/arm/boot/dts/aspeed/aspeed-bmc-supermicro-x11spi.dts |  2 +-
- 4 files changed, 9 insertions(+), 9 deletions(-)
