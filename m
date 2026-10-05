@@ -1,84 +1,196 @@
-Received: from mail11.truemail.it (mail11.truemail.it [217.194.8.81])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3E17530E0F2;
-	Mon,  5 Oct 2026 08:08:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.194.8.81
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 077F637BE9E;
+	Mon,  5 Oct 2026 08:08:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791187712; cv=none; b=CADeh9gxTKCE3MfbN8oNaYos6ilAajcmn9MtJYMD4CFT8Mh7IH1UGBuuYKBvrnxc+OIfqKEkiZzWuXD5De51pk/nQvKWltOaqQZW78Su0G1jdTTtTFie9pqVV0NGCCVB6OdUfX+incp8lbSkiByNWKHWxUkc9MwzuiNV8RUCbLM=
+	t=1791187740; cv=none; b=CfHINN5qf/NBl5l+T0s/+kPnnukOttY6mIekEJOUTD5Y+tlssrTj353W+Z8cX31cFGTiiwlOtF/eHMl4in4GaLOGmxNoIgLDs7dJgTzjfLtd5yJ22Y/70CCHGwMMkg4Qfm6MV3SFbeUC+mQhzzn4B8iXVL8qOCN0FkzfOMIBMKM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791187712; c=relaxed/simple;
-	bh=nwOcxLH3Q6mUbHlJpRBPnf70GLs/nZjTxnotzVVRqWg=;
+	s=arc-20240116; t=1791187740; c=relaxed/simple;
+	bh=trtZaLJC3MhlKv9lnybxB/PWGn/R7M4m35xhpGgXBiM=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=aUu3dCpch/dJAnORxqo6XCsecLJ2fn1hTGEr8b7PLfni/T8Wo/ElSFFGFZkgHgjP8a0B7b952J6bezgpZR3pNqCOFwMZzV06ehKpfWWtjks1+ZYLhpFZ63Uz5Yy7Yn1cfJBo4yCDimVGHc63eHuv9uiRQN5aCfV2AfBUB9CbE3Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=dolcini.it; spf=pass smtp.mailfrom=dolcini.it; dkim=pass (2048-bit key) header.d=dolcini.it header.i=@dolcini.it header.b=pc46WDqn; arc=none smtp.client-ip=217.194.8.81
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=dolcini.it
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=dolcini.it
+	 Content-Type:Content-Disposition:In-Reply-To; b=Vih9S/b955qFBMv6qQ20CeB5FUZXIsjE9MXtClZeJ5L/qfJb1KNTf3dr1rZJhQmaRNtR978s+wGUSerGRJh9z9oo/LY8CPPXTzYiMy3Yp9wfrgZGsmQaYqzyLqW2VC+jha6/32k82bg3gbTtldA9o3LDDRvQkHINnKPnIY9y86I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Jt3a4Fpp; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=dolcini.it header.i=@dolcini.it header.b="pc46WDqn"
-Received: from francesco-nb (93-33-55-11.ip43.fastwebnet.it [93.33.55.11])
-	by mail11.truemail.it (Postfix) with ESMTPA id 384511FCC5;
-	Mon,  5 Oct 2026 10:08:27 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=dolcini.it;
-	s=default; t=1791187709;
-	bh=D+Y6d8UnrGoNFXVY4j5x4i4B2RwDWSIwdnLaT7QqWYA=; h=From:To:Subject;
-	b=pc46WDqn850L7lcIP9Fhgqz50KA3iyT13iys3P83fFFH2WP1JTTiUdlzjxtjMHvVV
-	 HCtW83/A9eD1cpccAu9bCoFi7j0aSvw1PCz7wjrMaLb92gfV/RsN5zPJtscGFMubg9
-	 /ZOsBaI0zujfilGLjnXmUYIQgnSpMRoEd8ewqvtkR2KzSYgmVqFDG/CjdDsBJ2Doeq
-	 O2WWifHY6ZjZMBtZ+WMQLB8d9W7V6g+UOJ/VGVty3Ri5/ppfw9BGBiLUwBJK92vu0a
-	 dRA0n3+jy7CbCP75Dk8d+Cuea+2T9TgZEVE/IxwCusznJrIDAZnnQrCsLH7SrmB55M
-	 S/AfgUIpKsrjg==
-Date: Mon, 5 Oct 2026 10:08:22 +0200
-From: Francesco Dolcini <francesco@dolcini.it>
-To: Peng Fan <peng.fan@oss.nxp.com>
-Cc: Catalin Marinas <catalin.marinas@arm.com>,
-	Will Deacon <will@kernel.org>, Mark Rutland <mark.rutland@arm.com>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Randy Dunlap <rdunlap@infradead.org>, Marc Zyngier <maz@kernel.org>,
-	Oliver Upton <oupton@kernel.org>, Fuad Tabba <fuad.tabba@linux.dev>,
-	Joey Gouly <joey.gouly@arm.com>,
-	Steffen Eiden <seiden@linux.ibm.com>,
-	Suzuki K Poulose <suzuki.poulose@arm.com>,
-	Zenghui Yu <yuzenghui@huawei.com>,
-	"Ivan T. Ivanov" <iivanov@suse.de>,
-	Francesco Dolcini <francesco@dolcini.it>,
-	Frank Li <frank.li@nxp.com>, linux-arm-kernel@lists.infradead.org,
-	linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org,
-	kvmarm@lists.linux.dev, imx@lists.linux.dev,
-	Peng Fan <peng.fan@nxp.com>
-Subject: Re: [PATCH v4] arm64: errata: Add NXP iMX8QM workaround for A53
- cache coherency issue
-Message-ID: <20261005080822.GA13120@francesco-nb>
-References: <20260824-imx8qm-cache-coherency-v4-v4-1-b2e528c7d05e@nxp.com>
- <aqleHm4stDi3Pt//@shlinux89>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Jt3a4Fpp"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0B3591F000FF;
+	Mon,  5 Oct 2026 08:08:55 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791187738;
+	bh=Mx+nbYRXzNl44D5NyykgGkBrWZ5MiNy9Yx1ZnBFphJY=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=Jt3a4FppBZLrmmVsjVqAQ6buJqHNbIHxZvpGHls9B6SuenV5GY6qGf33ihRhDEGJN
+	 /2XigapzV3e62VBA6v9gCoMuUy9lgXX5n8NZT7o4kn0saqAOuCX96JRtpqByjgkrrP
+	 EAWq+dvVkp2EwdNhv/ujRQRjsmChbFaNiTyyYSe36fsd1H223aZGjio8mq+GU3/Fnk
+	 K5FwvnpSivfB777OxCgRjMFt7VIAPB20FfDakoaqSOa1nNpwvEYg2j/ql8+GqNJsKN
+	 zKhr6Krro9ba3xlKPMqV5Lqa/Enz5ADn8sjtozG+4TLk/0nVHHuwzFbu6MLiIAZ3TY
+	 fwjzCwLUxo98g==
+Date: Mon, 5 Oct 2026 10:08:53 +0200
+From: Alejandro Colomar <alx+linux-hardening@kernel.org>
+To: Rosen Penev <rosenp@gmail.com>
+Cc: ceph-devel@vger.kernel.org, Ilya Dryomov <idryomov@gmail.com>, 
+	Alex Markuze <amarkuze@redhat.com>, Viacheslav Dubeyko <slava@dubeyko.com>, 
+	Kees Cook <kees@kernel.org>, "Gustavo A. R. Silva" <gustavoars@kernel.org>, 
+	open list <linux-kernel@vger.kernel.org>, 
+	"open list:KERNEL HARDENING (not covered by other areas):Keyword:b__counted_by(_le|_be|_ptr)?b" <linux-hardening@vger.kernel.org>
+Subject: Re: [PATCH] ceph: use a flexible array for monitor addresses
+Message-ID: <asNa11wqowvRtIXE@debian>
+References: <20261005001955.589395-1-rosenp@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="22jjbyyticpuppkd"
 Content-Disposition: inline
-In-Reply-To: <aqleHm4stDi3Pt//@shlinux89>
+In-Reply-To: <20261005001955.589395-1-rosenp@gmail.com>
 
-Hello,
 
-On Tue, Sep 15, 2026 at 11:02:54PM +0800, Peng Fan wrote:
-> On Mon, Aug 24, 2026 at 12:02:04PM +0800, Peng Fan (OSS) wrote:
-> >From: Peng Fan <peng.fan@nxp.com>
-> >
-> >According to NXP errata document IMX8_1N94W[1], the i.MX8QuadMax SoC
-> >suffers from a cache coherency issue (ERR050104). The upper bits, above
-> >bit 35, of the ARADDR and ACADDR buses within the Arm A53 subsystem
-> >have been incorrectly connected. This causes some TLBI and IC
-> >maintenance operations exchanged between the A53 and A72 core clusters
-> >to be corrupted.
-> >
-> 
-> Any comments?
+--22jjbyyticpuppkd
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+From: Alejandro Colomar <alx+linux-hardening@kernel.org>
+To: Rosen Penev <rosenp@gmail.com>
+Cc: ceph-devel@vger.kernel.org, Ilya Dryomov <idryomov@gmail.com>, 
+	Alex Markuze <amarkuze@redhat.com>, Viacheslav Dubeyko <slava@dubeyko.com>, 
+	Kees Cook <kees@kernel.org>, "Gustavo A. R. Silva" <gustavoars@kernel.org>, 
+	open list <linux-kernel@vger.kernel.org>, 
+	"open list:KERNEL HARDENING (not covered by other areas):Keyword:b__counted_by(_le|_be|_ptr)?b" <linux-hardening@vger.kernel.org>
+Subject: Re: [PATCH] ceph: use a flexible array for monitor addresses
+Message-ID: <asNa11wqowvRtIXE@debian>
+References: <20261005001955.589395-1-rosenp@gmail.com>
+MIME-Version: 1.0
+In-Reply-To: <20261005001955.589395-1-rosenp@gmail.com>
 
-Any plan to have this merged?
+Hi,
 
-Francesco
+> Date: 2026-10-04 17:19:55-0700
+> From: Rosen Penev <rosenp@gmail.com>
+>
+> ceph_alloc_options() allocates the monitor address array separately,
+> always sized for CEPH_MAX_MON entries. Make it a flexible array member
+> at the end of struct ceph_options and allocate both together with
+> kzalloc_flex(). The array was already an 8 KiB slab object, so this
+> only drops the separate allocation and its error path.
+>=20
+> num_mon is the number of addresses in use, not the capacity, so the
+> array cannot be annotated with __counted_by().
+>=20
+> ceph_compare_options() memcmp()s the simple fields up to the first
+> member that needs a custom comparison. With mon_addr gone from there,
+> use num_mon as that boundary; the compared fields are unchanged.
+> Document that num_mon has to stay first past that point.
+>=20
+> Assisted-by: LLM
+> Signed-off-by: Rosen Penev <rosenp@gmail.com>
+> ---
+>  include/linux/ceph/libceph.h |  7 ++++---
+>  net/ceph/ceph_common.c       | 11 ++---------
+>  2 files changed, 6 insertions(+), 12 deletions(-)
+>=20
+> diff --git a/include/linux/ceph/libceph.h b/include/linux/ceph/libceph.h
+> index f92fdd853f1f..e585d6d11303 100644
+> --- a/include/linux/ceph/libceph.h
+> +++ b/include/linux/ceph/libceph.h
+> @@ -57,15 +57,16 @@ struct ceph_options {
+>  	/*
+>  	 * any type that can't be simply compared or doesn't need
+>  	 * to be compared should go beyond this point,
+> -	 * ceph_compare_options() should be updated accordingly
+> +	 * ceph_compare_options() should be updated accordingly.
+> +	 * num_mon must stay the first member past this point, as
+> +	 * ceph_compare_options() uses it as the end of the memcmp().
+>  	 */
+> =20
+> -	struct ceph_entity_addr *mon_addr; /* should be the first
+> -					      pointer type of args */
+>  	int num_mon;
+>  	char *name;
+>  	struct ceph_crypto_key *key;
+>  	struct rb_root crush_locs;
+> +	struct ceph_entity_addr mon_addr[];
+>  };
+> =20
+>  /*
+> diff --git a/net/ceph/ceph_common.c b/net/ceph/ceph_common.c
+> index a797c7360e3c..95dc18257056 100644
+> --- a/net/ceph/ceph_common.c
+> +++ b/net/ceph/ceph_common.c
+> @@ -133,7 +133,7 @@ int ceph_compare_options(struct ceph_options *new_opt,
+>  {
+>  	struct ceph_options *opt1 =3D new_opt;
+>  	struct ceph_options *opt2 =3D client->options;
+> -	int ofs =3D offsetof(struct ceph_options, mon_addr);
+> +	int ofs =3D offsetof(struct ceph_options, num_mon);
+>  	int i;
+>  	int ret;
+> =20
+> @@ -309,17 +309,11 @@ struct ceph_options *ceph_alloc_options(void)
+>  {
+>  	struct ceph_options *opt;
+> =20
+> -	opt =3D kzalloc_obj(*opt);
+> +	opt =3D kzalloc_flex(*opt, mon_addr, CEPH_MAX_MON);
 
+Oh, there's indeed a kzalloc_flex().  Why is it not used in the other
+patches?  (I'm not all that happy with the current API of this _flex()
+variant, but it's better than nothing.)
+
+
+Have a lovely day!
+Alex
+
+>  	if (!opt)
+>  		return NULL;
+> =20
+>  	opt->crush_locs =3D RB_ROOT;
+> -	opt->mon_addr =3D kzalloc_objs(*opt->mon_addr, CEPH_MAX_MON);
+> -	if (!opt->mon_addr) {
+> -		kfree(opt);
+> -		return NULL;
+> -	}
+> -
+>  	opt->flags =3D CEPH_OPT_DEFAULT;
+>  	opt->osd_keepalive_timeout =3D CEPH_OSD_KEEPALIVE_DEFAULT;
+>  	opt->mount_timeout =3D CEPH_MOUNT_TIMEOUT_DEFAULT;
+> @@ -344,7 +338,6 @@ void ceph_destroy_options(struct ceph_options *opt)
+>  		ceph_crypto_key_destroy(opt->key);
+>  		kfree(opt->key);
+>  	}
+> -	kfree(opt->mon_addr);
+>  	kfree(opt);
+>  }
+>  EXPORT_SYMBOL(ceph_destroy_options);
+> --=20
+> 2.56.0
+>=20
+>=20
+
+--=20
+<https://www.alejandro-colomar.es>
+
+--22jjbyyticpuppkd
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCgAdFiEES7Jt9u9GbmlWADAi64mZXMKQwqkFAmrDWxQACgkQ64mZXMKQ
+wqntOA//a86yyT3keMHPYFgUbEkw/SV6QoeAAvRkk0BuLl729WRbSRL8SIiEyldW
+2SDHSk3OZgP2MUuEX7DO+vx2FJxkWlaD3Fuwx126ZuERASAP17a5gBMnb4UJ8yFo
+rLWd87SbOhS7pHsV1jFUbw7lMftkQ+wM7G9D42Mfax03UWuQ2jTGSAGsLXccngbz
+Ed7yaGbaLLorjunzIMhLicM5mMnhtoUGhgMW0bFRnoVQgxea+HlyRuiMyp3eJsoc
+2+zsA4ioTsdY/WUoyXyeaWIiCqQB4WZ59qw2qDVA4JHdp+HqR2AF62xFehXB9jxn
+cPlidWAi1ZBrEkPmSGx+ckufdwdmOZB80ntm5JV6ldRkNcUFpXZ29qT9tGtV4X0Q
+2eP0JBzkizlaijztW+zbVfzgfowSKdcSMtzJAppGFKJ6xP8bQH+xSgiSO3ekmuVs
+SjKcSsdPi923KIsQoqPvtboFPL70ga5uJE3sLNW0nQeeQl/WecPNainlDYrkIxAU
+XwitnyvHgjKgO+yskTH+65rZKOyNm9ATc+CYtTRzGIkk+LEhIfVl8/A3NIlhC/wa
+qiWISYKKHrbnZbXpBK4NOLkNZc58ilfHkAdDKCuAF4vt0MoMkOdOuxHKMqsgjVy7
+BpZpgd00FxYVowg/fen2eZFPrQs9c20UDzRoaswRfW6xaBO7NIo=
+=eXCR
+-----END PGP SIGNATURE-----
+
+--22jjbyyticpuppkd--
