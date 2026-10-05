@@ -1,189 +1,170 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E9AE24A49AC;
-	Mon,  5 Oct 2026 15:56:58 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6EF7E4AE109;
+	Mon,  5 Oct 2026 15:57:09 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791215820; cv=none; b=MFBjcZlBwlms/fcz/t7njeHQDTgMmLona+Rfe/aflWaH9ApQyurEOWWLyTEYQlqLWQqsERG7/QfORXOFUJx9FcWzroq5UeBMxGsOtMiiaLEWIMBvCp0Rzrrkl6pcxOEyi/lQb5WxbBNQ7J96q8nWgWrIkYnaDn7v0orSZeB1T5k=
+	t=1791215831; cv=none; b=EV6taURtrP4YFKUsfHdX2CxpI+dcFWYTkLO45TrgjxApe2pJjGSATRQUmWdQNUgHpP0MOlJl2FgBIPWHTl92GWIkKjiaJ7Yt9HnxKLCSVX6wxud5LRISEGdXeTYAfkLBfQA9Hth5PykbrpG2eRaYDBQt5zu4Nv42VCvWl9cqV0U=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791215820; c=relaxed/simple;
-	bh=dYo2kAPf9NEmY/28ppm4ruNY+cwOypZRmKOtEoPJxYE=;
-	h=MIME-Version:Content-Type:Subject:From:To:Cc:In-Reply-To:
-	 References:Date:Message-Id; b=tWh4Wo+L9liYpYi1PzZK7d4kGA+CQnNVv9s8kh13EO+ixG+3Pe3jCUpPm6btf61arXNX3E4K4Cbp1lT16JTFTDS7Zai4VuZiW0mLyC1W5hHbWPFYo+PgcOBPA94GUaihq3L7abGrmL/h6EC6DY5mYiL+Tvv5ULC2k9P0aO76TZQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Ll6HwW8T; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791215831; c=relaxed/simple;
+	bh=YAwuJkV6+IBZ4KddTOqMtNqcPDunSitw5KnwjM4TahU=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=lqtllx1+mNy/3eYinOgZDkUx8MSTGxCAuMivK8ongve4RSDGzsL+mNpF3oM/+xsusxCmNSqXbbgb0gYVdGRRrGMHBpbh/SHjjMp9AoFBPT6LqS/L9K23K2r21w5pwPJ3jhVPxiasZZcmokaD4S0vjtanP73Y9Igiml9rjm8QuTY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=mJgJ863r; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Ll6HwW8T"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 081391F000FF;
-	Mon,  5 Oct 2026 15:56:56 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="mJgJ863r"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 214961F000FF;
+	Mon,  5 Oct 2026 15:57:09 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791215818;
-	bh=kjgAz0qkfM8efwXACO7HAMNw5vpK3e6UvJXcySC2o4w=;
-	h=Subject:From:To:Cc:In-Reply-To:References:Date;
-	b=Ll6HwW8TIPiiJdluj+FtZdiAVuUPL3PBUCrGjw7qL3/3/8RG1F+s2lwRa0eLg3wOY
-	 4ozloST2gsvQI0TzjohJ2VyUtuo2x3QY3AYnACMBZz5yWu6wof5z5+1oMcubWEmhf9
-	 0XHScL7hQ3VWbeCzAiEv3MycQw90VE4dRUwjgfbejCtp5lyuZUwef8CTJ++0aBTGws
-	 Ce8PnB2Q6BlB9RtCrmOdZ2LylZRBm8FHSdDv/BfsdN2HWaU5j5KfNq4GRcC3laVjq3
-	 91tpSWOcoi96H/36wKAKMeOYxexrN4o3xKenTwqTLbYf2sdgd1uPNVF+FBdo3PcXSl
-	 CV33CYsR0FAeg==
+	s=k20260515; t=1791215829;
+	bh=1zCUeAacCbuYMfNGIyx+QrBOykwFR09cO7grUcW2Noo=;
+	h=From:To:Cc:Subject:Date;
+	b=mJgJ863rS4RJJy4+jgsUTNUq886acBo1ADI1ThGUVnU95kp7m5hg3WxqheTKYvENI
+	 HVMS1gf4UWZR0p5sCpbUg+ehhP1ywz8qg9HKHC++ghpqRdHTaCczNj434pg14M8nG6
+	 WdrdfVijpA/v23kIWjzNg9nDWLm0E5RcfndeUbJSCz4lyDD/WGOHHR8L9zmPjwxll0
+	 uCiBlvh/FyEgIxY1LdCuzKWAn+KuDPBM/1Nthd+t+N749l/rL5kS9YsunZmk0nD+y6
+	 beE4AwmCt+JkzUkfbNFYP3POafLcDmLaIGrKwGf2rURpzjs7KDhY36ME7b0bd1yhN9
+	 3VBwtI49aMj+g==
+From: Kees Cook <kees@kernel.org>
+To: Bill Wendling <morbo@google.com>
+Cc: Kees Cook <kees@kernel.org>,
+	Jonathan Corbet <corbet@lwn.net>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	David Gow <david@davidgow.net>,
+	Petr Mladek <pmladek@suse.com>,
+	Sergey Senozhatsky <senozhatsky@chromium.org>,
+	Shuvam Pandey <shuvampandey1@gmail.com>,
+	Steven Rostedt <rostedt@goodmis.org>,
+	=?UTF-8?q?G=C3=BCnther=20Noack?= <gnoack@google.com>,
+	"Matthew Wilcox (Oracle)" <willy@infradead.org>,
+	=?UTF-8?q?Micka=C3=ABl=20Sala=C3=BCn?= <mic@digikod.net>,
+	Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+	Masami Hiramatsu <mhiramat@kernel.org>,
+	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
+	Ian Bridges <icb@fastmail.org>,
+	Justin Tee <justin.tee@broadcom.com>,
+	Paul Ely <paul.ely@broadcom.com>,
+	"James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>,
+	"Martin K. Petersen" <mkp@kernel.org>,
+	Jiri Kosina <jikos@kernel.org>,
+	Alexei Starovoitov <ast@kernel.org>,
+	Daniel Borkmann <daniel@iogearbox.net>,
+	Andrii Nakryiko <andrii@kernel.org>,
+	Eduard Zingerman <eddyz87@gmail.com>,
+	Kumar Kartikeya Dwivedi <memxor@gmail.com>,
+	Martin KaFai Lau <martin.lau@linux.dev>,
+	Song Liu <song@kernel.org>,
+	Yonghong Song <yonghong.song@linux.dev>,
+	Jiri Olsa <jolsa@kernel.org>,
+	Emil Tsalapatis <emil@etsalapatis.com>,
+	Ihor Solodrai <ihor.solodrai@linux.dev>,
+	"Christophe Leroy (CS GROUP)" <chleroy@kernel.org>,
+	=?UTF-8?q?Uwe=20Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>,
+	Madhavan Srinivasan <maddy@linux.ibm.com>,
+	Michael Ellerman <mpe@ellerman.id.au>,
+	Nicholas Piggin <npiggin@gmail.com>,
+	Shivaprasad G Bhat <sbhat@linux.ibm.com>,
+	Thorsten Blum <blum@kernel.org>,
+	Alison Schofield <alison.schofield@intel.com>,
+	Dave Jiang <dave.jiang@intel.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Guangshuo Li <lgs201920130244@gmail.com>,
+	Ira Weiny <iweiny@kernel.org>,
+	=?UTF-8?q?Uwe=20Kleine-K=C3=B6nig?= <u.kleine-koenig@pengutronix.de>,
+	Vishal Verma <vishal.l.verma@intel.com>,
+	Randy Dunlap <rdunlap@infradead.org>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	linux-kernel@vger.kernel.org,
+	linux-hardening@vger.kernel.org
+Subject: [PATCH v5 00/12] seq_buf: Add seq_buf_strlen()
+Date: Mon,  5 Oct 2026 08:56:50 -0700
+Message-ID: <20261005155653.late.426-kees@kernel.org>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Subject: Re: [PATCH v5] scripts/config: honor $KBUILD_OUTPUT by default
-From: Nathan Chancellor <nathan@kernel.org>
-To: Dmitry Voytik <voytikd@gmail.com>
-Cc: Nicolas Schier <nsc@kernel.org>, Nathan Chancellor <nathan@kernel.org>, 
- Nicolas Schier <n.schier@fritz.com>, Rong Zhang <i@rong.moe>, 
- linux-kernel@vger.kernel.org, linux-kbuild@vger.kernel.org
-In-Reply-To: <20261002222119.393508-1-voytikd@gmail.com>
-References: <20261002222119.393508-1-voytikd@gmail.com>
-Date: Mon, 05 Oct 2026 17:56:52 +0200
-Message-Id: <179121581235.2275809.12565811683284940522.b4-review@b4>
-X-Mailer: b4 0.17-dev
-X-Developer-Signature: v=1; a=openpgp-sha256; l=4756; i=nathan@kernel.org;
- h=from:subject:message-id; bh=dYo2kAPf9NEmY/28ppm4ruNY+cwOypZRmKOtEoPJxYE=;
- b=owGbwMvMwCUmm602sfCA1DTG02pJDFmHTxxd/oj7xLw5+xO8QyfdrbxtrhbC6XlFvqR7qZHBn
- 8wqX/7bHaUsDGJcDLJiiizVj1WPGxrOOct449QkmDmsTCBDGLg4BWAi80oZ/gqXvdvifP1feN/8
- MvmgngnRbsk/PYU4u7eufaZ9LlTG8BMjw5GLbS78B2KtjrhP8rrJeaMmdvnpXxOmcb1sMWc0+XG
- vngsA
-X-Developer-Key: i=nathan@kernel.org; a=openpgp;
- fpr=2437CB76E544CB6AB3D9DFD399739260CB6CB716
+Content-Type: text/plain; charset=UTF-8
+X-Developer-Signature: v=1; a=openpgp-sha256; l=3559; i=kees@kernel.org; h=from:subject:message-id; bh=YAwuJkV6+IBZ4KddTOqMtNqcPDunSitw5KnwjM4TahU=; b=owGbwMvMwCVmps19z/KJym7G02pJDFmHT5y6myEQlD99suT2yzsr3hWK3XLyKbe42q3K6qD6R m+XxdYTHaUsDGJcDLJiiixBdu5xLh5v28Pd5yrCzGFlAhnCwMUpABOx62H4K7d3a/cFsYmPpyZ8 8fDnig80ajo2s+tY+tFncU9i/3e4dDMyHNqweYpR5o4b/xM78qvVuUyKVi4JE3W/9emN18a5B00 XMwIA
+X-Developer-Key: i=kees@kernel.org; a=openpgp; fpr=A5C3F68F229DD60F723E6E138972F4DFDC6DC026
+Content-Transfer-Encoding: 8bit
 
-Hi Dmitry,
+Hi,
 
-> If $KBUILD_OUTPUT is set, use it by default if --file is not passed.
-> 
-> Fix the issue when the script silently updates a stale .config in
-> the root directory, while the user expects ${KBUILD_OUTPUT}/.config
-> to be updated.
-> Handle properly if the config file is a relative path.
-> 
-> The problem can be worked around with --file, but this is easy to miss,
-> and is inconsistent with how the Makefile and other tools work
-> (e.g., scripts/diffconfig).
-> 
-> How to reproduce the issue:
-> 	rm .config
-> 	export KBUILD_OUTPUT=.out
-> 	make defconfig
-> 	./scripts/config \
-> 	       -e CONFIG_UBSAN
-> 	grep: .config: No such file or directory
-> 
-> How the patch was tested:
-> 	make mrproper
-> 	export KBUILD_OUTPUT=.out
-> 	make defconfig
-> 	grep "CONFIG_UBSAN=y" $KBUILD_OUTPUT/.config || echo "OK"
-> 
-> Test the basic usage:
-> 	./scripts/config -e CONFIG_UBSAN
-> 	grep "CONFIG_UBSAN=y" $KBUILD_OUTPUT/.config && echo "OK"
-> 
-> Test --refresh picks up correct config file by using $KBUILD_OUTPUT:
-> 	./scripts/config -d CONFIG_UBSAN
-> 	./scripts/config --refresh -e CONFIG_UBSAN
-> 	grep "CONFIG_UBSAN=y" $KBUILD_OUTPUT/.config && echo "OK"
-> 
-> Test --file takes precedence over $KBUILD_OUTPUT and a relative
-> path is handled properly:
-> 	./scripts/config -d CONFIG_UBSAN
-> 	mkdir .out2
-> 	cp .out/.config .out2/.my_config
-> 	grep "CONFIG_UBSAN=y" .out2/.my_config
-> 	./scripts/config --file .out2/.my_config --refresh \
-> 	       -e CONFIG_UBSAN
-> 	grep "CONFIG_UBSAN=y" .out2/.my_config && echo "OK"
-> 	ls .out/.out2 || echo "OK"
-> 	ls .out/.out || echo "OK"
-> 
-> Test --file can accept files with hyphen:
-> 	./scripts/config -d CONFIG_UBSAN
-> 	cp .out/.config -- -my_config
-> 	grep "CONFIG_UBSAN=y" -- -my_config || echo "OK"
-> 	./scripts/config  --refresh \
-> 	       -e CONFIG_UBSAN --file -my_config
-> 	grep "CONFIG_UBSAN=y" -- -my_config && echo "OK"
-> 
-> Signed-off-by: Dmitry Voytik <voytikd@gmail.com>
-> ---
-> v5:
->  - Per Nathan Chancellor's suggestion, improved handling $FN path by
->    realpath
->  - https://lore.kernel.org/lkml/179097210878.309835.10523307262544578337.b4-review@b4/
->  - Documented the new test scenario in the git commit message
-> v4:
->  - Addressed Nicolas Schier's comments - dropped the change how '--refresh'
->    is handled
->  - Implemented conversion of $FN to the absolute path which helps with
->    '--refresh' and relative paths
->  - Documented testing steps in the commit message
-> v3:
->  - Added an example in the commit message how to reproduce the issue
-> v2:
->  - Addressed comments by sashiko:
->    - https://sashiko.dev/#/patchset/20260920064350.17999-1-voytikd%40gmail.com
->    - use basename when --refresh is used
->    - remove echo which can be misleading when --file is passed
-> v1:
->  - https://lore.kernel.org/all/20260920064350.17999-1-voytikd@gmail.com/
-> ---
->  scripts/config | 5 +++++
->  1 file changed, 5 insertions(+)
->
-> diff --git a/scripts/config b/scripts/config
-> index 32428ea909c2..7e84c3d4e621 100755
-> --- a/scripts/config
-> +++ b/scripts/config
-> @@ -130,6 +130,10 @@ on_exit() {
->  trap on_exit EXIT
->  
->  FN=.config
-> +if [ -n "${KBUILD_OUTPUT}" ]; then
-> +	FN=${KBUILD_OUTPUT}/${FN}
-> +fi
-> +
->  CMDS=()
->  while [[ $# -gt 0 ]]; do
->  	if [ "$1" = "--file" ]; then
-> @@ -143,6 +147,7 @@ while [[ $# -gt 0 ]]; do
->  		shift
->  	fi
->  done
-> +FN=$(realpath -q -- "$FN" || echo "$FN")
+While working on seq_buf conversions[1], we found there was a need for
+seq_buf_strlen() (since calling strlen(seq_buf_str()) would be a waste
+of time: seq_buf already knows the length), seq_buf_init_append() (to
+start a seq_buf from an existing string buffer), and seq_buf_terminate()
+(as there are many callers using seq_buf_str() just for its termination
+side-effect). And while implementing that, we found a bunch of other
+related things that needed fixing. This is that ever-growing series,
+with tests for each fix.
 
-Sashiko has some further complaints about this:
+ v5:
+  - add Alexei's Acked-by for the bpf bits (07/12, 08/12)
+  - 03/12: new: lpfc_rx_monitor_report() drops a record that does not
+    fit itself, instead of relying on seq_buf_puts() leaving it out,
+    which 04/12 changes (BPF CI)
+  - 04/12: note the audit of seq_buf_puts() and seq_buf_putmem() callers
+    in the commit message (BPF CI)
+  - 04/12, 05/12: drop the inaccurate "unlike the other writers" from
+    the export notes (BPF CI)
+  - 05/12: drop a duplicate #include from the tests
+  - 06/12: note in seq_buf_str()'s kernel-doc that only a zero-sized
+    seq_buf returns the static empty string (Andy)
+  - 07/12: write the seq_buf_terminate() test data with
+    seq_buf_putmem(), which leaves no NUL, so the test fails if
+    seq_buf_terminate() does nothing (Sashiko)
+  - 09/12: fix the commit message's description of seq_buf_init(), which
+    empties the buffer rather than setting its size to 0 (BPF CI)
+  - 09/12: check the length in the test of a string longer than the
+    size, so an unbounded scan fails it (Sashiko)
+  - v4..v5 diff: https://git.kernel.org/pub/scm/linux/kernel/git/kees/linux.git/diff/?id=dev/v7.3-rc2/seq_buf/v5&id2=dev/v7.3-rc2/seq_buf/v4
+ v4: https://lore.kernel.org/all/20261003035906.too.263-kees@kernel.org/
+ v3: https://lore.kernel.org/all/20260930235231.out.387-kees@kernel.org/
+ v2: https://lore.kernel.org/all/20260919002658.stay.929-kees@kernel.org/
+ v1: https://lore.kernel.org/all/20260917002312.i.923-kees@kernel.org/
 
-  https://sashiko.dev/#/patchset/20261002222119.393508-1-voytikd@gmail.com
+Thanks!
 
-Due to travel and Linux Plumbers, I am not sure I will be able to think
-about the best way to resolve this before I finalize the Kbuild tree for
-7.4, so this may need to be deferred until after 7.4-rc1 is released
-(i.e., it will target 7.5). One option that immediately comes to mind is
-requiring $KBUILD_OUTPUT to exist already and only running realpath on
-$KBUILD_OUTPUT, which would leave the script unchanged for the case of
-$KBUILD_OUTPUT being unset, which seems safer to me:
+-Kees
 
-  if [ -n "$KBUILD_OUTPUT" ]; then
-      if [ ! -d "$KBUILD_OUTPUT" ]; then
-          echo "KBUILD_OUTPUT is set but does not exist or is not a directory, create it before running $myname" >&2
-          exit 1
-      fi
-      FN=$(realpath "$KBUILD_OUTPUT")/$FN
-  fi
+[1] https://lore.kernel.org/all/20260917011359.1585961-1-morbo@google.com/
 
-This would leave a relative '--file' value + KBUILD_OUTPUT + '--refresh'
-in a weird state still but it appears that commit f757f6011c92 ("kbuild:
-fix argument parsing in scripts/config") got that wrong almost two years
-ago so it doesn't feel like it is worth caring about that until someone
-actually complains about it (but I might be missing something).
+Bill Wendling (1):
+  seq_buf: Add seq_buf_init_append()
+
+Kees Cook (11):
+  seq_buf: Do not print an empty line from an overflowed
+    seq_buf_do_printk()
+  seq_buf: Do not pop from an overflowed seq_buf
+  scsi: lpfc: Print rx monitor records straight into the seq_buf
+  seq_buf: Copy what fits when seq_buf_puts() and seq_buf_putmem()
+    overflow
+  seq_buf: Clear what a writer did not claim when a seq_buf overflows
+  seq_buf: Add seq_buf_strlen()
+  seq_buf: Add seq_buf_terminate()
+  bpf: Remove dead newline stripping from format_disasm_line()
+  powerpc/papr_scm: Return the string length from the sysfs show
+    functions
+  nvdimm: ndtest: Return the string length from flags_show()
+  docs: core-api: Document the seq_buf API
+
+ Documentation/core-api/kernel-api.rst     |   9 +
+ include/linux/seq_buf.h                   | 141 +++++-
+ include/linux/trace_seq.h                 |   5 +-
+ arch/powerpc/platforms/pseries/papr_scm.c |   6 +-
+ drivers/scsi/lpfc/lpfc_sli.c              |  45 +-
+ kernel/bpf/diagnostics.c                  |   8 +-
+ kernel/trace/trace_events.c               |   4 +-
+ kernel/trace/trace_events_hist.c          |   6 +-
+ lib/seq_buf.c                             |  37 +-
+ lib/tests/seq_buf_kunit.c                 | 537 +++++++++++++++++++++-
+ tools/testing/nvdimm/test/ndtest.c        |   2 +-
+ 11 files changed, 746 insertions(+), 54 deletions(-)
 
 -- 
-Cheers,
-Nathan
+2.55.0
 
