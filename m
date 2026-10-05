@@ -1,204 +1,101 @@
-Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
+Received: from mail-pj2-f43.google.com (mail-pj2-f43.google.com [74.125.227.171])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 21E5C47CA7A
-	for <linux-kernel@vger.kernel.org>; Mon,  5 Oct 2026 11:49:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E7AE33793B8
+	for <linux-kernel@vger.kernel.org>; Mon,  5 Oct 2026 11:50:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.171
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791200962; cv=none; b=fvNJHjPwp8B7Z8iXVJ/CMbXfdYEwFmKqwh6hczkK4Bh+yGtcpke8Sd2flZZvpzcvdGVrp5tGwTtgSF80XfRoUoHoWWlrGGCQYAeFGnx0chPdpqUuc07aF+Txn+hvw1ijfEfO2lD6sEQtNKkA9L6aFml8jBNfe1P855cxnb4Z2ns=
+	t=1791201059; cv=none; b=IkkKq1kD3U+zj9hQVyPWCh5NMx2VqSwfcAqb6+m6WNx2KDjZ71Ct2NOCIJIBYiNyuDxZ8UJG9lZghxaGWcnnU1yuTykex1uLmBno89C7UWffd5YQlxC9iojjolKsaLpvN5OEJ/KeB59gLXNL41QOBcvSr8JefHyNU0/vWJBecEI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791200962; c=relaxed/simple;
-	bh=C4rWPxAM+gG+nBkU+Lpq5+tCLNPh5lzEfMeHsRf0DPA=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=dtpPpUeh37ze4Zi+t/OIdayKRbyJ8PtDIzQ2j2Qn+BDM4i8jdXdLgiiwhy3I96vcgwkDru4bJMZ7Vvz6sZ2oFq+VmEkJJqg8VjLYDGhQ/yVvZj0VnF3D4CKqQk3C2veP1OoRq/NOtKoSaHUm0kzETeFLtCIGnRRnxani43E8a8A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=oe2e4wNU; arc=none smtp.client-ip=74.125.225.141
+	s=arc-20240116; t=1791201059; c=relaxed/simple;
+	bh=e3CuOM2eCvGmHoYcmlFPplrZp0K02m2jIXVmvukgLTM=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=MCobp2jAq1gykUE30d9G0tj3xWAE5PNqurbmMVOI7vGDJY2M/Jy137yLJG9JeZVoatCWeRvRdYqgPH72+gRMorLN4BAGfb4N4u1l5JkRzXPrOYF+sllLCwdl8FiQvy7+mxdarFBx0cUoxoFRFB4SxEwnkQqeWsB6ZQG+LXkd64s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=HLauzBld; arc=none smtp.client-ip=74.125.227.171
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="oe2e4wNU"
-Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-4a0977b9c20so22168545e9.2
-        for <linux-kernel@vger.kernel.org>; Mon, 05 Oct 2026 04:49:20 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="HLauzBld"
+Received: by mail-pj2-f43.google.com with SMTP id 98e67ed59e1d1-3a4c8262465so1274522a91.2
+        for <linux-kernel@vger.kernel.org>; Mon, 05 Oct 2026 04:50:57 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791200959; x=1791805759; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=tN32JBtkwvrpOHkqPOwCz1peQMff+9nW+9FnKuTc/9Y=;
-        b=oe2e4wNU3lig5ckdIY4pln90NFMoBuzqjjQp9ZzJ8X5L77pYYYqB8QGUGhNn5BK7ag
-         teomHdKgtcHPMlz/WiXvHlG4Mqk0rycrnXJ912uIw6GEYYvPKxEuLdPx15bRUCANE2uv
-         ElhJ5VhfFNTy7CEgJukBL5HhoL0XKvCSIG556r/Nj1BH3XRFpc1MA1+5+ZVLdT3ilJvY
-         W0bKiKQ9tO8NasBmu7RcIKz5cRszVG0qmcnUvvCR2Zv0WtGFQyYVQGXvgo0gFlVlHf4X
-         JKNl84nvM/LvHX0h4AUV4kuiFJiMSkSxDwbWQhuoEtIxtOwK7scS6B0zruBGFZZJE8ZU
-         b51w==
+        d=gmail.com; s=20251104; t=1791201057; x=1791805857; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=e3CuOM2eCvGmHoYcmlFPplrZp0K02m2jIXVmvukgLTM=;
+        b=HLauzBld6OB1jTJcwIjaKdOQlgdQIWME9ns3a3QtMls4+FjLHqc77dM6+iQBw+xZRf
+         qG1LxV098oSnOxSZu/46qi24vR0u+ix+FlWmWbWFIkmjrp5OiO8SyQluqm05tZLTOLUP
+         BPVEHCY6jTXOe1xP47qVnCp0s0oy22jE1vGsTrZoWo8PYRfb2Klvafs73dfNg3s36RfV
+         jgTgtPuzMkqcKpf1r8zZ++G+l9+1a1EeWYifiblZPtD3Hp0o9zRBK0SzsBzdz6bPAWWt
+         Vk2yob0Eb3+Q+SVC0qwPJvJN95+EYqD0LaYpSd6gZH3w25Vi8uQQQA0lvybuT6FlljYN
+         LjWg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791200959; x=1791805759;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=tN32JBtkwvrpOHkqPOwCz1peQMff+9nW+9FnKuTc/9Y=;
-        b=1bVy4BcIkx0BDubqydhPJN3XtqFF196qP8+ChhSvscA8yhvmyi+39F1uoG9rF6fwBj
-         r61eioeXtChzyjPEFHKJseBbyrOo1CgCIHxwMYpl/0JK7/AfhdBhLMlh/U66OxHufuyk
-         Aba0bfghIo7dWI0JhlfozSLGXN5PLF7VnlWhKAOEteAl+LWnZ2uSUZH2PekrVULMMLPz
-         uZGqvFfsIpJZIxw5z2fO35Iuf6xzvw/vwNF5JzcOsSYK738gT9L4reKDolA96DS8kNa1
-         b/a2ShKxKGsFOJZXTeie0fP963SEMev2CXMBVARIkSlL++pAyi/benMoj8IEkxevu9S0
-         XNTw==
-X-Forwarded-Encrypted: i=1; AKwUvBx5Z/2hwPDh7EdA5wlm9eMjX3w1bg60R3jGcgN1kdFS102sPYsXBuDugexFwFfNq+O1XflcgA57Z9dDQYo=@vger.kernel.org
-X-Gm-Message-State: AFuF++kJd0fUIw7SfEjPAOjWaAl5Sp1KYsFXD0/Th9xuZQ2Dr0dOw/jC
-	3t9wafR8sWVJ65PJBqXWdrAcu/+khYEM5XMCnhw3GysiLmKTrxpBtH1y
-X-Gm-Gg: AYBFou1tPkx7i3AD5GzGP0aSUJIhOuh2dX4d3rmtK9kE8NXmABEFF+ofX4DOXLzNAob
-	oSOm2RHHDmIKPC943WlxQucc5SjVDw7kux3JmFBKqUWxbQ0VMRXBU+qAQbWjrPc8fzltjHgaT2C
-	tusXL6M2oG9v3x9mLoNpoHjgWcyvpZwsYqm42BsbXM7/6VJ06XGKLzuTyk6l6TPn/Gtp4zhmdbf
-	jsSUhQXR9DnyAu64HdO6JwiqxoaNlJaFy5fUpDpYXMnsHK3XI32foVWQdf7uX9yusQYzJKTOIei
-	n9xp4fnlf8IP+qJyP8k4+LUgZALZKiwrhjdbNGk9JYo3OoEAwWrNtF+vrDxj5MEoWkAzAhkme5O
-	IUnvYAB4B1/tTmCif6Ta+E9XG23gfYi9Gkl3H2yb5A8sS0Lu46SeTKv2/8l44Q8KTQ6J8fkuJTv
-	Ygf4yII3DFSBdFe4VJqnOFews+uiA4pREvtJbss7m/xm8nFct/5UA1ZKsidec11OnMWRlQfwzEN
-	PdrIVqU3150AX2owzI9VH6756/BVkOqIt8I/ULQZIZzLoq0u8i8s1LmxSO2C4M8gO/41XUwE7w=
-X-Received: by 2002:a05:600c:1c08:b0:4a1:722a:d2a3 with SMTP id 5b1f17b1804b1-4a1722ad405mr52583605e9.23.1791200959268;
-        Mon, 05 Oct 2026 04:49:19 -0700 (PDT)
-Received: from [10.41.30.1] ([161.12.45.16])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a027727cecsm346670305e9.9.2026.10.05.04.49.17
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 05 Oct 2026 04:49:18 -0700 (PDT)
-Message-ID: <c15a7ff3-121e-481b-93e4-466f89520ae4@gmail.com>
-Date: Mon, 5 Oct 2026 12:49:15 +0100
+        d=1e100.net; s=20260707; t=1791201057; x=1791805857;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=e3CuOM2eCvGmHoYcmlFPplrZp0K02m2jIXVmvukgLTM=;
+        b=cSPnyFfXp+LeUCgbRc0qRbc3EVU+UbEpKkBw8xz4NhEbmAp8n7sdbblHPxj7XZ36K9
+         7cOTWLU/iFzlPZ0N8KzTaym2vixaLyjhdZJXZXbO6V7Vy5NXSeSBhNdqq9MAQhKtHX3J
+         8Q4w24s7zxePWRJs5NsjXujxI38aXRckAq/eKXt1ulC1IANB9HPM9whVYl013SwcIyx6
+         CyJ0eugUz0zlPAsxbyXdIibvght0HjzxCyh/O8p0I0DT+eC/3uugKBsT/I5UJAvyMCAt
+         wILavpP3gaqk5vZSipPzpPJkSNYlecmNqFWBEppWNEJzCCM07B1+0p0D9d3Vao7bRVUN
+         CopQ==
+X-Forwarded-Encrypted: i=1; AKwUvByJwhVULYDrSe+1iIyZAS5atcybjwx+/xAa7cgZ2ZfZOx/OY3N6cfzN85PpOR9xtyQbIa6Cx0ceQfLYCvA=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIPRt+MYyP8iUHPVQVnP1SyUfsIe7ExaA1on1b9IZaJj7QXniS8
+	Iz2g36EPb7jD9cY0Wc+QQzcULkzKcAuxnL8Zk1saIrJJxTeVrQtv6SA=
+X-Gm-Gg: AYBFou0+24m8YHcQMzSr+t420wpe1oJabxEH2ubrxBrbzPRFDPFvF45D8n07Eps8pOt
+	hgVbg4J2Z1rTmKCPUBRiB1l1wVLSox4pi+p2bJRSsgtS/bThYpBR0eCX6PUaGWv7RWltIRJDVnN
+	e79DzziebDWwnuAPp+TJ3qiv2ukT1qGJKweKK8BGqanezRfUEtwg/NN4Qi41FqnUCnEYbOoP5Ub
+	0Lj16nUfzxTegtTeyPn0gNbRoCC/dCLIenTnrdLxPx1xhF3PXN83vk1MDOKyVNMzsPd6wK/8a2e
+	6Q+qECx3V1zCNK1BHcxdxvSlJsE/dINczmOagfsL7Oow8Z90C4irJW5nqxzp9b0k3jMVrSdhzlN
+	UhRaU8LnR8ymKQhd24QN1bw7igdRZcl2dSpehRhOTvFQkgcZqDguEj3M/ZKhr5g8lDacbxaaz/G
+	fqwOHwP86teP2ZBomcWrc9IHXz8y4fhXXZktnG7aheYyum772StTPHnWe6q8OMFu+prOi+62iUe
+	yC6kRy8fcIjyehrPEDZncZ2jt4=
+X-Received: by 2002:a17:90b:17ca:b0:3a7:f45:5cbf with SMTP id 98e67ed59e1d1-3a70f45678amr6816057a91.28.1791201057185;
+        Mon, 05 Oct 2026 04:50:57 -0700 (PDT)
+Received: from ydg-Zenbook-14-UM3406GA ([2001:2d8:7102:e8f6:be5c:45bf:9b70:944a])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a78e4262f0sm11942752a91.4.2026.10.05.04.50.53
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 05 Oct 2026 04:50:56 -0700 (PDT)
+From: Donggeun Yoo <donggeunyoo.kernel@gmail.com>
+To: linux-mm@kvack.org,
+	linux-kselftest@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Cc: peterx@redhat.com,
+	surenb@google.com,
+	aarcange@redhat.com,
+	ljs@kernel.org,
+	liam@infradead.org,
+	vbabka@kernel.org,
+	mhocko@suse.com,
+	shuah@kernel.org,
+	kas@kernel.org,
+	donggeunyoo.kernel@gmail.com
+Subject: Re: [PATCH v4 2/2] selftests/mm: add tests for UFFDIO_MOVE of a uffd-protected swap entry
+Date: Mon,  5 Oct 2026 20:50:51 +0900
+Message-ID: <20261005115051.3950585-1-donggeunyoo.kernel@gmail.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <4a24f7b1-65f7-4947-a325-7c9e9f642f2a@kernel.org>
+References: <20261003103030.63380-3-donggeunyoo.kernel@gmail.com> <4a24f7b1-65f7-4947-a325-7c9e9f642f2a@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v6 01/13] dma-buf: introduce initial file I/O
- infrastructure
-To: Matthew Brost <matthew.brost@intel.com>
-Cc: linux-block@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linaro-mm-sig@lists.linaro.org, linux-nvme@lists.infradead.org,
- linux-fsdevel@vger.kernel.org, io-uring@vger.kernel.org,
- Christoph Hellwig <hch@lst.de>, Sumit Semwal <sumit.semwal@linaro.org>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- Keith Busch <kbusch@kernel.org>, Sagi Grimberg <sagi@grimberg.me>,
- Alexander Viro <viro@zeniv.linux.org.uk>,
- Christian Brauner <brauner@kernel.org>, Jan Kara <jack@suse.cz>,
- Andrew Morton <akpm@linux-foundation.org>, Jens Axboe <axboe@kernel.dk>,
- Nitesh Shetty <nj.shetty@samsung.com>, Kanchan Joshi <joshi.k@samsung.com>,
- Anuj Gupta <anuj20.g@samsung.com>, Tushar Gohad <tushar.gohad@intel.com>,
- William Power <william.power@intel.com>, Phil Cayton
- <phil.cayton@intel.com>, Alasdair Kergon <agk@redhat.com>,
- Mike Snitzer <snitzer@kernel.org>, Mikulas Patocka <mpatocka@redhat.com>,
- Benjamin Marzinski <bmarzins@redhat.com>, dm-devel@lists.linux.dev
-References: <cover.1789997898.git.asml.silence@gmail.com>
- <5490ee42c4452fd4198b245ead20fcf7438c066e.1789997898.git.asml.silence@gmail.com>
- <arx7ZQ8o9aeHsAqS@gsse-cloud1.jf.intel.com>
- <447c04dd-6bfa-4c45-99e7-37d25a7ab539@gmail.com>
- <c07404e0-33f6-4e5f-a80a-e1901b42dc39@gmail.com>
- <ar1md2N4PkoXSE/N@gsse-cloud1.jf.intel.com>
-Content-Language: en-US
-From: Pavel Begunkov <asml.silence@gmail.com>
-In-Reply-To: <ar1md2N4PkoXSE/N@gsse-cloud1.jf.intel.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On 9/30/26 20:43, Matthew Brost wrote:
-> On Wed, Sep 30, 2026 at 01:48:49PM +0100, Pavel Begunkov wrote:
->> On 9/30/26 11:08, Pavel Begunkov wrote:
->>> On 9/30/26 04:00, Matthew Brost wrote:
->>>> On Mon, Sep 21, 2026 at 02:38:45PM +0100, Pavel Begunkov wrote:
->>> ...>> +struct dma_buf_io_map *dma_buf_io_create_map(struct dma_buf_io_ctx *ctx)
->>>>> +{
->>>>> +    struct dma_buf *dmabuf = ctx->dmabuf;
->>>>> +    struct dma_buf_io_map *map;
->>>>> +    long ret;
->>>>> +
->>>>> +    guard(mutex)(&ctx->map_create_mutex);
->>>>> +
->>>>> +    scoped_guard(mutex, &ctx->map_mutex) {
->>>>> +        if (ctx->maps_killed)
->>>>> +            return ERR_PTR(-ENOENT);
->>>>> +        /* recheck under the lock in case it has already been re-created */
->>>>> +        map = __dma_buf_io_get_map(ctx);
->>>>> +        if (map)
->>>>> +            return map;
->>>>> +    }
->>>>> +
->>>>> +    dma_buf_io_wait_active_maps(ctx);
->>>>> +
->>>>> +    ret = dma_resv_lock_interruptible(dmabuf->resv, NULL);
->>>>> +    if (ret)
->>>>> +        return ERR_PTR(ret);
->>>>> +
->>>>> +    ret = dma_resv_wait_timeout(dmabuf->resv, DMA_RESV_USAGE_KERNEL,
->>>>> +                    true, MAX_SCHEDULE_TIMEOUT);
->>>>> +    if (ret <= 0) {
->>>>> +        if (!ret)
->>>>> +            ret = -EAGAIN;
->>>>> +        dma_resv_unlock(dmabuf->resv);
->>>>> +        return ERR_PTR(ret);
->>>>> +    }
->>>>> +
->>>>> +    map = ctx->dev_ops->map(ctx);
->>>>
->>>> I'm playing around this code now.
->>>>
->>>> I think you need the dma_resv_wait_timeout after the 'map'?
->>>>
->>>> If a device doesn't support p2p ->map() will typically trigger an async
->>>> migrate to system memory and data will be moving but the map is valid -
->>>> Xe 100% does this, I checked AMDGPU and fairly confident it has the same
->>>> async behavior.
->>>
->>> There is a wait right before because I read somewhere in dma-buf
->>> comments that I need to do that, sounds a bit odd if I need to
->>> wait on fences before and after. I can add it, just curious how
->>> come that other dma_buf_map_attachment() callers don't need to do
->>> that. Or maybe they wait somewhere else?
-> 
-> In GPU drivers, when we receive a foreign object and map it in Xe or
-> AMDGPU, this logic sits deep in the stack. However, the top-level call
-> is typically ttm_bo_validate(), which in both drivers eventually
-> resolves to the TTM ->move() vfunc. That path calls
-> dma_buf_map_attachment(), which in turn invokes the dma-buf's ->map()
-> callback.
-> 
-> That ->map() callback can trigger a asynchronous move on a different
-> device, where the top-level call is again ttm_bo_validate().
-> We then end up back in the TTM ->move() vfunc, where kernel fences are
-> installed. I realize that's a lot of layers, but the call chain can end
-> up looking like this.
-> 
-> Now we have a mapping and an object with kernel fences attached. Before
-> the object can be used by either the exec IOCTL (batch buffer
-> submission), the VM bind IOCTL (mapping into the GPU address space), or
-> a CPU page fault (not relevant for dma-bufs since they cannot be
-> CPU-mapped, but a useful example of a normal BO move), we wait on those
-> kernel fences.
->   
-> In the case of the exec IOCTL or VM bind IOCTL, the kernel fences are
-> added as dependencies to a drm_sched job, delaying its execution until
-> the fences signal. That is where the wait occurs. In the case of a CPU
-> page fault, the kernel waits directly on the fences before installing
-> the CPU page mappings.
-> 
-> So the TL;DR is if you want to immediately hand back a valid mapping,
-> the kernel fences must be waited on before returning after ->map() call.
+On Mon, 5 Oct 2026 12:43:48 +0200, David Hildenbrand (Arm) wrote:
+> The CI complains as reply to this patch:
+> ...
+> ✗ userfaultfd(2) test failed:
+> # not ok 43 minor-collapse on shmem
 
-Thanks for the overview! I'll add the wait after ->map in v8
+Thanks for passing it on. I couldn't reproduce it here. Could you share
+the full log of the failing run, or a link to it?
 
->> I can't find it, so maybe it was the comment below and I mixed
->> sth up back then. I'll move it after ->map().
->>
->>
->> * Note that for non-dynamic exporters the driver must guarantee that
->> * that the memory is available for use and cleared of any old data by
->> * the time this function returns.  Drivers which pipeline their buffer
->> * moves internally must wait for all moves and clears to complete.
->> * Dynamic exporters do not need to follow this rule: For non-dynamic
->> * importers the buffer is already pinned through @pin, which has the
->> * same requirements. Dynamic importers otoh are required to obey the
->> * dma_resv fences.
->> *
--- 
-Pavel Begunkov
-
+Donggeun
