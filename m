@@ -1,135 +1,90 @@
-Received: from SN4PR0501CU005.outbound.protection.outlook.com (mail-southcentralusazon11011010.outbound.protection.outlook.com [40.93.194.10])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BFCF5231839;
-	Mon,  5 Oct 2026 05:46:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.194.10
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791179219; cv=fail; b=n5BpIf4wg6MFLewcVbsWfkPY1z1nO1Ql6EOLuxsfFlVs6zNWRCbf+de0Mr9+a7ZV9ZnciH5NCEDBFQIRJVBJCjZj6a+iWEV2rgpzWr7j7SPixVWwX5NH+XWfyViKaXTkGbjF72D+L2/AOQecJcsbViCurNyBgECRUcQetgMPfeo=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791179219; c=relaxed/simple;
-	bh=9lj0K+HY1TtHn4/X0jlf8kRaNhRPDIBu4iluzKYgamQ=;
-	h=Message-ID:Date:MIME-Version:Subject:To:CC:References:From:
-	 In-Reply-To:Content-Type; b=qbrIW8LaJTTNNnEtZ8LY3+//JuoSyrV93JP1IfCyJicpvVhNnmTPHkWCIQdk7Ut96rufw4tdevmKRxage5rMUBS66555BrsLFeAUOspv8AQyaJtyZ9aPRBVRJfLYobZzXFTnWQQ5HH/IcZc/JtOu8R87I5Erwgso6CAv1F6KEAo=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=oRQkjye3; arc=fail smtp.client-ip=40.93.194.10
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5F1F724501D;
+	Mon,  5 Oct 2026 05:47:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791179262; cv=none; b=YX7oA+WrQQf0UG7l9TnltHPw0NpPyMQS9no5JUq+qGdy6OZ0faTaAi+BUGK0Boakc2EGHo90UTnospG0IFsgiM1Ty94OpR6Mce6oIZztEt3P6h1cgNqI4jFlimAW+VrtY8Ubsr78mF5nUuL4UIZzB9fNgekUsYE6TwNyIYyzPmo=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791179262; c=relaxed/simple;
+	bh=blIbCELApWWb7ltOu5q0RLEfGC3Ryu7sHTIdGznkYLk=;
+	h=Date:From:To:Cc:Subject:Message-Id:In-Reply-To:References:
+	 Mime-Version:Content-Type; b=pT6IaH250jlEGdZr5gsuZlynEir/+gy5zjnkYlTpP2ix8Dd40FU1ClMAXMINJ4RODpdpFZUUAVlOozqBngwULtJMf5e0LQ0i+XuhSiK43UQ2fZk1MB3hPgIwgmWn/9gcuOTgJqwfY21d6DbVtp/z6guMsh2i+C5zhN1fTSOSKJw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=WLGt33lf; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="oRQkjye3"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=ENf8ZClzbfIlZA4WXQzldvSvJmLeQpC/ClYR+TPJiEX2k1NKcZ5Hw1UdcThUuz6qM2B03lu4QC2CqtHYgPtf993Zce6h4pozh8yHRfNDyNIWaN+xnOU3Wds2zwjkci8ug0u9z6hKjO/vsUQmLJCkW14dLWI0cZyIj0nYbxEJOAnbYfjjQGExJ0xrjHu+Dw07SFKsVCZEdGWopqF2prpqVhCcmKSP/KFBTUAz7U/zw/EadM+TjyD9247HTPcwYfbSgfpptJYvQB0ssdZx4x49sPBnRW8N2IlDQDUfcQbJtYJHDfNQJSgtrp9zpnObBmcem/1dSjLChufMUOrfiTK23Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=2MoSxWiyAFUxLG2iPB4oyRIK9Q/RCu+p6TLjl3sh4ec=;
- b=MabxBSBy9dTw+B6FKLH4wbi+DeWcVMCoEcSTZ4C3WuuC4Dy8VrbBEQ+u0j15S/2HjAs4JsNTwpHDBz++5Or/B1/lGsW6aQjjEtiYMQFNmyKMGpQbGreU5Zokw2ANRI0LQmbtqu5ml+4481Q9LdPorVNs+V0ppw40inf/Bz9ffe6BsYSj2zOr0HMwSbnJaAWkeNVyrDW9K5hw3zIhS7kf57L3q2WuGr64HTB6BGH26yiyIHTKjAbkKJmudfGGGJql3wqlIWmqRXuykeo4J/F8wxo/dTs36/au/6+FnQxkQFoXZGprau6XQQjVny4mGPsnbSHDfi9KSeCxAKX9jKW4Mw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=google.com smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=2MoSxWiyAFUxLG2iPB4oyRIK9Q/RCu+p6TLjl3sh4ec=;
- b=oRQkjye3axMuc5EOaiajIw0jS4dsvvU7UELPBja3yr3d0zCDtxzRcvwcDcFWJ3nMzl6tUAxkg+WLkhaPrYV1xVUkI7vnZ/dCqhihgp/pxgLLqcR3tI1UCru9CgTsec/kjed/ooT3e6RNJHQLSZkMcD1p4pS2lwgeJpjkeDO+6M8=
-Received: from BN0PR04CA0191.namprd04.prod.outlook.com (2603:10b6:408:e9::16)
- by DS7PR12MB6309.namprd12.prod.outlook.com (2603:10b6:8:96::19) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.472.18; Mon, 5 Oct
- 2026 05:46:51 +0000
-Received: from BN3PEPF00022BD0.namprd03.prod.outlook.com
- (2603:10b6:408:e9:cafe::92) by BN0PR04CA0191.outlook.office365.com
- (2603:10b6:408:e9::16) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.472.20 via Frontend Transport; Mon, 5
- Oct 2026 05:46:51 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 165.204.84.17) smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
-Received: from satlexmb08.amd.com (165.204.84.17) by
- BN3PEPF00022BD0.mail.protection.outlook.com (10.167.248.166) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.472.14 via Frontend Transport; Mon, 5 Oct 2026 05:46:51 +0000
-Received: from Satlexmb09.amd.com (10.181.42.218) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Mon, 5 Oct
- 2026 00:46:51 -0500
-Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb09.amd.com
- (10.181.42.218) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Mon, 5 Oct
- 2026 00:46:51 -0500
-Received: from [192.168.1.2] (10.180.168.240) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server id 15.2.2562.49 via Frontend
- Transport; Mon, 5 Oct 2026 00:46:47 -0500
-Message-ID: <5d149509-e9dd-479b-9a98-60445dc040c0@amd.com>
-Date: Mon, 5 Oct 2026 11:16:46 +0530
+	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="WLGt33lf"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 254B81F000FF;
+	Mon,  5 Oct 2026 05:47:40 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux-foundation.org; s=korg; t=1791179260;
+	bh=WdID9CqCiCBBOkKgGvMyhfoS09YR9XZ5psi88CHqPqE=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=WLGt33lfQhis85EhMbNynpfjFZNyIwXjFSFdF+pCNdRzkvKA814/rYRLNpHxSnC6F
+	 jo+wc9HEpn8HqriJVcmIk8aXetaWaed83RxyOdVgz0WFtLFEOgoeoaE6XiHQmJg7tI
+	 m9YUkYcXqahMPm0Z/PBITQlt2exEEtIPGDOW0/bE=
+Date: Sun, 4 Oct 2026 22:47:39 -0700
+From: Andrew Morton <akpm@linux-foundation.org>
+To: Lance Yang <lance.yang@linux.dev>
+Cc: dave.hansen@linux.intel.com, luto@kernel.org, peterz@infradead.org,
+ tglx@kernel.org, mingo@redhat.com, bp@alien8.de, x86@kernel.org,
+ hpa@zytor.com, riel@surriel.com, linux-kernel@vger.kernel.org,
+ qi.zheng@linux.dev, nadav.amit@gmail.com, thomas.lendacky@amd.com,
+ kernel-team@meta.com, linux-mm@kvack.org, brendan.jackman@linux.dev,
+ jannh@google.com, mhklinux@outlook.com, andrew.cooper3@citrix.com,
+ Manali.Shukla@amd.com, mingo@kernel.org, stable@vger.kernel.org,
+ toshi.kani@hpe.com, david@kernel.org, mikhail.v.gavrilov@gmail.com,
+ pfalcato@suse.de
+Subject: Re: [PATCH 1/1] x86/mm: fix incomplete page-table invalidation with
+ TCE
+Message-Id: <20261004224739.e1049f07332d388169f7ef08@linux-foundation.org>
+In-Reply-To: <20261005052302.43042-1-lance.yang@linux.dev>
+References: <20261005052302.43042-1-lance.yang@linux.dev>
+X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v6 00/12] KVM: x86: Bus Lock Detect fixes and SVM support
-To: Sean Christopherson <seanjc@google.com>, Paolo Bonzini
-	<pbonzini@redhat.com>
-CC: <kvm@vger.kernel.org>, <linux-kernel@vger.kernel.org>, Yosry Ahmed
-	<yosry@kernel.org>, Shivansh Dhiman <shivansh.dhiman@amd.com>, "Nikunj A
- Dadhania" <nikunj@amd.com>, Ravi Bangoria <ravi.bangoria@amd.com>, "Tom
- Lendacky" <thomas.lendacky@amd.com>
-References: <20260930193634.3415089-1-seanjc@google.com>
- <179097462681.4066567.295128970891612900.b4-ty@b4>
-Content-Language: en-US
-From: Shivansh Dhiman <shivansh.dhiman@amd.com>
-In-Reply-To: <179097462681.4066567.295128970891612900.b4-ty@b4>
-Content-Type: text/plain; charset="UTF-8"
+Mime-Version: 1.0
+Content-Type: text/plain; charset=US-ASCII
 Content-Transfer-Encoding: 7bit
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN3PEPF00022BD0:EE_|DS7PR12MB6309:EE_
-X-MS-Office365-Filtering-Correlation-Id: 7c4b8f04-eddf-4ec0-692a-08df22a40e21
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|36860700016|82310400026|23010399003|1800799024|4143699003|56012099006|11063799006|10067099003|13003099007|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info:
-	8vcm1w7mxTWBH3fGZux4N294xSzV1bbhVJmDcAmd7a4TM9uh2d7sJyI508wCJS9F1BZCCx4BCUeNg23Trv6+6mXXLEhgAIoFFbq6V5Q5fpVl37wk8YmBwaNsJdfa8p6aioOhwkvHqg4XLoARRLl5i0Gt+ely/AkZci1eCTWTTgVwBhAyhasqG0A96LlE7yzYnZnot0VJmlbkAxyTWmAOYSnc0Gcgr75IY9ks/xlOHV36/RZFI++pwqLcf8GLp+k0+WgvBvhDGxCDUfZzyKTWR8qudRvwZMXK7Xib5ZEtbck5WUNqdGg7wZ4DVbhY3rEzwutbob7eBB7gbRhBZBsGFNQ1RAGk/Jf4WdbYz8OzksHtNI2gmYi5/FqTD+uzs4Wr32Fmcf8/YGwlpmOwB7rQFAizLEpIC1N2Cs9p3LCUQ7Sb/XrVVpSFEGKa7vzkxfGgQDY5B87QSISP6QFxfLegz1DR/SvEvNdpH8ElGgggGoxxQkn2KRKtEKlb+smdiTveU0YU97U4zx09/XefF5yddLQDI7fUtLPu7F0fyxgdftUVlG2qvpVLgN8fmUDXAgro+pHMjH8gqNTzXud3V/kbDdqghsnLJpmX/wRD6tFpR90m2+JhSpak6x/7clYFJC6quWWr2p/4oO5P2t2vkKWWHd7FaAn2sUuckAgs7UhER6+K/Jnl2ZL9m38c6/mqm8TLFkMSiHBfaUYUVB4KcHoiWw==
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb08.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(376014)(36860700016)(82310400026)(23010399003)(1800799024)(4143699003)(56012099006)(11063799006)(10067099003)(13003099007)(18002099003)(22082099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	GKxh/0NwrNgFvMFk9pLT8Ngddynzl1zMIlTwwj1RBsqulP6ig28qa7XKTAJAuSIduhi0+dNCuguzQRYwqWADxQTuIjnCliYRFp8Qs2zrY8zhtNDMorXZ3epawiGL9vElYvwzkimqHqC3uye4kOA/lp2gtNmON9JbTjO0WIAozdW7BcJ2YVFPwBdX5DwIpZxRfjMU4vJjDNCjaaPGykLihazpq0OW9O7t7HavG0wu4WITR9MjZcJQtjn5hUZYCVk1BkQpoCNDJeeS4OMOD5IuIvC1YAF1SPiTckIUFX3fnnrgU+KaqmnFO0lXEY1y6FI7D0qCuPXRbrFAV8eIZanSIg+O0+ZCreHhwOx6mx5Xk9tjTdAEsCWULk3WTBhaPLz6GIqo2CSKnyzQDVZjMG3Qr1yBOZCz8cCUN2GGDwVH19/7hVsFuni77euzHi9K2+NF
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Oct 2026 05:46:51.6529
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 7c4b8f04-eddf-4ec0-692a-08df22a40e21
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb08.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	BN3PEPF00022BD0.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR12MB6309
 
+On Mon,  5 Oct 2026 13:23:02 +0800 Lance Yang <lance.yang@linux.dev> wrote:
 
-
-On 03-10-26 02:37, Sean Christopherson wrote:
-> On Wed, 30 Sep 2026 12:36:22 -0700, Sean Christopherson wrote:
->> Fix KVM's handling of DR6.BLD, and add support for virtualizing BLD on SVM.
->> KUT tests: https://lore.kernel.org/all/20260925230003.2362261-1-seanjc@google.com
->>
->> v6:
->>  - Throw in the towel, at least for now, on WARNing if KVM sees a DR6 without
->>    all of the fixed-1 bits set. [Sashiko]
->>
->> [...]
+> pud_free_pmd_page() uses a single-address invalidation to flush the
+> paging-structure caches before freeing the page tables. With AMD TCE
+> enabled, this only invalidates upper-level entries associated with the
+> target address. Cached PMD entries for other addresses in the PUD range can
+> still reference the PTE pages being freed.
 > 
-> Applied to kvm-x86 misc, thanks!
+> The AMD manual quoted in the commit enabling TCE says these instructions
+> remove
+> 
+>   "only those upper-level entries that lead to the target PTE in the page
+>   table hierarchy, leaving unrelated upper-level entries intact."
+> 
+> Even with all PTEs cleared, speculative page walks can cache present PMD
+> entries after the earlier TLB purge.
+> 
+> Use a full TLB flush before freeing the page tables on CPUs with TCE. Keep
+> the single-address invalidation otherwise.
+> 
+> Fixes: 440a65b7d25f ("x86/mm: Enable AMD translation cache extensions")
+> Cc: stable@vger.kernel.org
 
-Thanks a lot, Sean, for taking this over, merging it, and adding the KUT
-coverage along the way. Thanks also to Ravi for the original patch, and to
-Yosry, Nikunj and Tom for the reviews.
+Sorry, but my usual complaint applies.
 
--Shivansh
+Check the first 32 lines of
+Documentation/process/stable-kernel-rules.rst.  They're very simple,
 
+I'm sure x86 people can immediately grasp the importance of this
+change, but nobody else can.  This includes -stable maintainers as well
+as a large number of other downstream users of our work who are
+wondering "why should I apply this to my kernel".  Let's tell them!
+
+
+iow, and not for the first time: when fixing a bug please fully
+describe the userspace-visible runtime effects of that bug.
+
+Thanks.
