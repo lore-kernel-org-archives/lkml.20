@@ -1,120 +1,234 @@
-Received: from mail-vs2-f34.google.com (mail-vs2-f34.google.com [74.125.227.34])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0D5653921F6
-	for <linux-kernel@vger.kernel.org>; Mon,  5 Oct 2026 20:39:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.34
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5985B36A36B
+	for <linux-kernel@vger.kernel.org>; Mon,  5 Oct 2026 20:40:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791232776; cv=none; b=O2v5b4T2pQV4WK2rEd4bGP4yf1AkaOEcH8jel0ct9+QorsuJXyOUDc4vc9o3IiXG9zCoa2gBdmHeSt1UzjBHac0n/a8wMTsn3F8HZ+HXsrcXDw5AjnjYEzSXzlGWbTY2foPl6f3LY57PbF7JJM77PyHe/AItUBOIedYuoxpHtis=
+	t=1791232831; cv=none; b=W+01x/4NUJtTOnZ50VWx5rRdt3uTNWztdNJbEeTJ17FmNJ0NXQaM004i7xh66xSD/wmrx4JOmftRYQV4prlyehMJf1+ECShAxiIQoBsyNPRMU9Yfi8xi2iIJgNYoNUGEEWoG6oe4ik3UKG7nw/U4CcmotEekV5+w6aPZfKouvaE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791232776; c=relaxed/simple;
-	bh=W8+JkQSMqBDxJZXNAx4qDJE766xaxIYGmX4KE6Hx2As=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=jDb2+evlFenACuo/q5lOxqtid9AR5+8V6+2U//Xd93uaLbQ78VtCGq3jNR1r0fUoH2WZ5UdAn8d3ymKSgELyagFaUHLHLKWnc7G1wbw9ru8vd6xlwHA3vLMvwMiqOcsMFxm6ZSlh4oLo/x4LB7PnBbtNCEjakDeYA+v065Qkqac=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=qhkcu7ha; arc=none smtp.client-ip=74.125.227.34
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1791232831; c=relaxed/simple;
+	bh=Wt2hr4OJOLZrss8OJtSespvg+uRq36sUzT4MXTbkgk0=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=irP2py1Ly3O+mVShF8uZGAUkkC44XNvFydlTVjGBcZHKeY/RdhTd/3Hc4nf3R7wOKD9CnOD+gOQJtFVJ1GxeGxUiQu5H0qcrexcA39Y0wAhHoc+oaEWDOKxf9kvILW/YKNv/pORP/2eO+T3O5SnnAdF0xprvupBiU7QZFPrhnC4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=e98kb577; arc=none smtp.client-ip=170.10.129.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="qhkcu7ha"
-Received: by mail-vs2-f34.google.com with SMTP id 71dfb90a1353d-5e3938dda85so686411e0c.3
-        for <linux-kernel@vger.kernel.org>; Mon, 05 Oct 2026 13:39:34 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791232774; x=1791837574; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=AxI9jOWrXLzRQeo91PfnufO4X1292wU3kDq7ULz84yY=;
-        b=qhkcu7haTWdql7/wAfggVNEt757MobLBEtR+1CZYZRzmAUbzf0qpkH1D7VpRQZ5SsJ
-         f+Mm7bp1jz5Y/8V1E+1tsJo0JKwVibvFKWeqznS3XEba48YVY0g1LHrqiBaFyKpCFfTX
-         GBGgPG2sQDWo6TxJYeBPGPxyXTd15yhK+iNfgl7YPGNoJBT15g1Fw8c+2Ajg5Nn2rqKw
-         rsIgleyczJdOPi6J0yghprW5QAC58lxBZCAizNhUnuEtRoGKtyqHephzRh1EmLf/5pYt
-         MMcgeG8hkaMJEXxOMkBAvUCzdbMBC0iYqrGIQ1q/kC/Yk0nelvZfj1T4SifqJs729fYw
-         iUNQ==
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="e98kb577"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1791232828;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=hW5P4NCcHfyGHbJZF1DNl1NQBu8IkdsCT0CTDVEsdgw=;
+	b=e98kb577/X8znMvAz7rQY8nBwlLymDnAkTlC9Qb3X+IKIuFB6H+at59XjEbGsqGszvGAak
+	mh0yF2pqChV5eFBzQvGMuxq/uAt7lbTI7eNBL8Jd/GB8uXqRw7VUAUKVmFFCQSDfE2jREv
+	xHQ4sGrzZcQIFIZ0CO3qYIkl53YFbhc=
+Received: from mail-lj1-f197.google.com (mail-lj1-f197.google.com
+ [209.85.208.197]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-659-cdUQsBFcMT6_MtyZtLIz4w-1; Mon, 05 Oct 2026 16:40:23 -0400
+X-MC-Unique: cdUQsBFcMT6_MtyZtLIz4w-1
+X-Mimecast-MFC-AGG-ID: cdUQsBFcMT6_MtyZtLIz4w_1791232822
+Received: by mail-lj1-f197.google.com with SMTP id 38308e7fff4ca-3a782da8ce7so13588721fa.2
+        for <linux-kernel@vger.kernel.org>; Mon, 05 Oct 2026 13:40:23 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791232774; x=1791837574;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=1e100.net; s=20260707; t=1791232822; x=1791837622;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=AxI9jOWrXLzRQeo91PfnufO4X1292wU3kDq7ULz84yY=;
-        b=xEmdMMWYW4k9KhFi5iOOLScrvNorCvW2gWEWGml3zfJPmgXZwIw0SkCYuAf06b1+IS
-         jFfAUx6NvbHrM6LgUk7udOwS79eeDAUHqL0AtUN++I7DUPj48ZJOpnB2vv3KcVVBacxw
-         huPSsbvIbdn6ieW18b4qnUcRXo1/+z1bLxuZht4pkJjIHCxFUQF2qKKK2LUco67LUyx+
-         Z+TG1pYp5Ms3jqErV0FgiQInazPWck3Yws2NM30wu9DP9R4WjeZJ2ZzRVZCVpz/e2Brr
-         Dtrso+rDh3g/rUbg/SnQT0XvUqg6GqClijDgag3soANlEfQYAlQ6yez2gsBgCuTAq7k4
-         /WbA==
-X-Forwarded-Encrypted: i=1; AKwUvBzDVH7DfZCYxIe9F/SydxkTEcaAnmq4OeQtcAeVaISfmmcfrRbHXRCySQdwzbaXTO7DqBMsfxkbHGUPMVo=@vger.kernel.org
-X-Gm-Message-State: AFq9FYK+5cqzLKPtVh7SP4svzYFOcDwonnfVDqV5WCne46Is8fOFtAKz
-	GCbvOb94lV4HPKZTj4HMnXXiYAACd8vd6R2ds+8BzCDms5s00GKqUjHk
-X-Gm-Gg: AYBFou0MCXXh+OYOJBAfam74C6JsA6uNZRkm9Jn+CeUxuXaxHYs8PUmZ3NTp0wTdf9c
-	DBSoGXSYeSCoWiTN2pQCAf2U98u6ga6AW1NA4QV67i5nf7F8BAcbSKLahDBZ8KaFg5p+UkC8yFQ
-	4LtEnU+1LcIsaWxmC/dcms3JI6jOuEv4K4EZ1Qm9fX3rWuBRBbRqjqAvGLSV+CAHXdX1HVqrBVr
-	K6fb4tZtGhpH6a7CLNCVXFKtt+EW43mFxN67GkVED5IyrEa5WM68cEY+dznrcUme1b89g0JNpzB
-	ss4hXtw6L6/Gc9X/sZLeSrSuherwiujwZJSpu/aaHgfW+H0JFwUUx6X0BK9sqrJ0q6Js43f09wI
-	8FZ+fJRkUP+Fd9Y0fgrlDnZDfQsIzfbNdiMaY6o6OXCWmfuv/a/BhlnOCB6/DU0+tiDqi8AMPZz
-	dZjN70Q98T49uTYZ2tCOubjK5Bv83ZiH8T/wbmkqllNMS12dTiHY1V5Fswb3e5m1POgQF5m2omY
-	ECZHe56/5RQzxZOjAUhAn1/J8uKKmH4ymM+vt2fmpWPZ6IAfiLukzg6m9coInyKlLfDdsDHefYE
-	v6GVCI+Zm4M3aqQ0ftMJbyJ6ffVtOGQL9FscA+1IGD/zgC6l
-X-Received: by 2002:a05:6122:d0b:b0:5c9:c60e:3a4a with SMTP id 71dfb90a1353d-5dab3263c43mr4109827e0c.22.1791232773813;
-        Mon, 05 Oct 2026 13:39:33 -0700 (PDT)
-Received: from ryzen.lan ([2601:644:8000:7a86::e35])
-        by smtp.gmail.com with ESMTPSA id 71dfb90a1353d-5e54e8006d9sm542088e0c.4.2026.10.05.13.39.32
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 05 Oct 2026 13:39:33 -0700 (PDT)
-From: Rosen Penev <rosenp@gmail.com>
-To: sparclinux@vger.kernel.org
-Cc: "David S. Miller" <davem@davemloft.net>,
-	Andreas Larsson <andreas@gaisler.com>,
-	Nathan Chancellor <nathan@kernel.org>,
-	Nick Desaulniers <ndesaulniers@google.com>,
-	Bill Wendling <morbo@google.com>,
-	Justin Stitt <justinstitt@google.com>,
-	linux-kernel@vger.kernel.org (open list),
-	llvm@lists.linux.dev (open list:CLANG/LLVM BUILD SUPPORT:Keyword:\b(?i:clang|llvm)\b)
-Subject: [PATCH] sparc64: Define p4d_page() instead of stubbing it to NULL
-Date: Mon,  5 Oct 2026 13:39:30 -0700
-Message-ID: <20261005203930.246598-1-rosenp@gmail.com>
-X-Mailer: git-send-email 2.56.0
+        bh=hW5P4NCcHfyGHbJZF1DNl1NQBu8IkdsCT0CTDVEsdgw=;
+        b=y4mY9LsA25aqLPQyy5VEgNtlLk+IiZNeCoOvObR/WC4i1MC7xKbQZwlRxWC0jn8rX1
+         72oglqbNyWnrCmuO8lcBtEJz+FUtm257mBpmmb8vyPFoOpg9NpcP3R8hXkWLgZI4DKME
+         YXWBty3vK5xu6AQFyc7VHT2RXdEUkLc/Rl6DFIM21z5BAbKiDWBmMDvhd/j0Nc150Pea
+         3lhAq2fuDWdifeeGQ28LYP5KhD3mMjPVBBt9QprzD5OiHnNAJzprQPzyWTFc5cfrFpTi
+         nOWri4W2nWI7ygii6JK84UZSwH0IYiedshcASQ3+LguAsGp/XO1skl4x+BG4Wp0V6/eB
+         8amg==
+X-Forwarded-Encrypted: i=1; AKwUvBxCYoLM609A/pC/m49w1IcZeZzlA+qwJGE9kuoINqVMAoHwjxs+q9PK9ex3AyeuxWy+lNU81MCHsgIYbLg=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKyjDiUDhJiB9SxfY5w+ZHCdcLxAUyn0ZhIS3pvZRhjqaHsV+9W
+	xrb4wxiiMytNyNiUHA7VW9xqu50JlsbFx9xjZTfStLUj3nH7M9q7Y2NZSS1HT4D19zSDQtPp32u
+	El+LDuJwqzYc2FODh8g+S8DFxxh5Y3IvRVgUCpf3GMCCfwKMqorpGZqo3MD/82OHKMrgfNY9jKX
+	AdYu8=
+X-Gm-Gg: AYBFou3knrFTwqnKL0fjLcGnj6GAr1gazNt85R4BqQJA1uuXlnFyId14N/LcfbRYyYT
+	vDmnLbSSXThicVUSsQ0xYdN3RICuDYONOM0xVHjx5TUQGxuYQp2msCmoq47y2Xiq3G6hKkWqfb7
+	phbF4yU+G+fEGDdgN0+bo/cujvqdvGyjJof6TVQYmLAiG0AXfyTlMyK9DfreHt7J8fdfEHoDbi4
+	MEZhw5y1oERFx5EWWmdpI1/QiCI1/UFBcy6sRa31uCkwPn1+5aPCcm5Han/RmVPVIZUqnwTBhlR
+	eSNXCaAyyJAv1NPmplSCO6smH8qRwG2JyQg8HTW6gXNXOzu6gaxPKl5WHke/KSXoAeUeaFYEDFt
+	fJhU=
+X-Received: by 2002:a05:651c:1602:b0:3a5:b1f7:a7bf with SMTP id 38308e7fff4ca-3a974f64065mr22350651fa.21.1791232822114;
+        Mon, 05 Oct 2026 13:40:22 -0700 (PDT)
+X-Received: by 2002:a05:651c:1602:b0:3a5:b1f7:a7bf with SMTP id 38308e7fff4ca-3a974f64065mr22350491fa.21.1791232821598;
+        Mon, 05 Oct 2026 13:40:21 -0700 (PDT)
+Received: from [192.168.2.110] ([142.172.30.162])
+        by smtp.gmail.com with ESMTPSA id 38308e7fff4ca-3a87e28b131sm45437081fa.1.2026.10.05.13.40.15
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 05 Oct 2026 13:40:21 -0700 (PDT)
+Message-ID: <9adb6aaf-6e50-4ab0-a021-2529807dff02@redhat.com>
+Date: Mon, 5 Oct 2026 16:40:14 -0400
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v8 09/14] powerpc: move has_transparent_hugepage() out of
+ THP guard
+To: "Christophe Leroy (CS GROUP)" <chleroy@kernel.org>,
+ "David Hildenbrand (Arm)" <david@kernel.org>, linux-kernel@vger.kernel.org,
+ linux-mm@kvack.org, baolin.wang@linux.alibaba.com, ziy@nvidia.com,
+ lance.yang@linux.dev,
+ "linuxppc-dev@lists.ozlabs.org" <linuxppc-dev@lists.ozlabs.org>
+Cc: corbet@lwn.net, tsbogend@alpha.franken.de, maddy@linux.ibm.com,
+ mpe@ellerman.id.au, agordeev@linux.ibm.com, gerald.schaefer@linux.ibm.com,
+ hca@linux.ibm.com, gor@linux.ibm.com, x86@kernel.org, tglx@kernel.org,
+ mingo@redhat.com, bp@alien8.de, hughd@google.com,
+ dave.hansen@linux.intel.com, djbw@kernel.org, vishal.l.verma@intel.com,
+ dave.jiang@intel.com, akpm@linux-foundation.org, yintirui@huawei.com,
+ dev.jain@arm.com, usama.arif@linux.dev
+References: <cover.1789695931.git.luizcap@redhat.com>
+ <05a71b6011a6eab7b096f262485fcb8b4987976f.1789695931.git.luizcap@redhat.com>
+ <f54d5d75-5cc1-488b-b640-76163419cf4d@kernel.org>
+ <25bb02df-a795-4e48-9de6-99f1ca799176@redhat.com>
+ <802564f8-1376-451e-8308-6f98d1efb099@kernel.org>
+Content-Language: en-US
+From: Luiz Capitulino <luizcap@redhat.com>
+In-Reply-To: <802564f8-1376-451e-8308-6f98d1efb099@kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 
-A sparc64 allmodconfig build with LLVM fails in vmalloc_to_page():
 
-  mm/vmalloc.c: error: performing pointer arithmetic on a null pointer
-  has undefined behavior [-Werror,-Wnull-pointer-arithmetic]
 
-sparc64 defines p4d_page() as NULL, on the assumption that it is only
-used by stubbed out hugetlb gup code. Generic code now uses it in
-vmalloc_to_page(), ptdump and KASAN. In vmalloc_to_page() the NULL is
-used in pointer arithmetic, which clang diagnoses even though the
-branch is unreachable on sparc64.
+On 10/5/26 12:52 AM, Christophe Leroy (CS GROUP) wrote:
+> Hi,
+> 
+> Don't forget <linuxppc-dev@lists.ozlabs.org> when you address powerpc architecture.
 
-Define p4d_page() in terms of p4d_pgtable(), the same way pud_page() is
-defined in terms of pud_pgtable(). sparc64 has no p4d leaf mappings, so
-there is no functional change.
+Will do.
 
-Assisted-by: LLM
-Signed-off-by: Rosen Penev <rosenp@gmail.com>
----
- arch/sparc/include/asm/pgtable_64.h | 3 +--
- 1 file changed, 1 insertion(+), 2 deletions(-)
+> 
+> Le 03/10/2026 à 17:44, Luiz Capitulino a écrit :
+>>
+>>
+>> On 10/2/26 3:28 PM, David Hildenbrand (Arm) wrote:
+>>> On 9/18/26 03:45, Luiz Capitulino wrote:
+>>>> A future commit will introduce a kernel API to allow for checking if the
+>>>> CPU supports PMD-sized pages. This API will be based on the
+>>>> has_transparent_hugepage() implementation but will be orthogonal to THP
+>>>> and therefore must work when CONFIG_TRANSPARENT_HUGEPAGE=n.
+>>>>
+>>>> Move its definition out of the THP guard.
+>>>>
+>>>> Signed-off-by: Luiz Capitulino <luizcap@redhat.com>
+>>>> ---
+>>>>   arch/powerpc/include/asm/book3s/64/hash-4k.h  |  2 +-
+>>>>   arch/powerpc/include/asm/book3s/64/hash-64k.h |  2 +-
+>>>>   arch/powerpc/include/asm/book3s/64/pgtable.h  | 18 +++++++++---------
+>>>>   arch/powerpc/include/asm/book3s/64/radix.h    | 14 +++++++-------
+>>>>   arch/powerpc/mm/book3s64/hash_pgtable.c       |  4 ++--
+>>>>   5 files changed, 20 insertions(+), 20 deletions(-)
+>>>>
+>>>> diff --git a/arch/powerpc/include/asm/book3s/64/hash-4k.h b/arch/ powerpc/include/asm/book3s/64/hash-4k.h
+>>>> index 8e5bd9902bed..79511e6abfca 100644
+>>>> --- a/arch/powerpc/include/asm/book3s/64/hash-4k.h
+>>>> +++ b/arch/powerpc/include/asm/book3s/64/hash-4k.h
+>>>> @@ -165,9 +165,9 @@ extern void hash__pgtable_trans_huge_deposit(struct mm_struct *mm, pmd_t *pmdp,
+>>>>   extern pgtable_t hash__pgtable_trans_huge_withdraw(struct mm_struct *mm, pmd_t *pmdp);
+>>>>   extern pmd_t hash__pmdp_huge_get_and_clear(struct mm_struct *mm,
+>>>>                          unsigned long addr, pmd_t *pmdp);
+>>>> -extern int hash__has_transparent_hugepage(void);
+>>>>   #endif
+>>>> +extern int hash__has_transparent_hugepage(void);
+>>>>   #endif /* !__ASSEMBLER__ */
+>>>>   #endif /* _ASM_POWERPC_BOOK3S_64_HASH_4K_H */
+>>>> diff --git a/arch/powerpc/include/asm/book3s/64/hash-64k.h b/arch/ powerpc/include/asm/book3s/64/hash-64k.h
+>>>> index 7deb3a66890b..a4a44a112ff9 100644
+>>>> --- a/arch/powerpc/include/asm/book3s/64/hash-64k.h
+>>>> +++ b/arch/powerpc/include/asm/book3s/64/hash-64k.h
+>>>> @@ -278,9 +278,9 @@ extern void hash__pgtable_trans_huge_deposit(struct mm_struct *mm, pmd_t *pmdp,
+>>>>   extern pgtable_t hash__pgtable_trans_huge_withdraw(struct mm_struct *mm, pmd_t *pmdp);
+>>>>   extern pmd_t hash__pmdp_huge_get_and_clear(struct mm_struct *mm,
+>>>>                          unsigned long addr, pmd_t *pmdp);
+>>>> -extern int hash__has_transparent_hugepage(void);
+>>>
+>>> Without some of these helpers in place, I assume actually using PMD leafs
+>>> without THP would require some more work. (which is not the goal of this series,
+>>> just asking).
+>>
+>> Yes, you're right.
+>>
+>>> I do wonder whether the architecture should instead simply say "not supported"
+>>> if !CONFIG_TRANSPARENT_HUGEPAGE?
+>>>
+>>> That should still enable your series: using mTHP without PMD support.
+>>
+>> Yes, it would. However, I think this introduces an inconsistency.
+> 
+> powerpc has two types of MMU (HASH and RADIX) with different page layout. MMU type is selected at boottime based on the capabilities of the CPU. For transparent page you have:
+> 
+> static inline int has_transparent_hugepage(void)
+> {
+>      if (radix_enabled())
+>          return radix__has_transparent_hugepage();
+>      return hash__has_transparent_hugepage();
+> }
 
-diff --git a/arch/sparc/include/asm/pgtable_64.h b/arch/sparc/include/asm/pgtable_64.h
-index 35a217bf6e5c..c5eff6efe514 100644
---- a/arch/sparc/include/asm/pgtable_64.h
-+++ b/arch/sparc/include/asm/pgtable_64.h
-@@ -850,8 +850,7 @@ static inline pmd_t *pud_pgtable(pud_t pud)
- #define p4d_present(p4d)		(p4d_val(p4d) != 0U)
- #define p4d_clear(p4dp)			(p4d_val(*(p4dp)) = 0UL)
- 
--/* only used by the stubbed out hugetlb gup code, should never be called */
--#define p4d_page(p4d)			NULL
-+#define p4d_page(p4d)			virt_to_page((void *)p4d_pgtable(p4d))
- 
- #define pud_leaf pud_leaf
- static inline bool pud_leaf(pud_t pud)
--- 
-2.56.0
+Right and, unless I'm misunderstanding your comment, this supports my
+position that the new arch_has_pmd_leaves() API is all about reporting a
+hardware capability and not tied to THP support.
+
+> 
+>>
+>> In in its current form, arch_has_pmd_leaves() should always report a hardware
+>> capability. This is true even for the default case where
+>> arch_has_pmd_leaves() defaults to
+>> IS_ENABLED(CONFIG_HAVE_ARCH_TRANSPARENT_HUGEPAGE) in the assumption that
+>> archs supporting PMD-sized pages by default will have this config
+>> enabled.
+>>
+>> Your suggestion will change this and for some archs
+>> arch_has_pmd_leaves() may have different behavior depending on the user
+>> configuration. Additionally, I intended to decouple the base API
+>> implementation from THP.
+>>
+>> If you feel strongly about this I can implement your suggestion, but I'd
+>> still vote for keeping the API about consistently reporting the hardware
+>> capability. Even if the only user is THP code today, new use cases can
+>> be added incrementally.
+>>
+>>>
+>>> [...]
+>>>
+>>>> -static inline int radix__has_transparent_hugepage(void)
+>>>> +static inline int radix__has_transparent_pud_hugepage(void)
+>>>>   {
+>>>> -    /* For radix 2M at PMD level means thp */
+>>>> -    if (mmu_psize_defs[MMU_PAGE_2M].shift == PMD_SHIFT)
+>>>> +    /* For radix 1G at PUD level means pud hugepage support */
+>>>> +    if (mmu_psize_defs[MMU_PAGE_1G].shift == PUD_SHIFT)
+>>>>           return 1;
+>>>>       return 0;
+>>>>   }
+>>>> +#endif
+>>>> -static inline int radix__has_transparent_pud_hugepage(void)
+>>>> +static inline int radix__has_transparent_hugepage(void)
+>>>>   {
+>>>> -    /* For radix 1G at PUD level means pud hugepage support */
+>>>> -    if (mmu_psize_defs[MMU_PAGE_1G].shift == PUD_SHIFT)
+>>>> +    /* For radix 2M at PMD level means thp */
+>>>> +    if (mmu_psize_defs[MMU_PAGE_2M].shift == PMD_SHIFT)
+>>>>           return 1;
+>>>>       return 0;
+>>>>   }
+>>>
+>>> You are swapping both implementations, which might create some unnecessary churn
+>>> I think.
+>>
+>> I suspect this was done by git diff as I just moved the functions, but
+>> I'll take a better look.
+>>
+> 
 
