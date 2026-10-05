@@ -1,245 +1,175 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.14])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pl1-f169.google.com (mail-pl1-f169.google.com [209.85.214.169])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EF28F43F4BB;
-	Mon,  5 Oct 2026 22:50:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.14
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9ADD44334BC
+	for <linux-kernel@vger.kernel.org>; Mon,  5 Oct 2026 22:50:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.169
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791240629; cv=none; b=gzTxTfJsRoKOGm8tweTLnkTyt55+WI3xt4jjdfSP7wXa6povGauT2s78qBe/juAFXqWoXwFscs+i1zgjdSHuoukQNT6nLtjt+YyUbMmbXFlFH5iMOwT3MOOocYlVr5gK+pXUplbSOYteCLyFlU8p/orIQfcvQTWn9ruLxUWyX+A=
+	t=1791240638; cv=none; b=LxFfyhx670k0CjQmfHN/m745gQpM5UxTaXqLmvRrd2RhmPtKczgT/PAilRqsWjtybmqssjg0hOYAwy3gH4g7xk9KN1JF9qgql89SRMkimEFCZM3QpEyVjjCH9+DfGol1vDWUJJ+dGvzGpFuCY6zqKiRXM7+fc8ZVxnrhHXCP0D0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791240629; c=relaxed/simple;
-	bh=3hZBFPyundk9tWeTI4sVuy9MK+787aojzii6KnOyxzs=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=ZyAcLEGUc7Z5HbnXx/xffGZlt5FBRAQjGg/CBmkXIW4U9mNlElsbAbfZNtB4uKUJwQJ9q93BIk9DYVGsCBSF0lHhd9e948MLMKsrleQiA9bciqq/RXi0uW8u4s/5LHAf8JYHozDv3gDPNUJjIGh9i5XyRuoQphYuvux5qA4Fx1c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=CqUUedpF; arc=none smtp.client-ip=198.175.65.14
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1791240638; c=relaxed/simple;
+	bh=LFSA8feAoSV7Rk37+Z54SkvL6CshyhdgMHIDJRLxbMs=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=IfPbAqkIAOHmTsf1wGRsadke92HC4IhM/8vL0SDMR4FoMJ/gu7K7JL/fOd8oTqAEtklD/WWZMhLO0Ocju2TAlfUuBszn7wq57Q1y5pQ1kw9uA41csu4kKkiJV61gveuGv9PXt4gIIFppoVeNIjalsfPphM8+vkWDhfB27/uouwI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=fOCPrIey; arc=none smtp.client-ip=209.85.214.169
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="CqUUedpF"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1791240627; x=1822776627;
-  h=from:date:subject:mime-version:content-transfer-encoding:
-   message-id:references:in-reply-to:to:cc;
-  bh=3hZBFPyundk9tWeTI4sVuy9MK+787aojzii6KnOyxzs=;
-  b=CqUUedpFm2qziXXYkKjuyI9TDn5uZbSTiNmTVuk1aLsEBjLxvRNMEhuJ
-   8wWF5eUOEuP8cLtQ9Ay+Pew5/m5wt4H0m/9WC6k05ltDJR8975/AZ98Zv
-   tcOb7OyY8bGpoCzO0rp/i/6rY29+VkMGt/sTy55yxTQ27ESpLyWHlD4E1
-   te+FaXkguTfMTqQ+erxChC5MF194/yujSAs5YSAEojVufkx2AoY57kR8o
-   YG/kyyI5w47aXbInGVamVeA5+hPwxYKfgZ282IqGjcw/QIcypIYu63+oj
-   iylW66WYDdU7oTirjjWAEqpPlhfB74l2TdRP3OUFM9mBYb93H1C6rnMWd
-   Q==;
-X-CSE-ConnectionGUID: VGb9JJY6RQ6nOwj8q3yCdw==
-X-CSE-MsgGUID: /WCwaojDSgyd2PdDsriv1g==
-X-IronPort-AV: E=McAfee;i="6800,10657,11926"; a="94798749"
-X-IronPort-AV: E=Sophos;i="6.27,142,1787036400"; 
-   d="scan'208";a="94798749"
-Received: from orviesa009.jf.intel.com ([10.64.159.149])
-  by orvoesa106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 05 Oct 2026 15:50:24 -0700
-X-CSE-ConnectionGUID: GKpV9rDMQqqowMkUjPtYEg==
-X-CSE-MsgGUID: BKKM73jTQLyAR0W89EJEpQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,142,1787036400"; 
-   d="scan'208";a="277063571"
-Received: from vverma7-desk1.amr.corp.intel.com (HELO [192.168.1.200]) ([10.125.108.147])
-  by orviesa009-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 05 Oct 2026 15:50:23 -0700
-From: Vishal Verma <vishal.l.verma@intel.com>
-Date: Mon, 05 Oct 2026 16:50:07 -0600
-Subject: [PATCH v4 2/2] x86/early_printk: Add earlyprintk=tdx to drive the
- UART with TDVMCALLs
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="fOCPrIey"
+Received: by mail-pl1-f169.google.com with SMTP id d9443c01a7336-2e2e0f3dd40so14537715ad.3
+        for <linux-kernel@vger.kernel.org>; Mon, 05 Oct 2026 15:50:32 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791240632; x=1791845432; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=NElNsMz+D132sFgkyXd9YdnrBfiWRjJQdINkQ7a0bW0=;
+        b=fOCPrIeygIIPMafqrTUdydnViQdcpfib5FsJIx+JcOl5ctMWpvJauncfoID2a+grNT
+         TwBtz9vXDmQbU1f/8qaGWjKTQujza5rUQwabF1JHkeN4PcF8hB5QcQeJ8xz/C20+kbin
+         0050VMwQT7560NFratKbKBgAiH4/IJ5URk0thUNrFqr/rDGK5g19eNBp+NZLJOEIrmYR
+         XPaGi1oaQ88AJlVD1aak+e7ncQbeNGS73e1/TrYX/pZ5MPOB4S2xvs64ZXJkD7K1t5Q6
+         E/WP+j34hbXOOIqmI4hot+HfR3XD4UQjPPQH672FcpVQ9rLAiGxpEsRnyjSqVYF7mHS8
+         glfQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791240632; x=1791845432;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=NElNsMz+D132sFgkyXd9YdnrBfiWRjJQdINkQ7a0bW0=;
+        b=qOws3U+iivmefkj/FAw46KoXHKTQRcWVgcJr3NCgjau8u0vg4cKJ6N/ApEzLphz9Tn
+         EXDw+owYYcIH3IwzZgVG1bIiTgs19P6khRNgrtnRVAkNAcgfC3J24D/mJzTgAzIfGZzM
+         7UA0o66z7VmeDiu8aMzezI4zJ/U3xXFIomERhNLzz/zQ8S+tBdEAMa1mgH6c2pgzCiTo
+         EtSGXQq5+BKHG6kL7u7cIPrgu7exUOVs5DVFihZkWGwDbT1/aLDX0qA/8Sfx+z/g8LMR
+         e9a2mXMrCRGuf6HE5MkK4WNwk0mwa0N0x0pATOZYdI7PJeCzGKRvcaaSw4vWowfnWeia
+         /ffA==
+X-Forwarded-Encrypted: i=1; AKwUvByvK86jctFTpx6nSfZKUkTQZdbfxopsngoBvTkHkpLhi24EnqnGR8Dwf/tpnEtKxh0A5QgliRYIS0CQEEI=@vger.kernel.org
+X-Gm-Message-State: AFq9FYI7jLBLJpxxI2SWyXWO8CE38RTrlYEpcLCc0vee+h16wYAeEy93
+	gOGyeKToq21G8ChWX2J7StPDUmgwvWI3dtmEKlYeFPZa2hl7ooJA85SS
+X-Gm-Gg: AYBFou02htuYyYZ1yEkmESMq8by/Slzs0+5cCSMl7oVevIuGgyymQrQTLo1SspGEftO
+	djAdZ+g5+ZeO9afjfEIOJ+lI3faIuW5ZDElzgtTE9V01xm/JyUd7lqG9KKYqatM2ql4tmMaZVgu
+	gJDibG1fVC67zgx/x7sDZFeULzLRXDxERrphwwnvqgzrE2LiRJAc9DvUauxPEAeevPfiAZTsJpr
+	ladD57I5DjU6zuCpMz0NbGaGSdXdH5yLnQYDzQHrEsYGCWzLgCsI+yl9z2lXjTQkLYPjnGZ2zDP
+	CJLkSZID4uOdR2VeVbB4w3cVfiBgXWVANlikL8SbBxcEAsTE0Q/qbLcg8kmEkJOL4vBDnF/KCjq
+	XE44LWmS59RHd49/9XN83Px72tQUW1qDwGkOkuc1Krqv0V3sBPt5rJHW04htU6WJnLLrybJmjuO
+	v/rRzDkHh+sug1I9z4ksS5QbN43waGdg7Rwv8uOnNsQ9QptQ6CH5vzS+lD2IYQ5mnXW6E9uhOOt
+	MU9Dmegqk0Es0Xfjw0LRvhuXtheqFfdlT0X3ytHKrlMgMuU7FJjYUHqFjcJAxFex4CS2Vo4t6bh
+	F4kwMVZ4J8dzAMJPyY5HfNug20ug/0STVqV1B1zgd1HPiRjm
+X-Received: by 2002:a17:903:22c9:b0:2e5:ca81:13a9 with SMTP id d9443c01a7336-2e5ca811612mr6715975ad.37.1791240631818;
+        Mon, 05 Oct 2026 15:50:31 -0700 (PDT)
+Received: from ryzen.lan ([2601:644:8000:7a86::e35])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2e5d3013e1asm24585ad.45.2026.10.05.15.50.29
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 05 Oct 2026 15:50:30 -0700 (PDT)
+From: Rosen Penev <rosenp@gmail.com>
+To: netdev@vger.kernel.org
+Cc: Andrew Lunn <andrew@lunn.ch>,
+	Heiner Kallweit <hkallweit1@gmail.com>,
+	Russell King <linux@armlinux.org.uk>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Michael Stapelberg <michael@stapelberg.de>,
+	linux-kernel@vger.kernel.org (open list)
+Subject: [PATCH v3] net: phy: marvell: keep WOL_EIE across interrupt reconfiguration
+Date: Mon,  5 Oct 2026 15:50:28 -0700
+Message-ID: <20261005225028.465866-1-rosenp@gmail.com>
+X-Mailer: git-send-email 2.56.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261005-b4-tdx_earlyprintk_tdcalls-v4-2-3f7c56dd568a@intel.com>
-References: <20261005-b4-tdx_earlyprintk_tdcalls-v4-0-3f7c56dd568a@intel.com>
-In-Reply-To: <20261005-b4-tdx_earlyprintk_tdcalls-v4-0-3f7c56dd568a@intel.com>
-To: x86@kernel.org, Dave Hansen <dave.hansen@linux.intel.com>, 
- Kiryl Shutsemau <kas@kernel.org>, 
- Rick Edgecombe <rick.p.edgecombe@intel.com>, 
- Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>, 
- Randy Dunlap <rdunlap@infradead.org>
-Cc: linux-kernel@vger.kernel.org, linux-coco@lists.linux.dev, 
- kvm@vger.kernel.org, linux-doc@vger.kernel.org, 
- Vishal Verma <vishal.l.verma@intel.com>
-X-Mailer: b4 0.17-dev-e5168
-X-Developer-Signature: v=1; a=openpgp-sha256; l=6350;
- i=vishal.l.verma@intel.com; h=from:subject:message-id;
- bh=3hZBFPyundk9tWeTI4sVuy9MK+787aojzii6KnOyxzs=;
- b=owGbwMvMwCXGf25diOft7jLG02pJDFlHNFdu2fVRT/W+belffyaT41NXbMkvbXvUOZsl8omiz
- 98UxqlTOkpZGMS4GGTFFFn+7vnIeExuez5PYIIjzBxWJpAhDFycAjCRh4UM/wOOLLJ4IHVbtO5V
- ToLAqUX7/Rt3f7HlPDK7K+X/34mimQEMv5gcuC9NjvGL9go5LukTwrI7IerDbaFk5TDHubcmnJC
- I5QQA
-X-Developer-Key: i=vishal.l.verma@intel.com; a=openpgp;
- fpr=F8682BE134C67A12332A2ED07AFA61BEA3B84DFF
+Content-Transfer-Encoding: 8bit
 
-A TDX guest cannot execute port I/O instructions directly, but
-earlyprintk's serial console still issues plain inb()/outb() and lets
-each one fault into the #VE handler to be emulated as a TDVMCALL.
+marvell_config_intr() rewrote the whole interrupt enable register, so
+the config_intr call from phy_init_hw() on resume silently cleared
+WOL_EIE on the 88E1318S and 88E1510: m88e1318_get_wol() still reported
+WAKE_MAGIC, but a matched magic packet was no longer routed to INTn and
+the board did not wake.
 
-While that works, it is a roundabout way to get a character out.
-early_serial_putc() polls the LSR, and then writes a byte, but since the
-TDX guest can't directly do port I/O, a #VE exception is raised. The #VE
-handler must call TDG.VP.VEINFO.GET to find out what faulted, and then
-it can issue the TDVMCALL that does the actual work.
+Make config_intr update every bit except WOL_EIE with phy_modify(), so
+the WoL interrupt enable is owned only by set_wol and always matches
+what it programmed. The read-modify-write runs under the MDIO bus lock,
+as do the accesses in m88e1318_set_wol(), so the two can no longer
+overwrite each other's update. Have m88e1318_set_wol() clear WOL_EIE
+when WoL is fully disabled, since config_intr no longer does.
 
-This makes #VE a functional mechanism for doing I/O, which is not
-desirable, is unnecessarily complicated and fragile, and results in
-twice the number of calls into the TDX module.
+The interrupt register layout is the same across the PHYs this driver
+handles, so extend the shared handler to also claim a WoL event instead
+of adding a per-PHY one.
 
-Instead, add an earlyprintk=tdx option, which can issue the TDVMCALLs
-directly. Add a pair of tdx_serial_in() and tdx_serial_out() accessors
-and set them up in this case.
-
-Note that the output does not appear any earlier - "earlyprintk=" is an
-early_param(), so the console is still registered from
-parse_early_param(). This only changes how the bytes leave the guest
-once it is up.
-
-LLMs were used under supervision to create this patch, to help
-understand the scope and mechanisms, create testing instrumentation
-(throwaway) to count #VEs in the serial vs tdx earlyprintk setups,
-and to drive lab machines to do this testing.
-
-Signed-off-by: Vishal Verma <vishal.l.verma@intel.com>
+Fixes: 3871c3876f80 ("mv643xx_eth with 88E1318S: support Wake on LAN")
+Assisted-by: LLM
+Signed-off-by: Rosen Penev <rosenp@gmail.com>
 ---
- Documentation/admin-guide/kernel-parameters.txt |  8 +++++++
- arch/x86/include/asm/tdx.h                      |  4 ++++
- arch/x86/coco/tdx/tdx.c                         | 29 +++++++++++++++++++++++++
- arch/x86/kernel/early_printk.c                  | 20 +++++++++++++++++
- 4 files changed, 61 insertions(+)
+ v3: use phy_modify()
+ v2: resolved review warnings, including wol d.
+ drivers/net/phy/marvell.c | 30 +++++++++++++++++++++++++-----
+ 1 file changed, 25 insertions(+), 5 deletions(-)
 
-diff --git a/Documentation/admin-guide/kernel-parameters.txt b/Documentation/admin-guide/kernel-parameters.txt
-index e75344f4e0cd..3e43e7c7385c 100644
---- a/Documentation/admin-guide/kernel-parameters.txt
-+++ b/Documentation/admin-guide/kernel-parameters.txt
-@@ -1546,6 +1546,7 @@ Kernel parameters
- 			earlyprintk=serial[,ttySn[,baudrate]]
- 			earlyprintk=serial[,0x...[,baudrate]]
- 			earlyprintk=ttySn[,baudrate]
-+			earlyprintk=tdx
- 			earlyprintk=dbgp[debugController#]
- 			earlyprintk=mmio32,membase[,{nocfg|baudrate}]
- 			earlyprintk=pciserial[,force],bus:device.function[,{nocfg|baudrate}]
-@@ -1559,6 +1560,13 @@ Kernel parameters
- 			Use "nocfg" to skip UART configuration, assume
- 			BIOS/firmware has configured UART correctly.
- 
-+			On x86, "tdx" is a fixed COM1 console, and takes no
-+			options. In a TDX guest the port is driven with
-+			TDVMCALLs rather than port I/O instructions, avoiding
-+			the #VE exception that would otherwise be taken to
-+			emulate every access. Outside a TDX guest it falls back
-+			to port I/O, behaving like "earlyprintk=serial".
-+
- 			Append ",keep" to not disable it when the real console
- 			takes over.
- 
-diff --git a/arch/x86/include/asm/tdx.h b/arch/x86/include/asm/tdx.h
-index 89e97d5761d8..eac298979498 100644
---- a/arch/x86/include/asm/tdx.h
-+++ b/arch/x86/include/asm/tdx.h
-@@ -95,6 +95,10 @@ static inline bool tdx_early_handle_ve(struct pt_regs *regs) { return false; }
- 
- #endif /* CONFIG_INTEL_TDX_GUEST */
- 
-+/* Only referenced when X86_FEATURE_TDX_GUEST is enabled, no stubs needed */
-+__noendbr unsigned int tdx_serial_in(unsigned long addr, int offset);
-+__noendbr void tdx_serial_out(unsigned long addr, int offset, int value);
-+
- #if defined(CONFIG_KVM_GUEST) && defined(CONFIG_INTEL_TDX_GUEST)
- long tdx_kvm_hypercall(unsigned int nr, unsigned long p1, unsigned long p2,
- 		       unsigned long p3, unsigned long p4);
-diff --git a/arch/x86/coco/tdx/tdx.c b/arch/x86/coco/tdx/tdx.c
-index 7d1a93ee2534..c5e16ea3844d 100644
---- a/arch/x86/coco/tdx/tdx.c
-+++ b/arch/x86/coco/tdx/tdx.c
-@@ -194,6 +194,35 @@ u64 tdx_hcall_get_quote(u8 *buf, size_t size)
- }
- EXPORT_SYMBOL_GPL(tdx_hcall_get_quote);
- 
-+/*
-+ * early_printk accessors for a TDX guest. Ask the VMM to do the port I/O with
-+ * TDG.VP.VMCALL<Instruction.IO> instead of executing IN/OUT and having the
-+ * resulting #VE emulate it.
+diff --git a/drivers/net/phy/marvell.c b/drivers/net/phy/marvell.c
+index f71cffa88406..56650182bf3e 100644
+--- a/drivers/net/phy/marvell.c
++++ b/drivers/net/phy/marvell.c
+@@ -55,6 +55,11 @@
+ #define MII_M1011_IMASK			0x12
+ #define MII_M1011_IMASK_INIT		0x6400
+ #define MII_M1011_IMASK_CLEAR		0x0000
++/* Bits updated by config_intr. The WoL interrupt enable is owned by
++ * set_wol, so the config_intr call from phy_init_hw() on resume does not
++ * silently disarm Wake-on-LAN.
 + */
-+__noendbr unsigned int tdx_serial_in(unsigned long addr, int offset)
-+{
-+	struct tdx_module_args args = {
-+		.r10 = TDX_HYPERCALL_STANDARD,
-+		.r11 = hcall_func(EXIT_REASON_IO_INSTRUCTION),
-+		.r12 = 1,
-+		.r13 = TDVMCALL_PORT_READ,
-+		.r14 = addr + offset,
-+	};
-+
-+	if (__tdx_hypercall(&args))
-+		return 0xFF;
-+
-+	return args.r11;
-+}
-+ANNOTATE_NOENDBR_SYM(tdx_serial_in);
-+
-+__noendbr void tdx_serial_out(unsigned long addr, int offset, int value)
-+{
-+	_tdx_hypercall(hcall_func(EXIT_REASON_IO_INSTRUCTION), 1,
-+		       TDVMCALL_PORT_WRITE, addr + offset, value);
-+}
-+ANNOTATE_NOENDBR_SYM(tdx_serial_out);
-+
- static void __noreturn tdx_panic(const char *msg)
- {
- 	struct tdx_module_args args = {
-diff --git a/arch/x86/kernel/early_printk.c b/arch/x86/kernel/early_printk.c
-index cba75306e5b6..04dadcd73b85 100644
---- a/arch/x86/kernel/early_printk.c
-+++ b/arch/x86/kernel/early_printk.c
-@@ -21,6 +21,7 @@
- #include <linux/usb/xhci-dbgp.h>
- #include <asm/pci_x86.h>
- #include <linux/static_call.h>
-+#include <asm/tdx.h>
++#define MII_M1011_IMASK_CONFIG_MASK	(U16_MAX & ~MII_88E1318S_PHY_CSIER_WOL_EIE)
  
- /* Simple VGA output */
- #define VGABASE		(__ISA_IO_base + 0xb8000)
-@@ -196,6 +197,20 @@ static __init void early_serial_init(char *s)
- 	early_serial_hw_init(divisor);
- }
+ #define MII_M1011_PHY_SCR			0x10
+ #define MII_M1011_PHY_SCR_DOWNSHIFT_EN		BIT(11)
+@@ -393,11 +398,13 @@ static int marvell_config_intr(struct phy_device *phydev)
+ 		if (err)
+ 			return err;
  
-+/*
-+ * Use early_serial_base (COM1) and same default baud rate as
-+ * "earlyprintk=serial"
-+ */
-+static __init void early_serial_tdx_init(void)
-+{
-+	if (cpu_feature_enabled(X86_FEATURE_TDX_GUEST)) {
-+		static_call_update(serial_in, tdx_serial_in);
-+		static_call_update(serial_out, tdx_serial_out);
+-		err = phy_write(phydev, MII_M1011_IMASK,
+-				MII_M1011_IMASK_INIT);
++		err = phy_modify(phydev, MII_M1011_IMASK,
++				 MII_M1011_IMASK_CONFIG_MASK,
++				 MII_M1011_IMASK_INIT);
+ 	} else {
+-		err = phy_write(phydev, MII_M1011_IMASK,
+-				MII_M1011_IMASK_CLEAR);
++		err = phy_modify(phydev, MII_M1011_IMASK,
++				 MII_M1011_IMASK_CONFIG_MASK,
++				 MII_M1011_IMASK_CLEAR);
+ 		if (err)
+ 			return err;
+ 
+@@ -417,7 +424,8 @@ static irqreturn_t marvell_handle_interrupt(struct phy_device *phydev)
+ 		return IRQ_NONE;
+ 	}
+ 
+-	if (!(irq_status & MII_M1011_IMASK_INIT))
++	if (!(irq_status & (MII_M1011_IMASK_INIT |
++			    MII_88E1318S_PHY_CSIER_WOL_EIE)))
+ 		return IRQ_NONE;
+ 
+ 	phy_trigger_machine(phydev);
+@@ -2074,6 +2082,18 @@ static int m88e1318_set_wol(struct phy_device *phydev,
+ 			goto error;
+ 	}
+ 
++	if (!(wol->wolopts & (WAKE_MAGIC | WAKE_PHY))) {
++		err = marvell_write_page(phydev, MII_MARVELL_COPPER_PAGE);
++		if (err < 0)
++			goto error;
++
++		/* Disable the WOL interrupt, config_intr leaves it alone */
++		err = __phy_clear_bits(phydev, MII_M1011_IMASK,
++				       MII_88E1318S_PHY_CSIER_WOL_EIE);
++		if (err < 0)
++			goto error;
 +	}
 +
-+	early_serial_hw_init(115200 / DEFAULT_BAUD);
-+}
-+
- static __noendbr void mem32_serial_out(unsigned long addr, int offset, int value)
- {
- 	u32 __iomem *vaddr = (u32 __iomem *)addr;
-@@ -414,6 +429,11 @@ static int __init setup_early_printk(char *buf)
- 			early_serial_init(buf + 4);
- 			early_console_register(&early_serial_console, keep);
- 		}
-+		if (!strncmp(buf, "tdx", 3)) {
-+			early_serial_tdx_init();
-+			early_console_register(&early_serial_console, keep);
-+			break;
-+		}
- #ifdef CONFIG_PCI
- 		if (!strncmp(buf, "pciserial", 9)) {
- 			buf += 9; /* Keep from match the above "pciserial" */
-
+ error:
+ 	return phy_restore_page(phydev, oldpage, err);
+ }
 -- 
-2.55.0
+2.56.0
 
