@@ -1,157 +1,113 @@
-Received: from mail-pg1-f176.google.com (mail-pg1-f176.google.com [209.85.215.176])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3FE7346D560
-	for <linux-kernel@vger.kernel.org>; Mon,  5 Oct 2026 11:04:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.176
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 392A947DF87
+	for <linux-kernel@vger.kernel.org>; Mon,  5 Oct 2026 11:04:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791198259; cv=none; b=SocC8aoU0xpyJw/wU4kno4REU7mITVAicJxeEgUuAXj1YF0oieeI6kWupJVEZ6J+zwVZ51hjemeOCd88Oh9eHISq8mgkpRH2JckSX7paK4LsM0h4abIwI0G51iM3R3hoaNdtmmmPiRW4Y964vp8iX6JCG5knOUeYqaeA9XUvpWw=
+	t=1791198263; cv=none; b=DtyRJlrili9hauDdgR/G8UTtBio+Cierfl/cNbQnhpC1nRJY2iZbk0Y+vi58284vy98/+IDuSuZEwpkSgz05qN4SAi7/g5pwlt0WZkTkrWcjc2PhxFJISoLxKkcOlYgk4e0rPfAy9MGVZCMuZ7aNVRXPlIzxdn4c+iHxujuPY3M=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791198259; c=relaxed/simple;
-	bh=d1blBm1Hzmm7Po+juQSeLUZW1RgbslTJX1nk3YK/wzo=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=mV6kZASCnQd/GX/3qJYOjc0/NyrbWc99YdKO3CjyD1GMU1RfnfMDfksqfdAYPao8iwMwE7s7llK0hoiDsgwxJ+01EPUVSd6uRArbeim+uE39n7VRs62n3Y3oEQw+6PJEy4PGJpoHqHUpB3WIQ3UINMUFtGIdl/XMaHMbOIzUcrw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=D3/eu36n; arc=none smtp.client-ip=209.85.215.176
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1791198263; c=relaxed/simple;
+	bh=dtHJR2mqut5qTi1WfpQR1Tsf1LYF3wuKFMExChWNfAQ=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=ogvGiUHGYe0ppkUUGU9tykxFVhYHjqrNuv0jUUBYTCtZUip7+gYDBUWiOBbF8QJ20CS6Rd+vwHYoUwdwctmatY/KyBpZ/NCjOioBLi4j0A0mTdwHF8hyh6D8IPYJ0UKdFrXhg4ThNyghB/Jjv5LEntgJPsGJQ+xtgYOSR2bFjSs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jM81WAzf; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="D3/eu36n"
-Received: by mail-pg1-f176.google.com with SMTP id 41be03b00d2f7-cc4be0e5351so446590a12.0
-        for <linux-kernel@vger.kernel.org>; Mon, 05 Oct 2026 04:04:18 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791198257; x=1791803057; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=U1o0Fr3SsImGt+aqLrFKoD5OlJOoiuIdG7+nqMI1YN8=;
-        b=D3/eu36n2qxeetlv37K22q0BCSvBLFpEnQXIIR/5VBTPe5SnoUjxOp5VIOiJbS7yVm
-         2MzG+Bv045nrauHHpk1RyY08m2rS40MZ291uMX7AfcEoBYTmLd+2v29aWMNa6BHU0fsl
-         PAYgFe5Um2pqPFeWLN4eBxHkWou03MLCDyiZdNgMkfdWZD2Tz5VzEHIm/06cB20opboC
-         BW5NvbL+3dZtdKGNZ0JGl5yZ1WN80+7Bt3KlXnN5DqN8AQF2YIfcOavKd7cC3BBqQbgG
-         cc6CPZqLM6Qi3IQVrPOin86MTh2t0raohekroSAiKAaBPpmu+F4CrNCOuY0/IUUkrhtt
-         Pj9w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791198257; x=1791803057;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=U1o0Fr3SsImGt+aqLrFKoD5OlJOoiuIdG7+nqMI1YN8=;
-        b=CdZdEVKwn0H2mxTLfS6ifW25ps9N8thOL4E+juUh3xBJ+DfMlr1aoj/44FIrpO/1ms
-         Xo+CvDUAv0GSocaFaMkySTpcx13J4oM3eKXjqq0pSZ/YANx3eJmOhAiep0y/+DVimFTr
-         vcETOYIejvldo3ehM+7x6BP7WP9lW/ZS2DXxpq1RiZWSKqJW5SKicif2aU4nWD2kmBop
-         tSgqiBGOl/OxUl9P6R2BP6AZT72MmhbPXmSiWvfzNEwkajfmzVA2mMLkjcSwNpz4bs9/
-         hAl3iOQj1U/qOGeu3hKhFiAjcXsBWBYRPa4E9lOZ1MDMS/UaorCl71Ez9ocKi5WEj3ug
-         qvWw==
-X-Forwarded-Encrypted: i=1; AKwUvBy8Tr2IWFC47mzEVgdcwxjzn49m6eFVChNYOZQtCnmWuCkBiwDnRRzYUtnpHc51mybSF47Rb0ajhePy0gU=@vger.kernel.org
-X-Gm-Message-State: AFuF++nkIydhIWfQGBw+o5Uch/0LueoMDpelX3dANdDUAdMQpqWk7LeX
-	xm7qfoWryWdUhY93Svqc9UF3Um0SQqoiuKjhWFwqKezn64Od2hG5pa33
-X-Gm-Gg: AYBFou17glxeOJxAxY0QaR5gkUlyyKW6Cy79N8g/ycg3kL96fiWy3nU8BNpSnMFB95h
-	WkKa0jK9/sHb6r8d59YcmA8EK/MTW0Ts+6XRkOtqIFOMgmjy7IG7PZGReZwSw9zWvkINA5cQFJB
-	IRJ8bmi3RaIQP9DhkS3o9cINYdBXGFlxD7Iu5i4+ishK96a+TQFQrY39AQRvqKEpqRAYVApSIWy
-	CtgZiJA5KZOS3aHxm2raENXWfKe575RjEAYHYQoLO2exXe5uL6bEOKAv1JUYxh5/8qXQFecUVJP
-	7tRszmxeE8+BOHoyu9Eho62RQfjotQziY0PCD967cg7Ic5anonzhuziLDqtRcx8Y3iheReIKJgM
-	JMuSPtaGUAFwu8gc4SgmKuczzhiFNApUTx5bNz3oCOsb0HkCyQYkcDoj96NqBwllEOqEo1FaQ2M
-	cu8rcLR8YAz5Q5PE3HgZtGPkStS3j8OBEP99am5O/iBgNZco6pMbP+Wigazm4AmO7P4kAuZvyfB
-	P9hI3ZtbxW78zJV3DizBF+k7R3u5kkzBU0Zpjuaq1W4z1oWL1UXvXKAAxO0g3Bax0kvEf/AZLV9
-	HfJn6zl1S3qXhw==
-X-Received: by 2002:a05:6a21:6f16:b0:3dd:a195:fa1c with SMTP id adf61e73a8af0-3e0d6d2f55cmr6485653637.65.1791198257419;
-        Mon, 05 Oct 2026 04:04:17 -0700 (PDT)
-Received: from phuc-desktop.. ([183.91.15.56])
-        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cce6d334de5sm626498a12.11.2026.10.05.04.04.13
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 05 Oct 2026 04:04:17 -0700 (PDT)
-From: phucduc.bui@gmail.com
-To: Mark Brown <broonie@kernel.org>,
-	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
-	Trevor Wu <trevor.wu@mediatek.com>
-Cc: Liam Girdwood <lgirdwood@gmail.com>,
-	Matthias Brugger <matthias.bgg@gmail.com>,
-	Jaroslav Kysela <perex@perex.cz>,
-	Takashi Iwai <tiwai@suse.com>,
-	Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
-	cassiogabrielcontato@gmail.com,
-	Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>,
-	Liviu Dudau <liviu.dudau@arm.com>,
-	Haotian Zhang <vulab@iscas.ac.cn>,
-	HariKrishna Sagala <hariconscious@gmail.com>,
-	linux-sound@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-mediatek@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	bui duc phuc <phucduc.bui@gmail.com>
-Subject: [PATCH v2 13/14] ASoC: mediatek: mt8195: Fix ETDM probe error handling
-Date: Mon,  5 Oct 2026 18:02:56 +0700
-Message-ID: <20261005110257.50145-14-phucduc.bui@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261005110257.50145-1-phucduc.bui@gmail.com>
-References: <20261005110257.50145-1-phucduc.bui@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jM81WAzf"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BCBA51F00898;
+	Mon,  5 Oct 2026 11:04:18 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791198262;
+	bh=hQGvTuamVVzdOynNKDQKFmElV/3GB8rgmLRgY0GV5+Q=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=jM81WAzfzIcYqZacTuYKqh6CHKgtdfBO4m9hZjZvMVT3KUZAbhfwyh+CBEwQot6/q
+	 xIoFBNHUSxPH2iLzPUEhWx39VOV/I9Z64v1VCEE4H0M0sNmQxcYOI98myZzaJteUHD
+	 qMn8PCwkHx7+GJZvZ0Np2jAA0oGFz+4Eg0ne8hnrX5pC4h/k4KYxVQ5nzpNOh0CwVX
+	 wSEz5pUht/c1FmJqcXXeGJJGIgPNAOp4+t1HkbHzlXgGsbuNa7o8+OKaqTlHnnjSG3
+	 EG1BkyQuGIoHc34ifZSC0GrgAEeC3fnxsQIda2WEVu5pPguDTK/ClwgWsjiY5PKiqa
+	 45uSBBUoUxK0Q==
+Message-ID: <f162088b-6f80-4e5b-b250-dbf0eaa99816@kernel.org>
+Date: Mon, 5 Oct 2026 13:04:14 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 00/14] mm, swap: extendable swap devices (xswap)
+To: Johannes Weiner <hannes@cmpxchg.org>
+Cc: Baoquan He <baoquan.he@linux.dev>, Baoquan He <hebaoquan@kylinos.cn>,
+ linux-mm@kvack.org, akpm@linux-foundation.org, Chris Li <chrisl@kernel.org>,
+ kasong@tencent.com, Nhat Pham <nphamcs@gmail.com>,
+ Barry Song <baohua@kernel.org>, YoungJun Park <youngjun.park@lge.com>,
+ Yosry Ahmed <yosry@kernel.org>, shikemeng@huaweicloud.com,
+ chengming.zhou@linux.dev, linux-kernel@vger.kernel.org, kunwu.chan@gmail.com
+References: <20260916101929.149106-1-hebaoquan@kylinos.cn>
+ <aqrHjfHwyEtRIr5S@cmpxchg.org> <aquWKJoP5JLP8Ci7@fedora>
+ <20260917131712.GA1344@cmpxchg.org>
+ <7bd2b824-4c91-4378-a817-d5ce475ea84d@kernel.org>
+ <CA+mpNMkmnHrpVifBWi52f82KzhZZ501izsTeRPzvRr-i0su0SQ@mail.gmail.com>
+From: "David Hildenbrand (Arm)" <david@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=david@kernel.org; keydata=
+ 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
+ qIws/H2t
+In-Reply-To: <CA+mpNMkmnHrpVifBWi52f82KzhZZ501izsTeRPzvRr-i0su0SQ@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-From: bui duc phuc <phucduc.bui@gmail.com>
+On 10/3/26 01:19, Johannes Weiner wrote:
+> [ Sorry about the top post, on my way to Plumbers ]
+> 
+> Yes I still stand by this. The proposal in this shape is not compatible with the
+> cgroup resource control model.
 
-Use pm_runtime_resume_and_get() to properly handle runtime PM errors
-during ETDM probe.
+Just as I thought :) to move forward with this we'll have to find a way to make
+memcg folks happy.
 
-Propagate errors from MCLK configuration and enabling instead of
-ignoring them.
-
-Fixes: 1de9a54acafb ("ASoC: mediatek: mt8195: support etdm in platform driver")
-Signed-off-by: bui duc phuc <phucduc.bui@gmail.com>
----
- sound/soc/mediatek/mt8195/mt8195-dai-etdm.c | 27 ++++++++++++++-------
- 1 file changed, 18 insertions(+), 9 deletions(-)
-
-diff --git a/sound/soc/mediatek/mt8195/mt8195-dai-etdm.c b/sound/soc/mediatek/mt8195/mt8195-dai-etdm.c
-index 11317cdd14ab..8fa830a57502 100644
---- a/sound/soc/mediatek/mt8195/mt8195-dai-etdm.c
-+++ b/sound/soc/mediatek/mt8195/mt8195-dai-etdm.c
-@@ -2503,6 +2503,7 @@ static int mtk_dai_etdm_probe(struct snd_soc_dai *dai)
- 	struct mtk_base_afe *afe = snd_soc_dai_get_drvdata(dai);
- 	struct mt8195_afe_private *afe_priv = afe->platform_priv;
- 	struct mtk_dai_etdm_priv *etdm_data;
-+	int ret;
- 
- 	dev_dbg(dai->dev, "%s id %d\n", __func__, dai->id);
- 
-@@ -2510,15 +2511,23 @@ static int mtk_dai_etdm_probe(struct snd_soc_dai *dai)
- 		return -EINVAL;
- 
- 	etdm_data = afe_priv->dai_priv[dai->id];
--	if (etdm_data->mclk_freq) {
--		dev_dbg(afe->dev, "MCLK always on, rate %d\n",
--			etdm_data->mclk_freq);
--		pm_runtime_get_sync(afe->dev);
--		mtk_dai_etdm_mclk_configure(afe, dai->id);
--		mtk_dai_etdm_enable_mclk(afe, dai->id);
--		pm_runtime_put_sync(afe->dev);
--	}
--	return 0;
-+	if (!etdm_data->mclk_freq)
-+		return 0;
-+
-+	dev_dbg(afe->dev, "MCLK always on, rate %d\n",
-+		etdm_data->mclk_freq);
-+	ret = pm_runtime_resume_and_get(afe->dev);
-+	if (ret)
-+		return ret;
-+	ret = mtk_dai_etdm_mclk_configure(afe, dai->id);
-+	if (ret)
-+		goto err_put_pm;
-+	ret = mtk_dai_etdm_enable_mclk(afe, dai->id);
-+
-+err_put_pm:
-+	pm_runtime_put_sync(afe->dev);
-+
-+	return ret;
- }
- 
- static const struct snd_soc_dai_ops mtk_dai_hdmitx_dptx_ops = {
 -- 
-2.43.0
+Cheers,
 
+David
