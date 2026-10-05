@@ -1,125 +1,151 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pg1-f175.google.com (mail-pg1-f175.google.com [209.85.215.175])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6F17248423B
-	for <linux-kernel@vger.kernel.org>; Mon,  5 Oct 2026 13:46:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AD25B48640A
+	for <linux-kernel@vger.kernel.org>; Mon,  5 Oct 2026 13:46:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.175
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791207974; cv=none; b=AgDGO+dS8w0lUlpxS3PDNmy7E7mjFrd9YXrukl1o+7JVKko/ctHmWHK5gZt1cF09j5DJXHCA2XWAeOr1j2r2TJGnZmBpBUn+cFFggpCkTcvrbA32Z+fJwLYVpH/2CtO+aM82L4sbps/sGeMmO14FOJMLEA0VcJe85xaczmzUHGY=
+	t=1791207991; cv=none; b=rWh4oLjcUTHqrMl1zdB1SnQ8vIoVQ18gzmG6YBHeO3HFQaNpjpzc/Z3z/vf0P5SjjRWbMd/QW/iK3IbmepquEs5xMfGQRiWj3HXa991Zxid7jWFGsGcfBSxZfRUjeEgg3RN7mCGErX1wreEqc0QSVG2KE/L92+lG7cOYCCs/Crs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791207974; c=relaxed/simple;
-	bh=IVW/6ecOFWGfuMqheFlZx9C3H1D3xo0jPbhWRv9GWjk=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=PObfsDQHeOcdt95FcatCkOwLY7QLhMKlDsSE0xhMBUH1AAfxniW3l9O8PX0z4vvPbEeUWCbX8UuEl0AjqQH8dHHNVlhQcjJsQL3BKgtiBrYkASD/x+sBF7mAMFqqYObibwofOy9eSwHmZT+iCpBQ9w1XVUHxwCPP2DeWVKtsle4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=RGHWjtM5; arc=none smtp.client-ip=170.10.129.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	s=arc-20240116; t=1791207991; c=relaxed/simple;
+	bh=jK1xZfZ/ZAjbb1vwQsBgpSKswaKF6V+VUqJKzKbogOY=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=S/mqmBzX+WytZ5Hsz1OpP3M9R2s2sZ2BvEbazVapv9kurAGrEzTcqxWuRLuwk4bTf5+YVW8Im0g/0pakgPSU4bEyZtIIgbrSSos66OiC/M4nNyGoOfHhO2gihjKyFM8IamJzSxiRGbdE1zCmDqKy/zAzA92x4YTKW8FrLfnAnbM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=snu.ac.kr; spf=pass smtp.mailfrom=snu.ac.kr; dkim=pass (1024-bit key) header.d=snu.ac.kr header.i=@snu.ac.kr header.b=DDp+xs0R; arc=none smtp.client-ip=209.85.215.175
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=snu.ac.kr
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=snu.ac.kr
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="RGHWjtM5"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1791207972;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=6GrffBHNPUjhlOR40jzr6bm8eCCj3GOhwfQCP89Mw0U=;
-	b=RGHWjtM5a8mqgctJ88jNy/HLsNvqp1E2qAmorZoONL4O4cr9FR11aDjVqk/QE0OCtgBG+P
-	mM2ztKOnyytWKdZYMIDodyOZn51fE2hU8E/IQCX5jYPuwT/E+BNt8WgggyGWuz5nyriEyA
-	iEWJfa3CJKKyGM3/D/CfbNVRyaobglI=
-Received: from mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-591-3PfVqK_0MKeuM-0JVdmWEg-1; Mon,
- 05 Oct 2026 09:46:08 -0400
-X-MC-Unique: 3PfVqK_0MKeuM-0JVdmWEg-1
-X-Mimecast-MFC-AGG-ID: 3PfVqK_0MKeuM-0JVdmWEg_1791207968
-Received: from mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.93])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id D5CDC18089A1;
-	Mon,  5 Oct 2026 13:46:07 +0000 (UTC)
-Received: from pauld.westford.csb (headnet05.pony-001.prod.iad2.dc.redhat.com [10.2.32.117])
-	by mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 579851800579;
-	Mon,  5 Oct 2026 13:46:05 +0000 (UTC)
-Date: Mon, 5 Oct 2026 15:46:02 +0200
-From: Phil Auld <pauld@redhat.com>
-To: Jahan Zaib Ashraf Mir <jahanzaibashraf1318@gmail.com>
-Cc: mingo@redhat.com, peterz@infradead.org, juri.lelli@redhat.com,
-	vincent.guittot@linaro.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] sched/core: fix coding style issues
-Message-ID: <20261005134602.GA83650@pauld.westford.csb>
-References: <20261002133626.20443-1-jahanzaibashraf1318@gmail.com>
+	dkim=pass (1024-bit key) header.d=snu.ac.kr header.i=@snu.ac.kr header.b="DDp+xs0R"
+Received: by mail-pg1-f175.google.com with SMTP id 41be03b00d2f7-cc4c02ddd62so647527a12.0
+        for <linux-kernel@vger.kernel.org>; Mon, 05 Oct 2026 06:46:26 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=snu.ac.kr; s=google; t=1791207986; x=1791812786; darn=vger.kernel.org;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=cV4nIo3kAjiqJAr11D0A33XgzPLg22VQeLn4sDhwBQU=;
+        b=DDp+xs0Rgq5lUOngPgfgVOd5bxf5QTjAmX5ouVAch38Tzfu8BHbBAIUTn6A6Dy2mZv
+         9/0zPDDQvgJERK9EG7CcP+n06syhXrdMDXjhhIaIAAyjdLa5t0Qx7Nf3O1xJSaawpyD2
+         C4GX8qzaqWnabQyWLcIPXkYGte4NbIB1NTC4E=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791207986; x=1791812786;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=cV4nIo3kAjiqJAr11D0A33XgzPLg22VQeLn4sDhwBQU=;
+        b=hwYrgXjvU7tcWJ4/Z1YuUr2FURBPOp1aWt/1R+eTPq2UjKdifU5XpvzTRWhvXyLCSy
+         jy65WibhNGqI7JTFExfBoJBa62nXglLc3NBmXjqn3xYI/zuYi1bjcoibvUi40If2KuMo
+         cIKaavzpvf33swuZhrUUmFtblcvx+b94xd197Pmw69v4ay2HVVtmnPFI2G0XkUb2FFcY
+         atwAu1f0zQfaH2s1I9Ko3B+sz70CNkBzokSjqNWI/rvmG+y4Apu3yDzllKngi3In2qO9
+         xpRfdKuPGGNHQYff5FY0zHMJOt6Jj/8+9Nur0JtbYa5Yg6EiwJkn/IQepImKlTPZg3Tv
+         Cq/Q==
+X-Forwarded-Encrypted: i=1; AKwUvBx8j55vky5tEgGiX5VG/p5FUDaX1pmUu8u/JaOAQbEr89HlhvEQklg8X5n6SDvfBlKKK8J/XB9ppPvb3iA=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLPLXZZyl1VVwd5yPeBeKrTfwyiLwKpv6qa7qzl0WAvYfps/fB+
+	o+YyS8ChEWzXeSlFR4H3tYXZMwBQxyoyjr3lBImd2tVnql/jH0YzX+q3HIaAEG2LkFQ=
+X-Gm-Gg: AYBFou1L0EWvxuSlI3tVGW0PadPhcuoeLOrEaUXxHnOYPCCv/7PN5r+qLIefBsdhJ1H
+	cMNvs3++TTW0qL+Xv6dhTZq+RduHbNGlBcq4zCaSceeyr2TYLKYKjEjN59+hPy75ns9X5Uqk1ya
+	b8Zk8RH2GubuLKyubJgyx7w/p96FRuVoZQ4lGqZyfEUmho8QFHaVKbpp2Frq09QHRcgnOoUzlgc
+	4k9kL2FMnQNCvuE7+k35SVbVfZ7YPCzqRoLDKUI/m7SJpYeI7XxGoW9FmrJ7HvW9qKVy9EVxMYY
+	/1pAs9dVXSVsI4uUh76Hqqpni878W5K5cORLbMWFGeAUkU+r2r6w3jb2ykcDSpc976tQm5zxOXS
+	oipNS0TiXnpmQXILA1LroxOCEpyIPM2iQ+ZNBLpjPv5f4ZSr9zFU6UfyQ5Z5aVl922giuesp0ix
+	KajAVlCEV86RgqSA2XzD6jB10S4/KiBghYiYUmCB8DDwmlGt3qdyBZ2niaBEWxzJKr
+X-Received: by 2002:a17:90b:3ec1:b0:3a0:4668:4cb0 with SMTP id 98e67ed59e1d1-3a787510226mr5872122a91.47.1791207986052;
+        Mon, 05 Oct 2026 06:46:26 -0700 (PDT)
+Received: from [172.19.0.2] ([49.142.45.25])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a78d65d85csm11168162a91.4.2026.10.05.06.46.23
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 05 Oct 2026 06:46:25 -0700 (PDT)
+From: Seongjun Hong <hsj0512@snu.ac.kr>
+Date: Mon, 05 Oct 2026 13:46:15 +0000
+Subject: [PATCH] net/mlx5: allocate dma pool structs on the pool's NUMA
+ node
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261002133626.20443-1-jahanzaibashraf1318@gmail.com>
-X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.93
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261005-net-mlx5-numa-allocate-pool-page-v1-1-01f4283932b4@snu.ac.kr>
+X-B4-Tracking: v=1; b=H4sIACaqw2oC/x2N0QrCMBAEf6XcsweXUBX8FfHhqKsepElIaimU/
+ ruHbzMw7O7U0QydbsNODat1K9klnAaaPprfYHu6U5R4CSJnzlh4TpvDd1bWlMqkC7iWkriq9xG
+ IojKG8Qrymdrwsu1/cX8cxw/U01I1cgAAAA==
+To: Saeed Mahameed <saeedm@nvidia.com>, Leon Romanovsky <leon@kernel.org>, 
+ Tariq Toukan <tariqt@nvidia.com>, Mark Bloch <mbloch@nvidia.com>, 
+ Andrew Lunn <andrew+netdev@lunn.ch>, 
+ "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, 
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>
+Cc: netdev@vger.kernel.org, linux-rdma@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, Seongjun Hong <hsj0512@snu.ac.kr>
+X-Mailer: b4 0.13.0
 
-Hi Jahan,
+The mlx5 DMA pool structs (mlx5_dma_pool, mlx5_dma_pool_page and its
+block bitmap, and mlx5_frag_buf_node_pools) are allocated without a
+node hint, so they land on the node of whichever CPU happens to create
+or fill the pool, whiile the DMA pages they describe are allocated on
+the pool's node.
 
-On Fri, Oct 02, 2026 at 07:06:26PM +0530 Jahan Zaib Ashraf Mir wrote:
-> Fix three checkpatch warnings in sched/core.c:
-> - Use 'unsigned int' instead of bare 'unsigned' for mode parameter
->   in default_wake_function()
+The pool, page and bitmap are dereferenced on every block allocation
+and free. Allocate them on the pool's NUMA node as well, so that all
+of a pool's state lives on one node.
 
-Probably not worth making this change. And even if it was worth it
-it would be good to make it all match (see wait.h). 
+Signed-off-by: Seongjun Hong <hsj0512@snu.ac.kr>
+---
+ drivers/net/ethernet/mellanox/mlx5/core/alloc.c | 11 ++++++-----
+ 1 file changed, 6 insertions(+), 5 deletions(-)
 
-> - Add missing blank line after variable declaration in
->   __sched_setscheduler()
-> - Add missing blank line after variable declaration in
->   sched_dynamic_update()
+diff --git a/drivers/net/ethernet/mellanox/mlx5/core/alloc.c b/drivers/net/ethernet/mellanox/mlx5/core/alloc.c
+index a92cf545bdaf..dcd281c4691d 100644
+--- a/drivers/net/ethernet/mellanox/mlx5/core/alloc.c
++++ b/drivers/net/ethernet/mellanox/mlx5/core/alloc.c
+@@ -110,7 +110,7 @@ static struct mlx5_dma_pool *mlx5_dma_pool_create(struct mlx5_core_dev *dev,
+ {
+ 	struct mlx5_dma_pool *pool;
+ 
+-	pool = kzalloc_obj(*pool);
++	pool = kzalloc_node(sizeof(*pool), GFP_KERNEL, node);
+ 	if (!pool)
+ 		return NULL;
+ 
+@@ -127,19 +127,20 @@ mlx5_dma_pool_page_alloc(struct mlx5_dma_pool *pool)
+ {
+ 	int blocks_per_page = BIT(PAGE_SHIFT - pool->block_shift);
+ 	struct mlx5_dma_pool_page *page;
++	int node = pool->node;
+ 
+-	page = kzalloc_obj(*page);
++	page = kzalloc_node(sizeof(*page), GFP_KERNEL, node);
+ 	if (!page)
+ 		goto err_out;
+ 
+ 	page->pool = pool;
+-	page->bitmap = bitmap_zalloc(blocks_per_page, GFP_KERNEL);
++	page->bitmap = bitmap_zalloc_node(blocks_per_page, GFP_KERNEL, node);
+ 	if (!page->bitmap)
+ 		goto err_free_page;
+ 
+ 	bitmap_fill(page->bitmap, blocks_per_page);
+ 	page->buf = mlx5_dma_zalloc_coherent_node(pool->dev, PAGE_SIZE,
+-						  &page->dma, pool->node);
++						  &page->dma, node);
+ 	if (!page->buf)
+ 		goto err_free_bitmap;
+ 
+@@ -278,7 +279,7 @@ mlx5_frag_buf_node_pools_create(struct mlx5_core_dev *dev, int node)
+ {
+ 	struct mlx5_frag_buf_node_pools *node_pools;
+ 
+-	node_pools = kzalloc_obj(*node_pools);
++	node_pools = kzalloc_node(sizeof(*node_pools), GFP_KERNEL, node);
+ 	if (!node_pools)
+ 		return NULL;
+ 
 
-No need for a patch to justc change whitespace.
+---
+base-commit: 8b4e7209c842d8cb9516f1f5ef0a88aa2d8831a6
+change-id: 20261005-net-mlx5-numa-allocate-pool-page-2ee20a04147e
 
-
-Cheers,
-Phil
-
-> 
-> Signed-off-by: Jahan Zaib Ashraf Mir <jahanzaibashraf1318@gmail.com>
-> ---
->  kernel/sched/core.c | 4 +++-
->  1 file changed, 3 insertions(+), 1 deletion(-)
-> 
-> diff --git a/kernel/sched/core.c b/kernel/sched/core.c
-> index e8c46f849f6e..9bd1bf3d7729 100644
-> --- a/kernel/sched/core.c
-> +++ b/kernel/sched/core.c
-> @@ -4723,6 +4723,7 @@ void force_schedstat_enabled(void)
->  static int __init setup_schedstats(char *str)
->  {
->  	int ret = 0;
-> +
->  	if (!str)
->  		goto out;
->  
-> @@ -7611,7 +7612,7 @@ asmlinkage __visible void __sched preempt_schedule_irq(void)
->  	exception_exit(prev_state);
->  }
->  
-> -int default_wake_function(wait_queue_entry_t *curr, unsigned mode, int wake_flags,
-> +int default_wake_function(wait_queue_entry_t *curr, unsigned int mode, int wake_flags,
->  			  void *key)
->  {
->  	WARN_ON_ONCE(wake_flags & ~(WF_SYNC|WF_CURRENT_CPU));
-> @@ -8087,6 +8088,7 @@ static int __init setup_preempt_mode(char *str)
->  {
->  	int mode = sched_dynamic_mode(str);
->  	if (mode < 0) {
-> +
->  		pr_warn("Dynamic Preempt: unsupported mode: %s\n", str);
->  		return 0;
->  	}
-> -- 
-> 2.56.0
-> 
-> 
-
+Best regards,
 -- 
+Seongjun Hong
 
