@@ -1,200 +1,152 @@
-Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com [74.125.227.140])
+Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com [209.85.128.48])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6D74552F29D
-	for <linux-kernel@vger.kernel.org>; Mon,  5 Oct 2026 17:19:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5E53D4D4893
+	for <linux-kernel@vger.kernel.org>; Mon,  5 Oct 2026 17:19:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.48
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791220755; cv=none; b=SIV4xzWD2rCR7YkEhn4GT9NdUocLa18prtWiXgie0CCaiUf74q995hjB4F419e6joVjTGD8lHb4iDN0ADkgqbJ+vHFWCAVGujC5S5LQyd3jbJ95ll3QJBy3y7WJRO9OqujcqbGHQMS9Hop2tL3TzN2OYQSQH40j1dSawWvOYXFU=
+	t=1791220756; cv=none; b=PjIBiJxRqaTezdwlNzHXnPGOQYaye4A4rwVR+yONOwd6Bg0r2+hQzpGQ7iQC/xWIiphFGBoh+17OaS0zAGHUUuKaFHv2oomoy9b8+3Fwj4F09ZhZbwzfI+lI6YaBrIlZetOF4LBHLzabLc4lbBzRpXqCuOA+JNexzJVUpD5PZsc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791220755; c=relaxed/simple;
-	bh=c7ckEYnsoc8lY6bepSRx0MX3kspdeIxVPo6r8T3T7fY=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=cZywJSHldxgb/0z0bnGRXFi6/PaZIiwwDO97iYeEKffPZOLtE9rRoKX7nHFGfyf3qF2qkV+IRsj0OKzf4/JSqsZbZH66zv+DU9E/U3t+CxsWbjiagRKjnoBoHdCewLi2wrvALFQTfeEjB6Mjhp/dXVxL3OvwXyETgB/9Wzk7f9k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Gpb852/k; arc=none smtp.client-ip=74.125.227.140
+	s=arc-20240116; t=1791220756; c=relaxed/simple;
+	bh=XMSRAA6Z6xxlL9jvU9waE1kdtHmvEad1lopoNsRdKSY=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=OZ+QMDWsJ3MdwOigxPbuxaaNazONRwuDOf5WAc8eX0ZsNzcF80R45+giMGaxBgPZQeuWDDrkCsCELunw6iKC2k7uJmklnwgMy8xJp7nqqFS6QUqTAHKaD7VihKhySTqIzrHOWJtzgub16yFqOGhqrzOOpPu/uLxVJlOiht3H/mw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=YTAdJ9Su; arc=none smtp.client-ip=209.85.128.48
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Gpb852/k"
-Received: by mail-pj2-f12.google.com with SMTP id 98e67ed59e1d1-396ccc02279so1229642a91.1
-        for <linux-kernel@vger.kernel.org>; Mon, 05 Oct 2026 10:19:13 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="YTAdJ9Su"
+Received: by mail-wm1-f48.google.com with SMTP id 5b1f17b1804b1-49ff680331aso20546155e9.3
+        for <linux-kernel@vger.kernel.org>; Mon, 05 Oct 2026 10:19:14 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791220753; x=1791825553; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=bU/Grob0sdS1Fvpq0qkYiAVVEirXYMwyKGEgxNCUeKM=;
-        b=Gpb852/kZNQzKwMkCSt6i9I8zSYwCJziA3DHzw/GkdUYIfkHutSzFg7Kr3knnFjUo4
-         2KdZW+tvKqe4nU87yo4dIeML84p0jQx0rUth/NQn4zwU5ItUue6iWKUJAtpZ54WktieS
-         pBirJqWa7ULs50NYRbspvw8UR6qe77zOApTXPgH2iCSnz2WTUDELXOd4XrYl55x3+Im6
-         AqSzdJhtVAT0nanKU1EjvEheFgTX2JZAU3gAPeL0OoLl37jKF6ZGF+PHz2+aqe/zKZv8
-         1EZuI0V/nLLtVPO/75Rkle7+dLEZb9dvCOSbH+TvVdYXqlP7n1IRK7uOFY3zWd5UtEFy
-         /++g==
+        d=gmail.com; s=20251104; t=1791220752; x=1791825552; darn=vger.kernel.org;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=KhIVGVi7iDg6wZeRjmVwM4ZVMIecRYFD2p/QE27Jwwc=;
+        b=YTAdJ9SuBIyS16sriJYaRGRvdQA+MSTKXNbPY8UWR3LgL4X2v5cOzSPbOhhSCZs1Zb
+         0nsljNKVu0SADniuFpFcVmKI/P3ISOz/72KanmBx8WW0IfmuD72nFr+hysiEt8KBXAst
+         x77SwhNeBiKQiIaMcNMt+Y6zHU6kd6DZXcwaGzLkGoQy1Cefitk1ol1rxbvclZH7rt42
+         EwbsSMt9HKzpRLprdPpEh2YIzb6Tw20OI7cv7ifr/GTgRHKc3g1ZCKIeSXhMAt8Xah8l
+         EhWBzLOb78jxUjdXgq6BDh7TKHL7cuqHYQIBppmluvBIaAh1wY5V7sVP65Brl6gZUH33
+         wuyQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791220753; x=1791825553;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=bU/Grob0sdS1Fvpq0qkYiAVVEirXYMwyKGEgxNCUeKM=;
-        b=hs9u5q5CkUIbiQlnOa+1KLdXWXE7CU24GYT9VVR6YyfouRo/K3UNPNiBX2POQ/tYt9
-         ijm60pTuIbbrMx3W4ixkf++rJ8eJDvgHrs8C/HJNUl1mXjSgUDA1+fviSu/nGSj3MWAb
-         F7FzWvBWahi9L2Q/kEsBam2E+rSUHjc5ETufqjJuA+fYRekLr8MNMWEs3nhB9trpfoyX
-         rNw789HXqds5ZTD5SV0bz37QAR4ac0mPYgkcv0Ht/j3ZgeQJqvjTlyEgV6F7K4w1wEu4
-         Lkb3HvKYLmgzxd43Ip7vg0xQzaAjKLWMXgva/zVTC4RWx2K2LAI9NgzxnDUB9miainvE
-         W8kQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxxd0ASrNDDoJHa86jHBh7DhuzEYoxbcR2SShVBmJ9psi7fc5ODmwt4kSuCwjJrb+rmixlL5xtLNEqkPtQ=@vger.kernel.org
-X-Gm-Message-State: AFq9FYI2hG33GeyS0ZHgieGyRo2aHgdc/r62f3ZNYMyK/SjIhIAlz6z7
-	zstzWjJ/Acw2q8xHehZks/Et4RwuH5Uujbhy6bIw4aps3pTxfTSwz8s3
-X-Gm-Gg: AYBFou0pckDd3nLbtAeqKUY3OD1SRk0d46HAAHjHoAZYyakO3Fc3GWFioQc3/3zLk7O
-	VYguBiZynXinwLvZ1+NuSrgqVjhU9a90RjjkyYcpuc1Wap1y8tcXKDiilkvh3skzB3AQWuzVrx0
-	gWKIxizldtUfl8LsUHVc6xY/1twrmbk8SLcSwxNTCdqYj3rgi2Y/ZPe9SiCZkw3DXAK3e3xpMB2
-	2jKiqqtfAbEG3c4jH0Webk34RYMsFB5nQALOrcSJt985w18UWoYe9H5caHOi7U5rpxfbrl2q7rd
-	eQb1l/8AzLb7cu+nu75Yn4RhwNtSrE/0NSki1jWXOh/DBMRLG9ZU3frX02d8nJXJQTvqUqtfd4b
-	HRDqzDHF21wwlh5f5OWgEhiPp04v7/S7f6/qFHAaZiepyIvqra0IuUrz5a+1F6sPLhOkSTpkhzo
-	HxUSGLmDULn+gaIspyxpeJx/Lstt2nYhWCORMVgpcZ7xJs6r6Y6mwP++2HxJ0BVb41Qh3flKpkQ
-	3P4jd+m3D75LCBFboxepGIshjeWK8w=
-X-Received: by 2002:a17:90b:3c07:b0:3a7:9adb:2a0e with SMTP id 98e67ed59e1d1-3a79adb32ecmr5763152a91.33.1791220752112;
-        Mon, 05 Oct 2026 10:19:12 -0700 (PDT)
-Received: from kernel.tail6741c6.ts.net ([216.195.201.24])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a853cafddesm406910a91.10.2026.10.05.10.18.57
+        d=1e100.net; s=20260707; t=1791220752; x=1791825552;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=KhIVGVi7iDg6wZeRjmVwM4ZVMIecRYFD2p/QE27Jwwc=;
+        b=wqi2IJQjro+F1eSXc5/TzHMb0DuX7CLal9BvChrQrQhWObqcrwIX20KrNqhgG6Em89
+         nPtmXcFbKMd1mGJj0Bg3uvn9ntTWO0JygqFGlUdgLL2ZBCoOZnzhiCrp6a5dqgKHvAQU
+         7jDkCWOTlGDzigCq0AHdfwr5oF+mXucs+skjzD1vu5L0jfaLoM8sSs0mfa6D6nWVo64c
+         2jHWazbmtvhvJfhz/U8nPwCSsT4OXcdM/63ZKYHP6HDncqX7vz8Wwn/6me12IfN1u63p
+         +30aDF3IdWNY8tTGMdieFnzod4SL+bfylLO1UY9XjrRzjCtltRkIcUu7DkfRevywX4M1
+         3oNg==
+X-Forwarded-Encrypted: i=1; AKwUvBxb8HqsPxp8WptQaH4OSe5EiCmZgOtRmU1HJe5ysCc+MPAg43w57kY8XnypBzQZaBvRa3ub4o1F8DYBYiM=@vger.kernel.org
+X-Gm-Message-State: AFuF++mLNoPe7QPYo8iheUcQtL/wY1MN9ulB+liJm2aFJzloci49QM1e
+	NWEATH4we3oESPju4sVvx8wf/ym/dxHDvb1G+Q3R8XVUEtoEEdgoocyC
+X-Gm-Gg: AYBFou2YFOtZWWH/w1ZEK3rMuGvJc+SmWd/TXWC2TOqk0mDOyx4dA+C2WaWa0BwWAWz
+	OABOMV3Tki3m97XphVVorXlPM+F6Ah8cFWLJRdhtQHyeyXv517a/eTMC5abBFG+g7IcdQw55nrt
+	fEP5WBxMS7BjH8pNVplmF/YOREBHyo+TwXI1KEBeHjPlZ/OPW9KCjQzCgRLbapFnRnDeg7B6hGd
+	TzfQRNiSaA24u2uKEUOiSZPT1MXIQNXGcxnJz7CescPQ3QiQLEq5Ezv1rVwFbr8aqDRvx2RRjCs
+	x6c8cNxX+G9aq0u9wOqmeXcAaigEoKAWfjtQn7xpwAAEI5iID3Bb0+VvUTHjoOaUThCNdR9fiQN
+	lfCHNLH1rQIcZcMH84bGRZFpDRz6lIAS82iF2Lb6y1rLMFdVIp8FZZIC79BYxkEblrzBCfIngIA
+	El7Mnm18XJND4P2QfE6pekpZ8sfNPvU4S3l4cYcmuxdJPeJaOwynEPuMqXAIlfN0mEbRgZPB1zt
+	9XdxNcFYiKy+LeAOImsZCTG45w=
+X-Received: by 2002:a05:600c:4f06:b0:49e:7a00:b9a5 with SMTP id 5b1f17b1804b1-4a1680b469dmr168127675e9.4.1791220751970;
+        Mon, 05 Oct 2026 10:19:11 -0700 (PDT)
+Received: from [192.168.0.253] (5403F394.catv.pool.telekom.hu. [84.3.243.148])
+        by smtp.googlemail.com with ESMTPSA id 5b1f17b1804b1-4a178a17ac9sm5787465e9.1.2026.10.05.10.19.10
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
         Mon, 05 Oct 2026 10:19:11 -0700 (PDT)
-From: Kunwu Chan <kunwu.chan@gmail.com>
-To: paulmck@kernel.org,
-	corbet@lwn.net,
-	mingo@redhat.com,
-	frederic@kernel.org,
-	neeraj.upadhyay@kernel.org,
-	josh@joshtriplett.org,
-	urezki@gmail.com,
-	dave@stgolabs.net,
-	lianux.mm@gmail.com
-Cc: stern@rowland.harvard.edu,
-	parri.andrea@gmail.com,
-	will@kernel.org,
-	peterz@infradead.org,
-	boqun@kernel.org,
-	npiggin@gmail.com,
-	dhowells@redhat.com,
-	j.alglave@ucl.ac.uk,
-	luc.maranget@inria.fr,
-	akiyks@gmail.com,
-	dlustig@nvidia.com,
-	joelagnelf@nvidia.com,
-	skhan@linuxfoundation.org,
-	rdunlap@infradead.org,
-	longman@redhat.com,
-	rostedt@goodmis.org,
-	mathieu.desnoyers@efficios.com,
-	jiangshanlai@gmail.com,
-	qiang.zhang@linux.dev,
-	kunwu.chan@gmail.com,
-	brads@mainlining.org,
-	linux-kernel@vger.kernel.org,
-	linux-arch@vger.kernel.org,
-	lkmm@lists.linux.dev,
-	linux-doc@vger.kernel.org,
-	rcu@vger.kernel.org,
-	linux-kselftest@vger.kernel.org
-Subject: [PATCH RFC v3 14/15] hazptrtorture: add 128- and 256-CPU configs
-Date: Tue,  6 Oct 2026 01:15:28 +0800
-Message-ID: <20261005171529.1378809-15-kunwu.chan@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261005171529.1378809-1-kunwu.chan@gmail.com>
-References: <20261005171529.1378809-1-kunwu.chan@gmail.com>
+From: Gabor Juhos <j4g8y7@gmail.com>
+Date: Mon, 05 Oct 2026 19:18:50 +0200
+Subject: [PATCH] spi: spi-qpic-snand: skip BBM copy on regular raw reads
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261005-qpic-snand-skip-bbm-copy-v1-1-04f6aeda4044@gmail.com>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/x3MQQqAIBBA0avErBtQoaKuEi1SpxoiMweiiO6et
+ HyL/x8QSkwCXfFAopOF95ChywLcMoaZkH02GGVqrVSFR2SHEsbgUVaOaO2Gbo83TsZXThndUkO
+ Q85ho4utf98P7frm+BPhqAAAA
+X-Change-ID: 20261005-qpic-snand-skip-bbm-copy-f2d5c0219e7e
+To: Mark Brown <broonie@kernel.org>, 
+ Varadarajan Narayanan <varadarajan.narayanan@oss.qualcomm.com>, 
+ Sricharan Ramabadhran <quic_srichara@quicinc.com>, 
+ Md Sadre Alam <md.alam@oss.qualcomm.com>
+Cc: linux-spi@vger.kernel.org, linux-mtd@lists.infradead.org, 
+ linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Gabor Juhos <j4g8y7@gmail.com>
+X-Mailer: b4 0.14.3
 
-Add CPU128 and CPU256 configs for hazptr-stack torture testing.
+Trying to read the raw flash contents with nanddump, the second byte
+of the OOB area contains 0xff instead of the real data in the flash.
+This happens because the qcom_spi_read_last_cw() function unconditionally
+copies the bad block marker into the second byte of the output buffer.
 
-These configs exercise the shared-scan path at larger CPU counts.
+Add a new flag to the controller's private data structure, and set it
+when only the first two bytes of the OOB area being read in raw mode.
+Also change the bad block copying code to run only when the flag is set.
 
-Signed-off-by: Kunwu Chan <kunwu.chan@gmail.com>
+This ensures that the SPI NAND framework still can read the BBM bytes,
+but on regular raw read, the output does not contain the duplicated
+marker byte.
+
+Fixes: 7304d1909080 ("spi: spi-qpic: add driver for QCOM SPI NAND flash Interface")
+Signed-off-by: Gabor Juhos <j4g8y7@gmail.com>
 ---
- .../selftests/rcutorture/configs/hazptr/CFLIST   |  2 ++
- .../selftests/rcutorture/configs/hazptr/CPU128   | 16 ++++++++++++++++
- .../rcutorture/configs/hazptr/CPU128.boot        |  1 +
- .../selftests/rcutorture/configs/hazptr/CPU256   | 16 ++++++++++++++++
- .../rcutorture/configs/hazptr/CPU256.boot        |  1 +
- 5 files changed, 36 insertions(+)
- create mode 100644 tools/testing/selftests/rcutorture/configs/hazptr/CPU128
- create mode 100644 tools/testing/selftests/rcutorture/configs/hazptr/CPU128.boot
- create mode 100644 tools/testing/selftests/rcutorture/configs/hazptr/CPU256
- create mode 100644 tools/testing/selftests/rcutorture/configs/hazptr/CPU256.boot
+ drivers/spi/spi-qpic-snand.c | 14 +++++++++++++-
+ 1 file changed, 13 insertions(+), 1 deletion(-)
 
-diff --git a/tools/testing/selftests/rcutorture/configs/hazptr/CFLIST b/tools/testing/selftests/rcutorture/configs/hazptr/CFLIST
-index 1826be30c066..90ef09b0e654 100644
---- a/tools/testing/selftests/rcutorture/configs/hazptr/CFLIST
-+++ b/tools/testing/selftests/rcutorture/configs/hazptr/CFLIST
-@@ -4,3 +4,5 @@ READERS0
- READERS4
- SLOWPATH
- LOCKDEP
-+CPU128
-+CPU256
-diff --git a/tools/testing/selftests/rcutorture/configs/hazptr/CPU128 b/tools/testing/selftests/rcutorture/configs/hazptr/CPU128
-new file mode 100644
-index 000000000000..079b463607e8
---- /dev/null
-+++ b/tools/testing/selftests/rcutorture/configs/hazptr/CPU128
-@@ -0,0 +1,16 @@
-+CONFIG_SMP=y
-+CONFIG_NR_CPUS=128
-+CONFIG_PREEMPT_NONE=n
-+CONFIG_PREEMPT_VOLUNTARY=n
-+CONFIG_PREEMPT=y
-+CONFIG_HZ_PERIODIC=n
-+CONFIG_NO_HZ_IDLE=y
-+CONFIG_NO_HZ_FULL=n
-+CONFIG_HOTPLUG_CPU=y
-+CONFIG_SUSPEND=n
-+CONFIG_HIBERNATION=n
-+CONFIG_DEBUG_LOCK_ALLOC=n
-+CONFIG_PROVE_LOCKING=n
-+CONFIG_DEBUG_OBJECTS_RCU_HEAD=n
-+CONFIG_DEBUG_KERNEL=y
-+CONFIG_HAZPTR_DEBUG=y
-diff --git a/tools/testing/selftests/rcutorture/configs/hazptr/CPU128.boot b/tools/testing/selftests/rcutorture/configs/hazptr/CPU128.boot
-new file mode 100644
-index 000000000000..1d09a6446080
---- /dev/null
-+++ b/tools/testing/selftests/rcutorture/configs/hazptr/CPU128.boot
-@@ -0,0 +1 @@
-+hazptrtorture.torture_type=hazptr-stack
-diff --git a/tools/testing/selftests/rcutorture/configs/hazptr/CPU256 b/tools/testing/selftests/rcutorture/configs/hazptr/CPU256
-new file mode 100644
-index 000000000000..b00a984977f3
---- /dev/null
-+++ b/tools/testing/selftests/rcutorture/configs/hazptr/CPU256
-@@ -0,0 +1,16 @@
-+CONFIG_SMP=y
-+CONFIG_NR_CPUS=256
-+CONFIG_PREEMPT_NONE=n
-+CONFIG_PREEMPT_VOLUNTARY=n
-+CONFIG_PREEMPT=y
-+CONFIG_HZ_PERIODIC=n
-+CONFIG_NO_HZ_IDLE=y
-+CONFIG_NO_HZ_FULL=n
-+CONFIG_HOTPLUG_CPU=y
-+CONFIG_SUSPEND=n
-+CONFIG_HIBERNATION=n
-+CONFIG_DEBUG_LOCK_ALLOC=n
-+CONFIG_PROVE_LOCKING=n
-+CONFIG_DEBUG_OBJECTS_RCU_HEAD=n
-+CONFIG_DEBUG_KERNEL=y
-+CONFIG_HAZPTR_DEBUG=y
-diff --git a/tools/testing/selftests/rcutorture/configs/hazptr/CPU256.boot b/tools/testing/selftests/rcutorture/configs/hazptr/CPU256.boot
-new file mode 100644
-index 000000000000..1d09a6446080
---- /dev/null
-+++ b/tools/testing/selftests/rcutorture/configs/hazptr/CPU256.boot
-@@ -0,0 +1 @@
-+hazptrtorture.torture_type=hazptr-stack
+diff --git a/drivers/spi/spi-qpic-snand.c b/drivers/spi/spi-qpic-snand.c
+index 001e4bd8bb4b..c90c2001ee8d 100644
+--- a/drivers/spi/spi-qpic-snand.c
++++ b/drivers/spi/spi-qpic-snand.c
+@@ -115,6 +115,7 @@ struct qpic_spi_nand {
+ 	__le32 addr2;
+ 	__le32 cmd;
+ 	u32 num_cw;
++	bool bbm_read;
+ 	bool oob_rw;
+ 	bool page_rw;
+ 	bool raw_rw;
+@@ -457,6 +458,16 @@ static int qcom_spi_ecc_prepare_io_req_pipelined(struct nand_device *nand,
+ 	if (req->mode == MTD_OPS_RAW)
+ 		snandc->qspi->raw_rw = true;
+ 
++	/*
++	 * Try to detect when the SPI NAND framework reads the first
++	 * two bytes of the OOB area searching for bad block marker
++	 * bytes.
++	 */
++	snandc->qspi->bbm_read = req->mode == MTD_OPS_RAW &&
++				 req->type == NAND_PAGE_READ &&
++				 req->dataoffs == 0 && req->datalen == 0 &&
++				 req->ooboffs == 0 && req->ooblen == 2;
++
+ 	return 0;
+ }
+ 
+@@ -666,7 +677,8 @@ static int qcom_spi_read_last_cw(struct qcom_nand_controller *snandc,
+ 	 * This can be removed once single-byte bad block marker support
+ 	 * gets implemented in the SPINAND code.
+ 	 */
+-	snandc->data_buffer[bbpos + 1] = snandc->data_buffer[bbpos];
++	if (snandc->qspi->bbm_read)
++		snandc->data_buffer[bbpos + 1] = snandc->data_buffer[bbpos];
+ 
+ 	memcpy(op->data.buf.in, snandc->data_buffer + bbpos, op->data.nbytes);
+ 
+
+---
+base-commit: 65766f75dce38103e5cbfa40eefffdc285645084
+change-id: 20261005-qpic-snand-skip-bbm-copy-f2d5c0219e7e
+
+Best regards,
 -- 
-2.43.0
+Gabor Juhos <j4g8y7@gmail.com>
 
