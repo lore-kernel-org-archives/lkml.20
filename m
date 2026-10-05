@@ -1,123 +1,169 @@
-Received: from mail-ed2-f12.google.com (mail-ed2-f12.google.com [74.125.228.76])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 07604411F83
-	for <linux-kernel@vger.kernel.org>; Mon,  5 Oct 2026 23:16:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.228.76
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791242221; cv=pass; b=Mckp/0T/uELlmUVvk/n2uTv8LYOAgoAMHxfDL04ruaLvOwLHZLoN8m0CQ4V7NwTf3O+pqFrjevkIg1SMg5PRMANkBPRI10M3xNEhfek75fPAHJYYSStWhAi3E1dxedSh+mIKafigrDMUXNZZkIiv/3aIZRDmuQ6sKQ6j8FvGrW0=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791242221; c=relaxed/simple;
-	bh=za9hu1YYVovCuUdIpWVDTK3e5USASw6UFL3szK/D1qE=;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0CB163859D3
+	for <linux-kernel@vger.kernel.org>; Mon,  5 Oct 2026 23:18:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791242307; cv=none; b=YUNGuBWwmSCpcPEv7S9GdBGogS/wTGsvFm8cbwHyR7VaQoboD8cXnBGPWJD1XDP9kVYYNzsGiHxoXZTE6qcX72xUiAwn9ecVJ14limxHwTIWNB1SNLZRzAb7+gEf88duKcwiE+JAzdJBPRnmRXnpXT4FDIBaq5BAGHwzELOMZmE=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791242307; c=relaxed/simple;
+	bh=vqJr189aB6M/6k1UCPtjVmkb5zvPig46uo0mk1JCeMQ=;
 	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=jU9sJFNVaoMnjJ7WxG+/eFoFk5Mp4twStS2L3tmhVa11698ejgqqdtGr97p6But2vvkcBCjLNMxH6yE5thUJeB3sD84HId7NVhNKhibe7+tBM7Uz8lWq5lmRXc6oMrIwhYPu7RnGVH1sNyYwUS9zGiknFjpc81FSCGAAEzt0UG0=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=RSC7b4VY; arc=pass smtp.client-ip=74.125.228.76
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	 To:Cc:Content-Type; b=oTFSes/X239JrEhOUwRlY1HyjxCO6dxU3kWKK+9mEsAMmJXQz0bpq1M5Nf79tprk38KiunbVa4KzRvV57d+FYaeu5hSArXDN/Bu7AEYxwkr7TJtV3HKi6bXkr8SFMfUVkPqZClPvn6hxWStxHewHSGfxlYqKKwYebLrFpg5VJcs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=cBlRD5ys; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="RSC7b4VY"
-Received: by mail-ed2-f12.google.com with SMTP id 4fb4d7f45d1cf-6a9984f9adcso3479282a12.0
-        for <linux-kernel@vger.kernel.org>; Mon, 05 Oct 2026 16:16:59 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1791242218; cv=none;
-        d=google.com; s=arc-20260327;
-        b=fvb3WahD1hXYVUvCHYg1r3iAsmo0fGs/18/ujQ8lgI2x9Bq4oZ/ghh0E3aKKS5jVLM
-         /96wRNfjMHKKZ1Y1R6gUS8/ikr/dga+HpWcb7BRd5B8ZOxqIk4FnkpztKqUFIxAfBdE7
-         xMzFNjC7nQz0dtFMzwcmDl0Z1awVdOLMgpZSq07JPbJFoKW0PcwAxwoh7JPoQG0c6vPN
-         H8RkquUp6VMIrKerGmi0wJ3r+m5ZGqbrz+7LQGHEg5W+7FQTfgq7pR5Zlg87nL628wXR
-         lllZXkGIePTA+87Z94+d9pKNSFv/FzL2BWucrW37ysrr7HBTqhjmgA0oFpaZmRYAbnxo
-         sjRg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=ggl0IbFeEE6Or0Q3w+SXUyGJmoXHMIUd48S2FNEyG24=;
-        fh=Qjm7icpCrbWJ3DXWs0yxx7D8KN2KAPJP3x75smxsyLc=;
-        b=qNsx/F2sv1k0c6bKDsC/9F7Ju1pSNzY1U3gVWQqQGtNqjNOkUUnUcZqBNRPqS5sABt
-         l+VuT3TFRD3S46bkToQcCYjO99gSlWjl8sjIowlmreLJG+FxKLgrDCe680FObqDHVbKv
-         PHPdDCqU7vpLtbBqAI6Q6ca8IssXOzv8FtESRZTck1xGjk06TLoArRN6Eb1cnRa4SjBZ
-         S1imK5sCNAO061EQaVKlFlIYIPGizFdqZzRgObeX1F72ub5R/DTieei+mNyoVmL6Ew9Q
-         bzq4/iR6QXIhSfewCHF/XRhvwW5LQ3bPr0yu6SenSxY139GU9677mHxvx8/6I5l8f67S
-         JTyg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791242218; x=1791847018; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=ggl0IbFeEE6Or0Q3w+SXUyGJmoXHMIUd48S2FNEyG24=;
-        b=RSC7b4VYFohQA+22vFEq/w3COkgVUnGQ9SwB9fX5ky4yNhxMujGkmLnfZKhegPM4fK
-         6cab6JYPpDs7xxVoEomGeUVi4VaXF5X9wogyNmWX2jMmZ3zG14r1mMuNQda9v2KtQS5n
-         pKUfDplw8KFaVSibZ4FnhjOeVw1a0kGmBSvoGTXtvMSfsPwJtp0lUqETNekHSQ2fHX/Y
-         gzH98xOQmm/E3P8EMnocX9XKDUonCXiX7Jgr3Rl0ViUw4zBrIlMQ5l5EcuVXYZNz8Spy
-         giOdqfFStOIj9pOV3mQWvg2NrwtBw4BOmuuh+I5AxHbt5RzGLQKhnmKsFWElEsmZeSed
-         U59A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791242218; x=1791847018;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=ggl0IbFeEE6Or0Q3w+SXUyGJmoXHMIUd48S2FNEyG24=;
-        b=LeAkjZ3WjJLGEIghkd9mjF1oGVP3pX8XA5zz2gqoMV2H82Cah7gFm6kK7rBF+pnkY9
-         ciHbPACXEMd9I9fVdE0mEbZOiFpjh+H6TQG14SXfRo6CjxL7uhGjoIfDCOQ1D4/vQUUF
-         vkb1Joscpqu3F5dLaeyyJutrDU66FZv8809soHTJBe+aLjWKLl4XTp4jlqtQW02nFIvv
-         5rEHeW/NGt48X2oLUSOnDI1IoQTEBvOvWxQ/7vVUJtAAXDg1Fk/KmqmYpBNTVLT1HrBU
-         NP5wo4vQulHn7k1+A/xOX3ouLu9WzyUds6Hepuf3cdV7UPJULmtsLvAto3huaA3I7Fs9
-         3nGQ==
-X-Forwarded-Encrypted: i=1; AKwUvByPcZr4bcybEPNOXWWHO3Fj76TjEMrbUP6Tht7jkHUwfPnlBb0oPo8ra1IR15ISdeJCdz8Gy8tsyByrBCM=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIX7/d0Z2fcINo0gtqMUAnHSERoi4tTF9LM1oYnG7J1WkIBIs8G
-	1oYYkMEL3oOZf2xtY0+tKyWxICJoRPMAf/YBnc3xjm7PGBOJtZR+N/3sK07Zccy3oQKdAv9PgSK
-	GaIvz3HXHChq4Xux+ykpWBD4t+CG1zfg=
-X-Gm-Gg: AYBFou2nbbNWgQ9wXFa89Nebavl0a8anjTaHdingZwo8r+cpr3HEMH8RJifOuyZ38yO
-	yJaZR4yYd4r3dieewORjaCEyn6qgOnx0yooCd3+4sizze3/qFwdo3cIjdEGopdZ14+UcmopKa+8
-	mbCMQqMsbyKKfzA+yNj9iHRFPLhDUrt6vxAQoDlCyhlNT8kgwiAKyTvhPm380prCvRCC6RW4gz7
-	RXDBG5NPoDUBSxT91PI4T1Y9N1Uj0XVyNIMul007YAKSHjP62k7qDusDY/3IJlSDZhAv6yRskYu
-	0A32zOLaUX0T8QIhiChWYF0ih0gR046iZQ6xphDRx24leMHMuJjIFXJGHIoIt4bB5AgG8TzCn3v
-	oY4KwgfElx+wd2xZWumSIs+rvZZePZSTJkKDCKF+3B3suaF9CqWZ3ZDJ4kO7sGaLvIxCQWkd8UD
-	HzaKWATFfyXABQt0sGaGBbvGOMTBNTMg9d0qTjwfiohr10RkRWoRhE6l+18HytqFweFjLlXNnhe
-	4PQ
-X-Received: by 2002:a05:6402:23c9:b0:6aa:ff76:3076 with SMTP id
- 4fb4d7f45d1cf-6af9e356e84mr9525001a12.32.1791242217990; Mon, 05 Oct 2026
- 16:16:57 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="cBlRD5ys"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D960F1F0089D
+	for <linux-kernel@vger.kernel.org>; Mon,  5 Oct 2026 23:18:25 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791242305;
+	bh=m1vHZTgiceqAeKubO4yteGWWVpfrRtEcB3KrQZKdVic=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=cBlRD5ysFzMUhIxx6nnCNE3HXRi3fltTuzomaxiJ+5Ulh5zJnd7tIkGaluVbxK9c3
+	 1kF1oDXfDdrnvFewaRKPJHvdoCmc9gR7BbbneZowbMOLLY0d0P9tJDXRFUPDKYota0
+	 JNgPgVmhtBJP+SoALYliEKKrFTY+VbwZXrsFcqsi8d5XYgpe0iKOuLk735YwPRkqmV
+	 qpK2iaL0I/bOvp3ZsBC5ZisiK23K2QmQvLoNh417RZdyO7X0QLUGP2Jct5tNsAkAv1
+	 tLoDuoFKFXfjnk0qTs3qjz2+6vXM42tU890lDNmd72suqfwp1Juit2Xq7rOyWgax/m
+	 ffzjCEZvzjx3g==
+Received: by mail-lf2-f13.google.com with SMTP id 2adb3069b0e04-5bccb8e31d2so9162e87.1
+        for <linux-kernel@vger.kernel.org>; Mon, 05 Oct 2026 16:18:25 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBxlz1e0/RnpeyJl6oSLawopQO1vD6mtRVga2Cpsk+YaH1gxk+xg978IV6Mguobm5PlYRqiknP0imR97bLU=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJZA0uSrPEnuWQKIg1K92H7qTzu71v5JPbiiGZE2Js9zK+W5G5Y
+	LSkuq65H5ww/p3/dMzNyiatoFQ8EHLLn6AVWONHHqBNI1SZeQxcqU5+lkwv48XEIieCKknDCVuj
+	DY4fIWX5Ep/GKZRJkdzTcvdWj8GzcXwI=
+X-Received: by 2002:a05:6512:ba6:b0:5bb:7b0b:7bd8 with SMTP id
+ 2adb3069b0e04-5bb93832eb3mr4128213e87.7.1791242304567; Mon, 05 Oct 2026
+ 16:18:24 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20261005225028.465866-1-rosenp@gmail.com> <179124091720.2231598.15531231594364757004@kernel.org>
-In-Reply-To: <179124091720.2231598.15531231594364757004@kernel.org>
-From: Rosen Penev <rosenp@gmail.com>
-Date: Mon, 5 Oct 2026 16:16:46 -0700
-X-Gm-Features: AclHuK_s9Eud8-TCUpDZfMQzzNEAVfdhAdJIVWcNPPNRW014EWQvbIbsbgBlhm8
-Message-ID: <CAKxU2N-POZFgujAAELRjvoT0N5AEF4mg=GzZvtQah2iQuhp5cQ@mail.gmail.com>
-Subject: Re: [PATCH v3] net: phy: marvell: keep WOL_EIE across interrupt reconfiguration
-To: netdev-bot+sinfo@kernel.org
-Cc: netdev@vger.kernel.org, Andrew Lunn <andrew@lunn.ch>, 
-	Heiner Kallweit <hkallweit1@gmail.com>, Russell King <linux@armlinux.org.uk>, 
-	"David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, 
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
-	Michael Stapelberg <michael@stapelberg.de>, linux-kernel@vger.kernel.org
+References: <20261002115850.962676-1-o.rempel@pengutronix.de> <20261002115850.962676-7-o.rempel@pengutronix.de>
+In-Reply-To: <20261002115850.962676-7-o.rempel@pengutronix.de>
+From: Linus Walleij <linusw@kernel.org>
+Date: Tue, 6 Oct 2026 01:18:11 +0200
+X-Gmail-Original-Message-ID: <CAD++jL=tuGRjbKqLhSLTobRC00UJkG0XhWxguxRRwDOTQLHd2w@mail.gmail.com>
+X-Gm-Features: AclHuK_4TTLuhQrg31EG1rZy12IMoUL0uk0wkqHxXU1WENSCWOtzWqpYpVQCY5U
+Message-ID: <CAD++jL=tuGRjbKqLhSLTobRC00UJkG0XhWxguxRRwDOTQLHd2w@mail.gmail.com>
+Subject: Re: [PATCH net-next v1 6/8] net: dsa: realtek: rtl8365mb: add QoS
+ baseline and DCB default priority
+To: Oleksij Rempel <o.rempel@pengutronix.de>
+Cc: Luiz Angelo Daros de Luca <luizluca@gmail.com>, Andrew Lunn <andrew@lunn.ch>, 
+	Vladimir Oltean <olteanv@gmail.com>, "David S. Miller" <davem@davemloft.net>, 
+	Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
+	kernel@pengutronix.de, linux-kernel@vger.kernel.org, 
+	=?UTF-8?Q?Alvin_=C5=A0ipraga?= <alvin.sipraga@analog.com>, 
+	netdev@vger.kernel.org, Simon Horman <horms@kernel.org>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-On Mon, Oct 5, 2026 at 3:55=E2=80=AFPM <netdev-bot+sinfo@kernel.org> wrote:
->
-> Hi!
->
-> This is an automated message. This series looks like a fix, but its
-> commit messages seem to be missing some information:
->
->  - How the issue was discovered, e.g. hit in production, hit during
->    development, syzbot report, manual code inspection, LLM or static
->    analysis tool scan.
-This was tested on a Marvell Helios 4 device.
->
-> Please do not repost the series just to address the above. Instead,
-> reply to this email with the missing information, so that reviewers
-> can take it into account. If the series needs another revision for
-> other reasons, please include the information in the commit messages
-> then.
->
-> The evaluation is done by an LLM so it may be wrong, if you think
-> that is the case please reply and explain.
+Hi Oleksij,
+
+thanks for your patch!
+
+As mentioned I think the main logic of this DCB stuff needs to go into
+common code.
+
+Whether to use rtl83xx.c or create a new file rtl83xx-dcb.c with just this
+QoS DCB stuff is up to you.
+
+Some detailed comments:
+
+On Fri, Oct 2, 2026 at 1:58=E2=80=AFPM Oleksij Rempel <o.rempel@pengutronix=
+.de> wrote:
+
+> +#define RTL8365MB_QOS_QMAP_IDX(_nq)                    ((_nq) & 0x7)
+> +
+> +/* Internal priority -> queue-id map. Eight tables (one per queue count)=
+,
+> + * indexed [table][prio]; four priorities per register, 3-bit qid. An N-=
+queue
+> + * configuration uses table N-1 (1Q is table 0 at 0x0904, 8Q is table 7)=
+.
+> + */
+> +#define RTL8365MB_QOS_PRI_TO_QID_TABLE(_nq)            ((_nq) - 1)
+> +#define RTL8365MB_QOS_PRI_TO_QID_REG(_t, _pri) \
+> +       (0x0904 + ((_t) << 1) + ((_pri) >> 2))
+
+(...)
+
+> +static int rtl8365mb_qos_setup_queues(struct realtek_priv *priv,
+> +                                     unsigned int nq)
+> +{
+> +       int table =3D RTL8365MB_QOS_PRI_TO_QID_TABLE(nq);
+
+Prio to qid table is nq-1
+
+> +       struct dsa_switch *ds =3D &priv->ds;
+> +       struct dsa_port *dp;
+> +       int tt, ret;
+> +
+> +       dsa_switch_for_each_port(dp, ds) {
+> +               u32 reg =3D RTL8365MB_QOS_PORT_QUEUE_NUMBER_REG(dp->index=
+);
+> +               int off =3D RTL8365MB_QOS_PORT_QUEUE_NUMBER_OFFSET(dp->in=
+dex);
+> +
+> +               ret =3D rtl8365mb_set_field(priv, reg,
+> +                                         rtl8365mb_qos_sel_field_mask(of=
+f),
+> +                                         RTL8365MB_QOS_QMAP_IDX(nq));
+
+This sets qos port queue number to RTL8365MB_QOS_QMAP_IDX(nq)
+which is nq & 7.
+
+> +               if (ret)
+> +                       return ret;
+> +       }
+> +
+> +       for (tt =3D 0; tt < IEEE8021Q_TT_MAX; tt++) {
+> +               u32 reg =3D RTL8365MB_QOS_PRI_TO_QID_REG(table, tt);
+
+This finds the reg for table nq-1
+
+> +               int off =3D RTL8365MB_QOS_PRI_TO_QID_OFFSET(tt);
+> +               int tc =3D ieee8021q_tt_to_tc(tt, nq);
+> +
+> +               if (tc < 0)
+> +                       return tc;
+> +
+> +               /* QID field holds the traffic class */
+> +               ret =3D rtl8365mb_set_field(priv, reg,
+> +                                         rtl8365mb_qos_sel_field_mask(of=
+f), tc);
+> +               if (ret)
+> +                       return ret;
+> +       }
+
+And sets it.
+
+In a code dump I have for RTL8370 writes the same index into both registers=
+,
+so something like:
+
+{
+   int qmapidx =3D RTL8365MB_QOS_QMAP_IDX(nq);
+
+    ret =3D rtl8365mb_set_field(priv, reg,
+     rtl8365mb_qos_sel_field_mask(off),
+     qmapidx);
+
+(...)
+
+    for (tt =3D 0; tt < IEEE8021Q_TT_MAX; tt++) {
+      u32 reg =3D RTL8365MB_QOS_PRI_TO_QID_REG(qmapidx, tt);
+      int off =3D RTL8365MB_QOS_PRI_TO_QID_OFFSET(tt);
+      int tc =3D ieee8021q_tt_to_tc(tt, nq);
+(...)
+
+So we compute index once and use it both for port selection and
+table programming.
+
+Can you check this in the RTL8365MB manual, this old RTL8370 code
+could be wrong but it's also the way RTL8366RB does things.
+
+Yours,
+Linus Walleij
