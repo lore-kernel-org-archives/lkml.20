@@ -1,92 +1,94 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B5BCC34DB7B;
-	Mon,  5 Oct 2026 06:33:03 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 53C5D353A8A;
+	Mon,  5 Oct 2026 06:34:17 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791181984; cv=none; b=QAMDNUSULvvBtTUOdwhSQSBHG2PgjFFm32YjA1zcUZZwmnLpRe3jobuEnWlEZJ5YUuydwZPycBl8XLKaYCKb3DDRsjqvPygAucjOgR3rC3Tmwex9dbqKEdRBzO2DKVV+3PGyBqxmjZf7npNz0/C/0a6zzsf3RwpK59/AMSudq4E=
+	t=1791182058; cv=none; b=ie0LrzsFm+IitWmTixDeOghxcjtmsPC1DPRFCcEcwlBI/1vV49yOi0PIyTfnKIMLJrMWFndBv5eBMBFAd1Xx+XxotUcJv+w/zJ4UiFCOuMGskJRm6WX5chMCrlN2AGuHM4qp/kcTnDtFyf86s5THJI0SRKjd3QO0gQeu3O26JYI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791181984; c=relaxed/simple;
-	bh=0r5uPfRzyAuhIbs2rra9rI8p9k1nqL3cEcAmMNICGlc=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=uO2UeIexyQdj8yLqjQUpB/OhjtDPL08CSMiuoVZUq6Z1m3HDdR90NMbqU94Nw2z8l60IaHsbjcztt6TwLUeGwZhXfchwqSnKu9yZK8NVqwGsgI3pNukdbAvzjD53lpIvrM5QK4lS84Bt1JCcneaycPgU3+hCBW1GubRhEMHz1To=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=h+6yWGp2; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791182058; c=relaxed/simple;
+	bh=t0VND/ZNi2LzgHHGr25DobYEoxL3W1E6S9XSlquf0Go=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=YFvOx0sgNf3ETevcwneOTCc2dexd1j57PAmQ7fHv8nK4/YKE+LTDVKqfwZvlOfzEAeLO1s4cjUz5sFCXPA6YXeq7I1Oa2JXRMEU0oxdiOAdupoYrEbxFL0fcvMfJ6q8im0guWKF6/wc3fW8ttEZeFh9Gxg0eCn6Xq9wZJsP/ZqU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=SWPGZUTN; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="h+6yWGp2"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 38AC41F00893;
-	Mon,  5 Oct 2026 06:33:01 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="SWPGZUTN"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DFCDC1F00893;
+	Mon,  5 Oct 2026 06:34:16 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791181983;
-	bh=UVGMJw8PqY8Oci1Q157ZAhH5TwSNkhX3KpJyPGxALTk=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=h+6yWGp2Jdf8rMNyCknP0aNz/beGedLstv378nrhHzbwaL6Ym2DUnQfJpwJ4HgpGh
-	 mk9SBQORedClfQznX1LlnjjlZVcKmRZb4qhHeombzNasV+C+2f/PrJEMKg4GTg93rA
-	 JJ6/Lb5lZyUeYqDvREHLz8pMqngEMurofaIXyQqOMUGRLQtso2jOd4X1p9X4VTGtfS
-	 9Pwo3olMQ02/6hyXlLBdTNUmywots57v5xlWZQrApw1F9nf6Yc48FIpnUlcxlGLdl7
-	 bL33ZQz0DIQVd19cZVkRo2ZcGBhaWGAsqCc6s0Stw5g3A7F1GDgaE4on3eSyUqn2ve
-	 WcMyOXR6CEK2w==
-Date: Mon, 5 Oct 2026 07:32:58 +0100
-From: Will Deacon <will@kernel.org>
-To: Nicolin Chen <nicolinc@nvidia.com>
-Cc: robin.murphy@arm.com, jgg@nvidia.com, joro@8bytes.org, praan@google.com,
-	kevin.tian@intel.com, smostafa@google.com,
-	linux-arm-kernel@lists.infradead.org, iommu@lists.linux.dev,
-	linux-kernel@vger.kernel.org, jamien@nvidia.com, kas@kernel.org
-Subject: Re: [PATCH v10 06/13] iommu/arm-smmu-v3: Add
- ARM_SMMU_OPT_KDUMP_ADOPT for kdump kernel
-Message-ID: <asNEmjxZ73ezL4I3@willie-the-truck>
-References: <cover.1788130528.git.nicolinc@nvidia.com>
- <d661395d986d3aa78af200f55e43740996ee8a0f.1788130528.git.nicolinc@nvidia.com>
- <asJTsw-oWDlSqNa3@willie-the-truck>
- <asK7VILK4CgEFjdT@nvidia.com>
+	s=k20260515; t=1791182057;
+	bh=iaTGEG/jjedlnWlnKk2FZ8mYAT4nod/qch1LA6gb3Kg=;
+	h=From:To:Cc:Subject:Date;
+	b=SWPGZUTN6P75/I3b+SODm+Ts1BrsuAcCw2sxDak6hRtgeuJGnLEVrAmDdKyOcCJGW
+	 RrBoYOC3hbBJRrkUDa6AglOf+ISmH4USW6d3sjVL8Ysz2yNSkQxY2SXkF+w4B+WuNN
+	 1Grm0aaj9wr22UBa15qlQ0pobq69FiLlZtOqGnJHRZOy9RPQLbYD6O0sWoccmCA6EJ
+	 RzWWMQ/hldpkoApGqQiPyPakH74VcRdMPlZNF+n3lnNo8Fvr+CE/b8W6D37G0/rDsI
+	 vnLpuEfdoREiAk5XgnunIEp1KAVEt5bOo7TXUK0Mo6Gm7KfqsSIVH67KQyKikSXGPr
+	 qdnakr2SoTPZw==
+From: Namhyung Kim <namhyung@kernel.org>
+To: Arnaldo Carvalho de Melo <acme@kernel.org>,
+	Ian Rogers <irogers@google.com>,
+	James Clark <james.clark@linaro.org>
+Cc: Jiri Olsa <jolsa@kernel.org>,
+	Adrian Hunter <adrian.hunter@intel.com>,
+	Peter Zijlstra <peterz@infradead.org>,
+	Ingo Molnar <mingo@kernel.org>,
+	LKML <linux-kernel@vger.kernel.org>,
+	linux-perf-users@vger.kernel.org
+Subject: [PATCH v1 0/7] perf symbol: Properly set DSO binary/symtab types
+Date: Sun,  4 Oct 2026 23:34:04 -0700
+Message-ID: <20261005063411.114244-1-namhyung@kernel.org>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <asK7VILK4CgEFjdT@nvidia.com>
+Content-Transfer-Encoding: 8bit
 
-On Sun, Oct 04, 2026 at 01:47:16PM -0700, Nicolin Chen wrote:
-> On Sun, Oct 04, 2026 at 02:25:07PM +0100, Will Deacon wrote:
-> > On Sun, Aug 30, 2026 at 04:18:07PM -0700, Nicolin Chen wrote:
-> > >  drivers/iommu/arm/arm-smmu-v3/Makefile        |   1 +
-> > >  drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.h   |  21 ++
-> > >  .../iommu/arm/arm-smmu-v3/arm-smmu-v3-kdump.c | 229 ++++++++++++++++++
-> > 
-> > Please don't put this here. The live update / handover stuff is going to
-> > need very similar logic (see the RFC from Pranjal) and I don't fancy
-> > having to rename or resplit this file when that comes along.
-> > 
-> > Maybe just stick all of arm-smmu-v3-kexec.c and arm-smmu-v3-kdump.c into
-> > arm-smmu-v3-handover.c or something?
-> 
-> Hmm, Pranjal and I already aligned that cleanly. And there is no
-> further rename/resplit in his series.
-> 
-> arm-smmu-v3-kexec: common helpers for both
-> arm-smmu-v3-kdump: kdump specific (my series)
-> arm-smmu-v3-liveupdate: liveupdate specific (Pranj's)
-> 
-> Each of them is built on a separate config:
->  arm_smmu_v3-$(CONFIG_ARM_SMMU_V3_KEXEC) += arm-smmu-v3-kexec.o
->  arm_smmu_v3-$(CONFIG_IOMMU_LIVEUPDATE) += arm-smmu-v3-liveupdate.o
->  arm_smmu_v3-$(CONFIG_CRASH_DUMP) += arm-smmu-v3-kdump.o
-> 
-> If we put everything into one big file, we'd add the two individual
-> config guards internally, which isn't as clean as currently IMHO.
-> 
-> Note that the kdump file has a very long notes (kdump specific).
+Hello,
 
-I dunno, three files seems way over the top for this imo. I'd rather have
-one (even if it uses preprocessor guards internally) otherwise it just
-seems inevitable that we'll have random internals exposed from one file
-to the other, or duplication of logic or both. Even if we end up splitting
-it eventually, I'd much rather start from a position where everything is
-in one place.
+Currently we have 3 types for a DSO.
 
-Will
+* binary type: determines where to read binary instruction or data of the
+  DSO.  Basically used by annotate.  Some (special) DSOs like kallsyms or
+  JIT may not have the data though.
+
+* symtab type: determines where to read symbol tables.  Set when symbols
+  in the DSO are loaded.
+
+* debug info type: determines where to read debug info.  Used by srcline,
+  DWARF unwinding, data type profiling and so on.  Often debug info is
+  saved in a separate file.
+
+Some DSOs may have the same type for 3 and others can have all different.
+Previously it generally assumed binary type would be same as symtab type
+but now I think we should not and only set the binary type as it's used.
+
+Also it should make sure that symtab type is set properly after loading
+symbols in the DSO.
+
+Probably this patchset won't make any practical difference in runtime
+behaviors but I think it's good to track them accurately.
+
+Thanks,
+Namhyung
+
+
+Namhyung Kim (7):
+  perf tools: Remove redundant dso data init
+  perf tools: Try linked debug files for DSO debug info
+  perf symbol: Update symtab type of vmlinux from build-id cache
+  perf symbol: Set binary/symtab type for split kallsyms
+  perf symbol: Set dso symtab type for libbfd
+  perf symbol: Set binary type for JIT map DSOs
+  perf symbol: Do not set binary type from symtab type
+
+ tools/perf/util/dso.c    |  3 +--
+ tools/perf/util/symbol.c | 23 ++++++++---------------
+ 2 files changed, 9 insertions(+), 17 deletions(-)
+
+-- 
+2.55.0
 
