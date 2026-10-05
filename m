@@ -1,71 +1,139 @@
-Received: from outgoing.mit.edu (outgoing-auth-1.mit.edu [18.9.28.11])
+Received: from proxmox-new.maurer-it.com (proxmox-new.maurer-it.com [94.136.29.106])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 322F6499F0E
-	for <linux-kernel@vger.kernel.org>; Mon,  5 Oct 2026 14:03:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=18.9.28.11
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1E79148BD29;
+	Mon,  5 Oct 2026 14:06:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=94.136.29.106
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791209009; cv=none; b=hdUtiwuI97aQCqxfp7WgUknfDcIq9qb4jawfjhwBzD5HFH5Fdn+KYPhDKgKEl7qbyDeyZYXerECKbTuFwjBcUGbRRhvyY5A5JS7aXJpNK5Uz/d5kTCEE8+lKhn87qaudFV56RhJgpPXuLxqhANo44oOSQ7DUWCk84S+EXh9UTJ0=
+	t=1791209209; cv=none; b=h3oGwPex1DLsnpqwQzaEMM/U7Ef1K5de3BM1AqVWGGzXbPsMfz2TfuPcuj5HKgi3X7KwjqOQgw18YFpCvoe6RSneWC79jS6IyPnL7WJxPNGnlQPuN5HdB796qMb+dhKHCORRbOe5uSw6/Ub+60fhI38L4v+UD1TxyocTuH6pyjs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791209009; c=relaxed/simple;
-	bh=Y0BFTkA47iyFJ29RfA9FIn0I7Rr/kvLIQWeKr2f47KQ=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=D+w6u382VWCw5NT7Ldp//PGBSpAnXr003HxodSj9pEZcF43+vfomua8dWTHjKIFv3sd1Z56MKkrc2GZhzXQG8cw5RnE3inHK5wCdX/Hs4DjPL3K+gC+A8i+OZqx34G101CLKnZfMo6ZsAM7GRf+AKkUSFj7Hkn/HBqOpEZv5hf4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mit.edu; spf=pass smtp.mailfrom=mit.edu; dkim=pass (2048-bit key) header.d=mit.edu header.i=@mit.edu header.b=V6LSENu8; arc=none smtp.client-ip=18.9.28.11
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mit.edu
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mit.edu
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=mit.edu header.i=@mit.edu header.b="V6LSENu8"
-Received: from macsyma.thunk.org ([151.240.45.38])
-	(authenticated bits=0)
-        (User authenticated as tytso@ATHENA.MIT.EDU)
-	by outgoing.mit.edu (8.14.7/8.12.4) with ESMTP id 695E1pXg006784
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Mon, 5 Oct 2026 10:01:53 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mit.edu; s=outgoing;
-	t=1791208920; bh=Upl7F91amjUFqp9wyYmz9ODrIhZOAhPMAxoyRitl3L0=;
-	h=Date:From:Subject:Message-ID:MIME-Version:Content-Type;
-	b=V6LSENu82/5QHJEpjIQKsDLNWAZfXCMl7QKTnJluY+fal63ihQbkpYeXXhLxn3A6M
-	 W2cR9ekZVVHr/2qSqUztc47IiTgmEycOidY9Nq1YSiAIIGGOOqCvaWQ5WPyL9nsvRD
-	 1n0R0Z3LoU0MCg0F4jLyUNYX+FzTtsBd0jaoEealqrDQiNxMpRJnxRZVhp9QrACWcP
-	 0M6szUmqTf52z+bHbn5jlAgjpDq1G6HbseDDXC6KTCCLwSaW06SagzuDoA1UTrDZ19
-	 7TyOuVpsOZwnQSXRfYxKk2WXelHmVZ+W5ogB1/UPVOZNvCgfkEV7xrv7ZlgFf86aHw
-	 PkjbY6mtUUPMA==
-Received: by macsyma.thunk.org (Postfix, from userid 15806)
-	id 4019D1F15D36; Mon,  5 Oct 2026 10:01:50 -0400 (EDT)
-Date: Mon, 5 Oct 2026 10:01:50 -0400
-From: "Theodore Tso" <tytso@mit.edu>
-To: Zhang Yi <yi.zhang@huaweicloud.com>
-Cc: linux-ext4@vger.kernel.org, linux-fsdevel@vger.kernel.org,
-        linux-kernel@vger.kernel.org, adilger.kernel@dilger.ca,
-        libaokun@linux.alibaba.com, jack@suse.cz, ojaswin@linux.ibm.com,
-        ritesh.list@gmail.com, djwong@kernel.org, hch@infradead.org,
-        yi.zhang@huawei.com, yizhang089@gmail.com, chengzhihao1@huawei.com,
-        yangerkun@huawei.com, wangkefeng.wang@huawei.com,
-        yukuai@alb-78bjiv52429oh8qptp.cn-shenzhen.alb.aliyuncs.com
-Subject: Re: [PATCH v6 11/31] ext4: implement buffered read path using iomap
-Message-ID: <asOtpKyvNQOahh5X@mit.edu>
-References: <20260903123543.2302999-1-yi.zhang@huaweicloud.com>
- <20260903123543.2302999-12-yi.zhang@huaweicloud.com>
- <asNrmCSW8UjpyfRv@mit.edu>
+	s=arc-20240116; t=1791209209; c=relaxed/simple;
+	bh=p1HsFVRFpCHQyno+iaA9TH4o+Ur+oGzvppKT1DuYC9U=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=aWpWydgQnGkqQ15BPjgbQL6JfjdzNugdqWh80j7IUOyNBMXAWDIyaK0U3StJMheRB6a3LC1L4qx0/c9z8NKxcvrzh5CblZpU+IyTFs+Nm5T7Dv2mdNnVGe1YZo1QqL2P38Rf/ITWwGTi95aYEAi23KsX6mTJ0o4kcBFFAR645tw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=proxmox.com; spf=pass smtp.mailfrom=proxmox.com; arc=none smtp.client-ip=94.136.29.106
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=proxmox.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=proxmox.com
+Received: from proxmox-new.maurer-it.com (localhost.localdomain [127.0.0.1])
+	by proxmox-new.maurer-it.com (Proxmox) with ESMTP id 6A62E453DB;
+	Mon, 05 Oct 2026 16:06:43 +0200 (CEST)
+From: Gabriel Goller <g.goller@proxmox.com>
+To: Andrea Mayer <andrea.mayer@uniroma2.it>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>
+Cc: netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v4] net: ipv6: seg6: report lwtunnel setup errors via extack
+Date: Mon,  5 Oct 2026 16:06:34 +0200
+Message-ID: <20261005140637.644840-1-g.goller@proxmox.com>
+X-Mailer: git-send-email 2.47.3
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <asNrmCSW8UjpyfRv@mit.edu>
+Content-Transfer-Encoding: 8bit
+X-Bm-Milter-Handled: 55990f41-d878-4baa-be0a-ee34c49e34d2
+X-Bm-Transport-Timestamp: 1791209202531
 
-On Mon, Oct 05, 2026 at 05:23:31AM -0500, Theodore Tso wrote:
-> I tried running "git am" on your patch series, and after resolving a
-> patch conflict manually, I ran a build check to make sure things were
-> still building, and I ran into a couple of issues that caused the
-> build to fail:
+seg6_build_state() rejected invalid configurations with a generic -EINVAL,
+so "ip route add ... encap seg6 ..." always reported "Invalid argument".
 
-Never mind; this was caused bby building on too old of a kernel base.
-When I applied this on a newer kernel, the problem went away.  Sorry
-for the noise!
+Attach an extack message to each of them. The checks themselves and their
+return values are unchanged.
 
-						- Ted
+Signed-off-by: Gabriel Goller <g.goller@proxmox.com>
+---
+
+v4 (https://lore.kernel.org/all/20260923120228.172643-1-g.goller@proxmox.com/):
+ * use NL_SET_ERR_MSG when the SRH attr is missing
+ * use NL_SET_ERR_MSG_ATTR when we have an invalid attr
+
+v3 (https://lore.kernel.org/all/20260922090851.38978-1-g.goller@proxmox.com/):
+ * format fix
+ * use NL_SET_ERR_MSG_ATTR
+
+v2 (https://lore.kernel.org/all/20260918153544.1178884-1-g.goller@proxmox.com/):
+ * dropped tests
+
+ net/ipv6/seg6_iptunnel.c | 27 ++++++++++++++++++++++-----
+ 1 file changed, 22 insertions(+), 5 deletions(-)
+
+diff --git a/net/ipv6/seg6_iptunnel.c b/net/ipv6/seg6_iptunnel.c
+index 69a6ef5c5317..73160179a545 100644
+--- a/net/ipv6/seg6_iptunnel.c
++++ b/net/ipv6/seg6_iptunnel.c
+@@ -762,8 +762,11 @@ static int seg6_build_state(struct net *net, struct nlattr *nla,
+ 	struct seg6_lwt *slwt;
+ 	int err;
+ 
+-	if (family != AF_INET && family != AF_INET6)
++	if (family != AF_INET && family != AF_INET6) {
++		NL_SET_ERR_MSG(extack,
++			       "unsupported address family for SRv6 encapsulation");
+ 		return -EINVAL;
++	}
+ 
+ 	err = nla_parse_nested_deprecated(tb, SEG6_IPTUNNEL_MAX, nla,
+ 					  seg6_iptunnel_policy, extack);
+@@ -771,8 +774,10 @@ static int seg6_build_state(struct net *net, struct nlattr *nla,
+ 	if (err < 0)
+ 		return err;
+ 
+-	if (!tb[SEG6_IPTUNNEL_SRH])
++	if (!tb[SEG6_IPTUNNEL_SRH]) {
++		NL_SET_ERR_MSG(extack, "missing SRv6 SRH attribute");
+ 		return -EINVAL;
++	}
+ 
+ 	tuninfo = nla_data(tb[SEG6_IPTUNNEL_SRH]);
+ 	tuninfo_len = nla_len(tb[SEG6_IPTUNNEL_SRH]);
+@@ -782,13 +787,19 @@ static int seg6_build_state(struct net *net, struct nlattr *nla,
+ 	 */
+ 	min_size = sizeof(*tuninfo) + sizeof(struct ipv6_sr_hdr) +
+ 		   sizeof(struct in6_addr);
+-	if (tuninfo_len < min_size)
++	if (tuninfo_len < min_size) {
++		NL_SET_ERR_MSG_ATTR(extack, tb[SEG6_IPTUNNEL_SRH],
++				    "truncated SRv6 SRH attribute");
+ 		return -EINVAL;
++	}
+ 
+ 	switch (tuninfo->mode) {
+ 	case SEG6_IPTUN_MODE_INLINE:
+-		if (family != AF_INET6)
++		if (family != AF_INET6) {
++			NL_SET_ERR_MSG_ATTR(extack, tb[SEG6_IPTUNNEL_SRH],
++					    "inline mode requires an IPv6 route");
+ 			return -EINVAL;
++		}
+ 
+ 		if (tb[SEG6_IPTUNNEL_SRC]) {
+ 			NL_SET_ERR_MSG(extack, "incompatible mode for tunsrc");
+@@ -804,12 +815,18 @@ static int seg6_build_state(struct net *net, struct nlattr *nla,
+ 	case SEG6_IPTUN_MODE_L2ENCAP_RED:
+ 		break;
+ 	default:
++		NL_SET_ERR_MSG_ATTR(extack, tb[SEG6_IPTUNNEL_SRH],
++				    "invalid SRv6 encapsulation mode");
+ 		return -EINVAL;
+ 	}
+ 
+ 	/* verify that SRH is consistent */
+-	if (!seg6_validate_srh(tuninfo->srh, tuninfo_len - sizeof(*tuninfo), false))
++	if (!seg6_validate_srh(tuninfo->srh, tuninfo_len - sizeof(*tuninfo),
++			       false)) {
++		NL_SET_ERR_MSG_ATTR(extack, tb[SEG6_IPTUNNEL_SRH],
++				    "invalid SRv6 segment routing header");
+ 		return -EINVAL;
++	}
+ 
+ 	newts = lwtunnel_state_alloc(tuninfo_len + sizeof(*slwt));
+ 	if (!newts)
+-- 
+2.47.3
+
+
