@@ -1,267 +1,133 @@
-Received: from sender6-op-o12.zoho.com (sender6-op-o12.zoho.com [165.173.180.12])
+Received: from fhigh-b7-smtp.messagingengine.com (fhigh-b7-smtp.messagingengine.com [202.12.124.158])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7D21822126C;
-	Mon,  5 Oct 2026 04:42:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=165.173.180.12
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791175332; cv=pass; b=AVLD3uynFm525cUOAGYAonXbgzNlEThO3qN0GycvJ3MdpP7IwlsiUWDzZeCg7GRN3nOYZotkBbeZO8uETmfL9MwXJEy08n3wfCu1jEPq1pbluRp8WV0oEPjNltAnkDNf3oUFFpL0lmxNcoNqVHBPVzuxa8pCRC8EvvXdD0dVt30=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791175332; c=relaxed/simple;
-	bh=TZxNSZ/fvte5/PVYeZHaRCQtAGAMtGntWtDaIM4Nn40=;
-	h=Mime-Version:Content-Type:Date:Message-Id:Cc:Subject:From:To:
-	 References:In-Reply-To; b=K0jvIFR7MIZYwKpjwudh15IZWm49cSEhBgq0umefbSYkdCEH8bswgbf4wA7HnVoW30aeP3sFblABqEu4ppswXSXdjJAOx4PDCaknl4d847XBIJFjTS3BdO01q6mjDtp7G58vGcUiLprNBmzCqJakYBlX6MIAAiPpYdiNZPtuvrw=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pigmoral.tech; spf=pass smtp.mailfrom=pigmoral.tech; dkim=pass (1024-bit key) header.d=pigmoral.tech header.i=junhui.liu@pigmoral.tech header.b=Vlu2rvsu; arc=pass smtp.client-ip=165.173.180.12
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pigmoral.tech
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pigmoral.tech
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1562A313552
+	for <linux-kernel@vger.kernel.org>; Mon,  5 Oct 2026 04:45:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.12.124.158
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791175509; cv=none; b=F0AH0tQZgqN401mDsDvao8oocEN0JENIf/BEpngWKdhR7Ek1afwoCUE4FozNZ2L9A8CfJptRyWnC4gwvNSZeLHga6rZeWPhhpOWCzrbUK/aM7L6PbslyO14f2A1Z/KvBBTB7qVTSZMP6ETIcssWkclvQbMrh+pLdeiWjnCGsLv8=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791175509; c=relaxed/simple;
+	bh=KCoGmQb88q+Knp6pMuvy5UuU8Flj/RHwhMfh34hgdWw=;
+	h=MIME-Version:Date:From:To:Cc:Message-Id:In-Reply-To:References:
+	 Subject:Content-Type; b=h4GQjvBCWVd7G5/PG4634BXReEOJ3QWyYaLwTZF4fyW7Wez8aHxlanW7rZZ7fmrqlJqCddDsYcr2/ii5HnLGv3JPHjlkKkW7ZQcWr1SQfckb3Ws080Hod5F2IUr0DsjJEb30JZq64oLGJrlHUFrvAMGK5wtXbcStPYT7cdoQ/9Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=fastmailteam.com; spf=pass smtp.mailfrom=fastmailteam.com; dkim=pass (2048-bit key) header.d=fastmailteam.com header.i=@fastmailteam.com header.b=AKj8kKJB; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=kaOD1A44; arc=none smtp.client-ip=202.12.124.158
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=fastmailteam.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fastmailteam.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=pigmoral.tech header.i=junhui.liu@pigmoral.tech header.b="Vlu2rvsu"
-ARC-Seal: i=1; a=rsa-sha256; t=1791175281; cv=none; 
-	d=zohomail.com; s=zohoarc; 
-	b=AI67L/etDKRXMy/h3C/49dpfgoEQTzxqfRUsfPKNRCeO7jwbUxjXou0t+MSuNygOA5ajn7UVyb2DoAuxBJuPQo5EMuJK7SrCtH2jY2Qgd+lrJ4yBllNuOYZ/+GUNAgLftThDJPrMKOHl9/c2VnaajwKSyV/vlij8ly8f+hf3TWk=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1791175281; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=qJFGQKjvbH1HqSDayT62DQ2rPAzEBQdHJkasbzlXbNg=; 
-	b=PDfcLn1BYodAaZUEHZJw2Dd2oDe1yF3nrD0G5arhe66YWaJZUjcH7leENicRbTn0dlYOXdk6L7cIbAsH8rMgs8M1XK6kvxx2NBRc8TjqZNIa4OKM4POx2vRIpuJx3mm8KQ8MxYwGZt38B4nP2gH+hwFjGnl8WVCwK7vVSWpblcU=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
-	dkim=pass  header.i=pigmoral.tech;
-	spf=pass  smtp.mailfrom=junhui.liu@pigmoral.tech;
-	dmarc=pass header.from=<junhui.liu@pigmoral.tech>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1791175281;
-	s=zmail; d=pigmoral.tech; i=junhui.liu@pigmoral.tech;
-	h=Mime-Version:Content-Transfer-Encoding:Content-Type:Date:Date:Message-Id:Message-Id:Cc:Cc:Subject:Subject:From:From:To:To:In-Reply-To:Reply-To;
-	bh=qJFGQKjvbH1HqSDayT62DQ2rPAzEBQdHJkasbzlXbNg=;
-	b=Vlu2rvsuksYEU7h9UlpgeiLM4sV2miSw8nrRHl0jfNGZvoK2wDl80etPsjnuc3aj
-	bOSQvL4WI6A+Vr5cwNPvzu5bDHEvH81Vkn11EIx0PCCYuHdDZQu3Sys8XaANa76iiH+
-	h7bqGLFvsABQvSS9yzOe53P8IJJ/bJWv12anp2Ac=
-Received: by smtp.zohomail.com with SMTPS id 1791175279488549.9267500854362;
-	Sun, 4 Oct 2026 21:41:19 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=fastmailteam.com header.i=@fastmailteam.com header.b="AKj8kKJB";
+	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="kaOD1A44"
+Received: from phl-compute-10.internal (phl-compute-10.internal [10.202.2.50])
+	by mailfhigh.stl.internal (Postfix) with ESMTP id 5E0DD7A01D0
+	for <linux-kernel@vger.kernel.org>; Mon,  5 Oct 2026 00:45:07 -0400 (EDT)
+Received: from phl-imap-15 ([10.202.2.104])
+  by phl-compute-10.internal (MEProxy); Mon, 05 Oct 2026 00:45:07 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	fastmailteam.com; h=cc:cc:content-transfer-encoding:content-type
+	:content-type:date:date:from:from:in-reply-to:in-reply-to
+	:message-id:mime-version:references:reply-to:subject:subject:to
+	:to; s=fm3; t=1791175506; x=1791261906; bh=qglmIri7xdlBWCLzpwS5X
+	EsTcXNBXH4avwhR/k0igSA=; b=AKj8kKJBc4R2ufcbBHn/j4DUz8X9/eUB3BLig
+	Qd4nd5BijW8nPH494p9YtnvNR36ZXMHwSp7BdiO7QvMLIWUJ38XnCf0twN39t2OU
+	lwkKPS+Wsyc1WBKfv2YgEOI64Vt0KTbQFIOqYD7th4sy57+bKMbygZaDBqmwiMI5
+	u+enr93xtZRSIrzNr1+4QsCNd3l1z0hKPEhF9pOmBUOLsiYKzLqyzznpss3n8qV3
+	5IqUxWAqGkdtXTvtWDsRnb+UBJhHQ7Xgr0V1G0uHZ/OPttAGrWAgTM4zOA2IgGer
+	P2sjIv3oeM+j+itCVcp7IggHcb4+L0uhOUsKy4JzdY/MgGwNQ==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:content-type:date:date:feedback-id:feedback-id
+	:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to:x-me-proxy
+	:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=1791175506; x=
+	1791261906; bh=qglmIri7xdlBWCLzpwS5XEsTcXNBXH4avwhR/k0igSA=; b=k
+	aOD1A44Yhn5Z+BoVemFcD9v1qnQEuCFhZlKTboKJ4SasPCWnKcdPHZU78iI9E1Ez
+	dRD2+a6t/H5pIjLe8GKSYyTI6KNSd73RMog+NrjlXoGp2bFfnpnUNzpgXhY9KH5h
+	0bHGA9ke9dgCHASpYxiIO5VB1nsytWZYuzZy22OYunbC2Pdy7olvB9w7CXWS88se
+	tSAS2MmMwhALFLpMgYtcFCgfN4Kkagb+XZnqIdAnJ2XIzgEgiV9xcRRAlYESZi1/
+	zA59QHLagWUvXx4Q+PxH5uO65CVdBEeF9b5z2JPe1cvsZMxTGR3sno9oBFDdX8gd
+	37My9Tgma3G6Vr+kK/YmQ==
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
+	repo=github.com/dkim2wg/interop; date=2026-09-30; sw=lmtpprox;
+	action=sign d=fastmailteam.com a=rsa-sha256;
+DKIM2-Signature: i=1; m=1; t=1791175506; d=fastmailteam.com;
+	mf=PGFuZHJld0BmYXN0bWFpbHRlYW0uY29tPg==;
+	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
+	s=fm3:rsa-sha256:hTL6LW+tYZnmOVFtKti2wrS0JqMNEgCngbo/gwuJzLN4A3c
+	45wObJF8G1f0T0c62HHFVhV1o9jV/KuvGZxKelZNgJMkhdF+NHfaZEyr0kfi2mDW
+	Agp8BPDTtu6IzxbTRthrra/8Koa9FIaFTwhfpbeRVtSpMHN+2Y7gZzSh5A/Uds7i
+	VJFWFelVxL5bzHXwTfOzTAy18jFQO4uo6qe/28zAqtyH5UDb03LO/RwtaaPesRMw
+	Lmiy4Z6MATljhQHJFrAuy6rPL1sFPWD7XlZ6k5uY5Ne4yYuUJhJ+/NdMwNlzSgf/
+	9tvqRoc/O71ZJuPNcZ2zBkSZp7EpRI6+Yu/XPkg==;
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
+	repo=github.com/dkim2wg/interop; date=2026-09-30; sw=lmtpprox;
+	action=mi-m=1; hc=12;
+	hn=cc,content-transfer-encoding,content-type,date,feedback-id,
+	from,in-reply-to,message-id,mime-version,references,subject,to;
+Message-Instance: m=1; h=sha256:UcZLLDJ9VPM0fdfHMdip830I4beEgd5Z372OiUFPA7M=:KCoGmQb88q+Knp6pMuvy5UuU8Flj/RHwhMfh34hgdWw=;
+X-ME-Sender: <xms:UivDajljkA17WJbfOkdLGx5ORjZz3LUdxt6lOwJPzbXSW5wUdHU1gQ>
+    <xme:UivDahpJukGse_HYofJRx6lfgkOm5rYIDNiFRA1mRT2kJzWVpRdwCjNZG-a8WczYc
+    yE95CuPetexipVTPy_trYpXgHWcrNYl9oUbhjHN1kexMmGfeL8>
+X-ME-Proxy-Cause: dmFkZTFhD78CMu6lFaDtX4rWOfXbZEYEDYkeVMB2OuZ4D5BxJ6aRcsCqidyphgtTA39+jf
+    IfK481qN28UnkSzQ/tkG2UHu8d+7+MFDM+/OcMAFY+auFYPEYI9uEDWMfmpHBffN6JRdtK
+    qkyz8r8OeKdIHSZHvoFG7BwjRo95PMIJFv4LXIC86tNWvsXLf3mz+/g81om38rc8bgh0yT
+    zaYVLEbKmSg74NfMcqRXopkiZ1xgVoNrX814KCVdin0yqTlfL9BBAUN+SmfoAL4pUK5zTm
+    I3pTJqb2O5tpAjqW+xVhMEp+9aHnaSxSXnZPU7eXCcE2AWldU6kojjyAD2onLfznnaBkgz
+    HfEick9dyEpUttXLXcxi1qsIms/mh0ZyPoqD3KrjZaOUg4n52fxirz3uDwZO3jPGscPOFI
+    2lzPAihQofsw0294YA99Ig62xSQ3jgS18wyqJ2KSaCngI9c6ccxdI0lmc+rUNDRCB/8iBa
+    2l4QA5V/3QfjL57yUw7s/rnkDQhcrGX0zpMI+/Y+58xJivNh93+/ktoZZQIlvghYlRuVmb
+    OlWlX/tnJkazVxHP3XbKcCYOqQJ+DzCk9L/oj0ANXSfISgNwgkYus15kZMlXhsdglVjHqy
+    LA4PbUYg2s4KZ7aseRQAOtdluy2/Xs1AxjlVRBP+hsL5u3zz9LKpk38NH+4A
+X-ME-Proxy: <xmx:UivDaslo1KB07tkLjYXza_iq47jUkKBsGjkDvHgkc5oGAbtVTepmvA>
+    <xmx:UivDaoYara_uGuyOarUzQCdOoH53DstThDefZQrqS4R1lHd751pLww>
+    <xmx:UivDavHntm3uJApYGu73hUGiSaiB7IcdU-JMHfEGl-7IG4Q_bXW4hw>
+    <xmx:UivDavZI5AuozkbFCHeUip66yfBxo9jMTluBbrlJzcUoDpB5dpOIPg>
+    <xmx:UivDambX9B72rBK20tnRWilXvs8p7YWvbG1KymgsaF9ud6SSgufYxIin>
+Feedback-ID: ib8be4bd5:Fastmail
+Received: by mailuser.phl.internal (Postfix, from userid 501)
+	id 0BAB0780070; Mon,  5 Oct 2026 00:45:06 -0400 (EDT)
+X-Mailer: MessagingEngine.com Webmail Interface
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Mon, 05 Oct 2026 12:41:10 +0800
-Message-Id: <DLWMN3TYBP9F.3N62QFP7QEE9U@pigmoral.tech>
-Cc: "Stephen Boyd" <sboyd@kernel.org>, "Brian Masney"
- <bmasney+clk@redhat.com>, "Jerome Brunet" <jbrunet+clk@baylibre.com>, "Rob
- Herring" <robh@kernel.org>, "Krzysztof Kozlowski" <krzk+dt@kernel.org>,
- "Conor Dooley" <conor+dt@kernel.org>, "Jernej Skrabec"
- <jernej.skrabec@gmail.com>, "Samuel Holland" <samuel@sholland.org>,
- "Philipp Zabel" <p.zabel@pengutronix.de>, "Paul Walmsley" <pjw@kernel.org>,
- "Palmer Dabbelt" <palmer@dabbelt.com>, "Albert Ou" <aou@eecs.berkeley.edu>,
- "Alexandre Ghiti" <alex@ghiti.fr>, "Richard Cochran"
- <richardcochran@gmail.com>, <linux-clk@vger.kernel.org>,
- <devicetree@vger.kernel.org>, <linux-arm-kernel@lists.infradead.org>,
- <linux-sunxi@lists.linux.dev>, <linux-kernel@vger.kernel.org>,
- <linux-riscv@lists.infradead.org>, <netdev@vger.kernel.org>, "Jerome
- Brunet" <jbrunet@baylibre.com>, "Enzo Adriano"
- <enzo.adriano.code@gmail.com>, "Andre Przywara" <andre.przywara@arm.com>
-Subject: Re: [PATCH v5 7/8] clk: sunxi-ng: a733: Add bus clock gates
-From: "Junhui Liu" <junhui.liu@pigmoral.tech>
-To: <wens@kernel.org>, "Junhui Liu" <junhui.liu@pigmoral.tech>
-X-Mailer: aerc 0.22.0
-References: <20260930-a733-clk-v5-0-11175b41cd2d@pigmoral.tech>
- <20260930-a733-clk-v5-7-11175b41cd2d@pigmoral.tech>
- <CAGb2v65Lqo7NiFhc2GYdfY7+jkC4Y+p6=Zy85HOFmXJzT0u1fg@mail.gmail.com>
-In-Reply-To: <CAGb2v65Lqo7NiFhc2GYdfY7+jkC4Y+p6=Zy85HOFmXJzT0u1fg@mail.gmail.com>
-X-ZohoMailClient: External
+MIME-Version: 1.0
+Date: Mon, 05 Oct 2026 15:44:45 +1100
+From: "Andrew Pam" <andrew@fastmailteam.com>
+To: "Tzung-Bi Shih" <tzungbi@kernel.org>
+Cc: =?UTF-8?Q?Thomas_Wei=C3=9Fschuh?= <linux@weissschuh.net>,
+ "Sebastian Reichel" <sre@kernel.org>, "Benson Leung" <bleung@chromium.org>,
+ "Guenter Roeck" <groeck@chromium.org>,
+ "Matt DeVillier" <matt.devillier@gmail.com>, chrome-platform@lists.linux.dev,
+ linux-pm@vger.kernel.org, linux-kernel@vger.kernel.org
+Message-Id: <8fa29694-88cb-41b7-95d6-4d2cf9647d4a@app.fastmail.com>
+In-Reply-To: <asMlkcx5P3Qgolgh@google.com>
+References: <20261004225606.30577-1-andrew@fastmailteam.com>
+ <asMlkcx5P3Qgolgh@google.com>
+Subject: Re: [PATCH] power: supply: cros_charge-control: restore EC state on resume
+Content-Type: text/plain
+Content-Transfer-Encoding: 7bit
 
-Hi Chen-Yu,
+On Mon, 5 Oct 2026, at 15:20, Tzung-Bi Shih wrote:
+> On Mon, Oct 05, 2026 at 09:56:06AM +1100, Andrew Pam wrote:
+> > Nothing notices the reset. Commit 4fc88ba435da ("power: supply:
+> > cros_charge-control: adopt EC charge state on probe") made the driver
+> 
+> The commit 4fc88ba435da doesn't exist.
 
-On Sun Oct 4, 2026 at 7:03 PM CST, Chen-Yu Tsai wrote:
-> On Tue, Sep 29, 2026 at 7:28=E2=80=AFPM Junhui Liu <junhui.liu@pigmoral.t=
-ech> wrote:
->>
->> Add the bus clock gates that control access to the devices' register
->> interface on the Allwinner A733 SoC. These clocks are typically
->> single-bit controls in the BGR registers, covering UARTs, SPI, I2C, and
->> various multimedia engines. It also includes bus gates for system
->> components like the IOMMU and MSI-lite interfaces.
->>
->> Also mark the ahb-store, mbus-store and ahb-cpus clocks as critical.
->> Disabling either store gate breaks access to boot/storage devices such
->> as MMC and SPI NOR, while gating ahb-cpus hangs any access to the CPUS
->> power domain registers when unused clocks are disabled.
->>
->> Tested-by: Jerome Brunet <jbrunet@baylibre.com>
->> Reviewed-by: Andre Przywara <andre.przywara@arm.com>
->> Signed-off-by: Junhui Liu <junhui.liu@pigmoral.tech>
->> ---
->>  drivers/clk/sunxi-ng/ccu-sun60i-a733.c | 492 ++++++++++++++++++++++++++=
-++++++-
->>  1 file changed, 491 insertions(+), 1 deletion(-)
->>
->> diff --git a/drivers/clk/sunxi-ng/ccu-sun60i-a733.c b/drivers/clk/sunxi-=
-ng/ccu-sun60i-a733.c
->> index 1b2d4d36ec4c..b077e5d2f32c 100644
->> --- a/drivers/clk/sunxi-ng/ccu-sun60i-a733.c
->> +++ b/drivers/clk/sunxi-ng/ccu-sun60i-a733.c
->> @@ -4,6 +4,10 @@
->>   * Copyright (C) 2026 Junhui Liu <junhui.liu@pigmoral.tech>
->>   * Based on the A523 CCU driver:
->>   *   Copyright (C) 2023-2024 Arm Ltd.
->> + *
->> + * TODO: The real parents of some bus gates, including its-pcie0-aclk,
->> + * msi-lite, npu, ufs, sgpio, lpc and i2spcm, are not documented in the
->> + * manual. For now, follow the vendor BSP, which keeps them on hosc.
->>   */
->
-> [...]
->
->> @@ -510,9 +522,118 @@ static SUNXI_CCU_M_DATA_WITH_MUX_GATE_FEAT(mbus_cl=
-k, "mbus", mbus_parents, 0x588
->>                                            BIT(31),     /* gate */
->>                                            CLK_IS_CRITICAL,
->>                                            CCU_FEATURE_UPDATE_BIT);
->> +static const struct clk_hw *mbus_hws[] =3D { &mbus_clk.common.hw };
->> +
->> +static SUNXI_CCU_GATE_HWS(mbus_iommu0_sys_clk, "mbus-iommu0-sys", mbus_=
-hws, 0x58c, BIT(0), 0);
->> +static SUNXI_CCU_GATE_HWS(apb_iommu0_sys_clk, "apb-iommu0-sys", apb0_hw=
-s, 0x58c, BIT(1), 0);
->> +static SUNXI_CCU_GATE_HWS(ahb_iommu0_sys_clk, "ahb-iommu0-sys", ahb_hws=
-, 0x58c, BIT(2), 0);
->> +
->> +static SUNXI_CCU_GATE_DATA(bus_msi_lite0_clk, "bus-msi-lite0", hosc, 0x=
-594, BIT(0), 0);
->> +static SUNXI_CCU_GATE_DATA(bus_msi_lite1_clk, "bus-msi-lite1", hosc, 0x=
-59c, BIT(0), 0);
->> +static SUNXI_CCU_GATE_DATA(bus_msi_lite2_clk, "bus-msi-lite2", hosc, 0x=
-5a4, BIT(0), 0);
->> +
->> +static SUNXI_CCU_GATE_HWS(mbus_iommu1_sys_clk, "mbus-iommu1-sys", mbus_=
-hws, 0x5b4, BIT(0), 0);
->> +static SUNXI_CCU_GATE_HWS(apb_iommu1_sys_clk, "apb-iommu1-sys", apb0_hw=
-s, 0x5b4, BIT(1), 0);
->> +static SUNXI_CCU_GATE_HWS(ahb_iommu1_sys_clk, "ahb-iommu1-sys", ahb_hws=
-, 0x5b4, BIT(2), 0);
->
->> +static SUNXI_CCU_GATE_HWS(ahb_ve_dec_clk, "ahb-ve-dec", ahb_hws,
->> +                         0x5c0, BIT(0), 0);
->> +static SUNXI_CCU_GATE_HWS(ahb_ve_enc_clk, "ahb-ve-enc", ahb_hws,
->> +                         0x5c0, BIT(1), 0);
->> +static SUNXI_CCU_GATE_HWS(ahb_vid_in_clk, "ahb-vid-in", ahb_hws,
->> +                         0x5c0, BIT(2), 0);
->> +static SUNXI_CCU_GATE_HWS(ahb_vid_cout0_clk, "ahb-vid-cout0", ahb_hws,
->> +                         0x5c0, BIT(3), 0);
->> +static SUNXI_CCU_GATE_HWS(ahb_vid_cout1_clk, "ahb-vid-cout1", ahb_hws,
->> +                         0x5c0, BIT(4), 0);
->> +static SUNXI_CCU_GATE_HWS(ahb_de_clk, "ahb-de", ahb_hws,
->> +                         0x5c0, BIT(5), 0);
->> +static SUNXI_CCU_GATE_HWS(ahb_npu_clk, "ahb-npu", ahb_hws,
->> +                         0x5c0, BIT(6), 0);
->> +static SUNXI_CCU_GATE_HWS(ahb_gpu0_clk, "ahb-gpu0", ahb_hws,
->> +                         0x5c0, BIT(7), 0);
->> +static SUNXI_CCU_GATE_HWS(ahb_serdes_clk, "ahb-serdes", ahb_hws,
->> +                         0x5c0, BIT(8), 0);
->> +static SUNXI_CCU_GATE_HWS(ahb_usb_sys_clk, "ahb-usb-sys", ahb_hws,
->> +                         0x5c0, BIT(9), 0);
->> +static SUNXI_CCU_GATE_HWS(ahb_msi_lite0_clk, "ahb-msi-lite0", ahb_hws,
->> +                         0x5c0, BIT(16), 0);
->> +static SUNXI_CCU_GATE_HWS(ahb_store_clk, "ahb-store", ahb_hws,
->> +                         0x5c0, BIT(24), CLK_IS_CRITICAL);
->> +static SUNXI_CCU_GATE_HWS(ahb_cpus_clk, "ahb-cpus", ahb_hws,
->> +                         0x5c0, BIT(28), CLK_IS_CRITICAL);
->
-> I suspect these refer to a AHB-AHB bridge for the various subsystems show=
-n
-> in the memory map. That would explain why when the "ahb-store" clock is
-> gated, the storage bits stop working.
->
-> If that's the case, we should describe it as the parent of each storage
-> peripheral bus gate's parent. Same would go for the other types. I haven'=
-t
-> checked what the BSP does though.
+Thanks for the review. The patch is against Sebastian's power-supply for-next, where that is Matt's patch you reviewed, applied on 10 September:
 
-As Norman mentioned in his reply, the vendor BSP also does not model
-this hierarchy and instead models these gates as independent clocks
-parented to the oscillator. The manual does not describe the hierarchy
-either, so I don't think we have enough information to model it
-differently at this point.
+https://git.kernel.org/pub/scm/linux/kernel/git/sre/linux-power-supply.git/commit/?id=4fc88ba435da
 
-I will add comments explaining why ahb_store_clk, mbus_store_clk, and
-ahb_cpus_clk are marked critical.
+It isn't in mainline or chrome-platform yet, so I have made that explicit in the v2 commit message.
 
->
->> +static SUNXI_CCU_GATE_HWS(mbus_iommu0_clk, "mbus-iommu0", mbus_hws,
->> +                         0x5e0, BIT(0), 0);
->> +static SUNXI_CCU_GATE_HWS(mbus_iommu1_clk, "mbus-iommu1", mbus_hws,
->> +                         0x5e0, BIT(1), 0);
->> +static SUNXI_CCU_GATE_HWS(mbus_desys_clk, "mbus-desys", mbus_hws,
->> +                         0x5e0, BIT(11), 0);
->> +static SUNXI_CCU_GATE_HWS(mbus_ve_enc0_gate_clk, "mbus-ve-enc0-gate", m=
-bus_hws,
->> +                         0x5e0, BIT(12), 0);
->> +static SUNXI_CCU_GATE_HWS(mbus_ve_dec0_gate_clk, "mbus-ve-dec0-gate", m=
-bus_hws,
->> +                         0x5e0, BIT(14), 0);
->> +static SUNXI_CCU_GATE_HWS(mbus_gpu0_clk, "mbus-gpu0", mbus_hws,
->> +                         0x5e0, BIT(16), 0);
->> +static SUNXI_CCU_GATE_HWS(mbus_npu_clk, "mbus-npu", mbus_hws,
->> +                         0x5e0, BIT(18), 0);
->> +static SUNXI_CCU_GATE_HWS(mbus_vid_in_clk, "mbus-vid-in", mbus_hws,
->> +                         0x5e0, BIT(24), 0);
->> +static SUNXI_CCU_GATE_HWS(mbus_serdes_clk, "mbus-serdes", mbus_hws,
->> +                         0x5e0, BIT(28), 0);
->> +static SUNXI_CCU_GATE_HWS(mbus_msi_lite0_clk, "mbus-msi-lite0", mbus_hw=
-s,
->> +                         0x5e0, BIT(29), 0);
->> +static SUNXI_CCU_GATE_HWS(mbus_store_clk, "mbus-store", mbus_hws,
->> +                         0x5e0, BIT(30), CLK_IS_CRITICAL);
->
-> Same thing for the MBUS clocks.
->
->> +static SUNXI_CCU_GATE_HWS(mbus_msi_lite2_clk, "mbus-msi-lite2", mbus_hw=
-s,
->> +                         0x5e0, BIT(31), 0);
->> +
->> +static SUNXI_CCU_GATE_HWS(mbus_dma0_clk, "mbus-dma0", mbus_hws,
->> +                         0x5e4, BIT(0), 0);
->> +static SUNXI_CCU_GATE_HWS(mbus_ve_enc0_clk, "mbus-ve-enc0", mbus_hws,
->> +                         0x5e4, BIT(1), 0);
->> +static SUNXI_CCU_GATE_HWS(mbus_ce_clk, "mbus-ce", mbus_hws,
->> +                         0x5e4, BIT(2), 0);
->> +static SUNXI_CCU_GATE_HWS(mbus_dma1_clk, "mbus-dma1", mbus_hws,
->> +                         0x5e4, BIT(3), 0);
->> +static SUNXI_CCU_GATE_HWS(mbus_nand_clk, "mbus-nand", mbus_hws,
->> +                         0x5e4, BIT(5), 0);
->> +static SUNXI_CCU_GATE_HWS(mbus_csi_clk, "mbus-csi", mbus_hws,
->> +                         0x5e4, BIT(8), 0);
->> +static SUNXI_CCU_GATE_HWS(mbus_isp_clk, "mbus-isp", mbus_hws,
->> +                         0x5e4, BIT(9), 0);
->> +static SUNXI_CCU_GATE_HWS(mbus_gmac0_clk, "mbus-gmac0", mbus_hws,
->> +                         0x5e4, BIT(11), 0);
->> +/* Undocumented, taken from the vendor kernel. */
->> +static SUNXI_CCU_GATE_HWS(mbus_gmac1_clk, "mbus-gmac1", mbus_hws,
->> +                         0x5e4, BIT(12), 0);
->> +static SUNXI_CCU_GATE_HWS(mbus_ve_dec0_clk, "mbus-ve-dec0", mbus_hws,
->> +                         0x5e4, BIT(18), 0);
->
-> [...]
->
-> The remaining definitions look correct (minus the vendor BSP ones which I
-> couldn't check at this time).
->
-> I didn't check the clock list additions.
->
-> Consider this
->
-> Reviewed-by: Chen-Yu Tsai <wens@kernel.org>
->
+> > initialise its cached state from the EC, but it does so only on probe,
+>                               ^^^^
+> To be precise, this should be "to".
 
-Thanks!
+Reworded in v2 as "made the driver adopt the EC's charge state, but only at probe".
 
->
-> We can change the AHB / MBUS clock parents later if we do figure it out.
->
->
-> ChenYu
+I have also taken your other three suggestions: dev_set_drvdata(), a dev_err() when reprogramming fails, and the nested .driver initialiser. v2 also fixes the resume hook's comment, which still said the driver never reads the state back from the EC. That hasn't been true since 4fc88ba435da. And v2 adds Fixes: and Cc: stable: the driver has had no resume handling since it was added in 6.11, so stable kernels lose the charge limit across hibernation too. v2 follows shortly.
 
---=20
-Best regards,
-Junhui Liu
-
+Thanks,
+Andrew
