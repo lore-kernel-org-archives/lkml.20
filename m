@@ -1,161 +1,137 @@
-Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com [74.125.227.140])
+Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4AA6C48640B
-	for <linux-kernel@vger.kernel.org>; Mon,  5 Oct 2026 13:27:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4861D485CCB
+	for <linux-kernel@vger.kernel.org>; Mon,  5 Oct 2026 13:28:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791206859; cv=none; b=nzI/WFntlTMrrk0nGYQliqZrxIX+qW0vIJBICciBT9XeO+kU2v3vojVaSH/s0NpLPW2E/vY5bG7jIuvoI//7DBTURIipmZemZFzpl3OhC+Fm7hAzffgLkaG/Hea7EvBieSdcGWHGhtRgxNEDp7ZJpJYFrP8dSeE2PwRqcJ4PK70=
+	t=1791206894; cv=none; b=lc+GsDYSUYhwcjifOWwel3h+CqzVWKlL9suRSJ7Ard+gtKGlMdU0NoxoEYByWNPPBYiqdbbEP9kxx+oeSIXB+TAsp+97+P/Q6WApIDjoztQATJcYFSvAwWq1tx/Ao+rEjNgeHrEy4h+2DAXLPhgcBoIoAuMdTRJDrxYCu+wmYys=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791206859; c=relaxed/simple;
-	bh=r6ZRYKg6n0znee49d3Np2ffRCdfaqtHaBrhNvX0INgo=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=DrJLsD+fqJ2TKDdtOb7hNBuxpzPV+T3IP18sLS6PQxq+cpgsh2OzYPmXJNwOt4VaYN9afq1AdhZvsm2A/nMXS45dF563A3UYBdTKNQTxJyGch/svRj8ugZueIE9H2QlP6CBtrvr7lvym8MC6qhHwyb2M4BZVDL05Q3/CHHJWjns=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=HgYcoBHU; arc=none smtp.client-ip=74.125.227.140
+	s=arc-20240116; t=1791206894; c=relaxed/simple;
+	bh=akgxDLCMRWnju1F8nlTi8ruGP54ydtpCtXeCGsNTtP4=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=Mme50Ajz5p3kC0ocW6XpEQglOY3JsCA6ICEAFamzzWBDtX5XGIiOp5actu22J37NiAkXEjNwV4YmMssBI7dHqwh+aCSGYO9SPsX9BeK5V660yxHxNlH1S2e1R8LfeCcDliB9LKFGMX76S5ytIoGwmhfeO+wx/22oKUeiZ7zJJ50=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=RdlMj8jl; arc=none smtp.client-ip=74.125.225.141
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="HgYcoBHU"
-Received: by mail-pj2-f12.google.com with SMTP id d9443c01a7336-2dd58e1e2c7so6632575ad.0
-        for <linux-kernel@vger.kernel.org>; Mon, 05 Oct 2026 06:27:33 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="RdlMj8jl"
+Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-4a0977b9c20so23372185e9.2
+        for <linux-kernel@vger.kernel.org>; Mon, 05 Oct 2026 06:28:03 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791206849; x=1791811649; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=RZ23UM/r/7jCgi85nywLMWzbpiSS1mIXS7a54cP8xb4=;
-        b=HgYcoBHUdj+qFb/th+cE3tfCccqg/659rfI/nWZx8OgpxmHeK8oeBu1EVyO+aDAsvv
-         F93d9Y2VuAnX3ggDiepewmQ62O+xridXanJEWDqDj82e78cbEoO491PzAU+oP4aKreBy
-         07C+lZRRIPLwcV/x2JXszxBjTnbXuutUFCyp3edtDS+lNltmXrJ8glpoCulkUrAtYzeZ
-         sld1OqMMiDjXttUnA+m1mvhipQad+CTS18HSiHBoffNJezFJbhbbMXu6T/IyKnECsPLt
-         c1htW9btVhqa+0Imh3n2f1I7IXLOplBJ9An7xUFOTfm+VwBoifAE3Pc2sE+AY4EgMYPg
-         By9A==
+        d=gmail.com; s=20251104; t=1791206878; x=1791811678; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=2UiFZMjxaNVOcwpMoTNUMbszzfHwtYL0qU2Yy5cm+FU=;
+        b=RdlMj8jlCxNGEq20K+2pFddX44VQ7qcDVW0iXNleAhb4e2gJiZYizJJM2Mz9LNYywy
+         uYnf54aD8sNAaJWoxfCYzfKaA0zIE/9838Xrs+HxJtnyQyoGDRrznPv9u8ewAdnx4hQe
+         NIJ7cS/r1oAtCYbzQQa1yOOSCpSFaotjc7s3wp9Q/ZKQTsnzEvc0uCC5bsGbSGP+WcsH
+         SueTPeKOcVHT2IrGDvcDko5h9u5GhOuLf1TsbQt1tPd2ZFr4IIGW5ecPMjFCFaNwyDi5
+         UMz3JzWAf0bYquqPGYNx3tsfAcNgRPtEzupYedyrLdVqfTafHbC1nApl5sY6V7yAE4uH
+         7ncQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791206849; x=1791811649;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=RZ23UM/r/7jCgi85nywLMWzbpiSS1mIXS7a54cP8xb4=;
-        b=HjnErOKZd/a9lQB9JY6byZSLpwLRIHX/rikU4Cb0eddQCswYWKedBOkCNqExYKEeaI
-         OaQKSEHo5BKTZLyY86AOgnQBmu6Sx/MShBQijVvlgrstCmkYz4PBBmlNX7qnu/lp3KXK
-         /CKCilYYnAT5oPRb//pK4p0C24yd9+BVy803s+T/I/2Xh8GEA+ZDvnNLYOOX6rP41lHN
-         iqUWH4k7MuMABY8OV1MDdFeukYt5uROTM1OqtiEBGw41ilDX2zldZDCUshScgp9GmQlI
-         l14O1eyDfryPtLFn3s8EFit2Mz4QcMzAlkvMpvI4dKlTb+VlQJSZCAHEM8lFR0qSHhWb
-         /u3g==
-X-Forwarded-Encrypted: i=1; AKwUvBw/tPPlHM5e4WxmWa+L96UQWCipQunSL3vC3qk2zZCpBA9jRanMbFH6soLI0f5WgWPYPDLeixJp4TVnO1Y=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJNLNitk9KamWRAAutGUXcwADYWNaXLKBNGEHHXWAtTk7Ck9fkd
-	YST4TtCFHUamNOEAg6KdeUuqL3Ym6YsTfccyICR+F8b6/cxz5HTY9h5N
-X-Gm-Gg: AYBFou3cRYqnZ5Uz1HQaYqSYz2FXM8j+4EAqPP4l3KJ+nDutT73gXi0XF1uGLdCueEc
-	Bpnzrm1MMOetOJF1hUp9Oxq/oM/HjQmVJa0lKML4Z2rIhfyGu7IpP5H/QN1kdfKsf4hT1kKGGc6
-	+6wAq/1vKaSavZq3QL0jvodekkUq6rvJq/haeJXEwC0mQbra39AhyAQcL8pvRAezg06FfhiHv3J
-	DbSkOsJwnPi1sgUa43n26+1VPy88rKBofhe6PejxMjcJ7rVtyIiGFvsXGF0+MAVcvjGqk01fz5P
-	STW89xIDXbEYVLMGktVFvQ/L/6NATL4NajVdcCzSc7XbIAnu/fMMeXdhnaP3uUaebOmuz0PKtHT
-	2idF1B6bMZUCV2/WGJBsn+2d5vVwTmAzFgQdanQYDcLO7idmGY85kmalNONNltoskQhEL+HodUV
-	IWPiarp8AoT0l9yPfPL7k+eur15+x9m5o3/Gw8LB1RX0H1X0nFstjlBIzdvEa2ZrI1BdfRn1rIX
-	m3bO6mN7lunQtgjLGx7bQbHoA+dcVKCAJ4=
-X-Received: by 2002:a17:902:dad1:b0:2dd:b6e7:ac1b with SMTP id d9443c01a7336-2e49b0bf34cmr103029815ad.2.1791206848642;
-        Mon, 05 Oct 2026 06:27:28 -0700 (PDT)
-Received: from cccc-E3.. (124-218-129-85.cm.dynamic.apol.com.tw. [124.218.129.85])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2e5a5cae8besm7602875ad.22.2026.10.05.06.27.27
+        d=1e100.net; s=20260707; t=1791206878; x=1791811678;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=2UiFZMjxaNVOcwpMoTNUMbszzfHwtYL0qU2Yy5cm+FU=;
+        b=kkrlPH5SsMF6iCRmV4j0lfrJ9kw48Cob5hFDTygyat3pkHFySn87PmPCY7U78Ezfik
+         7+ij0TVBs1Jdrj+xr3vui/Ql9skGU5DNjy/RzYHoWWlSiJvhoVGzZ67YHQQ9fQIDnECG
+         6g4ITx71F6dEAb4K1Q2/591WhkGGJiuuXBAdirZgSPECzgtUOM1vb0/z3dHshMSio5Ie
+         A1ynVCus9nl7CA2niEJX0JYPI/v2xaEv6JQPuvH6hw0Qgg4G53bG3KhlLAGaKEj6aAvv
+         SAYAMQyJ/N83BkWMDivtQUXo7eowgNIycrGm5mw9ktpoqfXwaGCpI6Nq+m0T9h+OO1vK
+         5gdg==
+X-Forwarded-Encrypted: i=1; AKwUvBypNnH/6W0DMm3jTAElBbLHj0UkD44qjtcfBlNrocwNp/Rizk1HZpw5O3k9+8t+ZyHbkJvYW3oV4r47jE0=@vger.kernel.org
+X-Gm-Message-State: AFuF++mzDdu3l9ELgGIRt7vax9MhRFARRgseE6ExMmRh1QifyWl82bIg
+	BCgt81ldrvecdgr9IotJdnp/5KtFKGG9uAzm0ddgBF3E0il188W+ronJ
+X-Gm-Gg: AYBFou1hOEjssRl0CNoimzceWRQ7oaE18OX2a4obpdyIwjin0/uB4qQluC3iF8KAJlF
+	i8EA8Y9Eorjx23gRXce8Ee8UDL3Tdo2jo1NOq0j7EzOhK2T2i3KpZjvSV0D4pt3KDqklp5rECbe
+	qKYwm4ME6YAWEow2nfRmiFHrRbqWX9m+wDGrh6sXMn3Ija1N9L15bndtE6Ky2w66m6LEKqcsac4
+	DqqMWgCR+h0/iR+/4rV+DTP67Vb8ApqRr5c1sov4VmqVDk7eN7RwxwWonBOgAXAerUcCpbNf2YR
+	w2MSCRY8GQY2caSp5zQrT0/QaRJok63ffFJ+QjgDfai6U1QW6IK1XAvTegTfzQf42Qc/zAkIF+g
+	ghLqZ5voEBtBp4I+3fHlJz+UdOTn7qjkrargdSu4cygVKLNzPzvq3Af/yeSo15ZJ0kvzon5jICM
+	c5vikLYUXs+ewVpPMH9GILAwuie5ZEas5qd9VPxQEQyxzMQj75wOjggr8o7WmQT6OQIj9O
+X-Received: by 2002:a05:600c:474e:b0:49f:bd3c:bc1b with SMTP id 5b1f17b1804b1-4a02759b67emr197566455e9.22.1791206877810;
+        Mon, 05 Oct 2026 06:27:57 -0700 (PDT)
+Received: from metepc ([46.197.185.71])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a16d6295f9sm260315305e9.14.2026.10.05.06.27.55
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 05 Oct 2026 06:27:28 -0700 (PDT)
-From: Scott Lee <dsix123@gmail.com>
-To: Bjorn Helgaas <bhelgaas@google.com>,
-	Logan Gunthorpe <logang@deltatee.com>
-Cc: linux-pci@vger.kernel.org,
+        Mon, 05 Oct 2026 06:27:57 -0700 (PDT)
+From: =?UTF-8?q?=C3=96mer=20Mete=20Kaya?= <omermetekaya0@gmail.com>
+To: oe-linux-nfc@lists.linux.dev
+Cc: david@ixit.cz,
+	davem@davemloft.net,
+	edumazet@google.com,
+	kuba@kernel.org,
+	pabeni@redhat.com,
+	horms@kernel.org,
+	netdev@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	Scott Lee <dsix123@gmail.com>
-Subject: [PATCH] PCI/P2PDMA: Add Intel Haswell client host bridge to the whitelist
-Date: Mon,  5 Oct 2026 21:26:51 +0800
-Message-ID: <20261005132651.18368-1-dsix123@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	=?UTF-8?q?=C3=96mer=20Mete=20Kaya?= <omermetekaya0@gmail.com>
+Subject: [PATCH net v2] nfc: nci: fix out-of-bounds read in nci_core_reset_rsp_packet()
+Date: Mon,  5 Oct 2026 16:26:28 +0300
+Message-ID: <20261005132742.324374-1-omermetekaya0@gmail.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-P2P DMA between two devices that do not share an upstream bridge is only
-permitted when the traffic goes through a host bridge that is listed in
-pci_p2pdma_whitelist[] with REQ_SAME_HOST_BRIDGE.
+The skb->len != 1 guard admits a 2-byte payload where config_status
+at offset 2 lies one byte past skb->len.
 
-The Haswell client host bridge (8086:0c08, e.g. H97/H87/B85) is not in that
-list, and cpu_supports_p2pdma() returns false on Intel, so
-calc_map_type_and_dist() refuses P2P for any pair of devices behind
-different root ports of the same host bridge, even though that root complex
-handles the traffic correctly.
+Fix by guarding the nci_ver and config_status accesses with an explicit
+skb->len >= 3 check, and restoring the original skb->len != 1 condition
+around nci_req_complete() so the NCI 2.x reset request stays pending
+until CORE_RESET_NTF arrives.
 
-Measured on an ASUS H97-PRO with a Xeon E3-1231 v3 (Haswell, 8086:0c08 at
-00:00.0) and two GPUs on separate root ports of that host bridge
-(00:01.0 and 00:1c.4):
-
-  - pci_p2pdma_distance() < 0 before the change; peer access granted after
-    (amdgpu stops reporting "PCIe P2P access ... is not supported by the
-    chipset" and hipDeviceCanAccessPeer() returns true in both directions)
-  - 10 KB cross-device copy: 62-75 us vs 130-131 us host-staged (~2x)
-  - 512 MB cross-device copy verified byte-wise against a known buffer:
-    no corruption
-  - tensor-parallel LLM inference (>25 GB model across both GPUs):
-    +53% tokens/s
-
-REQ_SAME_HOST_BRIDGE is the correct flag here: the two devices share the
-upstream bridge (two root ports of one host bridge) rather than sitting
-behind a PCIe switch.
-
-This entry only permits P2P DMA to be used on this platform, it does not
-force it: the existing checks on ACS redirect, on the map type and on
-pci_p2pdma_distance() all still apply. Tested on one board only, so the
-usual caveat applies - broad testing on other Haswell boards would be
-needed before this can be considered generally safe.
-
-Signed-off-by: Scott Lee <dsix123@gmail.com>
+Fixes: bcd684aace34 ("net/nfc/nci: Support NCI 2.x initial sequence")
+Signed-off-by: Ömer Mete Kaya <omermetekaya0@gmail.com>
 ---
-# --- evidence from the machine this was tested on (stripped by git am) ---
-#
-# Hardware: ASUS H97-PRO (BIOS 2906), Xeon E3-1231 v3 (Haswell), 32 GB RAM,
-#           2x AMD Radeon RX 9060 XT (16 GB each), no PCIe switch
-#
-# lspci -nn:
-#   00:00.0 Host bridge: Intel 4th Gen Core Processor DRAM Controller [8086:0c08]
-#   00:01.0 PCI bridge: CPU PEG port; GPU0 is 0000:03:00.0 behind it
-#   00:1c.4 PCI bridge: PCH root port; GPU1 is 0000:09:00.0 behind it
-#
-# unpatched kernel (7.0.0-34-generic, distro stock):
-#   $ sudo dmesg | grep 'not supported by the chipset'
-#   amdgpu 0000:09:00.0: PCIe P2P access from peer device 0000:03:00.0 is not
-#   supported by the chipset
-#
-# patched kernel (7.0.0-99-generic, same source tree + only this hunk):
-#   $ sudo dmesg | grep 'not supported by the chipset'      (no output)
-#   $ python3 p2p_verify.py
-#     can_access_peer: True / True
-#     peer 512 MiB copy, byte-wise compared against a known buffer: OK
-#   $ python3 p2p_latency.py     (10 KiB, HIP events)
-#     peer 0->1: 62.1 us    peer 1->0: 74.5 us
-#     host 0->1: 130.0 us   host 1->0: 131.0 us
-#   $ llama-bench, 27B model split across both GPUs, tensor vs layer split:
-#     25.05 +/- 0.91 tok/s vs 16.37 tok/s (+53%), greedy output identical
-#
-# Note the second GPU sits behind the PCH (Gen2 x4) - the setup still works
-# correctly despite the asymmetric and slow link, which is what makes it
-# interesting for the whitelist argument.
-#
- drivers/pci/p2pdma.c | 2 ++
- 1 file changed, 2 insertions(+)
+Changes in v2:
+  - Preserve the original skb->len != 1 condition around
+    nci_req_complete() so the NCI 2.x reset request stays
+    pending until CORE_RESET_NTF arrives (reported by sashiko).
+  - Fix NCI version labels in comment (NCI 1.x = 3-byte RSP,
+    NCI 2.x = 1-byte RSP + NTF).
 
-diff --git a/drivers/pci/p2pdma.c b/drivers/pci/p2pdma.c
-index 9334eb3..4f58564 100644
---- a/drivers/pci/p2pdma.c
-+++ b/drivers/pci/p2pdma.c
-@@ -545,6 +545,8 @@ static const struct pci_p2pdma_whitelist_entry {
- 	/* Intel Xeon E7 v3/Xeon E5 v3/Core i7 */
- 	{PCI_VENDOR_ID_INTEL,	0x2f00, REQ_SAME_HOST_BRIDGE},
- 	{PCI_VENDOR_ID_INTEL,	0x2f01, REQ_SAME_HOST_BRIDGE},
-+	/* Intel Haswell (client) */
-+	{PCI_VENDOR_ID_INTEL,	0x0c08, REQ_SAME_HOST_BRIDGE},
- 	/* Intel Skylake-E */
- 	{PCI_VENDOR_ID_INTEL,	0x2030, 0},
- 	{PCI_VENDOR_ID_INTEL,	0x2031, 0},
--- 
-2.43.0
+ net/nfc/nci/rsp.c | 13 +++----------
+ 1 file changed, 3 insertions(+), 10 deletions(-)
+
+diff --git a/net/nfc/nci/rsp.c b/net/nfc/nci/rsp.c
+index e20df7fa0829..8226d09c99a5 100644
+--- a/net/nfc/nci/rsp.c
++++ b/net/nfc/nci/rsp.c
+@@ -32,22 +32,15 @@ static void nci_core_reset_rsp_packet(struct nci_dev *ndev,
+
+ 	pr_debug("status 0x%x\n", rsp->status);
+
+-	/* NCI 2.x reset response carries nci_ver and config_status;
+-	 * a 1-byte response is the NCI 1.x status-only form.
+-	 * Require at least 3 bytes before reading those fields.
+-	 */
+-	if (skb->len == 1) {
+-		nci_req_complete(ndev, rsp->status);
+-		return;
+-	}
+-
++	/* NCI 1.x: 3-byte RSP; NCI 2.x: 1-byte RSP, request completed by NTF. */
+ 	if (skb->len >= 3 && rsp->status == NCI_STATUS_OK) {
+ 		ndev->nci_ver = rsp->nci_ver;
+ 		pr_debug("nci_ver 0x%x, config_status 0x%x\n",
+ 			 rsp->nci_ver, rsp->config_status);
+ 	}
+
+-	nci_req_complete(ndev, rsp->status);
++	if (skb->len != 1)
++		nci_req_complete(ndev, rsp->status);
+ }
+
+ static u8 nci_core_init_rsp_packet_v1(struct nci_dev *ndev,
+--
+2.55.0
 
