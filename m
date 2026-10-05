@@ -1,163 +1,99 @@
-Received: from mail-dy1-f179.google.com (mail-dy1-f179.google.com [74.125.82.179])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from outbound.qs.icloud.com (qs-2004k-snip4-11.eps.apple.com [57.103.84.113])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 437FA47F2F9
-	for <linux-kernel@vger.kernel.org>; Mon,  5 Oct 2026 11:26:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.179
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BDA5A30E82B
+	for <linux-kernel@vger.kernel.org>; Mon,  5 Oct 2026 11:31:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=57.103.84.113
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791199607; cv=none; b=TJAdRfaoAsuG+qyY/XcCYCi1LiSkhHDhUaU44XVRx9jArn9yE1tga56+1bWg3xYXYZncp8aFn6jNIkQxBpAWgpor68S16yfnaMWLt0tTlXqEr+nR7nWFTAUF5678PIRV6KASyBroEvs+kxaocY3ZWagCQ5mhbmNz6aG0a1519Io=
+	t=1791199865; cv=none; b=DC2ijPSGUYoB6o9hq3ecWOqxT/JdxioqJ1myQ6WynHgzfuZ0xg0KZPWi8TSazgV+CVaO33sfQ+LcR9C5rY1+2kXwido92zQFlSsgrNiiiChAPQipGTemXDZtA80XeqhVWZkH3THFI+sO/zITI9tt0q9XqZyB5/H9UrFvQfg01PU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791199607; c=relaxed/simple;
-	bh=acy4YY8icqRpYM8WEcjVm8frb5ecV8yR7yaJrUuvVi0=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=n+ruF3nv8GSeMKpyLKXjEAYutk+FS9dxhYyhE32iz4Wt4WEC/hptMkJJgVESFu9tm/TKa+1MqvEI4jFaTR8+zFgCIJUHBI2El6CRpz7zNMUOEBxNa7ojPGLTyRqtF0ugiNCYlB3usEjQ/JbV7D/hqw6Or/CbKwJAJi1wWX2DGmc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=gDIznDWV; arc=none smtp.client-ip=74.125.82.179
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1791199865; c=relaxed/simple;
+	bh=e8jgra+3c6etf+f1IV+hDahnaTLE+D8VuGRWF+MPfYY=;
+	h=Mime-Version:Content-Type:Date:Message-Id:Cc:Subject:From:To:
+	 References:In-Reply-To; b=gPSnQSjrPlrp25mq4B7xTvDLwmeMtjZSlhKOkg9oWObYQfi3OHCCHZThJe/VbTl7fZGS9PbPOYIuhvAjI1pvwAahIvvgRMdETVWzdaAqjRJH4EJnUHXCggdy1Gr02CBIaoL67TXu2CfTtEJ8aGsDOStfr4u5l5OPrG2eqIf+Y+Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=verdict.gg; spf=pass smtp.mailfrom=verdict.gg; dkim=pass (2048-bit key) header.d=verdict.gg header.i=@verdict.gg header.b=rB0XH3KG; arc=none smtp.client-ip=57.103.84.113
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=verdict.gg
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=verdict.gg
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="gDIznDWV"
-Received: by mail-dy1-f179.google.com with SMTP id 5a478bee46e88-34bb8b31647so2741980eec.0
-        for <linux-kernel@vger.kernel.org>; Mon, 05 Oct 2026 04:26:46 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791199605; x=1791804405; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=N0E1H3YRUGu5NQw+dGCGvtMy789cF+yQ8PDHb0PAjkg=;
-        b=gDIznDWV94LI0pSPlXnE1fIw/2qhDbRjtMBEhSFW6AZdTYRvZMNX7aszi689cFn/PV
-         ee//7/+jhh87Ji4BDNYLeI7DNT+HCrrxsv6zGpfIXlMc9HUbcLYsT0A09Xd+88aOieBX
-         0qN8+o1LDzp55oK+Ao7FdXvWwRCeRX2tAK3Sb13A/NW2veHExOUtWgqHHs/+/bEXZjMF
-         Bf1673kfSzh7yXH7V1jG5ZA1g3phVu21ysG+tQ92EuVPbaFTS33ftwfYq1B5tFTdcG4P
-         LLBVS0jm5KHVi9fvYEmWknvbnF6B7zxHM5r1ZySQPCCojOyyzdbr4hVz8uQE+4Kys+cB
-         JEqg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791199605; x=1791804405;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=N0E1H3YRUGu5NQw+dGCGvtMy789cF+yQ8PDHb0PAjkg=;
-        b=gJb+o3qOtSJshwVVUnqMCupMTW+2nwXURh+bvjK2wdDLLvkcRuF2HZxpsoYEf2SYcs
-         0sSK+lYJjuQKDNVxrP43UOlFK85hFweiTol4Frd96IDosqojmCkmivYApR5JmBdWN/Fs
-         jw61OWHm0rrPTCa3zd2aAFjjmKT9ZDy0jjOTrwaIVWFTmxBiCP1VpMAzUkKdq91rJLmV
-         sLq/lLcuqSCEzEp2Bt2YzpZxDZq7pQA2vcsZzDonSxxpOuV/ZP3cOIDYsYZcqDtv1QC3
-         4IvFGtmAvcpvNlTSAAlGxhA5/+SdmaJKgyc1qq2p4YCZjeSlGLIYJ76nlWCAvFSXESR6
-         q//A==
-X-Forwarded-Encrypted: i=1; AKwUvBwkQN4qd1LIQ8lWJsOBPxjx1b9ZtTvbqhyaSw4B/yI7L1hylIonxwZXZ89K9dK9GUb4E2rVQNHhSJ9+vNs=@vger.kernel.org
-X-Gm-Message-State: AFuF++m9VWwCgE0RmPCJLjMI+Wkr1gyZxsteMsxbmeX8tRx7LBEHJpWC
-	BBMx2X+fptpv2HcLZThwBNe6zCNo12CZXI50DOE5ZiPrCXjWrZvHyNND
-X-Gm-Gg: AYBFou1t/WOyU2Xit76Yr1ET1xPwCxK+U8AmIx0MOuj23j60IGdgCkD/fw/X0Q0h79k
-	qxT6SwofkuiWaOBNPSDja7WWrhIR25jAMC4b0xAfsp5QwlDOUBTEP9obhZ46LP0a4sx3ZWue6gb
-	XA5eHKgVrwwU4ZeZVI+lrVIcp0amFxgScJ/qx3zmhim2yz/K8ylkcH8y5aaNBs+7WaoDoJ04tiZ
-	6kRPEkNUWJBhE7Stzkm4YRi7ie2IUciUN70Y0jQl+nfErmVDO7wddZtSGSQ3RNYyvhaO+K59hS5
-	MocbQSNgVXdVSvbWoauegiaIV1oEmpvCc9IzTssy42wMYWRjYMPFGT/+XICFqNuhBUnn19hGDA/
-	gtR6w71Wle9UIhxp2oabrkoV4aDNs4mO5fjV3eFTy5Ic8BpO1yCs5mwSS9qnHtkUFTHup0N6V8V
-	WwGsgRtDRwq6Z9Lu/syDa2i2B+YNiggI3M1oaJR2CSMMXs0cGfZJP3liUvjdCF0irwO7c7BfCFt
-	oMZfA==
-X-Received: by 2002:a05:7301:1a16:b0:351:2e6c:9e1f with SMTP id 5a478bee46e88-3512e6ca15dmr3609482eec.31.1791199605214;
-        Mon, 05 Oct 2026 04:26:45 -0700 (PDT)
-Received: from JMD.localdomain ([220.158.183.16])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-351277a2fb4sm14902080eec.26.2026.10.05.04.26.39
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 05 Oct 2026 04:26:44 -0700 (PDT)
-From: Atul Akella <atul.akella@gmail.com>
-To: linux-remoteproc@vger.kernel.org
-Cc: Atul Akella <atul.akella@gmail.com>,
-	stable@vger.kernel.org,
-	Bjorn Andersson <andersson@kernel.org>,
-	Mathieu Poirier <mathieu.poirier@linaro.org>,
-	Matthias Brugger <matthias.bgg@gmail.com>,
-	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
-	Tzung-Bi Shih <tzungbi@kernel.org>,
-	linux-kernel@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-mediatek@lists.infradead.org
-Subject: [PATCH 2/2] remoteproc: mtk_scp: Fix bounds check in mt8192_scp_da_to_va()
-Date: Mon,  5 Oct 2026 11:25:18 +0000
-Message-ID: <bc3f565d08f6948aed9172c01c7c38b4cafa2ec1.1791198233.git.atul.akella@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <cover.1791198233.git.atul.akella@gmail.com>
-References: <cover.1791198233.git.atul.akella@gmail.com>
+	dkim=pass (2048-bit key) header.d=verdict.gg header.i=@verdict.gg header.b="rB0XH3KG"
+Received: from outbound.qs.icloud.com (unknown [127.0.0.2])
+	by p00-icloudmta-asmtp-us-east-2d-100-percent-1 (Postfix) with ESMTPS id A2086180013B;
+	Mon, 05 Oct 2026 11:30:56 +0000 (UTC)
+X-ICL-RepId: 01a10bd4-c701-74a7-933c-cd54c9c5d69d
+X-ICL-Out-Info: HUtFAUMHWwJACUgBTUQeDx5WFlZNRAJCTQBIHVwCXRxCCk0dXwdaEhVdRVcIWwJAEVc4RQhFD1sTTVZUChcNVk1PHUEJXghGXl4fEx9UVgBBGRBWAVhWXQVNGlwYWQ8cAUpWWg5bBEcUFxtcABcbRgIEIwJfAEUCXglWATAXD1ZNTx1BCV4IRl5eHxMAXg8PTH00ZDt0OXYqcktrJhlaeDcMMgZabjpkQG8xcxtSGVYZWgwdClBVEgRACFZQVB5BBFYVbAlYBlMZVw==
+Dkim-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=verdict.gg; s=sig1; t=1791199861; x=1793791861; bh=OZRWUngntJZLR2dzkgMqR7G6fJ9N6gQT7CyHoAl8Oxs=; h=Mime-Version:Content-Type:Date:Message-Id:Subject:From:To:x-icloud-hme; b=rB0XH3KGWWHr/bxoFcMUbw1TsifsaeuVMrv6uUqPBYRoDXqB3p+hkYUv/JVcrpLVHgHjV/nj5XjH6IRzscEvC8HrbVY+qujgNdrYioqn2M7CqgzmCgD9peqmnHGfAQmGt0mgpDboG+LnS5n/sgwihosRihY3wVMwIfFlaOORhOkgojr8Ev4kVWSOlE2hXdJ3NXYs+xzI+a1XCWD/h9Qm9CVzLVsTEEmOm+e8mOmakjiLzIRqYApfUC0D8Z8ILL8bd+AiqtlvgeOUGKi7vvDSknHysJfB230euVDiypGIbmwByia1ZV54XT67QGVnLpSQcyThDZW8xU/l/j5a+a69zw==
+mail-alias-created-date: 1621344842221
+Received: from localhost (unknown [17.57.155.37])
+	by p00-icloudmta-asmtp-us-east-2d-100-percent-1 (Postfix) with ESMTPSA id 5AE7218001E2;
+	Mon, 05 Oct 2026 11:30:52 +0000 (UTC)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Mon, 05 Oct 2026 14:30:50 +0300
+Message-Id: <DLWVCRDZK3XK.1JG5J57YQV0VI@verdict.gg>
+Cc: "Ingo Molnar" <mingo@redhat.com>, "Peter Zijlstra"
+ <peterz@infradead.org>, "Juri Lelli" <juri.lelli@redhat.com>, "Vincent
+ Guittot" <vincent.guittot@linaro.org>, "Dietmar Eggemann"
+ <dietmar.eggemann@arm.com>, "Steven Rostedt" <rostedt@goodmis.org>, "Ben
+ Segall" <bsegall@google.com>, "Mel Gorman" <mgorman@suse.de>, "Valentin
+ Schneider" <vschneid@redhat.com>, "K Prateek Nayak"
+ <kprateek.nayak@amd.com>, "Vladimir Vdovin" <deliran@verdict.gg>, "Emil
+ Tsalapatis" <etsal@meta.com>, "Christian Loehle"
+ <christian.loehle@arm.com>, "Balbir Singh" <balbirs@nvidia.com>, "Lee
+ Trager" <ltrager@nvidia.com>, <sched-ext@lists.linux.dev>,
+ <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH 3/5] sched_ext: Scan NUMA hinting faults for opted-in
+ BPF schedulers
+From: "Vladimir Vdovin" <deliran@verdict.gg>
+To: "Andrea Righi" <arighi@nvidia.com>, "Tejun Heo" <tj@kernel.org>, "David
+ Vernet" <void@manifault.com>, "Changwoo Min" <changwoo@igalia.com>
+X-Mailer: aerc 0.22.0
+References: <20261004072901.3579967-1-arighi@nvidia.com>
+ <20261004072901.3579967-4-arighi@nvidia.com>
+In-Reply-To: <20261004072901.3579967-4-arighi@nvidia.com>
+X-Proofpoint-GUID: -KWyMyzycgyDDQNTQ0UfnRK6tOoVr5ks
+X-Authority-Info-Out: v=2.4 cv=YfqwJgRf c=1 sm=1 tr=0 ts=6ac38a73
+ cx=c_apl:c_pps:t_out a=bsP7O+dXZ5uKcj+dsLqiMw==:117
+ a=bsP7O+dXZ5uKcj+dsLqiMw==:17 a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=VwQbUJbxAAAA:8 a=Byx-y9mGAAAA:8
+ a=tddDIH3rDediNtISCcgA:9 a=QEXdDO2ut3YA:10
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDA1MDA0NCBTYWx0ZWRfX8z4ltgwI2vzf
+ Lrt9uH992UprJkHc/vfPLU8QDJkimmvp2Me7hxSwbesMhzs8YbhRgVK8eS9LrvpFhc8YkWfAmBF
+ iwk630YKffHcCluQUpz+nVgeMyNy7i6bFm8/RHO2jepEquGf2zFrJLt+JLJWSniOsmSQ9puRP0+
+ 52TzDIYGItF6xmUc8MgLAKiCW/UVuZqATTZJC7Njbjv113x2XAU1B6b+VQjvS9ubi9JHZY9CDjn
+ 6kaNrmMx3TrgjWtDtbevCWRNiVBLZsgnLRSEL60wlt+S5ciCbo+kKrSB7ErN1ZhaaYEeTudDttM
+ PrKoRxfEY3a+Sj3QipxhKQFeRx4lzervXGTfS/ef/8VI9ZskORDfXU53WJhCxw=
+X-Proofpoint-ORIG-GUID: -KWyMyzycgyDDQNTQ0UfnRK6tOoVr5ks
+X-JNJ: AAAAAAABzjPO6W4rny0V0o6bNlMjhh9AgF0wCO0Am2j5gnoKqV0Cu/ano5uoylOeo1Rs+Dx4cqzL8WIIxfcOpqG/N8yvS/4n3brLBFzmfnNryaheFrRBibwuwJdz1xZ3bjmrRBoqaB6mJODb9Xt9teDUB3UeavBAoICnHVO2Dtd/9O1r3tRWcuXBSyY9aLT3u9Wt/SsQgRPjVu7NjcionUMW+8Hyso8/jT6gUc0Heoq+pPtgm4kwcx/3e6R2/Z9WRyJL2IY51KPff0RFJDBmKpxecW7I7TkEHl40iiP+sW4vx5erQCszzwfLme+PBAx2HIJdwsKUBpRJ5K6jVVLJrpyQa01LNR+s3NSoAByiRecbENvyqiKT23aynHJLZh5KvIHsO6veTnp2YSxFeIpBOENY7lSpnigDFyMo3Z9UW2l776Nj6RJBu/wluvvPGxGk6OI5uNj5atWaMEnHn+9WxZ0p/h3QzTLni2KdAzaSfUEZaw1++At6pc2AXMu3oNYXbMjEizYkQMj62iDgxyMIS0Hzi1Z9i+EuhAPXjGOZip/rUNnbVG5wYfiYEtTGJB8q/C+/s+4ufdEyN1hon0lzP5dBe8hYf629CUwhM1iUP9d6ceXW4MpKoOwZRISFuUAVTy2KteMQL2//i/jiTicdaRTxB5YrtfXkgl8ifX7C7e2Rn8P0GPqgQi40SHioE0cdZL062DpzJsETXFY7uk7SC6aDU+y3pc6recUwQ7kSEloPhZmFOcCJLSrlSivaORAkDx2x5YwVfZubSYAjlqLOUfpvdY9FRLtHmNMn1jVec1pdmjS2+ml85oE3g23tcJUOXu0hNjrGarRQ9gFEWGk8fOd5dpvrz1JYDhjU3lhn+TKssWySXbFxYUct3kdpI9czTwSt1r42nMOj/45aM1ZXoAunBvNhwMorunu+mpH73Aev2oJJ9+8dQG5NYQ0CeudfbxWpKQLd4wVd/8yP1VYAVsJ2I6XdIPq
+ df5YPQB++nYe55OEDCA9X99tGi4jPp6NIKKPxbzQuquuXHg0VAPMwMAX4TI0Q7rvsJD8RDYSbZpMsO9JIRMnQUwKXmX+FuK+sZ88xHgxJTw1GUkoQ5jwyIdAhykYWvb+PNKPP6Qf3alrtimFj4/u0MjBcqYXSQ5K0otugtZqiyp7rZhjQJ5f7J1dn/IuOqHiY+1Cagvv6/takYeeJFhpuLogFyL3Ln9lh1TUOT8IeM1zsTuzEF1smSXRGGv7OVbFD39TwHrvl1mkqCfcGc/bp7KtQ69imu30GJ1ve7tmbt/F7952d4KW6cnjn9YQMv9BUm7mNzxLIef4AHtqQai5v/zJAMGszI+XoALz97l8pExRZKS59sjfY1pnGGCodQBYpK0g/m5OOOqzH3DR1zQNv/ydGMTuGFd9fz/lObByKxfA/OJGcy+umUItOdSpk3x9FkEN1iulYkFF48xkxUaCIKcavq0DsL+17ZEKoBxl8tHZPzQYm5baO+b6cFbOEhP0zrqM=
 
-mt8192_scp_da_to_va() translates a device address to a pointer into
-SCP SRAM, L1TCM or DRAM. Its bounds checks have two problems:
+Hi Andrea,
 
-- (da + len) is computed in u64 and wraps for a large da or len.
-  With da = 0xfffffffffffffff0 and len = 0x20, the sum is 0x10 and
-  passes "<= base + size" while da >= base also holds.
+Thanks for putting this together so quickly, and for picking up the RFC.
 
-- offset is an int but is assigned from a u64 difference, so it is
-  truncated before being added to the region's base pointer.
+On Sun, Oct 04, 2026 at 09:27:09AM +0200, Andrea Righi wrote:
+> +   if (!queued && (sch->ops.flags & SCX_OPS_NUMA_BALANCING) &&
+> +       static_branch_unlikely(&sched_numa_balancing))
+> +           task_tick_numa(rq, donor);
 
-da and len come from the firmware's ELF program headers
-(p_paddr/p_memsz) via rproc_da_to_va(), and the returned pointer is
-then written to by the ELF loader, so a malformed firmware image can
-make the loader write outside the intended region.
+One question about proxy execution, which I may well be missing context
+on. Hui Su's tick series moves the fair NUMA tick to the execution
+context, with the reasoning that task_tick_numa() works on the mm and
+NUMA work state of the task that is actually running:
 
-Use a u64 offset and compare len against the remaining region size
-instead of adding it to da. Apply this to the SRAM, L1TCM and DRAM
-regions.
+  https://lore.kernel.org/r/20260909092901.2989564-3-sh_def@163.com
 
-Fixes: ca23ecfdbd44 ("remoteproc/mediatek: support L1TCM")
-Cc: stable@vger.kernel.org
-Signed-off-by: Atul Akella <atul.akella@gmail.com>
----
- drivers/remoteproc/mtk_scp.c | 24 ++++++++++++------------
- 1 file changed, 12 insertions(+), 12 deletions(-)
+Here the scan is driven from the donor. I understand that in your proxy
+execution integration SCX runtime is accounted to the donor, so maybe
+this is intentional to keep the pacing consistent, but then the scan
+would cover the donor's address space rather than the one being
+accessed. Is the donor the intended choice here, or should this follow
+rq->curr once SCHED_PROXY_EXEC no longer depends on !SCHED_CLASS_EXT?
 
-diff --git a/drivers/remoteproc/mtk_scp.c b/drivers/remoteproc/mtk_scp.c
-index d18ae676260a..b1d83265fc26 100644
---- a/drivers/remoteproc/mtk_scp.c
-+++ b/drivers/remoteproc/mtk_scp.c
-@@ -775,30 +775,30 @@ static void *mt8183_scp_da_to_va(struct mtk_scp *scp, u64 da, size_t len)
- 
- static void *mt8192_scp_da_to_va(struct mtk_scp *scp, u64 da, size_t len)
- {
--	int offset;
-+	u64 offset;
- 	const struct mtk_scp_sizes_data *scp_sizes;
- 
- 	scp_sizes = scp->data->scp_sizes;
--	if (da >= scp->sram_phys &&
--	    (da + len) <= scp->sram_phys + scp->sram_size) {
-+	if (da >= scp->sram_phys) {
- 		offset = da - scp->sram_phys;
--		return (void __force *)scp->sram_base + offset;
-+		if (offset <= scp->sram_size && len <= scp->sram_size - offset)
-+			return (void __force *)scp->sram_base + offset;
- 	}
- 
- 	/* optional memory region */
--	if (scp->cluster->l1tcm_size &&
--	    da >= scp->cluster->l1tcm_phys &&
--	    (da + len) <= scp->cluster->l1tcm_phys + scp->cluster->l1tcm_size) {
-+	if (scp->cluster->l1tcm_size && da >= scp->cluster->l1tcm_phys) {
- 		offset = da - scp->cluster->l1tcm_phys;
--		return (void __force *)scp->cluster->l1tcm_base + offset;
-+		if (offset <= scp->cluster->l1tcm_size &&
-+		    len <= scp->cluster->l1tcm_size - offset)
-+			return (void __force *)scp->cluster->l1tcm_base + offset;
- 	}
- 
- 	/* optional memory region */
--	if (scp_sizes->max_dram_size &&
--	    da >= scp->dma_addr &&
--	    (da + len) <= scp->dma_addr + scp_sizes->max_dram_size) {
-+	if (scp_sizes->max_dram_size && da >= scp->dma_addr) {
- 		offset = da - scp->dma_addr;
--		return scp->cpu_addr + offset;
-+		if (offset <= scp_sizes->max_dram_size &&
-+		    len <= scp_sizes->max_dram_size - offset)
-+			return scp->cpu_addr + offset;
- 	}
- 
- 	return NULL;
--- 
-2.43.0
-
+Thanks,
+Vladimir
