@@ -1,191 +1,143 @@
-Received: from mail-qv2-f43.google.com (mail-qv2-f43.google.com [74.125.230.171])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 287374BE45C
-	for <linux-kernel@vger.kernel.org>; Mon,  5 Oct 2026 15:13:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.171
+Received: from azure-sdnproxy.icoremail.net (azure-sdnproxy.icoremail.net [207.46.229.174])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id A5E524AD4C8;
+	Mon,  5 Oct 2026 15:13:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=207.46.229.174
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791213192; cv=none; b=VcjneYVBliH8JgKx3uhMHssKFvEvoUu1dnjrXpk/lpn0lqwzflmJv87DfoMY3wXKrapVomQS70gS45V1lmGmAeoY0EcD2KKTzIqotAcTX96wf7QqLopJguXwjWSvIkV0dMcdCz6fXl0Cv1KIgrqs7vtNTSs60LK8fguEKV1nYAk=
+	t=1791213207; cv=none; b=MOmc867EoMBJefZJu5qwXRO7HkWImXqym2ipgsuwTBUYiOM3MDexIb5UZjTisojgFg/Z5gRtz8Lzqvi3Cpp6pLnaihJTSZ6+rCepoPN8gHryQPq2dR/DH5xMtoiG5769AzxzxoVqkW4TCJLpYPTdOCLDKW++2b+fUoSDwKo5Pa0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791213192; c=relaxed/simple;
-	bh=v2CL7NzerBT0Gb9nktqrtaTmkdEXL7HiVRShTTS6Tss=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=bFcQ4seue2N+9bcAwRGw4FRNfYXcivkcCUOBpZAgZ3vtbcwA7KaqyWquQWcF4AZezgX+82B12K8SSqiSmFdIe2oCUUfpikKReORskvE3hYMtJ8JfK/TZvkWGa75QA2ZvOIghYWqn2P+Hd6wHfJJogw6IFwmyeBvl8BzeFSrJR5g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=DhBdzYlX; arc=none smtp.client-ip=74.125.230.171
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1791213207; c=relaxed/simple;
+	bh=KjRnL54FOka6c50pYVZt0J2e1jYOt38SAmJ3tSkAFgw=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=Zc4r5UI4XGqody2cwDsFiiUaF5ODFBmQxdKAzOAQ3m3HBdn+FmWOFsKpNt6db//orYp0t1vVzPFdWYgiBRg1trm4BHR0KOEAgvhm7PuVAWvYNB+ir+CQXtHglXTePiefFGklgMJtX8LuAeGe3/ZIKMFRHO63knPOoNBO9w+LYjo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mails.tsinghua.edu.cn; spf=pass smtp.mailfrom=mails.tsinghua.edu.cn; dkim=pass (1024-bit key) header.d=mails.tsinghua.edu.cn header.i=@mails.tsinghua.edu.cn header.b=fH1N9Y2G; arc=none smtp.client-ip=207.46.229.174
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mails.tsinghua.edu.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mails.tsinghua.edu.cn
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="DhBdzYlX"
-Received: by mail-qv2-f43.google.com with SMTP id 6a1803df08f44-919552173fbso23157526d6.3
-        for <linux-kernel@vger.kernel.org>; Mon, 05 Oct 2026 08:13:10 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=mails.tsinghua.edu.cn header.i=@mails.tsinghua.edu.cn header.b="fH1N9Y2G"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791213190; x=1791817990; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=tD1DJkux8VkZcN5TNfoztkwmQYTd0VlzT09CyOrF6zg=;
-        b=DhBdzYlXQfa9l4Ns8vm3hVSshlp0u3vt4ashHNaUoMypukGBW6zVQvhXqMUq7HlABt
-         nrTo7FqIG2JlsG4aDZwonfF48sXclDZrWlVrlxbKkTxDMCzzrlkbJRKWBMPkTjc7MCzY
-         /3jDxi2L2JhzjbP5uhu5jHCJFWmrisHJnYryqQrPWuhq5YG4Mj2A2989t01jSM4hmkb8
-         WyduLHEzCpYaRkY6mGdw4T9rmP4WcV8I+akfysgrCjOpoTEYGAyeTHQRb+L6y2VjuOde
-         GhVpwsm/tinBb7RlfIvrdF/AJ/FbIrC1DZVnnPpd4NqVzimZ6jTJZZjsmL/svdhPbIZL
-         GDsw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791213190; x=1791817990;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=tD1DJkux8VkZcN5TNfoztkwmQYTd0VlzT09CyOrF6zg=;
-        b=uY0lN06RXkl8SPAdzCrh1KyKF7PjQQejmWKjJPpMgUu/cm0vauxSpqsmQuOWjXgo2h
-         Bh1L/ZiWPke6iZIWj0sHb9r6AUpDCmjEuT/CiTK/VZ12D+u/tl8gLqEmtX7qRKaeOsKB
-         HhDVKyQbZSMgkK6dpA4LrQoV/JfBou3NzpzwHjpyQ7w8aOoUZkVfQeMCw9xAC2ywfNqs
-         X+7Pfwc7s8WAWfQGLTNci86OS5YbZbGVrbmq88IrIS33YngDgBtU3Erm0aX6lpPdnB2Q
-         JFxa0CbKzFNRe0bkeNBL9VadT9qnp8yfBYuKP7EBFlA8d5kwQ9k50en/Aepwg7kOHimk
-         KUOw==
-X-Forwarded-Encrypted: i=1; AKwUvByUFGIurERKmYGE4k/ugIgNi3LSRm6lKaIRD4TqG/CLsGlkMEuMauv1XLMacR2CHkFX07nYZsU7pR/bhPw=@vger.kernel.org
-X-Gm-Message-State: AFuF++lTVDy0oxZmY55RdwGKprInEHpFnhL+AcU+AG2F8PEcNMnlE8TD
-	gwS9KSNOzh418fTgb4b9OyAJ170WWxr4TrH5ona7T0NmXVGzoYPpMl0m
-X-Gm-Gg: AYBFou38ClnAWH/9DHUAcub+0J97DH+8CDApSN85S5Joywwlz3Vky8akoy0mndYj6dp
-	uFIL6DxxdN0cMoPIGSdI8R2kS0Ki/1LoHj9LWG0Qk/PJWwEYOv03GDgCa+/umkUiIqQBlZTt43l
-	rmzdaD7l7YM9tFPsrdjwr4XdSK+LTIcc4AzxWrm11vDyYpKOyWbkFfjnttHtcXbBg9jLE4R4K0c
-	DuPljHm0yoWXvxVZrjYfa9vysILhsWGAGLNpP8zQ6HKPwYcQfe2DTPawAnI0H+5eiMQvBrMmMxh
-	EwQQcABqZDTi86MZqa3KJ6Tl1R3WuT2hk4Gn4KwJJrbSM8c1qIGq47ydmdgpwi/R8c+VBr5xmjd
-	3cKET7kfoatkSgLe7zGwMgvxDlxFgivAqJkv9PfOduENCINQzHZzEMF+5SAQBtEg8R/ayafY4w3
-	/XffS0jDu5YYBZ3RPYv9trhK3wnV9YAQOq53u0jHBMCLvaEAdfKTPQMOWuPal15igh1uU1Dw==
-X-Received: by 2002:a05:6214:240f:b0:917:b048:8611 with SMTP id 6a1803df08f44-917c007daddmr214685736d6.20.1791213188187;
-        Mon, 05 Oct 2026 08:13:08 -0700 (PDT)
-Received: from thangnn-ASUS.. ([2a09:bac1:7ae0:50::3d0:67])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-917e0b1a108sm89482716d6.13.2026.10.05.08.13.02
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 05 Oct 2026 08:13:07 -0700 (PDT)
-From: Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>
-To: Pablo Neira Ayuso <pablo@netfilter.org>,
-	Florian Westphal <fw@strlen.de>
-Cc: Phil Sutter <phil@nwl.cc>,
-	Fernando Fernandez Mancera <ffmancera@riseup.net>,
-	"David S . Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>,
-	netfilter-devel@vger.kernel.org,
-	coreteam@netfilter.org,
-	netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	syzbot+d7795c8487ca4e20ed88@syzkaller.appspotmail.com,
-	syzbot+d0d2f1a65f45b319d25d@syzkaller.appspotmail.com,
-	syzkaller-bugs@googlegroups.com,
-	Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>
-Subject: [PATCH nf-next v2] netfilter: nft_synproxy: only handle pure SYN and ACK packets
-Date: Mon,  5 Oct 2026 22:12:57 +0700
-Message-ID: <20261005151257.9128-1-ngocthang2710.1999@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261004160615.142456-1-ngocthang2710.1999@gmail.com>
-References: <20261004160615.142456-1-ngocthang2710.1999@gmail.com>
+	d=mails.tsinghua.edu.cn; s=dkim; h=Received:From:Date:Subject:
+	MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:
+	References:In-Reply-To:To:Cc; bh=8w2P5ypWrI730AEW3FmtFu32zORWvQq
+	84m+nFUW2UQY=; b=fH1N9Y2GdBwwW2YI1a68fJ+gE1xTLy45LOqKr42tliQWvnS
+	okQn5RMdstwt+N9JWwAjDZutRd6VH4kmHJh4ON4alGAsc1KA3UgRHZBeeCJBNqYG
+	FVFUyFP1QyQGWbKcH4x7F229sxXI00mchz+TpNjcXJ6wVRTiBOlI9AdaE+pk=
+Received: from [172.17.0.2] (unknown [101.6.30.195])
+	by web4 (Coremail) with SMTP id ywQGZQCHSAZ6vsNq8u+4AA--.39659S3;
+	Mon, 05 Oct 2026 23:13:05 +0800 (CST)
+From: Yiyang Chen <chenyy23@mails.tsinghua.edu.cn>
+Date: Mon, 05 Oct 2026 15:12:57 +0000
+Subject: [PATCH bpf 1/2] bpf: Require referenced or trusted pointer for
+ __arg_trusted arg
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261005-a3-arg-trusted-v4-v1-1-50ee0268fd39@mails.tsinghua.edu.cn>
+References: <20261005-a3-arg-trusted-v4-v1-0-50ee0268fd39@mails.tsinghua.edu.cn>
+In-Reply-To: <20261005-a3-arg-trusted-v4-v1-0-50ee0268fd39@mails.tsinghua.edu.cn>
+To: Eduard Zingerman <eddyz87@gmail.com>, 
+ Daniel Borkmann <daniel@iogearbox.net>, Alexei Starovoitov <ast@kernel.org>, 
+ Andrii Nakryiko <andrii@kernel.org>, 
+ Kumar Kartikeya Dwivedi <memxor@gmail.com>
+Cc: Yonghong Song <yonghong.song@linux.dev>, 
+ Ihor Solodrai <ihor.solodrai@linux.dev>, Shuah Khan <shuah@kernel.org>, 
+ Jiri Olsa <jolsa@kernel.org>, linux-kselftest@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, John Fastabend <john.fastabend@gmail.com>, 
+ Emil Tsalapatis <emil@etsalapatis.com>, bpf@vger.kernel.org, 
+ Song Liu <song@kernel.org>, Martin KaFai Lau <martin.lau@linux.dev>
+X-Mailer: b4 0.13.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1791213186; l=2895;
+ i=chenyy23@mails.tsinghua.edu.cn; s=kernel; h=from:subject:message-id;
+ bh=KjRnL54FOka6c50pYVZt0J2e1jYOt38SAmJ3tSkAFgw=;
+ b=xhs/4ZCmTHL/m9jQOzeR1lREqVKpyxe85X07LRhIf4Tm/0Wrn6iexuM1WiuDdit/z9oVmfVbn
+ bOr4QbV4K3CCUyyURoMx+G9ZuTHK7XA6Uoav33OXYKzhVWq2iJ81l+j
+X-Developer-Key: i=chenyy23@mails.tsinghua.edu.cn; a=ed25519;
+ pk=+Q11PEDVzoU+87KHlIeNWKwv/GiutzE5094ej7opM+s=
+X-CM-TRANSID:ywQGZQCHSAZ6vsNq8u+4AA--.39659S3
+X-Coremail-Antispam: 1UD129KBjvJXoWxWryrCw48Jw47GrykKw17Jrb_yoW5WF43pF
+	48GrnIvF4kGr4Iy39ayF4xZrW5urWrZ3y7Crn7Aa4IyFn8WFW7tryYkFs8Ja1Yya95WryY
+	qryagrW0qa4UurJanT9S1TB71UUUUUJqnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUUB0b7Iv0xC_tr1lb4IE77IF4wAFc2x0x2IEx4CE42xK8VAvwI8I
+	cIk0rVWrJVCq3wA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK021l84ACjcxK6xIIjx
+	v20xvE14v26F1j6w1UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26F4j6r4UJwA2z4x0Y4vE
+	x4A2jsIE14v26rxl6s0DM28EF7xvwVC2z280aVCY1x0267AKxVW0oVCq3wAaw2AFwI0_Jr
+	v_JF1lnxkEFVAIw20F6cxK64vIFxWle2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xv
+	F2IEw4CE5I8CrVC2j2WlYx0E74AGY7Cv6cx26r4rKr1UJr1lOx8S6xCaFVCjc4AY6r1j6r
+	4UM4x0Y48IcxkI7VAKI48JM4IIrI8v6xkF7I0E8cxan2IY04v7MxkF7I0En4kS14v26r4a
+	6rW5MxkIecxEwVAFwVW5WwCF04k20xvY0x0EwIxGrwCF04k20xvE74AGY7Cv6cx26r4rKr
+	1UJr1l4I8I3I0E4IkC6x0Yz7v_Jr0_Gr1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s026x8G
+	jcxK67AKxVWUGVWUWwC2zVAF1VAY17CE14v26r4a6rW5MIIYrxkI7VAKI48JMIIF0xvE2I
+	x0cI8IcVAFwI0_Jr0_JF4lIxAIcVC0I7IYx2IY6xkF7I0E14v26r4j6F4UMIIF0xvE42xK
+	8VAvwI8IcIk0rVWUJVWUCwCI42IY6I8E87Iv67AKxVWUJVW8JwCI42IY6I8E87Iv6xkF7I
+	0E14v26r4j6r4UJbIYCTnIWIevJa73UjIFyTuYvjxUcDUUDUUUU
+X-CM-SenderInfo: xfkh05r1stqzpdlo2hxwvl0wxkxdhvlgxou0/
 
-nft_synproxy treats any segment with SYN set as a client's initial SYN
-and any segment with ACK set as the client's final ACK. A SYN-ACK thus
-gets answered with a fresh SYN-ACK cookie.
+A global subprogram parameter tagged __arg_trusted is documented to
+accept only the PTR_TRUSTED flavor of PTR_TO_BTF_ID, but the call-site
+check also accepts a bare PTR_TO_BTF_ID and an MEM_RCU one.
 
-If that reply is routed back to the same host, e.g. to a peer address
-covered by an address on lo, it re-enters the input hook, is answered
-again, and never stops. Every such SYN starts its own endless loop over
-the loopback backlog, so NET_RX softirq keeps the CPU busy and memory
-fills with skbs and rtable entries until workqueues stall and the
-machine OOMs.
+check_reg_type() resolves the accepted set from the base argument type
+alone and compares only MEM_RDONLY and PTR_MAYBE_NULL, so the PTR_TRUSTED
+bit of arg_type is never consulted. The trusted/RCU enforcement in
+check_func_arg() is gated on is_kfunc(meta), which is false for a
+subprogram call, so that block is skipped for __arg_trusted arguments.
 
-Use the same flag checks as ip(6)t_SYNPROXY: SYN without ACK, FIN or
-RST is an initial SYN; ACK without SYN, FIN or RST is the client ACK.
-Anything else falls through to the next expression.
+The callee is then validated with PTR_TRUSTED set on the register while
+the caller passed a pointer that is neither referenced nor trusted.
+bpf_may_fault_on_deref() is false for PTR_TRUSTED, so the dereference
+becomes a raw load instead of a BPF_PROBE_MEM probe, is_trusted_reg()
+kfuncs accept the pointer, and the callee can pass it on to a kfunc that
+would have rejected it at the original call site.
 
-Reported-by: syzbot+d7795c8487ca4e20ed88@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=d7795c8487ca4e20ed88
-Reported-by: syzbot+d0d2f1a65f45b319d25d@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=d0d2f1a65f45b319d25d
-Signed-off-by: Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>
+Reject a PTR_TO_BTF_ID that is neither referenced nor trusted when the
+argument is marked PTR_TRUSTED. A referenced register is accepted, as in
+is_trusted_reg(). PTR_MAYBE_NULL is not counted as an unsafe modifier
+when __arg_nullable declares it, so trusted-and-nullable arguments keep
+working. The kfunc path is unchanged.
+
+Fixes: e2b3c4ff5d183da6d1863c2321413406a2752e7a ("bpf: add __arg_trusted global func arg tag")
+Signed-off-by: Yiyang Chen <chenyy23@mails.tsinghua.edu.cn>
 ---
-v2:
-- Retarget to nf-next (Pablo).
-- Drop the Fixes: tag accordingly.
+ kernel/bpf/verifier.c | 21 +++++++++++++++++++++
+ 1 file changed, 21 insertions(+)
 
-v1: https://lore.kernel.org/all/20261004160615.142456-1-ngocthang2710.1999@gmail.com/
-
-Notes (not for the changelog):
-
-Reproduced in QEMU (x86_64, 2 vCPUs, KASAN+lockdep) with syzbot's C
-repro for d7795c8487ca4e20ed88. Minimised: only the nft batch and the
-injected SYN matter, which is exactly the d0d2f1a65f45b319d25d program.
-
-The rule is an inet table, base chain on input, with an unconditional
-"synproxy" expression. The SYN goes from 172.20.20.187 to .170 via tun;
-syzkaller puts 172.20.20.10/24 on lo, so the whole /24 is local and the
-SYN-ACK cookie comes back through lo. Instrumented trace:
-
-  synproxy tx .170->.187 in=syz_tun out=lo syn=1 ack=1
-  synproxy tx .187->.170 in=lo      out=lo syn=1 ack=1
-  synproxy tx .170->.187 in=lo      out=lo syn=1 ack=1
-  ...
-
-Before (3fd2ff60f6d6, full C repro):
-  - synproxy syn_received ~400k per CPU per netns after 15s
-  - rtable 80k -> 295k, skbuff_head_cache >1M, softirq time explodes
-  - "BUG: workqueue lockup", then OOM / hung task, VM wedges
-
-After (2 runs x 300s, full C repro):
-  - no lockup, hung task or OOM
-  - rtable flat (~2.2k), skbuff_head_cache flat (~80k)
-  - syn_received grows slowly (~9.5k/300s): real SYNs still answered
-
-ACK|FIN and ACK|RST no longer hit the cookie check (and its NF_DROP);
-they continue, as with ip(6)t_SYNPROXY's XT_CONTINUE. The usual
-"ct state invalid drop" rule still catches them.
-
- net/netfilter/nft_synproxy.c | 8 ++++----
- 1 file changed, 4 insertions(+), 4 deletions(-)
-
-diff --git a/net/netfilter/nft_synproxy.c b/net/netfilter/nft_synproxy.c
-index 9ed288c9d168..a580cb7324da 100644
---- a/net/netfilter/nft_synproxy.c
-+++ b/net/netfilter/nft_synproxy.c
-@@ -53,13 +53,13 @@ static void nft_synproxy_eval_v4(const struct nft_synproxy *priv,
- 	struct synproxy_net *snet = synproxy_pernet(net);
- 	struct sk_buff *skb = pkt->skb;
+diff --git a/kernel/bpf/verifier.c b/kernel/bpf/verifier.c
+index fd3c0206bd67d..fe5edbef85a16 100644
+--- a/kernel/bpf/verifier.c
++++ b/kernel/bpf/verifier.c
+@@ -9597,6 +9597,27 @@ static int check_func_arg(struct bpf_verifier_env *env, u32 arg, u32 slot, u32 p
+ 			}
+ 		}
  
--	if (tcp->syn) {
-+	if (tcp->syn && !(tcp->ack || tcp->fin || tcp->rst)) {
- 		/* Initial SYN from client */
- 		nft_synproxy_tcp_options(opts, tcp, snet, &info);
- 		synproxy_send_client_synack(net, skb, tcp, opts);
- 		consume_skb(skb);
- 		regs->verdict.code = NF_STOLEN;
--	} else if (tcp->ack) {
-+	} else if (tcp->ack && !(tcp->fin || tcp->rst || tcp->syn)) {
- 		/* ACK from client */
- 		if (synproxy_recv_client_ack(net, skb, tcp, opts,
- 					     ntohl(tcp->seq))) {
-@@ -84,13 +84,13 @@ static void nft_synproxy_eval_v6(const struct nft_synproxy *priv,
- 	struct synproxy_net *snet = synproxy_pernet(net);
- 	struct sk_buff *skb = pkt->skb;
- 
--	if (tcp->syn) {
-+	if (tcp->syn && !(tcp->ack || tcp->fin || tcp->rst)) {
- 		/* Initial SYN from client */
- 		nft_synproxy_tcp_options(opts, tcp, snet, &info);
- 		synproxy_send_client_synack_ipv6(net, skb, tcp, opts);
- 		consume_skb(skb);
- 		regs->verdict.code = NF_STOLEN;
--	} else if (tcp->ack) {
-+	} else if (tcp->ack && !(tcp->fin || tcp->rst || tcp->syn)) {
- 		/* ACK from client */
- 		if (synproxy_recv_client_ack_ipv6(net, skb, tcp, opts,
- 						  ntohl(tcp->seq))) {
++		/* A __arg_trusted argument requires a referenced or trusted
++		 * pointer. btf_ptr_types also matches a bare PTR_TO_BTF_ID and
++		 * an MEM_RCU one, but neither is referenced or trusted, so the
++		 * callee would be verified with PTR_TRUSTED while the caller
++		 * passed something that is not. PTR_MAYBE_NULL is not counted
++		 * as unsafe when __arg_nullable declares it, because
++		 * bpf_type_has_unsafe_modifiers() treats that flag as unsafe.
++		 */
++		if ((arg_type & PTR_TRUSTED) && base_type(reg->type) == PTR_TO_BTF_ID &&
++		    !reg_is_referenced(env, reg)) {
++			u32 flags = type_flag(reg->type);
++
++			if (!(flags & BPF_REG_TRUSTED_MODIFIERS) ||
++			    (flags & ~(BPF_REG_TRUSTED_MODIFIERS |
++				       (arg_type & PTR_MAYBE_NULL)))) {
++				verbose(env, "%s must be referenced or trusted\n",
++					reg_arg_name(env, argno));
++				return -EINVAL;
++			}
++		}
++
+ 		if (is_kfunc(meta) && (!is_trusted_reg(env, reg) ||
+ 				       bpf_type_has_unsafe_modifiers(reg->type))) {
+ 			if (!(arg_type & MEM_RCU)) {
+
 -- 
 2.43.0
 
