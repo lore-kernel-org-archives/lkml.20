@@ -1,35 +1,35 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8A302530E06;
-	Mon,  5 Oct 2026 17:19:18 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2512A53161E;
+	Mon,  5 Oct 2026 17:19:21 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791220759; cv=none; b=j9qBy2yaWemaXFcbZuCxBIrgV4GWzAX2Z+h9KvpjoHDxdF2zxZvYBXdmJHmFXoWcp+W1rRGyO2ASmmtv7mkEBk47hISyb42L5B8VxCMstnlKeZ+qwIZFxNwqVqRorggf4gWEnbvyaAusEhzx+M+kysNC+qGzqfpn7KnE/p8ocSg=
+	t=1791220763; cv=none; b=mx7NWfD11NT25nQSRY8UQ5BfqUNpu8iwWJfOvCqD0EHoxButNx/XOwCQo+KhvV4FWqAXqlA96eRxU5tBJKHu7SK+XXbpw4qDEmOj3QGYzTSlYN3WjdD5Kp4CVu8wzibS0AMpk/G7gns7Xh1XRjGxRisOcjhpg2I2o70MnCiOzAs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791220759; c=relaxed/simple;
-	bh=R/Wf+iCV5OIpOk4ARp50jI/CfNcjLaWVTz95rDPKGsE=;
+	s=arc-20240116; t=1791220763; c=relaxed/simple;
+	bh=MbTv8CwwtatMbXtbEx8p2gPzgyjCoeO95HqemonCVRc=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=pM8oZbXqHaRQMzmPCAV7cCKqAWocLHTFevos9f7CGejR7mSIePZLOeqi+RJIfQeme8y4ZkcKmXfL9yrYkzIFctEFPU6687KAuWaU5Iofqg5a3xxne2JfaifZTLi0lHLKdtBHpEJKRVYsz4SwiJSp+2Oq9TSK5QAl3LEhxNKHUZ0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=QyvtUmrq; arc=none smtp.client-ip=100.103.45.18
+	 In-Reply-To:To:Cc; b=A1JKTkRDGorU2sPykBnkp29Maoo8+RRdwuhm5YwtykIxGDA73lsVub9jYfLaJ/5mznn3JedP+71il5Y9I8/a4Z2xmPvKOltlKyzyHTxfaJgSEfdMKg4W8jLhoqmQX9cLyevjMrPy8OU2nOmlWWG4OueuJer9MyDMnY3a9+pNHrc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VB/1Zc0+; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="QyvtUmrq"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 331601F00893;
-	Mon,  5 Oct 2026 17:19:15 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VB/1Zc0+"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A618C1F000FF;
+	Mon,  5 Oct 2026 17:19:18 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791220758;
-	bh=QLJi2iC+gVHm4rNAhO+oE9aXYqCC8e7UITg8o41jhro=;
+	s=k20260515; t=1791220761;
+	bh=hMUHDkIPWMaSrXnKx1VLX7Ewld9IlsxMtWyFjXqQCEk=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=QyvtUmrqRWlV70DhWMj+wpD+o5f0K7McoYxluXzCNtncLh56ytVyga7JbahVdlasa
-	 gKQ0DtRhz4683jP3LVcr5qLlQa0Z6pbgGgWyeir2P+TBfyYqpteafdpqgq2g+ld7K8
-	 QrWnMcU3H9hw2Z/04itbjNr2CJt+9rN3jnk0VAWqGP1Xtisbk+3Cl/EEDHjZMIyrzM
-	 vJErYt7ulx/w6Dc1RBSZbTXWIvnhX4UES50ihcifXEi7B6O0x/6XDjpjbXWV3ie+9N
-	 GOmBGEuWUekrKqvR7G0hN/rZjFpmn+od3PiJ4nvsbQAOW+1L6mU+gh7XO19na4s1Gl
-	 qpmdsTvlDh38g==
+	b=VB/1Zc0+k/aTJ+36L85MB9P93OK3zui0+RjxAjp/z0gxL1HQ6JmH+k+8+Xjyc0jB8
+	 tdIGTlpAGyM8VirmmtRud9ecEAykqdCA53V0cm6ETbSRUoKEdZaOIDqmG4T/paWhTr
+	 fTh/PmB9KEx7qqGrIwoSgqiAFzLK3KLjHEmj+/eM+j9Vl/G8XoMfTCiKsu80c11owE
+	 H5G+Sd0gv3ffuWqccmAO3Kw8pP9fAiXxUvn9Bu42tbv+z6PZrbp/NWQPReO43pDehz
+	 MO3vl8pSzT8jzLwppvwTO2DWDMZYzs3EKeZovDjG5hFY/FdEtmkhYSS6dSC+4ASOeR
+	 UBErfhyRiTN1Q==
 From: bod@kernel.org
-Date: Mon, 05 Oct 2026 19:14:31 +0200
-Subject: [PATCH 61/74] media: qcom: camss: vfe: Size the pixel path clock
- by its pixels per clock
+Date: Mon, 05 Oct 2026 19:14:32 +0200
+Subject: [PATCH 62/74] media: qcom: camss: vfe: Size the outputs for the
+ PIX line and set up each one
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -38,7 +38,7 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261005-linux-mainline-7-2-sm8650-hdk-rfc-0-v1-61-ed985aefd611@kernel.org>
+Message-Id: <20261005-linux-mainline-7-2-sm8650-hdk-rfc-0-v1-62-ed985aefd611@kernel.org>
 References: <20261005-linux-mainline-7-2-sm8650-hdk-rfc-0-v1-0-ed985aefd611@kernel.org>
 In-Reply-To: <20261005-linux-mainline-7-2-sm8650-hdk-rfc-0-v1-0-ed985aefd611@kernel.org>
 To: Bryan O'Donoghue <bryan.odonoghue@linaro.org>, 
@@ -55,86 +55,204 @@ To: Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
 Cc: linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
  linux-kernel@vger.kernel.org, Bryan O'Donoghue <bod@kernel.org>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2103; i=bod@kernel.org;
- h=from:subject:message-id; bh=np25x0qd4SQEjScXdahmff2AfvHOC9bljVvPMRGNckw=;
- b=owEBbQKS/ZANAwAKASJxO7Ohjcg6AcsmYgBqw9ssVbb1Uv7roUtVNzyqN4JLeZS2XTM28dkAG
- juS0dlRR1qJAjMEAAEKAB0WIQTmk/sqq6Nt4Rerb7QicTuzoY3IOgUCasPbLAAKCRAicTuzoY3I
- OjtUEACpjaqicD0qRxyb/9KZj74QfeCpeLya4nREZlBOEsmHVMJM3c9qpZvHSkhlRsOZGE3uo54
- OcBWB/oCDi9ucDgHlKFmoQtiBdQUvmvAlSy1EnUWDeHuVqLhYyMkJlnMXS/8Bdgq5nyDqWwSU7L
- AWG6q5mZJkvy4u6wo6bAnv1XR1K6znY/FdEYCyxn9zVPYAN5R/oslPLabbnPorA/xdCGxLvsxg9
- eCQgsnv6CRnM3vlYWtejRwP1WprAvHqUtYbgnUni/Q0hWfFwGWdqaoTPltQN18J7earVXrMaOh7
- zc4gEMawDjyQZnZ9KCCLKw7ITDRCE4q8JpK6J1VEvyoTqSZEEAOM9faMBrVCH2xgtkX8rrtW+2m
- OtzV9+Yi9huBw83v+XOSaspklV6mpLeSvSLDGvmBkqMXO5z+p6LWjHWMuqohYsqJYa9/NqFojMF
- DR0tNTQ0OEZ9tFYN2fifvbn6JG7KmjGI6bNlobd6HLvzLX8SPj6Yzl9rUsX2wvSqddyoU2+0stL
- dVjB1YHc9iusQX/ZcPGEXqMORwqJ8kliBIpchjk7tsCPx5RFBJkGmLA3nZ9WOAAS1OJhlBgp4HE
- JF0gbvJPr2tWXpV7ZTv5PdaHbdsDOLtyyPR+z0Pwers6OdtHX4qAbMygg7apHrlmNT6dX5lODr1
- Q4ZrsRQIpTX0VRw==
+X-Developer-Signature: v=1; a=openpgp-sha256; l=6113; i=bod@kernel.org;
+ h=from:subject:message-id; bh=5H8xbTzWv7RkQ61ZC5AxP9xcMI+WCKKX170ssF6BhuQ=;
+ b=owEBbQKS/ZANAwAKASJxO7Ohjcg6AcsmYgBqw9stlOTnsz71KEr0L98/yNcRzJOuHG/6PLfeY
+ hAmQWC+E7qJAjMEAAEKAB0WIQTmk/sqq6Nt4Rerb7QicTuzoY3IOgUCasPbLQAKCRAicTuzoY3I
+ OiM2EACPm7DDQPxTpVR/c72hYRB5nl/pJnQPJVLRIa2qVoL0k5KVjA/6t0pPENlKci7rWqghSt+
+ FQbggNr3cnRFHI0htmciEuxnamDHjs8tbaE17IKEkhh16zxtmnqS/0gtYo0ky6Z1yuJ2rCN0irH
+ nGEWoexEWpmh6RsEulbSso48J1LK3AnBjaY4ABS+AO3rHZJJVfBVYtcn0rcZ570+cVNClRYXYyn
+ Ir/k/1NaCSXbK8M/oqjt/iK+j1QkQVMMGuuQYMPpsHBH9uHRr8kMQXDQ+KsyZHL+GEXZd+neNfk
+ xen04b4hU+tDEqKmHGp5FMSk8+Pe8HJjtVTuVyJ5vur1Pl0p/DZlUxrdSOS+WDpjDhFYob0W5h3
+ nLwxX5euoj0gs8tegjWEFnHj0xjYYLYUQdcauRM7OwZVNvWZs/qmESveN1YjfKzXmDFlploKKeL
+ bhGPuIqToF+hwlMomOngJ/dTQcR7/RNX2ldcia7CZng92Zn0dCWZU7zz9vi0n58EIp2z3+anWJz
+ 0mKvWPhWcs7QaE16VNmvrIO/xWtTcYinwnHotldUdJbOj/fff1Fq6i/6BUKt+U/pfCssZpgpdF3
+ EC+IISoAgcKCD+BkTBcT/SG+3QzZnrFTkYnx4eks7USr7E8J7hbmAET094ikIz5zLpaMYojzP1T
+ YsFS+Iv+zCSjlXQ==
 X-Developer-Key: i=bod@kernel.org; a=openpgp;
  fpr=E693FB2AABA36DE117AB6FB422713BB3A18DC83A
 
 From: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
 
-vfe_check_clock_rates() and vfe_set_clock_rates() size the VFE clock for
-a pixel line at one pixel per clock. That holds for the VFE 4.x and TFE
-pixel paths, but the SM8650 IFE pixel path takes two pixels per clock.
-There the PIX line asks for more than the highest VFE clock level and
-fails to power up with "Pixel clock is too high for VFE".
+The PIX line is described with five outputs, one per source or sink pad
+beyond the sink, but struct vfe_line holds MSM_VFE_NUM_OUTPUTS = 1. The
+descriptor writes and the enable loop for outputs 1-4 land past the end
+of the line.
 
-Add vfe_pix_ppc(), alongside vfe_bpl_align_pix(), and divide the pixel
-rate by it. Every existing pixel path stays at one pixel per clock.
-SM8650 takes two.
+- size output[] for every pad but the sink
+- record the pad each output serves, as vfe_add_output() was passed it
+- initialise every output: back pointer, completions, pending list
+- start secondary outputs only while their video node streams and they
+  have write masters; the first output still starts the line
+- stop and release every output that ran
 
 Signed-off-by: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
 ---
- drivers/media/platform/qcom/camss/camss-vfe.c | 21 +++++++++++++++++++--
- 1 file changed, 19 insertions(+), 2 deletions(-)
+ drivers/media/platform/qcom/camss/camss-vfe.c | 70 +++++++++++++++++++--------
+ drivers/media/platform/qcom/camss/camss-vfe.h |  3 +-
+ 2 files changed, 52 insertions(+), 21 deletions(-)
 
 diff --git a/drivers/media/platform/qcom/camss/camss-vfe.c b/drivers/media/platform/qcom/camss/camss-vfe.c
-index bf8ae6a6bfae0..588a355b67ff0 100644
+index 588a355b67ff0..8bcacede0f969 100644
 --- a/drivers/media/platform/qcom/camss/camss-vfe.c
 +++ b/drivers/media/platform/qcom/camss/camss-vfe.c
-@@ -1137,6 +1137,23 @@ static bool vfe_check_clock_levels(struct camss_clock *clock)
- 	return false;
+@@ -679,6 +679,18 @@ void vfe_buf_done(struct vfe_device *vfe, int wm, struct camss_buf_done_info *bu
+ 	spin_unlock_irqrestore(&vfe->output_lock, flags);
  }
  
 +/*
-+ * vfe_pix_ppc - Pixels the pixel path consumes per VFE clock
-+ * @vfe: VFE device
-+ *
-+ * The VFE 4.x and TFE pixel paths take one pixel per clock, the SM8650 IFE
-+ * pixel path two.
++ * The first output starts the line. The others run only while their video
++ * node is streaming, and only if they write to memory.
 + */
-+static u32 vfe_pix_ppc(struct vfe_device *vfe)
++static bool vfe_output_wanted(struct vfe_line *line, struct vfe_output *output)
 +{
-+	switch (vfe->camss->res->version) {
-+	case CAMSS_8650:
-+		return 2;
-+	default:
-+		return 1;
-+	}
++	if (output == &line->output[0])
++		return true;
++
++	return output->wm_num && vb2_is_streaming(&output->video_out.vb2_q);
 +}
 +
- /*
-  * vfe_set_clock_rates - Calculate and set clock rates on VFE module
-  * @vfe: VFE device
-@@ -1169,7 +1186,7 @@ static int vfe_set_clock_rates(struct vfe_device *vfe)
- 				u8 bpp;
+ static int vfe_enable_one_output(struct vfe_line *line, struct vfe_output *output)
+ {
+ 	struct vfe_device *vfe = to_vfe(line);
+@@ -747,6 +759,9 @@ int vfe_enable_output_v2(struct vfe_line *line)
+ 	ops->reg_update_clear(vfe, line->id);
  
- 				if (vfe->line[j].is_pix) {
--					tmp = pixel_clock[j];
-+					tmp = div_u64(pixel_clock[j], vfe_pix_ppc(vfe));
- 				} else {
- 					struct vfe_line *l = &vfe->line[j];
+ 	for (i = 0; i < line->num_outputs; i++) {
++		if (!vfe_output_wanted(line, &line->output[i]))
++			continue;
++
+ 		ret = vfe_enable_one_output(line, &line->output[i]);
+ 		if (ret)
+ 			break;
+@@ -900,15 +915,17 @@ int vfe_reset(struct vfe_device *vfe)
  
-@@ -1250,7 +1267,7 @@ static int vfe_check_clock_rates(struct vfe_device *vfe)
- 				u8 bpp;
+ static void vfe_init_outputs(struct vfe_device *vfe)
+ {
+-	int i;
++	int i, o;
  
- 				if (vfe->line[j].is_pix) {
--					tmp = pixel_clock[j];
-+					tmp = div_u64(pixel_clock[j], vfe_pix_ppc(vfe));
- 				} else {
- 					struct vfe_line *l = &vfe->line[j];
+ 	for (i = 0; i < vfe->res->line_num; i++) {
+-		struct vfe_output *output = &vfe->line[i].output[0];
++		for (o = 0; o < MSM_VFE_NUM_OUTPUTS; o++) {
++			struct vfe_output *output = &vfe->line[i].output[o];
  
+-		output->state = VFE_OUTPUT_OFF;
+-		output->buf[0] = NULL;
+-		output->buf[1] = NULL;
+-		INIT_LIST_HEAD(&output->pending_bufs);
++			output->state = VFE_OUTPUT_OFF;
++			output->buf[0] = NULL;
++			output->buf[1] = NULL;
++			INIT_LIST_HEAD(&output->pending_bufs);
++		}
+ 	}
+ }
+ 
+@@ -996,7 +1013,8 @@ int vfe_put_output(struct vfe_line *line)
+ 	for (i = 0; i < output->wm_num; i++)
+ 		vfe_release_wm(vfe, output->wm[i].bus_client);
+ 
+-	output->state = VFE_OUTPUT_OFF;
++	for (i = 0; i < line->num_outputs; i++)
++		line->output[i].state = VFE_OUTPUT_OFF;
+ 
+ 	spin_unlock_irqrestore(&vfe->output_lock, flags);
+ 	return 0;
+@@ -1006,17 +1024,24 @@ static int vfe_disable_output(struct vfe_line *line)
+ {
+ 	struct vfe_device *vfe = to_vfe(line);
+ 	const struct vfe_hw_ops *ops = vfe->res->hw_ops;
+-	struct vfe_output *output = &line->output[0];
+ 	unsigned long flags;
+-	unsigned int i;
++	unsigned int i, o;
+ 
+ 	spin_lock_irqsave(&vfe->output_lock, flags);
+-	if (ops->vfe_output_stop)
+-		ops->vfe_output_stop(vfe, output);
+-	else
+-		for (i = 0; i < output->wm_num; i++)
+-			ops->vfe_wm_stop(vfe, output->wm[i].bus_client, line);
+-	output->gen2.active_num = 0;
++	for (o = 0; o < line->num_outputs; o++) {
++		struct vfe_output *output = &line->output[o];
++
++		/* the first output is always on; the others only if they streamed */
++		if (o && output->state != VFE_OUTPUT_ON)
++			continue;
++
++		if (ops->vfe_output_stop)
++			ops->vfe_output_stop(vfe, output);
++		else
++			for (i = 0; i < output->wm_num; i++)
++				ops->vfe_wm_stop(vfe, output->wm[i].bus_client, line);
++		output->gen2.active_num = 0;
++	}
+ 	spin_unlock_irqrestore(&vfe->output_lock, flags);
+ 
+ 	return vfe_reset(vfe);
+@@ -2175,22 +2200,26 @@ int msm_vfe_subdev_init(struct camss *camss, struct vfe_device *vfe,
+ 
+ 	for (i = VFE_LINE_RDI0; i < vfe->res->line_num; i++) {
+ 		struct vfe_line *l = &vfe->line[i];
++		unsigned int o;
++
++		for (o = 0; o < MSM_VFE_NUM_OUTPUTS; o++) {
++			l->output[o].line = l;
++			l->output[o].video_out.camss = camss;
++			init_completion(&l->output[o].sof);
++			init_completion(&l->output[o].reg_update);
++		}
+ 
+ 		l->output[0].video_out.type = V4L2_BUF_TYPE_VIDEO_CAPTURE_MPLANE;
+-		l->output[0].video_out.camss = camss;
+ 		l->id = i;
+ 
+ 		l->num_outputs = 1;
+-		l->output[0].line = l;
++		l->output[0].pad = MSM_VFE_PAD_SRC;
+ 
+ 		l->output[0].wm_num = 1;
+ 		l->output[0].wm[0].bus_client = l->id;
+ 
+ 		l->num_pads = MSM_VFE_PAD_NUM_RDI;
+ 
+-		init_completion(&l->output[0].sof);
+-		init_completion(&l->output[0].reg_update);
+-
+ 
+ 	}
+ 
+@@ -2500,6 +2529,7 @@ void vfe_add_output(struct vfe_output *output, u8 pad, u8 comp_group,
+ {
+ 	unsigned int i;
+ 
++	output->pad = pad;
+ 	output->comp_group = comp_group;
+ 	output->wm_num = wm_num;
+ 	for (i = 0; i < wm_num; i++) {
+diff --git a/drivers/media/platform/qcom/camss/camss-vfe.h b/drivers/media/platform/qcom/camss/camss-vfe.h
+index 2b354d6bcc1f5..11cded2b345eb 100644
+--- a/drivers/media/platform/qcom/camss/camss-vfe.h
++++ b/drivers/media/platform/qcom/camss/camss-vfe.h
+@@ -28,7 +28,7 @@
+ #define MSM_VFE_PAD_NUM_RDI 2
+ #define MSM_VFE_PAD_NUM_PIX 6
+ #define MSM_VFE_MAX_PADS MSM_VFE_PAD_NUM_PIX
+-#define MSM_VFE_NUM_OUTPUTS 1
++#define MSM_VFE_NUM_OUTPUTS (MSM_VFE_MAX_PADS - 1)	/* every pad but the sink */
+ 
+ #define MSM_VFE_IMAGE_MASTERS_NUM 7
+ #define MSM_VFE_COMPOSITE_IRQ_NUM 4
+@@ -114,6 +114,7 @@ struct vfe_wm {
+ #define VFE_MAX_WM_PER_OUTPUT 3
+ 
+ struct vfe_output {
++	u8 pad;			/* index into line->pads[] this output serves */
+ 	u8 comp_group;
+ 	u8 wm_num;
+ 	struct vfe_wm wm[VFE_MAX_WM_PER_OUTPUT];
 
 -- 
 2.55.0
