@@ -1,210 +1,296 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.15])
+Received: from OS0P286CU010.outbound.protection.outlook.com (mail-japanwestazon11021122.outbound.protection.outlook.com [40.107.74.122])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0024810785;
-	Mon,  5 Oct 2026 04:30:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.15
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791174633; cv=none; b=RLCCmPxiWLyjGrZhMa94Shtn9DHKhnzmDDPBSIxThm69sexN8LXyLXfKiItHvANr9yfF71A1fDK6N+a0m6CGzHmAOVa16RDvud70cgjeVM2V8JPfV16ZlVA6RQ+X5K1nmWX2qg8+3bBXzuHZChhKQ1B4ia2sFX6VbOauM4SjXC0=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791174633; c=relaxed/simple;
-	bh=OQYgSxltXIE+cGD9fGCFRizOTrDv3aePuKLtHe7KhpA=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=nSXk5A7A8MTpHb0ryoX5q6ib5lDvuFDRkvmHaIleNQyVu1wG2Pn0lcwp+NxXkF3yylpBo4sB3AY1szRM56I5Es6SnW+WXDSxyDxcU+rX/YswjPkEAMkhFBDZVv7MCVNdhxXBs/bcw+QiPRNubydvsDQSxU6LHOJqisXgfPOXdOw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=FDTRXbVR; arc=none smtp.client-ip=192.198.163.15
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F1E3510785;
+	Mon,  5 Oct 2026 04:31:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.74.122
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791174682; cv=fail; b=TxXHYyopUjUyb2BXkCqfTS0pM4L2FQJpNlNk2ShU9sFxtpeAKACks4bW9B2M/b/+PD1QvYPOz//5imkEddrUUftKQQExM4h+f4cDLJKDwCiJgcqTvI59sI1l84znEIqCzFMZpJXUeYA7qJRlEduWDyCysmR2DMGGu2VMNm+UMRQ=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791174682; c=relaxed/simple;
+	bh=xLCip7zHEq4FLswqL+8GofEATPcxexxOAHx/7crxiLU=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
+	 Content-Disposition:In-Reply-To:MIME-Version; b=s4vQSWgAldxPtdpO7xbdXavv5q6u9Q7Anc7T8cHgmDCL36QbB8XCfmG33hTinzhhuXLvOT2j2aYWogAK4RL/yBhXUtamR2vWtpbyBlfD2d3I5fQ6HvTBGQkDLeOz3lNRjlg9D+mHXhYOS0tSJyvwY9BIvTwgiaSFwJxw66N9G/k=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=valinux.co.jp; spf=pass smtp.mailfrom=valinux.co.jp; dkim=pass (1024-bit key) header.d=valinux.co.jp header.i=@valinux.co.jp header.b=JS285zjU; arc=fail smtp.client-ip=40.107.74.122
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=valinux.co.jp
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=valinux.co.jp
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="FDTRXbVR"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1791174632; x=1822710632;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=OQYgSxltXIE+cGD9fGCFRizOTrDv3aePuKLtHe7KhpA=;
-  b=FDTRXbVR/MUnj/XmgH1TZrVjMsjF0Oj1F//nJRcTizSLkNYoqhO4QZEi
-   5I1D4RJZ6vsTGSCw8x3aKqEHKxgYu+WSUC//WYyEy2VonhSa8HNTr2Bkr
-   op8MBHXY2YR95mPkdANTyOI72rMZXKxuTu5qpcmGEBkomPhUwUBARw5cU
-   IdWYrQajDVUz0eLIClfgZpkqQZwFaEC0DHa2JioJ5VEbqseOZVajW+JUZ
-   nNp/wAKQsOmyouXSjtj+K/3KTQj5XymPYF0tLK3x4QYnUOym2OXibfy71
-   UKTRvUss4Ajj0pFDwG8MHNhUZ+BgWlS5qeNo6o7dv+XK3W7NvHCB6B/bV
-   A==;
-X-CSE-ConnectionGUID: yuvkpfuVS/+AUdV5agt1uQ==
-X-CSE-MsgGUID: ElEYcMuVSsyAifjsSmNiRg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11925"; a="91944261"
-X-IronPort-AV: E=Sophos;i="6.27,141,1787036400"; 
-   d="scan'208";a="91944261"
-Received: from fmviesa001.fm.intel.com ([10.60.135.141])
-  by fmvoesa109.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 04 Oct 2026 21:30:32 -0700
-X-CSE-ConnectionGUID: O5wjBgfUThW8fT3NOXLXDg==
-X-CSE-MsgGUID: lJIf0CfdQ8qhx5XJFae5Kg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,141,1787036400"; 
-   d="scan'208";a="304670761"
-Received: from black.igk.intel.com ([10.91.253.5])
-  by fmviesa001.fm.intel.com with ESMTP; 04 Oct 2026 21:30:30 -0700
-Received: by black.igk.intel.com (Postfix, from userid 1001)
-	id EEBD399; Mon, 05 Oct 2026 06:30:28 +0200 (CEST)
-Date: Mon, 5 Oct 2026 06:30:28 +0200
-From: Mika Westerberg <mika.westerberg@linux.intel.com>
-To: Jonathan Gopel <jgopel@gmail.com>
-Cc: andreas.noever@gmail.com, westeri@kernel.org, YehezkelShB@gmail.com,
-	linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] thunderbolt: Do not RPM complete unrelated subtrees on
- unplug
-Message-ID: <20261005043028.GK176164@black.igk.intel.com>
-References: <20261004022604.359663-1-jgopel@gmail.com>
- <20261004120255.GI176164@black.igk.intel.com>
- <asJo_FxaGjk78GfS@XPS-17-9720-nixos>
+	dkim=pass (1024-bit key) header.d=valinux.co.jp header.i=@valinux.co.jp header.b="JS285zjU"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=Ab3sdAMpWJHCjqyv5my98za4jRnMkdhbYxJKQmgQZnH3HZDBzS2CeLAFKVteXD6cZfEKvVo/pvwlyPkAj6LanILPeZrH+rPf0C2iHUt1BlBmIBkC3DHECcRAD72r03rN+kfoLX/OyH2NpXbfVJN4U2mco0xUjq9SN0KO2QOnz19gQK8pRO/vSOQDzVuxIcXqaT1UZoiMfKvHu9hTr69zVt+2XPNS/myJCoevmnIaJeXM2sDjrNDITHuxynxu1ApOwOV8BTJw6R2KZwW55AJ36lsOydZVZ1u2n8xPuMerJVEL7QSSRsU3dw/Y4YDUAK1APtOG/408l8nsqbB+YtiwJA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=OyfWPA9lE17QLfJmbHbiKAPh1560kHYOCffg3kgi/cU=;
+ b=nNFX5lyft1QtydSDYuplA9Ac7thEqLegtasfHhKzWm+jj4cNexxeChPVdll/PMJqveYH012ebOfyN28mzNitBMAx/viC8t2Waa+9OG6y4jEZYvShk8AbmStPKJeg0MdtS6dHJIg1yCN1snePA+6CLFHhbmRz9audRPm6YUJk69CKfKAssb4Mv6geeFxsSNBEkDWeq56RmcOGnuYYHNrk7Vuk2K/tuUF++gl2VcNN4Y4NrlyNfb8HF0sYUof8JF4BIJKcY3bHbLQDdh9JWo3tQxYzADShuZkja/EMGZXuAoneN/ojGgYMgSAgzOf0Wdv8NdYzjDgUGEPR8CmSO6ToCA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=valinux.co.jp; dmarc=pass action=none
+ header.from=valinux.co.jp; dkim=pass header.d=valinux.co.jp; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=valinux.co.jp;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=OyfWPA9lE17QLfJmbHbiKAPh1560kHYOCffg3kgi/cU=;
+ b=JS285zjUBR7R47tX2Ntl5qaWZwXMKuoDscrHZJfdka84rtcclF5CQwObF7RuGQZ0xAXwXGxF4bl90vI1ofnY0WEtO7KUNd7yRllyuUNDImJO/+jHL1bbNw642l50XIPheY1+jb3RyYltHpKJQOze0mYlw2QYcnsdcxeZR36N1kg=
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=valinux.co.jp;
+Received: from TY7P286MB6866.JPNP286.PROD.OUTLOOK.COM (2603:1096:405:325::11)
+ by OS3P286MB2440.JPNP286.PROD.OUTLOOK.COM (2603:1096:604:152::6) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.472.20; Mon, 5 Oct
+ 2026 04:31:16 +0000
+Received: from TY7P286MB6866.JPNP286.PROD.OUTLOOK.COM
+ ([fe80::cce5:2aa8:53f9:dba9]) by TY7P286MB6866.JPNP286.PROD.OUTLOOK.COM
+ ([fe80::cce5:2aa8:53f9:dba9%5]) with mapi id 15.21.0472.016; Mon, 5 Oct 2026
+ 04:31:16 +0000
+Date: Mon, 5 Oct 2026 13:31:15 +0900
+From: Koichiro Den <den@valinux.co.jp>
+To: Marek Vasut <marek.vasut@mailbox.org>
+Cc: Marek Vasut <marek.vasut+renesas@mailbox.org>, 
+	Yoshihiro Shimoda <yoshihiro.shimoda.uh@renesas.com>, Lorenzo Pieralisi <lpieralisi@kernel.org>, 
+	Krzysztof =?utf-8?Q?Wilczy=C5=84ski?= <kwilczynski@kernel.org>, Manivannan Sadhasivam <mani@kernel.org>, 
+	Rob Herring <robh@kernel.org>, Bjorn Helgaas <bhelgaas@google.com>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Geert Uytterhoeven <geert+renesas@glider.be>, Magnus Damm <magnus.damm@gmail.com>, 
+	Jingoo Han <jingoohan1@gmail.com>, Philipp Zabel <p.zabel@pengutronix.de>, 
+	Frank Li <Frank.Li@nxp.com>, Niklas Cassel <cassel@kernel.org>, 
+	Wilfred Mallawa <wilfred.mallawa@wdc.com>, Serge Semin <fancer.lancer@gmail.com>, linux-pci@vger.kernel.org, 
+	linux-renesas-soc@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 08/15] PCI: rcar-gen4: Add a controller
+ reinitialization callback
+Message-ID: <oos5utxsjiyervrcw3amvlbhtwiyyaarfidpatckvgyvmqpuav@fcoqtimyp6wv>
+References: <20260928165230.3397664-1-den@valinux.co.jp>
+ <20260928165230.3397664-9-den@valinux.co.jp>
+ <6e10fdf0-956a-4ec7-9f24-fa82317be297@mailbox.org>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <6e10fdf0-956a-4ec7-9f24-fa82317be297@mailbox.org>
+X-ClientProxiedBy: TYCP286CA0293.JPNP286.PROD.OUTLOOK.COM
+ (2603:1096:400:3c8::11) To TY7P286MB6866.JPNP286.PROD.OUTLOOK.COM
+ (2603:1096:405:325::11)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <asJo_FxaGjk78GfS@XPS-17-9720-nixos>
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: TY7P286MB6866:EE_|OS3P286MB2440:EE_
+X-MS-Office365-Filtering-Correlation-Id: 6f85dde5-f021-4dde-e06e-08df22997efa
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|7416014|376014|23010399003|366016|1800799024|10070799003|6133799003|18002099003|22082099003|10067099003|4143699003|56012099006;
+X-Microsoft-Antispam-Message-Info:
+	suw0pj692eqbuKaycAhDYlh4VLi4k9PbJhdblBnWZoboCKX4zIffJB1GtZHuCj/o+9s8lWYwFdbmykMDlb3yeBVhfBApP85hXK/7q39Xs2Q1PGgEnJQjeV6HaYElc763FlNCGqYzklQ8fKH0agdGEFxs7ekrUuURtA+FSAJAJajLCC3UM8lDic8jJ2ngS/QcR4TNuCL/tWzsPgr6KYNZJopRjfySTfZsmoBjnPLMTPeuWr1noeAuD3VEdm93pfROY4XOaCBGZZdvkg8dM0n+6sJkjHcROtWl+udHTnlLhOAdE1lPAG7Ze2QBc5BHKRkK5zKQQiKoHejV4l58NqcBn+JVhHNENAX5521lJs6mFkflHWEeH3sD+CfCBdzMa+GpVqMUfdBowMXiKiQmmEIfe0BHpw5dTmClE1udex0y8vloV8idDMljVaf+O0jcKhtgqmXu8uzkrPNVSWN+MAxeMkJhrsgcWoZgOz6GmIy3AKGjS4tD3fwrYj+6y0NisBwzn+P9UK71GkKEbxNHpmW8QAivGCCBlB3V8mqjskaKl3uHhgAwYL8lImqBsWRORUf/Kq/+43BJ+Q4QsK8mqd9DCxvH+q5kv6TAp3qSQhjuhot/Y8QBy2/7XWCUCbI15djWCBIxxv88+SgRulvMYcGp2GrxkKfIBKC54TQzYOVLa0E=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:TY7P286MB6866.JPNP286.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(7416014)(376014)(23010399003)(366016)(1800799024)(10070799003)(6133799003)(18002099003)(22082099003)(10067099003)(4143699003)(56012099006);DIR:OUT;SFP:1102;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?TAYY33HzXtCIJICKiWSwEP5aKxXpTQtP16ZBkP5GtuVmTHpVv1ESEKtd1Hz6?=
+ =?us-ascii?Q?eSXPA8Lp+QQodFNMvbFp8DKdsV61bTRBDQDAIghbjlQGuhc9ZLNtB0pwXwtJ?=
+ =?us-ascii?Q?ri+XUM2fcEVgGvS0zya+/dvSj115m4mWuUNRc+2JwnhDEEr6bvOk2Got/mTl?=
+ =?us-ascii?Q?9GDdn6rZRhxjY+9x9Km1hvDNnGBacG5SYDr1a4x+vMsO9dA5aqf+ERQX56TH?=
+ =?us-ascii?Q?bvfBJQUAhIEuXZQFvQMZNvwpK5pxMIBA0sp3gP+yrI9IB9f6as49rRHASAGm?=
+ =?us-ascii?Q?aAAa3LfY9LulLzjxnmdWSWv+O437PofcWy9UIZlRlM9049vmrgCp1OTbbJqW?=
+ =?us-ascii?Q?iFPqp4H9XYBurt+AfV8lyllbODwULNJx6keCmXUNCD1BNeo6hVrvvcIC5r5u?=
+ =?us-ascii?Q?sb69XKr4C0Yc7/rPfgA+3Yp1iKIloPql7moOGrG2T0ZSPnFcQe7YPyKEfgwj?=
+ =?us-ascii?Q?SBII5TlHBEL3jiI9Q1j1GXkYPrRkGaj6XkV/HAJRFp56bXo/o/KR1j7naC9V?=
+ =?us-ascii?Q?hgx+vqh4oroZjpkZRX7QKcNWkcF1olv2WShMkyjylQ7BX0Y6BdJJ83B5dF1h?=
+ =?us-ascii?Q?l3fBJGXEvfmvNwcSe2b2GilC9pnglnpWnd5qeIHyBqiWj8Av4lLLk5w6LKdL?=
+ =?us-ascii?Q?8PlVhh2pJ5kjTtRPr+ZWU+nMgbfoxZdLcLi9RxaD3hKNImpcvB3JwSat68PC?=
+ =?us-ascii?Q?qvLRJTQ5Mgk1xO44zvGBPuRgmLGbiT4aGK7Y0Gq2YJH/Afl6zKQsgbXg9ntn?=
+ =?us-ascii?Q?yjFWOteF3b2PTEee/EqOKr9XcFuX7nFDAG0gl2nKWLw8oHQ/lA3FaoGcqK57?=
+ =?us-ascii?Q?uK4qvz+tLKU4xMJcUXf8yKQ7OssaL333duofWflhfKT8uTEtHDAsQQ0lBYS5?=
+ =?us-ascii?Q?WmYOrUcFJNtNzJvFZqG50JNLTuTAQVA7xP4T0FJPWDLox0K0JLClEaw886cC?=
+ =?us-ascii?Q?joeEH+I4FkM83FTPyQDyXYNcBunRj/tqj3KFcodLts5dwGUabTdR6Ilafp9J?=
+ =?us-ascii?Q?fnLvZHIZotMUfhsDcWpGAWX0fR4fOa5FX9ZG49pijPcmDzR8hwUuEaiM3kBu?=
+ =?us-ascii?Q?zXtPkK2k7ZusyF5/efowK3gSrJAU//crE7JG4tKXKWOzbPuO49xe//K8pWVe?=
+ =?us-ascii?Q?NYPFxsLoOzcQGQuZ4wftU400kZKiNs+HJP7ckKyEjowwHw5k95pVWU0iysDB?=
+ =?us-ascii?Q?h/aA7EvcJBx0k1Rd53Apb2ixRIAnt9fv3xtlss8ZrvDH209B0uvCL+dOrrvM?=
+ =?us-ascii?Q?dlifzJIZLmsmWWUzLBKhoGaKYjrg38lxdqY/tjt6sHgmfheUwyEoIIYnLmoq?=
+ =?us-ascii?Q?Gn1kn3WN1Q8bfjeM/GdfrghmoViu2nVaiNVBYTnayCjcNibrEKlckt9ZpAci?=
+ =?us-ascii?Q?wvHWAqLIOaMwAkzaghkRfU557L5Eihg+3fALH0zJSPW28ZNyE0QPjZhlIdOl?=
+ =?us-ascii?Q?tb4vLWD8OucOnCYInnUr26d7wcDg1L60C3wmTa7YvIOdlWN+8wOP3YrfGiL8?=
+ =?us-ascii?Q?Z1s5iVg+9zxxPfPMFijpSAxOZNSDXwsQ+Uq+hzurGnM6VhDyXz2j7VZVjP/b?=
+ =?us-ascii?Q?OgRJjeJ530eJLdkYUkNls3rZbjry0hSUwbLv1DE04B2pyDgjleq4yGDAYvF2?=
+ =?us-ascii?Q?tal++PV4k9v/awDefQiZViBfx+2W8RaTRqN+fbN7NTaTx2yz7WLErVrfrSbq?=
+ =?us-ascii?Q?XFJvllNBWMsfM+/ZkO0rLqRxSGRvwUQqBAaZ5jBQTeKFIrdX6mT01yEu/Bk3?=
+ =?us-ascii?Q?bs0zRjgwAMzL0YRRKxM2ik2ddjpAAZYIUWjgJbUCPU7wcXzWQa+c?=
+X-OriginatorOrg: valinux.co.jp
+X-MS-Exchange-CrossTenant-Network-Message-Id: 6f85dde5-f021-4dde-e06e-08df22997efa
+X-MS-Exchange-CrossTenant-AuthSource: TY7P286MB6866.JPNP286.PROD.OUTLOOK.COM
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Oct 2026 04:31:16.7449
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 7a57bee8-f73d-4c5f-a4f7-d72c91c8c111
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: /3PCpm7SHhiDnck0cbAfz7GLOTBJVsfDXJr1X6BthPrWyXuQyAgDfDU2IOYFf8LXm3v/atlZJ1ueTAElieMU3g==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: OS3P286MB2440
 
-Hi,
+On Sun, Oct 04, 2026 at 01:54:59AM +0200, Marek Vasut wrote:
+> On 9/28/26 6:52 PM, Koichiro Den wrote:
+> > Root Port recovery needs to reset and restore the controller while
+> > keeping the clocks enabled and the Gen5 PHY initialized. Reusing .init()
+> > would acquire these resources again, while calling .deinit() first would
+> > make the APP registers inaccessible to interrupt handling.
+> > 
+> > Add a per-SoC .reinit() callback that repeats the power reset and register
+> > setup without acquiring or releasing resources. Use the same reset and
+> > register setup helpers as .init().
+> > 
+> > Signed-off-by: Koichiro Den <den@valinux.co.jp>
+> > ---
+> > Changes in v2:
+> >    - Adapt to the per-SoC .init()/.deinit() callbacks in next-20260925.
+> >      Add .reinit() for recovery without changing their resource ownership
+> >      or taking another PHY initialization reference.
+> >    - Move hardware setup extraction and Gen5 initialization cleanup into
+> >      preceding patches. This patch only adds the callback and its
+> >      implementations.
+> Could we introduce .configure callback instead, and deduplicate the two
+> rcar_{gen4_v4h_v4m,gen5}_pcie_reinit() functions ? What do you think ?
 
-On Sun, Oct 04, 2026 at 11:11:07AM -0600, Jonathan Gopel wrote:
-> Hi Mika,
+Agreed, that is cleaner. Thanks for the suggestion.
+
 > 
-> Thank you for the prompt response, it's much appreciated. I've left a
-> few questions inline.
-> 
-> On Sun, Oct 04, 2026 at 02:02:55PM +0200, Mika Westerberg wrote:
-> > Hi,
-> > 
-> > On Sat, Oct 03, 2026 at 08:26:04PM -0600, Jonathan Gopel wrote:
-> > > When a Thunderbolt device is unplugged, that switch and every switch
-> > > subsequent to it on the bus device list is `complete()`d, not just its
-> > > child devices. In the case of multiple domains, it may cause, eg, an
-> > > attempt to `complete()` the uninitialized domain 1 root switch RPM
-> > > completion on unplug of a switch from domain 0 (though ordering is not
-> > > guaranteed numerically sorted).
-> > 
-> > Good catch!
-> > 
-> > > I initially noticed this issue on a Dell XPS9720 when the system would
-> > > seem to sporadically not wake after unplugging a Thunderbolt dock. I
-> > > tried multiple kernel versions including v7.2.7 and v7.3-rc4 to see if
-> > > that resolved the issue, but the issue persisted. Eventually I found
-> > > that I could consistently generate a kernel Oops reporting a page fault
-> > > at 0xffff_ffff_ffff_fff8 on unplug from one side of the laptop and went
-> > > bug hunting. I became suspicious of the `bus_for_each_dev()` walk that I
-> > > ultimately ended up changing. To confirm this issue, I did an eBPF trace
-> > > of `bus_for_each_dev()`, `complete_rpm()`, and `complete()` while
-> > > unplugging in a variety of situations and found that an unplug from
-> > > domain 0 tries to `complete_rpm()` domain 1's switch, whose RPM
-> > > completion is not initialized and thus is holding a null wait-list
-> > > pointer, triggering the page fault.
-> > > 
-> > > Here are the key sections of that eBPF trace. Note that HEAD denotes the
-> > > completion's own wait-list HEAD:
-> > > 
-> > > ```
-> > > RESCAN_ENTER domain=0
-> > > 
-> > > COMPLETE rescan_domain=0 target=0-1 target_domain=0
-> > >          route=0x1 parent=0-0 unplugged=1
-> > > COMPLETION done=0 head=HEAD next=HEAD prev=HEAD
-> > > 
-> > > BUS_WALK domain=0 start=0-1 callback=complete_rpm
-> > > CALLBACK_ENTER rescan_domain=0 dev=1-0 parent=domain1 is_switch=1
-> > > 
-> > > COMPLETE rescan_domain=0 target=1-0 target_domain=1
-> > >          route=0x0 parent=domain1 unplugged=0
-> > > COMPLETION done=0 head=HEAD next=0 prev=0
-> > > 
-> > >         complete+5
-> > >         complete_rpm+43
-> > >         bus_for_each_dev+133
-> > >         icm_free_unplugged_children+250
-> > >         icm_rescan_work+42
-> > > ```
-> > > 
-> > > To fix this, I have reused some of the adjacent logic to recursively
-> > > walk and `complete()` only the unplugged switch and its descendants.
-> > > 
-> > > I only have a single system with multiple Thunderbolt domains - the Dell
-> > > XPS9720. I am consistently able to reproduce the Oops on that system.
-> > > Since running with this patch, I have not seen the Oops reoccur. I have
-> > > also tested it on a Thinkpad X1-Gen12, and that system boots and runs
-> > > well with it, but it only has a single Thunderbolt domain, so it does
-> > > not exercise the multi-domain failure case.
-> > 
-> > This looks like LLM was involved and if that's the case then please add
-> > Assisted-by: LLM.
-> > 
-> 
-> I'm happy to add an annotation here, but I was unclear on what the
-> policy was. I have a few other issues with this system since adding a
-> TB5 dock to my setup that I may also pursue patching, so if it's ok with
-> you I'd love to understand the expectation a bit better be expected.
-> I've read the policy, but I didn't come away with a clear understanding
-> of what exactly counts as assistance.
-> 
-> I had an LLM do the initial portion of the investigation here, basically
-> going from symptoms to identifying the Oops, which pointed at the
-> Thunderbolt unplug code. From there, I wanted to make sure I delivered a
-> high quality fix, so I did the remainder by hand. Does this warrant the
-> annotation?
+> This kind of a change (this would likely require folding this patch into
+> 09/15):
 
-If the LLM did not create the patch then I don't think you need to add the
-tag. At least this is my interpretation of:
+Yes. With that change rcar_gen4_pcie_common_reinit() would have no caller in
+this patch and compiler would complain, so yes, I'll fold this patch into 09/15.
 
-https://docs.kernel.org/process/coding-assistants.html
+Thanks for the review!
 
-> > > 
-> > > Signed-off-by: Jonathan Gopel <jgopel@gmail.com>
-> > > ---
-> > >  drivers/thunderbolt/icm.c | 16 +++++++++-------
-> > >  1 file changed, 9 insertions(+), 7 deletions(-)
-> > > 
-> > > diff --git a/drivers/thunderbolt/icm.c b/drivers/thunderbolt/icm.c
-> > > index 669807f0eaf8..d6801d8b669b 100644
-> > > --- a/drivers/thunderbolt/icm.c
-> > > +++ b/drivers/thunderbolt/icm.c
-> > > @@ -2068,13 +2068,16 @@ static void icm_unplug_children(struct tb_switch *sw)
-> > >  	}
-> > >  }
-> > >  
-> > > -static int complete_rpm(struct device *dev, void *data)
-> > > +static void complete_rpm(struct tb_switch *sw)
-> > >  {
-> > > -	struct tb_switch *sw = tb_to_switch(dev);
-> > > +	struct tb_port *port;}
-> > 
-> > So instead of this, just check that sw->tb matches what you pass in..
-> > 
-> > >  
-> > > -	if (sw)
-> > > -		complete(&sw->rpm_complete);
-> > > -	return 0;
-> > > +	complete(&sw->rpm_complete);
-> > > +
-> > > +	tb_switch_for_each_port(sw, port) {
-> > > +		if (tb_port_has_remote(port))
-> > > +			complete_rpm(port->remote->sw);
-> > > +	}
-> > >  }
-> > >  
-> > >  static void remove_unplugged_switch(struct tb_switch *sw)
-> > > @@ -2088,8 +2091,7 @@ static void remove_unplugged_switch(struct tb_switch *sw)
-> > >  	 * tb_switch_remove() calls pm_runtime_get_sync() that then waits
-> > >  	 * for it.
-> > >  	 */
-> > > -	complete_rpm(&sw->dev, NULL);
-> > > -	bus_for_each_dev(&tb_bus_type, &sw->dev, NULL, complete_rpm);
-> > 
-> > .. here pass sw->tb 
+Best regards,
+Koichiro Den
+
 > 
-> I'm submitting a v2 patch with this revision. If you have time, I would
-> love to understand the reasoning for preferring one over the other - to
-> my eye they look equivalent.
-
-The latter (what I'm suggesting) should be slightly simpler since it just
-adds a check that makes sure the domain is the same. I always prefer
-simplicity :)
+> diff --git a/drivers/pci/controller/dwc/pcie-rcar-gen4.c
+> b/drivers/pci/controller/dwc/pcie-rcar-gen4.c
+> index 3d667f25fb32e..3691c2ddbf6bc 100644
+> --- a/drivers/pci/controller/dwc/pcie-rcar-gen4.c
+> +++ b/drivers/pci/controller/dwc/pcie-rcar-gen4.c
+> @@ -100,7 +100,7 @@ struct rcar_gen4_pcie_drvdata {
+>         int (*init)(struct rcar_gen4_pcie *rcar);
+>         void (*deinit)(struct rcar_gen4_pcie *rcar);
+>         /* Reset and restore registers while clocks and PHY remain
+> initialized. */
+> -       int (*reinit)(struct rcar_gen4_pcie *rcar);
+> +       void (*configure)(struct rcar_gen4_pcie *rcar);
+>         int (*ltssm_control)(struct rcar_gen4_pcie *rcar, bool enable);
+>         int (*speed_control)(struct rcar_gen4_pcie *rcar);
+>         enum dw_pcie_device_mode mode;
+> @@ -326,6 +326,20 @@ static void rcar_gen4_pcie_common_deinit(struct
+> rcar_gen4_pcie *rcar)
+>         clk_bulk_disable_unprepare(DW_PCIE_NUM_CORE_CLKS, dw->core_clks);
+>  }
+> 
+> +static int rcar_gen4_pcie_common_reinit(struct rcar_gen4_pcie *rcar)
+> +{
+> +       int ret;
+> +
+> +       ret = rcar_gen4_pcie_reset(rcar);
+> +       if (ret)
+> +               return ret;
+> +
+> +       if (rcar->drvdata->configure)
+> +               rcar->drvdata->configure(rcar);
+> +
+> +       return 0;
+> +}
+> +
+>  static void rcar_gen4_v4h_v4m_pcie_configure(struct rcar_gen4_pcie *rcar)
+>  {
+>         struct dw_pcie *dw = &rcar->dw;
+> @@ -343,19 +357,6 @@ static void rcar_gen4_v4h_v4m_pcie_configure(struct
+> rcar_gen4_pcie *rcar)
+>         writel(val, rcar->base + PCIEPWRMNGCTRL);
+>  }
+> 
+> -static int rcar_gen4_v4h_v4m_pcie_reinit(struct rcar_gen4_pcie *rcar)
+> -{
+> -       int ret;
+> -
+> -       ret = rcar_gen4_pcie_reset(rcar);
+> -       if (ret)
+> -               return ret;
+> -
+> -       rcar_gen4_v4h_v4m_pcie_configure(rcar);
+> -
+> -       return 0;
+> -}
+> -
+>  static int rcar_gen4_v4h_v4m_pcie_init(struct rcar_gen4_pcie *rcar)
+>  {
+>         int ret;
+> @@ -400,19 +401,6 @@ static void rcar_gen5_pcie_configure(struct
+> rcar_gen4_pcie *rcar)
+>         writel(val, rcar->base + PCIEPWRMNGCTRL);
+>  }
+> 
+> -static int rcar_gen5_pcie_reinit(struct rcar_gen4_pcie *rcar)
+> -{
+> -       int ret;
+> -
+> -       ret = rcar_gen4_pcie_reset(rcar);
+> -       if (ret)
+> -               return ret;
+> -
+> -       rcar_gen5_pcie_configure(rcar);
+> -
+> -       return 0;
+> -}
+> -
+>  static int rcar_gen5_pcie_init(struct rcar_gen4_pcie *rcar)
+>  {
+>         int ret;
+> @@ -1133,7 +1121,6 @@ static int rcar_gen4_pcie_ltssm_control(struct
+> rcar_gen4_pcie *rcar, bool enable
+>  static struct rcar_gen4_pcie_drvdata drvdata_r8a779f0_pcie = {
+>         .init = rcar_gen4_pcie_common_init,
+>         .deinit = rcar_gen4_pcie_common_deinit,
+> -       .reinit = rcar_gen4_pcie_reset,
+>         .ltssm_control = r8a779f0_pcie_ltssm_control,
+>         .speed_control = rcar_gen4_pcie_speed_control,
+>         .mode = DW_PCIE_RC_TYPE,
+> @@ -1142,7 +1129,6 @@ static struct rcar_gen4_pcie_drvdata
+> drvdata_r8a779f0_pcie = {
+>  static struct rcar_gen4_pcie_drvdata drvdata_r8a779f0_pcie_ep = {
+>         .init = rcar_gen4_pcie_common_init,
+>         .deinit = rcar_gen4_pcie_common_deinit,
+> -       .reinit = rcar_gen4_pcie_reset,
+>         .ltssm_control = r8a779f0_pcie_ltssm_control,
+>         .speed_control = rcar_gen4_pcie_speed_control,
+>         .mode = DW_PCIE_EP_TYPE,
+> @@ -1151,7 +1137,7 @@ static struct rcar_gen4_pcie_drvdata
+> drvdata_r8a779f0_pcie_ep = {
+>  static struct rcar_gen4_pcie_drvdata drvdata_rcar_gen4_pcie = {
+>         .init = rcar_gen4_v4h_v4m_pcie_init,
+>         .deinit = rcar_gen4_pcie_common_deinit,
+> -       .reinit = rcar_gen4_v4h_v4m_pcie_reinit,
+> +       .configure = rcar_gen4_v4h_v4m_pcie_configure,
+>         .ltssm_control = rcar_gen4_pcie_ltssm_control,
+>         .speed_control = rcar_gen4_pcie_speed_control,
+>         .mode = DW_PCIE_RC_TYPE,
+> @@ -1160,7 +1146,7 @@ static struct rcar_gen4_pcie_drvdata
+> drvdata_rcar_gen4_pcie = {
+>  static struct rcar_gen4_pcie_drvdata drvdata_rcar_gen4_pcie_ep = {
+>         .init = rcar_gen4_v4h_v4m_pcie_init,
+>         .deinit = rcar_gen4_pcie_common_deinit,
+> -       .reinit = rcar_gen4_v4h_v4m_pcie_reinit,
+> +       .configure = rcar_gen4_v4h_v4m_pcie_configure,
+>         .ltssm_control = rcar_gen4_pcie_ltssm_control,
+>         .speed_control = rcar_gen4_pcie_speed_control,
+>         .mode = DW_PCIE_EP_TYPE,
+> @@ -1169,7 +1155,7 @@ static struct rcar_gen4_pcie_drvdata
+> drvdata_rcar_gen4_pcie_ep = {
+>  static struct rcar_gen4_pcie_drvdata drvdata_rcar_gen5_pcie = {
+>         .init = rcar_gen5_pcie_init,
+>         .deinit = rcar_gen5_pcie_deinit,
+> -       .reinit = rcar_gen5_pcie_reinit,
+> +       .configure = rcar_gen5_pcie_configure,
+>         .ltssm_control = rcar_gen5_pcie_ltssm_control,
+>         .speed_control = rcar_gen5_pcie_speed_control,
+>         .mode = DW_PCIE_RC_TYPE,
+> 
