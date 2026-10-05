@@ -1,190 +1,93 @@
-Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.15])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 08D904C9DEC
-	for <linux-kernel@vger.kernel.org>; Mon,  5 Oct 2026 15:37:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.251.105.195
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8E76A4CDA20;
+	Mon,  5 Oct 2026 15:37:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.15
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791214672; cv=none; b=u+2cUOpMUzJbZ/Rz/eiKux8du1rNvr9oZo3hLOacsbSiRTXOhmpRbBGFCaioTlSppkYqxuWr4p624BmVq8PoWGVDBhdJYkIUFOjeYtWbFPwC+RfLXkj347XYAXJ1WE11M+ixTlXw3ZCZ6enXqmFluJrvO63c2sbzvbNp3ClMX+w=
+	t=1791214674; cv=none; b=ZtwB1/UgeuSwUnKBosiP08KZYFILmd6YXrC7c14D0lBylV9jZajXsyKkkM6f35uEYLvclL/mexABWZLNm+3veOBn7fmpdUZu6Oj05uK1LlnhJn1YQQa21KSKwrAsILbEq4AgwtmxApwVLUdsnHY21K/yDt7BMfMjYzNUgyNPd4w=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791214672; c=relaxed/simple;
-	bh=A77lRtij3jyuzXv8DuCKc6btPgHKD5vhUgGG20sM+lM=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=uJUL+hWfgCa6/OamEshd+N7dpvoUcN+Ix9k4W0vptlI7hztQuYs/Wc4wSUJ97gOG2pNWzF9h2Tf7WM8/1XAN20Q9DU0IQwtphuzTO55gi/xi7ls5BaSb7HyiINToGhmXtaoXVvQeNdbIVPT/uusFjWbF9aE9UBptAnSwIgxo00I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=MIuVTQeL; arc=none smtp.client-ip=148.251.105.195
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+	s=arc-20240116; t=1791214674; c=relaxed/simple;
+	bh=f4r+XfxffhNNNqtRA6T6JeCh+ER1EcQrXGPNGhvWxek=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
+	 MIME-Version:Content-Type; b=G8IFZI5iiRokEpzVmmx3+51SW0x/PSkOSNsl/+4HexGAgOnIL3sxVyid7qbuxiDGPzoLEdwuVdAylyAiTe42jcjKrJQErNvO6+X5HYpX6mMYXcOX23pDq4KlbjC+JBwJQGDiFXySCi2tanLqNIYx9ApeKIflFTvFTpiVLCGhPmE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=CAml9YF1; arc=none smtp.client-ip=192.198.163.15
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="MIuVTQeL"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
-	s=mail; t=1791214668;
-	bh=A77lRtij3jyuzXv8DuCKc6btPgHKD5vhUgGG20sM+lM=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
-	b=MIuVTQeLjEjOjuKc2mvl1nFIbWUSiVX9gPBcogQVFX7lP0w8d8u74/gCurD6sF5lO
-	 iTla52yoE09QYgLqjG7l9jh5XFoi5Qbui64LneJa45wQELWFEqlxBIDlu/SiG6mFA4
-	 40ekiXbIpIlhZBNbiUWxywqvZ0zR+hW/OPccy6QCKODtQt8kyx/fgwiUbJemQ3Wa1l
-	 4wV9ADJE4Z1y2nQsqE2z+sAhtw3nBk5hsSBYwWMuNUQHLx+gbndBTNAQnPyjVc9nYJ
-	 VPB1jmOXKuyu3EtkAbBunTmjiX2G1A2ofP4xQOt59HRkhZNT+QjHUrhkfg4j/sTMeo
-	 G677/yzNKrLcA==
-Received: from fedora-61.home (unknown [100.64.0.11])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange secp256r1 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	(Authenticated sender: bbrezillon)
-	by bali.collaboradmins.com (Postfix) with ESMTPSA id 43F5817E0074;
-	Mon, 05 Oct 2026 17:37:48 +0200 (CEST)
-Date: Mon, 5 Oct 2026 17:37:41 +0200
-From: Boris Brezillon <boris.brezillon@collabora.com>
-To: Steven Price <steven.price@arm.com>
-Cc: =?UTF-8?B?QWRyacOhbg==?= Larumbe <adrian.larumbe@collabora.com>, Rob
- Herring <robh@kernel.org>, Maarten Lankhorst
- <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Faith Ekstrand
- <faith.ekstrand@collabora.com>, "Marty E. Plummer"
- <hanetzer@startmail.com>, Tomeu Vizoso <tomeu@tomeuvizoso.net>, Eric Anholt
- <eric@anholt.net>, Robin Murphy <robin.murphy@arm.com>, Philipp Zabel
- <p.zabel@pengutronix.de>, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, Collabora Kernel Team <kernel@collabora.com>,
- Neil Armstrong <neil.armstrong@linaro.org>
-Subject: Re: [PATCH v12 12/15] drm/panfrost: Skip cache flush/invalidate
- when enabling perfcnt
-Message-ID: <20261005173741.445715f0@fedora-61.home>
-In-Reply-To: <5af99ba3-97e7-4a05-b91c-7d53a508b635@arm.com>
-References: <20260929-claude-fixes-v12-0-62beb08de207@collabora.com>
-	<20260929-claude-fixes-v12-12-62beb08de207@collabora.com>
-	<95174a67-0eee-4bf7-b883-9f1138c74a6f@arm.com>
-	<20261005103855.655f8199@fedora-61.home>
-	<5af99ba3-97e7-4a05-b91c-7d53a508b635@arm.com>
-Organization: Collabora
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="CAml9YF1"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1791214672; x=1822750672;
+  h=from:to:cc:in-reply-to:references:subject:message-id:
+   date:mime-version:content-transfer-encoding;
+  bh=f4r+XfxffhNNNqtRA6T6JeCh+ER1EcQrXGPNGhvWxek=;
+  b=CAml9YF12Rg6Z/oRM0U0rTAmivb7hn999H7XnbLRXDb7Sy7Lv0DliwW6
+   M5Bk+9KBTE3yfDaOKIJvgjZUA+aHoMYpoTRTKFo9I1rHFtzYkS/Uel8Uo
+   FlL92SrX0OQMFGIQhNtsZ86p9TKfM7tU9ziJ/6b3CKzxfFnPQjcNQIOYC
+   btdLXHRrWykjEM0X5FlSe2PiVW/OC5IJA1f4731pvOmmaYKbf+9OXwylu
+   /Xx7jmbh2XOTR17aKCcLtuDxrkEUesq3zHMBqPixpeC639E/BkLd6p3qJ
+   c/VYmI6Y9VRNXr0rhO0At++W4oqz1sS4kJyWVXuNZoW2ahh7fOegCglAr
+   Q==;
+X-CSE-ConnectionGUID: YCF8SJPiQ6iBK3+IxuVrVw==
+X-CSE-MsgGUID: 8pKbkGlXT8ijvd/4XGvoMg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11926"; a="91995664"
+X-IronPort-AV: E=Sophos;i="6.27,142,1787036400"; 
+   d="scan'208";a="91995664"
+Received: from fmviesa013.fm.intel.com ([10.60.135.153])
+  by fmvoesa109.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 05 Oct 2026 08:37:52 -0700
+X-CSE-ConnectionGUID: t2fLNjRLQg6hmpGQwWu02Q==
+X-CSE-MsgGUID: fQYzPph4TCCdVDWjWHb2fw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,142,1787036400"; 
+   d="scan'208";a="874036"
+Received: from ijarvine-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.199])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 05 Oct 2026 08:37:51 -0700
+From: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
+To: Hans de Goede <hansg@kernel.org>, Muhammad Bilal <meatuni001@gmail.com>
+Cc: platform-driver-x86@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ stable@vger.kernel.org
+In-Reply-To: <20260826103012.240453-1-meatuni001@gmail.com>
+References: <20260826103012.240453-1-meatuni001@gmail.com>
+Subject: Re: [PATCH v2] platform/x86: hp-wmi: fix heap OOB read and memory
+ corruption in hp_wmi_perform_query()
+Message-Id: <179121466646.12659.18198017075450025095.b4-ty@b4>
+Date: Mon, 05 Oct 2026 18:37:46 +0300
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.15.2
 
-On Mon, 5 Oct 2026 16:06:02 +0100
-Steven Price <steven.price@arm.com> wrote:
+On Wed, 26 Aug 2026 15:30:12 +0500, Muhammad Bilal wrote:
 
-> On 05/10/2026 09:38, Boris Brezillon wrote:
-> > On Fri, 2 Oct 2026 16:14:38 +0100
-> > Steven Price <steven.price@arm.com> wrote:
-> >  =20
-> >> On 29/09/2026 04:44, Adri=C3=A1n Larumbe wrote: =20
-> >>> The GPU cache flush/invalidate operation is unnecessary. First off, t=
-he
-> >>> GPU doesn't read off the perfcnt sample buffer, only writes into it, =
-so   =20
-> >>
-> >> I don't think this is entirely true. The GPU performance counter unit
-> >> only writes the counters that are enabled, counters that share a cache
-> >> line but are not enabled are not written by the performance counter
-> >> unit, but if the L2 contains that cache line then the write can hit in
-> >> the L2 and dirty the entire line including stale data where the
-> >> unwritten cache line is. =20
-> >=20
-> > I don't think this can happen though, because _enable_locked() is
-> > creating a BO (and its GPU mapping) just before enabling the perfcnt
-> > block, meaning the buffer is known to have no dirty cacheline pointing
-> > to it until the first dump happens. And we do flush and invalidate GPU
-> > caches after each dump, so again, we should be covered. =20
->=20
-> The situation isn't actually a dirty cache line at the start, but a
-> stale one. We start off with the memory matching a clean line in the
-> GPU's cache. But because we don't have coherency the clean line can stay
-> even if it's inconsistent with everything else.
->=20
-> CPU		|	GPU		| Memory
-> ----------------+-----------------------+--------------------
->                 | clean line            | matches GPU cache
-> ----------------+-----------------------+--------------------
->    CPU allocates new buffer and writes zeros
-> ----------------+-----------------------+--------------------
-> Dirty cache line| stale clean line      | unknown (cache line
->                 |                       | might be evicted)
-> ----------------+-----------------------+--------------------
->    CPU cleans its own cache to memory
-> ----------------+-----------------------+--------------------
-> Potential clean | stale clean line      | Matches CPU
-> cache line      |                       |
-> ----------------+-----------------------+--------------------
->    Start dump without invaliding GPU
-> ----------------+-----------------------+--------------------
-> Potential clean | GPU writes data, and  | Unknown
-> cache line      | hits in the clean line|
->                 | even though it's stale|
-> ----------------+-----------------------+--------------------
->    CPU flushes the GPU's cache and invalidates it's own
-> ----------------+-----------------------+--------------------
-> No-cache line   | writes out clean line | Matches GPU
->=20
->=20
-> Of course for the GPU to have ended up with that stale clean cache line
-> means that the physical memory was previously used for something else on
-> the GPU, so the newly allocated BO has to reuse memory from a previous
-> BO that the GPU has accessed. And it's all "unlikely" due to the small
-> size of the GPU's cache.
+> hp_wmi_perform_query() evaluates an ACPI WMI method and expects a
+> struct bios_return header in the returned buffer. However, it only
+> checks that the ACPI object type is ACPI_TYPE_BUFFER without verifying
+> that obj->buffer.length is at least sizeof(*bios_return) (8 bytes).
+> 
+> If the firmware or ACPI method returns a buffer shorter than 8 bytes:
+> 
+> [...]
 
-Hm, I'd say it's actually impossible because every unmap operation is
-followed by a flush+inval of the GPU L2 and LSC, so for this stale
-clean line to exist on the GPU side when a physical page is GPU-mapped
-again, it would take a bug in the unmap logic or in the MMU HW, I
-think. Am I missing something?
+Thank you for your contribution, it has been applied to my local
+review-ilpo-next branch. Note it will show up in the public
+platform-drivers-x86/review-ilpo-next branch only once I've pushed my
+local branch there, which might take a while.
 
->=20
->=20
-> >>
-> >> The upshot is that if the CPU has cleared a block of memory which the
-> >> GPU happens to have cached, then the "unused" counters may end up
-> >> showing the old data before the CPU cleared it (if they share a cache
-> >> line with an active counter). =20
-> >=20
-> > I agree, but that's not a case we can hit in the enable path. I think I
-> > mentioned the commit message was misleading, and that we should instead
-> > talk about the fact the GPU is not supposed to have cached anything up
-> > until the first SAMPLE following a the ENABLE step.
-> >  =20
-> >>
-> >> I have to admit it's probably somewhat academic given that Panfrost
-> >> doesn't expose the ability to control which counters are enabled...
-> >>
-> >> Is there a good reason for this patch (i.e. have you seen a performance
-> >> problem with doing the invalidate)? Otherwise I'd prefer we keep to the
-> >> safe route rather than trying to over optimise cache maintenance. =20
-> >=20
-> > I think I was the one suggesting dropping this flush so that
-> > panfrost_perfcnt_hw_enable() (in the last patch) has one less fallible
-> > operation. Besides, I find it confusing to have a cache flush+inval in
-> > a path where the GPU is not supposed to have accessed the buffer yet
-> > (or later on, when we re-enable after a RESET, in a path where the GPU
-> > has been reset and the caches are known to be empty). =20
->=20
-> So I agree this Should Be Safe=E2=84=A2 because of how the driver is curr=
-ently
-> using the performance counters. If we really want to drop the invalidate
-> then I think we need a comment explaining the logic. My worry is that
-> someone extends this in the future (e.g. allow selecting which counters
-> to enable) and breaks assumptions without them being documented.
->=20
-> We normally do perform an invalidate when the GPU first touches a buffer
-> (e.g. for a BO) - it's just normally more implicit because it's done as
-> part of the job manager(/command stream).
->=20
-> Also "caches known to be empty" is a dangerous thing to assume on
-> anything that could involve speculation - AFAIK Mali doesn't really
-> perform any form of speculation, but I'm not 100% sure on that.
-> Certainly with CPUs you don't get such a luxury of knowing what it might
-> have populated in the caches.
+FYI [if applicable to your patch], as per Linus' policy change, also
+fixes are mostly routed through for-next unless the fix is for a
+commit introduced in the most recent cycle or is clearly a regression
+fix.
 
-I suppose speculation pre-populating the caches with stale data would be
-covered by the flush+inval we do after a map operation (this is
-currently done in the unlock path regardless of the VM op, so both map
-and unmap get it). I don't know, maybe the goal is to relax the flushing
-policy around VM modifications in the future, but if things stay as
-they are now, we can assume that a fresh BO being GPU-mapped guarantees
-that no cacheline points to it until the first GPU access. But maybe
-I'm missing something else...
+The list of commits applied:
+[1/1] platform/x86: hp-wmi: fix heap OOB read and memory corruption in hp_wmi_perform_query()
+      commit: c59252fa6260423ec3c4aa90b144fcad66851c76
+
+--
+ i.
+
