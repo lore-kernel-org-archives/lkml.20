@@ -1,121 +1,110 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2C56E305688;
-	Mon,  5 Oct 2026 06:05:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 44EC52D949F;
+	Mon,  5 Oct 2026 06:06:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791180326; cv=none; b=PcLSkEuj5KZ2SQY3nLOUzhSoRAgZ0jpYNqyG+2GjGHaL4I6Hj6PMPAGTc9Gu0Tlx4ElVeMj1LOJs37BhEGcRCFbcbSPgdWn4yvRw1hYjmmLt1NFdZv+FsQ1pEBMjWwy/G+ulrWzxVqY20Pi3jM+G9P+A2yzk50swvjsKDkRgm9s=
+	t=1791180412; cv=none; b=oBeEHl1PW2fxescD127RhdcgfYT6x+iWcIB3CfQhERUJAJCSbraqdAu1xyDsqJ415fEvsDI+hZpIdGQH14bJS9kC+s1I1TZ6XepTjhM90+iA/DJiOgUxXGVoksYPBCatxCA5IhCSFc5/Fand421WEdDWcAS/IUKoNC9aoZ1Kxu8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791180326; c=relaxed/simple;
-	bh=f5sxASX+r/nf24tWYtHXoCoWhjvTL7dVqzyJPQqjbZs=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=VwT0p0fOIP5yvlLUgr7CGd/L5j4v5EoLJR5oB4HP3Rjj16+nKVSAQh4tmhHyMR+Bt/Kb2wHbU2unGHEhGOV0eAvrd6CB6SZLIZnbUnmEP+XeCbFA2pGkTC2cC3qZiJY7EGoUB5fC41d0l0XKxugxISk+cSRRzS86CZwmgJpOOns=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=DggYEA8c; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791180412; c=relaxed/simple;
+	bh=+ibL2hv4DavomwPoilP9Va1n9KBFliQjjLfaYyl0kVI=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=mQ8GAqUgcI/fWsqSeP3BSOIElcOi4LN78ZYp//1HItiBXyp1ozrRPUbQsM0y5jZdd+kBfl3rjWUcTSBejpd9AQ0RrldJ4k0aUfglgdcglzwk2f0UOiQEbmKeP/QqbCu3OXrgTEYWOBujrRxC4hR8nyp1x1RWiOcEO/uj6DHtdog=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=ayC88pwP; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="DggYEA8c"
-Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id 418001F000FF;
-	Mon,  5 Oct 2026 06:05:24 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791180324;
-	bh=f+pt56rWm5hGQsNT+V+bU3++Dq6w9hAmof9jEbwdPNo=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=DggYEA8cOg0ngvTP595y4TJkFpp0EBU8XfUpoHB0XN/8XLdy1UMosGtVjwVTJ7SzS
-	 aYw4fAVoigMk8hxGKQpg/KFICiwnTA1PDvCMFLGTyKnVMkEDTdiH+fQlAkyACDX7De
-	 L0XL2nC8Rux4j30NFZ+834O/UiXjp8QrmC78PPjeuUgAmSUYncGuLZ15jUz/AR1iK9
-	 GJ43656CT6OvhJaS3etrWTd0BnL7GQNpYmYZZSlT3ppGEVAs6IDWp0wp0dbNumc+kv
-	 d21arLYPhR7Jt6+n8uHq6JXahIgHqnzUDS2+cIeffWB4/6yrB1kdXG2kSNDD83tLRJ
-	 oABKLQStLRkvw==
-Date: Mon, 5 Oct 2026 09:05:20 +0300
-From: Jarkko Sakkinen <jarkko@kernel.org>
-To: Pei Xiao <xiaopei01@kylinos.cn>
-Cc: Jarkko Sakkinen <jarkko.sakkinen@iki.fi>, peterhuewe@gmx.de,
-	jgg@ziepe.ca, linux-integrity@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 5/5] tpm: fix log messages in tpm_init()
-Message-ID: <asM-ICLM-C0ADrAL@kernel.org>
-References: <cover.1791015549.git.xiaopei01@kylinos.cn>
- <de8bafc78e84dc6abc6f11e8eaa1b91c17e0c368.1791015549.git.xiaopei01@kylinos.cn>
- <asMdetm05nGIBbyn@iki.fi>
- <aa976135-27f4-4c4a-a9e0-a5a3347b514e@kylinos.cn>
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="ayC88pwP"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id B95941595;
+	Sun,  4 Oct 2026 23:06:45 -0700 (PDT)
+Received: from [10.164.19.84] (a081061.arm.com [10.164.19.84])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id C3D353F763;
+	Sun,  4 Oct 2026 23:06:45 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1791180409; bh=+ibL2hv4DavomwPoilP9Va1n9KBFliQjjLfaYyl0kVI=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=ayC88pwPMPZBOMPZ1NGqtJAPWDzhrgRcHaCEC0AgzhymaNtGdierZxwtGfOqqnz9M
+	 /8xd9FnYNM4GEwZjq7I8N5CsHcp/3jUuJvJ6u1AI7YhCgKtvoBfTBBvaIf86qVjm6A
+	 6eJZxoXRJkx8c6zQgOPAG7qQeYGcyt8LOQz+c/9s=
+Message-ID: <48012a21-dc2b-4445-a71c-0d517845d998@arm.com>
+Date: Mon, 5 Oct 2026 11:36:43 +0530
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <aa976135-27f4-4c4a-a9e0-a5a3347b514e@kylinos.cn>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] selftests/mm: hugetlb-read-hwpoison: add setup of HugeTLB
+ pages
+To: Jaeyeon Lee <jaeyeon.lee.dev@gmail.com>,
+ Andrew Morton <akpm@linux-foundation.org>,
+ David Hildenbrand <david@kernel.org>, Shuah Khan <shuah@kernel.org>
+Cc: Lorenzo Stoakes <ljs@kernel.org>, "Liam R . Howlett"
+ <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>,
+ Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>,
+ Michal Hocko <mhocko@suse.com>, linux-mm@kvack.org,
+ linux-kselftest@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20261004205458.119608-1-jaeyeon.lee.dev@gmail.com>
+Content-Language: en-US
+From: Sarthak Sharma <sarthak.sharma@arm.com>
+In-Reply-To: <20261004205458.119608-1-jaeyeon.lee.dev@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Mon, Oct 05, 2026 at 12:23:31PM +0800, Pei Xiao wrote:
+
+
+On 10/5/26 2:24 AM, Jaeyeon Lee wrote:
+> Every test is expected to reserve the HugeTLB pages it needs.
+> hugetlb-read-hwpoison was not converted, so on a system without
+> pre-reserved huge pages the MAP_POPULATE mmap() fails with ENOMEM and
+> every test case is skipped.
 > 
+> Reserve the pages with hugetlb_setup_default(). Each chunk size runs two
+> HWPOISON tests and a poisoned huge page can't be reused, so reserve two
+> pages per chunk size. The pool size is restored on exit. The poisoned
+> pages remain allocated until reboot.
 > 
-> 在 2026/10/5 11:46, Jarkko Sakkinen 写道:
-> > On Sat, Oct 03, 2026 at 04:27:55PM +0800, Pei Xiao wrote:
-> >> Make the error messages consistently prefixed with "tpm: ", and fix
-> >> the tpm_dev_common_init() failure message which was wrongly copied
-> >> from the previous step.
-> >>
-> >> Assisted-by: GLM-5.3
-> >> Signed-off-by: Pei Xiao <xiaopei01@kylinos.cn>
-> >> ---
-> >>  drivers/char/tpm/tpm-interface.c | 6 +++---
-> >>  1 file changed, 3 insertions(+), 3 deletions(-)
-> >>
-> >> diff --git a/drivers/char/tpm/tpm-interface.c b/drivers/char/tpm/tpm-interface.c
-> >> index 1ccdbde98b69..666a1c654c02 100644
-> >> --- a/drivers/char/tpm/tpm-interface.c
-> >> +++ b/drivers/char/tpm/tpm-interface.c
-> >> @@ -524,13 +524,13 @@ static int __init tpm_init(void)
-> >>  
-> >>  	rc = class_register(&tpm_class);
-> >>  	if (rc) {
-> >> -		pr_err("couldn't create tpm class\n");
-> >> +		pr_err("tpm: couldn't create tpm class\n");
-> >>  		return rc;
-> >>  	}
-> >>  
-> >>  	rc = class_register(&tpmrm_class);
-> >>  	if (rc) {
-> >> -		pr_err("couldn't create tpmrm class\n");
-> >> +		pr_err("tpm: couldn't create tpmrm class\n");
-> >>  		goto out_destroy_tpm_class;
-> >>  	}
-> >>  
-> >> @@ -542,7 +542,7 @@ static int __init tpm_init(void)
-> >>  
-> >>  	rc = tpm_dev_common_init();
-> >>  	if (rc) {
-> >> -		pr_err("tpm: failed to allocate char dev region\n");
-> >> +		pr_err("tpm: failed to allocate TPM workqueue\n");
-> >>  		goto out_unreg_chrdev;
-> >>  	}
-> >>  
-> >> -- 
-> >> 2.25.1
-> >>
-> > 
-> > I NAK this one. It is not fixing anything.
-> Hmm, this is a cleanup, not a fix—just a very minor change to an error
-> log/print. I noticed it was duplicated (with the alloc_chrdev_region
-> error print), which made it impossible to tell which function call had
-> failed (it might actually never be executed). So I just brought up this
-> cleanup along the way.
+> With the patch, all 12 cases pass on a system with no huge pages
+> reserved (tested on Fedora, x86_64, CONFIG_MEMORY_FAILURE=y).
+> 
+> Assisted-by: LLM
+> Signed-off-by: Jaeyeon Lee <jaeyeon.lee.dev@gmail.com>
+> ---
 
-If there is patch that is coming along the way, it is patch that should
-not be sent because:
+Looks good to me. Before the patch, all 12 test cases were skipping with
+ENOMEM. After the patch, all test cases passed.
 
-1. It wastes also everyone else's time.
-2. Lack of understanding of cause and effect because by definition
-   you have no idea what you are submitting. E
+Tested-by: Sarthak Sharma <sarthak.sharma@arm.com>
+Reviewed-by: Sarthak Sharma <sarthak.sharma@arm.com>
 
-Pure clean ups per se are already something that is usually best to NAK
-but this patch is not a clean up.
+>  tools/testing/selftests/mm/hugetlb-read-hwpoison.c | 8 ++++++++
+>  1 file changed, 8 insertions(+)
+> 
+> diff --git a/tools/testing/selftests/mm/hugetlb-read-hwpoison.c b/tools/testing/selftests/mm/hugetlb-read-hwpoison.c
+> index 70b24e3660c4..31748a24448f 100644
+> --- a/tools/testing/selftests/mm/hugetlb-read-hwpoison.c
+> +++ b/tools/testing/selftests/mm/hugetlb-read-hwpoison.c
+> @@ -13,6 +13,7 @@
+>  #include <signal.h>
+>  
+>  #include "kselftest.h"
+> +#include "vm_util.h"
+>  
+>  #define MAX_WRITE_READ_CHUNK_SIZE (getpagesize() * 16)
+>  #define MAX(a, b) (((a) > (b)) ? (a) : (b))
+> @@ -281,6 +282,13 @@ int main(void)
+>  	size_t i;
+>  
+>  	ksft_print_header();
+> +
+> +	if (!hugetlb_available())
+> +		ksft_exit_skip("HugeTLB is not available\n");
+> +
+> +	if (!hugetlb_setup_default(ARRAY_SIZE(wr_chunk_sizes) * 2))
+> +		ksft_exit_skip("Not enough free huge pages\n");
+> +
+>  	ksft_set_plan(ARRAY_SIZE(wr_chunk_sizes) * 3);
+>  
+>  	signal(SIGBUS, sigbus_handler);
 
-I mean the path is doing arbitrary log message changes. That is not
-harmless change as you enforce your arbitrary preferences also for few
-billion other users. 
-
-Br, Jarkko
