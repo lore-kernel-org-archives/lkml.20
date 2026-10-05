@@ -1,189 +1,110 @@
-Received: from mail-pj2-f38.google.com (mail-pj2-f38.google.com [74.125.227.166])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 487D74FECF1
-	for <linux-kernel@vger.kernel.org>; Mon,  5 Oct 2026 17:17:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.166
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2AE425012A4;
+	Mon,  5 Oct 2026 17:17:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791220657; cv=none; b=r0yJwHJqQYkphttrsH+HiMj1WWKWNpCIFVurcrDGZ4CKyZnziazu6E6b1Pod7pwy9y4ib4D6bUc6CEHxRozaPl/PQ3J0Dv1sxs0Zd7Dl41Ze4bo2DnE3E/+4YSZQvx7uiACR4LonYqHfTKAR499PixbH7Sutf268CCBvPAkPupI=
+	t=1791220658; cv=none; b=sJrdpyqG85dkQ1yvkBCrq8y1/OXMsxmCFPg+wlq1J6kj2Seb3TxzOkLoPp0UuKXnFpi6/Y3Gf5CcEkd+RYqxoI2W9pmQhiTDD2PiSxhgd345t5IO/HTkzI9zslRDQ18ucxKoD6kra2V8O+FHM93X9+9OaMWrLlcjVwhXFRXOsPM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791220657; c=relaxed/simple;
-	bh=efWEPmj0Vc93yD7ksoAs6CSfVahXXbn88QWzVR/N9r8=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Pj0/q1QLYyKTBeK38oWSCY61PxD0CQh+yH6+emZYSEWj4MVdJxIciDMLeWvatDjjA/VmQ/hjUpJGbtfpBWUl31A99bxQqIKp1YDQKdmb5fNdbf5jgbijKH7hn0Vx+fBPPWUDGliIygPI+NUSZxeJXaUJ9iYCMQKmoYzt6GfJzFY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=a0lBslDP; arc=none smtp.client-ip=74.125.227.166
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1791220658; c=relaxed/simple;
+	bh=3LKbZzJvMlkyZ6XIb70OrMyiPpk2LCkQWOFdBhGInU4=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=qsNhlR/LedEkEqfjTy8/+QZCPX66e3xPtKk7NIAdZR18Y7kUarU+ips6okRBxjDFqG9hXO3Y5JXLSwvGKZcbQiJy4iKXZlovxpxn0Oe31QgVf5YFy2PO2u+1D4E8gXpBQ0Nx35A5oVKuWVneESpk1JQHz5zyFP/QvWn7p/TqRGo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=UwkT7LCT; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="a0lBslDP"
-Received: by mail-pj2-f38.google.com with SMTP id 98e67ed59e1d1-3a81350dd08so612145a91.3
-        for <linux-kernel@vger.kernel.org>; Mon, 05 Oct 2026 10:17:35 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791220655; x=1791825455; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=3aHGH1btHKyA9bPipQiTAK39EsUtmJmoqAt6kx41g10=;
-        b=a0lBslDPZ3dDRoOrfiI5aRABoVV+zGl5c3sgcChOzILoj4MTjYOxcRUIH6V+Bbs+sI
-         QVOP2kOWoyPOU1J/Cj9rMILbsMeGDzb3lNJACfU1+YdytR8XITlnq3lE53d5XuldD6qu
-         j9u8JTP72DymGLGPT/XiB3aSe7VGpzkJfn7s8a+KoM2Ckk9y+gM/aFc8SZnqjPFLOdIB
-         4OelxiULczkDOgCxOGNVoVxKkH/rdX0BJlX5c200FYpABzGWjy//1tNS9cclLK7cTUGo
-         SUktYMstu1roIstoIKHrfpP3OyjLjtkHUzRh5TG+PhtX6HurtL2HslSxMjioBfEFu5oS
-         evtg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791220655; x=1791825455;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=3aHGH1btHKyA9bPipQiTAK39EsUtmJmoqAt6kx41g10=;
-        b=e/6mXZ/33zknij+X0WaRzlgXrst1Z8fHiymsy2mQ5qhtAQtmA0hV2AX6vK+z/ZdDnH
-         YaiueCE2d6ypR9tgXz9H3Ii+0OASs8Lfn23BKPL+CEoFrWAhZstVRmQ1CutylSKigMho
-         4HfySuAII8WiexjppUdElRuuLzNrfb4ASccFZg21So3ldvZj9WR1E5rn5zoU5ZeREl/+
-         RBe3hlPWCVzzRnFjiBMSWydmRmMHx4g2UDPL4LumPawmHgisnV/Koi/FQTXDsY72LCim
-         E/Q2TOy/LgF0skTKAFiOH3tTkccpB3qZOtlnmpZXXENZpO2kZFtO4GhrHFBqNHM6CE62
-         uiQg==
-X-Forwarded-Encrypted: i=1; AKwUvByrSHxTlEMDEQ8++fiejBF7ueb5BGza8f17Bpv6hw0pX0fsy+FmsdGtE27lnunJuvlvQQqskXoP7r/hRWI=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLSNMLUXODcjGOwhGsN6GsIa7rUE2zppqcjH40tVjC+hKRx+eig
-	npbyPoRPHfmbiuQ46XK1HPAAV0mloXxb07oYXVObTZQT8ceHDCe+G+rt
-X-Gm-Gg: AYBFou3SFvM/ZHDKa6j1RMGvnZjRuUZMoGjUm2E/VUgYh8m+3tlHQVDqWXpWAuLEMYc
-	6WTuvPvN0h1/3AJ+GR+oQlHccVssB8IdcETMBN7Zp5QgakJt08MuHjddYv8rdGEoPnGJyny8tKm
-	xnntZArGGo3u1429w4ue6ZFqBAxsjyEkbwOXS5dlSTuzgsYR8CIIAS5/moScrmWgnu+UhLaNMDF
-	BojJVFzt2UGCsBdFOy5qhzuyFnQwPFMePc1qpvFuwtVEaKtPtse/u/6ccRmBwQ4tRdfiiMnJLTs
-	MzV1PkCIrj0WUXyW2X4FiXZg6YJlLMC/sbV+UA+wK+JbPXxWV3PP7ysr8Xg3WkKbIMykIOQ+NfY
-	YkGcl2mzx44VUzUIHRoex8L26dpId/AAfc6Kw8aXzC5zMMKjdFLxTMfN/IGQbqOryVqIWOtFEtk
-	kKI30DZ0KwgMBzQtlfA3EABiLXgqqYyNMbo7qRM88idv4JIwRGLelwrOa+k1l5zFYsVlMDF7sw4
-	DZI6wq67A9fTwB6knikwD80/8hd7fAPlig/gW+3
-X-Received: by 2002:a17:90b:4c52:b0:3a0:5413:49b4 with SMTP id 98e67ed59e1d1-3a6ce7fba39mr9628210a91.39.1791220654194;
-        Mon, 05 Oct 2026 10:17:34 -0700 (PDT)
-Received: from kernel.tail6741c6.ts.net ([216.195.201.24])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a853cafddesm406910a91.10.2026.10.05.10.17.21
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 05 Oct 2026 10:17:33 -0700 (PDT)
-From: Kunwu Chan <kunwu.chan@gmail.com>
-To: paulmck@kernel.org,
-	corbet@lwn.net,
-	mingo@redhat.com,
-	frederic@kernel.org,
-	neeraj.upadhyay@kernel.org,
-	josh@joshtriplett.org,
-	urezki@gmail.com,
-	dave@stgolabs.net,
-	lianux.mm@gmail.com
-Cc: stern@rowland.harvard.edu,
-	parri.andrea@gmail.com,
-	will@kernel.org,
-	peterz@infradead.org,
-	boqun@kernel.org,
-	npiggin@gmail.com,
-	dhowells@redhat.com,
-	j.alglave@ucl.ac.uk,
-	luc.maranget@inria.fr,
-	akiyks@gmail.com,
-	dlustig@nvidia.com,
-	joelagnelf@nvidia.com,
-	skhan@linuxfoundation.org,
-	rdunlap@infradead.org,
-	longman@redhat.com,
-	rostedt@goodmis.org,
-	mathieu.desnoyers@efficios.com,
-	jiangshanlai@gmail.com,
-	qiang.zhang@linux.dev,
-	kunwu.chan@gmail.com,
-	brads@mainlining.org,
-	linux-kernel@vger.kernel.org,
-	linux-arch@vger.kernel.org,
-	lkmm@lists.linux.dev,
-	linux-doc@vger.kernel.org,
-	rcu@vger.kernel.org,
-	linux-kselftest@vger.kernel.org
-Subject: [PATCH RFC v3 08/15] locking/lockdep: use hazptr to wait for dynamic key lookups
-Date: Tue,  6 Oct 2026 01:15:22 +0800
-Message-ID: <20261005171529.1378809-9-kunwu.chan@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261005171529.1378809-1-kunwu.chan@gmail.com>
-References: <20261005171529.1378809-1-kunwu.chan@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="UwkT7LCT"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 63AD71F00893;
+	Mon,  5 Oct 2026 17:17:33 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791220656;
+	bh=aeomxX1QGtnD3U5IUgaJbh5Zhqt+z2pbZDdGXbfDXRw=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc;
+	b=UwkT7LCTVUXfJhH43HPqKId5zK69xhvwuY1IFOt3XkICp90qcmBroaksEY2fiuPM1
+	 6DtyuVMMQaykwjBO9HpmrKJuEXwhuvJgEpymBcTUKe1WaUFSr+rfRLVkr1n/bAE47o
+	 3StmjNVVgimSNWeOF1d+tNSFFaDH8UoaYLgy/Fm3+B8fv5RivCnCVW0gn0xFPfTZ+s
+	 nR0YfyhdfQt+BmI4DnVYtT3LTvxEEnGhqXm9QWYQFz1hYlq0uWWfIXyxrsEO7HE6Hg
+	 9NuFWluSzwQXDfjiooD9TyuQM9HkJ8wykOcF87gQThHTOCG+mcqBpFZ53HAJySsZJ5
+	 p31o/0aZk4LCg==
+From: bod@kernel.org
+Date: Mon, 05 Oct 2026 19:14:02 +0200
+Subject: [PATCH 32/74] media: qcom: camss: vfe: Update an output group's
+ write masters on buffer done
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261005-linux-mainline-7-2-sm8650-hdk-rfc-0-v1-32-ed985aefd611@kernel.org>
+References: <20261005-linux-mainline-7-2-sm8650-hdk-rfc-0-v1-0-ed985aefd611@kernel.org>
+In-Reply-To: <20261005-linux-mainline-7-2-sm8650-hdk-rfc-0-v1-0-ed985aefd611@kernel.org>
+To: Bryan O'Donoghue <bryan.odonoghue@linaro.org>, 
+ Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>, 
+ Loic Poulain <loic.poulain@oss.qualcomm.com>, 
+ Mauro Carvalho Chehab <mchehab@kernel.org>, 
+ Jacopo Mondi <jacopo.mondi@ideasonboard.com>, 
+ Daniel Scally <dan.scally@ideasonboard.com>, Keke Li <keke.li@amlogic.com>, 
+ Richard Acayan <mailingradian@gmail.com>, 
+ Hans Verkuil <hverkuil@kernel.org>, 
+ Gjorgji Rosikopulos <quic_grosikop@quicinc.com>, 
+ Radoslav Tsvetkov <quic_rtsvetko@quicinc.com>, 
+ Robert Foss <rfoss@kernel.org>, Milen Mitkov <quic_mmitkov@quicinc.com>
+Cc: linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, Bryan O'Donoghue <bod@kernel.org>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1257; i=bod@kernel.org;
+ h=from:subject:message-id; bh=SKwvb3ZPmeegr2BsX2YLuxpYjLjRVFd0XaOCBdgz2vU=;
+ b=owEBbQKS/ZANAwAKASJxO7Ohjcg6AcsmYgBqw9sXy7v0c+M+K3qckDWm/sWoZI84d/fTbeYJE
+ f1bphGtmN6JAjMEAAEKAB0WIQTmk/sqq6Nt4Rerb7QicTuzoY3IOgUCasPbFwAKCRAicTuzoY3I
+ OgM/D/9Em9DvYlKsvSyrHWr9ilbdZgFbvTH4BLlUS5bGHAIGt7e+RMIfgmidMw52R96FA5IM2KT
+ xMqEeXRc7gL8zXgn34SxI8oTal5iYM6UitCGA2ipeGgNEwmI5MtEGlqvOHNDJVWLXRcKDYS8CbP
+ u6pOFRSnSPAnxy3ixAuHpLQv1wSfPEZsxxrpDavaAToIzH7IbwRC/iltOi7bBg4TRTo/cr3Cz6b
+ Z/8a1bF6so56Iq7qvGh0f8s2VuFbwrQkGnz4toYr0jxV5I2EzCbUf5pfn4j9/qVjRJLm9D3DFhP
+ /Nq79RZIeoA8SPQg4n4wTf/eN0WEUqm3AtqwYno93gVPx5NhZRPMBguuzOWkhkOlXN59Y2xwf6/
+ PRCgf8qh9goqPkSQSfz1HDwOUwO/ceKVjnriHUqQBt73F1y5D3qD2UNku7ptKpyMdYUkWXXyHtW
+ YVWcLL5YzwwEj5nia0YVvoJLQa+LNng2/HeS9MSNbcb8VVnoyUHW1mHqy71LxBvcY1sKherP2K0
+ /sFEaRj8ludGjvhX2eElTWMwZd9hwvWtguIBfDadacfcCHI61kxJaKeTl865TSvHLRCzfezMXnj
+ tQLDga/yvTKWj14Fh96uhRz5DUer37drfwwtO2hg4wZaA7hwoUZKTEKws7mExWIqb9kBp7cQGmg
+ w0gFy32YEPXp3eA==
+X-Developer-Key: i=bod@kernel.org; a=openpgp;
+ fpr=E693FB2AABA36DE117AB6FB422713BB3A18DC83A
 
-lockdep_unregister_key() waits for is_dynamic_key() callers with
-synchronize_rcu_expedited(), which requires system-wide coordination.
-Make is_dynamic_key() protect the hash bucket with a hazard pointer
-and use hazptr_synchronize() to wait for traversals of that bucket.
+From: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
 
-The hash bucket returned by keyhashentry() has a stable address, so
-it can be used as the hazptr synchronization target.  Keep the key
-hashlist lifetime RCU-based with hlist_del_rcu() and call_rcu().
+vfe_buf_done() hands the next buffer to the write master directly with
+vfe_wm_update(), so an output group never sees it. Hand it to
+vfe_output_update() when the backend provides one, as starting the
+output and queuing a buffer already do.
 
-Protect the traversal with the hazptr scoped_guard() added earlier
-in this series.
-
-This adapts the lockdep use case from Boqun Feng's shazptr series
-to the current hazptr API.
-
-Link: https://lore.kernel.org/lkml/20250625031101.12555-1-boqun.feng@gmail.com/
-Signed-off-by: Kunwu Chan <kunwu.chan@gmail.com>
+Signed-off-by: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
 ---
- kernel/locking/lockdep.c | 25 +++++++++++++++----------
- 1 file changed, 15 insertions(+), 10 deletions(-)
+ drivers/media/platform/qcom/camss/camss-vfe.c | 9 ++++++---
+ 1 file changed, 6 insertions(+), 3 deletions(-)
 
-diff --git a/kernel/locking/lockdep.c b/kernel/locking/lockdep.c
-index c56a7f91d72e..d1ce5ace7fbf 100644
---- a/kernel/locking/lockdep.c
-+++ b/kernel/locking/lockdep.c
-@@ -58,6 +58,7 @@
- #include <linux/context_tracking.h>
- #include <linux/console.h>
- #include <linux/kasan.h>
-+#include <linux/hazptr.h>
+diff --git a/drivers/media/platform/qcom/camss/camss-vfe.c b/drivers/media/platform/qcom/camss/camss-vfe.c
+index 20d8b3e1e4459..23c86e08776ea 100644
+--- a/drivers/media/platform/qcom/camss/camss-vfe.c
++++ b/drivers/media/platform/qcom/camss/camss-vfe.c
+@@ -624,9 +624,12 @@ void vfe_buf_done(struct vfe_device *vfe, int wm)
+ 	output->buf[index] = vfe_buf_get_pending(output);
  
- #include <asm/sections.h>
- 
-@@ -1280,14 +1281,19 @@ static bool is_dynamic_key(const struct lock_class_key *key)
- 
- 	hash_head = keyhashentry(key);
- 
--	rcu_read_lock();
--	hlist_for_each_entry_rcu(k, hash_head, hash_entry) {
--		if (k == key) {
--			found = true;
--			break;
-+	{
-+		struct hazptr_ctx ctx;
-+		void *bucket = hash_head;
-+
-+		scoped_guard(hazptr, &ctx, &bucket) {
-+			hlist_for_each_entry_rcu(k, hash_head, hash_entry, 1) {
-+				if (k == key) {
-+					found = true;
-+					break;
-+				}
-+			}
- 		}
- 	}
--	rcu_read_unlock();
- 
- 	return found;
- }
-@@ -6683,11 +6689,10 @@ void lockdep_unregister_key(struct lock_class_key *key)
- 	 *
- 	 * Some operations like __qdisc_destroy() will call this in a debug
- 	 * kernel, and the network traffic is disabled while waiting, hence
--	 * the delay of the wait matters in debugging cases. Currently use a
--	 * synchronize_rcu_expedited() to speed up the wait at the cost of
--	 * system IPIs. TODO: Replace RCU with hazptr for this.
-+	 * the delay of the wait matters in debugging cases. Replace the
-+	 * expedited RCU wait with hazptr_synchronize().
- 	 */
--	synchronize_rcu_expedited();
-+	hazptr_synchronize(keyhashentry(key));
- }
- EXPORT_SYMBOL_GPL(lockdep_unregister_key);
- 
+ 	if (output->buf[index]) {
+-		ops->vfe_wm_update(vfe, output->wm[0].bus_client,
+-				   output->buf[index]->addr[0],
+-				   line);
++		if (ops->vfe_output_update)
++			ops->vfe_output_update(vfe, output, output->buf[index]);
++		else
++			ops->vfe_wm_update(vfe, output->wm[0].bus_client,
++					   output->buf[index]->addr[0],
++					   line);
+ 		ops->reg_update(vfe, line->id);
+ 	} else {
+ 		output->gen2.active_num--;
+
 -- 
-2.43.0
+2.55.0
 
