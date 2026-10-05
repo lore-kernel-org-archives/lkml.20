@@ -1,133 +1,124 @@
-Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6845F35E92F;
-	Mon,  5 Oct 2026 09:20:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=185.203.200.13
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791192022; cv=pass; b=KXowPbIc87blY124zybP2P0UFrhfNtFh+OifXGv4TyPzM8agwJY8VYRc7YeHnU+iaq7o/PhAWwj7tZEVa7yM+RiBzRNUhdXB4sC4ToMKls+DVSL6qVKNdMCJm1WNXS4S9tNKlN2aFx4ZU60DlY1Y6W3Dpuz+OnH6pY80M7p7fzg=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791192022; c=relaxed/simple;
-	bh=KacnfO9SH16HHjeaj4ZH2d7XhnanGBJQYrbJX1V++2o=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=drGscx0Qf4Xj3ua/oI7bsOWx62yezq4MCiGxAjBYvzbVV2N/5NG/EuRvINBr8DH2PzZMlcB8g34M0nlKN657hcmvcrx4z6h+atj5fVCFIRjH/EVzxm3gnq+Asqjrc0NQDE3yH58TuHludRCWhJixcw1ipPYZ4DQoYrxzWOcaGQs=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de; spf=pass smtp.mailfrom=pengutronix.de; dkim=pass (2048-bit key) header.d=pengutronix.de header.i=@pengutronix.de header.b=RTp6c+mD; arc=pass smtp.client-ip=185.203.200.13
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EB8AD435A9C
+	for <linux-kernel@vger.kernel.org>; Mon,  5 Oct 2026 09:20:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791192060; cv=none; b=LFYgMyO2LAiqzPs4Yv/8aVp6jta4SvnBbUgff+ft97GUw7OTDHFZ1NaGjWWnWQoAdYYq/f9t64vUSXbprWDLztsbWTOA5JCdLbM8Qzr7qkxh6PevNgiOOJ+2BdHTi1US1oDDSkEQEFimaNwi+1/vWbAX9j0fFyt2oBS/SiSpat0=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791192060; c=relaxed/simple;
+	bh=MLYf36H5QskETZxzDq+/MEooa/mfwbkX4pzrx+i1jrk=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
+	 MIME-Version:Content-Type; b=A2obIZUEBgohSATrTZeYbl93yC2yDSvnPONqRHUlIpJxYEzvi3do0DUzyh85cfk4/HpHdlJ1zCvCsUK0mwh8vhGvsSzQBXgIIqPZRmCNglu03MkDLMvKy0vm3NoF1NDDBN3ykOeAz8+gRzjkTol9d4eC00rIQXOXmWQVK5/7Gco=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=R0jvH8GE; arc=none smtp.client-ip=74.125.225.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=pengutronix.de header.i=@pengutronix.de header.b="RTp6c+mD"
-Received: from drehscheibe.grey.stw.pengutronix.de (drehscheibe.grey.stw.pengutronix.de [IPv6:2a0a:edc0:0:c01:1d::a2])
-	(Authenticated sender: relay-from-drehscheibe.grey.stw.pengutronix.de)
-	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id D062B2004BB;
-	Mon, 05 Oct 2026 11:20:09 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
-	s=20260414; t=1791192009;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=ss4QylMNSQGoq0x72rybiuk3RGdfXtdv9vZi3Q1MtGM=;
-	b=RTp6c+mDm5K8NUTtoiJelQdm5oE/jv7vwoS6AmYoLbyRgjcxIe+nyPe9BKmAhUAnHg3s6c
-	9RJ1PWQmA0COABcn2R/sWhHs3BGeHDLXuRmtjOvUQqctKk3FeV9ExY1lr3nvZUsTJHy5Dg
-	ApG8FlgiRSKrvpPu0FIM/iAVNlhbyMwl6v8NfZzqUN2fu5PHlGOL4PxM7fcd0HNX1TZjv1
-	oesJekuutUxDVu+/b3egTOeE+CxNlqYV6qpMQ9Aa39XA5yOv+uqvLHVyLZpqLJl/i0VBUc
-	TjO9oedKwXwVV9DcGKKaeETbMD2ENJqAJKBKFuXL5KuoJjIQkAUgPN9WqjhPHA==
-ARC-Seal: i=1; s=20260414; d=pengutronix.de; t=1791192009; a=rsa-sha256;
-	cv=none;
-	b=Atyo+gTOLV4jC11a/YINUOSx84heiD5gcN1d1Wa4SMlJ2jfHvXblMWPcX5R0RPVk9//UB6
-	PYqvrZWSV43/62F8vYLDZB4OCx+2tbzxqjyljsd2Rft3G908B+1y4MxuRA3kxUbVJLaRQZ
-	X9DjxbPSZZHcOCpp3CQR6Zv1+FRYDi8gkwf5rU8kt7D6XOJXMQBsEs0iie5t0hRP6hA3rZ
-	k32azvMKOd1FcUBARjCJTHt+5LdI5nfH8Df7eIOPL/56WZKDif+Ls4J6S0iHbsxtyI7tT7
-	zptAYpAn/JTgPM237qyubuHCgmBOCZKF5uouM7dHND3gqpmFdPffwPMmhmjVKw==
-ARC-Authentication-Results: i=1;
-	ORIGINATING;
-	auth=pass smtp.auth=relay-from-drehscheibe.grey.stw.pengutronix.de smtp.mailfrom=ore@pengutronix.de
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
-	s=20260414; t=1791192009;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=ss4QylMNSQGoq0x72rybiuk3RGdfXtdv9vZi3Q1MtGM=;
-	b=EnjltG2TRkyS/Xp/RiwsrlhiobWfJkNK1jilhEarZ7JHiivtBS7A/EaJhIK9etjFuCPHHz
-	DTDEUwy8L4UgGcMdfDUN/2isrAwx5wjFOaYTNo95v5eN5sTSZDe+w8nd3zhjMRZMiLrHdj
-	B6TIjr7WYOahNsyewyyOX/DExMJLggZa7eX+GjMK/hX8ejO/EOqB4twTMub+WyDkogOVSe
-	HSe0FtWCrUmZU9VXYcxrBxKin5yq43XeZLgoVlGPWZULpfJkF5GJ0FIhDZwjfPLpD/4NUI
-	UiOj7WyxnM1RFdJz5HwADmQ8GbbLYKHRYV3RqqP+dzhP0d0R0jm6c8lE9EsvOg==
-Received: from pty.whiteo.stw.pengutronix.de ([2a0a:edc0:2:b01:1d::c5])
-	by drehscheibe.grey.stw.pengutronix.de with esmtps  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
-	(Exim 4.96)
-	(envelope-from <ore@pengutronix.de>)
-	id 1xDerh-004MRY-2M;
-	Mon, 05 Oct 2026 11:20:09 +0200
-Received: from ore by pty.whiteo.stw.pengutronix.de with local (Exim 4.98.2)
-	(envelope-from <ore@pengutronix.de>)
-	id 1xDerh-0000000FHBo-2WCm;
-	Mon, 05 Oct 2026 11:20:09 +0200
-Date: Mon, 5 Oct 2026 11:20:09 +0200
-From: Oleksij Rempel <o.rempel@pengutronix.de>
-To: Carlo Szelinsky <github@szelinsky.de>
-Cc: Kory Maincent <kory.maincent@bootlin.com>,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	Heiner Kallweit <hkallweit1@gmail.com>,
-	Russell King <linux@armlinux.org.uk>,
-	"David S . Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	Rob Herring <robh@kernel.org>,
-	Saravana Kannan <saravanak@kernel.org>,
-	Corey Leavitt <corey@leavitt.info>,
-	Jonas Jelonek <jelonek.jonas@gmail.com>,
-	Simon Horman <horms@kernel.org>,
-	Aleksander Jan Bajkowski <olek2@wp.pl>,
-	Mark Brown <broonie@kernel.org>,
-	Liam Girdwood <lgirdwood@gmail.com>, netdev-bot+sashiko@kernel.org,
-	devicetree@vger.kernel.org, netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH net-next v7 0/5] net: pse-pd: decouple controller lookup
- from MDIO probe
-Message-ID: <asNryalTQyUVwu4T@pengutronix.de>
-References: <20260927191850.1370515-1-github@szelinsky.de>
- <20261004143351.969544-1-github@szelinsky.de>
+	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="R0jvH8GE"
+Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-4a16bc7ad39so2432315e9.1
+        for <linux-kernel@vger.kernel.org>; Mon, 05 Oct 2026 02:20:57 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=baylibre.com; s=google; t=1791192056; x=1791796856; darn=vger.kernel.org;
+        h=content-type:mime-version:message-id:date:references:in-reply-to
+         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=z40S/ylZZcXE7HA9H4ygNmMIKaIpP+LiRcjwv8oZ5J8=;
+        b=R0jvH8GEb5q9XJQbiLF0fD+vLuGgu89vCbckY89Jbcd3RNH0nEEN020q6Rwuft4Wgs
+         Sl5YMiFUj8YEDQ+7kBU4TbQcsSn5ogxGG/PeE6zJC3uEyCSbwpOxALlrFs83IaLhMMiF
+         ABpPMRQUDLaBhHYX1uus+JxljsI5CeVxHITCuIGQJ6nnM1oY7rw9c/pua8LpCtefSSGz
+         JmH4oXU3R8BY9Bp/6utp4YztamcY3Y8UDUsFfn7GcWq/BurX6XaALrKwI8s8uNHrKEGD
+         iunJkGOacQKlW/xgbGpNslHMAMWi0MpjFskPAn/xxbiQoXhobE5obFxHyTog1Yy7TcZj
+         OlQQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791192056; x=1791796856;
+        h=content-type:mime-version:message-id:date:references:in-reply-to
+         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=z40S/ylZZcXE7HA9H4ygNmMIKaIpP+LiRcjwv8oZ5J8=;
+        b=EiR5h9D2MPZm7sWfM1VvuXTngOgME+V5tDEAyfiP8U2wMMMJC8If9oiVhwvTz6+z5M
+         v7eAuER9V6G/aWXb52xk/g1MPBrAziSByCUWhVckShBPUKn3lss1daDaQK33Zo7yCCdU
+         O6Z6d83XHoAdNYzuHQUyXFzqTS0kLxTLk2kupizF+p5fIoRrfVNo1wQWgOLMfX5lMhvA
+         LWVPEoQuPSiN74y0dcrBkUpPo2UVmtfgd7gXBbeT0pNJVNpWpF9CLqU5+GRJmL+9IfT1
+         xZVKVIS/QBEFfgfF1QN6zGbzpgza3OyRVThXlvbOBVuFIIcXpNtTnPus8ehOLvK6vmUM
+         lzqw==
+X-Forwarded-Encrypted: i=1; AKwUvByCm+E2VpyNFRY9PTy/F9YkGry5ZzaqLmAlrUXyuPLjWzI3ElxZe4CB/Ri45XGvnDLtZJboxp4HMPrw6eo=@vger.kernel.org
+X-Gm-Message-State: AFuF++kVT2qrNsqpDbwA91e2a4KEOEVbgHaSAJaIoVLyZBCbYAw179ZA
+	uKU4Spxlj7EAT34CDoOHIpzIUQU+Tqalhhz7iBuYfAmKRm6NndgkXjMkJ6bkdniFfiI=
+X-Gm-Gg: AYBFou0e0C5tNaAmQL4+XMGtZ1zEU45Gr0YfWxt9Lo5spRZTCBjBMWw/Eyfa184HNfs
+	DnReUKAv0cwUpHxIYOvWA0cgdkvOUOK8XZ7sHqBvm0nGUuxQzApRSfYhvtU0flsBxUmPEIj/YV3
+	vvcxVZdvkkeVqAW3LFL7HgC09PMH29C4y3Jon4mQNIJ3p5hlyTe22RU2V2RIy+10SARb77MX8/e
+	Yf/xUSqRQY9HtR02BmfRXBs06aJaLuJll/jG3GAclfgHo3QWRmigMA5IuJfNZwYBBB6XaViVlmj
+	vKJ6+UBfbae4EWcYSppoGKgCqLMrN1xR0wZZ5F2QXi3lme5VO4OhnEhciJPzXxlflK3I/XuI45I
+	n20sZ8aDWaBw8HRkjt1bvYE+t76OUXPKAEc7pFu4mRunG4aI4ARg5pJr95/m6TQBWvYGjuoraQ7
+	hG8ab7aesQae7+Ys5lmYahp2oEiOrDE2E/si1rAhYVr6YVOsygnlkwz+DoYO/rfNOrfDxw/1u+x
+	7Kpq0EAfJUOpkI=
+X-Received: by 2002:a05:600c:548c:b0:49e:65f2:db64 with SMTP id 5b1f17b1804b1-4a027534bd7mr162795275e9.5.1791192056124;
+        Mon, 05 Oct 2026 02:20:56 -0700 (PDT)
+Received: from localhost (90-182-211-1.rcp.o2.cz. [90.182.211.1])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a03fef5950sm208756515e9.2.2026.10.05.02.20.55
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 05 Oct 2026 02:20:55 -0700 (PDT)
+From: Jerome Brunet <jbrunet@baylibre.com>
+To: Changhuang Liang <changhuang.liang@starfivetech.com>
+Cc: Michael Turquette <mturquette@baylibre.com>, Rob Herring
+ <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Stephen Boyd <sboyd@kernel.org>, Brian Masney
+ <bmasney@redhat.com>, Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt
+ <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti
+ <alex@ghiti.fr>, Philipp Zabel <p.zabel@pengutronix.de>, Emil Renner
+ Berthing <kernel@esmil.dk>, Chen Wang <unicorn_wang@outlook.com>, Inochi
+ Amaoto <inochiama@gmail.com>, Alexey Charkov <alchark@gmail.com>, Thomas
+ Bogendoerfer <tsbogend@alpha.franken.de>, Keguang Zhang
+ <keguang.zhang@gmail.com>, "linux-clk@vger.kernel.org"
+ <linux-clk@vger.kernel.org>, "linux-kernel@vger.kernel.org"
+ <linux-kernel@vger.kernel.org>, "devicetree@vger.kernel.org"
+ <devicetree@vger.kernel.org>, "linux-riscv@lists.infradead.org"
+ <linux-riscv@lists.infradead.org>, Hal Feng <hal.feng@starfivetech.com>
+Subject: Re: [PATCH v5 2/8] clk: starfive: Add system-0 domain PLL clock driver
+In-Reply-To: <ZQ4PR01MB120246C3208C10BDEFD32BCFF2882@ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn>
+References: <20260828095608.19955-1-changhuang.liang@starfivetech.com>
+ <20260828095608.19955-3-changhuang.liang@starfivetech.com>
+ <179075859479.1471718.5492634704694937513.b4-reply@b4>
+ <ZQ4PR01MB120246C3208C10BDEFD32BCFF2882@ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn>
+Date: Mon, 05 Oct 2026 11:20:54 +0200
+Message-ID: <1jh5j07bbd.fsf@starbuckisacylon.baylibre.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20261004143351.969544-1-github@szelinsky.de>
-X-Sent-From: Pengutronix Hildesheim
-X-URL: http://www.pengutronix.de/
-X-Accept-Language: de,en
-X-Accept-Content-Type: text/plain
+Content-Type: text/plain
 
-Hey Carlo,
+On Sat 03 Oct 2026 at 11:02, Changhuang Liang <changhuang.liang@starfivetech.com> wrote:
 
-On Sun, Oct 04, 2026 at 04:33:51PM +0200, Carlo Szelinsky wrote:
-> Hey guys,
-> One process question first. I do run an LLM review before posting, as
-> maintainer-netdev.rst asks. I ran the review prompts (masoncl) locally 
-> against a frontier model and still got a different set of findings than
-> the bot reported here. If there is a better way to run it so the two 
-> line up, I would be glad to hear it - right now I cannot tell whether 
-> I am missing setup or just reading different output.
+>> > +static const struct jhb100_pll_info jhb100_sys0_pll_info[] = {
+>> > +	JHB100_PLL(JHB100_SYS0PLL_PLL2_OUT, "pll2_out",
+>> jhb100_pll2_presets,
+>> > +		   ARRAY_SIZE(jhb100_pll2_presets), JHB100_PLL2_OFFSET, false),
+>> > +	_JHB100_PLL(JHB100_SYS0PLL_PLL3_OUT, "pll3_out",
+>> jhb100_pll3_presets,
+>> > +		    ARRAY_SIZE(jhb100_pll3_presets), JHB100_PLL3_OFFSET,
+>> > +		    CLK_IS_CRITICAL, false),
+>> > +	_JHB100_PLL(JHB100_SYS0PLL_PLL4_OUT, "pll4_out", NULL, 0,
+>> > +		    JHB100_PLL4_OFFSET, CLK_IGNORE_UNUSED, true),
+>> 
+>> Please comment when adding CLK_IGNORE_UNUSED so people have an idea
+>> why it is needed and how it can be removed
+>
+> OK, I understand that there is an intention to remove this flag. On our SoC, some clocks are 
+> typically not referenced by any driver, but we don't want them to be turned off. We currently 
+> use CLK_IGNORE_UNUSED to preserve their hardware-default enabled state. Perhaps in the 
+> next version we will replace it with CLK_IS_CRITICAL.
 
-In my experience, review prompts are not enough. The limitations are the
-agent and actual model which are running it. I personally already run
-own sashiko instance backed with gemini API (the same variant as the
-public generic sashiko). Since running sashiko is expensive, i run
-multi agent claude setup [1], to stress pre-review patches before sashiko
-round.
+CLK_IGNORE_UNUSED and CLK_IS_CRITICAL do not express the same thing both
+equally need to be commented so a few years from now, we are not left
+wondering why this was added.
 
-Netdev is now running own sashiko-netdev, which is running a multimodel
-sashiko, which is even more expensive and finds even more things.
-Privately I can't afford this.
+You do not have a driver for this clock today. The fact you still *need*
+that clock show maybe you should have one and maybe someone, someday,
+will fix this.
 
-[1] https://claude.com/blog/building-multi-agent-systems-when-and-how-to-use-them
-
-
--- 
-Pengutronix e.K.                           |                             |
-Steuerwalder Str. 21                       | http://www.pengutronix.de/  |
-31137 Hildesheim, Germany                  | Phone: +49-5121-206917-0    |
-Amtsgericht Hildesheim, HRA 2686           | Fax:   +49-5121-206917-5555 |
+>
+>> 
