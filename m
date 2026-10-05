@@ -1,408 +1,195 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4FB6F4CCDCB;
-	Mon,  5 Oct 2026 16:05:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 614304CE68F
+	for <linux-kernel@vger.kernel.org>; Mon,  5 Oct 2026 16:05:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791216316; cv=none; b=IpWeJEl/zGNNiVULZEoyfhrH9W3WBdatx0eh22S603VtStEPlecqj7CBRKiz/tnJ4DY+j8bIRFqpK/wwrKyVl6INsHmCTT7NUgOv3mdJO6ZDIuwTxTXtHbgwrj4cYqJhMmCh0SqSqkjPpjF8Grt8to5lwdKrwTp71I+Hg1+U3Ww=
+	t=1791216322; cv=none; b=NESP4FWS5F2JQ5waKXaR/AXdmEBZ29Mp80fGbMxZLbTpLu8euCD9Nlnr0FMnQvir0GGfvPDW1NzBGmjevxjUrGmOBnDyqxFfh5CDw/AKGeUwS5VLO3PSdMLOjwm6ZMVNtxJsNucsbf4m9SpzgUksr9Wzai/UCh9py5qq2Xrhv9Q=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791216316; c=relaxed/simple;
-	bh=GPmLO0mY19ZSZuVAhtA0nv7PEpGlGGOyDTKBGsxziDw=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=af4SvNyzw05En4z0vQ5n8wjgBLoTXKUxHQVtCy67csd+XpPpRgwCooVX4AxAxuGcHRnyfhTi3PfsUO9Dxw0OPpoBMQzjdjvcJV6ft3sk9/sFfDec6FAjGv6v5BmuP+ZqbS3k1ZrFF8TiBEsEQB0/MZRXXet/mz3P9sFMGNmdtxM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=A0i4Iiq9; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791216322; c=relaxed/simple;
+	bh=VT2VPIS+4MQAmwU3BLPVQXMrFUzNdbcmJzTTIK4oI+Y=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=AcBRuKwt2ClRnZcZQi2VsB/z1YRljnivFybSag4+ARNTfOJ+iI5s/OPfC6IN/lHLdIBR01/x+5BoOziHv8n8YVYW0t9Ik877zC19ilAbeEK0eYLa0Wc/N4ZBFmechry0LZrdflxZqX3RWu5RO8EVgZ7HGWWFaT7e+jttuWhmsqA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=t6gJwPTJ; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="A0i4Iiq9"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 35A511F000FF;
-	Mon,  5 Oct 2026 16:05:14 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791216314;
-	bh=YbL5X+/GeJAK4u6KKvcMiWqewAkh3e4GACS9RWX4Vuc=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=A0i4Iiq9i6Jl9GeonyVXKvbcSbaLZh/zZ3+PpXUw/ggwfow4HcGNlotRWjNnMwuWX
-	 by93fkR4UJDx3PFOslexDFUL57P/gZQaMWxaNNajTAU8vFHqZ9unXj6dgT5/02LpVh
-	 6V0zZGmGCP+UUWtymIkLk/+Opsw+ULzIkK+4ra+0XgWU4L+TgmCxi2ucu7HYalJDqv
-	 CVTf1cyWu6PbnXp9v843RcviQK2GchkWXPscbLcEBiiM2GQqpsFV8Nx7F4t9UyNG0q
-	 6eEMSYL6bJVqNHFxNP8xmExqETAqFdi7HYVkhbLR8rLqDun4cvfxwIJK+FpLxaqsiH
-	 EexxiKq/tIhmw==
-Date: Mon, 5 Oct 2026 18:05:11 +0200
-From: Vinod Koul <vkoul@kernel.org>
-To: Sai Sree Kartheek Adivi <s-adivi@ti.com>
-Cc: peter.ujfalusi@gmail.com, robh@kernel.org, krzk+dt@kernel.org,
-	conor+dt@kernel.org, nm@ti.com, ssantosh@kernel.org,
-	dmaengine@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
-	vigneshr@ti.com, Frank.li@nxp.com, r-sharma3@ti.com,
-	gehariprasath@ti.com
-Subject: Re: [PATCH v11 12/19] drivers: soc: ti: k3-ringacc: handle absence
- of tisci
-Message-ID: <asPKt_QuEAjey62J@parshuram>
-References: <20261001084105.1692228-1-s-adivi@ti.com>
- <20261001084105.1692228-13-s-adivi@ti.com>
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="t6gJwPTJ"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 3ECCA152B;
+	Mon,  5 Oct 2026 09:05:16 -0700 (PDT)
+Received: from [10.57.78.53] (unknown [10.57.78.53])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 5FEBD3F66F;
+	Mon,  5 Oct 2026 09:05:16 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1791216319; bh=VT2VPIS+4MQAmwU3BLPVQXMrFUzNdbcmJzTTIK4oI+Y=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=t6gJwPTJwRyCMG+WUG7+2zOpT27JgS+R+Y4nlVJoL13kcoIy30pwL+/oAV16u1Fc6
+	 UJDrztcgLDfxbTFipwNHTXBUmVvcBEAZFK5D2YGXUbF6vUjgmJMuNieTh66z5tt7jG
+	 PNkGbCQKeDci2Eaugk/ByuY3iFfcNExh9cMdO+fs=
+Message-ID: <37422c77-ecdc-46a0-8896-3a5098417426@arm.com>
+Date: Mon, 5 Oct 2026 17:05:14 +0100
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261001084105.1692228-13-s-adivi@ti.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v12 12/15] drm/panfrost: Skip cache flush/invalidate when
+ enabling perfcnt
+To: Boris Brezillon <boris.brezillon@collabora.com>
+Cc: =?UTF-8?Q?Adri=C3=A1n_Larumbe?= <adrian.larumbe@collabora.com>,
+ Rob Herring <robh@kernel.org>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Faith Ekstrand <faith.ekstrand@collabora.com>,
+ "Marty E. Plummer" <hanetzer@startmail.com>,
+ Tomeu Vizoso <tomeu@tomeuvizoso.net>, Eric Anholt <eric@anholt.net>,
+ Robin Murphy <robin.murphy@arm.com>, Philipp Zabel <p.zabel@pengutronix.de>,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ Collabora Kernel Team <kernel@collabora.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>
+References: <20260929-claude-fixes-v12-0-62beb08de207@collabora.com>
+ <20260929-claude-fixes-v12-12-62beb08de207@collabora.com>
+ <95174a67-0eee-4bf7-b883-9f1138c74a6f@arm.com>
+ <20261005103855.655f8199@fedora-61.home>
+ <5af99ba3-97e7-4a05-b91c-7d53a508b635@arm.com>
+ <20261005173741.445715f0@fedora-61.home>
+From: Steven Price <steven.price@arm.com>
+Content-Language: en-GB
+In-Reply-To: <20261005173741.445715f0@fedora-61.home>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On 01-10-26, 14:10, Sai Sree Kartheek Adivi wrote:
-> Handle absence of tisci with direct register writes. This will support
-> platforms that do not have tisci firmware like AM62L.
-
-Need ack from TI maintainers on this... I think we have dependency on
-this here
-
+On 05/10/2026 16:37, Boris Brezillon wrote:
+> On Mon, 5 Oct 2026 16:06:02 +0100
+> Steven Price <steven.price@arm.com> wrote:
 > 
-> Signed-off-by: Sai Sree Kartheek Adivi <s-adivi@ti.com>
-> ---
->  drivers/soc/ti/k3-ringacc.c       | 199 +++++++++++++++++++++++++++---
->  include/linux/soc/ti/k3-ringacc.h |  18 +++
->  2 files changed, 198 insertions(+), 19 deletions(-)
+>> On 05/10/2026 09:38, Boris Brezillon wrote:
+>>> On Fri, 2 Oct 2026 16:14:38 +0100
+>>> Steven Price <steven.price@arm.com> wrote:
+>>>   
+>>>> On 29/09/2026 04:44, Adrián Larumbe wrote:  
+>>>>> The GPU cache flush/invalidate operation is unnecessary. First off, the
+>>>>> GPU doesn't read off the perfcnt sample buffer, only writes into it, so    
+>>>>
+>>>> I don't think this is entirely true. The GPU performance counter unit
+>>>> only writes the counters that are enabled, counters that share a cache
+>>>> line but are not enabled are not written by the performance counter
+>>>> unit, but if the L2 contains that cache line then the write can hit in
+>>>> the L2 and dirty the entire line including stale data where the
+>>>> unwritten cache line is.  
+>>>
+>>> I don't think this can happen though, because _enable_locked() is
+>>> creating a BO (and its GPU mapping) just before enabling the perfcnt
+>>> block, meaning the buffer is known to have no dirty cacheline pointing
+>>> to it until the first dump happens. And we do flush and invalidate GPU
+>>> caches after each dump, so again, we should be covered.  
+>>
+>> The situation isn't actually a dirty cache line at the start, but a
+>> stale one. We start off with the memory matching a clean line in the
+>> GPU's cache. But because we don't have coherency the clean line can stay
+>> even if it's inconsistent with everything else.
+>>
+>> CPU		|	GPU		| Memory
+>> ----------------+-----------------------+--------------------
+>>                 | clean line            | matches GPU cache
+>> ----------------+-----------------------+--------------------
+>>    CPU allocates new buffer and writes zeros
+>> ----------------+-----------------------+--------------------
+>> Dirty cache line| stale clean line      | unknown (cache line
+>>                 |                       | might be evicted)
+>> ----------------+-----------------------+--------------------
+>>    CPU cleans its own cache to memory
+>> ----------------+-----------------------+--------------------
+>> Potential clean | stale clean line      | Matches CPU
+>> cache line      |                       |
+>> ----------------+-----------------------+--------------------
+>>    Start dump without invaliding GPU
+>> ----------------+-----------------------+--------------------
+>> Potential clean | GPU writes data, and  | Unknown
+>> cache line      | hits in the clean line|
+>>                 | even though it's stale|
+>> ----------------+-----------------------+--------------------
+>>    CPU flushes the GPU's cache and invalidates it's own
+>> ----------------+-----------------------+--------------------
+>> No-cache line   | writes out clean line | Matches GPU
+>>
+>>
+>> Of course for the GPU to have ended up with that stale clean cache line
+>> means that the physical memory was previously used for something else on
+>> the GPU, so the newly allocated BO has to reuse memory from a previous
+>> BO that the GPU has accessed. And it's all "unlikely" due to the small
+>> size of the GPU's cache.
 > 
-> diff --git a/drivers/soc/ti/k3-ringacc.c b/drivers/soc/ti/k3-ringacc.c
-> index 5966db4327b13..d52e0ab33678c 100644
-> --- a/drivers/soc/ti/k3-ringacc.c
-> +++ b/drivers/soc/ti/k3-ringacc.c
-> @@ -7,6 +7,7 @@
->  
->  #include <linux/dma-mapping.h>
->  #include <linux/io.h>
-> +#include <linux/iopoll.h>
->  #include <linux/module.h>
->  #include <linux/of.h>
->  #include <linux/platform_device.h>
-> @@ -46,6 +47,53 @@ struct k3_ring_rt_regs {
->  	u32	hwindx;
->  };
->  
-> +#define K3_RINGACC_RT_CFG_REGS_OFS	0x40
-> +#define K3_DMARING_CFG_ADDR_HI_MASK	GENMASK(3, 0)
-> +#define K3_DMARING_CFG_ASEL_SHIFT	16
-> +#define K3_DMARING_CFG_SIZE_MASK	GENMASK(15, 0)
-> +
-> +/**
-> + * struct k3_ring_cfg_regs - The RA Configuration Registers region
-> + *
-> + * @ba_lo: Ring Base Address Low Register
-> + * @ba_hi: Ring Base Address High Register
-> + * @size: Ring Size Register
-> + */
-> +struct k3_ring_cfg_regs {
-> +	u32	ba_lo;
-> +	u32	ba_hi;
-> +	u32	size;
-> +};
-> +
-> +#define K3_RINGACC_RT_INT_REGS_OFS		0x140
-> +#define K3_RINGACC_RT_INT_ENABLE_SET_COMPLETE	BIT(0)
-> +#define K3_RINGACC_RT_INT_ENABLE_SET_TR			BIT(2)
-> +
-> +/**
-> + * struct k3_ring_intr_regs {
-> + *
-> + * @enable_set: Ring Interrupt Enable Register
-> + * @resv_1: Reserved
-> + * @clr: Ring Interrupt Clear Register
-> + * @resv_2: Reserved
-> + * @status_set: Ring Interrupt Status Set Register
-> + * @resv_3: Reserved
-> + * @status: Ring Interrupt Status Register
-> + * @resv_4: Reserved
-> + * @status_masked: Ring Interrupt Status Masked Register
-> + */
-> +struct k3_ring_intr_regs {
-> +	u32	enable_set;
-> +	u32	resv_1;
-> +	u32	clr;
-> +	u32	resv_2;
-> +	u32	status_set;
-> +	u32	resv_3;
-> +	u32	status;
-> +	u32	resv_4;
-> +	u32	status_masked;
-> +};
-> +
->  #define K3_RINGACC_RT_REGS_STEP			0x1000
->  #define K3_DMARING_RT_REGS_STEP			0x2000
->  #define K3_DMARING_RT_REGS_REVERSE_OFS		0x1000
-> @@ -139,6 +187,8 @@ struct k3_ring_state {
->   * struct k3_ring - RA Ring descriptor
->   *
->   * @rt: Ring control/status registers
-> + * @cfg: Ring config registers
-> + * @intr: Ring interrupt registers
->   * @fifos: Ring queues registers
->   * @proxy: Ring Proxy Datapath registers
->   * @ring_mem_dma: Ring buffer dma address
-> @@ -158,6 +208,8 @@ struct k3_ring_state {
->   */
->  struct k3_ring {
->  	struct k3_ring_rt_regs __iomem *rt;
-> +	struct k3_ring_cfg_regs __iomem *cfg;
-> +	struct k3_ring_intr_regs __iomem *intr;
->  	struct k3_ring_fifo_regs __iomem *fifos;
->  	struct k3_ringacc_proxy_target_regs  __iomem *proxy;
->  	dma_addr_t	ring_mem_dma;
-> @@ -467,15 +519,39 @@ static void k3_ringacc_ring_reset_sci(struct k3_ring *ring)
->  	struct k3_ringacc *ringacc = ring->parent;
->  	int ret;
->  
-> -	ring_cfg.nav_id = ringacc->tisci_dev_id;
-> -	ring_cfg.index = ring->ring_id;
-> -	ring_cfg.valid_params = TI_SCI_MSG_VALUE_RM_RING_COUNT_VALID;
-> -	ring_cfg.count = ring->size;
-> +	if (!ringacc->tisci) {
-> +		u32 reg;
->  
-> -	ret = ringacc->tisci_ring_ops->set_cfg(ringacc->tisci, &ring_cfg);
-> -	if (ret)
-> -		dev_err(ringacc->dev, "TISCI reset ring fail (%d) ring_idx %d\n",
-> -			ret, ring->ring_id);
-> +		if (!ring->cfg)
-> +			return;
-> +
-> +		reg = readl(&ring->cfg->size);
-> +		reg &= ~K3_DMARING_CFG_SIZE_MASK;
-> +		writel(reg, &ring->cfg->size);
-> +
-> +		ret = readl_poll_timeout(&ring->cfg->size, reg,
-> +					  !(reg & K3_DMARING_CFG_SIZE_MASK),
-> +					  1, 100);
-> +		if (ret) {
-> +			dev_err(ringacc->dev, "ring %d size clear timeout\n",
-> +				ring->ring_id);
-> +			return;
-> +		}
-> +
-> +		reg = readl(&ring->cfg->size);
-> +		reg |= ring->size;
-> +		writel(reg, &ring->cfg->size);
-> +	} else {
-> +		ring_cfg.nav_id = ringacc->tisci_dev_id;
-> +		ring_cfg.index = ring->ring_id;
-> +		ring_cfg.valid_params = TI_SCI_MSG_VALUE_RM_RING_COUNT_VALID;
-> +		ring_cfg.count = ring->size;
-> +
-> +		ret = ringacc->tisci_ring_ops->set_cfg(ringacc->tisci, &ring_cfg);
-> +		if (ret)
-> +			dev_err(ringacc->dev, "TISCI reset ring fail (%d) ring_idx %d\n",
-> +				ret, ring->ring_id);
-> +	}
->  }
->  
->  void k3_ringacc_ring_reset(struct k3_ring *ring)
-> @@ -501,6 +577,9 @@ static void k3_ringacc_ring_reconfig_qmode_sci(struct k3_ring *ring,
->  	ring_cfg.valid_params = TI_SCI_MSG_VALUE_RM_RING_MODE_VALID;
->  	ring_cfg.mode = mode;
->  
-> +	if (!ringacc->tisci)
-> +		return;
-> +
->  	ret = ringacc->tisci_ring_ops->set_cfg(ringacc->tisci, &ring_cfg);
->  	if (ret)
->  		dev_err(ringacc->dev, "TISCI reconf qmode fail (%d) ring_idx %d\n",
-> @@ -576,10 +655,40 @@ static void k3_ringacc_ring_free_sci(struct k3_ring *ring)
->  	ring_cfg.index = ring->ring_id;
->  	ring_cfg.valid_params = TI_SCI_MSG_VALUE_RM_ALL_NO_ORDER;
->  
-> -	ret = ringacc->tisci_ring_ops->set_cfg(ringacc->tisci, &ring_cfg);
-> -	if (ret)
-> -		dev_err(ringacc->dev, "TISCI ring free fail (%d) ring_idx %d\n",
-> -			ret, ring->ring_id);
-> +	if (!ringacc->tisci) {
-> +		u32 reg;
-> +
-> +		writel(K3_RINGACC_RT_INT_ENABLE_SET_COMPLETE | K3_RINGACC_RT_INT_ENABLE_SET_TR,
-> +		       &ring->intr->clr);
-> +
-> +		reg = readl(&ring->cfg->size);
-> +		reg &= ~K3_DMARING_CFG_SIZE_MASK;
-> +		writel(reg, &ring->cfg->size);
-> +
-> +		ret = readl_poll_timeout(&ring->cfg->size, reg,
-> +					  !(reg & K3_DMARING_CFG_SIZE_MASK),
-> +					  1, 100);
-> +		if (ret) {
-> +			dev_err(ringacc->dev, "ring %d size clear timeout\n",
-> +				ring->ring_id);
-> +			return;
-> +		}
-> +
-> +		reg = readl(&ring->cfg->size);
-> +		reg |= ring_cfg.count & K3_DMARING_CFG_SIZE_MASK;
-> +
-> +		writel(reg, &ring->cfg->size);
-> +
-> +		writel(ring_cfg.addr_lo, &ring->cfg->ba_lo);
-> +		writel((ring_cfg.addr_hi & K3_DMARING_CFG_ADDR_HI_MASK) +
-> +				(ring_cfg.asel << K3_DMARING_CFG_ASEL_SHIFT),
-> +				&ring->cfg->ba_hi);
-> +	} else {
-> +		ret = ringacc->tisci_ring_ops->set_cfg(ringacc->tisci, &ring_cfg);
-> +		if (ret)
-> +			dev_err(ringacc->dev, "TISCI ring free fail (%d) ring_idx %d\n",
-> +				ret, ring->ring_id);
-> +	}
->  }
->  
->  int k3_ringacc_ring_free(struct k3_ring *ring)
-> @@ -670,15 +779,36 @@ int k3_ringacc_get_ring_irq_num(struct k3_ring *ring)
->  }
->  EXPORT_SYMBOL_GPL(k3_ringacc_get_ring_irq_num);
->  
-> +u32 k3_ringacc_ring_get_irq_status(struct k3_ring *ring)
-> +{
-> +	struct k3_ringacc *ringacc = ring->parent;
-> +	struct k3_ring *fwd_ring = &ringacc->rings[ring->ring_id];
-> +
-> +	if (!fwd_ring->intr)
-> +		return 0;
-> +
-> +	return readl(&fwd_ring->intr->status);
-> +}
-> +EXPORT_SYMBOL_GPL(k3_ringacc_ring_get_irq_status);
-> +
-> +void k3_ringacc_ring_clear_irq(struct k3_ring *ring, u32 status)
-> +{
-> +	struct k3_ringacc *ringacc = ring->parent;
-> +	struct k3_ring *fwd_ring = &ringacc->rings[ring->ring_id];
-> +
-> +	if (!fwd_ring->intr)
-> +		return;
-> +
-> +	writel(status, &fwd_ring->intr->status);
-> +}
-> +EXPORT_SYMBOL_GPL(k3_ringacc_ring_clear_irq);
-> +
->  static int k3_ringacc_ring_cfg_sci(struct k3_ring *ring)
->  {
->  	struct ti_sci_msg_rm_ring_cfg ring_cfg = { 0 };
->  	struct k3_ringacc *ringacc = ring->parent;
->  	int ret;
->  
-> -	if (!ringacc->tisci)
-> -		return -EINVAL;
-> -
->  	ring_cfg.nav_id = ringacc->tisci_dev_id;
->  	ring_cfg.index = ring->ring_id;
->  	ring_cfg.valid_params = TI_SCI_MSG_VALUE_RM_ALL_NO_ORDER;
-> @@ -689,6 +819,24 @@ static int k3_ringacc_ring_cfg_sci(struct k3_ring *ring)
->  	ring_cfg.size = ring->elm_size;
->  	ring_cfg.asel = ring->asel;
->  
-> +	if (!ringacc->tisci) {
-> +		u32 reg;
-> +
-> +		writel(ring_cfg.addr_lo, &ring->cfg->ba_lo);
-> +		writel((ring_cfg.addr_hi & K3_DMARING_CFG_ADDR_HI_MASK) +
-> +				(ring_cfg.asel << K3_DMARING_CFG_ASEL_SHIFT),
-> +				&ring->cfg->ba_hi);
-> +
-> +		reg = readl(&ring->cfg->size);
-> +		reg &= ~K3_DMARING_CFG_SIZE_MASK;
-> +		reg |= ring_cfg.count & K3_DMARING_CFG_SIZE_MASK;
-> +
-> +		writel(reg, &ring->cfg->size);
-> +		writel(K3_RINGACC_RT_INT_ENABLE_SET_COMPLETE | K3_RINGACC_RT_INT_ENABLE_SET_TR,
-> +		       &ring->intr->enable_set);
-> +		return 0;
-> +	}
-> +
->  	ret = ringacc->tisci_ring_ops->set_cfg(ringacc->tisci, &ring_cfg);
->  	if (ret)
->  		dev_err(ringacc->dev, "TISCI config ring fail (%d) ring_idx %d\n",
-> @@ -1347,6 +1495,11 @@ static int k3_ringacc_probe_dt(struct k3_ringacc *ringacc)
->  		return PTR_ERR(ringacc->rm_gp_range);
->  	}
->  
-> +	if (!IS_ENABLED(CONFIG_TI_SCI_INTA_MSI_DOMAIN)) {
-> +		dev_err(dev, "TI_SCI_INTA_MSI_DOMAIN is required for a DT-probed ringacc with ti,sci\n");
-> +		return -ENODEV;
-> +	}
-> +
->  	return ti_sci_inta_msi_domain_alloc_irqs(ringacc->dev,
->  						 ringacc->rm_gp_range);
->  }
-> @@ -1481,9 +1634,12 @@ struct k3_ringacc *k3_ringacc_dmarings_init(struct platform_device *pdev,
->  
->  	mutex_init(&ringacc->req_lock);
->  
-> -	base_rt = devm_platform_ioremap_resource_byname(pdev, "ringrt");
-> -	if (IS_ERR(base_rt))
-> -		return ERR_CAST(base_rt);
-> +	base_rt = data->base_rt;
-> +	if (!base_rt) {
-> +		base_rt = devm_platform_ioremap_resource_byname(pdev, "ringrt");
-> +		if (IS_ERR(base_rt))
-> +			return ERR_CAST(base_rt);
-> +	}
->  
->  	ringacc->rings = devm_kzalloc(dev,
->  				      sizeof(*ringacc->rings) *
-> @@ -1499,6 +1655,10 @@ struct k3_ringacc *k3_ringacc_dmarings_init(struct platform_device *pdev,
->  		struct k3_ring *ring = &ringacc->rings[i];
->  
->  		ring->rt = base_rt + K3_DMARING_RT_REGS_STEP * i;
-> +		ring->cfg = base_rt + K3_RINGACC_RT_CFG_REGS_OFS +
-> +			    K3_DMARING_RT_REGS_STEP * i;
-> +		ring->intr = base_rt + K3_RINGACC_RT_INT_REGS_OFS +
-> +			     K3_DMARING_RT_REGS_STEP * i;
->  		ring->parent = ringacc;
->  		ring->ring_id = i;
->  		ring->proxy_id = K3_RINGACC_PROXY_NOT_USED;
-> @@ -1512,7 +1672,8 @@ struct k3_ringacc *k3_ringacc_dmarings_init(struct platform_device *pdev,
->  		ring->flags = K3_RING_FLAG_REVERSE;
->  	}
->  
-> -	ringacc->tisci_ring_ops = &ringacc->tisci->ops.rm_ring_ops;
-> +	if (ringacc->tisci)
-> +		ringacc->tisci_ring_ops = &ringacc->tisci->ops.rm_ring_ops;
->  
->  	dev_info(dev, "Number of rings: %u\n", ringacc->num_rings);
->  
-> diff --git a/include/linux/soc/ti/k3-ringacc.h b/include/linux/soc/ti/k3-ringacc.h
-> index 39b022b925986..4b6ec925e2f2d 100644
-> --- a/include/linux/soc/ti/k3-ringacc.h
-> +++ b/include/linux/soc/ti/k3-ringacc.h
-> @@ -158,6 +158,23 @@ u32 k3_ringacc_get_ring_id(struct k3_ring *ring);
->   */
->  int k3_ringacc_get_ring_irq_num(struct k3_ring *ring);
->  
-> +/**
-> + * k3_ringacc_ring_get_irq_status - Get the irq status for the ring
-> + * @ring: pointer on ring
-> + *
-> + * Returns the interrupt status
-> + */
-> +u32 k3_ringacc_ring_get_irq_status(struct k3_ring *ring);
-> +
-> +/**
-> + * k3_ringacc_ring_clear_irq - Clear the given interrupts
-> + * @ring: pointer on ring
-> + * @status: mask of interrupt status bits to clear
-> + *
-> + * Clears only the interrupt status bits set in @status on the ring
-> + */
-> +void k3_ringacc_ring_clear_irq(struct k3_ring *ring, u32 status);
-> +
->  /**
->   * k3_ringacc_ring_cfg - ring configure
->   * @ring: pointer on ring
-> @@ -262,6 +279,7 @@ struct k3_ringacc_init_data {
->  	const struct ti_sci_handle *tisci;
->  	u32 tisci_dev_id;
->  	u32 num_rings;
-> +	void __iomem *base_rt;
->  };
->  
->  struct k3_ringacc *k3_ringacc_dmarings_init(struct platform_device *pdev,
-> -- 
-> 2.55.0
+> Hm, I'd say it's actually impossible because every unmap operation is
+> followed by a flush+inval of the GPU L2 and LSC, so for this stale
+> clean line to exist on the GPU side when a physical page is GPU-mapped
+> again, it would take a bug in the unmap logic or in the MMU HW, I
+> think. Am I missing something?
 
--- 
-~Vinod
+Ah, yes that's true :) Although there's no need for us to do an
+invalidate on the unmap path...
+
+>>
+>>
+>>>>
+>>>> The upshot is that if the CPU has cleared a block of memory which the
+>>>> GPU happens to have cached, then the "unused" counters may end up
+>>>> showing the old data before the CPU cleared it (if they share a cache
+>>>> line with an active counter).  
+>>>
+>>> I agree, but that's not a case we can hit in the enable path. I think I
+>>> mentioned the commit message was misleading, and that we should instead
+>>> talk about the fact the GPU is not supposed to have cached anything up
+>>> until the first SAMPLE following a the ENABLE step.
+>>>   
+>>>>
+>>>> I have to admit it's probably somewhat academic given that Panfrost
+>>>> doesn't expose the ability to control which counters are enabled...
+>>>>
+>>>> Is there a good reason for this patch (i.e. have you seen a performance
+>>>> problem with doing the invalidate)? Otherwise I'd prefer we keep to the
+>>>> safe route rather than trying to over optimise cache maintenance.  
+>>>
+>>> I think I was the one suggesting dropping this flush so that
+>>> panfrost_perfcnt_hw_enable() (in the last patch) has one less fallible
+>>> operation. Besides, I find it confusing to have a cache flush+inval in
+>>> a path where the GPU is not supposed to have accessed the buffer yet
+>>> (or later on, when we re-enable after a RESET, in a path where the GPU
+>>> has been reset and the caches are known to be empty).  
+>>
+>> So I agree this Should Be Safe™ because of how the driver is currently
+>> using the performance counters. If we really want to drop the invalidate
+>> then I think we need a comment explaining the logic. My worry is that
+>> someone extends this in the future (e.g. allow selecting which counters
+>> to enable) and breaks assumptions without them being documented.
+>>
+>> We normally do perform an invalidate when the GPU first touches a buffer
+>> (e.g. for a BO) - it's just normally more implicit because it's done as
+>> part of the job manager(/command stream).
+>>
+>> Also "caches known to be empty" is a dangerous thing to assume on
+>> anything that could involve speculation - AFAIK Mali doesn't really
+>> perform any form of speculation, but I'm not 100% sure on that.
+>> Certainly with CPUs you don't get such a luxury of knowing what it might
+>> have populated in the caches.
+> 
+> I suppose speculation pre-populating the caches with stale data would be
+> covered by the flush+inval we do after a map operation (this is
+> currently done in the unlock path regardless of the VM op, so both map
+> and unmap get it). I don't know, maybe the goal is to relax the flushing
+> policy around VM modifications in the future, but if things stay as
+> they are now, we can assume that a fresh BO being GPU-mapped guarantees
+> that no cacheline points to it until the first GPU access. But maybe
+> I'm missing something else...
+
+I have to admit I'm coming from experience on CPUs - there speculation
+means a CPU can load a cache line at basically any point. So the
+argument that a line cannot be in a cache almost never holds. GPUs (at
+least Mali GPUs) haven't quite got to the stage of CPUs.
+
+Thanks,
+Steve
+
