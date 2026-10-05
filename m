@@ -1,237 +1,176 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ed1-f44.google.com (mail-ed1-f44.google.com [209.85.208.44])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5ED1F37F8DD
-	for <linux-kernel@vger.kernel.org>; Mon,  5 Oct 2026 10:04:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=205.220.168.131
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791194656; cv=pass; b=nzWF2bfZTuFwsftt/P4Qvd1JlDBeCmB6dUAXz8OMXFo165bSZk9ebVrG0nj0xzsz7qlrzzDG74ILTpCKXfcStOCc4lukwWjo4duScyNQ6XTYtBM+Y8XHuu84nWXnLXP7NaWw5VGwIV2bwejeqg3y5YGvMOr4DDr3W8ilhN/28xU=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791194656; c=relaxed/simple;
-	bh=k2spEhPKKDs1hsoa0+BsiKrY1mHQ2Y7FvSFpHY4YUxQ=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=RX//VY0jFZCa+63NFVK2JKd6fKcG69puS4Gi5JU8PY2cwDHA0DrdCC2tT0DfjqPxzHQiNJh0OvqR+hLI1qfTK2OQUlnVtouZSkz3frLyqFWeEuQUKk1HIeOGwaAFF/66fUJSHVl+BPjEizccd+dPcCKADFDb21XVMqe9zaLh9u8=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=XkX5UsVy; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=SHHL/Th1; arc=pass smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="XkX5UsVy";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="SHHL/Th1"
-Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6958xZBi2425840
-	for <linux-kernel@vger.kernel.org>; Mon, 5 Oct 2026 10:04:10 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	dqR2VsOJHxm1rWLbQhiJEicrbZzmNLQLjY+Jd8gYyV4=; b=XkX5UsVyg1u3Q0GZ
-	KYC0Jwvkvw7s8pazgeqorwlp/VselmEAkfKgWvnWkLPezyLE2Kqr0/xmwc2P/mC8
-	Cc+k9tgI/m56FIVgPauEGISOam4c7WOJF/njkInawNRxsCD3A2rcKXonm9r8yV6h
-	PFuFwcMKS1CPxe5vsQk9K4Dpyd3Tpd0jQNDvV7gCrdFeU55xbiP1YMgdK3BbP5Ko
-	8b0+t+NjBy1T9iLZHEbycfK3GF51lFlhB4Fy/CxpwBJnp0Oq+PLKofgV7juxTzKZ
-	e1YrwottOZOGhmd96nDWHLdkr0g35ZKQOIoSoRZ77dIn2oXzk+OkGqAvKFm8jpJL
-	VCQTXQ==
-Received: from mail-yw1-f199.google.com (mail-yw1-f199.google.com [209.85.128.199])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h2sr6dcbe-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Mon, 05 Oct 2026 10:04:09 +0000 (GMT)
-Received: by mail-yw1-f199.google.com with SMTP id 00721157ae682-8acb6172b5fso19203277b3.0
-        for <linux-kernel@vger.kernel.org>; Mon, 05 Oct 2026 03:04:09 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1791194649; cv=none;
-        d=google.com; s=arc-20260327;
-        b=CvG/9Mq3HFWS8D+m0BoSeNSGb05FpEMttmX6e1/bpDWLmNtlNd+ODSZVUVgqaBvLpK
-         MzL2tArPJe308INiYJr5LGiLU4K/dZy342gXH8eY43SRl48RCyV0bIW48zarpDIRILoD
-         MTmHEaKN5e6FcmdNqhZHJ8xK8KXgfNH0iaJRbBPlKBA25VWAnXNSw59p3TRzQsYDlmJt
-         i7jLBAti5m8VrC7I98mBXTEH0NoTglwrjkxThtMcWgJbO6DOncH7ubyXcKLA4X5sBMgZ
-         nIGr0wTn5N48ur/jWsIx+dC3TwotDZQ+2LOylmDosKABT7P9BZZ4kM4+Xz4cH+gvo5R+
-         e4Kg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=dqR2VsOJHxm1rWLbQhiJEicrbZzmNLQLjY+Jd8gYyV4=;
-        fh=V0ulcrckUrI/8Xr/1Rs3jECwlZZ6v2Mn7IS0ItFss/Y=;
-        b=GWDJIrG5+Y+HCrykoN10gLBt84DLcsCBjAX4wcyGt2E3oWqH1xv9zwO+M4Q1ruN7Ty
-         oWxTIEZCD8AhtIJd6BGDuZw85QZrT8aEg9UyEb+Zm/fnR92pP25FukgR+FBPSt9/TB+O
-         MfHK7Aun8V9SOnYGcLzn3es3w084bnxgXBJzSkEghKEPxdMJJ31Z4+0VT4H5sv9DaB+B
-         WXynbIQtRlWqWg8zIZ07KkVoJs6gtLT7kjjkjWAZAuH6sOKD/kxIdqxPqhk7IVocjwWk
-         UCcs94w+KgzTaVINUdEnzJz2ar7y3sIl2ZLjpxpl7xFg2ieRTJfTqmhrxaOS4sxhdL+D
-         qLLQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1791194649; x=1791799449; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=dqR2VsOJHxm1rWLbQhiJEicrbZzmNLQLjY+Jd8gYyV4=;
-        b=SHHL/Th1VwxGCqYvg5m4lEwQPab1n7yG93x3r+e8toSNy+udiN1BCZwDJwSNP1tAhV
-         dma0eNfCzYjEIxw8csc08dnPhmsOIgw8CplT1ZJA7GBH1Vz7R/OAeFxuHV30qizUh9BY
-         dUb1vbA9eno+n5i5T5hAul549V30pBeqB63P+qnq227kCldXCTdVa/pi6TyCGr9H2wO5
-         ttM2ASNj/tbUene8gbXYinwZIXPNCpqiz6vX4iSN1lBdOzJFZE7rdTPoAVq//ESg4G1g
-         BszMaFp9Tae2wqbR0y5dj4TQ+Uxr2dPI82/0mq6KhqCsB2EoG2SKW+Waspa7hi2ZKbHK
-         VW1Q==
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 73F79446BF6
+	for <linux-kernel@vger.kernel.org>; Mon,  5 Oct 2026 10:04:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.44
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791194677; cv=none; b=VuiKCQw1zHDiauSHn7HqvLDEatmaRXgRojt8rHjN477Ru6v4bwM7X/g3cN0o1fK5Yv1Tu1p21XAObJj6Wqk/0hfEkBfXFTOsZ/Qq6WDi0pCkDiUbb5zVablarjpfLFfbkyPTRYq3Y1AswYO970VLATloHEO+ZwsNBWf08DJeroU=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791194677; c=relaxed/simple;
+	bh=oHX5S5UfFPvt8CW5tDL/Lr+kdvnzvnuIjZbXiUvlxCI=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=qp/qltJpYdIq986NBnqMYb+8d5jYmRWWlBQQBHhDNzsly/04zA0e2jPVmh3BY09T2dMZ0SoXv/J8evgFhz1s55N0kdahqmuhfyPOJJ5cyLi8V2mBiPrWkC3cVWIgezLUj0KQ25EFKyATfhQbB/UM5xXLCb9TfNWugpj2Tk+M7CY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.com; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=209.85.208.44
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Received: by mail-ed1-f44.google.com with SMTP id 4fb4d7f45d1cf-6afbc363efeso1625654a12.3
+        for <linux-kernel@vger.kernel.org>; Mon, 05 Oct 2026 03:04:31 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791194649; x=1791799449;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=dqR2VsOJHxm1rWLbQhiJEicrbZzmNLQLjY+Jd8gYyV4=;
-        b=SNus3Bs3h7Mq0VvmvIsTUsgbIrFeKjTPTgCveUXsB1uN/dgtxQ4isUMqSrk0yC0xJm
-         ciKJd2PNlwnXm4ePTDs8EMxwAWn5ixcWCZrBO1m7QHcNDA8tOWrqakVCpZpmkcoHAiN+
-         Dlh9Nnu+SRlIC1U6DXJFlHNyNMzv5Zf6HN7kik08LuoMNd8FxOl++/C9BJHo0VZOoCn6
-         BHYSRbfO2vkcz/jh3tM4d8xbentC7UdIaj6Cyah05YBNHbb1MT502/4GoNznKMk2DRUr
-         TYrWOzFj2emj8mK3/8fkCO4hEDVVn6mKas+ctyQgFkG55+HTlPMHWBoUv9gLjdzuNq7H
-         HH2g==
-X-Forwarded-Encrypted: i=1; AKwUvBz5FDoCbMMGJ/5OloQP4ZnK3GMRFWBmbIP/1pVMX9u7FHJTLrvyxX0N2Ku3ZtevFNd0X2g7uYW4MHwJr2k=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKnDmNqm+DHfbcgW2fB49/SqaX7hlk3EZISuGPBQxkK0W2ZnKoi
-	LZ15zHxL06xImDPYXZsQqUL6hsMtr5x2MFa62PA9XkMMRea0gXAc8tB4jpWx98NXG2ACR034shr
-	GJgD1BoUDDD8bzHdqNfC0+jPKjzX7CJNHfMYQWGommnwTG0P73gT01HOwHy94ymqsuOB+TQG5/b
-	qqaLh1on5Si8nyBI3ZNvEVejSi3BbB+RdZ6KDGrrr1jw==
-X-Gm-Gg: AYBFou3eDa8S8nah3sA3RzBzxIorIXtnr9sSZt3IWRcj/aU687ngBeu26zCeY0C3ytJ
-	//3FyMi/3u/Hyj+zWEyeU4RHzC4Djjt/UJukv/pFkqFhsrn6iw6pA6r2C7dy4AT3VxQBkrsQke4
-	hkNn1dfDxVmjL0ZAO7Z/Ue+o/UL480B74GAXlQRfEtxcfN6muLVe2I8EmPcKs=
-X-Received: by 2002:a05:690e:4808:b0:674:1cc0:3523 with SMTP id 956f58d0204a3-677abe3a67cmr2176028d50.10.1791194648676;
-        Mon, 05 Oct 2026 03:04:08 -0700 (PDT)
-X-Received: by 2002:a05:690e:4808:b0:674:1cc0:3523 with SMTP id
- 956f58d0204a3-677abe3a67cmr2176015d50.10.1791194648059; Mon, 05 Oct 2026
- 03:04:08 -0700 (PDT)
+        d=1e100.net; s=20260707; t=1791194667; x=1791799467;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=LFDKBytFqpiCAKHq7794WGTm1eiUeSTtEFvwUnjGNk4=;
+        b=0vbBiXqXi2jcsmJX39Ybjhjh2GM+b35yA7pmWRXI6Ae/LyfRj35TeMfKIApP98A1sl
+         ilkCyPQmdJ7Z9F2uRpAm7Zz8I+MWI0xMMOuQyMm7x+2NmwVMwsfobtB125KWDbspQ6sm
+         eCLJOdMt63cKoyK5FHpx0qt8LXf+g6pXWv0rFVMakUjBLfhTqwaFUXJ50LzFwhV/pOrd
+         sslrJ6kZzILefXygMjC+n4/2tuJ1ftGpdyQax8TPRndMXV1EZ6ZulJvBH68qloBZ6V7v
+         GME3ItCwZSOrvrxoiFah77LYG9pkv+ICyOPtFRNItGcICThX3B4ffeSUaLEYAiJDEdZS
+         mwvQ==
+X-Forwarded-Encrypted: i=1; AKwUvByBkj8TgxcXYfZgARAzCkzdvlC6utVdQDqCIBN3nQz78SCTtq/aJMXG/zzJsaztDzFMuWTXVQva0CYJu2U=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLHdBITTonj09w2egE0eTYK/nUzA5TOo9BESh0Ek/qE1ksTQUCS
+	3SU3NFhDXI/+em6FjMRvjFO0AiBJYM8g2DoUd+o6nuNJsVW2sw3Y5z9K
+X-Gm-Gg: AYBFou0q1/2gxiJuoaf1ZdwQt5POg4AjzqDpJk1GcSOTs4H1UiUY4GUkOjYSIYG0QXB
+	LafN7fn5cBMF88LBFxYPkLKwhDssrSJrXbqrT58ppPgUQCeNkMH5ySRbnB/5M2Ax7hJrfCFsRBx
+	j+tuU1e+AwI0fUTDpSLK5r4y35SH6hbOkjb2SmCOqf9ZfKZj2VD1myrNUwZU1Ufa9Gxv+9pfKR/
+	O4WX5FU4P8A2vYRqDzlG5BNVFug91Kf82to/Du9UOoOuryj8N4asIyQ4IM34sFDkW9JexpwIVtK
+	B5T0OhjU2oZaOzrCF1nGNs5KP2p/tiS8CIFGv9BGsE/rbtu5wPwOqmCKhSX5W/yKHWhf6X29hKl
+	0VDZetfaqrcItteeA94M304AcMmzEqjEsUBZzGRXU9Wsx4oP/st1WJyMKcrvIMQVnK4F8ZE+hje
+	WPsDc84pAs97RkywSRtKehdHoCIHohhV46KztXsqOVdEp4dTyrC3maiW4MZYn+Cpb6HmofH1L7q
+	ZMFwJ6flHpGb1qF0hWMemTgWA4f
+X-Received: by 2002:a05:6402:2421:b0:6ac:6968:9424 with SMTP id 4fb4d7f45d1cf-6afada1af02mr6404847a12.33.1791194667149;
+        Mon, 05 Oct 2026 03:04:27 -0700 (PDT)
+Received: from [192.168.1.135] ([84.68.183.72])
+        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6afb020bdb9sm3060982a12.23.2026.10.05.03.04.26
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 05 Oct 2026 03:04:26 -0700 (PDT)
+Message-ID: <f246ff74-a30e-4381-a6a0-ab51261f9e90@linux.com>
+Date: Mon, 5 Oct 2026 11:04:25 +0100
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260929092939.1806907-1-uttkarsh.aggarwal@oss.qualcomm.com> <arzNOP4jBd9uqnGv@hu-petche-lv.qualcomm.com>
-In-Reply-To: <arzNOP4jBd9uqnGv@hu-petche-lv.qualcomm.com>
-From: Uttkarsh Aggarwal <uttkarsh.aggarwal@oss.qualcomm.com>
-Date: Mon, 5 Oct 2026 15:33:57 +0530
-X-Gm-Features: AclHuK9oHSdFJXWHB3qCGwtJHa-TWOaryqpxlOsBriiYH30mtE2nCh7iseTF7SA
-Message-ID: <CAHBxaDc+pZ3+04iZsQwABrTEnbcFVi8oD7H5LP1ecyyOqQrziA@mail.gmail.com>
-Subject: Re: [PATCH v2] usb: typec: ucsi: Set ucsi->connector before enabling notifications
-To: Peter Chen <peter.chen@oss.qualcomm.com>
-Cc: Heikki Krogerus <heikki.krogerus@linux.intel.com>,
-        Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-        Hans de Goede <hdegoede@redhat.com>, linux-usb@vger.kernel.org,
-        linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDA1MDAzOSBTYWx0ZWRfX2BMlC5OG/au+
- YvkA++unBO3IrfWWo3raAbIEiHe5rrzEnW3eK0Dk58wwwpzzZPMW61hZvgJEskD1fWIORr4dYV8
- gJj8bmb4XQeNIJG5JxSZUa0sv+FvHQ8=
-X-Authority-Analysis: v=2.4 cv=NaBzRGD4 c=1 sm=1 tr=0 ts=6ac37619 cx=c_pps
- a=72HoHk1woDtn7btP4rdmlg==:117 a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10
- a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22
- a=Um2Pa8k9VHT-vaBCBUpS:22 a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8
- a=Xu-oKv-mTIZ1_Gn-t1YA:9 a=QEXdDO2ut3YA:10 a=kA6IBgd4cpdPkAWqgNAz:22
-X-Proofpoint-GUID: AAg6uScEsj3Ly2bS5xHYJsvnuBNlED2D
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDA1MDAzOSBTYWx0ZWRfX4aQ5rBa2pw9R
- l9lgQooWi5B9mbM9/vmJm2LaF9uJs587hBl0QK+h4pr8PuU4kL9vtbjFYVG3cM2NddGa4oIcJBa
- IrL9e0kerCjfRfqQjq45JLEgwvlxNtmpqKTDraRKCkrbirJOREbtFb9TkW8zjkPAIrCVdZWouBj
- Wtx0HIVvTAHXolGVczVmfY+T/lmJ+Y6lxYJBwc87qWimOxs4IcQV8CsXRMH3goshb9yZC+0nytn
- L+PzJlDtvJEovftIgBWKKsYsBRwrkvMVrdYln5/q60ZNuGFs37XQAtyUUwP8xYgIOwxfrWVnmKG
- 0IpMO64fUpXFUseK3y6IsLPrdfilPK9PmMU1axpwBPhk4lr8WSC7btG3Q3ZMKW9tm/5ZWucz/VR
- XANhA/yTIOVVSeE5Br9Czy7guEbaMLin4znG7ulxldRaL0gYhvhQoK7Lo7rr9j9U3+C3qFOLHNG
- PoUzXpC9kb7+hKHRXbw==
-X-Proofpoint-ORIG-GUID: AAg6uScEsj3Ly2bS5xHYJsvnuBNlED2D
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-10-05_01,2026-10-02_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- adultscore=0 phishscore=0 impostorscore=0 malwarescore=0 spamscore=0
- lowpriorityscore=0 bulkscore=0 priorityscore=1501 suspectscore=0
- clxscore=1015 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2609040000
- definitions=main-2610050039
+User-Agent: Mozilla Thunderbird
+Subject: Re: [RFC PATCH 6/6] arm64: dts: amlogic: t7: khadas-vim4: enable the
+ ethernet port
+To: Maxime Chevallier <maxime.chevallier@bootlin.com>,
+ xianwei.zhao@amlogic.com, Andrew Lunn <andrew+netdev@lunn.ch>,
+ "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>,
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>,
+ Neil Armstrong <neil.armstrong@linaro.org>,
+ Kevin Hilman <khilman@baylibre.com>, Jerome Brunet <jbrunet@baylibre.com>,
+ Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>
+Cc: netdev@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-amlogic@lists.infradead.org,
+ linux-kernel@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com
+References: <20261004144046.391444-1-tanure@linux.com>
+ <20261004144046.391444-7-tanure@linux.com>
+ <d1ae6c21-72a9-4bc7-aaaf-9051d0f6b1b0@bootlin.com>
+Content-Language: en-US
+From: Lucas Tanure <tanure@linux.com>
+In-Reply-To: <d1ae6c21-72a9-4bc7-aaaf-9051d0f6b1b0@bootlin.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Wed, Sep 30, 2026 at 2:20=E2=80=AFPM Peter Chen <peter.chen@oss.qualcomm=
-.com> wrote:
->
-> On 26-09-29 14:59:39, Uttkarsh Aggarwal wrote:
-> > In ucsi_init(), ucsi->connector is assigned only after the
-> > UCSI_SET_NOTIFICATION_ENABLE command completes. But once that command
-> > is sent, the PPM is free to raise a connector change notification at
-> > any time, which is handled through:
-> >
-> >     ucsi_notify_common() -> ucsi_connector_change()
-> >
-> > ucsi_connector_change() indexes into ucsi->connector to get the
-> > connector and schedule its work item. If this notification arrives
-> > before ucsi_init() reaches the "ucsi->connector =3D connector;" line,
-> > ucsi->connector is still NULL and the driver crashes dereferencing it.
-> >
-> > Fix this by setting ucsi->connector right after the connectors are
-> > registered, before notifications are enabled, so it is always valid
-> > by the time a connector change event can be delivered. Also clear
-> > ucsi->connector in the err_unregister path so it isn't left pointing
-> > at freed memory if a later step in ucsi_init() fails.
-> >
-> > Fixes: 0482c34ec6f8 ("usb: ucsi: Fix ucsi->connector race")
-> > Cc: stable@vger.kernel.org
-> > Signed-off-by: Uttkarsh Aggarwal <uttkarsh.aggarwal@oss.qualcomm.com>
->
-> Reviewed-by: Peter Chen <peter.chen@oss.qualcomm.com>
->
-> It is better cc the one who gave you the comment :)
->
-> Peter
-> > ---
-> > Changes in v2:
-> >  - Add Fixes tag pointing to 0482c34ec6f8 ("usb: ucsi: Fix ucsi->connec=
-tor race").
-> >  - Add Cc: stable@vger.kernel.org.
-> >  - Link to v1: https://lore.kernel.org/all/20260923060434.2599545-1-utt=
-karsh.aggarwal@oss.qualcomm.com/
-> >
-> >  drivers/usb/typec/ucsi/ucsi.c | 10 +++++++++-
-> >  1 file changed, 9 insertions(+), 1 deletion(-)
-> >
-> > diff --git a/drivers/usb/typec/ucsi/ucsi.c b/drivers/usb/typec/ucsi/ucs=
-i.c
-> > index bef3f9b71d71..8f7b73a9f4f4 100644
-> > --- a/drivers/usb/typec/ucsi/ucsi.c
-> > +++ b/drivers/usb/typec/ucsi/ucsi.c
-> > @@ -2122,6 +2122,14 @@ static int ucsi_init(struct ucsi *ucsi)
-> >                       goto err_unregister;
-> >       }
-> >
-> > +     /*
-> > +      * Set ucsi->connector before enabling notifications. A connector
-> > +      * change event can be handled as soon as the notifications are
-> > +      * enabled below, and ucsi_connector_change() indexes into
-> > +      * ucsi->connector, so it must not be NULL at that point.
-> > +      */
-> > +     ucsi->connector =3D connector;
-> > +
-> >       /* Enable all supported notifications */
-> >       ntfy =3D ucsi_get_supported_notifications(ucsi);
-> >       command =3D UCSI_SET_NOTIFICATION_ENABLE | ntfy;
-> > @@ -2129,7 +2137,6 @@ static int ucsi_init(struct ucsi *ucsi)
-> >       if (ret < 0)
-> >               goto err_unregister;
-> >
-> > -     ucsi->connector =3D connector;
-> >       ucsi->ntfy =3D ntfy;
-> >
-> >       mutex_lock(&ucsi->ppm_lock);
-> > @@ -2143,6 +2150,7 @@ static int ucsi_init(struct ucsi *ucsi)
-> >       return 0;
-> >
-> >  err_unregister:
-> > +     ucsi->connector =3D NULL;
-> >       for (con =3D connector; con->port; con++)
-> >               ucsi_unregister_port(con);
-> >       for (i =3D 0; i < ucsi->cap.num_connectors; i++)
-> > --
-> > 2.34.1
-> >
-> >
->
-> --
->
-> Thanks,
-> Peter Chen
+On 04/10/2026 21:58, Maxime Chevallier wrote:
+> Hi Lucas,
+> 
+> On 10/4/26 16:40, Lucas Tanure wrote:
+>> The board carries a Realtek RTL8211F gigabit PHY on the external
+>> management bus, connected to the MAC over RGMII.
+>>
+>> Enable the controller, hand it the ethernet pins and point it at the
+>> PHY. The clock delays RGMII needs are supplied by the MAC rather than
+>> the PHY: 2ns on transmit and 2000ps on receive, the values the vendor
+>> kernel programs.
+>>
+>> The PHY interrupt output is wired to GPIOH_6, so describe it and let
+>> link changes be reported instead of polled. The PHY reset pin is driven
+>> by an RC network on the board, not by the SoC, so there is no reset line
+>> to describe.
+>>
+>> Tested at 930Mbit/s sustained receive over a minute, with no MAC error
+>> counters moving in either direction.
+>>
+>> Assisted-by: LLM
+>> Signed-off-by: Lucas Tanure <tanure@linux.com>
+>> ---
+>>   .../amlogic/amlogic-t7-a311d2-khadas-vim4.dts | 28 +++++++++++++++++++
+>>   1 file changed, 28 insertions(+)
+>>
+>> diff --git a/arch/arm64/boot/dts/amlogic/amlogic-t7-a311d2-khadas-vim4.dts b/arch/arm64/boot/dts/amlogic/amlogic-t7-a311d2-khadas-vim4.dts
+>> index 0fa83362b417..5d0365ddde72 100644
+>> --- a/arch/arm64/boot/dts/amlogic/amlogic-t7-a311d2-khadas-vim4.dts
+>> +++ b/arch/arm64/boot/dts/amlogic/amlogic-t7-a311d2-khadas-vim4.dts
+>> @@ -14,6 +14,7 @@ / {
+>>   	compatible = "khadas,vim4", "amlogic,a311d2", "amlogic,t7";
+>>   
+>>   	aliases {
+>> +		ethernet0 = &ethmac;
+>>   		serial0 = &uart_a;
+>>   		mmc0 = &sd_emmc_c;
+>>   		mmc1 = &sd_emmc_b;
+>> @@ -256,6 +257,33 @@ xtal: xtal-clk {
+>>   	};
+>>   };
+>>   
+>> +&ethmac {
+>> +	status = "okay";
+>> +	pinctrl-0 = <&eth_pins>, <&eth_rgmii_pins>;
+>> +	pinctrl-names = "default";
+>> +
+>> +	/*
+>> +	 * The RGMII clock delays are added by the MAC, so the PHY is
+>> +	 * asked for the mode that adds none.
+>> +	 */
+>> +	phy-mode = "rgmii";
+> 
+> In devicetree, "rgmii" means that the delays are inserted at the hardware
+> level, i.e. with longer PCB traces for the clock. With the above comment,
+> this is therefore wrong.
+> 
+> As a rule of thumb, "phy-mode = rgmii" is almost always wrong.
+> 
+> The right behaviour here is to represent the HW as it is, that is to say
+> pass phy-mode = "rgmii-id"; delays are internal. In DT we don't say who
+> inserts the delays (MAC or PHY), that's for the drive to figure out.
+> 
+> If the MAC inserts the delays, then it needs to fixup the mode passed to the PHY so that
+> they follow this doc :
+> 
+> https://www.kernel.org/doc/html/v7.2/networking/phy.html#rg-mii-electrical-interface-considerations
+> 
+> Maxime
+Hi Maxime,
 
-Sure, Peter. I will take care of it. Thanks for the review.
+Thanks for the review. You are right about what the mode names mean,
+but after a few tests I do not think this board can follow it. I tried
+all three:
+
+   rgmii-id    23 of 23 received frames had a bad CRC, DHCP never
+               completes.
+   rgmii-txid  receive becomes perfect, but then the peer sees nothing
+               we send, not even an error counter.
+   rgmii       1Gbit/s, 930Mbit/s sustained, no error counter moving.
+
+There was nothing to tune on the PHY side either: the RTL8211F delays
+are single enable bits, TXCR bit 8 and RXCR bit 3, on or off.
+
+The modes whose names promise internal delays are the same ones where
+the glue switches its own off, so there is no value that is both right
+by phy.rst and working here. Keeping "rgmii" and the comment, so the
+next person sees why before trying it. Glad to help test and convert
+this board if the driver's phy-mode handling is ever reworked along
+with the other Amlogic boards.
 
 Thanks,
-Uttkarsh
+Lucas
+
