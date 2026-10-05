@@ -1,112 +1,151 @@
-Received: from mta1.migadu.com (out-1.mta1.migadu.com [95.215.58.1])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6BBA14908B0
-	for <linux-kernel@vger.kernel.org>; Mon,  5 Oct 2026 15:30:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.1
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AD6DA2D249B;
+	Mon,  5 Oct 2026 15:30:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791214250; cv=none; b=lxojdZ6Pq++fMawbJw7OD5jeU3qhHb52MZ09D0h33PhxIGHoSpRJ+uVlUxvT99QVMY8q6/mz9ltQP+5Dqp4JV0xSfZNFTfzSalZ3I4YJkYzqj7ZEbEAYDaxdZAnESemCEkxBqsYh3i4Yg6dwmgJXrwYTd5ix/57hjrKsjPBFXIY=
+	t=1791214257; cv=none; b=Hqv70KqVbdK2ib4gkyuFZQm9rqVR/TOZVnTecj4uhpm2s/qAVxuxPS1NOaiJnwqtcCgW6BTI5bhhzOm0VtuJQnbqpVzZIvyz1WrUP8pOZGObzO+INptKb7Ene1JDIbzK1+fdlKVZJgUjfsTLelN96tmcEjmzLYImdOxwz3BW8Nw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791214250; c=relaxed/simple;
-	bh=21gxMkJy8Tqmj1dU+Rerqv+FZsw/hh5Y+yv1SLdWWq4=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=GiexKvn3GSrRlUKJW7XGprhYPt+YovM0CRP3tqZt0sfHWnTPu2CkA8Gs1z0TcuIGeDzZkUiQqVFxdbmBP8SXShKfpIEqqa96eF5EWAnHbkcJuihXhtjcitPLQTybU7WRpX7BD+hLyrsioxTn3HTw4n7jmrJ6w7y6dAkypG0tgA4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=j6VTrRgn; arc=none smtp.client-ip=95.215.58.1
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1791214257; c=relaxed/simple;
+	bh=X6nLDttfxdsAcVhT7coDh+6wfCWnYIcEbY55a9HRL4Y=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=KxBo+mJdvdq7A8oCTqzCu1N8+ofxlExgh/2irFlmmR3FdhCO+YcW0N538RbGPeoSp39yEVwpnRqDbgzk11bic08JRM3nwWTT3ejbdHZzuyYfGsFySOkxfuTVc+W3b6PU89TyfO/t5Kc219bBtjbc0AXCSM9ifCACeGlaosgmbaM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Ifu7KvfQ; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="j6VTrRgn"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=21gxMkJy8Tqmj1dU+Rerqv+FZsw/hh5Y+yv1SLdWWq4=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1791214245; v=1; x=1791819045;
- b=j6VTrRgnmgzRxAAV5m0NuUV7WgNA5nN8NbSXu28bo6iVIfQN3PvHmEkXzYNdZ5rWnac5ytVp
- Q3TotqNBm6pnqRcQnDWmsImLU3aT1Y9TxpIWmn7u08n7L6pSkC0iswyl3r7264eH7INwvUAKvcW
- CuBWw23onubzWK8GWFH4DDYQ=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 0be697459824643c;
-	Mon, 05 Oct 2026 15:30:33 +0000
-X-Mizu-Trace-ID: 0be697459824643c
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <5fd2d5a3-8499-4811-b2b0-457a2116807e@linux.dev>
-Date: Mon, 5 Oct 2026 23:30:18 +0800
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Ifu7KvfQ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B5EB41F000FF;
+	Mon,  5 Oct 2026 15:30:54 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791214256;
+	bh=x7kHCI/Oi3qjwgCINk1s5Ev19iGxrv4eQUNBFls+4pM=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=Ifu7KvfQfk0qp6OpvyHAk/Gy1XuJipIAcYsAubvFyujcCmW3hQ/B8FpUEEL3WYnRx
+	 R6wQXk5aOwHGiU8qtjVNyqBaM9l65npTRUgw0Zf4HmPvxNh2BsfBC0gdOMyEANmw/2
+	 0gxATULKprVSeaJLlOMHKlX2nv8nZvFxRZrpHQhqlhprBzFHOXXUuiroCpZKXF1kx8
+	 7NSjNh256R6pElGDe3aERe7bmIYwWR4ci/VBFpH7oIh9kV5Yc7fTR+IvaZOle1Tg0X
+	 HeqIEQbico/3z2W9VAUN/POuRKf5MB2D3iO5NvA94wuZh33N0uG23oxGmzliZhyfEX
+	 /PMFCTxLvsMxg==
+Date: Mon, 5 Oct 2026 17:30:52 +0200
+From: Nathan Chancellor <nathan@kernel.org>
+To: Aaron Tomlin <atomlin@atomlin.com>,
+	Steven Rostedt <rostedt@goodmis.org>
+Cc: nsc@kernel.org, julianbraha@gmail.com, linux-kbuild@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] localmodconfig: Explicitly report boolean configs during
+ integrity check
+Message-ID: <20261005153052.GA2537651@ax162>
+References: <20260925181230.130525-1-atomlin@atomlin.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/1] x86/mm: fix incomplete page-table invalidation with
- TCE
-Content-Language: en-US
-To: Rik van Riel <riel@surriel.com>, dave.hansen@linux.intel.com
-Cc: luto@kernel.org, peterz@infradead.org, tglx@kernel.org, mingo@redhat.com,
- bp@alien8.de, x86@kernel.org, hpa@zytor.com, linux-kernel@vger.kernel.org,
- qi.zheng@linux.dev, nadav.amit@gmail.com, thomas.lendacky@amd.com,
- kernel-team@meta.com, linux-mm@kvack.org, akpm@linux-foundation.org,
- brendan.jackman@linux.dev, jannh@google.com, mhklinux@outlook.com,
- andrew.cooper3@citrix.com, Manali.Shukla@amd.com, mingo@kernel.org,
- stable@vger.kernel.org, toshi.kani@hpe.com, david@kernel.org,
- mikhail.v.gavrilov@gmail.com, pfalcato@suse.de
-References: <20261005052302.43042-1-lance.yang@linux.dev>
- <4686fbed54796cbd32b5d524938d9cde184ca501.camel@surriel.com>
-From: Lance Yang <lance.yang@linux.dev>
-In-Reply-To: <4686fbed54796cbd32b5d524938d9cde184ca501.camel@surriel.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260925181230.130525-1-atomlin@atomlin.com>
 
+Hi Aaron,
 
++ Steven
 
-On 2026/10/5 23:15, Rik van Riel wrote:
-> On Mon, 2026-10-05 at 13:23 +0800, Lance Yang wrote:
->> pud_free_pmd_page() uses a single-address invalidation to flush the
->> paging-structure caches before freeing the page tables. With AMD TCE
->> enabled, this only invalidates upper-level entries associated with
->> the
->> target address. Cached PMD entries for other addresses in the PUD
->> range can
->> still reference the PTE pages being freed.
->>
->> The AMD manual quoted in the commit enabling TCE says these
->> instructions
->> remove
->>
->>    "only those upper-level entries that lead to the target PTE in the
->> page
->>    table hierarchy, leaving unrelated upper-level entries intact."
->>
->> Even with all PTEs cleared, speculative page walks can cache present
->> PMD
->> entries after the earlier TLB purge.
+On Fri, Sep 25, 2026 at 02:12:30PM -0400, Aaron Tomlin wrote:
+> When running make localmodconfig, streamline_config.pl reads loaded
+> modules and maps each module object to its corresponding Kconfig
+> symbol(s) using repository Makefiles.
 > 
-> The comment above the function says it all. The TLB
-> range should already have been cleared by the time
-> pud_free_pmd_page() gets called:
+> In several instances, a loaded module corresponds to an object
+> controlled by a boolean symbol (e.g. config FOO declared as bool), or is
+> a composite module that depends on a boolean configuration. Because
+> boolean options only accept "=y" or disabled, they cannot be configured
+> as loadable modules ("=m").
 > 
-> /**
->   * pud_free_pmd_page - Clear PUD entry and free PMD page
->   * @pud: Pointer to a PUD
->   * @addr: Virtual address associated with PUD
->   *
->   * Context: The PUD range has been unmapped and TLB purged.
->   * Return: 1 if clearing the entry succeeded. 0 otherwise.
->   *
->   * NOTE: Callers must allow a single page allocation.
->   */
-> int pud_free_pmd_page(pud_t *pud, unsigned long addr)
-> {
+> Previously, if such a symbol was not already built-in ("=y") in the
+> baseline configuration, the final integrity check emitted an ambiguous
+> diagnostic. For example
 > 
-> The PMD could have been (speculatively) loaded by the
-> CPU after the PTEs were freed, so that one PMD mapping
-> needs to be flushed here, but there should not be
-> anything else left to flush.
+>     foo did not have configs CONFIG_FOO
 > 
-> The code looks odd, but it's a good idea to always
-> ask your AI to draw up a full chain of events for
-> a bug to trigger, going all the way back to something
-> calling the mm from the outside.
+> Further investigation is required by developers to determine whether the
+> module was out-of-tree, its dependencies were unmet, or it failed due to
+> a type constraint. Address this by:
+>     1.  Tracking symbol types in a %types hash during Kconfig parsing.
+> 
+>     2.  Enhancing the final integrity check when running localmodconfig
+>         (!$localyesconfig) to explicitly annotate boolean symbols.
+> 
+> For example:
+> 
+>     module cec did not have configs CONFIG_CEC_CORE (tristate) CONFIG_RAS_CEC (boolean, not supported with =m)
+> 
+> Signed-off-by: Aaron Tomlin <atomlin@atomlin.com>
 
-Thanks for looking into this! I'll take another look
-and trace it through.
+My Perl is quite weak, so I would love Steven's ack or review before
+taking this since he is the original author/maintainer. I've left the
+full patch for context.
+
+> ---
+>  scripts/kconfig/streamline_config.pl | 20 ++++++++++++++++++--
+>  1 file changed, 18 insertions(+), 2 deletions(-)
+> 
+> diff --git a/scripts/kconfig/streamline_config.pl b/scripts/kconfig/streamline_config.pl
+> index 8677d1ca06a7..6a52a98eb40e 100755
+> --- a/scripts/kconfig/streamline_config.pl
+> +++ b/scripts/kconfig/streamline_config.pl
+> @@ -145,6 +145,7 @@ my %prompts;
+>  my %objects;
+>  my %config2kfile;
+>  my %defaults;
+> +my %types;
+>  my $var;
+>  my $iflevel = 0;
+>  my @ifdeps;
+> @@ -224,6 +225,7 @@ sub read_kconfig {
+>  	} elsif ($state ne "NONE" && /^\s*def(_(bool|tristate)|ault)\s+(\S.*)$/) {
+>  	    my $dep = $3;
+>              $defaults{$config} = 1;
+> +	    $types{$config} = $2 if (defined($2));
+>  	    if ($dep !~ /^\s*(y|m|n)\s*$/) {
+>  		$dep =~ s/.*\sif\s+//;
+>  		$depends{$config} .= " " . $dep;
+> @@ -240,7 +242,13 @@ sub read_kconfig {
+>  	    }
+>  
+>  	# configs without prompts must be selected
+> -	} elsif ($state ne "NONE" && /^\s*(tristate\s+\S|prompt\b)/) {
+> +	} elsif ($state ne "NONE" && /^\s*(bool|boolean)(\s+\S.*)?$/) {
+> +	    $types{$config} = "bool";
+> +	    $prompts{$config} = 1 if (defined($2));
+> +	} elsif ($state ne "NONE" && /^\s*tristate(\s+\S.*)?$/) {
+> +	    $types{$config} = "tristate";
+> +	    $prompts{$config} = 1 if (defined($1));
+> +	} elsif ($state ne "NONE" && /^\s*prompt\b/) {
+>  	    # note if the config has a prompt
+>  	    $prompts{$config} = 1;
+>  
+> @@ -707,7 +715,15 @@ foreach my $module (keys(%modules)) {
+>  	}
+>  	print STDERR "module $module did not have configs";
+>  	foreach my $conf (@arr) {
+> -	    print STDERR " " , $conf;
+> +	    my $c = $conf;
+> +	    $c =~ s/^CONFIG_//;
+> +	    if (!$localyesconfig && defined($types{$c}) && $types{$c} eq "bool") {
+> +		print STDERR " $conf (boolean, not supported with =m)";
+> +	    } elsif (defined($types{$c})) {
+> +		print STDERR " $conf ($types{$c})";
+> +	    } else {
+> +		print STDERR " " , $conf;
+> +	    }
+>  	}
+>  	print STDERR "\n";
+>      }
+> -- 
+> 2.55.0
+> 
+> 
+
+-- 
+Cheers,
+Nathan
