@@ -1,147 +1,159 @@
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5B87E457E65;
-	Mon,  5 Oct 2026 10:28:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.130
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id B90A8442373
+	for <linux-kernel@vger.kernel.org>; Mon,  5 Oct 2026 10:28:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791196096; cv=none; b=fx+8SNir3FmCy3lMpBQtjogvXnCAo9ZUrMluGNM6Bq985zDTAmLsXl4sv/EY2wZ1uAGGBwJvjWFkklYUFVDRNIVEtMQRdE8F660Wxd6Z6121ofChd2YtXCfM+kdR3u6h4EG71MJIGh3U+GeYX9Mg7czz+pWc/ZeR1bXIdtHIsKI=
+	t=1791196130; cv=none; b=sj74Sa2U63eL1P+3n140VHJnacfJVliGz2S+iLPBPmmOGl3Gb8GqEoVnXH59/D9RRoIT27fZ0HT7jjAgA34P72boDxI64oTxev9OXMnqT2q2c2kL60+yEbgK2EbhDu/s2ueatUAPX+oHk+YwZZHSGSOmcPwZy8zDJs91QxRXPIA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791196096; c=relaxed/simple;
-	bh=RUGabXB01WVBYscIOh3a6k+U6RGIgCxG0UI9tqZtglM=;
-	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=s35Ee4ZVj7clVTJDxTHaOKD37RqaUz1q4KAjbfMerE19pUTap+VNx9HWEb/0QCB8CnIGVZZBWrqBLFlzDP0zwG3hMVMQtNH5Tn4n2Gr7S4GYclXL5XemrIkT7nhAM/LnoIE4FI64rb8Lrh3X5H8+az7VhZv13AZ97/3Q49o0+jg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=QvZ8tg/N; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=avvF+c2J; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=rHUkIc/I; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=dwbDSzd7; arc=none smtp.client-ip=195.135.223.130
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
+	s=arc-20240116; t=1791196130; c=relaxed/simple;
+	bh=jqBaTdsRXXBrqPONRaqWHQAHkAN07+rGQmUfu0cXl/I=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=Tm6ZChqMV5WN2jaR8UNBABCIi3GgUTiiIdJ6zJcbZzkCm2g4dw/IZwKcdVDhNvJj6MxlzzHPF5r9JTtrJmv7masfgB2pGWrw9c4P6jhtZBqNel8Hv8h0NEBr3E8PPZ97ICJ5LweD+1xdKLtXKPiKHwqqtzFXW2TbbQXQDb5OJ5o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=qFi7xoCH; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="QvZ8tg/N";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="avvF+c2J";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="rHUkIc/I";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="dwbDSzd7"
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id 0F89221E85;
-	Mon,  5 Oct 2026 10:28:05 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1791196089; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=dpnyF9kWu5HUOFuoMW2EGXX3vg3/k1B3QaCRnwhKEdQ=;
-	b=QvZ8tg/NB3JXdFbwzNd9PjuXAYegvaBBJrv87lRqof8u1TbRCwuB4S+9NX2CEikuZSnlVT
-	0RdCh853IS9q8OeUdztLnNb0oZ+zsN88ctKmkonancy80HPz8ISAEr6U02vSUUDwJkZsO2
-	S1K/PTFUFlKCkZ6JzAdzZRUnZSK4hp8=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1791196089;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=dpnyF9kWu5HUOFuoMW2EGXX3vg3/k1B3QaCRnwhKEdQ=;
-	b=avvF+c2Jeff/ifyMvbfyqB1oJdLiIpkejk2DmGj4oUuFJI/otfSiTPb/3uwDBqslEvcWts
-	YuzPCtXqdNd08yCg==
-Authentication-Results: smtp-out1.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1791196085; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=dpnyF9kWu5HUOFuoMW2EGXX3vg3/k1B3QaCRnwhKEdQ=;
-	b=rHUkIc/I+3ZlhfqGdI39tRm0SYAmIH8AYuWuCaiG/5M8lqtmv1SSzIw7DFvUJao9sZf42R
-	UoSMSl+nqLIqgcPHgFDBVJUx/rd0N9RVMPupDFytXlg4fZeusftXiSxTYGMnNLS6e2rBT2
-	XW70JRvYjPxShTC9dwq2opo/4FytcNI=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1791196085;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=dpnyF9kWu5HUOFuoMW2EGXX3vg3/k1B3QaCRnwhKEdQ=;
-	b=dwbDSzd7f3x+TP5glNT7rNmM4Lr5PR3uVZitQwOQNqtr0cChDqh6cSUdIVr+29E3lTPYLf
-	D1Dnnxyp9DQJT/Dg==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id CC9C2132D3;
-	Mon,  5 Oct 2026 10:28:04 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id 7b0vKbR7w2rlJQAAD6G6ig
-	(envelope-from <tiwai@suse.de>); Mon, 05 Oct 2026 10:28:04 +0000
-Date: Mon, 05 Oct 2026 12:27:56 +0200
-Message-ID: <87se2ksaqb.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Scott Gauche <scott-dev@scottgauche.com>
-Cc: Jaroslav Kysela <perex@perex.cz>,
-	Takashi Iwai <tiwai@suse.com>,
-	linux-sound@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v1] ALSA: hda/realtek: Fix audio after Windows reboot on ASUS Q423SA
-In-Reply-To: <20261004212623.1098793-1-scott-dev@scottgauche.com>
-References: <20261004212623.1098793-1-scott-dev@scottgauche.com>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/30.2 Mule/6.0
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="qFi7xoCH"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 57A44152B;
+	Mon,  5 Oct 2026 03:28:44 -0700 (PDT)
+Received: from [10.57.78.53] (unknown [10.57.78.53])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 767153F763;
+	Mon,  5 Oct 2026 03:28:45 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1791196127; bh=jqBaTdsRXXBrqPONRaqWHQAHkAN07+rGQmUfu0cXl/I=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=qFi7xoCHQRHnbCuXP9wgcNVxKA8nC35QY5AXahLKLLe6yf/Lk35029x7mFE2Fr5+f
+	 QD3qOSLB/ZyDmjhVpNURfbStumsTFbPfsPUG3OjO+a+ZL9oGxZYALkvjiJGVu/kO2t
+	 ECo/c/mFZnN78XPx6k0b5h3ZjXgmDExo2NfxJnGk=
+Message-ID: <043e60c3-bf24-479b-9b87-1a6682a7f576@arm.com>
+Date: Mon, 5 Oct 2026 11:28:43 +0100
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-X-Spamd-Result: default: False [-3.30 / 50.00];
-	BAYES_HAM(-3.00)[99.99%];
-	MID_CONTAINS_FROM(1.00)[];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	MIME_TRACE(0.00)[0:+];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	TO_DN_SOME(0.00)[];
-	ARC_NA(0.00)[];
-	RCVD_TLS_ALL(0.00)[];
-	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	RCPT_COUNT_FIVE(0.00)[5];
-	FROM_EQ_ENVFROM(0.00)[];
-	RCVD_COUNT_TWO(0.00)[2];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:mid,imap1.dmz-prg2.suse.org:helo]
-X-Spam-Flag: NO
-X-Spam-Score: -3.30
-X-Spam-Level: 
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 2/5] drm/panthor: Fix iova_mapped_as_huge_page() for
+ imported BOs
+To: Boris Brezillon <boris.brezillon@collabora.com>,
+ Liviu Dudau <liviu.dudau@arm.com>,
+ =?UTF-8?Q?Adri=C3=A1n_Larumbe?= <adrian.larumbe@collabora.com>,
+ Akash Goel <akash.goel@arm.com>
+Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+References: <20260924-panthor-fix-partial-unmap-v2-0-59a68a1f9e14@collabora.com>
+ <20260924-panthor-fix-partial-unmap-v2-2-59a68a1f9e14@collabora.com>
+From: Steven Price <steven.price@arm.com>
+Content-Language: en-GB
+In-Reply-To: <20260924-panthor-fix-partial-unmap-v2-2-59a68a1f9e14@collabora.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Sun, 04 Oct 2026 23:26:23 +0200,
-Scott Gauche wrote:
+On 24/09/2026 12:04, Boris Brezillon wrote:
+> Imported BOs have no backing.pages array allocated, leading to a NULL
+> deref when iova_mapped_as_huge_page() gets called on them.
 > 
-> The ASUS Vivobook S 14 Q423SA-U5512 (DMI family S5406SA) with the
-> ALC294 codec has working analog audio when booted directly after a full
-> shutdown. After a warm reboot from Windows 11, audio works briefly during
-> Linux startup, then both the internal speakers and headphones become
-> silent. PCM playback continues without errors.
-> 
-> Coefficient 0x1b is 0x4e4b on a direct cold boot, but 0x4a4b after the
-> Windows warm reboot. Restoring bit 10 changes it back to 0x4e4b and
-> immediately enables both analog outputs. Speaker playback, headphone
-> playback, jack switching, cold boot, and suspend/resume were tested
-> successfully. The same 0x4a4b state and immediate recovery with 0x4e4b
-> were independently confirmed on another S5406SA with subsystem 1043:10c4.
-> 
-> The same coefficient write is already used by
-> ALC294_FIXUP_ASUS_COEF_1B for the ASUS UX431DA. That fixup cannot be
-> reused here because it chains to ALC289_FIXUP_ASUS_GA401 and applies
-> unrelated DAC routing and microphone pin configuration.
-> 
-> Add a model-specific fixup for subsystem 1043:10c4 and chain it to the
-> existing ALC2XX_FIXUP_HEADSET_MIC fixup instead.
-> 
-> Link: https://github.com/thesofproject/sof/issues/11051
-> Signed-off-by: Scott Gauche <scott-dev@scottgauche.com>
+> Implement this check through and sgt walk to reach the position of the
+NIT:                           ^^^
+s/and/an/
 
-As this looks like correcting an existing quirk, could you point to
-the commit introducing the original quirk via Fixes tag?
-At best, please resubmit v2 with it.
+> sgt targeted by a VA, and check that the DMA address is properly aligned
+> and the size remaining in the SG entry is bigger than a huge page.
+> This is basically matching the logic in vm_map_pages(), with get_pgsize()
+> being replaced by a simpler test, because we don't care about the pgcount
+> info.
+> 
+> Reported-by: Akash Goel <akash.goel@arm.com>
+> Fixes: 8e7460eac786 ("drm/panthor: Support partial unmaps of huge pages")
+> Reviewed-by: Liviu Dudau <liviu.dudau@arm.com>
+> Reviewed-by: Akash Goel <akash.goel@arm.com>
+> Signed-off-by: Boris Brezillon <boris.brezillon@collabora.com>
 
+Reviewed-by: Steven Price <stevne.price@arm.com>
 
-thanks,
+Although there's a minor style issue below if you do respin (see below).
 
-Takashi
+> ---
+>  drivers/gpu/drm/panthor/panthor_mmu.c | 44 ++++++++++++++++++++++++++++-------
+>  1 file changed, 36 insertions(+), 8 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/panthor/panthor_mmu.c b/drivers/gpu/drm/panthor/panthor_mmu.c
+> index b0a7033480e6..6cef954e2cba 100644
+> --- a/drivers/gpu/drm/panthor/panthor_mmu.c
+> +++ b/drivers/gpu/drm/panthor/panthor_mmu.c
+> @@ -2299,7 +2299,6 @@ iova_mapped_as_huge_page(struct drm_gpuva *mapping, u64 va)
+>  {
+>  	struct panthor_gem_object *bo = to_panthor_bo(mapping->gem.obj);
+>  	u64 aligned_va = ALIGN_DOWN(va, SZ_2M);
+> -	const struct page *pg;
+>  	pgoff_t bo_offset;
+>  
+>  	/* If the 2M-aligned VA is outside the mapping being tested, we know
+> @@ -2309,16 +2308,45 @@ iova_mapped_as_huge_page(struct drm_gpuva *mapping, u64 va)
+>  		return false;
+>  
+>  	bo_offset = aligned_va - mapping->va.addr + mapping->gem.offset;
+> -	pg = bo->backing.pages[bo_offset >> PAGE_SHIFT];
+>  
+> -	/* In case of shmem backing, we know we can only have a huge mapping
+> -	 * if the bo_offset is 2M aligned, meaning we can skip the folio size
+> -	 * check if it's not the case.
+> -	 */
+> -	if (!IS_ALIGNED(bo_offset, SZ_2M))
+> +	if (drm_gem_is_imported(&bo->base)) {
+> +		struct sg_table *sgt = bo->dmap.sgt;
+> +		struct scatterlist *sgl;
+> +		unsigned int count;
+> +
+> +		/* If this is an imported BO, we have to walk the SGT and
+> +		 * check the dma address/size alignment to determine if it's
+> +		 * a huge map or not.
+> +		 */
+> +		for_each_sgtable_dma_sg(sgt, sgl, count) {
+> +			size_t len = sg_dma_len(sgl);
+> +			dma_addr_t daddr;
+> +
+> +			if (len <= bo_offset) {
+> +				bo_offset -= len;
+> +				continue;
+> +			}
+> +
+> +			len -= bo_offset;
+> +			daddr = sg_dma_address(sgl) + bo_offset;
+> +
+> +			return IS_ALIGNED(daddr, SZ_2M) &&
+> +			       len >= SZ_2M;
+> +		}
+> +
+>  		return false;
+> +	} else {
+
+This 'else' branch isn't needed - since the above branch returns early.
+Dropping the below back out of the braces would make the diff easier to
+read - effectively the drm_gem_is_imported() branch is just added and
+the rest of the code is left as is.
+
+Thanks,
+Steve
+
+> +		const struct page *pg = bo->backing.pages[bo_offset >> PAGE_SHIFT];
+>  
+> -	return folio_size(page_folio(pg)) >= SZ_2M;
+> +		/* In case of shmem backing, we know we can only have a huge mapping
+> +		 * if the bo_offset is 2M aligned, meaning we can skip the folio size
+> +		 * check if it's not the case.
+> +		 */
+> +		if (!IS_ALIGNED(bo_offset, SZ_2M))
+> +			return false;
+> +
+> +		return folio_size(page_folio(pg)) >= SZ_2M;
+> +	}
+>  }
+>  
+>  static void
+> 
+
