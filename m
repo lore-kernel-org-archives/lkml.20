@@ -1,203 +1,2963 @@
-Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com [148.163.158.5])
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.9])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8E50D41611D;
-	Mon,  5 Oct 2026 09:23:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.158.5
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0B35A427F98;
+	Mon,  5 Oct 2026 09:23:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.9
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791192184; cv=none; b=Adh+Hzl+ljoMw5Prk5u+G8SJAXNMPBV/d5qwEo9sb7kypnfxlCrja/1V8x7jL5uwY07n58m9iSX2G4GaHis/i4ZXJob1nox0eBQYwc35vP8HofXhadGnuT5igGxky0SPmwdMbLz32RLZZ5fqDVqgYVJu6Colj89JPTkBdWPQxBM=
+	t=1791192208; cv=none; b=rvdLB60X8MSUAZxT7zlx7nvV1twakjhEKVKboiXakTx1Z8wBfS7VcnLwJDUdroK1blDQLCLEuunfjeHi0DBRZ3fqvyoKChYnokMepSVqWm6CpUQ4chrC7iiEm6N8WAVCAywe7SbDvbAPf/VfduL/vvyCmcBXjiT/ioE3+9a0Bmg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791192184; c=relaxed/simple;
-	bh=BGrAo7AyaaQoWhFwGYcjhYN3aRdZEeobmKziPW72M08=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=L8eIXyMIbp3pJ7x5PLptBnbTVyDaDi5LqvOJ3WXD0gO2TiPr/p1vUTaztQYrwI4EbH0qd93qDtTuvvFQIzkkl+r6LAwA1tryatC4MWQl11+YQrcGCa7k7EUgyPSrkWr6myFMh02xBH8V9XUy7wlupMW4yHMFcFQMEF5SDvVTBvs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=eqUwXmjb; arc=none smtp.client-ip=148.163.158.5
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
+	s=arc-20240116; t=1791192208; c=relaxed/simple;
+	bh=LFSfqDciK7aJuxdT1g522coj4vDcCd3Zpu1jkZ2zk2k=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=fSEOegbab7BjfkAQNgecz+3cimvuwxyg7E9T0FPtA+6lrw/19Lr63y5lnCmO3T7Rpk0b96dzmlLEwyxfxz4KpOYJUslrpcuDHaTykRyO8l2keUEGlPz3PiiBu+d7O0/ZPt2xOBBEGiSn54pNo4nrwafgELHdWafcsja8qqWzQjI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=JAsv2+fi; arc=none smtp.client-ip=198.175.65.9
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="eqUwXmjb"
-Received: from pps.filterd (m0360072.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69515ZU13290349;
-	Mon, 5 Oct 2026 09:23:01 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
-	:content-transfer-encoding:date:from:message-id:mime-version
-	:subject:to; s=pp1; bh=/9py2qkgrBP45kBweUQ2C/k/kJiManV5GG0pwAEbn
-	Rk=; b=eqUwXmjbLVSXc19zV9EAaJLOYPDcK3REfD+q0Bmo1uEdM1ozixuAV6YQM
-	lCH9TCDRU7gC1TZk6dt711L2b2/2c4U+ve84N6FC8kdCMvoiP86p18fqD3Gad76H
-	X7mKybkE4Ydvl+2asn6LtbsqvdQLKDLE0MdxpCsECg7veTZk6Vps7C3ZVIXZLqa9
-	dU2VzSm5gqDN2RbUA2Z07pDiGlBsuY/2ljVCx4OjSou+V7IIFIrEoU/7QFM0fx3N
-	5QcC8NxP/zU7AOAm8o5ihHdZ7oMPLihQ+l7i/oRhd0iL0PviINEN8fMA6LJlsCVS
-	uI+9aul3tQ8tVK+SbkRffSSlDOpkg==
-Received: from ppma23.wdc07v.mail.ibm.com (5d.69.3da9.ip4.static.sl-reverse.com [169.61.105.93])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4h2sbv0ms4-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Mon, 05 Oct 2026 09:23:01 +0000 (GMT)
-Received: from pps.filterd (ppma23.wdc07v.mail.ibm.com [127.0.0.1])
-	by ppma23.wdc07v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 6956ReIZ2203895;
-	Mon, 5 Oct 2026 09:23:00 GMT
-Received: from smtprelay05.fra02v.mail.ibm.com ([9.218.2.225])
-	by ppma23.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4h3dhgmq76-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Mon, 05 Oct 2026 09:23:00 +0000 (GMT)
-Received: from smtpav06.fra02v.mail.ibm.com (smtpav06.fra02v.mail.ibm.com [10.20.54.105])
-	by smtprelay05.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 6959Mune48169402
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Mon, 5 Oct 2026 09:22:56 GMT
-Received: from smtpav06.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id A21192004E;
-	Mon,  5 Oct 2026 09:22:56 +0000 (GMT)
-Received: from smtpav06.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 837C020049;
-	Mon,  5 Oct 2026 09:22:56 +0000 (GMT)
-Received: from tuxmaker.boeblingen.de.ibm.com (unknown [9.87.85.9])
-	by smtpav06.fra02v.mail.ibm.com (Postfix) with ESMTP;
-	Mon,  5 Oct 2026 09:22:56 +0000 (GMT)
-From: Heiko Carstens <hca@linux.ibm.com>
-To: Alexander Gordeev <agordeev@linux.ibm.com>,
-        Sven Schnelle <svens@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>,
-        Christian Borntraeger <borntraeger@linux.ibm.com>,
-        Jens Remus <jremus@linux.ibm.com>
-Cc: linux-kernel@vger.kernel.org, linux-s390@vger.kernel.org
-Subject: [PATCH v2] s390/dis: Mark non-NUL-terminated character arrays with __nonstring
-Date: Mon,  5 Oct 2026 11:22:56 +0200
-Message-ID: <20261005092256.2740363-1-hca@linux.ibm.com>
-X-Mailer: git-send-email 2.53.0
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="JAsv2+fi"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1791192204; x=1822728204;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:content-transfer-encoding:in-reply-to;
+  bh=LFSfqDciK7aJuxdT1g522coj4vDcCd3Zpu1jkZ2zk2k=;
+  b=JAsv2+fiwEIzpFWHv9dgH2O9ckxntiAy+5pWHMQbq2114rBVRB1BzRsv
+   mPtURnTMH5sYfJ7TEGJ6KOwLXFC7eHD+qzYoilRm8YFqBBJKvy8C9/YNl
+   B/f/jHr+di4VHahadcgP5Pa8QvY0SuZAKZdzcsxLD9EtiTKvsQF56W8P9
+   +eemnvgHS4ncYCHxL2IzQgTgPcSyaipWEHfZYoRiAUNrtSnBmwXigRsbs
+   aNsZ28pP/otACxI+dlfoWcM5Iop3TdAG6hVtvBdEJbGG4tSjADHYk0Zwp
+   0c7sdbI9g4CI5vIFYbVZThw9CQtrlt2hi79CGK2rE2tgGa15v4SB3CRTI
+   g==;
+X-CSE-ConnectionGUID: JJICEaj4Q7ya6J9Lf4tw2A==
+X-CSE-MsgGUID: Us/gHCAKRnCgma75jjjYmw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11925"; a="113636141"
+X-IronPort-AV: E=Sophos;i="6.27,141,1787036400"; 
+   d="scan'208";a="113636141"
+Received: from fmviesa003.fm.intel.com ([10.60.135.143])
+  by orvoesa101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 05 Oct 2026 02:23:23 -0700
+X-CSE-ConnectionGUID: QkYSHF3gQdScFPDCZ3qxUA==
+X-CSE-MsgGUID: M8mJLXkbStiiKZzP9EELxg==
+X-ExtLoop1: 1
+Received: from ettammin-mobl2.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.245.157])
+  by fmviesa003-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 05 Oct 2026 02:23:20 -0700
+Received: from kekkonen.localdomain (localhost [IPv6:::1])
+	by kekkonen.fi.intel.com (Postfix) with ESMTP id 37BCB11F817;
+	Mon, 05 Oct 2026 12:23:20 +0300 (EEST)
+Date: Mon, 5 Oct 2026 12:23:20 +0300
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
+From: Sakari Ailus <sakari.ailus@linux.intel.com>
+To: Robert Bozik <robertbozik@gmail.com>
+Cc: linux-media@vger.kernel.org, Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v4 2/3] media: i2c: Add driver for OmniVision OV32C4
+Message-ID: <asNsiKal6GgcqUSK@kekkonen.localdomain>
+References: <20261005071010.7191-1-robertbozik@gmail.com>
+ <20261005071010.7191-3-robertbozik@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-X-TM-AS-GCONF: 00
-X-Proofpoint-ORIG-GUID: Niuu0iK0G-YlTG0XKS-6VTcwyRfQF7yZ
-X-Authority-Analysis: v=2.4 cv=KJHPn1Fo c=1 sm=1 tr=0 ts=6ac36c75 cx=c_pps
- a=3Bg1Hr4SwmMryq2xdFQyZA==:117 a=3Bg1Hr4SwmMryq2xdFQyZA==:17
- a=660iZSQnnn4A:10 a=VkNPw1HP01LnGYTKEx00:22 a=RnoormkPH1_aCDwRdu11:22
- a=RzCfie-kr_QcCd8fBx8p:22 a=VnNF1IyMAAAA:8 a=hxsTDYNwqb7sgjUZo4oA:9
-X-Proofpoint-GUID: Niuu0iK0G-YlTG0XKS-6VTcwyRfQF7yZ
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDA1MDAzNiBTYWx0ZWRfX/dDWql/J2U+0
- A/CfMnSAnoOp/UfdcAEdEgR/E0y9+0JG/IAY4dlBDDVfMn99XWFStLy0LlU9QJKvDtR4osk+FWn
- OgIFy+W2MVyLY2fT27Pk2DdY45ja3Iy/ZBGPHcy6xP2PzlEVTx8MP88Iv6SiwnsiwETDYqF07Ot
- aCtRTZxoKNlhztDmrAa0snd1n6sMuSXvPJe7IE73MYM1XqLCGjeDcAbtqWa/wzO3IZPH5wO5Xz3
- nkmJMcn83Ee8OdIwZWQpiXIqGdnaVc0PV6zJaHTKXfhrJd1llNIexSS1cZWp3S3USGb0WYKCrjt
- RDFRNGOTLE3jZ+uGlGFNg87kULsCfkmCKeX3474GMQcWvbjdDGOe+NPQ6dCdFkoS5OxtCzC9d0W
- Y7ue9M9IpKAIOAayGnDCAHaPAGhcsogkSbJ6m+i5+6tPmbyZH/kDsUyEcKm17pYT76pqgyCV09U
- teuOcwhSs4r0AM35H8A==
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDA1MDAzNiBTYWx0ZWRfX04GS1JRyGjIT
- NAeneNE8qzWUdf2KysiDpPBitkb6tge+8m5BOesI4Fhhj+SmTg8GsLDyBsIyZoPYfOKcImoCUHm
- 5wqilyK6NGlv+gxZWwxd8/ouV5p4yUI=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-10-05_01,2026-10-02_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- suspectscore=0 malwarescore=0 spamscore=0 lowpriorityscore=0
- priorityscore=1501 phishscore=0 impostorscore=0 adultscore=0 clxscore=1015
- bulkscore=0 classifier=typeunknown authscore=0 authtc= authcc= route=outbound
- adjust=0 reason=mlx scancount=1 engine=8.22.0-2609040000
- definitions=main-2610050036
+In-Reply-To: <20261005071010.7191-3-robertbozik@gmail.com>
 
-With [1] the generated string initializers were changed to use an
-array instead of a non-NUL-terminated string. The reason was that GCC 15
-warns about string initializers that truncate the NUL terminator with
--Wunterminated-string-initialization.
+Hi Robert,
 
-The better solution is to use the __nonstring annotation, which exists
-to deal exactly with this problem. Therefore use it and basically
-revert [1] in order to generate more readable initializers:
+On Mon, Oct 05, 2026 at 09:10:09AM +0200, Robert Bozik wrote:
+> The OV32C4 is a 32 megapixel RGBC CMOS image sensor with on-chip 4-cell
+> fusion and binning, connected over 4 MIPI CSI-2 D-PHY lanes. It is used
+> as an under-display camera in laptops, where it is enumerated through
+> ACPI (_HID "OVTI32C4") and paired with an Intel IPU.
+> 
+> The driver supports 3264x1840 at 30 fps in 10-bit Bayer at a link
+> frequency of 400 MHz, with exposure, analogue gain, digital gain,
+> vblank, hblank and horizontal and vertical flip controls, runtime PM
+> and .get_selection reporting the 6560x4928 pixel array.
+> 
+> The sensor has a second I2C address, the second I2cSerialBus resource of
+> its _CRS, behind which sits a small register block of its own; the main
+> address does not answer until 0x1001 there is written. The block is part
+> of the sensor - it is unreachable while the sensor is unpowered or in
+> reset, starts answering about a millisecond after reset is released,
+> loses the written value over a power cycle and has no ACPI device of
+> its own - so the driver claims the address as a second I2C client and
+> writes it on every power-up.
+> 
+> There is no public datasheet for this sensor. The mode register table is
+> the vendor driver's initialisation sequence, and the registers the
+> controls use were established by correlating that binary with the values
+> read back from the chip; the cover letter has the measurements that back
+> the ranges and the timings.
 
-Before:
-[LONG_INSN_ALGHSIK] = { 'a', 'l', 'g', 'h', 's', 'i', 'k', },
+Please clean this up. Most of this goes to the cover letter.
 
-After:
-[LONG_INSN_ALGHSIK] = "alghsik",
+> 
+> Signed-off-by: Robert Bozik <robertbozik@gmail.com>
+> ---
+> Changes in v4:
+> - The second I2C address is claimed with devm_i2c_new_dummy_device() and
+>   driven through its own CCI regmap instead of a bare i2c_transfer(),
+>   now that it is measured to be part of the sensor (cover letter).
+> - power_on() fails when the enable write to that block fails, and undoes
+>   the clock, the supply and the reset, instead of returning 0.
+> - The stream-off and the software reset are issued by the driver before
+>   the mode table rather than from inside it: the delay_us of a
+>   reg_sequence is a udelay() on a regmap without can_sleep, which made
+>   the 10 ms settle a busy wait. The table is now the vendor's list minus
+>   those two entries.
+> - Power-up timing from the measurement, in line with the "0 and 5 ms"
+>   remark on v1: no wait after the supply (the regulator core waits for
+>   it), 5 ms after reset release, 1 ms after the enable write. Verified
+>   over a cold boot, 20 runtime power cycles and 15 stream starts.
+> - Copyright line.
+> 
+>  MAINTAINERS                |    8 +
+>  drivers/media/i2c/Kconfig  |   10 +
+>  drivers/media/i2c/Makefile |    1 +
+>  drivers/media/i2c/ov32c4.c | 2716 ++++++++++++++++++++++++++++++++++++
+>  4 files changed, 2735 insertions(+)
+>  create mode 100644 drivers/media/i2c/ov32c4.c
+> 
+> diff --git a/MAINTAINERS b/MAINTAINERS
+> index 3785b8c1d..7b28717fc 100644
+> --- a/MAINTAINERS
+> +++ b/MAINTAINERS
+> @@ -20008,6 +20008,14 @@ S:	Maintained
+>  T:	git git://linuxtv.org/media.git
+>  F:	drivers/media/i2c/ov2740.c
+>  
+> +OMNIVISION OV32C4 SENSOR DRIVER
+> +M:	Robert Bozik <robertbozik@gmail.com>
+> +L:	linux-media@vger.kernel.org
+> +S:	Maintained
+> +T:	git git://linuxtv.org/media.git
+> +F:	Documentation/devicetree/bindings/media/i2c/ovti,ov32c4.yaml
+> +F:	drivers/media/i2c/ov32c4.c
+> +
+>  OMNIVISION OV4689 SENSOR DRIVER
+>  M:	Mikhail Rudenko <mike.rudenko@gmail.com>
+>  L:	linux-media@vger.kernel.org
+> diff --git a/drivers/media/i2c/Kconfig b/drivers/media/i2c/Kconfig
+> index 5c52007f9..1c363d581 100644
+> --- a/drivers/media/i2c/Kconfig
+> +++ b/drivers/media/i2c/Kconfig
+> @@ -547,6 +547,16 @@ config VIDEO_OV2740
+>  	  To compile this driver as a module, choose M here: the
+>  	  module will be called ov2740.
+>  
+> +config VIDEO_OV32C4
+> +	tristate "OmniVision OV32C4 sensor support"
+> +	select V4L2_CCI_I2C
+> +	help
+> +	  This is a Video4Linux2 sensor driver for the OmniVision
+> +	  OV32C4 camera.
+> +
+> +	  To compile this driver as a module, choose M here: the
+> +	  module will be called ov32c4.
+> +
+>  config VIDEO_OV4689
+>  	tristate "OmniVision OV4689 sensor support"
+>  	depends on GPIOLIB
+> diff --git a/drivers/media/i2c/Makefile b/drivers/media/i2c/Makefile
+> index d04bd5724..79bf2e393 100644
+> --- a/drivers/media/i2c/Makefile
+> +++ b/drivers/media/i2c/Makefile
+> @@ -102,6 +102,7 @@ obj-$(CONFIG_VIDEO_OV2685) += ov2685.o
+>  obj-$(CONFIG_VIDEO_OV2732) += ov2732.o
+>  obj-$(CONFIG_VIDEO_OV2735) += ov2735.o
+>  obj-$(CONFIG_VIDEO_OV2740) += ov2740.o
+> +obj-$(CONFIG_VIDEO_OV32C4) += ov32c4.o
+>  obj-$(CONFIG_VIDEO_OV4689) += ov4689.o
+>  obj-$(CONFIG_VIDEO_OV5640) += ov5640.o
+>  obj-$(CONFIG_VIDEO_OV5645) += ov5645.o
+> diff --git a/drivers/media/i2c/ov32c4.c b/drivers/media/i2c/ov32c4.c
+> new file mode 100644
+> index 000000000..151d6b32e
+> --- /dev/null
+> +++ b/drivers/media/i2c/ov32c4.c
+> @@ -0,0 +1,2716 @@
+> +// SPDX-License-Identifier: GPL-2.0
+> +/*
+> + * OmniVision OV32C4 image sensor driver.
+> + *
+> + * Copyright (C) 2026 Robert Bozik
+> + *
+> + * The sensor ships in laptops with an Intel IPU7, where it is enumerated
+> + * through ACPI _HID "OVTI32C4". There is no public datasheet; the 400 MHz
+> + * link frequency comes from the vendor driver, which carries it as bits per
+> + * second, and is confirmed on hardware: the receiver locks and the sensor
+> + * streams 3264x1840 at a measured 30.00 fps, which is pixel_rate divided by
+> + * ppl times vts.
 
-[1] commit 7cbae7ea3de5 ("s390/tools: Use array instead of string initializer")
+I think you could just drop this paragraph.
 
-Signed-off-by: Heiko Carstens <hca@linux.ibm.com>
----
+> + */
+> +
+> +#include <linux/acpi.h>
+> +#include <linux/bits.h>
+> +#include <linux/clk.h>
+> +#include <linux/delay.h>
+> +#include <linux/minmax.h>
+> +#include <linux/gpio/consumer.h>
+> +#include <linux/i2c.h>
+> +#include <linux/module.h>
+> +#include <linux/pm_runtime.h>
+> +#include <linux/regmap.h>
+> +#include <media/v4l2-cci.h>
+> +#include <media/v4l2-ctrls.h>
+> +#include <media/v4l2-device.h>
+> +#include <media/v4l2-fwnode.h>
+> +
+> +#define OV32C4_LINK_FREQ_400MHZ		400000000ULL	/* 800 Mbps/lane */
+> +#define OV32C4_MCLK			19200000
+> +#define OV32C4_RGB_DEPTH		10
+> +#define OV32C4_DATA_LANES		4
+> +
+> +/* Horizontal timing */
+> +#define OV32C4_REG_HTS			CCI_REG16(0x380c)
+> +
+> +/*
+> + * Pixel array geometry, derived from the mode registers: 0x3800..0x3807 read
+> + * a 6560x3712 window out of a 6560x4928 array, 2x2 binned to 3280x1856, of
+> + * which 0x3810..0x3813 take 3264x1840 at offset (8, 9). The 32 columns and
+> + * rows by which the array exceeds the 6528x4896 active area are blind.
+> + */
+> +#define OV32C4_NATIVE_WIDTH		6560U
+> +#define OV32C4_NATIVE_HEIGHT		4928U
+> +#define OV32C4_ACTIVE_LEFT		16U
+> +#define OV32C4_ACTIVE_TOP		16U
+> +#define OV32C4_ACTIVE_WIDTH		6528U
+> +#define OV32C4_ACTIVE_HEIGHT		4896U
+> +#define OV32C4_CROP_LEFT		16U
+> +#define OV32C4_CROP_TOP			626U
+> +#define OV32C4_CROP_WIDTH		6528U
+> +#define OV32C4_CROP_HEIGHT		3680U
+> +
+> +#define OV32C4_REG_CHIP_ID		CCI_REG24(0x300a)
+> +#define OV32C4_CHIP_ID			0x563243
+> +
+> +#define OV32C4_REG_STREAM_CONTROL	CCI_REG8(0x0100)
+> +#define OV32C4_REG_SW_RESET		CCI_REG8(0x0103)
+> +/* The vendor driver issues the reset itself and waits this long after it. */
+> +#define OV32C4_SW_RESET_SETTLE_US	10000
+> +
+> +/*
+> + * The sensor has a second I2C address, listed as the second I2cSerialBus
+> + * resource of its ACPI _CRS, behind which sits a small register block of
+> + * its own. Until 0x1001 there is written, the main address does not answer
+> + * at all. The block is part of the sensor: it is unreachable while the
+> + * sensor is unpowered or held in reset, starts answering about a millisecond
+> + * after reset is released, loses the value written to 0x1001 over a power
+> + * cycle, and has no ACPI device of its own. The same register pair exists in
+> + * OV08X40 (AO_STANDBY at 0x1000, MS_SELECT at 0x1001, 0x04 for streaming)
+> + * at that sensor's main address.
+> + */
+> +#define OV32C4_COMPANION_ENABLE_REG	CCI_REG8(0x1001)
+> +#define OV32C4_COMPANION_ENABLE_VAL	0x04
 
-Notes:
-    Use __nonstring_array for long_insn_name array, since compilers before
-    gcc 15 will otherwise warn with:
-    
-    arch/s390/kernel/dis.c:343:1: warning: 'nonstring' attribute ignored
-     on objects of type 'char[][7]' [-Wattributes]
+How about:
 
- arch/s390/kernel/dis.c             |  4 ++--
- arch/s390/tools/gen_opcode_table.c | 23 ++++-------------------
- 2 files changed, 6 insertions(+), 21 deletions(-)
+#define OV32C4_AON_SMIA_R1001		CCI_REG8(0x1001)
+#define OV32C4_AON_SMIA_R1001_MAIN_MODE	BIT(2)
 
-diff --git a/arch/s390/kernel/dis.c b/arch/s390/kernel/dis.c
-index 1cec93895b3a..9c349eb884bf 100644
---- a/arch/s390/kernel/dis.c
-+++ b/arch/s390/kernel/dis.c
-@@ -51,7 +51,7 @@ struct s390_operand {
- 
- struct s390_insn {
- 	union {
--		const char name[5];
-+		const char name[5] __nonstring;
- 		struct {
- 			unsigned char zero;
- 			unsigned int offset;
-@@ -340,7 +340,7 @@ static const unsigned char formats[][6] = {
- 	[INSTR_VSI_URDV]     = { V_32, D_20, B_16, U8_8, 0, 0 },
- };
- 
--static char long_insn_name[][7] = LONG_INSN_INITIALIZER;
-+static char long_insn_name[][7] __nonstring_array = LONG_INSN_INITIALIZER;
- static struct s390_insn opcode[] = OPCODE_TABLE_INITIALIZER;
- static struct s390_opcode_offset opcode_offset[] = OPCODE_OFFSET_INITIALIZER;
- 
-diff --git a/arch/s390/tools/gen_opcode_table.c b/arch/s390/tools/gen_opcode_table.c
-index 7d76c417f83f..820905eca78a 100644
---- a/arch/s390/tools/gen_opcode_table.c
-+++ b/arch/s390/tools/gen_opcode_table.c
-@@ -201,17 +201,6 @@ static int cmp_long_insn(const void *a, const void *b)
- 	return strcmp(((struct insn *)a)->name, ((struct insn *)b)->name);
- }
- 
--static void print_insn_name(const char *name)
--{
--	size_t i, len;
--
--	len = strlen(name);
--	printf("{");
--	for (i = 0; i < len; i++)
--		printf(" \'%c\',", name[i]);
--	printf(" }");
--}
--
- static void print_long_insn(struct gen_opcode *desc)
- {
- 	struct insn *insn;
-@@ -234,9 +223,7 @@ static void print_long_insn(struct gen_opcode *desc)
- 		insn = &desc->insn[i];
- 		if (insn->name_len < 6)
- 			continue;
--		printf("\t[LONG_INSN_%s] = ", insn->upper);
--		print_insn_name(insn->name);
--		printf(", \\\n");
-+		printf("\t[LONG_INSN_%s] = \"%s\", \\\n", insn->upper, insn->name);
- 	}
- 	printf("}\n\n");
- }
-@@ -249,12 +236,10 @@ static void print_opcode(struct insn *insn, int nr)
- 	if (insn->type->byte != 0)
- 		opcode += 2;
- 	printf("\t[%4d] = { .opfrag = 0x%s, .format = INSTR_%s, ", nr, opcode, insn->format);
--	if (insn->name_len < 6) {
--		printf(".name =  ");
--		print_insn_name(insn->name);
--	} else {
-+	if (insn->name_len < 6)
-+		printf(".name = \"%s\"", insn->name);
-+	else
- 		printf(".offset = LONG_INSN_%s", insn->upper);
--	}
- 	printf(" }, \\\n");
- }
- 
+for these?
+
+> +
+> +/* Vertical timing */
+> +#define OV32C4_REG_VTS			CCI_REG16(0x380e)
+> +#define OV32C4_VTS_MAX			0xffff
+> +
+> +/* Exposure; the sensor has two exposure contexts and ov32c4.sys writes both */
+> +#define OV32C4_REG_EXPOSURE		CCI_REG24(0x3500)
+
+This is for RGB.
+
+> +#define OV32C4_REG_EXPOSURE_CTX2	CCI_REG24(0x3540)
+
+And this is for IR.
+
+I think we can keep them behind the same control for now.
+
+> +#define OV32C4_EXPOSURE_MIN		4
+> +#define OV32C4_EXPOSURE_STEP		1
+> +/* VTS = max(vts, exposure + 32) in ov32c4.sys -> keep 32 lines of margin */
+> +#define OV32C4_EXPOSURE_MAX_MARGIN	32
+> +
+> +/*
+> + * Mirror and flip: bit 2 in each register, but with opposite polarity. The
+> + * mode table leaves 0x3821 set and 0x3820 clear, and that is the un-flipped
+> + * state. Neither changes the Bayer order.
+> + */
+> +#define OV32C4_REG_FLIP			CCI_REG8(0x3820)
+> +#define OV32C4_REG_MIRROR		CCI_REG8(0x3821)
+> +#define OV32C4_FLIP_BIT			BIT(2)
+> +
+> +/* Analogue gain: 0x100 is unity and 0x7c0, 7.75x, is the maximum. */
+> +#define OV32C4_REG_ANALOG_GAIN		CCI_REG16(0x3508)
+> +#define OV32C4_REG_ANALOG_GAIN_CTX2	CCI_REG16(0x3548)
+
+Same for these (RGB and IR).
+
+> +#define OV32C4_ANA_GAIN_MIN		0x100
+> +#define OV32C4_ANA_GAIN_MAX		0x07c0
+> +#define OV32C4_ANA_GAIN_STEP		1
+> +#define OV32C4_ANA_GAIN_DEFAULT		0x100
+> +
+> +/*
+> + * Digital gain. The register holds the gain shifted left by 6; the control
+> + * carries the value itself, of which 1024 is unity.
+> + */
+> +#define OV32C4_REG_DIGITAL_GAIN		CCI_REG24(0x350a)
+> +#define OV32C4_REG_DIGITAL_GAIN_CTX2	CCI_REG24(0x354a)
+> +#define OV32C4_DGAIN_SHIFT		6
+> +#define OV32C4_DGAIN_MIN		1024
+> +#define OV32C4_DGAIN_MAX		16383
+> +#define OV32C4_DGAIN_STEP		1
+> +#define OV32C4_DGAIN_DEFAULT		1024
+> +
+> +struct ov32c4_mode {
+> +	u32 width;
+> +	u32 height;
+> +	/*
+> +	 * Line length in pixels, in the units of the PIXEL_RATE control.
+> +	 * OV32C4_REG_HTS holds the same line in the sensor's own clock
+> +	 * units, which for this mode is 1224 against these 4080 pixels.
+> +	 */
+
+?
+
+> +	u32 ppl;
+> +	/* Frame length in lines, as written to OV32C4_REG_VTS */
+> +	u32 vts_min;
+> +
+> +	const struct reg_sequence *reg_sequence;
+> +	int sequence_length;
+> +};
+> +
+> +static const char * const ov32c4_supply_names[] = {
+> +	"avdd",		/* Analog power */
+> +};
+> +
+> +/*
+> + * Power-up timing; there is no public datasheet for this sensor. The
+> + * regulator core already waits for the supply to settle. Measured on the
+> + * hardware, the block behind the second address answers about 1 ms after
+> + * reset is released, and the main address answers within 1 ms of the
+> + * enable write; 5 ms and 1 ms leave a margin over that.
+> + */
+> +#define OV32C4_RESET_SETTLE_US		5000
+> +#define OV32C4_ENABLE_SETTLE_US		1000
+> +
+> +/*
+> + * Mode 3264x1840 @ 30 fps, 4 lanes, SGRBG10. The 15 fps variant of the same
+> + * table differs only in VTS, which V4L2_CID_VBLANK covers.
+
+I think you can omit the second sentence here.
+
+> + *
+> + * This is the vendor driver's list for the mode, minus its first two
+> + * entries: the stream-off and the software reset, which the driver issues
+> + * itself in ov32c4_enable_streams() so that the settle time after the reset
+> + * can be a sleep rather than a delay inside a register sequence.
+> + */
+> +static const struct reg_sequence ov32c4_mode_3264x1840_regs[] = {
+> +	{ 0x0301, 0xc8 },
+> +	{ 0x0303, 0x04 },
+> +	{ 0x0304, 0x02 },
+> +	{ 0x0305, 0x71 },
+> +	{ 0x0306, 0x04 },
+> +	{ 0x0307, 0x01 },
+> +	{ 0x0308, 0x03 },
+> +	{ 0x0316, 0x3c },
+> +	{ 0x0325, 0xd0 },
+> +	{ 0x0343, 0x04 },
+> +	{ 0x0344, 0x02 },
+> +	{ 0x0345, 0x32 },
+> +	{ 0x034b, 0x03 },
+> +	{ 0x034f, 0xe4 },
+> +	{ 0x3012, 0x41 },
+> +	{ 0x3025, 0x89 },
+> +	{ 0x3107, 0x86 },
+> +	{ 0x3400, 0x00 },
+> +	{ 0x3402, 0x8c },
+> +	{ 0x3404, 0x1a },
+> +	{ 0x3405, 0xb6 },
+> +	{ 0x3406, 0x88 },
+> +	{ 0x3407, 0x01 },
+> +	{ 0x3408, 0xb6 },
+> +	{ 0x3409, 0x88 },
+> +	{ 0x340a, 0x01 },
+> +	{ 0x340c, 0x50 },
+> +	{ 0x340d, 0x52 },
+> +	{ 0x3419, 0x15 },
+> +	{ 0x341a, 0xfc },
+> +	{ 0x341b, 0x30 },
+> +	{ 0x3420, 0x00 },
+> +	{ 0x3421, 0x00 },
+> +	{ 0x3422, 0x00 },
+> +	{ 0x3423, 0x00 },
+> +	{ 0x3424, 0x00 },
+> +	{ 0x3425, 0x00 },
+> +	{ 0x3426, 0x00 },
+> +	{ 0x3427, 0x00 },
+> +	{ 0x3428, 0xff },
+> +	{ 0x342a, 0x00 },
+> +	{ 0x342b, 0x00 },
+> +	{ 0x342c, 0x00 },
+> +	{ 0x342d, 0x0f },
+> +	{ 0x342e, 0x00 },
+> +	{ 0x342f, 0x00 },
+> +	{ 0x3430, 0x00 },
+> +	{ 0x3431, 0x00 },
+> +	{ 0x3432, 0x00 },
+> +	{ 0x3436, 0x10 },
+> +	{ 0x3437, 0x00 },
+> +	{ 0x3438, 0x00 },
+> +	{ 0x3439, 0x00 },
+> +	{ 0x3452, 0x14 },
+> +	{ 0x3453, 0x88 },
+> +	{ 0x3458, 0x02 },
+> +	{ 0x3459, 0x02 },
+> +	{ 0x3504, 0x4c },
+> +	{ 0x3506, 0x30 },
+> +	{ 0x3507, 0x00 },
+> +	{ 0x3544, 0x4c },
+> +	{ 0x3546, 0x30 },
+> +	{ 0x3547, 0x00 },
+> +	{ 0x3602, 0x24 },
+> +	{ 0x3605, 0xd0 },
+> +	{ 0x3608, 0x21 },
+> +	{ 0x3609, 0x90 },
+> +	{ 0x360c, 0x08 },
+> +	{ 0x3616, 0x31 },
+> +	{ 0x361a, 0x0a },
+> +	{ 0x3682, 0x80 },
+> +	{ 0x368e, 0x71 },
+> +	{ 0x3696, 0xd1 },
+> +	{ 0x36af, 0x00 },
+> +	{ 0x3714, 0x22 },
+> +	{ 0x3718, 0x02 },
+> +	{ 0x37b0, 0x00 },
+> +	{ 0x37b1, 0x8a },
+> +	{ 0x37b2, 0x01 },
+> +	{ 0x37b3, 0x5f },
+> +	{ 0x37b4, 0x00 },
+> +	{ 0x37b5, 0xd3 },
+> +	{ 0x37b6, 0x01 },
+> +	{ 0x37b7, 0xbe },
+> +	{ 0x3800, 0x00 },
+> +	{ 0x3801, 0x00 },
+> +	{ 0x3802, 0x02 },
+> +	{ 0x3803, 0x60 },
+> +	{ 0x3804, 0x19 },
+> +	{ 0x3805, 0x9f },
+> +	{ 0x3806, 0x10 },
+> +	{ 0x3807, 0xdf },
+> +	{ 0x3808, 0x0c },
+> +	{ 0x3809, 0xc0 },
+> +	{ 0x380a, 0x07 },
+> +	{ 0x380b, 0x30 },
+> +	{ 0x380c, 0x04 },
+> +	{ 0x380d, 0xc8 },
+> +	{ 0x380e, 0x0a },
+> +	{ 0x380f, 0x36 },
+> +	{ 0x3810, 0x00 },
+> +	{ 0x3811, 0x08 },
+> +	{ 0x3812, 0x00 },
+> +	{ 0x3813, 0x09 },
+> +	{ 0x3814, 0x11 },
+> +	{ 0x3815, 0x11 },
+> +	{ 0x3820, 0x02 },
+> +	{ 0x3821, 0x06 },
+> +	{ 0x3828, 0x0d },
+> +	{ 0x382a, 0x80 },
+> +	{ 0x3837, 0x08 },
+> +	{ 0x383a, 0x81 },
+> +	{ 0x383b, 0x81 },
+> +	{ 0x383c, 0x11 },
+> +	{ 0x383d, 0x11 },
+> +	{ 0x3840, 0x00 },
+> +	{ 0x3902, 0x12 },
+> +	{ 0x3903, 0x12 },
+> +	{ 0x3904, 0x12 },
+> +	{ 0x3905, 0x12 },
+> +	{ 0x3906, 0x12 },
+> +	{ 0x3907, 0x12 },
+> +	{ 0x3908, 0x12 },
+> +	{ 0x3909, 0x12 },
+> +	{ 0x390a, 0x03 },
+> +	{ 0x390b, 0x0d },
+> +	{ 0x390c, 0x12 },
+> +	{ 0x390d, 0x14 },
+> +	{ 0x390e, 0x03 },
+> +	{ 0x390f, 0x0d },
+> +	{ 0x3910, 0x12 },
+> +	{ 0x3911, 0x14 },
+> +	{ 0x3913, 0x00 },
+> +	{ 0x3914, 0x00 },
+> +	{ 0x3915, 0x00 },
+> +	{ 0x3916, 0x00 },
+> +	{ 0x391a, 0x78 },
+> +	{ 0x391c, 0x78 },
+> +	{ 0x391e, 0x78 },
+> +	{ 0x3920, 0x78 },
+> +	{ 0x3922, 0x78 },
+> +	{ 0x3924, 0x78 },
+> +	{ 0x3926, 0x78 },
+> +	{ 0x3928, 0x78 },
+> +	{ 0x392a, 0x04 },
+> +	{ 0x3930, 0x55 },
+> +	{ 0x3937, 0x09 },
+> +	{ 0x3938, 0x13 },
+> +	{ 0x3939, 0x25 },
+> +	{ 0x393a, 0x4b },
+> +	{ 0x393b, 0x05 },
+> +	{ 0x393f, 0xa6 },
+> +	{ 0x3940, 0x03 },
+> +	{ 0x3941, 0x01 },
+> +	{ 0x3942, 0x03 },
+> +	{ 0x3943, 0x01 },
+> +	{ 0x3944, 0x03 },
+> +	{ 0x3945, 0x02 },
+> +	{ 0x3946, 0x07 },
+> +	{ 0x3947, 0x06 },
+> +	{ 0x394e, 0xaa },
+> +	{ 0x394f, 0xaa },
+> +	{ 0x3950, 0x03 },
+> +	{ 0x395a, 0x60 },
+> +	{ 0x3a05, 0x03 },
+> +	{ 0x3a10, 0x84 },
+> +	{ 0x3a11, 0x20 },
+> +	{ 0x3a14, 0x13 },
+> +	{ 0x3a1a, 0x78 },
+> +	{ 0x3a1d, 0x48 },
+> +	{ 0x3ae1, 0x7b },
+> +	{ 0x3b21, 0x71 },
+> +	{ 0x3b25, 0x71 },
+> +	{ 0x3b29, 0x71 },
+> +	{ 0x3b2d, 0x71 },
+> +	{ 0x3b31, 0x71 },
+> +	{ 0x3b35, 0x71 },
+> +	{ 0x3b39, 0x71 },
+> +	{ 0x3b3d, 0x71 },
+> +	{ 0x3b64, 0x20 },
+> +	{ 0x3b68, 0x7f },
+> +	{ 0x3b69, 0xe3 },
+> +	{ 0x3b6c, 0x7f },
+> +	{ 0x3b6d, 0xe3 },
+> +	{ 0x3b71, 0x83 },
+> +	{ 0x3b73, 0xbf },
+> +	{ 0x3ba9, 0x9d },
+> +	{ 0x3bab, 0xe2 },
+> +	{ 0x3baf, 0x9d },
+> +	{ 0x3bb1, 0xe2 },
+> +	{ 0x3bb5, 0x9d },
+> +	{ 0x3bb7, 0xe2 },
+> +	{ 0x3bbb, 0x9d },
+> +	{ 0x3bbd, 0xe2 },
+> +	{ 0x3f00, 0x11 },
+> +	{ 0x4010, 0xe8 },
+> +	{ 0x4011, 0x01 },
+> +	{ 0x4012, 0x0c },
+> +	{ 0x4015, 0x00 },
+> +	{ 0x4016, 0x0f },
+> +	{ 0x4017, 0x00 },
+> +	{ 0x4018, 0x07 },
+> +	{ 0x401a, 0x40 },
+> +	{ 0x402e, 0x00 },
+> +	{ 0x4040, 0x00 },
+> +	{ 0x4041, 0x00 },
+> +	{ 0x4042, 0x00 },
+> +	{ 0x4043, 0x00 },
+> +	{ 0x4044, 0x00 },
+> +	{ 0x4045, 0x00 },
+> +	{ 0x4046, 0x00 },
+> +	{ 0x4047, 0x00 },
+> +	{ 0x4048, 0x00 },
+> +	{ 0x4049, 0x00 },
+> +	{ 0x404a, 0x00 },
+> +	{ 0x404b, 0x00 },
+> +	{ 0x404c, 0x00 },
+> +	{ 0x404d, 0x00 },
+> +	{ 0x404e, 0x00 },
+> +	{ 0x404f, 0x00 },
+> +	{ 0x40dc, 0x02 },
+> +	{ 0x4501, 0x11 },
+> +	{ 0x4504, 0x80 },
+> +	{ 0x4603, 0x15 },
+> +	{ 0x4609, 0x20 },
+> +	{ 0x460e, 0x00 },
+> +	{ 0x4680, 0x01 },
+> +	{ 0x4686, 0x00 },
+> +	{ 0x4687, 0x00 },
+> +	{ 0x4691, 0x00 },
+> +	{ 0x4800, 0x64 },
+> +	{ 0x4802, 0x00 },
+> +	{ 0x4806, 0x40 },
+> +	{ 0x481b, 0x3c },
+> +	{ 0x481f, 0x30 },
+> +	{ 0x4829, 0x70 },
+> +	{ 0x4837, 0x10 },
+> +	{ 0x4850, 0x42 },
+> +	{ 0x4853, 0x04 },
+> +	{ 0x4860, 0x00 },
+> +	{ 0x4861, 0xec },
+> +	{ 0x4862, 0x04 },
+> +	{ 0x4883, 0x00 },
+> +	{ 0x4888, 0x10 },
+> +	{ 0x4889, 0x03 },
+> +	{ 0x488a, 0x04 },
+> +	{ 0x48f8, 0x05 },
+> +	{ 0x48f9, 0xdc },
+> +	{ 0x4910, 0xe8 },
+> +	{ 0x4911, 0x01 },
+> +	{ 0x4912, 0x0c },
+> +	{ 0x4915, 0x00 },
+> +	{ 0x4916, 0x0f },
+> +	{ 0x4917, 0x00 },
+> +	{ 0x4918, 0x07 },
+> +	{ 0x491a, 0x40 },
+> +	{ 0x4940, 0x00 },
+> +	{ 0x4941, 0x00 },
+> +	{ 0x4942, 0x00 },
+> +	{ 0x4943, 0x00 },
+> +	{ 0x4944, 0x00 },
+> +	{ 0x4945, 0x00 },
+> +	{ 0x4946, 0x00 },
+> +	{ 0x4947, 0x00 },
+> +	{ 0x4948, 0x00 },
+> +	{ 0x4949, 0x00 },
+> +	{ 0x494a, 0x00 },
+> +	{ 0x494b, 0x00 },
+> +	{ 0x494c, 0x00 },
+> +	{ 0x494d, 0x00 },
+> +	{ 0x494e, 0x00 },
+> +	{ 0x494f, 0x00 },
+> +	{ 0x49dc, 0x02 },
+> +	{ 0x4d00, 0x04 },
+> +	{ 0x4d01, 0xea },
+> +	{ 0x4d02, 0xb9 },
+> +	{ 0x4d03, 0x40 },
+> +	{ 0x4d04, 0x72 },
+> +	{ 0x4d05, 0xf7 },
+> +	{ 0x5000, 0x1f },
+> +	{ 0x5001, 0x10 },
+> +	{ 0x5004, 0x17 },
+> +	{ 0x5007, 0x06 },
+> +	{ 0x5008, 0x04 },
+> +	{ 0x50c1, 0x00 },
+> +	{ 0x5110, 0x00 },
+> +	{ 0x5111, 0x14 },
+> +	{ 0x5112, 0x03 },
+> +	{ 0x5113, 0x93 },
+> +	{ 0x5152, 0xa3 },
+> +	{ 0x5180, 0xc1 },
+> +	{ 0x518a, 0x04 },
+> +	{ 0x51b0, 0x30 },
+> +	{ 0x52c1, 0x00 },
+> +	{ 0x52c2, 0x00 },
+> +	{ 0x5310, 0x00 },
+> +	{ 0x5311, 0x14 },
+> +	{ 0x5312, 0x03 },
+> +	{ 0x5313, 0x93 },
+> +	{ 0x5352, 0x63 },
+> +	{ 0x5380, 0xc1 },
+> +	{ 0x538a, 0x04 },
+> +	{ 0x53b0, 0x00 },
+> +	{ 0x5400, 0x3f },
+> +	{ 0x5401, 0x10 },
+> +	{ 0x5408, 0x0c },
+> +	{ 0x5409, 0xc0 },
+> +	{ 0x540a, 0x09 },
+> +	{ 0x540b, 0x90 },
+> +	{ 0x6ad0, 0x00 },
+> +	{ 0x6ad1, 0x75 },
+
+Are there any gaps in this deluge of 0x0 and 0x75? If not, could you write
+it programmatically rather than using a huge array?
+
+> +	{ 0x6ad2, 0x00 },
+> +	{ 0x6ad3, 0x75 },
+> +	{ 0x6ad4, 0x00 },
+> +	{ 0x6ad5, 0x75 },
+> +	{ 0x6ad6, 0x00 },
+> +	{ 0x6ad7, 0x75 },
+> +	{ 0x6ad8, 0x00 },
+> +	{ 0x6ad9, 0x75 },
+> +	{ 0x6ada, 0x00 },
+> +	{ 0x6adb, 0x75 },
+> +	{ 0x6adc, 0x00 },
+> +	{ 0x6add, 0x75 },
+> +	{ 0x6ade, 0x00 },
+> +	{ 0x6adf, 0x75 },
+> +	{ 0x6ae0, 0x00 },
+> +	{ 0x6ae1, 0x75 },
+> +	{ 0x6ae2, 0x00 },
+> +	{ 0x6ae3, 0x75 },
+> +	{ 0x6ae4, 0x00 },
+> +	{ 0x6ae5, 0x75 },
+> +	{ 0x6ae6, 0x00 },
+> +	{ 0x6ae7, 0x75 },
+> +	{ 0x6ae8, 0x00 },
+> +	{ 0x6ae9, 0x75 },
+> +	{ 0x6aea, 0x00 },
+> +	{ 0x6aeb, 0x75 },
+> +	{ 0x6aec, 0x00 },
+> +	{ 0x6aed, 0x75 },
+> +	{ 0x6aee, 0x00 },
+> +	{ 0x6aef, 0x75 },
+> +	{ 0x6af0, 0x00 },
+> +	{ 0x6af1, 0x75 },
+> +	{ 0x6af2, 0x00 },
+> +	{ 0x6af3, 0x75 },
+> +	{ 0x6af4, 0x00 },
+> +	{ 0x6af5, 0x75 },
+> +	{ 0x6af6, 0x00 },
+> +	{ 0x6af7, 0x75 },
+> +	{ 0x6af8, 0x00 },
+> +	{ 0x6af9, 0x75 },
+> +	{ 0x6afa, 0x00 },
+> +	{ 0x6afb, 0x75 },
+> +	{ 0x6afc, 0x00 },
+> +	{ 0x6afd, 0x75 },
+> +	{ 0x6afe, 0x00 },
+> +	{ 0x6aff, 0x75 },
+> +	{ 0x6b00, 0x00 },
+> +	{ 0x6b01, 0x75 },
+> +	{ 0x6b02, 0x00 },
+> +	{ 0x6b03, 0x75 },
+> +	{ 0x6b04, 0x00 },
+> +	{ 0x6b05, 0x75 },
+> +	{ 0x6b06, 0x00 },
+> +	{ 0x6b07, 0x75 },
+> +	{ 0x6b08, 0x00 },
+> +	{ 0x6b09, 0x75 },
+> +	{ 0x6b0a, 0x00 },
+> +	{ 0x6b0b, 0x75 },
+> +	{ 0x6b0c, 0x00 },
+> +	{ 0x6b0d, 0x75 },
+> +	{ 0x6b0e, 0x00 },
+> +	{ 0x6b0f, 0x75 },
+> +	{ 0x6b10, 0x00 },
+> +	{ 0x6b11, 0x75 },
+> +	{ 0x6b12, 0x00 },
+> +	{ 0x6b13, 0x75 },
+> +	{ 0x6b14, 0x00 },
+> +	{ 0x6b15, 0x75 },
+> +	{ 0x6b16, 0x00 },
+> +	{ 0x6b17, 0x75 },
+> +	{ 0x6b18, 0x00 },
+> +	{ 0x6b19, 0x75 },
+> +	{ 0x6b1a, 0x00 },
+> +	{ 0x6b1b, 0x75 },
+> +	{ 0x6b1c, 0x00 },
+> +	{ 0x6b1d, 0x75 },
+> +	{ 0x6b1e, 0x00 },
+> +	{ 0x6b1f, 0x75 },
+> +	{ 0x6b20, 0x00 },
+> +	{ 0x6b21, 0x75 },
+> +	{ 0x6b22, 0x00 },
+> +	{ 0x6b23, 0x75 },
+> +	{ 0x6b24, 0x00 },
+> +	{ 0x6b25, 0x75 },
+> +	{ 0x6b26, 0x00 },
+> +	{ 0x6b27, 0x75 },
+> +	{ 0x6b28, 0x00 },
+> +	{ 0x6b29, 0x75 },
+> +	{ 0x6b2a, 0x00 },
+> +	{ 0x6b2b, 0x75 },
+> +	{ 0x6b2c, 0x00 },
+> +	{ 0x6b2d, 0x75 },
+> +	{ 0x6b2e, 0x00 },
+> +	{ 0x6b2f, 0x75 },
+> +	{ 0x6b30, 0x00 },
+> +	{ 0x6b31, 0x75 },
+> +	{ 0x6b32, 0x00 },
+> +	{ 0x6b33, 0x75 },
+> +	{ 0x6b34, 0x00 },
+> +	{ 0x6b35, 0x75 },
+> +	{ 0x6b36, 0x00 },
+> +	{ 0x6b37, 0x75 },
+> +	{ 0x6b38, 0x00 },
+> +	{ 0x6b39, 0x75 },
+> +	{ 0x6b3a, 0x00 },
+> +	{ 0x6b3b, 0x75 },
+> +	{ 0x6b3c, 0x00 },
+> +	{ 0x6b3d, 0x75 },
+> +	{ 0x6b3e, 0x00 },
+> +	{ 0x6b3f, 0x75 },
+> +	{ 0x6b40, 0x00 },
+> +	{ 0x6b41, 0x75 },
+> +	{ 0x6b42, 0x00 },
+> +	{ 0x6b43, 0x75 },
+> +	{ 0x6b44, 0x00 },
+> +	{ 0x6b45, 0x75 },
+> +	{ 0x6b46, 0x00 },
+> +	{ 0x6b47, 0x75 },
+> +	{ 0x6b48, 0x00 },
+> +	{ 0x6b49, 0x75 },
+> +	{ 0x6b4a, 0x00 },
+> +	{ 0x6b4b, 0x75 },
+> +	{ 0x6b4c, 0x00 },
+> +	{ 0x6b4d, 0x75 },
+> +	{ 0x6b4e, 0x00 },
+> +	{ 0x6b4f, 0x75 },
+> +	{ 0x6b50, 0x00 },
+> +	{ 0x6b51, 0x75 },
+> +	{ 0x6b52, 0x00 },
+> +	{ 0x6b53, 0x75 },
+> +	{ 0x6b54, 0x00 },
+> +	{ 0x6b55, 0x75 },
+> +	{ 0x6b56, 0x00 },
+> +	{ 0x6b57, 0x75 },
+> +	{ 0x6b58, 0x00 },
+> +	{ 0x6b59, 0x75 },
+> +	{ 0x6b5a, 0x00 },
+> +	{ 0x6b5b, 0x75 },
+> +	{ 0x6b5c, 0x00 },
+> +	{ 0x6b5d, 0x75 },
+> +	{ 0x6b5e, 0x00 },
+> +	{ 0x6b5f, 0x75 },
+> +	{ 0x6b60, 0x00 },
+> +	{ 0x6b61, 0x75 },
+> +	{ 0x6b62, 0x00 },
+> +	{ 0x6b63, 0x75 },
+> +	{ 0x6b64, 0x00 },
+> +	{ 0x6b65, 0x75 },
+> +	{ 0x6b66, 0x00 },
+> +	{ 0x6b67, 0x75 },
+> +	{ 0x6b68, 0x00 },
+> +	{ 0x6b69, 0x75 },
+> +	{ 0x6b6a, 0x00 },
+> +	{ 0x6b6b, 0x75 },
+> +	{ 0x6b6c, 0x00 },
+> +	{ 0x6b6d, 0x75 },
+> +	{ 0x6b6e, 0x00 },
+> +	{ 0x6b6f, 0x75 },
+> +	{ 0x6b70, 0x00 },
+> +	{ 0x6b71, 0x75 },
+> +	{ 0x6b72, 0x00 },
+> +	{ 0x6b73, 0x75 },
+> +	{ 0x6b74, 0x00 },
+> +	{ 0x6b75, 0x75 },
+> +	{ 0x6b76, 0x00 },
+> +	{ 0x6b77, 0x75 },
+> +	{ 0x6b78, 0x00 },
+> +	{ 0x6b79, 0x75 },
+> +	{ 0x6b7a, 0x00 },
+> +	{ 0x6b7b, 0x75 },
+> +	{ 0x6b7c, 0x00 },
+> +	{ 0x6b7d, 0x75 },
+> +	{ 0x6b7e, 0x00 },
+> +	{ 0x6b7f, 0x75 },
+> +	{ 0x6b80, 0x00 },
+> +	{ 0x6b81, 0x75 },
+> +	{ 0x6b82, 0x00 },
+> +	{ 0x6b83, 0x75 },
+> +	{ 0x6b84, 0x00 },
+> +	{ 0x6b85, 0x75 },
+> +	{ 0x6b86, 0x00 },
+> +	{ 0x6b87, 0x75 },
+> +	{ 0x6b88, 0x00 },
+> +	{ 0x6b89, 0x75 },
+> +	{ 0x6b8a, 0x00 },
+> +	{ 0x6b8b, 0x75 },
+> +	{ 0x6b8c, 0x00 },
+> +	{ 0x6b8d, 0x75 },
+> +	{ 0x6b8e, 0x00 },
+> +	{ 0x6b8f, 0x75 },
+> +	{ 0x6b90, 0x00 },
+> +	{ 0x6b91, 0x75 },
+> +	{ 0x6b92, 0x00 },
+> +	{ 0x6b93, 0x75 },
+> +	{ 0x6b94, 0x00 },
+> +	{ 0x6b95, 0x75 },
+> +	{ 0x6b96, 0x00 },
+> +	{ 0x6b97, 0x75 },
+> +	{ 0x6b98, 0x00 },
+> +	{ 0x6b99, 0x75 },
+> +	{ 0x6b9a, 0x00 },
+> +	{ 0x6b9b, 0x75 },
+> +	{ 0x6b9c, 0x00 },
+> +	{ 0x6b9d, 0x75 },
+> +	{ 0x6b9e, 0x00 },
+> +	{ 0x6b9f, 0x75 },
+> +	{ 0x6ba0, 0x00 },
+> +	{ 0x6ba1, 0x75 },
+> +	{ 0x6ba2, 0x00 },
+> +	{ 0x6ba3, 0x75 },
+> +	{ 0x6ba4, 0x00 },
+> +	{ 0x6ba5, 0x75 },
+> +	{ 0x6ba6, 0x00 },
+> +	{ 0x6ba7, 0x75 },
+> +	{ 0x6ba8, 0x00 },
+> +	{ 0x6ba9, 0x75 },
+> +	{ 0x6baa, 0x00 },
+> +	{ 0x6bab, 0x75 },
+> +	{ 0x6bac, 0x00 },
+> +	{ 0x6bad, 0x75 },
+> +	{ 0x6bae, 0x00 },
+> +	{ 0x6baf, 0x75 },
+> +	{ 0x6bb0, 0x00 },
+> +	{ 0x6bb1, 0x75 },
+> +	{ 0x6bb2, 0x00 },
+> +	{ 0x6bb3, 0x75 },
+> +	{ 0x6bb4, 0x00 },
+> +	{ 0x6bb5, 0x75 },
+> +	{ 0x6bb6, 0x00 },
+> +	{ 0x6bb7, 0x75 },
+> +	{ 0x6bb8, 0x00 },
+> +	{ 0x6bb9, 0x75 },
+> +	{ 0x6bba, 0x00 },
+> +	{ 0x6bbb, 0x75 },
+> +	{ 0x6bbc, 0x00 },
+> +	{ 0x6bbd, 0x75 },
+> +	{ 0x6bbe, 0x00 },
+> +	{ 0x6bbf, 0x75 },
+> +	{ 0x6bc0, 0x00 },
+> +	{ 0x6bc1, 0x75 },
+> +	{ 0x6bc2, 0x00 },
+> +	{ 0x6bc3, 0x75 },
+> +	{ 0x6bc4, 0x00 },
+> +	{ 0x6bc5, 0x75 },
+> +	{ 0x6bc6, 0x00 },
+> +	{ 0x6bc7, 0x75 },
+> +	{ 0x6bc8, 0x00 },
+> +	{ 0x6bc9, 0x75 },
+> +	{ 0x6bca, 0x00 },
+> +	{ 0x6bcb, 0x75 },
+> +	{ 0x6bcc, 0x00 },
+> +	{ 0x6bcd, 0x75 },
+> +	{ 0x6bce, 0x00 },
+> +	{ 0x6bcf, 0x75 },
+> +	{ 0x6bd0, 0x00 },
+> +	{ 0x6bd1, 0x75 },
+> +	{ 0x6bd2, 0x00 },
+> +	{ 0x6bd3, 0x75 },
+> +	{ 0x6bd4, 0x00 },
+> +	{ 0x6bd5, 0x75 },
+> +	{ 0x6bd6, 0x00 },
+> +	{ 0x6bd7, 0x75 },
+> +	{ 0x6bd8, 0x00 },
+> +	{ 0x6bd9, 0x75 },
+> +	{ 0x6bda, 0x00 },
+> +	{ 0x6bdb, 0x75 },
+> +	{ 0x6bdc, 0x00 },
+> +	{ 0x6bdd, 0x75 },
+> +	{ 0x6bde, 0x00 },
+> +	{ 0x6bdf, 0x75 },
+> +	{ 0x6be0, 0x00 },
+> +	{ 0x6be1, 0x75 },
+> +	{ 0x6be2, 0x00 },
+> +	{ 0x6be3, 0x75 },
+> +	{ 0x6be4, 0x00 },
+> +	{ 0x6be5, 0x75 },
+> +	{ 0x6be6, 0x00 },
+> +	{ 0x6be7, 0x75 },
+> +	{ 0x6be8, 0x00 },
+> +	{ 0x6be9, 0x75 },
+> +	{ 0x6bea, 0x00 },
+> +	{ 0x6beb, 0x75 },
+> +	{ 0x6bec, 0x00 },
+> +	{ 0x6bed, 0x75 },
+> +	{ 0x6bee, 0x00 },
+> +	{ 0x6bef, 0x75 },
+> +	{ 0x6c00, 0x00 },
+> +	{ 0x6c01, 0x75 },
+> +	{ 0x6c02, 0x00 },
+> +	{ 0x6c03, 0x75 },
+> +	{ 0x6c04, 0x00 },
+> +	{ 0x6c05, 0x75 },
+> +	{ 0x6c06, 0x00 },
+> +	{ 0x6c07, 0x75 },
+> +	{ 0x6c08, 0x00 },
+> +	{ 0x6c09, 0x75 },
+> +	{ 0x6c0a, 0x00 },
+> +	{ 0x6c0b, 0x75 },
+> +	{ 0x6c0c, 0x00 },
+> +	{ 0x6c0d, 0x75 },
+> +	{ 0x6c0e, 0x00 },
+> +	{ 0x6c0f, 0x75 },
+> +	{ 0x6c10, 0x00 },
+> +	{ 0x6c11, 0x75 },
+> +	{ 0x6c12, 0x00 },
+> +	{ 0x6c13, 0x75 },
+> +	{ 0x6c14, 0x00 },
+> +	{ 0x6c15, 0x75 },
+> +	{ 0x6c16, 0x00 },
+> +	{ 0x6c17, 0x75 },
+> +	{ 0x6c18, 0x00 },
+> +	{ 0x6c19, 0x75 },
+> +	{ 0x6c1a, 0x00 },
+> +	{ 0x6c1b, 0x75 },
+> +	{ 0x6c1c, 0x00 },
+> +	{ 0x6c1d, 0x75 },
+> +	{ 0x6c1e, 0x00 },
+> +	{ 0x6c1f, 0x75 },
+> +	{ 0x6c20, 0x00 },
+> +	{ 0x6c21, 0x75 },
+> +	{ 0x6c22, 0x00 },
+> +	{ 0x6c23, 0x75 },
+> +	{ 0x6c24, 0x00 },
+> +	{ 0x6c25, 0x75 },
+> +	{ 0x6c26, 0x00 },
+> +	{ 0x6c27, 0x75 },
+> +	{ 0x6c28, 0x00 },
+> +	{ 0x6c29, 0x75 },
+> +	{ 0x6c2a, 0x00 },
+> +	{ 0x6c2b, 0x75 },
+> +	{ 0x6c2c, 0x00 },
+> +	{ 0x6c2d, 0x75 },
+> +	{ 0x6c2e, 0x00 },
+> +	{ 0x6c2f, 0x75 },
+> +	{ 0x6c30, 0x00 },
+> +	{ 0x6c31, 0x75 },
+> +	{ 0x6c32, 0x00 },
+> +	{ 0x6c33, 0x75 },
+> +	{ 0x6c34, 0x00 },
+> +	{ 0x6c35, 0x75 },
+> +	{ 0x6c36, 0x00 },
+> +	{ 0x6c37, 0x75 },
+> +	{ 0x6c38, 0x00 },
+> +	{ 0x6c39, 0x75 },
+> +	{ 0x6c3a, 0x00 },
+> +	{ 0x6c3b, 0x75 },
+> +	{ 0x6c3c, 0x00 },
+> +	{ 0x6c3d, 0x75 },
+> +	{ 0x6c3e, 0x00 },
+> +	{ 0x6c3f, 0x75 },
+> +	{ 0x6c40, 0x00 },
+> +	{ 0x6c41, 0x75 },
+> +	{ 0x6c42, 0x00 },
+> +	{ 0x6c43, 0x75 },
+> +	{ 0x6c44, 0x00 },
+> +	{ 0x6c45, 0x75 },
+> +	{ 0x6c46, 0x00 },
+> +	{ 0x6c47, 0x75 },
+> +	{ 0x6c48, 0x00 },
+> +	{ 0x6c49, 0x75 },
+> +	{ 0x6c4a, 0x00 },
+> +	{ 0x6c4b, 0x75 },
+> +	{ 0x6c4c, 0x00 },
+> +	{ 0x6c4d, 0x75 },
+> +	{ 0x6c4e, 0x00 },
+> +	{ 0x6c4f, 0x75 },
+> +	{ 0x6c50, 0x00 },
+> +	{ 0x6c51, 0x75 },
+> +	{ 0x6c52, 0x00 },
+> +	{ 0x6c53, 0x75 },
+> +	{ 0x6c54, 0x00 },
+> +	{ 0x6c55, 0x75 },
+> +	{ 0x6c56, 0x00 },
+> +	{ 0x6c57, 0x75 },
+> +	{ 0x6c58, 0x00 },
+> +	{ 0x6c59, 0x75 },
+> +	{ 0x6c5a, 0x00 },
+> +	{ 0x6c5b, 0x75 },
+> +	{ 0x6c5c, 0x00 },
+> +	{ 0x6c5d, 0x75 },
+> +	{ 0x6c5e, 0x00 },
+> +	{ 0x6c5f, 0x75 },
+> +	{ 0x6c60, 0x00 },
+> +	{ 0x6c61, 0x75 },
+> +	{ 0x6c62, 0x00 },
+> +	{ 0x6c63, 0x75 },
+> +	{ 0x6c64, 0x00 },
+> +	{ 0x6c65, 0x75 },
+> +	{ 0x6c66, 0x00 },
+> +	{ 0x6c67, 0x75 },
+> +	{ 0x6c68, 0x00 },
+> +	{ 0x6c69, 0x75 },
+> +	{ 0x6c6a, 0x00 },
+> +	{ 0x6c6b, 0x75 },
+> +	{ 0x6c6c, 0x00 },
+> +	{ 0x6c6d, 0x75 },
+> +	{ 0x6c6e, 0x00 },
+> +	{ 0x6c6f, 0x75 },
+> +	{ 0x6c70, 0x00 },
+> +	{ 0x6c71, 0x75 },
+> +	{ 0x6c72, 0x00 },
+> +	{ 0x6c73, 0x75 },
+> +	{ 0x6c74, 0x00 },
+> +	{ 0x6c75, 0x75 },
+> +	{ 0x6c76, 0x00 },
+> +	{ 0x6c77, 0x75 },
+> +	{ 0x6c78, 0x00 },
+> +	{ 0x6c79, 0x75 },
+> +	{ 0x6c7a, 0x00 },
+> +	{ 0x6c7b, 0x75 },
+> +	{ 0x6c7c, 0x00 },
+> +	{ 0x6c7d, 0x75 },
+> +	{ 0x6c7e, 0x00 },
+> +	{ 0x6c7f, 0x75 },
+> +	{ 0x6c80, 0x00 },
+> +	{ 0x6c81, 0x75 },
+> +	{ 0x6c82, 0x00 },
+> +	{ 0x6c83, 0x75 },
+> +	{ 0x6c84, 0x00 },
+> +	{ 0x6c85, 0x75 },
+> +	{ 0x6c86, 0x00 },
+> +	{ 0x6c87, 0x75 },
+> +	{ 0x6c88, 0x00 },
+> +	{ 0x6c89, 0x75 },
+> +	{ 0x6c8a, 0x00 },
+> +	{ 0x6c8b, 0x75 },
+> +	{ 0x6c8c, 0x00 },
+> +	{ 0x6c8d, 0x75 },
+> +	{ 0x6c8e, 0x00 },
+> +	{ 0x6c8f, 0x75 },
+> +	{ 0x6c90, 0x00 },
+> +	{ 0x6c91, 0x75 },
+> +	{ 0x6c92, 0x00 },
+> +	{ 0x6c93, 0x75 },
+> +	{ 0x6c94, 0x00 },
+> +	{ 0x6c95, 0x75 },
+> +	{ 0x6c96, 0x00 },
+> +	{ 0x6c97, 0x75 },
+> +	{ 0x6c98, 0x00 },
+> +	{ 0x6c99, 0x75 },
+> +	{ 0x6c9a, 0x00 },
+> +	{ 0x6c9b, 0x75 },
+> +	{ 0x6c9c, 0x00 },
+> +	{ 0x6c9d, 0x75 },
+> +	{ 0x6c9e, 0x00 },
+> +	{ 0x6c9f, 0x75 },
+> +	{ 0x6ca0, 0x00 },
+> +	{ 0x6ca1, 0x75 },
+> +	{ 0x6ca2, 0x00 },
+> +	{ 0x6ca3, 0x75 },
+> +	{ 0x6ca4, 0x00 },
+> +	{ 0x6ca5, 0x75 },
+> +	{ 0x6ca6, 0x00 },
+> +	{ 0x6ca7, 0x75 },
+> +	{ 0x6ca8, 0x00 },
+> +	{ 0x6ca9, 0x75 },
+> +	{ 0x6caa, 0x00 },
+> +	{ 0x6cab, 0x75 },
+> +	{ 0x6cac, 0x00 },
+> +	{ 0x6cad, 0x75 },
+> +	{ 0x6cae, 0x00 },
+> +	{ 0x6caf, 0x75 },
+> +	{ 0x6cb0, 0x00 },
+> +	{ 0x6cb1, 0x75 },
+> +	{ 0x6cb2, 0x00 },
+> +	{ 0x6cb3, 0x75 },
+> +	{ 0x6cb4, 0x00 },
+> +	{ 0x6cb5, 0x75 },
+> +	{ 0x6cb6, 0x00 },
+> +	{ 0x6cb7, 0x75 },
+> +	{ 0x6cb8, 0x00 },
+> +	{ 0x6cb9, 0x75 },
+> +	{ 0x6cba, 0x00 },
+> +	{ 0x6cbb, 0x75 },
+> +	{ 0x6cbc, 0x00 },
+> +	{ 0x6cbd, 0x75 },
+> +	{ 0x6cbe, 0x00 },
+> +	{ 0x6cbf, 0x75 },
+> +	{ 0x6cc0, 0x00 },
+> +	{ 0x6cc1, 0x75 },
+> +	{ 0x6cc2, 0x00 },
+> +	{ 0x6cc3, 0x75 },
+> +	{ 0x6cc4, 0x00 },
+> +	{ 0x6cc5, 0x75 },
+> +	{ 0x6cc6, 0x00 },
+> +	{ 0x6cc7, 0x75 },
+> +	{ 0x6cc8, 0x00 },
+> +	{ 0x6cc9, 0x75 },
+> +	{ 0x6cca, 0x00 },
+> +	{ 0x6ccb, 0x75 },
+> +	{ 0x6ccc, 0x00 },
+> +	{ 0x6ccd, 0x75 },
+> +	{ 0x6cce, 0x00 },
+> +	{ 0x6ccf, 0x75 },
+> +	{ 0x6cd0, 0x00 },
+> +	{ 0x6cd1, 0x75 },
+> +	{ 0x6cd2, 0x00 },
+> +	{ 0x6cd3, 0x75 },
+> +	{ 0x6cd4, 0x00 },
+> +	{ 0x6cd5, 0x75 },
+> +	{ 0x6cd6, 0x00 },
+> +	{ 0x6cd7, 0x75 },
+> +	{ 0x6cd8, 0x00 },
+> +	{ 0x6cd9, 0x75 },
+> +	{ 0x6cda, 0x00 },
+> +	{ 0x6cdb, 0x75 },
+> +	{ 0x6cdc, 0x00 },
+> +	{ 0x6cdd, 0x75 },
+> +	{ 0x6cde, 0x00 },
+> +	{ 0x6cdf, 0x75 },
+> +	{ 0x6ce0, 0x00 },
+> +	{ 0x6ce1, 0x75 },
+> +	{ 0x6ce2, 0x00 },
+> +	{ 0x6ce3, 0x75 },
+> +	{ 0x6ce4, 0x00 },
+> +	{ 0x6ce5, 0x75 },
+> +	{ 0x6ce6, 0x00 },
+> +	{ 0x6ce7, 0x75 },
+> +	{ 0x6ce8, 0x00 },
+> +	{ 0x6ce9, 0x75 },
+> +	{ 0x6cea, 0x00 },
+> +	{ 0x6ceb, 0x75 },
+> +	{ 0x6cec, 0x00 },
+> +	{ 0x6ced, 0x75 },
+> +	{ 0x6cee, 0x00 },
+> +	{ 0x6cef, 0x75 },
+> +	{ 0x6cf0, 0x00 },
+> +	{ 0x6cf1, 0x75 },
+> +	{ 0x6cf2, 0x00 },
+> +	{ 0x6cf3, 0x75 },
+> +	{ 0x6cf4, 0x00 },
+> +	{ 0x6cf5, 0x75 },
+> +	{ 0x6cf6, 0x00 },
+> +	{ 0x6cf7, 0x75 },
+> +	{ 0x6cf8, 0x00 },
+> +	{ 0x6cf9, 0x75 },
+> +	{ 0x6cfa, 0x00 },
+> +	{ 0x6cfb, 0x75 },
+> +	{ 0x6cfc, 0x00 },
+> +	{ 0x6cfd, 0x75 },
+> +	{ 0x6cfe, 0x00 },
+> +	{ 0x6cff, 0x75 },
+> +	{ 0x6d00, 0x00 },
+> +	{ 0x6d01, 0x75 },
+> +	{ 0x6d02, 0x00 },
+> +	{ 0x6d03, 0x75 },
+> +	{ 0x6d04, 0x00 },
+> +	{ 0x6d05, 0x75 },
+> +	{ 0x6d06, 0x00 },
+> +	{ 0x6d07, 0x75 },
+> +	{ 0x6d08, 0x00 },
+> +	{ 0x6d09, 0x75 },
+> +	{ 0x6d0a, 0x00 },
+> +	{ 0x6d0b, 0x75 },
+> +	{ 0x6d0c, 0x00 },
+> +	{ 0x6d0d, 0x75 },
+> +	{ 0x6d0e, 0x00 },
+> +	{ 0x6d0f, 0x75 },
+> +	{ 0x6d10, 0x00 },
+> +	{ 0x6d11, 0x75 },
+> +	{ 0x6d12, 0x00 },
+> +	{ 0x6d13, 0x75 },
+> +	{ 0x6d14, 0x00 },
+> +	{ 0x6d15, 0x75 },
+> +	{ 0x6d16, 0x00 },
+> +	{ 0x6d17, 0x75 },
+> +	{ 0x6d18, 0x00 },
+> +	{ 0x6d19, 0x75 },
+> +	{ 0x6d1a, 0x00 },
+> +	{ 0x6d1b, 0x75 },
+> +	{ 0x6d1c, 0x00 },
+> +	{ 0x6d1d, 0x75 },
+> +	{ 0x6d1e, 0x00 },
+> +	{ 0x6d1f, 0x75 },
+> +	{ 0x6d20, 0x00 },
+> +	{ 0x6d21, 0x75 },
+> +	{ 0x6d22, 0x00 },
+> +	{ 0x6d23, 0x75 },
+> +	{ 0x6d24, 0x00 },
+> +	{ 0x6d25, 0x75 },
+> +	{ 0x6d26, 0x00 },
+> +	{ 0x6d27, 0x75 },
+> +	{ 0x6d28, 0x00 },
+> +	{ 0x6d29, 0x75 },
+> +	{ 0x6d2a, 0x00 },
+> +	{ 0x6d2b, 0x75 },
+> +	{ 0x6d2c, 0x00 },
+> +	{ 0x6d2d, 0x75 },
+> +	{ 0x6d2e, 0x00 },
+> +	{ 0x6d2f, 0x75 },
+> +	{ 0x6d30, 0x00 },
+> +	{ 0x6d31, 0x75 },
+> +	{ 0x6d32, 0x00 },
+> +	{ 0x6d33, 0x75 },
+> +	{ 0x6d34, 0x00 },
+> +	{ 0x6d35, 0x75 },
+> +	{ 0x6d36, 0x00 },
+> +	{ 0x6d37, 0x75 },
+> +	{ 0x6d38, 0x00 },
+> +	{ 0x6d39, 0x75 },
+> +	{ 0x6d3a, 0x00 },
+> +	{ 0x6d3b, 0x75 },
+> +	{ 0x6d3c, 0x00 },
+> +	{ 0x6d3d, 0x75 },
+> +	{ 0x6d3e, 0x00 },
+> +	{ 0x6d3f, 0x75 },
+> +	{ 0x6d40, 0x00 },
+> +	{ 0x6d41, 0x75 },
+> +	{ 0x6d42, 0x00 },
+> +	{ 0x6d43, 0x75 },
+> +	{ 0x6d44, 0x00 },
+> +	{ 0x6d45, 0x75 },
+> +	{ 0x6d46, 0x00 },
+> +	{ 0x6d47, 0x75 },
+> +	{ 0x6d48, 0x00 },
+> +	{ 0x6d49, 0x75 },
+> +	{ 0x6d4a, 0x00 },
+> +	{ 0x6d4b, 0x75 },
+> +	{ 0x6d4c, 0x00 },
+> +	{ 0x6d4d, 0x75 },
+> +	{ 0x6d4e, 0x00 },
+> +	{ 0x6d4f, 0x75 },
+> +	{ 0x6d50, 0x00 },
+> +	{ 0x6d51, 0x75 },
+> +	{ 0x6d52, 0x00 },
+> +	{ 0x6d53, 0x75 },
+> +	{ 0x6d54, 0x00 },
+> +	{ 0x6d55, 0x75 },
+> +	{ 0x6d56, 0x00 },
+> +	{ 0x6d57, 0x75 },
+> +	{ 0x6d58, 0x00 },
+> +	{ 0x6d59, 0x75 },
+> +	{ 0x6d5a, 0x00 },
+> +	{ 0x6d5b, 0x75 },
+> +	{ 0x6d5c, 0x00 },
+> +	{ 0x6d5d, 0x75 },
+> +	{ 0x6d5e, 0x00 },
+> +	{ 0x6d5f, 0x75 },
+> +	{ 0x6d60, 0x00 },
+> +	{ 0x6d61, 0x75 },
+> +	{ 0x6d62, 0x00 },
+> +	{ 0x6d63, 0x75 },
+> +	{ 0x6d64, 0x00 },
+> +	{ 0x6d65, 0x75 },
+> +	{ 0x6d66, 0x00 },
+> +	{ 0x6d67, 0x75 },
+> +	{ 0x6d68, 0x00 },
+> +	{ 0x6d69, 0x75 },
+> +	{ 0x6d6a, 0x00 },
+> +	{ 0x6d6b, 0x75 },
+> +	{ 0x6d6c, 0x00 },
+> +	{ 0x6d6d, 0x75 },
+> +	{ 0x6d6e, 0x00 },
+> +	{ 0x6d6f, 0x75 },
+> +	{ 0x6d70, 0x00 },
+> +	{ 0x6d71, 0x75 },
+> +	{ 0x6d72, 0x00 },
+> +	{ 0x6d73, 0x75 },
+> +	{ 0x6d74, 0x00 },
+> +	{ 0x6d75, 0x75 },
+> +	{ 0x6d76, 0x00 },
+> +	{ 0x6d77, 0x75 },
+> +	{ 0x6d78, 0x00 },
+> +	{ 0x6d79, 0x75 },
+> +	{ 0x6d7a, 0x00 },
+> +	{ 0x6d7b, 0x75 },
+> +	{ 0x6d7c, 0x00 },
+> +	{ 0x6d7d, 0x75 },
+> +	{ 0x6d7e, 0x00 },
+> +	{ 0x6d7f, 0x75 },
+> +	{ 0x6d80, 0x00 },
+> +	{ 0x6d81, 0x75 },
+> +	{ 0x6d82, 0x00 },
+> +	{ 0x6d83, 0x75 },
+> +	{ 0x6d84, 0x00 },
+> +	{ 0x6d85, 0x75 },
+> +	{ 0x6d86, 0x00 },
+> +	{ 0x6d87, 0x75 },
+> +	{ 0x6d88, 0x00 },
+> +	{ 0x6d89, 0x75 },
+> +	{ 0x6d8a, 0x00 },
+> +	{ 0x6d8b, 0x75 },
+> +	{ 0x6d8c, 0x00 },
+> +	{ 0x6d8d, 0x75 },
+> +	{ 0x6d8e, 0x00 },
+> +	{ 0x6d8f, 0x75 },
+> +	{ 0x6d90, 0x00 },
+> +	{ 0x6d91, 0x75 },
+> +	{ 0x6d92, 0x00 },
+> +	{ 0x6d93, 0x75 },
+> +	{ 0x6d94, 0x00 },
+> +	{ 0x6d95, 0x75 },
+> +	{ 0x6d96, 0x00 },
+> +	{ 0x6d97, 0x75 },
+> +	{ 0x6d98, 0x00 },
+> +	{ 0x6d99, 0x75 },
+> +	{ 0x6d9a, 0x00 },
+> +	{ 0x6d9b, 0x75 },
+> +	{ 0x6d9c, 0x00 },
+> +	{ 0x6d9d, 0x75 },
+> +	{ 0x6d9e, 0x00 },
+> +	{ 0x6d9f, 0x75 },
+> +	{ 0x6da0, 0x00 },
+> +	{ 0x6da1, 0x75 },
+> +	{ 0x6da2, 0x00 },
+> +	{ 0x6da3, 0x75 },
+> +	{ 0x6da4, 0x00 },
+> +	{ 0x6da5, 0x75 },
+> +	{ 0x6da6, 0x00 },
+> +	{ 0x6da7, 0x75 },
+> +	{ 0x6da8, 0x00 },
+> +	{ 0x6da9, 0x75 },
+> +	{ 0x6daa, 0x00 },
+> +	{ 0x6dab, 0x75 },
+> +	{ 0x6dac, 0x00 },
+> +	{ 0x6dad, 0x75 },
+> +	{ 0x6dae, 0x00 },
+> +	{ 0x6daf, 0x75 },
+> +	{ 0x6db0, 0x00 },
+> +	{ 0x6db1, 0x75 },
+> +	{ 0x6db2, 0x00 },
+> +	{ 0x6db3, 0x75 },
+> +	{ 0x6db4, 0x00 },
+> +	{ 0x6db5, 0x75 },
+> +	{ 0x6db6, 0x00 },
+> +	{ 0x6db7, 0x75 },
+> +	{ 0x6db8, 0x00 },
+> +	{ 0x6db9, 0x75 },
+> +	{ 0x6dba, 0x00 },
+> +	{ 0x6dbb, 0x75 },
+> +	{ 0x6dbc, 0x00 },
+> +	{ 0x6dbd, 0x75 },
+> +	{ 0x6dbe, 0x00 },
+> +	{ 0x6dbf, 0x75 },
+> +	{ 0x6dc0, 0x00 },
+> +	{ 0x6dc1, 0x75 },
+> +	{ 0x6dc2, 0x00 },
+> +	{ 0x6dc3, 0x75 },
+> +	{ 0x6dc4, 0x00 },
+> +	{ 0x6dc5, 0x75 },
+> +	{ 0x6dc6, 0x00 },
+> +	{ 0x6dc7, 0x75 },
+> +	{ 0x6dc8, 0x00 },
+> +	{ 0x6dc9, 0x75 },
+> +	{ 0x6dca, 0x00 },
+> +	{ 0x6dcb, 0x75 },
+> +	{ 0x6dcc, 0x00 },
+> +	{ 0x6dcd, 0x75 },
+> +	{ 0x6dce, 0x00 },
+> +	{ 0x6dcf, 0x75 },
+> +	{ 0x6dd0, 0x00 },
+> +	{ 0x6dd1, 0x75 },
+> +	{ 0x6dd2, 0x00 },
+> +	{ 0x6dd3, 0x75 },
+> +	{ 0x6dd4, 0x00 },
+> +	{ 0x6dd5, 0x75 },
+> +	{ 0x6dd6, 0x00 },
+> +	{ 0x6dd7, 0x75 },
+> +	{ 0x6dd8, 0x00 },
+> +	{ 0x6dd9, 0x75 },
+> +	{ 0x6dda, 0x00 },
+> +	{ 0x6ddb, 0x75 },
+> +	{ 0x6ddc, 0x00 },
+> +	{ 0x6ddd, 0x75 },
+> +	{ 0x6dde, 0x00 },
+> +	{ 0x6ddf, 0x75 },
+> +	{ 0x6de0, 0x00 },
+> +	{ 0x6de1, 0x75 },
+> +	{ 0x6de2, 0x00 },
+> +	{ 0x6de3, 0x75 },
+> +	{ 0x6de4, 0x00 },
+> +	{ 0x6de5, 0x75 },
+> +	{ 0x6de6, 0x00 },
+> +	{ 0x6de7, 0x75 },
+> +	{ 0x6de8, 0x00 },
+> +	{ 0x6de9, 0x75 },
+> +	{ 0x6dea, 0x00 },
+> +	{ 0x6deb, 0x75 },
+> +	{ 0x6dec, 0x00 },
+> +	{ 0x6ded, 0x75 },
+> +	{ 0x6dee, 0x00 },
+> +	{ 0x6def, 0x75 },
+> +	{ 0x6df0, 0x00 },
+> +	{ 0x6df1, 0x75 },
+> +	{ 0x6df2, 0x00 },
+> +	{ 0x6df3, 0x75 },
+> +	{ 0x6df4, 0x00 },
+> +	{ 0x6df5, 0x75 },
+> +	{ 0x6df6, 0x00 },
+> +	{ 0x6df7, 0x75 },
+> +	{ 0x6df8, 0x00 },
+> +	{ 0x6df9, 0x75 },
+> +	{ 0x6dfa, 0x00 },
+> +	{ 0x6dfb, 0x75 },
+> +	{ 0x6dfc, 0x00 },
+> +	{ 0x6dfd, 0x75 },
+> +	{ 0x6dfe, 0x00 },
+> +	{ 0x6dff, 0x75 },
+> +	{ 0x6e00, 0x00 },
+> +	{ 0x6e01, 0x75 },
+> +	{ 0x6e02, 0x00 },
+> +	{ 0x6e03, 0x75 },
+> +	{ 0x6e04, 0x00 },
+> +	{ 0x6e05, 0x75 },
+> +	{ 0x6e06, 0x00 },
+> +	{ 0x6e07, 0x75 },
+> +	{ 0x6e08, 0x00 },
+> +	{ 0x6e09, 0x75 },
+> +	{ 0x6e0a, 0x00 },
+> +	{ 0x6e0b, 0x75 },
+> +	{ 0x6e0c, 0x00 },
+> +	{ 0x6e0d, 0x75 },
+> +	{ 0x6e0e, 0x00 },
+> +	{ 0x6e0f, 0x75 },
+> +	{ 0x6e10, 0x00 },
+> +	{ 0x6e11, 0x75 },
+> +	{ 0x6e12, 0x00 },
+> +	{ 0x6e13, 0x75 },
+> +	{ 0x6e14, 0x00 },
+> +	{ 0x6e15, 0x75 },
+> +	{ 0x6e16, 0x00 },
+> +	{ 0x6e17, 0x75 },
+> +	{ 0x6e18, 0x00 },
+> +	{ 0x6e19, 0x75 },
+> +	{ 0x6e1a, 0x00 },
+> +	{ 0x6e1b, 0x75 },
+> +	{ 0x6e1c, 0x00 },
+> +	{ 0x6e1d, 0x75 },
+> +	{ 0x6e1e, 0x00 },
+> +	{ 0x6e1f, 0x75 },
+> +	{ 0x6e20, 0x00 },
+> +	{ 0x6e21, 0x75 },
+> +	{ 0x6e22, 0x00 },
+> +	{ 0x6e23, 0x75 },
+> +	{ 0x6e24, 0x00 },
+> +	{ 0x6e25, 0x75 },
+> +	{ 0x6e26, 0x00 },
+> +	{ 0x6e27, 0x75 },
+> +	{ 0x6e28, 0x00 },
+> +	{ 0x6e29, 0x75 },
+> +	{ 0x6e2a, 0x00 },
+> +	{ 0x6e2b, 0x75 },
+> +	{ 0x6e2c, 0x00 },
+> +	{ 0x6e2d, 0x75 },
+> +	{ 0x6e2e, 0x00 },
+> +	{ 0x6e2f, 0x75 },
+> +	{ 0x6e30, 0x00 },
+> +	{ 0x6e31, 0x75 },
+> +	{ 0x6e32, 0x00 },
+> +	{ 0x6e33, 0x75 },
+> +	{ 0x6e34, 0x00 },
+> +	{ 0x6e35, 0x75 },
+> +	{ 0x6e36, 0x00 },
+> +	{ 0x6e37, 0x75 },
+> +	{ 0x6e38, 0x00 },
+> +	{ 0x6e39, 0x75 },
+> +	{ 0x6e3a, 0x00 },
+> +	{ 0x6e3b, 0x75 },
+> +	{ 0x6e3c, 0x00 },
+> +	{ 0x6e3d, 0x75 },
+> +	{ 0x6e3e, 0x00 },
+> +	{ 0x6e3f, 0x75 },
+> +	{ 0x6e40, 0x00 },
+> +	{ 0x6e41, 0x75 },
+> +	{ 0x6e42, 0x00 },
+> +	{ 0x6e43, 0x75 },
+> +	{ 0x6e44, 0x00 },
+> +	{ 0x6e45, 0x75 },
+> +	{ 0x6e46, 0x00 },
+> +	{ 0x6e47, 0x75 },
+> +	{ 0x6e48, 0x00 },
+> +	{ 0x6e49, 0x75 },
+> +	{ 0x6e4a, 0x00 },
+> +	{ 0x6e4b, 0x75 },
+> +	{ 0x6e4c, 0x00 },
+> +	{ 0x6e4d, 0x75 },
+> +	{ 0x6e4e, 0x00 },
+> +	{ 0x6e4f, 0x75 },
+> +	{ 0x6e50, 0x00 },
+> +	{ 0x6e51, 0x75 },
+> +	{ 0x6e52, 0x00 },
+> +	{ 0x6e53, 0x75 },
+> +	{ 0x6e54, 0x00 },
+> +	{ 0x6e55, 0x75 },
+> +	{ 0x6e56, 0x00 },
+> +	{ 0x6e57, 0x75 },
+> +	{ 0x6e58, 0x00 },
+> +	{ 0x6e59, 0x75 },
+> +	{ 0x6e5a, 0x00 },
+> +	{ 0x6e5b, 0x75 },
+> +	{ 0x6e5c, 0x00 },
+> +	{ 0x6e5d, 0x75 },
+> +	{ 0x6e5e, 0x00 },
+> +	{ 0x6e5f, 0x75 },
+> +	{ 0x6e60, 0x00 },
+> +	{ 0x6e61, 0x75 },
+> +	{ 0x6e62, 0x00 },
+> +	{ 0x6e63, 0x75 },
+> +	{ 0x6e64, 0x00 },
+> +	{ 0x6e65, 0x75 },
+> +	{ 0x6e66, 0x00 },
+> +	{ 0x6e67, 0x75 },
+> +	{ 0x6e68, 0x00 },
+> +	{ 0x6e69, 0x75 },
+> +	{ 0x6e6a, 0x00 },
+> +	{ 0x6e6b, 0x75 },
+> +	{ 0x6e6c, 0x00 },
+> +	{ 0x6e6d, 0x75 },
+> +	{ 0x6e6e, 0x00 },
+> +	{ 0x6e6f, 0x75 },
+> +	{ 0x6e70, 0x00 },
+> +	{ 0x6e71, 0x75 },
+> +	{ 0x6e72, 0x00 },
+> +	{ 0x6e73, 0x75 },
+> +	{ 0x6e74, 0x00 },
+> +	{ 0x6e75, 0x75 },
+> +	{ 0x6e76, 0x00 },
+> +	{ 0x6e77, 0x75 },
+> +	{ 0x6e78, 0x00 },
+> +	{ 0x6e79, 0x75 },
+> +	{ 0x6e7a, 0x00 },
+> +	{ 0x6e7b, 0x75 },
+> +	{ 0x6e7c, 0x00 },
+> +	{ 0x6e7d, 0x75 },
+> +	{ 0x6e7e, 0x00 },
+> +	{ 0x6e7f, 0x75 },
+> +	{ 0x6e80, 0x00 },
+> +	{ 0x6e81, 0x75 },
+> +	{ 0x6e82, 0x00 },
+> +	{ 0x6e83, 0x75 },
+> +	{ 0x6e84, 0x00 },
+> +	{ 0x6e85, 0x75 },
+> +	{ 0x6e86, 0x00 },
+> +	{ 0x6e87, 0x75 },
+> +	{ 0x6e88, 0x00 },
+> +	{ 0x6e89, 0x75 },
+> +	{ 0x6e8a, 0x00 },
+> +	{ 0x6e8b, 0x75 },
+> +	{ 0x6e8c, 0x00 },
+> +	{ 0x6e8d, 0x75 },
+> +	{ 0x6e8e, 0x00 },
+> +	{ 0x6e8f, 0x75 },
+> +	{ 0x6e90, 0x00 },
+> +	{ 0x6e91, 0x75 },
+> +	{ 0x6e92, 0x00 },
+> +	{ 0x6e93, 0x75 },
+> +	{ 0x6e94, 0x00 },
+> +	{ 0x6e95, 0x75 },
+> +	{ 0x6e96, 0x00 },
+> +	{ 0x6e97, 0x75 },
+> +	{ 0x6e98, 0x00 },
+> +	{ 0x6e99, 0x75 },
+> +	{ 0x6e9a, 0x00 },
+> +	{ 0x6e9b, 0x75 },
+> +	{ 0x6e9c, 0x00 },
+> +	{ 0x6e9d, 0x75 },
+> +	{ 0x6e9e, 0x00 },
+> +	{ 0x6e9f, 0x75 },
+> +	{ 0x6ea0, 0x00 },
+> +	{ 0x6ea1, 0x75 },
+> +	{ 0x6ea2, 0x00 },
+> +	{ 0x6ea3, 0x75 },
+> +	{ 0x6ea4, 0x00 },
+> +	{ 0x6ea5, 0x75 },
+> +	{ 0x6ea6, 0x00 },
+> +	{ 0x6ea7, 0x75 },
+> +	{ 0x6ea8, 0x00 },
+> +	{ 0x6ea9, 0x75 },
+> +	{ 0x6eaa, 0x00 },
+> +	{ 0x6eab, 0x75 },
+> +	{ 0x6eac, 0x00 },
+> +	{ 0x6ead, 0x75 },
+> +	{ 0x6eae, 0x00 },
+> +	{ 0x6eaf, 0x75 },
+> +	{ 0x6eb0, 0x00 },
+> +	{ 0x6eb1, 0x75 },
+> +	{ 0x6eb2, 0x00 },
+> +	{ 0x6eb3, 0x75 },
+> +	{ 0x6eb4, 0x00 },
+> +	{ 0x6eb5, 0x75 },
+> +	{ 0x6eb6, 0x00 },
+> +	{ 0x6eb7, 0x75 },
+> +	{ 0x6eb8, 0x00 },
+> +	{ 0x6eb9, 0x75 },
+> +	{ 0x6eba, 0x00 },
+> +	{ 0x6ebb, 0x75 },
+> +	{ 0x6ebc, 0x00 },
+> +	{ 0x6ebd, 0x75 },
+> +	{ 0x6ebe, 0x00 },
+> +	{ 0x6ebf, 0x75 },
+> +	{ 0x6ec0, 0x00 },
+> +	{ 0x6ec1, 0x75 },
+> +	{ 0x6ec2, 0x00 },
+> +	{ 0x6ec3, 0x75 },
+> +	{ 0x6ec4, 0x00 },
+> +	{ 0x6ec5, 0x75 },
+> +	{ 0x6ec6, 0x00 },
+> +	{ 0x6ec7, 0x75 },
+> +	{ 0x6ec8, 0x00 },
+> +	{ 0x6ec9, 0x75 },
+> +	{ 0x6eca, 0x00 },
+> +	{ 0x6ecb, 0x75 },
+> +	{ 0x6ecc, 0x00 },
+> +	{ 0x6ecd, 0x75 },
+> +	{ 0x6ece, 0x00 },
+> +	{ 0x6ecf, 0x75 },
+> +	{ 0x6ed0, 0x00 },
+> +	{ 0x6ed1, 0x75 },
+> +	{ 0x6ed2, 0x00 },
+> +	{ 0x6ed3, 0x75 },
+> +	{ 0x6ed4, 0x00 },
+> +	{ 0x6ed5, 0x75 },
+> +	{ 0x6ed6, 0x00 },
+> +	{ 0x6ed7, 0x75 },
+> +	{ 0x6ed8, 0x00 },
+> +	{ 0x6ed9, 0x75 },
+> +	{ 0x6eda, 0x00 },
+> +	{ 0x6edb, 0x75 },
+> +	{ 0x6edc, 0x00 },
+> +	{ 0x6edd, 0x75 },
+> +	{ 0x6ede, 0x00 },
+> +	{ 0x6edf, 0x75 },
+> +	{ 0x6ee0, 0x00 },
+> +	{ 0x6ee1, 0x75 },
+> +	{ 0x6ee2, 0x00 },
+> +	{ 0x6ee3, 0x75 },
+> +	{ 0x6ee4, 0x00 },
+> +	{ 0x6ee5, 0x75 },
+> +	{ 0x6ee6, 0x00 },
+> +	{ 0x6ee7, 0x75 },
+> +	{ 0x6ee8, 0x00 },
+> +	{ 0x6ee9, 0x75 },
+> +	{ 0x6eea, 0x00 },
+> +	{ 0x6eeb, 0x75 },
+> +	{ 0x6eec, 0x00 },
+> +	{ 0x6eed, 0x75 },
+> +	{ 0x6eee, 0x00 },
+> +	{ 0x6eef, 0x75 },
+> +	{ 0x6ef0, 0x00 },
+> +	{ 0x6ef1, 0x75 },
+> +	{ 0x6ef2, 0x00 },
+> +	{ 0x6ef3, 0x75 },
+> +	{ 0x6ef4, 0x00 },
+> +	{ 0x6ef5, 0x75 },
+> +	{ 0x6ef6, 0x00 },
+> +	{ 0x6ef7, 0x75 },
+> +	{ 0x6ef8, 0x00 },
+> +	{ 0x6ef9, 0x75 },
+> +	{ 0x6efa, 0x00 },
+> +	{ 0x6efb, 0x75 },
+> +	{ 0x6efc, 0x00 },
+> +	{ 0x6efd, 0x75 },
+> +	{ 0x6efe, 0x00 },
+> +	{ 0x6eff, 0x75 },
+> +	{ 0x6f00, 0x00 },
+> +	{ 0x6f01, 0x75 },
+> +	{ 0x6f02, 0x00 },
+> +	{ 0x6f03, 0x75 },
+> +	{ 0x6f04, 0x00 },
+> +	{ 0x6f05, 0x75 },
+> +	{ 0x6f06, 0x00 },
+> +	{ 0x6f07, 0x75 },
+> +	{ 0x6f08, 0x00 },
+> +	{ 0x6f09, 0x75 },
+> +	{ 0x6f0a, 0x00 },
+> +	{ 0x6f0b, 0x75 },
+> +	{ 0x6f0c, 0x00 },
+> +	{ 0x6f0d, 0x75 },
+> +	{ 0x6f0e, 0x00 },
+> +	{ 0x6f0f, 0x75 },
+> +	{ 0x6f10, 0x00 },
+> +	{ 0x6f11, 0x75 },
+> +	{ 0x6f12, 0x00 },
+> +	{ 0x6f13, 0x75 },
+> +	{ 0x6f14, 0x00 },
+> +	{ 0x6f15, 0x75 },
+> +	{ 0x6f16, 0x00 },
+> +	{ 0x6f17, 0x75 },
+> +	{ 0x6f18, 0x00 },
+> +	{ 0x6f19, 0x75 },
+> +	{ 0x6f1a, 0x00 },
+> +	{ 0x6f1b, 0x75 },
+> +	{ 0x6f1c, 0x00 },
+> +	{ 0x6f1d, 0x75 },
+> +	{ 0x6f1e, 0x00 },
+> +	{ 0x6f1f, 0x75 },
+> +	{ 0x6f20, 0x00 },
+> +	{ 0x6f21, 0x75 },
+> +	{ 0x6f22, 0x00 },
+> +	{ 0x6f23, 0x75 },
+> +	{ 0x6f24, 0x00 },
+> +	{ 0x6f25, 0x75 },
+> +	{ 0x6f26, 0x00 },
+> +	{ 0x6f27, 0x75 },
+> +	{ 0x6f28, 0x00 },
+> +	{ 0x6f29, 0x75 },
+> +	{ 0x6f2a, 0x00 },
+> +	{ 0x6f2b, 0x75 },
+> +	{ 0x6f2c, 0x00 },
+> +	{ 0x6f2d, 0x75 },
+> +	{ 0x6f2e, 0x00 },
+> +	{ 0x6f2f, 0x75 },
+> +	{ 0x6f30, 0x00 },
+> +	{ 0x6f31, 0x75 },
+> +	{ 0x6f32, 0x00 },
+> +	{ 0x6f33, 0x75 },
+> +	{ 0x6f34, 0x00 },
+> +	{ 0x6f35, 0x75 },
+> +	{ 0x6f36, 0x00 },
+> +	{ 0x6f37, 0x75 },
+> +	{ 0x6f38, 0x00 },
+> +	{ 0x6f39, 0x75 },
+> +	{ 0x6f3a, 0x00 },
+> +	{ 0x6f3b, 0x75 },
+> +	{ 0x6f3c, 0x00 },
+> +	{ 0x6f3d, 0x75 },
+> +	{ 0x6f3e, 0x00 },
+> +	{ 0x6f3f, 0x75 },
+> +	{ 0x6f40, 0x00 },
+> +	{ 0x6f41, 0x75 },
+> +	{ 0x6f42, 0x00 },
+> +	{ 0x6f43, 0x75 },
+> +	{ 0x6f44, 0x00 },
+> +	{ 0x6f45, 0x75 },
+> +	{ 0x6f46, 0x00 },
+> +	{ 0x6f47, 0x75 },
+> +	{ 0x6f48, 0x00 },
+> +	{ 0x6f49, 0x75 },
+> +	{ 0x6f4a, 0x00 },
+> +	{ 0x6f4b, 0x75 },
+> +	{ 0x6f4c, 0x00 },
+> +	{ 0x6f4d, 0x75 },
+> +	{ 0x6f4e, 0x00 },
+> +	{ 0x6f4f, 0x75 },
+> +	{ 0x6f50, 0x00 },
+> +	{ 0x6f51, 0x75 },
+> +	{ 0x6f52, 0x00 },
+> +	{ 0x6f53, 0x75 },
+> +	{ 0x6f54, 0x00 },
+> +	{ 0x6f55, 0x75 },
+> +	{ 0x6f56, 0x00 },
+> +	{ 0x6f57, 0x75 },
+> +	{ 0x6f58, 0x00 },
+> +	{ 0x6f59, 0x75 },
+> +	{ 0x6f5a, 0x00 },
+> +	{ 0x6f5b, 0x75 },
+> +	{ 0x6f5c, 0x00 },
+> +	{ 0x6f5d, 0x75 },
+> +	{ 0x6f5e, 0x00 },
+> +	{ 0x6f5f, 0x75 },
+> +	{ 0x6f60, 0x00 },
+> +	{ 0x6f61, 0x75 },
+> +	{ 0x6f62, 0x00 },
+> +	{ 0x6f63, 0x75 },
+> +	{ 0x6f64, 0x00 },
+> +	{ 0x6f65, 0x75 },
+> +	{ 0x6f66, 0x00 },
+> +	{ 0x6f67, 0x75 },
+> +	{ 0x6f68, 0x00 },
+> +	{ 0x6f69, 0x75 },
+> +	{ 0x6f6a, 0x00 },
+> +	{ 0x6f6b, 0x75 },
+> +	{ 0x6f6c, 0x00 },
+> +	{ 0x6f6d, 0x75 },
+> +	{ 0x6f6e, 0x00 },
+> +	{ 0x6f6f, 0x75 },
+> +	{ 0x6f70, 0x00 },
+> +	{ 0x6f71, 0x75 },
+> +	{ 0x6f72, 0x00 },
+> +	{ 0x6f73, 0x75 },
+> +	{ 0x6f74, 0x00 },
+> +	{ 0x6f75, 0x75 },
+> +	{ 0x6f76, 0x00 },
+> +	{ 0x6f77, 0x75 },
+> +	{ 0x6f78, 0x00 },
+> +	{ 0x6f79, 0x75 },
+> +	{ 0x6f7a, 0x00 },
+> +	{ 0x6f7b, 0x75 },
+> +	{ 0x6f7c, 0x00 },
+> +	{ 0x6f7d, 0x75 },
+> +	{ 0x6f7e, 0x00 },
+> +	{ 0x6f7f, 0x75 },
+> +	{ 0x6f80, 0x00 },
+> +	{ 0x6f81, 0x75 },
+> +	{ 0x6f82, 0x00 },
+> +	{ 0x6f83, 0x75 },
+> +	{ 0x6f84, 0x00 },
+> +	{ 0x6f85, 0x75 },
+> +	{ 0x6f86, 0x00 },
+> +	{ 0x6f87, 0x75 },
+> +	{ 0x6f88, 0x00 },
+> +	{ 0x6f89, 0x75 },
+> +	{ 0x6f8a, 0x00 },
+> +	{ 0x6f8b, 0x75 },
+> +	{ 0x6f8c, 0x00 },
+> +	{ 0x6f8d, 0x75 },
+> +	{ 0x6f8e, 0x00 },
+> +	{ 0x6f8f, 0x75 },
+> +	{ 0x6f90, 0x00 },
+> +	{ 0x6f91, 0x75 },
+> +	{ 0x6f92, 0x00 },
+> +	{ 0x6f93, 0x75 },
+> +	{ 0x6f94, 0x00 },
+> +	{ 0x6f95, 0x75 },
+> +	{ 0x6f96, 0x00 },
+> +	{ 0x6f97, 0x75 },
+> +	{ 0x6f98, 0x00 },
+> +	{ 0x6f99, 0x75 },
+> +	{ 0x6f9a, 0x00 },
+> +	{ 0x6f9b, 0x75 },
+> +	{ 0x6f9c, 0x00 },
+> +	{ 0x6f9d, 0x75 },
+> +	{ 0x6f9e, 0x00 },
+> +	{ 0x6f9f, 0x75 },
+> +	{ 0x6fa0, 0x00 },
+> +	{ 0x6fa1, 0x75 },
+> +	{ 0x6fa2, 0x00 },
+> +	{ 0x6fa3, 0x75 },
+> +	{ 0x6fa4, 0x00 },
+> +	{ 0x6fa5, 0x75 },
+> +	{ 0x6fa6, 0x00 },
+> +	{ 0x6fa7, 0x75 },
+> +	{ 0x6fa8, 0x00 },
+> +	{ 0x6fa9, 0x75 },
+> +	{ 0x6faa, 0x00 },
+> +	{ 0x6fab, 0x75 },
+> +	{ 0x6fac, 0x00 },
+> +	{ 0x6fad, 0x75 },
+> +	{ 0x6fae, 0x00 },
+> +	{ 0x6faf, 0x75 },
+> +	{ 0x6fb0, 0x00 },
+> +	{ 0x6fb1, 0x75 },
+> +	{ 0x6fb2, 0x00 },
+> +	{ 0x6fb3, 0x75 },
+> +	{ 0x6fb4, 0x00 },
+> +	{ 0x6fb5, 0x75 },
+> +	{ 0x6fb6, 0x00 },
+> +	{ 0x6fb7, 0x75 },
+> +	{ 0x6fb8, 0x00 },
+> +	{ 0x6fb9, 0x75 },
+> +	{ 0x6fba, 0x00 },
+> +	{ 0x6fbb, 0x75 },
+> +	{ 0x6fbc, 0x00 },
+> +	{ 0x6fbd, 0x75 },
+> +	{ 0x6fbe, 0x00 },
+> +	{ 0x6fbf, 0x75 },
+> +	{ 0x6fc0, 0x00 },
+> +	{ 0x6fc1, 0x75 },
+> +	{ 0x6fc2, 0x00 },
+> +	{ 0x6fc3, 0x75 },
+> +	{ 0x6fc4, 0x00 },
+> +	{ 0x6fc5, 0x75 },
+> +	{ 0x6fc6, 0x00 },
+> +	{ 0x6fc7, 0x75 },
+> +	{ 0x6fc8, 0x00 },
+> +	{ 0x6fc9, 0x75 },
+> +	{ 0x6fca, 0x00 },
+> +	{ 0x6fcb, 0x75 },
+> +	{ 0x6fcc, 0x00 },
+> +	{ 0x6fcd, 0x75 },
+> +	{ 0x6fce, 0x00 },
+> +	{ 0x6fcf, 0x75 },
+> +	{ 0x6fd0, 0x00 },
+> +	{ 0x6fd1, 0x75 },
+> +	{ 0x6fd2, 0x00 },
+> +	{ 0x6fd3, 0x75 },
+> +	{ 0x6fd4, 0x00 },
+> +	{ 0x6fd5, 0x75 },
+> +	{ 0x6fd6, 0x00 },
+> +	{ 0x6fd7, 0x75 },
+> +	{ 0x6fd8, 0x00 },
+> +	{ 0x6fd9, 0x75 },
+> +	{ 0x6fda, 0x00 },
+> +	{ 0x6fdb, 0x75 },
+> +	{ 0x6fdc, 0x00 },
+> +	{ 0x6fdd, 0x75 },
+> +	{ 0x6fde, 0x00 },
+> +	{ 0x6fdf, 0x75 },
+> +	{ 0x6fe0, 0x00 },
+> +	{ 0x6fe1, 0x75 },
+> +	{ 0x6fe2, 0x00 },
+> +	{ 0x6fe3, 0x75 },
+> +	{ 0x6fe4, 0x00 },
+> +	{ 0x6fe5, 0x75 },
+> +	{ 0x6fe6, 0x00 },
+> +	{ 0x6fe7, 0x75 },
+> +	{ 0x6fe8, 0x00 },
+> +	{ 0x6fe9, 0x75 },
+> +	{ 0x6fea, 0x00 },
+> +	{ 0x6feb, 0x75 },
+> +	{ 0x6fec, 0x00 },
+> +	{ 0x6fed, 0x75 },
+> +	{ 0x6fee, 0x00 },
+> +	{ 0x6fef, 0x75 },
+> +	{ 0x6ff0, 0x00 },
+> +	{ 0x6ff1, 0x75 },
+> +	{ 0x6ff2, 0x00 },
+> +	{ 0x6ff3, 0x75 },
+> +	{ 0x6ff4, 0x00 },
+> +	{ 0x6ff5, 0x75 },
+> +	{ 0x6ff6, 0x00 },
+> +	{ 0x6ff7, 0x75 },
+> +	{ 0x6ff8, 0x00 },
+> +	{ 0x6ff9, 0x75 },
+> +	{ 0x6ffa, 0x00 },
+> +	{ 0x6ffb, 0x75 },
+> +	{ 0x6ffc, 0x00 },
+> +	{ 0x6ffd, 0x75 },
+> +	{ 0x6ffe, 0x00 },
+> +	{ 0x6fff, 0x75 },
+> +	{ 0x7000, 0x00 },
+> +	{ 0x7001, 0x75 },
+> +	{ 0x7002, 0x00 },
+> +	{ 0x7003, 0x75 },
+> +	{ 0x7004, 0x00 },
+> +	{ 0x7005, 0x75 },
+> +	{ 0x7006, 0x00 },
+> +	{ 0x7007, 0x75 },
+> +	{ 0x7008, 0x00 },
+> +	{ 0x7009, 0x75 },
+> +	{ 0x700a, 0x00 },
+> +	{ 0x700b, 0x75 },
+> +	{ 0x700c, 0x00 },
+> +	{ 0x700d, 0x75 },
+> +	{ 0x700e, 0x00 },
+> +	{ 0x700f, 0x75 },
+> +	{ 0x7010, 0x00 },
+> +	{ 0x7011, 0x75 },
+> +	{ 0x7012, 0x00 },
+> +	{ 0x7013, 0x75 },
+> +	{ 0x7014, 0x00 },
+> +	{ 0x7015, 0x75 },
+> +	{ 0x7016, 0x00 },
+> +	{ 0x7017, 0x75 },
+> +	{ 0x7018, 0x00 },
+> +	{ 0x7019, 0x75 },
+> +	{ 0x701a, 0x00 },
+> +	{ 0x701b, 0x75 },
+> +	{ 0x701c, 0x00 },
+> +	{ 0x701d, 0x75 },
+> +	{ 0x701e, 0x00 },
+> +	{ 0x701f, 0x75 },
+> +	{ 0x7020, 0x00 },
+> +	{ 0x7021, 0x75 },
+> +	{ 0x7022, 0x00 },
+> +	{ 0x7023, 0x75 },
+> +	{ 0x7024, 0x00 },
+> +	{ 0x7025, 0x75 },
+> +	{ 0x7026, 0x00 },
+> +	{ 0x7027, 0x75 },
+> +	{ 0x7028, 0x00 },
+> +	{ 0x7029, 0x75 },
+> +	{ 0x702a, 0x00 },
+> +	{ 0x702b, 0x75 },
+> +	{ 0x702c, 0x00 },
+> +	{ 0x702d, 0x75 },
+> +	{ 0x702e, 0x00 },
+> +	{ 0x702f, 0x75 },
+> +	{ 0x7030, 0x00 },
+> +	{ 0x7031, 0x75 },
+> +	{ 0x7032, 0x00 },
+> +	{ 0x7033, 0x75 },
+> +	{ 0x7034, 0x00 },
+> +	{ 0x7035, 0x75 },
+> +	{ 0x7036, 0x00 },
+> +	{ 0x7037, 0x75 },
+> +	{ 0x7038, 0x00 },
+> +	{ 0x7039, 0x75 },
+> +	{ 0x703a, 0x00 },
+> +	{ 0x703b, 0x75 },
+> +	{ 0x703c, 0x00 },
+> +	{ 0x703d, 0x75 },
+> +	{ 0x703e, 0x00 },
+> +	{ 0x703f, 0x75 },
+> +	{ 0x7040, 0x00 },
+> +	{ 0x7041, 0x75 },
+> +	{ 0x7042, 0x00 },
+> +	{ 0x7043, 0x75 },
+> +	{ 0x7044, 0x00 },
+> +	{ 0x7045, 0x75 },
+> +	{ 0x7046, 0x00 },
+> +	{ 0x7047, 0x75 },
+> +	{ 0x7048, 0x00 },
+> +	{ 0x7049, 0x75 },
+> +	{ 0x704a, 0x00 },
+> +	{ 0x704b, 0x75 },
+> +	{ 0x704c, 0x00 },
+> +	{ 0x704d, 0x75 },
+> +	{ 0x704e, 0x00 },
+> +	{ 0x704f, 0x75 },
+> +	{ 0x7050, 0x00 },
+> +	{ 0x7051, 0x75 },
+> +	{ 0x7052, 0x00 },
+> +	{ 0x7053, 0x75 },
+> +	{ 0x7054, 0x00 },
+> +	{ 0x7055, 0x75 },
+> +	{ 0x7056, 0x00 },
+> +	{ 0x7057, 0x75 },
+> +	{ 0x7058, 0x00 },
+> +	{ 0x7059, 0x75 },
+> +	{ 0x705a, 0x00 },
+> +	{ 0x705b, 0x75 },
+> +	{ 0x705c, 0x00 },
+> +	{ 0x705d, 0x75 },
+> +	{ 0x705e, 0x00 },
+> +	{ 0x705f, 0x75 },
+> +	{ 0x7060, 0x00 },
+> +	{ 0x7061, 0x75 },
+> +	{ 0x7062, 0x00 },
+> +	{ 0x7063, 0x75 },
+> +	{ 0x7064, 0x00 },
+> +	{ 0x7065, 0x75 },
+> +	{ 0x7066, 0x00 },
+> +	{ 0x7067, 0x75 },
+> +	{ 0x7068, 0x00 },
+> +	{ 0x7069, 0x75 },
+> +	{ 0x706a, 0x00 },
+> +	{ 0x706b, 0x75 },
+> +	{ 0x706c, 0x00 },
+> +	{ 0x706d, 0x75 },
+> +	{ 0x706e, 0x00 },
+> +	{ 0x706f, 0x75 },
+> +	{ 0x7070, 0x00 },
+> +	{ 0x7071, 0x75 },
+> +	{ 0x7072, 0x00 },
+> +	{ 0x7073, 0x75 },
+> +	{ 0x7074, 0x00 },
+> +	{ 0x7075, 0x75 },
+> +	{ 0x7076, 0x00 },
+> +	{ 0x7077, 0x75 },
+> +	{ 0x7078, 0x00 },
+> +	{ 0x7079, 0x75 },
+> +	{ 0x707a, 0x00 },
+> +	{ 0x707b, 0x75 },
+> +	{ 0x707c, 0x00 },
+> +	{ 0x707d, 0x75 },
+> +	{ 0x707e, 0x00 },
+> +	{ 0x707f, 0x75 },
+> +	{ 0x70e4, 0x02 },
+> +	{ 0x70e6, 0x06 },
+> +	{ 0x70e7, 0x08 },
+> +	{ 0x70e8, 0x0a },
+> +	{ 0x70e9, 0x0c },
+> +	{ 0x70ea, 0x10 },
+> +	{ 0x70eb, 0x16 },
+> +	{ 0x70ec, 0x1a },
+> +	{ 0x70ed, 0x20 },
+> +	{ 0x70ee, 0x04 },
+> +	{ 0x70ef, 0x06 },
+> +	{ 0x70f0, 0x08 },
+> +	{ 0x70f1, 0x0a },
+> +	{ 0x70f2, 0x10 },
+> +	{ 0x70f3, 0x16 },
+> +	{ 0x70f4, 0x1a },
+> +	{ 0x70f5, 0x20 },
+> +	{ 0x7119, 0x16 },
+> +	{ 0x711b, 0x1a },
+> +	{ 0x713a, 0x19 },
+> +	{ 0x713b, 0x17 },
+> +	{ 0x713c, 0x15 },
+> +	{ 0x713d, 0x13 },
+> +	{ 0x713e, 0x11 },
+> +	{ 0x713f, 0x11 },
+> +	{ 0x7140, 0x11 },
+> +	{ 0x7141, 0x11 },
+> +	{ 0x7142, 0x12 },
+> +	{ 0x7143, 0x0d },
+> +	{ 0x7144, 0x0b },
+> +	{ 0x7145, 0x0b },
+> +	{ 0x7146, 0x09 },
+> +	{ 0x7147, 0x09 },
+> +	{ 0x7148, 0x09 },
+> +	{ 0x7149, 0x08 },
+> +	{ 0x7150, 0x00 },
+> +};
+> +
+> +static const s64 link_freq_menu_items[] = {
+> +	OV32C4_LINK_FREQ_400MHZ,
+> +};
+> +
+> +static const struct ov32c4_mode supported_modes[] = {
+> +	{
+> +		.width = 3264,
+> +		.height = 1840,
+> +		.ppl = 4080,
+> +		.vts_min = 2614,
+> +		.reg_sequence = ov32c4_mode_3264x1840_regs,
+> +		.sequence_length = ARRAY_SIZE(ov32c4_mode_3264x1840_regs),
+> +	},
+> +};
+> +
+> +struct ov32c4 {
+> +	struct device *dev;
+> +
+> +	struct v4l2_subdev sd;
+> +	struct media_pad pad;
+> +	struct v4l2_ctrl_handler ctrl_handler;
+> +	struct regmap *regmap;
+> +
+> +	/* The sensor's second I2C address, see OV32C4_COMPANION_ENABLE_REG */
+> +	struct regmap *companion;
+> +	u16 companion_addr;
+> +
+> +	/* V4L2 controls */
+> +	struct v4l2_ctrl *link_freq;
+> +	struct v4l2_ctrl *pixel_rate;
+> +	struct v4l2_ctrl *vblank;
+> +	struct v4l2_ctrl *hblank;
+> +	struct v4l2_ctrl *exposure;
+> +
+> +	struct clk *img_clk;
+> +	struct gpio_desc *reset;
+> +	struct regulator_bulk_data supplies[ARRAY_SIZE(ov32c4_supply_names)];
+> +
+> +	u32 link_freq_index;
+> +	u8 mipi_lanes;
+> +};
+> +
+> +#ifdef CONFIG_ACPI
+> +/*
+> + * Walk the sensor's ACPI _CRS and return the address of the n-th
+> + * I2cSerialBus resource. Index 0 is the sensor itself (the kernel binds the
+> + * i2c client to it), index 1 is the companion, index 2 the module EEPROM.
+> + */
+> +struct ov32c4_i2c_res_ctx {
+> +	int index;
+> +	int want;
+> +	u16 addr;
+> +};
+> +
+> +static int ov32c4_i2c_res_cb(struct acpi_resource *ares, void *data)
+> +{
+> +	struct ov32c4_i2c_res_ctx *ctx = data;
+> +	struct acpi_resource_i2c_serialbus *sb;
+> +
+> +	if (i2c_acpi_get_i2c_resource(ares, &sb)) {
+> +		if (ctx->index == ctx->want)
+> +			ctx->addr = sb->slave_address;
+> +		ctx->index++;
+> +	}
+> +
+> +	return 1;
+> +}
+> +
+> +static u16 ov32c4_acpi_i2c_addr(struct device *dev, int index)
+> +{
+> +	struct ov32c4_i2c_res_ctx ctx = { .want = index };
+> +	struct acpi_device *adev = ACPI_COMPANION(dev);
+> +	LIST_HEAD(resources);
+> +	int ret;
+> +
+> +	if (!adev)
+> +		return 0;
+> +
+> +	ret = acpi_dev_get_resources(adev, &resources, ov32c4_i2c_res_cb, &ctx);
+
+The presence of additional chips like VCM is very much dependent on the
+module, and I think we should have parsing of the I²C address outside the
+sensor driver.
+
+One option could be to stuff it into the reg property in the ipu-bridge,
+that way it'd work the same way for the driver on both DT and ACPI. In the
+ipu-bridge, I'd use a static value and provide the reg property for this
+sensor only (based on _HID). i2c_new_ancillary_device() will only use OF so
+the driver will need to dig the address manually still.
+
+Better ideas are welcome of course.
+
+> +	acpi_dev_free_resource_list(&resources);
+> +
+> +	return ret < 0 ? 0 : ctx.addr;
+> +}
+> +#else
+> +static u16 ov32c4_acpi_i2c_addr(struct device *dev, int index)
+> +{
+> +	return 0;
+> +}
+> +#endif
+> +
+> +static inline struct ov32c4 *to_ov32c4(struct v4l2_subdev *subdev)
+> +{
+> +	return container_of(subdev, struct ov32c4, sd);
+> +}
+> +
+> +/* MIPI D-PHY is DDR -> link frequency * 2 */
+> +static u64 ov32c4_pixel_rate(struct ov32c4 *ov32c4)
+> +{
+> +	return div_u64(link_freq_menu_items[ov32c4->link_freq_index] *
+> +		       2 * ov32c4->mipi_lanes, OV32C4_RGB_DEPTH);
+> +}
+> +
+> +static int ov32c4_set_ctrl(struct v4l2_ctrl *ctrl)
+> +{
+> +	struct ov32c4 *ov32c4 = container_of(ctrl->handler,
+> +					     struct ov32c4, ctrl_handler);
+> +	const u32 height = supported_modes[0].height;
+> +	s64 exposure_max;
+> +	int ret = 0;
+> +	int pm;
+> +
+> +	if (ctrl->id == V4L2_CID_VBLANK) {
+> +		exposure_max = height + ctrl->val - OV32C4_EXPOSURE_MAX_MARGIN;
+> +		ret = __v4l2_ctrl_modify_range(ov32c4->exposure,
+> +					       ov32c4->exposure->minimum,
+> +					       exposure_max,
+> +					       ov32c4->exposure->step,
+> +					       exposure_max);
+> +		if (ret)
+> +			return ret;
+> +	}
+> +
+> +	/*
+> +	 * A negative return means runtime PM is disabled for the device, in
+> +	 * which case it is powered and the registers can be written, but no
+> +	 * reference was taken and none may be dropped below.
+> +	 */
+> +	pm = pm_runtime_get_if_active(ov32c4->dev);
+> +	if (!pm)
+> +		return 0;
+> +
+> +	switch (ctrl->id) {
+> +	case V4L2_CID_ANALOGUE_GAIN:
+> +		cci_write(ov32c4->regmap, OV32C4_REG_ANALOG_GAIN,
+> +			  ctrl->val, &ret);
+> +		cci_write(ov32c4->regmap, OV32C4_REG_ANALOG_GAIN_CTX2,
+> +			  ctrl->val, &ret);
+> +		break;
+> +
+> +	case V4L2_CID_EXPOSURE:
+> +		cci_write(ov32c4->regmap, OV32C4_REG_EXPOSURE,
+> +			  ctrl->val, &ret);
+> +		cci_write(ov32c4->regmap, OV32C4_REG_EXPOSURE_CTX2,
+> +			  ctrl->val, &ret);
+> +		break;
+> +
+> +	case V4L2_CID_VBLANK:
+> +		cci_write(ov32c4->regmap, OV32C4_REG_VTS, height + ctrl->val,
+> +			  &ret);
+> +		break;
+> +
+> +	case V4L2_CID_DIGITAL_GAIN:
+> +		cci_write(ov32c4->regmap, OV32C4_REG_DIGITAL_GAIN,
+> +			  (u64)ctrl->val << OV32C4_DGAIN_SHIFT, &ret);
+> +		cci_write(ov32c4->regmap, OV32C4_REG_DIGITAL_GAIN_CTX2,
+> +			  (u64)ctrl->val << OV32C4_DGAIN_SHIFT, &ret);
+> +		break;
+> +
+> +	case V4L2_CID_HFLIP:
+> +		cci_update_bits(ov32c4->regmap, OV32C4_REG_MIRROR,
+> +				OV32C4_FLIP_BIT,
+> +				ctrl->val ? 0 : OV32C4_FLIP_BIT, &ret);
+> +		break;
+> +
+> +	case V4L2_CID_VFLIP:
+> +		cci_update_bits(ov32c4->regmap, OV32C4_REG_FLIP,
+> +				OV32C4_FLIP_BIT,
+> +				ctrl->val ? OV32C4_FLIP_BIT : 0, &ret);
+> +		break;
+> +
+> +	default:
+> +		ret = -EINVAL;
+> +		break;
+> +	}
+> +
+> +	if (pm > 0)
+> +		pm_runtime_put(ov32c4->dev);
+> +
+> +	return ret;
+> +}
+> +
+> +static const struct v4l2_ctrl_ops ov32c4_ctrl_ops = {
+> +	.s_ctrl = ov32c4_set_ctrl,
+> +};
+> +
+> +static int ov32c4_init_controls(struct ov32c4 *ov32c4)
+> +{
+> +	struct v4l2_ctrl_handler *ctrl_hdlr = &ov32c4->ctrl_handler;
+> +	const struct ov32c4_mode *mode = &supported_modes[0];
+> +	u32 vblank_min, vblank_max, vblank_default;
+> +	struct v4l2_fwnode_device_properties props;
+> +	s64 exposure_max, h_blank, pixel_rate;
+> +	int ret;
+> +
+> +	ret = v4l2_fwnode_device_parse(ov32c4->dev, &props);
+> +	if (ret)
+> +		return ret;
+> +
+> +	v4l2_ctrl_handler_init(ctrl_hdlr, 13);
+> +
+> +	ov32c4->link_freq = v4l2_ctrl_new_int_menu(ctrl_hdlr, &ov32c4_ctrl_ops,
+> +						   V4L2_CID_LINK_FREQ,
+> +						   ARRAY_SIZE(link_freq_menu_items) - 1,
+> +						   ov32c4->link_freq_index,
+> +						   link_freq_menu_items);
+> +
+> +	pixel_rate = ov32c4_pixel_rate(ov32c4);
+> +	ov32c4->pixel_rate = v4l2_ctrl_new_std(ctrl_hdlr, &ov32c4_ctrl_ops,
+> +					       V4L2_CID_PIXEL_RATE, 0,
+> +					       pixel_rate, 1, pixel_rate);
+> +
+> +	vblank_min = mode->vts_min - mode->height;
+> +	vblank_max = OV32C4_VTS_MAX - mode->height;
+> +	vblank_default = vblank_min;
+> +	ov32c4->vblank = v4l2_ctrl_new_std(ctrl_hdlr, &ov32c4_ctrl_ops,
+> +					   V4L2_CID_VBLANK, vblank_min,
+> +					   vblank_max, 1, vblank_default);
+> +
+> +	h_blank = mode->ppl - mode->width;
+> +	ov32c4->hblank = v4l2_ctrl_new_std(ctrl_hdlr, &ov32c4_ctrl_ops,
+> +					   V4L2_CID_HBLANK, h_blank, h_blank,
+> +					   1, h_blank);
+> +
+> +	v4l2_ctrl_new_std(ctrl_hdlr, &ov32c4_ctrl_ops, V4L2_CID_ANALOGUE_GAIN,
+> +			  OV32C4_ANA_GAIN_MIN, OV32C4_ANA_GAIN_MAX,
+> +			  OV32C4_ANA_GAIN_STEP, OV32C4_ANA_GAIN_DEFAULT);
+> +
+> +	exposure_max = mode->vts_min - OV32C4_EXPOSURE_MAX_MARGIN;
+> +	ov32c4->exposure = v4l2_ctrl_new_std(ctrl_hdlr, &ov32c4_ctrl_ops,
+> +					     V4L2_CID_EXPOSURE,
+> +					     OV32C4_EXPOSURE_MIN, exposure_max,
+> +					     OV32C4_EXPOSURE_STEP,
+> +					     exposure_max);
+> +
+> +	v4l2_ctrl_new_std(ctrl_hdlr, &ov32c4_ctrl_ops, V4L2_CID_DIGITAL_GAIN,
+> +			  OV32C4_DGAIN_MIN, OV32C4_DGAIN_MAX,
+> +			  OV32C4_DGAIN_STEP, OV32C4_DGAIN_DEFAULT);
+> +
+> +	v4l2_ctrl_new_std(ctrl_hdlr, &ov32c4_ctrl_ops, V4L2_CID_HFLIP,
+> +			  0, 1, 1, 0);
+> +	v4l2_ctrl_new_std(ctrl_hdlr, &ov32c4_ctrl_ops, V4L2_CID_VFLIP,
+> +			  0, 1, 1, 0);
+> +
+> +	v4l2_ctrl_new_fwnode_properties(ctrl_hdlr, &ov32c4_ctrl_ops, &props);
+> +
+> +	if (ctrl_hdlr->error)
+> +		return ctrl_hdlr->error;
+> +
+> +	ov32c4->link_freq->flags |= V4L2_CTRL_FLAG_READ_ONLY;
+> +	ov32c4->hblank->flags |= V4L2_CTRL_FLAG_READ_ONLY;
+> +
+> +	ov32c4->sd.ctrl_handler = ctrl_hdlr;
+> +
+> +	return 0;
+> +}
+> +
+> +static void ov32c4_update_pad_format(const struct ov32c4_mode *mode,
+
+I'd call this e.g. ov32c4_format_from_mode().
+
+> +				     struct v4l2_mbus_framefmt *fmt)
+> +{
+> +	fmt->width = mode->width;
+> +	fmt->height = mode->height;
+> +	fmt->code = MEDIA_BUS_FMT_SGRBG10_1X10;
+> +	fmt->field = V4L2_FIELD_NONE;
+> +	fmt->colorspace = V4L2_COLORSPACE_RAW;
+> +	fmt->ycbcr_enc = V4L2_MAP_YCBCR_ENC_DEFAULT(fmt->colorspace);
+> +	fmt->quantization = V4L2_QUANTIZATION_FULL_RANGE;
+> +	fmt->xfer_func = V4L2_XFER_FUNC_NONE;
+> +}
+> +
+> +static int ov32c4_enable_streams(struct v4l2_subdev *sd,
+> +				 struct v4l2_subdev_state *state,
+> +				 u32 pad, u64 streams_mask)
+> +{
+> +	const struct ov32c4_mode *mode = &supported_modes[0];
+> +	struct ov32c4 *ov32c4 = to_ov32c4(sd);
+> +	int ret;
+> +
+> +	ret = pm_runtime_resume_and_get(ov32c4->dev);
+> +	if (ret)
+> +		return ret;
+> +
+> +	cci_write(ov32c4->regmap, OV32C4_REG_STREAM_CONTROL, 0, &ret);
+> +	cci_write(ov32c4->regmap, OV32C4_REG_SW_RESET, 1, &ret);
+> +	if (ret) {
+> +		dev_err(ov32c4->dev, "failed to reset the sensor: %d\n", ret);
+> +		goto out;
+> +	}
+> +	fsleep(OV32C4_SW_RESET_SETTLE_US);
+> +
+> +	ret = regmap_multi_reg_write(ov32c4->regmap, mode->reg_sequence,
+> +				     mode->sequence_length);
+> +	if (ret) {
+> +		dev_err(ov32c4->dev, "failed to set mode: %d\n", ret);
+> +		goto out;
+> +	}
+> +
+> +	ret = __v4l2_ctrl_handler_setup(ov32c4->sd.ctrl_handler);
+> +	if (ret)
+> +		goto out;
+> +
+> +	ret = cci_write(ov32c4->regmap, OV32C4_REG_STREAM_CONTROL, 1, NULL);
+
+A newline here?
+
+> +out:
+> +	if (ret)
+> +		pm_runtime_put(ov32c4->dev);
+> +
+> +	return ret;
+> +}
+> +
+> +static int ov32c4_disable_streams(struct v4l2_subdev *sd,
+> +				  struct v4l2_subdev_state *state,
+> +				  u32 pad, u64 streams_mask)
+> +{
+> +	struct ov32c4 *ov32c4 = to_ov32c4(sd);
+> +	int ret;
+> +
+> +	ret = cci_write(ov32c4->regmap, OV32C4_REG_STREAM_CONTROL, 0, NULL);
+> +	pm_runtime_put(ov32c4->dev);
+> +
+> +	return ret;
+> +}
+> +
+> +static int ov32c4_get_pm_resources(struct device *dev)
+> +{
+> +	struct v4l2_subdev *sd = dev_get_drvdata(dev);
+> +	struct ov32c4 *ov32c4 = to_ov32c4(sd);
+> +
+> +	/* The reset pin is active low, so a logical 1 means "held in reset". */
+> +	ov32c4->reset = devm_gpiod_get_optional(dev, "reset", GPIOD_OUT_HIGH);
+> +	if (IS_ERR(ov32c4->reset))
+> +		return dev_err_probe(dev, PTR_ERR(ov32c4->reset),
+> +				     "failed to get reset gpio\n");
+> +
+> +	for (unsigned int i = 0; i < ARRAY_SIZE(ov32c4_supply_names); i++)
+> +		ov32c4->supplies[i].supply = ov32c4_supply_names[i];
+> +
+> +	return devm_regulator_bulk_get(dev, ARRAY_SIZE(ov32c4_supply_names),
+> +				       ov32c4->supplies);
+> +}
+> +
+> +/* Ungate the main address, see OV32C4_COMPANION_ENABLE_REG. */
+> +static int ov32c4_companion_enable(struct ov32c4 *ov32c4)
+> +{
+> +	return cci_write(ov32c4->companion, OV32C4_COMPANION_ENABLE_REG,
+> +			 OV32C4_COMPANION_ENABLE_VAL, NULL);
+> +}
+> +
+> +static int ov32c4_power_off(struct device *dev)
+> +{
+> +	struct v4l2_subdev *sd = dev_get_drvdata(dev);
+> +	struct ov32c4 *ov32c4 = to_ov32c4(sd);
+> +
+> +	gpiod_set_value_cansleep(ov32c4->reset, 1);
+> +	regulator_bulk_disable(ARRAY_SIZE(ov32c4_supply_names),
+> +			       ov32c4->supplies);
+> +	clk_disable_unprepare(ov32c4->img_clk);
+> +
+> +	return 0;
+> +}
+> +
+> +static int ov32c4_power_on(struct device *dev)
+> +{
+> +	struct v4l2_subdev *sd = dev_get_drvdata(dev);
+> +	struct ov32c4 *ov32c4 = to_ov32c4(sd);
+> +	int ret;
+> +
+> +	ret = clk_prepare_enable(ov32c4->img_clk);
+> +	if (ret < 0) {
+> +		dev_err(dev, "failed to enable imaging clock: %d\n", ret);
+> +		return ret;
+> +	}
+> +
+> +	ret = regulator_bulk_enable(ARRAY_SIZE(ov32c4_supply_names),
+> +				    ov32c4->supplies);
+> +	if (ret < 0) {
+> +		dev_err(dev, "failed to enable regulators: %d\n", ret);
+> +		clk_disable_unprepare(ov32c4->img_clk);
+
+This calls for a new label below.
+
+> +		return ret;
+> +	}
+> +
+> +	if (ov32c4->reset) {
+> +		gpiod_set_value_cansleep(ov32c4->reset, 0);
+> +		fsleep(OV32C4_RESET_SETTLE_US);
+> +	}
+> +
+> +	if (ov32c4->companion) {
+> +		ret = ov32c4_companion_enable(ov32c4);
+> +		if (ret) {
+> +			dev_err(dev, "the block at 0x%02x did not accept the enable write: %d\n",
+> +				ov32c4->companion_addr, ret);
+> +			goto err_power_off;
+> +		}
+> +		fsleep(OV32C4_ENABLE_SETTLE_US);
+> +	}
+> +
+> +	return 0;
+> +
+> +err_power_off:
+> +	if (ov32c4->reset)
+> +		gpiod_set_value_cansleep(ov32c4->reset, 1);
+> +	regulator_bulk_disable(ARRAY_SIZE(ov32c4_supply_names),
+> +			       ov32c4->supplies);
+> +	clk_disable_unprepare(ov32c4->img_clk);
+> +
+> +	return ret;
+> +}
+> +
+> +static int ov32c4_set_format(struct v4l2_subdev *sd,
+> +			     struct v4l2_subdev_state *sd_state,
+> +			     struct v4l2_subdev_format *fmt)
+> +{
+> +	const struct ov32c4_mode *mode = &supported_modes[0];
+> +	struct ov32c4 *ov32c4 = to_ov32c4(sd);
+> +	s32 vblank_def, h_blank;
+> +	int ret;
+> +
+> +	ov32c4_update_pad_format(mode, &fmt->format);
+> +	*v4l2_subdev_state_get_format(sd_state, fmt->pad) = fmt->format;
+> +
+> +	if (fmt->which == V4L2_SUBDEV_FORMAT_TRY)
+> +		return 0;
+> +
+> +	vblank_def = mode->vts_min - mode->height;
+> +	ret = __v4l2_ctrl_modify_range(ov32c4->vblank, vblank_def,
+> +				       OV32C4_VTS_MAX - mode->height, 1,
+> +				       vblank_def);
+> +	if (ret)
+> +		return ret;
+> +
+> +	ret = __v4l2_ctrl_s_ctrl(ov32c4->vblank, vblank_def);
+> +	if (ret)
+> +		return ret;
+> +
+> +	h_blank = mode->ppl - mode->width;
+> +
+> +	return __v4l2_ctrl_modify_range(ov32c4->hblank, h_blank, h_blank, 1,
+> +					h_blank);
+> +}
+> +
+> +static int ov32c4_enum_mbus_code(struct v4l2_subdev *sd,
+> +				 struct v4l2_subdev_state *sd_state,
+> +				 struct v4l2_subdev_mbus_code_enum *code)
+> +{
+> +	if (code->index > 0)
+> +		return -EINVAL;
+> +
+> +	code->code = MEDIA_BUS_FMT_SGRBG10_1X10;
+> +
+> +	return 0;
+> +}
+> +
+> +static int ov32c4_enum_frame_size(struct v4l2_subdev *sd,
+> +				  struct v4l2_subdev_state *sd_state,
+> +				  struct v4l2_subdev_frame_size_enum *fse)
+> +{
+> +	if (fse->index >= ARRAY_SIZE(supported_modes))
+> +		return -EINVAL;
+> +
+> +	if (fse->code != MEDIA_BUS_FMT_SGRBG10_1X10)
+> +		return -EINVAL;
+> +
+> +	fse->min_width = supported_modes[fse->index].width;
+> +	fse->max_width = fse->min_width;
+> +	fse->min_height = supported_modes[fse->index].height;
+> +	fse->max_height = fse->min_height;
+> +
+> +	return 0;
+> +}
+> +
+> +static int ov32c4_init_state(struct v4l2_subdev *sd,
+> +			     struct v4l2_subdev_state *sd_state)
+> +{
+> +	ov32c4_update_pad_format(&supported_modes[0],
+> +				 v4l2_subdev_state_get_format(sd_state, 0));
+> +
+> +	return 0;
+> +}
+> +
+> +static const struct v4l2_subdev_video_ops ov32c4_video_ops = {
+> +	.s_stream = v4l2_subdev_s_stream_helper,
+> +};
+> +
+> +static int ov32c4_get_selection(struct v4l2_subdev *sd,
+> +				struct v4l2_subdev_state *state,
+> +				struct v4l2_subdev_selection *sel)
+> +{
+> +	if (sel->pad != 0)
+> +		return -EINVAL;
+> +
+> +	switch (sel->target) {
+> +	case V4L2_SEL_TGT_CROP:
+> +		sel->r.left = OV32C4_CROP_LEFT;
+> +		sel->r.top = OV32C4_CROP_TOP;
+> +		sel->r.width = OV32C4_CROP_WIDTH;
+> +		sel->r.height = OV32C4_CROP_HEIGHT;
+> +		return 0;
+> +	case V4L2_SEL_TGT_NATIVE_SIZE:
+> +		sel->r.left = 0;
+> +		sel->r.top = 0;
+> +		sel->r.width = OV32C4_NATIVE_WIDTH;
+> +		sel->r.height = OV32C4_NATIVE_HEIGHT;
+> +		return 0;
+> +	case V4L2_SEL_TGT_CROP_BOUNDS:
+> +	case V4L2_SEL_TGT_CROP_DEFAULT:
+> +		sel->r.left = OV32C4_ACTIVE_LEFT;
+> +		sel->r.top = OV32C4_ACTIVE_TOP;
+> +		sel->r.width = OV32C4_ACTIVE_WIDTH;
+> +		sel->r.height = OV32C4_ACTIVE_HEIGHT;
+> +		return 0;
+> +	default:
+> +		return -EINVAL;
+> +	}
+> +}
+> +
+> +static const struct v4l2_subdev_pad_ops ov32c4_pad_ops = {
+> +	.set_fmt = ov32c4_set_format,
+> +	.get_fmt = v4l2_subdev_get_fmt,
+> +	.get_selection = ov32c4_get_selection,
+> +	.enum_mbus_code = ov32c4_enum_mbus_code,
+> +	.enum_frame_size = ov32c4_enum_frame_size,
+> +	.enable_streams = ov32c4_enable_streams,
+> +	.disable_streams = ov32c4_disable_streams,
+> +};
+> +
+> +static const struct v4l2_subdev_ops ov32c4_subdev_ops = {
+> +	.video = &ov32c4_video_ops,
+> +	.pad = &ov32c4_pad_ops,
+> +};
+> +
+> +static const struct media_entity_operations ov32c4_subdev_entity_ops = {
+> +	.link_validate = v4l2_subdev_link_validate,
+> +};
+> +
+> +static const struct v4l2_subdev_internal_ops ov32c4_internal_ops = {
+> +	.init_state = ov32c4_init_state,
+> +};
+> +
+> +static int ov32c4_identify_module(struct ov32c4 *ov32c4)
+> +{
+> +	u64 chip_id;
+> +	int ret;
+> +
+> +	ret = cci_read(ov32c4->regmap, OV32C4_REG_CHIP_ID, &chip_id, NULL);
+> +	if (ret)
+> +		return dev_err_probe(ov32c4->dev, ret,
+> +				     "failed to read the chip id\n");
+> +
+> +	if (chip_id != OV32C4_CHIP_ID)
+> +		return dev_err_probe(ov32c4->dev, -ENXIO,
+> +				     "chip id mismatch: %x != %llx\n",
+> +				     OV32C4_CHIP_ID, chip_id);
+> +
+> +	return 0;
+> +}
+> +
+> +static int ov32c4_check_hwcfg(struct ov32c4 *ov32c4)
+> +{
+> +	struct v4l2_fwnode_endpoint bus_cfg = {
+> +		.bus_type = V4L2_MBUS_CSI2_DPHY
+> +	};
+> +	struct device *dev = ov32c4->dev;
+> +	struct fwnode_handle *ep, *fwnode = dev_fwnode(dev);
+> +	unsigned long link_freq_bitmap;
+> +	int ret;
+> +
+> +	ep = fwnode_graph_get_endpoint_by_id(fwnode, 0, 0, 0);
+> +
+> +	ret = v4l2_fwnode_endpoint_alloc_parse(ep, &bus_cfg);
+> +	fwnode_handle_put(ep);
+> +	if (ret)
+> +		return dev_err_probe(dev, ret, "parsing endpoint failed\n");
+> +
+> +	ret = v4l2_link_freq_to_bitmap(dev, bus_cfg.link_frequencies,
+> +				       bus_cfg.nr_of_link_frequencies,
+> +				       link_freq_menu_items,
+> +				       ARRAY_SIZE(link_freq_menu_items),
+> +				       &link_freq_bitmap);
+> +	if (ret)
+> +		goto check_hwcfg_error;
+> +
+> +	/* v4l2_link_freq_to_bitmap() guarantees at least one bit is set */
+> +	ov32c4->link_freq_index = ffs(link_freq_bitmap) - 1;
+> +
+> +	if (bus_cfg.bus.mipi_csi2.num_data_lanes != OV32C4_DATA_LANES) {
+> +		ret = dev_err_probe(dev, -EINVAL,
+> +				    "number of CSI2 data lanes %u is not supported\n",
+> +				    bus_cfg.bus.mipi_csi2.num_data_lanes);
+> +		goto check_hwcfg_error;
+> +	}
+> +
+> +	ov32c4->mipi_lanes = bus_cfg.bus.mipi_csi2.num_data_lanes;
+> +
+> +check_hwcfg_error:
+> +	v4l2_fwnode_endpoint_free(&bus_cfg);
+> +	return ret;
+> +}
+> +
+> +static void ov32c4_remove(struct i2c_client *client)
+> +{
+> +	struct v4l2_subdev *sd = i2c_get_clientdata(client);
+> +	struct ov32c4 *ov32c4 = to_ov32c4(sd);
+> +
+> +	v4l2_async_unregister_subdev(sd);
+> +	v4l2_subdev_cleanup(sd);
+> +	media_entity_cleanup(&sd->entity);
+> +	v4l2_ctrl_handler_free(sd->ctrl_handler);
+> +	pm_runtime_disable(ov32c4->dev);
+> +	if (!pm_runtime_status_suspended(ov32c4->dev)) {
+> +		ov32c4_power_off(ov32c4->dev);
+> +		pm_runtime_set_suspended(ov32c4->dev);
+> +	}
+> +}
+> +
+> +static int ov32c4_probe(struct i2c_client *client)
+> +{
+> +	struct ov32c4 *ov32c4;
+> +	unsigned long freq;
+> +	int ret;
+> +
+> +	ov32c4 = devm_kzalloc(&client->dev, sizeof(*ov32c4), GFP_KERNEL);
+> +	if (!ov32c4)
+> +		return -ENOMEM;
+> +
+> +	ov32c4->dev = &client->dev;
+> +
+> +	ov32c4->img_clk = devm_v4l2_sensor_clk_get(ov32c4->dev, NULL);
+> +	if (IS_ERR(ov32c4->img_clk))
+> +		return dev_err_probe(ov32c4->dev, PTR_ERR(ov32c4->img_clk),
+> +				     "failed to get imaging clock\n");
+> +
+> +	freq = clk_get_rate(ov32c4->img_clk);
+> +	if (freq != OV32C4_MCLK)
+> +		return dev_err_probe(ov32c4->dev, -EINVAL,
+> +				     "external clock %lu is not supported\n",
+> +				     freq);
+> +
+> +	v4l2_i2c_subdev_init(&ov32c4->sd, client, &ov32c4_subdev_ops);
+> +
+> +	ret = ov32c4_check_hwcfg(ov32c4);
+> +	if (ret)
+> +		return ret;
+> +
+> +	ret = ov32c4_get_pm_resources(ov32c4->dev);
+> +	if (ret)
+> +		return ret;
+> +
+> +	ov32c4->regmap = devm_cci_regmap_init_i2c(client, 16);
+> +	if (IS_ERR(ov32c4->regmap))
+> +		return PTR_ERR(ov32c4->regmap);
+> +
+> +	/*
+> +	 * On the ACPI machines this sensor ships in, the main address only
+> +	 * answers after a write to the sensor's second address, listed as the
+> +	 * second I2C resource of _CRS (see OV32C4_COMPANION_ENABLE_REG). The
+> +	 * address is claimed here so that nothing else binds to it; the
+> +	 * platform's SSDB wrongly calls it a VCM, and ipu-bridge knows not to
+> +	 * instantiate one for this sensor.
+> +	 */
+
+I think you can assume it's always there, and not related to ACPI.
+
+> +	ov32c4->companion_addr = ov32c4_acpi_i2c_addr(ov32c4->dev, 1);
+> +	if (ov32c4->companion_addr) {
+> +		struct i2c_client *companion;
+> +
+> +		companion = devm_i2c_new_dummy_device(ov32c4->dev,
+> +						      client->adapter,
+> +						      ov32c4->companion_addr);
+> +		if (IS_ERR(companion))
+> +			return dev_err_probe(ov32c4->dev, PTR_ERR(companion),
+> +					     "failed to claim the second address 0x%02x\n",
+> +					     ov32c4->companion_addr);
+> +
+> +		ov32c4->companion = devm_cci_regmap_init_i2c(companion, 16);
+> +		if (IS_ERR(ov32c4->companion))
+> +			return PTR_ERR(ov32c4->companion);
+> +	} else if (ACPI_COMPANION(ov32c4->dev)) {
+> +		dev_warn(ov32c4->dev,
+> +			 "no second I2C address in _CRS, the sensor may not answer\n");
+> +	}
+> +
+> +	ret = ov32c4_power_on(ov32c4->dev);
+> +	if (ret) {
+> +		dev_err_probe(ov32c4->dev, ret, "failed to power on\n");
+> +		return ret;
+> +	}
+> +
+> +	ret = ov32c4_identify_module(ov32c4);
+> +	if (ret)
+> +		goto probe_error_power_off;
+> +
+> +	ret = ov32c4_init_controls(ov32c4);
+> +	if (ret) {
+> +		dev_err_probe(ov32c4->dev, ret, "failed to init controls\n");
+> +		goto probe_error_v4l2_ctrl_handler_free;
+> +	}
+> +
+> +	ov32c4->sd.internal_ops = &ov32c4_internal_ops;
+> +	ov32c4->sd.flags |= V4L2_SUBDEV_FL_HAS_DEVNODE;
+> +	ov32c4->sd.entity.ops = &ov32c4_subdev_entity_ops;
+> +	ov32c4->sd.entity.function = MEDIA_ENT_F_CAM_SENSOR;
+> +	ov32c4->pad.flags = MEDIA_PAD_FL_SOURCE;
+> +	ret = media_entity_pads_init(&ov32c4->sd.entity, 1, &ov32c4->pad);
+> +	if (ret) {
+> +		dev_err_probe(ov32c4->dev, ret, "failed to init entity pads\n");
+> +		goto probe_error_v4l2_ctrl_handler_free;
+> +	}
+> +
+> +	ov32c4->sd.state_lock = ov32c4->ctrl_handler.lock;
+> +	ret = v4l2_subdev_init_finalize(&ov32c4->sd);
+> +	if (ret < 0) {
+> +		dev_err_probe(ov32c4->dev, ret, "failed to init subdev\n");
+> +		goto probe_error_media_entity_cleanup;
+> +	}
+> +
+> +	pm_runtime_set_active(ov32c4->dev);
+> +	pm_runtime_enable(ov32c4->dev);
+> +
+> +	ret = v4l2_async_register_subdev_sensor(&ov32c4->sd);
+> +	if (ret < 0) {
+> +		dev_err_probe(ov32c4->dev, ret, "failed to register subdev\n");
+> +		goto probe_error_v4l2_subdev_cleanup;
+> +	}
+> +
+> +	pm_runtime_idle(ov32c4->dev);
+> +
+> +	return 0;
+> +
+> +probe_error_v4l2_subdev_cleanup:
+> +	pm_runtime_disable(ov32c4->dev);
+> +	pm_runtime_set_suspended(ov32c4->dev);
+> +	v4l2_subdev_cleanup(&ov32c4->sd);
+> +
+> +probe_error_media_entity_cleanup:
+> +	media_entity_cleanup(&ov32c4->sd.entity);
+> +
+> +probe_error_v4l2_ctrl_handler_free:
+> +	v4l2_ctrl_handler_free(&ov32c4->ctrl_handler);
+> +
+> +probe_error_power_off:
+> +	ov32c4_power_off(ov32c4->dev);
+> +
+> +	return ret;
+> +}
+> +
+> +static DEFINE_RUNTIME_DEV_PM_OPS(ov32c4_pm_ops, ov32c4_power_off,
+> +				 ov32c4_power_on, NULL);
+> +
+> +#ifdef CONFIG_ACPI
+> +static const struct acpi_device_id ov32c4_acpi_ids[] = {
+> +	{ "OVTI32C4" },
+> +	{ /* sentinel */ }
+> +};
+> +MODULE_DEVICE_TABLE(acpi, ov32c4_acpi_ids);
+> +#endif
+> +
+> +static const struct of_device_id ov32c4_of_match[] = {
+> +	{ .compatible = "ovti,ov32c4" },
+> +	{ /* sentinel */ }
+> +};
+> +MODULE_DEVICE_TABLE(of, ov32c4_of_match);
+> +
+> +static struct i2c_driver ov32c4_i2c_driver = {
+> +	.driver = {
+> +		.name = "ov32c4",
+> +		.pm = pm_ptr(&ov32c4_pm_ops),
+> +		.acpi_match_table = ACPI_PTR(ov32c4_acpi_ids),
+> +		.of_match_table = ov32c4_of_match,
+> +	},
+> +	.probe = ov32c4_probe,
+> +	.remove = ov32c4_remove,
+> +};
+> +module_i2c_driver(ov32c4_i2c_driver);
+> +
+> +MODULE_DESCRIPTION("OmniVision OV32C4 sensor driver");
+> +MODULE_LICENSE("GPL");
+
 -- 
-2.53.0
+Kind regards,
 
+Sakari Ailus
