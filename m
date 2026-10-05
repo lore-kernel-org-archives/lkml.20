@@ -1,42 +1,48 @@
-Received: from linux.microsoft.com (linux.microsoft.com [13.77.154.182])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 8408041441C;
-	Mon,  5 Oct 2026 21:56:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=13.77.154.182
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 88BE941686D;
+	Mon,  5 Oct 2026 21:58:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791237387; cv=none; b=Fw9qrFB4GFys5SfF3iZIH2tkXG4356q05awGqq9M6m4giLT1mATMgHhkGMyV/lrMXHxQqx+OuEK2ESA0ApqPtsyXksqZGcYzTxO4AjRRN6+X3T4ZSUKkirCMpcDVVddjOuNITcwN2H1AMZ5qvjV7RsY6eAmxe9HDmJYJQouKYKM=
+	t=1791237483; cv=none; b=kYbftIbO6iseXg/QWww9A6CFU6gMwXqJgiWJL+Phrg9mpuzSCEkHWCyknUOEyNKT3BSM6VWPl5sT+wkNeiVeN90xsLLKJsldV97EJzIYs1Sg6hSKSjT3/zaTq8+WuDH14rS4TxBYCYCP0rLsSJkMysVnThoyxpRGtCf9MTAVaSQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791237387; c=relaxed/simple;
-	bh=FbP2ch66dC3cc/NTJjxa33z3u7/rOe3RIRoTjCDidsU=;
+	s=arc-20240116; t=1791237483; c=relaxed/simple;
+	bh=Ngu7pFS9me7r3yO67Mb5zTZZsWCa5i1XJEM4FdzCFsk=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=YYVtq7YugEa4CoTh0yhIJY8a9SXAZPuW4Zj76MIcERNjAwQDSuDyPjggbfORu/8ltJ5oFQKtHml0ZGYJcJSgIu7kPsUCNJv1U4KIG2n6dCKlGHXQQwRqNNr52VMBgYIXjTgszISSz8XFDh/AmYKk6/apexaAYYCUfQiWTJOF8zs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com; spf=pass smtp.mailfrom=linux.microsoft.com; dkim=pass (1024-bit key) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.b=l62QHvzQ; arc=none smtp.client-ip=13.77.154.182
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.microsoft.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=C78a3iNyA4E5De6yxlsroZds/k5aiGzPNd00u33mj4SWurBHIDR9jxYUsK2uhn06ROa0M8fEdbp3Mj0RulMkExr3hL/qqkROkXZPvsUKsjNj1hHPnDxbKWiONjsh+px4NzmLvgqQID8ZEJ5sJUgTzXL8vaHxflhq5isQZyhpEH8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=EGNX29Dz; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.b="l62QHvzQ"
-Received: from CPC-beaub-VBQ1L.localdomain (unknown [70.37.26.65])
-	by linux.microsoft.com (Postfix) with ESMTPSA id A1A9920B7168;
-	Mon,  5 Oct 2026 14:55:29 -0700 (PDT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com A1A9920B7168
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.microsoft.com;
-	s=default; t=1791237329;
-	bh=YaYPfGrT8pb6peFO0ifPaeJLF06E4n0OBiG5vN39X4M=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=l62QHvzQTxiZgRdtj6s5Xbd9XFCN0txFVXOUqjaApY9smgGF2JwSrlhfl0wfSJcEe
-	 79gFbePlFTstVTi7msqfL/PFyI/nCR3Oe3yGz/IwkKNoIKi8bcLjSNvj77+2RWElZj
-	 kefidcH4OEJTYDIbSHk/PQOaeqYwpy4+T+cqSjEM=
-Date: Mon, 5 Oct 2026 21:56:19 +0000
-From: Beau Belgrave <beaub@linux.microsoft.com>
-To: Steven Rostedt <rostedt@goodmis.org>
-Cc: Jeff Barnes <jeffbarnes@linux.microsoft.com>,
-	linux-trace-kernel@vger.kernel.org, mhiramat@kernel.org,
-	mathieu.desnoyers@efficios.com, linux-kernel@vger.kernel.org,
-	akpm@linux-foundation.org, kees@kernel.org
-Subject: Re: [PATCH] tracing/user_events: Fail fork when event state
- duplication fails
-Message-ID: <20261005215619.GA404-beaub@linux.microsoft.com>
-References: <20261002222639.1964370-1-jeffbarnes@linux.microsoft.com>
- <20261004040016.73e9d705@fedora>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="EGNX29Dz"
+Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id DACCF1F000FF;
+	Mon,  5 Oct 2026 21:58:01 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791237482;
+	bh=VxFHdG+ifOnGOH6o1Tq0HY7/CGw/vCWQt90vVvSA//c=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=EGNX29DzcKQGFBd0mlRZuELLXdpyE8pkJeDv9rc9TwiKULgMm9bxcdjcWJO3106DC
+	 74TIcWJzRCBk4sapr9W8MM7rXxhB6VcWHWgyRvPAVReS/5kEDFffGKW08shDtwSOVk
+	 p2tJZyTFM34HWtSZMWs3HxnEP5S2sKfVkpfFkC/EltnoM/hJvZgNo69PNE3ZE1kHkV
+	 RKEN8+GA0b1dxi+3IpaQ7qrsaMRw8aQyMJz6ec9bCSae0mZ+kcAx/YejiGusr7tZ+X
+	 7+u2pwpPfEHS5Qb0pwnaubu98O62kqF/9+JvZCw7b3OMFknmUR8iR2BqBD7Ra/AncN
+	 GIVMR/pOL6HFg==
+Date: Tue, 6 Oct 2026 00:57:58 +0300
+From: Jarkko Sakkinen <jarkko@kernel.org>
+To: "Serge E. Hallyn" <serge@hallyn.com>
+Cc: Srish Srinivasan <ssrish@linux.ibm.com>,
+	linux-integrity@vger.kernel.org, keyrings@vger.kernel.org,
+	James.Bottomley@hansenpartnership.com, zohar@linux.ibm.com,
+	stefanb@linux.ibm.com, linux-kernel@vger.kernel.org,
+	linux-security-module@vger.kernel.org, nayna@linux.ibm.com,
+	rnsastry@linux.ibm.com
+Subject: Re: [PATCH v2] keys/trusted_keys: reuse TPM version in option
+ handling
+Message-ID: <asQdZiv7uktfyRWU@kernel.org>
+References: <20261002071050.179879-1-ssrish@linux.ibm.com>
+ <asMYa0lD7RNcoszb@iki.fi>
+ <d3574d84-84dd-4aa5-b80f-acc7844c3f12@linux.ibm.com>
+ <asO7zHFE3C6W8TV/@hallyn.com>
+ <asP8sl912TVaCEIE@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -45,193 +51,77 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261004040016.73e9d705@fedora>
+In-Reply-To: <asP8sl912TVaCEIE@kernel.org>
 
-On Sun, Oct 04, 2026 at 04:00:16AM -0400, Steven Rostedt wrote:
-> Beau,
-> 
-> Can you review this?
-> 
-
-Sure thing.
-
-> Thanks,
-> 
-> -- Steve
-> 
-> 
-> On Fri,  2 Oct 2026 18:26:39 -0400
-> Jeff Barnes <jeffbarnes@linux.microsoft.com> wrote:
-> 
-> > Registered user events are retained across fork, but duplicating their
-> > state for a child with a separate mm can fail. Both user_event_mm_dup() and
-> > user_events_fork() currently return void, so allocation failure silently
-> > creates a child without the inherited registration state.
+On Mon, Oct 05, 2026 at 10:38:32PM +0300, Jarkko Sakkinen wrote:
+> On Mon, Oct 05, 2026 at 10:01:32AM -0500, Serge E. Hallyn wrote:
+> > On Mon, Oct 05, 2026 at 11:31:46AM +0530, Srish Srinivasan wrote:
+> > > Hi Jarkko,
+> > > 
+> > > On 10/5/26 8:54 AM, Jarkko Sakkinen wrote:
+> > > > On Fri, Oct 02, 2026 at 12:40:50PM +0530, Srish Srinivasan wrote:
+> > > > > Determine the TPM version once in the seal and unseal paths and reuse it
+> > > > > when allocating and parsing trusted key options. This avoids redundant TPM
+> > > > > version checks.
+> > > > So this is a bit nitpicking perhaps but a patch that would just clean
+> > > > the code up a bit would not be be worth of applying. Almost anything
+> > > > that "does nothing" goes to that bin.
+> > > > 
+> > > > What I'm saying is that the conclusion in the last sentence goes to
+> > > > wrong direction but luckily the change has also feasible effects that
+> > > > we care about.
+> > > > 
+> > > > By caching tpm_is_tpm2() there are less fallible sites in the key
+> > > > creation process, and reduced number of roundtrips with the TPM chip.
+> > > > 
+> > > > Or from blackbox perspective it reduces I/O traffic between kernel
+> > > > and the hardware platform.
+> > > 
+> > > 
+> > > Yes, that makes sense. Thank you for pointing this out.
+> > > 
+> > > I will revise the commit message to highlight the reduced failure
+> > > surface and I/O between the kernel and the TPM, and
+> > > send v3.
 > > 
-> > The child can consequently retain a stale copy-on-write enable word and
-> > miss later event enable and disable updates.
-> > 
+> > And I've seen chips where every round trip is a roll of the dice as
+> > to whether the chip will become useless till next reboot, so that is
+> > a bigger win than I was first thinking.
+> 
+> This is true and happens quite often. And in CPU companies in fact all
+> the time with early FPGA implementations and very early ASIC based
+> software development platforms.
+> 
+> We also have opt-in bus encryption feature where extra roundtrips have
+> a horrible time cost.
+> 
+> Roundtrip removals are high value patches for both R&D and production,
+> and they are always most welcome.
 
-This code makes fork fail if we cannot duplicate the user_event
-enablements, uprobes just warns in these cases. The changes introduced
-look correct if that's what we want (to fail fork() when enablements
-would have been left behind).
+Serge, your comment reminded me of hwrng. In my opinion TPM driver
+should limit itself randomness supply because it could have positive
+effect on some issues that people are having [1]. hwrng can never
+properly control TPM as it is behind abstraction.
 
-If we do not want the fork to actually fail, a simple call to
-user_event_mm_remove() within user_event_mm_dup() would address the
-inconsistency. However, it would be silent. Some questions follow.
+I think there should be a tpm_chip associated pool of randomness. This
+pool is filled with some timer triggering with a constant frequency. On
+each iteration, it is filled with best effort i.e. with a single
+TPM2_GetRandom invocation.
 
-Steve, is it fine to have fork() fail when we cannot copy state? Uprobe
-seems to just warn here.
+Then hwrng_fill is also filled with best effort from the pool without
+any TPM interaction.
 
-Jeff, I assume we have cases in mind where we really prefer fork() to
-fail when user_events cannot be propogated? (For sure we want the
-inconsistency fixed, just not sure about if silent is OK or not).
+This would be an architecture that would be vastly easier to deduce
+than the one which we have now, which is more unstable, which is
+bad considering e.g., latency peaks and whatnot.
 
-Thanks,
--Beau
+This basic idea can be improved with a low watermark: when going 
+below it hwrng_fillfn would start the timer. I don't think high
+watermark is needed as pool can be always filled just up to its
+size.
 
-> > Return an error from user_event_mm_dup() and user_events_fork(), and
-> > perform the duplication in copy_process() while failure can still be
-> > unwound. Return -ENOMEM when the child user_event_mm or any of its enablers
-> > cannot be duplicated.
-> > 
-> > Add a cleanup path so successfully acquired user-events state is removed if
-> > a later fork operation fails. Preserve the existing CLONE_VM behavior and
-> > its task reference accounting.
-> > 
-> > A deterministic allocation-failure test on upstream master previously
-> > allowed fork() to succeed while the child missed an enablement update. With
-> > this change, the same fork fails with ENOMEM. The complete user_events ABI
-> > suite passes.
-> > 
-> > Fixes: 7235759084a4 ("tracing/user_events: Use remote writes for event enablement")
-> > Cc: stable@vger.kernel.org
-> > Signed-off-by: Jeff Barnes <jeffbarnes@linux.microsoft.com>
-> > ---
-> >  include/linux/user_events.h      | 16 +++++++---------
-> >  kernel/fork.c                    |  8 ++++++--
-> >  kernel/trace/trace_events_user.c |  8 +++++---
-> >  3 files changed, 18 insertions(+), 14 deletions(-)
-> > 
-> > diff --git a/include/linux/user_events.h b/include/linux/user_events.h
-> > index 57d1ff006090..75f184126727 100644
-> > --- a/include/linux/user_events.h
-> > +++ b/include/linux/user_events.h
-> > @@ -27,28 +27,26 @@ struct user_event_mm {
-> >  	struct rcu_work		put_rwork;
-> >  };
-> >  
-> > -extern void user_event_mm_dup(struct task_struct *t,
-> > -			      struct user_event_mm *old_mm);
-> > +int user_event_mm_dup(struct task_struct *t, struct user_event_mm *old_mm);
-> >  
-> >  extern void user_event_mm_remove(struct task_struct *t);
-> >  
-> > -static inline void user_events_fork(struct task_struct *t,
-> > -				    u64 clone_flags)
-> > +static inline int user_events_fork(struct task_struct *t, u64 clone_flags)
-> >  {
-> >  	struct user_event_mm *old_mm;
-> >  
-> >  	if (!t || !current->user_event_mm)
-> > -		return;
-> > +		return 0;
-> >  
-> >  	old_mm = current->user_event_mm;
-> >  
-> >  	if (clone_flags & CLONE_VM) {
-> >  		t->user_event_mm = old_mm;
-> >  		refcount_inc(&old_mm->tasks);
-> > -		return;
-> > +		return 0;
-> >  	}
-> >  
-> > -	user_event_mm_dup(t, old_mm);
-> > +	return user_event_mm_dup(t, old_mm);
-> >  }
-> >  
-> >  static inline void user_events_execve(struct task_struct *t)
-> > @@ -67,9 +65,9 @@ static inline void user_events_exit(struct task_struct *t)
-> >  	user_event_mm_remove(t);
-> >  }
-> >  #else
-> > -static inline void user_events_fork(struct task_struct *t,
-> > -				    u64 clone_flags)
-> > +static inline int user_events_fork(struct task_struct *t, u64 clone_flags)
-> >  {
-> > +	return 0;
-> >  }
-> >  
-> >  static inline void user_events_execve(struct task_struct *t)
-> > diff --git a/kernel/fork.c b/kernel/fork.c
-> > index 10f2d05d816a..9e3da2e6059f 100644
-> > --- a/kernel/fork.c
-> > +++ b/kernel/fork.c
-> > @@ -2311,9 +2311,12 @@ __latent_entropy struct task_struct *copy_process(
-> >  	retval = copy_mm(clone_flags, p);
-> >  	if (retval)
-> >  		goto bad_fork_cleanup_signal;
-> > -	retval = copy_namespaces(clone_flags, p);
-> > +	retval = user_events_fork(p, clone_flags);
-> >  	if (retval)
-> >  		goto bad_fork_cleanup_mm;
-> > +	retval = copy_namespaces(clone_flags, p);
-> > +	if (retval)
-> > +		goto bad_fork_cleanup_user_events;
-> >  	retval = copy_io(clone_flags, p);
-> >  	if (retval)
-> >  		goto bad_fork_cleanup_namespaces;
-> > @@ -2575,7 +2578,6 @@ __latent_entropy struct task_struct *copy_process(
-> >  
-> >  	trace_task_newtask(p, clone_flags);
-> >  	uprobe_copy_process(p, clone_flags);
-> > -	user_events_fork(p, clone_flags);
-> >  
-> >  	copy_oom_score_adj(clone_flags, p);
-> >  
-> > @@ -2602,6 +2604,8 @@ __latent_entropy struct task_struct *copy_process(
-> >  		exit_io_context(p);
-> >  bad_fork_cleanup_namespaces:
-> >  	exit_nsproxy_namespaces(p);
-> > +bad_fork_cleanup_user_events:
-> > +	user_events_exit(p);
-> >  bad_fork_cleanup_mm:
-> >  	sched_cache_fork_cleanup(p);
-> >  	if (p->mm) {
-> > diff --git a/kernel/trace/trace_events_user.c b/kernel/trace/trace_events_user.c
-> > index f658c3a77aa7..8941c8d7c193 100644
-> > --- a/kernel/trace/trace_events_user.c
-> > +++ b/kernel/trace/trace_events_user.c
-> > @@ -863,7 +863,7 @@ void user_event_mm_remove(struct task_struct *t)
-> >  	queue_rcu_work(system_percpu_wq, &mm->put_rwork);
-> >  }
-> >  
-> > -void user_event_mm_dup(struct task_struct *t, struct user_event_mm *old_mm)
-> > +int user_event_mm_dup(struct task_struct *t, struct user_event_mm *old_mm)
-> >  {
-> >  	struct user_event_mm *mm = user_event_mm_alloc(t);
-> >  	struct user_event_enabler *enabler;
-> > @@ -872,7 +872,7 @@ void user_event_mm_dup(struct task_struct *t, struct user_event_mm *old_mm)
-> >  	t->user_event_mm = NULL;
-> >  
-> >  	if (!mm)
-> > -		return;
-> > +		return -ENOMEM;
-> >  
-> >  	rcu_read_lock();
-> >  
-> > @@ -884,10 +884,12 @@ void user_event_mm_dup(struct task_struct *t, struct user_event_mm *old_mm)
-> >  	rcu_read_unlock();
-> >  
-> >  	user_event_mm_attach(mm, t);
-> > -	return;
-> > +	return 0;
-> >  error:
-> >  	rcu_read_unlock();
-> >  	user_event_mm_destroy(mm);
-> > +
-> > +	return -ENOMEM;
-> >  }
-> >  
-> >  static bool current_user_event_enabler_exists(unsigned long uaddr,
+I had this idea already 3-4 years ago but had forgotten about it.
+
+[1] https://bugzilla.kernel.org/show_bug.cgi?id=217890
+
+Br, Jarkkko
