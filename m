@@ -1,435 +1,149 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pf1-f197.google.com (mail-pf1-f197.google.com [209.85.210.197])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 763ABDF6C;
-	Mon,  5 Oct 2026 03:51:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DE09621A453
+	for <linux-kernel@vger.kernel.org>; Mon,  5 Oct 2026 03:52:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.197
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791172302; cv=none; b=GH6Fv5oPlUNKImKupGRnNoEi0uhDlEUxRSQXuRH9BI4LQpSzkMWooeGYkcC+/TsLju2x00KF6JjkcKnNeMU1LLkGiGHejKPhBAyN/aD4xwYZNhgMxYm8nRuiGI+bLH+L5oYJuC89Ec0NjK1h+JtJqN8Qk9dcixFHLdGpjDqPBdA=
+	t=1791172364; cv=none; b=lt5D0busrThRg4fPy8SnZORPQK51G7TodPfVsoaYum90H0vuyuyPLsHmX4SEihrKoUZCPNIDb6XO3FTfQen7pMdXSF5AD68hmJus2hNLBs4ZxTtY91/I1RSuDcrXX82yME4vxIEKHT4//ZMOBUtx6IhljoXEDBB3zsKplV0I6gA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791172302; c=relaxed/simple;
-	bh=bf1aRCeVOwWnbmRdaY5vsTLCgnMOWWccKEP0pg9zfFQ=;
-	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=FSs/cyNqlIfrqWM6iB1bDPEKBapd/6dwQF7t7x+YBXgDpAjJAUxaxK+i5oOpiGH4fEcMXA7KVBmXaaVDAa8kHELKsZumgrNmEcbs6LotyVnWJUvBYm0MS5B1Uswaybj/cxGgcoyUHUqJKK4nsHW5yY84Nq2OkZ9EjB3QeoFq8cw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VOxHhNpP; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791172364; c=relaxed/simple;
+	bh=s2zh7kQOYUOfo5+PW6vusZ44faTYrMQ/g2KGrtLTDJI=;
+	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
+	 To:Cc:Content-Type; b=gI23WobTf2Z2RxfBy76A8PfJutVMCQeSO0lcv+rLRg69yX5EkT//Ay6yco1VU6aV7WJ3wz2Qi3pUpssV4qsVORsb/s1q/z4OXV9r21FbG8Phb08JywDYSqYV6txAIv3zcaKIa5EIbbObQkz92BD26wfsJxMUSWC84vJE9viB3aQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=Ucag5UES; arc=none smtp.client-ip=209.85.210.197
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VOxHhNpP"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F32D21F000FF;
-	Mon,  5 Oct 2026 03:51:38 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791172300;
-	bh=vqHFN4ISiMdgIpZ/Kf7RvQ7eEXbPG4qoMDh7E7PTK1w=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=VOxHhNpPvliznv4/nIwNI+abH5xjSzEgtm+crm8CyFKX56ra1pf0yWzSo7z5grKIA
-	 zP42Lo0pMzglzbCO1f/oQmRBXKbfoGQ8EA1cl0drJVIQMVTlzynWZ/44eyjtu0+YD7
-	 WhbgQ2s5MoYxDiOJ/ej9JnqxZvZc+clvmVvmQ8lgg3q9XDXwZN6V+UXuSQIqjN4uH5
-	 EPTSLfIRBQGsD1vdl6iAdelz3yr3G957cECLlfHKXeN9xqYgQOxM0au1fD3M7cvCJi
-	 CprFrflKJ+a3JzyAefrFcwPJWsu2Gb6pp9A9meJhRExJzAALCx/cbrHR9PzCCsG5GE
-	 8igKuoHifXtqA==
-Subject: Re: [PATCH net v4] net: stmmac: fix error path cleanup in DMA
- descriptor ring allocation
-From: netdev-bot+sashiko@kernel.org
-To: dinghui1111@163.com
-Cc: netdev-bot+sashiko@kernel.org, maxime.chevallier@bootlin.com,
- andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com,
- kuba@kernel.org, pabeni@redhat.com, mcoquelin.stm32@gmail.com,
- alexandre.torgue@foss.st.com, netdev@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
- dinghui@lixiang.com, xiasanbo@lixiang.com, yangchen11@lixiang.com,
- liuxuanjun@lixiang.com
-Date: Mon, 05 Oct 2026 03:51:38 +0000
-Message-ID: <179117229846.434549.8891935731909166889@kernel.org>
-In-Reply-To: <20261001035045.3305816-1-dinghui1111@163.com>
-References: <20261001035045.3305816-1-dinghui1111@163.com>
-X-sashiko-severity: Medium
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="Ucag5UES"
+Received: by mail-pf1-f197.google.com with SMTP id d2e1a72fcca58-887e45c7063so977655b3a.1
+        for <linux-kernel@vger.kernel.org>; Sun, 04 Oct 2026 20:52:42 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1791172362; x=1791777162; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=eT9i+7cM2ZrBnjrZ9dBZbNh3S/dmFUNTqgnErmGrbH0=;
+        b=Ucag5UESzUD4xkep/u/x+cHYaLgIlz1kG/KZVOTHTx5dZ/ki8OoppleI6J/mNtdG7N
+         UT2e26ttqc7FrMRWJ0CKS2PmmodidcpOYTDMcLTQfOsmgUMiejy3MuvBQ2bqXtL6CyMm
+         1kfmbRzkAWvzPWfrwnr/yRAEhQeeiNbpuPabXUwxwC5EzbaCflnenYmnhxQ9gpangCKf
+         IdcKDNT+Mw24KkDddKzsmDEtVeKQUvS0ZjRNkkO9A02KILnoyAIQENa7KINiTHjh+g3J
+         Oj6CbY1FM37cTeSlzjQTgKiXL4Rfl8sIbbhDCJAa0psPlDX3b6fRMRnpT1VP+yzQRyBL
+         D4MQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791172362; x=1791777162;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=eT9i+7cM2ZrBnjrZ9dBZbNh3S/dmFUNTqgnErmGrbH0=;
+        b=FxJX0zYdN7STheEFVdEzCEdCMelCvwcXbmSz2Nto2asdojSmlZwwHzUkRE1M7Nedmt
+         Y0VuL3mYQvpcq3oNPZBp21m8XGZZ5ja68W2auroQmRQGccW9WT08NYJxZB7kZIuDItkB
+         CkDVO+0P0V+dtqvTsy3KkVYugLYC2X8y5HwS32WYs1CcYP2C0X4a05FmHXPiXb2cQ2gF
+         hdB1sMgA91sxVvhd1HfL04GyaKaFlyrcmWMwMCewOr274TFHBRug646q6RzYKBdYLQKL
+         zQqG+76sL8GMl2TwSWd7RzJLZMI7gqJQrlhlgTe3Lz7jSvebCjCAQfPWKMWKvRh1o3Ep
+         HK0w==
+X-Forwarded-Encrypted: i=1; AKwUvBxkqhpJziaSsprjxGaAzpd4UOUcaY1C7ObQUIJY9oXXo/05WvJR0ri/m4qZSIS8t4P782ZQRJJRprBuUdk=@vger.kernel.org
+X-Gm-Message-State: AFuF++kSGoDoW6DWHZKo5NcX3zbfJU+vmjxpIpU+ExpOLUjGQksAVIP6
+	95kR6Th/mnsrCbKa7mzk7iN4F0ShaIwSt89Mv3mUWpJObQnonppJLUeQJkal5+UI+e3PHBn3bBJ
+	GkIKZVA==
+X-Received: from pfbhu44.prod.google.com ([2002:a05:6a00:69ac:b0:88f:275d:43a9])
+ (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a05:6a00:759a:b0:88d:20ff:15c1
+ with SMTP id d2e1a72fcca58-88d20ff2bd5mr4191394b3a.18.1791172362021; Sun, 04
+ Oct 2026 20:52:42 -0700 (PDT)
+Date: Sun, 4 Oct 2026 20:52:41 -0700
+In-Reply-To: <6ac316c7.01314a6c.556a8.000d.GAE@google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-
-Thank you for your contribution! Sashiko AI review found 4 potential
-issue(s) to consider.
-
-Critical: 0 · High: 0 (4) · Medium: 2 · Low: 2
-
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
-
-- [Medium] The patch's new 'freed pointers are NULL' invariant is only
-  written into the dma_conf object passed to…
-- [Medium] stmmac_rings_status_show() takes no lock (no rtnl, no
-  priv->lock).
-- [Low] The commit describes and fixes real, user-visible defects but has
-  no Fixes: trailer.
-- [Low] The commit message says the stmmac_rings_status_show() change
-  keeps 'the rings sysfs entry' from dereferencing a NULL pointer.
-
-Pre-existing issues:
-- [High] This problem wasn't introduced by this patch, but
-  stmmac_enable_rx_queue() and stmmac_enable_tx_queue()…
-- [High] This problem wasn't introduced by this patch, but
-  stmmac_xdp_set_prog() (stmmac_xdp.c:134-140) calls…
-- [High] This problem wasn't introduced by this patch, but after a failed
-  stmmac_xdp_open() inside stmmac_xdp_set_prog() (return value ignored),…
-- [High] This problem wasn't introduced by this patch, but in
-  stmmac_xdp_open() the irq_error path runs after the MAC RX/TX has been…
-
---
-
-net: stmmac: fix error path cleanup in DMA descriptor ring allocation
-
-This patch makes __alloc_dma_rx_desc_resources() and
-__alloc_dma_tx_desc_resources() undo their own allocations on failure. It
-also adds NULL checks in the RX/TX buffer free helpers and clears the freed
-pointers in __free_dma_{rx,tx}_desc_resources(). Finally, it frees the RX
-resources when the TX allocation fails in alloc_dma_desc_resources(), and
-skips unallocated rings in stmmac_rings_status_show().
-
-> And skip queues whose descriptor rings are not allocated
-> in stmmac_rings_status_show() so reading the rings sysfs entry will
-> never dereference a NULL pointer.
-
-[Severity: Low]
-This isn't a bug, but stmmac_rings_status_show() backs a debugfs file, not
-a sysfs entry:
-
-stmmac_init_fs() {
-    ...
-	debugfs_create_file("descriptors_status", 0444, priv->dbgfs_dir, dev,
-			    &stmmac_rings_status_fops);
-    ...
-}
-
-Could the commit message also explain how the rings end up unallocated
-while IFF_UP is set? As far as I can tell, this only happens after one of
-two ignored failures:
-
-  - stmmac_xdp_open() failing inside stmmac_xdp_set_prog()
-  - a per-queue re-allocation failing in stmmac_enable_rx_queue() or
-    stmmac_enable_tx_queue()
-
-In both cases the guard hides the symptom of a half-torn-down interface.
-
-> Signed-off-by: Ding Hui <dinghui@lixiang.com>
-
-[Severity: Low]
-Should this have Fixes: tags? The patch fixes two separate problems:
-
-  - a NULL dereference of rx_q->buf_pool[i] or tx_q->tx_skbuff_dma[i] in
-    dma_free_rx_skbufs() and dma_free_tx_skbufs() after a failed
-    kzalloc_objs()
-  - a leak of the RX page_pools, buf_pools and coherent rings when
-    alloc_dma_tx_desc_resources() fails
-
-Before this patch, stmmac_setup_dma_desc() only did kfree(dma_conf) under
-alloc_error, and the dma_desc_error label in stmmac_xdp_open() just
-returns.
-
-These problems seem to come from different commits, so more than one
-Fixes: tag may be needed for net and stable backports.
-
-> diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-> index ec62fa7418f41..07176750a0c48 100644
-> --- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-> +++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-
-[ ... ]
-
-> @@ -2161,13 +2173,20 @@ static void __free_dma_rx_desc_resources(struct stmmac_priv *priv,
->  	size = stmmac_get_rx_desc_size(priv) * dma_conf->dma_rx_size;
->  
->  	dma_free_coherent(priv->device, size, addr, rx_q->dma_rx_phy);
-> +	rx_q->dma_erx = NULL;
-> +	rx_q->dma_rx = NULL;
-> +	rx_q->dma_rx_phy = 0;
-
-[Severity: Medium]
-Do these NULL stores ever reach priv->dma_conf on the __stmmac_open()
-failure paths?
-
-__stmmac_open() copies the heap dma_conf into priv->dma_conf before the
-steps that can fail:
-
-__stmmac_open() {
-    ...
-	memcpy(&priv->dma_conf, dma_conf, sizeof(*dma_conf));
-    ...
-}
-
-If stmmac_hw_setup() or stmmac_request_irq() fails after that, the callers
-free the temporary copy and not priv->dma_conf:
-
-stmmac_change_mtu() {
-    ...
-		ret = __stmmac_open(dev, dma_conf);
-		if (ret) {
-			free_dma_desc_resources(priv, dma_conf);
-			kfree(dma_conf);
-    ...
-}
-
-stmmac_open() follows the same pattern under err_dma_resources.
-
-So the new NULL stores to dma_rx, buf_pool, page_pool, tx_skbuff and
-tx_skbuff_dma all land in memory that is kfree()d right away. Meanwhile
-priv->dma_conf keeps non-NULL pointers to the freed coherent rings and
-arrays.
-
-After a failed MTU change the netdev stays IFF_UP. The new
-"if (!rx_q->dma_rx)" guards in stmmac_rings_status_show() then pass, and
-sysfs_display_ring() reads memory that was already released with
-dma_free_coherent().
-
-The commit message says clearing the pointers makes "the NULL guards in
-the free helpers hold reliably when the long-lived priv->dma_conf is
-reused". Does that invariant actually hold for priv->dma_conf on these
-paths?
-
-The aliasing itself predates this patch. Also, after this failure, a later
-"ip link set down" makes __stmmac_release() call napi_disable() on NAPI
-instances that are already disabled. That spins under the rtnl lock, so a
-second free_dma_desc_resources() on priv->dma_conf is not reached on that
-path.
-
-[ ... ]
-
-> @@ -2209,9 +2228,16 @@ static void __free_dma_tx_desc_resources(struct stmmac_priv *priv,
->  	size = stmmac_get_tx_desc_size(priv, tx_q) * dma_conf->dma_tx_size;
->  
->  	dma_free_coherent(priv->device, size, addr, tx_q->dma_tx_phy);
-> +	tx_q->dma_etx = NULL;
-> +	tx_q->dma_entx = NULL;
-> +	tx_q->dma_tx = NULL;
-> +	tx_q->dma_tx_phy = 0;
-
-[Severity: High]
-This is a pre-existing issue, but is the hardware still pointed at these
-rings when they are freed on the stmmac_xdp_open() error path?
-
-stmmac_xdp_open() {
-    ...
-	stmmac_mac_set(priv, priv->ioaddr, true);
-
-	/* Start Rx & Tx DMA Channels */
-	stmmac_start_all_dma(priv);
-
-	ret = stmmac_request_irq(dev);
-	if (ret)
-		goto irq_error;
-    ...
-irq_error:
-	for (chan = 0; chan < priv->plat->tx_queues_to_use; chan++)
-		hrtimer_cancel(&priv->dma_conf.tx_queue[chan].txtimer);
-
-init_error:
-	free_dma_desc_resources(priv, &priv->dma_conf);
-    ...
-}
-
-If stmmac_request_irq() fails, the rings are freed with dma_free_coherent()
-and the RX pages go back to the page pool. Unlike stmmac_xdp_release(),
-this path never calls stmmac_stop_all_dma() or
-stmmac_mac_set(..., false).
-
-Can the DMA engine keep fetching descriptors from freed memory and writing
-received frames into freed pages?
-
-__stmmac_open() looks similar. stmmac_hw_setup() enables the MAC and starts
-DMA, and the irq_error/init_error path leaves both running before the
-caller frees the rings.
-
-Setting dma_rx_phy and dma_tx_phy to 0 makes the software state look
-clean, but the channel registers still hold the old bus addresses.
-
-[ ... ]
-
-> @@ -2298,10 +2328,22 @@ static int __alloc_dma_rx_desc_resources(struct stmmac_priv *priv,
->  	ret = xdp_rxq_info_reg(&rx_q->xdp_rxq, priv->dev, queue, napi_id);
->  	if (ret) {
->  		netdev_err(priv->dev, "Failed to register xdp rxq info\n");
-> -		return -EINVAL;
-> +		goto err_free_dma;
->  	}
->  
->  	return 0;
-> +
-> +err_free_dma:
-> +	dma_free_coherent(priv->device, size, addr, rx_q->dma_rx_phy);
-> +	rx_q->dma_erx = NULL;
-> +	rx_q->dma_rx = NULL;
-> +err_free_buf_pool:
-> +	kfree(rx_q->buf_pool);
-> +	rx_q->buf_pool = NULL;
-> +err_destroy_pool:
-> +	page_pool_destroy(rx_q->page_pool);
-> +	rx_q->page_pool = NULL;
-> +	return ret;
->  }
-
-[Severity: High]
-This isn't a bug introduced by this patch, but what happens on the XSK
-pool enable path when this unwind runs?
-
-stmmac_enable_rx_queue() and stmmac_enable_tx_queue() return void and only
-log the failure:
-
-stmmac_enable_rx_queue() {
-    ...
-	ret = __alloc_dma_rx_desc_resources(priv, &priv->dma_conf, queue);
-	if (ret) {
-		netdev_err(priv->dev, "Failed to alloc RX desc.\n");
-		return;
-	}
-    ...
-}
-
-stmmac_xdp_enable_pool() then carries on regardless:
-
-	if (need_update) {
-		stmmac_enable_rx_queue(priv, queue);
-		stmmac_enable_tx_queue(priv, queue);
-		napi_enable(&ch->rxtx_napi);
-
-		err = stmmac_xsk_wakeup(priv->dev, queue, XDP_WAKEUP_RX);
-
-With this patch, the earlier stmmac_disable_rx_queue() and the new unwind
-leave rx_q->dma_rx, dma_erx and buf_pool NULL, and tx_q->dma_tx and
-tx_skbuff_dma NULL as well.
-
-The rxtx NAPI can still be scheduled, either by stmmac_xsk_wakeup() (which
-is also ndo_xsk_wakeup) or by a TX DMA IRQ. Could that reach
-stmmac_napi_poll_rxtx()->stmmac_rx_zc(), which uses &rx_q->buf_pool[entry]
-and stmmac_get_rx_desc() on the NULL ring?
-
-stmmac_xdp_disable_pool() also re-enables rx_napi and tx_napi after an
-enable that may have failed.
-
-Before this patch the same path was a use-after-free of the freed ring,
-and the hardware channel still points at that freed ring.
-
-[ ... ]
-
-> @@ -2413,6 +2463,8 @@ static int alloc_dma_desc_resources(struct stmmac_priv *priv,
->  		return ret;
->  
->  	ret = alloc_dma_tx_desc_resources(priv, dma_conf);
-> +	if (ret)
-> +		free_dma_rx_desc_resources(priv, dma_conf);
->  
->  	return ret;
->  }
-
-[Severity: High]
-This is a pre-existing issue, but stmmac_xdp_open() is one of the callers
-of alloc_dma_desc_resources(), and stmmac_xdp_set_prog() ignores its
-failure:
-
-stmmac_xdp_set_prog() {
-    ...
-	if (if_running && need_update)
-		stmmac_xdp_open(dev);
-
-	if (prog)
-		xdp_features_set_redirect_target(dev, false);
-
-	return 0;
-}
-
-By this point stmmac_xdp_release() has disabled all NAPI instances, freed
-the IRQs, stopped DMA and freed the rings.
-
-stmmac_xdp_open() can fail in alloc_dma_desc_resources(),
-init_dma_desc_rings() or stmmac_request_irq(). If it does, userspace still
-gets success. The netdev stays IFF_UP with NAPI disabled, no IRQs, and
-(with this patch) NULL ring pointers.
-
-Would the next ndo_stop or XDP toggle then call napi_disable() on an
-already-disabled NAPI through stmmac_disable_all_queues()?
-
-napi_disable_locked() waits for NAPIF_STATE_SCHED to clear, which only
-happens on napi_enable(). That looks like a hang while holding the
-rtnl/netdev lock. stmmac_free_irq() would also run a second time.
-
-[Severity: High]
-This is a pre-existing issue, but after the failed stmmac_xdp_open()
-described above, the device is still advertised as an XDP redirect
-target. xdp_features_set_redirect_target() runs whenever prog is set,
-even if the reopen failed.
-
-stmmac_xdp_xmit() is only gated on STMMAC_DOWN, and neither
-stmmac_xdp_release() nor the failed open sets that bit:
-
-stmmac_xdp_xmit() {
-    ...
-	if (unlikely(test_bit(STMMAC_DOWN, &priv->state)))
-		return -ENETDOWN;
-    ...
-}
-
-Can a devmap or bpf_redirect from another interface then reach
-stmmac_xdp_xmit_xdpf()? That function:
-
-  - computes tx_desc with stmmac_get_tx_desc()
-  - writes tx_q->tx_skbuff_dma[entry] through stmmac_set_tx_dma_entry()
-  - stores tx_q->xdpf[entry] = xdpf
-
-With this patch these become NULL-pointer writes. Before it, they were
-writes into freed memory.
-
-[ ... ]
-
-> @@ -6570,10 +6622,20 @@ static int stmmac_rings_status_show(struct seq_file *seq, void *v)
->  		seq_printf(seq, "RX Queue %d:\n", queue);
->  
->  		if (priv->extend_desc) {
-> +			if (!rx_q->dma_erx) {
-> +				seq_puts(seq, "Extended descriptor ring not allocated\n");
-> +				continue;
-> +			}
-> +
->  			seq_printf(seq, "Extended descriptor ring:\n");
->  			sysfs_display_ring((void *)rx_q->dma_erx,
->  					   priv->dma_conf.dma_rx_size, 1, seq, rx_q->dma_rx_phy);
-
-[Severity: Medium]
-Is this check enough without any locking against the teardown paths?
-
-stmmac_rings_status_show() takes neither rtnl nor priv->lock. It loads the
-pointer for the NULL test, calls seq_printf(), and then loads the field
-again for sysfs_display_ring().
-
-Several teardown paths free the rings under rtnl only:
-
-  - ndo_stop (IFF_UP is cleared only after ndo_stop returns)
-  - stmmac_xdp_release() (IFF_UP stays set)
-  - MTU and ring size changes
-  - XSK queue disable
-
-With this patch, __free_dma_rx_desc_resources() now does:
-
-	dma_free_coherent(priv->device, size, addr, rx_q->dma_rx_phy);
-	rx_q->dma_erx = NULL;
-	rx_q->dma_rx = NULL;
-
-A reader that already passed the check can then pass NULL to
-sysfs_display_ring() with dma_rx_size > 0 and dereference p->des0. If the
-second load happens before the NULL store, it reads freed coherent memory
-instead.
-
-The use-after-free read predates this patch. The NULL dereference does
-not, and it contradicts the commit message claim that reading the entry
-"will never dereference a NULL pointer". The same pattern applies to the
-dma_rx branch and to both TX branches.
-
-[ ... ]
-
--- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261001035045.3305816-1-dinghui1111%40163.com
+Mime-Version: 1.0
+References: <6ac316c7.01314a6c.556a8.000d.GAE@google.com>
+Message-ID: <asMfCUiPnW-GGu5J@google.com>
+Subject: Re: [syzbot] [kvm?] WARNING in kvm_vcpu_pre_fault_memory
+From: Sean Christopherson <seanjc@google.com>
+To: syzbot <syzbot+db7bd0f41c2a7e82d4ba@syzkaller.appspotmail.com>
+Cc: kvm@vger.kernel.org, linux-kernel@vger.kernel.org, pbonzini@redhat.com, 
+	syzkaller-bugs@googlegroups.com
+Content-Type: text/plain; charset="us-ascii"
+
+On Sun, Oct 04, 2026, syzbot wrote:
+> Hello,
+> 
+> syzbot found the following issue on:
+> 
+> HEAD commit:    ce1e0223d8ad Merge tag 'devicetree-fixes-for-7.3-2' of git..
+> git tree:       upstream
+> console+strace: https://syzkaller.appspot.com/x/log.txt?x=1353dbf5580000
+> kernel config:  https://syzkaller.appspot.com/x/.config?x=9d4242cb1c54cdf7
+> dashboard link: https://syzkaller.appspot.com/bug?extid=db7bd0f41c2a7e82d4ba
+> compiler:       Debian clang version 22.1.8 (++20260613092233+e80beda6e255-1~exp1~20260613092250.77), Debian LLD 22.1.8
+> syz repro:      https://syzkaller.appspot.com/x/repro.syz?x=14cdf6c9580000
+> C reproducer:   https://syzkaller.appspot.com/x/repro.c?x=12cdf6c9580000
+> 
+> Downloadable assets:
+> disk image: https://storage.googleapis.com/syzbot-assets/217b0c1b14ee/disk-ce1e0223.raw.xz
+> vmlinux: https://storage.googleapis.com/syzbot-assets/335343cc5803/vmlinux-ce1e0223.xz
+> kernel image: https://storage.googleapis.com/syzbot-assets/760ef2f39df0/bzImage-ce1e0223.xz
+> 
+> IMPORTANT: if you fix the issue, please add the following tag to the commit:
+> Reported-by: syzbot+db7bd0f41c2a7e82d4ba@syzkaller.appspotmail.com
+> 
+> ------------[ cut here ]------------
+> r == 0 || r == -EIO
+> WARNING: arch/x86/kvm/../../../virt/kvm/kvm_main.c:4389 at kvm_vcpu_pre_fault_memory+0x45d/0x470 virt/kvm/kvm_main.c:4389, CPU#1: syz-executor267/8523
+> Modules linked in:
+> CPU: 1 UID: 0 PID: 8523 Comm: syz-executor267 Not tainted syzkaller #0 PREEMPT(full) 
+> Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 09/16/2026
+> RIP: 0010:kvm_vcpu_pre_fault_memory+0x45d/0x470 virt/kvm/kvm_main.c:4389
+> Code: fe ff ff e8 85 2e 88 00 90 0f 0b 90 e9 0d ff ff ff e8 77 2e 88 00 e8 42 85 f3 ff eb 8f e8 6b 2e 88 00 eb 05 e8 64 2e 88 00 90 <0f> 0b 90 e9 a7 fe ff ff 66 66 2e 0f 1f 84 00 00 00 00 00 90 90 90
+> RSP: 0018:ffffc900024dfc28 EFLAGS: 00010293
+> RAX: ffffffff813fe025 RBX: ffffc900024dfe00 RCX: ffff88807fcc0000
+> RDX: 0000000000000000 RSI: ffffffff8eaf6510 RDI: fffffffffffffffb
+> RBP: dffffc0000000000 R08: ffff88807fcc0000 R09: 0000000000000002
+> R10: fffffffffffffffb R11: 0000000000000000 R12: ffffc900024dfe00
+> R13: ffff88807fcc0000 R14: 1ffff1100ff98000 R15: fffffffffffffffb
+> FS:  00007f9c411186c0(0000) GS:ffff888124dc7000(0000) knlGS:0000000000000000
+> CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+> CR2: 00007f9c4116312d CR3: 0000000026a4a000 CR4: 00000000003526f0
+> Call Trace:
+>  <TASK>
+>  kvm_vcpu_ioctl+0x8a6/0xfd0 virt/kvm/kvm_main.c:4668
+>  vfs_ioctl fs/ioctl.c:51 [inline]
+>  __do_sys_ioctl fs/ioctl.c:597 [inline]
+>  __se_sys_ioctl+0xfc/0x170 fs/ioctl.c:583
+>  do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
+>  do_syscall_64+0x166/0x520 arch/x86/entry/syscall_64.c:84
+>  entry_SYSCALL_64_after_hwframe+0x77/0x7f
+
+I haven't tried the reproducer yet, but based on code inspection I'm pretty sure
+the kvm_vm_dead() call in enter_smm() is colliding with commit 958810a09412d
+("KVM: x86/mmu: Bail out kvm_tdp_map_page() when VM dead"), especialy since there
+is SMM setup in the reproducer.
+
+I'm think we can and should just drop EIO from the WARN.  It showed up in v5 of
+the original series without any real explanation.  v5 did add -EIO as a documented
+error code[1]:
+  
+  v4->v5:
+    - add EIO as possible error
+
+in response to Xiaoyao's review[2]:
+
+  > +	case RET_PF_CONTINUE:
+  > +	case RET_PF_INVALID:
+  > +	default:
+  > +		WARN_ON_ONCE(r);
+  > +		return -EIO;
+  
+  Need to update patch 1 for -EIO
+  
+  > +	}
+
+
+but AFAICT that was just talking about the documentation.  And at the time, KVM
+x86 already WARNed when returning -EIO, so I've no idea common KVM also WARNed
+on seeing -EIO.
+
+[1] https://lore.kernel.org/all/20240710174031.312055-1-pbonzini@redhat.com
+[2] https://lore.kernel.org/all/d5a6e125-bff4-4d82-ae65-b99d9cb10e90@intel.com
