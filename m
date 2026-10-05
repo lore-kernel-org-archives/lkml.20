@@ -1,167 +1,115 @@
-Received: from CH1PR05CU001.outbound.protection.outlook.com (mail-northcentralusazon11010054.outbound.protection.outlook.com [52.101.193.54])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oi1-f198.google.com (mail-oi1-f198.google.com [209.85.167.198])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9F3D9274641
-	for <linux-kernel@vger.kernel.org>; Mon,  5 Oct 2026 00:59:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.193.54
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791161984; cv=fail; b=JWV0ZDF0O45tFoU/2WQUmpcUSXqMmvGYUFJ5GsT8oMZP66jpkTXC/L5IV6HJuXeZ4VVJO5FVrcEi70NVbumaf0UthxgTyn2OdBp0x1C9RgMonWxOgAl3kHXij45AFcB4Uetqn1MA68Z5Dpz6vC1WmHj5KqvrM/JYhgcTcxEBp8s=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791161984; c=relaxed/simple;
-	bh=GS3l8pEFbnUTy+ETwM1yBM6hm8CRyrmOvF+JoMyCbR4=;
-	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
-	 Content-Type:MIME-Version; b=GPdknSX5PlgC2G4bTSb4VaM+RMFVIHHqnLOIUHJQid4Q9xXScByA4ruUB6Pzmbf/KBFp0wrkUBGXgIhcf/zNYEz2ZBM76otNr/Vdt1/YgEr0BI7gmHnqVU7L71oQ+28o8odjoIwzTrW1IPNyeMdNU8GFhV7YHpCAys06eoFG2xA=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=BWc8UqGL; arc=fail smtp.client-ip=52.101.193.54
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="BWc8UqGL"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=TiBezQT1l6UIUKBSAGSRznCuORRRYD5D0kfONQeJydjfmEQ7e29ZcrHjFJfbJjXMHAmexuifXQhd4SqOxw5qjhOloDtqFU4cXd77mfWuJcTb86yk16xAgYWiIp9/bk45wPvHEVRSRBvvxd7CQPFNEEmZnk6WTjfMl0a/uYhvBEsk7nI52SW+gQCT1ePwD6VSZdXuffsPYKlPZXkCG18SKCopXkIIt4iv2KyQ/uqV3ft0SHGqCHawoToAc1qQh8Ac8bO2zS+xEjjFxP+ep28qZHzeaUekxXOl+P8xdKNJIjjPwJqGd+3EdrYMVjVm5fouSE8srH1urSsCENlVesTGKg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=PxLYen+ojZMClb9lIE+bvY2/aJg6KsDyC9hmmqu6tR8=;
- b=Y7w6HGc+b1ioAdb1/+dR3zHa1mdByhNW464YisvHNS6tsMIaPKfUo+nIu0qS4wCqRjkb4v6PzaD/haT0VZSe1KYSA69M1HLL4giepgjbF4YzisngX0bt4QGpapforqRE/hlGuTzC1SZ5updS/a1T7boSG8yjB3Kby4gR9vd0wO0IAWGM0XhfiD9Vt1Jp3E4CZ8nd3C0F7KiZxtffyNdVsfzFKLcQe+06wQWqHM0PiqYZRwvpLxs3Yl5r2J7hvNCLdoTttfe15rXxKxydfkVCNn/di859R5VDpBpFKcgK3t73kIK0bFeSTi7+7oSrkPJoFHo6UuojNWsCGquvOJnMdg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=PxLYen+ojZMClb9lIE+bvY2/aJg6KsDyC9hmmqu6tR8=;
- b=BWc8UqGLB34E8fxE1P81AMbrxKsvvS9NbUpN2oifSNAIQxc6SWpCzv1Xh7+Em2zOtqrFjgzorXqIi2ynBVwQvDIQ5AhRs6d8HDK9bxqElz2aHqgHldgHy+rhaOhFTuItU1+VQ0bBvz6QiMuDOr78eP9Bom6FYVr/lv36yrisQfHoltvxgPlwIiF39WKI32I6Z69S+SvPI8b51HwPkrPSgMlyY6FPt22a1gZkIAg39elb5cShUBaX6ufj5EGmNB7/8MbbD7gtvpd2Eh0TH+cyG1hz8y1MDkWEcHXPYLHdKvqDaw2nj68R1Sf429MZTAwqNYqoaabmY2quf0zpRQ6bPQ==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from CY5PR12MB6479.namprd12.prod.outlook.com (2603:10b6:930:34::17)
- by PH8PR12MB7208.namprd12.prod.outlook.com (2603:10b6:510:224::7) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.472.20; Mon, 5 Oct
- 2026 00:59:37 +0000
-Received: from CY5PR12MB6479.namprd12.prod.outlook.com
- ([fe80::229a:704f:1349:5056]) by CY5PR12MB6479.namprd12.prod.outlook.com
- ([fe80::229a:704f:1349:5056%4]) with mapi id 15.21.0472.015; Mon, 5 Oct 2026
- 00:59:37 +0000
-Message-ID: <969157ef-9ff6-469f-a900-9b8ea326ff9e@nvidia.com>
-Date: Sun, 4 Oct 2026 20:59:35 -0400
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] gpu/buddy: drop stale @p from gpu_buddy_print()
- kernel-doc
-To: Rosen Penev <rosenp@gmail.com>, dri-devel@lists.freedesktop.org
-Cc: Matthew Auld <matthew.auld@intel.com>,
- Arun Pravin <arunpravin.paneerselvam@amd.com>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Dave Airlie <airlied@redhat.com>, open list <linux-kernel@vger.kernel.org>
-References: <20261004235255.547593-1-rosenp@gmail.com>
-Content-Language: en-US
-From: Joel Fernandes <joelagnelf@nvidia.com>
-In-Reply-To: <20261004235255.547593-1-rosenp@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: BN9PR03CA0292.namprd03.prod.outlook.com
- (2603:10b6:408:f5::27) To CY5PR12MB6479.namprd12.prod.outlook.com
- (2603:10b6:930:34::17)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 04A1D221DB6
+	for <linux-kernel@vger.kernel.org>; Mon,  5 Oct 2026 01:01:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.198
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791162109; cv=none; b=Vnm4opGQqYMARd4dzHis2OpNQbXQc6CGXM1gNAmTVEYenkuIe6EEgoi8nOg5kzs52fF/x48vUy7mcQjgrUShoVqXrrSed0OOso5QYJfEsCRzYbh5uBtnzDZ3iNsMjlzfdOyrsXDmz/b5z5WRtl0jl99iTKR5rOFUSNParOKJBiU=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791162109; c=relaxed/simple;
+	bh=EMCSABJvfO2WUOXXBAz9XTLllBM6/fxpYvUc9pDVbLo=;
+	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:
+	 Content-Type; b=quhJUV1nkDGVaz6cMCbgcUaYEo3BfkGLXrmvUCXlJIoGHwdOm6qvLx45lYtDfb3WA/l0O7cf/8NJwmCygiFRLWo7n3+CfrB37FH6az9EsH5VsljdKfbBCy0s05FOW8kbR5dT48J//eISa2fmpYsnM/pWsBySASzaWCT0JcehDTY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.167.198
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-oi1-f198.google.com with SMTP id 5614622812f47-4b26d8d2498so1786924b6e.2
+        for <linux-kernel@vger.kernel.org>; Sun, 04 Oct 2026 18:01:47 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791162107; x=1791766907;
+        h=content-type:to:from:subject:message-id:in-reply-to:date
+         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=fdVEpuLc49gYIexZsT1JvUl4xyhYy+TwfAKUjkIbHIU=;
+        b=MQdfZzr4iLaw71vKFhQhdstTRICUqhBNbo44M7w5Jyw5JAXvMLFE9aqNlNZ32eTY7l
+         A1s7u/LUtWA34ILS/zsDMX/uhTWz7kqd9hBH1ZtQGQVIbyir0oJhw4wN7fAtNUdIMNtq
+         HBBOL8JkBjUrn5szgj5OD0zhe+Y6Plm3ngQyRAddmPDYTVOZNkS+vob/fR07BEAX3uHV
+         2HUnyBUPvLVLBmqLEkb5LemtIYeTng4wBI6K5l4RTKCq0Dv2sU1OybAbkZC272rbiQfD
+         gPZQZNijUVd1gT9BXmzI/EWBRji2VtKwJUOaJ5H6vhpejhhHLSCGROn+YNfLw0zh1Fk6
+         VqIQ==
+X-Gm-Message-State: AFuF++nvffYrygwLvYGdct5LVa0CjgwFS2Y/hWy988Wwkd5ufrnpLzGB
+	6sykcQVPoChfkvN4EE3qekfPHMzsrP7YP2Esr5kZcDKHjOIW7cFU/A4e/uyOjpTHbvsRukIW+aR
+	OIO+S+fe6u0g6xUdLBWt9COvNM91i8gBD7nFLzKeb1zer5m2y6vboU6SMhiE=
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CY5PR12MB6479:EE_|PH8PR12MB7208:EE_
-X-MS-Office365-Filtering-Correlation-Id: 09ecfa87-702f-4127-8ec9-08df227bed97
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|1800799024|366016|376014|22082099003|18002099003|10067099003|56012099006|11063799006;
-X-Microsoft-Antispam-Message-Info:
-	axEpACFfjAurtE7wRENp97MXlSAgEYf20xOcOdQV4quGzFeL+8eqDyVoVCLuDBvsJ+XUH9z3Fs3idnX0PwzT8UNmGbEA9eo8dMV+FmkJEyw46s10/wBGm+3liVKcvxwdQDqG2+WCPLK1UMZIhL8YRHrc1NcQLWPnorA0bb12yTaK1OyXm6CJ9hIUpRjC8r96zYyQbk/qWsDoW9QU8biGoadP8kj6/JPZi2BHTd9r7r+FYR4wLtzfwCyGMSx0gbFXj/xiwiN2h9pJCKPcF1YwVOKAH6FiTp9ZrQAAXfoRwL+bNBWaK2bmCiH71keVknEuLOk2ewqFqSavVLuatKVo8PdPf4YBtnrDgCxL7g7Ic7HWkXEd9Aj/5zdQj1fgvzlrRdjkiKX+ws/dKv1vvqJvy2DUKQh5HjvnUtLaeeC2XQ0deuKrS1dACyrCcIkKwvcrsKPY18QFW0eItOeQwiXnkRXdHJnbFHCn7sT7JEP/jdemcTnL8AI2R6tXsudUySM9fDukJCfXPxmXHI5RHqTq7SngnObiTAvks2Ce/EodYHLYTLdJbEWeQ2F2U4MYJskyhH4fBHK9UN5eaKKWMjQovUpI1Oq66gua3AA8+ts1fUY99OQaTp3Y5/CV7zYEvSxsptmcjxMxYsU9OLTgR5wuDIjA5/s2tWAnYylRSrmK56Q=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CY5PR12MB6479.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(1800799024)(366016)(376014)(22082099003)(18002099003)(10067099003)(56012099006)(11063799006);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?L0VwR2cyUDFRaHdmT3RWb3RUc09wRzNTcmV3RlRNY1locENFbmZrOUxRZnJk?=
- =?utf-8?B?WURyZnZmcmtXSHV5WUVQdnMzcWdIbnFCTlVacU9JczhEa0VvWUxydk5Fd21i?=
- =?utf-8?B?LzlWSG1ZSVdDY2RUa3MxWjRCem9sbENjTVNpU2Z5Y0tDc3BEVWREaksyQzVk?=
- =?utf-8?B?UktZanFRTlo0b2gwSm1sV3dnVkhteDVPRXk1ZmsxWGJFeTJpVzViMUwxWk9B?=
- =?utf-8?B?UVdKbWxTckZ1WVRudGRrdUtydXcwcFlGbHVSMTg2Ync3M0F5VzhlbEFmR0hL?=
- =?utf-8?B?SmtVUVJjb2lNUFZLM01TRVY3TG93WmVydThmM0hvMGkvZkM1Vk96YllLMFVK?=
- =?utf-8?B?cmUxNThGbWVIN1FwYlZnbHh5a1dtdlp4RU14YjdhR3oxekxmVTJIaVNONS9j?=
- =?utf-8?B?MWNuZWc3TUIxeU1PSDhmSVl5SURiWmREaDNUZW1BcDVmbzJ4azJPTkEyUFhR?=
- =?utf-8?B?ZlBBVzhjZFk0T2xqdy9iNVJINUxOWHdyajlxSUZBTFZtYUVNK011cXJTUjNr?=
- =?utf-8?B?bXFkcCtMTjdTZU9OeXZHZjErRk5TQWlXengxMDdibHJRelJYZWgvcUduQSta?=
- =?utf-8?B?MllTUFN2U3JrMDFzakQzcG5waG5USHFVT1VrdGZvN3hhd096ekRRRklFTi9T?=
- =?utf-8?B?WkgwWDhQMUxMWndONktUTklMenNtQkZzcHVadTZiWElta0YvOFRqQjFZemhU?=
- =?utf-8?B?OEZOcU1OUFVVUXUxRU1EQ0UwVTh6VUowQjNiSGZKaE1HRVZOekJxeVFsTU9X?=
- =?utf-8?B?ZTZMdnMyOXp2WWlZM3VyVGV4RDFyUHh5UVpQaWU3T3BFQVluMXlqMngyeXNh?=
- =?utf-8?B?aC9oQkVXcENxcmlFUVFzc3E0S0xCTkQyZENnTm9zUEMxbTRRV0Q1aGg3Sm80?=
- =?utf-8?B?M203c29GRVZ0YTNVb0FkeEVnQ1hHTmVPaWJzZlVaSCtZVXdQbE1iMnAxc1ZY?=
- =?utf-8?B?UU1vNHBNaXM0Nm1EczVLNEZidkVGb1dxK3dpd1hvSWtLRkprZ3ptMjRNUFVF?=
- =?utf-8?B?TDdtaGlMRVpuWmRldGRZV3JzclJTd2xXdm9qelo0UmlnMkMxWlA3MGJBT3Qr?=
- =?utf-8?B?QzRMODhTczRRN1dqSUhSNE5ZTlZNSGlKTzRkQlM0NTl4QVBhRXBDem1XbGgx?=
- =?utf-8?B?OEl5aitrdEF5YzZWZVZrcjJDSzdHdGRUaWxVL1pWdmlubDFnUWNVZEtDRi82?=
- =?utf-8?B?UG1vVkpNSWk2cUZieVNsYllnNWlJaElhY01TOVhFWUJoU2N5di9XcFV1cXVn?=
- =?utf-8?B?emhvN2Y1aGRibXpRZEVvRUdvS3RUNXQxM3h5QS9TY0FGdWJZZ1Ryam1tZXdz?=
- =?utf-8?B?b2ZVVm14SkZaM0dJZDVEa1VreDhuNEx2UWhkbWk3VlBONzc1SDEyVWJETndN?=
- =?utf-8?B?SVB2QWVUcTZPZkVHMW95d244TFRmVkt0Sm9wUUthQTZGZU9uT1VqTkdnY0p5?=
- =?utf-8?B?RFV4eTlQNEY2WTNzWnliRmY0WnlINlcvekdXM0FvM1ZrcG9iTVRrME1wOE1D?=
- =?utf-8?B?TGN6VEJnMXBPYnJJK203S25BRWZlZ1NsZm5kd2pJcXRDTnRGZFBYTzRQY3lE?=
- =?utf-8?B?VzVCdUdLUGNCMEJwRHJ2ZjUrYnhTSnM1bHlOTEtCOWdNMkdZeEJhaDJBVk95?=
- =?utf-8?B?NWJFdllPZWUwZmRzRHNnbEprQTRIb2NEVlBIam1pM1NlSTd0aUNrdW5sVll2?=
- =?utf-8?B?UEtDSTB1ODFLRTd5VWVodndsMGV3VFJIcjJHOGhjTk05OU5iNDV5c2F2R3lr?=
- =?utf-8?B?NS9CMnNieE51d0RyQjV0d09SQk9xZ1ZROWxBSTE0UkRndzBZMVl2cEszL2hw?=
- =?utf-8?B?azJldUk5RmkrV2N4T1lXVUluVEx1eEpiS1lySXI4cnZ4aDh5K2xId1RscGQ5?=
- =?utf-8?B?L0Q2WG5SdVNQQXcwYkV2dTZMdXp0WjRRRVZiOHBzN2J6ODhWZEI1a3FzY0Mx?=
- =?utf-8?B?cTU2TnMwVnBzaHdiS0gvcUJjanBXZXUrS1NOSDFMU0NYQ1o4bTUwMzZRdm5i?=
- =?utf-8?B?dVFUVi9HdThiSzdTb0xaVmtmMnlaN2p6a0RlUTJRVjM4TEtHUDc0Mjg1anlF?=
- =?utf-8?B?OWlGQnhVc2dxVWFkRktIRm5NSkRVc05JTDBHMXFEUzd1U0tLeStJSTFudEor?=
- =?utf-8?B?ZTdHakZXbjBlenpBTXNZYVpVWVpSaDRxK25JTEZvNC9sdm1ZRDZ0THlCT2FW?=
- =?utf-8?B?MnBkUjVpSVhBcWFrZmwwbXBPM01WWklIZVJZUDc5cWtKeHgrc1FvUmNaRDN3?=
- =?utf-8?B?a1l5V2U1RDZYRFVUNUMyM05PTndhbFEwbUlMaXlnUG5yRXd0OHNzaVFoRHlm?=
- =?utf-8?B?bitBZVpYWUkxS2J6Mkg1M0ptWHQ1Q1YzL2dJYUJNVTFtS1BDZnBxQT09?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 09ecfa87-702f-4127-8ec9-08df227bed97
-X-MS-Exchange-CrossTenant-AuthSource: CY5PR12MB6479.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Oct 2026 00:59:37.3969
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: T3yYZipzgsecXgnnCP6A/9tPG4QJPQUX9A66AqGDmzTWDjCSmHDEYVugyoPNaOO2jrM4S1WTod2uqINs2kPZQQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH8PR12MB7208
+X-Received: by 2002:a05:6808:6b8e:b0:4e9:3412:14ac with SMTP id
+ 5614622812f47-4f67a81484dmr5893237b6e.33.1791162106916; Sun, 04 Oct 2026
+ 18:01:46 -0700 (PDT)
+Date: Sun, 04 Oct 2026 18:01:46 -0700
+In-Reply-To: <6abae226.69bd487b.a6f8c.000a.GAE@google.com>
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6ac2f6fa.01314a6c.556a8.000c.GAE@google.com>
+Subject: Forwarded: [PATCH] ext4: don't append a directory block already
+ mapped in the inode
+From: syzbot <syzbot+09bec78ee77613a3efdd@syzkaller.appspotmail.com>
+To: linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
+For archival purposes, forwarding an incoming command email to
+linux-kernel@vger.kernel.org.
 
+***
 
-On 10/4/2026 7:52 PM, Rosen Penev wrote:
-> gpu_buddy_print() lost its printer argument when the buddy allocator
-> moved out of DRM and now prints with pr_info(), but the kernel-doc
-> still describes @p:
-> 
->   buddy.c:2153 Excess function parameter 'p' description in 'gpu_buddy_print'
-> 
-> Remove the stale line.
-> 
-> Fixes: ba110db8e1bc ("gpu: Move DRM buddy allocator one level up (part two)")
-> Assisted-by: LLM
-> Signed-off-by: Rosen Penev <rosenp@gmail.com>
-> ---
->  drivers/gpu/buddy.c | 1 -
->  1 file changed, 1 deletion(-)
-> 
-> diff --git a/drivers/gpu/buddy.c b/drivers/gpu/buddy.c
-> index 2f2aaadafe35..503f7d5934e4 100644
-> --- a/drivers/gpu/buddy.c
-> +++ b/drivers/gpu/buddy.c
-> @@ -2148,7 +2148,6 @@ EXPORT_SYMBOL(gpu_buddy_block_print);
->   * gpu_buddy_print - print allocator state
->   *
->   * @mm: GPU buddy manager
-> - * @p: GPU printer to use
->   */
->  void gpu_buddy_print(struct gpu_buddy *mm)
->  {
+Subject: [PATCH] ext4: don't append a directory block already mapped in the inode
+Author: adrianox@gmail.com
 
-Reviewed-by: Joel Fernandes <joelagnelf@nvidia.com>
+#syz test: https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git 72d3fcf802c45d00b300f25b848a93c3a2bd7c7e
+ext4_append() grows a directory by one block.  It checks that the target
+logical block is a hole, but a corrupt block bitmap can still make the
+allocator hand back a physical block that is already in use by this
+inode.  The in-memory copy of a block is keyed by its physical block
+number, so the "new" block and that existing one are the same memory;
+callers that split a directory (make_indexed_dir()/do_split()) then move
+entries between two aliased buffers and corrupt the directory, until a
+bogus rec_len read from the middle of a name runs the wipe out of bounds:
 
+  BUG: KASAN: slab-use-after-free in dx_move_dirents [inline]
+  Write of size 90458 ...
+
+Reject the block and report the corrupt bitmap instead of corrupting
+memory.
+
+Closes: https://syzkaller.appspot.com/bug?extid=09bec78ee77613a3efdd
+---
+ fs/ext4/namei.c | 19 +++++++++++++++++++
+ 1 file changed, 19 insertions(+)
+
+diff --git a/fs/ext4/namei.c b/fs/ext4/namei.c
+index 3b9740c1c16d..7a0dadf6c5fe 100644
+--- a/fs/ext4/namei.c
++++ b/fs/ext4/namei.c
+@@ -83,6 +83,25 @@ static struct buffer_head *ext4_append(handle_t *handle,
+ 	bh = ext4_bread(handle, inode, *block, EXT4_GET_BLOCKS_CREATE);
+ 	if (IS_ERR(bh))
+ 		return bh;
++
++	for (map.m_lblk = 0; map.m_lblk < *block; map.m_lblk += map.m_len) {
++		map.m_len = *block - map.m_lblk;
++		err = ext4_map_blocks(NULL, inode, &map, 0);
++		if (err < 0) {
++			brelse(bh);
++			return ERR_PTR(err);
++		}
++		if (err > 0 && bh->b_blocknr - map.m_pblk < map.m_len) {
++			EXT4_ERROR_INODE(inode,
++					 "new block %llu already mapped",
++					 (unsigned long long)bh->b_blocknr);
++			brelse(bh);
++			return ERR_PTR(-EFSCORRUPTED);
++		}
++		if (map.m_len < 1)
++			map.m_len = 1;
++	}
++
+ 	inode->i_size += inode->i_sb->s_blocksize;
+ 	EXT4_I(inode)->i_disksize = inode->i_size;
+ 	err = ext4_mark_inode_dirty(handle, inode);
+-- 
+2.51.0
 
