@@ -1,105 +1,117 @@
-Received: from mail-dy1-f174.google.com (mail-dy1-f174.google.com [74.125.82.174])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5BD25305692
-	for <linux-kernel@vger.kernel.org>; Mon,  5 Oct 2026 06:14:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.174
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C5CD4137923;
+	Mon,  5 Oct 2026 06:17:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=124.126.103.232
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791180894; cv=none; b=DT4cTfqr34HeeWCBruhn6Xx8b/ebU9vAycaP9rd38D57wJJOCTj6PHu9PJ8qtMWjHaOXXg486aakTW0Ovfsu3icc5CEgneK5II0vHFQiEVdmILA5fIMqzftMBiTgepFg9tpBEMKqSGDJFBBchKBytzA5QHyDwDt7GeSuFhSSYUk=
+	t=1791181053; cv=none; b=q48jCBK5pxi3F6K6fO0zdy+jT9hfBWOHGg5R1YTTQOwWncM8DK/R/Ig33V/QL/4M9UUEGQU/dYwydBNDziiYtxPdBGY8deIO/b7zxQoTRnhCq1rh6IHTOJB6+vm9/Dxc9t2TkfH13At/Tuh7hHXuLgHGndOqMF+L2vfviYDvD9E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791180894; c=relaxed/simple;
-	bh=uD/nb4O7ZbLjFJE9S7MPQ2OU8Ry8eaH9EFc8B05jpd0=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=qZXOGsw1nfNONI9XA8z9pyTa1aTOC9sbRF8Pq+kPtgqobchXsC/fCvNXP0DxFvjFHjBrnMgwTEHGBLmJSyJplTP970155Zu0V0sKPcdnxwhhkgmcxoEGBLOoPd/MBfNQUN9nZ+GOEItcR8JTNa8ePxv5LpTYY8fL2AMRmGcKuEE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=GF99Z/lP; arc=none smtp.client-ip=74.125.82.174
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="GF99Z/lP"
-Received: by mail-dy1-f174.google.com with SMTP id 5a478bee46e88-34c4a0868b6so1046842eec.0
-        for <linux-kernel@vger.kernel.org>; Sun, 04 Oct 2026 23:14:53 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791180892; x=1791785692; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=uD/nb4O7ZbLjFJE9S7MPQ2OU8Ry8eaH9EFc8B05jpd0=;
-        b=GF99Z/lP7aN31CIMG+/6AiTfigp8XQwqLqrenTmEBdd19myWxwGgLcEkVzYqwTn8LL
-         o32guqGacQS8qK0QLf6osz+0wPfIxfhj2d8yaKdeLGe4MohIsKVKbqzyR0vottYVXucm
-         zfK6F7uGwKIg4wxZjRhXXrXHvyXOW7JFtp9ZaQ6RiAwI+pkaEoBv6SJpBG6q9TWXevET
-         M1r2rlDCyALuT/qF7CV6rJPqmcaDZ2t9AEGwNm079QRwCsjRrXm85lDk8xhnc5kS8xjJ
-         vebZslVaJZps9VtYmSUYfaj3BXGygVxA+jvOOyULYiuBjnpW2ZsNzDpnbapxYiEtA7vI
-         58Ww==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791180892; x=1791785692;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=uD/nb4O7ZbLjFJE9S7MPQ2OU8Ry8eaH9EFc8B05jpd0=;
-        b=kmuvaEbawCGIb1NrnYrjVMJNo4Cc8Xt1QiIGhR3wyGEX9j/svrJK9SYI4KcsUxeqf5
-         7D4rDQZxxvd1tzi6eo3MtHr6OKpy+YNerkTT9NqwMxFPjSSWaKboDTrJFr2eybQv5UlY
-         lWYw2h7lJBhMYYDuGeXLrHBdESxk6cNPMvWGNUc9xoF0stfZpbtr+0NNw1lNtSpbyl8X
-         YZbL/DB+81xCt7yPcyUqLvfGY15j53bn3O8rj+RFmznxuiTUjkqx3QvLqdFGXynF4aDw
-         i4gkEWiDti77S+vGhciwUVx5t3A+jZa9Mh3RCirqJNp3kSfcVITf3Y2xiJzpHpny0/cP
-         pkIw==
-X-Forwarded-Encrypted: i=1; AKwUvByuha8a8IJ2yyMFM7e+SsjONpU1XotPIH4uK6qa0YuggzICW/OUjUOpKmuTOxD5Zg0EL8UshgIPOrxcf0M=@vger.kernel.org
-X-Gm-Message-State: AFuF++nmA0SUgW38jJE2P3zb6w68sY/B4nb2I5euf93AJ81LXVRKlBdp
-	qDnsU6QDRCHbX3GOSKXIsaG95lFzJ/oT3Xzv5oMDvhFW754UpyMpIB9b
-X-Gm-Gg: AYBFou14xhZ74Uqe2H3k0C4iav4ursSQ4lpzLDvZJ0+WLEPmYFZqypo68tQ40ov3/Oc
-	+zkhtRKvZzBTs+8HbUbrJpgRMTmCghTcggQ0rWjckkyBZJK8mW0B2KKiBInMzIvccBeUbItGMpM
-	lZC01maR/6yTkIUMzTdSvYFYYWM/Dt0QuciSDmgcy4xiKHYP244DPmTLrOiBtUB9QtMPOltDOgr
-	J62k0SLEXtwpaBNgfDvVbeRMES9aA+BTphA/ULUlxxMsAxsGSQrtie7HJUhuLWHHQMQV7a9WnOA
-	XgZ3yMl2ZOh+y4vj6Knwx7wWrQ0ahlbW47d6gZMV/DZYkw2ZDqEY8tz5nyRsX4M47if1NEOlp9K
-	6W9dWwwtYBhvFyrXundSevEwYhQRmmGz2VnbKuAFFOWqdpFq2qXc3pPU8FERJpFdcJgvn2dC1Qe
-	OBHX+IpAnmDpXwGqVHCzQwkwSDxzK4ReDAPX3NFUuzOz9XOS3iZhkjGACCdhHFBWN7xYqactT9T
-	2Rlcs3hJZQP5k0bEg15Aw==
-X-Received: by 2002:a05:7301:1a8c:b0:33e:6877:ca6a with SMTP id 5a478bee46e88-34db77d1fd5mr14503161eec.26.1791180892305;
-        Sun, 04 Oct 2026 23:14:52 -0700 (PDT)
-Received: from umang-Inspiron-3501 ([2401:4900:1f3b:8187:3c00:622a:7472:e26b])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3512718d9edsm10968288eec.19.2026.10.04.23.14.48
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 04 Oct 2026 23:14:51 -0700 (PDT)
-From: Umang Pokhriyal <umangpokhriyall@gmail.com>
-To: Willem de Bruijn <willemdebruijn.kernel@gmail.com>
-Cc: Jason Wang <jasowangio@gmail.com>,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH net-next v2] tap: report IFF_DETACH_QUEUE in TUNGETIFF
-Date: Mon,  5 Oct 2026 11:42:35 +0530
-Message-ID: <20261005061236.22907-1-umangpokhriyall@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <willemdebruijn.kernel.3720fccc8b4e4@gmail.com>
-References: <willemdebruijn.kernel.3720fccc8b4e4@gmail.com>
+	s=arc-20240116; t=1791181053; c=relaxed/simple;
+	bh=aDGNUxFnoGNZoKx51Rif4l0kxdmZi6UolPntCC8eR8c=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=dtWI0lqVUN5wwioUXcn7jIF3FUKfITmK1AqmNVwLLjFX1+oPg6JbPZpEAtmWILbwjUf296sWO1xJ/yPpLCocuK4GEUA4EqDXwVNdkXfaSbbePJhIUCojPRRBRaUoNy7tvnDi6uW3HFBeqyZth93D+7GYlxCzcX81Sgl57TUdmLA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn; spf=pass smtp.mailfrom=kylinos.cn; arc=none smtp.client-ip=124.126.103.232
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kylinos.cn
+X-UUID: 6f957b10c08411f19a56ed5b684f684d-20261005
+X-CID-P-RULE: Release_Ham
+X-CID-O-INFO: VERSION:1.3.19,REQID:3c361553-7787-4014-9ec1-90f1dcc92796,IP:0,U
+	RL:0,TC:0,Content:0,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION:
+	release,TS:0
+X-CID-META: VersionHash:7db8b62,CLOUDID:0bad8d6b600c03dd905a494a9d71863b,BulkI
+	D:nil,BulkQuantity:0,SF:80|81|82|83|102|136|865|898,TC:nil,Content:0|15|52
+	|99,EDM:-3|-100,IP:nil,URL:0,File:nil,RT:nil,Bulk:nil,QS:nil,BEC:nil,COL:0
+	,OSI:0,OSA:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
+X-CID-BVR: 2,SSN|SDN
+X-CID-BAS: 2,SSN|SDN,0,_
+X-CID-FACTOR: TF_CID_SPAM_SNR
+X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
+X-UUID: 6f957b10c08411f19a56ed5b684f684d-20261005
+X-User: xiaopei01@kylinos.cn
+Received: from [10.42.12.251] [(10.44.16.150)] by mailgw.kylinos.cn
+	(envelope-from <xiaopei01@kylinos.cn>)
+	(Generic MTA with TLSv1.3 TLS_AES_128_GCM_SHA256 128/128)
+	with ESMTP id 514251661; Mon, 05 Oct 2026 14:17:26 +0800
+Message-ID: <42828ffb-d2c4-4f31-88d0-c4b939631ab8@kylinos.cn>
+Date: Mon, 5 Oct 2026 14:17:23 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/5] tpm: tpm_ppi: fix wrong error code returned to user
+ space
+To: Jarkko Sakkinen <jarkko.sakkinen@iki.fi>
+Cc: jarkko@kernel.org, peterhuewe@gmx.de, jgg@ziepe.ca,
+ linux-integrity@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <cover.1791015549.git.xiaopei01@kylinos.cn>
+ <16ff8f5a35246d5932068ce1b01438bc2895a46a.1791015549.git.xiaopei01@kylinos.cn>
+ <asMkuS55pG_q8RsT@iki.fi>
+From: Pei Xiao <xiaopei01@kylinos.cn>
+In-Reply-To: <asMkuS55pG_q8RsT@iki.fi>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-Willem de Bruijn wrote:
-> I suppose we want tap to expose this state through TUNGETIFF, like tun,
-> because applications already use that?
 
-Yes. CRIU reads IFF_DETACH_QUEUE from TUNGETIFF when it dumps a tun
-file, and Cloud Hypervisor did the same until it found that macvtap
-reports every queue as attached. Code written for tun's queue API gets
-the wrong answer on macvtap, even though macvtap accepts the same
-TUNSETQUEUE.
 
-> Else cleaner than working around bits would be a whole new TUNGETQUEUE
-> call to match TUNSETQUEUE. Rather than to squish this into TUNGETIFF,
-> while that has no equivalent in TUNSETIFF.
->
-> But, that approach does not help existing applications.
+在 2026/10/5 12:16, Jarkko Sakkinen 写道:
+> On Sat, Oct 03, 2026 at 04:27:51PM +0800, Pei Xiao wrote:
+>> tpm_show_ppi_response() stores its return value in an acpi_status,
+>> a typedef of u32.  Both error paths of the function (-EINVAL on a
+>> malformed _DSM package, -EFAULT on a non-zero operation return
+>> code) end up as huge positive values when returned as ssize_t, so
+>> user space cannot detect the failure with the usual "ret < 0"
+>> check.
+> 
+> I have no idea what you mean by huge value and why that would be
+> a problem, and overall this is disconnected from the code change.
+> 
+> Two's complement value is correctly stored in status up until the
+> ssize_t cast, which results the value to be zero-extended, and
+> as a result corrupt the negative values.
+How does the following Git commit message look：
 
-Right, those applications would have to be changed to use a new
-TUNGETQUEUE.
+tpm: tpm_ppi: fix zero-extension of negative error codes
 
-Thanks for taking another look.
+tpm_show_ppi_response() keeps its return value in an acpi_status,
+a typedef of u32.  The two's complement of the error code is stored
+correctly there, but on return the value is converted to ssize_t and
+zero-extended, so the sign is lost: user space receives 0xFFFFFFEA
+(4294967274) instead of -EINVAL, which breaks the usual "ret < 0" error
+check.
+Declare the variable as ssize_t so that negative values survive the
+conversion.
+> 
+>>
+>> Declare the variable as ssize_t to match the show callback's
+>> return type.
+>>
+>> Fixes: 84b1667dea23 ("ACPI / TPM: replace open-coded _DSM code with helper functions")
+>> Assisted-by: GLM-5.3
+>> Signed-off-by: Pei Xiao <xiaopei01@kylinos.cn>
+>> ---
+>>  drivers/char/tpm/tpm_ppi.c | 2 +-
+>>  1 file changed, 1 insertion(+), 1 deletion(-)
+>>
+>> diff --git a/drivers/char/tpm/tpm_ppi.c b/drivers/char/tpm/tpm_ppi.c
+>> index c9793a3d986d..949fb7055bea 100644
+>> --- a/drivers/char/tpm/tpm_ppi.c
+>> +++ b/drivers/char/tpm/tpm_ppi.c
+>> @@ -234,7 +234,7 @@ static ssize_t tpm_show_ppi_response(struct device *dev,
+>>  				     struct device_attribute *attr,
+>>  				     char *buf)
+>>  {
+>> -	acpi_status status = -EINVAL;
+>> +	ssize_t status = -EINVAL;
+>>  	union acpi_object *obj, *ret_obj;
+>>  	u64 req, res;
+>>  	struct tpm_chip *chip = to_tpm_chip(dev);
+>> -- 
+>> 2.25.1
+>>
+> 
+> Br, Jarkko
+
