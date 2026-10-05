@@ -1,100 +1,65 @@
-Received: from fhigh-b4-smtp.messagingengine.com (fhigh-b4-smtp.messagingengine.com [202.12.124.155])
+Received: from pdx-out-006.esa.us-west-2.outbound.mail-perimeter.amazon.com (pdx-out-006.esa.us-west-2.outbound.mail-perimeter.amazon.com [52.26.1.71])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2F2FB47DD63
-	for <linux-kernel@vger.kernel.org>; Mon,  5 Oct 2026 11:25:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.12.124.155
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5F6DD46AA6B;
+	Mon,  5 Oct 2026 11:25:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=52.26.1.71
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791199553; cv=none; b=p2QHzFAuUiule8IvhXAsb71n3ZG6mtYW61H//yAFPLMFstTIdOWGWnwTokDqwKh9ajENz9N3ZwlPuFVjQD3q7dL3YTEthb2EM1OoQSwtqVENSzeW8I+MGCINApDao2ula4hv3dwMlw5yIs+K8pYm0m1DQwJXcJePIVzByF/QCro=
+	t=1791199554; cv=none; b=Uvdt3b94pwv48sbnhdWD8bMwELPH8+VyyGW02h7QNLxc8eCbAZBzAIuqX6vJaF9lb6HU/KKxnWT1i0H3hQkjJ5Y+aYgIPthoqiWBGyUi8+Sl9s5UlT/2uKGSg9iAAk1BAGNfhobq081rl5T8Pe8+s8I5aukRyUyZknLlJUenCfM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791199553; c=relaxed/simple;
-	bh=VDAiP4iXohkBkyg4xgRLYtW3fY5SEGu9OW1aOgixyvY=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=HY8hR02R7IUyco62DMPltOFXE8hw6wB3s2kKigp8T3sSOwGCOz3YdhX4PcIHgYNmcgwT0jg/AyUNCyjxVPUB9uja++0hN4LirTrgekfy+vG/sCu4aZ6D6U6XnBNaBnncOfI54ab+JXwyXk7eUfkYvGFiIQnNqEqD+O2kYE/4SMM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=sakamocchi.jp; spf=pass smtp.mailfrom=sakamocchi.jp; dkim=pass (2048-bit key) header.d=sakamocchi.jp header.i=@sakamocchi.jp header.b=QZlxnruI; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=WpHEzZbT; arc=none smtp.client-ip=202.12.124.155
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=sakamocchi.jp
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sakamocchi.jp
+	s=arc-20240116; t=1791199554; c=relaxed/simple;
+	bh=axxLAE4OvAxPyb6YU8NswDtqrvOG7q5oq38HgbItThA=;
+	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=U5bjK83G0WIpANrG/qkWEsY1Nw0lnYI913odY90rbYYV3yj1pmdElJ9G7MZjliwYYsqj20AuIcQoez1/n5Ufvlhux3kg0Z4pKL1yZRHYOS1uFhJVl54z4ZC7KzAWe4mQfL8pgX5YToJCHsaxuSKbz01YQvlHnBX0UY8yLIbpr6I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.com; spf=pass smtp.mailfrom=amazon.com; dkim=pass (2048-bit key) header.d=amazon.com header.i=@amazon.com header.b=eXi6Ed+1; arc=none smtp.client-ip=52.26.1.71
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amazon.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=sakamocchi.jp header.i=@sakamocchi.jp header.b="QZlxnruI";
-	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="WpHEzZbT"
-Received: from phl-compute-02.internal (phl-compute-02.internal [10.202.2.42])
-	by mailfhigh.stl.internal (Postfix) with ESMTP id 606467A0111
-	for <linux-kernel@vger.kernel.org>; Mon,  5 Oct 2026 07:25:50 -0400 (EDT)
-Received: from phl-frontend-04 ([10.202.2.163])
-  by phl-compute-02.internal (MEProxy); Mon, 05 Oct 2026 07:25:50 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sakamocchi.jp;
-	 h=cc:cc:content-transfer-encoding:content-type:date:date:from
-	:from:in-reply-to:in-reply-to:message-id:mime-version:references
-	:reply-to:subject:subject:to:to; s=fm2; t=1791199550; x=
-	1791285950; bh=+YzZV9WKD4JyfhSZHP2XpaXnaGKsAm0ePTdBd+zuyQA=; b=Q
-	ZlxnruIXU1EIplKtU8+c4ucbbWMy9PXrAIeAS3U89VIQT7VDZ7BNA3ZqYmNfbbQx
-	Ou6dA5EmHMIHUY00BpM9/isiQTQaQR/88LeXx7H2Nq8sYbpq6o2xwRw2MfXn7mcv
-	ccHFARIZ+lC835LZHorad2s4rmbomNxXRu3lzD5pAtM8Hj13YPq5GyCqHn4zfiHG
-	nKKv1g5KbCIfCBfWsaYrd1szsrWfIZWomvH6v2cxz2H54/I5zskFWDWKIFpcrPzx
-	HNIS0KzxXox+inknYkT4Y4TjcrAPTwqrQhzc1l7Bb+q32Yf6LyjMVzAmQ8l5AyTJ
-	QsYSV9ZNpW35V3hIo4olw==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:date:date:feedback-id:feedback-id:from:from
-	:in-reply-to:in-reply-to:message-id:mime-version:references
-	:reply-to:subject:subject:to:to:x-me-proxy:x-me-sender
-	:x-me-sender:x-sasl-enc; s=fm2; t=1791199550; x=1791285950; bh=+
-	YzZV9WKD4JyfhSZHP2XpaXnaGKsAm0ePTdBd+zuyQA=; b=WpHEzZbTMp0VUtWMu
-	S95YnB6ihIaJUfd0DHNWhJ17GPO92iJsFUYFIvbZWUCjvW0fyCChVlSVGWhcluP8
-	AkTF/r+OBpphsdnriXMfA/0aQPatwjUX1K4pCF4eXuUBTJ5Vz7IBhe7oVYuRKSRs
-	oe91wUPPxA+20TcbNJXpRohDxk2KN/kbOOc4rPxwUxyQzJTLQ6KDF1JF5xA+arkN
-	w521LikLBvbNTr63mGLxLJ+AtT8/vpqEirhL6TysZx1ymqG9TLTy6EvznSXtEP5t
-	vqdtoEbtRTivwMEuymrVDCY7cLkCSeldHDE42b2eFy1pnoGqZnx/bH1d4LzoPchi
-	+8X9w==
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
-	repo=github.com/dkim2wg/interop; date=2026-09-30; sw=lmtpprox;
-	action=sign d=sakamocchi.jp a=rsa-sha256;
-DKIM2-Signature: i=1; m=1; t=1791199550; d=sakamocchi.jp;
-	mf=PG8tdGFrYXNoaUBzYWthbW9jY2hpLmpwPg==;
-	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
-	s=fm2:rsa-sha256:HA/ppT0u4tlsmuLdem4KbToCCC3ikSfxhVe6RKDL2KAidpW
-	jvas0/kERZJEic3EWvNXDzgCD0McHRuDywCA3He5MddkvBw6WV1HCoDHcw4BoB9U
-	kEbJx8Dhe0nE6pYvbsavZaeXVELShSkkKkKzG+WTaci3KGQWXR+R739ZztHOe7xD
-	BOQnqSCWwQu6aIQaALbA/Y1QK6i3VjZzn85xlv+ZZI2dLaUW0yqA3hF1tuDK0gq/
-	LkjrQIN7lYDvtg6hCKxly1hSdMzTCh9EOSBUHnkEOM6Rui6SxZeGwMFmrMm8tBmv
-	l5EFKPL1Kosx4vZDz1arSlUJOTBOR0vYA5RFIEA==;
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
-	repo=github.com/dkim2wg/interop; date=2026-09-30; sw=lmtpprox;
-	action=mi-m=1; hc=11;
-	hn=cc,content-transfer-encoding,date,feedback-id,from,
-	in-reply-to,message-id,mime-version,references,subject,to;
-Message-Instance: m=1; h=sha256:zzkucfc+2BdAyPOsExDpt069cBVUyDEXqL4M7FINNHQ=:VDAiP4iXohkBkyg4xgRLYtW3fY5SEGu9OW1aOgixyvY=;
-X-ME-Sender: <xms:PonDasICEgOTv81n-AiWJeHpmJW7Qhxq2St0dJhbO0mkCPefPUa16g>
-    <xme:PonDaqHB12uZ6c6Q5FoYo9dOHlRQMJTBjnoINfSUR7FZihSidvlO3GlwoS6SEm8_s
-    m3jwyQLOdGSyEJLU_LRYFDd1TomBNxkbF4I8DaKkqrDlbQs6fVN1DFc>
-X-ME-Received: <xmr:PonDakSVBsvMLe1-H0Mj0RC-TO6YbCbHJ0GCrP9STK3uumFhsDtEhAmavtAHWMLtJrUPkbaqifMtqBhlA-pkXHCJi2w1v9XDdr4wsgYb62O_Nw>
-X-ME-Proxy-Cause: dmFkZTErW16n30fVOtPPKC913JUt9GtZq5ToHZiOV9Th707EXjbLQ2FLorcrI3mzg5bsvt
-    8jbaAQj4pwvoFJgMx4ngv6a5ZJblcfZBs6sWqUTOuNB+90edONGxhjfJD9ir3wPndtsQan
-    mG0R7qJWxsifFFGXCXy1EJtw1nueGbYhSjPB3M/1YXjlWeq/9JvZU3vlqPPxSXD+o44WeN
-    6pC3VmnbghbpVI5XtNDz3PxzYg1ZY7zDM43WoooJ6NahllBDpvbrsU/89zrT25KWFWuUxa
-    OHo9GHH/nOJVAnpMCZIdtuKFFrQ5t8C2vjD5hAHjkjLoTJcA/InDdm3PFXOmg3HAnWzNsi
-    tJZ+RBNbtZP9sL+BXFvqzV3pSW8jULrMetq+reipaMtmtELQBI7A+kWEUbkVDSesgQpUJ4
-    h9uKhLkhJOfYRTYGpn2BRkJM/oUvB+rqFcprgxwZb9J4fpNllf+PKIvMWwxpdrTKvHZ/av
-    Tw94dz9evop95fshrEDAr9nxo83KqxddPUpl30dg70kWt0ica5bQVhXi14/nn4M7BIuK7A
-    hSK2bGGajgTKbVrhxfx+GSq2j8K6ybk2rOIxPR/7tCIKS/TVyhqXSNmIO564mgfVqaiQVF
-    99D9ZpGz4gSvazgRQm3sc6srpzeHN/6sdibMIa0duQ6GbIEWHGuYvin91g8Q
-X-ME-Proxy: <xmx:PonDamGRMIxK1HK4YYmVJQDAypgUnN0Y1dbMGTT-iavC3KrmKa0VrA>
-    <xmx:PonDag-_S1Kn4Xyx_BIvBK7OS2IapitqrdyQZhcBHRNVH1d-a_dUSw>
-    <xmx:PonDagLLje3jRhGHRqqyKLJv063XVCxBXy-huk6yxhZ-a6loLg9XUw>
-    <xmx:PonDajZEGaCa_Vi3qVPUGMV1q2prWGnFBo52yXLHzscrlgwgAdcjrA>
-    <xmx:PonDau8mwCAJMZLmtymNYTyU8YAUT7fCeFeJUVoEl-HflqBQayOePpdq>
-Feedback-ID: ie8e14432:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Mon,
- 5 Oct 2026 07:25:49 -0400 (EDT)
-From: Takashi Sakamoto <o-takashi@sakamocchi.jp>
-To: linux1394-devel@lists.sourceforge.net
-Cc: linux-kernel@vger.kernel.org
-Subject: [PATCH 1/5] firewire: core: expand close_transaction() into its callers and remove it
-Date: Mon,  5 Oct 2026 20:25:40 +0900
-Message-ID: <20261005112544.240552-2-o-takashi@sakamocchi.jp>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261005112544.240552-1-o-takashi@sakamocchi.jp>
-References: <20261005112544.240552-1-o-takashi@sakamocchi.jp>
+	dkim=pass (2048-bit key) header.d=amazon.com header.i=@amazon.com header.b="eXi6Ed+1"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+  d=amazon.com; i=@amazon.com; q=dns/txt; s=amazoncorp2;
+  t=1791199552; x=1822735552;
+  h=from:to:cc:subject:date:message-id:in-reply-to:
+   references:mime-version:content-transfer-encoding;
+  bh=zD9ZEmWuC88Ba7Ma/aUQTmf9TWVgjMo1oQU8F4ZUfO4=;
+  b=eXi6Ed+1Lh6EgGcSoabL8tyzrikpPShnJsIsp2QsWxQc05RxF1SKscc3
+   WXsudcB+lTONx5yUPs0RKbX9DOA/YLtglSqNrkTOzgyBqGu4QUxMrxR78
+   8bHeiICZmqqYI31lEYkEXNdZu83FXVCleGAA21gphubS6SNYgcQtqHhZu
+   3C9GhqaxFaYcNFxIb+GZj2kRW1HUWl/ZI7PypczHSb0X1WnX6s00iKjz1
+   jeNeYLGevSRqE9TC3gknWJ6ftZPNWjg44woL9np6o/HRacFFve0Kspkud
+   W7zRuYOLONrZDgEpi1upzGrRqOqT97aqS6zNYDnIrjPfitzDl4Yt+vrqE
+   Q==;
+X-CSE-ConnectionGUID: oQD3Zk5RS2yGbKtIRwIDGg==
+X-CSE-MsgGUID: NhTUhn7wSuOVN5hQrLBKug==
+X-IronPort-AV: E=Sophos;i="6.27,141,1787011200"; 
+   d="scan'208";a="30463102"
+Received: from ip-10-5-6-203.us-west-2.compute.internal (HELO smtpout.naws.us-west-2.prod.farcaster.email.amazon.dev) ([10.5.6.203])
+  by internal-pdx-out-006.esa.us-west-2.outbound.mail-perimeter.amazon.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 05 Oct 2026 11:25:49 +0000
+Received: from EX19MTAUWC001.ant.amazon.com [205.251.233.53:1358]
+ by smtpin.naws.us-west-2.prod.farcaster.email.amazon.dev [10.0.47.21:2525] with esmtp (Farcaster)
+ id 3e5f8292-a74b-48d4-8a30-070dc1a6d601; Mon, 5 Oct 2026 11:25:49 +0000 (UTC)
+X-Farcaster-Flow-ID: 3e5f8292-a74b-48d4-8a30-070dc1a6d601
+Received: from EX19D001UWA001.ant.amazon.com (10.13.138.214) by
+ EX19MTAUWC001.ant.amazon.com (10.250.64.174) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.49;
+ Mon, 5 Oct 2026 11:25:48 +0000
+Received: from dev-dsk-farbere-1a-46ecabed.eu-west-1.amazon.com
+ (172.19.116.181) by EX19D001UWA001.ant.amazon.com (10.13.138.214) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.49; Mon, 5 Oct 2026
+ 11:25:47 +0000
+From: Eliav Farber <farbere@amazon.com>
+To: Thomas Gleixner <tglx@kernel.org>, Talel Shenhar <talel@amazon.com>
+CC: Radu Rendec <radu@rendec.net>, Rob Herring <robh@kernel.org>, "Krzysztof
+ Kozlowski" <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, "Eliav
+ Farber" <farbere@amazon.com>, <devicetree@vger.kernel.org>,
+	<linux-kernel@vger.kernel.org>
+Subject: [PATCH v3 6/8] irqchip/al-fic: support error and fatal outputs and FIC v2
+Date: Mon, 5 Oct 2026 11:24:56 +0000
+Message-ID: <20261005112458.22291-7-farbere@amazon.com>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20261005112458.22291-1-farbere@amazon.com>
+References: <20261005112458.22291-1-farbere@amazon.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -102,137 +67,324 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: EX19D033UWC002.ant.amazon.com (10.13.139.196) To
+ EX19D001UWA001.ant.amazon.com (10.13.138.214)
 
-The return value from close_transaction() is useful only in
-fw_cancel_transaction(). The other caller,
-transmit_complete_callback(), simply discards it.
+FIC v2 hardware adds two interrupt outputs on top of the info output: an
+error output and a fatal output, each with its own mask register
+(AL_FIC_ERROR_MASK, AL_FIC_FATAL_MASK). A group drives exactly one of the
+three outputs.
 
-Additionally, the pending transaction queue should be enumerated as soon
-as possible to prevent the issued transaction from completing.
+Read which output a group drives from the amazon,al-fic-mask devicetree
+property (info, error or fatal; absent means info) and program the
+matching mask register. Detect the hardware revision from the CONTROL
+register version field (bits 28-29). The revision is not in the
+devicetree, so requesting the error or fatal output on a v1 device - which
+has neither - is rejected at probe against the register.
 
-Expand close_transaction() into its callers, and remove it.
+Name the selected output in the probe log line, in place of the "Legacy
+mode" text it replaces. A booted system then shows which output each group
+drives.
 
-Signed-off-by: Takashi Sakamoto <o-takashi@sakamocchi.jp>
+The "v1" and "v2" names are this driver's labels for the CONTROL
+version field encoding (0 and 1).
+
+On v2 the error and fatal mask registers always read back as 0, regardless
+of their actual contents. IRQ_GC_INIT_MASK_CACHE seeds mask_cache from the
+mask register on the first child mapping, so on those two outputs it would
+seed 0: every source would appear unmasked, and the first unmask would
+write that 0 back and clear the whole mask register. Drop the flag for
+those two outputs and seed mask_cache with the value al_fic_wire_init()
+programmed instead. The info mask register is not affected, so the info
+output keeps the register-seeded mask_cache.
+
+Reading CONTROL to get the version field turns the write that follows into
+a read-modify-write instead of a value built from CONTROL_MASK_MSI_X
+alone. Every RW bit in this register resets to 0, so the two are
+equivalent at probe time; the read-modify-write is kept anyway as the
+better practice; it costs nothing and does not depend on the reset value
+staying 0.
+
+Signed-off-by: Eliav Farber <farbere@amazon.com>
 ---
- drivers/firewire/core-transaction.c | 66 ++++++++++++++---------------
- 1 file changed, 31 insertions(+), 35 deletions(-)
+v3:
+ - Initialise gc_flags to IRQ_GC_INIT_MASK_CACHE at its declaration and
+   only clear it on the FIC v2 error/fatal path, dropping the else
+   branch.
+ - Use ~0U instead of 0xFFFFFFFF, for the mask_cache seed and for the
+   three mask register writes.
+ - Explain the control register read-modify-write in the commit message.
+   Every writable bit in that register resets to 0, so preserving the
+   other bits is equivalent to the previous plain write at probe time. It
+   is better practice, not a behaviour fix.
 
-diff --git a/drivers/firewire/core-transaction.c b/drivers/firewire/core-transaction.c
-index b4fccabb8fb2..35f3a11ab2bb 100644
---- a/drivers/firewire/core-transaction.c
-+++ b/drivers/firewire/core-transaction.c
-@@ -99,24 +99,6 @@ void fw_cancel_pending_transactions(struct fw_card *card)
- 	t;								\
- })
+v2:
+ - Fix the v2 mask_cache workaround, which was dead in v1. mask_cache is
+   not seeded until the first child mapping (irq_map_generic_chip), so the
+   v1 override was overwritten with 0 and the first unmask then cleared the
+   whole mask register, unmasking all 32 sources. Drop
+   IRQ_GC_INIT_MASK_CACHE for the error and fatal outputs and seed
+   mask_cache from the value al_fic_wire_init() programmed. Commit message
+   rewritten to state the real timing and consequence.
+ - Read the output from the new amazon,al-fic-mask property (was per-output
+   compatible in v1).
+ - Label the mask in the probe log line (mask=%s).
+
+ drivers/irqchip/irq-al-fic.c | 135 ++++++++++++++++++++++++++++++++---
+ 1 file changed, 124 insertions(+), 11 deletions(-)
+
+diff --git a/drivers/irqchip/irq-al-fic.c b/drivers/irqchip/irq-al-fic.c
+index 4c60da8558ed..68948d5464d4 100644
+--- a/drivers/irqchip/irq-al-fic.c
++++ b/drivers/irqchip/irq-al-fic.c
+@@ -16,11 +16,14 @@
+ /* FIC Registers */
+ #define AL_FIC_CAUSE		0x00
+ #define AL_FIC_SET_CAUSE	0x08
+-#define AL_FIC_MASK		0x10
++#define AL_FIC_INFO_MASK	0x10
+ #define AL_FIC_CONTROL		0x28
++#define AL_FIC_ERROR_MASK	0x2c
++#define AL_FIC_FATAL_MASK	0x34
  
--static int close_transaction(struct fw_transaction *transaction, struct fw_card *card, int rcode,
--			     u32 response_tstamp)
--{
--	struct fw_transaction *t;
--
--	// NOTE: This can be without irqsave when we can guarantee that __fw_send_request() for
--	// local destination never runs in any type of IRQ context.
--	scoped_guard(spinlock_irqsave, &card->transactions.lock) {
--		t = find_and_pop_transaction_entry(card, iter == transaction);
--		if (!t)
--			return -ENOENT;
--	}
--
--	invoke_callback(t, rcode, response_tstamp, NULL, 0);
--
--	return 0;
--}
--
- /*
-  * Only valid for transactions that are potentially pending (ie have
-  * been sent).
-@@ -135,17 +117,25 @@ int fw_cancel_transaction(struct fw_card *card,
- 	if (card->driver->cancel_packet(card, &transaction->packet) == 0)
- 		return 0;
+ #define CONTROL_TRIGGER_RISING	BIT(3)
+ #define CONTROL_MASK_MSI_X	BIT(5)
++#define CONTROL_VERSION_ID	GENMASK(29, 28)
  
-+	// If the request packet has already been sent, we need to see if the transaction is still
-+	// pending and remove it in that case (e.g. the split transaction).
-+	//
-+	// NOTE: This can be without irqsave when we can guarantee that __fw_send_request() for
-+	// local destination never runs in any type of IRQ context.
-+	scoped_guard(spinlock_irqsave, &card->transactions.lock) {
-+		if (!find_and_pop_transaction_entry(card, iter == transaction))
-+			return -ENOENT;
+ #define NR_FIC_IRQS 32
+ 
+@@ -33,6 +36,37 @@ enum al_fic_state {
+ 	AL_FIC_CONFIGURED_RISING_EDGE,
+ };
+ 
++/*
++ * FIC hardware revision, as reported by the CONTROL register version field
++ * (CONTROL_VERSION_ID, bits 29-28). These are this driver's names for that
++ * field's encoding.
++ */
++enum al_fic_version {
++	AL_FIC_VERSION_V1,
++	AL_FIC_VERSION_V2,
++};
++
++enum al_fic_id {
++	AL_FIC_ID_INFO,
++	AL_FIC_ID_ERROR,
++	AL_FIC_ID_FATAL,
++	AL_FIC_ID_MAX,		/* keep last */
++};
++
++/* Mask register offset for each interrupt group */
++static const unsigned int al_fic_mask_offset[AL_FIC_ID_MAX] = {
++	[AL_FIC_ID_INFO]  = AL_FIC_INFO_MASK,
++	[AL_FIC_ID_ERROR] = AL_FIC_ERROR_MASK,
++	[AL_FIC_ID_FATAL] = AL_FIC_FATAL_MASK,
++};
++
++/* amazon,al-fic-mask property value for each interrupt group */
++static const char * const al_fic_mask_name[AL_FIC_ID_MAX] = {
++	[AL_FIC_ID_INFO]  = "info",
++	[AL_FIC_ID_ERROR] = "error",
++	[AL_FIC_ID_FATAL] = "fatal",
++};
++
+ struct al_fic {
+ 	void __iomem *base;
+ 	struct irq_domain *domain;
+@@ -123,11 +157,30 @@ static int al_fic_irq_retrigger(struct irq_data *data)
+ }
+ 
+ static int al_fic_register(struct device_node *node,
+-			   struct al_fic *fic)
++			   struct al_fic *fic,
++			   enum al_fic_id fic_id,
++			   enum al_fic_version version)
+ {
++	enum irq_gc_flags gc_flags = IRQ_GC_INIT_MASK_CACHE;
+ 	struct irq_chip_generic *gc;
+ 	int ret;
+ 
++	/*
++	 * On FIC v2 the error and fatal mask registers always read back as 0,
++	 * regardless of their actual contents. IRQ_GC_INIT_MASK_CACHE seeds
++	 * mask_cache from the mask register on the first child mapping, so on
++	 * those two outputs it would seed 0 and make every source appear
++	 * unmasked - and the first unmask would then clear the whole mask
++	 * register. Suppress the seeding there and set mask_cache below to
++	 * match what al_fic_wire_init() programmed.
++	 *
++	 * The info mask register is not affected, so the info output keeps the
++	 * register-seeded mask_cache.
++	 */
++	if (version == AL_FIC_VERSION_V2 &&
++	    (fic_id == AL_FIC_ID_ERROR || fic_id == AL_FIC_ID_FATAL))
++		gc_flags = 0;
++
+ 	fic->domain = irq_domain_create_linear(of_fwnode_handle(node),
+ 					       NR_FIC_IRQS,
+ 					       &irq_generic_chip_ops,
+@@ -147,7 +200,7 @@ static int al_fic_register(struct device_node *node,
+ 					     NR_FIC_IRQS,
+ 					     1, of_node_full_name(fic->node),
+ 					     handle_level_irq,
+-					     0, 0, IRQ_GC_INIT_MASK_CACHE);
++					     0, 0, gc_flags);
+ 	if (ret) {
+ 		pr_err("fail to allocate generic chip (%d)\n", ret);
+ 		goto err_domain_remove;
+@@ -155,7 +208,7 @@ static int al_fic_register(struct device_node *node,
+ 
+ 	gc = irq_get_domain_generic_chip(fic->domain, 0);
+ 	gc->reg_base = fic->base;
+-	gc->chip_types->regs.mask = AL_FIC_MASK;
++	gc->chip_types->regs.mask = al_fic_mask_offset[fic_id];
+ 	gc->chip_types->regs.ack = AL_FIC_CAUSE;
+ 	gc->chip_types->chip.irq_mask = irq_gc_mask_set_bit;
+ 	gc->chip_types->chip.irq_unmask = irq_gc_mask_clr_bit;
+@@ -165,6 +218,13 @@ static int al_fic_register(struct device_node *node,
+ 	gc->chip_types->chip.flags = IRQCHIP_SKIP_SET_WAKE;
+ 	gc->private = fic;
+ 
++	/*
++	 * Seed the mask cache the driver maintains itself, matching the mask
++	 * al_fic_wire_init() programmed (see the gc_flags comment above).
++	 */
++	if (!(gc_flags & IRQ_GC_INIT_MASK_CACHE))
++		gc->mask_cache = ~0U;
++
+ 	ret = request_irq(fic->parent_irq, al_fic_irq_handler,
+ 			  IRQF_NO_THREAD | IRQF_SHARED,
+ 			  of_node_full_name(fic->node), fic);
+@@ -186,6 +246,8 @@ static int al_fic_register(struct device_node *node,
+  * @node: pointer to the interrupt controller's device tree node
+  * @base: mmio to fic register
+  * @parent_irq: interrupt of parent
++ * @fic_id: which of the controller's outputs (info, error or fatal) this
++ *          group drives
+  *
+  * This API will configure the fic hardware to work in wire mode.
+  * In wire mode, fic hardware is generating a wire ("wired") interrupt.
+@@ -194,11 +256,13 @@ static int al_fic_register(struct device_node *node,
+  */
+ static struct al_fic *al_fic_wire_init(struct device_node *node,
+ 				       void __iomem *base,
+-				       unsigned int parent_irq)
++				       unsigned int parent_irq,
++				       enum al_fic_id fic_id)
+ {
+ 	struct al_fic *fic;
++	u32 version_id;
++	u32 control;
+ 	int ret;
+-	u32 control = CONTROL_MASK_MSI_X;
+ 
+ 	fic = kzalloc_obj(*fic);
+ 	if (!fic)
+@@ -208,22 +272,37 @@ static struct al_fic *al_fic_wire_init(struct device_node *node,
+ 	fic->parent_irq = parent_irq;
+ 	fic->node = node;
+ 
++	control = readl_relaxed(fic->base + AL_FIC_CONTROL);
++	version_id = FIELD_GET(CONTROL_VERSION_ID, control);
++	if (version_id == AL_FIC_VERSION_V1 && fic_id != AL_FIC_ID_INFO) {
++		pr_err("%pOF: amazon,al-fic-mask = \"%s\" not available on FIC v1\n",
++		       node, al_fic_mask_name[fic_id]);
++		ret = -EINVAL;
++		goto err_free;
 +	}
 +
- 	u32 curr_cycle_time = 0;
+ 	/* mask out all interrupts */
+-	writel_relaxed(0xFFFFFFFF, fic->base + AL_FIC_MASK);
++	writel_relaxed(~0U, fic->base + AL_FIC_INFO_MASK);
++	if (version_id > AL_FIC_VERSION_V1) {
++		writel_relaxed(~0U, fic->base + AL_FIC_ERROR_MASK);
++		writel_relaxed(~0U, fic->base + AL_FIC_FATAL_MASK);
++	}
  
- 	// Timestamping on behalf of hardware.
- 	(void)fw_card_read_cycle_time(card, &curr_cycle_time);
- 	tstamp = cycle_time_to_ohci_tstamp(curr_cycle_time);
+ 	/* clear any pending interrupt */
+ 	writel_relaxed(0, fic->base + AL_FIC_CAUSE);
  
--	/*
--	 * If the request packet has already been sent, we need to see
--	 * if the transaction is still pending and remove it in that case.
--	 */
--	return close_transaction(transaction, card, RCODE_CANCELLED, tstamp);
-+	invoke_callback(transaction, RCODE_CANCELLED, tstamp, NULL, 0);
++	/* make sure the controller works in non msi_x mode */
++	control |= CONTROL_MASK_MSI_X;
+ 	writel_relaxed(control, fic->base + AL_FIC_CONTROL);
+ 
+-	ret = al_fic_register(node, fic);
++	ret = al_fic_register(node, fic, fic_id, version_id);
+ 	if (ret) {
+ 		pr_err("fail to register irqchip\n");
+ 		goto err_free;
+ 	}
+ 
+-	pr_info("%pOF initialized successfully in Legacy mode (parent-irq=%u)\n",
+-		node, parent_irq);
++	pr_info("%pOF initialized successfully (mask=%s parent-irq=%u)\n",
++		node, al_fic_mask_name[fic_id], parent_irq);
+ 
+ 	return fic;
+ 
+@@ -232,11 +311,38 @@ static struct al_fic *al_fic_wire_init(struct device_node *node,
+ 	return ERR_PTR(ret);
+ }
+ 
++/*
++ * Parse the amazon,al-fic-mask property into an enum al_fic_id, selecting
++ * which of the controller's outputs this group drives. The property is
++ * optional; an absent property means the info output.
++ */
++static int al_fic_parse_mask(struct device_node *node, enum al_fic_id *fic_id)
++{
++	const char *mask;
++	int ret;
 +
++	ret = of_property_read_string(node, "amazon,al-fic-mask", &mask);
++	if (ret == -EINVAL) {
++		*fic_id = AL_FIC_ID_INFO;
++		return 0;
++	}
++	if (ret)
++		return ret;
++
++	ret = match_string(al_fic_mask_name, AL_FIC_ID_MAX, mask);
++	if (ret < 0)
++		return ret;
++
++	*fic_id = ret;
 +	return 0;
- }
- EXPORT_SYMBOL(fw_cancel_transaction);
- 
-@@ -201,9 +191,6 @@ static void transmit_complete_callback(struct fw_packet *packet,
- 					      packet->speed, status, packet->timestamp);
- 
- 	switch (status) {
--	case ACK_COMPLETE:
--		close_transaction(t, card, RCODE_COMPLETE, packet->timestamp);
--		break;
- 	case ACK_PENDING:
- 	{
- 		unsigned int delta;
-@@ -218,27 +205,36 @@ static void transmit_complete_callback(struct fw_packet *packet,
- 		// local destination never runs in any type of IRQ context.
- 		scoped_guard(spinlock_irqsave, &card->transactions.lock)
- 			start_split_transaction_timeout(t, delta);
--		break;
-+		return;
- 	}
-+	case ACK_COMPLETE:
-+		status = RCODE_COMPLETE;
-+		break;
- 	case ACK_BUSY_X:
- 	case ACK_BUSY_A:
- 	case ACK_BUSY_B:
--		close_transaction(t, card, RCODE_BUSY, packet->timestamp);
-+		status = RCODE_BUSY;
- 		break;
- 	case ACK_DATA_ERROR:
--		close_transaction(t, card, RCODE_DATA_ERROR, packet->timestamp);
-+		status = RCODE_DATA_ERROR;
- 		break;
- 	case ACK_TYPE_ERROR:
--		close_transaction(t, card, RCODE_TYPE_ERROR, packet->timestamp);
-+		status = RCODE_TYPE_ERROR;
- 		break;
- 	default:
--		/*
--		 * In this case the ack is really a juju specific
--		 * rcode, so just forward that to the callback.
--		 */
--		close_transaction(t, card, status, packet->timestamp);
-+		// In this case the ack is really a juju specific rcode, so just forward that to
-+		// the callback.
- 		break;
- 	}
++}
 +
-+	// NOTE: This can be without irqsave when we can guarantee that __fw_send_request() for
-+	// local destination never runs in any type of IRQ context.
-+	scoped_guard(spinlock_irqsave, &card->transactions.lock) {
-+		if (!find_and_pop_transaction_entry(card, iter == t))
-+			return;
+ static int __init al_fic_init_dt(struct device_node *node,
+ 				 struct device_node *parent)
+ {
+ 	int ret;
+ 	void __iomem *base;
++	enum al_fic_id fic_id;
+ 	unsigned int parent_irq;
+ 	struct al_fic *fic;
+ 
+@@ -245,6 +351,12 @@ static int __init al_fic_init_dt(struct device_node *node,
+ 		return -EINVAL;
+ 	}
+ 
++	ret = al_fic_parse_mask(node, &fic_id);
++	if (ret) {
++		pr_err("%pOF: invalid amazon,al-fic-mask\n", node);
++		return ret;
 +	}
 +
-+	invoke_callback(t, status, packet->timestamp, NULL, 0);
- }
+ 	base = of_iomap(node, 0);
+ 	if (!base) {
+ 		pr_err("%pOF: fail to map memory\n", node);
+@@ -260,7 +372,8 @@ static int __init al_fic_init_dt(struct device_node *node,
  
- static void fw_fill_request(struct fw_packet *packet, int tcode, int tlabel,
+ 	fic = al_fic_wire_init(node,
+ 			       base,
+-			       parent_irq);
++			       parent_irq,
++			       fic_id);
+ 	if (IS_ERR(fic)) {
+ 		pr_err("%pOF: fail to initialize irqchip (%lu)\n",
+ 		       node, PTR_ERR(fic));
 -- 
-2.53.0
+2.47.3
 
