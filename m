@@ -1,69 +1,70 @@
-Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
+Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5AEEA483BEB
-	for <linux-kernel@vger.kernel.org>; Mon,  5 Oct 2026 14:02:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3A2B649B214
+	for <linux-kernel@vger.kernel.org>; Mon,  5 Oct 2026 14:02:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791208974; cv=none; b=QiNB6haYJQKMO/aJPaDkmyBiLJEFYZTi1Fgg8U5NvD1JKWnQxiIUAzIOb9G6Qqe1mpHIPIL+J9LLGLZxbzwNEHkv0HIy2ErHo+y449AWuRxHleRLxInrdizw5DLCD8nmNrrSvHM1gaRgBgAaKzhLgJSuD9uJ/EQSf+UFtxf/9rw=
+	t=1791208976; cv=none; b=set6wpNJyle2lbMTNfmnV7KXZI/k7M3TBt1P0neGEzRoWckmEhH9qNLI0Cd5I2NDgfcGjNd0a/V6eAKSvDhDJ721oOMWSh0hl3F4hERZD4V/0aRwrcW0HENnP2TTuZwW7bDEHD7djI2UeSI7oXEH2+SJQguQ85XZOmAyGkLx7+8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791208974; c=relaxed/simple;
-	bh=C8WKxnPr7uP5n1W4IxfSgShbk4BUptHHQE/t06I9aBA=;
+	s=arc-20240116; t=1791208976; c=relaxed/simple;
+	bh=TaUlnsNmot4QEG9OLZHJSxsD2VX/SRZI3DsjCT3rfFU=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=Za12pWWmrTE8GQBfDzK6dlWHi94xd2Whg7RsKwAjFkYdFbwArjtKpI3jampywJcPmT4PrXe32fmKbS1o1XQFKA8mqktB/sCAJ02xjhNMSxfDThmbK9dYFnbWuYOb0sV1R6Tgy/TIlzzkdveukyY6p8A77qT62jdV+9ZfyMtlxNQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=thegoodpenguin.co.uk; spf=pass smtp.mailfrom=thegoodpenguin.co.uk; dkim=pass (2048-bit key) header.d=thegoodpenguin-co-uk.20251104.gappssmtp.com header.i=@thegoodpenguin-co-uk.20251104.gappssmtp.com header.b=nd3UBSOe; arc=none smtp.client-ip=74.125.225.141
+	 In-Reply-To:To:Cc; b=ZzmPh9RY2kzcW4HHA1UI1TWV6Z/0DsZmVgYCJQwx31PAM87nOlpIiF+/KsM8eInSg81oRHsiY8kr0dNBvfCyu3n2jJFPl/xJmSgmutR4BU48OI6Wl6lOQmnNdua1DqrOwm5t8Z+Gi97VnVVdbnXy/jAZHjB6QokuRj1ypUYY648=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=thegoodpenguin.co.uk; spf=pass smtp.mailfrom=thegoodpenguin.co.uk; dkim=pass (2048-bit key) header.d=thegoodpenguin-co-uk.20251104.gappssmtp.com header.i=@thegoodpenguin-co-uk.20251104.gappssmtp.com header.b=a2Ff+tz1; arc=none smtp.client-ip=74.125.225.140
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=thegoodpenguin.co.uk
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=thegoodpenguin.co.uk
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=thegoodpenguin-co-uk.20251104.gappssmtp.com header.i=@thegoodpenguin-co-uk.20251104.gappssmtp.com header.b="nd3UBSOe"
-Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49e79a408deso10599395e9.2
-        for <linux-kernel@vger.kernel.org>; Mon, 05 Oct 2026 07:02:51 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=thegoodpenguin-co-uk.20251104.gappssmtp.com header.i=@thegoodpenguin-co-uk.20251104.gappssmtp.com header.b="a2Ff+tz1"
+Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49ce364488dso6077585e9.0
+        for <linux-kernel@vger.kernel.org>; Mon, 05 Oct 2026 07:02:54 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=thegoodpenguin-co-uk.20251104.gappssmtp.com; s=20251104; t=1791208969; x=1791813769; darn=vger.kernel.org;
+        d=thegoodpenguin-co-uk.20251104.gappssmtp.com; s=20251104; t=1791208972; x=1791813772; darn=vger.kernel.org;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=sSGrLVeVFAOEps51tbyhD7UnfHCObTz/8EabMnjfI5s=;
-        b=nd3UBSOeGvJypOmh+TUKOtqhS4/8cmwHwBQRI0iA0VhJsbOjVTDYC7CB1T4zgCzU3B
-         IQJdYKIKAdh+uL6hftxrr4LaIXNlKZWOQTGGsAk34fa1p+tNsaxYf0q+WP7sX6T5HiUw
-         SrNStHS3d/tvKp0nhZ/VbYJbsNIDj19mL6cilROhZ6NlatFVC4WLNEgSHYAleWRzlhAb
-         3fDOJzZTGet5HhtBQsiDhDO9vTJRURimjAt1Uc/0ac2tk49fReJCtHPTVe8qTcqDFCkF
-         haFCjgiHYbkZR1wFF9JROmsgbyxwnShZBtgEWydDBqOWwAphNYJ4sF0GR6jdIgy6M+a+
-         VxMg==
+        bh=41MKH5PbBP4B9ab/ikgvLUqJHlYFMp6f2rCdzsjxlhA=;
+        b=a2Ff+tz1zxQVrrq7YGKkQZuIJRK/glOYTvc11EI4ycDSCxWvfMG2oscbhlGTW7Jc0g
+         TtdiQEwHmznJJWYCHowKJoC0QF58jtkZD/R3zWAPbmmtC9W+Orobsmohp9IWpO9f5NDS
+         YRtc+Wx07RBBL9HsAZgdx8RNspFRajg8Se7OpW+W0elokiG6q1aAL/nd5xSOfQCQ9lYI
+         q0pjv/NTxJuQpoQzZzF5+Xazuzo8Kh5y5aODHEEbOeL4UhPYtRZ6rXT5F+J96/2Bxk8O
+         KEJoLuG8DZcDWsHMQd14lThevq0qu72nF6Avb+og6s6XR5GO4mKLwcbC2ypfYKCMmEEn
+         sIng==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791208969; x=1791813769;
+        d=1e100.net; s=20260707; t=1791208972; x=1791813772;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=sSGrLVeVFAOEps51tbyhD7UnfHCObTz/8EabMnjfI5s=;
-        b=0GYxVg3osn2IMDoXJr0S/XVoj6ZkRj7UkSSYxVN75Q9EGVvu6E07OX/cBXxeD7/IHC
-         +wQh7Gj1OpNx7Ag8AIPzKwqOOJlsHsAwq1keBsxlQym0l5tUA9cAFPzOPqeDZSNIymFG
-         kfSPGI89nGVpDcDG5+XWMU6Lq5uM3jmrgrYvEEj0zwhU6mR1D7sElbbH8wnVAT6UXOIE
-         GxtblMzP2GS6mfTqa/vNuyAXBhtvztbn1U7WNdpeHk0rkUSknnt9Owo/Y1Mr1oERWINx
-         yMYHtSgUj5qQdV2cYl8GxJoE41K7nlsFarOkOT7MQ8kvwFWJZI0s0TLjNFcyJN+08swf
-         GL3w==
-X-Forwarded-Encrypted: i=1; AKwUvBw1S3PQp8XvGvqDYpW3LJgz5STEkqCIhPmBDORhzGyPas2/wyUtcTX2ucHW/Wr28t2KAWZDX7s8+DezvHI=@vger.kernel.org
-X-Gm-Message-State: AFuF++l2/j/MsqUK7gKNCJYTNxL58yaUDu0GA2WN7EvqE5EYzlfS9szH
-	GeKfckr3fKY2dBzaAC+QgVtC767YT9kNCfSmBGIZq1CRya5qSTfhmCKmi6QSKBQIkzGjDbqBkuU
-	3bw2WkyblXA==
-X-Gm-Gg: AYBFou3nNwGrwEYOF9YawceiyJmAhNldROiksSE97LLhQ9XwQRD9xGB01guiPn3dnTm
-	+2Evt8HaEn9xOLkvfwq6SnUNUBsokGZIBvNQI8ST0wioskUA9YojYwGiri4CIAlveScVuJXTM1s
-	HIQfn9NDm8qGZXgTw8Ol5S8cL40DxA9895WN0MkVf0fq2s1Ia7JymIFUccRSWp1YLqtibPCY8Z8
-	1qWYS85WL9QulS0SL2OkPh3yvAashES/eTIaFNIKzickh3A2rRoaeB/f/mpoAWjlWIppdP/xpE7
-	s1jLnzCZ94z5xk/9Y+Hx9dVjq3HEiv/4RFvMT+4csSlgOSY3t9Z+rzfKnatPywjE0SeITQAuzkf
-	sgO4qLFE8pDHCvTe6HQALoZnQ0L9xYLALiBRZurWWJJb/Fr9x7u75jbHfJGDEREE01AuccW7V4Y
-	O/b8a6u1hGnQYpRSr4jLm149jT+Q57Y8IFVuZ1Qr2qbGxmuhPri+S3U8AJ4lSZDEE/jmdU2U1GV
-	Jrgs48RYg3tlg==
-X-Received: by 2002:a05:600c:1550:b0:49e:6778:c2bd with SMTP id 5b1f17b1804b1-4a1765776dfmr22181475e9.6.1791208968997;
-        Mon, 05 Oct 2026 07:02:48 -0700 (PDT)
+        bh=41MKH5PbBP4B9ab/ikgvLUqJHlYFMp6f2rCdzsjxlhA=;
+        b=axvSW2gTk97A1RulxqVU2qYp7rluL6bVcv3GIIQ7RRzxRjdx2rGizevVOlhccPXKOf
+         UVdbDe7mkQIYv1yQnLNGv5ZaUyHtttU45aLtl7ihI63HHTFUqTsk/TA9/oT8YsK3m0go
+         Ywve1NU0f4qLXzkjEUTsNC5vL61DSF9DWnV/aTDLuxghMVvgLD+2Dg+f3WQOkVRq2YeH
+         QoucbR5gSlVYtbfeWWb5kYg6mBTE3JCExbK+OyXHOsq3nvEU6XJYdX3AfJowgrox0Hwu
+         DO+Ssktji/8ZoS6YEyUfeLgh6Vd5El3bpxPg8cqBp8IijTS+q8odIolQGoul1iFNkNOK
+         B7DA==
+X-Forwarded-Encrypted: i=1; AKwUvBw4YNBqkmoYy2nBs16JeEATu8Am9/sfvT0L70AMfFno1QB9Vq587OJSzTesSozWIcBUpsdl61dzugmaV+0=@vger.kernel.org
+X-Gm-Message-State: AFuF++ndBOh9JLWkjx2B+d3rCw2/aCQ0lKcWYVDJ/qU/bBlfS61Z0UzB
+	tB08c2xtQCRwWtZGM46Alw2ZUT4jeERoh3r2PK8v6hoC6ABqeqI/ivNFThd6HQYY/7D6dH1Yfy1
+	zs7KCuMDweQ==
+X-Gm-Gg: AYBFou2xzOizP9M7l7jlsMPcwKjFZouPt/Z7t8Evx6ZAYgn9FOlsJGNZyLRR75Qw+KK
+	g9M0/jGm4lfkIjKyhyN87RBmeIywMGShHHyHHiuAul1hutuxtkQjU2n5eXz6NtQc+ebKeqXMSbR
+	VcbUMIpI0qs1FB/5vL+d08L1gB0umkaiAW7W5mNY01wLAP9WEVw6VbMYeqYaNtlRlPwL/A2Vz4v
+	ZT8MlkbgUkO6TjgSk98vRuBGYp/n9IkVxgBxloi6CldUlBO1VAcU8jBy8Xo+jePOg9mDk8J/vRC
+	zdber8DuED5q4S8ujIGjXSiTBVHRIhuLdQ4BiKZlykGRMMOZ2rAbulHlZ/ucFrnCvqHuljqFfYq
+	VpHMeUDEsBfG7ghn7vilYrmn1Gg/MY69tRlBZZ4PLe2hExgJmPHjz6qbABe0XeH7MM7+ZQlWYp9
+	VpaCmTLl7CBnl6X7/547APWpaqMddM+a7aY1FCt1WDUtGV5NMJqpSCOTv9kunCfcjXnJL2ucHbL
+	1jlgJt+kune5A==
+X-Received: by 2002:a05:600c:4515:b0:4a1:71bd:c929 with SMTP id 5b1f17b1804b1-4a171bdc95emr59780935e9.4.1791208972036;
+        Mon, 05 Oct 2026 07:02:52 -0700 (PDT)
 Received: from [10.42.0.1] ([2a00:23c7:1d1a:9c01:9c1b:24c4:d43:125f])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a162e867e8sm324052715e9.15.2026.10.05.07.02.47
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a162e867e8sm324052715e9.15.2026.10.05.07.02.50
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 05 Oct 2026 07:02:48 -0700 (PDT)
+        Mon, 05 Oct 2026 07:02:51 -0700 (PDT)
 From: Pawel Zalewski <pzalewski@thegoodpenguin.co.uk>
-Date: Mon, 05 Oct 2026 15:02:02 +0100
-Subject: [PATCH 06/12] iio: imu: use named initializers for acpi_device_id
+Date: Mon, 05 Oct 2026 15:02:04 +0100
+Subject: [PATCH 08/12] iio: magnetometer: use named initializers for
+ acpi_device_id
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -72,7 +73,7 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261005-acpi-iio-v1-6-2796f713945a@thegoodpenguin.co.uk>
+Message-Id: <20261005-acpi-iio-v1-8-2796f713945a@thegoodpenguin.co.uk>
 References: <20261005-acpi-iio-v1-0-2796f713945a@thegoodpenguin.co.uk>
 In-Reply-To: <20261005-acpi-iio-v1-0-2796f713945a@thegoodpenguin.co.uk>
 To: =?utf-8?q?Nuno_S=C3=A1?= <nuno.sa@analog.com>, 
@@ -93,11 +94,11 @@ Cc: linux@analog.com, linux-iio@vger.kernel.org,
  linux-kernel@vger.kernel.org, 
  Pawel Zalewski <pzalewski@thegoodpenguin.co.uk>
 X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1791208959; l=6787;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1791208959; l=2407;
  i=pzalewski@thegoodpenguin.co.uk; s=20260430; h=from:subject:message-id;
- bh=C8WKxnPr7uP5n1W4IxfSgShbk4BUptHHQE/t06I9aBA=;
- b=+F9D/SCm67nlVT3DAymmZ2hqZCqUfkr9WWrlYQhk72bbYsKLqJFAzARJAUFJragEwCOPIPn5Y
- xt7KR7ytBstAsm1kvwEnGNXt8GKR+WAn+y5ey6Jebwj/tht8gso+8jq
+ bh=TaUlnsNmot4QEG9OLZHJSxsD2VX/SRZI3DsjCT3rfFU=;
+ b=YQdFb+/JBoI6Nt55MUjBq8kGTxLk5iI3bJYnBs4gb9hTvifSsYqvIAR1nhLyzO8tbSn34ikvN
+ uLDBY6maJqzD2MxvU3vaCL6j8oZuunbY0SJ2DNbheFkuW3H6hrIKuA0
 X-Developer-Key: i=pzalewski@thegoodpenguin.co.uk; a=ed25519;
  pk=vHq4n9IonORH2GTzLv8r6CWAFHzgfBuNkQPXA8NSly0=
 
@@ -108,159 +109,48 @@ where it is redundant.
 
 Signed-off-by: Pawel Zalewski <pzalewski@thegoodpenguin.co.uk>
 ---
- drivers/iio/imu/bmi160/bmi160_i2c.c         | 6 +++---
- drivers/iio/imu/bmi160/bmi160_spi.c         | 4 ++--
- drivers/iio/imu/bmi270/bmi270_i2c.c         | 4 ++--
- drivers/iio/imu/bmi323/bmi323_i2c.c         | 2 +-
- drivers/iio/imu/fxos8700_i2c.c              | 2 +-
- drivers/iio/imu/fxos8700_spi.c              | 2 +-
- drivers/iio/imu/inv_mpu6050/inv_mpu_i2c.c   | 2 +-
- drivers/iio/imu/inv_mpu6050/inv_mpu_spi.c   | 2 +-
- drivers/iio/imu/st_lsm6dsx/st_lsm6dsx_i2c.c | 4 ++--
- drivers/iio/imu/st_lsm9ds0/st_lsm9ds0_i2c.c | 2 +-
- 10 files changed, 15 insertions(+), 15 deletions(-)
+ drivers/iio/magnetometer/ak8975.c   | 14 +++++++-------
+ drivers/iio/magnetometer/mmc35240.c |  2 +-
+ 2 files changed, 8 insertions(+), 8 deletions(-)
 
-diff --git a/drivers/iio/imu/bmi160/bmi160_i2c.c b/drivers/iio/imu/bmi160/bmi160_i2c.c
-index 3f3ee044a9cf..7a38f05a81fd 100644
---- a/drivers/iio/imu/bmi160/bmi160_i2c.c
-+++ b/drivers/iio/imu/bmi160/bmi160_i2c.c
-@@ -52,9 +52,9 @@ static const struct acpi_device_id bmi160_acpi_match[] = {
- 	 * this is not expected to change anymore since at least some of
- 	 * the affected devices are from 2021/2022.
- 	 */
--	{"10EC5280", 0},
--	{"BMI0120", 0},
--	{"BMI0160", 0},
-+	{ .id = "10EC5280" },
-+	{ .id = "BMI0120" },
-+	{ .id = "BMI0160" },
- 	{ }
- };
- MODULE_DEVICE_TABLE(acpi, bmi160_acpi_match);
-diff --git a/drivers/iio/imu/bmi160/bmi160_spi.c b/drivers/iio/imu/bmi160/bmi160_spi.c
-index 107eb3374922..922909c8fa72 100644
---- a/drivers/iio/imu/bmi160/bmi160_spi.c
-+++ b/drivers/iio/imu/bmi160/bmi160_spi.c
-@@ -41,8 +41,8 @@ static const struct spi_device_id bmi160_spi_id[] = {
- MODULE_DEVICE_TABLE(spi, bmi160_spi_id);
+diff --git a/drivers/iio/magnetometer/ak8975.c b/drivers/iio/magnetometer/ak8975.c
+index 8b0c07f82602..1a829a9b91e4 100644
+--- a/drivers/iio/magnetometer/ak8975.c
++++ b/drivers/iio/magnetometer/ak8975.c
+@@ -1119,13 +1119,13 @@ static DEFINE_RUNTIME_DEV_PM_OPS(ak8975_dev_pm_ops, ak8975_runtime_suspend,
+ 				 ak8975_runtime_resume, NULL);
  
- static const struct acpi_device_id bmi160_acpi_match[] = {
--	{"BMI0120", 0},
--	{"BMI0160", 0},
-+	{ .id = "BMI0120" },
-+	{ .id = "BMI0160" },
+ static const struct acpi_device_id ak_acpi_match[] = {
+-	{"AK8963", (kernel_ulong_t)&ak_def_array[AK8963] },
+-	{"AK8975", (kernel_ulong_t)&ak_def_array[AK8975] },
+-	{"AK009911", (kernel_ulong_t)&ak_def_array[AK09911] },
+-	{"AK09911", (kernel_ulong_t)&ak_def_array[AK09911] },
+-	{"AK09912", (kernel_ulong_t)&ak_def_array[AK09912] },
+-	{"AKM9911", (kernel_ulong_t)&ak_def_array[AK09911] },
+-	{"INVN6500", (kernel_ulong_t)&ak_def_array[AK8963] },
++	{ .id = "AK8963", .driver_data = (kernel_ulong_t)&ak_def_array[AK8963] },
++	{ .id = "AK8975", .driver_data = (kernel_ulong_t)&ak_def_array[AK8975] },
++	{ .id = "AK009911", .driver_data = (kernel_ulong_t)&ak_def_array[AK09911] },
++	{ .id = "AK09911", .driver_data = (kernel_ulong_t)&ak_def_array[AK09911] },
++	{ .id = "AK09912", .driver_data = (kernel_ulong_t)&ak_def_array[AK09912] },
++	{ .id = "AKM9911", .driver_data = (kernel_ulong_t)&ak_def_array[AK09911] },
++	{ .id = "INVN6500", .driver_data = (kernel_ulong_t)&ak_def_array[AK8963] },
  	{ }
  };
- MODULE_DEVICE_TABLE(acpi, bmi160_acpi_match);
-diff --git a/drivers/iio/imu/bmi270/bmi270_i2c.c b/drivers/iio/imu/bmi270/bmi270_i2c.c
-index 7c035e82e6e9..1143c0061c81 100644
---- a/drivers/iio/imu/bmi270/bmi270_i2c.c
-+++ b/drivers/iio/imu/bmi270/bmi270_i2c.c
-@@ -40,9 +40,9 @@ MODULE_DEVICE_TABLE(i2c, bmi270_i2c_id);
+ MODULE_DEVICE_TABLE(acpi, ak_acpi_match);
+diff --git a/drivers/iio/magnetometer/mmc35240.c b/drivers/iio/magnetometer/mmc35240.c
+index 6f40cba4b1ba..310058fe5c07 100644
+--- a/drivers/iio/magnetometer/mmc35240.c
++++ b/drivers/iio/magnetometer/mmc35240.c
+@@ -553,7 +553,7 @@ static const struct of_device_id mmc35240_of_match[] = {
+ MODULE_DEVICE_TABLE(of, mmc35240_of_match);
  
- static const struct acpi_device_id bmi270_acpi_match[] = {
- 	/* GPD Win Mini, Aya Neo AIR Pro, OXP Mini Pro, etc. */
--	{ "BMI0160",  (kernel_ulong_t)&bmi260_chip_info },
-+	{ .id = "BMI0160", .driver_data = (kernel_ulong_t)&bmi260_chip_info },
- 	/* GPD Win Max 2 2023(sincice BIOS v0.40), etc. */
--	{ "BMI0260",  (kernel_ulong_t)&bmi260_chip_info },
-+	{ .id = "BMI0260", .driver_data = (kernel_ulong_t)&bmi260_chip_info },
+ static const struct acpi_device_id mmc35240_acpi_match[] = {
+-	{"MMC35240", 0},
++	{ .id = "MMC35240" },
  	{ }
  };
- MODULE_DEVICE_TABLE(acpi, bmi270_acpi_match);
-diff --git a/drivers/iio/imu/bmi323/bmi323_i2c.c b/drivers/iio/imu/bmi323/bmi323_i2c.c
-index e835b91ea6b4..e025c88c30b4 100644
---- a/drivers/iio/imu/bmi323/bmi323_i2c.c
-+++ b/drivers/iio/imu/bmi323/bmi323_i2c.c
-@@ -107,7 +107,7 @@ static const struct acpi_device_id bmi323_acpi_match[] = {
- 	 * driver initialization. This device reset does occur in both the
- 	 * bmi323 and bmc150 init sequences.
- 	 */
--	{ "BOSC0200" },
-+	{ .id = "BOSC0200" },
- 	{ }
- };
- MODULE_DEVICE_TABLE(acpi, bmi323_acpi_match);
-diff --git a/drivers/iio/imu/fxos8700_i2c.c b/drivers/iio/imu/fxos8700_i2c.c
-index ba47e9260928..4441ddf01338 100644
---- a/drivers/iio/imu/fxos8700_i2c.c
-+++ b/drivers/iio/imu/fxos8700_i2c.c
-@@ -41,7 +41,7 @@ static const struct i2c_device_id fxos8700_i2c_id[] = {
- MODULE_DEVICE_TABLE(i2c, fxos8700_i2c_id);
- 
- static const struct acpi_device_id fxos8700_acpi_match[] = {
--	{"FXOS8700", 0},
-+	{ .id = "FXOS8700" },
- 	{ }
- };
- MODULE_DEVICE_TABLE(acpi, fxos8700_acpi_match);
-diff --git a/drivers/iio/imu/fxos8700_spi.c b/drivers/iio/imu/fxos8700_spi.c
-index 56ad0c5914d9..2cd9cfcf867c 100644
---- a/drivers/iio/imu/fxos8700_spi.c
-+++ b/drivers/iio/imu/fxos8700_spi.c
-@@ -29,7 +29,7 @@ static const struct spi_device_id fxos8700_spi_id[] = {
- MODULE_DEVICE_TABLE(spi, fxos8700_spi_id);
- 
- static const struct acpi_device_id fxos8700_acpi_match[] = {
--	{"FXOS8700", 0},
-+	{ .id = "FXOS8700" },
- 	{ }
- };
- MODULE_DEVICE_TABLE(acpi, fxos8700_acpi_match);
-diff --git a/drivers/iio/imu/inv_mpu6050/inv_mpu_i2c.c b/drivers/iio/imu/inv_mpu6050/inv_mpu_i2c.c
-index 9ef6ab74af8b..8f00d6f04ac1 100644
---- a/drivers/iio/imu/inv_mpu6050/inv_mpu_i2c.c
-+++ b/drivers/iio/imu/inv_mpu6050/inv_mpu_i2c.c
-@@ -274,7 +274,7 @@ static const struct of_device_id inv_of_match[] = {
- MODULE_DEVICE_TABLE(of, inv_of_match);
- 
- static const struct acpi_device_id inv_acpi_match[] = {
--	{"INVN6500", INV_MPU6500},
-+	{ .id = "INVN6500", .driver_data = INV_MPU6500 },
- 	{ }
- };
- MODULE_DEVICE_TABLE(acpi, inv_acpi_match);
-diff --git a/drivers/iio/imu/inv_mpu6050/inv_mpu_spi.c b/drivers/iio/imu/inv_mpu6050/inv_mpu_spi.c
-index 71e90ddc19dd..c6ad2e150290 100644
---- a/drivers/iio/imu/inv_mpu6050/inv_mpu_spi.c
-+++ b/drivers/iio/imu/inv_mpu6050/inv_mpu_spi.c
-@@ -161,7 +161,7 @@ static const struct of_device_id inv_of_match[] = {
- MODULE_DEVICE_TABLE(of, inv_of_match);
- 
- static const struct acpi_device_id inv_acpi_match[] = {
--	{"INVN6000", INV_MPU6000},
-+	{ .id = "INVN6000", .driver_data = INV_MPU6000 },
- 	{ }
- };
- MODULE_DEVICE_TABLE(acpi, inv_acpi_match);
-diff --git a/drivers/iio/imu/st_lsm6dsx/st_lsm6dsx_i2c.c b/drivers/iio/imu/st_lsm6dsx/st_lsm6dsx_i2c.c
-index edec898cb11f..c4097ce2bf81 100644
---- a/drivers/iio/imu/st_lsm6dsx/st_lsm6dsx_i2c.c
-+++ b/drivers/iio/imu/st_lsm6dsx/st_lsm6dsx_i2c.c
-@@ -143,8 +143,8 @@ static const struct of_device_id st_lsm6dsx_i2c_of_match[] = {
- MODULE_DEVICE_TABLE(of, st_lsm6dsx_i2c_of_match);
- 
- static const struct acpi_device_id st_lsm6dsx_i2c_acpi_match[] = {
--	{ "SMO8B30", ST_LSM6DS3TRC_ID, },
--	{ "SMOCF00", ST_LSM6DSO_ID, },
-+	{ .id = "SMO8B30", .driver_data = ST_LSM6DS3TRC_ID },
-+	{ .id = "SMOCF00", .driver_data = ST_LSM6DSO_ID },
- 	{ }
- };
- MODULE_DEVICE_TABLE(acpi, st_lsm6dsx_i2c_acpi_match);
-diff --git a/drivers/iio/imu/st_lsm9ds0/st_lsm9ds0_i2c.c b/drivers/iio/imu/st_lsm9ds0/st_lsm9ds0_i2c.c
-index 6581d14e2bcf..a22ac4279503 100644
---- a/drivers/iio/imu/st_lsm9ds0/st_lsm9ds0_i2c.c
-+++ b/drivers/iio/imu/st_lsm9ds0/st_lsm9ds0_i2c.c
-@@ -39,7 +39,7 @@ static const struct i2c_device_id st_lsm9ds0_id_table[] = {
- MODULE_DEVICE_TABLE(i2c, st_lsm9ds0_id_table);
- 
- static const struct acpi_device_id st_lsm9ds0_acpi_match[] = {
--	{"ACCL0001", (kernel_ulong_t)LSM303D_IMU_DEV_NAME},
-+	{ .id = "ACCL0001", .driver_data = (kernel_ulong_t)LSM303D_IMU_DEV_NAME },
- 	{ }
- };
- MODULE_DEVICE_TABLE(acpi, st_lsm9ds0_acpi_match);
+ MODULE_DEVICE_TABLE(acpi, mmc35240_acpi_match);
 
 -- 
 2.53.0
