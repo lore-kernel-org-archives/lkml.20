@@ -1,133 +1,130 @@
-Received: from fhigh-b7-smtp.messagingengine.com (fhigh-b7-smtp.messagingengine.com [202.12.124.158])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qk2-f39.google.com (mail-qk2-f39.google.com [74.125.230.231])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1562A313552
-	for <linux-kernel@vger.kernel.org>; Mon,  5 Oct 2026 04:45:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.12.124.158
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 47CDC547047
+	for <linux-kernel@vger.kernel.org>; Mon,  5 Oct 2026 04:49:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.231
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791175509; cv=none; b=F0AH0tQZgqN401mDsDvao8oocEN0JENIf/BEpngWKdhR7Ek1afwoCUE4FozNZ2L9A8CfJptRyWnC4gwvNSZeLHga6rZeWPhhpOWCzrbUK/aM7L6PbslyO14f2A1Z/KvBBTB7qVTSZMP6ETIcssWkclvQbMrh+pLdeiWjnCGsLv8=
+	t=1791175762; cv=none; b=VKjd1Wgy41ivjloTX84z7MNyO58DNiZTRPPXpioRhcq48c4HXuLcchP6XkvcYuxstsBl3sddJrBz0qftPztLS//o/USzCW7IqmUcv26smItROVhXohADgNnSf0Lh1I0HYCkEK7i6f9LoYO6hrSADLWqMXZe4hDOyMC5xhcB41Gk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791175509; c=relaxed/simple;
-	bh=KCoGmQb88q+Knp6pMuvy5UuU8Flj/RHwhMfh34hgdWw=;
-	h=MIME-Version:Date:From:To:Cc:Message-Id:In-Reply-To:References:
-	 Subject:Content-Type; b=h4GQjvBCWVd7G5/PG4634BXReEOJ3QWyYaLwTZF4fyW7Wez8aHxlanW7rZZ7fmrqlJqCddDsYcr2/ii5HnLGv3JPHjlkKkW7ZQcWr1SQfckb3Ws080Hod5F2IUr0DsjJEb30JZq64oLGJrlHUFrvAMGK5wtXbcStPYT7cdoQ/9Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=fastmailteam.com; spf=pass smtp.mailfrom=fastmailteam.com; dkim=pass (2048-bit key) header.d=fastmailteam.com header.i=@fastmailteam.com header.b=AKj8kKJB; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=kaOD1A44; arc=none smtp.client-ip=202.12.124.158
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=fastmailteam.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fastmailteam.com
+	s=arc-20240116; t=1791175762; c=relaxed/simple;
+	bh=RlwK2Cmq0cHokex+6+EAEcjz6T0MlTNy+oIrYy7vIgY=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=EhcRfHGa5MyBOHMCpXQSW8k/Xgo/Qhp68YyeQSNoM6xOITvj05SrIYUav3st8NKlynhXWxxoxUW6fr9sWQ69iUlm23QIVfQsQxAtsbMOl+FjhYHssYLF/3JyiFHBhoyzfrOsu74QBq5UW1qAfNcCOa8f6TVK02zQuMCGZN2sV48=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=YzWxzmrU; arc=none smtp.client-ip=74.125.230.231
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=fastmailteam.com header.i=@fastmailteam.com header.b="AKj8kKJB";
-	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="kaOD1A44"
-Received: from phl-compute-10.internal (phl-compute-10.internal [10.202.2.50])
-	by mailfhigh.stl.internal (Postfix) with ESMTP id 5E0DD7A01D0
-	for <linux-kernel@vger.kernel.org>; Mon,  5 Oct 2026 00:45:07 -0400 (EDT)
-Received: from phl-imap-15 ([10.202.2.104])
-  by phl-compute-10.internal (MEProxy); Mon, 05 Oct 2026 00:45:07 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	fastmailteam.com; h=cc:cc:content-transfer-encoding:content-type
-	:content-type:date:date:from:from:in-reply-to:in-reply-to
-	:message-id:mime-version:references:reply-to:subject:subject:to
-	:to; s=fm3; t=1791175506; x=1791261906; bh=qglmIri7xdlBWCLzpwS5X
-	EsTcXNBXH4avwhR/k0igSA=; b=AKj8kKJBc4R2ufcbBHn/j4DUz8X9/eUB3BLig
-	Qd4nd5BijW8nPH494p9YtnvNR36ZXMHwSp7BdiO7QvMLIWUJ38XnCf0twN39t2OU
-	lwkKPS+Wsyc1WBKfv2YgEOI64Vt0KTbQFIOqYD7th4sy57+bKMbygZaDBqmwiMI5
-	u+enr93xtZRSIrzNr1+4QsCNd3l1z0hKPEhF9pOmBUOLsiYKzLqyzznpss3n8qV3
-	5IqUxWAqGkdtXTvtWDsRnb+UBJhHQ7Xgr0V1G0uHZ/OPttAGrWAgTM4zOA2IgGer
-	P2sjIv3oeM+j+itCVcp7IggHcb4+L0uhOUsKy4JzdY/MgGwNQ==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:content-type:date:date:feedback-id:feedback-id
-	:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to:x-me-proxy
-	:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=1791175506; x=
-	1791261906; bh=qglmIri7xdlBWCLzpwS5XEsTcXNBXH4avwhR/k0igSA=; b=k
-	aOD1A44Yhn5Z+BoVemFcD9v1qnQEuCFhZlKTboKJ4SasPCWnKcdPHZU78iI9E1Ez
-	dRD2+a6t/H5pIjLe8GKSYyTI6KNSd73RMog+NrjlXoGp2bFfnpnUNzpgXhY9KH5h
-	0bHGA9ke9dgCHASpYxiIO5VB1nsytWZYuzZy22OYunbC2Pdy7olvB9w7CXWS88se
-	tSAS2MmMwhALFLpMgYtcFCgfN4Kkagb+XZnqIdAnJ2XIzgEgiV9xcRRAlYESZi1/
-	zA59QHLagWUvXx4Q+PxH5uO65CVdBEeF9b5z2JPe1cvsZMxTGR3sno9oBFDdX8gd
-	37My9Tgma3G6Vr+kK/YmQ==
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
-	repo=github.com/dkim2wg/interop; date=2026-09-30; sw=lmtpprox;
-	action=sign d=fastmailteam.com a=rsa-sha256;
-DKIM2-Signature: i=1; m=1; t=1791175506; d=fastmailteam.com;
-	mf=PGFuZHJld0BmYXN0bWFpbHRlYW0uY29tPg==;
-	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
-	s=fm3:rsa-sha256:hTL6LW+tYZnmOVFtKti2wrS0JqMNEgCngbo/gwuJzLN4A3c
-	45wObJF8G1f0T0c62HHFVhV1o9jV/KuvGZxKelZNgJMkhdF+NHfaZEyr0kfi2mDW
-	Agp8BPDTtu6IzxbTRthrra/8Koa9FIaFTwhfpbeRVtSpMHN+2Y7gZzSh5A/Uds7i
-	VJFWFelVxL5bzHXwTfOzTAy18jFQO4uo6qe/28zAqtyH5UDb03LO/RwtaaPesRMw
-	Lmiy4Z6MATljhQHJFrAuy6rPL1sFPWD7XlZ6k5uY5Ne4yYuUJhJ+/NdMwNlzSgf/
-	9tvqRoc/O71ZJuPNcZ2zBkSZp7EpRI6+Yu/XPkg==;
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
-	repo=github.com/dkim2wg/interop; date=2026-09-30; sw=lmtpprox;
-	action=mi-m=1; hc=12;
-	hn=cc,content-transfer-encoding,content-type,date,feedback-id,
-	from,in-reply-to,message-id,mime-version,references,subject,to;
-Message-Instance: m=1; h=sha256:UcZLLDJ9VPM0fdfHMdip830I4beEgd5Z372OiUFPA7M=:KCoGmQb88q+Knp6pMuvy5UuU8Flj/RHwhMfh34hgdWw=;
-X-ME-Sender: <xms:UivDajljkA17WJbfOkdLGx5ORjZz3LUdxt6lOwJPzbXSW5wUdHU1gQ>
-    <xme:UivDahpJukGse_HYofJRx6lfgkOm5rYIDNiFRA1mRT2kJzWVpRdwCjNZG-a8WczYc
-    yE95CuPetexipVTPy_trYpXgHWcrNYl9oUbhjHN1kexMmGfeL8>
-X-ME-Proxy-Cause: dmFkZTFhD78CMu6lFaDtX4rWOfXbZEYEDYkeVMB2OuZ4D5BxJ6aRcsCqidyphgtTA39+jf
-    IfK481qN28UnkSzQ/tkG2UHu8d+7+MFDM+/OcMAFY+auFYPEYI9uEDWMfmpHBffN6JRdtK
-    qkyz8r8OeKdIHSZHvoFG7BwjRo95PMIJFv4LXIC86tNWvsXLf3mz+/g81om38rc8bgh0yT
-    zaYVLEbKmSg74NfMcqRXopkiZ1xgVoNrX814KCVdin0yqTlfL9BBAUN+SmfoAL4pUK5zTm
-    I3pTJqb2O5tpAjqW+xVhMEp+9aHnaSxSXnZPU7eXCcE2AWldU6kojjyAD2onLfznnaBkgz
-    HfEick9dyEpUttXLXcxi1qsIms/mh0ZyPoqD3KrjZaOUg4n52fxirz3uDwZO3jPGscPOFI
-    2lzPAihQofsw0294YA99Ig62xSQ3jgS18wyqJ2KSaCngI9c6ccxdI0lmc+rUNDRCB/8iBa
-    2l4QA5V/3QfjL57yUw7s/rnkDQhcrGX0zpMI+/Y+58xJivNh93+/ktoZZQIlvghYlRuVmb
-    OlWlX/tnJkazVxHP3XbKcCYOqQJ+DzCk9L/oj0ANXSfISgNwgkYus15kZMlXhsdglVjHqy
-    LA4PbUYg2s4KZ7aseRQAOtdluy2/Xs1AxjlVRBP+hsL5u3zz9LKpk38NH+4A
-X-ME-Proxy: <xmx:UivDaslo1KB07tkLjYXza_iq47jUkKBsGjkDvHgkc5oGAbtVTepmvA>
-    <xmx:UivDaoYara_uGuyOarUzQCdOoH53DstThDefZQrqS4R1lHd751pLww>
-    <xmx:UivDavHntm3uJApYGu73hUGiSaiB7IcdU-JMHfEGl-7IG4Q_bXW4hw>
-    <xmx:UivDavZI5AuozkbFCHeUip66yfBxo9jMTluBbrlJzcUoDpB5dpOIPg>
-    <xmx:UivDambX9B72rBK20tnRWilXvs8p7YWvbG1KymgsaF9ud6SSgufYxIin>
-Feedback-ID: ib8be4bd5:Fastmail
-Received: by mailuser.phl.internal (Postfix, from userid 501)
-	id 0BAB0780070; Mon,  5 Oct 2026 00:45:06 -0400 (EDT)
-X-Mailer: MessagingEngine.com Webmail Interface
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="YzWxzmrU"
+Received: by mail-qk2-f39.google.com with SMTP id af79cd13be357-93cb545be7fso112158285a.2
+        for <linux-kernel@vger.kernel.org>; Sun, 04 Oct 2026 21:49:21 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791175760; x=1791780560; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=kcJnHXIt83QrSyOF8UJnIWTRMzOTcOywYQswfygDEJY=;
+        b=YzWxzmrUlp43y/iwRUEI02fU1yysOIrZ1wCYn7Iq5rEZATcrIU97uguB6fRahoAauK
+         8r545MnSVUSt5Fdf0nos1N+RsSF2RuHoZUT1Ov+TUsj5dtDZR5cQdp7IBMSMAwCmsotS
+         ece2bFvYNUQ+VBvFT/xnqYWorr9gPvLAZarDMdrT+4DBKVoANYC4DZ1bKQCI8IAYjk/h
+         tuxaYiXiUPOxeD8aQN48WD3p3CIZNGt1pk1Xyump1mUS9z/Bk53hQ71DbsWnzr9B7KPi
+         Dm2LzATTsdVKKlSWOkcn17BbNclsjXJql+fqm337DZmUNoPBqhERBnq/VQKVOKD2WvxA
+         t4tg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791175760; x=1791780560;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=kcJnHXIt83QrSyOF8UJnIWTRMzOTcOywYQswfygDEJY=;
+        b=xxxqQjAbTO2Mz217TgU11cQA6+i2ui3O3y/rSYhuG9XR2xrXcjZqULspoX7r5b4R/i
+         HNlQVPI2zgEPlVfmBwycxqMloqJEZz2sFfcygCywbxewB/c+DFKNmUh2EWlCJjXOHQoL
+         lqTTwNP8LWBqxI/H1pCdbtnbDm+xjnOB0uMfANNhUXue6djuyduiZfBA8lwrTU8pBg6M
+         GIR/er7XEALdvCUjH2yCnctUMiL2Bs6cjOVT/ESyBuMDHNGeR7/7N8g6iBg3Svracx1r
+         3bk/deMzLj2haMJu5MOuRwOhHrvvmwxzz6YYUhP6kXLeAXAx1YkE1ozXw/ac8N4vOurq
+         fWjg==
+X-Forwarded-Encrypted: i=1; AKwUvBxKWbf4Shve9/17iIJPP/Vl6s5NbHdF+DPyEyXGytoyZfrQmtpx8RO0g8EM+PMYG4uP+tLeVzZLLFS6ytM=@vger.kernel.org
+X-Gm-Message-State: AFuF++k/8dOg9XPpzpiMfYH3R6h7rYPB82ZRoIA2gjOlEcAEbu5eL3E7
+	5h8/cgQTpSRnuiBh4JcNC7H4fGALEaxmYLTfkeTBA6qrChSt3q4rEOl1
+X-Gm-Gg: AYBFou3v/YtUI6j+xaq1TLoxM30NgybJ5gCMUwivPGpxOMVFJm2llul00f1hiFcmAzX
+	ZfvC48IEA8mW/HtBb2mhlwatJBjCisYvFP6gVR6CjS6lpqet3VxJZYtnmE3xje0LlYRAtiTQU8P
+	vi9zAYLUpSdzifQGDlm8FtVAVZ6LhGm9+Q4HOn+8ut1pHzDLpyrqILLFCwsWyhapUZkQ2cO5H+a
+	qAkUtM1LYm8yjhhdnLr89bHRDPiYVsaxjU5NRD7mP2gMvqTye+PJns0oUFdfPTnPN/ScegE92ir
+	TaJvf50wYzNqA7jmq287Ac9atcXo+Iay0NXRBFZJUT0svnLwTRc40Hc+W/nVeSaeNlHyIZ0Jm61
+	VQogK8dcjznLBiRp0w43ZT6nQJ+J0cufLzDgkxZ6D4IOzLe7Nn8J/Gnf5cZ4CL1mpvDL0EaQZ52
+	YRgobU7m84DXrdMGRGfJh0UmzeuczFwOUmdDGDhzvBs+VyNTr7lVLli/vrPUATMZy/h6s1Rnj7b
+	D7p8hitQwbLesOm5VDkCA==
+X-Received: by 2002:a05:620a:438f:b0:939:bc7c:15c8 with SMTP id af79cd13be357-93cf18979e3mr1635069085a.45.1791175760243;
+        Sun, 04 Oct 2026 21:49:20 -0700 (PDT)
+Received: from i4-gl-tmk5904.ad.psu.edu ([130.203.156.186])
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-917e0b67167sm79120846d6.21.2026.10.04.21.49.18
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 04 Oct 2026 21:49:18 -0700 (PDT)
+From: Yuho Choi <oss.patchbox@gmail.com>
+To: Alvaro Karsz <alvaro.karsz@solid-run.com>,
+	"Michael S. Tsirkin" <mst@redhat.com>,
+	Jason Wang <jasowangio@gmail.com>
+Cc: =?UTF-8?q?Eugenio=20P=C3=A9rez?= <eperezma@redhat.com>,
+	Xuan Zhuo <xuanzhuo@linux.alibaba.com>,
+	virtualization@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	Yuho Choi <oss.patchbox@gmail.com>,
+	stable@vger.kernel.org
+Subject: [PATCH v1] vdpa/snet: Don't discard the DPU error in snet_send_ctrl_msg()
+Date: Mon,  5 Oct 2026 00:47:45 -0400
+Message-ID: <20261005044915.264532-1-oss.patchbox@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Date: Mon, 05 Oct 2026 15:44:45 +1100
-From: "Andrew Pam" <andrew@fastmailteam.com>
-To: "Tzung-Bi Shih" <tzungbi@kernel.org>
-Cc: =?UTF-8?Q?Thomas_Wei=C3=9Fschuh?= <linux@weissschuh.net>,
- "Sebastian Reichel" <sre@kernel.org>, "Benson Leung" <bleung@chromium.org>,
- "Guenter Roeck" <groeck@chromium.org>,
- "Matt DeVillier" <matt.devillier@gmail.com>, chrome-platform@lists.linux.dev,
- linux-pm@vger.kernel.org, linux-kernel@vger.kernel.org
-Message-Id: <8fa29694-88cb-41b7-95d6-4d2cf9647d4a@app.fastmail.com>
-In-Reply-To: <asMlkcx5P3Qgolgh@google.com>
-References: <20261004225606.30577-1-andrew@fastmailteam.com>
- <asMlkcx5P3Qgolgh@google.com>
-Subject: Re: [PATCH] power: supply: cros_charge-control: restore EC state on resume
-Content-Type: text/plain
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On Mon, 5 Oct 2026, at 15:20, Tzung-Bi Shih wrote:
-> On Mon, Oct 05, 2026 at 09:56:06AM +1100, Andrew Pam wrote:
-> > Nothing notices the reset. Commit 4fc88ba435da ("power: supply:
-> > cros_charge-control: adopt EC charge state on probe") made the driver
-> 
-> The commit 4fc88ba435da doesn't exist.
+snet_send_ctrl_msg() reads the error code the DPU reports when it ACKs
+a control message, but then overwrites it with the return value of
+snet_wait_for_dpu_completion(). As a result, a DESTROY, SUSPEND or
+RESUME that the DPU rejects is reported to the caller as a success as
+long as the DPU clears the opcode register in time.
 
-Thanks for the review. The patch is against Sebastian's power-supply for-next, where that is Matt's patch you reviewed, applied on 10 September:
+For SUSPEND this means vhost-vdpa marks the device as suspended and
+lets userspace reprogram the vrings while the DPU is still running
+them; for DESTROY, snet_reset_dev() never even sees that the device
+failed to stop.
 
-https://git.kernel.org/pub/scm/linux/kernel/git/sre/linux-power-supply.git/commit/?id=4fc88ba435da
+Return the error from the saved ACK value once the completion wait
+itself has succeeded.
 
-It isn't in mainline or chrome-platform yet, so I have made that explicit in the v2 commit message.
+Fixes: 3f3a1675b731 ("vdpa/snet: support getting and setting VQ state")
+Cc: stable@vger.kernel.org
+Signed-off-by: Yuho Choi <oss.patchbox@gmail.com>
+---
+Compile-tested only (x86_64 defconfig + SNET_VDPA, W=1, sparse).
 
-> > initialise its cached state from the EC, but it does so only on probe,
->                               ^^^^
-> To be precise, this should be "to".
+ drivers/vdpa/solidrun/snet_ctrl.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-Reworded in v2 as "made the driver adopt the EC's charge state, but only at probe".
+diff --git a/drivers/vdpa/solidrun/snet_ctrl.c b/drivers/vdpa/solidrun/snet_ctrl.c
+index e284c3a06717..09afa0487fd6 100644
+--- a/drivers/vdpa/solidrun/snet_ctrl.c
++++ b/drivers/vdpa/solidrun/snet_ctrl.c
+@@ -291,7 +291,6 @@ static int snet_send_ctrl_msg(struct snet *snet, u16 opcode, u16 vq_idx)
+ 
+ 	/* Check for errors */
+ 	val = snet_read_ctrl(regs);
+-	ret = SNET_VAL_TO_ERR(val);
+ 
+ 	/* Clear the chunk ready bit */
+ 	val &= ~SNET_CTRL_CHUNK_RDY_MASK;
+@@ -301,6 +300,8 @@ static int snet_send_ctrl_msg(struct snet *snet, u16 opcode, u16 vq_idx)
+ 	if (ret)
+ 		SNET_WARN(pdev, "Timeout waiting for DPU to complete a control command, err %d\n",
+ 			  ret);
++	else
++		ret = SNET_VAL_TO_ERR(val);
+ 
+ exit:
+ 	mutex_unlock(&snet->ctrl_lock);
 
-I have also taken your other three suggestions: dev_set_drvdata(), a dev_err() when reprogramming fails, and the nested .driver initialiser. v2 also fixes the resume hook's comment, which still said the driver never reads the state back from the EC. That hasn't been true since 4fc88ba435da. And v2 adds Fixes: and Cc: stable: the driver has had no resume handling since it was added in 6.11, so stable kernels lose the charge limit across hibernation too. v2 follows shortly.
+base-commit: 7704c4c5bb127673b4f0ead839919db573559e38
+-- 
+2.43.0
 
-Thanks,
-Andrew
