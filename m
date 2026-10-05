@@ -1,170 +1,200 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-yx1-f41.google.com (mail-yx1-f41.google.com [74.125.224.41])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A34DF23C516
-	for <linux-kernel@vger.kernel.org>; Mon,  5 Oct 2026 13:00:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791205235; cv=none; b=VLDwrXKyruwmCttF8NnrMdrVjpgzc8W/V94phWFRKQBM4lXVw1QMGMOb4l6e6BaB8kQnMFEEKSN1U3kOZ2LpErwrFCHXxDSAgedeazF+K//HFdFN8n7rfzJCykxnDfqHukrUGH4M8NA31AZv63unelcXDAcrklbOXRhrGVp5uck=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791205235; c=relaxed/simple;
-	bh=y/DOj5Kxtb7coTB6QB5NVnMWGcNdmwOCmTlT8mckYQw=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=goMHFwCVRiJBko7UtDFumBjv+vBQn+77FxsC/RBj0brfldysrtQzdkhEQMQWpT1QdUR6TN85GwpvoBJ7RLKRbEG+ynK6kfewva1BfsFiB812V21Wj9FX3r3Xkg/zHw/6gsV7sAtC16NnDkXOOpcx1eTQAuvEt+7ZYAAMsFjiyck=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=ER1teMVN; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=GplY+3Fs; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E915023C516
+	for <linux-kernel@vger.kernel.org>; Mon,  5 Oct 2026 13:00:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.224.41
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791205240; cv=pass; b=t/UCaddyD3E7b8wDwUESrBu0WfMsgVomJqPwfhFbqnOJX556dKOw02ryHIFK9TaMsu0VFi6Y3okpX0th76cKbPX9fHWz9bOF5ISVVJ3jLtp0t05a+QbYMhNHbC3gHOj0AEMxzoJvSvSdaBAFA+RBjFdkmLGyNiECd7d1+D/efow=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791205240; c=relaxed/simple;
+	bh=lqu8idoflIEspPp+iCi7QnrMJpBiHC5qMef14ajyfgA=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=Z+mLLs80Aa6oTpTjqMUfDesafQUrT1rPbpB4syInrZNQRuXYBRP6XIQKamtw0HBpmTmnZN7553l2ZJrJVTA6RCBqzYPmWJPjif5EJq/oyN/i/JRH1VU5ODMp88rEs/8YJZaMZpG3wKLkc1ZOtUxPYDBMcA39+SpcKkpJT1TeGWk=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=KeDzqrwR; arc=pass smtp.client-ip=74.125.224.41
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="ER1teMVN";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="GplY+3Fs"
-Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 695CFTrD914054
-	for <linux-kernel@vger.kernel.org>; Mon, 5 Oct 2026 13:00:32 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	BPfFEOFQnUkSvYmpAmpRp5GRqU+z/sLm9AJz2jCuNpo=; b=ER1teMVN7KwQmU/5
-	3Tk/S1h0H6gRZldInKL6PDosLB7EVaf3Vb5pvhUdzRp8bEKPUwWwyPvRdmDsRTuE
-	Qb4b8BQBOsQk5jc7gr12BxIyvO4JC362XJ3zYDvUMBDmq2BmC99KA86Fx66b/nSC
-	FDklqorkEW0OnTo5B2NT1B7w+zSqoRZmAA17t09Mc5V9hTcigi2R25PhiR1bZ+pU
-	G5ImtczX15CykX2lDjftYDjV3yVhM1H1t0WqxGfOM9VCmuW2qaWYRNYQhR7l4fKm
-	ERtKbpXh86YtPzYrHfEuss8b0P6mE2/OE9DtUfn/x0wsvBRhmh7hDO13vVLffR2R
-	oDdRNQ==
-Received: from mail-dy1-f197.google.com (mail-dy1-f197.google.com [74.125.82.197])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h3chfks60-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Mon, 05 Oct 2026 13:00:31 +0000 (GMT)
-Received: by mail-dy1-f197.google.com with SMTP id 5a478bee46e88-34d84114044so7784629eec.1
-        for <linux-kernel@vger.kernel.org>; Mon, 05 Oct 2026 06:00:31 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="KeDzqrwR"
+Received: by mail-yx1-f41.google.com with SMTP id 956f58d0204a3-6768a9fc0e8so1334086d50.2
+        for <linux-kernel@vger.kernel.org>; Mon, 05 Oct 2026 06:00:38 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1791205238; cv=none;
+        d=google.com; s=arc-20260327;
+        b=r3eDZcg2Q//Pe0iNvwcMB46cgfl0dfZXJ67C1mwRFa9ovzuUrk1zajKENS/CK0osXs
+         Ll2tCuOpgf/boGN/OqZ8JAF29y34QLXbds+GvG9O6jflnz5ChyfMeFU3sd55eDUqm8CN
+         A66vTW7PbDYS69QGzbWMdgg+KZEIANnESYsp8s9VfbIxvGv6C34xQPN+3vTutVH9kFCs
+         CnikYMoaJF+LDjKETAUeJDdeOCNU3hGsOIYOs43hIuU6c1yjRPa7foFP0Zu0agIka9TJ
+         7N9H2LQgZPuP4MqTpEF8fSKy2QCql6o8hkxk8zY1K7+wDRPo+2QGdbFVfY8rmkldxoz6
+         tkwQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=9TVxNLM2/qd2lTVm5cxBkKudIn7jUEvyNDIL+WtL+J0=;
+        fh=xjmOkmzH7b9zKTlHWcQruFVUD3vc+582cNhIl3mMoDM=;
+        b=XTcKMeJK6ID+XrPa5EBe08nEAdC39OYa3duD4fN4Selip+38wEOOwlkDryPsuE4j3g
+         lQ9rbSijzbV2ldhiAYpTAX+TjMBHjtFTIC8W4drB/W+4xWUv5zEvmzC3T+Igjt9IApxx
+         aLOlE9jeFmygSFFIV5QX2py0LZ/DKo23oy6JwKLwfxvvHdxrTeO78Yu5Ynb/ahQU7XGs
+         VM/zZ258Z8+EVi/Yke9PaDo8EA0CG9syfLZ76Jwkp8GZ7K791l8w6LBYhhE65cNHuPqv
+         tHkSwnzx8dnt5+yo1w6Be4jHmsuqihToYM5+qXZeDjdpWl08WH+CZajEwU1zp0oFgIja
+         zRIA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1791205231; x=1791810031; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=BPfFEOFQnUkSvYmpAmpRp5GRqU+z/sLm9AJz2jCuNpo=;
-        b=GplY+3FsJ5q1owoRmsMwiYEZFVM33/Adltn3eeGp+rMpaM0QuT5lga6dDsgtu9ts3W
-         A64ZM0Mx/9tgWZCYAjvpUDF/iJtwa2LgWBDM+pT1Jf0H2EAjHE7GjhEVylQAPAEjhU08
-         tINgytI0TOkjb5eTXbJAi41hNEln2eXW8IhYpYpZ4nE3lKYpYKpbSUP4mEFFX+FrkdAA
-         OQ+q1KnPPrBRz+6OF4gV0ACJDgXFfRHPDM1qlq3J+i1o5HrfptcRjJyeq8FpiHZnr3cH
-         u+OSsNKbxHUqFb6bXerKTuBzvDlA65scniPjcOhQTYh0FNy6FdREQdKvvs+JtJqU2sew
-         peTA==
+        d=gmail.com; s=20251104; t=1791205238; x=1791810038; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=9TVxNLM2/qd2lTVm5cxBkKudIn7jUEvyNDIL+WtL+J0=;
+        b=KeDzqrwRpiH3Z2bJKw3/HBTZlZ1hhsev4pkSrjXzsv6aklYZPUdUHtkvBg70oj6z2W
+         ogThgoFtqoJvorbe7wppcsdsXuOZQZOgYDVayozTIIaKX4ACc/jd9ijFi132RtDhMBXF
+         1omJyo7FVRCOQ0mKTvlexjGPZ8gUQSKlsIHDtuwXMVsQmzg1WCkKEdkW/J29Gn8xzvxl
+         0UYv4OVPQansjRznu4+WvCjTc5j762CnSiQZC+AoLpLfxv56NKZkROnEGDgrrRFxPpAx
+         Q6XlFpT1To4Jqk8wfLewCf/nPPlVomD5VnEVVpabXbDwWggizV+TbMv0Ruwdv0RnogcZ
+         pbmQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791205231; x=1791810031;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=BPfFEOFQnUkSvYmpAmpRp5GRqU+z/sLm9AJz2jCuNpo=;
-        b=JBmYHY1KFA565NdsfN9DZi3w/jGhHEu6u//Sb9x+/GumwYfax2dB0/S/sQhwBejlJN
-         hAUcPGWwIvNUaUhG8bRtK2iRl99rBsBp79clFo96YtHaCN4z50EQD4LWZVLGMzXxJ3hS
-         h/vgki/QMEXnu3LRvG4KtZUQZsOzeCeCVhnVJgv1e4wukDo8MdEikwQoe4tmrXbEmqge
-         6WqGeP0n+ZnuJahExQTZOX8NGMlkK273BZEvg6I7UgxkGyhoACA0d7ExMoOa3fVyrVv+
-         dd7l5UkSTmE4IFsDDr5gaoMdHEoF3FI91QmRCR9cTLn0/qx3DliV+W6acsXgG3Dc5TGM
-         n4dA==
-X-Forwarded-Encrypted: i=1; AKwUvBwzLPf1wUMabd6fLKGaKxTalJX7IzQwIXimpDLT3/JrfMRAIlzxoW+gA6kMj/UnF04XG9K5aWznLAJyUAo=@vger.kernel.org
-X-Gm-Message-State: AFuF++maUov79+bD66ZAMwUtpR1jU+F0yUapaFzPyKIOpEX8Y1MteWNI
-	sn63HWKF0nep6RkKLoYF5O7gG4ZrgIZbwMS8IEBFpXK2DKTmaagR0hH1lOhwTBFEA+/KF3kqCyq
-	hPMKVgp+wsOqGJci2IykkiSZmCEgBdoeI/YkSg4KaVo7TryYUXaCgw9qsK7N/eK+3XG0=
-X-Gm-Gg: AYBFou19u65GPvz9UHVV10TjblHJzRVhT3TvIcnuC7DpHkAFjw63a2oEpjgN6uWc2tz
-	Tqsr952H3kKnlFB92qG9vrMJcPcC9S6+iYTYkfxV905d3tiRG6V3Wn/Sgg5RXRofBSIsrc8slQf
-	ulRn50XUt7ij6BQJD8S0aNHaly2fk75Z5X5w1IC8EqiuKmPVGncLOzc/EeWEnMdUh2kJHecD86W
-	jYpFVXbGVX0OP0FeAR1Z6ldq8mTK6kCnYLAyJBAElIiFT3JEvGEPNSp9Oj4WGdrpoyXhiZ0tYG5
-	zLzRXFOdhJMXULV5C2CfPeQYDvbfn62aeu4J4wV1iFlnU4/kV4VPfuT1fSow3DSxoNXGwx7sURN
-	gUH1nsh+zsi1gfQWsc5CpeHDeHO/X3A07hg==
-X-Received: by 2002:a05:7300:24c9:b0:351:2696:bf86 with SMTP id 5a478bee46e88-3512696c138mr6042648eec.14.1791205230443;
-        Mon, 05 Oct 2026 06:00:30 -0700 (PDT)
-X-Received: by 2002:a05:7300:24c9:b0:351:2696:bf86 with SMTP id 5a478bee46e88-3512696c138mr6042580eec.14.1791205229446;
-        Mon, 05 Oct 2026 06:00:29 -0700 (PDT)
-Received: from [10.204.101.119] ([202.46.23.25])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-351271847fbsm22548670eec.15.2026.10.05.06.00.26
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 05 Oct 2026 06:00:29 -0700 (PDT)
-Message-ID: <17c38615-1689-4bb4-80be-6aadd3b91d18@oss.qualcomm.com>
-Date: Mon, 5 Oct 2026 18:30:24 +0530
+        d=1e100.net; s=20260707; t=1791205238; x=1791810038;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=9TVxNLM2/qd2lTVm5cxBkKudIn7jUEvyNDIL+WtL+J0=;
+        b=GCM6lDy/HhKIot/F8QfxBQCpn4TeNavzkuy1WUUtoC93TuhMPDyPyFhkbxjxtMN0S/
+         tsZnCNDkaGUQRheABfEWeCScbG0mOXkUZI2CqYdlYYqa8SrGbC+O6jgwQnFOLc3h7DyZ
+         tjyw9lhQ5EwXX98fh4TorHhWULLHwvYsLyGZ0siMYPcHy+rK5dbDJJOmjhQF9GWhHpps
+         yWwrLHYkL9w2tDSNVX/7j087palSexi6J0taF8VXM7bbrZ9LAxg7L9gLJzaMeWu0ha8v
+         YjMTuvbH8TXxe9jE+yFYz1sZ4F42HZ+HxLct6aTNz21bkXWcPqWOThoFjR3wZUgs0uYs
+         W+dQ==
+X-Forwarded-Encrypted: i=1; AKwUvBy8a/K+18HFgTu4/mvU4N0njk4mGwLU1YKd25R0oDUx2DGqSnwQVWLS3QiqTOEMJNgZVqsCyMmtQA/M1L8=@vger.kernel.org
+X-Gm-Message-State: AFq9FYL96Rv38bd+aMHK8tRoEJnj0gnWBCLBVdxf8/vCO6cpNJSQvFQD
+	JkZOVH8c1O+Z2ewNvZVcJ5e27AS/ss8r3IfwXwBP+DYjt4010GW88pXuRYKdibav7UJ1sc3XTEK
+	F8yyKXtl6yGDMkrm2E2wTJJ0nsQOmZdI=
+X-Gm-Gg: AYBFou1TQy7XslO2ehthi4oLkjO7dDXDAoC97eZFN8HsYT/AZthRkn8E6xsFsEqmMQ+
+	9/zIAyw/89Xj7WRjokOx9DMzme0FvHnZuXhEBoX+HLXf8YPW6o4+SZ3U2vOO8KBEMLRR6wK0xsQ
+	87wkLg4eKUkmobq794TZpe9DXu+9wDUslbKekNKnl2Z2EQnagBVHxj7Rc38792cfmSTVbaizd9Y
+	QB1SccpdSvPKR4XamwDZzphKLKKS9gK79WeEq6Z+dzWUdx3fXAhm0uw2LVQD/8CwBVEZO/FY/B5
+	ARleXLl31OOHBKUAWkaKNF3pZFSF/wrjbLwwU5u3hmJS1JwbtKMhHtBPvg==
+X-Received: by 2002:a53:ac89:0:b0:677:db69:cbd4 with SMTP id
+ 956f58d0204a3-677db69d93fmr750927d50.34.1791205237305; Mon, 05 Oct 2026
+ 06:00:37 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] media: iris: Retain firmware confirmed video_format
- across GOP restarts
-To: Vishnu Reddy <busanna.reddy@oss.qualcomm.com>,
-        Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>,
-        Abhinav Kumar <abhinav.kumar@linux.dev>,
-        Bryan O'Donoghue <bod@kernel.org>,
-        Mauro Carvalho Chehab <mchehab@kernel.org>
-Cc: linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org,
-        linux-kernel@vger.kernel.org
-References: <20260905-read_video_format_from_firmware-v2-1-21a606cdd288@oss.qualcomm.com>
-Content-Language: en-US
-From: Vikash Garodia <vikash.garodia@oss.qualcomm.com>
-In-Reply-To: <20260905-read_video_format_from_firmware-v2-1-21a606cdd288@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-ORIG-GUID: AYY6nKIHHdfQ6YC4_mt2UerXdmJcR-aq
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDA1MDA1MCBTYWx0ZWRfX01fa9N/QEFTh
- ufa86PwnMVezS45jvcVsMHi69XCS+E0IN0oZQKjDFDJU+8ar+5D84vIr2NQKXyMTCLhYrBfVjRQ
- 476YsUeM135Kg5F6h06jQcFEx8YI33c=
-X-Authority-Analysis: v=2.4 cv=eZSo7LEH c=1 sm=1 tr=0 ts=6ac39f6f cx=c_pps
- a=Uww141gWH0fZj/3QKPojxA==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
- a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yx91gb_oNiZeI1HMLzn7:22
- a=bC-a23v3AAAA:8 a=EUspDBNiAAAA:8 a=w_nWnu2JXzorbJeL33cA:9 a=QEXdDO2ut3YA:10
- a=PxkB5W3o20Ba91AHUih5:22 a=FO4_E8m0qiDe52t0p3_H:22
-X-Proofpoint-GUID: AYY6nKIHHdfQ6YC4_mt2UerXdmJcR-aq
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDA1MDA1MCBTYWx0ZWRfX9yqfKVRFNJIn
- Waap99Gh3IPOc7ofBiH2SE8G886Crbp85N3Ld0vAyoxF1x/07EOVqHOhOAzZWrrsddxbBKeSZWq
- 19AdJxWJ+0bbjUGgvDk+hfc2lG83zxWbuoa4AUHj9vXYEzRZ2xHftt97PFQ+GPULFYd+7FFpsAw
- cLN7Cc0DXQbK5iA7Km7T8h3jaJXyVCCx5ovJ/gVi/pUkGmEs2DHEIihKRomc4/lC9S9930MZdDE
- dBQ8thTqvN8t7sGRwVgTWLx2CUHPfbtgLzG2qUqn+UfQiKsZxxqyFfcGaKfsatG7vgHLbBGhXA5
- xsfhUOf870yRSu79yRWMaiyaYM0FKCF6h5LgnBQ1Rh0IbvWITQIKFyu+wdQXAgiAPoQSUDZxkqb
- JvXNehAhXwYmulnlbjcP85vecGKvQS+SGhOVrO56r4NkEeCPnGzapn40lakD5ZtJqK4JqQL0CE3
- n4GInxWZRW0YGuoSDwg==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-10-05_03,2026-10-05_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 clxscore=1015 impostorscore=0 priorityscore=1501
- lowpriorityscore=0 suspectscore=0 malwarescore=0 adultscore=0 bulkscore=0
- phishscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2609040000
- definitions=main-2610050050
+References: <20261005102152.368-1-yogeshgaur.83@gmail.com> <7697abef-5a5b-4b8e-b0e9-7e58c60e6180@suse.com>
+In-Reply-To: <7697abef-5a5b-4b8e-b0e9-7e58c60e6180@suse.com>
+From: Yogesh Gaur <yogeshgaur.83@gmail.com>
+Date: Mon, 5 Oct 2026 18:30:27 +0530
+X-Gm-Features: AclHuK-R0aZOLxh5q4bY_s7RHF4fakDjS8KjJJYk-acAFYuXRYJLyV3ne55zR84
+Message-ID: <CAG6enPwtZpUh4eky8q-S5Nr-QKEzx+E+4L=S-UizF_NsKvozzQ@mail.gmail.com>
+Subject: Re: [PATCH] x86/mtrr: allocate the cache map before taking mtrr_mutex
+To: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
+Cc: Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>, 
+	Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org, 
+	"H . Peter Anvin" <hpa@zytor.com>, linux-kernel@vger.kernel.org, 
+	syzbot+342762971f666337474e@syzkaller.appspotmail.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
+On Mon, Oct 5, 2026 at 5:55=E2=80=AFPM J=C3=BCrgen Gro=C3=9F <jgross@suse.c=
+om> wrote:
+>
+> On 05.10.26 12:21, Yogesh Gaur wrote:
+> > mtrr_copy_map() does a GFP_KERNEL allocation with mtrr_mutex held.
+> > It runs once at boot from mtrr_init_finalize(), but lockdep keeps
+> > the mtrr_mutex -> fs_reclaim dependency it records there for the
+> > life of the system. Once another path gives lockdep the rest of a
+> > cycle back to a lock held around mtrr_mutex, the next MTRR ioctl
+> > reports a circular dependency. syzbot found this through nbd, which
+> > takes cpu_hotplug_lock (via sk_set_memalloc() -> static_key_slow_inc())
+> > under its tx_lock, while mtrr_del_page() takes mtrr_mutex under
+> > cpu_hotplug_lock:
+> >
+> >    WARNING: possible circular locking dependency detected
+> >    syz.9.5848/21744 is trying to acquire lock:
+> >     (mtrr_mutex), at: mtrr_del_page arch/x86/kernel/cpu/mtrr/mtrr.c:408
+> >    but task is already holding lock:
+> >     (cpu_hotplug_lock), at: mtrr_del_page arch/x86/kernel/cpu/mtrr/mtrr=
+.c:407
+> >    -> #1 (fs_reclaim):
+> >           fs_reclaim_acquire
+> >           might_alloc
+> >           slab_pre_alloc_hook
+> >           __kmalloc_noprof
+> >           mtrr_copy_map arch/x86/kernel/cpu/mtrr/generic.c:413
+> >           mtrr_init_finalize arch/x86/kernel/cpu/mtrr/mtrr.c:618
+> >    Chain exists of:
+> >      mtrr_mutex --> &nsock->tx_lock --> cpu_hotplug_lock
+> >
+> > The allocation does not need the mutex; only publishing the new map
+> > does. Allocate first and take mtrr_mutex just to copy the boot-time
+> > entries and switch cache_map over. On allocation failure cache_map is
+> > now set to NULL explicitly rather than by the failed assignment, so
+> > the behaviour is unchanged and cache_map still never points at the
+> > __initdata array after init.
+> >
+> > Fixes: 061b984aab58 ("x86/mtrr: Construct a memory map with cache modes=
+")
+> > Reported-by: syzbot+342762971f666337474e@syzkaller.appspotmail.com
+> > Assisted-by: LLM
+> > Signed-off-by: Yogesh Gaur <yogeshgaur.83@gmail.com>
+> > ---
+> > Built with W=3D1 only. syzbot has no reproducer for this report, so the
+> > fix has not been runtime-tested.
+> >
+> >   arch/x86/kernel/cpu/mtrr/generic.c | 13 +++++++++----
+> >   1 file changed, 9 insertions(+), 4 deletions(-)
+> >
+> > diff --git a/arch/x86/kernel/cpu/mtrr/generic.c b/arch/x86/kernel/cpu/m=
+trr/generic.c
+> > index 67cf69f24b00..430bc9dd6f20 100644
+> > --- a/arch/x86/kernel/cpu/mtrr/generic.c
+> > +++ b/arch/x86/kernel/cpu/mtrr/generic.c
+> > @@ -402,20 +402,25 @@ void __init mtrr_build_map(void)
+> >   void __init mtrr_copy_map(void)
+> >   {
+> >       unsigned int new_size =3D get_cache_map_size();
+> > +     struct cache_map *new_map;
+> >
+> >       if (!mtrr_state.enabled || !new_size) {
+> >               cache_map =3D NULL;
+> >               return;
+> >       }
+> >
+> > +     /* Allocate before taking mtrr_mutex, the allocation may reclaim.=
+ */
+> > +     new_map =3D kzalloc_objs(*new_map, new_size);
+> > +
+> >       mutex_lock(&mtrr_mutex);
+> >
+> > -     cache_map =3D kzalloc_objs(*cache_map, new_size);
+>
+> Having here:
+>
+> +       cache_map =3D new_map;
+>
+> would avoid all the code churn below.
+>
+Thanks for review. Would remove in v2.
 
-On 9/5/2026 7:27 PM, Vishnu Reddy wrote:
-> During speed-based rewind, the client restarts the decoder queues once per
-> group of pictures (GOP). This is because playing a GOP-based stream in
-> reverse requires decoding each group forward first and then showing its
-> frames in reverse order. Each restart makes the driver resend the colour
-> info property on the bitstream port, which firmware always treats as a
-> sign that the stream's properties may have changed. The driver never
-> stored the video_format value that firmware had last confirmed, so it
-> resent colour info with a fixed unspecified value instead of the real one,
-> and the value firmware received kept differing from what it already had.
-> 
-> On every restart during rewind, this looked to firmware like a real change
-> on the bitstream port, so firmware sent a settings-change notification,
-> and the driver treated it as a dynamic resolution change and paused the
-> port. The client then removed its buffers and built new ones for a
-> resolution that had not actually changed, stalling playback once per GOP.
-> 
-> Store and send back the same video_format value firmware already confirmed
-> so both sides stay in agreement across every restart, avoiding the false
-> settings-change notification.
-> 
-> Signed-off-by: Vishnu Reddy<busanna.reddy@oss.qualcomm.com>
-> ---
-> Changes in v2:
-> - Updated the commit description (Konrad)
-> - Link to v1:https://patch.msgid.link/20260901-read_video_format_from_firmware- 
-> v1-1-499edea4d200@oss.qualcomm.com
-> ---
->   drivers/media/platform/qcom/iris/iris_hfi_common.h        | 1 +
->   drivers/media/platform/qcom/iris/iris_hfi_gen2_command.c  | 3 ++-
->   drivers/media/platform/qcom/iris/iris_hfi_gen2_response.c | 2 ++
->   3 files changed, 5 insertions(+), 1 deletion(-)
+Regards
+Yogesh
 
-Reviewed-by: Vikash Garodia <vikash.garodia@oss.qualcomm.com>
+> > -     if (cache_map) {
+> > -             memmove(cache_map, init_cache_map,
+> > -                     cache_map_n * sizeof(*cache_map));
+> > +     if (new_map) {
+> > +             memmove(new_map, init_cache_map,
+> > +                     cache_map_n * sizeof(*new_map));
+> > +             cache_map =3D new_map;
+> >               cache_map_size =3D new_size;
+> >       } else {
+> > +             cache_map =3D NULL;
+> >               mtrr_state.enabled =3D 0;
+> >               pr_err("MTRRs disabled due to allocation failure for look=
+up map.\n");
+> >       }
+>
+>
+> Juergen
