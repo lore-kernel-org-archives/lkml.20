@@ -1,138 +1,148 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj2-f7.google.com (mail-pj2-f7.google.com [74.125.227.135])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5F472414429;
-	Mon,  5 Oct 2026 23:27:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3DD8A41DE15
+	for <linux-kernel@vger.kernel.org>; Mon,  5 Oct 2026 23:27:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.135
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791242864; cv=none; b=tWoR7xAmjnlzmorMpMtCuwAKjys5GYDbesli5bVDA0w836y62tm1YvFchz8OmASxe5czcQP292lRnWKYpqlcBJcPWImL6YO/IVKWD0OKEx1l8K7EUngNvFNczbRex1csWY6vS0SCiCJLpVrmLMtgEhUJYbsAmaYQw86N5wlW1kU=
+	t=1791242880; cv=none; b=TE1h7jgIaCr/k3LqMco34M4Ir2XhxjmuUPaFJtTKrLXiUqJYwko34uv3EQ3IZmnNKE1IpNH8R6ep81JxK+JmgjOka5Ey4+ZMlXuXqVDnj5z/Pf6vk0GuKFJh7DagnfPiomymika87+wzb5iao2oM9yJR6sramfnQeT6YlXFKKGw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791242864; c=relaxed/simple;
-	bh=aqd8VHRPmQFr5U5I96XinvyJq20NLchrRFnsZ7zEQTw=;
-	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To; b=LStPNeXEynd1xRjdclrJivryQS6h13u1jOHf6NoVgWQnoNlAIpEOd60VZ+zn69lGRKqfXfLG16Xl+we2bf4QnXsNe6DgNIgNiPRjC9Xz0kV1wes/QeUvolshE0kWzRSMfbM2r5TZ2iIBnk/D9KwitS+HdNJhE+00nqtEr1nxi+k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ccLkwZLA; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791242880; c=relaxed/simple;
+	bh=6CPiYuuTXPIWdsAfIiOCV03Lg6iemO+IJl3GZDw3XnE=;
+	h=Date:From:To:CC:Subject:In-Reply-To:References:Message-ID:
+	 MIME-Version:Content-Type; b=RPFIo9GFzA8unpdcFqCYhIoG+WnIWUrEGLeQz3FvP83+g7pzJz4B35kBXwQekX1ogjQhzTpH/eDL8oh0b0iVrfPj1YiSA4K/ADufuHKaxNw91vdQl1/Kq2onXDfbewYrB8ho2sGMo/nkbGK+QXhsyKEXjYRp9xWdTlbzxnJc9u8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=dVhUBfBp; arc=none smtp.client-ip=74.125.227.135
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ccLkwZLA"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1465D1F000FF;
-	Mon,  5 Oct 2026 23:27:43 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791242863;
-	bh=Hk4nSN1n4Iw0XZzBtZze8RtRb2pN/Wq0d66Aae2ZiSw=;
-	h=Date:From:To:Cc:Subject:In-Reply-To;
-	b=ccLkwZLA+vTQJQtDHAKltez1/rs2YjIt2DogLykXHRJR1+ec7JqgCf+/nT/X5vRHE
-	 s3uC9M/V0irEkuq+u6Zy1U8i1TfCnjP8WdmeDVBnTLvaIXPiPf2v8R1K0kdfOcQOth
-	 X6EXMeQn/GSoDCIouuh2Rdx1MACjFGq8WA41nshZIBXlOUFqz/wdHoO+L5rGQ06ywr
-	 c8L9mDwkIFkpdaQygCj5MXOvO0OJcwXOoBb26+HeYLlzovSV/fhlzeGf3YPV1bj1ZU
-	 5n7gl2JT1lLIX+Bvha1vznbLwH5U4GuoUl+lEwZOxs8SiL4FPTaC5CbahZ1PGsZj8M
-	 DLj31WvfBh0hA==
-Date: Mon, 5 Oct 2026 18:27:42 -0500
-From: Bjorn Helgaas <helgaas@kernel.org>
-To: Priyank Rathod <rathodpriyank@google.com>
-Cc: Mahesh J Salgaonkar <mahesh@linux.ibm.com>,
-	Oliver O'Halloran <oohall@gmail.com>,
-	Bjorn Helgaas <bhelgaas@google.com>, Lukas Wunner <lukas@wunner.de>,
-	Stefan Roese <stefan.roese@mailbox.org>,
-	Keith Busch <kbusch@kernel.org>, Sinan Kaya <okaya@kernel.org>,
-	linuxppc-dev@lists.ozlabs.org, linux-pci@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2] PCI/AER: Fix struct pci_dev reference leak in
- aer_process_err_devices()
-Message-ID: <20261005232742.GA645076@bhelgaas>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="dVhUBfBp"
+Received: by mail-pj2-f7.google.com with SMTP id 98e67ed59e1d1-39e501442e2so807774a91.0
+        for <linux-kernel@vger.kernel.org>; Mon, 05 Oct 2026 16:27:59 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791242878; x=1791847678; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:message-id
+         :references:in-reply-to:user-agent:subject:cc:to:from:date:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=B/zPhhqSzZgiqvCy2v2R07ljbiJnf/kj+cRVGXz4l2o=;
+        b=dVhUBfBpQHFBCdRxCHVQyN/oEX+e9kKMtc6mMLiEovOZjkaA3dP6WT7ELYFfz+rIcG
+         LbEUJ5g5hJj50kCLma91uM/oidP9T5hyWPQ8PBX6w8U7Hj2RQfTEh4pJ0l1qHYT/Favj
+         J0yz99S5Imjg9n9D1VDfkpzcqV9sMhKRz0QXdE0QS3x2jdtBenxDa2pCYW+NiOKUctUS
+         5WyT++KjqO+U8LMOBE6NvTI7EPaE0sCkhhgBl64lbb/KEkc1Pf0Ckh+Apnk2NYj0lC0n
+         Ncu82QhKEHa7hMtz7U8Ib3or9buvzo1QZKM12KRV93V7Y2hEqsWWEMKKwQZfLYFEQxYy
+         gNUA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791242878; x=1791847678;
+        h=content-transfer-encoding:content-type:mime-version:message-id
+         :references:in-reply-to:user-agent:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=B/zPhhqSzZgiqvCy2v2R07ljbiJnf/kj+cRVGXz4l2o=;
+        b=03wC5OvuCT4YmBFvkbIfAHx+6lYFncMturdtZGHszVQ5WeOk1Z3wTlwnj36pJXYorc
+         6gB/AtmeoDc+VuVOez/08l8tmkbtR1W82mQhZ0lsQH1JnduiZvdC9DmGmsrR87ZTcx7L
+         JjCeg6QpDa00BzSBYX9tZS82SS0jm/veZXjbhQhVqvkBdpag3etYrn27gMuAYQX1mrMe
+         qNanffp+uwS9pru9x7QadFw6gA+znIHLh24guQNgbUJGX3kRVnLxi1DigtxRfHI1Qi9i
+         L7OOHCOOSuSbEg5aNM/oBl6y4RaWB/5ZwwkgoIcs9w9zFAx3vSU8EJkL2BAZX9erFfe4
+         GfWQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxgcP+Uu2/DymZwWYuFGXLdg1FJpsyJ9I9JPNJnzGkXdfgKkDFVJJI5I7HzHV6dCAsezsVbiNBliezv3J4=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKVF4deXBeH+PQdy/zflJdmzL6ocIsLxXE5y5sMB5lpUbqAQVt8
+	R8Wolmz9cdLyrpHGLkHtNneXp8+R2gBRvg0yn/m09qadZKAUcdlbg6w4
+X-Gm-Gg: AYBFou3TkngLEW8l2eOoilNFWqjNZT8Df4rJsIzkwpVfEruiBDgTcmSZTixw4CgoDoj
+	OEkSmkGOq19/fqL8pJjaq4p6D2gHY/eMXWankCvLkJ9pL5OOFaYthElWHyisDjukrLBhXOaRow7
+	p3HfiVHCn5n5JwQDQmwC2qhFAXWZQZq7Ypomm1wF7rSmF4NKgDDKcIG2nGD/HhK4u2BNUOhu+2r
+	ZlUTrE6q4v3ZvzfvKrZny7XM0kFYkOAKHRcPdPeiM47Od3Lm2KnWk+sB7DDElMT8bMZqtAsQxtg
+	SeXuvCPkUT8UsPkl+lOUMea+bpN2jjw3x2vqPmaCmMnAUUuhOOYFCy+CoUuWC2B3YL6wQjfbshe
+	u9JzTLTRgLG8/8dCwwfLjJ5DLSY8K8G5AF97HrMyqpTd1riHcP+Ec+u4AU1I/IkuHaa/vz4E8xA
+	pdtBpZX2jPq6az8AxW4tokBZrgdznCBUWFUsZlGfBI4X8h7560VTctOFBiILgEAkRvTRpaS9oT/
+	rg8gVLV
+X-Received: by 2002:a17:90b:5144:b0:3a0:a055:1759 with SMTP id 98e67ed59e1d1-3a6cecaa898mr10080837a91.40.1791242878358;
+        Mon, 05 Oct 2026 16:27:58 -0700 (PDT)
+Received: from ehlo.thunderbird.net ([168.138.199.194])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a6dce36d07sm8230776a91.1.2026.10.05.16.27.56
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 05 Oct 2026 16:27:57 -0700 (PDT)
+Date: Tue, 06 Oct 2026 07:27:52 +0800
+From: Coia Prant <coiaprant@gmail.com>
+To: Ulf Hansson <ulfh@kernel.org>, Heiko Stuebner <heiko@sntech.de>
+CC: Sebastian Reichel <sebastian.reichel@collabora.com>, linux-pm@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org,
+ linux-kernel@vger.kernel.org
+Subject: =?US-ASCII?Q?Re=3A_=5BPATCH=5D_pmdomain=3A_rockchip=3A_mar?=
+ =?US-ASCII?Q?k_PD=5FPIPE_as_active_wakeup_on_RK3568?=
+User-Agent: K-9 Mail for Android
+In-Reply-To: <20260925041751.495818-1-coiaprant@gmail.com>
+References: <20260925041751.495818-1-coiaprant@gmail.com>
+Message-ID: <382B43FA-B225-41C5-80B6-944D9D2802CF@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260918-fix-aer-refcount-leak-v2-1-bdd1ff1c35a9@google.com>
+Content-Type: text/plain;
+ charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-On Fri, Sep 18, 2026 at 05:24:48PM +0000, Priyank Rathod wrote:
-> When an AER error occurs, candidate error-source devices are added to
-> e_info->dev[] by add_error_device(), which takes a reference with
-> pci_dev_get().
-> 
-> A device can be recorded without any error status being present: the
-> Requester ID fast path in is_error_source(),
-> 
-> 	if (e_info->id == pci_dev_id(dev))
-> 		return true;
-> 
-> matches purely on the ID reported by the Root Port and returns true
-> without reading the device's AER status registers.
-> 
-> In aer_process_err_devices(), handle_error_source() is called only if
-> aer_get_device_error_info() returns non-zero, i.e. only if an unmasked
-> error status bit is actually set. It returns 0 if the device has become
-> inaccessible (status and mask both read as all ones, so
-> status & ~mask == 0) or if no unmasked status bit is set.
-> 
-> Because handle_error_source() was responsible for calling pci_dev_put(),
-> skipping it permanently leaks the reference taken in add_error_device().
-> 
-> Decouple reference lifetime from error handling by moving pci_dev_put()
-> out of handle_error_source() and into the aer_process_err_devices() loop,
-> so every recorded device is put exactly once.
-> 
-> handle_error_source() is static and aer_process_err_devices() is its only
-> caller, so no other path is affected.
-> 
-> Fixes: 60271ab044a5 ("PCI/AER: Take reference on error devices")
-> Signed-off-by: Priyank Rathod <rathodpriyank@google.com>
+On September 25, 2026 12:17:51 PM GMT+08:00, Coia Prant <coiaprant@gmail=2E=
+com> wrote:
+>The PD_PIPE power domain on RK3568 hosts the XPCS, the PCIe
+>controllers and the SATA controllers=2E  All of them can act as
+>wakeup sources for the system:
+>
+>  - the XPCS for MAC WoL, through the SGMII link
+>  - the PCIe controllers for PME#
+>  - the SATA controllers for hotplug wake
+>
+>The domain is registered with active_wakeup =3D false, so genpd powers
+>it down during system suspend even when a consumer is on the wakeup
+>path=2E  That kills the XPCS and the SerDes, which breaks MAC WoL on
+>RK3568 SGMII boards, and it also powers down the PCIe and SATA
+>controllers while their drivers still expect the link to be alive=2E
+>
+>Mark PD_PIPE as active_wakeup so that genpd honours the wakeup path
+>of its consumers=2E  Consumers that call device_set_wakeup_path() keep
+>the domain powered; consumers that do not mark themselves as wakeup
+>sources are unaffected and the domain is still powered down when
+>nothing needs it=2E
+>
+>Several other Rockchip SoCs already mark their PCIe and USB power
+>domains as active wakeup, for example RK3588's pcie and usb domains
+>and RK3576's usb domain=2E  PD_PIPE hosts the same kind of
+>wakeup-capable controllers on RK3568, so this follows the same
+>pattern=2E
+>
+>Signed-off-by: Coia Prant <coiaprant@gmail=2Ecom>
+>---
+> drivers/pmdomain/rockchip/pm-domains=2Ec | 2 +-
+> 1 file changed, 1 insertion(+), 1 deletion(-)
+>
+>diff --git a/drivers/pmdomain/rockchip/pm-domains=2Ec b/drivers/pmdomain/=
+rockchip/pm-domains=2Ec
+>index ba66ae719428=2E=2E16ef0a235f0f 100644
+>--- a/drivers/pmdomain/rockchip/pm-domains=2Ec
+>+++ b/drivers/pmdomain/rockchip/pm-domains=2Ec
+>@@ -1296,7 +1296,7 @@ static const struct rockchip_domain_info rk3568_pm_=
+domains[] =3D {
+> 	[RK3568_PD_VPU]		=3D DOMAIN_RK3568("vpu",  BIT(2), BIT(6),  false, fals=
+e),
+> 	[RK3568_PD_RKVDEC]	=3D DOMAIN_RK3568("vdec", BIT(4), BIT(8),  false, fa=
+lse),
+> 	[RK3568_PD_RKVENC]	=3D DOMAIN_RK3568("venc", BIT(3), BIT(7),  false, fa=
+lse),
+>-	[RK3568_PD_PIPE]	=3D DOMAIN_RK3568("pipe", BIT(8), BIT(11), false, fals=
+e),
+>+	[RK3568_PD_PIPE]	=3D DOMAIN_RK3568("pipe", BIT(8), BIT(11), true, false=
+),
+> };
+>=20
+> static const struct rockchip_domain_info rk3576_pm_domains[] =3D {
 
-Applied to pci/aer for v7.4, thanks!
+Hi,
 
-> ---
-> Changes in v2:
-> - Corrected Fixes tag from 1ab4a3c80508 to 60271ab044a5 ("PCI/AER: Take
->   reference on error devices"), which added both the pci_dev_get() in
->   add_error_device() and the conditionally-reached pci_dev_put() in
->   handle_error_source(). Thanks to Lukas Wunner for catching this.
-> - Removed the speculative topology list from the commit message. As Lukas
->   pointed out, error reporting is not enabled on devices without an AER
->   capability (pcie_aer_is_native() bails on !dev->aer_cap), so the
->   dev->aer_cap == 0 reasoning was wrong and is gone.
-> - Explained instead why a device with no error status can be present in
->   e_info->dev[]: the Requester ID fast path in is_error_source() matches
->   on e_info->id alone, without reading any AER status register.
-> - Added a Fixes tag; the imbalance dates back to v4.20. I have not added
->   Cc: stable, since you indicated the path is an unlikely corner case -
->   happy to add it if you think it is warranted.
-> - Cc: Keith Busch and Sinan Kaya, author and reviewer of 60271ab044a5.
-> - Rebased onto v7.3-rc3+ (f259f446f519); applies cleanly to pci/next as well.
-> - Link to v1: https://lore.kernel.org/r/20260830-fix-aer-refcount-leak-v1-1-64e1013add12@google.com
-> ---
->  drivers/pci/pcie/aer.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> diff --git a/drivers/pci/pcie/aer.c b/drivers/pci/pcie/aer.c
-> index d8dcd238fda1..bc761410d56d 100644
-> --- a/drivers/pci/pcie/aer.c
-> +++ b/drivers/pci/pcie/aer.c
-> @@ -1340,7 +1340,6 @@ static void handle_error_source(struct pci_dev *dev, struct aer_err_info *info)
->  {
->  	cxl_rch_handle_error(dev, info);
->  	pci_aer_handle_error(dev, info);
-> -	pci_dev_put(dev);
->  }
->  
->  #ifdef CONFIG_ACPI_APEI_PCIEAER
-> @@ -1518,6 +1517,7 @@ static inline void aer_process_err_devices(struct aer_err_info *e_info)
->  	for (i = 0; i < e_info->error_dev_num && e_info->dev[i]; i++) {
->  		if (aer_get_device_error_info(e_info, i))
->  			handle_error_source(e_info->dev[i], e_info);
-> +		pci_dev_put(e_info->dev[i]);
->  	}
->  }
->  
-> 
-> ---
-> base-commit: a077be4fde21ee6e751fa70eb641ef5d9bf2fc48
-> change-id: 20260830-fix-aer-refcount-leak-6378f84d62ba
-> 
-> Best regards,
-> -- 
-> Priyank Rathod <rathodpriyank@google.com>
-> 
+Gentle ping on this patch=2E It was sent on Sep 25, and linux-pm Patchwork=
+ shows it
+as "Handled Elsewhere", but I can't find it merged in linux-pm,
+linux-rockchip, linux-next or mainline, and I haven't received any review
+feedback=2E
+
+Thanks,
+Coia
