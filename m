@@ -1,73 +1,60 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com [148.163.158.5])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5985B36A36B
-	for <linux-kernel@vger.kernel.org>; Mon,  5 Oct 2026 20:40:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CECA330675F;
+	Mon,  5 Oct 2026 20:42:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.158.5
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791232831; cv=none; b=W+01x/4NUJtTOnZ50VWx5rRdt3uTNWztdNJbEeTJ17FmNJ0NXQaM004i7xh66xSD/wmrx4JOmftRYQV4prlyehMJf1+ECShAxiIQoBsyNPRMU9Yfi8xi2iIJgNYoNUGEEWoG6oe4ik3UKG7nw/U4CcmotEekV5+w6aPZfKouvaE=
+	t=1791232965; cv=none; b=SxPKhbKTLfMtX/AUifzjzKN1NvHItXZiuDjWjbkdDSjxCIrIhroxRWvViVyBtCFPqkYjwhU18Q57ofGdxAala9LY9/iCmMja0LTl7CvcBMKLlqFdRHK2kPp5xjT/0vNIE3VpmtfSg/Xjru22e3y4Nkzy1o8f0ADtmXtHvuVSxfI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791232831; c=relaxed/simple;
-	bh=Wt2hr4OJOLZrss8OJtSespvg+uRq36sUzT4MXTbkgk0=;
+	s=arc-20240116; t=1791232965; c=relaxed/simple;
+	bh=H1rDcLnvs+tVMwkQ8HT2YzGfCTT7hI24NBFt7RRxI24=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=irP2py1Ly3O+mVShF8uZGAUkkC44XNvFydlTVjGBcZHKeY/RdhTd/3Hc4nf3R7wOKD9CnOD+gOQJtFVJ1GxeGxUiQu5H0qcrexcA39Y0wAhHoc+oaEWDOKxf9kvILW/YKNv/pORP/2eO+T3O5SnnAdF0xprvupBiU7QZFPrhnC4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=e98kb577; arc=none smtp.client-ip=170.10.129.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	 In-Reply-To:Content-Type; b=sC00Q3+/Wa2PC4O6Bf5pYxHePxxJ8cg6OuRG4dYkXIXu1n3WA5qSrd93r8jdCv35d+3cjBaxdK0s8uC0vJHUcYHSEWrMKm115sZGx93/QFNvyfmKoXBLQe/c8BsssD9hsiM89+HEIpuJWo3uwGz56rDQoGywTsosOyyLc17AK/k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=RJ8+1wb2; arc=none smtp.client-ip=148.163.158.5
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="e98kb577"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1791232828;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=hW5P4NCcHfyGHbJZF1DNl1NQBu8IkdsCT0CTDVEsdgw=;
-	b=e98kb577/X8znMvAz7rQY8nBwlLymDnAkTlC9Qb3X+IKIuFB6H+at59XjEbGsqGszvGAak
-	mh0yF2pqChV5eFBzQvGMuxq/uAt7lbTI7eNBL8Jd/GB8uXqRw7VUAUKVmFFCQSDfE2jREv
-	xHQ4sGrzZcQIFIZ0CO3qYIkl53YFbhc=
-Received: from mail-lj1-f197.google.com (mail-lj1-f197.google.com
- [209.85.208.197]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-659-cdUQsBFcMT6_MtyZtLIz4w-1; Mon, 05 Oct 2026 16:40:23 -0400
-X-MC-Unique: cdUQsBFcMT6_MtyZtLIz4w-1
-X-Mimecast-MFC-AGG-ID: cdUQsBFcMT6_MtyZtLIz4w_1791232822
-Received: by mail-lj1-f197.google.com with SMTP id 38308e7fff4ca-3a782da8ce7so13588721fa.2
-        for <linux-kernel@vger.kernel.org>; Mon, 05 Oct 2026 13:40:23 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791232822; x=1791837622;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=hW5P4NCcHfyGHbJZF1DNl1NQBu8IkdsCT0CTDVEsdgw=;
-        b=y4mY9LsA25aqLPQyy5VEgNtlLk+IiZNeCoOvObR/WC4i1MC7xKbQZwlRxWC0jn8rX1
-         72oglqbNyWnrCmuO8lcBtEJz+FUtm257mBpmmb8vyPFoOpg9NpcP3R8hXkWLgZI4DKME
-         YXWBty3vK5xu6AQFyc7VHT2RXdEUkLc/Rl6DFIM21z5BAbKiDWBmMDvhd/j0Nc150Pea
-         3lhAq2fuDWdifeeGQ28LYP5KhD3mMjPVBBt9QprzD5OiHnNAJzprQPzyWTFc5cfrFpTi
-         nOWri4W2nWI7ygii6JK84UZSwH0IYiedshcASQ3+LguAsGp/XO1skl4x+BG4Wp0V6/eB
-         8amg==
-X-Forwarded-Encrypted: i=1; AKwUvBxCYoLM609A/pC/m49w1IcZeZzlA+qwJGE9kuoINqVMAoHwjxs+q9PK9ex3AyeuxWy+lNU81MCHsgIYbLg=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKyjDiUDhJiB9SxfY5w+ZHCdcLxAUyn0ZhIS3pvZRhjqaHsV+9W
-	xrb4wxiiMytNyNiUHA7VW9xqu50JlsbFx9xjZTfStLUj3nH7M9q7Y2NZSS1HT4D19zSDQtPp32u
-	El+LDuJwqzYc2FODh8g+S8DFxxh5Y3IvRVgUCpf3GMCCfwKMqorpGZqo3MD/82OHKMrgfNY9jKX
-	AdYu8=
-X-Gm-Gg: AYBFou3knrFTwqnKL0fjLcGnj6GAr1gazNt85R4BqQJA1uuXlnFyId14N/LcfbRYyYT
-	vDmnLbSSXThicVUSsQ0xYdN3RICuDYONOM0xVHjx5TUQGxuYQp2msCmoq47y2Xiq3G6hKkWqfb7
-	phbF4yU+G+fEGDdgN0+bo/cujvqdvGyjJof6TVQYmLAiG0AXfyTlMyK9DfreHt7J8fdfEHoDbi4
-	MEZhw5y1oERFx5EWWmdpI1/QiCI1/UFBcy6sRa31uCkwPn1+5aPCcm5Han/RmVPVIZUqnwTBhlR
-	eSNXCaAyyJAv1NPmplSCO6smH8qRwG2JyQg8HTW6gXNXOzu6gaxPKl5WHke/KSXoAeUeaFYEDFt
-	fJhU=
-X-Received: by 2002:a05:651c:1602:b0:3a5:b1f7:a7bf with SMTP id 38308e7fff4ca-3a974f64065mr22350651fa.21.1791232822114;
-        Mon, 05 Oct 2026 13:40:22 -0700 (PDT)
-X-Received: by 2002:a05:651c:1602:b0:3a5:b1f7:a7bf with SMTP id 38308e7fff4ca-3a974f64065mr22350491fa.21.1791232821598;
-        Mon, 05 Oct 2026 13:40:21 -0700 (PDT)
-Received: from [192.168.2.110] ([142.172.30.162])
-        by smtp.gmail.com with ESMTPSA id 38308e7fff4ca-3a87e28b131sm45437081fa.1.2026.10.05.13.40.15
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 05 Oct 2026 13:40:21 -0700 (PDT)
-Message-ID: <9adb6aaf-6e50-4ab0-a021-2529807dff02@redhat.com>
-Date: Mon, 5 Oct 2026 16:40:14 -0400
+	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="RJ8+1wb2"
+Received: from pps.filterd (m0356516.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 695HZkLn1131408;
+	Mon, 5 Oct 2026 20:42:33 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+	:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=pp1; bh=+vlmp1
+	zJJpBqZRTmdGJXupvkLn88Fqty6R/95+2PujM=; b=RJ8+1wb2GqvWe1dpst7kKk
+	PlVaqM4hy1dtFnMPMO4EOCaE4bgm2z1GsVY2ysKouYwjfqd/uAJNgaAeYdGwmZ52
+	vctjZq/MFWg6RUq8HkqvoMN432VY+AEsa/C7pWB16Slkn9L01Empw/PWfJnqz4vs
+	UedlWLSRpXJXuBkfvF0Yqh3sz/nkOmRjyg6j77qUI9PowS1Od/YNToE9BizK97az
+	Z8asut0Eo6nERKMszaVdZtqcRtJcbq5upBojfyfrOuQJ55CMvXv+FS1sG+7G1IHh
+	sspz6nbdbsgZxxh4QVPKxeyo0DTyvvZW3uFIslLXa+Dh/dewPUCPBO1Zlqkg78Bw
+	==
+Received: from ppma22.wdc07v.mail.ibm.com (5c.69.3da9.ip4.static.sl-reverse.com [169.61.105.92])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4h2q4jm120-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Mon, 05 Oct 2026 20:42:33 +0000 (GMT)
+Received: from pps.filterd (ppma22.wdc07v.mail.ibm.com [127.0.0.1])
+	by ppma22.wdc07v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 695HbVuU3231089;
+	Mon, 5 Oct 2026 20:42:32 GMT
+Received: from smtprelay03.dal12v.mail.ibm.com ([172.16.1.5])
+	by ppma22.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4h3cdvq6gr-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Mon, 05 Oct 2026 20:42:32 +0000 (GMT)
+Received: from smtpav03.wdc07v.mail.ibm.com (smtpav03.wdc07v.mail.ibm.com [10.39.53.230])
+	by smtprelay03.dal12v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 695KgVgw6816268
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Mon, 5 Oct 2026 20:42:31 GMT
+Received: from smtpav03.wdc07v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 175D75805D;
+	Mon,  5 Oct 2026 20:42:31 +0000 (GMT)
+Received: from smtpav03.wdc07v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 8B81A58054;
+	Mon,  5 Oct 2026 20:42:29 +0000 (GMT)
+Received: from [9.61.34.243] (unknown [9.61.34.243])
+	by smtpav03.wdc07v.mail.ibm.com (Postfix) with ESMTP;
+	Mon,  5 Oct 2026 20:42:29 +0000 (GMT)
+Message-ID: <8feaefbb-93ce-431b-a038-8d9d28576526@linux.ibm.com>
+Date: Mon, 5 Oct 2026 16:42:29 -0400
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -75,160 +62,266 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v8 09/14] powerpc: move has_transparent_hugepage() out of
- THP guard
-To: "Christophe Leroy (CS GROUP)" <chleroy@kernel.org>,
- "David Hildenbrand (Arm)" <david@kernel.org>, linux-kernel@vger.kernel.org,
- linux-mm@kvack.org, baolin.wang@linux.alibaba.com, ziy@nvidia.com,
- lance.yang@linux.dev,
- "linuxppc-dev@lists.ozlabs.org" <linuxppc-dev@lists.ozlabs.org>
-Cc: corbet@lwn.net, tsbogend@alpha.franken.de, maddy@linux.ibm.com,
- mpe@ellerman.id.au, agordeev@linux.ibm.com, gerald.schaefer@linux.ibm.com,
- hca@linux.ibm.com, gor@linux.ibm.com, x86@kernel.org, tglx@kernel.org,
- mingo@redhat.com, bp@alien8.de, hughd@google.com,
- dave.hansen@linux.intel.com, djbw@kernel.org, vishal.l.verma@intel.com,
- dave.jiang@intel.com, akpm@linux-foundation.org, yintirui@huawei.com,
- dev.jain@arm.com, usama.arif@linux.dev
-References: <cover.1789695931.git.luizcap@redhat.com>
- <05a71b6011a6eab7b096f262485fcb8b4987976f.1789695931.git.luizcap@redhat.com>
- <f54d5d75-5cc1-488b-b640-76163419cf4d@kernel.org>
- <25bb02df-a795-4e48-9de6-99f1ca799176@redhat.com>
- <802564f8-1376-451e-8308-6f98d1efb099@kernel.org>
+Subject: Re: [PATCH v7 05/15] s390/vfio-ap: Callback to get/set vfio device
+ mig state during guest migration
+To: "Jason J. Herne" <jjherne@linux.ibm.com>, linux-s390@vger.kernel.org,
+        linux-kernel@vger.kernel.org, kvm@vger.kernel.org
+Cc: borntraeger@de.ibm.com, mjrosato@linux.ibm.com, pasic@linux.ibm.com,
+        alex@shazbot.org, kwankhede@nvidia.com, fiuczy@linux.ibm.com,
+        pbonzini@redhat.com, frankja@linux.ibm.com, imbrenda@linux.ibm.com,
+        agordeev@linux.ibm.com, hca@linux.ibm.com, gor@linux.ibm.com
+References: <20260807221834.562851-1-akrowiak@linux.ibm.com>
+ <20260807221834.562851-6-akrowiak@linux.ibm.com>
+ <e94dfa4a-e2b3-4cda-904a-ef571d2277db@linux.ibm.com>
 Content-Language: en-US
-From: Luiz Capitulino <luizcap@redhat.com>
-In-Reply-To: <802564f8-1376-451e-8308-6f98d1efb099@kernel.org>
+From: Anthony Krowiak <akrowiak@linux.ibm.com>
+In-Reply-To: <e94dfa4a-e2b3-4cda-904a-ef571d2277db@linux.ibm.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
+X-TM-AS-GCONF: 00
+X-Proofpoint-ORIG-GUID: BeJV7Y1I8IzfSfdeNKKlbqb2NYDHQE8v
+X-Proofpoint-GUID: BeJV7Y1I8IzfSfdeNKKlbqb2NYDHQE8v
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDA1MDA4MSBTYWx0ZWRfX5cwNbmZjYsLS
+ hhXkNEcuqpsnoUc35mVa3PrOzYPkXr6eIQDs4p5A14DtTPb10IpMzweoQpKi16GFkpwmUxNOfp3
+ thmJLxVQGF23XNSt1aL0B8ryXp73MgI=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDA1MDA4MSBTYWx0ZWRfX6voQaVV+NvaU
+ 52kdnYl57k7ifAHgXGvb91IxKACDULp413+vfOZopPuBgPwyDzvBcAYhEC3s9yhUqc41D3KRJQH
+ CMC2956NXCPRwdaq1gIguaH7z0J5GsSGgefdt7DFtjxfwc6boHqpcwOoUPcNQrLPWtiWXjadF2U
+ qblPdQvn/zdVp0hYKbHW3pbEOKHb3dqCuSOPkgc31r2MkP+AirtEL2+f1bsyGRV+IqMYrw9QSew
+ mjXSbotsPYeTL27LCYmzL861jBZo7dtNiSi2K7AnBrVA9pPFkYwTgt0y2QLFmhxEM4FpOanFmgd
+ ftt/xHvnKD0ofI8Qi/6BtIuqm4JC6v6T/Ip7pvlvxlr3GvcyBfKbO5Y+tK0465lsrLHDSjdWx0u
+ HHgmOq04AU60LI0ou88IlD9Uuj4kFTygrM8Hk7tOySb++dNINBBNpOvweMvJ6J8mCFKXMmDsEMk
+ pWfT6R/vPnmW+uzkFaQ==
+X-Authority-Analysis: v=2.4 cv=eYeo7LEH c=1 sm=1 tr=0 ts=6ac40bb9 cx=c_pps
+ a=5BHTudwdYE3Te8bg5FgnPg==:117 a=5BHTudwdYE3Te8bg5FgnPg==:17
+ a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=RnoormkPH1_aCDwRdu11:22 a=Y2IxJ9c9Rs8Kov3niI8_:22 a=VnNF1IyMAAAA:8
+ a=c-Gg0e3jJgsNnJN__rUA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-05_05,2026-10-05_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ adultscore=0 lowpriorityscore=0 phishscore=0 bulkscore=0 clxscore=1015
+ spamscore=0 malwarescore=0 priorityscore=1501 impostorscore=0 suspectscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2610050081
 
 
 
-On 10/5/26 12:52 AM, Christophe Leroy (CS GROUP) wrote:
-> Hi,
-> 
-> Don't forget <linuxppc-dev@lists.ozlabs.org> when you address powerpc architecture.
+On 8/12/26 12:04 PM, Jason J. Herne wrote:
+>
+>
+> On 8/7/26 6:18 PM, Anthony Krowiak wrote:
+>> Implements two callbacks related to the current state of a vfio-ap 
+>> device:
+>> * The callback that sets a new migration state of a vfio-ap device 
+>> during
+>>    live migration of guests with pass-through access to AP devices. This
+>>    callback is mandatory for VFIO_DEVICE_FEATURE_MIGRATION support.
+>>
+>>    The function pointer for this callback is specified via the
+>>    'migration_set_state' field of the 'vfio_migration_ops' structure
+>>    which is stored with the VFIO device when the 'vfio_device'
+>>    structure representing the mediated device is initialized.
+>>
+>> * The callback that returns the current vfio device migration state 
+>> during
+>>    live migration of guests with pass-through access to AP devices.
+>>
+>>    The function pointer for this callback is specified via the
+>>    'migration_get_state' field of the 'vfio_migration_ops' structure
+>>    which is stored with the VFIO device when the 'vfio_device'
+>>    structure representing the mediated device is initialized.
+>>
+>> Signed-off-by: Anthony Krowiak <akrowiak@linux.ibm.com>
+>> ---
+>>   drivers/s390/crypto/vfio_ap_migration.c | 130 +++++++++++++++++++++++-
+>>   1 file changed, 128 insertions(+), 2 deletions(-)
+>>
+>> diff --git a/drivers/s390/crypto/vfio_ap_migration.c 
+>> b/drivers/s390/crypto/vfio_ap_migration.c
+>> index 1613813124b6..af740b177c97 100644
+>> --- a/drivers/s390/crypto/vfio_ap_migration.c
+>> +++ b/drivers/s390/crypto/vfio_ap_migration.c
+>> @@ -128,16 +128,141 @@ static void 
+>> vfio_ap_release_resuming_file(struct vfio_ap_migration_data *mig_dat
+>>        */
+>>   }
+>>   +static struct file *
+>> +vfio_ap_transition_to_state(struct ap_matrix_mdev *matrix_mdev,
+>> +                enum vfio_device_mig_state new_state)
+>> +{
+>> +    struct vfio_ap_migration_data *mig_data;
+>> +    enum vfio_device_mig_state cur_state;
+>> +
+>> +    lockdep_assert_held(&matrix_dev->mdevs_lock);
+>> +    mig_data = matrix_mdev->mig_data;
+>> +    cur_state = mig_data->mig_state;
+>> +    dev_dbg(matrix_mdev->vdev.dev, "%s: %d -> %d\n", __func__, 
+>> cur_state,
+>> +        new_state);
+>> +
+>> +    if (cur_state == VFIO_DEVICE_STATE_STOP &&
+>> +        new_state == VFIO_DEVICE_STATE_STOP_COPY) {
+>> +        /* TODO */
+>> +        return ERR_PTR(-EOPNOTSUPP);
+>> +    }
+>> +
+>> +    if (cur_state == VFIO_DEVICE_STATE_STOP &&
+>> +        new_state == VFIO_DEVICE_STATE_RESUMING) {
+>> +        /* TODO */
+>> +        return ERR_PTR(-EOPNOTSUPP);
+>> +    }
+>> +
+>> +    if ((cur_state == VFIO_DEVICE_STATE_RESUMING &&
+>> +         new_state == VFIO_DEVICE_STATE_STOP) ||
+>> +        (cur_state == VFIO_DEVICE_STATE_STOP_COPY &&
+>> +         new_state == VFIO_DEVICE_STATE_STOP)) {
+>> +        /* TODO */
+>> +        return ERR_PTR(-EOPNOTSUPP);
+>> +    }
+>> +
+>> +    if ((cur_state == VFIO_DEVICE_STATE_STOP &&
+>> +         new_state == VFIO_DEVICE_STATE_RUNNING) ||
+>> +        (cur_state == VFIO_DEVICE_STATE_RUNNING &&
+>> +         new_state == VFIO_DEVICE_STATE_STOP)) {
+>> +        /* TODO */
+>> +        return ERR_PTR(-EOPNOTSUPP);
+>> +    }
+>> +
+>> +    /* vfio_mig_get_next_state() does not use arcs other than the 
+>> above */
+>> +    WARN_ON(true);
+>> +
+>> +    return ERR_PTR(-EINVAL);
+>> +}
+>> +
+>>   static struct file *vfio_ap_set_state(struct vfio_device *vdev,
+>>                         enum vfio_device_mig_state  new_state)
+>>   {
+>> -    return NULL;
+>> +    int ret;
+>> +    struct file *filp = NULL;
+>> +    struct ap_matrix_mdev *matrix_mdev;
+>> +    enum vfio_device_mig_state next_state;
+>> +    struct vfio_ap_migration_data *mig_data;
+>> +
+>> +    matrix_mdev = container_of(vdev, struct ap_matrix_mdev, vdev);
+>
+> The container_of() pointer swizzle is done under lock in 
+> vfio_ap_get_state, but not here. Why? They should probably be handled 
+> consistently.
 
-Will do.
+The vdev pointer is stable. It is passed in as a function parameter from the
+VFIO core and is guaranteed valid for the callback duration. On the other
+hand, in the interest of consistency - as you explained - I'll move it after
+taking the mdevs_lock.
 
-> 
-> Le 03/10/2026 à 17:44, Luiz Capitulino a écrit :
->>
->>
->> On 10/2/26 3:28 PM, David Hildenbrand (Arm) wrote:
->>> On 9/18/26 03:45, Luiz Capitulino wrote:
->>>> A future commit will introduce a kernel API to allow for checking if the
->>>> CPU supports PMD-sized pages. This API will be based on the
->>>> has_transparent_hugepage() implementation but will be orthogonal to THP
->>>> and therefore must work when CONFIG_TRANSPARENT_HUGEPAGE=n.
->>>>
->>>> Move its definition out of the THP guard.
->>>>
->>>> Signed-off-by: Luiz Capitulino <luizcap@redhat.com>
->>>> ---
->>>>   arch/powerpc/include/asm/book3s/64/hash-4k.h  |  2 +-
->>>>   arch/powerpc/include/asm/book3s/64/hash-64k.h |  2 +-
->>>>   arch/powerpc/include/asm/book3s/64/pgtable.h  | 18 +++++++++---------
->>>>   arch/powerpc/include/asm/book3s/64/radix.h    | 14 +++++++-------
->>>>   arch/powerpc/mm/book3s64/hash_pgtable.c       |  4 ++--
->>>>   5 files changed, 20 insertions(+), 20 deletions(-)
->>>>
->>>> diff --git a/arch/powerpc/include/asm/book3s/64/hash-4k.h b/arch/ powerpc/include/asm/book3s/64/hash-4k.h
->>>> index 8e5bd9902bed..79511e6abfca 100644
->>>> --- a/arch/powerpc/include/asm/book3s/64/hash-4k.h
->>>> +++ b/arch/powerpc/include/asm/book3s/64/hash-4k.h
->>>> @@ -165,9 +165,9 @@ extern void hash__pgtable_trans_huge_deposit(struct mm_struct *mm, pmd_t *pmdp,
->>>>   extern pgtable_t hash__pgtable_trans_huge_withdraw(struct mm_struct *mm, pmd_t *pmdp);
->>>>   extern pmd_t hash__pmdp_huge_get_and_clear(struct mm_struct *mm,
->>>>                          unsigned long addr, pmd_t *pmdp);
->>>> -extern int hash__has_transparent_hugepage(void);
->>>>   #endif
->>>> +extern int hash__has_transparent_hugepage(void);
->>>>   #endif /* !__ASSEMBLER__ */
->>>>   #endif /* _ASM_POWERPC_BOOK3S_64_HASH_4K_H */
->>>> diff --git a/arch/powerpc/include/asm/book3s/64/hash-64k.h b/arch/ powerpc/include/asm/book3s/64/hash-64k.h
->>>> index 7deb3a66890b..a4a44a112ff9 100644
->>>> --- a/arch/powerpc/include/asm/book3s/64/hash-64k.h
->>>> +++ b/arch/powerpc/include/asm/book3s/64/hash-64k.h
->>>> @@ -278,9 +278,9 @@ extern void hash__pgtable_trans_huge_deposit(struct mm_struct *mm, pmd_t *pmdp,
->>>>   extern pgtable_t hash__pgtable_trans_huge_withdraw(struct mm_struct *mm, pmd_t *pmdp);
->>>>   extern pmd_t hash__pmdp_huge_get_and_clear(struct mm_struct *mm,
->>>>                          unsigned long addr, pmd_t *pmdp);
->>>> -extern int hash__has_transparent_hugepage(void);
->>>
->>> Without some of these helpers in place, I assume actually using PMD leafs
->>> without THP would require some more work. (which is not the goal of this series,
->>> just asking).
->>
->> Yes, you're right.
->>
->>> I do wonder whether the architecture should instead simply say "not supported"
->>> if !CONFIG_TRANSPARENT_HUGEPAGE?
->>>
->>> That should still enable your series: using mTHP without PMD support.
->>
->> Yes, it would. However, I think this introduces an inconsistency.
-> 
-> powerpc has two types of MMU (HASH and RADIX) with different page layout. MMU type is selected at boottime based on the capabilities of the CPU. For transparent page you have:
-> 
-> static inline int has_transparent_hugepage(void)
-> {
->      if (radix_enabled())
->          return radix__has_transparent_hugepage();
->      return hash__has_transparent_hugepage();
-> }
+>
+>> +
+>> +    mutex_lock(&matrix_dev->mdevs_lock);
+>> +    if (ap_is_se_guest()) {
+>> +        dev_err_once(matrix_mdev->vdev.dev,
+>> +                 "Migration not allowed from or to a Secure 
+>> Execution guest\n");
+>> +        mutex_unlock(&matrix_dev->mdevs_lock);
+>> +        return ERR_PTR(-EPERM);
+>> +    }
+>> +
+>> +    mig_data = matrix_mdev->mig_data;
+>> +
+>> +    /*
+>> +     * The mig_data pointer is set in the vfio_ap_init_migration_data
+>> +     * function which is called when the vfio-ap device fd is opened.
+>> +     * Since the implicit pre-open state is RUNNING, a request to set
+>> +     * RUNNING is a no-op. Any other state transition is invalid before
+>> +     * open_device.
+>> +     */
+>> +    if (!mig_data) {
+>> +        mutex_unlock(&matrix_dev->mdevs_lock);
+>> +        if (new_state == VFIO_DEVICE_STATE_RUNNING)
+>> +            return NULL;
+>> +        return ERR_PTR(-ENODEV);
+>> +    }
+>> +
+>> +    dev_dbg(vdev->dev, "%s -> %d\n", __func__, new_state);
+>> +
+>> +    while (mig_data->mig_state != VFIO_DEVICE_STATE_ERROR &&
+>> +           mig_data->mig_state != new_state) {
+>> +        ret = vfio_mig_get_next_state(vdev, mig_data->mig_state,
+>> +                          new_state, &next_state);
+>> +        if (ret) {
+>> +            filp = ERR_PTR(ret);
+>> +            break;
+>> +        }
+>> +
+>> +        filp = vfio_ap_transition_to_state(matrix_mdev, next_state);
+>> +        if (IS_ERR(filp))
+>> +            break;
+>> +
+>> +        mig_data->mig_state = next_state;
+>> +
+>> +        if (WARN_ON(filp && new_state != next_state)) {
+>> +            fput(filp);
+>> +            filp = ERR_PTR(-EINVAL);
+>> +            break;
+>> +        }
+>> +    }
+>> +
+>> +    mutex_unlock(&matrix_dev->mdevs_lock);
+>> +
+>> +    return filp;
+>>   }
+>>     static int vfio_ap_get_state(struct vfio_device *vdev,
+>>                    enum vfio_device_mig_state  *current_state)
+>>   {
+>> -    return -EOPNOTSUPP;
+>> +    struct ap_matrix_mdev *matrix_mdev;
+>> +    struct vfio_ap_migration_data *mig_data;
+>> +
+>> +    mutex_lock(&matrix_dev->mdevs_lock);
+>> +
+>> +    matrix_mdev = container_of(vdev, struct ap_matrix_mdev, vdev);
+>> +    mig_data =  matrix_mdev->mig_data;
+>
+> Why bother with temp variable? You could just access 
+> matrix_mdev->mig_data directly.
 
-Right and, unless I'm misunderstanding your comment, this supports my
-position that the new arch_has_pmd_leaves() API is all about reporting a
-hardware capability and not tied to THP support.
+No other reason than for readability and shortening lines of code that 
+access it multiple
+times. I see no good reason to remove it.
 
-> 
->>
->> In in its current form, arch_has_pmd_leaves() should always report a hardware
->> capability. This is true even for the default case where
->> arch_has_pmd_leaves() defaults to
->> IS_ENABLED(CONFIG_HAVE_ARCH_TRANSPARENT_HUGEPAGE) in the assumption that
->> archs supporting PMD-sized pages by default will have this config
->> enabled.
->>
->> Your suggestion will change this and for some archs
->> arch_has_pmd_leaves() may have different behavior depending on the user
->> configuration. Additionally, I intended to decouple the base API
->> implementation from THP.
->>
->> If you feel strongly about this I can implement your suggestion, but I'd
->> still vote for keeping the API about consistently reporting the hardware
->> capability. Even if the only user is THP code today, new use cases can
->> be added incrementally.
->>
->>>
->>> [...]
->>>
->>>> -static inline int radix__has_transparent_hugepage(void)
->>>> +static inline int radix__has_transparent_pud_hugepage(void)
->>>>   {
->>>> -    /* For radix 2M at PMD level means thp */
->>>> -    if (mmu_psize_defs[MMU_PAGE_2M].shift == PMD_SHIFT)
->>>> +    /* For radix 1G at PUD level means pud hugepage support */
->>>> +    if (mmu_psize_defs[MMU_PAGE_1G].shift == PUD_SHIFT)
->>>>           return 1;
->>>>       return 0;
->>>>   }
->>>> +#endif
->>>> -static inline int radix__has_transparent_pud_hugepage(void)
->>>> +static inline int radix__has_transparent_hugepage(void)
->>>>   {
->>>> -    /* For radix 1G at PUD level means pud hugepage support */
->>>> -    if (mmu_psize_defs[MMU_PAGE_1G].shift == PUD_SHIFT)
->>>> +    /* For radix 2M at PMD level means thp */
->>>> +    if (mmu_psize_defs[MMU_PAGE_2M].shift == PMD_SHIFT)
->>>>           return 1;
->>>>       return 0;
->>>>   }
->>>
->>> You are swapping both implementations, which might create some unnecessary churn
->>> I think.
->>
->> I suspect this was done by git diff as I just moved the functions, but
->> I'll take a better look.
->>
-> 
+>
+>> +
+>> +    /*
+>> +     * The mig_data pointer is set in the vfio_ap_init_migration_data
+>> +     * function which is called when the vfio-ap device fd is opened.
+>> +     * If mig_data is NULL, report RUNNING as the implicit pre-open 
+>> state
+>> +     * so userspace doesn't need to perform any state transition 
+>> before the
+>> +     * device becomes active.
+>> +     */
+>> +    *current_state = (mig_data) ? mig_data->mig_state :
+>> +                      VFIO_DEVICE_STATE_RUNNING;
+>> +
+>> +    mutex_unlock(&matrix_dev->mdevs_lock);
+>> +
+>> +    return 0;
+>>   }
+>>     static int vfio_ap_get_data_size(struct vfio_device *vdev,
+>> @@ -159,6 +284,7 @@ static const struct vfio_migration_ops 
+>> vfio_ap_migration_ops = {
+>>    */
+>>   void vfio_ap_init_migration_capabilities(struct ap_matrix_mdev 
+>> *matrix_mdev)
+>>   {
+>> +    /* Live guest migration is not supported for SE guests */
+>>       if (ap_is_se_guest())
+>>           return;
+>
+> Comment is unrelated to the rest of the patch.
+
+This belongs in patch 03/15. I'll move it.
+
 
