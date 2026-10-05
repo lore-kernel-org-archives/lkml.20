@@ -1,220 +1,138 @@
-Received: from mail.tipi-net.de (mail.tipi-net.de [194.13.80.246])
+Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 392B741686D;
-	Mon,  5 Oct 2026 21:45:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=194.13.80.246
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791236718; cv=none; b=nVpKg1OGPvBTKX7DMJOl0LU0/AXFQHyk3V15a7hBQZoHVj9W3NTgQF0EnaUR+em5lmFpoGeYR4s6IFdnw1efYj+boD+B4RkB7RJ7wgFslm1XdQCVhWhixCDmlQL3UaF3cjCXekQvkGiyBr4Z/Y6cEM2CC78j0md81tbPBNa5SQ4=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791236718; c=relaxed/simple;
-	bh=8gEcWkv+0Q7gcS4pOQBwpbM4WCLOFCMgyYlbAQ1+Wp0=;
-	h=MIME-Version:Date:From:To:Cc:Subject:In-Reply-To:References:
-	 Message-ID:Content-Type; b=DM8k2cLEkUc2cU8XMiO6DpWpz48Idd0svJupN28DDbuCxw+Ruh1469iAwUJVFSO0rQ1hv4Ijk2oNq35LyYQV95LPKAeFi02irT6BF4vZMtaBqXbnAr3q9o7GqDY0GTn00lrOnMqImm6p5mC/syAkDe+Wx7RUQxkfX7T+ygPLTh4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tipi-net.de; spf=pass smtp.mailfrom=tipi-net.de; dkim=pass (2048-bit key) header.d=tipi-net.de header.i=@tipi-net.de header.b=lPFTpgI0; arc=none smtp.client-ip=194.13.80.246
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tipi-net.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=tipi-net.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EFD863806AD;
+	Mon,  5 Oct 2026 21:45:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=185.203.200.13
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791236755; cv=pass; b=DCr3FpAaiFiVeKs5PAtlnCE4+Yu9bZoIPGui4ur8omtB+XteQnPUPaMRwjbiRyNr+tgEM5/r5y1NrSGxQoNObloRxKnEeAuxgZjkBWhdKOHFetx9nE8YTyXJ4ddz8dH2rmxI15pGKuDlnjpTMDyKrLqTY1QhczsDTHnx2cfBAjY=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791236755; c=relaxed/simple;
+	bh=2MTwAY9VqPBFTxx8gXlu7wj72CYKWUjkAGlMf2bz+GM=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=r3Oebf9QX6wWkKTzT6tPsXQjVFdR/2JaQlEBMGvXlLSdFcYAtmBBGDrzJjbDKGrMzd/EbsyA7VL30acqsOCcSBJQPH5H1uWDTFlOyXaJ+ToBZf/IdOfFSbGGBGOEEwhe6aC9qrrA5JShyohae2K8NP5EymIYA6RRFVMxkQeNUAE=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de; spf=pass smtp.mailfrom=pengutronix.de; dkim=pass (2048-bit key) header.d=pengutronix.de header.i=@pengutronix.de header.b=RWOlNcnf; arc=pass smtp.client-ip=185.203.200.13
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=tipi-net.de header.i=@tipi-net.de header.b="lPFTpgI0"
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 8EC35A012B;
-	Mon,  5 Oct 2026 23:45:05 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=tipi-net.de; s=dkim;
-	t=1791236708; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=emNPbPPayPuD+OV6laaDKtkWv1u5znFoQHkOwV7vhGk=;
-	b=lPFTpgI0Z6Oo0//Fbj5JBZFS9YM/ukHID4kldCSUiJBfb5mfPVitwDVfAAWlWPoKm2gUD9
-	WRh8O/DNH5q8ixoeEOVQ895dOP9USiWDpIg8zRYTFdEnhRuQiSvUmaGy8ELzqFHLUFI/c4
-	oVUewGZEAo/ii5SRNYhfcjWQc0QNHRHQ/lXz+nOUX6xINkQS04gOFK56zXXOrHHUT4VDLy
-	d0yLSexxQ1Fi5wDUhhZOHXKhczZFWCWKAdF7p/6Q/SYDLDR/8JCgypPn9NH0DNYsXiY8VA
-	DB2xeEkYlAQw0jIRUbpKE8Yxm8kLf+OZ26e5FlfEkU6+JsDucc536zdrUcEXlQ==
+	dkim=pass (2048-bit key) header.d=pengutronix.de header.i=@pengutronix.de header.b="RWOlNcnf"
+Received: from drehscheibe.grey.stw.pengutronix.de (drehscheibe.grey.stw.pengutronix.de [IPv6:2a0a:edc0:0:c01:1d::a2])
+	(Authenticated sender: relay-from-drehscheibe.grey.stw.pengutronix.de)
+	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id BA1FE201C87;
+	Mon, 05 Oct 2026 23:45:46 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
+	s=20260414; t=1791236746;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=M2Kgy4yTi5RM8CpV2xL3SMstzRy/ZLl0saPpkIunVPU=;
+	b=RWOlNcnfxJxY4D30d/zKsw/wneK6erMv7eW804Ps+YXxKXpF2K6dSURN0OTKHiMtcUAe4I
+	tazZ20zOFZMoPAj03r8uj6vH6/6BPRTWg7ZqOzOWunevKsSYP9DXvme8mZ4aNaL58VGpTU
+	gLy9GId74gRM30ju/Uoh3BDZgXu+57yQa48Bb12Rb4S3fKyaleXoYQzsIuW4Rf+3Y/8A8q
+	HWrxu50MGmQBR6FLOcryIqNMCuzeSmsev1MdHA+YNwMsdMMs+8oCse1lKK3FMCLSJND5r1
+	Z9R9JAsRf0tRlLkwPzklJJs8CtJlMLp2Ef/7lCbFm1K6lkbYLRZ/5q9XQVso2w==
+ARC-Seal: i=1; s=20260414; d=pengutronix.de; t=1791236746; a=rsa-sha256;
+	cv=none;
+	b=V9iwWyBXMZeNiDCRCSqUiGyHT+UdiTlCx3dC80sLGQ/cmgzNL8JorehLILbogsWNlynQgG
+	YE8TxiP0RRmKv/dkg8IddoxPIfH8yArQ0sWxTgTwMSRPz0iMqoDXsCk6EkL92qEAjYiu/v
+	JPaHaGzwahibtJBTUfRcm0V8lpC4dAiWgqOrvs/ysTYmIUOtmLVKttnPs8sdKfNAUNeJsF
+	eB7qX/Jyw9JWBvtmUE81xKDP7dmR+dfSKn1FmcrbSBuZ+yAW0gtQfd/BoAdpyUBsCNdBhl
+	8OzdfQ64vgcZdbm1mtvq57jeIoNhC0iAvIciuIvwBqQ9ZRzGcZbgMKumnatQDg==
+ARC-Authentication-Results: i=1;
+	ORIGINATING;
+	auth=pass smtp.auth=relay-from-drehscheibe.grey.stw.pengutronix.de smtp.mailfrom=mkl@pengutronix.de
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
+	s=20260414; t=1791236746;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=M2Kgy4yTi5RM8CpV2xL3SMstzRy/ZLl0saPpkIunVPU=;
+	b=J8vNz+4HSyuvt3MCJsCAexvwTYsArHdO4VPch6nF6wqELR5xIQudDbL3L0s+Y7eNNBYfE1
+	s+VIBZ7utZVJv+hlFMGstRNVjBYMScfxpL/XdZemsMhXc+fHxrI7ZKNEsa0jOW9/Q723Tp
+	SEqPtiEtQpXDZd2oxNfjUOK8WHy2LmOd99YqYj+kNrRhGVx7WivEgYP4rDIPmzBJPCjACh
+	99B1bpWHRAvXYLxGE2fv3tWOpz/F5gdiY2BwVLDpOCkz/Id+xFj+71A3Y2qYmAuODbI4WQ
+	Q9bS+18LxKufqQY01Gww9pWy8cJqKiQaINShtuU6S0/1MxqPFd0kiacS1Sq08Q==
+Received: from moin.white.stw.pengutronix.de ([2a0a:edc0:0:b01:1d::7b] helo=bjornoya.blackshift.org)
+	by drehscheibe.grey.stw.pengutronix.de with esmtps  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+	(Exim 4.96)
+	(envelope-from <mkl@pengutronix.de>)
+	id 1xDqVG-004RkN-22;
+	Mon, 05 Oct 2026 23:45:46 +0200
+Received: from pengutronix.de (unknown [185.249.113.225])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(Client did not present a certificate)
+	(Authenticated sender: mkl-all@blackshift.org)
+	by smtp.blackshift.org (Postfix) with ESMTPSA id 0D4D15BA6E9;
+	Mon, 05 Oct 2026 21:45:45 +0000 (UTC)
+Date: Mon, 5 Oct 2026 23:45:45 +0200
+From: Marc Kleine-Budde <mkl@pengutronix.de>
+To: =?utf-8?B?U3TDqXBoYW5l?= Grosjean <stephane.grosjean@free.fr>
+Cc: mailhol@kernel.org, linux-kernel@vger.kernel.org, 
+	linux-can@vger.kernel.org, kernel@pengutronix.de, s grosjean <s.grosjean@peak-system.fr>, 
+	kuba@kernel.org
+Subject: Re: [PATCH can-next 6/7] can: peak_usb: Add bus error reporting for
+ the PCAN-USB FD family
+Message-ID: <20261005-ancient-viper-of-swiftness-c884c3-mkl@pengutronix.de>
+References: <179106844116.1406898.10605612528694983606@kernel.org>
+ <1730786945.910525984.1791210132571.JavaMail.root@zimbra65-e11.priv.proxad.net>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Date: Mon, 05 Oct 2026 23:45:05 +0200
-From: Nicolai Buchwitz <nb@tipi-net.de>
-To: netdev-bot+sashiko@kernel.org
-Cc: opendmb@gmail.com, florian.fainelli@broadcom.com,
- bcm-kernel-feedback-list@broadcom.com, andrew+netdev@lunn.ch,
- davem@davemloft.net, edumazet@kernel.org, kuba@kernel.org,
- pabeni@redhat.com, netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
- dave.stevenson@raspberrypi.com, justin.chen@broadcom.com,
- pierremarinleclercq88@gmail.com
-Subject: Re: [PATCH net-next 7/7] net: bcmgenet: reassemble jumbo frames from
- status block fragments
-In-Reply-To: <179121268743.434549.11864751276782263505@kernel.org>
-References: <20261002-nb-genet-mtu-nn-v2-v1-7-96dc6d54cbee@tipi-net.de>
- <179121268743.434549.11864751276782263505@kernel.org>
-Message-ID: <e742656e267211a0d51f18308211116c@tipi-net.de>
-X-Sender: nb@tipi-net.de
-Content-Type: text/plain; charset=UTF-8;
- format=flowed
-Content-Transfer-Encoding: 8bit
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="wbgkbrp2rld2sxso"
+Content-Disposition: inline
+In-Reply-To: <1730786945.910525984.1791210132571.JavaMail.root@zimbra65-e11.priv.proxad.net>
 
-On 5.10.2026 17:04, netdev-bot+sashiko@kernel.org wrote:
-> Thank you for your contribution! Sashiko AI review found 3 potential
-> issue(s) to consider.
-> 
-> Critical: 0 · High: 1 (1) · Medium: 2 · Low: 0
-> 
-> If you believe none of the issues are legitimate, please reply to each
-> issue of Medium severity or higher and explain why the AI is wrong.
-> If any of them are legitimate and you plan to respin, please let 
-> patchwork
-> know by including "pw-bot: cr" as a separate line at the end of your 
-> reply
-> (one such reply per series is enough).
-> 
-> - [High] bcmgenet: skb_trim() panics on non-linear jumbo frame SKBs
-> - [Medium] This patch adds a TX checksum fallback in bcmgenet_xmit().
-> - [Medium] The patch raises dev->max_mtu from the old ENET_MAX_MTU 
-> (3564
->   on 4K pages, 3820 otherwise) to ENET_MAX_JUMBO_MTU = GENMASK(13,0) -…
-> 
-> Pre-existing issues:
-> - [High] This problem wasn't introduced by this patch, but
->   bcmgenet_timeout() updates ring->stats64 without holding ring->lock.
-> 
-> --
-> 
-> net: bcmgenet: reassemble jumbo frames from status block fragments
-> 
-> This commit strips the per-descriptor status blocks from RX frames 
-> longer
-> than the packet ready threshold and reassembles them into one skb. It 
-> also
-> adds a software checksum fallback in bcmgenet_xmit() for 
-> CHECKSUM_PARTIAL
-> frames longer than tx_thld_len, and raises max_mtu to 
-> ENET_MAX_JUMBO_MTU
-> (16347).
-> 
->> diff --git a/drivers/net/ethernet/broadcom/genet/bcmgenet.c 
->> b/drivers/net/ethernet/broadcom/genet/bcmgenet.c
->> index 0cd56ec1c5ccf..62edbe51fe076 100644
->> --- a/drivers/net/ethernet/broadcom/genet/bcmgenet.c
->> +++ b/drivers/net/ethernet/broadcom/genet/bcmgenet.c
-> 
-> [ ... ]
-> 
->> @@ -2176,6 +2173,19 @@ static netdev_tx_t bcmgenet_xmit(struct sk_buff 
->> *skb, struct net_device *dev)
->>  		goto out;
->>  	}
->> 
->> +	/* The MAC holds a frame to insert its checksum, but only as much as
->> +	 * its FIFO takes. Longer frames are dropped silently.
->> +	 */
->> +	if (unlikely(skb->len > priv->tx_thld_len) &&
->> +	    skb->ip_summed == CHECKSUM_PARTIAL) {
->> +		if (skb_checksum_help(skb)) {
->> +			BCMGENET_STATS64_INC((&ring->stats64), dropped);
->> +			dev_kfree_skb_any(skb);
->> +			ret = NETDEV_TX_OK;
->> +			goto out;
->> +		}
->> +	}
->> +
-> 
-> [Severity: Medium]
-> The new comment says the MAC silently drops CHECKSUM_PARTIAL frames 
-> longer
-> than tx_thld_len. Can that already happen before this patch?
-> 
-> An earlier patch in this series, "net: bcmgenet: pad transmit frames 
-> out
-> of the packet ready window", added bcmgenet_tx_pkt_rdy_thld():
-> 
-> 	while (thld > ENET_THLD_DEFAULT &&
-> 	       ENET_MAX_FRAME_LEN(mtu) - ETH_FCS_LEN > thld * ENET_THLD_UNIT 
-> &&
-> 	       thld * ENET_THLD_UNIT + ENET_TX_SAFE_MARGIN > mtu + ETH_HLEN)
-> 		thld -= ENET_THLD_BURST / ENET_THLD_UNIT;
-> 
-> On 16K and 64K page kernels ENET_THLD_MAX_LEN is 3840, which makes the 
-> old
-> ENET_MAX_MTU 3820. For MTUs from 3809 to 3820:
-> 
->     mtu + 32 > 3840
->     3840 + 64 > mtu + 14
-> 
-> So the loop lowers the threshold to 0xe0 and tx_thld_len becomes 3584.
-> Untagged frames can still be up to mtu + 14 bytes long.
-> 
-> In that earlier commit, CHECKSUM_PARTIAL frames longer than 3584 bytes 
-> go
-> out with DMA_TX_DO_CSUM and have no software fallback. Going by the 
-> comment
-> above, the MAC loses them.
-> 
-> Could this fallback move into, or ahead of, the patch that first lets
-> tx_thld_len drop below the largest frame? Bisects and backports that 
-> stop
-> at that patch would then not see silent TX loss on large-page kernels.
-> 
-> The commit message only mentions the fallback in passing:
-> 
->     The MAC only checksums a frame it holds in full, so anything longer 
-> than
->     the threshold falls back to software.
-> 
-> Could it also say that this fixes TX for the earlier patch?
-> 
->>  	/* Keep the frame out of the window just past the threshold */
->>  	if (unlikely(skb->len > priv->tx_thld_len &&
->>  		     skb->len < priv->tx_thld_len + ENET_TX_SAFE_MARGIN)) {
-> 
-> [ ... ]
-> 
->> @@ -4272,7 +4358,7 @@ static int bcmgenet_probe(struct platform_device 
->> *pdev)
->>  	/* v1 cannot program the thresholds, so it stays at the default MTU 
->> */
->>  	priv->rx_buf_len = bcmgenet_rx_buf_len(dev->mtu);
->>  	if (!GENET_IS_V1(priv))
->> -		dev->max_mtu = ENET_MAX_MTU;
->> +		dev->max_mtu = ENET_MAX_JUMBO_MTU;
-> 
-> [Severity: Medium]
-> Now that max_mtu is 16347, can the TX side describe frames this large?
-> This patch leaves bcmgenet_xmit() unchanged. It still puts each skb 
-> head or
-> frag in one descriptor and shifts the size in without a mask:
-> 
-> 	len_stat = (size << DMA_BUFLENGTH_SHIFT) |
-> 		   (priv->hw_params->qtag_mask << DMA_TX_QTAG_SHIFT);
-> 
-> The header defines that field as 12 bits:
-> 
-> /* Tx/Rx Dma Descriptor common bits*/
-> #define DMA_BUFLENGTH_MASK		0x0fff
-> #define DMA_BUFLENGTH_SHIFT		16
-> 
-> Buffers over 4095 bytes are common at jumbo MTUs. Near MTU 9000, a UDP 
-> or
-> ICMP datagram gets a single linear head from __ip_append_data(). A frag
-> from an order-3 page_frag page in TCP or soft-GSO can be almost as 
-> large as
-> the MSS.
-> 
-> For a 9014 byte head the field would hold 822, and the upper bits would
-> spill above the field.
-> 
-> If the hardware field really is 12 bits, would these frames go out
-> truncated or corrupt while BQL and bytes_sent count the full length?
 
-It is not 12 bits. On a CM4 at MTU 9000 I sent raw single descriptor 
-frames
-of 1498 to 8998 bytes (20 each). All frames arrived at full length with 
-every
-payload byte intact. With a 12 bit field 4098 would have gone out as 2 
-bytes.
+--wbgkbrp2rld2sxso
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [PATCH can-next 6/7] can: peak_usb: Add bus error reporting for
+ the PCAN-USB FD family
+MIME-Version: 1.0
 
-DMA_BUFLENGTH_MASK masks the length out of the RX status word, it is not 
-the
-hardware field width, so max_mtu needs no cap.
+On 05.10.2026 16:22:12, St=C3=A9phane Grosjean wrote:
+> Can you let me know if I need to make changes myself to these patches
+> you sent,
 
-> [...]
+Sure!
+
+> and if so, how? (Should the new requested changes=E2=80=94which are
+> unrelated to the original patch=E2=80=94be included in a new version? Or =
+in a
+> different series?...)
+
+As I'm not planing to work on this series, feel free to take it
+(including my patches), add your changes and send a v2.
+
+FYI: you can import the series to your b4 with:
+
+| b4 prep -n peak_usb_enhancements -f net-next/main -F 20261002-peak_usb_en=
+hancements-v1-0-50e965755c06@pengutronix.de
+
+regards,
+Marc
+
+--=20
+Pengutronix e.K.                 | Marc Kleine-Budde          |
+Embedded Linux                   | https://www.pengutronix.de |
+Vertretung N=C3=BCrnberg              | Phone: +49-5121-206917-129 |
+Amtsgericht Hildesheim, HRA 2686 | Fax:   +49-5121-206917-9   |
+
+--wbgkbrp2rld2sxso
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iHUEABYKAB0WIQSl+MghEFFAdY3pYJLMOmT6rpmt0gUCasQahQAKCRDMOmT6rpmt
+0oirAP9772cdydlnoqi2h6jO4aCq62wegPxwMRiKbrTCcFMxuAEA/Bu2pSBHSQHz
+SK50i3qJLXIEkR29If0xeGUZQY6RiQI=
+=CW2k
+-----END PGP SIGNATURE-----
+
+--wbgkbrp2rld2sxso--
