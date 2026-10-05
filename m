@@ -1,73 +1,73 @@
-Received: from mail-wr2-f35.google.com (mail-wr2-f35.google.com [74.125.225.99])
+Received: from mail-wr2-f34.google.com (mail-wr2-f34.google.com [74.125.225.98])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 33E61374E55
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CEA4F37882B
 	for <linux-kernel@vger.kernel.org>; Mon,  5 Oct 2026 07:22:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.99
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.98
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791184935; cv=none; b=LSfMSf+A36E5acSA/BxgOg8vhgLk9w7YAhIxRaAOyi/5+fzmel7xbZmbcpcTtqQoFBR3gJOtHx4uDPEP2XohVUOOKcA6NcnJC6l6Pu6Mxt35Qo/1c0HTnXHqvkObm9BmVXMrOAuJgdBUwc/4ee67kvI2Uv2DXwwXVWI+SVK5bEA=
+	t=1791184936; cv=none; b=B9W7Hl2KfbtslKJclJ7hXm8L+n7KBMbBwGkzMLklzB+i9tSPXSXrbRqB7wDwun/a6yEVxB+bxLL8wroJAukOlwL5Jvyh31kXcW/POSSSSgZFeL8/S81Vn5K3QcOKMxQobvhUHIPCMC9NR/ftKhmOp8IbrLVKC+IWqewezGADihg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791184935; c=relaxed/simple;
-	bh=/M/AXYJrasDjCHQpa95uploDhmAOQabyy7j3FoDa+mk=;
+	s=arc-20240116; t=1791184936; c=relaxed/simple;
+	bh=Pb9pP7DCmWh8PRBTVTFxpapJkTRbJ69H744kGtzqF8c=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=A0SUHTvuGAo0u2ccnTzsNcbEsDoB9MXOBgOKP3/sNHiLIH8aW4gWmmOrE0ei7mOVslhhVF0omYVObdcpZaagyHc2n8dFAi5+BEk03WAgXSKECUBLoin5zTs1WLGLgGINaFEQY+x1Z6U5hsZ9FgAMMe/NRsitUQD36qICTlK1Zoc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=mN2Z7U5n; arc=none smtp.client-ip=74.125.225.99
+	 MIME-Version; b=kOYjEetx+ETTRpyQShd69paoHngRXoJv6ODjLKY8cutIxqhgCMFSqpS4H3qzCDGFh94/Ns8mvxjtETiACcVt5iSsMLkQcE4kxKOtJaDKiVVRKSQU36VGu6tf/yUpLGr/O4m1fKh3eIURH964AXdXRCdCek515Bp2lgJ6WVDg/hM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=djwEgbCR; arc=none smtp.client-ip=74.125.225.98
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="mN2Z7U5n"
-Received: by mail-wr2-f35.google.com with SMTP id ffacd0b85a97d-48b059eae96so1188608f8f.0
-        for <linux-kernel@vger.kernel.org>; Mon, 05 Oct 2026 00:22:13 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="djwEgbCR"
+Received: by mail-wr2-f34.google.com with SMTP id ffacd0b85a97d-48af0707d41so644839f8f.1
+        for <linux-kernel@vger.kernel.org>; Mon, 05 Oct 2026 00:22:14 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791184932; x=1791789732; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1791184933; x=1791789733; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=JDjIgUPUbdvr3LMgFzUcV+JuxSqaYeHjMxEe8VEos2I=;
-        b=mN2Z7U5nd6oBTl/YognzkwyqvNeYsYXJkfi9iaKJz929t8jxCPdbuyt2k9gxj77URj
-         hEG3oxkbLLMLZsRX6UeGJhkPNnDeTreHdZ0AjRIs69BD8yAf9/K8N04KztVS44LWOj74
-         jvZID6L7A4qalgSjyQMDcAG4dGwtHxyPk6JPyf1npjSeZ/TFsbND8dXoomQfKQ8bFBez
-         HVraGIiFiyDvTM+UdH4K/9eHgp9xuEmd9YGNb5bbv6K8wFCGDUAvi4Ae1+vjSrk0OSzw
-         oQXRkLHlUCRArf4HDuk6YjhlBJUH1ZEqHpBjfm5sKkVFYolAccpjusUdEpdNh97063ab
-         ybQw==
+        bh=yWSA/QTkYQRPkO7iv6tttaOq45N/puN7vAoxmF26+iA=;
+        b=djwEgbCRICudKPvHU0Bl2FI/Gyhxwn7s38nDNeeJ8FZCuaOqpEazFnI/xq2MbLWCDb
+         zXqGruTIapVhca2US6tLWwDXBICzkdZeHB5n8Mtx7UDDm+V99EhiZCzOt3N1mluOSnWf
+         QRdB5UWiC0yMhqwaCKjQcZnbQYsX9o+ZnrHPwW6h7ChDc4wclMLa21FmXX2gcCxOOUL1
+         i2G8btEqC4Rpoa6LitgpmJtVQTXg8gza+YdEGb/jYoUPCg4LUanhRZGXi5kr0w91NTSx
+         CdB1jFzvwdQqiaUb+ZSPAmHn/KXaT0+VynmtNInVseRJXORMFESdsM3uDZc1GWi7el2j
+         sDgw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791184932; x=1791789732;
+        d=1e100.net; s=20260707; t=1791184933; x=1791789733;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=JDjIgUPUbdvr3LMgFzUcV+JuxSqaYeHjMxEe8VEos2I=;
-        b=sg/ecKIjjz2Uy1IP2qVAep+MMIr4DAnr5w3Q6q8Omll1PfvSblXNofwIrogrqj9+cx
-         eUJ6MDEzUEqsnX6R0XqN9oYibhR20IgiYYe+le17V00QE1L1Szwr8RBXYBGNp/mZszcP
-         zNR4BDd00BzRGLCeMA4LJ2Lr5rsMBGMLNaQbVqyc113dQXK3r0nvSexL5+GNcf2sfGZz
-         QFciOsX4onlDxJwb1ersgh7WnYIN1pBsqEQSh4A05VfhPRZnzjHn5EqOMJpIqcLnGLi4
-         cf4RHOIqzo7TVgRJHSY0z8bz2ANpGo+AmZlxbT8yKZq/4gErL230+asQSWNpE4VtuLl7
-         a50A==
-X-Forwarded-Encrypted: i=1; AKwUvByEjEsgeI/h4MAPpEeN6WX2O5hSe5ZGM4Eb/3pkyYQtxWXVFHMtpGne9YjC8JzdC8/FtRDGkSgElPuw8MA=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIf1S5PtVfc/+pbzZZtVSwM2zMVeP3j/fHv4VkaCb2Jvj/V/dfC
-	uBbFXiSYwr+FLbmuBsgY2fFoP0kgxeqooEqnoMHO/tXPqOvXgyEc0N2r
-X-Gm-Gg: AYBFou2mgcpYfOzVP3yjS8VWbh5K6w3J6YT77CGVGoDThtoALAFpZwx4j9yBSshzj8d
-	KpXAwxfpJ8rXPOz0gWF0kWdj4hDfRp9hQ3VpngbtFxklbODSdbFhB5nJ70DiDsb4qLPCoU8WZJV
-	H7jP2J61EWIW11LbvDtRsy6l8Xiy7z2o4JNjgplDkz8AnjpTugLlgpZ2FDNqzAWn5izCNjWckCu
-	L1ujiAgHvro/FB8ekXSQ+UeHbW14R2JYVErRrZ2W28WIEEUfh08SFPqE2wzNJHDQYpBw8zE1Kai
-	Mm2ZxRCMFk3vlRtVKuZ2k86ZUmXXcuV7HRXq623fJdjQP9DCt0FnJEnpIByDLyMUQVzdHmlzr1+
-	QlLQF7i7ovRlDM9D0hfH5giNAO/tVnHXdPLfpL1agTcIxbg1JUV4pTFArI4Fd9H2C+yt89fpshI
-	OQcZa/u17C970dr40YqA7q/PSzyZ5rGA9jiTn8ETxETs9v8X50ktkV9IFl1kywsELY2sTSQOtJ7
-	K6d
-X-Received: by 2002:a05:6000:420c:b0:48b:123e:2f5c with SMTP id ffacd0b85a97d-48b1272a06dmr18194664f8f.29.1791184932153;
+        bh=yWSA/QTkYQRPkO7iv6tttaOq45N/puN7vAoxmF26+iA=;
+        b=XdwmKtIV9ZMpBO8Dnfbp9WOOF2YlSEoKJsbaGBER7Hf7NxDZcD/oSayx5VwPyElq9c
+         dgI7y/wSS5lpqgwLUrgZz1J3uYCVZSdGW/Stv5U0Wvn+xkOnj6Wn/4dX62iGJOEjmTTR
+         DG/mYTzyZolVkIxFGF/CE2zN00AnKHUHL4jhhgqOpw9ab2QHkX7mOI+SZMX2EYPVsFvR
+         T7t6LbOovRUs5/mqFkm+1AqI0Q5K2TDSEmez9F75wzgGsj4GR4nejCLL3DxOIYxAmZIH
+         4VX3QoepcxyBOt8raxWX7hsLa2PyticQ1C1ARbpHj2MYGJ96q64IuDicg0qGbg1/gnFh
+         9V8w==
+X-Forwarded-Encrypted: i=1; AKwUvBzkUGlv+ytL8ZDr/7JdeLP6lZEM6tUlpdSMjF4Sy6jMsaYnabgDpNRk/29nCY9YKSA9Bu38pEtndbKdcjg=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIa2oWBzhL0wcgYyQO5Yg1kzEwEgw+GD7b9yoHd88rebEMWYLxq
+	9L1CqkvXKDjpX/ur8xs52hXzYVR59wUcEPk2dKTHKwQORkt60BgjO6mE
+X-Gm-Gg: AYBFou2fiVlaxV3sArfR7tQLxIUUKr4E6lKu90E/1zVLbSYFSDIOBn+ShEsqYR2czWJ
+	r9V8Hy3rtP1/2gnixslUhL+9Z7DYdj+jHV17f1be3INP5gwKwjT9VGhY2kTykqid/hNlQPsPKuC
+	Stsx7AzgscGYJLKv5E9oJfPed79uXpv0hYM+c3qYwbe3fO4sgsEsMxedS/A+EQ6/0Hcswhy092R
+	W6sNb9j7F9stpS+MUmiLj/ldHrmQovPxwGxfGXB1VB/m6+WSTrX10r0K7qPmxXv6VZHEbMJDEaE
+	ypM27s0WdMRwrgYnE7Rei65x+fBCLVfIdbdHf6LTaVLferm6KmA4M7tYxRfWwZkjVRCT4F3YKMt
+	aVh5CrFxCrQs3vWojMAcoSHZpN18XaFH8VGz7A1pvbF8HCZgiLGDgbHgZeslaYePbXv+wCI3Qaw
+	6Thr1XiZUvZpGmqaerJdFuHQbk/A7zNaf2APBs5ac1Sw0rP2TwWDBMYZavt0zoQ7Cn+yNNIDYQ3
+	7GG
+X-Received: by 2002:a5d:5e0f:0:b0:488:8347:a110 with SMTP id ffacd0b85a97d-48b1272892cmr11686252f8f.7.1791184932933;
         Mon, 05 Oct 2026 00:22:12 -0700 (PDT)
 Received: from deb05.proceq.com ([213.160.61.66])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48c622affadsm1642847f8f.40.2026.10.05.00.22.11
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48c622affadsm1642847f8f.40.2026.10.05.00.22.12
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 05 Oct 2026 00:22:11 -0700 (PDT)
+        Mon, 05 Oct 2026 00:22:12 -0700 (PDT)
 From: Mehmet Fide <mehmet.fide@gmail.com>
 To: =?UTF-8?q?Toke=20H=C3=B8iland-J=C3=B8rgensen?= <toke@toke.dk>
 Cc: Jeff Johnson <jeff.johnson@oss.qualcomm.com>,
 	linux-wireless@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	mehmet.fide@screeningeagle.com
-Subject: [PATCH ath-current 1/2] wifi: ath9k_htc: do not start ANI before the first channel is set
-Date: Mon,  5 Oct 2026 09:22:08 +0200
-Message-ID: <20261005072209.4101009-2-mehmet.fide@gmail.com>
+Subject: [PATCH ath-current 2/2] wifi: ath9k_htc: start ANI when an AP interface begins to beacon
+Date: Mon,  5 Oct 2026 09:22:09 +0200
+Message-ID: <20261005072209.4101009-3-mehmet.fide@gmail.com>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20261005072209.4101009-1-mehmet.fide@gmail.com>
 References: <20261005072209.4101009-1-mehmet.fide@gmail.com>
@@ -81,55 +81,39 @@ Content-Transfer-Encoding: 8bit
 
 From: Mehmet Fide <mehmet.fide@screeningeagle.com>
 
-ath9k_htc_add_interface() starts ANI for the first AP interface, before
-any channel is configured. The per-channel calibration data only gets
-attached by the first ath9k_htc_set_channel() that is not a fast
-channel change, and that same call cancels the ANI work a few
-milliseconds after add_interface, so normally the work never runs.
+ath9k_htc_vif_reconfig() re-arms ANI after a channel change when an AP
+interface beacons. mac80211 configures the channel before it enables
+the beacon, so during a normal AP start that never triggers, and the
+start from add_interface that the previous patch removed was cancelled
+by the same channel configuration: with hostapd, ANI and the periodic
+calibration it drives did not run in AP mode until a later channel
+change.
 
-When the bring-up stalls for more than the 100 ms ANI poll interval in
-between, it does run, and ar9002_hw_per_calibration() records the IQ
-calibration result in the calibration data that does not exist yet:
-
-  Unable to handle kernel NULL pointer dereference at virtual address
-  00000008
-  PC is at ar9002_hw_calibrate+0x1f8/0x570 [ath9k_hw]
-  Workqueue: phy0 ath9k_htc_ani_work [ath9k_htc]
-
-Seen about once per thousand AP starts with an AR9271 on a Cortex-A5
-board that starts hostapd while still booting; a 500 ms delay after
-add_interface reproduces it on every start. The crashed work never
-completes, so the next cancel_delayed_work_sync() blocks for good.
-
-Drop the start; it has nothing to calibrate against and is cancelled
-anyway. The TSF adjust bit that shared its condition is now set for
-every AP interface, which is harmless: the next reset applies it. The
-next patch starts ANI once the interface beacons.
+Start ANI when the beacon is enabled. The channel and its calibration
+data are in place by then, which is the state vif_reconfig() re-arms
+it in, and remove_interface() already stops it with the last AP
+interface.
 
 Fixes: a236254c35f0 ("ath9k_htc: Add ANI for AP mode")
-Cc: stable@vger.kernel.org
 Signed-off-by: Mehmet Fide <mehmet.fide@screeningeagle.com>
 ---
- drivers/net/wireless/ath/ath9k/htc_drv_main.c | 5 +----
- 1 file changed, 1 insertion(+), 4 deletions(-)
+ drivers/net/wireless/ath/ath9k/htc_drv_main.c | 3 +++
+ 1 file changed, 3 insertions(+)
 
 diff --git a/drivers/net/wireless/ath/ath9k/htc_drv_main.c b/drivers/net/wireless/ath/ath9k/htc_drv_main.c
-index 0d6272ac0dac..a86dd28b0ab7 100644
+index a86dd28b0ab7..6578114a4019 100644
 --- a/drivers/net/wireless/ath/ath9k/htc_drv_main.c
 +++ b/drivers/net/wireless/ath/ath9k/htc_drv_main.c
-@@ -1098,11 +1098,8 @@ static int ath9k_htc_add_interface(struct ieee80211_hw *hw,
+@@ -1551,6 +1551,9 @@ static void ath9k_htc_bss_info_changed(struct ieee80211_hw *hw,
+ 		ath9k_htc_set_tsfadjust(priv, vif);
+ 		priv->cur_beacon_conf.enable_beacon = 1;
+ 		ath9k_htc_beacon_config(priv, vif);
++		if (priv->ah->opmode == NL80211_IFTYPE_AP &&
++		    !test_bit(ATH_OP_ANI_RUN, &common->op_flags))
++			ath9k_htc_start_ani(priv);
+ 	}
  
- 	ath9k_htc_set_opmode(priv);
- 
--	if ((priv->ah->opmode == NL80211_IFTYPE_AP) &&
--	    !test_bit(ATH_OP_ANI_RUN, &common->op_flags)) {
-+	if (priv->ah->opmode == NL80211_IFTYPE_AP)
- 		ath9k_hw_set_tsfadjust(priv->ah, true);
--		ath9k_htc_start_ani(priv);
--	}
- 
- 	ath_dbg(common, CONFIG, "Attach a VIF of type: %d at idx: %d\n",
- 		vif->type, avp->index);
+ 	if ((changed & BSS_CHANGED_BEACON_ENABLED) && !bss_conf->enable_beacon) {
 -- 
 2.55.0
 
