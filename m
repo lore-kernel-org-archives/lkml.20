@@ -1,104 +1,150 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E56554BCAAA
-	for <linux-kernel@vger.kernel.org>; Mon,  5 Oct 2026 15:03:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4B0944BD34E
+	for <linux-kernel@vger.kernel.org>; Mon,  5 Oct 2026 15:04:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791212633; cv=none; b=KRgpdIGcvQ10Ziru9jQAIRyo8P3HQs7cs4qIm6P1Tit2QeaDftiTrCQS+W9NgP1k1UD84bjUeNIDgdlviH58UQuyIH/ykeT58td0auiUmZGgcXi3E/fRhcpXQPcDEer/QrfjCxsqNObjk71hy8GbzvD1p1yONxZrDeS97i4bNto=
+	t=1791212650; cv=none; b=MhA9gzizWd8D1eycR4Sc0pSwMDGQlBOC3OGxjK57mNqqV5uCqiUOkY9dXbywrXCrePslA50IwcsF2IWYhXYNQ/1JAeEdSRU65khmreIm84ZpN7dLIkUKOkSDUlyPXZvT7wVt6ixn1Rm45xhwjFyAgpuKqHOtBWeL9v7ZacEzSUI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791212633; c=relaxed/simple;
-	bh=DJJC7xo6Wqpm1FS5tIxgN3nfFtq7/YdKYKemkEGoDQI=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=rB51a+13yn3/9GtweG3tTcLnGT8p5fSH3nwaHy3r4AxLmvuVHEwxnqztjFkP0bJvTjtW8yPFq/R0s3zkNW7RMsgAL3TKf4RUTa8rp07oqtYcGchwcbv2vp+XnWsRquEaAQO4Nk1zylILorsgPWAZk4E2Jfew6meGpaZbrIoHaZM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=U+fbtoY7; arc=none smtp.client-ip=170.10.129.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	s=arc-20240116; t=1791212650; c=relaxed/simple;
+	bh=jc7nxP5Oz1XzCnbYXsWKT9BZRoyOhZWdxvaqptoB1Bo=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=IB6hAJalTX4JhggUxVLikng4C3tmImQb8bCEpLGoIcUiZ58Lg1/SUFEovq8Bp0xIH6JubULEL5HOR6Xixp2dK+PEegmONmnPLtjnGf8haicEQgFpVJs6Zs85MkMzCBUDYo+l7+evQezvyF5EDSjv9AA6jk64/sbEt+1IiSIXe2E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=SqOa1973; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="U+fbtoY7"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1791212630;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=DJJC7xo6Wqpm1FS5tIxgN3nfFtq7/YdKYKemkEGoDQI=;
-	b=U+fbtoY7t5g2jdlAx6iWRF9gwYv/0ciZ/PB0O/OChoqhtxu01HfRl3wzlkOrrXE7I4I5dC
-	QC/5WpbOt/dKLfNb6oFfc/YnsRiGqz1dS7E5Lifjg2HY3YxeZ/eUSw3aA9GroSTFPEcc3d
-	TzpBRxmUDtE3Tg/3eYoHRKKiPwam3WU=
-Received: from mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-483-o3Dv-ALiOU6jmzioPiUS5Q-1; Mon,
- 05 Oct 2026 11:03:47 -0400
-X-MC-Unique: o3Dv-ALiOU6jmzioPiUS5Q-1
-X-Mimecast-MFC-AGG-ID: o3Dv-ALiOU6jmzioPiUS5Q_1791212626
-Received: from mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.17])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id A68321801320;
-	Mon,  5 Oct 2026 15:03:45 +0000 (UTC)
-Received: from onestero-thinkpadp1gen7.tpbc.csb (headnet04.pony-001.prod.iad2.dc.redhat.com [10.2.32.116])
-	by mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with SMTP id 91C421944CC0;
-	Mon,  5 Oct 2026 15:03:43 +0000 (UTC)
-Received: by onestero-thinkpadp1gen7.tpbc.csb (nbSMTP-1.00) for uid 13628
-	oleg@redhat.com; Mon,  5 Oct 2026 17:03:45 +0200 (CEST)
-Date: Mon, 5 Oct 2026 17:03:42 +0200
-From: Oleg Nesterov <oleg@redhat.com>
-To: David Laight <david.laight.linux@gmail.com>
-Cc: Babanpreet Singh <bbnpreetsingh@gmail.com>,
-	Christian Brauner <brauner@kernel.org>,
-	Pavel Tikhomirov <ptikhomirov@virtuozzo.com>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	linux-kernel@vger.kernel.org,
-	syzbot+c382ee653fd70f5cf1bb@syzkaller.appspotmail.com
-Subject: Re: [PATCH] pid: use READ_ONCE() in pid_alive()
-Message-ID: <asO8TiCfByNjBHWK@redhat.com>
-References: <20261002012141.7-1-bbnpreetsingh@gmail.com>
- <20261003182224.2171b574@pumpkin>
- <asIwpkNr9bF6gk6Q@redhat.com>
- <20261004125118.7de53b47@pumpkin>
- <asJRMhSXz5XhljNi@redhat.com>
- <20261004143108.4b851713@pumpkin>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="SqOa1973"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2F4621F00898
+	for <linux-kernel@vger.kernel.org>; Mon,  5 Oct 2026 15:04:09 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791212649;
+	bh=aw69tHwVf0Z+1Bj0+BQjDmxAeteNgO/GsOUQkhR1JSQ=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=SqOa1973lrsomz1Me3sSgCRYJK1elZDNW+uXlij2h6dL8Y+dIkhEzYEidqGZD39ZT
+	 OLLWdkP8OebMcdp+1Gi3FiJy77tK6BWYahEHvl6hkNxn78R+5jYZedrisDEc9fYACX
+	 nnlqEhlXpAF+Vrsq+FaLKAdZhxFmV2U7IGFAUQANVI9lCuiNoUUa2A1eif7Ikk2ayN
+	 pcwhtlxBISLk/F0HLqENegZhjqvz1fU4eNUj3blFkVgbDPSWdn9zkLNNjOCHgwsuZC
+	 4YEUB03VMQCsIMDgUFTEC+p00La3feQKghMLi/RcCupauBxV9HZXuLI6REpXjpp/WI
+	 xZr9FRpF6EKig==
+Received: by mail-lf2-f12.google.com with SMTP id 2adb3069b0e04-5bb79ea1170so1468464e87.1
+        for <linux-kernel@vger.kernel.org>; Mon, 05 Oct 2026 08:04:09 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBztnq9yTgmxhAOA/ojCOnr8CpgB81NyZMIq9/qm2m32Cmual9gtLcb/WDdSSGCYSFh3L32spAZ4NOJ5uhU=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKQMFOaDhywLIhnav7GJ1HFYcTLxpHBMyOSQ6c1cIxCgZeMiKOi
+	IDY+1a8pWEHaK7H4+9LL64xU87dtREvsYp6ud0sYLw/PJhxTrFTATgBTWtsd8Il+mJkYfvZ2I64
+	7HTlOLS8YmC064wTWCpLaxt6T2uLTxLo=
+X-Received: by 2002:a05:6512:32c9:b0:5bc:b54a:97e8 with SMTP id
+ 2adb3069b0e04-5bcb54a98e7mr2692560e87.17.1791212647902; Mon, 05 Oct 2026
+ 08:04:07 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261004143108.4b851713@pumpkin>
-X-Scanned-By: MIMEDefang 3.0 on 10.30.177.17
+References: <20261002115850.962676-1-o.rempel@pengutronix.de>
+In-Reply-To: <20261002115850.962676-1-o.rempel@pengutronix.de>
+From: Linus Walleij <linusw@kernel.org>
+Date: Mon, 5 Oct 2026 17:03:55 +0200
+X-Gmail-Original-Message-ID: <CAD++jLn_H40-37QOmNVKfkr3UP2X3AJ6NM31uSvj3gXrzY07KQ@mail.gmail.com>
+X-Gm-Features: AclHuK9phD_N5mwQR1EVAD4seWfuKypkmQJWZniQyr1dd2R6ut25CAJJC50mRcE
+Message-ID: <CAD++jLn_H40-37QOmNVKfkr3UP2X3AJ6NM31uSvj3gXrzY07KQ@mail.gmail.com>
+Subject: Re: [PATCH net-next v1 0/8] net: dsa: realtek: rtl8365mb: DCB ingress
+ QoS offload
+To: Oleksij Rempel <o.rempel@pengutronix.de>
+Cc: Luiz Angelo Daros de Luca <luizluca@gmail.com>, Andrew Lunn <andrew@lunn.ch>, 
+	Vladimir Oltean <olteanv@gmail.com>, "David S. Miller" <davem@davemloft.net>, 
+	Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
+	kernel@pengutronix.de, linux-kernel@vger.kernel.org, 
+	=?UTF-8?Q?Alvin_=C5=A0ipraga?= <alvin.sipraga@analog.com>, 
+	netdev@vger.kernel.org, Simon Horman <horms@kernel.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On 10/04, David Laight wrote:
+Hi Oleksij,
+
+thanks for your patch!
+
+On Fri, Oct 2, 2026 at 1:58=E2=80=AFPM Oleksij Rempel <o.rempel@pengutronix=
+.de> wrote:
+
+> Add DCB-based ingress QoS offload for the RTL8365MB switch via the dcbnl
+> app interface: a per-port default priority, PCP trust, and DSCP trust.
+> It also adds the few net/core ieee8021q helpers the driver needs.
 >
-> I was wondering if the (partial) rcu protection of these lists was worth
-> the trouble.
-
-At the top of my head, probably not... At least right now. We can improve
-this, say we can change attach_pid() to use hlist_add_behind_rcu(). This way
-the lockless do_each_pid() won't "obviously race" with fork(). But this won't
-solve other problems.
-
-> If the 'add code' all the readers and have to hold the lock then does that
-> leave anything other than task exit doing an rcu-delete.
-> I wouldn't have though acquiring the lock in the task exit code would
-> be noticeable.
-
-Still can't understand. The exiting task does take tasklist when it calls
-detach_pid().
-
-> > I don't think it can. Say, __kill_pgrp_info() is a "typical" user of
-> > do_each_pid_task(). What can it do if it detects that get_nulls_value()
-> > doesn't match after the main loop? The signal was already sent.
+> Nothing changes on the wire until an admin enables PCP or DSCP trust;
+> until then every frame takes the port default and lands on one queue.
 >
-> It would have to check each entry to ensure it was on the correct list.
-> (That probably doesn't need the 'nulls' variant.)
-> The problem is that the rescan will do things twice.
-> This is ok for a search, but probably not for sending a signal.
+> Tested on an RTL8365MB-VC.
+>
+> ETS scheduling and CPU-tag ingress pre-classification build on this and
+> will follow once it lands.
+>
+> Oleksij Rempel (8):
+>   net: ieee8021q: print traffic type and queue count with %u
+>   net: ieee8021q: add pcp_to_tt()
+>   net: ieee8021q: clarify the tt_to_tc() traffic-class mapping
+>   net: ieee8021q: add tt_to_pcp()
+>   net: dsa: realtek: rtl8365mb: store the egress queue count per chip
+>   net: dsa: realtek: rtl8365mb: add QoS baseline and DCB default
+>     priority
+>   net: dsa: realtek: rtl8365mb: offload DCB apptrust
+>   net: dsa: realtek: rtl8365mb: offload DCB DSCP-to-priority
 
-Yes, exactly.
+I have one major feedback on the series and it's pretty predictable:
+the RTL8366RB has most of these features as well, so they
+need to be added to the common helpers in rtl83xx.c and
+realtek.h.
 
-Oleg.
+- RTL8366RB has the same type of traffic policy, albeit
+  with 6 queues per port rather than 8.
 
+- Logic traffic queues are slightly different, RB uses
+  queues 0 & 5 for two queues, 0, 1 & 5 for three
+  and so on.
+
+- The DSCP bits have slightly different bit layout so each
+  backend must deal with this.
+
+- The apptrust in the RTL8366RB is *global* rather than
+  per-port so this could perhaps be handled in each back-end.
+  The global setting will even affect the CPU port.
+
+If you add something like this to the realtek_ops in
+realtek.h:
+
+int (*qos_get_port_prio)(struct realtek_priv *priv, int port);
+int (*qos_set_port_prio)(struct realtek_priv *priv, int port,  u8 iprio);
+
+int (*qos_set_pcp_prio)(struct realtek_priv *priv, u8 pcp, u8 iprio);
+
+int (*qos_get_dscp_prio)(struct realtek_priv *priv, u8 dscp);
+int (*qos_set_dscp_prio)(struct realtek_priv *priv, u8 dscp, u8 iprio);
+
+int (*qos_set_port_num_queues)(struct realtek_priv *priv, int port,
+unsigned int num_queues);
+int (*qos_set_prio_tc)(struct realtek_priv *priv,
+unsigned int num_queues, u8 iprio, u8 tc);
+
+The getters would return an internal priority or a negative error.
+Queue callbacks would own register encoding, table selection
+and logical-TC-to-hardware-QID translation.
+
+Common code (rtl83xx.c) could then provide:
+
+- Default-priority get/set callbacks, including PCP <->  traffic-type
+  conversion.
+- DSCP get/add/delete callbacks, including the series replacement
+  guard and restoration of the IETF default.
+- Initialization of all eight PCP mappings and all 64 DSCP mappings.
+- Priority-to-traffic-class initialization using ieee8021q_tt_to_tc().
+- Per-port Best Effort initialization.
+
+Both chip setups should expose their queue count through the
+existing ds->num_tx_queues, and set ds->dscp_prio_mapping_is_global
+when registering DSCP offload. There is no need to duplicate those
+properties in another common structure.
+
+Does this make sense?
+
+Yours,
+Linus Walleij
