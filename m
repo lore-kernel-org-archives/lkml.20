@@ -1,130 +1,280 @@
-Received: from mail-107169.simplelogin.co (mail-107169.simplelogin.co [79.135.107.169])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oa2-f12.google.com (mail-oa2-f12.google.com [74.125.231.76])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 326F0484258
-	for <linux-kernel@vger.kernel.org>; Mon,  5 Oct 2026 18:11:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=79.135.107.169
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791223875; cv=pass; b=Gl4MbYDzUED6ggS9EcyFPvRFm5vWebbLFTgtWzAAf2E/MwXONXT/kVQ6iOxIOF0Edb9xZhEEnIIU9hxuEQl/6kP01ExpHd1LaKhKbneYcobiL1qs0qLsfAhmrdjLBRLtAewOUHDl55XN8r2gm0HTbeXaDh85GpwoX6np1dH4twU=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791223875; c=relaxed/simple;
-	bh=NFIkQmhlbzJ/YsOhhT3NdmkuOIS7JID42u1Q7hvnPBA=;
-	h=Date:In-Reply-To:Subject:MIME-Version:Content-Type:From:To:Cc:
-	 Message-ID:References; b=MH8/IlA8D/7uX7tHSyCSMRoMxZBgd5Jw9ZiyrN29eIL4q2Q1e25VVfItNqONNpruxwAlWszIkS+E6RjG8ItmlX8XnNb1lz48OXQ3/It/tfvzd9BQbDg1RJJO45TCtZ3A6uA4rfvbOGcANihGNJ9vnMBTEvkuxFeD0qzgy54wYuI=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=8alias.com; spf=pass smtp.mailfrom=8alias.com; dkim=pass (1024-bit key) header.d=8alias.com header.i=@8alias.com header.b=nrZ8Pzl8; arc=pass smtp.client-ip=79.135.107.169
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=8alias.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=8alias.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1FAD24D9F7E
+	for <linux-kernel@vger.kernel.org>; Mon,  5 Oct 2026 18:17:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.76
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791224248; cv=none; b=Bo7V+5OUH8E5GBi1hrGnpIvnhmXxCTMoXWaT/omTfx84hQhXVnbkL5YBl/DisN/LqGa6gsWOnFOHLUx5HKG/9+1Pnmmcp3ZFIfEwYXyRiNEe58xPl6POLQdvtzsMV3sKlSFIladdZomNvjQEcaEYLrb1CSlXVfpYtc+s9xr2S0o=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791224248; c=relaxed/simple;
+	bh=SlfT5CpG1gfS0O6dGhXo30NrXX/THyrTJARh8LcTSNs=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=aW7gBbw7/V/NQ6kwfg8rIBpsvafBInyp0v/sjjI39U0WpXUxZUtYhiJDjD0Z/PrNQNNmoqP4nLToKuQ9wiDveHVwe3QzO4P8l4ce+4FzegPr+je1de0ufq/TPy8YTfpZiIxNfNtpgqf+nVAlF9ipA5svhaRyM0+uyN+h/xq5xS0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=GHc1A6mP; arc=none smtp.client-ip=74.125.231.76
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=8alias.com header.i=@8alias.com header.b="nrZ8Pzl8"
-ARC-Seal: i=1; a=rsa-sha256; d=simplelogin.co; s=arc-20230626; t=1791223467;
-	cv=none; b=QZki7uGed0tucPxLTI9njNGOs3PIVYZ9lDrtaHM0Fnr5C82Wd4uJrH9PFiVjclpbjg5H3bP4Om1Uo0ngCjZHR5wWCPTdvusD3JtaYsOSqY3lHfziB33WgMSEgZWf2/p+Bbx0NhApmed13eL30gEp2HT3HQjyttkGrV5USNdXacNGN2kfeCGYP5cEhtDYyhVzXo6qmjeDoTVQZq6g/5NfAPbto++8AB36WU2EXoNtZZc77EqbAJJjWGv4atO+o7qRSfTtSPd3Z6/dvBL3l+udSinmLxLvOe0QHJ4rpjI11Mhukhb8sl/ulyi4sNL89RH8UGxps5IQd6677eyQ9X5+nw==
-ARC-Message-Signature: i=1; a=rsa-sha256; d=simplelogin.co; s=arc-20230626;
-	t=1791223467; c=relaxed/simple;
-	bh=NFIkQmhlbzJ/YsOhhT3NdmkuOIS7JID42u1Q7hvnPBA=;
-	h=Date:In-Reply-To:Subject:From:To:Cc:References; b=O28PBBXh8y9Re+q6VBNXCKNLa+KV7nPe2MPrxxMAEUkE86z9o+CTyGGkVKastWeW0/hU0HbzpBUYlfNgm/UaEJOsg95IJt09FFXPpi3HA/v7qewrruhgQ3J49ZMa5a9qnTHiR76EO6sD57BP1nOUKVGd2MnZuAdnQPUnsdmb9ovXWpKCHCmCjUPv1w2bXh0ZkDabgtpR4HqtTTQZ05BoBO+IBJCd4crZvO5RfB6RjinqTRa6rTGuS5yjjnp/RTccs2JZzdeLmvUPK4oHK8Ds0NMoa2BKLM5FgyH2gYcYbLDJhLoJzhez8l9rkAeaEjzG4dfV55oJ1QcM7j0AriMx4Q==
-ARC-Authentication-Results: i=1; mail.protonmail.ch
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=8alias.com; s=dkim;
-	t=1791223467;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=NFIkQmhlbzJ/YsOhhT3NdmkuOIS7JID42u1Q7hvnPBA=;
-	b=nrZ8Pzl862B7V26B1EsXrdYjkrczlFZb4nhdLTB5YNxWuAEXGA+u2/JTAb43couqSELe4q
-	QIPx5tA8wnpOL2/nv0A5QQjut61ZoyK/b6k/heGB1Kn+F+BgAj8OciOYM4iAyygvDb+KKd
-	BFKJj0iwVEayDudWtXe47kClD7deHZQ=
-Date: Mon, 5 Oct 2026 20:04:23 +0200 (CEST)
-In-Reply-To: <P3C8cUq--F-9@tutamail.com>
-Subject: [RESEND] ALSA: hda/tas2781: TP3407SA evidence for the January
- custom calibration address patch
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="GHc1A6mP"
+Received: by mail-oa2-f12.google.com with SMTP id 586e51a60fabf-466ccbd4773so598643fac.2
+        for <linux-kernel@vger.kernel.org>; Mon, 05 Oct 2026 11:17:25 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791224245; x=1791829045; darn=vger.kernel.org;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=Rouq59a9OyBo1EeAraKbx0994ONwMJ1+oA66imSzKao=;
+        b=GHc1A6mPFwU1mQCKMjDNf+uUGZeU4DFLIqQ7sdz8bjBTnPFJ7011JJxtO0nZSKYktG
+         3+6QSHWijl+eWp4uyM4l+2MkUUet/D7BhKuSrHvAorUIXPSDrzlufyLMvXSpDG5MrT8z
+         1aYh2GxWSaz4MBe4I3Xz9OE+GyS/1zDejvxEP9UCwonjxMISA4hIKV1+nFjNprKUvbQl
+         mwmu98xVsf3m6cZBGx+kxMZHpfPJfdIJWF6F2k6+RUFCBwT2qeessGg3fB4vOSI47JKh
+         UJcMNe0vmB6azLj/KxovSf9Vwmq/SmnoH4K4Ay0Lg+gqw2UvQndHI/5UHti7zR8HYN0Z
+         9KhA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791224245; x=1791829045;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=Rouq59a9OyBo1EeAraKbx0994ONwMJ1+oA66imSzKao=;
+        b=bg/p9G8RKO/q1w8q4Rv0fLfKmS/G9RDw5cZDKgfLRK5kn9iBRhVFcA7/zgo8PwERZ+
+         gKEG28NBuU4dIIwgpKZx/I8wz3nbAvK6K5g+SKvRF+CjTClV/42080wWrNYc68Z2U5wg
+         Sh+gFwK8DAf/nFJSZoP1uJd+FM00jDyKlQRO11zRZ21smeDicXCJK114EuRYy7PAry8q
+         8jR+H0op5Zr8i7LZPqzHz36J3qYEW07JGwHWIuii0oUuzxohA9jSxVEuaWuRz3GQK/1X
+         KN1i9YHTxnu/TQ/Tdy4Tu27UcxQcWcZ1G2jJt6Fn/0W+Okb5xquE8hVuJm9Dn6pxo1cW
+         Dg3Q==
+X-Forwarded-Encrypted: i=1; AKwUvBzf85zJjRUgnd6hA42paD98xvz0QagrJn3QPe5qpoHSS+KaLf6De6Ff6p4qyrrs6hcUFbbwtlGA17ANh4Y=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLdmGPkQT+87ls9wtHz/tapCUsS/HgcsZjORoZ+sv1LtYpdQ4IL
+	QpX4SQohtKgi/m2ysfr4oxRGInykwQ9rDNXl6KyhZMrc4O8ZhPfCJKrK
+X-Gm-Gg: AYBFou32lac+jQeCPAb5xCz4ag2BZN9L8v0eZtHloX6TEAhF9nlb1q1vPfboIQLYEXz
+	x8kH4FTotLgAkLzvxB5o7T8+xAtwTTSQKVMmNOhe1JHwgI6cawb8sCqiOOiPmOMvfAs1zTz535C
+	JqbbwZwsS3IiasjqQXfe2s1+sV47ZInnGJs/FRPv44xstVBkZDexBttfQCJHhA7BDyvmmjAw5Rx
+	OgaGoMwYl3JwzYpuGcd2CXQroqYnhsvvbN6HIY65/C5cONG9x7cc4fy4PiXXkiXdlNy1hmseQmW
+	K6porTXOD+4S671ByqrTRYiTw3+jIkQLLG6Cx3hKakGBP7AwBJrdv+ObTagJYN5g+x3MQburrwo
+	4vL8E+VDSEgqDvQti2+sGkwZbwPwqa60CzTCF+5YU0ER/UivM1XA+WzHSqQ5+l9LHMjvKSoolbp
+	8ub4Jg8gf+V6tBoteEJ8jVVZwVWRl2kKBl6MJSMvMlGT+R/ZNn5Vv6FvuLFGBa8bVTj/A7JKIpl
+	JVBtECoE7KT9IE18uuvW7TXfwTjinNiuK7eE1IgByvNPydnXHYWCXBGtAhKem3otnyq1F3+iC/h
+	BzIpBGAByIL/e2VYHK9R4tEWBeuOTcfuDNWnZof6TvX2yeMyVM6FR/MSdTO19BkPns8tgAGPSML
+	yez1azWHVQGGeyoqtNkBctw==
+X-Received: by 2002:a05:6870:524f:b0:48f:e0f6:c465 with SMTP id 586e51a60fabf-49e15e5c8c3mr10012930fac.51.1791224244819;
+        Mon, 05 Oct 2026 11:17:24 -0700 (PDT)
+Received: from [127.0.1.1] (174-29-1-49.hlrn.qwest.net. [174.29.1.49])
+        by smtp.gmail.com with ESMTPSA id 586e51a60fabf-49e16d60931sm10358053fac.4.2026.10.05.11.17.23
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 05 Oct 2026 11:17:24 -0700 (PDT)
+From: James Hilliard <james.hilliard1@gmail.com>
+Date: Mon, 05 Oct 2026 12:17:21 -0600
+Subject: [PATCH net v2] xsk: freeze deferred pool teardown without blocking
+ unregister
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
-From: linux-kernel.supreme403@8alias.com
-To: lkml@antheas.dev
-Cc: tiwai@suse.com,"Ding,
- Shenghao" <shenghao-ding@ti.com>,perex@perex.cz,baojun.xu@ti.com,kevin-lu@ti.com,sen@ti.com,matthew.schwartz@linux.dev,linux-sound@vger.kernel.org,linux-kernel@vger.kernel.org
-Message-ID: <179122346529.6.9250312386131579603.1671009695@8alias.com>
-References: <179122226568.6.10663878730330541363.1670962442@8alias.com>
-X-SimpleLogin-Type: Reply
-X-SimpleLogin-EmailLog-ID: 1671009804
-X-SimpleLogin-Want-Signing: yes
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+Message-Id: <20261005-xsk-suspend-teardown-v2-1-2d87228f4329@gmail.com>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/32OwQ6CMBBEf4Xs2ZqlaGk5+R/Gw1IWbZSibUWN4
+ d9t0LNzm9nsm3lD5OA4QlO8IfDkoht9NnJVgD2RP7JwXfYgUSo0FYpnPIt4j1f2nUhMoRsfXhi
+ UvdEb1NZUkF+vgXv3XLB78Jzg8A0D3+65Iv0uLUUWdhwGl5qCsnpdMxnT6lopa0gTIdcl0Uaya
+ q2mbSVxYZ1cTGN4LbOncoH9XziVohSkLFltscKWd8eB3GWd2+Ewz/MHKiuLHQkBAAA=
+X-Change-ID: 20260930-xsk-suspend-teardown-902f98408c93
+To: netdev@vger.kernel.org, Paolo Abeni <pabeni@redhat.com>, 
+ Jakub Kicinski <kuba@kernel.org>, 
+ Magnus Karlsson <magnus.karlsson@intel.com>, 
+ Maciej Fijalkowski <maciej.fijalkowski@intel.com>, 
+ Stanislav Fomichev <sdf@fomichev.me>, Simon Horman <horms@kernel.org>, 
+ Alexei Starovoitov <ast@kernel.org>, Daniel Borkmann <daniel@iogearbox.net>, 
+ Jesper Dangaard Brouer <hawk@kernel.org>, 
+ John Fastabend <john.fastabend@gmail.com>
+Cc: Eric Dumazet <edumazet@kernel.org>, 
+ "David S. Miller" <davem@davemloft.net>, 
+ =?utf-8?q?Bj=C3=B6rn_T=C3=B6pel?= <bjorn@kernel.org>, bpf@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, James Hilliard <james.hilliard1@gmail.com>, 
+ Andrew Lunn <andrew+netdev@lunn.ch>
+X-Mailer: b4 0.15.2
 
-Hi Antheas and sound/TI maintainers,
+Deferred pool destruction calls ndo_bpf() under RTNL. system_wq is
+not frozen during system sleep, so that callback can run after a
+device has suspended and gated its clocks. Use system_freezable_wq
+so running destruction finishes before device suspend and new work
+waits until process thaw.
 
-Resending as plain text because LKML rejected the previous message for cont=
-aining an HTML part.
+Keep assigned pools visible to NETDEV_UNREGISTER independently of
+the socket list. A released socket has already left that list, but
+its final pool put can queue destruction after workqueues freeze.
+A resume-time unregister would then wait for a device reference
+whose release cannot run until the resume completes.
 
-Your January 7 patch fixes barely audible speakers on my ASUS Vivobook 14 F=
-lip TP3407SA_TP3407SA. Could it be revived with the hardware evidence below=
-, and considered for stable backports after upstream acceptance?
+Track assigned pools per netdev under RTNL and detach remaining pools
+after the notifier socket walk, including copy-mode pools. This also
+covers leased queues without scanning pools from unrelated devices or
+network namespaces. Remove the entry on assignment failure and normal
+teardown. The deferred worker still owns the pool and later observes
+the cleared device pointer, avoiding a second driver detach or put.
 
-Hardware: TP3407SA_TP3407SA, BIOS TP3407SA.308 (March 5, 2026). Tested kern=
-el: Linux 6.18.46, with your original patch built and booted. DSP: TAS2XXX1=
-0A4.bin, identical to TAS2XXX10A40.bin; PPC 0x19500, classified by the driv=
-er as TASDEV_BETA.
+The lifetime problem was identified by code inspection of the deferred
+release and system-sleep paths.
 
-The CRC-valid, 88-byte CALI_DATA UEFI payload contains two speaker nodes an=
-d custom address node 0x80. Its address slots, all in book 0, are 0ce4, 0cf=
-c, 0cf4, 0ae0 and 0d70. The firmware metadata instead orders the first thre=
-e destinations as 0ce4 0cf4 0cfc. tas2781_apply_calib() reads the custom no=
-de but only installs its addresses for TASDEV_BASIC. On this BETA firmware,=
- two factory coefficients therefore go to the wrong destinations.
+Fixes: 1c1efc2af158 ("xsk: Create and free buffer pool independently from umem")
+Signed-off-by: James Hilliard <james.hilliard1@gmail.com>
+---
+Changes in v2:
+- Track assigned pools per netdev instead of scanning a global pool list.
+- Keep deferred releases visible across queue changes and queue leases.
+- Rebase onto current net.
+- Link to v1: https://patch.msgid.link/20260930-xsk-suspend-teardown-v1-1-a6cac8c030be@gmail.com
 
-Primary speaker factory words, in order: 3db90308 3076f45a 10971fdc 00a17a0=
-f 2a800000
+To: "David S. Miller" <davem@davemloft.net>
+To: Eric Dumazet <edumazet@kernel.org>
+To: Jakub Kicinski <kuba@kernel.org>
+To: Paolo Abeni <pabeni@redhat.com>
+To: Simon Horman <horms@kernel.org>
+To: Andrew Lunn <andrew+netdev@lunn.ch>
+To: Magnus Karlsson <magnus.karlsson@intel.com>
+To: Maciej Fijalkowski <maciej.fijalkowski@intel.com>
+To: Stanislav Fomichev <sdf@fomichev.me>
+To: Alexei Starovoitov <ast@kernel.org>
+To: Daniel Borkmann <daniel@iogearbox.net>
+To: Jesper Dangaard Brouer <hawk@kernel.org>
+To: John Fastabend <john.fastabend@gmail.com>
+To: Björn Töpel <bjorn@kernel.org>
+Cc: netdev@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org
+Cc: bpf@vger.kernel.org
+---
+ include/linux/netdevice.h   |  5 +++++
+ include/net/xsk_buff_pool.h |  3 +++
+ net/xdp/xsk.c               |  5 +++++
+ net/xdp/xsk_buff_pool.c     | 25 ++++++++++++++++++++++++-
+ 4 files changed, 37 insertions(+), 1 deletion(-)
 
-Actual primary-amplifier register reads, book 0:
-=C2=A0 Address=C2=A0 Before=C2=A0=C2=A0=C2=A0 After=C2=A0=C2=A0=C2=A0=C2=A0=
- Expected from factory node
-=C2=A0 0ce4=C2=A0=C2=A0=C2=A0=C2=A0 3db90308=C2=A0 3db90308=C2=A0 3db90308
-=C2=A0 0cf4=C2=A0=C2=A0=C2=A0=C2=A0 3076f45a=C2=A0 10971fdc=C2=A0 10971fdc
-=C2=A0 0cfc=C2=A0=C2=A0=C2=A0=C2=A0 10971fdc=C2=A0 3076f45a=C2=A0 3076f45a
-=C2=A0 0ae0=C2=A0=C2=A0=C2=A0=C2=A0 00a17a0f=C2=A0 00a17a0f=C2=A0 00a17a0f
-=C2=A0 0d70=C2=A0=C2=A0=C2=A0=C2=A0 2a800000=C2=A0 2a800000=C2=A0 2a800000
+diff --git a/include/linux/netdevice.h b/include/linux/netdevice.h
+index 3cff2174dc03..72091938f6e6 100644
+--- a/include/linux/netdevice.h
++++ b/include/linux/netdevice.h
+@@ -2545,6 +2545,11 @@ struct net_device {
+ 	/* protected by rtnl_lock */
+ 	struct bpf_xdp_entity	xdp_state[__MAX_XDP_MODE];
+ 
++#ifdef CONFIG_XDP_SOCKETS
++	/** @xsk_pools: assigned AF_XDP pools, protected by rtnl_lock */
++	struct hlist_head	xsk_pools;
++#endif
++
+ 	u8 dev_addr_shadow[MAX_ADDR_LEN];
+ 	netdevice_tracker	linkwatch_dev_tracker;
+ 	netdevice_tracker	watchdog_dev_tracker;
+diff --git a/include/net/xsk_buff_pool.h b/include/net/xsk_buff_pool.h
+index a7df573784fd..5cc2f61d7fdf 100644
+--- a/include/net/xsk_buff_pool.h
++++ b/include/net/xsk_buff_pool.h
+@@ -48,6 +48,8 @@ struct xsk_buff_pool {
+ 	struct device *dev;
+ 	struct net_device *netdev;
+ 	struct list_head xsk_tx_list;
++	/* Assigned pools, including deferred releases; protected by RTNL. */
++	struct hlist_node dev_node;
+ 	/* Protects modifications to the xsk_tx_list */
+ 	spinlock_t xsk_tx_list_lock;
+ 	refcount_t users;
+@@ -119,6 +121,7 @@ bool xp_put_pool(struct xsk_buff_pool *pool);
+ void xp_clear_dev(struct xsk_buff_pool *pool);
+ void xp_add_xsk(struct xsk_buff_pool *pool, struct xdp_sock *xs);
+ void xp_del_xsk(struct xsk_buff_pool *pool, struct xdp_sock *xs);
++void xp_clear_dev_all(struct net_device *dev);
+ 
+ /* AF_XDP, and XDP core. */
+ void xp_free(struct xdp_buff_xsk *xskb);
+diff --git a/net/xdp/xsk.c b/net/xdp/xsk.c
+index 33475b180ea6..781ba46eb152 100644
+--- a/net/xdp/xsk.c
++++ b/net/xdp/xsk.c
+@@ -2145,6 +2145,11 @@ static int xsk_notifier(struct notifier_block *this,
+ 			mutex_unlock(&xs->mutex);
+ 		}
+ 		mutex_unlock(&net->xdp.lock);
++		/*
++		 * A released socket is no longer on xdp.list. Its pool can still
++		 * hold a device reference on the frozen release workqueue.
++		 */
++		xp_clear_dev_all(dev);
+ 		break;
+ 	}
+ 	return NOTIFY_DONE;
+diff --git a/net/xdp/xsk_buff_pool.c b/net/xdp/xsk_buff_pool.c
+index 9d2d94f1fb75..c4d722008670 100644
+--- a/net/xdp/xsk_buff_pool.c
++++ b/net/xdp/xsk_buff_pool.c
+@@ -204,6 +204,11 @@ int xp_assign_dev(struct xsk_buff_pool *pool,
+ 	pool->cached_need_wakeup = XDP_WAKEUP_TX;
+ 
+ 	dev_hold(netdev);
++	/*
++	 * Socket removal precedes the final pool put. Keep the pool visible to
++	 * NETDEV_UNREGISTER even while release work is waiting for process thaw.
++	 */
++	hlist_add_head(&pool->dev_node, &netdev->xsk_pools);
+ 
+ 	if (force_copy)
+ 		/* For copy-mode, we are done. */
+@@ -265,6 +270,8 @@ int xp_assign_dev(struct xsk_buff_pool *pool,
+ 		err = 0; /* fallback to copy mode */
+ 	if (err) {
+ 		xsk_clear_pool_at_qid(netdev, queue_id);
++		hlist_del(&pool->dev_node);
++		pool->netdev = NULL;
+ 		dev_put(netdev);
+ 	}
+ 	return err;
+@@ -291,17 +298,29 @@ void xp_clear_dev(struct xsk_buff_pool *pool)
+ {
+ 	struct net_device *netdev = pool->netdev;
+ 
++	ASSERT_RTNL();
+ 	if (!pool->netdev)
+ 		return;
+ 
+ 	netdev_lock_ops(netdev);
+ 	xp_disable_drv_zc(pool);
+ 	xsk_clear_pool_at_qid(pool->netdev, pool->queue_id);
++	hlist_del(&pool->dev_node);
+ 	pool->netdev = NULL;
+ 	netdev_unlock_ops(netdev);
+ 	dev_put(netdev);
+ }
+ 
++void xp_clear_dev_all(struct net_device *dev)
++{
++	struct xsk_buff_pool *pool;
++	struct hlist_node *next;
++
++	ASSERT_RTNL();
++	hlist_for_each_entry_safe(pool, next, &dev->xsk_pools, dev_node)
++		xp_clear_dev(pool);
++}
++
+ static void xp_release_deferred(struct work_struct *work)
+ {
+ 	struct xsk_buff_pool *pool = container_of(work, struct xsk_buff_pool,
+@@ -337,7 +356,11 @@ bool xp_put_pool(struct xsk_buff_pool *pool)
+ 
+ 	if (refcount_dec_and_test(&pool->users)) {
+ 		INIT_WORK(&pool->work, xp_release_deferred);
+-		schedule_work(&pool->work);
++		/*
++		 * Teardown calls ndo_bpf(), which may need powered hardware.
++		 * RTNL alone does not exclude the device's system PM callbacks.
++		 */
++		queue_work(system_freezable_wq, &pool->work);
+ 		return true;
+ 	}
+ 
 
-Before the patch, the speakers were barely audible even at 100% system volu=
-me. After booting the patched kernel, speaker sound was normal. The firmwar=
-e was unchanged. Protected Speaker Profile Id 1 was active, with Program Id=
- 0, Config Id 0 and Force Firmware Load off.
+---
+base-commit: aaaaf87ea99b8766c9a8aa0e71aa42e6bc8a5320
+change-id: 20260930-xsk-suspend-teardown-902f98408c93
 
-As checked on October 5, mainline 67f0943b394d and sound for-next 8acd6469f=
-427 still have the BASIC-only assignment; the patch applies to both. A loca=
-l userspace C test using the kernel's calibration routines and mocked regis=
-ter writes reproduces the misplacement and verifies the patched mapping for=
- both captured speaker fixtures. No-custom-node, BASIC, already-matching-la=
-yout and invalid-CRC cases retain their behavior. The test and captured dat=
-a are available on request.
-
-Limits: only the primary amplifier was read on hardware, and the final regi=
-ster snapshot was taken idle. The listening result is subjective; there is =
-no calibrated SPL measurement or controlled same-volume A/B. Current mainli=
-ne and for-next were not built and booted as full kernels.
-
-Unlike the January Ally X test, this machine's OEM and firmware layouts dif=
-fer. This report does not claim to fix the Ally X's separate symptom. Commi=
-t 4fe238513407 introduced the custom-node parser with the BASIC-only assign=
-ment and appears to be the appropriate Fixes target.
-
-DSP SHA256:
-=C2=A0 a29f522c22cdb203eb1af84846838b5ef76c3a2c721760c7a898dd35f9ce1430
-Public firmware:
-https://gitlab.com/kernel-firmware/linux-firmware/-/raw/20260410/ti/audio/t=
-as2781/TAS2XXX10A40.bin
-Original patch:
-https://lore.kernel.org/all/20260107093134.583873-1-lkml@antheas.dev/
-
-OpenAI Codex (LLM) assisted with diagnosing the quiet speakers, validating =
-the existing patch, preparing a local reproducer and drafting this hardware=
- report. The kernel change is your January proposal.
-
-Assisted-by: LLM
-
-Thanks,
-assembledev
+Best regards,
+--  
+James Hilliard <james.hilliard1@gmail.com>
 
