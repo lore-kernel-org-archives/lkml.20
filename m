@@ -1,226 +1,157 @@
-Received: from mail-pj2-f40.google.com (mail-pj2-f40.google.com [74.125.227.168])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 937E64E2F1E
-	for <linux-kernel@vger.kernel.org>; Mon,  5 Oct 2026 17:17:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.168
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E3F964E2F12;
+	Mon,  5 Oct 2026 17:17:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791220670; cv=none; b=FRjbHjFhSziRka2t8pfnc6LK2pguW2qnE7+1lJfY6zpjvnuPO+ATRZAlVrkNfjW9nJp+6sZOPet8w3MJKYnftjPogyoDzXPpqgMBoSZ7juw7ku0mFabNmeyDLFwuB7ZbFUiP7WDJbzhpZ72rLWqWpL4pTOC0ZG0voJghjaQCBAo=
+	t=1791220672; cv=none; b=epaD+lVIOGcgerIPuJlT8PD2U+SqVhNvWZmBtOLwKa2HS1aYPaVb/FirROZfLSPugSDtfimU14cesq5yQHsXRFxrWbotW6iap6BvUSUoO+/zUk/k7ncNupmuZixORbXBGtntnGJBJ7CDPHMM0Uy2GSEa/NAC94DkTjbcd3w4HMk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791220670; c=relaxed/simple;
-	bh=9oP9VQ+JM/9PdWJ+5+ZGbwB85sJAY1eTAyp/fwZIqqc=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=sFShccywQ1FF+z+gF9EfeXmup06ur7DFNiAdHEcMTiJogfpJAwWFszlZqu6ZzXl7NrmRlAgF0NWmLxSrZS1ahMEwNAfMYGPX8SekBoSRy9qhQtbt1yIE1KO41F+JluvfVBHIuncpUTlDZ+GQ6mIN84AHYGEn7lXgcJ91xtr4NdA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ns7XeNDB; arc=none smtp.client-ip=74.125.227.168
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1791220672; c=relaxed/simple;
+	bh=EK3NvoQUETF5/AQInjlFcTebBn9AM8Ap/sXLcnjOmqM=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=lKbhk8CiYKzj54Vuf8B1sOCXfZ7T8ot3J+ATIQQlz4HUsKlwYNrvTwgkJG0BgL9IQKKuOoFmBxrNSYMzSK0KdYyY+reuSWIA+vA/3HQrIPYdGAG7qn9hcYPuDZ9LK9FSW7WcD8/kh8Zt1rcv8hvnWVEeLq3oQT+wlIu/yVtDMtw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gxoP+nHa; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ns7XeNDB"
-Received: by mail-pj2-f40.google.com with SMTP id 98e67ed59e1d1-3a0eeda3e03so940431a91.1
-        for <linux-kernel@vger.kernel.org>; Mon, 05 Oct 2026 10:17:48 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791220668; x=1791825468; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=mAD1Y95K173b5qZp91CTYZls79sZInjIuGPu7Lg5CCM=;
-        b=ns7XeNDBEiEeUI6DMxj/Lo+OKLE2ftneMsq1CGeZTzWJRXOKh56hBIMnCvzzCvJgU+
-         u5szmqm6erw6fCCc8Hs3KGvR8Rak60TxHSEBaYSSTzVoxI0+Bn/DaNuBq/vuk2hUI7sC
-         T5gEDkLnnar+fyq/sr0SrB45DqULc6J6418sm+qEfA2KDhHo8+7F1c3XzDp34qkSXmIv
-         xawx4JmY4YmKW0vvV/nFuajInG/3W7b7gFEnLEDxoQ+SLTVndRg9AsGhL9HADg0H1kSh
-         sJXr4JDrKcW4xhkCgvQpoAnBFmO9OzrHMXCg+Fz6tKWihM6jzVqWYhTYtkPdCIdRo/gp
-         i7kQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791220668; x=1791825468;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=mAD1Y95K173b5qZp91CTYZls79sZInjIuGPu7Lg5CCM=;
-        b=JJmXmNlm4ZX1Wllsh5rWjbdwsXO6K9T8/4AYzPfuXUn5RhHXJspPOhmx4D6xN7+FRe
-         7udRGVqj2JfD1XcnSFDbQSqvFRHNuQhnFj49sdOAR7xqAEhycTTrAybVjGdq998q10fP
-         tmCP85wSF2bLx8jTygpyYDQmYMJYJ+fYpckn+5Y9naf+QXgIXcN5xizRZYoC9kkRv1Os
-         Ozg6D81eH8SV9+PKdYSwsrsI1RoPa9Vx8RFmIUS6Cn3ftZj2LJMk/kPSWGNZTHgoHR8a
-         VfPdNiNIrRH0cCL42N0eQmoCs4Uz3y+rvi1V/pHkziwDbRR/WjDJV5wBf4B+4IanxCkh
-         N1ww==
-X-Forwarded-Encrypted: i=1; AKwUvBz1jw1k2jsP2cW5BengcZzn8jXNeKFSSxiQIZpeMgfq7zHOiwESZioANvW9Ans3DbbgTckNUx9hFAk+888=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJxkcrSixvx6C04gvIqkTY2qUDr1fpRBOmKIVCLx4duQ8nlaW51
-	3XA6w+WLnWgTSmdDaUoVGWHcIwPfGdjg9VHy8MtOTPh8sXlLeIe2SGbP
-X-Gm-Gg: AYBFou2UzaL2DrWENXc+TSrDY9dvff4L6eX3mkxQPDU3rmsSR0BTEjxwoSlknXNbdoM
-	Aj20poyS/5insh+plO1YS/UdME/Hj7hRGtuw944cWuBRxOtXMHwm3vYkS39x7JOgRkRQW9s8q2B
-	/JYDEa20jxpPzjeTNGszfL6R6xCU0lC++FiLr6zkcDyFZmyUT1MnmZkQ+WR9nqmxLkRKkjPH1V1
-	0nr5nJZuEbT4S3LECq/vo8oYlwpgQceeovuOsyphtVRvmjw0GcMvrzNGyCb9FL8dXTUPe7pOQus
-	PgTzUUPO6hvaR2Vt4ln0abphjcqGM/zls60ChGMs2wGZK4k+g5PcQbqw5xXDkc6j/M380zBKZCT
-	1qpbmp8CGT0P2wtNwGMC37WzUpNBDOB7fzwWEHEaWg0RqtNQ9PtNoMm0l2wtlKnTDUYAmmfDPs8
-	C7kU1I95W7PC7pioubKvIPC7uT3Dfri8/a/Ks3yzPmh5tah6AYVVZZ04s6UCiUkQrAcCKszIk2f
-	AV5M2mR/YsVL4rILx4ZxDJIEOJr2k9CasuyV8lO
-X-Received: by 2002:a17:90a:2ce1:b0:3a6:dc2f:f087 with SMTP id 98e67ed59e1d1-3a6dc2ff4ffmr2745576a91.53.1791220667397;
-        Mon, 05 Oct 2026 10:17:47 -0700 (PDT)
-Received: from kernel.tail6741c6.ts.net ([216.195.201.24])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a853cafddesm406910a91.10.2026.10.05.10.17.34
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 05 Oct 2026 10:17:46 -0700 (PDT)
-From: Kunwu Chan <kunwu.chan@gmail.com>
-To: paulmck@kernel.org,
-	corbet@lwn.net,
-	mingo@redhat.com,
-	frederic@kernel.org,
-	neeraj.upadhyay@kernel.org,
-	josh@joshtriplett.org,
-	urezki@gmail.com,
-	dave@stgolabs.net,
-	lianux.mm@gmail.com
-Cc: stern@rowland.harvard.edu,
-	parri.andrea@gmail.com,
-	will@kernel.org,
-	peterz@infradead.org,
-	boqun@kernel.org,
-	npiggin@gmail.com,
-	dhowells@redhat.com,
-	j.alglave@ucl.ac.uk,
-	luc.maranget@inria.fr,
-	akiyks@gmail.com,
-	dlustig@nvidia.com,
-	joelagnelf@nvidia.com,
-	skhan@linuxfoundation.org,
-	rdunlap@infradead.org,
-	longman@redhat.com,
-	rostedt@goodmis.org,
-	mathieu.desnoyers@efficios.com,
-	jiangshanlai@gmail.com,
-	qiang.zhang@linux.dev,
-	kunwu.chan@gmail.com,
-	brads@mainlining.org,
-	linux-kernel@vger.kernel.org,
-	linux-arch@vger.kernel.org,
-	lkmm@lists.linux.dev,
-	linux-doc@vger.kernel.org,
-	rcu@vger.kernel.org,
-	linux-kselftest@vger.kernel.org
-Subject: [PATCH RFC v3 09/15] rcuscale: add hazptr scale type
-Date: Tue,  6 Oct 2026 01:15:23 +0800
-Message-ID: <20261005171529.1378809-10-kunwu.chan@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261005171529.1378809-1-kunwu.chan@gmail.com>
-References: <20261005171529.1378809-1-kunwu.chan@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gxoP+nHa"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A90151F000FF;
+	Mon,  5 Oct 2026 17:17:47 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791220670;
+	bh=jstK2p4pMpjcxzWQJaz6p8Z1rKW5ByVtp5DmyLpp35k=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc;
+	b=gxoP+nHa20unNdvZ7YBiVm2btwDsuF3HygeVSZICZL9blkZ7K0YyJmzcICScfZvpp
+	 iLk5TtLI2zsbeHCxKEKpHGBT9gfWQvYltmXLqIIWAfpaXXtLdMGveNmqg/MwttvruG
+	 gD+DFcbTIOZLNymb5O+nraS5DumunXHg/ATDMgOXOcb/N9BeqaNSanly++3Hs9iJ/G
+	 uWsllYvOmGRBr5QQA6CB6hFEquDln2dlO1xwswplV2boKDkLH12k1r8gpEj4HK5Tnc
+	 1/8jlLOJqHvKfnXrgB81whkSqrdkdLl676nnJkfnsEKCA8Q2nF1/34JuBflmqDk7xb
+	 2Td8tviZAmexA==
+From: bod@kernel.org
+Date: Mon, 05 Oct 2026 19:14:06 +0200
+Subject: [PATCH 36/74] media: qcom: camss: csid: Add helper function
+ csid_ipp_bayer_pattern
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261005-linux-mainline-7-2-sm8650-hdk-rfc-0-v1-36-ed985aefd611@kernel.org>
+References: <20261005-linux-mainline-7-2-sm8650-hdk-rfc-0-v1-0-ed985aefd611@kernel.org>
+In-Reply-To: <20261005-linux-mainline-7-2-sm8650-hdk-rfc-0-v1-0-ed985aefd611@kernel.org>
+To: Bryan O'Donoghue <bryan.odonoghue@linaro.org>, 
+ Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>, 
+ Loic Poulain <loic.poulain@oss.qualcomm.com>, 
+ Mauro Carvalho Chehab <mchehab@kernel.org>, 
+ Jacopo Mondi <jacopo.mondi@ideasonboard.com>, 
+ Daniel Scally <dan.scally@ideasonboard.com>, Keke Li <keke.li@amlogic.com>, 
+ Richard Acayan <mailingradian@gmail.com>, 
+ Hans Verkuil <hverkuil@kernel.org>, 
+ Gjorgji Rosikopulos <quic_grosikop@quicinc.com>, 
+ Radoslav Tsvetkov <quic_rtsvetko@quicinc.com>, 
+ Robert Foss <rfoss@kernel.org>, Milen Mitkov <quic_mmitkov@quicinc.com>
+Cc: linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, Bryan O'Donoghue <bod@kernel.org>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2629; i=bod@kernel.org;
+ h=from:subject:message-id; bh=8QDFT8nC8AU31HIKZPJQc54mteqFqQ9vXecZpF0P7qc=;
+ b=owEBbQKS/ZANAwAKASJxO7Ohjcg6AcsmYgBqw9saO7MpYbN1zYu8COpbOPD9nxIBCz0Tv753f
+ ArXa3rUclKJAjMEAAEKAB0WIQTmk/sqq6Nt4Rerb7QicTuzoY3IOgUCasPbGgAKCRAicTuzoY3I
+ OrOMEACUtei8/Mg4Aov3H0n6VI/fyqS1EElGN3SaMrLrSxpUQMW3oZHvtlB3W0vOMLg+lzpCIvd
+ vvm6OBvU4F54efSIxfKnvATvau7Pg3gs4MB3oWwNTyhnGCaVNbNDa0603U/tSBawEVe+MJKUH0+
+ zd95FpyScGt5TfmEpbZWr4fn3qukHnwmFU/pNxrUFTLnwB6Tzk8nOcAo4Ykg8MGReZ6uSWG4Iep
+ zRTHCSQcijd79Cw4Fsy6psvKvdVZouWLEUDcG5r7NSgbnlYBjUP0kijyCp6n95pSHAKxEjwVn68
+ dYtAb7oBYxxiCtA3lO9O6NbEcOWCQWipCl2qnZe6Y3Jq9YHGjy9RcdD6tOYt2rySXKCocANjAQy
+ z2fv4erF5+8UaMS5Q/OkXJtJAXRXP6Fkrp29f5FxNWYw33W04OSJwvR//cT5uuNOdn41KKTsW5z
+ mq3G/exCmbDQYVU0ymqz571mBHj9XwJA5A5o1tnCsi8E3hsBE0STRusxdYkGYlewCJuo6KrBy4j
+ Zx+kbxcGAH30OGEFheaPAL1DLGZ7KKmvTXZ4a8vQWTj/qcDn5inVnQgvAgIhuNpNDTt/jwKf41l
+ iF6oPGeZeNSv603CgHZRf2YxRSdrvxR1HJ78N/mlWLW3SuxDsTqr4zaMbPOeTBw4qstULgR8+bk
+ ky2sQopytx5gypg==
+X-Developer-Key: i=bod@kernel.org; a=openpgp;
+ fpr=E693FB2AABA36DE117AB6FB422713BB3A18DC83A
 
-Add hazptr reader and synchronize operations so that synchronize
-latency can be measured alongside RCU and SRCU.
+From: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
 
-Use a small set of objects so readers do not always protect the
-same target.  Each reader protects the object selected by its CPU,
-while the updater round-robins through the objects.
+Simple helper function which translates a media bus format into the
+appropriate CSID IPP pixel format.
 
-Use hazptr_synchronize() for both normal and expedited scale
-operations, since hazptr has no separate expedited operation.
-
-Link: https://lore.kernel.org/lkml/20250625031101.12555-1-boqun.feng@gmail.com/
-Signed-off-by: Kunwu Chan <kunwu.chan@gmail.com>
+Signed-off-by: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
 ---
- kernel/rcu/rcuscale.c | 70 ++++++++++++++++++++++++++++++++++++++++++-
- 1 file changed, 69 insertions(+), 1 deletion(-)
+ drivers/media/platform/qcom/camss/camss-csid.c | 28 ++++++++++++++++++++++++++
+ drivers/media/platform/qcom/camss/camss-csid.h | 16 +++++++++++++++
+ 2 files changed, 44 insertions(+)
 
-diff --git a/kernel/rcu/rcuscale.c b/kernel/rcu/rcuscale.c
-index 1097ec15879c..5aca31c3c01d 100644
---- a/kernel/rcu/rcuscale.c
-+++ b/kernel/rcu/rcuscale.c
-@@ -39,6 +39,7 @@
- #include <linux/torture.h>
- #include <linux/vmalloc.h>
- #include <linux/rcupdate_trace.h>
-+#include <linux/hazptr.h>
- #include <linux/sched/debug.h>
- 
- #include "rcu.h"
-@@ -418,6 +419,71 @@ static struct rcu_scale_ops tasks_tracing_ops = {
- 
- #endif // #else // #ifdef CONFIG_TASKS_TRACE_RCU
- 
-+#if IS_ENABLED(CONFIG_HAZPTR_TORTURE_TEST)
-+
-+#define HAZPTR_SCALE_NR_OBJS 8
-+static int hazptr_scale_obj[HAZPTR_SCALE_NR_OBJS];
-+static atomic_t hazptr_scale_sync_idx = ATOMIC_INIT(0);
-+
-+struct hazptr_scale_state {
-+	struct hazptr_ctx ctx;
-+	void *addr;
-+};
-+static DEFINE_PER_CPU(struct hazptr_scale_state, hazptr_scale_state);
-+
-+static int hazptr_scale_read_lock(void)
-+{
-+	struct hazptr_scale_state *state = this_cpu_ptr(&hazptr_scale_state);
-+	int idx = smp_processor_id() % HAZPTR_SCALE_NR_OBJS;
-+	void *ptr = &hazptr_scale_obj[idx];
-+
-+	state->addr = hazptr_acquire(&state->ctx, &ptr);
-+	return 0;
-+}
-+
-+static void hazptr_scale_read_unlock(int idx)
-+{
-+	struct hazptr_scale_state *state = this_cpu_ptr(&hazptr_scale_state);
-+
-+	hazptr_release(&state->ctx, state->addr);
-+}
-+
-+static unsigned long hazptr_scale_completed(void)
-+{
-+	return 0;
-+}
-+
-+static void hazptr_scale_sync(void)
-+{
-+	int idx = atomic_fetch_inc(&hazptr_scale_sync_idx) % HAZPTR_SCALE_NR_OBJS;
-+
-+	hazptr_synchronize(&hazptr_scale_obj[idx]);
-+}
-+
-+static void hazptr_scale_sync_exp(void)
-+{
-+	int idx = atomic_fetch_inc(&hazptr_scale_sync_idx) % HAZPTR_SCALE_NR_OBJS;
-+
-+	hazptr_synchronize(&hazptr_scale_obj[idx]);
-+}
-+
-+static struct rcu_scale_ops hazptr_scale_ops = {
-+	.ptype		= 0,
-+	.readlock	= hazptr_scale_read_lock,
-+	.readunlock	= hazptr_scale_read_unlock,
-+	.get_gp_seq	= hazptr_scale_completed,
-+	.gp_diff	= NULL,
-+	.exp_completed	= hazptr_scale_completed,
-+	.sync		= hazptr_scale_sync,
-+	.exp_sync	= hazptr_scale_sync_exp,
-+	.name		= "hazptr",
-+};
-+
-+#define HAZPTR_SCALE_OPS &hazptr_scale_ops,
-+#else
-+#define HAZPTR_SCALE_OPS
-+#endif
-+
- static unsigned long rcuscale_seq_diff(unsigned long new, unsigned long old)
+diff --git a/drivers/media/platform/qcom/camss/camss-csid.c b/drivers/media/platform/qcom/camss/camss-csid.c
+index 645e02ad6b9b1..abdd7195fa6c5 100644
+--- a/drivers/media/platform/qcom/camss/camss-csid.c
++++ b/drivers/media/platform/qcom/camss/camss-csid.c
+@@ -1437,3 +1437,31 @@ inline bool csid_is_lite(struct csid_device *csid)
  {
- 	if (!cur_ops->gp_diff)
-@@ -1110,7 +1176,9 @@ rcu_scale_init(void)
- 	long i;
- 	long j;
- 	static struct rcu_scale_ops *scale_ops[] = {
--		&rcu_ops, &srcu_ops, &srcud_ops, TASKS_OPS TASKS_RUDE_OPS TASKS_TRACING_OPS
-+		&rcu_ops, &srcu_ops, &srcud_ops,
-+		TASKS_OPS TASKS_RUDE_OPS TASKS_TRACING_OPS
-+		HAZPTR_SCALE_OPS
- 	};
+ 	return csid->camss->res->csid_res[csid->id].csid.is_lite;
+ }
++
++int csid_ipp_bayer_pattern(u32 code)
++{
++	switch (code) {
++	case MEDIA_BUS_FMT_SRGGB8_1X8:
++	case MEDIA_BUS_FMT_SRGGB10_1X10:
++	case MEDIA_BUS_FMT_SRGGB12_1X12:
++	case MEDIA_BUS_FMT_SRGGB14_1X14:
++		return CSID_IPP_BAYER_RGGB;
++	case MEDIA_BUS_FMT_SGRBG8_1X8:
++	case MEDIA_BUS_FMT_SGRBG10_1X10:
++	case MEDIA_BUS_FMT_SGRBG12_1X12:
++	case MEDIA_BUS_FMT_SGRBG14_1X14:
++		return CSID_IPP_BAYER_GRBG;
++	case MEDIA_BUS_FMT_SBGGR8_1X8:
++	case MEDIA_BUS_FMT_SBGGR10_1X10:
++	case MEDIA_BUS_FMT_SBGGR12_1X12:
++	case MEDIA_BUS_FMT_SBGGR14_1X14:
++		return CSID_IPP_BAYER_BGGR;
++	case MEDIA_BUS_FMT_SGBRG8_1X8:
++	case MEDIA_BUS_FMT_SGBRG10_1X10:
++	case MEDIA_BUS_FMT_SGBRG12_1X12:
++	case MEDIA_BUS_FMT_SGBRG14_1X14:
++		return CSID_IPP_BAYER_GBRG;
++	default:
++		return -EINVAL;
++	}
++}
+diff --git a/drivers/media/platform/qcom/camss/camss-csid.h b/drivers/media/platform/qcom/camss/camss-csid.h
+index 53f43ae7b9327..400995f35f0ef 100644
+--- a/drivers/media/platform/qcom/camss/camss-csid.h
++++ b/drivers/media/platform/qcom/camss/camss-csid.h
+@@ -44,6 +44,13 @@ enum csid_testgen_mode {
+ 	CSID_PAYLOAD_MODE_NUM_SUPPORTED_GEN2 = 9, /* excluding disabled */
+ };
  
- 	if (!torture_init_begin(scale_type, verbose))
++enum csid_ipp_bayer_pattern {
++	CSID_IPP_BAYER_RGGB = 0,
++	CSID_IPP_BAYER_GRBG,
++	CSID_IPP_BAYER_BGGR,
++	CSID_IPP_BAYER_GBRG,
++};
++
+ struct csid_format_info {
+ 	u32 code;
+ 	u8 data_type;
+@@ -247,4 +254,13 @@ u32 csid_hw_version(struct csid_device *csid);
+ u32 csid_src_pad_code(struct csid_device *csid, u32 sink_code,
+ 		      unsigned int match_format_idx, u32 match_code);
+ 
++/*
++ * csid_ipp_bayer_pattern - IPP Bayer pattern for media bus code
++ *
++ * code: the media_bus code
++ *
++ * Return: IPP bayer pattern constant for reg programming or -EINVAL
++ */
++int csid_ipp_bayer_pattern(u32 code);
++
+ #endif /* QC_MSM_CAMSS_CSID_H */
+
 -- 
-2.43.0
+2.55.0
 
