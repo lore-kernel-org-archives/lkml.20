@@ -1,259 +1,132 @@
-Received: from mail-pj2-f38.google.com (mail-pj2-f38.google.com [74.125.227.166])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.20])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E1F264B04A8
-	for <linux-kernel@vger.kernel.org>; Mon,  5 Oct 2026 14:51:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.227.166
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791211866; cv=pass; b=nDjkC7h12zOGmw3GLySWudEqHt3HqEJKRAqV8FH/PwqAsw7zPzVg0v7dKEvuT6WzMxVWODHeQLajT2QLa/+UMKCNwkg+Kf0S2wKKacfX1hHriqSFWfZ2upHsxP7FazFdBIVM6loMWi5685dLeVcJrBiRKPfLiv0Ev2T7PPmITm4=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791211866; c=relaxed/simple;
-	bh=YrLe/bgyFwpgpqiHffOcUv8w8epm9xRDZev+pTSWF4E=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=eFvQZFYBayREc1w1TifC71x0wbL3HtonpHqJRX2iGmJOHWfKp+IamR7K5YRNW9a0x9M9FpQDy+Pns922HjqkpJx+TGFDoi/PHOM3bX1vbB/nXNm07kA74SZrIw1nKjbp+iHWYM/apHc7hkVz4PAbs5jlmjXyNYvM64siQR3hOIg=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=AKaOuyIw; arc=pass smtp.client-ip=74.125.227.166
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C98844A99AA
+	for <linux-kernel@vger.kernel.org>; Mon,  5 Oct 2026 14:51:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.20
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791211895; cv=none; b=uG4iDsh3+0Tr18SX0ajbRNIg7qajTFC/oeFBm37sR/kLmSDL1cY818FtQP6jMG85ABwlACcwBfIt1Rz2i+2GZp6+h36Xuz/UHP8PRCe+QuusXODcDy6Ci93ybHv6QDXn2tNRsFsZJcmhpnsB7z+25uGLx5lI8liuVFty8m+yhfo=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791211895; c=relaxed/simple;
+	bh=PXjIMmPSTpW+48wEQ/nEWBlDBYc9w8+UcsPj4n+Af1U=;
+	h=Date:From:To:Cc:Subject:Message-ID; b=cBn/LX4272O00V6MaPf34WgaQm9PjG24jyj2rs+bTRpwvouBYp6Cvh53qI5fYFPCSEgxzhQoqmebw67xFtP5EV/miWXrUdwQwXfPyZ2ynHKBi1My/BOurTJN7UBRTOvQFBp8XlSrEuc4i9jxaXZ/EbMDMb4tk7c6dUyFm9qFQ/M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=BMU7osTv; arc=none smtp.client-ip=198.175.65.20
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="AKaOuyIw"
-Received: by mail-pj2-f38.google.com with SMTP id 98e67ed59e1d1-3a81350dd08so479761a91.3
-        for <linux-kernel@vger.kernel.org>; Mon, 05 Oct 2026 07:51:01 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1791211859; cv=none;
-        d=google.com; s=arc-20260327;
-        b=CylAc1PSsEpOAbncWZTfiTd1ofPb103T6wLE2u8GAqSK99bJ2yH73FbrYu0quxDzIt
-         n95UIzcIchGAKvxc+aO//qKJ12g7gkv/OVpa7OAzOqGhgHh00So8qgBpmSJQqok6oX1Y
-         NFuGhR+EFnRvOYO6xz9iQ5lZbd69PUsa/oWoFA1xjzRnMq+v3sqVcjtsVOweM2wv0BLE
-         dCaAtMtRSfhpeVeB3uXkIkQD1IHqFa76QHPfmdbzUH8eL3Y9J9uWbcP5d8Gb4a6cXFe1
-         /eL+HcBIdzva5kcVxeOrl/o1fOei+6Q20EcxGx4K64L426J8uP0NzNF+gElMeZwbyQZl
-         XQUA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=wzyxtCc/xljY4tUYv36NHbjTq6FZebesi/It17iHYVo=;
-        fh=n5CBXI6PjsmFZ2O9D9lUnrluDBcqtWeOqRZeAv80CWA=;
-        b=nuAsE8iFdZPEwFTpjynQilGMTjO0gtlbcXwsljpIcV+TZY92xDv58sltmVnVQs2wmF
-         X7GEU6uv+tDPViDN3+Ih3YOGbYXEu7FTy1+0Mw2FiAnswsVxbU/eK9JbFwRvLRGbgSUo
-         FiocUaCeTur4p/j5BL5TlbLx+e3+DXG2DavGy1oQzuQeS3feZIolVNhTcQ6DtNNFiM8C
-         Fxzy+KCYhLL22Yv0wGQ1O9hutRAjDcNoM73iXpaLrRQO+0HMRODDZX+0glK7TyYZ0Woi
-         y503+u3A6zEzwyWG2MU1nuVVN20aQXzIWerB10UaYdkFOYaPGYxgwVIC9Dn+SI0h+o+L
-         40tw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=chromium.org; s=google; t=1791211859; x=1791816659; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=wzyxtCc/xljY4tUYv36NHbjTq6FZebesi/It17iHYVo=;
-        b=AKaOuyIw9xtWePTbrp2gtdG/GwFA1317C6uISMvp4MkcuVRlYNvt1c8Yvbo0s6ZDZ+
-         5QwB0hWzePNcowvxJCsGd3OrFJZS8b6fKOvcl83qkYHP9XrOX6SfFvcapDgNr55JsC5U
-         E5DV0kS7T5oo9y3zLW9pb/svLwACR6NFk0HIo=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791211859; x=1791816659;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=wzyxtCc/xljY4tUYv36NHbjTq6FZebesi/It17iHYVo=;
-        b=QGZffmTcPI30GlrtFZXu4ZW0Bkdnd9pqZmFYUITPBQRMr2CsD1OWEasHvBQL0WrrwY
-         9SzqSX1bEET09HwX9Pknyn1oVtM1wOOF+aFfzmhjtvkPUb3JrMUmiK8Ffway88+qhAfR
-         aFc5KNJMjtvAz4FBKdMWwP7l+H+crqXPT5VMlpnYwTyNVE5M7t27ZoPD2jSyuvXkNvug
-         vJ6UW+y2ibMsClAcFs7abO9zFxSQJFwlQVtBn/KCUtZiVGYYDo5YTTJ0OgV/h6d7qieV
-         IKwcdwxu22U5XYihPKSwEQact9thnzXp0lo4FhSdMBlZxR9heuNyCgm5GMMLbfNXm9EF
-         cVjg==
-X-Forwarded-Encrypted: i=1; AKwUvBxsHMeJPbLv9L6CrMitIomb/BvmXmmZV2Quyls0100vgFQZuCfj7l55hSnH5V2tGu75EwMXe1A2JL7P8pQ=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJjUgjSXZl6sg4airt4p6rSE3gijG3EE7LlrHjxsyFutGwl/yro
-	7KLdoVpSOT8I8VnJfVLQunAWar7YAH/vDz098FxMxCtqCsJstrB1FKTNRcK4li/ysTDl70Bda8r
-	I8zcLvk8bsheVxiduYyfhJwOVwhglMXWgBP5vrNgn
-X-Gm-Gg: AYBFou2xr6uTT0dwHKDL8qri56sAN79jYqsKoazQoQtxuTzQrvkzAccIGMzzQBHUv3s
-	jfSElw86p4b+6LV8JA9zSBmrPtpjTwO8SdlyG7qyIJuUjFxLyfuPDDtstjJR5VFL0CJ7E533ib8
-	IsW9lwsfX6nNDL053G3NseMNJzQ1y6IhSs0L1IEaz2FatBPKOZKfgofkLJPS5euxacA5ItR8O0F
-	RTdfCwk4/A/BqhOw4W6LjQ6OoF0iNe8Vy7KY7Fl/Rfrd2JvnNZ4w0Mi3Dh7xbTrsqgC22boOgb9
-	WvSLh7Tyy2A2rlzXV0Douj/KAJO362fTEADnnpJ/yWETlr8oMRtiaQMY/jDPUP4soVKje4ppbIk
-	G4cXith40BpURATkySQ==
-X-Received: by 2002:a17:90b:1c12:b0:3a4:9f7f:8cc1 with SMTP id
- 98e67ed59e1d1-3a6ce75d149mr10175210a91.24.1791211858800; Mon, 05 Oct 2026
- 07:50:58 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="BMU7osTv"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1791211893; x=1822747893;
+  h=date:from:to:cc:subject:message-id;
+  bh=PXjIMmPSTpW+48wEQ/nEWBlDBYc9w8+UcsPj4n+Af1U=;
+  b=BMU7osTvXoQVQtvdmlVUN8kvKh9bCh1CqgINkMsZnxrn7yCnu0DrOcJ/
+   DPWx9I9kHrlmuLvKLNLaby3fuU9idXcrrsK073YPzIsXv/x+bgGAdDMlh
+   007QR7p9lGhFZH7HS1/vrHWB/ywZwu4vOXCEtzlt9jnPvGByKwyCngWB5
+   eawbDoilJ1Xk4E72WWco7RZ0+3f0oNisiXdT+7Cj5EPVBFyXtnLR2a196
+   gMIaeO8M93BQf8PuHwKGIgB30wpuwVYadxgt0D9GQwxo1U16caVCMICga
+   dRUsVdeGsgTIhKzlM19XxTykz5hIbOny0FoGVah61wIP57ZLGR+kw+/Fv
+   Q==;
+X-CSE-ConnectionGUID: quexIgPuR/OkgOoZvWzMcg==
+X-CSE-MsgGUID: 482hZm5PTxOGysO9TKTSOA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11926"; a="90653399"
+X-IronPort-AV: E=Sophos;i="6.27,142,1787036400"; 
+   d="scan'208";a="90653399"
+Received: from fmviesa003.fm.intel.com ([10.60.135.143])
+  by orvoesa112.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 05 Oct 2026 07:51:30 -0700
+X-CSE-ConnectionGUID: nDnN+BQ8Q9q+5oH3x2pSJw==
+X-CSE-MsgGUID: LiMvk1VjSVWK0Zf4AIf5IQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,142,1787036400"; 
+   d="scan'208";a="284716229"
+Received: from igk-lkp-server01.igk.intel.com (HELO d0de6c2a75a7) ([10.211.93.152])
+  by fmviesa003.fm.intel.com with ESMTP; 05 Oct 2026 07:51:28 -0700
+Received: from kbuild by d0de6c2a75a7 with local (Exim 4.98.2)
+	(envelope-from <lkp@intel.com>)
+	id 1xDk2H-000000000Bz-3nLn;
+	Mon, 05 Oct 2026 14:51:25 +0000
+Date: Mon, 05 Oct 2026 16:50:34 +0200
+From: kernel test robot <lkp@intel.com>
+To: Eric Dumazet <edumazet@google.com>
+Cc: oe-kbuild-all@lists.linux.dev, linux-kernel@vger.kernel.org,
+ Paolo Abeni <pabeni@redhat.com>, Kuniyuki Iwashima <kuniyu@google.com>,
+ Willem de Bruijn <willemb@google.com>
+Subject: drivers/net/tun.c:2375:24: sparse: sparse: cast to
+ non-scalar
+Message-ID: <202610051613.beLfY9SJ-lkp@intel.com>
+User-Agent: s-nail v14.9.25
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-References: <20261002200108.399258-1-mhun512@gmail.com>
-In-Reply-To: <20261002200108.399258-1-mhun512@gmail.com>
-From: Andrei Kuchynski <akuchynski@chromium.org>
-Date: Mon, 5 Oct 2026 14:50:47 +0000
-X-Gm-Features: AclHuK_mpqiutglUoj4b9ypzT5hG7wQQ6C7TSD5Rqh4e7VfHWJcwxGbEsSCz5v4
-Message-ID: <CAMMMRMc7ZfanRcM_i8dCS+51Q5-dpTKnMvFJuEsvgF5V80iwHg@mail.gmail.com>
-Subject: Re: [PATCH v2] platform/chrome: cros_ec_typec: Stop altmode work
- during partner removal
-To: Myeonghun Pak <mhun512@gmail.com>
-Cc: Benson Leung <bleung@chromium.org>, 
-	Abhishek Pandit-Subedi <abhishekpandit@chromium.org>, Jameson Thies <jthies@google.com>, 
-	Tzung-Bi Shih <tzungbi@kernel.org>, Guenter Roeck <groeck@chromium.org>, 
-	chrome-platform@lists.linux.dev, linux-kernel@vger.kernel.org, 
-	stable@vger.kernel.org, Ijae Kim <ae878000@gmail.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
 
-On Fri, Oct 2, 2026 at 8:01=E2=80=AFPM Myeonghun Pak <mhun512@gmail.com> wr=
-ote:
->
-> DisplayPort and Thunderbolt port altmodes queue work to deliver VDM
-> responses. Partner removal and port teardown do not drain this work,
-> allowing it to race with partner driver removal or access freed port
-> altmode data.
->
-> Disable and drain port altmode work in the common partner cleanup path.
-> Partner drivers can still queue responses during removal, so keep the
-> work disabled until they are gone. Clear pending response and DP status
-> state, then re-enable it for the next connection. Cancel the work before
-> unregistering port altmodes during final teardown.
->
-> Allocate list nodes before registering altmodes so allocation failures
-> also use the common cleanup path.
->
-> This issue was identified during our ongoing static-analysis research
-> while reviewing kernel code.
->
-> Fixes: dbb3fc0ffa95 ("platform/chrome: cros_ec_typec: Displayport support=
-")
-> Cc: stable@vger.kernel.org
-> Assisted-by: LLM
-> Co-developed-by: Ijae Kim <ae878000@gmail.com>
-> Signed-off-by: Ijae Kim <ae878000@gmail.com>
-> Signed-off-by: Myeonghun Pak <mhun512@gmail.com>
-> ---
-> Changes in v2:
-> - Quiesce port work in cros_typec_unregister_altmodes() before removing
->   partner altmodes, covering disconnects and discovery cleanup.
-> - Re-enable work after resetting pending response and DP status state so
->   port altmodes remain usable after reconnecting a partner.
-> - Cancel work in cros_typec_unregister_port_altmodes() during final port
->   teardown, following the review suggestion to use cancel_work_sync().
-> - Allocate list bookkeeping before registering an altmode so allocation
->   failures use the common guarded cleanup path.
-> - Drop the v1 Reviewed-by tag due to the reworked cleanup paths.
->
-> Previous version:
-> https://lore.kernel.org/all/20260917204209.97699-1-mhun512@gmail.com/
->
-> Validation: apply checks, whitespace checks and static source review.
-> No build or runtime testing was performed for this revision.
->
-> Remaining review point: an in-flight port active sysfs callback may still
-> queue work after the final cancel_work_sync(), before the port altmode
-> is unregistered. Please confirm whether that ordering needs additional
-> synchronization.
->
->  drivers/platform/chrome/cros_ec_typec.c      | 27 ++++++++----
->  drivers/platform/chrome/cros_typec_altmode.c | 46 ++++++++++++++++++++
->  drivers/platform/chrome/cros_typec_altmode.h |  9 ++++
->  3 files changed, 73 insertions(+), 9 deletions(-)
->
-> diff --git a/drivers/platform/chrome/cros_ec_typec.c b/drivers/platform/c=
-hrome/cros_ec_typec.c
-> index 50a68819ceb7bbfbd888ca919d678d4c75237c26..2d6cbb7f51445fde4b4e83390=
-81e921a9a143a92 100644
-> --- a/drivers/platform/chrome/cros_ec_typec.c
-> +++ b/drivers/platform/chrome/cros_ec_typec.c
-> @@ -282,11 +282,19 @@ static void cros_typec_unregister_altmodes(struct c=
-ros_typec_data *typec, int po
->         struct list_head *head;
->
->         head =3D is_partner ? &port->partner_mode_list : &port->plug_mode=
-_list;
-> +       /* Partner drivers can queue port work until their removal comple=
-tes. */
-> +       if (is_partner)
-> +               cros_typec_altmodes_set_enabled(port, false);
-> +
->         list_for_each_entry_safe(node, tmp, head, list) {
->                 list_del(&node->list);
->                 typec_unregister_altmode(node->amode);
->                 devm_kfree(typec->dev, node);
->         }
-> +
-> +       /* Port altmodes are reused when a partner reconnects. */
-> +       if (is_partner)
-> +               cros_typec_altmodes_set_enabled(port, true);
+tree:   https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git master
+head:   a90ee4305c4a5df72c11b31dacfdc76e00fcf78a
+commit: 23dad2d088dfc82cae1f5a936f8ff7ffebb38dd9 tun: no longer rely on RTNL in tun_fill_info()
+date:   3 months ago
+config: alpha-randconfig-r2300-20261005 (https://download.01.org/0day-ci/archive/20261005/202610051613.beLfY9SJ-lkp@intel.com/config)
+compiler: alpha-linux-gcc (GCC) 8.5.0
+sparse: v0.6.5-rc1
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20261005/202610051613.beLfY9SJ-lkp@intel.com/reproduce)
 
-Have you considered fetching the port's altmode using
-typec_altmode_get_partner()?
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Fixes: 23dad2d088df ("tun: no longer rely on RTNL in tun_fill_info()")
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202610051613.beLfY9SJ-lkp@intel.com/
 
-        const struct typec_altmode *pdev =3D
-typec_altmode_get_partner(node->amode);
-        if (pdev)
-                cros_typec_enable_altmode(pdev, true/false);
+sparse warnings: (new ones prefixed by >>)
+>> drivers/net/tun.c:2375:24: sparse: sparse: cast to non-scalar
+>> drivers/net/tun.c:2375:24: sparse: sparse: cast from non-scalar
+   drivers/net/tun.c:2376:24: sparse: sparse: cast to non-scalar
+   drivers/net/tun.c:2376:24: sparse: sparse: cast from non-scalar
 
-This allows implement cros_typec_enable_altmode() eliminating
-unnecessary checks and the additional loop:
+vim +2375 drivers/net/tun.c
 
-        struct cros_typec_dp_data *dp_data =3D typec_altmode_get_drvdata(al=
-t);
-        if (enable)
-               enable_work(&dp_data->adata.work);
-        else
-               disable_work_sync(&dp_data->adata.work);
+  2370	
+  2371	static int tun_fill_info(struct sk_buff *skb, const struct net_device *dev)
+  2372	{
+  2373		const struct tun_struct *tun = netdev_priv(dev);
+  2374		unsigned int flags = READ_ONCE(tun->flags);
+> 2375		kuid_t owner = READ_ONCE(tun->owner);
+  2376		kgid_t group = READ_ONCE(tun->group);
+  2377	
+  2378		if (nla_put_u8(skb, IFLA_TUN_TYPE, flags & TUN_TYPE_MASK))
+  2379			goto nla_put_failure;
+  2380		if (uid_valid(owner) &&
+  2381		    nla_put_u32(skb, IFLA_TUN_OWNER,
+  2382				from_kuid_munged(current_user_ns(), owner)))
+  2383			goto nla_put_failure;
+  2384		if (gid_valid(group) &&
+  2385		    nla_put_u32(skb, IFLA_TUN_GROUP,
+  2386				from_kgid_munged(current_user_ns(), group)))
+  2387			goto nla_put_failure;
+  2388		if (nla_put_u8(skb, IFLA_TUN_PI, !(flags & IFF_NO_PI)))
+  2389			goto nla_put_failure;
+  2390		if (nla_put_u8(skb, IFLA_TUN_VNET_HDR, !!(flags & IFF_VNET_HDR)))
+  2391			goto nla_put_failure;
+  2392		if (nla_put_u8(skb, IFLA_TUN_PERSIST, !!(flags & IFF_PERSIST)))
+  2393			goto nla_put_failure;
+  2394		if (nla_put_u8(skb, IFLA_TUN_MULTI_QUEUE,
+  2395			       !!(flags & IFF_MULTI_QUEUE)))
+  2396			goto nla_put_failure;
+  2397		if (flags & IFF_MULTI_QUEUE) {
+  2398			if (nla_put_u32(skb, IFLA_TUN_NUM_QUEUES,
+  2399					READ_ONCE(tun->numqueues)))
+  2400				goto nla_put_failure;
+  2401			if (nla_put_u32(skb, IFLA_TUN_NUM_DISABLED_QUEUES,
+  2402					READ_ONCE(tun->numdisabled)))
+  2403				goto nla_put_failure;
+  2404		}
+  2405	
+  2406		return 0;
+  2407	
+  2408	nla_put_failure:
+  2409		return -EMSGSIZE;
+  2410	}
+  2411	
 
->  }
->
->  /*
-> @@ -366,8 +374,10 @@ static void cros_typec_unregister_port_altmodes(stru=
-ct cros_typec_port *port)
->  {
->         int i;
->
-> -       for (i =3D 0; i < CROS_EC_ALTMODE_MAX; i++)
-> +       for (i =3D 0; i < CROS_EC_ALTMODE_MAX; i++) {
-> +               cros_typec_altmode_cancel(port->port_altmode[i]);
-
-That won't be necessary, as the work queue is already canceled in
-cros_typec_unregister_altmodes().
-
->                 typec_unregister_altmode(port->port_altmode[i]);
-> +       }
->  }
->
->  static void cros_unregister_ports(struct cros_typec_data *typec)
-> @@ -901,24 +911,23 @@ static int cros_typec_register_altmodes(struct cros=
-_typec_data *typec, int port_
->                         desc.mode =3D j + 1;
->                         desc.vdo =3D sop_disc->svids[i].mode_vdo[j];
->
-> +                       node =3D devm_kzalloc(typec->dev, sizeof(*node), =
-GFP_KERNEL);
-> +                       if (!node) {
-> +                               ret =3D -ENOMEM;
-> +                               goto err_cleanup;
-> +                       }
-> +
->                         if (is_partner)
->                                 amode =3D typec_partner_register_altmode(=
-port->partner, &desc);
->                         else
->                                 amode =3D typec_plug_register_altmode(por=
-t->plug, &desc);
->
->                         if (IS_ERR(amode)) {
-> +                               devm_kfree(typec->dev, node);
->                                 ret =3D PTR_ERR(amode);
->                                 goto err_cleanup;
->                         }
->
-> -                       /* If no memory is available we should unregister=
- and exit. */
-> -                       node =3D devm_kzalloc(typec->dev, sizeof(*node), =
-GFP_KERNEL);
-> -                       if (!node) {
-> -                               ret =3D -ENOMEM;
-> -                               typec_unregister_altmode(amode);
-> -                               goto err_cleanup;
-> -                       }
-> -
-
-Do we really need this?
-
-Thanks,
-Andrei
+--
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
