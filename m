@@ -1,156 +1,222 @@
-Received: from oss.cyber.gouv.fr (oss.cyber.gouv.fr [51.159.188.251])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-yx1-f41.google.com (mail-yx1-f41.google.com [74.125.224.41])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C465C79CD;
-	Mon,  5 Oct 2026 19:01:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=51.159.188.251
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1A57531D730
+	for <linux-kernel@vger.kernel.org>; Mon,  5 Oct 2026 19:02:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.224.41
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791226913; cv=none; b=bQsmc1YPTuTMDXRW5vTaa6LX6FJOma0fbebR495maURxZZBBsRN/opMK742nZI8fSAS2kKAAQd24VFBRzL5sygV4sGamVq5/wc8BM4XTdNB4Kc9O5odd9qHXNI3qD4IxMU1QeBkp48N8uxkSe/wtqGSRXZ/1eTUvO68jF1fWP5I=
+	t=1791226933; cv=none; b=jthxvSNV18OBwjXQv11T8/izngEEwBfamb2tnFsuTd80hv3r5QakLzHOaWqivRrrzyfa10APsMNFD+kBe0hLVl2nXXDTWnTesr52U2916o5DvJ1jOOAiuwjq+FVcw64EZaFKllBoXTO0Xm8bPTfqtK9xtCRE2U+FSOwKbQ/NRvY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791226913; c=relaxed/simple;
-	bh=hnm6bOUZbgMgPBRT4+7ffT/wy4OyP5ZauIF5q/q0wHw=;
-	h=MIME-Version:Date:From:To:Cc:Subject:In-Reply-To:References:
-	 Message-ID:Content-Type; b=aOQd7UTtDGY7Z0gNOBpg+Ga448cX/0XY/TlzML/fgu9RMamsZav8WPO3wCd5ihdig/619a9uek48TXXzqWndtt9UJ1bqxnrmEEHPc+WR/0CImrHE8ml91uiKaWS9i2tKs6wGqd+gg/AiCeKWFb/YiU9fMTR+W8T4QsyRfjormyc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.cyber.gouv.fr; spf=pass smtp.mailfrom=oss.cyber.gouv.fr; dkim=pass (2048-bit key) header.d=oss.cyber.gouv.fr header.i=@oss.cyber.gouv.fr header.b=OEBkDISV; arc=none smtp.client-ip=51.159.188.251
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.cyber.gouv.fr
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.cyber.gouv.fr
+	s=arc-20240116; t=1791226933; c=relaxed/simple;
+	bh=Q4n0AERx9QUP0tEzrHnmQ2XFk0zGGiZpIszcYMPYv7A=;
+	h=Message-ID:In-Reply-To:References:From:Date:Subject:To:Cc; b=BbUIE51ymgna4FTjmsFntUali/gn7faMVeo1gE2tm1fm/+qqM7VczbxTUzc/vrUuKxX280Tg9NpjqcmAaz/bVg9UJR47rjlxDnFzgPO7P67aOkTpFNx+yu6TZjjWA70khOnr6ArAQ20QI4jwARDMzmclNq63tVLF636s68eazEQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=toxicpanda.com; spf=pass smtp.mailfrom=toxicpanda.com; dkim=pass (2048-bit key) header.d=toxicpanda.com header.i=@toxicpanda.com header.b=RTo/lvJk; arc=none smtp.client-ip=74.125.224.41
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=toxicpanda.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=toxicpanda.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=oss.cyber.gouv.fr header.i=@oss.cyber.gouv.fr header.b="OEBkDISV"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=oss.cyber.gouv.fr; s=default; h=Content-Transfer-Encoding:Content-Type:
-	Message-ID:References:In-Reply-To:Subject:Cc:To:From:Date:MIME-Version:
-	Reply-To:Sender:Content-ID:Content-Description:Resent-Date:Resent-From:
-	Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID;
-	bh=MFmvViKGM02BTIPHCsWBHeyAcfFFDZ4nwZbqK2y2Fco=; b=OEBkDISVDy6iMQlVMG44QL6uCr
-	m7Jh0cTlwe6WWjkOummiuJA9pYYzUJPfMV1wu2IGzlDVYoEHacByBGJfDrEqUPIW6mwECm9oUofpE
-	esdQoaVhTdDToNBTBEyBFbFs9kf4CcPqQCpRytEetWsyp36oiq5r1WbQItM6wPEsROad3qcV4udZ2
-	wRSYP3TA16RiPdCxOp4Uq8FJXpjrP0W4j5r+6OVcjzXpuuc82QgoGeoi4P6NbK6H4dG6tk1JiDmiE
-	PskV7AiU7Dsiq/DYBiw2s2hYNuf40NkNXExUXl33wk3HJdtjfnL0l8htSANWB0J0YQ7aKjDn41E3i
-	xUwUiJew==;
-Received: from [::1] (port=36386 helo=pf-012.whm.fr-par.scw.cloud)
-	by pf-012.whm.fr-par.scw.cloud with esmtpa (Exim 4.100.1)
-	(envelope-from <jeremy.jean@oss.cyber.gouv.fr>)
-	id 1xDnwc-0000000E0B2-0Qa3;
-	Mon, 05 Oct 2026 21:01:49 +0200
+	dkim=pass (2048-bit key) header.d=toxicpanda.com header.i=@toxicpanda.com header.b="RTo/lvJk"
+Received: by mail-yx1-f41.google.com with SMTP id 956f58d0204a3-66fca0709caso1627612d50.1
+        for <linux-kernel@vger.kernel.org>; Mon, 05 Oct 2026 12:02:11 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=toxicpanda.com; s=google; t=1791226931; x=1791831731; darn=vger.kernel.org;
+        h=cc:to:subject:date:from:references:in-reply-to:message-id:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=+Z7syrAz4LfxPjZQqKgbErbAJrKi+mPtI/lIkPWRbxU=;
+        b=RTo/lvJkzOP2jHwV3xNFaElkvXfwbGxgcyeOqBa16n33QrjSyqdYp8vx58qOUcrSuK
+         vcjNJ8luAmXg0kHIHjs8JY0BMSyU0FwSho50vdStGWnW35Qb1bQN2xpevvY5gPlRBic8
+         wCblcBrm30QEDSQmIuscbiqn2YAiGvKL0+CjMku8QJxprLQ1zdb3aaOK9I+OIDaO8xSd
+         prNqlwfzhxXNdwGkAOsDWCkcA0h6puKKN4T0Il/hdC52vx985Skh2rnUG+rImX2mYlgy
+         smBpAp6m+JBn1zffJCtbYfa+60ADLnF9vQSJoBOTGSxJv/F4lEcZ+TnpRCaOPvgegt1a
+         R5mg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791226931; x=1791831731;
+        h=cc:to:subject:date:from:references:in-reply-to:message-id:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=+Z7syrAz4LfxPjZQqKgbErbAJrKi+mPtI/lIkPWRbxU=;
+        b=nbLPAlqVO3ggnoXngvj3cWZYW6QGYwc/z9jUb1OxeXZQQMIMjAhnloeReFeJBIbFwO
+         LIM3DoccfHywNcZLuRpyszqm+i9JoO3bkJuBNNMxSeGQdUztBCCLDfZmEoEwCVS1OFyf
+         4WsKJ7yxRewG5vEe+3Y86JNVL3D5K+IVGJVAzkGWBfotQkRY3MkQvCn8ka/DCIMBeLdC
+         MsXpzUg2/4b+rYe2T/LN53rOO5C2i2Cq3pSWJTumIC5PWd6xMf8AQyFWYdOodVoJML50
+         Jaz584Z2no2ezH80yvSj91HZ+vZvHTiErnbyQrbR96+PLOTxOX9QOD5p+6JE5O7/kSbm
+         SmsA==
+X-Forwarded-Encrypted: i=1; AKwUvBx1OsBumb5ZZow67xqy/uFuRTXoNB4UiQ0d9OIv/EX5eIlFZ46VvulLXjLFR6zZSdzIzHbW+AQsowmwDQU=@vger.kernel.org
+X-Gm-Message-State: AFq9FYICBWCqRkiW9x921kcALaUfP+ARQ/BXtJuMxH/betKQWJNkenBF
+	gtBotnkeyZ/vJSPCMxU12Huq7d+GUNvFiZlhvjrf1N3/CL65u2vAsvlSRwkxwQIwZyI=
+X-Gm-Gg: AYBFou3yYkUbqrbuJ3bqakXCQFMX7x+Dgsu7Hh6f+HzSAPsDZdMhOVu1kR0LGdH1rK1
+	w03uoCKP1zfB7i8x16H3JZjRMLfCkTc+nl5UU0LdFiemMk2/FCGScGf3ozA4BXPXmFQ9prTD4iI
+	E97aaNPATXdd6dquq75vfJMnGErgWjk4/hTwKNSoN2Gd/WSAzEs9418G63UPR81eXq6qDB77FOS
+	0s6b7vpzcLOc0AywgCtLl3XYi1pD5rNEaEWzXWsQFgSoIul0SP7enmJXEU4bng8jX11ezyyEqCO
+	vxaiToc/R0FaNuPPeAlG7TmbMbTaHlCCHqczsuyEQTizdGW1zgDdj9bT3mPrpfw1eAvg0rNU8kL
+	zr4xIBcRBfDG1vwUHAFI/sK8UXyMJpZhtCtINYi4Q7XfOY0VSkrhJYI6eSVXGPLSvNLgbH5IZH/
+	hhXfO/b2PYfmRbmwivBwxNcD6R32ESuZGsdQTKRz9wCE4mw1SxmC2msI3dyQlZUMP6yE+egPnL7
+	NHl4SX88vFk3jI=
+X-Received: by 2002:a05:690e:e84:b0:677:bf19:f063 with SMTP id 956f58d0204a3-677bf19f74cmr3098451d50.9.1791226930786;
+        Mon, 05 Oct 2026 12:02:10 -0700 (PDT)
+Received: from toxicpanda.com ([153.61.196.250])
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-917e0b67172sm93369286d6.20.2026.10.05.12.02.09
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 05 Oct 2026 12:02:10 -0700 (PDT)
+Message-ID: <9b876f2c061abc401ec4b9b3c2529eda.josef@toxicpanda.com>
+In-Reply-To: <20261001125422.1364260-1-tom.leiming@gmail.com>
+References: <20261001125422.1364260-1-tom.leiming@gmail.com>
+From: Josef Bacik <josef@toxicpanda.com>
+Date: Mon, 5 Oct 2026 16:23:51 +0000
+Subject: [PATCH] ublk: refuse to go live after an io command was canceled
+To: Ming Lei <tom.leiming@gmail.com>,
+    Jens Axboe <axboe@kernel.dk>
+Cc: Caleb Sander Mateos <csander@purestorage.com>,
+    linux-block@vger.kernel.org,
+    linux-kernel@vger.kernel.org,
+    linux-doc@vger.kernel.org
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Date: Mon, 05 Oct 2026 21:01:49 +0200
-From: =?UTF-8?Q?J=C3=A9r=C3=A9my_Jean?= <jeremy.jean@oss.cyber.gouv.fr>
-To: Tung Quang Nguyen <tung.quang.nguyen@est.tech>
-Cc: netdev@vger.kernel.org, tipc-discussion@lists.sourceforge.net,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org, Jon Maloy
- <jmaloy@redhat.com>
-Subject: Re: [PATCH net v2] tipc: protect received keys from concurrent flush
-In-Reply-To: <DU4P189MB37501CA7DBF5D6C3C8752349C6962@DU4P189MB3750.EURP189.PROD.OUTLOOK.COM>
-References: <20261002205932.1874012-2-Jeremy.Jean@oss.cyber.gouv.fr>
- <DU4P189MB37501CA7DBF5D6C3C8752349C6962@DU4P189MB3750.EURP189.PROD.OUTLOOK.COM>
-User-Agent: Roundcube Webmail/1.6.19
-Message-ID: <2ac35bd0a3d8c774d0ee2bc977a45cf0@oss.cyber.gouv.fr>
-X-Sender: jeremy.jean@oss.cyber.gouv.fr
-Content-Type: text/plain; charset=UTF-8;
- format=flowed
-Content-Transfer-Encoding: 8bit
-X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
-X-AntiAbuse: Primary Hostname - pf-012.whm.fr-par.scw.cloud
-X-AntiAbuse: Original Domain - vger.kernel.org
-X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
-X-AntiAbuse: Sender Address Domain - oss.cyber.gouv.fr
-X-Get-Message-Sender-Via: pf-012.whm.fr-par.scw.cloud: authenticated_id: jeremy.jean@oss.cyber.gouv.fr
-X-Authenticated-Sender: pf-012.whm.fr-par.scw.cloud: jeremy.jean@oss.cyber.gouv.fr
-X-Source: 
-X-Source-Args: 
-X-Source-Dir: 
 
-Hello,
+Since commit "ublk: keep a canceled FETCH round canceling until the
+server is gone", a device whose FETCH round saw a cancel keeps its
+queues canceling until the server goes away, but START_DEV and
+END_USER_RECOVERY still bring it up. Without UBLK_F_USER_RECOVERY, or
+with UBLK_F_USER_RECOVERY_FAIL_IO, every request of the new disk fails.
+With UBLK_F_USER_RECOVERY, requests are requeued and never kicked: after
+START_DEV the partition scan hangs under disk->open_mutex, and after
+END_USER_RECOVERY every read parks while the command returned 0. The
+server cannot fetch the canceled commands again, so the device can't
+serve I/O until it restarts anyway.
 
-On 2026-10-05 04:14, Tung Quang Nguyen wrote:
->> 	/* Attach it to the crypto */
->> 	if (likely(!rc)) {
->> -		rc = tipc_crypto_key_attach(c, aead, 0, master_key);
->> +		spin_lock_bh(&c->lock);
->> +		if (ukey == c->skey_in_use && c->skey != ukey)
->> +			rc = -ECANCELED;
-> 
-> This check should be done earlier, before calling tipc_ahead_init() ?
+Return -ENODEV from START_DEV and END_USER_RECOVERY while ub->canceling
+is set. In ublk_ctrl_start_dev() check it and publish ub->ub_disk in one
+cancel_mutex section, and have ublk_start_cancel() read the disk in its
+cancel_mutex section. Today ublk_start_cancel() samples the disk before
+taking the mutex, so a server dying during its own START_DEV can mark
+the queues without quiescing a disk START_DEV published in between, with
+its first I/O past the canceling check. Now either START_DEV sees the
+cancel, or the cancel sees the disk and quiesces it before marking. The
+END_USER_RECOVERY check is best effort: the disk exists there, and a
+cancel after it is the ordinary death of the new server, which
+ublk_start_cancel() handles by quiescing and marking.
 
-Would moving the check before tipc_aead_init() be enough, given that a
-flush can still happen while AEAD setup is running and before the key
-is attached?
+Assisted-by: LLM
+Signed-off-by: Josef Bacik <josef@toxicpanda.com>
+---
+This applies on top of Ming's "[PATCH 0/8] ublk: don't dispatch to
+canceled io commands" and needs patch 1 of it for ub->canceling to stay
+set for the whole FETCH round. generic_18 still passes with it.
 
-Indeed, the race goes something like:
-1. Worker starts tipc_aead_init()
-2. Flush clears rx->skey
-3. Worker finishes AEAD setup
+ Documentation/block/ublk.rst | 10 ++++++++--
+ drivers/block/ublk_drv.c     | 38 ++++++++++++++++++++++++++++++++++--
+ 2 files changed, 44 insertions(+), 4 deletions(-)
 
-AFAIU, we still need the check under c->lock, immediately before
-tipc_crypto_key_attach(), so that a revoked key cannot be published
-after flush.
+diff --git a/Documentation/block/ublk.rst b/Documentation/block/ublk.rst
+index 28300fee22bf..b7875a3cf3fc 100644
+--- a/Documentation/block/ublk.rst
++++ b/Documentation/block/ublk.rst
+@@ -118,7 +118,11 @@ managing and controlling ublk devices with help of several control commands:
+   After the server prepares userspace resources (such as creating I/O handler
+   threads & io_uring for handling ublk IO), this command is sent to the
+   driver for allocating & exposing ``/dev/ublkb*``. Parameters set via
+-  ``UBLK_CMD_SET_PARAMS`` are applied for creating the device.
++  ``UBLK_CMD_SET_PARAMS`` are applied for creating the device. The command
++  fails with ``-ENODEV`` if an I/O command fetched by the current server
++  was canceled, because its io_uring is gone. The server can't fetch it
++  again, and the device can be started again once the server has closed
++  ``/dev/ublkc*``.
+ 
+ - ``UBLK_CMD_STOP_DEV``
+ 
+@@ -195,7 +199,9 @@ managing and controlling ublk devices with help of several control commands:
+   command is accepted after ublk device is quiesced and a new process has
+   opened ``/dev/ublkc*`` and get all ublk queues be ready. When this command
+   returns, ublk device is unquiesced and new I/O requests are passed to the
+-  new process.
++  new process. It fails with ``-ENODEV`` if an I/O command of the new
++  process was canceled already. The recovery can be started over once the
++  new process has closed ``/dev/ublkc*``.
+ 
+ - user recovery feature description
+ 
+diff --git a/drivers/block/ublk_drv.c b/drivers/block/ublk_drv.c
+index f57d544c1da2..39eb7775a351 100644
+--- a/drivers/block/ublk_drv.c
++++ b/drivers/block/ublk_drv.c
+@@ -2759,9 +2759,11 @@ static void ublk_abort_queue(struct ublk_device *ub, struct ublk_queue *ubq)
+ 
+ static void ublk_start_cancel(struct ublk_device *ub)
+ {
+-	struct gendisk *disk = ublk_get_disk(ub);
++	struct gendisk *disk;
+ 
++	/* sync with ublk_ctrl_start_dev() publishing the disk */
+ 	mutex_lock(&ub->cancel_mutex);
++	disk = ublk_get_disk(ub);
+ 	if (ub->canceling)
+ 		goto out;
+ 
+@@ -4575,6 +4577,7 @@ static int ublk_ctrl_start_dev(struct ublk_device *ub,
+ 		.dma_alignment		= 3,
+ 	};
+ 	struct gendisk *disk;
++	bool canceled;
+ 	int ret = -EINVAL;
+ 
+ 	if (ublksrv_pid <= 0)
+@@ -4665,8 +4668,24 @@ static int ublk_ctrl_start_dev(struct ublk_device *ub,
+ 	disk->fops = &ub_fops;
+ 	disk->private_data = ub;
+ 
++	/*
++	 * A command of this FETCH round was canceled and can't be fetched
++	 * again, don't bring up a disk over it.  Check and publish the disk
++	 * in one cancel_mutex section: either this sees ub->canceling, or
++	 * ublk_start_cancel() sees the disk and quiesces it before marking
++	 * the queues.
++	 */
++	mutex_lock(&ub->cancel_mutex);
++	canceled = ub->canceling;
++	if (!canceled)
++		ub->ub_disk = disk;
++	mutex_unlock(&ub->cancel_mutex);
++	if (canceled) {
++		put_disk(disk);
++		ret = -ENODEV;
++		goto out_unlock;
++	}
+ 	ub->dev_info.ublksrv_pid = ub->ublksrv_tgid;
+-	ub->ub_disk = disk;
+ 
+ 	ublk_apply_params(ub);
+ 
+@@ -5238,6 +5257,7 @@ static int ublk_ctrl_end_recovery(struct ublk_device *ub,
+ 		const struct ublksrv_ctrl_cmd *header)
+ {
+ 	int ublksrv_pid = (int)header->data[0];
++	bool canceled;
+ 	int ret = -EINVAL;
+ 
+ 	pr_devel("%s: Waiting for all FETCH_REQs, dev id %d...\n", __func__,
+@@ -5261,6 +5281,20 @@ static int ublk_ctrl_end_recovery(struct ublk_device *ub,
+ 		ret = -EBUSY;
+ 		goto out_unlock;
+ 	}
++
++	/*
++	 * As in ublk_ctrl_start_dev(), a canceled command can't be fetched
++	 * again.  Best effort: the disk exists here, and a cancel after this
++	 * check is the ordinary death of the new server, which
++	 * ublk_start_cancel() handles by quiescing and marking.
++	 */
++	mutex_lock(&ub->cancel_mutex);
++	canceled = ub->canceling;
++	mutex_unlock(&ub->cancel_mutex);
++	if (canceled) {
++		ret = -ENODEV;
++		goto out_unlock;
++	}
+ 	ub->dev_info.ublksrv_pid = ub->ublksrv_tgid;
+ 	ub->dev_info.state = UBLK_S_DEV_LIVE;
+ 	pr_devel("%s: new ublksrv_pid %d, dev id %d\n",
+-- 
+2.55.0
 
-> 
->> +		else
->> +			rc = tipc_crypto_key_attach(c, aead, 0, master_key);
->> +		spin_unlock_bh(&c->lock);
->> 		if (rc < 0)
->> 			tipc_aead_free(&aead->rcu);
->> 	}
->> @@ -1151,6 +1158,8 @@ int tipc_crypto_key_init(struct tipc_crypto *c, 
->> struct
->> tipc_aead_key *ukey,
->>  * @pos: desired slot in the crypto key array, = 0 if any!
->>  * @master_key: specify this is a cluster master key
->>  *
->> + * The caller must hold c->lock.
->> + *
->>  * Return: new key id in case of success, otherwise: -EBUSY
->>  */
->> static int tipc_crypto_key_attach(struct tipc_crypto *c, @@ -1158,20 
->> +1167,19
->> @@ static int tipc_crypto_key_attach(struct tipc_crypto *c,
->> 				  bool master_key)
->> {
->> 	struct tipc_key key;
->> -	int rc = -EBUSY;
->> 	u8 new_key;
->> 
->> -	spin_lock_bh(&c->lock);
->> +	lockdep_assert_held(&c->lock);
->> 	key = c->key;
->> 	if (master_key) {
->> 		new_key = KEY_MASTER;
->> 		goto attach;
->> 	}
->> 	if (key.active && key.passive)
->> -		goto exit;
->> +		return -EBUSY;
->> 	if (key.pending) {
->> 		if (tipc_aead_users(c->aead[key.pending]) > 0)
->> -			goto exit;
->> +			return -EBUSY;
->> 		/* if (pos): ok with replacing, will be aligned when needed */
->> 		/* Replace it */
->> 		new_key = key.pending;
->> @@ -1201,11 +1209,7 @@ attach:
->> 	c->working = 1;
->> 	c->nokey = 0;
->> 	c->key_master |= master_key;
->> -	rc = new_key;
->> -
->> -exit:
->> -	spin_unlock_bh(&c->lock);
->> -	return rc;
->> +	return new_key;
-> 
-> Remove lock from tipc_crypto_key_attach() is enough. Why adding many 
-> irrelevant changes that do not seem necessary ?
-
-Those extra changes in tipc_crypto_key_attach() are more cleanup than
-anything else; I preferred the direct returns since the function no
-longer owns the lock, but I can reduce the patch and keep the exit
-label.
-
-Thanks,
-Jérémy
