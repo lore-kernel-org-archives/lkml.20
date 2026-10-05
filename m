@@ -1,126 +1,134 @@
-Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2DD5D3B0AC4
-	for <linux-kernel@vger.kernel.org>; Mon,  5 Oct 2026 08:30:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 16BFF3B813A;
+	Mon,  5 Oct 2026 08:30:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791189023; cv=none; b=EDBooeL/N1gabBK43HGM/y6uAe5e5FBbJkm9Hv9zdT2YurSfVJEOzq0WDmGla6N9CCWvGOCUdWV2hwVS+1RSNLH8I8bTOTC/sQ9wI8ESld0QYjOSurcKRq5xXFlFQm4O0KWs3keKYuDVCzOVioAGcjWJHUeOaIpUhoTQhd+xIRY=
+	t=1791189033; cv=none; b=CwMFWrFOhZrRUH8REPzi02gra/LfU3LLGBGxfqjU04KG3QCG12Cpr7Ut/dE6vdXt3u90rtc6lE6aaV2MII51L4AOmzcEaipKWkSllRvvJmRGL5Fj3x7wODsOiThCnElvSelKy15cToQcizjtk8BtMFH9U67WMNJeRvEVYxm4RQc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791189023; c=relaxed/simple;
-	bh=vyTwTI8VlQ0pCbmAtLYSj9W7L6C9GYAol3GzhJTQf1g=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=MS37T53yC+R6Zyljga77FmDVb42HAYYUh5AkkCcPFL/Qsdokdihar9UV1Uadur0eum39sj4cHkP5XrIHvUY6kHWhuSuxKDrjYT9tiv8Ewu72FA3ayq5jCt97IX6QDW+UwJFvPoWje3pd0kflQkdDo22oIjmdjM41DoX3RVs18nM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=c/EUI7So; arc=none smtp.client-ip=74.125.225.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1791189033; c=relaxed/simple;
+	bh=orrVNI0g9YrjYqi0fVKkOyk8k083bqjvDz8s/gHrVOA=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=M1CRTURZKkgcVDD+wP+xRyM42aK6L97AsgI6ctX2wlYjLR6bnBats0x7bI9YttwsbcOzFnDgRtzSPjtejo9Kuw//3+hisviryCbVjl+B4fBq0y4fkxNLNL2wqEC6JvQmznCylxE/xeOoZhwriMSijj24GghgeGURRCeKLnzBhak=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=mc6BgPds; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="c/EUI7So"
-Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-4a1722c37c9so4856825e9.3
-        for <linux-kernel@vger.kernel.org>; Mon, 05 Oct 2026 01:30:19 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791189016; x=1791793816; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=sd1BmBIq6PAEb87txh8tHMQ7YpHFp1uklRh5l7OqDQs=;
-        b=c/EUI7SoBfNBQAAdVHR7FXUjXzbc859r/vcm9DEFj2V3V+ztdzanJyKA16TllyawQP
-         kEWRD1WC9U/anctRdZfCaupCHlSCySWN7lX4pi1zeV3YzoMGIhGXA6DrYaTZ/Mj8vGxS
-         O8mkGDyF6/9t6GwrYSI6IVNxFZFlPA5qf95wzN2WrvfL8NzgR/7PZH7bLx6hYps01bkd
-         dW5ICTMKKPfEVzjyTXKrgX820y5vccZaq0BkiyTghs5wZ6hFfqm4M7OVDCOBWZWB0Njg
-         yI7xDLtFgQsnReo1W6g2ofBbFmG2PHxDrM2flnf7zWFsSScYNs/MZUxPv30b9NUxbq2p
-         Ca1w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791189016; x=1791793816;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=sd1BmBIq6PAEb87txh8tHMQ7YpHFp1uklRh5l7OqDQs=;
-        b=gt5S/uf6GUgEt6W38PG37l5wwW75qqBzstoyKsFKzUp01wxXDmmbJlb9YWdkIozGuO
-         dtNoLwoDm/rSRVx2NfDMhrM8xM3scCEQXNvKv9gPko1lY4KVk7Y4APsKMMxC2tYbwezG
-         iHPMELjIJ4wYbF+4IlHGTNdqq2FnzqpUgju3+LbLQR2Ld5a3UbsN1D2XEwDaefd3/Flj
-         0gGDm0HEd+GeBV3mbBjk/M5s4OEnsqhkIho+Rv0Q6/oQcRpQChFfqlEEGsyb6AMMEmhs
-         3UG1VkJ34QPE7QeCNp8kdyV7j2OfOLQFcItKBEF9Gjm8PAQNZ+jFhqan6oXepRvAtljA
-         FWGw==
-X-Forwarded-Encrypted: i=1; AKwUvBxGphb12geJpS5yiOOGERJAuhW+jfYtLIHj2tG3zQas35hyUWeGxo8wzZYrGN1ObEKoELVESm7PyChIf6c=@vger.kernel.org
-X-Gm-Message-State: AFuF++n5sZ15LBN4uQiwWdWt8TYQYzi7U9p+WDGdxX+yuZ8+lA3wFAcT
-	if4DtDZKsOFkATRN9a7M/4NuSFIeHpkVy6VdkNeRcM5zK00Z7+xSqlcW
-X-Gm-Gg: AYBFou1LUJokX4lzE8XZ8KwHR4fQQ1qQgLHtre5AC6Vq+kom0rdsV3770sy8AdkxfaI
-	qgYD/+HZy4LCNg7+Ykwy1A3gDZWYGdkdlgwneJAT7ZJHz2YwO54ouVsv9u25Aqg5FZol2h+ly/O
-	r/0DGB+uUm0ntxLqNTmMj6rhbT5u/CiAtNMIjsJE/Ks3e6FEO9nxi0ay3+NSwhN05Sot/lrsWgi
-	L8sgC4ZUWzyNmQXyOCsdX9G7pDtPPP0qrDSm0CMLflM4JbhMMnE49xoNrDN+nVeRRqgDNN6EGa2
-	mYQ9ZVdC0l7qG8liinvXbf/yIlIq/BNiQeLrACho2zRCoDLynLC/iPuJdc9I0bWcsbCI7tOw0pW
-	8mq+VtJSu49wINsgo5oLtYzRemuU3ymVaVSdkSA05lJulgs8s62eCQ/5lnjx/MUF9p/nTYBjpHw
-	mZkLy+o+RGrV26y1DRWOFbMJZDHioysOFDV9s+LJyrz40+phs2glPNTIm01/rtHEIedR/eUpZau
-	Hld9zO3Bw==
-X-Received: by 2002:a05:600c:4592:b0:4a0:bc9:28c6 with SMTP id 5b1f17b1804b1-4a0276b6860mr152436465e9.34.1791189014935;
-        Mon, 05 Oct 2026 01:30:14 -0700 (PDT)
-Received: from foxbook (bfj133.neoplus.adsl.tpnet.pl. [83.28.47.133])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48c63904832sm1548590f8f.14.2026.10.05.01.30.13
-        (version=TLS1_2 cipher=AES128-SHA bits=128/128);
-        Mon, 05 Oct 2026 01:30:14 -0700 (PDT)
-Date: Mon, 5 Oct 2026 10:30:11 +0200
-From: Michal Pecio <michal.pecio@gmail.com>
-To: Sean Rhodes <sean@starlabs.systems>
-Cc: Ulf Hansson <ulfh@kernel.org>, Arnd Bergmann <arnd@arndb.de>, Greg
- Kroah-Hartman <gregkh@linuxfoundation.org>, Ricky Wu
- <ricky_wu@realtek.com>, Lee Jones <lee@kernel.org>, Roger Tseng
- <rogerable@realtek.com>, Dan Carpenter <error27@gmail.com>, Jisheng Zhang
- <jszhang@kernel.org>, linux-mmc@vger.kernel.org,
- linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 1/2] misc: rtsx_usb: avoid USB I/O in runtime
- autosuspend
-Message-ID: <20261005103011.03175826.michal.pecio@gmail.com>
-In-Reply-To: <7acac70a471452a6ccf23b7ccc557f3c3861e0ad.1783352430.git.sean@starlabs.systems>
-References: <cover.1783352430.git.sean@starlabs.systems>
-	<7acac70a471452a6ccf23b7ccc557f3c3861e0ad.1783352430.git.sean@starlabs.systems>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="mc6BgPds"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 34EFC1F000FF;
+	Mon,  5 Oct 2026 08:30:27 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791189027;
+	bh=N1Tdp41tcttMIXzEsnKaz7v2lLzbgncTRrts6HtrK/4=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=mc6BgPdstjE5mHOMP9Ya3gYfkxM1G9DPWSSKfzHGlwaMcKj+ezqoYdXv7kfxGT/GC
+	 OJqs/GNzf80R3VURsLMxkqwM7dWfJK4T5iqD1j8k9Z5NJpIZc76GEfLlzK8mXFUEIN
+	 mqc1FyvB1KMU+TFC+H827L6eA8DHmaQmsZa7xyxQRzeMtf68Z3yQ1jOB8goX8cs9aM
+	 T6kJXIkHI4tR+E+OLG1Uu221MxzfZdS7wB572QKdMl+GsTRSYU/GAfAe6OOHNsfjAi
+	 5tcLGHhA0q0hjePPSsKc/eI+ZxvDOaxTvzcmHVkkjcMFK2j3CT9zKYBz4wsZ+w2B+S
+	 uDf7pmmzAT7CA==
+Date: Mon, 5 Oct 2026 10:30:24 +0200
+From: Vinod Koul <vkoul@kernel.org>
+To: Sebastian Reichel <sebastian.reichel@collabora.com>
+Cc: Thinh Nguyen <Thinh.Nguyen@synopsys.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Heiko Stuebner <heiko@sntech.de>,
+	Neil Armstrong <neil.armstrong@linaro.org>,
+	Manivannan Sadhasivam <mani@kernel.org>,
+	Igor Paunovic <royalnet026@gmail.com>, linux-kernel@vger.kernel.org,
+	linux-usb@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+	linux-rockchip@lists.infradead.org, linux-phy@lists.infradead.org,
+	kernel@collabora.com
+Subject: Re: [PATCH v16 1/6] phy: core: add notifier infrastructure
+Message-ID: <asNgINDic6A3Gvtq@parshuram>
+References: <20260924-b4-rockchip-dwc3-rockchip-glue-v16-0-126a2e9133c3@collabora.com>
+ <20260924-b4-rockchip-dwc3-rockchip-glue-v16-1-126a2e9133c3@collabora.com>
+ <asDFBIVf06-VaWdx@parshuram>
+ <asJGziv0N3qtXo6_@venus>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <asJGziv0N3qtXo6_@venus>
 
-On Mon,  6 Jul 2026 16:40:43 +0100, Sean Rhodes wrote:
-> The runtime autosuspend callback currently queries card status and
-> clears OCP by issuing USB register accesses. This can run from the
-> USB runtime-PM path itself, which is the wrong place to start more
-> device I/O.
+On 04-10-26, 14:44, Sebastian Reichel wrote:
+> Hello Vinod,
 > 
-> Keep a cached copy of the card-status bits from normal status reads
-> instead. During runtime autosuspend, use that cached value only to
-> preserve the existing Memory Stick autosuspend deferral.
+> On Sat, Oct 03, 2026 at 11:04:13AM +0200, Vinod Koul wrote:
+> > On 24-09-26, 19:25, Sebastian Reichel wrote:
+> > > Some PHY devices with multiple ports (e.g. USB3 and DP) require a reset
+> > > if the configuration changes or cable orientation changes. This is a
+> > > problem, as the consumer device will run into undefined behavior.
+> > > 
+> > > With the new PHY notifier API introduced in this patch, the consumer
+> > > driver can hook into reset events coming from a PHY device to handle the
+> > > PHY going down gracefully.
+> > > 
+> > > Note that this uses -ENOSYS instead of the more sensible -ENOTSUP for
+> > > the stub functions when GENERIC_PHY is disabled to stay consistent with
+> > > the existing ones.
+> > 
+> > I dont think this series has the usage of this.
+> > 
+> > I think I am still not convinced why a phy should notify as I dont feel
+> > we have any mechanism to notifying. Checking status and letting people
+> > know if not really a notification mechanism... Maybe add a status call
+> > instead?
+> 
+> This series contains the infrastructure and the consumer of the PHY
+> reset notification (dwc3 rockchip glue driver). The producer/sender
+> of the PHY reset notification is the first patch in the USBDP part 3
+> series. I grouped the patches like this, so that this series has PHY
+> patches followed by USB patches instead of PHY - USB - PHY. Patches
+> must be applied in the exact order (i.e. first the patches added the
+> PHY reset notifier infrastructure, then the DWC3 notification
+> consumer and then the USBDP notification producer).
+> 
+> The broader picture solved by this is (pre-existing race condition
+> issue in USBDP):
 
-How is the driver supposed to detect card insertion after the last poll
-but before the reader goes to suspend and can issue remote wakeup?
+Thanks, this is helpful to understand the context. Few questions on
+below to help me understand more...
 
-This is exactly what happens now: if I insert a new card within two
-seconds of the "card removed" message showing up (which itself happens
-up to a second after removal) the insertion is never detected and the
-reader enters suspend with the card in.
+> 
+> 1. USBDP PHY provides critical resources to DWC3 USB controller
 
-It seems that not only was "starting more I/O in the runtime-PM path"
-actually a good idea, but polling should only stop when the parent USB
-device suspends, not the child MMC host, because there is a two second
-delay between them. And even with this patch reverted, insertion never
-works if USB autosuspend is simply disabled altogether.
+what resources are these?
 
-Also, does anyone know if there is any way to utilize the interrupt
-endpoint instead of polling? I tried submitting a URB to it and got
-regular responses, but only zeros. Can this be changed?
+> 2. USBDP PHY needs to reset to reconfigure (e.g. enable/disable DP side),
+>    which means the resource is temporarily not available
 
-> Do not treat raw SD_CD as an autosuspend blocker, because tray-based
-> SD readers can assert SD_CD with an empty tray. A real SD card is
-> protected by the SD/MMC child runtime-PM usage once powered.
+Who invokes reset, I guess the controller (dwc3), so it ought to be
+aware of the reset condition.
 
-Sounds like the proper condition is to ignore the card if and only if
-it failed to initialize and has not been swapped for a new one.
+> 3. DWC3 accesses its registers during the reset -> SError, because PHY is off
 
-Hence the question about interrupts: this would vastly reduce the risk
-that a swap for an actual working card remains undetected.
+I would assume that dwc3 should know about it as invoking entity..
 
-Regards,
-Michal
+> 
+> This series combined with the first patch of USBDP part 3 changes
+> things, so that it works like this:
+> 
+> 1. USBDP PHY provides critical resources to DWC3 USB controller
+> 2. USBDP PHY needs to reset to reconfigure (e.g. enable/disable DP side),
+>    which means the resource is temporarily not available
+> 3. USBDP PHY driver sends pre-reset notification
+> 4. DWC3 goes into a safe mode after receiving the pre-reset notifiaction
+> 5. USBDP PHY does the reset
+> 6. USBDP PHY reset finishes, USBDP PHY driver sends post-reset nofication
+> 7. DWC3 returns to normal mode after receiving the post-reset notification
+
+> 
+> This avoids running into the SError.
+> 
+> Greetings,
+> 
+> -- Sebastian
+
+
+
+-- 
+~Vinod
