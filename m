@@ -1,170 +1,111 @@
-Received: from mail.zipdox.net (195-240-81-79.fixed.kpn.net [195.240.81.79])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 717E9492180;
-	Mon,  5 Oct 2026 13:55:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.240.81.79
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 895CB44064F;
+	Mon,  5 Oct 2026 13:56:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791208506; cv=none; b=YfgOpUc/lurMlwAMKZFQfkUj2JK1BCcrH8vBtSCrU6dWHIaM+PSHBk4luaGD5IwcwgeOPD0QUR6Q+ZlA4coR4ANiCyVEqqXe9/BtK03fltHpeFi7Mr5WISjFeZqCR1VL/dwaaxyHeewtNDLb2yF9J1VIFokeLt2BfqDo3r3Ot7A=
+	t=1791208619; cv=none; b=JESsZ22xC/eJYsjEx1oOIElw/KqN2HKVnhviAS35vtVz3CYBhnZoRafpYzsw40rXY+cdw/FIViPfG3wWHxT5JKFRhnAhEDzS+XwbYwfvZ706G/4PAfKhWbEtRzNPq+TR68qDerEXRy4SOK/TW3Z2cSFbGQ0BFHCDEAVhAQR9hO0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791208506; c=relaxed/simple;
-	bh=+BatC2YvNhUQT+WHVB8X9vzhnVfnGQqnxRMRaiRZPHY=;
-	h=Message-ID:Date:MIME-Version:From:Subject:To:Cc:References:
-	 In-Reply-To:Content-Type; b=hu7aHpGXj40VRlfbX00StCQUgW1peCK08pWnonmt7G/F0xlAUmXO7bFOt7QO04zUe7pY1Ccmy4NgBDdMAX9Hh8ajlfqWOUVZAUHcUsdWwo69avdVPL8BC38p6F00W5DxbIXYG3YQzFxNlm+eUAKnsLKIagGakxTDGRrAYerHlWE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=zipdox.net; spf=pass smtp.mailfrom=zipdox.net; dkim=pass (2048-bit key) header.d=zipdox.net header.i=@zipdox.net header.b=kOaeF2BW; arc=none smtp.client-ip=195.240.81.79
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=zipdox.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zipdox.net
+	s=arc-20240116; t=1791208619; c=relaxed/simple;
+	bh=SK3Krdfcr/bfSOUInUeZSYJC5Wkmh5QSaJKElpcr+vY=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=dkAuLA+tKkg0de4025cT5XnVX2s8Anpo+E1w4l5cqoe7gXjVWI8zN/GGS3WdZ+VOD8OBXz0pzE92H+mt8mQeAazjntxQhutLf78jJnSIDf1U92X1LXP1mmtpUhQDORj80TbFGJv87MIFbU7OaIsDXOzFGblqfye6EBhjhxrqzOM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=E1LUJD4P; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=zipdox.net header.i=@zipdox.net header.b="kOaeF2BW"
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id A732B92AD4B;
-	Mon, 05 Oct 2026 15:55:00 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=zipdox.net; s=dkim;
-	t=1791208501; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:content-language:in-reply-to:references;
-	bh=TwH9Wvhc5PttMhya+EYsKUFolDwZ2xKry2XtEQAf4bw=;
-	b=kOaeF2BWCtd81jfN48rrjMg4MbcC+4lE4oteq5KOv4B364Q9jMPjnwsChDOLQ1cx+Cu5G9
-	vhOSCrgEKUdoMUYYb0JT6QO2Dn0g9f10vW2ixqN7kJj98lftk+76/AfBt5EXfFd072mLMN
-	qy+p7o1NdDA9yr2Vw9sjREN18TRlqSGV4L+cGd0KAvWSWW7m9W1lRby/S4L86Ftd2jnO2f
-	dk9bPu53I420+kfUnwGZ37QeSlSlDpNSsC9tOehWslw9jL6VehNTga8MjQCx2xCrTsFUqn
-	fpWbEw8uHIP+31aDIR58TRz0laFoERwjXpUAFdNZjet7TgdIqq9eL2sJnKp7Jg==
-Message-ID: <1dc7e21e-fcb5-4c35-8049-97254b011e27@zipdox.net>
-Date: Mon, 5 Oct 2026 15:54:59 +0200
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="E1LUJD4P"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 5AB5FC2BCC7;
+	Mon,  5 Oct 2026 13:56:59 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1791208619;
+	bh=SK3Krdfcr/bfSOUInUeZSYJC5Wkmh5QSaJKElpcr+vY=;
+	h=From:Date:Subject:To:Cc:Reply-To:From;
+	b=E1LUJD4P8uJVJpD1BuewM9NxYOSEOONhClF+r8eTcm5XkcfSBdPEeTsDiQYc8RTRz
+	 OhRAqMzAvdDemDebfIW7ina8ZjCTGv6quTPfLo9Wij3wNK9GhDYVOt0Jc3xy6MimOX
+	 102doZMaAW/42xj80PzxqrRuYP+ONoNhQ8R4GS6Tt00XhOTU5ecMqy52pMSrODIiDz
+	 XYCqOt/hU2PLalzlIRvdEiMSI8q7FWwAC2hCAfRNep7PEZgNlw6SKBCgRvynbKsAy8
+	 RlPyvMRNQ7J5tRrMjveuV9jcx+ITNto2MOjAEAa0Ijyu1HFCYgpmODzoIkR2eYUwzX
+	 cn4Jfbta0SaPQ==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 36A6DCA5FFC;
+	Mon,  5 Oct 2026 13:56:59 +0000 (UTC)
+From: Robert Killick via B4 Relay <devnull+robert.killick.dev@kernel.org>
+Date: Mon, 05 Oct 2026 14:56:45 +0100
+Subject: [PATCH] power: supply: sysfs: Ratelimit "unavailable enum value"
+ warning
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-From: Zipdox <zipdox@zipdox.net>
-Subject: Re: [PATCH] USB Audio Class 2 Mixer unit support for GET_CUR, SET_CUR
- and RANGE
-To: Takashi Iwai <tiwai@suse.de>
-Cc: linux-sound@vger.kernel.org, perex@perex.cz,
- linux-kernel@vger.kernel.org, tiwai@suse.com
-References: <d46fcac6-bd7e-4fc4-95e1-4e8d39f92ad3@zipdox.net>
- <87bj9yn55n.wl-tiwai@suse.de>
- <59b3dc9b-f324-42e7-ab03-a01c04e8b915@zipdox.net>
- <8733vamwaz.wl-tiwai@suse.de>
- <da56664f-901e-497b-a74c-ae41cbc5cac4@zipdox.net>
- <87a4phjjay.wl-tiwai@suse.de> <8733v9jfp1.wl-tiwai@suse.de>
- <87y0d1hx9y.wl-tiwai@suse.de>
- <895b9e3d-bc81-4688-8513-8aa42d40e4fa@zipdox.net>
- <05a53b37-8de3-4075-93c0-21129a839356@zipdox.net>
- <87se37g8gu.wl-tiwai@suse.de>
- <13f9ee6e-acf2-4166-93cc-33cbc2d4bd89@zipdox.net>
- <87o6dvg7ai.wl-tiwai@suse.de>
- <b3af9756-d008-46e6-9465-13a059584ead@zipdox.net>
- <87ik3p7iac.wl-tiwai@suse.de>
-Content-Language: en-US
-In-Reply-To: <87ik3p7iac.wl-tiwai@suse.de>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-Last-TLS-Session-Version: TLSv1.3
+Message-Id: <20261005-ratelimit-enum-warn-v1-1-b77b48de3c47@killick.dev>
+X-B4-Tracking: v=1; b=H4sIAJysw2oC/yXMQQrCMBBG4auUWTuQplDEqxQXk/hXR2wqk1SF0
+ rs36vJbvLdShikynZqVDC/NOqeK9tBQvEm6gvVSTd75vnXOs0nBQyctjLRM/BZLPHa9kxAFxwC
+ q5dMw6ud3Hc5/5yXcEct3Rdu2A20oTJJ3AAAA
+X-Change-ID: 20261002-ratelimit-enum-warn-f360abcae8be
+To: Sebastian Reichel <sre@kernel.org>
+Cc: linux-pm@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Robert Killick <robert@killick.dev>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1791208618; l=1773;
+ i=robert@killick.dev; s=20261002; h=from:subject:message-id;
+ bh=0hIDydFjkseUzAVKpA0Mfmz7dmmCFwTP/Z/j3AT+hZE=;
+ b=sFQgoHZ4wP22jFB/GdDWa/XWgIP/v5TNoGFBwDvVp5cGiKx6Xo15yuEiNq44lNxNVnLkSi5hm
+ Otk0mSJu1ofAYCt5TDMig/d6MgIjWz4k6E+gi7NieZPM035PVKox02c
+X-Developer-Key: i=robert@killick.dev; a=ed25519;
+ pk=mhwmEhQGVPJdSo1NraEdUm+3PmWZr7havGKq6I7tqaE=
+X-Endpoint-Received: by B4 Relay for robert@killick.dev/20261002 with
+ auth_id=1103
+X-Original-From: Robert Killick <robert@killick.dev>
+Reply-To: robert@killick.dev
 
-On 9/28/26 12:59 PM, Takashi Iwai wrote:
-> I thought of it, too.  OTOH, it'll be a bit tricky, because the range
-> isn't usually covering -32767 but only a part.  So -32768 won't be
-> reached continuously.
-> 
-> I'm inclined to have a simple mute switch in addition.
-> 
-> 
-> thanks,
-> 
-> Takashi
+From: Robert Killick <robert@killick.dev>
 
-Actually I think this seems to work. We might have to do something with
-dBmin and dBmax as well though, I don't fully understand their function.
+power_supply_show_enum_with_available() warns every time a driver
+reports a value that is not in its declared set of available values.
+For usb_type this happens on every sysfs read and on every uevent, so a
+driver that reports such a value and calls power_supply_changed()
+frequently can flood the kernel log.
+
+This can happen with drivers that pass a firmware-provided value
+through unchanged, as qcom_battmgr does for usb_type. On a OnePlus 10
+Pro (SM8450), whose firmware reports a vendor-specific usb_type, this
+produced ~128 warnings per second and kept systemd-journald at ~30% CPU.
+
+The bug that causes the bad value needs fixing in the driver itself,
+but one misbehaving driver should not be able to flood the kernel log.
+Use dev_warn_ratelimited(), as power_supply_show_property() already
+does for its own errors, so the problem is still reported, just not on
+every read.
+
+Signed-off-by: Robert Killick <robert@killick.dev>
+---
+ drivers/power/supply/power_supply_sysfs.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/power/supply/power_supply_sysfs.c b/drivers/power/supply/power_supply_sysfs.c
+index b0f524d152cf..9704557ffe1d 100644
+--- a/drivers/power/supply/power_supply_sysfs.c
++++ b/drivers/power/supply/power_supply_sysfs.c
+@@ -310,7 +310,8 @@ static ssize_t power_supply_show_enum_with_available(
+ 	}
+ 
+ 	if (!match) {
+-		dev_warn(dev, "driver reporting unavailable enum value %d\n", value);
++		dev_warn_ratelimited(dev, "driver reporting unavailable enum value %d\n",
++				     value);
+ 		return -EINVAL;
+ 	}
+ 
 
 ---
-  sound/usb/mixer.c | 26 +++++++++++++++++++++-----
-  sound/usb/mixer.h |  2 +-
-  2 files changed, 22 insertions(+), 6 deletions(-)
+base-commit: 4fc88ba435dadbc05990951e3f3fbd8ccd2df140
+change-id: 20261002-ratelimit-enum-warn-f360abcae8be
 
-diff --git a/sound/usb/mixer.c b/sound/usb/mixer.c
-index 91d4c7373871..1653bb47ed6c 100644
---- a/sound/usb/mixer.c
-+++ b/sound/usb/mixer.c
-@@ -358,7 +358,7 @@ static int request_ctl_v2(struct usb_mixer_elem_info *cval, u8 request,
-  		return -EIO;
-  
-  	/* correct wValue for UAC2 mixer control with MCN */
--	if (cval->v2_mixer)
-+	if (cval->mixer_unit == 2)
-  		validx = (UAC2_MU_MIXER << 8) | to_mcn(cval, validx);
-  
-  	memset(buf, 0, size);
-@@ -400,9 +400,14 @@ static int get_cur_ctl_value(struct usb_mixer_elem_info *cval,
-  {
-  	validx += cval->idx_off;
-  
--	return (cval->head.mixer->protocol == UAC_VERSION_1) ?
-+	int value = (cval->head.mixer->protocol == UAC_VERSION_1) ?
-  		request_ctl_v1(cval, UAC_GET_CUR, validx, value_ret) :
-  		get_ctl_value_v2(cval, validx, value_ret);
-+
-+	/* Map -32768 (mute in mixer unit spec) to minimum */
-+	if(cval->mixer_unit && value == -32768) value = cval->min;
-+
-+	return value;
-  }
-  
-  /* channel = 0: master, 1 = first channel */
-@@ -539,11 +544,16 @@ int snd_usb_mixer_set_ctl_value(struct usb_mixer_elem_info *cval,
-  
-  		request = UAC2_CS_CUR;
-  
--		/* correct wValue for UAC2 mixer control with MCN */
--		if (cval->v2_mixer)
-+		/* correct wValue for UAC2 mixer unit control with MCN */
-+		if (cval->mixer_unit == 2)
-  			validx = (UAC2_MU_MIXER << 8) | to_mcn(cval, validx);
-  	}
-  
-+	/* Remap the lowest value to -32768 (mute per the spec for mixer units) */
-+	if(cval->mixer_unit && value_set < (cval->min + cval->res)){
-+		value_set = -32768;
-+	}
-+
-  	value_set = convert_bytes_value(cval, value_set);
-  	buf[0] = value_set & 0xff;
-  	buf[1] = (value_set >> 8) & 0xff;
-@@ -2390,7 +2400,11 @@ static void build_mixer_unit_ctl(struct mixer_build *state,
-  	cval->control = in_ch + 1; /* based on 1 */
-  	if (state->mixer->protocol == UAC_VERSION_2 ||
-  	    state->mixer->protocol == UAC_VERSION_3)
--		cval->v2_mixer = true;
-+	{
-+		cval->mixer_unit = 2;
-+	}else{
-+		cval->mixer_unit = 1;
-+	}
-  	cval->num_outputs = num_outs;
-  	cval->val_type = USB_MIXER_S16;
-  	for (i = 0; i < num_outs; i++) {
-@@ -2408,6 +2422,8 @@ static void build_mixer_unit_ctl(struct mixer_build *state,
-  		usb_mixer_elem_info_free(cval);
-  		return;
-  	}
-+	/* We will map the lowest setting to mute (-32768 per the spec) */
-+	cval->min -= cval->res;
-  
-  	kctl = snd_ctl_new1(&usb_feature_unit_ctl, cval);
-  	if (!kctl) {
-diff --git a/sound/usb/mixer.h b/sound/usb/mixer.h
-index cf45c39cbccc..2ace9b95da0a 100644
---- a/sound/usb/mixer.h
-+++ b/sound/usb/mixer.h
-@@ -98,7 +98,7 @@ struct usb_mixer_elem_info {
-  	u8 min_mute;
-  	u8 get_cur_broken;
-  	u8 num_outputs;
--	bool v2_mixer;
-+	int mixer_unit;
-  	void *private_data;
-  };
-  
--- 
-2.47.3
+Best regards,
+--  
+Robert Killick <robert@killick.dev>
+
 
