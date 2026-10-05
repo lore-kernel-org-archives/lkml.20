@@ -1,89 +1,111 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 74D844825B2;
-	Mon,  5 Oct 2026 13:07:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 45F59375ACB
+	for <linux-kernel@vger.kernel.org>; Mon,  5 Oct 2026 13:08:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.251.105.195
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791205635; cv=none; b=JDn+o4D1OjfgLRVkv+Q4BksVr4Bk2FQYI6rgx/58kmwsGRrtwrdUZMxmSit9qJOSRgOVim3kuf9z1c1diG4kZRY+OTjMjWoQQu32WWUY+pnWgh5Wk4WY6xRIGeXLXwRRTXOasIKSyRh7R4USuxZjyea6MwLlapBX6CWQhbkW5zo=
+	t=1791205712; cv=none; b=kOfcOtBm4ydRwr8eU6AbSzdK+vIwKu3v9/lDTVpplKTlw/Nc2zY4cHLU05SYfzoV3dqWVsR/pwrkX/n61MIGNnqBpTfp2dyx+WeZ68Vwe8BnRfUCpZu6UWysrtL9cv40FhJ6KfQoqeqXRApFaOcS4ew7PNXFiHWoxRB0HGMei74=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791205635; c=relaxed/simple;
-	bh=jitezfqwji1pZx3701XLy05q7t2U4eoFU1bJbjXRNCw=;
-	h=Date:From:To:Cc:Subject:Message-Id:In-Reply-To:References:
-	 Mime-Version:Content-Type; b=GfPKX/fcsTzGQl9/s/VarpmN3BztuXJqWtNrccblPnAMZPdAlC9P1JaxmzrxuZbB/CS7LCGPFp4YYrl1Ntx3MDVPwCLNvvLFbgeDo/sKIYeaZCilBj8huTEa3IfIvrMOpzAjQAQd6eVagSRfRcJ1m5aWdXKkB+C0oh57Bsu9D8Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=e3OeAfC7; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791205712; c=relaxed/simple;
+	bh=LSzuL6fP+0zGUl+Bo17Pao8LKAoJZbdsKY7GJudgd70=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=S9q9glPtUnNJg++qcE1af13MZtladZSdvT7TiV6PNwwYlQdrDhHUu7MN8+rR9AkwbRnQDXDHV1VHEn74X6KrMYTkm8kNE0CEZeqGyXS3hgerzCIRkmJAhg0LtmQBL3kJoWwedhwPEsqAxQ7oH2nReggT5PjZUVeYHZCTqF4ns4o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=k543q71O; arc=none smtp.client-ip=148.251.105.195
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="e3OeAfC7"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9ED181F000FF;
-	Mon,  5 Oct 2026 13:07:13 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux-foundation.org; s=korg; t=1791205633;
-	bh=Ym8fD57TQaFfPwXHnEQHQ0jtTOHEhACYrmL2ZU06asU=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=e3OeAfC74li1mJtHeZR88UojvHL0s0g4rgajUh8l/WNSHpEAhA/Kwf000Ab3UmTma
-	 kVg4cWtdmFsLc39aNL6kWZvVR4WGFCC50nmhnKb2chpA0tZ99qKSAG1QF6fb6cMwAb
-	 Y5ngqRZ4052EsI6I9sb2TchAy/kkrxM5iHEsf5wk=
-Date: Mon, 5 Oct 2026 06:07:13 -0700
-From: Andrew Morton <akpm@linux-foundation.org>
-To: Mark Brown <broonie@kernel.org>
-Cc: Nathan Chancellor <nathan@kernel.org>, Nicolas Schier <nsc@kernel.org>,
- KBuild Mailing List <linux-kbuild@vger.kernel.org>, Linux Kernel Mailing
- List <linux-kernel@vger.kernel.org>, Linux Next Mailing List
- <linux-next@vger.kernel.org>, Lorenzo Stoakes <ljs@kernel.org>, Maciej
- =?UTF-8?Q?=C5=BBenczykowski?= <maze@google.com>, Wilson Felipe Pereira
- <wfelipe@google.com>, Wilson Felipe Pereira <wfelipe@google.com>
-Subject: Re: linux-next: manual merge of the kbuild tree with the
- mm-nonmm-unstable tree
-Message-Id: <20261005060713.afde74805e607478d6bda2ea@linux-foundation.org>
-In-Reply-To: <asN8duP-cEdNqP5I@sirena.co.uk>
-References: <asN8duP-cEdNqP5I@sirena.co.uk>
-X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
+	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="k543q71O"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+	s=mail; t=1791205709;
+	bh=LSzuL6fP+0zGUl+Bo17Pao8LKAoJZbdsKY7GJudgd70=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
+	b=k543q71OpYMLaUwWteyAKS1xCf/7/VS1Nlf/ZZ9bRcNeEgvWyhiY/VVZfRgphw+xx
+	 iBwspwiveyiDCpjqPvToS1n7dGBbZLIgGvU4LbTrZov+dORh8GSHXr8k1faG399vAg
+	 CQVQCunhQiLxAoycq0+uqUOUmFqRhs9+BrUOc1+UsSGj8ESipYaABOF2mMep82v6l6
+	 7Jyn4CodU0AcoWcb7WyVa4R+uCZJb6Jw4cxhNE5qpcMnspUlqBgfDQrwI0tQ+ti7D0
+	 5568le/RFkTQ3CuLK3LN1AZA/v171+bwNOsQtJP8siNYFynkrLNjTgi9iGvJ/Xas/n
+	 yNfCoRKxwna4g==
+Received: from fedora-61.home (unknown [100.64.0.11])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange secp256r1 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	(Authenticated sender: bbrezillon)
+	by bali.collaboradmins.com (Postfix) with ESMTPSA id EB8AB17E0243;
+	Mon, 05 Oct 2026 15:08:28 +0200 (CEST)
+Date: Mon, 5 Oct 2026 15:08:12 +0200
+From: Boris Brezillon <boris.brezillon@collabora.com>
+To: Tejun Heo <tj@kernel.org>
+Cc: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>,
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ kernel-dev@igalia.com, Chia-I Wu <olv@google.com>, Liviu Dudau
+ <liviu.dudau@arm.com>, Matthew Brost <matthew.brost@intel.com>, Steven
+ Price <steven.price@arm.com>
+Subject: Re: [RFC v6 3/3] drm/panthor: Create per queue priority workqueues
+Message-ID: <20261005150812.18f86b39@fedora-61.home>
+In-Reply-To: <64d59ed5538c6af257058533c880740e@kernel.org>
+References: <20261001160711.59888-1-tvrtko.ursulin@igalia.com>
+	<20261001160711.59888-4-tvrtko.ursulin@igalia.com>
+	<64d59ed5538c6af257058533c880740e@kernel.org>
+Organization: Collabora
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
+MIME-Version: 1.0
 Content-Type: text/plain; charset=US-ASCII
 Content-Transfer-Encoding: 7bit
 
-On Mon, 5 Oct 2026 12:31:18 +0200 Mark Brown <broonie@kernel.org> wrote:
+Hello Tejun and Tvrtko,
 
-> Hi all,
-> 
-> Today's linux-next merge of the kbuild tree got a conflict in:
-> 
->   init/Kconfig
-> 
-> between commits:
-> 
->   d514d23689356 ("init/Kconfig: make config INIT_ENV_ARG_LIMIT user-configurable")
->   9998f5eea1407 ("init, arch: make CONFIG_COMMAND_LINE_SIZE globally configurable")
-> 
-> from the mm-nonmm-unstable tree and commit:
-> 
->   f85147b291e35 ("kbuild: move the toolchain checks into scripts/Kconfig.toolchain")
-> 
-> from the kbuild tree.
-> 
-> I fixed it up (see below) and can carry the fix as necessary. This
-> is now fixed as far as linux-next is concerned, but any non trivial
-> conflicts should be mentioned to your upstream maintainer when your tree
-> is submitted for merging.  You may also want to consider cooperating
+On Fri, 02 Oct 2026 09:30:53 -1000
+Tejun Heo <tj@kernel.org> wrote:
 
-Thanks.
+> > +	sched->submit_wq[PANTHOR_CSG_PRIORITY_MEDIUM] = alloc_workqueue("panthor-drm", WQ_MEM_RECLAIM | WQ_UNBOUND, 2);
+> > +	sched->submit_wq[PANTHOR_CSG_PRIORITY_LOW] = sched->submit_wq[PANTHOR_CSG_PRIORITY_MEDIUM];
+> > +	sched->submit_wq[PANTHOR_CSG_PRIORITY_HIGH] = alloc_workqueue("panthor-drm-high", WQ_HIGHPRI | WQ_MEM_RECLAIM | WQ_UNBOUND, 2);
+> > +	sched->submit_wq[PANTHOR_CSG_PRIORITY_RT] = alloc_workqueue("panthor-drm-rt", WQ_RT | WQ_MEM_RECLAIM | WQ_UNBOUND, 2);  
+> 
+> For an unbound wq max_active applies to the whole wq, so this is two
+> in-flight items per priority level across all the queues on the device,
+> where the shared wq before had no effective limit. queue_run_job() blocks
+> on sched->lock which tick_work() holds across FW round trips, so two
+> blocked run_jobs would stall every other queue's run and free work at that
+> level.
 
-> diff --combined init/Kconfig
-> index 914c4c3ed7ee4,352601b44b5ca..0000000000000
-> ...
-> [250+ lines of diff]
->
+First off, panthor_sched::lock being a device-wide contention point for
+submissions is something we plan to address (either by using a rw_lock
+taken in read mode in the submit path and write mode in the scheduler
+tick path, or by locking at a finer granularity).
 
-yikes.  I think I'll disable Wilson's command-line patches until after
-kbuild has merged up.
+> What's the reason for 2?
 
-After kbuild is upstream I'll take a look at resurrecting command-line
-patches for a late merge-window thing or I'll bump them into 7.4-rcX. 
-Probably the former.
+I think it was picked to keep the number of RT threads small, and
+because we have this huge contention point, in ::run_job(), it was
+deemed unimportant for now. Ultimately, if we were to size max_active
+according to how fast the HW can dequeue, I guess we would go for
+something like `max_active=panthor_sched::csg_slot_count`.
 
-kbuilders: please try to merge early!
+The other thing we need to address is the fact we now have proper
+priority enforcement for submissions, but events are still processed
+in a random order, so we probably want to have per-prio wq for OOM
+handling, and we need a mechanism to process events in the CSG prio
+order in panthor_sched_report_fw_events(). I'm also worried that an
+RT-prio context would preempt the tick scheduled on
+panthor_scheduler::wq, which is a regular-prio wq, thus making fairness
+between RT contexts non-functional (if one RT context manages to queue
+jobs fast enough, it would stay on the CSG slot with the highest prio
+longer than we expect).
+
+It's all these tiny details I'd like to sort out (or at least have a
+plan for) before merging the per-prio-submit-wq stuff in panthor. This
+being said, I don't think it should block the workqueue/drm_sched
+changes, if they are deemed acceptable.
+
+BTW, I apologize for being MIA for this long :-/.
+
+Regards,
+
+Boris
