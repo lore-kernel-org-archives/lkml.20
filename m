@@ -1,243 +1,326 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.15])
+Received: from mx0b-0002e601.pphosted.com (mx0b-0002e601.pphosted.com [148.163.154.28])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 82BC148FF88;
-	Mon,  5 Oct 2026 16:37:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.15
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791218225; cv=none; b=h+T93rzc6BvPqEO9w5gQTPzL3c8qo7kvfHR//HR0d0xQPi3JSKzXa+ZWZ4dlbYmqn3eaXOE9ol+vgCvI2jsfO/WnhB/8FNacBwNT/UCy2dx1cfyAFOpvgfgginMLyuPTIIMQTuUjeyzQUp9xC7EqnwbFMxfj61Tkf2C4EvioeqE=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791218225; c=relaxed/simple;
-	bh=3/jdOqeAqRi8CtYJAlkOY8eFXJpoPOhYAlIxJ8UgItE=;
-	h=From:Date:To:cc:Subject:In-Reply-To:Message-ID:References:
-	 MIME-Version:Content-Type; b=DzXzFMikq6yDYRMAWHMLsM47Bh813DDZ7qyJE7oBh6DzzWlZMrKlS7nQbxD/Ggf7h2pWzrqkLXhEyncg6VnGlYww1vguf+IPk4q57lJuAXTtfM9WAd+0eR8KyAOqy929Rbk8gGEFJJoVb+cmFovVXKYY6kMP5oTff4/f6eqVqME=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=NqksmIQm; arc=none smtp.client-ip=198.175.65.15
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1B1674D0A0A;
+	Mon,  5 Oct 2026 16:38:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=148.163.154.28
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791218287; cv=fail; b=uWkV5amgMOr9kv2Ei6CC/Ejxpp8qL2y+R4Pfr7Q8n4FoqFnRioZgP/Nk6qtXLhCouPzghoS/9BGfSdNT2PLSz93Eq+prIIeXgwqZf5NCSrIZbLTZ8CYU3hCi8bINx+6AdHgt+NLncm3/i8J+khBBNeD9jDPXqtYVBwcgZVMtSrg=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791218287; c=relaxed/simple;
+	bh=nBFuHu6yWrH8YdCxHL9OvtPFp1V8hk9matQgIywZRc8=;
+	h=Message-ID:Date:MIME-Version:Subject:To:CC:References:From:
+	 In-Reply-To:Content-Type; b=mH8FjheDx+whfE36Pd6ktfbasAqM3/WUp8KZtCGVXh+M1nYH2gzDfv4CpNq5OlHDLjeNjknJV+Ucn2S6wA3mLKHyIMOd52xzsFMYBdeixAWEdB8uHbtMofS9JTEjhoqniN1QP88AdY2gs2p6Qp1bVpLS87Yr7KH1WA0HgxDZWec=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com; spf=pass smtp.mailfrom=ti.com; dkim=pass (2048-bit key) header.d=ti.com header.i=@ti.com header.b=SSImOPGI; dkim=pass (1024-bit key) header.d=ticloud.onmicrosoft.com header.i=@ticloud.onmicrosoft.com header.b=kao2qf2v; arc=fail smtp.client-ip=148.163.154.28
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ti.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="NqksmIQm"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1791218222; x=1822754222;
-  h=from:date:to:cc:subject:in-reply-to:message-id:
-   references:mime-version;
-  bh=3/jdOqeAqRi8CtYJAlkOY8eFXJpoPOhYAlIxJ8UgItE=;
-  b=NqksmIQmQPiHNlkgsxp4djnW3cqsWMiQpAJcN+0uV90xPYdHDIdnxgHm
-   nT9lYKm9AfsbXrTprpKYb/Qp9EcNPBwgoCIHS8ocN4xMMoePCXEJuoWMO
-   iWzraLBqAPEpRMOLmFOEcheLtvQ0sE9fe2EBxbQgnhrwkAzBBtzqbLGx3
-   D17tYCIOKNn8/T9Dcgzqwpxo04LIbzcN8ILKDK61iNKgPTCriwZqr/nKV
-   UbVOGHbolLwrMEcxsdZ2wF5FvYTOw2Bc6+8roFoagusfFqwagJXOp5MvU
-   Ifhi9r7+M9l0Vlb+md3QzCCZNzFdqKOAqtajxffz222SrNBVuEYq5Gw/q
-   w==;
-X-CSE-ConnectionGUID: QHQVgYAySgKX9qYq8SKnzA==
-X-CSE-MsgGUID: X0YFL2cNQ+OTKTtmFRCGiQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11926"; a="94605189"
-X-IronPort-AV: E=Sophos;i="6.27,142,1787036400"; 
-   d="scan'208";a="94605189"
-Received: from orviesa007.jf.intel.com ([10.64.159.147])
-  by orvoesa107.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 05 Oct 2026 09:37:01 -0700
-X-CSE-ConnectionGUID: QKocdfYqQbKI3RdF0iT8hg==
-X-CSE-MsgGUID: wvdMWhuOQU65rg35bKd2bg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,142,1787036400"; 
-   d="scan'208";a="276409975"
-Received: from ijarvine-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.199])
-  by orviesa007-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 05 Oct 2026 09:36:58 -0700
-From: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
-Date: Mon, 5 Oct 2026 19:36:55 +0300 (EEST)
-To: Rong Zhang <i@rong.moe>
-cc: Mark Pearson <mpearson-lenovo@squebb.ca>, 
-    "Derek J. Clark" <derekjohn.clark@gmail.com>, 
-    Hans de Goede <hansg@kernel.org>, Armin Wolf <W_Armin@gmx.de>, 
-    Charles <hanker007@gmail.com>, platform-driver-x86@vger.kernel.org, 
-    LKML <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH 6/9] platform/x86: lenovo-wmi-capdata: Register component
- even on WMI error
-In-Reply-To: <20260914-lwmi-wmi-new-api-v1-6-7a400f2f69f8@rong.moe>
-Message-ID: <9fabb10a-85c1-855f-ef89-de69aa5a9cfe@linux.intel.com>
-References: <20260914-lwmi-wmi-new-api-v1-0-7a400f2f69f8@rong.moe> <20260914-lwmi-wmi-new-api-v1-6-7a400f2f69f8@rong.moe>
+	dkim=pass (2048-bit key) header.d=ti.com header.i=@ti.com header.b="SSImOPGI";
+	dkim=pass (1024-bit key) header.d=ticloud.onmicrosoft.com header.i=@ticloud.onmicrosoft.com header.b="kao2qf2v"
+Received: from pps.filterd (m0374956.ppops.net [127.0.0.1])
+	by mx0b-0002e601.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 695ERnSL3886157;
+	Mon, 5 Oct 2026 11:37:45 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com; h=cc
+	:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=
+	proofpoint-05-2026; bh=SJCtg7NzCxOnALVtnc1a1Pq++YK312Mb/FI+BLBcd
+	jI=; b=SSImOPGI4PNeTq2eCapszMNOxkzpPUAgUt3efY0zLgUi4+GqqgdwgSiHv
+	DDfZS9CVX4KLYKrjOUV3o0nW6E4nSgQ0ADaD3ZQTNRpLUdydz9O4asO4wzo7gZfq
+	F4Bna4H1YKb6g+ehWiqPR81j0zB/em7LWt9ajN6T99fF3CkY9rxEug90EkJv6ZyC
+	9JThAu48CcOj68oUlLkoWQ5F6s5Y9V/QzCQdLBuRz4I+ComP9NAYdcf7EAJga2AJ
+	5OCfCel+6Ol3jzpj9LVyCOopEny4MksynWsW52nytqEEDvMW01H5Tndtq012wlwj
+	zhDTKImElsOKbLNq4CtM8qZ73z3pg==
+Received: from cy3pr05cu001.outbound.protection.outlook.com (mail-westcentralusazon11013071.outbound.protection.outlook.com [40.93.201.71])
+	by mx0b-0002e601.pphosted.com (PPS) with ESMTPS id 4h3gup6xvk-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Mon, 05 Oct 2026 11:37:45 -0500 (CDT)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=gnSANzKCqIh72L0A+y/t/ScreYS/oVbBL91g1mMxJwRACvUtgbuAH8B/FEjyzGL52Pdy8qTRgrfKGL81UVHL4MHhWrfwB/WApqm0j/fAWGedWfgH+fvGOhXyNlKT8Pr6pglJQv2QhokRzw/F09nT00JmKrQosNOXoLlrymz/auGKCcz2Mf9Hp4abNJR9D+FbpbVC7N6cXfBOwATtRboCGyoS+50WRfEghZC/Ax43ru2y4rpO8P2JNOL//BAKv/rZrl+B196g+h5dqnlJqJUvMBxkaKrY89V/Nbqs7pX84PTTR26VmeXnhS59ZDDziDBzvTs3IQlxhDmM2p3hZEgPBA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=SJCtg7NzCxOnALVtnc1a1Pq++YK312Mb/FI+BLBcdjI=;
+ b=niIk1/mDk4Z2D/3bC/sd/IrN7gaRbc79G/Iy3Vkm7xGoml8spY58jK6c6hUUe6CoIL3NdvvKGaNaDQBw0QLup4k3hiKkn7LreNskYtf0eVXS/jNJwhacH9NCZvTEx6Wud0H9zZFe6wY68BlntOgBsj0TK/c2lGLzhDjftv1jDTwq9pxZxUv4V0O/yCM77QZ7MUbATFZwbc0R3s3/HpupWG1TUEdazATF7IdDvNcl3AJHpobhjY2DvBCccUlXuVZu3ohILS+YkA95YXZcWOBEajXPl8cZFt5uixYfpxM21y3pVvCfEOY4++z0Y6QLn1qzChVixOKH/mwCqXtW5ea68w==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 198.47.21.195) smtp.rcpttodomain=vger.kernel.org smtp.mailfrom=ti.com;
+ dmarc=pass (p=quarantine sp=none pct=100) action=none header.from=ti.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=ticloud.onmicrosoft.com; s=selector1-ticloud-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=SJCtg7NzCxOnALVtnc1a1Pq++YK312Mb/FI+BLBcdjI=;
+ b=kao2qf2vkKfhB/tZEsPxYdBtmvSCiTz+UyuCZa2+XhdgPTAgCmIaiNfEBB2OLdAmkH80krnlCSd0CWOwt6b7C5keApVdVfq5eVcEfoVY26xajcpRBOmfK1V986vA3jan44NjlbckS1iR+/VSoa3kJrOZYR2iTQvVdH+AifAUass=
+Received: from SJ0PR03CA0138.namprd03.prod.outlook.com (2603:10b6:a03:33c::23)
+ by SA1PR10MB5844.namprd10.prod.outlook.com (2603:10b6:806:22b::22) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.496.14; Mon, 5 Oct
+ 2026 16:37:38 +0000
+Received: from SJ1PEPF0000231F.namprd03.prod.outlook.com
+ (2603:10b6:a03:33c:cafe::38) by SJ0PR03CA0138.outlook.office365.com
+ (2603:10b6:a03:33c::23) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.406.7 via Frontend Transport; Mon, 5
+ Oct 2026 16:37:38 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 198.47.21.195) smtp.mailfrom=ti.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=ti.com;
+Received-SPF: Pass (protection.outlook.com: domain of ti.com designates
+ 198.47.21.195 as permitted sender) receiver=protection.outlook.com;
+ client-ip=198.47.21.195; helo=flwvzet201.ext.ti.com; pr=C
+Received: from flwvzet201.ext.ti.com (198.47.21.195) by
+ SJ1PEPF0000231F.mail.protection.outlook.com (10.167.242.235) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.496.14 via Frontend Transport; Mon, 5 Oct 2026 16:37:36 +0000
+Received: from DFLE212.ent.ti.com (10.64.6.70) by flwvzet201.ext.ti.com
+ (10.248.192.32) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Mon, 5 Oct
+ 2026 11:36:47 -0500
+Received: from DFLE203.ent.ti.com (10.64.6.61) by DFLE212.ent.ti.com
+ (10.64.6.70) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Mon, 5 Oct
+ 2026 11:36:47 -0500
+Received: from lelvem-mr06.itg.ti.com (10.180.75.8) by DFLE203.ent.ti.com
+ (10.64.6.61) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45 via Frontend
+ Transport; Mon, 5 Oct 2026 11:36:47 -0500
+Received: from [10.24.51.87] (devarsh-precision-tower-3620.dhcp.ti.com [10.24.51.87])
+	by lelvem-mr06.itg.ti.com (8.18.1/8.18.1) with ESMTP id 695GagTV540693;
+	Mon, 5 Oct 2026 11:36:43 -0500
+Message-ID: <235c4824-f6b9-4009-a18c-065a536e45f5@ti.com>
+Date: Mon, 5 Oct 2026 22:06:42 +0530
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 02/14] dt-bindings: display: Add Solomon SSD16xx
+ e-paper controller binding
+To: Krzysztof Kozlowski <krzk@kernel.org>
+CC: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+        Maxime Ripard
+	<mripard@kernel.org>,
+        Thomas Zimmermann <tzimmermann@suse.de>,
+        David Airlie
+	<airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+        Rob Herring
+	<robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley
+	<conor+dt@kernel.org>, Nishanth Menon <nm@ti.com>,
+        Vignesh Raghavendra
+	<vigneshr@ti.com>,
+        Tero Kristo <kristo@kernel.org>, <dri-devel@lists.freedesktop.org>,
+        <devicetree@vger.kernel.org>, <linux-kernel@vger.kernel.org>
+References: <20260927182329.4193961-1-devarsht@ti.com>
+ <20260927182329.4193961-3-devarsht@ti.com>
+ <20261001-neon-dazzling-urchin-46b103@quoll>
+Content-Language: en-US
+From: Devarsh Thakkar <devarsht@ti.com>
+In-Reply-To: <20261001-neon-dazzling-urchin-46b103@quoll>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 7bit
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SJ1PEPF0000231F:EE_|SA1PR10MB5844:EE_
+X-MS-Office365-Filtering-Correlation-Id: 9a7f7679-2cd7-4a40-2f11-08df22fef6f8
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|376014|7416014|1800799024|82310400026|36860700016|23010399003|13003099007|6133799003|22082099003|18002099003|3023799007|4143699003|10067099003|56012099006;
+X-Microsoft-Antispam-Message-Info:
+	M515LFx2cHfFCvEjkM5AS/W1ZuBvGR+VfY9mp2GKMm5YREF/mVVV2Ya1P0S3MDxTRTomhohonVmRP1fcVC1rPEh8/i2Vl1KiapD7znoaQyihGddGJTB0zsGXO8dDLWvzeUHpuvL16bP1GRd8yp+hkQUi9RnhLdqTFfloibAjiezHhopQOgTuNlk59QpGDbKtZ+i8iJ8ccGtvSJbf5rR5E4BV1ddTdBD4yL1rJdow3PrQC2j2uemLo/UzJW8fDBgvw1urvaZxC0TDIHQ4IFATysLgCapVNriHl6OmUgWe9TGpe+XMmT52UyTRhn+Eicmh3T6H6gLWz+dxc5dS1O7raB8niWGuSK+F0HXGq9huaePIUsqU3gBZyCsGvHmCVrrTOe/nAAWcijND0WnTcQ9U5Gr0y70i0tuproU65FRRFUezOoatOmgSe+djQEqWX12KbtuoKLyPJXzbmcEWRX0+Cmdqm2yqTvWVq0Ik0/RH1icOfTxSDMBqWP7GABMBYt1wwEh5FKWa/nwDIMvs0fSUEsup2+Feg+IeZKXFx0A09YyO7yRt0c84lcsmWpBIfUkxl828LwtACjqr5SYQvHgIvXFbpHrfHTXCZJ9G62qmS0dOO9wd5+AbxthG58NW3JWkwN8Owh/4yf7yW2hIBIEDYw==
+X-Forefront-Antispam-Report:
+	CIP:198.47.21.195;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:flwvzet201.ext.ti.com;PTR:ErrorRetry;CAT:NONE;SFS:(13230040)(376014)(7416014)(1800799024)(82310400026)(36860700016)(23010399003)(13003099007)(6133799003)(22082099003)(18002099003)(3023799007)(4143699003)(10067099003)(56012099006);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	hdc07bCej3F+GLdNrCoXpTZ9ZrymwVQmJNqkKpj/ZBn1Y0huGuFNJuq/eZlMjd/xXJAQpQ7JHm4yDhO4Pz/Ehg0gg6hb+6JtdixQjyAWNo0j4lw6i3Um+bdyFg0IN/Be8ho79hwpveg601WeLqlj3bbi1s1JpDALdFQu3vhWZk1GdIV13WE7CmS95wSJZLbq5eLxz+rCbRRv01thtkwbxCHGb1b3rCj1hFeapZxlxiogqbQPiVUBMoAis9pfxSPsESmcJgfz/IxxyJhsZ5MmfIzOzyEM/ICOt8FLPwr8Qw9fJloxr65wTeiSXysKDN5irnlF61EekJJchpN7CYJpBMQ8HYb1a8wJnx9TfGwv1XUwfkLAKG98MZM7JRVnXbQ2v+WfmG1Bp0cVUxiECLDLTw0fP6RSToBiM580Z+buIajTnImnW3Ed9Fm8L7uTYLSi
+X-Exchange-RoutingPolicyChecked:
+	TLM7rBNo93QtGIz2fzvtOfqr3dtYGfM3Kq4iQK63KwHH1M3Kc1hh3ND/SES+F7LSwGVssrbi7EUXNefZCvUBolZwoq1jylwKB1qkhADDq7eoDruGU9RrYeVTQnSZJGXzaAYxQC7Q8qjrE94wzQOtSP1+W35Ds5DUJ63pqzG6QGipFgpk9+XJ40mI9Jl/ktTQ2EXq8uoIB5ErrINPfB41vUNF3RPJeMrz7lo/N+K4qDGoE62pv7TxJ83Jl9N2RAmeXiXdcP1y4R228lZDayg/3IWJZ/l1TQwUVmwlnEioaUqh2X7vs9jmW1OkCcTlGxkz2lHu8CoITrc4GrUm8F6mow==
+X-OriginatorOrg: ti.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Oct 2026 16:37:36.9674
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 9a7f7679-2cd7-4a40-2f11-08df22fef6f8
+X-MS-Exchange-CrossTenant-Id: e5b49634-450b-4709-8abb-1e2b19b982b7
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=e5b49634-450b-4709-8abb-1e2b19b982b7;Ip=[198.47.21.195];Helo=[flwvzet201.ext.ti.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	SJ1PEPF0000231F.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR10MB5844
+X-Authority-Analysis: v=2.4 cv=KqjYSmWN c=1 sm=1 tr=0 ts=6ac3d259 cx=c_pps
+ a=J0RhwYao4za//xiv/28V8w==:117 a=tJyPKKxUohctrY4NYmUjkA==:17
+ a=6eWqkTHjU83fiwn7nKZWdM+Sl24=:19 a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10
+ a=AlMIdn_sM9wA:10 a=VkNPw1HP01LnGYTKEx00:22 a=Z8NIEmU8O1QQgoT56wFK:22
+ a=jwouBfj2j3NM8CExmVVE:22 a=P-IC7800AAAA:8 a=YmX860EEAAAA:8 a=LBxWy3usAAAA:8
+ a=gEfo2CItAAAA:8 a=sozttTNsAAAA:8 a=FfqjdZCJBnLWlJNvkFwA:9 a=QEXdDO2ut3YA:10
+ a=d3PnA9EDa4IxuAV0gXij:22 a=BeCehlkWaqzeQ17686bl:22 a=4jSGKt0uXjqk0CpsFuVH:22
+ a=sptkURWiP4Gy88Gu7hUp:22
+X-Proofpoint-ORIG-GUID: YK1XS7bHJ-RNZc15ikdo9UhLwB16IDOk
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDA1MDA2NSBTYWx0ZWRfX3rki2tckU/Vg
+ V49E8Fb4wBmXVJF8eIvg5pxrrC446oxnx3eFdue0zurSYqirwumwr9lEMm1YrnrxoYncuVPhB89
+ 61Q5sqpZGWVmxYYIt8BCyf7f13wYQmo=
+X-Proofpoint-GUID: YK1XS7bHJ-RNZc15ikdo9UhLwB16IDOk
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDA1MDA2NSBTYWx0ZWRfXxpaaKfijGrR3
+ bBGqh8PYcpaR7UT3oiduKc8aeRQT3Tqg7I3S5E26/SvRRaP/DSHhtgDW3Vd18ik7U6/LOUTKptR
+ 0qSFaoDw/yPFceu511b9NOe13srs0uZqhFtv8Tnrr6h8sNK48SdyCuwF7GN9H3yYo9+o4+hTvu3
+ cnH35e2+JqWTaYepOoTBKvtYXJkGGO+qaKMEBrr4WzbyLo25tIGG5Ukb6kF7MhuHStxVxb/mexE
+ Xmw0g3nvdEDTTzp8ZvQEgjJOfiJ3ZOuh9KkvCKVdYeYN/td+gkybqI5ExgIb0t3/Y3crMBsjQA2
+ zygqTcP1MiKsf4+b4Td1FsbZke2jPDFaeD/s2dEXJQFlrPzKTnpyA8RXPq88DvXzZi8voJfYWgC
+ cwmLNelMVeIyYVNMFRw0dL4RM8ldoWJuB1tJfihGHN8lNx/oeFPhxVQSqK8P9NTLdr0zFWv1rbJ
+ au/chsRbW15J5UyDZwg==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-05_04,2026-10-05_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ suspectscore=0 malwarescore=0 adultscore=0 clxscore=1011 bulkscore=0
+ priorityscore=1501 spamscore=0 phishscore=0 lowpriorityscore=0
+ impostorscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2609040000
+ definitions=main-2610050065
 
-On Mon, 14 Sep 2026, Rong Zhang wrote:
+Hi Krzysztof,
 
-> Some devices do not support LENOVO_CAPABILITY_DATA_01 and define the
-> query method as a stub that returns zero buffer. Unfortunately, some
-> devices do not implement the stub properly, causing WMI errors
-> (including ACPI errors).
-> 
-> The current lenovo-wmi-* implementation enforces the binding between
-> LENOVO_CAPABILITY_DATA_00+01 and LENOVO_OTHER_MODE because of a
-> limitation of the device component framework. When the capdata device
-> bailing out due to a WMI error, lenovo-wmi-other becomes unbound and
-> unable to provide firmware-attributes or hwmon device for the other
-> functional capdata device.
-> 
-> Therefore, WMI errors must be non-fatal in order not to break the
-> assumptions made by the device component famrework.
-> 
-> Poison the capdata device by releasing the capability data list in this
-> case. After that, NULL list will be passed to lenovo-wmi-other on bind.
-> The latter will provide whatever is available, or unbind the components
-> if nothing is available.
-> 
-> A poisoned capdata device releases or skips allocating most resources,
-> e.g., the capability data list and the debugfs directory. The device
-> itself is only used to satisfy the component dependency of lenovo-wmi-
-> other and coordinate with the latter about the absence of the capability
-> data.
+Thanks for the review.
 
-I'm not sure if using "poison" is really a good word here for this, it 
-sounds like you want to inactivate something.
-
-Normally poisoning in kernel means we easy to identify pattern values that 
-are supposed to crash the kernel if they're ever used.
-
--- 
- i.
-
-> Reported-by: Charles <hanker007@gmail.com>
-> Link: https://msgid.link/CAKtz0s8UYRQYW_0bh=0TMx47Axm-W-muEay-r3rqUBS1NHMPVw@mail.gmail.com/
-> Signed-off-by: Rong Zhang <i@rong.moe>
-> ---
->  drivers/platform/x86/lenovo/wmi-capdata.c | 71 +++++++++++++++++++++++++++++--
->  1 file changed, 67 insertions(+), 4 deletions(-)
+On 01/10/26 11:58, Krzysztof Kozlowski wrote:
+> On Sun, Sep 27, 2026 at 11:53:17PM +0530, Devarsh Thakkar wrote:
+>> Add device tree binding for the Solomon Systech SSD16xx family of e-Paper
+>> display controllers (SSD1683 [1], SSD1673 [3], SSD1680 [4], SSD1681 [5]).
+>>
 > 
-> diff --git a/drivers/platform/x86/lenovo/wmi-capdata.c b/drivers/platform/x86/lenovo/wmi-capdata.c
-> index 5e66e6b52720..d4d5e8c97ddb 100644
-> --- a/drivers/platform/x86/lenovo/wmi-capdata.c
-> +++ b/drivers/platform/x86/lenovo/wmi-capdata.c
-> @@ -29,6 +29,7 @@
->  #include <linux/acpi.h>
->  #include <linux/bug.h>
->  #include <linux/cleanup.h>
-> +#include <linux/compiler.h>
->  #include <linux/component.h>
->  #include <linux/container_of.h>
->  #include <linux/debugfs.h>
-> @@ -38,6 +39,7 @@
->  #include <linux/export.h>
->  #include <linux/gfp_types.h>
->  #include <linux/limits.h>
-> +#include <linux/lockdep.h>
->  #include <linux/module.h>
->  #include <linux/mutex.h>
->  #include <linux/mutex_types.h>
-> @@ -45,6 +47,7 @@
->  #include <linux/overflow.h>
->  #include <linux/seq_file.h>
->  #include <linux/stddef.h>
-> +#include <linux/string.h>
->  #include <linux/types.h>
->  #include <linux/wmi.h>
->  
-> @@ -447,7 +450,7 @@ static const struct component_ops lwmi_cd_sub_component_ops = {
->  /*
->   * lwmi_cd*_get_data - Get the data of the specified attribute
->   * @list: The lenovo-wmi-capdata pointer to its cd_list struct.
-> - * @attribute_id: The capdata attribute ID to be found.
-> + * @attribute_id: The capdata attribute ID (non-zero) to be found.
->   * @output: Pointer to a capdata* struct to return the data.
->   *
->   * Retrieves the capability data struct pointer for the given
-> @@ -460,7 +463,7 @@ static const struct component_ops lwmi_cd_sub_component_ops = {
->  	{											\
->  		u8 idx;										\
->  												\
-> -		if (WARN_ON(!list))								\
-> +		if (WARN_ON(!list || !attribute_id))						\
->  			return -EINVAL;								\
->  												\
->  		guard(mutex)(&list->list_mutex);						\
-> @@ -595,6 +598,66 @@ static void lwmi_cd_debugfs_remove(struct lwmi_cd_priv *priv)
->  
->  /* ======== WMI interface ======== */
->  
-> +/**
-> + * lwmi_cd_poison() - Poison the device by not providing any capability data
-> + * @priv: lenovo-wmi-capdata driver data.
-> + * @err: The occurred error.
-> + *
-> + * The Other Mode driver binds to both Capability Data 00 and 01. If either 00
-> + * or 01 fails to probe, the Other Mode device will fail to provide fw-attr or
-> + * hwmon device for the other functional capdata device.
-> + *
-> + * Therefore, WMI errors must be non-fatal in order not to break the assumptions
-> + * made by the device component famrework, so that the Other Mode device can
-> + * provide whatever is functional.
-> + *
-> + * After poisoning the device, NULL list will be passed to the Other Mode device
-> + * on bind.
-> + *
-> + * Return: 0 if the @err is suppressed, otherwise its propagated as is.
-> + */
-> +static int lwmi_cd_poison(struct lwmi_cd_priv *priv, int err)
-> +{
-> +	dev_warn(&priv->wdev->dev, "%s %s (%u items) due to error: %d\n",
-> +		 priv->initialized ? "clearing" : "poisoning", priv->info->name,
-> +		 priv->list ? priv->list->count : 0, err);
-> +
-> +	/* Simply print the warning message. */
-> +	if (!priv->list)
-> +		return priv->initialized ? err : 0;
-> +
-> +	/* Poison the device on initialization errors. */
-> +	if (!priv->initialized) {
-> +		devm_kfree(&priv->wdev->dev, priv->list);
-> +		priv->list = NULL;
-> +
-> +		return 0;
-> +	}
-> +
-> +	/*
-> +	 * Runtime errors are transient. Simply clear all cached data and
-> +	 * propagate the error.
-> +	 *
-> +	 * Since a valid attribute id is never 0 (the firmware also untilize the
-> +	 * fact to stub some capabilities according to platform metadata),
-> +	 * clearing the cached data effectively makes all attributes temporarily
-> +	 * unavailable until the next notifier call.
-> +	 */
-> +
-> +	lockdep_assert_held(&priv->list->list_mutex);
-> +
-> +	switch (priv->info->type) {
-> +	case LENOVO_CAPABILITY_DATA_01:
-> +		memset(priv->list->cd01, 0,
-> +		       flex_array_size(priv->list, cd01, priv->list->count));
-> +		break;
-> +	default:
-> +		unreachable();
-> +	}
-> +
-> +	return err;
-> +}
-> +
->  /**
->   * __lwmi_cd_cache() - Cache all WMI data block information locklessly
->   * @priv: lenovo-wmi-capdata driver data.
-> @@ -633,7 +696,7 @@ static int __lwmi_cd_cache(struct lwmi_cd_priv *priv)
->  		if (ret == -ENODATA) /* The block is too short, probably stubbed. */
->  			continue;
->  		if (ret)
-> -			return ret;
-> +			return lwmi_cd_poison(priv, ret);
->  
->  		/* Capdata 01 is an extension to capdata 00. */
->  		struct capdata00 *capdata __free(kfree) = wbuf.data;
-> @@ -693,7 +756,7 @@ static int lwmi_cd_fan_list_alloc_cache(struct lwmi_cd_priv *priv)
->  	if (ret == -ENODATA) /* The block is too short, probably stubbed. */
->  		return 0;
->  	if (ret)
-> -		return ret;
-> +		return lwmi_cd_poison(priv, ret); /* Print the warning message. */
->  
->  	struct cd_fan_block *block __free(kfree) = wbuf.data;
->  
+> A nit, subject: drop second/last, redundant "binding". The
+> "dt-bindings" prefix is already stating that these are bindings.
+> See also:
+> https://elixir.bootlin.com/linux/v7.1-rc7/source/Documentation/devicetree/bindings/submitting-patches.rst#L23
 > 
+
+Agreed.
+
+>> The binding covers the 4-wire SPI interface with required GPIO pins for
+>> reset (active-low), busy status (active-high), and data/command selection.
+>> The spi-max-frequency is capped at 20 MHz per the SSD1683 datasheet [1]
+>> which is also the maximum supported frequency amongst the family.
+>>
+>> An optional rotation property allows static display orientation to be
+>> configured from device tree.
+>>
+>> The data/command selection GPIO pin is also kept as optional since various
+>> SSD16XX controllers such as SSD1683 [1] support 3-wire mode too with
+>> data/command selection bit transmitted as first bit before sending the data
+>> sequence.
+>>
+>> The first supported compatible is for Gooddisplay GDEY042T81 which is 4.2",
+>> 400x300 resolution black/white e-paper display using SSD1683 controller.
+>>
+>> Links:
+>> [1] : https://www.crystalfontz.com/controllers/SolomonSystech/SSD1683
+>> [2] : https://files.seeedstudio.com/wiki/Other_Display/42-epaper/GDEY042T81.pdf
+>> [3] : https://www.crystalfontz.com/controllers/SolomonSystech/SSD1673
+>> [4] : https://www.crystalfontz.com/controllers/SolomonSystech/SSD1680
+>> [5] : https://www.crystalfontz.com/controllers/SolomonSystech/SSD1681
+>>
+>> Signed-off-by: Devarsh Thakkar <devarsht@ti.com>
+>> ---
+>> Changes from v1:
+>>    - Added fallback compatible for the controller
+>>    - Wrap lines to 80
+>>
+>>   .../bindings/display/solomon,ssd16xx.yaml     | 87 +++++++++++++++++++
+>>   1 file changed, 87 insertions(+)
+>>   create mode 100644 Documentation/devicetree/bindings/display/solomon,ssd16xx.yaml
+>>
+>> diff --git a/Documentation/devicetree/bindings/display/solomon,ssd16xx.yaml b/Documentation/devicetree/bindings/display/solomon,ssd16xx.yaml
+>> new file mode 100644
+>> index 000000000000..b31fb862de04
+>> --- /dev/null
+>> +++ b/Documentation/devicetree/bindings/display/solomon,ssd16xx.yaml
 > 
+> Filename must match compatible.
+> 
+
+Sure, will fix.
+
+>> @@ -0,0 +1,87 @@
+>> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+>> +%YAML 1.2
+>> +---
+>> +$id: http://devicetree.org/schemas/display/solomon,ssd16xx.yaml#
+>> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+>> +
+>> +title: Solomon Systech SSD16xx controller based e-paper display panels
+>> +
+>> +maintainers:
+>> +  - Devarsh Thakkar <devarsht@ti.com>
+>> +
+>> +description:
+>> +  The SSD16xx family includes e-paper display controllers (SSD1673,
+>> +  SSD1680, SSD1681, SSD1683, SSD1677) with integrated gate driver,
+>> +  source driver and timing controller. Different panels use these
+>> +  controllers in monochrome or 3-color (black/white/red) configurations.
+>> +  The controller uses a 4-wire SPI interface and requires GPIO pins for
+>> +  reset, busy status, and data/command control. A 3-wire mode is also
+>> +  available where the D/C bit is transmitted along the SPI data line
+>> +  before each byte.
+>> +
+>> +allOf:
+>> +  - $ref: /schemas/spi/spi-peripheral-props.yaml#
+>> +
+>> +properties:
+>> +  compatible:
+>> +    items:
+>> +      - enum:
+>> +          # Good Display 4.2" 400x300 monochrome e-ink panel
+>> +          - gooddisplay,gdey042t81
+>> +      - enum:
+> 
+> No, fallback cannot be enumeration.
+> 
+>> +          - solomon,ssd1683
+
+Agreed, will fix in this patch itself.
+
+>> +
+>> +  reg:
+>> +    maxItems: 1
+>> +
+>> +  spi-max-frequency:
+>> +    maximum: 20000000
+>> +
+>> +  reset-gpios:
+>> +    maxItems: 1
+>> +    description:
+>> +      GPIO connected to the RSTB (reset) pin. Active low.
+>> +
+>> +  busy-gpios:
+>> +    maxItems: 1
+>> +    description:
+>> +      GPIO connected to the BUSY pin. Active high when the controller
+>> +      is busy updating the display.
+>> +
+>> +  dc-gpios:
+>> +    maxItems: 1
+>> +    description:
+>> +      GPIO connected to the D/C (Data/Command) pin. Low for command,
+>> +      high for data.
+>> +
+>> +  rotation:
+>> +    $ref: /schemas/types.yaml#/definitions/uint32
+>> +    enum: [0, 90, 180, 270]
+>> +    description:
+>> +      Display rotation in degrees clockwise.
+>> +
+> 
+> Is this display controller or panel? If panel, then missing ref to
+> panel-common. If display controller, then description is misleading.
+> 
+
+Yes, I think it should be possible to ref panel-common, Thanks for pointing.
+
+Regards
+Devarsh
+
+> Best regards,
+> Krzysztof
+> 
+
