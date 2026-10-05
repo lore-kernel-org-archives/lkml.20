@@ -1,95 +1,68 @@
-Received: from mta1.migadu.com (out-73.mta1.migadu.com [95.215.58.73])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 08FBA41BA7F
-	for <linux-kernel@vger.kernel.org>; Mon,  5 Oct 2026 22:54:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.73
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ACE4334EF1F;
+	Mon,  5 Oct 2026 22:55:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791240890; cv=none; b=gQw3MQl5eJ8d2d/vlWiivPimHyoNY3fkA20Fw5TY8JCKSEB58snrCtaJzXwsmPtmdo/vRG09PxHI+Hr01Mn+h+uFncBuV2sTW8dAFdLaTo0KM6Y8VQDVgxjN2lIwX65LuLqeAOkVPI/cFVv+wVITQ2fbYY6iyw0LqZEuCaq3TA0=
+	t=1791240919; cv=none; b=RnG+0h5Zb6kMVdynZKat3RO1tojTi72zua1ZBWMFu9RvO6bXTMHpsTkJg5rXk//Dma2hpd6UnnUF6KuII190yem5Ke609nbs0LhIp69MLBVhJLJg0PbrIxHlTXPlcugF4nLf8CwGJQ36Ek1wd38zy8VDuDyz3lE0dDgRDk07NEE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791240890; c=relaxed/simple;
-	bh=x9dt0iOgJmfi9EX56kvB4OY6WAH94SdeT+VfzXw7UFQ=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=Pl+CTQ1TCd3vBTVvxt6edlY6tpfwK+9OFxfr19fLkWYZn62wFBjnznIOyWlLXpg1Lm16LQWLaP9gwJLQCUO3qz3kJW29yQ8mr1FtW1MSp9rkKQjTYOTonj0FchXNVw8l3qfTVzqo/KZSB70DCGvJThVlU/eohfRrluQZqQlqpQg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=fXC0n/eH; arc=none smtp.client-ip=95.215.58.73
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1791240919; c=relaxed/simple;
+	bh=x8GQ9TqAFu5driuvo38kqzYt3n324pebOlaNmEELI+s=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=kxvwn9pCe3vjGiKUM9jay/BEstA3T7cbLlg58/OGPwBvITB4xgEDGMmIpnGGueQ10Qwm3ZM8+aDxtnQlZ7+V+baLxXIJ48etJ2LMYxbG8IVQLeeTUVRoytWnNWuKt6rodlBlSy/4oSFL0+3k2dM7I8RGN2Yg5YANpOmcwPPuAuE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=eUYJHIhI; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="fXC0n/eH"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=x9dt0iOgJmfi9EX56kvB4OY6WAH94SdeT+VfzXw7UFQ=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1791240885; v=1; x=1791845685;
- b=fXC0n/eHV1UAKM+0l6728krlI+/DQxAYm9/qO9kcux1lh6Ou9bm5eq9F4I1k2R0+2Cw+Iq88
- B5rMh4DPImgW87XEm0lOEtCoUMScGHmhHYi8/PfU5ELuGHXfXLvlIis8W5W64wSaufLdt1HnNq6
- X7j5x74wkvEi3a/38IQuzw7Q=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 88bd8c56e4024cfc;
-	Mon, 05 Oct 2026 22:54:45 +0000
-X-Mizu-Trace-ID: 88bd8c56e4024cfc
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <b5f31057-e2e3-4c73-8edb-c8e70960a319@linux.dev>
-Date: Mon, 5 Oct 2026 15:54:39 -0700
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="eUYJHIhI"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B17BF1F000FF;
+	Mon,  5 Oct 2026 22:55:17 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791240918;
+	bh=PJRu7W6/Or1we5Gv3BgoLEtby0D0Y0UGgfjBHfRc5+k=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=eUYJHIhIwSokPrXr20EBCn6v44fDtOBYUiDwNJhP+Tcx1zHnZtR/Aftiv/KxxZexL
+	 uYdl6WrEtnOGXsZVvD3403K2l6srWyxkmtCHP66eR+aXTfYFbNjqZCT0oLBJNeOBPR
+	 AMgeHgCKwYxnraURK8ABOQ0iLqN9fTFamcwRzjKfbIadUFGDg9dRmF1Cvr4V9BWIOK
+	 gFS3Do/7FIcVvue98JHS+TSGFaA9P3doLMAHcjN5v20c2eAlWFC8QG2NweByUP75X3
+	 AB35LONdbw0NB2VYD4dtQ4W/znktqwLZVsvhowGdS61V0J4QrwVsyXMKg3w3Jv+ksa
+	 KtzBAcyAZjGpg==
+From: netdev-bot+sinfo@kernel.org
+To: Rosen Penev <rosenp@gmail.com>
+Cc: netdev@vger.kernel.org, Andrew Lunn <andrew@lunn.ch>,
+ Heiner Kallweit <hkallweit1@gmail.com>, Russell King <linux@armlinux.org.uk>,
+ "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>,
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+ Michael Stapelberg <michael@stapelberg.de>, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v3] net: phy: marvell: keep WOL_EIE across interrupt
+ reconfiguration
+Date: Mon, 05 Oct 2026 22:55:17 +0000
+Message-ID: <179124091720.2231598.15531231594364757004@kernel.org>
+In-Reply-To: <20261005225028.465866-1-rosenp@gmail.com>
+References: <20261005225028.465866-1-rosenp@gmail.com>
+Auto-Submitted: auto-generated
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH bpf-next 3/5] selftests/bpf: Use /tmp for temporary file
- in d_path
-To: Pu Lehui <pulehui@huaweicloud.com>,
- Alexei Starovoitov <alexei.starovoitov@gmail.com>,
- =?UTF-8?B?QmrDtnJuIFTDtnBlbA==?= <bjorn@kernel.org>, bpf@vger.kernel.org,
- linux-riscv@lists.infradead.org, linux-kernel@vger.kernel.org
-Cc: Daniel Borkmann <daniel@iogearbox.net>,
- Andrii Nakryiko <andrii@kernel.org>, Eduard Zingerman <eddyz87@gmail.com>,
- Kumar Kartikeya Dwivedi <memxor@gmail.com>,
- Martin KaFai Lau <martin.lau@linux.dev>, Song Liu <song@kernel.org>,
- Yonghong Song <yonghong.song@linux.dev>, Jiri Olsa <jolsa@kernel.org>,
- Emil Tsalapatis <emil@etsalapatis.com>, Puranjay Mohan
- <puranjay@kernel.org>, Paul Walmsley <pjw@kernel.org>,
- Palmer Dabbelt <palmer@dabbelt.com>, Alexandre Ghiti <alex@ghiti.fr>,
- Pu Lehui <pulehui@huawei.com>
-References: <20260929083924.1851840-1-pulehui@huaweicloud.com>
- <20260929083924.1851840-4-pulehui@huaweicloud.com>
- <DLRXY2AQRPYP.1YQ75SL3XHQHN@gmail.com>
- <52daee54-9127-445c-b924-64623ca2e125@huaweicloud.com>
-Content-Language: en-US
-From: Ihor Solodrai <ihor.solodrai@linux.dev>
-In-Reply-To: <52daee54-9127-445c-b924-64623ca2e125@huaweicloud.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
 
-On 9/29/26 11:24 PM, Pu Lehui wrote:
-> 
-> On 2026/9/30 0:29, Alexei Starovoitov wrote:
->> On Tue, Sep 29, 2026 at 08:39 AM Pu Lehui <pulehui@huaweicloud.com> wrote:
->>> The failure occurs because the rootfs created by libbpf/ci [0] does not
->>> mount /dev/shm, causing temporary file creation under /dev/shm to fail.
->>>
->>> Let's switch to using /tmp instead to fix this issue.
->>
->> This will break BPF CI.
->> The test was using /tmp up to v4 and was moved to /dev/shm in v5,
->> since /tmp is on 9p in BPF CI and 9p doesn't support fallocate. See
->> https://lore.kernel.org/all/20251206141210.3148-1-electronlsr@gmail.com/
->> vmtest's init mounts tmpfs at /dev/shm, /run and /mnt, but not at /tmp.
->> So fallocate() will return EOPNOTSUPP and d_path/check_mem_access
->> will fail on x86, arm64 and s390.
->>
->> Mount tmpfs at /dev/shm in mkrootfs_tweak.sh like you did for /tmp in [1]
->> and drop this patch.
->>
->> pw-bot: cr
-> 
-> Hi Alexei and Ihor,
-> 
-> I have been make a pr for mount tmpfs at /dev/shm, pls take a look.
-> 
-> https://github.com/libbpf/ci/pull/239
+Hi!
 
+This is an automated message. This series looks like a fix, but its
+commit messages seem to be missing some information:
 
-Merged, thanks.
+ - How the issue was discovered, e.g. hit in production, hit during
+   development, syzbot report, manual code inspection, LLM or static
+   analysis tool scan.
+
+Please do not repost the series just to address the above. Instead,
+reply to this email with the missing information, so that reviewers
+can take it into account. If the series needs another revision for
+other reasons, please include the information in the commit messages
+then.
+
+The evaluation is done by an LLM so it may be wrong, if you think
+that is the case please reply and explain.
