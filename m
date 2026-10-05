@@ -1,62 +1,64 @@
-Received: from mail-dy2-f42.google.com (mail-dy2-f42.google.com [74.125.229.42])
+Received: from mail-dy1-f174.google.com (mail-dy1-f174.google.com [74.125.82.174])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C633331715F
-	for <linux-kernel@vger.kernel.org>; Mon,  5 Oct 2026 04:38:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.42
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0066230EF6C
+	for <linux-kernel@vger.kernel.org>; Mon,  5 Oct 2026 04:38:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.174
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791175114; cv=none; b=EHuBg/KDj/Wpv8nswXt/GBA3dnNmNpr++2DpWL/ryJs+UGT7IlH+HVOB1JjowZsF0rx+d3ub0h7BLh2sA0CiJt9K3ChBC2EbnqITre24v8/457d6oe1CP63dSMGfQ4tGyldl/RSzu6ZmnkNt7Mky3aHqroatb4wPf3S0sXEOYzs=
+	t=1791175116; cv=none; b=NZPf8t6RzkFDMLa4m2PrxjoW2kMSGzRVggsmSASQ3DnYx/+r62Q5TbTE/hVnXUil3WsvtP2EnmNwUUTphw0EypGafCYkIg8Ybg9G9F9VNQ7kXcHK3Plld/kFAScvjWarqVapcXpSjyd9JT2FACs+24D/yKz0X9ycqnfZMR6IVPY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791175114; c=relaxed/simple;
-	bh=DVe/Uf9lRLG7TXnSdmrHU+KiaSzva7YYvHSdv24lx/w=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Q5/bKsKK944zHUz3dvrvD3ngcPQXglrnbCgBvjxjF5/FE1vZiapRv8wd1g7OinObd2n+PrAnUsAhYmjCjeV/x14ZuxJ43FKc1ULaA6tIOcb7/Y0MWLZ69DcU38pkYLcEgTB0dyR1ARyKLppyB0LN3PGw2EjEdOe8v0jeQabIHsU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=M8XM6jNx; arc=none smtp.client-ip=74.125.229.42
+	s=arc-20240116; t=1791175116; c=relaxed/simple;
+	bh=WL8BkZfBmynsOQljiOg3YEkZaeHg1x9r1zprVn1fyHk=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=aHsShLcuSsscwNLhSrOcWKYW3se7oP6G+j3Zo4NI/Cofc14IYUMhT7PRECxtXx4Eg3k5sFYhI5CoygQbNS/3OqFyORX98TvdulakCJqXSwRW0ZoUJoDsQeHdJtNi4jh9NqnI8mpRCIkwoC/tZ8brxk30KmEypaMVsHdam2QnyAY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=EqdtzLZN; arc=none smtp.client-ip=74.125.82.174
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="M8XM6jNx"
-Received: by mail-dy2-f42.google.com with SMTP id 5a478bee46e88-35122ae71e9so458713eec.1
-        for <linux-kernel@vger.kernel.org>; Sun, 04 Oct 2026 21:38:29 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="EqdtzLZN"
+Received: by mail-dy1-f174.google.com with SMTP id 5a478bee46e88-35120d43ecaso1724465eec.1
+        for <linux-kernel@vger.kernel.org>; Sun, 04 Oct 2026 21:38:33 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791175109; x=1791779909; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=C4UZFNv6HMjAlmXNHL/VJdByu8s7YE2QayAHEqne0TE=;
-        b=M8XM6jNxmaSIfQzNsTHYKBlQ0p185Zit7Fdgb5h90oCVX59gvHFn2gt7jIq1YMuzN/
-         KQAdu1dxblylVMmCb3NTrGGcTvz8plkFR+7A+mi7PnxsKFw718fUz+/pFrnAAy/RJDBr
-         PlvnYr7/sj9fSO9NrqS4rgsJNhzNTz+cgbn6tirDbxTDr9Sh24fhHL1ZciKVzW3WZpsX
-         ZbaUS/osG8iDZ6z2Mnb/lGYDRp0TSczg/t7J0dhfiOQpTQpaacT7AjjLWZl/E302Czs/
-         tOdhb6vayKO2/JwKn4FiHhdAl4IXb+cM+EP6T0+W5iZkKoYf4cM9URA4tzg76V7mqVjv
-         mj/A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791175109; x=1791779909;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20251104; t=1791175113; x=1791779913; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=C4UZFNv6HMjAlmXNHL/VJdByu8s7YE2QayAHEqne0TE=;
-        b=SEcp/Bw7j6YrTtlY9dJ2W6pqAcY4qPkBjBvlkA5/K0W5aixAZ5TWgwW5jiQ17LeA3X
-         BN74d5PCPniNNen03e7LcdrX/lFQY5vipPQuZyKHL7o4vfIxFtviwnfGI7g0Iu9tvNcb
-         gDeUEW/HlFYr3tXOKONAj00CNKYxvhqq2GCsU5D/j3Ld90+3oDSOx6IBTztvvJX6+CjD
-         K/XUCayJvPJHc67MscHOSAxulXXwNqS5/uLEkOaQj6aVb5d3VuCffxRjnKXUOf8JEO0x
-         VhBCQGidTLhazt9cVBeglRQqg5WB0r0LrUMlC4geEiLmOjKPtIo1gfTkpY2jjPK7FCqj
-         wO3A==
-X-Forwarded-Encrypted: i=1; AKwUvByOB5PRuCgbyRAX3SR/mhyI1XTpwo1CxQ6c41xKD1YQdtwVDOudu2WJZ1ltLytDvqfPVPxIkvuwKX9/m1k=@vger.kernel.org
-X-Gm-Message-State: AFq9FYL6XzIPVeA65roY4zQzoJPJgWfVCyHewXFTxCM4BaFXHZtrHHpO
-	dkGJy7AKPJX9pSUKnH4swS0b4xySdcE57Vv6ChGgB5mdm8eI1iVZuVBL
-X-Gm-Gg: AYBFou19+tOHh2Pu0YRk4PaKDxppCQqMWQsSY0iPwXKWggtHMOVGIbTUKq/JoF1/nju
-	Pvyr9MBDzkfpJK1HJ8IiyfBAR5930fv7qgshmQ0F60osHRxvdAq0fCdWxUdwo/thhoAwJbNDm3a
-	Fr9itDME55GiKtUiGUi5p6OwO9RCOh9ovpRVNSlokLlWJZ8HqImlc4hHJR6Hp1HQhBMsgqAKLdw
-	rAOGcgpQk2zCa45eSUgCrgR3IGEeWcYL0yWWLJ7S5fALca6pDMkhoBcei/o/7uXbtm5QV9cSqq+
-	2ix9ijRIO5G9ZlhEW1HzKb9k/j5DbJihwrCEmc9B02zNBytG0+qDpZPjEN3xX+nhoMwipY0rNwf
-	cdoTn57RNw+HhxcU9LLvn1Jt/sfKVC4bgP62nh6YxDH6vN7Ip6bi7i9Bk692JCOyuFMit9Wwg2E
-	fc7ow1JV6FhD+ijliLQCDcnJPrIEXinhVo5yqPYpc+0brW0RdiEEsh7oggcF/nhEvDOrjyqpime
-	J7YHHo=
-X-Received: by 2002:a05:7300:e5c2:b0:341:ec1b:5632 with SMTP id 5a478bee46e88-34f2199a7c6mr13011722eec.34.1791175108894;
-        Sun, 04 Oct 2026 21:38:28 -0700 (PDT)
+        bh=IQ+LmaGpGiijcsTJ1qk0sHsM2h6jT0RkKgmxLE6xfsI=;
+        b=EqdtzLZNWWNB/Kz2IcwjtKAiCxceRXYTFRlUuO03JLAmdMl29y7t4NJT6M3EMJeiGq
+         jrrch8dQzE4wdvwKHJyoiilxGUjyfKdJyf6hvLW2akhFrcinxaJw5ChxBXVg7k8TZNMA
+         hDWFdAzylSGKe38p5S65J3GyEWtGt+1svx5f1a77Am4jrQ0AW5QqNdDz6elC9n1FDbrI
+         vL8HHx2uAnAqJYYqExQeKjD+mlD2vwshjifS/lUSCreYxKkD1YHK5++snrRzCQk7LJ9q
+         +7Itk8+ERiiPN5lRubVwM0F//Vd5NwSrAYRc0mxjJC7WBpDlHFWbjLGVUmhVsulSBYpo
+         +YyA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791175113; x=1791779913;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=IQ+LmaGpGiijcsTJ1qk0sHsM2h6jT0RkKgmxLE6xfsI=;
+        b=lN33tIKR61cu/9N9ZmYe4uI/50KZVa0slwdw0eQ/l1XDpUGD5idy6WmJB8OhbtQQcF
+         lE/TKQ0dxiu/ds4XB6FYyz+orni1KsDl/RTk4pQ2cD5r29kjft1merUCi3PDCeGur+PY
+         zpI/5XtwEvwOBXT/4A4MKp1Y0qyJXwiUT5BPYlqR5T5Ix2rK6YqnDR12rCyKopUWS7J8
+         WpyKMkQq2mqIAzFDANojOs/eHSlBUHPRKvoobdgv117zxJAuoD3k+UQiXUjJmco9DEaj
+         v1thFDNLlgdR5BjGAfW751IXQVPepaoljyg+MmkUXCt6swl6FV5cUW8SgiJZmTMScqqC
+         MuxA==
+X-Forwarded-Encrypted: i=1; AKwUvBz8ZwcYhDIXHXhSGJn4Ym+IpSrDrAuEw7TtnpJXdMsIvZuVBbA9wREeCctkHc/IiIXvn6AwJn9WIkHDp4Q=@vger.kernel.org
+X-Gm-Message-State: AFq9FYK3KVSZUj888Y2+rhVK1/5p3DiYaTwbx1ngr8+TkO2qJLJ24EiB
+	jtln1E38/4y9IVJB8Z95nnnq3SjdGHvRpLSMjjod5m/G21/cQ8l6lGTp
+X-Gm-Gg: AYBFou0FxDnlyN0ANAKMHP9ty27xcK2tuQpA6MaNJtw55zis0d4yl91A3SyKD5Z0e6u
+	Kzb60wh5uouQmPRhvajVYIzRbTBQcdddHQuXUR6vcIRDSYJb70vnL9fntQMCqyMMacQzE4ZKMqL
+	e5tjlcAFaUcGZX82as1iL73KDN8rQf0nEfES8u2kriwln+yNAss3jX3idqUA+8kz4Ms8xz8xw+L
+	+NigfKo0W3Lp5327UqXAJkLTrMWiC6kyJMiKilTktwlyFJYxEeL/Tjjkbzo6ecIRpu8JCHmDZ4z
+	oWDxwBxtVzNfFRdHv8ztMyG7+qlcX24ZQYsfbuxT+sMlAABj4hR0L08+upP8dbsvebvR3vVZ7zh
+	cNsEdJOYheA6W7O5k/nP14nwu0SkiVLpuaam8r75FN7WJwlNgm5Cp+jWxiLqYx7yxxsr9mj6W1b
+	oSqB4TV3Fb6Zl8BUpDaifELtEiOvFdbh/mmu7cqSOiGt4o1WFKIwG5PHzX1JmIuqxPq96yxXAMh
+	hyKQrpT9lbAQkpOF40=
+X-Received: by 2002:a05:7301:182e:b0:345:84eb:7153 with SMTP id 5a478bee46e88-351113bfd63mr8233346eec.11.1791175112963;
+        Sun, 04 Oct 2026 21:38:32 -0700 (PDT)
 Received: from vscode-11-19.w453y.xyz ([59.164.88.43])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-35127136b8esm9518581eec.6.2026.10.04.21.38.25
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-35127136b8esm9518581eec.6.2026.10.04.21.38.29
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 04 Oct 2026 21:38:28 -0700 (PDT)
+        Sun, 04 Oct 2026 21:38:32 -0700 (PDT)
 From: Abdul Wasey <w453y.me@gmail.com>
 To: netdev@vger.kernel.org
 Cc: razor@blackwall.org,
@@ -69,10 +71,12 @@ Cc: razor@blackwall.org,
 	horatiu.vultur@microchip.com,
 	bridge@lists.linux.dev,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH net-next v2 0/3] net: bridge: cfm: notify userspace on CFM config changes
-Date: Mon,  5 Oct 2026 04:38:19 +0000
-Message-ID: <20261005043822.3106580-1-w453y.me@gmail.com>
+Subject: [PATCH net-next v2 1/3] net: bridge: cfm: count CFM config attributes in the link message size
+Date: Mon,  5 Oct 2026 04:38:20 +0000
+Message-ID: <20261005043822.3106580-2-w453y.me@gmail.com>
 X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20261005043822.3106580-1-w453y.me@gmail.com>
+References: <20261005043822.3106580-1-w453y.me@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -81,41 +85,92 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-CFM status changes are sent to userspace, config changes are not, so
-the only way to see a MEP being created, a peer added or CCM
-transmission started is to poll RTM_GETLINK. Patch 3 adds the
-notification. Patches 1 and 2 fix the two problems the AI review found
-in v1.
+br_get_link_af_size_filtered() only counts the CFM attributes when
+RTEXT_FILTER_CFM_STATUS is set. With RTEXT_FILTER_CFM_CONFIG alone it
+returns before counting anything, while br_fill_ifinfo() still writes
+the whole config, about 250 bytes per MEP and 20 per peer MEP.
 
-Patch 1 makes br_get_link_af_size_filtered() count the CFM config
-attributes. Without it the notification overflows its skb once a MEP
-has about 32 peers, and br_info_notify() hits its WARN_ON. Patch 2 puts
-an empty IFLA_BRIDGE_CFM nest in the message when the bridge has no
-MEPs, so deleting the last MEP is visible to a listener.
+Dumps cope with that, they just get a bigger buffer. A message built by
+br_info_notify() can't, it fails with -EMSGSIZE and hits the WARN_ON
+there. No notification asks for the CFM config today, but the next
+patch adds one.
 
-Tested with virtme-ng on net-next: 300 peer MEPs and config changes
-give one notification each (6248 byte CFM payload) and no warning;
-deleting the last MEP gives a notification with an empty
-IFLA_BRIDGE_CFM; a request that fails before changing anything sends
-nothing, one that fails half way still sends one. Also built with
-CONFIG_BRIDGE_CFM off.
+Count the config attributes when RTEXT_FILTER_CFM_CONFIG is set.
 
-v2:
-- new patch 1, count the config attributes in the message size
-- new patch 2, empty CFM nest for a bridge with no MEPs
-- patch 3: unchanged, rebased on current net-next
+Signed-off-by: Abdul Wasey <w453y.me@gmail.com>
+---
+ net/bridge/br_netlink.c | 42 +++++++++++++++++++++++++++++++++++++++--
+ 1 file changed, 40 insertions(+), 2 deletions(-)
 
-v1: https://lore.kernel.org/netdev/20261004041320.2684045-1-w453y.me@gmail.com/
-
-Abdul Wasey (3):
-  net: bridge: cfm: count CFM config attributes in the link message size
-  net: bridge: cfm: send an empty CFM nest when a bridge has no MEPs
-  net: bridge: cfm: notify userspace on CFM config changes
-
- net/bridge/br_cfm_netlink.c | 32 ++++++++++++++++++-------
- net/bridge/br_netlink.c     | 47 ++++++++++++++++++++++++++++++++++---
- 2 files changed, 67 insertions(+), 12 deletions(-)
-
+diff --git a/net/bridge/br_netlink.c b/net/bridge/br_netlink.c
+index f65b8b6ca..5160e801d 100644
+--- a/net/bridge/br_netlink.c
++++ b/net/bridge/br_netlink.c
+@@ -90,6 +90,36 @@ static int br_get_num_vlan_infos(struct net_bridge_vlan_group *vg,
+ 	return num_vlans;
+ }
+ 
++static size_t br_cfm_config_info_size(u32 num_meps, u32 num_peer_meps)
++{
++	size_t mep_sz, peer_sz;
++
++	/* IFLA_BRIDGE_CFM_MEP_CREATE_INFO: instance, domain, direction,
++	 * ifindex
++	 */
++	mep_sz = nla_total_size(4 * nla_total_size(sizeof(u32)));
++	/* IFLA_BRIDGE_CFM_MEP_CONFIG_INFO: instance, unicast mac, mdlevel,
++	 * mepid
++	 */
++	mep_sz += nla_total_size(3 * nla_total_size(sizeof(u32)) +
++				 nla_total_size(ETH_ALEN));
++	/* IFLA_BRIDGE_CFM_CC_CONFIG_INFO: instance, enable, interval, maid */
++	mep_sz += nla_total_size(3 * nla_total_size(sizeof(u32)) +
++				 nla_total_size(CFM_MAID_LENGTH));
++	/* IFLA_BRIDGE_CFM_CC_RDI_INFO: instance, rdi */
++	mep_sz += nla_total_size(2 * nla_total_size(sizeof(u32)));
++	/* IFLA_BRIDGE_CFM_CC_CCM_TX_INFO: instance, dmac, seq no update,
++	 * period, if tlv, if tlv value, port tlv, port tlv value
++	 */
++	mep_sz += nla_total_size(5 * nla_total_size(sizeof(u32)) +
++				 nla_total_size(ETH_ALEN) +
++				 2 * nla_total_size(sizeof(u8)));
++	/* IFLA_BRIDGE_CFM_CC_PEER_MEP_INFO: instance, peer mepid */
++	peer_sz = nla_total_size(2 * nla_total_size(sizeof(u32)));
++
++	return num_meps * mep_sz + num_peer_meps * peer_sz;
++}
++
+ static size_t br_get_link_af_size_filtered(const struct net_device *dev,
+ 					   u32 filter_mask)
+ {
+@@ -122,17 +152,25 @@ static size_t br_get_link_af_size_filtered(const struct net_device *dev,
+ 	if (p && vg && (filter_mask & RTEXT_FILTER_MST))
+ 		vinfo_sz += br_mst_info_size(vg);
+ 
+-	if (!(filter_mask & RTEXT_FILTER_CFM_STATUS))
++	if (!(filter_mask & (RTEXT_FILTER_CFM_CONFIG | RTEXT_FILTER_CFM_STATUS)))
+ 		return vinfo_sz;
+ 
+ 	if (!br)
+ 		return vinfo_sz;
+ 
+-	/* CFM status info must be added */
+ 	br_cfm_mep_count(br, &num_cfm_mep_infos);
+ 	br_cfm_peer_mep_count(br, &num_cfm_peer_mep_infos);
+ 
+ 	vinfo_sz += nla_total_size(0);	/* IFLA_BRIDGE_CFM */
++
++	if (filter_mask & RTEXT_FILTER_CFM_CONFIG)
++		vinfo_sz += br_cfm_config_info_size(num_cfm_mep_infos,
++						    num_cfm_peer_mep_infos);
++
++	if (!(filter_mask & RTEXT_FILTER_CFM_STATUS))
++		return vinfo_sz;
++
++	/* CFM status info must be added */
+ 	/* For each status struct the MEP instance (u32) is added */
+ 	/* MEP instance (u32) + br_cfm_mep_status */
+ 	vinfo_sz += num_cfm_mep_infos *
 -- 
 2.53.0
 
