@@ -1,137 +1,132 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mail.mainlining.org (mail.mainlining.org [5.75.144.95])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 153DA4921B4;
-	Mon,  5 Oct 2026 13:58:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 57742494805;
+	Mon,  5 Oct 2026 14:00:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=5.75.144.95
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791208727; cv=none; b=UpokLmIyOsHX55Qe8G9yBFsnWu3yghipYwfnb0HqMm3yq0/CDgS7x6V6DbdKKOtyv1cRPZMdEx/pxmLftqx1q4+mg6JyI4NUaAeTkiojocMqemTdSJn2+dXm+28rtLNocaVfqOheHBJ43DPzLPUO4dIzj73+jKeHr3Zzg231JVs=
+	t=1791208828; cv=none; b=Fq59kSst0yL2hGcavFgC8DFuEuzp4d40yYhJksR9PyIdbnYtlZhXQyYR5AUpaOklDH9dpIP9MKQoGbHdqs5Qwbad5kihU5mXFEyq/nQtrwasVgvpAFWURKIfe3gWwdDPbYO/L6/KTpcmbomwaJccRwJb6/9rgKHqM6U4IxJnksM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791208727; c=relaxed/simple;
-	bh=mvvRQkunNlMJ1zfHdjZmp7OWJJ/efZMOdpUneWqAgBM=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=EgRfu5OKqt8VCSIMeyuXin+Ghtc0f8HZUhzhBLUFpCpCN1fwHnL0bJzG3dP8ekHDTBau8WsYgKDDG60yRBCXxJaC5N7lcAJp/r2MVajzSm9zdE/AGngiorW2Gub2Rco8hP+gQNIP2meQnhAt4+QzlGYFZKTaXrBDvaXnxJRS/Ig=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=lxcb1had; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="lxcb1had"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F2FE91F000FF;
-	Mon,  5 Oct 2026 13:58:44 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791208725;
-	bh=hB96Gs8hLMTWWdb83gK/pYz1+UsEAi8km31i/cat4RQ=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=lxcb1hadOyNcndGwI00W4Z2i9T1Fj36nxN1D2FABJulC5gVeSYv5Q9e2v7Du8iSo8
-	 l9EdafQXzGFQb+2bUrP9KVZaLoOCsN3EgLkxVj1c87x5MSVAPl57SMTUU2P4+p3VHu
-	 dW7zwbSIFQGEybrPwwAxc4rTFnnJed0v+0TOEGX/5ZFrzX6u/FnQw01BhKBweU9dvK
-	 +D3bIIVYRcoPMn/kerQrg3ohui+YMleOC/fVXOCg5cZZ9yK+kQCyC0For2J9Km7QWi
-	 49zRK2Pc3DelHioJT8W1saw4BDmTjJXwguBFIRXNl58T9Pk7EUgTrIfmKsWsFVXd3n
-	 rzZ6qquDq2Z5g==
-Date: Mon, 5 Oct 2026 15:58:42 +0200
-From: Vinod Koul <vkoul@kernel.org>
-To: Hemanth Selam <hemanth.selam@gmail.com>
-Cc: Frank Li <Frank.Li@kernel.org>,
-	Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
-	Michal Simek <michal.simek@amd.com>, dmaengine@vger.kernel.org,
-	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org
-Subject: Re: [PATCH] dmaengine: fix typos in comments
-Message-ID: <asOtEhjOMXc9SVNP@parshuram>
-References: <20260907063343.22255-1-hemanth.selam@gmail.com>
+	s=arc-20240116; t=1791208828; c=relaxed/simple;
+	bh=ZX5xUToHuWaNOd+bCaQzYXpRy+E8h/GxkuOaBVGHj2A=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=uzp3QYWlQ+RQTv1PfIEDNvVXtUo6z7q6zfPuxCwM5re+hkCyCA5zx5GKUETs3mQPs7L9J0w9prxDk0CQrscUR/XxwRZ5LRlb453tMtDTUDYTcW++hHm0iHPlgVgGIAkXZlmf77PD8UpBhix7z3Yk2YmxjscXQvPxU/SoEzQzQmI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org; spf=pass smtp.helo=mail.mainlining.org; arc=none smtp.client-ip=5.75.144.95
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.helo=mail.mainlining.org
+Message-ID: <e590764c-1ef7-4166-9c2d-a96a89029736@mainlining.org>
+Date: Mon, 5 Oct 2026 17:00:05 +0300
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260907063343.22255-1-hemanth.selam@gmail.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 00/19] Add Initial Support For MSM8952, Add General
+ Mobile Shamrock
+To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Cc: Bjorn Andersson <andersson@kernel.org>, Abel Vesa <abelvesa@kernel.org>,
+ Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>,
+ Jerome Brunet <jbrunet+clk@baylibre.com>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Srinivas Kandagatla <srini@kernel.org>,
+ Ulf Hansson <ulfh@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>,
+ "Joerg Roedel (AMD)" <joro@8bytes.org>, Will Deacon <will@kernel.org>,
+ Robin Murphy <robin.murphy@arm.com>, Lee Jones <lee@kernel.org>,
+ Rob Clark <robin.clark@oss.qualcomm.com>, Dmitry Baryshkov
+ <lumag@kernel.org>, Abhinav Kumar <abhinav.kumar@linux.dev>,
+ Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Robert Marko <robimarko@gmail.com>, Guru Das Srinagesh <linux@gurudas.dev>,
+ Amit Kucheria <amitk@kernel.org>, Thara Gopinath <thara.gopinath@gmail.com>,
+ "Rafael J. Wysocki" <rafael@kernel.org>,
+ Daniel Lezcano <daniel.lezcano@kernel.org>, Zhang Rui <rui.zhang@intel.com>,
+ Lukasz Luba <lukasz.luba@arm.com>, Kees Cook <kees@kernel.org>,
+ Tony Luck <tony.luck@intel.com>, "Guilherme G. Piccoli"
+ <gpiccoli@igalia.com>, Dmitry Torokhov <dmitry.torokhov@gmail.com>,
+ David Heidelberg <david@ixit.cz>, phone-devel@vger.kernel.org,
+ linux-arm-msm@vger.kernel.org, linux-clk@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-mmc@vger.kernel.org, iommu@lists.linux.dev, mfd@lists.linux.dev,
+ dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
+ Krzysztof Kozlowski <krzk@kernel.org>, linux-pm@vger.kernel.org,
+ linux-input@vger.kernel.org,
+ Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
+ Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+ Abel Vesa <abel.vesa@oss.qualcomm.com>
+References: <20260921-msm8952-initial-support-v3-0-b96fd3fe298b@mainlining.org>
+ <179098834078.3641559.798772743228949994.b4-ty@b4>
+From: Muzaffer Kadir <muzafferkadir@mainlining.org>
+Content-Language: en-US
+In-Reply-To: <179098834078.3641559.798772743228949994.b4-ty@b4>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On 07-09-26, 12:03, Hemanth Selam wrote:
-> Fix typos in comments, reported by scripts/checkpatch.pl using the
-> misspelling list in scripts/spelling.txt.  Only touches comments, no code
-> changes.
+On Sat,  3 Oct 2026 03:46:52 +0300, Dmitry Baryshkov wrote:
+> On Mon, 21 Sep 2026 21:18:51 +0300, Muzaffer Kadir wrote:
+>> MSM8952 is a SoC with 8 core cpu and Adreno 405 gpu.
+>>
+>> Ported without uart connection. ramoops and usb
+>> mainly used to debug.
+>> USB is not enabled in this series because it
+>> depends on the not yet upstreamed (and not developed by me)
+>> pmi8950_smbcharger.
+>>
+>> [...]
 > 
-> Assisted-by: Cursor:claude-opus-5
-> Signed-off-by: Hemanth Selam <hemanth.selam@gmail.com>
-> ---
->  drivers/dma/bcm-sba-raid.c        | 8 ++++----
->  drivers/dma/ppc4xx/xor.h          | 2 +-
->  drivers/dma/xilinx/xilinx_dpdma.c | 2 +-
->  3 files changed, 6 insertions(+), 6 deletions(-)
+> Applied to ttt, thanks!
 > 
-> diff --git a/drivers/dma/bcm-sba-raid.c b/drivers/dma/bcm-sba-raid.c
-> index 0de03611252e..485fcde390dd 100644
-> --- a/drivers/dma/bcm-sba-raid.c
-> +++ b/drivers/dma/bcm-sba-raid.c
-> @@ -734,7 +734,7 @@ sba_prep_dma_memcpy(struct dma_chan *dchan, dma_addr_t dst, dma_addr_t src,
->  	struct sba_device *sba = to_sba_device(dchan);
->  	struct sba_request *first = NULL, *req;
->  
-> -	/* Create chained requests where each request is upto hw_buf_size */
-> +	/* Create chained requests where each request is up to hw_buf_size */
+> [01/19] dt-bindings: clock: qcom: Add MSM8952 global clock controller
+>         (no commit info)
+> [02/19] clk: qcom: Add global clock controller driver for MSM8952
+>         (no commit info)
+> [03/19] dt-bindings: nvmem: Add compatible for MSM8952
+>         (no commit info)
+> [04/19] dt-bindings: power: rpmpd: Add MSM8952 power domains
+>         (no commit info)
+> [05/19] dt-bindings: mmc: sdhci-msm: Add MSM8952 compatible
+>         (no commit info)
+> [06/19] dt-bindings: vendor-prefixes: Add General Mobile
+>         (no commit info)
+> [07/19] dt-bindings: arm: qcom: Document MSM8952 SoC binding
+>         (no commit info)
+> [08/19] dt-bindings: iommu: qcom,iommu: Add MSM8952 IOMMU to SMMUv2 compatibles
+>         (no commit info)
+> [09/19] dt-bindings: mfd: qcom,tcsr: Add compatible for MSM8952
+>         (no commit info)
+> [10/19] dt-bindings: display/msm: qcom, mdp5: Add MSM8952 compatible
+>         https://gitlab.freedesktop.org/lumag/msm/-/commit/df6ce9e6447e
+> [11/19] dt-bindings: firmware: qcom,scm: Document MSM8952 SCM
+>         (no commit info)
+> [12/19] dt-bindings: clock: qcom,rpmcc: Add MSM8952 compatible
+>         (no commit info)
+> [13/19] drm: msm: mdp5: Add MDP5 configuration for MSM8952
+>         https://gitlab.freedesktop.org/lumag/msm/-/commit/7af226f9aa59
+> [14/19] soc: qcom: ubwc: Add UBWC config for MSM8952
+>         (no commit info)
+> [15/19] dt-bindings: thermal: tsens: Add MSM8952
+>         (no commit info)
+> [16/19] thermal: qcom: tsens: Add support for MSM8952 tsens
+>         (no commit info)
+> [17/19] arm64: dts: qcom: Add initial support for MSM8952
+>         (no commit info)
+> [18/19] dt-bindings: input: touchscreen: goodix: Add binding for GT970
+>         (no commit info)
+> [19/19] arm64: dts: qcom: generalmobile-shamrock: new device
+>         (no commit info)
 
-This is bogus, pls drop these... If there are real typos pls fix those
-instead! This is not a language book, it is code, upto should be just
-fine!
+Hi Dmitry,
 
->  	while (len) {
->  		req_len = (len < sba->hw_buf_size) ? len : sba->hw_buf_size;
->  
-> @@ -877,7 +877,7 @@ sba_prep_dma_xor(struct dma_chan *dchan, dma_addr_t dst, dma_addr_t *src,
->  	if (unlikely(src_cnt > sba->max_xor_srcs))
->  		return NULL;
->  
-> -	/* Create chained requests where each request is upto hw_buf_size */
-> +	/* Create chained requests where each request is up to hw_buf_size */
->  	while (len) {
->  		req_len = (len < sba->hw_buf_size) ? len : sba->hw_buf_size;
->  
-> @@ -1356,7 +1356,7 @@ sba_prep_dma_pq(struct dma_chan *dchan, dma_addr_t *dst, dma_addr_t *src,
->  	if (!(flags & DMA_PREP_PQ_DISABLE_Q))
->  		dst_q = &dst[1];
->  
-> -	/* Create chained requests where each request is upto hw_buf_size */
-> +	/* Create chained requests where each request is up to hw_buf_size */
->  	while (len) {
->  		req_len = (len < sba->hw_buf_size) ? len : sba->hw_buf_size;
->  
-> @@ -1626,7 +1626,7 @@ static int sba_probe(struct platform_device *pdev)
->  	sba->dev = &pdev->dev;
->  	platform_set_drvdata(pdev, sba);
->  
-> -	/* Number of mailbox channels should be atleast 1 */
-> +	/* Number of mailbox channels should be at least 1 */
->  	ret = of_count_phandle_with_args(pdev->dev.of_node,
->  					 "mboxes", "#mbox-cells");
->  	if (ret <= 0)
-> diff --git a/drivers/dma/ppc4xx/xor.h b/drivers/dma/ppc4xx/xor.h
-> index da1230df2817..0931e18cd0d3 100644
-> --- a/drivers/dma/ppc4xx/xor.h
-> +++ b/drivers/dma/ppc4xx/xor.h
-> @@ -12,7 +12,7 @@
->  
->  #include <linux/types.h>
->  
-> -/* Number of XOR engines available on the contoller */
-> +/* Number of XOR engines available on the controller */
->  #define XOR_ENGINES_NUM		1
->  
->  /* Number of operands supported in the h/w */
-> diff --git a/drivers/dma/xilinx/xilinx_dpdma.c b/drivers/dma/xilinx/xilinx_dpdma.c
-> index d9a3542c4531..bcc188e70441 100644
-> --- a/drivers/dma/xilinx/xilinx_dpdma.c
-> +++ b/drivers/dma/xilinx/xilinx_dpdma.c
-> @@ -1032,7 +1032,7 @@ static int xilinx_dpdma_chan_wait_no_ostand(struct xilinx_dpdma_chan *chan)
->  {
->  	int ret;
->  
-> -	/* Wait for a no outstanding transaction interrupt upto 50msec */
-> +	/* Wait for a no outstanding transaction interrupt up to 50msec */
->  	ret = wait_event_interruptible_timeout(chan->wait_to_stop,
->  					       !xilinx_dpdma_chan_ostand(chan),
->  					       msecs_to_jiffies(50));
-> -- 
-> 2.48.1
+Thanks for accepting MDP5 patches.
 
--- 
-~Vinod
+The message lists all 19 patches, but only 10 and 13 have commit
+links, the rest say "(no commit info)". Does this mean the whole
+series was applied, or only the MDP5 ones?
+
+Best regards,
+Muzaffer Kadir
+
