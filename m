@@ -1,82 +1,165 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from CH5PR02CU005.outbound.protection.outlook.com (mail-northcentralusazon11012042.outbound.protection.outlook.com [40.107.200.42])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 037024BD799
-	for <linux-kernel@vger.kernel.org>; Mon,  5 Oct 2026 15:07:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791212859; cv=none; b=gTgowOGgJ4KVVn6MD5nzrUDuSMNzZ3IQjVa4U91iu04CaZFsBuVKYg1s1gOSIZ5un3BrEhDSJQVGtJ/I3cYnALvQFTNyqofN8M5cdC15Wa4Id1vnj4WmACaRrpE1CkzjwIxtBNxw/qmfSiKSR5LGK7GFqtvT1vwin4o8oQN1ujA=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791212859; c=relaxed/simple;
-	bh=T0OXFa+mXAeQ3M8jCXJNmpFI4GDA0qxQngdZvXhQrhg=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=RGrGlfuZJ4jz18u2V8QYtR3S6Ff3FZjgUOO4SvJ2sghV8+pZiRytaGN9z7wNdZ4ypUTLNakOyGyFVWFsjDzK1fe746qnvTlNHlM9zkWPRN91sXfYqCF2pVtP1ywnyCvp0M95bQziU5m9vnounv4XqjZZO6KjS5XP+83CzgU7NPY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BMtV1l53; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 438FA4B404E;
+	Mon,  5 Oct 2026 15:08:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.200.42
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791212885; cv=fail; b=of7uSYONBt2iEQdcFaFqcZOEfIxih9uHxwkudfciXQxZ9FeAB6u0S4kNTpVG+Q682MyvnmxiQAX6KlEc66QuViCGmrxspFnskAoLw8eNL6/zbbWYcZbhWgKI/noloCcYGE3L4Axt17Yob6Nrxm9rZNqWPBfzbF9kaT9xokXVXTE=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791212885; c=relaxed/simple;
+	bh=nBvrI/ZMGYozzvwa4uF2k82QsAeJmTABc5yRBfVnUT0=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
+	 Content-Disposition:In-Reply-To:MIME-Version; b=g30tiTSd2rKpQP9RMIQBCTuHnbAKB1DAUNoXnaXIWW/BMf7SxFSxna2IH0rMpsLBh3M8hOeCK8EyIOfn03ybBoF52lxIENGtkcJJ+O3nUAoZ1BRIRSJLJjGcjDQvL8a95fKsjMyiVwV4MBwqgITJ81+7UrrPyfGDiKISQA3giZo=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=NC3UgBaU; arc=fail smtp.client-ip=40.107.200.42
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BMtV1l53"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C27E81F0089F
-	for <linux-kernel@vger.kernel.org>; Mon,  5 Oct 2026 15:07:37 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791212857;
-	bh=T0OXFa+mXAeQ3M8jCXJNmpFI4GDA0qxQngdZvXhQrhg=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=BMtV1l53yN1bhr6uYtM0QWSj8D+e+D9fcs78ALD068tVhMIe5fDG/NqgDZjXJt62s
-	 n/7njLf13HPwDHvC1LjeEyH2Qa7KexZruBJZ0Dy7XUF+z2tbBcbjGvPVv+cDH0wvw6
-	 LiWgCM3yLTJXDYCltefoW2WTXPijAuKt4j2eEAyvgvY7DNFUTRE5CAnyDK7RCy2/9x
-	 67L0qyzcazsPuaF459t/UN6oBnhRlh9NibtT2PF7dFH3i5ErkG/vYo6P7LBJMdzsXN
-	 ZzmTKEe668YNu0BXIGr+o66rWlHI12sIl2DfC8YYpMtGmLXM03Lb72cELQGpVSAk3+
-	 QfJfiE3v5Z0dQ==
-Received: by mail-lr2-f34.google.com with SMTP id 38308e7fff4ca-3a772de44c5so16743651fa.1
-        for <linux-kernel@vger.kernel.org>; Mon, 05 Oct 2026 08:07:37 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBzsz6/JKzAPuMB2zRsUl7AQ/fJ5iWXBUiS+pKgqzXY++0vaKdCD8x+A2e/TS/SxFvFrf9SROMKC6ldtvbI=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKo2x8U9M6vtxA58mGAEQWXBlI+xZQ8npQAmb5I34AzOJu7HPwn
-	gRc+iWoEbDYUGswcn5nUMXMwELSPO4lxp1gPkePc0Yk1AmaMC932SmRhWNayzEXhGN7vlo9tLyu
-	IcPGkRfeSZTKI9uVs+8D1U4qG6Yfl7hc=
-X-Received: by 2002:a05:651c:546:b0:3a7:e737:c401 with SMTP id
- 38308e7fff4ca-3a8877acb50mr32070981fa.17.1791212856518; Mon, 05 Oct 2026
- 08:07:36 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="NC3UgBaU"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=efuGgQ/uULTS7iCNHs101Bj4JkYl5A9RS/A22LFBCgdHdgsoFkivrjm2r7Fs3pSfNzLfnXXvi/m+FpBYg0+D4zPvqIehMyXAktlZJcfvM2PE1V0vFqkwG7CCLrKASCjq0BXCeVGA0bAdiAelgdkZJyvzJwxFAOvTQQywuhKE4N2NvDvQRro+kv44IcgyMgeOuMLYTWmtC+uuefoXJ/1AVV19leSa49tEv4LfPhc6zOnGNJitkCNTLQ4H5eL+uA6OqsOvkwhx/Q/5T3YkABIcUMuoNPtV9b/YR/fTCFELa/Wb5fJj6pXG7L+7G6wY+ceKffMsS7n+PruwLA2SED1+Mw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=Pkfvza4ObaNfYou5r4VdDtyN3r8k1rfSL/Asulxqh2M=;
+ b=LU5yMCTFO70TYjIDYmpthjg6+OLEiJ6gbsiw4mQ/62SiqCkYgeY6/1PqKKMfgWnvNzj4bwHAxbC1c2cqlk0wZ7AAyf0ZKqn1rfCjWDVb+WEpGUtkpXcRQrx+odd5rITeRhR4GuWe7uRnFcFWwrQz24glCjEZvC+N6VmaF/YCKADRGxlIuexSRzOPBz5WndYsklwdirILfrtc+mHUvZ4nvzjC587OAAgZQR7qaPTVQ2NEvhDscU5Jr8rB0uDBNPhsf+EFc1cYvtr6vajNvrWmLf30HbcBo796B+FsfdHWvhGlv/XjXnvyQqh8eN3udJMw339dkBY9Eedy2kJIR2lfgw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=Pkfvza4ObaNfYou5r4VdDtyN3r8k1rfSL/Asulxqh2M=;
+ b=NC3UgBaUacw2qNmaO5TQIauE4NhRbUFBeM1DeienX8Kw8hgpZMHecBquDnN8WAsNNkqvuVt4KOnfZ7IfwCXrjkth17jiNRsZW/4G/9LHyTenuYXAxYcSILx6+6SazSDWrVng/e2mKTZzJ2hTrfGiXA2IJdHyXBkYOT3qPm1h/Gk=
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from DM4PR12MB6374.namprd12.prod.outlook.com (2603:10b6:8:a3::18) by
+ PH7PR12MB6492.namprd12.prod.outlook.com (2603:10b6:510:1f3::10) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.472.16; Mon, 5 Oct
+ 2026 15:08:00 +0000
+Received: from DM4PR12MB6374.namprd12.prod.outlook.com
+ ([fe80::af35:a7a6:6ca:7fcf]) by DM4PR12MB6374.namprd12.prod.outlook.com
+ ([fe80::af35:a7a6:6ca:7fcf%5]) with mapi id 15.21.0472.016; Mon, 5 Oct 2026
+ 15:07:59 +0000
+Date: Mon, 5 Oct 2026 11:07:51 -0400
+From: Yazen Ghannam <yazen.ghannam@amd.com>
+To: Borislav Petkov <bp@alien8.de>
+Cc: Vishal Badole <Vishal.Badole@amd.com>, tony.luck@intel.com,
+	linux-edac@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v3 2/2] EDAC/amd64: Set zn_regs_v2 for all Family 1Ah
+ models
+Message-ID: <20261005150751.GA1159@yaz-khff2.amd.com>
+References: <20261002113204.3358815-1-Vishal.Badole@amd.com>
+ <20261002113204.3358815-3-Vishal.Badole@amd.com>
+ <20261003012238.GCasBY3rN9K8ps1dDR@fat_crate.local>
+ <20261004151447.GA2673@yaz-khff2.amd.com>
+ <20261004160412.GAasJ4_AhYcuacY6ZM@fat_crate.local>
+ <20261004170525.GC2673@yaz-khff2.amd.com>
+ <20261004175048.GBasKR-AA6kPKnbgEa@fat_crate.local>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261004175048.GBasKR-AA6kPKnbgEa@fat_crate.local>
+X-ClientProxiedBy: BN0PR03CA0015.namprd03.prod.outlook.com
+ (2603:10b6:408:e6::20) To DM4PR12MB6374.namprd12.prod.outlook.com
+ (2603:10b6:8:a3::18)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20261002115850.962676-1-o.rempel@pengutronix.de> <20261002115850.962676-4-o.rempel@pengutronix.de>
-In-Reply-To: <20261002115850.962676-4-o.rempel@pengutronix.de>
-From: Linus Walleij <linusw@kernel.org>
-Date: Mon, 5 Oct 2026 17:07:23 +0200
-X-Gmail-Original-Message-ID: <CAD++jLkA7C+jME-hD8wp6TqvHhTuxa4rixet7iUPF6GQqvMY6A@mail.gmail.com>
-X-Gm-Features: AclHuK_2h-tnF31VgHYkyk1UVtMgVNcobZTrWTO18GrUR2fIUgPYNk95Uc_bjQA
-Message-ID: <CAD++jLkA7C+jME-hD8wp6TqvHhTuxa4rixet7iUPF6GQqvMY6A@mail.gmail.com>
-Subject: Re: [PATCH net-next v1 3/8] net: ieee8021q: clarify the tt_to_tc()
- traffic-class mapping
-To: Oleksij Rempel <o.rempel@pengutronix.de>
-Cc: Luiz Angelo Daros de Luca <luizluca@gmail.com>, Andrew Lunn <andrew@lunn.ch>, 
-	Vladimir Oltean <olteanv@gmail.com>, "David S. Miller" <davem@davemloft.net>, 
-	Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
-	kernel@pengutronix.de, linux-kernel@vger.kernel.org, 
-	=?UTF-8?Q?Alvin_=C5=A0ipraga?= <alvin.sipraga@analog.com>, 
-	netdev@vger.kernel.org, Simon Horman <horms@kernel.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DM4PR12MB6374:EE_|PH7PR12MB6492:EE_
+X-MS-Office365-Filtering-Correlation-Id: 0134f2d8-2a32-4935-6a00-08df22f27139
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|376014|366016|1800799024|23010399003|56012099006|11063799006|10067099003|6133799003|22082099003|4143699003|18002099003;
+X-Microsoft-Antispam-Message-Info:
+	Tr0kFG7youWLwnbJOA/5zPu87b6hZWo6pH4ufUy/SV6JxnxqeqlBy12uu4IMwASS6Iqr7gpW4v7s+UoyV1bDv48H49/7h9VsLkJ66XKE1uGWYx+QAd7zjGPa+zU2SkkeRBjSJcO5unrkZmMb+FWBkBXMiBozxPWkHr/U87vI4MGCGTIYLEzXYK99x/buHuNYfqD9PHVQDgpfMO7xb5yGysiFVeAOrmfwpUQGHpFdYbeXbus1WIKmPoHO4W7+O+dTv8ZnFQ0yzAwraZThH+qjSdcwC7VpmGiPWsyhQaWeXXhURXvwX+dl37q9o7PxcQJizk+VQ4pIUKoYkVtbTVBfQlz516MhamsUdqhdcAuKRYR7vY0ZTAaneT2CQL2r4MftfIyzAaTYQLltR+knk1l8B8tVM6okQHTc2cR2Gw5yuflxDKWDuMYVCjeJej/DihT1Xn7FvGOjdeYmsE5QJUifK3YMFMzAVVPMdqf3ZiK50pRxNCZTpLf9mFMj9uD06u7dREp8KgmhrfRCp81bx33qrNg/mob5sgbFYFtKrVbqHO38nilbjrxsVnumxYdAIXxwH8P51lHVTf026Jw0sHzRwS76ruM6r/B4dRCUbAwkIP9I6V0AvyjeFJU0ZTr01JlL0JWG+QhuaC6OT2l4l2mX/1dH5Ldg95Izm3A9Vw9bpx4=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DM4PR12MB6374.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(366016)(1800799024)(23010399003)(56012099006)(11063799006)(10067099003)(6133799003)(22082099003)(4143699003)(18002099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?4w2dFuDHgS3TGfDYs7CUVDSueM+a6KAy2UgwbluPyHC7K3TqMe9axHHzdpFM?=
+ =?us-ascii?Q?KApWKZOwFJSQAFtMX/65DahGyJyBLLzgoEERrpzzcwPzes3LHmFogHVQsnyY?=
+ =?us-ascii?Q?QzC/d90XSwZOjIiDNGQ/AgxD3VJwtkSA5h9r124+jeGVFlfOfdxcNzW6jhcA?=
+ =?us-ascii?Q?iSYRlnINoSLx7dBX99UQqWYAwsGQ8vlkswZhxCYHRoX2xHKNoSDPK44q9Pl1?=
+ =?us-ascii?Q?maN6cMHadEiOhwcfL3FA09N3feX/np4NNejV7gsToJg8KxBKbCwmTjiR9xyL?=
+ =?us-ascii?Q?BhjO+PXy6HDClTl4UE86KGpPjLIC0dMUvmOySBAWY8X+rhOsMTsDO+tzdG/k?=
+ =?us-ascii?Q?ZQ99/1nJ13Dzzan9Nly2TAdzmODNyVtUMjL920XVCJH6QaGOmPvZnjYyVrGc?=
+ =?us-ascii?Q?jdS0HPEZZIlwcwXGEejIAo/9SW+ocss5Uzi/vbdsTh7a0tx0GQhMvJaDNRQU?=
+ =?us-ascii?Q?+YqcNaki7lygIFhD9AfR6Z6KC0KMKYELgV9/WU+ZtFMf8orcFWVs8F2wU0oT?=
+ =?us-ascii?Q?XLq6RH/hvnYtD6b5cpYvof5EtpzZhOV3Rbx+A5g4zMlt+mBN4lIfwnOCgHDJ?=
+ =?us-ascii?Q?KAPfuuVsjaX/ZqwgvxbwxRFyhMJSC46SUpjAl1odpQUCB5nXEVhbBHCJ6gSC?=
+ =?us-ascii?Q?D/60/UVSos51tkfCpixmHyrYhZo8S6R7TGyFvrh+bXozibxdXHJkXl9Y2kkx?=
+ =?us-ascii?Q?5yuK42jsjDJSMch1ZOOKQJSAQiJXn/l2X9+P6wyZklQ+PZGR7GOeOVhpzjrr?=
+ =?us-ascii?Q?T/7Sj0hfpruAcFGYhfs9uI1JJh6ZVMYyo9zWWTL5W0+Rp2ldSS80wrNXCLuW?=
+ =?us-ascii?Q?i6YWzw0SzzmDgQKtO5dkg5G9zbdcn8uIOoLTn7CBa5MEdeXxHmFM+YHaONZ/?=
+ =?us-ascii?Q?vOK/CKcaEr5P1gQqBbdqHXd71FuLdBP7JEHT+MpDGOgJ44MB1FrZ9oc+Zn0d?=
+ =?us-ascii?Q?2b1+eojzQUdAbwrQQSc9gjCc9VLohwwEuVfu4/D7X4WkqTZzV6SpjknW8b2y?=
+ =?us-ascii?Q?7sU+azqw1KuGkPQKAiVE2NognzssoT1Rah5ABZWLGj2vlpfQWeWz9gi58n5h?=
+ =?us-ascii?Q?f+FDkqtm7phMm3iXfbWsbTY1iWqi6a1BVlkU7CTSQjXC8MkM+Ai4Y2FLVZB0?=
+ =?us-ascii?Q?vexw7c87OMJgj/YI4V5FE58ZWhD5hK2ngucL/G5z8bcDURg04HRIjkqWdyVl?=
+ =?us-ascii?Q?6Ms+WiUfJl8kBM9k2Vs8S1yT6QNuIN3nQYr2dH6/6/bLVx/rCunFJDZPHKsn?=
+ =?us-ascii?Q?Boy+ZrG5H1hZZIpd/ERHWfTl/KFQLwCrc2BEdEIV6diBGjv6nERfdqsYbSFe?=
+ =?us-ascii?Q?5zLzIFwl7YYw2KbECZD03JTYqAzkaljF8xrz+DVzHmFKkDIkvS6o9Op3Dmss?=
+ =?us-ascii?Q?uDHmfb+OKvRc5d/H+NMzpQbYIdeeuhtvSkgVXFdmZxfZ2yuFEfZwHFnkvdHr?=
+ =?us-ascii?Q?K26eOtKM8wqmQC4+IIW0b5Evw9aLFE3F8esqEMkUuu/O/KvXcw4/XneRoDzx?=
+ =?us-ascii?Q?ROD/3lPYi+ipoog/CmiRBSce1tJ7IuFE7NU4lBXk8Is+BQdrquOQ8be2ux3A?=
+ =?us-ascii?Q?hQcXZghJKGUkiqu32EH1j2Oh2X+TpcbSvYFKbyqGBrF5xyjX7WMxRCskM/0d?=
+ =?us-ascii?Q?LiVbHhiCLn8PAu+7qLOzlOaYzx/flTx9xyWdcX5/mdrnigFiMegcmCytVZhN?=
+ =?us-ascii?Q?nmKSnbFZS6aaTlU0hwL6vMyEM0Xy/Vvo75pMvb3OrhpFMmd8?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 0134f2d8-2a32-4935-6a00-08df22f27139
+X-MS-Exchange-CrossTenant-AuthSource: DM4PR12MB6374.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Oct 2026 15:07:58.9371
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 0Vs3sYt26RbxpOZBWdgr1JoXx074QzHQIO2moTWcQDVDg6e8gpypMMuDCp8GuPcFIu8DiKMqpPh89xorkyTwGQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB6492
 
-On Fri, Oct 2, 2026 at 1:58=E2=80=AFPM Oleksij Rempel <o.rempel@pengutronix=
-.de> wrote:
+On Sun, Oct 04, 2026 at 10:50:48AM -0700, Borislav Petkov wrote:
+> On Sun, Oct 04, 2026 at 01:05:25PM -0400, Yazen Ghannam wrote:
+> > I'd rather we load unconditionally for all models with the same base
+> > behavior using sane defaults. Then we can have model-specific patches
+> > for variations, if needed.
+> 
+> I'd rather not because I keep getting all those: amd64_edac doesn't load on my
+> machine reports. Well, after a while it turns out that it should not load
+> there in the first place.
+> 
+> And then there's the managerial checkbox patch which needs to add support for
+> their new model just because... does it even make sense to add support? Oh, we
+> didn't even think of that but it says "Unsupported" so we thought we should
+> "fix" the error message... 
+> 
+> So I don't want to have that unnecessary waste of everything. And if a f/m/s
+> would keep my sanity, then I'm perfectly fine with it.
+> 
+> > Essentially, we could avoid a whole class of patches for derivative
+> > (client, embedded, etc.) products. The module would load with the sane
+> > defaults. If the test folks find an issue, then we can have a
+> > model-specific patch.
+> 
+> Only on well-tested and supported configurations. Everything else doesn't
+> work.
+> 
 
-> Document that the tt_to_tc() traffic-class numbers are the pre-computed
-> composition of Table I-2 (traffic type -> priority) with Table 8-5
-> (priority -> traffic class). Note that Table 8-5 is the mapping for
-> implementations without the credit-based shaper, so the helper's scope
-> is clear; credit-based-shaper implementations use Table 34-1/34-2
-> instead.
->
-> The existing kdoc cited Annex I Table I-1 as the mapping basis, but
-> Table I-1 only partitions traffic types into classes; it does not assign
-> the class numbers.
->
-> Signed-off-by: Oleksij Rempel <o.rempel@pengutronix.de>
+Okay, fair enough.
 
-Reviewed-by: Linus Walleij <linusw@kernel.org>
+Vishal, you should be able to combine the current version with the
+suggestion from Boris.
 
-Yours,
-Linus Walleij
+1) Move the zn v2 flag to the top of the 1Ah case.
+2) Add 'failure' for the default case.
+3) Leave the 40h model group and add the new group with it. Basically,
+there will be two model ranges sharing the 'empty' case.
+4) Update the commit message with the new details. Make sure to describe
+'why' rather than 'what'.
+
+Thanks,
+Yazen
