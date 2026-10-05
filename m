@@ -1,82 +1,148 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CA85B400DFF;
-	Mon,  5 Oct 2026 21:24:52 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 91C6D3A7848
+	for <linux-kernel@vger.kernel.org>; Mon,  5 Oct 2026 21:25:49 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791235493; cv=none; b=q7OgQIjbePmJ9AlaS/Y3gaKAxJxt5O75Glc1DRElYhYavHsEF20frrekYB5tHN/N4Gk4Ifbpf9d/O8F+OC5zV2RtHp8AbcOGV2NLceakS4tV6mnUklufr5lfxwWpYzyynD6LKAOE1/R66lZUOnfFB424czBGUufCbJwOH0gVqew=
+	t=1791235550; cv=none; b=KCVGLpqt5+O+kRMqLvULEsHK2Z5qC46ji5tfmTmT/HjyN9upDyiw3pfRHCelFR+W2Iar/xc6UwaZ9qy4cu9jm+ZDwVRgjYWCdlzWpPFHMh7NYxmLpmT3S7gyEvi4uC/F98ecTQyWDGRe8T3DjHqVWqANOdNleOHwV6qmk7xoK7o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791235493; c=relaxed/simple;
-	bh=NPP1gBbYJNETpiQcxyHiqKpK9rW77F8ycGcRa0DJlps=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=MchlizFKG8YNnLOVrIwmpo7h0dbSNiPLCV+Okqvh4PHgFE94ticvvbBTHCzq2cieVgoeiiLz5ZE++3UVp6ZwXH2JhNQWS2r504q+rGtFQE0rJPSqB9XbM8sN6ZIVTxTTyM6GovOYQ5jzRqUs0DT2CitM1zEO5ysPzxE0LLrUzXY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=QOvBrwAw; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791235550; c=relaxed/simple;
+	bh=oWoI7KU51zem5IclY14yT1yhw3LIz47deEPyi4Qi3cE=;
+	h=MIME-Version:Date:From:To:Cc:Message-Id:In-Reply-To:References:
+	 Subject:Content-Type; b=YJKbJOonLYdrNPz3Egayk5lMtRgs6qKhg2YS6Xw/O1EVMKkusCdZ1qaDlWNlLw4wvJN08JYoRIGrXWkI1JEMc/Xvpr3b1bzr3V0RGT1/ytB+R1CRp93HH9XpO+jxtYipgJ64ENhAvHlQB8zYOhJFQd/FH5ShMjtnJ7qJEyVx20Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=CTyoFfQM; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="QOvBrwAw"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C211F1F000FF;
-	Mon,  5 Oct 2026 21:24:51 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="CTyoFfQM"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7A8981F00898;
+	Mon,  5 Oct 2026 21:25:48 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791235492;
-	bh=K0o/UFddcUsLGRCC5nI1BspGg+4BBQDRVa81+bsKChI=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=QOvBrwAwe3rg+i7vhx89mpKhWnzhGI8m/DZgAMjb2B5jb3CA+KcfhVGMDGxmHpHeV
-	 Mx0We+EDaLQGGdqSTEhMMgCzs764eEVWpjMXEC7R6onu5IxI4WWzZkiD4tceIVJIcs
-	 grC3k42N+2TIdxT5Uc7PIMO+dDCH0zMCHwzVZ12WZ7GSD31uYxWiUfWxt8wuUOSpBo
-	 dn8mv98bOrVdIRnmJbqIr3V7wsfoSdL4IX5mokouGrFnQWT9FS63uYLVPcEcHRSyUB
-	 6yZSAhVUCkwVfhCV3v+zcI2drpx+Sy6cI+zPY7x9xj+iAOBqx4VoTXQ1vbJEgNubxB
-	 JdAYqIfF9Kj8g==
-Date: Mon, 5 Oct 2026 14:24:51 -0700
-From: Jakub Kicinski <kuba@kernel.org>
-To: Przemek Kitszel <przemyslaw.kitszel@intel.com>
-Cc: Tariq Toukan <tariqt@nvidia.com>, Leon Romanovsky <leon@kernel.org>,
- <linux-rdma@vger.kernel.org>, Mark Bloch <mbloch@nvidia.com>,
- <netdev@vger.kernel.org>, Saeed Mahameed <saeedm@nvidia.com>, Andrew Lunn
- <andrew+netdev@lunn.ch>, "David S. Miller" <davem@davemloft.net>, Eric
- Dumazet <edumazet@google.com>, Gal Pressman <gal@nvidia.com>, open list
- <linux-kernel@vger.kernel.org>, Moshe Shemesh <moshe@nvidia.com>, Nimrod
- Oren <noren@nvidia.com>, Or Har-Toov <ohartoov@nvidia.com>, Paolo Abeni
- <pabeni@redhat.com>, Shay Drory <shayd@nvidia.com>
-Subject: Re: [PATCH mlx5-next 0/2] mlx5-next updates 2026-10-05
-Message-ID: <20261005142451.4cc66357@kernel.org>
-In-Reply-To: <ae31c9f2-eb4e-4d9e-8ea5-27364e389be5@intel.com>
-References: <20261005084047.237081-1-tariqt@nvidia.com>
-	<ae31c9f2-eb4e-4d9e-8ea5-27364e389be5@intel.com>
+	s=k20260515; t=1791235549;
+	bh=NVtCSF04+5hQftrDStv64+G8kBj0wfQzjaUvoe2fK1M=;
+	h=Date:From:To:Cc:In-Reply-To:References:Subject;
+	b=CTyoFfQMxyRDu8dCRnxTUJFOMYpC/a1QO3xq/5eVia+1aL2iHETv7cMP1XKR8g4/H
+	 Z4wccSaPxEcAJe50sBlpO5v4HW41usqLzGov0Q0NgJ97RurCKMZ4Nb3CM0zOZc885R
+	 Y910QwMtvj2CjHOv79IDntEKLj6s5D+r5okw0OLFbrExd6AJHdcnR2+bLn69uXJyv+
+	 EDIK5A8LXdW0PWAZ+kTRwoc+ArD4Tnwx7aiNqnXWD9DjR3EEyuziKxAMFmJyot61gC
+	 Sl0mKQpfw7DV7O1Bw0cqSqBn16I0dSRco8xjftzUADN6BEfvSOT9cPrA/ncq9/dyQC
+	 +b18/ZEMed0uw==
+Received: from ams-compute-02.internal (ams-compute-02.internal [10.64.2.62])
+	by mailfauth.ams.internal (Postfix) with ESMTP id ABC7E198003A;
+	Mon,  5 Oct 2026 17:25:46 -0400 (EDT)
+Received: from ams-imap-11 ([10.64.2.31])
+  by ams-compute-02.internal (MEProxy); Mon, 05 Oct 2026 17:25:46 -0400
+X-ME-Sender: <xms:2BXEak90g0Y2gyHWeyFmRp1Df0-iIO2rP0B5FXQ6CalaZu5ot50A4g>
+    <xme:2BXEanhT2rbLSIDCEIqmIcgC2Z85mXieEz_KNcWf1hfeeJSzun8YeqKsOYdzlMPzB
+    tvt37kmd8Wbvv5ZydmCxS-IsPwhWwc7wGx4a061bdHjmkuFeJDXo5GC>
+X-ME-Proxy-Cause: dmFkZTFYRYK7kCIdTUdiTrNjDf+K1m4N+n/n7BpfpOY/qFXuim304FuhNPbM9hfWJR3s0y
+    v7AZ+ywbG3UH2scS8AH+M0BvWEO5jr4Fq05tizrbLM206uLlpSKcHFjjh6Fol5a/Ad6k8A
+    BvytjI72RlVdjPc0h+tOvENrJQKR+WzEKigCkg6koAtBAYI/6hWKZEU2rKwuy61o0JJFw8
+    UN4T1G4Br4BvSr/S9EFpiAEabmc2rBSxBQUVnLjKrkph5KD6elP72eWsOJYASh0X0yOy4Y
+    GII4gzUasYApQH6tS+I+R7qhwuWHoR/H5yWA4eAlQ/yEiYkUXstYyRbFXrNkltmlXbFDMW
+    5Ez36r3DmZSv5Q+HDXOYsTL58jV9fT5ESYmINJOe2bKjIVLB8UZtR38KxwKPYgfPEFtl0+
+    G9oqZkSXRPMC4qr20RGDOfT75ZW4+GPU2Vvln9eHIXL0CoYJVACxPWTrgIn1+SEpjOOyYp
+    lCJGib/AF3mO8vAroxWagcrjq7mhxPYgBDIXb5v5fIPLj6hhpVzDvFin8n4EsGU9TFrqhz
+    ZTyPEG3969fLxIigtZNEFzMMc00Bo7md6mzEUXS3naL7D0xYhfTGavM1KMtdlqNDV0vRNw
+    Au7p0PGH606Tk4qgNRthbFB9olSr9F3B/yMbGE9PqrvpCOPuX5zESzWN6eug
+X-ME-Proxy: <xmx:2hXEavu9ic04Ng2petmdVSC2GvXWSAT1WuVpBybw4ByZTGYjCzVAvw>
+    <xmx:2hXEaq167pjSLZPl8reQhiwYFT-EOf6KjkRpencLhiCemRBD_W0MuQ>
+    <xmx:2hXEao5JBCoWivkhw0Rio8XM8uNmWEENEIKO1WvINu-fdfYuEIeYMA>
+    <xmx:2hXEapUJOMxK2BtDYT4M9rj9Ikld3WQ3qXKdeHa9uEdmWecBL5tPbA>
+    <xmx:2hXEaoj3_uvdGJs_VK2sqb79Q6Jfj-hJbMYJJRtA-AYdINwrsQ6aPTxX>
+Feedback-ID: ice86485a:Fastmail
+Received: by mailuser.ams.internal (Postfix, from userid 501)
+	id 0506DF80093; Mon,  5 Oct 2026 17:25:44 -0400 (EDT)
+X-Mailer: MessagingEngine.com Webmail Interface
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+Date: Mon, 05 Oct 2026 23:25:22 +0200
+From: "Ard Biesheuvel" <ardb@kernel.org>
+To: "Bill Wendling" <morbo@google.com>, "Kees Cook" <kees@kernel.org>
+Cc: "Gustavo A. R. Silva" <gustavoars@kernel.org>,
+ "Nathan Chancellor" <nathan@kernel.org>,
+ "Nick Desaulniers" <ndesaulniers@google.com>,
+ "Justin Stitt" <justinstitt@google.com>, "Mark Brown" <broonie@kernel.org>,
+ "Marco Elver" <elver@google.com>, alan.maguire@oracle.com,
+ namjain@linux.microsoft.com, "Peter Zijlstra" <peterz@infradead.org>,
+ linux-kernel@vger.kernel.org, linux-hardening@vger.kernel.org,
+ llvm@lists.linux.dev
+Message-Id: <3176a197-baf8-4e5f-96a0-8c79d32a168c@app.fastmail.com>
+In-Reply-To: <20261005192052.2589382-1-morbo@google.com>
+References: <20261005102518.2400984-1-morbo@google.com>
+ <20261005192052.2589382-1-morbo@google.com>
+Subject: Re: [PATCH v3] compiler_types: Allow opting out of __counted_by and
+ __counted_by_ptr
+Content-Type: text/plain
 Content-Transfer-Encoding: 7bit
 
-On Mon, 5 Oct 2026 15:29:15 +0200 Przemek Kitszel wrote:
-> On 10/5/26 10:40 AM, Tariq Toukan wrote:
-> > Hi,
-> > 
-> > This series contains mlx5 shared updates as preparation for upcoming
-> > features.
-> > 
-> > Regards,
-> > Tariq
-> > 
-> > Or Har-Toov (1):
-> >    net/mlx5: Add cap_tx_speed and effective_tx_speed support to IFC
-> > 
-> > Shay Drory (1):
-> >    net/mlx5: IFC, Add capability bits for virtual LAG
-> > 
-> >   include/linux/mlx5/mlx5_ifc.h | 16 +++++++++++++---
-> >   1 file changed, 13 insertions(+), 3 deletions(-)
-> > 
-> > 
-> > base-commit: 00290b9ff59ef47b990d26a6b1a8b2ea6dedf5e9  
-> 
-> my understanding is that you should at least link to the
-> actual code using the new stuff
 
-I guess, tho this is basically a FW API header update.
-It's not like we inspect the FW API update patches to make sure all of
-the fields / requests are actually used later..
-I did not spot anything "funny" here.
+
+On Mon, 5 Oct 2026, at 21:20, Bill Wendling wrote:
+> Code that runs outside the kernel proper, such as the EFI stub, gets
+> nothing out of the counted_by annotations: the bounds checks they feed
+> (FORTIFY_SOURCE, UBSAN_BOUNDS) are already disabled there.
+>
+> The annotations can also break the build. A __counted_by_ptr() that
+> names a member declared after the pointer needs Clang's
+> '-fexperimental-late-parse-attributes', which the top-level Makefile
+> adds to 'KBUILD_CFLAGS'. The x86 EFI stub builds its own cflags and does
+> not get that flag, so it fails as soon as such a struct is pulled in
+> through a common header.
+>
+> Overriding the __counted_by_ptr macro from a Makefile doesn't work:
+> 'compiler_types.h' is pulled in with '-include', which is processed
+> after all -D/-U options, so it re-establishes the definitions. Follow
+> the '__NO_FORTIFY' precedent instead: let a build define
+> '__NO_COUNTED_BY_PTR' to turn the corresponding annotation into a no-op.
+>
+> Assisted-by: LLM
+> Signed-off-by: Bill Wendling <morbo@google.com>
+> ---
+> v2: Only specify __NO_COUNTED_BY_PTR. Leave __NO_COUNTED_BY until we need it.
+> v3: Add the version to the Subject line.
+> ---
+>  include/linux/compiler_types.h | 7 ++++++-
+>  1 file changed, 6 insertions(+), 1 deletion(-)
+>
+> diff --git a/include/linux/compiler_types.h 
+> b/include/linux/compiler_types.h
+> index c5921f139007..8bde6798b4ec 100644
+> --- a/include/linux/compiler_types.h
+> +++ b/include/linux/compiler_types.h
+> @@ -387,8 +387,13 @@ struct ftrace_likely_data {
+>   *
+>   *   gcc: 
+> https://gcc.gnu.org/pipermail/gcc-patches/2025-April/681727.html
+>   * clang: 
+> https://clang.llvm.org/docs/AttributeReference.html#counted-by-counted-by-or-null-sized-by-sized-by-or-null
+> + *
+> + * Code that runs outside the kernel proper (e.g. the EFI stub) can 
+> define
+> + * __NO_COUNTED_BY_PTR to drop the annotation. Such code may also lack 
+> the flag
+> + * Clang needs to parse a reference to a later-declared member
+> + * (-fexperimental-late-parse-attributes).
+>   */
+> -#ifdef CONFIG_CC_HAS_COUNTED_BY_PTR
+> +#if defined(CONFIG_CC_HAS_COUNTED_BY_PTR) && 
+> !defined(__NO_COUNTED_BY_PTR)
+>  #define 
+> __counted_by_ptr(member)	__attribute__((__counted_by__(member)))
+>  #else
+>  #define __counted_by_ptr(member)
+
+Apologies, I may have been unclear.
+
+What I would like to see here is something like
+
+#ifndef __NO_COUNTED_BY
+#define __counted_by(member)  __attribute__((....))
+#define __counted_by_ptr(member)  __attribute__((....))
+#else
+#define __counted_by(member)
+#define __counted_by_ptr(member)
+#endif
