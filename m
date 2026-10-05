@@ -1,64 +1,64 @@
-Received: from mail-dl2-f40.google.com (mail-dl2-f40.google.com [74.125.229.168])
+Received: from mail-dy2-f42.google.com (mail-dy2-f42.google.com [74.125.229.42])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C269B2F7EF5
-	for <linux-kernel@vger.kernel.org>; Mon,  5 Oct 2026 03:48:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.168
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BBDFA2DE709
+	for <linux-kernel@vger.kernel.org>; Mon,  5 Oct 2026 03:48:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.42
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791172085; cv=none; b=EIJ02MwkycLsgAv7EulLPQs9B1sakUOh8Lb7MSqivezHLjCYBxYHeqxPe+ndCTIe8l5EaN1ZzrenDk/G9Hd7zVbCYJ4oUaZpYwuqI5WvWO+zmszQARfeiMdgOVRafZpg2nKWTX8CdvNoclyidUwwA7rK4oNBlz3AOEyhK+Ufsvk=
+	t=1791172090; cv=none; b=XrAIJXVgc3hjAhNoYQvMI5sLzjQqKfcd/30EnWJmCJvvrrYkKV5G7xFl5sttiD4cENlK2KTzYYPTMPglADvqb5DCK5H813ilEaIb32oYrVKpTDRUAVARWNt60v5r5TYNRc5FCBlXQS8tCnFqqiiAbZgw1uap5UaXxE9d0hWUdKc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791172085; c=relaxed/simple;
-	bh=rqxsimaprYVjujnTGY969FMw+LFcgYA+LhchZVvIVEo=;
+	s=arc-20240116; t=1791172090; c=relaxed/simple;
+	bh=r5A4UZPux5Y3nKltnaBqnFx1Wecjg4H7ieud878T3Vw=;
 	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=kYL+1zvoG9nSHIPz8cyvGId+Wc2llutE/rFJG0NJmTb3Nca3nQzTuaQ8AQYzpAmKQrOnxv2CPH0He/kT0CaCYTIgl1n7kdP7msQ7LGVTGZhRv+cSgCh5WjiMfwyqrswVEhXW1/ml/qIuQr4+CWp8CMNp3fFexUgXLi3vWXDqEEg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=B7PG7soF; arc=none smtp.client-ip=74.125.229.168
+	 MIME-Version; b=dcas2B190yTqREGc4lPXFe/HUQ4VMW6tX4uA3DZPV8OZXaHMdC8cEDRz/fL/50IGdtUA3GqS8D0p7LPxVfYNVujzD3fKhIunU58YOKa1eekIKthGjeCER3P9Q6RjgTipC7emF+tBN6XwDnkzdaFy1uq/wDESZmk9QyUXjgWVcEI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=d6zsiM+M; arc=none smtp.client-ip=74.125.229.42
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="B7PG7soF"
-Received: by mail-dl2-f40.google.com with SMTP id a92af1059eb24-154e9d2d877so293285c88.0
-        for <linux-kernel@vger.kernel.org>; Sun, 04 Oct 2026 20:48:03 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="d6zsiM+M"
+Received: by mail-dy2-f42.google.com with SMTP id 5a478bee46e88-3512f0ac09bso407650eec.1
+        for <linux-kernel@vger.kernel.org>; Sun, 04 Oct 2026 20:48:08 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791172083; x=1791776883; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1791172088; x=1791776888; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=HLwPHwcyBpbEdHoUdZEu0832fJUKg87xyYGklLfVx8A=;
-        b=B7PG7soFD3o324cjBr6uzuVqL5RKq5Af+xngs6Kcc2saOPElq09vl/qLw2zJAA5fvg
-         5EHQmGiAxjqP0jZCD2ts0hEMLhvDbT2TBw7903l/HM6MT5jwqBy05Z55oH31d+xM8uam
-         q8Dqvx9U6VGsGlwfP9UU+rARvicAoxAqaWXNFkY5P+/OEWTKsA6AT4Lzs4cm9Fp2O47W
-         Vzeyx9jWdKzKeVzn2jVqUJo1TDPy/V7INt5Y+BqKXXjYnCEBx80fgD4BVNbTvB4JfeHa
-         EjasiMmOtBvUKaqxsSEIZR29zBKm1pA2A/SZS4hY39LunmAk8iLsBizQhqNKH2Of1VT1
-         cPGg==
+        bh=We84JRc/bHqMhmFuiHMoH3sRnXvkHgWbYpO/4GVf6wY=;
+        b=d6zsiM+M857v2SPpIeD95uGfCMYk/ib84cNTJyb/OlhOAU7p7E5W5dUCGP4z1j4X8i
+         RnNrJUGDIdzkcdsIHL61H9j7xw2v/cekCsl36asU793f69Sl0uVFmJB46EAwxspefM5c
+         cQTMXC5a0BEpXXhfm/VZM9hKZPLJhPnxezOC0Jk1YIErJ51PPM3uSgSMoKfWMoWE6lgb
+         uSXeklr1J6Gg6rTN0XeT99a16t23gIgEn78rYcsJh4hzEbOydu07rtKCKVwFLa4hSQ0J
+         gY14zSVVD/KVSIDcGolys6OpRMZh1yqsL08G8Uc+8As4LIeS1wTA4h3KE7gNC0BfB6tM
+         CFoQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791172083; x=1791776883;
+        d=1e100.net; s=20260707; t=1791172088; x=1791776888;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=HLwPHwcyBpbEdHoUdZEu0832fJUKg87xyYGklLfVx8A=;
-        b=HKIQK3BAa5M6U8GYmvEeGqby4BOWuyQP3GiBuPtV9XFmUkk2DUMzffQp8tqOKE9WAS
-         a18V0JGuFUSeoMkPdkaOnPBg9yGz5FYCMAmD8/afdZ05bwGgoorJ35+XR82tYEjS9wzZ
-         nEw8dshjyndaxwMBMvoK6cH1/+/vNvwOYT2aCdPRp9tzKcGOg6pmX7AejUaHGrC/DtW1
-         YeD79PliOVudjSGi4kJ7hGCAMJF550I99Tm/igB9dSxB/QvcF+8pMUUsd44K8FYEhNlc
-         WZMQrkv0iiAq4QqbcgyAfkKcggKJMWH5wIQexgOYHqUFgiZ70v2yIhquLQZ+Y7DS+J5a
-         prEw==
-X-Forwarded-Encrypted: i=1; AKwUvByRce3C9q0CaIZQ9/P4WHFxTgSC2c/DHw/RwSqWuRe7PNxAU5IzqtK4oMVwm+KUew4hv+cA4zsVsb+CXs0=@vger.kernel.org
-X-Gm-Message-State: AFuF++mdUmGOIhLz8LvCoM1ilDPbescFXg5mqDlT3po0lx4O/XtxYJdV
-	2kW7if9sL8Gmn7buap7T0cfYo54wpst5xyiO+KzYjk3xW4LxOEWRm402
-X-Gm-Gg: AYBFou3a9xlyUwyQfBkvd1RQ5MRMHTJZOEytOErS+TEfLmT2bWyaMxETJnQHdjEDc3P
-	2eYkI8pNtv2e+cGRb8vRIRj+ZEFgHbJ5XC4q0VemZwLmFtmYOwHmH+IlY+qnp4PTF7Qb4AUrny+
-	FCTOLG3AI4zRKMmDVgx0s8j+nES/NrT7EcN9TmLIGT+8pdNdc6GlCa7P91h2MYjP0E3xbdE1T8I
-	vK8zvbuxbo8L2Ub9Kl7pu8+iujQyT0pR4QMkt4pk8sjHH4Ns34KjkhCWp+DxoOC+dCGhYQGj8Yd
-	CDBi7eDSHjPptomeU8N227HpR3kjElrN+2gkC+lO4HGbDlEjVszrRNWd2qjpe2EC3wgJ06iOmtL
-	8K3TYcPH9nqOwdzZBhEaOQsfHV5QH8LybI0uF38WDL6PKo30nJP0DPBWnmWfG4ENYKnhu8xPL75
-	kCIuEz6pno2VilaaCnRDt8V8t0pnwRyPNo7QuswwgAv7L0W1AbG8JeXW2MTw4bRdN89WXX0K+P4
-	hKVmu4g9AhMnPFnPfQ2JZGF9V7qDsA7pcUtPuiUV2R82lVAyoZc8FLWCt7SyA==
-X-Received: by 2002:a05:701b:2803:b0:157:cbf6:8a1c with SMTP id a92af1059eb24-157cbf68f96mr2608778c88.33.1791172082536;
-        Sun, 04 Oct 2026 20:48:02 -0700 (PDT)
+        bh=We84JRc/bHqMhmFuiHMoH3sRnXvkHgWbYpO/4GVf6wY=;
+        b=K22k41bzr9aA0s9tbw0IqrRCeB04AE7BiH1+39+5b59p9IceAVSYqNDtGheqISqAaE
+         Z5weaRGbZ8IzedWe35iwwowFKE4LWQuBvwf9ztswXOWQcN/BhRI4l4BUEkLtmIoXjEsD
+         mj6D/c8AotvNp6HLEm495mrIhoaq24i4/OMwi5Zs6rOVOremRCwCMedakMEDJncNhXEe
+         ZdLJbUxvfFXp8m3Odl+RBk4r8KOYDcoVeLKD9qomCCBtE1Uyf601INFnqP+bfdF4/feR
+         5YHsmB+5pqylGmCuF7gVwj98UIx03anvUAYhrQZKOVFHKq7foao8VDx30ztkK7rPx5O6
+         qfEA==
+X-Forwarded-Encrypted: i=1; AKwUvBxx0RcYVDX0kR6qbftZHwPv5jvfmq5+gpD9Ho571JJxyc6WIEO7KFn0Tvt8oblpoXukTB9cY81UWhIi8s0=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJyfhv9zrPkF2y0YayiK0eEdttux9NXv4UI0DesQUOO+onwASHR
+	55kY1IDJ/tzLPga7mhWa2HpeobNgqZhv0Pmc/spuZQq6zX3DRL2uYNt0
+X-Gm-Gg: AYBFou1kzgR+NdROG4gZVy3Ldx8PdPODMDgWZ/Ad0AsmwTXXKZjUrmq3e6LW9UKMJyx
+	wDWglcMncxHovQrpGjyFDArLcFLL33V9qWdH8aN4neRLovMl6LsqBtgrI3sE6TJlpitt1gficCd
+	YtDOBJeE8vh9fun/c5msRdQwmGV8gSoSK755FjKjaPYu5Tm6WjMa6hpJsa5duPBAfjkIxxcyros
+	qxdtDk4taikA7XauLU7l8qXDuyGSX0IU4YfFsCzwIrfAN/oZCxP7cRHRFAtP7Fnc/A90Mv6l/Df
+	FLgiHfWEGGTU9ABvr0qtToaPa5iAIIPcszDkJZBF3wG6by1MlyETgTA36Ls1x230UeHe6Ve4h6e
+	LWgZdULAHJvFtyTXH1MXvIWR6sTj9arE6/Z13Qc+MYlx7gNryCGDUCMlvo1Goa37PiVmVH7V9wQ
+	dxeC9cNY+hh9ItVE+EZeAHYXP2TbyyZU/9TmP3/b6Kk7r1C6BCBHt5NeLK4IdONm+n+Sa8gXEID
+	dr3klk7ESrfip+aMw/uf+mybvhZlQ7kLOPBSQt6lMcZsg+QJYPJajdPvXlE
+X-Received: by 2002:a05:7301:707:b0:34a:e4f6:4a4b with SMTP id 5a478bee46e88-34f150c3c64mr10761322eec.21.1791172087608;
+        Sun, 04 Oct 2026 20:48:07 -0700 (PDT)
 Received: from pve-server.rlab ([49.205.216.49])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3512718a18esm10840958eec.17.2026.10.04.20.47.57
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3512718a18esm10840958eec.17.2026.10.04.20.48.02
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 04 Oct 2026 20:48:01 -0700 (PDT)
+        Sun, 04 Oct 2026 20:48:07 -0700 (PDT)
 From: "Ritesh Harjani (IBM)" <ritesh.list@gmail.com>
 To: kvm@vger.kernel.org,
 	Sean Christopherson <seanjc@google.com>
@@ -73,9 +73,9 @@ Cc: Paolo Bonzini <pbonzini@redhat.com>,
 	Shrikanth Hegde <sshegde@linux.ibm.com>,
 	linux-kernel@vger.kernel.org,
 	"Ritesh Harjani (IBM)" <ritesh.list@gmail.com>
-Subject: [PATCH v6 4/5] KVM: PPC: selftests: Skip idle-page check when running nested on pseries LPAR
-Date: Mon,  5 Oct 2026 09:17:27 +0530
-Message-Id: <4e9622b3c3329cd32c120175b06bd30a933b8375.1791014924.git.ritesh.list@gmail.com>
+Subject: [PATCH v6 5/5] KVM: selftests: Don't limit LE dirty-bitmap bitops to s390x
+Date: Mon,  5 Oct 2026 09:17:28 +0530
+Message-Id: <0c3cf7d492acb9da38bcdd0331cb69929c947c30.1791014924.git.ritesh.list@gmail.com>
 X-Mailer: git-send-email 2.39.5
 In-Reply-To: <cover.1791014923.git.ritesh.list@gmail.com>
 References: <cover.1791014923.git.ritesh.list@gmail.com>
@@ -87,52 +87,66 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Same nested TLB/access bit issue like x86. Use the is_pseries_lpar()
-check to detect when running nested kvm on pseries LPAR to only warn on
-idle-page check.
+dirty_log_test already has BITOP_LE_SWIZZLE helpers, but they were
+compiled in only for s390x, so every other big-endian host used native
+test_bit().
 
-Reported-by: Anushree Mathur <anushree.mathur@linux.ibm.com>
+The test fails on big-endian powerpc because it treated dirty host pages
+as clean (because of the endianness issue)
+
+w/o the fix the test fails with:
+  Clear page 1 value (1) >= iteration (1)
+
 Tested-by: Anushree Mathur <anushree.mathur@linux.ibm.com>
 Signed-off-by: Ritesh Harjani (IBM) <ritesh.list@gmail.com>
 ---
- tools/testing/selftests/kvm/Makefile.kvm              |  1 +
- .../testing/selftests/kvm/access_tracking_perf_test.c | 11 +++++++++++
- 2 files changed, 12 insertions(+)
+ tools/testing/selftests/kvm/Makefile.kvm     |  1 +
+ tools/testing/selftests/kvm/dirty_log_test.c | 12 ++++--------
+ 2 files changed, 5 insertions(+), 8 deletions(-)
 
 diff --git a/tools/testing/selftests/kvm/Makefile.kvm b/tools/testing/selftests/kvm/Makefile.kvm
-index a7ecd7a242a9..57d1bf994fe8 100644
+index 57d1bf994fe8..38c350c5b5e3 100644
 --- a/tools/testing/selftests/kvm/Makefile.kvm
 +++ b/tools/testing/selftests/kvm/Makefile.kvm
-@@ -263,6 +263,7 @@ TEST_GEN_PROGS_powerpc += kvm_page_table_test
- TEST_GEN_PROGS_powerpc += set_memory_region_test
+@@ -264,6 +264,7 @@ TEST_GEN_PROGS_powerpc += set_memory_region_test
  TEST_GEN_PROGS_powerpc += memslot_modification_stress_test
  TEST_GEN_PROGS_powerpc += memslot_perf_test
-+TEST_GEN_PROGS_powerpc += access_tracking_perf_test
- 
+ TEST_GEN_PROGS_powerpc += access_tracking_perf_test
++TEST_GEN_PROGS_powerpc += dirty_log_test
+
  SPLIT_TESTS += arch_timer
  SPLIT_TESTS += get-reg-list
-diff --git a/tools/testing/selftests/kvm/access_tracking_perf_test.c b/tools/testing/selftests/kvm/access_tracking_perf_test.c
-index 4415c94b2866..94bfb82f7b79 100644
---- a/tools/testing/selftests/kvm/access_tracking_perf_test.c
-+++ b/tools/testing/selftests/kvm/access_tracking_perf_test.c
-@@ -470,6 +470,17 @@ static int access_tracking_unreliable(void)
- 		puts("Skipping idle page count sanity check, because the test is run nested");
- 		return 1;
- 	}
+diff --git a/tools/testing/selftests/kvm/dirty_log_test.c b/tools/testing/selftests/kvm/dirty_log_test.c
+index af5eb0334a74..8189eaac713c 100644
+--- a/tools/testing/selftests/kvm/dirty_log_test.c
++++ b/tools/testing/selftests/kvm/dirty_log_test.c
+@@ -44,8 +44,11 @@
+ #define TEST_MIN_WRITES_PER_ITERATION	0x100
+
+ /* Dirty bitmaps are always little endian, so we need to swap on big endian */
+-#if defined(__s390x__)
++#if __BYTE_ORDER__ == __ORDER_BIG_ENDIAN__
+ # define BITOP_LE_SWIZZLE	((BITS_PER_LONG-1) & ~0x7)
++#else
++# define BITOP_LE_SWIZZLE	0
 +#endif
-+#ifdef __powerpc64__
-+	/*
-+	 * Nested KVM (pSeries LPAR) can hide accessed/idle, since KVM doesn't
-+	 * explicitely flush the TLB for access bit update. L0 keeps
-+	 * translations cached so the guest won't see the idle bit cleared.
-+	 */
-+	if (is_pseries_lpar()) {
-+		puts("Skipping idle page count sanity check, because the test is run nested");
-+		return 1;
-+	}
- #endif
- 	/*
- 	 * When NUMA balancing is enabled, guest memory will be unmapped to get
--- 
+ # define test_bit_le(nr, addr) \
+ 	test_bit((nr) ^ BITOP_LE_SWIZZLE, addr)
+ # define __set_bit_le(nr, addr) \
+@@ -56,13 +59,6 @@
+ 	__test_and_set_bit((nr) ^ BITOP_LE_SWIZZLE, addr)
+ # define __test_and_clear_bit_le(nr, addr) \
+ 	__test_and_clear_bit((nr) ^ BITOP_LE_SWIZZLE, addr)
+-#else
+-# define test_bit_le			test_bit
+-# define __set_bit_le			__set_bit
+-# define __clear_bit_le			__clear_bit
+-# define __test_and_set_bit_le		__test_and_set_bit
+-# define __test_and_clear_bit_le	__test_and_clear_bit
+-#endif
+
+ #define TEST_DIRTY_RING_COUNT		65536
+
+--
 2.39.5
 
