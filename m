@@ -1,151 +1,154 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AD6DA2D249B;
-	Mon,  5 Oct 2026 15:30:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 4C6BB490BF4
+	for <linux-kernel@vger.kernel.org>; Mon,  5 Oct 2026 15:31:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791214257; cv=none; b=Hqv70KqVbdK2ib4gkyuFZQm9rqVR/TOZVnTecj4uhpm2s/qAVxuxPS1NOaiJnwqtcCgW6BTI5bhhzOm0VtuJQnbqpVzZIvyz1WrUP8pOZGObzO+INptKb7Ene1JDIbzK1+fdlKVZJgUjfsTLelN96tmcEjmzLYImdOxwz3BW8Nw=
+	t=1791214277; cv=none; b=GWMKNvcrgRU2JN6sXAP3IKrpfB+w+l0tcjKMXJAlRMFK4u1F6xWUwK8JJq5IIK7SXtpBRzG4tHAbjEWGUGp318yXyaeco+hzABOTXKf7Tk9PQyQZTJtuXNokuFVsoriKq2zZPfFrlzUh/nJ4zBM/t7Rco6GRoI9DzeSynYSicyY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791214257; c=relaxed/simple;
-	bh=X6nLDttfxdsAcVhT7coDh+6wfCWnYIcEbY55a9HRL4Y=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=KxBo+mJdvdq7A8oCTqzCu1N8+ofxlExgh/2irFlmmR3FdhCO+YcW0N538RbGPeoSp39yEVwpnRqDbgzk11bic08JRM3nwWTT3ejbdHZzuyYfGsFySOkxfuTVc+W3b6PU89TyfO/t5Kc219bBtjbc0AXCSM9ifCACeGlaosgmbaM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Ifu7KvfQ; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791214277; c=relaxed/simple;
+	bh=1KxWukN91rQATxKeKW/KQzlxtbJENoTAECtlYaMOGgQ=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=BTNGa72PPCFw0iBaeV1VA7C/pAQoKtTYpM4Uky8BTjeipI0GNcN5dilQnlXYDZkX2skYYvcDIv0thAj/pwiZsgTxb85fIoW/bJf0zvHPFyeNv9/5psih4d9Co/JXKorEj00bBHI4jR+NGL/P9w3isZ4fjciBUwvavAWi9CnBQaM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=U0B9UnoE; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Ifu7KvfQ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B5EB41F000FF;
-	Mon,  5 Oct 2026 15:30:54 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791214256;
-	bh=x7kHCI/Oi3qjwgCINk1s5Ev19iGxrv4eQUNBFls+4pM=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=Ifu7KvfQfk0qp6OpvyHAk/Gy1XuJipIAcYsAubvFyujcCmW3hQ/B8FpUEEL3WYnRx
-	 R6wQXk5aOwHGiU8qtjVNyqBaM9l65npTRUgw0Zf4HmPvxNh2BsfBC0gdOMyEANmw/2
-	 0gxATULKprVSeaJLlOMHKlX2nv8nZvFxRZrpHQhqlhprBzFHOXXUuiroCpZKXF1kx8
-	 7NSjNh256R6pElGDe3aERe7bmIYwWR4ci/VBFpH7oIh9kV5Yc7fTR+IvaZOle1Tg0X
-	 HeqIEQbico/3z2W9VAUN/POuRKf5MB2D3iO5NvA94wuZh33N0uG23oxGmzliZhyfEX
-	 /PMFCTxLvsMxg==
-Date: Mon, 5 Oct 2026 17:30:52 +0200
-From: Nathan Chancellor <nathan@kernel.org>
-To: Aaron Tomlin <atomlin@atomlin.com>,
-	Steven Rostedt <rostedt@goodmis.org>
-Cc: nsc@kernel.org, julianbraha@gmail.com, linux-kbuild@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] localmodconfig: Explicitly report boolean configs during
- integrity check
-Message-ID: <20261005153052.GA2537651@ax162>
-References: <20260925181230.130525-1-atomlin@atomlin.com>
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="U0B9UnoE"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 08B0D152B;
+	Mon,  5 Oct 2026 08:31:11 -0700 (PDT)
+Received: from [10.57.78.53] (unknown [10.57.78.53])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 2C5C03F66F;
+	Mon,  5 Oct 2026 08:31:11 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1791214274; bh=1KxWukN91rQATxKeKW/KQzlxtbJENoTAECtlYaMOGgQ=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=U0B9UnoENLn+hROcRubshH9HnOleoucY2g+JOxuIsfh4QHQERB8rxdfFQWAgH6DJ5
+	 JhSG7Sr0nv1LKrI0ChCVnC2YhCT2vg6cmmmIpIHX+8jWfp3l52wawSw0dIx6Gp8KNS
+	 NRXRSyR3pZ3HmJUd8mCNGmHmfQz1hSEHMRNf/pdk=
+Message-ID: <5b0254d0-1be2-4dad-b6ce-368d341dd319@arm.com>
+Date: Mon, 5 Oct 2026 16:31:09 +0100
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260925181230.130525-1-atomlin@atomlin.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 4/5] drm/panthor: Actually check huge-page mapping on
+ sparse regions
+To: Boris Brezillon <boris.brezillon@collabora.com>
+Cc: Liviu Dudau <liviu.dudau@arm.com>,
+ =?UTF-8?Q?Adri=C3=A1n_Larumbe?= <adrian.larumbe@collabora.com>,
+ Akash Goel <akash.goel@arm.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+References: <20260924-panthor-fix-partial-unmap-v2-0-59a68a1f9e14@collabora.com>
+ <20260924-panthor-fix-partial-unmap-v2-4-59a68a1f9e14@collabora.com>
+ <678b9346-a53d-49bd-9c90-fa63e6c81169@arm.com>
+ <20261005135312.43d132cf@fedora-61.home>
+From: Steven Price <steven.price@arm.com>
+Content-Language: en-GB
+In-Reply-To: <20261005135312.43d132cf@fedora-61.home>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-Hi Aaron,
+On 05/10/2026 12:53, Boris Brezillon wrote:
+> On Mon, 5 Oct 2026 12:03:26 +0100
+> Steven Price <steven.price@arm.com> wrote:
+> 
+>> On 24/09/2026 12:04, Boris Brezillon wrote:
+>>> With the recent changes to iova_mapped_as_huge_page(), the check for
+>>> huge-page mapping of sparse BOs is actually simple:
+>>>
+>>> - for a sparse mapping, we know the BO offset any VA in this regions is
+>>>   va & (SZ_2M - 1)
+>>> - the VA we're searching the BO offset for is the 2M-aligned
+>>>   aligned_va value
+>>>
+>>> This guarantees that the BO offset to check is always zero in that case.
+>>>
+>>> This is simple enough to let the code check if page 0 is a huge page
+>>> and save the unmap+map dance when the dummy BO is not backed by a
+>>> a huge page. So let's do that and kill the comment that says it's too
+>>> complicated.
+>>>
+>>> Reviewed-by: Liviu Dudau <liviu.dudau@arm.com>
+>>> Reviewed-by: Akash Goel <akash.goel@arm.com>
+>>> Signed-off-by: Boris Brezillon <boris.brezillon@collabora.com>  
+>>
+>> In itself I can't see anything wrong with this change, so:
+>>
+>> Reviewed-by: Steven Price <steven.price@arm.com>
+>>
+>> However...
+>>
+>>> ---
+>>>  drivers/gpu/drm/panthor/panthor_mmu.c | 15 ++++++++-------
+>>>  1 file changed, 8 insertions(+), 7 deletions(-)
+>>>
+>>> diff --git a/drivers/gpu/drm/panthor/panthor_mmu.c b/drivers/gpu/drm/panthor/panthor_mmu.c
+>>> index d2897099763e..01564d250adf 100644
+>>> --- a/drivers/gpu/drm/panthor/panthor_mmu.c
+>>> +++ b/drivers/gpu/drm/panthor/panthor_mmu.c
+>>> @@ -2337,18 +2337,18 @@ iova_mapped_as_huge_page(struct drm_gpuva *mapping, u64 va)
+>>>  
+>>>  		return false;
+>>>  	} else {
+>>> -		const struct page *pg = bo->backing.pages[bo_offset >> PAGE_SHIFT];
+>>>  		struct panthor_vma *vma = container_of(mapping, struct panthor_vma, base);
+>>>  		bool is_sparse = vma->flags & DRM_PANTHOR_VM_BIND_OP_MAP_SPARSE;
+>>> +		const struct page *pg;
+>>>  
+>>> -		/* If the unmapped VMA stands for a sparse mapping, always
+>>> -		 * assume the backing storage is a THP, since the overhead of
+>>> -		 * unmapping 2MiB worth of 4KiB pages and remapping some of
+>>> -		 * them is offset by the logic of working out whether it's
+>>> -		 * the opposite case right below.
+>>> +		/* BO offset on a sparse mapping is chosen so that 2M-aligned
+>>> +		 * VAs point to the start of the BO. Since aligned_va (the
+>>> +		 * address we check huge-page against) is 2M-aligned, the BO
+>>> +		 * offset is guaranteed to be zero.
+>>> +		 * Check panthor_fix_sparse_map_offset() for more details.
+>>>  		 */
+>>>  		if (is_sparse)
+>>> -			return true;
+>>> +			bo_offset = 0;
+>>>  
+>>>  		/* In case of shmem backing, we know we can only have a huge
+>>>  		 * mapping if the bo_offset is 2M aligned, meaning we can skip
+>>> @@ -2357,6 +2357,7 @@ iova_mapped_as_huge_page(struct drm_gpuva *mapping, u64 va)
+>>>  		if (!IS_ALIGNED(bo_offset, SZ_2M))
+>>>  			return false;
+>>>  
+>>> +		pg = bo->backing.pages[bo_offset >> PAGE_SHIFT];
+>>>  		return folio_size(page_folio(pg)) >= SZ_2M;  
+>>
+>> ... this seems like it could be problematic. On the mapping side we use
+>> the scatter list to decide whether the region is huge page mapped or
+>> not. The scatter list code can merge segments that are contiguous (see
+>> pages_are_mergeable()), so if we have a region which has small folios we
+>> fail this check even though the pages might have been mapped as huge pages.
+>>
+>> This is a problem on the non-sparse path as well (hence not really
+>> related to this patch). I'm not really sure how to test this though - I
+>> may well have overlooked something here.
+> 
+> So, this is based on the assumption that shmem backing is allocated
+> with the buddy allocator, and because of how this allocator splits
+> bigger order blocks to service smaller allocations, it's my
+> understanding that two consecutive folios of the same size/order can't
+> be physically contiguous.
 
-+ Steven
+Yes, you'd expect the buddy allocator to combine the folios back into a
+larger one if they were contiguous. I guess we should be safe, at least
+for now. I still feel it's unnecessarily fragile and complex trying to
+work out whether we've mapped as a huge page or not. But I don't
+actually have a better solution at the moment, and this series is at
+least improving things. I'll put it on my todo list to look at later.
 
-On Fri, Sep 25, 2026 at 02:12:30PM -0400, Aaron Tomlin wrote:
-> When running make localmodconfig, streamline_config.pl reads loaded
-> modules and maps each module object to its corresponding Kconfig
-> symbol(s) using repository Makefiles.
-> 
-> In several instances, a loaded module corresponds to an object
-> controlled by a boolean symbol (e.g. config FOO declared as bool), or is
-> a composite module that depends on a boolean configuration. Because
-> boolean options only accept "=y" or disabled, they cannot be configured
-> as loadable modules ("=m").
-> 
-> Previously, if such a symbol was not already built-in ("=y") in the
-> baseline configuration, the final integrity check emitted an ambiguous
-> diagnostic. For example
-> 
->     foo did not have configs CONFIG_FOO
-> 
-> Further investigation is required by developers to determine whether the
-> module was out-of-tree, its dependencies were unmet, or it failed due to
-> a type constraint. Address this by:
->     1.  Tracking symbol types in a %types hash during Kconfig parsing.
-> 
->     2.  Enhancing the final integrity check when running localmodconfig
->         (!$localyesconfig) to explicitly annotate boolean symbols.
-> 
-> For example:
-> 
->     module cec did not have configs CONFIG_CEC_CORE (tristate) CONFIG_RAS_CEC (boolean, not supported with =m)
-> 
-> Signed-off-by: Aaron Tomlin <atomlin@atomlin.com>
+Thanks,
+Steve
 
-My Perl is quite weak, so I would love Steven's ack or review before
-taking this since he is the original author/maintainer. I've left the
-full patch for context.
-
-> ---
->  scripts/kconfig/streamline_config.pl | 20 ++++++++++++++++++--
->  1 file changed, 18 insertions(+), 2 deletions(-)
-> 
-> diff --git a/scripts/kconfig/streamline_config.pl b/scripts/kconfig/streamline_config.pl
-> index 8677d1ca06a7..6a52a98eb40e 100755
-> --- a/scripts/kconfig/streamline_config.pl
-> +++ b/scripts/kconfig/streamline_config.pl
-> @@ -145,6 +145,7 @@ my %prompts;
->  my %objects;
->  my %config2kfile;
->  my %defaults;
-> +my %types;
->  my $var;
->  my $iflevel = 0;
->  my @ifdeps;
-> @@ -224,6 +225,7 @@ sub read_kconfig {
->  	} elsif ($state ne "NONE" && /^\s*def(_(bool|tristate)|ault)\s+(\S.*)$/) {
->  	    my $dep = $3;
->              $defaults{$config} = 1;
-> +	    $types{$config} = $2 if (defined($2));
->  	    if ($dep !~ /^\s*(y|m|n)\s*$/) {
->  		$dep =~ s/.*\sif\s+//;
->  		$depends{$config} .= " " . $dep;
-> @@ -240,7 +242,13 @@ sub read_kconfig {
->  	    }
->  
->  	# configs without prompts must be selected
-> -	} elsif ($state ne "NONE" && /^\s*(tristate\s+\S|prompt\b)/) {
-> +	} elsif ($state ne "NONE" && /^\s*(bool|boolean)(\s+\S.*)?$/) {
-> +	    $types{$config} = "bool";
-> +	    $prompts{$config} = 1 if (defined($2));
-> +	} elsif ($state ne "NONE" && /^\s*tristate(\s+\S.*)?$/) {
-> +	    $types{$config} = "tristate";
-> +	    $prompts{$config} = 1 if (defined($1));
-> +	} elsif ($state ne "NONE" && /^\s*prompt\b/) {
->  	    # note if the config has a prompt
->  	    $prompts{$config} = 1;
->  
-> @@ -707,7 +715,15 @@ foreach my $module (keys(%modules)) {
->  	}
->  	print STDERR "module $module did not have configs";
->  	foreach my $conf (@arr) {
-> -	    print STDERR " " , $conf;
-> +	    my $c = $conf;
-> +	    $c =~ s/^CONFIG_//;
-> +	    if (!$localyesconfig && defined($types{$c}) && $types{$c} eq "bool") {
-> +		print STDERR " $conf (boolean, not supported with =m)";
-> +	    } elsif (defined($types{$c})) {
-> +		print STDERR " $conf ($types{$c})";
-> +	    } else {
-> +		print STDERR " " , $conf;
-> +	    }
->  	}
->  	print STDERR "\n";
->      }
-> -- 
-> 2.55.0
-> 
-> 
-
--- 
-Cheers,
-Nathan
