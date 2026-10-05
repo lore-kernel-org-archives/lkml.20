@@ -1,300 +1,208 @@
-Received: from smtp9.goneo.de (smtp9.goneo.de [85.220.189.104])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3786C4C14E8;
-	Mon,  5 Oct 2026 15:29:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=85.220.189.104
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4F39B48FF88
+	for <linux-kernel@vger.kernel.org>; Mon,  5 Oct 2026 15:29:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791214189; cv=none; b=urhuDY5SLFOThxYMaOYbngMHaWxYawU5CnmulNARNgtr/8iCAL7poNGTBgvMFwl/gbTd9AFsWt0pMb5KCsw3aAo0iAkYn/RQCazdNReaT4gIMC/z9TclMakb2q7ZtGJIxjTbnSnTO5A6Zwyfj8WyyIl8EvUfPrbEExmAyE206Oc=
+	t=1791214200; cv=none; b=BeiCm7R+Jg9PR/cMnew+3tKsmdqYSF8t+gIUIeA5/JDsJu4IK9CooryhTEz1RuoqEKMkOovzE4kCSqPBBtK874r4ZnRiMNNcdnsJf07tc3nDcyqEPQteqfpq9Xi0COWBPbLVeaAsh5dCxSiCQoNaDIqCBvPcMc/SAxSozYl9pqM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791214189; c=relaxed/simple;
-	bh=k9XXlvljwpDdINjTABSNq9Rbsq2vVAtJliRAQQI6XO4=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=iLZT+h19ideLSNkXJzKjP1cm0IYXrIpfL9FKUS/wcJ05fiddhJcnSsSuoDDe8NKiXpUgYZzr5J7ALEn3jrcjT3XpCEDDrtgqjsrJ0j62ohwH1Dek5mDnWfzfcTFB12e9FuPS/Echuig2t5+QCBR2sOmdf1pcF0HEIyMC/zVeWRs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tk154.de; spf=pass smtp.mailfrom=tk154.de; dkim=pass (2048-bit key) header.d=tk154.de header.i=@tk154.de header.b=EuqX+ssf; arc=none smtp.client-ip=85.220.189.104
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tk154.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=tk154.de
+	s=arc-20240116; t=1791214200; c=relaxed/simple;
+	bh=0rZMtbqx4OJH/ZRZnVtsTEJfbEO8f/Oy8uSFfMNquXQ=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=l3xMqZ5ZhZcTo+CXR1Kelj1WkE8NyfT0YTOTJDtpS9Rx4RC6C8AG4aGaO4SnZEUKCVpZEZSDBOj3Y7p/00iYtGsmMHt2VW7dGZqQahma5XhUfs+zQr5bmrLnntSvTeN4MR8XnX/FhVZ/662cCaK1NZeDYgC26Q0g5wV+V0KtxXo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=QKtfxl2B; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=jyVDRvtV; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=tk154.de header.i=@tk154.de header.b="EuqX+ssf"
-Received: from hub1.goneo.de (hub1.goneo.de [IPv6:2001:1640:5::8:52])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519)
-	(No client certificate requested)
-	by smtp9.goneo.de (Postfix) with ESMTPS id 3F0B52409F1;
-	Mon, 05 Oct 2026 17:29:40 +0200 (CEST)
-Received: from hub1.goneo.de (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519)
-	(No client certificate requested)
-	by hub1.goneo.de (Postfix) with ESMTPS id 0946E240412;
-	Mon, 05 Oct 2026 17:29:38 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=tk154.de; s=DKIM001;
-	t=1791214178;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=NoHN9rbVJnagWmiztRfXDSYAqexM84S3RYzPvuSehBg=;
-	b=EuqX+ssfqPeBFKZwIswroV1qEhbe82/BfJi5nbPG4CeJSiX/SFEYnpyCQYW4fktp59H6zy
-	fJm2CJGj5ANNWoqnbbkyiJ7zpNp2VC+d/eq8F7ScOpHsh99PvSvYQbAlxM4yd1+CdzbuhL
-	2kdc20XZC/TupScQjne5DXOiXsD/QQ5RS5zCGnVzSExl+E3O+MxOvFX2WZnF2XKZa26LqM
-	C2GoGFUTFYZNfuP9OWIzsDgeVl/iTcz+/HeE3o79wsM/5dCCa2XRA0x7mr9R6MATefSf7x
-	cWn+MYyV7doNaJHkbiJfDjA67cw+C5FOMEqIZybZ+MjA7VUF2+/Me6Cwb6dYTA==
-Received: from CASE (unknown [195.37.88.189])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by hub1.goneo.de (Postfix) with ESMTPSA id 7C00E24048A;
-	Mon, 05 Oct 2026 17:29:35 +0200 (CEST)
-From: Til Kaiser <mail@tk154.de>
-To: netdev@vger.kernel.org
-Cc: Luo Jie <jie.luo@oss.qualcomm.com>,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Simon Horman <horms@kernel.org>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Randy Dunlap <rdunlap@infradead.org>,
-	Lei Wei <quic_leiwei@quicinc.com>,
-	Suruchi Agarwal <quic_suruchia@quicinc.com>,
-	Pavithra R <quic_pavir@quicinc.com>,
-	linux-arm-msm@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-doc@vger.kernel.org,
-	Til Kaiser <mail@tk154.de>
-Subject: [PATCH net-next 3/4] dt-bindings: net: qcom,ipq9574-ppe: Add IPQ5332 support
-Date: Mon,  5 Oct 2026 17:29:14 +0200
-Message-ID: <20261005152915.101780-4-mail@tk154.de>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261005152915.101780-1-mail@tk154.de>
-References: <20261005152915.101780-1-mail@tk154.de>
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="QKtfxl2B";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="jyVDRvtV"
+Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 695EP13q1195542
+	for <linux-kernel@vger.kernel.org>; Mon, 5 Oct 2026 15:29:55 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:message-id
+	:mime-version:subject:to; s=qcppdkim1; bh=rCXw8A2I1UeDoK1QSfdJN0
+	EuaLobUdXeGbqPzaAGUk4=; b=QKtfxl2B5MEPWQPK/JhdHjkpmV6cfy2eE9mmrn
+	umzA+SXBw+eL9JGvBdsBacHrXg5xlIu00YrZjyPijB9ZFQXcE2ZSEvY2uAvIBMO+
+	qW5UKs3H6QJnNeu4EBZqDSPkOgABECXe2bhIpRxQPr326jKFF/4os+vf1lwhOQIg
+	HTjkKa2wvhFEtdYjgWL2YaUjSswYMHtxubz23JYz1ObI//9RcgSdU+peaU9gwFmd
+	GmIxwEQJVQkoCWUNEUFA7Ph3i+4N7WGtg89iWQQRF/v/FkDgQOGqrwRJu7j5Z9QL
+	uPJkuiNvmQhVAkz9tLiD2xeNjs42ID/kjokmvjG+cH6IXLlQ==
+Received: from mail-pf1-f200.google.com (mail-pf1-f200.google.com [209.85.210.200])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h3chfmd1b-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Mon, 05 Oct 2026 15:29:54 +0000 (GMT)
+Received: by mail-pf1-f200.google.com with SMTP id d2e1a72fcca58-887e45c7063so1482529b3a.1
+        for <linux-kernel@vger.kernel.org>; Mon, 05 Oct 2026 08:29:54 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1791214194; x=1791818994; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=rCXw8A2I1UeDoK1QSfdJN0EuaLobUdXeGbqPzaAGUk4=;
+        b=jyVDRvtV6cuhqiZ4DihK+rM7RxdLl/acsJov3KjHqNnl5YzFWyyFof12++hILSFe8A
+         UOXB0GX3NUPLDbN21gtm3f19XraBbKpp7vl83Hx00/tIsPbACjAVugM7JOBy05LGZjD/
+         0JcUt3q5d+r523Jt3OtLssgOyo7GMNDbAxy4GlzGtpd/fWLMMz4lROU8XPxhD3mrB/DB
+         VB+X9lBPtHGo9eygoP+yl07Uz5vGnzFJZvl6cvrM4y8eNSV7SBekOX+LXVKZ96AawX6y
+         8ByN+brj7+RXwv4uWihesBvLAjXtiyJM99DRqQUUkEZm7GBFd2Q6WIHVv6NAlcbCp2Fx
+         Nw6Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791214194; x=1791818994;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=rCXw8A2I1UeDoK1QSfdJN0EuaLobUdXeGbqPzaAGUk4=;
+        b=TREcFdU6AEnKNSJnzR7eRLRkkLBfYXozQDoX4PhbvLrEWKgj8p5q8gwnATR2AG0N9b
+         yOzX85LH1f56XyuszfAwkdmHQ1x3Pth6z8Ss+JFnVW66ZNzXOfpU3lvQDhJWGD4s05Oi
+         6lvhWtqaGLIRKxI0sYROmzikM4Kuzph98RbK4b9wbh9rfoVtvEMsY5jWE21dG63yyZWc
+         xma7PtiE2dg6HImw0AW/13AQxtaUw22/ayYkjFMQYTWdF1SZj80aVGWzImgDPKmCtROk
+         1j24FR7kkYBO8pFLphRA36Y/prDHHPmLzx2uTlrcrs307nIUHhK3v1aYmhs4WFg56XeD
+         nCBQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxet/ldhBvR8qbGQJPAR/Du1V5uujPWZqyMeDV6lRd6FpA+3lrlXIB7gsW3zdoyr93fxQxM8796KDq700k=@vger.kernel.org
+X-Gm-Message-State: AFuF++lNcfQ/zPryvWDKaPg2LB023wqt8QD1hZNtSYEyFYP2STLwmS2Y
+	w5aHjPj31jMAWTC68B430fGZ4UkMAAXUlGPdQR6SX/BWNLRLb6pxbhDnzgGCVFSc7Qfua7JrUCi
+	IO1gMdAnexs3SK46/t7agqi6XeO8sOzYCX0Wo7TNw6kbCT33D5/sxCY+TorBJVNosw3U=
+X-Gm-Gg: AYBFou0JO8BAItKQFum6PJJaRMeE9ya7CU2rqyiAkygtEYmYc5DLM3QFeip0owRRJrG
+	dF4fGlUc2uij8+7S3wiLZiTt18A2aVk7kUoNaQAGVbmHRznBr5c/Dx6Of6D/2OjDhLNBHuaTi6U
+	B3iUs5WwAB9PDTD9duROFT5tUwmmw7z+zWUewXyCPe/3JOsUHgsxGcA3oZTV22KiMLQehbYNUmn
+	t5CLajmE8dOSx0pCrZcFCCecw+ny/6HhYF1idm1uvqg3bec4IpdNakzx25++T6JLh1rOFXYATnM
+	FwAaZ7uQzscSB3eh/WC5O7WApGuZ7H05gixkzDlaqBOPho4Onovg0gXZaHaWAJjDaRBX5lPcZE5
+	jBKa5Sh+tjF1zmTZQjx6jh3HsTjjM
+X-Received: by 2002:a05:6a00:f87:b0:882:2b16:c314 with SMTP id d2e1a72fcca58-88af59ca53cmr10814028b3a.52.1791214193852;
+        Mon, 05 Oct 2026 08:29:53 -0700 (PDT)
+X-Received: by 2002:a05:6a00:f87:b0:882:2b16:c314 with SMTP id d2e1a72fcca58-88af59ca53cmr10813997b3a.52.1791214193388;
+        Mon, 05 Oct 2026 08:29:53 -0700 (PDT)
+Received: from hu-mkshah-hyd.qualcomm.com ([202.46.22.19])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-88b0c792ce7sm3681528b3a.41.2026.10.05.08.29.48
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 05 Oct 2026 08:29:52 -0700 (PDT)
+From: Maulik Shah <maulik.shah@oss.qualcomm.com>
+Subject: [PATCH 0/3] pmdomain: Support system-suspend-only domain idle
+ states
+Date: Mon, 05 Oct 2026 20:59:41 +0530
+Message-Id: <20261005-s2idle_state-v1-0-3c402c66f388@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Rspamd-UID: e122ff
-X-Rspamd-UID: 5a958b
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAGXCw2oC/yXMQQrDIBBA0avIrCuoSAi9SgnFScZ2SjHBMaEg3
+ r02Xb7F/xWEMpPAVVXIdLDwmjrsRcH8DOlBmpducMYN1hirxfHypruUUEgPfvSIGP0YEXqyZYr
+ 8OXe36W/Z8UVz+T2gtS915QdEcAAAAA==
+X-Change-ID: 20261001-s2idle_state-6484bbbf48fb
+To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>, Ulf Hansson <ulfh@kernel.org>,
+        "Rafael J. Wysocki" <rafael@kernel.org>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>,
+        Abel Vesa <abelvesa@kernel.org>,
+        Daniel Lezcano <daniel.lezcano@oss.qualcomm.com>
+Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+        linux-pm@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+        Maulik Shah <maulik.shah@oss.qualcomm.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1791214188; l=3514;
+ i=maulik.shah@oss.qualcomm.com; s=20240109; h=from:subject:message-id;
+ bh=0rZMtbqx4OJH/ZRZnVtsTEJfbEO8f/Oy8uSFfMNquXQ=;
+ b=NXMdRjPVdkOUnvkOhaWn8LlA7qSPqn6e0LdgcJn7ZsRyAQYK7Yn9r9hCj6ymhwui4iheXc7QH
+ jjC6DXrjIZLD+pRghWt75RLPFmT1twrqOr24XA5x6nWVKNoIF0CIdf+
+X-Developer-Key: i=maulik.shah@oss.qualcomm.com; a=ed25519;
+ pk=bd9h5FIIliUddIk8p3BlQWBlzKEQ/YW5V+fe759hTWQ=
+X-Proofpoint-ORIG-GUID: Z1iZRMxQoq1TBNP9yRTVlD20X9dvfsmC
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDA1MDA2MCBTYWx0ZWRfX4DqlLLsQzXNn
+ u5lF6dfAn5XugLAA5ueIqFXdCoQng+/fYTkANXR9blq3oVA75gmAD5NOwaWyYzensx1PsA18SOj
+ TjpyyH93pmxPtX0osVNNSODjFZtlyD8=
+X-Authority-Analysis: v=2.4 cv=eZSo7LEH c=1 sm=1 tr=0 ts=6ac3c272 cx=c_pps
+ a=mDZGXZTwRPZaeRUbqKGCBw==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
+ a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yx91gb_oNiZeI1HMLzn7:22
+ a=EUspDBNiAAAA:8 a=CdNNJpWm79WUBrjYsGcA:9 a=QEXdDO2ut3YA:10
+ a=zc0IvFSfCIW2DFIPzwfm:22
+X-Proofpoint-GUID: Z1iZRMxQoq1TBNP9yRTVlD20X9dvfsmC
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDA1MDA2MCBTYWx0ZWRfX3+K5s8mYrQH6
+ aGjz1Y4XmHXFxBvKf2Js03R5r8FFE1+HzTbAc3SGr5zr+RaxCsJJbNLbWRZ37F7rI1TXnr7u5m4
+ bixUhs7yC1a9hgyTUmkWw/GaKVB15wo0RZbBvpBmasIYQJkkmdYkcPtDbE0uIzwkVBRcPrkSbta
+ 3pbGjKvbFcTJ0HPMZrANGlYRVVrMmRWdQ3dCqwyiuBvxztrSUpCqoatYHk76hDP+L3SxsmRZiI8
+ bkXDPFlB+VgsJ1X7elXBNV7EjZdU/DQO8WkNCLYncL4efT6goeAS427jzGe3TQxpr0nJhOUhOfn
+ JsyK1M8HD/uIza4myJG35YQ2DbAn+qKPrl7kDuZXLclhtdGH6Rg4v3N1bOwWozrdEvqMnSXVdy3
+ vgGq+VvcUwkIApO/q5pIz3WAQFcbu2M2M74wdt3FfI8oZ46pfHKg/SXWg6EvGvGHqVO2FvE2fh5
+ KfO98ZoZvLxKpwk4sqQ==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-05_04,2026-10-05_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ spamscore=0 clxscore=1015 impostorscore=0 priorityscore=1501
+ lowpriorityscore=0 suspectscore=0 malwarescore=0 adultscore=0 bulkscore=0
+ phishscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2609040000
+ definitions=main-2610050060
 
-IPQ5332 uses the same PPE architecture as IPQ9574, but has two front
-panel ports instead of six and four interconnect paths instead of seven.
+To achieve the deepest CPUSS low power state, which can lead to chip
+rail power collapse (CxPC) on SoCs such as Lemans, Monaco and Nord, the CPU
+subsystem (CPUSS) and the Safety Island (SAIL) subsystem must be powered
+down together in a coordinated sequence. The Safety Island (SAIL) is a
+dedicated subsystem responsible for safety-critical monitoring and control
+functions, and can operate independently from the main CPU subsystem.
 
-Add the qcom,ipq5332-ppe compatible and constrain the interconnects
-and port nodes per SoC: IPQ5332 takes four interconnects and only
-ethernet-port@1 and ethernet-port@2, while IPQ9574 keeps seven
-interconnects.
+This transition is divided into two stages. First, firmware requests SAIL
+power-down through IPC, after which SAIL waits for hardware low power
+handshakes from CPUSS. If an interrupt or another condition aborts CPUSS
+entry into the deepest low power mode after the IPC request, firmware must
+bring SAIL back out of its low power sequence before any CPU can resume
+execution in the OS. This recovery can take a second or more.
 
-The PPE core, EDMA and MAC clock functions are shared, but IPQ5332 also
-needs the GCC IM sleep clock. The PPE core uses one reset and each MAC
-uses three resets on both SoCs. IPQ5332 EDMA needs separate system and
-configuration resets; IPQ9574 uses one combined reset. Constrain the
-clock and reset counts accordingly. Keep EDMA resets positional, with
-the system reset first and the configuration reset second on IPQ5332,
-consistent with the existing unnamed IPQ9574 reset.
+Selecting this state during opportunistic CPU idle can therefore cause
+substantial wakeup delays and repeatedly interrupt SAIL operation whenever
+the CPUs become idle. SAIL must remain operational during normal system
+activity, so this coordinated power-down state should be reserved for
+system-wide suspend such as suspend-to-idle. Shallower domain states
+remain available for regular CPU and cluster idle power management.
 
-IPQ5332 EDMA has 24 TX/completion rings, 16 RX descriptor rings and eight
-RX fill rings, so the full EDMA interrupt set comprises 49 interrupts.
-Constrain the interrupt counts and ring names per SoC as well.
+This restriction concerns when SAIL may stop its work, in addition to the
+transition latency. Idle-state latency and residency values alone do not
+express that requirement. System suspend does not eliminate interrupts or
+aborted entry, but provides the context in which coordinated SAIL
+power-down is appropriate.
 
-The IPQ5332 clock and reset functions are described by Qualcomm's NSSCC
-driver submission. Its sleep clock is also listed in Qualcomm's
-PPE DTS submission. The ring limits come from QSDK 14.0.1595.1665,
-qca-nss-dp hal/soc_ops/ipq53xx/nss_ipq53xx.h.
+All domain idle states described in devicetree are currently considered
+during the regular idle path. This limits which states can be described in
+devicetree. Due to hardware constraints, some domain idle states are only
+applicable to system-wide suspend, including suspend-to-idle (s2idle).
 
-Link: https://lore.kernel.org/r/20240829082830.56959-7-quic_varada@quicinc.com
-Link: https://lore.kernel.org/r/20240110112059.2498-3-quic_luoj@quicinc.com
+To allow these states to be described in DT and used only during system
+suspend, this series adds a boolean system-state property to domain idle
+state bindings and a corresponding system_state boolean in genpd. The
+genpd governors skip these states during normal operation. The system
+suspend selection path remains unchanged, allowing these states during
+suspend while retaining the existing wakeup latency checks for s2idle.
 
-Signed-off-by: Til Kaiser <mail@tk154.de>
+This series applies to cluster idle states with the "domain-idle-state"
+compatible string managed by genpd and its governors, but can be extended
+to CPU idle states with the "arm,idle-state" compatible string if the same
+restriction is needed for CPUidle states too.
+
+Assisted-by: Codex:GPT-6
+Signed-off-by: Maulik Shah <maulik.shah@oss.qualcomm.com>
 ---
- .../bindings/net/qcom,ipq9574-ppe.yaml        | 92 +++++++++++++++++--
- 1 file changed, 84 insertions(+), 8 deletions(-)
+Maulik Shah (3):
+      dt-bindings: power: domain-idle-state: Add system-state
+      pmdomain: Add support for system-suspend-only states
+      arm64: dts: qcom: monaco-evk: Add suspend-only power collapse state
 
-diff --git a/Documentation/devicetree/bindings/net/qcom,ipq9574-ppe.yaml b/Documentation/devicetree/bindings/net/qcom,ipq9574-ppe.yaml
-index 1a78e2c82b90..29dd34210ac8 100644
---- a/Documentation/devicetree/bindings/net/qcom,ipq9574-ppe.yaml
-+++ b/Documentation/devicetree/bindings/net/qcom,ipq9574-ppe.yaml
-@@ -28,11 +28,15 @@ description: |
-   supporting various modes such as SGMII/QSGMII/PSGMII/USXGMII/10G-BASER. There
-   are 3 UNIPHY (PCS) instances supported on the IPQ9574.
- 
--  Ethernet DMA is used to transmit and receive packets between the six Ethernet
-+  IPQ5332 uses the same PPE architecture with two front panel ports and two
-+  UNIPHY (PCS) instances. Its Ethernet datapath has a CPU port (port0) and
-+  two GMAC/XGMAC ports (port1 and port2).
-+
-+  Ethernet DMA is used to transmit and receive packets between the Ethernet
-   ports and ARM host CPU.
- 
--  The follow diagram shows the PPE hardware block along with its connectivity
--  to the external hardware blocks such clock hardware blocks (CMNPLL, GCC,
-+  The following diagram shows the IPQ9574 PPE hardware block and its
-+  connectivity to external clock hardware blocks (CMNPLL, GCC,
-   NSS clock controller) and Ethernet PCS/PHY blocks. For depicting the PHY
-   connectivity, one 4x1 Gbps PHY (QCA8075) and two 10 GBps PHYs are used as an
-   example.
-@@ -77,24 +81,29 @@ description: |
- properties:
-   compatible:
-     enum:
-+      - qcom,ipq5332-ppe
-       - qcom,ipq9574-ppe
- 
-   reg:
-     maxItems: 1
- 
-   clocks:
-+    minItems: 4
-     items:
-       - description: PPE core clock
-       - description: PPE APB (Advanced Peripheral Bus) clock
-       - description: PPE IPE (Ingress Process Engine) clock
-       - description: PPE BM, QM and scheduler clock
-+      - description: PPE sleep clock from GCC
- 
-   clock-names:
-+    minItems: 4
-     items:
-       - const: ppe
-       - const: apb
-       - const: ipe
-       - const: btq
-+      - const: sleep
- 
-   resets:
-     maxItems: 1
-@@ -105,6 +114,7 @@ properties:
-     description: PPE switch miscellaneous interrupt
- 
-   interconnects:
-+    minItems: 4
-     items:
-       - description: Bus interconnect path leading to PPE switch core function
-       - description: Bus interconnect path leading to PPE register access
-@@ -115,6 +125,7 @@ properties:
-       - description: Bus interconnect path leading to enhanced memory NOC from NSS NOC
- 
-   interconnect-names:
-+    minItems: 4
-     items:
-       - const: ppe
-       - const: ppe_cfg
-@@ -130,7 +141,9 @@ properties:
-     description:
-       EDMA (Ethernet DMA) is used to transmit packets between PPE and ARM
-       host CPU. There are 32 TX descriptor rings, 32 TX completion rings,
--      24 RX descriptor rings and 8 RX fill rings supported.
-+      24 RX descriptor rings and 8 RX fill rings supported on IPQ9574.
-+      IPQ5332 supports 24 TX descriptor rings, 24 TX completion rings,
-+      16 RX descriptor rings and 8 RX fill rings.
- 
-     properties:
-       clocks:
-@@ -144,15 +157,18 @@ properties:
-           - const: apb
- 
-       resets:
--        maxItems: 1
--        description: EDMA reset
-+        minItems: 1
-+        items:
-+          - description:
-+              EDMA system reset. On IPQ9574 this also resets the configuration.
-+          - description: EDMA configuration reset
- 
-       interrupts:
--        minItems: 65
-+        minItems: 49
-         maxItems: 65
- 
-       interrupt-names:
--        minItems: 65
-+        minItems: 49
-         maxItems: 65
-         items:
-           oneOf:
-@@ -165,6 +181,7 @@ properties:
-           Interrupts "rxfill_[0-7]" are the Ethernet DMA RX fill ring interrupts.
-           Interrupts "rxdesc_[0-23]" are the Ethernet DMA RX Descriptor ring interrupts.
-           Interrupt "misc" is the Ethernet DMA miscellaneous error interrupt.
-+          On IPQ5332, only "txcmpl_[0-23]" and "rxdesc_[0-15]" are supported.
- 
-     required:
-       - clocks
-@@ -238,6 +255,65 @@ required:
- 
- allOf:
-   - $ref: ethernet-switch.yaml
-+  - if:
-+      properties:
-+        compatible:
-+          contains:
-+            const: qcom,ipq5332-ppe
-+    then:
-+      properties:
-+        clocks:
-+          minItems: 5
-+        clock-names:
-+          minItems: 5
-+        interconnects:
-+          maxItems: 4
-+        interconnect-names:
-+          maxItems: 4
-+        ethernet-dma:
-+          properties:
-+            resets:
-+              minItems: 2
-+            interrupts:
-+              maxItems: 49
-+            interrupt-names:
-+              maxItems: 49
-+              items:
-+                oneOf:
-+                  - pattern: '^txcmpl_(1?[0-9]|2[0-3])$'
-+                  - pattern: '^rxfill_[0-7]$'
-+                  - pattern: '^rxdesc_([0-9]|1[0-5])$'
-+                  - const: misc
-+        ethernet-ports:
-+          patternProperties:
-+            "^ethernet-port@[1-2]$":
-+              properties:
-+                reg:
-+                  maximum: 2
-+            "^ethernet-port@[3-6]$": false
-+  - if:
-+      properties:
-+        compatible:
-+          contains:
-+            const: qcom,ipq9574-ppe
-+    then:
-+      properties:
-+        clocks:
-+          maxItems: 4
-+        clock-names:
-+          maxItems: 4
-+        interconnects:
-+          minItems: 7
-+        interconnect-names:
-+          minItems: 7
-+        ethernet-dma:
-+          properties:
-+            resets:
-+              maxItems: 1
-+            interrupts:
-+              minItems: 65
-+            interrupt-names:
-+              minItems: 65
- 
- unevaluatedProperties: false
- 
--- 
-2.56.0
+ .../devicetree/bindings/power/domain-idle-state.yaml    | 14 ++++++++++++++
+ arch/arm64/boot/dts/qcom/monaco-evk.dts                 | 17 +++++++++++++++++
+ drivers/pmdomain/core.c                                 |  2 ++
+ drivers/pmdomain/governor.c                             |  6 ++++++
+ include/linux/pm_domain.h                               |  1 +
+ 5 files changed, 40 insertions(+)
+---
+base-commit: 6c2cb8b8b843d216ab549b678a0d8831c43153e0
+change-id: 20261001-s2idle_state-6484bbbf48fb
+
+Best regards,
+--  
+Maulik Shah <maulik.shah@oss.qualcomm.com>
 
