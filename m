@@ -1,172 +1,145 @@
-Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj2-f39.google.com (mail-pj2-f39.google.com [74.125.227.167])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2174147F3B5;
-	Mon,  5 Oct 2026 12:03:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.156.1
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E13A047CC79
+	for <linux-kernel@vger.kernel.org>; Mon,  5 Oct 2026 12:03:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.167
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791201813; cv=none; b=u67+GKAlh5FzjneQeCXOokQKggMm15uYtUMeEVi/n6nv4ODx7i7DcIycZZdpREwLiEhWYWDA0C2Q7pC/jNRBc5U4DMjeycB5gDO1nLRzrdA03aUK6Faa4ZnVchSKsxN6BkxhfffHzOz/Gn08bQ2Bf7VIEvpyhzpq9D+RqrqEoYs=
+	t=1791201839; cv=none; b=K61jee62dZKWXw5IS21zK+toWNmaLpUhebQW1ioAGTMEdh8Zw0XCozhxq8i9+1iLcHuhE2EyNaNATykw/3b0n7KKA3sK0xfBcQAdheycU4mUTLo9JGQTQclI8GwhUq1p1/1VelImgX8g6/WxoVofyZSdzAm9eF+Af2jIr06pzPE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791201813; c=relaxed/simple;
-	bh=lPn6ULnJLRoJIRUhsZtPmVv0I8gq7PnQ7PYf/u3j7lw=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=qImNTjI1jj546q3nax0o1+FuWqPBwClD5HSzEF4l4MxZiuLqy4FZbAf08ZfzZ5h3dqWdYFpf1aeekF7I78yznsQmip5wfy8tlgmQw3b0FQtOrR9Z7GSuLrHDwIbUpEoWnMRNOYjouwKu6HnuW303gbuJN7r1Sn3CztbuvKHDyCc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=D4zeH0ES; arc=none smtp.client-ip=148.163.156.1
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
+	s=arc-20240116; t=1791201839; c=relaxed/simple;
+	bh=6PPOl2J+PfRi4fRZ+aAnDP+a7gf/QsLFoXJhKIFAyKc=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=dsKjRBfkk/LNVMBQ+wjLlKy6Kt9EJIKxvD24+t+h6e5dJfyWWNiZm817Ay5wvAbYjfqeCsv4Q5BECCW4mLyvIjocqqAv4JPdQjFewy61BaBdB+hK6cSHKkYvX7ROLETPg6uUn6OmvvrZ7OLFAjcWQHZcLepzTI7pJRpsVGwh7ow=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=QHejKZTU; arc=none smtp.client-ip=74.125.227.167
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="D4zeH0ES"
-Received: from pps.filterd (m0356517.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 695BZScU508855;
-	Mon, 5 Oct 2026 12:03:31 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=pp1; bh=GnqKL5
-	N1BJJGlOO3YGidxoapT5AxD8bMgBlh/s88Shg=; b=D4zeH0ESV50vtQwgDvDOIu
-	vNZuQYQ3wUzxUDDBDvm7JNJ7proWpjuw0ob/uZVlm4WouqFG9Y0xIg5cqCVmUtcq
-	7AL7gRa1ROzrjEEQy7V3x2TeE7dmuh7pGoAzcJn0rP6Dp8YO6McNGBMb15NU3DQG
-	6O607O08FKMDkclm8VjIO/xWE33CTGceInUsnXiF/AzR7quZALNxYK4jRB+Y/d+o
-	8gaZpiq6eboJwpaBKP6tLE4WslijU+CtqmJFRbILJ2mgkXelp0Mxl0VxJzEqT18W
-	dWPkerlbL0Ru95sYc8GizoCeM5Gji/uz+auZbirLPhLip+xXZquS6Nvojgdr1HTw
-	==
-Received: from ppma12.dal12v.mail.ibm.com (dc.9e.1632.ip4.static.sl-reverse.com [50.22.158.220])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4h2se5a15c-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Mon, 05 Oct 2026 12:03:31 +0000 (GMT)
-Received: from pps.filterd (ppma12.dal12v.mail.ibm.com [127.0.0.1])
-	by ppma12.dal12v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 695BWUAd2850548;
-	Mon, 5 Oct 2026 12:03:30 GMT
-Received: from smtprelay05.fra02v.mail.ibm.com ([9.218.2.225])
-	by ppma12.dal12v.mail.ibm.com (PPS) with ESMTPS id 4h3c1pngf9-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Mon, 05 Oct 2026 12:03:30 +0000 (GMT)
-Received: from smtpav02.fra02v.mail.ibm.com (smtpav02.fra02v.mail.ibm.com [10.20.54.101])
-	by smtprelay05.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 695C3QKV51904914
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Mon, 5 Oct 2026 12:03:26 GMT
-Received: from smtpav02.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 12F8A2005A;
-	Mon,  5 Oct 2026 12:03:26 +0000 (GMT)
-Received: from smtpav02.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id D796B2004B;
-	Mon,  5 Oct 2026 12:03:25 +0000 (GMT)
-Received: from [127.0.1.1] (unknown [9.87.85.9])
-	by smtpav02.fra02v.mail.ibm.com (Postfix) with ESMTP;
-	Mon,  5 Oct 2026 12:03:25 +0000 (GMT)
-From: Tobias Schumacher <ts@linux.ibm.com>
-Date: Mon, 05 Oct 2026 14:03:22 +0200
-Subject: [PATCH v2 7/7] s390/pci: Drop the unused index argument of
- zpci_msi_clear_airq()
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="QHejKZTU"
+Received: by mail-pj2-f39.google.com with SMTP id d9443c01a7336-2e2d2bbcab2so3384825ad.2
+        for <linux-kernel@vger.kernel.org>; Mon, 05 Oct 2026 05:03:57 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791201837; x=1791806637; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=UMrSa+oHpfgNYCnNNsjFGhC1hXr5zwo8QSa54ex/j0M=;
+        b=QHejKZTUB4+MJMK8J02elm4nATZtSgQUivyJy61hONtyHZtrRju/xGaz7wlNLIpO9n
+         kgyLEIUWLMZzbtOHqeMQdcN2P2uZ33Nji/a2qcPqALkrw+SNe+BbzytHOK8DCqwyTq43
+         aZstI0NZhswOC5ZoFlRRSDiht5IUTGYIj7P7bi8TuxHp4keYvvnPGy2goXIYQiVQI+Fu
+         EB3txbdv4O+PxmeUwCxQJRZu1MbHSeMmmp9Mi5N2uNfH897LnvTbk7QGXhLAIeaRGzTr
+         Qiigabs497N4/tpLSoZfNriN37RmWSD779nw8u3VGAFSqp55aNiV+1KpAIVB0UAZboKK
+         BLJw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791201837; x=1791806637;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=UMrSa+oHpfgNYCnNNsjFGhC1hXr5zwo8QSa54ex/j0M=;
+        b=lJLo5VXJbr+Xm7g0E4o1j7q2PiZh6Ab2+JdKCbk6KyxClQ5MdkB/tb7xhSLJpbhcZa
+         aowSPbXNKprVWPAGhrT/jccCi8nizeW6beLvnfRFLr8KWCClAL2beOPb7CqawzmIuKTX
+         vloN4cFp3bE70pGTUVa2ReVmYLwvrvtMk+ICHKZj07dm9ZO/AZn+H8XVJU4QCL5bd80a
+         WlrEc2Uq0S5zQ91cfaWJE/3Yqk6r/I9P2nTrxKX/06tua4HBDrMnA1bB86OdsZm/qkfP
+         4pIRIq7hy8AQcRskgTsPBf5GgIj/Hqs5gVWVyLru8BdtAGk5Sknoh6Pib6eV8hK3QtlG
+         OrqQ==
+X-Forwarded-Encrypted: i=1; AKwUvBw4U2a9WopPPx7nlxh3oRUKNvqlDLzTqdDheNtzwKWGtkxSYtobmY5MlDP5KmwfwIVegbZpkojMpKgfI+A=@vger.kernel.org
+X-Gm-Message-State: AFq9FYK9f2IzZfJZYkdYz22xxGERfSwzPrJjrBUbM42Io+vMTzsxvERN
+	8Vj7DfQ25U5Vysmz+MhdlQZEVmJYZeUQ/2c/DuVM8nG4vyQulwMG31vB
+X-Gm-Gg: AYBFou11NSydUE2K/H73o5hDgWheb3Cy+NX779p2L8YpL2o3CSgc7gtnTuTPg3LRWRc
+	N2CdiludI2jkpFjafv8cNu8qsPJkUAOGWS9BwQ2GLR9I3e/zp8eO554fiO4wHtqdeqIl7atYcSz
+	QCTNtl24/z6qm8d99NRpXJ62C9qjpH7q/pghQL6QprGv/sJvRilQjGIo9+tf4hFtcLtrQLq32HA
+	KfAmTMejmx7aG9bhLwiMJyfRiZpO9sYg/r3cVXwzT2SvwESP6QFdslZHEHfWe0Q+FWNeCQOGBmd
+	5dC3SrYGvWLl4XZz0HnhVSSQXOn+HWnwLfYljqtN3dyarWZ0NzRq6SdzUkyrA09Fvgf+7XBuQ2k
+	cJ8INoykQVH0n/9kgxsZjFJdJVMsP45oqu3cEd6nzXZN+aN5Re30m6xPW49rVozVrLhOD3n7FlA
+	InFuojGU+uP08p0UBRE6yVXHPcLIvKoQ4yvbukjyknHh+Q4h1IuCwok7TpwwEy0HfYuJ8jvu5Bt
+	XyEMDmZtw0=
+X-Received: by 2002:a17:902:e74a:b0:2df:736b:d7df with SMTP id d9443c01a7336-2e49b6a182dmr90598095ad.42.1791201837090;
+        Mon, 05 Oct 2026 05:03:57 -0700 (PDT)
+Received: from osman.mioffice.cn ([43.224.245.178])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2e5a5cae1bfsm6092355ad.28.2026.10.05.05.03.53
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 05 Oct 2026 05:03:56 -0700 (PDT)
+From: Zhan Xusheng <zhanxusheng1024@gmail.com>
+X-Google-Original-From: Zhan Xusheng <zhanxusheng@xiaomi.com>
+To: Peter Zijlstra <peterz@infradead.org>
+Cc: Ingo Molnar <mingo@redhat.com>,
+	Juri Lelli <juri.lelli@redhat.com>,
+	Vincent Guittot <vincent.guittot@linaro.org>,
+	Dietmar Eggemann <dietmar.eggemann@arm.com>,
+	Steven Rostedt <rostedt@goodmis.org>,
+	Ben Segall <bsegall@google.com>,
+	Mel Gorman <mgorman@suse.de>,
+	Valentin Schneider <vschneid@redhat.com>,
+	John Stultz <jstultz@google.com>,
+	K Prateek Nayak <kprateek.nayak@amd.com>,
+	Yuri Andriaccio <yurand2000@gmail.com>,
+	linux-kernel@vger.kernel.org,
+	Zhan Xusheng <zhanxusheng@xiaomi.com>
+Subject: [PATCH v2] sched/deadline: Compare against the donor in prio_changed_dl()
+Date: Mon,  5 Oct 2026 20:03:50 +0800
+Message-ID: <20261005120350.2026799-1-zhanxusheng@xiaomi.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261005-s390_irq_domain_fixes-v2-7-d45b824874c0@linux.ibm.com>
-References: <20261005-s390_irq_domain_fixes-v2-0-d45b824874c0@linux.ibm.com>
-In-Reply-To: <20261005-s390_irq_domain_fixes-v2-0-d45b824874c0@linux.ibm.com>
-To: Niklas Schnelle <schnelle@linux.ibm.com>,
-        Gerd Bayer <gbayer@linux.ibm.com>,
-        Julian Ruess <julianr@linux.ibm.com>, Farhan Ali <alifm@linux.ibm.com>,
-        Christian Borntraeger <borntraeger@linux.ibm.com>,
-        Halil Pasic <pasic@linux.ibm.com>,
-        Matthew Rosato <mjrosato@linux.ibm.com>
-Cc: Heiko Carstens <hca@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>,
-        Alexander Gordeev <agordeev@linux.ibm.com>,
-        Sven Schnelle <svens@linux.ibm.com>, linux-s390@vger.kernel.org,
-        linux-kernel@vger.kernel.org, Tobias Schumacher <ts@linux.ibm.com>
-X-Mailer: b4 0.14.3
-X-TM-AS-GCONF: 00
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDA1MDA0NSBTYWx0ZWRfX6ApIvKAfA0tJ
- kLaBvuH1s1xH5RGlhCJFr4cn8pqVQd1JHU/bdPg0CSjWQOfB1bzI9Tz7BoTo4+/ID4nTf2kMPcg
- hFQSsK5nuA7wluSnQbtvDGnXn9iS13o=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDA1MDA0NSBTYWx0ZWRfX4olS+LFNeIPi
- oNelbKNuBoSCtpp61lHCaIdfZyuFSM/M+Y/p/u/fvSCb8IHeCQnrdBIVxLykRJTiB/Gdm2ExzmS
- 66OjoC5u8uBBfycLXVlKjoMEuU/LvxtgO9hK9yF0nm6u7sjUQellxhF1rY99F0zppHt0vIMP8mG
- QxUHphLNtmph9t3HkZBgn7R9v7Qm5mVw5CUNygX4uFvrmGgHi8nfDAEiEpPwymj0p/EscHbLPj0
- Ax86errRFErBrzFptH1pfArkTRU65Kd5FwvAbsk7MIoi/NYk6RIuIHTqXWlGYNFCmR2JHaGbajp
- C+3llVCKzrUnGAVNkzLcqFZyX9G/dBebRnoAZmccEo+hTUMABTpMBlt8p/NhiLiIjNDi5BPHr1Z
- 2kqjyocv5p4Wj5yZFvyXejBDfWrN3kNxYOfboFVZuRZfUCHTVNVlZUeogBIvzx4Ah8VLB/eEv+q
- Y80Pv0wtwepUHGXJZ9w==
-X-Proofpoint-GUID: JM4Hl_ZwV8rKqQFav73sReUXtCJDwBgG
-X-Authority-Analysis: v=2.4 cv=UNRIjyfy c=1 sm=1 tr=0 ts=6ac39213 cx=c_pps
- a=bLidbwmWQ0KltjZqbj+ezA==:117 a=bLidbwmWQ0KltjZqbj+ezA==:17
- a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=VkNPw1HP01LnGYTKEx00:22
- a=RnoormkPH1_aCDwRdu11:22 a=U7nrCbtTmkRpXpFmAIza:22 a=VnNF1IyMAAAA:8
- a=suPEyLX7Zp9e240Fq7UA:9 a=QEXdDO2ut3YA:10
-X-Proofpoint-ORIG-GUID: JM4Hl_ZwV8rKqQFav73sReUXtCJDwBgG
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-10-05_03,2026-10-02_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 impostorscore=0 adultscore=0 bulkscore=0 lowpriorityscore=0
- phishscore=0 clxscore=1015 priorityscore=1501 suspectscore=0 malwarescore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2610050045
+Content-Transfer-Encoding: 8bit
 
-zpci_msi_domain_free() passes its loop index to zpci_msi_clear_airq(),
-which adds it to an offset that already accounts for it.
-zpci_msi_domain_alloc() stores hwirq + i for each vector, so
-zpci_decode_hwirq_msi_index() hands back msi_index + i and bit is
-already zdev->msi_first_bit + msi_index + i.
+prio_changed_dl() dispatches on task_current_donor(), so its else branch
+asks whether p should preempt the current scheduling context.  Under proxy
+execution that is rq->donor; rq->curr is the execution context and may be
+a mutex owner running on the donor's parameters.  dl_task() tests
+dl_prio(p->prio), so dl_task(rq->curr) says nothing about what the
+runqueue is currently scheduling.
 
-The doubled index never selected a wrong entry. An irq domain's free()
-callback is only ever invoked from irq_domain_free_irqs_hierarchy(),
-which walks the range itself and passes a count of one. So, the loop in
-zpci_msi_domain_free() runs once with an index of zero.
+commit af0c8b2bf67b ("sched: Split scheduler and execution contexts")
+converted the identical else branch of prio_changed_rt() to rq->donor.
+Its hunk for deadline.c enters prio_changed_dl() and converts
+task_current() to task_current_donor(), but leaves the comparison below
+it on rq->curr.
 
-Drop the parameter and the addition.
-
-No functional change.
-
-Signed-off-by: Tobias Schumacher <ts@linux.ibm.com>
+Fixes: af0c8b2bf67b ("sched: Split scheduler and execution contexts")
+Signed-off-by: Zhan Xusheng <zhanxusheng@xiaomi.com>
 ---
- arch/s390/pci/pci_irq.c | 12 ++++++------
- 1 file changed, 6 insertions(+), 6 deletions(-)
+Changes since v1:
 
-diff --git a/arch/s390/pci/pci_irq.c b/arch/s390/pci/pci_irq.c
-index 661867a1ffad..984bf9c96768 100644
---- a/arch/s390/pci/pci_irq.c
-+++ b/arch/s390/pci/pci_irq.c
-@@ -446,7 +446,7 @@ static int zpci_msi_domain_alloc(struct irq_domain *domain, unsigned int virq,
- 	return 0;
- }
- 
--static void zpci_msi_clear_airq(struct irq_data *d, int i)
-+static void zpci_msi_clear_airq(struct irq_data *d)
- {
- 	struct msi_desc *desc = irq_data_get_msi_desc(d);
- 	struct zpci_dev *zdev = to_zpci_dev(desc->dev);
-@@ -459,12 +459,12 @@ static void zpci_msi_clear_airq(struct irq_data *d, int i)
- 
- 	if (irq_delivery == DIRECTED) {
- 		for_each_possible_cpu(cpu) {
--			airq_iv_set_ptr(zpci_dibv[cpu], bit + i, 0);
--			airq_iv_set_data(zpci_dibv[cpu], bit + i, 0);
-+			airq_iv_set_ptr(zpci_dibv[cpu], bit, 0);
-+			airq_iv_set_data(zpci_dibv[cpu], bit, 0);
- 		}
- 	} else {
--		airq_iv_set_ptr(zdev->aibv, bit + i, 0);
--		airq_iv_set_data(zdev->aibv, bit + i, 0);
-+		airq_iv_set_ptr(zdev->aibv, bit, 0);
-+		airq_iv_set_data(zdev->aibv, bit, 0);
- 	}
- }
- 
-@@ -476,7 +476,7 @@ static void zpci_msi_domain_free(struct irq_domain *domain, unsigned int virq,
- 
- 	for (i = 0; i < nr_irqs; i++) {
- 		d = irq_domain_get_irq_data(domain, virq + i);
--		zpci_msi_clear_airq(d, i);
-+		zpci_msi_clear_airq(d);
- 		irq_domain_reset_irq_data(d);
+ - Dropped the claim that the donor test implies the curr test.  It does
+   not: with a non-DL donor and a DL rq->curr the donor test is true while
+   the curr test can be false, so the current code can also skip a
+   reschedule, not only add one.
+ - Dropped the suggestion to convert dl_server_timer() and
+   dl_server_start().  Yuri Andriaccio's "sched/deadline: Do not access
+   dl_se->rq directly" (RFC v6 03/25) rewrites both of those lines,
+   turning dl_se->rq into a local rq while keeping ->curr, so a donor
+   conversion there is better done on top of that series than against
+   it.  prio_changed_dl() is not touched by it.
+
+Built with CONFIG_SCHED_PROXY_EXEC=y and =n.  With =n the two rq members
+are an anonymous union and kernel/sched/build_policy.o is byte-identical
+to the unpatched tree.
+
+v1: https://patch.msgid.link/20260924121213.106673-1-zhanxusheng@xiaomi.com
+
+ kernel/sched/deadline.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/kernel/sched/deadline.c b/kernel/sched/deadline.c
+index 0663c00c41c0..f27aa930420f 100644
+--- a/kernel/sched/deadline.c
++++ b/kernel/sched/deadline.c
+@@ -3631,8 +3631,8 @@ static void prio_changed_dl(struct rq *rq, struct task_struct *p, u64 old_deadli
+ 		 *
+ 		 * Otherwise, if p was given an earlier deadline, reschedule.
+ 		 */
+-		if (!dl_task(rq->curr) ||
+-		    dl_time_before(p->dl.deadline, rq->curr->dl.deadline))
++		if (!dl_task(rq->donor) ||
++		    dl_time_before(p->dl.deadline, rq->donor->dl.deadline))
+ 			resched_curr(rq);
  	}
  }
 
+base-commit: a90ee4305c4a5df72c11b31dacfdc76e00fcf78a
 -- 
-2.53.0
+2.43.0
 
