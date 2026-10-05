@@ -1,70 +1,70 @@
-Received: from mail-yx2-f3.google.com (mail-yx2-f3.google.com [74.125.224.131])
+Received: from mail-yx2-f8.google.com (mail-yx2-f8.google.com [74.125.224.136])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7D11F417BC3
-	for <linux-kernel@vger.kernel.org>; Mon,  5 Oct 2026 08:47:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.224.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 90FE24189B9
+	for <linux-kernel@vger.kernel.org>; Mon,  5 Oct 2026 08:47:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.224.136
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791190030; cv=none; b=jxHbvhp4iKBgB1XBk+1v0/WRx23b63TxruPh/r0MZJX9GhS6z7p2kZUa2tAtka5xBDIt6gNH3bxP5a7Z9S6LaXmQI9PVsErO+AuF+4HioblwzbxtFhwdEhFgUWgfrqzx5/+kbZ9boNw/iEfFPYQtpJSBBLUByBJ5fbJ6GFvYQGE=
+	t=1791190037; cv=none; b=PewwGjTey8/cOYErFN8nOAD4T3nLvSPB6UVgUuT6FjUoZHuis/gloHW4zPUk2qZL34KGXwi2XMX7hAyVuX51uvzaMVZCbMXaQobAxT2v5AiPEjDdDs+kZHTRAAgtCSYNxJSgFp0UNgJ4bX9UFG6HVNVx1QLXtSJUzqAJyCWpGpk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791190030; c=relaxed/simple;
-	bh=0wK+iFqR7n7KN3Eohxo5QzOMoXgdZkDM90CVvHQwqKA=;
+	s=arc-20240116; t=1791190037; c=relaxed/simple;
+	bh=hlWXkLzfFKbZ3Rje739fg5OrVaMmBszukle3NRqBO/M=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=n93WAYcq7xcEuwNyPmpSCXxPcZRRMf6RyYU2Neu35pzT0Zd+9fwsT2+oFV02zaJWvhNQDtirNytOup/tfOqr94QHTAuhOy/P6hw1iRptoypwkdotqge+jjdF+wFMutpkusCc5lW0SwIFgdTJNJziImDIah1Eg/78UjN9inNC8aI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=N9JrrKWT; arc=none smtp.client-ip=74.125.224.131
+	 In-Reply-To:To:Cc; b=ZoljZayfiUuLBj/bU+EVM0ZxhEE1YHsRmQUT7v83CmY2X5N47xUu2auG5HEZOMzH6UVezQPTNn6+VNaitmaSQnjnt9C9rLOfJEa+a8EQMzF+duFKZ2SY/tUqW6WNVl++sv93Ok4JjQD2w0WY9WtveMpKDTeb1viQnkle/rFs0wc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=E6InATez; arc=none smtp.client-ip=74.125.224.136
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="N9JrrKWT"
-Received: by mail-yx2-f3.google.com with SMTP id 956f58d0204a3-66fd0af9eb0so450337d50.0
-        for <linux-kernel@vger.kernel.org>; Mon, 05 Oct 2026 01:47:08 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="E6InATez"
+Received: by mail-yx2-f8.google.com with SMTP id 956f58d0204a3-66d0f3138aeso475000d50.0
+        for <linux-kernel@vger.kernel.org>; Mon, 05 Oct 2026 01:47:14 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791190027; x=1791794827; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1791190033; x=1791794833; darn=vger.kernel.org;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=PrGqhEg5+akRtI8lWrL7MA1TBYd/NNwJbocEpeXp/gM=;
-        b=N9JrrKWT20LA/qyaugpFvBwx70V6LhCwOFu4p+8t0xz2VN+EmcMVpiL48mFGCH0Api
-         9ehD5623IaUcTK9/AE7O2TagbBhcuqxAZudlROtg1Hx8hDJ/RFTZHrvUfGFuL7UbYyfu
-         Zv7j2IvnW9kCuxexwPY3/CBLtXhXMPGwXcFa2VRoejcgNycxoMaDslT0cKD9E/cPlBZ2
-         Mi/XglmJAFT01BBrqhsYDHkrFO46YZXZ9rJzsGd9qwHjtB+N3az1rx5MXK7j/PuDi0ng
-         ilHvtOPAvjKqQJt3u9kwzS9jXAEg3L28xGIle0XipVK7bypMvyFlND93vDnRlnN++4No
-         UMRQ==
+        bh=3lOJYATF5GzgxnR6rvCgXN1lfrW7Tn1J/cuI+kptyHw=;
+        b=E6InATez3rTQNrTokb/g0seormlbBU24rLuI4cPTdhkz5yfXVLxW1MynaFp+piqO6H
+         6MFVDkDXoKHUA3+V5GRRFETjbUqsPGomQgpIkt5k3X3m8Iy+V3jfhLt1gqhB60ZjDvxv
+         oH4JXLtSGKsOUEksytUUW/pOHfBc94Qozu5s7S9/evxDOySUuWmPwReIF8CwMT/bCmJY
+         Xj3zVRYHeAuDYjf1lTrrKbdgRtMHfkSy185y0Pu9TBbfqfF5feny02UXLFBjWjuCXD9Y
+         no57tVP6B/m5iHUNDZziUsweWSloXkKSXndniseG6nH2P4aj+VUL0JCCk2e32Ex6WVbI
+         bk8g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791190027; x=1791794827;
+        d=1e100.net; s=20260707; t=1791190033; x=1791794833;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=PrGqhEg5+akRtI8lWrL7MA1TBYd/NNwJbocEpeXp/gM=;
-        b=lH4Pf8VxGEqzBHvaCSpwhPNWXLC3xzr9upm4yy3k8dUju3XItXqeBRmB/LisTaQ0Og
-         GPlBAcbxWmNTpRdLrGRKS+cXlQqS0xtKdTB5fsg4xp5gljAWTJKgMUc/tcqxVt0Nctoo
-         xxBko5zOLzuDpiPNAXhfGfdNTJIQ6s1m1aNr2m+JCcjbp+7IjAspsKIVvzoNjaxm7Q4W
-         x7M01JAUJ4w2VfXsyi4wjsyxNXxUdM+UCL2pWf0gJTncZe+StQ149iAGgwqoH8ErRxMA
-         fXes8YpJpUsXp3lLHNfMiTnON2gRkXc1MLwHRwWikx10ZjAv4XDktjfncKm0dsIrJgSH
-         +77w==
-X-Forwarded-Encrypted: i=1; AKwUvBxDFWqB5PjUkeWDO2tScrxgD6v7cDd1IbIcW5JeoaaeXMdNnTH3UCKVLlsQdVpA+EuyhfvJFYqBFIBsqRk=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIm03Wv9ag9W5TXBTASf8rm+SprbfzLnREXBcSoDfB4vaCSfxeA
-	rkIZOF3vqXn162MrVPNOTGUZSw8O9UHJ41chcL9fcm3cnVTRIWsnYoM=
-X-Gm-Gg: AYBFou1WHXEBenYblLVuC+D+vVd8zbCRQKfWvZ0bb5J/vXT60ZVo7kXhmCRSwb1bYkT
-	6tTK9bRhTBjmrwzvtrpY2C64HnnikFJSgeVovRpYbpwe1v+lWLsUTOeK22ieXWa2kiyzTsFGoq/
-	xYnjbyUu7eOUgmsZpCRxhjnM87q1H7+DcU5x82TEiJMLYqT+8AZ6TZYa40XPrJVlyBGgRA8n+cM
-	878MtNdheZDY4Bl11WT3vwUqeC2bHel0wHduPdBh/dHdhUVcpRuf3nVLpPCnCAX3psQeZa/WNu+
-	GH3TS17BFNdWXssmws8OFkmRr8u6VWOPy9/gtfxWYRlTQpV5rHLKsPTAf6Ob24B13zTUKeOizga
-	5rOKpfaMKNCWBtYLtACe/Y4Iyl2q8qppAj0aD05+qsviusGo5CCkblFos8LKVeU5P+0ihhFSE18
-	RjNFxaW/ply9RVKjy+sc+dv9YuMWq2lWr1eM7pCFQTQo2NE7GbKbYfv066SlLDK5ZN3ZwJ6ftdM
-	7otJwcNDNtyVviGo0LKdbp0y1tTJ9AcAl1wHZLIhrhf6XNeX0hPhQDsL2ioIn7KtQDiY5ONWQQo
-	MA3YCan1khrv+FcinLmtw5AAxCZcQUxBCw==
-X-Received: by 2002:a05:690e:bc3:b0:677:d719:7bb5 with SMTP id 956f58d0204a3-677d7197ff2mr989931d50.61.1791190027260;
-        Mon, 05 Oct 2026 01:47:07 -0700 (PDT)
+        bh=3lOJYATF5GzgxnR6rvCgXN1lfrW7Tn1J/cuI+kptyHw=;
+        b=LmAhPnp0tTjNW35ylgKc4eQ5+S0uaKrL+HOjVBQnx9RCQA2KrKAjmSr2Yrvp4pPz+N
+         xifs0QbZH8kQD2Iul1cev0nwH62Zsah6ve/FFCnhXG+/mpG9qmGoF80RLgApZPXlCY45
+         e2/RshQXE7yYjQW2B34vJlp5umrEX7Fcx1d8QMLlcT0BuvqDfpaZbiIiPa8Pazbod1hS
+         0igaHRFxZpV+nUr1HUX91wUKHnro9Nuoh+yJXaDecd6uadlss+KwAeatz7byzHSIaO+l
+         WUPmPMTUdCGBO/up5HdFbQOiCQ4nTtOpgaJKfXQ54oPCYVSUUxtLOPdoFi3NLPPZpzaf
+         9hJA==
+X-Forwarded-Encrypted: i=1; AKwUvBxTrFRWPEJix3hJZw6jRQHBHc53EXy859Erl8v4nUzq9WCuBwrH/jqMcv4oHcdBWV0PbxXXH+UybYMpVEw=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIYOYAjSBnW5wLUkR50j/hJ8F0jxvztoAkBxbfI3XIs4I8pG7Vf
+	JwboyDpeaz8bNVzPz/94uJZt7/DRRUq/ux9Cg1lHwIhLg7sq4V7mOJY=
+X-Gm-Gg: AYBFou17po8znHkWXwGa3tocBBwQPEGZqnNjp2CIpIwsOP/nOd5yfNkSfF4KCwWKB8N
+	gAceIJYPt5IeTZTSyRGN4DSOR1gcizFapYebcAl02czsIBxkm0EzjWm1eyK1VfGaM8FHro0EOWs
+	HlYmHb3uX7k8l7xacF1++btklLo4HEznl+f5UkxffG5VrffCAHmBz0hE2cpnkLYhlyzgpCmgD2k
+	qpkldl07NIEmqAeQbg0ssiZKGChZOwbVGO11E9ttyfg1n2ZvbrV/BNdWfoReBmhkPildr8dE2wA
+	60DWpctoWgHtA0aL3h3SxeYPT6yH+l/TkvS7ZCx0cktjH145+sem5mLDZW+Un6EiIqZDtLA/lNO
+	0KCyLJyPmpeutycNkrRjDMbHIRopm0HfyWU7g7RldzWBlebWB/ANcMElcYQLf25eFP3ei43mFDs
+	P8nir2e/w1KzL2mA3i9lHrH+oBSz0oSOY5ClRwC6p7XYHX3w309M8wBZD9oKTFmI1MMNaVyEQ/y
+	/SxrESjQSGh8w6STq1NoBGqOGwPKS1UO4uS2WW9ZQ45Vvv03/6agC2eGAiCJ4f+9Y5dZ/E13/X5
+	hnKfugcEXki1GkH+EJcQ9SwhE/f2nUTVrA==
+X-Received: by 2002:a05:690e:12c2:b0:677:afe7:1f98 with SMTP id 956f58d0204a3-677bd3e2c84mr2661304d50.83.1791190033376;
+        Mon, 05 Oct 2026 01:47:13 -0700 (PDT)
 Received: from 1.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.ip6.arpa ([2600:1700:4577:1050:1149:2fcd:c86b:8747])
-        by smtp.gmail.com with ESMTPSA id 956f58d0204a3-677c1b9c895sm2346306d50.13.2026.10.05.01.47.04
+        by smtp.gmail.com with ESMTPSA id 956f58d0204a3-677c1b9c895sm2346306d50.13.2026.10.05.01.47.10
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 05 Oct 2026 01:47:06 -0700 (PDT)
+        Mon, 05 Oct 2026 01:47:12 -0700 (PDT)
 From: Ravi Jonnalagadda <ravis.opensrc@gmail.com>
-Date: Mon, 05 Oct 2026 01:46:50 -0700
-Subject: [RFC PATCH v4 6/9] mm/damon/sysfs: expose perf_event prep
- attributes
+Date: Mon, 05 Oct 2026 01:46:52 -0700
+Subject: [RFC PATCH v4 8/9] mm/damon/core: cap the region merge threshold
+ per target
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -73,7 +73,7 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261005-damon-perf-rfc-v3-send-2026-10-03-v4-6-b03452e137f3@gmail.com>
+Message-Id: <20261005-damon-perf-rfc-v3-send-2026-10-03-v4-8-b03452e137f3@gmail.com>
 References: <20261005-damon-perf-rfc-v3-send-2026-10-03-v4-0-b03452e137f3@gmail.com>
 In-Reply-To: <20261005-damon-perf-rfc-v3-send-2026-10-03-v4-0-b03452e137f3@gmail.com>
 To: SJ Park <sj@kernel.org>, Andrew Morton <akpm@linux-foundation.org>
@@ -88,475 +88,79 @@ Cc: damon@lists.linux.dev, linux-mm@kvack.org, linux-kernel@vger.kernel.org,
  Jonathan Cameron <jic23@kernel.org>
 X-Mailer: b4 0.16.0
 
-Wire the DAMON_PREP_PERF_EVENT prep type added to core.c and
-perf_source.h into sysfs, so user space can configure a PMU-backed
-probe entirely through the preps/N/ directory: type, config, config1,
-config2, freq, sample_period, sample_freq, wakeup_events, precise_ip,
-sample_phys_addr, sample_weight_struct, exclude_kernel, exclude_hv and
-single_instance.
+kdamond_merge_regions() applies one context-wide threshold, the highest
+merge score across all targets divided by 10, to every target.  When a
+high-traffic target and a low-traffic target share a context, the
+high-traffic target sets a threshold permissive enough to erase the
+hot/cold boundary in the low-traffic one: a region with nr_accesses=1
+next to one with nr_accesses=0 merges because 1 <= threshold, even though
+that difference is the only signal the cold scheme has to admit it.
 
-For example:
+On the regular merge pass, cap the threshold for each target by a tenth of
+that target's own maximum merge score.  The score is the one
+damon_merge_regions_of() compares, so a probe-weighted context is capped
+by its weighted hit sums.
 
-  echo perf_event > .../probes/0/preps/0/prep_action
-  echo 8          > .../probes/0/preps/0/type
-  echo 0x100      > .../probes/0/preps/0/sample_period
-  echo 1          > .../probes/0/preps/0/sample_phys_addr
+The passes that follow the regular one exist only to bring the region
+count under max_nr_regions by escalating the threshold.  They keep using
+the escalated threshold uncapped, so that bound still holds.
 
-damon_sysfs_set_perf_probe() builds the damon_perf_probe_event from the
-prep's stored attributes and, when arming, calls
-damon_perf_probe_setup() to open the PMU counter(s) immediately;
-deferred (non-arming) builds carry the attributes for a later commit to
-arm, per the commit_live distinction in the previous commit.
+In a probe-weighted context the merge score is a weighted hit sum, which
+can exceed max_thres, the samples-per-aggregation ceiling the escalating
+passes stop at, when the probe weights sum above 1.  Raise max_thres to
+ten times the initial threshold there, so those passes still run.
 
-damon_sysfs_set_preps() validates a DAMON_PREP_PERF_EVENT prep before it
-can reach the PMU.  freq selects which one of sample_freq and
-sample_period carries the sampling rate, so the selected one must be set
-and the other zero, since the counter would otherwise be armed with a
-zero period and take no samples.  precise_ip is a 2-bit bitfield in
-perf_event_attr, so a value above 3 is rejected.  A second
-DAMON_PREP_PERF_EVENT prep on the same probe is rejected, since a probe
-is backed by one PMU counter.
-
-A probe with a perf_event prep cannot have probe filters, since the
-drain does not apply them to its samples.  With CONFIG_DAMON_PERF_SOURCE
-disabled, a perf_event prep is rejected with -EOPNOTSUPP.  The prep
-attribute stores take damon_sysfs_lock with mutex_trylock(), as the
-other DAMON sysfs stores do, and return -EBUSY while it is held, so a
-commit reads a consistent set of values.
-
-Co-developed-by: Akinobu Mita <akinobu.mita@gmail.com>
-Signed-off-by: Akinobu Mita <akinobu.mita@gmail.com>
 Signed-off-by: Ravi Jonnalagadda <ravis.opensrc@gmail.com>
 ---
- mm/damon/sysfs.c | 304 ++++++++++++++++++++++++++++++++++++++++++++++++++++---
- 1 file changed, 290 insertions(+), 14 deletions(-)
+ mm/damon/core.c | 30 +++++++++++++++++++++++++++++-
+ 1 file changed, 29 insertions(+), 1 deletion(-)
 
-diff --git a/mm/damon/sysfs.c b/mm/damon/sysfs.c
-index 80e6fc8004e5..3fc40dd540a0 100644
---- a/mm/damon/sysfs.c
-+++ b/mm/damon/sysfs.c
-@@ -7,6 +7,7 @@
- #include <linux/slab.h>
+diff --git a/mm/damon/core.c b/mm/damon/core.c
+index e3c29d7cff23..7c0df07f0a90 100644
+--- a/mm/damon/core.c
++++ b/mm/damon/core.c
+@@ -4167,12 +4167,40 @@ static noinline_for_stack void kdamond_merge_regions(struct damon_ctx *c,
+ 	unsigned int nr_regions;
+ 	unsigned int max_thres;
+ 	bool count_age = true;
++	bool use_probe_hits = damon_has_probe_weights(c);
  
- #include "sysfs-common.h"
-+#include "perf_source.h"
- 
- /*
-  * init region directory
-@@ -756,6 +757,21 @@ static const struct kobj_type damon_sysfs_intervals_ktype = {
- struct damon_sysfs_prep {
- 	struct kobject kobj;
- 	enum damon_prep_action action;
-+	/* perf_event_attr subset; valid when action == DAMON_PREP_PERF_EVENT */
-+	u32 perf_type;
-+	u64 config;
-+	u64 config1;
-+	u64 config2;
-+	u64 sample_period;
-+	u64 sample_freq;
-+	u32 wakeup_events;
-+	u32 precise_ip;
-+	bool sample_phys_addr;
-+	bool sample_weight_struct;
-+	bool exclude_kernel;
-+	bool exclude_hv;
-+	bool freq;
-+	bool single_instance;
- };
- 
- static struct damon_sysfs_prep *damon_sysfs_prep_alloc(void)
-@@ -780,6 +796,10 @@ damon_sysfs_prep_action_names[] = {
- 		.action = DAMON_PREP_SET_PGIDLE,
- 		.name = "set_pgidle",
- 	},
-+	{
-+		.action = DAMON_PREP_PERF_EVENT,
-+		.name = "perf_event",
-+	},
- };
- 
- static ssize_t prep_action_show(struct kobject *kobj,
-@@ -834,8 +854,132 @@ static void damon_sysfs_prep_release(struct kobject *kobj)
- static struct kobj_attribute damon_sysfs_prep_prep_action_attr =
- 		__ATTR_RW_MODE(prep_action, 0600);
- 
-+/*
-+ * perf_event configuration attributes.  These mirror a subset of
-+ * perf_event_attr and are only meaningful when prep_action is "perf_event".
-+ * They select the PMU (via type/config) and its sampling parameters, and are
-+ * copied into the perf-event probe when DAMON is turned on or the inputs are
-+ * committed.
-+ *
-+ * The sysfs file names stay bare (type, config, ...) while the backing C
-+ * symbols are prefixed to avoid clashing with identically named attributes
-+ * elsewhere in this file.
-+ */
-+#define DAMON_SYSFS_PREP_PERF_U32(name, field)				\
-+static ssize_t damon_sysfs_prep_##name##_show(struct kobject *kobj,	\
-+		struct kobj_attribute *attr, char *buf)			\
-+{									\
-+	struct damon_sysfs_prep *prep = container_of(kobj,		\
-+			struct damon_sysfs_prep, kobj);			\
-+	return sysfs_emit(buf, "%u\n", prep->field);			\
-+}									\
-+static ssize_t damon_sysfs_prep_##name##_store(struct kobject *kobj,	\
-+		struct kobj_attribute *attr, const char *buf,		\
-+		size_t count)						\
-+{									\
-+	struct damon_sysfs_prep *prep = container_of(kobj,		\
-+			struct damon_sysfs_prep, kobj);			\
-+	u32 v;								\
-+	int err = kstrtou32(buf, 0, &v);				\
-+	if (err)							\
-+		return err;						\
-+	if (!mutex_trylock(&damon_sysfs_lock))				\
-+		return -EBUSY;						\
-+	prep->field = v;						\
-+	mutex_unlock(&damon_sysfs_lock);				\
-+	return count;							\
-+}									\
-+static struct kobj_attribute damon_sysfs_prep_##name##_attr = __ATTR(name, \
-+		0600, damon_sysfs_prep_##name##_show,			\
-+		damon_sysfs_prep_##name##_store)
+ 	max_thres = damon_nr_samples_per_aggr(&c->attrs);
++	/* weighted scores can exceed max_thres; threshold is max score / 10 */
++	if (use_probe_hits)
++		max_thres = max(threshold * 10, max_thres);
+ 	while (true) {
+ 		nr_regions = 0;
+ 		damon_for_each_target(t, c) {
+-			damon_merge_regions_of(t, threshold, sz_limit, c,
++			struct damon_region *r;
++			unsigned int t_max = 0, t_thres = threshold;
 +
-+#define DAMON_SYSFS_PREP_PERF_U64(name, field)				\
-+static ssize_t damon_sysfs_prep_##name##_show(struct kobject *kobj,	\
-+		struct kobj_attribute *attr, char *buf)			\
-+{									\
-+	struct damon_sysfs_prep *prep = container_of(kobj,		\
-+			struct damon_sysfs_prep, kobj);			\
-+	return sysfs_emit(buf, "%llu\n", prep->field);			\
-+}									\
-+static ssize_t damon_sysfs_prep_##name##_store(struct kobject *kobj,	\
-+		struct kobj_attribute *attr, const char *buf,		\
-+		size_t count)						\
-+{									\
-+	struct damon_sysfs_prep *prep = container_of(kobj,		\
-+			struct damon_sysfs_prep, kobj);			\
-+	u64 v;								\
-+	int err = kstrtou64(buf, 0, &v);				\
-+	if (err)							\
-+		return err;						\
-+	if (!mutex_trylock(&damon_sysfs_lock))				\
-+		return -EBUSY;						\
-+	prep->field = v;						\
-+	mutex_unlock(&damon_sysfs_lock);				\
-+	return count;							\
-+}									\
-+static struct kobj_attribute damon_sysfs_prep_##name##_attr = __ATTR(name, \
-+		0600, damon_sysfs_prep_##name##_show,			\
-+		damon_sysfs_prep_##name##_store)
-+
-+#define DAMON_SYSFS_PREP_PERF_BOOL(name, field)				\
-+static ssize_t damon_sysfs_prep_##name##_show(struct kobject *kobj,	\
-+		struct kobj_attribute *attr, char *buf)			\
-+{									\
-+	struct damon_sysfs_prep *prep = container_of(kobj,		\
-+			struct damon_sysfs_prep, kobj);			\
-+	return sysfs_emit(buf, "%u\n", prep->field);			\
-+}									\
-+static ssize_t damon_sysfs_prep_##name##_store(struct kobject *kobj,	\
-+		struct kobj_attribute *attr, const char *buf,		\
-+		size_t count)						\
-+{									\
-+	struct damon_sysfs_prep *prep = container_of(kobj,		\
-+			struct damon_sysfs_prep, kobj);			\
-+	bool v;								\
-+	int err = kstrtobool(buf, &v);					\
-+	if (err)							\
-+		return err;						\
-+	if (!mutex_trylock(&damon_sysfs_lock))				\
-+		return -EBUSY;						\
-+	prep->field = v;						\
-+	mutex_unlock(&damon_sysfs_lock);				\
-+	return count;							\
-+}									\
-+static struct kobj_attribute damon_sysfs_prep_##name##_attr = __ATTR(name, \
-+		0600, damon_sysfs_prep_##name##_show,			\
-+		damon_sysfs_prep_##name##_store)
-+
-+DAMON_SYSFS_PREP_PERF_U32(type, perf_type);
-+DAMON_SYSFS_PREP_PERF_U64(config, config);
-+DAMON_SYSFS_PREP_PERF_U64(config1, config1);
-+DAMON_SYSFS_PREP_PERF_U64(config2, config2);
-+DAMON_SYSFS_PREP_PERF_U64(sample_period, sample_period);
-+DAMON_SYSFS_PREP_PERF_U64(sample_freq, sample_freq);
-+DAMON_SYSFS_PREP_PERF_U32(wakeup_events, wakeup_events);
-+DAMON_SYSFS_PREP_PERF_U32(precise_ip, precise_ip);
-+DAMON_SYSFS_PREP_PERF_BOOL(sample_phys_addr, sample_phys_addr);
-+DAMON_SYSFS_PREP_PERF_BOOL(sample_weight_struct, sample_weight_struct);
-+DAMON_SYSFS_PREP_PERF_BOOL(exclude_kernel, exclude_kernel);
-+DAMON_SYSFS_PREP_PERF_BOOL(exclude_hv, exclude_hv);
-+DAMON_SYSFS_PREP_PERF_BOOL(freq, freq);
-+DAMON_SYSFS_PREP_PERF_BOOL(single_instance, single_instance);
-+
- static struct attribute *damon_sysfs_prep_attrs[] = {
- 	&damon_sysfs_prep_prep_action_attr.attr,
-+	&damon_sysfs_prep_type_attr.attr,
-+	&damon_sysfs_prep_config_attr.attr,
-+	&damon_sysfs_prep_config1_attr.attr,
-+	&damon_sysfs_prep_config2_attr.attr,
-+	&damon_sysfs_prep_sample_period_attr.attr,
-+	&damon_sysfs_prep_sample_freq_attr.attr,
-+	&damon_sysfs_prep_wakeup_events_attr.attr,
-+	&damon_sysfs_prep_precise_ip_attr.attr,
-+	&damon_sysfs_prep_sample_phys_addr_attr.attr,
-+	&damon_sysfs_prep_sample_weight_struct_attr.attr,
-+	&damon_sysfs_prep_exclude_kernel_attr.attr,
-+	&damon_sysfs_prep_exclude_hv_attr.attr,
-+	&damon_sysfs_prep_freq_attr.attr,
-+	&damon_sysfs_prep_single_instance_attr.attr,
- 	NULL,
- };
- ATTRIBUTE_GROUPS(damon_sysfs_prep);
-@@ -2261,14 +2405,60 @@ static int damon_sysfs_set_preps(struct damon_probe *probe,
- 		struct damon_sysfs_preps *sys_preps)
- {
- 	int i;
-+	bool seen_perf_prep = false;
- 
- 	for (i = 0; i < sys_preps->nr; i++) {
- 		struct damon_sysfs_prep *sys_prep = sys_preps->preps_arr[i];
- 		struct damon_prep *prep;
- 
-+#ifndef CONFIG_DAMON_PERF_SOURCE
-+		if (sys_prep->action == DAMON_PREP_PERF_EVENT)
-+			return -EOPNOTSUPP;
-+#endif
-+
-+		/* freq selects which of sample_freq and sample_period is set */
-+		if (sys_prep->action == DAMON_PREP_PERF_EVENT &&
-+		    (sys_prep->freq ?
-+		     !sys_prep->sample_freq || sys_prep->sample_period :
-+		     !sys_prep->sample_period || sys_prep->sample_freq))
-+			return -EINVAL;
-+		/* precise_ip is a 2-bit bitfield in perf_event_attr */
-+		if (sys_prep->action == DAMON_PREP_PERF_EVENT &&
-+		    sys_prep->precise_ip > 3)
-+			return -EINVAL;
-+		/* At most one perf-event prep per probe. */
-+		if (sys_prep->action == DAMON_PREP_PERF_EVENT && seen_perf_prep)
-+			return -EINVAL;
-+		if (sys_prep->action == DAMON_PREP_PERF_EVENT)
-+			seen_perf_prep = true;
-+
- 		prep = damon_new_prep(sys_prep->action);
- 		if (!prep)
- 			return -ENOMEM;
-+		if (sys_prep->action == DAMON_PREP_PERF_EVENT) {
 +			/*
-+			 * damon_new_prep() does not zero prep->perf; clear it
-+			 * so any field not assigned below starts from a known
-+			 * zero rather than kmalloc garbage.
++			 * On the regular pass, cap the threshold at a tenth of
++			 * this target's maximum merge score.  A high-traffic
++			 * target in the same context must not set a threshold
++			 * so permissive that a low-traffic target's hot/cold
++			 * boundary merges away before the cold scheme can act
++			 * on it.  The score is the one damon_merge_regions_of()
++			 * compares, so probe-weighted contexts are capped by
++			 * their weighted hit sums.
++			 *
++			 * The passes that follow exist only to bring the region
++			 * count under max_nr_regions, so they use the escalated
++			 * threshold as is.
 +			 */
-+			memset(&prep->perf, 0, sizeof(prep->perf));
-+			prep->perf.type = sys_prep->perf_type;
-+			prep->perf.config = sys_prep->config;
-+			prep->perf.config1 = sys_prep->config1;
-+			prep->perf.config2 = sys_prep->config2;
-+			prep->perf.sample_period = sys_prep->sample_period;
-+			prep->perf.sample_freq = sys_prep->sample_freq;
-+			prep->perf.wakeup_events = sys_prep->wakeup_events;
-+			prep->perf.precise_ip = sys_prep->precise_ip;
-+			prep->perf.sample_phys_addr =
-+				sys_prep->sample_phys_addr;
-+			prep->perf.sample_weight_struct =
-+				sys_prep->sample_weight_struct;
-+			prep->perf.exclude_kernel = sys_prep->exclude_kernel;
-+			prep->perf.exclude_hv = sys_prep->exclude_hv;
-+			prep->perf.freq = sys_prep->freq;
-+			prep->perf.single_instance = sys_prep->single_instance;
-+		}
- 		damon_add_prep(probe, prep);
- 	}
- 	return 0;
-@@ -2308,8 +2498,81 @@ static int damon_sysfs_set_filters(struct damon_probe *probe,
- 	return 0;
- }
- 
--static int damon_sysfs_set_probe(struct damon_probe *probe,
--		struct damon_sysfs_probe *sys_probe)
-+#ifdef CONFIG_DAMON_PERF_SOURCE
-+/*
-+ * Build a perf-event probe descriptor from the probe's DAMON_PREP_PERF_EVENT
-+ * prep and attach it to @probe.  The descriptor is always carried (so the ring
-+ * drain and the commit hand-off recognise the probe as event-driven), but the
-+ * PMU counters are only armed when @arm is set.
-+ *
-+ * @arm is true when building the context that will actually run (turn-on
-+ * path); it is false when building a param_ctx for a commit, which is
-+ * discarded after validation.  Arming a param_ctx would collide with the
-+ * running context's perf-probe ownership and return -EBUSY, so the commit path
-+ * defers arming to damon_commit_perf_probe().
-+ */
-+static int damon_sysfs_set_perf_probe(struct damon_ctx *ctx,
-+		struct damon_probe *probe, bool arm)
-+{
-+	struct damon_prep *prep;
-+
-+	damon_for_each_prep(prep, probe) {
-+		struct damon_perf_probe_event *event;
-+		int err;
-+
-+		if (prep->action != DAMON_PREP_PERF_EVENT)
-+			continue;
-+
-+		event = kzalloc_obj(*event, GFP_KERNEL);
-+		if (!event)
-+			return -ENOMEM;
-+		event->attr.type = prep->perf.type;
-+		event->attr.config = prep->perf.config;
-+		event->attr.config1 = prep->perf.config1;
-+		event->attr.config2 = prep->perf.config2;
-+		event->attr.sample_period = prep->perf.sample_period;
-+		event->attr.sample_freq = prep->perf.sample_freq;
-+		event->attr.wakeup_events = prep->perf.wakeup_events;
-+		event->attr.precise_ip = prep->perf.precise_ip;
-+		event->attr.sample_phys_addr = prep->perf.sample_phys_addr;
-+		event->attr.sample_weight_struct =
-+			prep->perf.sample_weight_struct;
-+		event->attr.exclude_kernel = prep->perf.exclude_kernel;
-+		event->attr.exclude_hv = prep->perf.exclude_hv;
-+		event->attr.freq = prep->perf.freq;
-+		event->attr.single_instance = prep->perf.single_instance;
-+
-+		probe->perf_priv = event;
-+		probe->event_driven = true;
-+		if (arm) {
-+			err = damon_perf_probe_setup(ctx, probe, event);
-+			if (err) {
-+				probe->perf_priv = NULL;
-+				kfree(event);
-+				return err;
++			if (count_age) {
++				damon_for_each_region(r, t)
++					t_max = max(t_max,
++						damon_merge_score(r, false, c,
++							use_probe_hits));
++				t_thres = min(threshold, t_max / 10);
 +			}
-+		}
-+		/* At most one perf-event prep per probe. */
-+		break;
-+	}
-+	return 0;
-+}
-+#endif /* CONFIG_DAMON_PERF_SOURCE */
-+
-+static bool damon_sysfs_probe_has_perf_prep(struct damon_probe *probe)
-+{
-+	struct damon_prep *prep;
-+
-+	damon_for_each_prep(prep, probe) {
-+		if (prep->action == DAMON_PREP_PERF_EVENT)
-+			return true;
-+	}
-+	return false;
-+}
-+
-+static int damon_sysfs_set_probe(struct damon_ctx *ctx,
-+		struct damon_probe *probe,
-+		struct damon_sysfs_probe *sys_probe, bool arm)
- {
- 	struct damon_sysfs_filters *sys_filters;
- 	struct damon_sysfs_preps *sys_preps;
-@@ -2322,13 +2585,25 @@ static int damon_sysfs_set_probe(struct damon_probe *probe,
- 			return err;
- 	}
- 	sys_filters = sys_probe->filters;
--	if (!sys_filters)
--		return 0;
--	return damon_sysfs_set_filters(probe, sys_filters);
-+	/* the drain does not apply probe filters to perf_event samples */
-+	if (sys_filters && sys_filters->nr &&
-+	    damon_sysfs_probe_has_perf_prep(probe))
-+		return -EINVAL;
-+	if (sys_filters) {
-+		err = damon_sysfs_set_filters(probe, sys_filters);
-+		if (err)
-+			return err;
-+	}
-+#ifdef CONFIG_DAMON_PERF_SOURCE
-+	err = damon_sysfs_set_perf_probe(ctx, probe, arm);
-+	if (err)
-+		return err;
-+#endif
-+	return 0;
- }
- 
- static int damon_sysfs_set_probes(struct damon_ctx *ctx,
--		struct damon_sysfs_probes *sys_probes)
-+		struct damon_sysfs_probes *sys_probes, bool arm)
- {
- 	int i, err;
- 
-@@ -2342,7 +2617,7 @@ static int damon_sysfs_set_probes(struct damon_ctx *ctx,
- 		damon_add_probe(ctx, p);
- 		sys_probe = sys_probes->probes_arr[i];
- 		p->weight = sys_probe->weight;
--		err = damon_sysfs_set_probe(p, sys_probe);
-+		err = damon_sysfs_set_probe(ctx, p, sys_probe, arm);
- 		if (err)
- 			return err;
- 	}
-@@ -2443,7 +2718,7 @@ static inline bool damon_sysfs_kdamond_running(
- }
- 
- static int damon_sysfs_apply_inputs(struct damon_ctx *ctx,
--		struct damon_sysfs_context *sys_ctx)
-+		struct damon_sysfs_context *sys_ctx, bool arm)
- {
- 	enum damon_ops_id ops_id;
- 	int err;
-@@ -2461,7 +2736,7 @@ static int damon_sysfs_apply_inputs(struct damon_ctx *ctx,
- 	err = damon_sysfs_set_attrs(ctx, sys_ctx->attrs);
- 	if (err)
- 		return err;
--	err = damon_sysfs_set_probes(ctx, sys_ctx->attrs->probes);
-+	err = damon_sysfs_set_probes(ctx, sys_ctx->attrs->probes, arm);
- 	if (err)
- 		return err;
- 	err = damon_sysfs_set_sample_control(&ctx->sample_control,
-@@ -2475,7 +2750,7 @@ static int damon_sysfs_apply_inputs(struct damon_ctx *ctx,
- }
- 
- static struct damon_ctx *damon_sysfs_build_ctx(
--		struct damon_sysfs_context *sys_ctx);
-+		struct damon_sysfs_context *sys_ctx, bool arm);
- 
- /*
-  * damon_sysfs_commit_input() - Commit user inputs to a running kdamond.
-@@ -2495,7 +2770,8 @@ static int damon_sysfs_commit_input(void *data)
- 	if (kdamond->contexts->nr != 1)
- 		return -EINVAL;
- 
--	param_ctx = damon_sysfs_build_ctx(kdamond->contexts->contexts_arr[0]);
-+	param_ctx = damon_sysfs_build_ctx(kdamond->contexts->contexts_arr[0],
-+			false);
- 	if (IS_ERR(param_ctx))
- 		return PTR_ERR(param_ctx);
- 	err = damon_commit_ctx(kdamond->damon_ctx, param_ctx);
-@@ -2553,7 +2829,7 @@ static int damon_sysfs_upd_tuned_intervals(void *data)
- }
- 
- static struct damon_ctx *damon_sysfs_build_ctx(
--		struct damon_sysfs_context *sys_ctx)
-+		struct damon_sysfs_context *sys_ctx, bool arm)
- {
- 	struct damon_ctx *ctx = damon_new_ctx();
- 	int err;
-@@ -2561,7 +2837,7 @@ static struct damon_ctx *damon_sysfs_build_ctx(
- 	if (!ctx)
- 		return ERR_PTR(-ENOMEM);
- 
--	err = damon_sysfs_apply_inputs(ctx, sys_ctx);
-+	err = damon_sysfs_apply_inputs(ctx, sys_ctx, arm);
- 	if (err) {
- 		damon_destroy_ctx(ctx);
- 		return ERR_PTR(err);
-@@ -2613,7 +2889,7 @@ static int damon_sysfs_turn_damon_on(struct damon_sysfs_kdamond *kdamond)
- 	if (!repeat_call_control)
- 		return -ENOMEM;
- 
--	ctx = damon_sysfs_build_ctx(kdamond->contexts->contexts_arr[0]);
-+	ctx = damon_sysfs_build_ctx(kdamond->contexts->contexts_arr[0], true);
- 	if (IS_ERR(ctx)) {
- 		kfree(repeat_call_control);
- 		return PTR_ERR(ctx);
++			damon_merge_regions_of(t, t_thres, sz_limit, c,
+ 					count_age);
+ 			nr_regions += damon_nr_regions(t);
+ 		}
 
 -- 
 Git-157)
