@@ -1,127 +1,216 @@
-Received: from mail-pz2-f42.google.com (mail-pz2-f42.google.com [74.125.228.42])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from PH8PR06CU001.outbound.protection.outlook.com (mail-westus3azon11012034.outbound.protection.outlook.com [40.107.209.34])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AF33F1FA859
-	for <linux-kernel@vger.kernel.org>; Mon,  5 Oct 2026 16:16:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.42
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791216977; cv=none; b=fbgQqRHEk1DZQSYDVtmiTnwR8ihMNrLwhexJpQNp8UE1ecxvyV9nMyOgwetaHRTEBu8ScaQJyKxBOrxr3CfgppiUACk0VR3gOmxMCKdp4gGXc3996JruMPkhVq+pby+cWhZKONkGTJc4ZT36UbnAXUYfD3NYwuEktVsveC+6cJU=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7F8234CC62E;
+	Mon,  5 Oct 2026 16:16:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.209.34
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791216977; cv=fail; b=tmErRirmoYoKhXOwQ5dOb+kIDdwshaRwZbFOtbYfu0g2hIcRRowCJb04gx++L+PKgxKc93wzC5JbECcr9cqyUCLrAN9ZB//7BBFx6eiri5PRrqdUUWhwmQeXOSkrDT7aWB1r8OZ/KhSIXsIMKPRifD54M/VE1wBAP7Trr3+3ys4=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1791216977; c=relaxed/simple;
-	bh=rh5d2cNKBXKMwPxK3EfMFKvJ8TMXw53ExafPjYEUPHg=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=cmSQ1eG7suQ7IcrMLnUHJewxAQSdAtPytk8rl0qmxPuTCQS1yzsd/T2xnEP+EHsFxmB03vuIe11w3HCsb5lJ6ZpwFhoOodqW0kTHCR78DKGryJ626fbMQtoY7MXU0zciD+k0O/4ghX0FIw0qR9kKLhCwAlYmoIw3FbLy3K/3ebA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=snu.ac.kr; spf=pass smtp.mailfrom=snu.ac.kr; dkim=pass (1024-bit key) header.d=snu.ac.kr header.i=@snu.ac.kr header.b=YiYM/PJc; arc=none smtp.client-ip=74.125.228.42
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=snu.ac.kr
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=snu.ac.kr
+	bh=NK5Jw5ZEdhSU6mORn/5tpxzrywaxyi3AoLZi5RCAADY=;
+	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=oAauS62KgoMy7oMgiGffaXynHwfWeSofarT38ZSkHpW2hQ7+wg0MJDNpRtUrn7a7CfDdkUrJa+O3hEapSgtZOEoMty5Azu8uwG8AySM9H2SekjYva91Bzq5CvOOC7LCRzCJ4xChUSQSwFFWUKuH7PmEbP+6yIPt3lGKvHOaShPw=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=4BIed/Hn; arc=fail smtp.client-ip=40.107.209.34
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=snu.ac.kr header.i=@snu.ac.kr header.b="YiYM/PJc"
-Received: by mail-pz2-f42.google.com with SMTP id 41be03b00d2f7-cc797656e44so700951a12.2
-        for <linux-kernel@vger.kernel.org>; Mon, 05 Oct 2026 09:16:13 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=snu.ac.kr; s=google; t=1791216973; x=1791821773; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=HZQZn6DIMQDQCLXf+RSqa5fylG7dJYyOrH4B8TI6hz0=;
-        b=YiYM/PJcenPgfbZ/n3Jm3OB9HIB8j4drOB7+froS+kXYkwgEb0VGBa1MaVHSGx5Rhh
-         X79DaJH0fer373z59lKkPyytcx7UP4bc5ZJCkbSj946+C4jbCUp/1W6s45E7IR8Dkv1c
-         e0xQlPQkglpFdoZv8IbOMT1RMO0QCWnolYqrk=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791216973; x=1791821773;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=HZQZn6DIMQDQCLXf+RSqa5fylG7dJYyOrH4B8TI6hz0=;
-        b=QwLjpIv/yjzEv0NRDsat5hYZR/yKoT2NKesMGzk0BF1JC+fxbCiv3QUwJfF26belaN
-         Rt0TMuy0T+kzUy8JaKwmUvJTUZm+fattwG77NiZupgfz/NhGdbVenDDGXv2YrEFy7PjR
-         82bnfuiVr1a8AF7Q5zHIXszg+ZIqdRLcFJ5eUS+pD5v0SXKMkJEXIn91Zs13rwfLtTmQ
-         Zy3ZBoraQRC+tfQ4uLah981YS2R2eLvUccNnLnZsSessCTm+7hDuns91p4BGFmJNw8BP
-         cE2hblwo7hyKmX8mxcO7EzRokt6eDtNoK4z5+klqaoPU5CGKZn3CA2/Ba5oVRmrkNa1v
-         z+DA==
-X-Forwarded-Encrypted: i=1; AKwUvBzDh/OVazGgzicqVSyuo4aO0RiI146NaqQVGNA8SLQWQAZKJehvCV0Bsb8VaVIVm8w6lK47QZHpY4ihbCY=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJ6fMXAxVONYcQ3JLBl1RWVog1IV2IqyQX3p88TsWh2HkrjbvSk
-	m81s2+8ZNHCBRv9qeTWq20oR5ZJU903PXD8LY/tY5MWhsywLkJ4U/lFTrzdkTh/F0A8=
-X-Gm-Gg: AYBFou2BSyLpCKgZiZhRjD8u9vau5BoVzXBDtuF/A7wol/yPtjs2vjNljv21lFnfc98
-	A1ambRPs+hMqr2v52KN26Ps4hbznOj8/9bqYz31suXFzN21T16fqy/KGdQCP6uRrJXR4JJ8JXFx
-	2qW5KLmtR+UDlZfkNzavnbgyX1oEm05AWbbQRtsnf31rYQCmDg0hzc2erL00V1VQH2vCNfTh8yF
-	fHUw4jPGrZwelP+00f3KhW5/vQJYCZXrrqcaFnWw2L9ghcM3sPYms18S00PCCwRnjVOA8ehjauk
-	4K6D9Bj5le/pK8dJ2tQLB5R3c3aqRu8dUYZ8H/oDFBN9CoWQ9GIAfrlpCt2NtzbytmbrTPH7v95
-	en5ZrudJ8Wwy75ANbrF2OCcMRvIHfQ+u/kdwY0NhAFTJOsa28b0zculFZ+LALB4DWbOL1/nUcxd
-	jv0iceQO1gcNmwD7SjEmBwqU9ON2Flj21sHKi1PF0ovqbCuVO2GN/vjk4xpYooMsZh
-X-Received: by 2002:a17:90b:2fd0:b0:3a7:a463:54c2 with SMTP id 98e67ed59e1d1-3a7a46356e6mr4340629a91.35.1791216972916;
-        Mon, 05 Oct 2026 09:16:12 -0700 (PDT)
-Received: from 1c1aead48890 ([49.142.45.25])
-        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cce6d901981sm1172982a12.14.2026.10.05.09.16.10
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 05 Oct 2026 09:16:12 -0700 (PDT)
-Date: Mon, 5 Oct 2026 16:16:07 +0000
-From: Seongjun Hong <hsj0512@snu.ac.kr>
-To: Yishai Hadas <yishaih@nvidia.com>
-Cc: Jason Gunthorpe <jgg@ziepe.ca>, 
-	Shameer Kolothum <skolothumtho@nvidia.com>, Kevin Tian <kevin.tian@intel.com>, 
-	Alex Williamson <alex@shazbot.org>, kvm@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] vfio/mlx5: Fix boundary check in set_report_output()
-Message-ID: <7fbiirwo2k34dcyza7ehmdevziqmch3foldxp6qeeclr3xjypg@enyyca5445pj>
-References: <20261004-vfio-mlx5-fix-boundary-check-v1-1-1d3b8e55e23f@snu.ac.kr>
- <d4477773-a95d-4cc4-8d10-edf1f7b215df@nvidia.com>
+	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="4BIed/Hn"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=RI4a/m21GDr5SObfJ3y52ceEo1ObK+aLYzhuZ5SaNIxGyb4/4yGkRqnX/7i2ChX+K/fTIHdOVUUz/HDdlCakPZJJjnMu/VpUk0U8EshVkQ/mWu/jYV0Lqq5a5A15wHv7QBU5gr0iSRybquCDfrC7V3/VYtBBF+nTTJfsJDKecL5a4Omd8ex4koM604Wwgip9rTINcK+1gl2mLmunn6STatWWGoqmomDOwrmIeHnA8v0pVJD3E1+zHKV35cQWBZhx+EzUzlZ/Ii7NRMhsWuCnWTkUGERY31U9sySB5C7CLa4AEllEN7UnwE5/WK07gFlDa37wwz9jCHx5hW/v0NtjwQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=Fv0buWwAo/g+R6dCYWOlcMz+W11muRGyXpUOXytQozw=;
+ b=Ongb2GDAX/hMHFvGyWBSG9eT+oMIutfG4WjhnzqW3xrCs2oVvVgSoKgFC+AfBaCc+qplrtkDDqhNMD5uA9jAiLAhg4VPwqLS2HoVOa19Qd2ZnBxBx+dWpojnvWo/JfpPJAAz2qsPFwahFqJAF9xagKpCAFiVXDe3l66OOOGW/fKAoQe9K09p6WnP+11cgbH3qCMIdboxG6OyFRRjRoJdstfi2F3Hok8KCD4oxGNKYDI5UthakLVJ7FTp4sM8TkUv4L+lTlp5PTPzIfeG0uKiYBPNS+p7BgvOCOTAPv8F7E4wjORtkyivXU6DzVMJJXYLZTdQOneROGl8JqdWKeVPTg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=kernel.org smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=Fv0buWwAo/g+R6dCYWOlcMz+W11muRGyXpUOXytQozw=;
+ b=4BIed/Hn7fp/6xSVHgSZ+WA/DkS2Cz8UGjzHngHdMbgK+gtcb8nSr+WI0r6I88gwVcyFWQJ40zhlanSg5tbwLfnwASerQSP1xZOXQbf3UKNmF58jJE84oY5OpYRN2hPLwL/79V29x7LWScVHv7NoRxEpF50tYCqbAYVMIjh9Gwo=
+Received: from BN9PR03CA0229.namprd03.prod.outlook.com (2603:10b6:408:f8::24)
+ by CY5PR12MB6179.namprd12.prod.outlook.com (2603:10b6:930:24::22) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.23; Mon, 5 Oct
+ 2026 16:16:07 +0000
+Received: from BN2PEPF00004FBD.namprd04.prod.outlook.com
+ (2603:10b6:408:f8:cafe::d) by BN9PR03CA0229.outlook.office365.com
+ (2603:10b6:408:f8::24) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.472.20 via Frontend Transport; Mon, 5
+ Oct 2026 16:16:07 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 165.204.84.17) smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ BN2PEPF00004FBD.mail.protection.outlook.com (10.167.243.183) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.472.14 via Frontend Transport; Mon, 5 Oct 2026 16:16:07 +0000
+Received: from speedway8455host.amd.com (10.180.168.240) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Mon, 5 Oct
+ 2026 11:16:02 -0500
+From: "Pratik R. Sampat" <prsampat@amd.com>
+To: <mcgrof@kernel.org>, <russ.weight@linux.dev>, <dakr@kernel.org>,
+	<ashish.kalra@amd.com>, <thomas.lendacky@amd.com>,
+	<herbert@gondor.apana.org.au>, <davem@davemloft.net>
+CC: <linux-crypto@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
+	<gregkh@linuxfoundation.org>, <rafael@kernel.org>, <chao.gao@intel.com>,
+	<aik@amd.com>, <tycho@kernel.org>, <nikunj@amd.com>, <michael.roth@amd.com>,
+	<shansinha@google.com>, <prsampat@amd.com>
+Subject: [Patch v3 1/7] firmware_loader: Stop pinning modules on registration
+Date: Mon, 5 Oct 2026 16:15:35 +0000
+Message-ID: <719e29b53c1130843e44f765449e373402680a6e.1791212077.git.prsampat@amd.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <cover.1791212077.git.prsampat@amd.com>
+References: <cover.1791212077.git.prsampat@amd.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <d4477773-a95d-4cc4-8d10-edf1f7b215df@nvidia.com>
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: satlexmb07.amd.com (10.181.42.216) To satlexmb07.amd.com
+ (10.181.42.216)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BN2PEPF00004FBD:EE_|CY5PR12MB6179:EE_
+X-MS-Office365-Filtering-Correlation-Id: f25f7d2d-beef-4b80-70c7-08df22fbf662
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|23010399003|1800799024|376014|7416014|82310400026|36860700016|260925021311599003|11063799006|18002099003|260925021911599003|10067099003|260925022911599003|22082099003|56012099006;
+X-Microsoft-Antispam-Message-Info:
+	fl6MpBR2T4ejilyjq30DxmPUdsYLXcVu+IB/r908d54saQZVpx2hR8r/gmBL+4CsY3X6wzOxKzFyngn+sfSYj1jjfLQbhD/EJgcvm6eJuUwYNgLHrXaooLWLP5WeF1fqi7ZihObLgY52TGiAVSH3y20K/tFkjgeJCtRW6g4tW5vUE9w7760OQGjjKwgaW9LJHJMjWNvQp22O4ka04nU6mEcbMRjOTWNgdrSRk5JkhWFuZYAsrTLSGUNQeFoB+pFPbMM1sIjBSK0W4MFBzMbapEJfxhN/DuQJkhioC0ARFDc6z5siWcpDWrcl2Cuu7Rh0yhLbtozzF9oJ1DtHrBh9VgFktZy/M4qPnkPJkPjySftu9Zmq/+BG/jAP1qGB7v6e0iQtKZWv5qqqFtvo0GfPztPMsYfUT1LHdynV96fvnDJ2eA7NjJSVZhItL+sdgUJfSsMNA9e1CCytsOPUIRIQgrpO8W/xg3SHAQwZA/UPzjtKnDRdXhW6xJXyy8oMqsbOMTfU96NdIbp2krK6Exf7sbO87o+X0Seejdnf0p0zjBXn5+SDgut9dC2avNR7MnjGQS0otLatFtVjAoQzqSTuu96pggPWK+MwyNMZgOv2wg8GQpa+kDMISBOw6PaqbtCuG9wEdfXnWwP84KkfQDWTJA==
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(23010399003)(1800799024)(376014)(7416014)(82310400026)(36860700016)(260925021311599003)(11063799006)(18002099003)(260925021911599003)(10067099003)(260925022911599003)(22082099003)(56012099006);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	WECDCtbI9ctLheHMjmWU7CThXj2TbtlplHQnUwqmo1cueqJABbcrtcz4Lr7boEaBNM57kYTVuR5jMz2CaA1Ozc8JnmaGinpgC43i/Qnj/oxlCaeUSURt7OFz9mnmGi6fq+OoImppBb3MOYD0rJsplj1BQ9fT6Ha+whMoRlHHwr8LbBfEhjwwnA+lxSfXytLW9qBPcFE5Z/5YXOb0F1iuPhCW8+X5mCH0eMKZbAybS8C5GttBDCAzpRGNsti4F2f4SfA1Le2DKbZWnD9UgOD41ufenarVmPrfq3X9OTcpZGKJOTq8U7hpTsHUfEd+5wcLQUdsGz2nHDN8XTvmZ4vM9oL4x6A8WsV382i7yvuKy+ayr6lX0Gd1mja5NksDzwIOJki/CxHTt6K/BqKJNsr9Vtk+5weCpq680N0eZS4KagOV/nqw7PXABbSCmIzsG13W
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Oct 2026 16:16:07.5247
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: f25f7d2d-beef-4b80-70c7-08df22fbf662
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	BN2PEPF00004FBD.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY5PR12MB6179
 
-On Mon, Oct 05, 2026 at 06:43:08PM +0300, Yishai Hadas wrote:
-> On 04/10/2026 20:20, Seongjun Hong wrote:
-> > Use > instead of >= on boundary check of recv_buf to avoid the bug which
-> > the full message in the last slot of recv_buf is ignored even though the
-> > received data size does not overflow the recv_buf.
-> > 
-> > Clarify the second boundary condition by removing unnecessary division by
-> > entry_size. It directly shows that size should be within qp->max_msg_size.
-> > 
-> > Fixes: 9c7c5430bca3 ("vfio/mlx5: Align the page tracking max message size with the device capability")
-> > Signed-off-by: Seongjun Hong <hsj0512@snu.ac.kr>
-> > ---
-> >   drivers/vfio/pci/mlx5/cmd.c | 4 ++--
-> >   1 file changed, 2 insertions(+), 2 deletions(-)
-> > 
-> > diff --git a/drivers/vfio/pci/mlx5/cmd.c b/drivers/vfio/pci/mlx5/cmd.c
-> > index 5fe0621b5fbd..a49531666e6d 100644
-> > --- a/drivers/vfio/pci/mlx5/cmd.c
-> > +++ b/drivers/vfio/pci/mlx5/cmd.c
-> > @@ -1644,8 +1644,8 @@ set_report_output(u32 size, int index, struct mlx5_vhca_qp *qp,
-> >   	int i;
-> >   	buf_offset = index * qp->max_msg_size;
-> > -	if (WARN_ON(buf_offset + size >= qp->recv_buf.npages * PAGE_SIZE ||
-> > -		    (nent > qp->max_msg_size / entry_size)))
-> > +	if (WARN_ON(buf_offset + size > qp->recv_buf.npages * PAGE_SIZE ||
-> > +		    size > qp->max_msg_size))
-> >   		return;
-> >   	do {
-> > 
-> > ---
-> > base-commit: 6addb4f385570ebc11c4eb499a4f1c149f313e84
-> > change-id: 20261004-vfio-mlx5-fix-boundary-check-4839d6aecbe2
-> > 
-> > Best regards,
-> 
-> The patch should include also Cc stable for the first condition.
-> 
-> Reviewed-by: Yishai Hadas <yishaih@nvidia.com>
-> 
-> Yishai
-> 
-> 
+From: Dan Williams <djbw@kernel.org>
 
-Thanks for the review. Done in v2, which also drops the second condition
-change so only the fix goes to stable.
+The module reference counting can result in callers pinning themselves in a
+circular loop. The module reference counting is unnecessary.
+firmware_upload_unregister() must be able to guarantee that all ops are
+idle at return.
 
-Best regards,
+All ops are either called from sysfs or the workqueue, so unregister sysfs
+to stop submissions, cancel any started transfers, flush cancelled
+transfers, and then release the device.
+
+This also solves a theoretical race of new submissions starting between
+flush_work() and device_unregister(). The module reference was not
+protecting against that race.
+
+Cc: Luis Chamberlain <mcgrof@kernel.org>
+Cc: Russ Weight <russ.weight@linux.dev>
+Cc: Danilo Krummrich <dakr@kernel.org>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: "Rafael J. Wysocki" <rafael@kernel.org>
+Reported-by: Chao Gao <chao.gao@intel.com>
+Tested-by: Chao Gao <chao.gao@intel.com>
+Closes: https://sashiko.dev/#/patchset/20260326084448.29947-1-chao.gao%40intel.com?patch=10705
+Fixes: 97730bbb242c ("firmware_loader: Add firmware-upload support")
+Signed-off-by: Dan Williams <djbw@kernel.org>
+Signed-off-by: Pratik R. Sampat <prsampat@amd.com>
+---
+ drivers/base/firmware_loader/sysfs_upload.c | 31 ++++++++++-----------
+ 1 file changed, 14 insertions(+), 17 deletions(-)
+
+diff --git a/drivers/base/firmware_loader/sysfs_upload.c b/drivers/base/firmware_loader/sysfs_upload.c
+index efc33294212f..6f2123538682 100644
+--- a/drivers/base/firmware_loader/sysfs_upload.c
++++ b/drivers/base/firmware_loader/sysfs_upload.c
+@@ -312,14 +312,9 @@ firmware_upload_register(struct module *module, struct device *parent,
+ 		return ERR_PTR(-EINVAL);
+ 	}
+ 
+-	if (!try_module_get(module))
+-		return ERR_PTR(-EFAULT);
+-
+ 	fw_upload = kzalloc_obj(*fw_upload);
+-	if (!fw_upload) {
+-		ret = -ENOMEM;
+-		goto exit_module_put;
+-	}
++	if (!fw_upload)
++		return ERR_PTR(-ENOMEM);
+ 
+ 	fw_upload_priv = kzalloc_obj(*fw_upload_priv);
+ 	if (!fw_upload_priv) {
+@@ -361,7 +356,7 @@ firmware_upload_register(struct module *module, struct device *parent,
+ 	if (ret) {
+ 		dev_err(fw_dev, "%s: device_register failed\n", __func__);
+ 		put_device(fw_dev);
+-		goto exit_module_put;
++		return ERR_PTR(ret);
+ 	}
+ 
+ 	return fw_upload;
+@@ -372,9 +367,6 @@ firmware_upload_register(struct module *module, struct device *parent,
+ free_fw_upload:
+ 	kfree(fw_upload);
+ 
+-exit_module_put:
+-	module_put(module);
+-
+ 	return ERR_PTR(ret);
+ }
+ EXPORT_SYMBOL_GPL(firmware_upload_register);
+@@ -386,23 +378,28 @@ EXPORT_SYMBOL_GPL(firmware_upload_register);
+ void firmware_upload_unregister(struct fw_upload *fw_upload)
+ {
+ 	struct fw_sysfs *fw_sysfs = fw_upload->priv;
++	struct device *parent = fw_sysfs->dev.parent;
+ 	struct fw_upload_priv *fw_upload_priv = fw_sysfs->fw_upload_priv;
+-	struct module *module = fw_upload_priv->module;
++
++	/* hold a parent reference while child is unregistered */
++	get_device(parent);
++
++	/* shutdown the sysfs interface to block new requests */
++	device_del(&fw_sysfs->dev);
+ 
+ 	mutex_lock(&fw_upload_priv->lock);
+ 	if (fw_upload_priv->progress == FW_UPLOAD_PROG_IDLE) {
+ 		mutex_unlock(&fw_upload_priv->lock);
+-		goto unregister;
++		goto release;
+ 	}
+ 
+ 	fw_upload_priv->ops->cancel(fw_upload);
+ 	mutex_unlock(&fw_upload_priv->lock);
+ 
++release:
+ 	/* Ensure lower-level device-driver is finished */
+ 	flush_work(&fw_upload_priv->work);
+-
+-unregister:
+-	device_unregister(&fw_sysfs->dev);
+-	module_put(module);
++	put_device(&fw_sysfs->dev);
++	put_device(parent);
+ }
+ EXPORT_SYMBOL_GPL(firmware_upload_unregister);
 -- 
-Seongjun Hong
+2.43.0
+
