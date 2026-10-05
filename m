@@ -1,223 +1,300 @@
-Received: from mail-pj1-f46.google.com (mail-pj1-f46.google.com [209.85.216.46])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp9.goneo.de (smtp9.goneo.de [85.220.189.104])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E36C64C2279
-	for <linux-kernel@vger.kernel.org>; Mon,  5 Oct 2026 15:29:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.46
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3786C4C14E8;
+	Mon,  5 Oct 2026 15:29:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=85.220.189.104
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791214147; cv=none; b=JpuKQaA4AXjNyYMUF11E3iIAPU9T7loz97J4QQ0EhKBBx7La6/+kqHYkfE9cNFnJS12VuJGehiUdCDtG4EHc33droZj4PjgcfxEYU9Qy0PZtoY094VjQ4Vv08oRmZ2V0WBZ6gWghdt76MlRYQwEbJcA+B16zof+TG1K4SRzTPJw=
+	t=1791214189; cv=none; b=urhuDY5SLFOThxYMaOYbngMHaWxYawU5CnmulNARNgtr/8iCAL7poNGTBgvMFwl/gbTd9AFsWt0pMb5KCsw3aAo0iAkYn/RQCazdNReaT4gIMC/z9TclMakb2q7ZtGJIxjTbnSnTO5A6Zwyfj8WyyIl8EvUfPrbEExmAyE206Oc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791214147; c=relaxed/simple;
-	bh=XUkqfCwSdokMBSaYM8CnAm/LMcz5dJg/PFsQuhlJmYg=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=q9mWbZkCrZBPspfGnuAXW4L+20Lz5bsWWc/b65QTsQhuPR0LM7U4/wgySEI7ZzlAHgh7kdOFit2+ifkjam3JvscTwIVX8mkkqnbnRAaywRS5VZVYvGiPkOqiIsUa9FhWlcn9omROWqEIlcykCv0YSpTopI8WoFvR+R6uhaq8xFs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=i5U11PYe; arc=none smtp.client-ip=209.85.216.46
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1791214189; c=relaxed/simple;
+	bh=k9XXlvljwpDdINjTABSNq9Rbsq2vVAtJliRAQQI6XO4=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=iLZT+h19ideLSNkXJzKjP1cm0IYXrIpfL9FKUS/wcJ05fiddhJcnSsSuoDDe8NKiXpUgYZzr5J7ALEn3jrcjT3XpCEDDrtgqjsrJ0j62ohwH1Dek5mDnWfzfcTFB12e9FuPS/Echuig2t5+QCBR2sOmdf1pcF0HEIyMC/zVeWRs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tk154.de; spf=pass smtp.mailfrom=tk154.de; dkim=pass (2048-bit key) header.d=tk154.de header.i=@tk154.de header.b=EuqX+ssf; arc=none smtp.client-ip=85.220.189.104
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tk154.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=tk154.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="i5U11PYe"
-Received: by mail-pj1-f46.google.com with SMTP id 98e67ed59e1d1-383b4a3755fso1310979a91.3
-        for <linux-kernel@vger.kernel.org>; Mon, 05 Oct 2026 08:29:05 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791214145; x=1791818945; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=2PeiJh6Zig4NlFkymAEvPsUAFttXevwdW8KgW69tmIc=;
-        b=i5U11PYeZsso+AjCpA0QJ3etDsvmfV6xEaVmvgD/qVccrt3Hxf1SqDzlzlyv9MYxLl
-         S1XLjcoiNDwPMguNtJmqKgXvPHC606QWOf9r8lIdNVLS+7VFE2l++eB17HApPToDhzwO
-         EKxaJw57xeZoUcqXzrOmWh90cQOaeX7DZxTNgC6dgkyohZpeEgEW6a8hNkTSO3l7jI4Y
-         M5uw+Zw/A22NlgL+v1oV2iWQyIPqv3511bstbxe64HAyXDLNfrIZNzpAf2zlYIL4IzIv
-         ufrNraWw+7lwDkVqfGzAnN6kTQFCkdb1y4IYIRCkdjlWYjLKCZ3Sz9pOiOpCvRxRcgsx
-         V9+w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791214145; x=1791818945;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=2PeiJh6Zig4NlFkymAEvPsUAFttXevwdW8KgW69tmIc=;
-        b=t0Q71zuuXDleBzDXOpV014q4vVToI+zd+i+9oA8uxuN0tUGY8My4kjYK1M63K30J8x
-         4vhrlXunDaI8tyKaM8Q94Kutg8t743SddqoHTZvgENggeQlY9b0IeDT+Z+2k2ksU/0YS
-         boQWCxEfDQ+UqreLq2BL48vy7Nq/GZN/UI3/I/Kfh5SrtUV4b/0KLTSo5Ur0Hw615qfW
-         7m/uatte0q5Hn4AuWaTsHyLTEFnBvKO/l+v4ZniAIBGpPZlDMNUXH1GJBgxQvsMjuzHI
-         g+t75W8J/ZSdegkK4tBGv8JxEJo7aaIvf9yp8Rl9Z9pEE2wVwm3Y0GovioG9bgWKsW6N
-         toMQ==
-X-Forwarded-Encrypted: i=1; AKwUvByVyl1yllqA8fi2PT8Pc2KkjXKfPw/SVsu8KyYS+P8CoLsoOyeSa+0Pgiv+/mrADgFxsEIyTj7Qa859qfY=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJWe2D3fnj/8fmctGb/jIwi1/j80YJ8BnN29myP8gXoAfgRkwX6
-	CzwaJBbftUITJnIstDsfRZ8gCtKl6OB61x0PuF/+yxstCvwIOXjn9AC0
-X-Gm-Gg: AYBFou1gCCUXzQlGO6QHhVp9e5FdO/f4NM5w4ltlUXk5Zj7UvXKnpSg8lxsYNa09r7d
-	/zW6+lJj1Qwk1FLEAfv40Rw5N3mFW+cbgQk0EcIe4O5q7cnlYsov3YxR45fzBRwLDlVFJLnoOLX
-	cSF9eWkabLRgroJSlonrzRY1OquAeXs+vQaBXdn6Mfuk8f3IvP5a3Pv1tn+s3B2ULMDoG8S7+Lk
-	RVZyDItRPUUra5E8jMu9TderWW61kDXHc8YAtSQ8/fbJ66cFeMdfeKT2rWksq+VRjEwJz+9Jr0P
-	hV2NJp+hCQWo1/bvUlRYedIiCW0gdqUqj1QJsyl/Uw7HmfNsr0oKgrOUnLmG0KsLB+rGFZKp6NH
-	P1V/OZRvTbDIY+jAy9B6Aebu8qUCgP1Lc+HqaUs5i0u9KmEHOMO3sW6NNXG5wpv3zs8itoQ9fhR
-	pR6PBkqZ4VGcpxxCJN5WbfePUQ3m3JdWB+xKCJb36x/tzley5WC5Sqd73NJmH36Y3EneDf9hcsg
-	NRdqC38hLtIMEn6Xu+PyRakRZplMrFxfvJ5R0qsACAEYB9v7VE5FcUH2opIViGgMjH89RjmRUm3
-	iMNAl8wP1hfrVnGymJVhv5RDXK6ycES2
-X-Received: by 2002:a17:90b:5102:b0:39e:4d7b:b247 with SMTP id 98e67ed59e1d1-3a787182b4bmr6453862a91.19.1791214144714;
-        Mon, 05 Oct 2026 08:29:04 -0700 (PDT)
-Received: from 1.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.ip6.arpa ([119.14.238.184])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a851630206sm29127a91.0.2026.10.05.08.29.03
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 05 Oct 2026 08:29:04 -0700 (PDT)
-From: Wayne Ho <wayneho219@gmail.com>
-Date: Mon, 05 Oct 2026 23:27:47 +0800
-Subject: [PATCH v2 2/2] Documentation: ABI: leds: Document timer, heartbeat
- and activity attributes
+	dkim=pass (2048-bit key) header.d=tk154.de header.i=@tk154.de header.b="EuqX+ssf"
+Received: from hub1.goneo.de (hub1.goneo.de [IPv6:2001:1640:5::8:52])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange x25519)
+	(No client certificate requested)
+	by smtp9.goneo.de (Postfix) with ESMTPS id 3F0B52409F1;
+	Mon, 05 Oct 2026 17:29:40 +0200 (CEST)
+Received: from hub1.goneo.de (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange x25519)
+	(No client certificate requested)
+	by hub1.goneo.de (Postfix) with ESMTPS id 0946E240412;
+	Mon, 05 Oct 2026 17:29:38 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=tk154.de; s=DKIM001;
+	t=1791214178;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=NoHN9rbVJnagWmiztRfXDSYAqexM84S3RYzPvuSehBg=;
+	b=EuqX+ssfqPeBFKZwIswroV1qEhbe82/BfJi5nbPG4CeJSiX/SFEYnpyCQYW4fktp59H6zy
+	fJm2CJGj5ANNWoqnbbkyiJ7zpNp2VC+d/eq8F7ScOpHsh99PvSvYQbAlxM4yd1+CdzbuhL
+	2kdc20XZC/TupScQjne5DXOiXsD/QQ5RS5zCGnVzSExl+E3O+MxOvFX2WZnF2XKZa26LqM
+	C2GoGFUTFYZNfuP9OWIzsDgeVl/iTcz+/HeE3o79wsM/5dCCa2XRA0x7mr9R6MATefSf7x
+	cWn+MYyV7doNaJHkbiJfDjA67cw+C5FOMEqIZybZ+MjA7VUF2+/Me6Cwb6dYTA==
+Received: from CASE (unknown [195.37.88.189])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by hub1.goneo.de (Postfix) with ESMTPSA id 7C00E24048A;
+	Mon, 05 Oct 2026 17:29:35 +0200 (CEST)
+From: Til Kaiser <mail@tk154.de>
+To: netdev@vger.kernel.org
+Cc: Luo Jie <jie.luo@oss.qualcomm.com>,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Simon Horman <horms@kernel.org>,
+	Jonathan Corbet <corbet@lwn.net>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Randy Dunlap <rdunlap@infradead.org>,
+	Lei Wei <quic_leiwei@quicinc.com>,
+	Suruchi Agarwal <quic_suruchia@quicinc.com>,
+	Pavithra R <quic_pavir@quicinc.com>,
+	linux-arm-msm@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-doc@vger.kernel.org,
+	Til Kaiser <mail@tk154.de>
+Subject: [PATCH net-next 3/4] dt-bindings: net: qcom,ipq9574-ppe: Add IPQ5332 support
+Date: Mon,  5 Oct 2026 17:29:14 +0200
+Message-ID: <20261005152915.101780-4-mail@tk154.de>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20261005152915.101780-1-mail@tk154.de>
+References: <20261005152915.101780-1-mail@tk154.de>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261005-docs-leds-abi-trigger-attrs-v2-2-c5f8970b1b42@gmail.com>
-References: <20261005-docs-leds-abi-trigger-attrs-v2-0-c5f8970b1b42@gmail.com>
-In-Reply-To: <20261005-docs-leds-abi-trigger-attrs-v2-0-c5f8970b1b42@gmail.com>
-To: Lee Jones <lee@kernel.org>, Pavel Machek <pavel@kernel.org>
-Cc: linux-leds@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Griffin Kroah-Hartman <griffin@kroah.com>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1791214138; l=5409;
- i=wayneho219@gmail.com; s=20261001; h=from:subject:message-id;
- bh=XUkqfCwSdokMBSaYM8CnAm/LMcz5dJg/PFsQuhlJmYg=;
- b=e7z+y75PaaD3ANyhQrgG0ZutXrGru1x94Pho9l1p9MA9XpgQVSsRN3/B3BKXBbLkqvB9lng5A
- j+NHK7+XcQcD2zrUH9FPy2eygDr1r4vyTd9zBISyMQpruNRNCOdmg7K
-X-Developer-Key: i=wayneho219@gmail.com; a=ed25519;
- pk=j25LRSikYRlv0PpovZSgSrCQwsy7WDzIYum/mydUa3A=
+Content-Transfer-Encoding: 8bit
+X-Rspamd-UID: e122ff
+X-Rspamd-UID: 5a958b
 
-The delay_on and delay_off attributes created by the timer trigger and
-the invert attribute created by the heartbeat and activity triggers
-are not documented. They share their sysfs paths with the oneshot
-trigger attributes, so adding a separate entry per trigger would make
-get_abi.py warn about the same path being defined more than once.
+IPQ5332 uses the same PPE architecture as IPQ9574, but has two front
+panel ports instead of six and four interconnect paths instead of seven.
 
-Move the delay_on, delay_off and invert entries from
-sysfs-class-led-trigger-oneshot to sysfs-class-led and describe the
-behaviour of each trigger that creates them.
+Add the qcom,ipq5332-ppe compatible and constrain the interconnects
+and port nodes per SoC: IPQ5332 takes four interconnects and only
+ethernet-port@1 and ethernet-port@2, while IPQ9574 keeps seven
+interconnects.
 
-Signed-off-by: Wayne Ho <wayneho219@gmail.com>
+The PPE core, EDMA and MAC clock functions are shared, but IPQ5332 also
+needs the GCC IM sleep clock. The PPE core uses one reset and each MAC
+uses three resets on both SoCs. IPQ5332 EDMA needs separate system and
+configuration resets; IPQ9574 uses one combined reset. Constrain the
+clock and reset counts accordingly. Keep EDMA resets positional, with
+the system reset first and the configuration reset second on IPQ5332,
+consistent with the existing unnamed IPQ9574 reset.
+
+IPQ5332 EDMA has 24 TX/completion rings, 16 RX descriptor rings and eight
+RX fill rings, so the full EDMA interrupt set comprises 49 interrupts.
+Constrain the interrupt counts and ring names per SoC as well.
+
+The IPQ5332 clock and reset functions are described by Qualcomm's NSSCC
+driver submission. Its sleep clock is also listed in Qualcomm's
+PPE DTS submission. The ring limits come from QSDK 14.0.1595.1665,
+qca-nss-dp hal/soc_ops/ipq53xx/nss_ipq53xx.h.
+
+Link: https://lore.kernel.org/r/20240829082830.56959-7-quic_varada@quicinc.com
+Link: https://lore.kernel.org/r/20240110112059.2498-3-quic_luoj@quicinc.com
+
+Signed-off-by: Til Kaiser <mail@tk154.de>
 ---
- Documentation/ABI/testing/sysfs-class-led          | 68 ++++++++++++++++++++++
- .../ABI/testing/sysfs-class-led-trigger-oneshot    | 29 ---------
- 2 files changed, 68 insertions(+), 29 deletions(-)
+ .../bindings/net/qcom,ipq9574-ppe.yaml        | 92 +++++++++++++++++--
+ 1 file changed, 84 insertions(+), 8 deletions(-)
 
-diff --git a/Documentation/ABI/testing/sysfs-class-led b/Documentation/ABI/testing/sysfs-class-led
-index c72cb1e0..f438fb83 100644
---- a/Documentation/ABI/testing/sysfs-class-led
-+++ b/Documentation/ABI/testing/sysfs-class-led
-@@ -86,3 +86,71 @@ Description:
- 		Invert the LED on/off state. This parameter is specific to
- 		the backlight trigger. It is useful when driving a LED which
- 		is intended to indicate a device in a standby like state.
+diff --git a/Documentation/devicetree/bindings/net/qcom,ipq9574-ppe.yaml b/Documentation/devicetree/bindings/net/qcom,ipq9574-ppe.yaml
+index 1a78e2c82b90..29dd34210ac8 100644
+--- a/Documentation/devicetree/bindings/net/qcom,ipq9574-ppe.yaml
++++ b/Documentation/devicetree/bindings/net/qcom,ipq9574-ppe.yaml
+@@ -28,11 +28,15 @@ description: |
+   supporting various modes such as SGMII/QSGMII/PSGMII/USXGMII/10G-BASER. There
+   are 3 UNIPHY (PCS) instances supported on the IPQ9574.
+ 
+-  Ethernet DMA is used to transmit and receive packets between the six Ethernet
++  IPQ5332 uses the same PPE architecture with two front panel ports and two
++  UNIPHY (PCS) instances. Its Ethernet datapath has a CPU port (port0) and
++  two GMAC/XGMAC ports (port1 and port2).
 +
-+What:		/sys/class/leds/<led>/delay_on
-+Date:		March 2006
-+KernelVersion:	2.6.17
-+Contact:	linux-leds@vger.kernel.org
-+Description:
-+		This attribute is only present when the LED's trigger is
-+		set to "timer" or "oneshot".
-+
-+		For the "timer" trigger, specifies for how many milliseconds
-+		the LED has to stay on in each cycle of a repeating on/off
-+		blink. Writing a new value restarts the blink immediately.
-+		Defaults to 500 ms.
-+
-+		For the "oneshot" trigger, specifies for how many
-+		milliseconds the LED has to stay at LED_FULL brightness
-+		after it has been armed. Defaults to 100 ms.
-+
-+What:		/sys/class/leds/<led>/delay_off
-+Date:		March 2006
-+KernelVersion:	2.6.17
-+Contact:	linux-leds@vger.kernel.org
-+Description:
-+		This attribute is only present when the LED's trigger is
-+		set to "timer" or "oneshot".
-+
-+		For the "timer" trigger, specifies for how many milliseconds
-+		the LED has to stay off in each cycle of a repeating on/off
-+		blink. Writing a new value restarts the blink immediately.
-+		Defaults to 500 ms; together with the default delay_on this
-+		gives a 1 Hz blink.
-+
-+		For the "oneshot" trigger, specifies for how many
-+		milliseconds the LED has to stay at LED_OFF brightness
-+		after it has been armed. Defaults to 100 ms.
-+
-+What:		/sys/class/leds/<led>/invert
-+Date:		Jun 2012
-+KernelVersion:	3.6
-+Contact:	linux-leds@vger.kernel.org
-+Description:
-+		This attribute is only present when the LED's trigger is
-+		set to "oneshot", "heartbeat" or "activity". Any non-zero
-+		value written is stored as 1, so reading it back returns
-+		0 or 1.
-+
-+		For the "oneshot" trigger, reverses the blink logic. If set
-+		to 0 (default) blink on for delay_on ms, then blink off for
-+		delay_off ms, leaving the LED normally off. If set to 1,
-+		blink off for delay_off ms, then blink on for delay_on ms,
-+		leaving the LED normally on. Setting this value also
-+		immediately changes the LED state.
-+
-+		For the "heartbeat" trigger, inverts the heartbeat pattern.
-+		If set to 0 (default) the LED stays off most of the time and
-+		blinks briefly on. If set to 1 the LED stays on most of the
-+		time and blinks briefly off. Unlike "oneshot", the new value
-+		only takes effect at the next phase of the pattern.
-+
-+		For the "activity" trigger, inverts the on/off states of the
-+		CPU activity blink. If set to 0 (default) the LED is mostly
-+		off when the system is idle and stays on longer as CPU usage
-+		grows. If set to 1 the LED is mostly on when idle and stays
-+		off longer as CPU usage grows. The new value only takes
-+		effect at the next on/off transition.
-+
-+		This is unrelated to the /sys/class/leds/<led>/inverted
-+		attribute, which is specific to the backlight trigger.
-diff --git a/Documentation/ABI/testing/sysfs-class-led-trigger-oneshot b/Documentation/ABI/testing/sysfs-class-led-trigger-oneshot
-index 378a3a4d..3532f13d 100644
---- a/Documentation/ABI/testing/sysfs-class-led-trigger-oneshot
-+++ b/Documentation/ABI/testing/sysfs-class-led-trigger-oneshot
-@@ -1,32 +1,3 @@
--What:		/sys/class/leds/<led>/delay_on
--Date:		Jun 2012
--KernelVersion:	3.6
--Contact:	linux-leds@vger.kernel.org
--Description:
--		Specifies for how many milliseconds the LED has to stay at
--		LED_FULL brightness after it has been armed.
--		Defaults to 100 ms.
--
--What:		/sys/class/leds/<led>/delay_off
--Date:		Jun 2012
--KernelVersion:	3.6
--Contact:	linux-leds@vger.kernel.org
--Description:
--		Specifies for how many milliseconds the LED has to stay at
--		LED_OFF brightness after it has been armed.
--		Defaults to 100 ms.
--
--What:		/sys/class/leds/<led>/invert
--Date:		Jun 2012
--KernelVersion:	3.6
--Contact:	linux-leds@vger.kernel.org
--Description:
--		Reverse the blink logic. If set to 0 (default) blink on for
--		delay_on ms, then blink off for delay_off ms, leaving the LED
--		normally off. If set to 1, blink off for delay_off ms, then
--		blink on for delay_on ms, leaving the LED normally on.
--		Setting this value also immediately changes the LED state.
--
- What:		/sys/class/leds/<led>/shot
- Date:		Jun 2012
- KernelVersion:	3.6
-
++  Ethernet DMA is used to transmit and receive packets between the Ethernet
+   ports and ARM host CPU.
+ 
+-  The follow diagram shows the PPE hardware block along with its connectivity
+-  to the external hardware blocks such clock hardware blocks (CMNPLL, GCC,
++  The following diagram shows the IPQ9574 PPE hardware block and its
++  connectivity to external clock hardware blocks (CMNPLL, GCC,
+   NSS clock controller) and Ethernet PCS/PHY blocks. For depicting the PHY
+   connectivity, one 4x1 Gbps PHY (QCA8075) and two 10 GBps PHYs are used as an
+   example.
+@@ -77,24 +81,29 @@ description: |
+ properties:
+   compatible:
+     enum:
++      - qcom,ipq5332-ppe
+       - qcom,ipq9574-ppe
+ 
+   reg:
+     maxItems: 1
+ 
+   clocks:
++    minItems: 4
+     items:
+       - description: PPE core clock
+       - description: PPE APB (Advanced Peripheral Bus) clock
+       - description: PPE IPE (Ingress Process Engine) clock
+       - description: PPE BM, QM and scheduler clock
++      - description: PPE sleep clock from GCC
+ 
+   clock-names:
++    minItems: 4
+     items:
+       - const: ppe
+       - const: apb
+       - const: ipe
+       - const: btq
++      - const: sleep
+ 
+   resets:
+     maxItems: 1
+@@ -105,6 +114,7 @@ properties:
+     description: PPE switch miscellaneous interrupt
+ 
+   interconnects:
++    minItems: 4
+     items:
+       - description: Bus interconnect path leading to PPE switch core function
+       - description: Bus interconnect path leading to PPE register access
+@@ -115,6 +125,7 @@ properties:
+       - description: Bus interconnect path leading to enhanced memory NOC from NSS NOC
+ 
+   interconnect-names:
++    minItems: 4
+     items:
+       - const: ppe
+       - const: ppe_cfg
+@@ -130,7 +141,9 @@ properties:
+     description:
+       EDMA (Ethernet DMA) is used to transmit packets between PPE and ARM
+       host CPU. There are 32 TX descriptor rings, 32 TX completion rings,
+-      24 RX descriptor rings and 8 RX fill rings supported.
++      24 RX descriptor rings and 8 RX fill rings supported on IPQ9574.
++      IPQ5332 supports 24 TX descriptor rings, 24 TX completion rings,
++      16 RX descriptor rings and 8 RX fill rings.
+ 
+     properties:
+       clocks:
+@@ -144,15 +157,18 @@ properties:
+           - const: apb
+ 
+       resets:
+-        maxItems: 1
+-        description: EDMA reset
++        minItems: 1
++        items:
++          - description:
++              EDMA system reset. On IPQ9574 this also resets the configuration.
++          - description: EDMA configuration reset
+ 
+       interrupts:
+-        minItems: 65
++        minItems: 49
+         maxItems: 65
+ 
+       interrupt-names:
+-        minItems: 65
++        minItems: 49
+         maxItems: 65
+         items:
+           oneOf:
+@@ -165,6 +181,7 @@ properties:
+           Interrupts "rxfill_[0-7]" are the Ethernet DMA RX fill ring interrupts.
+           Interrupts "rxdesc_[0-23]" are the Ethernet DMA RX Descriptor ring interrupts.
+           Interrupt "misc" is the Ethernet DMA miscellaneous error interrupt.
++          On IPQ5332, only "txcmpl_[0-23]" and "rxdesc_[0-15]" are supported.
+ 
+     required:
+       - clocks
+@@ -238,6 +255,65 @@ required:
+ 
+ allOf:
+   - $ref: ethernet-switch.yaml
++  - if:
++      properties:
++        compatible:
++          contains:
++            const: qcom,ipq5332-ppe
++    then:
++      properties:
++        clocks:
++          minItems: 5
++        clock-names:
++          minItems: 5
++        interconnects:
++          maxItems: 4
++        interconnect-names:
++          maxItems: 4
++        ethernet-dma:
++          properties:
++            resets:
++              minItems: 2
++            interrupts:
++              maxItems: 49
++            interrupt-names:
++              maxItems: 49
++              items:
++                oneOf:
++                  - pattern: '^txcmpl_(1?[0-9]|2[0-3])$'
++                  - pattern: '^rxfill_[0-7]$'
++                  - pattern: '^rxdesc_([0-9]|1[0-5])$'
++                  - const: misc
++        ethernet-ports:
++          patternProperties:
++            "^ethernet-port@[1-2]$":
++              properties:
++                reg:
++                  maximum: 2
++            "^ethernet-port@[3-6]$": false
++  - if:
++      properties:
++        compatible:
++          contains:
++            const: qcom,ipq9574-ppe
++    then:
++      properties:
++        clocks:
++          maxItems: 4
++        clock-names:
++          maxItems: 4
++        interconnects:
++          minItems: 7
++        interconnect-names:
++          minItems: 7
++        ethernet-dma:
++          properties:
++            resets:
++              maxItems: 1
++            interrupts:
++              minItems: 65
++            interrupt-names:
++              minItems: 65
+ 
+ unevaluatedProperties: false
+ 
 -- 
-Git-155)
+2.56.0
 
