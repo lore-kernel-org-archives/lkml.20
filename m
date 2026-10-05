@@ -1,198 +1,186 @@
-Received: from TY3P286CU002.outbound.protection.outlook.com (mail-japaneastazon11010006.outbound.protection.outlook.com [52.101.229.6])
+Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com [148.163.158.5])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E7B9D40961C;
-	Mon,  5 Oct 2026 08:45:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.229.6
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791189918; cv=fail; b=es1drXxeVdicUY1JnWHZaMalKqtNo9UA5ushQtVACVi8AR5G+H8+qIbOtXPOPBHR6ft9LoV9ebp/VsYt4USjOH5AIdp7l0zrv5GliXkyhQ6f1ZH4/oAWe6WRJK95AjXvoxzxxA6kEiSXVmIR2wNteE++uXwZq4yHdEbkllpzH8o=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791189918; c=relaxed/simple;
-	bh=yHrGHTgEgpFi168T2xdTYawgXsHZgjfsWZGixDrGA9U=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:MIME-Version; b=tp6UNIJnJ9wWNF0qeF3U9TSfYQawAHSbnxAqXg89Xl56+y91/X5ztrgKngxFRSig/vaLr/6EzGqgDQGLFKU4ot96L7zZkBHmNpWIYTHPfvFdnkn4HK90pK2c+/Oh5/tpTxTwlUoFhy/T8fIhDGhcMUGiH3jKtLFPUurR14RBVsE=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=bp.renesas.com; spf=pass smtp.mailfrom=bp.renesas.com; dkim=pass (1024-bit key) header.d=bp.renesas.com header.i=@bp.renesas.com header.b=CptfAii2; arc=fail smtp.client-ip=52.101.229.6
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=bp.renesas.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bp.renesas.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A703E41378D;
+	Mon,  5 Oct 2026 08:46:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.158.5
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791189962; cv=none; b=EoXMpSP1v6+LzHCWY4IVY9tGe09lzNRpvWj3ULoFEw5Aj1dYhD/iwBBSKqToCV1cKafFdlZrufGkgls28EtxXvBWRfngGJHRRYUcIq+gWXoyzHPxqkHeq4Rhr1VGWMVkeeYoVEW/n7OggJeeKFdeEdAPMUZ04H2TrIB1xRi98Qw=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791189962; c=relaxed/simple;
+	bh=u0Gla2oo2wEOG7DjkZ0ogsT+adc1scmQq2flnciXlos=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=gUujohf6njrQ8X9fcPwaeLDhmSuG/9nfB5zO8B7rlIQQG47xA5f1WUmJfk1M7249ps6S+M/Le0Ut0FbcIOIH+TIxnobk43Ua4JmWw9JWVMN/Agqrhbf3JJ/5jTYw/hpp7fCU6cDLh/mYAbgpQ3n9p5JqxqJhrRpn5fJBj9jnKHc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=ePORUGvG; arc=none smtp.client-ip=148.163.158.5
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=bp.renesas.com header.i=@bp.renesas.com header.b="CptfAii2"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=a4rZvm5MhQuP4BNxj66nXdeyq/qfgYtJbFZY2XG6TbshMHu0jXqMtPR+8ajpTRAMgkZ771eTWXtqTjy31QmxBPka2SRr+nv+T9fumcW4IuNUx39prSNDtIToEsvFOOOg83UveVnwt5VFNZsYpjs2fOGWmQ8TwSgkoZTvoglenlL5CYJOYZZgXr2jYpecwS3ZUErv/AWr8J6huBsfwM0yOFQAYJOskkYPEC9Gv2U06prAsUL+xTPZjuC3FkPzkBd59X8OJdtcnWwvvsBo1yfqT6/sdn+UhEuJ3+yI62ElQnE9d5QtPpjx2IpUcidAOV0QHYZ1Mjr5sFDcL2b8DJPKUw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=X4cFHJywyYRFae3yjiyK6gbL72Xxr/EMumf65Nq3Xzs=;
- b=E53CDJ2TVlGotK8tKLPP2ZILSiH/RFW34GMgRqmjt+MJ02Q+X8orTDSw6kyyYi77F/NHu48/LBgQkHDRTjBQcqlQrvqmyShXEDime4P7CJAUnaFgQlU57cF2h9CJal1UgxAmJF1P2wTghNdjEcm9kYWTYSUpdyR16QnQeOQ9Bhsr/GEvpgOc/C+50ue6ed7WSIOvE4A95rrYgRuy5lka4GVP8LtP0SWiAvYDGhe7dNkyCJYQEewiAdzlB0rX6yBB9EP44JW6z+ZSbAWIAKO25CrheY+OpslcW4VSNKq4iFpweoN8EZf+vv6j1sWV8VVQKdHDA9pjSclb+4hs6abBZQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=bp.renesas.com; dmarc=pass action=none
- header.from=bp.renesas.com; dkim=pass header.d=bp.renesas.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bp.renesas.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=X4cFHJywyYRFae3yjiyK6gbL72Xxr/EMumf65Nq3Xzs=;
- b=CptfAii2bIJCEXODVbUI2w7MHEooNDPZtizf4T8Qw7BxVfZrQ4v7oazvfOEM1AH7OUB0itTimnctWqlj/ZAOVPSMA8NCbKGLKBvjuSjOMVU3uI/rd2uIA+lx65iJwyFg2TIEeEMgjCeiji8Ynrby3Jlmmpz7MlcaZNKJPNnqjlA=
-Received: from TY3PR01MB11346.jpnprd01.prod.outlook.com (2603:1096:400:3d0::7)
- by TYRPR01MB12431.jpnprd01.prod.outlook.com (2603:1096:405:103::6) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.472.20; Mon, 5 Oct
- 2026 08:45:11 +0000
-Received: from TY3PR01MB11346.jpnprd01.prod.outlook.com
- ([fe80::87d1:4928:d55:97de]) by TY3PR01MB11346.jpnprd01.prod.outlook.com
- ([fe80::87d1:4928:d55:97de%6]) with mapi id 15.21.0451.026; Mon, 5 Oct 2026
- 08:45:11 +0000
-From: Biju Das <biju.das.jz@bp.renesas.com>
-To: Cosmin-Gabriel Tanislav <cosmin-gabriel.tanislav.xa@renesas.com>, William
- Breathitt Gray <wbg@kernel.org>
-CC: "linux-iio@vger.kernel.org" <linux-iio@vger.kernel.org>,
-	"linux-renesas-soc@vger.kernel.org" <linux-renesas-soc@vger.kernel.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, Cosmin-Gabriel
- Tanislav <cosmin-gabriel.tanislav.xa@renesas.com>
-Subject: RE: [PATCH v2 00/15] MTU3 counter fixes and improvements
-Thread-Topic: [PATCH v2 00/15] MTU3 counter fixes and improvements
-Thread-Index: AQHdVCieg51++XX0QUuJ0VVqajBbRLbuodBQ
-Date: Mon, 5 Oct 2026 08:45:11 +0000
-Message-ID:
- <TY3PR01MB113462D03DD936D3A21D13A2486962@TY3PR01MB11346.jpnprd01.prod.outlook.com>
-References: <20261004174752.507499-1-cosmin-gabriel.tanislav.xa@renesas.com>
-In-Reply-To: <20261004174752.507499-1-cosmin-gabriel.tanislav.xa@renesas.com>
-Accept-Language: en-GB, en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-authentication-results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=bp.renesas.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: TY3PR01MB11346:EE_|TYRPR01MB12431:EE_
-x-ms-office365-filtering-correlation-id: 213ac51c-299e-41f3-e04e-08df22bcf799
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam:
- BCL:0;ARA:13230040|23010399003|366016|1800799024|376014|22082099003|18002099003|38070700021|6133799003|10067099003|56012099006|11063799006;
-x-microsoft-antispam-message-info:
- Lo3KTJ+Rgci+RJD2g8oIa3tS2pqELxvy0YNvyblxX8cI+wJ05Mnr1iBBBUrXIZ2Q/D5X7ygKWGP94I0R3z1sgvYAQZ6n6qGaSacHaeHqYC1fGg08HvSRoVq+ZpNOW0v6F7bjITTW2SQqICmvGeg4ZBkDBj4Cs6kz44nHa6pGSznPJkODk0VnzRrpexTEXFMj0haHFkpJw/d59GzztfBdbCwXxLRG5oveMKBSBx6jr44uH2I0dOFixCM7mXoAs5pQftrKOyVd5znm4JcPDOdTEyMdQH5L3JVFqeCYgreqVct4gTnVlyByS+rdsW/pFovUfWlhiys25JO5OQu/ktBTunzc+prFUsFzD2/1kRpePblarie1MIJ7EDQ64u/Njpg9PDS4m14ddO8oIHWWeJO6Z2V3Q4aPox0wIlPcoNyhgahG2uMjos4fVyfgp8F1TUd3zEzPkvgn+q8JV04iSeg2D+F+Apd/crPvfIrPHyfLior4nAY1Rkc6q5WKDp9o0niMytlfQt0ZhNiEQQDF5apRkbhU+GSF9E1bKATVRCyTmc3aXzfvD5IV7Pzv76DcZyGNEvC9/iASMwc4yjLYsDaSL4U6Ipv8f8r7NhaGrXwCH0tTMnYL8tm0aJqf2yUFGo1hGJ1GzZebYcEo9oHTQZRkrE5e5wgBLIxlbeEbNeyJunBLZ6BFDXEhhKTbWjBSVjGfoemcx776drvpfOjpXnt5tYelIB7ehPAhWN2CGcDnqa8=
-x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:TY3PR01MB11346.jpnprd01.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(366016)(1800799024)(376014)(22082099003)(18002099003)(38070700021)(6133799003)(10067099003)(56012099006)(11063799006);DIR:OUT;SFP:1101;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0:
- =?us-ascii?Q?QUEVv80Y5WsZhjJ4DkWVIUMW+8lBKeDeUbS3+31IVX+0qrAhEIssIB4hL19E?=
- =?us-ascii?Q?9+GJ8XRcc4rQiQDoJ4fi/IflYnnhpMuHhh5XGYu8fm/Sq3+FMNb69f8JGCo7?=
- =?us-ascii?Q?XUOSC3at9KDiYuMmTM4XNNAycs0tYn+YL+roiRnOV2mJOnF9sAz3K3ph8o9Z?=
- =?us-ascii?Q?vYbeebh5k2dpBQyLVqhPB/iMPE78YUMkq6LmVTUJ89PdUFR2ry9hL01jBHnb?=
- =?us-ascii?Q?sMwa+ZBymafzxgbOz72CKGaG3sgtN5MLTgpxGz7/pacYaBm6U5bE8TVpc2Du?=
- =?us-ascii?Q?ClrSFD6Tmlb6XWvvQt+wBmJCW7sZ+0LPM4aTpYd9qR0V3KA45Dw4D4SX5V+0?=
- =?us-ascii?Q?HccKpI5G80hjQUQwCaCRqDL3m6gM79aKFMA8KAEcNgxsmd7O2VJdGRIULM+4?=
- =?us-ascii?Q?T9DaOg23NiBxvy1NdF0cIVxSO3g2IuEx/W+CA0Xx+ZLTQgmftpYicfQt2vbF?=
- =?us-ascii?Q?kOHCR4ItPccub3RAv1oFu96OACcxayUT82bykPfsLINJ9SUbmCkroEenvheM?=
- =?us-ascii?Q?pClOGOWyRjuucpNJz9Gi2Nx+Fxtx41jFbhtuG8IeIBz2Nrwz10yVip1CeUAE?=
- =?us-ascii?Q?bW/7uQZDZJWy/q0GHcDtCUVBZcdvJ/fhOdxXm1M+QCyCMY+LDnFts1wkDDx7?=
- =?us-ascii?Q?tkaJ/yRZuuQ2e7qZTi8yWUAOi+qvxTBm5qTHUzgW6imCPyReiN6Gh9s9Y2yY?=
- =?us-ascii?Q?A1KgpqLcrREeFO2F0Jicnc5U3RWPM4HK/TD2Zk/a0vly4n1s+rUcKAjC8R+A?=
- =?us-ascii?Q?sqkATTHy6sn4YcwRsiKkFgaHdz89TY0cZGlRwO00Zw7yttO6JTA+MWVphgWf?=
- =?us-ascii?Q?0x+Q+fbp8al9IwhSqophcPT/NagFObiAFRUQPQmvTO2Eeikm2WazYZziFv7J?=
- =?us-ascii?Q?Ba/yhhzWGIwvRTCBqYvSC+DJLg99sX2i2Dy4+oBBd6sf1wtz2fjHgNE2F0VC?=
- =?us-ascii?Q?r3sMH+O93fnJuVAR8urfOivJkFNVGuWR/Zw2UWI1J7e2VOXtVZYsg1SL3l9R?=
- =?us-ascii?Q?hUrdIqTKSJV0V+xTFbOPB3CVyi8HxK9h4pEbonYUvEzEfOKmNNMj3sG3ogOP?=
- =?us-ascii?Q?9GQVZtnFANA9L+MVIVsPeadHvVlaOZZeUmQsYruK/j2XwHd8OQnhFy8Etj8H?=
- =?us-ascii?Q?AFlCLY42laO/97/zR7aOaW0R3YFfMJWIDKRA9owQWhYwsNNa/Ypfjm5sgDb6?=
- =?us-ascii?Q?mSB4cCQZz7ZHldDERbXTHM5l7opoDS5pRlmaXnzWIRUUeEvvErvy7Kpbo5aS?=
- =?us-ascii?Q?gbo05dc7X3HAtRNdUAaqBepxangIj78A5c69MB1RdSvgWnmt2BB4sAF71lEv?=
- =?us-ascii?Q?m0jFWWMAWA0DFrEzh3ZgCMWhNzcEqb7vd36pR1Hpz4JcVYK5aAcZRlTL/pGt?=
- =?us-ascii?Q?YQDLsZgDhQB2BUDI30Oeuyf+fHicOpGOPPYweDIsRQznERJ23mjYzGH3+ZDh?=
- =?us-ascii?Q?TwCg+1HWV/uwb+kujAPeWJf4/vUk97JdeDTG2HzognW+Ov9oVaXFbElDxiwC?=
- =?us-ascii?Q?CEnLnv0eyd8awI7Mbcz/T9ncfganCP20SOnBQ/8Yz0No8BQEDgSJTQmoci4M?=
- =?us-ascii?Q?pJ8slgXeLOtEzqQiRxndgazpdbZNBA5NIhzQnKz02fLMXupT+wTp4+PGWFCE?=
- =?us-ascii?Q?U8N3WqVGa9MPHWCb3cqtYZuEVcvEbjc4OQ6vsBb/u2BFnK1Txss7WUAgZIqJ?=
- =?us-ascii?Q?LLMFGJVfqXyqgFP2Z1vNr5rLSItNlTX6b/7QBgSWLs6xkZAIQQQfHgmdIpc/?=
- =?us-ascii?Q?VOI/EpFAww=3D=3D?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="ePORUGvG"
+Received: from pps.filterd (m0353725.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69515uMJ2066458;
+	Mon, 5 Oct 2026 08:45:46 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+	:content-transfer-encoding:date:from:message-id:mime-version
+	:subject:to; s=pp1; bh=tByF+zsuU0L7yHEjIhvPWbDwXmPqdAw2pMNjnhYDb
+	8Y=; b=ePORUGvGePKH/2U/ZoV+ppr7bnZYWbgaku9QEhz/h6mLfyZz+BeHO896F
+	vu8C4y4dzOM7epR0KZSCDMu8fzEFp/fxBl2DEhcx1NzDfQjRiKm/Muq9yhpdjO6A
+	hNGGlInHn90/6LPmCmDrfuP7YvnpiKPC7c2Qsv6Fw91na+UN9pVaDynO4R2SU+W3
+	MEY6F2uJtKW/TBPeonnyAb5IkyZuZLFRoRV7zMczrZYWJVoBOx0IOJxrbCNDK27t
+	UbkZqx/eWyq5hXDCVYsGiBaiveXRS6vFOD0LkC1xcugsEWQCr31lAaNXvETu1KhN
+	DeEPqMVaogKH/XgeLfR/45kT55Yaw==
+Received: from ppma22.wdc07v.mail.ibm.com (5c.69.3da9.ip4.static.sl-reverse.com [169.61.105.92])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4h2r4frphm-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Mon, 05 Oct 2026 08:45:45 +0000 (GMT)
+Received: from pps.filterd (ppma22.wdc07v.mail.ibm.com [127.0.0.1])
+	by ppma22.wdc07v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 6956dOxQ2163644;
+	Mon, 5 Oct 2026 08:45:45 GMT
+Received: from smtprelay07.fra02v.mail.ibm.com ([9.218.2.229])
+	by ppma22.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4h3cdvmrs4-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Mon, 05 Oct 2026 08:45:44 +0000 (GMT)
+Received: from smtpav04.fra02v.mail.ibm.com (smtpav04.fra02v.mail.ibm.com [10.20.54.103])
+	by smtprelay07.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 6958jfZa52035852
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Mon, 5 Oct 2026 08:45:41 GMT
+Received: from smtpav04.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id F19FF2004B;
+	Mon,  5 Oct 2026 08:45:40 +0000 (GMT)
+Received: from smtpav04.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 0BF2720040;
+	Mon,  5 Oct 2026 08:45:37 +0000 (GMT)
+Received: from li-fbf77acc-29ba-11b2-a85c-e8e934f50a46.ibmuc.com (unknown [9.124.213.142])
+	by smtpav04.fra02v.mail.ibm.com (Postfix) with ESMTP;
+	Mon,  5 Oct 2026 08:45:36 +0000 (GMT)
+From: Gautam Menghani <gautam@linux.ibm.com>
+To: maddy@linux.ibm.com, npiggin@gmail.com, mpe@ellerman.id.au,
+        chleroy@kernel.org, ritesh.list@gmail.com, sshegde@linux.ibm.com,
+        nnmlinux@linux.ibm.com, amachhiw@linux.ibm.com, harshpb@linux.ibm.com
+Cc: linuxppc-dev@lists.ozlabs.org, kvm@vger.kernel.org,
+        linux-kernel@vger.kernel.org, stable@vger.kernel.org,
+        Timothy Pearson <tpearson@raptorengineering.com>
+Subject: [PATCH v4] KVM: PPC: Book3S HV: Avoid spurious interrupts caused by LPCR_MER bit
+Date: Mon,  5 Oct 2026 14:15:33 +0530
+Message-ID: <20261005084534.1588611-1-gautam@linux.ibm.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-OriginatorOrg: bp.renesas.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: TY3PR01MB11346.jpnprd01.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 213ac51c-299e-41f3-e04e-08df22bcf799
-X-MS-Exchange-CrossTenant-originalarrivaltime: 05 Oct 2026 08:45:11.2560
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 53d82571-da19-47e4-9cb4-625a166a4a2a
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: BVoxt+VA8Gyso1rxUh2iJ4067pL0qiUb8YUMNaz/+6Fq+kKZd7obOf9Yvs1qo9SDeh3LNMrMBQiPsiLWnKSUk0OPUGdpBFmxpV0/6F9W0d0=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: TYRPR01MB12431
+Content-Transfer-Encoding: 8bit
+X-TM-AS-GCONF: 00
+X-Proofpoint-Reinject: loops=2 maxloops=12
+X-Authority-Analysis: v=2.4 cv=TOPQ2Fla c=1 sm=1 tr=0 ts=6ac363b9 cx=c_pps
+ a=5BHTudwdYE3Te8bg5FgnPg==:117 a=5BHTudwdYE3Te8bg5FgnPg==:17
+ a=660iZSQnnn4A:10 a=VkNPw1HP01LnGYTKEx00:22 a=RnoormkPH1_aCDwRdu11:22
+ a=V8glGbnc2Ofi9Qvn3v5h:22 a=VwQbUJbxAAAA:8 a=yKAn6K1XAAAA:8 a=_AprYWD3AAAA:8
+ a=VnNF1IyMAAAA:8 a=lIyXSIJ_195hEhgqkI0A:9 a=6M1ixcW_PCWoKiWyFx5v:22
+ a=fKH2wJO7VO9AkD4yHysb:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDA1MDAzNCBTYWx0ZWRfXyW0tgeAJbB1W
+ U9wN3fNAD9Q/41vbHh3wPw1n/aAF4KONK2oxesaD3ZZ/bbijfSN5bBIA/Q9tBD1R+KW/bWW/r7V
+ 7aBvFYmE87iHQN8kXmgQ4iRO0UDdP+B1aECAOFjqWTfEUHN37vFnQSRQM1qxn3tCRHUQWsnnbV3
+ evTawAL1eUYWyuuVoTGznylfWvrDWGHN0+MhTtM0x0o0jv0rHjKfS1TaQkx8q5P2z8/hHpJKGLF
+ PSin9I581Oo47jZCbLJd7F5RtyfcI9nx4YX18mSGpZ6h0ybJPwcGpQeIjl3ki1W80Y5/prDtj64
+ cMHl0+FxzT50UEsSUfAqoa5iW9GkmcmeukcG/dsucOWDYZGCRe0Z3mR296zD0qVerG8mKhy1xeD
+ IOg3Isgi3kPQk7V4GZzwqREqNk7b00u3u3IXn7hRav5MlLxRkR7prVg0Cf+mYJBfne+RLA6b3hd
+ NGrEN4dEwkGeJ0MZR1g==
+X-Proofpoint-GUID: _PZjgv9L4aNgazMl2up8czkfMaDjhM5E
+X-Proofpoint-ORIG-GUID: PPgngfPFwrgjRoyDo8bWOkTtV5oBRJuR
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDA1MDAzNCBTYWx0ZWRfXyn2IfvUeOZpb
+ g83unCnOkNzTJ+K//Rs459LBgLs9e6iw8RoKi34Hwd/YAVdMWLH/RLY8jxw/zVFO8a5pVhKHj5P
+ 4oS3oSRoNOeIHrnHVDlnbvX/E5XISVs=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-05_01,2026-10-02_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ malwarescore=0 priorityscore=1501 spamscore=0 adultscore=0 clxscore=1015
+ lowpriorityscore=0 impostorscore=0 bulkscore=0 phishscore=0 suspectscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2610050034
 
-Hi Cosmin,
+A huge number of spurious interrupts can be seen immediately after a KVM
+on PowerNV guest boots up in XIVE mode.
 
-Thanks for the series.
+$ cat /proc/interrupts  | grep SPU
+SPU:     223705     192439     273526     147623   Spurious interrupts
 
-> -----Original Message-----
-> From: Cosmin Tanislav <cosmin-gabriel.tanislav.xa@renesas.com>
-> Sent: 04 October 2026 18:48
-> Subject: [PATCH v2 00/15] MTU3 counter fixes and improvements
->=20
-> This series does some code quality improvements to the MTU3 counter subdr=
-iver, while also fixing bugs and
-> adding caching support so that registers are not touched when the counter=
- is disabled, as there is no
-> request API.
+This bug was introduced by commit ecd10702baae5 ("KVM: PPC: Book3S HV:
+Handle pending exceptions on guest entry with MSR_EE"). The root cause
+is that once LPCR_MER bit is set, it is supposed to be reset by
+software. But when a vCPU starts running with LPCR_MER set, the vCPU does
+not exit back to the host until the decrementer expires or there is an
+hcall, etc. This is because KVM on PowerNV guests have support for
+native XIVE, so they are not dependent on host for interrupt emulation.
+Due to this behaviour, a huge number of spurious interrupts are seen
+since LPCR_MER continues to be set and LPCR_MER cannot be reset until the
+vCPU exits to the host.
 
-I believe you need to rebase this series on top of[1].
+Fix this behaviour by not using the LPCR_MER bit whenever native XIVE is
+available (currently in case of KVM on PowerNV only), as the XIVE hardware
+can present interrupts to the KVM guest vCPU directly. So the LPCR_MER
+functionality is not required. This reduces the number of spurious
+interrupts drastically.
 
-Since this patch series is caching userspace values in memory,=20
-It can support suspend to RAM as well as in suspend to RAM,we lose
-the register contents, this patch series can address that limitation.
-Can you also please prepare a follow up patches for STR support?
+Fixes: ecd10702baae5 ("KVM: PPC: Book3S HV: Handle pending exceptions on guest entry with MSR_EE")
+Cc: stable@vger.kernel.org # 6.8+
+Reported-by: Timothy Pearson <tpearson@raptorengineering.com>
+Closes: https://lore.kernel.org/linuxppc-dev/582904882.11159.1786719390349.JavaMail.zimbra@raptorengineeringinc.com
+Signed-off-by: Gautam Menghani <gautam@linux.ibm.com>
+---
+v4:
+1. If interrupt mode is changed to XICS during guest reboot, MER should
+be used. (Amit)
 
-[1] https://lore.kernel.org/all/20260903090719.3498955-1-dayou5941@163.com/
+v3:
+1. Continue the use of LPCR_MER when kernel-irqchip=off (Sashiko)
 
-Cheers,
-Biju
+v2:
+1. Handle the case where xive_interrupt_pending() is true and also the
+external exception bit is set. (Narayana)
 
->=20
-> Patch 3 relies on the following series to enable runtime PM on the parent=
- device so that the PM domain
-> handles it automatically.
->=20
-> https://lore.kernel.org/lkml/20261004174024.502949-1-cosmin-gabriel.tanis=
-lav.xa@renesas.com
->=20
-> V2:
->  * remove clk.h include
->  * remove struct rz_mtu3_cnt::clk documentation
->  * fix struct rz_mtu3_cnt::ceiling documentation
->  * add struct rz_mtu3_cnt::count documentation
->  * add struct rz_mtu3_cnt::timer_mode documentation
->  * add struct rz_mtu3_cnt::mtclkc_mtclkd documentation
->  * add struct rz_mtu3_cnt::direction documentation
->  * add struct rz_mtu3_cnt::cascade_counts_enable documentation
->  * remove now-unused RZ_MTU3_MAX_HW_CNTR_CHANNELS macro
->  * move rz_mtu3_set_lwa() call after rz_mtu3_disable()
->  * mention the removed busy check
->  * mask 16-bit counter value to preserve behavior
->=20
-> Cosmin Tanislav (15):
->   counter: rz-mtu3-cnt: put runtime PM on initialization error path
->   counter: rz-mtu3-cnt: do not assign struct rz_mtu3_channel::dev
->   counter: rz-mtu3-cnt: remove manual runtime PM handling
->   counter: rz-mtu3-cnt: use device-managed pm_runtime_enable()
->   counter: rz-mtu3-cnt: read enable value from cache
->   counter: rz-mtu3-cnt: disable channel before releasing
->   counter: rz-mtu3-cnt: unify ceiling values
->   counter: rz-mtu3-cnt: cache ceiling values
->   counter: rz-mtu3-cnt: cache count values
->   counter: rz-mtu3-cnt: cache function values
->   counter: rz-mtu3-cnt: cache external input phase clock value
->   counter: rz-mtu3-cnt: cache direction values
->   counter: rz-mtu3-cnt: keep cascade_counts_enable in sync with usage
->   counter: rz-mtu3-cnt: drop conditional locks
->   counter: rz-mtu3-cnt: use pm_runtime_resume_and_get()
->=20
->  drivers/counter/rz-mtu3-cnt.c | 458 +++++++++++-----------------------
->  1 file changed, 149 insertions(+), 309 deletions(-)
->=20
-> --
-> 2.55.0
+ arch/powerpc/include/asm/kvm_ppc.h | 7 +++++++
+ arch/powerpc/kvm/book3s_hv.c       | 2 +-
+ 2 files changed, 8 insertions(+), 1 deletion(-)
+
+diff --git a/arch/powerpc/include/asm/kvm_ppc.h b/arch/powerpc/include/asm/kvm_ppc.h
+index 169ea6a7fbad..9178406dc365 100644
+--- a/arch/powerpc/include/asm/kvm_ppc.h
++++ b/arch/powerpc/include/asm/kvm_ppc.h
+@@ -747,6 +747,11 @@ static inline int kvmppc_xive_enabled(struct kvm_vcpu *vcpu)
+ 	return vcpu->arch.irq_type == KVMPPC_IRQ_XIVE;
+ }
+ 
++static inline bool kvmppc_xive_native_enabled(struct kvm_vcpu *vcpu)
++{
++	return kvmppc_xive_enabled(vcpu) && vcpu->kvm->arch.xive_devices.native;
++}
++
+ extern int kvmppc_xive_native_connect_vcpu(struct kvm_device *dev,
+ 					   struct kvm_vcpu *vcpu, u32 cpu);
+ extern void kvmppc_xive_native_cleanup_vcpu(struct kvm_vcpu *vcpu);
+@@ -782,6 +787,8 @@ static inline bool kvmppc_xive_rearm_escalation(struct kvm_vcpu *vcpu) { return
+ 
+ static inline int kvmppc_xive_enabled(struct kvm_vcpu *vcpu)
+ 	{ return 0; }
++static inline bool kvmppc_xive_native_enabled(struct kvm_vcpu *vcpu) { return false; }
++
+ static inline int kvmppc_xive_native_connect_vcpu(struct kvm_device *dev,
+ 			  struct kvm_vcpu *vcpu, u32 cpu) { return -EBUSY; }
+ static inline void kvmppc_xive_native_cleanup_vcpu(struct kvm_vcpu *vcpu) { }
+diff --git a/arch/powerpc/kvm/book3s_hv.c b/arch/powerpc/kvm/book3s_hv.c
+index dbac3573b2c8..dec89c014c52 100644
+--- a/arch/powerpc/kvm/book3s_hv.c
++++ b/arch/powerpc/kvm/book3s_hv.c
+@@ -4980,7 +4980,7 @@ int kvmhv_run_single_vcpu(struct kvm_vcpu *vcpu, u64 time_limit,
+ 			if (!kvmhv_on_pseries() && (__kvmppc_get_msr_hv(vcpu) & MSR_EE))
+ 				kvmppc_inject_interrupt_hv(vcpu,
+ 							   BOOK3S_INTERRUPT_EXTERNAL, 0);
+-			else
++			else if (!kvmppc_xive_native_enabled(vcpu))
+ 				lpcr |= LPCR_MER;
+ 		} else {
+ 			/*
+-- 
+2.52.0
 
