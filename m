@@ -1,199 +1,125 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id CADFD296BC8
-	for <linux-kernel@vger.kernel.org>; Mon,  5 Oct 2026 02:40:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from mail-pj2-f38.google.com (mail-pj2-f38.google.com [74.125.227.166])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 06F091A704B
+	for <linux-kernel@vger.kernel.org>; Mon,  5 Oct 2026 02:47:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.166
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791168012; cv=none; b=tqRQyV7jNYyIlpkYUJYOy3Rw6vCKdJgH0HsXqI3c7cz7kM1mk03C4xSbuK6PWOPQlGcL0+ifJkvn/MY5/BJh3eYDzdVWsTfrh86BSMHLrl4sm7I2SYGuOZpYkQPJZzodcWsRgRJ+kZXfcMbTGyms9NDmXHG3VzUZvy+8TuvRPgQ=
+	t=1791168461; cv=none; b=OghWJNSxhXU/EOtkGLqLyLwoE82thVkZRpXmCmHkukaM4WjD7M0apV9oRCfO3X5wL09UvVQI7hNJsiTDJ2+GtE0x9m6HAYjHh7esbIuM85LkSurVP7xB0CEd8DxlxKT+u5nFMiK0gsTKEI35coOEWthL1nQpr8tXNPajGRZrFvM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791168012; c=relaxed/simple;
-	bh=4nKoqMv1Uc1IZmsQ8w941NyDGQ2IHgdv/9GpM2fH8Ss=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=ctzIGugVydwWdjnLKE//I+RCR5isKhwm0DPp++E9LnnYiB/l1ajvzTuUQhRUfjHTYGcIqIs/7YbWMkTAOfDDuUCcLc1LzvOqyPv4X732UU3TyERCn6t+8rVLOzhemqhMooNQ8HAwrDevBY16RRoNl5Ra8ANP5P0GKfIG5eXNJak=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=XMUBUTAR; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	s=arc-20240116; t=1791168461; c=relaxed/simple;
+	bh=ZgvtJM/DUHMnHszNUGeuhEtSEbOa/wydpZaLbhEugRE=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=YNP1A2bpsxGOezL/G5aO8bMb3xpUURCeHAyYBblQniDzd9fqme0IqVR+kjrbsy2z/AXC/QF82jbL2xc6ZYPiyf/O48jZj/i2LBQ9SKUbkv9AvgflRF6ILJtcu/o+iO2Kx8vAPJwCdjwsVILJCYKOs5E/KnVuV8JZ54u98n4kdHs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=qwCEx8N2; arc=none smtp.client-ip=74.125.227.166
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="XMUBUTAR"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 939061595;
-	Sun,  4 Oct 2026 19:40:06 -0700 (PDT)
-Received: from localhost (a085714.arm.com [10.164.19.28])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 3EF083F763;
-	Sun,  4 Oct 2026 19:40:09 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1791168010; bh=4nKoqMv1Uc1IZmsQ8w941NyDGQ2IHgdv/9GpM2fH8Ss=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=XMUBUTARAG359qBmKsP9jDxEE8bgeYMhPMO6ZFfBn9WWyS11rP7LAl+jhXbO+E/u4
-	 am5BFAH1a+yV1q6HEz3iCJiIFkwOP0hxMXYNH0ghYKSLBOCtc6MlR/kmWfKHpyjhBR
-	 jhQMx6WFTbeiXefXKOmjaJDLkuNdm8074HpuOPdo=
-Date: Mon, 5 Oct 2026 08:10:06 +0530
-From: Anshuman Khandual <anshuman.khandual@arm.com>
-To: Sang-Heon Jeon <ekffu200098@gmail.com>
-Cc: Andrew Morton <akpm@linux-foundation.org>, 
-	David Hildenbrand <david@kernel.org>, "Jose A . Perez de Azpillaga" <azpijr@gmail.com>, 
-	"Liam R. Howlett" <liam@infradead.org>, linux-kernel@vger.kernel.org, linux-mm@kvack.org, 
-	Lorenzo Stoakes <ljs@kernel.org>, Michal Hocko <mhocko@suse.com>, Mike Rapoport <rppt@kernel.org>, 
-	Suren Baghdasaryan <surenb@google.com>, Vlastimil Babka <vbabka@kernel.org>
-Subject: Re: [PATCH v2 2/3] mm/memory: remove the mkwrite argument from
- __vm_insert_mixed()
-Message-ID: <i64bejs7dhn5bozzphibmoh2ghgzklruvk4evzag7tqkvbq6ez@epb3kdpmcs3b>
-References: <20261002160535.661399-1-ekffu200098@gmail.com>
- <20261002160535.661399-3-ekffu200098@gmail.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="qwCEx8N2"
+Received: by mail-pj2-f38.google.com with SMTP id d9443c01a7336-2e2db9f927cso4677225ad.1
+        for <linux-kernel@vger.kernel.org>; Sun, 04 Oct 2026 19:47:39 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791168459; x=1791773259; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=5fPN+9NWOFucdGixkLZfdt14fhztpKr2pAx7CYx5nGY=;
+        b=qwCEx8N24if+xWkPq68GJKkKtl9s60/nbKvwaUX2wbOwRBayypmyc1KZdpnNltelEI
+         z3jLKgRVzal74WKXy3R679RxS8cVQI5XCYe6tsSZu47ukr2GhBmJ38uPsVD+3ns+hqoY
+         j4y5444l5+sJNRYec2IhVNBrRTSxgd/6zwtBL2qp1Yzsr916lfnIRx88vx6MGrJIZGHq
+         Pcgv9o2gbXAQzFbOn2cx2jwNNvnycjML6GI77DBDJqrUnrUXjLXSWu05VEvmxUSz/y2A
+         9gCprrmvAsoBgeRbscyjmVpeVdpEznSEhrL7GOxUnJY8TwwSmIz2nqRoYC9Ix7mW91/L
+         U/6A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791168459; x=1791773259;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=5fPN+9NWOFucdGixkLZfdt14fhztpKr2pAx7CYx5nGY=;
+        b=228lUlk0uBjCgJq9x/ZuBs7MP4tZbU0700AhCM6tt2q0x57mYWIAE8WZJDSrHuhPTO
+         zKaJ4fPWKEACmZuRuRORI9E+qHWNkjz2t9vz6k09j5gQb19Tm0Q95KDgQQLrdUVZ6u2S
+         tuSDR1SOmpnCNn1c2w7ohsBHT4HQ2v7+MwpLNNFW9qVFg5VO3tvsNM3tZHR6ZCH/Tt/H
+         jF8t0CULuRNgGvP09r9FFu3lLmIELVWRoF8dDgH1mkdwdLyqg5bqoSdy6qbHlUYKjth5
+         Q0BFfgqGw1PaT+lmC80L7KukaLkG6EbYd4G+uDOrU0eCQyZswsCn42g0m+GFmu99/7Re
+         kyvg==
+X-Forwarded-Encrypted: i=1; AKwUvBzyhHUrADJ1dcZVAseqpBrLyeAIUKi0dLCHv/xGGf6hIRscPCJR7tJnoOUZoGKHBhboGzKevwx5QWBd/80=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIsFWS6j2eK2GjJHOOGA646c4gNSnkOrheICH/JAFElnxRVjYfu
+	6qYtHqhzVoUVkLuZipq3C0hOGWuCi2/b3veoI8Jn+kppXGXr+0Ertz70
+X-Gm-Gg: AYBFou1SMN9Co7ZDiPUbISw2ZTx3IaxwNGwGW5dv77D9h/YTOnB/tEu6W8e9IvrJ5cO
+	LzNRPoc9aA0WkgnL1rE9B6weX1nMLQ+nW56FzbfVIVTB7Oxk94BP6m4TefZWooXx9E/JSZTIo6e
+	m4WWgLHshCSbD+EJMNNz0rLWCufuuA5/hSw3f9iMgyChvBL/C7Lwxp/2pcLU5iSlSKSCpOCkGoA
+	2stNd/Jg40ubU62+fKe9yoXtgfuaem8o2Za0MmKqlP9JSeHQJVpKyDvAWlFJvIQsH/+g2VWYZ07
+	YS2uZ+L7iY3h0tleQxJi5u1B8Q9baa6moWwbsXteFoh2QyqA1WCMGZd1JO7xnaMdCZWpb+OdMIk
+	nIMwqPeOSbSLnodY9YdNsoL//WNrhXFePqC26KSwTYnDUm49+l8t8TDBgr1DKFSuOfcjpAzDIUU
+	p+9nddJdZs3sma+0g+yVXdZa85gfUfIYOTuJN2ixOT5l8KrW/8+A8WRePy/KL1PKc+I6HEMZK1s
+	u+gP5/6lk4G7ZMYHUz3fFm9/heZmjskgkuhOAlkXOOc8vDVNQ==
+X-Received: by 2002:a17:902:d511:b0:2dd:c100:4b85 with SMTP id d9443c01a7336-2e49b6ea3b8mr89037265ad.60.1791168459101;
+        Sun, 04 Oct 2026 19:47:39 -0700 (PDT)
+Received: from lenovo-thinkbook.lan ([112.2.158.7])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2e5a5ef5576sm744665ad.72.2026.10.04.19.47.35
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 04 Oct 2026 19:47:38 -0700 (PDT)
+From: Yuqi Xu <xuyuqiabc@gmail.com>
+To: Mika Westerberg <mika.westerberg@linux.intel.com>
+Cc: westeri@kernel.org,
+	andi.shyti@kernel.org,
+	linux-i2c@vger.kernel.org,
+	linux-acpi@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] i2c: acpi: Add ELAN0662 to i2c_acpi_force_100khz_device_ids
+Date: Mon,  5 Oct 2026 10:46:54 +0800
+Message-ID: <20261005024654.26888-1-xuyuqiabc@gmail.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260918055653.GD106095@black.igk.intel.com>
+References: <20260918054109.23550-1-xuyuqiabc@gmail.com> <20260918055653.GD106095@black.igk.intel.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261002160535.661399-3-ekffu200098@gmail.com>
+Content-Transfer-Encoding: 8bit
 
-On Sat, Oct 03, 2026 at 01:05:33AM +0900, Sang-Heon Jeon wrote:
-> __vm_insert_mixed() is only called from vmf_insert_mixed() with
-> mkwrite == false, so mkwrite is also always false in vm_mixed_ok()
-> and insert_pfn().
-> 
-> So remove the argument and the unreachable code in insert_pfn().
-> 
-> No functional change.
-> 
-> Signed-off-by: Sang-Heon Jeon <ekffu200098@gmail.com>
+Hi Andi,
 
-Reviewed-by: Anshuman Khandual <anshuman.khandual@arm.com>
+I just wanted to gently ping on this patch. It has been a little over
+two weeks, and Mika acked it on Sep 18.
 
-> ---
->  mm/memory.c | 57 +++++++++++++++++------------------------------------
->  1 file changed, 18 insertions(+), 39 deletions(-)
-> 
-> diff --git a/mm/memory.c b/mm/memory.c
-> index 4b2e4be28031..6c1d38eba7b2 100644
-> --- a/mm/memory.c
-> +++ b/mm/memory.c
-> @@ -2453,7 +2453,14 @@ static int insert_page_into_pte_locked(struct vm_area_struct *vma, pte_t *pte,
->  		if (!mkwrite)
->  			return -EBUSY;
->  
-> -		/* see insert_pfn(). */
-> +		/*
-> +		 * For read faults on private mappings the PFN passed in may
-> +		 * not match the PFN we have mapped if the mapped PFN is a
-> +		 * writeable COW page.  In the mkwrite case we are creating a
-> +		 * writable PTE for a shared mapping and we expect the PFNs to
-> +		 * match. If they don't match, we are likely racing with block
-> +		 * allocation and mapping invalidation.
-> +		 */
->  		if (pte_pfn(pteval) != page_to_pfn(page)) {
->  			WARN_ON_ONCE(!is_zero_pfn(pte_pfn(pteval)));
->  			return -EFAULT;
-> @@ -2858,7 +2865,7 @@ int vm_map_pages_zero(struct vm_area_struct *vma, struct page **pages,
->  EXPORT_SYMBOL(vm_map_pages_zero);
->  
->  static vm_fault_t insert_pfn(struct vm_area_struct *vma, unsigned long addr,
-> -			unsigned long pfn, pgprot_t prot, bool mkwrite)
-> +			unsigned long pfn, pgprot_t prot)
->  {
->  	struct mm_struct *mm = vma->vm_mm;
->  	pte_t *pte, entry;
-> @@ -2868,38 +2875,12 @@ static vm_fault_t insert_pfn(struct vm_area_struct *vma, unsigned long addr,
->  	if (!pte)
->  		return VM_FAULT_OOM;
->  	entry = ptep_get(pte);
-> -	if (!pte_none(entry)) {
-> -		if (mkwrite) {
-> -			/*
-> -			 * For read faults on private mappings the PFN passed
-> -			 * in may not match the PFN we have mapped if the
-> -			 * mapped PFN is a writeable COW page.  In the mkwrite
-> -			 * case we are creating a writable PTE for a shared
-> -			 * mapping and we expect the PFNs to match. If they
-> -			 * don't match, we are likely racing with block
-> -			 * allocation and mapping invalidation so just skip the
-> -			 * update.
-> -			 */
-> -			if (pte_pfn(entry) != pfn) {
-> -				WARN_ON_ONCE(!is_zero_pfn(pte_pfn(entry)));
-> -				goto out_unlock;
-> -			}
-> -			entry = pte_mkyoung(entry);
-> -			entry = maybe_mkwrite(pte_mkdirty(entry), vma);
-> -			if (ptep_set_access_flags(vma, addr, pte, entry, 1))
-> -				update_mmu_cache(vma, addr, pte);
-> -		}
-> +	if (!pte_none(entry))
->  		goto out_unlock;
-> -	}
->  
->  	/* Ok, finally just insert the thing.. */
->  	entry = pte_mkspecial(pfn_pte(pfn, prot));
->  
-> -	if (mkwrite) {
-> -		entry = pte_mkyoung(entry);
-> -		entry = maybe_mkwrite(pte_mkdirty(entry), vma);
-> -	}
-> -
->  	set_pte_at(mm, addr, pte, entry);
->  	update_mmu_cache(vma, addr, pte); /* XXX: why not for insert_page? */
->  
-> @@ -2967,7 +2948,7 @@ vm_fault_t vmf_insert_pfn_prot(struct vm_area_struct *vma, unsigned long addr,
->  
->  	pfnmap_setup_cachemode_pfn(pfn, &pgprot);
->  
-> -	return insert_pfn(vma, addr, pfn, pgprot, false);
-> +	return insert_pfn(vma, addr, pfn, pgprot);
->  }
->  EXPORT_SYMBOL(vmf_insert_pfn_prot);
->  
-> @@ -2998,11 +2979,9 @@ vm_fault_t vmf_insert_pfn(struct vm_area_struct *vma, unsigned long addr,
->  }
->  EXPORT_SYMBOL(vmf_insert_pfn);
->  
-> -static bool vm_mixed_ok(struct vm_area_struct *vma, unsigned long pfn,
-> -			bool mkwrite)
-> +static bool vm_mixed_ok(struct vm_area_struct *vma, unsigned long pfn)
->  {
-> -	if (unlikely(is_zero_pfn(pfn)) &&
-> -	    (mkwrite || !vm_mixed_zeropage_allowed(vma)))
-> +	if (unlikely(is_zero_pfn(pfn)) && !vm_mixed_zeropage_allowed(vma))
->  		return false;
->  	/* these checks mirror the abort conditions in vm_normal_page */
->  	if (vma->vm_flags & VM_MIXEDMAP)
-> @@ -3013,12 +2992,12 @@ static bool vm_mixed_ok(struct vm_area_struct *vma, unsigned long pfn,
->  }
->  
->  static vm_fault_t __vm_insert_mixed(struct vm_area_struct *vma,
-> -		unsigned long addr, unsigned long pfn, bool mkwrite)
-> +		unsigned long addr, unsigned long pfn)
->  {
->  	pgprot_t pgprot = vma->vm_page_prot;
->  	int err;
->  
-> -	if (!vm_mixed_ok(vma, pfn, mkwrite))
-> +	if (!vm_mixed_ok(vma, pfn))
->  		return VM_FAULT_SIGBUS;
->  
->  	if (addr < vma->vm_start || addr >= vma->vm_end)
-> @@ -3045,9 +3024,9 @@ static vm_fault_t __vm_insert_mixed(struct vm_area_struct *vma,
->  		 * result in pfn_t_has_page() == false.
->  		 */
->  		page = pfn_to_page(pfn);
-> -		err = insert_page(vma, addr, page, pgprot, mkwrite);
-> +		err = insert_page(vma, addr, page, pgprot, false);
->  	} else {
-> -		return insert_pfn(vma, addr, pfn, pgprot, mkwrite);
-> +		return insert_pfn(vma, addr, pfn, pgprot);
->  	}
->  
->  	if (err == -ENOMEM)
-> @@ -3086,7 +3065,7 @@ EXPORT_SYMBOL_GPL(vmf_insert_page_mkwrite);
->  vm_fault_t vmf_insert_mixed(struct vm_area_struct *vma, unsigned long addr,
->  		unsigned long pfn)
->  {
-> -	return __vm_insert_mixed(vma, addr, pfn, false);
-> +	return __vm_insert_mixed(vma, addr, pfn);
->  }
->  EXPORT_SYMBOL(vmf_insert_mixed);
->  
-> -- 
-> 2.43.0
-> 
+Please let me know if there is anything else you would like changed.
+Otherwise, I would appreciate it if you could take a look when you
+have a moment.
+
+Thanks for your time,
+Yuqi
+
+On Fri, Sep 18, 2026 at 07:56:53 +0200, Mika Westerberg wrote:
+> On Fri, Sep 18, 2026 at 01:41:09PM +0800, Yuqi Xu wrote:
+> > The ELAN0662 touchpad (04F3:317C) in the Lenovo ThinkBook 14 G4+ ARA
+> > (21D0) intermittently stutters and drops touches. libinput discards
+> > invalid touch coordinates and logs (rate limited to five messages per
+> > 24 hours):
+> >
+> >   libinput error: event6 - ELAN0662:00 04F3:317C Touchpad: kernel
+> >   bug: Touch jump detected and discarded.
+> >
+> > The ACPI DSDT describes the touchpad's I2cSerialBus resource on an
+> > AMDI0010 controller with a connection speed of 0x00061A80 (400 kHz),
+> > and the kernel does not lower it for this device, so the touchpad runs
+> > at 400 kHz. This is the same issue previously fixed for ELAN06FA and
+> > ELAN0678.
+> >
+> > Forcing the bus to 100 kHz was tested with a DSDT override on the
+> > affected machine, and the kernel confirmed the override:
+> >
+> >   ACPI: Table Upgrade: override [DSDT-LENOVO-CB-01]
+> >
+> > Before the change libinput discarded three touch jumps within about a
+> > minute of touchpad use; after the change no touch jumps were logged
+> > during more than an hour of normal use. The patch itself was not build
+> > tested; the behaviour was validated through the ACPI table override
+> > above.
+> >
+> > Assisted-by: DeepSeek:deepseek-v4.1-flash
+> > Signed-off-by: Yuqi Xu <xuyuqiabc@gmail.com>
+>
+> Acked-by: Mika Westerberg (Intel) <westeri@kernel.org>
