@@ -1,113 +1,96 @@
-Received: from mail-vs1-f52.google.com (mail-vs1-f52.google.com [209.85.217.52])
+Received: from mail-qv2-f12.google.com (mail-qv2-f12.google.com [74.125.230.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 40899233943
-	for <linux-kernel@vger.kernel.org>; Mon,  5 Oct 2026 00:43:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.217.52
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 53C481DED49
+	for <linux-kernel@vger.kernel.org>; Mon,  5 Oct 2026 00:46:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791160991; cv=none; b=EdOP0Kil/PE/PeF3FbeYq5IggJywrefRVKwKEjLGqSqs5H9OVqExujnhppSkKBgsylgkx1rQXSTW3Uc6vR7Z5wqqcII7179FMT5OeT9Ya3nkW00lt35tYN3rF15K9ebJV1GHBmcU6MWcSu6tzsCwHT8ClZCreHdxli6V8RwUUWg=
+	t=1791161169; cv=none; b=RV5qRv3qK6KDVfOnPgqsTC+mfdQromJAb8ImCkHdyzkO5C5xNjgqhBS/ummQLw4B/piK595ccagGsyQr8zvMaOgreNwY5mGZ/ZqAXzrAtqNZT9lbvsyKEEIyyuF9y8j7lkNS3jQK+R1uOOx1Xrz310NOFDr5jSC79VwuBlcfcaE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791160991; c=relaxed/simple;
-	bh=cJ8dfAUymUi5/b4KAsqaDEF0/Kqegqnkf0HQS5fuWYk=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=MQopLwBSclDrWwdLB5betPPOOoz7bSj1RJbOuY7m3kNk9M/X8OqaqdiGxjU4wadCjg/JB49RJnzvjdaZbUshB0WgIzPG7rsD398OpSBPuLfrdXYEnm47sFINZ8ORiuyTOV9Fz1o8KPVcS9wAEhEzcpN5+FUlPIEeQIoBHta6Uww=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=gRyWkFYZ; arc=none smtp.client-ip=209.85.217.52
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1791161169; c=relaxed/simple;
+	bh=XAuyJzwmchjjYdUKDJbH2DgAwDBPpjZRSl9vBWn6USI=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=WkBeacTOkMEqDCYQTRRjahjPwfRCmphGyQrD/TvL7ddERXsSx4hUqAly18VT/FIBidTYsbq4i+SvPdkrWJuLh2Np/ks7ccan+7Cp2Aj9Iv/NU0RwBPPfs7SJpn9ZVrBAyVdPaJQd2Dgpson6uAHLhrsocn/JP3IvGNeTjvuiR1k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=riscstar.com; spf=pass smtp.mailfrom=riscstar.com; dkim=pass (2048-bit key) header.d=riscstar-com.20251104.gappssmtp.com header.i=@riscstar-com.20251104.gappssmtp.com header.b=F6I49H5k; arc=none smtp.client-ip=74.125.230.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=riscstar.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=riscstar.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="gRyWkFYZ"
-Received: by mail-vs1-f52.google.com with SMTP id ada2fe7eead31-7c03744ef27so361193137.1
-        for <linux-kernel@vger.kernel.org>; Sun, 04 Oct 2026 17:43:10 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=riscstar-com.20251104.gappssmtp.com header.i=@riscstar-com.20251104.gappssmtp.com header.b="F6I49H5k"
+Received: by mail-qv2-f12.google.com with SMTP id 6a1803df08f44-9105d241693so14893496d6.0
+        for <linux-kernel@vger.kernel.org>; Sun, 04 Oct 2026 17:46:07 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791160989; x=1791765789; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=JnCZgK6LbunIjGmFBSscnbMfeG5EqkEuWOG6i+CFlcI=;
-        b=gRyWkFYZYirjoNRocFXy8Ydb3hEWu99h4NHqjxSMUcFsNiJWrvTx1juVd/NJZXjj1w
-         e2nVpFrtI0gGVOTia9g+eNHG96BsQavqN2+rXX2b+cNxv2ARk9c87bj7vPbavW4Mb7Im
-         yjIZ+XlYUzinBaAhckO5nfeDYmY/audGRo/VviANEU8/pU9Fqzu1DgE6DXxTjdsAO6fs
-         W8CUR2QE22ziKrydwQIvTeODtIeSGVFSy7jJd+xTdtkxZ9Sc7Ua/eHTrzYqysl7gWPZ4
-         Ftx4UClfZ00gktBN4FkNQvqHEdwCVnLS/3pCu0jx4LNMuCyyzUqenAG6nPrwT+vh8Skf
-         Z3Iw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791160989; x=1791765789;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+        d=riscstar-com.20251104.gappssmtp.com; s=20251104; t=1791161166; x=1791765966; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=JnCZgK6LbunIjGmFBSscnbMfeG5EqkEuWOG6i+CFlcI=;
-        b=cdT/uHFMT0kgpg+28jqAkyQON7mSIYQZax4b7STr49qbLRKIZp7LSOvUY9elE5aAyd
-         E7GGT3A+1D4UMHILcEo4frgXwZCEXhxxGeT7jwY9xvNz93JQL/QIyfyeT6RwkkDr+u2g
-         0HzeE0HVYJV2OGeCZOmyZko9c9/AEwWt0hyE17mkuR6nA4gvZg/zlNvrLTaGBrN549cR
-         xIMKUMLn4vatBD77NM7hLB7F6WeDEfd5lY0h8o8DZzHmqkAPi00X1gpQHuhghqqjXRmp
-         X29k9gQ9lrEwj4DPHTNGq+qjXTLfzLs5LeD3Rh969eTAZtA/lr1R0TcfC+/sL/MFok5k
-         Wwkg==
-X-Forwarded-Encrypted: i=1; AKwUvBxR2GQCwoRgRBYrkb29AO95zHZ2GxDmoOSS0mth63zqi5WhWLTns8vQ3CI5CMOYeSyhwV+cRgp/yfwsFA0=@vger.kernel.org
-X-Gm-Message-State: AFq9FYI/mANp1yP/eejNRwyXVlri4jO+x8ukvEcZF3S4dT+ayrfLUc2O
-	o8jvGL1GHJIzLA7VD4YRmhFITl2ROPHxrnuTtLVDazGHaFv8+OJEn58k
-X-Gm-Gg: AYBFou354WFLkElwB/ar85j1NanBax7f07rls4Xyo2mwT7CpeORIYryLmA4yR86qepK
-	95uUMuYGqbuXhS/E18mbT62/o8f2wd7isOooh7vxQ7/PlcYT6YkS9Rr5KFtQKpn+seTfj0h7OHe
-	TO1NZF/1M9sTL6++CiEHcLzCuVZ9+ZuQnHbKgy4a875dQ1lXd0LiGUVR2gVBxgS/RiI+YojzLMv
-	hzT1cC9E6aNWH4Bcg84uwsFMtDo7ck2V2uwzFNBOXCBvlmYBrRvnC0VHn74iONoanSxBKiVZF0U
-	xm0ikM+i5k78E0D7behH0LztQtspMSVVv3SSO4S2Vhub8XlRcAJuhcVyOeV5fFpT/9ZM7qHfh6w
-	eLX5s5d7lWnEwcfHkR7kqwhMWuKzDTml2bU74v20HtlXMh6D2PLMp5Qd0N+svnO+XAMh/DW1Gff
-	6bwpbCUPltYdd10q2+bb+DIEhj3frkL8qMEHQCMWSrZXcNEPyuYfWIgJ3kuBgIOrslXU4Z1LB/j
-	BC64A==
-X-Received: by 2002:a05:6102:41a4:b0:7b2:508e:3d40 with SMTP id ada2fe7eead31-7c244b9b1d6mr1275758137.15.1791160989089;
-        Sun, 04 Oct 2026 17:43:09 -0700 (PDT)
-Received: from localhost ([2804:30c:96c:bf00:7844:c38c:894:4054])
-        by smtp.gmail.com with ESMTPSA id ada2fe7eead31-7c10002f77csm8504297137.10.2026.10.04.17.43.06
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 04 Oct 2026 17:43:07 -0700 (PDT)
-Date: Sun, 4 Oct 2026 21:43:20 -0300
-From: Marcelo Schmitt <marcelo.schmitt1@gmail.com>
-To: Kanak Shilledar <kanak.shilledar@axis.com>
-Cc: Henrik Grimler <henrik.grimler@axis.com>,
-	Jonathan Cameron <jic23@kernel.org>,
-	David Lechner <dlechner@baylibre.com>,
-	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
-	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Jean-Baptiste Maneyrol <jean-baptiste.maneyrol@tdk.com>,
-	Joshua Crofts <joshua.crofts1@gmail.com>,
-	Chris Morgan <macromorgan@hotmail.com>, kernel@axis.com,
-	linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v5 4/6] iio: imu: inv_icm42607: Add support for
- ICM-42370-P
-Message-ID: <asLyqO50cSIil_WW@debian-BULLSEYE-live-builder-AMD64>
-References: <20261002-b4-inv_icm42370p-v5-0-c65281b745c9@axis.com>
- <20261002-b4-inv_icm42370p-v5-4-c65281b745c9@axis.com>
+        bh=Zjr/DFZpwWSDDMMIDOykMIAePqSreo0kXNfDIw7NN+c=;
+        b=F6I49H5kmznNVJacN4RyqjwGl5jG0Xy8zBVI1uFXHoNz8N0ln7C2m1FfCoycsbMZSS
+         9jsMnTExNy8FAOAh2QCQFYb//3tjekj3BKwIO5IB8rnI67rbiNdNnROQr3qmFu51iPXZ
+         tnVgjIJNkRPgJzb1wqrdUdK1UFQsoKWrjcVtnKPQMPo4o9HTKFjABeQTu9YtiD2yZ25E
+         i+9+IZkPDyQw60Tklw2FQCkHlX7IAqk7dbBv7XMKNg7v0FTkSqC2ZolOmLd9RwcA3aJ0
+         CAuZZ42s3iomaLj3jhvk3tm3Q0NT447Gz6L5dGYoTZQv14HSWnwDj2OMN85pI9ce4h2r
+         nlEA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791161166; x=1791765966;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Zjr/DFZpwWSDDMMIDOykMIAePqSreo0kXNfDIw7NN+c=;
+        b=kYjCaZjcxG16klcFFRRdCoMOfigjUM2/zoo/SEy9ZaJ8g+v32YVbwi7Ehu3INQMXiF
+         +UOUzQXK+2TPmMRa8WHGNplOYpoT3ZSlPqPvKsg/u/69Hlqt68S38ZXc2Z8W272wv1xc
+         rzN5lsI7eUWR0favVKNA4fDCqMD3Mij437uC8uajgfuPR1Fg/SVG9nw12D5kgdTMn4Fu
+         D14H9DcciG8LYceKxgSptbHeAJJOGzO8aGYCmzbN0+YZbKdYVR2O5V3taMAzS1caB1a0
+         45J24m0knHAZyl8It3V1ztc+mYx6B7MgQZuugSUtmvBEmaIaRAPtQDDNAa0ajVCtMTYN
+         mDvw==
+X-Forwarded-Encrypted: i=1; AKwUvBwaKFGSEeORWgeWYToIrwtfohNGY97gB+/CBGkS4w8cXX+33rSbCnho6DAFB1DXmbIIXnhMB30HdqJkdDM=@vger.kernel.org
+X-Gm-Message-State: AFuF++lfx2Z5mmHJmHzukP6EAmwlrDnP2kcxpVV6o4aXFeDdbzr86DmW
+	tgn3lEh8rEL47Lvyr+Ls/1alGNJmbWdpwDvvAdytA322GdnIXE87Mo6Qsgd/eNcebQ7OOY+Hja1
+	oiZLyl8U=
+X-Gm-Gg: AYBFou1V5VdEVCSU0Z4T2FDGbFFko5jlGXv8MPLytJ6pJYdv89KTgA7RUXh/gg1W6mB
+	eJmdtkrA7QQc2kAwbgrtxm2H0BVyF1F3w9XYyApdvIpiI5wp3EQ8tF7Ap7IP8GFdLE9t914JHxc
+	PhTYXa1eIgWJekx8G2xz1+oJM1mbyOgSxI2gue/MzCytiRKaFf1uvULeLX+QHUgMn8Tww+VFxVL
+	ntKuTxL7J8fSGcXPeopI8LvDPVljxOhHuock1p8m3ug/8u5iJGWfDh7ScsLJUNpuUGlv/aljuq/
+	P2ZRM/H0eCMG68mJ3EXQ5LPy+nDzkF8EuBW0zlNwRLv0IRrgHSiT8/b6o8pWp1u0u0vN/YCSfWI
+	e5u8S3EB6+4gjd9oVYuz2PBlbIGxsjAAqAfDpnqkUzRmnrv65QGHdyB44HM6LbvpEhTx/taNE88
+	jMnayaBzSHV5gws37TTwIjbvldrKfdgNImkcT+ub+BP8WBS0eeFY76vLrGsKbYlZfm7m7zHYkXS
+	dCnQ2NqTBb/
+X-Received: by 2002:a05:6214:2403:b0:915:e5c8:5663 with SMTP id 6a1803df08f44-917bff2a656mr179891486d6.4.1791161165979;
+        Sun, 04 Oct 2026 17:46:05 -0700 (PDT)
+Received: from [10.211.55.5] ([73.62.185.64])
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-917e0c3a0b5sm75214446d6.45.2026.10.04.17.46.04
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Sun, 04 Oct 2026 17:46:05 -0700 (PDT)
+Message-ID: <9af0e851-0cbb-425d-a78a-7a20282d3c2f@riscstar.com>
+Date: Sun, 4 Oct 2026 19:46:03 -0500
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261002-b4-inv_icm42370p-v5-4-c65281b745c9@axis.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 1/2] lib: parser: reject out-of-range values in
+ match_number()
+To: shashank Jain <jain.sm@gmail.com>
+Cc: Andrew Morton <akpm@linux-foundation.org>, Alex Elder <elder@kernel.org>,
+ David Gow <david@davidgow.net>, linux-kernel@vger.kernel.org
+References: <20260926012718.15675-1-jain.sm@gmail.com>
+ <00571efd-cc91-4ba7-a904-9ce183313f25@ieee.org>
+ <CA+FWx=mP40LGSNxX=ivmam9d9i+JxtZBhuebGQHqyVK2Yeq4zg@mail.gmail.com>
+ <0287908d-79a4-44b9-80c0-666b7ef6f639@ieee.org>
+ <CA+FWx==H3G2Etg+bYQxOGyr4_R9hhjG+abuJV33EH0CkEu572w@mail.gmail.com>
+Content-Language: en-US
+From: Alex Elder <elder@riscstar.com>
+In-Reply-To: <CA+FWx==H3G2Etg+bYQxOGyr4_R9hhjG+abuJV33EH0CkEu572w@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On 10/02, Kanak Shilledar wrote:
-> Add support for the Invensense ICM-42370-P MEMS MotionTracking 3-axis
-> accelerometer with built-in temperature sensor. This device is almost
-> identical to the existing Invensense ICM-42607-P IMU, but lacks
-> gyroscope. The device supports I2C, SPI and I3C. Implement only I2C
-> support for now, and provide support for raw sensor reads via sysfs.
-> There is also a built-in temperature sensor but it can not be turned off
-> similar to the ICM-42607.
-> 
-> While at it, change so dev_err_probe() is returned
-> when the WHO_AM_I read fails.
-Not a hard preference, but the WHO_AM_I error path update could be a separate patch.
+On 10/2/26 9:12 PM, shashank Jain wrote:
+> I'll send a v3 of patch 1/2 with your version (with "int ret; long res;"
+> for the two declarations) and add a Suggested-by: for you, if that's OK.
 
-Nevertheless, looks mostly good to me.
+Fine with me.  I'm glad I could help.	-Alex
 
-With ID tables ordered by compatible according to Andy's suggestion,
-Reviewed-by: Marcelo Schmitt <marcelo.schmitt1@gmail.com>
-
-> 
-> Datasheet: https://www.invensense.tdk.com/en-us/products/3-axis/icm-42370-p
-> Signed-off-by: Kanak Shilledar <kanak.shilledar@axis.com>
+Suggested-by: Alex Elder <elder@riscstar.com>
