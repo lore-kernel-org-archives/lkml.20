@@ -1,132 +1,157 @@
-Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj2-f43.google.com (mail-pj2-f43.google.com [74.125.227.171])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 780274825A6;
-	Mon,  5 Oct 2026 13:02:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.156.1
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 97B184825B5
+	for <linux-kernel@vger.kernel.org>; Mon,  5 Oct 2026 13:02:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.171
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791205322; cv=none; b=tBQS/exaky6rxhcP/fmCnq5oPNDPeb9ccJH6thFRZhdHcs+bR5TNiWYiLCGOGCFHgEI7fCFQV1tdm2iSKNkZCBU7O37govfC1USPz1x2M7NdQdJ3HWPFF54n8MGbpiU7ENKvBZPM9XvPJc0Ms0kxo71Ee4RP4zgWNhljUI1Yx1A=
+	t=1791205360; cv=none; b=kqQuzpej/fg4dWXwfHa7IvcIjTGInn/t/UAdHTIpviC0Pw8NltC4Z3ugs0X01VKbHgcKLC7HZIu1pH6MrKvK1NccOigcmekcsFFr/N9k+6sldfMuOeuFf/oFe/t1kFEll4S170Ln9F7j45mfoxxUdkEsaf3ETNtCgwKczK7iVsI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791205322; c=relaxed/simple;
-	bh=PEfclM08b1zG+LIZYqwi45jy7ltIjnLMA8KScVpRM2I=;
-	h=MIME-Version:Date:From:To:Cc:Subject:In-Reply-To:References:
-	 Message-ID:Content-Type; b=U+khZGWDm0UjLa6B2MIAOBzkLYxGHdFpvL5PwBv40qQO0P2ECg4IJ9KJ1auB42IScEeV+9sJYRuniaQ0IoQE1HKBp51h9bX/jRwQfmvTncI0YVLhk7Mn/k7WOzdty5qUT43OADajVyxJj/iNJlmlCHDqJKELdtkgt+E4mc63OSE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=F6bnPT7u; arc=none smtp.client-ip=148.163.156.1
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
+	s=arc-20240116; t=1791205360; c=relaxed/simple;
+	bh=CDfaEShXrMYOYgZSl1oxsCKdKM5taZ1dfpXvOPGn0UM=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=RiwL6ltEmR7nHm1+d5AxC0aFxiL0O5+DcGOQ/82jj+fgO9/Qi9LvRm5Zn4vN+ZYxPBuN2zdLCvr7wWjFttNTyA3sk+y4EycfBsf5d0ZCSga7OhO4rtRiFXV9KdotDyENQwCjZrGs7SNy8BJaezMAPt53clYwb0LjOx3Pjs9IyeQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=rxwJW5ZU; arc=none smtp.client-ip=74.125.227.171
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="F6bnPT7u"
-Received: from pps.filterd (m0353729.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 695CZW683033406;
-	Mon, 5 Oct 2026 13:01:49 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=pp1; bh=oJouw2
-	oanfB0Txj+EnkAMRh8tAgbVSMmj2vvWLdaNPY=; b=F6bnPT7uU1zOUWKKmS8sul
-	6P6A5Cf69eC0mUGePu4y5Dly4tvSITJOzrb0l3UlA9M4s5BqY4qlNY2hVcVTuphq
-	ttnhqRTcaTGa5/Q7O01hGXPLBxw1ZLexsIpZq1wUMHDeM2ub9jF3EBJXF/3YgUP3
-	yxdVo/7aWGeuvMRle8ycNTFKvzGsBfyoFmH3M/IHWH2YqMd0a8sgt7m84h3uVWv3
-	uIRls86eqhthmMwdZbNhTSBf9A10pYjYYfBX0jXCtQlaMF0u6ziu1Qd7k1Y7svX6
-	ha2dFqms9JsOg+dlnFl7tLB2KKRyBHmDzheub+MFkpyvHK75iORl52g24d1Sr7Fg
-	==
-Received: from ppma12.dal12v.mail.ibm.com (dc.9e.1632.ip4.static.sl-reverse.com [50.22.158.220])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4h2scraa63-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Mon, 05 Oct 2026 13:01:49 +0000 (GMT)
-Received: from pps.filterd (ppma12.dal12v.mail.ibm.com [127.0.0.1])
-	by ppma12.dal12v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 695CI0xP2900996;
-	Mon, 5 Oct 2026 13:01:48 GMT
-Received: from smtprelay03.wdc07v.mail.ibm.com ([172.16.1.70])
-	by ppma12.dal12v.mail.ibm.com (PPS) with ESMTPS id 4h3c1pnp8w-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Mon, 05 Oct 2026 13:01:48 +0000 (GMT)
-Received: from smtpav03.dal12v.mail.ibm.com (smtpav03.dal12v.mail.ibm.com [10.241.53.102])
-	by smtprelay03.wdc07v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 695D12Fd28902010
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Mon, 5 Oct 2026 13:01:02 GMT
-Received: from smtpav03.dal12v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 56B78580D6;
-	Mon,  5 Oct 2026 13:01:47 +0000 (GMT)
-Received: from smtpav03.dal12v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id CA21A580D5;
-	Mon,  5 Oct 2026 13:01:46 +0000 (GMT)
-Received: from ltc.linux.ibm.com (unknown [9.5.196.140])
-	by smtpav03.dal12v.mail.ibm.com (Postfix) with ESMTP;
-	Mon,  5 Oct 2026 13:01:46 +0000 (GMT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="rxwJW5ZU"
+Received: by mail-pj2-f43.google.com with SMTP id 98e67ed59e1d1-3a494638445so890943a91.1
+        for <linux-kernel@vger.kernel.org>; Mon, 05 Oct 2026 06:02:38 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791205358; x=1791810158; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=WW3ihpEXb1U2gPYZCvxngoSeqPeNauuAZiT/ULhD+3k=;
+        b=rxwJW5ZU8+tAGLjNrGZbf4KFFv+q+SJ1z/u/PR83g174vM+s5a7StRYL06XTqc7QiR
+         fMaiNepR4Fx9yIZOtwo3j2jmmII8+kI+6kkIM0JU3vkyy+J62cl//VXLnk8LEa9QWuuj
+         0k0auo5vhCUH7DjmuuOzKGctMKXpdhkX3ualo1Bq6db6eiFzq/HpHj6uJuAY3Ho4MNo0
+         d0YnBYM/n4uvESNbm/RQ4i74dZO39fv0r4cQHYENItSv+0MT7zPjdAq6uxqSr20cDs0+
+         5ReH9qRPMMQNK1l93Hm8LH10apHy8eUV36XNjZXurQ0Mv+dcWc3PH2zfbQYvNu7Fbjot
+         /hsg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791205358; x=1791810158;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=WW3ihpEXb1U2gPYZCvxngoSeqPeNauuAZiT/ULhD+3k=;
+        b=c9cEzNOdn8oq1HlrNVNQ5dltPNrMSdFZTPCuFltKCmjJtx7ifSZycq8XD0KFpJSpNa
+         Wibh3ZdnNGsv+i2DvwY++nBlcIMzjeWROZ5BWBOkSj8WlETU0sAJLgKxoB+5Dxk8DZPg
+         9ExWIB7TjvTd8VySgXeR72CTLthRod+WAXdgXwrSZDXlMnHyh4dR4+2ocBe0QPFEeyyJ
+         aNTZr9wVezPwtOabYglzgbV4jKihuBrOCsVRvlQ97Djqhk7bl86aytuq6HwvrM6Hl8Wd
+         t8v1HwrlkyPOE0ygwTXIQ5cwZztk2+bHflbk+/Gbt+hn1XIAj3RdFjKJemzMwQZ7vkOj
+         w9LQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwYHWoB9/VkuV3Sppd13ND8VBWYsM4RONbw1bmkU8w28dv3/LaArcUBLFZi5UrXB79a68nMawVIzL+1nN4=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJyDn17IcfZu/v4BVND+jwnHcZpWqySWGt7PMa6ikEYfDNAljy6
+	sfFLyxZ9bU2aFezUCR/9oaKa+7tvYI9vwaM0UgjNMdO+JMvGEoXnvLFxi4q4iEZ6/W88lg==
+X-Gm-Gg: AYBFou1eDxXFIgljujCvRBu0FcYA5ihm4GhkZcNSdqXYbhM+7BNP65/RMJ0aq96SJJ7
+	PQmGjeLZYflMtpdnsT1ERaRoBPnV0GCz0kLSWbr1CPP4JimhfVa15l4FZOHC6Q8NmAlGasnsA6Q
+	otPS75q6WftB514B5j6LZUdHxJR3co5dVtP0WsCCrikPj6JgnMF8l/prOfa/cPEgrydpYnVg17V
+	zZCeE11gXfUQx0vVje4f7PGSvoLo1XYIEpj3tHxHY2QG7/MSm5+tT5doVwU/uFW/1xrTCJ1U/EL
+	rcxkathOgWPWgfwh51GVrNfOTDl7uX4Hh4qaVtcjWbGxjR+2RcMDkXVzquAhj/KHrboPSgPHtYM
+	23wE7cAI2vJVPDL+wGssHKj5mcnTU3T7x2YcUb4gBDSDhIqL0Hmw20yO3PxSVIFKYwijK/Ke5rX
+	vcpcMESLCS+u50vJ5psTEdf40VglC3jbtACTlsqK91iatY18EaKCC8HrzQJQeRnMmLPYdtDVDCK
+	0TcE2P5kvOWVEY4DzUhk0o=
+X-Received: by 2002:a17:90b:4f4a:b0:3a4:ffa0:23f3 with SMTP id 98e67ed59e1d1-3a6cec2c05fmr4478911a91.31.1791205357749;
+        Mon, 05 Oct 2026 06:02:37 -0700 (PDT)
+Received: from LAPTOP-450UDG4J ([223.185.132.231])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a78e4262cfsm11142892a91.6.2026.10.05.06.02.25
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 05 Oct 2026 06:02:35 -0700 (PDT)
+From: Yogesh Gaur <yogeshgaur.83@gmail.com>
+To: Thomas Gleixner <tglx@kernel.org>,
+	Ingo Molnar <mingo@redhat.com>,
+	Borislav Petkov <bp@alien8.de>,
+	Dave Hansen <dave.hansen@linux.intel.com>,
+	x86@kernel.org
+Cc: "H . Peter Anvin" <hpa@zytor.com>,
+	Juergen Gross <jgross@suse.com>,
+	linux-kernel@vger.kernel.org,
+	Yogesh Gaur <yogeshgaur.83@gmail.com>,
+	syzbot+342762971f666337474e@syzkaller.appspotmail.com
+Subject: [PATCH v2] x86/mtrr: allocate the cache map before taking mtrr_mutex
+Date: Mon,  5 Oct 2026 18:32:14 +0530
+Message-ID: <20261005130214.1775-1-yogeshgaur.83@gmail.com>
+X-Mailer: git-send-email 2.55.0.windows.5
+In-Reply-To: <20261005102152.368-1-yogeshgaur.83@gmail.com/>
+References: <20261005102152.368-1-yogeshgaur.83@gmail.com/>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Date: Mon, 05 Oct 2026 08:01:46 -0500
-From: Wen Xiong <wenxiong@linux.ibm.com>
-To: Michal Pecio <michal.pecio@gmail.com>
-Cc: mathias.nyman@intel.com, gregkh@linuxfoundation.org,
-        linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org,
-        stable@vger.kernel.org, wenxiong@us.ibm.com,
-        Brian King
- <brking@linux.vnet.ibm.com>,
-        Samuel Mendoza-Jonas <sam@mendozajonas.com>,
-        Joel Stanley <joel@jms.id.au>
-Subject: Re: [PATCH] xhci: Reset controller on xhci shutdown
-In-Reply-To: <20261002161828.365ff859.michal.pecio@gmail.com>
-References: <20261001222527.11742-1-wenxiong@linux.ibm.com>
- <20261002102931.3cb06009.michal.pecio@gmail.com>
- <561d22493c3d078b26f547dd8f6f6f46@linux.ibm.com>
- <20261002161828.365ff859.michal.pecio@gmail.com>
-Message-ID: <55a53022d1c6f671a3ed549d8cf7cd1a@linux.ibm.com>
-X-Sender: wenxiong@linux.ibm.com
-Content-Type: text/plain; charset=US-ASCII;
- format=flowed
-Content-Transfer-Encoding: 7bit
-X-TM-AS-GCONF: 00
-X-Proofpoint-Reinject: loops=2 maxloops=12
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDA1MDA0OSBTYWx0ZWRfX1tXmirYR7I4t
- UYw0r6SZvyzVYn+x/z6FJLCCtwt7Z/aU7xrwcqr0s+ZKsfkdFWeXo3UVQy2cAC3sZ+kth0QaBON
- dxA1Q4fs1AC4jZPRd+zEWQ4f6QLUQWA=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDA1MDA0OSBTYWx0ZWRfX7NjAnqooqyf/
- PnthM5pDD+bjS2OZhRdXVi2HdicuSHWsRvxovCLiuoVnAOeppwIP0NpoOFqqTAPHNYzd3WDWRVe
- 4xLKBgHjSwGtEw9THRycB60/Dgc1bhigxFtaQoaUz4NOl1KoZLTdHT8s7LfL7C7dbLicZQY3JB0
- YGW9xqEuEVYVVdcBn4ERIFns8v8Wl4Dprvcqv3lK8+RNSli+DmBLsJ77cpaJlXVP59gCQjoOK9l
- jIzC2Sk1MEgeEp1yrFFs3omDHAukFq9mzWhWdTjoVr4b613ypyP/qc00TN69N4nuPcGr186eF3Z
- AGSOR6HC0HvZYbsmZNmwrOBHxm4LCmYzmF6Wa39LVDslnMKwjtPKGG0neVjSjqwJdifVxmVcv9q
- S45wsixOHo0cr9Mr6Mx2/Yh9donZhjal3SIIOYjsaItiF90Lun59ZhjDQv8YKKN89mvIKamsz5k
- qStwqVGgZ5wEZN10MPg==
-X-Proofpoint-GUID: qB5FYUq3kcV7K2Bq1UXQ8RneMuaMVY8x
-X-Proofpoint-ORIG-GUID: 7C1sBvpswXOygugWKc_MlpUDsIiY_gwf
-X-Authority-Analysis: v=2.4 cv=B7osQ+tM c=1 sm=1 tr=0 ts=6ac39fbd cx=c_pps
- a=bLidbwmWQ0KltjZqbj+ezA==:117 a=bLidbwmWQ0KltjZqbj+ezA==:17
- a=kj9zAlcOel0A:10 a=660iZSQnnn4A:10 a=VkNPw1HP01LnGYTKEx00:22
- a=RnoormkPH1_aCDwRdu11:22 a=uAbxVGIbfxUO_5tXvNgY:22 a=rxDuA9JTOIXHxVn7PaYA:9
- a=CjuIK1q_8ugA:10
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-10-05_03,2026-10-05_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 bulkscore=0 malwarescore=0 impostorscore=0 phishscore=0
- clxscore=1015 spamscore=0 adultscore=0 lowpriorityscore=0 suspectscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2610050049
+Content-Transfer-Encoding: 8bit
 
+mtrr_copy_map() does a GFP_KERNEL allocation with mtrr_mutex held.
+It runs once at boot from mtrr_init_finalize(), but lockdep keeps
+the mtrr_mutex -> fs_reclaim dependency it records there for the
+life of the system. Once another path gives lockdep the rest of a
+cycle back to a lock held around mtrr_mutex, the next MTRR ioctl
+reports a circular dependency. syzbot found this through nbd, which
+takes cpu_hotplug_lock (via sk_set_memalloc() -> static_key_slow_inc())
+under its tx_lock, while mtrr_del_page() takes mtrr_mutex under
+cpu_hotplug_lock:
 
-> Sure, but what does it mean exactly?
-> Not even showing up in lspci output?
+  WARNING: possible circular locking dependency detected
+  syz.9.5848/21744 is trying to acquire lock:
+   (mtrr_mutex), at: mtrr_del_page arch/x86/kernel/cpu/mtrr/mtrr.c:408
+  but task is already holding lock:
+   (cpu_hotplug_lock), at: mtrr_del_page arch/x86/kernel/cpu/mtrr/mtrr.c:407
+  -> #1 (fs_reclaim):
+         fs_reclaim_acquire
+         might_alloc
+         slab_pre_alloc_hook
+         __kmalloc_noprof
+         mtrr_copy_map arch/x86/kernel/cpu/mtrr/generic.c:413
+         mtrr_init_finalize arch/x86/kernel/cpu/mtrr/mtrr.c:618
+  Chain exists of:
+    mtrr_mutex --> &nsock->tx_lock --> cpu_hotplug_lock
 
-When executing "kexec -e", saw the error:
-xhci_hcd 0005:01:00.0: Host halt failed. -110
+The allocation does not need the mutex; only publishing the new map
+does. Allocate first and assign cache_map once mtrr_mutex is held.
+The rest of the function is unchanged.
 
-USB device is still showed up in lspci but lsusb didn't show any
-USB devices.
-  #lspci|grep USB
-0005:01:00.0 USB controller: Texas Instruments TUSB73x0 SuperSpeed USB 
-3.0 xHCI Host Controller (rev 02)
-[root@localhost ~]# lsusb
+Fixes: 061b984aab58 ("x86/mtrr: Construct a memory map with cache modes")
+Reported-by: syzbot+342762971f666337474e@syzkaller.appspotmail.com
+Assisted-by: LLM
+Signed-off-by: Yogesh Gaur <yogeshgaur.83@gmail.com>
+---
+v2: Incorporated review comments, assign cache_map = new_map after mutex_lock()
+v1: https://lore.kernel.org/all/20261005102152.368-1-yogeshgaur.83@gmail.com/
 
-looks we saw a frozen USB subsystem during suspend/shutdown.
+Built with W=1 only. syzbot has no reproducer for this report, so the
+fix has not been runtime-tested.
 
-> Is this our problem and not PCI subsystem's?
-> Are we sure it's not a bug elsewhere?
-> 
-> (Last time somebody reported issues with kexec,
-> it turned out to be an obscure Intel IOMMU bug).
+ arch/x86/kernel/cpu/mtrr/generic.c | 6 +++++-
+ 1 file changed, 5 insertions(+), 1 deletion(-)
+
+diff --git a/arch/x86/kernel/cpu/mtrr/generic.c b/arch/x86/kernel/cpu/mtrr/generic.c
+index 67cf69f24b00..92c3fcb7fb6d 100644
+--- a/arch/x86/kernel/cpu/mtrr/generic.c
++++ b/arch/x86/kernel/cpu/mtrr/generic.c
+@@ -402,15 +402,19 @@ void __init mtrr_build_map(void)
+ void __init mtrr_copy_map(void)
+ {
+ 	unsigned int new_size = get_cache_map_size();
++	struct cache_map *new_map;
+ 
+ 	if (!mtrr_state.enabled || !new_size) {
+ 		cache_map = NULL;
+ 		return;
+ 	}
+ 
++	/* Allocate before taking mtrr_mutex, the allocation may reclaim. */
++	new_map = kzalloc_objs(*new_map, new_size);
++
+ 	mutex_lock(&mtrr_mutex);
+ 
+-	cache_map = kzalloc_objs(*cache_map, new_size);
++	cache_map = new_map;
+ 	if (cache_map) {
+ 		memmove(cache_map, init_cache_map,
+ 			cache_map_n * sizeof(*cache_map));
+-- 
+2.55.0.windows.5
+
