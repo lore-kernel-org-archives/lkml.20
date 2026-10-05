@@ -1,170 +1,285 @@
-Received: from mail-pf1-f178.google.com (mail-pf1-f178.google.com [209.85.210.178])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E190553446C
-	for <linux-kernel@vger.kernel.org>; Mon,  5 Oct 2026 17:19:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.210.178
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791220791; cv=pass; b=t6Xm9PZ9WICMCT/fiOPTtZ8EtcYKNcKGrWfmSxKjuWLlPT8K+QCwcrdrEDW2jLigIRxHZXrPnoyPxgM23iQp8epAXKYJ+s9SmvdVDt0au6vkjlo5owREBRBs4IHiyddcbCfgtzBnoh+ixmBNEQRj8+qBBSoF9QLlLOapetdOTtY=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1D07F534475;
+	Mon,  5 Oct 2026 17:19:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791220791; cv=none; b=F2VuLKfNNgiDp54TlCiio0G+ATMx3ea2I6M1VrofDc7NId5c7fF17vAv8ZkiNxAtLo09pWuEOcTH8GeGvMW88XM2L5eAM83jwgH5TpBann30WijKJtaELUdJKtKUd2pB+s81hkU0v/2m6vKE+Pr7+CFLvvGpnbAwJT9Ks3/aya4=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1791220791; c=relaxed/simple;
-	bh=Iyy/EbW0PV9CgJFXeNSzqijmw9jKbQl0yvOdKn8dVN8=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=TOrZ2jBszJMjSy2Z3ghovZuSoyBF/cPIMlgKaFAnwz2Q4+GiL9B6FRH8FlfWXzv2vlCKFvL/YvGj2sGeQAAEG6OsGp4lWYcwxmaVhAVrFP9dL+DTbDyMgKyp3wlsR3n7t7otX87VLWld6Y0Krfl5Dkbw+PDYG6C++o62ZjDCnMw=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=gE8JLIr7; arc=pass smtp.client-ip=209.85.210.178
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	bh=ZV+DzXTFNkh3zwHkdDxdU3i5HERQQ2XaIfxxEASN05w=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=jiy15d5M7HBn869RxPsc1zXc9O7cQZxyk3kdRNe/3ZOWbHECpu18pSB2sWKv3WWi5JcKtIS/0yDlDlorOl2LQDkXmum1Ngh+9V3bt9ta+pk97D7SO+eAwFYZ3Pz5i1XtURBK+B7n1y0MiylztE8ct9B9Xsr6w0x0Ep0LKbZ/88k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=OXLBFyKZ; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="gE8JLIr7"
-Received: by mail-pf1-f178.google.com with SMTP id d2e1a72fcca58-8520161fdb9so1358053b3a.3
-        for <linux-kernel@vger.kernel.org>; Mon, 05 Oct 2026 10:19:49 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1791220789; cv=none;
-        d=google.com; s=arc-20260327;
-        b=ahvyUII6ue85FkQguzxLSGQrnu0KupvK9wtuvBUPHgN7vyycsVP6CYgzCaZkvDRBrP
-         dcGUgZBJ40MQcxsZHK5wrZF4el4G4ynjw18F7gK19xKMJcWtnr7vmOcvy3TtEkva/SJ8
-         +iccAoZaT0FBCmL4gEyp7LIj4wk+Yx0oXhsKrxmZdlieJPnHiaCratMgQgW2BKRjA2vv
-         a6P+/uBjK2WM/QO726M5688uBsK2FDHFf1TOm+Il0nPfGnplepCjEj3jaqeKbISZVVGZ
-         YIHUDnYy5bsnu0gc9JvmSc3NHpr/dN5Tr0vMTnYAYAScX40vF4dYunaJbS/C0UfVWM0j
-         0/vw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=kZaUwiZFto6aopJ87je3gAd8sYajiTqXcqFYb3kLz6E=;
-        fh=RsuAojef0/LVPTXomA2H62o7hq23qIXFudveeRgTPt4=;
-        b=q1cF8bGfCHMESU+wNr24NyaPkwnm+nINS0RXFJ8Z2HfkjO37nYAsx/u3yTnbTOe3IB
-         +QZKVUZKwdsUBGXFKp64lpLBR9hi9bSdD5TE3TXikiYz5InnYPbGnqR0xx8F1S1LcyZR
-         EC5eOtLC3+HBiFlrdI51m3xEimSFJNxPdlhLjIRrXuYsK7iSr8ZIjXsH1qm3S1dvuuXh
-         QpY6/e7JyUPOHj32ei4Q1fjRCELFVEHv7SvUNcrylEv/WyP47TAUvczWNmpvF/8gPwUi
-         JvcnGkbweoRlK0ggpNyYwouQNpCb6p4fxO7VMAvNFW5Q5Uk9zfwF6bDl2MvidFVTjjCB
-         mgGQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791220789; x=1791825589; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=kZaUwiZFto6aopJ87je3gAd8sYajiTqXcqFYb3kLz6E=;
-        b=gE8JLIr7W6DAIA2P/MDRVo2hmbxwnbtXbOE3gq2W5rAmpUVaJBoVaVt94axWAYNIrw
-         x90UBYGBiEorg40G5/vkF3/Ui2+UEFjI5rsIlrBBcPFU/DCVKvLb3lCXf0FjRZbutzA4
-         Rnv8+MKrtnkziCBFsmFRkAnq/FrDGrr4d7bxmnuGfATx6pj076+7qVqdw56HcC16t2WB
-         I+eNJr3ikBf5QaXFPSxcTjFSKfjeu8ks1VVeut3gYUjnwVFgSUrV0rI18/ifY2rLt/MK
-         MrZpuQpB85gJJdBs50UXgW0rOj3j78mzHK5jNGxKDgUDroqFwfN+RLAi+Tg/tb4mtDeU
-         oM+Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791220789; x=1791825589;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=kZaUwiZFto6aopJ87je3gAd8sYajiTqXcqFYb3kLz6E=;
-        b=QSlCqBuZzfGTYwyaJ+OngZURpWDjC36EEylMp+ESr5p9Jvw6Zbdv6Bnhxru9+eRYdW
-         IvvMwXZylWFk8EXbVE74iGqVFzWsuhi/ilGHMql16Xb2kYTAJqlGvnJaRDYP8S0VGpVW
-         uQW9FViJXo275i8fwpU5db+dyXdq6nLqXpCQ6S1PSmPBloXbMIiyWDvHXLWF9DKtHYYz
-         1yYON9kl8tqY472ckh8c0jAU1UT5TUb3vh5ZBrmRf9V9WdzIC3lB7K6kzU2Ez1PZJTGy
-         vgqcZdpxqbzqe9PsfSSBJNwgrj7rtBECus7SBbnM8zpHihtyq7SMTLZcZ5DyLA492Ywv
-         6Yew==
-X-Forwarded-Encrypted: i=1; AKwUvByPSs0bTSH2plN3m205SKb+uKcZAIWmQKE1KauBa151xBKYdVC5hnYjsY4nOq3h/0kIpvnVodL0pB/RUz0=@vger.kernel.org
-X-Gm-Message-State: AFuF++llCHKJU6atoZKkM8+9XxZTA9eT4e5Ulp2UlMcSOr19UJGFBkeF
-	rah0Usx7eQ5SYTeXDDUDHuZ+L0ObQbxyrxnTNQFDtkk1rjcSmBbzb/tRv0NrJ0ANPxR4VZ1itg3
-	kYtxxpXU2D2unMR8j/trlY6PeYul8sWk=
-X-Gm-Gg: AYBFou37Hpo/aOR6m2F5CnSF0mwqj1xOyrap2ZLy5pD9L4X6IlsH/Y8spp3/hHaL2bT
-	rYw9iR4xvW2sidQiPf44I48hQur4xVLhi8Q//z5BTBVYYG7ITl/jUrLYJ6ivJCRb8xcQ8xQNQjo
-	8AafvTUCo8Fyp/ybDkiRx+gTsNwAd5ebABOvOZoq8jZ3Ha1NpjlWC4vvErqYsvg9KT3MD3RtvHJ
-	EKycgv3Z3CauQoqvdu9plxyNvYLy1QzqZHw9Ee6BcYlJMFPB/LvT9fgIsk3wUhqS7IiPnXDP9+3
-	/vDJCZKf3MxY3mwosX71dDN6lGd8QvtOD+PwHJdWB5cY4mCI9Zwr+4L5ZMFE50TCfpmt+Ow4aRM
-	3oJYpmjQA3j15laGW4lVoU+/23VMjUhAEXnUOBFaPIR7nITX2/CjMi9E=
-X-Received: by 2002:a05:6a20:394a:b0:3dd:a197:edfb with SMTP id
- adf61e73a8af0-3e0d6cbdc69mr7529764637.74.1791220789033; Mon, 05 Oct 2026
- 10:19:49 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="OXLBFyKZ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DAAA21F00893;
+	Mon,  5 Oct 2026 17:19:46 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791220790;
+	bh=4WCgvgjiX7NmbWZFChOGJ3gL4snoJ7jxESLhI6YAqgY=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc;
+	b=OXLBFyKZ0oOeDUN1/8PKmAvAwQ5oak8zB6EdO0wp+DFi83eK+AExanWO40ajy11TJ
+	 mdU1E3APnmP0gdSWbv9ZriDdOOCFX5/Vn+60PEGiZvQPmI34HTuMlNHrmqWCOslMtH
+	 8shQ7pTSNMy5ZzRY5vMeKl2jZ75sVlir/LyYHf96l0PfDw3ZpZm3bxGJlElUmGVp14
+	 PQ2kSa4lbK+U85OrpaNBuUOpQadV3mExXjqGNGE/5C1ZuBeI3woJHpu2REmDYbqZsl
+	 8PBWcv5C3eBeAxPfpSm3jUe/C9DLJZV6mEOljBt+602lLkdpDZdaKpVcVMjKrvV8mk
+	 zM+13fO19anfg==
+From: bod@kernel.org
+Date: Mon, 05 Oct 2026 19:14:40 +0200
+Subject: [PATCH 70/74] media: qcom: camss: video: Support metadata output
+ nodes
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260930044611.204739-1-benquike@gmail.com> <20261005170632.GB83879@horms.kernel.org>
-In-Reply-To: <20261005170632.GB83879@horms.kernel.org>
-From: Xin Long <lucien.xin@gmail.com>
-Date: Mon, 5 Oct 2026 13:19:37 -0400
-X-Gm-Features: AclHuK-lyDkgT7D3dyZG9byu4tcMRkf70JRI3r14isoIqeQu9dgZ6L1lP-o_t_Y
-Message-ID: <CADvbK_eAWQbGs7EUogG3kZDgpX_9bzrR-okU_6cAobcyp_SbtQ@mail.gmail.com>
-Subject: Re: [PATCH net-next v2] sctp: copy zeroed stats to user in
- sctp_getsockopt_pr_streamstatus() when !streamoute
-To: Simon Horman <horms@kernel.org>
-Cc: Hui Peng <benquike@gmail.com>, "David S . Miller" <davem@davemloft.net>, 
-	Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
-	Vlad Yasevich <vyasevich@gmail.com>, Neil Horman <nhorman@tuxdriver.com>, linux-sctp@vger.kernel.org, 
-	netdev@vger.kernel.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261005-linux-mainline-7-2-sm8650-hdk-rfc-0-v1-70-ed985aefd611@kernel.org>
+References: <20261005-linux-mainline-7-2-sm8650-hdk-rfc-0-v1-0-ed985aefd611@kernel.org>
+In-Reply-To: <20261005-linux-mainline-7-2-sm8650-hdk-rfc-0-v1-0-ed985aefd611@kernel.org>
+To: Bryan O'Donoghue <bryan.odonoghue@linaro.org>, 
+ Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>, 
+ Loic Poulain <loic.poulain@oss.qualcomm.com>, 
+ Mauro Carvalho Chehab <mchehab@kernel.org>, 
+ Jacopo Mondi <jacopo.mondi@ideasonboard.com>, 
+ Daniel Scally <dan.scally@ideasonboard.com>, Keke Li <keke.li@amlogic.com>, 
+ Richard Acayan <mailingradian@gmail.com>, 
+ Hans Verkuil <hverkuil@kernel.org>, 
+ Gjorgji Rosikopulos <quic_grosikop@quicinc.com>, 
+ Radoslav Tsvetkov <quic_rtsvetko@quicinc.com>, 
+ Robert Foss <rfoss@kernel.org>, Milen Mitkov <quic_mmitkov@quicinc.com>
+Cc: linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, Bryan O'Donoghue <bod@kernel.org>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=openpgp-sha256; l=8062; i=bod@kernel.org;
+ h=from:subject:message-id; bh=fWoDS04z8vTzAkDHhK6HSgRVz3OaAss2MHUHCFmrKak=;
+ b=kA0DAAoBInE7s6GNyDoByyZiAGrD2zPIpYW1RuZmapxr/vfa64IT4H4zPk93wcQOX6VyOZEnM
+ IkCMwQAAQoAHRYhBOaT+yqro23hF6tvtCJxO7Ohjcg6BQJqw9szAAoJECJxO7Ohjcg69cwQALW4
+ kHMm67moqMaJiNse0oQ0wzBU73T1rE7b3gj5/E48rN+K+FWJbbvHZ+jE68tThdIjj3HZ3SUk1UI
+ NrkmR6gn05OPTv7frUzTk1X0R9uCGvivkbtoxrqRoWN3UhvdI1NCyxxY7mtB0P1aZsdxQN0km91
+ wn8Cm+TBnxz1ndCoIcsQh2gDqmmOjNsDqwHr80Bmajr6/EbCJqx7XbEG4QHQ4zWqX7wxSH+dm8O
+ ZaNoY5woYffhqXLJmnYhTD0zeD22EEmvL75SY4/ge3r9Z6LyS5cuA/4BaIKOyPWPdp+PYnMJQtH
+ 0qGo5FDpPRidQdpxZOH5ekgD/q7QNBHBbNut7ndysWrQHMjSCtTNXL6C+N2RW6nkI/YOKYQZeY7
+ VVq68RU0vECAXJH5Wzn3ezwc4H96tuDYB+7P5EFheIbYsPrv9cxt2J6L2pXQzM03IpCJM8Zi6ji
+ NVzddojmVfiIJr9jXHOyeKPUzvBj+QlTgk6Y5rLMTPS1lLl3Zf0qK1e7IkY7EARpgwTimbVNxxa
+ e3Dt4hSl2iy2fuh3bfc6C7zTcZUGAXnxBfwss0AUFroYMajORarJpWCMLLbHM7ZweqSdsoFK3Cb
+ L6yP7Uv63sa40sO4GxW5el2Do5NwWODe7325DrKYaKlzI3Wr2JhjyUj8ZG6u5HCABHWNRdKciuS
+ 1Ad2Q
+X-Developer-Key: i=bod@kernel.org; a=openpgp;
+ fpr=E693FB2AABA36DE117AB6FB422713BB3A18DC83A
 
-On Mon, Oct 5, 2026 at 1:06=E2=80=AFPM Simon Horman <horms@kernel.org> wrot=
-e:
->
-> On Wed, Sep 30, 2026 at 04:46:11AM +0000, Hui Peng wrote:
-> > When an SCTP stream output extension structure (streamoute) has not yet
-> > been allocated, sctp_getsockopt_pr_streamstatus() sets the local stack
-> > variables params.sprstat_abandoned_unsent =3D 0 and
-> > params.sprstat_abandoned_sent =3D 0, but then immediately jumps to 'out=
-:',
-> > bypassing copy_to_user(). As a result, when an uninitialized user buffe=
-r
-> > is passed to getsockopt(SCTP_PR_STREAM_STATUS), the kernel returns
-> > success (0) without copying the zeroed stats back to user space, leavin=
-g
-> > uninitialized data in the user buffer.
-> >
-> > Refactor the !streamoute check into an if-else chain so that when
-> > streamoute is NULL, params is zeroed and falls through to copy_to_user(=
-),
-> > copying the zeroed stats to user space and setting retval =3D 0 once be=
-fore
-> > returning.
-> >
-> > Tested in QEMU against Linux 7.3.0-rc3 using an uninitialized
-> > sctp_prstatus user struct passed to getsockopt(SCTP_PR_STREAM_STATUS) o=
-n a
-> > freshly created stream: on the unfixed kernel the user struct contains
-> > uninitialized stack garbage; whereas with this fix applied, getsockopt(=
-)
-> > copies zeroed stats into user space and returns 0.
-> >
-> > Fixes: 28b7eab0f910 ("sctp: add SCTP_PR_STREAM_STATUS getsockopt")
->
-> The hash cited above does not seem to exist.
-> I suggest that the appropriate fixes tag is as you had for v1:
->
-> Fixes: 28b7eab0f910 ("sctp: add SCTP_PR_STREAM_STATUS getsockopt")
->
-> Also, the patch should probably be targeted at net, again as you had for =
-v1.
-> I realised that Paolo suggested net-next, without a Fixes tag. But I
-> believe the premise of that suggestion was that he felt this was not a bu=
-g fix.
-> However, Xin responded stating he thought it was, and I expect that carri=
-es,
-> especially when combined with the updated patch description you have
-> supplied in v2.
->
-> Please treat the above as FYI at this point.
-> I do not expect a repost is required at this time.
->
-Thanks Simon,
+From: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
 
-Yes, the fixes tag should be the one in v1:
+Parameters need metadata output nodes. Register a node of video->type
+V4L2_BUF_TYPE_META_OUTPUT alongside the metadata capture node:
 
-Fixes: f952be79cebd ("sctp: introduce struct sctp_stream_out_ext")
+- a source pad, VFL_DIR_TX and the META_OUTPUT format ioctls, returning
+  the fixed format the producer sets before registration
+- each buffer has a kernel copy, buf->meta: the payload is copied into
+  it when the buffer is prepared, and the optional prepare_buffer()
+  video op validates the copy, so what is validated is what the
+  producer consumes
+- like the capture node, it neither starts nor stops the line, and
+  stopping it returns its buffers
 
-> > Cc: stable@vger.kernel.org
-> > Reviewed-by: Xin Long <lucien.xin@gmail.com>
-> > Assisted-by: LLM
-> > Signed-off-by: Hui Peng <benquike@gmail.com>
-> > ---
-> > Changes in v2:
-> > - Re-target subject tag to [PATCH net-next v2].
-> > - Remove redundant retval =3D 0 assignment in !streamoute block and fal=
-l
-> >   through to copy_to_user() as suggested by Paolo Abeni and Xin Long.
->
-> ...
+Signed-off-by: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
+---
+ drivers/media/platform/qcom/camss/camss-video.c | 101 ++++++++++++++++++++++--
+ drivers/media/platform/qcom/camss/camss-video.h |   8 ++
+ 2 files changed, 101 insertions(+), 8 deletions(-)
+
+diff --git a/drivers/media/platform/qcom/camss/camss-video.c b/drivers/media/platform/qcom/camss/camss-video.c
+index b8501c895d393..69cbe78b80622 100644
+--- a/drivers/media/platform/qcom/camss/camss-video.c
++++ b/drivers/media/platform/qcom/camss/camss-video.c
+@@ -414,6 +414,65 @@ static const struct vb2_ops msm_video_meta_vb2_q_ops = {
+ 	.unprepare_streaming = video_unprepare_streaming,
+ };
+ 
++/*
++ * A metadata output buffer is copied to the kernel when it is prepared, so
++ * what is validated is what the producer later consumes.
++ */
++static int video_meta_out_buf_init(struct vb2_buffer *vb)
++{
++	struct vb2_v4l2_buffer *vbuf = to_vb2_v4l2_buffer(vb);
++	struct camss_video *video = vb2_get_drv_priv(vb->vb2_queue);
++	struct camss_buffer *buffer = container_of(vbuf, struct camss_buffer,
++						   vb);
++
++	buffer->meta = kvmalloc(video->active_fmt.fmt.meta.buffersize,
++				GFP_KERNEL);
++
++	return buffer->meta ? 0 : -ENOMEM;
++}
++
++static void video_meta_out_buf_cleanup(struct vb2_buffer *vb)
++{
++	struct vb2_v4l2_buffer *vbuf = to_vb2_v4l2_buffer(vb);
++	struct camss_buffer *buffer = container_of(vbuf, struct camss_buffer,
++						   vb);
++
++	kvfree(buffer->meta);
++	buffer->meta = NULL;
++}
++
++static int video_meta_out_buf_prepare(struct vb2_buffer *vb)
++{
++	struct vb2_v4l2_buffer *vbuf = to_vb2_v4l2_buffer(vb);
++	struct camss_video *video = vb2_get_drv_priv(vb->vb2_queue);
++	struct camss_buffer *buffer = container_of(vbuf, struct camss_buffer,
++						   vb);
++	size_t payload = vb2_get_plane_payload(vb, 0);
++
++	if (payload > video->active_fmt.fmt.meta.buffersize)
++		return -EINVAL;
++
++	memcpy(buffer->meta, vb2_plane_vaddr(vb, 0), payload);
++	vbuf->field = V4L2_FIELD_NONE;
++
++	if (video->ops->prepare_buffer)
++		return video->ops->prepare_buffer(video, buffer);
++
++	return 0;
++}
++
++static const struct vb2_ops msm_video_meta_out_vb2_q_ops = {
++	.queue_setup     = video_meta_queue_setup,
++	.buf_init        = video_meta_out_buf_init,
++	.buf_cleanup     = video_meta_out_buf_cleanup,
++	.buf_prepare     = video_meta_out_buf_prepare,
++	.buf_queue       = video_buf_queue,
++	.prepare_streaming = video_prepare_streaming,
++	.start_streaming = video_meta_start_streaming,
++	.stop_streaming  = video_meta_stop_streaming,
++	.unprepare_streaming = video_unprepare_streaming,
++};
++
+ /* -----------------------------------------------------------------------------
+  * V4L2 ioctls
+  */
+@@ -721,6 +780,23 @@ static const struct v4l2_ioctl_ops msm_vid_meta_ioctl_ops = {
+ 	.vidioc_streamoff		= vb2_ioctl_streamoff,
+ };
+ 
++static const struct v4l2_ioctl_ops msm_vid_meta_out_ioctl_ops = {
++	.vidioc_querycap		= video_querycap,
++	.vidioc_enum_fmt_meta_out	= video_meta_enum_fmt,
++	.vidioc_g_fmt_meta_out		= video_meta_g_fmt,
++	.vidioc_s_fmt_meta_out		= video_meta_g_fmt,
++	.vidioc_try_fmt_meta_out	= video_meta_g_fmt,
++	.vidioc_reqbufs			= vb2_ioctl_reqbufs,
++	.vidioc_querybuf		= vb2_ioctl_querybuf,
++	.vidioc_qbuf			= vb2_ioctl_qbuf,
++	.vidioc_expbuf			= vb2_ioctl_expbuf,
++	.vidioc_dqbuf			= vb2_ioctl_dqbuf,
++	.vidioc_create_bufs		= vb2_ioctl_create_bufs,
++	.vidioc_prepare_buf		= vb2_ioctl_prepare_buf,
++	.vidioc_streamon		= vb2_ioctl_streamon,
++	.vidioc_streamoff		= vb2_ioctl_streamoff,
++};
++
+ /* -----------------------------------------------------------------------------
+  * V4L2 file operations
+  */
+@@ -796,7 +872,8 @@ static int msm_video_init_format(struct camss_video *video)
+ int msm_video_register(struct camss_video *video, struct v4l2_device *v4l2_dev,
+ 		       const char *name)
+ {
+-	bool meta = video->type == V4L2_BUF_TYPE_META_CAPTURE;
++	bool meta_out = video->type == V4L2_BUF_TYPE_META_OUTPUT;
++	bool meta = meta_out || video->type == V4L2_BUF_TYPE_META_CAPTURE;
+ 	struct media_pad *pad = &video->pad;
+ 	struct video_device *vdev;
+ 	struct vb2_queue *q;
+@@ -809,9 +886,13 @@ int msm_video_register(struct camss_video *video, struct v4l2_device *v4l2_dev,
+ 	q = &video->vb2_q;
+ 	q->drv_priv = video;
+ 	q->mem_ops = meta ? &vb2_vmalloc_memops : &vb2_dma_sg_memops;
+-	q->ops = meta ? &msm_video_meta_vb2_q_ops : &msm_video_vb2_q_ops;
+-	q->type = meta ? V4L2_BUF_TYPE_META_CAPTURE :
+-			 V4L2_BUF_TYPE_VIDEO_CAPTURE_MPLANE;
++	if (meta_out)
++		q->ops = &msm_video_meta_out_vb2_q_ops;
++	else if (meta)
++		q->ops = &msm_video_meta_vb2_q_ops;
++	else
++		q->ops = &msm_video_vb2_q_ops;
++	q->type = meta ? video->type : V4L2_BUF_TYPE_VIDEO_CAPTURE_MPLANE;
+ 	q->io_modes = meta ? VB2_DMABUF | VB2_MMAP :
+ 			     VB2_DMABUF | VB2_MMAP | VB2_READ;
+ 	q->timestamp_flags = V4L2_BUF_FLAG_TIMESTAMP_MONOTONIC;
+@@ -824,7 +905,7 @@ int msm_video_register(struct camss_video *video, struct v4l2_device *v4l2_dev,
+ 		goto error_vb2_init;
+ 	}
+ 
+-	pad->flags = MEDIA_PAD_FL_SINK;
++	pad->flags = meta_out ? MEDIA_PAD_FL_SOURCE : MEDIA_PAD_FL_SINK;
+ 	ret = media_entity_pads_init(&vdev->entity, 1, pad);
+ 	if (ret < 0) {
+ 		dev_err(v4l2_dev->dev, "Failed to init video entity: %d\n",
+@@ -836,7 +917,7 @@ int msm_video_register(struct camss_video *video, struct v4l2_device *v4l2_dev,
+ 
+ 	if (meta) {
+ 		/* dataformat and buffersize are set by the producer */
+-		video->active_fmt.type = V4L2_BUF_TYPE_META_CAPTURE;
++		video->active_fmt.type = video->type;
+ 	} else {
+ 		ret = msm_video_init_format(video);
+ 		if (ret < 0) {
+@@ -847,7 +928,11 @@ int msm_video_register(struct camss_video *video, struct v4l2_device *v4l2_dev,
+ 	}
+ 
+ 	vdev->fops = &msm_vid_fops;
+-	if (meta) {
++	if (meta_out) {
++		vdev->device_caps = V4L2_CAP_META_OUTPUT | V4L2_CAP_STREAMING |
++				    V4L2_CAP_IO_MC;
++		vdev->ioctl_ops = &msm_vid_meta_out_ioctl_ops;
++	} else if (meta) {
+ 		vdev->device_caps = V4L2_CAP_META_CAPTURE | V4L2_CAP_STREAMING |
+ 				    V4L2_CAP_IO_MC;
+ 		vdev->ioctl_ops = &msm_vid_meta_ioctl_ops;
+@@ -859,7 +944,7 @@ int msm_video_register(struct camss_video *video, struct v4l2_device *v4l2_dev,
+ 	}
+ 	vdev->release = msm_video_release;
+ 	vdev->v4l2_dev = v4l2_dev;
+-	vdev->vfl_dir = VFL_DIR_RX;
++	vdev->vfl_dir = meta_out ? VFL_DIR_TX : VFL_DIR_RX;
+ 	vdev->queue = &video->vb2_q;
+ 	vdev->lock = &video->lock;
+ 	strscpy(vdev->name, name, sizeof(vdev->name));
+diff --git a/drivers/media/platform/qcom/camss/camss-video.h b/drivers/media/platform/qcom/camss/camss-video.h
+index d3e56e240a888..21a951b7fe9bc 100644
+--- a/drivers/media/platform/qcom/camss/camss-video.h
++++ b/drivers/media/platform/qcom/camss/camss-video.h
+@@ -23,6 +23,9 @@ struct camss_buffer {
+ 	struct vb2_v4l2_buffer vb;
+ 	dma_addr_t addr[3];
+ 	struct list_head queue;
++
++	/* Metadata output nodes: kernel copy of the buffer, validated at prepare */
++	void *meta;
+ };
+ 
+ struct camss_video;
+@@ -31,6 +34,11 @@ struct camss_video_ops {
+ 	int (*queue_buffer)(struct camss_video *vid, struct camss_buffer *buf);
+ 	int (*flush_buffers)(struct camss_video *vid,
+ 			     enum vb2_buffer_state state);
++	/*
++	 * Optional, metadata output nodes: validate the kernel copy of a
++	 * buffer, buf->meta, when it is prepared
++	 */
++	int (*prepare_buffer)(struct camss_video *vid, struct camss_buffer *buf);
+ };
+ 
+ struct camss_video {
+
+-- 
+2.55.0
+
