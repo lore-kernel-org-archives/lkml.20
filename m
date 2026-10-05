@@ -1,157 +1,198 @@
-Received: from mail-pz2-f2.google.com (mail-pz2-f2.google.com [74.125.228.2])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from fhigh-a7-smtp.messagingengine.com (fhigh-a7-smtp.messagingengine.com [103.168.172.158])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 117E44CDA36
-	for <linux-kernel@vger.kernel.org>; Mon,  5 Oct 2026 16:19:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.2
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 191554C224C
+	for <linux-kernel@vger.kernel.org>; Mon,  5 Oct 2026 16:20:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=103.168.172.158
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791217151; cv=none; b=uR3HafRRwS2B9oHqBlRLQSjHN9aJNbxsxMIDtrrkezx0XFCE6Dit/OUemrwuQ627k12J4dEPfq69BnDbkWC3F75vDQB+HR/wRBefSaGkt0qTD3EQJHAWlVtxvaldRytmwyr4z4gUujkOaGxWWcb7G4EJGoRF1hcVNsaqv0eVKE8=
+	t=1791217226; cv=none; b=dBpRMIyYaheHSCtc5igj5ZIfc1shj3WBHL741ZGbjDjVVjR2n6Yut03Lxe5Vm1NaUWsESeaZehYOYbw0K5FZo052Xc5JeD4FGMz3y3fY9ECtVTXIKsulyVxcUAFvg5Pa40Mj38E5XO7+KaDDYDQbtUdBcF4JFV5wQEKl58evvxE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791217151; c=relaxed/simple;
-	bh=U4bzZfQDK/LtAUZgkejsyDmUquXcxPrPw0XuH3463YA=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=IZe+APsidCS5ELVyP8tNT0dl7xKapfTB2Y38MV62Cdf4FntpmngD5h+WBhRerokAtgKG83rAOjmZ0Pfn9+g4uBUyAuIC090MPfOqeX7AJOv4mj9ijPG83W8ivrKsFo3oZSV6AL/kLBZCi5RudK+JY16dR70H4kfT+wFSPeo5rGA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=HdRMFK1h; arc=none smtp.client-ip=74.125.228.2
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1791217226; c=relaxed/simple;
+	bh=O9lBSXMX8ZJn6NCV7Qo+OyrqttL2Cz+ZVuV4r4U4v7w=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=GwURLYsHaz9Y5S3KAIeTW2jDu0dJOVSZXKz1dKE1YqbcRTwc9+B11zTMPbS+kxb0M3/Q7d98Nne7hodj0IjUqc6aFke9Xx44uOt+YfIg82eW1yx2qTZhtTHNYQ7tETKMzsTJ2K3nhSNLt6+Ujrj6RnhwNfa1H3CAVHwYldl7fqw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=alistair23.me; spf=pass smtp.mailfrom=alistair23.me; dkim=pass (2048-bit key) header.d=alistair23.me header.i=@alistair23.me header.b=mIgou8xm; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=A9ahTLT0; arc=none smtp.client-ip=103.168.172.158
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=alistair23.me
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=alistair23.me
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="HdRMFK1h"
-Received: by mail-pz2-f2.google.com with SMTP id 41be03b00d2f7-ccc451ef3a7so208593a12.1
-        for <linux-kernel@vger.kernel.org>; Mon, 05 Oct 2026 09:19:08 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791217148; x=1791821948; darn=vger.kernel.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=HJvX6SjTIZtr+UUDG9pVuBrScJU/S03oDC6DwPSIBZ4=;
-        b=HdRMFK1hSQ1j+hN+onE+BVufGxPJkr49xSt6wwEXwkESHuDTSiY3TwJ21LNrnwrSOX
-         5JEckuLe8dLWxxWMQT/pdlMtU89pgdnKOH6XHlfRYLWmrUsUlGKSyJtagTb5GCOA81pd
-         YIfBny8nJBe/JlHz2dEGrAS14cY29eRRRhfx25YOCbdDc4O0qJAWcOKoFPwgpWjL3jJy
-         /mYHasiydwQ6kRhfwy5MM0Vz/hykKTuilVJnfozS2I6rbatd8gtoW5BK5nco0i/KCDTh
-         tQsCB7PtjqeZ30sdalM5EYxZZmVKR6/G4h9Z9FEJjJxXWOPOW/zwiNVsFDhP1Oaewvvx
-         WaBg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791217148; x=1791821948;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=HJvX6SjTIZtr+UUDG9pVuBrScJU/S03oDC6DwPSIBZ4=;
-        b=C/1qmQSAq7vPq19ukF9B6U6YcASdanA9NKgZf9zFL7le8pJwVpWFqsofTVU5/uaXjd
-         fl2JUZHyvA+i3HQZ3XyR5RzsjlOfCSZKoylokQ5qegonSIASVWi9WTPy4vorUmv9HYvx
-         gSdb1jqzaAEUNbxZM1FKtuxIs+C4MaWB86JYy9FLqaW/Rb5I81ly6/NNJPBsD3FT8FTf
-         ZNzlVQQ2ZrfSEQsyikioCE0PBQzc39jgVPvuT6YFmbMocxiX3pqIuksXLuDbLHX1dzeA
-         qq7y2k+wGW8h/WtN9l8K8k4dG3zPY/YkK9XExPhOsw4jUOd3zoSSwjI5Et/m9SvelpWm
-         eavA==
-X-Forwarded-Encrypted: i=1; AKwUvBwRbM7dewrPzc9zVzQtbIwYEUWEUohHbTbARR2H4c84xKdjqpWVnd8Ki60kxWEKybtdFOWUc29iQPsI04Q=@vger.kernel.org
-X-Gm-Message-State: AFq9FYI1JFvbnVxMcGpQlEiwU2X7xDIK3miVB5gKBWLoxxIcI/fGtMOk
-	X4QqaRjcGqhkLQ8cZEl+7I2uji/nksOt/l7NoNDU2TI8fibue6L8SzqU
-X-Gm-Gg: AYBFou04HyDiPd0PLUEuwAotEGznjp0enAauiWp9QezJdAayXrNhpTafD7qJQKlWHPb
-	cDtLXAUZTYXwOLXSnb5pEKejO5RWpdey6qdPRO3F1X84Tif+OZ08MPnOLiGLosxlANbS+HVj/O4
-	xKFfyLFtsr4pqdPZC2yKZ8D09FXUCoLmfgNZI8OBevLWH21arZQxN6GHfkGiS5W3umXvyJkY5P7
-	s9uaxpmzD18rHnZgrCfENsrqnbLZE9S+Lku9YEBwx/tX6F7HT2UzNAH10AQpCuWzRGWGgSgIBtu
-	vRkUUxGMgjb4azMjrDkEU7cb5lzrpCu+Urghd6tggq4IQIQdOWw4g3mDxMiyFK/QwZId7Gx7/ie
-	dC+EYtPQXfoxRTks3Vbe1WGBRLP78GitCGRiIEiVO9PebWJkKH3Cy/rfsJ5r8gdJFmas72JUSvb
-	wc+o2NIAwDxBSvx0RU2e47VAQ1n24OTF2iF4lajfvhSRllC6HWnutqK6GarbyQOZ0=
-X-Received: by 2002:a05:6a00:2d9a:b0:87d:430:1437 with SMTP id d2e1a72fcca58-88c632c2355mr6569785b3a.38.1791217148410;
-        Mon, 05 Oct 2026 09:19:08 -0700 (PDT)
-Received: from localhost ([2a03:2880:2ff:7::])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-88b069b47b1sm3773938b3a.0.2026.10.05.09.19.07
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 05 Oct 2026 09:19:08 -0700 (PDT)
-Date: Mon, 5 Oct 2026 09:19:04 -0700
-From: Stanislav Fomichev <sdf.kernel@gmail.com>
-To: Mina Almasry <almasrymina@google.com>
-Cc: netdev@vger.kernel.org, linux-doc@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, bpf@vger.kernel.org, "David S. Miller" <davem@davemloft.net>, 
-	Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>, 
-	Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, 
-	Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>, 
-	Randy Dunlap <rdunlap@infradead.org>, Jesper Dangaard Brouer <hawk@kernel.org>, 
-	Ilias Apalodimas <ilias.apalodimas@linaro.org>, Alexei Starovoitov <ast@kernel.org>, 
-	Daniel Borkmann <daniel@iogearbox.net>, John Fastabend <john.fastabend@gmail.com>, 
-	Stanislav Fomichev <sdf@fomichev.me>, Luigi Rizzo <lrizzo@google.com>, 
-	=?utf-8?B?QmrDtnJuIFTDtnBlbA==?= <bjorn@kernel.org>, Pavel Begunkov <asml.silence@gmail.com>
-Subject: Re: [PATCH net-next v1 2/2] docs: netmem: document netmem and memory
- provider design principles
-Message-ID: <asPNJ2V8Tv2Z05n-@devvm7509.cco0.facebook.com>
-References: <20261005004958.3603059-1-almasrymina@google.com>
- <20261005004958.3603059-3-almasrymina@google.com>
+	dkim=pass (2048-bit key) header.d=alistair23.me header.i=@alistair23.me header.b="mIgou8xm";
+	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="A9ahTLT0"
+Received: from phl-compute-05.internal (phl-compute-05.internal [10.202.2.45])
+	by mailfhigh.phl.internal (Postfix) with ESMTP id 347481400191
+	for <linux-kernel@vger.kernel.org>; Mon,  5 Oct 2026 12:20:24 -0400 (EDT)
+Received: from phl-frontend-04 ([10.202.2.163])
+  by phl-compute-05.internal (MEProxy); Mon, 05 Oct 2026 12:20:24 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=alistair23.me;
+	 h=cc:cc:content-transfer-encoding:content-type:content-type
+	:date:date:from:from:in-reply-to:in-reply-to:message-id
+	:mime-version:references:reply-to:subject:subject:to:to; s=fm2;
+	 t=1791217224; x=1791303624; bh=7fMFCyfAKjqs4FLoFtn1JpAUKI3aqzrN
+	/pKxZJGObMQ=; b=mIgou8xmRmQnWl1jG2bYSBVWn5upPWkEFbyGutYEjl5wadYH
+	4FHLz2titj2IMGoyV0KV1h1hdvPX2xvGf9b5IrDASAT5WYHepCHnB2aHDhdYclLu
+	v+0hmMlweoI2PTFmA+iKG1U1opfeuTgh07OvOV2VhVxFxvBMMlGHdzdnGotDTioT
+	FO7XZpGFcg931e1Bb+hhf5yYhNicElYEteA48EgBbI3GBubQEsv9374cJKj9HXJ1
+	0Iufk+knAMgDZvWoz0NrYfnEWo7rNgfsskNF3QjWsaKNgFB6Pllt90TALwOMV1Ts
+	ZrTA0njpkikg67lztwbMncDYusJhLQSiaaFeOQ==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:content-type:date:date:feedback-id:feedback-id
+	:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to:x-me-proxy
+	:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=1791217224; x=
+	1791303624; bh=7fMFCyfAKjqs4FLoFtn1JpAUKI3aqzrN/pKxZJGObMQ=; b=A
+	9ahTLT0YDH561qtE/GIYgQ+NSbR5rJR0pQl+EnOvX690+Cr9N7XESXE1PK8EY4Kj
+	m1iTIA4aahWpdlZI3UhIfGw4Arjugokc27nNq6bIzH4kulfcKaEcMawGMqLxAmKz
+	OrzOqzRP4AbJiQNGS3euz1eaypFDooCgRzpdr8TTN4/uDvb0sFop50gmtAxIFa//
+	mFLlT/R7UfSCpFvpxp/gVFk4WgIGTH3nlJHFqsuftMNsNIUfmgIMMttdq3QAI7Ee
+	OVxTJh02Rie51Q1iz7+uqxA0XhI9GoERN0cZuGxURmVz9jS+SGvFsBG8JrzpGC+v
+	Dl8Ouf52epzsJefcsnPsQ==
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
+	repo=github.com/dkim2wg/interop; date=2026-09-30; sw=lmtpprox;
+	action=sign d=alistair23.me a=rsa-sha256;
+DKIM2-Signature: i=1; m=1; t=1791217224; d=alistair23.me;
+	mf=PGFsaXN0YWlyQGFsaXN0YWlyMjMubWU+;
+	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
+	s=fm2:rsa-sha256:s6335X145c7nBt+F9ZIh7X6sqKSV3/dKNtCn98cfomwJ592
+	1bto576TLOM8FYfczpk/uP6Wv3qIjM7EN65EAnKi11pritSUe3OXGGaS7F/D8UdA
+	tkufczHusC/jiZOcBh/YyoDgcSlHJ5e6gBQGkfAxdgZYThxSZz62es1Q048gXh1b
+	iW5yGWkMsOB0Z+zEK2tiKgHvLAWga9ZQObnnBee9/0DdQHuoqhi+34s/67KmFHyg
+	+ebWQlS+y0mey7LM3Sxj0saY6UT9WBDq/W4/tglJBH/5qR/vrWrE4zcz0J/g9lnn
+	gmGAuDqfrrlK39iiGzy2xaBAVKu1i1LAfks1l9w==;
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
+	repo=github.com/dkim2wg/interop; date=2026-09-30; sw=lmtpprox;
+	action=mi-m=1; hc=13;
+	hn=cc,content-transfer-encoding,content-type,date,feedback-id,
+	from,in-reply-to,message-id,mime-version,references,subject,to,
+	user-agent;
+Message-Instance: m=1; h=sha256:Ym0n0XQ7xg5cI/IqpJPTITJX+PX/w+HnRNia046nXas=:O9lBSXMX8ZJn6NCV7Qo+OyrqttL2Cz+ZVuV4r4U4v7w=;
+X-ME-Sender: <xms:SM7Dar7ievLkTtpdlDBGpuKCO1fCLQ8MFhg4KE_puh6pQuVJQNzttA>
+    <xme:SM7Dar1dYQABq6kh58KEo5z2Ys1ZTmqyVBDRhMvNt8W3XfCGciGUHq2CB_uLWjZNw
+    R8MEm3OO5qz-2zwnIIAVZLS3h9Wvykw3nWQ2WF02qgUAPGCORQkGv4>
+X-ME-Received: <xmr:SM7Dahcu8QHq9AyB_CaaBg6XR76Jpl6WgBAzCLquTc7ZDbaglInN0NWW8osjQXg31E0i>
+X-ME-Proxy-Cause: dmFkZTG2GWtYYlVMtomge/gx37ag7n9csUJSdjArruSeSXk4B76Is1uGN33Q4siC5LZeA/
+    gpym4yBZDbw9thPZ3JMFMRVZHbf0TzGnowwyAEDzdUvCCoXHDrd6+yB9fkPXr3nEzG8UOq
+    UhELnnypi/+b+WK0xiakK7QQEZp3Cqksc8fxvd6Frio6YW/guM4cEGVhJIOpZm9r3/6tWW
+    mdZyuWylNVbnxUf78cgJTlbQgBQq6FGYBPucqr4ZzHIYLy+5mDL4xwcJL7JemuFHrTzFxz
+    D/+63kw+u/7B3bpa1h6Bl55RGIZPZXDZAdC4hj3NLY40iT/y0Ha1yhZoNtpCCJtXMZwxSU
+    XJ5GwoLuJX+ONXYoMoLrWjxYcb1D4zT4SwWbt7ytyRkWoUrRviWDmswzkPLvNKqWM3yyQM
+    3y/iEK8bbQtPswvk6NMLsd70x5e9hLvlmhOZQRGh3Di8US7pVOsKMO/5vQV73UUdicblwt
+    cqF7/Flx+NSv06H+Wx8JocLHjOLCPE0GjejPDh3jiFxW71vvWTuoobYMDa3T4G2TBJkF4T
+    nGxLX5J1HXu9cwfvw9zzIm881uFC1ibN/dd+g/RHfFCaMb2oKlakb8s8VFuTVhknGyKq0p
+    GwOtxGa/dh8d4jCuX0J3suzTt4n7D0G5oEhKyG0Aqm+5gAW044LEgtlVWShA
+X-ME-Proxy: <xmx:SM7DahdOG_GLINh14KzgXm6l3tIjj0tAVvaPhmTm9YlDFnIe9m7LrA>
+    <xmx:SM7DaszFQAvBS3U-t0QgsRUaR5bU4kfTrhPxtQK795lWctFTRDek-g>
+    <xmx:SM7Dag_uCMtBYB2d_oOfAgvTupMx8BDw4NRdvL7Iu05ZEnX_pQAZ5w>
+    <xmx:SM7DasiqNziRHLqQGinGgGIxZPQhZ7bghcWeFjPWROlMLAnz7kBWig>
+    <xmx:SM7DarIal5lvns-HZNW50xcxkCG2YuGL0_AXXE5osmr9goCqgdzkhFcT>
+Feedback-ID: ifd214418:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Mon,
+ 5 Oct 2026 12:20:23 -0400 (EDT)
+Message-ID: <53f642cf76a2b6c405bebd254afc6d37255af749.camel@alistair23.me>
+Subject: Re: [PATCH v2] PCI/DOE: Fix double free of a duplicate feature's
+ sysfs name
+From: Alistair <alistair@alistair23.me>
+To: Donggeun Yoo <donggeunyoo.kernel@gmail.com>, bhelgaas@google.com
+Cc: jic23@kernel.org, linux-pci@vger.kernel.org,
+ linux-kernel@vger.kernel.org, 	stable@vger.kernel.org
+Date: Tue, 06 Oct 2026 02:20:22 +1000
+In-Reply-To: <20261003102221.59894-1-donggeunyoo.kernel@gmail.com>
+References: <20261003102221.59894-1-donggeunyoo.kernel@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.62.0 (by Flathub.org) 
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20261005004958.3603059-3-almasrymina@google.com>
 
-On 10/05, Mina Almasry wrote:
-> Add a Design Principles section to Documentation/networking/netmem.rst
-> covering the netmem_ref abstraction, the prohibition on direct
-> downcasting in callers, decoupling memory providers from net_iov,
-> decoupling net_iov from unreadability, delegating provider/type logic to
-> memory_provider_ops and netmem helpers, and the homogeneous skb fragment
-> memory type invariant.
-> 
-> Cc: Luigi Rizzo <lrizzo@google.com>
-> Cc: Björn Töpel <bjorn@kernel.org>
-> Cc: Stanislav Fomichev <sdf@fomichev.me>
-> Cc: Pavel Begunkov <asml.silence@gmail.com>
-> Signed-off-by: Mina Almasry <almasrymina@google.com>
+On Sat, 2026-10-03 at 19:22 +0900, Donggeun Yoo wrote:
+> When a DOE feature is reported twice, sysfs_add_file_to_group() fails
+> with -EEXIST for the second copy and pci_doe_sysfs_feature_populate()
+> frees that attribute's name, but leaves the pointer in place.
+> pci_doe_sysfs_feature_remove() frees every name again when the device
+> is removed, or when a later feature fails to register, so the name is
+> freed twice:
+>=20
+> =C2=A0 BUG: KASAN: double-free in pci_doe_sysfs_feature_remove+0x117/0x1b=
+0
+> =C2=A0 Call Trace:
+> =C2=A0=C2=A0 kfree+0x11a/0x420
+> =C2=A0=C2=A0 pci_doe_sysfs_feature_remove+0x117/0x1b0
+> =C2=A0=C2=A0 pci_doe_sysfs_teardown+0x90/0xf0
+> =C2=A0=C2=A0 pci_remove_bus_device+0x128/0x2e0
+> =C2=A0=C2=A0 pci_stop_and_remove_bus_device_locked+0x1d/0x30
+> =C2=A0=C2=A0 remove_store+0xd2/0xf0
+>=20
+> Clear the pointer after freeing the name.
+>=20
+> Fixes: 2311ab1820fe ("PCI/DOE: Expose DOE features via sysfs")
+> Cc: stable@vger.kernel.org
+> Suggested-by: Alistair Francis <alistair@alistair23.me>
+> Assisted-by: LLM
+> Signed-off-by: Donggeun Yoo <donggeunyoo.kernel@gmail.com>
+
+Reviewed-by: Alistair Francis <alistair@alistair23.me>
+
+Alistair
+
 > ---
->  Documentation/networking/netmem.rst | 46 +++++++++++++++++++++++++++++
->  1 file changed, 46 insertions(+)
-> 
-> diff --git a/Documentation/networking/netmem.rst b/Documentation/networking/netmem.rst
-> index 217869d1108dd..57e52a947663d 100644
-> --- a/Documentation/networking/netmem.rst
-> +++ b/Documentation/networking/netmem.rst
-> @@ -19,6 +19,52 @@ Benefits of Netmem :
->  * Simplified Development: Drivers interact with a consistent API,
->    regardless of the underlying memory implementation.
->  
-> +Design Principles
-> +=================
-> +
-> +Memory providers (or the default ``page_pool`` allocator) allocate underlying
-> +memory (``struct net_iov`` or ``struct page``), cast it to ``netmem_ref``, and
-> +supply it to ``page_pool``. The ``page_pool``, drivers, and networking stack
-> +operate on ``netmem_ref`` as the abstract type. Existing ``page_pool`` APIs
-> +that allocate or free ``struct page`` are legacy compatibility wrappers for
-> +drivers that do not yet support ``netmem_ref``. Code that is not yet
-> +``netmem``-aware should be converted to ``netmem_ref`` unless it will never
-> +need to support ``netmem``.
-> +
-> +1. **Operate on netmem_ref, do not downcast**: ``page_pool``, drivers, and the
-> +   core networking stack should deal with ``netmem_ref`` rather than
-> +   ``struct net_iov`` or ``struct page``. Downcasting ``netmem_ref`` to
-> +   ``struct net_iov`` or ``struct page`` is not allowed unless a code path
-> +   strictly cannot function without knowing the underlying memory type (for
-> +   example, ``kmap_local_page()``). In those cases, to keep call sites simple,
-> +   add a ``netmem`` helper that performs the operation on behalf of the caller,
-> +   cleanly handles all ``net_iov`` and ``page`` cases, and returns an error if
-> +   the ``netmem`` type cannot support the requested operation.
-
-[..]
-
-> +2. **Decouple memory providers from net_iov**: Memory providers are not limited
-> +   to ``struct net_iov``. A memory provider that returns ``struct page``-backed
-> +   ``netmem_ref``\ s to upper layers is allowed. Code must not assume that using
-> +   a memory provider implies ``net_iov`` memory.
-> +
-> +3. **Decouple net_iov from unreadability**: ``struct net_iov`` is flexible and
-> +   has no inherent restrictions. While current ``net_iov`` implementations are
-> +   unreadable by the CPU, future readable ``net_iov`` implementations are
-> +   allowed. Code must not assume ``net_iov`` is unreadable; check readability
-> +   via ``netmem_address()`` or ``skb_frags_readable()`` instead.
-
-For these, idk, I do agree in principle, but it is not true right now? And
-there needs to be a bunch of work to generalize?
-
-Should we document where we are right now (mp return niov, niov == unreadable)
-and where we wanna be (mp can return whatever, niov can imply readable or
-unreadable). And when Bjorn's xsk work lands, he can update the mp section.
-And sometime later maybe we'll lift niov == unreadable.
+> Changes in v2:
+> - Keep freeing the duplicate's name in
+> pci_doe_sysfs_feature_populate()
+> =C2=A0 and clear the pointer, instead of leaving it to
+> =C2=A0 pci_doe_sysfs_feature_remove() (Alistair Francis)
+>=20
+> v1:
+> https://lore.kernel.org/all/20260928035035.252394-1-donggeunyoo.kernel@gm=
+ail.com/
+>=20
+> Tested under QEMU (q35, cxl-type3, KASAN) on 72d3fcf802c4. The device
+> reports its CDAT feature once, so a test-only change either registers
+> its DOE capability as a second mailbox or inserts the feature N extra
+> times into one:
+>=20
+> =C2=A0 case=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 befor=
+e=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 after
+> =C2=A0 no duplicate, remove=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 no report=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 no report
+> =C2=A0 no duplicate, a name fails at probe=C2=A0=C2=A0=C2=A0 no report=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 no report
+> =C2=A0 two mailboxes, remove=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 double free=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0 no report
+> =C2=A0 two mailboxes, 3 remove/rescan cycles=C2=A0 3 double frees=C2=A0=
+=C2=A0 no report
+> =C2=A0 3 duplicates in one mailbox, remove=C2=A0=C2=A0=C2=A0 3 double fre=
+es=C2=A0=C2=A0 no report
+> =C2=A0 2 duplicates, a later name fails,=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 2 =
+double frees=C2=A0=C2=A0 no report
+> =C2=A0=C2=A0=C2=A0 probed twice
+>=20
+> The doe_features listing is the same before and after in every case.
+>=20
+> =C2=A0drivers/pci/doe.c | 5 +++--
+> =C2=A01 file changed, 3 insertions(+), 2 deletions(-)
+>=20
+> diff --git a/drivers/pci/doe.c b/drivers/pci/doe.c
+> index ac95b1d2d9997..6b5d9ba8e9697 100644
+> --- a/drivers/pci/doe.c
+> +++ b/drivers/pci/doe.c
+> @@ -208,8 +208,9 @@ static int pci_doe_sysfs_feature_populate(struct
+> pci_dev *pdev,
+> =C2=A0				pci_warn(pdev, "Failed adding %s to
+> sysfs group\n",
+> =C2=A0					 attrs[i].attr.name);
+> =C2=A0				goto fail;
+> -			} else
+> -				kfree(attrs[i].attr.name);
+> +			}
+> +			kfree(attrs[i].attr.name);
+> +			attrs[i].attr.name =3D NULL;
+> =C2=A0		}
+> =C2=A0	}
+> =C2=A0
