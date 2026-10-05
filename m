@@ -1,87 +1,110 @@
-Received: from mail.hallyn.com (mail.hallyn.com [178.63.66.53])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr2-f33.google.com (mail-wr2-f33.google.com [74.125.225.97])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D11A754707A;
-	Mon,  5 Oct 2026 13:09:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=178.63.66.53
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 48F7848125E
+	for <linux-kernel@vger.kernel.org>; Mon,  5 Oct 2026 13:09:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.97
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791205770; cv=none; b=Vsv60BrOXIwe5P9AqzfZQ20S7Wd1xxxE6w7qPCd6ocEWjsC9Vh9CQS/rSMMP0YAYRbCmGGIW1MJ1/wJ2acq3Gmj1V1JZFvkGwHU36hKtcdgoRPEaRey5kFy+fa1ihUECn+tWe2Y5q5tiyXgrbVM63lO9dCg+9VCH5WRDoPj2cS8=
+	t=1791205796; cv=none; b=nCb9Mn2zNcwshrMTqGJOvBGKW4PpIDfmzjpZ8xs4ofY6gQSBIcHCD3B6X/sXMAhrSQogqMFUbqszukCEtk22hklB3KdSaXYJTJMfZp6p+aOPgW0ljtqYVXLtaQ2TYaWYoR/rsthVik/pvk8gvMz+ErXlf7WBm4cwSXItIAIYWkk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791205770; c=relaxed/simple;
-	bh=H9zE4uvfn8C1W52XUXt7b9IG3lDap5iEdUSer6sY4II=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=uDwRPOxmaEn415T26PhcRPky6Zst7E4cPsnIgRvE92jRlP/GGQ858p2MXrzDxJUtMIebGv3J2CnwEUo6AdmtNAEqs5O1FxOXPRHCwsFuD0lRIA0kdqHkCJsFz1lZXwjt5kIOjUBRhiug/lDN36oba0AgHxYaToRXeHFxR04uMYE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=hallyn.com; spf=unknown smtp.mailfrom=hallyn.com; dkim=pass (2048-bit key) header.d=hallyn.com header.i=@hallyn.com header.b=flXsFurU; arc=none smtp.client-ip=178.63.66.53
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=hallyn.com
-Authentication-Results: smtp.subspace.kernel.org; spf=tempfail smtp.mailfrom=hallyn.com
+	s=arc-20240116; t=1791205796; c=relaxed/simple;
+	bh=eoF04e7AXzXrtoHA5vbEeVEWVJAtxGhk82/yPBy1wzY=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=Mhxi5dHDj8Zg3KoFgS5snULvDxPzoa7TPzKlGct51AbkqpsrEV0mjXI4s+VqpDHKDHbmzerWBumBjPKvogqd2cWxIFmw1fkIrvNv7YkUlL3F3bl4OjCMWvqoOz8DTFnDy/9gkLdvUPwSMMRhxwTxQcO3TbPgchrOBJPAfMffhtc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=KOqe364O; arc=none smtp.client-ip=74.125.225.97
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=hallyn.com header.i=@hallyn.com header.b="flXsFurU"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=hallyn.com; s=mail;
-	t=1791205764; bh=H9zE4uvfn8C1W52XUXt7b9IG3lDap5iEdUSer6sY4II=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=flXsFurUJ9ftkBREpduIIKSrgQWqzZkWIlwM5OU3d69/8exUdPpzgDfrBRcg6YQR/
-	 MV6LzwU38tKVK17zLuYAZ1JRAaTZteOttOsxrtG7qa2Q2OCsVemxEKWoFC4/Atz1MF
-	 slnWeqmqn73TCrRVaCe6xLbncmQadPHIIWPXT8AFB54Vrp7uaDisIDbpzl3fpCeF5M
-	 psXkdU2L67RxT2yHTw53Vs7pFdDb/eHQ7h4uTUB7pPoVeJA2sH7b0Ii8Ld7iUsFDwn
-	 hrF0ZHFKoXWbpC+rb0/XB3HkqF8WYoBK5F3Dx8R6V801dG74x6St9R8wBHvrL2oK05
-	 D8aDtgBzKyauw==
-Received: by mail.hallyn.com (Postfix, from userid 1001)
-	id 7D49A5A9; Mon,  5 Oct 2026 08:09:24 -0500 (CDT)
-Date: Mon, 5 Oct 2026 08:09:24 -0500
-From: "Serge E. Hallyn" <serge@hallyn.com>
-To: Jarkko Sakkinen <jarkko@kernel.org>
-Cc: keyrings@vger.kernel.org, Jann Horn <jannh@google.com>,
-	linux-kernel@vger.kernel.org, linux-security-module@vger.kernel.org,
-	David Howells <dhowells@redhat.com>,
-	Paul Moore <paul@paul-moore.com>, James Morris <jmorris@namei.org>
-Subject: Re: [RFC PATCH 0/2] keys: Address lookup_user_key() mutability
-Message-ID: <asOhhCION3dwTAo+@hallyn.com>
-References: <20260924055521.1981957-1-jarkko@kernel.org>
- <asKSvjz2YLZhFI4t@kernel.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="KOqe364O"
+Received: by mail-wr2-f33.google.com with SMTP id ffacd0b85a97d-48b9d8056d2so971735f8f.1
+        for <linux-kernel@vger.kernel.org>; Mon, 05 Oct 2026 06:09:55 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791205793; x=1791810593; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=Ck/YSmwX+BAU8aauMUDi1gthqNGVLuO2QlzjEMLfeNg=;
+        b=KOqe364OWGyyi3FmB4T4oenpfXYZ5MiOUa61Jz3tXAJpUuKYOodV7PJIPKIptSMpXR
+         oTc1AsvNXGqdbe9VHi5yXb8Wa3hbuu/A+C18h60zbjO8PZEYtOdEEuLdFq6KyCe3A0sM
+         ACSArm0h305Ubopm4KEHI2azuzliyVqnMmr5Df0gJWNxVH7IzxGnXNYahxBDrlThPnLE
+         jqcjMXRJZ8Qm2DoN7HpqDQeo9h6js6fcLBOXhFV0VsWVBGFKXk1KUGGw3/evdPxGd/gZ
+         oi0MzLb5dQSd9mf4fUNpeV+0jeY7PxNLNwx81tcjz0JV0OyzixXk5VXDROz1lEDionGo
+         qEsg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791205793; x=1791810593;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Ck/YSmwX+BAU8aauMUDi1gthqNGVLuO2QlzjEMLfeNg=;
+        b=Y8NcIrG8Z9rhuXs6vCAjBL1nBTZEv1E07M/vIf2/M3hXEcYho8YSCNi4pc8OHFp632
+         988bAwRgu3XhDNOW8GyHxUuEXXlYQRGEXpZOhoMOtdgG0xVEv2oim6Dvl0OnvLe8aiKX
+         ZT2A8YXo0sNAKkrWdFhNXDdjaZcag7jFa1g4liVnUoIvkS+reDtWz8PwMBIDBq6Vx3SN
+         P1CCzezuO8sgkZOwo7+J5+w5Ei7KhbTNs5BCwjmn/9DPZa5GVNFmshAr4izR5uZFW+gg
+         SMZy+WwKkyuQSmLUcbsJkC9biY7Vz/wYi3+V/WAgasQtOR/tuloDiz5vs0gBq0ZeXefd
+         PjdQ==
+X-Forwarded-Encrypted: i=1; AKwUvBz/xHfzAQyV9wwKn7L7l3Ywux/4Z2Sd97cNOQLkL6q4iAr3rfebOwZQFF5E4RK03WDfFowZZCHnoODshwQ=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJJNAdu+QVUgZ0kvfCIpLgKhCa4m0at2z1t8JSMIlS5gQwitKD2
+	DpSw5kkz/+fvXsWMtKhVWynfrKuA6EOLPKC7lJ04ZvEqCmgEC1EX7mEU
+X-Gm-Gg: AYBFou0wqjj3nJri2aM7FQEXvet0hXKgJaRwwMvrwBEvscxqTXqyOVgbi23Vdhf51yS
+	lk3jWtKAtN4tsaGTIRPo7s8HiXCaOfSb5c1HF+RHav91YApExstjsY1l4UzXaA7vBn4tOaSx+wY
+	pIGlSUcYYDitoU7VNJVwqc5oAQOkEoqiL5QemnkCElVZb96LrDuESJdPDf5eB6Dodxo1BlMh6xk
+	tlmVwPrrhyAtaCMafBQ8H/krmC94gtTWicFqLiwnVUVd1lbeQZeWr6UUeC0ep8T/pKNH0vLJ6Qt
+	G4x0Y1oWLX4WPbTbxeTjwSLu9hCUJ2wP53mDGgUgtqj303Q5izb7o3ab1OeI+friqe15Imud4AA
+	CibxjKT1hyhUGq71++fN/O2JNnV41+/lmjdkaDbMGkzh9PcDAlgpcKLersY4OFRVDkY8NyrmLrk
+	gAOqKdbOF0j3GEWKwLuhVJQxdxarI7CByRkJaS+MNWRGiYLUvoVXJ5qLqsG8g0JIhf9eq3fzEaV
+	fzFHfeQjmxPxvlQ1btT9OJvPqTiLSYizdQp9zPpeK7zUSsLZrZ2ufmqyzAmH4Prbu4v3q4N+TO3
+	IQLRqp9T725/dL3ughFUnt6q9q9FtKaDSsLh+FBxzTgbI1LQrhNK7+BTRDWZIg+jaUMKLSjENA6
+	2oDXfzZSH+S9psWM3mwx5j4PNz8XaqaOMinsSlAqQ/H94vjxIK1yRN3YPM2AMVTh4eXtTWVkXsV
+	Tc07CR7ErgoayDHyI=
+X-Received: by 2002:a5d:64ca:0:b0:488:83f7:6352 with SMTP id ffacd0b85a97d-48b126f542emr19074352f8f.4.1791205793268;
+        Mon, 05 Oct 2026 06:09:53 -0700 (PDT)
+Received: from localhost (90-182-112-124.rcp.o2.cz. [90.182.112.124])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48c6228d716sm3851685f8f.24.2026.10.05.06.09.52
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 05 Oct 2026 06:09:53 -0700 (PDT)
+Date: Mon, 5 Oct 2026 15:09:37 +0200
+From: Joshua Crofts <joshua.crofts1@gmail.com>
+To: Dileep Kumar Nagavarapu <dileepkumar.nagavarapu@amd.com>
+Cc: Jonathan Cameron <jic23@kernel.org>, David Lechner
+ <dlechner@baylibre.com>, Nuno =?ISO-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
+ Andy Shevchenko <andy@kernel.org>, Michal Simek <michal.simek@amd.com>,
+ Conall O'Griofa <conall.ogriofa@amd.com>, <linux-iio@vger.kernel.org>,
+ <linux-arm-kernel@lists.infradead.org>, <linux-kernel@vger.kernel.org>,
+ <git@amd.com>, Sai Krishna Potthuri <sai.krishna.potthuri@amd.com>
+Subject: Re: [PATCH v4 10/15] iio: adc: xilinx-xadc: Add clarifying comments
+Message-ID: <20261005150937.000044b6@gmail.com>
+In-Reply-To: <20261005094205.1045874-11-dileepkumar.nagavarapu@amd.com>
+References: <20261005094205.1045874-1-dileepkumar.nagavarapu@amd.com>
+	<20261005094205.1045874-11-dileepkumar.nagavarapu@amd.com>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.51; x86_64-w64-mingw32)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <asKSvjz2YLZhFI4t@kernel.org>
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-On Sun, Oct 04, 2026 at 08:54:06PM +0300, Jarkko Sakkinen wrote:
-> On Thu, Sep 24, 2026 at 08:55:16AM +0300, Jarkko Sakkinen wrote:
-> > The main objective in these patches is to remove to unneeded mutability
-> > from key look ups. It does harm and brings no value so it is pretty obvious
-> > to me that addressing this harmful behaviour is what we should do.
-> > 
-> > I based the first patch on what Jann suggested in [1]. Nothing too clever here
-> > and I'm ofc open for further suggestions.
-> > 
-> > [1] https://lore.kernel.org/keyrings/CAG48ez0XjVSR=M--UBauTm8sJuc+ZbhKzaPa3a6wrSVHyoKevw@mail.gmail.com/
-> > 
-> > Jarkko Sakkinen (2):
-> >   keys: Return user session keyring on lookup
-> >   keys: Reject keyring creation with overridden credentials
-> > 
-> >  Documentation/security/keys/core.rst |  7 ++-
-> >  security/keys/process_keys.c         | 65 +++++++++++++++-------------
-> >  2 files changed, 40 insertions(+), 32 deletions(-)
-> > 
-> > --
-> > 2.47.3
-> > 
+On Mon, 5 Oct 2026 15:12:00 +0530
+Dileep Kumar Nagavarapu <dileepkumar.nagavarapu@amd.com> wrote:
+
+> Add missing comments on struct mutex and spinlock_t in struct xadc
+> (per checkpatch.pl), and explain the non-obvious FIFO-drain loop and
+> Zynq alarm-bit reordering logic.
 > 
-> So.. should I move forward to with non-RFC v2?
-
-Patch 2 absolutely makes sense, "doc, it hurts when I do this", "don't do
-that then."
-
-Regarding patch 1, that seems like quite a change in behavior, right?  I
-don't see any docs or comments that promise the current behavior, but
-has any userspace or subsystem come to depend on it?  I guess that, if so,
-then it just has to create a link to the user session keyring like pam
-(according to what I've read) does?
-
-> Note that some tags (e.g., Fixes) are missing simply because this is RFC.
+> No functional change intended.
 > 
-> Br, Jarkko
+> Co-developed-by: Sai Krishna Potthuri <sai.krishna.potthuri@amd.com>
+> Signed-off-by: Sai Krishna Potthuri <sai.krishna.potthuri@amd.com>
+> Signed-off-by: Dileep Kumar Nagavarapu <dileepkumar.nagavarapu@amd.com>
+> ---
+
+LGTM.
+
+Reviewed-by: Joshua Crofts <joshua.crofts1@gmail.com>
+
+-- 
+Kind regards,
+Joshua Crofts
