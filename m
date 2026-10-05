@@ -1,122 +1,97 @@
-Received: from mail-yx2-f0.google.com (mail-yx2-f0.google.com [74.125.224.128])
+Received: from mail-dy1-f169.google.com (mail-dy1-f169.google.com [74.125.82.169])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 75F424CDA31
-	for <linux-kernel@vger.kernel.org>; Mon,  5 Oct 2026 15:59:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.224.128
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 153EE49E12F
+	for <linux-kernel@vger.kernel.org>; Mon,  5 Oct 2026 16:00:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.169
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791215970; cv=none; b=uZTMVqebhuUPBIlPY6SS6zcPaPezE9B/8ozWJK+tKK2Xk7jP+cLzQSsEAENWhCxIkQIFj14JCfqfBw7qVy7L1hbnJRv8edJC6swvq4MGZYKl3dqfaRLICunPPbM0mfiOyWI8pF+dzI4uxZkntZiTu8MViO0xegQF54L/j6S8vQg=
+	t=1791216048; cv=none; b=IfECb2FH63F+3f3xvr3GXkLrjFAFSRZ45bSbPDv0sa7pnqrmoKLFsAahbwLFs85A1WJhfAV+dIMooWbTKUaUgEjRTt960g3zreUXeM93lXT0gv47VtIuFq1piS64oqQQN+n/5LDz/lJ+wXkNA5i6BbYUXfae+e5cZrX8+wYJTXg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791215970; c=relaxed/simple;
-	bh=c3qxAorHfh38vflfMPUBH0Ur8Gz0Oqq0Sn71Zrw4KYI=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=f2m3JYctWpGcthkXfCIDqzyBELP3CKesd+Ckp926ZbD3I7MHiPThdX43NZ8OIEFd3pPmBnFBU43T8AuD+Gb7vPIqMbrHC4RnHS5Xd3BsP2uXW8gjRe9X8mf3Z+Dg+mWHj8dlQnjDm1DjWeI9nHesexg4ejpx6gyMzV/M8CajBgA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=MDWMIqrP; arc=none smtp.client-ip=74.125.224.128
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1791216048; c=relaxed/simple;
+	bh=vDhcoDs+++6jTpDcE7yfejhS5W0hL1Wy+TM5R2LXN90=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=EzA5vUI4BWfkj2wAgOCosoratG3ud2y6HxWAbKvCsYwpOHPmDmk71dUkLtnVsQBuP1bDxbaQJfnueCcsL3Wj1vKP0Oh5qF6SWGKBcyUwrk162blBXArcgUUBkO9RwnyH0iQ0ZBTsq+0aIkYoXK1QnCWTpdutghZzwjgCeSgOrts=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kernel.dk; spf=pass smtp.mailfrom=kernel.dk; dkim=pass (2048-bit key) header.d=kernel-dk.20251104.gappssmtp.com header.i=@kernel-dk.20251104.gappssmtp.com header.b=eEfYpAvr; arc=none smtp.client-ip=74.125.82.169
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kernel.dk
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kernel.dk
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="MDWMIqrP"
-Received: by mail-yx2-f0.google.com with SMTP id 00721157ae682-8ae7b865b4bso6466377b3.0
-        for <linux-kernel@vger.kernel.org>; Mon, 05 Oct 2026 08:59:29 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel-dk.20251104.gappssmtp.com header.i=@kernel-dk.20251104.gappssmtp.com header.b="eEfYpAvr"
+Received: by mail-dy1-f169.google.com with SMTP id 5a478bee46e88-351224e684dso2435800eec.1
+        for <linux-kernel@vger.kernel.org>; Mon, 05 Oct 2026 09:00:45 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791215968; x=1791820768; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Ee5rySe2ispQ9mLUw+vla1nzkwDJ4O9A8IBEsYRC2hk=;
-        b=MDWMIqrP33x78/GSVamq/u6qrR1gspN1BSGu15mQgrgvleWyfyJzpuD30+UjywurMU
-         KZzWX/8eIaLnCFAEctNMmi30L1uKhmnIVVNOw1NFUGMfjXu5y7KoZL+T6zFPE6EadCXu
-         oHQq++I8LA5g2SfHc2vojxFeNne5hmZKNMV6BVLquAn28EzCNsiAoo14A+wcjSsWf7C3
-         9vae331YSZZ2mq8XzoA04J256uju/B0w6yIB/QGUQax9wYu7kPKki0kGfUenG9DTedKQ
-         qX+8+lPy4aQx9Le1tTSJt4Z2QAaFzT8hS5It9DxPRoMOVNvSF41BYEH1mRgmRod85uOt
-         d3lg==
+        d=kernel-dk.20251104.gappssmtp.com; s=20251104; t=1791216045; x=1791820845; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=blKtgKABl6ZvuHILCmQEnw5uMNFlpnL4aOfuP1Zm1FA=;
+        b=eEfYpAvrFe5q7W4/WjtPBP5qpKqNCdG7EOoiYpWfudbTXKNk7TG+6Mehs9K6CGL9b7
+         weg9ObWIbWRSTfSdrBBe59zVKdDII8qCZhm12HigXbR6sBF3nWMPOphFP0b52dXMejN/
+         f1xzv61undV3xeIbq0xeWKFbqxlZDxC2iYZA3wIVuL/vjCD/ntJTkoBD1qLC6cR+5/ia
+         BBfBjjqMbNXErnARyAGjcTRvzoy5UNt8X956QQU0s1vg3nTeu61XJneAE4EI7xjHR1Eq
+         8x78gT+rlhGB6aqgB2LnnKbD2jzEbfH1S7rGcZzlVhrZiFBiXN2P7R73mvsB2Cs5CozK
+         0YSw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791215968; x=1791820768;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=1e100.net; s=20260707; t=1791216045; x=1791820845;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=Ee5rySe2ispQ9mLUw+vla1nzkwDJ4O9A8IBEsYRC2hk=;
-        b=Y8NJaKqIw0KKXf3ETSMfHvoUIT7pfhgUaUzI4Fdy+JE1HsVglzuZDOuibvQfqjiqbw
-         iA5EntBbOPaI4PbztFkHwLHlo+mWS20m+JT99GqnYjdl/lD4++CDB4NIDsf+Bax0BTPN
-         X/FWDOPgDLyi2eLtGUakUl1bmPT5MeMN94wTfHoSlOVR6SYjrvoKQJm2qBk3dO4KW4Vw
-         RpcBC/lwT6OgggjYg/GPq9xhN4wgZeSuN21LCQ5Ku7l6608fQKWCiArdUOlLQwh+Tq6T
-         HL5S7LrLFHpQTxXBEf7VGDDKOPFFqXUuAbE06p5lG5jOAdfihxKNMTxSOv19Pjdi8knJ
-         gBbA==
-X-Forwarded-Encrypted: i=1; AKwUvBxLY8bMN/x1aKrVPn7qLWQDWo5NAfaqEjCvmDXQy5AXF9xHJUQ8TwFeS1fuQMJRDtsN13vffzvHXfmiIkw=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLl21HVPqHztq2FZK1XJa49ojX4HJHbLdOjP58feheaaslP5nwX
-	XBx6B/QJ2Da2im12ACD4mXtAyfU2FnKd1shVoFRpNgykYZa6eYlE7edP
-X-Gm-Gg: AYBFou0Qsli0KEvVAXpqUnmgh7DrjS19bxXDwwJflMxM2LMKKwpLzHVuc8MkVqW2Lmq
-	9/McZHmQTCPvu0XE3kz1XyupzyCM168O5BXPCqhWPsqbrn/zJGP9QMGQJCJFlhY5m7gUimmeuif
-	2N6Pu1l//uWJ9HGznFrmUSIt2Opyo5J/O04S6ucYSUG357qrDQlXtI976mS3L+tupQj8h4ixf1v
-	w0mnlzhL4von5RBa4yESNVcI6TuCURSL8KymHBKH45B0Eavar7ZYiECVpvsp3mpShFElpYO9BQN
-	aP3d5Z+g1wwqR0vtMcETMZ9Vqc7fnXX3cPSj/EZMptW33xgNxtkco56EnJAexH10SH4QemJPjj7
-	Hv63gFyDDJoJMAcwPVPt4R/sG5BXD9Y1wr0sDMZkVl1oXi4vqLLmVuNknZo5dFSG4wMK5VV9uzC
-	5VEjeLT/dyNWniRfEPqQYZILfsgg1AepXEWmnAEc9z582eALkd5fzM0RLb3qTsw5whJXA/OR8OG
-	+MIAXDNGgVX9FiuSyUWiTkJ2rAcp08925lJw28t1yhKUFGOdrn4
-X-Received: by 2002:a05:690c:113:b0:8ac:42c5:a7b7 with SMTP id 00721157ae682-8ae39bd9f85mr47899477b3.39.1791215968309;
-        Mon, 05 Oct 2026 08:59:28 -0700 (PDT)
-Received: from Xinshengs-MBP.attlocal.net ([2600:1702:7d20:7d20:edd1:61d6:442f:e3ff])
-        by smtp.gmail.com with ESMTPSA id 00721157ae682-8ae8a2d41easm33779167b3.45.2026.10.05.08.59.27
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Mon, 05 Oct 2026 08:59:28 -0700 (PDT)
-From: Xinsheng Zhu <xinsheng.zhu.ny@gmail.com>
-To: netdev@vger.kernel.org
-Cc: linux-usb@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	andrew+netdev@lunn.ch,
-	davem@davemloft.net,
-	edumazet@kernel.org,
-	kuba@kernel.org,
-	pabeni@redhat.com,
-	rfiler@sierrawireless.com,
-	epasheva@sierrawireless.com
-Subject: [PATCH net] net: usb: sierra_net: reject short firmware attribute reads
-Date: Mon,  5 Oct 2026 11:59:20 -0400
-Message-ID: <20261005155920.27735-1-xinsheng.zhu.ny@gmail.com>
-X-Mailer: git-send-email 2.54.0
+        bh=blKtgKABl6ZvuHILCmQEnw5uMNFlpnL4aOfuP1Zm1FA=;
+        b=EHF+M4htclW+me0T6/GHHy/l8lSxhp6W4iXfqJUdxqdczA5u5Ub0TxQeeFQF4Y6omg
+         vfnXb1Dh3pcUQWdsNf3selanlGy6j1ZRJiXw8b0XogkCRQZNGvNsMT5gGPJInr79zVvG
+         DdADARe+4iEfuIL4xuZqXQUQEpQbr8J43yRs4vYFki0R+kFi0Ey72nnOvTIscnv/qz9D
+         mrJog9yrkPmzDOry8VLpTG3QupFTRxUv9Uim70ON1Q+WXmjDZRw2otHDRed+ZYMaoFm/
+         Ejzk6gHMDs3CWcv63GUn8hq+jTgCRpg4zihsUaRnNGyzdHdLX92vb0Cg4nOA/aGDGYuE
+         SPbw==
+X-Forwarded-Encrypted: i=1; AKwUvBxrtwcbZfk6TDkONTA6dK5dTQefRX1Qiw1jR44Y8DQIncbyj/85TWQFGqeiemDTJ6IU5w8qqFiN/sSZXJU=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJjA5HfERLlWNIjwX+YvjL5jlCxlSmBv1/tuVuNmwVKp+lPHfl2
+	gW+QqUYrgETb3EmMg82YIUVoQ6r6pGiDejmRK4jsQ9zTsXocSxxSqMp1Std7n4ZDOHhOeaPaqYJ
+	DKKhYH+E=
+X-Gm-Gg: AYBFou1zMiVQFiRsYZR8UmxVuU/rSpt8TffPm2ifjiTvqHgMEPcZM/kBc+KBAc4wKYJ
+	nDdgRVX1vU5yl+2vCvyR7TyhrvbQwkKp7bgCkzAeu26xll1ro9YmpnL6Udg63CbP4E9Wu0kDEhl
+	cCPSX/T7QRpcwtgLMmHNjbZBP54wkGQ5s7GMIF+VkDg+AtNI9lpBT5teSwyVLwdqPvNDWr+ynsf
+	jjFDLHo9/CgiPSoMnI9qpApIVlEOWc3RFgP35yyS1VJOzgDnK1nrp79qGKPrdjsvZG6cD1dHnub
+	+egneHqb4rIX4jG3aXApmW4ssZ4LLXHfX/CJbl1EPgMj7ub2++eof6Zyb2WbhkbvzdEoz79Vetf
+	ZqKz39Iu/711TjTRnEc90SHxRPQeHTWL7e/7zImJn4cYeOwb1zSGCJ8fOG4sUoh951gP4cn7pOa
+	lKwMDj4EkCZP4wsc/MLOWnZFJ6o5RyWgVdcNmlS2hQ7fvyrmMNEfGoKcGdSw8fiF17wbNlgI96b
+	lAHrGqqqp/poauMnc6aRHk0KuvpcqxG7/cYem4oXbYibzVfQvggaQ72rQ==
+X-Received: by 2002:a05:693c:41ca:b0:351:2cd6:5857 with SMTP id 5a478bee46e88-3512cd6593cmr4959516eec.27.1791216044630;
+        Mon, 05 Oct 2026 09:00:44 -0700 (PDT)
+Received: from [192.168.1.106] ([198.8.77.135])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3513aacb39esm6290694eec.14.2026.10.05.09.00.43
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 05 Oct 2026 09:00:43 -0700 (PDT)
+Message-ID: <c2f6dc35-2f75-4c54-9265-8a18baec9f4b@kernel.dk>
+Date: Mon, 5 Oct 2026 10:00:43 -0600
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [GIT PULL] Floppy fixes for 7.4
+To: efremov@linux.com
+Cc: Karl Mehltretter <kmehltretter@gmail.com>, linux-block@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <348194a3-e542-45df-8be9-eaed588c07a7@linux.com>
+Content-Language: en-US
+From: Jens Axboe <axboe@kernel.dk>
+In-Reply-To: <348194a3-e542-45df-8be9-eaed588c07a7@linux.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-sierra_net_get_fw_attr() only checks usbnet_read_cmd() for negative
-return values before converting attrdata and storing it in *datap.
-A zero-length or one-byte response leaves attrdata wholly or partially
-uninitialized.
+On 10/5/26 9:21 AM, Denis Efremov (Oracle) wrote:
+> Hi Jens,
+> 
+> Floppy fixes for the 7.4 merge window, based on your for-7.4/block
+> branch.
+> 
+> Please pull
 
-Although sierra_net_bind() rejects responses of unexpected length, its
-dev_dbg() call uses fwattr before that check. When the debug message is
-enabled, the incomplete value may therefore be used in the debug output.
+Pulled, thanks.
 
-Require the return value to equal sizeof(attrdata) before accessing the
-buffer. Return -EIO for short reads, retaining the existing handling of
-negative errors and leaving the output parameter untouched on failure.
-
-Found by manual code inspection with LLM assistance. The issue has not
-been reproduced at runtime.
-
-Fixes: eb4fd8cd355c ("net/usb: add sierra_net.c driver")
-Signed-off-by: Xinsheng Zhu <xinsheng.zhu.ny@gmail.com>
----
- drivers/net/usb/sierra_net.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/drivers/net/usb/sierra_net.c b/drivers/net/usb/sierra_net.c
-index 4d3ed642b3e7..95668a5ccd5f 100644
---- a/drivers/net/usb/sierra_net.c
-+++ b/drivers/net/usb/sierra_net.c
-@@ -637,7 +637,7 @@ static int sierra_net_get_fw_attr(struct usbnet *dev, u16 *datap)
- 				sizeof(attrdata)	/* __u16 size */
- 				);
- 
--	if (result < 0)
-+	if (result != sizeof(attrdata))
- 		return -EIO;
- 
- 	*datap = le16_to_cpu(attrdata);
-
-base-commit: 8b4e7209c842d8cb9516f1f5ef0a88aa2d8831a6
 -- 
-2.54.0 (Apple Git-157)
+Jens Axboe
 
