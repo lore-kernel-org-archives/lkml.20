@@ -1,227 +1,169 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.10])
+Received: from BL2PR02CU003.outbound.protection.outlook.com (mail-eastusazon11011026.outbound.protection.outlook.com [52.101.52.26])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 89EFF377A98;
-	Mon,  5 Oct 2026 08:04:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.10
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791187473; cv=none; b=hgDgT/ijxfrJlZS+8g+mgrP8txESCr+9OaqEkkbhUolwqMo0DhWMbzyZBeOeJz0IOkZwzBhsZNSK3okvuc986ClfkHstWMNaet1izXD3bn/ZK4EixKI0+bVfi6v9KhorucxVteIygddoOHGJSLRWp1Z0WJsbNKzaxzFKcCKnbww=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791187473; c=relaxed/simple;
-	bh=7wT7934j1TSOaCku8BmhYMvBfKvbPNhN2Nlt+rexYZA=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=fKnfgCJg0Po8pskwjlPOKyRryiI9PzxaJ2La6Pn/hRNI/rSi2lWsNAGozXcoFf8ONawIy70iFAUzJRbv0PFdrNSxBZz06ZnxdKzJgi6sQYCq3L1dpmV8GD7YgdNyxZFNOGjhs+ihENb1xLMlD2izK3hhdytfIgLVBviPmC5rg+o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=n1fHEb1R; arc=none smtp.client-ip=192.198.163.10
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A6E4737F8C0
+	for <linux-kernel@vger.kernel.org>; Mon,  5 Oct 2026 08:04:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.52.26
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791187475; cv=fail; b=O9E6XHkq3SwpMWmDK10toYbQeZmcM6CvcCGyFyxuIuDCRyv6gbzQojiTyfO5ms9q6uCdPu0k0CONJeuX6A0rAMHHjp3Hjt3lUou1gOLm09W+lgKFjDlBlo4QzDnVi+uJ6z2ZW1Z0yfSi167VxgO+u9aC46zwwkvHG/tahFlqUik=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791187475; c=relaxed/simple;
+	bh=zrX/LrXH9AN1O8cl5R8FjwejKseBrNn37CbUokDDZnQ=;
+	h=Date:From:To:CC:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=BxavtNwzElsQoUfL+1oiB/RUJLT94V50P6W46kJeT2tH30gwLow7r4UemWpB8eXu+TuZCc8CSszeahxypPmduxg+i214cangA84whxIDG6k2LTdI6sUbVWL9OY6ntwDSh4TXoi19LMmOAt6Ku3IdqvnbBcOc8xGuqWbbMi+EAVU=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=VJvcVdZo; arc=fail smtp.client-ip=52.101.52.26
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="n1fHEb1R"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1791187470; x=1822723470;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:content-transfer-encoding:in-reply-to;
-  bh=7wT7934j1TSOaCku8BmhYMvBfKvbPNhN2Nlt+rexYZA=;
-  b=n1fHEb1R0IEbKxOwUSkgv0lYiEV33P+bICdAshYAyqvZfZc/EEps2IJz
-   31SMtNfHkTHW6LI1N5hcKD+0kr+oI5ryJbbn94sNxj99+62Csh+Xy5b9o
-   aiZhS1EAbYyj46KzRPS1NsrnrBqkB+OxRUFYmAd2bAsE0Bx4twxlIjhig
-   yj7tH8FKbaLfJ0R3fiXb7G9J4Ys2Ne6LPKYGPLHo5tV+f1/airvp0JM5Q
-   VRJtigW8U8y1WlfN0DWUqch2lkndRuxX4z9qR3usmkMJFQrfoj8InIFcv
-   jhS6ig26Gl8Ee5vON9qwpohpj9KQh67mI+p+Q6a8mDp3VaXYYeAC6FAbc
-   w==;
-X-CSE-ConnectionGUID: vuiGB9upTTKdkWy+KxAxaw==
-X-CSE-MsgGUID: lOpi+zocTPKmHWqUA+VsFg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11925"; a="103223469"
-X-IronPort-AV: E=Sophos;i="6.27,141,1787036400"; 
-   d="scan'208";a="103223469"
-Received: from fmviesa004.fm.intel.com ([10.60.135.144])
-  by fmvoesa104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 05 Oct 2026 01:04:29 -0700
-X-CSE-ConnectionGUID: pKXV3LKKSXSOfIuyMGLl9A==
-X-CSE-MsgGUID: jjFytUrmTTa89sfSXPDbWQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,141,1787036400"; 
-   d="scan'208";a="281519374"
-Received: from ettammin-mobl2.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.245.157])
-  by fmviesa004-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 05 Oct 2026 01:04:27 -0700
-Received: from kekkonen.localdomain (localhost [IPv6:::1])
-	by kekkonen.fi.intel.com (Postfix) with ESMTP id 15D3711F817;
-	Mon, 05 Oct 2026 11:04:28 +0300 (EEST)
-Date: Mon, 5 Oct 2026 11:04:28 +0300
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
-From: Sakari Ailus <sakari.ailus@linux.intel.com>
-To: Robert Bozik <robertbozik@gmail.com>
-Cc: linux-media@vger.kernel.org, Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Antti Laakso <antti.laakso@linux.intel.com>
-Subject: Re: [PATCH v4 0/3] media: Add OmniVision OV32C4 sensor driver
-Message-ID: <asNaDFhUmKwjs04o@kekkonen.localdomain>
-References: <20261005071010.7191-1-robertbozik@gmail.com>
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="VJvcVdZo"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=rycMyIwcJhwr1i9tKpigTT+gF30xGLNiu3akbNPLPk235reH/gm6gCW/f2EHSqq1lnFEolOR3yd6QbiPSadTM0X6lA/oSJNg8QTBoSL0rMY7q9sOM1auL8xy0mo7wmNWP5DLNTJW5+NBfL0UeRYvjdlhq8HK9pfLYLL3Ue5BkAcddGmZbjzJj6PGDetXTYoA5bmD/h+QfufewsjvxweVxcO8H01kaGkr4uZMTl+E8tezBcL/h2NeXOQrrAkPXnHhrid5NoY/lvR2X8yBldVxRr3GuTfRIOAxgkE7Tnt+9VfNPwfl6nYnzRVHaCpLxW+FraTPNteJiDTJ18thkU+gzQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=nQz8/7jYTlHKAWffAYjvWg0CyoS3MV+rOVYD4VncWd4=;
+ b=Z1mFDoLZyzJGDMIBFjAAF8nCBiYuHUoBUWPavhzjFEAj1otT7N0r1twJzr91AecGgLPsiBv5zPHC+ONvoAPzeQZHe8w1fzpIEwViDQnBt+Q1mESs+jFIZEtji67FOiGQRhDuYS8LDpNb/gzd+VMJh+QRzi2XpqkNIy8cZHnIa76pxdWW8Nastmsr7nWmLuZ0SGz26Rpbvo/lch/OwdzH13xfBQli4D1sUQQmxLTiynZ0sxAQYEgq/KkqmEfIDn/UYi9eTzsxaQWFzL0QH0NqqQiwtbpqMWvH+oe2qnfmpPX5Rt1EYGWr2v97Vv2uHSscx8q+GGevVCLqH7k1CXVBlw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 216.228.117.161) smtp.rcpttodomain=kernel.org smtp.mailfrom=nvidia.com;
+ dmarc=pass (p=reject sp=reject pct=100) action=none header.from=nvidia.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=nQz8/7jYTlHKAWffAYjvWg0CyoS3MV+rOVYD4VncWd4=;
+ b=VJvcVdZokBpWrqB7Z/y6JOfZcFmkn9T736pJGqoAzubCA5Kw3Kez2SHzJbj7UHBiYcgJpVIp8m36+zJ9iy9L/NH5aI/CSgl5sdlaVum3XevvFyWXUutYseSg7KvejrO6DCjpnDtiVhwCH8tUHeeLkgeKEBTegwT1RCHLReklFWR3jbnoI8tFNHrJ6ZbTRS0vFroQ43tIF9UFXtMtIEQz8j0T++eUY1JpMNoRcTid0Fl+aEmw8WrR7LVd9LXCqYwgUYDmFlArG5u0RwT0whj8Ke+Fcdud+jhPZVCz5S+JeXFMaha4ozzZToaXdcAbuDLRXnpIxeycL27iNT7tP+KKBg==
+Received: from BN9PR03CA0402.namprd03.prod.outlook.com (2603:10b6:408:111::17)
+ by SJ0PR12MB8138.namprd12.prod.outlook.com (2603:10b6:a03:4e0::7) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.24; Mon, 5 Oct
+ 2026 08:04:27 +0000
+Received: from BN2PEPF0000449E.namprd02.prod.outlook.com
+ (2603:10b6:408:111:cafe::8c) by BN9PR03CA0402.outlook.office365.com
+ (2603:10b6:408:111::17) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.472.20 via Frontend Transport; Mon, 5
+ Oct 2026 08:04:26 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 216.228.117.161) smtp.mailfrom=nvidia.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=nvidia.com;
+Received-SPF: Pass (protection.outlook.com: domain of nvidia.com designates
+ 216.228.117.161 as permitted sender) receiver=protection.outlook.com;
+ client-ip=216.228.117.161; helo=mail.nvidia.com; pr=C
+Received: from mail.nvidia.com (216.228.117.161) by
+ BN2PEPF0000449E.mail.protection.outlook.com (10.167.243.149) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.472.14 via Frontend Transport; Mon, 5 Oct 2026 08:04:26 +0000
+Received: from rnnvmail204.nvidia.com (10.129.68.6) by mail.nvidia.com
+ (10.129.200.67) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Mon, 5 Oct
+ 2026 01:04:05 -0700
+Received: from rnnvmail202.nvidia.com (10.129.68.7) by rnnvmail204.nvidia.com
+ (10.129.68.6) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Mon, 5 Oct
+ 2026 01:04:04 -0700
+Received: from nvidia.com (10.127.8.10) by mail.nvidia.com (10.129.68.7) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49 via Frontend
+ Transport; Mon, 5 Oct 2026 01:04:03 -0700
+Date: Mon, 5 Oct 2026 01:04:00 -0700
+From: Nicolin Chen <nicolinc@nvidia.com>
+To: Will Deacon <will@kernel.org>
+CC: Jason Gunthorpe <jgg@nvidia.com>, <robin.murphy@arm.com>,
+	<joro@8bytes.org>, <praan@google.com>, <kevin.tian@intel.com>,
+	<smostafa@google.com>, <linux-arm-kernel@lists.infradead.org>,
+	<iommu@lists.linux.dev>, <linux-kernel@vger.kernel.org>, <jamien@nvidia.com>,
+	<kas@kernel.org>
+Subject: Re: [PATCH v10 06/13] iommu/arm-smmu-v3: Add
+ ARM_SMMU_OPT_KDUMP_ADOPT for kdump kernel
+Message-ID: <asNZ8HnRQnzIO9nZ@nvidia.com>
+References: <cover.1788130528.git.nicolinc@nvidia.com>
+ <d661395d986d3aa78af200f55e43740996ee8a0f.1788130528.git.nicolinc@nvidia.com>
+ <asJTsw-oWDlSqNa3@willie-the-truck>
+ <20261004163501.GB4064@nvidia.com>
+ <asK+GIWzXjwN3EaB@nvidia.com>
+ <asNE8YMbOUq0sncP@willie-the-truck>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
+Content-Type: text/plain; charset="us-ascii"
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20261005071010.7191-1-robertbozik@gmail.com>
+In-Reply-To: <asNE8YMbOUq0sncP@willie-the-truck>
+X-NV-OnPremToCloud: ExternallySecured
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BN2PEPF0000449E:EE_|SJ0PR12MB8138:EE_
+X-MS-Office365-Filtering-Correlation-Id: e3797b03-080d-487f-1971-08df22b74693
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|36860700016|82310400026|376014|7416014|23010399003|56012099006|10067099003|4143699003|11063799006|6133799003|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info:
+	C6pa6KPUQqUy43BmWx15JrTYI5NFUvW94ESBwApvapnUIqLCRwAgvxlyQ73ci7JXJQLUAWsm5dIbY9UtrwnRMW6DWyS4ZB4yravaXUsD43zV+qLZfB4Za5Ho5ZMFwQXWwLR4zEkQGU1DonCoYSrmAG1g+NB++E+UBfc4fErrc7w6grbAeM9w7jTXbde5F3j4mkI933WRTIRhks2sUpYiDqaHJ4OAD2+ebRooddimkv89Gjup4Bbt7WYtwr0DTw/5/VJASItpcqw5wKIG/iSs7wF5Dqtec0neDrJRMYaieJExGKEUOrasC47uuUJn2rvtr3YjeCVfORpxgfSEAVZ8cR0l/3+Rmd1UKYB3710LJZBTqGi0nyCzcVYyNmZDAu5hOgU0aL3MOeiFXMcTmmsGvI29spB5aGEGJ+K1FrhlbTXsf0ZNLm57CPC0+ryrg+aoHo0fJQcF4rLtEX1CyE1bmQ0wwMuIApRb1Cn3WlzPyvMryhZ7GlKFfBpkK8axdNYN9ogd4uNrhrhVECb6ztiSjoVcNC1ohn4K+YYOQFxSGDXN/ZM/AfHMsazEktIBYCFbT1sSGP1jn3svMveIyBFCYnICK3A1s9Wa4PZBq/NGSgzliA9i6ujnD9IeBhQ5umIxyzmE/zRaPkm+GrYOFxMCWUIQhwE+XURhJoLeOujifNDGy8uNSFmgrd4PWi3+LWR0Q0IiMg0VjDDAKpUhDCGYjg==
+X-Forefront-Antispam-Report:
+	CIP:216.228.117.161;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.nvidia.com;PTR:dc6edge2.nvidia.com;CAT:NONE;SFS:(13230040)(1800799024)(36860700016)(82310400026)(376014)(7416014)(23010399003)(56012099006)(10067099003)(4143699003)(11063799006)(6133799003)(22082099003)(18002099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	jWXtnhrMv18w7uCYpPbDVe883/Ida1DCb9BIen+GUV5U9A54bh7xp8YsWWDiZ2WhBKBL6PoYfatwQlWdoxIIFPCeHx0w71ZfU+jpQcrrPBw+5Fmg55K5Rsr8ey/N1DpPCWxhLuRAgHx7p3zIrKejvtEm5iVph5gUWUCTYavDJSvn/o4u5C+leL7xqLVmTcn2tUs2ZuZHxCRbW0+VHbHfff0+d3TLfEcL7rALjFtWdq6UrEVb/j2ENrTyepzC+XaYI3IxgkW1jdnzAw5O/5P1o61juTRYYEHoOWIHQfpOivTfNmJQs8qGYKJgV0uHAL7wV1uYVsJya2Bh/my6N2kI6xQMSCLX42AkP/PAWtLaVDHWYYrGb2tfsk++8uOiwrGtc0AcQ5pHE0PzGqeQdQ7FW7CQvexSj+SPEbJWA2QREQIyA26wO7nnzIv7mz5cmvNo
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Oct 2026 08:04:26.6434
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: e3797b03-080d-487f-1971-08df22b74693
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a;Ip=[216.228.117.161];Helo=[mail.nvidia.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	BN2PEPF0000449E.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ0PR12MB8138
 
-Hi Robert,
+On Mon, Oct 05, 2026 at 07:34:25AM +0100, Will Deacon wrote:
+> On Sun, Oct 04, 2026 at 01:59:04PM -0700, Nicolin Chen wrote:
+> > On Sun, Oct 04, 2026 at 01:35:01PM -0300, Jason Gunthorpe wrote:
+> > > On Sun, Oct 04, 2026 at 02:25:07PM +0100, Will Deacon wrote:
+> > > > > + *  - A structural inconsistency at adoption time tosses the entire adoption and
+> > > > > + *    makes the SMMU fall back to a full reset blocking in-flight DMAs.
+> > > > > + *  - L2 stream tables are adopted lazily at master-inserting time, to bound the
+> > > > > + *    peak memory use against a corrupted L1 table; any lazy L2 adoption failure
+> > > > > + *    rejects that device alone, as its blast radius is bounded to the bus.
+> > > > > + *  - Only a coherent SMMU (ARM_SMMU_FEAT_COHERENCY) is supported, as the stream
+> > > > > + *    table adoption is done by memremap with MEMREMAP_WB, which is verified on
+> > > > > + *    the real hardware. Callers of these functions are responsible for gating
+> > > > > + *    ARM_SMMU_FEAT_COHERENCY once during the probe.
+> > > > 
+> > > > This is an artificial restriction and not one that I'm wild about for kdump:
+> > > > we should be able to support this for non-coherent SMMUs as well. Is there
+> > > > anything more to it than using MEMREMAP_WC in that case?
+> > >  
+> > > I've forgotten why it ended up like this, it was some complication
+> > > that seemed hard.. MEMREMAP_WC is not the same attribute dma coherent
+> > > would have used, I'm not sure we have the right stuff to be able to
+> > > flush any write combining buffer? I'm nervous about that at least.
+> > > 
+> > > Remember this is not just reading it but it has to operate like this
+> > > after the fact. In handover you wanted to use the dma cohernent
+> > > preservation.
+> > > 
+> > > So, I think this restriction is mostly a lack of the right MEMREMAP
+> > > flag? It is not insovlable just work outside the scope of this series.
+> > 
+> > I agree that it's safer to defer that to a followup series. It
+> > also needs someone who has a non-coherent HW for a full test.
+> > 
+> > On the other hand, this series is tested by folks from multiple
+> > organizations, so it's really a needed and verified one.
+> 
+> I wasn't disputing that, though. I'm saying that it's half finished
+> without the non-coherent part, so I'd like to understand what's needed
+> to add that. Can you please explain what is needed beyond using
+> MEMREMAP_WC? That maps to Normal-NC on arm64, just like the DMA API does.
 
-On Mon, Oct 05, 2026 at 09:10:07AM +0200, Robert Bozik wrote:
-> Hi,
-> 
-> v4 of the OV32C4 sensor driver. v3 is at
-> https://lore.kernel.org/linux-media/20260829115832.8749-1-robertbozik@gmail.com/
-> 
-> The one open question from v1 and v2 was the second I2C address - the
-> write to 0x3e that the sensor needs before its main address answers -
-> and whether it belongs in a sensor driver. v3 could only say what it was
-> not. This version answers it with a measurement, and the design follows
-> from the answer.
-> 
-> The question that decides it is whether the block behind 0x3e lives and
-> dies with the sensor. Measured on the machine, polling 0x3e and 0x36
-> every 0.5 ms through a runtime power cycle and lining the polls up with
-> the kernel's regulator, gpio and i2c tracepoints:
+I am not aware of anything beyond MEMREMAP_WC.
 
-I've been looking into this and it seems the answer to the question is
-"yes", we can assume it's always there. The sensor has some kind of
-always-on functionality that is controlled through a different I²C address
-and accessing it is apparently required for the sensor's power-on sequence.
+It should likely need a helper to select flag:
+  ARM_SMMU_FEAT_COHERENCY ? MEMREMAP_WB : MEMREMAP_WC
+and a verification on a non-coherent SMMU.
 
-Cc Antti as well.
-
-> 
->   - sensor off (AVDD disabled, reset asserted): 0x3e NACKs, as does 0x36
->   - AVDD on at t=1.0 ms, settled 3.5 ms; reset released 8.9 ms
->   - 0x3e first ACK at 10.1 ms, reading 0x1001 = 0x00; between AVDD and
->     the reset release it did not answer
->   - the driver's 0x1001 = 0x04 at 30.1 ms; 0x36 first ACK at 30.6 ms
->   - reset asserted and AVDD off at 4000.8 ms: 0x3e gone by 4001.9 ms,
->     0x36 by 4003.0 ms
-> 
-> So it is unreachable without power, appears only once the sensor's own
-> reset is released, forgets the value written to it over a power cycle,
-> and disappears with the sensor. It has no ACPI device of its own, 0x300a
-> there reads zero (it is not an alias of the main map), and 0x36 has
-> nothing at 0x1000. The same register pair exists in OV08X40 at that
-> sensor's main address, named AO_STANDBY (0x1000) and MS_SELECT (0x1001,
-> 0x04 for streaming) in ov08x40.c. The vendor Windows driver writes it
-> from the sensor driver as well, once, after reset and before the chip id
-> read, and never reads it back. I take all of that to mean the block is
-> part of the sensor and the sensor driver is its owner.
-> 
-> What changed accordingly:
-> 
->  - The driver claims the second address with devm_i2c_new_dummy_device()
->    and writes it through a CCI regmap of its own; the bare i2c_transfer()
->    is gone.
->  - ipu-bridge no longer instantiates a VCM for this sensor. The SSDB
->    says vcmtype 2 and the bridge would put a dw9714 on 0x3e; dw9714 has
->    no id register and binds to anything, and that client would hold the
->    address the sensor driver needs. Patch 3 carries the exception, so
->    patches 2 and 3 go together.
-> 
-> Two smaller things turned up while re-reading the driver for this:
-> 
->  - The 10 ms after the software reset was a busy wait. The reset sat in
->    the mode table with a delay_us, and regmap_multi_reg_write() turns
->    that into udelay() on a regmap without can_sleep, which the CCI one
->    is. The driver now issues the stream-off and the reset itself and
->    sleeps; the table is the vendor's sequence minus those two entries.
->  - power_on() returned 0 when the enable write failed. It now fails and
->    undoes the clock, the supply and the reset.
-> 
-> The power-up timing, your "0 and 5 ms" on v1: I did not follow it then,
-> and I think I do now - nothing after the supply, because the regulator
-> core waits for it, and 5 ms after reset. The measurement above agrees:
-> the block answers about 1 ms after reset release and the main address
-> within 1 ms of the enable write. v4 uses 0, 5 ms and 1 ms, verified over
-> a cold boot, 20 runtime power cycles and 15 stream starts without a
-> failure.
-> 
-> Where the numbers come from, stated plainly this time, because v3 said
-> both "copied 1:1" and "measured by me" about the same table:
-> 
->   From the vendor Windows driver (ov32c4.sys, FileVersion
->   70.26100.2.18255):
->   - the mode register table (1787 writes, at file offset 0x31300), of
->     which the driver drops the first two entries, stream-off and reset,
->     and issues them itself;
->   - the 400 MHz link frequency, carried there as bits per second;
->   - the chip id 0x563243;
->   - the write of 0x04 to 0x1001 at the second address;
->   - the registers the controls use (exposure 0x3500, analogue gain
->     0x3508, digital gain 0x350a, VTS 0x380e) and the rule
->     exposure_max = VTS - 32.
-> 
->   Measured on the sensor:
->   - the chip id, the register meanings above and the exposure rule,
->     confirmed against what the chip reports;
->   - the gain ranges: analogue exactly proportional between 0x100 and
->     0x7c0 (1x to 7.75x, 0x100 being the power-up value), digital
->     proportional with 1024 as unity, clipping to black one step above
->     16383 - the obvious donor, ov13b10 on the same registers, puts
->     analogue unity at 0x80, which is wrong here;
->   - the timings: 320000000 / (4080 * 2614) = 30.005 fps against a
->     measured 30.00; the power-up sequence as above;
->   - flips preserve the Bayer order, so the media bus code never changes
->     and the crop compensation ov13b10 does would introduce the shift it
->     undoes there;
->   - the 6560x4928 array and 6528x4896 active area, from the window
->     registers of the table, agreeing with the vendor's product brief;
->   - the second address, as above.
-> 
-> The rest of the series is as before. It adds a driver for the OmniVision
-> OV32C4, a 32 megapixel RGBC CMOS image sensor. It ships as the
-> under-display camera in the Lenovo Yoga Slim 9 14ILL10, where it is
-> enumerated through ACPI (_HID "OVTI32C4") and feeds an Intel IPU7. The
-> driver supports 3264x1840 at 30 fps, 10-bit Bayer, 4 CSI-2 lanes at a
-> 400 MHz link frequency, with exposure, analogue gain, digital gain,
-> vblank, hblank and flip controls, runtime PM and .get_selection. Tested
-> on that machine: the sensor probes, streams at a measured 30.00 fps,
-> frames arrive complete, and the full path to a processed image runs
-> through libcamera's software ISP. The driver has what libcamera's sensor
-> driver requirements ask for: the five mandatory controls, the crop
-> selection targets, flips that keep the Bayer order, and the orientation
-> and rotation properties.
-> 
-> v4l2-compliance on the subdev, kernel 7.0.0-38:
-> 
->   Total for device /dev/v4l-subdev4: 46, Succeeded: 46, Failed: 0, Warnings: 0
-> 
-> Static checks: checkpatch.pl --strict, sparse (C=1), W=1 and
-> dt_binding_check.
-> 
-> The series applies to media_stage.git; base-commit is below.
-> 
-> Thanks,
-> Robert
-> 
-> Robert Bozik (3):
->   dt-bindings: media: i2c: Add OmniVision OV32C4
->   media: i2c: Add driver for OmniVision OV32C4
->   media: ipu-bridge: Add OmniVision OV32C4
-> 
->  .../bindings/media/i2c/ovti,ov32c4.yaml       |  105 +
->  MAINTAINERS                                   |    8 +
->  drivers/media/i2c/Kconfig                     |   10 +
->  drivers/media/i2c/Makefile                    |    1 +
->  drivers/media/i2c/ov32c4.c                    | 2716 +++++++++++++++++
->  drivers/media/pci/intel/ipu-bridge.c          |   26 +-
->  6 files changed, 2865 insertions(+), 1 deletion(-)
->  create mode 100644 Documentation/devicetree/bindings/media/i2c/ovti,ov32c4.yaml
->  create mode 100644 drivers/media/i2c/ov32c4.c
-> 
-> 
-> base-commit: 4900cad020c0580dfb1be27776ff10a4ef110cfa
-
--- 
-Regards,
-
-Sakari Ailus
+Thanks
+Nicolin
