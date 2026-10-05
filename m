@@ -1,182 +1,413 @@
-Received: from DM5PR21CU001.outbound.protection.outlook.com (mail-centralusazon11011014.outbound.protection.outlook.com [52.101.62.14])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-yx2-f40.google.com (mail-yx2-f40.google.com [74.125.224.168])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3D34B4C9E1A
-	for <linux-kernel@vger.kernel.org>; Mon,  5 Oct 2026 19:32:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.62.14
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791228724; cv=fail; b=ZCA7fkiTd6uNL7Sn2Zvq5tphNPrKyfmuuNs6zsPVsP95VCXQSQHbFPfrgbFVvWQXV8O1UNA1+ugwCsZPozzxFKR0SBw4mF2KoHIURHr8NU1UNmhxpvcSEr6+ADQoOjM194p03UMF1AmznQYDrzFYfwLn3h2cukz6Y3qJkAxcwmA=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791228724; c=relaxed/simple;
-	bh=Ii9wkk2Z/nQekVkgeOvzgq/xgCAw4aKE+mkK8+RhgB8=;
-	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=JTWrpCUfzP5noSVyUeexyB8Blq5vjtyYVF12DZBFfjEj1aLKX0scn3wE/1FADDKum5eEtLD3WECl3q/OJHjQ54xDjwKMAvDyRKVOcgG9dnlYNjRCT0DTOYOeOcJQihInONO8tDO+L14WmNFLK9snXyQx/qZAM9vwcEDctDL5vOs=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=KWwctdZ4; arc=fail smtp.client-ip=52.101.62.14
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E977E4D9F74
+	for <linux-kernel@vger.kernel.org>; Mon,  5 Oct 2026 19:32:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.224.168
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791228777; cv=none; b=OON6JKk4b1paCOtgtguLwVnxxyjz7ObfIIJuksPl6WjSfbtIt8zYMd8LV1JrQXJ1wOEV/BqKR4gOwA5GpEY+8O613mNGoIs/fg3YzisA/Xw9XvnC+4ywcOdnq7pTMSerqY1Esi+1LBl4/dOltMuIiTG7/3Udnw4e5ARrDiHwN/M=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791228777; c=relaxed/simple;
+	bh=OhTg4Y2vk0E5SNiIImYpc2ywh+/0Gl7CDRpjajw6YFE=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=blt0UoGkjOjRw3f/MljCHvB45aQe/MwK4YSzI5gE76R++AEUuYKhgkTE3tx5QJxgTphc/hJx2TmoZ2IF1L5lVMVflnFlukQ7HFPFtiU6xVHMFcaign13xeJtr+1OYgxk6mgX79PToS7xkES5EbqhSIZ+b5SACTqMNl4f7EqTi4Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=dubeyko.com; spf=pass smtp.mailfrom=dubeyko.com; dkim=pass (2048-bit key) header.d=dubeyko-com.20251104.gappssmtp.com header.i=@dubeyko-com.20251104.gappssmtp.com header.b=eVr5Qme1; arc=none smtp.client-ip=74.125.224.168
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=dubeyko.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=dubeyko.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="KWwctdZ4"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=pbznhBRcPwo++JN1c2uHkWl7PlygYpfj39I11/7GzCRFv7YPSql82VQV5y6UTx7yHLo/5L378mNmSHmgbr6ahNbXnR0Y6wkwazPaIjMiKow3snwu6dWfAARHbQfGbaAYJh5wbMwLK5Gb0uv4Qy3WNlMNSioHImeHYkX3tP1oK6x6WbwyHIieGstegnQ0QMy6TWe15CWClWNyyKQFLgQakJp728MZxh3TIMzDzSq4GjcIqQSJ16iB1C4aG08WpIuvVlhUQvv8niIefUjLiOORIbwqsFe/XdNyVNzp5X6w5rQDYErAqF7YEMJVMGEt0eFXOftzG6lSfPpxFy2Zyb3VSg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=MEPzGQk+7H2jVNYx4ygKDbFYWOCXZ1YNYIdDUk9CX/c=;
- b=HftYToSA1ae4w4EGUWRGTMNva4kOKiftdkkabL/UIJJ2seLnZkOTr+ioXa8A/EBLFZCAHDobuh4sbRxIiW1NszgKVcmlgFnJTAe4j0nnYcA3ZIy6uFo6npoGAOgOKp0JDpwhgUuhtcTOYUB8VdDrj74msKlUtVB/Zg2mA3pGQ7DBnPn4GQTgbofy0n8gYj6wPNGxAwW8UbP+e18ez8LFT6bnZ9nF0Be1IDx8TK65sPD7cD0MLPiviP6eus+X15zlzAtXhJTj4dAysFViavTs0qc0MyZ0HyKI7NhQ6b5aS5r8tyuFLHPpNXdwCaqnYTU71Ji58NSM6VK8GFLavn2zKw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 216.228.118.232) smtp.rcpttodomain=kernel.org smtp.mailfrom=nvidia.com;
- dmarc=pass (p=reject sp=reject pct=100) action=none header.from=nvidia.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=MEPzGQk+7H2jVNYx4ygKDbFYWOCXZ1YNYIdDUk9CX/c=;
- b=KWwctdZ4wy8KJHlkZQQ/ekZ01BwQEQ5AtbT+Qzuzf5lnKtIYgrEfiWGI43NTvpVZAeR1FYq9/9a4P4WJPzrYNA8M9Eq6F8qHKHBzCNSaxTWHfcYroTqbv2G15N9AbnTNa6bqPx2aQ6oq+PONW8uvQwHumz4g9Z/8ObawHt9XjMTIULQoT+vUDxvCbZhCByGVjGFVo8V/txy4TTsBBIgvefpx3lT2MaeRIFbOy8nFWSdJaMvdm7ED2blVbLe7M/CSKoKhHCfNnhPDGEYECcgA1aJbgmxUmmDnoXosuOuun5W7Yi6CuDPlgMYgLjbKsWOnOyRfrtmQSIS0C1NfcBiZ7A==
-Received: from SJ0PR03CA0211.namprd03.prod.outlook.com (2603:10b6:a03:39f::6)
- by DS0PR12MB8247.namprd12.prod.outlook.com (2603:10b6:8:f5::22) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.472.19; Mon, 5 Oct
- 2026 19:31:35 +0000
-Received: from BY1PEPF0001AE19.namprd04.prod.outlook.com
- (2603:10b6:a03:39f:cafe::23) by SJ0PR03CA0211.outlook.office365.com
- (2603:10b6:a03:39f::6) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.472.20 via Frontend Transport; Mon, 5
- Oct 2026 19:31:35 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 216.228.118.232) smtp.mailfrom=nvidia.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=nvidia.com;
-Received-SPF: Pass (protection.outlook.com: domain of nvidia.com designates
- 216.228.118.232 as permitted sender) receiver=protection.outlook.com;
- client-ip=216.228.118.232; helo=mail.nvidia.com; pr=C
-Received: from mail.nvidia.com (216.228.118.232) by
- BY1PEPF0001AE19.mail.protection.outlook.com (10.167.242.101) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.496.14 via Frontend Transport; Mon, 5 Oct 2026 19:31:35 +0000
-Received: from drhqmail201.nvidia.com (10.126.190.180) by mail.nvidia.com
- (10.127.129.5) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Mon, 5 Oct
- 2026 12:31:08 -0700
-Received: from drhqmail203.nvidia.com (10.126.190.182) by
- drhqmail201.nvidia.com (10.126.190.180) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.49; Mon, 5 Oct 2026 12:31:08 -0700
-Received: from Asurada-Nvidia.nvidia.com (10.127.8.14) by mail.nvidia.com
- (10.126.190.182) with Microsoft SMTP Server id 15.2.2562.49 via Frontend
- Transport; Mon, 5 Oct 2026 12:31:07 -0700
-From: Nicolin Chen <nicolinc@nvidia.com>
-To: <will@kernel.org>
-CC: <robin.murphy@arm.com>, <joro@8bytes.org>, <jgg@nvidia.com>,
-	<praan@google.com>, <kevin.tian@intel.com>, <smostafa@google.com>,
-	<linux-arm-kernel@lists.infradead.org>, <iommu@lists.linux.dev>,
-	<linux-kernel@vger.kernel.org>, <jamien@nvidia.com>, <kas@kernel.org>,
-	Cristian Prundeanu <cpru@amazon.com>, Breno Leitao <leitao@kernel.org>
-Subject: [PATCH v11 10/11] iommu/arm-smmu-v3: Skip RMR bypass for kdump adoption
-Date: Mon, 5 Oct 2026 12:30:53 -0700
-Message-ID: <519cde2592cb31a42f77b38f663dab583dfbf41a.1791226953.git.nicolinc@nvidia.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <cover.1791226953.git.nicolinc@nvidia.com>
-References: <cover.1791226953.git.nicolinc@nvidia.com>
+	dkim=pass (2048-bit key) header.d=dubeyko-com.20251104.gappssmtp.com header.i=@dubeyko-com.20251104.gappssmtp.com header.b="eVr5Qme1"
+Received: by mail-yx2-f40.google.com with SMTP id 956f58d0204a3-6756a6320f6so1689433d50.2
+        for <linux-kernel@vger.kernel.org>; Mon, 05 Oct 2026 12:32:55 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=dubeyko-com.20251104.gappssmtp.com; s=20251104; t=1791228775; x=1791833575; darn=vger.kernel.org;
+        h=mime-version:user-agent:content-transfer-encoding:content-type
+         :autocrypt:references:in-reply-to:date:cc:to:from:subject:message-id
+         :from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=uHYPSvXxOi/i3tWTh3HSQ0/YkL8DNyZX6j4u6SZ8c+0=;
+        b=eVr5Qme1Qzz9ymFVoDuX2iAApIFnIjFAl3cON/t0CReeNmj0m9JAzSamn8ojL8rIwz
+         ZoSCmwqyDd97iFWexCRh1AXKGU3X/FS+OmXV+5fDrG7Zvpz6VrnFmv9S00rcmwj32RzN
+         Co1uiNe1altrbkGF1poipnGzZGO7u8yh5255A+SY9hKz8AxGEbFuzCkuMU0xmIdDB+cC
+         M/C4CyRbwznGotAdhyv1nC0MwDNthOtXrd9eiNGwumcYSRRB3urPUpaY9cSls2O2aywJ
+         BlPGa2z7q1NjZFF2jzbbea1rUxvxHR2Dzt49BoSTqcsHoygNJ8XxyL9phUPv9L0Nd/4K
+         3K5g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791228775; x=1791833575;
+        h=mime-version:user-agent:content-transfer-encoding:content-type
+         :autocrypt:references:in-reply-to:date:cc:to:from:subject:message-id
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=uHYPSvXxOi/i3tWTh3HSQ0/YkL8DNyZX6j4u6SZ8c+0=;
+        b=XsRbPrqw8zQQVszU5L/vfLG60SccKbOl2ODtZBYZysponsq2Nax8ZPWf2txYMPKlUv
+         xBxh4siMVSjlyrFA+kLGnkpXyjruSsIpjjQNrLk/axkeFKhTEAgHH9HYkbdqLXYxm4ng
+         ACINc6GkMuWRH8e9cAf9U1ZSBgYtFtYXAJWOAs6ZIF2xH6IxcY2cFDP3E3dgJ6I96WSE
+         UBwPdXUdKKlVSYxBNquOih4jkb+CBFzhApxBWVrb9aX6NMLeh93m1UwurySXGRa7SPuD
+         y39kM32mL3UVWGeZxgY1cQBLDfUJp+h0jGECi6s35AfYfymHr5A204+aAaKZC2i1OV5H
+         lCdw==
+X-Forwarded-Encrypted: i=1; AKwUvBwFIjmq2XwkXUK/IXWiru7yDd74uI0UYZb9cTAMXA/V0+f59w/0VyL2Ju+dMpnfXQZ+8eEoQu786I9/uFk=@vger.kernel.org
+X-Gm-Message-State: AFq9FYI6EKwlsphuPU/fG3MbERnkt0xhOIpudKMPo4+fphTesczIrdFT
+	OPVN8UbbE29wA7IKkr94VNFh64yy8ia+q0vQj4RbNP9Jt0BamnKaAllLKgSrcNB7lXU=
+X-Gm-Gg: AYBFou3T4JOEP8G2kpg19be7i2PAokSqclGTC3Mo7WFEZrE+FyhZt61FHvtx0Z8SZGA
+	0IB/BEi2Y6bNARJZRsqVqje0AQ7P83yWcLDB998AuTjYNwzUJ+tsAErv6YPtpcgdryJ5i7kCEy+
+	23Ia7rJB8DyoTe8L3RJ+Bf7ssFmB/7ZQqaR0pa8CYIlydFm/0koBAwyc/pRuOZBNR6UWDBPNNzI
+	Uf7mNtvfMZvrbU/5HKVNB5O+vciuxytV3eNaAHUxYDbd48Rh5udZYY8Td08WrbtWtZeofj1Id2q
+	yF2i9hXZq8Rfi5YhAOZIMMekIw4sGF4Fb30L76FkJ3zLtLpLPJJ9P6vxoHykIY/Q7sp3Nd3ScBm
+	qEgHal05Ak8SqlRX1SVlXeOPLeatU5L9QB/4D/+jMhCpH0J7CzEDovdeQ7s9IT6GxjteOW/NDuO
+	pQ2eLfshqwinh29SmsAm+FeaNQr51YRffzDzRBMLdZZSQuguc4MLYyHzbN5bzd/PiRvq4hCBplr
+	Pzwi1sGltmBzj+3xrg/0WayyyVEonMxXlncYYrxy8Xm15Va8lq0n3DS1Z5PgRuA+dBtLtwEudIA
+	XRorztJTNGploV35tzJ3S+XJkTaWOGGXLCYnH2OXyDWA1bZMEs4T7NsqM7ZuOhYr
+X-Received: by 2002:a05:690e:1904:b0:677:be91:d866 with SMTP id 956f58d0204a3-677be91e02cmr3509867d50.47.1791228774756;
+        Mon, 05 Oct 2026 12:32:54 -0700 (PDT)
+Received: from ?IPv6:2600:1700:6476:1430:3aa0:911f:4e09:b45d? ([2600:1700:6476:1430:3aa0:911f:4e09:b45d])
+        by smtp.gmail.com with ESMTPSA id 956f58d0204a3-677c72dc315sm2895930d50.8.2026.10.05.12.32.53
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 05 Oct 2026 12:32:54 -0700 (PDT)
+Message-ID: <440b0a696204a1155c0b688518d9907af1d7c491.camel@dubeyko.com>
+Subject: Re: [PATCH v3] hfsplus: annotate extents_lock nesting to silence
+ lockdep false positive
+From: Viacheslav Dubeyko <slava@dubeyko.com>
+To: Mahmut Emin Kurhan <guvenlik@noroxi.com>
+Cc: linux-fsdevel@vger.kernel.org, John Paul Adrian Glaubitz
+	 <glaubitz@physik.fu-berlin.de>, Frank Li <frank.li@vivo.com>, 
+	linux-kernel@vger.kernel.org
+Date: Mon, 05 Oct 2026 12:32:51 -0700
+In-Reply-To: <20261002211626.1576625-1-guvenlik@noroxi.com>
+References: <8078649d8c1405e0a207d06efe4ec0189d3eef76.camel@dubeyko.com>
+	 <20261002211626.1576625-1-guvenlik@noroxi.com>
+Autocrypt: addr=slava@dubeyko.com; prefer-encrypt=mutual;
+ keydata=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
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.60.1 (by Flathub.org) 
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-NV-OnPremToCloud: ExternallySecured
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BY1PEPF0001AE19:EE_|DS0PR12MB8247:EE_
-X-MS-Office365-Filtering-Correlation-Id: c211bfda-9c8d-41ec-937f-08df231744b9
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|82310400026|36860700016|7416014|376014|30052699003|23010399003|6133799003|22082099003|18002099003|56012099006|11063799006|10067099003;
-X-Microsoft-Antispam-Message-Info:
-	CnxSQ3K2jlc7n7Xd3xwqrjELqohHu64vZVp1GbPspOko7fn3AluYf9dS2gESNFe7RjP32bChzUKfeHarIZhvhfZzQ0sb8jEWWxLu+1NT4vsWJur19MEglKuLpI+HLy88YSjtF1C7pFl7+O79TR5J2qiJBb+zBvekpWvC3ZDK+WKC5ffu/I5AlxeGA9KjpjQqhVVEL5MkaA2RKFJTLXXx0EdIwfvvwI7+m7c4Z/PeRH3VnHLqJhyPrNXDQutUIKJNXpCeyA/lX1KzOAIruZZlmT6s1lDM1DM2Wqt9PjYE3N2fmIaykiRgA9rylfmGB6zVRA9LSEeruB4A0Ed6Sv3k2Fc/uPoHf62bjlhyHOg8ToGLgO7PXi5bCz9gvtsmDGmLzYHjsm0ma+RtDYErNH0vnlAvA+3uH5dhCjcVH9nS8SEU7obU8kFC61cuRalLinrtq8h+A5AzKqLwv+TPEEdKFge07KWSF3SYuFr0FwwUTe+fDY+ShSPgPL5J6QWSGm2mohTE73JiJYfpuYnn6895sw9AB5xnDG9O713+fMp/8VHYlByXOZSX7No8YpY0WCRqKnRKYJB22EMdVej/HfpYKXPV/TkR6sYKJlw75pQWZpmmZgvT9FaLQDFO6yF74F84UlXCeyO8BNKXo6WuiCqTRifT0wzv88slPbPtQuK/dTWsiArLexHggExoEDoW+KZ1uqK34NDvRTqjeXqkjQsqcQ==
-X-Forefront-Antispam-Report:
-	CIP:216.228.118.232;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.nvidia.com;PTR:dc7edge1.nvidia.com;CAT:NONE;SFS:(13230040)(1800799024)(82310400026)(36860700016)(7416014)(376014)(30052699003)(23010399003)(6133799003)(22082099003)(18002099003)(56012099006)(11063799006)(10067099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	orvNu/DbbDINzYCfuq/xFLdG/5MtQ2+paVuehBpuCRon4CpPVJvKbG9DFejmaurS2ExQDSmwVQG7EpbrIX6g0N36HbxozQ9VO8YRny5mcgsqXGnhXHZQZn6HSmDrujFMgblcd7sCF/eIxiQFzu+vhJ47j09y0Al5EbryHDkEFb2LIR11XqBcoyJ54l3s5zq3u429IrVMP0uRNRsI5oLEmsF6tbcQQuxcimpUH6QuLqRy+aRKN2ZyJzwOqkS5qXTfo7ZG0kJ5KZ238RpfUJPoYvqykKig36lwQWA+q4v2av/oZbyoxetXj07fULsrrAVSxCXr50Am56Qdrd7YEds8i6cDfxHD85OJ+iuuU6b5APDbhgysVcn87zttADhdDqcjscLoR0oTQBurlfZ45ChANhC7bI4/kv2G9wwhXSq/RZ9EQn+2hFFejiGGuA8cUxcE
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Oct 2026 19:31:35.3943
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: c211bfda-9c8d-41ec-937f-08df231744b9
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a;Ip=[216.228.118.232];Helo=[mail.nvidia.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	BY1PEPF0001AE19.namprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB8247
 
-RMR bypass STEs are installed during SMMUv3 probe for StreamIDs listed by
-IORT RMR nodes. A normal boot switches the driver to a fresh stream table
-whose initial STEs abort, so those RMR SIDs need bypass entries before it
-becomes live. This preserves firmware/guest-owned traffic, including vSMMU
-guest MSI cases built around RMR-described SIDs.
+On Fri, 2026-10-02 at 23:16 +0200, Mahmut Emin Kurhan wrote:
+> lockdep reports a possible recursive locking on
+> HFSPLUS_I(inode)->extents_lock when truncating or extending a file on
+> a
+> crafted image: the regular file holds its own extents_lock and, while
+> freeing or allocating blocks, reads the allocation file, whose
+> ->get_block() takes the allocation file's extents_lock.=C2=A0 These are
+> two
+> different inodes locked in a fixed order, so it is not a real
+> deadlock,
+> only a missing nesting annotation.
+>=20
+> tree->cnid and inode->i_ino share the CNID namespace, so fold the
+> B-tree tree_lock subclass helper and the extents_lock classification
+> into a single hfsplus_lock_class(cnid): the allocation file gets its
+> own
+> subclass and every other inode uses the default, while the catalog,
+> extents and attributes B-trees keep the subclasses they had.=C2=A0 Take
+> extents_lock with mutex_lock_nested() at the sites that nest.=C2=A0 A
+> genuine
+> recursion on one inode's extents_lock -- including the allocation
+> file on itself -- is still reported.
+>=20
+> Found via coverage-guided fuzzing (syzkaller + lockdep) by Noroxi.
 
-ARM_SMMU_OPT_KDUMP_ADOPT is the opposite case: the driver keeps SMMUEN set
-and adopts the crashed kernel's stream table, so RMR SIDs already have the
-only translation state known to be safe for active in-flight DMA. Replacing
-an adopted STE with bypass can turn translated DMA into physical DMA, then
-point it at the wrong memory.
+Reported-by: tag?
 
-arm_smmu_make_bypass_ste() also rewrites the STE in place after clearing it
-first. While the table is live, a concurrent hardware STE fetch can observe
-V=0 or mixed old/new state.
+>=20
+> Signed-off-by: Mahmut Emin Kurhan <guvenlik@noroxi.com>
+> ---
+> Slava, this is the reworked version you suggested: one CNID-keyed
+> hfsplus_lock_class() serving both the B-tree tree_lock and the inode
+> extents_lock, instead of a second enum/function.
+>=20
+> The B-tree tree_lock keeps CATALOG/EXTENTS/ATTR (same values as
+> before).
+> For extents_lock the only real nesting is a regular file's
+> extents_lock
+> (held in truncate/extend) over the allocation file's extents_lock
+> (taken
+> from its ->get_block() during block alloc/free), so the allocation
+> file
+> gets its own subclass and everything else uses the default.=C2=A0 That
+> also
+> drops the FIRSTUSER file/folder ambiguity from v2.
+>=20
+> One behaviour change worth flagging: hfsplus_lock_class() returns
+> HFSPLUS_DEFAULT_MUTEX for an unexpected CNID where the old
+> hfsplus_btree_lock_class() called BUG().=C2=A0 The B-tree callers still
+> only
+> pass CAT/EXT/ATTR, so this affects only the now-shared default path.
+> Happy to keep a WARN there if you prefer.
+>=20
+> v3:
+> =C2=A0- rework hfsplus_btree_lock_class() into a single CNID-keyed
+> =C2=A0=C2=A0 hfsplus_lock_class() shared by tree_lock and extents_lock (S=
+lava
+> =C2=A0=C2=A0 Dubeyko); drop the separate enum/function and the FIRSTUSER =
+check
+> v2:
+> =C2=A0- shorten the comment, rename the subclass, use FIRSTUSER
+> (superseded)
+> =C2=A0fs/hfsplus/bfind.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0 2 +-
+> =C2=A0fs/hfsplus/extents.c=C2=A0=C2=A0=C2=A0 | 18 +++++++++++-------
+> =C2=A0fs/hfsplus/hfsplus_fs.h | 39 +++++++++++++++++++++-----------------=
+-
+> =C2=A0fs/hfsplus/super.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0 2 +-
+> =C2=A0fs/hfsplus/xattr.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0 3 ++-
+> =C2=A05 files changed, 36 insertions(+), 28 deletions(-)
+>=20
+> diff --git a/fs/hfsplus/bfind.c b/fs/hfsplus/bfind.c
+> index ca9813f58a..ed72d61f64 100644
+> --- a/fs/hfsplus/bfind.c
+> +++ b/fs/hfsplus/bfind.c
+> @@ -27,7 +27,7 @@ int hfs_find_init(struct hfs_btree *tree, struct
+> hfs_find_data *fd)
+> =C2=A0	hfs_dbg("cnid %d, caller %ps\n",
+> =C2=A0		tree->cnid, __builtin_return_address(0));
+> =C2=A0	mutex_lock_nested(&tree->tree_lock,
+> -			hfsplus_btree_lock_class(tree));
+> +			hfsplus_lock_class(tree->cnid));
+> =C2=A0	return 0;
+> =C2=A0}
+> =C2=A0
+> diff --git a/fs/hfsplus/extents.c b/fs/hfsplus/extents.c
+> index eb7c11524d..ae1369a4cb 100644
+> --- a/fs/hfsplus/extents.c
+> +++ b/fs/hfsplus/extents.c
+> @@ -150,7 +150,8 @@ int hfsplus_ext_write_extent(struct inode *inode)
+> =C2=A0{
+> =C2=A0	int res;
+> =C2=A0
+> -	mutex_lock(&HFSPLUS_I(inode)->extents_lock);
+> +	mutex_lock_nested(&HFSPLUS_I(inode)->extents_lock,
+> +			=C2=A0 hfsplus_lock_class(inode->i_ino));
+> =C2=A0	res =3D hfsplus_ext_write_extent_locked(inode);
+> =C2=A0	mutex_unlock(&HFSPLUS_I(inode)->extents_lock);
+> =C2=A0
+> @@ -261,7 +262,8 @@ int hfsplus_get_block(struct inode *inode,
+> sector_t iblock,
+> =C2=A0	if (inode->i_ino =3D=3D HFSPLUS_EXT_CNID)
+> =C2=A0		return -EIO;
+> =C2=A0
+> -	mutex_lock(&hip->extents_lock);
+> +	mutex_lock_nested(&hip->extents_lock,
+> +			=C2=A0 hfsplus_lock_class(inode->i_ino));
+> =C2=A0
+> =C2=A0	/*
+> =C2=A0	 * hfsplus_ext_read_extent will write out a cached extent
+> into
+> @@ -430,7 +432,7 @@ int hfsplus_free_fork(struct super_block *sb, u32
+> cnid,
+> =C2=A0				=C2=A0=C2=A0=C2=A0=C2=A0 total_blocks);
+> =C2=A0		total_blocks =3D start;
+> =C2=A0		mutex_lock_nested(&fd.tree->tree_lock,
+> -			hfsplus_btree_lock_class(fd.tree));
+> +			hfsplus_lock_class(fd.tree->cnid));
+> =C2=A0	} while (total_blocks > blocks);
+> =C2=A0	hfs_find_exit(&fd);
+> =C2=A0
+> @@ -454,7 +456,8 @@ int hfsplus_file_extend(struct inode *inode, bool
+> zeroout)
+> =C2=A0		return -ENOSPC;
+> =C2=A0	}
+> =C2=A0
+> -	mutex_lock(&hip->extents_lock);
+> +	mutex_lock_nested(&hip->extents_lock,
+> +			=C2=A0 hfsplus_lock_class(inode->i_ino));
+> =C2=A0	if (hip->alloc_blocks =3D=3D hip->first_blocks)
+> =C2=A0		goal =3D hfsplus_ext_lastblock(hip->first_extents);
+> =C2=A0	else {
+> @@ -576,7 +579,8 @@ void hfsplus_file_truncate(struct inode *inode)
+> =C2=A0	blk_cnt =3D (inode->i_size + HFSPLUS_SB(sb)->alloc_blksz - 1)
+> >>
+> =C2=A0			HFSPLUS_SB(sb)->alloc_blksz_shift;
+> =C2=A0
+> -	mutex_lock(&hip->extents_lock);
+> +	mutex_lock_nested(&hip->extents_lock,
+> +			=C2=A0 hfsplus_lock_class(inode->i_ino));
+> =C2=A0
+> =C2=A0	alloc_cnt =3D hip->alloc_blocks;
+> =C2=A0	if (blk_cnt =3D=3D alloc_cnt)
+> @@ -597,7 +601,7 @@ void hfsplus_file_truncate(struct inode *inode)
+> =C2=A0			hfsplus_dump_extent(hip->first_extents);
+> =C2=A0			hip->first_blocks =3D blk_cnt;
+> =C2=A0			mutex_lock_nested(&fd.tree->tree_lock,
+> -				hfsplus_btree_lock_class(fd.tree));
+> +				hfsplus_lock_class(fd.tree->cnid));
+> =C2=A0			break;
+> =C2=A0		}
+> =C2=A0		res =3D __hfsplus_ext_cache_extent(&fd, inode,
+> alloc_cnt);
+> @@ -612,7 +616,7 @@ void hfsplus_file_truncate(struct inode *inode)
+> =C2=A0				=C2=A0=C2=A0=C2=A0=C2=A0 alloc_cnt - start, alloc_cnt -
+> blk_cnt);
+> =C2=A0		hfsplus_dump_extent(hip->cached_extents);
+> =C2=A0		mutex_lock_nested(&fd.tree->tree_lock,
+> -				hfsplus_btree_lock_class(fd.tree));
+> +				hfsplus_lock_class(fd.tree->cnid));
+> =C2=A0		if (blk_cnt > start) {
+> =C2=A0			hip->extent_state |=3D HFSPLUS_EXT_DIRTY;
+> =C2=A0			break;
+> diff --git a/fs/hfsplus/hfsplus_fs.h b/fs/hfsplus/hfsplus_fs.h
+> index 916e6552e3..22b961b454 100644
+> --- a/fs/hfsplus/hfsplus_fs.h
+> +++ b/fs/hfsplus/hfsplus_fs.h
+> @@ -30,11 +30,19 @@ typedef int (*btree_keycmp)(const
+> hfsplus_btree_key *,
+> =C2=A0
+> =C2=A0#define NODE_HASH_SIZE	256
+> =C2=A0
+> -/* B-tree mutex nested subclasses */
+> -enum hfsplus_btree_mutex_classes {
+> -	CATALOG_BTREE_MUTEX,
+> -	EXTENTS_BTREE_MUTEX,
+> -	ATTR_BTREE_MUTEX,
+> +/*
+> + * Nested-locking subclasses shared by the B-tree tree_lock and the
+> inode
+> + * extents_lock.=C2=A0 Both are keyed by CNID (tree->cnid or inode-
+> >i_ino), so one
+> + * mapping serves both.=C2=A0 The allocation file gets its own subclass
+> because a
+> + * regular file's extents_lock is held across block alloc/free,
+> which takes the
+> + * allocation file's extents_lock in turn; every other inode uses
+> the default.
+> + */
+> +enum hfsplus_mutex_classes {
+> +	HFSPLUS_CATALOG_MUTEX,
+> +	HFSPLUS_EXTENTS_MUTEX,
+> +	HFSPLUS_ATTR_MUTEX,
+> +	HFSPLUS_ALLOC_MUTEX,
+> +	HFSPLUS_DEFAULT_MUTEX,
 
-Leaving the adopted STE unmodified keeps the kdump kernel using the crashed
-kernel's translation. That gives the endpoint driver a chance to probe and
-quiesce the device.
+I prefer to keep naming convention like it was before. Because,
+CATALOG_BTREE_MUTEX can be used in HFS and HFS+ without any changes in
+the future. I still would like to introduce something like library that
+contain similar code in HFS/HFS+.=20
 
-If the old STE was already abort or invalid, installing bypass would create
-new DMA permission; leaving it alone is a safer failure mode. Later domain
-setup still gets the RMR direct mappings through the reserved-region path.
+> =C2=A0};
+> =C2=A0
+> =C2=A0/* An HFS+ BTree held in memory */
+> @@ -547,25 +555,20 @@ static inline __be32 __hfsp_ut2mt(time64_t ut)
+> =C2=A0	return cpu_to_be32(lower_32_bits(ut) + HFSPLUS_UTC_OFFSET);
+> =C2=A0}
+> =C2=A0
+> -static inline enum hfsplus_btree_mutex_classes
+> -hfsplus_btree_lock_class(struct hfs_btree *tree)
+> +static inline unsigned int hfsplus_lock_class(u32 cnid)
+> =C2=A0{
+> -	enum hfsplus_btree_mutex_classes class;
+> -
+> -	switch (tree->cnid) {
+> +	switch (cnid) {
+> =C2=A0	case HFSPLUS_CAT_CNID:
+> -		class =3D CATALOG_BTREE_MUTEX;
+> -		break;
+> +		return HFSPLUS_CATALOG_MUTEX;
+> =C2=A0	case HFSPLUS_EXT_CNID:
+> -		class =3D EXTENTS_BTREE_MUTEX;
+> -		break;
+> +		return HFSPLUS_EXTENTS_MUTEX;
+> =C2=A0	case HFSPLUS_ATTR_CNID:
+> -		class =3D ATTR_BTREE_MUTEX;
+> -		break;
+> +		return HFSPLUS_ATTR_MUTEX;
+> +	case HFSPLUS_ALLOC_CNID:
+> +		return HFSPLUS_ALLOC_MUTEX;
+> =C2=A0	default:
+> -		BUG();
+> +		return HFSPLUS_DEFAULT_MUTEX;
+> =C2=A0	}
+> -	return class;
+> =C2=A0}
+> =C2=A0
+> =C2=A0static inline
+> diff --git a/fs/hfsplus/super.c b/fs/hfsplus/super.c
+> index ff7d6b3336..49059bf3e7 100644
+> --- a/fs/hfsplus/super.c
+> +++ b/fs/hfsplus/super.c
+> @@ -152,7 +152,7 @@ static int hfsplus_system_write_inode(struct
+> inode *inode)
+> =C2=A0	hfsplus_inode_write_fork(inode, fork);
+> =C2=A0	if (tree) {
+> =C2=A0		mutex_lock_nested(&tree->tree_lock,
+> -				=C2=A0 hfsplus_btree_lock_class(tree));
+> +				=C2=A0 hfsplus_lock_class(tree->cnid));
+> =C2=A0		int err =3D hfs_btree_write(tree);
+> =C2=A0		mutex_unlock(&tree->tree_lock);
+> =C2=A0
+> diff --git a/fs/hfsplus/xattr.c b/fs/hfsplus/xattr.c
+> index 21a1c196c7..f540d4c382 100644
+> --- a/fs/hfsplus/xattr.c
+> +++ b/fs/hfsplus/xattr.c
+> @@ -264,7 +264,8 @@ static int hfsplus_create_attributes_file(struct
+> super_block *sb)
+> =C2=A0						=C2=A0=C2=A0=C2=A0 sbi->sect_count,
+> =C2=A0						=C2=A0=C2=A0=C2=A0
+> HFSPLUS_ATTR_CNID);
+> =C2=A0
+> -	mutex_lock(&hip->extents_lock);
+> +	mutex_lock_nested(&hip->extents_lock,
+> +			=C2=A0 hfsplus_lock_class(attr_file->i_ino));
+> =C2=A0	hip->clump_blocks =3D clump_size >> sbi->alloc_blksz_shift;
+> =C2=A0	mutex_unlock(&hip->extents_lock);
+> =C2=A0
 
-Reviewed-by: Pranjal Shrivastava <praan@google.com>
-Reviewed-by: Jason Gunthorpe <jgg@nvidia.com>
-Tested-by: Breno Leitao <leitao@kernel.org>
-Tested-by: Cristian Prundeanu <cpru@amazon.com>
-Assisted-by: LLM
-Signed-off-by: Nicolin Chen <nicolinc@nvidia.com>
----
- drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.c | 13 +++++++++----
- 1 file changed, 9 insertions(+), 4 deletions(-)
+The extents_lock is initialized in two places: fs/hfsplus/super.c:86
+(hfsplus_iget() path) and fs/hfsplus/inode.c:494 (hfsplus_new_inode()).
+Each mutex_init() site gets its own static lockdep key, so lockdep sees
+two unrelated extents_lock classes:
+- inodes read from disk, which includes all system files;
+- inodes created during this mount.
 
-diff --git a/drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.c b/drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.c
-index 5542d136c1d77..78a24bca44202 100644
---- a/drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.c
-+++ b/drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.c
-@@ -5816,6 +5816,14 @@ static void arm_smmu_rmr_install_bypass_ste(struct arm_smmu_device *smmu)
- 	struct list_head rmr_list;
- 	struct iommu_resv_region *e;
- 
-+	/*
-+	 * Kdump adoption keeps the crashed kernel's table live. Rewriting the
-+	 * adopted STE here could expose an in-flight fetch to a transient V=0
-+	 * entry, or change Cfg=translate to Cfg=bypass. Must skip here.
-+	 */
-+	if (smmu->options & ARM_SMMU_OPT_KDUMP_ADOPT)
-+		return;
-+
- 	INIT_LIST_HEAD(&rmr_list);
- 	iort_get_rmr_sids(dev_fwnode(smmu->dev), &rmr_list);
- 
-@@ -5832,10 +5840,7 @@ static void arm_smmu_rmr_install_bypass_ste(struct arm_smmu_device *smmu)
- 				continue;
- 			}
- 
--			/*
--			 * STE table is not programmed to HW, see
--			 * arm_smmu_initial_bypass_stes()
--			 */
-+			/* The fresh stream table is not yet live. */
- 			arm_smmu_make_bypass_ste(smmu,
- 				arm_smmu_get_step_for_sid(smmu, rmr->sids[i]));
- 		}
--- 
-2.43.0
+So a nesting through a freshly created file never conflicts with one
+through an existing file, and ordering checks between the two groups
+are lost. That's an existing problem, not caused by this patch. Moving
+the mutex_init() into hfsplus_alloc_inode(), or into a single helper,
+would fix it. What do you think?
+
+Thanks,
+Slava.
 
