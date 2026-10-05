@@ -1,63 +1,89 @@
-Received: from meesny.iki.fi (meesny.iki.fi [195.140.195.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 00A3F2931D2;
-	Mon,  5 Oct 2026 04:19:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=195.140.195.201
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791173994; cv=pass; b=ULb/2MJgwLr65SbijsFeTMLI/3QztVSnKryJpn3wgWjIaXoFyjMEwg6Dfbl0IDDqHqoscilECYiEOWgfAUTd/ZYoTSN5MRcpHnK+DlOUA2HMk4OXTnKmvJbVGxmj1Fz0vJOr+UtzbiwCfpQK8EcV4fDxIzKnN/D72Q+jYimYjBg=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791173994; c=relaxed/simple;
-	bh=NYbntC7ghfyGjk5NqdI6csreb2zS7l36kn44jBQaKd8=;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 39DF52C3266
+	for <linux-kernel@vger.kernel.org>; Mon,  5 Oct 2026 04:20:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791174009; cv=none; b=TWvLQCrBGBlNXceXErtT4bBk8ZqTccfEKOLGZzewTL8twcr+JX7y2MbH3hPxpXXXxgWLPnUwRVahO44myd/ddvvu0EgwZunb+Vmt54867cCBsOzWPPLpWWi+fNxXhraw+KaIFeSVDrx+LVxd/FFhHJ7bP9xZU3/bNWNoBCl0Ulc=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791174009; c=relaxed/simple;
+	bh=HoMA9XEjkkd65DXJKPcYLGl2KH3SaKVzwVNL3VSg7LE=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=ef45w+lhW+SYDyj9SDn1+uQFblkq0UKmdaM0z9y0QI+cRkm/Gmg+jW+9PoOuXUBQSDXLSFjwxuHCMtQRZ9x0gz4qPnEkfSEJ2zqheg+XEM2sPbfuuA09J8yhcAm8jTGOlM0OkilAoV24LpdK8Todj6Ea/QiNoYHa5CFTZ7V4lpE=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iki.fi; spf=pass smtp.mailfrom=iki.fi; dkim=pass (1024-bit key) header.d=iki.fi header.i=@iki.fi header.b=J7xbmKEb; arc=pass smtp.client-ip=195.140.195.201
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iki.fi
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iki.fi
+	 Content-Type:Content-Disposition:In-Reply-To; b=ACq9bFYfbA3YimjOp+3er+pi2B6VK1sS1yTuXsGgWhPo9dAtY8wP8lzrz1dOXCUScu/x54p/JaYDH6eQpjz15bLKebwBDNkrW3IziaK/QKUKiZ6GmykNuviCrYOTWltJlmJOQeesSp9IebCSZuYwbVQiU8TR7pq79OXawpl/g9g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=rjBINzSq; arc=none smtp.client-ip=74.125.225.141
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=iki.fi header.i=@iki.fi header.b="J7xbmKEb"
-Received: from localhost (n216spl99sn8f5wgjwv-1.v6.elisa-laajakaista.fi [IPv6:2001:99a:1e1:d200::ccf])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange secp256r1 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	(Authenticated sender: sakkinen)
-	by meesny.iki.fi (Postfix) with UTF8SMTPSA id 4hymPf5r4qzyPr;
-	Mon, 05 Oct 2026 07:19:50 +0300 (EEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=iki.fi; s=meesny;
-	t=1791173990;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=tSigDsQd4p17seU09AsvORzHXste2S9b00XNFovq5NI=;
-	b=J7xbmKEb8QJ0pbijF/r10FRFDBvy0zVOBelozmDkjf0+WxUhY1z6KJ/qAPrX0mb4L6a6L0
-	oS2Z+S8vmh4Nbg3e5kI4xidYrr/eR8fZ3FYMaK1zs/qGnHrVNycYZI76xzAucuDwytAY00
-	YAGvt3Cj3Dmh6Vvc59f/Msl95gwhxRE=
-ARC-Seal: i=1; a=rsa-sha256; d=iki.fi; s=meesny; cv=none; t=1791173990;
-	b=qfxNPBTRqFWd06ib7cDcqJ2K1nMCTcKzV/z5CHN64zLjlpfCCK2x0yhzDkL98y+0B1a4nA
-	FUfb3yveykBHpwNWCpO3kWDEcmFj+h8vc7Lh/56Y8xrPmWCNq3WDAieERVg/dC0hy1SJiB
-	/47G949pRmNvV3XqtQBo27EizX8ToY8=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=iki.fi;
-	s=meesny; t=1791173990;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=tSigDsQd4p17seU09AsvORzHXste2S9b00XNFovq5NI=;
-	b=E0ws7TTKGN2HnmSbZakENyxVSej+4eEJqY41sJioS8OHP8TrQ1Myuncbojp9kZUN+wVBct
-	1/efcDRjVHM8hd3V0ROInHlrDaw40l+Dcu6b5KaBMP+9VajkVKk4651rIAV0+gA+ajh+g2
-	nG7A+ka5P9CA0p5LLmloOEPDCFDX1n4=
-ARC-Authentication-Results: i=1;
-	ORIGINATING;
-	auth=pass smtp.auth=sakkinen smtp.mailfrom=jarkko.sakkinen@iki.fi
-Date: Mon, 5 Oct 2026 07:19:49 +0300
-From: Jarkko Sakkinen <jarkko.sakkinen@iki.fi>
-To: Pei Xiao <xiaopei01@kylinos.cn>
-Cc: jarkko@kernel.org, peterhuewe@gmx.de, jgg@ziepe.ca,
-	linux-integrity@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 3/5] tpm: tpm_nsc: stop using the cleanup callback as
- dev.release
-Message-ID: <asMlZYQFjDgCn6IE@iki.fi>
-References: <cover.1791015549.git.xiaopei01@kylinos.cn>
- <a6155310e6772f708b47291cc959e02c05b90eb7.1791015549.git.xiaopei01@kylinos.cn>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="rjBINzSq"
+Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49d1fb0cf5eso11216345e9.3
+        for <linux-kernel@vger.kernel.org>; Sun, 04 Oct 2026 21:20:06 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791174005; x=1791778805; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=znHr15ngoIrnyD0Loh8A8gjvgvi//2QapaxdSU8F3XU=;
+        b=rjBINzSqDWzLpbPoliBSwcjAWA2ygu0kAsPCf8pIokS39ABeOf7AG+vPwB48+ldof1
+         bVB6sBwMjBTrv2U9OShkJ7QgirhwRPMYYecTDh4iipckMjLP8TOotZekcia38+C+Pq+D
+         VDe+nH6VJT5b5Qetrr1SVy114LnKzECd9tXu9XNrBRVaPwcn2wLOCxrBSFbA0mESXVPT
+         2s0QMa77W805CZrxkoOTsOdIU//A7Azv5a7ydKsYevPzGRmvZkRRAywcovnGGy+dG9y8
+         FkzD4bpnkcsSAlpXTJEn9fb//dq739LgURrW0GLcrBL3Sml6U2kfaTuWBBJ5IPatxHtQ
+         GUTA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791174005; x=1791778805;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=znHr15ngoIrnyD0Loh8A8gjvgvi//2QapaxdSU8F3XU=;
+        b=SjazqkBsrnwaot+xNFGUOijStYaao8KHwfccYMD+eOMMLbMf0xjiG3HGBgXbO+CHTn
+         0UNBB9JaopHfOFuMJLHcapoGtOywKFDepNeOlHI3qyXz9qvuje0BZ1oOnAArKpg68wOm
+         3iRobx2XjiTlq40FcXD8LrNfFY0bCqN41MmyrTVN320lIUKxWqFNgtKmKNvJTzda6lgw
+         dSL6Ot1m1iq0jKwmjxRUil4OOPZACD52WNp3pB27Reu9kkjEYoVHF7M13hPWH1aGULO1
+         yilCsqEVHHi8r8nWfnXkKZOG8EC0XV/np3GmLmxNYFH3VcWWpBufh30B3yoTqT8AOc6x
+         BUuw==
+X-Forwarded-Encrypted: i=1; AKwUvBzX7kqpMJIHJl/QOilIfi7Qd0SSAxXWZHJgoo42RwylGidhXBlbCuZUkDH8Ywqz7L2iDGrDp//hRJw+1kI=@vger.kernel.org
+X-Gm-Message-State: AFuF++mGVjxDwn4H0nskcZe2dqHfU+sBzOIlI1/vrpd5xrkKSbSMZIYL
+	T6kJTvfotAQCVjLJbK/DhuXCq1B5KxaLD26HP0k01WOr3zzMCTOT36uc
+X-Gm-Gg: AYBFou0jqU6qHB4ogWfyGLdmyRdSN/o7OVMO1ZjlREzjU6RFB8SkMwk1q3WXLz9i3R6
+	JH29ZvN8Tn7Bc2eUiCpkrbhIFbiTGky3ZJKSQGfZSgmOhwQqEs5y1zxTZTb2Y6RetCjw0zWDXPf
+	1uZgeKj0rZosNzLJCdQ2T29Bi0dgrAUJlLog97tmB28nsQsdU3XGOWOWlKdDi9HmOMVE4ul6wEj
+	C00R8wyxpEctbNdGIOMY994Ra1c89K2SP6aesnvipkdo9sGgOvU3zXLhCy+eLkJFDtGogVvlpcK
+	tUToP3TcHfHS4BpRWHcwMR+A/QMP3cvXTnlUL7edFDnpcI24sAkfQ3eDHj/98mealY39PE63uJW
+	a/yF1zMGQngKXhmo8IQ8yveQ69Y7Fbpr5YKuh2tvnMJcaMtPa//Ik2XNxsggtPyyJrS67+R+hBl
+	VH7sib6fJkcreTR6EXTq61ZIWEi1uYxoMH1miC8OYlhag06UKKnrkRF5lZXjP+xeoXjyY358nPN
+	gT/vkKQ79Ku09ccIZ0YA3HGw6DiAbgLbpXlbgX4PJ5d9wPYfnqyG+du9+OyoF0nQFAFwA5P1qip
+	oNXxhrHoX7KBCeQKqidt5RifgiF8cznUjk7hL81763GjV6o3aI2n4FOmW8V+oIr9qQ==
+X-Received: by 2002:a05:600c:3e06:b0:4a1:6ad5:257d with SMTP id 5b1f17b1804b1-4a16d3d5c54mr77517745e9.29.1791174005080;
+        Sun, 04 Oct 2026 21:20:05 -0700 (PDT)
+Received: from MBP-von-Karl (dynamic-2a02-3100-b305-2001-39fa-3d24-821a-4eae.310.pool.telefonica.de. [2a02:3100:b305:2001:39fa:3d24:821a:4eae])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a027725c6asm355769085e9.8.2026.10.04.21.20.03
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 04 Oct 2026 21:20:04 -0700 (PDT)
+Date: Mon, 5 Oct 2026 06:20:01 +0200
+From: Karl Mehltretter <kmehltretter@gmail.com>
+To: Arnd Bergmann <arnd@arndb.de>
+Cc: Russell King <linux@armlinux.org.uk>, Miguel Ojeda <ojeda@kernel.org>, 
+	Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>, 
+	=?utf-8?B?QmrDtnJu?= Roy Baron <bjorn3_gh@protonmail.com>, Benno Lossin <lossin@kernel.org>, 
+	Andreas Hindborg <a.hindborg@kernel.org>, Alice Ryhl <aliceryhl@google.com>, 
+	Trevor Gross <tmgross@umich.edu>, Danilo Krummrich <dakr@kernel.org>, 
+	Daniel Almeida <daniel.almeida@collabora.com>, Tamir Duberstein <tamird@kernel.org>, 
+	Alexandre Courbot <acourbot@nvidia.com>, Onur =?utf-8?B?w5Z6a2Fu?= <work@onurozkan.dev>, 
+	Linus Walleij <linusw@kernel.org>, Christian Schrefl <chrisi.schrefl@gmail.com>, 
+	Bradley Morgan <brads@mainlining.org>, "Paul E. McKenney" <paulmck@kernel.org>, 
+	Nathan Chancellor <nathan@kernel.org>, Nick Desaulniers <ndesaulniers@google.com>, 
+	Bill Wendling <morbo@google.com>, Justin Stitt <justinstitt@google.com>, 
+	linux-arm-kernel@lists.infradead.org, rust-for-linux@vger.kernel.org, llvm@lists.linux.dev, 
+	linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 2/2] ARM: rust: Enable Rust support for ARMv5TE
+Message-ID: <asMj2D6_Zx4ZIfrw@gmail.com>
+References: <20261003093827.77857-1-kmehltretter@gmail.com>
+ <20261003093827.77857-3-kmehltretter@gmail.com>
+ <33197b82-3eff-4c87-b370-c677ca31a02a@app.fastmail.com>
+ <asEzZ1wOQ_MbgEsk@gmail.com>
+ <3436fcef-a052-4261-afb5-677b0bbf28c2@app.fastmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -66,48 +92,69 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <a6155310e6772f708b47291cc959e02c05b90eb7.1791015549.git.xiaopei01@kylinos.cn>
+In-Reply-To: <3436fcef-a052-4261-afb5-677b0bbf28c2@app.fastmail.com>
 
-On Sat, Oct 03, 2026 at 04:27:53PM +0800, Pei Xiao wrote:
-> tpm_nsc_remove() is called explicitly from cleanup_nsc() and also
-> runs as the platform device release callback on the final
-> platform_device_put(), so the cleanup executes twice on module
-> exit; the second invocation operates on a chip that has already
-> been freed by the devm cleanup, and the I/O region is released
-> twice.
-> 
-> Overwriting the release callback installed by
-> platform_device_alloc() also keeps platform_device_release() from
-> running, leaking the platform object allocation.
-> 
-> Leave the default release callback in place; the explicit call in
-> cleanup_nsc() remains the single cleanup point.
-> 
-> Fixes: 570302a31149 ("[PATCH] tpm: move nsc driver off pci_dev")
-> Assisted-by: GLM-5.3
-> Signed-off-by: Pei Xiao <xiaopei01@kylinos.cn>
-> ---
->  drivers/char/tpm/tpm_nsc.c | 1 -
->  1 file changed, 1 deletion(-)
-> 
-> diff --git a/drivers/char/tpm/tpm_nsc.c b/drivers/char/tpm/tpm_nsc.c
-> index 46a52dc99b14..bcfa2a1a208a 100644
-> --- a/drivers/char/tpm/tpm_nsc.c
-> +++ b/drivers/char/tpm/tpm_nsc.c
-> @@ -327,7 +327,6 @@ static int __init init_nsc(void)
->  
->  	pdev->num_resources = 0;
->  	pdev->dev.driver = &nsc_drv.driver;
-> -	pdev->dev.release = tpm_nsc_remove;
->  
->  	if ((rc = platform_device_add(pdev)) < 0)
->  		goto err_put_dev;
-> -- 
-> 2.25.1
-> 
+On Sat, Oct 03, 2026 at 10:54:28PM +0100, Arnd Bergmann wrote:
+> How do you build ARMv7-A rust code in user space? If the default is
+> ARMv6, doesn't that rule out things like thumb2, vfpv3 and sensible
+> (inlined) atomics?
 
-This is fine too, thanks.
+With another target, armv7-unknown-linux-gnueabi (soft-float ABI, no
+NEON). The kernel never used it. It fits the same scheme
 
-Reviewed-by: Jarkko Sakkinen <jarkko@kernel.org>
+  rust-target-$(CONFIG_CPU_32v7)   :=armv7-unknown-linux-gnueabi
+  rust-target-$(CONFIG_CPU_32v6)   :=arm-unknown-linux-gnueabi
 
-Br, Jarkko
+A v6K+v7 kernel stays ARMv6 like its C code. My planned v2 has this as
+last patch. It changes the Rust code of all ARMv7-only kernels from
+ARMv6 to ARMv7.
+
+> In the kernel, we don't normally allow neon code, but it sounds like
+> we may need to make rust depend on !CONFIG_THUMB2_KERNEL, as that
+> may be problematic when linking with v6 code.
+
+You are right, for modules. Built-in Rust code works on a Thumb-2
+kernel (Pi 400 and QEMU). Rust modules do not load
+
+  rust_minimal: section 8 reloc 24 sym 'rust_helper_krealloc_node_align': unsupported interworking call (ARM -> Thumb)
+
+Same on v7.3-rc1. rustc has no Thumb-2 target with the soft-float ABI.
+!THUMB2_KERNEL would also remove the built-in case, so v2 leaves it
+alone.
+
+I have a first module loader patch instead. bl to a Thumb function
+becomes blx, other branches go through a PLT veneer. Rust modules then
+load on a Thumb-2 kernel in QEMU. I would send it separately after more
+testing. Or do you prefer !(THUMB2_KERNEL && MODULES) for now?
+
+> >   --target=arm-unknown-linux-gnueabi -Ctarget-cpu=arm926ej-s
+> 
+> Ok, so I guess this is more like -mtune= in clang and gcc?
+
+More like -mcpu. 
+It adds features but does not override the +v6 of the target.
+
+> Maybe this should be "+v7-a" instead of "-v6" to allow allow the
+> compiler to use all ARMv7-A features instead? It would be surprising
+> if they added 32-bit Arm support to Rust without a way to target what
+> is in almost every single chip and Linux distro today.
+
+rustc does not know +v7-a. +v7 works but warns about an unstable
+feature. The separate target avoids that.
+
+On the CP15 barriers. With the generic target a fence(SeqCst) from
+core::sync::atomic becomes
+
+  mcr p15, #0, r0, c7, c10, #5
+
+and with the armv7 target dmb ish. No kernel Rust code does that today,
+the Rust objects I looked at have no CP15 access and no swp. But
+nothing prevents it.
+
+> I would leave out CPU_V7M as well, it's not worth trying to
+
+It is left out already. HAVE_RUST needs CPU_32v6K, CPU_32v5 or
+CPU_32v4T.
+
+Thanks
+Karl
