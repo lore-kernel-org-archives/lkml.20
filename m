@@ -1,345 +1,129 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from out203-205-221-239.mail.qq.com (out203-205-221-239.mail.qq.com [203.205.221.239])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6E2D54EFFB5;
-	Mon,  5 Oct 2026 17:33:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 490A64FC8C7;
+	Mon,  5 Oct 2026 17:33:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=203.205.221.239
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791221595; cv=none; b=rqmp5iASXi7rr1TzoOSwQexJ5ToUmNVQW7GFYbY2j/DmkZ4RB9bMUUj3JikTMpksnLzmHJb5/KJ7L4Ig8h95ZIiYHuw44E/aPqcVk49iKpCg2lWVXJsqewxppMpOYEn8Z2R2q8J44Z/lSEzc2lgJ66crmBRnoHBqo9rkJ8icRwE=
+	t=1791221602; cv=none; b=u7/loUbLe2uI6uv8cv8vhbpfen3zcPqcM4QMJWSFDi1xuG4CLYw4cD+lbAM7XewSkapWL/vD5Pt07x2d0A0ra2ztj1IkuxoVni0YuDhul+aKaUUiYellsYgMvTl0NLA/x22L7KcjIWhmmh2hdugsXXRlaETFardZ9KcNamEDzrE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791221595; c=relaxed/simple;
-	bh=WWRrTogpoCm9jcwHZNNwWwDrAKXxnnRHkFLS0o3aEG8=;
-	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=Mu7KpJimaP7+RROcbW1mt74YR2KvhhgfNZYl83XPtnYRY/GnNV6YM7oG5PYhIuJNC3eLcVutkyS+8oQweOOIx8K7Mad1991vdc82blmf6gDztrAfzJ3aX07LLllfgfO4NadkieSn4ozUZUUb8vE5sRRdu5MSB3XwYxqFUoNtJ2Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ODcD1z/s; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791221602; c=relaxed/simple;
+	bh=VE0wQgjYwXHoQ7emTf0R1cJxbq53jScQq27h5b96Hbw=;
+	h=Message-ID:From:To:Cc:Subject:Date:MIME-Version; b=OzT4Ob4AbuCU6xUJo87MUS8nHK67N5b6Z46QrijYVBJ179ty0ESxF2PZsGXg86IvJlzrY4Kx1beh4us1xZ3ueu0rXUT8KL9I1rbuhNr6nmoZ//5aBchR0EU6q/yqz45IpT0hSd+N0aIG5+11AJjOFa6qroCPsjLoQzkuSVzYuSI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com; spf=pass smtp.mailfrom=qq.com; dkim=pass (1024-bit key) header.d=qq.com header.i=@qq.com header.b=vEVNBgE9; arc=none smtp.client-ip=203.205.221.239
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qq.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ODcD1z/s"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6C50A1F000FF;
-	Mon,  5 Oct 2026 17:33:12 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791221593;
-	bh=X7sX2iazjw1D9MpNTPb5B5lFjvgNuPzBLZ4h+HtIiWk=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=ODcD1z/sucEbNUZWxF85evJ2a2CN1Hxbb5R5ZIqm+epeonNw1Ey/a5Gdov/fs8Inf
-	 bnf7vGrCFVSF5l/57DX8RRV7/qD+W5ydTBo+f7kxhTSvt/OCtCZ6cpiDHpSwHp1ij4
-	 +Jq+QImJBUNmnWvCJ2EcueiG5dEoQhIyMR5f0heA2ymwsuu6opksz6smYwDYkqgQ+M
-	 TDq+ropT03SVv/Kz0xzU1J6ziHI6cV9BpzNbpfbAQMV0m0/ApN8jGUaFWcorFcT2Q8
-	 8zeg1Iv7ShdlDkqJ1/s8T5pjzCMvvKpBz8UdHMXWis3tHgl+20pomieui8VBMDyu/Z
-	 QFi9FSC7np/Cw==
-Subject: Re: [PATCH net-next 2/2] selftests: net: add an amt test for
- UDP_SEGMENT through the relay
-From: netdev-bot+sashiko@kernel.org
-To: omar@blockcast.net
-Cc: ap420073@gmail.com, andrew+netdev@lunn.ch, davem@davemloft.net,
- edumazet@google.com, kuba@kernel.org, pabeni@redhat.com, shuah@kernel.org,
- horms@kernel.org, netdev@vger.kernel.org, linux-kselftest@vger.kernel.org,
- linux-kernel@vger.kernel.org
-Date: Mon, 05 Oct 2026 17:33:12 +0000
-Message-ID: <179122159202.434549.13854846307232722099@kernel.org>
-In-Reply-To: <20261001171016.88208-3-omar@blockcast.net>
-References: <20261001171016.88208-3-omar@blockcast.net>
-X-sashiko-severity: Medium
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (1024-bit key) header.d=qq.com header.i=@qq.com header.b="vEVNBgE9"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
+	t=1791221592; bh=06i4WcQESlvt9d5hVxVL6XtfxJGmUMnEYGAhzyyvOHw=;
+	h=From:To:Cc:Subject:Date;
+	b=vEVNBgE9bXkG7ny5INeAyekjas8ERoiSySS1Xsna0hZBEEXYf0J4k/1xCVeKAfiqs
+	 MznJX1OyqhNcSNNjcOI+lAoeXkmzONdQCrgGEoSL5VJjx/Onznhh49BSpOcgUrQVwW
+	 cVH895LZchFOeaoGp9uST67Hs+dgwZ2zMkWN37Ms=
+Received: from AERO17.taila7786d.ts.net ([2409:8a7c:21c:8010:c675:1308:618e:14ff])
+	by newxmesmtplogicsvrszb51-1.qq.com (NewEsmtp) with SMTP
+	id 8493A252; Tue, 06 Oct 2026 01:33:09 +0800
+X-QQ-mid: xmsmtpt1791221589t8fu07obf
+Message-ID: <tencent_AFCC7B9046C57B49E6FDBD8009981E935006@qq.com>
+X-QQ-XMAILINFO: Nx5J06Esz7r7GeE/XHa3dCNz59OfJGVkoXqRXygwwtoTU4VYjug57S68tanRxP
+	 UQRzBBrqj4wX5zSj7WZ5ceCrkvlQ97O9gVeHca132oRSjklCu+/P5TwOoSCggdtEWCCW5ukmTUew
+	 g1D4dld8qheyrWkG9q4FFiBnPXE3odYFT6z0m5zJ5OhZ3LWNS1RKJi8E5IOXFxlb1UEXJzIkI2gm
+	 XK5Vg3ccA15ShAnk85fUTjGeFdtGg8mJ3P4AUNcdK1piKl9/LrHzPtuenJX3SZ8dT+1cspASMSOG
+	 qPH9iUkpI282MkQGd3c2G/guzcl6gLg6sg/rtkS2rR+pd7zRpYPPNrcGRmMdP8oc4NyQ085PePN1
+	 m0Imq9kl9haTphx06PU+nPUTwgg6rOfbkoveGu0/dBJejUtiuTKTLSBv9whdV5RBiLYM6JriErv4
+	 BlcNAtO+cTI1QR50F7nMlkWQb3OhY80x6Pp13EjCf8ZAV4HgjlMvebi1mBUV8/mTUk62ZIZkxXZy
+	 2rtZodl/hG8G2LYt221URqc0lHS4bP2oI4O+MEBuuFmZdNIq/x21J+L1WvBbVp6KhK3gxJHES+9z
+	 S31b74dDE89hi2qsOON2KX8jniM8DdnsUpVNS6q5W/gpbZISi95zWJdoCEEsvo4PVYwg100jNyc7
+	 XkkokXheo4a9lhoiX/HsR/cfDl4c9sFkbs9f/3tt2QU87z0VkSgC0NdBbJZzdk9FeQMUhIvv1Gyy
+	 Li2AFwQF1RttoHC4oWoNbv9WbDnA/kimgMdcfnfJ6v110RbDrkAw318I2VMuLkB0ERQCeEFDO5X2
+	 NMjKoahjgNpIaX05ALdGMbh3X17J+NxKw7dGo9vRkbC1SaNWTTjVdL7FFlWUUCPGvNhrdUJnLuyV
+	 zEAoOt2b06Q7YNueT13HdYSKDhWzYeibdfms0GB1G14umxUJU+gOdA/vPn4V1CA5q6/G5RzrmLg1
+	 F3xLBq46wdWULGauA18S9Ca5ySU4yd/f6IvAkvPijvjxDREAaj1t5zYhJhYqwDU7edPopM2GN+GV
+	 z1ghKBBKKUAglGW1UGVjqcfRLrYd5qzrIqE2Ph8ATS2BXM2EbV7Y9bUjfMBnJSC6aCpym8CA3vNH
+	 q/2CDFr+BYQ/0KSFSoBERZ9LuGFECp/G6TyT6/u/bjwpwzoz7znaylomgF1A==
+X-QQ-XMRINFO: Nq+8W0+stu50tPAe92KXseR0ZZmBTk3gLg==
+From: Pufan Jin <2254650260@qq.com>
+To: Conor Dooley <conor+dt@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Michal Simek <michal.simek@amd.com>,
+	Rob Herring <robh@kernel.org>
+Cc: devicetree@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	andrew@lunn.ch
+Subject: [PATCH v2 0/3] arm64: zynqmp: Add support for ALINX EdgeBoard FZ3A
+Date: Tue,  6 Oct 2026 01:33:05 +0800
+X-OQ-MSGID: <20261005173308.710986-1-2254650260@qq.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-
-Thank you for your contribution! Sashiko AI review found 6 potential
-issue(s) to consider.
-
-Critical: 0 · High: 0 · Medium: 2 · Low: 4
-
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
-
-- [Medium] In amt_gso.sh, a capture helper that fails is not noticed.
-- [Medium] The READY handshake in amt_gso.sh does not actually make the
-  sender wait for the listeners.
-- [Low] The new test depends on AF_PACKET, but CONFIG_PACKET is not in
-  the net selftests config fragment.
-- [Low] If the AMT tunnel never comes up, the script reports SKIP and
-  exits, so a regression in AMT discovery/request/update becomes a skip…
-- [Low] In do_send() (amt_gso.c:148), `total = c->cnt * c->seg + c->tail`
-  is computed in unsigned int and only then compared with MAX_DGRAM.
-- [Low] wait_tunnel() (amt_gso.sh:124-130) reuses $TMPD/probe.out on
-  every iteration and for both families, and never clears it in the…
-
---
-
-selftests: net: add an amt test for UDP_SEGMENT through the relay
-
-This adds amt_gso.sh and a C helper, amt_gso. The test sends a
-UDP_SEGMENT burst from a sender on the AMT relay to a listener behind the
-gateway, over IPv4 and IPv6. It checks payloads and drop and checksum
-counters, and uses AF_PACKET captures on amtr and gw_relay to check frame
-sizes and AMT message counts.
-
-> diff --git a/tools/testing/selftests/net/amt_gso.c b/tools/testing/selftests/net/amt_gso.c
-> new file mode 100644
-> index 0000000000000..96c002e585914
-> --- /dev/null
-> +++ b/tools/testing/selftests/net/amt_gso.c
-> @@ -0,0 +1,473 @@
-
-[ ... ]
-
-> +static int do_send(const struct cfg *c)
-> +{
-> +	static uint8_t buf[MAX_DGRAM];
-> +	struct sockaddr_storage dst, src;
-> +	socklen_t dlen, slen;
-> +	unsigned int total, ifindex, i;
-> +	int fd, ttl = 8, zero = 0;
-> +
-> +	total = c->cnt * c->seg + c->tail;
-> +	if (total > MAX_DGRAM || (c->tail && c->tail < sizeof(struct chunk_hdr)) ||
-> +	    c->seg < sizeof(struct chunk_hdr)) {
-> +		fprintf(stderr, "amt_gso: bad sizes\n");
-> +		return 2;
-> +	}
-
-[Severity: Low]
-This isn't a bug for the values amt_gso.sh passes, but can this product
-wrap before it is compared with MAX_DGRAM?
-
-total is an unsigned int, so arguments such as -c 65536 -s 65536 give a
-small total that passes the check. fill_dgram() then writes the full
-cnt * seg + tail bytes into the 65507-byte static buf[].
-
-do_recv() follows the same pattern:
-
-	unsigned int per = chunks_per_dgram(c), expected = c->num * per;
-	...
-	seen = calloc(expected ? expected : 1, 1);
-	...
-	if (seen[h.seq * per + h.idx]++) {
-
-If expected wraps, seen[] is allocated too small and this index can write
-past it.
-
-This needs large values passed by hand. amt_gso.sh only uses small fixed
-sizes.
-
-[ ... ]
-
-> +static int do_sniff(const struct cfg *c)
-> +{
-> +	static uint8_t buf[MAX_DGRAM + 256];
-> +	unsigned int n = 0, max_len = 0, over = 0, amt = 0;
-> +	struct sockaddr_ll sll = { .sll_family = AF_PACKET };
-> +	struct timespec t0, last, now;
-> +	struct tpacket_stats st = { 0 };
-> +	socklen_t stlen = sizeof(st);
-> +	int fd, rcvbuf = 32 << 20;
-> +
-> +	fd = socket(AF_PACKET, SOCK_DGRAM, htons(ETH_P_ALL));
-> +	if (fd < 0)
-> +		die("socket(AF_PACKET)");
-
-[Severity: Low]
-Should CONFIG_PACKET be added to tools/testing/selftests/net/config?
-
-Both captures in run_burst() need an AF_PACKET socket here, and every
-run_case() verdict depends on them. The config fragment lists
-CONFIG_AMT=m, CONFIG_BRIDGE=y and CONFIG_VETH=y, but not CONFIG_PACKET.
-
-On a kernel built from that fragment without CONFIG_PACKET, both sniffers
-exit through die() before printing READY. The script then ends up in the
-empty field() handling in run_case() described below, and does not skip
-cleanly.
-
-[ ... ]
-
-> diff --git a/tools/testing/selftests/net/amt_gso.sh b/tools/testing/selftests/net/amt_gso.sh
-> new file mode 100755
-> index 0000000000000..8b32f17b6f6b3
-> --- /dev/null
-> +++ b/tools/testing/selftests/net/amt_gso.sh
-> @@ -0,0 +1,269 @@
-
-[ ... ]
-
-> +wait_tunnel()
-> +{
-> +	local fam=$1 v6="" grp=$GRP4 src=$SRC4 port=4999 i
-> +
-> +	[ "$fam" = 6 ] && { v6=-6; grp=$GRP6; src=$SRC6; port=6999; }
-> +
-> +	for i in $(seq 40); do
-> +		ip netns exec "$LISTENER" $AMT_GSO recv $v6 -p $port \
-> +			$PROBE_OPTS -T 1 >"$TMPD/probe.out" &
-> +		local pid=$!
-> +		busywait 5000 grep -q READY "$TMPD/probe.out"
-
-[Severity: Low]
-Can this grep match a READY line left in probe.out by an earlier receiver?
-
-probe.out is reused on every iteration and for both families. The
-truncating redirection happens in the background child. If the parent's
-grep runs before the child has opened the file, it sees the READY from an
-earlier failed attempt, or from the IPv4 run when wait_tunnel 6 starts.
-
-The probe is then sent before the new receiver has bound its socket. The
-probe is lost and the loop retries. In the worst case, repeated losses end
-in the "tunnel did not come up" skip.
-
-run_burst() avoids this by running rm -f before it starts its helpers.
-Could the same be done here?
-
-> +		ip netns exec "$RELAY" $AMT_GSO send $v6 -I amtr -g $grp \
-> +			-b $src -p $port $PROBE_OPTS >/dev/null
-
-[ ... ]
-
-> +	rm -f "$TMPD"/{recv,amtr,gw,send}.out
-> +
-> +	ip netns exec "$LISTENER" $AMT_GSO recv $v6 -p $port $opts -T 3 -S 15 \
-> +		>"$TMPD/recv.out" &
-> +	pid_r=$!
-> +	ip netns exec "$RELAY" $AMT_GSO sniff -I amtr -p $port -M "$AMTR_MTU" \
-> +		-o -T 20 >"$TMPD/amtr.out" &
-> +	pid_a=$!
-> +	ip netns exec "$GATEWAY" $AMT_GSO sniff -I gw_relay -p $PORT_AMT \
-> +		-M 1500 -i -a $v6 -T 20 >"$TMPD/gw.out" &
-> +	pid_g=$!
-> +	for f in recv amtr gw; do
-> +		busywait 5000 grep -q READY "$TMPD/$f.out"
-> +	done
-
-[Severity: Medium]
-What happens when one of these busywait calls times out?
-
-busywait() in lib.sh returns 1 after the timeout. That result is ignored
-here and in wait_tunnel(), so the counters are sampled and the sender
-starts anyway.
-
-If a capture has not bound its AF_PACKET socket yet, frames can cross
-amtr or gw_relay without being seen. That would give a spurious
-gwn != EXPECT failure. It could also leave big at 0, which turns a tx on
-GSO case into a skip.
-
-The commit message says slow helper startup on a loaded guest caused the
-earlier flakiness.
-
-There is a related ordering question later in run_burst():
-
-	kill -TERM $pid_a $pid_g
-	wait $pid_a $pid_g
-
-do_sniff() installs its handler just before printing READY:
-
-	signal(SIGTERM, sniff_sig);
-	printf("READY\n");
-
-A sniffer that is still starting up is killed by the default action and
-prints no SNIFF line. run_case() then works with empty fields, as
-described below. Since wait discards the exit status, a helper that never
-started is not reported either.
-
-[ ... ]
-
-> +	run_burst "$fam" "$gso"
-> +	big=$(field "$TMPD/amtr.out" over_mtu)
-> +
-> +	gwn=$(field "$TMPD/gw.out" amt_data)
-
-[ ... ]
-
-> +	check_err $(($(field "$TMPD/amtr.out" lost) + \
-> +		     $(field "$TMPD/gw.out" lost) != 0)) \
-> +		"a packet capture lost frames, the verdict is unreliable"
-> +	check_err $RECV_RC "listener did not get every datagram intact"
-> +	check_err $((DROPS != 0)) "relay_gw dropped $DROPS packets"
-> +	check_err $((CSUMERR != 0)) "gateway counted $CSUMERR csum errors"
-> +	check_err $((gwn != EXPECT)) \
-> +		"gateway saw $gwn AMT data messages, expected $EXPECT"
-> +	check_err $(($(field "$TMPD/gw.out" over_mtu) != 0)) \
-> +		"frames larger than the MTU were put on the wire"
-> +
-> +	if [ "$tx" = on ] && [ "$gso" = 1 ]; then
-> +		# Without this the case proves nothing about the driver.
-> +		if [ "$big" = 0 ] && [ $RET -eq 0 ]; then
-> +			RET=$ksft_skip
-> +			retmsg="no GSO skb reached amt_dev_xmit()"
-> +		fi
-> +	else
-> +		check_err $((big != 0)) \
-> +			"a frame larger than the MTU reached amt_dev_xmit()"
-> +	fi
-> +
-> +	log_test "$name"
-> +}
-
-[Severity: Medium]
-How are these checks meant to behave when a sniffer exited without
-printing its SNIFF line?
-
-do_sniff() prints SNIFF only at the very end. Every die() path leaves the
-output file empty: socket(AF_PACKET), if_nametoindex, bind, poll and
-recvfrom. So does a SIGTERM that arrives before the handler is installed.
-
-run_burst() ignores both the busywait results and the exit status from
-wait $pid_a $pid_g. In that case field() returns an empty string.
-
-If gw.out has no SNIFF line, the first check_err expands to something
-like:
-
-	$((0 +  != 0))
-
-That is a bash arithmetic syntax error. The over_mtu check on gw.out has
-the same problem.
-
-Bash then discards the whole top-level run_case command. log_test is never
-reached, no TEST line is printed, and EXIT_STATUS is not updated.
-
-With CONFIG_PACKET=n, both sniffers die in socket(AF_PACKET) and all six
-cases are dropped this way. wait_tunnel() still succeeds because it does
-not use the sniffer, so the script exits with 0.
-
-If only amtr.out has no SNIFF line, the first expression is still valid
-and gives 0, but big is empty. In the tx on GSO cases, this test is then
-false:
-
-	if [ "$big" = 0 ] && [ $RET -eq 0 ]; then
-
-So the "no GSO skb reached amt_dev_xmit()" skip is never taken, and the
-case can pass without showing that a GSO skb reached the driver.
-
-In the other cases, $((big != 0)) treats the empty variable as 0 and
-passes with no data behind it.
-
-Would it make sense for run_burst() to check the busywait results and the
-sniffers' exit status, and for run_case() to fail when a SNIFF line is
-missing?
-
-[ ... ]
-
-> +setup_topology
-> +
-> +wait_tunnel 4 || { log_test_skip "IPv4 AMT tunnel did not come up"
-> +		   exit $EXIT_STATUS; }
-> +wait_tunnel 6 || { log_test_skip "IPv6 AMT tunnel did not come up"
-> +		   exit $EXIT_STATUS; }
-
-[Severity: Low]
-Should this be reported as a failure rather than a skip?
-
-By this point the script has checked that iproute2 supports amt, and
-setup_topology() has created both amt devices. If 40 probes then fail to
-reach the listener, no prerequisite is missing. Discovery, request or
-update is not working.
-
-As written, an AMT forwarding regression shows up as SKIP and none of the
-six cases run. amt.sh reports [FAIL] in the same situation.
-
-[ ... ]
-
+Content-Transfer-Encoding: 8bit
+
+The ALINX EdgeBoard FZ3A is a single board computer from ALINX based on
+the Xilinx Zynq UltraScale+ XCZU3EG SoC.
+
+This series adds the ALINX vendor prefix, documents the board compatible,
+and adds a device tree for the board's PS peripherals:
+
+  - UART1 debug console
+  - eMMC (HS200) and microSD card
+  - GEM3 Ethernet with Micrel KSZ9031 PHY on the MDIO bus
+  - I2C0 and I2C1
+  - QSPI NOR flash
+  - PCIe
+  - USB 3.0 host
+  - DisplayPort output
+
+The Paddle-Mobile FPGA accelerator is not included. Its PL description
+depends on vendor-specific IP and an out-of-tree driver.
+
+Tested on ALINX FZ3A hardware with Linux 7.3.0-rc5: the board boots from
+SD card into userspace over the serial console, gem3 negotiates
+1000Mbps/Full duplex with phy-mode = "rgmii-id", and the eMMC runs in
+HS200 mode.
+
+The base DTB passes CHECK_DTBS=y, and the Xilinx SoC binding passes
+dt_binding_check.
+
+Changes since v1:
+  - Use the correct vendor prefix 'alinx' instead of 'ebdee', and rename
+    the board and DTS file accordingly (Krzysztof Kozlowski)
+  - Describe the board as a single board computer with the SoC, DDR4 and
+    eMMC on one PCB, not a carrier board with a MYIR SoM (Andrew Lunn)
+  - Add the MDIO bus and describe the KSZ9031 PHY with phy-handle
+    (Andrew Lunn)
+  - Enable eMMC HS200 on sdhci0: drop no-1-8-v, add pinctrl and
+    mmc-hs200-1_8v
+  - Drop power-source and bias-high-impedance from pinctrl_gem3_default,
+    which only produce spurious warnings on the board's pre-2023.1 PM
+    firmware
+
+Pufan Jin (3):
+  dt-bindings: vendor-prefixes: Add ALINX vendor prefix
+  dt-bindings: soc: xilinx: Add ALINX EdgeBoard FZ3A
+  arm64: zynqmp: Add ALINX EdgeBoard FZ3A
+
+ .../bindings/soc/xilinx/xilinx.yaml           |   1 +
+ .../devicetree/bindings/vendor-prefixes.yaml  |   2 +
+ arch/arm64/boot/dts/xilinx/Makefile           |   1 +
+ .../xilinx/zynqmp-alinx-edgeboard-fz3a.dts    | 350 ++++++++++++++++++
+ 4 files changed, 354 insertions(+)
+ create mode 100644 arch/arm64/boot/dts/xilinx/zynqmp-alinx-edgeboard-fz3a.dts
+
+Range-diff against v1:
+1:  d6e565186 < -:  --------- dt-bindings: Add EBDEE vendor prefix
+2:  f546b0d1a < -:  --------- dt-bindings: soc: xilinx: Add EBDEE EdgeBoard FZ3A
+3:  b114e1da4 < -:  --------- arm64: zynqmp: Add EBDEE EdgeBoard FZ3A development board
+4:  c33ea63b7 = 1:  c33ea63b7 dt-bindings: vendor-prefixes: Add ALINX vendor prefix
+5:  888548b4e = 2:  888548b4e dt-bindings: soc: xilinx: Add ALINX EdgeBoard FZ3A
+6:  cd96303fb = 3:  cd96303fb arm64: zynqmp: Add ALINX EdgeBoard FZ3A
+
+base-commit: 72d3fcf802c45d00b300f25b848a93c3a2bd7c7e
 -- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261001171016.88208-1-omar%40blockcast.net
+2.55.0
+
