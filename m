@@ -1,245 +1,205 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pl1-f175.google.com (mail-pl1-f175.google.com [209.85.214.175])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9390F5237B7;
-	Mon,  5 Oct 2026 17:18:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5C27C525A90
+	for <linux-kernel@vger.kernel.org>; Mon,  5 Oct 2026 17:18:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.175
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791220738; cv=none; b=IuC8Bj3MqG8jI36n7F6jGaYz0+szzYNTxNweLcvE/nEe1mlXLKjQ+U8Bozb4U6zRpyDfNtbJrDCtuhJuIJ75Ou0iw+ghGqeQT0CbiiUfUy7SI4uuSmTs4jk8xh5ll0SYSy1N5CV+qrW0vhB41OIi39nJcrFp1LnH9H3jgcFW5t4=
+	t=1791220740; cv=none; b=KSXofLZOdARUJ29yr446jy/qNKd/zZZz9izTi7HgpN6PS0j+cQb8li//ydHt9sm5oqWURcO7e2HO7KjfUgsHQt71AYLJn5+5yEhCJ43zqwPzxhR86g3fDywVRkq+VJWJremObY7i9O6+yjBTEmOfXNyXQIJv8buPX59ihWTZ8w4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791220738; c=relaxed/simple;
-	bh=uS1t744te2Ot8L6A3g+MVPoUquMklX9ig/QH3wLfwdI=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=Kjwp0LvBE+8lUcjniNnu0o7QtFSJRk1sKFEhz/waCZUVa3mGmc+6gvhvlF9R2QsGYQj4fKh2Scjt6gbTQRP6bTsmqCDN5Ic+nKICKBg45nVxLtLzW0seeK/PkP9+to5JKsVJ3hY1fI4fpB04ZD0ZyplN1mbP+YMIGfqjWwGnuBQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BxMDQkpn; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791220740; c=relaxed/simple;
+	bh=ikRDPvJS94ZCR7PUsAAuEp28RxgBvB/t5DdR/IX8Lk4=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=G93QLJ3Sc8KjTYCpBjZieQv77KJltsypyBS7HVzpTmMqvuoOryyyD4jtTXr5CYzRyGKwzjpayhupME4Ya2MnaAEYpOH5J2Gm2+9a3N+6DDUBycZAUCh/yzbwc9JfM1tUCrsaYItLS470qz2I429RiKBCIaCmFTQFwm2g7VUX68k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=kDcH/Xg4; arc=none smtp.client-ip=209.85.214.175
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BxMDQkpn"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6999C1F000FF;
-	Mon,  5 Oct 2026 17:18:54 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791220737;
-	bh=ul5KgzhIsSZ142uwpg0FUSjAqikjYuMg4NIBYsV47os=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=BxMDQkpnrUSrmfrcgdjDLAzIptmY3Fz7hLWuP3q0EG/wDDI78/6IbdBocHphRLfI0
-	 Fy7wT7lCd2JNn1spfBzQufFOt21Cb7Y+1SPZ8sDNZ1bF2L4cAp0m54KjXH9U0DuZ6W
-	 9VCwAGhYvV4wkGDlSL5fYbfKJQCfAc/Dh8MVGtYapCrd6tuPXg4hhQb9rSOyHbJGgR
-	 yzbQRpZzGzlD225UzId4j4ECBFim8TIcG7qu2eC4zIpXzrYbCXS7aijHhFFPwV2eq7
-	 SKBaLFpoJRk2dDeIosOMvqRoZbx2nTvojTYRq/ZYdc4ZBN12NedvHFEFIOq41wn3H6
-	 Al3M8Vak0kB4Q==
-From: bod@kernel.org
-Date: Mon, 05 Oct 2026 19:14:25 +0200
-Subject: [PATCH 55/74] media: qcom: camss: vfe: Make is_pix the only test
- for the pixel path
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="kDcH/Xg4"
+Received: by mail-pl1-f175.google.com with SMTP id d9443c01a7336-2e4a4e92234so17533115ad.2
+        for <linux-kernel@vger.kernel.org>; Mon, 05 Oct 2026 10:18:58 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791220737; x=1791825537; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=7JGfeM05iMohWhPKcbFv96DJOpIFn77eSNSRuB4K3d4=;
+        b=kDcH/Xg4RjPEoEdcznaabc1cj2uwxJg4oniQl4A51j2bmvptrqvvHOf6DDAE8q80wo
+         3yoLGzDuz92YOw7q+wa5u/qhtrYL+yIxtqWgxVgPj/JSkIm5JBVNRFHu6msivq1EH9Z6
+         m3zbvr+9epLBV5yBHxuxmzIuDTURGKhSgWyEZg1t+pHpgZCn5M4rhct10VPvCpsfMLkG
+         G0jKFtqAvGByfEsHM2fhut8K6OxF0g1xu3jrsjifJXDAY1fQzxe7J+Kcn4nefAlXesfP
+         LLR2G+0ZXMZNfSkC0DW3SRqsLlKwuJt63H/D/lVgSDTvXB1lRrR/3fYJrAiE01HAeOSw
+         hsAQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791220737; x=1791825537;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=7JGfeM05iMohWhPKcbFv96DJOpIFn77eSNSRuB4K3d4=;
+        b=k0MHMFhmN4+8Jg/HqE0D6AOkQ6FQWPQqURLwfrLRHKCkYkTeXgN7R3+9JGHTGh4Hc5
+         XKWCMychIhsqIhe0c7yGeCNb7uR1LMhrPSwfHdr8Gfh6wj80q4xLO4A+1zM6TSO89QWG
+         kJMXlazE7yunq3oXJ+7ka4w3bvo2suoreX66juZ355ywd3MxMc7+N8w34xDn12V3pmI6
+         q7y0CM/l6aOy5zHyCGpZkZO6XpAqKfAbqdUU5JRPaYKDWaKsk5HqUBG0pX5rloeN64ka
+         PtbahQyW//UI+yl+RNYJqwCPG64nsB6XesJq82YOvdRkEJSozG8BBvG2BVqMoZ49uKm9
+         CRWQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzQTbeYa46ilDp8b1Y6bTryszG/eHSpftYyhmHveKgt3bj3py8fZp0J0vc62XOhjhddVLAnsHgEDNSIVsk=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJpzAi4dut3JxT8TIxtR6lANkMG//eFfDf0IFYoDL1KkZyJhsT6
+	Mz2z48Roa/3PJiZTdfqmHOEixPTK0mCJ4d7/83GqVqB7g0HTpRsySR42
+X-Gm-Gg: AYBFou3CZyBn0jZRc2sk8wDHrdGiaSktUTxNEzhhJ0YBBRkPzUqaQCISofZiifx9gNi
+	NpcYkBn7/YJoY0nA1vIcq8bR/9m8YTjJrX6/xm3gFlHreqV/fSJFL0+xNJuyqcgdM0VYzem4rMI
+	yEzZxP8sVobnovZLqbb1A9WmEM1DIw1L0zlfaH/k6FObFMqm3DzeTafHyq+AlWj11tMVgcEnwXV
+	m2m+c6umac/ihLP6SXuZf2AMGDsKU5YjMtbHLjJnZ1FaWnIKes4Ke+r0vkb2ZSEGY/xEj3+dGL8
+	KH4pdV5xdb4OaIaBItczWDIBY+oN6QE1xyCN0dFu00OTp6NbV9DDAYbG566Q+nsA7ioDyhuZeQ5
+	XbPMpw7fwmd0IUHajiMAeqqFqq4BVOiCJ5Ga8qryXvRmBp/6VjIenUIwwpsMgCxScFkH4zYdm4Q
+	g1/qnf922PfQM7KhFmlwPTpVE0GLxXViKJZNC369OtfYdcHrE5De6iStMSAQ4gPEifz4rUj2YR3
+	FptIKDbU5jrnaomXOSsGMqsGOotDQ==
+X-Received: by 2002:a17:90b:540b:b0:3a0:7cbf:b8cd with SMTP id 98e67ed59e1d1-3a787182b90mr6948956a91.14.1791220737102;
+        Mon, 05 Oct 2026 10:18:57 -0700 (PDT)
+Received: from kernel.tail6741c6.ts.net ([216.195.201.24])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a853cafddesm406910a91.10.2026.10.05.10.18.42
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 05 Oct 2026 10:18:55 -0700 (PDT)
+From: Kunwu Chan <kunwu.chan@gmail.com>
+To: paulmck@kernel.org,
+	corbet@lwn.net,
+	mingo@redhat.com,
+	frederic@kernel.org,
+	neeraj.upadhyay@kernel.org,
+	josh@joshtriplett.org,
+	urezki@gmail.com,
+	dave@stgolabs.net,
+	lianux.mm@gmail.com
+Cc: stern@rowland.harvard.edu,
+	parri.andrea@gmail.com,
+	will@kernel.org,
+	peterz@infradead.org,
+	boqun@kernel.org,
+	npiggin@gmail.com,
+	dhowells@redhat.com,
+	j.alglave@ucl.ac.uk,
+	luc.maranget@inria.fr,
+	akiyks@gmail.com,
+	dlustig@nvidia.com,
+	joelagnelf@nvidia.com,
+	skhan@linuxfoundation.org,
+	rdunlap@infradead.org,
+	longman@redhat.com,
+	rostedt@goodmis.org,
+	mathieu.desnoyers@efficios.com,
+	jiangshanlai@gmail.com,
+	qiang.zhang@linux.dev,
+	kunwu.chan@gmail.com,
+	brads@mainlining.org,
+	linux-kernel@vger.kernel.org,
+	linux-arch@vger.kernel.org,
+	lkmm@lists.linux.dev,
+	linux-doc@vger.kernel.org,
+	rcu@vger.kernel.org,
+	linux-kselftest@vger.kernel.org
+Subject: [PATCH RFC v3 13/15] hazptrtorture: add READERS4 and READERS0 torture configs
+Date: Tue,  6 Oct 2026 01:15:27 +0800
+Message-ID: <20261005171529.1378809-14-kunwu.chan@gmail.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20261005171529.1378809-1-kunwu.chan@gmail.com>
+References: <20261005171529.1378809-1-kunwu.chan@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261005-linux-mainline-7-2-sm8650-hdk-rfc-0-v1-55-ed985aefd611@kernel.org>
-References: <20261005-linux-mainline-7-2-sm8650-hdk-rfc-0-v1-0-ed985aefd611@kernel.org>
-In-Reply-To: <20261005-linux-mainline-7-2-sm8650-hdk-rfc-0-v1-0-ed985aefd611@kernel.org>
-To: Bryan O'Donoghue <bryan.odonoghue@linaro.org>, 
- Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>, 
- Loic Poulain <loic.poulain@oss.qualcomm.com>, 
- Mauro Carvalho Chehab <mchehab@kernel.org>, 
- Jacopo Mondi <jacopo.mondi@ideasonboard.com>, 
- Daniel Scally <dan.scally@ideasonboard.com>, Keke Li <keke.li@amlogic.com>, 
- Richard Acayan <mailingradian@gmail.com>, 
- Hans Verkuil <hverkuil@kernel.org>, 
- Gjorgji Rosikopulos <quic_grosikop@quicinc.com>, 
- Radoslav Tsvetkov <quic_rtsvetko@quicinc.com>, 
- Robert Foss <rfoss@kernel.org>, Milen Mitkov <quic_mmitkov@quicinc.com>
-Cc: linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
- linux-kernel@vger.kernel.org, Bryan O'Donoghue <bod@kernel.org>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=5984; i=bod@kernel.org;
- h=from:subject:message-id; bh=pZe6CqqAWER9w0OquUWWY8u4q4MN90MdGfjacYiUGng=;
- b=owEBbQKS/ZANAwAKASJxO7Ohjcg6AcsmYgBqw9soW1L8yQ024nPGTw1OAOocXnDqEmdPNQkf9
- B7cHMmllY2JAjMEAAEKAB0WIQTmk/sqq6Nt4Rerb7QicTuzoY3IOgUCasPbKAAKCRAicTuzoY3I
- OnqkEACJUZNGxsw4sh1HfFpu4oMfw8f10T4btYIsHh2O7SfGjgCt6y9HtwTkm/IDFfuvHb89yRL
- iLbRrG1bh64G4ErKc2lW7OWRlCg2cR7QD471WC5mtusR6R+wxVjl0ZOki19U/Cn10Rl8+sIljuE
- IPXMWm56/ztmhWAfHnp/KrC4wX+oR+WGbGf6qKguOu9JPWnJEHNCx5q5KbCcswxVjNdCUzg70tG
- FvXiPXcMhaekRhw6bLC9BYYMMOhVmTnvEiYUwkF5yeCuFIPcJf3FK7XR+iffBVpn7hIkGTrgS9r
- nSvNxegw0kZksFbEixM+81GbHcNf6Uro17EtTscmYA9w6F8RkW+90IuG7d81M33jYiRQ6vc7cT4
- atCFMC3ijPAMjSf2PnW72qhGQcXDYO2sECJBe+SKtI2UHoVG13Vtn0X9KHkDXyT5/Vy0BJ/INz+
- 4WcOXSfq2ze3/lzK0ZwJ+6Q4kanZxOXaznEItR5YSHJWjyd04q7U7Ou81jihXz2I0+SMgprlED0
- uOmBFmJoEhBg5TcXktlQ6g/dKuciUru+zl2lI7VV7bps/3Tlv6Bg244hPqjKCPajeLtjHBX3I14
- r7/urYufoyPGYvwbC10N7aA7ciuvIVAgIZqajyF+xD6JzttjZc3OIcPOnUlhpgLJAKfpBk/Mfe5
- +FPsU2reDzBBy7A==
-X-Developer-Key: i=bod@kernel.org; a=openpgp;
- fpr=E693FB2AABA36DE117AB6FB422713BB3A18DC83A
+Content-Transfer-Encoding: 8bit
 
-From: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
+Add READERS4 and READERS0 configs to cover reader-active and
+reader-free synchronize paths.
 
-camss-vfe.c decides whether a line is the pixel path by its index in
-most places, comparing against VFE_LINE_PIX. On a VFE lite index 3 is
-RDI3, so the lite's fourth RDI picks up the pixel path's selection API,
-crop clamp, PIX formats, PIX bytes-per-line alignment, line-based mode
-and clock computation.
+Both use the PREEMPT baseline and hazptr-stack torture type,
+with four readers for READERS4 and no readers for READERS0.
 
-Make line->is_pix the single test:
-
-- a backend declares its pixel line by setting is_pix; a lite never does
-- formats are chosen after the backend's subdev_init(), once is_pix is
-  known
-- every VFE_LINE_PIX comparison in camss-vfe.c becomes an is_pix test
-- add VFE_LINE_RDI3 as the name of index 3 on a lite
-
-vfe-780 already declares its pixel line. vfe-340 declares it here; it is
-the only other backend whose tables still give a full VFE four lines.
-
-Signed-off-by: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
+Signed-off-by: Kunwu Chan <kunwu.chan@gmail.com>
 ---
- drivers/media/platform/qcom/camss/camss-vfe-340.c |  1 +
- drivers/media/platform/qcom/camss/camss-vfe.c     | 36 +++++++++++++----------
- drivers/media/platform/qcom/camss/camss-vfe.h     |  3 +-
- 3 files changed, 23 insertions(+), 17 deletions(-)
+ .../selftests/rcutorture/configs/hazptr/CFLIST   |  2 ++
+ .../selftests/rcutorture/configs/hazptr/READERS0 | 16 ++++++++++++++++
+ .../rcutorture/configs/hazptr/READERS0.boot      |  2 ++
+ .../selftests/rcutorture/configs/hazptr/READERS4 | 16 ++++++++++++++++
+ .../rcutorture/configs/hazptr/READERS4.boot      |  2 ++
+ 5 files changed, 38 insertions(+)
+ create mode 100644 tools/testing/selftests/rcutorture/configs/hazptr/READERS0
+ create mode 100644 tools/testing/selftests/rcutorture/configs/hazptr/READERS0.boot
+ create mode 100644 tools/testing/selftests/rcutorture/configs/hazptr/READERS4
+ create mode 100644 tools/testing/selftests/rcutorture/configs/hazptr/READERS4.boot
 
-diff --git a/drivers/media/platform/qcom/camss/camss-vfe-340.c b/drivers/media/platform/qcom/camss/camss-vfe-340.c
-index e5a0a70eed1e6..708dad42186f9 100644
---- a/drivers/media/platform/qcom/camss/camss-vfe-340.c
-+++ b/drivers/media/platform/qcom/camss/camss-vfe-340.c
-@@ -356,6 +356,7 @@ static const struct camss_video_ops vfe_video_ops_520 = {
- static void vfe_subdev_init(struct device *dev, struct vfe_device *vfe)
- {
- 	vfe->video_ops = vfe_video_ops_520;
-+	vfe->line[VFE_LINE_PIX].is_pix = true;
- }
- 
- static void vfe_reg_update(struct vfe_device *vfe, enum vfe_line_id line_id)
-diff --git a/drivers/media/platform/qcom/camss/camss-vfe.c b/drivers/media/platform/qcom/camss/camss-vfe.c
-index 82a23be7cae9c..0c7be87d7bd57 100644
---- a/drivers/media/platform/qcom/camss/camss-vfe.c
-+++ b/drivers/media/platform/qcom/camss/camss-vfe.c
-@@ -1059,7 +1059,8 @@ void vfe_isr_comp_done(struct vfe_device *vfe, u8 comp)
- 	unsigned int i;
- 
- 	for (i = 0; i < ARRAY_SIZE(vfe->wm_output_map); i++)
--		if (vfe->wm_output_map[i] == VFE_LINE_PIX) {
-+		if (vfe->wm_output_map[i] != VFE_LINE_NONE &&
-+		    vfe->line[vfe->wm_output_map[i]].is_pix) {
- 			vfe->isr_ops.wm_done(vfe, i);
- 			break;
- 		}
-@@ -1167,7 +1168,7 @@ static int vfe_set_clock_rates(struct vfe_device *vfe)
- 				u32 tmp;
- 				u8 bpp;
- 
--				if (j == VFE_LINE_PIX) {
-+				if (vfe->line[j].is_pix) {
- 					tmp = pixel_clock[j];
- 				} else {
- 					struct vfe_line *l = &vfe->line[j];
-@@ -1248,7 +1249,7 @@ static int vfe_check_clock_rates(struct vfe_device *vfe)
- 				u32 tmp;
- 				u8 bpp;
- 
--				if (j == VFE_LINE_PIX) {
-+				if (vfe->line[j].is_pix) {
- 					tmp = pixel_clock[j];
- 				} else {
- 					struct vfe_line *l = &vfe->line[j];
-@@ -1566,7 +1567,7 @@ static void vfe_try_format(struct vfe_line *line,
- 
- 		fmt->code = vfe_src_pad_code(line, fmt->code, 0, code);
- 
--		if (line->id == VFE_LINE_PIX) {
-+		if (line->is_pix) {
- 			struct v4l2_rect *rect;
- 
- 			rect = __vfe_get_crop(line, sd_state, which);
-@@ -1844,7 +1845,7 @@ static int vfe_set_format(struct v4l2_subdev *sd,
- 		vfe_try_format(line, sd_state, MSM_VFE_PAD_SRC, format,
- 			       fmt->which);
- 
--		if (line->id != VFE_LINE_PIX)
-+		if (!line->is_pix)
- 			return 0;
- 
- 		/* Reset sink pad compose selection */
-@@ -1878,7 +1879,7 @@ static int vfe_get_selection(struct v4l2_subdev *sd,
- 	struct v4l2_rect *rect;
- 	int ret;
- 
--	if (line->id != VFE_LINE_PIX)
-+	if (!line->is_pix)
- 		return -EINVAL;
- 
- 	if (sel->pad == MSM_VFE_PAD_SINK)
-@@ -1949,7 +1950,7 @@ static int vfe_set_selection(struct v4l2_subdev *sd,
- 	struct v4l2_rect *rect;
- 	int ret;
- 
--	if (line->id != VFE_LINE_PIX)
-+	if (!line->is_pix)
- 		return -EINVAL;
- 
- 	if (sel->target == V4L2_SEL_TGT_COMPOSE &&
-@@ -2173,18 +2174,21 @@ int msm_vfe_subdev_init(struct camss *camss, struct vfe_device *vfe,
- 		init_completion(&l->output[0].sof);
- 		init_completion(&l->output[0].reg_update);
- 
--		if (i == VFE_LINE_PIX) {
--			l->nformats = res->vfe.formats_pix->nformats;
--			l->formats = res->vfe.formats_pix->formats;
--		} else {
--			l->nformats = res->vfe.formats_rdi->nformats;
--			l->formats = res->vfe.formats_rdi->formats;
--		}
- 
- 	}
- 
- 	vfe->res->hw_ops->subdev_init(dev, vfe);
- 
-+	/* Only now does a line know whether it is the pixel path */
-+	for (i = 0; i < vfe->res->line_num; i++) {
-+		struct vfe_line *l = &vfe->line[i];
-+		const struct camss_formats *f = l->is_pix ? res->vfe.formats_pix :
-+							    res->vfe.formats_rdi;
-+
-+		l->nformats = f->nformats;
-+		l->formats = f->formats;
-+	}
-+
- 	init_completion(&vfe->reset_complete);
- 	init_completion(&vfe->halt_complete);
- 
-@@ -2331,7 +2335,7 @@ int msm_vfe_register_entities(struct vfe_device *vfe,
- 		v4l2_subdev_init(sd, &vfe_v4l2_ops);
- 		sd->internal_ops = &vfe_v4l2_internal_ops;
- 		sd->flags |= V4L2_SUBDEV_FL_HAS_DEVNODE;
--		if (i == VFE_LINE_PIX && vfe->res->is_lite == false)
-+		if (vfe->line[i].is_pix)
- 			snprintf(sd->name, ARRAY_SIZE(sd->name), "%s%d_%s",
- 				 MSM_VFE_NAME, vfe->id, "pix");
- 		else
-@@ -2371,7 +2375,7 @@ int msm_vfe_register_entities(struct vfe_device *vfe,
- 		}
- 
- 		video_out->ops = &vfe->video_ops;
--		if (i == VFE_LINE_PIX) {
-+		if (vfe->line[i].is_pix) {
- 			video_out->bpl_alignment = vfe_bpl_align_pix(vfe);
- 			video_out->line_based = 1;
- 		} else {
-diff --git a/drivers/media/platform/qcom/camss/camss-vfe.h b/drivers/media/platform/qcom/camss/camss-vfe.h
-index 318b025702007..2b354d6bcc1f5 100644
---- a/drivers/media/platform/qcom/camss/camss-vfe.h
-+++ b/drivers/media/platform/qcom/camss/camss-vfe.h
-@@ -59,7 +59,8 @@ enum vfe_line_id {
- 	VFE_LINE_RDI0 = 0,
- 	VFE_LINE_RDI1 = 1,
- 	VFE_LINE_RDI2 = 2,
--	VFE_LINE_PIX = 3,
-+	VFE_LINE_RDI3 = 3,	/* IFE lite */
-+	VFE_LINE_PIX = 3,	/* full IFE, when line->is_pix */
- 	VFE_LINE_NUM_MAX = 4
- };
- 
-
+diff --git a/tools/testing/selftests/rcutorture/configs/hazptr/CFLIST b/tools/testing/selftests/rcutorture/configs/hazptr/CFLIST
+index 380b8402ccc9..1826be30c066 100644
+--- a/tools/testing/selftests/rcutorture/configs/hazptr/CFLIST
++++ b/tools/testing/selftests/rcutorture/configs/hazptr/CFLIST
+@@ -1,4 +1,6 @@
+ NOPREEMPT
+ PREEMPT
++READERS0
++READERS4
+ SLOWPATH
+ LOCKDEP
+diff --git a/tools/testing/selftests/rcutorture/configs/hazptr/READERS0 b/tools/testing/selftests/rcutorture/configs/hazptr/READERS0
+new file mode 100644
+index 000000000000..c5b12f3bef74
+--- /dev/null
++++ b/tools/testing/selftests/rcutorture/configs/hazptr/READERS0
+@@ -0,0 +1,16 @@
++CONFIG_SMP=y
++CONFIG_NR_CPUS=16
++CONFIG_PREEMPT_NONE=n
++CONFIG_PREEMPT_VOLUNTARY=n
++CONFIG_PREEMPT=y
++CONFIG_HZ_PERIODIC=n
++CONFIG_NO_HZ_IDLE=y
++CONFIG_NO_HZ_FULL=n
++CONFIG_HOTPLUG_CPU=y
++CONFIG_SUSPEND=n
++CONFIG_HIBERNATION=n
++CONFIG_DEBUG_LOCK_ALLOC=n
++CONFIG_PROVE_LOCKING=n
++CONFIG_DEBUG_OBJECTS_RCU_HEAD=n
++CONFIG_DEBUG_KERNEL=y
++CONFIG_HAZPTR_DEBUG=y
+diff --git a/tools/testing/selftests/rcutorture/configs/hazptr/READERS0.boot b/tools/testing/selftests/rcutorture/configs/hazptr/READERS0.boot
+new file mode 100644
+index 000000000000..f5564c218902
+--- /dev/null
++++ b/tools/testing/selftests/rcutorture/configs/hazptr/READERS0.boot
+@@ -0,0 +1,2 @@
++hazptrtorture.nreaders=0
++hazptrtorture.torture_type=hazptr-stack
+diff --git a/tools/testing/selftests/rcutorture/configs/hazptr/READERS4 b/tools/testing/selftests/rcutorture/configs/hazptr/READERS4
+new file mode 100644
+index 000000000000..c5b12f3bef74
+--- /dev/null
++++ b/tools/testing/selftests/rcutorture/configs/hazptr/READERS4
+@@ -0,0 +1,16 @@
++CONFIG_SMP=y
++CONFIG_NR_CPUS=16
++CONFIG_PREEMPT_NONE=n
++CONFIG_PREEMPT_VOLUNTARY=n
++CONFIG_PREEMPT=y
++CONFIG_HZ_PERIODIC=n
++CONFIG_NO_HZ_IDLE=y
++CONFIG_NO_HZ_FULL=n
++CONFIG_HOTPLUG_CPU=y
++CONFIG_SUSPEND=n
++CONFIG_HIBERNATION=n
++CONFIG_DEBUG_LOCK_ALLOC=n
++CONFIG_PROVE_LOCKING=n
++CONFIG_DEBUG_OBJECTS_RCU_HEAD=n
++CONFIG_DEBUG_KERNEL=y
++CONFIG_HAZPTR_DEBUG=y
+diff --git a/tools/testing/selftests/rcutorture/configs/hazptr/READERS4.boot b/tools/testing/selftests/rcutorture/configs/hazptr/READERS4.boot
+new file mode 100644
+index 000000000000..0d0df3f7dca4
+--- /dev/null
++++ b/tools/testing/selftests/rcutorture/configs/hazptr/READERS4.boot
+@@ -0,0 +1,2 @@
++hazptrtorture.nreaders=4
++hazptrtorture.torture_type=hazptr-stack
 -- 
-2.55.0
+2.43.0
 
