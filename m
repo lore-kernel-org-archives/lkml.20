@@ -1,295 +1,252 @@
-Received: from mail-dl1-f70.google.com (mail-dl1-f70.google.com [74.125.82.70])
+Received: from mail-ua1-f46.google.com (mail-ua1-f46.google.com [209.85.222.46])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 37B0E23BCEE
-	for <linux-kernel@vger.kernel.org>; Mon,  5 Oct 2026 00:50:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.70
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E8A5C23C516
+	for <linux-kernel@vger.kernel.org>; Mon,  5 Oct 2026 00:51:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.46
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791161403; cv=none; b=FkBVf8+ra7+mTXvC5h69uUuqgF+3Vaoy/IVYc7WD6xMca3mKdgrOY5vUVL7OggxEIwJiic+XefRqdrRL8IgR0TmMR5TPXWriTnag48iMeSFGzN0SoSkgTrW1ret6Ar52LxNAEi3tdCJA/UkyKvNv5C8+WULRr/KtW9F0koM8fRU=
+	t=1791161474; cv=none; b=QWVF0amI1+mIhFS5euernryB4YE3zHgrzel45bUr/zVOANh26VODu/eo4iqdem/8C0yKySvdFdz0gBElFMwbRLpIs8VG0dbffxQRc5+7N8orh95sxTzOfmmmDLSrz5OpIDKy4vXJe+VdUnliJEKa8v/55B/6I2tjtJEon7V285M=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791161403; c=relaxed/simple;
-	bh=4uh+DGeQwR7qro/7NjEQpWrakCO18kYghMkKtMkiP2A=;
-	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
-	 To:Cc:Content-Type; b=s0piFc7KX36jn1YzcGqgDyPvs6ug9BftlRVAEszBnCCr8/p0O8ZpDAi6IOFHoNf0yl79Q87jFAGU6wSoSB0GyUIo84v4g7lsJlEML54FUHLmb4Xl9zpRAcCDbMI3S3f+O15wSYnTcrt8fzxcEMZaoHhUedBaiZbflTqwxxYss/0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--almasrymina.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=jIKK2jMW; arc=none smtp.client-ip=74.125.82.70
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--almasrymina.bounces.google.com
+	s=arc-20240116; t=1791161474; c=relaxed/simple;
+	bh=ht2t0kmTXlePQ8I6ndsjKSo6EfG0YJfvql7JkFoBniQ=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=tzvzvqIri5bLDHgPt5kSLeIgWOwVIx9nO3E4c4w4gFcbk8vYcLOBOQqQZdhHR2zuGlrxu8eVo091Hw1b/TsBOhYqYFahEn4fjfvtx+f7OdTrJvI9HYdt4rjyvzxBzStJ4r4vePGJSlf6qlTkIbH/6lRV2b/csQsTE8oHzp+ic/E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=TQENbEXc; arc=none smtp.client-ip=209.85.222.46
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="jIKK2jMW"
-Received: by mail-dl1-f70.google.com with SMTP id a92af1059eb24-143826c4a13so435259c88.1
-        for <linux-kernel@vger.kernel.org>; Sun, 04 Oct 2026 17:50:01 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="TQENbEXc"
+Received: by mail-ua1-f46.google.com with SMTP id a1e0cc1a2514c-98a903b7e1dso641265241.0
+        for <linux-kernel@vger.kernel.org>; Sun, 04 Oct 2026 17:51:12 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1791161400; x=1791766200; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:from:subject
-         :message-id:references:mime-version:in-reply-to:date:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=1/h++TSxOIG+JLH36J2O7/RkluW576W+vWgfrUHLIWQ=;
-        b=jIKK2jMWsKTnJvhUy/72fKub7okgYEvzdp8IuS6SR3gchXlNWZPCauHiQgNrg7tsLF
-         f6Ivd0eJ98xzynX2R6jZ8/bn73jK4uzQBFD//VtDw8AW2XGATnFf2qnWilXNrFWfjKCs
-         NxfOrzsmGllgCF/KYPAGuZ5F6Htg49+bkWi9UzNrp4yj5AF+8Bz1ip9Hw9YKqyF0BUTH
-         xTqYsv9XELm3kjbZHMR+RuaR4QWrOSze9QjmL10lqVSpRjudMqLNLhbzEkJEhKNj7l8N
-         80oxKBw6SHy+e2FwF2xNOrmRguS5+nFwQGC4hWjMUBseaeJi2CyeRhmdNktaf6SW3K7B
-         S+Og==
+        d=gmail.com; s=20251104; t=1791161472; x=1791766272; darn=vger.kernel.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=a7isb0xGzjL6lMG99IXwS6EH+P9csPknCI8tVz+3n8M=;
+        b=TQENbEXcuils9AJC80GLY8jl7CHlpWgQBf0qfh70AiuHF2/oZlfy9qEGl8IPhBsGDj
+         jc3vzdyBV4kmKk4T0vPLWasvzF6w1TrIokyafmuEXIcBBgeqe/3Y6X8Fzj6qnoPNmNAU
+         6E9tlG+AZGnWobBs1oP1tm5LU28ZgiJ1WlVI330dsyZ2QJrENoFShfbmvVb+Xatf5AEa
+         AC35mu5jlxEtUcgivcwt15MImXt3Ej1pUhzxXU9tDtpnTJNfUao41neI8Yhtg32pYdQT
+         aRp0xunL7UP0zx98+Ft1MLtlExgwDiSzG2EqG7hMuSwlQwPF2JnQ2Pi+YYT3g3kXxMol
+         KLpw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791161400; x=1791766200;
-        h=content-transfer-encoding:content-type:cc:to:from:subject
-         :message-id:references:mime-version:in-reply-to:date
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=1/h++TSxOIG+JLH36J2O7/RkluW576W+vWgfrUHLIWQ=;
-        b=KTPT5VmsOKhnsJQB1PD8rDLE/fIWjdoiTjEpSN1kfec09CiXdE34cuRyNDBk47B6eA
-         HTHiGGpgjgQqd3CSE5BtTmT/VJHoGFLswU7hKsVlh1aUsGy1umX45nVolb0rWR/a5uLk
-         Vc2Gk7wNWdCjWdXP5w9vMADVUp+52fDpqB3CbxsNXfpITU5gRl9TiARFYUjBAmtduDbs
-         rWK6tm5JMC2mjBVVw1PJ2njqxLfID8rPBZJOYN1aNPkMFA816C4ZLJUVWb/hj0Y0z1Q5
-         eEMC7MA/jOKiUUvnB2WVT/y5/AmiK2caE2QLl7o9ceY3mEZprx3AcytBwIlT+3A/aOoD
-         LEeQ==
-X-Forwarded-Encrypted: i=1; AKwUvBytZcm8szPPJHkzvmOZvRHAtTnUqR8Fl0+3PPdmKIpQUqP50rKHfal9Db9Yi8L0/WO2AS7ucbj9iJVaCKs=@vger.kernel.org
-X-Gm-Message-State: AFuF++l7+UDV4Qrz2mUpuZcToivhAEKSnL14XMXqrAe17UquIa2U1Gmy
-	jAO0wzu7VVVXV1RQ8oOgBZuEKMIdKw+P/3anRzCQ1oQcpQj/ybyOMzfaX78S61/+DBapgcIdmTr
-	ezEwrH7MNu56Vd73IimQ1B5E+cA==
-X-Received: from dlx25.prod.google.com ([2002:a05:7022:99:b0:157:c092:a7ad])
- (user=almasrymina job=prod-delivery.src-stubby-dispatcher) by
- 2002:a05:701b:4289:20b0:14b:2397:d8f1 with SMTP id a92af1059eb24-14f5bff48a1mr12083890c88.9.1791161399973;
- Sun, 04 Oct 2026 17:49:59 -0700 (PDT)
-Date: Mon,  5 Oct 2026 00:49:05 +0000
-In-Reply-To: <20261005004958.3603059-1-almasrymina@google.com>
+        d=1e100.net; s=20260707; t=1791161472; x=1791766272;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=a7isb0xGzjL6lMG99IXwS6EH+P9csPknCI8tVz+3n8M=;
+        b=Mxvqox26TbM7K2+tM/TZYoMigZWoFHqu6sc5bQ4CNiAguQ3gZav7f4RGehWtc2DzWs
+         tvU4Lc2k+S1eST08Zkyr2nuu93LnfCOrq1ZEQAdkq+mEBRzHfrDN2Ibz43k7AOXsEsTc
+         nU6DvA0g5oSsooQ1M+QkHLcZ+skKLp2xa1z65samKDUqUfuJJ+vxSbB+fMMZbbz3Ik0w
+         RoqDnfIo02aYJgAcL8W8cNGFL3WzD2KOPBcy6uPUrZyYVe/MBKOe4BdMh82TBlbWbric
+         koYjjXZ9QjPs9cSFvRZMfDdS69Yo42yuIMyFxvwPsPz0xIAMSaO8URZFlE74zIoU/EQ5
+         hENg==
+X-Forwarded-Encrypted: i=1; AKwUvBwl3ReRiDXF4OU7ZyvCxdWHMXvvR/lB2SX96qWb714o9mUqUpwyuPS4neBflV3ylG5ud5+BzrBzISnVJW4=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIznwp6zWxk3S4Gauwzygt/KI9p73J/tO87o8QNZz3UDWDTfQvj
+	HIX++wKQD6pod2QryguSlGlVZnYF/naN9AlaihlvRZOgkckSxpTVlQMQ
+X-Gm-Gg: AYBFou2AV9yApk8nergpuXMMamq8ICG+pYcoZZoDu9h8Qu8Rf0TwqAyWPFtKGpcsj1A
+	/GSB6ZimMTpExuvOZBCUSuTYACy6MHtqTAO8nA3yuMuUqeoezdUvuNOZ9KOIoQjyM+D8i1lEdNH
+	lz46ElKPSETF6eqdxB2i1ls+x6CbqVldZG+u0GrjV0G6XIHNV18lgpQp9XhiwHL5bCRJxHQjyq5
+	NM8dAYsWn6JyrjUQhHEv7Ao3sX69aE0693+tOEOj4DX0uqkGk0Oa1LM78ZBXAjTbK7qcF0/3rVU
+	rRHjFTUJBpfqpXeTABeNy7/SxardMebZ4/ZGi5AeNM/Sx7ypIJM218qAPjS2iSHZFHHaF00J2/b
+	84Ywspe0m1qZjSNUFpOyCao/1fVWUr5HiTlX8TPPgBjmLAONBQAKckHuS6AAB+AnQ1T+P1wTcmW
+	gbpIwf8ZvePrHcLfxcQl0Fq+2o4H2V/1yWTtfBWWroGQNK421YyD+FBeSvtKAZ14Whfhd2jRVh1
+	GpA
+X-Received: by 2002:a05:6102:8603:10b0:784:a925:3f0c with SMTP id ada2fe7eead31-7bf7df582c6mr2147719137.0.1791161471650;
+        Sun, 04 Oct 2026 17:51:11 -0700 (PDT)
+Received: from localhost ([2804:30c:96c:bf00:7844:c38c:894:4054])
+        by smtp.gmail.com with ESMTPSA id a1e0cc1a2514c-98c7031853asm2042611241.12.2026.10.04.17.51.09
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 04 Oct 2026 17:51:09 -0700 (PDT)
+Date: Sun, 4 Oct 2026 21:51:24 -0300
+From: Marcelo Schmitt <marcelo.schmitt1@gmail.com>
+To: Kanak Shilledar <kanak.shilledar@axis.com>
+Cc: Henrik Grimler <henrik.grimler@axis.com>,
+	Jonathan Cameron <jic23@kernel.org>,
+	David Lechner <dlechner@baylibre.com>,
+	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
+	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Jean-Baptiste Maneyrol <jean-baptiste.maneyrol@tdk.com>,
+	Joshua Crofts <joshua.crofts1@gmail.com>,
+	Chris Morgan <macromorgan@hotmail.com>, kernel@axis.com,
+	linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v5 6/6] iio: imu: inv_icm42607: Add accelerometer
+ calibbias support
+Message-ID: <asL0jC7Qa8YQP0fy@debian-BULLSEYE-live-builder-AMD64>
+References: <20261002-b4-inv_icm42370p-v5-0-c65281b745c9@axis.com>
+ <20261002-b4-inv_icm42370p-v5-6-c65281b745c9@axis.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-References: <20261005004958.3603059-1-almasrymina@google.com>
-X-Mailer: git-send-email 2.56.0.rc1.315.gc6ed9934b7-goog
-Message-ID: <20261005004958.3603059-2-almasrymina@google.com>
-Subject: [PATCH net-next v1 1/2] net: netmem: document netmem and memory
- provider design in comments
-From: Mina Almasry <almasrymina@google.com>
-To: netdev@vger.kernel.org, linux-doc@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, bpf@vger.kernel.org
-Cc: Mina Almasry <almasrymina@google.com>, "David S. Miller" <davem@davemloft.net>, 
-	Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
-	Simon Horman <horms@kernel.org>, Jonathan Corbet <corbet@lwn.net>, 
-	Shuah Khan <skhan@linuxfoundation.org>, Randy Dunlap <rdunlap@infradead.org>, 
-	Jesper Dangaard Brouer <hawk@kernel.org>, Ilias Apalodimas <ilias.apalodimas@linaro.org>, 
-	Alexei Starovoitov <ast@kernel.org>, Daniel Borkmann <daniel@iogearbox.net>, 
-	John Fastabend <john.fastabend@gmail.com>, Stanislav Fomichev <sdf@fomichev.me>, 
-	Luigi Rizzo <lrizzo@google.com>, "=?UTF-8?q?Bj=C3=B6rn=20T=C3=B6pel?=" <bjorn@kernel.org>, 
-	Pavel Begunkov <asml.silence@gmail.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20261002-b4-inv_icm42370p-v5-6-c65281b745c9@axis.com>
 
-Clarify the netmem, memory provider, page_pool, and skb fragment design
-principles in header and code comments:
+On 10/02, Kanak Shilledar wrote:
+> Expose IIO_CHAN_INFO_CALIBBIAS on the accelerometer channels. The
+> registers are stored in MREG1. The calibration bias is written to
+> OFFSET_USER4 to OFFSET_USER8 registers in MREG1. Reject the out of
+> limit calibbias values instead of clamping it.
+> 
+> Note: The accelerometer functionality is tested with Invensense,
+> ICM42370-P development board.
+Good to know, but this should probably go below the '---'. Not within the commit
+message.
 
-- Memory providers allocate struct net_iov or struct page, cast them to
-  netmem_ref, and pass them to page_pool; page_pool, drivers, and the
-  core stack operate on netmem_ref and must not downcast to page or
-  net_iov outside dedicated netmem helpers.
-- Memory providers are not restricted to net_iov and may supply
-  page-backed netmems.
-- net_iov is not inherently unreadable; future readable net_iov types
-  are allowed.
-- Per-provider logic belongs in memory_provider_ops, and per-netmem-type
-  logic belongs in netmem helpers.
-- All frags in an skb must share the same backing netmem memory type,
-  and skbs with different frag memory types must not be coalesced.
+> 
+> Datasheet: https://www.invensense.tdk.com/en-us/products/3-axis/icm-42370-p
+> Datasheet: https://www.lcsc.com/product-detail/C5129967.html
+> Signed-off-by: Kanak Shilledar <kanak.shilledar@axis.com>
+> ---
+Here
 
-Cc: Luigi Rizzo <lrizzo@google.com>
-Cc: Bj=C3=B6rn T=C3=B6pel <bjorn@kernel.org>
-Cc: Stanislav Fomichev <sdf@fomichev.me>
-Cc: Pavel Begunkov <asml.silence@gmail.com>
-Signed-off-by: Mina Almasry <almasrymina@google.com>
----
- include/linux/skbuff.h                  |  4 ++++
- include/net/netmem.h                    | 29 ++++++++++++++++---------
- include/net/page_pool/helpers.h         | 18 ++++++++++-----
- include/net/page_pool/memory_provider.h |  8 +++++++
- include/net/page_pool/types.h           |  6 ++---
- net/core/skbuff.c                       |  3 +++
- 6 files changed, 50 insertions(+), 18 deletions(-)
+>  drivers/iio/imu/inv_icm42607/inv_icm42607_accel.c | 194 +++++++++++++++++++++-
+>  1 file changed, 192 insertions(+), 2 deletions(-)
+> 
+> diff --git a/drivers/iio/imu/inv_icm42607/inv_icm42607_accel.c b/drivers/iio/imu/inv_icm42607/inv_icm42607_accel.c
+> index 9a3ace3e7fcf9..98cef0058b64c 100644
+> --- a/drivers/iio/imu/inv_icm42607/inv_icm42607_accel.c
+> +++ b/drivers/iio/imu/inv_icm42607/inv_icm42607_accel.c
+> @@ -13,6 +13,7 @@
+>  #include <linux/pm_runtime.h>
+>  #include <linux/regmap.h>
+>  #include <linux/types.h>
+> +#include <linux/units.h>
+>  
+...
+> +	/* 12 bits signed value */
+> +	switch (chan->channel2) {
+> +	case IIO_MOD_X:
+> +	case IIO_MOD_Z:
+> +		offset = sign_extend32(((lo_val & 0xF0) << 4) | hi_val, 11);
+> +		break;
+> +	case IIO_MOD_Y:
+> +		offset = sign_extend32(((hi_val & 0x0F) << 8) | lo_val, 11);
+Can the mask and shifting be done with some combination of FIELD_PREP/_GET/_MODIFY?
+See comment below.
 
-diff --git a/include/linux/skbuff.h b/include/linux/skbuff.h
-index 27ec1e38c8283..c022e5fd3124f 100644
---- a/include/linux/skbuff.h
-+++ b/include/linux/skbuff.h
-@@ -358,6 +358,10 @@ struct sk_buff;
-  */
- #define GSO_BY_FRAGS	0xFFFF
-=20
-+/* All fragments in an skb (skb_shinfo(skb)->frags[]) must be backed by
-+ * netmems of the same memory type. Mixing fragments of different memory t=
-ypes
-+ * within a single skb (including via skb coalescing) is not allowed.
-+ */
- typedef struct skb_frag {
- 	netmem_ref netmem;
- 	unsigned int len;
-diff --git a/include/net/netmem.h b/include/net/netmem.h
-index cc97611632dc8..8fcf455664781 100644
---- a/include/net/netmem.h
-+++ b/include/net/netmem.h
-@@ -70,16 +70,17 @@ enum net_iov_type {
- 	NET_IOV_IOURING,
- };
-=20
--/* A memory descriptor representing abstract networking I/O vectors,
-- * generally for non-pages memory that doesn't have its corresponding
-- * struct page and needs to be explicitly allocated through slab.
-+/* A memory descriptor representing abstract networking I/O vectors.
-  *
-  * net_iovs are allocated and used by networking code, and the size of
-  * the chunk is PAGE_SIZE.
-  *
-- * This memory can be any form of non-struct paged memory.  Examples
-- * include imported dmabuf memory and imported io_uring memory.  See
-- * net_iov_type for all the supported types.
-+ * Examples include imported dmabuf memory and imported io_uring memory. S=
-ee
-+ * net_iov_type for all the supported types. While current net_iov types a=
-re
-+ * unreadable by the CPU, net_iov has no inherent restrictions and future
-+ * net_iov implementations may be CPU-readable. Code must not assume net_i=
-ov
-+ * implies unreadable memory; check readability via netmem_address() or
-+ * skb_frags_readable() instead.
-  *
-  * @pp_magic:	pp field, similar to the one in struct page/struct
-  *		netmem_desc.
-@@ -134,8 +135,17 @@ static inline void net_iov_init(struct net_iov *niov,
-  * network memory.
-  *
-  * A netmem_ref can be a struct page* or a struct net_iov* underneath.
-+ * Memory providers (or the default page_pool allocator) allocate struct
-+ * net_iov or struct page, cast them to netmem_ref, and hand them to
-+ * page_pool.
-  *
-- * Use the supplied helpers to obtain the underlying memory pointer and fi=
-elds.
-+ * The page_pool, drivers, and core networking stack should operate on
-+ * netmem_ref rather than struct page or struct net_iov. Downcasting
-+ * netmem_ref via netmem_to_page() or netmem_to_net_iov() in callers is
-+ * not allowed unless a code path strictly requires a specific backing
-+ * type (e.g., kmap_local_page()). In such cases, add a netmem helper here
-+ * that handles both page and net_iov cases and returns an error if the
-+ * underlying type cannot support the operation.
-  */
- typedef unsigned long __bitwise netmem_ref;
-=20
-@@ -300,9 +310,8 @@ static inline atomic_long_t *netmem_get_pp_ref_count_re=
-f(netmem_ref netmem)
-=20
- static inline bool netmem_is_pref_nid(netmem_ref netmem, int pref_nid)
- {
--	/* NUMA node preference only makes sense if we're allocating
--	 * system memory. Memory providers (which give us net_iovs)
--	 * choose for us.
-+	/* NUMA node preference only applies to struct page; net_iovs are
-+	 * managed by their memory provider.
- 	 */
- 	if (netmem_is_net_iov(netmem))
- 		return true;
-diff --git a/include/net/page_pool/helpers.h b/include/net/page_pool/helper=
-s.h
-index cd021832c3fa3..28635ce9454e8 100644
---- a/include/net/page_pool/helpers.h
-+++ b/include/net/page_pool/helpers.h
-@@ -8,12 +8,20 @@
- /**
-  * DOC: page_pool allocator
-  *
-- * The page_pool allocator is optimized for recycling page or page fragmen=
-t used
-- * by skb packet and xdp frame.
-+ * The page_pool allocator is optimized for recycling network memory
-+ * (netmem_ref) or fragments used by skb packets and xdp frames.
-  *
-- * Basic use involves replacing any alloc_pages() calls with page_pool_all=
-oc(),
-- * which allocate memory with or without page splitting depending on the
-- * requested memory size.
-+ * page_pool natively operates on netmem_ref, which abstracts the underlyi=
-ng
-+ * memory type (struct page or struct net_iov) supplied by the page alloca=
-tor
-+ * or a memory provider. Drivers and core networking code should use the
-+ * netmem-based APIs (e.g. page_pool_alloc_netmem(), page_pool_put_netmem(=
-)).
-+ * The struct page-based APIs (e.g. page_pool_alloc(), page_pool_alloc_pag=
-es(),
-+ * page_pool_put_page()) are legacy compatibility wrappers for drivers not=
- yet
-+ * converted to netmem.
-+ *
-+ * Basic use involves replacing any alloc_pages() calls with
-+ * page_pool_alloc_netmem() (or legacy page_pool_alloc()), which allocate =
-memory
-+ * with or without splitting depending on the requested memory size.
-  *
-  * If the driver knows that it always requires full pages or its allocatio=
-ns are
-  * always smaller than half a page, it can use one of the more specific AP=
-I
-diff --git a/include/net/page_pool/memory_provider.h b/include/net/page_poo=
-l/memory_provider.h
-index 255ce4cfd9755..6eaca6725d904 100644
---- a/include/net/page_pool/memory_provider.h
-+++ b/include/net/page_pool/memory_provider.h
-@@ -9,6 +9,14 @@ struct netdev_rx_queue;
- struct netlink_ext_ack;
- struct sk_buff;
-=20
-+/* Memory providers allocate underlying memory (struct net_iov or struct p=
-age),
-+ * cast it to netmem_ref, and supply it to page_pool. Memory providers are=
- not
-+ * limited to net_iov; a provider returning page-backed netmems is allowed=
-, so
-+ * callers must not assume a memory provider implies net_iov.
-+ *
-+ * Per-provider custom logic must be delegated to memory_provider_ops rath=
-er
-+ * than handled directly in page_pool core code.
-+ */
- struct memory_provider_ops {
- 	netmem_ref (*alloc_netmems)(struct page_pool *pool, gfp_t gfp);
- 	bool (*release_netmem)(struct page_pool *pool, netmem_ref netmem);
-diff --git a/include/net/page_pool/types.h b/include/net/page_pool/types.h
-index 03da138722f58..6d543076a0c0b 100644
---- a/include/net/page_pool/types.h
-+++ b/include/net/page_pool/types.h
-@@ -22,9 +22,9 @@
- 					*/
- #define PP_FLAG_SYSTEM_POOL	BIT(2) /* Global system page_pool */
-=20
--/* Allow unreadable (net_iov backed) netmem in this page_pool. Drivers set=
-ting
-- * this must be able to support unreadable netmem, where netmem_address() =
-would
-- * return NULL. This flag should not be set for header page_pools.
-+/* Allow unreadable netmem in this page_pool. Drivers setting this must be=
- able
-+ * to support unreadable netmem, where netmem_address() returns NULL. This=
- flag
-+ * should not be set for header page_pools.
-  *
-  * If the driver sets PP_FLAG_ALLOW_UNREADABLE_NETMEM, it should also set
-  * page_pool_params.slow.queue_idx.
-diff --git a/net/core/skbuff.c b/net/core/skbuff.c
-index 5c4024a03e105..9395e0ad0a13b 100644
---- a/net/core/skbuff.c
-+++ b/net/core/skbuff.c
-@@ -6206,6 +6206,9 @@ bool skb_try_coalesce(struct sk_buff *to, struct sk_b=
-uff *from,
- 	if (to->pp_recycle !=3D from->pp_recycle)
- 		return false;
-=20
-+	/* All frags in an skb must have the same backing netmem memory type;
-+	 * do not coalesce skbs with different frag memory types.
-+	 */
- 	if (skb_frags_readable(from) !=3D skb_frags_readable(to))
- 		return false;
-=20
---=20
-2.56.0.rc1.315.gc6ed9934b7-goog
+...
+> +static int inv_icm42607_accel_write_offset(struct iio_dev *indio_dev,
+> +					   struct iio_chan_spec const *chan,
+> +					   int val, int val2)
+> +{
+> +	struct inv_icm42607_state *st = iio_device_get_drvdata(indio_dev);
+> +	struct device *dev = regmap_get_device(st->map);
+> +	s32 min, max;
+> +	s16 offset;
+> +	s64 val64;
+> +	int ret;
+> +
+> +	if (chan->type != IIO_ACCEL)
+> +		return -EINVAL;
+> +
+> +	/* inv_icm42607_accel_calibbias: min - step - max in micro */
+> +	min = inv_icm42607_accel_calibbias[0] * (long)MEGA -
+> +	      inv_icm42607_accel_calibbias[1];
+> +	max = inv_icm42607_accel_calibbias[4] * (long)MEGA +
+> +	      inv_icm42607_accel_calibbias[5];
+> +
+> +	val64 = val * (s64)MEGA;
+> +	if (val >= 0)
+> +		val64 += val2;
+> +	else
+> +		val64 -= val2;
+> +
+> +	if (val64 < min || val64 > max)
+> +		return -EINVAL;
+> +
+> +	/*
+> +	 * Convert m/s² to g then to raw value
+> +	 * m/s² to g: 1 / 9.806650
+> +	 * g to raw 12 bits signed, step 0.5mg: 10000 / 5
+> +	 * val in micro (1000000)
+> +	 * val * 10000 / (9.806650 * 1000000 * 5)
+> +	 */
+> +	val64 *= 10000LL;
+> +
+> +	/* For rounding, add + or - divisor (9806650 * 5) divided by 2 */
+> +	if (val64 >= 0)
+> +		val64 += 9806650 * 5 / 2;
+> +	else
+> +		val64 -= 9806650 * 5 / 2;
+> +	offset = div_s64(val64, 9806650 * 5);
+> +
+> +	/* Value is limited to 12 bits signed, return -EINVAL if out of range */
+> +	if (offset < -2048 || offset > 2047)
+> +		return -EINVAL;
+> +
+> +	PM_RUNTIME_ACQUIRE_AUTOSUSPEND(dev, pm);
+> +	ret = PM_RUNTIME_ACQUIRE_ERR(&pm);
+> +	if (ret)
+> +		return ret;
+> +
+> +	guard(mutex)(&st->lock);
+> +
+> +	switch (chan->channel2) {
+> +	case IIO_MOD_X:
+> +		/* OFFSET_USER4 upper nibble is shared. */
+> +		ret = regmap_update_bits(st->map, INV_ICM42607_REG_OFFSET_USER4,
+> +					 GENMASK(7, 4), (offset & 0xF00) >> 4);
+> +		if (ret)
+> +			return ret;
+> +
+> +		return regmap_write(st->map, INV_ICM42607_REG_OFFSET_USER5,
+> +				    offset & 0xFF);
+> +	case IIO_MOD_Y:
+> +		/* OFFSET_USER7 lower nibble is shared. */
+> +		ret = regmap_update_bits(st->map, INV_ICM42607_REG_OFFSET_USER7,
+> +					 GENMASK(3, 0), (offset & 0xF00) >> 8);
+> +		if (ret)
+> +			return ret;
+> +
+> +		return regmap_write(st->map, INV_ICM42607_REG_OFFSET_USER6,
+> +				    offset & 0xFF);
+> +	case IIO_MOD_Z:
+> +		/* OFFSET_USER7 upper nibble is shared. */
+> +		ret = regmap_update_bits(st->map, INV_ICM42607_REG_OFFSET_USER7,
+> +					 GENMASK(7, 4), (offset & 0xF00) >> 4);
+I see the register map for this chip is a bit odd. The above bit masking and
+shifting can be easy to write once one is familiar with the part being
+supported. Though, this really looks like one of the cases where we can declare
+a bitmask and use FIELD_PREP (or even FIELD_MODIFY). Maybe something like
+INV_ICM42607_REG_OFFSET_HIGH	GENMASK(7, 4)
+INV_ICM42607_REG_OFFSET_LOW	GENMASK(3, 0)
 
+INV_ICM42607_ACCEL_OFFSET_HB	GENMASK(15, 8)
+INV_ICM42607_ACCEL_OFFSET_LB	GENMASK(7, 0)
+
+reg_val = FIELD_PREP(INV_ICM42607_REG_OFFSET_HIGH,
+		     FIELD_GET(INV_ICM42607_ACCEL_OFFSET_HB, offset));
+
+Please, also take this suggestion to the other similar mask and shifting above.
+
+> +		if (ret)
+> +			return ret;
+> +
+> +		return regmap_write(st->map, INV_ICM42607_REG_OFFSET_USER8,
+> +				    offset & 0xFF);
+> +	default:
+> +		return -EINVAL;
+> +	}
+> +}
+> +
+...
+> @@ -266,6 +454,8 @@ static int inv_icm42607_accel_write_raw_get_fmt(struct iio_dev *indio_dev,
+>  		return IIO_VAL_INT_PLUS_NANO;
+>  	case IIO_CHAN_INFO_SAMP_FREQ:
+>  		return IIO_VAL_INT_PLUS_MICRO;
+> +	case IIO_CHAN_INFO_CALIBBIAS:
+Minor neat, if we move the line above up one line we can drop the line below.
+> +		return IIO_VAL_INT_PLUS_MICRO;
+>  	default:
+>  		return -EINVAL;
+>  	}
