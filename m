@@ -1,169 +1,145 @@
-Received: from www.nmnhosting.com (watt.d-silva.org [119.15.109.137])
+Received: from verein.lst.de (verein.lst.de [213.95.11.211])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4D38931F99C;
-	Mon,  5 Oct 2026 08:49:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=119.15.109.137
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E85AF41A57D;
+	Mon,  5 Oct 2026 08:49:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.95.11.211
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791190160; cv=none; b=RKNj8LPl9ykbvkL/7sd98Te1yYA/gv6QC5aIe4hSYLy6xWUETe/FQSq+6xTWJCNwmjvdiRVqhCAp8RSxmSqC9ivyWP1R1eTWX7vRzNgmgwkgmaespjtwpsVM2T5Jx10WNUt3P0Fb5KmZB5kCXg+PXgLL0P+tJKEEslHMaS3yyOI=
+	t=1791190165; cv=none; b=ir+FL9jq4+Bbt4Ea9DyGi90n4V+a8Q96FTXWIHftjiwn0s5+DTskt2E0uRyS/ZkQfO9jpQICpQKNDH/II0mbknj6MzSoBLAJC19X2LwBHY8YPHUR6/WDd+fMTFrJIuo3cTWurhuIYsrM9uAOan3trGXnlrxKBFsxIlBqXGcyqCE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791190160; c=relaxed/simple;
-	bh=RnWS1j2aUumgTwD9bXbOSjWMva5n8rBE1ueYMcqm2ss=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=U33KqkeomONdmUyBjN0TJeOv809B3qKZvmZ0EY+lKDo9VHu1oNk+lxVdpbQawxuIDLhVPFMoG1q/0seZqT//luges8x1h5tbE95S2bvTNGLiAKmPpmB2cDCX6+7w54UGu0840xvuohVY+EVITDygT/EeVkP0p0P/xRvttqsR4bc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=d-silva.org; spf=pass smtp.mailfrom=d-silva.org; dkim=pass (2048-bit key) header.d=d-silva.org header.i=@d-silva.org header.b=uB3xXbw6; arc=none smtp.client-ip=119.15.109.137
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=d-silva.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=d-silva.org
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=d-silva.org header.i=@d-silva.org header.b="uB3xXbw6"
-Received: from Hawking.lan (hawking.lan [10.0.1.4])
-	by www.nmnhosting.com (Postfix) with ESMTP id 4D5F943457;
-	Mon,  5 Oct 2026 19:49:09 +1100 (AEDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=d-silva.org; s=2025a;
-	t=1791190149;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=vCHEL+YHmsc/pYIliGTtl/6HHDGLLEbat52vHftAACg=;
-	b=uB3xXbw6HHJfFLlL8tkoH1JJGFdRbXsdLQk6HRxEUPhURQ0/ZpnOoOIe1gmIjZ2tP0qE0U
-	2w1+ZyoE6XWdMAviVco02py8aZ+nUxiNnl7KUqf+ve8pbx3RHK7UVMEbpHtL7Bh793QIkp
-	ksGdsoiruadsErwwv9+hEmF/zANQ7eFkd+tckzreUnSgoTCakNES7wQn8kWn4xWj6hVl/g
-	TDHKw3DDo+HLD9T+HtH7IIf2TjkbXrNRwWL3T10Ur/vK99HgveJfDF2mcA1fSWeGNdWytm
-	m5iyrgYY54L/3mGtqJpuzYEtse4U5u5RhGQtHDOwN4jYpPPx7zIe9qbxgiHGcA==
-X-GPT-Reason: legitimate; the email is a technical Linux kernel
-	patch submission containing a "diff" and functional code changes
-	for a wireless driver. The sender's domain (d-silva.org) matches
-	the "From" header (alastair@d-silva.org), the subject is highly
-	specific to software development (rtw88 wifi driver), and the content
-	describes hardware register handling without any marketing, urgency,
-	or phishing indicators.
-From: Alastair D'Silva <alastair@d-silva.org>
-To: linux-wireless@vger.kernel.org,
-	Ping-Ke Shih <pkshih@realtek.com>,
-	Kalle Valo <kvalo@kernel.org>
-Cc: Luka Gejak <luka.gejak@linux.dev>,
-	Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
-	Jernej Skrabec <jernej.skrabec@gmail.com>,
-	Ulf Hansson <ulfh@kernel.org>,
-	linux-kernel@vger.kernel.org,
-	Alastair D'Silva <alastair@d-silva.org>,
-	stable@vger.kernel.org
-Subject: [PATCH rtw-next v4 3/4] wifi: rtw88: sdio: Fix unhandled RX request interrupt storm
-Date: Mon,  5 Oct 2026 19:48:48 +1100
-Message-ID: <20261005084849.3109337-4-alastair@d-silva.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261005084849.3109337-1-alastair@d-silva.org>
-References: <20261005084849.3109337-1-alastair@d-silva.org>
+	s=arc-20240116; t=1791190165; c=relaxed/simple;
+	bh=BRHpivnfsreuPPDvprMRRzoL7r3zQjMBdXjcrpgtSnY=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=J0AHHWSZWWTIJc9R14z2HZcBENdpc2kK4HDnQvYCHIjTtKHLkrpSomvlGHX0+EXV/n3LVcH4gqHlQfBm/AwFbYqN5cns/k5qwERxwRcCECJMEcgHoqwgvf/rqvt3Ecu1RE1D9G3unKgHH1qipO2B0fAdJ9QHQdju0na+KaFWHCM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lst.de; spf=pass smtp.mailfrom=lst.de; arc=none smtp.client-ip=213.95.11.211
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lst.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lst.de
+Received: by verein.lst.de (Postfix, from userid 2407)
+	id 1657368BFE; Mon,  5 Oct 2026 10:49:18 +0200 (CEST)
+Date: Mon, 5 Oct 2026 10:49:17 +0200
+From: Christoph Hellwig <hch@lst.de>
+To: Md Haris Iqbal <haris.iqbal@linux.dev>
+Cc: Jens Axboe <axboe@kernel.dk>, linux-block@vger.kernel.org,
+	linux-kernel@vger.kernel.org, Christoph Hellwig <hch@lst.de>,
+	Keith Busch <kbusch@kernel.org>, Jonathan Corbet <corbet@lwn.net>,
+	linux-doc@vger.kernel.org
+Subject: Re: [v3 for-next 1/3] block: Reject unknown status tags in error
+ injection rules
+Message-ID: <20261005084917.GA9160@lst.de>
+References: <20260928221634.43239-1-haris.iqbal@linux.dev> <20260928221634.43239-2-haris.iqbal@linux.dev>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260928221634.43239-2-haris.iqbal@linux.dev>
+User-Agent: Mutt/1.5.17 (2007-11-01)
 
-On 3081-based SDIO chips (e.g. RTL8821CS), hardware does not automatically
-clear REG_SDIO_HISR_RX_REQUEST when the RX buffer is empty. Masking this
-bit out before writing back to HISR prevents it from being acknowledged,
-causing an infinite interrupt storm loop that locks up the system.
+On Tue, Sep 29, 2026 at 12:16:32AM +0200, Md Haris Iqbal wrote:
+> tag_to_blk_status() returns BLK_STS_OK both for the "OK" tag and for a
+> tag it does not recognize, so a caller cannot tell the two apart. The
+> block error injection code (which is the sole user of this function
+> currently) relies on error_inject_add() later to reject adding a rule with
+> status=BLK_STS_OK. This is okay for the current state of error injection.
+> 
+> The delay option added in the next commit makes the rule with status=OK
+> valid, meaning the function tag_to_blk_status() now needs to explicitly
+> match BLK_STS_OK for it, and fail for a tag it does not recognize. Hence
+> make tag_to_blk_status() take a second param to update the matched status,
+> and return true in case of a successful match. If a match is not found,
+> the function tag_to_blk_status() returns false and *status remains
+> unchanged.
+> 
+> A repeated status= where an invalid tag comes first is now rejected
+> instead of being overridden by the later one.
+> 
+> Cc: Christoph Hellwig <hch@lst.de>
+> Assisted-by: Claude:claude-opus-5
+> Signed-off-by: Md Haris Iqbal <haris.iqbal@linux.dev>
+> ---
+>  block/blk-core.c        | 14 ++++++--------
+>  block/blk.h             |  2 +-
+>  block/error-injection.c |  7 ++++---
+>  3 files changed, 11 insertions(+), 12 deletions(-)
+> 
+> diff --git a/block/blk-core.c b/block/blk-core.c
+> index 13dc70e8f55d..c45846b9c50d 100644
+> --- a/block/blk-core.c
+> +++ b/block/blk-core.c
+> @@ -225,21 +225,19 @@ const char *blk_status_to_tag(blk_status_t status)
+>  	return blk_errors[idx].tag;
+>  }
+>  
+> -blk_status_t tag_to_blk_status(const char *tag)
+> +bool tag_to_blk_status(const char *tag, blk_status_t *status)
+>  {
+>  	int i;
+>  
+>  	for (i = 0; i < ARRAY_SIZE(blk_errors); i++) {
+>  		if (blk_errors[i].tag &&
+> -		    !strcmp(blk_errors[i].tag, tag))
+> -			return (__force blk_status_t)i;
+> +		    !strcmp(blk_errors[i].tag, tag)) {
+> +			*status = (__force blk_status_t)i;
+> +			return true;
+> +		}
+>  	}
+>  
+> -	/*
+> -	 * Return BLK_STS_OK for mismatches as this function is intended to
+> -	 * parse error status values.
+> -	 */
+> -	return BLK_STS_OK;
+> +	return false;
+>  }
+>  
+>  /**
+> diff --git a/block/blk.h b/block/blk.h
+> index 2cc03aa54c53..5fa54162c686 100644
+> --- a/block/blk.h
+> +++ b/block/blk.h
+> @@ -52,7 +52,7 @@ void blk_free_flush_queue(struct blk_flush_queue *q);
+>  
+>  const char *blk_status_to_str(blk_status_t status);
+>  const char *blk_status_to_tag(blk_status_t status);
+> -blk_status_t tag_to_blk_status(const char *tag);
+> +bool tag_to_blk_status(const char *tag, blk_status_t *status);
+>  enum req_op str_to_blk_op(const char *op);
+>  
+>  bool __blk_mq_unfreeze_queue(struct request_queue *q, bool force_atomic);
+> diff --git a/block/error-injection.c b/block/error-injection.c
+> index e14bc4b723ef..db543fe27630 100644
+> --- a/block/error-injection.c
+> +++ b/block/error-injection.c
+> @@ -171,15 +171,16 @@ static int match_op(substring_t *args, enum req_op *op)
+>  static int match_status(substring_t *args, blk_status_t *status)
+>  {
+>  	const char *tag;
+> +	bool found;
+>  
+>  	tag = match_strdup(args);
+>  	if (!tag)
+>  		return -ENOMEM;
+> -	*status = tag_to_blk_status(tag);
+> -	if (!*status)
+> +	found = tag_to_blk_status(tag, status);
+> +	if (!found)
+>  		pr_warn("invalid status '%s'\n", tag);
+>  	kfree(tag);
+> -	return 0;
+> +	return found ? 0 : -EINVAL;
 
-8051-based chips instead rely on hardware to clear this bit automatically
-once the buffer is empty, and software must not clear it.
+	if (!found) {
+  		pr_warn("invalid status '%s'\n", tag);
+		return -EINVAL;
+	}
+	return 0;
 
-Split rtw_sdio_handle_interrupt() into separate 8051 and 3081 handlers.
-For 3081, disable interrupts via HIMR, acknowledge pending status bits
-via W1C writeback, service pending events, and re-enable interrupts.
-For 8051 chips, preserve the existing behavior.
+to keep the code a bit more readable.
 
-Fixes: 65371a3f14e7 ("wifi: rtw88: sdio: Add HCI implementation for SDIO based chipsets")
-Cc: stable@vger.kernel.org
-Assisted-by: LLM
-Signed-off-by: Alastair D'Silva <alastair@d-silva.org>
----
- drivers/net/wireless/realtek/rtw88/sdio.c | 60 +++++++++++++++++------
- 1 file changed, 44 insertions(+), 16 deletions(-)
+Otherwise looks good:
 
-diff --git a/drivers/net/wireless/realtek/rtw88/sdio.c b/drivers/net/wireless/realtek/rtw88/sdio.c
-index d2f4d7e8bc83..c74644bf14ba 100644
---- a/drivers/net/wireless/realtek/rtw88/sdio.c
-+++ b/drivers/net/wireless/realtek/rtw88/sdio.c
-@@ -1466,23 +1466,8 @@ static void rtw_sdio_rx_isr(struct rtw_dev *rtwdev)
- 	} while (total_rx_bytes < SZ_64K && hisr & REG_SDIO_HISR_RX_REQUEST);
- }
- 
--static void rtw_sdio_handle_interrupt(struct sdio_func *sdio_func)
-+static void rtw_sdio_handle_interrupt_8051(struct rtw_dev *rtwdev, u32 hisr)
- {
--	struct ieee80211_hw *hw = sdio_get_drvdata(sdio_func);
--	struct rtw_sdio *rtwsdio;
--	struct rtw_dev *rtwdev;
--	u32 hisr;
--
--	rtwdev = hw->priv;
--	rtwsdio = (struct rtw_sdio *)rtwdev->priv;
--
--	if (!rtwsdio->running)
--		return;
--
--	rtwsdio->irq_thread = current;
--
--	hisr = rtw_read32(rtwdev, REG_SDIO_HISR);
--
- 	if (hisr & REG_SDIO_HISR_TXERR)
- 		rtw_sdio_tx_err_isr(rtwdev);
- 	if (hisr & REG_SDIO_HISR_RX_REQUEST) {
-@@ -1499,7 +1484,50 @@ static void rtw_sdio_handle_interrupt(struct sdio_func *sdio_func)
- 		hisr &= RTW_SDIO_HISR_CLEAR_MASK;
- 
- 	rtw_write32(rtwdev, REG_SDIO_HISR, hisr);
-+}
-+
-+static void rtw_sdio_handle_interrupt_3081(struct rtw_dev *rtwdev, u32 hisr)
-+{
-+	struct rtw_sdio *rtwsdio = (struct rtw_sdio *)rtwdev->priv;
-+
-+	rtw_sdio_disable_interrupt(rtwdev);
-+	rtw_write32(rtwdev, REG_SDIO_HISR, hisr);
-+
-+	if (hisr & REG_SDIO_HISR_TXERR)
-+		rtw_sdio_tx_err_isr(rtwdev);
-+	if (hisr & REG_SDIO_HISR_RX_REQUEST)
-+		rtw_sdio_rx_isr(rtwdev);
-+
-+	/* Unmasking HIMR re-asserts the IRQ line if new packets arrived */
-+	if (rtwsdio->running)
-+		rtw_sdio_enable_interrupt(rtwdev);
-+}
-+
-+static void rtw_sdio_handle_interrupt(struct sdio_func *sdio_func)
-+{
-+	struct ieee80211_hw *hw = sdio_get_drvdata(sdio_func);
-+	struct rtw_sdio *rtwsdio;
-+	struct rtw_dev *rtwdev;
-+	u32 hisr;
-+
-+	rtwdev = hw->priv;
-+	rtwsdio = (struct rtw_sdio *)rtwdev->priv;
-+
-+	if (!rtwsdio->running)
-+		return;
-+
-+	rtwsdio->irq_thread = current;
-+
-+	hisr = rtw_read32(rtwdev, REG_SDIO_HISR);
-+	if (!hisr)
-+		goto out;
-+
-+	if (rtw_chip_wcpu_8051(rtwdev))
-+		rtw_sdio_handle_interrupt_8051(rtwdev, hisr);
-+	else
-+		rtw_sdio_handle_interrupt_3081(rtwdev, hisr);
- 
-+out:
- 	rtwsdio->irq_thread = NULL;
- }
- 
--- 
-2.53.0
-
+Reviewed-by: Christoph Hellwig <hch@lst.de>
