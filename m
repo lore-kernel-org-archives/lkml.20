@@ -1,147 +1,227 @@
-Received: from mail-ej2-f43.google.com (mail-ej2-f43.google.com [74.125.228.171])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from DUZPR83CU001.outbound.protection.outlook.com (mail-northeuropeazon11022080.outbound.protection.outlook.com [52.101.66.80])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 71C41485CCB
-	for <linux-kernel@vger.kernel.org>; Mon,  5 Oct 2026 13:20:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.171
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791206474; cv=none; b=dIVRIWU0tsg5Xj8aJYXk2QSFislfVvX3VFS6sC1mTbMCO9lb6HIJdQc5N52Dvx7HAuEYuoyMGKSV6q5nqK5CJ55qy/b8WKeJvxrnhIdY34KsfnSIjpGcnbBNbfFt3uEWX0pTcNPLXzDLBgI5xzFpolTCdzBGPnYdEuKjH937dh4=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6387348B37F;
+	Mon,  5 Oct 2026 13:20:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.66.80
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791206474; cv=fail; b=KzwRsnZrcrOkeAduWoX51RR/gPITjXEp8qymfy+nTX8dTUexGPwJ2UZ+i8d5M+Bk+p2hAaSmTITJFZ1bGuBzj/O/RZk7MsyBsTE8y1Ts39Zgi1FN5niMg0rU9gMSxFaC4Q+Ar7nsA7tpM/S54LIqJGbUM3IBjt7hpcIWs2q9lpk=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1791206474; c=relaxed/simple;
-	bh=SippWX+xoSkF20XXjc5MLFhzuRKSu+Feuro+st5YeiE=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=LPQnAwhr3OYtu17+oWkpUG3BF9V8XB6uGwcIPjHkq5r/mWS9Jcmygrs3kAoUQoD/x2cQMD1qPdPkRaDxCNIlGJXBOE3JqsD+Cw7AQFNKdpGREGl22pzYLM2TLCsS1+UKzC1q/t5OBWV60hy3GaVK8MbO2brW0KolCp1vMB1PdWs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=CyvePpA+; arc=none smtp.client-ip=74.125.228.171
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	bh=PdLOMwp6EK9w0jElHyf3mZq3J5zhzx9wDoD4vh3LIto=;
+	h=From:Date:Subject:Content-Type:Message-Id:References:In-Reply-To:
+	 To:Cc:MIME-Version; b=iJeRHdf+Ox3N22LJ2srZg0XqeDe2Vt4zTP931ou7HYjinwolO47Ux0AspZCNZtFoeHm9n4LlEf3JI2EdZK8WroIHwJfCGCXDQTsFhsCI+paIvslIy2UWF04+dOdc2eJZYl/cQ4RaNqyl9UWLs0U/Wbo5tRhz41SKnJwgsm/IwIk=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=vaisala.com; spf=pass smtp.mailfrom=vaisala.com; dkim=pass (2048-bit key) header.d=vaisala.com header.i=@vaisala.com header.b=H7scdS4f; arc=fail smtp.client-ip=52.101.66.80
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=vaisala.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=vaisala.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="CyvePpA+"
-Received: by mail-ej2-f43.google.com with SMTP id a640c23a62f3a-c2a4fbc5586so307255766b.2
-        for <linux-kernel@vger.kernel.org>; Mon, 05 Oct 2026 06:20:53 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791206449; x=1791811249; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=h5zNn+04D/ADxwDdeMfBIdi2B0cMu31zTvDOOv1nE7U=;
-        b=CyvePpA+5myhEw/neft3Qi0/VUFTYG5o456QppG2/5G9A7H9FId3WTbBHx92BbDih3
-         4LHwzEeHMw4bsVoy4ghXYLnVyzQmc3Pt0m3C+oZcTb6uwWl7nasYTcIjezFXsWeu9zER
-         thV0rkZZZxmmS8fy2eaY0H5qWPUpLiRUvK55PN6+JGLkJRFj1bbf2KPTnHhId2DS9ugV
-         7Wo5kWmTBYhH07RDCvxKlHV1nwfMQkiQc5yYc7bHd0t9oNlr5C9+UadIxvLO240oDVQd
-         HkiESF/uf7xSIHadAe3DnCy04kNQTyE/I9pVuX/PyyqPVdDsTIGcq+XqQ3i07SASQUp+
-         byWA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791206449; x=1791811249;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=h5zNn+04D/ADxwDdeMfBIdi2B0cMu31zTvDOOv1nE7U=;
-        b=PYSFTpiAdYPvaOCR1n5oWjdC7rZV8KJE0jqe1K37qaRD7OtcIppKWnwWDJPCvNXzkW
-         tkIlCA6kAU+mbYix98eJxKsVlUajS227Rk3wZa4pwPw1e43zHUL0QSSpCTZT8aqkT5sO
-         2Er3JMw0Rc2RyMhly7SbQ4XoP/hBFcHG8jRbYStvIUiIC9JSGHbHCVjdIDxCreOfetyc
-         VaJ4c0RR3nqQrrTwkw5Lrv7/0IMpW9r3UKZejfjJLDohpr9kiKkpu2EoNmm02dAxBUuo
-         3kr6RQqFB9SaRXtyncgxOILQxkzLjv8zMnj8oWEYH+sC0aLz4RWqwSC+8shbEEnmDCSB
-         vdpA==
-X-Forwarded-Encrypted: i=1; AKwUvBwyht6ufnyqVKEntv+LEFjHGb20Jjpgd5Z3beQ5YHIAI9zCliHkB0CCX2uW5A4vSrGuyduiVf4SeDaD8OI=@vger.kernel.org
-X-Gm-Message-State: AFuF++l4riw2nDbWxdhXHAopjywOsPlHZXpgLW3th0V4y4wZjmFiL7qu
-	lReAKMj8MszjA3LY2e7YJH6ROPtPyfzqmLt1sI061rTNyikaZK4X8qpM
-X-Gm-Gg: AYBFou20gme+w67pcYKy+Ymq04jZ5adW5DOTGs5UiHlPwxIEBUz7ixPJ9ApMm7/TB1b
-	f+8Y5lV5npejKHmwDtwSg4DcyHIF285R3vuBglwq7A5UWzbnR57oO6vcqbIKarRIcelXdF2aiAM
-	hM9XvGsj0GpzUOVJno3GV7zEDq0PD/OcrazWmEyxU0bfmz+bGtBw3dikhEyGuQgvo6+DcyIDMtm
-	UPLMsFaNbEDV/1g/25H2T18fRNaH0q51OKKa3vuiJecNNWD8ZvXuhBTD1sAPHftSdcmijV3htDw
-	ZbHpDn39k+qB3u88Ds79siXllCKJm1ybEK1TgZTBDlZ2YorbUuZ0bS98biyT2gD8ko68xToeJTA
-	BItpG9z1up+XfBIGF0U2DF48y+1/7wZDoBauguyJYz37cYK9hHB6sCFafwIrMBX0xYEYtmDFjS6
-	BNA2TRC44bULX40Q++MsYH3fuL1cQoOIL5HgaikCEj2hue/92tIvhlhplRqPPAnrXne7a3S0QSs
-	x23lcHi6wbrsGCbd0uspOu196fJxlf/0PJhCQN8m2yp6hkW5igRdWVF2h7gLNkzqTTdcjNIgdph
-	9IP44cQFnkH4FjKr3x+98qRWDQzv9w4xpK0=
-X-Received: by 2002:a17:907:9614:b0:c25:8eb7:f388 with SMTP id a640c23a62f3a-c2e4ad13957mr911322366b.17.1791206448599;
-        Mon, 05 Oct 2026 06:20:48 -0700 (PDT)
-Received: from dev-dsk-fgriffo-1c-93421965.eu-west-1.amazon.com (54-240-197-234.amazon.com. [54.240.197.234])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c3156333a04sm79392466b.60.2026.10.05.06.20.46
-        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
-        Mon, 05 Oct 2026 06:20:48 -0700 (PDT)
-From: Fred Griffoul <griffoul@gmail.com>
-To: Paolo Bonzini <pbonzini@redhat.com>,
-	Sean Christopherson <seanjc@google.com>,
-	Marc Zyngier <maz@kernel.org>,
-	Oliver Upton <oupton@kernel.org>,
-	Sumit Semwal <sumit.semwal@linaro.org>,
-	=?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
-	Jason Gunthorpe <jgg@ziepe.ca>,
-	Kevin Tian <kevin.tian@intel.com>
-Cc: David Woodhouse <dwmw2@infradead.org>,
-	Ackerley Tng <ackerleytng@google.com>,
-	Joey Gouly <joey.gouly@arm.com>,
-	Suzuki K Poulose <suzuki.poulose@arm.com>,
-	Zenghui Yu <yuzenghui@huawei.com>,
-	Steffen Eiden <seiden@linux.ibm.com>,
-	Catalin Marinas <catalin.marinas@arm.com>,
-	Will Deacon <will@kernel.org>,
-	Thomas Gleixner <tglx@kernel.org>,
-	Ingo Molnar <mingo@redhat.com>,
-	Borislav Petkov <bp@alien8.de>,
-	Dave Hansen <dave.hansen@linux.intel.com>,
-	"H . Peter Anvin" <hpa@zytor.com>,
-	Joerg Roedel <joro@8bytes.org>,
-	Robin Murphy <robin.murphy@arm.com>,
-	Alex Williamson <alex@shazbot.org>,
-	Shuah Khan <shuah@kernel.org>,
-	Steven Rostedt <rostedt@goodmis.org>,
-	Masami Hiramatsu <mhiramat@kernel.org>,
-	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
-	linux-kernel@vger.kernel.org,
-	kvm@vger.kernel.org,
-	kvmarm@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org,
-	iommu@lists.linux.dev,
-	linux-media@vger.kernel.org,
-	dri-devel@lists.freedesktop.org,
-	linaro-mm-sig@lists.linaro.org,
-	linux-kselftest@vger.kernel.org,
-	linux-trace-kernel@vger.kernel.org,
-	x86@kernel.org
-Subject: Re: [RFC PATCH 2/6] dma-buf: Add get_phys() to describe a physical run
-Date: Mon,  5 Oct 2026 13:20:46 +0000
-Message-ID: <20261005132046.30025-1-griffoul@gmail.com>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <a04f17cc-f59a-4240-81c8-29776eee3a2e@amd.com>
-References: <a04f17cc-f59a-4240-81c8-29776eee3a2e@amd.com>
+	dkim=pass (2048-bit key) header.d=vaisala.com header.i=@vaisala.com header.b="H7scdS4f"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=UX+cMLbikgtQjw5gRUzPk6Gd1Sr3iGoWqC0mMJNitZ8hzqbK7Jh8AKEfSZBnN2yhgBfPbH9FdW29mT7GJRDBbQ2Gb97EE+qeqJNJnsfTUIJBgacWFrih5PiCqBBp3UDdNWlLi4GOsiXqhIkSJVQiAgsV9t6LlDpvBNYBRf4KCoagIPmurc12qvRyE0UkwxE6myR5mMZmRUQJbpx8E70WLhNbsiYZC8i8ITgAtUS7qC4zmqgAvZSs/WdCnY9g9cQFDe1neLUdVOCQPzRrVH34IvIvtr/JwVFT2CZY2fGDqKYysrhHuYAQjxAcw8f6m3oeF7y9IrrrJ8VNMpHuIxTngg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=hnFy/d19nVKI2iDgW0YQnzZewt5hBOlU9FqKyol3LKA=;
+ b=rBSDrZiqK8UoVBsNZQv0g3SG8uWMwLIBdD9cYFR+0RWmtIhPstkCAvk/JOoiJdkEPAUMd7t4v3D11+rJ6gUR5HBDYJA3zlu71f7/TnOpCzNj93yUl4mcnBsdcBrxO27pee5CnJOj+HOFt9/9edKFxVOTJwZc+ePFZywf1ZM+8yr0yXjHL86SaxoYUiAdxjsFDj7T/LaJ+NqkWIbxhH7uaxKLegvpfU7hZtWE/nuxykKBh6PY2T3dBQZxpaBc9XDnRbL4M2t/1b8735xj3yvxO0YvnWjGC3wVRTPiwwetVrVlTfckMVIbO8LwTmGRTq/aqa2HwLiJRj3dTbwonGFfEA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=vaisala.com; dmarc=pass action=none header.from=vaisala.com;
+ dkim=pass header.d=vaisala.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=vaisala.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=hnFy/d19nVKI2iDgW0YQnzZewt5hBOlU9FqKyol3LKA=;
+ b=H7scdS4fCZLAwo6Mjof8i2ueC0ft+QuqISTTBmg1XM+jLNRhB5KWf5CPNqp8cZfCz83RsNv/BmRofNx4gppffI933I5yyxOLkCu/NsgmslJjfimQWExoXAvDWwVCGzQ7SZBgnsaSao/OUlK6Uvtz/5c8rU6aftDZXL6meB+vrhvoT1tJbRmQVKP+vzMkdjKOBDq0dOKMQfwzsnzAIP8cr/si0nd2jjqirDJl9DNnwIUUv0/GH/pC5nEmzBYo67C6ZOB0UgiyYTr5oW9CwDutqyuHSXX7S9ef9wt6nOqnAHfrLcQ6RpRzR+5V4ppZkF0L8K/R6ybsHi32jfX2z4lYTg==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=vaisala.com;
+Received: from AM9PR06MB7907.eurprd06.prod.outlook.com (2603:10a6:20b:3a6::23)
+ by DU4PR06MB10187.eurprd06.prod.outlook.com (2603:10a6:10:622::19) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.472.20; Mon, 5 Oct
+ 2026 13:19:59 +0000
+Received: from AM9PR06MB7907.eurprd06.prod.outlook.com
+ ([fe80::a597:33a7:d4e2:1b17]) by AM9PR06MB7907.eurprd06.prod.outlook.com
+ ([fe80::a597:33a7:d4e2:1b17%4]) with mapi id 15.21.0472.016; Mon, 5 Oct 2026
+ 13:19:59 +0000
+From: Tapio Reijonen <tapio.reijonen@vaisala.com>
+Date: Mon, 05 Oct 2026 13:19:37 +0000
+Subject: [PATCH v7 6/9] serial: max310x: support active-low RTS on the
+ hardware path
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261005-max310x-rs485-sw-delay-v7-6-6ae392eca08c@vaisala.com>
+References: <20261005-max310x-rs485-sw-delay-v7-0-6ae392eca08c@vaisala.com>
+In-Reply-To: <20261005-max310x-rs485-sw-delay-v7-0-6ae392eca08c@vaisala.com>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+ Jiri Slaby <jirislaby@kernel.org>
+Cc: linux-kernel@vger.kernel.org, linux-serial@vger.kernel.org, 
+ Hugo Villeneuve <hvilleneuve@dimonoff.com>, 
+ Tapio Reijonen <tapio.reijonen@kolumbus.fi>, 
+ Tapio Reijonen <tapio.reijonen@vaisala.com>
+X-Mailer: b4 0.14.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1791206394; l=3681;
+ i=tapio.reijonen@vaisala.com; s=20250903; h=from:subject:message-id;
+ bh=PdLOMwp6EK9w0jElHyf3mZq3J5zhzx9wDoD4vh3LIto=;
+ b=CRDX09jAx+IC525SJZzOSb95BMChM1zG/4gKZJhIyu4uSXXJaDUfSS1K37747HQfen5m5X7iv
+ KCYd5im1amwAWulirfAbD/7HhCRfo1gDSEJ848EJvHUNLY4/5LYL4Mi
+X-Developer-Key: i=tapio.reijonen@vaisala.com; a=ed25519;
+ pk=jWBz3VD84WbWgfEgIqB5iFFiyVIHZr52zVBPOm7qiGo=
+X-ClientProxiedBy: GV3P280CA0101.SWEP280.PROD.OUTLOOK.COM
+ (2603:10a6:150:8::16) To AM9PR06MB7907.eurprd06.prod.outlook.com
+ (2603:10a6:20b:3a6::23)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: AM9PR06MB7907:EE_|DU4PR06MB10187:EE_
+X-MS-Office365-Filtering-Correlation-Id: a657be11-0283-4eda-7d01-08df22e35ab3
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|366016|23010399003|1800799024|376014|52116014|22082099003|18002099003|38350700014|10067099003|3023799007|56012099006|11063799006;
+X-Microsoft-Antispam-Message-Info:
+	0qeTQdW6IeCUwrAuQOH4MwnuJLUTtrdPgoa7YSzqbVUNFwN6fFabAJHkkf9oStv71KjqpTVsXHSmGl8Z8zY2+SL+JmY4u5agVQqUNDgneIK8JSw/EyMYOe3Pg3jalSiXKbMyhtxjn+Ny3gUDd2yH3zikKW2ZREcyIkjQ5XQcrFSGAK6iN4HbsQd2JZvAhRshTcxezYwaAvnDvVwB8ezoiyvyZletSYNlD2W7SHatWEL//DMN+86GOrbCGsDGjTrM0r7e81d3Fxxy8ZR9cX48BoAgAunyqUDAV3DJS7xnYR0KMCrmLi68HhGWoJmF5ZCIM/YqH0/rWwvuwHmEX34Kpnwcay9wWS2Pm4/Tcb9oLKXrs/vr6sERHl+FHccz00hWv8hoYHhVw4RWZjzU2omA1Mrp2IdZcfiHdsItk0Av+4RqeGKA4bNGJRgpx8jRN0+4e1S1X57X1f9W+nDKRXXXRorLIIfHhXGDCDrMz216Rv9fK4WCp0335td9U6nYaHKH7LLGR3ZzZ9LFD3p8aZF03qeEDW0eboKpDHTGsFs3WrwNyfi3SR52DXCF6IVMd80+bb14n+AO0zuZv4MQnVlSjA+RfbyrRsKQAgGITNP216073xdcj9V/+KcIT5HaNBF58EDAWwLG8VU9ZVLlUSwBPihX6dPPDrJCM3ctLPc+cTnqoaVvos77B53xg45ToKMDF7YUp44X8K4DmyE8QEF1Yw==
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AM9PR06MB7907.eurprd06.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(23010399003)(1800799024)(376014)(52116014)(22082099003)(18002099003)(38350700014)(10067099003)(3023799007)(56012099006)(11063799006);DIR:OUT;SFP:1102;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?VWw1bEtUTHhCa0h4VlJBQXJhNjBPbkpjSVNydmpjSDgvOC9QSUpCMVpIMkNy?=
+ =?utf-8?B?eHNUTERBRUFGeHdabjZJM1NGUk1zTlJUczNkQS9qVkM3MHpEV09mTmhGbGRa?=
+ =?utf-8?B?Rzh1UkY5YyszUlpNMkRydm9QdCs1dldWZnY0eWJwbUxoNXU3d2hIMFMyMXcz?=
+ =?utf-8?B?U0FKa21xNUp5QWRzK2FGZDlNbENEV0ZTeTh6N2dJamNtZnJXRXNSdHA3bSt4?=
+ =?utf-8?B?SHNnVEw1Q2dSckh0VUhhUC9rTWN6OTRqRTZ4WEgvTmFaOFRUZ3pOcmFvaWJi?=
+ =?utf-8?B?SS8wY1VJVmVrL0wwWXZ3ZjUzUVZyUmNJdmZPVzh2dG1DajZ3L2F2Z1B6Z1cx?=
+ =?utf-8?B?QkpSVzVsQjMvSE00aksyd3lsdEwvQWJ2NmN2dDNhVm03WVAzTWNJMjVIdTIw?=
+ =?utf-8?B?N0F6djJWZE84VlFSQ2xwK1lBVlpsTm1qbnVmL3o3aFUvYXVGZkdHd3FUUWJM?=
+ =?utf-8?B?N0p1REVSd091TE9oeEV4QkZlRWFaektTRmJlVVZwdzJwclVVdjQ5VFNaQS83?=
+ =?utf-8?B?S3Q0cXprcW9kOEh1SlN2S1ZSMG5tQmFacFV4Zld1V29ERGF2M2dSWVhvekVT?=
+ =?utf-8?B?NVFNNEJFRHcxZnJGZTFRZ2VqMGRwMEtOWnZZT3dTUEV6Z0c5REV0dGZuWW1N?=
+ =?utf-8?B?b3FhemFQV2IzK09iVk9jalRuaU9XMm5qaWlpUWE1dEpiMHo2Y2txTExXOWRs?=
+ =?utf-8?B?RnMwS0VMTmFVUXB1V05jK28zUUJweXlSa1JublNUMlZSREdVLzQyTFRtQXUr?=
+ =?utf-8?B?MXhEVjFQSzR3ZVd2NXVTWDBUVVNiWkM1L1lBNkordytiN0QyMWR1NnN6TW9z?=
+ =?utf-8?B?NEdZL1ZhVkFHTXJCZU5BMXo4TGZWeUF6UXpBeXJFV0FVQ1g0UVhVeGt6MmRX?=
+ =?utf-8?B?c3B0ZjFGM3RhemdkK1kvUURsUlBNMjVOVjlQVnF2Tlp4VVh0S29US1ZRYVhL?=
+ =?utf-8?B?K01FTUVJQkhueXV2Q0QxdGdsaE9ybHlWTDhINnVzU011dEdHVm1RVU1rN1RF?=
+ =?utf-8?B?Y2xqQnJ1YzBNQWE1a3RQUWlVcFJXSTVHd1FHSTVocTdHZU1sM21LT1NYMnRa?=
+ =?utf-8?B?TytIQUxaN1ZmNFFaSkN0aktxbjMxYWVzcWtnbzdYcWV0NE1FSSt0YitJRk15?=
+ =?utf-8?B?eHlEeCtDOU1TVk40WFNHekNFcE14SkpNaG5ZamoxbGJESXN4N2RSUE5qR2FW?=
+ =?utf-8?B?RStIUkg0WTJJMjJWcmhLYTBtdkVaZW42S0krSXpKT2RmM1R1SkZzQ2dtV3Y3?=
+ =?utf-8?B?R2lFSHNPbDJMUXFtT0p6ZEREQ2Y3MTR5WmNCa1FFYVZkc3ZJMUhTcm5UZ1hV?=
+ =?utf-8?B?ZmdacmlYRHFlTHJMaEFDTVFOYUluQjNtd2hyQ09jRWEvSG53c1N1WUNmZlRr?=
+ =?utf-8?B?ZVhaV2IvR21ZVlgvRzcrWDRvTlhqcUgyaDNRakdiU3BOazVZb1FWWHhYa1ZP?=
+ =?utf-8?B?S2JTTDM4OVM4c0xNSXNCMk4vbkMyQUtWTkVXUEhKNEFiVXltS3FYSlNEc016?=
+ =?utf-8?B?Q1Vua01PNWl0aFhXd2U1U3ZLbFM2Y2lHZjd4M2F4NXI4TE5PNTE1MXo0Sm9O?=
+ =?utf-8?B?ZVVKWlFDbEdPM040WERWbnZYbU5VTzBMNnI0NW9rUUp1VUlodDdIR2JRNmp5?=
+ =?utf-8?B?Nzk0RnBRdnoyR1E5aWNlZmt4dzhvMm9aYUlQWmwxei96QzBlM2tPN2ZXQUZH?=
+ =?utf-8?B?QmZYM2NZRWhNN29MVzFPSEEzWWhENm9RdmpxbHdDQnFkTExBYzYrRUpBWWtl?=
+ =?utf-8?B?dUxBZ1pPcDNFUDJqR3FNZkZFZUNuSlQ2ODRWaStxOXB6TUhpT005bzFkWWpo?=
+ =?utf-8?B?UXpYSGEzcm9Bd0FtTHZ4MnBpd2dGTHdLSmRyZ2VwSzVFOWMvNVVONVVQQ1ph?=
+ =?utf-8?B?TE1sWGprd2VHOGE3WXdBaUJzYTBhWkM0dFgrNTNTc3BDTStQaW1jZGppU05G?=
+ =?utf-8?B?OGNXbmhqU2pqSmlqaWJJa1dmcms0MzM2R3hFcjI0QWRiaTRaZzEyWVBmS01o?=
+ =?utf-8?B?Vm1LTXJiaEZRcVNtVlBwTXFoRklQM2J5dGY3SUZXa0FDclhaSmNGTGZlM2Vm?=
+ =?utf-8?B?aGIrRGtoY3dscll4ZDN1THNkZk5ubkhGbzY3L3hTRTZQQTFObGo4QkpZNnZ4?=
+ =?utf-8?B?a0JSeU1MaTIrMGJFY0pSTkNRbERsc25YVWNSKzN2NVZ3MDBPVVppTWdyejBz?=
+ =?utf-8?B?ZmpaUjJRdDVyc0Z5UVNuM3VJbjRMcllXTnRXS0xLclFuek5lMmEwRUJtQVIy?=
+ =?utf-8?B?N2NhTDIzNHpIVUF6ZTN5c1U2dndxeXo5Yzh5VjVMd1lXV3NoT2dkY0gwY212?=
+ =?utf-8?B?S0RrOWZIZmY3MUkwMkRpVE56bmEvZVdqSnNvMjcwWUtXWVl6SU90bCtHRXJS?=
+ =?utf-8?Q?iXqF6P10oEczVnyE=3D?=
+X-OriginatorOrg: vaisala.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: a657be11-0283-4eda-7d01-08df22e35ab3
+X-MS-Exchange-CrossTenant-AuthSource: AM9PR06MB7907.eurprd06.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Oct 2026 13:19:58.5633
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 6d7393e0-41f5-4c2e-9b12-4c2be5da5c57
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: zZhvJ4pF3acULew2QFV92UNplMLcj5GrWDnRYLzPYp9vfo0YLjQGmFvRIfShZq2FVxk56gMktIlR3kd50jQON90M1r8ZhTjmxzKSn6trwpQ=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DU4PR06MB10187
 
-On 10/5/26 Christian König wrote:
-> Well filling page tables by the importer is an absolutely clear NO-GO
-> for the DMA-buf design, we have gotten down that path already and it
-> took us years to remove this functionality again.
+The chip's auto-RTS engine asserts the RTS_ pin high while data is
+shifting out, so a transceiver with an active-low driver-enable could
+not use the hardware RS485 path at all: SER_RS485_RTS_AFTER_SEND is
+not in the supported flags and the core normalizes it away with
+"invalid RTS setting, using RTS_ON_SEND instead".
 
-Understood, thanks for the quick and clear answers on this patch and on
-patch 3.
+The output stage is invertible: program IRDA.RTSINVERT when the
+requested polarity is active-low and advertise SER_RS485_RTS_AFTER_SEND
+in rs485_supported. A break already drives break_state onto the RTS
+bit unadjusted, which remains correct because RTSINVERT inverts the
+output stage itself, not the register value.
 
-> The problem you are facing here is that dma_buf_mmap() doesn't work
-> because you don't have a VMA.
+Assisted-by: Claude:claude-fable-5
+Signed-off-by: Tapio Reijonen <tapio.reijonen@vaisala.com>
+---
+ drivers/tty/serial/max310x.c | 18 +++++++++++++++---
+ 1 file changed, 15 insertions(+), 3 deletions(-)
 
-Right: the memory has no struct page and is deliberately not mapped in
-the host, so there is no VMA to hand to KVM.
+diff --git a/drivers/tty/serial/max310x.c b/drivers/tty/serial/max310x.c
+index e08e506360d72a3ef4c0ebdca2e60d864973f909..0c40283f44ba1df712607218aef24cb642ba3918 100644
+--- a/drivers/tty/serial/max310x.c
++++ b/drivers/tty/serial/max310x.c
+@@ -164,6 +164,7 @@
+ /* IRDA register bits */
+ #define MAX310X_IRDA_IRDAEN_BIT		(1 << 0) /* IRDA mode enable */
+ #define MAX310X_IRDA_SIR_BIT		(1 << 1) /* SIR mode enable */
++#define MAX310X_IRDA_RTSINVERT_BIT	(1 << 2) /* Invert RTS output */
+ 
+ /* HDPIXDELAY accessor macros */
+ #define MAX310X_HDPIXDELAY_SETUP(val)	(((val) & 0x0f) << 4)
+@@ -951,7 +952,7 @@ static void max310x_set_rts_ctl_params(struct max310x_one *one)
+ 	const unsigned int max_bit_dly = 15;
+ 	struct uart_port *port = &one->port;
+ 	unsigned int setup = 0, hold = 0;
+-	u8 mode1 = 0;
++	u8 mode1 = 0, irda = 0;
+ 
+ 	if (port->rs485.flags & SER_RS485_ENABLED) {
+ 		/* Convert milliseconds to bit-times, rounding up. */
+@@ -963,6 +964,12 @@ static void max310x_set_rts_ctl_params(struct max310x_one *one)
+ 		hold  = min(hold,  max_bit_dly);
+ 
+ 		mode1 = MAX310X_MODE1_TRNSCVCTRL_BIT;
++		/*
++		 * The auto-RTS engine asserts RTS high on send; for an
++		 * active-low RTS let IRDA.RTSINVERT invert the output stage.
++		 */
++		if (!(port->rs485.flags & SER_RS485_RTS_ON_SEND))
++			irda = MAX310X_IRDA_RTSINVERT_BIT;
+ 	}
+ 
+ 	max310x_port_write(port, MAX310X_HDPIXDELAY_REG,
+@@ -980,6 +987,8 @@ static void max310x_set_rts_ctl_params(struct max310x_one *one)
+ 
+ 	max310x_port_update(port, MAX310X_MODE1_REG,
+ 			    MAX310X_MODE1_TRNSCVCTRL_BIT, mode1);
++	max310x_port_update(port, MAX310X_IRDA_REG,
++			    MAX310X_IRDA_RTSINVERT_BIT, irda);
+ }
+ 
+ static void max310x_break_ctl(struct uart_port *port, int break_state)
+@@ -996,7 +1005,9 @@ static void max310x_break_ctl(struct uart_port *port, int break_state)
+ 	 * The chip's auto-RTS asserts the transceiver only while FIFO data is
+ 	 * shifting out, and a break is not FIFO data. Disable auto-RTS for the
+ 	 * break duration and drive RTS manually so the break reaches the wire;
+-	 * restore auto-RTS when the break ends.
++	 * restore auto-RTS when the break ends. For an active-low RTS,
++	 * IRDA.RTSINVERT already inverts the RTS_ output stage, so break_state
++	 * is driven as it is.
+ 	 */
+ 	if (break_state) {
+ 		if (!(port->rs485.flags & SER_RS485_ENABLED))
+@@ -1416,7 +1427,8 @@ static int max310x_gpio_set_config(struct gpio_chip *chip, unsigned int offset,
+ #endif
+ 
+ static const struct serial_rs485 max310x_rs485_supported = {
+-	.flags = SER_RS485_ENABLED | SER_RS485_RTS_ON_SEND | SER_RS485_RX_DURING_TX,
++	.flags = SER_RS485_ENABLED | SER_RS485_RTS_ON_SEND |
++		 SER_RS485_RTS_AFTER_SEND | SER_RS485_RX_DURING_TX,
+ 	.delay_rts_before_send = 1,
+ 	.delay_rts_after_send = 1,
+ };
 
-I'll post a new version of this series. It drops get_phys(), the ranged
-invalidation and the guest_memfd dma-buf import (patches 2-5), and it
-does not touch drivers/dma-buf, as you suggested in the PAL discussion:
+-- 
+2.47.3
 
-  https://lore.kernel.org/all/c413710b-4c28-4ed8-88ec-aeb8c4482011@amd.com/
-
-KVM gets its frames through the KVM-private guest_memfd provider
-interface from David's series. iommufd gets them through a private
-interface with the exporter, as it already does for vfio-pci. The new
-version adds a small registry in iommufd for that, which replaces the
-symbol_get() of the sample in David's series. The dma-buf is then only
-the handle and the existing revoke.
-
-Thanks,
-Fred
