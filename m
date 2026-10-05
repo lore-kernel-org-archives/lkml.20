@@ -1,101 +1,93 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F1D2336494B;
-	Mon,  5 Oct 2026 08:10:21 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 04BFD37BE9E;
+	Mon,  5 Oct 2026 08:10:56 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791187823; cv=none; b=GwJxZMk/y6slwexFBUt56hD6KOHGXHu1ZAYkCgllukI7B8rlomO026mjQol5rUkOON774fzRhVnpPBEHyd4MdcU6TIWCFCIRAxjMIHHgdSV0uUlDNlocDhbQs1yY5jH89GQwodjcREany4VW81Njyywo/z06sxq/pqr67Ine6cI=
+	t=1791187858; cv=none; b=RWwgnjJaV66Px5DpGLh5WGNTpVu5BPkbPEuvOm/llZTYcuSQu7O/jjtGElPMfG+41Z90gYtsZPH9ZHtgD9jDWnQ2YPIngZyIhIRqEhdcqACNsuRm9RnhuyWECAZqG1yjbZf/0Ov9jk2HJlhoQ+ESWTrcUFaoLBAhpbiY7Kqj6nY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791187823; c=relaxed/simple;
-	bh=ZMw6i41rO6iUxejWmQxYHn8MfPvI9BAjqA7hWaTUEGA=;
+	s=arc-20240116; t=1791187858; c=relaxed/simple;
+	bh=x1W0d+UxyN6NyR02OWmZk3vrZ/qpuzcycxmpO18/UqA=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=CWKRRD3LIbsyDrByRXRZGKCqH9sH9vieE2TR9P3YMPs8coOm05m5egWmvWmyhAIp+pR+aKWyoidX4dpySoxWU8flC1koFYOYwffjfYXD803PlX2lKo6BJye8kuO6yWyIrwjUc1q2hCnx0pcU3tMv6PPHhsx076azb2RU683DVR4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=QM6ZpukN; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=WGk3bKlOnlGxuxQ3dVcGEdYzC+KeskJao93ZS42pp8cOveOHzIgprhvNMOJFEomVUd+Knu/fqz0hG1K29YqvuvEaA8qzhoTbTk/GHsqCScn1jcik09hyeAEVisDAxywDfFiCOrEnZaEYOdshKwBUkTpEozotTR0xwtu5wwxPl8U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=CSpKwxqN; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="QM6ZpukN"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 53BAE1F000FF;
-	Mon,  5 Oct 2026 08:10:19 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="CSpKwxqN"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A4D901F00893;
+	Mon,  5 Oct 2026 08:10:56 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791187821;
-	bh=bmXtqj+1EA0qDhQoy1XIX6T58V/e4lq7osWmqeeZ2Hk=;
+	s=k20260515; t=1791187856;
+	bh=x1W0d+UxyN6NyR02OWmZk3vrZ/qpuzcycxmpO18/UqA=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=QM6ZpukNaBa0mMOKa2As+65ti10BFgYsZUzdYn4GwdAXeBa5+9hiN7+C7QCJ9VSf0
-	 OAL7AvS2NvTbWJi6ro0XjPZAsSVPeyWC/MDDhuvtAPxSy7jfereEdIMEJIFoY6x15t
-	 0TRNDEDcSxbNdqSmioVDHLCUCtY3lL9g70+WTE1ILG0e1ekpxeYpAKkHKaw3fod7ys
-	 54FQt/WJqXoZtjjKoRU516OcXkmGAJ2Hqfo4lmq1iwOL24LGRRXxtxyxTqXLqSfP/8
-	 xoA4SnFHq/jL0jMnSB0I6FGNwu1F41LFqREKy7wNPmkFeUcp6zGn3pAy7wvkboDiAz
-	 QFAQphdWKHjLA==
-Date: Mon, 5 Oct 2026 09:10:15 +0100
-From: Will Deacon <will@kernel.org>
-To: Nicolin Chen <nicolinc@nvidia.com>
-Cc: robin.murphy@arm.com, jgg@nvidia.com, joro@8bytes.org, praan@google.com,
-	kevin.tian@intel.com, smostafa@google.com,
-	linux-arm-kernel@lists.infradead.org, iommu@lists.linux.dev,
-	linux-kernel@vger.kernel.org, jamien@nvidia.com, kas@kernel.org
-Subject: Re: [PATCH v10 06/13] iommu/arm-smmu-v3: Add
- ARM_SMMU_OPT_KDUMP_ADOPT for kdump kernel
-Message-ID: <asNbZ93WrbGlm2c3@willie-the-truck>
-References: <cover.1788130528.git.nicolinc@nvidia.com>
- <d661395d986d3aa78af200f55e43740996ee8a0f.1788130528.git.nicolinc@nvidia.com>
- <asJTsw-oWDlSqNa3@willie-the-truck>
- <asK7VILK4CgEFjdT@nvidia.com>
- <asNEmjxZ73ezL4I3@willie-the-truck>
- <asNYMpZfyMHakuZ6@nvidia.com>
+	b=CSpKwxqNWyx2EIT6SI+NsQM6C0H17sq5KiRmYKWdcHTFMmSIXRMGjLGgYB9w9QHeC
+	 u/fcZoZLK6xiDItwlfhgKoni0AryDPcnheJlQYZVBu5l0AJ4+svgWwXCktAihFBMgc
+	 AOT7si3UMiODyJsyxWE+Sb3K+62/hKhyARoWR1W/n52uqYkngdg9x/v5Cq0z5pKK4/
+	 92ucD2to4qOUKzpoWu7ANL+moCoz/bLHpigdtw/mNwk2vGPhZQXrBYefHI05XMsnOK
+	 4hVD9J1k8mv+7wsG02mocmj/FCpnjWN0eqAvSyX9dmVeY4bOEIloLAvJcZzGS+Y/2k
+	 j90VzZDaX2SCA==
+Received: by finisterre.sirena.org.uk (Postfix, from userid 1000)
+	id 2F1AB1AC57CE; Mon, 05 Oct 2026 09:10:53 +0100 (BST)
+Date: Mon, 5 Oct 2026 10:10:53 +0200
+From: Mark Brown <broonie@kernel.org>
+To: Bui Duc Phuc <phucduc.bui@gmail.com>
+Cc: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+	Trevor Wu <trevor.wu@mediatek.com>,
+	Liam Girdwood <lgirdwood@gmail.com>,
+	Matthias Brugger <matthias.bgg@gmail.com>,
+	Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
+	Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
+	cassiogabrielcontato@gmail.com,
+	Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>,
+	Liviu Dudau <liviu.dudau@arm.com>,
+	Haotian Zhang <vulab@iscas.ac.cn>,
+	HariKrishna Sagala <hariconscious@gmail.com>,
+	linux-sound@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+	linux-mediatek@lists.infradead.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 06/14] ASoC: mediatek: mt8195: Fix FE startup error
+ handling
+Message-ID: <asNbjSrPYVbeqSae@sirena.co.uk>
+References: <20260925044908.450775-1-phucduc.bui@gmail.com>
+ <20260925044908.450775-7-phucduc.bui@gmail.com>
+ <asKt42FgsbhSbQUP@sirena.org.uk>
+ <CAABR9nFyEJBwXP=4SjuGNfGQJub2y_DPE87c6j6BPmqMBgjESA@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="sUcAnahCRvqeHeGI"
+Content-Disposition: inline
+In-Reply-To: <CAABR9nFyEJBwXP=4SjuGNfGQJub2y_DPE87c6j6BPmqMBgjESA@mail.gmail.com>
+X-Cookie: You will forget that you ever knew me.
+
+
+--sUcAnahCRvqeHeGI
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <asNYMpZfyMHakuZ6@nvidia.com>
 
-On Mon, Oct 05, 2026 at 12:56:34AM -0700, Nicolin Chen wrote:
-> On Mon, Oct 05, 2026 at 07:32:58AM +0100, Will Deacon wrote:
-> > On Sun, Oct 04, 2026 at 01:47:16PM -0700, Nicolin Chen wrote:
-> > > On Sun, Oct 04, 2026 at 02:25:07PM +0100, Will Deacon wrote:
-> > > > On Sun, Aug 30, 2026 at 04:18:07PM -0700, Nicolin Chen wrote:
-> > > > >  drivers/iommu/arm/arm-smmu-v3/Makefile        |   1 +
-> > > > >  drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.h   |  21 ++
-> > > > >  .../iommu/arm/arm-smmu-v3/arm-smmu-v3-kdump.c | 229 ++++++++++++++++++
-> > > > 
-> > > > Please don't put this here. The live update / handover stuff is going to
-> > > > need very similar logic (see the RFC from Pranjal) and I don't fancy
-> > > > having to rename or resplit this file when that comes along.
-> > > > 
-> > > > Maybe just stick all of arm-smmu-v3-kexec.c and arm-smmu-v3-kdump.c into
-> > > > arm-smmu-v3-handover.c or something?
-> > > 
-> > > Hmm, Pranjal and I already aligned that cleanly. And there is no
-> > > further rename/resplit in his series.
-> > > 
-> > > arm-smmu-v3-kexec: common helpers for both
-> > > arm-smmu-v3-kdump: kdump specific (my series)
-> > > arm-smmu-v3-liveupdate: liveupdate specific (Pranj's)
-> > > 
-> > > Each of them is built on a separate config:
-> > >  arm_smmu_v3-$(CONFIG_ARM_SMMU_V3_KEXEC) += arm-smmu-v3-kexec.o
-> > >  arm_smmu_v3-$(CONFIG_IOMMU_LIVEUPDATE) += arm-smmu-v3-liveupdate.o
-> > >  arm_smmu_v3-$(CONFIG_CRASH_DUMP) += arm-smmu-v3-kdump.o
-> > > 
-> > > If we put everything into one big file, we'd add the two individual
-> > > config guards internally, which isn't as clean as currently IMHO.
-> > > 
-> > > Note that the kdump file has a very long notes (kdump specific).
-> > 
-> > I dunno, three files seems way over the top for this imo. I'd rather have
-> > one (even if it uses preprocessor guards internally) otherwise it just
-> > seems inevitable that we'll have random internals exposed from one file
-> > to the other, or duplication of logic or both. Even if we end up splitting
-> > it eventually, I'd much rather start from a position where everything is
-> > in one place.
-> 
-> OK. I'll merge them, maybe into arm-smmu-v3-kexec as Jason suggested?
-> 
-> Or do you still prefer handover?
+On Mon, Oct 05, 2026 at 02:12:38PM +0700, Bui Duc Phuc wrote:
 
-I'm terrible at naming, so I don't mind :)
+> > This will return 1 if a new constraint is installed which is not a
+> > failure.
 
-Will
+> Do you mean snd_pcm_hw_constraint_integer() rather than
+> snd_pcm_hw_constraint_step()?
+
+Sorry, yes - Noticed it in the _fe_startup() that was called just
+before as you say and didn't specifically check that function.
+
+--sUcAnahCRvqeHeGI
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iHUEABYKAB0WIQReagvpf3TrrA7BoYYv73Ows9A4iQUCasNbjQAKCRAv73Ows9A4
+iRNfAP4wqJV7pRyYOXXDTCy+JSwPo1kGj0jzlAZ1N4Sz4PZCegEAngA2eR4CykXu
+huQWaGzmx7Q8fpn7SbSPhCVbfBI9WAI=
+=F9Hz
+-----END PGP SIGNATURE-----
+
+--sUcAnahCRvqeHeGI--
