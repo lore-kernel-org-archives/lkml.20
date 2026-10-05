@@ -1,64 +1,66 @@
 Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F1F7837105A
-	for <linux-kernel@vger.kernel.org>; Mon,  5 Oct 2026 07:06:34 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E9B463769F6
+	for <linux-kernel@vger.kernel.org>; Mon,  5 Oct 2026 07:06:39 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791183997; cv=none; b=bPohBc7SjMSnHOeh6NYtXhLC8A1YQzGrTHFY4sMzJrXEyB0OgAWjS0g13LjqWXg7JD2OohD0SzSePyU9fvtCzZaTVYzA+Sakj2E/lyBsxtdYXVefptz7yX6Fhm84p2i6ofu8khVymmgWJZ+AN4ZCdPkjHiWqHFOAN9wlapWFgGQ=
+	t=1791184003; cv=none; b=S3D/edxOBCMCqelaLbRZCyMWThyvGryNrsgUx5H4EjCppjoyulZZsfRts+EHfdDXGl05SbmZzNFczlXddBDt7W214MyhyDrOv3ORSZN+GmiD6vlwo2z8QVgEkABZdNodQyBoAT+MDZ+fE+cHAsUNvqLqoFDx9OPQlnY2ShTq2Xs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791183997; c=relaxed/simple;
-	bh=05kHoko/nqMI072En1PJNukfGt9/4zUx6GVdib+NbNo=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=j/YOAwcEFF/7FZYlU1q2dGk9nD9r4xMjvIJp9zNtC7CApoXMTto5w+KvW1+h0CkrmpjH357Wwgj/Snh4U0tl8+GsfRAb1Bbaf/H7zlDX1rB8bK2FeVbR3gQ3cdvMyZyjqTJ39v1IzRbvwMD1OP3wHgLmJjhgdUr96zhAx8zdKXg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=o9OikwFl; arc=none smtp.client-ip=74.125.225.140
+	s=arc-20240116; t=1791184003; c=relaxed/simple;
+	bh=G4IEzobgfsKNObG/Hy6E+npwMk0v9FtMQFSITgNTZ6o=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=c5AZetC6eIpKii0pQbpowtQJGjZhqHwS1G92coDNCX/reyl/fNRjZRHyHI9rzF2dV6P2/ZR/k2SxBYudw1DaFCJOTG+dGwx+Jx8GSVBCq/Zujzmmi0+3CBpdOjJy5krBivxXUcWU38vK+U0phjAp0aBbMRz/yr8r9pLT30KTY6s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=VwzWLpiO; arc=none smtp.client-ip=74.125.225.140
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="o9OikwFl"
-Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-4a174a3dc9dso1415275e9.0
-        for <linux-kernel@vger.kernel.org>; Mon, 05 Oct 2026 00:06:34 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="VwzWLpiO"
+Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49fff72474fso9364085e9.3
+        for <linux-kernel@vger.kernel.org>; Mon, 05 Oct 2026 00:06:39 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791183993; x=1791788793; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=+vg5y7TFdC/oAYFLNYNMU7By8Gx4IwKuOI2ehF5mxV8=;
-        b=o9OikwFlJm20JBMrFsPyBqtt36XEsmOcUdkVWn6tJW7rgN7ouWHKhhwSMQy6Lk7Q1m
-         c7Mre0y/sNHdNeu5+uYMrwH2rpjeMrWhlxT1lUvEC35HcuitDDK6M5WpV7Tat3f1q9x+
-         +mV7hGdHU/ZF1zVilNbW2ZTYBok5yk3kVFV6gsNb4HJ6spBmxOKCFtZgNYLwEDVKmmb5
-         2APkXVlCx6kY0E5BGdnFnL+pIElnZJC70+RFteRJtmFqtRIPBOd05bj2s1CC0waYqevD
-         RLx1LoIngjQySglANuKJS8Aehk3DC8+yL8jS5K5G7ASRplpyegIDKItLr689Lb4FcvCh
-         liZA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791183993; x=1791788793;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20251104; t=1791183998; x=1791788798; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=+vg5y7TFdC/oAYFLNYNMU7By8Gx4IwKuOI2ehF5mxV8=;
-        b=nYFnHYK4lZjA5EDvUTB19rJG5m/oL8IhSjDwBxIPVc+e5J622qzx7pSkkYcpvXB/O3
-         b9cyUqu86h8i45LC//MeTIIcwDxYumMMyELHiA2ehewKzFyNzEx89JFJJyZqbeIpB8Tf
-         RGcUStOXUxr5rX0udQnQusH4xRoXPXuKrG5im8RM8kxoGaIHNFXFzfreF65DL3E/WIlT
-         nJPpvv4+Ml6/yB+7kaMTh4yEu2pTpaZdndEYa8qD8NT+JtSW7SZopswk3Arp7VSby7cj
-         vpTP+VZZBE3Llb/fIGl/WbcSfxtegL520eCGmGJTaHrjxyH5JbsyJsVCVFU0GTK1Ukqf
-         pGJg==
-X-Forwarded-Encrypted: i=1; AKwUvBy+09w2VDDf9CgSBBwg2sntHr/VXWQYj2wKPJdliIOVluwDKFCa6Nyje0AbxQny860V3eI3+mTSmVNv6Sw=@vger.kernel.org
-X-Gm-Message-State: AFuF++k77wZxB05D8bNu6JjzRGUalOtDSkVxorK3q19ysvSEXs9K3eSg
-	fQ+qFrtJ28eJqlhlsrPUq35ZbgqRJvcmnlSXUAyQNWOXu6trTrWybPln
-X-Gm-Gg: AYBFou2UAAH6lUGbB+zNskfx/l0/IjgFyu5l4fl+w/T/7P2Cf0hdS90aKa3+7gG2Vnx
-	vXB4ZVBKOkDgtX7NQlIyDhy8TDeidoo/YY923tgoKTOgoBiSrGvHKSt+gMEzbbO+KkGp9Pu/vvI
-	7f3iy/xtmvhd4Fci3mAXbnW7WdV8tR4slbzy3vBa7ZAeWMUToPhSOCb4LZuNRyTyGl7w41GQa5p
-	PGz/0jhYd2EkbiuzKJcUCPXO/cfwb/3Eqe8Zmd32y7ZWByh+IHzyYPeYU2h0w9UnZN2Qb+lSfJ5
-	sG9GQaFVHGEx1JtzQjSFSWDYmYn4MH3Ynn2v7tF3KtZMwiSCW/4Avkrl/Z6u2Uj7l3AxBYGCGSK
-	lZt7fhUFIMFPiBmuZFE3xHRK+gioRDDG7iZCQpAsw5PLPsxX/6uIz4RK+NxOuqW7to2uZgl2EhM
-	Dskd4skHO77FEp3moHp28fniqVR9o1zyQvlLjjLYDcQCTEWFlAYWPm9G6urn1oSP7BA9tffVkvR
-	YdwZ2vEPuGJodPF0yBXBfNYsNLqOorvZVZQHOiAyJithc6nBxExhQwkILcNFma8c/63oYWvB/sB
-	ZrGiXtaIU7mNcW7V9pAuITcyENbZVAHZCGousMYxj6y+aSsjOoN+jD5Ahsi3tRLj5c02mqzrfGg
-	nRA==
-X-Received: by 2002:a05:600c:c4a6:b0:4a0:25e9:bc47 with SMTP id 5b1f17b1804b1-4a02759a443mr172676745e9.19.1791183992976;
-        Mon, 05 Oct 2026 00:06:32 -0700 (PDT)
+        bh=xfZ3u+8kppu334roBh57uG8qfuX2GjTQB+h2l+yzJBo=;
+        b=VwzWLpiOfztIUc1wRTElHPs1dVYNdJsHKJ0SapWDzpi400QVhdHFVOAef7WnUg9OHo
+         5XXmmGLIRYjHoLcohVJfkTjGAVCjyXYJQYz3bP5/n/6hSpISDNySm1XM8dbIa+RlOF56
+         qMkZbaTFR4JkzosFUm6d7RegIdB/oDLIcro23jzinxLVRqwN8AUYmXL7A0P0Q4GN1kgi
+         vcatDzoisvl4fViwpYPG9XpNyLS99hH78RWLf1Zk/pE8moFMJVP1vamkSHn3P1Lf7qdy
+         FdNy89BbcTyad7klBCZ717/kRfb81eIWL26zJJedQVmkPrNIvDON3OsoPPxl9m8243LW
+         Y/7g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791183998; x=1791788798;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=xfZ3u+8kppu334roBh57uG8qfuX2GjTQB+h2l+yzJBo=;
+        b=jGnBmk4FqKvypphxznNw0zPixhsYoEdMo6Gi9nSzSfXFISe+DgFoKCXS6ptrvMNpHg
+         OHwc1usPdkTb1tL1F/tg4N9l0ZbqB6ulUnUWcAnFbExCcECHEzmLtrMBsJMxrrVDHkkG
+         xEx/cMwOJdIz24ICDtOYUXYnWOV1Pp+fzCmluQ8dy/7cWj6EuYZGooItd1FsyQzQmfD3
+         HU2+4j8dbroLoBPOzNVpcnSE4l5ZmV/FIcOU5fvuDoKlal+8ovV+vBoEes6/baEYCae8
+         Wg7PoT2cTY3TmA8LZX/NqTyz7Bb3volm80VosXuholxVwx9tAdttHDnk4CKgaWeSjdWj
+         b1XA==
+X-Forwarded-Encrypted: i=1; AKwUvByur+UIGSj3vRm1x2iFKZN3fveHSaOSnIzFP2pLYNyG5s/nTEQ8huFClk2hXOHuXWebUxkINW0FcM8QoLw=@vger.kernel.org
+X-Gm-Message-State: AFuF++nE1gVKWwpTXM/mtNDr598LcTGuG/bqi6YDGlgMG7+0sX2/Tozs
+	pmAI0iAHGf4ReQNyLIu3dJ/oBY+FShdpxGMtLiY+VGeSpNPSNg26B8W6
+X-Gm-Gg: AYBFou28cgq3p1BesoycIgxUQCH1//xlL247VQiESKXtaBgWEa55nZN666uuFPYJU28
+	D1BSYX1tV1/sSlhWLBXugSW7CICJoDUYY5R5QoXKim6klYbntfTAPslmX2WSBrWgIhhf+H6jejL
+	igTShKd0e2sRgx6I/taspAOyhWdNxbOeYotnfy7f5KvJwnTmoaadGi4QVRAMRRzuZACerris2xP
+	ggEI/wBx7gKKTj1NX/bh9gSp8lO2w67wHP1wRQmA00WwI72zGohfJ7fxpFDVZhBrM2RKgxAeImi
+	vdm3AANHeksvuH1WJ75+44JVwPZYbLcYSOrBI+SHnm4qHArSb4B+qNetmHBCVHpJyJc3jKOXnar
+	HNF4x2pJM0vZ5WPAzvIvQKrNMC2sU+NQkhBpMzWJZhkXS8vNa4TTRkmyBcrrh0pHnlZSRElgtXm
+	+tkT6rS5nWUZ0TDVPZlzwfKxDb6Fpn6oqgy5o6w3YVs5lGxby7hQY9LP1dcRyxiQCPTxq7DA3ez
+	UyCj3UYvPvwIUVLRlrTtqQdvWhw0yKVZ5jh1adiN7aSiIbIfU5N//e7oxNPULQDZVlYHK2c0TzM
+	X94TU4BPi93jpl3+JIdwylgut2An86OzTHgbm3sa/BnYStBF40ZDwEgpwveLS0FTjujNFR8giCU
+	Z1A==
+X-Received: by 2002:a05:600c:46cc:b0:4a0:258a:8de4 with SMTP id 5b1f17b1804b1-4a0274e9c3dmr145299735e9.4.1791183998159;
+        Mon, 05 Oct 2026 00:06:38 -0700 (PDT)
 Received: from localhost.localdomain (dynamic-2a02-3100-b305-2001-39fa-3d24-821a-4eae.310.pool.telefonica.de. [2a02:3100:b305:2001:39fa:3d24:821a:4eae])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a16bcb9a21sm283461465e9.10.2026.10.05.00.06.31
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a16bcb9a21sm283461465e9.10.2026.10.05.00.06.36
         (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Mon, 05 Oct 2026 00:06:32 -0700 (PDT)
+        Mon, 05 Oct 2026 00:06:37 -0700 (PDT)
 From: Karl Mehltretter <kmehltretter@gmail.com>
 To: Peter Zijlstra <peterz@infradead.org>,
 	Thomas Gleixner <tglx@linutronix.de>,
@@ -92,10 +94,12 @@ Cc: Karl Mehltretter <kmehltretter@gmail.com>,
 	bpf@vger.kernel.org,
 	linux-kselftest@vger.kernel.org,
 	cgroups@vger.kernel.org
-Subject: [RFC PATCH v2 0/3] locking, mm: Add atomic allocator trylocks on RT
-Date: Mon,  5 Oct 2026 09:06:22 +0200
-Message-Id: <20261005070625.8871-1-kmehltretter@gmail.com>
+Subject: [RFC PATCH v2 3/3] selftests/bpf: exercise task storage from hrtimer_start
+Date: Mon,  5 Oct 2026 09:06:25 +0200
+Message-Id: <20261005070625.8871-4-kmehltretter@gmail.com>
 X-Mailer: git-send-email 2.39.5 (Apple Git-154)
+In-Reply-To: <20261005070625.8871-1-kmehltretter@gmail.com>
+References: <20261005070625.8871-1-kmehltretter@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -104,100 +108,136 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-On PREEMPT_RT, a BPF task-storage program attached to sched_waking
-can deadlock when kmalloc_nolock() obtains an rtmutex-backed allocator
-spinlock while try_to_wake_up() holds p->pi_lock. Releasing the allocator
-lock can enter priority-inheritance or wakeup code and re-enter scheduler
-locking.
+No BPF selftest creates task-local storage from a tracepoint which runs
+while an hrtimer base raw lock is held.  On PREEMPT_RT, this can exercise
+allocator rtmutexes inside a raw-lock section.
 
-The first RFC [1] rejected every non-preemptible caller. That prevents the
-deadlock, but it also rejects BPF arena allocation and faults under the
-arena's ordinary raw lock.
+Attach a program to tp_btf/hrtimer_start for the test process.  Create and
+delete task storage on every event and trigger 1,000 events with
+timerfd_settime().  Detach the program before reading its counters, then
+require at least one successful allocation and balanced attempt and
+outcome counters.  Allocation failure remains valid for the best-effort
+no-lock API.
 
-This RFC instead adds an atomic owner state for bounded PREEMPT_RT spinlock
-trylocks. Atomic acquisition succeeds only from the completely free state.
-A regular waiter sets HAS_WAITERS before waiting, which prevents a later
-atomic owner from barging. Atomic release preserves HAS_WAITERS and does
-not enter priority inheritance or wake a task. Preemption and local
-interrupts remain disabled for the atomic-owner section.
-
-The design tradeoff is that a regular waiter cannot boost an atomic owner
-and spins with interrupts disabled until the bounded allocator section
-finishes. I would value locking review of whether that owner state and
-handoff are acceptable, or whether the no-lock allocator should instead
-fail in these contexts.
-
-Patch 2 uses the new operation for global SLUB and page-allocator locks. It
-avoids regular per-CPU RT local-lock slow paths and reuses centralized
-objcg credit when the per-CPU stock is unavailable. Patch 3 adds a BPF
-selftest for task-storage allocation from hrtimer_start while the hrtimer
-base raw lock is held.
-
-The series has one prerequisite, recorded by prerequisite-patch-id in this
-cover letter:
-
-  mm/page_alloc: skip shuffling and reporting for no-lock frees
-
-That independent fix has been posted as a normal patch [2]. It keeps a
-successful no-lock page free out of allocator shuffling and page-reporting
-notification. It is separate because the issue begins with the v6.15
-free_pages_nolock() API rather than the v7.0 slab regression addressed by
-patch 2.
-
-Patch 2 should also be evaluated with David Stevens's pending memory.high
-deferral fix [3]. There is no build dependency, but bypassing the per-CPU
-stock can make a no-lock charge reach that pre-existing schedule_work()
-hazard more often.
-
-The pre-rebase version of these atomic-owner changes passed four-vCPU
-x86-64 PREEMPT_RT QEMU in release and lockdep/debug-rtmutex builds. Tests
-completed 5,000 forced waiter handoffs without barging, kept asynchronous
-IPIs out of atomic-owner sections and passed the BPF hrtimer workload.
-
-After rebasing onto current mainline and the prerequisite, the affected
-locking and MM objects build with PREEMPT_RT and lockdep. I have not
-repeated the runtime campaigns for this RFC rebase.
-
-If this direction is accepted, patches 1 and 2 would need joint stable
-backports for v7.0 and later.
-
-Changes since the RFC v1:
-
-  - replace the blanket context rejection with an atomic rtmutex owner
-  - preserve local IRQ state across a successful atomic trylock
-  - cover the global slab, page allocator and memcg-cache paths
-  - bound shared objcg credit when the per-CPU stock is skipped
-  - add forced-handoff, caller-attribution and BPF hrtimer tests
-  - keep the independent no-lock page-free fix as a prerequisite
-
-[1] https://lore.kernel.org/r/20260919171443.90512-1-kmehltretter@gmail.com
-[2] https://lore.kernel.org/r/20261005063515.6312-1-kmehltretter@gmail.com
-[3] https://lore.kernel.org/r/20260904173145.2028377-1-stevensd@google.com
-
-Karl Mehltretter (3):
-  locking/rtmutex: Support atomic PREEMPT_RT spin trylocks
-  mm: use atomic RT trylocks for no-lock allocation
-  selftests/bpf: exercise task storage from hrtimer_start
-
- Documentation/locking/rt-mutex.rst            |  40 ++--
- include/linux/rtmutex.h                       |   4 +-
- include/linux/spinlock.h                      |   3 +
- include/linux/spinlock_rt.h                   |  28 ++-
- kernel/locking/rtmutex.c                      | 211 ++++++++++--------
- kernel/locking/spinlock_rt.c                  |  66 +++++-
- mm/internal.h                                 |  27 ++-
- mm/memcontrol.c                               |  90 ++++++--
- mm/page_alloc.c                               |  33 ++-
- mm/slub.c                                     |  36 +--
- .../bpf/prog_tests/task_storage_hrtimer.c     |  50 +++++
- .../bpf/progs/task_storage_hrtimer.c          |  48 ++++
- 12 files changed, 479 insertions(+), 157 deletions(-)
+Assisted-by: LLM
+Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
+---
+ .../bpf/prog_tests/task_storage_hrtimer.c     | 50 +++++++++++++++++++
+ .../bpf/progs/task_storage_hrtimer.c          | 48 ++++++++++++++++++
+ 2 files changed, 98 insertions(+)
  create mode 100644 tools/testing/selftests/bpf/prog_tests/task_storage_hrtimer.c
  create mode 100644 tools/testing/selftests/bpf/progs/task_storage_hrtimer.c
 
-
-base-commit: e767a4ea70a3992c37ed604157d32f0dfbf9b1e3
-prerequisite-patch-id: 33838040c410e5de0aef855a2719a092b561a5c4
+diff --git a/tools/testing/selftests/bpf/prog_tests/task_storage_hrtimer.c b/tools/testing/selftests/bpf/prog_tests/task_storage_hrtimer.c
+new file mode 100644
+index 000000000000..216e66263bf6
+--- /dev/null
++++ b/tools/testing/selftests/bpf/prog_tests/task_storage_hrtimer.c
+@@ -0,0 +1,50 @@
++// SPDX-License-Identifier: GPL-2.0
++#include <sys/timerfd.h>
++#include <unistd.h>
++
++#include <test_progs.h>
++#include "task_storage_hrtimer.skel.h"
++
++#define TRIGGER_COUNT 1000
++
++void test_task_storage_hrtimer(void)
++{
++	struct itimerspec timer = {
++		.it_value.tv_nsec = 1000000,
++	};
++	struct task_storage_hrtimer *skel;
++	int err, fd = -1, i;
++
++	skel = task_storage_hrtimer__open_and_load();
++	if (!ASSERT_OK_PTR(skel, "skel_open_and_load"))
++		return;
++
++	skel->bss->target_tgid = getpid();
++	err = task_storage_hrtimer__attach(skel);
++	if (!ASSERT_OK(err, "skel_attach"))
++		goto cleanup;
++
++	fd = timerfd_create(CLOCK_MONOTONIC, TFD_CLOEXEC);
++	if (!ASSERT_GE(fd, 0, "timerfd_create"))
++		goto cleanup;
++
++	for (i = 0; i < TRIGGER_COUNT; i++) {
++		err = timerfd_settime(fd, 0, &timer, NULL);
++		if (!ASSERT_OK(err, "timerfd_settime"))
++			goto cleanup;
++	}
++
++	task_storage_hrtimer__detach(skel);
++
++	ASSERT_GE(skel->bss->seen, TRIGGER_COUNT, "seen");
++	ASSERT_EQ(skel->bss->attempted, skel->bss->seen, "attempted");
++	ASSERT_GT(skel->bss->succeeded, 0, "succeeded");
++	ASSERT_EQ(skel->bss->delete_errors, 0, "delete_errors");
++	ASSERT_EQ(skel->bss->attempted,
++		  skel->bss->succeeded + skel->bss->failed, "attempts");
++
++cleanup:
++	if (fd >= 0)
++		close(fd);
++	task_storage_hrtimer__destroy(skel);
++}
+diff --git a/tools/testing/selftests/bpf/progs/task_storage_hrtimer.c b/tools/testing/selftests/bpf/progs/task_storage_hrtimer.c
+new file mode 100644
+index 000000000000..a53c966f15b5
+--- /dev/null
++++ b/tools/testing/selftests/bpf/progs/task_storage_hrtimer.c
+@@ -0,0 +1,48 @@
++// SPDX-License-Identifier: GPL-2.0
++#include "vmlinux.h"
++#include <bpf/bpf_helpers.h>
++#include <bpf/bpf_tracing.h>
++
++char _license[] SEC("license") = "GPL";
++
++struct {
++	__uint(type, BPF_MAP_TYPE_TASK_STORAGE);
++	__uint(map_flags, BPF_F_NO_PREALLOC);
++	__type(key, int);
++	__type(value, long);
++} task_storage SEC(".maps");
++
++u32 target_tgid;
++u64 seen;
++u64 attempted;
++u64 succeeded;
++u64 failed;
++u64 delete_errors;
++
++SEC("tp_btf/hrtimer_start")
++int BPF_PROG(on_hrtimer_start, struct hrtimer *timer,
++	     enum hrtimer_mode mode, bool was_armed)
++{
++	struct task_struct *task;
++	long *storage;
++
++	if (bpf_get_current_pid_tgid() >> 32 != target_tgid)
++		return 0;
++
++	seen++;
++	attempted++;
++	task = bpf_get_current_task_btf();
++	storage = bpf_task_storage_get(&task_storage, task, NULL,
++				       BPF_LOCAL_STORAGE_GET_F_CREATE);
++	if (!storage) {
++		failed++;
++		return 0;
++	}
++
++	if (bpf_task_storage_delete(&task_storage, task))
++		delete_errors++;
++	else
++		succeeded++;
++
++	return 0;
++}
 -- 
 2.53.0
 
