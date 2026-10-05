@@ -1,94 +1,152 @@
-Received: from linux.microsoft.com (linux.microsoft.com [13.77.154.182])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 9E10943E9FC;
-	Mon,  5 Oct 2026 10:58:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=13.77.154.182
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CD48325B08E
+	for <linux-kernel@vger.kernel.org>; Mon,  5 Oct 2026 11:01:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791197935; cv=none; b=aHaFlZkTmKVDa5yLVLF8An64xDPuEZlr8X9gOSHLNmUCu8nWOLqbcfyX9ewUWfyi0OHDEZD97v8N8QvnsnRfxZtiKr+HFluhwtvu9vs2la+/7fv74V/cCvpNgWgRqniX2YLRth+SHlkYn3lm55k+87HrK4t/lQza9B6gP2gh1uQ=
+	t=1791198106; cv=none; b=bWRM8G5Fx6WcQsIcIQgKUryfaRcdXCIhCH5x7xv1svl9I4QsU3P6wdvzegdwQctqpqJ0CI2CO1EpL49CLtfVfcm+B8931xjWQi0U0hM/d6Q36hZj9IbddLm/UO/E1vtva/qntBMc/zsT8POHw4nf/huDiKNEirslL1v9qvqA59w=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791197935; c=relaxed/simple;
-	bh=XKivEEfqJ1Loxg/zjvRlcQxbdujmDiM0i6o6RGWb0X0=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=sy6oM5o478XnI4EZrKO1EHE3hYb6N4aG2PNOH9hI6L6Kdp3KIVP2OimPW2LYls8BDgVZWEbpJ7wvkivNm79fbs0b8Hy3lwLLbREyDdjhwyfgrcL1kBReRMcbedebIR2Xwv98tf67uQbqb8rwnj1hLH5qHs9Jwr+N+4BtzI34OmI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com; spf=pass smtp.mailfrom=linux.microsoft.com; dkim=pass (1024-bit key) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.b=Z7J/MNr0; arc=none smtp.client-ip=13.77.154.182
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.microsoft.com
+	s=arc-20240116; t=1791198106; c=relaxed/simple;
+	bh=VAKmTovVzb87d5A8hUeHQhkh9HG4yeL7dyz+l+PJrmo=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=UY7Gm2zS5lCLi+//TF6m9/nSfSSl6MD2Zf02jEWlL13O0wC+bD0+JMGOr5iOVOrrwlxyfrV2oFPHgBNPXY0GJyYgnhG7wFkfLYKS0j6sOyrZsdxpvSFP8K5wpvKSiAwxUcy+Nm40MArdtRl+WFIJbKlAGEhtJFAQncVo4+n/VPY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=YtjetS2M; arc=none smtp.client-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.b="Z7J/MNr0"
-Received: from example.com (unknown [167.220.208.46])
-	by linux.microsoft.com (Postfix) with ESMTPSA id C2BD820B7166;
-	Mon,  5 Oct 2026 03:48:57 -0700 (PDT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com C2BD820B7166
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.microsoft.com;
-	s=default; t=1791197340;
-	bh=bOV1KkbqIPodySJYR8HJdIIEeWJmHDi+JcH9/BuX10U=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=Z7J/MNr0Z+/8N6JcXho3uzFWfTC8ak5iHhEr/WXHDfYyB7OKrmrNPjGig6cPjHQed
-	 wJf9dq0hEYjlpStr10GQg6Oes0mW9u2acxH7FP4SgWVzooYRdt2SAPWdVfSUalNj6j
-	 3J0I7gap/hd01KLpVeLYmG4C76lOBl3LFZ+0kwTs=
-Date: Mon, 5 Oct 2026 12:49:49 +0200
-From: Magnus Kulke <magnuskulke@linux.microsoft.com>
-To: Michael Kelley <mhklinux@outlook.com>
-Cc: "linux-hyperv@vger.kernel.org" <linux-hyperv@vger.kernel.org>,
-	Paolo Bonzini <pbonzini@redhat.com>,
-	Souradeep Chakrabarti <schakrabarti@microsoft.com>,
-	Wei Liu <liuwe@microsoft.com>,
-	Haiyang Zhang <haiyangz@microsoft.com>,
-	Dexuan Cui <decui@microsoft.com>,
-	Magnus Kulke <magnuskulke@microsoft.com>,
-	"linux-arch@vger.kernel.org" <linux-arch@vger.kernel.org>,
-	"K. Y. Srinivasan" <kys@microsoft.com>,
-	Anirudh Rayabharam <Anirudh.Rayabharam@microsoft.com>,
-	Arnd Bergmann <arnd@arndb.de>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
-	Wei Liu <wei.liu@kernel.org>
-Subject: Re: [PATCH v3] drivers/hv: remove deposited pages from direct map
-Message-ID: <asOAzTuyT3XxeRK4@example.com>
-References: <20260917201052.2123701-1-magnuskulke@linux.microsoft.com>
- <SN6PR02MB4157B2D3C47289305C6E487CD4802@SN6PR02MB4157.namprd02.prod.outlook.com>
- <arzzghes/vN/1WSf@example.com>
- <SN6PR02MB41576BE36A94FC74D3C4687ED48A2@SN6PR02MB4157.namprd02.prod.outlook.com>
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="YtjetS2M"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1791198103;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=VAKmTovVzb87d5A8hUeHQhkh9HG4yeL7dyz+l+PJrmo=;
+	b=YtjetS2MjtMtdTwkZ70PbfEDzcJS3AH3WErx2A/Sk3ItstWY0lLt41i0Tj79hAKb1C8x1z
+	dgUtVn3MfOJKK7L+nuHOjURnwHGfPtBJZiOuTYeVMj+nilOz3qc4OilqS6Ivj0Yhmz5kFk
+	SnViU+wvz/ep0SocRs/Xm6TMQkes+5A=
+Received: from mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-76-uq9_KcWuNnGBqTT2Pu5KUw-1; Mon,
+ 05 Oct 2026 07:01:39 -0400
+X-MC-Unique: uq9_KcWuNnGBqTT2Pu5KUw-1
+X-Mimecast-MFC-AGG-ID: uq9_KcWuNnGBqTT2Pu5KUw_1791198096
+Received: from mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.4])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 8B6521801220;
+	Mon,  5 Oct 2026 11:01:36 +0000 (UTC)
+Received: from jtornosm-thinkpadp1gen7.rmtes.csb (headnet03.pony-001.prod.iad2.dc.redhat.com [10.2.32.114])
+	by mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id A51F23001D2A;
+	Mon,  5 Oct 2026 11:01:32 +0000 (UTC)
+From: Jose Ignacio Tornos Martinez <jtornosm@redhat.com>
+To: jgg@ziepe.ca
+Cc: alex@shazbot.org,
+	ath11k@lists.infradead.org,
+	ath12k@lists.infradead.org,
+	bhelgaas@google.com,
+	jjohnson@kernel.org,
+	johannes@sipsolutions.net,
+	jtornosm@redhat.com,
+	kevin.tian@intel.com,
+	kvm@vger.kernel.org,
+	linux-arm-msm@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-pci@vger.kernel.org,
+	linux-wireless@vger.kernel.org,
+	mani@kernel.org,
+	skolothumtho@nvidia.com,
+	yishaih@nvidia.com
+Subject: Re: [PATCH 3/7] vfio/pci: Add qcom-vfio-pci variant driver
+Date: Mon,  5 Oct 2026 13:01:31 +0200
+Message-ID: <20261005110131.84545-1-jtornosm@redhat.com>
+In-Reply-To: <20261002171046.GA32083@ziepe.ca>
+References: <20261002171046.GA32083@ziepe.ca>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <SN6PR02MB41576BE36A94FC74D3C4687ED48A2@SN6PR02MB4157.namprd02.prod.outlook.com>
+Content-Transfer-Encoding: 8bit
+X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.4
 
-On Thu, Oct 01, 2026 at 05:10:14AM +0000, Michael Kelley wrote:
-> From: Magnus Kulke <magnuskulke@linux.microsoft.com> Sent: Wednesday, September 30, 2026 4:33 AM
-> 
-> I went back and refreshed my memory on the discussion from July
-> 2023. At least on x86, the faulting address is used only as a sanity
-> check in ex_handler_zeropad(). The #GP exception handler already
-> calls fixup_exception(), but it calls with fault_addr set to zero, so
-> ex_handler_zeropad() always returns false (i.e., it says it can't do the
-> fixup). From looking at the code, it appears the deposited pages case
-> would "just work" if the sanity test against fault_addr was removed in
-> ex_handler_zeropad(). There was a past discussion about removing
-> the sanity test [1], but at the time there wasn't a strong reason for
-> or against, so it was left in (having been added relatively recently in
-> c4e34dd99f2e). An option for the deposited pages problem would
-> be to make the case now for removing the sanity test.
-> 
-> I haven't looked at the situation on arm64.
-> 
-> It's your call on how to proceed -- I just wanted to make sure the
-> full context is available to you.
-> 
-> Michael
-> 
+Hi Jason,
 
-Thanks for the context, that's indeed helpful. I'll discuss this with
-the mshv team. I'm still leaning towards disabling deposited pages from
-the direct map because this seems semantically the right thing, but
-Linus' statement gives some confidence that we can make the fixup work
-for #GPs.
+Thanks for the follow-up.
 
-best,
+> It breaks because VFIO will only cache *actual* MSI-X table entries,
+> it does not have visibility into anything that
+> platform_device_msi_init_and_alloc_irqs()
 
-magnus
+You're right, the current hook is on SET_IRQS which is tied to standard
+PCI MSI allocation. If the driver moved to device MSI domains, this specific
+hook would stop working.
 
-> [1] https://lore.kernel.org/lkml/CAHk-=wipev18s9sErt+iNO_rzgyvGTce38fr1CYO0U_hGVGy2Q@mail.gmail.com/
+However, and I was referring to this, the variant driver is a
+self-contained module, it doesn't prevent anyone from moving
+ath11k/ath12k to device MSI domains. If that work happens, the
+variant driver can be adapted to hook the new allocation path, or
+replaced entirely.
+
+> The only reason this works for you at all is because the driver
+> hackily copies the vectors from the real MSI-X table so it can look in
+> the "cache" to find their true physical versions.
+>
+> Which is my general objection, I would like to see the driver to use
+> platform_device_msi_init_and_alloc_irqs() and don't want to get stuck
+> unable to do that because it would break this.
+
+I understand the concern, but I haven't seen any active work on
+moving ath11k/ath12k to device MSI domains, and the VM problem would
+remain exactly the same after that move (as you acknowledged). It would
+mean waiting for a refactoring that has no active work or timeline yet,
+while users remain without a working solution.
+
+> Yes, but it does actually solve the problem in all its forms..
+
+From my research, there is currently no existing work on device
+MSI domain virtualization in KVM. Building it would require
+coordinated changes across multiple subsystems (KVM, QEMU, VFIO,
+IRQ core, guest drivers, arch code) and several maintainer trees,
+and there is no KVM hypercall that bridges to VFIO, so the
+architecture would need to be designed from scratch.
+
+In the meantime, the variant driver provides an immediate solution
+using an established kernel pattern, for users with deployed hardware.
+It can coexist and be replaced when a generic mechanism arrives.
+
+That said, I'm open to restructuring the current approach as a more
+generic VFIO mechanism for exposing host-side device metadata to VM
+guests, where MSI address caching would be one quirk type rather than
+a Qualcomm-specific driver. This way the framework would be reusable
+for any device with similar needs. Would that direction be more
+acceptable as an intermediate step?
+
+> Everyone else seems to know this stuff doesn't work for
+> virtualization and doesn't try to do something like that.
+
+The firmware is what it is, and the hardware is deployed. The kernel
+regularly supports devices with non-ideal firmware designs through
+quirks and device-specific drivers, and this is what I am trying to
+do with the VFIO variant driver pattern (as it was previously done
+for other drivers).
+
+> Why do people care so much about this? I always thought it was a bit
+> odd?
+
+WiFi passthrough to VMs is useful for network function virtualization,
+security isolation (running the wireless stack in a separate VM),
+edge computing, and development/testing environments. These are real
+use cases with real users who have this hardware deployed today.
+Qualcomm wireless cards are widely deployed, perform well, and could be
+actively used in these scenarios.
+
+Thanks
+
+Best regards
+Jose Ignacio
+
