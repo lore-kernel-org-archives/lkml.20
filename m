@@ -1,112 +1,146 @@
-Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4FFF13DDAF9
-	for <linux-kernel@vger.kernel.org>; Mon,  5 Oct 2026 10:46:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791197213; cv=none; b=Bjs2uv8VwSaM8cnHgF111zM3SP24CNcYXUcPO5OGGPXUsR068vRe0kBPyTZnLfNjPe1giuG1rgRd8ij5gpLyvBAMB4xUmVZGKHwRDLY6HRApTMnGo1mU3jrELmmO9bKQj0nk0iE6B0mNL/L7sjYlrZqmkjQ8rlLMRjLnqc15tYM=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791197213; c=relaxed/simple;
-	bh=mXUAahTE+iLm2mg6xrnFW6mcn2COXMs/9ARrZND1ezE=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=D6SyvxFB/Z9grfwUMRJ8tOjv2OY53KSwMiVE+i3Y/r4NZ65LJIYaSkknpZDgubr54+9RBajNOp7o5Pe2aA4WkAIV+Zo0N06myEOK9LaYw7DSM+CrVhSowCH7PPpvpqmt9zbzr718seHgXDFSeb8DNWzNHJ2GcuQvyQflPVDompg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=oGisSSAj; arc=none smtp.client-ip=74.125.225.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3F151478E2C;
+	Mon,  5 Oct 2026 10:48:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=185.203.200.13
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791197287; cv=pass; b=LhBiGXr7qRbHDjlOXkAyyjVx9wQLtpvutvVX+NpgHh/K+vS6dqx3cc8F+0yu2YmFFqiJFIQBMoFN6qtVcTgIWLszziV0pfx5trP+Fa45TfD2Q0yyeN2pmUtMLoyEcahnI9K08bVWgaNbdnILso3N6pQboIJcR2WAVFuJQ/q+LSo=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791197287; c=relaxed/simple;
+	bh=oP7zq6AEtyPuoPqLvn1yvpKfIzVGfsx55snpFYwvdKE=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=TMWAoqTdAvnFR13D0ttWmXfYvb8i1bien7TzMXJICKckBv06Ef9Uob3NdiA/cYBEt7kTjS+/fDmBNpv+K1HWMFzHJDGUtu8u9MarWInIxxD4lLyMAmOw6xj4MYZ04ywc9Fucy5ca0CCLTKKX+8X0d+b0fsGU6BodI7Fup1gF6b8=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de; spf=pass smtp.mailfrom=pengutronix.de; dkim=pass (2048-bit key) header.d=pengutronix.de header.i=@pengutronix.de header.b=JxzeQX2W; arc=pass smtp.client-ip=185.203.200.13
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="oGisSSAj"
-Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49ccf3ca626so10690505e9.0
-        for <linux-kernel@vger.kernel.org>; Mon, 05 Oct 2026 03:46:52 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791197210; x=1791802010; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=p87CL+99r2nufenKJUmxs5PgJ6qzjJ8ZoeapGb8jCEk=;
-        b=oGisSSAjJcmo+bynapDG8BKlTVBWZZtFXgpwWfd7fYqQLPXUPueQnRY1k1ecl2+1mT
-         PwN6u+e+lRIVQdrJP7+Q0mhqvky/n70m2i2nltczMgNTK6daN5VcARRhW5swXVTOMxBC
-         eCI4PqZx6ImUIW4YRpWqKQYgvK7mC0QRvuuL63h7xTLakyLgR7EcK/7cd+DZ0hvTtenk
-         bYJkVFPR+PfXis2zXk5SKOav1ZIHm9bIYCRagdEUYsivu7HCN7qwAM6FBl2ZQu6t7wl9
-         t4xRicifCln9DfBiTg+oqfcXtd53j/K+jDdQZ0JjcT9xeuBBYEhkqJ5c7/LBTdg1m+wC
-         ySSA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791197210; x=1791802010;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=p87CL+99r2nufenKJUmxs5PgJ6qzjJ8ZoeapGb8jCEk=;
-        b=b8eGwpeG9ZczHE7xPpHQCKNg/OHx+ZGPffTD/Mqd4bYKYr5NgEQ+G31jvaSBd3Ypzm
-         //sLm3AOlzawFAvX+PZzjHzCG6JDgvYXvDnMgHJd/DtRx0972pntX4Si9BCbsQk5iMpF
-         /eGl1n7OyOcBaQt/6/kg3TXmoqRz01YnhzbszXAFVgiadJ5O/bNMMlPvw7CA0pxaRzv4
-         LevZ5ZQ7ZaHnJXX66USQ5CXIxh3GBwAgfYsZKnxTa1jFSOpu+nTg7jY8rrvmuLHzAbVz
-         EzokrNwh3RZvXa7r7ung9Y9dvKNcGpUyMgBxHOzzKKaNIBnrUCu5a/VIL+Jpa+Zrkbp7
-         SBnw==
-X-Forwarded-Encrypted: i=1; AKwUvBzG8UEbos6CqcznnCi3kz2FMIXb3DTFDHIeUSYdFe4Vt6uAQ0KABL49x2nxP0UbwR5E9kTZ3sDvG2FNXA0=@vger.kernel.org
-X-Gm-Message-State: AFuF++n+lRKthtNGG0oCo0uscZSGXVegBPSMQHFJFf9PVpFaBFQakjvh
-	aoNKWUywwsBn5LlJfk/58fU6o+CB5a2hE4XBRYAIMgR9cHLbAa6b00uxbUXNsoA6
-X-Gm-Gg: AYBFou2M0Vzs7s8GvzJD2UvGioSVz/4lFaevsHf0DImc+lI7B49yrr2ljAVVy2HVbQw
-	tX69ZpGpnKP/ILseARt5Edf+KTh/4uCxHMGvKGdT0vkzBNDDL1p3y11nVZwr8QmkOpg/tARj8sa
-	48WeRQ1co6G239/4XCXknv+0EW1BG8jpxiUPzDEiw6mTth5KDbVRGq39cTDTjmws8ymKcbaQJiZ
-	QW6C3E84KUvpCddJAP92qL2fZ+VogiQuezLGRozXb5fVNHKQlDD1/m/wtXSAL1SkgJf3zfLz39e
-	Ko4rJmJxLNvQ6vhCI6J1aImSwFNjVfCFUh70djCFQbM8xxU5Ct+9XbGz6YcNhY3tXGF02Fceid0
-	GxCNKZZIOoR2OcZ7nZe+OOY7+5378CFQXevvaF6c9kCkmRGqaV2D7fTgCQTlJPNd9MKdif8V/Du
-	lZIREAufMEky7EIgPft4EsKGQztb74vH+3/QXp1RFUWzIy4lXvjMK3TdtR/wya0S16G8TemxMz0
-	38gH0KodLoh3S7axyhOgYM76yDGl0+A7ZHvqjvK8MGfp4vz8ZQW2+FeHhzsC0VmaQ37TTWuxpIC
-	7ToAgP39rjXmEpKb/Vb1h/MpSg==
-X-Received: by 2002:a05:600c:1f93:b0:4a0:1c10:1419 with SMTP id 5b1f17b1804b1-4a1728f7420mr34459605e9.26.1791197210463;
-        Mon, 05 Oct 2026 03:46:50 -0700 (PDT)
-Received: from robert-83cx (static-dsl-191.87-197-115.telecom.sk. [87.197.115.191])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a0280c8bb0sm367261625e9.11.2026.10.05.03.46.49
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 05 Oct 2026 03:46:49 -0700 (PDT)
-From: Robert Bozik <robertbozik@gmail.com>
-To: sakari.ailus@linux.intel.com
-Cc: linux-media@vger.kernel.org,
-	mchehab@kernel.org,
-	robh@kernel.org,
-	krzk+dt@kernel.org,
-	conor+dt@kernel.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	antti.laakso@linux.intel.com
-Subject: Re: [PATCH v4 2/3] media: i2c: Add driver for OmniVision OV32C4
-Date: Mon,  5 Oct 2026 12:46:48 +0200
-Message-ID: <20261005104648.16362-1-robertbozik@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <asN9kKdqf6hY_iCV@kekkonen.localdomain>
-References: <20261005071010.7191-1-robertbozik@gmail.com> <20261005071010.7191-3-robertbozik@gmail.com> <asNsiKal6GgcqUSK@kekkonen.localdomain> <20261005101447.15264-1-robertbozik@gmail.com> <asN9kKdqf6hY_iCV@kekkonen.localdomain>
+	dkim=pass (2048-bit key) header.d=pengutronix.de header.i=@pengutronix.de header.b="JxzeQX2W"
+Received: from drehscheibe.grey.stw.pengutronix.de (drehscheibe.grey.stw.pengutronix.de [IPv6:2a0a:edc0:0:c01:1d::a2])
+	(Authenticated sender: relay-from-drehscheibe.grey.stw.pengutronix.de)
+	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id 41B9A2012A4;
+	Mon, 05 Oct 2026 12:48:03 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
+	s=20260414; t=1791197283;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=4WWLnsU07IwM3dlzINqo8MwV2u40UtVBRundRCk4nAU=;
+	b=JxzeQX2WEEGsEASLsm6QCTw87C2PG7PmIvBhtZtY6LbpVtZF2E9r2JeqEF0sv1BSFPAnqO
+	SZrNuajL2IFXrItCem20OrwkXDIbXfXgh8/KbovgQ8FBl+iX4iLxy9ndrPCSS4bxs6BVDN
+	eXhm3RH6nT7qIuvhuQ4M+NHfxUK9B135mTyyclRS8gTWftEUtPtf49BugPUZzSjWndd+ZX
+	TM1vo3A+5ov//KIr/kF6BYGJTT0oqaWWEZc0U2G8xPkkGlG+laOOjKePtr3PhrfXttDOQe
+	Wwk2lxvGHHUI1p3sknGYnLEXfZGWP/a8qFqB3TJlp9d9tqaf065QX6pUuvqejQ==
+ARC-Seal: i=1; s=20260414; d=pengutronix.de; t=1791197283; a=rsa-sha256;
+	cv=none;
+	b=WqbX6T7BTT2tgO29bT0nYYJ8UrRW3HZe3mXodZyGkiw1gRX5nKAeYkwnsM4qa73ilmfrWm
+	a61IBaGOs/hTVrFlaZw2s4FBf44uvUi6G3Ew62y4JgbnZ3auCIES0Al6FsqFEWXMxTofNL
+	NUdrA89iXA92VoP23aDDqxt6t/JmROCzqgA0yTQzQD62tuDORE8fr9xEqPGcMZulg/3HQk
+	joe5U9Heycqdq+Kz7ZeG5ev6ujzBvWLksWh/CBK6et+0oZS4VHicUHWJI6G6FheW9n0q0I
+	a+7f2mYBqnsRK/zNbVsB64YmgOa4s3LHks+7tplwL6flAG7P2vaw2FSeUE/mwQ==
+ARC-Authentication-Results: i=1;
+	ORIGINATING;
+	auth=pass smtp.auth=relay-from-drehscheibe.grey.stw.pengutronix.de smtp.mailfrom=mkl@pengutronix.de
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
+	s=20260414; t=1791197283;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=4WWLnsU07IwM3dlzINqo8MwV2u40UtVBRundRCk4nAU=;
+	b=c4ELF8VD4aqJYPDF/nVM9RKT8CsEQdL+EL7mhJY2NUSQy7gjxL4Sr5ICLzLPsyK61ZYOo0
+	ig+ULY3IGhjUotN0RVq8D04Br/0b3O0UmS3xPKDFVjr5swzD0IDiEw4ZuSoLPlx3aopkuv
+	9xbZnjbYuyyiWPvo76IHV/NF3JxRgEnrJty3cF8NKC6xO9kB+frQ1KrthYgu56WPJZ9vCF
+	gvSRbk+qFjkbW4yQhP5EpDockAKejIQv4P0x2uCj/DCBfjzgls+BC3FW8/IChV/ErBzK/s
+	MIzsnJvkIIyRwRIMgZTfHJCSORlVClbNxexZPbRN9pbs4sDM+AFcjX9N4gMq/Q==
+Received: from moin.white.stw.pengutronix.de ([2a0a:edc0:0:b01:1d::7b] helo=bjornoya.blackshift.org)
+	by drehscheibe.grey.stw.pengutronix.de with esmtps  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+	(Exim 4.96)
+	(envelope-from <mkl@pengutronix.de>)
+	id 1xDgEl-004Mxu-0T;
+	Mon, 05 Oct 2026 12:48:03 +0200
+Received: from pengutronix.de (90-182-211-1.rcp.o2.cz [90.182.211.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(Client did not present a certificate)
+	(Authenticated sender: mkl-all@blackshift.org)
+	by smtp.blackshift.org (Postfix) with ESMTPSA id 8B9295BA103;
+	Mon, 05 Oct 2026 10:48:02 +0000 (UTC)
+Date: Mon, 5 Oct 2026 12:48:02 +0200
+From: Marc Kleine-Budde <mkl@pengutronix.de>
+To: netdev-bot+sashiko@kernel.org
+Cc: ciprianmarian.costea@oss.nxp.com, mailhol@kernel.org, 
+	nicolas.ferre@microchip.com, alexandre.belloni@bootlin.com, claudiu.beznea@tuxon.dev, 
+	haibo.chen@nxp.com, linux-can@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+	linux-kernel@vger.kernel.org, s32@nxp.com, imx@lists.linux.dev, eballetb@redhat.com, 
+	kuba@kernel.org
+Subject: Re: [PATCH v7 3/4] can: rx-offload: allow more than one receive
+ source
+Message-ID: <20261005-bittern-of-historical-storm-a147a0-mkl@pengutronix.de>
+References: <20261002071203.1287650-4-ciprianmarian.costea@oss.nxp.com>
+ <179106338585.1406898.13675590689657020972@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="5nt4d4nww5iayqlm"
+Content-Disposition: inline
+In-Reply-To: <179106338585.1406898.13675590689657020972@kernel.org>
 
-Hi Sakari,
 
-On Mon, Oct 05, 2026 at 01:36:00PM +0300, Sakari Ailus wrote:
-> > Agreed, that is better. For v5 I'd give ipu-bridge a small table of
-> > sensors whose second I2C address belongs to the sensor itself,
-> > { "OVTI32C4", 0x3e }; for a sensor in it the bridge adds reg = <main,
-> > aon> to the sensor's software node and does not instantiate the VCM
-> > from SSDB - so the no-VCM exception of patch 3 folds into the same
-> > table. The driver reads reg with device_property_read_u32_array() on
-> > both DT and ACPI and the _CRS walk goes away with its CONFIG_ACPI
-> > guard. The property fits into the existing dev_properties slot that
-> > lens-focus uses when there is a VCM, so no change to the header.
-> 
-> You shouldn't assume there won't be a VCM; please do add an array entry for
-> reg instead.
+--5nt4d4nww5iayqlm
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [PATCH v7 3/4] can: rx-offload: allow more than one receive
+ source
+MIME-Version: 1.0
 
-OK - a separate entry for reg, independent of the VCM.
+On 03.10.2026 21:36:25, netdev-bot+sashiko@kernel.org wrote:
+> Thank you for your contribution! Sashiko AI review found 5 potential
+> issue(s) to consider.
+>
+> Critical: 0 =C2=B7 High: 0 =C2=B7 Medium: 1 =C2=B7 Low: 4 (2)
+>
+> If you believe none of the issues are legitimate, please reply to each
+> issue of Medium severity or higher and explain why the AI is wrong.
+> If any of them are legitimate and you plan to respin, please let patchwork
+> know by including "pw-bot: cr" as a separate line at the end of your reply
+> (one such reply per series is enough).
+>
+> - [Medium] In can_rx_offload_move_to_skb_queue() the comment says the
+>   sorted merge will 'keep the timestamp order over all sources', but it=
+=E2=80=A6
 
-For the VCM I won't assume either way then. The bridge instantiates it
-from the second I2C resource of _CRS, so v5 skips it only when that
-resource's address is the sensor's AON address from the table, as it
-is on this machine; a module with a real VCM there is handled as
-before.
+I've found some old downstream patch series that might solve the RX
+starvation and continuous timestamp problem:
 
-Thanks,
-Robert
+https://lore.kernel.org/all/20261005-upstream-can-rx-offload-batching-alter=
+native-v1-0-4c08ccb516ec@pengutronix.de/
+
+The idea is to not flush the whole skb_irq_queue but only 3/4 of it.
+Feel free to use ideas or the code in your series.
+
+regards,
+Marc
+
+--=20
+Pengutronix e.K.                 | Marc Kleine-Budde          |
+Embedded Linux                   | https://www.pengutronix.de |
+Vertretung N=C3=BCrnberg              | Phone: +49-5121-206917-129 |
+Amtsgericht Hildesheim, HRA 2686 | Fax:   +49-5121-206917-9   |
+
+--5nt4d4nww5iayqlm
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iHUEABYKAB0WIQSl+MghEFFAdY3pYJLMOmT6rpmt0gUCasOAXQAKCRDMOmT6rpmt
+0tLOAQCG73yVaNkcInVFT4BMq0DsG7arhdwnytO1aahprm/zPgD/U1p4cVAsR/Fp
+TmsBt3Q7FYQB55UyDUuGnRor+SXfeAc=
+=rA+P
+-----END PGP SIGNATURE-----
+
+--5nt4d4nww5iayqlm--
