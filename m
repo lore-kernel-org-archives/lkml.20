@@ -1,169 +1,288 @@
-Received: from BL2PR02CU003.outbound.protection.outlook.com (mail-eastusazon11011026.outbound.protection.outlook.com [52.101.52.26])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A6E4737F8C0
-	for <linux-kernel@vger.kernel.org>; Mon,  5 Oct 2026 08:04:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.52.26
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791187475; cv=fail; b=O9E6XHkq3SwpMWmDK10toYbQeZmcM6CvcCGyFyxuIuDCRyv6gbzQojiTyfO5ms9q6uCdPu0k0CONJeuX6A0rAMHHjp3Hjt3lUou1gOLm09W+lgKFjDlBlo4QzDnVi+uJ6z2ZW1Z0yfSi167VxgO+u9aC46zwwkvHG/tahFlqUik=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791187475; c=relaxed/simple;
-	bh=zrX/LrXH9AN1O8cl5R8FjwejKseBrNn37CbUokDDZnQ=;
-	h=Date:From:To:CC:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=BxavtNwzElsQoUfL+1oiB/RUJLT94V50P6W46kJeT2tH30gwLow7r4UemWpB8eXu+TuZCc8CSszeahxypPmduxg+i214cangA84whxIDG6k2LTdI6sUbVWL9OY6ntwDSh4TXoi19LMmOAt6Ku3IdqvnbBcOc8xGuqWbbMi+EAVU=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=VJvcVdZo; arc=fail smtp.client-ip=52.101.52.26
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B9D8430E0F2;
+	Mon,  5 Oct 2026 08:07:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791187633; cv=none; b=teeseZxfoGViWoQbgnYrESujSf2qVluY7v55v/F04bLFNesLk+SvKMOmQjNTZLluyUqMUxFiWYmg0VNu+q8MNIOpKUUFsNEB9Ro9grBgRbnnuh572OoRGZE584jtDe4wL/odvBEXmYJ28nHAoGNPvQ0CxsmnGqVjY5MalYQ7p0w=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791187633; c=relaxed/simple;
+	bh=oAzDZvJEFg6Zv5WuIIwGSr2KQzitVQAnj6q1eGpQJxc=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=ScuiqWF2/AqDhvCEZdPUicG6y0v1z8Z05ZbvKXxTbri7Qz43/FTN9AOykHnSKLP3+pkqwkWe4qpSGkgJAY3XaZYqoZMQ6hsgdNfWCI1a977yAjwy7KaKe1JVYgse5SNNr//CZKV6O5wM1vvBaIV4JqXJunP/uM10TPmV9dNL8mQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nJOnsvUU; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="VJvcVdZo"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=rycMyIwcJhwr1i9tKpigTT+gF30xGLNiu3akbNPLPk235reH/gm6gCW/f2EHSqq1lnFEolOR3yd6QbiPSadTM0X6lA/oSJNg8QTBoSL0rMY7q9sOM1auL8xy0mo7wmNWP5DLNTJW5+NBfL0UeRYvjdlhq8HK9pfLYLL3Ue5BkAcddGmZbjzJj6PGDetXTYoA5bmD/h+QfufewsjvxweVxcO8H01kaGkr4uZMTl+E8tezBcL/h2NeXOQrrAkPXnHhrid5NoY/lvR2X8yBldVxRr3GuTfRIOAxgkE7Tnt+9VfNPwfl6nYnzRVHaCpLxW+FraTPNteJiDTJ18thkU+gzQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=nQz8/7jYTlHKAWffAYjvWg0CyoS3MV+rOVYD4VncWd4=;
- b=Z1mFDoLZyzJGDMIBFjAAF8nCBiYuHUoBUWPavhzjFEAj1otT7N0r1twJzr91AecGgLPsiBv5zPHC+ONvoAPzeQZHe8w1fzpIEwViDQnBt+Q1mESs+jFIZEtji67FOiGQRhDuYS8LDpNb/gzd+VMJh+QRzi2XpqkNIy8cZHnIa76pxdWW8Nastmsr7nWmLuZ0SGz26Rpbvo/lch/OwdzH13xfBQli4D1sUQQmxLTiynZ0sxAQYEgq/KkqmEfIDn/UYi9eTzsxaQWFzL0QH0NqqQiwtbpqMWvH+oe2qnfmpPX5Rt1EYGWr2v97Vv2uHSscx8q+GGevVCLqH7k1CXVBlw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 216.228.117.161) smtp.rcpttodomain=kernel.org smtp.mailfrom=nvidia.com;
- dmarc=pass (p=reject sp=reject pct=100) action=none header.from=nvidia.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=nQz8/7jYTlHKAWffAYjvWg0CyoS3MV+rOVYD4VncWd4=;
- b=VJvcVdZokBpWrqB7Z/y6JOfZcFmkn9T736pJGqoAzubCA5Kw3Kez2SHzJbj7UHBiYcgJpVIp8m36+zJ9iy9L/NH5aI/CSgl5sdlaVum3XevvFyWXUutYseSg7KvejrO6DCjpnDtiVhwCH8tUHeeLkgeKEBTegwT1RCHLReklFWR3jbnoI8tFNHrJ6ZbTRS0vFroQ43tIF9UFXtMtIEQz8j0T++eUY1JpMNoRcTid0Fl+aEmw8WrR7LVd9LXCqYwgUYDmFlArG5u0RwT0whj8Ke+Fcdud+jhPZVCz5S+JeXFMaha4ozzZToaXdcAbuDLRXnpIxeycL27iNT7tP+KKBg==
-Received: from BN9PR03CA0402.namprd03.prod.outlook.com (2603:10b6:408:111::17)
- by SJ0PR12MB8138.namprd12.prod.outlook.com (2603:10b6:a03:4e0::7) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.24; Mon, 5 Oct
- 2026 08:04:27 +0000
-Received: from BN2PEPF0000449E.namprd02.prod.outlook.com
- (2603:10b6:408:111:cafe::8c) by BN9PR03CA0402.outlook.office365.com
- (2603:10b6:408:111::17) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.472.20 via Frontend Transport; Mon, 5
- Oct 2026 08:04:26 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 216.228.117.161) smtp.mailfrom=nvidia.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=nvidia.com;
-Received-SPF: Pass (protection.outlook.com: domain of nvidia.com designates
- 216.228.117.161 as permitted sender) receiver=protection.outlook.com;
- client-ip=216.228.117.161; helo=mail.nvidia.com; pr=C
-Received: from mail.nvidia.com (216.228.117.161) by
- BN2PEPF0000449E.mail.protection.outlook.com (10.167.243.149) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.472.14 via Frontend Transport; Mon, 5 Oct 2026 08:04:26 +0000
-Received: from rnnvmail204.nvidia.com (10.129.68.6) by mail.nvidia.com
- (10.129.200.67) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Mon, 5 Oct
- 2026 01:04:05 -0700
-Received: from rnnvmail202.nvidia.com (10.129.68.7) by rnnvmail204.nvidia.com
- (10.129.68.6) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Mon, 5 Oct
- 2026 01:04:04 -0700
-Received: from nvidia.com (10.127.8.10) by mail.nvidia.com (10.129.68.7) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49 via Frontend
- Transport; Mon, 5 Oct 2026 01:04:03 -0700
-Date: Mon, 5 Oct 2026 01:04:00 -0700
-From: Nicolin Chen <nicolinc@nvidia.com>
-To: Will Deacon <will@kernel.org>
-CC: Jason Gunthorpe <jgg@nvidia.com>, <robin.murphy@arm.com>,
-	<joro@8bytes.org>, <praan@google.com>, <kevin.tian@intel.com>,
-	<smostafa@google.com>, <linux-arm-kernel@lists.infradead.org>,
-	<iommu@lists.linux.dev>, <linux-kernel@vger.kernel.org>, <jamien@nvidia.com>,
-	<kas@kernel.org>
-Subject: Re: [PATCH v10 06/13] iommu/arm-smmu-v3: Add
- ARM_SMMU_OPT_KDUMP_ADOPT for kdump kernel
-Message-ID: <asNZ8HnRQnzIO9nZ@nvidia.com>
-References: <cover.1788130528.git.nicolinc@nvidia.com>
- <d661395d986d3aa78af200f55e43740996ee8a0f.1788130528.git.nicolinc@nvidia.com>
- <asJTsw-oWDlSqNa3@willie-the-truck>
- <20261004163501.GB4064@nvidia.com>
- <asK+GIWzXjwN3EaB@nvidia.com>
- <asNE8YMbOUq0sncP@willie-the-truck>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nJOnsvUU"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D1D401F000FF;
+	Mon,  5 Oct 2026 08:07:05 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791187631;
+	bh=pfHW3K5w13Dkio99Zn3/wVEATo3Ndc3O152LdPxJdVk=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=nJOnsvUUQdb6Wx362HMhtoXW9DFoKE9CCIukGK2zMmoxR4DsKElNx1TMaxSZ7qglB
+	 NrR0cpYD03ZsPZ8W7pUG5lcjsGaLl5kQZcwEFOC2soOavPjFpkebt1RxxpxCQUo8me
+	 88ELUiHvazikTOV/XyQBiJbhmVqg2WKYBUDw/BeGoXLJKvAgTMGmkg9VSe3qzs9bJO
+	 TwHjVJ/9yx4Z7DnyGnWQljYvui+IadUlc9raED2+FwnscbybBLer9lZVYgbCYDDlPp
+	 RAJ0kdvJEvWAHAEoK5t3ckkLkpr+eEnruXbUWTWeR/cF/Vh9gIFimaiIbSQ1ATf0JE
+	 K6tSEBXibbcGw==
+Date: Mon, 5 Oct 2026 10:07:02 +0200
+From: Alejandro Colomar <alx+linux-hardening@kernel.org>
+To: Rosen Penev <rosenp@gmail.com>, Kees Cook <kees@kernel.org>
+Cc: dri-devel@lists.freedesktop.org, Inki Dae <inki.dae@samsung.com>, 
+	Seung-Woo Kim <sw0312.kim@samsung.com>, Kyungmin Park <kyungmin.park@samsung.com>, 
+	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+	Krzysztof Kozlowski <krzk@kernel.org>, Peter Griffin <peter.griffin@linaro.org>, 
+	Alim Akhtar <alim.akhtar@samsung.com>, Kees Cook <kees@kernel.org>, 
+	"Gustavo A. R. Silva" <gustavoars@kernel.org>, 
+	"moderated list:ARM/SAMSUNG S3C, S5P AND EXYNOS ARM ARCHITECTURES" <linux-arm-kernel@lists.infradead.org>, 
+	"open list:ARM/SAMSUNG S3C, S5P AND EXYNOS ARM ARCHITECTURES" <linux-samsung-soc@vger.kernel.org>, open list <linux-kernel@vger.kernel.org>, 
+	"open list:KERNEL HARDENING (not covered by other areas):Keyword:b__counted_by(_le|_be|_ptr)?b" <linux-hardening@vger.kernel.org>
+Subject: *allocflex() (was: [PATCH] drm/exynos: fimc: allocate formats as a
+ flexible array member)
+Message-ID: <asNWiJT4Io2R7xGt@debian>
+References: <20261005001118.576198-1-rosenp@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="cd4qmvxj2ervr6g5"
 Content-Disposition: inline
-In-Reply-To: <asNE8YMbOUq0sncP@willie-the-truck>
-X-NV-OnPremToCloud: ExternallySecured
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN2PEPF0000449E:EE_|SJ0PR12MB8138:EE_
-X-MS-Office365-Filtering-Correlation-Id: e3797b03-080d-487f-1971-08df22b74693
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|36860700016|82310400026|376014|7416014|23010399003|56012099006|10067099003|4143699003|11063799006|6133799003|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	C6pa6KPUQqUy43BmWx15JrTYI5NFUvW94ESBwApvapnUIqLCRwAgvxlyQ73ci7JXJQLUAWsm5dIbY9UtrwnRMW6DWyS4ZB4yravaXUsD43zV+qLZfB4Za5Ho5ZMFwQXWwLR4zEkQGU1DonCoYSrmAG1g+NB++E+UBfc4fErrc7w6grbAeM9w7jTXbde5F3j4mkI933WRTIRhks2sUpYiDqaHJ4OAD2+ebRooddimkv89Gjup4Bbt7WYtwr0DTw/5/VJASItpcqw5wKIG/iSs7wF5Dqtec0neDrJRMYaieJExGKEUOrasC47uuUJn2rvtr3YjeCVfORpxgfSEAVZ8cR0l/3+Rmd1UKYB3710LJZBTqGi0nyCzcVYyNmZDAu5hOgU0aL3MOeiFXMcTmmsGvI29spB5aGEGJ+K1FrhlbTXsf0ZNLm57CPC0+ryrg+aoHo0fJQcF4rLtEX1CyE1bmQ0wwMuIApRb1Cn3WlzPyvMryhZ7GlKFfBpkK8axdNYN9ogd4uNrhrhVECb6ztiSjoVcNC1ohn4K+YYOQFxSGDXN/ZM/AfHMsazEktIBYCFbT1sSGP1jn3svMveIyBFCYnICK3A1s9Wa4PZBq/NGSgzliA9i6ujnD9IeBhQ5umIxyzmE/zRaPkm+GrYOFxMCWUIQhwE+XURhJoLeOujifNDGy8uNSFmgrd4PWi3+LWR0Q0IiMg0VjDDAKpUhDCGYjg==
-X-Forefront-Antispam-Report:
-	CIP:216.228.117.161;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.nvidia.com;PTR:dc6edge2.nvidia.com;CAT:NONE;SFS:(13230040)(1800799024)(36860700016)(82310400026)(376014)(7416014)(23010399003)(56012099006)(10067099003)(4143699003)(11063799006)(6133799003)(22082099003)(18002099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	jWXtnhrMv18w7uCYpPbDVe883/Ida1DCb9BIen+GUV5U9A54bh7xp8YsWWDiZ2WhBKBL6PoYfatwQlWdoxIIFPCeHx0w71ZfU+jpQcrrPBw+5Fmg55K5Rsr8ey/N1DpPCWxhLuRAgHx7p3zIrKejvtEm5iVph5gUWUCTYavDJSvn/o4u5C+leL7xqLVmTcn2tUs2ZuZHxCRbW0+VHbHfff0+d3TLfEcL7rALjFtWdq6UrEVb/j2ENrTyepzC+XaYI3IxgkW1jdnzAw5O/5P1o61juTRYYEHoOWIHQfpOivTfNmJQs8qGYKJgV0uHAL7wV1uYVsJya2Bh/my6N2kI6xQMSCLX42AkP/PAWtLaVDHWYYrGb2tfsk++8uOiwrGtc0AcQ5pHE0PzGqeQdQ7FW7CQvexSj+SPEbJWA2QREQIyA26wO7nnzIv7mz5cmvNo
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Oct 2026 08:04:26.6434
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: e3797b03-080d-487f-1971-08df22b74693
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a;Ip=[216.228.117.161];Helo=[mail.nvidia.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	BN2PEPF0000449E.namprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ0PR12MB8138
+In-Reply-To: <20261005001118.576198-1-rosenp@gmail.com>
 
-On Mon, Oct 05, 2026 at 07:34:25AM +0100, Will Deacon wrote:
-> On Sun, Oct 04, 2026 at 01:59:04PM -0700, Nicolin Chen wrote:
-> > On Sun, Oct 04, 2026 at 01:35:01PM -0300, Jason Gunthorpe wrote:
-> > > On Sun, Oct 04, 2026 at 02:25:07PM +0100, Will Deacon wrote:
-> > > > > + *  - A structural inconsistency at adoption time tosses the entire adoption and
-> > > > > + *    makes the SMMU fall back to a full reset blocking in-flight DMAs.
-> > > > > + *  - L2 stream tables are adopted lazily at master-inserting time, to bound the
-> > > > > + *    peak memory use against a corrupted L1 table; any lazy L2 adoption failure
-> > > > > + *    rejects that device alone, as its blast radius is bounded to the bus.
-> > > > > + *  - Only a coherent SMMU (ARM_SMMU_FEAT_COHERENCY) is supported, as the stream
-> > > > > + *    table adoption is done by memremap with MEMREMAP_WB, which is verified on
-> > > > > + *    the real hardware. Callers of these functions are responsible for gating
-> > > > > + *    ARM_SMMU_FEAT_COHERENCY once during the probe.
-> > > > 
-> > > > This is an artificial restriction and not one that I'm wild about for kdump:
-> > > > we should be able to support this for non-coherent SMMUs as well. Is there
-> > > > anything more to it than using MEMREMAP_WC in that case?
-> > >  
-> > > I've forgotten why it ended up like this, it was some complication
-> > > that seemed hard.. MEMREMAP_WC is not the same attribute dma coherent
-> > > would have used, I'm not sure we have the right stuff to be able to
-> > > flush any write combining buffer? I'm nervous about that at least.
-> > > 
-> > > Remember this is not just reading it but it has to operate like this
-> > > after the fact. In handover you wanted to use the dma cohernent
-> > > preservation.
-> > > 
-> > > So, I think this restriction is mostly a lack of the right MEMREMAP
-> > > flag? It is not insovlable just work outside the scope of this series.
-> > 
-> > I agree that it's safer to defer that to a followup series. It
-> > also needs someone who has a non-coherent HW for a full test.
-> > 
-> > On the other hand, this series is tested by folks from multiple
-> > organizations, so it's really a needed and verified one.
-> 
-> I wasn't disputing that, though. I'm saying that it's half finished
-> without the non-coherent part, so I'd like to understand what's needed
-> to add that. Can you please explain what is needed beyond using
-> MEMREMAP_WC? That maps to Normal-NC on arm64, just like the DMA API does.
 
-I am not aware of anything beyond MEMREMAP_WC.
+--cd4qmvxj2ervr6g5
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+From: Alejandro Colomar <alx+linux-hardening@kernel.org>
+To: Rosen Penev <rosenp@gmail.com>, Kees Cook <kees@kernel.org>
+Cc: dri-devel@lists.freedesktop.org, Inki Dae <inki.dae@samsung.com>, 
+	Seung-Woo Kim <sw0312.kim@samsung.com>, Kyungmin Park <kyungmin.park@samsung.com>, 
+	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+	Krzysztof Kozlowski <krzk@kernel.org>, Peter Griffin <peter.griffin@linaro.org>, 
+	Alim Akhtar <alim.akhtar@samsung.com>, Kees Cook <kees@kernel.org>, 
+	"Gustavo A. R. Silva" <gustavoars@kernel.org>, 
+	"moderated list:ARM/SAMSUNG S3C, S5P AND EXYNOS ARM ARCHITECTURES" <linux-arm-kernel@lists.infradead.org>, 
+	"open list:ARM/SAMSUNG S3C, S5P AND EXYNOS ARM ARCHITECTURES" <linux-samsung-soc@vger.kernel.org>, open list <linux-kernel@vger.kernel.org>, 
+	"open list:KERNEL HARDENING (not covered by other areas):Keyword:b__counted_by(_le|_be|_ptr)?b" <linux-hardening@vger.kernel.org>
+Subject: *allocflex() (was: [PATCH] drm/exynos: fimc: allocate formats as a
+ flexible array member)
+Message-ID: <asNWiJT4Io2R7xGt@debian>
+References: <20261005001118.576198-1-rosenp@gmail.com>
+MIME-Version: 1.0
+In-Reply-To: <20261005001118.576198-1-rosenp@gmail.com>
 
-It should likely need a helper to select flag:
-  ARM_SMMU_FEAT_COHERENCY ? MEMREMAP_WB : MEMREMAP_WC
-and a verification on a non-coherent SMMU.
+Hi,
 
-Thanks
-Nicolin
+> Date: 2026-10-04 17:11:18-0700
+> From: Rosen Penev <rosenp@gmail.com>
+>
+> The formats array is allocated separately with devm_kcalloc() and only
+> referenced through the fimc_context. Make it a flexible array member at
+> the end of the context and allocate both in one go with struct_size().
+>=20
+> Annotate it with __counted_by(num_formats) so the array accesses can be
+> bounds checked with FORTIFY_SOURCE and UBSAN_BOUNDS.
+>=20
+> Assisted-by: LLM
+> Signed-off-by: Rosen Penev <rosenp@gmail.com>
+> ---
+>  drivers/gpu/drm/exynos/exynos_drm_fimc.c | 17 +++++------------
+>  1 file changed, 5 insertions(+), 12 deletions(-)
+>=20
+> diff --git a/drivers/gpu/drm/exynos/exynos_drm_fimc.c b/drivers/gpu/drm/e=
+xynos/exynos_drm_fimc.c
+> index 09e33a26caaf..079d24d0671c 100644
+> --- a/drivers/gpu/drm/exynos/exynos_drm_fimc.c
+> +++ b/drivers/gpu/drm/exynos/exynos_drm_fimc.c
+> @@ -99,7 +99,6 @@ struct fimc_context {
+>  	void		*dma_priv;
+>  	struct device	*dev;
+>  	struct exynos_drm_ipp_task	*task;
+> -	struct exynos_drm_ipp_formats	*formats;
+>  	unsigned int			num_formats;
+> =20
+>  	void __iomem	*regs;
+> @@ -108,6 +107,7 @@ struct fimc_context {
+>  	struct fimc_scaler	sc;
+>  	int	id;
+>  	int	irq;
+> +	struct exynos_drm_ipp_formats	formats[] __counted_by(num_formats);
+>  };
+> =20
+>  static u32 fimc_read(struct fimc_context *ctx, u32 reg)
+> @@ -1273,20 +1273,16 @@ static int fimc_probe(struct platform_device *pde=
+v)
+>  	if (exynos_drm_check_fimc_device(dev) !=3D 0)
+>  		return -ENODEV;
+> =20
+> -	ctx =3D devm_kzalloc(dev, sizeof(*ctx), GFP_KERNEL);
+> +	num_formats =3D ARRAY_SIZE(fimc_formats) + ARRAY_SIZE(fimc_tiled_format=
+s);
+> +	ctx =3D devm_kzalloc(dev, struct_size(ctx, formats, num_formats), GFP_K=
+ERNEL);
+
+Unrelated to this patch, but this has triggered my attention.
+
+I have been recently researching into allocation of FAMs, trying to make
+them more type safe, and found it safer to have a specialized API for
+such allocations, whose pseudo-prototype would look like this:
+
+	T *mallocflex(typename S, size_t n, flex);
+
+A devm_kzallocflex() could then have an extra 'dev' parameter at the
+front, and the usual 'gpf' one at the end.  It could be used here as:
+
+	n =3D ARRAY_SIZE(fimc_formats) + ARRAY_SIZE(fimc_tiled_formats);
+	ctx =3D devm_kzallocflex(dev, struct fimc_context, n, formats, GFP_KERNEL);
+
+Kees, do you think we could add something like this?
+
+Here's a small program showing how it could be implemented:
+
+	$ cat fam.c=20
+	#include <errno.h>
+	#include <stddef.h>
+	#include <stdint.h>
+	#include <stdio.h>
+	#include <stdlib.h>
+	#include <sys/param.h>
+
+	#define typeof_typename(T)      typeof(*(typeof(T) *){_Generic(0, T: NULL,=
+ default: NULL)})
+	#define memberof(T, member)     ((T){}.member)
+	#define sizeof_flex(T, n, fam)  MAX(sizeof(T), offsetof(T, fam[n]))
+	#define ptr_cast(T, p)          rvalue((typeof_typename(T) *){(p)})
+	#define rvalue(lv)              ((void)0, (lv))
+
+	#define reallocflex_T(p, S, n, flex)   reallocflex_T_(p, typeof_typename(S=
+), n, flex)
+	#define reallocflex_T_(p, S, n, flex)                         \
+	(                                                             \
+		_Generic(p, S *: (void)0),                            \
+		ptr_cast(S, reallocflex_T__(p, S, n, flex))           \
+	)
+	#define reallocflex_T__(p, S, n, f)                           \
+	(                                                             \
+		reallocflex(p, sizeof(S), offsetof(S, f), n, sizeof(memberof(S, f)[0]))\
+	)
+	#define mallocflex_T(S, n, flex)                              \
+	(                                                             \
+		ptr_cast(S, reallocflex_T__(NULL, S, n, flex))        \
+	)
+
+
+	void *
+	reallocflex(void *p, size_t headsize, size_t off, size_t n, size_t eltsize)
+	{
+		if (n !=3D 0 && eltsize > SIZE_MAX / n) {
+			errno =3D ENOMEM;
+			return NULL;
+		}
+		if (off > SIZE_MAX - n*eltsize) {
+			errno =3D ENOMEM;
+			return NULL;
+		}
+		if (off > headsize) {
+			errno =3D ENOMEM;
+			return NULL;
+		}
+
+	#ifndef NDEBUG
+		printf("%zu (%zu, %zu, %zu, %zu)\n", MAX(headsize, off + n * eltsize), he=
+adsize, off, n, eltsize);
+	#endif
+
+		return realloc(p, MAX(headsize, off + n * eltsize));
+	}
+
+	struct s {
+		long a;
+		char b,c,d;
+		int f[];
+	};
+
+	int
+	main(void)
+	{
+		struct s  *p;
+
+		printf("s: %zu\n", sizeof(struct s));
+		printf("o: %zu\n", offsetof(struct s, f));
+
+		p =3D mallocflex_T(struct s, 2, f);
+		p =3D reallocflex_T(p, struct s, 0, f);
+		p =3D reallocflex_T(p, struct s, 1, f);
+
+		bzero(p, sizeof_flex(struct s, 1, f));
+
+		free(p);
+	}
+
+
+Have a lovely day!
+Alex
+
+
+>  	if (!ctx)
+>  		return -ENOMEM;
+> =20
+> +	ctx->num_formats =3D num_formats;
+> +	formats =3D ctx->formats;
+>  	ctx->dev =3D dev;
+>  	ctx->id =3D of_alias_get_id(dev->of_node, "fimc");
+> =20
+> -	/* construct formats/limits array */
+> -	num_formats =3D ARRAY_SIZE(fimc_formats) + ARRAY_SIZE(fimc_tiled_format=
+s);
+> -	formats =3D devm_kcalloc(dev, num_formats, sizeof(*formats),
+> -			       GFP_KERNEL);
+> -	if (!formats)
+> -		return -ENOMEM;
+> -
+>  	/* linear formats */
+>  	if (ctx->id < 3) {
+>  		limits =3D fimc_4210_limits_v1;
+> @@ -1320,9 +1316,6 @@ static int fimc_probe(struct platform_device *pdev)
+>  		formats[j].num_limits =3D num_limits;
+>  	}
+> =20
+> -	ctx->formats =3D formats;
+> -	ctx->num_formats =3D num_formats;
+> -
+>  	/* resource memory */
+>  	ctx->regs =3D devm_platform_ioremap_resource(pdev, 0);
+>  	if (IS_ERR(ctx->regs))
+> --=20
+> 2.56.0
+>=20
+>=20
+
+--=20
+<https://www.alejandro-colomar.es>
+
+--cd4qmvxj2ervr6g5
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCgAdFiEES7Jt9u9GbmlWADAi64mZXMKQwqkFAmrDWp8ACgkQ64mZXMKQ
+wqndww/8CDDAAm5f2tvfl0SP7UHg8H1zYS8pI0IPC5gQvEXr78/43DWG87YRfZEn
+XLhyDfxCJgWC6OlTTR3mgp31+zNRCwuG7kzPSxxx/LsO528gPWajhkHsS0zdjgc8
++aGeJEMHRnBCkCLHLJFjgISSaCxseWGd4147RZYe5TxhDCUlM32g3UJCb3otvRMa
+RgqkFYMGCZ0mXbipj/PCzbSqy+QQPDw/1b3AKs+2NG1yOEKfQtyVmYCKRrWNPebb
+qSJIDdYIV5p2EcUTudH96Em+WaEC4lFklggB6YhNRvEmI6cAlAmlfRAHByTe6S9S
+aU7o5ExRfSrtuG63opsDafOL8hCHQqaoiZi7JfzO8dFFa6CxLDQOejz7rolHlqTB
+OvN+ppiVr+ehocq/IZmBdCWRQnjL2VM6WpgeyVPU0fImqTR12oHtxNUbnE2w17Wc
+dbUPhKLJh4eGwFQiBugdXXBzW0CBCaFS8Wrmm2zdxNv9CzbwD9NowZMHBx43/CDs
+naJIVnK2y+SOOz63AEIkaeqpSC1z7mxbHM0skWvu49MQEqSye5MWsDjqz71/4zQe
+mB185gQyBsY4Hw0jM0AZj47G6B5S6l4i/LDfyfRS/Mqqv912n+dTZWdC3N1M9KMR
+auNLd06e/+X6tIgz4lnMHtaJ64cPgmEThP0lME+bF3qhblsZM8A=
+=xQu8
+-----END PGP SIGNATURE-----
+
+--cd4qmvxj2ervr6g5--
