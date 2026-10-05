@@ -1,35 +1,34 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E060D3033C6;
-	Mon,  5 Oct 2026 17:15:38 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BA6DB4D6C21;
+	Mon,  5 Oct 2026 17:15:42 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791220540; cv=none; b=shvJknWD2n+vv8A9Gt8rIf5sGQsRttoktuPtz6hD8BoUcGn83rKW9rt1Kil4DxkrwpexgQJ36vuvdh43jEdAuJBXs7qoVeYSySJUyo8FeJzyffZ2qmGMOvUtN4o+TRKe19EBMKfc0/gee1F+TJ0S2i1s/v+gk2EakEVIqGb+l9Q=
+	t=1791220544; cv=none; b=SccUyyQUVfTXqqWaITu42m1M5jfUN7uqm+pVI8A4gLZxgfNsvQtGaDkw+4gHaJWXfy7O6Tzx361TvTANX1BHFnct+ugUKnqANcwuDF9H47pBvajgWktNDCYvU6oqZ7QkmNZW6rXFVKWMHfhnWUTzEJ+Hn9bFgP3ULc4xNi/RaJQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791220540; c=relaxed/simple;
-	bh=VTqElObZzu3AgucPucei34XLiLuzYqPFin6Re7K65MQ=;
-	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=AtAOzPi7QPu/0GGLS6IDGrGlTDzTPvaSH7dIDY6WUCrJNFhyQ9jeg/iP9RV5aPpSCSsRk2MCXA7kaSwAuvRixsYGnPEjg6se8M2Ita7lvATGnz9ipeh912o+a+Z3MbXn1YRzoUWfD2ZxTU8N04g0Bc10nVLQnK6T4YnVp31zZsY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=P2asujR8; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791220544; c=relaxed/simple;
+	bh=NVQzTWMKllY+AjewCXqDKOS9dMGiUf8Xf7ZvOao1udo=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=PX45qFYw9gqdZi9GpXjCKWdOipqlES7QaNRlH6KjYC2Gf0eSurjzUrWGiX0+fJ+haP7OAU8LvxcbCrdv2WlpjNlavNtmnhR3FZk/MNLEsF6RVi4tU/LxLukpiNMFviOPEiH945238W+gEsy/u1Z8tugeOfF5UaaUESxC2OxvGXg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fBsjaGiA; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="P2asujR8"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EB95D1F000FF;
-	Mon,  5 Oct 2026 17:15:34 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fBsjaGiA"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2CB1A1F00893;
+	Mon,  5 Oct 2026 17:15:39 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791220538;
-	bh=ELfJklC1/4nQ0PiQSEKiemHMjLa23LJTS4uJyWbEWFk=;
-	h=From:Subject:Date:To:Cc;
-	b=P2asujR8qUcK1ppDStFR++Eme5EdYyGt1EvMEZcM5cY86iQxiaY3wqK1XYZkm1gYa
-	 ZVvJJk5SLJEBrBBsAj3QbrOiroDcjspr48KLzVdK06H1wRbsHs8md3E1yh6R2ikVos
-	 WmiZazuLyr0ox6rIVXRBECmEOACUXaQXxngvRm7GzJWf0a4TmncbBbKFJGw8ftZEDp
-	 gzkDzG9Kyt2BkrjWqbrpfKC61g2liWCiILoP2jkFeYkuVVcYvYUxH6dH4Q85YcAeI+
-	 BMXFDGSeBb3/QZq8eY7w83j9KvACZ/mBDVehMzgSG24LeUkpunJUDc3bGL7VeEBUYc
-	 t/oSUaVbIV44A==
+	s=k20260515; t=1791220542;
+	bh=v96+STY8ud8kO5ROJpPIswk24pOOK9qTlaNX+bsELd4=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc;
+	b=fBsjaGiA4/1uRUPeDgnbIRqNXkhK953Gcl0G23fS9RjFbC48bXAMQwDg8EuqaHNqC
+	 aP69HCowNU7jZAy2BpjMDnA14SO6WH4Pv7mihkFK72FSntT4DRdtDsnlahGVKZiwue
+	 X8GDYyRKiKiBOHZ9/HA0xx1rZc0S3GtN8n4kTnLTUYNb46DLhg3z6eT63JBJXXBZY7
+	 DD++D7dxXv5mplkQR4+PAJv2Rf9rsN74PJjcmJFWRTJKaYNwwQOzENi6VAqmUNBr4U
+	 gn5g6J7mYudsvqyyFQ9w0dvaFQsFQVKtNNy/4aLHTOvvTKjlMa7+c9xhobqs3qQtWD
+	 sSRMhtbJfYETw==
 From: Bryan O'Donoghue <bod@kernel.org>
-Subject: [PATCH 00/74] RFC: Switch on IFE YUV, Stats and Params support for
- sm8650
-Date: Mon, 05 Oct 2026 19:13:30 +0200
-Message-Id: <20261005-linux-mainline-7-2-sm8650-hdk-rfc-0-v1-0-ed985aefd611@kernel.org>
+Date: Mon, 05 Oct 2026 19:13:31 +0200
+Subject: [PATCH 01/74] media: qcom: camss: vfe: Rename gen3 back to vfe780
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -38,10 +37,9 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXNQQ6CMBCF4auQWTvJUFNQr2JclOlURqWSVgwJ4
- e4U3b1v878FsiSVDJdqgSRfzfqOBfWhAu5dvAuqLwZDpqmJLL40TjMOTmNZgi0azMOpsYS9f2I
- KjITOtZZ9MHw8d1BKY5Kg8+/levs7T91D+LOnYV03iu/MLocAAAA=
-X-Change-ID: 20261005-linux-mainline-7-2-sm8650-hdk-rfc-0-aa75cdf2c39b
+Message-Id: <20261005-linux-mainline-7-2-sm8650-hdk-rfc-0-v1-1-ed985aefd611@kernel.org>
+References: <20261005-linux-mainline-7-2-sm8650-hdk-rfc-0-v1-0-ed985aefd611@kernel.org>
+In-Reply-To: <20261005-linux-mainline-7-2-sm8650-hdk-rfc-0-v1-0-ed985aefd611@kernel.org>
 To: Bryan O'Donoghue <bryan.odonoghue@linaro.org>, 
  Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>, 
  Loic Poulain <loic.poulain@oss.qualcomm.com>, 
@@ -54,197 +52,240 @@ To: Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
  Radoslav Tsvetkov <quic_rtsvetko@quicinc.com>, 
  Robert Foss <rfoss@kernel.org>, Milen Mitkov <quic_mmitkov@quicinc.com>
 Cc: linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
- linux-kernel@vger.kernel.org, Bryan O'Donoghue <bod@kernel.org>, 
- Antoine Bouyer <antoine.bouyer@nxp.com>, 
- =?utf-8?q?Niklas_S=C3=B6derlund?= <niklas.soderlund+renesas@ragnatech.se>, 
- Sakari Ailus <sakari.ailus@linux.intel.com>, stable@vger.kernel.org
+ linux-kernel@vger.kernel.org, Bryan O'Donoghue <bod@kernel.org>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=9318; i=bod@kernel.org;
- h=from:subject:message-id; bh=VTqElObZzu3AgucPucei34XLiLuzYqPFin6Re7K65MQ=;
- b=owEBbQKS/ZANAwAKASJxO7Ohjcg6AcsmYgBqw9r5toi356/VgegBCJEcZE/1kWweZp8sgF4cE
- N5G1uATFoiJAjMEAAEKAB0WIQTmk/sqq6Nt4Rerb7QicTuzoY3IOgUCasPa+QAKCRAicTuzoY3I
- OrlqEACVn31wPj0EBFz43m3xehG9k/3yykJS2/OSfSUx/wGOCLOV92B5b9HEeju6HfdsXW6OOUv
- WbTMsstP5BcT32YsFFxQ+kJZx9RXSfhJ4vZH9mdWdVM8ytt6sS9IkIa4IucHDNJ7ZcI7BpEAq28
- VkuIISvWz2QuX5j6Go0lm3wQcadwUBhyC2/fiqXk6/qCvIZrEszEFafPAc2lrMiFfKYkzhx7l64
- F1dmBx9WukmQLcaujiTwu3lSECxIL7dhtymtPStQ4NRIunndIA8NVOD0c+gr32/1vraZLpbJxPf
- xK3g6ASg80QY/M7Rtl4pXmMavY4a1N8oMYbiIx6tiJVzgPynEVRI/dAJH1rX2rSh4H13UBP4+SF
- aapb/FMfAVkVAfNe/1zZy1p4bclXSLsOSJhHCUr/Cq3R/O27MDB6u+m5hUYAFWS+wjEEDOoTsoW
- RQSJ3U8a51MaN86eqbIMwMwpJJ810Q8XqudYoTcl0Jr2CYyvokWkMNepmCz5ChUYdLwvfEc8KWE
- DXaqzZt43y2KV70v/jJ2rCzejEh+sazIFU8ZxTLc9W3p0HbqNaQ66OhD8bQbf2R4zb/dgoEkXCI
- 0iri56FzTFeXFbGTp3yxXfOTNjmTEBx5Q8OZMIJU8cfBMm5o6EY2RJCIiNgH/AZIpjBasFk0HWX
- yW5scllHHQBII3g==
+X-Developer-Signature: v=1; a=openpgp-sha256; l=7709; i=bod@kernel.org;
+ h=from:subject:message-id; bh=NVQzTWMKllY+AjewCXqDKOS9dMGiUf8Xf7ZvOao1udo=;
+ b=owEBbQKS/ZANAwAKASJxO7Ohjcg6AcsmYgBqw9sBy3sposrQp/BR70DlM6exHpLKIpHNC3tzD
+ 9PKWzGqM+qJAjMEAAEKAB0WIQTmk/sqq6Nt4Rerb7QicTuzoY3IOgUCasPbAQAKCRAicTuzoY3I
+ Oi0cD/4zDvPEwBZFg0Lj3HvIfVvEyoGOOjwHep+HhyIN64jnbMhO4gQnFYT6dwl5R+OXGSGmPQR
+ jeQ5z3wLMLaqHca5kPPOt58liNbErsi2wqY+bJvlwFiEXp6P0TP5iWJA66uXSX3/8z4JG0L7nPZ
+ ad59iGNcERjaoMmeznPF4lbLukSXKfvWV3Vl/Pj0eehmHilPTrr086Rz+ZVwnmhSeimqnCF+xSE
+ UzVVcV3W2ejnvZ9OCkOOn6ViGceYoeCYZ0YOD3A0rtmuOlCvsFWiq1qT7Bjp1vJhzBrnujSTZj7
+ abI5huNbz0Ty9E5PWDr6MlqgkpSW5l+yZK9nwTbzftVq17YUsJD/vt9S4yIDQNjYqJpFz0dYVGi
+ BiQtTDCOmllFkRZ4/UYoMUNveGTzOL0seC427Da46lMwdR3l/jRGR2zOz8WoScqmw7eokG2pvGs
+ vlVhyTwEnr+ODiu3KJ/k/oo3xy9uS3zwzK9+q7v8WROjGOSG0SrKRMwm+2QS2RJEEQhtKJcOdgR
+ /bR+ZsDbzrjASzNpZZI8UUOWcwG2DQW7KI8ZQmuYmqohJy3W6m1Mafp60LHd0dAaNFET1wFccY6
+ BKXvakuTbueF1xdZOhAGXnF01tJU7OTbNeZIpKsY2y8VlWdO1ek9ra/bjMUdUC/7u/ku9N7rR8b
+ eY0CzMqqctSXUBA==
 X-Developer-Key: i=bod@kernel.org; a=openpgp;
  fpr=E693FB2AABA36DE117AB6FB422713BB3A18DC83A
 
-This extensive series restructures CAMSS around the idea of lines and
-outputs more closely matching the concepts in the camera hardware.
+Conjoining 690 and 780/880 class VFEs doesn't make sense when you consider
+he write-master indexes are different. Clearly these are not the same
+generation of silicon and the code to support them that way is cumbersome.
 
-To begin with some bug fixing and some dependencies on the OPE series are
-pulled in.
-
-Following that a series of changes to enable the IFE hardware is introduced
-for VFE780.
-
-Supported in this drop:
-
-- YUV output on the pix path
-  YUV downscale 16 and downscale 4 work on a staging branch
-  but with this series at 60 patches I've not included that.
-
-- Stats output
-  Bayer histogram only
-
-  How many stats are intended to be brought out this way ?
-  Consider that scene in The Terminator when the guy in the gun
-  store.
-
-  Gun store owner: "So which will it be"
-  The Terminator: "All"
-
-  More seriously once this series lands then it will be possible to bring
-  out stats for Agatti mitigating the need for calculating stats in
-  software.
-
-- Params application
-  AEC Bayer hist params
-
-  Again there are no limits envisaged on which params are to be enabled.
-
-  "All"
-
-- Testing on HDK sm8650
-
-  There is a repo to test this stuff out:
-
-  https://github.com/0xB0D/ife-tests
+As a first step to fixing that, rename vfe gen3 back to 780.
 
 Signed-off-by: Bryan O'Donoghue <bod@kernel.org>
 ---
-Antoine Bouyer (2):
-      media: uapi: v4l2-isp: Add extensible statistics
-      media: Documentation: uapi: Update V4L2 ISP for extensible stats
+ drivers/media/platform/qcom/camss/Makefile         |  2 +-
+ .../camss/{camss-vfe-gen3.c => camss-vfe-780.c}    |  2 +-
+ drivers/media/platform/qcom/camss/camss-vfe.h      |  2 +-
+ drivers/media/platform/qcom/camss/camss.c          | 34 +++++++++++-----------
+ 4 files changed, 20 insertions(+), 20 deletions(-)
 
-Bryan O'Donoghue (66):
-      media: qcom: camss: vfe: Rename gen3 back to vfe780
-      media: qcom: camss: vfe: Separate VFE 690 from VFE 780/880
-      media: qcom: camss: Fix invalid declaration of PIX for SDM670
-      media: qcom: camss: Fix invalid declaration of PIX for SDM845
-      media: qcom: camss: Fix invalid declaration of PIX for sc8280xp
-      media: qcom: camss: Fix invalid declaration of PIX for x1e80100
-      media: qcom: camss: csid: Configure the stream on every s_stream
-      media: qcom: camss: Switch existing vfe_formats_pix_845 to vfe_formats_rdi_845
-      media: qcom: camss: Define PIX formats for x1e PIX interface
-      media: qcom: camss: vfe: Add helper vfe_bus_v3_packer_fmt()
-      media: qcom: camss: vfe: Represent output as an array instead of a singleton
-      media: qcom: camss: vfe: Move video_out from vfe_line to vfe_output
-      media: qcom: camss: vfe: Represent vfe wm inside of a struct
-      media: qcom: camss: vfe: Add is_pix to struct line
-      media: qcom: camss: vfe: Add comp_group to struct vfe_wm
-      media: qcom: camss: vfe: Define vfe v3 completion group enum
-      media: qcom: camss: vfe: Define output based VFE controls
-      media: qcom: camss: vfe: Call vfe_subdev_init after not before significant enumeration
-      media: qcom: camss: vfe: Move legacy VFE bus client assignment to msm_vfe_subdev_init
-      media: qcom: camss: vfe: Add planes identifier to struct wm
-      media: qcom: camss: vfe: Specify number of pads via line->num_pads
-      media: qcom: camss: vfe: Add support for starting multiple write-masters in one output's group
-      media: qcom: camss: vfe: Add support for updating multiple write-masters within an output group
-      media: qcom: camss: vfe: Update an output group's write masters on buffer done
-      media: qcom: camss: vfe: Add support for stopping outputs which contain multiple write masters
-      media: qcom: camss: vfe: Stop an output group once
-      media: qcom: camss: vfe: Add helper __vfe_pix_format_is_raw
-      media: qcom: camss: csid: Add helper function csid_ipp_bayer_pattern
-      media: qcom: camss: vfe: Decompose repeated code down to __vfe_src_pad_default()
-      media: qcom: camss: vfe: Eliminate ever expanding src_pad_code switch logic
-      media: qcom: camss: vfe: Add Bayer to YUV conversion switch cases for PIX
-      media: qcom: camss: vfe-gen3: Define full array of write-masters
-      media: qcom: camss: vfe-gen3: Enable PIX formats on PIX interfaces
-      media: qcom: camss: vfe: Pass struct line to wm_stop
-      media: qcom: camss: vfe-780: Use bus-client to derive write master index
-      media: qcom: camss: vfe-780: Switch on YUV pix path
-      media: qcom: camss: vfe: Add support for pix pad data-types
-      media: qcom: camss: vfe: Add helper methods to enumerate output descriptors
-      media: qcom: camss: Pass new struct camss_buf_done_info to camss_buf_done
-      media: qcom: camss: Add a status field to camss_buf_done_info
-      media: qcom: camss: csid-gen3: Enable the IPP path
-      media: qcom: camss: vfe: Pass the completion info to vfe_buf_done()
-      media: qcom: camss: vfe: Pass the buffer to vfe_wm_update()
-      media: qcom: camss: Add the SM8650 IFE pixel pipe configuration
-      media: qcom: camss: csid-gen3: Define the IPP reg update port in the header
-      media: qcom: camss: vfe-880: Program the pixel pipe outside output_lock
-      media: qcom: camss: vfe: Make is_pix the only test for the pixel path
-      media: qcom: camss: csid-gen3: Route IPP completions to the port the IPP feeds
-      media: qcom: camss: vfe-780: Add full-resolution YUV on the PIX line
-      media: uapi: Add CAMSS ISP statistics definition
-      media: Documentation: uapi: Add qcom-camss ISP statistics
-      media: qcom: camss: vfe: Select line-based mode for the pixel path's video node
-      media: qcom: camss: vfe: Size the pixel path clock by its pixels per clock
-      media: qcom: camss: vfe: Size the outputs for the PIX line and set up each one
-      media: qcom: camss: video: Support metadata capture nodes
-      media: qcom: camss: vfe: Register a statistics node for the pixel line
-      media: qcom: camss: vfe: Complete pixel line outputs on their own completion group
-      media: qcom: camss: vfe-780: Produce the AEC Bayer histogram statistics
-      media: uapi: Add the CAMSS AEC Bayer histogram configuration
-      media: v4l2: Add the Qualcomm CAMSS ISP parameters format
-      media: Documentation: uapi: Add the CAMSS IFE parameters
-      media: qcom: camss: video: Support metadata output nodes
-      media: qcom: camss: vfe: Register and apply a parameters node for the pixel line
-      media: qcom: camss: vfe-780: Apply the AEC Bayer histogram parameters
-      media: qcom: camss: vfe-780: Drive the write masters through the output ops
-      media: qcom: camss: vfe: Pass the write master its address again
+diff --git a/drivers/media/platform/qcom/camss/Makefile b/drivers/media/platform/qcom/camss/Makefile
+index 27898b3cc7d3c..e82bc8141c241 100644
+--- a/drivers/media/platform/qcom/camss/Makefile
++++ b/drivers/media/platform/qcom/camss/Makefile
+@@ -25,8 +25,8 @@ qcom-camss-objs += \
+ 		camss-vfe-340.o \
+ 		camss-vfe-480.o \
+ 		camss-vfe-680.o \
++		camss-vfe-780.o \
+ 		camss-vfe-gen1.o \
+-		camss-vfe-gen3.o \
+ 		camss-vfe-vbif.o \
+ 		camss-video.o
+ 
+diff --git a/drivers/media/platform/qcom/camss/camss-vfe-gen3.c b/drivers/media/platform/qcom/camss/camss-vfe-780.c
+similarity index 99%
+rename from drivers/media/platform/qcom/camss/camss-vfe-gen3.c
+rename to drivers/media/platform/qcom/camss/camss-vfe-780.c
+index 22579617def78..6c04e3c64b841 100644
+--- a/drivers/media/platform/qcom/camss/camss-vfe-gen3.c
++++ b/drivers/media/platform/qcom/camss/camss-vfe-780.c
+@@ -174,7 +174,7 @@ static int vfe_halt(struct vfe_device *vfe)
+ 	return 0;
+ }
+ 
+-const struct vfe_hw_ops vfe_ops_gen3 = {
++const struct vfe_hw_ops vfe_ops_780 = {
+ 	.global_reset = vfe_global_reset,
+ 	.hw_version = vfe_hw_version,
+ 	.isr = vfe_isr,
+diff --git a/drivers/media/platform/qcom/camss/camss-vfe.h b/drivers/media/platform/qcom/camss/camss-vfe.h
+index ae9dad353a378..68cd05331ffe7 100644
+--- a/drivers/media/platform/qcom/camss/camss-vfe.h
++++ b/drivers/media/platform/qcom/camss/camss-vfe.h
+@@ -248,7 +248,7 @@ extern const struct vfe_hw_ops vfe_ops_170;
+ extern const struct vfe_hw_ops vfe_ops_340;
+ extern const struct vfe_hw_ops vfe_ops_480;
+ extern const struct vfe_hw_ops vfe_ops_680;
+-extern const struct vfe_hw_ops vfe_ops_gen3;
++extern const struct vfe_hw_ops vfe_ops_780;
+ 
+ int vfe_get(struct vfe_device *vfe);
+ void vfe_put(struct vfe_device *vfe);
+diff --git a/drivers/media/platform/qcom/camss/camss.c b/drivers/media/platform/qcom/camss/camss.c
+index 2123f6388e3d7..80697d0ab701b 100644
+--- a/drivers/media/platform/qcom/camss/camss.c
++++ b/drivers/media/platform/qcom/camss/camss.c
+@@ -3218,7 +3218,7 @@ static const struct camss_subdev_resources vfe_res_8550[] = {
+ 			.is_lite = false,
+ 			.has_pd = true,
+ 			.pd_name = "ife0",
+-			.hw_ops = &vfe_ops_gen3,
++			.hw_ops = &vfe_ops_780,
+ 			.formats_rdi = &vfe_formats_rdi_845,
+ 			.formats_pix = &vfe_formats_pix_845
+ 		}
+@@ -3242,7 +3242,7 @@ static const struct camss_subdev_resources vfe_res_8550[] = {
+ 			.is_lite = false,
+ 			.has_pd = true,
+ 			.pd_name = "ife1",
+-			.hw_ops = &vfe_ops_gen3,
++			.hw_ops = &vfe_ops_780,
+ 			.formats_rdi = &vfe_formats_rdi_845,
+ 			.formats_pix = &vfe_formats_pix_845
+ 		}
+@@ -3266,7 +3266,7 @@ static const struct camss_subdev_resources vfe_res_8550[] = {
+ 			.is_lite = false,
+ 			.has_pd = true,
+ 			.pd_name = "ife2",
+-			.hw_ops = &vfe_ops_gen3,
++			.hw_ops = &vfe_ops_780,
+ 			.formats_rdi = &vfe_formats_rdi_845,
+ 			.formats_pix = &vfe_formats_pix_845
+ 		}
+@@ -3287,7 +3287,7 @@ static const struct camss_subdev_resources vfe_res_8550[] = {
+ 		.vfe = {
+ 			.line_num = 4,
+ 			.is_lite = true,
+-			.hw_ops = &vfe_ops_gen3,
++			.hw_ops = &vfe_ops_780,
+ 			.formats_rdi = &vfe_formats_rdi_845,
+ 			.formats_pix = &vfe_formats_pix_845
+ 		}
+@@ -3308,7 +3308,7 @@ static const struct camss_subdev_resources vfe_res_8550[] = {
+ 		.vfe = {
+ 			.line_num = 4,
+ 			.is_lite = true,
+-			.hw_ops = &vfe_ops_gen3,
++			.hw_ops = &vfe_ops_780,
+ 			.formats_rdi = &vfe_formats_rdi_845,
+ 			.formats_pix = &vfe_formats_pix_845
+ 		}
+@@ -3533,7 +3533,7 @@ static const struct camss_subdev_resources vfe_res_sm8650[] = {
+ 			.line_num = 3,
+ 			.has_pd = true,
+ 			.pd_name = "ife0",
+-			.hw_ops = &vfe_ops_gen3,
++			.hw_ops = &vfe_ops_780,
+ 			.formats_rdi = &vfe_formats_rdi_845,
+ 			.formats_pix = &vfe_formats_pix_845
+ 		},
+@@ -3560,7 +3560,7 @@ static const struct camss_subdev_resources vfe_res_sm8650[] = {
+ 			.line_num = 3,
+ 			.has_pd = true,
+ 			.pd_name = "ife1",
+-			.hw_ops = &vfe_ops_gen3,
++			.hw_ops = &vfe_ops_780,
+ 			.formats_rdi = &vfe_formats_rdi_845,
+ 			.formats_pix = &vfe_formats_pix_845
+ 		},
+@@ -3587,7 +3587,7 @@ static const struct camss_subdev_resources vfe_res_sm8650[] = {
+ 			.line_num = 3,
+ 			.has_pd = true,
+ 			.pd_name = "ife2",
+-			.hw_ops = &vfe_ops_gen3,
++			.hw_ops = &vfe_ops_780,
+ 			.formats_rdi = &vfe_formats_rdi_845,
+ 			.formats_pix = &vfe_formats_pix_845
+ 		},
+@@ -3612,7 +3612,7 @@ static const struct camss_subdev_resources vfe_res_sm8650[] = {
+ 		.vfe = {
+ 			.line_num = 4,
+ 			.is_lite = true,
+-			.hw_ops = &vfe_ops_gen3,
++			.hw_ops = &vfe_ops_780,
+ 			.formats_rdi = &vfe_formats_rdi_845,
+ 			.formats_pix = &vfe_formats_pix_845
+ 		},
+@@ -3637,7 +3637,7 @@ static const struct camss_subdev_resources vfe_res_sm8650[] = {
+ 		.vfe = {
+ 			.line_num = 4,
+ 			.is_lite = true,
+-			.hw_ops = &vfe_ops_gen3,
++			.hw_ops = &vfe_ops_780,
+ 			.formats_rdi = &vfe_formats_rdi_845,
+ 			.formats_pix = &vfe_formats_pix_845
+ 		},
+@@ -4001,7 +4001,7 @@ static const struct camss_subdev_resources vfe_res_8775p[] = {
+ 			.is_lite = false,
+ 			.has_pd = false,
+ 			.pd_name = NULL,
+-			.hw_ops = &vfe_ops_gen3,
++			.hw_ops = &vfe_ops_780,
+ 			.formats_rdi = &vfe_formats_rdi_845,
+ 			.formats_pix = &vfe_formats_pix_845
+ 		}
+@@ -4029,7 +4029,7 @@ static const struct camss_subdev_resources vfe_res_8775p[] = {
+ 			.is_lite = false,
+ 			.has_pd = false,
+ 			.pd_name = NULL,
+-			.hw_ops = &vfe_ops_gen3,
++			.hw_ops = &vfe_ops_780,
+ 			.formats_rdi = &vfe_formats_rdi_845,
+ 			.formats_pix = &vfe_formats_pix_845
+ 		}
+@@ -4054,7 +4054,7 @@ static const struct camss_subdev_resources vfe_res_8775p[] = {
+ 		.vfe = {
+ 			.line_num = 4,
+ 			.is_lite = true,
+-			.hw_ops = &vfe_ops_gen3,
++			.hw_ops = &vfe_ops_780,
+ 			.formats_rdi = &vfe_formats_rdi_845,
+ 			.formats_pix = &vfe_formats_pix_845
+ 		}
+@@ -4079,7 +4079,7 @@ static const struct camss_subdev_resources vfe_res_8775p[] = {
+ 		.vfe = {
+ 			.line_num = 4,
+ 			.is_lite = true,
+-			.hw_ops = &vfe_ops_gen3,
++			.hw_ops = &vfe_ops_780,
+ 			.formats_rdi = &vfe_formats_rdi_845,
+ 			.formats_pix = &vfe_formats_pix_845
+ 		}
+@@ -4104,7 +4104,7 @@ static const struct camss_subdev_resources vfe_res_8775p[] = {
+ 		.vfe = {
+ 			.line_num = 4,
+ 			.is_lite = true,
+-			.hw_ops = &vfe_ops_gen3,
++			.hw_ops = &vfe_ops_780,
+ 			.formats_rdi = &vfe_formats_rdi_845,
+ 			.formats_pix = &vfe_formats_pix_845
+ 		}
+@@ -4129,7 +4129,7 @@ static const struct camss_subdev_resources vfe_res_8775p[] = {
+ 		.vfe = {
+ 			.line_num = 4,
+ 			.is_lite = true,
+-			.hw_ops = &vfe_ops_gen3,
++			.hw_ops = &vfe_ops_780,
+ 			.formats_rdi = &vfe_formats_rdi_845,
+ 			.formats_pix = &vfe_formats_pix_845
+ 		}
+@@ -4154,7 +4154,7 @@ static const struct camss_subdev_resources vfe_res_8775p[] = {
+ 		.vfe = {
+ 			.line_num = 4,
+ 			.is_lite = true,
+-			.hw_ops = &vfe_ops_gen3,
++			.hw_ops = &vfe_ops_780,
+ 			.formats_rdi = &vfe_formats_rdi_845,
+ 			.formats_pix = &vfe_formats_pix_845
+ 		}
 
-Jacopo Mondi (4):
-      media: v4l2-isp: Rename v4l2_isp_params_buffer_size
-      media: v4l2-isp: Add per-block validation callback
-      media: amlogic-c3: Implement per-block validation
-      media: v4l2-isp: Add helpers for stats buffer
-
-Loic Poulain (2):
-      media: uapi: Add CAMSS ISP configuration definition
-      media: Documentation: uapi: Add qcom-camss ISP params documentation
-
- .../userspace-api/media/v4l/meta-formats.rst       |   1 +
- .../userspace-api/media/v4l/metafmt-qcom-isp.rst   | 219 +++++
- Documentation/userspace-api/media/v4l/v4l2-isp.rst |  45 +-
- MAINTAINERS                                        |   1 +
- .../media/platform/amlogic/c3/isp/c3-isp-params.c  |  42 +-
- .../media/platform/arm/mali-c55/mali-c55-params.c  |  12 +-
- drivers/media/platform/qcom/camss/Kconfig          |   2 +
- drivers/media/platform/qcom/camss/Makefile         |   4 +-
- drivers/media/platform/qcom/camss/camss-csid-680.c |   8 +-
- .../media/platform/qcom/camss/camss-csid-gen3.c    | 131 ++-
- .../media/platform/qcom/camss/camss-csid-gen3.h    |   3 +
- drivers/media/platform/qcom/camss/camss-csid.c     |  37 +-
- drivers/media/platform/qcom/camss/camss-csid.h     |  18 +-
- drivers/media/platform/qcom/camss/camss-vfe-17x.c  |  10 +-
- drivers/media/platform/qcom/camss/camss-vfe-340.c  |  12 +-
- drivers/media/platform/qcom/camss/camss-vfe-4-1.c  |  20 +-
- drivers/media/platform/qcom/camss/camss-vfe-4-7.c  |  34 +-
- drivers/media/platform/qcom/camss/camss-vfe-4-8.c  |  34 +-
- drivers/media/platform/qcom/camss/camss-vfe-480.c  |  19 +-
- drivers/media/platform/qcom/camss/camss-vfe-680.c  |   4 +-
- .../camss/{camss-vfe-gen3.c => camss-vfe-690.c}    |  53 +-
- drivers/media/platform/qcom/camss/camss-vfe-780.c  | 419 +++++++++
- .../media/platform/qcom/camss/camss-vfe-880-pp.c   | 629 +++++++++++++
- .../media/platform/qcom/camss/camss-vfe-880-pp.h   |  13 +
- drivers/media/platform/qcom/camss/camss-vfe-gen1.c |  96 +-
- drivers/media/platform/qcom/camss/camss-vfe.c      | 985 ++++++++++++++++++---
- drivers/media/platform/qcom/camss/camss-vfe.h      | 156 +++-
- drivers/media/platform/qcom/camss/camss-video.c    | 235 ++++-
- drivers/media/platform/qcom/camss/camss-video.h    |   8 +
- drivers/media/platform/qcom/camss/camss.c          | 156 ++--
- drivers/media/platform/qcom/camss/camss.h          |   8 +-
- drivers/media/v4l2-core/v4l2-ioctl.c               |   2 +
- drivers/media/v4l2-core/v4l2-isp.c                 |  55 ++
- include/media/v4l2-isp.h                           |  94 +-
- include/uapi/linux/media/v4l2-isp.h                | 125 ++-
- include/uapi/linux/qcom-camss-config.h             | 273 ++++++
- include/uapi/linux/videodev2.h                     |   4 +
- 37 files changed, 3464 insertions(+), 503 deletions(-)
----
-base-commit: 8d3ae59288f1e7d58d76558a6ee96d533bc5019f
-change-id: 20261005-linux-mainline-7-2-sm8650-hdk-rfc-0-aa75cdf2c39b
-
-Best regards,
---  
-Bryan O'Donoghue <bod@kernel.org>
+-- 
+2.55.0
 
