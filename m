@@ -1,129 +1,125 @@
-Received: from desiato.infradead.org (desiato.infradead.org [90.155.92.199])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2C4E9485517
-	for <linux-kernel@vger.kernel.org>; Mon,  5 Oct 2026 13:18:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=90.155.92.199
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 97669481A97
+	for <linux-kernel@vger.kernel.org>; Mon,  5 Oct 2026 13:19:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791206289; cv=none; b=LAX72zLAQVFjQoy5G6ApDZu5kA2ae/3615QVd/xJzlb/uiGJEyShjH4Imf3dcd1gTFBisdojQLwmMmkCoUjtrJOYvTyNffqNtHrOWKj3OvnSCSEn615RaeDWo6DIHTNdzy8Bxmd7NZ7jRzR4qg4RuecdAh7lIYK8p2R3wiee4Tg=
+	t=1791206377; cv=none; b=ERVKoN0/NHG2PrC5K5rWqiPndQ8HBvqDaIRGTL+MpEA45La1bAbLYwRS9xcr9O/uu+b9h0xK6eV8i2pwFysJ7DwU3l4+cOUn+pXnyOyr3XVrqqiXaHGj4/ZZPrFeps4V2UffGjSnQQgyMfdJu0Krl6+K7JoqEegXiBnTBuwMQlY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791206289; c=relaxed/simple;
-	bh=ock0vQ1uQm6360Ra5cdb+jQ3MdxKSzZ48R7M/QckE30=;
-	h=Date:From:To:CC:Subject:In-Reply-To:References:Message-ID:
-	 MIME-Version:Content-Type; b=JuuFBejDBrNMv9EWNaoxYCboa97vvRTE9gnLRLRRDGyvfmuiY0dyaJqglR/bTAsLNNd9nVVCBfveiS8h2X74BuugBUfRAh4PBm196hgKlr6jchJVBKaGm/B/V1VyWDtteQrraBnv4AHJDRYLaakfOfHRBCfqCvWX3R9gaDIme2E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org; spf=none smtp.mailfrom=desiato.srs.infradead.org; dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b=ge57/i6E; arc=none smtp.client-ip=90.155.92.199
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=desiato.srs.infradead.org
+	s=arc-20240116; t=1791206377; c=relaxed/simple;
+	bh=/7kitseJa2/Kfb2q/CGa18mriWwsIA5wOnsnq+OybPE=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=qxWs6lfdecbv1cdzi0D3Nusr/Pgb1NKIHt6mD+oD37X9v+jPNVoyRE4rq9DU58WMQmUNebmpEX862PwlhLCj9twWlYx2pZIIMT9LG7zWSVVeLkYd/adWDc/oZrcGTbLRa6ibsYqcXFka1sV0KJ9mKbMyDso1dCVYSUw/+2/oc6g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=os+Gjcd8; arc=none smtp.client-ip=74.125.225.141
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="ge57/i6E"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=infradead.org; s=desiato.20200630; h=Content-Transfer-Encoding:Content-Type
-	:MIME-Version:Message-ID:References:In-Reply-To:Subject:CC:To:From:Date:
-	Sender:Reply-To:Content-ID:Content-Description;
-	bh=ock0vQ1uQm6360Ra5cdb+jQ3MdxKSzZ48R7M/QckE30=; b=ge57/i6EP+EFesnnmd9pfk7bb/
-	tyTNuJJmcq1s7c11Qqzyv99MXRoJc4Ws7cP06mfnTrLk2FIt0kJIc5wR0qdAVm9swyOlGEzV9RVyQ
-	WIHrA6xtgYNJ19Yy7EU6d6B4DSeoyJ9kwzcv4QYz7kWsZMCAn8TnsmsSCbldqQVZEPt/0U4YDM8Rp
-	fm5VzZFI+HpG5w2Gi4+lZB+XLn4HX3uqukFCLww/wkfKlvn4/a0dFJCXreNGkn+jR5Gx9kTxIFWGv
-	q6twtSEQ6zcmcs2NNmMTLh33vTCXSy6A+azc2+nXi2F/Dt2KJ/oRutgaa2uTV2YRB4xqxGvO89q7u
-	qEE8wQOg==;
-Received: from 90-182-211-1.rcp.o2.cz ([90.182.211.1] helo=ehlo.thunderbird.net)
-	by desiato.infradead.org with esmtpsa (Exim 4.99.2 #2 (Red Hat Linux))
-	id 1xDiZp-00000007vZc-2mq3;
-	Mon, 05 Oct 2026 13:17:57 +0000
-Date: Mon, 05 Oct 2026 15:17:50 +0200
-From: David Woodhouse <dwmw2@infradead.org>
-To: Miroslav Lichvar <mlichvar@redhat.com>
-CC: Thomas Gleixner <tglx@kernel.org>, John Stultz <jstultz@google.com>,
- Stephen Boyd <sboyd@kernel.org>, Rodolfo Giometti <giometti@enneenne.com>,
- Ryan Luu <rluu@amazon.com>, Julien Ridoux <ridouxj@amazon.com>,
- linux-kernel@vger.kernel.org, David Woodhouse <dwmw@amazon.co.uk>
-Subject: =?US-ASCII?Q?Re=3A_=5BPATCH_4/5=5D_timekeeping=3A_Reinstat?=
- =?US-ASCII?Q?e_proportional_correction_of_ntp=5Ferror?=
-User-Agent: K-9 Mail for Android
-In-Reply-To: <asN2RcjoTNN5rpaK@localhost>
-References: <20261001202134.33929-1-dwmw2@infradead.org> <20261001202134.33929-5-dwmw2@infradead.org> <asN2RcjoTNN5rpaK@localhost>
-Message-ID: <3861AA94-5490-45BD-AD68-E0867308D4FF@infradead.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="os+Gjcd8"
+Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49e66390995so11325815e9.2
+        for <linux-kernel@vger.kernel.org>; Mon, 05 Oct 2026 06:19:27 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791206364; x=1791811164; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=FCQ82Dz2x1lLu1VImeOunKrkyp4+eiM5Z+nDZWLDM6Y=;
+        b=os+Gjcd8EJffxTPEBWm2unWg+XDXYBXiYsgI5POiPN36dSE6r9tSfkwhKoJOq1/Iew
+         7dam9VqgJWrucwXnKXXg6Tm4MSefnFOduyp9VRzwcGe2gGhRFHIdkQ6LDp5GJDBGpd6a
+         UlsK/CvmgJtIxeFCy5uHPrfoBWwXiPVcWIzzbewbWANC1nUm/k5Hdfqxyp9YVIKx8jrr
+         cp+SaUraYhQiWsqscaO3oR0+lrZOmc8g1WRzTpWqKBdOSGzYPL5v0ozBM36FdP2V42ZA
+         d1Qh20B7JI5QxFjC5KC0LLTs8fU4rTrP0XDFuqXE63bvqAsxBLsgFTDwxtcM2FyaMjJv
+         b+1g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791206364; x=1791811164;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=FCQ82Dz2x1lLu1VImeOunKrkyp4+eiM5Z+nDZWLDM6Y=;
+        b=kkYnxhYq5NOuf3b+EePT1u7UPFst+xUH7D4RQEItjpXeCYJBuNY1qWRCV1Fvxzpgp7
+         NC4fA/pUu5TMBLScKiBa0Rk+KHes5cc/qEjcoCxbflAhYW7suAvdDByiM9QvmVrsO2po
+         XDbCqbJfwlds2AhDjgzeJd2/M1ZqdQDTeP9grsmh2++zpwsKtdusAc9fgjILb79FzMVT
+         n0n4Yr2gb1hNu7R/XetRIpT8wOF8gd37YsTSbcWgiMBiDSmEksFDR0tdq16nRvYAhap8
+         dDq/BhKHqxeUa2yto+xG7kFluvoJ0/P4lqD5d9WVePi/yAD+o7XfSoJ250qCfy8Xfxhn
+         yE0Q==
+X-Gm-Message-State: AFuF++k2ZTygUebsFC55iXCTISg44VsxT3oG5KsFs55LSoBbp9jEw/6W
+	Wl1VhdUl4NN2hE6U1INaH28dqkf3bw4pCgEm6kclJ4SCepY4p7MBE8eu
+X-Gm-Gg: AYBFou3q4mp9g/t6t4HVxL+HMUG6mvXxh32eV/KJkJzq8wHZGAHmHhgczqg/kqWcZjQ
+	8MHF6fZVlm8PubtF186m/4M/1IzTYA56VRyGk3oVCr2JFP8KhAaSVdKYFTbZrr1jYuI2rVmdtgb
+	9zkyU7Qx2wC3L830zT7DWg3ZVP6Ou/rvDDvbVQvPwqGz8r32BHMfYoDuXN6eg6a43fEaGdYcG8N
+	xm6G1pw7rDuOKdVEx/pk5MrGtu/+XYDLavTZUaOG+XIrYZOA93wIK3/orZ7v2/2CLEAOXK8cPOL
+	9WTMW0eLuAWm5G6qb2hNCeTPHodMsuTbjoRiVnhJxQmYHYIMb8g9cNAoq1yd1CIhqT3hVmK0FwN
+	3p5ly5j9bzsuHFF92oXCZ4eQWBGN0ijU0KD2EXX0rLFwNBV/WOK7r31wigso6AsCX6GGU+2uTRE
+	Si7ZFU3hsCt+s/gnMT1xW7GmyYN9QP0kxlRkn0MfTjG/ngvZ2XMDXyx/LFyjJpE9RkKp6oPRao0
+	pqCILELLSwLbFN/EaK/KayoE7W6iS75fzxc1PrLiGbr+dOlMpfD8WBv9xZoIfBnHrHfZX7hGA==
+X-Received: by 2002:a05:600c:6296:b0:4a0:da23:e06d with SMTP id 5b1f17b1804b1-4a0da23e547mr180815855e9.10.1791206364206;
+        Mon, 05 Oct 2026 06:19:24 -0700 (PDT)
+Received: from nuc.fritz.box (p200300f6f726f000fa633ffffe02074c.dip0.t-ipconnect.de. [2003:f6:f726:f000:fa63:3fff:fe02:74c])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a16d6295f9sm259642465e9.14.2026.10.05.06.19.23
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 05 Oct 2026 06:19:23 -0700 (PDT)
+From: Johannes Thumshirn <morbidrsa@gmail.com>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: linux-kernel@vger.kernel.org,
+	Filip Jensen <dev-Felipe.Jensen@duagon.com>,
+	Jose Javier Rodriguez Barbarin <dev-josejavier.rodriguez@duagon.com>,
+	Johannes Thumshirn <jth@kernel.org>
+Subject: [PATCH 1/1] mcb: fix kasan read slab out of bounds
+Date: Mon,  5 Oct 2026 15:19:09 +0200
+Message-ID: <bb501f159e657a11453c0ed65691132cc58e79c4.1791206167.git.jth@kernel.org>
+X-Mailer: git-send-email 2.51.0
+In-Reply-To: <cover.1791206167.git.jth@kernel.org>
+References: <cover.1791206167.git.jth@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain;
- charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-X-SRS-Rewrite: SMTP reverse-path rewritten from <dwmw2@infradead.org> by desiato.infradead.org. See http://www.infradead.org/rpr.html
+Content-Transfer-Encoding: 8bit
 
-On 5 October 2026 12:04:53 CEST, Miroslav Lichvar <mlichvar@redhat=2Ecom> w=
-rote:
->On Thu, Oct 01, 2026 at 09:21:33PM +0100, David Woodhouse wrote:
->> From: David Woodhouse <dwmw@amazon=2Eco=2Euk>
->>=20
->> The =C2=B11 mult dithering is sufficient to keep ntp_error at zero once
->> it's already there, but it doesn't do much to reduce it once any
->> significant ntp_error has accumulated (e=2Eg=2E from frequency or phase
->> adjustments) =E2=80=94 it can typically only drain single-digit nanosec=
-onds
->> per second=2E Commit dc491596f639 ("timekeeping: Rework frequency
->> adjustments to work better w/ nohz") removed a larger skew because in
->> a tickless kernel, it would remain in effect for a full idle period
->> and overshoot=2E Now that timekeeping_max_deferment() ensures that the
->> system wakes at the top of the second when skew is active, the
->> correction can be reinstated=2E If ntp_error exceeds an amount that a
->> single =C2=B11 change to mult can drain within a minute, add an
->> additional bias to mult to close the gap=2E
->
->The dithering is switching between an adjustment of +0 and +1, there
->is no -1=2E The time to drain depends on the direction=2E If the mult
->division has no remainder, it's infinite for +0=2E I think that's ok for
->this change, but the message and comment could be more clear=2E
->
->A faster correction creates a larger frequency error=2E
+From: Filip Jensen <dev-Felipe.Jensen@duagon.com>
 
-Right=2E I did consider making the threshold depend on the difference from=
- the nearest integer in the direction of ntp_error, and how long it would a=
-ctually take to eliminate using the natural dithering=2E But in the end I t=
-hink I dropped that complexity from the version I posted=2E
+Fixes the following kasan bug report reproducible when probing the
+driver:
 
-I did also ponder making it truly =C2=B11 from the base mult, instead of j=
-ust +0/+1=2E
+slab-out-of-bounds in string_nocheck lib/vsprintf.c:655
+slab-out-of-bounds in string+0x396/0x440 lib/vsprintf.c:737
+Read of size 1 at addr ffff88810dd32f94 by task modprobe/661
 
+It is caused for passing snprintf a not null terminated string as a
+parameter but in the format string expecting one ("%s"), thus making
+it read pass the valid data.
 
->Is this patch considered a requirement of the one adding the ntp_error
->correction to PPS and other timestamps to avoid larger inconsistencies
->with clock_gettime()?
+Another solution could be giving a length to the snprintf parameter:
+        snprintf(bus->name,CHAMELEON_FILENAME_LEN +
+1,"%.*s",CHAMELEON_FILENAME_LEN,header->filename);
+However, this solution seems less readable and since there is no need
+to format the input, apart from converting it into a right C string, a
+simple memcpy is here proposed.
 
-No, I don't think so=2E There are a few phases of the ntp_error fixes I've=
- been looking at=2E
+Reviewed-by: Jose Javier Rodriguez Barbarin <dev-josejavier.rodriguez@duagon.com>
+Signed-off-by: Filip Jensen <dev-Felipe.Jensen@duagon.com>
+Signed-off-by: Johannes Thumshirn <jth@kernel.org>
+---
+ drivers/mcb/mcb-parse.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
- - fixing the misaccounting (already merged)
- - reducing the (known) genuine cases where it accumulates (patches 1-2 he=
-re)
- - eliminating it once it does accumulate (patches 3-4 here)
- - subtracting it to "correct" the snapshot (patch 5 posted as DNM here)
-
-The three parts I'm posting here are complementary, and the snapshot corre=
-ction doesn't *require* the previous patches (apart from the bug fixes alre=
-ady merged)=2E
-
-If anything, it's the opposite: driving ntp_error down to only what's temp=
-orarily introduced by tickless drift will raise the question of if we even =
-need to *bother* with the final patch (I think probably yes, but will be do=
-ing a bunch more testing on tickless kernels once the dust settles)=2E
-
->I'm wondering if this duality of the clock wrt the way it's read
->couldn't cause any issues=2E Any chance there could be a new clock ID
->for applications to do clock_gettime() with the ntp_error corrected as
->well?
-
-In theory, sure, we could plumb it all the way to the vDSO=2E I think we w=
-ould want to have a very compelling use case for that though=2E
-
-I'm slightly more inclined to let such userspace use the clock_get_referen=
-ce() that Thomas and I talked about, and convert counter values to time at =
-their leisure=2E
-
-And ultimately, perhaps, just calibrate the *counter* directly without any=
- of the feedback loop that adjtimex() + clock_gettime() gives you, then *te=
-ll* the kernel the result with clock_set_reference()=2E=2E=2E=20
+diff --git a/drivers/mcb/mcb-parse.c b/drivers/mcb/mcb-parse.c
+index 7e09a0ea80f8..2b115cb0e5d9 100644
+--- a/drivers/mcb/mcb-parse.c
++++ b/drivers/mcb/mcb-parse.c
+@@ -200,8 +200,8 @@ int chameleon_parse_cells(struct mcb_bus *bus, phys_addr_t mapbase,
+ 	bus->revision = header->revision;
+ 	bus->model = header->model;
+ 	bus->minor = header->minor;
+-	snprintf(bus->name, CHAMELEON_FILENAME_LEN + 1, "%s",
+-		 header->filename);
++	memcpy(bus->name, header->filename, CHAMELEON_FILENAME_LEN);
++	bus->name[CHAMELEON_FILENAME_LEN] = '\0';
+ 
+ 	bar_count = chameleon_get_bar(&p, mapbase, &cb);
+ 	if (bar_count < 0) {
+-- 
+2.51.0
 
