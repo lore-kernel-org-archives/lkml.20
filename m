@@ -1,131 +1,473 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.19])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pg1-f172.google.com (mail-pg1-f172.google.com [209.85.215.172])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3DA9647668A;
-	Mon,  5 Oct 2026 11:38:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.19
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 579AB37F732
+	for <linux-kernel@vger.kernel.org>; Mon,  5 Oct 2026 11:42:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791200307; cv=none; b=NsciWiswPv5hjzB7yGcnZCAIN8dCjR0ImB8vn7eEvGOOIvXOhUrGOU76kkKGyaxKA6Kxr6EfcY9ZhpnvcAolgpVGQoLU1Z/OFDxhGUmX4fVhnjOBki/Y8AmhA+X3BWnD8lFn3+7sGbH4+YCj2x6W32M1uaihj5yS041XXJRZUag=
+	t=1791200536; cv=none; b=ZuspDoHJTsbO6YVnp4XJ3tMROonINmsmKxYsKP7LJeYifEH9QcJEHxcVdCXNl6QyklhMHf940qUYAfvUw2vobV59B5kPJb00xZ2+V+4+uJyGqIOxZukWEYdY2YyHz3VXfm4U3IXenehyBv4BB9uIT/vEO+tWW6+WrIHx57A4S+U=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791200307; c=relaxed/simple;
-	bh=VzQKIhGw7R7374ozH7SMF5LPqzzlzHosRUw2ajKeTso=;
+	s=arc-20240116; t=1791200536; c=relaxed/simple;
+	bh=EsJYQCUWbvm2nmNI0mfMjSHnb9dJV9+mgnWBHLI/hFQ=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=HuVZyDtwcp15/0rK77Cd+RPljyj0LDSGCO/ZJ3TdzL1OHgdpELewNtTf+7J/hBR18eb9c4hP/YvWSIdGTpj/pXsneiBPfcWVRQTtD90XoH5iVVqJVP3G7uq6UVkwFuun/NYfMhTQFQsp2MifWLapffkxK4Bd8nLESPDVKrhr2Xo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=hhYE//KJ; arc=none smtp.client-ip=192.198.163.19
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=u7r7wgkYcZuzv2e532IN2VPN5MvECt0nuz1O3PEK01kOufKm7VOWaTFWJ1mh2I65T/Z1L7AIeE/8oJvQMEc60ftWlzTStwFBTE9P6ev20/96Ge7Q3qecCjJBeuXUav7CDaKNlvMuqsa9f0tsC8hE++SugB74i9eIQj15wOrX+3k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=GhE6gBRq; arc=none smtp.client-ip=209.85.215.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="hhYE//KJ"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1791200305; x=1822736305;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=VzQKIhGw7R7374ozH7SMF5LPqzzlzHosRUw2ajKeTso=;
-  b=hhYE//KJEPiAFos6nr0bK9OOa36XVs682bfUREqVLq51lE1XXigwGici
-   FRJu3DDIvvaeLsz0+nUXVT+1+p77w+tnT+Eyp9WBvp3eQHmdjNxx12Qeq
-   AdowEK991iHG3SSrMxua5EC6Egz+XNtPdeN61EIxFdYsqHLhVB4/4QvCw
-   P6MVuQlHMSYgy+tq04MlC82xLLhen29JQjlZopgTt0aIiClxUSW36SJE9
-   NKhGoOAoJB6RXvmHbfDamku8ctl3aNTbVYdaPyjIx1yOiODmXIfSOb+PU
-   XZ/jPbfYwgrFl8zkS/iLVPEoUVy/bF9mL6zS5Q8ojJaiE8cXqfXVkD5EQ
-   g==;
-X-CSE-ConnectionGUID: WT5KD33wSPauUMJ4dhUj7Q==
-X-CSE-MsgGUID: GkxbXQEyTOifPJbw+j3yrQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11925"; a="15196"
-X-IronPort-AV: E=Sophos;i="6.27,141,1787036400"; 
-   d="scan'208";a="15196"
-Received: from fmviesa012.fm.intel.com ([10.60.135.152])
-  by fmvoesa113.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 05 Oct 2026 04:38:25 -0700
-X-CSE-ConnectionGUID: m2t1VYghR26kX3fH5rzrjQ==
-X-CSE-MsgGUID: Rq6+CWI+SeiyE0IgH+yQ4g==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,141,1787036400"; 
-   d="scan'208";a="840356"
-Received: from black.igk.intel.com ([10.91.253.5])
-  by fmviesa012.fm.intel.com with ESMTP; 05 Oct 2026 04:38:24 -0700
-Received: by black.igk.intel.com (Postfix, from userid 1001)
-	id 6478699; Mon, 05 Oct 2026 13:38:22 +0200 (CEST)
-Date: Mon, 5 Oct 2026 13:38:22 +0200
-From: Mika Westerberg <mika.westerberg@linux.intel.com>
-To: Jonathan Gopel <jgopel@gmail.com>
-Cc: andreas.noever@gmail.com, westeri@kernel.org, YehezkelShB@gmail.com,
-	linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2] thunderbolt: Do not RPM complete unrelated subtrees
- on unplug
-Message-ID: <20261005113822.GL176164@black.igk.intel.com>
-References: <20261004120255.GI176164@black.igk.intel.com>
- <20261004171404.448474-1-jgopel@gmail.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="GhE6gBRq"
+Received: by mail-pg1-f172.google.com with SMTP id 41be03b00d2f7-cc502d509c0so465996a12.2
+        for <linux-kernel@vger.kernel.org>; Mon, 05 Oct 2026 04:42:14 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791200534; x=1791805334; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=4vqyfelfFGSwkjEBG7zfjrJS3enkPtGtmBJ59OEhynQ=;
+        b=GhE6gBRqOfZuMR3djqMYNrAyQXueVVCd4vokbl+/8P+AZHQ7xUOx0w1GO10ysbMZrs
+         t37oITeRg7twV3acIlZVp0VGaC5El52YWybKArCi2M6eIhdViXpjV35WWyJMRUfzTlAy
+         f5uSz31bSqtuT88+o1hzKVV6Mt0LUR+7l8MUjZv3iulN9dncJo2vwMAd1KOZTUch6BAn
+         q48yAkVIebTT1UkEhrfxdjhO3fmBsZ3xyfDmFFwps0NN7foUa7L3+iHH8XJ0R+Smrpvf
+         FcecSkct1CjXT37gdSHMnwfTfiwNCbIj4/CIVGDYKl41nUJyDisGEGICT8Qqv9twGN52
+         qwxg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791200534; x=1791805334;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=4vqyfelfFGSwkjEBG7zfjrJS3enkPtGtmBJ59OEhynQ=;
+        b=WjfvAlE9tZTwAwd8PtdIBNywZBFfbgimITsNi5OqbOyOFK9N+eCAOVcmA58EI7VUIH
+         dpDaFbVHBMKlrPCeaFPxjogCm1nzIVvYAMU7YvoCnvZWsBN2cftzby/JYKlH8dxEX7rP
+         ZYQ1rctE8xoJQ+7mdwxvjuBuZ2O77xf+oFxKgrKedFAIlyjznPmJo+XwVt2elbW7v5Ac
+         jo6MGR1s1qXQ2/KQmT2pw2D1yOEkVTWlOtJbQbPup9gJpO9O6qEuSiEfZzQr9o3r4Y44
+         YQqlSTMFp2gmsTSj6Bw+Mw7V34PFXAJAj+3I234xkWipenVv7heM2Xu9QTnZRwMZYA7q
+         mrqg==
+X-Forwarded-Encrypted: i=1; AKwUvByiKV+mjG62EnJ6hPba7mqsBjLS6vGDpD0hPdKIrs2vgg92q6pRID0D54vqaTOBj4BcoD+eE8GadV4w1tc=@vger.kernel.org
+X-Gm-Message-State: AFuF++kYesxe2ULCuTsvJz7Peb96DBwboGOWCV9nwAKwCbUXAiCzBnYj
+	gD4WgMB5CVMWTWoxkXLS/ddlVDgFlZA3D1HdqLgL6zVdgCyZ/chF1His
+X-Gm-Gg: AYBFou0z+M1n42ldxbjfrj7e5qDLs2/h8VuXI27QjGm3rJxBZdkk1k8nn09khc+4gxs
+	RnBXDoPTTpPUoroTkkVTTA7z8rX3lAjSfvmHbUPCqsJN/cMD0uKv4JwVT19bzBcgrkbh9p2okzd
+	AszQeQO6MfzPnPKHnn9cr9jctoDodBk/CxNt2hsLAFUrJe4VSENsEFQcSIcrjzQp2NQODf/1q8B
+	qdx6qiJlmfzfW/43iFKNXOi0tkx3yqs9TWIiJ1ehiYxLvSe8L3uAk2gKCvDvK9FW0MM1mV5PDaC
+	6JxDrXzDPXPEK6MyAvwk3+ka1d1kg8qs/Fqo4JWVmHqOq2n1XmGt6H+VAwp/yNYIe8LFlsGTSEh
+	toeQrqgVYjvKgcsoe8qzP2dlBndaNkICRpkLv/MUtBmMCuuzl/Rms44aNW8WGxCLf+2S/VvYjFO
+	f8ZxoduuAA7XMYHY579WTPILvi7caRLQAcwr7OEgTJQq2ki9Dqxy8VmVj3hVRGrDf5nZwH
+X-Received: by 2002:a05:6a21:6e92:b0:3df:c9eb:126a with SMTP id adf61e73a8af0-3e0d6cdd667mr6604767637.45.1791200533496;
+        Mon, 05 Oct 2026 04:42:13 -0700 (PDT)
+Received: from localhost ([2001:19f0:8000:3e6e:5400:6ff:fe38:3d01])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-88b0c3a39f6sm3327875b3a.28.2026.10.05.04.42.12
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 05 Oct 2026 04:42:12 -0700 (PDT)
+Date: Mon, 5 Oct 2026 19:41:52 +0800
+From: Inochi Amaoto <inochiama@gmail.com>
+To: Vinod Koul <vkoul@kernel.org>, Inochi Amaoto <inochiama@gmail.com>
+Cc: Andy Shevchenko <andriy.shevchenko@linux.intel.com>, 
+	Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>, 
+	Randy Dunlap <rdunlap@infradead.org>, Neil Armstrong <neil.armstrong@linaro.org>, 
+	Manivannan Sadhasivam <mani@kernel.org>, Rhys Tumelty <rhys@tumelty.co.uk>, linux-doc@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-phy@lists.infradead.org, Yixun Lan <dlan@gentoo.org>, 
+	Longbin Li <looong.bin@gmail.com>
+Subject: Re: [PATCH v4 3/5] phy: core: Add phy bulk data helper functions
+Message-ID: <asOMP3uJJmdpfvtt@inochi.infowork>
+References: <20260929085235.469515-1-inochiama@gmail.com>
+ <20260929085235.469515-4-inochiama@gmail.com>
+ <asN4I1cpVb5HLNu7@parshuram>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261004171404.448474-1-jgopel@gmail.com>
+In-Reply-To: <asN4I1cpVb5HLNu7@parshuram>
 
-Hi,
+On Mon, Oct 05, 2026 at 12:12:51PM +0200, Vinod Koul wrote:
+> On 29-09-26, 16:52, Inochi Amaoto wrote:
+> > Add several helper functions that allow drivers to get several phy
+> > consumers in one operation. If any of the phy cannot be acquired then
+> > any phys that were got will be put before returning to the caller.
+> 
+> Do we have many such examples? Phy is not a many resource like
+> clock/regulators... Do we really need this. How many in kernel users
+> will benefit from this API?
+> 
 
-On Sun, Oct 04, 2026 at 11:13:50AM -0600, Jonathan Gopel wrote:
-> When a Thunderbolt device is unplugged, that switch and every switch
-> subsequent to it on the bus device list is `complete()`d, not just its
-> child devices. In the case of multiple domains, it may cause, eg, an
-> attempt to `complete()` the uninitialized domain 1 root switch RPM
-> completion on unplug of a switch from domain 0 (though ordering is not
-> guaranteed numerically sorted).
-> 
-> I initially noticed this issue on a Dell XPS9720 when the system would
-> seem to sporadically not wake after unplugging a Thunderbolt dock. I
-> tried multiple kernel versions including v7.2.7 and v7.3-rc4 to see if
-> that resolved the issue, but the issue persisted. Eventually I found
-> that I could consistently generate a kernel Oops reporting a page fault
-> at 0xffff_ffff_ffff_fff8 on unplug from one side of the laptop and went
-> bug hunting. I became suspicious of the `bus_for_each_dev()` walk that I
-> ultimately ended up changing. To confirm this issue, I did an eBPF trace
-> of `bus_for_each_dev()`, `complete_rpm()`, and `complete()` while
-> unplugging in a variety of situations and found that an unplug from
-> domain 0 tries to `complete_rpm()` domain 1's switch, whose RPM
-> completion is not initialized and thus is holding a null wait-list
-> pointer, triggering the page fault.
-> 
-> Here are the key sections of that eBPF trace. Note that HEAD denotes the
-> completion's own wait-list HEAD:
-> 
-> ```
-> RESCAN_ENTER domain=0
-> 
-> COMPLETE rescan_domain=0 target=0-1 target_domain=0
->          route=0x1 parent=0-0 unplugged=1
-> COMPLETION done=0 head=HEAD next=HEAD prev=HEAD
-> 
-> BUS_WALK domain=0 start=0-1 callback=complete_rpm
-> CALLBACK_ENTER rescan_domain=0 dev=1-0 parent=domain1 is_switch=1
-> 
-> COMPLETE rescan_domain=0 target=1-0 target_domain=1
->          route=0x0 parent=domain1 unplugged=0
-> COMPLETION done=0 head=HEAD next=0 prev=0
-> 
->         complete+5
->         complete_rpm+43
->         bus_for_each_dev+133
->         icm_free_unplugged_children+250
->         icm_rescan_work+42
-> ```
-> 
-> This patch gates the `complete()` on an additional condition - that the
-> Thunderbolt domain matches the domain of the device that was unplugged.
-> 
-> I only have a single system with multiple Thunderbolt domains - the Dell
-> XPS9720. I am consistently able to reproduce the Oops on that system.
-> Since running with this patch, I have not seen the Oops reoccur. I have
-> also tested it on a Thinkpad X1-Gen12, and that system boots and runs
-> well with it, but it only has a single Thunderbolt domain, so it does
-> not exercise the multi-domain failure case.
-> 
-> Assisted by: LLM
-> Signed-off-by: Jonathan Gopel <jgopel@gmail.com>
 
-I dropped the Assisted-by per your previous email, did a couple of small
-cosmetic changes to the patch, added Fixes and stable tags and applied to
-thunderbolt.git/fixes, thanks!
+I guess the following driver may benefit from bulk api. Most of them
+are PCIe drivers....
+
+drivers/ata/ahci_imx.c
+drivers/pci/controller/cadence/pcie-cadence.c
+drivers/pci/controller/dwc/pci-dra7xx.c
+drivers/pci/controller/dwc/pcie-tegra194.c
+drivers/pci/controller/pcie-rockchip.c
+drivers/pci/controller/dwc/pcie-qcom.c
+
+Note: I mean the bulk api, not just the things I added. I guess many
+may want devm_phy_bulk_get() or devm_of_phy_bulk_get() instead of
+devm_phy_bulk_get_all().
+
+Regards,
+Inochi
+
+> > 
+> > This can relieve the driver owners' life who needs to handle many phys,
+> > as well as each phy error reporting.
+> > 
+> > Signed-off-by: Inochi Amaoto <inochiama@gmail.com>
+> > ---
+> >  drivers/phy/phy-core.c  | 253 ++++++++++++++++++++++++++++++++++++++++
+> >  include/linux/phy/phy.h |  55 +++++++++
+> >  2 files changed, 308 insertions(+)
+> > 
+> > diff --git a/drivers/phy/phy-core.c b/drivers/phy/phy-core.c
+> > index 8fbaea003b90..5b76c006575b 100644
+> > --- a/drivers/phy/phy-core.c
+> > +++ b/drivers/phy/phy-core.c
+> > @@ -1004,6 +1004,259 @@ struct phy *devm_of_phy_get_by_index(struct device *dev, struct device_node *np,
+> >  }
+> >  EXPORT_SYMBOL_GPL(devm_of_phy_get_by_index);
+> >  
+> > +/**
+> > + * of_phy_get_count() - Get the number of phys of a device node
+> > + * @np: device_node for which to get the phy
+> > + *
+> > + * Return: the phy count if successful, %0 if no phy handle is found,
+> > + * negative error value if error occurs.
+> > + */
+> > +static int of_phy_get_count(const struct device_node *np)
+> > +{
+> > +	int count;
+> > +
+> > +	count = of_count_phandle_with_args(np, "phys", "#phy-cells");
+> > +
+> > +	if (count == -ENOENT)
+> > +		return 0;
+> > +
+> > +	return count;
+> > +}
+> > +
+> > +/**
+> > + * phy_bulk_put() - release a set of PHYs
+> > + * @dev: device that acquired the PHYs
+> > + * @num_phys: number of entries in the phys array
+> > + * @phys: array of struct phy_bulk_data with PHYs set
+> > + *
+> > + * Releases the PHY references in reverse order and clears the PHY pointer in
+> > + * each entry. The caller owns the phys array and is responsible for freeing it
+> > + * if necessary.
+> > + */
+> > +static void phy_bulk_put(struct device *dev, unsigned int num_phys,
+> > +			 struct phy_bulk_data *phys)
+> > +{
+> > +	while (num_phys--) {
+> > +		if (!IS_ERR_OR_NULL(phys[num_phys].phy))
+> > +			phy_put(dev, phys[num_phys].phy);
+> > +		phys[num_phys].phy = NULL;
+> > +	}
+> > +}
+> > +
+> > +/**
+> > + * of_phy_bulk_put() - release a set of PHYs
+> > + * @num_phys: number of entries in the phys array
+> > + * @phys: array of struct phy_bulk_data with PHYs set
+> > + *
+> > + * Releases the PHY references in reverse order and clears the PHY pointer in
+> > + * each entry. The caller owns the phys array and is responsible for freeing it
+> > + * if necessary.
+> > + */
+> > +static void of_phy_bulk_put(unsigned int num_phys, struct phy_bulk_data *phys)
+> > +{
+> > +	while (num_phys--) {
+> > +		of_phy_put(phys[num_phys].phy);
+> > +		phys[num_phys].phy = NULL;
+> > +	}
+> > +}
+> > +
+> > +static int of_phy_bulk_get_by_index(struct device_node *np,
+> > +				    unsigned int num_phys,
+> > +				    struct phy_bulk_data *phys)
+> > +{
+> > +	unsigned int i;
+> > +	int ret;
+> > +
+> > +	for (i = 0; i < num_phys; i++) {
+> > +		phys[i].id = NULL;
+> > +		phys[i].phy = NULL;
+> > +	}
+> > +
+> > +	for (i = 0; i < num_phys; i++) {
+> > +		of_property_read_string_index(np, "phy-names", i, &phys[i].id);
+> > +
+> > +		phys[i].phy = of_phy_get_by_index(np, i);
+> > +
+> > +		ret = PTR_ERR_OR_ZERO(phys[i].phy);
+> > +		if (ret) {
+> > +			phys[i].phy = NULL;
+> > +			goto err;
+> > +		}
+> > +	}
+> > +
+> > +	return 0;
+> > +
+> > +err:
+> > +	of_phy_bulk_put(i, phys);
+> > +
+> > +	return ret;
+> > +}
+> > +
+> > +/**
+> > + * of_phy_bulk_get_all() - obtain all PHYs from a device node
+> > + * @np: device node containing the PHY references
+> > + * @phys: pointer to store the allocated array of struct phy_bulk_data
+> > + *
+> > + * Gets every PHY referenced by the phys property in index order. PHY names are
+> > + * read from phy-names when present.
+> > + *
+> > + * Return: the number of PHYs on success, %0 if no PHYs are found, or a
+> > + * negative error code otherwise
+> > + */
+> > +static int of_phy_bulk_get_all(struct device_node *np,
+> > +			       struct phy_bulk_data **phys)
+> > +{
+> > +	struct phy_bulk_data *phy_bulk;
+> > +	int num_phys;
+> > +	int ret;
+> > +
+> > +	num_phys = of_phy_get_count(np);
+> > +	if (num_phys <= 0)
+> > +		return num_phys;
+> > +
+> > +	phy_bulk = kmalloc_objs(*phy_bulk, num_phys);
+> > +	if (!phy_bulk)
+> > +		return -ENOMEM;
+> > +
+> > +	ret = of_phy_bulk_get_by_index(np, num_phys, phy_bulk);
+> > +	if (ret) {
+> > +		kfree(phy_bulk);
+> > +		return ret;
+> > +	}
+> > +
+> > +	*phys = phy_bulk;
+> > +
+> > +	return num_phys;
+> > +}
+> > +
+> > +/**
+> > + * phy_bulk_put_all() - release and free PHYs
+> > + * @dev: device that acquired the PHYs
+> > + * @num_phys: number of entries in the phys array
+> > + * @phys: array of struct phy_bulk_data to release and free
+> > + */
+> > +static void phy_bulk_put_all(struct device *dev, unsigned int num_phys,
+> > +			     struct phy_bulk_data *phys)
+> > +{
+> > +	if (IS_ERR_OR_NULL(phys))
+> > +		return;
+> > +
+> > +	phy_bulk_put(dev, num_phys, phys);
+> > +	kfree(phys);
+> > +}
+> > +
+> > +/**
+> > + * phy_bulk_init() - initialize multiple PHYs
+> > + * @num_phys: number of entries in the phys array
+> > + * @phys: array of struct phy_bulk_data to initialize
+> > + *
+> > + * Initializes the PHYs in array order. If an initialization fails, all PHYs
+> > + * initialized by this call are exited in reverse order.
+> > + *
+> > + * Return: %0 if successful, a negative error code otherwise
+> > + */
+> > +int phy_bulk_init(unsigned int num_phys, struct phy_bulk_data *phys)
+> > +{
+> > +	unsigned int i;
+> > +	int ret;
+> > +
+> > +	for (i = 0; i < num_phys; i++) {
+> > +		ret = phy_init(phys[i].phy);
+> > +		if (ret)
+> > +			goto err;
+> > +	}
+> > +
+> > +	return 0;
+> > +
+> > +err:
+> > +	while (i--)
+> > +		phy_exit(phys[i].phy);
+> > +
+> > +	return ret;
+> > +}
+> > +EXPORT_SYMBOL_GPL(phy_bulk_init);
+> > +
+> > +/**
+> > + * phy_bulk_exit() - exit multiple PHYs
+> > + * @num_phys: number of entries in the phys array
+> > + * @phys: array of struct phy_bulk_data to exit
+> > + *
+> > + * Exits the PHYs in reverse array order. All PHYs are processed even if an
+> > + * error occurs.
+> > + *
+> > + * Return: %0 if successful, the first negative error code otherwise
+> > + */
+> > +int phy_bulk_exit(unsigned int num_phys, struct phy_bulk_data *phys)
+> > +{
+> > +	int ret = 0;
+> > +	int err;
+> > +
+> > +	while (num_phys--) {
+> > +		err = phy_exit(phys[num_phys].phy);
+> > +		if (err && !ret)
+> > +			ret = err;
+> > +	}
+> > +
+> > +	return ret;
+> > +}
+> > +EXPORT_SYMBOL_GPL(phy_bulk_exit);
+> > +
+> > +/**
+> > + * phy_bulk_power_on() - power on multiple PHYs
+> > + * @num_phys: number of entries in the phys array
+> > + * @phys: array of struct phy_bulk_data to power on
+> > + *
+> > + * Powers on the PHYs in array order. If a power-on operation fails, all PHYs
+> > + * powered on by this call are powered off in reverse order.
+> > + *
+> > + * Return: %0 if successful, a negative error code otherwise
+> > + */
+> > +int phy_bulk_power_on(unsigned int num_phys, struct phy_bulk_data *phys)
+> > +{
+> > +	unsigned int i;
+> > +	int ret;
+> > +
+> > +	for (i = 0; i < num_phys; i++) {
+> > +		ret = phy_power_on(phys[i].phy);
+> > +		if (ret)
+> > +			goto err;
+> > +	}
+> > +
+> > +	return 0;
+> > +
+> > +err:
+> > +	while (i--)
+> > +		phy_power_off(phys[i].phy);
+> > +
+> > +	return ret;
+> > +}
+> > +EXPORT_SYMBOL_GPL(phy_bulk_power_on);
+> > +
+> > +/**
+> > + * phy_bulk_power_off() - power off multiple PHYs
+> > + * @num_phys: number of entries in the phys array
+> > + * @phys: array of struct phy_bulk_data to power off
+> > + *
+> > + * Powers off the PHYs in reverse array order. All PHYs are processed even if
+> > + * an error occurs.
+> > + *
+> > + * Return: %0 if successful, the first negative error code otherwise
+> > + */
+> > +int phy_bulk_power_off(unsigned int num_phys, struct phy_bulk_data *phys)
+> > +{
+> > +	int ret = 0;
+> > +	int err;
+> > +
+> > +	while (num_phys--) {
+> > +		err = phy_power_off(phys[num_phys].phy);
+> > +		if (err && !ret)
+> > +			ret = err;
+> > +	}
+> > +
+> > +	return ret;
+> > +}
+> > +EXPORT_SYMBOL_GPL(phy_bulk_power_off);
+> > +
+> >  /**
+> >   * phy_create() - create a new phy
+> >   * @dev: device that is creating the new phy
+> > diff --git a/include/linux/phy/phy.h b/include/linux/phy/phy.h
+> > index ea47975e288a..77d9d74682b7 100644
+> > --- a/include/linux/phy/phy.h
+> > +++ b/include/linux/phy/phy.h
+> > @@ -81,6 +81,18 @@ union phy_configure_opts {
+> >  	struct phy_configure_opts_hdmi		hdmi;
+> >  };
+> >  
+> > +/**
+> > + * struct phy_bulk_data - Data used for bulk phy operations.
+> > + *
+> > + * @id: phy consumer ID
+> > + */
+> > +struct phy_bulk_data {
+> > +	const char	*id;
+> > +
+> > +	/* private: Internal use */
+> > +	struct phy	*phy;
+> > +};
+> > +
+> >  /**
+> >   * struct phy_ops - set of function pointers for performing phy operations
+> >   * @init: operation to be performed for initializing phy
+> > @@ -309,6 +321,12 @@ void devm_of_phy_provider_unregister(struct device *dev,
+> >  	struct phy_provider *phy_provider);
+> >  int phy_create_lookup(struct phy *phy, const char *con_id, const char *dev_id);
+> >  void phy_remove_lookup(struct phy *phy, const char *con_id, const char *dev_id);
+> > +
+> > +int phy_bulk_init(unsigned int num_phys, struct phy_bulk_data *phys);
+> > +int phy_bulk_exit(unsigned int num_phys, struct phy_bulk_data *phys);
+> > +int phy_bulk_power_on(unsigned int num_phys, struct phy_bulk_data *phys);
+> > +int phy_bulk_power_off(unsigned int num_phys, struct phy_bulk_data *phys);
+> > +
+> >  #else
+> >  static inline int phy_pm_runtime_get(struct phy *phy)
+> >  {
+> > @@ -493,6 +511,43 @@ static inline struct phy *devm_of_phy_get_by_index(struct device *dev,
+> >  	return ERR_PTR(-ENOSYS);
+> >  }
+> >  
+> > +static inline int phy_bulk_check_disabled(unsigned int num_phys,
+> > +					  struct phy_bulk_data *phys)
+> > +{
+> > +	if (!phys)
+> > +		return 0;
+> > +
+> > +	for (unsigned int i = 0; i < num_phys; i++)
+> > +		if (phys[i].phy)
+> > +			return -EOPNOTSUPP;
+> > +
+> > +	return 0;
+> > +}
+> > +
+> > +static inline int phy_bulk_init(unsigned int num_phys,
+> > +				struct phy_bulk_data *phys)
+> > +{
+> > +	return phy_bulk_check_disabled(num_phys, phys);
+> > +}
+> > +
+> > +static inline int phy_bulk_exit(unsigned int num_phys,
+> > +				struct phy_bulk_data *phys)
+> > +{
+> > +	return phy_bulk_check_disabled(num_phys, phys);
+> > +}
+> > +
+> > +static inline int phy_bulk_power_on(unsigned int num_phys,
+> > +				    struct phy_bulk_data *phys)
+> > +{
+> > +	return phy_bulk_check_disabled(num_phys, phys);
+> > +}
+> > +
+> > +static inline int phy_bulk_power_off(unsigned int num_phys,
+> > +				     struct phy_bulk_data *phys)
+> > +{
+> > +	return phy_bulk_check_disabled(num_phys, phys);
+> > +}
+> > +
+> >  static inline void of_phy_put(struct phy *phy)
+> >  {
+> >  }
+> > -- 
+> > 2.55.0
+> 
+> -- 
+> ~Vinod
