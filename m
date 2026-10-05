@@ -1,138 +1,206 @@
-Received: from mail-pj1-f52.google.com (mail-pj1-f52.google.com [209.85.216.52])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtpbgeu1.qq.com (smtpbgeu1.qq.com [52.59.177.22])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4AD2D3254B8
-	for <linux-kernel@vger.kernel.org>; Mon,  5 Oct 2026 08:02:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.216.52
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791187362; cv=pass; b=b111N/j6QszDYkHjNOPvHt21w68gdEghYG96XwhGYzPJApPd84Snn4NoYg93U3Iajl/Jgic2MH+2CmbRjk+5f010DwI8uPvPrCoT5xmIOspOmjm0n9jveRwRw9ScVDXdHu0af88N2kMYrweiggpZqJZiudlcX7K2XdWG985vlkg=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791187362; c=relaxed/simple;
-	bh=7zF4xdS44Xdj/0gtRmmbBKIp6z7kFhT/J/MOFXG2lYs=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=cSK+EtoweRd8r7JzJOAF6LZwu6Bex2mwxUcXiFbpolsOLRdwxwqnvTKz0+NKbQHBs87QV2Zm9bazjFvxrL1xKIqYetIp2modsOrMeCSQkdcuFcnfvBaUII3tyQ1nr/6ggTz/FJpQbqRmncygnGhha9vJR0wxtDSnavYJJ1eoGFA=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=QskGlNfa; arc=pass smtp.client-ip=209.85.216.52
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="QskGlNfa"
-Received: by mail-pj1-f52.google.com with SMTP id 98e67ed59e1d1-381b831d535so1268647a91.0
-        for <linux-kernel@vger.kernel.org>; Mon, 05 Oct 2026 01:02:41 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1791187360; cv=none;
-        d=google.com; s=arc-20260327;
-        b=MBqRCmakOfOm76o1bCTkFmHAn9vmzC2el3MNziMJ+bEm+rUpTyvwkAF1nXlZ+A4LwY
-         0y6KcEkTDezreyVWHrzauM9+RZPiUz5l3zkk66ktOWHBc8WK8WRF9ne1mny1HBgk0ZZ1
-         6WCz0jH+/hIdk6pxf5t6nF8K0Plv82QYKya7KD7TRHazw5k8/mZgRPlW/IRLyxgS9zFH
-         AVzw0IrLoT3xEEtEMX3YmIGVX3b7vr7rg5TlOXsvCvnf8x5dqDO7jlf0gq5DBUrsZTnF
-         CTG9fBogTfF5iJUObjssl8zwXPoHJsCbgOEFCb+rx0ltOsurOrScvDg/d+UxbL7MkwVH
-         q52Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=sxQo0TrlOMq0lWMXbruwrg0I1eTUMnNipPm9JCY8MIk=;
-        fh=vMC78PLW/xacJ4pDX+ZFsgu7mJCKk2KVqBuUaleDuvc=;
-        b=MmjMBrEX+DtCzTVjGH9cegogcG6NgAMDqlwySucY/X7HAsshARjtTXfo9smmkbhF/L
-         0teI2DtwkDeMbOFN6X6xlbCo3wTn4sAS6bSMhKlFq1/sFrdfrsjjMMqapssOBQcCF21S
-         64wjkYmAr+ktkynGBbrCmZfnkKgqEJXs1n9vt/pyKQOeqPQ6QD+bDeiQIb2ApfeuGFzU
-         713pJPtAFl4rkvYATEv8XaLWJsJqHNbB56SlG9Yv5UCOZ+M5hZWAYwnKKDnxv4CXMppA
-         W/MPfmxhATWL15GAk6uXr0xxqVFjy64mlJxF/ZG8Ttpf61kM+UaAr0/lIeIGAlPxgfLE
-         5bmw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791187360; x=1791792160; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=sxQo0TrlOMq0lWMXbruwrg0I1eTUMnNipPm9JCY8MIk=;
-        b=QskGlNfaKR1NGm3Rf/TBxnIjcbUDyWTdI6pkV358Sbl+UOM7z87R5FWZJJIebp4jYC
-         Xn+21AqV1bXNJiHEbjpNHdwPtqXxT7qWoVgVjSn8ffUYDhXDESqgRTCO5DDtRjIopRAp
-         cBLqLuVSQh20sZTgsqB3Ml7Qe1py7M043jwH5D9OidK3FaQ/v/G8JjaCjUVsHER+O7o5
-         a2bxYwWcrIeLxtzZqs1NNOJTz4iPa5VDdOL7La/amAQ+lYuSYXkUI5cpDYr/TpgMAU8r
-         k7xDelXzBv21hyjgOdDF0HTYfGxZ8B+8HCcqYcvjAEcOjCD/NSpTC07RPguVcCETCTmJ
-         eshQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791187360; x=1791792160;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=sxQo0TrlOMq0lWMXbruwrg0I1eTUMnNipPm9JCY8MIk=;
-        b=LSIXpvF/3PfS6qCzDLkd9Hg13/XGtM+/Ja6DrEgc561OuwTa0PBDe/zlHh37t5HzV3
-         2boA5sNWhqr/f2zHcpLYIyOxuETycqjWNi87widVE8ddX4f2aJpn/mF3ODKC8P+H4NH0
-         DeMVOO6f/Dz1RohojITD/HEycfCj95fymIRtK6Tw5uhTYPRASkNbOzay6onby7D32bun
-         nXDVLs2gmVeawZZastuebDQaktWNM52GQjF5iT8VHYT7TpHc7oIc+hET0m0WB/W8cQVN
-         JPhO9O7k/Qex2U79OE6fUeyuohZ87SXoIjQgck2RRlQbLL0P0MYFYejLjPCKw+hSb83I
-         e02g==
-X-Forwarded-Encrypted: i=1; AKwUvBx7HNJMTvvjJSPPZ19JEgy05574dFCz9f3bNcoPmZmzMInOnPTBTw9fYGSHtCIpIZp6COL1PP8eSs857KU=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLV8ecxt2vGUFxQpWwDldEvP7oQcytiqpfeM5aPZjucnQ59HD11
-	p0PNKVnocRv9PyD2m72LU+IUV3MxDCjlVgKZejxWGKK4CMBv8kjXqaclxxJ7jaIsiImd/vZ1VUo
-	Q9YZvd7IQ/rUb3ReUkc2yYSbZ1micLNw=
-X-Gm-Gg: AYBFou3VWb6c5yxWPwuiJoSpR7I4lvUfZuKTzoM9lv1VzAKEGY4IXKEfy2YMi/n7VlP
-	amUHG4PK11V7deNMeTqpYUbTGdRkxN90gXtxUCnFoX+nuXPDJ5Qh0iSHR1En3cow3CHYv2s2DIV
-	4AqgZJEeOPbYlC2b8ask7/e1mJ57gTMSWE0viLANc1WDlT+6Lc9jwXseEeMYIR3ez9mR08zVHzg
-	YM/UmmzJ0qcGgsMzQJJsqvf18FVbO/IjRMvH8djFInOXcOwR4189SA1qWA8+2GgoDL1NzI3VuBn
-	UZH4YfTYljyG/9mZah8/c/ETUyFg6iEq88SlUNI7Jzp07ETc+2/JkcLrYU1+ZY5JUakHdTkDtpJ
-	zsLQwhQFGJfbbibwR+k7CDRpokmPs0oQWsRV2y3Q7QrRBduD6oLkEGWEVh+SJpZNP2gg=
-X-Received: by 2002:a17:90b:4d82:b0:3a7:f5a0:caec with SMTP id
- 98e67ed59e1d1-3a7f5a0d163mr2413572a91.60.1791187360538; Mon, 05 Oct 2026
- 01:02:40 -0700 (PDT)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DDFEE379ED6;
+	Mon,  5 Oct 2026 08:02:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=52.59.177.22
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791187372; cv=none; b=IvVOg7CyW6hWfSLDFJ4Tp/AiarprBQRWGw2wdIacIoVKdcO2C7aKqJOWlE9evVf1+DRSWssrB/EpCZOfuoHxAIdpQLc6TkuAlH0xawG4Xh7L+VMMpZFAK8R8fyvOPwonrVHxSsAUnd5QBReV6geqEWhicbiCVldDZxCfXJubDRI=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791187372; c=relaxed/simple;
+	bh=c9PLKgT9PjUa5yu+bQ7vVgGGhEb2VwiD0sBt+bFpVDA=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=qgQkCk/l7oJ3I2+XUoH7uHfyllHlYdnxLPO5beRqaxhmXeYEU5zrJK0+ZiERebJ++Yl6JNNmulX3FRPhSF5/+qQLVV/Z0YZiWY0/6uIlbq453Wi4RTcextsxDHH/9ZoDqo7N/S3pa3AaNK45CC9PcnWtuAWb/j0wQC5c97No6NI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=mucse.com; spf=pass smtp.mailfrom=mucse.com; arc=none smtp.client-ip=52.59.177.22
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=mucse.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mucse.com
+X-QQ-mid: esmtpsz21t1791187298tcd9050ed
+X-QQ-Originating-IP: 275tgGnNQCORTtpj8gN1J7Q8ETEtg+ZTJDkvgVieLtY=
+Received: from localhost ( [203.174.112.180])
+	by bizesmtp.qq.com (ESMTP) with 
+	id ; Mon, 05 Oct 2026 16:01:36 +0800 (CST)
+X-QQ-SSF: 0000000000000000000000000000000
+X-QQ-GoodBg: 0
+X-BIZMAIL-ID: 16061130098445531546
+EX-QQ-RecipientCnt: 11
+Date: Mon, 5 Oct 2026 16:01:36 +0800
+From: Yibo Dong <dong100@mucse.com>
+To: netdev-bot+sashiko@kernel.org
+Cc: andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com,
+	kuba@kernel.org, pabeni@redhat.com, vadim.fedorenko@linux.dev,
+	u.kleine-koenig@baylibre.com, netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org, yaojun@mucse.com
+Subject: Re: [PATCH net-next v15 5/5] net: rnpgbe: Add link status handling
+ support
+Message-ID: <3B0F410B16397174+20261005080136.GC53018@nic-Precision-5820-Tower>
+References: <0FD7535DB8A65243+20261004065947.225144-1-dong100@mucse.com>
+ <179118576816.434549.7440017946535436802@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260811041934.7609-1-phucduc.bui@gmail.com> <ar_fLAeFU4rmrwiH@willie-the-truck>
- <CAABR9nGqwTGcrr6bKsV5+0GYwkQoP0s_Tu6aTJrhJJW_ZRqFYg@mail.gmail.com>
- <asCyI2_CNSoDJy1w@willie-the-truck> <CAABR9nH3pkFB-htyrD-Z+iBBcYoVX4Z-hFa_binWCXg9_cHU6A@mail.gmail.com>
- <asISGdljsG86gUwb@willie-the-truck> <CAABR9nFMR+D0j5kYR+HwLBOHG4WF7PUDrqjE4Bt0-VTUacxmBg@mail.gmail.com>
- <asJlxV06xzDIgqW4@willie-the-truck>
-In-Reply-To: <asJlxV06xzDIgqW4@willie-the-truck>
-From: Bui Duc Phuc <phucduc.bui@gmail.com>
-Date: Mon, 5 Oct 2026 15:02:29 +0700
-X-Gm-Features: AclHuK_-IzVQxn_9iJFhUH3HgnqyIHn7q3tI6SFZm8WjyMttspFJ0qnFCtIhvys
-Message-ID: <CAABR9nFz65Yt-SeHAx-Gxe18c4i3Sb3b_H-zsr7d+wwK5gB=CQ@mail.gmail.com>
-Subject: Re: [PATCH] perf/arm-smmuv3: Propagate errors from optional IRQ lookup
-To: Will Deacon <will@kernel.org>
-Cc: Mark Rutland <mark.rutland@arm.com>, linux-perf-users@vger.kernel.org, 
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <179118576816.434549.7440017946535436802@kernel.org>
+X-QQ-SENDSIZE: 520
+Feedback-ID: esmtpsz:mucse.com:qybglogicsvrgz:qybglogicsvrgz3a-1
+X-QQ-XMAILINFO: NWujniBqiFoNMUXMm/py4Me40QAC5YYSYuEisp8qODSY2Uz1ZHq7mh45
+	fwTjzeOUPrgCVSjyUwXz/+aWDFfl+4ajLAE5ZYC+FE9kb/KYFOu8AkuqOD5zvQrmdK1winz
+	8FLi162prB6Eg5Xf+l2DKrH33Kj2YmANvFzPIxlMGOtGjdKA/TLW+O99/Ad6cWiCHsw9KBx
+	YY7Rz7wIG7Y2GXKEKqSKNK6UM/9ECCnzhe+QpgWcd1mYim63nzILnI+aGj1dD2KiXMw6m12
+	uxvFBRXX7SwXs0LoNo5NDK6bFzAKf71hj8rFo1sfKrQPs0yVa3rvqf/sQM6EY8B2y7UwgK9
+	9A1mWuMaHljNkklacQs00e+7pWoT/uwaDS2PqGFKTj6fhr3Z/3ty92T5jgbyQy6s6eEM7b7
+	OMyGgQ6QyVZasgfzj4oprjyFREJ4dCPTY/aQxd0OUGzTA7PK24Uj3DDrfhEKLB3fWT8mSru
+	W1EzkcW/fKfGQ0nLqZqq1zD/2gKq+p/xnnsh9W5v32gMah/JWdy2aEYixQ2X0mMCjb8ZmzQ
+	8xwj9t1KOlKeXluVbsoGW4A0yf0AyQKJiE1to1lwJLKtdwfPQzY8sbG0KlkaxVmbp1dhEj3
+	Kymyev6esYOg4ezi3ziwSf76AVkav9fY75XOgmFTdFiJEKP5p0A24a7za5C5gHlZk+dBfrk
+	3rVjrJGOWlJH2L/X4Kgb3WUZSrG9oith3/zzSZPmK6K99rLK148e7TfP1Vv6S6qL28SZ2Ee
+	EPvVfbP8b1zSDxPcMxU9YPWgv0ExNYR/nkAml/5wvFEZ01KnzdE3yDgPhupN/y7o7fk7l/B
+	++Nm0UHmx3FUSnUuWX88+ox7skdtuQZnStUL4XOmI8oVBA30pJqf64zh7kbXFdQD4G/hda1
+	vtsMwkpku+gc66gboIPKPU/DDz2I+4zQEpigwnSrbqOI3HSGRpFJQrh1tAfFBuKXT83dOrm
+	Asnx1GpjYgq0MizAxxTMc07k7tr1Nh74Savo5kTkbndiQLUuop+cbzhKnFaoaYTq5G+e4en
+	ZVcMqjIhhUqI1/41TlkOXfqLsOS/0uj+ix/EK8yx+xo8ieLPEM6DWGaSQjTIU3ndLtLdL5j
+	0Wt4otcCY55uMov0m+8vHc=
+X-QQ-XMRINFO: Nq+8W0+stu50tPAe92KXseR0ZZmBTk3gLg==
+X-QQ-RECHKSPAM: 0
 
-Hi Will,
+On Mon, Oct 05, 2026 at 07:36:08AM +0000, netdev-bot+sashiko@kernel.org wrote:
+> Thank you for your contribution! Sashiko AI review found 1 potential
+> issue(s) to consider.
+> 
+> Critical: 0 � High: 0 � Medium: 1 � Low: 0
+> 
+> If you believe none of the issues are legitimate, please reply to each
+> issue of Medium severity or higher and explain why the AI is wrong.
+> If any of them are legitimate and you plan to respin, please let patchwork
+> know by including "pw-bot: cr" as a separate line at the end of your reply
+> (one such reply per series is enough).
+> 
+> - [Medium] Only two PF-to-firmware command senders follow the mailbox
+>   rule this patch documents.
+> 
+> --
+> 
+> net: rnpgbe: Add link status handling support
+> 
+> This commit adds handling of firmware link events for the rnpgbe driver.
+> Link events arrive over the mailbox and a service task updates the
+> carrier state. It also sends SET_PHY_UP and LINK_REPORT_EN on open and
+> close, and adds a PHY_LINK_SET command at probe that fails probe if the
+> firmware does not acknowledge it.
+> 
+> > diff --git a/drivers/net/ethernet/mucse/rnpgbe/rnpgbe_mbx.c b/drivers/net/ethernet/mucse/rnpgbe/rnpgbe_mbx.c
+> > index 2310f01df1f50..ef00b948ad0f6 100644
+> > --- a/drivers/net/ethernet/mucse/rnpgbe/rnpgbe_mbx.c
+> > +++ b/drivers/net/ethernet/mucse/rnpgbe/rnpgbe_mbx.c
+> 
+> [ ... ]
+> 
+> > + * On success the hardware mailbox remains locked. The caller must process
+> > + * the event and call mucse_mbx_event_end() to acknowledge it and release
+> > + * the hardware mailbox lock.
+> > + *
+> > + * Firmware releases the hardware mailbox lock before raising the event
+> > + * interrupt and does not access the shared window again until the PF
+> > + * acknowledges the event. Therefore, failure to acquire the lock indicates
+> > + * a mailbox fault rather than transient contention.
+> 
+> [ ... ]
+> 
+> > diff --git a/drivers/net/ethernet/mucse/rnpgbe/rnpgbe_mbx_fw.c b/drivers/net/ethernet/mucse/rnpgbe/rnpgbe_mbx_fw.c
+> > index e28f3193aa854..683e0ea741136 100644
+> > --- a/drivers/net/ethernet/mucse/rnpgbe/rnpgbe_mbx_fw.c
+> > +++ b/drivers/net/ethernet/mucse/rnpgbe/rnpgbe_mbx_fw.c
+> 
+> [ ... ]
+> 
+> > +int mucse_mbx_set_link(struct mucse_hw *hw, u32 advertising, bool autoneg,
+> > +		       u32 speed, u32 duplex, u32 mdix_ctrl)
+> > +{
+> 
+> [ ... ]
+> 
+> > +	len = le16_to_cpu(req.r.datalen);
+> > +	mutex_lock(&hw->mbx.lock);
+> > +	err = mucse_write_and_wait_ack_mbx(hw, req.dwords, len);
+> > +	mutex_unlock(&hw->mbx.lock);
+> 
+> [Severity: Medium]
+> Could a pending LINK_CHANGE_EVT stop the firmware from picking up this
+> command, or the POWER_UP command?
+> 
+> The kernel-doc of mucse_mbx_event_begin() says firmware does not touch
+> the shared window until the PF acknowledges the event. Only
+> mucse_mbx_phyup() and mucse_mbx_link_report() send through
+> mucse_write_mbx_coalesce_event(), which calls mucse_ack_pending_event()
+> first.
+> 
+> mucse_mbx_set_link() and mucse_mbx_powerup() go through
+> mucse_write_and_wait_ack_mbx()->mucse_write_mbx_pf(). That path writes
+> FWPF_SHM and bumps pf_req without checking FW2PF_CNT for an event that
+> has not been acknowledged.
+> 
+> At teardown, rnpgbe_down() only warns if LINK_REPORT_EN(0) fails:
+> 
+>     err = rnpgbe_send_notify(hw, false, mucse_fw_link_report_en);
+>     if (err) {
+>         ...
+>         dev_warn(&hw->pdev->dev, "Fw will still report link event\n");
+>     }
+> 
+> The following SET_PHY_UP(0) drops the link, so firmware can post
+> LINK_CHANGE_EVT. Then rnpgbe_rm_adapter() and rnpgbe_dev_shutdown() do:
+> 
+>     rnpgbe_free_mbx_irq(mucse);
+>     rnpgbe_notify_powerdown(mucse);
+> 
+> rnpgbe_free_mbx_irq() frees the IRQ and cancels mbx_work. Nothing
+> acknowledges the event, and POWER_UP(0) goes out on the
+> non-coalescing path.
+> 
+> At probe, the driver never turns link reporting off. Suppose reporting
+> was left enabled by a previous instance, for example after a crash or
+> kexec with the interface up, and RESET_HW does not clear it. The new
+> PHY_LINK_SET restarts autonegotiation, so an event could be posted
+> while set_link or get_macaddr is in flight. Also, mucse_mbx_reset()
+> treats an event that is already pending as consumed:
+> 
+>     val = mbx_data_rd32(mbx, MUCSE_MBX_FW2PF_CNT);
+>     hw->mbx.fw_req = FIELD_GET(GENMASK_U32(15, 0), val);
+> 
+> If the firmware rule holds, the PF would wait out the mailbox ack
+> timeout. At remove or shutdown that gives "Send powerdown to hw
+> failed". At probe, the error from rnpgbe_setup_default_link() now
+> fails the probe.
+> 
+> Should every PF-to-firmware sender acknowledge a pending event first,
+> the way mucse_write_mbx_pf_coalesce_event() does? Alternatively,
+> should a pending event be drained before these commands are sent?
+> 
+Same feedback with v14.
+I think no need to handle this. rnpgbe_down only warns is because driver
+should release memory for tx/rx even with a mailbox error.
+After a system crash, the PCIe reset performed during system
+initialization causes firmware to clear the driver-loaded, port-up and
+link-event-enable states.
+During a normal driver probe, mailbox synchronization is performed before
+RESET_HW and PHY_LINK_SET. If an unexpected pending event prevents
+mailbox synchronization, probe fails rather than continuing with an
+ambiguous mailbox state. The driver does not need to distinguish whether
+that failure was caused by firmware or by stale mailbox state.
+Therefore, after successful synchronization and reset, no asynchronous
+event can be pending when mucse_mbx_set_link() (which is called even before
+mailbox irq is registered) is called.
 
-> > > Sorry, but how is failing the probe possibly better than continuing without
-> > > the optional interrupt? Add a diagnostic if you like, but aborting the probe
-> > > feels completely unnecessary to me.
-> > >
-> >
-> > My understanding is that the driver is designed to be generic and
-> > support various hardware configurations, some with this resource (IRQ,
-> > GPIO, clock, ...) and some without.
-> >
-> > If a configuration describes the resource, it means the board is
-> > designed to use it. For that hardware the "optional" nature of the
-> > driver no longer applies, so if we fail to get the resource the error
-> > should be returned.
-> >
-> > A log alone is easy to miss, and the root cause still has to be found
-> > and fixed later anyway. Failing the probe makes the problem visible
-> > right away, when the board is being brought up.
->
-> If you're doing bring-up, you should probably pay attention to the logs.
-
-OK. Then we should probably write it as:
--------------------------------------------------------------------------
-irq = platform_get_irq_optional(pdev, 0);
-if (irq < 0 && irq != -ENXIO)
-        return dev_err_probe(pdev, irq, "failed to get irq\n");
--------------------------------------------------------------------------
-
-> If you're trying to use the device, you probably don't care about the
-> interrupt.
-
-If we're worried about returning an error here because it might cause
-the device probe to fail, then shouldn't we hide errors from all
-the other functions in probe() as well? :-)
-
-Best regards,
-Phuc
+> > +
+> > +	return err;
+> > +}
+> 
+> [ ... ]
+> 
+> -- 
+> Sashiko AI review � https://netdev-ai.bots.linux.dev/sashiko/#/patchset/B438B0A83ACCA2DE%2B20261004065604.224873-1-dong100%40mucse.com
+> 
