@@ -1,99 +1,114 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 382C64AD4A9;
-	Mon,  5 Oct 2026 14:47:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 713EC4B1276;
+	Mon,  5 Oct 2026 14:47:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791211648; cv=none; b=UJbeJc1Gsaq20LoDoNE1rXs3oMPySZiURirj/H0sUSJv2TWKFWNR8B+QGU9bM0YkLM7ojXmHeWc1iMouyiUeLJlDrN0L7XfdOgsZx+2NrhG89Fhu8hrZs7v0oxfUIj2axAfUl/fkClVY/o7qj4aTVWAm6NhnYVnaYXFjrXy7aKw=
+	t=1791211649; cv=none; b=RKQ9G1vWC1/nrFZ4KdlMfAnGXbSWt7ERTb8o4D/WOf2jrK0ltFn/T64XM7plz6Mxue4H6VLh9iUFUQoKsFdyULXLpVCJVpVZ6Lup2Jc7Ze1uBcnKSD/en6vjxKRJi1OijjpeOBHZiJxF01ehwGq3xZybilEBs5yYDfCoaecyaeg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791211648; c=relaxed/simple;
-	bh=9T2fmSNRbjXFVPQksKl+UwFKOHU4uZBn0rZ5YRuuXiU=;
+	s=arc-20240116; t=1791211649; c=relaxed/simple;
+	bh=uMIu5Sox4TMYjmLgYpIkKpT2uwe5NQio8rVoWWq/45o=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=HurUEN0c0gEdKO+XNQ8ShlruLZheROJN6VK604CS7KEEYaDCXtAbOu/w1iaU1ixhRaj61OYOCDdBGrqUklC7vUZfbnwYbbOTbYruiMzXOThL8fZwBok4btGf4Cf6ozAyrDsf+grn0Li/V4CgsnobJr7gM1Fs8WQW3mx4rfJR/hU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=IRmoPjy4; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=t7tAIAWFl5dYYO+kb2bV6QbUSHMO6fW93cdlBvpWmRRhgypwnWRSMMt3x/xS/Y/PznV18Xb2SN9BzkN6Gcossxm6tVVixDfuZWB7pZ6CYBEYLd63QY4csp93qyXLv81wdey1WOWtCs9XAtAkmjocy72zqHNYHJT+UxSLm09NmU8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=K7KBvG7h; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="IRmoPjy4"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 57A2A152B;
-	Mon,  5 Oct 2026 07:47:19 -0700 (PDT)
-Received: from localhost (unknown [10.2.196.114])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 5CCAC3F66F;
-	Mon,  5 Oct 2026 07:47:22 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1791211642; bh=9T2fmSNRbjXFVPQksKl+UwFKOHU4uZBn0rZ5YRuuXiU=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=IRmoPjy4x1D3I65S3fuZZwvM/YUbo+fDHogt0bn7J0vJ8JhY0OZ5z7xjxXYwh4Rz9
-	 AYZH7sCcEGNxNA68Dmth5z95uoeV7a5lbogEIuC1al6IH7rte27ZOnL8amzB8MTpiA
-	 97wr+5l/e0XGTei4n9y2QszmJh7+fFW/IcOgkRas=
-Date: Mon, 5 Oct 2026 15:47:20 +0100
-From: Leo Yan <leo.yan@arm.com>
-To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Cc: Suzuki K Poulose <suzuki.poulose@arm.com>,
-	Mike Leach <mike.leach@arm.com>,
-	James Clark <james.clark@linaro.org>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Mathieu Poirier <mathieu.poirier@linaro.org>,
-	Wei Xu <xuwei5@hisilicon.com>, Michal Simek <michal.simek@amd.com>,
-	Bjorn Andersson <andersson@kernel.org>,
-	Konrad Dybcio <konradybcio@kernel.org>, coresight@lists.linaro.org,
-	linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org
-Subject: Re: [PATCH 5/5] ARM: dts: qcom: apq8064: Drop PCLK from static
- replicator
-Message-ID: <20261005144720.GK1208404@e132581.arm.com>
-References: <20261002-arm_coresight_hi3660_remove_dynamic_funnel_clocks-v1-0-c3edca1c480b@arm.com>
- <20261002-arm_coresight_hi3660_remove_dynamic_funnel_clocks-v1-5-c3edca1c480b@arm.com>
- <z2bu73w3xcl4ofbp4td3rj7wazzoth5gq35obiqkrfhhfxufcq@hrfvij5jnb55>
- <20261002153328.GE1208404@e132581.arm.com>
- <umknnkfjevejagydaktpq6zgh4l2uuxy4k2f5l7v2ypr2xb57q@obtxdmeihisp>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="K7KBvG7h"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BE4001F00893;
+	Mon,  5 Oct 2026 14:47:25 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791211646;
+	bh=yd1SAc+Z/SeLtWDgli/OkIE3mIO8q60HpOea3gbr0Nk=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=K7KBvG7hmH2BPO9UY6c1HcDy6VC2GYcJjqnA/VxqhuIF+S+Cm79NDBl8hSDM7ZI3y
+	 u+kZ09nJVS+2Ts/Qf7gPzK6Rx55W/1CN8Ojft5IU/YiWH/aKCS3Q7MrUo/vsa+84ox
+	 ui8K1gez8Car+EGnXNdE8KSAxF/1ZmLICYsQwvRDIyAnpz2J9INjtLemOXIEaTBWOE
+	 IFAvi0KgHQ4/WIqZLbdyL6JQdDGhNTdtBaZJdtJ7oTywFws9azkSHqu5JJGeFgPjgA
+	 eC9m/b9crzrB2tkHO/6AMdrcBvKYdhAoFXEwu6IGIk3eOOhKng22ne8gE6xlT/Hdun
+	 4mK06hCecKAWg==
+Date: Mon, 5 Oct 2026 16:47:23 +0200
+From: Frederic Weisbecker <frederic@kernel.org>
+To: Kunwu Chan <kunwu.chan@gmail.com>
+Cc: arnd@arndb.de, anna-maria@linutronix.de, mingo@kernel.org,
+	tglx@kernel.org, linux-arch@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	"Paul E . McKenney" <paulmck@kernel.org>
+Subject: Re: [PATCH v2 1/2] rwonce: Add READ_ONCE_THIS_CPU() and
+ WRITE_ONCE_THIS_CPU()
+Message-ID: <asO4ey3X6JK0IzlY@localhost.localdomain>
+References: <20261002151757.3605081-1-kunwu.chan@gmail.com>
+ <20261002151757.3605081-2-kunwu.chan@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=iso-8859-1
 Content-Disposition: inline
-In-Reply-To: <umknnkfjevejagydaktpq6zgh4l2uuxy4k2f5l7v2ypr2xb57q@obtxdmeihisp>
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20261002151757.3605081-2-kunwu.chan@gmail.com>
 
-On Fri, Oct 02, 2026 at 07:05:14PM +0300, Dmitry Baryshkov wrote:
-> On Fri, Oct 02, 2026 at 04:33:28PM +0100, Leo Yan wrote:
-> > On Fri, Oct 02, 2026 at 06:21:36PM +0300, Dmitry Baryshkov wrote:
-> > > On Fri, Oct 02, 2026 at 04:07:24PM +0100, Leo Yan wrote:
-> > > > The APQ8064 static replicator has no registers to program, so it
-> > > > does not need an APB clock. Remove its RPM_QDSS_CLK reference.
-> > > > Other programmable CoreSight devices keep their clock references.
-> > > 
-> > > QDSS clock is not actually the APB one, it's required for the coresight
-> > > (or to access some of the regs) if I remember correctly.
-> > 
-> > If so, it might be atclk for clocking the module rather than the
-> > register interface. Could you confirm this?
-> > 
-> > The replicator is just a middle component on the data path. I read
-> > that it shares the same clock with other CoreSight components, so it
-> > should still be safe to remove the clock from the replicator node,
-> > as other components on the path will ensure that the clock is enabled.
+Le Fri, Oct 02, 2026 at 11:17:55PM +0800, Kunwu Chan a écrit :
+> Per-CPU variables are sometimes accessed from different execution
+> contexts on the same CPU, typically task context and an interrupt or
+> NMI handler.
 > 
-> Unfortunately it might be hard to find info for this platform nowadays. 
+> A plain READ_ONCE() or WRITE_ONCE() marks such an access as an
+> intentional race but does not express where the racing accesses are
+> expected to come from. This distinction allows concurrency tools such
+> as KCSAN to tell an intentional same-CPU context race apart from an
+> access that may race across CPUs.
+> 
+> Add READ_ONCE_THIS_CPU() and WRITE_ONCE_THIS_CPU() to identify accesses
+> to a per-CPU variable which are intended to race only with accesses
+> from other execution contexts on the same CPU. For now, they are
+> simple wrappers around READ_ONCE() and WRITE_ONCE(), so generated code
+> and tool behaviour are unchanged.
 
-How about rename RPM_QDSS_CLK on the static replicator as "atclk", the
-optional clock name supported by its binding.
+But there is a plan to handle that with KSCAN, right?
 
-          replicator {
-                compatible = "arm,coresight-static-replicator";
+If so:
 
-                clocks = <&rpmcc RPM_QDSS_CLK>;
--               clock-names = "apb_pclk";
-+               clock-names = "atclk";
+Acked-by: Frederic Weisbecker <frederic@kernel.org>
 
-I would leave the AMBA CoreSight nodes in the same dtsi unchanged for
-now. They need an apb_pclk lookup for register access, and so far we
-have no evidence to justify adding the same RPM clock again as atclk.
+Thanks.
 
-Please let me know if this works for you.
 
-Thanks,
-Leo
+> 
+> Suggested-by: Thomas Gleixner <tglx@kernel.org>
+> Suggested-by: Paul E. McKenney <paulmck@kernel.org>
+> Signed-off-by: Kunwu Chan <kunwu.chan@gmail.com>
+> ---
+>  include/asm-generic/rwonce.h | 11 +++++++++++
+>  1 file changed, 11 insertions(+)
+> 
+> diff --git a/include/asm-generic/rwonce.h b/include/asm-generic/rwonce.h
+> index 52b969c7cef9..4d4e009a4489 100644
+> --- a/include/asm-generic/rwonce.h
+> +++ b/include/asm-generic/rwonce.h
+> @@ -61,6 +61,17 @@ do {									\
+>  	__WRITE_ONCE(x, val);						\
+>  } while (0)
+>  
+> +/*
+> + * {READ,WRITE}_ONCE_THIS_CPU() identify accesses to a per-CPU variable
+> + * which are intended to race only with accesses from other execution
+> + * contexts on the same CPU, e.g. task and interrupt context.
+> + *
+> + * For now, these are simple wrappers around READ_ONCE() and
+> + * WRITE_ONCE().
+> + */
+> +#define READ_ONCE_THIS_CPU(x)		READ_ONCE(x)
+> +#define WRITE_ONCE_THIS_CPU(x, val)	WRITE_ONCE(x, val)
+> +
+>  static __no_sanitize_or_inline
+>  unsigned long __read_once_word_nocheck(const void *addr)
+>  {
+> -- 
+> 2.43.0
+> 
+
+-- 
+Frederic Weisbecker
+SUSE Labs
