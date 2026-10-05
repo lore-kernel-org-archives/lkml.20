@@ -1,86 +1,108 @@
-Received: from mail-oa1-f71.google.com (mail-oa1-f71.google.com [209.85.160.71])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A3CCC3002AB
-	for <linux-kernel@vger.kernel.org>; Mon,  5 Oct 2026 17:08:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.71
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0A493315D40;
+	Mon,  5 Oct 2026 17:09:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791220126; cv=none; b=Sb/3TJPWZcFN36bQCZvrjHCucrfFx1DJYmuRB7QQZ0J4JfX3JMc/K8oi7jx80a8ajzHaQxh/cnydyihNWgPZqs0zVs9DrmtxHB8oVgovRDtCmfLj0jpgp114mQdKiRHqr1H2y5Q9r1U39jIZaLDKsDiz6Itwf67jZ+Cf8mDdMws=
+	t=1791220173; cv=none; b=gZQAXFLP3om/91yCCLREdQzTr61KC0OOji/1fFBBJ7AaMDKQ2Mar6s+9OZSCvgWt1RCBkLmiyu2Bi7f27GbQ/FtTPLVlzNwOtVwgjbvmIwU3vFaSWqcHmTsyJ5B71aJfZHC0UIZk+pBF2nbJjxZEXtTR83Ozsloq4sG2Eok0vPw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791220126; c=relaxed/simple;
-	bh=q70HH/mBfJdgqeNuRYqidh7qDOCYq4fuR1vmgUYmijc=;
-	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:
-	 Content-Type; b=KKOo6Ph+7Ve/jNblwwfVW1LMfDGHBKyqL3PvHdNyKiTVXDoPeEUodLQzO1akcdmAdzTdfbsVPSjel3d4bwib2a7nmaywE881NP6fQ1plCg0umTn7sF0KPFrojZYJ0237NZIvDYKJAqXWOBJ3MPHbajrf6EUS5clhOFNoee580hE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.160.71
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oa1-f71.google.com with SMTP id 586e51a60fabf-469debb526fso2146574fac.0
-        for <linux-kernel@vger.kernel.org>; Mon, 05 Oct 2026 10:08:44 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791220123; x=1791824923;
-        h=content-type:to:from:subject:message-id:in-reply-to:date
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=pJdrtc10ArNA5uw/Q0FBfJopjkuBAZtUDip0eoty9G0=;
-        b=DautTsu3vBc0DhQe+7AfyniN3nQPfrdFVZIIfvvWQAZ5y5O9QY7uJb1zjQsxo98EDv
-         MTOBMpPt98FdsciIsZOnHskRNPUMV8fCPN9xR1xQyXaxYx1YMOp7bEtAeHuznpSVALUi
-         keuBqBijmTsFshuN61xxflvJq6w7IPENcjG/tErQ9Tlz/LL0eqB2/RzNTPjmON5FAkhq
-         JMHfOT1TTLocYoDh0Z1/peWP8cOqEcQjPPyDIS2YQ6hlWVRXExXy79GKX8NCpP32A6y/
-         1Tj9NhFo72A9e5t5qGMiQ+Kx67A5nOi8Dd66niuHR4b6twVQM0nWzP01iNvRgEZCj4cU
-         FPSg==
-X-Gm-Message-State: AFuF++kRwLXCAe6D0i/C+rByOaxz2iawv1TQpCz7BqxpKEp/AVINywT7
-	tjnAmhM3+4q48wD2mZxQ8Om49qcyWohqguTnAyRdyVp66PBpl9Ar57t0F/HO3clG7FAtRtHhZbx
-	rZlfOBxGO+EjvlYBDFlNt9WqvasXMVZ6KJW8kDZiztJYdDrqZJdyM2WvaBuM=
+	s=arc-20240116; t=1791220173; c=relaxed/simple;
+	bh=83wnAbolvG+4SygbDURA1WbryUwbrJKksQ6F+VlfaiY=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=fCTYLLX2Umk61ugPypBkxJhz9M/ni3ivVzqQM/SxzYE3noyYDyODoCzWEQtdRVIU07vi+6Z3fAiUHYNOzWnQ8RN833wSj6+9uDylUS1cFVlcRz56tYYbqYdVkwu3/s1JCLOMvqJDf2/uEVdSWmo7xyw8ERZOK8QwhEKtqmASTGA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BZPXBoaR; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BZPXBoaR"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 64ADE1F000FF;
+	Mon,  5 Oct 2026 17:09:31 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791220171;
+	bh=aHp1IwBXNu4k0HS2L7U3npvTY1+CW3Wkn5yoUJOYsuA=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=BZPXBoaR3tiQDmCQTXaxLXDI5OHnWaCqTZYnEBoUv2blrhAwqXC10QDNvxNBlydFU
+	 n2+ZcJ0RxU2GdyuN67yut49U0UwWXcgOLlgY75rzLbsIzsPU+nOdKDa29RltG8U+xu
+	 WBlz3cNtjzjcMCUHyyjZ/Do1LwpDNK1DpI8XUGDms/ByoRRPEh0FdxhS4/NQArZYm0
+	 BwYwYq98upKB7VSjMnRvK2c8AHBBljDs2/TS8iaLnTHA093YWYQCC0qP1ZAf/C5I32
+	 BaSZXUPrftwJpzlNz6U+9VuaWcYeGhstwGbdz3NgWbF8LnJu4AXMBD9UifIVtfafe3
+	 4bfSF3LIrWh2Q==
+Received: by traversing.sirena.org.uk (Postfix, from userid 1000)
+	id A229716EA206; Mon, 05 Oct 2026 18:09:27 +0100 (BST)
+Date: Mon, 5 Oct 2026 19:09:27 +0200
+From: Mark Brown <broonie@kernel.org>
+To: Chen-Yu Tsai <wenst@chromium.org>
+Cc: Matthias Brugger <matthias.bgg@gmail.com>,
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+	Dmitry Torokhov <dmitry.torokhov@gmail.com>,
+	Jiri Kosina <jikos@kernel.org>, Andi Shyti <andi.shyti@kernel.org>,
+	Benson Leung <bleung@chromium.org>,
+	Tzung-Bi Shih <tzungbi@kernel.org>,
+	linux-mediatek@lists.infradead.org, devicetree@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	chrome-platform@lists.linux.dev, linux-input@vger.kernel.org,
+	linux-i2c@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v6 1/8] regulator: core: Add "enable and wait" functions
+Message-ID: <asPZxyprhyZtnPtc@sirena.org.uk>
+References: <20260901074930.764550-1-wenst@chromium.org>
+ <20260901074930.764550-2-wenst@chromium.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Received: by 2002:a05:6808:1190:b0:4ec:b083:c6a7 with SMTP id
- 5614622812f47-4f67a1f7da0mr7791164b6e.36.1791220123581; Mon, 05 Oct 2026
- 10:08:43 -0700 (PDT)
-Date: Mon, 05 Oct 2026 10:08:43 -0700
-In-Reply-To: <6ac332eb.598348e0.18b15.0000.GAE@google.com>
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6ac3d99b.34119e79.2f92f3.0036.GAE@google.com>
-Subject: Forwarded: [PATCH] media: usb: siano: Test fix
-From: syzbot <syzbot+d627b1495de0e851be32@syzkaller.appspotmail.com>
-To: linux-kernel@vger.kernel.org, syzkaller-bugs@googlegroups.com
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="YrEJvP9azbYsig5Q"
+Content-Disposition: inline
+In-Reply-To: <20260901074930.764550-2-wenst@chromium.org>
+X-Cookie: Use the Force, Luke.
 
-For archival purposes, forwarding an incoming command email to
-linux-kernel@vger.kernel.org, syzkaller-bugs@googlegroups.com.
 
-***
+--YrEJvP9azbYsig5Q
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-Subject: [PATCH] media: usb: siano: Test fix
-Author: jakovnovak30@gmail.com
+On Tue, Sep 01, 2026 at 03:49:19PM +0800, Chen-Yu Tsai wrote:
+> In device power sequencing and initialization use cases, it is common
+> for the driver to enable the regulator and then wait for a certain
+> period of time to pass before continuing.
 
-#syz test
+This breaks the build:
 
----
- drivers/media/usb/siano/smsusb.c | 6 ++++--
- 1 file changed, 4 insertions(+), 2 deletions(-)
+make --silent --keep-going --jobs=15 O=/build/stage/build-work ARCH=arm64 CROSS_COMPILE=aarch64-linux-gnu- CROSS_COMPILE_COMPAT=arm-linux-gnueabihf-
+error[E0425]: cannot find function `regulator_enable` in crate `bindings`
+      --> /build/stage/linux/rust/kernel/regulator.rs:288:38
+       |
+   288 |         to_result(unsafe { bindings::regulator_enable(self.inner) })
+       |                                      ^^^^^^^^^^^^^^^^
+       |
+      ::: /build/stage/build-work/rust/bindings/bindings_generated.rs:129557:5
+       |
+129557 |     pub fn regulator_disable(regulator: *mut regulator) -> ffi::c_int;
+       |     ------------------------------------------------------------------ similarly named function `regulator_disable` defined here
+       |
+help: a function with a similar name exists
+       |
+   288 -         to_result(unsafe { bindings::regulator_enable(self.inner) })
+   288 +         to_result(unsafe { bindings::regulator_disable(self.inner) })
+       |
 
-diff --git a/drivers/media/usb/siano/smsusb.c b/drivers/media/usb/siano/smsusb.c
-index 0fdc2e0950b7..ef400d01af31 100644
---- a/drivers/media/usb/siano/smsusb.c
-+++ b/drivers/media/usb/siano/smsusb.c
-@@ -348,8 +348,10 @@ static void smsusb_term_device(struct usb_interface *intf)
- 		if (dev->coredev)
- 			smscore_unregister_device(dev->coredev);
- 
--		for (i = 0; i < MAX_URBS; i++)
--			usb_free_urb(dev->surbs[i].urb);
-+		for (i = 0; i < MAX_URBS; i++) {
-+			// if (dev->surbs[i].urb)
-+			// 	usb_free_urb(dev->surbs[i].urb);
-+		}
- 
- 		pr_debug("device 0x%p destroyed\n", dev);
- 		kfree(dev);
--- 
-2.56.0
+error: aborting due to 1 previous error
 
+
+--YrEJvP9azbYsig5Q
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmrD2cMACgkQJNaLcl1U
+h9AfZQf+PsDxB00eDcNx08x42/Y8fiZnF71clFrO1HwZnCiLdc7yCTPXLLx4zDKy
+ANBnVA3TnNa3XkujT86RslaDWHZ/xHJYKTYJk/8g3m4jlsT+zqnuczwjSSbw1/P2
+qBRBVMVH/M/Z/QcEBFqUJFripURbPuBSgKCpFCIq3AMxLBlKRdzfyqT385RQDRG0
+VOuQEn6cpSkP3ZhzyNJN210Ahh1lxoP0tekk7fBsgZJrgYiaFv5WFJUsNRx4NMtp
+x9rrsIqG0LOba3RVAkgbQBNUaEXcHWzrOZlmWPbAA77QXS9CMUSWbehYaLg+fsX/
+SnC0TnX4r3B6xm0zeLZoBD+3zij8dA==
+=mSZA
+-----END PGP SIGNATURE-----
+
+--YrEJvP9azbYsig5Q--
