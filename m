@@ -1,108 +1,126 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B46444DA9CA
-	for <linux-kernel@vger.kernel.org>; Mon,  5 Oct 2026 17:17:51 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 539184DA9D5;
+	Mon,  5 Oct 2026 17:17:54 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791220672; cv=none; b=XpbRn4WhbdSyoxf3lix+IzLDiOE9Ex+z7LWeS/G5ysSvoPwjOoZOGHyh7f9CWMK1JWU3YINCGCcBy5GvStbhHS18OnkzRs+wEP9LQR+JWXcoplB3qe8QmgUsgYJQ+XqT94VEQcvwODu7xL0n4YKjdiSVs9G7HY9QAcgYpOh1Lt8=
+	t=1791220675; cv=none; b=lU6qy/0rvSvK537Uo039FHY5xYzTdj90PF9zsDmvS5bsD6IdMkC2+EWuyDb5fvOH1ciZp2D7IbtXIVnQEoSOKW3HkTNaZzOVfdKiT9PivqJg8NEo5AaqrlSIJdxcMl9EpNfkHD2pIv2o1+QuztiZ0LYdEuZD48Bml/L1Z9nY0Co=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791220672; c=relaxed/simple;
-	bh=0Hg/Hl+xyrdq4BMlDMKk7I4UI2i/FIMSsDUZlphM3tQ=;
-	h=Date:From:To:cc:Subject:In-Reply-To:Message-ID:References:
-	 MIME-Version:Content-Type; b=fYFdG7y06757xDtR+QQ5vTvUO2Q5/6lAVb0gtClEM39H2FV818QLPX3zm28xqHuQmeo3cPJO4cvvZvJybnjjeoiTIMWEv6Y1izBjiYmkT/7fTxMeCJSLciQATOl/tYdheNos6BMIJvF61NwGMzI7I9fK8hAJ/7DLQl8HSIksCWI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kDIbKGuZ; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791220675; c=relaxed/simple;
+	bh=u1NVzaRJ2vTU9eMZZv9lm+tsbQ4+A2jK4wjA3MDRpNc=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=H72gCOpoI3/tlFflTdKl+ex2oyc5kBoxJ1Wg93DaL77ercL9TgHOehJKTN1kkF3u9e4clf6dg0zmKspi+rWuuEobQBVZIQq34TCS5FmvEYTGqFQQEEAX5ldpnLMVZilcIxvJd3zwvWUi7LAeZb9w+C2WvleTkNf/lGUqZd1uh0Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=AV4wG4tz; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kDIbKGuZ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7DD7B1F00898;
-	Mon,  5 Oct 2026 17:17:48 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="AV4wG4tz"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2DC1C1F00899;
+	Mon,  5 Oct 2026 17:17:51 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791220671;
-	bh=Ymq6W5k88Rw+hVc9kKcw2Uav+weX0N5PgaqyYjKKNzI=;
-	h=Date:From:To:cc:Subject:In-Reply-To:References;
-	b=kDIbKGuZoC1H8ltVNn4uWnWUp1ldMPvq/u8Zj2BBGCDSqORZyRdgOMO2TLyUGTSsJ
-	 Z9L6yEB1cWsuDPJH1YYIDKBYQtFPaFa68GKHWjI6i87C5lMW5gRHCT3HCNT55yqO98
-	 bhH/Rr8vk2s4kscDewWiXMPTWYuoc76rbS5Nxxnihhy0xNiDXKhXUika2+HIjD+5Uu
-	 lMP/EDxJCU/OiFKpkQtqf3Y7gNf/sEM3MTqNZOaZb+HK3jNwVPToUszWF3sKRhPSXt
-	 NfrGzJnBZL7vwdh8HUhadqBuwRJaszf+3VgyWoAQsqbfrLG0pJ3+GXw5VeIwLlVcyC
-	 ijkvN/gls3aVw==
-Date: Mon, 5 Oct 2026 11:17:46 -0600 (MDT)
-From: Paul Walmsley <pjw@kernel.org>
-To: gao.rui@zte.com.cn
-cc: pjw@kernel.org, palmer@dabbelt.com, aou@eecs.berkeley.edu, alex@ghiti.fr, 
-    jiangfeng@kylinos.cn, david.laight.linux@gmail.com, 
-    linux-riscv@lists.infradead.org, linux-kernel@vger.kernel.org, 
-    jmontleo@redhat.com
-Subject: Re: [PATCH v3] riscv: fix strnlen() overflow in Zbb implementation
-In-Reply-To: <202609300948576198tT3nfO5VwsTwUw23gA9v@zte.com.cn>
-Message-ID: <501e0def-c7ab-0f0c-cc19-7de5d253ca0d@kernel.org>
-References: <202609300948576198tT3nfO5VwsTwUw23gA9v@zte.com.cn>
+	s=k20260515; t=1791220674;
+	bh=4gvZ0mNp28B0IeGJ5d1Ts4t7ZcljCx6RsUEjTCNLv8k=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc;
+	b=AV4wG4tzEMFKRq5n4UCDWmM5KJ20+W4nTAXDpChmmtzFk5QpvYz6TUkSn952hSCPY
+	 KG7seo1JgVvfIt68s329/fOb/wcTSjX4MBX0dqnZ9XeMy4CqomksE9o8gCxj2fAYd9
+	 9auB0VQwxl5UFMPf/OjWeTifaR+yRArWoDnmp3Umpqy0b9tg7MxvvVd9TTiSDoJD6Y
+	 AbfPBdxFfmcK5N1YSzCwFO7lrBIwKka2x5YAHMWQJU0E2eTivLyiOOZ2bOmJ/He6ZQ
+	 3P6c8Yzf8HMNIse/r8WJVwDmxcuxGbT4/zQRvc2nXK7QZ9xLRk1NH/3mMwmpTbexJB
+	 l59TxJtLvUL4g==
+From: Bryan O'Donoghue <bod@kernel.org>
+Date: Mon, 05 Oct 2026 19:14:07 +0200
+Subject: [PATCH 37/74] media: qcom: camss: vfe: Decompose repeated code
+ down to __vfe_src_pad_default()
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261005-linux-mainline-7-2-sm8650-hdk-rfc-0-v1-37-ed985aefd611@kernel.org>
+References: <20261005-linux-mainline-7-2-sm8650-hdk-rfc-0-v1-0-ed985aefd611@kernel.org>
+In-Reply-To: <20261005-linux-mainline-7-2-sm8650-hdk-rfc-0-v1-0-ed985aefd611@kernel.org>
+To: Bryan O'Donoghue <bryan.odonoghue@linaro.org>, 
+ Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>, 
+ Loic Poulain <loic.poulain@oss.qualcomm.com>, 
+ Mauro Carvalho Chehab <mchehab@kernel.org>, 
+ Jacopo Mondi <jacopo.mondi@ideasonboard.com>, 
+ Daniel Scally <dan.scally@ideasonboard.com>, Keke Li <keke.li@amlogic.com>, 
+ Richard Acayan <mailingradian@gmail.com>, 
+ Hans Verkuil <hverkuil@kernel.org>, 
+ Gjorgji Rosikopulos <quic_grosikop@quicinc.com>, 
+ Radoslav Tsvetkov <quic_rtsvetko@quicinc.com>, 
+ Robert Foss <rfoss@kernel.org>, Milen Mitkov <quic_mmitkov@quicinc.com>
+Cc: linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, Bryan O'Donoghue <bod@kernel.org>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1430; i=bod@kernel.org;
+ h=from:subject:message-id; bh=u1NVzaRJ2vTU9eMZZv9lm+tsbQ4+A2jK4wjA3MDRpNc=;
+ b=owEBbQKS/ZANAwAKASJxO7Ohjcg6AcsmYgBqw9sbF2uobvBMbG9T9jhfFvrcciLf7mmef0RpU
+ KAXmYB2c36JAjMEAAEKAB0WIQTmk/sqq6Nt4Rerb7QicTuzoY3IOgUCasPbGwAKCRAicTuzoY3I
+ Ok+TEACIqc+sf4hXlKdc1XA31wbs3h7N6cJw0dxBOjKcMYCEOSrJUyhhlUZvvJhSWWf0Cg3rFR5
+ 7xykX7afdATNRx0XT/6HUXtOJp0Ni/m/PfI0NeTiVJ6MT4eI1F/kOj5qeYKEZ1LuV7phJKgvOQX
+ 7M445ybwJg9zWa3mlQklPtaQl1V8ViycOjhJ0/6PO3ObO1ZDVb21cBz4brh8Dzx4wOwP7QsQYx+
+ R1qwxPxCMMztKPg6JSzmmRJsxXUXNJeeJOgGPWjnzgh5BNLMTHXYl5oGd4pBdzvGsB5ZbjHv23v
+ 5tbFzgMFBHoK4S6uiLz3PmniwYsOS+a6BanGE9gEe4MA8CSRELh/prQwc/GuVGGE/3fZ+PggRrT
+ CL7DwP4W1GMajj+7hByu3G/IQHXiRYHYAlbEHMUiu42H58rIKXRN9N49cQ/Jimlg0Fn6gHy5FAB
+ QyKtHfeJq1TERbOzU9/ARN6iFojvsg3FHdtIoGEOtmWY3KVCVmW0yb2t1RKe8Foq/MdBRmuT9K7
+ 8LkthsGKjH2do7cmkilOXfdcJVATwbHaj6V5+9emvWSmugtBOgW3kOTLk2X3tGz3+KKs1Sj4dup
+ XMzgPXlFbRjYU9vXnDlia/1Qvh+/02U+9/aKreZgN5lyS8Z5Dz2PNr+ipTyShDgLbaYtk2gLvBD
+ IwzW78/Kslgds7Q==
+X-Developer-Key: i=bod@kernel.org; a=openpgp;
+ fpr=E693FB2AABA36DE117AB6FB422713BB3A18DC83A
 
-Hi Gao Rui,
+Signed-off-by: Bryan O'Donoghue <bod@kernel.org>
+---
+ drivers/media/platform/qcom/camss/camss-vfe.c | 18 ++++++++++--------
+ 1 file changed, 10 insertions(+), 8 deletions(-)
 
-On Wed, 30 Sep 2026, gao.rui@zte.com.cn wrote:
+diff --git a/drivers/media/platform/qcom/camss/camss-vfe.c b/drivers/media/platform/qcom/camss/camss-vfe.c
+index 43c91ec8db494..c8ab5e124ad4b 100644
+--- a/drivers/media/platform/qcom/camss/camss-vfe.c
++++ b/drivers/media/platform/qcom/camss/camss-vfe.c
+@@ -435,6 +435,14 @@ u32 vfe_bus_v3_packer_fmt(u32 v4l2_fmt, u8 plane, u8 align_shift)
+ 	return VFE_BUS_WM_PACKER_FMT_V3_PLAIN_128;
+ }
+ 
++static u32 __vfe_src_pad_default(unsigned int index, u32 sink_code)
++{
++	if (index > 0)
++		return 0;
++
++	return sink_code;
++}
++
+ static u32 vfe_src_pad_code(struct vfe_line *line, u32 sink_code,
+ 			    unsigned int index, u32 src_req_code)
+ {
+@@ -486,10 +494,7 @@ static u32 vfe_src_pad_code(struct vfe_line *line, u32 sink_code,
+ 						      index, src_req_code);
+ 		}
+ 		default:
+-			if (index > 0)
+-				return 0;
+-
+-			return sink_code;
++			return __vfe_src_pad_default(index, sink_code);
+ 		}
+ 		break;
+ 	case CAMSS_660:
+@@ -560,10 +565,7 @@ static u32 vfe_src_pad_code(struct vfe_line *line, u32 sink_code,
+ 						      index, src_req_code);
+ 		}
+ 		default:
+-			if (index > 0)
+-				return 0;
+-
+-			return sink_code;
++			return __vfe_src_pad_default(index, sink_code);
+ 		}
+ 		break;
+ 	default:
 
-> riscv: fix strnlen() overflow in Zbb implementation
-> 
-> The RISC-V Zbb optimized strnlen() implementation can return incorrect
-> results when very large count values are supplied.
-> 
-> The previous implementation calculates an end address based on the
-> input pointer and count. When count is close to SIZE_MAX, the address
-> calculation may overflow, resulting in incorrect termination checks and
-> wrong return values.
-> 
-> This issue was observed while running device-mapper tests:
-> 
-> dmsetup create testname9 --table "0 8 zero"
-> cat /sys/block/dm-*/dm/name
-> dmsetup remove testname9
-> 
-> Rework the Zbb implementation to use a word counter instead of an end
-> address. This removes the dependency on end-address calculations,
-> avoids overflow entirely, and simplifies the termination condition of
-> the word scanning loop. The final length is calculated using the saved
-> original pointer.
-> 
-> Performance was evaluated with string_bench_strnlen:
-> 
-> New Implementation Previous Implementation
-> 
-> len=0 : 71 ns/call 70 ns/call
-> len=1 : 82 ns/call 81 ns/call
-> len=7 : 83 ns/call 81 ns/call
-> len=8 : 83 ns/call 81 ns/call
-> len=16 : 94 ns/call 90 ns/call
-> len=31 : 117 ns/call 113 ns/call
-> len=64 : 175 ns/call 167 ns/call
-> len=127 : 259 ns/call 258 ns/call
-> len=512 : 802 ns/call 833 ns/call
-> len=1024 : 1512 ns/call 1536 ns/call
-> len=3173 : 4581 ns/call 4640 ns/call
-> len=4096 : 6256 ns/call 6068 ns/call
-> 
-> Results show comparable performance to the previous implementation
-> while fixing the overflow issue.
-> 
-> Fixes: 5ba15d419fab ("riscv: lib: add strnlen() implementation")
-> Suggested-by: DavidLaight <david.laight.linux@gmail.com>
-> Signed-off-by: Gao Rui <gao.rui@zte.com.cn>
+-- 
+2.55.0
 
-Thanks for your patch.  I took Shao Mingyin's patch for this instead, 
-although I would have preferred that he work with you to clean up your 
-patch instead, for the reasons described in
-
-https://lore.kernel.org/linux-riscv/970c63ed-9fa8-9d1f-4521-0a7119b9d6e5@kernel.org/
-
-If you think that Shao Mingyin's approach can be improved upon, please 
-send a followup patch.
-
-
-- Paul
