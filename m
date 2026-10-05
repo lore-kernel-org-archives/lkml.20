@@ -1,132 +1,136 @@
-Received: from mout-p-201.mailbox.org (mout-p-201.mailbox.org [80.241.56.171])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-yx2-f10.google.com (mail-yx2-f10.google.com [74.125.224.138])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 51C4A547047;
-	Mon,  5 Oct 2026 05:59:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=80.241.56.171
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 95E2A305692
+	for <linux-kernel@vger.kernel.org>; Mon,  5 Oct 2026 06:00:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.224.138
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791180000; cv=none; b=GqGP0CIIpWvSk4TTBtvaHrsC2SMYdFZm3upAXWyzm221HwBCmXLmYNZymbuTc2wyUTo952opdmpj9V7QaM6NDVpPZveIhfgIF9xsKN0akClFODKhZMyUvB61nJGGRBkDnuFd7JEFmyQxFTnzhJ+pGznPYk00TSw6k79C5hep88o=
+	t=1791180035; cv=none; b=AhnpdsvohQVAmJ1BIWkX7HuPudlnmg70nvzoSxDH6RJAfVW7reR9xB+GQY84ZfFlMy3ztKGRDFM8k4uZbac1OJJCF0cEjcOVlLhDTo8qVcUpaK3vA9qvEkKNImmbH0HsQOPgofy7Sfe2u2t72K64+zbfHQEg2EPm8G5ZXsrcEHI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791180000; c=relaxed/simple;
-	bh=aLItZcP/H5RkTQJ8n3LRci/NNeMojm8BixxlFLZtxLs=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=TPHHYygkbFwYUzayO4LF5J97p8Ib+uL5ktHeCroRQhoMf9qO+E9mnLEgVCBUfAgpT/YGjPqY4Lf2p4KKiiMgF4EKXxUjPSOHHkOLtUsEQRIHi1eRmFQuRb3Mv03ZGhpK6oDhsKSmGrz0USXVxHq3BOkJxpw2zyrtTDrtT5fghC4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org; spf=pass smtp.mailfrom=mailbox.org; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=bDP4oqrO; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=igkD8Dwq; arc=none smtp.client-ip=80.241.56.171
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mailbox.org
+	s=arc-20240116; t=1791180035; c=relaxed/simple;
+	bh=ZsHnozCFRe8N55w99HabQxN8D2KdU1j/ypL3jxREuRY=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=CsAav1K3//+lIublTRnJlpnb2lG+kSyqPVh7ihdytGVcYAOb6rnyyLF+enRI+FEaXtUhfgk+y22KyG4tVxTcF5eu8+iMRan6fikaiWnthWveb5+XFP79lTwwKXG+jFodWMRrsNIF8ZAe1h8AOoT5sMbKx3K7c72kDx44jzcYte0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=gRYULtAt; arc=none smtp.client-ip=74.125.224.138
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="bDP4oqrO";
-	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="igkD8Dwq"
-Received: from smtp1.mailbox.org (smtp1.mailbox.org [IPv6:2001:67c:2050:b231:465::1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mout-p-201.mailbox.org (Postfix) with ESMTPS id 4hypd16D3FzMlFx;
-	Mon, 05 Oct 2026 07:59:49 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
-	t=1791179989;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=vYn/txQTt5JlfdIUpIoIQbi2SYnYhnBxGZBwbOOJ3A8=;
-	b=bDP4oqrO+qbc5dxsqxH43WHVmHBn5kTmFU5BtZgI5mabTpJEmNzw2KjEXJ3tMFGG5a1HYh
-	Mjxd8yRJoqNZ2SECG3Mkn39p7RMHG0jmNRrZact9h8iRG6+mG6IAUv1Lmwg5TBqQAOdIY5
-	vN2CSRUqQB7327ZGYHtydN0vUjk7s7d+EKzNcRl70AYW4M/SNQEsp18+5PQAb+tUTEXKIj
-	VdgSbJelvrJ1Rh6K9P+PFt+v/xH6SmsxWH/Xgr40vJR5NwFDlJ5FsvzCQ2wYPYS3kIaTun
-	/ZswjFxOQdcbH9UQCF+VnQNjk0Vy96UXORq4utEPeZmrXVokUYeqIhtVe0EkMQ==
-Authentication-Results: outgoing_mbo_mout;
-	dkim=pass header.d=mailbox.org header.s=mail20150812 header.b=igkD8Dwq;
-	spf=pass (outgoing_mbo_mout: domain of marek.vasut@mailbox.org designates 2001:67c:2050:b231:465::1 as permitted sender) smtp.mailfrom=marek.vasut@mailbox.org
-Message-ID: <5ad29672-c9c6-4bc8-ba41-cf96528cd9c1@mailbox.org>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
-	t=1791179988;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=vYn/txQTt5JlfdIUpIoIQbi2SYnYhnBxGZBwbOOJ3A8=;
-	b=igkD8DwqoPp8x18Hsevt6m6YlQi9Jj501tcuU86iKghx8mpZfU4WcDZYy6nj0swCm0VoG8
-	4ztuikVL5lGGISWfMACANNlIjPxT5ThX+k6Lr1145WJ/0TGe1ulem9Z/vd7GfXlluXIvh/
-	Vy5cCascM29appNFrudY6TQp219bbGDA1n5MXzg1Oki8eZSdJtmjKYRFQ/a04htH4ZQwV0
-	9DMdwYIS/DsLDPxlo3wwxXYMdI/pIPpDC65K8psTVpKBkdL2R5DtiuPG+7Ks83evTjj5NC
-	cmSirz+mBXcC21pLG4K0d0lJelbzK9MizXcs7uiFl6U8ANV3iae0PdMsXEIPiw==
-Date: Mon, 5 Oct 2026 07:59:42 +0200
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="gRYULtAt"
+Received: by mail-yx2-f10.google.com with SMTP id 956f58d0204a3-66c711552cbso589906d50.1
+        for <linux-kernel@vger.kernel.org>; Sun, 04 Oct 2026 23:00:32 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791180031; x=1791784831; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=SUcUukBNYZdbFMBXRaDby96SHcIwSALeSewClcQZ668=;
+        b=gRYULtAtKBBOgGWAUJrpuqkvShG5GGPH+lwl9LqyUW9LL/567VtLTRj3cC16sAQlpe
+         1y+o53sdU9IkQSnQpdf6BUekiZVQB0313pKBHkMcGCbJTbH0lxN3KU08swiory2tgc06
+         XeJ/Jv/FbrGWkgtKWpPuQHzLm/W0DG3AdTKZErPxaujZaT7XaYrD6DG1B5gRi81OINT1
+         Zs6w47QjWG/T88Dvqauzvx0GQJHy+YSdkm/ubS37p+J5mCM6yZK0yJV0i8HyiUpK5d7+
+         RHftWIBYS/aY/okIrhc+lMbezq6/ThqXUpWJY47JU4MsKE8Mqpex+l1iL7zttfVyi9zg
+         P7ww==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791180031; x=1791784831;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=SUcUukBNYZdbFMBXRaDby96SHcIwSALeSewClcQZ668=;
+        b=anQGtd8aViO0fQ1+Yq2BBoE+rNCdI/PfetwirZLX9OZWmA5PS/xQkGFheOdbNiAXuD
+         +H4WpyYYa92WNORrxpdqhoxCBbfoS3zdS4jDEW1jZHsvDMJCdEPE9j8ekrETIyUR98va
+         rNaFe7JISiFskjnhpBln0yEvJpEDfysVoBdejg8jRy7FCRFisTtGsQivtWfsGK13H9ma
+         cOdgbYhrqQPQNX6Ebg/2hgOT6VrC60q2x+9lMaiHz9KGfwADvhEfAwmJzWJxMZs3tx23
+         GUSECofuJlWos/KN5V71VEHkiLXTKOS+JUz/T4kSNGefCoyopdDKqz6HSXLZvRXzPTjS
+         s4pA==
+X-Forwarded-Encrypted: i=1; AKwUvBx1C1Z0ywb/8SwHhkeNEbCYr6yHAdnYrX3enjWAsVVLSOUV0/Uh+uxk4A0xT/53jn/lYj5/PHX+Qmpzj64=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKqNE/HPw+EiVQ1mLbr6Zt2ygE6C/jWe5EuJOFL17yXKPWRyp37
+	lCtr6lHZAjqIfirO3VnucVDscmPjwuk9N6yXoOVT9DOhT/NLXR7maZVO
+X-Gm-Gg: AYBFou1T0DnYxDusNVHGPe2BhmwsCRx5cElMpAN8cA6//itBwHzjinhWJg/zex/8fub
+	nuZPeMhr7gtZtc2ohlbzD9lJZaiGyz06F3AZDsVbqQ53vDGpf1ibFscpGSV91S8NPouWdBquf91
+	aCemNvW5rmqDT4TsSZTn9w6d64uxOFHlyKEk+G/tVFCN3GPU2fPZ3AHMKvM0+NcPWmavz1Re533
+	A+DV8nzaRu4+UBwFR3y+/PvwEDckwjanoLRKCNvnANlp6yszc7mIK2dX/dbM5OCoXhURh4ULro2
+	QzCFkB+BRd0bskK6Xh4LOkWE0E7PLbAQKk3TY1yV8j3UT3mvzRcw9WNuUsSFMdBoBIkeRNDEApx
+	yxyQtybcuEINuC5QP9sV8Jre+lY2GwFNc5PZm2LV4iKO5gZs2aMw7BmDKXSa+2ImQYO8XTJEI+1
+	X90ALPf//ywLAIXGciGLSSiUAC+KysAsuiYdjN23QLsIDjThO79z4ncj46GEBaP7iZOY7gC6S75
+	EzUmCLfuHAuP0kjJ4dSNm5RB0GQ+0NWtu5JunTe0nRboLdkG8zd
+X-Received: by 2002:a05:690e:4090:b0:677:c85f:2abe with SMTP id 956f58d0204a3-677c85f396dmr1858797d50.7.1791180030581;
+        Sun, 04 Oct 2026 23:00:30 -0700 (PDT)
+Received: from Xinshengs-MBP.attlocal.net ([2600:1702:7d20:7d20:edd1:61d6:442f:e3ff])
+        by smtp.gmail.com with ESMTPSA id 00721157ae682-8ae33fe81fdsm35786777b3.47.2026.10.04.23.00.29
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Sun, 04 Oct 2026 23:00:30 -0700 (PDT)
+From: Xinsheng Zhu <xinsheng.zhu.ny@gmail.com>
+To: netdev@vger.kernel.org
+Cc: linux-usb@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	andrew+netdev@lunn.ch,
+	davem@davemloft.net,
+	edumazet@kernel.org,
+	kuba@kernel.org,
+	pabeni@redhat.com
+Subject: [PATCH net] net: usb: r8153_ecm: reject short register reads
+Date: Mon,  5 Oct 2026 01:59:43 -0400
+Message-ID: <20261005055943.35180-1-xinsheng.zhu.ny@gmail.com>
+X-Mailer: git-send-email 2.54.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 02/15] PCI: rcar-gen4: Check live link status in
- link_up()
-To: Koichiro Den <den@valinux.co.jp>
-Cc: Marek Vasut <marek.vasut+renesas@mailbox.org>,
- Yoshihiro Shimoda <yoshihiro.shimoda.uh@renesas.com>,
- Lorenzo Pieralisi <lpieralisi@kernel.org>,
- =?UTF-8?Q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
- Manivannan Sadhasivam <mani@kernel.org>, Rob Herring <robh@kernel.org>,
- Bjorn Helgaas <bhelgaas@google.com>, Krzysztof Kozlowski
- <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
- Geert Uytterhoeven <geert+renesas@glider.be>,
- Magnus Damm <magnus.damm@gmail.com>, Jingoo Han <jingoohan1@gmail.com>,
- Philipp Zabel <p.zabel@pengutronix.de>, Frank Li <Frank.Li@nxp.com>,
- Niklas Cassel <cassel@kernel.org>, Wilfred Mallawa
- <wilfred.mallawa@wdc.com>, Serge Semin <fancer.lancer@gmail.com>,
- linux-pci@vger.kernel.org, linux-renesas-soc@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20260928165230.3397664-1-den@valinux.co.jp>
- <20260928165230.3397664-3-den@valinux.co.jp>
- <d675e0ba-10f3-4503-bc2e-61977f4a5875@mailbox.org>
- <c038dbd9-7675-43a9-834c-915b6795dd50@mailbox.org>
- <abcodlpsh2k2cood5czno5fqb32uxdrrzy7lwougxhil7zlqbj@b7a7v3kouwxn>
-Content-Language: en-US
-From: Marek Vasut <marek.vasut@mailbox.org>
-In-Reply-To: <abcodlpsh2k2cood5czno5fqb32uxdrrzy7lwougxhil7zlqbj@b7a7v3kouwxn>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-MBO-RS-ID: 05438c2c60fc43063f0
-X-MBO-RS-META: oz56gi4f1mnfg6g33unuyomhtsd3oxhi
-X-Rspamd-Queue-Id: 4hypd16D3FzMlFx
 
-On 10/5/26 6:22 AM, Koichiro Den wrote:
+pla_read_word() and pla_write_word() read four bytes into an
+uninitialized stack variable, but only check usbnet_read_cmd() for
+negative return values. The helper can also return a non-negative
+length smaller than requested, leaving part or all of tmp
+uninitialized.
 
-Hello Den-san,
+pla_read_word() may then derive the register value from uninitialized
+bytes. pla_write_word() may include uninitialized bytes in the buffer
+sent to the device during its read-modify-write operation.
 
->>> I apologize for the late reply.
->>>
->>> Reviewed-by: Marek Vasut <marek.vasut+renesas@mailbox.org>
->>> Tested-by: Marek Vasut <marek.vasut+renesas@mailbox.org> # R-Car V4H
-> 
-> Thanks for the review and for testing on V4H.
-> 
->>>
->>> Since next 20261002 now contains commit
->>>
->>> f29719b5064c ("PCI: dwc: Align register macros with Synopsys
->>> documentation")
->>>
->>> This will need the following slight adjustment:
->>>
->>> "s@PCIE_PORT_DEBUG@PORT_LINK_DEBUG@g"
->>>
->>> "
->>> -       val = dw_pcie_readl_dbi(dw, PCIE_PORT_DEBUG1);
->>> -       return (val & PCIE_PORT_DEBUG1_LINK_UP) &&
->>> -              !(val & PCIE_PORT_DEBUG1_LINK_IN_TRAINING);
->>> +       val = dw_pcie_readl_dbi(dw, PORT_LINK_DEBUG1);
->>> +       return (val & PORT_LINK_DEBUG1_LINK_UP) &&
->>> +              !(val & PORT_LINK_DEBUG1_LINK_IN_TRAINING);
->>> "
-> 
-> Thanks for the heads-up. v3 will be rebased onto the latest -next and use the
-> new names.
-> 
->>
->> A small nitpick, would the following change make sense to reduce duplication
->> a bit ?
-> 
-> Yes. In v3 I'm planning to add it as a separate patch right before this one,
-> with your Suggested-by.
-Thank you !
+Require the return value to equal sizeof(tmp) before using the buffer.
+Return -ENODATA for short reads while preserving negative errors from
+usbnet_read_cmd().
+
+Found by manual code inspection with LLM assistance. The issue has not
+been reproduced at runtime.
+
+Fixes: c1aedf015ebd ("net/usb/r8153_ecm: support ECM mode for RTL8153")
+Signed-off-by: Xinsheng Zhu <xinsheng.zhu.ny@gmail.com>
+---
+ drivers/net/usb/r8153_ecm.c | 8 ++++++--
+ 1 file changed, 6 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/net/usb/r8153_ecm.c b/drivers/net/usb/r8153_ecm.c
+index 8d860dacdf49..0988a3444c55 100644
+--- a/drivers/net/usb/r8153_ecm.c
++++ b/drivers/net/usb/r8153_ecm.c
+@@ -23,8 +23,10 @@ static int pla_read_word(struct usbnet *dev, u16 index)
+ 
+ 	ret = usbnet_read_cmd(dev, RTL8152_REQ_GET_REGS, RTL8152_REQT_READ, index,
+ 			      MCU_TYPE_PLA | byen, &tmp, sizeof(tmp));
+-	if (ret < 0)
++	if (ret != sizeof(tmp)) {
++		ret = ret < 0 ? ret : -ENODATA;
+ 		goto out;
++	}
+ 
+ 	ret = __le32_to_cpu(tmp);
+ 	ret >>= (shift * 8);
+@@ -55,8 +57,10 @@ static int pla_write_word(struct usbnet *dev, u16 index, u32 data)
+ 	ret = usbnet_read_cmd(dev, RTL8152_REQ_GET_REGS, RTL8152_REQT_READ, index,
+ 			      MCU_TYPE_PLA | byen, &tmp, sizeof(tmp));
+ 
+-	if (ret < 0)
++	if (ret != sizeof(tmp)) {
++		ret = ret < 0 ? ret : -ENODATA;
+ 		goto out;
++	}
+ 
+ 	data |= __le32_to_cpu(tmp) & ~mask;
+ 	tmp = __cpu_to_le32(data);
+
+base-commit: 6dc989ea46b96ce170840174b4a38c4a387fb005
+-- 
+2.54.0 (Apple Git-157)
+
