@@ -1,258 +1,537 @@
-Received: from mail-yx2-f12.google.com (mail-yx2-f12.google.com [74.125.224.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5F68A4D9F98
-	for <linux-kernel@vger.kernel.org>; Mon,  5 Oct 2026 17:16:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.224.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3766B4E56EB;
+	Mon,  5 Oct 2026 17:16:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791220596; cv=none; b=G2Dp9ZruU1uyF2stOrLewk+7xfgwQa5X9C6Wk3cNXrx7JsHZpdjXcJD2xRaExLGep86iiw9tE3lfudKeol8iRhxAW815AQxUiochN5dMmE2NoE2DQwKYuQN+C5348v43ft5+I7GPfapjG9UuRFXDLC6yGdNQXgoFjhYryUONFgE=
+	t=1791220600; cv=none; b=IA20ZoxA7n6VXmb0eVYjTHaoDkhLs82JE0cpRVhNslyd7ERfA+k37+5769BJ9IJHfBQ4M01XVjXeOUyXcMQjYY1gCjStE1cEkC8wR2on2H+aaWBjD2OqTmDVsrKN/vAiPssSVh8WM85OuYfmnp0GZNtB4+6sBgEqak6NZjAegFs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791220596; c=relaxed/simple;
-	bh=spCsFwIR1kBqjdKFmaT3rO3/WSvOIuog8p6LU7IadYw=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=Cl17iA6AhLixKTwRPvv+f/1T/inTEhVHiReJMNSs+JPMHyzHq9UuNpMgddaJtR8qNR/J1JHKKycKICj4FSc8ncopw5qaZ2jsVv+pyOV6wBmW29xn8AwwbrvX9cExLY4D/yzGdY/zbWOKpMGLU4R/Vv6p9A+sQSKRtko1UAJY5UA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=dubeyko.com; spf=pass smtp.mailfrom=dubeyko.com; dkim=pass (2048-bit key) header.d=dubeyko-com.20251104.gappssmtp.com header.i=@dubeyko-com.20251104.gappssmtp.com header.b=BTd0UR53; arc=none smtp.client-ip=74.125.224.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=dubeyko.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=dubeyko.com
+	s=arc-20240116; t=1791220600; c=relaxed/simple;
+	bh=1fM2cWqConx5kmN6vxn2B4RMjoqxNNfUoK9XWGrOla4=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=UclmAjpQMe82tbR38tBD5Ww2LqkZa73/ruyAcL82llANmDg26GvGy8H4mq49gT2+J9LXMYsXbev+UUG7xut7AN7RD3zip59sBSO28Y/0e4h+dakvRRvdOtzqs4wrvR8eDUkWTjWFAFhen7KzSfngEXGspJnbzK3mKrmk2TPI4qQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=QZPF+RzP; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=dubeyko-com.20251104.gappssmtp.com header.i=@dubeyko-com.20251104.gappssmtp.com header.b="BTd0UR53"
-Received: by mail-yx2-f12.google.com with SMTP id 00721157ae682-85d43ac8d1eso14884827b3.2
-        for <linux-kernel@vger.kernel.org>; Mon, 05 Oct 2026 10:16:34 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=dubeyko-com.20251104.gappssmtp.com; s=20251104; t=1791220593; x=1791825393; darn=vger.kernel.org;
-        h=mime-version:user-agent:content-transfer-encoding:content-type
-         :autocrypt:references:in-reply-to:date:cc:to:from:subject:message-id
-         :from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=6aX5X4Yn7Qvu8UgoHgFGENT3jbs4Y44FkeeaTsFT230=;
-        b=BTd0UR53+ud2jkMnjM2dHrzjFXuYkuPnunAp0EFQq8ZPAyzHg3GnXTFbJZk4AHJR0f
-         k8/6S+KRuUeMRlgB1R8R0+SRcbZdwK8Xb3mQ4sQMAtMEGRSEh5cV4evRTf9R+sKYEXMS
-         951uzEwNVLM4gYxF6Y9jVac/3RZneLVb2/PcezM7I0X5fiq3BGcVYPVINRFBU9ww9oQi
-         2RbyffkWjZiGv+ke93yryz6fNVv0xakoxW7BSZoVZGUBsVphoQ61z7IaiXZikXMiy7Hh
-         CFC1uXGdklJIBmThL4V5RyvKz+gnW88dfsRA8GavHrlWfPCMX+1JxJ3PLs+cGXNm26oZ
-         bYFQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791220593; x=1791825393;
-        h=mime-version:user-agent:content-transfer-encoding:content-type
-         :autocrypt:references:in-reply-to:date:cc:to:from:subject:message-id
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=6aX5X4Yn7Qvu8UgoHgFGENT3jbs4Y44FkeeaTsFT230=;
-        b=tySC0qAKza40KZu5DUF/8lb7k7m9X6EdZZbonriY7bMNZd8N7YyHq6rwllzflFc50T
-         dJ3a1ZDvQGb55f4/QuWRzGOwvUNGXHMOY2fa17Fub6BPjwoNWhIZlAleP1WTMg+J0nTk
-         zf3jQgyfvriYvO2XZCreklH047C0PXlXK8+NaCnGiBIcWWZtwhSo1+W6IPs0vFKQQGcc
-         G7Gq1VLE54pV7TtgJtXawK2gTeGxg4w87obMoq5ACZ4+RFEqFYFrAxsX4IgcmgcPTu/2
-         v2B+oO9sgpg/GsVARrcfMxMKobQyimJSaxmoqW0VQY2ObKlftOSiexQoXFG3DbSSe/d3
-         AXLQ==
-X-Forwarded-Encrypted: i=1; AKwUvBy7V6jfW23EPdOsBjwrNGkn5cbbeUa9YIjOAIp7FJRE5y/o1ShWwtGQXmiRfTa+sN5w/8DxbL9MbDg99/c=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJDg/bzxysikVOyH+Uy4M1bglNeWP5ad1NQPE3TdJybBJ8+/EjZ
-	TMwM7Ju3ys5to82V0G8phV4LlidVUnB9c7GgZ0JahaFoMu8FyxYG89LJbbEPppwtwkkFD9Xt7CB
-	r5A5dl2c=
-X-Gm-Gg: AYBFou0mkO6eDX/xcIYHs4AUntqemc3zkfxH4zcupN9mD/l49+nijhW4U2ad+52DCQN
-	zwWzo60xXPZGbCnMQxd2MZ9Xx2hOfTrzdW1YYPId0Z9KeHsu3sKnKMLs+NHSIrthvaM+86iKURK
-	Q0g8IoSMz/a4cAexrK5jz8Bh7O+ppkT9lucde3uXQpQE1as6RzyhV7FflyNOiogVO4lViUdP8Zq
-	4Wxqthtr7aCkskPuqEylGZp4Cm7Wb1Fk0o9vL8Vf2E4YzSHoeBgWMMXpBHOztfPL/hOlc2wUjWG
-	iAvap9Sz8xe4KKMKc3kIjxEvr2sQ1i+r8f5id4myXSXVUSI1P47kyjdGQR+5QV8/z/wFB8S3hbh
-	rtOlXbFAz+vzOodDOk5ruK/8040tvSFJFNkU1CFgoHAiXbEu+sAznhkDWA9j6814JeveRA2Fto3
-	eu29Qnckz1uOXUtevt/8Om+lLE7m2IkecOADe4qrzWceUfBOs10MG+8brW8XG+s5j8T6IXhfc+Z
-	hUebnZXzJMnYJPZXY+1cNBa5Yns80DFfV77No2c0WZB4UQ/4JnPUYLHv70gSrTTwJoXDdTjCp9B
-	1joGdokxS6SG22RzBpktr10qTtCQbx6GQtvBEakv7YzP1fTWM8q1ErTfSAEwwWvO
-X-Received: by 2002:a05:690c:e210:20b0:8aa:148:76bf with SMTP id 00721157ae682-8ae36a0683amr30450067b3.7.1791220593066;
-        Mon, 05 Oct 2026 10:16:33 -0700 (PDT)
-Received: from ?IPv6:2600:1700:6476:1430:3aa0:911f:4e09:b45d? ([2600:1700:6476:1430:3aa0:911f:4e09:b45d])
-        by smtp.gmail.com with ESMTPSA id 00721157ae682-8af2755f78csm16120827b3.23.2026.10.05.10.16.31
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 05 Oct 2026 10:16:32 -0700 (PDT)
-Message-ID: <cba5c89f47212602dfb7e95c2d5104771356a432.camel@dubeyko.com>
-Subject: Re: [PATCH] nilfs2: simplify nilfs_mdt_writeback()
-From: Viacheslav Dubeyko <slava@dubeyko.com>
-To: Ryusuke Konishi <konishi.ryusuke@gmail.com>
-Cc: linux-nilfs <linux-nilfs@vger.kernel.org>, LKML
-	 <linux-kernel@vger.kernel.org>
-Date: Mon, 05 Oct 2026 10:16:30 -0700
-In-Reply-To: <20261004233506.20802-1-konishi.ryusuke@gmail.com>
-References: <20261004233506.20802-1-konishi.ryusuke@gmail.com>
-Autocrypt: addr=slava@dubeyko.com; prefer-encrypt=mutual;
- keydata=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
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.60.1 (by Flathub.org) 
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="QZPF+RzP"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0C6DB1F00893;
+	Mon,  5 Oct 2026 17:16:35 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791220599;
+	bh=ijtgzLepcN3kh0RbPTLJQ7U0bVcDQv6nupI6IOBbMag=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc;
+	b=QZPF+RzPUjcsOjrGb+PioK7sCaV/GuebhvdK5HtXeYIRIfcNWNWYaS4L/mpywuTLC
+	 /ocP1p5ZfvtQ9h3JtKDxhroCB556mKL4NIfGlMzYYnyjg8dQWPLxhxXU7+ytLIuD24
+	 0AykA3FWPtJHDU2Bt/Fol7OgbS9i23JJJaajfLuY5ciqMZpf7FgvH86dP3wkFQ8lPg
+	 JWJeG52frgzpK8lTHrwfMMFTNgrdAxXOfjpNZ4jRzTGiPGCZEt84xlVWv84eLncdHo
+	 HJw+P2S0sqKJsOvJoA3661WFslkz14cGF5Ye+eS/dJ7TdiwB2x9I+PJAKsnKGMrQAp
+	 /mgljVH7hH31Q==
+From: Bryan O'Donoghue <bod@kernel.org>
+Date: Mon, 05 Oct 2026 19:13:46 +0200
+Subject: [PATCH 16/74] media: qcom: camss: Switch existing
+ vfe_formats_pix_845 to vfe_formats_rdi_845
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261005-linux-mainline-7-2-sm8650-hdk-rfc-0-v1-16-ed985aefd611@kernel.org>
+References: <20261005-linux-mainline-7-2-sm8650-hdk-rfc-0-v1-0-ed985aefd611@kernel.org>
+In-Reply-To: <20261005-linux-mainline-7-2-sm8650-hdk-rfc-0-v1-0-ed985aefd611@kernel.org>
+To: Bryan O'Donoghue <bryan.odonoghue@linaro.org>, 
+ Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>, 
+ Loic Poulain <loic.poulain@oss.qualcomm.com>, 
+ Mauro Carvalho Chehab <mchehab@kernel.org>, 
+ Jacopo Mondi <jacopo.mondi@ideasonboard.com>, 
+ Daniel Scally <dan.scally@ideasonboard.com>, Keke Li <keke.li@amlogic.com>, 
+ Richard Acayan <mailingradian@gmail.com>, 
+ Hans Verkuil <hverkuil@kernel.org>, 
+ Gjorgji Rosikopulos <quic_grosikop@quicinc.com>, 
+ Radoslav Tsvetkov <quic_rtsvetko@quicinc.com>, 
+ Robert Foss <rfoss@kernel.org>, Milen Mitkov <quic_mmitkov@quicinc.com>
+Cc: linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, Bryan O'Donoghue <bod@kernel.org>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=openpgp-sha256; l=14949; i=bod@kernel.org;
+ h=from:subject:message-id; bh=1fM2cWqConx5kmN6vxn2B4RMjoqxNNfUoK9XWGrOla4=;
+ b=owEBbQKS/ZANAwAKASJxO7Ohjcg6AcsmYgBqw9sMJuCXChF3J1eOkkBWLI6J7vVCqiS062McR
+ 9yCNyR7EwuJAjMEAAEKAB0WIQTmk/sqq6Nt4Rerb7QicTuzoY3IOgUCasPbDAAKCRAicTuzoY3I
+ OqxqD/962Wf5KjS6+WGokwQrpPex+bBNp105R3MVpPprKJfKNqZ6ENZdS1/3ME1b8QNFz4RP24b
+ vl4XkQnvXYJTWVgl2BTXsCWyXsjQ2g4jn+fByVyd8WM8Q7L4pWZv/AVQaz8LkSf8uG1mnfLFWLZ
+ kp6K3IP+tSKnE4c5nqL4vJfjmLS7nYA73slbYwPvmQskYA2zdubLiTczvcsHS5tyfCxO3lF6ZGc
+ 124ofDde4drb1pr9OObBnAmaQuLcthyRG2QU/O2cun6eBbL7yOypjZCww/ZG+xCK7VSXJUeX1TS
+ EV8Q33J+gGANQTpP6RuhPXiQcx87ixHAhqpmnSqmsUYxxLjzK8PiTC3ezoLrMp2bDc/aLSXF7lL
+ Gm9GWOFZhbjOU+VvK+sErPdrgGyyq9m2tP+oamBrf81a/OX8gO6+2QKQNoxKjWGNwelNJKTnrSJ
+ 52tWYxTB3t1RG1GmV9H6r0GaihxDlRCSJ5v8tlVemIvD1sRMx70fMZDJYjRPdxRLBtOx+mSt9b1
+ M29rP1e6Rf0+Wi78R9iGU6aPdOT5uj60bKammhCn8N8DsfdWLvhqkktYyFoOeIM/w3eN52feNI9
+ QTJ/G08tsmz/Z+Qd7QktKoNp+ATSqs23c3pccB4qQYLJzNgkq5YlrMlGkGZZm8w6Gve21rkkgCK
+ AmhMn8SbXbCmNPg==
+X-Developer-Key: i=bod@kernel.org; a=openpgp;
+ fpr=E693FB2AABA36DE117AB6FB422713BB3A18DC83A
 
-On Mon, 2026-10-05 at 08:31 +0900, Ryusuke Konishi wrote:
-> The writepages() callback for metadata files, nilfs_mdt_writeback(),
-> calls nilfs_mdt_write_folio() for each dirty folio via
-> writeback_iter(),
-> where read-only superblock checks, folio dirty state clearing on
-> error,
-> and triggering of the log writer via nilfs_construct_segment() are
-> performed.=C2=A0 This helper function is used nowhere else.
->=20
-> Executing these operations per folio is inefficient:
->=20
-> - Checking if the filesystem has fallen back to read-only mode is
-> =C2=A0 repeated redundantly.
->=20
-> - Calling nilfs_construct_segment() inside the per-folio loop causes
-> =C2=A0 redundant log writer invocations for a single sync request, where
-> only
-> =C2=A0 the first invocation performs actual log writing.
->=20
-> Unfold nilfs_mdt_write_folio() into nilfs_mdt_writeback() and
-> consolidate
-> these operations at the function level.=C2=A0 The read-only check is move=
-d
-> to
-> the top of nilfs_mdt_writeback(), replacing per-folio
-> nilfs_clear_folio_dirty() calls with a single
-> nilfs_clear_dirty_pages()
-> call to discard dirty pages across the mapping at once.=C2=A0
-> Additionally,
-> nilfs_construct_segment() is invoked once when 'sync_mode' is
-> WB_SYNC_ALL
-> and the mapping is tagged dirty.
->=20
-> With these operations consolidated outside the loop, the remaining
-> per-folio actions (calling folio_redirty_for_writepage() on already
-> dirty folios and unlocking them) serve no purpose, so the folio
-> iteration
-> itself is removed.
->=20
-> Signed-off-by: Ryusuke Konishi <konishi.ryusuke@gmail.com>
-> ---
-> Viacheslav,
->=20
-> Please add this to the queue for the next cycle.
->=20
-> This refactors the metadata file writeback callback function,
-> restructuring an inefficient legacy function organization rooted in
-> the era of aops->writepage() to align with aops->writepages().
->=20
-> Thanks,
-> Ryusuke Konishi
->=20
-> =C2=A0fs/nilfs2/mdt.c | 40 +++++++++++-----------------------------
-> =C2=A01 file changed, 11 insertions(+), 29 deletions(-)
->=20
-> diff --git a/fs/nilfs2/mdt.c b/fs/nilfs2/mdt.c
-> index b50c88b65183..77dc2be2ce65 100644
-> --- a/fs/nilfs2/mdt.c
-> +++ b/fs/nilfs2/mdt.c
-> @@ -391,51 +391,33 @@ int nilfs_mdt_fetch_dirty(struct inode *inode)
-> =C2=A0	return test_bit(NILFS_I_DIRTY, &ii->i_state);
-> =C2=A0}
-> =C2=A0
-> -static int nilfs_mdt_write_folio(struct folio *folio,
-> +static int nilfs_mdt_writeback(struct address_space *mapping,
-> =C2=A0		struct writeback_control *wbc)
-> =C2=A0{
-> -	struct inode *inode =3D folio->mapping->host;
-> -	struct super_block *sb;
-> +	struct inode *inode =3D mapping->host;
-> =C2=A0	int err =3D 0;
-> =C2=A0
-> -	if (inode && sb_rdonly(inode->i_sb)) {
-> +	if (!inode)
-> +		return 0;
-> +
-> +	if (sb_rdonly(inode->i_sb)) {
-> =C2=A0		/*
-> =C2=A0		 * It means that filesystem was remounted in read-
-> only
-> =C2=A0		 * mode because of error or metadata corruption. But
-> we
-> =C2=A0		 * have dirty folios that try to be flushed in
-> background.
-> -		 * So, here we simply discard this dirty folio.
-> +		 * So, here we simply discard these dirty folios.
-> =C2=A0		 */
-> -		nilfs_clear_folio_dirty(folio, false);
-> -		folio_unlock(folio);
-> +		nilfs_clear_dirty_pages(mapping, false);
-> =C2=A0		return -EROFS;
-> =C2=A0	}
-> =C2=A0
-> -	folio_redirty_for_writepage(wbc, folio);
-> -	folio_unlock(folio);
-> -
-> -	if (!inode)
-> -		return 0;
-> -
-> -	sb =3D inode->i_sb;
-> -
-> -	if (wbc->sync_mode =3D=3D WB_SYNC_ALL)
-> -		err =3D nilfs_construct_segment(sb);
-> +	if (wbc->sync_mode =3D=3D WB_SYNC_ALL &&
-> +		mapping_tagged(mapping, PAGECACHE_TAG_DIRTY))
-> +		err =3D nilfs_construct_segment(inode->i_sb);
-> =C2=A0
-> =C2=A0	return err;
-> =C2=A0}
-> =C2=A0
-> -static int nilfs_mdt_writeback(struct address_space *mapping,
-> -		struct writeback_control *wbc)
-> -{
-> -	struct folio *folio =3D NULL;
-> -	int error;
-> -
-> -	while ((folio =3D writeback_iter(mapping, wbc, folio,
-> &error)))
-> -		error =3D nilfs_mdt_write_folio(folio, wbc);
-> -
-> -	return error;
-> -}
-> -
-> =C2=A0static const struct address_space_operations def_mdt_aops =3D {
-> =C2=A0	.dirty_folio		=3D block_dirty_folio,
-> =C2=A0	.invalidate_folio	=3D block_invalidate_folio,
+Right now the vfe_formats_pix_845 points to the same data as
+vfe_formats_rdi_845. When we actually switch on the PIX formats though only
+some of the PIX interfaces will support the format conversions. Repoint
+existing PIX interfaces to the RDI formats they actually support. As YUV
+formats are enabled on a per SoC basis the enabled SoC's can be pointed at
+the expanded list.
 
-Applied.
+Repoint existing stuff to the right location as a precursor.
 
-Thanks,
-Slava.
+Signed-off-by: Bryan O'Donoghue <bod@kernel.org>
+---
+ drivers/media/platform/qcom/camss/camss.c | 98 +++++++++++++++----------------
+ 1 file changed, 49 insertions(+), 49 deletions(-)
+
+diff --git a/drivers/media/platform/qcom/camss/camss.c b/drivers/media/platform/qcom/camss/camss.c
+index e7a1a25d7c9a3..ff09873706c0d 100644
+--- a/drivers/media/platform/qcom/camss/camss.c
++++ b/drivers/media/platform/qcom/camss/camss.c
+@@ -777,7 +777,7 @@ static const struct camss_subdev_resources vfe_res_2290[] = {
+ 			.line_num = 4,
+ 			.hw_ops = &vfe_ops_340,
+ 			.formats_rdi = &vfe_formats_rdi_845,
+-			.formats_pix = &vfe_formats_pix_845
++			.formats_pix = &vfe_formats_rdi_845
+ 		}
+ 	},
+ 
+@@ -797,7 +797,7 @@ static const struct camss_subdev_resources vfe_res_2290[] = {
+ 			.line_num = 4,
+ 			.hw_ops = &vfe_ops_340,
+ 			.formats_rdi = &vfe_formats_rdi_845,
+-			.formats_pix = &vfe_formats_pix_845
++			.formats_pix = &vfe_formats_rdi_845
+ 		}
+ 	},
+ };
+@@ -1207,7 +1207,7 @@ static const struct camss_subdev_resources vfe_res_670[] = {
+ 			.pd_name = "ife0",
+ 			.hw_ops = &vfe_ops_170,
+ 			.formats_rdi = &vfe_formats_rdi_845,
+-			.formats_pix = &vfe_formats_pix_845
++			.formats_pix = &vfe_formats_rdi_845
+ 		}
+ 	},
+ 
+@@ -1229,7 +1229,7 @@ static const struct camss_subdev_resources vfe_res_670[] = {
+ 			.pd_name = "ife1",
+ 			.hw_ops = &vfe_ops_170,
+ 			.formats_rdi = &vfe_formats_rdi_845,
+-			.formats_pix = &vfe_formats_pix_845
++			.formats_pix = &vfe_formats_rdi_845
+ 		}
+ 	},
+ 
+@@ -1249,7 +1249,7 @@ static const struct camss_subdev_resources vfe_res_670[] = {
+ 			.line_num = 4,
+ 			.hw_ops = &vfe_ops_170,
+ 			.formats_rdi = &vfe_formats_rdi_845,
+-			.formats_pix = &vfe_formats_pix_845
++			.formats_pix = &vfe_formats_rdi_845
+ 		}
+ 	}
+ };
+@@ -1460,7 +1460,7 @@ static const struct camss_subdev_resources vfe_res_845[] = {
+ 			.has_pd = true,
+ 			.hw_ops = &vfe_ops_170,
+ 			.formats_rdi = &vfe_formats_rdi_845,
+-			.formats_pix = &vfe_formats_pix_845
++			.formats_pix = &vfe_formats_rdi_845
+ 		}
+ 	},
+ 
+@@ -1488,7 +1488,7 @@ static const struct camss_subdev_resources vfe_res_845[] = {
+ 			.has_pd = true,
+ 			.hw_ops = &vfe_ops_170,
+ 			.formats_rdi = &vfe_formats_rdi_845,
+-			.formats_pix = &vfe_formats_pix_845
++			.formats_pix = &vfe_formats_rdi_845
+ 		}
+ 	},
+ 
+@@ -1514,7 +1514,7 @@ static const struct camss_subdev_resources vfe_res_845[] = {
+ 			.line_num = 4,
+ 			.hw_ops = &vfe_ops_170,
+ 			.formats_rdi = &vfe_formats_rdi_845,
+-			.formats_pix = &vfe_formats_pix_845
++			.formats_pix = &vfe_formats_rdi_845
+ 		}
+ 	}
+ };
+@@ -1642,7 +1642,7 @@ static const struct camss_subdev_resources vfe_res_sm6150[] = {
+ 			.pd_name = "ife0",
+ 			.hw_ops = &vfe_ops_170,
+ 			.formats_rdi = &vfe_formats_rdi_845,
+-			.formats_pix = &vfe_formats_pix_845
++			.formats_pix = &vfe_formats_rdi_845
+ 		}
+ 	},
+ 	/* VFE1 */
+@@ -1665,7 +1665,7 @@ static const struct camss_subdev_resources vfe_res_sm6150[] = {
+ 			.pd_name = "ife1",
+ 			.hw_ops = &vfe_ops_170,
+ 			.formats_rdi = &vfe_formats_rdi_845,
+-			.formats_pix = &vfe_formats_pix_845
++			.formats_pix = &vfe_formats_rdi_845
+ 		}
+ 	},
+ 	/* VFE2 */
+@@ -1685,7 +1685,7 @@ static const struct camss_subdev_resources vfe_res_sm6150[] = {
+ 			.is_lite = true,
+ 			.hw_ops = &vfe_ops_170,
+ 			.formats_rdi = &vfe_formats_rdi_845,
+-			.formats_pix = &vfe_formats_pix_845
++			.formats_pix = &vfe_formats_rdi_845
+ 		}
+ 	},
+ };
+@@ -2150,7 +2150,7 @@ static const struct camss_subdev_resources vfe_res_8250[] = {
+ 			.pd_name = "ife0",
+ 			.hw_ops = &vfe_ops_480,
+ 			.formats_rdi = &vfe_formats_rdi_845,
+-			.formats_pix = &vfe_formats_pix_845
++			.formats_pix = &vfe_formats_rdi_845
+ 		}
+ 	},
+ 	/* VFE1 */
+@@ -2176,7 +2176,7 @@ static const struct camss_subdev_resources vfe_res_8250[] = {
+ 			.pd_name = "ife1",
+ 			.hw_ops = &vfe_ops_480,
+ 			.formats_rdi = &vfe_formats_rdi_845,
+-			.formats_pix = &vfe_formats_pix_845
++			.formats_pix = &vfe_formats_rdi_845
+ 		}
+ 	},
+ 	/* VFE2 (lite) */
+@@ -2200,7 +2200,7 @@ static const struct camss_subdev_resources vfe_res_8250[] = {
+ 			.line_num = 4,
+ 			.hw_ops = &vfe_ops_480,
+ 			.formats_rdi = &vfe_formats_rdi_845,
+-			.formats_pix = &vfe_formats_pix_845
++			.formats_pix = &vfe_formats_rdi_845
+ 		}
+ 	},
+ 	/* VFE3 (lite) */
+@@ -2224,7 +2224,7 @@ static const struct camss_subdev_resources vfe_res_8250[] = {
+ 			.line_num = 4,
+ 			.hw_ops = &vfe_ops_480,
+ 			.formats_rdi = &vfe_formats_rdi_845,
+-			.formats_pix = &vfe_formats_pix_845
++			.formats_pix = &vfe_formats_rdi_845
+ 		}
+ 	},
+ };
+@@ -2467,7 +2467,7 @@ static const struct camss_subdev_resources vfe_res_7280[] = {
+ 			.pd_name = "ife0",
+ 			.hw_ops = &vfe_ops_170,
+ 			.formats_rdi = &vfe_formats_rdi_845,
+-			.formats_pix = &vfe_formats_pix_845
++			.formats_pix = &vfe_formats_rdi_845
+ 		}
+ 	},
+ 	/* VFE1 */
+@@ -2493,7 +2493,7 @@ static const struct camss_subdev_resources vfe_res_7280[] = {
+ 			.pd_name = "ife1",
+ 			.hw_ops = &vfe_ops_170,
+ 			.formats_rdi = &vfe_formats_rdi_845,
+-			.formats_pix = &vfe_formats_pix_845
++			.formats_pix = &vfe_formats_rdi_845
+ 		}
+ 	},
+ 	/* VFE2 */
+@@ -2519,7 +2519,7 @@ static const struct camss_subdev_resources vfe_res_7280[] = {
+ 			.has_pd = true,
+ 			.pd_name = "ife2",
+ 			.formats_rdi = &vfe_formats_rdi_845,
+-			.formats_pix = &vfe_formats_pix_845
++			.formats_pix = &vfe_formats_rdi_845
+ 		}
+ 	},
+ 	/* VFE3 (lite) */
+@@ -2541,7 +2541,7 @@ static const struct camss_subdev_resources vfe_res_7280[] = {
+ 			.is_lite = true,
+ 			.hw_ops = &vfe_ops_170,
+ 			.formats_rdi = &vfe_formats_rdi_845,
+-			.formats_pix = &vfe_formats_pix_845
++			.formats_pix = &vfe_formats_rdi_845
+ 		}
+ 	},
+ 	/* VFE4 (lite) */
+@@ -2563,7 +2563,7 @@ static const struct camss_subdev_resources vfe_res_7280[] = {
+ 			.is_lite = true,
+ 			.hw_ops = &vfe_ops_170,
+ 			.formats_rdi = &vfe_formats_rdi_845,
+-			.formats_pix = &vfe_formats_pix_845
++			.formats_pix = &vfe_formats_rdi_845
+ 		}
+ 	},
+ };
+@@ -2813,7 +2813,7 @@ static const struct camss_subdev_resources vfe_res_sc8280xp[] = {
+ 			.pd_name = "ife0",
+ 			.hw_ops = &vfe_ops_170,
+ 			.formats_rdi = &vfe_formats_rdi_845,
+-			.formats_pix = &vfe_formats_pix_845
++			.formats_pix = &vfe_formats_rdi_845
+ 		}
+ 	},
+ 	/* VFE1 */
+@@ -2833,7 +2833,7 @@ static const struct camss_subdev_resources vfe_res_sc8280xp[] = {
+ 			.pd_name = "ife1",
+ 			.hw_ops = &vfe_ops_170,
+ 			.formats_rdi = &vfe_formats_rdi_845,
+-			.formats_pix = &vfe_formats_pix_845
++			.formats_pix = &vfe_formats_rdi_845
+ 		}
+ 	},
+ 	/* VFE2 */
+@@ -2853,7 +2853,7 @@ static const struct camss_subdev_resources vfe_res_sc8280xp[] = {
+ 			.pd_name = "ife2",
+ 			.hw_ops = &vfe_ops_170,
+ 			.formats_rdi = &vfe_formats_rdi_845,
+-			.formats_pix = &vfe_formats_pix_845
++			.formats_pix = &vfe_formats_rdi_845
+ 		}
+ 	},
+ 	/* VFE3 */
+@@ -2873,7 +2873,7 @@ static const struct camss_subdev_resources vfe_res_sc8280xp[] = {
+ 			.pd_name = "ife3",
+ 			.hw_ops = &vfe_ops_170,
+ 			.formats_rdi = &vfe_formats_rdi_845,
+-			.formats_pix = &vfe_formats_pix_845
++			.formats_pix = &vfe_formats_rdi_845
+ 		}
+ 	},
+ 	/* VFE_LITE_0 */
+@@ -2892,7 +2892,7 @@ static const struct camss_subdev_resources vfe_res_sc8280xp[] = {
+ 			.line_num = 4,
+ 			.hw_ops = &vfe_ops_170,
+ 			.formats_rdi = &vfe_formats_rdi_845,
+-			.formats_pix = &vfe_formats_pix_845
++			.formats_pix = &vfe_formats_rdi_845
+ 		}
+ 	},
+ 	/* VFE_LITE_1 */
+@@ -2911,7 +2911,7 @@ static const struct camss_subdev_resources vfe_res_sc8280xp[] = {
+ 			.line_num = 4,
+ 			.hw_ops = &vfe_ops_170,
+ 			.formats_rdi = &vfe_formats_rdi_845,
+-			.formats_pix = &vfe_formats_pix_845
++			.formats_pix = &vfe_formats_rdi_845
+ 		}
+ 	},
+ 	/* VFE_LITE_2 */
+@@ -2930,7 +2930,7 @@ static const struct camss_subdev_resources vfe_res_sc8280xp[] = {
+ 			.line_num = 4,
+ 			.hw_ops = &vfe_ops_170,
+ 			.formats_rdi = &vfe_formats_rdi_845,
+-			.formats_pix = &vfe_formats_pix_845
++			.formats_pix = &vfe_formats_rdi_845
+ 		}
+ 	},
+ 	/* VFE_LITE_3 */
+@@ -2949,7 +2949,7 @@ static const struct camss_subdev_resources vfe_res_sc8280xp[] = {
+ 			.line_num = 4,
+ 			.hw_ops = &vfe_ops_170,
+ 			.formats_rdi = &vfe_formats_rdi_845,
+-			.formats_pix = &vfe_formats_pix_845
++			.formats_pix = &vfe_formats_rdi_845
+ 		}
+ 	},
+ };
+@@ -3220,7 +3220,7 @@ static const struct camss_subdev_resources vfe_res_8550[] = {
+ 			.pd_name = "ife0",
+ 			.hw_ops = &vfe_ops_780,
+ 			.formats_rdi = &vfe_formats_rdi_845,
+-			.formats_pix = &vfe_formats_pix_845
++			.formats_pix = &vfe_formats_rdi_845
+ 		}
+ 	},
+ 	/* VFE1 */
+@@ -3244,7 +3244,7 @@ static const struct camss_subdev_resources vfe_res_8550[] = {
+ 			.pd_name = "ife1",
+ 			.hw_ops = &vfe_ops_780,
+ 			.formats_rdi = &vfe_formats_rdi_845,
+-			.formats_pix = &vfe_formats_pix_845
++			.formats_pix = &vfe_formats_rdi_845
+ 		}
+ 	},
+ 	/* VFE2 */
+@@ -3268,7 +3268,7 @@ static const struct camss_subdev_resources vfe_res_8550[] = {
+ 			.pd_name = "ife2",
+ 			.hw_ops = &vfe_ops_780,
+ 			.formats_rdi = &vfe_formats_rdi_845,
+-			.formats_pix = &vfe_formats_pix_845
++			.formats_pix = &vfe_formats_rdi_845
+ 		}
+ 	},
+ 	/* VFE3 lite */
+@@ -3289,7 +3289,7 @@ static const struct camss_subdev_resources vfe_res_8550[] = {
+ 			.is_lite = true,
+ 			.hw_ops = &vfe_ops_780,
+ 			.formats_rdi = &vfe_formats_rdi_845,
+-			.formats_pix = &vfe_formats_pix_845
++			.formats_pix = &vfe_formats_rdi_845
+ 		}
+ 	},
+ 	/* VFE4 lite */
+@@ -3310,7 +3310,7 @@ static const struct camss_subdev_resources vfe_res_8550[] = {
+ 			.is_lite = true,
+ 			.hw_ops = &vfe_ops_780,
+ 			.formats_rdi = &vfe_formats_rdi_845,
+-			.formats_pix = &vfe_formats_pix_845
++			.formats_pix = &vfe_formats_rdi_845
+ 		}
+ 	},
+ };
+@@ -3535,7 +3535,7 @@ static const struct camss_subdev_resources vfe_res_sm8650[] = {
+ 			.pd_name = "ife0",
+ 			.hw_ops = &vfe_ops_780,
+ 			.formats_rdi = &vfe_formats_rdi_845,
+-			.formats_pix = &vfe_formats_pix_845
++			.formats_pix = &vfe_formats_rdi_845
+ 		},
+ 	},
+ 	/* VFE1 */
+@@ -3562,7 +3562,7 @@ static const struct camss_subdev_resources vfe_res_sm8650[] = {
+ 			.pd_name = "ife1",
+ 			.hw_ops = &vfe_ops_780,
+ 			.formats_rdi = &vfe_formats_rdi_845,
+-			.formats_pix = &vfe_formats_pix_845
++			.formats_pix = &vfe_formats_rdi_845
+ 		},
+ 	},
+ 	/* VFE2 */
+@@ -3589,7 +3589,7 @@ static const struct camss_subdev_resources vfe_res_sm8650[] = {
+ 			.pd_name = "ife2",
+ 			.hw_ops = &vfe_ops_780,
+ 			.formats_rdi = &vfe_formats_rdi_845,
+-			.formats_pix = &vfe_formats_pix_845
++			.formats_pix = &vfe_formats_rdi_845
+ 		},
+ 	},
+ 	/* VFE3 lite */
+@@ -3614,7 +3614,7 @@ static const struct camss_subdev_resources vfe_res_sm8650[] = {
+ 			.is_lite = true,
+ 			.hw_ops = &vfe_ops_780,
+ 			.formats_rdi = &vfe_formats_rdi_845,
+-			.formats_pix = &vfe_formats_pix_845
++			.formats_pix = &vfe_formats_rdi_845
+ 		},
+ 	},
+ 	/* VFE4 lite */
+@@ -3639,7 +3639,7 @@ static const struct camss_subdev_resources vfe_res_sm8650[] = {
+ 			.is_lite = true,
+ 			.hw_ops = &vfe_ops_780,
+ 			.formats_rdi = &vfe_formats_rdi_845,
+-			.formats_pix = &vfe_formats_pix_845
++			.formats_pix = &vfe_formats_rdi_845
+ 		},
+ 	},
+ };
+@@ -4003,7 +4003,7 @@ static const struct camss_subdev_resources vfe_res_8775p[] = {
+ 			.pd_name = NULL,
+ 			.hw_ops = &vfe_ops_690,
+ 			.formats_rdi = &vfe_formats_rdi_845,
+-			.formats_pix = &vfe_formats_pix_845
++			.formats_pix = &vfe_formats_rdi_845
+ 		}
+ 	},
+ 	/* VFE1 */
+@@ -4031,7 +4031,7 @@ static const struct camss_subdev_resources vfe_res_8775p[] = {
+ 			.pd_name = NULL,
+ 			.hw_ops = &vfe_ops_690,
+ 			.formats_rdi = &vfe_formats_rdi_845,
+-			.formats_pix = &vfe_formats_pix_845
++			.formats_pix = &vfe_formats_rdi_845
+ 		}
+ 	},
+ 	/* VFE2 (lite) */
+@@ -4056,7 +4056,7 @@ static const struct camss_subdev_resources vfe_res_8775p[] = {
+ 			.is_lite = true,
+ 			.hw_ops = &vfe_ops_690,
+ 			.formats_rdi = &vfe_formats_rdi_845,
+-			.formats_pix = &vfe_formats_pix_845
++			.formats_pix = &vfe_formats_rdi_845
+ 		}
+ 	},
+ 	/* VFE3 (lite) */
+@@ -4081,7 +4081,7 @@ static const struct camss_subdev_resources vfe_res_8775p[] = {
+ 			.is_lite = true,
+ 			.hw_ops = &vfe_ops_690,
+ 			.formats_rdi = &vfe_formats_rdi_845,
+-			.formats_pix = &vfe_formats_pix_845
++			.formats_pix = &vfe_formats_rdi_845
+ 		}
+ 	},
+ 	/* VFE4 (lite) */
+@@ -4106,7 +4106,7 @@ static const struct camss_subdev_resources vfe_res_8775p[] = {
+ 			.is_lite = true,
+ 			.hw_ops = &vfe_ops_690,
+ 			.formats_rdi = &vfe_formats_rdi_845,
+-			.formats_pix = &vfe_formats_pix_845
++			.formats_pix = &vfe_formats_rdi_845
+ 		}
+ 	},
+ 	/* VFE5 (lite) */
+@@ -4131,7 +4131,7 @@ static const struct camss_subdev_resources vfe_res_8775p[] = {
+ 			.is_lite = true,
+ 			.hw_ops = &vfe_ops_690,
+ 			.formats_rdi = &vfe_formats_rdi_845,
+-			.formats_pix = &vfe_formats_pix_845
++			.formats_pix = &vfe_formats_rdi_845
+ 		}
+ 	},
+ 	/* VFE6 (lite) */
+@@ -4156,7 +4156,7 @@ static const struct camss_subdev_resources vfe_res_8775p[] = {
+ 			.is_lite = true,
+ 			.hw_ops = &vfe_ops_690,
+ 			.formats_rdi = &vfe_formats_rdi_845,
+-			.formats_pix = &vfe_formats_pix_845
++			.formats_pix = &vfe_formats_rdi_845
+ 		}
+ 	},
+ };
+@@ -4434,7 +4434,7 @@ static const struct camss_subdev_resources vfe_res_x1e80100[] = {
+ 			.pd_name = "ife0",
+ 			.hw_ops = &vfe_ops_680,
+ 			.formats_rdi = &vfe_formats_rdi_845,
+-			.formats_pix = &vfe_formats_pix_845
++			.formats_pix = &vfe_formats_rdi_845
+ 		},
+ 	},
+ 	/* IFE1 */
+@@ -4458,7 +4458,7 @@ static const struct camss_subdev_resources vfe_res_x1e80100[] = {
+ 			.pd_name = "ife1",
+ 			.hw_ops = &vfe_ops_680,
+ 			.formats_rdi = &vfe_formats_rdi_845,
+-			.formats_pix = &vfe_formats_pix_845
++			.formats_pix = &vfe_formats_rdi_845
+ 		},
+ 	},
+ 	/* IFE_LITE_0 */
+@@ -4481,7 +4481,7 @@ static const struct camss_subdev_resources vfe_res_x1e80100[] = {
+ 			.line_num = 4,
+ 			.hw_ops = &vfe_ops_680,
+ 			.formats_rdi = &vfe_formats_rdi_845,
+-			.formats_pix = &vfe_formats_pix_845
++			.formats_pix = &vfe_formats_rdi_845
+ 		},
+ 	},
+ 	/* IFE_LITE_1 */
+@@ -4504,7 +4504,7 @@ static const struct camss_subdev_resources vfe_res_x1e80100[] = {
+ 			.line_num = 4,
+ 			.hw_ops = &vfe_ops_680,
+ 			.formats_rdi = &vfe_formats_rdi_845,
+-			.formats_pix = &vfe_formats_pix_845
++			.formats_pix = &vfe_formats_rdi_845
+ 		},
+ 	},
+ };
+
+-- 
+2.55.0
+
