@@ -1,2775 +1,469 @@
-Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
+Received: from PA4PR04CU001.outbound.protection.outlook.com (mail-francecentralazon11013057.outbound.protection.outlook.com [40.107.162.57])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EFF9B468C2C;
-	Mon,  5 Oct 2026 09:46:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=185.203.200.13
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9076A46DFF3;
+	Mon,  5 Oct 2026 09:46:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.162.57
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791193590; cv=pass; b=YJcrSK3EKrnioWGu7zrLwj8DVHsVoCt98kFhvun8O5DHA7f0QAnU4KP25tyCcQKjfJzEpqQb1jTIm1DwVzdXQ4wIFPWcMoeUWZEaoNcoBh1kLb78xWD4mHxtouLTQzdAYvNCsOyIC2okuXO8Z5AIKGSNYOUrpt+gT4pZSlhoTTU=
+	t=1791193623; cv=fail; b=C/oSPAz0ylAgzsqZKbvwlqd+mAoCfWLj9kOOUNcaKz/UbKX4hiVx8uv662elfnKecVBA3Tw20mYEW/NuQyUH3T6KoB9Yp6ds5IPMwhH+O2dtRrY8cAJ+GIWbiHWaZRNNgeytKArxzai4FEwn9VH425ZgoFk6Zc4JoxhUTNL4o3U=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791193590; c=relaxed/simple;
-	bh=vpxrua6kbVgIUAaXfJEwwhh8CyzuLY/LKOeckVleO1E=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=N61iVn4q/PEiJynZmE9bt2+DY53ReVwE8/IgbyJSEti6gFjIlumX2w1Vs0j0sax1Z820Eacw3/ildwnM5DtASB3HPR6arlJM0rGpDMHl7y50BlOwemeXPegiJddh5gH9I1pDPSotUU1s0j/5Cjb0cvr/WmO+9xS2OcHuR4Kj0F4=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de; spf=pass smtp.mailfrom=pengutronix.de; dkim=pass (2048-bit key) header.d=pengutronix.de header.i=@pengutronix.de header.b=Sx+XnG/g; arc=pass smtp.client-ip=185.203.200.13
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
+	s=arc-20240116; t=1791193623; c=relaxed/simple;
+	bh=2l0jYZqkqFrxyxP8Ms8MHvyb6VLipjTwByvtDqrGy+Q=;
+	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
+	 Content-Type:MIME-Version; b=DybWClHPKW/ZrMH9Jax5TtpcdEBqKiZihWCxjxUqSY5OuaC2P7iGPNikFajkKz5kph3Y6dG0sTN0QgF6bGdMI2EGFv49uh63SkZF4CvXfkFy7xXK6EjmnUTFDDHfEJj8g5Bo8ZIUu7tlUMy3C0h83Ob+8w2LTdm1JPwtzkXYnR4=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=o/QUOxut; arc=fail smtp.client-ip=40.107.162.57
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=pengutronix.de header.i=@pengutronix.de header.b="Sx+XnG/g"
-Received: from [127.0.1.1] (unknown [IPv6:2a02:560:5ca5:d100:9ebf:dff:fe00:fdb5])
-	(Authenticated sender: sha@pengutronix.de)
-	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id 23F07202342;
-	Mon, 05 Oct 2026 11:46:13 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
-	s=20260414; t=1791193573;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=1J4jvTDcw/67WlZUFINaA06Zlx3uE8Xut5qwvBnwK8M=;
-	b=Sx+XnG/gbfD0T+8ZYbP0BrpdSqtLBydZdOBPv6RSodq0t0Mb0r5OqPYg9vUAvI52NYUjjw
-	XxsjYOIC8+6fmpBZl2U3nWo1Ue48/Uj7UU4SvR1WhbsnSBJBkPWvxZB0HzOBDY8m0uhZI5
-	ShIZEeoQxWSv0cgnuMdjTd2+3wZYQKAAfZ/L4LDkSmMoHifosokjk2iur6H2Muk1164afj
-	/ozbOaGwHRk/A1B8otLTrxwTVyW/W5GfBbmgRBTwZ9w1sV/obN4e/qcrYt+ynv++x0iVqr
-	XyumyBMDfauglaipFZe78+sPa3pRJ62BjFuxf8kQwgrFqc2aerl9v5OfHRCb6Q==
-ARC-Seal: i=1; s=20260414; d=pengutronix.de; t=1791193573; a=rsa-sha256;
-	cv=none;
-	b=fb5mYA471f1AlNiiZfCPkmkhcueDo2IQIWKsNN9V/mxXUEExbMmNgL4k0oaReHEQlL/I+B
-	MCf27ZMzGQ0Xlv4NIQ2j4HldRtdnU2t1LpL2I1Hc/Y6NJueZL8XJkuYlHJL9Dco4P7LZxm
-	03GwY+Bq/Q0M5l0l761IO8UUQTVIYaG0vRNpXaa1d9DIAVLV6I5crVkctyyCWJuUqgg/M2
-	zyc3zJTlVs1eqW50Odc79e+CwNEsKnTIP+TTEPh7c1fprTDmKOwAOYJHhqiIEYJXcDYaxO
-	i6CPp75v6qt2shmpArx+7PAXLa7GE4Vy2AXFK2uarRgf1h9N8X5fMh4ENV5MAw==
-ARC-Authentication-Results: i=1;
-	ORIGINATING;
-	auth=pass smtp.auth=sha@pengutronix.de smtp.mailfrom=s.hauer@pengutronix.de
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
-	s=20260414; t=1791193573;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=1J4jvTDcw/67WlZUFINaA06Zlx3uE8Xut5qwvBnwK8M=;
-	b=YI32Y+ZabSWYCo69/b4whH0jAZpuN/Y2gqI+64IP1+v803tCfsdidvjZbh1s33VR7Wx1ug
-	DGHsvFOkB/pqlq1MuFjVmwz6Juz+LxCg45K9q8IBbrC/84wi+f0Z0lyYdph9t5tq91PV/C
-	sw3Q7pymH97UmURN/MD8lQ6tewyXsiWlxg7H8pICFZk3ZBZlD9FdbTDbZqXPZfniQPDPxo
-	8D2k+Uyr15jzkzpbPnPFOzjN8j5UzTSLjCSEhNGazP0Q9tmphRCjg3MKsSTX6einEsJViH
-	Qb1WvHON+8E4aQ6TWxokA2aziDxilABFu648Mu6g+IPmuC5AOv2P+74YEsxADg==
-From: Sascha Hauer <s.hauer@pengutronix.de>
-Date: Mon, 05 Oct 2026 11:46:09 +0200
-Subject: [PATCH v6 2/4] media: rockchip: Add JPEG decoder driver
+	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="o/QUOxut"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=NAfWL+v/sOmETlIZSw7lhYh3kSHT32+0k9BONzzBTzolnTePVo83oHiz8hsWTK89ai6QUkBb8L/0mccua/gHJLrZR1yawxSYTSJlRkAbG7IZIxsnz/Q3XCYKQebq9+b6CLuJPs93XMuxXGeDJfLWxJHztiGLsia610yFOxQy3eN/fek5Q/WmtDNXrB+rbrA/Yb/x+dqNqkLvVG9Tm6fhOun0pihevGUKlJdHI9GLTbM2KNNxXpvMquOR+JaU6w9yfe596sjq1ai+l6JuOgbdeMF87t7IZJiJCCm02JoTKmlK6Uf0mKgru9IHOSh8rYOd1GwVkDiRz9cLuKTLJvIDHQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=EnvJ6j/wguFIfH6Scgrn9vT2mzZkwGt+NOFOpjlFvYo=;
+ b=IWhDrXNc+i0PS6OrnyHHJVGRB0n1ySfkwcNMkxlesdDXTDjwfC1rMuV6CTgdfSt2UjZEums9oWhJ8sfpuKAzn/ujKl2+ShS7Fb7icJIMl8LsHYStCG9sTa6kBKjv3RLj3ZwmPeniWcaoHPVUDvZD7nYB8xR7hzR6BQ0MIAMkoFcTW7A7u1sMjW0acNpKY5JbF2HgHjyYpNRfeHfhO20bbvA10pUrtAhQN2f+9HN+D0XdJmnjGQUS6/C36f3egTi5Y82qEPFr4RPCI4XY8vVwkL/EwCj1jU8K9I23MriPpW3JFgpo5JYQ1aP8O6ycZ+5a0gqrgLUQom5B4xOa5QCSYg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
+ dkim=pass header.d=oss.nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
+ s=selector1-NXP1-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=EnvJ6j/wguFIfH6Scgrn9vT2mzZkwGt+NOFOpjlFvYo=;
+ b=o/QUOxutE8tL4sRYMjQgfPtK6FdXDFeQ4EF6neE79AipHnM/Uebkkyf/FilPeDOLixAPBkxZBK5mZZV69n/S8ojRKyE/iqdNtcu7vNxDLeNGNY30tKktkameDjOC3/oim83SM9eXK96L725bjyACVSWPiBwUS9tTdgXU2pFoZwIJOkOhr65+Udemxz/LWbTqXhAv9QVqnMKL86YbyE/h17vjCnDMSIEMbEZeA7Z+hOkcv3hP3+zI4d4d4sOZ7DFuvSEH/meEl4DhWQNmTznQ8AFklXqvasmuxDVXkUOKw2zsbP9gAV8Y+m1C8MbaEvVQxjp0XAYCS62pM9c3/NLpBQ==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=oss.nxp.com;
+Received: from AM0PR04MB5858.eurprd04.prod.outlook.com (2603:10a6:208:132::23)
+ by AM9PR04MB8939.eurprd04.prod.outlook.com (2603:10a6:20b:40a::13) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.472.20; Mon, 5 Oct
+ 2026 09:46:47 +0000
+Received: from AM0PR04MB5858.eurprd04.prod.outlook.com
+ ([fe80::bdf4:c9d1:4e3f:68c6]) by AM0PR04MB5858.eurprd04.prod.outlook.com
+ ([fe80::bdf4:c9d1:4e3f:68c6%3]) with mapi id 15.21.0472.016; Mon, 5 Oct 2026
+ 09:46:47 +0000
+Message-ID: <46937886-4d3a-499a-a9a5-f1b371fc3fd0@oss.nxp.com>
+Date: Mon, 5 Oct 2026 12:46:41 +0300
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v7 3/4] can: rx-offload: allow more than one receive
+ source
+To: netdev-bot+sashiko@kernel.org
+Cc: mkl@pengutronix.de, mailhol@kernel.org, nicolas.ferre@microchip.com,
+ alexandre.belloni@bootlin.com, claudiu.beznea@tuxon.dev, haibo.chen@nxp.com,
+ linux-can@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-kernel@vger.kernel.org, s32@nxp.com, imx@lists.linux.dev,
+ eballetb@redhat.com, kuba@kernel.org
+References: <20261002071203.1287650-4-ciprianmarian.costea@oss.nxp.com>
+ <179106338585.1406898.13675590689657020972@kernel.org>
+Content-Language: en-US
+From: Ciprian Marian Costea <ciprianmarian.costea@oss.nxp.com>
+In-Reply-To: <179106338585.1406898.13675590689657020972@kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: FR0P281CA0091.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:a9::11) To AM0PR04MB5858.eurprd04.prod.outlook.com
+ (2603:10a6:208:132::23)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261005-rockchip-jpegdec-v6-2-25f16dea1697@pengutronix.de>
-References: <20261005-rockchip-jpegdec-v6-0-25f16dea1697@pengutronix.de>
-In-Reply-To: <20261005-rockchip-jpegdec-v6-0-25f16dea1697@pengutronix.de>
-To: Lucas Sinn <lucas.sinn@wolfvision.net>, 
- Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Heiko Stuebner <heiko@sntech.de>, 
- Philipp Zabel <p.zabel@pengutronix.de>
-Cc: linux-media@vger.kernel.org, linux-rockchip@lists.infradead.org, 
- devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
- linux-kernel@vger.kernel.org, Sascha Hauer <s.hauer@pengutronix.de>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1791193572; l=93530;
- i=s.hauer@pengutronix.de; s=20230412; h=from:subject:message-id;
- bh=vpxrua6kbVgIUAaXfJEwwhh8CyzuLY/LKOeckVleO1E=;
- b=23pxvLXXmcAwUdS3/74ftyy5Ze93RT6Yj6K0hj6stytc8FQSud23h1+7MjRWRIGZTciLHIETZ
- /FZ3Pzk3Ow/CEzsgP9sgVdeRU7XZ0DRjs7REkpSo4XpFMhOGuvTJTzn
-X-Developer-Key: i=s.hauer@pengutronix.de; a=ed25519;
- pk=4kuc9ocmECiBJKWxYgqyhtZOHj5AWi7+d0n/UjhkwTg=
+X-MS-Exchange-MessageSentRepresentingType: 1
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: AM0PR04MB5858:EE_|AM9PR04MB8939:EE_
+X-MS-Office365-Filtering-Correlation-Id: c0da0017-b839-4799-b090-08df22c5922d
+X-MS-Exchange-SharedMailbox-RoutingAgent-Processed: True
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|366016|1800799024|7416014|19092799006|376014|23010399003|11063799006|5023799004|56012099006|4143699003|10067099003|22082099003|18002099003|6133799003;
+X-Microsoft-Antispam-Message-Info:
+	SAPAzT4gdbNSFxYuwReC3BDT7ZwF4dxMxmYMsZOTeMcVleOnYwGliKZMeu4WupK1T7akZsbplHz+/WLDC5q9YdDgN/l+6dq2POgJubAFXBfzbB70UNKTJA85EMgRfwfNxzJSmDnotinzlb7n7Bt+58SNeL90pbFBY+lEn2EIqBvazhTLbCdn/ceFUkqi+WrHv1Ir0jn0B6s0yvnN//WxRZz4V6oKVHTdQLX26JceCaFWhboxvNMyZSXkWprLq4Dq2D2fLIdEeaUijPtfPk+Yd/NWUnum03e5T9aISFeVNMD0RRj2x1kV9rgr71rEGwODXUJJMQ6Kg4HCO5qrpVltt4zNJ1Fsl+T+FxHrf7zPcd58E2Rt0WQAytNlbSUofyQhGE/t6BJBzvKCtUS6GEkbktYysPkfxBKpxS2lW1Tdqbh96YOlxuMdQp8TSnwaDwouFT+gCuTuiuJYXXBmvskawvEvzaLcM6TUeTN6GCDOAZh74pgUIxvG70YPE9g9B4qLrH2JaDBxDRh6AYnKf+LIEuVgV94QTz9RhM9Tx/uTbBGuqudlkWYLD3MVCppfEfN4+xQchTriAvsPzt55QvjkITqW25eEeW0mNF2vlDBECv7k/07WGDn9oKycipX4Iy1R
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AM0PR04MB5858.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(7416014)(19092799006)(376014)(23010399003)(11063799006)(5023799004)(56012099006)(4143699003)(10067099003)(22082099003)(18002099003)(6133799003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?VVB5T3lVbVg0TXE5T2RIekw2cis0TWlrOXd4bzdqL1dXRU5abGcrMWNNVWhl?=
+ =?utf-8?B?aWNWbkxpWnZYRWZpNUJ6aTB5dWlZaktuSWpjNjFQejE3OWhuMGpjblg2VW5y?=
+ =?utf-8?B?QWVJUkFVNHptbWFESzgza2lPcWFCYTRjeXJDTmhjUGxSWitZKzg1dmxBdkls?=
+ =?utf-8?B?OWhyRGt2VmtoMFpIZDM4aTJ1bS9kSk5lVVhMVlQ3UFNMUm56NlJwVEVTdW02?=
+ =?utf-8?B?WCtJOXl6U1Z1Z0ZQcDVIelN4eUFqVks4ZEZHcFZDODBjR3JKY0ExK3hrNG55?=
+ =?utf-8?B?WHNOQVhmMkFGVUovbWFBUVNYaVV3SWNNNm1pZDdPekFMbkxRd3dDbWlIeU1U?=
+ =?utf-8?B?d255Vy9rcDdPUDQvenZ6Wnp5Y29WU0Z0Y1FIQzYrdjN5dHAzNnBtZUxsbWdO?=
+ =?utf-8?B?bEtxZm5janBBMGV5L090VXdVNUgzY2VjTWRxbUY2bDRDQ21sRUlXdnlyc1lN?=
+ =?utf-8?B?WGdCaVZWMXRWQXVtNmFaTDZzb3gvL3BGTTZZcCs2Q0dyMUZmRFhaR1loSjI1?=
+ =?utf-8?B?Y2ZoVy9sYnByNHdCUkd6WVhVNmFqQ3RTRm1xUjYvd2E1T3lPVkhtUmlzSlhH?=
+ =?utf-8?B?U3cxNHk2ejhnUlhKY0tPUGF0QlhNYkk1alFxaUprWENLVXJTa1ZTemhvV3ZF?=
+ =?utf-8?B?THlJWHg0ZEJFb3VqS3lpTTVEbWRUeExBYzRHajREV2pPNjZsSXpVYlRaSWNo?=
+ =?utf-8?B?YnEyaU5DUWVSNlNiRlczTlF4UDVRSG03UjRoSVlOT3hlZU5HYkFSUk43Z0ZD?=
+ =?utf-8?B?b3NkWTlJVVE5TzZnYll3T3R0Y1dwaGUrMVlwUllrS3l4R2hlbHNPZGJ0Nlhw?=
+ =?utf-8?B?T081K1o2aGtsVGhJbm1FZnFOLzU4NVFzaHFKQUVFcGJUSjZLa3JZZnkvVGRV?=
+ =?utf-8?B?M21NN1R5SForZC9qcDFHN0RRalg5WlNJQnV5YWZRODlGdmZrMjg1MWI1eVZB?=
+ =?utf-8?B?L0lPVEE4cFFydXZ6K1hXN2ZwUFBWVjc5Z0phdFIzRmNMeFlVZFlNbzk4UDVU?=
+ =?utf-8?B?TWdYOXQrMEZhNVlhQTUzVDlHdU0raUFnQTVVNkhxb3hMR2haM2k1R1VFWHhh?=
+ =?utf-8?B?SG9VWWtnbCswdmhISmhUbjNLTVF0Tlp2K2Z3VjZvNThWdzZ1Mk1LZHFDTE12?=
+ =?utf-8?B?NDE4T0g0Yy9MekdRQ2k2ZEU2bEt5N2FvRXRXN3U1WWpRMnRYTVhLbkhHcnBU?=
+ =?utf-8?B?K1MvWjZNS2FEd2dCaGJLRCtzYW1Fc1d1cFJVOUpTNWlCYVJ3WjFhME9xdGRi?=
+ =?utf-8?B?c3VNQm5VSTMzRnFrNDUwcGJ5RlhwVjJOb285TGFmSk9jUnN4d3c0U2tvdll1?=
+ =?utf-8?B?VFlWa2JzZkt0QjA0QVZ2WjdzTkYwWFZYcit3NWZxdU1pcy8weUpCc1lHZHJW?=
+ =?utf-8?B?WUU2eDNKYVpRN21IY3pvdm9OVmo0eDI3a0pQZ08yRjB3V3VGV1ZTUTh6WWQy?=
+ =?utf-8?B?ZEVqVjk2UkFaTzluanRrdkptVE9XQitJdEZyMHA3VVplR2tlU2hYY3pDbVBK?=
+ =?utf-8?B?ZUhYcXhQMUFxb2Y5dlpGZ2Vja29OdEp0dXVGRFoxeHpYTW55Z0ZPdFRRQmty?=
+ =?utf-8?B?SGZXZGFNK0h6T0dXeFNZeDhReUE1Z2JaVG4xejVHTXpNNWIzRXdmL3RjNFdO?=
+ =?utf-8?B?U24xUnRJYysydTZZaVljeGtrelFOdjArK0ZVaHlKc1kyakt5SnZTR1d0WWda?=
+ =?utf-8?B?NUk4bVV4RG92NFJTVDVwbzh2K0lKUUxoam9kbEVDc2pQV2d0Kys5Uk5GUjVV?=
+ =?utf-8?B?dEpjK3RrUHdhMkJ5YW51T2c5Q3BJTDJ2MTdiOG0waVo4Ni9qYjlZVjN3eFRx?=
+ =?utf-8?B?VUJEWFRZN2VQM2lMR2VZdWlXZ2ZiMlBWdDRhZjAvNHUxMTJySzMrL0xoblll?=
+ =?utf-8?B?bi9QV1IxMmZ1RHBvYzVUSi84aDV2bkQ3ek0zeWw5WVBTRWtGVEt5YkM2alFu?=
+ =?utf-8?B?a3RLM0Jtd2RwU3crV2pUZ2V1dTFUb09Ia21xWGxTUUFVM0tOSE9uRHpHREhn?=
+ =?utf-8?B?N1pLUjFMNWo4ay9KektLQzdoVkFKa3NZeGNFdlFkNE9Balp3MVBJUzd0OVVO?=
+ =?utf-8?B?NE02M2lqT3lkMnNBYjJ2aWgzVksrVUxLNTh6b21FbVNVbWkvTkZ6MWMxZkIx?=
+ =?utf-8?B?YThRbFdKdHFuWjAybmZCYzZEaFBpUzZGVno1dUNzOUlPd1I3aFpvMS83YStR?=
+ =?utf-8?B?eGJlZzF1NW1pMnFtY0FtYXo1bHdzRFNXTDQrNytlYmsxaGtJS2tWcXVmSzBZ?=
+ =?utf-8?B?L3F6RndaNC85ejF1dGxWck1JcklaZGIzdExyQU5vRVV2SXV0UGtxNVNNbFA1?=
+ =?utf-8?B?N3NYV3VBWGhpYzFUSzdiUHNKR0xMWG14d1FTSG1Sc0lReTR1cE40UDlHOTJk?=
+ =?utf-8?Q?q7IhHT3a6utpSVMc=3D?=
+X-OriginatorOrg: oss.nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: c0da0017-b839-4799-b090-08df22c5922d
+X-MS-Exchange-CrossTenant-AuthSource: AM0PR04MB5858.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Oct 2026 09:46:47.3738
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: uFt9Lx+Nc68MVXKRNnkeaB8VgY2dU8lfDN8hTW+NrVYbDkmy+xIh6wI3JT/15CebhghxA2wBNK+T+WrGVyNI0yI7YGa6QZUy/FNxrQ0cQKI=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM9PR04MB8939
 
-Add a driver for the JPEG hardware decoder Rockchip integrates into a
-number of its SoCs.  Downstream it is known as the VDPU720, which is the
-name the register definitions carry here.
+On 10/4/2026 12:36 AM, netdev-bot+sashiko@kernel.org wrote:
+> [You don't often get email from netdev-bot+sashiko@kernel.org. Learn why this is important at https://aka.ms/LearnAboutSenderIdentification ]
+> 
+> Thank you for your contribution! Sashiko AI review found 5 potential
+> issue(s) to consider.
+> 
+> Critical: 0 · High: 0 · Medium: 1 · Low: 4 (2)
+> 
+> If you believe none of the issues are legitimate, please reply to each
+> issue of Medium severity or higher and explain why the AI is wrong.
+> If any of them are legitimate and you plan to respin, please let patchwork
+> know by including "pw-bot: cr" as a separate line at the end of your reply
+> (one such reply per series is enough).
+> 
+> - [Medium] In can_rx_offload_move_to_skb_queue() the comment says the
+>    sorted merge will 'keep the timestamp order over all sources', but it…
+> - [Low] Concern: the commit message describes a live S32G2 flexcan bug,
+>    but the patch only adds can_rx_offload_add_source() and nothing calls…
+> - [Low] can_rx_offload_add_source() calls
+>    can_rx_offload_init_mb_range(source, &weight), then never uses the…
+> - [Low] queue->sort is set only by can_rx_offload_add_timestamp(), so
+>    with several FIFO-mode or manual-mode sources each source's…
+> - [Low] can_rx_offload_add_source() does not check whether @source is
+>    already linked.
+> 
+> Pre-existing issues:
+> - [Low] This problem wasn't introduced by this patch, but
+>    can_rx_offload_init_mb_range() (previously inline in…
+> - [Low] This problem wasn't introduced by this patch, but several sources
+>    share dev->stats, and can_rx_offload_offload_one(),…
+> 
+> --
+> 
+> can: rx-offload: allow more than one receive source
+> 
+> This commit lets a CAN device have several rx-offload sources, one per
+> producer such as an IRQ line. All of them share one can_rx_offload_queue,
+> which the primary source owns. A new can_rx_offload_add_source() attaches
+> extra sources, and the IRQ finish helpers move each source's skb_irq_queue
+> into the shared skb_queue under skb_queue.lock, sorting by timestamp when
+> several sources run in timestamp mode.
+> 
+>> diff --git a/drivers/net/can/dev/rx-offload.c b/drivers/net/can/dev/rx-offload.c
+>> index 92309ed47bac5..5352d70b6e93c 100644
+>> --- a/drivers/net/can/dev/rx-offload.c
+>> +++ b/drivers/net/can/dev/rx-offload.c
+>> @@ -304,18 +304,40 @@ can_rx_offload_get_echo_skb_queue_tail(struct can_rx_offload *offload,
+>>   }
+>>   EXPORT_SYMBOL_GPL(can_rx_offload_get_echo_skb_queue_tail);
+>>
+>> -void can_rx_offload_irq_finish(struct can_rx_offload *offload)
+>> +/* Sources may run on different CPUs at the same time, skb_queue.lock
+>> + * serializes them.
+>> + */
+> 
+> [Severity: Low]
+> This is a pre-existing issue, but the sources also share
+> offload->dev->stats. can_rx_offload_offload_one(),
+> can_rx_offload_get_echo_skb_queue_timestamp() and
+> can_rx_offload_get_echo_skb_queue_tail() update these counters with plain
+> increments from IRQ context:
+> 
+> drivers/net/can/dev/rx-offload.c:can_rx_offload_offload_one() {
+>      ...
+>          if (IS_ERR(skb)) {
+>                  offload->dev->stats.rx_dropped++;
+>                  offload->dev->stats.rx_fifo_errors++;
+>      ...
+> }
+> 
+> When sources run on different CPUs, can these increments get lost?
+> 
+> flexcan already ran these helpers from several IRQ lines at once before
+> this series. The only effect is slightly wrong drop and error counters.
+> 
 
-Exposes one V4L2 M2M device implementing the stateful decoder interface:
-JPEG input -> NV12 output, or GREY for a grayscale frame.  The frame
-header is parsed on the CPU when a coded buffer is queued.  The first
-buffer queued while the capture queue is stopped sets the capture format
-and raises V4L2_EVENT_SOURCE_CHANGE, so userspace learns the frame size
-without parsing the bitstream itself.  V4L2_DEC_CMD_STOP drains.
+Pre-existing issue. I do not target it in this series.
 
-Dynamic resolution change is supported, and has to be for GStreamer:
-without V4L2_FMT_FLAG_DYN_RESOLUTION its v4l2videodec does not wait for
-the initial source change and later takes the pending event for one in
-the middle of the stream, with the flag it relies on the driver to
-follow a change.  A frame that decodes to another size or pixel format
-than the one queued before it is marked when it is queued.  The decoder
-stops in front of it, reports the change, returns an empty LAST capture
-buffer and resumes once userspace has restarted the capture queue or
-sent V4L2_DEC_CMD_START.  The capture format is only ever changed from
-an ioctl while no job can run.
+>> +static void can_rx_offload_move_to_skb_queue(struct can_rx_offload *offload)
+>>   {
+>>        struct can_rx_offload_queue *queue = offload->queue;
+>>        unsigned long flags;
+>> +
+>> +     spin_lock_irqsave(&queue->skb_queue.lock, flags);
+>> +
+>> +     if (queue->source_cnt > 1 && queue->sort) {
+>> +             /* keep the timestamp order over all sources */
+>> +             struct sk_buff *skb;
+>> +
+>> +             while ((skb = __skb_dequeue(&offload->skb_irq_queue)))
+>> +                     __skb_queue_add_sort(&queue->skb_queue, skb,
+>> +                                          can_rx_offload_compare);
+> 
+> [Severity: Medium]
+> Does this really keep the timestamp order over all sources?
+> 
+> __skb_queue_add_sort() only orders the frames that are in queue->skb_queue
+> at the moment of the merge. can_rx_offload_napi_poll() drains that queue
+> independently of the producers:
+> 
+> drivers/net/can/dev/rx-offload.c:can_rx_offload_napi_poll() {
+>      ...
+>          while ((work_done < quota) &&
+>                 (skb = skb_dequeue(&queue->skb_queue))) {
+>                  ...
+>                  netif_receive_skb(skb);
+>          }
+>      ...
+> }
+> 
+> With two sources on different CPUs:
+> 
+> CPU0 (source A)                  CPU1 (source B)
+>                                   reads frame ts=10 into skb_irq_queue
+>                                   still busy in RX loop, TX complete or
+>                                   ESR handling
+> reads frame ts=20
+> can_rx_offload_irq_finish()
+>    merges ts=20, napi_schedule()
+> NAPI delivers ts=20
+>                                   can_rx_offload_irq_finish()
+>                                     merges ts=10
+> NAPI delivers ts=10
+> 
+> Can CAN frames reach the stack out of timestamp order this way?
+> 
+> With the next patch in the series, S32G2 in timestamp mode runs all four
+> flexcan sources through flexcan_irq() concurrently. That configuration
+> meets the queue->source_cnt > 1 && queue->sort condition.
+> 
+> skb_queue.lock only serializes the list manipulation. Nothing holds back
+> delivery until the other sources have merged their older frames.
+> 
+> If full ordering isn't achievable here, should the comment and the commit
+> message describe the narrower guarantee?
+> 
 
-Hardware requirements:
-- a DMA side buffer with Q-tables (zigzag->raster), Huffman mincode and
-  value tables, rebuilt from the frame header on every run
-- a two-phase IRQ clear sequence, which some revisions require.  It is
-  done unconditionally, see rkjpegd-vdpu720-regs.h
-- 16-byte stream alignment with a start-byte offset
-- MCU-aligned PIC_H (e.g. 1080p YUV420 needs 1088, not 1080)
-- FILL_DOWN_E on every NV12 conversion, the output chroma is vertically
-  subsampled so the hardware completes the bottom of the picture
-- DRI (restart interval) support when present
+I agree the comment overstates the order guarantee.
+The merge orders a source's frames only against those still in
+skb_queue. But before this series, the concurrent handlers could corrupt
+the shared skb_irq_queue, so there was no ordering guarantee then
+either.
 
-Every address register is a single 32 bit one with no high order
-companion anywhere in the map, so the DMA masks are capped accordingly.
-That is no constraint in practice: the block sits behind the Rockchip
-IOMMU, whose address space is 32 bit wide by construction, and memory
-above 4GB is reached through it.
+In v8 I'll change the comment and the commit message to describe this 
+narrower guarantee.
 
-A coded buffer that ends before the frame does is left to the hardware:
-BUF_EMPTY is enabled for every job and fails it.  A capture buffer
-smaller than the negotiated format fails the job too.  A failed frame
-comes back with the ERROR flag and its full payload.  The CPU never
-touches a capture buffer, so that queue has no kernel mapping.
+>> +     } else {
+>> +             skb_queue_splice_tail_init(&offload->skb_irq_queue,
+>> +                                        &queue->skb_queue);
+>> +     }
+> 
+> [Severity: Low]
+> Only can_rx_offload_add_timestamp() sets queue->sort. With several
+> FIFO-mode or manual-mode sources, each skb_irq_queue is therefore just
+> appended here. That happens even when a driver ordered its frames with
+> can_rx_offload_queue_timestamp().
+> 
+> The commit message documents this ("Otherwise they append it").
+> 
+> At the end of the series, the only in-tree FIFO multi-source user is
+> flexcan on mcf5441x (FLEXCAN_QUIRK_NR_IRQ_3). That part is uniprocessor
+> m68k, so its handlers never run in parallel.
+> 
+> Would it make sense to state in the kerneldoc of
+> can_rx_offload_add_source() that ordering across sources is not kept in
+> FIFO and manual mode, for future SMP users?
+> 
 
-A job that ends in error, or leaves the block unparked, is followed by an
-in-block soft reset, and so is a job the watchdog has to end.  The
-interrupt handler decodes the error status registers into a readable
-diagnostic.
+Agree. I will add such clarification comment in v8.
 
-Assisted-by: LLM
-Signed-off-by: Sascha Hauer <s.hauer@pengutronix.de>
----
-A few things in here read like bugs and are not.  Collecting the
-questions with their answers so they do not have to be asked.
+> [ ... ]
+> 
+>> @@ -350,6 +369,16 @@ void can_rx_offload_threaded_irq_finish(struct can_rx_offload *offload)
+>>   }
+>>   EXPORT_SYMBOL_GPL(can_rx_offload_threaded_irq_finish);
+>>
+>> +static void can_rx_offload_link_source(struct can_rx_offload_queue *queue,
+>> +                                    struct can_rx_offload *offload)
+>> +{
+>> +     offload->queue = queue;
+>> +     __skb_queue_head_init(&offload->skb_irq_queue);
+>> +
+>> +     list_add_tail(&offload->node, &queue->sources);
+>> +     queue->source_cnt++;
+>> +}
+> 
+> [Severity: Low]
+> Nothing here checks whether offload is already on a sources list.
+> 
+> Suppose can_rx_offload_add_source() is called twice for the same source
+> with no can_rx_offload_del() in between. Wouldn't that reinitialize a live
+> skb_irq_queue, count the source twice in source_cnt, and call
+> list_add_tail() on a node that is already linked? The node could end up
+> pointing at itself, and then the list_for_each_entry_safe() loop in
+> can_rx_offload_del() would never finish.
+> 
+> No in-tree path does this. At the end of the series, flexcan calls
+> can_rx_offload_del(&priv->offload) in flexcan_close() and on every failure
+> path before flexcan_open() adds the sources again. can_rx_offload_init_queue()
+> also resets the list.
+> 
+> Would a defensive check against adding the same source twice be worth
+> having?
 
-Q: rkjpegd_stop_streaming() returns every queued buffer and never stops
-   the hardware.  Can a decode still be in flight there?
+Adding a source twice I consider it to be a driver bug, but the check is 
+cheap, so I'll add one in v8.
 
-A: No.  v4l2_m2m_streamoff() and v4l2_m2m_ctx_release() both wait for
-   the running job before the queues are released.  With no .job_abort
-   that wait is bounded by the RKJPEGD_TIMEOUT_MS watchdog.
+> 
+> [ ... ]
+> 
+>> @@ -357,41 +386,65 @@ static int can_rx_offload_init_queue(struct net_device *dev,
+> 
+> [ ... ]
+> 
+>> -int can_rx_offload_add_timestamp(struct net_device *dev,
+>> -                              struct can_rx_offload *offload)
+>> +static int can_rx_offload_init_mb_range(struct can_rx_offload *offload,
+>> +                                     unsigned int *weight)
+>>   {
+>> -     unsigned int weight;
+>> -
+>>        if (offload->mb_first > BITS_PER_LONG_LONG ||
+>> -         offload->mb_last > BITS_PER_LONG_LONG || !offload->mailbox_read)
+>> +         offload->mb_last > BITS_PER_LONG_LONG)
+>>                return -EINVAL;
+> 
+> [Severity: Low]
+> This isn't a bug introduced by this patch, but the bound check moved here
+> accepts mb_first or mb_last equal to BITS_PER_LONG_LONG (64).
+> can_rx_offload_irq_offload_timestamp() walks the range inclusively and
+> does:
+> 
+>                  if (!(pending & BIT_ULL(i)))
+>                          continue;
+> 
+> so i == 64 would be an out-of-range shift. Should these checks use >=?
+> 
+> No in-tree driver passes 64 today. flexcan uses mb_count - 2, at91 uses
+> rx_last, and ti_hecc uses at most HECC_MAX_MAILBOXES - 1.
+> 
 
-Q: rkjpegd_vdpu720_run() compares the frame width against the crop, but
-   a 4:1:1 MCU is 32 pixels wide.  Should the capture buffer be padded
-   out to the MCU width rather than to a macroblock, so that the last MCU
-   column has somewhere to land?
+This is pre-existing, but valid.
+I'll fix it as a separate patch in v8.
 
-A: No, and this was tried.  The decoder does not write out to the MCU
-   boundary: it lays each row down at the picture width, at a pitch of
-   the picture width, whatever Y_HOR_STRIDE is set to.  Padding the buffer
-   to 736 for a 720 wide 4:1:1 frame therefore does not give it more room,
-   it moves the buffer out from under the frame, and every row after the
-   first is read at the wrong offset.
+> [ ... ]
+> 
+>> @@ -416,6 +469,46 @@ int can_rx_offload_add_manual(struct net_device *dev,
+>>   }
+>>   EXPORT_SYMBOL_GPL(can_rx_offload_add_manual);
+>>
+>> +/**
+> 
+> [ ... ]
+> 
+>> +int can_rx_offload_add_source(struct can_rx_offload *primary,
+>> +                           struct can_rx_offload *source)
+>> +{
+> 
+> [Severity: Low]
+> This isn't a bug, but the commit message describes a live S32G2 flexcan
+> problem, while nothing in this commit calls can_rx_offload_add_source()
+> and there is no Fixes: tag.
+> 
+> This is resolved later in the series. The next patch, "can: flexcan: use
+> one rx-offload source per IRQ line", does the following:
+> 
+> - adds the extra sources in flexcan_rx_offload_setup()
+> - picks the source per IRQ via flexcan_get_offload()
+> - switches flexcan_mailbox_read() to netdev_priv(offload->dev)
+> - carries Fixes: 8503a4b1a24d ("can: flexcan: add NXP S32G2/S32G3 SoC
+>    support")
+> 
+> So adding the infrastructure first and the user next looks fine.
+> 
 
-   On hardware that shows up as a 720x480 4:1:1 frame decoding to a buffer
-   whose visible bytes are all wrong in both planes, with the columns past
-   the picture reading 0x80 - the packed frame being walked at the padded
-   stride, which runs the last luma rows into the chroma plane of the
-   packed layout.  The other four modes are unaffected because 8 and 16
-   divide the macroblock the buffer is already aligned to, so only 4:1:1
-   can have the two widths disagree.
+Yes, this is intended. This patch adds the infrastructure and the next 
+patch converts flexcan driver to use it, along with the Fixes tag.
 
-Q: ctx->dst_fmt is read by the job without a lock.  What keeps a
-   resolution change from rewriting it under a running job?
+I will add info that the next patch converts flexcan into this commit 
+message in order to add more clarity.
 
-A: Nothing writes it while a job can run.  rkjpegd_track_fmt() marks
-   the frame where the format changes when it is queued; it only sets
-   dst_fmt itself for the first frame queued while the capture queue is
-   stopped, when no job can run.  When a job reaches a marked frame,
-   rkjpegd_stop_at_change() decodes nothing and sets stopped_at_change,
-   and rkjpegd_job_ready() holds back every job until userspace resumes.
-   The capture STREAMOFF or V4L2_DEC_CMD_START that resumes runs under
-   vdev_lock and only then copies the new format into dst_fmt.  In
-   between, the capture ioctls report the format from the parsed header
-   of the frame the decoder stopped at.  stopped_at_change is the only
-   format state the job writes, and it is set before the event and the
-   LAST buffer that tell userspace about it.
+>> +     struct can_rx_offload_queue *queue = primary->queue;
+>> +     unsigned int weight;
+>> +     int err;
+>> +
+>> +     if (queue != &primary->own_queue || !queue->source_cnt ||
+>> +         source == primary)
+>> +             return -EINVAL;
+>> +
+>> +     if (queue->sort) {
+>> +             err = can_rx_offload_init_mb_range(source, &weight);
+>> +             if (err)
+>> +                     return err;
+>> +     }
+>> +
+>> +     source->dev = primary->dev;
+>> +     source->mailbox_read = primary->mailbox_read;
+>> +     source->skb_queue_len_max = primary->skb_queue_len_max;
+> 
+> [Severity: Low]
+> The weight that can_rx_offload_init_mb_range() computes for source is
+> never used. skb_queue_len_max is copied from the primary, and the shared
+> NAPI weight is not adjusted. So the drop limit and the NAPI weight depend
+> only on the primary's mailbox range.
+> 
+> This matches the commit message ("inherits the mode, netdev, queue length
+> limit and mailbox_read() of the primary"). Later in the series,
+> flexcan_rx_offload_add_source() copies the primary's mb_first and mb_last
+> into every source, so the limit fits there.
+> 
+> A driver that split its mailboxes into a small primary range and a larger
+> secondary range would get an undersized shared limit, though.
+> 
+> Should the unused weight be dropped, or is it meant to feed into
+> skb_queue_len_max?
 
-Q: rkjpegd_stop_streaming() leaves the mem2mem drain state alone when the
-   capture queue stops for a format change.  Does a capture STREAMOFF
-   not abort a drain?
+The NAPI weight and skb_queue_len_max belong to the shared queue, which
+the primary has already sized. A source only needs the range check and
+'inc'.
 
-A: Not this one.  dev-decoder.rst has the client handle a resolution
-   change found during a drain "before continuing with the drain
-   sequence", and the capture restart is part of handling it.
-   GStreamer sends V4L2_DEC_CMD_STOP at EOS, so a stream that changes
-   size on its last frames hits this every time: clearing is_draining
-   there loses the LAST flag and the drain never ends.  Any other
-   capture STREAMOFF still aborts a drain.
+The flexcan driver gives every source the entire RX mailbox range, so 
+there is no range split issue.
 
-Q: The interrupt handler reads the registers without checking the
-   runtime PM state, and the watchdog does not mask the interrupt while
-   it resets the block.  Can either race?
+I'll drop the unused weight for source in v8.
 
-A: No.  The block is not free-running: it raises an interrupt only for
-   a job rkjpegd_vdpu720_run() started, and that job holds a runtime PM
-   reference until it is finished, so the registers are clocked
-   whenever the interrupt can fire.  The line is not shared.  Whether
-   the interrupt or the watchdog finishes a job is decided by
-   cancel_delayed_work() in rkjpegd_irq_done(): once the watchdog runs,
-   the interrupt leaves the job alone, and the watchdog resets the block
-   before it hands the job back.
+pw-bot: cr
 
-Q: drain_lock is a spinlock next to vdev_lock.  Why a second lock?
-
-A: The mem2mem drain state (is_draining, last_src_buf, has_stopped) is
-   set by V4L2_DEC_CMD_STOP under vdev_lock, but read and cleared when a
-   job completes, from the interrupt handler or the watchdog without
-   it.  Unserialised, a STOP can pick the running job's source buffer as
-   last_src_buf after the completion has decided not to flag it, and
-   the drain then waits for a buffer that is gone.  The completion runs
-   in hardirq context, so this has to be a spinlock.  imx-jpeg fixed the
-   same race in commit df71c6e4d5e5 ("media: imx-jpeg: Lock on ioctl
-   encoder/decoder stop cmd").
-
-Q: A frame that fails to decode comes back with its full payload.
-   Should bytesused not be 0 to tell a complete failure from minor
-   corruption?
-
-A: GStreamer's v4l2 buffer pool checks the size before the ERROR flag
-   and takes an empty capture buffer from an M2M device for the end of
-   a legacy drain, so a single bad frame ended v4l2jpegdec's stream.
-   With the payload set it marks the frame corrupted and carries on.
-   Empty capture buffers remain for LAST buffers without a frame and for
-   the buffers stop_streaming() returns.
----
- MAINTAINERS                                        |    1 +
- drivers/media/platform/rockchip/Kconfig            |    1 +
- drivers/media/platform/rockchip/Makefile           |    1 +
- drivers/media/platform/rockchip/rkjpegd/Kconfig    |   16 +
- drivers/media/platform/rockchip/rkjpegd/Makefile   |    4 +
- .../rockchip/rkjpegd/rkjpegd-vdpu720-regs.h        |  235 +++
- drivers/media/platform/rockchip/rkjpegd/rkjpegd.c  | 2217 ++++++++++++++++++++
- 7 files changed, 2475 insertions(+)
-
-diff --git a/MAINTAINERS b/MAINTAINERS
-index 290c3a1452ea0..a312e3c0d5e15 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -23706,6 +23706,7 @@ L:	linux-media@vger.kernel.org
- L:	linux-rockchip@lists.infradead.org
- S:	Maintained
- F:	Documentation/devicetree/bindings/media/rockchip,rk3568-jpegd.yaml
-+F:	drivers/media/platform/rockchip/rkjpegd/
- 
- ROCKCHIP RK3568 RANDOM NUMBER GENERATOR SUPPORT
- M:	Daniel Golle <daniel@makrotopia.org>
-diff --git a/drivers/media/platform/rockchip/Kconfig b/drivers/media/platform/rockchip/Kconfig
-index ba401d32f01ba..53d28eb89e472 100644
---- a/drivers/media/platform/rockchip/Kconfig
-+++ b/drivers/media/platform/rockchip/Kconfig
-@@ -5,4 +5,5 @@ comment "Rockchip media platform drivers"
- source "drivers/media/platform/rockchip/rga/Kconfig"
- source "drivers/media/platform/rockchip/rkcif/Kconfig"
- source "drivers/media/platform/rockchip/rkisp1/Kconfig"
-+source "drivers/media/platform/rockchip/rkjpegd/Kconfig"
- source "drivers/media/platform/rockchip/rkvdec/Kconfig"
-diff --git a/drivers/media/platform/rockchip/Makefile b/drivers/media/platform/rockchip/Makefile
-index 0e0b2cbbd4bd2..c256c51ced269 100644
---- a/drivers/media/platform/rockchip/Makefile
-+++ b/drivers/media/platform/rockchip/Makefile
-@@ -2,4 +2,5 @@
- obj-y += rga/
- obj-y += rkcif/
- obj-y += rkisp1/
-+obj-y += rkjpegd/
- obj-y += rkvdec/
-diff --git a/drivers/media/platform/rockchip/rkjpegd/Kconfig b/drivers/media/platform/rockchip/rkjpegd/Kconfig
-new file mode 100644
-index 0000000000000..4c269d4a6654e
---- /dev/null
-+++ b/drivers/media/platform/rockchip/rkjpegd/Kconfig
-@@ -0,0 +1,16 @@
-+# SPDX-License-Identifier: GPL-2.0
-+config VIDEO_ROCKCHIP_JPEGD
-+	tristate "Rockchip JPEG decoder driver"
-+	depends on V4L_MEM2MEM_DRIVERS
-+	depends on ARCH_ROCKCHIP || COMPILE_TEST
-+	depends on VIDEO_DEV
-+	depends on PM
-+	select V4L2_JPEG_HELPER
-+	select V4L2_MEM2MEM_DEV
-+	select VIDEOBUF2_DMA_CONTIG
-+	help
-+	  Support for the VDPU720 JPEG decoder found on Rockchip SoCs such
-+	  as the RK3568 and RK3588, decoding JPEG and MJPEG frames to NV12,
-+	  or to GREY for grayscale frames.
-+	  To compile this driver as a module, choose M here: the module
-+	  will be called rockchip-jpegd.
-diff --git a/drivers/media/platform/rockchip/rkjpegd/Makefile b/drivers/media/platform/rockchip/rkjpegd/Makefile
-new file mode 100644
-index 0000000000000..0acf2e6ac6785
---- /dev/null
-+++ b/drivers/media/platform/rockchip/rkjpegd/Makefile
-@@ -0,0 +1,4 @@
-+# SPDX-License-Identifier: GPL-2.0
-+obj-$(CONFIG_VIDEO_ROCKCHIP_JPEGD) += rockchip-jpegd.o
-+
-+rockchip-jpegd-y += rkjpegd.o
-diff --git a/drivers/media/platform/rockchip/rkjpegd/rkjpegd-vdpu720-regs.h b/drivers/media/platform/rockchip/rkjpegd/rkjpegd-vdpu720-regs.h
-new file mode 100644
-index 0000000000000..eca01174804d6
---- /dev/null
-+++ b/drivers/media/platform/rockchip/rkjpegd/rkjpegd-vdpu720-regs.h
-@@ -0,0 +1,235 @@
-+/* SPDX-License-Identifier: GPL-2.0 */
-+/*
-+ * Rockchip VPU720 JPEG decoder register definitions
-+ *
-+ * Derived from downstream Rockchip MPP HAL (hal_jpegd_rkv_reg.h).
-+ * Copyright (C) 2020 Rockchip Electronics Co., Ltd.
-+ * Copyright (C) 2026 WolfVision GmbH
-+ */
-+#ifndef RKJPEGD_VDPU720_REGS_H_
-+#define RKJPEGD_VDPU720_REGS_H_
-+
-+#include <linux/bitfield.h>
-+#include <linux/bits.h>
-+#include <linux/align.h>
-+#include <linux/types.h>
-+
-+#define VDPU720_REG_VERSION		0x000
-+#define VDPU720_PROD_NUM		GENMASK(31, 16)
-+#define VDPU720_BIT_DEPTH		BIT(8)
-+
-+#define VDPU720_REG_INT			0x004
-+#define VDPU720_DEC_E			BIT(0)
-+#define VDPU720_IRQ_DIS			BIT(1)
-+#define VDPU720_TIMEOUT_E		BIT(2)
-+#define VDPU720_BUF_EMPTY_E		BIT(3)
-+#define VDPU720_BUF_EMPTY_RELOAD	BIT(4)
-+#define VDPU720_SOFT_RST_EN		BIT(5)
-+#define VDPU720_IRQ_RAW			BIT(6)
-+#define VDPU720_WAIT_RESET_E		BIT(7)
-+#define VDPU720_IRQ			BIT(8)
-+#define VDPU720_DEC_RDY			BIT(9)
-+#define VDPU720_BUS_ERR			BIT(10)
-+#define VDPU720_DEC_ERR			BIT(11)
-+#define VDPU720_TIMEOUT			BIT(12)
-+#define VDPU720_BUF_EMPTY		BIT(13)
-+#define VDPU720_SOFT_RST_RDY		BIT(14)
-+
-+/* Error status bits used to decide whether a hardware reset is needed */
-+#define VDPU720_ERR_MASK		(VDPU720_BUS_ERR | VDPU720_DEC_ERR | \
-+					 VDPU720_TIMEOUT | VDPU720_BUF_EMPTY)
-+
-+/*
-+ * VPU720 IRQ clear mask.
-+ *
-+ * Some revisions require a two-step IRQ acknowledgment before checking
-+ * VDPU720_IRQ_RAW: write the status back with only the enable and control
-+ * bits kept, then write 0 to fully clear.  The downstream BSP computes the
-+ * first value as
-+ *
-+ *   clr = (~(0x00fe7f40 & status)) & (0xff0180bf & status)
-+ *
-+ * The two masks are complements, so that is status & 0xff0180bf: bits 0-5,
-+ * 7, 15, 16 and 24-31 are kept, IRQ_RAW and the status bits 8-14 dropped.
-+ *
-+ * It is applied unconditionally here.  The BSP gates it on the revision in
-+ * VDPU720_REG_VERSION matching 0xdb1f0006 exactly, and the RK3588 reports
-+ * 0xdb1f0005, so it is not needed on that part.  The extra write is
-+ * harmless there and saves a revision check that would need silicon we do
-+ * not have to validate.
-+ */
-+#define VDPU720_IRQ_CLR_KEEP		0xff0180bf
-+
-+#define VDPU720_REG_SYS			0x008
-+#define VDPU720_FORCE_SOFTRST		BIT(17)	/* set when dec_e=0 before soft-reset */
-+#define VDPU720_FILL_DOWN_E		BIT(24)	/* fill bottom padding rows */
-+#define VDPU720_FILL_RIGHT_E		BIT(25)
-+#define VDPU720_OUT_SEQ			BIT(26)	/* 0=raster, 1=tile */
-+#define VDPU720_YUV_OUT_FMT		GENMASK(29, 27)
-+#define VDPU720_YUV_OUT_FMT_NATIVE	0	/* no format conversion */
-+#define VDPU720_YUV_OUT_FMT_NV12	3	/* output as NV12 */
-+
-+#define VDPU720_REG_PIC_SIZE		0x00c
-+#define VDPU720_PIC_W_M1		GENMASK(15, 0)
-+#define VDPU720_PIC_H_M1		GENMASK(31, 16)
-+
-+#define VDPU720_REG_PIC_FMT		0x010
-+#define VDPU720_JPEG_MODE		GENMASK(2, 0)
-+#define VDPU720_JPEG_MODE_YUV400	0
-+#define VDPU720_JPEG_MODE_YUV411	1
-+#define VDPU720_JPEG_MODE_YUV420	2
-+#define VDPU720_JPEG_MODE_YUV422	3
-+#define VDPU720_JPEG_MODE_YUV440	4
-+#define VDPU720_JPEG_MODE_YUV444	5
-+#define VDPU720_PIX_DEPTH		GENMASK(6, 4)
-+#define VDPU720_PIX_DEPTH_8		0
-+#define VDPU720_PIX_DEPTH_12		1
-+/* qtables_sel: number of Q-table sets (0..3) */
-+#define VDPU720_QTBL_SEL		GENMASK(9, 8)
-+/* htables_sel: number of H-table sets (0..3) */
-+#define VDPU720_HTBL_SEL		GENMASK(13, 12)
-+/* dri_e: restart interval enable */
-+#define VDPU720_DRI_E			BIT(15)
-+/* dri_mcu_num_m1: restart interval MCU count minus 1 */
-+#define VDPU720_DRI_MCU_M1		GENMASK(31, 16)
-+
-+#define VDPU720_REG_HOR_STRIDE		0x014
-+#define VDPU720_Y_HOR_STRIDE		GENMASK(15, 0)
-+#define VDPU720_UV_HOR_STRIDE		GENMASK(31, 16)
-+
-+#define VDPU720_REG_Y_VSTRIDE		0x018
-+#define VDPU720_Y_VSTRIDE		GENMASK(31, 4)
-+
-+#define VDPU720_REG_TBL_LEN		0x01c
-+#define VDPU720_QTBL_LEN		GENMASK(4, 0)
-+#define VDPU720_HTBL_MINCODE_LEN	GENMASK(12, 8)
-+#define VDPU720_HTBL_VALUE_LEN		GENMASK(21, 16)
-+/* bit 16 of the Y horizontal stride, low 16 bits live in REG5 */
-+#define VDPU720_Y_HOR_STRIDE_H		BIT(24)
-+
-+#define VDPU720_REG_STRM_LEN		0x020
-+#define VDPU720_STRM_START_BYTE		GENMASK(3, 0)
-+#define VDPU720_STRM_LEN		GENMASK(31, 4)
-+
-+#define VDPU720_REG_QTBL_BASE		0x024	/* Q-table side buffer,   64-byte aligned */
-+#define VDPU720_REG_HTBL_MINCODE	0x028	/* H-mincode table,       64-byte aligned */
-+#define VDPU720_REG_HTBL_VALUE		0x02c	/* H-value table,         64-byte aligned */
-+#define VDPU720_REG_STRM_BASE		0x030	/* JPEG entropy stream,   16-byte aligned */
-+#define VDPU720_REG_OUT_BASE		0x034	/* NV12 output buffer,    64-byte aligned */
-+
-+#define VDPU720_REG_STRM_ERR		0x038
-+#define VDPU720_ERROR_PRC_MODE		BIT(0)
-+#define VDPU720_STRM_FFFF_ERR_MODE	GENMASK(6, 5)
-+#define VDPU720_STRM_OTHER_MODE		GENMASK(8, 7)
-+/* Recommended default: accept errors, skip 0xFFFF, skip unknown markers */
-+#define VDPU720_STRM_ERR_DFLT		(VDPU720_ERROR_PRC_MODE | \
-+					 FIELD_PREP_CONST(VDPU720_STRM_FFFF_ERR_MODE, 2) | \
-+					 FIELD_PREP_CONST(VDPU720_STRM_OTHER_MODE, 2))
-+
-+#define VDPU720_REG_CLK_GATE		0x040
-+#define VDPU720_CLK_GATE_ALL		0xff
-+
-+#define VDPU720_REG_PERF_CTRL		0x078
-+#define VDPU720_PERF_WORK_E		BIT(0)
-+#define VDPU720_PERF_CLR_E		BIT(1)
-+#define VDPU720_PERF_CNT_TYPE		BIT(3)
-+#define VDPU720_PERF_RD_LAT_ID		GENMASK(7, 4)
-+
-+#define VDPU720_REG_AXI_CFG		0x07c
-+#define VDPU720_ADDR_ALIGN_TYPE		GENMASK(1, 0)
-+#define VDPU720_AR_CNT_ID_TYPE		BIT(2)	/* 1 = count sw_ar_count_id only */
-+#define VDPU720_AW_CNT_ID_TYPE		BIT(3)	/* 1 = count sw_aw_count_id only */
-+#define VDPU720_AR_COUNT_ID		GENMASK(7, 4)
-+#define VDPU720_AW_COUNT_ID		GENMASK(11, 8)
-+#define VDPU720_RD_TOTAL_BYTES_MODE	BIT(12)	/* 1 = count sw_ar_count_id bytes only */
-+
-+#define VDPU720_REG_DBG_MCU_POS		0x080
-+#define VDPU720_DBG_MCU_POS_X		GENMASK(15, 0)	/* column in MCU units */
-+#define VDPU720_DBG_MCU_POS_Y		GENMASK(31, 16)	/* row in MCU units */
-+
-+#define VDPU720_REG_DBG_ERROR		0x084
-+#define VDPU720_DERR_DRI_SEQ		BIT(0)	/* DRI not at expected sequence */
-+#define VDPU720_DERR_STREAM_R0		BIT(1)	/* special marker 0 detected */
-+#define VDPU720_DERR_STREAM_R1		BIT(2)	/* special marker 1 detected */
-+#define VDPU720_DERR_STREAM_FFFF	BIT(3)	/* 0xFFFF sequence in stream */
-+#define VDPU720_DERR_OTHER_MARK		BIT(4)	/* unknown JPEG marker */
-+#define VDPU720_DERR_MCU_CNT_L		BIT(8)	/* restart mark arrived too early */
-+#define VDPU720_DERR_MCU_CNT_M		BIT(9)	/* restart mark arrived too late */
-+#define VDPU720_DERR_EOI_NO_END		BIT(10)	/* EOI before frame complete */
-+#define VDPU720_DERR_END_NO_EOI		BIT(11)	/* frame complete without EOI */
-+#define VDPU720_DERR_OVERFLOW		BIT(12)	/* Huffman coefficient overflow */
-+#define VDPU720_DERR_HUFF_EMPTY		BIT(13)	/* bitstream empty before EOI */
-+#define VDPU720_DERR_FLAGS		GENMASK(13, 0)	/* all of the above */
-+#define VDPU720_DERR_FIRST_IDX		GENMASK(19, 16)	/* index of first error */
-+
-+#define VDPU720_REG_PERF_RD_MAX_LAT	0x088	/* peak read latency (clock cycles) */
-+#define VDPU720_REG_PERF_RD_LAT_SAMP	0x08c	/* read transactions above lat threshold */
-+#define VDPU720_REG_PERF_RD_LAT_ACC	0x090	/* accumulated read latency sum */
-+#define VDPU720_REG_PERF_RD_BYTES	0x094	/* total AXI read bytes this frame */
-+#define VDPU720_REG_PERF_WR_BYTES	0x098	/* total AXI write bytes this frame */
-+
-+#define VDPU720_REG_PERF_CYCLES		0x09c
-+
-+/*
-+ * Side-buffer layout for Q-tables and Huffman tables
-+ *
-+ * The VPU720 JPEG decoder reads quantisation tables and Huffman
-+ * tables from a contiguous DMA buffer with the following layout:
-+ *
-+ *   [0,         QTBL_SIZE):    Q-table data (u16, raster-scan order)
-+ *   [HMINCODE_OFF, +HMIN_SZ):  Huffman mincode table
-+ *   [HVALUE_OFF,  +HVAL_SZ):   Huffman value table
-+ *
-+ * The Q-tables are per component, one entry each
-+ */
-+#define VDPU720_NB_COMPONENTS		3
-+#define VDPU720_QTBL_ENTRIES		64	/* 64 coefficients per table */
-+#define VDPU720_QTBL_COMP_SIZE		(VDPU720_QTBL_ENTRIES * sizeof(u16))
-+#define VDPU720_QTBL_SIZE		(VDPU720_QTBL_COMP_SIZE * VDPU720_NB_COMPONENTS)
-+
-+/*
-+ * The Huffman tables are not per component and there is no per component
-+ * selector register, so the mapping is fixed: the first set is used for the
-+ * luma component and the second one for both chroma components.  A grayscale
-+ * frame only needs the first.
-+ *
-+ * HTBL_SEL has a third setting, and the downstream HAL sizes the table
-+ * buffer for three sets, but it only ever fills the third with a copy of the
-+ * second.  Whether that set is used for the second chroma component is
-+ * unknown, so it is not used here.
-+ */
-+#define VDPU720_NB_HTBL_SETS		2
-+
-+/*
-+ * Per-set mincode layout: 16 DC mincodes + 8 DC accaddr pairs +
-+ * 16 AC mincodes + 8 AC accaddr pairs = 48 u16 = 96 bytes
-+ */
-+#define VDPU720_HMINCODE_SET_SIZE	(48 * sizeof(u16))
-+#define VDPU720_HMINCODE_SIZE		(VDPU720_HMINCODE_SET_SIZE * VDPU720_NB_HTBL_SETS)
-+#define VDPU720_HMINCODE_OFF		VDPU720_QTBL_SIZE
-+
-+/* Per-set value layout: 16 DC values + 176 AC values = 192 bytes */
-+#define VDPU720_HVALUE_SET_SIZE		192
-+#define VDPU720_HVALUE_SIZE		(VDPU720_HVALUE_SET_SIZE * VDPU720_NB_HTBL_SETS)
-+#define VDPU720_HVALUE_OFF		(VDPU720_HMINCODE_OFF + \
-+					 ALIGN(VDPU720_HMINCODE_SIZE, 64))
-+
-+#define VDPU720_TABLE_BUF_SIZE		(VDPU720_HVALUE_OFF + VDPU720_HVALUE_SIZE)
-+
-+/*
-+ * The three table length registers count 16 byte units, minus one.  Derive
-+ * them from the sizes above so that what is programmed always matches what
-+ * the driver writes into the side buffer.
-+ */
-+#define VDPU720_TBL_LEN_UNIT		16
-+#define VDPU720_TBL_LEN(bytes)		((bytes) / VDPU720_TBL_LEN_UNIT - 1)
-+
-+/*
-+ * Huffman value sub-layout per set (192 bytes total):
-+ *   bytes [0..15]:   DC code values (up to 12 valid entries)
-+ *   bytes [16..191]: AC code values (up to 162 valid entries)
-+ */
-+#define VDPU720_DC_VALUES_MAX		16
-+#define VDPU720_AC_VALUES_MAX		176	/* 12*16 - 16 */
-+
-+#endif /* RKJPEGD_VDPU720_REGS_H_ */
-diff --git a/drivers/media/platform/rockchip/rkjpegd/rkjpegd.c b/drivers/media/platform/rockchip/rkjpegd/rkjpegd.c
-new file mode 100644
-index 0000000000000..87b34c982f3ba
---- /dev/null
-+++ b/drivers/media/platform/rockchip/rkjpegd/rkjpegd.c
-@@ -0,0 +1,2217 @@
-+// SPDX-License-Identifier: GPL-2.0
-+/*
-+ * Rockchip JPEG decoder driver
-+ *
-+ * The register programming is ported from the Rockchip MPP HAL
-+ * (hal_jpegd_rkv.c / hal_jpegd_vpu7xx_com.c) and the downstream
-+ * mpp_jpgdec.c kernel driver.
-+ *
-+ * Copyright (C) 2020 Rockchip Electronics Co., Ltd.
-+ * Copyright (C) 2026 WolfVision GmbH
-+ *   Author: Lucas Sinn <lucas.sinn@wolfvision.net>
-+ * Copyright (C) 2026 Pengutronix, Sascha Hauer <s.hauer@pengutronix.de>
-+ */
-+
-+#include <linux/align.h>
-+#include <linux/bitfield.h>
-+#include <linux/cleanup.h>
-+#include <linux/clk.h>
-+#include <linux/dma-mapping.h>
-+#include <linux/interrupt.h>
-+#include <linux/io.h>
-+#include <linux/iopoll.h>
-+#include <linux/kref.h>
-+#include <linux/log2.h>
-+#include <linux/module.h>
-+#include <linux/mutex.h>
-+#include <linux/platform_device.h>
-+#include <linux/pm_runtime.h>
-+#include <linux/reset.h>
-+#include <linux/slab.h>
-+#include <linux/videodev2.h>
-+#include <linux/workqueue.h>
-+
-+#include <media/v4l2-device.h>
-+#include <media/v4l2-event.h>
-+#include <media/v4l2-fh.h>
-+#include <media/v4l2-ioctl.h>
-+#include <media/v4l2-jpeg.h>
-+#include <media/v4l2-mem2mem.h>
-+#include <media/videobuf2-core.h>
-+#include <media/videobuf2-dma-contig.h>
-+
-+#include "rkjpegd-vdpu720-regs.h"
-+
-+#define RKJPEGD_NAME "rockchip-jpegd"
-+
-+/*
-+ * The reference manual gives 48x48 to 65536x65536, and a frame header cannot
-+ * describe more than 65535.  The coded format steps in RKJPEGD_CODED_STEP.
-+ * Beyond that only the decoded frame has to fit a 32 bit sizeimage, see
-+ * rkjpegd_raw_fits().
-+ */
-+#define RKJPEGD_MIN_WIDTH	48
-+#define RKJPEGD_MIN_HEIGHT	48
-+#define RKJPEGD_MAX_SIZE	65528
-+
-+/* The coded queue steps in MCU-sized units, the raw one in macroblocks. */
-+#define RKJPEGD_CODED_STEP	8
-+#define RKJPEGD_RAW_STEP	16
-+
-+/* Bytes per pixel used to size a coded buffer for a given resolution. */
-+#define RKJPEGD_CODED_MAX_DEPTH	2
-+
-+/* Milliseconds a frame may take before the watchdog resets the block. */
-+#define RKJPEGD_TIMEOUT_MS	2000
-+
-+static const char * const rkjpegd_clk_names[] = {
-+	"axi", "ahb",
-+};
-+
-+#define RKJPEGD_NUM_CLOCKS	ARRAY_SIZE(rkjpegd_clk_names)
-+
-+/**
-+ * struct rkjpegd_aux_buf - auxiliary DMA buffer for hardware tables
-+ *
-+ * @cpu:	CPU pointer to the buffer.
-+ * @dma:	DMA address of the buffer.
-+ * @size:	Size of the buffer in bytes.
-+ */
-+struct rkjpegd_aux_buf {
-+	void *cpu;
-+	dma_addr_t dma;
-+	size_t size;
-+};
-+
-+/**
-+ * struct rkjpegd_src_buf - a coded buffer and the header parsed out of it
-+ *
-+ * @base:		videobuf2 mem2mem buffer, must be first.
-+ * @header:		header as returned by v4l2_jpeg_parse_header().
-+ * @scan:		storage @header.scan points at.
-+ * @quantization_tables: storage @header.quantization_tables points at.
-+ * @huffman_tables:	storage @header.huffman_tables points at.
-+ * @parse_error:	0 if @header describes a frame this hardware can decode,
-+ *			the error rkjpegd_parse_src_buf() returned otherwise.
-+ * @fmt_change:		the frame decodes to another capture format than the
-+ *			one queued before it.  The decoder stops here until
-+ *			userspace has set up the capture queue for it.
-+ *
-+ * The references in @header point into the buffer payload, which stays
-+ * mapped for as long as the buffer is queued.  Userspace can still write to
-+ * it, so what is read from it when the job runs must stay within the
-+ * lengths recorded here.
-+ */
-+struct rkjpegd_src_buf {
-+	struct v4l2_m2m_buffer base;
-+	struct v4l2_jpeg_header header;
-+	struct v4l2_jpeg_scan_header scan;
-+	struct v4l2_jpeg_reference quantization_tables[4];
-+	struct v4l2_jpeg_reference huffman_tables[4];
-+	int parse_error;
-+	bool fmt_change;
-+};
-+
-+static inline struct rkjpegd_src_buf *
-+vb2_to_rkjpegd_src_buf(struct vb2_buffer *vb)
-+{
-+	return container_of(to_vb2_v4l2_buffer(vb), struct rkjpegd_src_buf,
-+			    base.vb);
-+}
-+
-+/**
-+ * struct rkjpegd_dev - the decoder device
-+ *
-+ * @ref:		held by the binding, dropped by devres after every
-+ *			other devres resource is released, and by the video
-+ *			device, dropped from its release callback.
-+ * @v4l2_dev:		V4L2 device.
-+ * @vdev:		video device.
-+ * @m2m_dev:		mem2mem device.
-+ * @dev:		driver model device.
-+ * @clocks:		clocks named by @rkjpegd_clk_names.
-+ * @resets:		the block's reset lines, as one array control.
-+ * @regs:		register window.
-+ * @vdev_lock:		serialises ioctls and the videobuf2 queues.
-+ * @drain_lock:		serialises the mem2mem drain state between
-+ *			V4L2_DEC_CMD_STOP/START and the completion of a job,
-+ *			which runs from the interrupt handler and the
-+ *			watchdog without @vdev_lock.
-+ * @watchdog_work:	fires when a job does not complete in time.
-+ * @needs_reset:	the block ended a job in error or without
-+ *			%VDPU720_SOFT_RST_RDY and has to be reset before
-+ *			the next one is programmed.  Set from the
-+ *			interrupt handler, consumed by rkjpegd_vdpu720_run();
-+ *			the reset itself sleeps and cannot be done in either
-+ *			the interrupt handler or anywhere else atomic.
-+ */
-+struct rkjpegd_dev {
-+	struct kref ref;
-+	struct v4l2_device v4l2_dev;
-+	struct video_device vdev;
-+	struct v4l2_m2m_dev *m2m_dev;
-+	struct device *dev;
-+	struct clk_bulk_data clocks[RKJPEGD_NUM_CLOCKS];
-+	struct reset_control *resets;
-+	void __iomem *regs;
-+	struct mutex vdev_lock; /* serialises ioctls */
-+	spinlock_t drain_lock; /* serialises the drain state */
-+	struct delayed_work watchdog_work;
-+	bool needs_reset;
-+};
-+
-+/**
-+ * struct rkjpegd_ctx - one open file handle
-+ *
-+ * @fh:				V4L2 file handle.
-+ * @dev:			device this context belongs to.
-+ * @src_fmt:			coded format on the output queue.
-+ * @dst_fmt:			raw format jobs decode to.  Only changed under
-+ *				&rkjpegd_dev.vdev_lock while no job can run:
-+ *				the capture queue is not streaming, or
-+ *				@stopped_at_change is set.
-+ * @crop:			visible part of a capture buffer.  The decoder
-+ *				writes whole MCUs, so a frame whose height is
-+ *				not a multiple of one is padded.
-+ * @queued_pixelformat:		capture pixel format of the frame queued last.
-+ * @queued_width:		picture width of the frame queued last.
-+ * @queued_height:		picture height of the frame queued last.  The
-+ *				three find the next format change, and are only
-+ *				used under &rkjpegd_dev.vdev_lock.
-+ * @stopped_at_change:		the decoder stopped in front of a coded buffer
-+ *				with &rkjpegd_src_buf.fmt_change set.  Set by
-+ *				rkjpegd_device_run(), cleared under
-+ *				&rkjpegd_dev.vdev_lock when userspace resumes.
-+ * @sequence_cap:		capture buffer sequence counter.
-+ * @sequence_out:		output buffer sequence counter.
-+ * @table_base:			quantisation and Huffman table side buffer,
-+ *				rebuilt from the frame header on every run.
-+ *				The block reads it little-endian, so its
-+ *				multi-byte fields are __le16.
-+ */
-+struct rkjpegd_ctx {
-+	struct v4l2_fh fh;
-+	struct rkjpegd_dev *dev;
-+	struct v4l2_pix_format_mplane src_fmt;
-+	struct v4l2_pix_format_mplane dst_fmt;
-+	struct v4l2_rect crop;
-+	u32 queued_pixelformat;
-+	u32 queued_width;
-+	u32 queued_height;
-+	bool stopped_at_change;
-+	u32 sequence_cap;
-+	u32 sequence_out;
-+	struct rkjpegd_aux_buf table_base;
-+};
-+
-+static inline struct rkjpegd_ctx *file_to_rkjpegd_ctx(struct file *filp)
-+{
-+	return container_of(file_to_v4l2_fh(filp), struct rkjpegd_ctx, fh);
-+}
-+
-+static inline void rkjpegd_write_relaxed(struct rkjpegd_dev *jpegd,
-+					 u32 val, u32 reg)
-+{
-+	writel_relaxed(val, jpegd->regs + reg);
-+}
-+
-+static inline void rkjpegd_write(struct rkjpegd_dev *jpegd, u32 val, u32 reg)
-+{
-+	writel(val, jpegd->regs + reg);
-+}
-+
-+static inline u32 rkjpegd_read(struct rkjpegd_dev *jpegd, u32 reg)
-+{
-+	return readl(jpegd->regs + reg);
-+}
-+
-+static inline void rkjpegd_write_addr(struct rkjpegd_dev *jpegd, u32 reg,
-+				      dma_addr_t addr)
-+{
-+	rkjpegd_write(jpegd, lower_32_bits(addr), reg);
-+}
-+
-+static const struct v4l2_event rkjpegd_eos_event = {
-+	.type = V4L2_EVENT_EOS,
-+};
-+
-+static const struct v4l2_event rkjpegd_src_change_event = {
-+	.type = V4L2_EVENT_SOURCE_CHANGE,
-+	.u.src_change.changes = V4L2_EVENT_SRC_CH_RESOLUTION,
-+};
-+
-+/* A grayscale frame gets no chroma from the hardware. */
-+static u32 rkjpegd_raw_pixelformat(const struct v4l2_jpeg_header *hdr)
-+{
-+	return hdr->frame.num_components == 1 ? V4L2_PIX_FMT_GREY :
-+						V4L2_PIX_FMT_NV12;
-+}
-+
-+/* NV12 is the larger of the two raw formats. */
-+static bool rkjpegd_raw_fits(u32 width, u32 height)
-+{
-+	return (u64)ALIGN(width, RKJPEGD_RAW_STEP) *
-+	       ALIGN(height, RKJPEGD_RAW_STEP) * 3 / 2 <= U32_MAX;
-+}
-+
-+static void rkjpegd_fill_raw_fmt(struct v4l2_pix_format_mplane *pix_mp,
-+				 u32 pixelformat, u32 width, u32 height)
-+{
-+	pix_mp->pixelformat = pixelformat;
-+	pix_mp->width = width;
-+	pix_mp->height = height;
-+	pix_mp->field = V4L2_FIELD_NONE;
-+	pix_mp->num_planes = 1;
-+	pix_mp->plane_fmt[0].bytesperline = width;
-+	pix_mp->plane_fmt[0].sizeimage = width * height;
-+	if (pixelformat == V4L2_PIX_FMT_NV12)
-+		pix_mp->plane_fmt[0].sizeimage += width * height / 2;
-+	/* What V4L2_COLORSPACE_JPEG on the coded side stands for. */
-+	pix_mp->colorspace = V4L2_COLORSPACE_SRGB;
-+	pix_mp->xfer_func = V4L2_XFER_FUNC_SRGB;
-+	pix_mp->ycbcr_enc = V4L2_YCBCR_ENC_601;
-+	pix_mp->quantization = V4L2_QUANTIZATION_FULL_RANGE;
-+	memset(pix_mp->plane_fmt[0].reserved, 0,
-+	       sizeof(pix_mp->plane_fmt[0].reserved));
-+	memset(pix_mp->reserved, 0, sizeof(pix_mp->reserved));
-+}
-+
-+static void rkjpegd_fill_coded_fmt(struct v4l2_pix_format_mplane *pix_mp,
-+				   u32 width, u32 height, u32 sizeimage)
-+{
-+	pix_mp->pixelformat = V4L2_PIX_FMT_JPEG;
-+	pix_mp->width = width;
-+	pix_mp->height = height;
-+	pix_mp->field = V4L2_FIELD_NONE;
-+	pix_mp->num_planes = 1;
-+	pix_mp->plane_fmt[0].bytesperline = 0;
-+
-+	if (!sizeimage)
-+		sizeimage = min_t(u64, (u64)width * height *
-+				  RKJPEGD_CODED_MAX_DEPTH, U32_MAX);
-+	pix_mp->plane_fmt[0].sizeimage = sizeimage;
-+	pix_mp->colorspace = V4L2_COLORSPACE_JPEG;
-+	pix_mp->xfer_func = V4L2_XFER_FUNC_DEFAULT;
-+	pix_mp->ycbcr_enc = V4L2_YCBCR_ENC_DEFAULT;
-+	pix_mp->quantization = V4L2_QUANTIZATION_DEFAULT;
-+
-+	memset(pix_mp->plane_fmt[0].reserved, 0,
-+	       sizeof(pix_mp->plane_fmt[0].reserved));
-+	memset(pix_mp->reserved, 0, sizeof(pix_mp->reserved));
-+}
-+
-+/* The capture format and crop a frame decodes to. */
-+static void rkjpegd_fill_hdr_fmt(struct v4l2_pix_format_mplane *pix_mp,
-+				 struct v4l2_rect *crop,
-+				 const struct v4l2_jpeg_header *hdr)
-+{
-+	rkjpegd_fill_raw_fmt(pix_mp, rkjpegd_raw_pixelformat(hdr),
-+			     ALIGN(hdr->frame.width, RKJPEGD_RAW_STEP),
-+			     ALIGN(hdr->frame.height, RKJPEGD_RAW_STEP));
-+	crop->left = 0;
-+	crop->top = 0;
-+	crop->width = hdr->frame.width;
-+	crop->height = hdr->frame.height;
-+}
-+
-+/* Later frames are compared against the format jobs decode to. */
-+static void rkjpegd_reset_queued(struct rkjpegd_ctx *ctx)
-+{
-+	ctx->queued_pixelformat = ctx->dst_fmt.pixelformat;
-+	ctx->queued_width = ctx->crop.width;
-+	ctx->queued_height = ctx->crop.height;
-+}
-+
-+/*
-+ * The capture format as userspace sees it.  Once the decoder stopped at a
-+ * format change, that is the one of the frame it stopped in front of.
-+ */
-+static void rkjpegd_get_cap_fmt(struct rkjpegd_ctx *ctx,
-+				struct v4l2_pix_format_mplane *pix_mp,
-+				struct v4l2_rect *crop)
-+{
-+	struct vb2_v4l2_buffer *src;
-+
-+	if (READ_ONCE(ctx->stopped_at_change)) {
-+		src = v4l2_m2m_next_src_buf(ctx->fh.m2m_ctx);
-+		rkjpegd_fill_hdr_fmt(pix_mp, crop,
-+				     &vb2_to_rkjpegd_src_buf(&src->vb2_buf)->header);
-+		return;
-+	}
-+
-+	*pix_mp = ctx->dst_fmt;
-+	*crop = ctx->crop;
-+}
-+
-+/*
-+ * Take up the format the decoder stopped at, from the capture queue being
-+ * restarted or V4L2_DEC_CMD_START.  No job runs while it is stopped.
-+ */
-+static void rkjpegd_resume_at_change(struct rkjpegd_ctx *ctx)
-+{
-+	struct vb2_v4l2_buffer *src = v4l2_m2m_next_src_buf(ctx->fh.m2m_ctx);
-+	struct rkjpegd_src_buf *src_buf = vb2_to_rkjpegd_src_buf(&src->vb2_buf);
-+
-+	rkjpegd_fill_hdr_fmt(&ctx->dst_fmt, &ctx->crop, &src_buf->header);
-+	src_buf->fmt_change = false;
-+	WRITE_ONCE(ctx->stopped_at_change, false);
-+}
-+
-+static void rkjpegd_reset_fmts(struct rkjpegd_ctx *ctx)
-+{
-+	u32 width = ALIGN(RKJPEGD_MIN_WIDTH, RKJPEGD_RAW_STEP);
-+	u32 height = ALIGN(RKJPEGD_MIN_HEIGHT, RKJPEGD_RAW_STEP);
-+
-+	rkjpegd_fill_coded_fmt(&ctx->src_fmt, width, height, 0);
-+
-+	rkjpegd_fill_raw_fmt(&ctx->dst_fmt, V4L2_PIX_FMT_NV12, width, height);
-+	ctx->crop.left = 0;
-+	ctx->crop.top = 0;
-+	ctx->crop.width = width;
-+	ctx->crop.height = height;
-+	rkjpegd_reset_queued(ctx);
-+}
-+
-+static int rkjpegd_querycap(struct file *file, void *priv,
-+			    struct v4l2_capability *cap)
-+{
-+	strscpy(cap->driver, RKJPEGD_NAME, sizeof(cap->driver));
-+	strscpy(cap->card, RKJPEGD_NAME, sizeof(cap->card));
-+
-+	return 0;
-+}
-+
-+static int rkjpegd_enum_fmt_vid_cap(struct file *file, void *priv,
-+				    struct v4l2_fmtdesc *f)
-+{
-+	static const u32 formats[] = { V4L2_PIX_FMT_NV12, V4L2_PIX_FMT_GREY };
-+
-+	if (f->index >= ARRAY_SIZE(formats))
-+		return -EINVAL;
-+
-+	f->pixelformat = formats[f->index];
-+
-+	return 0;
-+}
-+
-+static int rkjpegd_enum_fmt_vid_out(struct file *file, void *priv,
-+				    struct v4l2_fmtdesc *f)
-+{
-+	if (f->index)
-+		return -EINVAL;
-+
-+	f->pixelformat = V4L2_PIX_FMT_JPEG;
-+	f->flags |= V4L2_FMT_FLAG_DYN_RESOLUTION;
-+
-+	return 0;
-+}
-+
-+static int rkjpegd_enum_framesizes(struct file *file, void *priv,
-+				   struct v4l2_frmsizeenum *fsize)
-+{
-+	/* The decoded format follows the bitstream, nothing to enumerate. */
-+	if (fsize->pixel_format == V4L2_PIX_FMT_NV12 ||
-+	    fsize->pixel_format == V4L2_PIX_FMT_GREY)
-+		return -ENOTTY;
-+
-+	if (fsize->pixel_format != V4L2_PIX_FMT_JPEG)
-+		return -EINVAL;
-+
-+	if (fsize->index)
-+		return -EINVAL;
-+
-+	fsize->type = V4L2_FRMSIZE_TYPE_STEPWISE;
-+	fsize->stepwise.min_width = RKJPEGD_MIN_WIDTH;
-+	fsize->stepwise.max_width = RKJPEGD_MAX_SIZE;
-+	fsize->stepwise.step_width = RKJPEGD_CODED_STEP;
-+	fsize->stepwise.min_height = RKJPEGD_MIN_HEIGHT;
-+	fsize->stepwise.max_height = RKJPEGD_MAX_SIZE;
-+	fsize->stepwise.step_height = RKJPEGD_CODED_STEP;
-+
-+	return 0;
-+}
-+
-+static int rkjpegd_g_fmt_vid_cap(struct file *file, void *priv,
-+				 struct v4l2_format *f)
-+{
-+	struct rkjpegd_ctx *ctx = file_to_rkjpegd_ctx(file);
-+	struct v4l2_rect crop;
-+
-+	rkjpegd_get_cap_fmt(ctx, &f->fmt.pix_mp, &crop);
-+
-+	return 0;
-+}
-+
-+static int rkjpegd_g_fmt_vid_out(struct file *file, void *priv,
-+				 struct v4l2_format *f)
-+{
-+	f->fmt.pix_mp = file_to_rkjpegd_ctx(file)->src_fmt;
-+
-+	return 0;
-+}
-+
-+/* The capture format follows the bitstream, not userspace. */
-+static int rkjpegd_try_fmt_vid_cap(struct file *file, void *priv,
-+				   struct v4l2_format *f)
-+{
-+	struct rkjpegd_ctx *ctx = file_to_rkjpegd_ctx(file);
-+	struct v4l2_rect crop;
-+
-+	rkjpegd_get_cap_fmt(ctx, &f->fmt.pix_mp, &crop);
-+
-+	return 0;
-+}
-+
-+static int rkjpegd_try_fmt_vid_out(struct file *file, void *priv,
-+				   struct v4l2_format *f)
-+{
-+	struct v4l2_pix_format_mplane *pix_mp = &f->fmt.pix_mp;
-+	u32 sizeimage = pix_mp->num_planes == 1 ?
-+			pix_mp->plane_fmt[0].sizeimage : 0;
-+	u32 colorspace = pix_mp->colorspace;
-+	u8 xfer_func = pix_mp->xfer_func;
-+	u8 ycbcr_enc = pix_mp->ycbcr_enc;
-+	u8 quantization = pix_mp->quantization;
-+
-+	v4l_bound_align_image(&pix_mp->width,
-+			      RKJPEGD_MIN_WIDTH, RKJPEGD_MAX_SIZE,
-+			      ilog2(RKJPEGD_CODED_STEP),
-+			      &pix_mp->height,
-+			      RKJPEGD_MIN_HEIGHT, RKJPEGD_MAX_SIZE,
-+			      ilog2(RKJPEGD_CODED_STEP), 0);
-+
-+	/* S_FMT derives the raw format from this one. */
-+	if (!rkjpegd_raw_fits(pix_mp->width, pix_mp->height))
-+		pix_mp->height = ALIGN_DOWN(U32_MAX / 3 * 2 /
-+					    ALIGN(pix_mp->width, RKJPEGD_RAW_STEP),
-+					    RKJPEGD_RAW_STEP);
-+
-+	rkjpegd_fill_coded_fmt(pix_mp, pix_mp->width, pix_mp->height, sizeimage);
-+
-+	/* Echoed back, the capture colorimetry is fixed by JFIF regardless. */
-+	if (colorspace != V4L2_COLORSPACE_DEFAULT) {
-+		pix_mp->colorspace = colorspace;
-+		pix_mp->xfer_func = xfer_func;
-+		pix_mp->ycbcr_enc = ycbcr_enc;
-+		pix_mp->quantization = quantization;
-+	}
-+
-+	return 0;
-+}
-+
-+static int rkjpegd_s_fmt_vid_cap(struct file *file, void *priv,
-+				 struct v4l2_format *f)
-+{
-+	struct rkjpegd_ctx *ctx = file_to_rkjpegd_ctx(file);
-+	struct vb2_queue *vq = v4l2_m2m_get_dst_vq(ctx->fh.m2m_ctx);
-+
-+	if (vb2_is_busy(vq))
-+		return -EBUSY;
-+
-+	rkjpegd_try_fmt_vid_cap(file, priv, f);
-+
-+	ctx->dst_fmt = f->fmt.pix_mp;
-+
-+	return 0;
-+}
-+
-+static int rkjpegd_s_fmt_vid_out(struct file *file, void *priv,
-+				 struct v4l2_format *f)
-+{
-+	struct rkjpegd_ctx *ctx = file_to_rkjpegd_ctx(file);
-+	struct vb2_queue *vq = v4l2_m2m_get_src_vq(ctx->fh.m2m_ctx);
-+	int ret;
-+
-+	if (vb2_is_busy(vq))
-+		return -EBUSY;
-+
-+	ret = rkjpegd_try_fmt_vid_out(file, priv, f);
-+	if (ret)
-+		return ret;
-+
-+	ctx->src_fmt = f->fmt.pix_mp;
-+
-+	/* S_FMT on the coded queue invalidates the raw format. */
-+	if (vb2_is_busy(v4l2_m2m_get_dst_vq(ctx->fh.m2m_ctx)))
-+		return 0;
-+
-+	rkjpegd_fill_raw_fmt(&ctx->dst_fmt, V4L2_PIX_FMT_NV12,
-+			     ALIGN(ctx->src_fmt.width, RKJPEGD_RAW_STEP),
-+			     ALIGN(ctx->src_fmt.height, RKJPEGD_RAW_STEP));
-+	ctx->crop.left = 0;
-+	ctx->crop.top = 0;
-+	ctx->crop.width = ctx->src_fmt.width;
-+	ctx->crop.height = ctx->src_fmt.height;
-+	rkjpegd_reset_queued(ctx);
-+
-+	return 0;
-+}
-+
-+static int rkjpegd_g_selection(struct file *file, void *priv,
-+			       struct v4l2_selection *s)
-+{
-+	struct rkjpegd_ctx *ctx = file_to_rkjpegd_ctx(file);
-+	struct v4l2_pix_format_mplane pix_mp;
-+	struct v4l2_rect crop;
-+
-+	if (s->type != V4L2_BUF_TYPE_VIDEO_CAPTURE &&
-+	    s->type != V4L2_BUF_TYPE_VIDEO_CAPTURE_MPLANE)
-+		return -EINVAL;
-+
-+	rkjpegd_get_cap_fmt(ctx, &pix_mp, &crop);
-+
-+	switch (s->target) {
-+	case V4L2_SEL_TGT_COMPOSE:
-+	case V4L2_SEL_TGT_COMPOSE_DEFAULT:
-+		s->r = crop;
-+		break;
-+	case V4L2_SEL_TGT_COMPOSE_BOUNDS:
-+	case V4L2_SEL_TGT_COMPOSE_PADDED:
-+		s->r.left = 0;
-+		s->r.top = 0;
-+		s->r.width = pix_mp.width;
-+		s->r.height = pix_mp.height;
-+		break;
-+	default:
-+		return -EINVAL;
-+	}
-+
-+	return 0;
-+}
-+
-+static int rkjpegd_subscribe_event(struct v4l2_fh *fh,
-+				   const struct v4l2_event_subscription *sub)
-+{
-+	switch (sub->type) {
-+	case V4L2_EVENT_EOS:
-+		return v4l2_event_subscribe(fh, sub, 0, NULL);
-+	case V4L2_EVENT_SOURCE_CHANGE:
-+		return v4l2_src_change_event_subscribe(fh, sub);
-+	default:
-+		/* The decoder takes no controls, so there is nothing else. */
-+		return -EINVAL;
-+	}
-+}
-+
-+static void rkjpegd_last_buffer_done(struct rkjpegd_ctx *ctx,
-+				     struct vb2_v4l2_buffer *vbuf)
-+{
-+	vbuf->flags |= V4L2_BUF_FLAG_LAST;
-+	vbuf->field = V4L2_FIELD_NONE;
-+	vbuf->sequence = ctx->sequence_cap++;
-+	vb2_set_plane_payload(&vbuf->vb2_buf, 0, 0);
-+	vb2_buffer_done(&vbuf->vb2_buf, VB2_BUF_STATE_DONE);
-+}
-+
-+static int rkjpegd_decoder_cmd(struct file *file, void *priv,
-+			       struct v4l2_decoder_cmd *cmd)
-+{
-+	struct rkjpegd_ctx *ctx = file_to_rkjpegd_ctx(file);
-+	struct rkjpegd_dev *jpegd = ctx->dev;
-+	bool stopped;
-+	int ret;
-+
-+	ret = v4l2_m2m_ioctl_try_decoder_cmd(file, priv, cmd);
-+	if (ret < 0)
-+		return ret;
-+
-+	if (!vb2_is_streaming(v4l2_m2m_get_src_vq(ctx->fh.m2m_ctx)))
-+		return 0;
-+
-+	/* Resumes after a format change, and leaves a drain alone. */
-+	if (cmd->cmd == V4L2_DEC_CMD_START && READ_ONCE(ctx->stopped_at_change)) {
-+		rkjpegd_resume_at_change(ctx);
-+		vb2_clear_last_buffer_dequeued(&ctx->fh.m2m_ctx->cap_q_ctx.q);
-+		v4l2_m2m_try_schedule(ctx->fh.m2m_ctx);
-+		return 0;
-+	}
-+
-+	scoped_guard(spinlock_irqsave, &jpegd->drain_lock) {
-+		ret = v4l2_m2m_ioctl_decoder_cmd(file, priv, cmd);
-+		stopped = v4l2_m2m_has_stopped(ctx->fh.m2m_ctx);
-+	}
-+	if (ret < 0)
-+		return ret;
-+
-+	if (cmd->cmd == V4L2_DEC_CMD_STOP) {
-+		/* Nothing left to decode, the core marked the LAST buffer. */
-+		if (stopped)
-+			v4l2_event_queue_fh(&ctx->fh, &rkjpegd_eos_event);
-+	} else {
-+		vb2_clear_last_buffer_dequeued(&ctx->fh.m2m_ctx->cap_q_ctx.q);
-+		v4l2_m2m_try_schedule(ctx->fh.m2m_ctx);
-+	}
-+
-+	return 0;
-+}
-+
-+static const struct v4l2_ioctl_ops rkjpegd_ioctl_ops = {
-+	.vidioc_querycap = rkjpegd_querycap,
-+	.vidioc_enum_framesizes = rkjpegd_enum_framesizes,
-+
-+	.vidioc_enum_fmt_vid_cap = rkjpegd_enum_fmt_vid_cap,
-+	.vidioc_g_fmt_vid_cap_mplane = rkjpegd_g_fmt_vid_cap,
-+	.vidioc_try_fmt_vid_cap_mplane = rkjpegd_try_fmt_vid_cap,
-+	.vidioc_s_fmt_vid_cap_mplane = rkjpegd_s_fmt_vid_cap,
-+
-+	.vidioc_enum_fmt_vid_out = rkjpegd_enum_fmt_vid_out,
-+	.vidioc_g_fmt_vid_out_mplane = rkjpegd_g_fmt_vid_out,
-+	.vidioc_try_fmt_vid_out_mplane = rkjpegd_try_fmt_vid_out,
-+	.vidioc_s_fmt_vid_out_mplane = rkjpegd_s_fmt_vid_out,
-+
-+	.vidioc_g_selection = rkjpegd_g_selection,
-+
-+	.vidioc_reqbufs = v4l2_m2m_ioctl_reqbufs,
-+	.vidioc_querybuf = v4l2_m2m_ioctl_querybuf,
-+	.vidioc_qbuf = v4l2_m2m_ioctl_qbuf,
-+	.vidioc_dqbuf = v4l2_m2m_ioctl_dqbuf,
-+	.vidioc_prepare_buf = v4l2_m2m_ioctl_prepare_buf,
-+	.vidioc_create_bufs = v4l2_m2m_ioctl_create_bufs,
-+	.vidioc_expbuf = v4l2_m2m_ioctl_expbuf,
-+	.vidioc_remove_bufs = v4l2_m2m_ioctl_remove_bufs,
-+
-+	.vidioc_streamon = v4l2_m2m_ioctl_streamon,
-+	.vidioc_streamoff = v4l2_m2m_ioctl_streamoff,
-+
-+	.vidioc_try_decoder_cmd = v4l2_m2m_ioctl_try_decoder_cmd,
-+	.vidioc_decoder_cmd = rkjpegd_decoder_cmd,
-+
-+	.vidioc_subscribe_event = rkjpegd_subscribe_event,
-+	.vidioc_unsubscribe_event = v4l2_event_unsubscribe,
-+};
-+
-+static void rkjpegd_arm_watchdog(struct rkjpegd_dev *jpegd)
-+{
-+	schedule_delayed_work(&jpegd->watchdog_work,
-+			      msecs_to_jiffies(RKJPEGD_TIMEOUT_MS));
-+}
-+
-+static void rkjpegd_job_finish_no_pm(struct rkjpegd_ctx *ctx,
-+				     enum vb2_buffer_state state)
-+{
-+	struct rkjpegd_dev *jpegd = ctx->dev;
-+	struct vb2_v4l2_buffer *src, *dst;
-+
-+	src = v4l2_m2m_next_src_buf(ctx->fh.m2m_ctx);
-+	dst = v4l2_m2m_next_dst_buf(ctx->fh.m2m_ctx);
-+
-+	guard(spinlock_irqsave)(&jpegd->drain_lock);
-+
-+	src->sequence = ctx->sequence_out++;
-+	dst->sequence = ctx->sequence_cap++;
-+
-+	/* GStreamer takes an empty capture buffer for the end of the stream. */
-+	vb2_set_plane_payload(&dst->vb2_buf, 0,
-+			      ctx->dst_fmt.plane_fmt[0].sizeimage);
-+
-+	if (v4l2_m2m_is_last_draining_src_buf(ctx->fh.m2m_ctx, src)) {
-+		dst->flags |= V4L2_BUF_FLAG_LAST;
-+		v4l2_event_queue_fh(&ctx->fh, &rkjpegd_eos_event);
-+		v4l2_m2m_mark_stopped(ctx->fh.m2m_ctx);
-+		ctx->fh.m2m_ctx->last_src_buf = NULL;
-+	}
-+
-+	v4l2_m2m_buf_done_and_job_finish(jpegd->m2m_dev, ctx->fh.m2m_ctx,
-+					 state);
-+}
-+
-+static void rkjpegd_job_finish(struct rkjpegd_ctx *ctx,
-+			       enum vb2_buffer_state state)
-+{
-+	struct rkjpegd_dev *jpegd = ctx->dev;
-+
-+	pm_runtime_put_autosuspend(jpegd->dev);
-+
-+	rkjpegd_job_finish_no_pm(ctx, state);
-+}
-+
-+static void rkjpegd_irq_done(struct rkjpegd_dev *jpegd,
-+			     enum vb2_buffer_state state)
-+{
-+	/* A pending watchdog means a job is running, see rkjpegd_watchdog(). */
-+	if (cancel_delayed_work(&jpegd->watchdog_work))
-+		rkjpegd_job_finish(v4l2_m2m_get_curr_priv(jpegd->m2m_dev),
-+				   state);
-+}
-+
-+/**
-+ * vdpu720_jpeg_mode() - map JPEG sampling factors to the hardware mode
-+ * @frame:	parsed JPEG frame header
-+ *
-+ * The sampling factor tuple is determined by the luma channel's factors
-+ * relative to the maximum in the frame.  Standard JFIF layouts only,
-+ * anything else returns -EINVAL: the mode also picks the MCU height and
-+ * therefore PIC_H, so guessing one would decode into a wrong image.
-+ * v4l2_jpeg_parse_header() lets no more than 4:4:4, 4:2:2, 4:2:0 and 4:1:1
-+ * through, so the hardware's 4:4:0 mode is not used.
-+ *
-+ * Return: a VDPU720_JPEG_MODE_* value, or -EINVAL for any other sampling
-+ * layout.
-+ */
-+static int vdpu720_jpeg_mode(const struct v4l2_jpeg_frame_header *frame)
-+{
-+	u8 h0, v0;
-+
-+	if (frame->num_components == 1)
-+		return VDPU720_JPEG_MODE_YUV400;
-+
-+	/* Component 0 always carries luma in JFIF */
-+	h0 = frame->component[0].horizontal_sampling_factor;
-+	v0 = frame->component[0].vertical_sampling_factor;
-+
-+	if (h0 == 1 && v0 == 1)
-+		return VDPU720_JPEG_MODE_YUV444;
-+	if (h0 == 2 && v0 == 1)
-+		return VDPU720_JPEG_MODE_YUV422;
-+	if (h0 == 2 && v0 == 2)
-+		return VDPU720_JPEG_MODE_YUV420;
-+	if (h0 == 4 && v0 == 1)
-+		return VDPU720_JPEG_MODE_YUV411;
-+
-+	return -EINVAL;
-+}
-+
-+/**
-+ * vdpu720_mcu_width() - horizontal size of a mode's minimum coded unit
-+ * @jpeg_mode:	a VDPU720_JPEG_MODE_* value
-+ *
-+ * MCU_W follows the luma horizontal sampling factor, h0 * 8.  That factor is
-+ * 2 for YUV420 and YUV422 and 4 for YUV411, giving 16 and 32 pixels.  The
-+ * rest is 8.
-+ *
-+ * Return: the MCU width in pixels.
-+ */
-+static u32 vdpu720_mcu_width(int jpeg_mode)
-+{
-+	if (jpeg_mode == VDPU720_JPEG_MODE_YUV411)
-+		return 32;
-+	if (jpeg_mode == VDPU720_JPEG_MODE_YUV420 ||
-+	    jpeg_mode == VDPU720_JPEG_MODE_YUV422)
-+		return 16;
-+
-+	return 8;
-+}
-+
-+/**
-+ * vdpu720_mcu_height() - vertical size of a mode's minimum coded unit
-+ * @jpeg_mode:	a VDPU720_JPEG_MODE_* value
-+ *
-+ * MCU_H follows the luma vertical sampling factor, v0 * 8.  That factor is 2
-+ * for YUV420, giving 16 pixels.  The rest is 8.
-+ *
-+ * Return: the MCU height in pixels.
-+ */
-+static u32 vdpu720_mcu_height(int jpeg_mode)
-+{
-+	if (jpeg_mode == VDPU720_JPEG_MODE_YUV420)
-+		return 16;
-+
-+	return 8;
-+}
-+
-+/**
-+ * vdpu720_nb_htbl_sets() - number of Huffman table sets the hardware reads
-+ * @num_components:	number of components in the scan
-+ *
-+ * One for a grayscale frame, two for a colour one.  vdpu720_write_htbl()
-+ * fills that many sets and vdpu720_fill_regs() sizes HTBL_SEL and the length
-+ * registers from the same number, so the two cannot drift apart.
-+ *
-+ * Return: the number of table sets to write.
-+ */
-+static unsigned int vdpu720_nb_htbl_sets(unsigned int num_components)
-+{
-+	return num_components == 1 ? 1 : VDPU720_NB_HTBL_SETS;
-+}
-+
-+/**
-+ * vdpu720_write_qtbl() - write all Q-tables into the DMA side buffer
-+ * @ctx:	context whose side buffer receives the tables
-+ * @hdr:	parsed JPEG header the tables are taken from
-+ *
-+ * Tables are stored sequentially, one per component in component order.
-+ * Each entry is widened to a little-endian u16 and reordered from JPEG
-+ * zig-zag scan to natural raster-scan order, matching the hardware
-+ * expectation.
-+ *
-+ * Return: 0 on success, -EINVAL if the frame refers to a quantization
-+ * table it does not carry.
-+ */
-+static int vdpu720_write_qtbl(struct rkjpegd_ctx *ctx,
-+			      const struct v4l2_jpeg_header *hdr)
-+{
-+	struct rkjpegd_dev *jpegd = ctx->dev;
-+	__le16 *base = ctx->table_base.cpu;
-+	unsigned int k, i;
-+
-+	for (k = 0; k < hdr->frame.num_components; k++) {
-+		u8 tq_id = hdr->frame.component[k].quantization_table_selector;
-+		u8 qtbl[VDPU720_QTBL_ENTRIES];
-+		__le16 *dst;
-+
-+		/* .start points past the Pq|Tq byte at the 64 Qk values. */
-+		if (tq_id > 3 || !hdr->quantization_tables[tq_id].start) {
-+			dev_err_ratelimited(jpegd->dev,
-+					    "Q-table %u not found for component %u\n",
-+					    tq_id, k);
-+			return -EINVAL;
-+		}
-+
-+		memcpy(qtbl, hdr->quantization_tables[tq_id].start, sizeof(qtbl));
-+		dst = base + k * VDPU720_QTBL_ENTRIES;
-+
-+		/*
-+		 * v4l2_jpeg_zigzag_scan_index[z] is the raster position of z.
-+		 */
-+		for (i = 0; i < VDPU720_QTBL_ENTRIES; i++)
-+			dst[v4l2_jpeg_zigzag_scan_index[i]] = cpu_to_le16(qtbl[i]);
-+	}
-+
-+	return 0;
-+}
-+
-+/**
-+ * vdpu720_compute_mincode() - build the minimum Huffman code arrays
-+ * @bits:	BITS[16], the number of codes of each length 1..16
-+ * @min_code:	output, minimum code value per length (16 entries)
-+ * @acc_addr:	output, accumulated symbol-table address per length (16 entries)
-+ *
-+ * Derives the two arrays the hardware needs for one Huffman table, DC or AC,
-+ * from that table's BITS array.  Algorithm ported verbatim from
-+ * jpegd_vpu7xx_write_htbl().
-+ */
-+static void vdpu720_compute_mincode(const u8 *bits, u16 *min_code, u16 *acc_addr)
-+{
-+	u16 code = 0, addr = 0;
-+	unsigned int j;
-+
-+	for (j = 0; j < 16; j++) {
-+		u16 len = bits[j];
-+
-+		if (len == 0 && j > 0)
-+			min_code[j] = max(code, (u16)min_code[j - 1] << 1);
-+		else
-+			min_code[j] = code;
-+
-+		code  += len;
-+		addr  += len;
-+		acc_addr[j] = addr;
-+		code <<= 1;
-+	}
-+
-+	/* Sentinel: set min_code[0] to the last valid code + count */
-+	if (bits[15])
-+		min_code[0] = min_code[15] + bits[15] - 1;
-+	else
-+		min_code[0] = min_code[15];
-+}
-+
-+/**
-+ * vdpu720_huffman_table() - look up one Huffman table of a frame
-+ * @hdr:	parsed JPEG header
-+ * @idx:	table index, (Tc << 1) | Th
-+ * @len:	returns the table length, BITS included
-+ *
-+ * Motion-JPEG frames often carry no DHT segment and rely on the tables of
-+ * ITU-T T.81 Annex K.3, so a table the frame does not define falls back to
-+ * the one from there.
-+ *
-+ * Return: the table, laid out as BITS[16] followed by HUFFVAL.
-+ */
-+static const u8 *vdpu720_huffman_table(const struct v4l2_jpeg_header *hdr,
-+				       unsigned int idx, size_t *len)
-+{
-+	static const u8 * const std_tables[] = {
-+		v4l2_jpeg_ref_table_luma_dc_ht,
-+		v4l2_jpeg_ref_table_chroma_dc_ht,
-+		v4l2_jpeg_ref_table_luma_ac_ht,
-+		v4l2_jpeg_ref_table_chroma_ac_ht,
-+	};
-+	static const size_t std_lens[] = {
-+		V4L2_JPEG_REF_HT_DC_LEN, V4L2_JPEG_REF_HT_DC_LEN,
-+		V4L2_JPEG_REF_HT_AC_LEN, V4L2_JPEG_REF_HT_AC_LEN,
-+	};
-+
-+	if (hdr->huffman_tables[idx].start) {
-+		*len = hdr->huffman_tables[idx].length;
-+		return hdr->huffman_tables[idx].start;
-+	}
-+
-+	*len = std_lens[idx];
-+	return std_tables[idx];
-+}
-+
-+/**
-+ * vdpu720_write_htbl() - fill the Huffman mincode and value sub-buffers
-+ * @ctx:	context whose side buffer receives the tables
-+ * @hdr:	parsed JPEG header the tables are taken from
-+ *
-+ * One set is written per vdpu720_nb_htbl_sets(), fed by the scan component
-+ * that uses it: the first by the luma component and the second by the first
-+ * chroma one.  With no per component selector register and no known use for
-+ * a third set, see %VDPU720_NB_HTBL_SETS, a frame whose two chroma components
-+ * disagree on their tables is refused rather than decoded with the wrong table
-+ * for the last component.
-+ *
-+ * Per-set layout in the mincode buffer:
-+ *   16 x u16  DC min-codes
-+ *    8 x u16  DC accumulated addresses (packed pairs)
-+ *   16 x u16  AC min-codes
-+ *    8 x u16  AC accumulated addresses (packed pairs)
-+ *
-+ * Per-set layout in the value buffer (192 bytes):
-+ *   16 bytes  DC code values
-+ *  176 bytes  AC code values
-+ *
-+ * Return: 0 on success, -EINVAL if the scan selects a Huffman table outside
-+ * baseline or needs more table sets than the hardware has.
-+ */
-+static int vdpu720_write_htbl(struct rkjpegd_ctx *ctx,
-+			      const struct v4l2_jpeg_header *hdr)
-+{
-+	struct rkjpegd_dev *jpegd = ctx->dev;
-+	const struct v4l2_jpeg_scan_header *scan = hdr->scan;
-+	u8  *tbl_base  = ctx->table_base.cpu;
-+	__le16 *p_mincode = (__le16 *)(tbl_base + VDPU720_HMINCODE_OFF);
-+	u8  *p_value   = tbl_base + VDPU720_HVALUE_OFF;
-+	unsigned int nb_sets = vdpu720_nb_htbl_sets(scan->num_components);
-+	unsigned int k, i;
-+
-+	/* The last set is shared by every remaining component */
-+	for (k = nb_sets; k < scan->num_components; k++) {
-+		if (scan->component[k].dc_entropy_coding_table_selector !=
-+		    scan->component[nb_sets - 1].dc_entropy_coding_table_selector ||
-+		    scan->component[k].ac_entropy_coding_table_selector !=
-+		    scan->component[nb_sets - 1].ac_entropy_coding_table_selector) {
-+			dev_err_ratelimited(jpegd->dev,
-+					    "JPEG component %u uses other Huffman tables than component %u\n",
-+					    k, nb_sets - 1);
-+			return -EINVAL;
-+		}
-+	}
-+
-+	for (k = 0; k < nb_sets; k++) {
-+		u8 dc_sel = scan->component[k].dc_entropy_coding_table_selector;
-+		u8 ac_sel = scan->component[k].ac_entropy_coding_table_selector;
-+		u8 dc_bits[16], ac_bits[16];
-+		const u8 *dc_src, *ac_src, *dc_vals, *ac_vals;
-+		unsigned int dc_huffval_len, ac_huffval_len;
-+		size_t dc_len, ac_len;
-+		u16 min_dc[16], acc_dc[16];
-+		u16 min_ac[16], acc_ac[16];
-+
-+		if (dc_sel > 1 || ac_sel > 1) {
-+			dev_err_ratelimited(jpegd->dev,
-+					    "JPEG component %u selects Huffman tables dc=%u ac=%u\n",
-+					    k, dc_sel, ac_sel);
-+			return -EINVAL;
-+		}
-+
-+		dc_src = vdpu720_huffman_table(hdr, dc_sel, &dc_len);
-+		ac_src = vdpu720_huffman_table(hdr, 2 | ac_sel, &ac_len);
-+
-+		memcpy(dc_bits, dc_src, sizeof(dc_bits));
-+		memcpy(ac_bits, ac_src, sizeof(ac_bits));
-+		dc_vals = dc_src + 16;
-+		ac_vals = ac_src + 16;
-+
-+		dc_huffval_len = 0;
-+		for (i = 0; i < 16; i++)
-+			dc_huffval_len += dc_bits[i];
-+		ac_huffval_len = 0;
-+		for (i = 0; i < 16; i++)
-+			ac_huffval_len += ac_bits[i];
-+
-+		if (16 + dc_huffval_len > dc_len || 16 + ac_huffval_len > ac_len) {
-+			dev_err_ratelimited(jpegd->dev,
-+					    "JPEG Huffman table for component %u changed after it was queued\n",
-+					    k);
-+			return -EINVAL;
-+		}
-+
-+		/*
-+		 * The accumulated addresses are packed two per u16, so a table
-+		 * the hardware cannot hold would be truncated into one
-+		 * silently.  The value block is the tighter of the two limits.
-+		 */
-+		if (dc_huffval_len > VDPU720_DC_VALUES_MAX ||
-+		    ac_huffval_len > VDPU720_AC_VALUES_MAX) {
-+			dev_err_ratelimited(jpegd->dev,
-+					    "JPEG Huffman table too large for component %u (dc=%u ac=%u)\n",
-+					    k, dc_huffval_len, ac_huffval_len);
-+			return -EINVAL;
-+		}
-+
-+		vdpu720_compute_mincode(dc_bits, min_dc, acc_dc);
-+		vdpu720_compute_mincode(ac_bits, min_ac, acc_ac);
-+
-+		for (i = 0; i < 16; i++)
-+			*p_mincode++ = cpu_to_le16(min_dc[i]);
-+		for (i = 0; i < 8; i++)
-+			*p_mincode++ = cpu_to_le16(acc_dc[2 * i] |
-+						   (acc_dc[2 * i + 1] << 8));
-+		for (i = 0; i < 16; i++)
-+			*p_mincode++ = cpu_to_le16(min_ac[i]);
-+		for (i = 0; i < 8; i++)
-+			*p_mincode++ = cpu_to_le16(acc_ac[2 * i] |
-+						   (acc_ac[2 * i + 1] << 8));
-+
-+		/* Zero-pad the value block, then fill DC then AC values. */
-+		memset(p_value, 0, VDPU720_HVALUE_SET_SIZE);
-+		memcpy(p_value, dc_vals, dc_huffval_len);
-+		memcpy(p_value + VDPU720_DC_VALUES_MAX, ac_vals, ac_huffval_len);
-+		p_value += VDPU720_HVALUE_SET_SIZE;
-+	}
-+
-+	return 0;
-+}
-+
-+/**
-+ * vdpu720_fill_regs() - program the decoder registers for one frame
-+ * @ctx:		context the job belongs to
-+ * @hdr:		parsed JPEG header
-+ * @tbl_dma:		DMA address of the Q/Huffman table side buffer
-+ * @strm_dma:		DMA address of the entropy stream, 16-byte aligned
-+ * @strm_start_byte:	offset of the first stream byte within that word
-+ * @strm_len_blks:	stream length in 16-byte blocks, minus one
-+ * @out_dma:		DMA address of the destination buffer
-+ *
-+ * Return: 0 on success, negative errno for a frame the hardware cannot be
-+ * programmed for.
-+ */
-+static int vdpu720_fill_regs(struct rkjpegd_ctx *ctx,
-+			     const struct v4l2_jpeg_header *hdr,
-+			     dma_addr_t tbl_dma,
-+			     dma_addr_t strm_dma, u32 strm_start_byte,
-+			     u32 strm_len_blks,
-+			     dma_addr_t out_dma)
-+{
-+	struct rkjpegd_dev *jpegd = ctx->dev;
-+	u32 jpeg_width  = hdr->frame.width;
-+	u32 jpeg_height = hdr->frame.height;
-+	u32 buf_width  = ctx->dst_fmt.width;
-+	u32 buf_height = ctx->dst_fmt.height;
-+	u32 w_align;
-+	u32 y_stride;	/* units of 16 pixels */
-+	u32 y_vstride;	/* sets the UV plane offset */
-+	u32 nb_comp     = hdr->frame.num_components;
-+	/* One Q-table entry per component, not one per DQT segment. */
-+	u32 qtbl_sel  = nb_comp;
-+	/* One H-table set for grayscale, two for colour. */
-+	u32 htbl_sel  = vdpu720_nb_htbl_sets(nb_comp);
-+	u32 mcu_width, mcu_height, jpeg_height_aligned;
-+	u32 qtbl_len, hmin_len, hval_len;
-+	int jpeg_mode;
-+	u32 reg;
-+
-+	w_align   = ALIGN(buf_width, 16);
-+	y_stride  = w_align >> 4;
-+	y_vstride = y_stride * buf_height;
-+
-+	jpeg_mode = vdpu720_jpeg_mode(&hdr->frame);
-+	if (jpeg_mode < 0) {
-+		dev_err_ratelimited(jpegd->dev,
-+				    "unsupported JPEG sampling factors %ux%u\n",
-+				    hdr->frame.component[0].horizontal_sampling_factor,
-+				    hdr->frame.component[0].vertical_sampling_factor);
-+		return jpeg_mode;
-+	}
-+
-+	mcu_width  = vdpu720_mcu_width(jpeg_mode);
-+	mcu_height = vdpu720_mcu_height(jpeg_mode);
-+	jpeg_height_aligned = ALIGN(jpeg_height, mcu_height);
-+
-+	/*
-+	 * FILL_DOWN_E completes the bottom of the picture for the vertically
-+	 * subsampled output chroma; the reference driver sets it for every
-+	 * NV12 conversion.  FILL_RIGHT_E does the same on the right, but only
-+	 * the 8 pixel MCU widths can stop short of the 16 pixel aligned
-+	 * buffer.
-+	 */
-+	reg = FIELD_PREP(VDPU720_YUV_OUT_FMT, VDPU720_YUV_OUT_FMT_NV12) |
-+	      VDPU720_FILL_DOWN_E;
-+	if (ALIGN(jpeg_width, mcu_width) < ALIGN(jpeg_width, 16))
-+		reg |= VDPU720_FILL_RIGHT_E;
-+	rkjpegd_write_relaxed(jpegd, reg, VDPU720_REG_SYS);
-+
-+	/*
-+	 * PIC_H is MCU aligned because the vertical MCU count derives from
-+	 * it.  PIC_W is not: the decoder lays rows down at the picture width,
-+	 * so a PIC_W past it shifts every row against the buffer.
-+	 */
-+	rkjpegd_write_relaxed(jpegd,
-+			      FIELD_PREP(VDPU720_PIC_W_M1, jpeg_width - 1) |
-+			      FIELD_PREP(VDPU720_PIC_H_M1, jpeg_height_aligned - 1),
-+			      VDPU720_REG_PIC_SIZE);
-+
-+	/* REG4: JPEG format, Q/H table counts, restart interval */
-+	qtbl_len = VDPU720_TBL_LEN(qtbl_sel * VDPU720_QTBL_COMP_SIZE);
-+	hmin_len = VDPU720_TBL_LEN(htbl_sel * VDPU720_HMINCODE_SET_SIZE);
-+	hval_len = VDPU720_TBL_LEN(htbl_sel * VDPU720_HVALUE_SET_SIZE);
-+
-+	reg = FIELD_PREP(VDPU720_JPEG_MODE, jpeg_mode) |
-+	      FIELD_PREP(VDPU720_PIX_DEPTH, VDPU720_PIX_DEPTH_8) |
-+	      FIELD_PREP(VDPU720_QTBL_SEL, qtbl_sel) |
-+	      FIELD_PREP(VDPU720_HTBL_SEL, htbl_sel);
-+	if (hdr->restart_interval) {
-+		reg |= VDPU720_DRI_E;
-+		reg |= FIELD_PREP(VDPU720_DRI_MCU_M1, hdr->restart_interval - 1);
-+	}
-+	rkjpegd_write_relaxed(jpegd, reg, VDPU720_REG_PIC_FMT);
-+
-+	/* REG5: horizontal virtual strides */
-+	rkjpegd_write_relaxed(jpegd,
-+			      FIELD_PREP(VDPU720_Y_HOR_STRIDE, y_stride) |
-+			      FIELD_PREP(VDPU720_UV_HOR_STRIDE, y_stride),
-+			      VDPU720_REG_HOR_STRIDE);
-+
-+	/* REG6: total Y-plane size (stride-units * height) */
-+	rkjpegd_write_relaxed(jpegd, FIELD_PREP(VDPU720_Y_VSTRIDE, y_vstride),
-+			      VDPU720_REG_Y_VSTRIDE);
-+
-+	/* REG7: table lengths + high stride bit */
-+	reg = FIELD_PREP(VDPU720_QTBL_LEN, qtbl_len) |
-+	      FIELD_PREP(VDPU720_HTBL_MINCODE_LEN, hmin_len) |
-+	      FIELD_PREP(VDPU720_HTBL_VALUE_LEN, hval_len) |
-+	      FIELD_PREP(VDPU720_Y_HOR_STRIDE_H, y_stride >> 16);
-+	rkjpegd_write_relaxed(jpegd, reg, VDPU720_REG_TBL_LEN);
-+
-+	/* REG8: stream length and start byte */
-+	rkjpegd_write_relaxed(jpegd,
-+			      FIELD_PREP(VDPU720_STRM_START_BYTE, strm_start_byte) |
-+			      FIELD_PREP(VDPU720_STRM_LEN, strm_len_blks),
-+			      VDPU720_REG_STRM_LEN);
-+
-+	/* REG9-REG11: Q/H table DMA addresses (side buffer) */
-+	rkjpegd_write_addr(jpegd, VDPU720_REG_QTBL_BASE, tbl_dma);
-+	rkjpegd_write_addr(jpegd, VDPU720_REG_HTBL_MINCODE,
-+			   tbl_dma + VDPU720_HMINCODE_OFF);
-+	rkjpegd_write_addr(jpegd, VDPU720_REG_HTBL_VALUE,
-+			   tbl_dma + VDPU720_HVALUE_OFF);
-+
-+	/* REG12: stream base (16-byte aligned) */
-+	rkjpegd_write_addr(jpegd, VDPU720_REG_STRM_BASE, strm_dma);
-+
-+	/* REG13: output buffer */
-+	rkjpegd_write_addr(jpegd, VDPU720_REG_OUT_BASE, out_dma);
-+
-+	/* REG14: stream error handling defaults */
-+	rkjpegd_write_relaxed(jpegd, VDPU720_STRM_ERR_DFLT, VDPU720_REG_STRM_ERR);
-+
-+	/* REG16: enable all internal clock gates */
-+	rkjpegd_write_relaxed(jpegd, VDPU720_CLK_GATE_ALL, VDPU720_REG_CLK_GATE);
-+
-+	/* REG30: AXI performance counter */
-+	rkjpegd_write_relaxed(jpegd,
-+			      VDPU720_PERF_WORK_E | VDPU720_PERF_CLR_E |
-+			      VDPU720_PERF_CNT_TYPE |
-+			      FIELD_PREP(VDPU720_PERF_RD_LAT_ID, 0xa),
-+			      VDPU720_REG_PERF_CTRL);
-+
-+	return 0;
-+}
-+
-+/**
-+ * rkjpegd_vdpu720_init() - allocate the table side buffer
-+ * @ctx:	context to allocate the Q/Huffman table buffer for
-+ *
-+ * Return: 0 on success, -ENOMEM if the allocation failed.
-+ */
-+static int rkjpegd_vdpu720_init(struct rkjpegd_ctx *ctx)
-+{
-+	struct rkjpegd_dev *jpegd = ctx->dev;
-+
-+	ctx->table_base.size = VDPU720_TABLE_BUF_SIZE;
-+	ctx->table_base.cpu = dma_alloc_noncoherent(jpegd->dev,
-+						    ctx->table_base.size,
-+						    &ctx->table_base.dma,
-+						    DMA_TO_DEVICE, GFP_KERNEL);
-+	if (!ctx->table_base.cpu)
-+		return -ENOMEM;
-+
-+	return 0;
-+}
-+
-+/**
-+ * rkjpegd_vdpu720_exit() - free the table side buffer
-+ * @ctx:	context the buffer belongs to
-+ */
-+static void rkjpegd_vdpu720_exit(struct rkjpegd_ctx *ctx)
-+{
-+	struct rkjpegd_dev *jpegd = ctx->dev;
-+
-+	dma_free_noncoherent(jpegd->dev, ctx->table_base.size,
-+			     ctx->table_base.cpu, ctx->table_base.dma,
-+			     DMA_TO_DEVICE);
-+}
-+
-+/**
-+ * vdpu720_soft_reset() - ask the block to reset itself
-+ * @jpegd:	device to reset
-+ *
-+ * Trigger the in-block soft reset and wait up to 10 ms for it to report
-+ * ready.  Sleeps while polling, so it must not be called from atomic context.
-+ */
-+static void vdpu720_soft_reset(struct rkjpegd_dev *jpegd)
-+{
-+	u32 status;
-+
-+	/* Idle blocks want FORCE_SOFTRESET_VALID first, per downstream BSP. */
-+	status = rkjpegd_read(jpegd, VDPU720_REG_INT);
-+	if (!(status & VDPU720_DEC_E))
-+		rkjpegd_write(jpegd, VDPU720_FORCE_SOFTRST, VDPU720_REG_SYS);
-+
-+	rkjpegd_write(jpegd, status | VDPU720_SOFT_RST_EN, VDPU720_REG_INT);
-+
-+	if (readl_relaxed_poll_timeout(jpegd->regs + VDPU720_REG_INT, status,
-+				       status & VDPU720_SOFT_RST_RDY, 5, 10000))
-+		dev_warn(jpegd->dev, "soft reset timed out\n");
-+}
-+
-+/**
-+ * rkjpegd_vdpu720_reset() - put the block back into a known state
-+ * @ctx:	context the block is being reset on behalf of
-+ *
-+ * Reached from the watchdog, and from rkjpegd_vdpu720_run() for a block the
-+ * last job left unparked, see @rkjpegd_dev.needs_reset.  Sleeps, so it must
-+ * not be called from the interrupt handler.
-+ */
-+static void rkjpegd_vdpu720_reset(struct rkjpegd_ctx *ctx)
-+{
-+	struct rkjpegd_dev *jpegd = ctx->dev;
-+
-+	vdpu720_soft_reset(jpegd);
-+	rkjpegd_write(jpegd, 0, VDPU720_REG_INT);
-+
-+	jpegd->needs_reset = false;
-+}
-+
-+/**
-+ * rkjpegd_vdpu720_run() - fill the side buffer, program the registers and
-+ *			   start the hardware
-+ * @ctx:	context holding the queues and the side buffer
-+ *
-+ * The header was parsed when the coded buffer was queued and its references
-+ * still point into that buffer, which stays mapped until the job completes.
-+ *
-+ * Return: 0 with the hardware started and the watchdog armed, or a negative
-+ * errno for a frame that cannot be decoded.
-+ */
-+static int rkjpegd_vdpu720_run(struct rkjpegd_ctx *ctx)
-+{
-+	struct rkjpegd_dev *jpegd = ctx->dev;
-+	struct vb2_v4l2_buffer *src_buf, *dst_buf;
-+	struct rkjpegd_src_buf *src;
-+	const struct v4l2_jpeg_header *hdr;
-+	dma_addr_t src_dma, dst_dma;
-+	u32 data_offset, payload, sizeimage;
-+	u32 hw_strm_off, strm_off, strm_start_byte, strm_len_blks;
-+	int ret;
-+
-+	src_buf = v4l2_m2m_next_src_buf(ctx->fh.m2m_ctx);
-+	dst_buf = v4l2_m2m_next_dst_buf(ctx->fh.m2m_ctx);
-+	src = vb2_to_rkjpegd_src_buf(&src_buf->vb2_buf);
-+
-+	if (src->parse_error)
-+		return src->parse_error;
-+
-+	/*
-+	 * The strides and the buffer size come from the capture format.  A
-+	 * format change stops the decoder before the frame gets here, so this
-+	 * only guards against one that was missed.
-+	 */
-+	hdr = &src->header;
-+	if (hdr->frame.width != ctx->crop.width ||
-+	    hdr->frame.height != ctx->crop.height ||
-+	    rkjpegd_raw_pixelformat(hdr) != ctx->dst_fmt.pixelformat) {
-+		dev_err_ratelimited(jpegd->dev,
-+				    "JPEG %ux%u does not match the negotiated %ux%u %p4cc\n",
-+				    hdr->frame.width, hdr->frame.height,
-+				    ctx->crop.width, ctx->crop.height,
-+				    &ctx->dst_fmt.pixelformat);
-+		return -EINVAL;
-+	}
-+
-+	/* Allocated before the format was reported, it may be too small. */
-+	sizeimage = ctx->dst_fmt.plane_fmt[0].sizeimage;
-+	if (vb2_plane_size(&dst_buf->vb2_buf, 0) < sizeimage) {
-+		dev_err_ratelimited(jpegd->dev,
-+				    "capture buffer of %lu bytes, format needs %u\n",
-+				    vb2_plane_size(&dst_buf->vb2_buf, 0),
-+				    sizeimage);
-+		return -EINVAL;
-+	}
-+
-+	/* The last job left the block in an unknown state, see @needs_reset. */
-+	if (jpegd->needs_reset)
-+		rkjpegd_vdpu720_reset(ctx);
-+
-+	src_dma = vb2_dma_contig_plane_dma_addr(&src_buf->vb2_buf, 0);
-+	dst_dma = vb2_dma_contig_plane_dma_addr(&dst_buf->vb2_buf, 0);
-+	data_offset = src_buf->vb2_buf.planes[0].data_offset;
-+	payload = vb2_get_plane_payload(&src_buf->vb2_buf, 0);
-+
-+	memset(ctx->table_base.cpu, 0, ctx->table_base.size);
-+
-+	/* The tables are read from the coded buffer through the header. */
-+	ret = vdpu720_write_qtbl(ctx, hdr);
-+	if (!ret)
-+		ret = vdpu720_write_htbl(ctx, hdr);
-+	if (ret)
-+		return ret;
-+
-+	dma_sync_single_for_device(jpegd->dev, ctx->table_base.dma,
-+				   ctx->table_base.size, DMA_TO_DEVICE);
-+
-+	/*
-+	 * STRM_BASE must be 16-byte aligned, so split the address and record
-+	 * the sub-block start byte.  Both come from the start of the plane,
-+	 * not the payload: videobuf2 lets data_offset carry arbitrary low
-+	 * bits, which STRM_BASE has no way to encode.
-+	 */
-+	strm_off        = data_offset + hdr->ecs_offset;
-+	hw_strm_off     = strm_off & ~0xfU;
-+	strm_start_byte = strm_off & 0xfU;
-+	strm_len_blks   = (ALIGN(payload - hw_strm_off, 16) - 1) >> 4;
-+
-+	ret = vdpu720_fill_regs(ctx, hdr, ctx->table_base.dma,
-+				src_dma + hw_strm_off, strm_start_byte,
-+				strm_len_blks, dst_dma);
-+	if (ret)
-+		return ret;
-+
-+	rkjpegd_arm_watchdog(jpegd);
-+
-+	/*
-+	 * A frame whose entropy data ends early runs the decoder off the end
-+	 * of the stream, and with the condition masked it waits instead of
-+	 * reporting.  VDPU720_ERR_MASK already covers the status.
-+	 */
-+	rkjpegd_write(jpegd,
-+		      VDPU720_DEC_E | VDPU720_TIMEOUT_E | VDPU720_BUF_EMPTY_E,
-+		      VDPU720_REG_INT);
-+
-+	return 0;
-+}
-+
-+/*
-+ * The block is not free-running: it only raises an interrupt for a job that
-+ * rkjpegd_vdpu720_run() started, and that job holds a runtime PM reference
-+ * until it is finished.  The registers are always clocked here.
-+ */
-+static irqreturn_t rkjpegd_vdpu720_irq(int irq, void *dev_id)
-+{
-+	struct rkjpegd_dev *jpegd = dev_id;
-+	enum vb2_buffer_state state;
-+	u32 status;
-+
-+	status = rkjpegd_read(jpegd, VDPU720_REG_INT);
-+
-+	/* First phase of the IRQ clear, see VDPU720_IRQ_CLR_KEEP. */
-+	rkjpegd_write(jpegd, status & VDPU720_IRQ_CLR_KEEP, VDPU720_REG_INT);
-+
-+	if (!(status & VDPU720_IRQ_RAW))
-+		return IRQ_NONE;
-+
-+	rkjpegd_write(jpegd, 0, VDPU720_REG_INT);
-+
-+	state = (status & VDPU720_ERR_MASK) ?
-+		VB2_BUF_STATE_ERROR : VB2_BUF_STATE_DONE;
-+
-+	/*
-+	 * A block that did not park itself wedges on the next frame, and a
-+	 * clean frame can leave it unparked too, as SOFT_RST_RDY shows.  The
-+	 * reset sleeps, so leave it to rkjpegd_vdpu720_run().  The next job
-+	 * is only started after job_spinlock has released this one, which
-+	 * orders the store.
-+	 */
-+	if (state == VB2_BUF_STATE_ERROR || !(status & VDPU720_SOFT_RST_RDY))
-+		jpegd->needs_reset = true;
-+
-+	if (status & VDPU720_DEC_ERR) {
-+		u32 mcu_pos  = rkjpegd_read(jpegd, VDPU720_REG_DBG_MCU_POS);
-+		u32 err_info = rkjpegd_read(jpegd, VDPU720_REG_DBG_ERROR);
-+
-+		dev_warn_ratelimited(jpegd->dev,
-+				     "decode error: MCU pos=(%u,%u) flags=0x%04x [%s%s%s%s%s%s%s%s%s%s] first_idx=%u\n",
-+				     (u32)FIELD_GET(VDPU720_DBG_MCU_POS_X, mcu_pos),
-+				     (u32)FIELD_GET(VDPU720_DBG_MCU_POS_Y, mcu_pos),
-+				     (u32)FIELD_GET(VDPU720_DERR_FLAGS, err_info),
-+				     (err_info & VDPU720_DERR_DRI_SEQ)     ? "dri_seq "    : "",
-+				     (err_info & VDPU720_DERR_STREAM_FFFF) ? "ffff "       : "",
-+				     (err_info & VDPU720_DERR_OTHER_MARK)  ? "bad_mark "   : "",
-+				     (err_info & VDPU720_DERR_MCU_CNT_L)   ? "dri_early "  : "",
-+				     (err_info & VDPU720_DERR_MCU_CNT_M)   ? "dri_late "   : "",
-+				     (err_info & VDPU720_DERR_EOI_NO_END)  ? "eoi_early "  : "",
-+				     (err_info & VDPU720_DERR_END_NO_EOI)  ? "no_eoi "     : "",
-+				     (err_info & VDPU720_DERR_OVERFLOW)    ? "overflow "   : "",
-+				     (err_info & VDPU720_DERR_HUFF_EMPTY)  ? "huff_empty " : "",
-+				     (err_info & (VDPU720_DERR_STREAM_R0 |
-+						  VDPU720_DERR_STREAM_R1)) ? "stream_mark " : "",
-+				     (u32)FIELD_GET(VDPU720_DERR_FIRST_IDX, err_info));
-+
-+		rkjpegd_write(jpegd, err_info, VDPU720_REG_DBG_ERROR);
-+	} else if (state == VB2_BUF_STATE_ERROR) {
-+		dev_warn_ratelimited(jpegd->dev, "decode error: status 0x%08x\n",
-+				     status);
-+	}
-+
-+	rkjpegd_irq_done(jpegd, state);
-+
-+	return IRQ_HANDLED;
-+}
-+
-+static void rkjpegd_watchdog(struct work_struct *work)
-+{
-+	struct rkjpegd_dev *jpegd = container_of(to_delayed_work(work),
-+						 struct rkjpegd_dev,
-+						 watchdog_work);
-+	/* Only armed while a job runs, so there is always a context. */
-+	struct rkjpegd_ctx *ctx = v4l2_m2m_get_curr_priv(jpegd->m2m_dev);
-+
-+	dev_err(jpegd->dev, "frame processing timed out\n");
-+
-+	rkjpegd_vdpu720_reset(ctx);
-+	rkjpegd_job_finish(ctx, VB2_BUF_STATE_ERROR);
-+}
-+
-+/**
-+ * rkjpegd_track_fmt() - find where the capture format changes
-+ * @ctx:	context the coded buffer belongs to
-+ * @src_buf:	coded buffer being queued
-+ *
-+ * The first frame queued while the capture queue is stopped sets the capture
-+ * format and reports it.  A refused one has no format, but an application
-+ * waits for the event either way, so it gets it for the format as it stands.
-+ * A later frame that decodes to another format is marked, and the decoder
-+ * stops in front of it, see rkjpegd_stop_at_change().
-+ */
-+static void rkjpegd_track_fmt(struct rkjpegd_ctx *ctx,
-+			      struct rkjpegd_src_buf *src_buf)
-+{
-+	const struct v4l2_jpeg_header *hdr = &src_buf->header;
-+	struct v4l2_m2m_ctx *m2m_ctx = ctx->fh.m2m_ctx;
-+	u32 pixelformat;
-+
-+	src_buf->fmt_change = false;
-+
-+	if (!vb2_is_streaming(v4l2_m2m_get_dst_vq(m2m_ctx)) &&
-+	    !v4l2_m2m_num_src_bufs_ready(m2m_ctx)) {
-+		if (!src_buf->parse_error) {
-+			rkjpegd_fill_hdr_fmt(&ctx->dst_fmt, &ctx->crop, hdr);
-+			rkjpegd_reset_queued(ctx);
-+		}
-+		v4l2_event_queue_fh(&ctx->fh, &rkjpegd_src_change_event);
-+		return;
-+	}
-+
-+	/* A refused frame only fails, see rkjpegd_vdpu720_run(). */
-+	if (src_buf->parse_error)
-+		return;
-+
-+	pixelformat = rkjpegd_raw_pixelformat(hdr);
-+	if (pixelformat == ctx->queued_pixelformat &&
-+	    hdr->frame.width == ctx->queued_width &&
-+	    hdr->frame.height == ctx->queued_height)
-+		return;
-+
-+	src_buf->fmt_change = true;
-+	ctx->queued_pixelformat = pixelformat;
-+	ctx->queued_width = hdr->frame.width;
-+	ctx->queued_height = hdr->frame.height;
-+}
-+
-+/*
-+ * Stop in front of a frame that decodes to another format: report it, and
-+ * hand back a capture buffer as LAST to mark where the old format ends.  The
-+ * event goes first, GStreamer looks for one before it dequeues a buffer.
-+ */
-+static void rkjpegd_stop_at_change(struct rkjpegd_ctx *ctx,
-+				   struct vb2_v4l2_buffer *dst)
-+{
-+	struct v4l2_m2m_ctx *m2m_ctx = ctx->fh.m2m_ctx;
-+
-+	/* Set before the event, so that a query after it sees the change. */
-+	WRITE_ONCE(ctx->stopped_at_change, true);
-+	v4l2_event_queue_fh(&ctx->fh, &rkjpegd_src_change_event);
-+
-+	v4l2_m2m_dst_buf_remove(m2m_ctx);
-+	rkjpegd_last_buffer_done(ctx, dst);
-+	v4l2_m2m_job_finish(ctx->dev->m2m_dev, m2m_ctx);
-+}
-+
-+static void rkjpegd_device_run(void *priv)
-+{
-+	struct rkjpegd_ctx *ctx = priv;
-+	struct rkjpegd_dev *jpegd = ctx->dev;
-+	struct vb2_v4l2_buffer *src, *dst;
-+	int ret;
-+
-+	src = v4l2_m2m_next_src_buf(ctx->fh.m2m_ctx);
-+	dst = v4l2_m2m_next_dst_buf(ctx->fh.m2m_ctx);
-+
-+	if (vb2_to_rkjpegd_src_buf(&src->vb2_buf)->fmt_change) {
-+		rkjpegd_stop_at_change(ctx, dst);
-+		return;
-+	}
-+
-+	ret = pm_runtime_resume_and_get(jpegd->dev);
-+	if (ret < 0)
-+		goto err_finish;
-+
-+	v4l2_m2m_buf_copy_metadata(src, dst);
-+
-+	ret = rkjpegd_vdpu720_run(ctx);
-+	if (ret)
-+		goto err_pm_put;
-+
-+	return;
-+
-+err_pm_put:
-+	pm_runtime_put_autosuspend(jpegd->dev);
-+err_finish:
-+	rkjpegd_job_finish_no_pm(ctx, VB2_BUF_STATE_ERROR);
-+}
-+
-+/* Nothing runs while the decoder waits for userspace at a format change. */
-+static int rkjpegd_job_ready(void *priv)
-+{
-+	struct rkjpegd_ctx *ctx = priv;
-+
-+	return !READ_ONCE(ctx->stopped_at_change);
-+}
-+
-+static const struct v4l2_m2m_ops rkjpegd_m2m_ops = {
-+	.device_run = rkjpegd_device_run,
-+	.job_ready = rkjpegd_job_ready,
-+};
-+
-+/*
-+ * Bitstream inspection
-+ *
-+ * The header is parsed when the buffer is queued rather than when the job
-+ * runs: the resolution it carries is what a source change reports, and the
-+ * references it hands out point into the payload, which stays mapped until
-+ * the buffer is given back.
-+ */
-+
-+static int rkjpegd_check_header(struct rkjpegd_dev *jpegd,
-+				const struct v4l2_jpeg_header *header, u32 len)
-+{
-+	if (header->frame.width < RKJPEGD_MIN_WIDTH ||
-+	    header->frame.height < RKJPEGD_MIN_HEIGHT ||
-+	    !rkjpegd_raw_fits(header->frame.width, header->frame.height)) {
-+		dev_err_ratelimited(jpegd->dev,
-+				    "unsupported JPEG picture size %ux%u\n",
-+				    header->frame.width, header->frame.height);
-+		return -EINVAL;
-+	}
-+
-+	/* The register programming always asks for eight bit samples. */
-+	if (header->frame.precision != 8) {
-+		dev_err_ratelimited(jpegd->dev,
-+				    "unsupported JPEG sample precision %u\n",
-+				    header->frame.precision);
-+		return -EINVAL;
-+	}
-+
-+	if (header->frame.num_components != 1 &&
-+	    header->frame.num_components != 3) {
-+		dev_err_ratelimited(jpegd->dev,
-+				    "unsupported JPEG component count %u\n",
-+				    header->frame.num_components);
-+		return -EINVAL;
-+	}
-+
-+	/* The block has no RGB mode. */
-+	if (header->frame.num_components == 3 &&
-+	    header->app14_tf == V4L2_JPEG_APP14_TF_CMYK_RGB) {
-+		dev_err_ratelimited(jpegd->dev,
-+				    "unsupported RGB JPEG, Adobe APP14 transform 0\n");
-+		return -EINVAL;
-+	}
-+
-+	if (header->scan->num_components != header->frame.num_components) {
-+		dev_err_ratelimited(jpegd->dev,
-+				    "JPEG scan covers %u of %u components, non interleaved scans are not supported\n",
-+				    header->scan->num_components,
-+				    header->frame.num_components);
-+		return -EINVAL;
-+	}
-+
-+	if (header->ecs_offset >= len) {
-+		dev_err_ratelimited(jpegd->dev,
-+				    "JPEG entropy coded data starts beyond the payload\n");
-+		return -EINVAL;
-+	}
-+
-+	return 0;
-+}
-+
-+static int rkjpegd_parse_header(struct rkjpegd_dev *jpegd,
-+				struct rkjpegd_src_buf *src_buf,
-+				void *data, u32 len)
-+{
-+	int ret;
-+
-+	ret = v4l2_jpeg_parse_header(data, len, &src_buf->header);
-+	if (ret < 0) {
-+		dev_warn_ratelimited(jpegd->dev,
-+				     "failed to parse JPEG header: %d (len=%u first_bytes=%*ph)\n",
-+				     ret, len, min_t(int, len, 8), data);
-+		return ret;
-+	}
-+
-+	return rkjpegd_check_header(jpegd, &src_buf->header, len);
-+}
-+
-+static int rkjpegd_parse_src_buf(struct rkjpegd_ctx *ctx,
-+				 struct vb2_buffer *vb)
-+{
-+	struct rkjpegd_src_buf *src_buf = vb2_to_rkjpegd_src_buf(vb);
-+	struct rkjpegd_dev *jpegd = ctx->dev;
-+	u32 data_offset = vb->planes[0].data_offset;
-+	u32 len = vb2_get_plane_payload(vb, 0);
-+	void *data = vb2_plane_vaddr(vb, 0);
-+
-+	memset(&src_buf->header, 0, sizeof(src_buf->header));
-+	memset(&src_buf->scan, 0, sizeof(src_buf->scan));
-+	memset(src_buf->quantization_tables, 0,
-+	       sizeof(src_buf->quantization_tables));
-+	memset(src_buf->huffman_tables, 0, sizeof(src_buf->huffman_tables));
-+	src_buf->header.scan = &src_buf->scan;
-+	src_buf->header.quantization_tables = src_buf->quantization_tables;
-+	src_buf->header.huffman_tables = src_buf->huffman_tables;
-+
-+	if (!data) {
-+		dev_err_ratelimited(jpegd->dev,
-+				    "JPEG buffer has no kernel mapping\n");
-+		return -ENOMEM;
-+	}
-+
-+	if (len <= data_offset || len - data_offset < 4) {
-+		dev_err_ratelimited(jpegd->dev,
-+				    "JPEG payload of %u bytes is too short\n",
-+				    len);
-+		return -EINVAL;
-+	}
-+
-+	return rkjpegd_parse_header(jpegd, src_buf, data + data_offset,
-+				    len - data_offset);
-+}
-+
-+static int rkjpegd_queue_setup(struct vb2_queue *vq, unsigned int *num_buffers,
-+			       unsigned int *num_planes, unsigned int sizes[],
-+			       struct device *alloc_devs[])
-+{
-+	struct rkjpegd_ctx *ctx = vb2_get_drv_priv(vq);
-+	struct v4l2_pix_format_mplane pix_mp;
-+	struct v4l2_rect crop;
-+	u32 sizeimage;
-+
-+	if (V4L2_TYPE_IS_OUTPUT(vq->type)) {
-+		sizeimage = ctx->src_fmt.plane_fmt[0].sizeimage;
-+	} else {
-+		rkjpegd_get_cap_fmt(ctx, &pix_mp, &crop);
-+		sizeimage = pix_mp.plane_fmt[0].sizeimage;
-+	}
-+
-+	if (*num_planes) {
-+		if (*num_planes != 1)
-+			return -EINVAL;
-+		if (sizes[0] < sizeimage)
-+			return -EINVAL;
-+	} else {
-+		*num_planes = 1;
-+		sizes[0] = sizeimage;
-+	}
-+
-+	return 0;
-+}
-+
-+static int rkjpegd_buf_out_validate(struct vb2_buffer *vb)
-+{
-+	struct vb2_v4l2_buffer *vbuf = to_vb2_v4l2_buffer(vb);
-+
-+	vbuf->field = V4L2_FIELD_NONE;
-+
-+	return 0;
-+}
-+
-+static int rkjpegd_buf_prepare(struct vb2_buffer *vb)
-+{
-+	struct vb2_queue *vq = vb->vb2_queue;
-+	struct rkjpegd_ctx *ctx = vb2_get_drv_priv(vq);
-+	struct v4l2_pix_format_mplane pix_mp;
-+	struct v4l2_rect crop;
-+
-+	if (V4L2_TYPE_IS_OUTPUT(vq->type)) {
-+		if (vb2_plane_size(vb, 0) < ctx->src_fmt.plane_fmt[0].sizeimage)
-+			return -EINVAL;
-+
-+		return 0;
-+	}
-+
-+	/* The core's LAST buffers go back with whatever was set here. */
-+	to_vb2_v4l2_buffer(vb)->field = V4L2_FIELD_NONE;
-+
-+	rkjpegd_get_cap_fmt(ctx, &pix_mp, &crop);
-+	if (vb2_plane_size(vb, 0) < pix_mp.plane_fmt[0].sizeimage)
-+		return -EINVAL;
-+
-+	return 0;
-+}
-+
-+static void rkjpegd_buf_queue(struct vb2_buffer *vb)
-+{
-+	struct vb2_v4l2_buffer *vbuf = to_vb2_v4l2_buffer(vb);
-+	struct rkjpegd_ctx *ctx = vb2_get_drv_priv(vb->vb2_queue);
-+	struct rkjpegd_src_buf *src_buf;
-+
-+	if (V4L2_TYPE_IS_CAPTURE(vb->vb2_queue->type)) {
-+		if (vb2_is_streaming(vb->vb2_queue) &&
-+		    v4l2_m2m_dst_buf_is_last(ctx->fh.m2m_ctx)) {
-+			rkjpegd_last_buffer_done(ctx, vbuf);
-+			v4l2_m2m_mark_stopped(ctx->fh.m2m_ctx);
-+			v4l2_event_queue_fh(&ctx->fh, &rkjpegd_eos_event);
-+			return;
-+		}
-+
-+		v4l2_m2m_buf_queue(ctx->fh.m2m_ctx, vbuf);
-+		return;
-+	}
-+
-+	/* A frame that cannot be decoded fails in rkjpegd_vdpu720_run(). */
-+	src_buf = vb2_to_rkjpegd_src_buf(vb);
-+	src_buf->parse_error = rkjpegd_parse_src_buf(ctx, vb);
-+
-+	rkjpegd_track_fmt(ctx, src_buf);
-+
-+	v4l2_m2m_buf_queue(ctx->fh.m2m_ctx, vbuf);
-+}
-+
-+static int rkjpegd_start_streaming(struct vb2_queue *vq, unsigned int count)
-+{
-+	struct rkjpegd_ctx *ctx = vb2_get_drv_priv(vq);
-+
-+	v4l2_m2m_update_start_streaming_state(ctx->fh.m2m_ctx, vq);
-+
-+	if (V4L2_TYPE_IS_OUTPUT(vq->type))
-+		ctx->sequence_out = 0;
-+	else
-+		ctx->sequence_cap = 0;
-+
-+	return 0;
-+}
-+
-+static void rkjpegd_stop_streaming(struct vb2_queue *vq)
-+{
-+	struct rkjpegd_ctx *ctx = vb2_get_drv_priv(vq);
-+	struct vb2_v4l2_buffer *vbuf;
-+
-+	for (;;) {
-+		if (V4L2_TYPE_IS_OUTPUT(vq->type))
-+			vbuf = v4l2_m2m_src_buf_remove(ctx->fh.m2m_ctx);
-+		else
-+			vbuf = v4l2_m2m_dst_buf_remove(ctx->fh.m2m_ctx);
-+		if (!vbuf)
-+			break;
-+		if (V4L2_TYPE_IS_CAPTURE(vq->type))
-+			vb2_set_plane_payload(&vbuf->vb2_buf, 0, 0);
-+		v4l2_m2m_buf_done(vbuf, VB2_BUF_STATE_ERROR);
-+	}
-+
-+	if (V4L2_TYPE_IS_OUTPUT(vq->type)) {
-+		/* A seek aborts a format change, decoding goes on as before. */
-+		if (ctx->stopped_at_change) {
-+			WRITE_ONCE(ctx->stopped_at_change, false);
-+			vb2_clear_last_buffer_dequeued(&ctx->fh.m2m_ctx->cap_q_ctx.q);
-+		}
-+		rkjpegd_reset_queued(ctx);
-+	} else if (ctx->stopped_at_change) {
-+		/*
-+		 * Part of the format change, which does not abort a drain:
-+		 * dev-decoder.rst has the drain go on once it is handled.
-+		 */
-+		rkjpegd_resume_at_change(ctx);
-+		return;
-+	}
-+
-+	v4l2_m2m_update_stop_streaming_state(ctx->fh.m2m_ctx, vq);
-+}
-+
-+static const struct vb2_ops rkjpegd_queue_ops = {
-+	.queue_setup = rkjpegd_queue_setup,
-+	.buf_out_validate = rkjpegd_buf_out_validate,
-+	.buf_prepare = rkjpegd_buf_prepare,
-+	.buf_queue = rkjpegd_buf_queue,
-+	.start_streaming = rkjpegd_start_streaming,
-+	.stop_streaming = rkjpegd_stop_streaming,
-+};
-+
-+static int rkjpegd_queue_init(void *priv, struct vb2_queue *src_vq,
-+			      struct vb2_queue *dst_vq)
-+{
-+	struct rkjpegd_ctx *ctx = priv;
-+	struct rkjpegd_dev *jpegd = ctx->dev;
-+	int ret;
-+
-+	src_vq->type = V4L2_BUF_TYPE_VIDEO_OUTPUT_MPLANE;
-+	src_vq->io_modes = VB2_MMAP | VB2_DMABUF;
-+	src_vq->drv_priv = ctx;
-+	src_vq->ops = &rkjpegd_queue_ops;
-+	src_vq->mem_ops = &vb2_dma_contig_memops;
-+	src_vq->buf_struct_size = sizeof(struct rkjpegd_src_buf);
-+	src_vq->timestamp_flags = V4L2_BUF_FLAG_TIMESTAMP_COPY;
-+	src_vq->lock = &jpegd->vdev_lock;
-+	src_vq->dev = jpegd->v4l2_dev.dev;
-+
-+	/*
-+	 * Mostly sequential access, so trade TLB efficiency for allocation
-+	 * speed.  Only the coded queue needs a kernel mapping.
-+	 */
-+	src_vq->dma_attrs = DMA_ATTR_ALLOC_SINGLE_PAGES;
-+
-+	ret = vb2_queue_init(src_vq);
-+	if (ret)
-+		return ret;
-+
-+	dst_vq->type = V4L2_BUF_TYPE_VIDEO_CAPTURE_MPLANE;
-+	dst_vq->io_modes = VB2_MMAP | VB2_DMABUF;
-+	dst_vq->drv_priv = ctx;
-+	dst_vq->ops = &rkjpegd_queue_ops;
-+	dst_vq->mem_ops = &vb2_dma_contig_memops;
-+	dst_vq->buf_struct_size = sizeof(struct v4l2_m2m_buffer);
-+	dst_vq->timestamp_flags = V4L2_BUF_FLAG_TIMESTAMP_COPY;
-+	dst_vq->lock = &jpegd->vdev_lock;
-+	dst_vq->dev = jpegd->v4l2_dev.dev;
-+	dst_vq->dma_attrs = DMA_ATTR_ALLOC_SINGLE_PAGES |
-+			    DMA_ATTR_NO_KERNEL_MAPPING;
-+
-+	return vb2_queue_init(dst_vq);
-+}
-+
-+static int rkjpegd_open(struct file *filp)
-+{
-+	struct rkjpegd_dev *jpegd = video_drvdata(filp);
-+	struct rkjpegd_ctx *ctx __free(kfree) = kzalloc_obj(*ctx);
-+	int ret;
-+
-+	if (!ctx)
-+		return -ENOMEM;
-+
-+	ctx->dev = jpegd;
-+
-+	ret = rkjpegd_vdpu720_init(ctx);
-+	if (ret)
-+		return ret;
-+
-+	ctx->fh.m2m_ctx = v4l2_m2m_ctx_init(jpegd->m2m_dev, ctx,
-+					    rkjpegd_queue_init);
-+	if (IS_ERR(ctx->fh.m2m_ctx)) {
-+		rkjpegd_vdpu720_exit(ctx);
-+		return PTR_ERR(ctx->fh.m2m_ctx);
-+	}
-+
-+	rkjpegd_reset_fmts(ctx);
-+	v4l2_fh_init(&ctx->fh, video_devdata(filp));
-+	v4l2_fh_add(&ctx->fh, filp);
-+
-+	retain_and_null_ptr(ctx);
-+
-+	return 0;
-+}
-+
-+static int rkjpegd_release(struct file *filp)
-+{
-+	struct rkjpegd_ctx *ctx = file_to_rkjpegd_ctx(filp);
-+
-+	v4l2_fh_del(&ctx->fh, filp);
-+
-+	/* rkjpegd_remove() may be waiting on this context, under the lock. */
-+	scoped_guard(mutex, &ctx->dev->vdev_lock)
-+		v4l2_m2m_ctx_release(ctx->fh.m2m_ctx);
-+	rkjpegd_vdpu720_exit(ctx);
-+	v4l2_fh_exit(&ctx->fh);
-+	kfree(ctx);
-+
-+	return 0;
-+}
-+
-+static const struct v4l2_file_operations rkjpegd_fops = {
-+	.owner = THIS_MODULE,
-+	.open = rkjpegd_open,
-+	.release = rkjpegd_release,
-+	.poll = v4l2_m2m_fop_poll,
-+	.unlocked_ioctl = video_ioctl2,
-+	.mmap = v4l2_m2m_fop_mmap,
-+};
-+
-+static void rkjpegd_free(struct kref *ref)
-+{
-+	struct rkjpegd_dev *jpegd = container_of(ref, struct rkjpegd_dev, ref);
-+
-+	mutex_destroy(&jpegd->vdev_lock);
-+	kfree(jpegd);
-+}
-+
-+static void rkjpegd_put(void *data)
-+{
-+	struct rkjpegd_dev *jpegd = data;
-+
-+	kref_put(&jpegd->ref, rkjpegd_free);
-+}
-+
-+/**
-+ * rkjpegd_vdev_release() - tear down the V4L2 side once the last user is gone
-+ * @vdev:	the video device embedded in the rkjpegd_dev being released
-+ */
-+static void rkjpegd_vdev_release(struct video_device *vdev)
-+{
-+	struct rkjpegd_dev *jpegd = container_of(vdev, struct rkjpegd_dev, vdev);
-+
-+	v4l2_device_unregister(&jpegd->v4l2_dev);
-+	v4l2_m2m_release(jpegd->m2m_dev);
-+	rkjpegd_put(jpegd);
-+}
-+
-+/**
-+ * rkjpegd_vdev_unregister() - unregister the video device and end its jobs
-+ * @jpegd:	the device whose video device is registered
-+ *
-+ * An open file keeps the mem2mem device alive past this, but the running
-+ * job has completed and no other one is started once this returns.
-+ */
-+static void rkjpegd_vdev_unregister(struct rkjpegd_dev *jpegd)
-+{
-+	/* The release callback frees m2m_dev, which is still needed below. */
-+	get_device(&jpegd->vdev.dev);
-+
-+	scoped_guard(mutex, &jpegd->vdev_lock) {
-+		video_unregister_device(&jpegd->vdev);
-+
-+		/*
-+		 * Let the running job finish and start no new one.  The lock
-+		 * keeps rkjpegd_release() from freeing the context this waits
-+		 * on.
-+		 */
-+		v4l2_m2m_suspend(jpegd->m2m_dev);
-+	}
-+
-+	cancel_delayed_work_sync(&jpegd->watchdog_work);
-+
-+	put_device(&jpegd->vdev.dev);
-+}
-+
-+/**
-+ * rkjpegd_v4l2_init() - bring up the V4L2 and mem2mem devices
-+ * @jpegd:	the device to register
-+ *
-+ * Return: 0 on success, or a negative errno with everything set up here
-+ * undone.
-+ */
-+static int rkjpegd_v4l2_init(struct rkjpegd_dev *jpegd)
-+{
-+	int ret;
-+
-+	ret = v4l2_device_register(jpegd->dev, &jpegd->v4l2_dev);
-+	if (ret) {
-+		dev_err(jpegd->dev, "failed to register V4L2 device\n");
-+		return ret;
-+	}
-+
-+	jpegd->m2m_dev = v4l2_m2m_init(&rkjpegd_m2m_ops);
-+	if (IS_ERR(jpegd->m2m_dev)) {
-+		v4l2_err(&jpegd->v4l2_dev, "failed to init mem2mem device\n");
-+		ret = PTR_ERR(jpegd->m2m_dev);
-+		goto err_unregister_v4l2;
-+	}
-+
-+	jpegd->vdev.lock = &jpegd->vdev_lock;
-+	jpegd->vdev.v4l2_dev = &jpegd->v4l2_dev;
-+	jpegd->vdev.fops = &rkjpegd_fops;
-+	jpegd->vdev.release = rkjpegd_vdev_release;
-+	jpegd->vdev.vfl_dir = VFL_DIR_M2M;
-+	jpegd->vdev.device_caps = V4L2_CAP_STREAMING |
-+				  V4L2_CAP_VIDEO_M2M_MPLANE;
-+	jpegd->vdev.ioctl_ops = &rkjpegd_ioctl_ops;
-+	video_set_drvdata(&jpegd->vdev, jpegd);
-+	strscpy(jpegd->vdev.name, RKJPEGD_NAME, sizeof(jpegd->vdev.name));
-+
-+	/* Dropped by rkjpegd_vdev_release(). */
-+	kref_get(&jpegd->ref);
-+
-+	ret = video_register_device(&jpegd->vdev, VFL_TYPE_VIDEO, -1);
-+	if (ret) {
-+		v4l2_err(&jpegd->v4l2_dev, "failed to register video device\n");
-+		rkjpegd_put(jpegd);
-+		v4l2_m2m_release(jpegd->m2m_dev);
-+		goto err_unregister_v4l2;
-+	}
-+
-+	return 0;
-+
-+err_unregister_v4l2:
-+	v4l2_device_unregister(&jpegd->v4l2_dev);
-+
-+	return ret;
-+}
-+
-+static int rkjpegd_probe(struct platform_device *pdev)
-+{
-+	struct rkjpegd_dev *jpegd;
-+	unsigned int i;
-+	int irq, ret;
-+
-+	jpegd = kzalloc_obj(*jpegd);
-+	if (!jpegd)
-+		return -ENOMEM;
-+
-+	kref_init(&jpegd->ref);
-+	jpegd->dev = &pdev->dev;
-+	platform_set_drvdata(pdev, jpegd);
-+	mutex_init(&jpegd->vdev_lock);
-+	spin_lock_init(&jpegd->drain_lock);
-+	INIT_DELAYED_WORK(&jpegd->watchdog_work, rkjpegd_watchdog);
-+
-+	/* Registered first so that it runs after every other devres release. */
-+	ret = devm_add_action_or_reset(&pdev->dev, rkjpegd_put, jpegd);
-+	if (ret)
-+		return ret;
-+
-+	for (i = 0; i < RKJPEGD_NUM_CLOCKS; i++)
-+		jpegd->clocks[i].id = rkjpegd_clk_names[i];
-+
-+	ret = devm_clk_bulk_get(&pdev->dev, RKJPEGD_NUM_CLOCKS, jpegd->clocks);
-+	if (ret)
-+		return ret;
-+
-+	jpegd->resets = devm_reset_control_array_get_exclusive(&pdev->dev);
-+	if (IS_ERR(jpegd->resets))
-+		return dev_err_probe(&pdev->dev, PTR_ERR(jpegd->resets),
-+				     "failed to get resets\n");
-+
-+	jpegd->regs = devm_platform_ioremap_resource(pdev, 0);
-+	if (IS_ERR(jpegd->regs))
-+		return PTR_ERR(jpegd->regs);
-+
-+	ret = dma_set_mask_and_coherent(&pdev->dev, DMA_BIT_MASK(32));
-+	if (ret)
-+		return dev_err_probe(&pdev->dev, ret, "failed to set DMA mask\n");
-+
-+	irq = platform_get_irq(pdev, 0);
-+	if (irq < 0)
-+		return irq;
-+
-+	ret = devm_request_irq(&pdev->dev, irq, rkjpegd_vdpu720_irq, 0,
-+			       dev_name(&pdev->dev), jpegd);
-+	if (ret)
-+		return dev_err_probe(&pdev->dev, ret, "failed to request irq\n");
-+
-+	pm_runtime_set_autosuspend_delay(&pdev->dev, 100);
-+	pm_runtime_use_autosuspend(&pdev->dev);
-+	pm_runtime_enable(&pdev->dev);
-+
-+	ret = reset_control_deassert(jpegd->resets);
-+	if (ret) {
-+		ret = dev_err_probe(&pdev->dev, ret,
-+				    "failed to deassert resets\n");
-+		goto err_disable_pm;
-+	}
-+
-+	ret = rkjpegd_v4l2_init(jpegd);
-+	if (ret)
-+		goto err_assert_reset;
-+
-+	return 0;
-+
-+err_assert_reset:
-+	reset_control_assert(jpegd->resets);
-+err_disable_pm:
-+	pm_runtime_dont_use_autosuspend(&pdev->dev);
-+	pm_runtime_disable(&pdev->dev);
-+
-+	return ret;
-+}
-+
-+static void rkjpegd_remove(struct platform_device *pdev)
-+{
-+	struct rkjpegd_dev *jpegd = platform_get_drvdata(pdev);
-+
-+	rkjpegd_vdev_unregister(jpegd);
-+
-+	reset_control_assert(jpegd->resets);
-+	/* Suspends at once, a pending autosuspend does not keep it active. */
-+	pm_runtime_dont_use_autosuspend(&pdev->dev);
-+	pm_runtime_disable(&pdev->dev);
-+}
-+
-+static int rkjpegd_runtime_suspend(struct device *dev)
-+{
-+	struct rkjpegd_dev *jpegd = dev_get_drvdata(dev);
-+
-+	clk_bulk_disable_unprepare(RKJPEGD_NUM_CLOCKS, jpegd->clocks);
-+
-+	return 0;
-+}
-+
-+static int rkjpegd_runtime_resume(struct device *dev)
-+{
-+	struct rkjpegd_dev *jpegd = dev_get_drvdata(dev);
-+
-+	return clk_bulk_prepare_enable(RKJPEGD_NUM_CLOCKS, jpegd->clocks);
-+}
-+
-+/* pm_runtime_force_suspend() ignores the usage count, let the job finish. */
-+static int rkjpegd_suspend(struct device *dev)
-+{
-+	struct rkjpegd_dev *jpegd = dev_get_drvdata(dev);
-+	int ret;
-+
-+	v4l2_m2m_suspend(jpegd->m2m_dev);
-+
-+	ret = pm_runtime_force_suspend(dev);
-+	if (ret)
-+		v4l2_m2m_resume(jpegd->m2m_dev);
-+
-+	return ret;
-+}
-+
-+static int rkjpegd_resume(struct device *dev)
-+{
-+	struct rkjpegd_dev *jpegd = dev_get_drvdata(dev);
-+	int ret;
-+
-+	ret = pm_runtime_force_resume(dev);
-+
-+	v4l2_m2m_resume(jpegd->m2m_dev);
-+
-+	return ret;
-+}
-+
-+static const struct dev_pm_ops rkjpegd_pm_ops = {
-+	RUNTIME_PM_OPS(rkjpegd_runtime_suspend, rkjpegd_runtime_resume, NULL)
-+	SYSTEM_SLEEP_PM_OPS(rkjpegd_suspend, rkjpegd_resume)
-+};
-+
-+static const struct of_device_id of_rkjpegd_match[] = {
-+	{ .compatible = "rockchip,rk3568-jpegd" },
-+	{ .compatible = "rockchip,rk3588-jpegd" },
-+	{ /* sentinel */ }
-+};
-+MODULE_DEVICE_TABLE(of, of_rkjpegd_match);
-+
-+static struct platform_driver rkjpegd_driver = {
-+	.probe = rkjpegd_probe,
-+	.remove = rkjpegd_remove,
-+	.driver = {
-+		.name = RKJPEGD_NAME,
-+		.of_match_table = of_rkjpegd_match,
-+		.pm = pm_ptr(&rkjpegd_pm_ops),
-+	},
-+};
-+module_platform_driver(rkjpegd_driver);
-+
-+MODULE_DESCRIPTION("Rockchip JPEG decoder driver");
-+MODULE_AUTHOR("Lucas Sinn <lucas.sinn@wolfvision.net>");
-+MODULE_LICENSE("GPL");
-
--- 
-2.47.3
+> 
+> --
+> Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261002071203.1287650-1-ciprianmarian.costea%40oss.nxp.com
 
