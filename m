@@ -1,83 +1,190 @@
-Received: from mx3.wp.pl (mx3.wp.pl [212.77.101.10])
+Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0A77B4C8C7F
-	for <linux-kernel@vger.kernel.org>; Mon,  5 Oct 2026 15:37:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=212.77.101.10
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 08D904C9DEC
+	for <linux-kernel@vger.kernel.org>; Mon,  5 Oct 2026 15:37:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.251.105.195
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791214673; cv=none; b=NUf2Sgc4WmcMIKOImJFsLe/zToUF3vdIp6j2O/Ylc7qhLeGVRXe6DJUpsiQ6uCKySHO0DXlcFt+VCGCm4VOQyTxllE+tmEHpKLsKyS2LeIoA4zT/rD8NCHfsb0VrfXedxcjMVrk58vh7/SnwQ1xrtKye3rmp0nZh8I9rxNWEoV8=
+	t=1791214672; cv=none; b=u+2cUOpMUzJbZ/Rz/eiKux8du1rNvr9oZo3hLOacsbSiRTXOhmpRbBGFCaioTlSppkYqxuWr4p624BmVq8PoWGVDBhdJYkIUFOjeYtWbFPwC+RfLXkj347XYAXJ1WE11M+ixTlXw3ZCZ6enXqmFluJrvO63c2sbzvbNp3ClMX+w=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791214673; c=relaxed/simple;
-	bh=O2Cqy9X0cnY0zi9KCWois5E09rbBzlQSIft3jT/xZ7U=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=jwoz+5tBZ6Y6t1H7oK+xswjZFlndLFWn5zgAzlOc1NhT76XQno0qPF8pMdGnVQVB7bB2svwKTnRnesj6GhpD+QYKbjIO4Puj8eIga9YGejonxIPJIYnYEWkq91bRrydiFI72BofE2Pbl3Cc7ZoGo+TJWmwBpjbsjSHz6B1zGWa0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=wp.pl; spf=pass smtp.mailfrom=wp.pl; dkim=pass (2048-bit key) header.d=wp.pl header.i=@wp.pl header.b=MdffjIsO; arc=none smtp.client-ip=212.77.101.10
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=wp.pl
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=wp.pl
+	s=arc-20240116; t=1791214672; c=relaxed/simple;
+	bh=A77lRtij3jyuzXv8DuCKc6btPgHKD5vhUgGG20sM+lM=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=uJUL+hWfgCa6/OamEshd+N7dpvoUcN+Ix9k4W0vptlI7hztQuYs/Wc4wSUJ97gOG2pNWzF9h2Tf7WM8/1XAN20Q9DU0IQwtphuzTO55gi/xi7ls5BaSb7HyiINToGhmXtaoXVvQeNdbIVPT/uusFjWbF9aE9UBptAnSwIgxo00I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=MIuVTQeL; arc=none smtp.client-ip=148.251.105.195
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=wp.pl header.i=@wp.pl header.b="MdffjIsO"
-Received: (wp-smtpd smtp.wp.pl 25876 invoked from network); 5 Oct 2026 17:37:41 +0200
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=wp.pl; s=s20261001;
-          t=1791214661; bh=sl8bWpKfvgeoaqT0IZcQdTriNS+Ul+cP85zNN6ZqRpI=;
-          h=From:To:Cc:Subject;
-          b=MdffjIsO1wtqXGuBDovF0N2ZpKa1jamJ1j34ITePSQu2K0H+MxH76312yjf1yGF5P
-           unnqOIllpckdzoYH5+vmXPNt4borUCwirw9jl2oQAKnOfoooEOCPlnhCK5hK8IC0yR
-           CN5sHYKNn9zdX2lAWQ0ryxR0iDvy6CyyEXxbIQhCECWEiwm5KQ9OAMTP0J045GFZo7
-           9nj+xNnLoMhNQm9+3e2OO7P56YkWMa0sIikzZ18jCBMp1Yqb/L1xbtdZVprrPfjbru
-           s8mkQ8vHERshyNJABkvlg0HYcn0tNeKkbwWRxqmxlEhAd5CMpWnNPs/dhQ+1gseuks
-           jjbcwMI1pz4+A==
-Received: from localhost (77-236-6-58.static.play.pl [77.236.6.58])
-          (envelope-sender <stf_xl@wp.pl>)
-          by smtp.wp.pl (WP-SMTPD) with TLS_AES_256_GCM_SHA384 encrypted SMTP
-          for <johannes@sipsolutions.net>; 5 Oct 2026 17:37:41 +0200
+	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="MIuVTQeL"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+	s=mail; t=1791214668;
+	bh=A77lRtij3jyuzXv8DuCKc6btPgHKD5vhUgGG20sM+lM=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
+	b=MIuVTQeLjEjOjuKc2mvl1nFIbWUSiVX9gPBcogQVFX7lP0w8d8u74/gCurD6sF5lO
+	 iTla52yoE09QYgLqjG7l9jh5XFoi5Qbui64LneJa45wQELWFEqlxBIDlu/SiG6mFA4
+	 40ekiXbIpIlhZBNbiUWxywqvZ0zR+hW/OPccy6QCKODtQt8kyx/fgwiUbJemQ3Wa1l
+	 4wV9ADJE4Z1y2nQsqE2z+sAhtw3nBk5hsSBYwWMuNUQHLx+gbndBTNAQnPyjVc9nYJ
+	 VPB1jmOXKuyu3EtkAbBunTmjiX2G1A2ofP4xQOt59HRkhZNT+QjHUrhkfg4j/sTMeo
+	 G677/yzNKrLcA==
+Received: from fedora-61.home (unknown [100.64.0.11])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange secp256r1 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	(Authenticated sender: bbrezillon)
+	by bali.collaboradmins.com (Postfix) with ESMTPSA id 43F5817E0074;
+	Mon, 05 Oct 2026 17:37:48 +0200 (CEST)
 Date: Mon, 5 Oct 2026 17:37:41 +0200
-From: Stanislaw Gruszka <stf_xl@wp.pl>
-To: Johannes Berg <johannes@sipsolutions.net>
-Cc: Runyu Xiao <runyu.xiao@seu.edu.cn>,
-	"David S . Miller" <davem@davemloft.net>,
-	"John W . Linville" <linville@tuxdriver.com>,
-	Zhu Yi <yi.zhu@intel.com>, linux-wireless@vger.kernel.org,
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org,
-	Jianhao Xu <jianhao.xu@seu.edu.cn>
-Subject: Re: [PATCH] wifi: iwlegacy: 3945: protect sysfs TX power update with
- mutex
-Message-ID: <20261005153741.GA25122@wp.pl>
-References: <20260929123329.2135878-1-runyu.xiao@seu.edu.cn>
- <20260929181458.GA17064@wp.pl>
- <7360e480d5eb194dc7c16c6e82944dfb73f3892f.camel@sipsolutions.net>
+From: Boris Brezillon <boris.brezillon@collabora.com>
+To: Steven Price <steven.price@arm.com>
+Cc: =?UTF-8?B?QWRyacOhbg==?= Larumbe <adrian.larumbe@collabora.com>, Rob
+ Herring <robh@kernel.org>, Maarten Lankhorst
+ <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, Faith Ekstrand
+ <faith.ekstrand@collabora.com>, "Marty E. Plummer"
+ <hanetzer@startmail.com>, Tomeu Vizoso <tomeu@tomeuvizoso.net>, Eric Anholt
+ <eric@anholt.net>, Robin Murphy <robin.murphy@arm.com>, Philipp Zabel
+ <p.zabel@pengutronix.de>, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, Collabora Kernel Team <kernel@collabora.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>
+Subject: Re: [PATCH v12 12/15] drm/panfrost: Skip cache flush/invalidate
+ when enabling perfcnt
+Message-ID: <20261005173741.445715f0@fedora-61.home>
+In-Reply-To: <5af99ba3-97e7-4a05-b91c-7d53a508b635@arm.com>
+References: <20260929-claude-fixes-v12-0-62beb08de207@collabora.com>
+	<20260929-claude-fixes-v12-12-62beb08de207@collabora.com>
+	<95174a67-0eee-4bf7-b883-9f1138c74a6f@arm.com>
+	<20261005103855.655f8199@fedora-61.home>
+	<5af99ba3-97e7-4a05-b91c-7d53a508b635@arm.com>
+Organization: Collabora
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <7360e480d5eb194dc7c16c6e82944dfb73f3892f.camel@sipsolutions.net>
-X-WP-MailID: 2dc24ef8d6483809a3b1acb1846c8421
-X-WP-AV: skaner antywirusowy Poczty Wirtualnej Polski
-X-WP-SPAM: NO 0000000 [MdMh]                               
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
 
-On Mon, Oct 05, 2026 at 03:14:20PM +0200, Johannes Berg wrote:
-> On Tue, 2026-09-29 at 20:14 +0200, Stanislaw Gruszka wrote:
-> > On Tue, Sep 29, 2026 at 08:33:29PM +0800, Runyu Xiao wrote:
-> > > The sysfs tx_power store handler calls il3945_hw_reg_set_txpower(), whose
-> > > command path requires il->mutex to be held. The callback bypasses the mutex
-> > > used by the other 3945 control paths, triggering the lockdep assertion and
-> > > allowing concurrent TX power updates to race with other command or state
-> > > transitions. Serialize the update with the same mutex.
-> > > 
-> > > Fixes: b481de9ca074 ("[IWLWIFI]: add iwlwifi wireless drivers")
-> > > Cc: stable@vger.kernel.org
-> > > Assisted-by: LLM
-> > > Signed-off-by: Runyu Xiao <runyu.xiao@seu.edu.cn>
-> > Acked-by: Stanislaw Gruszka <stf_xl@wp.pl>
-> 
-> I think we should rather remove these files: custom, undocumented sysfs
-> shouldn't be there anyway...
+On Mon, 5 Oct 2026 16:06:02 +0100
+Steven Price <steven.price@arm.com> wrote:
 
-Maybe some of them should be moved to debugfs. I'll consider that,
-and move/remove them. 
+> On 05/10/2026 09:38, Boris Brezillon wrote:
+> > On Fri, 2 Oct 2026 16:14:38 +0100
+> > Steven Price <steven.price@arm.com> wrote:
+> >  =20
+> >> On 29/09/2026 04:44, Adri=C3=A1n Larumbe wrote: =20
+> >>> The GPU cache flush/invalidate operation is unnecessary. First off, t=
+he
+> >>> GPU doesn't read off the perfcnt sample buffer, only writes into it, =
+so   =20
+> >>
+> >> I don't think this is entirely true. The GPU performance counter unit
+> >> only writes the counters that are enabled, counters that share a cache
+> >> line but are not enabled are not written by the performance counter
+> >> unit, but if the L2 contains that cache line then the write can hit in
+> >> the L2 and dirty the entire line including stale data where the
+> >> unwritten cache line is. =20
+> >=20
+> > I don't think this can happen though, because _enable_locked() is
+> > creating a BO (and its GPU mapping) just before enabling the perfcnt
+> > block, meaning the buffer is known to have no dirty cacheline pointing
+> > to it until the first dump happens. And we do flush and invalidate GPU
+> > caches after each dump, so again, we should be covered. =20
+>=20
+> The situation isn't actually a dirty cache line at the start, but a
+> stale one. We start off with the memory matching a clean line in the
+> GPU's cache. But because we don't have coherency the clean line can stay
+> even if it's inconsistent with everything else.
+>=20
+> CPU		|	GPU		| Memory
+> ----------------+-----------------------+--------------------
+>                 | clean line            | matches GPU cache
+> ----------------+-----------------------+--------------------
+>    CPU allocates new buffer and writes zeros
+> ----------------+-----------------------+--------------------
+> Dirty cache line| stale clean line      | unknown (cache line
+>                 |                       | might be evicted)
+> ----------------+-----------------------+--------------------
+>    CPU cleans its own cache to memory
+> ----------------+-----------------------+--------------------
+> Potential clean | stale clean line      | Matches CPU
+> cache line      |                       |
+> ----------------+-----------------------+--------------------
+>    Start dump without invaliding GPU
+> ----------------+-----------------------+--------------------
+> Potential clean | GPU writes data, and  | Unknown
+> cache line      | hits in the clean line|
+>                 | even though it's stale|
+> ----------------+-----------------------+--------------------
+>    CPU flushes the GPU's cache and invalidates it's own
+> ----------------+-----------------------+--------------------
+> No-cache line   | writes out clean line | Matches GPU
+>=20
+>=20
+> Of course for the GPU to have ended up with that stale clean cache line
+> means that the physical memory was previously used for something else on
+> the GPU, so the newly allocated BO has to reuse memory from a previous
+> BO that the GPU has accessed. And it's all "unlikely" due to the small
+> size of the GPU's cache.
 
-Regards
-Stanislaw
+Hm, I'd say it's actually impossible because every unmap operation is
+followed by a flush+inval of the GPU L2 and LSC, so for this stale
+clean line to exist on the GPU side when a physical page is GPU-mapped
+again, it would take a bug in the unmap logic or in the MMU HW, I
+think. Am I missing something?
+
+>=20
+>=20
+> >>
+> >> The upshot is that if the CPU has cleared a block of memory which the
+> >> GPU happens to have cached, then the "unused" counters may end up
+> >> showing the old data before the CPU cleared it (if they share a cache
+> >> line with an active counter). =20
+> >=20
+> > I agree, but that's not a case we can hit in the enable path. I think I
+> > mentioned the commit message was misleading, and that we should instead
+> > talk about the fact the GPU is not supposed to have cached anything up
+> > until the first SAMPLE following a the ENABLE step.
+> >  =20
+> >>
+> >> I have to admit it's probably somewhat academic given that Panfrost
+> >> doesn't expose the ability to control which counters are enabled...
+> >>
+> >> Is there a good reason for this patch (i.e. have you seen a performance
+> >> problem with doing the invalidate)? Otherwise I'd prefer we keep to the
+> >> safe route rather than trying to over optimise cache maintenance. =20
+> >=20
+> > I think I was the one suggesting dropping this flush so that
+> > panfrost_perfcnt_hw_enable() (in the last patch) has one less fallible
+> > operation. Besides, I find it confusing to have a cache flush+inval in
+> > a path where the GPU is not supposed to have accessed the buffer yet
+> > (or later on, when we re-enable after a RESET, in a path where the GPU
+> > has been reset and the caches are known to be empty). =20
+>=20
+> So I agree this Should Be Safe=E2=84=A2 because of how the driver is curr=
+ently
+> using the performance counters. If we really want to drop the invalidate
+> then I think we need a comment explaining the logic. My worry is that
+> someone extends this in the future (e.g. allow selecting which counters
+> to enable) and breaks assumptions without them being documented.
+>=20
+> We normally do perform an invalidate when the GPU first touches a buffer
+> (e.g. for a BO) - it's just normally more implicit because it's done as
+> part of the job manager(/command stream).
+>=20
+> Also "caches known to be empty" is a dangerous thing to assume on
+> anything that could involve speculation - AFAIK Mali doesn't really
+> perform any form of speculation, but I'm not 100% sure on that.
+> Certainly with CPUs you don't get such a luxury of knowing what it might
+> have populated in the caches.
+
+I suppose speculation pre-populating the caches with stale data would be
+covered by the flush+inval we do after a map operation (this is
+currently done in the unlock path regardless of the VM op, so both map
+and unmap get it). I don't know, maybe the goal is to relax the flushing
+policy around VM modifications in the future, but if things stay as
+they are now, we can assume that a fresh BO being GPU-mapped guarantees
+that no cacheline points to it until the first GPU access. But maybe
+I'm missing something else...
