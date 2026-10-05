@@ -1,235 +1,91 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta1.migadu.com (out-46.mta1.migadu.com [95.215.58.46])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4A20E4A0913;
-	Mon,  5 Oct 2026 14:36:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7EF324A3F27
+	for <linux-kernel@vger.kernel.org>; Mon,  5 Oct 2026 14:36:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.46
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791210987; cv=none; b=UADBN9tVVXU8/dwGPnSWFBQaCO1YBACHrajk3KvP/WPm6bRuuEiTIRAttntUpHmaTY0qUFAJVduIKdj+MoX24L7zB+DYfNO5d5hHDSp5AXZXFWjU6MzITq5G+eIeLFNZxsIOs5m1aeL/WAn1JN97mGek8idsXKDHIhKydKf0df0=
+	t=1791211020; cv=none; b=fMARRFT1MLwn5iKnjKrjdygY0aQo6YC0+jb2uQuu/9mi5TnOGiQAQk7o23anQtJUXTHK2g6tw7fAiqZ39d8GGXxvOSdtg2tuT4fTPMNPTbSIbkInFT3RUYFy6DnjQCBqsuvCXNRV30RwS4WdxHyNhBnWPIdE8TUCM9AgYlMNa0g=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791210987; c=relaxed/simple;
-	bh=QAhqbUCEw/Bi8WuZmwKE/HrWWVNb0rmCqV15FbxleqQ=;
-	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=QxWCM4Wt6ZpKlWeLsGz4uY6ULyYlokyzvq852o3mrfGO5tWSgFMAp5Z8ScbGq5AB7O2gaoyTlihSXSoyl656jq5ltMSIzT2oALhttb9UaKxymokfxL4ZOw0rvKpiDueUzeBUdVhEd9S2U9eAsVEnsWmJB3b6k5RThHmgc8xZN/s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Tpgff4Vm; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791211020; c=relaxed/simple;
+	bh=F9by0ha0YQK0T/c0DHTwYvhzhlGXnVnEdgz0tUOz0JM=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=RhnholQMWBWXo7ELWjfN+TjpXtEAejASH38tayOA8Y8HraN+OPhsbZYqkWioL0+4pEfQtR90EBCODvn0CIiv7ecf0adhXIKbQOI/VdPg58ZT4zmWxJroJb/lrtpA9aCZASV7v3Xn3UogsiC+vE/WOSZbihZD83S0MQJdAjyGPn8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=Sn+zfJat; arc=none smtp.client-ip=95.215.58.46
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Tpgff4Vm"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6E0DD1F000FF;
-	Mon,  5 Oct 2026 14:36:13 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791210974;
-	bh=2LUuyLYUKU9h7Ea0wFMspyzfBUMYJEXCWcPXe6626t4=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=Tpgff4Vm9fIiigwJoq2GholDOdF2CO6WQdQlyagDXV2i7ygFlxv3T+eRi6eaXwKWS
-	 9abwB5aLISbts6K7xhq4sw/MwXBwiKG0fDNJ/lZNA63Xv7TGr/5+pL9cPSHvSX7flC
-	 FRyHKGVZQpo0K0RTQ831zTSEBRIWQA0WEZgzSxd3QJcdc0yamMC0+nShcrzjJiKiVE
-	 1Gc0pEoWfxhA8B2zs8nOF3w/SVvJpR6g/Ne2uR+97yuzfqD/js6+39K8Lz0A6r5ZCg
-	 DotIlrQtv4Nsgm4GL4Nr67X6Ki3O43NVLmbKLTvU5vDLS20PgBtQZhzJCnKi54zekH
-	 VrdGGxOm7s5BA==
-Subject: Re: [PATCH net v3] bnxt_en: don't leave an XDP program installed when
- the open fails
-From: netdev-bot+sashiko@kernel.org
-To: vnagare@redhat.com
-Cc: davem@davemloft.net, kuba@kernel.org, pabeni@redhat.com,
- edumazet@google.com, michael.chan@broadcom.com, pavan.chebbi@broadcom.com,
- ast@kernel.org, daniel@iogearbox.net, hawk@kernel.org,
- john.fastabend@gmail.com, sdf@fomichev.me, andrew+netdev@lunn.ch,
- netdev@vger.kernel.org, bpf@vger.kernel.org, linux-kernel@vger.kernel.org,
- nagarevaibhav@gmail.com, stable@vger.kernel.org
-Date: Mon, 05 Oct 2026 14:36:12 +0000
-Message-ID: <179121097298.434549.15823633516902971097@kernel.org>
-In-Reply-To: <20261001142516.1386525-1-vnagare@redhat.com>
-References: <20261001142516.1386525-1-vnagare@redhat.com>
-X-sashiko-severity: Medium
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="Sn+zfJat"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=F9by0ha0YQK0T/c0DHTwYvhzhlGXnVnEdgz0tUOz0JM=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1791211005; v=1; x=1791815805;
+ b=Sn+zfJat8fstctpEBr5XfMWJwGtmZCc1AXnfesSdc18Mm3qMrWjWUlX5FefMTHBMyYfGLpGx
+ cjFyFmkBmpOAKjV7sHyTbpbTvz8IcbqeYWrkViZe1skDO1+YGn2GnUv29dwnYWBiBKautts0IBR
+ 4EOR0VGu+9TU9blslUTU9ALA=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 16f5694261043640;
+	Mon, 05 Oct 2026 14:36:45 +0000
+X-Mizu-Trace-ID: 16f5694261043640
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <de41b083-6368-429e-9928-90aa5440f750@linux.dev>
+Date: Mon, 5 Oct 2026 22:36:26 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/1] x86/mm: fix incomplete page-table invalidation with
+ TCE
+Content-Language: en-US
+To: Borislav Petkov <bp@alien8.de>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ Pedro Falcato <pfalcato@suse.de>, dave.hansen@linux.intel.com,
+ luto@kernel.org, peterz@infradead.org, tglx@kernel.org, mingo@redhat.com,
+ x86@kernel.org, hpa@zytor.com, riel@surriel.com,
+ linux-kernel@vger.kernel.org, qi.zheng@linux.dev, nadav.amit@gmail.com,
+ thomas.lendacky@amd.com, kernel-team@meta.com, linux-mm@kvack.org,
+ akpm@linux-foundation.org, brendan.jackman@linux.dev, jannh@google.com,
+ mhklinux@outlook.com, Manali.Shukla@amd.com, mingo@kernel.org,
+ stable@vger.kernel.org, toshi.kani@hpe.com, david@kernel.org,
+ mikhail.v.gavrilov@gmail.com
+References: <20261005052302.43042-1-lance.yang@linux.dev>
+ <asM7b8ECO34-jiwi@pedro-suse.tail5790ac.ts.net>
+ <60d5db86-8002-4d87-b8d3-c161d674122b@linux.dev>
+ <ab077b6a-160f-41a2-a167-813f0560e30d@citrix.com>
+ <38541ec6-d796-4f35-a700-75ab097b6df5@linux.dev>
+ <7ad90e94-d04d-453a-ba22-9640a5024d8c@citrix.com>
+ <6801221a-6307-407a-85fc-46906f95d22e@linux.dev>
+ <20261005142216.GAasOymJHYnmn6wD5m@fat_crate.local>
+From: Lance Yang <lance.yang@linux.dev>
+In-Reply-To: <20261005142216.GAasOymJHYnmn6wD5m@fat_crate.local>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Thank you for your contribution! Sashiko AI review found 2 potential
-issue(s) to consider.
 
-Critical: 0 · High: 0 · Medium: 1 · Low: 1
 
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
+On 2026/10/5 22:22, Borislav Petkov wrote:
+> On Mon, Oct 05, 2026 at 06:12:45PM +0800, Lance Yang wrote:
+>> Which CPU? None so far. As I said, I don't have a reproducer. I'm trying
+>> to make sense of what the manual says and what the code does ...
+> 
+> So you're sending a patch for which you have absolutely no justification? And
+> CCing it to stable too?
+> 
+> And that patch hasn't been tested to actually address anything?
+> 
+> Just a wild hunch?
+> 
+> I wouldn't do that in the future if I were you.
+> 
+> HTH.
 
-- [Medium] The rollback after a failed attach does not restore the RX
-  aggregation-ring mode that existed before the attach.
-- [Low] Detach now hides a failed reopen and returns success, and neither
-  the commit message nor the code comment says so.
+I don't have an AMD machine to test this on. I spotted something
+that looked wrong in the code and sent it out to see what others
+think.
 
---
-
-bnxt_en: don't leave an XDP program installed when the open fails
-
-This patch changes bnxt_xdp_set() so the old program is released only
-after bnxt_open_nic() succeeds. When an attach or a replace fails, the
-previous program and its ring configuration are put back. The ring and
-feature setup moves into a new helper, bnxt_xdp_apply_cfg(), and a detach
-whose reopen fails is not undone.
-
-> diff --git a/drivers/net/ethernet/broadcom/bnxt/bnxt_xdp.c b/drivers/net/ethernet/broadcom/bnxt/bnxt_xdp.c
-> index 9e5009be8e989..430272fc0594a 100644
-> --- a/drivers/net/ethernet/broadcom/bnxt/bnxt_xdp.c
-> +++ b/drivers/net/ethernet/broadcom/bnxt/bnxt_xdp.c
-
-[ ... ]
-
-> @@ -418,25 +438,22 @@ static int bnxt_xdp_set(struct bnxt *bp, struct bpf_prog *prog)
->  	if (netif_running(dev))
->  		bnxt_close_nic(bp, true, false);
->  
-> +	old_tx_xdp = bp->tx_nr_rings_xdp;
->  	old = xchg(&bp->xdp_prog, prog);
-> -	if (old)
-> -		bpf_prog_put(old);
-> -
-> -	if (prog) {
-> -		bnxt_set_rx_skb_mode(bp, true);
-> -		xdp_features_set_redirect_target_locked(dev, true);
-> -	} else {
-> -		xdp_features_clear_redirect_target_locked(dev);
-> -		bnxt_set_rx_skb_mode(bp, false);
-> +	bnxt_xdp_apply_cfg(bp, tx_xdp);
-> +
-> +	if (netif_running(dev)) {
-> +		rc = bnxt_open_nic(bp, true, false);
-> +		/* dev_xdp_detach_link() drops the ref even if we fail */
-> +		if (rc && prog) {
-
-[Severity: Low]
-On a detach, prog is NULL, so if bnxt_open_nic() fails the error never
-reaches the caller. The code falls through to bpf_prog_put(old) and
-returns 0. By that point bnxt_open_nic() has already closed the device:
-
-bnxt_open_nic() {
-    ...
-	if (rc) {
-		netdev_err(bp->dev, "nic open fail (rc: %x)\n", rc);
-		netif_close(bp->dev);
-	}
-    ...
-}
-
-Before this patch the detach path ended with return bnxt_open_nic(...),
-so callers saw the error. Those callers include "ip link set dev X xdp
-off", a bpf_link detach and bonding propagation. Now they all report
-success while the port is down.
-
-Returning 0 may be the better choice, since it keeps core and driver
-state consistent. Could the commit message say explicitly that a failed
-reopen during detach now returns success and leaves the device closed?
-The patch is tagged for stable, so this change is visible to users there
-too.
-
-The in-code comment also looks imprecise. dev_xdp_detach_link() does not
-drop a prog reference itself. It warns on a driver error and clears the
-link:
-
-dev_xdp_detach_link() {
-    ...
-	WARN_ON(dev_xdp_install(dev, mode, bpf_op, NULL, 0, NULL));
-	dev_xdp_set_link(dev, mode, NULL);
-    ...
-}
-
-This branch also handles the fd based dev_xdp_attach() path. On a driver
-error that path returns early, and the core keeps cur_prog together with
-its own reference:
-
-dev_xdp_attach() {
-    ...
-		err = dev_xdp_install(dev, mode, bpf_op, extack, flags, new_prog);
-		if (err)
-			return err;
-    ...
-}
-
-Could the comment be reworded to cover both paths and to say that rc is
-dropped on purpose for a detach?
-
-> +			WRITE_ONCE(bp->xdp_prog, old);
-> +			bnxt_xdp_apply_cfg(bp, old_tx_xdp);
-> +			return rc;
-
-[Severity: Medium]
-When old is NULL (a fresh attach), this rollback rebuilds the ring mode
-by calling bnxt_xdp_apply_cfg() with bp->xdp_prog == NULL. That goes
-through bnxt_set_rx_skb_mode(bp, false). Does that path actually undo
-the page mode setup?
-
-In page mode, __bnxt_set_rx_skb_mode() clears both agg ring flags
-unconditionally:
-
-	if (page_mode) {
-		bp->flags &= ~(BNXT_FLAG_AGG_RINGS | BNXT_FLAG_NO_AGG_RINGS);
-		bp->flags |= BNXT_FLAG_RX_PAGE_MODE;
-		...
-		if (dev->mtu > BNXT_MAX_PAGE_MODE_MTU) {
-			bp->flags |= BNXT_FLAG_JUMBO;
-
-The non page mode branch of bnxt_set_rx_skb_mode() only clears
-BNXT_FLAG_NO_AGG_RINGS, and only when bnxt_get_max_rings() reports
-rx > 1. It never sets the flag again.
-
-Take a function where bnxt_get_dflt_rings() decided at probe that agg
-rings cannot be afforded:
-
-	bp->flags |= BNXT_FLAG_NO_AGG_RINGS;
-	bp->dev->hw_features &= ~(NETIF_F_LRO | NETIF_F_GRO_HW);
-
-If the MTU is above BNXT_MAX_PAGE_MODE_MTU and a program with
-xdp_has_frags is attached, the sequence would be:
-
-bnxt_xdp_set()
-  bnxt_check_rings()        /* passes with pre-attach flags */
-  bnxt_xdp_apply_cfg()
-    __bnxt_set_rx_skb_mode(bp, true)  /* clears NO_AGG_RINGS, sets JUMBO */
-  bnxt_open_nic()
-    __bnxt_reserve_rings()  /* RX doubled, hwr.rx < 2 */
-
-and __bnxt_reserve_rings() fails here:
-
-	if (bp->flags & BNXT_FLAG_AGG_RINGS) {
-		if (hwr.rx >= 2) {
-			rx_rings = hwr.rx >> 1;
-		} else {
-			if (netif_running(bp->dev))
-				return -ENOMEM;
-
-During the rollback, bnxt_get_max_rings() still sees JUMBO, so it halves
-max_rx to 0 and fails. NO_AGG_RINGS therefore stays cleared.
-bnxt_set_ring_params() then finds rx_space > PAGE_SIZE without
-NO_AGG_RINGS and sets JUMBO again.
-
-bnxt_open_nic() has already closed the device. Won't every later "ip link
-set up" fail with the same -ENOMEM in __bnxt_reserve_rings()? That would
-leave the port unusable until the MTU is lowered or the driver is
-reloaded.
-
-The commit message says:
-
-    Restore the previous program and its ring and feature configuration
-    when an attach or a replace fails
-
-Would it be more reliable to snapshot and restore the state instead of
-recomputing it? That would cover the relevant bp->flags bits
-(NO_AGG_RINGS, AGG_RINGS, JUMBO), the LRO and GRO_HW bits in
-dev->hw_features, and bp->rx_ring_size, which bnxt_set_ring_params() can
-clamp.
-
-> +		}
->  	}
-
-[ ... ]
-
--- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261001142516.1386525-1-vnagare%40redhat.com
+Maybe I'm reading the manual wrong, but is raising a concern
+based on the code and the manual really just "a wild hunch"?
