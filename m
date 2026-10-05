@@ -1,149 +1,65 @@
-Received: from mail-lr2-f8.google.com (mail-lr2-f8.google.com [74.125.230.72])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C9C173769EA
-	for <linux-kernel@vger.kernel.org>; Mon,  5 Oct 2026 12:37:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.72
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 12454296BC8
+	for <linux-kernel@vger.kernel.org>; Mon,  5 Oct 2026 12:39:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791203869; cv=none; b=mrBG6nB2dbWS6uZrgQRc4uIaiaDAtOeuKEvH+js5IXf9Y6hVTxECbVvSfrHL/dNbSbczQbJ/Nf6/lzZLxwkc4n2davK8Yt16CJDcHTO1KAzFsWH0+hFrkqskbi6I9w1FhuQa+eZsRBTa/i4Cut7XTDy+iJM6qdbydCU08eTwcf8=
+	t=1791204000; cv=none; b=dUJC20B5yQAnu2k8pdtBzmkbWUWC/MGfXDIVzNtb8ma9gm6mZ18oZb7oXtJjkKYWlBx3Tw6NNbUFuDN2C3uxBWTwOqjirvUduhZyNnW0TbHW5GtbRvyKbajl+OHuwsxF31yjHK9qwuZz62OFZgeEiP5dNWN/ocEVPW7gu00/r/4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791203869; c=relaxed/simple;
-	bh=WznUrqowx7pqS0je/qrzTF9QX6muzU1oPBAfrPoo47Y=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=rTL24MUNb04C3j5l7g3SG1P+CIK4+D4xtdle73bX+YwYweQVk9fwQY3m8o3kOMGfwwm4Yg6Nak84Ne/33ZkXTyPcBCn3sOKFhKdFmESqy3VVB65u/NH/U63T/263jDZ8Vs0mlFGhBIxkeDKyRbKVOXI1qK+p9QtRzWd4T9Cjmng=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=LJKRh5ko; arc=none smtp.client-ip=74.125.230.72
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1791204000; c=relaxed/simple;
+	bh=f6SO85nB0tbbSMqqeAiKBH3u5+yiO1wYPQ+PNjgFSvA=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=YtdqDS0R8stqp2F00/KzgAh9u3XdYdpcWlV6XA5XC8mUrduncAz3LFpW4xlVg6K6q5edg6bVUgC2pPf8ToSsNQfjEcADXBL0dvlq9ixicS9LbcdkS7mXdK0eT/NQ9khhybtLyCfVLrqfM9/Qq8FpaTORwI93hO+WvZVCAH4otEY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=zx2c4.com header.i=@zx2c4.com header.b=Fj4N3ue7; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="LJKRh5ko"
-Received: by mail-lr2-f8.google.com with SMTP id 38308e7fff4ca-3a978487ac7so10554271fa.0
-        for <linux-kernel@vger.kernel.org>; Mon, 05 Oct 2026 05:37:47 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791203866; x=1791808666; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=MxIknM10jxHR7Ff/pID+idHLGqI71Opd6kPGDGqz4Vs=;
-        b=LJKRh5koEgrIc16QTIArECJJCcBpocNhffVn+S6m9ix/Ee/Ak7ImArFmgv+hORuXzy
-         AbHptF112fagphWYlXid9055Jr6zHDMPl4WipCWaae+R6YPzILAxTMOftp492txwwUPk
-         0iNhAoe+/Q46vDyZ/crOtnwBI6GfDQlyvfrni4BOUBVH7elhTRgH+1DD2N5aF22f0+LC
-         WvtO417YYkNkcj1USOxY5WJPukIO46XijdCIPtyCSNoZwPPF+AfOuj0NNdjvTwzlg+F4
-         dhVeS1tDIGUHv1LYCffCM0FgaLqrxRpm4Qa8UY3S+MJIEulOe61rzIUic/py5i489Swf
-         1HJg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791203866; x=1791808666;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=MxIknM10jxHR7Ff/pID+idHLGqI71Opd6kPGDGqz4Vs=;
-        b=yO35JypSCk8EtRnBB6C9b9uCumIGmXRH4UteNcjFn27u9WAnc/QO/VY8l8RZZg4yu2
-         YIKHdHKkItWLA8vdOQHumxw5BVVL7FclYumWgN+wAt2649hbV8cLPq6fnDJArpkDQRdc
-         3cypz5iw0uAQH43lh0rxn320LnLJZJ21VxULFg1pOfUDr1guqoyFzGwCB2PdhX07URbI
-         kY0jTfEDBdFJOOXUABVEK5eilck1KAnegFnk7jclt2yklJSNcFh0vq8ivluaxuNu+rah
-         xNEH1k8ICRM9k06Twh9+eL8wlcMEPtzht6yEWLS2rQCa0bC+NZWvJSsBVmB2wbXnGFjJ
-         WnrQ==
-X-Forwarded-Encrypted: i=1; AKwUvBx7GKazEfIXardRvD+glyfLYtmz7IJ1LF4q+oqgPNHhKpJ91bwFqj882LGcTEmXXgBPsnYAowR2bFL233Y=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJ00tGCiAmBDH7rjMgseD9r5DqehLSu7/1d25I5fR6t1En2r7Ul
-	ogDY52Oe3zYiMHwyRSwmD3PUq8kJCvn416dg/1EOY2xzg59c3B2D8F32
-X-Gm-Gg: AYBFou0PgGdG84L7dRDTJ0CUAlITrbHfwABOU+u9LYVVBYYfkaMbTmnfBNIgStu+yWo
-	vcMQ9FAKzOrTbISup1np0u9ec1J6QHrUSzXiOQEUdl8Gsp9ehLgDeRoVhhxuJuce0n0L+IG0Gh2
-	acv4oIh693pd7osXPQj1lofDK1NeUJGIPaxHn3V6WiIqA2eEzOOzBVnTDHdNzynp6PN9CBnTQ3S
-	MZkCmeKEVcnXxg2spzjOB0HePNjMYWagRWr6Qvpml6UrNVRqRgcJQrb5MAYzs2VsXNVJW7JP+2x
-	p4XiAnRDlqyjDKqGPzCDjSg4fntNbsGn7dv4P3fKQ7aFLWJ6ar0ETDew9tg9oLpt2hkzBFRmzoe
-	KgbZBoH8h4KsOJYR4pD1U72qyEi0AT2qEKWhIglgDxha8aorG/npDolcrrzLUtzwp0nCw74TY+h
-	JePlsoEvp7lRi+pxtBzZ+tNdzZGF9GgBOYfp0BshE42R0aqvAZPHaQJhRvOf72Fm5RkJt0o1Dmf
-	yAZVevEN4f6HvzOH9EUjIeW2B0=
-X-Received: by 2002:a05:6512:b2a:b0:5ba:3797:ba with SMTP id 2adb3069b0e04-5bb9bc41740mr4179902e87.53.1791203865574;
-        Mon, 05 Oct 2026 05:37:45 -0700 (PDT)
-Received: from localhost.localdomain ([78.40.184.2])
-        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5bb7c718f62sm3228393e87.12.2026.10.05.05.37.44
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 05 Oct 2026 05:37:45 -0700 (PDT)
-From: Roman Demidov <roman.demidov.nn@gmail.com>
-To: stable@vger.kernel.org,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: Roman Demidov <roman.demidov.nn@gmail.com>,
-	Paolo Bonzini <pbonzini@redhat.com>,
-	Sean Christopherson <seanjc@google.com>,
-	Vitaly Kuznetsov <vkuznets@redhat.com>,
-	Wanpeng Li <wanpengli@tencent.com>,
-	Jim Mattson <jmattson@google.com>,
-	Joerg Roedel <joro@8bytes.org>,
-	Thomas Gleixner <tglx@linutronix.de>,
-	Ingo Molnar <mingo@redhat.com>,
-	Borislav Petkov <bp@alien8.de>,
-	x86@kernel.org,
-	"H. Peter Anvin" <hpa@zytor.com>,
-	kvm@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	lvc-project@linuxtesting.org
-Subject: [PATCH 5.10 3/3] KVM: LAPIC: Also cancel preemption timer during SET_LAPIC
-Date: Mon,  5 Oct 2026 15:37:00 +0300
-Message-ID: <20261005123705.137028-3-roman.demidov.nn@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261005123705.137028-1-roman.demidov.nn@gmail.com>
-References: <20261005123705.137028-1-roman.demidov.nn@gmail.com>
+	dkim=pass (1024-bit key) header.d=zx2c4.com header.i=@zx2c4.com header.b="Fj4N3ue7"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7AFB71F000FF
+	for <linux-kernel@vger.kernel.org>; Mon,  5 Oct 2026 12:39:58 +0000 (UTC)
+Authentication-Results: smtp.kernel.org;
+	dkim=pass (1024-bit key, unprotected) header.d=zx2c4.com header.i=@zx2c4.com header.a=rsa-sha256 header.s=20210105 header.b=Fj4N3ue7
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=zx2c4.com; s=20210105;
+	t=1791203995;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=f6SO85nB0tbbSMqqeAiKBH3u5+yiO1wYPQ+PNjgFSvA=;
+	b=Fj4N3ue7e7ithSiP84Zjsi3BwxNPw0aVRyVBsNYG5wN2V9ZbHrMZ6us26eQXgqJdCRC1c+
+	Y9O2nXD0IWOFYdNyDRi9/K368o5tkv2wf69m3aYx5w3bvvIqrnUqqYEf+JacgyvXu7OMkE
+	6Ak+HqO1xBrVoKzYWwXs3t40yhn/Sn8=
+Received: 
+	by mail.zx2c4.com (OpenSMTPD) with ESMTPSA id dc11aca4 (TLSv1.3:TLS_AES_256_GCM_SHA384:256:NO)
+	for <linux-kernel@vger.kernel.org>;
+	Mon, 5 Oct 2026 12:39:55 +0000 (UTC)
+Received: by mail-ej1-f46.google.com with SMTP id a640c23a62f3a-c2a4e013a44so228960166b.2
+        for <linux-kernel@vger.kernel.org>; Mon, 05 Oct 2026 05:39:55 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBxJlu0zAg9Isel+253NfB09Y1kEN0HalRYoictJu4Jp29BZrk95m/JLEF2Ob4NgvAgNyoBTDYwwP+P/R5A=@vger.kernel.org
+X-Gm-Message-State: AFuF++l1gcaO8mW09CStFC/2btuatUb2Hlz4SlZvmum5YVctYYV9lFht
+	onZ/crFB0OdP9KraviqiquSQ9t5tuDD/JzCDa7tbmTQcaeYUW3DllGR4OixTHBAA6wMqdZCSFJw
+	pwPitrPkCT3b8Sq1yQZ4f6wa2+m6uTQU=
+X-Received: by 2002:a17:907:3f9b:b0:c26:19de:9aec with SMTP id
+ a640c23a62f3a-c2e6f25452amr566621966b.43.1791203994139; Mon, 05 Oct 2026
+ 05:39:54 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20260825135054.54883-1-wangzhichen@manus.ai> <apBPSpFLsjlOTcxi@zx2c4.com>
+ <CAAdUpzwZP7Hcsq1F7jQFoHu9nvD7R8P_tcdWSy3tOjw3f+BnwQ@mail.gmail.com>
+In-Reply-To: <CAAdUpzwZP7Hcsq1F7jQFoHu9nvD7R8P_tcdWSy3tOjw3f+BnwQ@mail.gmail.com>
+From: "Jason A. Donenfeld" <Jason@zx2c4.com>
+Date: Mon, 5 Oct 2026 14:39:42 +0200
+X-Gmail-Original-Message-ID: <CAHmME9pQnx9t6R0SOAbEShbC5a-QrQz6AaHR9X4Rd3WGRqHGxg@mail.gmail.com>
+X-Gm-Features: AclHuK-ZD09_Odvs3v5oMjaOxgimUCLI1Bfw-Q6KUNvv7XINwi4GVkLoXuYGefM
+Message-ID: <CAHmME9pQnx9t6R0SOAbEShbC5a-QrQz6AaHR9X4Rd3WGRqHGxg@mail.gmail.com>
+Subject: Re: [PATCH] virt: vmgenid: set driver_data before registering
+ notification handlers
+To: Zhichen Wang <wangzhichen@manus.ai>
+Cc: "Theodore Ts'o" <tytso@mit.edu>, linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-From: Wanpeng Li <wanpengli@tencent.com>
+I sorted it and it's in Linus' tree now. Thanks for the patch!
 
-commit 35fe7cfbab2e81f1afb23fc4212210b1de6d9633 upstream.
-
-The below warning is splatting during guest reboot.
-
-  ------------[ cut here ]------------
-  WARNING: CPU: 0 PID: 1931 at arch/x86/kvm/x86.c:10322 kvm_arch_vcpu_ioctl_run+0x874/0x880 [kvm]
-  CPU: 0 PID: 1931 Comm: qemu-system-x86 Tainted: G          I       5.17.0-rc1+ #5
-  RIP: 0010:kvm_arch_vcpu_ioctl_run+0x874/0x880 [kvm]
-  Call Trace:
-   <TASK>
-   kvm_vcpu_ioctl+0x279/0x710 [kvm]
-   __x64_sys_ioctl+0x83/0xb0
-   do_syscall_64+0x3b/0xc0
-   entry_SYSCALL_64_after_hwframe+0x44/0xae
-  RIP: 0033:0x7fd39797350b
-
-This can be triggered by not exposing tsc-deadline mode and doing a reboot in
-the guest. The lapic_shutdown() function which is called in sys_reboot path
-will not disarm the flying timer, it just masks LVTT. lapic_shutdown() clears
-APIC state w/ LVT_MASKED and timer-mode bit is 0, this can trigger timer-mode
-switch between tsc-deadline and oneshot/periodic, which can result in preemption
-timer be cancelled in apic_update_lvtt(). However, We can't depend on this when
-not exposing tsc-deadline mode and oneshot/periodic modes emulated by preemption
-timer. Qemu will synchronise states around reset, let's cancel preemption timer
-under KVM_SET_LAPIC.
-
-Signed-off-by: Wanpeng Li <wanpengli@tencent.com>
-Message-Id: <1643102220-35667-1-git-send-email-wanpengli@tencent.com>
-Cc: stable@vger.kernel.org
-Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
-Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Signed-off-by: Roman Demidov <roman.demidov.nn@gmail.com>
----
-Backport fix for CVE-2022-48765
-
- arch/x86/kvm/lapic.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/arch/x86/kvm/lapic.c b/arch/x86/kvm/lapic.c
-index 0b6fc5395798..8f41a5ecea22 100644
---- a/arch/x86/kvm/lapic.c
-+++ b/arch/x86/kvm/lapic.c
-@@ -2628,7 +2628,7 @@ int kvm_apic_set_state(struct kvm_vcpu *vcpu, struct kvm_lapic_state *s)
- 	kvm_apic_set_version(vcpu);
- 
- 	apic_update_ppr(apic);
--	hrtimer_cancel(&apic->lapic_timer.timer);
-+	cancel_apic_timer(apic);
- 	apic->lapic_timer.expired_tscdeadline = 0;
- 	apic_update_lvtt(apic);
- 	apic_manage_nmi_watchdog(apic, kvm_lapic_get_reg(apic, APIC_LVT0));
--- 
-2.53.0
-
+Jason
