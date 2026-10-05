@@ -1,68 +1,69 @@
-Received: from mail-pj2-f38.google.com (mail-pj2-f38.google.com [74.125.227.166])
+Received: from mail-pz2-f36.google.com (mail-pz2-f36.google.com [74.125.228.36])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4A6A52E173D
-	for <linux-kernel@vger.kernel.org>; Mon,  5 Oct 2026 05:31:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.166
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 65DFC31B130
+	for <linux-kernel@vger.kernel.org>; Mon,  5 Oct 2026 05:31:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.36
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791178318; cv=none; b=bq10JVFc+vksJWpZSxM6y7HkpynrNeCHV8rhFiMKdtswr1w9l0aWRx2xp/lsV1CBkAc5IRb9nbUq60EBpibTtzQxaLdjFClPbHJphJXNaQ1vK4tmfVNJJ0nGZ9K1Qk0SJr8XFPBY/Rranl/iaY1yPAfF00P5X54gdtGpJBsX644=
+	t=1791178320; cv=none; b=IvR4mX2uzFrxeiZfAmAxG3rEyhQ2+2AwGzGoYwSwZU6zZNPhpJj7zx13tQwiKJWixAy1ZWRgDXuoqXwTvAhOyEDfo+kFfC8lt7XVpY7GXEIo2lPw6Gto6R3aZ1mgLj/P+sHuZZaC/l0WeoJg7uRa6aFsPWf9PNemMMbVkaPUzQQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791178318; c=relaxed/simple;
-	bh=0tbrBdOAFD6j68HR1D9P/i1oHR1VFAhjX4pnHTAvCsY=;
-	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=WVIVX6vIiggi2p5JcvuzS7haqv5AOxlhxwiE8KzfEBwq9isH3iOIVXmL2uwRfYC2OhgaNdRhJkW+XOX23REKllv9H6CotT+dkUc/7qSJMcERf2d+qQxkPmzXtOlOFQfUREdzYBipDCFiG+hMo6F85Rt6hjrFJqjX0+Dyc6FrMa8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=dnnoocjc; arc=none smtp.client-ip=74.125.227.166
+	s=arc-20240116; t=1791178320; c=relaxed/simple;
+	bh=w1AU6g65zu16iPcWxPf1T5Zy+nRGvXgJVdBYyvWwTJk=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=VqR/BxOt05WbiH+6ijf0CzMBSG/UcOrQ3So7nSG3zuAjB//JR0KPtI9dCqPac4j6dzUPOaDHPBoX2C6Xi50Z9jco1CwoF531SbX7CFOn5lv98A+Z5W1yXBnJnMTP77iq+XqTbpzyPL8s2DjDk/JSsm3I24ELJjjMjYEbKrgfsUI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=eut5GczQ; arc=none smtp.client-ip=74.125.228.36
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="dnnoocjc"
-Received: by mail-pj2-f38.google.com with SMTP id 98e67ed59e1d1-3a4c276e1c7so485846a91.0
-        for <linux-kernel@vger.kernel.org>; Sun, 04 Oct 2026 22:31:57 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="eut5GczQ"
+Received: by mail-pz2-f36.google.com with SMTP id 41be03b00d2f7-cc7e7717676so289499a12.3
+        for <linux-kernel@vger.kernel.org>; Sun, 04 Oct 2026 22:31:59 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791178317; x=1791783117; darn=vger.kernel.org;
-        h=cc:to:content-transfer-encoding:content-type:mime-version
-         :message-id:date:subject:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=LSDnu3myMd2V0moRo2OOnX6aRGg9tjowM/h0PhTdhyc=;
-        b=dnnoocjciZNZFFPqc7McoUeMcCPrHn9j646Jj5eRRt+qutgEvC08E/P4FM6+4l+K4c
-         7HVX0f7/cANeXgSPwPgwT6FMJ93C19hhGE7QYfslUI/UeHAQumXHkF6VGEWY1BW1CXn4
-         f6vi0Jou3/xc0R1NSF878/Ts0YOL3fpsCy3rpe5VdHvU4TKM2FYogxvnzdx5vBSKeQ3u
-         89EJiCeCTbhvbNeR+W3AujI6LnDtQLeOvNvCt3SVcBLV0TH6QdzGJi7P8dyT6QwPOXWi
-         wsPVYkY9AbyEcrvspsalquHLRrNLtqji2vYTb5w7bryYwWVmPvuH03w5FZye7BgZ0oDQ
-         HNtg==
+        d=gmail.com; s=20251104; t=1791178319; x=1791783119; darn=vger.kernel.org;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=vbaBJP1Y6rIzs9mS+9NicAQDid/y2eJWfZoQJnhCAQ8=;
+        b=eut5GczQb1borskkHC9KjejdHgKsmAkVW7HL8nimz/+FfybLfz1pP7Xx/RSTtTVORA
+         OEgFLzq0kLkffc658E47Rc4wi2sll1s+zYwTnTX7awc5FfotD8C4btrEqoM3Z8iKnvk0
+         wGYYQ7pQbI+xWQdewG0IP2PZdeY7IxBi1rAQIQNovCjOnD2jarcFMB5jxqp+RrTCirAu
+         AfNxppRmKWpFNkpJLgOOMn8VNeyH81p+cnWsWshFBvoDWAA3Tl/SqNj9+1TMbXWQoF/m
+         LiugdrS0wflW6Re+4XreEnt0Y+VlMcQ9UqmCZ1EfrHtKXPe15QAiSE7GZTbLz6zCQgqZ
+         nmPQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791178317; x=1791783117;
-        h=cc:to:content-transfer-encoding:content-type:mime-version
-         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=LSDnu3myMd2V0moRo2OOnX6aRGg9tjowM/h0PhTdhyc=;
-        b=ONlS8GlKdsGdfQznsFwRTceRg0hsOmKHFCnTIwVagRGD5VnLXnq4UP+hcIkIMnJS+2
-         7RImzQbhoVPrmXi1MLCPCC/NAXMHQKYMTdtt71j0LD/Ok3tIEPWw85nvB9z1tnT+lCqP
-         JMu0W2h7bf00NJYlP0J5xTD1gXagrIDuDXWv5Vb1TpadhFu4Hce1XGOJjX4KKUQ0GAAK
-         6I0J/surRsrFtL7OOdwO/Qjh2jjnd4VCglccZ5ijQqnPkXDayxp0tfwlteIBu9OpERSg
-         ijHxcgljjBXIylRH+XFAN1o17j2NrHH4N59PNwgScNEhEjg3srvZHCj5sqYNYW+VrZqB
-         g+ZA==
-X-Forwarded-Encrypted: i=1; AKwUvBxWyYYTizG+uXORQvpnfK/5uiBKaT2CrcHJvUv4KJzc7XIhKREHNWp+h+6f8+jd8grylvYq1u1/k01g5OA=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIQtue2M2QkQ7dSWk8ZZuh588ex8SytmCeb/snsFq9nh/YshgDo
-	2Jrc8z/Ln4qZh5ifnrrjQeCX7UZq8N65YFCN4SmixfMrm8U5nv1EMFuP
-X-Gm-Gg: AYBFou1FgVd3toIh5FE25ESAaAvPck039INTTCAbgLd34lmpMS6SvZ2M0jqmeWLT4Gf
-	UsbnxhiiUnyoOBtYZA9xKuqQ3vVRQ+Rza7qNhVDEpZ0jCWNq2oHuFPOWxx4hTMmpw9s4es+W1l5
-	D76UbaH19JEjvBnB2P1KrfFNAmNhZUyfyDnPwJ7fo8+dQ4ZA8cwtNQn18+dO8hcgkvO3erFmaKa
-	Pni8xsV3KG+ISsgslEyuuQXYP6DAoLPlhPNc5K1iaidx66r8MZR/8rXtQqhVyfbL7UxsES+RkUw
-	uAcoB4jV224iS7BD2FOaHDuAE1iggbUf7EJ9WDXe4qy1qbM/lV2bEKJWsbUNXoWF1XuokJNd/OG
-	mMgSV87qQssYuQIkSKHg2/7j9Y3kKvl09lFpfEadRJA+JfaVtV9eMzvASzwh3W8kG+T4U2L8aMZ
-	poU2xmye08jlz2FdlY5m706qlZN31mR7NzZnK7SmB3ukNdkHt+tVHXMsx6NfcgRUr1gyuBNec3S
-	xYS9ajj
-X-Received: by 2002:a17:90b:4e88:b0:3a7:8707:a0b9 with SMTP id 98e67ed59e1d1-3a78707b7bemr2256571a91.31.1791178316571;
-        Sun, 04 Oct 2026 22:31:56 -0700 (PDT)
+        d=1e100.net; s=20260707; t=1791178319; x=1791783119;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=vbaBJP1Y6rIzs9mS+9NicAQDid/y2eJWfZoQJnhCAQ8=;
+        b=cFeplCQYTbXVtD7xkwqZV95hQCL7N33CkERq0Z8VwkFN7wSTJJnnDGXl1JAmLVU2aD
+         N2WZF7ZaHOoLgk1o6Zs0vVhMaXntBFTKHwJPYYqz7aCB2dwGdipKre0kl+OB/V0mtdu+
+         GTK5uf9jqJU+DMoFzsFY+cPoIH6LnDddKsUamMFDw6bLtu2bywcsPZ1yeAqrjN36NAxp
+         +ufsrw497Wd+x+kV4vVn/p+3WGLEs5dgH3nS4SwOB8GZitvJx5Ome/JPNIY9qIZXtrJY
+         +UAv3G2J36wNAuaGANbK/2ya79m+qpcq06G+1Pbde8W3EKID0e/8MJnPUMPwZpTLjpT+
+         ZLYA==
+X-Forwarded-Encrypted: i=1; AKwUvBw04SsTmhKbXuL7x3GODgSBF2vNwB3dFWvLSuZf04R9oDUQKaESmg8oJ4Y47MJnQrjIdJM/slDAvWQ++bE=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJJe2GBCbiFp+AyOnH7eqVOXxMYlA5xXrkVQQeV/PpNH1M2kGP4
+	UbLwrYBD3LsmZeBlMqYrBOjMCTEdbfXBa8qYQuESgpC7l5iqOTndRTPG
+X-Gm-Gg: AYBFou2IzTAs7f70mMyUA0PM7S977sgokHD39eHJyH6maxjHfQuzVY1da28zPbQ9HGJ
+	ynpLSCfRiqCAmzI1kvWzEYloZ5JUmECXZCqOZWCRQiLjJGk24Ua8OFSor/4+DOX2WKpNTrDphlO
+	brVi1Xyh447QKipMisnu4gBPFxKbG8a0LIcy/5JgiBtMYZrP+ZNSvN0G5ymx4EyUSe3S+WgX3mc
+	Z65S5OqKbub+Z9k0z9EINfwu++gVVaQI/OvNZcrpUGPz7P4OP0xsX4kqFkeNDyrWwhjGT1dmYQ2
+	FgrHKnqIdN+ASbN0iNPNfTvJbOgG1MmNkfTH2/YFXO9aOAh1z20jYrl3gg/DxLY75KQZO7j68Vf
+	DXmcpIbxzVaILLtyav10Pdezff1iZPuysE5n3ZEj5FLNl6XXm076xqmj/c2j1hGQ/BSdL+z/xIC
+	yvdfa4HuN9/mO/pGg8Ff6J+3Urube8t0Yi4RilGAm+0VKYZPccehyxBCwxYE78tq+VP6+ToE4hC
+	MA7qp9Y
+X-Received: by 2002:a17:90b:3ec4:b0:39e:3713:c2e4 with SMTP id 98e67ed59e1d1-3a6ce6e7c05mr7678297a91.14.1791178318604;
+        Sun, 04 Oct 2026 22:31:58 -0700 (PDT)
 Received: from [163.43.103.131] ([163.43.103.131])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a78d59f1cdsm9419306a91.0.2026.10.04.22.31.54
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a78d59f1cdsm9419306a91.0.2026.10.04.22.31.56
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 04 Oct 2026 22:31:55 -0700 (PDT)
+        Sun, 04 Oct 2026 22:31:58 -0700 (PDT)
 From: Yuya Kusakabe <yuya.kusakabe@gmail.com>
-Subject: [PATCH net-next 0/2] seg6: skip route refcounts in seg6local
- lookups
-Date: Mon, 05 Oct 2026 14:31:52 +0900
-Message-Id: <20261005-seg6-lookup-noref-v1-0-092e84774e80@gmail.com>
+Date: Mon, 05 Oct 2026 14:31:53 +0900
+Subject: [PATCH net-next 1/2] seg6: skip the route refcount in
+ seg6_lookup_any_nexthop()
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -71,10 +72,9 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAEg2w2oC/yWM0QqCQBBFf0XmuYFdsYX6legh9WpTMSs7qwjiv
- 7fl47mXczYyJIHRtdooYRGTqAX8qaLu+dARLH1hql0dvHMNG8bAnxjf88QaEwaG86G5nNvg0FP
- xpjLK+m/eSJFZsWa6H4/N7Qtd/iVp37/OA8iqfwAAAA==
-X-Change-ID: 20261004-seg6-lookup-noref-e016495b60ed
+Message-Id: <20261005-seg6-lookup-noref-v1-1-092e84774e80@gmail.com>
+References: <20261005-seg6-lookup-noref-v1-0-092e84774e80@gmail.com>
+In-Reply-To: <20261005-seg6-lookup-noref-v1-0-092e84774e80@gmail.com>
 To: Andrea Mayer <andrea.mayer@uniroma2.it>, 
  "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, 
  Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
@@ -82,41 +82,101 @@ To: Andrea Mayer <andrea.mayer@uniroma2.it>,
 Cc: netdev@vger.kernel.org, linux-kernel@vger.kernel.org, 
  Yuya Kusakabe <yuya.kusakabe@gmail.com>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=669;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2881;
  i=yuya.kusakabe@gmail.com; h=from:subject:message-id;
- bh=0tbrBdOAFD6j68HR1D9P/i1oHR1VFAhjX4pnHTAvCsY=;
- b=owEBbQKS/ZANAwAIASrX0XUqXRtNAcsmYgBqwzZJ8jfZ8RN5e8y6cU9FqbcoMtdivDEF/sQEN
- YLAwu6MmAKJAjMEAAEIAB0WIQTaB7usAfxNKMeqa6Yq19F1Kl0bTQUCasM2SQAKCRAq19F1Kl0b
- Te5KEADHafy2gyPRu3MVkrU4W340zB6z2LO+75Jun5eFLji1ZSixqBp/liRDT+Mz9B+nCn1tDVq
- S97ZqdgibxZ1qrCAryZ1rAHATbwvxE1E0mP/N1SHD4mulp3W8JuD05jpZgyBtrXNOLgCoknTRQx
- Lvrh8rEMqLQc//xowC5ElsQX19pICF8luQjeWc3ytQ7X0qlq7hFwP/e7m5EiR3EV6mz1hOifSGS
- le/Ii69dHsc+BT0XVw9ix1jAxdpp/gMsTN7/9Q0dHn3nVYfQjgHKauipjgv8UoG+Mt39UOsumUP
- ZqQznNNUDvW6cPuQtFx9PaIIEv5Ibj9oEjYi4KmDDIMwNOJCEC/R5N9FXQMyZxbvmuDXfoC9bSV
- GaeO+CtPwtxPVl443iUYVNtw4qk4kJybiH7yP09TI8u/HyTiTjCCyoRix52tIagYJeixWuDb5hy
- O6GhC1upxeywutRX+oS15gVenhpeRNWsq/+2KEwAkA8EwtH/yleMdfJdWCQegu++LHA8c68vIs5
- fGyO+OTAeHDQYMcAu89m9XtLQUKq2h/msAcEvb+Drr3baowXWUZGPmKOZIWJaVk+0hA+LmIZg0B
- Wpg0fduJWbDyWOQWg91QTQ2au7+r/U7wxco9proy4cCNuuetL5S7jVrFo/R+hcsfBHgDkD6RVoD
- 8PTDY0nw0+I4Bbw==
+ bh=w1AU6g65zu16iPcWxPf1T5Zy+nRGvXgJVdBYyvWwTJk=;
+ b=owEBbQKS/ZANAwAIASrX0XUqXRtNAcsmYgBqwzZJh8DOcMbZNIqKDpz+ahxbhv/BXOYnUDneo
+ TCKLtZfsh6JAjMEAAEIAB0WIQTaB7usAfxNKMeqa6Yq19F1Kl0bTQUCasM2SQAKCRAq19F1Kl0b
+ TXo2EACKWn8NsBfLQ6ySDolEihbdyQDuUDwUuwY2ZD0LZYfCYIPkwLEBNfbwa5odpRkJfYFk60W
+ 2K/i0EbmTiQYJeMNyh9Jt/BqTVjyfAG8qwXQBj4T48CesdsZn4ZH+DkDtlOr8EynAoBTaT8MiTW
+ OWrBZzHinKEGPim25EYPEVTNX168kwRAjVZTsC1I02H6ZicUFBF6oUZb05BTZg/6RrM2iV9t2Vj
+ u6h0XnZ5TqtuktmhxrAaD14inkdWHQ+z8sHz9PKSgg5YqwbrAuR4voUE5sCO93GsOxywoTGbXEm
+ oz9wlPRf2cjkurBrfv92qJJBkGiRMGYlYBt7fd/LjADZ7smfCDPl9+b01TKUiWmnhDkQ8IMmsBh
+ NXhRGWyMm2sDJR1OcBLpybKKhNA/omP8kgfBOYfJBGOyLKa2vQBzF1cXmg7aUwprcwxGUigH4R1
+ Obuc/rv0F+WHyiY4W/dkxegZqqVqieoQsZgndt/v/6dyxICyHFKFSdlEWV4CgDrlLn6vQwRefDy
+ JcffhH0JYGMfjGrSMlNpOLgfNujQTsCIyyLCkurzAZOo8Wr1Car2Du1TbCgiyvE5/AaD3T4Lu54
+ s/+is/t8BMZ9DONT/USHwvYc0wDZeqCgcxp/aJ/hEbyNLD9rzbRMuAIj4XwdXYXnmjXW663UOcY
+ cADgUgHpoaAajqw==
 X-Developer-Key: i=yuya.kusakabe@gmail.com; a=openpgp;
  fpr=DA07BBAC01FC4D28C7AA6BA62AD7D1752A5D1B4D
 
-seg6local looks up the nexthop of its IPv6 and IPv4 behaviors from the
-RCU read-side section of the receive path, yet takes and drops a route
-reference for every packet.  Skip the reference, as ip6_route_input()
-and ip_rcv_finish() do.
+ip6_route_input() attaches the input route to the skb without taking a
+reference, relying on the RCU read-side section of the receive path.
+seg6_lookup_any_nexthop() is called from that same section, either
+directly from the seg6local input handler or from a netfilter okfn,
+but still takes and drops a route reference for every packet.
 
+Look the route up with RT6_LOOKUP_F_DST_NOREF, as ip6_route_input()
+does, for the input and table lookups.
+
+Throughput at 0.5% packet loss of 94-byte End packets (two-segment
+SRH, no payload), spread by RSS on an ixgbe 82599ES across two 2.30 GHz
+Xeon E5-2650 v3 with 10 cores each, offered by TRex and binary-searched
+over 10 runs of 10 s, in Mpps:
+
+  queues  cores                   before   after
+  1       1                        0.735   0.770  (+4.8%)
+  10      10 on the NIC's socket   6.468   6.976  (+7.9%)
+  16      10 + 6 on two sockets    6.931  10.128  (+46.1%)
+
+With the default rules, fib6_rule_lookup() tries the local table
+first, and the miss takes and drops a reference on ip6_null_entry,
+one route shared by every CPU.  At 16 queues that cache line bounces
+between the sockets, and ip6_hold_safe() and dst_release() together
+take more than a third of the cycles.
+
+Assisted-by: LLM
+Signed-off-by: Yuya Kusakabe <yuya.kusakabe@gmail.com>
 ---
-Yuya Kusakabe (2):
-      seg6: skip the route refcount in seg6_lookup_any_nexthop()
-      seg6: skip the route refcount in seg6local IPv4 lookups
+ net/ipv6/seg6_local.c | 10 ++++++++--
+ 1 file changed, 8 insertions(+), 2 deletions(-)
 
- net/ipv6/seg6_local.c | 14 ++++++++++----
- 1 file changed, 10 insertions(+), 4 deletions(-)
----
-base-commit: cfb7793d1bc0f7d90571611979654cf1b3886b29
-change-id: 20261004-seg6-lookup-noref-e016495b60ed
+diff --git a/net/ipv6/seg6_local.c b/net/ipv6/seg6_local.c
+index 0c3d1be7f129..4bde3669d0dd 100644
+--- a/net/ipv6/seg6_local.c
++++ b/net/ipv6/seg6_local.c
+@@ -342,6 +342,7 @@ seg6_lookup_any_nexthop(struct sk_buff *skb, struct in6_addr *nhaddr,
+ 		fl6.flowi6_flags = FLOWI_FLAG_KNOWN_NH;
+ 
+ 	if (!tbl_id && !oif) {
++		flags |= RT6_LOOKUP_F_DST_NOREF;
+ 		dst = ip6_route_input_lookup(net, skb->dev, &fl6, skb, flags);
+ 	} else if (tbl_id) {
+ 		struct fib6_table *table;
+@@ -350,6 +351,7 @@ seg6_lookup_any_nexthop(struct sk_buff *skb, struct in6_addr *nhaddr,
+ 		if (!table)
+ 			goto out;
+ 
++		flags |= RT6_LOOKUP_F_DST_NOREF;
+ 		rt = ip6_pol_route(net, table, oif, &fl6, skb, flags);
+ 		dst = &rt->dst;
+ 	} else {
+@@ -363,7 +365,7 @@ seg6_lookup_any_nexthop(struct sk_buff *skb, struct in6_addr *nhaddr,
+ 		dev_flags |= IFF_LOOPBACK;
+ 
+ 	if (dst && (dst_dev(dst)->flags & dev_flags) && !dst->error) {
+-		dst_release(dst);
++		ip6_rt_put_flags(dst_rt6_info(dst), flags);
+ 		dst = NULL;
+ 	}
+ 
+@@ -372,10 +374,14 @@ seg6_lookup_any_nexthop(struct sk_buff *skb, struct in6_addr *nhaddr,
+ 		rt = net->ipv6.ip6_blk_hole_entry;
+ 		dst = &rt->dst;
+ 		dst_hold(dst);
++		flags &= ~RT6_LOOKUP_F_DST_NOREF;
+ 	}
+ 
+ 	skb_dst_drop(skb);
+-	skb_dst_set(skb, dst);
++	if ((flags & RT6_LOOKUP_F_DST_NOREF) && !dst->rt_uncached_list)
++		skb_dst_set_noref(skb, dst);
++	else
++		skb_dst_set(skb, dst);
+ 	return dst->error;
+ }
+ 
 
-Best regards,
---  
-Yuya Kusakabe <yuya.kusakabe@gmail.com>
+-- 
+2.50.1
 
