@@ -1,68 +1,80 @@
-Received: from pdx-out-013.esa.us-west-2.outbound.mail-perimeter.amazon.com (pdx-out-013.esa.us-west-2.outbound.mail-perimeter.amazon.com [34.218.115.239])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj2-f43.google.com (mail-pj2-f43.google.com [74.125.227.171])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B68EF43F8CB;
-	Mon,  5 Oct 2026 19:26:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=34.218.115.239
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 02ECB4BA1F9
+	for <linux-kernel@vger.kernel.org>; Mon,  5 Oct 2026 19:26:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.171
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791228364; cv=none; b=EDClCqj+vNVz4VHQ3XoVzh2en56kuoHXjM2IuYpVYJWwn6npIbyVLms/rF82u6Wm+oxNGXp8WdtZ5o+gmuCWj93oWHIyIYHPNI6WCLfugBdk6XFMNj+Jmrbce1wwiXTzRsS2Kaw4gThenwwNdjYiD9pbEfBEMh0MDRI+frGAgZk=
+	t=1791228387; cv=none; b=moK08Q8ySd5cGifusxPnE+yzplj+EnIidblZP+gRYZcJ7PBIcQlhIoc9f3nuFC7/c1bPr/VOndzzZaukL2KdcYGBAuBzEnHcSWXIjGG7PJq18UUicprpHl8Fhiy441uoUF86MT9t4xxN6ltBKQvGTlQuylsL5vq+YxNmKkVYrqw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791228364; c=relaxed/simple;
-	bh=cBrQXK4QKOFSUr6CGzzvROOHVgDdiVSnHERQy2hc7Uo=;
-	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=fbP8FioOegHIdqwTCIg6+FmfEfiaemMZowIl3Qh6BEWGRyP61+WobyvvbZYUWTVq80pN3s1nWebePNC7Z1rdrs1Ssw7vZodUN54PRnKEBsHdsqwPnAfz4TVADMwGssrseHSR5gIkcLMTmFEe1ZAlcMqQIRfaL/nl0zibX8KPrHo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.co.uk; spf=pass smtp.mailfrom=amazon.co.uk; dkim=pass (2048-bit key) header.d=amazon.co.uk header.i=@amazon.co.uk header.b=LOno1FsF; arc=none smtp.client-ip=34.218.115.239
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.co.uk
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amazon.co.uk
+	s=arc-20240116; t=1791228387; c=relaxed/simple;
+	bh=qLo0sLQGLGk/Qb1aLrPVxsDkLEujWQRRC1IGWA5JPvw=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Iy+odixXU1p0Xhg+CkF128FDtEnbEuULllqYZwgEs+R9koaXGOUyK/W3SO9CyXpBsPldsSC3Y9wUZ7u78RFYyn5nYS3GdVCKPfe0aHrndwHSYEBC7nBvPVqCDZQpijtUk1KcBjvPfBvVajH/pCHjlQRggaFFIPZcvYSx4lnMbP8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=LfJfX7sD; arc=none smtp.client-ip=74.125.227.171
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=amazon.co.uk header.i=@amazon.co.uk header.b="LOno1FsF"
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="LfJfX7sD"
+Received: by mail-pj2-f43.google.com with SMTP id 98e67ed59e1d1-3a49573b8bdso1460492a91.2
+        for <linux-kernel@vger.kernel.org>; Mon, 05 Oct 2026 12:26:25 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-  d=amazon.co.uk; i=@amazon.co.uk; q=dns/txt;
-  s=amazoncorp2; t=1791228362; x=1822764362;
-  h=from:to:cc:subject:date:message-id:in-reply-to:
-   references:mime-version:content-transfer-encoding;
-  bh=pMT9hxBTDnR3LlDP5I6HWvIconDCO7HqoR7QsXqlotg=;
-  b=LOno1FsFtvPBFv2UcpaqwaBg7YmQNWRehI8OetFBELr7n3WKMt73Trw4
-   B7DB7L3Cpsi6jp1hp+TjOPAUsJOYIDv38+k9kWfItIpy2KAvpwDo87aVW
-   AsKVIIQbu22J+/Gujd4iW95l6dljuFHaKFvFucoNI552UIGs/OKHx3OyM
-   chpxnM9HKr/PqLK4s5/slxbn6FhpQqFeUq2dOaq2/xB+puXUJAhshrMHr
-   aaYs2DDoYFAN9HgJyQq/AF4kKhV9sGjsd2aDUWs4kWPUJ95cf0/YnHBQ5
-   hbxf1OwsJaqyQ/tMR74u6a+Jp3Bjw0BLWD61zxhE9XIInSBKOshCD+U/H
-   w==;
-X-CSE-ConnectionGUID: h7Xv/HaSRsq1EW265FPgWQ==
-X-CSE-MsgGUID: M7t6NUMYQ++KYYfjdvRDcA==
-X-IronPort-AV: E=Sophos;i="6.27,142,1787011200"; 
-   d="scan'208";a="30249898"
-Received: from ip-10-5-12-219.us-west-2.compute.internal (HELO smtpout.naws.us-west-2.prod.farcaster.email.amazon.dev) ([10.5.12.219])
-  by internal-pdx-out-013.esa.us-west-2.outbound.mail-perimeter.amazon.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 05 Oct 2026 19:26:00 +0000
-Received: from EX19MTAUWC001.ant.amazon.com [205.251.233.53:10559]
- by smtpin.naws.us-west-2.prod.farcaster.email.amazon.dev [10.0.37.83:2525] with esmtp (Farcaster)
- id bd43f895-ff64-4101-a4d3-d1c01b0b4f03; Mon, 5 Oct 2026 19:25:59 +0000 (UTC)
-X-Farcaster-Flow-ID: bd43f895-ff64-4101-a4d3-d1c01b0b4f03
-Received: from EX19D001UWA001.ant.amazon.com (10.13.138.214) by
- EX19MTAUWC001.ant.amazon.com (10.250.64.174) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.49;
- Mon, 5 Oct 2026 19:25:59 +0000
-Received: from dev-dsk-hmushi-1a-0c348132.eu-west-1.amazon.com
- (172.19.124.218) by EX19D001UWA001.ant.amazon.com (10.13.138.214) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.49; Mon, 5 Oct 2026
- 19:25:57 +0000
-From: Mushahid Hussain <hmushi@amazon.co.uk>
-To: <kvm@vger.kernel.org>
-CC: Sean Christopherson <seanjc@google.com>, Paolo Bonzini
-	<pbonzini@redhat.com>, Vitaly Kuznetsov <vkuznets@redhat.com>, "K . Y .
- Srinivasan" <kys@microsoft.com>, Haiyang Zhang <haiyangz@microsoft.com>, "Wei
- Liu" <wei.liu@kernel.org>, Dexuan Cui <decui@microsoft.com>, Long Li
-	<longli@microsoft.com>, <linux-hyperv@vger.kernel.org>,
-	<linux-kernel@vger.kernel.org>, <nh-open-source@amazon.com>,
-	<mushi.shar@gmail.com>
-Subject: [PATCH 3/3] KVM: x86: hyper-v: Implement HvCallRestorePartitionTime
-Date: Mon, 5 Oct 2026 19:24:31 +0000
-Message-ID: <20261005192431.87317-4-hmushi@amazon.co.uk>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20261005192431.87317-1-hmushi@amazon.co.uk>
-References: <20261005192431.87317-1-hmushi@amazon.co.uk>
+        d=gmail.com; s=20251104; t=1791228385; x=1791833185; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=Vw763NV5BjSaZVhghdUwJpS8A2L5IAuXgkLi18vef04=;
+        b=LfJfX7sDLcrlC2YFzXRa8lQDTQ1idEntfujB+Ef0r9KDtDq2aUc7VPGHL7tyegu8c/
+         RJDEeUqCdG2Nf3vvV9iexCWuxX/RSzsnYQ9NUVXP+tpAuZOrDfA6s+vmt1miL5Yblf0s
+         M+SJSHuKhwxJr0EOvcM15SF+MF732Xi8syZsUiEde6HZ1ve6BijFMxjcv6C1Oa/BJnp2
+         rqAN4OAWduogL9dW6WfgSCeO2hDiLSc2Xdb5K6Ca3b0L72zlsgsMRHi0U8UFwA4zfnSx
+         OzQCDaf3Q3OdcqaCf5wgyvt+sXNsJzsIcXWS8qrK4VzQM2e+LKPKzty1iz4uCZyg+Je7
+         bO1Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791228385; x=1791833185;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Vw763NV5BjSaZVhghdUwJpS8A2L5IAuXgkLi18vef04=;
+        b=M5/8tmhi9SkQrI1/DEqXJ2Bp+WUKJTTfq/QKM44xgEbFYuY0MZtuuHGQH2j/kkmjDH
+         gushijI2GYwalRpyi1OtmvW2EPQeXYCLsEWyQ7RybJp72ndQBxUNgrdwdM4EBi1ZHd0O
+         TgxRgc7s5V2J+UOuXfxJ1O6Hb2aDxGDJ2kQ2m5dsIcMGdmi4dk+RimGXz+dDFzu8dcIv
+         +U7AhY6ToTSbZex/NItplv4NJJYXoZr5MsxQO9byvS7GTVbkkbucU9JVl45FTT6YJg1c
+         mA375fZEePFxoon/DEQuSGnubh1Nkls+stPo0bBkls1H8HnW+lz/2GYtHyUAuMlpXsfZ
+         ai7Q==
+X-Forwarded-Encrypted: i=1; AKwUvBw5m9yCbOj4m4f7nIexJiS/JyO6UIK4mj36V5K6OgrE8iC9F82S2MvZJCOxGCwkewcQwnI6GsRM9xTYvqA=@vger.kernel.org
+X-Gm-Message-State: AFq9FYI9/oaX50P+c4zQnS8aJZpXb6faiI90Skc6f9NVnhlamyKqMpdF
+	JosqkyobK9mqQ5qermsR/rizM6el5wEVKK4sICBcnT4/NMzl2XXMdC2M
+X-Gm-Gg: AYBFou3tRWmaj36GvIlkmfPLLOFPJEHbB4Zjs/iyDBI0UZ57ZmEmJTc0XtTL63TiK7l
+	nFN83mE89VZqqDAYQnwNkNPxAYD0iApv2COsjflUiLlusTpGJYmpvCnWr/MDmj7Xu+p3Lccl3ak
+	mvKJfQKfi+1v1H0DSscadwa7KtSsRbTFEIYMopCHZ0SXCuE+mRaW5ZgZzK5wBM/GOr02SNJKmze
+	jdxFkGVMr+CeH2nVv2IfTl4NPy2mmyTFdmHvjB6KOtDZ9TXrWSLsbdU4rFUzfVvYekKfM6AEa/B
+	qyhFQ2uykyZg599mlbIdOi960Hk0ff12TW6QtdgSai4/iot0ZUfXBhtY3HpDajh7uWjkUyXyfGL
+	pw19mMhcDAhAYwshJhP+gHz5LzH4xgSzTGb5+3EVnn1uL3Y777DSztBxToDJTRiTe0+DpULveAl
+	x3SJIrOgk5gbVzHqmWRGziaDAwzx0gi8RCh9w5bLtPMOnXPNKfM2S+4O67cHkh1/BN9zo3YRYh1
+	RqE8xOZwr8oHAIxI8qlyvlfQGjPijBTYfBd+4xO+i5cwGfcjm1DvtWPMZYH5/hOUIP9OIxBZ8pE
+	4yN+jy93IOp2PWlmWxJwwk+qcI8ueJ+ENiDjibYErF8chXUdrcuxTgY9nAs=
+X-Received: by 2002:a17:90b:498e:b0:3a7:9ad9:68e1 with SMTP id 98e67ed59e1d1-3a79ad96bd7mr6814909a91.13.1791228385236;
+        Mon, 05 Oct 2026 12:26:25 -0700 (PDT)
+Received: from ryzen.lan ([2601:644:8000:7a86::e35])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a853b92679sm850955a91.6.2026.10.05.12.26.22
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 05 Oct 2026 12:26:24 -0700 (PDT)
+From: Rosen Penev <rosenp@gmail.com>
+To: dmaengine@vger.kernel.org
+Cc: Lizhi Hou <lizhi.hou@amd.com>,
+	Brian Xu <brian.xu@amd.com>,
+	Raj Kumar Rampelli <raj.kumar.rampelli@amd.com>,
+	Vinod Koul <vkoul@kernel.org>,
+	Frank Li <Frank.Li@kernel.org>,
+	Michal Simek <michal.simek@amd.com>,
+	Kees Cook <kees@kernel.org>,
+	"Gustavo A. R. Silva" <gustavoars@kernel.org>,
+	linux-arm-kernel@lists.infradead.org (moderated list:ARM/ZYNQ ARCHITECTURE),
+	linux-kernel@vger.kernel.org (open list),
+	linux-hardening@vger.kernel.org (open list:KERNEL HARDENING (not covered by other areas):Keyword:\b__counted_by(_le|_be|_ptr)?\b)
+Subject: [PATCH v2] dmaengine: xilinx: xdma: use kzalloc_flex()
+Date: Mon,  5 Oct 2026 12:26:21 -0700
+Message-ID: <20261005192621.99880-1-rosenp@gmail.com>
+X-Mailer: git-send-email 2.56.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -70,325 +82,92 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: EX19D040UWB004.ant.amazon.com (10.13.138.91) To
- EX19D001UWA001.ant.amazon.com (10.13.138.214)
 
-A nested Hyper-V that sees the frequency MSRs lets its parent own
-the partition reference time. After a resume from hibernation it
-issues HvCallRestorePartitionTime (0x103) with the TSC and the
-reference counter it saved, and expects both clocks to continue
-from there. KVM rejected the hypercall. The guest time base stayed
-inconsistent and the root partition did not run.
+Change desc_blocks to a flexible array member so the descriptor and
+its block array are allocated together, removing one allocation and
+its error handling.
 
-Restore both clocks in one pvclock update, so no vCPU runs with the
-new TSC and the old reference time. Each vCPU computes and writes its
-own TSC offset from the recorded step, so no other vCPU writes its
-TSC state. kvm_synchronize_tsc() writes the offset of the calling
-vCPU only. Mark the TSC page as changed by the guest, so it is
-recomputed even when TSC emulation control is set.
+Add __counted_by for extra runtime analysis, and set dblk_num right
+after allocation which is already done by kzalloc_flex() for GCC >= 15.
 
-The TLFS marks the hypercall, its input and CPUID 0x40000004 EAX
-bit 20 (RestoreTimeOnResume) as reserved. Microsoft's hvdef crate
-defines them (hypercall::RestorePartitionTime), and Microsoft's
-OHCL kernel carries the same C definitions in hvgdk_mini.h.
-
-Advertise bit 20 and gate the hypercall on it under
-KVM_CAP_HYPERV_ENFORCE_CPUID. Hyper-V offers hibernation to its root
-partition only when the parent sets this bit.
-
-Assisted-by: Claude:claude-fable-5.1
-Signed-off-by: Mushahid Hussain <hmushi@amazon.co.uk>
+Assisted-by: LLM
+Signed-off-by: Rosen Penev <rosenp@gmail.com>
 ---
- arch/x86/include/asm/kvm_host.h |  5 ++
- arch/x86/kvm/hyperv.c           | 36 ++++++++++++
- arch/x86/kvm/x86.c              | 99 +++++++++++++++++++++++++++++++--
- arch/x86/kvm/x86.h              |  1 +
- include/hyperv/hvgdk_mini.h     | 12 ++++
- 5 files changed, 148 insertions(+), 5 deletions(-)
+ drivers/dma/xilinx/xdma.c | 15 +++++----------
+ 1 file changed, 5 insertions(+), 10 deletions(-)
 
-diff --git a/arch/x86/include/asm/kvm_host.h b/arch/x86/include/asm/kvm_host.h
-index e2eef7057bd35..e97ff631196f8 100644
---- a/arch/x86/include/asm/kvm_host.h
-+++ b/arch/x86/include/asm/kvm_host.h
-@@ -127,6 +127,7 @@
- 	KVM_ARCH_REQ_FLAGS(33, KVM_REQUEST_WAIT | KVM_REQUEST_NO_WAKEUP)
- #define KVM_REQ_UPDATE_PROTECTED_GUEST_STATE \
- 	KVM_ARCH_REQ_FLAGS(34, KVM_REQUEST_WAIT)
-+#define KVM_REQ_WRITE_TSC_OFFSET	KVM_ARCH_REQ(35)
- 
- #define INVALID_PAGE (~(hpa_t)0)
- #define VALID_PAGE(x) ((x) != INVALID_PAGE)
-@@ -1246,6 +1247,10 @@ struct kvm_arch {
- 	u64 cur_tsc_offset;
- 	u64 cur_tsc_generation;
- 	int nr_vcpus_matched_tsc;
-+	/* TSC step requested by the guest; each vCPU applies it. */
-+	u64 restore_host_tsc;
-+	u64 restore_guest_tsc;
-+	u64 restore_tsc_nsec;
- 
- 	u32 default_tsc_khz;
- 	bool user_set_tsc;
-diff --git a/arch/x86/kvm/hyperv.c b/arch/x86/kvm/hyperv.c
-index 5d2e3617c9520..923373dee0e4f 100644
---- a/arch/x86/kvm/hyperv.c
-+++ b/arch/x86/kvm/hyperv.c
-@@ -2538,6 +2538,9 @@ static bool hv_check_hypercall_access(struct kvm_vcpu_hv *hv_vcpu, u16 code)
- 	case HVCALL_SEND_IPI:
- 		return hv_vcpu->cpuid_cache.enlightenments_eax &
- 			HV_X64_CLUSTER_IPI_RECOMMENDED;
-+	case HVCALL_RESTORE_PARTITION_TIME:
-+		return hv_vcpu->cpuid_cache.enlightenments_eax &
-+			HV_X64_RESTORE_TIME_ON_RESUME;
- 	case HV_EXT_CALL_QUERY_CAPABILITIES ... HV_EXT_CALL_MAX:
- 		return hv_vcpu->cpuid_cache.features_ebx &
- 			HV_ENABLE_EXTENDED_HYPERCALLS;
-@@ -2548,6 +2551,31 @@ static bool hv_check_hypercall_access(struct kvm_vcpu_hv *hv_vcpu, u16 code)
- 	return true;
- }
- 
-+static u64 kvm_hv_restore_partition_time(struct kvm_vcpu *vcpu,
-+					 struct kvm_hv_hcall *hc)
-+{
-+	struct kvm_hv *hv = to_kvm_hv(vcpu->kvm);
-+	struct hv_input_restore_partition_time in;
-+
-+	BUILD_BUG_ON(sizeof(in) != 32);
-+
-+	if (kvm_vcpu_read_guest(vcpu, hc->ingpa, &in, sizeof(in)))
-+		return HV_STATUS_INVALID_HYPERCALL_INPUT;
-+	if (in.reserved)
-+		return HV_STATUS_INVALID_HYPERCALL_INPUT;
-+	if (in.partition_id != HV_PARTITION_ID_SELF)
-+		return HV_STATUS_INVALID_PARTITION_ID;
-+
-+	/* The guest asked for the step; recompute the TSC page as for its own write. */
-+	mutex_lock(&hv->hv_lock);
-+	if (hv->hv_tsc_page & HV_X64_MSR_TSC_REFERENCE_ENABLE)
-+		hv->hv_tsc_page_status = HV_TSC_PAGE_GUEST_CHANGED;
-+	mutex_unlock(&hv->hv_lock);
-+
-+	kvm_set_clock_and_tsc(vcpu->kvm, in.reference_time_in_100ns * 100, in.tsc);
-+	return HV_STATUS_SUCCESS;
-+}
-+
- int kvm_hv_hypercall(struct kvm_vcpu *vcpu)
- {
- 	struct kvm_vcpu_hv *hv_vcpu = to_hv_vcpu(vcpu);
-@@ -2670,6 +2698,13 @@ int kvm_hv_hypercall(struct kvm_vcpu *vcpu)
- 		}
- 		ret = kvm_hv_send_ipi(vcpu, &hc);
- 		break;
-+	case HVCALL_RESTORE_PARTITION_TIME:
-+		if (unlikely(hc.fast || hc.rep || hc.var_cnt)) {
-+			ret = HV_STATUS_INVALID_HYPERCALL_INPUT;
-+			break;
-+		}
-+		ret = kvm_hv_restore_partition_time(vcpu, &hc);
-+		break;
- 	case HVCALL_POST_DEBUG_DATA:
- 	case HVCALL_RETRIEVE_DEBUG_DATA:
- 		if (unlikely(hc.fast)) {
-@@ -2889,6 +2924,7 @@ int kvm_get_hv_cpuid(struct kvm_vcpu *vcpu, struct kvm_cpuid2 *cpuid,
- 				ent->eax |= HV_X64_NO_NONARCH_CORESHARING;
- 
- 			ent->eax |= HV_DEPRECATING_AEOI_RECOMMENDED;
-+			ent->eax |= HV_X64_RESTORE_TIME_ON_RESUME;
- 			/*
- 			 * Default number of spinlock retry attempts, matches
- 			 * HyperV 2016.
-diff --git a/arch/x86/kvm/x86.c b/arch/x86/kvm/x86.c
-index 19666a80240a5..c0865468b02e7 100644
---- a/arch/x86/kvm/x86.c
-+++ b/arch/x86/kvm/x86.c
-@@ -4354,13 +4354,85 @@ static int kvm_vm_ioctl_get_clock(struct kvm *kvm, void __user *argp)
- 	return 0;
- }
- 
--static void __kvm_set_clock(struct kvm *kvm, struct kvm_clock_data *data)
-+/* Must precede pvclock_update_vm_gtod_copy(), which reads the matched count. */
-+static void kvm_open_tsc_generation(struct kvm *kvm, u64 guest_tsc)
- {
- 	struct kvm_arch *ka = &kvm->arch;
--	u64 now_raw_ns;
-+	struct kvm_vcpu *vcpu;
-+	unsigned long i;
-+
-+	lockdep_assert_held(&ka->tsc_write_lock);
-+
-+	ka->cur_tsc_generation++;
-+	ka->cur_tsc_write = guest_tsc;
-+	ka->last_tsc_write = guest_tsc;
-+	ka->nr_vcpus_matched_tsc = atomic_read(&kvm->online_vcpus) - 1;
-+
-+	kvm_for_each_vcpu(i, vcpu, kvm) {
-+		if (vcpu->arch.guest_tsc_protected)
-+			continue;
-+		ka->last_tsc_khz = vcpu->arch.virtual_tsc_khz;
-+		ka->last_tsc_scaling_ratio = vcpu->arch.l1_tsc_scaling_ratio;
-+		break;
-+	}
-+}
-+
-+/* Every vCPU reads @guest_tsc at host TSC @host_tsc. */
-+static void kvm_set_tsc_generation(struct kvm *kvm, u64 host_tsc,
-+				   u64 guest_tsc, u64 ns)
-+{
-+	struct kvm_arch *ka = &kvm->arch;
-+	struct kvm_vcpu *vcpu;
-+	unsigned long i;
-+
-+	lockdep_assert_held(&ka->tsc_write_lock);
-+
-+	ka->cur_tsc_nsec = ns;
-+	ka->last_tsc_nsec = ns;
-+	ka->restore_host_tsc = host_tsc;
-+	ka->restore_guest_tsc = guest_tsc;
-+	ka->restore_tsc_nsec = ns;
-+
-+	kvm_for_each_vcpu(i, vcpu, kvm) {
-+		if (vcpu->arch.guest_tsc_protected)
-+			continue;
-+
-+		ka->cur_tsc_offset = kvm_compute_l1_tsc_offset(vcpu, host_tsc,
-+							       guest_tsc);
-+		ka->last_tsc_offset = ka->cur_tsc_offset;
-+		kvm_make_request(KVM_REQ_WRITE_TSC_OFFSET, vcpu);
-+	}
-+}
-+
-+/* Runs on the vCPU; only the owner writes its TSC offset. */
-+static void kvm_vcpu_apply_tsc_generation(struct kvm_vcpu *vcpu)
-+{
-+	struct kvm_arch *ka = &vcpu->kvm->arch;
-+	unsigned long flags;
-+	u64 offset;
-+
-+	raw_spin_lock_irqsave(&ka->tsc_write_lock, flags);
-+	offset = kvm_compute_l1_tsc_offset(vcpu, ka->restore_host_tsc,
-+					   ka->restore_guest_tsc);
-+	vcpu->arch.last_guest_tsc = ka->restore_guest_tsc;
-+	vcpu->arch.this_tsc_generation = ka->cur_tsc_generation;
-+	vcpu->arch.this_tsc_nsec = ka->restore_tsc_nsec;
-+	vcpu->arch.this_tsc_write = ka->restore_guest_tsc;
-+	raw_spin_unlock_irqrestore(&ka->tsc_write_lock, flags);
-+
-+	kvm_vcpu_write_tsc_offset(vcpu, offset);
-+}
-+
-+static void __kvm_set_clock(struct kvm *kvm, struct kvm_clock_data *data,
-+			    const u64 *guest_tsc)
-+{
-+	struct kvm_arch *ka = &kvm->arch;
-+	u64 host_tsc, now_raw_ns;
- 
- 	kvm_hv_request_tsc_page_update(kvm);
- 	kvm_start_pvclock_update(kvm);
-+	if (guest_tsc)
-+		kvm_open_tsc_generation(kvm, *guest_tsc);
- 	pvclock_update_vm_gtod_copy(kvm);
- 
- 	/*
-@@ -4380,14 +4452,29 @@ static void __kvm_set_clock(struct kvm *kvm, struct kvm_clock_data *data)
- 			data->clock += now_real_ns - data->realtime;
- 	}
- 
--	if (ka->use_master_clock)
-+	if (ka->use_master_clock) {
- 		now_raw_ns = ka->master_kernel_ns;
--	else
-+		host_tsc = ka->master_cycle_now;
-+	} else {
-+		host_tsc = rdtsc();
- 		now_raw_ns = get_kvmclock_base_ns();
-+	}
- 	ka->kvmclock_offset = data->clock - now_raw_ns;
-+
-+	if (guest_tsc)
-+		kvm_set_tsc_generation(kvm, host_tsc, *guest_tsc, now_raw_ns);
-+
- 	kvm_end_pvclock_update(kvm);
- }
- 
-+/* Step kvmclock to @ns and the guest TSC on every vCPU to @guest_tsc. */
-+void kvm_set_clock_and_tsc(struct kvm *kvm, u64 ns, u64 guest_tsc)
-+{
-+	struct kvm_clock_data data = { .clock = ns };
-+
-+	__kvm_set_clock(kvm, &data, &guest_tsc);
-+}
-+
- static int kvm_vm_ioctl_set_clock(struct kvm *kvm, void __user *argp)
- {
- 	struct kvm_clock_data data;
-@@ -4402,7 +4489,7 @@ static int kvm_vm_ioctl_set_clock(struct kvm *kvm, void __user *argp)
- 	if (data.flags & ~KVM_CLOCK_VALID_FLAGS)
- 		return -EINVAL;
- 
--	__kvm_set_clock(kvm, &data);
-+	__kvm_set_clock(kvm, &data, NULL);
- 	return 0;
- }
- 
-@@ -8168,6 +8255,8 @@ static int vcpu_enter_guest(struct kvm_vcpu *vcpu)
- 			kvm_update_masterclock(vcpu->kvm);
- 		if (kvm_check_request(KVM_REQ_GLOBAL_CLOCK_UPDATE, vcpu))
- 			kvm_gen_kvmclock_update(vcpu);
-+		if (kvm_check_request(KVM_REQ_WRITE_TSC_OFFSET, vcpu))
-+			kvm_vcpu_apply_tsc_generation(vcpu);
- 		if (kvm_check_request(KVM_REQ_CLOCK_UPDATE, vcpu)) {
- 			r = kvm_guest_time_update(vcpu);
- 			if (unlikely(r))
-diff --git a/arch/x86/kvm/x86.h b/arch/x86/kvm/x86.h
-index 436e2fb1396c4..e26ca67ac7219 100644
---- a/arch/x86/kvm/x86.h
-+++ b/arch/x86/kvm/x86.h
-@@ -326,6 +326,7 @@ void kvm_vcpu_reset(struct kvm_vcpu *vcpu, bool init_event);
- void kvm_inject_realmode_interrupt(struct kvm_vcpu *vcpu, int irq, int inc_eip);
- 
- u64 get_kvmclock_ns(struct kvm *kvm);
-+void kvm_set_clock_and_tsc(struct kvm *kvm, u64 ns, u64 guest_tsc);
- uint64_t kvm_get_wall_clock_epoch(struct kvm *kvm);
- bool kvm_get_monotonic_and_clockread(s64 *kernel_ns, u64 *tsc_timestamp);
- int kvm_guest_time_update(struct kvm_vcpu *v);
-diff --git a/include/hyperv/hvgdk_mini.h b/include/hyperv/hvgdk_mini.h
-index 6a4e8b9d570fd..87dfb0aed827e 100644
---- a/include/hyperv/hvgdk_mini.h
-+++ b/include/hyperv/hvgdk_mini.h
-@@ -343,6 +343,8 @@ union hv_hypervisor_version_info {
- #define HV_X64_EX_PROCESSOR_MASKS_RECOMMENDED		BIT(11)
- #define HV_X64_HYPERV_NESTED				BIT(12)
- #define HV_X64_ENLIGHTENED_VMCS_RECOMMENDED		BIT(14)
-+/* Reserved in the TLFS; from Microsoft's hvdef. */
-+#define HV_X64_RESTORE_TIME_ON_RESUME			BIT(20)
- #define HV_X64_USE_MMIO_HYPERCALLS			BIT(21)
- 
- /*
-@@ -499,6 +501,7 @@ union hv_vp_assist_msr_contents {	 /* HV_REGISTER_VP_ASSIST_PAGE */
- #define HVCALL_SET_VP_STATE				0x00e4
- #define HVCALL_GET_VP_CPUID_VALUES			0x00f4
- #define HVCALL_GET_PARTITION_PROPERTY_EX		0x0101
-+#define HVCALL_RESTORE_PARTITION_TIME			0x0103
- #define HVCALL_MMIO_READ				0x0106
- #define HVCALL_MMIO_WRITE				0x0107
- #define HVCALL_DISABLE_HYP_EX                           0x010f
-@@ -1514,6 +1517,15 @@ union hv_intercept_parameters {
- 	/* N.B. Other intercept types do not have any parameters. */
+diff --git a/drivers/dma/xilinx/xdma.c b/drivers/dma/xilinx/xdma.c
+index 8d4a5d14e8db..16d202722245 100644
+--- a/drivers/dma/xilinx/xdma.c
++++ b/drivers/dma/xilinx/xdma.c
+@@ -81,7 +81,6 @@ struct xdma_chan {
+  * @vdesc: Virtual DMA descriptor
+  * @chan: DMA channel pointer
+  * @dir: Transferring direction of the request
+- * @desc_blocks: Hardware descriptor blocks
+  * @dblk_num: Number of hardware descriptor blocks
+  * @desc_num: Number of hardware descriptors
+  * @completed_desc_num: Completed hardware descriptors
+@@ -91,12 +90,12 @@ struct xdma_chan {
+  * @period_size: Size of a period in bytes in cyclic transfers
+  * @frames_left: Number of frames left in interleaved DMA transfer
+  * @error: tx error flag
++ * @desc_blocks: Hardware descriptor blocks
+  */
+ struct xdma_desc {
+ 	struct virt_dma_desc		vdesc;
+ 	struct xdma_chan		*chan;
+ 	enum dma_transfer_direction	dir;
+-	struct xdma_desc_block		*desc_blocks;
+ 	u32				dblk_num;
+ 	u32				desc_num;
+ 	u32				completed_desc_num;
+@@ -106,6 +105,7 @@ struct xdma_desc {
+ 	u32				period_size;
+ 	u32				frames_left;
+ 	bool				error;
++	struct xdma_desc_block		desc_blocks[] __counted_by(dblk_num);
  };
  
-+/* HVCALL_RESTORE_PARTITION_TIME input. Layout from Microsoft's hvdef. */
-+struct hv_input_restore_partition_time {
-+	u64 partition_id;
-+	u32 tsc_sequence;
-+	u32 reserved;
-+	u64 reference_time_in_100ns;
-+	u64 tsc;
-+} __packed;
-+
- /* Data structures for HVCALL_MMIO_READ and HVCALL_MMIO_WRITE */
- #define HV_HYPERCALL_MMIO_MAX_DATA_LENGTH 64
+ #define XDMA_DEV_STATUS_REG_DMA		BIT(0)
+@@ -255,7 +255,6 @@ static void xdma_free_desc(struct virt_dma_desc *vdesc)
+ 			      sw_desc->desc_blocks[i].virt_addr,
+ 			      sw_desc->desc_blocks[i].dma_addr);
+ 	}
+-	kfree(sw_desc->desc_blocks);
+ 	kfree(sw_desc);
+ }
  
+@@ -276,26 +275,22 @@ xdma_alloc_desc(struct xdma_chan *chan, u32 desc_num, bool cyclic)
+ 	void *addr;
+ 	int i, j;
+ 
+-	sw_desc = kzalloc_obj(*sw_desc, GFP_NOWAIT);
++	dblk_num = DIV_ROUND_UP(desc_num, XDMA_DESC_ADJACENT);
++	sw_desc = kzalloc_flex(*sw_desc, desc_blocks, dblk_num, GFP_NOWAIT);
+ 	if (!sw_desc)
+ 		return NULL;
+ 
++	sw_desc->dblk_num = dblk_num;
+ 	sw_desc->chan = chan;
+ 	sw_desc->desc_num = desc_num;
+ 	sw_desc->cyclic = cyclic;
+ 	sw_desc->error = false;
+-	dblk_num = DIV_ROUND_UP(desc_num, XDMA_DESC_ADJACENT);
+-	sw_desc->desc_blocks = kzalloc_objs(*sw_desc->desc_blocks, dblk_num,
+-					    GFP_NOWAIT);
+-	if (!sw_desc->desc_blocks)
+-		goto failed;
+ 
+ 	if (cyclic)
+ 		control = XDMA_DESC_CONTROL_CYCLIC;
+ 	else
+ 		control = XDMA_DESC_CONTROL(1, 0);
+ 
+-	sw_desc->dblk_num = dblk_num;
+ 	for (i = 0; i < sw_desc->dblk_num; i++) {
+ 		addr = dma_pool_alloc(chan->desc_pool, GFP_NOWAIT, &dma_addr);
+ 		if (!addr)
 -- 
-2.47.3
+2.56.0
 
