@@ -1,114 +1,104 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-139-mta245.mxyeet.net (mail-139-mta245.mxyeet.net [23.172.139.245])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 713EC4B1276;
-	Mon,  5 Oct 2026 14:47:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0AF304A4EE6
+	for <linux-kernel@vger.kernel.org>; Mon,  5 Oct 2026 14:48:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=23.172.139.245
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791211649; cv=none; b=RKQ9G1vWC1/nrFZ4KdlMfAnGXbSWt7ERTb8o4D/WOf2jrK0ltFn/T64XM7plz6Mxue4H6VLh9iUFUQoKsFdyULXLpVCJVpVZ6Lup2Jc7Ze1uBcnKSD/en6vjxKRJi1OijjpeOBHZiJxF01ehwGq3xZybilEBs5yYDfCoaecyaeg=
+	t=1791211688; cv=none; b=VUpf0LlCaybGN4XluhG0kQLMuQKpSF7l+EMNLmew+UDxIR6rVS05Nu654QmRu8+mOvTFfxNzetUkMTmSyfL/x2zPTbqCGDV/i5oFkIGjJiFMprtWT5vfb9v8ND7P1Go5d0OQOZu8Pgn3zMxpqWGzpK5pRHEtwDX+mtXPU3FocLA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791211649; c=relaxed/simple;
-	bh=uMIu5Sox4TMYjmLgYpIkKpT2uwe5NQio8rVoWWq/45o=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=t7tAIAWFl5dYYO+kb2bV6QbUSHMO6fW93cdlBvpWmRRhgypwnWRSMMt3x/xS/Y/PznV18Xb2SN9BzkN6Gcossxm6tVVixDfuZWB7pZ6CYBEYLd63QY4csp93qyXLv81wdey1WOWtCs9XAtAkmjocy72zqHNYHJT+UxSLm09NmU8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=K7KBvG7h; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791211688; c=relaxed/simple;
+	bh=9YGDjY1vYVijQB92yUeELjAVI0R337sPyorF2am+YUY=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=ZBpuHqTNdhw1w2kn6jzPeO3SJXMD/b2YJ4laE3402CstGrjtXeuPEiO5lu7/nmhnlQPyZIvveMS4cuRbp3fQZJy3ho+lQQHOR4sN8uYWUNcQQHKeOB+uSEqNb4cAkM9P+tb64dlMPW+fUmmIL2VNCY88sxbMnYdjxZDzkoZoc9k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=endrik.dev; spf=pass smtp.mailfrom=endrik.dev; dkim=pass (2048-bit key) header.d=endrik.dev header.i=@endrik.dev header.b=4TQ04GJc; arc=none smtp.client-ip=23.172.139.245
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=endrik.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=endrik.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="K7KBvG7h"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BE4001F00893;
-	Mon,  5 Oct 2026 14:47:25 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791211646;
-	bh=yd1SAc+Z/SeLtWDgli/OkIE3mIO8q60HpOea3gbr0Nk=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=K7KBvG7hmH2BPO9UY6c1HcDy6VC2GYcJjqnA/VxqhuIF+S+Cm79NDBl8hSDM7ZI3y
-	 u+kZ09nJVS+2Ts/Qf7gPzK6Rx55W/1CN8Ojft5IU/YiWH/aKCS3Q7MrUo/vsa+84ox
-	 ui8K1gez8Car+EGnXNdE8KSAxF/1ZmLICYsQwvRDIyAnpz2J9INjtLemOXIEaTBWOE
-	 IFAvi0KgHQ4/WIqZLbdyL6JQdDGhNTdtBaZJdtJ7oTywFws9azkSHqu5JJGeFgPjgA
-	 eC9m/b9crzrB2tkHO/6AMdrcBvKYdhAoFXEwu6IGIk3eOOhKng22ne8gE6xlT/Hdun
-	 4mK06hCecKAWg==
-Date: Mon, 5 Oct 2026 16:47:23 +0200
-From: Frederic Weisbecker <frederic@kernel.org>
-To: Kunwu Chan <kunwu.chan@gmail.com>
-Cc: arnd@arndb.de, anna-maria@linutronix.de, mingo@kernel.org,
-	tglx@kernel.org, linux-arch@vger.kernel.org,
+	dkim=pass (2048-bit key) header.d=endrik.dev header.i=@endrik.dev header.b="4TQ04GJc"
+Received: from lu-shared04.cpanelplatform.com [2602:faa9:3000::1006] (Authenticated sender: relay@mxyeet.net)
+ by mail-139-mta245.mxyeet.net (MailFilter Outbound) with ESMTPSA id 1a10c84748e00089d7.004
+ for <linux-kernel@vger.kernel.org>
+ (version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384);
+ Mon, 05 Oct 2026 14:42:49 +0000
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=endrik.dev;
+	s=default; h=Content-Transfer-Encoding:MIME-Version:Message-ID:Date:Subject:
+	Cc:To:From:Sender:Reply-To:Content-Type:Content-ID:Content-Description:
+	Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:
+	In-Reply-To:References:List-Id:List-Help:List-Unsubscribe:
+	List-Unsubscribe-Post:List-Subscribe:List-Post:List-Owner:List-Archive;
+	bh=g22i9c42czROMUzVLasefPbOfPkxQ+xpmXjci54RXu8=; b=4TQ04GJcdmZyMYCPl58nhTEC+i
+	uJZJitngO2gHu5VDJGWQjP/DBqC6XIC0XaH7T/3k4jDy9EW/fQTcwI2ffJG15yejkXBgKy9o8iTDq
+	4rAIZ9a/uUg+GOe7nqMyOWtae5sXgXqtvjVaYk2iMGZk0S8867sQ2r9xgkZDOCNY9Lq+9OpCg58hM
+	iqYVNCc9AMYeHc9B4im5o5VmiHWaUb+1UUdljzRIiMUdMeR6T7gVZmA+qbPd69BItZzAuNSdrsmwD
+	zmhZwIQGmT6kb5KjZkUHkhNSSvogh6AHPAI5VvqBk9zqFFuYdWHQOMbWu1oi4SiGk4may7S8Ni3yu
+	l36eVFgA==;
+Received: from 85-253-174-246.ip.elisa.ee ([85.253.174.246]:43792 helo=noether.localdomain)
+	by lu-shared04.cpanelplatform.com with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
+	(Exim 4.100.1)
+	(envelope-from <git@endrik.dev>)
+	id 1xDjtv-00000003E8N-3NmA;
+	Mon, 05 Oct 2026 16:42:47 +0200
+From: Endrik Einberg <git@endrik.dev>
+To: miriam.rachel.korenblit@intel.com
+Cc: linux-wireless@vger.kernel.org,
+	netdev@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	"Paul E . McKenney" <paulmck@kernel.org>
-Subject: Re: [PATCH v2 1/2] rwonce: Add READ_ONCE_THIS_CPU() and
- WRITE_ONCE_THIS_CPU()
-Message-ID: <asO4ey3X6JK0IzlY@localhost.localdomain>
-References: <20261002151757.3605081-1-kunwu.chan@gmail.com>
- <20261002151757.3605081-2-kunwu.chan@gmail.com>
+	Endrik Einberg <git@endrik.dev>
+Subject: [PATCH v2] wifi: iwlwifi: mld: include VI packets in low latency detection
+Date: Mon,  5 Oct 2026 17:42:25 +0300
+Message-ID: <20261005144225.170280-1-git@endrik.dev>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <20261002151757.3605081-2-kunwu.chan@gmail.com>
+X-From-Rewrite: unmodified, there is a forwarder that points to the actual sender.
+X-AuthUser: endrik@endrik.dev
+X-NCN-Id: qrBpiUCfTMOkjygEbw==
 
-Le Fri, Oct 02, 2026 at 11:17:55PM +0800, Kunwu Chan a écrit :
-> Per-CPU variables are sometimes accessed from different execution
-> contexts on the same CPU, typically task context and an interrupt or
-> NMI handler.
-> 
-> A plain READ_ONCE() or WRITE_ONCE() marks such an access as an
-> intentional race but does not express where the racing accesses are
-> expected to come from. This distinction allows concurrency tools such
-> as KCSAN to tell an intentional same-CPU context race apart from an
-> access that may race across CPUs.
-> 
-> Add READ_ONCE_THIS_CPU() and WRITE_ONCE_THIS_CPU() to identify accesses
-> to a per-CPU variable which are intended to race only with accesses
-> from other execution contexts on the same CPU. For now, they are
-> simple wrappers around READ_ONCE() and WRITE_ONCE(), so generated code
-> and tool behaviour are unchanged.
+iwl_mld_is_vo_vi_pkt() checks whether the mapped access category
+is less than IEEE80211_AC_VI.
+Since mac80211 defines IEEE80211_AC_VO as 0 and IEEE80211_AC_VI as 1,
+this only matches voice traffic and excludes video traffic.
 
-But there is a plan to handle that with KSCAN, right?
+This was discovered during Wi-Fi troubleshooting with LLM assistance,
+then confirmed through runtime testing and manual code inspection.
+Synthetic video-priority UDP traffic did not automatically
+activate low-latency mode, whereas voice-priority traffic did
+(observed through the iwlmld debugfs state).
 
-If so:
+Include IEEE80211_AC_VI as intended,
+matching behaviour of iwlmvm's iwl_mvm_calc_tcm_stats().
+Explicitly specify the two values to match,
+avoiding such issues from enum value comparison in the future.
 
-Acked-by: Frederic Weisbecker <frederic@kernel.org>
+Fixes: d1e879ec600f ("wifi: iwlwifi: add iwlmld sub-driver")
+Signed-off-by: Endrik Einberg <git@endrik.dev>
+---
+Changes in v2:
+- Match IEEE80211_AC_VO and _VI explicitly, as suggested by Miri.
+- Describe how the issue was discovered and confirmed.
 
-Thanks.
+ drivers/net/wireless/intel/iwlwifi/mld/low_latency.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-
-> 
-> Suggested-by: Thomas Gleixner <tglx@kernel.org>
-> Suggested-by: Paul E. McKenney <paulmck@kernel.org>
-> Signed-off-by: Kunwu Chan <kunwu.chan@gmail.com>
-> ---
->  include/asm-generic/rwonce.h | 11 +++++++++++
->  1 file changed, 11 insertions(+)
-> 
-> diff --git a/include/asm-generic/rwonce.h b/include/asm-generic/rwonce.h
-> index 52b969c7cef9..4d4e009a4489 100644
-> --- a/include/asm-generic/rwonce.h
-> +++ b/include/asm-generic/rwonce.h
-> @@ -61,6 +61,17 @@ do {									\
->  	__WRITE_ONCE(x, val);						\
->  } while (0)
->  
-> +/*
-> + * {READ,WRITE}_ONCE_THIS_CPU() identify accesses to a per-CPU variable
-> + * which are intended to race only with accesses from other execution
-> + * contexts on the same CPU, e.g. task and interrupt context.
-> + *
-> + * For now, these are simple wrappers around READ_ONCE() and
-> + * WRITE_ONCE().
-> + */
-> +#define READ_ONCE_THIS_CPU(x)		READ_ONCE(x)
-> +#define WRITE_ONCE_THIS_CPU(x, val)	WRITE_ONCE(x, val)
-> +
->  static __no_sanitize_or_inline
->  unsigned long __read_once_word_nocheck(const void *addr)
->  {
-> -- 
-> 2.43.0
-> 
-
+diff --git a/drivers/net/wireless/intel/iwlwifi/mld/low_latency.c b/drivers/net/wireless/intel/iwlwifi/mld/low_latency.c
+index a4ddc32e2860..e7482623111c 100644
+--- a/drivers/net/wireless/intel/iwlwifi/mld/low_latency.c
++++ b/drivers/net/wireless/intel/iwlwifi/mld/low_latency.c
+@@ -257,7 +257,8 @@ static bool iwl_mld_is_vo_vi_pkt(struct ieee80211_hdr *hdr)
+ 	if (tid >= IWL_MAX_TID_COUNT)
+ 		return false;
+ 
+-	return tid_to_mac80211_ac[tid] < IEEE80211_AC_VI;
++	return tid_to_mac80211_ac[tid] == IEEE80211_AC_VI ||
++	       tid_to_mac80211_ac[tid] == IEEE80211_AC_VO;
+ }
+ 
+ void iwl_mld_low_latency_update_counters(struct iwl_mld *mld,
 -- 
-Frederic Weisbecker
-SUSE Labs
+2.53.0
+
