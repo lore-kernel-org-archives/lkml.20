@@ -1,97 +1,95 @@
-Received: from va-2-112.ptr.blmpb.com (va-2-112.ptr.blmpb.com [209.127.231.112])
+Received: from va-2-115.ptr.blmpb.com (va-2-115.ptr.blmpb.com [209.127.231.115])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 36FB930F958
-	for <linux-kernel@vger.kernel.org>; Mon,  5 Oct 2026 05:58:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.127.231.112
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6BE04231839
+	for <linux-kernel@vger.kernel.org>; Mon,  5 Oct 2026 05:58:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.127.231.115
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791179898; cv=none; b=ZXcsHAZ4xsPXxr6P3Sqpd8ixxibxy9ecai4RCJn68fR8CNU1xu9xWQBdE6neg4MNlrLHstB0AKNXnUBjKhTrtkwSMx0xzA7HPlzErigPMLAzEhsRGo8EczXx1YupDHd1B5m3arNr0Q+EFKwL3V2xzwSTP7Fd4+cFkEw/iOWTu4c=
+	t=1791179911; cv=none; b=Cxe0tYk3ODATNO8k5WPY7H/qNEw28g1OC/xLun+WFayw1bMZBxWvNb10N8oXC6nusNlrzb+NXym8Q9sO46dG0K3mSgTCDrCi8XREKgiJQynJSKw/5J/sFBrAnytFEz+uFyWghDB7Vr742GWRTi5gpK9Xlrty58fw5pgcI4O2n+4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791179898; c=relaxed/simple;
-	bh=gaOIVh/Fbhxf4BLNYgJS6fC6oDJjGRVPE6KET/gbixg=;
-	h=References:Cc:From:Content-Type:To:Message-Id:Mime-Version:
-	 In-Reply-To:Subject:Date; b=FkPd0POMGiw47QV5evuPuSL7BDIApM/rvk3kpRUmfV2a5bjyQvQRVVOHEw8Jql9nV7TKEInDrgb1VVEHBJRceUCIAnO1ozccukH/5mCkccR5Gnib4yWD5v0H0SR+mGax4aT9XUKBsor5WR6L04HWpS0ZLuBkLg+xoNIWRfZeAGA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com; spf=pass smtp.mailfrom=bytedance.com; dkim=pass (2048-bit key) header.d=bytedance.com header.i=@bytedance.com header.b=KYK1azOo; arc=none smtp.client-ip=209.127.231.112
+	s=arc-20240116; t=1791179911; c=relaxed/simple;
+	bh=g9acjeh/xobT0kH6b3VbQoeGTCIvxpYsQ+Uf7nyS3jY=;
+	h=Content-Type:Subject:In-Reply-To:References:To:Cc:Date:Message-Id:
+	 From:Mime-Version; b=IDpytFSAu7Kjq9Z/EkabUDel2P3d5JBb+T4QHkRbCEehEhfY8HlYm5tAdZDdW23278XX0dUKomxyWuF09YDzuVuuhLcN5y4HLxYVDr5AstRYsOpCCWJMbmb/7J9JXLD7iiWfF31lpcFlSm6BAKB8amfxY6WoiN7msfqhAJEliWc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com; spf=pass smtp.mailfrom=bytedance.com; dkim=pass (2048-bit key) header.d=bytedance.com header.i=@bytedance.com header.b=aXwQe5oY; arc=none smtp.client-ip=209.127.231.115
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bytedance.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bytedance.com header.i=@bytedance.com header.b="KYK1azOo"
+	dkim=pass (2048-bit key) header.d=bytedance.com header.i=@bytedance.com header.b="aXwQe5oY"
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- s=2212171451; d=bytedance.com; t=1791179885; h=from:subject:
+ s=2212171451; d=bytedance.com; t=1791179898; h=from:subject:
  mime-version:from:date:message-id:subject:to:cc:reply-to:content-type:
  mime-version:in-reply-to:message-id;
- bh=rbcLZB3ZBgbTYA+k7hqZrKu6IQRQyBU0erRYid8vObU=;
- b=KYK1azOonSyerggFDYh8vSInBE/gb5w70EzWjwRC3OFH59MaWN/pGjeS6j5kywMLwoxSqB
- RQ0tSerQCVXsOQGVnHtO2JVTS0sUePaSaKraXCgKjF1eH45l18l8hdGpZgOWyeqiuG225i
- Dal3PbRpPnuhpP9T4Zvt8hGPCzzokNZ17e0/LcaFk3Mw8pJoMHVKc62bgD9uCvFUTKQCma
- 1TGVCxZQRMtgqv5VlLUwNF4Pdvxye/kgo5Z3q9PUN/r5jm/xGEmGUkgvGyxqcCSKhl+wBd
- 1cszOS1AAGGBUE3PFWuWwFDSVW4LKzR+sNQ4DH1LHRMLr7zk9FFCEOPcD9zz0g==
-References: <cover.1791179421.git.zhouchuyi@bytedance.com>
-X-Mailer: git-send-email 2.20.1
-X-Original-From: Chuyi Zhou <zhouchuyi@bytedance.com>
-Cc: <linux-kernel@vger.kernel.org>, "Chuyi Zhou" <zhouchuyi@bytedance.com>
-From: "Chuyi Zhou" <zhouchuyi@bytedance.com>
+ bh=s2krXa20oloEYjrGVQhwJuZNjRCQJbPdEr+UoWVuJTs=;
+ b=aXwQe5oYU7Od4PFPX/525fsrIY+AiF7IOo8A98LV0/UDt75/basvtS/yEPTKnKU6qxsGSd
+ GCIH7p2GwqKP7HbYAwNN43OqwLHNENPpjAMmz6fkN+iBKNyN8Ldibxf8PuExoMg3mbP6fJ
+ 4vvCACLJWrZzTE5Dx0HTg2oTYBeEFrASjBskvrvABpaFSy2dGI0mGTwl0p2NUoSMcadACT
+ fPLsavIv3+9xN1TND00mKzonrjPxONuqIxOudO7rsW+xmtPe/9hxloxT6Lorgzveou+xmh
+ 8v4hMoJ9tt/RYhDM5X5arBUAI3go6QCk4z6AIrJF8qg1sZ5OiNNm7wojNk9HRg==
+X-Lms-Return-Path: <lba+26ac33c78+f6b5b7+vger.kernel.org+zhouchuyi@bytedance.com>
 Content-Type: text/plain; charset=UTF-8
+Subject: [PATCH v2 3/5] x86/mm: Extract the TLB range flush threshold check
+In-Reply-To: <cover.1791179421.git.zhouchuyi@bytedance.com>
+X-Original-From: Chuyi Zhou <zhouchuyi@bytedance.com>
+References: <cover.1791179421.git.zhouchuyi@bytedance.com>
 To: <tglx@kernel.org>, <mingo@redhat.com>, <luto@kernel.org>, 
 	<peterz@infradead.org>, <paulmck@kernel.org>, <muchun.song@linux.dev>, 
 	<bp@alien8.de>, <dave.hansen@linux.intel.com>, <pbonzini@redhat.com>, 
 	<bigeasy@linutronix.de>, <clrkwllms@kernel.org>, <rostedt@goodmis.org>, 
 	<nadav.amit@gmail.com>
-Message-Id: <de25dfbadc285425aced1103b32456afdc2240ea.1791179421.git.zhouchuyi@bytedance.com>
+Cc: <linux-kernel@vger.kernel.org>, "Chuyi Zhou" <zhouchuyi@bytedance.com>
+Date: Mon,  5 Oct 2026 13:57:12 +0800
+Message-Id: <94658de1ddd0cbde299ab115ce90b5f5c60aa303.1791179421.git.zhouchuyi@bytedance.com>
+From: "Chuyi Zhou" <zhouchuyi@bytedance.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 Mime-Version: 1.0
-In-Reply-To: <cover.1791179421.git.zhouchuyi@bytedance.com>
-Subject: [PATCH v2 2/5] x86/mm: Share the full TLB flush dispatch
-Date: Mon,  5 Oct 2026 13:57:11 +0800
 Content-Transfer-Encoding: 7bit
-X-Lms-Return-Path: <lba+26ac33c6b+a554c9+vger.kernel.org+zhouchuyi@bytedance.com>
+X-Mailer: git-send-email 2.20.1
 
-flush_tlb_all() and kernel_tlb_flush_all() select the same INVLPGB or
-IPI backend and account for the same sender-side event. Keeping two
-implementations duplicates the backend selection and accounting.
+The decision to replace a range flush with a full flush is embedded in
+init_flush_tlb_info(). Both mm and kernel flushes use this policy, but
+the kernel path only needs the range and the decision, without the
+mm-specific descriptor initialization.
 
-Use flush_tlb_all() for kernel ranges promoted to a full flush and
-remove kernel_tlb_flush_all(). Share the existing backend dispatch and
-event accounting so each request is counted once.
+Extract the threshold predicate into tlb_range_exceeds_ceiling()
+and use it in init_flush_tlb_info(). Preserve the unsigned range
+arithmetic, right-shift rounding and strict greater-than comparison.
+Descriptor initialization and both flush paths remain unchanged.
 
 Signed-off-by: Chuyi Zhou <zhouchuyi@bytedance.com>
 ---
- arch/x86/mm/tlb.c | 12 +-----------
- 1 file changed, 1 insertion(+), 11 deletions(-)
+ arch/x86/mm/tlb.c | 8 +++++++-
+ 1 file changed, 7 insertions(+), 1 deletion(-)
 
 diff --git a/arch/x86/mm/tlb.c b/arch/x86/mm/tlb.c
-index da7c408f921c..5a1b96c61050 100644
+index 5a1b96c61050..0d03011c6825 100644
 --- a/arch/x86/mm/tlb.c
 +++ b/arch/x86/mm/tlb.c
-@@ -1486,16 +1486,6 @@ static void do_kernel_range_flush(void *info)
- 		flush_tlb_one_kernel(addr);
- }
+@@ -1373,6 +1373,12 @@ void flush_tlb_multi(const struct cpumask *cpumask,
+  */
+ unsigned long tlb_single_page_flush_ceiling __read_mostly = 33;
  
--static void kernel_tlb_flush_all(struct flush_tlb_info *info)
--{
--	count_vm_tlb_event(NR_TLB_REMOTE_FLUSH);
--
--	if (cpu_feature_enabled(X86_FEATURE_INVLPGB))
--		invlpgb_flush_all();
--	else
--		on_each_cpu(do_flush_tlb_all, NULL, 1);
--}
--
- static void kernel_tlb_flush_range(struct flush_tlb_info *info)
- {
- 	count_vm_tlb_event(NR_TLB_REMOTE_FLUSH);
-@@ -1515,7 +1505,7 @@ void flush_tlb_kernel_range(unsigned long start, unsigned long end)
- 			    TLB_GENERATION_INVALID);
- 
- 	if (info.end == TLB_FLUSH_ALL)
--		kernel_tlb_flush_all(&info);
-+		flush_tlb_all();
- 	else
- 		kernel_tlb_flush_range(&info);
- }
++static bool tlb_range_exceeds_ceiling(unsigned long start, unsigned long end,
++				      unsigned int stride_shift)
++{
++	return ((end - start) >> stride_shift) > tlb_single_page_flush_ceiling;
++}
++
+ static void init_flush_tlb_info(struct flush_tlb_info *info,
+ 				struct mm_struct *mm,
+ 				unsigned long start, unsigned long end,
+@@ -1383,7 +1389,7 @@ static void init_flush_tlb_info(struct flush_tlb_info *info,
+ 	 * If the number of flushes is so large that a full flush
+ 	 * would be faster, do a full flush.
+ 	 */
+-	if ((end - start) >> stride_shift > tlb_single_page_flush_ceiling) {
++	if (tlb_range_exceeds_ceiling(start, end, stride_shift)) {
+ 		start	= 0;
+ 		end	= TLB_FLUSH_ALL;
+ 	}
 -- 
 2.20.1
