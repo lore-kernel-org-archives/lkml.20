@@ -1,158 +1,315 @@
-Received: from mail-wr2-f35.google.com (mail-wr2-f35.google.com [74.125.225.99])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EE1863EE1C5
-	for <linux-kernel@vger.kernel.org>; Mon,  5 Oct 2026 21:28:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.99
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6A9E436A36B;
+	Mon,  5 Oct 2026 21:32:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791235712; cv=none; b=qbJmm4OcpkIJ/UIDZ+Mw4M16TFN/0N6X4/lTB8SpCnDoLd5PR2vq7DXZjNJFIIoSQHTP815ePnUrv9mfvgtENXdxYw/chPqCckqIF5T50EOVkzygQ7x6NohsZDDmMRXpWVtkYaTMlX1VBhUNB62vricBRkx4HiI0IZ3Ge9X8q8U=
+	t=1791235947; cv=none; b=NvTRrw7GXQU9XKCq6KrqaAlsgGs9/23EhXANkNq0XdCbbnxglAIaiHobdO4Lt2J+XtRZegAvWlDt+Fmz4saBL+rPIN4phnXQu/xtXdh0YGJI/1SN4G44E5n/oZ2JY+iBY830qaOggzeEQzXmBkCVnAd2E9qinwLoHCbvmUf4I4Y=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791235712; c=relaxed/simple;
-	bh=ouHV/+Hp31owgYgLps/TUZoGlx095gw73t3hUXyE/2Q=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=mxC1hr15frHASUiU5qOd+Fdd2NKnduG4QzKoPxlbpKMjdy61XNLvyg6/aJqeJqgbz9vdJecVI6S2OJv8tSrslYZ+aeUqZ/v1ZJp6rgbMn15Pgm1ffVHudbFUVN4Wr+lxtIHNIzIcKG++DXXaXmEIT3eDipdHMHZkYI7CgQPox80=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=oiImM/+m; arc=none smtp.client-ip=74.125.225.99
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1791235947; c=relaxed/simple;
+	bh=TDcZCddBf9AsiMRxk2IreZ5YIpQb9+kgqNRD7MI57WU=;
+	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=oXg/B9PAKuVPjYn5LYHhYR3NQoOIW4Q8592sqwY927swIqK1xfVO4UUui497fmRAOSa0IJMfxN0/hd2g3OBJHwMn14ouNxT+7d51XtFxaELUZSG3DPvsMU+vLX+Kt2IUayHLN1JP645RnIo+Wpp/JsvMNR8fKIMxR+8Iu55wVOU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jJgvzsyu; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="oiImM/+m"
-Received: by mail-wr2-f35.google.com with SMTP id ffacd0b85a97d-48b03eb33b2so887458f8f.0
-        for <linux-kernel@vger.kernel.org>; Mon, 05 Oct 2026 14:28:30 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791235709; x=1791840509; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=OU/WYqJh0qLKM4UCOwNjeVXwsxO3AjzoVQDnExjaeWk=;
-        b=oiImM/+mEcb6t35UyZAYx4NMCivI3bC2VF6cPwuWxjA9UjPpZHGRWAfTKXZ25nin2/
-         haudFxokN3xOGP28OuZ4VT58v0iaYlxBD49aemOFjG01USr6RR7Ec/Sk+puOJJ0LrUg+
-         /uRSd3wCGknSabB35Q9VO/D4U/gUQ9uroAItmUK703nH6SsRJdkGDNIUWNSERGIhmyCL
-         igiV0bmIXAWYnJHm2+ffVm3L/Gt5/dip4ZNrKomWo/IdPcxRVZryOJ5iL7gJoSMyc0Vn
-         29LNWOA6kpDMleVCRWKbMOkyxKbiLXeNu3iztliWP77xug+jkJULOOEw0c3OIISEc7bZ
-         42hA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791235709; x=1791840509;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=OU/WYqJh0qLKM4UCOwNjeVXwsxO3AjzoVQDnExjaeWk=;
-        b=JWD2VCBd68DP44FsN87BpNrPjfP5f0YdoovMaxhb5/lkI3i++GoWZgjQZFLIBsafT6
-         7AvBzTrvQlxWlpML6CljY3HIh/vLg1YV1y4tGiwl09ka8ygdjlzNO2OWyB7hR5whAB8c
-         +VtaroCAdJ1jexA2VmWZALzDmHqz6d0cRP9rIENzLJmunU/7Kz21QzPXoTWdmpG1T63+
-         Y23IenmqCPncpDcAhx1jaLaG0ec4I/fxzp1796yOKffsK+T0DU60zfFg0GOepRlixrid
-         pcvFS//8BxfVU5zf/ZZjkAVP5aCsfIDPfI2JR4XYpPK0Gs9VxcDmCPvAZAh+kcWtFKhm
-         mItQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzb4xkiBp9CjHrDpr/TSYTAJ68XTRcQF6BiLP3j5EZ1Y1fA42JbooOa1pT4IrJVabb72kApl3ZLkGZPynI=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJ7chgspWEFdTkPhdRTWxDWzAwqpU5Q1X5neRLkQIflj5bp/xJT
-	TSxEuCFQ5MzuLpfelV/YwADIuOcsCEzhZzt5/h+gqf+gb3hods210c4T
-X-Gm-Gg: AYBFou1Wye4aukaG20nhTADhUaaHnZjwv1uJOBPJJ9TftGtFhB0QULxLtd8cWwtK703
-	JwgxieTDUy7vN87N5QBwwASw49NjgPF1PasW9jHDQhwo0o24/CSpReI1aMeBtQP47A7zIhVIY/J
-	IpnUjTAdETgwojrc+SAzU+7m44uG0KPW4p9BekEXLuGQPm2dtPfR9B3PztPW0LTVhpcEBwEXE2k
-	KMp03tkYB/wewcpBlgP5San/BSt94/CaAMpQJZ0d/95Bsx4ps8oOdL0s4aRd4LWaXEVCuYOWL4m
-	dTwEYLYEuUcJOtUZ4kUG5KgekwbLibwxfQr/yoP/62iQYxUjMgDHfS3FqfseypVcWwau83C60JQ
-	/oAtdUrTiImbhB6r4TS0uzH0foU3qCOtVxz+NApj5SLkuMgPpYUTOhXHQLTTXnkdQTWrrLnXpac
-	4wegt4h5htWzHWsPs9PLkuv86TOwigVfy/HbCqwowymF7BH9dxUYhDHKlqVZqy+quQZQ1/1/3//
-	DUSNZkso7Ui3g96eoh07FLi5u3f4NccPlCEapw7diNLYe89FVM/PxsuVEnCgMzXTx6AcVU8SGsr
-	8u5mtk87EUqLRsFTTOFfUlxcvlRZT2lg4D/lwZlnidkwqxNsZI/4HhhZk8kSRHA4qdhouKxwaAE
-	rBsOusA==
-X-Received: by 2002:adf:f7c7:0:b0:48c:511a:1f31 with SMTP id ffacd0b85a97d-48c6864fce8mr1113114f8f.8.1791235708840;
-        Mon, 05 Oct 2026 14:28:28 -0700 (PDT)
-Received: from MBP-von-Karl.localdomain (dynamic-2a02-3100-b305-2001-39fa-3d24-821a-4eae.310.pool.telefonica.de. [2a02:3100:b305:2001:39fa:3d24:821a:4eae])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48c622bb172sm13037665f8f.42.2026.10.05.14.28.27
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Mon, 05 Oct 2026 14:28:28 -0700 (PDT)
-From: Karl Mehltretter <kmehltretter@gmail.com>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: Karl Mehltretter <kmehltretter@gmail.com>,
-	John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>,
-	Geert Uytterhoeven <geert@linux-m68k.org>,
-	linux-usb@vger.kernel.org,
-	linux-sh@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v2] usb: r8a66597-hcd: fix buffer overflow on odd-length FIFO reads
-Date: Mon,  5 Oct 2026 23:28:23 +0200
-Message-Id: <20261005212823.55737-1-kmehltretter@gmail.com>
-X-Mailer: git-send-email 2.39.5 (Apple Git-154)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jJgvzsyu"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 874BF1F000FF;
+	Mon,  5 Oct 2026 21:32:25 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791235946;
+	bh=Jiw19YMNcmn444avbsXXHPsf83UFaK2Hh1UK0pvmjbw=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=jJgvzsyuqa3AXZ7H4IL+2rMuygGeyVzRFeOcRrDnv0EJthfJU3z13wNXTTWTRHM7s
+	 jLbN719eAlQtQb2Z2vvXrYSKJ0P3xX55bUALx+tGbvKvkO/kDeT3xH+eRmBYEEM1fA
+	 Vzi+rVIJ68rsaiJALe57kTFPMgUxvhMdAjiu0kPzg/lPSKR3uJuCJ8qk0DZWKzM+u/
+	 QOsQjY8tZnxi4QCZpUsaWJEvtQmtGCPAAQgv5p5HSWvQAeu37Qej6FCuCrq8L5TAog
+	 dfjCopnQolBq7QnUVjOy8MMw8rBmzXOWU8tSNWcZ39heFpDjzrEXEGt2wv5BiHvXdb
+	 GEJfgNsuTzdBQ==
+Subject: Re: [PATCH net v2] net: phy: marvell: keep WOL_EIE across interrupt
+ reconfiguration
+From: netdev-bot+sashiko@kernel.org
+To: rosenp@gmail.com
+Cc: netdev@vger.kernel.org, andrew@lunn.ch, hkallweit1@gmail.com,
+ linux@armlinux.org.uk, davem@davemloft.net, edumazet@kernel.org,
+ kuba@kernel.org, pabeni@redhat.com, michael@stapelberg.de,
+ linux-kernel@vger.kernel.org
+Date: Mon, 05 Oct 2026 21:32:25 +0000
+Message-ID: <179123594509.434549.641674895146976264@kernel.org>
+In-Reply-To: <20261004204516.281201-1-rosenp@gmail.com>
+References: <20261004204516.281201-1-rosenp@gmail.com>
+X-sashiko-severity: High
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-An external R8A66597 (pdata->on_chip is not set) is read through a 16-bit
-FIFO port. r8a66597_read_fifo() rounds the byte count up to whole words
-and passes that word count to ioread16_rep(), which stores two bytes for
-every word. For an odd byte count the last word puts one byte more into
-the buffer than packet_read() asked for. When the data ends at the end of
-the URB's transfer buffer, that byte is written behind the buffer.
+Thank you for your contribution! Sashiko AI review found 4 potential
+issue(s) to consider.
 
-Enumerating a device is enough to trigger it. The USB core reads the
-configuration descriptor header into a 9-byte kmalloc() buffer and the
-driver stores 10 bytes. An SH7785LCR board booted with slub_debug=FZPU
-reports:
+Critical: 0 · High: 2 · Medium: 1 · Low: 1
 
-  [kmalloc Redzone overwritten] 0x820c4229-0x820c4229 @offset=553. First byte 0x9 instead of 0xcc
-  BUG kmalloc-32 (Not tainted): Object corrupt
-  Allocated in usb_get_configuration+0x12c/0x11d8 age=51 cpu=0 pid=10
-  Object   820c4220: 09 02 20 00 01 01 00 80 fa 09 cc cc cc cc cc cc
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
 
-Odd-sized HID report descriptors are overrun in the same way. Without
-slab debugging the byte ends up in the unused tail of a kmalloc() object.
-A transfer buffer that is embedded in a larger object has the byte after
-it overwritten.
+- [High] This patch adds a second source of truth for WoL.
+- [High] phy: marvell: m88e1318_config_intr writes WOL_EIE to wrong page
+  on 88E1510
+- [Medium] m88e1318_config_intr() reads priv->wol_armed (marvell.c:451)
+  without any lock, then overwrites the whole CSIER register with…
+- [Low] m88e1318_set_wol() updates priv->wol_armed only at the very end
+  (marvell.c:2173), after all page 0/3/17 accesses have succeeded.
 
-Section 2.8.5 of the R8A66597 datasheet tells software to discard the
-excess byte of the last 16-bit FIFO read when DTLN is odd. Read only the
-whole words into the buffer. Read the last word into a temporary and
-store only its first byte. Use ioread16_rep() for that word as well, so
-that the byte is taken in the same byte order as the words before it.
+--
 
-Fixes: 5d3043586db4 ("USB: r8a66597-hcd: host controller driver for R8A66597")
-Cc: stable@vger.kernel.org
-Reported-by: John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>
-Closes: https://lore.kernel.org/linux-sh/3bd32eaf159db61ed1d423e1d52a869b3689c682.camel@physik.fu-berlin.de/
-Tested-by: John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>
-Assisted-by: LLM
-Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
----
+net: phy: marvell: keep WOL_EIE across interrupt reconfiguration
 
-v2:
-- Simplify the handling of the last byte as suggested by Geert: no count
-  variable, len & 1, and a plain byte store instead of a 1-byte memcpy().
-- Reword the commit message and add the SLUB report from Adrian's board.
-- Add Adrian's Tested-by. It was given for v1. The FIFO accesses are the
-  same in v2, only the copy of the last byte changed.
+This patch gives the 88E1318S and 88E1510 PHYs their own config_intr. It
+sets CSIER.WOL_EIE from a new driver-private wol_armed flag, so
+phy_init_hw() on resume no longer clears it on polled PHYs. It also adds a
+handle_interrupt that claims the WoL event, and m88e1318_set_wol() now
+clears WOL_EIE when WoL is fully disabled.
 
-v1: https://lore.kernel.org/r/20261002213225.27834-1-kmehltretter@gmail.com/
+> diff --git a/drivers/net/phy/marvell.c b/drivers/net/phy/marvell.c
+> index f71cffa884062..46527abab6af8 100644
+> --- a/drivers/net/phy/marvell.c
+> +++ b/drivers/net/phy/marvell.c
 
-Adrian tested v1 on an SH7785LCR board. I tested v2 on a custom QEMU
-model of the board with 32-bit and 29-bit kernels and slub_debug=FZPU.
-Both report the overflow without the patch and not with it.
+[ ... ]
 
- drivers/usb/host/r8a66597.h | 11 +++++++++--
- 1 file changed, 9 insertions(+), 2 deletions(-)
+> @@ -425,6 +426,83 @@ static irqreturn_t marvell_handle_interrupt(struct phy_device *phydev)
+>  	return IRQ_HANDLED;
+>  }
+>  
+> +/*
 
-diff --git a/drivers/usb/host/r8a66597.h b/drivers/usb/host/r8a66597.h
---- a/drivers/usb/host/r8a66597.h
-+++ b/drivers/usb/host/r8a66597.h
-@@ -179,8 +179,15 @@ static inline void r8a66597_read_fifo(struct r8a66597 *r8a66597,
- 			       len & 0x03);
- 		}
- 	} else {
--		len = (len + 1) / 2;
--		ioread16_rep(fifoaddr, buf, len);
-+		ioread16_rep(fifoaddr, buf, len / 2);
-+
-+		if (len & 1) {
-+			u16 tmp;
-+
-+			/* Keep the byte order of the string read above. */
-+			ioread16_rep(fifoaddr, &tmp, 1);
-+			((u8 *)buf)[len - 1] = *(u8 *)&tmp;
-+		}
- 	}
- }
- 
+[ ... ]
+
+> + * WOL_EIE is derived from the driver's own WoL state rather than read
+> + * back from the PHY, so a bit left armed by the bootloader or a
+> + * previous kernel is cleared at probe/init instead of carried over.
+> + */
+> +static int m88e1318_config_intr(struct phy_device *phydev)
+> +{
+> +	struct marvell_priv *priv = phydev->priv;
+> +	u16 wol_eie = 0;
+> +	int err;
+> +
+> +	if (priv->wol_armed)
+> +		wol_eie = MII_88E1318S_PHY_CSIER_WOL_EIE;
+
+[Severity: High]
+Could this flag end up disagreeing with what m88e1318_get_wol() reports?
+
+priv->wol_armed starts out false from devm_kzalloc() in marvell_probe(),
+and only a successful set_wol sets it. m88e1318_get_wol() still reports
+from the hardware WOL_CTRL register:
+
+m88e1318_get_wol() {
+    ...
+	ret = phy_read_paged(phydev, MII_MARVELL_WOL_PAGE,
+			     MII_88E1318S_PHY_WOL_CTRL);
+    ...
+	if (ret & MII_88E1318S_PHY_WOL_CTRL_MAGIC_PACKET_MATCH_ENABLE)
+		wol->wolopts |= WAKE_MAGIC;
+    ...
+}
+
+WOL_CTRL can still have match enables set at probe. A bootloader can leave
+them set. So can a previous kernel (kexec, or a warm reboot without a PHY
+reset), or an earlier bind of this driver (unbind/rebind, rmmod/insmod).
+
+In that case, both of these paths write CSIER without WOL_EIE:
+
+phy_probe()->phy_disable_interrupts()->m88e1318_config_intr()
+phy_attach_direct()->phy_init_hw()->m88e1318_config_intr()
+
+Meanwhile get_wol keeps reporting WAKE_MAGIC.
+
+phy_drv_wol_enabled() then treats WoL as active, so phy_suspend() returns
+-EBUSY and keeps the PHY powered. Nothing reaches INTn, though, and the
+board does not wake.
+
+Running "ethtool -s ethX wol g" doesn't seem to fix this either.
+ethnl_set_wol() starts from get_wol, sees no change, and returns before
+calling set_wol:
+
+	if (!mod)
+		return 0;
+
+so wol_armed stays false.
+
+Writing 0 to this register at probe time isn't new. But the commit message
+describes this same symptom:
+
+  "m88e1318_get_wol() still reported WAKE_MAGIC, but a matched magic
+  packet was no longer routed to INTn and the board did not wake"
+
+It also says stale bootloader or previous-kernel state is "cleared at
+probe". Only WOL_EIE is cleared, though, and WOL_CTRL is left alone.
+
+Should get_wol and config_intr use one source of truth? Some options:
+
+- get_wol could report from wol_armed.
+- The WOL_CTRL match enables could be cleared when wol_armed is false.
+- config_intr could derive WOL_EIE from the hardware state.
+
+> +
+> +	if (phydev->interrupts == PHY_INTERRUPT_ENABLED) {
+> +		err = marvell_ack_interrupt(phydev);
+> +		if (err < 0)
+> +			return err;
+> +
+> +		err = phy_write(phydev, MII_88E1318S_PHY_CSIER,
+> +				MII_M1011_IMASK_INIT | wol_eie);
+> +	} else {
+
+[Severity: High]
+Does this reach the copper page when an 88E1510 is running a fiber
+link?
+
+phy_write() and phy_read() go to whichever page is currently
+selected. m88e1318_set_wol() explicitly switches to
+MII_MARVELL_COPPER_PAGE before touching WOL_EIE, since that is where
+the WoL interrupt enable and the latched WoL event bit live.
+m88e1318_config_intr() and m88e1318_handle_interrupt() don't do
+that.
+
+The 88E1510 entry has PHY_GBIT_FIBRE_FEATURES, and
+marvell_read_status() deliberately leaves the PHY on
+MII_MARVELL_FIBER_PAGE when the fiber link is up. It returns early
+without switching back. After that, these two functions access
+registers 0x12 and 0x13 of the fiber page instead of CSIER and
+IEVENT on the copper page.
+
+That defeats two of the cases this patch sets out to handle:
+
+- With a PHY interrupt, phy_free_interrupt() on ifdown calls
+  config_intr to drop WOL_EIE before the handler goes away. On the
+  fiber page that write misses, and the copper CSIER keeps WOL_EIE
+  set. That leaves a latched WoL event with nobody to clear it,
+  which the comment in the disable path is trying to prevent.
+
+- While the handler is installed, a WoL event latched on the copper
+  page is neither seen nor cleared by the IEVENT read in
+  m88e1318_handle_interrupt(). It returns IRQ_NONE while INTn stays
+  asserted, and on a level-triggered line this repeats until the
+  core disables the interrupt as "nobody cared".
+
+The old marvell_config_intr() and marvell_handle_interrupt() have the
+same dependence on the selected page, but the WoL handling added here
+only works if these accesses land on the copper page. Should the
+WOL_EIE update and the IEVENT read go through phy_write_paged() and
+phy_read_paged() with MII_MARVELL_COPPER_PAGE, the way
+m88e1318_set_wol() does? If so, how should the fiber page interrupt
+enable and status registers be handled, since the current code ends
+up touching those when the fiber page is selected?
+
+[ ... ]
+
+> +		if (phy_interrupt_is_valid(phydev))
+> +			wol_eie = 0;
+> +
+> +		err = phy_write(phydev, MII_88E1318S_PHY_CSIER, wol_eie);
+
+[Severity: Medium]
+Can these whole-register writes race with m88e1318_set_wol()?
+
+m88e1318_config_intr() reads priv->wol_armed without holding a lock, and
+phy_write() only takes the MDIO bus lock for that one access.
+
+m88e1318_set_wol() runs under phydev->lock (taken by
+phy_ethtool_set_wol()) and the MDIO bus lock (taken by phy_save_page()).
+phy_init_hw() takes neither.
+
+On mv643xx_eth, the driver named in the Fixes tag, tx_timeout_task() runs
+from a workqueue without RTNL or phydev->lock:
+
+tx_timeout_task()->port_start()->phy_init_hw()->m88e1318_config_intr()
+
+So it can run at the same time as:
+
+mv643xx_eth_set_wol()->phy_ethtool_set_wol()->m88e1318_set_wol()
+
+For a polled PHY:
+
+config_intr                        set_wol
+reads wol_armed == false
+                                   sets WOL_EIE, routes LED[2] to INTn,
+                                   enables magic match,
+                                   wol_armed = true
+phy_write(CSIER, 0)
+
+get_wol then reports WAKE_MAGIC while WOL_EIE is clear, which is the
+failure this patch sets out to fix. If the order is reversed and the
+ethtool command is "wol d", WOL_EIE stays armed after WoL was disabled.
+
+wol_armed is also a plain bool. It is written under phydev->lock and the
+MDIO bus lock but read with no lock, which KCSAN would report as a data
+race.
+
+There are two ways to avoid this:
+
+- Update only the IMASK_INIT bits with phy_modify(), so that only set_wol
+  ever touches WOL_EIE.
+- Serialize the snapshot and the write against set_wol.
+
+> +		if (err < 0)
+> +			return err;
+
+[ ... ]
+
+> @@ -2074,6 +2153,25 @@ static int m88e1318_set_wol(struct phy_device *phydev,
+>  			goto error;
+>  	}
+>  
+> +	if (!(wol->wolopts & (WAKE_MAGIC | WAKE_PHY))) {
+
+[ ... ]
+
+> +	}
+> +
+> +	/* Let m88e1318_config_intr() re-arm CSIER.WOL_EIE, or keep it
+> +	 * cleared once WoL is disabled.
+> +	 */
+> +	priv->wol_armed = !!(wol->wolopts & (WAKE_MAGIC | WAKE_PHY));
+> +
+>  error:
+>  	return phy_restore_page(phydev, oldpage, err);
+>  }
+
+[Severity: Low]
+What value does wol_armed keep if an MDIO access fails partway through
+m88e1318_set_wol()?
+
+The flag is only updated when every access succeeds. Any earlier failure
+jumps to error:, which skips the update and doesn't roll back the
+registers already written.
+
+On the enable path, CSIER.WOL_EIE, LED_TCR and the WOL_CTRL magic match
+enable may already be set while wol_armed stays false:
+
+		err = __phy_set_bits(phydev, MII_88E1318S_PHY_WOL_CTRL,
+				     MII_88E1318S_PHY_WOL_CTRL_CLEAR_WOL_STATUS |
+				     MII_88E1318S_PHY_WOL_CTRL_MAGIC_PACKET_MATCH_ENABLE);
+
+get_wol then reports WAKE_MAGIC, but the next m88e1318_config_intr()
+writes CSIER without WOL_EIE. If the user retries with the same mode,
+ethnl_set_wol() skips the call because get_wol already matches.
+
+On the disable path, the WOL_CTRL enables may already be cleared while
+wol_armed is still true from an earlier enable. The next config_intr then
+re-arms WOL_EIE.
+
+The missing rollback was already there before this patch. What the patch
+adds is that later config_intr calls now act on the stale flag.
+
 -- 
-2.53.0
-
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261004204516.281201-1-rosenp%40gmail.com
