@@ -1,79 +1,126 @@
-Received: from mta0.migadu.com (out-15.mta0.migadu.com [91.218.175.15])
+Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4C7E63932C6
-	for <linux-kernel@vger.kernel.org>; Mon,  5 Oct 2026 08:28:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.15
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2DD5D3B0AC4
+	for <linux-kernel@vger.kernel.org>; Mon,  5 Oct 2026 08:30:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791188920; cv=none; b=G7zxqnV3dCkNpSYIRZCxZclinIDcJ3QYbLEefqHlVvbKW7nOYQGd6lLe1eStcQH/Gpj2KjHBAqEWpABVeHW6ILV/7D1WAN7oJH4hTwuqp6l44JNLw0qn+aXIW6eXpCcaoAjoeJCMo+xZPgZBjD+O5JlOjm1zhYnq7AUx3O+1cr4=
+	t=1791189023; cv=none; b=EDBooeL/N1gabBK43HGM/y6uAe5e5FBbJkm9Hv9zdT2YurSfVJEOzq0WDmGla6N9CCWvGOCUdWV2hwVS+1RSNLH8I8bTOTC/sQ9wI8ESld0QYjOSurcKRq5xXFlFQm4O0KWs3keKYuDVCzOVioAGcjWJHUeOaIpUhoTQhd+xIRY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791188920; c=relaxed/simple;
-	bh=azL6RWzxNPLFbjqexUqOSuUWiCvD6BgcwHGYwvXeEQQ=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=JVX5xDw+hZiS0AiXqdVgy6Ss2uiSmQ5a8vMwlxYSu83jmp0s4sKSGMInuPvS/7VxiJE7QH1CfFwEfUbsvapvHvj+e3+Gm9O32pvYS9yvmCo1SZ/zIE+naVebS0mKojFpklUJzQlt52qLi5Pp731R2ocNivh2/31vX3yuhiCxMCw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=u/7csdmW; arc=none smtp.client-ip=91.218.175.15
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1791189023; c=relaxed/simple;
+	bh=vyTwTI8VlQ0pCbmAtLYSj9W7L6C9GYAol3GzhJTQf1g=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=MS37T53yC+R6Zyljga77FmDVb42HAYYUh5AkkCcPFL/Qsdokdihar9UV1Uadur0eum39sj4cHkP5XrIHvUY6kHWhuSuxKDrjYT9tiv8Ewu72FA3ayq5jCt97IX6QDW+UwJFvPoWje3pd0kflQkdDo22oIjmdjM41DoX3RVs18nM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=c/EUI7So; arc=none smtp.client-ip=74.125.225.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="u/7csdmW"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=azL6RWzxNPLFbjqexUqOSuUWiCvD6BgcwHGYwvXeEQQ=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1791188910; v=1; x=1791793710;
- b=u/7csdmWPh3JSTQ+jaIARSVNEGv7TPfWZPa0W9J1A6FLBCmkficHrVXNquw+rXTd5tn9HJAg
- fiUu4dpo3PZcH0WSxHCg7skVLMsWvAcefg7ikNnt8uQYp+ZMq2SLfhO0ImsT7J+MtP4TI1Vd8gr
- aSCcb3HP31fapkkjHtpu7GXs=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 78509a93645ffa2b;
-	Mon, 05 Oct 2026 08:28:30 +0000
-X-Mizu-Trace-ID: 78509a93645ffa2b
-X-Migadu-Flow: FLOW_OUT
-Received: by mail-lf1-f44.google.com with SMTP id 2adb3069b0e04-5bcbb378fc9so3581e87.0
-        for <linux-kernel@vger.kernel.org>; Mon, 05 Oct 2026 01:28:26 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBwRhB7eNDAvbrGiLtKkqdhA2bCKkjupppfc5rD+oQSytxAnyMBi30tQ3wOBC5dPd5YA7Br/avxyQZSrZyA=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJ1B87yD3l4hP8EeMF2xU9cqiRKrF0A+n2mg1sz8pkIGGmtXpLQ
-	NFthavYrKchKFS+wMdf86JhFYXoQzdnQeFwomz+3uWLMBwfgIFD1wZcxmgGVnVe8WSZ7blTPbID
-	z5/lUgkfh9XUQ7wmfXA9T8C0TIQTV18C5tF4eFo2N
-X-Received: by 2002:a05:6512:440e:b0:5bc:b531:51ea with SMTP id
- 2adb3069b0e04-5bcb62cfb9dmr110049e87.13.1791188905794; Mon, 05 Oct 2026
- 01:28:25 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="c/EUI7So"
+Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-4a1722c37c9so4856825e9.3
+        for <linux-kernel@vger.kernel.org>; Mon, 05 Oct 2026 01:30:19 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791189016; x=1791793816; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=sd1BmBIq6PAEb87txh8tHMQ7YpHFp1uklRh5l7OqDQs=;
+        b=c/EUI7SoBfNBQAAdVHR7FXUjXzbc859r/vcm9DEFj2V3V+ztdzanJyKA16TllyawQP
+         kEWRD1WC9U/anctRdZfCaupCHlSCySWN7lX4pi1zeV3YzoMGIhGXA6DrYaTZ/Mj8vGxS
+         O8mkGDyF6/9t6GwrYSI6IVNxFZFlPA5qf95wzN2WrvfL8NzgR/7PZH7bLx6hYps01bkd
+         dW5ICTMKKPfEVzjyTXKrgX820y5vccZaq0BkiyTghs5wZ6hFfqm4M7OVDCOBWZWB0Njg
+         yI7xDLtFgQsnReo1W6g2ofBbFmG2PHxDrM2flnf7zWFsSScYNs/MZUxPv30b9NUxbq2p
+         Ca1w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791189016; x=1791793816;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=sd1BmBIq6PAEb87txh8tHMQ7YpHFp1uklRh5l7OqDQs=;
+        b=gt5S/uf6GUgEt6W38PG37l5wwW75qqBzstoyKsFKzUp01wxXDmmbJlb9YWdkIozGuO
+         dtNoLwoDm/rSRVx2NfDMhrM8xM3scCEQXNvKv9gPko1lY4KVk7Y4APsKMMxC2tYbwezG
+         iHPMELjIJ4wYbF+4IlHGTNdqq2FnzqpUgju3+LbLQR2Ld5a3UbsN1D2XEwDaefd3/Flj
+         0gGDm0HEd+GeBV3mbBjk/M5s4OEnsqhkIho+Rv0Q6/oQcRpQChFfqlEEGsyb6AMMEmhs
+         3UG1VkJ34QPE7QeCNp8kdyV7j2OfOLQFcItKBEF9Gjm8PAQNZ+jFhqan6oXepRvAtljA
+         FWGw==
+X-Forwarded-Encrypted: i=1; AKwUvBxGphb12geJpS5yiOOGERJAuhW+jfYtLIHj2tG3zQas35hyUWeGxo8wzZYrGN1ObEKoELVESm7PyChIf6c=@vger.kernel.org
+X-Gm-Message-State: AFuF++n5sZ15LBN4uQiwWdWt8TYQYzi7U9p+WDGdxX+yuZ8+lA3wFAcT
+	if4DtDZKsOFkATRN9a7M/4NuSFIeHpkVy6VdkNeRcM5zK00Z7+xSqlcW
+X-Gm-Gg: AYBFou1LUJokX4lzE8XZ8KwHR4fQQ1qQgLHtre5AC6Vq+kom0rdsV3770sy8AdkxfaI
+	qgYD/+HZy4LCNg7+Ykwy1A3gDZWYGdkdlgwneJAT7ZJHz2YwO54ouVsv9u25Aqg5FZol2h+ly/O
+	r/0DGB+uUm0ntxLqNTmMj6rhbT5u/CiAtNMIjsJE/Ks3e6FEO9nxi0ay3+NSwhN05Sot/lrsWgi
+	L8sgC4ZUWzyNmQXyOCsdX9G7pDtPPP0qrDSm0CMLflM4JbhMMnE49xoNrDN+nVeRRqgDNN6EGa2
+	mYQ9ZVdC0l7qG8liinvXbf/yIlIq/BNiQeLrACho2zRCoDLynLC/iPuJdc9I0bWcsbCI7tOw0pW
+	8mq+VtJSu49wINsgo5oLtYzRemuU3ymVaVSdkSA05lJulgs8s62eCQ/5lnjx/MUF9p/nTYBjpHw
+	mZkLy+o+RGrV26y1DRWOFbMJZDHioysOFDV9s+LJyrz40+phs2glPNTIm01/rtHEIedR/eUpZau
+	Hld9zO3Bw==
+X-Received: by 2002:a05:600c:4592:b0:4a0:bc9:28c6 with SMTP id 5b1f17b1804b1-4a0276b6860mr152436465e9.34.1791189014935;
+        Mon, 05 Oct 2026 01:30:14 -0700 (PDT)
+Received: from foxbook (bfj133.neoplus.adsl.tpnet.pl. [83.28.47.133])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48c63904832sm1548590f8f.14.2026.10.05.01.30.13
+        (version=TLS1_2 cipher=AES128-SHA bits=128/128);
+        Mon, 05 Oct 2026 01:30:14 -0700 (PDT)
+Date: Mon, 5 Oct 2026 10:30:11 +0200
+From: Michal Pecio <michal.pecio@gmail.com>
+To: Sean Rhodes <sean@starlabs.systems>
+Cc: Ulf Hansson <ulfh@kernel.org>, Arnd Bergmann <arnd@arndb.de>, Greg
+ Kroah-Hartman <gregkh@linuxfoundation.org>, Ricky Wu
+ <ricky_wu@realtek.com>, Lee Jones <lee@kernel.org>, Roger Tseng
+ <rogerable@realtek.com>, Dan Carpenter <error27@gmail.com>, Jisheng Zhang
+ <jszhang@kernel.org>, linux-mmc@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 1/2] misc: rtsx_usb: avoid USB I/O in runtime
+ autosuspend
+Message-ID: <20261005103011.03175826.michal.pecio@gmail.com>
+In-Reply-To: <7acac70a471452a6ccf23b7ccc557f3c3861e0ad.1783352430.git.sean@starlabs.systems>
+References: <cover.1783352430.git.sean@starlabs.systems>
+	<7acac70a471452a6ccf23b7ccc557f3c3861e0ad.1783352430.git.sean@starlabs.systems>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20261005050349.836795-1-fuad.tabba@linux.dev> <asNdAXGkxagm88Su@kernel.org>
-In-Reply-To: <asNdAXGkxagm88Su@kernel.org>
-From: Fuad Tabba <fuad.tabba@linux.dev>
-Date: Mon, 5 Oct 2026 10:27:49 +0200
-X-Gmail-Original-Message-ID: <CA+EHjTxG=JUc7qERzdkOE4hEMUVSWK2AUtcR1JJ-k6S0m_RxqA@mail.gmail.com>
-X-Gm-Features: AclHuK_skcmiWKYt-g9sV07lqcK6sGjUvRohlQWsrIQerdG0YwJX1vJl3n2KYq4
-Message-ID: <CA+EHjTxG=JUc7qERzdkOE4hEMUVSWK2AUtcR1JJ-k6S0m_RxqA@mail.gmail.com>
-Subject: Re: [PATCH v3] KVM: arm64: selftests: Check SError is not pending
- after delivery
-To: Oliver Upton <oupton@kernel.org>
-Cc: maz@kernel.org, kvmarm@lists.linux.dev, 
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
-	catalin.marinas@arm.com, will@kernel.org, joey.gouly@arm.com, 
-	seiden@linux.ibm.com, suzuki.poulose@arm.com, yuzenghui@huawei.com, 
-	vdonnefort@google.com, qperret@google.com
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-Hi Oliver,
+On Mon,  6 Jul 2026 16:40:43 +0100, Sean Rhodes wrote:
+> The runtime autosuspend callback currently queries card status and
+> clears OCP by issuing USB register accesses. This can run from the
+> USB runtime-PM path itself, which is the wrong place to start more
+> device I/O.
+> 
+> Keep a cached copy of the card-status bits from normal status reads
+> instead. During runtime autosuspend, use that cached value only to
+> preserve the existing Memory Stick autosuspend deferral.
 
-On Mon, 5 Oct 2026 at 10:17, Oliver Upton <oupton@kernel.org> wrote:
->
-> Hi Fuad,
-[...]
->
-> Can you add coverage for the vCPU events state to all the test cases? In
-> addition to the case where the SError is taken, it'd be good to assert
-> that the SError remains pending if the guest masked it.
+How is the driver supposed to detect card insertion after the last poll
+but before the reader goes to suspend and can issue remote wakeup?
 
-Will do,
-/fuad
+This is exactly what happens now: if I insert a new card within two
+seconds of the "card removed" message showing up (which itself happens
+up to a second after removal) the insertion is never detected and the
+reader enters suspend with the card in.
 
-> Thanks,
-> Oliver
+It seems that not only was "starting more I/O in the runtime-PM path"
+actually a good idea, but polling should only stop when the parent USB
+device suspends, not the child MMC host, because there is a two second
+delay between them. And even with this patch reverted, insertion never
+works if USB autosuspend is simply disabled altogether.
+
+Also, does anyone know if there is any way to utilize the interrupt
+endpoint instead of polling? I tried submitting a URB to it and got
+regular responses, but only zeros. Can this be changed?
+
+> Do not treat raw SD_CD as an autosuspend blocker, because tray-based
+> SD readers can assert SD_CD with an empty tray. A real SD card is
+> protected by the SD/MMC child runtime-PM usage once powered.
+
+Sounds like the proper condition is to ignore the card if and only if
+it failed to initialize and has not been swapped for a new one.
+
+Hence the question about interrupts: this would vastly reduce the risk
+that a swap for an actual working card remains undetected.
+
+Regards,
+Michal
