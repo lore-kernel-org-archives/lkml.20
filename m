@@ -1,149 +1,170 @@
-Received: from va-2-54.ptr.blmpb.com (va-2-54.ptr.blmpb.com [209.127.231.54])
+Received: from mail-oi1-f170.google.com (mail-oi1-f170.google.com [209.85.167.170])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F17EC4854E6
-	for <linux-kernel@vger.kernel.org>; Mon,  5 Oct 2026 17:05:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.127.231.54
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791219950; cv=none; b=XS3PwxV8hfIkFsfqGk/UPcXPwz/xrWnoupZW0Jcvtz5zkuw08d+RjF4PCnJ7SMVvV2EoJM3snnJfKps5imqLdhJjxdTN4dyXCtLbrqQ49K2YYScv2fY97NB01O38qNefNmSfZI0RkzfouBLCPJ+FtBe75oUy2I4s5Q/GSf7iZtg=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791219950; c=relaxed/simple;
-	bh=gTDGYud3qlQvuMgHpcsxzMGP41YNywM9yUAqz9pKgn4=;
-	h=Subject:Date:In-Reply-To:To:From:References:Cc:Message-Id:
-	 Mime-Version:Content-Type; b=Aj00VxgIde5a8YAFLic0ljYSRKM3vBwxN0lhVuomwh53tIwVIMrkUWtNhz2Ny7oAyqdSn4Q9OTZc7y1r7jdQ09sWs58YVgR26C4EDfvK3Ak12Oo0UYbz0KF9y25Csa8lo149YU/ipyc1ka7ODF8dZyxgol9PLd04OIV1cXBtVl0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fygo.io; spf=pass smtp.mailfrom=fygo.io; dkim=pass (2048-bit key) header.d=fygo-io.20200929.dkim.larksuite.com header.i=@fygo-io.20200929.dkim.larksuite.com header.b=XT8gZwDr; arc=none smtp.client-ip=209.127.231.54
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fygo.io
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fygo.io
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EBCD24854E6
+	for <linux-kernel@vger.kernel.org>; Mon,  5 Oct 2026 17:06:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.167.170
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791219962; cv=pass; b=maT2MkFiEq9HoSnSb20fZNDyyiv8yDyPVCFpPTELTup8IivNYj3UG83f591z/QOPllDbVCHCzr+eNIYEqLLk72LHa2oy77TRhLCRd3y/koWWRiEPfLica3Zjpk3KFawqYemRFeRYy5NPXonexGNt2cKoUSBnrSiPxkWiRlPdxgo=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791219962; c=relaxed/simple;
+	bh=2RXkrvI8XGSx/1oVfdObGE9PLA8OssOwVxQ91HAiD08=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=mPHcomY0AFdqRZSqkSvaM4T7+5b3NlI+1kEhwT/lDJegnmNBSYnDS0DwdOZHiq14pqTdI+VSU9RyE7T5sNDlCHz35CuFh77yPVBCt2e5CJpKRAG1w9ZxiTg+p5nfdXJKwuLgRIfczBtIENKLBsL+CDOqqHuqZpMmnwzt3lWsDa0=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=mLSiFWv4; arc=pass smtp.client-ip=209.85.167.170
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=fygo-io.20200929.dkim.larksuite.com header.i=@fygo-io.20200929.dkim.larksuite.com header.b="XT8gZwDr"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- s=s1; d=fygo-io.20200929.dkim.larksuite.com; t=1791219935;
-  h=from:subject:mime-version:from:date:message-id:subject:to:cc:
- reply-to:content-type:mime-version:in-reply-to:message-id;
- bh=Z29jxW+KOxNoDRJXAQ3nuu7m9wFd0Uoz/D6C67c5o4A=;
- b=XT8gZwDrDSb1/VPVg7QzsvFqwHu01Tgw0HXrYsZccIb5hhqz75FWxwfANAeFUa3QGhTW6V
- 1t9Vzmqxieden4Je2zs64wHu3xvXezfAnITVyLznidXx4R6yDO/OIyd6abr37adK6abDc5
- Wc/76UbR47+y+0lgGj/roJQkMN9lIzKA7xUbkGXvoo1Dbd7DOTBlqRoattj0RQcB6k3Jah
- BBvW/5mN6Pp/2slh6Fy/rFNk3dTuhgSBr958srxRCLk3J9q4Edwwc7fDUEClaaN/8ld+zg
- c8aaOybiD1c3J+wso8Xk1c043P4J6cytzMaszG3s5UHqxpAh1bs3hv8yZyhxZg==
-Subject: Re: [PATCH] md: don't hand out the array before md_alloc() has added mddev->kobj
-Date: Tue, 6 Oct 2026 01:05:30 +0800
-In-Reply-To: <20261004055712.1293-1-yogeshgaur.83@gmail.com>
-To: "Yogesh Gaur" <yogeshgaur.83@gmail.com>, "Song Liu" <song@kernel.org>, 
-	"yu kuai" <yukuai@fygo.io>
-From: "yu kuai" <yukuai@fygo.io>
-User-Agent: Mozilla Thunderbird
-Received: from [192.168.1.104] ([39.182.0.177]) by smtp.larksuite.com with ESMTPS; Mon, 05 Oct 2026 17:05:34 +0000
-References: <20261004055712.1293-1-yogeshgaur.83@gmail.com>
-X-Original-From: yu kuai <yukuai@fygo.io>
-Cc: <linux-raid@vger.kernel.org>, <linux-kernel@vger.kernel.org>, 
-	"Li Nan" <magiclinan@didiglobal.com>, "Xiao Ni" <xiao@kernel.org>, 
-	"Christoph Hellwig" <hch@lst.de>, "Hannes Reinecke" <hare@suse.de>, 
-	"Logan Gunthorpe" <logang@deltatee.com>, 
-	<syzbot+95eeb4ada2349a2170ea@syzkaller.appspotmail.com>, 
-	<stable@vger.kernel.org>
-Message-Id: <32152011-b196-4dc0-ba7e-495f2132ad15@fygo.io>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="mLSiFWv4"
+Received: by mail-oi1-f170.google.com with SMTP id 5614622812f47-4d7034a99a9so1023146b6e.3
+        for <linux-kernel@vger.kernel.org>; Mon, 05 Oct 2026 10:06:00 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1791219959; cv=none;
+        d=google.com; s=arc-20260327;
+        b=PLamHICzrNCVgXV+axp0/0BdJ+YNEYlUhvn5a0PFnQsi5B51NPjAxFVM/f4r5YLqQn
+         vGhpmcu/Snr+4uOjpVviFdN2b/3QT/paruO0zFCHK7uFXSoOhX0XGVVxLVnT67Raydbn
+         RtUmqlb1pHPHv2gNznukKw+4oaNlLGM7q3reS9NXxBCYiWet4dvhX1ex+5qfOHT+lZie
+         N82bPfa7hNx1WAXaAVUbQHt+gDHX4IUU4UzECGMYAlU+AHbc7YvD/1tqFx0cm3iCjRVj
+         YjsC1uK/fw72oelm1SWrGgazEdORSe4hcV/mRBC7zMAxfD7FRNjKVEYHysicBBNTUoK+
+         xsMw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=V3QHsfD9eae4eVmZwhjIqULbQNwImtk17XMJTw0B7T8=;
+        fh=+fdQcBBDSImy+XqphuhPXDofJZDDGSa/luqNGHa9k30=;
+        b=Y4VfZJ4MX7HXJoDxRneyrNA+sRUjrwhXy3zlwwJjW7abPosZiAVFb0dKGUZSrBzTKB
+         YYj/A2Yj5oBJzDflDvDtKI7ciefIrTJ5tCULIKi9HGuKvtV2XspM1NtHx1fe5UgvuDnq
+         q0I0iYyfIogSWb9rYoTJvmuxdzWBpD27Vv/pwzYb+0H0LupJyLKjVbeHm6+ZPKZyFa+L
+         gAut/jITA0U5EviHm3eGDgfEY8FR+y13F/DEeeDgObr2c6wBeZvG6HJiIgCXktitEhvo
+         ELxxQ/vZ4nxVa0c+npde7NtOnct7GlY6x6q83iFlCvuyeLLH/pDDYNei3RxhYucW9K7r
+         bJkQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791219959; x=1791824759; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=V3QHsfD9eae4eVmZwhjIqULbQNwImtk17XMJTw0B7T8=;
+        b=mLSiFWv49QmGqH6AcvhRb/RHPfgAfJ3GHS8U2YOfeN/lFkYaMDoC6pkzyo/gK/cbwv
+         5Ent4KeoVAnvmhRhcQ81oYaPMUgsjM8+zyQbQRoArQGr4fNl5+nf0J6izYYVKPcVk0zn
+         g0HImbOAaNf/CtWtJ3ZqcFzU038XbZuLRt2DHoA+9TT5UYncN9jpWG/ViZ1MtznMmt/J
+         BUPm/SVNj5MGrglli7HOET2qMVIJi9zYBvLn41gnaPltOwb7Fnne2rJwCStg/jblvSmS
+         V0O+s/7RtbA/m8mn5dWnurZy+DIYJdCdU1zeFmGxiLoyAjGkuXV7ktuugjbzIfhv4Lqm
+         oiGA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791219959; x=1791824759;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=V3QHsfD9eae4eVmZwhjIqULbQNwImtk17XMJTw0B7T8=;
+        b=hhhDd4yjNhC/+3M9ctdupR2jJigDt1oc4Yqvmk3IPL1M3alFiCrUt1d6LakOLXy8en
+         jD5NRGX2EFcY2yXiDDJ2e6f/p4N1YcZ7YfykYcRl+Qqdv93KoDCwguU7BcNMNHp1rqXR
+         ynkAB53WxNR7qeUwDAitXj9SHJYJPFXb5tgoLT7MhlFgOQF0BdolOn9tefTZ4drlciDj
+         Mo96sGFK2Le1P9EF4IAhIf6GmHD/BPvNMxHL1DhJIR8z/12sU6t3mZfPIhJd+CA6ZU8t
+         /2YSDpUBNRxFd97bsEbM8161VHgDwaUStegw7hWKua+AWIVWOOqcmOYFftwtQFFXim64
+         YASQ==
+X-Forwarded-Encrypted: i=1; AKwUvBy4Ozj4zs9orWA8So6oCFdZUclbfPUitonwcDDJzkyTt3NTggt9Z/i4NBuKVw7MYGjSHrrguu22KjPJIQ0=@vger.kernel.org
+X-Gm-Message-State: AFuF++nuhCCABdOXTPDtzhohipd3wgWCn3FbT0RboYQeyQK6bMDws6nM
+	xugF7vp3l4aaZlWGvkUEiyqFWpTScwQ7KAb0BOsEjH3kMcgVM5TXLGb3hQKpi+gHZz64HEIbHVF
+	gOV7BnnXUu/pArOQBAAN5SjeEpTyb6Y86u2PfGnk=
+X-Gm-Gg: AYBFou0KJXAxdcujPiO1KSZ/lJYB4OfKId2j166F7saDrqDTFIOqKZIzT08oCdw+U1g
+	cgvln+7smlptrh0+WnSNMuKY8vJuBrjhZWWmKeO5Sj1MtSB15SUdZ+qXpBg3IVhraAcdno6cSFr
+	2+kj3tIlV4G9p4XYlLGWVz8AfDlq3QGZincRrS/4dYF/2JGmQsUsTJPTUaRh+lotAf3OXgkcd6l
+	UcLaDR7KDlFhgr5WZCREg/ByfMDXDYFZqLYf4RkkS1EluMoa3rjEIgUO/ONrGCCNZCs6nN/qVdF
+	5RiIkN+7sFfIrNVoU4vIBbTYkqZz/hWoJ67CWtnPZGilgPEEN5wu0mirogbH37wBpFg0Q0Fw/JE
+	CxCfq1cR4XuRWUQ==
+X-Received: by 2002:a05:6808:6409:b0:4e8:e73e:e945 with SMTP id
+ 5614622812f47-4f67b6368eamr6867509b6e.63.1791219959377; Mon, 05 Oct 2026
+ 10:05:59 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Reply-To: yukuai@fygo.io
-X-Lms-Return-Path: <lba+26ac3d8de+634b5e+vger.kernel.org+yukuai@fygo.io>
+MIME-Version: 1.0
+References: <20260923022339.3340694-1-georgeandrout13@gmail.com>
+ <arThye_219ruNbM2@google.com> <20260925-stellen-brummen-festrede-266af0305ac7@brauner>
+ <20260929044843.GA3909609@ZenIV> <DLRSQRUVOGT2.10ZY01VEJVHCE@garyguo.net>
+ <20260929135154.GB989762@ZenIV> <DLRXHGLDR2QQ.WZVRWGY995BT@garyguo.net>
+ <20260929170218.GD989762@ZenIV> <DLS0CO1HEGJN.2XX8QX8LW8XJM@garyguo.net> <20260929194726.GE989762@ZenIV>
+In-Reply-To: <20260929194726.GE989762@ZenIV>
+From: Georgios Androutsopoulos <georgeandrout13@gmail.com>
+Date: Mon, 5 Oct 2026 13:05:48 -0400
+X-Gm-Features: AclHuK82zXF_oHnFQwG46GJvuw1FlbpLwvQEpRhqprAmrygF7YVXXrAloo-DO5M
+Message-ID: <CAESH5ocD6j_trFz1GyEXLTJKy5-N19=86wjZTm-b__0uX9YMLg@mail.gmail.com>
+Subject: Re: [PATCH v2] rust: file: handle fd table teardown in file
+ descriptor APIs
+To: Al Viro <viro@zeniv.linux.org.uk>
+Cc: Gary Guo <gary@garyguo.net>, Christian Brauner <brauner@kernel.org>, 
+	Alice Ryhl <aliceryhl@google.com>, Miguel Ojeda <ojeda@kernel.org>, Jan Kara <jack@suse.cz>, 
+	Boqun Feng <boqun@kernel.org>, =?UTF-8?Q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
+	Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, 
+	Trevor Gross <tmgross@umich.edu>, Danilo Krummrich <dakr@kernel.org>, 
+	Daniel Almeida <daniel.almeida@collabora.com>, Tamir Duberstein <tamird@kernel.org>, 
+	Alexandre Courbot <acourbot@nvidia.com>, =?UTF-8?Q?Onur_=C3=96zkan?= <work@onurozkan.dev>, 
+	linux-fsdevel@vger.kernel.org, rust-for-linux@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, Al Viro <viro@ftp.linux.org.uk>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
 
-Hi,
+On Tue, Sep 29, 2026 at 3:47=E2=80=AFPM Al Viro <viro@zeniv.linux.org.uk> w=
+rote:
+>
+> On Tue, Sep 29, 2026 at 07:22:28PM +0100, Gary Guo wrote:
+> > On Tue Sep 29, 2026 at 6:02 PM BST, Al Viro wrote:
+> > > On Tue, Sep 29, 2026 at 05:07:40PM +0100, Gary Guo wrote:
+> > >
+> > >> The reproducer that Georgios posted on GitHub is some cleanup job be=
+ing added to
+> > >> task_work, which drops FileDescriptorReservation. And since exit_tas=
+k_work()
+> > >> happens after exit_files(), put_unused_fd in that cleanup observe th=
+at
+> > >> current->files is NULL.
+> > >>
+> > >> So it's not from random thread, it's from the current task. And I fi=
+nd that
+> > >> particular case of doing per-task cleanup not unrealistic.
+> > >
+> > > FWIW, descriptor reservation ought to be tied to specific files_struc=
+t
+> > > instance; note that dup_fd() can be called when there are outstanding
+> > > reservations and the copy does *NOT* have those reserved.
+> > >
+> > > What rules would you suggest for such delayed put_unused_fd() wrt e.g=
+.
+> > > files_struct unsharing?
+> >
+> > Ah, is this about `unshare(CLONE_FILES)`? For that case indeed our exis=
+ting
+> > abstraction break down.
+>
+> FWIW, the current rules are "you must not have any outstanding reservatio=
+ns when
+> you unshare descriptor table in any manner".  You are adding "... includi=
+ng the
+> ones that would be discarded by an already-scheduled task_work callback".
+>
+> It's not just unshare(2) - there are more interesting callchains. For exa=
+mple,
+> unshare_files() from do_coredump(); this one should be fine in face of
+> put_unused_fd() in task_work, due to the task_work_run() in get_signal()
+> being upstream of vfs_coredump() call, but it needs to be considered.
+> Or begin_new_exec() - that has a lot more callchains leading to it.
+> It should be safe at the moment, but that needs to be demonstrated, etc.
 
-=E5=9C=A8 2026/10/4 13:57, Yogesh Gaur =E5=86=99=E9=81=93:
-> md_alloc() publishes the gendisk before it is done setting the mddev up:
->
-> 	disk->private_data =3D mddev;
-> 	...
-> 	error =3D add_disk(disk);
-> 	if (error)
-> 		goto out_put_disk;
->
-> 	kobject_init(&mddev->kobj, &md_ktype);
-> 	error =3D kobject_add(&mddev->kobj, &disk_to_dev(disk)->kobj, "%s", "md"=
-);
->
-> add_disk() makes /dev/mdN openable, and md_open() only refuses the open
-> when MD_CLOSING is set.  mddev comes from mddev_alloc() and is zeroed,
-> so anything that gets in between add_disk() and kobject_add() sees an
-> mddev->kobj that has never been through kobject_init() - no ktype, no
-> kref, state_initialized clear.
->
-> syzbot opens the array in that window and issues ADD_NEW_DISK:
->
->    kobject: '(null)' (ffff8880120640f0): is not initialized, yet kobject_=
-get() is being called.
->    WARNING: lib/kobject.c:642 at kobject_add_internal+0xea/0xcd0 lib/kobj=
-ect.c:225
->     kobject_add_varg lib/kobject.c:374 [inline]
->     kobject_add+0x163/0x240 lib/kobject.c:426
->     bind_rdev_to_array+0x80c/0xdd0 drivers/md/md.c:2621
->     md_add_new_disk+0xe3b/0x1850 drivers/md/md.c:7684
->     md_ioctl+0x200a/0x2610 drivers/md/md.c:8499
->
-> bind_rdev_to_array() is not the only way in.  md_run() calls
-> sysfs_create_group(&mddev->kobj, &md_redundancy_group), and
-> internal_create_group() has its own WARN_ON(!kobj->sd), so RUN_ARRAY in
-> the same window warns too.  Guarding the individual callers would mean
-> finding all of them; the window itself is what should not be reachable.
->
-> Refuse the open until md_alloc() has added the kobject.  mddev->kobj.sd
-> is NULL until kobject_add() creates the directory, and stays set for the
-> rest of the mddev's life: commit ca39f7502425 ("md: fix mddev->kobj
-> lifetime") dropped the explicit kobject_del() and lets the final put do
-> the removal.  md.c already tests mddev->kobj.sd for "is this array
-> published yet" in mddev_unlock() and md_run().
->
-> This cannot deadlock against add_disk() itself: device_add_disk() only
-> opens the disk to scan partitions when get_capacity(disk) is non-zero,
-> and md_alloc() does not set the capacity - md_run() does, long after.
->
-> Fixes: ca39f7502425 ("md: fix mddev->kobj lifetime")
-> Reported-by: syzbot+95eeb4ada2349a2170ea@syzkaller.appspotmail.com
-> Closes: https://syzkaller.appspot.com/bug?extid=3D95eeb4ada2349a2170ea
-> Cc: stable@vger.kernel.org
-> Assisted-by: LLM
-> ---
->   drivers/md/md.c | 9 +++++++++
->   1 file changed, 9 insertions(+)
->
-> diff --git a/drivers/md/md.c b/drivers/md/md.c
-> index 680b34a63cb3..e3326b78aef7 100644
-> --- a/drivers/md/md.c
-> +++ b/drivers/md/md.c
-> @@ -8610,6 +8610,15 @@ static int md_open(struct gendisk *disk, blk_mode_=
-t mode)
->   	if (test_bit(MD_CLOSING, &mddev->flags))
->   		goto out_unlock;
->  =20
-> +	/*
-> +	 * md_alloc() publishes the gendisk with add_disk() before it has
-> +	 * initialised and added mddev->kobj, so an array opened in that window
-> +	 * would let ioctls reach a kobject that is still all zeroes.  Wait for
-> +	 * md_alloc() to finish rather than handing out the device early.
-> +	 */
-> +	if (!mddev->kobj.sd)
-> +		goto out_unlock;
-> +
->   	atomic_inc(&mddev->openers);
->   	mutex_unlock(&mddev->open_mutex);
+Thanks for the discussion. It looks like the issue is broader than the
+`exit_files()` case I originally reported, since staying on the same task
+does not by itself guarantee the same fd-table context.
 
-This is the same problem that I already replied in another thread, the same=
- solution
-with different code.
+It seems that the Rust abstraction needs to account for this stronger
+requirement. Would making some affected Rust file APIs `unsafe`, with
+appropriate `# Safety` documentation, be a reasonable temporary solution?
 
-Re: [PATCH] md: prevent opening an array before its sysfs kobject is=20
-ready - yu kuai <https://lore.kernel.org/all/a19e3020-272b-4f93-8535-00fa07=
-002d91@fygo.io/#t>
+I'm not familiar enough with the VFS internals to determine the right
+abstraction here, so I'll hold off on sending another version based on the
+current runtime checks.
 
->  =20
-
---=20
 Thanks,
-Kuai
+Georgios
