@@ -1,112 +1,77 @@
-Received: from smtpcmd11116.aruba.it (smtpcmd11116.aruba.it [62.149.156.116])
+Received: from bombadil.infradead.org (bombadil.infradead.org [198.137.202.133])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7361735C185
-	for <linux-kernel@vger.kernel.org>; Mon,  5 Oct 2026 08:18:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=62.149.156.116
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EA4AF37756C;
+	Mon,  5 Oct 2026 08:18:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.137.202.133
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791188296; cv=none; b=PvEja3UeD3zHnjv7D9xZA7/x+fKIUlLQ/pKFdm7QHgHTK2+GYD7WvoHjmyPl6PufpgZjriOjXmAI8OEmHqPpIgaW+eTq9jSqiMuz/H0nxS9XpmvwHLgusCrcMDW6zcr8szPtbRztzKi7HdGiEKnk/BDMndj2qRW/sLz1byUqOI0=
+	t=1791188335; cv=none; b=sinRwfWQ+LGi0R2jsN+6HyuSUNn6WVOhabhJbIpQj/ak7LWFUUA2SVHXiEED19kgT+UslelvCDWlsabB8yns4KSegqeuiknnuldcLvT93xTBRQaOCtH8R8wvN7V+aPzt065LDAoLALj/YSgCxzqe+aBwlBiacQgZuSjbUmxGB7g=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791188296; c=relaxed/simple;
-	bh=56s4DWdd1dGgSvMNpCJ1UQps30v5jYGjvYruRBJuET0=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=lEVWNGdB2pDFz5BiFJIlZrWmKbvXEKvs5yig7HhKkt0iULwBtg7CuwvlTeCN0AdEzhKq+R6GTRv2bpqeznx7irTCKGiMjwCmub3ztBfy1bAILNZZg5d8oASUwn+YiYAYJmZQNVOA5P32EXmw7A2haZOwG3sY+ptG2MQkBdniOIY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=enneenne.com; spf=pass smtp.mailfrom=enneenne.com; dkim=pass (2048-bit key) header.d=aruba.it header.i=@aruba.it header.b=GuibmQem; arc=none smtp.client-ip=62.149.156.116
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=enneenne.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=enneenne.com
+	s=arc-20240116; t=1791188335; c=relaxed/simple;
+	bh=X/aNMCwnFbB8codqC36u06VqeEmT4RcuD8kZuIA07+U=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Dbw0udZ1gjLb10E+ti0+MVE6VmOkUam3mBx4UApJgzeP8Lg5j3RDTCd9tEfuvicFz1kqume+Q5VDWFN7GA+QlwS0t6cLCrm4MjO7zFH5tTVeOTfwBEqKo6tRAQah0y77m+E92ManxhLQVmcR0YoSzJKQyUGDm9xK5XQYXapqQe0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org; spf=none smtp.mailfrom=bombadil.srs.infradead.org; dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b=BPYTdJyh; arc=none smtp.client-ip=198.137.202.133
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=bombadil.srs.infradead.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=aruba.it header.i=@aruba.it header.b="GuibmQem"
-Received: from [192.168.0.186] ([101.57.122.26])
-	by Aruba SMTP with ESMTPSA
-	id DdqfxMFAWXXg5DdqgxmmqD; Mon, 05 Oct 2026 10:15:02 +0200
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=aruba.it; s=a1;
-	t=1791188102; bh=56s4DWdd1dGgSvMNpCJ1UQps30v5jYGjvYruRBJuET0=;
-	h=Date:MIME-Version:Subject:To:From:Content-Type;
-	b=GuibmQemV6mNaGQKX2B0+3FFKjwdU6rS3XTakLZTCVeAXq9ncu++k4oIPSZabYtAn
-	 wfmtFAG+clHlshv0XehA0EBZvdW5VdFmygIBOoUxV2Y4JBUuqVmqCeCU1ptob45K/A
-	 rHKSxObacs+QycakZnhyXnYBhdcffe9mI2EQZa/EcfrezvjKyAarPXGUEvnGXRl3W9
-	 lK23NB10+pulf5ntJE8YlHhdaHbP1fm+z7GoSDkUxTPrmzHCxjaU8hYoiMjz1aCYml
-	 tOn48dPhqwlr8TVqtYDcrYd+GBtG61idNg5PRFeZJibfnzOFTrtD0cQDuH3qapuDD1
-	 JKbjHnll2yFkw==
-Message-ID: <f432aee3-9bda-430c-9cb6-e35248c87b3d@enneenne.com>
-Date: Mon, 5 Oct 2026 10:15:01 +0200
+	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="BPYTdJyh"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=infradead.org; s=bombadil.20210309; h=In-Reply-To:Content-Transfer-Encoding
+	:Content-Type:MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:
+	Sender:Reply-To:Content-ID:Content-Description;
+	bh=URfBCQsS/mgH3EduwXOL57UzJOoy0wLXjtQPczlHoMw=; b=BPYTdJyhk40fXCqQcLrHTppOOV
+	fXFQu0lJz/j5kQV7Vgdk7l2FBSHAVklC07yqSwR61QlKuimNCNir88kagejdlKMdx8pqER0x3fORf
+	TR2mtr0Az0eToQkL3zmN1/Af21rjopSDeXHOEB+03DMPHAmqjpgXt0Lx6xc1sGxnH6AmtWGR57jap
+	MZx6INGYgV26MCIws6AhbySfSMl2LTEl74JEmBDJek1vGIwJtSO6fiRf9pb0HPycazKJLgKkp1dQM
+	KetN2GGFgUx88q19ioaja6SWrAT9ZbOCOHui0pOfLEblLT7M8c8d09x337LQdX4EY+JjLWtLCsCV7
+	NNhfbueA==;
+Received: from hch by bombadil.infradead.org with local (Exim 4.99.1 #2 (Red Hat Linux))
+	id 1xDduP-0000000Frk3-002P;
+	Mon, 05 Oct 2026 08:18:53 +0000
+Date: Mon, 5 Oct 2026 01:18:52 -0700
+From: Christoph Hellwig <hch@infradead.org>
+To: Jeremy Bingham <jbingham@gmail.com>
+Cc: linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org,
+	brauner@kernel.org, jkoolstra@xs4all.nl, jack@suse.cz,
+	djwong@kernel.org, hch@infradead.org, viro@zeniv.linux.org.uk
+Subject: Re: [PATCH v1 1/1] minix: consolidate itree* files into one itree.c
+ file
+Message-ID: <asNdbGAe7XGL3iBI@infradead.org>
+References: <cover.1790359547.git.jbingham@gmail.com>
+ <29e5bed16cef4904e9649a9b77d42ec10cd33051.1790359547.git.jbingham@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 5/5] [DO NOT MERGE] timekeeping: Apply extrapolated
- ntp_error to clock snapshots
-Content-Language: en-US
-To: David Woodhouse <dwmw2@infradead.org>, Thomas Gleixner <tglx@kernel.org>,
- John Stultz <jstultz@google.com>
-Cc: Stephen Boyd <sboyd@kernel.org>, Miroslav Lichvar <mlichvar@redhat.com>,
- Ryan Luu <rluu@amazon.com>, Julien Ridoux <ridouxj@amazon.com>,
- linux-kernel@vger.kernel.org
-References: <20261001202134.33929-1-dwmw2@infradead.org>
- <20261001202134.33929-6-dwmw2@infradead.org>
- <0d5d56ca-89fa-4f09-bd24-9c730dd27656@enneenne.com>
- <4751c410a0cb17270e6c2b43e70d01bfd7d6f0d0.camel@infradead.org>
- <7274f4ef-edec-4282-9c92-b6f7918b8320@enneenne.com>
- <46df3bedea175007a6480b4cb8ba070c6ff3d527.camel@infradead.org>
-From: Rodolfo Giometti <giometti@enneenne.com>
-In-Reply-To: <46df3bedea175007a6480b4cb8ba070c6ff3d527.camel@infradead.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-CMAE-Envelope: MS4xfLz0m+1qRunQPsXF7zdGsjhoQYh2Oqq+5Vyh8td66NfzL77m1S3GR0iPxKqqQ9LrrngfbwlucL6ktBobQHXDwGCgQZ0wRHr/qqRqsH0jymo/fFGZdR2Y
- CRI3l7DLHl+Y3w9N6MFOZtGx8NyPyTi80NpAqyXufRPLxfwFsWbQ3WFVNbnqgNmOl74M+hOAAULfu3p0xyG1NoGYKBgynjbBd0jUX0MxnBJ0qF1/obCxf4Kb
- H9fekIHcoHBWp9UlpuBuuQ/T2Y8hvbZb4t9IynM7um3Y/nDY+6AHYgC1AvbXWBagBXrHhs8H/e5i1uXv9W2iEc5vOahbJNQSOXo6JI1btI8mcjyaGaek8G9v
- oP70Okv7gtajVsuAbETgFSgAia3LrBFSzfuzDMQeR3bTGkQkOS0=
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <29e5bed16cef4904e9649a9b77d42ec10cd33051.1790359547.git.jbingham@gmail.com>
+X-SRS-Rewrite: SMTP reverse-path rewritten from <hch@infradead.org> by bombadil.infradead.org. See http://www.infradead.org/rpr.html
 
-On 03/10/2026 00:47, David Woodhouse wrote:
-> On Fri, 2026-10-02 at 12:26 +0200, Rodolfo Giometti wrote:
->>  
->>> So I think we do need it, and my inclination is to hold off on enabling
->>> CONFIG_NTP_PPS for tickless kernels until we do. But I'll defer to your
->>> preference. If you want to merge it sooner on the basis that with a
->>> 1PPS signal the system doesn't get to sleep for long *anyway*, I can do
->>> another test run with just patches 1-4.
->>>
->>
->> Yes, please do that run. This patch changes what PPS_FETCH returns to
->> userspace, so it has to wait for the chrony and ntpd people anyway; if
->> 1-4 alone are good enough at 1PPS I'd rather not tie the tickless
->> enablement to it.
+On Mon, Sep 28, 2026 at 01:04:26PM -0700, Jeremy Bingham wrote:
+> Consolidate the itree functions by adding fields to the superblock info
+> struct to store the number of direct blocks and levels of indirect
+> blocks because the different versions of the minix filesystems have
+> differing numbers of indirect block pointers and different block pointer
+> sizes. This allows consolidating the itree functions into one itree.c
+> file instead of a system with version specific itree files with version
+> specific definitions and wrapper functions that #include a common
+> itree_common.c file that are in turn called by wrapper functions
+> elsewhere in the code that call the version specific wrapper functions.
 > 
-> https://david.woodhou.se/ntptest-r64/rodolfo-14-tickless-1hz/
+> No functional changes are intended for this patch. 
 > 
-> Fairly much identical to the full series running tickless, which was
-> https://david.woodhou.se/ntptest-r64/tickless-1hz/
-> 
-> And not really much worse than the tickful variant
-> https://david.woodhou.se/ntptest-r64/tickful-1hz/
-> 
-> The ntp_error isn't measured because it's the clean series and most of
-> the instrumentation is gone. I'll set the 5s pulse version running
-> overnight.
-> 
-> The series is also tested on four virtual machines on the same host,
-> tickful and tickless, patches vs. baseline. You can see the tickless
-> baseline wobble when the actual frequency changes, while the other
-> three remain stable. You can also see ntp_error on both baseline
-> kernels spiking during the initial sync.
-> https://david.woodhou.se/ntptest-virt/
+> Suggested-by: Christoph Hellwig <hch@infradead.org>
+> Suggested-by: Darrick J. Wong <djwong@kernel.org>
+> Signed-off-by: Jeremy Bingham <jbingham@gmail.com>
 
-Thanks, that's convincing: with 1-4 alone tickless at 1Hz looks the
-same as with the full series, so I'm fine with the tickless enablement
-not depending on this patch. :-)
+Looks good from the high-level perspective:
 
-Please put these numbers, and the 5s ones when you have them, in the commit
-message of the patch dropping !NO_HZ_COMMON.
+Reviewed-by: Christoph Hellwig <hch@lst.de>
 
-Ciao,
+I assume you've run xfstests and checked nothing regresseѕ?
 
-Rodolfo
-
--- 
-GNU/Linux Solutions                  e-mail: giometti@enneenne.com
-Linux Device Driver                          giometti@linux.it
-Embedded Systems                     phone:  +39 349 2432127
-UNIX programming
