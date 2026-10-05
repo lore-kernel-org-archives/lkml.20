@@ -1,78 +1,142 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from pdx-out-006.esa.us-west-2.outbound.mail-perimeter.amazon.com (pdx-out-006.esa.us-west-2.outbound.mail-perimeter.amazon.com [52.26.1.71])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C38B83264CC;
-	Mon,  5 Oct 2026 19:20:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DD1F230AAD8;
+	Mon,  5 Oct 2026 19:20:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=52.26.1.71
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791228002; cv=none; b=YMkoY1cQDq3IIhcNX7hgIEz/Yrou0doV1YodvxSl+KOszfjLeC/oL386y4zrilWiUbYb18WpqtXklFojN8zb+XPBkKEuIyGzqHg0AMQJua6lMIMT7njFh/eFFX/gCO3rXlAZppDOeklNtlMeAnISurCy1CRmxcC/jOmDONuHU4Q=
+	t=1791228024; cv=none; b=HjY0fK5ik9+U5FMnOwY04bv19GtqaqUVlB+zXDMir70oWnq8nv4AJXoIW8Z7Itku5h+MVOi3iSya+VPsXueduv8SCd1Rsn8z77KedG41OiVUjiGaKvleHGuGCLVcjqG3oMChTgzQwJ9Ckt2dUWigBfN1ykGmVbofYioXFhMF96o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791228002; c=relaxed/simple;
-	bh=KNZMnt9O9Y/VSXc2y3uWP6nlNU77j3GEuU34n1NPT50=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=jd83AXFiIORazQpGFu9OAAcwb7coMAF2RXlCFkY/xWyilktbSuFpPLctz3DrljxLiIwrKncHpjprPdHSbmy2nnIjx1Rv3fW6nV5yRjh2OuMbi9jLOpawgxXfsCNU9gtSIJ7lcKh57i/tsnso7CTVC33HhgAr6WXsPjwTuL4c9Qk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=lGXhOxFq; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791228024; c=relaxed/simple;
+	bh=SrLUQHaTErXY75ovh1E+cHDPNatBH3CZnT4ipuUVkH0=;
+	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=jN1aGIdnNA4NGi8JOLTvvCT16wYjFBmTOz0qjjPUZD6laupyx2OpV8c0hXTrD+0/gLwSnAtdCUKHoiZwIlhY6YQA7PNoi7d4LzEH0hijiDxSYxdM43rUlx4Z5Wlh4vVOBE3HHNVRYE5qkWpNbRyQM9X4Wlg9SNBziDLW2IA9mV8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.co.uk; spf=pass smtp.mailfrom=amazon.co.uk; dkim=pass (2048-bit key) header.d=amazon.co.uk header.i=@amazon.co.uk header.b=efvtBDTE; arc=none smtp.client-ip=52.26.1.71
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.co.uk
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amazon.co.uk
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="lGXhOxFq"
-Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id BAC211F000FF;
-	Mon,  5 Oct 2026 19:20:00 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791228001;
-	bh=poz2do/LGppvKRbWIc373ATvQ1pRicG6op/w5cF/aD0=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=lGXhOxFqF5R3f63h53AnGuCcyfhAlkXm0eWaLJ5JCbqp94iz2JYBrNXELK0P/+aHe
-	 a6oztQbG7CKK6iuO3fC8/SLAVoyPBUxRvNBVJUOdqA3KXNiJDEHpBPR0cK37u4RY7Y
-	 7lhgzlAlJbNN93OBCQ9lHdAUOnhI5S6WjkCnjCJdiJx+3+C7fEogKugE7fCI2S6rTu
-	 dG1aKRryZeiJ8TLfRWrODmpcQ3NPHKw5VO2Utq3ywG5a589a8+n9Wx+oB50d2AyoN/
-	 6KeCx0ZCRLJfTF0xypIlnosGn7ier0E5vPYDjoieAx1xA2ndxthaXJOnAyYyeQbF6K
-	 DvnpWRaJUgXyw==
-Date: Mon, 5 Oct 2026 22:19:56 +0300
-From: Jarkko Sakkinen <jarkko@kernel.org>
-To: Sasha Levin <sashal@kernel.org>
-Cc: stable@vger.kernel.org, Jiangshan Yi <yijiangshan@kylinos.cn>,
-	Sashiko <sashiko-bot@kernel.org>, Peter Huewe <peterhuewe@gmx.de>,
-	Jason Gunthorpe <jgg@ziepe.ca>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Jonathan McDowell <noodles@meta.com>,
-	Justinien Bouron <jbouron@amazon.com>,
-	Gunnar Kudrjavets <gunnarku@amazon.com>,
-	James Bottomley <James.Bottomley@hansenpartnership.com>,
-	linux-integrity@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 6.12.y] tpm: fix off-by-four bounds check in
- tpm2_get_random()
-Message-ID: <asP4XGM3P1Fdj5Ko@kernel.org>
-References: <20261005075934.151106-1-jarkko@kernel.org>
- <2026-10-05-1-daily-reply-0006-tpm-get-random-6.12@kernel.org>
+	dkim=pass (2048-bit key) header.d=amazon.co.uk header.i=@amazon.co.uk header.b="efvtBDTE"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+  d=amazon.co.uk; i=@amazon.co.uk; q=dns/txt;
+  s=amazoncorp2; t=1791228022; x=1822764022;
+  h=from:to:cc:subject:date:message-id:mime-version:
+   content-transfer-encoding;
+  bh=D8mW2fWN8EvSGyuK4guDuczx+whRKJ16nzLe2cDa1pA=;
+  b=efvtBDTEbdzZFUv7l/n0hWXNVnXemAadq3EggfzKqV3Fy9+o3dwsG0kN
+   Snj8I24rgpRT0+moai+rOZIOSi8ij9rsgojXskug/altlqbekF1ZA8eXk
+   wyDxS4532p+5AtT+gIs1DasJBRBDjW/ji2iiwD2tbQ4V02lVIAFjEsZtg
+   HkTykjsQO5KXGEwkI/46CwYl4b1Xi+T6/YOh4SX3SLelRwb4EVtpVMggu
+   +S9Nebsqnnt8JrhKcYMjHlC6foaFtNf2cm7UXGYaxcFjEDTTaYhjTQoRj
+   D60tDfKdPGLL9A/AXTY1wbibifWykHtZnL0P3NH9nysIu/tXSDdcXlP9B
+   g==;
+X-CSE-ConnectionGUID: 1bjJ9ktQRRCDHQXwR29h4A==
+X-CSE-MsgGUID: RsqX0UpATYiF6p36OQis7g==
+X-IronPort-AV: E=Sophos;i="6.27,142,1787011200"; 
+   d="scan'208";a="30507217"
+Received: from ip-10-5-9-48.us-west-2.compute.internal (HELO smtpout.naws.us-west-2.prod.farcaster.email.amazon.dev) ([10.5.9.48])
+  by internal-pdx-out-006.esa.us-west-2.outbound.mail-perimeter.amazon.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 05 Oct 2026 19:20:19 +0000
+Received: from EX19MTAUWC002.ant.amazon.com [205.251.233.111:17183]
+ by smtpin.naws.us-west-2.prod.farcaster.email.amazon.dev [10.0.24.164:2525] with esmtp (Farcaster)
+ id f12a0637-e7a1-4e4d-a1b9-2d0dafe6d759; Mon, 5 Oct 2026 19:20:19 +0000 (UTC)
+X-Farcaster-Flow-ID: f12a0637-e7a1-4e4d-a1b9-2d0dafe6d759
+Received: from EX19D001UWA001.ant.amazon.com (10.13.138.214) by
+ EX19MTAUWC002.ant.amazon.com (10.250.64.143) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.49;
+ Mon, 5 Oct 2026 19:20:19 +0000
+Received: from dev-dsk-hmushi-1a-0c348132.eu-west-1.amazon.com
+ (172.19.124.218) by EX19D001UWA001.ant.amazon.com (10.13.138.214) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.49; Mon, 5 Oct 2026
+ 19:20:17 +0000
+From: Mushahid Hussain <hmushi@amazon.co.uk>
+To: Sean Christopherson <seanjc@google.com>, Paolo Bonzini
+	<pbonzini@redhat.com>
+CC: <kvm@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
+	<nh-open-source@amazon.com>, <mushi.shar@gmail.com>
+Subject: [PATCH] KVM: x86/mmu: Fail nested EPT walks for GPAs beyond the EPT width
+Date: Mon, 5 Oct 2026 19:20:10 +0000
+Message-ID: <20261005192010.66037-1-hmushi@amazon.co.uk>
+X-Mailer: git-send-email 2.47.3
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <2026-10-05-1-daily-reply-0006-tpm-get-random-6.12@kernel.org>
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: EX19D035UWB002.ant.amazon.com (10.13.138.97) To
+ EX19D001UWA001.ant.amazon.com (10.13.138.214)
 
-On Mon, Oct 05, 2026 at 09:50:27AM -0400, Sasha Levin wrote:
-> > Fix this by checking the response length against 'offset', which
-> > already includes the skipped parameter size field.
-> 
-> Queued for 6.12, thanks.
-> 
-> -- 
-> Thanks,
-> Sasha
+Fail the nested EPT walk when the L2 guest-physical address has bits
+above the width of L1's EPT. The width is 48 bits for a 4-level EPT
+and 57 bits for a 5-level EPT. Report no RWX bits in the exit
+qualification, as for a translation that no table entry provides. L1
+then handles the EPT violation itself.
 
-Phew, good to hear, thank you!
+Hardware signals an EPT violation for such an address without a table
+walk. KVM's shadow walker instead indexes the tables with PT_INDEX(),
+which drops the high bits. The walk resolves the aliased address and
+KVM installs a shadow mapping for the alias. The CPU faults on the
+original address again, and KVM repeats the walk without end. L1 does
+not see an EPT violation for the access, and the L2 vCPU is stuck.
 
-There might be for some time more than usual merge conflicts in TPM
-driver given making tpm_buf memory layout flat for the sake of being
-able to use __free for of its allocations, and thus completely 
-prevent any possible memory leaks from transient buffers.
+Any L2 that references an address at or above 2^48 under a 4-level
+EPT triggers the hang. The easy way to get there is a MAXPHYADDR that
+differs between L1 and the host. Take L1 MAXPHYADDR 48 on a 52-bit
+host with KVM's default allow_smaller_maxphyaddr=0. A PTE bit that L1
+treats as reserved is then valid for the CPU. kvm-unit-tests "access"
+and "vmx_pf_exception_test", run as L2 under an L1 KVM with MAXPHYADDR
+48, hang at the first present PTE with bit 51 set.
 
-Right, and also merge conflicts could happen also in trusted keys.
+Fixes: 37406aaaeebc ("nEPT: Add EPT tables support to paging_tmpl.h")
+Assisted-by: Claude:claude-fable-5.1
+Signed-off-by: Mushahid Hussain <hmushi@amazon.co.uk>
+---
+Reproducer:
+  L1: KVM, CPUID MAXPHYADDR 48, 4-level EPT.
+  Host: 52-bit MAXPHYADDR, allow_smaller_maxphyaddr=0.
+  L2: kvm-unit-tests "access" and "vmx_pf_exception_test" under QEMU.
+      Both set a PTE with bit 51, which L1 treats as reserved and the
+      CPU treats as an address bit.
 
-They are cheap to fix and I'll monitor this situation proactively,
-and try to react fast.
+Without the patch both tests hang at the first such PTE. L1 sees no
+EPT violation.
 
-Br, Jarkko
+With the patch L1 receives the EPT violation. Both tests pass with the
+bit-51 cases excluded, as access.c does for MAXPHYADDR >= 52. This holds
+with ept=1 and ept=0.
+
+ arch/x86/kvm/mmu/paging_tmpl.h | 15 +++++++++++++++
+ 1 file changed, 15 insertions(+)
+
+diff --git a/arch/x86/kvm/mmu/paging_tmpl.h b/arch/x86/kvm/mmu/paging_tmpl.h
+index 8e350095508c5..6ba4439e56b10 100644
+--- a/arch/x86/kvm/mmu/paging_tmpl.h
++++ b/arch/x86/kvm/mmu/paging_tmpl.h
+@@ -378,6 +378,21 @@ static int FNAME(walk_addr_generic)(struct guest_walker *walker,
+ 	    KVM_BUG_ON(walker->max_level > PT_MAX_FULL_LEVELS, vcpu->kvm))
+ 		goto error;
+ 
++#if PTTYPE == PTTYPE_EPT
++	/*
++	 * EPT translates 48-bit guest-physical addresses with 4-level tables
++	 * and 57-bit ones with 5-level tables; hardware raises an EPT
++	 * violation for an address with bits above that width without
++	 * consulting the tables.  PT_INDEX() drops those bits, so walking
++	 * would resolve the aliased address and the shadow mapping built for
++	 * it can never satisfy the CPU.  Fail the walk the way hardware does.
++	 */
++	if (unlikely(addr >> (PAGE_SHIFT + walker->level * PT_LEVEL_BITS))) {
++		pte_access = 0;
++		goto error;
++	}
++#endif
++
+ 	++walker->level;
+ 
+ 	do {
+
+base-commit: 6bd2905303c58679e303941b7d8ae8c074cd95ce
+-- 
+2.47.3
+
