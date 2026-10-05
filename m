@@ -1,188 +1,84 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail11.truemail.it (mail11.truemail.it [217.194.8.81])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 01D0E20B80B;
-	Mon,  5 Oct 2026 08:07:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3E17530E0F2;
+	Mon,  5 Oct 2026 08:08:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.194.8.81
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791187649; cv=none; b=EhCzlXbvxSuzxe/xmvjnfgADUsjjRtUvOVeU9o+fzN3XZcm+lfc5SmXjlKRDZhBYBIUmouv8lzucYfsVOInG++GVs/3ibUF3XAeVMukiYos6hLUggP70VlwCqV50YKcKAWe6g8wsWlv+SInkTLUit8vo5dGOJYIIH/WrVpv0J4U=
+	t=1791187712; cv=none; b=CADeh9gxTKCE3MfbN8oNaYos6ilAajcmn9MtJYMD4CFT8Mh7IH1UGBuuYKBvrnxc+OIfqKEkiZzWuXD5De51pk/nQvKWltOaqQZW78Su0G1jdTTtTFie9pqVV0NGCCVB6OdUfX+incp8lbSkiByNWKHWxUkc9MwzuiNV8RUCbLM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791187649; c=relaxed/simple;
-	bh=8+7e7uNLPvU6SHl/oRrAX8IgB5f+bJlgww7hhwtaT78=;
-	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=oU20smsypE2Qd6nzargf2QUgP2QSS3NfOqREN62oZWV3pY6FPDGBDNQVtCsWP2tlsBxkUrl00TAPzB3qQ9JHWb3OBRF+qupwxjb/VH3/hMRWdhs+WDqpJXYbrIzGV1sMtiJFLWhTV7ntKC/Ie6srUSq7ry9SBNPUoEmVyDo0yvw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=DUqYmkMX; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791187712; c=relaxed/simple;
+	bh=nwOcxLH3Q6mUbHlJpRBPnf70GLs/nZjTxnotzVVRqWg=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=aUu3dCpch/dJAnORxqo6XCsecLJ2fn1hTGEr8b7PLfni/T8Wo/ElSFFGFZkgHgjP8a0B7b952J6bezgpZR3pNqCOFwMZzV06ehKpfWWtjks1+ZYLhpFZ63Uz5Yy7Yn1cfJBo4yCDimVGHc63eHuv9uiRQN5aCfV2AfBUB9CbE3Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=dolcini.it; spf=pass smtp.mailfrom=dolcini.it; dkim=pass (2048-bit key) header.d=dolcini.it header.i=@dolcini.it header.b=pc46WDqn; arc=none smtp.client-ip=217.194.8.81
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=dolcini.it
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=dolcini.it
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="DUqYmkMX"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 466461F000FF;
-	Mon,  5 Oct 2026 08:07:27 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791187647;
-	bh=4RkWsmpYQqm2Q/pQJ2uicnshft+IrFWhDI4NXfbAtWE=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=DUqYmkMXFr7v94h/XCG/Gd5FKy7Qma5zTsmm7/gdaNreO+8TO0eDpZ/beUpgLfGhQ
-	 JKvpcXG1PsbMoWtFzxVVGdgppBhHaGIGxhEBqhbFGYV4O8PFc0wLd+A5DMnpzWFQ6x
-	 7QiWQsC/o8ftq4S3J9++dpQ+85lvVZTo0d+1tJ86amhCIzvYoX73i95Ti0eClptPHi
-	 6ZCocaAs8HyZ5nBz0IZFSZ/Vl5UL4Y8lnRJXQKq/VfWz6NIusi+GwG8y7folHjRO0g
-	 RDuoDh4GRJJGkRmOWewpySGpk1WRaGyP8J4p8einWJeHqRPXr4WcNCQlKdNXuuaWUi
-	 W2ibuRZkcH1HA==
-Subject: Re: [PATCH net 2/2] dpll: zl3073x: notify sibling pin when shared
- output config changes
-From: netdev-bot+sashiko@kernel.org
-To: ivecera@redhat.com
-Cc: netdev@vger.kernel.org, min.li@microchip.com, vadim.fedorenko@linux.dev,
- arkadiusz.kubalewski@intel.com, jiri@resnulli.us, kuba@kernel.org,
- Prathosh.Satish@microchip.com, pabeni@redhat.com,
- linux-kernel@vger.kernel.org
-Date: Mon, 05 Oct 2026 08:07:26 +0000
-Message-ID: <179118764686.434549.7323327609139711994@kernel.org>
-In-Reply-To: <20261001080648.1424172-3-ivecera@redhat.com>
-References: <20261001080648.1424172-3-ivecera@redhat.com>
-X-sashiko-severity: High
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (2048-bit key) header.d=dolcini.it header.i=@dolcini.it header.b="pc46WDqn"
+Received: from francesco-nb (93-33-55-11.ip43.fastwebnet.it [93.33.55.11])
+	by mail11.truemail.it (Postfix) with ESMTPA id 384511FCC5;
+	Mon,  5 Oct 2026 10:08:27 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=dolcini.it;
+	s=default; t=1791187709;
+	bh=D+Y6d8UnrGoNFXVY4j5x4i4B2RwDWSIwdnLaT7QqWYA=; h=From:To:Subject;
+	b=pc46WDqn850L7lcIP9Fhgqz50KA3iyT13iys3P83fFFH2WP1JTTiUdlzjxtjMHvVV
+	 HCtW83/A9eD1cpccAu9bCoFi7j0aSvw1PCz7wjrMaLb92gfV/RsN5zPJtscGFMubg9
+	 /ZOsBaI0zujfilGLjnXmUYIQgnSpMRoEd8ewqvtkR2KzSYgmVqFDG/CjdDsBJ2Doeq
+	 O2WWifHY6ZjZMBtZ+WMQLB8d9W7V6g+UOJ/VGVty3Ri5/ppfw9BGBiLUwBJK92vu0a
+	 dRA0n3+jy7CbCP75Dk8d+Cuea+2T9TgZEVE/IxwCusznJrIDAZnnQrCsLH7SrmB55M
+	 S/AfgUIpKsrjg==
+Date: Mon, 5 Oct 2026 10:08:22 +0200
+From: Francesco Dolcini <francesco@dolcini.it>
+To: Peng Fan <peng.fan@oss.nxp.com>
+Cc: Catalin Marinas <catalin.marinas@arm.com>,
+	Will Deacon <will@kernel.org>, Mark Rutland <mark.rutland@arm.com>,
+	Jonathan Corbet <corbet@lwn.net>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Randy Dunlap <rdunlap@infradead.org>, Marc Zyngier <maz@kernel.org>,
+	Oliver Upton <oupton@kernel.org>, Fuad Tabba <fuad.tabba@linux.dev>,
+	Joey Gouly <joey.gouly@arm.com>,
+	Steffen Eiden <seiden@linux.ibm.com>,
+	Suzuki K Poulose <suzuki.poulose@arm.com>,
+	Zenghui Yu <yuzenghui@huawei.com>,
+	"Ivan T. Ivanov" <iivanov@suse.de>,
+	Francesco Dolcini <francesco@dolcini.it>,
+	Frank Li <frank.li@nxp.com>, linux-arm-kernel@lists.infradead.org,
+	linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org,
+	kvmarm@lists.linux.dev, imx@lists.linux.dev,
+	Peng Fan <peng.fan@nxp.com>
+Subject: Re: [PATCH v4] arm64: errata: Add NXP iMX8QM workaround for A53
+ cache coherency issue
+Message-ID: <20261005080822.GA13120@francesco-nb>
+References: <20260824-imx8qm-cache-coherency-v4-v4-1-b2e528c7d05e@nxp.com>
+ <aqleHm4stDi3Pt//@shlinux89>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <aqleHm4stDi3Pt//@shlinux89>
 
-Thank you for your contribution! Sashiko AI review found 2 potential
-issue(s) to consider.
+Hello,
 
-Critical: 0 · High: 1 · Medium: 0 · Low: 1
+On Tue, Sep 15, 2026 at 11:02:54PM +0800, Peng Fan wrote:
+> On Mon, Aug 24, 2026 at 12:02:04PM +0800, Peng Fan (OSS) wrote:
+> >From: Peng Fan <peng.fan@nxp.com>
+> >
+> >According to NXP errata document IMX8_1N94W[1], the i.MX8QuadMax SoC
+> >suffers from a cache coherency issue (ERR050104). The upper bits, above
+> >bit 35, of the ARADDR and ACADDR buses within the Arm A53 subsystem
+> >have been incorrectly connected. This causes some TLBI and IC
+> >maintenance operations exchanged between the A53 and A72 core clusters
+> >to be corrupted.
+> >
+> 
+> Any comments?
 
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
+Any plan to have this merged?
 
-- [High] In N-div signal formats, setting the P-pin frequency can change
-  the N-pin frequency without notifying the N-pin.
-- [Low] The commit message overstates the locking change.
+Francesco
 
---
-
-dpll: zl3073x: notify sibling pin when shared output config changes
-
-This patch adds zl3073x_dpll_output_pin_sibling_get(). Frequency, esync
-and phase adjust set callbacks use it to notify the other pin of an
-output pair when shared output state changes. It also takes zldpll->lock
-around the registration and unregistration changes to zldpll->pins.
-
-> The sibling lookup walks the zldpll->pins list, so serialize all
-> accesses to that list with zldpll->lock: take it around list_add() and
-> list_del() in the pin (un)registration paths and assert it is held in
-> the list walkers.
-
-[Severity: Low]
-Is this description accurate? After this patch, several walkers of
-zldpll->pins still don't follow it.
-
-zl3073x_dpll_changes_check() walks the list again after dropping the lock:
-
-unlock:
-	mutex_unlock(&zldpll->lock);
-	...
-	list_for_each_entry(pin, &zldpll->pins, list) {
-		...
-			dpll_pin_change_ntf(pin->dpll_pin);
-	}
-
-zl3073x_dpll_ref_sync_pairs_register() walks the list without the lock
-and without an assertion. zl3073x_dpll_ptp_adjtime_phase_step() has no
-lockdep_assert_held(), although its caller zl3073x_dpll_ptp_adjtime()
-does hold the lock.
-
-Also, zl3073x_dpll_pins_unregister() takes the lock around
-list_splice_init(), not list_del(). list_del() runs outside the lock on
-the spliced private list.
-
-I don't see a live race here. The monitor work is only queued after
-zl3073x_dpll_register() in zl3073x_dev_start(). It is cancelled
-synchronously in zl3073x_dev_stop() before unregistration.
-zl3073x_dpll_ref_sync_pairs_register() runs in the registration thread.
-
-Could the message be narrowed to the lookup helpers? Alternatively, the
-remaining walkers could take the lock, with assertions added where the
-lock is already held.
-
-> diff --git a/drivers/dpll/zl3073x/dpll.c b/drivers/dpll/zl3073x/dpll.c
-> index 9eec27331fe3d..d71471d64aec4 100644
-> --- a/drivers/dpll/zl3073x/dpll.c
-> +++ b/drivers/dpll/zl3073x/dpll.c
-
-[ ... ]
-
-> @@ -1001,7 +1053,16 @@ zl3073x_dpll_output_pin_frequency_set(const struct dpll_pin *dpll_pin,
->  		}
->  
->  		/* Commit output configuration */
-> -		return zl3073x_out_state_set(zldev, out_id, &out);
-> +		rc = zl3073x_out_state_set(zldev, out_id, &out);
-> +		if (rc)
-> +			goto unlock;
-> +
-> +		/* The other pin's frequency changed too - it has to be
-> +		 * notified about the change.
-> +		 */
-> +		sibling = zl3073x_dpll_output_pin_sibling_get(pin);
-> +
-> +		goto unlock;
->  	}
->  
->  	if (zl3073x_dpll_is_p_pin(pin)) {
-> @@ -1013,8 +1074,10 @@ zl3073x_dpll_output_pin_frequency_set(const struct dpll_pin *dpll_pin,
->  		 * Update divisor for N-pin to keep N-pin frequency.
->  		 */
->  		out.esync_n_period = (out.esync_n_period * out.div) / new_div;
-> -		if (!out.esync_n_period)
-> -			return -EINVAL;
-> +		if (!out.esync_n_period) {
-> +			rc = -EINVAL;
-> +			goto unlock;
-> +		}
->  
->  		/* Update the output divisor */
->  		out.div = new_div;
-
-[Severity: High]
-In N-div mode, can setting the P-pin frequency change the N-pin
-frequency without any notification for the N-pin?
-
-This branch rewrites out.div, which the N-pin shares. It also recomputes
-esync_n_period with truncating division, and only a zero result is
-rejected. zl3073x_dev_output_pin_freq_get() reports the N-pin frequency
-as:
-
-	freq = zl3073x_synth_freq_get(synth) / out->div;
-
-	if (zl3073x_out_is_ndiv(out) && zl3073x_is_n_pin(id))
-		freq /= out->esync_n_period;
-
-So if old_div * old_period is not a multiple of new_div, the N-pin
-output changes.
-
-For example, take a 600 MHz synth with div=60 and period=10, so P is
-10 MHz and N is 1 MHz. Setting P to 2.5 MHz gives new_div=240 and
-period = 600 / 240 = 2, so N becomes 1.25 MHz.
-
-zl3073x_pin_check_freq() only checks that the requested frequency
-divides the synth frequency, so this request is accepted.
-zl3073x_out_state_set() then commits the new values to hardware.
-
-The sibling is only looked up in the !zl3073x_out_is_ndiv() branch.
-This path therefore reaches the unlock label with sibling == NULL, and
-dpll_pin_freq_set() in the core only notifies the requested pin.
-
-The commit message excludes N-div mode on the assumption that the N-pin
-frequency is kept, but the arithmetic doesn't guarantee that.
-
-Would it work to compare the sibling's effective frequency before and
-after the commit and notify on change? Another option is to reject P
-frequencies that can't keep the N frequency exact.
-
--- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261001080648.1424172-1-ivecera%40redhat.com
