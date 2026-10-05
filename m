@@ -1,151 +1,292 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from rtits2.realtek.com.tw (rtits2.realtek.com [211.75.126.72])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CB77028033B
-	for <linux-kernel@vger.kernel.org>; Mon,  5 Oct 2026 03:10:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7648835975;
+	Mon,  5 Oct 2026 03:12:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=211.75.126.72
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791169849; cv=none; b=gIt6Tvr+l8OxzUSGzwKiSEQG2BDNGJyV6ekjwi2R8jMg1GphuFMSddNdGVT22O+e0b5sWGGjPuGD7NojsoZSv2vOZW8g97KwH+SSIVMakjjv45FfPr8RYrGhGxSfTb48gLkFlXmhttODblQeq0/nuBUzWq9a1TKIzMOXNdsv3tY=
+	t=1791169934; cv=none; b=IlXQJm3JOiWHZ9NWFF7H4rTfqn1uq6X9Ir4JxaGF/0gZq4TEgVpqN2Iokf9YthMbqBOsQT+Ggeq3Pm5QH4wUDFzMbtFKUPaQQOMtO01lX2qCbB5E5rNm7dTXfZz6QEwZhK75lz9XFZGxb3FMsSCp+hJiWcW96qUPcJtHM8kkE7o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791169849; c=relaxed/simple;
-	bh=FkAYTVSx/narKs44G9kWV+3HqbiiTQQLw1ziMHERtW0=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=NQRz0fJZxPYuNMPqSnYsw8q7v9TEb4xT1nQ1WBbNrkEpe3oF03KqlMS9L8noF3Dtlqlh5CZj5UuCyGhKvWYgtZbB43Uhj3shTmckMjoIJEl7P6HvEhGQsUTDMF/vti87fz5HGVBVZBBG3SLwjATRi7QAJTxMl+AcUI4sOg0VhRg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=d+gM6bE0; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=cdtJ1KyB; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1791169934; c=relaxed/simple;
+	bh=PcHUeufBxlek5ogqz3nQgdAdG40DUA9yb0bCkkjQ6QQ=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:MIME-Version; b=CThfWXMWTmFYNTRfran1BLYtLdRXPpEWo4JWpLz6kre1F51icOpx0HJRtwROWc1/P63/NE5o+6c9V+uoxfGwBb0eXAfIKUdFPoObbgZ6chn/5yBCnVEK6ohfcI41/huT1oQ4N/71UAC+yXmtu78Md5O0YK3EWgwdRqmDp+umCOE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=realtek.com; spf=pass smtp.mailfrom=realtek.com; dkim=pass (2048-bit key) header.d=realtek.com header.i=@realtek.com header.b=RG6m4rln; arc=none smtp.client-ip=211.75.126.72
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=realtek.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=realtek.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="d+gM6bE0";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="cdtJ1KyB"
-Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69510RHo788230
-	for <linux-kernel@vger.kernel.org>; Mon, 5 Oct 2026 03:10:46 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=qcppdkim1; bh=3OfEK2icYr2I7GSUxSDco0Fe
-	v4FbkyIVeW2fdTVpW8s=; b=d+gM6bE0mp8gn+PS8MsvfEEFXa2AYtPjzXEvduFv
-	bISDW94sY7FXV2hxT7ss4R+hJuJkDg7/MGREAEXDlrw2y6yBGUTTBRtbaUWreMAX
-	1BJ3dqYZEXzZ/BJEHbFSrGcQfbLwehjIrHtYlM0tHLBn7GRvA6kW2c+IUWdUt66I
-	OIEdwDWP3955Iuj9tzOOg79JHKCskYXfWLelN40GgIV48WuR9NY6UmWsr91sK4vk
-	vREcrp+x2iU+1nbaPALvUV2UhBJ4oT8jNmPKpc9Q2igrOrrMPM6NJw75WsEI/lm1
-	UG+SroPbg8/S81xTjVEx+77w6gZLf3wxkBFgNMIpX5Ad2Q==
-Received: from mail-vs1-f69.google.com (mail-vs1-f69.google.com [209.85.217.69])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h2spa4apt-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Mon, 05 Oct 2026 03:10:46 +0000 (GMT)
-Received: by mail-vs1-f69.google.com with SMTP id ada2fe7eead31-7c0f07b4e97so1132091137.0
-        for <linux-kernel@vger.kernel.org>; Sun, 04 Oct 2026 20:10:46 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1791169846; x=1791774646; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=3OfEK2icYr2I7GSUxSDco0Fev4FbkyIVeW2fdTVpW8s=;
-        b=cdtJ1KyB1iD+oOm5+Sd+EDNvhKJt8AmqdUEICdclBsT31UcfAdpFGTP+coBdvjq3Qm
-         nk+zWmXGlMX82vVdQLY8Srur6uRNt/MtI2kWQrJoFBHOg5PEWYnECDClwbptYc3hfXAO
-         TfEzC4vXdacyifM5JOHYoDH6YPK06vaK47D6Jwt7B04PBa86tpEptH9bQ5051iJ/YXHv
-         mrDT4zuzpEu/dhSUOPjJq7wKOmm9e9+P4H2q/rCr4Jp3kJLCGam4hJSPu52NclEAsefH
-         F6Maze6boJGYKkdYQviR5Q8Fd7RoN9zrUFIIZ28kmPHvc14/ZGg62OpYee3cIvMZLhJQ
-         BOwA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791169846; x=1791774646;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=3OfEK2icYr2I7GSUxSDco0Fev4FbkyIVeW2fdTVpW8s=;
-        b=X/0uWJXSOoFlLhGaeT/RaVf7UHnYypcQa2OsnBo2dDRJlFFrVfJxzObthChEMa9rYy
-         43HWmAVkvlruimkkILTMSQ018SCkcwmsHeMRo0MD/13Kz64Jq7I+uEbmorzmFRNE3r2i
-         Xmeo+sijUvuu3V4lmTDHG/wjg7TDigBEBMU+67+u+YsuVR1aPQn490PtvJuVAqZySPYq
-         0Ht8GGIe486TWu+AXBzvXsp1H6gEkkn9iVwbes80uZVyu1pF35gKAiKI9dDPx5nelO4o
-         H5w6ow5pius/08awJc7IJY1/ucLxOnD3N/JasMDdZv7ChwKUlmxR3Fam+1kwxncIoPze
-         2DPQ==
-X-Forwarded-Encrypted: i=1; AKwUvBz9P/KxU8vbdaRO8+ENFqsJq9VEH54KwJTvjoCn2uFaQ4o7NKvdOuqerLiInJPcoD+VZ2b55uhzUJ9aYfw=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJ+s9SbIE/0OEWgutAE5mZYTQi+0+9kHga9oPzytzzfAv45gt8E
-	IfFn/tTX3dJuKTdwEuXS/V8auLwzpyxJwWj7uQTb3FLHF8ddtjACxu3f5iLFt/8Uwo/U1M8Hau9
-	S/zFgUHFifvs+cQtA38w2xf99d1XfpvnN2TVUKsdu7y981v3gRaLYkSNl/KhfE9cxfPE=
-X-Gm-Gg: AYBFou3Sc9Pa9/GbJIb6AxBEQt+aGIhl0fuoRFgRf8VlQWeEXMpPYj8Mk2vxP89vEUU
-	s3G3kixKeoZDtZV650IjfkSsRqK0F/M2GyBU3CG5l8QDwdQhWptI/9LJY11WHtIEvP2ua3jzXiQ
-	ZiIV0ur9b85cSw+9Cx9Bwxl/s1ovATaj+OWoKNOFc+y57bZStJC+wNLn3ynt4ZWS93wMQHICPLU
-	AyCfBaH9d3x9MPdMj00rwyECseXVH1IFY6twuQ5dZzRg8d1YGDyetFVEG/C4tg33zaN+huPehFU
-	LG8bXUEEaz5e15FIGJJxEbhuh4ZzfaUsZpUwPJrMAJJb/Ad+7TC8UBL6yx+yaw2E2VQWMaisueF
-	IaIy02IYb8J0KOXUG0mjLrEgsUqQ9AngGM8wosuNFmuf3ALJK9eVKeon3S4nbLFLalISt+bdyVC
-	0SHzCHw0QxoHIS
-X-Received: by 2002:a05:6102:3c8e:b0:7a8:d959:bd76 with SMTP id ada2fe7eead31-7c0f51af767mr2878351137.33.1791169845829;
-        Sun, 04 Oct 2026 20:10:45 -0700 (PDT)
-X-Received: by 2002:a05:6102:3c8e:b0:7a8:d959:bd76 with SMTP id ada2fe7eead31-7c0f51af767mr2878337137.33.1791169845260;
-        Sun, 04 Oct 2026 20:10:45 -0700 (PDT)
-Received: from umbar.lan (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi. [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
-        by smtp.gmail.com with ESMTPSA id 38308e7fff4ca-3a87e31035esm36650811fa.30.2026.10.04.20.10.43
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 04 Oct 2026 20:10:44 -0700 (PDT)
-Date: Mon, 5 Oct 2026 06:10:42 +0300
-From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-To: Reza Kurniawan <imkyufie@gmail.com>
-Cc: Sebastian Reichel <sre@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>,
-        Abel Vesa <abelvesa@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>, linux-pm@vger.kernel.org,
-        linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org,
-        devicetree@vger.kernel.org
-Subject: Re: [PATCH v2 2/2] arm64: dts: qcom: msm8917-xiaomi-riva: Enable USB
- support (peripheral mode)
-Message-ID: <3w2te74boo63yqbfgi5mwiu4rqdjd67nmb4ums7p7whucdr2gj@5l7euw4umfun>
-References: <20260912-riva-usb-v2-0-997fe0171ee5@gmail.com>
- <20260912-riva-usb-v2-2-997fe0171ee5@gmail.com>
+	dkim=pass (2048-bit key) header.d=realtek.com header.i=@realtek.com header.b="RG6m4rln"
+X-SpamFilter-By: ArmorX SpamTrap 5.80 with qID 6953BnZZ21604451, This message is accepted by code: ctloc85258
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=realtek.com; s=dkim;
+	t=1791169910; bh=bh5yvq68X/KKmWoa52t/wNsQQ71FQ7suOQaBkKtY/Yc=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:MIME-Version;
+	b=RG6m4rlnaF/5KZ1Z8dVgTPaPDQWkxHALmbdeTXSjCZjLQo9UiJSJSPUPEhTHWGn1J
+	 1FWVJawWDhWxO+s9t7IdsuBH/nNopnH8oP0ZyD+3ryqwWXmYe3Gx79Gc3DVuRalFCp
+	 JDWEluxiIOrpnoyWB5TR61Fd6McuftE7f4dN5LW7v/wweRaxrSv9mWiEoBqmPQoywC
+	 kDVIxatXOKCo3pVEfTNVfYNxHS67N+qoGyBl8Up1j35b5P40kaAnHwHElg+96eRRB7
+	 Zxt+3Tv3IZpgl5sBNSjfKqRek86xOUKUiGCOj3TRJ6fZjNRRLNCL6WKtgDMR/dHDiC
+	 2c6huxtwdiscQ==
+Received: from mail.realtek.com (rtkexhmbs04.realtek.com.tw[10.21.1.54])
+	by rtits2.realtek.com.tw (8.15.2/3.29/5.94) with ESMTPS id 6953BnZZ21604451
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
+	Mon, 5 Oct 2026 11:11:49 +0800
+Received: from RTKEXHMBS06.realtek.com.tw (10.21.1.56) by
+ RTKEXHMBS04.realtek.com.tw (10.21.1.54) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.49; Mon, 5 Oct 2026 11:11:49 +0800
+Received: from RTKEXHMBS06.realtek.com.tw ([::1]) by
+ RTKEXHMBS06.realtek.com.tw ([fe80::b3cc:c263:b82d:e87c%10]) with mapi id
+ 15.02.2562.049; Mon, 5 Oct 2026 11:11:49 +0800
+From: Ping-Ke Shih <pkshih@realtek.com>
+To: Mehmet Fide <mehmet.fide@gmail.com>
+CC: Luka Gejak <luka.gejak@linux.dev>, Bitterblue Smith
+	<rtl8821cerfe2@gmail.com>, "linux-wireless@vger.kernel.org"
+	<linux-wireless@vger.kernel.org>, "linux-kernel@vger.kernel.org"
+	<linux-kernel@vger.kernel.org>, "mehmet.fide@screeningeagle.com"
+	<mehmet.fide@screeningeagle.com>
+Subject: RE: [PATCH rtw-next v2 2/2] wifi: rtw88: support channel switch in AP
+ mode
+Thread-Topic: [PATCH rtw-next v2 2/2] wifi: rtw88: support channel switch in
+ AP mode
+Thread-Index: AQHdUK+Uwza6GnHkZUe/N3QzQMgqr7buRteQ
+Date: Mon, 5 Oct 2026 03:11:49 +0000
+Message-ID: <135e11c2a24642d0af774d6fd3c7f5a2@realtek.com>
+References: <20260930074444.1991223-1-mehmet.fide@gmail.com>
+ <20260930074444.1991223-3-mehmet.fide@gmail.com>
+In-Reply-To: <20260930074444.1991223-3-mehmet.fide@gmail.com>
+Accept-Language: en-US, zh-TW
+Content-Language: zh-TW
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260912-riva-usb-v2-2-997fe0171ee5@gmail.com>
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDA1MDAxMiBTYWx0ZWRfXzfVm71pFG0lT
- 5/yDUkCC+EhMvLi/PyOwl1SSEvr+Q1euASvih9cABJKfTDfLsK4QDISLJfXij3EkR+YrQWdywJX
- wLqnysueI7Zb7Brz7Xb/kDryHSm5bYIaw9yy5lCQxWkCyHJyWrBFpJfPmbyICOaG84tzIQDAwlS
- LkO++ydS6NkbM5as5Dpl/vMoPT3jkMjyRYrxoGDjfnpsoDybGcieBnTSBzhh9vJy6d9KdI2I710
- NwH5qpsLcISKezfJRlN/aWI4k6EaVgn0gaSOQofkwxoqZhp+OuyLi61kFKV2Uzq0FF5ayNYfn83
- Hp05Fpzn4YxM8d9FRibx81Eczbx+JMA2XuXmKw/hhgdcUytBdCY9z2L/Z22JxQPlj60YSA0WPa3
- 9pNaE7kMemk3xpm+HtGa/Ui4W9BgmMgMCQRBn7TbIDi5NFopMA4yk8sMG2zzic7H9Xm4GH55QDi
- pttfS6wXdVagIb25HWA==
-X-Authority-Analysis: v=2.4 cv=b7MncdGx c=1 sm=1 tr=0 ts=6ac31536 cx=c_pps
- a=5HAIKLe1ejAbszaTRHs9Ug==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
- a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=_glEPmIy2e8OvE2BGh3C:22 a=pGLkceISAAAA:8
- a=EUspDBNiAAAA:8 a=AYGg-ij1XDh01NWh1ucA:9 a=CjuIK1q_8ugA:10
- a=gYDTvv6II1OnSo0itH1n:22
-X-Proofpoint-ORIG-GUID: xjlK6GS7JJqwJdRbO9xxTRDKYXMknPhN
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDA1MDAxMiBTYWx0ZWRfXwuqQeMWoihYg
- JQAOSE9NHifhqfFRhfP1YQ34d0of0i8tsfE/D8oBTEde8bHB/gC6fYDjI3wvREH26XRMSRMZjNI
- GYQRgffFdBRRVW7Q/N95Sl+ZADYcQPE=
-X-Proofpoint-GUID: xjlK6GS7JJqwJdRbO9xxTRDKYXMknPhN
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-10-05_01,2026-10-02_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 impostorscore=0 adultscore=0 clxscore=1015 phishscore=0
- bulkscore=0 malwarescore=0 suspectscore=0 priorityscore=1501
- lowpriorityscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2609040000
- definitions=main-2610050012
 
-On Sat, Sep 12, 2026 at 10:18:12PM +0700, Reza Kurniawan wrote:
-> Enable USB node and PHY. Since VBUS is wired to the charger IC, also
-> set extcon of the USB node to inform the USB driver of cable events
-> emitted by the charger driver.
-> 
-> Signed-off-by: Reza Kurniawan <imkyufie@gmail.com>
+Mehmet Fide <mehmet.fide@gmail.com> wrote:
+> From: Mehmet Fide <mehmet.fide@screeningeagle.com>
+>=20
+> hostapd's CHAN_SWITCH is refused because the driver does not announce
+> channel switch support, so an AP on rtw88 can only change its channel
+> by being torn down and started again.
+>=20
+> Declare WIPHY_FLAG_HAS_CHANNEL_SWITCH and implement
+> ieee80211_ops::channel_switch_beacon: the firmware repeats the beacon
+> held in the first reserved page, so while a switch is announced the
+> page is downloaded again every beacon interval to renew the countdown,
+> and ieee80211_csa_finish() is called once it completes. IBSS, which
+> the flag enables too, shares the page and the work.
+>=20
+> The work is a wiphy delayed work of the device, like
+> update_beacon_work:=20
+
+rtw88 doesn't switch to wiphy work yet. Mixing to use ieee80211 and wiphy
+works with driver mutext still is harmless I think.
+
+> rtw88 runs one beaconing interface, a hw restart
+> replays add_interface without remove_interface, and the wiphy lock
+> serializes it with the mac80211 state it reads. It is cancelled when
+> the AP stops, when the vif goes away and on WoWLAN suspend, and a
+> hardware scan is refused while a switch is announced, since it would
+> take the AP off the channel its stations count down to.
+>=20
+> Signed-off-by: Mehmet Fide <mehmet.fide@screeningeagle.com>
 > ---
->  arch/arm64/boot/dts/qcom/msm8917-xiaomi-riva.dts | 17 ++++++++++++++++-
->  1 file changed, 16 insertions(+), 1 deletion(-)
-> 
+>  drivers/net/wireless/realtek/rtw88/fw.c       | 41 +++++++++++++++++
+>  drivers/net/wireless/realtek/rtw88/fw.h       |  1 +
+>  drivers/net/wireless/realtek/rtw88/mac80211.c | 46 +++++++++++++++++++
+>  drivers/net/wireless/realtek/rtw88/main.c     |  4 +-
+>  drivers/net/wireless/realtek/rtw88/main.h     |  1 +
+>  5 files changed, 92 insertions(+), 1 deletion(-)
+>=20
+> diff --git a/drivers/net/wireless/realtek/rtw88/fw.c b/drivers/net/wirele=
+ss/realtek/rtw88/fw.c
+> index 49f09a9f4ed6..1ad25e0539c4 100644
+> --- a/drivers/net/wireless/realtek/rtw88/fw.c
+> +++ b/drivers/net/wireless/realtek/rtw88/fw.c
+> @@ -1813,6 +1813,47 @@ void rtw_fw_update_beacon_work(struct work_struct =
+*work)
+>         mutex_unlock(&rtwdev->mutex);
+>  }
+>=20
+> +/* renew the countdown in the firmware's beacon page until it completes =
+*/
 
-Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+I think this is unnecessary.=20
+
+> +void rtw_fw_csa_beacon_work(struct wiphy *wiphy, struct wiphy_work *work=
+)
+> +{
+> +       struct rtw_dev *rtwdev =3D container_of(work, struct rtw_dev,
+> +                                             csa_beacon_work.work);
+> +       struct rtw_rsvd_page *rsvd_pkt;
+> +       struct ieee80211_vif *vif;
+> +       unsigned int delay;
+> +
+> +       lockdep_assert_wiphy(wiphy);
+> +
+> +       mutex_lock(&rtwdev->mutex);
+> +
+> +       if (!test_bit(RTW_FLAG_RUNNING, rtwdev->flags))
+> +               goto out;
+> +
+> +       rsvd_pkt =3D list_first_entry_or_null(&rtwdev->rsvd_page_list,
+> +                                           struct rtw_rsvd_page, build_l=
+ist);
+> +       if (!rsvd_pkt || rsvd_pkt->type !=3D RSVD_BEACON)
+> +               goto out;
+> +
+> +       vif =3D rtwvif_to_vif(rsvd_pkt->rtwvif);
+
+Should we define csa_beacon_work by vif? Then, here we can get rtwvif
+(and vif) from work context.
+
+> +       if (!vif->bss_conf.csa_active)
+> +               goto out;
+> +
+> +       delay =3D ieee80211_tu_to_usec(vif->bss_conf.beacon_int);
+> +
+> +       if (!ieee80211_beacon_cntdwn_is_complete(vif, 0)) {
+> +               rtw_fw_download_rsvd_page(rtwdev);
+> +               rtw_send_rsvd_page_h2c(rtwdev);
+> +
+> +               wiphy_delayed_work_queue(wiphy, &rtwdev->csa_beacon_work,
+> +                                        usecs_to_jiffies(delay));
+> +       } else {
+> +               ieee80211_csa_finish(vif, 0);
+> +       }
+> +
+> +out:
+> +       mutex_unlock(&rtwdev->mutex);
+> +}
+> +
+>  static void rtw_fw_read_fifo_page(struct rtw_dev *rtwdev, u32 offset, u3=
+2 size,
+>                                   u32 *buf, u32 residue, u16 start_pg)
+>  {
+
+[...]
+
+> diff --git a/drivers/net/wireless/realtek/rtw88/mac80211.c
+> b/drivers/net/wireless/realtek/rtw88/mac80211.c
+> index 2a9b09fa76e7..7c2a373faff8 100644
+> --- a/drivers/net/wireless/realtek/rtw88/mac80211.c
+> +++ b/drivers/net/wireless/realtek/rtw88/mac80211.c
+> @@ -235,6 +235,10 @@ static void rtw_ops_remove_interface(struct ieee8021=
+1_hw *hw,
+>         rtw_dbg(rtwdev, RTW_DBG_STATE, "stop vif %pM mac_id %d on port %d=
+\n",
+>                 vif->addr, rtwvif->mac_id, rtwvif->port);
+>=20
+> +       if (rtwvif->net_type =3D=3D RTW_NET_AP_MODE ||
+> +           rtwvif->net_type =3D=3D RTW_NET_AD_HOC)
+> +               wiphy_delayed_work_cancel(hw->wiphy, &rtwdev->csa_beacon_=
+work);
+> +
+
+Why should we need check Ad-hoc? How about just removing conditions?
+
+As above comment, I'd move csa_beacon_work to vif.
+
+>         mutex_lock(&rtwdev->mutex);
+>=20
+>         rtw_leave_lps_deep(rtwdev);
+> @@ -375,6 +379,13 @@ static void rtw_conf_tx(struct rtw_dev *rtwdev,
+>                 __rtw_conf_tx(rtwdev, rtwvif, ac);
+>  }
+>=20
+> +/* renew the channel switch countdown one beacon interval from now */
+
+No need this comment.
+
+> +static void rtw_csa_beacon_queue(struct rtw_dev *rtwdev, u16 beacon_int)
+> +{
+> +       wiphy_delayed_work_queue(rtwdev->hw->wiphy, &rtwdev->csa_beacon_w=
+ork,
+> +                                usecs_to_jiffies(ieee80211_tu_to_usec(be=
+acon_int)));
+
+Just single one statement. Can't we just call wiphy_delayed_work_queue()
+directly?
+
+> +}
+> +
+>  static void rtw_ops_bss_info_changed(struct ieee80211_hw *hw,
+>                                      struct ieee80211_vif *vif,
+>                                      struct ieee80211_bss_conf *conf,
+> @@ -438,6 +449,9 @@ static void rtw_ops_bss_info_changed(struct ieee80211=
+_hw *hw,
+>                 rtw_set_dtim_period(rtwdev, conf->dtim_period);
+>                 rtw_fw_download_rsvd_page(rtwdev);
+>                 rtw_send_rsvd_page_h2c(rtwdev);
+> +               /* a hw restart replays the beacon, not channel_switch_be=
+acon */
+
+unnecessary comment.=20
+
+> +               if (conf->csa_active)
+> +                       rtw_csa_beacon_queue(rtwdev, conf->beacon_int);
+>         }
+>=20
+>         if (changed & BSS_CHANGED_BEACON_ENABLED) {
+> @@ -489,6 +503,8 @@ static void rtw_ops_stop_ap(struct ieee80211_hw *hw,
+>  {
+>         struct rtw_dev *rtwdev =3D hw->priv;
+>=20
+> +       wiphy_delayed_work_cancel(hw->wiphy, &rtwdev->csa_beacon_work);
+> +
+>         mutex_lock(&rtwdev->mutex);
+>         rtw_write32_clr(rtwdev, REG_TCR, BIT_TCR_UPDATE_HGQMD);
+>         rtw_write16(rtwdev, REG_ATIMWND, ATIMWND_DEFAULT);
+> @@ -556,6 +572,16 @@ static int rtw_ops_set_tim(struct ieee80211_hw *hw, =
+struct ieee80211_sta *sta,
+>         return 0;
+>  }
+>=20
+> +static void rtw_ops_channel_switch_beacon(struct ieee80211_hw *hw,
+> +                                         struct ieee80211_vif *vif,
+> +                                         struct cfg80211_chan_def *chand=
+ef)
+> +{
+> +       struct rtw_dev *rtwdev =3D hw->priv;
+> +
+> +       /* the beacon that starts the countdown was just downloaded */
+
+unnecessary comment.=20
+
+> +       rtw_csa_beacon_queue(rtwdev, vif->bss_conf.beacon_int);
+> +}
+> +
+>  static int rtw_ops_set_key(struct ieee80211_hw *hw, enum set_key_cmd cmd=
+,
+>                            struct ieee80211_vif *vif, struct ieee80211_st=
+a *sta,
+>                            struct ieee80211_key_conf *key)
+
+[...]
+
+> @@ -900,6 +937,14 @@ static int rtw_ops_hw_scan(struct ieee80211_hw *hw, =
+struct ieee80211_vif *vif,
+>                 return -EBUSY;
+>=20
+>         mutex_lock(&rtwdev->mutex);
+> +
+> +       /* the stations count down to the new channel and expect the AP t=
+here */
+> +       rtw_iterate_vifs(rtwdev, rtw_csa_active_iter, &csa_active);
+> +       if (csa_active) {
+> +               mutex_unlock(&rtwdev->mutex);
+> +               return -EBUSY;
+> +       }
+
+Forgot to mention this by commit message?
+
+> +
+>         rtw_hw_scan_start(rtwdev, vif, req);
+>         ret =3D rtw_hw_scan_offload(rtwdev, vif, true);
+>         if (ret) {
 
 
--- 
-With best wishes
-Dmitry
