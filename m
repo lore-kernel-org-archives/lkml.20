@@ -1,120 +1,80 @@
-Received: from mail-pj2-f41.google.com (mail-pj2-f41.google.com [74.125.227.169])
+Received: from mta0.migadu.com (out-135.mta0.migadu.com [91.218.175.135])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E67D346AA8D
-	for <linux-kernel@vger.kernel.org>; Mon,  5 Oct 2026 10:35:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.227.169
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791196503; cv=pass; b=Mc9IC3inu4NyeB8KvBUphndejWiJERgsKD6wUb90pgY3a6ox86uY0Z1HHzeKDCX69seK1wr7x4WR8RmzuLJbsLgIF4kA2h0jRMfaaDCrWuPhS61gT/YJuVgV+PkYVJZq5LENfbDAA+/rU4SW4HMqNc041S+qdcEd1Jb/ri/RMe8=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791196503; c=relaxed/simple;
-	bh=kvK039c+ndNZqYLtVZw/RUvQrQGmrUovg0Lat0BxvJw=;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4D13A443A98
+	for <linux-kernel@vger.kernel.org>; Mon,  5 Oct 2026 10:35:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.135
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791196510; cv=none; b=ET+9YRgiTzp2yloZt0aNM3Ydv393IuFNFTsae1o/fST//6byJGSSZjJA5U4scTCYaHN0ztOn6nwA0xSF2yluv9H3z2HVRjo4z5pSr0dGmLnlB27UnvC6U2FcLhxXiRm97UzbZ2LqI86R1S+ZBuuRLiIcFkeUazcpGFocVXi97jA=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791196510; c=relaxed/simple;
+	bh=sV3EdOxAQTAmg19Y3zgY7THPUvOZZFHhczWUDB6Dz3M=;
 	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=MT/XLZHErZiYC03dCrQW8ZO+osGwK6bxM5RrG2jZKI1s+KWyWWQvr1u3yvwJ30gJogyQ3oT8nQTYX8eh4vsmJvD70YGcdJd04I+K/s92hCt6kDbdj1ejHeFgUe1bQmrjx/vBZubZaFEpzh7ZVI324GESUyqbvinmBGt6TDjrC1g=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=PUtBeRCn; arc=pass smtp.client-ip=74.125.227.169
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	 To:Cc:Content-Type; b=MdqLvMXOgsYp6C5Yoo1RjdvtsxOH5ZiAL8RvOGBryQEgq+DQ22l2609fZFaj7o5kpRIAJ9MtRkWL94YBATyPreG7Lx4pHkQsMY9eDv9BbFLyA6sBYBlL6O80ceBB2JMODa5Gu++MAHg5BUJvK1s+/9DY06JyDglCRM9s0yKYAAI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=T5zWd35a; arc=none smtp.client-ip=91.218.175.135
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="PUtBeRCn"
-Received: by mail-pj2-f41.google.com with SMTP id d9443c01a7336-2e4ba8555fdso4847185ad.2
-        for <linux-kernel@vger.kernel.org>; Mon, 05 Oct 2026 03:35:01 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1791196501; cv=none;
-        d=google.com; s=arc-20260327;
-        b=caL7jgx9eUfeYQWZvLzzepGQkPKaLbFMr89NPhwHF8i4wqP1C2VRHNdBq+Rztkv1Rn
-         PLwnMkLK7QsmTf6dLRtLkP7pM5Ng311ljjNPOxibR7IX7tliJ3O8JY3Usats/rATeHnX
-         NcPDTKyFg6S9i2aPZgRbxql9dcsV6rbfg9zMINH7yJxRajhBzgbgsmJY2k2rUX7MBo5I
-         ht3Ld4N4PglEi4AzjsFstRPAVswKkzwjBh05a+mWAZkiQGKq/g0AFGniMUhxzGQYrHin
-         q5+iM6TY8DZym3lHQP5hvMvmmhDAjhsbHVxSF9Axqn/+/wCYZkXqwIQPhOKiQQZYwnd0
-         M/tg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=kvK039c+ndNZqYLtVZw/RUvQrQGmrUovg0Lat0BxvJw=;
-        fh=NIp17T8M79xGYGEBtAfrdY5Az60AnnAsd2vJ6vxNsP8=;
-        b=ZKtpg+EBuBmcG/eZ8zq59MGP/fMurSI6gZzkVVVjbtjBjGvO3u9eU7M/y8kTL5SIkN
-         YJs1aD3PztV+bzJtsfzR5lnj91x4HX0hBMaZyyfoJ3uwZnL6EMXRGCrHBxuph795oq11
-         oPI+6N3klhJ46sVR6dL2NWjTuNktz93USIAfB1M/HClWWim6WmcG9tlR60zUUceZbKfj
-         7VoY8aWK5xxcxZJPrsj1NJI12SmCA3STLcrDRjb+Oso4R+U0q7fvxj5jXEjDuXMh3FJh
-         84eLb2E4fFuKCxn0Fv+VpgiOVnDJGRMiZV3MwwF+3/oI3lc820VmQTHqPgEQx4UUIZY/
-         X4RA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791196501; x=1791801301; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=kvK039c+ndNZqYLtVZw/RUvQrQGmrUovg0Lat0BxvJw=;
-        b=PUtBeRCnu0CHbPiuimt7q9Cc7TG4ogrIJCvcS6wmrdqkHDPwaoCoAvYIxOlnlaoMtl
-         rXva7qlqgWWHqYDJTFKdZx97YBPWiYIxrtvhIUmXIIh1ace6JHB5V6y42DbE4pWEAIuM
-         Vi192RvrcFTvp7Yj5iBOXaHida7G+/ul9GxGEFH8ZVZh8wg4TP07xfsFqug5nW9diYK5
-         ccqZOSYEtdCp3gTe22sqJwQTdu8T4IFOaC5ITaYDob8p/8mnJK9V5mG+Ey384Q0Fb/nD
-         I2oASzZTjtNYZPOxWkhMlghtO2TpVON+unzev9JBDkkuPY9Zh4kSMTok95zDpRvYKe92
-         Aldg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791196501; x=1791801301;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=kvK039c+ndNZqYLtVZw/RUvQrQGmrUovg0Lat0BxvJw=;
-        b=Bc6AUPFH4dx0PHpoX5K/4umJSUQwB+BCzlkfbehqrLoJIwSTg65GM7aoDssP8DuNVa
-         eE07Ql6hJn/IyoNx16SY/Npxa2qP3Zdq71GWGKN1JGu7hioKm/OYnxJvPC+jylTkWyhV
-         LCW5kHrmIXgHR9t9FYU/47NngEiJWth43s5r1HsgV9IzW5OUusKOJuaibmbmJlVu4YOd
-         iX8aMvfATkgZpG7IckB9Jtth4HLnKUpcEfPw44oYXCHcH39a6CfjUv2lKqGHaH4UC9mB
-         uhQ6IO+Te5zSxDnM2n4SAVMP2rrM8f30axfqmJtFcTq16w0P+waaHo9Rsexn2JkcaoPB
-         NEjA==
-X-Forwarded-Encrypted: i=1; AKwUvBxkIQa08ySgKL2nA4yoNFI1FiYDhXvtMgc81KjTbPa+IF6esaHrDR9TSJwDEqkzb2MOXcuikfNFJkCzz3o=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKMhqQAE/+6MCthVFaGLfnnHnhT2S5tbsFAtlixMjrmgfxjyS3Z
-	Ftn+DI2TapRjYrJQwdIhz7qbrX1fVNHj3gR2j76XKMpnZQEMZWCju/t4OtmAEws5H7zkJDEC6lD
-	Mg13Bggu5MOvNqgxHzrlWCUmu8nbHN6M=
-X-Gm-Gg: AYBFou11HubKFm0K0MMa0RcpKSiNIKLuZtYXKCrWCgXMh1OiA68h/ipXrp3J7Cqoj7F
-	bWHCJtXZ+RKHbx/+kpVCsyWApQg5OWhEcSr6U6PfxHMK8c/EyR1qm4REgpThhMXFR8O99GfwHUl
-	kxA/zBElAtdFKBZw0sOIQPf8D9vTLiCa6Btk5s9TLa5o39CNT0ZIbnDfQE/WyzA671pG82PUzRa
-	MVh6pkXdDuyQYL9dbY/2/SIGvU2tknHPfK1YDq4Lrum5Ww5rNC7SqtumrnrwfebpLZ555f9tr7w
-	TiaskzWgtvm29EjZvh+rKSJjw6LZCgDlZQ918f9yUYDqJcGtXP4PMV1xsj31Bf3b31g2Mtp7QJj
-	DI3eWR3ljIb1Hfmx/zut4p1UPLa+6mQ6ghVhX7/KnplPLwN4gBZ6Auj35IwQE9RFBpDs=
-X-Received: by 2002:a17:902:ccc2:b0:2df:8aea:7d92 with SMTP id
- d9443c01a7336-2e49b7f79c5mr90908515ad.47.1791196501061; Mon, 05 Oct 2026
- 03:35:01 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="T5zWd35a"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=sV3EdOxAQTAmg19Y3zgY7THPUvOZZFHhczWUDB6Dz3M=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1791196505; v=1; x=1791801305;
+ b=T5zWd35aZXKsb9nyBEGa8vqsR2Fj7FH48neDFVqfCRr7EGRwJjUcqx72PsxraioFx6vnEwEV
+ M+mA2i8vYD2jO6FQcUtz6WhIB912b1JHP5+wOwnuBUeG9VTyN/R1hXy3Ml2AVSeOz62xVrmMyJu
+ KcitFd8pI+rCbfLHGA/uYk2E=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 6e9fa77e787a1fb0;
+	Mon, 05 Oct 2026 10:35:05 +0000
+X-Mizu-Trace-ID: 6e9fa77e787a1fb0
+X-Migadu-Flow: FLOW_OUT
+Received: by mail-lf1-f51.google.com with SMTP id 2adb3069b0e04-5bcbb378fc9so4938e87.0
+        for <linux-kernel@vger.kernel.org>; Mon, 05 Oct 2026 03:35:05 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBxl3qNpX7jkXsKtvIUe8bOJc6tymZnKvzCwlJsOfpz1T+svkdbBD/WWXUQznJlvmxHGQ6WsjijCuS6HOnc=@vger.kernel.org
+X-Gm-Message-State: AFq9FYL3HMeQ0D5NfNpTFWcGwEL7ReZjWEyNocqZtFnj38oIhLEqgHo1
+	zHH3xi7JhY1q87WpIZ3iVpMwNdkL4hy5NHcKlWLvNKAHzJ/STFmXgmWkfyX9jq5mm/ROTu31iHo
+	4xtm3FYeWLQNrBq+L0EGtslwn+KUwHbswyNSYvqgV
+X-Received: by 2002:a05:6512:12cc:b0:5b8:c932:f056 with SMTP id
+ 2adb3069b0e04-5bcb62a9caamr173682e87.7.1791196504126; Mon, 05 Oct 2026
+ 03:35:04 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260925044908.450775-1-phucduc.bui@gmail.com>
- <20260925044908.450775-7-phucduc.bui@gmail.com> <asKt42FgsbhSbQUP@sirena.org.uk>
- <CAABR9nFyEJBwXP=4SjuGNfGQJub2y_DPE87c6j6BPmqMBgjESA@mail.gmail.com>
- <asNbjSrPYVbeqSae@sirena.co.uk> <CAABR9nEXM1OSnV6L4=N1YCbtWn5yMNr+OMEZ4p8h3WMaQXbgmA@mail.gmail.com>
- <asN8HzfxSHmBjfu1@sirena.co.uk>
-In-Reply-To: <asN8HzfxSHmBjfu1@sirena.co.uk>
-From: Bui Duc Phuc <phucduc.bui@gmail.com>
-Date: Mon, 5 Oct 2026 17:34:49 +0700
-X-Gm-Features: AclHuK8Ugc5AChxqexu-mkihhLXhmwiRf4SISUAZ4NMYY9zRq0-VJGBtciRXzWY
-Message-ID: <CAABR9nFg2mPOA65Q-9SEDwmEoJ+-YUQqOi=c2nspSYF=UBejYA@mail.gmail.com>
-Subject: Re: [PATCH 06/14] ASoC: mediatek: mt8195: Fix FE startup error handling
-To: Mark Brown <broonie@kernel.org>
-Cc: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, 
-	Trevor Wu <trevor.wu@mediatek.com>, Liam Girdwood <lgirdwood@gmail.com>, 
-	Matthias Brugger <matthias.bgg@gmail.com>, Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, 
-	Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>, cassiogabrielcontato@gmail.com, 
-	Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>, Liviu Dudau <liviu.dudau@arm.com>, 
-	Haotian Zhang <vulab@iscas.ac.cn>, HariKrishna Sagala <hariconscious@gmail.com>, linux-sound@vger.kernel.org, 
-	linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org, 
-	linux-kernel@vger.kernel.org
+References: <20261005050352.836980-1-fuad.tabba@linux.dev> <asNgQDxNQP9Gll-p@kernel.org>
+In-Reply-To: <asNgQDxNQP9Gll-p@kernel.org>
+From: Fuad Tabba <fuad.tabba@linux.dev>
+Date: Mon, 5 Oct 2026 12:34:28 +0200
+X-Gmail-Original-Message-ID: <CA+EHjTw0qZ5DVNOag-8Y_LY2pny3LR8fys0_aFd93m8aYXdTWw@mail.gmail.com>
+X-Gm-Features: AclHuK8UjgPmg-ubCtS9kjMFnBw5eJYdkkIlGq56U6ct7MdjZtvLfCs824uH56c
+Message-ID: <CA+EHjTw0qZ5DVNOag-8Y_LY2pny3LR8fys0_aFd93m8aYXdTWw@mail.gmail.com>
+Subject: Re: [PATCH] KVM: arm64: Pend host SErrors for protected vCPUs through HCR_EL2.VSE
+To: Oliver Upton <oupton@kernel.org>
+Cc: maz@kernel.org, kvmarm@lists.linux.dev, 
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
+	catalin.marinas@arm.com, will@kernel.org, joey.gouly@arm.com, 
+	seiden@linux.ibm.com, suzuki.poulose@arm.com, yuzenghui@huawei.com, 
+	vdonnefort@google.com, qperret@google.com, mark.rutland@arm.com
 Content-Type: text/plain; charset="UTF-8"
 
-Hi Mark,
+Hi Marc, Oliver,
 
+On Mon, 05 Oct 2026 09:30:39 +0100, Marc Zyngier <maz@kernel.org> wrote:
+[...]
+> I thought we had discussed that one before (or am I making things
+> up?). Why can't the host always evaluate serror_is_masked() as true?
+> Given that PSTATE is never synced back to the host, it would only be a
+> matter of set PSTATE.A==1 at vcpu creation time.
 >
-> > On the core side, snd_soc_dai_startup() only treats ret == 0 as success:
-> > it calls soc_dai_mark_push() only in that case.
->
-> > Is a positive return from startup intentional/allowed?
->
-> It shouldn't be, no.
+> It'd be more palatable than this sprinkling of vcpu_is_protected(),
+> which really do not scale.
 
-Thanks for clarifying. I'll send v2 soon.
+Yes, it's better for the host to always see SErrors as masked. v2 will
+do that when the hyp vCPU is created, and leave
+kvm_inject_serror_esr() alone.
 
-Best regards,
-Phuc
+Cheers,
+/fuad
