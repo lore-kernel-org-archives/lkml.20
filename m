@@ -1,106 +1,93 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 752571D54FA;
-	Tue,  6 Oct 2026 08:11:21 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 875F83DB62E;
+	Tue,  6 Oct 2026 08:12:22 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791274282; cv=none; b=qN/6oMkYBL9VHaUsrPULw0wzK9wQu6hGXeVJxi9rmtVIICtYwAmnl4gI1uiKaJtyLTJLMRD0bIXRpwBcVU9VzvFzxzJ2LxAhzDgNuZubRTyMPS2Oc4eO0Fq+2vFq2sFR8LiUKQ8S9gJl0NFBDpIN1omqlhzTqmtc6Y6eXavnWOY=
+	t=1791274345; cv=none; b=LFZsH8shZUyJDZxdLElD9nXiRqxqzie1zT7aaw13LfXKeERIwVB5cwLuDKBipexjIkFhkVBh69t2X5dEMxF2ZmfBzBI9m4fAVcijFYGxIJAKeNjlG8OV3Ih4DX0CstyZq1385vW1/MInkSfjgIoaglz0tBBeYHGVKhh2KsAh9PA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791274282; c=relaxed/simple;
-	bh=ymAudHdAiT2usM8bzD+En9ax5jW+AnNTUw7C/PvsE7M=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=ePKhcjhNC/+6wYRpEOTURWpP+Un9MJDT3LNrBc711j98SK2I3QI70VqOmZiIIDic3BoEBX3lvS0a8VrWBua+EYwMPQH2i2+udiHRYwm6T6OFZRMw2W2H/IIkdp9BnOlPN6qHCbZ9tf8mIqd3s9jPa7B/lKeSCYgT8Y76AxWVbO0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=P3T5jfbZ; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791274345; c=relaxed/simple;
+	bh=hY8sMIu7jBNQSb3vULPOnW5VarKXgMfWF5SB394xPnc=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
+	 MIME-Version:Content-Type; b=odcSqJjAYiOvhqSWUBxE+5b/py9quX+lFT5hOnpgs6iKYOXdy/hTkaKXBb5ERtlIJq+T8dxosYhYSNDQmFx6r3v+xzieltFOb9CuG+d5K8tW3qBPdIo8pSf6hui+LBK9PWx0RyVwyWPjrZgoNN4T48rzSFxI3owSAobRmS5GW6c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=GoV4Qmm7; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="P3T5jfbZ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 127BD1F000FF;
-	Tue,  6 Oct 2026 08:11:18 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="GoV4Qmm7"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F11351F000FF;
+	Tue,  6 Oct 2026 08:12:18 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791274281;
-	bh=slwXC1hdG5VUEikD62TjJ3zlUcocHL1wSfrBV9dr1Y0=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=P3T5jfbZYCl/nN9japeFJMHzln7SBz0m5KIQWvzvjQw81BIPzD8Lu4SyDKhY6Iix1
-	 /Inj813rMfUzvIKhxyU7hAVuLvWYVUiNoWYdBUG4PkvsjG/iZT9jjO/ERwBJpJYf6Z
-	 rsB/CD6qbyS0rcWFcKwZ4PVGgIaIn5J6I7DJNeu3e5yXQYC6d3H90h5GNlTnouLrCs
-	 iI9PxsOEp4TM1EFJCGM1M+IPIdVnmTked5hT72as3SFTEKcSD3UbGT22na1sVKOzr0
-	 epu2VMMeqwjpwuREsCTiBNrBM1UQVoRAz5RMgCnuwF0m+/tNGNoA3Xyq0+BvlJ3dXc
-	 pW9LZKXZ45VlQ==
-Date: Tue, 6 Oct 2026 10:11:16 +0200
-From: Nathan Chancellor <nathan@kernel.org>
-To: Denis Benato <denis.benato@linux.dev>,
-	Jim Cromie <jim.cromie@gmail.com>,
-	Andrew Morton <akpm@linux-foundation.org>
-Cc: linux-kbuild@vger.kernel.org, nsc@kernel.org,
-	thomas.weissschuh@linutronix.de, chewi@gentoo.org,
-	abelvesa@kernel.org, linux-kernel@vger.kernel.org,
-	Kees Cook <kees@kernel.org>
-Subject: Re: [PATCH] kbuild: install-extmod-build: install
- kernel/kallsyms_internal.h
-Message-ID: <20261006081116.GA830598@ax162>
-References: <20261005200123.146822-1-denis.benato@linux.dev>
+	s=k20260515; t=1791274341;
+	bh=ivnJBMc+jWbCgkX40sCX7eTCwtTHgQTlNzAcwrtbn2o=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date;
+	b=GoV4Qmm7/IUoIouWeygSBRwmq5DHV4I9BKn9QKbxyVBGsiufa1AHZB46+RSn7OSZW
+	 XWdn71wkoNNrLPllhVDOebpseih+VoGhWNlt8JckxqC5q2DUTlFFKIboK6EtpOf2in
+	 G/P2h+LLwTwCMNERXB6rK+uF4bfrPtxjltyEUI5z54j0BL05T7zI5hXOqoFth4fdA5
+	 rD1kij0O5/6YyL1Qdm1I5/wVhZMtin5lLoCsTCvxTpvP6Js4QlfLoGK2yz4oyuXCXo
+	 +Q3z9T/2+7Y+iSGT0DLj/Y/ULkS7ZSOcjdNQwFj5FojSMeAN08Xcnm5Twu5JeshqYv
+	 0hBUgdIHVucpw==
+From: Mark Brown <broonie@kernel.org>
+To: Oder Chiou <oder_chiou@realtek.com>, 
+ Liam Girdwood <lgirdwood@gmail.com>, Myeonghun Pak <mhun512@gmail.com>
+Cc: Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, 
+ Derek Fang <derek.fang@realtek.com>, linux-sound@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org, 
+ Ijae Kim <ae878000@gmail.com>
+In-Reply-To: <20261003041045.650207-1-mhun512@gmail.com>
+References: <20261003041045.650207-1-mhun512@gmail.com>
+Subject: Re: [PATCH] ASoC: codecs: rt5682s: disable jack detection work on
+ shutdown
+Message-Id: <179120760007.150114.16478950058016400676.b4-ty@b4>
+Date: Mon, 05 Oct 2026 15:40:00 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261005200123.146822-1-denis.benato@linux.dev>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.17-dev
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1143; i=broonie@kernel.org;
+ h=from:subject:message-id; bh=hY8sMIu7jBNQSb3vULPOnW5VarKXgMfWF5SB394xPnc=;
+ b=owEBbQGS/pANAwAKASTWi3JdVIfQAcsmYgBqxK1fpme4wThy2u6jmTiwjM5KYxlnXtq3X3WCs
+ DepCH1sUy+JATMEAAEKAB0WIQSt5miqZ1cYtZ/in+ok1otyXVSH0AUCasStXwAKCRAk1otyXVSH
+ 0ITwB/9b6GUDCOCPXSHUYMVQ7qI0HbqpXj+DlpYqP9NSmevBLQjaf7Fxc3ffVWKOLy7LQ5xk2LG
+ Q0zK/6G+TcjNt6zM3g08EnudGYVHkDi0ZwGbGZImJhgz1I3LxpK5a6h3maa9x52adFbz0cSkBJq
+ Wu2YgHMcYmoGPgGVW38JrMv2XI1FQhO7PkzEAzbogh0A4TyMUMG9aH8knlUDWYc4nWyWGoxHYs5
+ Lsku2s23495SsKN1CACxJBUrAQAS7kH+hmydMz9kKy0xNHiXZuIxDgD9V89EU/bYnNwkhT8yET/
+ E9T1gWVz6Lfqz/hZwO1TqOBZzoB6sm5+UaclwZU8z+bP70Up
+X-Developer-Key: i=broonie@kernel.org; a=openpgp;
+ fpr=3F2568AAC26998F9E813A1C5C3F436CA30F5D8EB
 
-Hi Denis,
+On Sat, 03 Oct 2026 00:10:45 -0400, Myeonghun Pak wrote:
+> ASoC: codecs: rt5682s: disable jack detection work on shutdown
 
-On Mon, Oct 05, 2026 at 08:01:23PM +0000, Denis Benato wrote:
-> The tree staged by install-extmod-build contains no kernel/ files, but
-> since commit 4fafd1165b33 ("kallsyms: increase marker density to 16:1
-> to accelerate lookups") scripts/kallsyms.c includes
-> ../kernel/kallsyms_internal.h.
+Applied to
 
-You did not add either the author or the committer of 4fafd1165b33, I
-have done so now. This would need to be handled by them. However...
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-7.4
 
-> install-extmod-build rebuilds the host programs inside the staged tree
-> whenever CC differs from HOSTCC (cross builds, or a ccache-wrapped CC).
-> scripts/kallsyms is hostprogs-always-y, so that rebuild fails with:
-> 
->   scripts/kallsyms.c:39:10: fatal error: '../kernel/kallsyms_internal.h' file not found
->      39 | #include "../kernel/kallsyms_internal.h"
->         |          ^~~~~~~
+Thanks!
 
-I would rather not ship an internal kernel header in the external module
-build. If these defines are needed to build scripts/kallsyms.c, they
-should live in a separate header that is included in
-{kernel,scripts}/kallsyms.c that is safe to expose to the external
-module build but I defer to the 4fafd1165b33 folks.
+[1/1] ASoC: codecs: rt5682s: disable jack detection work on shutdown
+      https://git.kernel.org/broonie/sound/c/ca552e3140e7
 
-> Stage the header so the linux-headers-* and kernel-devel style packages
-> can rebuild scripts/kallsyms.
-> 
-> Fixes: 4fafd1165b33 ("kallsyms: increase marker density to 16:1 to accelerate lookups")
-> Assisted-by: ZCode:glm-5.3
-> Signed-off-by: Denis Benato <denis.benato@linux.dev>
-> ---
->  scripts/package/install-extmod-build | 2 ++
->  1 file changed, 2 insertions(+)
-> 
-> diff --git a/scripts/package/install-extmod-build b/scripts/package/install-extmod-build
-> index f12e1ffe409eb..aad2cd59a37ba 100755
-> --- a/scripts/package/install-extmod-build
-> +++ b/scripts/package/install-extmod-build
-> @@ -20,6 +20,8 @@ mkdir -p "${destdir}"
->  (
->  	cd "${srctree}"
->  	echo Makefile
-> +	# scripts/kallsyms.c includes this header
-> +	echo kernel/kallsyms_internal.h
->  	find "arch/${SRCARCH}" -maxdepth 1 -name 'Makefile*'
->  	find "arch/${SRCARCH}" -name generated -prune -o -name include -type d -print
->  	find "arch/${SRCARCH}" -name Kbuild.platforms -o -name Platform
-> -- 
-> 2.47.3
-> 
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.
 
--- 
-Cheers,
-Nathan
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
+
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
+
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
+
+Thanks,
+Mark
+
