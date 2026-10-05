@@ -1,292 +1,143 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qt1-f181.google.com (mail-qt1-f181.google.com [209.85.160.181])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 378B540681D;
-	Mon,  5 Oct 2026 21:26:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791235568; cv=none; b=dr84Vby09Pe+eYx2YaPADTwGoQa9RP4L9QOJGJiDBob9HrEtFAt1yCAeB7pqbeOVGy2+uge9xyVTxudZxFb44K0sHajPbZ2cuV5HYuMGBjAEPV8UKYzesKV3hAaZzJpZOqSZvhv1Zzzc5XOE4sa5Xdo47peQL+x8UtPNZfLd6i4=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791235568; c=relaxed/simple;
-	bh=9NgEtDdJu3j+6pP0gmkv8B/r4M7eIow+qhdMXzrnJpc=;
-	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=iUxp0mHXZiRF7bRT+9PIvUYZV6GJQbJUJ4A3adP5sGcsbdx+eJPZBGJL3ErahkZ0tHoJdbtu9dzHnAX4G+w4Ps5C7fcNZUP9WXAVLBxpOZDZBwWv3518gdhiHEt4e1er/APQ5uGk4GeaDFyp5SDb4xLDdoc2I4NwlvW5b/1vaOQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=lSH+B4XP; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 680575477E
+	for <linux-kernel@vger.kernel.org>; Mon,  5 Oct 2026 21:26:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.160.181
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791235582; cv=pass; b=PqQfbABC918LmU26uhJ4y4YxuZYDmxHT+9GPy7taUc5Xfr1Tso2bBRjDWAzfTl/g3g7K4wEPPQHxB825bIno/uAeFzP9kY+zUdM1Z7snsXZsF7D5cUU1bC+2LISLPcGEXAaVpH50gRfpBb4owsM0eEYuzUIYki8sa+F+FxUKOmA=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791235582; c=relaxed/simple;
+	bh=S2vBvVoHVnC1tWQn7yYkVMwt5nPTA4KFwEAWn+1KcrU=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=ICTQ/vg0wlu4OJXjwnUZho51zmr86x5dbtdRtRlWuzc4xwRTHVBlwYPixO0k8o85SlLKfcU789WlfbMgr2ZueuSfALXVpyWxEIT1oJ5CrHQrxxTBnTewgUeyzahddm1EX2sA3Ndnh9nv9pHnROVLnXbEVzYu61Ufhy7MWnLnvwc=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=gsq0n0m9; arc=pass smtp.client-ip=209.85.160.181
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="lSH+B4XP"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DC0BD1F00893;
-	Mon,  5 Oct 2026 21:26:03 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791235564;
-	bh=8OefnokcNLrZKb9tp0wPND9CYM539M3kIWSCBZ65Krk=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=lSH+B4XPCI3w9p6prGscAXpaccvgAhpXFFAGoVn2ikp9LU15gnnpDuVZuh3zbzYkB
-	 SPpCl5Lhp5RAfHC5EIFV00YN+tqiElFz7UKV7ZQG7WWaYfNfB9bkSzo5jIeVVnZ/1n
-	 GdkakOmq5drmG/YTfL7POb+wAB7ketLrT5okyFda5FF12gRP5JM7UPY/zRjKwnLW2Q
-	 pVQhZJN58P1FwYgq31AIZaRJs9t0t+naeLsvMk77ToS60oB6N6ktnMZcHk0MHb0ALR
-	 nsWFfObhSiFUK4byIe6WCkB6pRPYdfyaIISHsXT1T5J+yxiTHDyyHQW/kHB/z/WF4E
-	 r06/n1v52Fp4A==
-Subject: Re: [PATCH net v2] vsock/bpf: release sock lock while waiting for
- data in recvmsg
-From: netdev-bot+sashiko@kernel.org
-To: jrmmhm.kernel@eldare.de
-Cc: sgarzare@redhat.com, davem@davemloft.net, edumazet@kernel.org,
- kuba@kernel.org, pabeni@redhat.com, horms@kernel.org, mst@redhat.com,
- bobby.eshleman@bytedance.com, virtualization@lists.linux.dev,
- netdev@vger.kernel.org, linux-kernel@vger.kernel.org, bpf@vger.kernel.org,
- mhal@rbox.co, stable@vger.kernel.org
-Date: Mon, 05 Oct 2026 21:26:03 +0000
-Message-ID: <179123556339.434549.8635789838298158117@kernel.org>
-In-Reply-To: <20261001-kbh3-1-022-fix-v2-v1-1-cfae958a1976@eldare.de>
-References: <20261001-kbh3-1-022-fix-v2-v1-1-cfae958a1976@eldare.de>
-X-sashiko-severity: Medium
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="gsq0n0m9"
+Received: by mail-qt1-f181.google.com with SMTP id d75a77b69052e-5351f9dbfe0so6421cf.1
+        for <linux-kernel@vger.kernel.org>; Mon, 05 Oct 2026 14:26:21 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1791235580; cv=none;
+        d=google.com; s=arc-20260327;
+        b=liM7kjCStxyl1So6eCDLw7idiiipcMBOA4vxn1OFu6fptlSwM935OalWgB2O2PWIj9
+         EgJMBaYHaIuYm0346M+dg3icc3gWkCnvenMYs5rGVvsRgwO+jvcvqx5h+CMIRNN/cgLe
+         2vT2trGmtGxAz7TFDs7U4Iaa9mELwiddG/XTS7KrlryL7QZ+FysmZcrZ6TZFev6Yeas0
+         LYxhp70NEGpR8XEvqzC065Z2nSxkiDiMi6gAI4I4FoGbDBqMW5770W6e9RRuNe90rKqp
+         K/RW4vk1AZi8SAICgqWShFqXmMk/boiXU3TxblR7E+zb9JwGPtrE2t0mI4pdxE5/cXbP
+         gWBQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=WKyjO6uz5lI4nCNYOIuplPGihZ8U3rsq+3xZ/QD0AP8=;
+        fh=G6F40S4u8edi4hS/GNbZH1t621lNazrMECc+Oh/X5lo=;
+        b=qwHUtD2u/sun/QYPUD3Htz8VhQrQHVY53s/Y3rJTHLWjtd7vCVrpYuYMeSS16E4uk8
+         lx1tCjN1IxDgpTmMAwYutW6GWwzpYV46tNreNY60tD1WJ+L6OsRFN/bE8G5yFa3VeJJ0
+         9BGYtb1lwEi7voDSnOQyOks0SrNAR/h6owllf4yaD81MiWFs5xlkoFU9R9BQHwDvU4FA
+         6ASF+gMFkvAQpGgoVWWKOCQyfmatCkAFcBO/t3yPhNXOcLK8QUiSsBdMNc5joBYM7gHv
+         kYzR8o3lFgrBXsbui2/Av2QJJ30o6QoHvgMggQ72Vx9xBBOqLB4nXhFUsXiYr40XgKLp
+         xYBQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1791235580; x=1791840380; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=WKyjO6uz5lI4nCNYOIuplPGihZ8U3rsq+3xZ/QD0AP8=;
+        b=gsq0n0m9LNcCrfCWdHl1czqVNCUR0HJMRhOEhgNVyupU0HcDuQGCzNdMLNzt8sgcT+
+         NYBIEBuatlDsGtDHzURw268OqPNxokzfWkxX/TTZ1XmVrwBTXH/MjmjcNHzJH53Y4s6u
+         cI2w73fr15DadQrY1NAd06OSPObxiqHKec5yPL47bwLtWDsAJuIsbLujoQA5Vrb9mq9L
+         Q/+FeZPaEMcIatxHe3pmycQdxz+1qhKcaqqwXKiYr3/eFmCvpvlQLO++M2AeqDT6L99W
+         gWaRV2PioPO+5Zqj42ULKfouNERUaB3LG+YoXPnUC+ocMAH3lM/7SF3K2iSkq6ZHsZ0L
+         IDQA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791235580; x=1791840380;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=WKyjO6uz5lI4nCNYOIuplPGihZ8U3rsq+3xZ/QD0AP8=;
+        b=FeQJ7OCmO1lQgj8+RntXX2/shXBId9qp3sxNur/OnD8idDusdcYKvhwI4dfidOiXAK
+         l1r56CQwhfE05ygHBcDlOfNvxtJlKuM0+2fC3O6x18LPQFUKJIj8Qpfhrgu6eSPaudDx
+         a9NnWNJnx4WX1ciKind1qZKGWyB0/MMXZTUNdRDcGZ/4IATYle5jyRypzpHyq5knOrMC
+         4xTtVm2Vx1aGsCTdBcDtT+GYZuUeltxAUx9O0yzjrQ7MHH4LsW/g2R41CfYhKu2h83lE
+         9B6BQ4q1sBxZhUr/TzKSrve//Ax1v9dhDdafFsVmFUa7LFJWP0+X09ZZ1VVrrPldshV0
+         +7ZA==
+X-Forwarded-Encrypted: i=1; AKwUvBznLUgg7JX+UvHECtn1fFN+mFIz8kz3rMz6A4pJLOyArpmzT9/VCBkju7MN6DQI2uEjO8tPkSkzcXmwZfQ=@vger.kernel.org
+X-Gm-Message-State: AFuF++mCcPe9eVF7T5iUgslsgUPN0yLb6Q5wlNA3m3m6hhxmQTTbVTxH
+	/X3gX7ul/nXIBRqrjmwVy8DD3kSd7bzZDpAOtHINTTydUitGtAL4CIzV9xBy+C0UlCgVbE5vBj+
+	YfkjrNtq7ipTVDC3I7aZ9PAPAwFFq7SXQGgBckM8v
+X-Gm-Gg: AYBFou03gVJrtN9Q5Kgs357AQ4ctP/f3i9R60ZQG+cIfoAe6AhiBPNptY4vbrDj8GlQ
+	R2I0dlk6n+qvXM4EAN8RPdTQW6j72Jjw0NaQ67tj4kCUjrOvh95PLFNp/QQ2Qs/NQBolQ7CaXcr
+	o+9Nfsl4rgC+z37JtytsEM8DmXt7in2M3UloYBL7X0dGuOL/niHWuvb1HSS6/V58sIDxX8HkLmL
+	gr68qMO6KXs7L6WCv962yrYC/zze4VP0zfcGaOjFlraq8EKUcYqzHcQSgTmuJwGGO1gYhn4NlZQ
+	OKLaCQ3dYRSwVx16G6m0aiTOmUMjbixtfqFg/i5awTY4AVepvRG0ZWYaGh5xWOce
+X-Received: by 2002:a05:622a:118f:b0:531:d8:e437 with SMTP id
+ d75a77b69052e-5354229a448mr834721cf.7.1791235579527; Mon, 05 Oct 2026
+ 14:26:19 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+References: <20261004195027.227748-1-danielmentz@google.com> <92758f79-d5b7-4c15-a55d-6bea5f84a028@arm.com>
+In-Reply-To: <92758f79-d5b7-4c15-a55d-6bea5f84a028@arm.com>
+From: Daniel Mentz <danielmentz@google.com>
+Date: Mon, 5 Oct 2026 14:26:08 -0700
+X-Gm-Features: AclHuK8Ya4qZUHEU4y2SIFN99XMdQR1xv1nuJUxB3fTt2xE4zcFS3toMd_5km7k
+Message-ID: <CAE2F3rAJdC9pAqMKcXhxpw1keGzH_kQUNBoPHXjTP8+7TOhfwQ@mail.gmail.com>
+Subject: Re: [PATCH v2] iommu/arm-smmu-v3: Align memory attributes for
+ SMMU-originated accesses
+To: Robin Murphy <robin.murphy@arm.com>
+Cc: iommu@lists.linux.dev, will@kernel.org, joro@8bytes.org, 
+	nicolinc@nvidia.com, smostafa@google.com, 
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
+	dawei.li@linux.dev, jgg@ziepe.ca, praan@google.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Thank you for your contribution! Sashiko AI review found 2 potential
-issue(s) to consider.
+On Mon, Oct 5, 2026 at 9:42=E2=80=AFAM Robin Murphy <robin.murphy@arm.com> =
+wrote:
+> This still isn't answering the question of "why?" though. Yes the
+> architecture says some things, but if we were strict about avoiding
+> mismatched attributes then Linux couldn't ever support non-coherent DMA
+> at all! Similarly while the architecture does permit SMMU
+> implementations to be picky about their output attributes, does any such
+> implementation actually exist at all, let alone in a system capable of
+> running mainline Linux?
 
-Critical: 0 · High: 0 (1) · Medium: 1 · Low: 1
+Fair point that existing implementations have been forgiving in
+practice. My thinking here is simply that a small, self-contained
+cleanup that brings the driver into line with the architecture spec is
+worthwhile on its own merits, even without a known implementation where
+this currently causes problems.
 
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
+This is really in the same spirit as your commit 7618e4790982
+("iommu/io-pgtable-arm: Improve attribute handling"), which aligned the
+attribute handling with the architecture specification on the basis
+that:
 
-- [Medium] The rewritten vsock_msg_wait_data()
-  (net/vmw_vsock/vsock_bpf.c:47-77) detects a reset only through…
-- [Low] vsock_bpf_recvmsg() (net/vmw_vsock/vsock_bpf.c:105-109) sends
-  only MSG_ERRQUEUE to the native path before the new `if (!len) return…
+  "Although the SMMU architectures seem to give some slightly stronger
+   guarantees of Non-Cacheable output types becoming implicitly Outer
+   Shareable in most cases, we may as well be explicit and not take any
+   chances."
 
-Pre-existing issues:
-- [High] This problem wasn't introduced by this patch, but the patch
-  rewrites the code around it.
+As I noted in my reply on the v1 thread [1], under ARM IHI 0070
+(sections 3.15, 6.3.11, and 13.1.2), a non-coherent SMMUv3
+implementation (SMMU_IDR0.COHACC =3D=3D 0) in which every SMMU-originated
+access configured with Normal Write-Back, Inner Shareable attributes
+fails and records an External Abort (F_STE_FETCH, F_CD_FETCH,
+CERROR_ABT, etc.) is completely architecturally compliant, yet wouldn't
+work with the current arm-smmu-v3 driver.
 
---
+It seems reasonable to be explicit here too and program attributes that
+are valid per the spec, rather than relying on the interconnect to
+silently degrade Write-Back attributes to Non-Cacheable.
 
-vsock/bpf: release sock lock while waiting for data in recvmsg
+[1] https://lore.kernel.org/linux-iommu/CAE2F3rACz6Z7X3NNfLWEfjTD9K9YJyYHHy=
+GzcBafEemTFGhgqQ@mail.gmail.com/
 
-This patch changes vsock_msg_wait_data() so it drops the socket lock
-around wait_woken(). It also makes the helper loop until data is ready,
-an error or shutdown is seen, the timeout expires or a signal is pending.
-In vsock_bpf_recvmsg(), MSG_ERRQUEUE now goes to the native path, and
-zero-length reads return 0 early.
-
-> diff --git a/net/vmw_vsock/vsock_bpf.c b/net/vmw_vsock/vsock_bpf.c
-> index 9049d26486460..127a20429aa6c 100644
-> --- a/net/vmw_vsock/vsock_bpf.c
-> +++ b/net/vmw_vsock/vsock_bpf.c
-> @@ -34,24 +34,46 @@ static bool vsock_has_data(struct sock *sk, struct sk_psock *psock)
->  	return vsock_sk_has_data(sk, psock);
->  }
->  
-> -static bool vsock_msg_wait_data(struct sock *sk, struct sk_psock *psock, long timeo)
-> +/* Returns 1 if data is ready, 0 on EOF/shutdown, or a negative error. */
-> +static int vsock_msg_wait_data(struct sock *sk, struct sk_psock *psock, long timeo)
->  {
-
-[ ... ]
-
-> +	while (1) {
-> +		if (vsock_has_data(sk, psock)) {
-> +			ret = 1;
-> +			break;
-> +		}
-> +
-> +		if (sk->sk_err) {
-> +			ret = -sk->sk_err;
-> +			break;
-> +		}
-> +
-> +		if ((sk->sk_shutdown & RCV_SHUTDOWN) ||
-> +		    (vsk->peer_shutdown & SEND_SHUTDOWN)) {
-> +			ret = 0;
-> +			break;
-> +		}
-
-[Severity: Medium]
-Can this loop sleep forever on a connection that has already been reset?
-
-The only reset signal checked here is sk->sk_err. Its value can be cleared
-from userspace. virtio_vsock_reset_sock() runs on
-VIRTIO_VSOCK_EVENT_TRANSPORT_RESET (for example after live migration) and
-on device removal. It sets only the state and the error:
-
-net/vmw_vsock/virtio_transport.c:virtio_vsock_reset_sock() {
-	...
-	sk->sk_state = TCP_CLOSE;
-	sk->sk_err = ECONNRESET;
-	sk_error_report(sk);
-}
-
-It does not set any sk_shutdown or peer_shutdown bits, and the psock stays
-in place.
-
-Suppose the application then calls getsockopt(SO_ERROR). sk_getsockopt()
-calls sock_error(), which clears sk_err with xchg(). The next recv() on the
-sockmap'd socket with empty queues gets copied == 0 from sk_msg_recvmsg()
-and enters this loop. None of the exit conditions is true there. A blocking
-call waits until a signal arrives or SO_RCVTIMEO expires, and a
-non-blocking call returns -EAGAIN.
-
-The native path handles this case before it ever waits:
-
-net/vmw_vsock/af_vsock.c:__vsock_connectible_recvmsg() {
-	...
-	if (!transport || sk->sk_state != TCP_ESTABLISHED) {
-		...
-		if (sock_flag(sk, SOCK_DONE))
-			err = 0;
-		else
-			err = -ENOTCONN;
-
-		goto out;
-	}
-	...
-}
-
-The commit message says this fixes the case where "the socket errored (for
-example a reset), recv() did not notice and kept waiting". Should the loop
-also check sk->sk_state and SOCK_DONE, so that case still works after the
-error has been read?
-
-> +
-> +		if (!timeo) {
-> +			ret = -EAGAIN;
-> +			break;
-> +		}
-> +
-> +		release_sock(sk);
-> +		timeo = wait_woken(&wait, TASK_INTERRUPTIBLE, timeo);
-> +		lock_sock(sk);
-
-[ ... ]
-
-> @@ -80,6 +102,12 @@ static int vsock_bpf_recvmsg(struct sock *sk, struct msghdr *msg,
->  	struct vsock_sock *vsk;
->  	int copied;
->  
-> +	if (unlikely(flags & MSG_ERRQUEUE))
-> +		return __vsock_recvmsg(sk, msg, len, flags);
-> +
-> +	if (!len)
-> +		return 0;
-
-[Severity: Low]
-Should MSG_OOB be rejected here as well, next to MSG_ERRQUEUE?
-
-With this shortcut, recv(fd, buf, 0, MSG_OOB) on a sockmap'd vsock socket
-always returns 0.
-
-Before this patch, the same call reached __vsock_recvmsg() when transport
-data was pending and ingress_msg was empty. __vsock_connectible_recvmsg()
-then returned -EOPNOTSUPP before its own zero-length check:
-
-	if (flags & MSG_OOB) {
-		err = -EOPNOTSUPP;
-		goto out;
-	}
-
-The commit message cites unix_bpf_recvmsg() as a model, and it does this
-before its len == 0 guard:
-
-	if (flags & MSG_OOB)
-		return -EOPNOTSUPP;
-
-	if (!len)
-		return 0;
-
-There is also an older issue from 634f1a7110b4. With len > 0 and data in
-ingress_msg, a MSG_OOB read reaches sk_msg_recvmsg(). That function only
-looks at MSG_PEEK, so it copies and consumes ordinary stream bytes. With
-empty queues, the read blocks in the wait loop instead of failing right
-away. Rejecting MSG_OOB next to the new MSG_ERRQUEUE check would fix both
-cases.
-
-> +
->  	psock = sk_psock_get(sk);
->  	if (unlikely(!psock))
->  		return __vsock_recvmsg(sk, msg, len, flags);
-
-[ ... ]
-
-> @@ -101,11 +129,14 @@ static int vsock_bpf_recvmsg(struct sock *sk, struct msghdr *msg,
->  	copied = sk_msg_recvmsg(sk, psock, msg, len, flags);
->  	while (copied == 0) {
->  		long timeo = sock_rcvtimeo(sk, flags & MSG_DONTWAIT);
-> +		int data = vsock_msg_wait_data(sk, psock, timeo);
->  
-> -		if (!vsock_msg_wait_data(sk, psock, timeo)) {
-> -			copied = -EAGAIN;
-> +		if (data < 0) {
-> +			copied = data;
->  			break;
->  		}
-> +		if (!data)
-> +			break;
->  
->  		if (sk_psock_queue_empty(psock)) {
->  			release_sock(sk);
-
-[Severity: High]
-This isn't a bug introduced by this patch, but the patch rewrites the code
-around it. Can a blocking recv() hang here while data is waiting in
-psock->ingress_msg?
-
-vsock_msg_wait_data() returns 1 whenever vsock_has_data() is true.
-vsock_sk_has_data() counts a non-empty psock->ingress_skb as data:
-
-#define vsock_sk_has_data(__sk, __psock)				\
-		({	!skb_queue_empty(&(__sk)->sk_receive_queue) ||	\
-			!skb_queue_empty(&(__psock)->ingress_skb) ||	\
-			!list_empty(&(__psock)->ingress_msg);		\
-		})
-
-sk_psock_queue_empty(), however, only checks ingress_msg. The same pair of
-checks is also used before the loop:
-
-	if (vsock_has_data(sk, psock) && sk_psock_queue_empty(psock)) {
-
-Redirected-ingress data always passes through ingress_skb first:
-
-net/core/skmsg.c:sk_psock_skb_redirect() {
-	...
-	skb_queue_tail(&psock_other->ingress_skb, skb);
-	schedule_delayed_work(&psock_other->work, 0);
-	...
-}
-
-If the only pending data is on ingress_skb and sk_psock_backlog() has not
-run yet, the reader drops the lock and the psock reference here and falls
-into the native path:
-
-__vsock_recvmsg()
-  __vsock_connectible_recvmsg()
-    __vsock_stream_recvmsg()
-      vsock_connectible_wait_data()
-
-That native wait loop only wakes for vsock_connectible_has_data() != 0,
-sk_err or a shutdown flag. It never looks at the psock queues. When the
-backlog worker later moves the data to ingress_msg and wakes the socket,
-the native reader sees transport data == 0 and goes back to sleep.
-
-If the socket also has a verdict program, sk_psock_verdict_data_ready()
-pulls new transport data via read_skb, and an SK_PASS verdict queues it on
-ingress_msg. The transport count therefore stays at 0. The blocking recv()
-then waits until a signal arrives or SO_RCVTIMEO expires.
-
-The reader can enter this window on a fresh recv(). It can also enter it
-after a spurious wakeup, such as the credit-update sk_write_space() wakeup
-mentioned in the commit message, which now makes the loop re-check.
-
-Should this fallback also take psock->ingress_skb into account?
-
--- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261001-kbh3-1-022-fix-v2-v1-1-cfae958a1976%40eldare.de
+Thanks,
+Daniel
