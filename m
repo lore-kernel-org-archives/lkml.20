@@ -1,35 +1,35 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CB23E522EF6;
-	Mon,  5 Oct 2026 17:18:50 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 49612522698;
+	Mon,  5 Oct 2026 17:18:54 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791220732; cv=none; b=hG3ZnEDDmp17MrBsLXscppzdkPXmMzj62KVjVjl+8ywajnY1DlvjNWAm2nifvlq/aK8DWrY/rtr/Ob2FiC18BuMRCoAtEMbQHwrBVt9UID44y0gcgbvGJX+kEVLRZRG0XL0hbbqFJ2SPyvz2YNqonXL/Ymb7b9OXEDuXSw0N4KM=
+	t=1791220735; cv=none; b=dCSHYIqSvklHMu/AVrh/3pPXFa7d/1kiHJ2pw08ZrAzVV21eWbms2/cqDCL8rjPCvJK3/AKDdHPRYzntl1Vfk6QACky4I+s0xnsXCpult88lMiwxBj3jCcFbyZMp5zkMbq4u8uWc1YEuk93+cGi/z7LGoOUmlV8R96voNpaiYmc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791220732; c=relaxed/simple;
-	bh=4QhI1dtMj70C7yYkvc1yyTzCs2netIhah0b6+dR5tT0=;
+	s=arc-20240116; t=1791220735; c=relaxed/simple;
+	bh=fCvjxCJcdveIl0NVXqCQT2quwuk/jIufo+x10nHbZNg=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=c67SlewVq3tMbpRtpAcky6Rk1j5V8Q1CZYWlPRNqFutWsNfTmCAwfyC4eRy6Nd37t0nvHxXUjvEI3LsVP6M4Sjlf2j/2kC+BpZLhhRpuGSOp027Euj8HduZXf+h9pS3Z1tvq3N3jTVps9DO/hlhzDoqdfMCBFw/tedB09Mk5rR4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XiU6Vk2e; arc=none smtp.client-ip=100.103.45.18
+	 In-Reply-To:To:Cc; b=HZY/mch6qR/6Cnh6CLXRRqZTfhYvkyYuFxtursSEeNfPdhk46sXY31xJKcLx9ic4E6QRDAdqmVT6pPTqZqPp5puSk6pibvP2k9HevMAmexDPcsn47ITEB1UZRdmrZLCB/77hJdPHT7E/DMV1bFH/cl80GefPkvMGkC952KKXE14=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=lsygoQM9; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XiU6Vk2e"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 15D9B1F00898;
-	Mon,  5 Oct 2026 17:18:46 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="lsygoQM9"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E6EAC1F00893;
+	Mon,  5 Oct 2026 17:18:50 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791220730;
-	bh=c9YpNFAuhW0p4OJB6itMEQOi6gwhQI/AQTE/3uqlOBs=;
+	s=k20260515; t=1791220734;
+	bh=+V5BwiU8e3bYrhDhdZYtzfmlO7XXqxlSOsRknVCR/M8=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=XiU6Vk2etnwiQxCXGhVXz3cHx5OJR5ZxN1r3J91ZxTTGNj8VBKqL0LWisfrKtSLJm
-	 vg8JQWN0UPajGgjsDJl2O6J423gIcIDbOMMdvTvKE8DCgLfktdndlsfNz3j+Xop00R
-	 wWW0aWzTXfGl4eOUDcIvW7/6aoO9P1A/rBqenRt0tICtCBlDnZCo1eRk6M3Ch+Tv5Q
-	 w8KMSdsMWGk8zETH6W6iccqQ4biRToLEHcqStEHbRKBYVcAlnoNTY7e+GMbQ270Glf
-	 KH0YFNmzjgWHmgvSDUbqtGYfdmzYs4f7vPYd/1vGUVZ0pCdxLpoojMc3wFAIyJ09nK
-	 VbPtuwQnHPRxQ==
-From: bod@kernel.org
-Date: Mon, 05 Oct 2026 19:14:23 +0200
-Subject: [PATCH 53/74] media: qcom: camss: csid-gen3: Define the IPP reg
- update port in the header
+	b=lsygoQM9l4Nm/0wpxwFKLPd38sF2VWMGBjMGtAd5NhnvMXD487OjG6zGLYXX30rQP
+	 atwNWkejV5xRk2Vnp//mLSjR+MRjjvZ6GF9Mimbkmkykig1RuwPWh3pfLqey1Z/b+t
+	 Od3nEt2NGqxHrlbA7E37yp7K9JP4QHei39kT0e8U6onlanFX7JtL//JiBn/GXGIuUf
+	 wBOm5tVevUTs+qiKx8MQVSxlqC64PFA0qobqM5+7MeLIQHS5j1fVR7X8LiDclB71+A
+	 3dWXkbfl1QlxyqF+c+zGLxobwDgIjSqar5YQNrmWOZYBckPHHFx+DRn4STpHwOlDJ0
+	 spXrxWb5MBfJQ==
+From: Bryan O'Donoghue <bod@kernel.org>
+Date: Mon, 05 Oct 2026 19:14:24 +0200
+Subject: [PATCH 54/74] media: qcom: camss: vfe-880: Program the pixel pipe
+ outside output_lock
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -38,7 +38,7 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261005-linux-mainline-7-2-sm8650-hdk-rfc-0-v1-53-ed985aefd611@kernel.org>
+Message-Id: <20261005-linux-mainline-7-2-sm8650-hdk-rfc-0-v1-54-ed985aefd611@kernel.org>
 References: <20261005-linux-mainline-7-2-sm8650-hdk-rfc-0-v1-0-ed985aefd611@kernel.org>
 In-Reply-To: <20261005-linux-mainline-7-2-sm8650-hdk-rfc-0-v1-0-ed985aefd611@kernel.org>
 To: Bryan O'Donoghue <bryan.odonoghue@linaro.org>, 
@@ -55,59 +55,91 @@ To: Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
 Cc: linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
  linux-kernel@vger.kernel.org, Bryan O'Donoghue <bod@kernel.org>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1639; i=bod@kernel.org;
- h=from:subject:message-id; bh=gglftPYbG7hjTWkQexVHxZZAkGPwtejpAAcrNvPWodY=;
- b=owEBbQKS/ZANAwAKASJxO7Ohjcg6AcsmYgBqw9smiCfzb1noGsP16bGMwvcD4+USfkKsNJU27
- c+FrJU4aBmJAjMEAAEKAB0WIQTmk/sqq6Nt4Rerb7QicTuzoY3IOgUCasPbJgAKCRAicTuzoY3I
- Oo7OEACr51X2cexHP+zYcXAt9BIs2JT23t3ewiJd0sUeHDycbPNxXMcGKGtVIIPVw0VKFee9Aln
- qZ3xkXieJF7prpQWNcvy88SYewAQL2bhAA5iyRRo+e14svT49CW/e+gUBDo0Ce9j0mlGZufk/vP
- eUhFJoeKfRCtdYbEefBD8cxogobGuqF8dQ+0TImuDRZRm7PD51xA2X4+psb49jgSy3P/crSPASL
- VJAPh1QsylfeM9YUCUq07YrsFOZvCpUmCAwjAlfY/k/0eUR9Y6dT+hbaPpG1WXzOa49tustMPSh
- suwA/tXEtHpecNNEBJswtdPS39CewI6HGROEGgD0PmM3TheHmPlwrYNop8urYU2vW266c3tizUa
- kQIf7f3cQSyGw6RIo5N+GTczRqKE4zGjlUjI5FxAxe4wVPpTg02BNla4ndvc/GYXiPRkiK6eVz7
- auX36ckj2lxvRYxIxbHs4nPP7aDiGwgaW8lzsempZ9zRr9BczBav4fcPOK0+h4lupwHUwod+6D8
- JRTdP+IYMemYJqTLp/2gKAOFG1s9FGEbNyg/q8JdMW+5Wbf2HVuD5bTzBf/kodiC2iyCUyw8p3T
- DdUukbdEqpXW0Hs2zZSnlK4THTP1UiQb+slc9mP/JqCGZT30XHs0GkSQXOYpbpYDVUilGcOytiC
- ZTnZt7TVtY8nN2Q==
+X-Developer-Signature: v=1; a=openpgp-sha256; l=3283; i=bod@kernel.org;
+ h=from:subject:message-id; bh=fCvjxCJcdveIl0NVXqCQT2quwuk/jIufo+x10nHbZNg=;
+ b=owEBbQKS/ZANAwAKASJxO7Ohjcg6AcsmYgBqw9snMd8TDtsAIpsrSp95Pa/ZcZ6ZGU1NRjapQ
+ uEe/ONptoKJAjMEAAEKAB0WIQTmk/sqq6Nt4Rerb7QicTuzoY3IOgUCasPbJwAKCRAicTuzoY3I
+ Og+2D/4xbNJWrEj445CCGa8y/l++uvR9HzildDGg5OyKzHYs2TFl/JBOmDwsQAYTQC1y5rAjZnJ
+ gO5TVcO7AK7kGXIcAnrwJQOl952ggOLZX7TMTuH0US2Gf8+hZKY0KviCVMtkO3g5jY3GJqdxc2w
+ mBu7isYu2bfExJzTj/v6pzfr03FScPbgdMXnIetIULPsKsHAUycvnP1kVZsfWu/6Zlzcs37GgXt
+ kVAp1GTNmZ2TCAyHDBzh2ALCK2wugexvxPHzCpccMlyXgdDiX3/aD5VRZV57c5Bz2tSzFjXAyuF
+ jxAcN8U9XbFG8Is/jZnmqKMonNYCKc/Bodd7f4y1/TVZaDhKOF3Je6kG6nv/AyBl2yWeF8feOE7
+ zEVbDXy0wQ24vrb0qlOoA2Xv0GdEdcUamAxLkxWg6JEEDkpCmLuqqogtiYL8CEczH/YE710UY8J
+ CA0kNYEoOOQkyfC6F3vpDqpV1Xzq3rH5J94vKRBJeIuX/wMjyRpLCAMPXWbxkaE+Pa1IorVEsP1
+ gsCSF2R6zwB8U+w/J92guDUHRHZ1+f8rwZBN1GbkONt7tcEmUFlsDo9bnmvsfi9TkGQN8F9XN8p
+ 5L3QiGj+wW0HoZibnN1N/KxFMEXDVTwQo6zNvg1KIVSCd7wNRyM6yl393/eyY4SRzrYoH0cz4Rh
+ ZweyGEq3hJ/IHuQ==
 X-Developer-Key: i=bod@kernel.org; a=openpgp;
  fpr=E693FB2AABA36DE117AB6FB422713BB3A18DC83A
 
-From: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
+vfe_wm_start() runs from vfe_enable_output_v2() with output_lock held
+and interrupts disabled. Calling vfe_880_setup_pixel_pipe() from there
+put about 3.3k register writes in that window on every STREAMON, most
+of them gamma, BHIST and downscaler table uploads.
 
-The VFE names the port it reg-updates through camss_reg_update(). Move
-CSID_780_CUSTOM_PORT_ID_IPP0 from csid-gen3.c to camss-csid-gen3.h so the
-pixel path can name the IPP.
+Add an optional vfe_line_prepare() hw op. vfe_enable_v2() calls it once
+vfe_get_output_v2() has reserved the line's outputs and before
+vfe_enable_output_v2() takes the lock. vfe-880 uses it to program the
+NV12 pixel pipe.
 
-Signed-off-by: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
+The ordering is unchanged: the pipe is still written before the write
+masters and before the IPP reg update that latches both, and the CSID
+still resumes the IPP afterwards. Doing it after the reservation means
+a line whose outputs are busy fails without touching a pipe that might
+be in use.
+
+Signed-off-by: Bryan O'Donoghue <bod@kernel.org>
 ---
- drivers/media/platform/qcom/camss/camss-csid-gen3.c | 1 -
- drivers/media/platform/qcom/camss/camss-csid-gen3.h | 3 +++
- 2 files changed, 3 insertions(+), 1 deletion(-)
+ drivers/media/platform/qcom/camss/camss-vfe-880-pp.c | 2 +-
+ drivers/media/platform/qcom/camss/camss-vfe.c        | 3 +++
+ drivers/media/platform/qcom/camss/camss-vfe.h        | 7 +++++++
+ 3 files changed, 11 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/media/platform/qcom/camss/camss-csid-gen3.c b/drivers/media/platform/qcom/camss/camss-csid-gen3.c
-index f8406c1fa45a5..83f19ed0b31aa 100644
---- a/drivers/media/platform/qcom/camss/camss-csid-gen3.c
-+++ b/drivers/media/platform/qcom/camss/camss-csid-gen3.c
-@@ -301,7 +301,6 @@ static int csid_configure_testgen_pattern(struct csid_device *csid, s32 val)
- 	return 0;
+diff --git a/drivers/media/platform/qcom/camss/camss-vfe-880-pp.c b/drivers/media/platform/qcom/camss/camss-vfe-880-pp.c
+index 8f56e584b180b..a4bccedb4a2f1 100644
+--- a/drivers/media/platform/qcom/camss/camss-vfe-880-pp.c
++++ b/drivers/media/platform/qcom/camss/camss-vfe-880-pp.c
+@@ -593,7 +593,7 @@ static void vfe_setup_ds16(struct vfe_device *vfe, u32 w, u32 h)
+ 	writel_relaxed(0x000003ff, vfe->base + IFE_CROP_RND_CLAMP_POST_DOWNSCALE_4TO1_C_VID_DS16_OUT_CH2_CLAMP_MAX);
  }
  
--#define CSID_780_CUSTOM_PORT_ID_IPP0	0x100 /* TODO: bod don't like this too much */
- 
- static void csid_subdev_reg_update(struct csid_device *csid, int port_id, bool clear)
+-/* Called from vfe_wm_start() for NV12, ahead of the write masters and the IPP reg update */
++/* Called from vfe_line_prepare() for NV12, ahead of the write masters and the IPP reg update */
+ void vfe_880_setup_pixel_pipe(struct vfe_device *vfe, u32 w, u32 h)
  {
-diff --git a/drivers/media/platform/qcom/camss/camss-csid-gen3.h b/drivers/media/platform/qcom/camss/camss-csid-gen3.h
-index 6ee62da770c17..a82dfb16df5dd 100644
---- a/drivers/media/platform/qcom/camss/camss-csid-gen3.h
-+++ b/drivers/media/platform/qcom/camss/camss-csid-gen3.h
-@@ -22,4 +22,7 @@
- #define PLAIN_FORMAT_PLAIN16	0x1 /* supports DPCM, UNCOMPRESSED_10/16_BIT */
- #define PLAIN_FORMAT_PLAIN32	0x2 /* supports UNCOMPRESSED_20_BIT */
+ 	vfe_setup_core_config(vfe);
+diff --git a/drivers/media/platform/qcom/camss/camss-vfe.c b/drivers/media/platform/qcom/camss/camss-vfe.c
+index fbc2068b301bc..82a23be7cae9c 100644
+--- a/drivers/media/platform/qcom/camss/camss-vfe.c
++++ b/drivers/media/platform/qcom/camss/camss-vfe.c
+@@ -821,6 +821,9 @@ int vfe_enable_v2(struct vfe_line *line)
+ 	if (ret < 0)
+ 		goto error_get_output;
  
-+/* port_id passed to camss_reg_update() for the IPP, outside the RDI range */
-+#define CSID_780_CUSTOM_PORT_ID_IPP0	0x100
++	if (ops->vfe_line_prepare)
++		ops->vfe_line_prepare(line);
 +
- #endif /* __QC_MSM_CAMSS_CSID_GEN3_H__ */
+ 	ret = vfe_enable_output_v2(line);
+ 	if (ret < 0)
+ 		goto error_enable_output;
+diff --git a/drivers/media/platform/qcom/camss/camss-vfe.h b/drivers/media/platform/qcom/camss/camss-vfe.h
+index 0b632479cefc6..318b025702007 100644
+--- a/drivers/media/platform/qcom/camss/camss-vfe.h
++++ b/drivers/media/platform/qcom/camss/camss-vfe.h
+@@ -188,6 +188,13 @@ struct vfe_hw_ops {
+ 	void (*vfe_wm_update)(struct vfe_device *vfe, u8 wm, struct camss_buffer *buffer,
+ 			      struct vfe_line *line);
+ 
++	/*
++	 * Optional: program line-level hardware once the line's outputs are
++	 * reserved, outside output_lock. Runs before vfe_wm_start() and the
++	 * reg update that latches it.
++	 */
++	void (*vfe_line_prepare)(struct vfe_line *line);
++
+ 	/* Output based API - new and shiny */
+ 	void (*vfe_output_start)(struct vfe_device *vfe, struct vfe_output *output);
+ 	void (*vfe_output_stop)(struct vfe_device *vfe, struct vfe_output *output);
 
 -- 
 2.55.0
