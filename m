@@ -1,144 +1,240 @@
-Received: from mail-dy2-f7.google.com (mail-dy2-f7.google.com [74.125.229.7])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D27FD4334B9
-	for <linux-kernel@vger.kernel.org>; Mon,  5 Oct 2026 09:11:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.229.7
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791191493; cv=pass; b=i8VbUxAcp4mNWsida+pXzQ5zLRGHf+xG1OYE5YsHd2bckG429AmmxYggaYCoSmbgJLU7yNx5Wt3khf7OreSAFuSzAfc41nA1APcTKSiasTz63Ltu+2CNgvjALUbZlFGcTiJsW9GixZY/Oy7FgtQbOd44F/R6cYjNRtlvIt/21eE=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791191493; c=relaxed/simple;
-	bh=ChY0fe8uxN17uPp0rtFzK6B1YmEKykgx1fi2JdUkWNA=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=fQH6cHvGkxWSHc7w1mlg9Q7eTvhPMxhLM9KLFcUhH3jKCJ8oVn6k/FZMN1SCO4cAbEOYSeip+Ue+fDN3+0SindqI44KO5jZhZcslBu67FVMHBBzMSqQR+BXDyT+/sLei/UbIIZTkUHcU/hLy9ep4QoyrbgUxppft+UkYKw2vXpE=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=bVl/dL2k; arc=pass smtp.client-ip=74.125.229.7
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 537F143CEF6
+	for <linux-kernel@vger.kernel.org>; Mon,  5 Oct 2026 09:11:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791191494; cv=none; b=dTZmkmgUz1JqF/o4TBymFfcC9LOf4lX+HcvyBg+S4IwaxMomEGQjqvRP5uyGCuh4tiQzhheP41uS2DlepmTRLNSCuO55IQ3QM5MC3ym11Ei6WIU/tpkG07vV42JEJHhwSQSCKIxwIw6A6+NXzdJqO/KuIcfUMmDOkbhW4+Q7fo0=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791191494; c=relaxed/simple;
+	bh=8ihMWrIT9uFTwzaNMQ9UjoKXafQbC9kqbH2+NcWsbtA=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=DtoMX/X8t5qZ2ur6RefPPpmpKHQDu6B9NxU2AAD4JxyXfQFhIiQaDCkDxMG44xhMtgA+8phIOfFqZDDslj0vu0vH6BhHdCkGjYM1z4HAVbhe3cVuPnoHI5v+Zx9+TVFLmSteu0Rtf1ECpts7KaxfUXPfEobMMVZRMROXZIkD3+Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=F7Cz2q/T; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=ZC9LR5V4; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="bVl/dL2k"
-Received: by mail-dy2-f7.google.com with SMTP id 5a478bee46e88-33e59607d38so778549eec.0
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="F7Cz2q/T";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="ZC9LR5V4"
+Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6958xRVZ493660
+	for <linux-kernel@vger.kernel.org>; Mon, 5 Oct 2026 09:11:32 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	T9oxOuG7wNa3Rqa6hUzdfTKeLLzuEgWjUSJ0eKN2I8Q=; b=F7Cz2q/TsBt3Itl7
+	KRD1ug1h62PtAKBZh2lxFvSfnIKniBm2tq6ngc3tWjsA0etzeVS5WDQttWzeFkqp
+	wVrMdtL0AJ0jQFKzaOJE5BjHk7+2y5EfQSOczc65f6DKJLgoplPbkK5EcMU3HILA
+	BeVhLRw/KkIGwV2fSjOmpYKW5z8w5PtlSgo/7fHHdapDwuiUTD3KY6MRHxliBNSg
+	IVi1ZMfxqpaCJd8nn64w+G4aje5nJvd1V9Niap0CG7rG1r/b8Y/ArBDPe0gzktLO
+	ne4il0D9LZAzYUDfRqkW8p64RqCpINQFnEL3uU2XrF9eK5pfCGJ/ZLrCFYyiJgP+
+	q3mSGw==
+Received: from mail-pj1-f70.google.com (mail-pj1-f70.google.com [209.85.216.70])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h3chfk3bd-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Mon, 05 Oct 2026 09:11:32 +0000 (GMT)
+Received: by mail-pj1-f70.google.com with SMTP id 98e67ed59e1d1-39512608fb1so3167706a91.1
         for <linux-kernel@vger.kernel.org>; Mon, 05 Oct 2026 02:11:31 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1791191491; cv=none;
-        d=google.com; s=arc-20260327;
-        b=jAQ+MYJcUNS4uBK31o/Ij3km1FXTW/PTHGcTgtSQf3rPy2jmHvJMUc21kIefp4RtZt
-         Ez1poa4xwZjQ+Pdtv9G24J15DOHQ7UlD1FMzDKIrqwIn0lqg2zCNfgFLYAouqYbdcL54
-         Kb5vv+9ZHvl+TPtCs1XBe33lUi8XoqqX4ZK0o5I7M2l3hgSj3MEx7wKqHGCsATbmykVa
-         P7Kxz6mxviNL4RKgWV/BdYjnH6N8LrLdIRvGjmABt3Lly7lj1vINZSb5tzuTJXz0dCFi
-         IfUUvQ/TGTSUExaQujxyqn3bZTHyBPDSXkFK0O1WP85scCI95N//bh4la9O3HfsUhu/C
-         JAyw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=nltl/oeRao/6F+EabSYNj0oW56X0G3LfHyr3jad4pvA=;
-        fh=D9ETD5sM1BOE3s+F6IbmX5rsTJ8TCDARD6eQtA7WjPU=;
-        b=lbKo3R/GzOWBxXiTWqN0QFxssUzYutzsmc68UKtF+Cz/IJaUKuUmQO0F2R0xcgLhSE
-         i2bCAWW8m2zrqJh8s/SUoE8S4RsDNQm4nbuQLnaPmltcrLWK4FLERdCeQbbX5ZnHW7Jh
-         Wn0th6TwxOCrBDK0ZDktnO1HK5CiboFvxkpASwlb8k33SRrCiYOFA/FYYXTlHC2XdTVA
-         oGePk5EDaenmKTt72d4m+7Ay5b/dndef+SLOPbW3TIPEvqOxd6sVqVbZQcyhK4tU8qN6
-         XWcrN/SrKy/mpIagwzA3V9UoWvJYCtKsbbxK/xSEtJmZSP9UIHlT64hW7qYuKPfcOPSk
-         eC9w==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791191491; x=1791796291; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+        d=oss.qualcomm.com; s=google; t=1791191491; x=1791796291; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=nltl/oeRao/6F+EabSYNj0oW56X0G3LfHyr3jad4pvA=;
-        b=bVl/dL2kjniDVhsPG4kzAKAeGF3gz/KxiSCwVhyNVTZxnnS2EjvNCv783GxB39x/IE
-         GaAvHYbRyjYLFprst4Q7g0w2sKU73K51qvXkGq9APOmwNqBxpwcNVJQyV6zMdSeHodYC
-         MbUgZK0KQGcBlRNkFU0d3gU11aTlSZGkg46iTDJVaxDid/uf+jALbioLMIeiEBeBUUNt
-         WZtLQhj9txgpnW7s7bGVRgoiyht/B7IScBp2kfWxTLqNqxfEGfQrRT5nhe+PAUKeU6sK
-         SdyqDj+LLuYXM1jIXyFKtUXFA4JjkLcOMXappBtXjVeMJIVqliZt7T3yKiewrwvGKIzH
-         Armw==
+        bh=T9oxOuG7wNa3Rqa6hUzdfTKeLLzuEgWjUSJ0eKN2I8Q=;
+        b=ZC9LR5V4vKLjXAuaVQInWjXXo98QlhlqmCfO1bPlyRY0NNigXj22K9OmYreuXaiz9s
+         aS6AVjxGzVljUjjEGNaUq2sMb+4F1ZKRgiaAcKhNilu1Uc4aVRS0B17Uv9AE0ewgQfg0
+         c65FAWdI2hD+2XErC89I9+gPSWow0TpJmBim204lMXtDA9PT634X0xj3DfWg2swID8Fd
+         mJv/rwkxQw5XZ7vuUW6JwDASs/1RjaMW8ikL7iSU5ZHC/i2h8sqxSWao4j07NF2Y9FLY
+         IYfnBFk5wVJfP6MbC/uBRCHpVQ/zkzmF1baSJxYO8dY8hBcw2SkXlX6aLStMaZeXmoRz
+         bnXg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20260707; t=1791191491; x=1791796291;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=nltl/oeRao/6F+EabSYNj0oW56X0G3LfHyr3jad4pvA=;
-        b=snVfWp0/I6oHOPlEWgDgA0mA2iWGb04/kiDZJ6Yiby7NWn9Uv6rhRD8Qvme+dcOLpM
-         758A3P/lsNTrykFhSt0SgDHX4fk/RfD1FrE4JnWynFXb293PiVABAmB7EfQ1V5xtGP9k
-         nFsrDeXnr8ICCR3AOt2UBnzy6HH8Ry92NopJ2OeWsDQjH0k9EAhsbrfu7PLbF2RtZU0k
-         RP4A/L12KnFEXAmZPMrsotbiVmibP2ZIcDfQcrR8Q+YA84x7dKGEWxlPc7M8DGlrHIQ1
-         m4VVDAWxf/l6+21MmUUUm9gHj3V5jJ6/3h+NiuXSFtYk9bk/SThMhPzH+rL2ANn8NaKG
-         WmZQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxUDWvWhmzx6lf1x6w1CDt1xSHM1HYR0+2ph972T8bLJXhixz2SzHvkBycXiuHra7Jw3ghjuBgXcx27dOg=@vger.kernel.org
-X-Gm-Message-State: AFuF++mVqRy8jYew9VlxKW4KjC9LCgKmY/3x8Sy2dGT7jZ20cvAtZtto
-	I3QAALDMxT3U+6lN4ZGsKrxoOpbdxPOjMzEWpnQg5LbiGm5fHRAZOyE6Pfk0IrEbH+3xRHN4qLR
-	p0KNAozOWf8bkVIxUCP5EC6UOt/tlDg==
-X-Gm-Gg: AYBFou0BvhoBXYePF4/Y3ER9VonJp0EPKPyTAsjwZQ1Ub4hzFmZNhJSbrZlGzFhoW4F
-	NduE5QxKRxxphf3GmUJ0J6oS4oUWSJoA83SJmCNpQNj9q0JWUWeHdfBvYYQLoS696IlcyHjMmt0
-	iRsF+BiWT5+8xAbSoMEM8QXk6f6owwA6BdNoOTLHmDvfUPE2iK0jWa6R8CdDigXy25aHX5BA4nc
-	fOGR6JCCuEVmN77PNFpNcuzJmJNIPMR6mxDU4HKGc7gGTwcTFQQ3S+4bkmjiBYOfA6JTtURutnx
-	xJGZ8Td8xB7Zr162YVjH+hIRVArl2NOgNCJ4EYqdOG9EBiuF0DBZ1TICaA==
-X-Received: by 2002:a05:7022:fa9:b0:14b:ff40:af3e with SMTP id
- a92af1059eb24-151c0b1c634mr16870099c88.5.1791191490914; Mon, 05 Oct 2026
- 02:11:30 -0700 (PDT)
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=T9oxOuG7wNa3Rqa6hUzdfTKeLLzuEgWjUSJ0eKN2I8Q=;
+        b=j3qYu7PJo+sOOBv2LC8gRGPEmfqUAc4BgFdh5G2RQwQWmnPm4nmt1RBPmks8mkypt3
+         co8iY0pdReVj2vS1uCm/PLJAvLgq460+Dh3FKBCbYzVJzAOa05O5WhZ6OWzbeS3w43BF
+         ypjb1jceaEsI0thIpvC5duOowpQurc4+EvXlb0mau22kOo85xK1SrowmoXX/I0jkDgVw
+         5Jljk6NZpFi5Qbz45hMl8WXSlk27uXmgV27i0aegaxBJu0g9hFvnXQ5Y2XSPKqe/5ZUo
+         MwlBE3OpfeNtGHTrqALPBd+5DoSYSuWEAi6SFqyRPzNnLfcT0uN80742v5eNAsBHxw1w
+         rBGA==
+X-Forwarded-Encrypted: i=1; AKwUvBxHUwa9HPmcypVdJHKjEOrxHXRsClsnTo8JbutsEoIWI8n0jjry487n3NqGZ8+PTwH7P7t74LOVP02XmJE=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKb//Sz4TuEEu4GiPyGpIvMNJAiFnKYpTrYq4dEiebaW/G/H/Y3
+	vpnH4yL13QIVWD4tfnavi/lkcoxrgj//ojPf2UDjh8FxzkbTbe8yEH8VEzKrnDXxppio1M6O67N
+	IZLhHfJK4L1N4tC4cIwRrwHAxCQAygjtgjxbhmz+kK7gIm+j/dP2NyoxZt+hXgBo41dg=
+X-Gm-Gg: AYBFou3b1gawDklv7oMsyV+zL3eoi+6v+myBn5I2KE299OG8RBd28AVVvH/um5HzaqA
+	Jww5NzT8CHo78nuDYHWRX8X3gm5aPl7o83OUDPvuNMSBQcXq9hTPfUCAb2qMaNpwD3Ua22Vs+jP
+	XS033HYeh+D44J6HbY5oT86J3Dz8A1//HmgCO9/sGZ1w/B48X0sIq58pIKrUMt+tnWz8VdtdUOj
+	ImMxurcVLwtXlge1RwQsQbNSAhXhdGOFDdQ9qWnLK36/bppXhz7ttSNwL+120iSwKASVxTIW31m
+	LXaQsjyEL/B8MDy72rgfsqDRy5Vfxgk05LlXTKpcrsfEysxmZxPFyNFsXo5/aWtLLoqJeyiDgAN
+	X8F3aRI7FzKB/UJmNN33lrxFY8VqAiuPuKyS56+OK2HPC7mxYxT8aK+EFYwW7xmc4/nZ71joQpd
+	Ae3j53ySyN5mvw3y5e
+X-Received: by 2002:a17:90b:2791:b0:3a6:f90b:20ca with SMTP id 98e67ed59e1d1-3a787181deamr5551518a91.12.1791191491173;
+        Mon, 05 Oct 2026 02:11:31 -0700 (PDT)
+X-Received: by 2002:a17:90b:2791:b0:3a6:f90b:20ca with SMTP id 98e67ed59e1d1-3a787181deamr5551496a91.12.1791191490675;
+        Mon, 05 Oct 2026 02:11:30 -0700 (PDT)
+Received: from [10.50.19.182] (blr-bdr-fw-01_GlobalNAT_AllZones-Outside.qualcomm.com. [103.229.18.19])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a78d6b3ceasm10369860a91.10.2026.10.05.02.11.22
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 05 Oct 2026 02:11:30 -0700 (PDT)
+Message-ID: <8d58dce8-36c2-4e03-b10e-0aac1466f848@oss.qualcomm.com>
+Date: Mon, 5 Oct 2026 14:41:20 +0530
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20261003-damon-perf-rfc-v3-send-2026-10-03-v3-2-0f00417b41bc@gmail.com>
- <20261004091023.630362-1-kunwu.chan@gmail.com>
-In-Reply-To: <20261004091023.630362-1-kunwu.chan@gmail.com>
-From: Ravi Jonnalagadda <ravis.opensrc@gmail.com>
-Date: Mon, 5 Oct 2026 02:11:18 -0700
-X-Gm-Features: AclHuK9SLpvLjJzhBJihMA5kXTwHPEKQErl28l-hclZyIPjWGE7kxoL_9Ju2DmY
-Message-ID: <CALa+Y14isN3HmsY9Mgtdi3O3zxOH33uTtajSbJcxm9FO4Uon=g@mail.gmail.com>
-Subject: Re: [RFC PATCH v3 2/9] mm/damon/core: replace the access report
- buffer with per-context rings
-To: Kunwu Chan <kunwu.chan@gmail.com>
-Cc: SJ Park <sj@kernel.org>, Andrew Morton <akpm@linux-foundation.org>, damon@lists.linux.dev, 
-	linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
-	Gregory Price <gourry@gourry.net>, David Rientjes <rientjes@google.com>, Wei Xu <weixugc@google.com>, 
-	Jonathan Corbet <corbet@lwn.net>, Bijan Tabatabai <bijan311@gmail.com>, Ajay Joshi <ajayjoshi@micron.com>, 
-	Honggyu Kim <honggyu.kim@sk.com>, Yunjeong Mun <yunjeong.mun@sk.com>, 
-	Akinobu Mita <akinobu.mita@gmail.com>, Lian Wang <lianux.mm@gmail.com>, 
-	Kunwu Chan <kunwu.chan@linux.dev>, Jonathan Cameron <jic23@kernel.org>
-Content-Type: text/plain; charset="UTF-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v12 09/13] arm_mpam: propagate MSC access errors in
+ mpam_reset_class_locked()
+To: Andre Przywara <andre.przywara@arm.com>,
+        Lorenzo Pieralisi <lpieralisi@kernel.org>,
+        Hanjun Guo
+ <guohanjun@huawei.com>,
+        Sudeep Holla <sudeep.holla@kernel.org>,
+        Catalin Marinas <catalin.marinas@arm.com>,
+        Will Deacon <will@kernel.org>,
+        "Rafael J . Wysocki" <rafael@kernel.org>, Len Brown <lenb@kernel.org>,
+        James Morse <james.morse@arm.com>, Ben Horgan <ben.horgan@arm.com>,
+        Reinette Chatre <reinette.chatre@intel.com>,
+        Fenghua Yu <fenghuay@nvidia.com>
+Cc: Jonathan Cameron <jic23@kernel.org>,
+        Ganapatrao Kulkarni <ganapatrao.kulkarni@oss.qualcomm.com>,
+        Trilok Soni <tsoni@quicinc.com>,
+        Srinivas Ramana <sramana@qti.qualcomm.com>,
+        Niyas Sait <niyas.sait@arm.com>, Lee Trager <lee@trager.us>,
+        Ritwick Sharma <ritwick.sharma@arm.com>, Gavin Shan <gshan@redhat.com>,
+        linux-acpi@vger.kernel.org--cc, linux-arm-kernel@lists.infradead.org,
+        linux-kernel@vger.kernel.org
+References: <20261001153439.3295416-1-andre.przywara@arm.com>
+ <20261001153439.3295416-10-andre.przywara@arm.com>
+Content-Language: en-US
+From: Srivathsa L Rao <srivathsa.rao@oss.qualcomm.com>
+In-Reply-To: <20261001153439.3295416-10-andre.przywara@arm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-ORIG-GUID: cdX-kMjbgESalGRdXS0sGxTrBp3sLW0S
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDA1MDAzNiBTYWx0ZWRfXzzGtNqUw0a66
+ IAocqavvSFkZzBq4N96l3ZsFZbSaLgz9Eu3roXifWH1Z3RbUBH+YZHnKNhCogTOZeJSkVJQIn90
+ q6sMTZYgA0gveuswV4IxnI79fuTqKuU=
+X-Authority-Analysis: v=2.4 cv=eZSo7LEH c=1 sm=1 tr=0 ts=6ac369c4 cx=c_pps
+ a=0uOsjrqzRL749jD1oC5vDA==:117 a=Ou0eQOY4+eZoSc0qltEV5Q==:17
+ a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yx91gb_oNiZeI1HMLzn7:22
+ a=7CQSdrXTAAAA:8 a=EUspDBNiAAAA:8 a=7hQx6daNV2sWy6eBiVUA:9 a=QEXdDO2ut3YA:10
+ a=mQ_c8vxmzFEMiUWkPHU9:22 a=a-qgeE7W1pNrGK8U0ZQC:22
+X-Proofpoint-GUID: cdX-kMjbgESalGRdXS0sGxTrBp3sLW0S
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDA1MDAzNiBTYWx0ZWRfX7u46QLT3YCiH
+ 6S4GxxA5jaDpQ3r9FmKGoziNTTM5L1Ah0Pev72Gcf7hp5+7nQzq7orQ+1kcScISKoHm0y0FOS3F
+ cVHiDSuikJBjiEHSDsMeCsMOQci3vN14LOVjHvlIfZoeiIZllCe0yIe++qBaDomLixnBCy1eCbl
+ wokX7dVU+NXU8VbjedcmhZ/Lt6BKAlTjmL1yYLPclSdl8cjZ+2onZ5SQ+tSPgWks3vF6zp+QJHt
+ 8Q6GmFQyGkmZWRCZm5gR1yrR3FgFJyD8H09jC8rTto/1YwaXeKj91Lxy6aeS2xA2dQTRrJ70mdD
+ 3Cv2FcuoYr//iqRE3ddKBJJPervcRsRyLiwouWbi7QkswFvNr2u6r1xVBFc4gs6zU7PVNDe1Xsv
+ TR+NWqJg7JB79fdAjkceEtVX72DxvXrtdf7q9EO5+bLm3DQyCEpGZLkXcf1Q2b+JIj6zzHu/7jG
+ 3dtPZOQkW9N9JxooVqQ==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-05_01,2026-10-02_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ spamscore=0 clxscore=1015 impostorscore=0 priorityscore=1501
+ lowpriorityscore=0 suspectscore=0 malwarescore=0 adultscore=0 bulkscore=0
+ phishscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2609040000
+ definitions=main-2610050036
 
->
-> Hi Ravi,
->
-> I noticed that ring overflow drops reports and updates an
-> internal counter.
->
-> Since hardware sampling is used as an access observation source,
-> could userspace get any indication that reports were lost during
-> an aggregation window?
+Hi Andre,
 
-Hi Kunwu,
+On 10/1/2026 9:04 PM, Andre Przywara wrote:
+> The mpam_reset_ris() function can return an error, propagate this up
+> through mpam_reset_component_locked() to mpam_reset_class_locked(),
+> which is exported. The external caller is a void function, so cannot
+> really handle the error at the moment, but at least we report everything
+> on the MPAM interface side.
+> 
+> Signed-off-by: Andre Przywara <andre.przywara@arm.com>
+> Reviewed-by: Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
+> ---
 
-Not in this RFC.  While developing the series, I used a developer-only
-commit that exposed these counters through debugfs, purely for my own
-testing; it was never meant for upstream, so the RFC keeps only the
-in-kernel accessors that the kunit tests use.  v4 [1] is the same in
-this respect.
+Reviewed-by: Srivathsa L Rao <srivathsa.rao@oss.qualcomm.com>
 
-> Without such visibility, users cannot distinguish an aggregation
-> result affected by report loss from one collected without loss.
-> This may make it difficult to evaluate the reliability of the
-> observed access information.
+Best Regards,
+Srivathsa>   drivers/resctrl/mpam_devices.c  | 24 ++++++++++++++++++------
+>   drivers/resctrl/mpam_internal.h |  2 +-
+>   2 files changed, 19 insertions(+), 7 deletions(-)
+> 
+> diff --git a/drivers/resctrl/mpam_devices.c b/drivers/resctrl/mpam_devices.c
+> index 60f6a39176ea1..c639aaa5f38e1 100644
+> --- a/drivers/resctrl/mpam_devices.c
+> +++ b/drivers/resctrl/mpam_devices.c
+> @@ -3007,7 +3007,7 @@ static void mpam_enable_once(void)
+>   	       mpam_partid_max + 1, mpam_pmg_max + 1);
+>   }
+>   
+> -static void mpam_reset_component_locked(struct mpam_component *comp)
+> +static int mpam_reset_component_locked(struct mpam_component *comp)
+>   {
+>   	struct mpam_vmsc *vmsc;
+>   
+> @@ -3021,26 +3021,38 @@ static void mpam_reset_component_locked(struct mpam_component *comp)
+>   				 srcu_read_lock_held(&mpam_srcu)) {
+>   		struct mpam_msc *msc = vmsc->msc;
+>   		struct mpam_msc_ris *ris;
+> +		int ret;
+>   
+>   		list_for_each_entry_srcu(ris, &vmsc->ris, vmsc_list,
+>   					 srcu_read_lock_held(&mpam_srcu)) {
+> -			if (!ris->in_reset_state)
+> -				mpam_touch_msc(msc, mpam_reset_ris, ris);
+> +			if (!ris->in_reset_state) {
+> +				ret = mpam_touch_msc(msc, mpam_reset_ris, ris);
+> +				if (ret)
+> +					return ret;
+> +			}
+>   			ris->in_reset_state = true;
+>   		}
+>   	}
+> +
+> +	return 0;
+>   }
+>   
+> -void mpam_reset_class_locked(struct mpam_class *class)
+> +int mpam_reset_class_locked(struct mpam_class *class)
+>   {
+>   	struct mpam_component *comp;
+> +	int ret;
+>   
+>   	lockdep_assert_cpus_held();
+>   
+>   	guard(srcu)(&mpam_srcu);
+>   	list_for_each_entry_srcu(comp, &class->components, class_list,
+> -				 srcu_read_lock_held(&mpam_srcu))
+> -		mpam_reset_component_locked(comp);
+> +				 srcu_read_lock_held(&mpam_srcu)) {
+> +		ret = mpam_reset_component_locked(comp);
+> +		if (ret)
+> +			return ret;
+> +	}
+> +
+> +	return 0;
+>   }
+>   
+>   static void mpam_reset_class(struct mpam_class *class)
+> diff --git a/drivers/resctrl/mpam_internal.h b/drivers/resctrl/mpam_internal.h
+> index 68a6cf2b9cc73..09f8168fb4d2c 100644
+> --- a/drivers/resctrl/mpam_internal.h
+> +++ b/drivers/resctrl/mpam_internal.h
+> @@ -465,7 +465,7 @@ void mpam_enable(struct work_struct *work);
+>   void mpam_disable(struct work_struct *work);
+>   
+>   /* Reset all the RIS in a class under cpus_read_lock() */
+> -void mpam_reset_class_locked(struct mpam_class *class);
+> +int mpam_reset_class_locked(struct mpam_class *class);
+>   
+>   int mpam_apply_config(struct mpam_component *comp, u16 partid,
+>   		      struct mpam_config *cfg);
 
-I agree that userspace should be able to see dropped reports.  Two
-things to note before exposing them: the counters are global per-CPU
-counters today, not per context, so a per-context interface needs
-per-context accounting first; and when perf throttles a source,
-samples are lost without any drop being counted.
-
-I see two options:
-
-a) a read-only file under the context or probe sysfs directory, once
-   the counters are per context, or
-b) the drop counts through a tracepoint, per aggregation window.
-
-Your PMU-agnostic observability series may be a natural home for (b).
-What do you think?
-
-[1] https://lore.kernel.org/all/20261005-damon-perf-rfc-v3-send-2026-10-03-v4-0-b03452e137f3@gmail.com/
-
-Thanks,
-Ravi
