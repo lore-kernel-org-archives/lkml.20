@@ -1,80 +1,87 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3B9A030ACEE
-	for <linux-kernel@vger.kernel.org>; Mon,  5 Oct 2026 17:00:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 133D92E1EE0;
+	Mon,  5 Oct 2026 17:00:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=156.67.10.101
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791219620; cv=none; b=KA/BWXVOuxC8UM426Wz5vwjqZr8bxODM1dOmXWhFGj9onrMEaqvYlRL2eE6KBb3gmwasfvVknEJrszvQUXeWYE+GJ7c2VDU3eOIYfBfs+7qIkEHrEWFHk2yX01LcBI/RQTS9Z4BnsNu3lKE0ShRYhYLVJKRMskFohw+ZISS4w48=
+	t=1791219655; cv=none; b=ZHS7hRDQbDVhcANlMyqRHDaYlhrzZe3DL+jIFccRVjCHV+zhoRKu6jPT+lE7oGeX0snNEOai+ySf1VnTDkoVDX1YSFcjRGk8z9o+2uksIpzyA09uI7/A75x5HZVcN5oNClZOp3Obx1IZXnocl1FzBWlkXW0C7FF3SmexEj6eVAY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791219620; c=relaxed/simple;
-	bh=fVEvrqt6WjDpLD7k0EEIJMqpIf6dLHVhyJBZwjn0ds4=;
-	h=Content-Type:MIME-Version:Subject:From:Message-Id:Date:References:
-	 In-Reply-To:To:Cc; b=tGwd3dxeYhr6oaXrlB6R9auaCxxZuZ91hcOMAiPhRIS8IOfWJEoMiT88YNtR3118UcjOA9B86rWiI34/fuKMQHkCD3Hrxvp0X5u/xRZAwwob6fRbDBdCZTPLPNd8w8Mrt9ovcSunWtyLGuOf7pzHz+11Kb6Qf2WgTiIRP+R0luA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=eld28IbS; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791219655; c=relaxed/simple;
+	bh=eUq/Fpd/aMiRZ/Ud2kB6zdRZRopf1TOGDea7P4TysU4=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=IrM7KW/39yf54jhLVfLL9vRvLyxBf9I7cMJqvLYIRuakjCm/AsaXrVc84kraRiMqTPdS+qVDB9KO7e6pkZ4OFpyBVIMnVYBQR8hiTibblOpfTOVbAyYdPrsyk9yf4AvG8eRNa0fbvGrkTG0RTAQvaQp61W/8vWLZHR5vYOtpEXc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch; spf=pass smtp.mailfrom=lunn.ch; dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b=hpO0dsJd; arc=none smtp.client-ip=156.67.10.101
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="eld28IbS"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 435C21F000FF;
-	Mon,  5 Oct 2026 17:00:18 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791219618;
-	bh=k678DWlUUZ3k9HwvntazIqDsfedGb7Bg2oWOWK4FHPQ=;
-	h=Subject:From:Date:References:In-Reply-To:To:Cc;
-	b=eld28IbSGRFsMzZt7XBnJ3a+L1l3olWRiA762brUpoSe0SNT4UO8VFzHx5hIdV4XI
-	 pMIu/wYK9OJCwcahBFziB3uzhTc85K1kJRZf3KqrHzDBH2u2LZy34/agz2UcJgQQ/8
-	 McGubgH2ZtnrY3OK1gjVMKHpVqmHxbLXCaHpFFcOUuQU5UJ46k3hT9uzgOT+F3JxIq
-	 wFZWyb0WWafnnww2gWQhvJ1S016mXMlKKy0fa59QKCXV14Zt5KS5XQ+9JoagBt2Iaf
-	 vnO0wUA1zXG00Z60DDTAfsKCdAUjXBBtUzgMcMq1XWR9zsMjLOkux+ZWCmi/Zbspdy
-	 FimOu+ef98EMg==
-Received: from [10.30.226.235] (localhost [IPv6:::1])
-	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 3A30639263B5;
-	Mon,  5 Oct 2026 17:00:18 +0000 (UTC)
-Content-Type: text/plain; charset="utf-8"
+	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b="hpO0dsJd"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
+	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
+	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
+	bh=N42AkCPvlmOexUxUv8KwZoDJ9cuIoVCrhb/0fTBAssY=; b=hpO0dsJd6ZsI+y7jl1uhxVBNJ3
+	kacqWjU571HaWBKFlrfhuSY2jwJ5o3TePJ8MAePiwJshkdPQeynLvLQuRFOkDO83Ol7Dy+hboGZSB
+	oRQg6m8XJOeFqEJkfly5rk/axDJHsSb4qkPXHFVA46giL/IAe824Bk/S0fgus8OLhZQQ=;
+Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
+	(envelope-from <andrew@lunn.ch>)
+	id 1xDm3R-0095Xm-1Q; Mon, 05 Oct 2026 19:00:45 +0200
+Date: Mon, 5 Oct 2026 19:00:45 +0200
+From: Andrew Lunn <andrew@lunn.ch>
+To: Yongzhao Chen <yongzhao.derek@gmail.com>
+Cc: netdev@vger.kernel.org, Christian Marangi <ansuelsmth@gmail.com>,
+	Vladimir Oltean <olteanv@gmail.com>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	John Crispin <john@phrozen.org>, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH net-next v3 1/3] net: dsa: qca8k: propagate MDIO errors
+Message-ID: <314592e3-8c67-44e0-a4ce-08f5cb47fe50@lunn.ch>
+References: <20261003172405.342-1-yongzhao.derek@gmail.com>
+ <20261003172405.342-2-yongzhao.derek@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Subject: Re: [PATCH v2] riscv: crash: Add crash hotplug support
-From: patchwork-bot+linux-riscv@kernel.org
-Message-Id: 
- <179121961677.1813719.4405826480158733209.git-patchwork-notify@kernel.org>
-Date: Mon, 05 Oct 2026 17:00:16 +0000
-References: <20260910032619.2477279-1-qirui.001@bytedance.com>
-In-Reply-To: <20260910032619.2477279-1-qirui.001@bytedance.com>
-To: Rui Qi <qirui.001@bytedance.com>
-Cc: linux-riscv@lists.infradead.org, palmer@dabbelt.com, pjw@kernel.org,
- aou@eecs.berkeley.edu, alex@ghiti.fr, debug@rivosinc.com, martin@kaiser.cx,
- mindal@semihalf.com, fustini@kernel.org, kees@kernel.org,
- linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261003172405.342-2-yongzhao.derek@gmail.com>
 
-Hello:
-
-This patch was applied to riscv/linux.git (for-next)
-by Paul Walmsley <pjw@kernel.org>:
-
-On Thu, 10 Sep 2026 11:26:19 +0800 you wrote:
-> When CPUs or memory are hot-plugged on a running system, the crash
-> dump's elfcorehdr -- which describes the available CPUs and memory to
-> the capture kernel -- must be kept in sync, otherwise a crash after a
-> hotplug event would produce a vmcore that does not reflect the current
-> system topology.
+On Sat, Oct 03, 2026 at 07:24:02PM +0200, Yongzhao Chen wrote:
+> qca8k_mii_write32() ignores errors from both 16-bit half-word writes.
+> Its callers (register writes and read-modify-write helpers) then return
+> the earlier successful page selection or read result, incorrectly
+> reporting success even when writing the switch register failed.
 > 
-> Enable crash hotplug for RISC-V by selecting
-> ARCH_SUPPORTS_CRASH_HOTPLUG and providing the three architecture hooks
-> invoked through the override macros in <asm/kexec.h>:
+> Propagate write errors from both the low and high half-words through the
+> regmap paths and internal MDIO master transactions. Attempt to clear
+> MASTER_EN even if a transaction fails, preserving the initial error, and
+> report a cleanup failure if the transaction itself succeeded. Preserve
+> the existing Ethernet-to-MDIO fallback order.
 > 
-> [...]
+> Propagate read errors through the internal and legacy MDIO bus callbacks
+> instead of masking them as 0xffff. Returning 0xffff causes PHY
+> read-modify-write callers to treat the failed read as valid register
+> data, which can corrupt unrelated bits on writeback.
+> 
+> Stop polling when reading the MDIO busy status fails, and return the
+> error immediately. Because the read helper clears its output on failure,
+> checking only the BUSY bit mistakes an unsuccessful read for transaction
+> completion.
+> 
+> Code inspection found these problems. Fault injection into a userspace
+> model of the driver's functions reproduces them; the corresponding cases
+> pass after this change.
+> 
+> qca8k_mii_write32() has not returned write errors since its introduction
+> in commit 6b93fb46480a ("net-next: dsa: add new driver for qca8xxx
+> family").
+> 
+> Signed-off-by: Yongzhao Chen <yongzhao.derek@gmail.com>
 
-Here is the summary with links:
-  - [v2] riscv: crash: Add crash hotplug support
-    https://git.kernel.org/riscv/c/dfc0c564b4b0
+Reviewed-by: Andrew Lunn <andrew@lunn.ch>
 
-You are awesome, thank you!
--- 
-Deet-doot-dot, I am a bot.
-https://korg.docs.kernel.org/patchwork/pwbot.html
-
-
+    Andrew
