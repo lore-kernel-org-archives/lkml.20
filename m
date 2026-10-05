@@ -1,152 +1,166 @@
-Received: from mail-dl2-f3.google.com (mail-dl2-f3.google.com [74.125.229.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2AA8444AB8E
-	for <linux-kernel@vger.kernel.org>; Mon,  5 Oct 2026 09:09:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.229.131
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791191360; cv=pass; b=r6Kkqq6h0ELCyNrZGsCjiyYyekj6B6nMvPoQRWUNfuw4J/fJOkna2ewxTfuQ9F5BglSta1Y09gpHM/nhDOFsrst62qP5gk/9PM3hjILNkKaQ2DQ8QM2Wp78vVLwPcprkSR4sRn9okAif0sFtiLNeGbMhu4U1ofNOcqLNKo+K+no=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791191360; c=relaxed/simple;
-	bh=Pg3fz4PNkRiCGc9O+mF7at92p5TplzPaQRJoEH/LflM=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=Ra5qa5ETBCNd+jWR2Jhg3OxWG9uDLqj9vz2CB67pSIPUc25D2IHW7PUgc+2aacLDlJ1HaY9KPsCVewUECEPyi0gJ0iSySTsSSrrysAqSwlA0f3iHlujIAS0kWxKqDbbw+JXlOHf1D5qzeuWKP5uLmY4lN8ZiGqV2ZhmS85fSz3k=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Mxg5srN+; arc=pass smtp.client-ip=74.125.229.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 0851A44B68D;
+	Mon,  5 Oct 2026 09:09:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791191362; cv=none; b=UXs9xPVuUNFwQJEmQ2TF7bvWFBRbb7cqwLiC4Ibe4lojdFRx0Y6QHPOpKenBmuOm3sorzZUqOh0sQrQ7QNZfxlJ8wPBypEydaavdYsn8evryZ1TQx18WMwDGuU+m6Jheb7fZ/yT+4q3L3YO+E/Q6h+yMQE91XmaP0S7dQXKJN08=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791191362; c=relaxed/simple;
+	bh=3j/0cI8X8V5LDuJwuszsQwkWGMoyMgSVPrs4wf72zBE=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=faP4iEG/iN3jREyUSZNzRZdjvgQfl1niGqat3CqbNnCY8rRE/47usuvpAFx4Z5km746HfF7iebayNdZ3Z1P+lsZpF0QbCGDLrnCzM5C54r28vbiecut5yrl+t01lDEyHaulT0bm8Ed33tZUmCXjXm4gBB/yArkl66G8pSY2sK4s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=EO6La4XE; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Mxg5srN+"
-Received: by mail-dl2-f3.google.com with SMTP id a92af1059eb24-1521c45a248so184221c88.0
-        for <linux-kernel@vger.kernel.org>; Mon, 05 Oct 2026 02:09:18 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1791191358; cv=none;
-        d=google.com; s=arc-20260327;
-        b=Eub6MdwAEfox1mUWWs3AbvUsml8J29FbKE1hk7KD6jrSi8iPw9HBMM19A4w8K6iGDG
-         bANCOBIFmHlvPmJHOO1OmZ6jp4q9EsdIjo2zmip5gzXYiS/nvCo1it1ARw7prpcKp1EE
-         /DCZVgP3RkXag7DwmOQ4hKXo2vr/FtYBFUY4Ctx6XjSjuqefQRFdsxf19n5ThtcuE5V/
-         xZ3jVtOuMJoY41D4jrzIbl7Hts73SCLGCQ65MMnnMqBd5OtmnpowVh2USk5gCVDS0SbR
-         cgSZHSPoGVUNse8BbAD4KQzgMNCPTX2VpXXzlPHMXnxaXQfx24EYAvElsiNgIURi5Nqw
-         Vymw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=Duw2nxZN8kxbqWipjB3kgCvhqho4PD5wPOWTNu1vMgg=;
-        fh=lda34ToGeGRHec9JhXU7+DbXVCgBcC1o5vhiWY2R/k8=;
-        b=rY8SO+EkI2eAB4finRSD76bSf1lAa2vmuiX2/ydLIEsiLIwmb2mRGVF/FqI2KBsdau
-         sju57q+Aeu304KA+totdjcmxXpJJgvgN/itMjtylLKnZHaV5zm4MZ5BqnI0cdRhuJTtV
-         pw27n2BEczJbKSBrM/CbzReijtP7z4vbOabyAOJrHwT5Cmog3a8sY2+GHppa3Lwchco/
-         OicjjRI1MtvUZhrK/JlCR+FJ/NefbfFiAoJMtK2sq5S5weh/F77AzDX+mfO46PqbQioD
-         37Y6m+yBxW3ddzfBipwtsYjdsGP/iF12Z54H79dJ7pc/ubAmXiIfFsy5HA7H/hgtiNP4
-         VhvA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791191358; x=1791796158; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Duw2nxZN8kxbqWipjB3kgCvhqho4PD5wPOWTNu1vMgg=;
-        b=Mxg5srN+7sS/ZVlUtug/gEXsF43wQEcqFuqSfqHZGy3dm3MoNEvDzf4pC2oLo9uc7t
-         LNY4JL/RirtESuiatR65kMleV92vGlaLchXGHOD40vns8YELAcVBlpnfstdjkdkFn7An
-         /b/wSTGStGlYPk77qbeV1LXCjVWXuRem7Au3PNJoF4NksLDGPb91YbJ5oKGM8mdJKllz
-         /7dqgcFimcTKNSA/NsamItP6amYaQ4wRK6GuhkK631JjDKL/5dyAMH+ITsCIs0cite5h
-         P98DfUWuHgPh1Ksza3BONdhqLzD1O0p7h1CxkwuuW8JhOUgJdxKxwFTY1roErLFk0wlV
-         dxBQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791191358; x=1791796158;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=Duw2nxZN8kxbqWipjB3kgCvhqho4PD5wPOWTNu1vMgg=;
-        b=szktM/KLDT59rUBZDJhtswK4QAFCvwPF8KK4H4F306Eo9h3mkxIx03ORw0pYvpxTBD
-         k2nYktygDKPg/GHbuvRJ6NUCyskhhOY55ZJlBeDBAmnDclEiQo/LLEeQyPlXQMfre0kC
-         whJS6iMuwahZt4sZt56c8Cp9pbtir6LBsjRd19B6jIoRLxi2Bc7WmrUHOYRr92lsxrZy
-         17GNwImrFoePGUgAc1nnCG6lmaaX7WR6ZWBn0zw+M+oe+SuD6Ia3B9XzrY1lDThpBcNc
-         jB2xsc+XX6ENy3buuNLU3xwicXsiiH2VTKuQloA3GWShGTvSTd6ifuUalfDP+omtErFT
-         AsLw==
-X-Forwarded-Encrypted: i=1; AKwUvBxBlNLwHvAqFnrKEDcK3Rq7hsgujQyAfEune6BqFWSo7l5k6Pa4af/rUVYCcpX6LUAhzgjjKLomb2U+X80=@vger.kernel.org
-X-Gm-Message-State: AFuF++n3E2TlIXPtw9okV4b25hATLZGYO23xGK2qTmzoheP+sT3Qmz/A
-	63Cpn3g3brU0sWmY9+KdTIOtc4CFO+aGTSuvdQjcUYzggS9CVInOjvKK6D7kn0kR/1m5yRtWFR3
-	vjepPLGnRkZcJhJTAsXwD2ifYOikISg==
-X-Gm-Gg: AYBFou14raUQpcxNi9SYgPhrllI3uvoGFvw6uwYGDUr7oG7cGuGStGPqd+uC36Jv1C/
-	EBlQJ4Lo+oZZGG+NNUqj/rdhtNjcdxzS54X08KdPTEC/P/xcCFpMhVr9SSW+KSTJQkWTSXV0Btx
-	pOkh7cBuijsdPf4W8YAwJNSDD0p1n+sJAog6+kNKdDow02ZveBRklWruADBVi4CLjL3cilpgp3R
-	BvoRWEP4XR67oyGh2kYscNEN1ahSJ+0YTxfbfK8m4yJRcjw0QHyF2aTNruuW3FOUA5MhYZ4dIJu
-	SsqY6zpBckPMv9ZOyXA1awvv5w0SWFfNeFxnMAaxHyZ7h1Qk/6zO57CQmeNgSzMT+yU=
-X-Received: by 2002:a05:701b:4583:20b0:151:ceb3:e105 with SMTP id
- a92af1059eb24-151cec32443mr9674795c88.11.1791191358038; Mon, 05 Oct 2026
- 02:09:18 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="EO6La4XE"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 263081576;
+	Mon,  5 Oct 2026 02:09:16 -0700 (PDT)
+Received: from ewhatever.cambridge.arm.com (ewhatever.cambridge.arm.com [10.2.197.99])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id 6B9DD3F66F;
+	Mon,  5 Oct 2026 02:09:16 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1791191359; bh=3j/0cI8X8V5LDuJwuszsQwkWGMoyMgSVPrs4wf72zBE=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+	b=EO6La4XELE1Ia/YTG6nTqM3uVjvDgrwPC36jJMZdZDJEY9s1+REqywi5BuJf21TiH
+	 4TUtxIT/34cJIlvpTr17sVL+iu27cNgjHi+2MmWQGbzH3w4FQDhaau/79tG+f2+WDU
+	 X19LsvQpuJFrzHOepvv0rJlQaFbQT5oZPCylseMw=
+From: Suzuki K Poulose <suzuki.poulose@arm.com>
+To: kvm@vger.kernel.org,
+	kvmarm@lists.linux.dev
+Cc: maz@kernel.org,
+	will@kernel.org,
+	catalin.marinas@arm.com,
+	linux-kernel@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	steven.price@arm.com,
+	aneesh.kumar@kernel.org,
+	oupton@kernel.org,
+	gshan@redhat.com,
+	joey.gouly@arm.com,
+	tabba@google.com,
+	yuzenghui@huawei.com,
+	linux-coco@lists.linux.dev,
+	gankulkarni@os.amperecomputing.com,
+	sdonthineni@nvidia.com,
+	alpergun@google.com,
+	fj0570is@fujitsu.com,
+	WeiLin.Chang@arm.com,
+	lpieralisi@kernel.org,
+	enju.kohei@fujitsu.com,
+	sudeep.holla@arm.com,
+	jonathan.cameron@oss.qualcomm.com,
+	Jean-Philippe Brucker <jean-philippe@linaro.org>,
+	Suzuki K Poulose <suzuki.poulose@arm.com>
+Subject: [PATCH v22 22/23] KVM: arm64: CCA: Expose SVE VL register before VCPU finalization
+Date: Mon,  5 Oct 2026 10:07:53 +0100
+Message-ID: <20261005090754.2140522-23-suzuki.poulose@arm.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20261005090754.2140522-1-suzuki.poulose@arm.com>
+References: <20261005090754.2140522-1-suzuki.poulose@arm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20261003-damon-perf-rfc-v3-send-2026-10-03-v3-2-0f00417b41bc@gmail.com>
- <20261004083036.613169-1-kunwu.chan@gmail.com>
-In-Reply-To: <20261004083036.613169-1-kunwu.chan@gmail.com>
-From: Ravi Jonnalagadda <ravis.opensrc@gmail.com>
-Date: Mon, 5 Oct 2026 02:09:05 -0700
-X-Gm-Features: AclHuK93ndMC4ovSjSP_cU8HjtSfyaChQiTBQ98ae5wltCXWwtXcA60S-czM1oQ
-Message-ID: <CALa+Y17BOR0DBLS9-vns2SQfRhCueT0f82XCVojHhg9uacOX+w@mail.gmail.com>
-Subject: Re: [RFC PATCH v3 2/9] mm/damon/core: replace the access report
- buffer with per-context rings
-To: Kunwu Chan <kunwu.chan@gmail.com>
-Cc: SJ Park <sj@kernel.org>, Andrew Morton <akpm@linux-foundation.org>, damon@lists.linux.dev, 
-	linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
-	Gregory Price <gourry@gourry.net>, David Rientjes <rientjes@google.com>, Wei Xu <weixugc@google.com>, 
-	Jonathan Corbet <corbet@lwn.net>, Bijan Tabatabai <bijan311@gmail.com>, Ajay Joshi <ajayjoshi@micron.com>, 
-	Honggyu Kim <honggyu.kim@sk.com>, Yunjeong Mun <yunjeong.mun@sk.com>, 
-	Akinobu Mita <akinobu.mita@gmail.com>, Lian Wang <lianux.mm@gmail.com>, 
-	Kunwu Chan <kunwu.chan@linux.dev>, Jonathan Cameron <jic23@kernel.org>
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 
-Hi Kunwu,
+From: Jean-Philippe Brucker <jean-philippe@linaro.org>
 
-Thanks for looking into this.  Yes, in v3 I made the drain raise
-nr_accesses once per drained sample.  My intent was that a region
-receiving several samples in one interval should show a stronger signal
-than a region receiving one, and it let the existing access-pattern
-schemes act on the samples unchanged.
+Userspace must configure the SVE vector length before the Realm is created
+(as it is part of the parameter for Realm creation), but the Realm VCPUs
+cannot be finalized until after the Realm Descriptor has been created.
 
-> Unlike page-table or page-fault based access checks, where an access
-> report is generated from a deterministic access observation, a
-> hardware-sampled report represents a statistical hardware event whose
-> frequency depends on the PMU configuration.
->
-> For the same workload, nr_accesses may therefore have different
-> scales when monitored with different PMU sampling configurations
-> (for example, PEBS at a given frequency versus IBS with a different
-> sample period).
+KVM_GET_REG_LIST currently rejects the unfinalized VCPUs, which prevents
+the userspace from discovering and configuring the VLs for  the Realm.
 
-Agreed, and that made me look at where this information belongs.
-DAMON's data attributes monitoring already keeps a per-probe hit count
-for each region, probe_hits[], which the probe weights apply to, and a
-PMU sample is exactly such a data attribute sample.
+Allow KVM_GET_REG_LIST for unfinalized RECs and make the SVE register
+enumeration handle the unfinalized case explicitly. i.e., only expose
+KVM_REG_ARM64_SVE_VLS before SVE is finalized.
 
-So in v4 [1] the drain no longer touches nr_accesses at all; its scale
-stays with the access check primitives, independent of the PMU and its
-sampling settings.  A sample instead raises the region's probe_hits[]
-count, at most once per sampling interval, the same per-interval bound
-a probe hit has for the samples DAMON takes itself, which keeps the
-count within the samples per aggregation.  The meaning differs a little:
-DAMON's own sampling tests one address per region, while a perf hit
-means that at least one PMU sample landed in the region during the
-interval.  To act on the samples, a context sets a probe weight, which
-puts it in DAMON's data attributes-only mode, and its DAMOS schemes
-select regions with probe_hits_wsum filters.
+One adverse side effect of this change is that a KVM_GET_REG_LIST call that
+only probes for the array size will now succeed even if SVE is not
+finalized, but that seems harmless since the following KVM_GET_REG_LIST
+with the full array will fail.
 
-> Should we document this distinction, so that users configuring DAMOS
-> schemes with nr_accesses thresholds understand that the value depends
-> on the hardware sampling source?
+Signed-off-by: Jean-Philippe Brucker <jean-philippe@linaro.org>
+Signed-off-by: Steven Price <steven.price@arm.com>
+Signed-off-by: Suzuki K Poulose <suzuki.poulose@arm.com>
+---
+ arch/arm64/kvm/arm.c   | 15 ++++++++++++++-
+ arch/arm64/kvm/guest.c | 10 +++++-----
+ 2 files changed, 19 insertions(+), 6 deletions(-)
 
-With v4, nr_accesses thresholds no longer depend on the sampling
-source.  What still does is how likely a region is to get a probe hit
-in an interval, so yes, that should be documented.  I left the
-documentation out of the RFC until the design settles, and will cover
-it there.  Since I was already respinning for the v3 review, I folded
-this into v4 so that there is a testable series before Plumbers.
+diff --git a/arch/arm64/kvm/arm.c b/arch/arm64/kvm/arm.c
+index fe707a0c47308..d99e7818f5894 100644
+--- a/arch/arm64/kvm/arm.c
++++ b/arch/arm64/kvm/arm.c
+@@ -2004,6 +2004,19 @@ static int kvm_arm_vcpu_set_events(struct kvm_vcpu *vcpu,
+ 	return __kvm_arm_vcpu_set_events(vcpu, events);
+ }
+ 
++/*
++ * Realm VCPUs can be finalized only after the Realm descriptor is created.
++ * But in order to seal the SVE VL, we need to allow the userspace to read/write
++ * to the SVE_VL, before everything is finalized.
++ * Allow the register list for RECs before the VCPUs are finalized.
++ */
++static bool kvm_arm_vcpu_reg_list_allowed(struct kvm_vcpu *vcpu)
++{
++	if (kvm_arm_vcpu_is_finalized(vcpu))
++		return true;
++	return vcpu_is_rec(vcpu);
++}
++
+ long kvm_arch_vcpu_ioctl(struct file *filp,
+ 			 unsigned int ioctl, unsigned long arg)
+ {
+@@ -2059,7 +2072,7 @@ long kvm_arch_vcpu_ioctl(struct file *filp,
+ 			break;
+ 
+ 		r = -EPERM;
+-		if (!kvm_arm_vcpu_is_finalized(vcpu))
++		if (!kvm_arm_vcpu_reg_list_allowed(vcpu))
+ 			break;
+ 
+ 		r = -EFAULT;
+diff --git a/arch/arm64/kvm/guest.c b/arch/arm64/kvm/guest.c
+index b01d6622b8720..c3ca369882273 100644
+--- a/arch/arm64/kvm/guest.c
++++ b/arch/arm64/kvm/guest.c
+@@ -598,8 +598,8 @@ static unsigned long num_sve_regs(const struct kvm_vcpu *vcpu)
+ 	if (!vcpu_has_sve(vcpu))
+ 		return 0;
+ 
+-	/* Policed by KVM_GET_REG_LIST: */
+-	WARN_ON(!kvm_arm_vcpu_sve_finalized(vcpu));
++	if (!kvm_arm_vcpu_sve_finalized(vcpu))
++		return 1; /* KVM_REG_ARM64_SVE_VLS */
+ 
+ 	return slices * (SVE_NUM_PREGS + SVE_NUM_ZREGS + 1 /* FFR */)
+ 		+ 1; /* KVM_REG_ARM64_SVE_VLS */
+@@ -616,9 +616,6 @@ static int copy_sve_reg_indices(const struct kvm_vcpu *vcpu,
+ 	if (!vcpu_has_sve(vcpu))
+ 		return 0;
+ 
+-	/* Policed by KVM_GET_REG_LIST: */
+-	WARN_ON(!kvm_arm_vcpu_sve_finalized(vcpu));
+-
+ 	/*
+ 	 * Enumerate this first, so that userspace can save/restore in
+ 	 * the order reported by KVM_GET_REG_LIST:
+@@ -628,6 +625,9 @@ static int copy_sve_reg_indices(const struct kvm_vcpu *vcpu,
+ 		return -EFAULT;
+ 	++num_regs;
+ 
++	if (!kvm_arm_vcpu_sve_finalized(vcpu))
++		return num_regs;
++
+ 	for (i = 0; i < slices; i++) {
+ 		for (n = 0; n < SVE_NUM_ZREGS; n++) {
+ 			reg = KVM_REG_ARM64_SVE_ZREG(n, i);
+-- 
+2.43.0
 
-[1] https://lore.kernel.org/all/20261005-damon-perf-rfc-v3-send-2026-10-03-v4-0-b03452e137f3@gmail.com/
-
-Thanks,
-Ravi
