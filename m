@@ -1,101 +1,197 @@
-Received: from out203-205-221-221.mail.qq.com (out203-205-221-221.mail.qq.com [203.205.221.221])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj2-f4.google.com (mail-pj2-f4.google.com [74.125.227.132])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DBA664BA9FA;
-	Mon,  5 Oct 2026 16:50:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=203.205.221.221
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 351DD4CE69E
+	for <linux-kernel@vger.kernel.org>; Mon,  5 Oct 2026 16:51:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.132
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791219050; cv=none; b=fCuoTsRROv/uuv7RgysH7Gafps40aTDuLbYuo4tfABZKZGh58hrzZAeR1uLnUmwCXOqkJ6DqOcGcSccjjXJgv9bfa/J2htwL5CQCOViuG7NZcFn4064H75lIRHAYr7gta4BlgQzdsroKxcftYzxgoxOBP2jaDPVzytE4RbHTy/8=
+	t=1791219082; cv=none; b=Lwvll6L4HmwOqJfTY1yOay1PV8ekyUx4igxpErx0glFWvvjyMUDP7/4Oc6YXYkBMuOq415BvZkQ+ouUPA6Flnul3ScuidfRAsV22eDUXG5Z5pCKnTaggTjNCFgwHHQpNag6UFmLbFl6aIyepPqNJ0wY4oWIF4r/7Gpw87KCEg6g=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791219050; c=relaxed/simple;
-	bh=eZ95W4xKUXkyNc3f85B1Ri/EJjGKUeuIgWk0mMUbycU=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=c8DySNRhITfOE9jtCEIfqSsQYQdqI/SpqGSnJ/f9pHoSr01o48k6bUmGRRiMZH99iVs2ZtUpdNuKknPvg/QL4UqGdfjfxPR3HBy2BaVfP484eudb131VoO+MZ0mIVAXv2Hjg/JP1NuH+Tk1Mf0QCQe4eHdlSV6uKyumuFuvNHdQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com; spf=pass smtp.mailfrom=qq.com; dkim=pass (1024-bit key) header.d=qq.com header.i=@qq.com header.b=x7OBPfO9; arc=none smtp.client-ip=203.205.221.221
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qq.com
+	s=arc-20240116; t=1791219082; c=relaxed/simple;
+	bh=ZtOtfI8xTZljtzEITNuddg7KMK3dN7NLgg7QIotbHg0=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=oQvUvsoQTcvJSJa41N7ECWbyw8DYjKvsRiV7vFVBBqmtpW+B2HdTZYdkO3nmp12mW6Ufz4viSeNqTGZj0Ku2iClD8HYEEIY2yRjTNqozB04tiCmo15C4HWkeccsfE7qV40As7nefK5vn8ZwtJcVDimEFgAcJDqLbiuU9hsiZto4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=jYBEAguj; arc=none smtp.client-ip=74.125.227.132
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=qq.com header.i=@qq.com header.b="x7OBPfO9"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
-	t=1791219037; bh=ULzXOTNGZsl8i2FLpcSokhpQ3RMxibrvq655plx5ZCI=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=x7OBPfO9JJEpW2akVBCoN15RsWSE4268h6ygySivBpFaCP7ky7RQrHnkr5oKvjb+K
-	 xGT3H+SnTDtJjDyHEYVRCudnaiikNr05FT3giJI0FXpYNpmw0wzJNhv8HVF4Wo7BEk
-	 0IpNQhhlvksHNoOlDneXKXurFk57ADJXs4sPNUME=
-Received: from [198.18.0.1] ([112.43.117.189])
-	by newxmesmtplogicsvrsza73-0.qq.com (NewEsmtp) with SMTP
-	id CA2AAA64; Tue, 06 Oct 2026 00:50:34 +0800
-X-QQ-mid: xmsmtpt1791219034tau95ipbk
-Message-ID: <tencent_914955849500DD870ACC806531A5C590050A@qq.com>
-X-QQ-XMAILINFO: NI6TJc3opC6FnwBB3JyN5aL8szNLbrC3r3O/o187PhPGZ8qmUlb1VVzwccvVkm
-	 VcfM+uhFE2ChuvowuTHPmpPW591cRGH56ItSZfD8Ce2SHhzlMIzmxHGNasQWsLz/MDVm2lQV8J9a
-	 if3wuxWsRpN6JNrKZa9B/ZjgnyypR1fztgT0csOGUfawd4raWhN47ku2XLmJ5HUCr4npaCSCM2XK
-	 bjKOQBlLa0Ocd6jY1Kr/06kDKjfetsn7LOBcPB7KkR2izW6WutafF18Bb5o1D3EWlQlAXvlwFyEb
-	 pDrC4jjTzJt8ulcEDqejWDs0jTVgDNrQnR71pEk3eSByODbtVWZfdwIqbyN962rjbPqqGSLYn+Lg
-	 TpoLSCoyE962STOaos8IYr9/aD/KA0ruwAOsmQ4eQ9pLaYGge4PMrZec+q1vmNB4XU3GsNjIxknY
-	 lTEIjZyxxKK8lwHDVDIzvCz40eAnyDoxeJsIAeukxF5tQBzL71NJ6XB42GPin1YXg1jzx21N9z0J
-	 wscTlYdqQYgQ0FZh5VRz3rRkBlgKfv6LYxyZH0LVuT/mBxIWGkXxlDFjbjSqFUwxND+/vd0u7A83
-	 RiKuhAp6SLiVer6pN6IjuVaUqbq84h5364Rs4AfRNgjgxZd1hEbbIwyndwIYtjOy+ASmrVaDxVAZ
-	 QPiL8jj8eY5NOiqMWDqoekul//3TwKRyDY+JptTYL92cT97uOtFS96x1jIPEZLX0wCoiytixr43D
-	 dMTAaHfK/JSRHoB9yIfB1n0Y8si/GpedwaBE8ISaU7PdI396J5THMZOaTMJbCtrlus79Az35uiWF
-	 U+H2wjJqZMA7dYJ3J83PFMmi/+sTlhPo05Ie7HZukprx6QwiQHqRhEzCZ8hlOztTcXNBzYpCoMpB
-	 7DX8R9zW7zj+w9POOxhwn1SAL3SO7LHabWoFLvslQozGgi2mV4UHJrHhR7cEBIkYG6V6SG1LTj6f
-	 z1efEBPHmpYykbBm1n+UCfc6f/tE/dGGOQzOk3bY5ukIFRn919eWnkkfnI/FGhQomzv9fBhtTMBa
-	 hlpDcVl2xWyO7P1JigwuyYNV4y3u0tAyfTEz2j3AYjnx1AWUB5
-X-QQ-XMRINFO: NS+P29fieYNwqS3WCnRCOn9D1NpZuCnCRA==
-X-OQ-MSGID: <aa9d52bb-5501-46dd-b90e-739dbbe53487@qq.com>
-Date: Tue, 6 Oct 2026 00:50:34 +0800
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="jYBEAguj"
+Received: by mail-pj2-f4.google.com with SMTP id 98e67ed59e1d1-3a854dffb5dso6933a91.1
+        for <linux-kernel@vger.kernel.org>; Mon, 05 Oct 2026 09:51:21 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791219080; x=1791823880; darn=vger.kernel.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=b4mkDJheIxHRdMD7TqVn4ykGrzx67Q/w28iQIL9i/AE=;
+        b=jYBEAguj/HXC2O9ml4GkNN/+9pMpbTf40fb8JKLkjR7FD8OKSyr70p61oJulOnjdra
+         kQaMEQjqyv7sgrI2g2fg6PPmcYTR8lSmBlH090Iui9CcaC+IW37lvow5Ppb4NrXhAkO2
+         IUUbQTvR8oSRFHXnBVOn4p7dae5R/an/Hk/XbBVSAfbNwhQWqhTg9eyVfwJuFg/U1L7j
+         TW4UrRlz0bYBlxFVVvbKXXheqRt+HGKxQJJjuqIluT7hvwbwkHHQEyKPKJCKrRlbR9jh
+         fqoadKhkTSprHmHkHPhqDaUgY3EKNIo4K78uf9PO/TOVsW6IOOw9qLPh+UHkye4inhDv
+         KQvw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791219080; x=1791823880;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=b4mkDJheIxHRdMD7TqVn4ykGrzx67Q/w28iQIL9i/AE=;
+        b=VGHF9VeVmNnsTtQbnNrfH54JzId+IjxwwAxPP30IkI74Ag8P6Yg/hLcRaMQA/uQAhr
+         Hfuk9HHWERtTNQxIAuG06lhUa3L/Wx46Ar9I7MN4ilVZHRkixbAcvEqwA51Vcsa/SnOm
+         xBxiuWHWjwunREZE0c65TyG3dClL+Be0AiiZaq1dnN0ko1FB3NqPH4pTrJwzWnZdfDSJ
+         uEatNeQZafUm2qxGIiIATBacy2FnXBi1L4LXGWdSj4QW4PY6IvYUx0jzBlmgYjZcPVjp
+         OQuqhu0NQ15oZuMo61eQNvcW/gkHRC99RyiR7V6vOQwOaPC7TVs5Q8JFivyV1Z7QbCkD
+         P0Yw==
+X-Forwarded-Encrypted: i=1; AKwUvBwFBGNkOPlWxsmL7/KlyUmMwUbStypEgR7yYz2w1wYkqbxkOl5NHmOAIGpc9sRiTCCIJfydyPlIp0yERas=@vger.kernel.org
+X-Gm-Message-State: AFq9FYK9MQdrehUolWlJaGAEWyxUggdvzXS2avkXfY+24IBDDTHSYsvK
+	6dG5+JzS91x23yYmeKF4fy0QZovofjnpvEhHKUZse9DS2ZYmjVUPNDDv
+X-Gm-Gg: AYBFou1Q2HE7tqrseTbpFxsRnDIt/7aSGrvf7xrOvFsCo5If/mOOQMR5Y6IjAnAYEld
+	5SsJx7mXmY/wLTi0827XrM8O9F+DDnRzXFb74XafWqXoLqO0+5006ufeR5ApFmVlReJafKIoUPn
+	ws7uVQ66jyiTijKVYpZuSwk7h0uQQ3k+YS/Esxz6+sXHqJpt4ZhJNxQcLzqoXB4xbdmR0wC15kK
+	YBxu5xRYkz7jZRJarKbgiLKJgOf/Yvpsp3kKmfWeEtTjollUHYuXZk9KjboUqODKlcjW0qNhsKE
+	WMfPa8X2Mnteh9tTJ19tJ5/Sw39+wOXy+75AMtko06nNR0eKM+hCn8zL6T2+FMOFPKQiEDOiVyc
+	Zp+ppq2wlKxH5rMjQ2lTfF0ugb+sjjbzNG5RO3fUkD+EnuB6MLUfSzg/sHzPVcxbeLv2WzwLPER
+	soHjOsbYMeZAFx+7Gmpi0yyWqPibb/9795XUsDx95MPmbdai0AzV1ox3R0Lz6Qn7U=
+X-Received: by 2002:a17:90b:2ec3:b0:3a6:fec5:c184 with SMTP id 98e67ed59e1d1-3a6fec5d190mr6627900a91.7.1791219080418;
+        Mon, 05 Oct 2026 09:51:20 -0700 (PDT)
+Received: from localhost ([2a03:2880:2ff:1::])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a851525bffsm261628a91.0.2026.10.05.09.51.19
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 05 Oct 2026 09:51:20 -0700 (PDT)
+Date: Mon, 5 Oct 2026 09:51:15 -0700
+From: Stanislav Fomichev <sdf.kernel@gmail.com>
+To: =?utf-8?B?QmrDtnJuIFTDtnBlbA==?= <bjorn@kernel.org>
+Cc: Magnus Karlsson <magnus.karlsson@intel.com>, 
+	Maciej Fijalkowski <maciej.fijalkowski@intel.com>, Stanislav Fomichev <sdf@fomichev.me>, 
+	"David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, 
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, 
+	Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>, 
+	Randy Dunlap <rdunlap@infradead.org>, Alexander Duyck <alexanderduyck@fb.com>, kernel-team@meta.com, 
+	Andrew Lunn <andrew+netdev@lunn.ch>, Jesper Dangaard Brouer <hawk@kernel.org>, 
+	Ilias Apalodimas <ilias.apalodimas@linaro.org>, Alexei Starovoitov <ast@kernel.org>, 
+	Daniel Borkmann <daniel@iogearbox.net>, John Fastabend <john.fastabend@gmail.com>, 
+	Pavel Begunkov <asml.silence@gmail.com>, Jens Axboe <axboe@kernel.dk>, 
+	Andrii Nakryiko <andrii@kernel.org>, Eduard Zingerman <eddyz87@gmail.com>, 
+	Kumar Kartikeya Dwivedi <memxor@gmail.com>, Martin KaFai Lau <martin.lau@linux.dev>, 
+	Song Liu <song@kernel.org>, Yonghong Song <yonghong.song@linux.dev>, 
+	Jiri Olsa <jolsa@kernel.org>, Emil Tsalapatis <emil@etsalapatis.com>, 
+	Ihor Solodrai <ihor.solodrai@linux.dev>, netdev@vger.kernel.org, bpf@vger.kernel.org, 
+	io-uring@vger.kernel.org, "Mike Marciniszyn (Meta)" <mike.marciniszyn@gmail.com>, 
+	Weiming Shi <bestswngs@gmail.com>, Nikolay Aleksandrov <razor@blackwall.org>, 
+	David Wei <dw@davidwei.uk>, Alexander Lobakin <aleksander.lobakin@intel.com>, 
+	linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	Mina Almasry <almasrymina@google.com>
+Subject: Re: [RFC net-next 05/15] page_pool: Extend memory provider operations
+Message-ID: <asPUZ8DPllHd6Yu9@devvm7509.cco0.facebook.com>
+References: <20261002190018.696925-1-bjorn@kernel.org>
+ <20261002190018.696925-6-bjorn@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 0/3] arm64: zynqmp: Add support for EBDEE EdgeBoard FZ3A
-To: Andrew Lunn <andrew@lunn.ch>
-Cc: Conor Dooley <conor+dt@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Michal Simek
- <michal.simek@amd.com>, Rob Herring <robh@kernel.org>,
- devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-kernel@vger.kernel.org
-References: <tencent_E9086080313181C5F806E5543C9638DC270A@qq.com>
- <f1e7750f-7057-4430-9783-83dc8a8a2e23@lunn.ch>
-Content-Language: en-US
-From: Pufan Jin <2254650260@qq.com>
-In-Reply-To: <f1e7750f-7057-4430-9783-83dc8a8a2e23@lunn.ch>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <20261002190018.696925-6-bjorn@kernel.org>
 
+On 10/02, Björn Töpel wrote:
+> The current memory providers give memory that the CPU cannot read,
+> and they can always refill. An AF_XDP provider is different. The CPU
+> can read its memory, it has only the buffers that userspace puts in
+> the FILL ring, and its buffers go back to userspace instead of being
+> freed. It needs four things from page_pool:
+> 
+> - A CPU address for each net_iov. A provider can set the address of
+>   the first net_iov in its net_iov_area and the size each net_iov
+>   covers. netmem_address() then computes the address without a call
+>   into the provider; drivers call it for every packet. A
+>   net_iov_area without an address stays unreadable.
+>   page_pool_is_unreadable() is false for a readable provider.
+> 
+> - A way to say that the refill is not done. The new refill_done
+>   callback tells the driver whether it may stop refilling. A
+>   provider that still has buffers returns false, and the driver
+>   keeps NAPI scheduled.
+> 
+> - A way to give up a buffer without freeing it. Add a batched call
+>   that ends page_pool ownership of buffers that leave through the
+>   provider, for example to userspace. It clears the page_pool link,
+>   so a later page pool can take the buffer. Add the matching batched
+>   call that sets the link, and a DMA sync helper for drivers that
+>   post a buffer again directly.
+> 
+> - No buffer splitting, because a split buffer has several owners.
+>   Add MP_CAP_FRAG. page_pool refuses fragment allocation from a
+>   provider without it.
+> 
+> devmem and io_uring set MP_CAP_FRAG and keep their fragment
+> behaviour. Their refill paths now use the batched call that sets the
+> link.
+> 
+> Signed-off-by: Björn Töpel <bjorn@kernel.org>
+> ---
+>  include/net/netmem.h                    | 31 ++++++++++-
+>  include/net/page_pool/helpers.h         | 62 +++++++++++++++++++++-
+>  include/net/page_pool/memory_provider.h | 28 +++++-----
+>  io_uring/zcrx.c                         |  4 +-
+>  net/core/devmem.c                       |  7 ++-
+>  net/core/page_pool.c                    | 68 ++++++++++++++++++++-----
+>  6 files changed, 165 insertions(+), 35 deletions(-)
+> 
+> diff --git a/include/net/netmem.h b/include/net/netmem.h
+> index cc97611632dc..e6dff0b01581 100644
+> --- a/include/net/netmem.h
+> +++ b/include/net/netmem.h
+> @@ -105,6 +105,12 @@ struct net_iov_area {
+>  
 
-On 2026/10/5 05:29, Andrew Lunn wrote:
-> On Sun, Oct 04, 2026 at 03:46:22AM +0800, Pufan Jin wrote:
->> The EBDEE EdgeBoard FZ3A is a development board built around the MYIR
->> MYS-CZU3EG SoM, based on the Xilinx Zynq UltraScale+ XCZU3EG.
-> What exactly are you describing here. The SoM or the carrier board?
->
-> Generally, there is a dtsi for the SoM, and a dts for the carrier
-> board which includes the SoM .dtsi file.
->
->        Andrew
-Hi Andrew,
+[..]
 
-Apologies for the confusion in the v1 commit message.
+>  	/* Offset into the dma-buf where this chunk starts.  */
+>  	unsigned long base_virtual;
 
-The EdgeBoard FZ3A is actually a monolithic single-board computer
-designed and manufactured by ALINX. All components—the Zynq UltraScale+
-XCZU3EG SoC, 2GB DDR4, 8GB eMMC, 32MB QSPI NOR flash, KSZ9031 Ethernet
-PHY, and all external I/O connectors—are directly soldered onto a single
-PCB. There is no separate System-on-Module or board-to-board connector.
+Will send a patch to drop this one, don't think we use it anymore..
 
-The reference to "MYIR MYS-CZU3EG SoM" in my v1 commit message was an
-erroneous assumption on my part during initial research.
+[..]
 
-Because it is a single-board computer, everything belongs in a single
-zynqmp-alinx-edgeboard-fz3a.dts without a separate SoM .dtsi. I have
-corrected the commit message and cover letter in v2 to describe it
-accurately as an integrated SBC.
+> +	/* CPU address of the first net_iov's memory, or NULL when the CPU
+> +	 * cannot read the area. Each net_iov covers 1 << @niov_shift bytes.
+> +	 */
+> +	void *vaddr;
 
-Best regards,
-Pufan Jin
+Who is setting this? Somewhere in another patch? Can we keep it here?
 
+> +	u8 niov_shift;
+
+If we need niov_shift at area level, let's move the one from binding here?
+Then the existing callers can do binding->area.niov_shift.
+
+>  };
+>  
+>  static inline struct net_iov_area *net_iov_owner(const struct net_iov *niov)
+> @@ -117,6 +123,23 @@ static inline unsigned int net_iov_idx(const struct net_iov *niov)
+>  	return niov - net_iov_owner(niov)->niovs;
+>  }
+>  
+> +static inline bool net_iov_is_readable(const struct net_iov *niov)
+> +{
+> +	return net_iov_owner(niov)->vaddr;
+> +}
+> +
+> +static inline void *net_iov_address(const struct net_iov *niov)
+> +{
+> +	const struct net_iov_area *area = net_iov_owner(niov);
+> +	unsigned long off;
+> +
+> +	if (!area->vaddr)
+> +		return NULL;
+> +
+> +	off = (unsigned long)net_iov_idx(niov) << area->niov_shift;
+> +	return area->vaddr + off;
+
+Or, alternatively, store dma_base in area and do:
+
+return niov->dma_addr - area.dma_base + vadd ?
