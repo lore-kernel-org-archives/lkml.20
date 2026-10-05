@@ -1,249 +1,162 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj2-f39.google.com (mail-pj2-f39.google.com [74.125.227.167])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DDD66154425
-	for <linux-kernel@vger.kernel.org>; Mon,  5 Oct 2026 02:03:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 31DA8153BE9
+	for <linux-kernel@vger.kernel.org>; Mon,  5 Oct 2026 02:12:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.167
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791165787; cv=none; b=ej4B5rTnm1zHeD3ZqxRMzyFp/XIG4V7/9kuwMRxkk2yJCBuZPRWQMIeIb568qaztB4X+vBAFRV9EayMUSHQmcm8BFdMy5nP+uTMa50o+ZsGyu+8grUn6KUJWp479dDNnWVHX2R0Tv0Csy8tXAJz/XswFbXeBHy52AOZvTxaaXsc=
+	t=1791166359; cv=none; b=JXjY/S2w9Ax7DOCkx3cn5sM2RJ9ryRimUQK3ikQ1e9B650ukJwXj74cWTsjt+EMIfy4YKErZsEG6rJw0fFoU4KjKKJomYP/HuqmeTOhkq9fCGdFQEMlIelxeofkOtuWiMO+yj/zKIGCII6wpF83RlzXldxDi7/PHLo4hZUKI83g=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791165787; c=relaxed/simple;
-	bh=D9Qf7wHcoSWAHeYCtWzkYP8+JyMuhb1U18c/RLSREWM=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=DH+9LIC1YHdpVZDSNzfeTu2CyOjhRKc2E5rbZopgssJZkb3ebdknCEZ22KTRsT4sW+7UTaTnHek/QIhWuBk5F9qUQehpBD6EOZsrFBo5GqhEkZJ4gOjaWryhbuoNAgru8qt+19CvPEbPp5S+PCQ4q+B+Ukk3ECqB65XubL9uxYM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=b2/Iak2r; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=idLuTzQC; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1791166359; c=relaxed/simple;
+	bh=BGUhXXXtcnuShkA03X+V+8ParF89SYrXypmzAkwkIi8=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=ho/U2Qm1TEJLxhVLw15zMNMWn23PZ5BTggWhFbi00xOISnmyIbAW/qFaGKycttGT+Evuaf2/YqpZl8jJMWstram8g8z0QALVSvYSGdatvdIS1Row+FoMaisztT4DG0JR9WVebwBqgWSGAZhDZdYSA1kg/jIQxmZMe02Hu5+4G/M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=isslab.korea.ac.kr; spf=none smtp.mailfrom=isslab.korea.ac.kr; dkim=pass (2048-bit key) header.d=isslab-korea-ac-kr.20251104.gappssmtp.com header.i=@isslab-korea-ac-kr.20251104.gappssmtp.com header.b=NxrDoTOA; arc=none smtp.client-ip=74.125.227.167
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=isslab.korea.ac.kr
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=isslab.korea.ac.kr
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="b2/Iak2r";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="idLuTzQC"
-Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 695103si3688170
-	for <linux-kernel@vger.kernel.org>; Mon, 5 Oct 2026 02:03:05 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	+SgEIltGQkRfnBLbDG2XrKCaH5AEd8lzeFZSn/DYU0I=; b=b2/Iak2rzA16AFBz
-	USndGqFKkXIMGYosQRob8pP0CWF9a11zSNM9emK/3l/j6TJvqyJ1c3cLocMTG/g6
-	j+9uthC16d5RUwxtlv10XQYwVlXYbviB6a8Wdcn9A5bAQtSrekD4yVHBHxNoE7bj
-	9wDWVf2yWrFg7lHj9RChbuf+OrZpZBJB8EbA4DvRcmbVk4sbAHfezXuzXkePQkOl
-	3k9zlGo11K4h4wnJKGf0rHdu9pGKJVMmWa/JcflHRXNwGGsSdYqwFT30Tq296+0o
-	Z0FJ1NqWKzlBL2pYR2algI9XLxKyAQjYuhp/NzSO8yBut6LD3yKTVSm9OLH3oFlA
-	DnbOzw==
-Received: from mail-qk1-f197.google.com (mail-qk1-f197.google.com [209.85.222.197])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h3chfj2vx-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Mon, 05 Oct 2026 02:03:04 +0000 (GMT)
-Received: by mail-qk1-f197.google.com with SMTP id af79cd13be357-93cb93c874bso214611785a.0
-        for <linux-kernel@vger.kernel.org>; Sun, 04 Oct 2026 19:03:04 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=isslab-korea-ac-kr.20251104.gappssmtp.com header.i=@isslab-korea-ac-kr.20251104.gappssmtp.com header.b="NxrDoTOA"
+Received: by mail-pj2-f39.google.com with SMTP id 98e67ed59e1d1-3a49896dd9dso304412a91.0
+        for <linux-kernel@vger.kernel.org>; Sun, 04 Oct 2026 19:12:35 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1791165784; x=1791770584; darn=vger.kernel.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=+SgEIltGQkRfnBLbDG2XrKCaH5AEd8lzeFZSn/DYU0I=;
-        b=idLuTzQCD6Pf5yY1oseiNUote8aB4YZngDQE5dIbwMgPGnrc/4a45S7VHTLWBFiOVt
-         SI8bCJ/sMDbti91Wug/2EP4ESM86zT7WOoObZB8nek9HHVE2cB6rSoLMJDlMjw0vx9I+
-         QUdZGprfCCp0QOv8yIdhgMu8quQXLpk2JEfALzC9Er+u54YNFTldCAiNv4NmupOg8S+o
-         y1yAWLhyy4BSqVnKQkaGjnwxluCsZ781MTtTLgj/QwLssQ6b/Po6G3uFtN3085zr0VmG
-         R2buUKszUN9jQKLPshUITNoHwbNtQtXduPUwKaYLP0x/cVIHJ9xfGMfX17cqPu2rQ7lL
-         cgjw==
+        d=isslab-korea-ac-kr.20251104.gappssmtp.com; s=20251104; t=1791166355; x=1791771155; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=F8BtH1wOi3R0dL1LEJcbfIDWWZE0ydiC1A3fSU2odtA=;
+        b=NxrDoTOAfNHLf9zKj4gZ02GZ2m+0YCUQhD1TxhTdE07MTFxSiRBGcME/iwa4QrQj/V
+         dJmBI9dby9oXwCCKSZjUqzjXFv+OGuByf4mY8yTObEhSEyg/TPmz/v5U7/ZZBubCwLg9
+         Ye0AH/M2O3dxqrcpCaAwpjk71Q9F4S/s6jpyv8TaxdFq6mG1ClnL6595rUtMHmPtD/wX
+         N6Z7+2hFg1YHc/HSTaDNpBjTRBx1z7DaEfGWtPTgUyM6N2rtragtkPHjD+vZ6VKm78hN
+         4HpIgN3TtdVDbsPtk25LFPZhZb9ajWcUkC0apHDDR0IEbhygdbY9uL8nfgySxsVp4FKU
+         MVzw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791165784; x=1791770584;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=+SgEIltGQkRfnBLbDG2XrKCaH5AEd8lzeFZSn/DYU0I=;
-        b=ElIwg1JAjYGQl/iPnc6ImSyjF2/KcFhbgpff19w4j8XApfGOMNgrckD5pHj4ugQfzg
-         Wce3e1QENsbBryxJ46OJlCJQ+AZXHIg0tUxCEgBpYRlJEMXMu500gYhxdMsG0GfDoVDb
-         qELhiOyRHRtaeYRhWTnicSWtNWyWY9D8cqexOb/kiG5yIzcaZeN9CM0eX5q0PKNUFy3h
-         lN1qvqEsdQe4ppbWAg5yYVGVNsjmRuyfcvGmV/u/f1mv6VZGyutcSOWvpROon7s8/pM6
-         g6yA2R2ESzdywZ1EA4BsKjnU7piOlYxDNHFXrHdFZ6kp3lWiCAjJkCmxea0Wk6ZVTTuH
-         R6JA==
-X-Forwarded-Encrypted: i=1; AKwUvBybrj7QCSbYEvhVb2gU2Z8yzv+YzOovD/XUNxRZ6v/u78If2pxbiqglMnE8lJ/56xTelO8QcXgOroazDTs=@vger.kernel.org
-X-Gm-Message-State: AFuF++meLbe8VW283keoT3NF5CkxMhXIOEwkyaGeZ3g40girNUz02Dax
-	YnheStBWIuA1qPPmz3CNUrawSyRR8v2vv3wVZxa73tBlwgwlVUUX03fnsHnxDLWSeuz0HtMu/+5
-	DxGNakZU2UVc48UmyUaGh85JrqlriYIbSllyIDXScm2dsV74W8MFGQiZwqpi4C/BbUK0=
-X-Gm-Gg: AYBFou1x2XqLj6zUqcTCO7yZtgjARRJozRWnUaqAHvGdnHelUolrKkDG1RI1DrJgZD+
-	fNS/8V+b8rcV7KIEwNKO7e0F5lfVMDEbxuT7mYj+wq++iu+ppufNCtAXt7ObbrHftFFsZkIz9Ej
-	Nwhz5JCe4LAbgad5q5exc16Yqi4VggpPJPkwEV2AsRvkUokLwPmrxdn4IDyHVSbizLyD5fqwKD3
-	TghFXLZOoUov5PWLqoEFOVd9Rkm5qx6njcLDa8wwIrzF9uu27JKc/Avzezz9o64H2u8xTeTJLsT
-	WhEWnmTQKGDV2Vn7urMM27xZv29Grtbh2CXQavHXTFRt6WGYKwW92caAtM7GWldsIjc+YwiVJU7
-	vJfad0ShMFnRFQKd4xfJVkZ9TQuo1hefiN4BPqfBLRVXtiunuikVdTyuwqQuThbbFkGLdcsXKzI
-	p8bV2gUpn8IFPT
-X-Received: by 2002:a05:620a:271c:b0:93c:3863:ff7f with SMTP id af79cd13be357-93cb54376f0mr2312052685a.0.1791165783970;
-        Sun, 04 Oct 2026 19:03:03 -0700 (PDT)
-X-Received: by 2002:a05:620a:271c:b0:93c:3863:ff7f with SMTP id af79cd13be357-93cb54376f0mr2312050785a.0.1791165783480;
-        Sun, 04 Oct 2026 19:03:03 -0700 (PDT)
-Received: from umbar.lan (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi. [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
-        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5bb7c7bb70fsm2877427e87.76.2026.10.04.19.03.01
+        d=1e100.net; s=20260707; t=1791166355; x=1791771155;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=F8BtH1wOi3R0dL1LEJcbfIDWWZE0ydiC1A3fSU2odtA=;
+        b=Z4wgPAAvObCLHbYMs4xJdpTwwI8yM1A/mdwqHUOKARlIwmpaCD3A+8QgZbNoCEIthF
+         tqqtY0dYreqrtMesExN+CiU3n2UVQ7kbAShaaE9WM67KlP/JogzgJfTGOCbWmNJLzsUm
+         11BsEBblD11Ogly5VWXZcJSelrmTkY1TzvZT0Lk0qtFZHwwyUAlVnJPFnSoai3cYvo4q
+         P1D2oY7u1Dju/gBTXCwKnckURFdKGB+xB6r2/1KP6LlT8k18hAJzm99Uu06CSaBeLppc
+         CNC5AyGk9kQXwTaZoXchNBuT4fAdD1PdrkDEBgWBp1+QBG1+zZwa7A81r+0pR8rnR/D7
+         Sc9A==
+X-Forwarded-Encrypted: i=1; AKwUvBz4O62MCXrifDKYUTOOxViDdZrp5f8UyT/SLpG3WwDrW3W/iWFbjPxyUIY2/EEYWQWKhOftYDs+6nwAfSc=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJ/jQoNdN8iM7h2FtO8icJJApF9Lqb5YPNrffFKp+vZe6dvfo3O
+	GKEJlheHK9RjNi6df+a5LudXbAvFYziHTDNz4uAXxefnM0lNAYAfXw9rsLw/+z8XXs4=
+X-Gm-Gg: AYBFou1pBG9qU77VjkLxhWWhsRPIlVKUCR6j8l5aYQDL/zgYPsd1ebvAf7u+WQg48yF
+	Z3EZqWtgK1DqfPBDrvb2uyvETPRXuUDJ29DONPT96QpWRsr+ZtvI8M+zT7/e176041y3kriOtYU
+	m98r5j9w+pVz6fS8GwCwtSHekbTM1tphzgCYSx5Qt7FQZyiFoEJTHeahF1vH8t6+Rh+Z1nVicQY
+	FS79ybh3jfAdeSDWj1PQRn6e0jWw2+frgztSU8WgvNfGOXow2z3O/vbrk0wFy6Tv3D9mL80T5xh
+	LxgrAwNxWln7RqTmZ0LCh2nRJGFwboc3Xqvn5f0OXxUXSktcmhtscji5+ghhqabfqINQZR3iW9P
+	ixmeaUQ6RfZwn/YV/ksBVFAcFc6IeG5LgYPCV8wJCqzoS6QYAl4fwrAXfC5MJylJlQ9zS+JQ7pI
+	s3mjNrObBaGmvzM+ntqoa13PYQ/Xh+9fWfxc3z7i7XZsYoYmNMyvpLBwfCntoEjEyM2vLy21AKw
+	RiLJhNbnqwPjCge3St9BQ==
+X-Received: by 2002:a17:90a:701:b0:3a6:d2ac:74ce with SMTP id 98e67ed59e1d1-3a6d2ac75d9mr3440094a91.19.1791166355134;
+        Sun, 04 Oct 2026 19:12:35 -0700 (PDT)
+Received: from yhlee-960QFG.Davolink ([2406:5900:1044:110c:7020:baaa:df0e:eada])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a78e61386csm9241660a91.17.2026.10.04.19.12.31
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 04 Oct 2026 19:03:02 -0700 (PDT)
-Date: Mon, 5 Oct 2026 05:03:00 +0300
-From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-To: Jun Nie <jun.nie@linaro.org>
-Cc: Rob Clark <robin.clark@oss.qualcomm.com>,
-        Dmitry Baryshkov <lumag@kernel.org>,
-        Abhinav Kumar <abhinav.kumar@linux.dev>,
-        Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
-        Marijn Suijten <marijn.suijten@somainline.org>,
-        David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
-        Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-        Maxime Ripard <mripard@kernel.org>,
-        Thomas Zimmermann <tzimmermann@suse.de>,
-        Neil Armstrong <neil.armstrong@linaro.org>,
-        Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>, linux-arm-msm@vger.kernel.org,
-        dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
-        linux-kernel@vger.kernel.org, devicetree@vger.kernel.org
-Subject: Re: [PATCH v5 3/6] drm/mipi-dsi: Add flag to support dual-panel
- configurations
-Message-ID: <m46353a3ikqtkv3ycevnpzg77z32jickl7hophmehlot4sjj56@bbh7kjb4td7z>
-References: <20260727-sm8650-7-1-bonded-dsi-v5-0-c042266b9eeb@linaro.org>
- <20260727-sm8650-7-1-bonded-dsi-v5-3-c042266b9eeb@linaro.org>
- <gu22hz3dnttzyu2eewpalgzxtocmlbfvnpwore36ufmyr3xtag@r5bbhafsn562>
- <CABymUCNtcgbcRNXdMUjVdnH_ybOxjFB31gd6AW-0HCFDSn9w4g@mail.gmail.com>
- <kgnrsnko7u4g6bpxudfo6yqubhd5gcyrdyovjfkohlgo63yrwn@xbgp7jgv6ns3>
- <CABymUCMGT32A5gE+a3u7=-3scH_Nu7Amb22-FRfWiNrcEOnAgw@mail.gmail.com>
+        Sun, 04 Oct 2026 19:12:34 -0700 (PDT)
+From: Yehyeong Lee <yhlee@isslab.korea.ac.kr>
+To: Eric Van Hensbergen <ericvh@kernel.org>,
+	Latchesar Ionkov <lucho@ionkov.net>,
+	Dominique Martinet <asmadeus@codewreck.org>,
+	Christian Schoenebeck <linux_oss@crudebyte.com>,
+	Juergen Gross <jgross@suse.com>,
+	Boris Ostrovsky <boris.ostrovsky@oracle.com>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	v9fs@lists.linux.dev,
+	linux-kernel@vger.kernel.org
+Cc: xen-devel@lists.xenproject.org,
+	stable@vger.kernel.org
+Subject: [PATCH] 9p/xen: validate the response size from the backend
+Date: Mon,  5 Oct 2026 11:11:55 +0900
+Message-ID: <20261005021157.207947-1-yhlee@isslab.korea.ac.kr>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <CABymUCMGT32A5gE+a3u7=-3scH_Nu7Amb22-FRfWiNrcEOnAgw@mail.gmail.com>
-X-Proofpoint-ORIG-GUID: MPK0lqK6gw2SdpVS4RXhd376KuUOwFpF
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDA1MDAwNyBTYWx0ZWRfX22gW/4rqAiRP
- 9pITFHvExOLBqP5DZtMfHfYnVgaKvL49k6Cv+z0xgfF2qJkeztIE2wbx8il16auSEqgywlarmoN
- ZhsEdILc26db2JIihawglayebqORFp0=
-X-Authority-Analysis: v=2.4 cv=eZSo7LEH c=1 sm=1 tr=0 ts=6ac30558 cx=c_pps
- a=50t2pK5VMbmlHzFWWp8p/g==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
- a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=yx91gb_oNiZeI1HMLzn7:22 a=EUspDBNiAAAA:8
- a=KKAkSRfTAAAA:8 a=kAmi71hXjrz3IqBiEUQA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
- a=IoWCM6iH3mJn3m4BftBB:22 a=cvBusfyB2V15izCimMoJ:22
-X-Proofpoint-GUID: MPK0lqK6gw2SdpVS4RXhd376KuUOwFpF
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDA1MDAwNyBTYWx0ZWRfX3H/hoLkBVnAU
- SI+QS6o6lRLX2WyJcT+kaDdvv2I5+ff2ETQ9we6X+IJb0bzu8JQ8qhD8WpecIO68FXY7EsXOl1A
- 3u4RLvJvFBZQiaqg8CQupHtWlCnOpGFQlDy4eczTpzkIDEfVrAYPx2yEu6lqrWQd82bSfDFYx3B
- zvHHPn44o9K18afM8/NDGNFdxSAjyVEjHXwMdHJnMVlkPnQlJdzHsdSuZpNJEnEn+JGlY8hHIfp
- EfPMHZGbPdaq03pk7AHsjSRmEwKdcjm4bDx/Pvi6VWDZIAkEiVhmc1hYBkui4K/azZW0FmBubfK
- krCJ8HgC4WZp1iGENbYwKeWKqQavJmWevglsZCTWajIyLotyMd4i5D6SqMADVn0d4x1x74+Er5i
- 5cFEcNUZJi4x2kYJ56T59SK4BE97JsEFmyrW8f6YSDUEj8QjvRiQc6DUu8lPGedMaLGzb48Tp/F
- vVqPwHylS6fDsok4TQA==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-10-05_01,2026-10-02_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 clxscore=1015 impostorscore=0 priorityscore=1501
- lowpriorityscore=0 suspectscore=0 malwarescore=0 adultscore=0 bulkscore=0
- phishscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2609040000
- definitions=main-2610050007
 
-On Sun, Oct 04, 2026 at 09:58:04PM +0800, Jun Nie wrote:
-> Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com> 于2026年10月1日周四 03:43写道：
-> >
-> > On Wed, Sep 30, 2026 at 09:52:48PM +0800, Jun Nie wrote:
-> > > Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com> 于2026年9月30日周三 00:05写道：
-> > > >
-> > > > On Mon, Jul 27, 2026 at 04:08:42PM +0800, Jun Nie wrote:
-> > > > > Some devices treat two independent physical DSI panels as a single
-> > > > > logical panel from the CRTC's perspective. However, two separate DSI
-> > > > > hosts are still required to drive the panels individually.
-> > > > >
-> > > > > Introduce a `dual_panel` flag to the `mipi_dsi_device` struct. This
-> > > > > allows a panel driver to inform the DSI host that it is part of a
-> > > > > dual-panel setup, enabling the host to coordinate both physical
-> > > > > displays as one.
-> > > > >
-> > > > > This change does not force individual panel driver to manage
-> > > > > system-level display topology if the driver does not intended to
-> > > > > support dual panel topology. Only the driver that set the flag to
-> > > > > true need to take care of panel topology.
-> > > > >
-> > > > > Signed-off-by: Jun Nie <jun.nie@linaro.org>
-> > > > > ---
-> > > > >  include/drm/drm_mipi_dsi.h | 2 ++
-> > > > >  1 file changed, 2 insertions(+)
-> > > >
-> > > > Do you have a single MIPI DSI device, or are there two independent MIPI
-> > > > DSI devices? In the latter case, the flag is wrongly placed.
-> > >
-> > > Yes, there are 2 mipi devices, and 2 mipi hosts. This flag is used for
-> > > mipi device
-> > > to notify host they are one of dual panels, so that horizontal
-> > > configuration(width)
-> > > in mipi host can be handled correctly. Where do you suggest to put this flag?
-> > > Thanks!
-> >
-> > Into the msm DSI structures. We already have several Qualcomm-specific
-> > flags. I'm thinking from the 'generic device' point of view. The
-> > 'dual_panel' doesn't mean anything if the device has more than two DSI
-> > hosts. You need to specify which hosts are mapped to L or R channels, etc.
-> 
-> How about to add below 3 members regarding multiple physical panels in
-> single logic panel. We have h*v panels in a panel wall. The index start from
-> 0 when we iterate panel from left to right of the top array of panel wall. In
-> XR case, we have num_panel_h = 2;  num_panel_v = 1; and
-> panel_index = 0 for left channel, panel_index = 1 for right channel. The
-> original framebuffer is divided into width/num_panel_h and
-> height/num_panel_v for each panel's DSI link.
-> 
-> u32 num_panel_h;
-> u32 num_panel_v;
-> u32 panel_index;
+p9_xen_response() takes the length of an incoming response from the ring
+-- the first field of the 9p header, which the Xen transport reuses as
+its framing header -- and uses it to advance the consumer index, but
+never checks that it is at least the header size or no larger than the
+number of bytes the backend has actually produced.
 
-You have seen drm_connector's tile-related fields used by
-drm_connector_set_tile_property(), haven't you? If we are to use num_h
-and num_v, I'd also use h_loc an v_loc instead of a single panel_index.
+A malicious or buggy backend can post a response whose size is smaller
+than the header (for example 0). The consumer index then never advances,
+so the response work re-reads the same ring contents instead of making
+progress. In testing this raced with the teardown that the malformed
+reply triggers and dereferenced a freed p9_client:
 
-The driver needs to distinguish (for the DSC params) if it's a single
-panel spanning two DSI links or if there are several DSI panels, bundled
-together, so you also have to add h_size / v_size style of params.
+  9pfs 9pfs-0: Wrong req tag=ffff
+  BUG: kernel NULL pointer dereference, address: 0000000000000060
+  #PF: supervisor read access in kernel mode
+  #PF: error_code(0x0000) - not-present page
+  PGD 0 P4D 0
+  Oops: Oops: 0000 [#1] SMP NOPTI
+  CPU: 0 UID: 0 PID: 11 Comm: kworker/0:1 Not tainted 7.2.0-rc5 #6 PREEMPT(lazy)
+  Hardware name: QEMU Standard PC (Q35 + ICH9, 2009), BIOS rel-1.17.0-0-gb52ca86e094d-prebuilt.qemu.org 04/01/2014
+  Workqueue: events p9_xen_response
+  RIP: 0010:idr_find+0x4/0x10
+  RSP: 0018:ffffbf5d80063de8 EFLAGS: 00010202
+  RAX: 0000000000000001 RBX: ffffa229c21195a0 RCX: ffffa229c2400000
+  RDX: ffffa229c11c2200 RSI: 000000000000ffff RDI: 0000000000000050
+  RBP: 000000000000ffff R08: 3fffffffffffdfff R09: ffffffffffffffff
+  R10: 3fffffffffffdfff R11: ffffffff87a60e80 R12: 0000000000000050
+  R13: 0000000000000000 R14: 000000000000ffff R15: 0000000000100000
+  FS:  0000000000000000(0000) GS:ffffa22a7661c000(0000) knlGS:0000000000000000
+  CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+  CR2: 0000000000000060 CR3: 000000003ac34002 CR4: 0000000000770ef0
+  PKRU: 55555554
+  Call Trace:
+   <TASK>
+   p9_tag_lookup+0x2b/0x90
+   p9_xen_response+0x17c/0x2e0
+   process_one_work+0x16a/0x3a0
+   worker_thread+0x172/0x2e0
+   kthread+0xdd/0x110
+   ret_from_fork+0x18b/0x240
+   ret_from_fork_asm+0x1a/0x30
+   </TASK>
+  Modules linked in:
+  CR2: 0000000000000060
+  ---[ end trace 0000000000000000 ]---
 
-But then the real question becomes, do we really need this complexity?
-Will there be any use for it other than representing the XR vs non-XR
-cases? This all doesn't concern userspace or uAPI, so, if anybody needs
-actual DSI panel walls (maybe also using DSI subchannels to driver more
-than two pannels), we can extend the solution on the kernel side.
+Reject a response whose size is outside [sizeof(header), queued] before
+using it, matching the validation the backend already applies to
+incoming requests.
 
-If we take the dual-LVDS panels in mind, I can propose the following
-API:
+Fixes: f66c72bea129 ("xen/9pfs: receive responses")
+Cc: stable@vger.kernel.org
+Signed-off-by: Yehyeong Lee <yhlee@isslab.korea.ac.kr>
+---
+ net/9p/trans_xen.c | 8 ++++++++
+ 1 file changed, 8 insertions(+)
 
-struct drm_panel {
-	/**
-	  * @dual_channel: set for the DSI or LVDS panels which use two
-	  * host interfaces to be driven
-	  */
-	bool dual_channel;
-};
-
-struct drm_bridge {
-	/**
-	  * @dual_channel: set for the bridges which use two host
-	  * interfaces to be driven, e.g. dual LVDS panel or bonded DSI
-	  * bridge.
-	  */
-	bool dual_channel;
-};
-
-Devices like LT9611/LT9611UXC or panels like hx8279 will set that flag.
-The DSI host driver can use it to determine whether to use width or
-2*width in the DSI calculation.
-
-At the same time, in your case, you won't set this flag. The DSI host
-driver, fidning bonded DSI link and non-dual-channel bridge will
-determine that it's a panel bifurcation case and handle it
-appropriately.
-
-What do you think?
-
+diff --git a/net/9p/trans_xen.c b/net/9p/trans_xen.c
+index f9fb2db7a0663..685523be16f0a 100644
+--- a/net/9p/trans_xen.c
++++ b/net/9p/trans_xen.c
+@@ -200,6 +200,14 @@ static void p9_xen_response(struct work_struct *work)
+ 				     masked_prod, &masked_cons,
+ 				     XEN_9PFS_RING_SIZE(ring));
+ 
++		if (h.size < sizeof(h) ||
++		    h.size > xen_9pfs_queued(prod, cons,
++					     XEN_9PFS_RING_SIZE(ring))) {
++			dev_warn(&priv->dev->dev,
++				 "bad response size %u from backend\n", h.size);
++			break;
++		}
++
+ 		req = p9_tag_lookup(priv->client, h.tag);
+ 		if (!req || req->status != REQ_STATUS_SENT) {
+ 			dev_warn(&priv->dev->dev, "Wrong req tag=%x\n", h.tag);
 -- 
-With best wishes
-Dmitry
+2.43.0
+
