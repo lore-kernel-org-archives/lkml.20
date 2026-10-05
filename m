@@ -1,119 +1,266 @@
-Received: from mail-pj2-f13.google.com (mail-pj2-f13.google.com [74.125.227.141])
+Received: from mail-wm1-f43.google.com (mail-wm1-f43.google.com [209.85.128.43])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D7C224CDDED
-	for <linux-kernel@vger.kernel.org>; Mon,  5 Oct 2026 18:59:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.141
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6E63C4ACC74
+	for <linux-kernel@vger.kernel.org>; Mon,  5 Oct 2026 18:59:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.43
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791226751; cv=none; b=U44O1UaR2hJPDQ7RFiyVg7fOLNDvOJJZil/ndmeSZA4tOROfAcyx2X1aoO90rdLW0rEFYrIOnKNv6HDogP+Jq95W0MExI1GWAOZfMMy5G16MXkITtShA54fNdF29obDIDZ1wEj/5rzSKIbPOjw5akfJImKaP7yE4HnhIIF6itBI=
+	t=1791226771; cv=none; b=ScYSWYVn3LT94TjNdVQtVQAOzKkSPH3tld53WaWxNwyEd+cTzHAYJ2D7iyjdA/JDjoU1J6tTjeHEoWCFT/aK7VUmY11cBeSzhi9jXcF/zc42Gc/2Ehs1gPrE//IfcfePVx9rBQ4EN+rCn3uNmIxB7GPLlfQ4Q+1zBU4Uzp/VfGE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791226751; c=relaxed/simple;
-	bh=RH+CnPT5AboZDzkPfzmDDAHIiqyv/a+uYoK+W5T39CY=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=X2ANMY2++CCZ+DZb4KT5ehtfXCtGnXBYBRElzLK4DHjoUV/aWrBFXx/a2zgWMhtQeIqZPAo31SJzkx5GVwp74/+TW47RvmhcO047HMpXFT6crsVLYDrzGP3ki0RqnACFXxJVaEnlCrWgyb+GdSwxZh0rSS4wCafn5kuTauPZ4pw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=V/jCv1cQ; arc=none smtp.client-ip=74.125.227.141
+	s=arc-20240116; t=1791226771; c=relaxed/simple;
+	bh=8pdq74OFUcFbwCY2vfjAnXHHNQ7Gi23X78FCuJbWb2w=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=RzYP/nJkgrANvlesxRlx4d4L0GwJJjiUmLD4eTBCggiSAMKuFlVOEmH2o8X/O9AvSGOufA5rLinhEYmlktgkWlGzcXyko+bXpu3AMvHdnyr7TH8IZZhADrdD0RCABb81BSUVrbWsML+EqjEGE83saYu2mXihkw0DuUq34GKFFSI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Vtf9AxjQ; arc=none smtp.client-ip=209.85.128.43
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="V/jCv1cQ"
-Received: by mail-pj2-f13.google.com with SMTP id 98e67ed59e1d1-398b3b189e0so901679a91.2
-        for <linux-kernel@vger.kernel.org>; Mon, 05 Oct 2026 11:59:09 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Vtf9AxjQ"
+Received: by mail-wm1-f43.google.com with SMTP id 5b1f17b1804b1-49d05d51553so15409855e9.2
+        for <linux-kernel@vger.kernel.org>; Mon, 05 Oct 2026 11:59:29 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791226749; x=1791831549; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+        d=gmail.com; s=20251104; t=1791226767; x=1791831567; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=sSXi87+ATCOArHRRy46mVukElIuhUGDXLY5gl03Kkf4=;
-        b=V/jCv1cQN58xQVKttsAISPtfQCYACiNg6oK4DnpQk6Rclz7II6zzF91z6uzBgu0yLD
-         SKlW1PU0z2aNgHq1eaUDocCwvwXlLfWK86doxBlqPKjoTMVy46xl4CkUVF6BabXXUd+z
-         QnNiG3G+JHRHGHlS0VNCGHHZjwayXiEjcLFh3Oz9WqBQ+3Phx7vUpPPUMaj7RJLx+VO7
-         NGe+lYGRP1enmS4WgP96CWZGgD0U2h6bwelvDj7Bl3XK3AmeNe5YATZmN8K9gCOeTizi
-         d/0yKrcDq6kSHyYIO7bY3IbZNnnHJ3CpacMFtnpNKsQqMIK2jQkZvij5LlPv4cxXxF0o
-         cpXg==
+        bh=kjWk17xMOqAGBvq+UzGL4BAHrsvqnOVZTs3C72lVXp4=;
+        b=Vtf9AxjQZdb+g3Z9dRO0CaZnpXz9i8lp9+ajlbKAf9fPFd2LC6aPn3Ytrhi+FRopt0
+         zxcDa/hQXISB3RrOgFMqdu6wXzKQOpCZiZqOViHasHYXl+saZ1O1AKPQetGYzgNGCwRQ
+         y+NlWuazfIdEGRpTN7X/IgLnBD2SvwuWG3cqxbZyWxYyJKrQ7OH21l585t+SDYxuPHgv
+         NANpMEHjmcPR1cDFtkiPPIwHZYbpBGuEsd9da9SDXqjis5XcfBBZ9dPdffPHGrEqaoZh
+         /nV1GQh3XnHim6ocKSV77KTTCDnkl9Va8hgWoHGdbDzl3ELsLVOi/MU6uM05aQfhTrZO
+         cJxw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791226749; x=1791831549;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
+        d=1e100.net; s=20260707; t=1791226767; x=1791831567;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=sSXi87+ATCOArHRRy46mVukElIuhUGDXLY5gl03Kkf4=;
-        b=Oz8oYqjAU9eqc4VgVT2jJs1r4EOKKwLIAKgp0prvBfRFDkk2QDo/oNoVUQBXK70CoN
-         zxBCvcHqcLNl/BgZiMS2nxm5AmTskmGFUIjoj1sCgL8QwmV4S+ViLV9+s0jIbhO0XaCu
-         F708l9TIIhX0MMDVpqzshGs1lVi9TdrmaIobmDbTalzAT2QAfl/F9FG+hV3xVy3QkPnO
-         zLF7UnW8RdT86rozhrR0mXWGsU7QUHcyeJSEx6zUK503nHqZi3Co+rOAsZEdafgYIloQ
-         NL1UEuawrZ/4o+zGgRTmv0ahplnFBiLKmtllTctx/MiMrIGoRpSCUp8mOs90nOmtZ8aL
-         yr5A==
-X-Forwarded-Encrypted: i=1; AKwUvBwFLzXjeJf8RkobuNMpcV7QWsVip5GoIkl0RVXo8KhBbp2mnB7RUK8qgeDnm3OOZ65LC59UdP8bBbk1Pss=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKrdWDxu5Lh+Pz6Ddb8Xo2Ex9raGH5KXlIk/a37tKjaylF94Aq6
-	r002hAMjX04/BNRuEPEVDYsrFl5YRJBvVPdp+n5ZuW7lHIQGVs65MNQc
-X-Gm-Gg: AYBFou00Zfd1Iz2sTI7eEFLTBCEuzkx/uPa/taOo7tK9EIpl96w14oClJkDxyDoBH8R
-	dSVQ/pyi8tX4YfuWajDtULuSPvIMTO3mkDg6wqqu851RmrRigCi7arFItLJhNA/Zd5sPhnJtpcC
-	9wODpjHvkvfQypofdy0hGqrRfOxaqOlEaRFWN2ygBaEp2O6dLzosGrH1AvfTX7RJiZVg0AGXdNX
-	M8GCo5Tz3TtEEAcioojnYYDVnVOxrRFGOJ/osR8FYLE3nRuV8bFWAumdgqI+k8xFtyl4qyxU8AQ
-	lupRKuDavSdJ9GTCgh1hF6CIrU/d6jCPDKBs3A6up2k3uCeLF/F0gtEvbQK3yF7WaE/TcfBkDVn
-	d2sVuyFCtIkYSteoDoIJIwjDgrAj9QPnDRHeY3r5VdZTDZVb6ELII/4/NHPl4cy45r9rC1iQdSe
-	tKqoM7jqy8vSsFvbcih/DOr2yoYwfmKPkjBPjKNChd1gUiud7tqJczgDgft/a7QwauzXRt0Vs=
-X-Received: by 2002:a17:90b:4b01:b0:3a7:d2b5:2e99 with SMTP id 98e67ed59e1d1-3a7d2b52f9emr3999739a91.20.1791226749036;
-        Mon, 05 Oct 2026 11:59:09 -0700 (PDT)
-Received: from google.com ([118.150.148.19])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a853cea0f1sm748786a91.15.2026.10.05.11.59.02
+        bh=kjWk17xMOqAGBvq+UzGL4BAHrsvqnOVZTs3C72lVXp4=;
+        b=O59YYcPX0xvyJEKCSQ4ZXBs+w5Peld6neqD4ZvoWiGebJZJc3q30G+RqCPx8/TI5Nb
+         D9dNQOZF9KQFm9nyfceKDJRCSkt9hcGbAZCYl0RMw/v5ElJBuIbku+JL/eXB3tBzachL
+         FOpO7drN0QPR7ogI31ndw0X42JT+bp+XTvyFnwad+sBFgla4aPjdsVx86QNIuszNO5Kx
+         OHHf9bAq8OGDCPOjlo/jAHe/BXFZaxxcs4DX7gfho/ndz5tRDjicIAyTaeZCZ0yf1BRR
+         MevJrpWA5FvN15H0rrwC1e97QYp2Qt75mx2XrsR0amEIydgdlT30lALjtUGBo6BXKxcJ
+         w7xA==
+X-Forwarded-Encrypted: i=1; AKwUvBxLxsiwEa3Pm2eZJPg3zS3uRTUe4b2boJwFlE9dVtIXTmMQyNVXDlAezwI5/BC/tsf/4dGuRHqS+nsSIzY=@vger.kernel.org
+X-Gm-Message-State: AFuF++kG78yLQc8BWxEKrEXPC3mBApDbIncDP9W4IdR7ojjYg3zaHzpG
+	yr08CYmkTHsXPvllc4TfvqvjAwVeTZ/n0nrQUAa94XsvxMIuHGUMP1Bp
+X-Gm-Gg: AYBFou1OeEVABv5dGxsfo1bXoXm+11LB7XJYzAo++OHUgCqIP2k83v/LoReQlW2gqS6
+	UGHA7seqhqHVgVntrqzVpB6OC1BSk9y/mTnB65xV1aaVphfE6ZWCP3VX+ygmefw1XWHov5yaWdy
+	5+MC4/rpHL4VynB1euXXI5AH0/+Xw2rWFWvyXJfl0KWGK5b+xWBR6lMEyPHmwxPYEz+w88qUM8w
+	AITPClWW1I0J2KV22zTvRAV58LeLptBC9pKt978vNokbCUruEToZhANJxsNI03KVoNThjfrNwAR
+	oeCsVxpWVGwFYXmGwI6PBIt3tfgjjEmhSXJyLKk9G/oOLUCgElnVe506ghSf2mHYVASdM95mcfv
+	+TQHPcG6yj1ea/C7onlsFZgr4nEbWQdrZuLGxtTL/kdcaZEzijNu4bh+iybF0prNO0Vqb7wui36
+	IoD36M3FQlmOfQrZqlJiKi0EJD3A+Y0EbPsxXZ7BNiwOwg0kErhv8eycoH0W3khBb/Awgomcek1
+	z67nykSmlr0cR9Kv/C4DbMkQOPeR5NLTiIHLlIQcyYMew==
+X-Received: by 2002:a05:600c:8b78:b0:4a1:74a1:7ecc with SMTP id 5b1f17b1804b1-4a174a181f9mr42335315e9.1.1791226767287;
+        Mon, 05 Oct 2026 11:59:27 -0700 (PDT)
+Received: from pumpkin (82-69-66-36.dsl.in-addr.zen.co.uk. [82.69.66.36])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a178c53997sm16562205e9.12.2026.10.05.11.59.26
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 05 Oct 2026 11:59:07 -0700 (PDT)
-Date: Tue, 6 Oct 2026 02:59:01 +0800
-From: Kuan-Wei Chiu <visitorckw@gmail.com>
-To: song@kernel.org, ast@kernel.org, daniel@iogearbox.net,
-	andrii@kernel.org, eddyz87@gmail.com, memxor@gmail.com,
-	kpsingh@kernel.org, matt@bobrowski.net, rostedt@goodmis.org,
-	mhiramat@kernel.org, akpm@linux-foundation.org
-Cc: jolsa@kernel.org, ihor.solodrai@linux.dev, martin.lau@linux.dev,
-	yonghong.song@linux.dev, emil@etsalapatis.com,
-	mathieu.desnoyers@efficios.com, hch@infradead.org,
-	jserv@ccns.ncku.edu.tw, eleanor15x@gmail.com, marscheng@google.com,
-	linux-kernel@vger.kernel.org, bpf@vger.kernel.org
-Subject: Re: [PATCH v2 0/2] lib/sort: Clean up sort_nonatomic() and
- sort_r_nonatomic()
-Message-ID: <asPzdeas0ZP2Oeis@google.com>
-References: <20260910165222.1186628-1-visitorckw@gmail.com>
+        Mon, 05 Oct 2026 11:59:27 -0700 (PDT)
+Date: Mon, 5 Oct 2026 19:59:26 +0100
+From: David Laight <david.laight.linux@gmail.com>
+To: Kees Cook <kees@kernel.org>
+Cc: Bill Wendling <morbo@google.com>, "Matthew Wilcox (Oracle)"
+ <willy@infradead.org>, Andrew Morton <akpm@linux-foundation.org>, Andy
+ Shevchenko <andriy.shevchenko@linux.intel.com>, David Gow
+ <david@davidgow.net>, Jiri Kosina <jikos@kernel.org>, Petr Mladek
+ <pmladek@suse.com>, Shuvam Pandey <shuvampandey1@gmail.com>, Steven Rostedt
+ <rostedt@goodmis.org>, linux-kernel@vger.kernel.org,
+ linux-hardening@vger.kernel.org
+Subject: Re: [PATCH v5 05/12] seq_buf: Clear what a writer did not claim
+ when a seq_buf overflows
+Message-ID: <20261005195926.09e240d9@pumpkin>
+In-Reply-To: <20261005155708.1471260-5-kees@kernel.org>
+References: <20261005155653.late.426-kees@kernel.org>
+	<20261005155708.1471260-5-kees@kernel.org>
+X-Mailer: Claws Mail 4.1.1 (GTK 3.24.38; arm-unknown-linux-gnueabihf)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260910165222.1186628-1-visitorckw@gmail.com>
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-On Thu, Sep 10, 2026 at 04:52:19PM +0000, Kuan-Wei Chiu wrote:
-> kernel/trace/bpf_trace.c is the sole remaining user of
-> sort_r_nonatomic(). Switch check_dup_ids() to sort_r() to match
-> bpf_kprobe_multi_link_attach() in the same file, which has safely
-> used sort_r() under the same limit (1U << 20) for 4 years.
+On Mon,  5 Oct 2026 08:56:55 -0700
+Kees Cook <kees@kernel.org> wrote:
+
+> Using seq_buf_set_overflow() would leave the bytes between "len"
+> and "size" untouched, so if seq_buf_str() is used on an overflowed
+> seq_buf, those bytes may be exposed. For any paths that don't claim
+> partially written bytes, by setting "len = size" before calling
+> seq_buf_set_overflow(), wipe the unclaimed bytes. The seq_buf_puts()
+> and related APIs already claim those bytes now, so only the unclaimed
+> cases remain. A specific example of this was seq_buf_path() which uses
+> d_path() and would write to the tail before discovering it was out
+> of space, and would correctly mark a seq_buf as overflowed, but the
+> path fragment would be left over.
 > 
-> With no users left in the tree, remove the unused sort_nonatomic() and
-> sort_r_nonatomic() APIs. This drops the __sort_r() wrapper and
-> eliminates the may_schedule branch and cond_resched() from the inner
-> sorting loop.
-
-Anything else I need to do for this patchset to land?
-
-Regards,
-Kuan-Wei
-
+> Clear from len to the end of the buffer in seq_buf_set_overflow(), which
+> every overflow goes through, including seq_buf_commit() with a negative
+> count.
+> 
+> Add a test that fills a seq_buf, leaves it too little room for a path, and
+> checks that nothing of the path is left in the buffer. The tests run before
+> anything writable is mounted, so it takes its file from shmem.
+> 
+> seq_buf_path() was not exported, so the test failed to link as a
+> module. Export it.
+> 
+> Tests passed under qemu on ARCH=x86_64 with GCC 16.2.0 and CONFIG_KASAN=y,
+> and on big-endian ARCH=s390 with GCC s390x-linux-gnu 16.2.0, and the
+> test builds as a module (CONFIG_SEQ_BUF_KUNIT_TEST=m).
+> 
+> Assisted-by: LLM
+> Reviewed-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+> Signed-off-by: Kees Cook <kees@kernel.org>
 > ---
-> Changes in v2:
-> - Drop the already accepted arm-smmu-v3 patch.
-> - Convert bpf_trace.c to sort_r() instead.
+>  include/linux/seq_buf.h   |  8 +++++--
+>  lib/seq_buf.c             |  5 +++++
+>  lib/tests/seq_buf_kunit.c | 44 +++++++++++++++++++++++++++++++++++++++
+>  3 files changed, 55 insertions(+), 2 deletions(-)
 > 
-> Kuan-Wei Chiu (2):
->   bpf: Replace sort_r_nonatomic() with sort_r() in check_dup_ids()
->   Revert "lib/sort.c: add _nonatomic() variants with cond_resched()"
-> 
->  include/linux/sort.h     |  11 ----
->  kernel/trace/bpf_trace.c |   2 +-
->  lib/sort.c               | 110 +++++++++++----------------------------
->  3 files changed, 32 insertions(+), 91 deletions(-)
-> 
-> -- 
-> 2.55.0.1003.g10538fe699-goog
-> 
+> diff --git a/include/linux/seq_buf.h b/include/linux/seq_buf.h
+> index 77e76e283370..0c0a0db04b09 100644
+> --- a/include/linux/seq_buf.h
+> +++ b/include/linux/seq_buf.h
+> @@ -5,6 +5,7 @@
+>  #include <linux/bug.h>
+>  #include <linux/minmax.h>
+>  #include <linux/seq_file.h>
+> +#include <linux/string.h>
+>  #include <linux/types.h>
+>  
+>  /*
+> @@ -58,12 +59,15 @@ seq_buf_has_overflowed(struct seq_buf *s)
+>  /*
+>   * Mark @s as overflowed, which discards the length of what it holds. The
+>   * bytes up to its last one are the string from then on, as that is where
+> - * seq_buf_str() terminates it, so a caller that could not fill the buffer
+> - * has to NUL them itself before calling this.
+> + * seq_buf_str() terminates it, so clear whatever was not written: a writer
+> + * sets len to how much it filled, and anything past that was never adopted.
+>   */
+>  static inline void
+>  seq_buf_set_overflow(struct seq_buf *s)
+>  {
+> +	if (s->len < s->size)
+> +		memset(s->buffer + s->len, 0, s->size - s->len);
+
+What is the performance impact of zeroing the buffer?
+I don't think it would be a good idea to be zeroing the buffer on entry
+either (I've not looked to see it that happens - but there will be PAGE_SIZE
+buffers (maybe 64k) that get a a small number of characters written to them).
+Writing a single '\0' really ought to be enough.
+
+David
+
+> +
+>  	s->len = s->size + 1;
+>  }
+>  
+> diff --git a/lib/seq_buf.c b/lib/seq_buf.c
+> index 60e9eadb3ef7..8da2e9447adf 100644
+> --- a/lib/seq_buf.c
+> +++ b/lib/seq_buf.c
+> @@ -76,6 +76,8 @@ int seq_buf_vprintf(struct seq_buf *s, const char *fmt, va_list args)
+>  			s->len += len;
+>  			return 0;
+>  		}
+> +		/* vsnprintf() wrote as much as fits, so none of it is stale */
+> +		s->len = s->size;
+>  	}
+>  	seq_buf_set_overflow(s);
+>  	return -1;
+> @@ -164,6 +166,8 @@ int seq_buf_bprintf(struct seq_buf *s, const char *fmt, const u32 *binary)
+>  			s->len += ret;
+>  			return 0;
+>  		}
+> +		/* bstr_printf() wrote as much as fits, so none of it is stale */
+> +		s->len = s->size;
+>  	}
+>  	seq_buf_set_overflow(s);
+>  	return -1;
+> @@ -343,6 +347,7 @@ int seq_buf_path(struct seq_buf *s, const struct path *path, const char *esc)
+>  
+>  	return res;
+>  }
+> +EXPORT_SYMBOL_GPL(seq_buf_path);
+>  
+>  /**
+>   * seq_buf_to_user - copy the sequence buffer to user space
+> diff --git a/lib/tests/seq_buf_kunit.c b/lib/tests/seq_buf_kunit.c
+> index 046614100c77..5eaf024fa3a5 100644
+> --- a/lib/tests/seq_buf_kunit.c
+> +++ b/lib/tests/seq_buf_kunit.c
+> @@ -7,7 +7,9 @@
+>  
+>  #include <kunit/test.h>
+>  #include <linux/console.h>
+> +#include <linux/fs.h>
+>  #include <linux/seq_buf.h>
+> +#include <linux/shmem_fs.h>
+>  #include <linux/string.h>
+>  
+>  static void seq_buf_init_test(struct kunit *test)
+> @@ -466,6 +468,47 @@ static void seq_buf_do_printk_test(struct kunit *test)
+>  	KUNIT_EXPECT_EQ(test, seq_buf_printk_empty, 0);
+>  }
+>  
+> +/* Long enough that it cannot fit in the room the test leaves for it. */
+> +#define SEQ_BUF_TEST_PATH	"/seq_buf_kunit_path_name"
+> +
+> +static void seq_buf_path_overflow_test(struct kunit *test)
+> +{
+> +	DECLARE_SEQ_BUF(s, 32);
+> +	const char *expected = "keep:xxxxxxxxxxxxxxxxxxxxxxx";
+> +	struct file *file;
+> +	size_t len;
+> +	int i;
+> +
+> +	/*
+> +	 * The tests run before anything writable is mounted, so take the file
+> +	 * whose path gets printed from shmem, which needs no mount of its own.
+> +	 */
+> +	file = shmem_file_setup(SEQ_BUF_TEST_PATH, 0, EMPTY_VMA_FLAGS);
+> +	if (IS_ERR(file))
+> +		kunit_skip(test, "cannot create a file to print the path of");
+> +
+> +	/* Leave less room than the path needs, so d_path() cannot fit it. */
+> +	seq_buf_puts(&s, "keep:");
+> +	len = seq_buf_used(&s);
+> +	for (i = len; i < 28; i++)
+> +		seq_buf_putc(&s, 'x');
+> +
+> +	KUNIT_EXPECT_EQ(test, seq_buf_path(&s, &file->f_path, "\n"), -1);
+> +	fput(file);
+> +
+> +	KUNIT_EXPECT_TRUE(test, seq_buf_has_overflowed(&s));
+> +
+> +	/*
+> +	 * d_path() keeps as much of the path as fits when it does not fit
+> +	 * whole, and seq_buf_str() would hand out that fragment, as it ends
+> +	 * the string at the last byte of an overflowed buffer.
+> +	 */
+> +	for (i = 28; i < 32; i++)
+> +		KUNIT_EXPECT_EQ_MSG(test, s.buffer[i], '\0',
+> +				    "byte %d past the data is not cleared", i);
+> +	KUNIT_EXPECT_STREQ(test, seq_buf_str(&s), expected);
+> +}
+> +
+>  static struct kunit_case seq_buf_test_cases[] = {
+>  	KUNIT_CASE(seq_buf_init_test),
+>  	KUNIT_CASE(seq_buf_declare_test),
+> @@ -482,6 +525,7 @@ static struct kunit_case seq_buf_test_cases[] = {
+>  	KUNIT_CASE(seq_buf_puts_partial_overflow_test),
+>  	KUNIT_CASE(seq_buf_putmem_partial_overflow_test),
+>  	KUNIT_CASE(seq_buf_putmem_hex_partial_overflow_test),
+> +	KUNIT_CASE(seq_buf_path_overflow_test),
+>  	KUNIT_CASE(seq_buf_do_printk_test),
+>  	{}
+>  };
+
