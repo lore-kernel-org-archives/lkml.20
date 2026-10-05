@@ -1,191 +1,202 @@
-Received: from mail-pj2-f40.google.com (mail-pj2-f40.google.com [74.125.227.168])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 66CF44D796A
-	for <linux-kernel@vger.kernel.org>; Mon,  5 Oct 2026 17:16:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.168
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6B5E94E80D8;
+	Mon,  5 Oct 2026 17:16:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791220605; cv=none; b=VHDii72SE6s6aKrJ2AhpKGri9c1GVCsj+e43JvJlBk3lHEDjw/MXwRX0XF9WhgkLV5ddARTTiaU35xUkqTL6Ori9Pg2GKU2P3NoUCjTlUJa+wyz7aJkpmD9pPsxl69z96qVR4YMgfFCXi3ssnVeTDo6V7iy10lOZPVt65Lb7qPs=
+	t=1791220607; cv=none; b=dhhG7DEqskXA+MLKltR1sAN0hfRUlU4EbaWqf8RJdVJ7w6KdnMpuuVRtJ1/cczmVkeYkJyJqn/jPh0IJC7UF0d3yq6uSiCcj2nVDKvE3uBN1b6OhaHNTeOwObUdrszqHURuHGQ8CknLSlI45lAZ0ZvUudqJdxvOg8o6ypfj9iTk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791220605; c=relaxed/simple;
-	bh=8NuyF6qDUWQBXBIkLeP3/lavelfuwnWRCmtSE2YKnuQ=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Rtk0IQGaGfCBBLs80c6U1KJ5hC1Tinby6XnXrTjs0kKMhZN3XvoqeJVBteicdD5V3WpDtjn1CLD7LbOLgoSYAX0Qq4kopi1UTh72YXFVYiH+MUhLDOlhICSJ4Lq31Qy/T97mgmDms3LwTFhDE222JELdHyvh9KtQJo1J9jPeyE0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=cBBcsIKd; arc=none smtp.client-ip=74.125.227.168
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1791220607; c=relaxed/simple;
+	bh=w2wwxc+vXtkZuVngjMDId+G6VbktTVOeStGEG+ggNVw=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=Begb4YmKfmPGbRG9YARvqQSsYa/iDRJYy0KxkNMbydNfdtRmt2de0krPM1q3jL08RAK61SwjxYiFHlMgCxmPsINi/symogTRCUMD+KJgHjuhLMwDG9TpXNeTK2QQNEUqOCoZ9Xgdy+fXSzbokR3T4b/WJMYW7ebiN/OxVxwtEVQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Rcxjfr29; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="cBBcsIKd"
-Received: by mail-pj2-f40.google.com with SMTP id 98e67ed59e1d1-3a7d725ca09so713652a91.0
-        for <linux-kernel@vger.kernel.org>; Mon, 05 Oct 2026 10:16:42 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791220602; x=1791825402; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=xtL6vbzPvQXVWHTKwirmF+KIwLuuD5CR0v0OHwTiljs=;
-        b=cBBcsIKdTf/4BM0kB37KIEAy8UOCwt6erlxIBf/0s9m8sWiH9s6KTjZG/xgjgnnKmB
-         vksAzdqXZnKnPuqx9/06JECP01BeUCmNFvV+CHyv3oTocAapkIHFVv6UYSG4+yFzNQV4
-         0T8jkn0uPcNI+qhgjXkRJTUn58+xcVxVWC7rXq4a7GBsvOkJLyGzFez95P7qGhL+9zfv
-         F1JC9nn5oC9OaH4WKSS4VexzXarso1GqrPTZro8LSscwIZHSA74348qxYrmz6KUZERt2
-         4IdgP31u8tU/gimJ+M/DXrFX/HeeStwt4AqsY+Hmy+SSeQSlFalUSSts3j0fCz9C79Nh
-         A0Gg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791220602; x=1791825402;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=xtL6vbzPvQXVWHTKwirmF+KIwLuuD5CR0v0OHwTiljs=;
-        b=1LaXOMrVDiFJut0gisr9NTcR7Lc5EJAFg/yj9y/cxhP5mUifjeQKv4ruEaYPEDxeae
-         ulZ8R8CjqZNPAUJGnuzmzpdzi03Gj3dGqxBQdyDoljUS6OKwC2UHWMEEHL6pQmYWlI6D
-         NQX8gqReCV2HB/qU22i44MNYhU1M+cFaU1ndpzELwlQdfORrfmUJYP/phi4gKEcAW7i2
-         fW8aCfzdjLR6C+NVkIPoZc5Oaons4JNGFbgyc+iNok/NAn3b6VrpKegiIuBEhdjqHLO3
-         y0r3z5UIWcfNJK7QrR/SyRCCIpoud78nVh59/cfveWuXB/yU/AMpIG4cW802H8WoVdjm
-         4VNw==
-X-Forwarded-Encrypted: i=1; AKwUvBz305qO5NSVW9k99NBXjfOadoQ3xCDSjblx/PekpUiV5X9oBZKOk9M6G8iCmwweA2w6E550NcKZ4YkaydE=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIYu8Xh2/1yPN44NUIlIYCFkcSBrCj6M/jK08+AI8XPsvSL+7ci
-	shlulBMz3m9TpHwNNhgpVUIQ0dlgcNVy08datFEyo3gzA0Thv0DnRxLL
-X-Gm-Gg: AYBFou0t0ElDepOSsEbo4vzSRa17cdP6c/1CaGiBQXcfFP1IaLmaSw8HdJQM+81rZ7B
-	ZnFpmgMnOVPlskSGI0cPfFjOH0UrZ6FD4Jwfyzi7xUoWsUeLE2+sp/lwV0OWVfjEuz37UPjX13y
-	CGjwrIvMwY1o8uOnZ9zMkN+/bxGQ6myVyDsBNE51ugx8N80YVf/n+dUoRc9al3IrF4tWTYvJjXH
-	pdoX0YVCifdSEEiwx4P/ArO7B0tsGc/5mjeOA6JQ0dK46MQNKbnf9wJtq8itP7p/jD6d6xuKs87
-	tDQxbgmVHvISAMVx0xaw3Q+CAC+z+8aC8VKZnUbm/JQKlo88y7yuYLZz4i3H3yJgqIdHDksDSa3
-	hAPsr/7f3kLqSwQjhUtM8hBNNDY2u7l7SP5DSvDL1P00xAvNLNTqTxEhWkKua7gSd9cp8G8VKlv
-	1xkkHpLwH1uzjCQQ2+FsYlspcFqQ7CPrVmFCFyqz/VvgUeifKNmkPd3EpHP8i9aIF3j/m7yZ1gP
-	tussyjoMu2rbEq5AgRje7k9EeLRQA==
-X-Received: by 2002:a17:90a:dfd0:b0:3a4:bc68:310e with SMTP id 98e67ed59e1d1-3a6ce7f684amr7983000a91.39.1791220601705;
-        Mon, 05 Oct 2026 10:16:41 -0700 (PDT)
-Received: from kernel.tail6741c6.ts.net ([216.195.201.24])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a853cafddesm406910a91.10.2026.10.05.10.16.29
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 05 Oct 2026 10:16:41 -0700 (PDT)
-From: Kunwu Chan <kunwu.chan@gmail.com>
-To: paulmck@kernel.org,
-	corbet@lwn.net,
-	mingo@redhat.com,
-	frederic@kernel.org,
-	neeraj.upadhyay@kernel.org,
-	josh@joshtriplett.org,
-	urezki@gmail.com,
-	dave@stgolabs.net,
-	lianux.mm@gmail.com
-Cc: stern@rowland.harvard.edu,
-	parri.andrea@gmail.com,
-	will@kernel.org,
-	peterz@infradead.org,
-	boqun@kernel.org,
-	npiggin@gmail.com,
-	dhowells@redhat.com,
-	j.alglave@ucl.ac.uk,
-	luc.maranget@inria.fr,
-	akiyks@gmail.com,
-	dlustig@nvidia.com,
-	joelagnelf@nvidia.com,
-	skhan@linuxfoundation.org,
-	rdunlap@infradead.org,
-	longman@redhat.com,
-	rostedt@goodmis.org,
-	mathieu.desnoyers@efficios.com,
-	jiangshanlai@gmail.com,
-	qiang.zhang@linux.dev,
-	kunwu.chan@gmail.com,
-	brads@mainlining.org,
-	linux-kernel@vger.kernel.org,
-	linux-arch@vger.kernel.org,
-	lkmm@lists.linux.dev,
-	linux-doc@vger.kernel.org,
-	rcu@vger.kernel.org,
-	linux-kselftest@vger.kernel.org
-Subject: [PATCH RFC v3 04/15] hazptr: add scoped_guard() support
-Date: Tue,  6 Oct 2026 01:15:18 +0800
-Message-ID: <20261005171529.1378809-5-kunwu.chan@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261005171529.1378809-1-kunwu.chan@gmail.com>
-References: <20261005171529.1378809-1-kunwu.chan@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Rcxjfr29"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F118A1F00898;
+	Mon,  5 Oct 2026 17:16:42 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791220606;
+	bh=zbxG8NAQ5PCfX6FEMtnQ7f5Nu6iD2U12hBuLX4TzKLc=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc;
+	b=Rcxjfr29GTv6vqa3U0f/OQbO1hS0kmjPR9jkDSaYRp8DNCn4kwTcpsLJfK4Bm6n1V
+	 +LGreeVpnAcWrhyJ6SkVYLZypX5oEOngyfS9sRhlLfexCjDKlpzXBniwvJwb69ZOlC
+	 UIkBFP3vAna+XLnoqoqAA51x8PO9Qjycs4XAI3TOYPg44iUxUdFbiYTF1vjw5muJj4
+	 NT17+/5VooKg5rHbVlmEi/m8UedvX0LwpCWYBeK6Ql/SZQOg+ow+m4SfzwRkiOmPVf
+	 ay/E+k0U4cBjqGDZRrhbuSAfCavS8FPPS4/ZmdYPzcPSfwDX2TTHBuvYgljuCpkrjf
+	 +weruwIPCQnag==
+From: Bryan O'Donoghue <bod@kernel.org>
+Date: Mon, 05 Oct 2026 19:13:48 +0200
+Subject: [PATCH 18/74] media: qcom: camss: vfe: Add helper
+ vfe_bus_v3_packer_fmt()
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261005-linux-mainline-7-2-sm8650-hdk-rfc-0-v1-18-ed985aefd611@kernel.org>
+References: <20261005-linux-mainline-7-2-sm8650-hdk-rfc-0-v1-0-ed985aefd611@kernel.org>
+In-Reply-To: <20261005-linux-mainline-7-2-sm8650-hdk-rfc-0-v1-0-ed985aefd611@kernel.org>
+To: Bryan O'Donoghue <bryan.odonoghue@linaro.org>, 
+ Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>, 
+ Loic Poulain <loic.poulain@oss.qualcomm.com>, 
+ Mauro Carvalho Chehab <mchehab@kernel.org>, 
+ Jacopo Mondi <jacopo.mondi@ideasonboard.com>, 
+ Daniel Scally <dan.scally@ideasonboard.com>, Keke Li <keke.li@amlogic.com>, 
+ Richard Acayan <mailingradian@gmail.com>, 
+ Hans Verkuil <hverkuil@kernel.org>, 
+ Gjorgji Rosikopulos <quic_grosikop@quicinc.com>, 
+ Radoslav Tsvetkov <quic_rtsvetko@quicinc.com>, 
+ Robert Foss <rfoss@kernel.org>, Milen Mitkov <quic_mmitkov@quicinc.com>
+Cc: linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, Bryan O'Donoghue <bod@kernel.org>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=openpgp-sha256; l=4246; i=bod@kernel.org;
+ h=from:subject:message-id; bh=w2wwxc+vXtkZuVngjMDId+G6VbktTVOeStGEG+ggNVw=;
+ b=owEBbQKS/ZANAwAKASJxO7Ohjcg6AcsmYgBqw9sNAU2O9SxZWjTmRi8+l5ubOpJfJFsiE03lu
+ f+eqyLuTUqJAjMEAAEKAB0WIQTmk/sqq6Nt4Rerb7QicTuzoY3IOgUCasPbDQAKCRAicTuzoY3I
+ OuvZEAC21/0pR5b0oK/X95b3qebm15KDFK58mvoVjg/WW8iYstGWMA6OZ5XYkmNnZOPJBLI89D7
+ zROvShQnbrrf8F1AyTzarrCyyts7z6kuFmV7im1RNAclxgPMXa68OGGL498tw1lNiSO6/1quxuR
+ 3O2jhpSGo/f77q/MHoUbHYLqgV5AlUr6oWrQMvvIDPBWAJ5nx1EEW6pSOKVy0sNKu6DJmL0DQof
+ J2C3M+sb0aj7RBsxXoPKSu4hSoxg8KV0k8RZOkS/V+GFaB1DhUYzI3nTNFmXWJNM3lhke9q9TyL
+ uuGNWIWZZ+rAXmrTeZnvKsYdbP7JJctxa75XC59pfKPBUpx3KCbPJ+cCIlkRYwhDAATu3fHnUvd
+ rRyhmOSTqDjguMtzGh5/urAVdISuL8q3pwhRwn0+MmMzEGv2e3/42h6IQqR3f6/qyTOfZPUmayS
+ eIsY7MGQZCP8Lket8KC650KEa97Z9WMPeXFjoBoxvl9jpIe7qilhwHrDCeYFw14sCKUQ4ubgCNI
+ SkbN6SN+wtb0NcEij2dlk9OnEq4F6TBo3eBi3pJzS1e++EZC618w5CygcB508Bqxw9fM25AtO/1
+ XliRvED17G7thg/wHNbFOHbWkRzpATCO/WydGvf+KhTTqsW8uONWhVoxD+odcdCCuJlEouOAVqN
+ UmJtGJaq5k41+ug==
+X-Developer-Key: i=bod@kernel.org; a=openpgp;
+ fpr=E693FB2AABA36DE117AB6FB422713BB3A18DC83A
 
-Add a scoped_guard() class for hazptr so that callers can pair
-hazptr_acquire() with hazptr_release() on scope exit.
+vfe_bus_v3_packer_fmt()'s job in life is to translate a given v4l2 pixel
+format and plane into the appropriate bus packing format for v3 class
+hardware.
 
-The guard holds a pointer to a caller-provided hazptr_ctx rather
-than embedding it.  The ctx must remain at a stable address while
-the hazard pointer is held because the slow path can chain its
-backup slot into the overflow list by address.
+Other versions are currently not covered.
 
-Suggested-by: Boqun Feng <boqun@kernel.org>
-Signed-off-by: Kunwu Chan <kunwu.chan@gmail.com>
+Signed-off-by: Bryan O'Donoghue <bod@kernel.org>
 ---
- include/linux/hazptr.h | 51 ++++++++++++++++++++++++++++++++++++++++++
- 1 file changed, 51 insertions(+)
+ drivers/media/platform/qcom/camss/camss-vfe.c | 53 +++++++++++++++++++++++++++
+ drivers/media/platform/qcom/camss/camss-vfe.h | 32 ++++++++++++++++
+ 2 files changed, 85 insertions(+)
 
-diff --git a/include/linux/hazptr.h b/include/linux/hazptr.h
-index d1670121947a..275cbe54b075 100644
---- a/include/linux/hazptr.h
-+++ b/include/linux/hazptr.h
-@@ -320,6 +320,57 @@ void hazptr_release(struct hazptr_ctx *ctx, void *addr)
- 		hazptr_unchain_backup_slot(ctx);
- }
+diff --git a/drivers/media/platform/qcom/camss/camss-vfe.c b/drivers/media/platform/qcom/camss/camss-vfe.c
+index 5b5201b55a485..c95fe5b0b05fc 100644
+--- a/drivers/media/platform/qcom/camss/camss-vfe.c
++++ b/drivers/media/platform/qcom/camss/camss-vfe.c
+@@ -370,6 +370,59 @@ const struct camss_formats vfe_formats_pix_845 = {
+ 	.formats = formats_pix_845
+ };
  
-+/**
-+ * struct hazptr_guard - cleanup.h guard for a single hazard pointer
-+ *
-+ * @ctx: Pointer to the caller-provided hazard-pointer context.
-+ * @addr: The address returned by the matching hazptr_acquire().
-+ */
-+struct hazptr_guard {
-+	struct hazptr_ctx *ctx;
-+	void *addr;
-+};
-+
-+/**
-+ * hazptr_guard_acquire - Acquire a hazard pointer for scoped_guard() use
-+ *
-+ * @ctx: The caller-provided hazard-pointer context.
-+ * @addr_p: Pointer to the pointer that is to be hazard-pointer protected.
-+ *
-+ * Acquire a hazard pointer using @ctx and return a guard that
-+ * cleanup.h releases via hazptr_release() on scope exit.  The guard
-+ * only carries the ctx pointer and the address returned by
-+ * hazptr_acquire().
-+ */
-+static inline struct hazptr_guard
-+hazptr_guard_acquire(struct hazptr_ctx *ctx, void * const *addr_p)
++u32 vfe_bus_v3_packer_fmt(u32 v4l2_fmt, u8 plane, u8 align_shift)
 +{
-+	struct hazptr_guard g;
++	switch (v4l2_fmt) {
++	case V4L2_PIX_FMT_NV12:
++	case V4L2_PIX_FMT_NV12M:
++	case V4L2_PIX_FMT_NV16:
++		return VFE_BUS_WM_PACKER_FMT_V3_PLAIN_8_LSB_MSB_10;
++	case V4L2_PIX_FMT_NV21:
++	case V4L2_PIX_FMT_NV21M:
++	case V4L2_PIX_FMT_NV61:
++		return plane ? VFE_BUS_WM_PACKER_FMT_V3_PLAIN_8_LSB_MSB_10_ODD_EVEN
++			     : VFE_BUS_WM_PACKER_FMT_V3_PLAIN_8_LSB_MSB_10;
 +
-+	g.ctx = ctx;
-+	g.addr = hazptr_acquire(ctx, addr_p);
-+	return g;
++	case V4L2_PIX_FMT_SRGGB10P:
++	case V4L2_PIX_FMT_SGRBG10P:
++	case V4L2_PIX_FMT_SGBRG10P:
++	case V4L2_PIX_FMT_SBGGR10P:
++		return VFE_BUS_WM_PACKER_FMT_V3_MIPI10;
++	case V4L2_PIX_FMT_SRGGB12P:
++	case V4L2_PIX_FMT_SGRBG12P:
++	case V4L2_PIX_FMT_SGBRG12P:
++	case V4L2_PIX_FMT_SBGGR12P:
++		return VFE_BUS_WM_PACKER_FMT_V3_MIPI12;
++	case V4L2_PIX_FMT_SRGGB14P:
++	case V4L2_PIX_FMT_SGRBG14P:
++	case V4L2_PIX_FMT_SGBRG14P:
++	case V4L2_PIX_FMT_SBGGR14P:
++		return VFE_BUS_WM_PACKER_FMT_V3_MIPI14;
++
++	case V4L2_PIX_FMT_SRGGB10:
++	case V4L2_PIX_FMT_SGRBG10:
++	case V4L2_PIX_FMT_SGBRG10:
++	case V4L2_PIX_FMT_SBGGR10:
++		return VFE_BUS_WM_PACKER_FMT_V3_PLAIN_16_10BPP |
++		       BIT(align_shift);
++	case V4L2_PIX_FMT_SRGGB12:
++	case V4L2_PIX_FMT_SGRBG12:
++	case V4L2_PIX_FMT_SGBRG12:
++	case V4L2_PIX_FMT_SBGGR12:
++		return VFE_BUS_WM_PACKER_FMT_V3_PLAIN_16_12BPP |
++		       BIT(align_shift);
++
++	case V4L2_PIX_FMT_SRGGB8:
++	case V4L2_PIX_FMT_SGRBG8:
++	case V4L2_PIX_FMT_SGBRG8:
++	case V4L2_PIX_FMT_SBGGR8:
++		return VFE_BUS_WM_PACKER_FMT_V3_PLAIN_8;
++	}
++
++	WARN_ONCE(1, "no packer format for 0x%08x\n", v4l2_fmt);
++	return VFE_BUS_WM_PACKER_FMT_V3_PLAIN_128;
 +}
 +
-+DEFINE_CLASS(hazptr, struct hazptr_guard,
-+	     hazptr_release(_T.ctx, _T.addr),
-+	     hazptr_guard_acquire(ctx, addr_p),
-+	     struct hazptr_ctx *ctx, void * const *addr_p)
-+DEFINE_CLASS_IS_UNCONDITIONAL(hazptr)
-+
-+/*
-+ * The ctx must remain at a stable address while the hazard pointer
-+ * is held because the slow path can chain its backup slot
-+ * into the overflow list by address.
-+ *
-+ *	struct hazptr_ctx ctx;
-+ *	void *obj = ptr;
-+ *
-+ *	scoped_guard(hazptr, &ctx, &obj) {
-+ *		...
-+ *	}
-+ */
-+
- void hazptr_init(void);
+ static u32 vfe_src_pad_code(struct vfe_line *line, u32 sink_code,
+ 			    unsigned int index, u32 src_req_code)
+ {
+diff --git a/drivers/media/platform/qcom/camss/camss-vfe.h b/drivers/media/platform/qcom/camss/camss-vfe.h
+index 089f525b98cf5..98d403a71cf95 100644
+--- a/drivers/media/platform/qcom/camss/camss-vfe.h
++++ b/drivers/media/platform/qcom/camss/camss-vfe.h
+@@ -56,6 +56,27 @@ enum vfe_line_id {
+ 	VFE_LINE_NUM_MAX = 4
+ };
  
- #endif /* _LINUX_HAZPTR_H */
++enum vfe_packer_format_v3 {
++	VFE_BUS_WM_PACKER_FMT_V3_PLAIN_128 = 0,
++	VFE_BUS_WM_PACKER_FMT_V3_PLAIN_8,
++	VFE_BUS_WM_PACKER_FMT_V3_PLAIN_8_ODD_EVEN,
++	VFE_BUS_WM_PACKER_FMT_V3_PLAIN_8_LSB_MSB_10,
++	VFE_BUS_WM_PACKER_FMT_V3_PLAIN_8_LSB_MSB_10_ODD_EVEN,
++	VFE_BUS_WM_PACKER_FMT_V3_PLAIN_16_10BPP,
++	VFE_BUS_WM_PACKER_FMT_V3_PLAIN_16_12BPP,
++	VFE_BUS_WM_PACKER_FMT_V3_PLAIN_16_14BPP,
++	VFE_BUS_WM_PACKER_FMT_V3_PLAIN_16_16BPP,
++	VFE_BUS_WM_PACKER_FMT_V3_PLAIN_32,
++	VFE_BUS_WM_PACKER_FMT_V3_PLAIN_64,
++	VFE_BUS_WM_PACKER_FMT_V3_TP_10,
++	VFE_BUS_WM_PACKER_FMT_V3_MIPI10,
++	VFE_BUS_WM_PACKER_FMT_V3_MIPI12,
++	VFE_BUS_WM_PACKER_FMT_V3_MIPI14,
++	VFE_BUS_WM_PACKER_FMT_V3_MIPI20,
++	VFE_BUS_WM_PACKER_FMT_V3_PLAIN32_20BPP,
++	VFE_BUS_WM_PACKER_FMT_V3_MAX,
++};
++
+ struct vfe_output {
+ 	u8 wm_num;
+ 	u8 wm_idx[3];
+@@ -315,4 +336,15 @@ int vfe_enable_output_v2(struct vfe_line *line);
+ int vfe_queue_buffer_v2(struct camss_video *vid,
+ 			struct camss_buffer *buf);
+ 
++/*
++ * vfe_bus_v3_packer_fmt
++ *
++ * @v4l2_fmt: v4l2 format
++ * @plane: plane for the given format
++ * @align_shift: bit position of the PLAIN16 LSB alignment flag
++ *
++ * Return: the bus packer format for the register
++ */
++u32 vfe_bus_v3_packer_fmt(u32 v4l2_fmt, u8 plane, u8 align_shift);
++
+ #endif /* QC_MSM_CAMSS_VFE_H */
+
 -- 
-2.43.0
+2.55.0
 
