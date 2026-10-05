@@ -1,149 +1,314 @@
-Received: from mail-lr2-f35.google.com (mail-lr2-f35.google.com [74.125.230.99])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from out30-124.freemail.mail.aliyun.com (out30-124.freemail.mail.aliyun.com [115.124.30.124])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 92F8248CD48
-	for <linux-kernel@vger.kernel.org>; Mon,  5 Oct 2026 13:25:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.230.99
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791206741; cv=pass; b=tfn60zNLZ8Qxx16w+foJ8RyXu4XPt0FNoSgwTF1CmxxakjZb7kuaAznFvVrddH9Y/YLMUTrfF8Wq7yTVLZU3M4iwKOfyIUzkxtNAWeWGT2mZID0DCYEhrOYfKlrOoeVgxoKAzMZUkxvcQo2BRayd7ogujPEJdGdhyDH2X/bRZ9w=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791206741; c=relaxed/simple;
-	bh=wMm4+8IRfPPcvvBENvkGYtZvw+exf4jHBcuNGRKviqk=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=KepQBaDhib+t8fzw1S1Mzj/3BrsbpaC47KqJq6osHyKhCI9LihkExatdrJ+aBK4uOg4jrQoptjEzCynXOHPEA7nz0gTeEUIJVVivURuftoRDxn5rnL78lZ60S2CP+RI4nwGAkljmW/P6HFytuevnO/5yUFkJk1XvALky0WwbA2o=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=cellusys.com; spf=pass smtp.mailfrom=cellusys.com; dkim=pass (2048-bit key) header.d=cellusys.com header.i=@cellusys.com header.b=cFyvQCLj; arc=pass smtp.client-ip=74.125.230.99
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=cellusys.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cellusys.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1B05C489881
+	for <linux-kernel@vger.kernel.org>; Mon,  5 Oct 2026 13:24:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.30.124
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791206752; cv=none; b=NjkSWN9hi0wW4tqJU1P3Id29vEpi6FOwMd2R0PtrPqhRoRSI/pcqa2T8gefrshZhxkO0fSf3qdZS7fqg6zPAdMec1145KSRsJ/LyuuP0BTDOI5N8V1BJpJkHG/myOrzaOQxbce4hMKC2KFphysiEA5vS/pSD8efIMaQFxXvJadU=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791206752; c=relaxed/simple;
+	bh=oUujiltu+gb2/UUd4friCRgQ1UDCr0Yo7jzhX7W0l/k=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
+	 MIME-Version:Content-Type; b=j5mEuunSvg+CNSC1cKRw9vI4JPuoRIhmwOGkpD0xpLxk4ZffcmRrcFWLppmqbyUv8UpVBFQo/akvmRshg7FE/k6HqPTfQbSw2Rx3SNvPcEmRdWnIQHBCh3WmKeKBYNnPEOMTivWdMxQ/MSolkLEismRyb0reT7kMwiJI95EaAVY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com; spf=pass smtp.mailfrom=linux.alibaba.com; dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b=fsKhN+gp; arc=none smtp.client-ip=115.124.30.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=cellusys.com header.i=@cellusys.com header.b="cFyvQCLj"
-Received: by mail-lr2-f35.google.com with SMTP id 38308e7fff4ca-3a6124046f0so18214231fa.3
-        for <linux-kernel@vger.kernel.org>; Mon, 05 Oct 2026 06:25:01 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1791206677; cv=none;
-        d=google.com; s=arc-20260327;
-        b=YW/p6lJk867M8/afdKtzNtbu5+HFTbjhOGJJsNiCuYL0fsVPoqcQmIBIx8ImGZ3tjO
-         m/4sCYnRUmJk+mA9trIoBEyaT5T+BnFbiXxlO1N0ntFCpwY0KOiswZDLhfETwyhO2PBh
-         bRXR1R7K7LxslE3AQrcLSeMueg1rSAE42VAmBlFtSWFljxik/SXp9ntTaEH2OsmuBp5T
-         FcBWGeOkKhcemB4kV38Ud7bD1uXhg2561Q6cP6gpk7pVHYyeYJSyRWlQrSOcZx5frYhA
-         yqPDwxfZ4/wfJPIzjVCWDSNP2le1ONXOhNoMbGQL8/PUNSmsyYUz/skUTGhEinFSs5oX
-         vnIg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=wMm4+8IRfPPcvvBENvkGYtZvw+exf4jHBcuNGRKviqk=;
-        fh=geoZ8e+7+SSdWe7MpWxI95r052hDMsk/Hb1m0zFvsfU=;
-        b=ckrYPBSpfRRqNM3urjN9eJFXDZuED29n0p7f5ivakK3FHhKUjMp2nd79kG1VPAyoWx
-         oyj4CJ1Y/ALNziGC3pixtkAUShIZNJaUfkijQGLRE8fpCc2FP4TA26AoqfxDt3iWA1YZ
-         bYsTIdh9EbSDPO96UsiqSHbYSzA1Vv19ZpkKcq6+XLreMN2pdjQa7WzHqVUHzTxl8xSe
-         skRHg8dBYzE5odAD5i3lVJ0+804pnfmRE3BvH0ssM9AyhJUafT1f/k5yNTh7V9IeQxkL
-         U1XTiZwtW7SF6zZMkAkt8F8BMbES1r1hvqetKZ/v93ZzuHqvkIBoFu3q7j6DIaJ3BGj5
-         m/XA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=cellusys.com; s=google; t=1791206677; x=1791811477; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=wMm4+8IRfPPcvvBENvkGYtZvw+exf4jHBcuNGRKviqk=;
-        b=cFyvQCLjUypgXcmsl0fZCDaFYajMu8sADXXu+TiJuRALLKmP4XgkIenuBaNzG9ZeDL
-         Cf35oe1gO321Dr/V/lBNdtIAdmTyqHtDI8t7XResfKJXkfjV+Me+M0j04p2QzynGF22A
-         g4oA0O4cbiH0QTEDQBonFdhxR9HibewcM7T7EGt6fv214ieZyYsm+GQa7UaglUXVrUmo
-         4R1PoBuSsgeXkn0m3jH5X8Jnguywjz9NBKHuu6KKJElwZh6FUykY3jkz4d+jzR/ELplv
-         Y9YdmJJ1r1W0uTBventWqIoWnGbkpW1DcewtD9fCvy5qUEBaRs7SWHj4j6dBwwS+YX66
-         xdjg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791206677; x=1791811477;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=wMm4+8IRfPPcvvBENvkGYtZvw+exf4jHBcuNGRKviqk=;
-        b=KusL0ZfTdxeXNEd98DEU3X33evOp5w1ngw7Gg2E+PoQkink5X8hSbujA9pRsO0XSrM
-         lWHnT0HZbAWyMsn1Zl0HG6aYeqr5Mw6vdMW5pwocis688keOdK2UgG/6yeQZ0YLe87EB
-         VdhmB8G4czYMiXjs/ColhBx6Tbg5sKKlPmpj/66mLQ9LTYFrvxpu8XrtEMWCSjsVYfev
-         MIlB7EYNC45i3DPgMb0cenWA5R+9HEpMFaPJrInsPMckkrkz7Q2tEh3YWlM+Xu2wtL5e
-         M1JywJgJltAnJ3H33l2/Z6SKkduZ5T8lA6bIGlvW2IIAgNwXflxE2xBI1vbeoVjddU6U
-         WmTw==
-X-Forwarded-Encrypted: i=1; AKwUvBytZQcdEOEbfOZx8+8S1aa8X4LO6jbZN6BqM/nOqDG6mJHFk4jjiQpmQSwl1ToD8CKEqB3BNpN0y4MzkiA=@vger.kernel.org
-X-Gm-Message-State: AFq9FYK1KmA96fD7CD9Z4fQ20D/Bx1lZW2Q4c+wVg87X1VAzB5L69xP6
-	fvhY6Tm9YVMLbKYWXygncNnroWdrllTOx6EE6/srunPDPfSzn8QZOHu0vQNpZp/TQ8bRyfHc8Ug
-	HHRoDgzEPKpjnyibNrVFKrNQUpJ3ClYSVB/Kn88ckdQ==
-X-Gm-Gg: AYBFou2VqziCQ4RSFxOP7a4Yp8Anq1Q96xv+C4xfRAAX3qLSsn3+HyK6CfL5oge05bD
-	y5B00YoQJY7zR9mz6oSKXOGmvDJwC3s1QhSSNWm0opdjX0sLAZBZb8qpHpnJmqKyqee6uTGMBLJ
-	lXkpviETW4Vy1hIl41lp2LAotT7OMCVY7PlmtFTCJksuzNtUVNbplUULgESXyGAR/vHtuzOzJ6E
-	60oaMh5qKFhK5acp6kckEX9kuT9FQ6CfMgu8GEtSTcYBOWk0J4q9mCCtPjz3fE6GDfK6GzLB/Ri
-	O3Zxly/4znR6qNhmtMugwVg2mhXz3ivWWGlIfgwZXA06kEB0hJaSa6uw5I/FvK+zLA==
-X-Received: by 2002:a05:651c:15c1:10b0:3a9:8546:ee13 with SMTP id
- 38308e7fff4ca-3a98546efc0mr6805921fa.19.1791206677180; Mon, 05 Oct 2026
- 06:24:37 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b="fsKhN+gp"
+DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux.alibaba.com; s=default;
+	t=1791206662; h=From:To:Subject:Date:Message-ID:MIME-Version:Content-Type;
+	bh=LsApw2S/DbZZ+Xn0zXV8BIb2V2dRdoz7xDCzcJK011o=;
+	b=fsKhN+gpgNZaHnu3CpxQtENXgiHyP62iF9wUNN3drEH9o67tcU2p5MujTxy0aTxMJLO5Uu0twF4eAzJ0sMuQNNRDrRpvgU+mB4ue26S8IZhmSAhR7MBwexqtG2P1EeCb8uxzQjN2mnrHIdBq7UhO6fIswMSLzNPQZeW6uZ5TTaw=
+X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R161e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam011083073210;MF=ying.huang@linux.alibaba.com;NM=1;PH=DS;RN=11;SR=0;TI=SMTPD_---0XCB2SCi_1791206648;
+Received: from DESKTOP-5N7EMDA(mailfrom:ying.huang@linux.alibaba.com fp:SMTPD_---0XCB2SCi_1791206648 cluster:ay36)
+          by smtp.aliyun-inc.com;
+          Mon, 05 Oct 2026 21:24:21 +0800
+From: "Huang, Ying" <ying.huang@linux.alibaba.com>
+To: Qiliang Yuan <odys.yuan@gmail.com>
+Cc: Andrew Morton <akpm@linux-foundation.org>,  David Hildenbrand
+ <david@kernel.org>,  Zi Yan <ziy@nvidia.com>,  Matthew Brost
+ <matthew.brost@intel.com>,  Joshua Hahn <joshua.hahnjy@gmail.com>,
+  Byungchul Park <byungchul@sk.com>,  Gregory Price <gourry@gourry.net>,
+  Alistair Popple <apopple@nvidia.com>,  linux-mm@kvack.org,
+  linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 1/2] mm/migrate: walk runs of consecutive pages in
+ do_pages_stat_array()
+In-Reply-To: <20261002-bug-mm-move-pages-stat-batch-v2-1-f73b5d20519f@gmail.com>
+	(Qiliang Yuan's message of "Fri, 02 Oct 2026 09:25:26 +0800")
+References: <20261002-bug-mm-move-pages-stat-batch-v2-0-f73b5d20519f@gmail.com>
+	<20261002-bug-mm-move-pages-stat-batch-v2-1-f73b5d20519f@gmail.com>
+Date: Mon, 05 Oct 2026 21:24:07 +0800
+Message-ID: <87v77ggu14.fsf@DESKTOP-5N7EMDA>
+User-Agent: Gnus/5.13 (Gnus v5.13)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260928190401.1641260-1-wbriggs@cellusys.com>
- <179083835206.434549.7959555054670908229@kernel.org> <CADvbK_fps4LrNX36j-MBpFmc-S5bQXhqkBgz+HC2RRuCvhdBXg@mail.gmail.com>
-In-Reply-To: <CADvbK_fps4LrNX36j-MBpFmc-S5bQXhqkBgz+HC2RRuCvhdBXg@mail.gmail.com>
-From: Warren Briggs <wbriggs@cellusys.com>
-Date: Mon, 5 Oct 2026 09:24:26 -0400
-X-Gm-Features: AclHuK8ql_DkcT0uZ-eQZibVFIA9uOYVqWoejjFf20pjZd3FIRsV8Zs4rsgIXHg
-Message-ID: <CACjaXw61gk_5OFcaq4SxNCWqZJEx9j0U80_J7F83BAmHRxkD0A@mail.gmail.com>
-Subject: Re: [PATCH net v4] sctp: carry peer capabilities across an INIT collision
-To: Xin Long <lucien.xin@gmail.com>
-Cc: netdev-bot+sashiko@kernel.org, marcelo.leitner@gmail.com, 
-	davem@davemloft.net, edumazet@google.com, kuba@kernel.org, pabeni@redhat.com, 
-	horms@kernel.org, linux-sctp@vger.kernel.org, netdev@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=ascii
 
-Hi Xin,
+Hi, Qiliang,
 
-On Thu, 1 Oct 2026 at 12:11, Xin Long <lucien.xin@gmail.com> wrote:
+Qiliang Yuan <odys.yuan@gmail.com> writes:
+
+> move_pages() with a NULL node list reports the node of each page. RDMA
+> and KV-cache transfer engines use it to find where large registered
+> buffers live, querying every 4K page of buffers that span hundreds of
+> gigabytes.
 >
-> On Thu, Oct 1, 2026 at 3:05=E2=80=AFAM <netdev-bot+sashiko@kernel.org> wr=
-ote:
-> >
-> > [Severity: Low]
-> > The commit message describes this as an INIT collision fix, but doesn't
-> > the same code also run on a peer restart?
-> >
-> > Could the commit message describe the restart path too, and could that
-> > path be tested?
-
-Yes. The commit message will cover both callers, the INIT collision
-(dupcook_b) and the peer restart (dupcook_a). The v4 testing covered the
-collision only; v5 will add a peer restart test, with ASCONF and
-RE-CONFIG sent from the surviving association after the restart, and v4
-run as the control. I may need a couple of weeks to get to this.
-
-> > [Severity: Medium]
-> > On the peer restart path (sctp_sf_do_dupcook_a()->sctp_assoc_update(),
-> > state >=3D SCTP_STATE_ESTABLISHED), only the inbound counters are
-> > re-derived here. Shouldn't the outbound counters asoc->addip_serial and
-> > asoc->strreset_outseq be updated as well?
-> >
-> > Should the ESTABLISHED branch take addip_serial and strreset_outseq fro=
-m
-> > new, next to next_tsn?
-> >
-> This looks a legit one.
+> do_pages_stat_array() looks up the VMA and walks the page tables from
+> the top for every address, taking and dropping the PTE lock each time.
+> That costs about 105 ns per page, so a 16 GiB buffer takes 486 ms.
 >
-> Since asoc->peer.asconf_capable and asoc->peer.reconf_capable are updated=
-,
-> we should address it in the same patch.
+> Callers almost always pass consecutive addresses. Group them into runs
+> and walk each run with walk_page_range(), which looks up each VMA and
+> PTE table once and answers every page under it while holding the lock.
+> Report pages as folio_walk_start() with FW_ZEROPAGE found them: the node
+> of a normal folio, -EFAULT for the zero page or an address outside any
+> VMA, and -ENOENT otherwise. Handle PUD and hugetlb leaves in their own
+> callbacks so that the walk never splits them.
 >
-> So please follow the report above to update addip_serial and strreset_out=
-seq in
-> the ESTABLISHED branch.
+> On 7.3-rc5 in a 16-vCPU VM, querying every page of a populated 4 GiB
+> buffer:
+>
+>                 before    after
+>   4K pages      105 ns    31.9 ns
+>   THP           90 ns     23.1 ns
 
-Agreed. v5 will take asoc->addip_serial and asoc->strreset_outseq from
-new in the ESTABLISHED branch, next to next_tsn. On restart
-sctp_tietags_populate() keeps our initial_tsn and sctp_unpack_cookie()
-bases both counters on it, so new already holds the values the
-restarted peer expects.
+As pointed out by David, nanosecond-level optimization for a not-so-hot
+path isn't very attractive.  I understand the target of your
+optimization is not the performance of a single page but that of a large
+number of pages (such as 16 GiB).  So, please describe more clearly why
+your change is necessary, for example, by providing the performance
+improvement of querying 16 GiB memory.
 
-pw-bot: cr
+Additionally, the raw performance number depends on the system under
+test.  Please provide a little more information about your testing
+system, for example, the CPU architecture, generation, physical core
+count, etc.  For comparison, the performance improvement percentage
+would also be helpful.
 
-Warren
+---
+Best Regards,
+Huang, Ying
+
+> Suggested-by: Zi Yan <ziy@nvidia.com>
+> Signed-off-by: Qiliang Yuan <odys.yuan@gmail.com>
+> ---
+>  mm/migrate.c | 188 ++++++++++++++++++++++++++++++++++++++++++++++++++---------
+>  1 file changed, 162 insertions(+), 26 deletions(-)
+>
+> diff --git a/mm/migrate.c b/mm/migrate.c
+> index 15b45832bcfa7..f4d8bfb9b7b4a 100644
+> --- a/mm/migrate.c
+> +++ b/mm/migrate.c
+> @@ -2451,44 +2451,180 @@ static int do_pages_move(struct mm_struct *mm, nodemask_t task_nodes,
+>  	return err;
+>  }
+>  
+> +struct pages_stat_walk {
+> +	unsigned long start;
+> +	int *status;
+> +};
+> +
+> +static void pages_stat_set(struct pages_stat_walk *psw, unsigned long addr,
+> +			   unsigned long end, int stat)
+> +{
+> +	int *status = psw->status + ((addr - psw->start) >> PAGE_SHIFT);
+> +
+> +	/* end wraps to 0 for the last page of the address space */
+> +	for (; addr != end; addr += PAGE_SIZE)
+> +		*status++ = stat;
+> +}
+> +
+> +static int folio_stat(struct folio *folio)
+> +{
+> +	if (is_zero_folio(folio) || is_huge_zero_folio(folio))
+> +		return -EFAULT;
+> +	if (folio_is_zone_device(folio))
+> +		return -ENOENT;
+> +	return folio_nid(folio);
+> +}
+> +
+> +/* Report pages the same way folio_walk_start() with FW_ZEROPAGE finds them. */
+> +static int pages_stat_pud_entry(pud_t *pudp, unsigned long addr,
+> +				unsigned long end, struct mm_walk *walk)
+> +{
+> +	struct page *page;
+> +	spinlock_t *ptl;
+> +	pud_t pud;
+> +	int stat;
+> +
+> +	if (!IS_ENABLED(CONFIG_PGTABLE_HAS_HUGE_LEAVES))
+> +		return 0;
+> +	pud = pudp_get(pudp);
+> +	if (pud_present(pud) && !pud_leaf(pud))
+> +		return 0;
+> +
+> +	ptl = pud_lock(walk->mm, pudp);
+> +	pud = pudp_get(pudp);
+> +	if (pud_present(pud) && !pud_leaf(pud)) {
+> +		spin_unlock(ptl);
+> +		return 0;
+> +	}
+> +	stat = -ENOENT;
+> +	if (pud_present(pud)) {
+> +		page = vm_normal_page_pud(walk->vma, addr, pud);
+> +		if (page)
+> +			stat = folio_stat(page_folio(page));
+> +	}
+> +	pages_stat_set(walk->private, addr, end, stat);
+> +	spin_unlock(ptl);
+> +	walk->action = ACTION_CONTINUE;
+> +	return 0;
+> +}
+> +
+> +static int pages_stat_pmd_entry(pmd_t *pmdp, unsigned long addr,
+> +				unsigned long end, struct mm_walk *walk)
+> +{
+> +	struct vm_area_struct *vma = walk->vma;
+> +	struct page *page;
+> +	spinlock_t *ptl;
+> +	pte_t *ptep;
+> +	pmd_t pmd;
+> +	int stat;
+> +
+> +	pmd = pmdp_get_lockless(pmdp);
+> +	if (IS_ENABLED(CONFIG_PGTABLE_HAS_HUGE_LEAVES) &&
+> +	    (!pmd_present(pmd) || pmd_leaf(pmd))) {
+> +		ptl = pmd_lock(walk->mm, pmdp);
+> +		pmd = pmdp_get(pmdp);
+> +		if (pmd_present(pmd) && !pmd_leaf(pmd)) {
+> +			spin_unlock(ptl);
+> +			goto pte_table;
+> +		}
+> +		stat = -ENOENT;
+> +		if (pmd_present(pmd)) {
+> +			page = vm_normal_page_pmd(vma, addr, pmd);
+> +			if (page)
+> +				stat = folio_stat(page_folio(page));
+> +			else if (is_huge_zero_pmd(pmd))
+> +				stat = -EFAULT;
+> +		}
+> +		pages_stat_set(walk->private, addr, end, stat);
+> +		spin_unlock(ptl);
+> +		return 0;
+> +	}
+> +
+> +pte_table:
+> +	ptep = pte_offset_map_lock(walk->mm, pmdp, addr, &ptl);
+> +	if (!ptep) {
+> +		walk->action = ACTION_AGAIN;
+> +		return 0;
+> +	}
+> +	for (; addr < end; addr += PAGE_SIZE, ptep++) {
+> +		pte_t pte = ptep_get(ptep);
+> +
+> +		stat = -ENOENT;
+> +		if (pte_present(pte)) {
+> +			page = vm_normal_page(vma, addr, pte);
+> +			if (page)
+> +				stat = folio_stat(page_folio(page));
+> +			else if (is_zero_pfn(pte_pfn(pte)))
+> +				stat = -EFAULT;
+> +		}
+> +		pages_stat_set(walk->private, addr, addr + PAGE_SIZE, stat);
+> +	}
+> +	pte_unmap_unlock(ptep - 1, ptl);
+> +	return 0;
+> +}
+> +
+> +static int pages_stat_hugetlb_entry(pte_t *ptep, unsigned long hmask,
+> +				    unsigned long addr, unsigned long end,
+> +				    struct mm_walk *walk)
+> +{
+> +#ifdef CONFIG_HUGETLB_PAGE
+> +	spinlock_t *ptl;
+> +	pte_t pte;
+> +	int stat = -ENOENT;
+> +
+> +	ptl = huge_pte_lock(hstate_vma(walk->vma), walk->mm, ptep);
+> +	pte = huge_ptep_get(walk->mm, addr, ptep);
+> +	if (pte_present(pte))
+> +		stat = folio_stat(pfn_folio(pte_pfn(pte)));
+> +	pages_stat_set(walk->private, addr, end, stat);
+> +	spin_unlock(ptl);
+> +#endif
+> +	return 0;
+> +}
+> +
+> +static int pages_stat_pte_hole(unsigned long addr, unsigned long end,
+> +			       int depth, struct mm_walk *walk)
+> +{
+> +	/* No VMA at all is -EFAULT, a VMA without the page is -ENOENT */
+> +	pages_stat_set(walk->private, addr, end, walk->vma ? -ENOENT : -EFAULT);
+> +	return 0;
+> +}
+> +
+> +static const struct mm_walk_ops pages_stat_walk_ops = {
+> +	.pud_entry	= pages_stat_pud_entry,
+> +	.pmd_entry	= pages_stat_pmd_entry,
+> +	.hugetlb_entry	= pages_stat_hugetlb_entry,
+> +	.pte_hole	= pages_stat_pte_hole,
+> +	.walk_lock	= PGWALK_RDLOCK,
+> +};
+> +
+>  /*
+>   * Determine the nodes of an array of pages and store it in an array of status.
+>   */
+>  static void do_pages_stat_array(struct mm_struct *mm, unsigned long nr_pages,
+>  				const void __user **pages, int *status)
+>  {
+> -	unsigned long i;
+> +	unsigned long i, n;
+>  
+>  	mmap_read_lock(mm);
+>  
+> -	for (i = 0; i < nr_pages; i++) {
+> -		unsigned long addr = (unsigned long)(*pages);
+> -		struct vm_area_struct *vma;
+> -		struct folio_walk fw;
+> -		struct folio *folio;
+> -		int err = -EFAULT;
+> +	for (i = 0; i < nr_pages; i += n) {
+> +		unsigned long addr = (unsigned long)pages[i] & PAGE_MASK;
+> +		struct pages_stat_walk psw = {
+> +			.start = addr,
+> +			.status = status + i,
+> +		};
+>  
+> -		vma = vma_lookup(mm, addr);
+> -		if (!vma)
+> -			goto set_status;
+> +		/* Walk runs of consecutive pages in one go */
+> +		for (n = 1; i + n < nr_pages; n++) {
+> +			unsigned long next = (unsigned long)pages[i + n] & PAGE_MASK;
+>  
+> -		folio = folio_walk_start(&fw, vma, addr, FW_ZEROPAGE);
+> -		if (folio) {
+> -			if (is_zero_folio(folio) || is_huge_zero_folio(folio))
+> -				err = -EFAULT;
+> -			else if (folio_is_zone_device(folio))
+> -				err = -ENOENT;
+> -			else
+> -				err = folio_nid(folio);
+> -			folio_walk_end(&fw, vma);
+> -		} else {
+> -			err = -ENOENT;
+> +			if (next != addr + n * PAGE_SIZE || next < addr)
+> +				break;
+>  		}
+> -set_status:
+> -		*status = err;
+> -
+> -		pages++;
+> -		status++;
+> +		if (walk_page_range(mm, addr, addr + n * PAGE_SIZE,
+> +				    &pages_stat_walk_ops, &psw))
+> +			pages_stat_set(&psw, addr, addr + n * PAGE_SIZE, -EFAULT);
+>  	}
+>  
+>  	mmap_read_unlock(mm);
