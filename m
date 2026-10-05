@@ -1,87 +1,77 @@
-Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.5])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A342725B08E
-	for <linux-kernel@vger.kernel.org>; Mon,  5 Oct 2026 10:19:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.5
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3E8AE3C3BF7
+	for <linux-kernel@vger.kernel.org>; Mon,  5 Oct 2026 10:20:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791195591; cv=none; b=E9AKeyaaYx0z5Zirmh46VESAIHbfKhkcIQdIGlhvxYhFbWqQpw2JDAfXATtUXG3npO0ZkP2UyIxHnaCkXPARqN+3SSPkNlMs8HjoF9oh60fgPxyutwq9pl/Ggoufb3Pr2in9gCrOJGeD4DMGspQMJs+yrTZjXrVpsO+K/IYMaKc=
+	t=1791195646; cv=none; b=Dk82OLZ9dZzOOjRBgzMiQ7JsMb3+fYUcUPgT5E3pS+YI/oxHvV/gTWeXc/Xwa2qCwcbr1QRcln4s8kpGjr5d0uJBtdKPpYLETtsQcu9zBx9M4TbJKnOj2OTvxnp0tFJnXR9RaNhLhkNfltno3v5Dff1lgSG0VTdKCvwArUcV1rw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791195591; c=relaxed/simple;
-	bh=m8VC3pRHpIqrv1YWkEuKGNAG7iLcdWy3U39CgI31IGs=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=sw5wbD5zDRZ7LFcu8ui4AoMp9u9ijAXNaNjH9h68M69bbWbxSuSZgwWIYJZ60AyiIXJnyWle4xvcL+K7l6JfwtZGIY/uQwpMmDOsFcDNONDPTK7iGDAp025CIMmU9jSnnEtfLWx8ta+vQRlXHy1jesQ8e6B31VaqzOMopUF8So8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=jpWYfDXr; arc=none smtp.client-ip=117.135.210.5
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	s=arc-20240116; t=1791195646; c=relaxed/simple;
+	bh=NU8swq1j2ii2TD9p5qbhktILG9lsOdiw/KHs/qkyj1s=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
+	 MIME-Version:Content-Type; b=Xvxj1VbNdz6rh55KyDAwYO21OhVWMV9VFZnlNBoXj8jtpCgXLOv0dQ+Ck2JedZODhOEHRsc/yTH6XhuVGWa5Pg4IB0JJPOiD1ufN51F8lDKzPFr55P8rjHJNL7qakz+zOcL20b8o3klQfNackS8zIRl0dTmK2ehUPo275DcI7wE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kVL8xfQv; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="jpWYfDXr"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=Message-ID:Date:MIME-Version:Subject:To:From:
-	Content-Type; bh=3eZ6GNi20XHQW1yJA5fWUBUG2ACfvX8eDYNXUASk5oo=;
-	b=jpWYfDXrlUzu2FUveGhF15ZQPEc42X+Pb/31nlEWQ9MfjRS8cp6duM+kuvsqza
-	wVKIzXU87SFcYzVzR/3SSMa1mqm+xKHLc2Ik1I63gNI6q9yGclIwj5hz5x0G7fsq
-	B2g9/Tdvx0NOrq3sgqpOQwYqWm4jzcMbeJ0WTKVUKd9i8=
-Message-ID: <5b101dea-77ef-4ae7-b8d9-54df20b0a6a5@163.com>
-Date: Mon, 5 Oct 2026 18:18:54 +0800
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kVL8xfQv"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9ABB71F000FF;
+	Mon,  5 Oct 2026 10:20:42 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791195644;
+	bh=GWsLWEMDwrfL0znv9a1FFmG5Ojsurr2FWtMoeDb6oDs=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date;
+	b=kVL8xfQvfFGbxJe4asQyapC32bvl7t5tNtCf+kV4HgCD3ysm196T2XvxN078vUec3
+	 J5zll9onL2I6q34ewBt5CxXO2/1tc3qhcDYDl+VYTpgbuMtCC0O3d9vSfmDZex9WWh
+	 mz6KaNHGEZZM8R2H1H4E9cfePa3nbl0FaULsIYTTr1g8k4np5APdyjGMCKZDbjYO0Z
+	 fMKLjFHFXOjpYMH8OfaxtyZ0CJR/zZc2mhk5F9ItlXbbiqAMB5pM5R4phuajVDwomD
+	 d0UtqWoQpyxH28/E9OHzMO83qSiHB0r0dsLyVkaGFXI0L5qOFh2/RkeU0+jBvqLnP2
+	 t6qsokrdJeOXw==
+From: Vinod Koul <vkoul@kernel.org>
+To: Neil Armstrong <neil.armstrong@linaro.org>, 
+ Manivannan Sadhasivam <mani@kernel.org>, Heiko Stuebner <heiko@sntech.de>, 
+ Andy Yan <andy.yan@rock-chips.com>, 
+ Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
+Cc: kernel@collabora.com, linux-phy@lists.infradead.org, 
+ linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+ linux-rockchip@lists.infradead.org
+In-Reply-To: <20260901-hdptx-ffe-v2-0-3a5922c76fc5@collabora.com>
+References: <20260901-hdptx-ffe-v2-0-3a5922c76fc5@collabora.com>
+Subject: Re: [PATCH v2 0/3] phy: hdmi: Add FRL TxFFE level control
+Message-Id: <179119564237.316652.11654112643268830882.b4-ty@kernel.org>
+Date: Mon, 05 Oct 2026 12:20:42 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 3/4] exfat: dirty all new pages when extending
- valid_size
-To: Namjae Jeon <linkinjeon@kernel.org>
-Cc: exfat@lists.linux.dev, linux-kernel@vger.kernel.org,
- Yuezhang.Mo@sony.com, dxdt@dev.snart.me, sj1557.seo@samsung.com,
- Chi Zhiling <chizhiling@kylinos.cn>, Jiale Yao <yaojiale02@163.com>
-References: <20261004101934.1975655-1-chizhiling@163.com>
- <20261004101934.1975655-4-chizhiling@163.com>
- <CAKYAXd-2cSYwBcAfGtcAYbK95FfpASRrptz4YUf7Ke-cXK00PA@mail.gmail.com>
-From: Chi Zhiling <chizhiling@163.com>
-In-Reply-To: <CAKYAXd-2cSYwBcAfGtcAYbK95FfpASRrptz4YUf7Ke-cXK00PA@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-CM-TRANSID:PygvCgCHJ1aOecNqakDWCw--.17545S2
-X-Coremail-Antispam: 1Uf129KBjvJXoWruFy8ZFW5CF1DtF4UZFWUJwb_yoW8Jr1DpF
-	yqgw45JrW8Ww18Gan7tF4xXF1F939xWF4fW3s8X34UAa15WFyDCFWrC3yjkF1ftw4Dt34j
-	va98Xr98uryDCrJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07UL2-OUUUUU=
-X-CM-SenderInfo: hfkl6xxlol0wi6rwjhhfrp/xtbC3BEOq2rDeZGB-gAA3W
+X-Mailer: b4 0.14.3
 
-On 10/5/26 5:08 PM, Namjae Jeon wrote:
->> @@ -664,90 +664,30 @@ int exfat_file_fsync(struct file *filp, loff_t start, loff_t end, int datasync)
->>   static int exfat_zero_new_range(struct inode *inode, loff_t start, loff_t end)
-> Function name and comments no longer seem to match. What do you think
-> about changing them like this?
+
+On Tue, 01 Sep 2026 22:55:12 +0300, Cristian Ciocaltea wrote:
+> During HDMI 2.1 Fixed Rate Link training, the source and sink may
+> negotiate a Transmitter Feed Forward Equalizer (TxFFE) level to
+> compensate for signal quality degradation on the physical channel.  The
+> source starts at level 0 and may increment it up to a maximum agreed
+> upon during LTS3 in response to persistent link failures reported by the
+> sink.  TxFFE adjustment is optional and entirely independent of the FRL
+> rate and lane count selection.
 > 
-> /*
->   * exfat_prepare_valid_range - populate and dirty folios covering [start, end)
->   *
->   * Populate missing blocks via the read path, which zero-fills data
->   * beyond the current valid_size while preserving uptodate blocks.
->   * Mark entire folios dirty so the newly valid range is written back.
->   *
->   * Call before advancing valid_size.
->   */
+> [...]
 
-Okay, I'll add it to v3.
+Applied, thanks!
 
-> 
-> And generic/538 test fails with this patch set. Please check if this
-> test failure is reproducible for you as well.
+[1/3] phy: hdmi: Add optional FRL TxFFE config options
+      commit: af00a892e6515e3f08f2079578695389b01ba3a2
+[2/3] phy: rockchip: samsung-hdptx: Handle PHY config after module reload
+      commit: a673b3d18e37e573d52bf41c47e75d46982f2fae
+[3/3] phy: rockchip: samsung-hdptx: Add support for FRL TxFFE level control
+      commit: 192244b9cb5d15288f318f20ad202f2274359474
 
-I ran the tests, but I wasn't able to reproduce the failure. Could you 
-tell me the block size and cluster size used to reproduce it?
+Best regards,
+-- 
+~Vinod
 
-There is also a new failure in generic/551. This failure can be fixed by 
-adding inode_dio_wait() to exfat_extend_valid_size(). Jiale's patch 
-includes this fix:
-
-https://lore.kernel.org/exfat/20261003093035.532916-4-yaojiale02@163.com/T/#u
-
-
-Thanks.
 
