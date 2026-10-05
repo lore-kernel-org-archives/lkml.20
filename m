@@ -1,146 +1,144 @@
-Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com [209.85.128.48])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6BB4F41D10D
-	for <linux-kernel@vger.kernel.org>; Mon,  5 Oct 2026 23:37:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.48
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1F0B8421259;
+	Mon,  5 Oct 2026 23:37:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791243460; cv=none; b=meoR5AnqxVXd4tA9u+HHMkKAk7GhGJ9JmidtlBjXKxMQiy7uRoS02cByyFMbSCw3RMT/X1E4DtUyOEnRVWhjRi+ZND8t0gEIO2+ovT2mlvi33MaUqeyx9LlxnpY7U4AFenF0XtXCjGUWoFu3LUKUkzKdfU5yUFlTBf8RF5DC9XY=
+	t=1791243481; cv=none; b=dk2xq6pjw2/tEwj86itR0hVaz2zW9TS66O7Dx0TtuxItJcnD+GaAQk1LVIyXP3KCkc1pw9HCenGNbS/TQ9rGvw268k2xfjxI+hrmdpyAKiFTx5fHqy72jaBlfuFdCdYjmGYuKzrZMSQ7lgmyTSiscWtKw3uJ0LGwld8AtuWJw5E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791243460; c=relaxed/simple;
-	bh=C7gbci83GD+t9Huu16iGSHml008dP62awDJLoswA3s0=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=Vs6A0E9EdMppHzRzNqMSHsega73MqU9nxUUevPNM6WiU3JMdPM/Upp3T4MRYF8lHcODXPAXjBoSvlgOzXpyHnQA3lDE61xwYuhBBthEEsaK5OsAPiRHlyZKKbEsS2lfumOVFz5hKp7Ry966/VKTeajQGqnUJop81iFZmTtJBsQM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=sifive.com; spf=pass smtp.mailfrom=sifive.com; dkim=pass (2048-bit key) header.d=sifive.com header.i=@sifive.com header.b=AC0xIYIe; arc=none smtp.client-ip=209.85.128.48
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=sifive.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sifive.com
+	s=arc-20240116; t=1791243481; c=relaxed/simple;
+	bh=wHhFpuZX54/313lqoel9OUyPQIGXxcFUhf5FAjdR2Qo=;
+	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To; b=D9Xwui4rQHqPLu12IpigbNCVN6N/N4fq++CFnX6xZiL30J8NvyKMXU4fKfWKQTVdP4MC40HmR/42yAtccJ6NnI1EtLhebQTAdkhSTY5ApzAyoE0V0mKqvhhrbU9nr/3dW10fH8ZLbsnqolZgA397utASdbqnBY9mVnm7rgy1qOU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=oVafL/jF; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=sifive.com header.i=@sifive.com header.b="AC0xIYIe"
-Received: by mail-wm1-f48.google.com with SMTP id 5b1f17b1804b1-4a1728d8dfcso13638695e9.1
-        for <linux-kernel@vger.kernel.org>; Mon, 05 Oct 2026 16:37:38 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=sifive.com; s=google; t=1791243457; x=1791848257; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=G/tHJXYEmrDPsmKmiT0kZDlKzYZtfAGjKXPf1jJKMEU=;
-        b=AC0xIYIegX1QOd8KmwEYpn06C3gOaZy2zHbvC3Igtv88yUqzu/Fb2LFWdMOpibqjbi
-         9UdCY/yll2hX5jjJhlp1l6Lws2MBzCoyeamxO2z+wd5rGBW4OGk6co15bgIMqZq8ouqL
-         wjXQ5qaQi0I2dWjhircE2LGVZShnm0JePz3i43ylz0OI0EiqevJ1JUbJv06O6ZcuibAw
-         HKtw2R8iQjTmW4UNYbwuRoL6f3ehUuiZf8dpN2F+25zG6f+ePH4F8g6hg2dl9AbejIH2
-         sOZBqOnDr4T4WLSgpKBMyBoBc8obH6hnNlZYkXTb2KNswOpYLgnjDjWBfoXgXBRaUSqg
-         l84A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791243457; x=1791848257;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=G/tHJXYEmrDPsmKmiT0kZDlKzYZtfAGjKXPf1jJKMEU=;
-        b=Fx5zEhoaCP7LfBa3Na1AipziqZWQaLSpsclr0/T3U4XtGpD/toahTUQdViNBn+/s1E
-         cvnWGoOEh5ciP/rv9xNshejCcIxS2uJkLg4Of10kqj1vAGfjpaIbhbUQIG0NvMx64VHl
-         UHvj2CFgN1gtsug/Aegav/+vgre6D9wPmExZru3zhdKTBF4MMita9D2SWJMSH8IThcEw
-         RoZcoZokTximpjHhpCZ14yENoX/b7vEVaYqqdY1XffpveX5wSH0EiitZfUPA1HUXWZZn
-         +Fl+DkHIltrbK/dNbaSqdZMHa6m7eZQ6L6yMss3Z10tzTAd8gBd0td+n58URmYX/YV7i
-         Fviw==
-X-Forwarded-Encrypted: i=1; AKwUvBzaKLWo1ENMDhHtnkfn+uwsyyDce/h6mbTrCE+gbvvuk6Useb61ml1aLhSf6KcGbK+X6u2qprzFJ9O1f0g=@vger.kernel.org
-X-Gm-Message-State: AFuF++k1F9XLNpFkHGS1jT2VlqFANNM0wSzGA5JRQugh7ikL6iZZqutJ
-	SOJ2Pk4q5fBsXBEO3bKmqTgXRvyUyadyzQiGqaclvVbc9oniNqxPuvPH1CFR53hiB7U=
-X-Gm-Gg: AYBFou0XaNI1DLFvRUlCuk5O3Rybubjx9GVdRgyCdVYnZOn7bBIZRHLJp65u0hEsD3p
-	8uiVRlGk1Fec10yYAyC7T191A+2FualyN/PKo18H2wETUf5xWzb5gfRbYRsDs5dHN7CcOQ0AdO+
-	lWuqG03uXyqYw1a+mROOC8S4FrpjDdhUh2oI8oNkRW7fFUxdGzfNo5JBH1Wom8tAGjd9dYBU4+I
-	waA+sIBGZuT4FR2mwqYEpywzf4hVphoqLK8aVYVXT7vacrcHG8CTV2y/xskqI61C0E6l6TVDWmy
-	QJkJdcDQ8iXnvS1+lubXJyKPM3ZlTjD0P4IffYBTo9W6PsEOnjC6AAu6gb7Q8Ipe3Ib51/DAmn8
-	DlHyj3qdkF0jJKGtpzYzUW5eR3y5vwCcNzDvpkcdxFoxnMAdKK7uh0WDuQVV+Eo/l7HjKDF3QpJ
-	zy3khttB7BLbBujUMV8p2zzyM75ZIo0ayDFT0Z/DRvCQWTVmQGXnM9+qEI+WHyjVucWsKRDTbT9
-	AadcRs4HcnuFe+Yz08LYSc=
-X-Received: by 2002:a05:600c:3b01:b0:49c:ffab:551f with SMTP id 5b1f17b1804b1-4a1680ed179mr129727315e9.22.1791243456729;
-        Mon, 05 Oct 2026 16:37:36 -0700 (PDT)
-Received: from [100.64.0.1] ([147.161.130.187])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a178db0929sm24701835e9.12.2026.10.05.16.37.35
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 05 Oct 2026 16:37:36 -0700 (PDT)
-Message-ID: <a25d01cd-e21d-4e51-9d24-6cc41589c041@sifive.com>
-Date: Tue, 6 Oct 2026 01:37:35 +0200
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="oVafL/jF"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7DF151F000FF;
+	Mon,  5 Oct 2026 23:37:59 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791243479;
+	bh=F9mj9hBOR4INL/J0dw4RHuFc+zlALPDdCwtt8rXEwx4=;
+	h=Date:From:To:Cc:Subject:In-Reply-To;
+	b=oVafL/jF7wbNV8UIs9FpvDi7Q24YuKgnGDwngw1i7TpMYQq6KjEomG+s21lza/nYs
+	 KfHiTikEFtwfozV0j3MOGC6NBGuz2dHMHXaw21Ae5dxHtmRxZtmJ2PHDFQpcRNT6nh
+	 Kja2MveAf51QPd7G+apbw2fajqK6FojV4WEUPzcM/pjeHRaCRASko1ELi2zMDvKSMQ
+	 I9r4oICbQVlzMQyRxvDHCO2Zns7d87s4zYo3HSyzPEbyoNtAF4MLRT2yZkab8QYm3L
+	 R+eXCOs71vZAgLtorZlk2w4zB22xuBfrWKkpZ9AGkPlF2zENaunLXZ8TsKLqXr3z20
+	 NlDDc1TapaLjA==
+Date: Mon, 5 Oct 2026 18:37:58 -0500
+From: Bjorn Helgaas <helgaas@kernel.org>
+To: Marek Vasut <marek.vasut+renesas@mailbox.org>
+Cc: linux-pci@vger.kernel.org,
+	Krzysztof =?utf-8?Q?Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
+	Bjorn Helgaas <bhelgaas@google.com>,
+	Geert Uytterhoeven <geert+renesas@glider.be>,
+	Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>,
+	Lorenzo Pieralisi <lpieralisi@kernel.org>,
+	Magnus Damm <magnus.damm@gmail.com>,
+	Manivannan Sadhasivam <mani@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Yoshihiro Shimoda <yoshihiro.shimoda.uh@renesas.com>,
+	linux-kernel@vger.kernel.org, linux-renesas-soc@vger.kernel.org
+Subject: Re: [PATCH] PCI: rcar-host: Validate IO/MEM resource count in DT
+ ranges property
+Message-ID: <20261005233758.GA646371@bhelgaas>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] riscv: futex: untag the user pointer before the atomic
- access
-To: Ziyi Guo <guoziyi114@gmail.com>, palmer@dabbelt.com, pjw@kernel.org,
- aou@eecs.berkeley.edu, alex@ghiti.fr
-Cc: thecharlesjenkins@gmail.com, linux-riscv@lists.infradead.org,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org
-References: <20261001184355.2395068-1-guoziyi114@gmail.com>
-Content-Language: en-US
-From: Samuel Holland <samuel.holland@sifive.com>
-In-Reply-To: <20261001184355.2395068-1-guoziyi114@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20261003073701.354551-1-marek.vasut+renesas@mailbox.org>
 
-On 2026-10-01 8:43 PM, Ziyi Guo wrote:
-> access_ok() checks untagged_addr(uaddr), but arch_futex_atomic_op_inuser()
-> and futex_atomic_cmpxchg_inatomic() hand the raw uaddr to the inline asm
-> amoswap/amoadd/.../lr.w+sc.w through the "+m" (*uaddr) operand.  When the
-> tagged address ABI is enabled (CONFIG_RISCV_ISA_SUPM, prctl
-> PR_SET_TAGGED_ADDR_CTRL with PMLEN != 0), those two addresses differ: a
-> user pointer whose top PMLEN bits hold a tag passes access_ok() after
-> untagging, but the atomic is then performed on the still-tagged raw
-> address.
+On Sat, Oct 03, 2026 at 09:35:59AM +0200, Marek Vasut wrote:
+> The R-Car Gen3 PCIEC controller supports up to 4 memory area mappings.
+> Count the IO and MEM ranges described in DT 'ranges' property of the
+> controller DT node, and in case there are more than 4, refuse to probe
+> the controller driver, because such DT does not describe valid hardware
+> configuration. Do the IO and MEM counting early to avoid controller
+> configuration rollback in case of failure.
 > 
-> Supervisor-mode data accesses are not subject to the U-mode pointer
-> masking (that is governed by menvcfg.PMM, which the kernel does not set),
-> so hardware does not strip the tag for the kernel's own access.  With
-> Sv57 and PMLEN=16 the tag bits overlap the canonical-address bits, so a
-> tagged pointer can name a canonical kernel virtual address (e.g. in the
-> linear map) whose untagged form is a valid user address.  An unprivileged
-
-Thankfully, the combination Sv57 + PMLEN=16 is unlikely to be in use because the
-address bit overlap tends to create performance problems.
-
-> process can thus make FUTEX_WAKE_OP perform an atomic read-modify-write on
-> an arbitrary kernel address, with the matching FUTEX_OP_CMP_* result
-> serving as a read oracle.
-> 
-> get_user()/put_user()/raw_copy_{to,from}_user() already untag the pointer
-> after the access_ok() check; do the same in the futex helpers so the
-> atomic operates on the address that was actually validated.
-
-> Fixes: 2e1743085887 ("riscv: Add support for the tagged address ABI")
-> Signed-off-by: Ziyi Guo <guoziyi114@gmail.com>
+> Fixes: 5d2917d469fa ("PCI: rcar: Convert to DT resource parsing API")
+> Signed-off-by: Marek Vasut <marek.vasut+renesas@mailbox.org>
 > ---
->  arch/riscv/include/asm/futex.h | 2 ++
->  1 file changed, 2 insertions(+)
+> Cc: "Krzysztof Wilczyński" <kwilczynski@kernel.org>
+> Cc: Bjorn Helgaas <bhelgaas@google.com>
+> Cc: Geert Uytterhoeven <geert+renesas@glider.be>
+> Cc: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+> Cc: Lorenzo Pieralisi <lpieralisi@kernel.org>
+> Cc: Magnus Damm <magnus.damm@gmail.com>
+> Cc: Manivannan Sadhasivam <mani@kernel.org>
+> Cc: Rob Herring <robh@kernel.org>
+> Cc: Yoshihiro Shimoda <yoshihiro.shimoda.uh@renesas.com>
+> Cc: linux-kernel@vger.kernel.org
+> Cc: linux-pci@vger.kernel.org
+> Cc: linux-renesas-soc@vger.kernel.org
+> ---
+>  drivers/pci/controller/pcie-rcar-host.c | 31 +++++++++++++++++++++++++
+>  1 file changed, 31 insertions(+)
 > 
-> diff --git a/arch/riscv/include/asm/futex.h b/arch/riscv/include/asm/futex.h
-> index 90c86b115e00..8d80e580eec5 100644
-> --- a/arch/riscv/include/asm/futex.h
-> +++ b/arch/riscv/include/asm/futex.h
-> @@ -40,6 +40,7 @@ arch_futex_atomic_op_inuser(int op, int oparg, int *oval, u32 __user *uaddr)
+> diff --git a/drivers/pci/controller/pcie-rcar-host.c b/drivers/pci/controller/pcie-rcar-host.c
+> index cd9171eebc289..4bcc8c3051ac4 100644
+> --- a/drivers/pci/controller/pcie-rcar-host.c
+> +++ b/drivers/pci/controller/pcie-rcar-host.c
+> @@ -341,6 +341,32 @@ static void rcar_pcie_force_speedup(struct rcar_pcie *pcie)
+>  		 (macsr & LINK_SPEED) == LINK_SPEED_5_0GTS ? "5" : "2.5");
+>  }
 >  
->  	if (!access_ok(uaddr, sizeof(u32)))
->  		return -EFAULT;
-> +	uaddr = untagged_addr(uaddr);   /* FIX: operate on the checked address */
+> +static int rcar_pcie_validate_resource_count(struct rcar_pcie_host *host)
+> +{
+> +	struct pci_host_bridge *bridge = pci_host_bridge_from_priv(host);
+> +	struct rcar_pcie *pcie = &host->pcie;
+> +	struct resource_entry *win;
+> +	int i = 0;
+> +
+> +	resource_list_for_each_entry(win, &bridge->windows) {
+> +		struct resource *res = win->res;
+> +		unsigned long type = resource_type(res);
+> +
+> +		if (!res->flags)
+> +			continue;
+> +
+> +		if (type == IORESOURCE_IO || type == IORESOURCE_MEM)
+> +			i++;
+> +
+> +		if (i > RCAR_PCI_MAX_RESOURCES)
+> +			return dev_err_probe(pcie->dev, -ENOSPC,
+> +					     "Too many IO/MEM entries in DT 'ranges' property, limit is %d\n",
+> +					     RCAR_PCI_MAX_RESOURCES);
+> +	}
+> +
+> +	return 0;
+> +}
+> +
+>  static void rcar_pcie_hw_enable(struct rcar_pcie_host *host)
+>  {
+>  	struct rcar_pcie *pcie = &host->pcie;
+> @@ -947,6 +973,11 @@ static int rcar_pcie_probe(struct platform_device *pdev)
+>  	host = pci_host_bridge_priv(bridge);
+>  	pcie = &host->pcie;
+>  	pcie->dev = dev;
+> +
+> +	err = rcar_pcie_validate_resource_count(host);
+> +	if (err)
+> +		return err;
+
+I guess you did this here to avoid rolling back controller config, but
+the code would be a lot more readable if it checked the index at the
+point where it might exceed the array bound, e.g., (I think) in
+rcar_pcie_set_outbound().
+
+This is for an invalid DT, which is unlikely.  What if
+rcar_pcie_set_outbound() just printed a warning and ignored any excess
+windows?
+
+>  	platform_set_drvdata(pdev, host);
 >  
->  	switch (op) {
->  	case FUTEX_OP_SET:
-> @@ -82,6 +83,7 @@ futex_atomic_cmpxchg_inatomic(u32 *uval, u32 __user *uaddr,
->  
->  	if (!access_ok(uaddr, sizeof(u32)))
->  		return -EFAULT;
-> +	uaddr = untagged_addr(uaddr);   /* FIX: operate on the checked address */
-
-The comments are not necessary. The reason for the change is in the commit log.
-With them removed:
-
-Reviewed-by: Samuel Holland <samuel.holland@sifive.com>
-
->  
->  	__enable_user_access();
->  	__asm__ __volatile__ (
-
+>  	for (i = 0; i < ARRAY_SIZE(rcar_pcie_supplies); i++) {
+> -- 
+> 2.53.0
+> 
