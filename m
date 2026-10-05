@@ -1,127 +1,169 @@
-Received: from mail-pj1-f54.google.com (mail-pj1-f54.google.com [209.85.216.54])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 574F347CA81
-	for <linux-kernel@vger.kernel.org>; Mon,  5 Oct 2026 11:04:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.54
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id EA87047ECED
+	for <linux-kernel@vger.kernel.org>; Mon,  5 Oct 2026 11:04:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791198264; cv=none; b=GCKUoOHTEowi0EZUJkZbXJnlm8kO+lzrXuE15GKnnPuWLrieCb0EVKAYmAGzqqXiqu9c0T8WDQT1HqrN57eDRQlLXOSmaMuM6iEoL0fNplfclaPbGWb0WTQ6CFmxxyJVVLNuMGMRT9CTmwsyY/Pk7IHtGDhljdGcuHWORADOzeQ=
+	t=1791198267; cv=none; b=INe/2+SFhEfSYlWLYXpL7yRLt1JsM7hJjmaGruqV49OTYqw/db9ZSIR3PP34arZ0R5KkVQjo9c1cHXq9vVsk8CbB2v9Vg4lyiZ/cCcZxzGFvhYjfNNmtCWJ2snTyMQAZtwFOep0OA2fYc04sv0T6CavTQ1ODyY+sPj2Wbj7xSvw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791198264; c=relaxed/simple;
-	bh=R4W/s5gJc4IPH9tGG0NMkgYOTqk1l/A5nm8KgAntf7Y=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=nAylXtNuvtLCgTprL6JUXb3X+iUXwysNOW67eGpTuX7+BxblmamIOnNrbTFBl7OzeAgldwo+L/P/t8SD8OmhB1A+r2++0YAr89WGZpMOLsVIR/uQ8JOOmYDGaJhR6gOzO1YFJwdx8hC21ZGJEpOzRgP+JsbQuvHD/XMeER4EJ2k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Nu2im9HE; arc=none smtp.client-ip=209.85.216.54
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1791198267; c=relaxed/simple;
+	bh=e4dNFIIBwW2SBYgRBr6LP1nUNRfmiCEqpc3qgBS8R64=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=f/sTDc0eV6OdVbnSD6EZwiaVK20/KKe5lTkwSqTXcRHZj8Xl5EyHHSTDTVISpKfvdUcNv6/kvlF5h4LMg2v1tdqKTSVErLYLqDeMPr/J0wC3sRulmNfFgrY471v6/RfmoErWJLfuMsWvFeTEkbAyuY7lYnPnOcjsHby+R6fSmgo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=OVPLN6mm; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Nu2im9HE"
-Received: by mail-pj1-f54.google.com with SMTP id 98e67ed59e1d1-3a7cfe8f761so309094a91.1
-        for <linux-kernel@vger.kernel.org>; Mon, 05 Oct 2026 04:04:23 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791198262; x=1791803062; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=yhIzfLC5gjj745ZZDgOhdg5fEWiTou40MIcz5JgYdEA=;
-        b=Nu2im9HEk7OwLZtTm7ZK6yPeNE3hofjmg2B3aiN+2E9HXT2RGoC1agQffQGE+1QCqz
-         5j3GVTJfHxr0Z2aY3/JYLGKL5LFDImgBEAobkuHZd7LhoY2DPrMtYYiKprjU/q+a18JB
-         k0zrlZrRQJTpjarkcEwRe0htBVlHPOH5RJmtP07cCuAd5pHVdyixh8a+eFPncKxQgp3F
-         R+0MUXtAxyzXZ0YJdwhKamAgow8wugn46+P5AoS6sDN0KB5YDw13xO6gHU9VH9U0iQQn
-         Ylvl53EX17Sy+arL0aElMMT3X9ob4djHT2afQsh5MUUflPd8wJ31JCTJn7LxjusdvDfX
-         G7Ig==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791198262; x=1791803062;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=yhIzfLC5gjj745ZZDgOhdg5fEWiTou40MIcz5JgYdEA=;
-        b=FdxHpU6JOEsYmqOWoSNFEnctwNExgi4o0Gqw+wM7ybTzgKxnKL0Tfvxms+FpkO2DqU
-         K/OFpt4H0PukYm/M/ReigcflItQD8+pQoRScy12uBe8RkMJ+lhcOZKCO/1uFUKXKslGT
-         7XF+dCsCzM0h7k8MOncWhPDDHajqVU4QapOqwuh/RpJ14xlvkE2kEKGAE19gFTLc1eIg
-         AHFw66ZuBMsr1OE49cAKgXDAnUUR9XIJ8M2ZmIl/mXWZ0zxpn03Ocm1cnLy+SogLApDe
-         SsZrUcpXywe6HsvB4nXYKeDtZ9xSBR/uWcNlHZcVklEjRttaEboppechMe9vcEs54Pc+
-         +OgA==
-X-Forwarded-Encrypted: i=1; AKwUvBy9eTSl96poazig/AvVuVnT2hxEYeWJEaGB9/tv5afe0IS12itepd26hUvKJb4oIzQHtdyXYZ3/Y6oRFEo=@vger.kernel.org
-X-Gm-Message-State: AFuF++l6vlMl7NNuERXNku1YoWM5JAONhkx6/XOUOUQshgBjtbDCShyw
-	gZ0WBoZJQ0yqKatgPv76jTdME1f3JPlCfV2xpjEKixXCdfBHqN9kHwRM
-X-Gm-Gg: AYBFou3kUoLgu6uBV5h78RQjjmJnqb824sX2heiXWxq6CgFIfNUFHeo9hLNQFDk/DVL
-	MsUGr62PGGjLPhEqgOLweSyV0ydBqopy719OFbaVD9YVMJIa4GL1liQdb4b0SLUoqS0zwqPDw2X
-	FbY59DnRHJtA+2AjEp+AbsY8EZGg38fBcwJEWECtLLr82orsCL+fswCTOhpGiv50OWbdx6oYFXk
-	hwKhXXRvxr/rRg9acj58DGhyGn89kyjUIC/7w4Rq6h7LVfmeZU8D4aHAfeyHjrgORfYhX8dxPfK
-	DDgG+D5TblaL8h+s3ERgMlFzY5D778Ol0sTPOX8vDf8obseW7d5r4zLCO3uhY14mZrYNCBE0aEI
-	VXXx0Ex7w9Lw4VRW2drJ2Z5aUlg+xyN2abyKwlTRYDNPhh03ofkPQPtzBYFzi48Vc2DzHsx4dlT
-	BMh38tU11mMHKotVP6JTIztkDdo2/AWIBWI99kNSoKuMrBKlA/4l8sKukvZq253KK2vhoRwqRRP
-	62o51ZOCiptURDgnkTXQV6OvvRMrWjZSdnREbLRkQk0U4xF+HfwKPBUqcdaQOCGKWYvyg9uw0NV
-	+DCN2lVka5Z7RQ==
-X-Received: by 2002:a05:6300:68cb:20b0:3df:f477:1e19 with SMTP id adf61e73a8af0-3dff47726f0mr5590214637.48.1791198262474;
-        Mon, 05 Oct 2026 04:04:22 -0700 (PDT)
-Received: from phuc-desktop.. ([183.91.15.56])
-        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cce6d334de5sm626498a12.11.2026.10.05.04.04.18
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 05 Oct 2026 04:04:22 -0700 (PDT)
-From: phucduc.bui@gmail.com
-To: Mark Brown <broonie@kernel.org>,
-	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
-	Trevor Wu <trevor.wu@mediatek.com>
-Cc: Liam Girdwood <lgirdwood@gmail.com>,
-	Matthias Brugger <matthias.bgg@gmail.com>,
-	Jaroslav Kysela <perex@perex.cz>,
-	Takashi Iwai <tiwai@suse.com>,
-	Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
-	cassiogabrielcontato@gmail.com,
-	Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>,
-	Liviu Dudau <liviu.dudau@arm.com>,
-	Haotian Zhang <vulab@iscas.ac.cn>,
-	HariKrishna Sagala <hariconscious@gmail.com>,
-	linux-sound@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-mediatek@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	bui duc phuc <phucduc.bui@gmail.com>
-Subject: [PATCH v2 14/14] ASoC: mediatek: mt8195: Fix clock parent error handling
-Date: Mon,  5 Oct 2026 18:02:57 +0700
-Message-ID: <20261005110257.50145-15-phucduc.bui@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261005110257.50145-1-phucduc.bui@gmail.com>
-References: <20261005110257.50145-1-phucduc.bui@gmail.com>
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="OVPLN6mm"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 851D2152B;
+	Mon,  5 Oct 2026 04:04:20 -0700 (PDT)
+Received: from [10.57.78.53] (unknown [10.57.78.53])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id EC99C3F86F;
+	Mon,  5 Oct 2026 04:04:21 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1791198263; bh=e4dNFIIBwW2SBYgRBr6LP1nUNRfmiCEqpc3qgBS8R64=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=OVPLN6mmqOmadMBjO8ux8PZGnbIDuJNoxPQESwPIShR+iIGKy5/cxy4aCb0xloUa0
+	 QP1ct2/mDKSaZtC97b1C/NorqZSMaQhPhD2+zoasrVrg1XfS9Kk3NDc+w7rxxKJcEu
+	 1Em+bPodTTZIU7i1ax6RNuCVYUh6hVawXa+q8Drc=
+Message-ID: <90a8627d-a5d4-4c8e-bf64-433f86cea370@arm.com>
+Date: Mon, 5 Oct 2026 11:50:00 +0100
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 3/5] drm/panthor: Consolidate the is-huge-page-mapping
+ test
+To: Boris Brezillon <boris.brezillon@collabora.com>,
+ Liviu Dudau <liviu.dudau@arm.com>,
+ =?UTF-8?Q?Adri=C3=A1n_Larumbe?= <adrian.larumbe@collabora.com>,
+ Akash Goel <akash.goel@arm.com>
+Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+References: <20260924-panthor-fix-partial-unmap-v2-0-59a68a1f9e14@collabora.com>
+ <20260924-panthor-fix-partial-unmap-v2-3-59a68a1f9e14@collabora.com>
+From: Steven Price <steven.price@arm.com>
+Content-Language: en-GB
+In-Reply-To: <20260924-panthor-fix-partial-unmap-v2-3-59a68a1f9e14@collabora.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-From: bui duc phuc <phucduc.bui@gmail.com>
+On 24/09/2026 12:04, Boris Brezillon wrote:
+> Right now the logic to determine whether a given VA in the drm_gpuva
+> being unmapped is a huge page mapping or not is scattered
+> in two functions: unmap_hugepage_align() and
+> iova_mapped_as_huge_page(). This makes it harder to reason about the
+> logic being implemented for very little gain (some simple checks being
+> done twice), so let's consolidate all the checks related to huge page
+> mapping testing in iova_mapped_as_huge_page() and leave
+> unmap_hugepage_align() as a simple user of this helper that aligns the
+> area to unmap based on the return of iova_mapped_as_huge_page().
+> 
+> Reviewed-by: Liviu Dudau <liviu.dudau@arm.com>
+> Reviewed-by: Akash Goel <akash.goel@arm.com>
+> Signed-off-by: Boris Brezillon <boris.brezillon@collabora.com>
 
-Propagate the error returned by mt8195_afe_set_clk_parent() instead of
-ignoring it.
+Reviewed-by: Steven Price <steven.price@arm.com>
 
-This allows clock parent configuration failures to be properly handled
-by the caller.
-
-Fixes: 3de3eba588bb ("ASoC: mediatek: mt8195: support adda in platform driver")
-Signed-off-by: bui duc phuc <phucduc.bui@gmail.com>
----
- sound/soc/mediatek/mt8195/mt8195-dai-adda.c | 3 +--
- 1 file changed, 1 insertion(+), 2 deletions(-)
-
-diff --git a/sound/soc/mediatek/mt8195/mt8195-dai-adda.c b/sound/soc/mediatek/mt8195/mt8195-dai-adda.c
-index 94abde15ea09..8a58a142064d 100644
---- a/sound/soc/mediatek/mt8195/mt8195-dai-adda.c
-+++ b/sound/soc/mediatek/mt8195/mt8195-dai-adda.c
-@@ -262,9 +262,8 @@ static int mtk_audio_hires_event(struct snd_soc_dapm_widget *w,
- 	default:
- 		return 0;
- 	}
--	mt8195_afe_set_clk_parent(afe, clk, clk_parent);
- 
--	return 0;
-+	return mt8195_afe_set_clk_parent(afe, clk, clk_parent);
- }
- 
- static struct mtk_dai_adda_priv *get_adda_priv_by_name(struct mtk_base_afe *afe,
--- 
-2.43.0
+> ---
+>  drivers/gpu/drm/panthor/panthor_mmu.c | 57 +++++++++++++++++------------------
+>  1 file changed, 28 insertions(+), 29 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/panthor/panthor_mmu.c b/drivers/gpu/drm/panthor/panthor_mmu.c
+> index 6cef954e2cba..d2897099763e 100644
+> --- a/drivers/gpu/drm/panthor/panthor_mmu.c
+> +++ b/drivers/gpu/drm/panthor/panthor_mmu.c
+> @@ -2301,10 +2301,11 @@ iova_mapped_as_huge_page(struct drm_gpuva *mapping, u64 va)
+>  	u64 aligned_va = ALIGN_DOWN(va, SZ_2M);
+>  	pgoff_t bo_offset;
+>  
+> -	/* If the 2M-aligned VA is outside the mapping being tested, we know
+> -	 * it's not a huge map.
+> +	/* If the 2M section being tested is crossing the mapping boundary
+> +	 * we know it's not a huge map.
+>  	 */
+> -	if (aligned_va < mapping->va.addr)
+> +	if (aligned_va < mapping->va.addr ||
+> +	    aligned_va + SZ_2M > mapping->va.addr + mapping->va.range)
+>  		return false;
+>  
+>  	bo_offset = aligned_va - mapping->va.addr + mapping->gem.offset;
+> @@ -2337,10 +2338,21 @@ iova_mapped_as_huge_page(struct drm_gpuva *mapping, u64 va)
+>  		return false;
+>  	} else {
+>  		const struct page *pg = bo->backing.pages[bo_offset >> PAGE_SHIFT];
+> +		struct panthor_vma *vma = container_of(mapping, struct panthor_vma, base);
+> +		bool is_sparse = vma->flags & DRM_PANTHOR_VM_BIND_OP_MAP_SPARSE;
+>  
+> -		/* In case of shmem backing, we know we can only have a huge mapping
+> -		 * if the bo_offset is 2M aligned, meaning we can skip the folio size
+> -		 * check if it's not the case.
+> +		/* If the unmapped VMA stands for a sparse mapping, always
+> +		 * assume the backing storage is a THP, since the overhead of
+> +		 * unmapping 2MiB worth of 4KiB pages and remapping some of
+> +		 * them is offset by the logic of working out whether it's
+> +		 * the opposite case right below.
+> +		 */
+> +		if (is_sparse)
+> +			return true;
+> +
+> +		/* In case of shmem backing, we know we can only have a huge
+> +		 * mapping if the bo_offset is 2M aligned, meaning we can skip
+> +		 * the folio size check if it's not the case.
+>  		 */
+>  		if (!IS_ALIGNED(bo_offset, SZ_2M))
+>  			return false;
+> @@ -2353,36 +2365,23 @@ static void
+>  unmap_hugepage_align(const struct drm_gpuva_op_remap *op,
+>  		     u64 *unmap_start, u64 *unmap_range)
+>  {
+> -	struct panthor_vma *unmap_vma = container_of(op->unmap->va, struct panthor_vma, base);
+> -	bool is_sparse = unmap_vma->flags & DRM_PANTHOR_VM_BIND_OP_MAP_SPARSE;
+> -	u64 aligned_unmap_start, aligned_unmap_end, unmap_end;
+> -
+> -	unmap_end = *unmap_start + *unmap_range;
+> -	aligned_unmap_start = ALIGN_DOWN(*unmap_start, SZ_2M);
+> -	aligned_unmap_end = ALIGN(unmap_end, SZ_2M);
+> +	u64 unmap_end = *unmap_start + *unmap_range;
+>  
+>  	/* If we're dealing with a huge page, make sure the unmap region is
+> -	 * aligned on the start of the page. If the unmapped VMA stands for
+> -	 * a sparse mapping, always assume the backing storage is a THP, since
+> -	 * the overhead of unmapping 2MiB worth of 4KiB pages and remapping
+> -	 * some of them is offset by the logic of working out whether it's
+> -	 * the opposite case right below. This also holds true for op->next.
+> +	 * aligned on the start of the page.
+>  	 */
+> -	if (op->prev && aligned_unmap_start < *unmap_start &&
+> -	    op->prev->va.addr <= aligned_unmap_start &&
+> -	    (is_sparse || iova_mapped_as_huge_page(op->unmap->va, *unmap_start))) {
+> -		*unmap_range += *unmap_start - aligned_unmap_start;
+> -		*unmap_start = aligned_unmap_start;
+> -	}
+> +	if (op->prev && !IS_ALIGNED(*unmap_start, SZ_2M) &&
+> +	    iova_mapped_as_huge_page(op->unmap->va, *unmap_start))
+> +		*unmap_start = ALIGN_DOWN(*unmap_start, SZ_2M);
+>  
+>  	/* If we're dealing with a huge page, make sure the unmap region is
+>  	 * aligned on the end of the page.
+>  	 */
+> -	if (op->next && aligned_unmap_end > unmap_end &&
+> -	    op->next->va.addr + op->next->va.range >= aligned_unmap_end &&
+> -	    (is_sparse || iova_mapped_as_huge_page(op->unmap->va, unmap_end - 1))) {
+> -		*unmap_range += aligned_unmap_end - unmap_end;
+> -	}
+> +	if (op->next && !IS_ALIGNED(unmap_end, SZ_2M) &&
+> +	    iova_mapped_as_huge_page(op->unmap->va, unmap_end - 1))
+> +		unmap_end = ALIGN(unmap_end, SZ_2M);
+> +
+> +	*unmap_range = unmap_end - *unmap_start;
+>  }
+>  
+>  static int panthor_gpuva_sm_step_remap(struct drm_gpuva_op *op,
+> 
 
