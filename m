@@ -1,173 +1,110 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from smtp-relay-internal-1.canonical.com (smtp-relay-internal-1.canonical.com [185.125.188.123])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 57F6B154425;
-	Mon,  5 Oct 2026 02:17:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 812FC221DAE
+	for <linux-kernel@vger.kernel.org>; Mon,  5 Oct 2026 02:19:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.125.188.123
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791166663; cv=none; b=cnW6cmH9O9C0AMpkOdWmOFZxQx/mnEptP9pEfSuTgzKZksH71De+tZUw1BhiOZOAcrVNALyuUxACcWc3Np1CRO9EMIQBn8I7K5XJ7BbAPrPaRtw/8tYnIeE5kfxT9AeBGuCa5MTv63NLENUp1Vi5Fma8H/ggWCXnAvPqwX/WY7U=
+	t=1791166759; cv=none; b=emdC1BqfcIWzIuh3ixnIJsxgPKzElbogZqlIb8rpg0NqAIgPViAGzw4DAqh4O5/KY88WW3KIj1Crp5Cefcw2LJUZJJDv8kNewTJWfkCg8BOGZSnTdImUl//A1D8KA5I8MqZIx5JlhzYU5JpLVMFdbzp5wUjJ12M+fS55m6DJrLs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791166663; c=relaxed/simple;
-	bh=ylS8TTzsyrZM1GQKOw7m7unyXnN+OPv6+bY0H7Z7XjU=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=e5HdUB7ZmAjmi7lKxB3uJhOuRnMInxRpLLs9YLQB89pvVBjUXLTmDKtJvT8gwossuZBQbuVdhPNXiKCH7vPXC/5YYFCRxEvGluRVIMs8hRVfjiaYG2b4xXTCgWONpVMuFIt+FMkJhWsTZ1HjHZyWDsUj3ODKS6vjPpkWoPuoKUk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=UIbA6BcF; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791166759; c=relaxed/simple;
+	bh=DoZx4B6mVqtoKkjnxisQ7+qRK/tLflDwfpXl0AImRps=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=O1BEWLEFHDxhJsHBHv1DN93xlAB4v9mYuLU9HN64f8LQrHulN4cpzPftz20Nl5wWOieW4kzcX1f24xTkOMTVSYOqKKM/U8vpjSWCRCPf9agteV+YDZtY147N+U5n0h9ykumaZa6o4vcqIWgxJK83m/0y4H19P7kC7HuSGHKE3Cg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=canonical.com; spf=pass smtp.mailfrom=canonical.com; dkim=pass (4096-bit key) header.d=canonical.com header.i=@canonical.com header.b=qk2SVn+y; arc=none smtp.client-ip=185.125.188.123
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=canonical.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=canonical.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="UIbA6BcF"
-Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id 5F8411F000FF;
-	Mon,  5 Oct 2026 02:17:41 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791166661;
-	bh=YODgHxeSs/DUqBefSwV60XuzUgb+9/IYbG0yXc4NXV8=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=UIbA6BcFA7VhilW1+zO1fYqVop+Yxbyqyby1oAuBepvwk0gqeYnv8y4I0eYyYkFsY
-	 ZLQIOAS6wLqn/obMkimWDnTFHWtFe078NNo0HHz+UoBX6KE6qw7oyoY3nwr7zLfQgw
-	 GU0pAQ2YvpAE6UFE/68oDMC2oU67rxzGzrgcTJdZOtGxMCiHYJzu1SiO+BExQlO+tN
-	 0yCmKSj5zoGrgoaLBIgRhExZbhrPyI3bDNyEZ5ydIyXoA5t6iB8f+FsIJiVHANjHkX
-	 7W3MvJ/RQGSC8NF2Fqz5AYJzNsHR1658FvWL4fxsbHusTXiqUzPATq5+T3raCoMQ7/
-	 NTJG1bU8pSDuQ==
-Date: Mon, 5 Oct 2026 05:17:38 +0300
-From: Jarkko Sakkinen <jarkko@kernel.org>
-To: Chengfeng Ye <nicoyip.dev@gmail.com>
-Cc: David Howells <dhowells@redhat.com>, Paul Moore <paul@paul-moore.com>,
-	James Morris <jmorris@namei.org>,
-	"Serge E . Hallyn" <serge@hallyn.com>, keyrings@vger.kernel.org,
-	linux-security-module@vger.kernel.org, linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH v3 2/2] keys: Serialize ownership transfers with key
- accounting
-Message-ID: <asMIwpXXWQaD3gAD@kernel.org>
-References: <20260927162528.943886-1-nicoyip.dev@gmail.com>
- <20260927162528.943886-3-nicoyip.dev@gmail.com>
+	dkim=pass (4096-bit key) header.d=canonical.com header.i=@canonical.com header.b="qk2SVn+y"
+Received: from mail-pj1-f69.google.com (mail-pj1-f69.google.com [209.85.216.69])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-relay-internal-1.canonical.com (Postfix) with ESMTPS id B35AE3F1DA
+	for <linux-kernel@vger.kernel.org>; Mon,  5 Oct 2026 02:19:14 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=canonical.com;
+	s=20251003; t=1791166754;
+	bh=DoZx4B6mVqtoKkjnxisQ7+qRK/tLflDwfpXl0AImRps=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version;
+	b=qk2SVn+yPZ9Ku0HCQ+Xj9xPJKx53xwIg1SipSUnJGm5JR5+vStekkELa0sAIHsH8w
+	 vhFTeLZLz99hQq9+nNYV29aftKirdNQXTZr9LJJy8//lujqNQHTsRlIKBparhcDZAz
+	 9R6wXKSmmxAWHC5r3lPapdWNwlXbaLM4QhEuokGIk9SgNW1G7pl55rqc7AzKfboAaE
+	 xpMNIQFwSoIjRaTC0yspc+orR8r6Zm3+FWT26QA8l9sHjGwVm7wEJcgEX0J8UvVmr6
+	 JTMEU8jU+1Tl4kHiQS3/8zfBfcFV6MI/qBY7sJsvfykWhv1gfDkxxl6Lybc101n4la
+	 Ero4l3PJer8svASw2faTcaoQp1iEJtoiqRWinyeyQeBihHgn9nOgyntbzB+GxEWOFc
+	 RKkqMypQHscLe+XCWpHs+115HmdGosFbrcMa0N3f43XZO0seYFWKnBYQCjqYSoO9Ck
+	 v2dMibP9nEHVzUZ6iDVBNLkArjkyh24dfVCBpHJh2Zr2bCYH06vsGbo+24CDRvAM8j
+	 QE4bKZk8Xd3b+nDp6Dw3cTQ8bLlihYB7SpBiPacLdXq2VJla92MruUhxc5zwiXe6df
+	 c3VfyNoe9x1bW+LvR5/9JxBZL6hV/jSwYkj0EFWw/XyXFQr1Ow6sCTF8446p74/B7U
+	 KIT53pFkkbYJmnfh/Sdvp9fE=
+Received: by mail-pj1-f69.google.com with SMTP id 98e67ed59e1d1-3a70af6c365so1049457a91.0
+        for <linux-kernel@vger.kernel.org>; Sun, 04 Oct 2026 19:19:14 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791166753; x=1791771553;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=DoZx4B6mVqtoKkjnxisQ7+qRK/tLflDwfpXl0AImRps=;
+        b=qdJTD7tcgqc5qAQglPmdkxya6Ud+rNyiwWlkw0RzVT5y5ZFkl+EPBxaPuATHPj0mHS
+         R+SvTHlFaTTBEl4HOK6hetsf9X51bdbtsVEV9EK51G4FbFZFnXfFF0w3CAJyC/cg+Zh1
+         UK9iZVXY3OfAmBNbdJXeyx9Au2KYCNIJpNRdAzmSo7MdlYAEgLU9xHKa1kwVOnoH5iXc
+         2W4gk6ZxNwZfSzyUJ/zlxZK1n6s4McDiS6QOmur9olp/KWTkpYS0KzhaYM4V1Vm4TNKX
+         HwOHaU66UNJCzFwhNrYZBXr8HcldOuW41lrCvLOL1lg/AxXqLhijbgWjKJfmLNRtw+65
+         RIdg==
+X-Forwarded-Encrypted: i=1; AKwUvBwRv1Y+edMUk+sry6HhY74c2ZxpHewUvnjsH4U8Z3VHVWw47KC397LOicjO+2ELDWlpTc8ta9XqyyfQYak=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJekI95JSDYpVvn4iRxI2BhFX1ZNqvh9WBgYDeX1uChV9IpcqM4
+	6yHBkBnNn5Ht/Bda4+DkeJsRFcS9675wJvrtYyA9qLsD2fQHJA0FPidFVy8asYy4NUgtEE8Mg/r
+	f/jnmwcaF0h+C3RhSrDwrrzJ+OJ4N2E9NS+nAW24ntE/q+RhjbuQNqDV87xVyUSerYxrcY7jBVd
+	xxAo078w==
+X-Gm-Gg: AYBFou3yHnlSLXWcvhdJ2LWPaJ8T+FoH+pzFxeLQFEVBgWQ2w8xDh6ObunLCJBpOqVV
+	opyLfVDvIZqQUXAPaAaFBsSroYurvAyjwMTZE6IUjwDF0BbUjZ8Zm1mEbrerF9AaxEPO8RvqZHi
+	t9VlZrt6Ps5P40jPFPxIBFhU3lwMOO4YHywfWMHvs0JnVbWPowg5YzFXVa5b06Btzc9ntDOvxe6
+	z+/Cl7FxaHpnh+PeGOf4M/fPXGBTPN9M54/stc2R+G0Xn1CEAYJSgdYiSrXNIbtAeNGZF8YJjhW
+	bg7InFupYjlmhCvs/YoEyxkdst2MRMqGGxacEJoIFkW77eIqF7Zf/a0GqBijIBw06Zq/jCf636u
+	5PHRS8n4xew==
+X-Received: by 2002:a17:90b:4a10:b0:3a8:878:ebbd with SMTP id 98e67ed59e1d1-3a808796209mr1050589a91.32.1791166752740;
+        Sun, 04 Oct 2026 19:19:12 -0700 (PDT)
+X-Received: by 2002:a17:90b:4a10:b0:3a8:878:ebbd with SMTP id 98e67ed59e1d1-3a808796209mr1050569a91.32.1791166752352;
+        Sun, 04 Oct 2026 19:19:12 -0700 (PDT)
+Received: from ZBook.gateway ([123.208.39.53])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a78d7c64b1sm9637087a91.14.2026.10.04.19.19.08
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 04 Oct 2026 19:19:11 -0700 (PDT)
+From: Changwei Zou <changwei.zou@canonical.com>
+To: sahil.malhotra@oss.nxp.com
+Cc: changwei.zou@canonical.com,
+	davem@davemloft.net,
+	gaurav.jain@nxp.com,
+	herbert@gondor.apana.org.au,
+	horia.geanta@nxp.com,
+	martin.kepplinger-novakovic@ginzinger.com,
+	linux-crypto@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	lukas@wunner.de,
+	pankaj.gupta@nxp.com
+Subject: Re: [EXT] [PATCH 1/2] crypto: caam - Fix wrong unmap operations
+Date: Mon,  5 Oct 2026 13:19:05 +1100
+Message-ID: <20261005021905.11732-1-changwei.zou@canonical.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <DB9PR04MB8139513BA24CDF15DDC44B8D828C2@DB9PR04MB8139.eurprd04.prod.outlook.com>
+References: <DB9PR04MB8139513BA24CDF15DDC44B8D828C2@DB9PR04MB8139.eurprd04.prod.outlook.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260927162528.943886-3-nicoyip.dev@gmail.com>
+Content-Transfer-Encoding: 8bit
 
-On Mon, Sep 28, 2026 at 12:25:28AM +0800, Chengfeng Ye wrote:
-> Protecting individual accesses to key->user does not make ownership
-> transfers atomic with accounting updates. keyctl_chown_key() holds
-> key->sem, but instantiation is serialized by key_construction_mutex and
-> need not hold that semaphore. KEY_LOOKUP_PARTIAL also permits chown of
-> an uninstantiated key.
-> 
-> The instantiated-key count can therefore be charged to the wrong owner:
-> 
->   instantiate                       keyctl_chown_key()
->   lock key_user_lock
->   increment old->nikeys
->   unlock key_user_lock
->                                     observe KEY_IS_UNINSTANTIATED
->                                     skip the nikeys transfer
->                                     replace key->user
->   mark key instantiated
-> 
-> The key becomes instantiated under the new owner while the increment
-> remains with the old owner. Negative instantiation has the same race.
-> 
-> Quota reservation can likewise run between charging the new owner and
-> replacing key->user. It then adjusts the old owner's quota and changes
-> key->quotalen while chown is transferring that quota burden.
-> 
-> Extend the key_user_lock critical section in keyctl_chown_key() across
-> the quota and key-count transfers, state check, and owner replacement.
-> Also extend the instantiation critical sections across the state update,
-> so chown observes the count increment and instantiated state together.
-> The existing per-user quota locks continue to serialize quota changes
-> against other keys owned by the same user.
-> 
-> Keep allocations, notifications and reference release outside
-> key_user_lock, and release it on the quota-overrun path.
-> 
-> Fixes: 5801649d8b83 ("[PATCH] keys: let keyctl_chown() change a key's owner")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Chengfeng Ye <nicoyip.dev@gmail.com>
-> ---
-> Changes in v3:
-> - Split from v2 as patch 2/2; see the cover letter for the full split.
-> - Rebase onto current mainline and retain explicit reader-side locking.
-> 
-> v2: https://lore.kernel.org/r/20260904080940.575882-1-nicoyip.dev@gmail.com/
-> 
->  security/keys/key.c    | 4 ++--
->  security/keys/keyctl.c | 6 ++++--
->  2 files changed, 6 insertions(+), 4 deletions(-)
-> 
-> diff --git a/security/keys/key.c b/security/keys/key.c
-> index d0d583194b05..54c675b3b58d 100644
-> --- a/security/keys/key.c
-> +++ b/security/keys/key.c
-> @@ -454,8 +454,8 @@ static int __key_instantiate_and_link(struct key *key,
->  			/* mark the key as being instantiated */
->  			spin_lock(&key_user_lock);
->  			atomic_inc(&key->user->nikeys);
-> -			spin_unlock(&key_user_lock);
->  			mark_key_instantiated(key, 0);
-> +			spin_unlock(&key_user_lock);
->  			notify_key(key, NOTIFY_KEY_INSTANTIATED, 0);
->  
->  			if (test_and_clear_bit(KEY_FLAG_USER_CONSTRUCT, &key->flags))
-> @@ -613,8 +613,8 @@ int key_reject_and_link(struct key *key,
->  		/* mark the key as being negatively instantiated */
->  		spin_lock(&key_user_lock);
->  		atomic_inc(&key->user->nikeys);
-> -		spin_unlock(&key_user_lock);
->  		mark_key_instantiated(key, -error);
-> +		spin_unlock(&key_user_lock);
->  		notify_key(key, NOTIFY_KEY_INSTANTIATED, -error);
->  		key_set_expiry(key, ktime_get_real_seconds() + timeout);
->  
-> diff --git a/security/keys/keyctl.c b/security/keys/keyctl.c
-> index c17924609317..83a9575b084e 100644
-> --- a/security/keys/keyctl.c
-> +++ b/security/keys/keyctl.c
-> @@ -1004,6 +1004,8 @@ long keyctl_chown_key(key_serial_t id, uid_t user, gid_t group)
->  		if (!newowner)
->  			goto error_put;
->  
-> +		spin_lock(&key_user_lock);
-> +
->  		/* transfer the quota burden to the new user */
->  		if (test_bit(KEY_FLAG_IN_QUOTA, &key->flags)) {
->  			unsigned maxkeys = uid_eq(uid, GLOBAL_ROOT_UID) ?
-> @@ -1036,11 +1038,10 @@ long keyctl_chown_key(key_serial_t id, uid_t user, gid_t group)
->  			atomic_inc(&newowner->nikeys);
->  		}
->  
-> -		spin_lock(&key_user_lock);
->  		zapowner = key->user;
->  		key->user = newowner;
-> -		spin_unlock(&key_user_lock);
->  		key->uid = uid;
-> +		spin_unlock(&key_user_lock);
->  	}
->  
->  	/* change the GID */
-> @@ -1060,6 +1061,7 @@ long keyctl_chown_key(key_serial_t id, uid_t user, gid_t group)
->  
->  quota_overrun:
->  	spin_unlock_irqrestore(&newowner->lock, flags);
-> +	spin_unlock(&key_user_lock);
->  	zapowner = newowner;
->  	ret = -EDQUOT;
->  	goto error_put;
-> -- 
-> 2.43.0
-> 
+Hi Sahil and Martin,
 
-I double-checked this patch too given the concerns on 1/2 but nope, this
-does not raise similar concerns as every critical section is strictly
-related to ownership change.
+Thank you very much.
 
-E.g., I can be sure that the granularity is where it should be and locks
-are actually needed in the first place.
+A new version (PATCH v2) is available at the following link.
 
-Thus, I'm still including this patch to my next PR, and drop the first
-one.
+https://lore.kernel.org/linux-crypto/20261004210200.290119-1-changwei.zou@canonical.com/
 
-Br, Jarkko
+Kind regards,
+Changwei
+
