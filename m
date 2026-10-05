@@ -1,70 +1,70 @@
-Received: from mail-yx2-f8.google.com (mail-yx2-f8.google.com [74.125.224.136])
+Received: from mail-yx2-f5.google.com (mail-yx2-f5.google.com [74.125.224.133])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 90FE24189B9
-	for <linux-kernel@vger.kernel.org>; Mon,  5 Oct 2026 08:47:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.224.136
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 39C61418A5E
+	for <linux-kernel@vger.kernel.org>; Mon,  5 Oct 2026 08:47:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.224.133
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791190037; cv=none; b=PewwGjTey8/cOYErFN8nOAD4T3nLvSPB6UVgUuT6FjUoZHuis/gloHW4zPUk2qZL34KGXwi2XMX7hAyVuX51uvzaMVZCbMXaQobAxT2v5AiPEjDdDs+kZHTRAAgtCSYNxJSgFp0UNgJ4bX9UFG6HVNVx1QLXtSJUzqAJyCWpGpk=
+	t=1791190034; cv=none; b=kDT0s3hM5dZVRhi7b7cPDODkedUzWLF0dpZZENMdbCTZtNEQLGe4W6vvjue2163OHRCHKNsFSx2k2zfiyDYJREVSGd7kI0VJIHcGkfXVpj4Mcpbu+DYeZ/6hK6uZbtpF0QwtJER6nygBXAzA0nG30OoX7px9L4dzDZ8QerOvh5g=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791190037; c=relaxed/simple;
-	bh=hlWXkLzfFKbZ3Rje739fg5OrVaMmBszukle3NRqBO/M=;
+	s=arc-20240116; t=1791190034; c=relaxed/simple;
+	bh=m7pLdrOPfwF87q9/Ir/y1Zf+fji3+S9XOpru/fdb2RQ=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=ZoljZayfiUuLBj/bU+EVM0ZxhEE1YHsRmQUT7v83CmY2X5N47xUu2auG5HEZOMzH6UVezQPTNn6+VNaitmaSQnjnt9C9rLOfJEa+a8EQMzF+duFKZ2SY/tUqW6WNVl++sv93Ok4JjQD2w0WY9WtveMpKDTeb1viQnkle/rFs0wc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=E6InATez; arc=none smtp.client-ip=74.125.224.136
+	 In-Reply-To:To:Cc; b=bWWEIg7HcI/l4VlStx1vv/SGWWAn1wPKxqqPNpn4qp60Idm2zI01mZmBlOgIOTTLbBhii3mGGd3FqJsu1J1i61+cqdxYl/ICkR3K84yy2M3Tw8bSz+Q/7qqpXG7Pkuh8c3rdT9MmWooPeirnVsapBmOgPbyKIKGxsFTDCH9yeIk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=iIQbdWg/; arc=none smtp.client-ip=74.125.224.133
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="E6InATez"
-Received: by mail-yx2-f8.google.com with SMTP id 956f58d0204a3-66d0f3138aeso475000d50.0
-        for <linux-kernel@vger.kernel.org>; Mon, 05 Oct 2026 01:47:14 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="iIQbdWg/"
+Received: by mail-yx2-f5.google.com with SMTP id 956f58d0204a3-677bd24a602so634187d50.1
+        for <linux-kernel@vger.kernel.org>; Mon, 05 Oct 2026 01:47:11 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791190033; x=1791794833; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1791190030; x=1791794830; darn=vger.kernel.org;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=3lOJYATF5GzgxnR6rvCgXN1lfrW7Tn1J/cuI+kptyHw=;
-        b=E6InATez3rTQNrTokb/g0seormlbBU24rLuI4cPTdhkz5yfXVLxW1MynaFp+piqO6H
-         6MFVDkDXoKHUA3+V5GRRFETjbUqsPGomQgpIkt5k3X3m8Iy+V3jfhLt1gqhB60ZjDvxv
-         oH4JXLtSGKsOUEksytUUW/pOHfBc94Qozu5s7S9/evxDOySUuWmPwReIF8CwMT/bCmJY
-         Xj3zVRYHeAuDYjf1lTrrKbdgRtMHfkSy185y0Pu9TBbfqfF5feny02UXLFBjWjuCXD9Y
-         no57tVP6B/m5iHUNDZziUsweWSloXkKSXndniseG6nH2P4aj+VUL0JCCk2e32Ex6WVbI
-         bk8g==
+        bh=Ibtzv9gb5AW2tmWxz49jNf8G/kwr2RKPf8pg9Ek0x80=;
+        b=iIQbdWg/Pu5yDNAZyuiPakP5ofaegD7RqAN0DnEq7IZ3JR2vT0rrCeyKVjcNXybuq2
+         d9JoAcJnpWr11fpPyP5vPiddwRIaBFkFExItnEBm40+9l7jti3NtXLJ11Z9ZKodqsQpB
+         d1I4Fr61EBBCGpBMhFVfI9k2pVhiLn+M+R0KGEnduR6HBCwodpzqcg+AT3n56QG9BgIp
+         93apLP1/cHVVkf4NVgneOFUwwawQEQQijT6vDfC7Tuqdw/L9oEdgteEutn1M3bzd22Bt
+         d1GRicu4IO1ZW2hSebnjdFuI+2R6XWi4HtotbToLJwzCMw/DCf98dgP4EBWdv9Z+HxLg
+         7+QA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791190033; x=1791794833;
+        d=1e100.net; s=20260707; t=1791190030; x=1791794830;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=3lOJYATF5GzgxnR6rvCgXN1lfrW7Tn1J/cuI+kptyHw=;
-        b=LmAhPnp0tTjNW35ylgKc4eQ5+S0uaKrL+HOjVBQnx9RCQA2KrKAjmSr2Yrvp4pPz+N
-         xifs0QbZH8kQD2Iul1cev0nwH62Zsah6ve/FFCnhXG+/mpG9qmGoF80RLgApZPXlCY45
-         e2/RshQXE7yYjQW2B34vJlp5umrEX7Fcx1d8QMLlcT0BuvqDfpaZbiIiPa8Pazbod1hS
-         0igaHRFxZpV+nUr1HUX91wUKHnro9Nuoh+yJXaDecd6uadlss+KwAeatz7byzHSIaO+l
-         WUPmPMTUdCGBO/up5HdFbQOiCQ4nTtOpgaJKfXQ54oPCYVSUUxtLOPdoFi3NLPPZpzaf
-         9hJA==
-X-Forwarded-Encrypted: i=1; AKwUvBxTrFRWPEJix3hJZw6jRQHBHc53EXy859Erl8v4nUzq9WCuBwrH/jqMcv4oHcdBWV0PbxXXH+UybYMpVEw=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIYOYAjSBnW5wLUkR50j/hJ8F0jxvztoAkBxbfI3XIs4I8pG7Vf
-	JwboyDpeaz8bNVzPz/94uJZt7/DRRUq/ux9Cg1lHwIhLg7sq4V7mOJY=
-X-Gm-Gg: AYBFou17po8znHkWXwGa3tocBBwQPEGZqnNjp2CIpIwsOP/nOd5yfNkSfF4KCwWKB8N
-	gAceIJYPt5IeTZTSyRGN4DSOR1gcizFapYebcAl02czsIBxkm0EzjWm1eyK1VfGaM8FHro0EOWs
-	HlYmHb3uX7k8l7xacF1++btklLo4HEznl+f5UkxffG5VrffCAHmBz0hE2cpnkLYhlyzgpCmgD2k
-	qpkldl07NIEmqAeQbg0ssiZKGChZOwbVGO11E9ttyfg1n2ZvbrV/BNdWfoReBmhkPildr8dE2wA
-	60DWpctoWgHtA0aL3h3SxeYPT6yH+l/TkvS7ZCx0cktjH145+sem5mLDZW+Un6EiIqZDtLA/lNO
-	0KCyLJyPmpeutycNkrRjDMbHIRopm0HfyWU7g7RldzWBlebWB/ANcMElcYQLf25eFP3ei43mFDs
-	P8nir2e/w1KzL2mA3i9lHrH+oBSz0oSOY5ClRwC6p7XYHX3w309M8wBZD9oKTFmI1MMNaVyEQ/y
-	/SxrESjQSGh8w6STq1NoBGqOGwPKS1UO4uS2WW9ZQ45Vvv03/6agC2eGAiCJ4f+9Y5dZ/E13/X5
-	hnKfugcEXki1GkH+EJcQ9SwhE/f2nUTVrA==
-X-Received: by 2002:a05:690e:12c2:b0:677:afe7:1f98 with SMTP id 956f58d0204a3-677bd3e2c84mr2661304d50.83.1791190033376;
-        Mon, 05 Oct 2026 01:47:13 -0700 (PDT)
+        bh=Ibtzv9gb5AW2tmWxz49jNf8G/kwr2RKPf8pg9Ek0x80=;
+        b=WJeoTx+Eel2nMfhVfow559fIGOOc0s29h5r2XlDI7+TClIqssVBQ4WXvIY+ab+ELSm
+         xN6UqFqbkukXJQk8dvzWY+6OApOI9d7qAsWGZ1TWmNlnzeaJ6CczZj9+dYtZtb6yJFCn
+         ewE+n9p0dkJO11XfY78IasMosrxiluwHxMFYMBXBEHXwOq80z+MrXvUDcI68iv+Oeme2
+         eG+1HXvon9/cJUaNCdq9FApnXIISqKSxvo7PBiRwt3AzhqfdteI6sLvKjjw1QbdU4hFm
+         O+h+SYVj9HdfaviE00V74AL6cGIED/PY3maHww0b2z++oYl1nJZxy0Bh0p1D9LXI+OB/
+         7/cw==
+X-Forwarded-Encrypted: i=1; AKwUvBzzyW1kC2Qp5aFiOGhIZx6ImPqYPM8Z8IXeJv3aJ/AWHgcw3ijlW3N8BUuB/YTg12m0+aXM12kRi6e5o1o=@vger.kernel.org
+X-Gm-Message-State: AFq9FYL+JLTGFL1IO/woeV5inI0VvFIeTsFdHDV/8Z3UIX4P+7RdZmlx
+	mby4NGLHWD+eVZhVReXFQaYG/u+qYkEoqfITxbIkN7pRZ9oJEnNuVCk=
+X-Gm-Gg: AYBFou2I6KO6dP7tlT6L73Nc0CGEDc2A2aPOZGo+D2Ng3ivOoT/gyNmzzN/u2Rte1lk
+	Y36gnDDuS5t39VjpHeBniMuBQgA9wI3H6keFUuqz3ELGbxXOo6ioqMq1KntH2VUyj6zdlVka/mI
+	7rQ9gjKl9uM0Alukt24hqugWLfR6VeJ/pXZs1UEr7SA2aSDj7JbSmuE9P3eij9vl08Ea03DoW7E
+	lhD8pHq+FkHcbpGDKkKgLn/OLA1c6rBqOG4G3pTqRMGx7WkuEaI9U16ZMVS4lpngfo9+qA68t+4
+	ickKKSwsIHjQikXIh7eg7T0ek+mb1MTspQcjiQGtn1kWFqI/Do7+naqwyFWTzfAvvsnh7lmpulL
+	dhtzNPDb9Vj/oBsRLtB4nNRJIc+uq3vxobyZS2j/94Oa304QLO7WocrsPQB7XXWXBCFyDmX4u37
+	Q7/o8lUHnavf0mQ3EZWWJYX+QDMt9jl1lPstRv7f1SvzQ8TmtaMDi7JOMu//HtZEt2s5vpT2uma
+	5q+p/YC5Ohi4ZX1v4MrSXCIlC5U6Wfjfb9Dwf+0UYfPF7h31atwY0XFHO3p1hPR1BACkpaWiH+3
+	cgaT/ik/ae+mthi2fJPtacK79b5wKL7vXBOUmTYnKAJ5DQ==
+X-Received: by 2002:a05:690e:d07:b0:677:d034:899a with SMTP id 956f58d0204a3-677d034b44emr1253856d50.93.1791190030013;
+        Mon, 05 Oct 2026 01:47:10 -0700 (PDT)
 Received: from 1.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.ip6.arpa ([2600:1700:4577:1050:1149:2fcd:c86b:8747])
-        by smtp.gmail.com with ESMTPSA id 956f58d0204a3-677c1b9c895sm2346306d50.13.2026.10.05.01.47.10
+        by smtp.gmail.com with ESMTPSA id 956f58d0204a3-677c1b9c895sm2346306d50.13.2026.10.05.01.47.07
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 05 Oct 2026 01:47:12 -0700 (PDT)
+        Mon, 05 Oct 2026 01:47:09 -0700 (PDT)
 From: Ravi Jonnalagadda <ravis.opensrc@gmail.com>
-Date: Mon, 05 Oct 2026 01:46:52 -0700
-Subject: [RFC PATCH v4 8/9] mm/damon/core: cap the region merge threshold
- per target
+Date: Mon, 05 Oct 2026 01:46:51 -0700
+Subject: [RFC PATCH v4 7/9] mm/damon/tests/drain-kunit: kunit for report
+ rings and ring drain
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -73,7 +73,7 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261005-damon-perf-rfc-v3-send-2026-10-03-v4-8-b03452e137f3@gmail.com>
+Message-Id: <20261005-damon-perf-rfc-v3-send-2026-10-03-v4-7-b03452e137f3@gmail.com>
 References: <20261005-damon-perf-rfc-v3-send-2026-10-03-v4-0-b03452e137f3@gmail.com>
 In-Reply-To: <20261005-damon-perf-rfc-v3-send-2026-10-03-v4-0-b03452e137f3@gmail.com>
 To: SJ Park <sj@kernel.org>, Andrew Morton <akpm@linux-foundation.org>
@@ -88,79 +88,978 @@ Cc: damon@lists.linux.dev, linux-mm@kvack.org, linux-kernel@vger.kernel.org,
  Jonathan Cameron <jic23@kernel.org>
 X-Mailer: b4 0.16.0
 
-kdamond_merge_regions() applies one context-wide threshold, the highest
-merge score across all targets divided by 10, to every target.  When a
-high-traffic target and a low-traffic target share a context, the
-high-traffic target sets a threshold permissive enough to erase the
-hot/cold boundary in the low-traffic one: a region with nr_accesses=1
-next to one with nr_accesses=0 merges because 1 <= threshold, even though
-that difference is the only signal the cold scheme has to admit it.
+Add kunit coverage for the per-context perf report rings and the drain
+that credits regions from them.  Wire the suites into core.c (included
+after the drain and its counters are defined) so CONFIG_DAMON_KUNIT_TEST=y
+builds them.
 
-On the regular merge pass, cap the threshold for each target by a tenth of
-that target's own maximum merge score.  The score is the one
-damon_merge_regions_of() compares, so a probe-weighted context is capped
-by its weighted hit sums.
+perf-kunit.h covers the ring itself: reports injected and accepted,
+overflow safety on wrap, and a report that carries no owning context
+being dropped.
 
-The passes that follow the regular one exist only to bring the region
-count under max_nr_regions by escalating the threshold.  They keep using
-the escalated threshold uncapped, so that bound still holds.
+drain-kunit.h covers the drain and the damon_report_access() producer:
 
-In a probe-weighted context the merge score is a weighted hit sum, which
-can exceed max_thres, the samples-per-aggregation ceiling the escalating
-passes stop at, when the probe weights sum above 1.  Raise max_thres to
-ten times the initial threshold there, so those passes still run.
+ - a vaddr report credited to the region holding its address, and not
+   credited when its thread group id does not match the target
+ - a paddr report credited with no thread-group filtering
+ - a perf report credited to the probe hits of its probe index
+ - reports adding at most one probe hit per sampling interval and none
+   changing nr_accesses, with and without a probe weight set
+ - per-context isolation: a report reaches only its own context's ring
+ - the producer's return value, and a full ring counted in the ring-full
+   counter and freed again by a drain
+ - the address-space match: a report whose virtual address falls inside a
+   region of a physical-address target, and whose physical address falls
+   outside it, is not credited
 
 Signed-off-by: Ravi Jonnalagadda <ravis.opensrc@gmail.com>
 ---
- mm/damon/core.c | 30 +++++++++++++++++++++++++++++-
- 1 file changed, 29 insertions(+), 1 deletion(-)
+ mm/damon/core.c              |   2 +
+ mm/damon/tests/drain-kunit.h | 786 +++++++++++++++++++++++++++++++++++++++++++
+ mm/damon/tests/perf-kunit.h  | 133 ++++++++
+ 3 files changed, 921 insertions(+)
 
 diff --git a/mm/damon/core.c b/mm/damon/core.c
-index e3c29d7cff23..7c0df07f0a90 100644
+index c2acae6e19ec..e3c29d7cff23 100644
 --- a/mm/damon/core.c
 +++ b/mm/damon/core.c
-@@ -4167,12 +4167,40 @@ static noinline_for_stack void kdamond_merge_regions(struct damon_ctx *c,
- 	unsigned int nr_regions;
- 	unsigned int max_thres;
- 	bool count_age = true;
-+	bool use_probe_hits = damon_has_probe_weights(c);
+@@ -5208,3 +5208,5 @@ struct damon_region *damon_search(unsigned long addr, struct pid *pid)
+ subsys_initcall(damon_init);
  
- 	max_thres = damon_nr_samples_per_aggr(&c->attrs);
-+	/* weighted scores can exceed max_thres; threshold is max score / 10 */
-+	if (use_probe_hits)
-+		max_thres = max(threshold * 10, max_thres);
- 	while (true) {
- 		nr_regions = 0;
- 		damon_for_each_target(t, c) {
--			damon_merge_regions_of(t, threshold, sz_limit, c,
-+			struct damon_region *r;
-+			unsigned int t_max = 0, t_thres = threshold;
+ #include "tests/core-kunit.h"
++#include "tests/drain-kunit.h"
++#include "tests/perf-kunit.h"
+diff --git a/mm/damon/tests/drain-kunit.h b/mm/damon/tests/drain-kunit.h
+new file mode 100644
+index 000000000000..d6e576724421
+--- /dev/null
++++ b/mm/damon/tests/drain-kunit.h
+@@ -0,0 +1,786 @@
++/* SPDX-License-Identifier: GPL-2.0 */
++/*
++ * DAMON kunit tests for the unified paddr/vaddr report drain path.
++ *
++ * Included at the bottom of core.c (after kdamond_check_reported_accesses
++ * is defined) so the static function is visible.
++ */
 +
-+			/*
-+			 * On the regular pass, cap the threshold at a tenth of
-+			 * this target's maximum merge score.  A high-traffic
-+			 * target in the same context must not set a threshold
-+			 * so permissive that a low-traffic target's hot/cold
-+			 * boundary merges away before the cold scheme can act
-+			 * on it.  The score is the one damon_merge_regions_of()
-+			 * compares, so probe-weighted contexts are capped by
-+			 * their weighted hit sums.
-+			 *
-+			 * The passes that follow exist only to bring the region
-+			 * count under max_nr_regions, so they use the escalated
-+			 * threshold as is.
-+			 */
-+			if (count_age) {
-+				damon_for_each_region(r, t)
-+					t_max = max(t_max,
-+						damon_merge_score(r, false, c,
-+							use_probe_hits));
-+				t_thres = min(threshold, t_max / 10);
-+			}
-+			damon_merge_regions_of(t, t_thres, sz_limit, c,
- 					count_age);
- 			nr_regions += damon_nr_regions(t);
- 		}
++#ifdef CONFIG_DAMON_KUNIT_TEST
++
++#ifndef _DAMON_DRAIN_KUNIT_H
++#define _DAMON_DRAIN_KUNIT_H
++
++#include <kunit/test.h>
++#include <linux/damon.h>
++
++/*
++ * Reports are dispatched by probe_idx: probe_idx == DAMON_PROBE_IDX_NONE (0)
++ * has no ring to feed and is dropped by damon_report_access(); probe_idx >= 1
++ * lands in the owning context's per-context perf ring (ctx->perf_rings).  The
++ * drain dispatcher kdamond_check_reported_accesses() drains the perf ring only
++ * for a ctx that has event-driven probes.
++ *
++ * Attach a dummy event-driven probe AND allocate the ctx's per-ctx perf ring
++ * so the ctx both drains the perf ring and has ring storage for injected
++ * probe_idx>=1 reports.  In a live run damon_perf_probe_setup() allocates the
++ * ring; kunit has no real perf event, so it allocates directly.  Returns
++ * 0/-ENOMEM.
++ */
++static int damon_test_attach_perf_probe(struct damon_ctx *ctx)
++{
++	struct damon_probe *p = damon_new_probe();
++	int err;
++
++	if (!p)
++		return -ENOMEM;
++	p->event_driven = true;
++	damon_add_probe(ctx, p);
++
++	err = damon_ctx_alloc_perf_ring(ctx);
++	if (err)
++		return err;
++	return 0;
++}
++
++/*
++ * Mark @ctx as monitoring the physical address space.
++ *
++ * The drain matches a report against the address space of the context, which
++ * damon_target_has_pid() derives from ctx->ops.id, so a context whose targets
++ * carry no pid needs the paddr id for its reports to be matched by paddr.
++ * Only the id is set: the drain reads no other operations field, and these
++ * tests call it directly rather than through a kdamond.
++ */
++static void damon_test_set_paddr_ctx(struct damon_ctx *ctx)
++{
++	ctx->ops.id = DAMON_OPS_PADDR;
++}
++
++/*
++ * Test A: vaddr entry with a matching thread group id drains correctly.
++ *
++ * Create a vaddr ctx with target pid=current, region [0x1000, 0x2000).
++ * Inject entry: paddr=0, vaddr=0x1500, tgid=current tgid, probe_idx=1, ctx=ctx.
++ * After drain: probe_hits[0]==1 (probe_idx 1 stored 0-based), samples_drained
++ * increments.
++ */
++static void damon_test_unified_vaddr_match(struct kunit *test)
++{
++	struct damon_ctx *ctx;
++	struct damon_target *t;
++	struct damon_region *r;
++	struct damon_access_report rep = {
++		.paddr     = 0,
++		.vaddr     = 0x1500,
++		.probe_idx = 1,
++		.size      = PAGE_SIZE,
++	};
++	unsigned long before, after;
++	int hits;
++
++	ctx = damon_new_ctx();
++	if (!ctx)
++		kunit_skip(test, "ctx alloc failed");
++	if (damon_test_attach_perf_probe(ctx)) {
++		damon_destroy_ctx(ctx);
++		kunit_skip(test, "perf probe alloc failed");
++	}
++
++	t = damon_new_target();
++	if (!t) {
++		damon_destroy_ctx(ctx);
++		kunit_skip(test, "target alloc failed");
++	}
++	t->pid = get_pid(task_tgid(current));
++	if (!t->pid) {
++		damon_free_target(t);
++		damon_destroy_ctx(ctx);
++		kunit_skip(test, "pid alloc failed");
++	}
++	rep.tgid = task_tgid_nr(current);
++	rep.ctx = ctx;	/* route to this ctx's per-ctx perf ring */
++
++	/*
++	 * Region must fully contain the report [vaddr, vaddr + size): a report
++	 * straddling the region end is rejected by the drain.  With
++	 * vaddr=0x1500 and size=PAGE_SIZE the region must reach >= 0x2500.
++	 */
++	r = damon_new_region(0x1000, 0x3000);
++	if (!r) {
++		put_pid(t->pid);
++		damon_free_target(t);
++		damon_destroy_ctx(ctx);
++		kunit_skip(test, "region alloc failed");
++	}
++	damon_add_region(r, t);
++	damon_add_target(ctx, t);
++
++	rep.report_jiffies = jiffies;
++	before = damon_get_samples_drained();
++	damon_report_access(&rep);
++	kdamond_check_reported_accesses(ctx);
++	after = damon_get_samples_drained();
++
++	hits = 0;
++	damon_for_each_region(r, t)
++		hits += r->probe_hits[0];
++
++	KUNIT_EXPECT_EQ(test, hits, 1);
++	KUNIT_EXPECT_GT(test, after, before);
++
++	put_pid(t->pid);
++	damon_destroy_ctx(ctx);
++}
++
++/*
++ * Test B: a vaddr entry whose thread group id matches no target is dropped.
++ *
++ * Same setup but inject with a thread group id no target carries.
++ * probe_hits[0]==0 (probe_idx 1 stored 0-based), samples_no_region increments.
++ */
++static void damon_test_unified_vaddr_tgid_mismatch(struct kunit *test)
++{
++	struct damon_ctx *ctx;
++	struct damon_target *t;
++	struct damon_region *r;
++	struct damon_access_report rep = {
++		.paddr     = 0,
++		.vaddr     = 0x1500,
++		.tgid      = 9999,	/* matches no target */
++		.probe_idx = 1,
++		.size      = PAGE_SIZE,
++	};
++	unsigned long before, after;
++	int hits;
++
++	ctx = damon_new_ctx();
++	if (!ctx)
++		kunit_skip(test, "ctx alloc failed");
++	if (damon_test_attach_perf_probe(ctx)) {
++		damon_destroy_ctx(ctx);
++		kunit_skip(test, "perf probe alloc failed");
++	}
++
++	t = damon_new_target();
++	if (!t) {
++		damon_destroy_ctx(ctx);
++		kunit_skip(test, "target alloc failed");
++	}
++	t->pid = get_pid(task_tgid(current));
++	if (!t->pid) {
++		damon_free_target(t);
++		damon_destroy_ctx(ctx);
++		kunit_skip(test, "pid alloc failed");
++	}
++	rep.ctx = ctx;
++
++	/* wide enough for the report: the id mismatch is the sole reject */
++	r = damon_new_region(0x1000, 0x3000);
++	if (!r) {
++		put_pid(t->pid);
++		damon_free_target(t);
++		damon_destroy_ctx(ctx);
++		kunit_skip(test, "region alloc failed");
++	}
++	damon_add_region(r, t);
++	damon_add_target(ctx, t);
++
++	rep.report_jiffies = jiffies;
++	before = damon_get_samples_no_region();
++	damon_report_access(&rep);
++	kdamond_check_reported_accesses(ctx);
++	after = damon_get_samples_no_region();
++
++	hits = 0;
++	damon_for_each_region(r, t)
++		hits += r->probe_hits[0];
++
++	KUNIT_EXPECT_EQ(test, hits, 0);
++	KUNIT_EXPECT_GT(test, after, before);
++
++	put_pid(t->pid);
++	damon_destroy_ctx(ctx);
++}
++
++/*
++ * Test C: paddr entry drains correctly (no id filter for paddr ops).
++ *
++ * Create a paddr ctx (no pid), region [0x10000, 0x20000).
++ * Inject: paddr=0x15000, vaddr=0, probe_idx=1, ctx=ctx.
++ * After drain: probe_hits[0]==1 (probe_idx 1 stored 0-based).
++ */
++static void damon_test_unified_paddr_no_regression(struct kunit *test)
++{
++	struct damon_ctx *ctx;
++	struct damon_target *t;
++	struct damon_region *r;
++	struct damon_access_report rep = {
++		.paddr     = 0x15000,
++		.vaddr     = 0,
++		.tid       = 0,
++		.probe_idx = 1,
++		.size      = PAGE_SIZE,
++	};
++	unsigned long before, after;
++	int hits;
++
++	ctx = damon_new_ctx();
++	if (!ctx)
++		kunit_skip(test, "ctx alloc failed");
++	if (damon_test_attach_perf_probe(ctx)) {
++		damon_destroy_ctx(ctx);
++		kunit_skip(test, "perf probe alloc failed");
++	}
++
++	t = damon_new_target();
++	if (!t) {
++		damon_destroy_ctx(ctx);
++		kunit_skip(test, "target alloc failed");
++	}
++	t->pid = NULL;	/* paddr target: no pid */
++	damon_test_set_paddr_ctx(ctx);
++	rep.ctx = ctx;
++
++	r = damon_new_region(0x10000, 0x20000);
++	if (!r) {
++		damon_free_target(t);
++		damon_destroy_ctx(ctx);
++		kunit_skip(test, "region alloc failed");
++	}
++	damon_add_region(r, t);
++	damon_add_target(ctx, t);
++
++	rep.report_jiffies = jiffies;
++	before = damon_get_samples_drained();
++	damon_report_access(&rep);
++	kdamond_check_reported_accesses(ctx);
++	after = damon_get_samples_drained();
++
++	hits = 0;
++	damon_for_each_region(r, t)
++		hits += r->probe_hits[0];
++
++	KUNIT_EXPECT_EQ(test, hits, 1);
++	KUNIT_EXPECT_GT(test, after, before);
++
++	damon_destroy_ctx(ctx);
++}
++
++/* Reports add one probe hit per interval and never change nr_accesses. */
++static void damon_test_report_hits_only(struct kunit *test)
++{
++	struct damon_ctx *ctx;
++	struct damon_target *t;
++	struct damon_region *r;
++	struct damon_access_report rep = {
++		.paddr     = 0x15000,
++		.probe_idx = 1,
++		.size      = PAGE_SIZE,
++	};
++
++	ctx = damon_new_ctx();
++	if (!ctx)
++		kunit_skip(test, "ctx alloc failed");
++	if (damon_test_attach_perf_probe(ctx)) {
++		damon_destroy_ctx(ctx);
++		kunit_skip(test, "perf probe alloc failed");
++	}
++
++	t = damon_new_target();
++	if (!t) {
++		damon_destroy_ctx(ctx);
++		kunit_skip(test, "target alloc failed");
++	}
++	t->pid = NULL;
++	damon_test_set_paddr_ctx(ctx);
++	rep.ctx = ctx;
++
++	r = damon_new_region(0x10000, 0x20000);
++	if (!r) {
++		damon_free_target(t);
++		damon_destroy_ctx(ctx);
++		kunit_skip(test, "region alloc failed");
++	}
++	damon_add_region(r, t);
++	damon_add_target(ctx, t);
++
++	rep.report_jiffies = jiffies;
++	preempt_disable();
++	damon_report_access(&rep);
++	damon_report_access(&rep);
++	preempt_enable();
++	kdamond_check_reported_accesses(ctx);
++	KUNIT_EXPECT_EQ(test, r->nr_accesses, 0u);
++	KUNIT_EXPECT_EQ(test, r->probe_hits[0], 1);
++
++	/* a report drained in the next interval adds another hit */
++	ctx->passed_sample_intervals++;
++	rep.report_jiffies = jiffies;
++	preempt_disable();
++	damon_report_access(&rep);
++	preempt_enable();
++	kdamond_check_reported_accesses(ctx);
++	KUNIT_EXPECT_EQ(test, r->nr_accesses, 0u);
++	KUNIT_EXPECT_EQ(test, r->probe_hits[0], 2);
++
++	damon_destroy_ctx(ctx);
++}
++
++/* The same holds with a probe weight set (data attributes-only mode). */
++static void damon_test_report_hits_only_weighted(struct kunit *test)
++{
++	struct damon_ctx *ctx;
++	struct damon_target *t;
++	struct damon_region *r;
++	struct damon_probe *p;
++	struct damon_access_report rep = {
++		.paddr     = 0x15000,
++		.probe_idx = 1,
++		.size      = PAGE_SIZE,
++	};
++
++	ctx = damon_new_ctx();
++	if (!ctx)
++		kunit_skip(test, "ctx alloc failed");
++	if (damon_test_attach_perf_probe(ctx)) {
++		damon_destroy_ctx(ctx);
++		kunit_skip(test, "perf probe alloc failed");
++	}
++	damon_for_each_probe(p, ctx)
++		p->weight = 1;
++
++	t = damon_new_target();
++	if (!t) {
++		damon_destroy_ctx(ctx);
++		kunit_skip(test, "target alloc failed");
++	}
++	t->pid = NULL;
++	damon_test_set_paddr_ctx(ctx);
++	rep.ctx = ctx;
++
++	r = damon_new_region(0x10000, 0x20000);
++	if (!r) {
++		damon_free_target(t);
++		damon_destroy_ctx(ctx);
++		kunit_skip(test, "region alloc failed");
++	}
++	damon_add_region(r, t);
++	damon_add_target(ctx, t);
++
++	preempt_disable();
++	damon_report_access(&rep);
++	damon_report_access(&rep);
++	preempt_enable();
++	kdamond_check_reported_accesses(ctx);
++	KUNIT_EXPECT_EQ(test, r->nr_accesses, 0u);
++	KUNIT_EXPECT_EQ(test, r->probe_hits[0], 1);
++
++	ctx->passed_sample_intervals++;
++	preempt_disable();
++	damon_report_access(&rep);
++	preempt_enable();
++	kdamond_check_reported_accesses(ctx);
++	KUNIT_EXPECT_EQ(test, r->nr_accesses, 0u);
++	KUNIT_EXPECT_EQ(test, r->probe_hits[0], 2);
++
++	damon_destroy_ctx(ctx);
++}
++
++static void damon_test_ring1_perf_credit(struct kunit *test)
++{
++	struct damon_ctx *ctx;
++	struct damon_target *t;
++	struct damon_region *r;
++	struct damon_access_report rep = {
++		.paddr     = 0x15000,
++		.vaddr     = 0,
++		.tid       = 0,
++		.probe_idx = 1,	/* -> per-ctx perf ring */
++		.size      = PAGE_SIZE,
++	};
++	unsigned long before, after;
++	int hits;
++
++	ctx = damon_new_ctx();
++	if (!ctx)
++		kunit_skip(test, "ctx alloc failed");
++	if (damon_test_attach_perf_probe(ctx)) {
++		damon_destroy_ctx(ctx);
++		kunit_skip(test, "perf probe alloc failed");
++	}
++
++	t = damon_new_target();
++	if (!t) {
++		damon_destroy_ctx(ctx);
++		kunit_skip(test, "target alloc failed");
++	}
++	t->pid = NULL;
++	damon_test_set_paddr_ctx(ctx);
++	rep.ctx = ctx;
++
++	r = damon_new_region(0x10000, 0x20000);
++	if (!r) {
++		damon_free_target(t);
++		damon_destroy_ctx(ctx);
++		kunit_skip(test, "region alloc failed");
++	}
++	damon_add_region(r, t);
++	damon_add_target(ctx, t);
++
++	rep.report_jiffies = jiffies;
++	before = damon_get_samples_drained();
++	damon_report_access(&rep);
++	kdamond_check_reported_accesses(ctx);
++	after = damon_get_samples_drained();
++
++	hits = 0;
++	damon_for_each_region(r, t)
++		hits += r->probe_hits[0];
++
++	KUNIT_EXPECT_EQ(test, hits, 1);
++	KUNIT_EXPECT_GT(test, after, before);
++
++	damon_destroy_ctx(ctx);
++}
++
++/*
++ * Test per-context perf ring isolation.
++ *
++ * Two independent perf ctxs (each with its own event-driven probe and its own
++ * per-ctx perf ring) each receive one probe_idx=1 report tagged with their
++ * respective ctx.  Each ctx must credit exactly its own report and see nothing
++ * from the other: perf reports route to the owning ctx's ring, and two
++ * perf-driven ctxs coexist without sharing a ring.
++ */
++static void damon_test_perf_per_ctx_isolation(struct kunit *test)
++{
++	struct damon_ctx *ctx_a, *ctx_b;
++	struct damon_target *ta, *tb;
++	struct damon_region *ra, *rb;
++	struct damon_access_report rep_a = {
++		.paddr = 0x15000, .probe_idx = 1, .size = PAGE_SIZE,
++	};
++	struct damon_access_report rep_b = {
++		.paddr = 0x35000, .probe_idx = 1, .size = PAGE_SIZE,
++	};
++	int hits_a, hits_b;
++
++	ctx_a = damon_new_ctx();
++	ctx_b = damon_new_ctx();
++	if (!ctx_a || !ctx_b) {
++		if (ctx_a)
++			damon_destroy_ctx(ctx_a);
++		if (ctx_b)
++			damon_destroy_ctx(ctx_b);
++		kunit_skip(test, "ctx alloc failed");
++	}
++	if (damon_test_attach_perf_probe(ctx_a) ||
++			damon_test_attach_perf_probe(ctx_b)) {
++		damon_destroy_ctx(ctx_a);
++		damon_destroy_ctx(ctx_b);
++		kunit_skip(test, "perf probe alloc failed");
++	}
++
++	ta = damon_new_target();
++	tb = damon_new_target();
++	if (!ta || !tb) {
++		if (ta)
++			damon_free_target(ta);
++		if (tb)
++			damon_free_target(tb);
++		damon_destroy_ctx(ctx_a);
++		damon_destroy_ctx(ctx_b);
++		kunit_skip(test, "target alloc failed");
++	}
++	ta->pid = NULL;
++	tb->pid = NULL;
++	damon_test_set_paddr_ctx(ctx_a);
++	damon_test_set_paddr_ctx(ctx_b);
++
++	ra = damon_new_region(0x10000, 0x20000);	/* holds rep_a paddr */
++	rb = damon_new_region(0x30000, 0x40000);	/* holds rep_b paddr */
++	if (!ra || !rb) {
++		if (ra)
++			damon_free_region(ra);
++		if (rb)
++			damon_free_region(rb);
++		damon_free_target(ta);
++		damon_free_target(tb);
++		damon_destroy_ctx(ctx_a);
++		damon_destroy_ctx(ctx_b);
++		kunit_skip(test, "region alloc failed");
++	}
++	damon_add_region(ra, ta);
++	damon_add_target(ctx_a, ta);
++	damon_add_region(rb, tb);
++	damon_add_target(ctx_b, tb);
++
++	/* Each report is tagged with its owning ctx. */
++	rep_a.ctx = ctx_a;
++	rep_b.ctx = ctx_b;
++	rep_a.report_jiffies = jiffies;
++	rep_b.report_jiffies = jiffies;
++
++	/*
++	 * Report into both ctx rings, then drain each ctx.  ctx_a must credit
++	 * only rep_a; ctx_b must credit only rep_b -- no cross-talk.
++	 */
++	damon_report_access(&rep_a);
++	damon_report_access(&rep_b);
++	kdamond_check_reported_accesses(ctx_a);
++	kdamond_check_reported_accesses(ctx_b);
++
++	hits_a = 0;
++	damon_for_each_region(ra, ta)
++		hits_a += ra->probe_hits[0];
++	hits_b = 0;
++	damon_for_each_region(rb, tb)
++		hits_b += rb->probe_hits[0];
++
++	/* each ctx credited its own report only */
++	KUNIT_EXPECT_EQ(test, hits_a, 1);
++	KUNIT_EXPECT_EQ(test, hits_b, 1);
++
++	damon_destroy_ctx(ctx_a);
++	damon_destroy_ctx(ctx_b);
++}
++
++/*
++ * Test the queued/dropped return value, and that a ring-full drop is counted
++ * as ring-full rather than busy-guard.
++ *
++ * A per-context perf ring is private to its ctx, so a freshly created ctx
++ * starts with an empty ring nobody else writes to and the counts are exact.
++ * Preemption is held across the loop so every report targets the same CPU's
++ * ring, per the SPSC invariant damon_report_access() documents.
++ *
++ * A ring holds DAMON_REPORT_RING_SIZE - 1 entries (one slot is kept empty to
++ * distinguish full from empty), so exactly that many reports are queued and
++ * every one after that is dropped.
++ */
++static void damon_test_report_return_value(struct kunit *test)
++{
++	struct damon_ctx *ctx;
++	struct damon_access_report rep = {
++		.paddr = 0x15000, .probe_idx = 1, .size = PAGE_SIZE,
++	};
++	unsigned long full_before, busy_before;
++	unsigned int queued = 0, dropped = 0;
++	int i;
++
++	ctx = damon_new_ctx();
++	if (!ctx)
++		kunit_skip(test, "ctx alloc failed");
++	if (damon_test_attach_perf_probe(ctx)) {
++		damon_destroy_ctx(ctx);
++		kunit_skip(test, "perf probe alloc failed");
++	}
++	rep.ctx = ctx;
++
++	preempt_disable();
++	full_before = damon_get_report_ring_full();
++	busy_before = damon_get_report_busy_drop();
++
++	/* One past capacity, so the last iteration must be a drop. */
++	for (i = 0; i < DAMON_REPORT_RING_SIZE; i++) {
++		if (damon_report_access(&rep))
++			queued++;
++		else
++			dropped++;
++	}
++	preempt_enable();
++
++	KUNIT_EXPECT_EQ(test, queued, (unsigned int)DAMON_REPORT_RING_SIZE - 1);
++	KUNIT_EXPECT_EQ(test, dropped, 1u);
++	/* No NMI nests here, so the drop must be the full ring. */
++	KUNIT_EXPECT_GT(test, damon_get_report_ring_full(), full_before);
++	KUNIT_EXPECT_EQ(test, damon_get_report_busy_drop(), busy_before);
++
++	damon_destroy_ctx(ctx);
++}
++
++/*
++ * Test that draining restores capacity: fill the ring, drain it via the
++ * dispatcher, then report again and expect the report to be queued.
++ */
++static void damon_test_report_drain_restores_capacity(struct kunit *test)
++{
++	struct damon_ctx *ctx;
++	struct damon_target *t;
++	struct damon_region *r;
++	struct damon_access_report rep = {
++		.paddr = 0x15000, .probe_idx = 1, .size = PAGE_SIZE,
++	};
++	bool queued;
++	int i;
++
++	ctx = damon_new_ctx();
++	if (!ctx)
++		kunit_skip(test, "ctx alloc failed");
++	if (damon_test_attach_perf_probe(ctx)) {
++		damon_destroy_ctx(ctx);
++		kunit_skip(test, "perf probe alloc failed");
++	}
++
++	t = damon_new_target();
++	if (!t) {
++		damon_destroy_ctx(ctx);
++		kunit_skip(test, "target alloc failed");
++	}
++	t->pid = NULL;
++	damon_test_set_paddr_ctx(ctx);
++	rep.ctx = ctx;
++
++	r = damon_new_region(0x10000, 0x20000);
++	if (!r) {
++		damon_free_target(t);
++		damon_destroy_ctx(ctx);
++		kunit_skip(test, "region alloc failed");
++	}
++	damon_add_region(r, t);
++	damon_add_target(ctx, t);
++
++	/* Fill the ring: the last report is dropped. */
++	preempt_disable();
++	for (i = 0; i < DAMON_REPORT_RING_SIZE; i++)
++		damon_report_access(&rep);
++	queued = damon_report_access(&rep);
++	preempt_enable();
++	KUNIT_EXPECT_FALSE(test, queued);
++
++	kdamond_check_reported_accesses(ctx);
++
++	/* Capacity is back. */
++	KUNIT_EXPECT_TRUE(test, damon_report_access(&rep));
++
++	damon_destroy_ctx(ctx);
++}
++
++/*
++ * Test that a report is matched by the address space of the target rather than
++ * by which address it carries.
++ *
++ * Create a paddr ctx with an event-driven probe, region [0x10000, 0x20000).
++ * Inject a report whose vaddr falls inside that region and whose paddr falls
++ * outside it.  A paddr target matches the paddr, so the report finds no
++ * region and is counted as such.
++ */
++static void damon_test_report_addr_space_keyed(struct kunit *test)
++{
++	struct damon_ctx *ctx;
++	struct damon_target *t;
++	struct damon_region *r;
++	struct damon_access_report rep = {
++		.paddr     = 0x95000,	/* outside the region */
++		.vaddr     = 0x15000,	/* inside the region */
++		.tid       = 0,
++		.probe_idx = 1,
++		.size      = PAGE_SIZE,
++	};
++	unsigned long before, after;
++
++	ctx = damon_new_ctx();
++	if (!ctx)
++		kunit_skip(test, "ctx alloc failed");
++	if (damon_test_attach_perf_probe(ctx)) {
++		damon_destroy_ctx(ctx);
++		kunit_skip(test, "perf probe alloc failed");
++	}
++	rep.ctx = ctx;	/* route to this ctx's per-ctx perf ring */
++
++	t = damon_new_target();
++	if (!t) {
++		damon_destroy_ctx(ctx);
++		kunit_skip(test, "target alloc failed");
++	}
++	t->pid = NULL;	/* paddr target: no pid */
++	damon_test_set_paddr_ctx(ctx);
++
++	r = damon_new_region(0x10000, 0x20000);
++	if (!r) {
++		damon_free_target(t);
++		damon_destroy_ctx(ctx);
++		kunit_skip(test, "region alloc failed");
++	}
++	damon_add_region(r, t);
++	damon_add_target(ctx, t);
++
++	rep.report_jiffies = jiffies;
++	before = damon_get_samples_no_region();
++	damon_report_access(&rep);
++	kdamond_check_reported_accesses(ctx);
++	after = damon_get_samples_no_region();
++
++	/* The vaddr was not used to match a paddr target. */
++	KUNIT_EXPECT_GT(test, after, before);
++	damon_for_each_region(r, t)
++		KUNIT_EXPECT_EQ(test, r->probe_hits[0], 0);
++
++	damon_destroy_ctx(ctx);
++}
++
++/*
++ * Test that filling a perf ring beyond capacity increments the ring-full
++ * counter.  The existing damon_test_report_drain_restores_capacity verifies
++ * capacity returns after a drain; this verifies the counter side of the
++ * same overflow.
++ */
++static void damon_test_ring_full_counter_increments(struct kunit *test)
++{
++	struct damon_ctx *ctx;
++	struct damon_access_report rep = {
++		.paddr = 0x15000, .probe_idx = 1, .size = PAGE_SIZE,
++	};
++	unsigned long full_before;
++	int i;
++
++	ctx = damon_new_ctx();
++	if (!ctx)
++		kunit_skip(test, "ctx alloc failed");
++	if (damon_test_attach_perf_probe(ctx)) {
++		damon_destroy_ctx(ctx);
++		kunit_skip(test, "perf probe alloc failed");
++	}
++	damon_test_set_paddr_ctx(ctx);
++	rep.ctx = ctx;
++
++	full_before = damon_get_report_ring_full();
++
++	/* Fill the ring to capacity, then push one more to trigger overflow. */
++	preempt_disable();
++	for (i = 0; i < DAMON_REPORT_RING_SIZE; i++)
++		damon_report_access(&rep);
++	damon_report_access(&rep);   /* this one overflows */
++	preempt_enable();
++
++	KUNIT_EXPECT_GT(test, damon_get_report_ring_full(), full_before);
++
++	damon_destroy_ctx(ctx);
++}
++
++static struct kunit_case damon_drain_test_cases[] = {
++	KUNIT_CASE(damon_test_unified_vaddr_match),
++	KUNIT_CASE(damon_test_unified_vaddr_tgid_mismatch),
++	KUNIT_CASE(damon_test_unified_paddr_no_regression),
++	KUNIT_CASE(damon_test_report_hits_only),
++	KUNIT_CASE(damon_test_report_hits_only_weighted),
++	KUNIT_CASE(damon_test_ring1_perf_credit),
++	KUNIT_CASE(damon_test_perf_per_ctx_isolation),
++	KUNIT_CASE(damon_test_report_return_value),
++	KUNIT_CASE(damon_test_report_drain_restores_capacity),
++	KUNIT_CASE(damon_test_report_addr_space_keyed),
++	KUNIT_CASE(damon_test_ring_full_counter_increments),
++	{}
++};
++
++static struct kunit_suite damon_drain_test_suite = {
++	.name = "damon_drain",
++	.test_cases = damon_drain_test_cases,
++};
++
++kunit_test_suite(damon_drain_test_suite);
++
++#endif /* _DAMON_DRAIN_KUNIT_H */
++
++#endif	/* CONFIG_DAMON_KUNIT_TEST */
+diff --git a/mm/damon/tests/perf-kunit.h b/mm/damon/tests/perf-kunit.h
+new file mode 100644
+index 000000000000..de4472b54224
+--- /dev/null
++++ b/mm/damon/tests/perf-kunit.h
+@@ -0,0 +1,133 @@
++/* SPDX-License-Identifier: GPL-2.0 */
++/*
++ * DAMON kunit tests for the per-context perf report ring.
++ *
++ * Included at the bottom of core.c, after tests/drain-kunit.h, whose
++ * damon_test_attach_perf_probe() helper these tests reuse.
++ */
++
++#ifdef CONFIG_DAMON_KUNIT_TEST
++
++#ifndef _DAMON_PERF_KUNIT_H
++#define _DAMON_PERF_KUNIT_H
++
++#include <kunit/test.h>
++#include <linux/damon.h>
++
++/*
++ * A report with probe_idx >= 1 is enqueued into the ring of the context named
++ * by report->ctx, so these tests build a context with an allocated perf ring
++ * and point the injected reports at it.  A freshly allocated ring is empty,
++ * which makes the accepted and rejected counts below exact.
++ */
++
++/*
++ * Test A: perf ring basic write
++ *
++ * Inject reports into a context's perf ring via damon_report_access() and
++ * verify each one is accepted.
++ */
++static void damon_test_perf_ring_basic(struct kunit *test)
++{
++	struct damon_ctx *ctx;
++	struct damon_access_report report = {
++		.paddr = 0x1000, .size = PAGE_SIZE, .probe_idx = 1,
++	};
++	int i;
++
++	ctx = damon_new_ctx();
++	if (!ctx)
++		kunit_skip(test, "ctx alloc failed");
++	if (damon_test_attach_perf_probe(ctx)) {
++		damon_destroy_ctx(ctx);
++		kunit_skip(test, "perf ring alloc failed");
++	}
++	report.ctx = ctx;
++
++	for (i = 0; i < 3; i++)
++		KUNIT_EXPECT_TRUE(test, damon_report_access(&report));
++
++	damon_destroy_ctx(ctx);
++}
++
++/*
++ * Test B: ring overflow is reported and does not corrupt head/tail
++ *
++ * Fill a context's perf ring to capacity and verify that further writes are
++ * refused and counted rather than overwriting live entries.  The ring holds
++ * DAMON_REPORT_RING_SIZE - 1 entries, one slot being reserved to distinguish
++ * full from empty, so the last two of the writes below must be refused.
++ */
++static void damon_test_perf_ring_overflow_safety(struct kunit *test)
++{
++	struct damon_ctx *ctx;
++	struct damon_access_report report = {
++		.paddr = 0x3000, .size = PAGE_SIZE, .probe_idx = 1,
++	};
++	unsigned long overflow_before, overflow_after;
++	int queued = 0, refused = 0;
++	int i;
++
++	ctx = damon_new_ctx();
++	if (!ctx)
++		kunit_skip(test, "ctx alloc failed");
++	if (damon_test_attach_perf_probe(ctx)) {
++		damon_destroy_ctx(ctx);
++		kunit_skip(test, "perf ring alloc failed");
++	}
++	report.ctx = ctx;
++
++	/* Pinned so every write lands in the same CPU's ring. */
++	preempt_disable();
++	overflow_before = damon_get_report_overflow();
++
++	for (i = 0; i < DAMON_REPORT_RING_SIZE + 1; i++) {
++		if (damon_report_access(&report))
++			queued++;
++		else
++			refused++;
++	}
++
++	overflow_after = damon_get_report_overflow();
++	preempt_enable();
++
++	KUNIT_EXPECT_EQ(test, queued, DAMON_REPORT_RING_SIZE - 1);
++	KUNIT_EXPECT_EQ(test, refused, 2);
++	KUNIT_EXPECT_GT(test, overflow_after, overflow_before);
++
++	damon_destroy_ctx(ctx);
++}
++
++/*
++ * Test C: a perf report without an owning context is refused
++ *
++ * A report with probe_idx >= 1 but no ctx cannot be routed to a ring.  Verify
++ * it is refused instead of dereferenced.
++ */
++static void damon_test_perf_report_requires_ctx(struct kunit *test)
++{
++	struct damon_access_report report = {
++		.paddr = 0x5000, .size = PAGE_SIZE, .probe_idx = 1,
++		.ctx = NULL,
++	};
++
++	KUNIT_EXPECT_FALSE(test, damon_report_access(&report));
++}
++
++static struct kunit_case damon_perf_test_cases[] = {
++	KUNIT_CASE(damon_test_perf_ring_basic),
++	KUNIT_CASE(damon_test_perf_ring_overflow_safety),
++	KUNIT_CASE(damon_test_perf_report_requires_ctx),
++	{}
++};
++
++static struct kunit_suite damon_perf_test_suite = {
++	.name = "damon_perf",
++	.test_cases = damon_perf_test_cases,
++};
++
++kunit_test_suite(damon_perf_test_suite);
++
++#endif /* _DAMON_PERF_KUNIT_H */
++
++#endif	/* CONFIG_DAMON_KUNIT_TEST */
 
 -- 
 Git-157)
