@@ -1,154 +1,167 @@
-Received: from mta1.migadu.com (out-168.mta1.migadu.com [95.215.58.168])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 28FD348C3E5
-	for <linux-kernel@vger.kernel.org>; Mon,  5 Oct 2026 13:46:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.168
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 5070E44A3F1
+	for <linux-kernel@vger.kernel.org>; Mon,  5 Oct 2026 13:48:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791208013; cv=none; b=FfXZeRIi8fMThYcDgPAWoLasdo0yrrlT8jPNGQ9LlUzx+3JsTcETpPwAhAL49q5ugI+ucNCcQkynJ/MUNZWQ4oMZnOKzbsmBcHLJeCLjQswW67B3iw3cyzS5zDUoZENYcYfP94TQHvptSFF22gf8V58g01geZ9eh4O4Q0qJuZQs=
+	t=1791208098; cv=none; b=YEbS8R/XVKG4gZ0mKOayaki4AyHJxgkUQZFWkLzIqra9JHgWsRASHsptTErQX+K2iqtAjnvYL53B86htN767UIsmTAlxTr3YCF69fQ0LgZavxjdk7bM5h/6V/ekMnG6aFGK90815pjMwiC2Y+yidHGssGqGoaMapqlT7yNMonJk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791208013; c=relaxed/simple;
-	bh=UPW5rxLXXCUQyxl4itU7Omf05ILDh+oFB7ALgw7XWYk=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=QEHm4ysRzIQ2g+BR95OhYioYt1+MAx0qldZ4d6KdX/xHv5HwSpKR7JBEsK2Ca5OPUUjcd0NH5jkzI6xLpgagYSZ1vrvTN03cBR/VuvcV8TRjFmIiJbSsN4KLQVtUuumas3J8znZ1wRa4hVDiHTKb/PfP94fLRgscSSysgRXip5I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=tx0L2iTv; arc=none smtp.client-ip=95.215.58.168
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1791208098; c=relaxed/simple;
+	bh=2GMHsOwhhLRJxYzsvnSnRcaGszSH1LEMmm6JkzS5eLI=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=eZzFMZUkHzpJrczXKAfYFwRPVxLofoxi+KkyrVqLnivo4qvscgD3tsEDQqwSjLkCvVniZvruOzR9RarbLx8mfbV4L69PQsf02dBDZLJlNh6AZDtYVZ2MGizGMYjHKDWtoIVVrz+kvw0ZB/etBadu2j3HeQW/J2ZKj+80WAG1awQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=NKHAyisg; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="tx0L2iTv"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=UPW5rxLXXCUQyxl4itU7Omf05ILDh+oFB7ALgw7XWYk=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1791208009; v=1; x=1791812809;
- b=tx0L2iTvL1t4Gc/ZauTkCdpHFTdtsUKl8VPxSamBBRMTVwXZ5qqXopDuGeJG4ImvGBpQ9j5S
- +vGxW1iw07Lnb0rcg90dbiqvRzPH+Dp/22EmpQXX0xvY4VM4aGH8mpzWGd6EZYzx/hk5JlnatTg
- yJtBUGrVEm2BY2B+LAGWpIto=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 2868cb32e0b71532;
-	Mon, 05 Oct 2026 13:46:48 +0000
-X-Mizu-Trace-ID: 2868cb32e0b71532
-X-Migadu-Flow: FLOW_OUT
-From: Lance Yang <lance.yang@linux.dev>
-To: david@kernel.org
-Cc: lance.yang@linux.dev,
-	pjw@kernel.org,
-	palmer@dabbelt.com,
-	aou@eecs.berkeley.edu,
-	alex@ghiti.fr,
-	akpm@linux-foundation.org,
-	zhangchunyan@iscas.ac.cn,
-	rppt@kernel.org,
-	kas@kernel.org,
-	andrew+kernel@donnellan.id.au,
-	rmclure@linux.ibm.com,
-	debug@rivosinc.com,
-	baolin.wang@linux.alibaba.com,
-	usama.arif@linux.dev,
-	wangruikang@iscas.ac.cn,
-	namcao@linutronix.de,
-	linux-riscv@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	alexghiti@rivosinc.com,
-	viro@zeniv.linux.org.uk,
-	ajones@ventanamicro.com,
-	arnd@arndb.de,
-	axelrasmussen@google.com,
-	brauner@kernel.org,
-	conor.dooley@microchip.com,
-	conor@kernel.org,
-	jack@suse.cz,
-	liam@infradead.org,
-	ljs@kernel.org,
-	mhocko@suse.com,
-	paul.walmsley@sifive.com,
-	peterx@redhat.com,
-	robh@kernel.org,
-	surenb@google.com,
-	vbabka@kernel.org,
-	yuanchu@google.com,
-	stable@vger.kernel.org,
-	pasha.tatashin@soleen.com,
-	linux-mm@kvack.org,
-	me@ziyao.cc
-Subject: Re: [PATCH 1/1] riscv/mm: fix soft-dirty migration PMDs being treated as present
-Date: Mon,  5 Oct 2026 21:46:41 +0800
-Message-ID: <20261005134641.5801-1-lance.yang@linux.dev>
-X-Mailer: git-send-email 2.49.0
-In-Reply-To: <fabd52b6-36a7-442e-9cfb-47a39e4ae3d6@kernel.org>
-References: <fabd52b6-36a7-442e-9cfb-47a39e4ae3d6@kernel.org>
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="NKHAyisg"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 21C6C152B;
+	Mon,  5 Oct 2026 06:48:12 -0700 (PDT)
+Received: from [10.57.78.53] (unknown [10.57.78.53])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 1CA163F86F;
+	Mon,  5 Oct 2026 06:48:12 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1791208095; bh=2GMHsOwhhLRJxYzsvnSnRcaGszSH1LEMmm6JkzS5eLI=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=NKHAyisgoqP215hu3VhI99n9NoZqEksTsDpoR1M6QqOnSAsxFV5sJqYRRqXfQJKFi
+	 z7DLZqvvr1Qtb9j+rcNd1wPVHK/ycB+uk6PgEXqzIeRa80wb/Zk8VMY2syNmhr0KG1
+	 zQEcsMAW9YiB86qkK21wV2bcLqLCbS7TEAEC7D7Y=
+Message-ID: <78190a05-47a6-4089-a688-121466c9a370@arm.com>
+Date: Mon, 5 Oct 2026 14:48:11 +0100
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] drm/panfrost: add Mali-G68 support
+To: =?UTF-8?Q?Adri=C3=A1n_Larumbe?= <adrian.larumbe@collabora.com>,
+ markuss.broks@gmail.com
+Cc: Boris Brezillon <boris.brezillon@collabora.com>,
+ Rob Herring <robh@kernel.org>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+References: <20260803-staging-mainline-v1-1-5071dc782149@gmail.com>
+ <asA6VefBKQQD3eSH@sobremesa>
+From: Steven Price <steven.price@arm.com>
+Content-Language: en-GB
+In-Reply-To: <asA6VefBKQQD3eSH@sobremesa>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
+On 03/10/2026 00:19, Adrián Larumbe wrote:
+> Queued to drm-misc-next.
+> 
+> One thing though, I had to adjust the indentation of the GPU_REV() macro before merging.
+> Not a big deal, but always make sure to run the following in your branch before submission:
+> 
+> ./scripts/checkpatch.pl --strict --git first_commit~..HEAD
+> 
+> Also, I suppose you didn't have a chance to test it on a g68_r1p0. That would be of interest
+> because of HW_ISSUE_TTRX_3485, which seems to mandate the submission of a dummy job before
+> any real further work. It seems at the moment there's no such a workaround either in the
+> UM Mesa driver or the Panfrost KMD.
+> 
+> Maybe Steven or Boris could elaborate on this?
 
-On Mon, Oct 05, 2026 at 12:37:20PM +0200, David Hildenbrand (Arm) wrote:
->On 10/4/26 05:03, Lance Yang wrote:
->> RISC-V uses _PAGE_EXEC for swap soft-dirty tracking when
->> CONFIG_MEM_SOFT_DIRTY is enabled and Svrsw60t59b is available. That's
->> a problem for PMD migration entries, since pmd_present() also checks
->> _PAGE_LEAF (R/W/X) to recognize THPs with _PAGE_PRESENT temporarily
->> cleared during splitting.
->
->I'm curious: why do we have to set leaf indications for non-present things? The
->HW sure will ignore it, right?
+Yes, it's an unpleasant workaround. But it's also a rare issue. It
+requires that the kernel driver decides to stop a fragment job at the
+wrong moment when the fragment endpoint is first configured. The GPU can
+then end up hanging[1]. The hardware r1p1 fixed the issue. I believe the
+workaround is to submit a dummy fragment job after power up which
+ensures that the fragment endpoint is configured before any real work
+(which might need to be stopped) is submitted.
 
-Yeah, that surprised me too :) Still wrapping my head around the details
-...
+What I don't actually know is if anyone shipped a r1p0 implementation.
+There were internal test chips, but many if not all customers jumped to
+r1p1 where the fix is present.
 
->Is this a sw problem? Who needs that?
+If there are G68 r1p0s out in the wild then they will "mostly work".
+It's hard to hit the issue accidentally. So there's definitely still
+value in the support even without the workaround. But if anyone does
+have a Mali-G68 r1p0 (that they are trying to use Panfrost on) then it
+would be good to know.
 
-IIUC, it's for software during a PMD split.
+Thanks,
+Steve
 
-__split_huge_pmd_locked() invalidates the huge PMD and flushes the TLB
-before installing the PTE table. Software still needs pmd_present() and
-pmd_trans_huge() to recognize the THP in between.
+[1] I believe the reset logic will then recover the GPU, but will lose
+any in-flight work. So you'll get rendering errors for that frame, but
+things should recover.
 
-RISC-V clears V but keeps the R/W/X bits for that, so the entry is invalid
-to hardware but still identifiable as a THP by software.
+> On 03.08.2026 12:35, Markuss Broks via B4 Relay wrote:
+>> From: Markuss Broks <markuss.broks@gmail.com>
+>>
+>> Add the features, issues, and ID for Mali-G68, a first-generation
+>> (v9) Valhall GPU.
+>> Tested on Exynos8835: the GPU reports GPU_ID 0x9204 (G68 r1p1).
+>>
+>> Signed-off-by: Markuss Broks <markuss.broks@gmail.com>
+>> ---
+>>  drivers/gpu/drm/panfrost/panfrost_features.h | 2 ++
+>>  drivers/gpu/drm/panfrost/panfrost_gpu.c      | 3 +++
+>>  drivers/gpu/drm/panfrost/panfrost_issues.h   | 8 ++++++++
+>>  3 files changed, 13 insertions(+)
+>>
+>> diff --git a/drivers/gpu/drm/panfrost/panfrost_features.h b/drivers/gpu/drm/panfrost/panfrost_features.h
+>> index 52f9d69f6db9..34c65847192f 100644
+>> --- a/drivers/gpu/drm/panfrost/panfrost_features.h
+>> +++ b/drivers/gpu/drm/panfrost/panfrost_features.h
+>> @@ -121,6 +121,8 @@ enum panfrost_hw_feature {
+>>  	BIT_ULL(HW_FEATURE_IDVS_GROUP_SIZE) | \
+>>  	BIT_ULL(HW_FEATURE_CLEAN_ONLY_SAFE))
+>>  
+>> +#define hw_features_g68 hw_features_g57
+>> +
+>>  static inline bool panfrost_has_hw_feature(struct panfrost_device *pfdev,
+>>  					   enum panfrost_hw_feature feat)
+>>  {
+>> diff --git a/drivers/gpu/drm/panfrost/panfrost_gpu.c b/drivers/gpu/drm/panfrost/panfrost_gpu.c
+>> index 7d555e63e21a..83223192a544 100644
+>> --- a/drivers/gpu/drm/panfrost/panfrost_gpu.c
+>> +++ b/drivers/gpu/drm/panfrost/panfrost_gpu.c
+>> @@ -242,6 +242,9 @@ static const struct panfrost_model gpu_models[] = {
+>>  	/* MediaTek MT8188 Mali-G57 MC3 */
+>>  	GPU_MODEL(g57, 0x9093,
+>>  		GPU_REV(g57, 0, 0)),
+>> +
+>> +	GPU_MODEL(g68, 0x9004,
+>> +		GPU_REV(g68, 1, 0), GPU_REV(g68, 1, 1)),
+>>  	{0},
+>>  };
+>>  
+>> diff --git a/drivers/gpu/drm/panfrost/panfrost_issues.h b/drivers/gpu/drm/panfrost/panfrost_issues.h
+>> index eb60cb83667a..dd39946bb572 100644
+>> --- a/drivers/gpu/drm/panfrost/panfrost_issues.h
+>> +++ b/drivers/gpu/drm/panfrost/panfrost_issues.h
+>> @@ -265,6 +265,14 @@ enum panfrost_hw_issue {
+>>  #define hw_issues_g57_r0p0 (\
+>>  	BIT_ULL(HW_ISSUE_TTRX_3485))
+>>  
+>> +#define hw_issues_g68 (\
+>> +	BIT_ULL(HW_ISSUE_TTRX_2968_TTRX_3162))
+>> +
+>> +#define hw_issues_g68_r1p0 (\
+>> +	BIT_ULL(HW_ISSUE_TTRX_3485))
+>> +
+>> +#define hw_issues_g68_r1p1 0
+>> +
+>>  static inline bool panfrost_has_hw_issue(const struct panfrost_device *pfdev,
+>>  					 enum panfrost_hw_issue issue)
+>>  {
+>>
+>> ---
+>> base-commit: 415606a7be939835db9b0d6b711887586646346d
+>> change-id: 20260803-staging-mainline-ebe89543b632
+>>
+>> Best regards,
+>> --  
+>> Markuss Broks <markuss.broks@gmail.com>
+> 
+> 
+> 
+> Adrian Larumbe
 
-Hopefully I didn't miss something.
-
->> 
->> When a soft-dirty THP is migrated, set_pmd_migration_entry() preserves
->> soft-dirty with pmd_swp_mksoft_dirty(), setting the X bit in the
->> migration PMD. Even with _PAGE_PRESENT clear, we end up treating a
->> migration PMD as a present THP! The fault handler skips
->> pmd_migration_entry_wait(), and a write fault can end up in
->> do_huge_pmd_wp_page(), where pmd_page() decodes the migration entry
->> as a mapped PFN.
->
->That sounds bad.
-
-YES, looks a bit off ...
-
->> 
->> Move the swap soft-dirty bit to bit 12 and start the swap offset at
->> bit 13 when CONFIG_MEM_SOFT_DIRTY is enabled. This keeps R/W/X clear
->> in migration PMDs and lets us keep the existing pmd_present() check
->> for invalidated THPs. Leave the offset at bit 12 when soft-dirty
->> tracking is disabled.
->
->That reduces the effective swap size (and PFN we can store). Could that be a
->problem?
-
-We don't need all 52 bits of the swap offset.
-
-RV64 PFNs only need 44 bits for migration entries, and actual swap is
-already limited to about 16 TiB per area with 4 KiB pages by
-last_page (__u32) and swap_info_struct.max (unsigned int).
-
-So there's room to reserve a bit without reducing the supported swap
-size or PFN range.
-
-CONFIG_MEM_SOFT_DIRTY is only available on RV64, so RV32 keeps its 20-bit
-offset.
-
-[...]
-
-Cheers, Lance
