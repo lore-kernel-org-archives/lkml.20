@@ -1,144 +1,82 @@
-Received: from mail-pz2-f38.google.com (mail-pz2-f38.google.com [74.125.228.38])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from abb.hmeau.com (abb.hmeau.com [180.181.231.80])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0B13722AE65
-	for <linux-kernel@vger.kernel.org>; Mon,  5 Oct 2026 03:27:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.38
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9DEB626AC3;
+	Mon,  5 Oct 2026 03:32:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=180.181.231.80
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791170859; cv=none; b=eqfrJp6IxD5LTeF7KeFpv1KfyJ6JaaLP4CwWp2aMZPXDoSnk+0qQem9uShNCwXlzvP1QvxZQCLikz/T7mdYxSaWE/83uZx0oeljqgWB7C7F6WiPwqkdQhdWzi+I6iVEhFWQBMiNuhGJC4wGwvaMITUNR/Yw5okPcsHZUABKJRu0=
+	t=1791171183; cv=none; b=hTifob4gHgWqd+A3nwjU7CyYQ4tqIOyX5zyBr+ZpsmEzWzvtKS3AkhXA90W2jqU5dw7St5fZlSURX4PROS+V5Rxra3JdbO0CtovFY/lSRs5p9EKlbK/CnN+meBTjK4hDzJ09xbwpgqoI4FKZM2S2X3V+NtmhwupZLP7D+x62mqk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791170859; c=relaxed/simple;
-	bh=E5O0wlXlJyvkkz/5Vo5XiLD7vEKkwgsN4f53JEeHJvE=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=LF/C/m/VBYsnrv0Wi9mkGX9CPAylAo/rCNiridEAsU4Lxo4o+zeZ6fpa7rqN2Vx29Q7n/HsVZSEl8wrpUxvnoPuTcXp5LruGPF06P9hR95WFvPxwOU0fFQynEwESnUvSEvu2CEXk5a+y+lJL7FFm3andyRlbp49VqZlwQXTjsJQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=bPYcFeIO; arc=none smtp.client-ip=74.125.228.38
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1791171183; c=relaxed/simple;
+	bh=yxbujoWVSCjtVaHf3TRK7uaQrZ4FFMYjS/+jT1RGem4=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=t7ai/tY21A53swiw2ROfpLklkT5PQAm/6ALAp9Gc5xYNsmSRsHFy/v93cQ/dcitY4N77wQ23Iw2LG1uTCx3pFDOis6hPsxd4FBh5mgjMw9f1uDwRHdw+iXFnhZ5XBGWbq6go+6WP1lzpzw8OZuwNcPaePDyUmF/tGrZX799FnFM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gondor.apana.org.au; spf=pass smtp.mailfrom=gondor.apana.org.au; dkim=pass (2048-bit key) header.d=gondor.apana.org.au header.i=@gondor.apana.org.au header.b=cG73eXWV; arc=none smtp.client-ip=180.181.231.80
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gondor.apana.org.au
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gondor.apana.org.au
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="bPYcFeIO"
-Received: by mail-pz2-f38.google.com with SMTP id d2e1a72fcca58-881a3a28e72so295001b3a.2
-        for <linux-kernel@vger.kernel.org>; Sun, 04 Oct 2026 20:27:37 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791170857; x=1791775657; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=+7rtVf2jZjIswFkHLMjLn3J1S9WPnjKaw0RzizJrzhw=;
-        b=bPYcFeIO1SmYox9vZpDt3UsSZir491cPfkqonSfQitiBaVVX4uS1B3YIy0Fgf4kMgE
-         K+t9ArkkH3nj3tbCB2Ahatqi4vkh8MzU5PPkDJSzWF5HkpJJhltDRBlXp0JnAQDQ+mih
-         JyPEvH2RRdlg0+EkkhMIe3WO8/THIVVdnoeyJL/fmZ+to6K/jOjJoayncKpLZbJMo+xm
-         DsgpierdVc7Z3et8+6hnFwzowjXTVRTSja2xM1brQAjU6dOysEBBwKru3M55o77S37Hh
-         bLBmgk2gQV3Kq0Z6nY3mvx0i1xez2gpfuA+AU8NWAOFcCJ/CMIGKgv7C5VjJmSIa42De
-         OVnA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791170857; x=1791775657;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=+7rtVf2jZjIswFkHLMjLn3J1S9WPnjKaw0RzizJrzhw=;
-        b=Bq2GehixZ3CoZ5M8/HeXEvsV8m9NHyW8iMulTxTDs/jpK7QiNF+Q6GHj7YL2kvtsiQ
-         SIKSDm6oy/mbWtPMe+dq27/l9WstA2m76tEqFB1joOhIsp/HSHsK48fCv/srcnmeLpEj
-         z4cy7yMJzB7Rv1QLMYuIUN5eJqos0jRQa8MxAHabxiTM9s6dkF+jfkorW4Blhmykyqd+
-         8UhJBeN7ewLDPLIATllWTsyTfMgX1W/mbNcd1+ySIqtUw2UAclSx+7ygCIvFfJ1g+qsi
-         0gQRMUbLMjTWBDJIyxT5hzLSz0LrI7M/unX+ODcUd0cV+TL5YzQ35kLKcalbaFRhZBXu
-         zmYA==
-X-Forwarded-Encrypted: i=1; AKwUvBxf/WSZv5cvwKOkMsnIp6KD78tshZycVROFsAl2pK4W7x6iRDDJIxq9q12TTgMx+ulxoAe7bigyVulRdUs=@vger.kernel.org
-X-Gm-Message-State: AFuF++mY8r4vumkmrjZqXXLUF7qalWPJ/glH9erPUMdCKPW8FPKjrmAO
-	2mXcL9NKedxLRXWy8cqmcySBSba1vDdrcs7M1LFuWnFC406biwZMLjLo
-X-Gm-Gg: AYBFou2R/q0fCZ1Dk/vEmiQZCLJqqtLYpqAXuHLgUuGBWSOEcK234+AVhpynEDWwLY4
-	DZL81sTqs1YvSTQabSGI64+nv/1T7YdrBQOh4i+4eVHZVFwAXu8381B3Fxufy1SZxJK3ue2Kdqm
-	StOf6VVgIGobvvPSv1Pi+PoYVjkW8tkFdEHQu2edvOyLoa3ydwjkm3cFLYKQuRD4sLB1aTXnmLk
-	qk4500rP9ZPEB4hNj8Oxi96XidX0sccbxjrakIRXgmHQkKjDAsMtuBHTQchWL/7vW07t+Fy1ObM
-	FUo4BQnluie4vZHUBd3T30fRyNTD95/DYJbDexLoYC7ykK/PxyYx1XiqT2JFSfi1c+OfRd0cIOW
-	sBzuRUwqNGLXSwpkDv9tJUo5YV8wAPi3nZxirJ4M9ZSDkmigPNesSkeRmmtauZrh/Wfb9nzH60k
-	zhOt6Ftb/d+YQch8EFI34F/SNqGE1MayPEGqsBAxlkCKijQDzNsgAbbGnz4ExvxlU2lbf/4dWOz
-	MBGtyY3l1aFmctwQ/8hp9+2d6PaJaiyrqK7Hr8=
-X-Received: by 2002:a05:6a20:4324:b0:3e0:d65c:494b with SMTP id adf61e73a8af0-3e0d65cf428mr6369545637.26.1791170857208;
-        Sun, 04 Oct 2026 20:27:37 -0700 (PDT)
-Received: from lenovo-thinkbook.lan ([112.2.158.7])
-        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cce6ddd9a25sm115037a12.22.2026.10.04.20.27.35
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 04 Oct 2026 20:27:36 -0700 (PDT)
-From: Yuqi Xu <xuyuqiabc@gmail.com>
-To: Mika Westerberg <mika.westerberg@linux.intel.com>
-Cc: westeri@kernel.org,
-	andi.shyti@kernel.org,
-	linux-i2c@vger.kernel.org,
-	linux-acpi@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] i2c: acpi: Add ELAN0662 to i2c_acpi_force_100khz_device_ids
-Date: Mon,  5 Oct 2026 11:26:55 +0800
-Message-ID: <20261005032655.12633-1-xuyuqiabc@gmail.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20261005024654.26888-1-xuyuqiabc@gmail.com>
-References: <20260918054109.23550-1-xuyuqiabc@gmail.com> <20260918055653.GD106095@black.igk.intel.com> <20261005024654.26888-1-xuyuqiabc@gmail.com>
+	dkim=pass (2048-bit key) header.d=gondor.apana.org.au header.i=@gondor.apana.org.au header.b="cG73eXWV"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=gondor.apana.org.au; s=h01; h=In-Reply-To:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:cc:to:subject:message-id:date:
+	from:content-type:reply-to; bh=w3u3WhIUsAmVXpd2DbmdKazE74Jt9Bboj8+iMMDQiU8=; 
+	b=cG73eXWVCWCBtbvZn02Wt8e1a54y+Q7WJXw1pS7ENAevogGRwrC2rfWpLCZXR8akbDIhi34pc/u
+	yp/5hXlfcKDZr2uzlcOHQM4tX9FqDmw0ssuAD9Yf1TpzdZTf4wuK2+txb52Cq8+vJ7Jdsj3EOHV1f
+	aaAEXb4lBmLTMaWTJ32lUPpPdtbUDRihYxFZuIcpC0/nSLhjFIu0w+PTf4rKHIg7ivXzl2RAto8Rz
+	idcQJil5q7Qpe8XN6nW09493p27PR6FC1Hj6yQmY6aAJfCEeTTiDqYXkoF7YMA/6+WOojfxt9GW3c
+	/JRAXygq/diuEsRg/1SY/7TjL4XGN3qC0wng==;
+Received: from loth.rohan.me.apana.org.au ([192.168.167.2])
+	by formenos.hmeau.com with smtp (Exim 4.98.2 #2 (Debian))
+	id 1xDZRO-00000000jEF-0M0k;
+	Mon, 05 Oct 2026 11:32:39 +0800
+Received: by loth.rohan.me.apana.org.au (sSMTP sendmail emulation); Mon, 05 Oct 2026 14:32:38 +1100
+Date: Mon, 5 Oct 2026 14:32:38 +1100
+From: Herbert Xu <herbert@gondor.apana.org.au>
+To: Erwin Pawliczek <pawliczekerwin@gmail.com>
+Cc: linux-crypto@vger.kernel.org, linux-kernel@vger.kernel.org,
+	"David S . Miller" <davem@davemloft.net>,
+	Lukas Wunner <lukas@wunner.de>, Ignat Korchagin <ignat@linux.win>,
+	Stefan Berger <stefanb@linux.ibm.com>,
+	Randy Dunlap <rdunlap@infradead.org>,
+	Paul Louvel <paul.louvel@bootlin.com>
+Subject: Re: [PATCH] crypto: ecc - Use constant-time modular inversion in
+ ecc_point_mult()
+Message-ID: <asMaVj3KFINl3je0@gondor.apana.org.au>
+References: <20260928042641.307683-1-pawliczekerwin@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260928042641.307683-1-pawliczekerwin@gmail.com>
 
-Hi Andi, Mika,
+On Sun, Sep 27, 2026 at 11:26:41PM -0500, Erwin Pawliczek wrote:
+> vli_mod_inv() is a binary extended Euclidean algorithm whose branches
+> and iteration count depend on the input. ecc_point_mult() uses it to
+> invert the projective Z coordinate, which depends on the secret scalar,
+> so ECDH leaks information about the private key through its running
+> time.
+> 
+> Reimplement it with the Bernstein-Yang divstep algorithm ("Fast
+> constant-time gcd computation and modular inversion", 2019,
+> https://eprint.iacr.org/2019/266), and keep the old code as
+> vli_mod_inv_vartime(). Only ecc_point_mult() uses the constant-time
+> vli_mod_inv(). Signature verification now uses vli_mod_inv_vartime()
+> because its inputs are public: the s^-1 inversion in ecdsa.c, the
+> inversion in ecrdsa.c, and ecc_point_mult_shamir() and ecc_point_add(),
+> which only they call.
 
-Please don't apply this patch. I was wrong about the fix, and I'm
-sorry for the time already spent on it.
+Last I checked we have no in-kernel users of private keys at all.
+So does this actually have a real in-kernel use-case?
 
-I treated this as the same 100 kHz quirk as the other ELAN touchpads.
-That was a mistake. On this machine, forcing ELAN0662 to 100 kHz does
-not stop the touch jumps.
+In fact we should probably strip out all the unused private key
+support code from the kernel.
 
-The firmware already asks for 400 kHz. \_SB.I2CA (_HID AMDI0010)
-publishes the timings through _DSM. iasl marks the UUID unknown, and
-I could not find a public AMD specification for it:
-
-    Method (_DSM, 4, Serialized)
-    {
-        If ((Arg0 == ToUUID ("d93e4d1c-58bb-493c-a06a-605a717f9e2e")))
-        {
-            Switch (ToInteger (Arg2))
-            {
-                Case (Zero)
-                {
-                    Return (Buffer (One) { 0x03 })
-                }
-                Case (One)
-                {
-                    Return (Buffer (0x04) { 0xE5, 0x00, 0x6A, 0x00 })
-                }
-            }
-        }
-    }
-
-The same UUID is present on other Lenovo AMD platforms. AMD's
-amdi2c.sys 1.2.0.126 reads function 1 as two little-endian words,
-LCNT 0x00E5 (229) and HCNT 0x006A (106), and programs IC_SDA_HOLD
-with 0x48. I could not find that layout written down anywhere else.
-
-i2c-designware does not evaluate this _DSM. It derives HCNT/LCNT from
-the 150 MHz input clock and leaves SDA hold at the reset value of 1.
-The comment above i2c_acpi_force_100khz_device_ids already suspects
-those default counters, and notes that Windows works at 400 kHz.
-Forcing 100 kHz only avoids the bad fast-mode counters.
-
-Programming the values from the _DSM changed the result:
-
-  100 kHz, SDA hold 45: touch jumps within about a minute
-  400 kHz, FS HCNT/LCNT 106/229, SDA hold 0x48:
-
-    i2c_designware AMDI0010:00: SDA Hold Time TX:RX = 72:1
-    i2c_designware AMDI0010:00: Fast Mode HCNT:LCNT = 106:229
-    i2c_designware AMDI0010:00: Bus speed: Fast Mode (400 kHz)
-
-  the same use no longer logged "Touch jump detected".
-
-So this entry does not belong in
-i2c_acpi_force_100khz_device_ids. The follow-up will be a separate
-i2c-designware patch: in i2c_dw_acpi_configure(), when SSCN/FMCN are
-absent, take fast-mode HCNT/LCNT from that _DSM and set SDA hold to
-0x48, and leave the bus at the firmware speed. Please drop this one.
-
-Thank you for the Ack, Mika, and sorry again.
-
-Yuqi
+Thanks,
+-- 
+Email: Herbert Xu <herbert@gondor.apana.org.au>
+Home Page: http://gondor.apana.org.au/~herbert/
+PGP Key: http://gondor.apana.org.au/~herbert/pubkey.txt
