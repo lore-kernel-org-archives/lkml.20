@@ -1,196 +1,125 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com [209.85.128.45])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 077F637BE9E;
-	Mon,  5 Oct 2026 08:08:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2A9EC3783C8
+	for <linux-kernel@vger.kernel.org>; Mon,  5 Oct 2026 08:09:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.45
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791187740; cv=none; b=CfHINN5qf/NBl5l+T0s/+kPnnukOttY6mIekEJOUTD5Y+tlssrTj353W+Z8cX31cFGTiiwlOtF/eHMl4in4GaLOGmxNoIgLDs7dJgTzjfLtd5yJ22Y/70CCHGwMMkg4Qfm6MV3SFbeUC+mQhzzn4B8iXVL8qOCN0FkzfOMIBMKM=
+	t=1791187780; cv=none; b=NyMbR9K8Y+NeRvRww+taSOjFkLNY5nrO03QE3i+4gBjPXOu0QnsHSmgaxFXUOSNzIU6SvUX3tXhwTsQK6g3RugA+be9AJsDZtFIu8Wb91pqgGkY5iZy4Vk6DeWthEQa318LFwa2LVKIltSQUqm/Ghj2D/Wef6dWabdByHy00tWA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791187740; c=relaxed/simple;
-	bh=trtZaLJC3MhlKv9lnybxB/PWGn/R7M4m35xhpGgXBiM=;
+	s=arc-20240116; t=1791187780; c=relaxed/simple;
+	bh=sp7moOFoU87sCpnpLRLXygO7kV5Zv5K8JRGo+3bzcNY=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Vih9S/b955qFBMv6qQ20CeB5FUZXIsjE9MXtClZeJ5L/qfJb1KNTf3dr1rZJhQmaRNtR978s+wGUSerGRJh9z9oo/LY8CPPXTzYiMy3Yp9wfrgZGsmQaYqzyLqW2VC+jha6/32k82bg3gbTtldA9o3LDDRvQkHINnKPnIY9y86I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Jt3a4Fpp; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=fr7eMWrV62Dr49qsNWD95IpFH9couDmRYxyZDkWgTgvyXDdSwo/iZevEzbSTnMo/cyIkzs9KMEE3G7wgb1Q9YozcSDPf8mxnps0inzZj6PMvay4aw3rNvYZFnC7pYzvVkXgmBgCXSQlAsk0s+jyqZdWoLzcsZJ30OifJXmJOl9s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=WNwRMr65; arc=none smtp.client-ip=209.85.128.45
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Jt3a4Fpp"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0B3591F000FF;
-	Mon,  5 Oct 2026 08:08:55 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791187738;
-	bh=Mx+nbYRXzNl44D5NyykgGkBrWZ5MiNy9Yx1ZnBFphJY=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=Jt3a4FppBZLrmmVsjVqAQ6buJqHNbIHxZvpGHls9B6SuenV5GY6qGf33ihRhDEGJN
-	 /2XigapzV3e62VBA6v9gCoMuUy9lgXX5n8NZT7o4kn0saqAOuCX96JRtpqByjgkrrP
-	 EAWq+dvVkp2EwdNhv/ujRQRjsmChbFaNiTyyYSe36fsd1H223aZGjio8mq+GU3/Fnk
-	 K5FwvnpSivfB777OxCgRjMFt7VIAPB20FfDakoaqSOa1nNpwvEYg2j/ql8+GqNJsKN
-	 zKhr6Krro9ba3xlKPMqV5Lqa/Enz5ADn8sjtozG+4TLk/0nVHHuwzFbu6MLiIAZ3TY
-	 fwjzCwLUxo98g==
-Date: Mon, 5 Oct 2026 10:08:53 +0200
-From: Alejandro Colomar <alx+linux-hardening@kernel.org>
-To: Rosen Penev <rosenp@gmail.com>
-Cc: ceph-devel@vger.kernel.org, Ilya Dryomov <idryomov@gmail.com>, 
-	Alex Markuze <amarkuze@redhat.com>, Viacheslav Dubeyko <slava@dubeyko.com>, 
-	Kees Cook <kees@kernel.org>, "Gustavo A. R. Silva" <gustavoars@kernel.org>, 
-	open list <linux-kernel@vger.kernel.org>, 
-	"open list:KERNEL HARDENING (not covered by other areas):Keyword:b__counted_by(_le|_be|_ptr)?b" <linux-hardening@vger.kernel.org>
-Subject: Re: [PATCH] ceph: use a flexible array for monitor addresses
-Message-ID: <asNa11wqowvRtIXE@debian>
-References: <20261005001955.589395-1-rosenp@gmail.com>
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="WNwRMr65"
+Received: by mail-wm1-f45.google.com with SMTP id 5b1f17b1804b1-4a0286c981dso13717355e9.2
+        for <linux-kernel@vger.kernel.org>; Mon, 05 Oct 2026 01:09:39 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1791187777; x=1791792577; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=F0RLBXv8GCFvA3UGkYd6Vj6CuQ4sgMyjZDG6+lIJvG0=;
+        b=WNwRMr65sSzCDbOqcWkfdFXNmq+KAQaiurLJU8dCNJJW7ct55202RdvRyzhpPKJig0
+         JP/F6nzmlZF3HH38xvyF5YiCShvaqET4UqDTT77b0Zwd8MeMtkc9xvTgE83WQCKX7VVy
+         NRlDK/CJsRnBqNyAKtXDTM7ExU56FFUvOQ2lw8C8k7FyiX5etn2v/hWfHBaPnM5sOyAy
+         PBp+435F2cZqkTpOh2wGz1PabasnOUbblXGrp911qgsx06QSgIWgeyQX8dFLFG/paBQN
+         cNgHCZ3KdnZ3yfRvWCqTJiBisa55/LQwD/TdDdsBQXfVHM/xe8nNOa3jTBoYP3oudA1J
+         h4hg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791187777; x=1791792577;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=F0RLBXv8GCFvA3UGkYd6Vj6CuQ4sgMyjZDG6+lIJvG0=;
+        b=Ln4Ud9EbT1p6DhxgiTpMBCRfDGFQPEpJgwDI+sVirhZOa9wMMMkJcz/0W3ow/0Wa7f
+         aodNOh4FbVoeTUKGV9tFuX/wh2lJOcfxhd2ahe+u5JgeFegQaXajmxB7UrRl0GnkNNia
+         6BfvlARz/aESpRdWj2mn6gjiDHVAMW2lDzRlCnjZhm52yngyT79UelgBFJ2ISgr+icrQ
+         x+OdyHJ/XXq2vuSP/Ed/wHawutLB1pv7791rdKmXGW1kfE5ka6pQsFYJIpswT81+CJPn
+         uxVQsvhFLqmNFOq00VcuVYAse2ZXtul+oK6QAQZbCHXE+EBjngnaB+is8sVl56qiRlvc
+         33Ew==
+X-Forwarded-Encrypted: i=1; AKwUvBxT/XtHF6+QmB9gjk+e02e5FLchpus0NVjcfs3NVW6g7xDwVZb5AG6m6rOv0sxEH9/fPVNoHbRqqKDAxMc=@vger.kernel.org
+X-Gm-Message-State: AFuF++lqVpR3Xj3+Bezz/SZXdSxm0dQUI4gQLTjrJmNhSDYz304H1xYR
+	xXc0j+SvUv5Ya0YuP+FD0cW3wuQPuDjOxJtpGC9qXn8F5hVUqd9lphvixPhdV0dbpp4=
+X-Gm-Gg: AYBFou2VxBCnMBSygoZjt31Gq+J05urXG+/F7aYZGQ1o5GXOJ9lUHB0dyF36/VxshX1
+	bza96pRFvPzSs+N3OUbPNEO0WJUtgf2nipMvNRmVdn898BPxu6cnbxMrMwL7Qs1PkOJw+NztJiE
+	TAFJ5knsqlbbhhwSxw4vSqvWRRWUI0EuUEUzWg9ms3BvsVzEQsqP6hXkevWxiS9h5mkhNfkgcsT
+	nQw7mVTpteJdrm+TGxhTAIv7vuoAzX19uAcR+7a3Dz0EGJpsxyWfqb06QepExjwuO/xutf3Xxfy
+	jOMQhNjicDfRR0WLVEjbUQbXXV780TDzQITcCxFNs1MmLpz8Z9RCoSMw0K3D+vBna9DSzJQOLWd
+	FuG4QPLO9cwDB8bna2gB1Ix/ETTBdz8GoN47Y8/gTgBJnyDCQRSS9ULaNoUXYqx54xaVc5tiktF
+	xe7MzqP0assyLJQ+Hwh6x6SKeZYW9TvM7Gzwola6mHl5FbIjYJ4AqN/zDLFv/hUPwLRrKEmnA/w
+	RNiNMZTdsR0
+X-Received: by 2002:a05:600c:4594:b0:4a0:22d5:908c with SMTP id 5b1f17b1804b1-4a1680eee54mr83735285e9.12.1791187777343;
+        Mon, 05 Oct 2026 01:09:37 -0700 (PDT)
+Received: from linaro.org ([2a02:2454:ff25:4f41:ec49:36a8:7075:6d05])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48c622ab326sm1850803f8f.35.2026.10.05.01.09.36
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 05 Oct 2026 01:09:36 -0700 (PDT)
+Date: Mon, 5 Oct 2026 10:09:34 +0200
+From: Stephan Gerhold <stephan.gerhold@linaro.org>
+To: Alex Robinson <alex@ironrobin.net>
+Cc: Hans de Goede <hansg@kernel.org>,
+	Ilpo =?iso-8859-1?Q?J=E4rvinen?= <ilpo.jarvinen@linux.intel.com>,
+	Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Bjorn Andersson <andersson@kernel.org>,
+	Konrad Dybcio <konradybcio@kernel.org>,
+	Steev Klimaszewski <threeway@gmail.com>,
+	platform-driver-x86@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v5 0/3] Lenovo ThinkPad X13s embedded controller support
+Message-ID: <asNbPjMB_Jf9PL5C@linaro.org>
+References: <20261002154231.31376-1-alex@ironrobin.net>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="22jjbyyticpuppkd"
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261005001955.589395-1-rosenp@gmail.com>
+In-Reply-To: <20261002154231.31376-1-alex@ironrobin.net>
 
+On Fri, Oct 02, 2026 at 03:42:48PM +0000, Alex Robinson wrote:
+> Add Device Tree support for the ThinkPad X13s embedded controller,
+> providing keyboard-backlight control and firmware-driven brightness
+> notifications. Its event, backlight and power-management interfaces
+> differ from the T14s EC and require a separate driver.
+> 
+> EC wakeup remains disabled by default because lid closure can trigger
+> an unwanted wakeup and no selective event mask is known. Other EC event
+> mappings remain outside the scope of this series.
+> 
+> This follows earlier X13s EC work by Konrad Dybcio and Steev Klimaszewski.
+> Development was assisted by an LLM, including analysis of the X13s ACPI
+> DSDT and review of the implementation.
+> 
+> [...]
+> Testing:
+> - Confirmed GPIO103's firmware-inherited pull-up on a ThinkPad X13s using
+>   a vanilla kernel with temporary probe-time instrumentation.
+> - Verified that all three v5 patches apply in order to Linux v7.3-rc4
+>   without the separate PCI workaround and reproduce the current EC
+>   source files byte-for-byte.
+> - Earlier v2 hardware testing covered keyboard-backlight control,
+>   firmware brightness changes, s2idle, lid-close/open brightness
+>   restoration, and EC wake events. Those results are historical and do
+>   not establish validation of the complete v5 series or its revised PM
+>   handling. No v5 build or runtime validation was performed while
+>   preparing this submission directory.
+> 
 
---22jjbyyticpuppkd
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-From: Alejandro Colomar <alx+linux-hardening@kernel.org>
-To: Rosen Penev <rosenp@gmail.com>
-Cc: ceph-devel@vger.kernel.org, Ilya Dryomov <idryomov@gmail.com>, 
-	Alex Markuze <amarkuze@redhat.com>, Viacheslav Dubeyko <slava@dubeyko.com>, 
-	Kees Cook <kees@kernel.org>, "Gustavo A. R. Silva" <gustavoars@kernel.org>, 
-	open list <linux-kernel@vger.kernel.org>, 
-	"open list:KERNEL HARDENING (not covered by other areas):Keyword:b__counted_by(_le|_be|_ptr)?b" <linux-hardening@vger.kernel.org>
-Subject: Re: [PATCH] ceph: use a flexible array for monitor addresses
-Message-ID: <asNa11wqowvRtIXE@debian>
-References: <20261005001955.589395-1-rosenp@gmail.com>
-MIME-Version: 1.0
-In-Reply-To: <20261005001955.589395-1-rosenp@gmail.com>
+Nitpick: I assume your LLM added this bullet point(?), but for
+submitting a series upstream this is kind of like "shooting yourself in
+the foot". You haven't tested this series for 3 revisions and your LLM
+hasn't even build-tested it? Please make sure you test your submissions. :-)
 
-Hi,
-
-> Date: 2026-10-04 17:19:55-0700
-> From: Rosen Penev <rosenp@gmail.com>
->
-> ceph_alloc_options() allocates the monitor address array separately,
-> always sized for CEPH_MAX_MON entries. Make it a flexible array member
-> at the end of struct ceph_options and allocate both together with
-> kzalloc_flex(). The array was already an 8 KiB slab object, so this
-> only drops the separate allocation and its error path.
->=20
-> num_mon is the number of addresses in use, not the capacity, so the
-> array cannot be annotated with __counted_by().
->=20
-> ceph_compare_options() memcmp()s the simple fields up to the first
-> member that needs a custom comparison. With mon_addr gone from there,
-> use num_mon as that boundary; the compared fields are unchanged.
-> Document that num_mon has to stay first past that point.
->=20
-> Assisted-by: LLM
-> Signed-off-by: Rosen Penev <rosenp@gmail.com>
-> ---
->  include/linux/ceph/libceph.h |  7 ++++---
->  net/ceph/ceph_common.c       | 11 ++---------
->  2 files changed, 6 insertions(+), 12 deletions(-)
->=20
-> diff --git a/include/linux/ceph/libceph.h b/include/linux/ceph/libceph.h
-> index f92fdd853f1f..e585d6d11303 100644
-> --- a/include/linux/ceph/libceph.h
-> +++ b/include/linux/ceph/libceph.h
-> @@ -57,15 +57,16 @@ struct ceph_options {
->  	/*
->  	 * any type that can't be simply compared or doesn't need
->  	 * to be compared should go beyond this point,
-> -	 * ceph_compare_options() should be updated accordingly
-> +	 * ceph_compare_options() should be updated accordingly.
-> +	 * num_mon must stay the first member past this point, as
-> +	 * ceph_compare_options() uses it as the end of the memcmp().
->  	 */
-> =20
-> -	struct ceph_entity_addr *mon_addr; /* should be the first
-> -					      pointer type of args */
->  	int num_mon;
->  	char *name;
->  	struct ceph_crypto_key *key;
->  	struct rb_root crush_locs;
-> +	struct ceph_entity_addr mon_addr[];
->  };
-> =20
->  /*
-> diff --git a/net/ceph/ceph_common.c b/net/ceph/ceph_common.c
-> index a797c7360e3c..95dc18257056 100644
-> --- a/net/ceph/ceph_common.c
-> +++ b/net/ceph/ceph_common.c
-> @@ -133,7 +133,7 @@ int ceph_compare_options(struct ceph_options *new_opt,
->  {
->  	struct ceph_options *opt1 =3D new_opt;
->  	struct ceph_options *opt2 =3D client->options;
-> -	int ofs =3D offsetof(struct ceph_options, mon_addr);
-> +	int ofs =3D offsetof(struct ceph_options, num_mon);
->  	int i;
->  	int ret;
-> =20
-> @@ -309,17 +309,11 @@ struct ceph_options *ceph_alloc_options(void)
->  {
->  	struct ceph_options *opt;
-> =20
-> -	opt =3D kzalloc_obj(*opt);
-> +	opt =3D kzalloc_flex(*opt, mon_addr, CEPH_MAX_MON);
-
-Oh, there's indeed a kzalloc_flex().  Why is it not used in the other
-patches?  (I'm not all that happy with the current API of this _flex()
-variant, but it's better than nothing.)
-
-
-Have a lovely day!
-Alex
-
->  	if (!opt)
->  		return NULL;
-> =20
->  	opt->crush_locs =3D RB_ROOT;
-> -	opt->mon_addr =3D kzalloc_objs(*opt->mon_addr, CEPH_MAX_MON);
-> -	if (!opt->mon_addr) {
-> -		kfree(opt);
-> -		return NULL;
-> -	}
-> -
->  	opt->flags =3D CEPH_OPT_DEFAULT;
->  	opt->osd_keepalive_timeout =3D CEPH_OSD_KEEPALIVE_DEFAULT;
->  	opt->mount_timeout =3D CEPH_MOUNT_TIMEOUT_DEFAULT;
-> @@ -344,7 +338,6 @@ void ceph_destroy_options(struct ceph_options *opt)
->  		ceph_crypto_key_destroy(opt->key);
->  		kfree(opt->key);
->  	}
-> -	kfree(opt->mon_addr);
->  	kfree(opt);
->  }
->  EXPORT_SYMBOL(ceph_destroy_options);
-> --=20
-> 2.56.0
->=20
->=20
-
---=20
-<https://www.alejandro-colomar.es>
-
---22jjbyyticpuppkd
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEES7Jt9u9GbmlWADAi64mZXMKQwqkFAmrDWxQACgkQ64mZXMKQ
-wqntOA//a86yyT3keMHPYFgUbEkw/SV6QoeAAvRkk0BuLl729WRbSRL8SIiEyldW
-2SDHSk3OZgP2MUuEX7DO+vx2FJxkWlaD3Fuwx126ZuERASAP17a5gBMnb4UJ8yFo
-rLWd87SbOhS7pHsV1jFUbw7lMftkQ+wM7G9D42Mfax03UWuQ2jTGSAGsLXccngbz
-Ed7yaGbaLLorjunzIMhLicM5mMnhtoUGhgMW0bFRnoVQgxea+HlyRuiMyp3eJsoc
-2+zsA4ioTsdY/WUoyXyeaWIiCqQB4WZ59qw2qDVA4JHdp+HqR2AF62xFehXB9jxn
-cPlidWAi1ZBrEkPmSGx+ckufdwdmOZB80ntm5JV6ldRkNcUFpXZ29qT9tGtV4X0Q
-2eP0JBzkizlaijztW+zbVfzgfowSKdcSMtzJAppGFKJ6xP8bQH+xSgiSO3ekmuVs
-SjKcSsdPi923KIsQoqPvtboFPL70ga5uJE3sLNW0nQeeQl/WecPNainlDYrkIxAU
-XwitnyvHgjKgO+yskTH+65rZKOyNm9ATc+CYtTRzGIkk+LEhIfVl8/A3NIlhC/wa
-qiWISYKKHrbnZbXpBK4NOLkNZc58ilfHkAdDKCuAF4vt0MoMkOdOuxHKMqsgjVy7
-BpZpgd00FxYVowg/fen2eZFPrQs9c20UDzRoaswRfW6xaBO7NIo=
-=eXCR
------END PGP SIGNATURE-----
-
---22jjbyyticpuppkd--
+Thanks,
+Stephan
