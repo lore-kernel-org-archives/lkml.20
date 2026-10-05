@@ -1,311 +1,109 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 548B745563A;
-	Mon,  5 Oct 2026 23:39:57 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 32BCB407CF1;
+	Mon,  5 Oct 2026 23:40:13 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791243599; cv=none; b=MZkd67KoNd9u5qjkmLnNHgC49D4wtoJVdq3sRX+buAoaRzff/T7vPA91xH8vI738v5f+QmwJ/cfeN7LOyK6nKM8dchv2kd5i+5v3tLdsym43ijV8QWo/L8Y4rUV6hOIvzlj/fdlossMuWxMA37eATw28Gb8wGwyf1M0L0d0Nw20=
+	t=1791243615; cv=none; b=WxPmDcvF5j/jB2rtTDpQ8X9KVJpEc/ArsK6CJqb+nlrmTSMGSEh54NvqAt90kq/91u+Seq2YCsNNOlagJD4FCiNP8Zsqgu2B6ziaOEc1HjyZQswjsDnlCmupC2tBz/yIL4p54eim4q/ig9pYc3QTIMl5d1jq8CXz3JD5kKecJJM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791243599; c=relaxed/simple;
-	bh=GpF0i/FJN2rPF8w5W5/ZXftb4l48uhx5xGPr6J2c4Wg=;
-	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To; b=f6unt+hNa3gIEXqZ+8KNOPv0KVBHLFdFQ8xKzvTqwNC/rcFxWaC3RKlak5BINqOFQoBQNNOKpuiXelhkV5e1GTlZi4q+weQB9g+omE7rKEEDOty+1ERXJl5cIQ1ukSe9Nq7jjz8U+SJZiKWUh2GdGlTMgapQcTfXwGA4n8oJqI0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=RV3YvlF7; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791243615; c=relaxed/simple;
+	bh=AbcvKULNONvuc+S43VLsDin5gF5ZUyDCXAIyZ9/90Hs=;
+	h=Content-Type:MIME-Version:Subject:From:Message-Id:Date:References:
+	 In-Reply-To:To:Cc; b=h6GYHumZ+FHoILaKY+SEGUxz5FZlPMggdva5UB+6aDJyPIs3kBdpRnmk3wsxV7cMxd83xfH87J+V5W1kOLrWRYEWVfiMaFdyFEf+BsP8EOKTpVU53pwgrPb2W1H25GWV0LnPTejQdgWhLGurUY4wMRx4qh5/ufZ2nb+riTgUsLE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=mznSyvN2; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="RV3YvlF7"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 61B211F000FF;
-	Mon,  5 Oct 2026 23:39:56 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="mznSyvN2"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BE2F91F000FF;
+	Mon,  5 Oct 2026 23:40:13 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791243596;
-	bh=n2FeCcTUwln+ThglsluSIuBuud4m/NWKFhzd5XpTQMc=;
-	h=Date:From:To:Cc:Subject:In-Reply-To;
-	b=RV3YvlF7yDrEXMVAouuqa8zfo4sK4LagpqVYoc8IMB+Z5C0g78yUpFsDNfkmJFmbv
-	 FF5cRFaHO1OMmXwVz8XedmG5MXn7/SdZlJm7gBzcEpgo2iCF5E8x2IEJ8+2tZ5QUFf
-	 zdJCG7xgVQgk+TL97ojpR3wlS3qZPQu+Y8rSL5qULyVyJeujbtFMyQXG3b6hA5uBqR
-	 nvMjQSckZXeD7LS3SOte036RJwYtg4woENHSuS+dOwa9qQTq28vmZvD021IW3JkdAq
-	 ptXvn545oMzIlO6eVzCDU5L5Haa3fo9nwyGbexLse2Cbo2lhrs32fNxu1N5GCx2ma3
-	 hOlZwTrCEJrQw==
-Date: Mon, 5 Oct 2026 18:39:55 -0500
-From: Bjorn Helgaas <helgaas@kernel.org>
-To: Rickey Bartlett <subtexel@gmail.com>
-Cc: Nirmal Patel <nirmal.patel@linux.intel.com>,
-	Jonathan Derrick <jonathan.derrick@linux.dev>,
-	Lorenzo Pieralisi <lpieralisi@kernel.org>,
-	Krzysztof Wilczynski <kwilczynski@kernel.org>,
-	Bjorn Helgaas <bhelgaas@google.com>,
-	Kai-Heng Feng <kai.heng.feng@canonical.com>,
-	Keith Busch <kbusch@kernel.org>,
-	Manivannan Sadhasivam <mani@kernel.org>, linux-pci@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] PCI: vmd: Flush initiator posted writes before demuxing
- interrupts on Meteor Lake
-Message-ID: <20261005233955.GA647215@bhelgaas>
+	s=k20260515; t=1791243613;
+	bh=uy9SnCApjJ7biyLuvnHLy3sJnW5JMrQVnkIiOTWAsVo=;
+	h=Subject:From:Date:References:In-Reply-To:To:Cc;
+	b=mznSyvN2Ck/Dj2CPK38qOTrUpoJfkVPgMlZ/UTd2qM/ZJnka74+O2AxKK+zAwYxyQ
+	 ii1xK2MjqwwB9HWX4eV7i9szMRGw1jEdbb2Oaw2gfObcRswv7NKWDQjk0yXGpLetXQ
+	 2R+0+WD19R36pf6K3T/8kDtMj45RzYRI9OxZsICKRyw/baOGQtFzBdTu3PKW7rjVfM
+	 P8sp9yOf4gpSrB7Xw0/0CUuwjFnftKs4PGlowoxdIgvy5qAfSe1jpq20yOjtWPb3rX
+	 SaphTGayDi9UWKdSzLBw+1p+7P1U6JTszQEY4iuP7WHIW/j6e6hhv5L+fr3auGevoG
+	 RzxiRU95EmiDQ==
+Received: from [10.30.226.235] (localhost [IPv6:::1])
+	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id B43B2392667F;
+	Mon,  5 Oct 2026 23:40:13 +0000 (UTC)
+Content-Type: text/plain; charset="utf-8"
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <CAAqcVzyiXr3GvzgpL_Cwh9W5EwLOZTowa-Fj5=7LGGiyhnY6yQ@mail.gmail.com>
+Content-Transfer-Encoding: 8bit
+Subject: Re: [PATCH net-next v9 00/12] gve: AdminQ mode related refactors
+From: patchwork-bot+netdevbpf@kernel.org
+Message-Id: 
+ <179124361227.1939764.8129284780606998603.git-patchwork-notify@kernel.org>
+Date: Mon, 05 Oct 2026 23:40:12 +0000
+References: <20260930190428.1130007-1-hramamurthy@google.com>
+In-Reply-To: <20260930190428.1130007-1-hramamurthy@google.com>
+To: Harshitha Ramamurthy <hramamurthy@google.com>
+Cc: netdev@vger.kernel.org, joshwash@google.com, andrew+netdev@lunn.ch,
+ davem@davemloft.net, edumazet@google.com, kuba@kernel.org, pabeni@redhat.com,
+ ast@kernel.org, daniel@iogearbox.net, hawk@kernel.org,
+ john.fastabend@gmail.com, sdf@fomichev.me, jordanrhee@google.com,
+ willemb@google.com, nktgrg@google.com, maolson@google.com,
+ thostet@google.com, jacob.e.keller@intel.com, debarghyak@google.com,
+ kees@kernel.org, bpf@vger.kernel.org, linux-kernel@vger.kernel.org,
+ przemyslaw.kitszel@intel.com
 
-On Fri, Oct 02, 2026 at 11:40:22PM -0400, Rickey Bartlett wrote:
-> Bjorn,
-> 
-> Thanks for catching that. The September 3 patch you linked is the intended
-> reference for [1]. The message ID in my original link was incorrect.
-> 
-> Please use these references in the commit message:
-> 
-> [1] https://lore.kernel.org/all/20240903025544.286223-1-kai.heng.feng@canonical.com/
-> 
-> [2] https://lore.kernel.org/all/20240913111142.4cgrmirofhhgrbqm@thinkpad/
+Hello:
 
-Fixed, thanks!
+This series was applied to netdev/net-next.git (main)
+by Jakub Kicinski <kuba@kernel.org>:
 
-> On Thu, 01 Oct 2026 12:08:16 -0500, Bjorn Helgaas <helgaas@kernel.org> wrote:
-> > On Mon, Aug 24, 2026 at 09:32:20PM -0700, Rickey Bartlett wrote:
-> > > Meteor Lake VMD (8086:7d0b) is affected by erratum MTL016: the VMD can
-> > > signal its MSI before the posted writes carrying a child device's DMA
-> > > data have landed in memory. vmd_irq() then demuxes to the child handler
-> > > while the child's completion queue is not yet coherent, so the handler
-> > > observes no completion and returns without consuming it. The I/O is
-> > > only recovered when the block layer timeout expires and polls the queue:
-> > >
-> > >   nvme nvme0: I/O tag 253 (50fd) QID 1 timeout, completion polled
-> > >
-> > > The practical effect is therefore not a lost I/O but a 30 second stall
-> > > of the entire storage stack, repeated under any sustained read load.
-> > >
-> > > This was originally diagnosed and fixed by Kai-Heng Feng in September
-> > > 2024 [1]. That patch used udelay(4); Keith Busch objected that the delay
-> > > is merely a side effect of the read, and that flushing the pending
-> > > device-to-host writes is what the erratum actually requires. Kai-Heng
-> > > agreed to respin with a dummy register read. The thread then stalled on
-> > > an open question from Manivannan Sadhasivam [2]: whether the read must
-> > > target the child device (the "MSI initiator" named by the erratum)
-> > > rather than the VMD, and whether the workaround belongs in the NVMe
-> > > driver instead. No revision followed, and the erratum has remained
-> > > unmitigated in mainline since.
-> > >
-> > > This implements the flush read Keith asked for, and answers the open
-> > > question empirically: the read MUST complete at the initiating child
-> > > device. A read of the VMD's own config BAR was tried first and does not
-> > > help - it terminates at the VMD and never traverses the downstream
-> > > link, so it does not order against the child's posted writes (measured:
-> > > timeout rate unchanged). Reading the initiator's config space does
-> > > order correctly: per PCIe ordering rules the read completion cannot
-> > > pass the device's earlier posted writes, so returning from the read
-> > > guarantees the completion queue entry is visible.
-> > >
-> > > The initiator's config address is captured per-IRQ at MSI allocation
-> > > time from the requesting device, so the hot path adds one config read
-> > > only on affected parts, and only for vectors owned by a child device.
-> > > The read is serialized with cfg_lock like all other VMD config access.
-> > > No NVMe driver change is needed.
-> > >
-> > > Measured on a Dell Pro Max 14 MC14250 (Meteor Lake, VMD 8086:7d0b,
-> > > KIOXIA BG6 512GB, 7.0.0-30-generic). The drive is healthy (46C, 0 media
-> > > errors, 2% used) and ASPM is disabled on the link with all L1 substates
-> > > off, so neither ASPM nor APST is involved.
-> > >
-> > > Dropping caches and reading 3000 shared libraries, measuring
-> > > /proc/pressure/io "full" (every task on the system blocked on I/O),
-> > > with nvme_core.io_timeout=5:
-> > >
-> > >   unpatched:      round 1  wall 37.4s   full I/O stall 32.6s   timeouts 0
-> > >                   round 2  wall 30.6s   full I/O stall 28.7s   timeouts 1
-> > >                   round 3  wall 30.3s   full I/O stall 27.4s   timeouts 1
-> > >
-> > >   VMD-BAR read:   round 1  wall 44.8s   full I/O stall 38.6s   timeouts 8
-> > >   (insufficient)  round 2  wall 234.8s  full I/O stall 207.9s  timeouts 37
-> > >                   round 3  wall 3.6s    full I/O stall 0.8s    timeouts 0
-> > >
-> > >   this patch:     round 1  wall 3.6s    full I/O stall 1.3s    timeouts 0
-> > >                   round 2  wall 3.6s    full I/O stall 1.3s    timeouts 0
-> > >                   round 3  wall 3.6s    full I/O stall 1.4s    timeouts 0
-> > >
-> > > Before any workaround, 208 seconds of total-system I/O stall
-> > > accumulated in the first 13 minutes of uptime, roughly 27% of wall
-> > > clock. Userspace experiences this as GUI applications taking 30-60+
-> > > seconds to start while throughput between stalls looks entirely normal
-> > > (1.9 GB/s QD1) - which is what makes the fault easy to misattribute to
-> > > ASPM or to the drive.
-> > >
-> > > [1] https://lore.kernel.org/all/20240909082657.19660-1-kai.heng.feng@canonical.com/
-> >
-> > This link doesn't work.  Do you have a corrected one?  Maybe it was a
-> > followup to this one:
-> >
-> >   https://lore.kernel.org/all/20240903025544.286223-1-kai.heng.feng@canonical.com/
-> >
-> > > [2] https://lkml.iu.edu/hypermail/linux/kernel/2409.1/08047.html
-> >
-> > And this appears to be the email at
-> > https://lore.kernel.org/all/20240913111142.4cgrmirofhhgrbqm@thinkpad/
-> >
-> > Prefer lore.kernel.org over lkml.iu.edu because lore doesn't depend on
-> > non-kernel.org resources.
-> >
-> > > Reported-by: Kai-Heng Feng <kai.heng.feng@canonical.com>
-> > > Suggested-by: Keith Busch <kbusch@kernel.org>
-> > > Assisted-by: Claude:claude-opus-5
-> > > Signed-off-by: Rickey Bartlett <subtexel@gmail.com>
-> > > ---
-> > > This revives the MTL016 workaround that Kai-Heng Feng posted in September
-> > > 2024 [1]. To be clear about the provenance: the diagnosis and the fix are
-> > > his. Intel confirmed the silicon bug in that thread. What is new here is
-> > > the implementation Keith asked for, and the measurements needed to close
-> > > the question the thread ended on.
-> > >
-> > > That thread stalled on one unanswered point - whether the flush read has
-> > > to target the NVMe child device, the "MSI initiator" named in the erratum,
-> > > or whether the VMD's own register is enough, and whether the workaround
-> > > belongs in the NVMe driver at all. Nobody had hardware in front of them to
-> > > settle it, and the discussion stopped there. It has been two years, the
-> > > erratum is still unmitigated in mainline, and every affected machine has
-> > > been stalling that whole time.
-> > >
-> > > I have the hardware, so here is the answer: the read must complete at
-> > > the NVMe child device - the "MSI initiator" named in the erratum -
-> > > exactly as Manivannan suspected. I first tried reading the VMD's own
-> > > config BAR; it does not help (measured, numbers in the commit message:
-> > > timeout rate was unchanged). A read that terminates at the VMD never
-> > > traverses the downstream link, so PCIe ordering gives no guarantee
-> > > about the child's posted writes. Reading the initiator's config space
-> > > closes the race. The workaround still lives in the VMD driver rather
-> > > than the NVMe driver: the VMD is the broken component, the initiator
-> > > address is captured generically per-IRQ at MSI allocation time, and no
-> > > NVMe-specific knowledge is needed.
-> > >
-> > > Measurements are in the commit message.
-> > >
-> > >  drivers/pci/controller/vmd.c | 52 ++++++++++++++++++++++++++++++++++--
-> > >  1 file changed, 50 insertions(+), 2 deletions(-)
-> > >
-> > > diff --git a/drivers/pci/controller/vmd.c b/drivers/pci/controller/vmd.c
-> > > index 241023e..e45ef8c 100644
-> > > --- a/drivers/pci/controller/vmd.c
-> > > +++ b/drivers/pci/controller/vmd.c
-> > > @@ -92,6 +92,22 @@ enum vmd_features {
-> > >  	 * referred to as MEMBAR2 or MSI-X BAR.
-> > >  	 */
-> > >  	VMD_FEAT_USE_BIOS_INFO		= (1 << 6),
-> > > +
-> > > +	/*
-> > > +	 * Meteor Lake VMD (device ID 0x7d0b) is affected by erratum MTL016:
-> > > +	 * the VMD may signal its MSI before the posted writes that carry the
-> > > +	 * child device's DMA data have landed in memory.  The demuxed handler
-> > > +	 * then runs against a not-yet-coherent completion queue and misses the
-> > > +	 * completion entirely, so the I/O is only recovered when the block
-> > > +	 * layer timeout fires and polls the queue ("timeout, completion
-> > > +	 * polled").  Intel's documented workaround is to issue a dummy read
-> > > +	 * to the MSI initiator (the child device) before handling the
-> > > +	 * interrupt: the read completion cannot pass the device's earlier
-> > > +	 * posted writes, so it pulls them into memory per PCIe ordering
-> > > +	 * rules.  A read that terminates at the VMD itself does not order
-> > > +	 * against the child's writes and is not sufficient (measured).
-> > > +	 */
-> > > +	VMD_FEAT_INTERRUPT_QUIRK	= (1 << 7),
-> > >  };
-> > >
-> > >  #define VMD_BIOS_PM_QUIRK_LTR	0x1003	/* 3145728 ns */
-> > > @@ -114,6 +130,9 @@ static DEFINE_RAW_SPINLOCK(list_lock);
-> > >   * @irq:	back pointer to parent.
-> > >   * @enabled:	true if driver enabled IRQ
-> > >   * @virq:	the virtual IRQ value provided to the requesting driver.
-> > > + * @flush_addr:	config space address of the initiating device, read before
-> > > + *		demuxing to flush its posted writes (MTL016); NULL if the
-> > > + *		VMD is not affected.
-> > >   *
-> > >   * Every MSI/MSI-X IRQ requested for a device in a VMD domain will be mapped to
-> > >   * a VMD IRQ using this structure.
-> > > @@ -123,8 +142,14 @@ struct vmd_irq {
-> > >  	struct vmd_irq_list	*irq;
-> > >  	bool			enabled;
-> > >  	unsigned int		virq;
-> > > +	void __iomem		*flush_addr;
-> > >  };
-> > >
-> > > +struct vmd_dev;
-> > > +
-> > > +static void __iomem *vmd_cfg_addr(struct vmd_dev *vmd, struct pci_bus *bus,
-> > > +				  unsigned int devfn, int reg, int len);
-> > > +
-> > >  /**
-> > >   * struct vmd_irq_list - list of driver requested IRQs mapping to a VMD vector
-> > >   * @irq_list:	the list of irq's the VMD one demuxes to.
-> > > @@ -132,12 +157,15 @@ struct vmd_irq {
-> > >   * @count:	number of child IRQs assigned to this vector; used to track
-> > >   *		sharing.
-> > >   * @virq:	The underlying VMD Linux interrupt number
-> > > + * @vmd:	back pointer to the owning VMD device; serializes the MTL016
-> > > + *		flush read against other config space access.
-> > >   */
-> > >  struct vmd_irq_list {
-> > >  	struct list_head	irq_list;
-> > >  	struct srcu_struct	srcu;
-> > >  	unsigned int		count;
-> > >  	unsigned int		virq;
-> > > +	struct vmd_dev		*vmd;
-> > >  };
-> > >
-> > >  struct vmd_dev {
-> > > @@ -295,6 +323,13 @@ static int vmd_msi_alloc(struct irq_domain *domain, unsigned int virq,
-> > >  		INIT_LIST_HEAD(&vmdirq->node);
-> > >  		vmdirq->irq = vmd_next_irq(vmd, desc);
-> > >  		vmdirq->virq = virq + i;
-> > > +		if (vmd->features & VMD_FEAT_INTERRUPT_QUIRK) {
-> > > +			struct pci_dev *pdev = msi_desc_to_pci_dev(desc);
-> > > +
-> > > +			vmdirq->flush_addr = vmd_cfg_addr(vmd, pdev->bus,
-> > > +							  pdev->devfn,
-> > > +							  PCI_VENDOR_ID, 2);
-> > > +		}
-> > >
-> > >  		irq_domain_set_info(domain, virq + i, vmdirq->irq->virq,
-> > >  				    &vmd_msi_controller, vmdirq,
-> > > @@ -756,8 +791,20 @@ static irqreturn_t vmd_irq(int irq, void *data)
-> > >  	int idx;
-> > >
-> > >  	idx = srcu_read_lock(&irqs->srcu);
-> > > -	list_for_each_entry_rcu(vmdirq, &irqs->irq_list, node)
-> > > +	list_for_each_entry_rcu(vmdirq, &irqs->irq_list, node) {
-> > > +		/*
-> > > +		 * MTL016: the MSI may have outrun the initiating device's
-> > > +		 * posted writes (e.g. its NVMe completion entry).  A read
-> > > +		 * that completes at the initiator flushes them, so the
-> > > +		 * demuxed handler observes a coherent completion queue.
-> > > +		 * The value is discarded; only the ordering matters.
-> > > +		 */
-> > > +		if (vmdirq->flush_addr) {
-> > > +			guard(raw_spinlock)(&irqs->vmd->cfg_lock);
-> > > +			readw(vmdirq->flush_addr);
-> > > +		}
-> > >  		generic_handle_irq(vmdirq->virq);
-> > > +	}
-> > >  	srcu_read_unlock(&irqs->srcu, idx);
-> > >
-> > >  	return IRQ_HANDLED;
-> > > @@ -788,6 +835,7 @@ static int vmd_alloc_irqs(struct vmd_dev *vmd)
-> > >  			return err;
-> > >
-> > >  		INIT_LIST_HEAD(&vmd->irqs[i].irq_list);
-> > > +		vmd->irqs[i].vmd = vmd;
-> > >  		vmd->irqs[i].virq = pci_irq_vector(dev, i);
-> > >  		err = devm_request_irq(&dev->dev, vmd->irqs[i].virq,
-> > >  				       vmd_irq, IRQF_NO_THREAD,
-> > > @@ -1250,7 +1298,7 @@ static const struct pci_device_id vmd_ids[] = {
-> > >  	{PCI_VDEVICE(INTEL, 0xa77f),
-> > >  		.driver_data = VMD_FEATS_CLIENT,},
-> > >  	{PCI_VDEVICE(INTEL, 0x7d0b),
-> > > -		.driver_data = VMD_FEATS_CLIENT,},
-> > > +		.driver_data = VMD_FEATS_CLIENT | VMD_FEAT_INTERRUPT_QUIRK,},
-> > >  	{PCI_VDEVICE(INTEL, 0xad0b),
-> > >  		.driver_data = VMD_FEATS_CLIENT,},
-> > >  	{PCI_VDEVICE(INTEL, PCI_DEVICE_ID_INTEL_VMD_9A0B),
-> > > --
-> > > 2.53.0
-> > >
+On Wed, 30 Sep 2026 19:04:16 +0000 you wrote:
+> This series is preparing the driver for the addition of a new control
+> plane mode(MailboxQ) by commonizing and reusing as much code as possible.
+> MailboxQ is a new control plane infrastructure which uses mailbox queues.
+> This is a new control plane to communicate with the device when the driver
+> is running on bare-metal instances as well as newer versions of the device.
+> 
+> This series contains 2 main changes to the gve driver's existing control
+> plane(AdminQ):
+> 1) refactor some initialization/teardown path methods to make it work for
+>    both control planes.
+> 2) add gve_ctrl_ops structure to the driver for various control plane
+>    operations
+> 
+> [...]
+
+Here is the summary with links:
+  - [net-next,v9,01/12] gve: add struct gve_device_info to hold device properties
+    https://git.kernel.org/netdev/net-next/c/130634764549
+  - [net-next,v9,02/12] gve: introduce control plane operations structure
+    https://git.kernel.org/netdev/net-next/c/d6194e4eaff9
+  - [net-next,v9,03/12] gve: introduce ctrl ops to set vectors and Qs
+    https://git.kernel.org/netdev/net-next/c/d320436137b7
+  - [net-next,v9,04/12] gve: introduce gve_adminq_get_device_properties()
+    https://git.kernel.org/netdev/net-next/c/a01cb6b77e9a
+  - [net-next,v9,05/12] gve: refactor gve_init_priv for reset path
+    https://git.kernel.org/netdev/net-next/c/fd1e72e09661
+  - [net-next,v9,06/12] gve: simplify reset logic
+    https://git.kernel.org/netdev/net-next/c/23b3b49d204b
+  - [net-next,v9,07/12] gve: add gve_ctrl_ops for gve initialization/teardown sequences
+    https://git.kernel.org/netdev/net-next/c/5914443d971b
+  - [net-next,v9,08/12] gve: split up notify block allocation and setup paths
+    https://git.kernel.org/netdev/net-next/c/fed9970a6550
+  - [net-next,v9,09/12] gve: introduce new methods to handle IRQ doorbells
+    https://git.kernel.org/netdev/net-next/c/5bc0c9796787
+  - [net-next,v9,10/12] gve: setup and teardown management interrupts
+    https://git.kernel.org/netdev/net-next/c/5e86cf5e2f24
+  - [net-next,v9,11/12] gve: add ctrl ops for queue operations
+    https://git.kernel.org/netdev/net-next/c/71f905f14b83
+  - [net-next,v9,12/12] gve: add link status/speed ctrl ops
+    https://git.kernel.org/netdev/net-next/c/bbe522b0f237
+
+You are awesome, thank you!
+-- 
+Deet-doot-dot, I am a bot.
+https://korg.docs.kernel.org/patchwork/pwbot.html
+
+
