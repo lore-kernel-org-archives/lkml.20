@@ -1,229 +1,166 @@
-Received: from SN4PR0501CU005.outbound.protection.outlook.com (mail-southcentralusazon11011018.outbound.protection.outlook.com [40.93.194.18])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A7BC535CB7C;
-	Mon,  5 Oct 2026 06:36:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.194.18
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791182219; cv=fail; b=L7yy01DpcaK25kbkKqTcSnJrOUNQXz+U1ZduJt7S5jRFizrbIUWe0x1EirfrluaoQspVKiiGP1+ZNOJX04SXtE1PWgQcyoZRFRb/WyUMGhTl11wX6XNmffA/Tg/CEHunXs+lD8Go7XK5wcCkFsQO8gxBOlxngTCQyySrMVieKlQ=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791182219; c=relaxed/simple;
-	bh=WFJ/hNchyayAdkqr9G0lncaZrmnhrfoh1GzmsyEZFrA=;
-	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
-	 Content-Type:MIME-Version; b=QfBPrl+6dTJhpEsHLmOn4rrxgbYY4eNp9HB7t8OVuNc0Upz2dzNgVVtyGNbsUmgQFAIIsbpare+4I32HwVoDwg3r4ZMIDM/eYyZgNDAWIHRDOmd9OtS4L1XESpoQcAjHXwfPn5wakH+JFmng9JslRlkbwlJ/83RBnY9DEo8tsEc=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=GlSryMbW; arc=fail smtp.client-ip=40.93.194.18
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5718135C69C
+	for <linux-kernel@vger.kernel.org>; Mon,  5 Oct 2026 06:37:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791182224; cv=none; b=WKqUbQCcVSBVL68T7h0tNIjiZWgjnO2hYvlFCjq3Iv3hD2Zy8VOQch2XPrfVHs0tMZmjqvw6UCO5uNAlZNs556Sy778gkGN4MA8+3RYyWEUeZQCZ+To2XTYHsOrIvDctAHD10fMobngrucvVXomlh1xFfJTVf8HMT8PF87RnZtE=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791182224; c=relaxed/simple;
+	bh=r93Jb+RRci5KjslpMwSwutEV/c/USqhXg7qpdeh+1sU=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=lkY+Q69qGsh8x33WFYnwttcFaLj2D0/jJQjCoLmCGlgMF7HAEU05IsuEwFJ7bAkMDPMzP4tKwx/9F265qFbOzTdNutglQ3ZaTR39NCrTbsSJWlA8ICXtUDMzxRDBXUx8VIB6A16cTNdGTkuZy4WQGMRTalFMuobReRFhQGH1O2o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=fiJxWS7m; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=KxlxO/xl; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="GlSryMbW"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=gGj47QMsUWKXKehlrpMcHKVNKVFMIFWT6RG6ZAhqpJ7mXYOkpFCgMJQh2LM/GtUJVBMaqIWH+nhB7u13BQpgccs+aJfla2FTXaq+cddTtbK6KCggUJQHOknBVLahUB2mpCh+UlefnFbtcowHse2B1lvxP+mxgjVMA9mPc9T+mI15qrYBYWs9TwOeqP/5FLvEcIiTy4hELotVRjEVInSn/BdtlJEyIFIfmYTdBZYSqfP7kxKxDk5KLIi/0f+/LXzi7e6bz4Abj+u1Tvufeue9f8jYK/myNiN9Ves9iWrsiR1ccFm9UYlnXNDARqRG/jCnBN6RhwB7j5DpKDqGMeCOew==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Bd5y7oM2gOMXumzY218jnOUwVETmdZ8zRAy0FfU5i3g=;
- b=ck7qHdcmRS1quAzxgNuryTlZLe87BKA9hV29BJGEkHkBp/fJoJ15qg7v1gFChpzdoebcP4yMaPwyoDGHrEb9BaLd45iuLVqgfH9kVlU/ocpuMCiEW47z/TVSB5z77JQG1FJV1gPH/+80W1AmIcHCNaw+/5XvWWW3f12e/o9ltyaAqZpPYdTa34u3zAXcw64z4l4zVfaKDLJBnsxWnim2XuSaPSdhfcClRKr85lkelYtizJ8L2c53ywONUeInDAznsggRLlzTHdv6Xkxm/PsEGp66IuNwL5GAlhaYGjrqZmzADUF8sE1vvZDGabbLO9H/jplM9j+YZ6WfqM3K2ang7A==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Bd5y7oM2gOMXumzY218jnOUwVETmdZ8zRAy0FfU5i3g=;
- b=GlSryMbWVi+4KbJl7q1Jk68Upc6ZXiS38/AvDGUSAuA5pIo7BTH5gc5iNldx1MktAAIY1DB3+AgtkbQ0i4Ir4q4MAwfzPU3EfcDGqpxGHwf4OVC30yCEIi9FBYToNMgXglrNfH9jbWyWMvtoXkGRrPPDSTES6aTV3tOb0Azf0sM=
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from DS2PR12MB9567.namprd12.prod.outlook.com (2603:10b6:8:27c::8) by
- PH0PR12MB7096.namprd12.prod.outlook.com (2603:10b6:510:21d::16) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.472.15; Mon, 5 Oct
- 2026 06:36:47 +0000
-Received: from DS2PR12MB9567.namprd12.prod.outlook.com
- ([fe80::636:1b52:24ca:d7e5]) by DS2PR12MB9567.namprd12.prod.outlook.com
- ([fe80::636:1b52:24ca:d7e5%4]) with mapi id 15.21.0472.016; Mon, 5 Oct 2026
- 06:36:47 +0000
-Message-ID: <6e630839-4c20-4b77-9959-d4352314e3c6@amd.com>
-Date: Mon, 5 Oct 2026 12:08:46 +0530
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 3/9] soundwire: amd: allocate sdw_amd_ctx pdev array
- dynamically
-To: Vinod Koul <vkoul@kernel.org>
-Cc: broonie@kernel.org, alsa-devel@alsa-project.org,
- yung-chuan.liao@linux.intel.com, pierre-louis.bossart@linux.dev,
- Basavaraj.Hiregoudar@amd.com, Sunil-kumar.Dommati@amd.com,
- venkataprasad.potturu@amd.com, Syed.SabaKareem@amd.com,
- Mario.Limonciello@amd.com, Richard.Gong@amd.com,
- linux-sound@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20260917090407.3828816-1-Vijendar.Mukunda@amd.com>
- <20260917090407.3828816-4-Vijendar.Mukunda@amd.com>
- <asC0VC--CaFMJ_ow@parshuram>
-Content-Language: en-US
-From: "Mukunda,Vijendar" <vijendar.mukunda@amd.com>
-In-Reply-To: <asC0VC--CaFMJ_ow@parshuram>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: PN4PR01CA0051.INDPRD01.PROD.OUTLOOK.COM
- (2603:1096:c01:274::15) To DS2PR12MB9567.namprd12.prod.outlook.com
- (2603:10b6:8:27c::8)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="fiJxWS7m";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="KxlxO/xl"
+Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 695103Jn3688170
+	for <linux-kernel@vger.kernel.org>; Mon, 5 Oct 2026 06:37:02 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	jrWr4WEEoDxY2QpPfvYR+d27cAyfCi80wCzqnJN1qlI=; b=fiJxWS7mWMIDfILt
+	g91sFCLxVy2KL/tEDQXC9/KK5Vs/jGnUJmIwqATGJhJPOt1UFlROAYz3Ko9AmpYC
+	R34G4d4vxXQXV+FilDiAAwlCeh8csRBcM0nJhb8MYHCZvwL3Of7B0qcZfWBmaktZ
+	CWzBf6z2m+zc20FLVKor8izYBP1GqPiL5tBSov4qi6/dUKGLiJ7waA3wW3mKeBDv
+	8TwlNJbZrpt0ovzRE6qLx7pEwY8Rd2DetScUflkg8We50s6BmlHTPGdheVkLhj5T
+	Ib8vhpfSMn0K2Boa9nj+jZplBTFK0LLtbGSWA7hzxjTNVamCWE23rJSL1wBSxMdV
+	0zmtmA==
+Received: from mail-dy1-f199.google.com (mail-dy1-f199.google.com [74.125.82.199])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h3chfjmxp-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Mon, 05 Oct 2026 06:37:02 +0000 (GMT)
+Received: by mail-dy1-f199.google.com with SMTP id 5a478bee46e88-34d62bb27a1so6568725eec.0
+        for <linux-kernel@vger.kernel.org>; Sun, 04 Oct 2026 23:37:02 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1791182221; x=1791787021; darn=vger.kernel.org;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=jrWr4WEEoDxY2QpPfvYR+d27cAyfCi80wCzqnJN1qlI=;
+        b=KxlxO/xlUnDrdTtPKn2oZ9pgotFzbzmLq8heYnZXsXGBabibpm/j4znkY4bjNtgzpC
+         kKTYjx8o0eNulHj9otWGwFTZMAVxwPtNGKPDfjmVFzW7KlWs0uKi7ypTjn/BvxWA9nU6
+         XxpOT3Ig0aohEsxyl6AYCsP1c6qjRtfbvem6sObfmnJbF7WKmNFWcocxkoNJ6blclrgc
+         nyfWyehFh1hUZnlt0YU10ZlGCwvsy2LNVkBHjEg9FHYvy8fS45y11JSpnR2nUtIoCOAR
+         q8ACIKjkoxmag6k5aQBfI7eYGAFQS9tE+ewHZOZk/iZRogeI1NrdK5M6umX/25R6sZDt
+         BKcg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791182221; x=1791787021;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=jrWr4WEEoDxY2QpPfvYR+d27cAyfCi80wCzqnJN1qlI=;
+        b=K8+PSEhFvxim/WK+z8AJk3m/hg1gXcYNlsUFb1i7eckHdNIUw763WAapkM2YupyYH8
+         wPc13D5Xj4naBaDJP905WMq5H55KFQ2BNWFpHdhJk7P6YYZlOTRbaAZMfPSk2ctpVPym
+         tP28Df4PMIvR7Nprx4ioFbkn2WEJ1qzb2pCwVJjkvauV63B1PLuOp2ZgaXOrwXR0dQ2d
+         i9JnhfNkfFtLWzlc0kAC+8Nv4b5rVyE0gDYBeVvFmvCh2o2ckp4sOxgFmE5HNVBIP0+U
+         Oo80r0QCdvhb1VguNLcjAiD0vE+El/YW40BWHWMztzr0pgHgPgaJB/zBnMD3ABTvdgs9
+         BIqQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxnQsVsIi9gOkMfxlR+hC3F6wu8BspJ8hdxoihzIx5uR0Kxf0KDVC/FEBHtzWYhucVZFKXoBDw38+Yayjk=@vger.kernel.org
+X-Gm-Message-State: AFuF++m6YT8YUiM+3V3b6pbV2LgwvmrdTAfBvG4ZuGGrBAz2nCUg7LgM
+	Se38siD+JtMiVcgP/GacsGAGjxsqQVyaoNT5ZUax6GbS9fiHE3svc/0lVIpEHzWf08gK4WSSg1M
+	RPLmnKzzmjJlr0+RNuNBaCJ2q8arMyi+nb3JPmqsqM5mMAhw9B8rnxqqVAwnNjO6ZVz4=
+X-Gm-Gg: AYBFou3KlKQO3BXSm0Rwbibm4CWPEKWOQD7eEwIRxRdqeB4y3UsX5RHBdWERPYOIdig
+	1gFFYLxV8QoesIRTK60EZUccSrz3pwJdZ6O9LrNLjjbeD78BLefubihvYBaGeAkLYeU+BuNJTYs
+	xHZd07c3LICL4AoTJey7XNVxaG1MPqreJe/f47v7sgLoffFkBucpyMitWWCRfWCgpY4O8BN/5w2
+	TCbXfVZ6wFWQoQEoEUCDorv4hXJAnbiGaEy6ubT22LH0sfiSf2MqjHSaISLkYuY6tAi+y/7QE6x
+	B3bw9i+HmTaItq+YfLUNjnagsjAON1X1T8BOdurMstC9LqYI5K4E1TR/Iqy1Lf0/7h+H98oB/of
+	R2jTueDevr3Yy1MX8vQkxLAWPz/tRg65dzFnUzFujP8zkdCO4EyM/J0U0b+sNzvS9ctfbgEzw/t
+	2c13cYM+oQsxPY5BhUF/OKAiiv7mF1
+X-Received: by 2002:a05:7300:ae11:b0:341:225b:d6f with SMTP id 5a478bee46e88-3511167b095mr9141552eec.19.1791182221258;
+        Sun, 04 Oct 2026 23:37:01 -0700 (PDT)
+X-Received: by 2002:a05:7300:ae11:b0:341:225b:d6f with SMTP id 5a478bee46e88-3511167b095mr9141511eec.19.1791182220622;
+        Sun, 04 Oct 2026 23:37:00 -0700 (PDT)
+Received: from hu-varada-blr.qualcomm.com (blr-bdr-fw-01_GlobalNAT_AllZones-Outside.qualcomm.com. [103.229.18.19])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3512718d9edsm11185821eec.19.2026.10.04.23.36.55
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 04 Oct 2026 23:37:00 -0700 (PDT)
+From: Varadarajan Narayanan <varadarajan.narayanan@oss.qualcomm.com>
+Date: Mon, 05 Oct 2026 12:06:27 +0530
+Subject: [PATCH v4 2/6] dt-bindings: phy: qcom,usb-snps-femto-v2: Add
+ IPQ9650 compatible
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS2PR12MB9567:EE_|PH0PR12MB7096:EE_
-X-MS-Office365-Filtering-Correlation-Id: 7fc03c8b-0867-43bf-22be-08df22ab0771
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|366016|376014|23010399003|4143699003|56012099006|10067099003|11063799006|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	N3QZXdMjjVQIzxYuDtJc+4tIcYsLaGFCBE3NZwL+YRW9qbIbk5qk5WdhSV9bzc2Xt9ISWLzz9kEr/NiJMG7pnBuCLNGLtTtXDfFc1roW6XRMdJDu4EP4s6CE0EwFZMp/m1go3T6AGhkD4Kf6CRAOBKUFn4bQSn8GvVw3hdD1Vm+fUbZME4KlPOgawtphBfkcYcMUUWzz1wQDEBReAa3poAgXxH5U95mSoufR3UOA7KYn97Q+mBKObVoU/p09AzSqNW/XjYoqQbneDxPA72XE8pmJP/PFW1eiQv36w+FLHPJV7rH0iRQtRDV2/0A8J/3vm0rNLRW8LR9UDUrvbX4ucoTJwHSgHiPv8VDyMbra/NHFvovEphzP1xGf4h9+/1KTakTKX98/zJ5Gn3+a9/tmsHiyge5vyoopfgXoPRxGh0YNSPYYpgrKKiHhGbrI0A/MAJp5WRMHJCnEw5AS1FxL/XZwSyxVW5xtDbl+Pf2fwXnHIwrvYH6OuRoC1KtzOM3Td+qF/PcWlKSbv/C2brBHGnPw+xWKwCUnCIM/ccaXu47yFNpa+eATy6AeTto6aSxcl5ppkbfJyCZJwn0kdDShBOvCUxojmgNfmevBZeJ5lShaR9ZY3jCIDfs79w8G/J92HO0BDL2azag6OrRZyY93f7SyGOBjyL+Gv1IxWwwOU0w=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DS2PR12MB9567.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(376014)(23010399003)(4143699003)(56012099006)(10067099003)(11063799006)(22082099003)(18002099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?WFpHeU9yNE1XcStiMkVkWUFIbVZqRXZMQ0wvUERkU21UTnNraUk3aU9nQmF5?=
- =?utf-8?B?cHhVcHBQY3VWOTQ5S1ZPY0dqWlMyS21Ma0ZCWUxLVG9pRFJvOW01Nll1THhN?=
- =?utf-8?B?c0NBaGtYYjdKMytSTEwyWitIajE4RkpheXdiVFJrQTVkTjBwTUZJSHpoWDFk?=
- =?utf-8?B?YlNkWFRHZkc4dlBFbGxtaHBtOVFQeG5CSlVYR1U5emg1a0NMd3Fucnhma0Zv?=
- =?utf-8?B?N0txWmJpaFBOcThFQkpqd0ZLRTdOSG45eW9tNjlPM1ZoRGhLRDBVU2JOOUtR?=
- =?utf-8?B?emJFOHhWaDgwc3JJczNUUnAvK1ZVcExES1NxREhyaVVGVVJWaVJwU3hyd1FI?=
- =?utf-8?B?by9SQlhkejVPWkVERTdKOEVCWE1LbDNkRWNTb3ZPcUJteFEzSFVKN1BvZndt?=
- =?utf-8?B?d0FsMTZtTnFTV2dDamZKWGk1c3UxTi95cmFuc3U3REtOMUFTSUZGclNSTVNS?=
- =?utf-8?B?QWlPRnJ5Z3BrakhSUmhGNng4dmJEc2hMQUx1RE1wU0dzdzJMRjB5ZmttbXoz?=
- =?utf-8?B?dVZiWVdzWlF4N0ZiZVNQaGMwTkJ0Sk1ManpURVJwSzlIS1hUbWpJTW9UTXZn?=
- =?utf-8?B?d0pzRkluWGl1Z2wwZzJJY2RZYlpGZHY3QWxPWUtETmtLYUJRQ1YwQ2hOV2I2?=
- =?utf-8?B?N2YyRXZza0JYUng5K3dUZkp1Zk4zRjFadW4rVGs4T3lXRVFMNXl0TXBLY21O?=
- =?utf-8?B?UjdGSmFQRk1OeEJzb2pCdEw1VFAraFBjaXUrZVhuM1VyUkVLN21XSjRyZXEr?=
- =?utf-8?B?NTJZd2hxOC9sWU82N21VS0p1MmkzdG1NTzFKb1RnUEVEc3hPSVRzV0lzbTNX?=
- =?utf-8?B?aGE1VFpUdWE1K2VQM1htTmlMeTZTZ3EzeGRCOGRxUDJZcDZUK2xvOTN2Z3hp?=
- =?utf-8?B?aCsrRi9kTUFXVWdtTUNlSWpyOEF4R05pOTN4ZUxnYjJWR2tBbnlLS0FlQzdl?=
- =?utf-8?B?VEt2MnBkUEJmRG5LLzNrQXczaGZ4WkRwa3ZUWTBoMnBCaVJMd0VZNXVFaERh?=
- =?utf-8?B?Y3NSV2pkb3hzclg2L2ZmYU1ObEQrL1htQVN5KzFoeE5vWFAxQ09SaTZzS2Mz?=
- =?utf-8?B?RkRBU1pKc05IajRQclZLUVl4RTZVczJvSXhXMzNuYUl4UGdyMEFIRTBuZjZj?=
- =?utf-8?B?eVE3T2NhSjNPRlc5Rkt4K2F1b2k5dmEycXJOREx6NXpUUEZiWmV5NGhHM0xu?=
- =?utf-8?B?QnZtN0hsR05mUDNES2U4RWhheDhZRSs4MW9iakM3NkwyUDRUdVRlKzZyTkRP?=
- =?utf-8?B?Q0RyOFRTMjVuVGZrM1N6RGJmaC94WUEvRnByYmg2eERqSzJncmpjN292OVpp?=
- =?utf-8?B?b2tDSTFzSHJWSURkM0NEQmM2THcyZ3BtZEp6LzZBMUpwOWg2clVOeTRpcm94?=
- =?utf-8?B?MzN5Ty9ycTNvT3Y2dFc1MDhmS2ZwYnVSRkw5Yjh2OVNXVjB5ZkI4TjFuMm1N?=
- =?utf-8?B?SUFHbkthM3VUejh3Q1FtaEtuR3JFRHVoNmczWWRPZytwQ0tMY1h3bTFyVTZX?=
- =?utf-8?B?YTY0TG5FY011V2VVU0RPQWtlYXJYMzdHN2JVaEhoaWIzYTVnTkgxZ1Q1S2dM?=
- =?utf-8?B?QmFGRWhHRndMaFJJZWxyZ3gzWGd0TUs4RVVPb0FhMFhPVjNXbUJPN2dXeXNL?=
- =?utf-8?B?S0tlUDdZMDVkZC9YTzlIUDMxdWVwZUx0d2R4S1JVTW04Q2RoanZoNEhnWFc0?=
- =?utf-8?B?TXQxcm1RYWQ3T2xkY0FQS3FlcWFXLzJIUWZsRkRydmpyS3prNm94Njh6MTFG?=
- =?utf-8?B?UmFmVnJETmEwYVZDZndmODdCc01BeXhhOTdaaGlxWWtmTmJheTJKNGtyNlZo?=
- =?utf-8?B?RzdLdG9TN05hOC9odmkzZEpDYlk0MUJZZVZxZHNOVTBzTkNHK0JuYkR3SlFk?=
- =?utf-8?B?ckthTVlEZ3N1VHFuTHhhUmpxL0FYNUdsT1hwSzFFRVVBc081ck43eE8vbzl3?=
- =?utf-8?B?ZjY3Vmo4WXlueldVQjZsVEd0cUFVd0pQcUkwb1VpVzJmc2FVUHJZdmQ4MDRh?=
- =?utf-8?B?MWJJK3V6MmxYSk9tVkpOZVp5clpkZUU5MGdaVlBQVkU1NGN4b0Z6RENXdTVV?=
- =?utf-8?B?LzNOdVh2ZnVMQkFDYkNGK0dsSDVsWmtLN0hSR0FSdUQ4Z2xXeEYydnVhVExt?=
- =?utf-8?B?Y0tETXhJVkRhTXlPbE80SzdlYTYzdUh6NXRscVBpWlFVeVFHcWs5b1MwZGlT?=
- =?utf-8?B?bTFRSHB4OGo0bTBXdU4yemxHenRxR3J3ZElwbmpnMWxUaUYxRmlNOHVYMWpG?=
- =?utf-8?B?Y1JUZFBwS3FRc2RNQVlaOU5Lcnc0Z0Q1SXZ2NGU2NmFNbC94ZnhlUUl3bHB6?=
- =?utf-8?B?bDVPSGdQMWc5MERCdENGMGJTSEZjc2Z5Z2tRekl1UjFKK0Z6QThlUT09?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 7fc03c8b-0867-43bf-22be-08df22ab0771
-X-MS-Exchange-CrossTenant-AuthSource: DS2PR12MB9567.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Oct 2026 06:36:47.3051
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: g+UILUJ3HucQKyC2FUd2tvrgRgMY1tOdDQKVoa/13BUVcDifwokoiHr3t2x1IRQoMkQqHqg4orADecVCvK+Cxw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH0PR12MB7096
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261005-phy-v4-2-b04c4123ecb3@oss.qualcomm.com>
+References: <20261005-phy-v4-0-b04c4123ecb3@oss.qualcomm.com>
+In-Reply-To: <20261005-phy-v4-0-b04c4123ecb3@oss.qualcomm.com>
+To: Vinod Koul <vkoul@kernel.org>, Neil Armstrong <neil.armstrong@linaro.org>,
+        Manivannan Sadhasivam <mani@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Wesley Cheng <quic_wcheng@quicinc.com>,
+        Manu Gautam <mgautam@codeaurora.org>, Stephen Boyd <sboyd@kernel.org>,
+        Philipp Zabel <pza@pengutronix.de>
+Cc: linux-arm-msm@vger.kernel.org, linux-phy@lists.infradead.org,
+        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+        Varadarajan Narayanan <varadarajan.narayanan@oss.qualcomm.com>,
+        Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+X-Mailer: b4 0.14.3
+X-Proofpoint-ORIG-GUID: RAuSCFsgM7UvT9O9GNg0GmbyxqGARqAP
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDA1MDAyNiBTYWx0ZWRfXyo09o0jAYFkZ
+ TaUe3JPcQHyC5ikUq/fHu7UCkQ6sDhsiLKPGj0Fcv//MxHKx0xyX9y+uUfy8ef1+K0myVwnTgHH
+ Abah8hr4ny9eJIsyEnN/PHkD8cUQ1oo=
+X-Authority-Analysis: v=2.4 cv=eZSo7LEH c=1 sm=1 tr=0 ts=6ac3458e cx=c_pps
+ a=cFYjgdjTJScbgFmBucgdfQ==:117 a=Ou0eQOY4+eZoSc0qltEV5Q==:17
+ a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yx91gb_oNiZeI1HMLzn7:22
+ a=EUspDBNiAAAA:8 a=JwZr8aepJa0OdLIFGX0A:9 a=QEXdDO2ut3YA:10
+ a=scEy_gLbYbu1JhEsrz4S:22
+X-Proofpoint-GUID: RAuSCFsgM7UvT9O9GNg0GmbyxqGARqAP
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDA1MDAyNiBTYWx0ZWRfX9lB7Vl68C+PM
+ hQznjCcudNNI9s2YJHBdjjDXVx2mgU9fn/fHd1VTqtNyXgA0/ByNRMnFYN/juwr86pfc7hEVk0+
+ VVbF1XOKj9Z/HZlpJ3jzVTMQBlCQMiSLDMzvYJOWlDcKJ1gMijnfxjBQZcNcqzV1y9WkXtmlvVW
+ x8zFdBJna4Kmf8R0H0Kk36Cpf7h/V8RnvxZNMfSmIely6714+Yv+IuLM5Hgwr5v5Upk/1RSqtZl
+ ZMMvIxFISTJf3TQw3jdyOUzieMu9z87pDabbicvU2JIpYasengGbtG4IWN2EFkX9mc0Zz9oEf45
+ mY4DE8LcACUIDVZnhSLLOJ9CKb7S8KVPVpj0SocTLqcwnEHB538H8EiH+dtubF7OT4omdswOXER
+ tDVW6yLRwZbUFNf/HOOtAZPY4CwmL4GHsEJh6uX317U0hxMl2EgNPJ0rudE2FG0W2xneZmAP1Yw
+ B6lJz6avokEluQJJplQ==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-05_01,2026-10-02_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ spamscore=0 clxscore=1015 impostorscore=0 priorityscore=1501
+ lowpriorityscore=0 suspectscore=0 malwarescore=0 adultscore=0 bulkscore=0
+ phishscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2609040000
+ definitions=main-2610050026
 
-On 03/10/26 13:22, Vinod Koul wrote:
-> On 17-09-26, 14:32, Vijendar Mukunda wrote:
->> Replace the fixed-size pdev[AMD_ACP63_SDW_MAX_MANAGER_COUNT] member of
->> struct sdw_amd_ctx with a dynamically allocated pointer array. The array
->> is sized by max_manager_count via kcalloc() in sdw_amd_probe_controller()
->> and freed on all error paths and in sdw_amd_cleanup().
->>
->> Signed-off-by: Vijendar Mukunda <Vijendar.Mukunda@amd.com>
->> ---
->>  drivers/soundwire/amd_init.c      | 12 ++++++++++++
->>  include/linux/soundwire/sdw_amd.h |  2 +-
->>  2 files changed, 13 insertions(+), 1 deletion(-)
->>
->> diff --git a/drivers/soundwire/amd_init.c b/drivers/soundwire/amd_init.c
->> index 15d117172bdb..94d766b3f8af 100644
->> --- a/drivers/soundwire/amd_init.c
->> +++ b/drivers/soundwire/amd_init.c
->> @@ -62,6 +62,7 @@ static int sdw_amd_cleanup(struct sdw_amd_ctx *ctx)
->>  			continue;
->>  		platform_device_unregister(ctx->pdev[i]);
->>  	}
->> +	kfree(ctx->pdev);
->>  
->>  	return 0;
->>  }
->> @@ -116,8 +117,16 @@ static struct sdw_amd_ctx *sdw_amd_probe_controller(struct sdw_amd_res *res)
->>  
->>  	ctx->count = count;
->>  	ctx->link_mask = res->link_mask;
->> +
->> +	ctx->pdev = kcalloc(max_manager_count, sizeof(*ctx->pdev), GFP_KERNEL);
-> why not use managed api for this?
-The reason devm_kcalloc() cannot be used here is that
-sdw_amd_cleanup() explicitly frees ctx->pdev using kfree().
- 
-If devm_kcalloc(res->parent, ...) were used, the allocation
-would also be tracked by devres and freed automatically during
-device unbind, resulting in a double-free.
- 
-Therefore, the existing manual alloc/free lifecycle is
-intentional.
+Add qcom,ipq9650-usb-hs-phy to the list of supported compatibles.
+Unlike the existing SoCs, IPQ9650 does not share a generic
+"qcom,usb-snps-hs-*nm-phy" fallback, since it requires its own
+tuning/override sequence, so list it as a standalone entry.
 
->> +	if (!ctx->pdev) {
->> +		kfree(ctx);
->> +		return NULL;
->> +	}
->> +
->>  	struct resource *sdw_res __free(kfree) = kzalloc_obj(*sdw_res);
->>  	if (!sdw_res) {
->> +		kfree(ctx->pdev);
->>  		kfree(ctx);
->>  		return NULL;
->>  	}
->> @@ -127,6 +136,7 @@ static struct sdw_amd_ctx *sdw_amd_probe_controller(struct sdw_amd_res *res)
->>  
->>  	sdw_pdata = kcalloc(max_manager_count, sizeof(*sdw_pdata), GFP_KERNEL);
->>  	if (!sdw_pdata) {
->> +		kfree(ctx->pdev);
->>  		kfree(ctx);
->>  		return NULL;
->>  	}
->> @@ -134,6 +144,7 @@ static struct sdw_amd_ctx *sdw_amd_probe_controller(struct sdw_amd_res *res)
->>  	pdevinfo = kcalloc(max_manager_count, sizeof(*pdevinfo), GFP_KERNEL);
->>  	if (!pdevinfo) {
->>  		kfree(sdw_pdata);
->> +		kfree(ctx->pdev);
->>  		kfree(ctx);
->>  		return NULL;
->>  	}
->> @@ -171,6 +182,7 @@ static struct sdw_amd_ctx *sdw_amd_probe_controller(struct sdw_amd_res *res)
->>  
->>  	kfree(pdevinfo);
->>  	kfree(sdw_pdata);
->> +	kfree(ctx->pdev);
->>  	kfree(ctx);
->>  	return NULL;
->>  }
->> diff --git a/include/linux/soundwire/sdw_amd.h b/include/linux/soundwire/sdw_amd.h
->> index 40ba84c3b2cc..476de2c30389 100644
->> --- a/include/linux/soundwire/sdw_amd.h
->> +++ b/include/linux/soundwire/sdw_amd.h
->> @@ -139,7 +139,7 @@ struct sdw_amd_acpi_info {
->>  struct sdw_amd_ctx {
->>  	int count;
->>  	u32 link_mask;
->> -	struct platform_device *pdev[AMD_ACP63_SDW_MAX_MANAGER_COUNT];
->> +	struct platform_device **pdev;
->>  	struct sdw_peripherals *peripherals;
->>  };
->>  
->> -- 
->> 2.48.1
+Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Signed-off-by: Varadarajan Narayanan <varadarajan.narayanan@oss.qualcomm.com>
+---
+ Documentation/devicetree/bindings/phy/qcom,usb-snps-femto-v2.yaml | 2 ++
+ 1 file changed, 2 insertions(+)
+
+diff --git a/Documentation/devicetree/bindings/phy/qcom,usb-snps-femto-v2.yaml b/Documentation/devicetree/bindings/phy/qcom,usb-snps-femto-v2.yaml
+index 661759b25064..db00f5a99d80 100644
+--- a/Documentation/devicetree/bindings/phy/qcom,usb-snps-femto-v2.yaml
++++ b/Documentation/devicetree/bindings/phy/qcom,usb-snps-femto-v2.yaml
+@@ -15,6 +15,8 @@ description: |
+ properties:
+   compatible:
+     oneOf:
++      - enum:
++          - qcom,ipq9650-usb-hs-phy
+       - items:
+           - enum:
+               - qcom,sa8775p-usb-hs-phy
+
+-- 
+2.34.1
 
