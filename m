@@ -1,134 +1,229 @@
-Received: from mail-oi1-f197.google.com (mail-oi1-f197.google.com [209.85.167.197])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from meesny.iki.fi (meesny.iki.fi [195.140.195.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5456415AADA
-	for <linux-kernel@vger.kernel.org>; Mon,  5 Oct 2026 03:17:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.197
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791170249; cv=none; b=PnZcyINXG7alT+//VdfIyjMBh9ByYUqVbK58s9m+PFg6qxcqtXsP5+7k0Zh5v5tu2jhwjY7hQ6JeT5d0i4H5U4aBIkn4PP75FoYXbcUh3dWo52vs8rD71Wpsfax1KMVa596ljSx2ediJlMfiqUG3BUJ69BFrBGYwva7+7XnXXtM=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791170249; c=relaxed/simple;
-	bh=yIBkcz89UNj6rU+ADP3QqP7ROf5zhK/b4jncgcpMLvs=;
-	h=MIME-Version:Date:Message-ID:Subject:From:To:Content-Type; b=N5L1oowWzmL3W42BG9VLUKkCLims2LZuU+/A9yeIov+RtorjxdCII0Y6cbUOCaJB/Ez+qprc/lw/G8CS2Yrh8fL5Mhar/fhx49ddMXD7GxgKEfFI1XxRheSAb80GG4OdouL5r7kXyiKNQaxYXTjG568o4DWICjm55wDWHGEGT5I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.167.197
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oi1-f197.google.com with SMTP id 5614622812f47-4ab260600easo2049613b6e.1
-        for <linux-kernel@vger.kernel.org>; Sun, 04 Oct 2026 20:17:28 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791170247; x=1791775047;
-        h=content-type:to:from:subject:message-id:date:mime-version
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=kPu5KM8/puHdEbM483uwyKKWAbr6MgY/NxgZfvdRAwc=;
-        b=pPkrbOeBTMYkpXsd2ctqPpdOF6JJjb9Zi6Iekt+6Rt1TN21nPhTZTUhs3j4PfUJLe1
-         nQIAgv1rWEBpVJGZhSSrFPBZ2XMDGgirmy1QYEV55QpP3DfJYER5pQkqcGIdX9OQgNk5
-         HxlaEjtAAAA+SyjLEd94aEPfIl0BsZ/ZzA8dKdruVlXtsZi2TjQctDsX/L8pbzNdcTJO
-         +laUpRO5ARd3ovFeCoWA9XcJgcuXnSEwBh2YUpJBENLOvupiQMUUDNtZa0oAP5Nj8iMo
-         wdgQM0xJGZfIsJLg6gN/m35PGEDhsnYRMDZXG/LLeZuGfpLhFtXb9S0OlVD9jDFmd1rQ
-         Z0Rg==
-X-Forwarded-Encrypted: i=1; AKwUvBw+XXFMAXp6VMUoZU8mksa85iC6Xzk+A07x3/f+S23JF9RGMGaE/H6LWdbBHY1cJYEA3yjpWsN6BTmFW8A=@vger.kernel.org
-X-Gm-Message-State: AFuF++kHNFpWUoSMnCjqZoWkGzF6b5MsJryrqlxd3glJVIOxjyNuglqS
-	Twga9HE4pJjRF/CWAvAltARGhqq+qPzv6m2dyyWvaFmgP0t+iRAdAHbClVD/PyFzcdGWtIbiIUP
-	ILUUNpkj+B4+DyAuUqBH8olUW/nMvaow/3R2QRwP6LZTVYacoHOhaFcZZrCU=
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CDF942BB13;
+	Mon,  5 Oct 2026 03:24:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=195.140.195.201
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791170681; cv=pass; b=BE0QyEUZuHHyNbCwStL0yjbo5pUsq925l39WWy2EIlbJG1q6gdXJEDDmXQsaotBvybaem9xhPC/bK+6BrlgRoDd/Z4rJrpE41hO7mDKmo6t/2Aq1UJUW1ZgQ1FtAZC0Qee0mfZMi0Iu2gAfrVd3/ZECR7oeOqQmTlPgr+jQGWlk=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791170681; c=relaxed/simple;
+	bh=/OpyfRbtAnxayrlPh816YeH05yy4MNv3q+j0yCtF0ks=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=s052Y0AKk7nWMK+QBeZfnCC0Sj7Oz7pwFpNZocb0T/59pQlQsJU2vEKchzg8LmXKEkEyezYU9y6gIcyH3C2WRH2+wXmbCL4caLGnFetLM5edG4lIgTukDyX68qR644ASJZ6G470UlNkmmXzMj1HBSDBrO4cSCAPtvExfaNNhVdU=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iki.fi; spf=pass smtp.mailfrom=iki.fi; dkim=pass (1024-bit key) header.d=iki.fi header.i=@iki.fi header.b=yo5zQ1KS; arc=pass smtp.client-ip=195.140.195.201
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iki.fi
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iki.fi
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=iki.fi header.i=@iki.fi header.b="yo5zQ1KS"
+Received: from localhost (n216spl99sn8f5wgjwv-1.v6.elisa-laajakaista.fi [IPv6:2001:99a:1e1:d200::ccf])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange secp256r1 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	(Authenticated sender: sakkinen)
+	by meesny.iki.fi (Postfix) with UTF8SMTPSA id 4hyl9n53W2zyPr;
+	Mon, 05 Oct 2026 06:24:29 +0300 (EEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=iki.fi; s=meesny;
+	t=1791170670;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=YNRz1toTh6bB7HNi6C5BvLL1pGIm3Wc/gEwUsQhgObo=;
+	b=yo5zQ1KSHgOYG/+tvsCG7IS0iWSuFWG3Oo3remyMHg4h6NiR2k/Wp3WyjM0aKF7mLcQvrZ
+	9XelyGhfq4ARooBq9ZQfjJz9SgRNHr03oUOP7HipYTCVeQjgDBuyUH2sfoS1IH4waSRfy5
+	wWmxrZ8jehQCn45C04Lp9Qj50yVuQx4=
+ARC-Seal: i=1; a=rsa-sha256; d=iki.fi; s=meesny; cv=none; t=1791170670;
+	b=Zm5jRMhUMbECCzA5nmRSZoBWZvApiP6naqUPs6P10i3FGEbEyqSm7fRH+eagXSnC28741M
+	j4qRm0M1jJNtpMBykVGGQ9oMhOyz/3pmuQbUBSQSVd97/xPA7g7Shx9Bt9RHsUnFOfrHvK
+	e2+X4FE5wGY3B774RFxXwBosaCsfaxI=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=iki.fi;
+	s=meesny; t=1791170670;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=YNRz1toTh6bB7HNi6C5BvLL1pGIm3Wc/gEwUsQhgObo=;
+	b=Niz3akOtlLt8YBYjdGdRpIQb/WlKkXCA9gHCPL3PUMP69nmHAbEs8vQ4sK4sExWGOkDjKg
+	p0zKDh58uBlXnCCWmV4ZMAl/U8C5derDX+ytAlR3Sm7jEfm16OkJlG0rHQ1r29rYuCVlRA
+	LS3nuLEJIrv8nUt2sp8B7ImIjvMvj8Y=
+ARC-Authentication-Results: i=1;
+	ORIGINATING;
+	auth=pass smtp.auth=sakkinen smtp.mailfrom=jarkko.sakkinen@iki.fi
+Date: Mon, 5 Oct 2026 06:24:27 +0300
+From: Jarkko Sakkinen <jarkko.sakkinen@iki.fi>
+To: Srish Srinivasan <ssrish@linux.ibm.com>
+Cc: linux-integrity@vger.kernel.org, keyrings@vger.kernel.org,
+	James.Bottomley@hansenpartnership.com, jarkko@kernel.org,
+	zohar@linux.ibm.com, stefanb@linux.ibm.com,
+	linux-kernel@vger.kernel.org, linux-security-module@vger.kernel.org,
+	nayna@linux.ibm.com, rnsastry@linux.ibm.com
+Subject: Re: [PATCH v2] keys/trusted_keys: reuse TPM version in option
+ handling
+Message-ID: <asMYa0lD7RNcoszb@iki.fi>
+References: <20261002071050.179879-1-ssrish@linux.ibm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Received: by 2002:a05:6808:1507:b0:4e8:4a03:dfa3 with SMTP id
- 5614622812f47-4f30b800ecamr9051669b6e.40.1791170247178; Sun, 04 Oct 2026
- 20:17:27 -0700 (PDT)
-Date: Sun, 04 Oct 2026 20:17:27 -0700
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6ac316c7.01314a6c.556a8.000d.GAE@google.com>
-Subject: [syzbot] [kvm?] WARNING in kvm_vcpu_pre_fault_memory
-From: syzbot <syzbot+db7bd0f41c2a7e82d4ba@syzkaller.appspotmail.com>
-To: kvm@vger.kernel.org, linux-kernel@vger.kernel.org, pbonzini@redhat.com, 
-	seanjc@google.com, syzkaller-bugs@googlegroups.com
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261002071050.179879-1-ssrish@linux.ibm.com>
 
-Hello,
+On Fri, Oct 02, 2026 at 12:40:50PM +0530, Srish Srinivasan wrote:
+> Determine the TPM version once in the seal and unseal paths and reuse it
+> when allocating and parsing trusted key options. This avoids redundant TPM
+> version checks.
 
-syzbot found the following issue on:
+So this is a bit nitpicking perhaps but a patch that would just clean
+the code up a bit would not be be worth of applying. Almost anything
+that "does nothing" goes to that bin.
 
-HEAD commit:    ce1e0223d8ad Merge tag 'devicetree-fixes-for-7.3-2' of git..
-git tree:       upstream
-console+strace: https://syzkaller.appspot.com/x/log.txt?x=1353dbf5580000
-kernel config:  https://syzkaller.appspot.com/x/.config?x=9d4242cb1c54cdf7
-dashboard link: https://syzkaller.appspot.com/bug?extid=db7bd0f41c2a7e82d4ba
-compiler:       Debian clang version 22.1.8 (++20260613092233+e80beda6e255-1~exp1~20260613092250.77), Debian LLD 22.1.8
-syz repro:      https://syzkaller.appspot.com/x/repro.syz?x=14cdf6c9580000
-C reproducer:   https://syzkaller.appspot.com/x/repro.c?x=12cdf6c9580000
+What I'm saying is that the conclusion in the last sentence goes to
+wrong direction but luckily the change has also feasible effects that
+we care about.
 
-Downloadable assets:
-disk image: https://storage.googleapis.com/syzbot-assets/217b0c1b14ee/disk-ce1e0223.raw.xz
-vmlinux: https://storage.googleapis.com/syzbot-assets/335343cc5803/vmlinux-ce1e0223.xz
-kernel image: https://storage.googleapis.com/syzbot-assets/760ef2f39df0/bzImage-ce1e0223.xz
+By caching tpm_is_tpm2() there are less fallible sites in the key
+creation process, and reduced number of roundtrips with the TPM chip.
 
-IMPORTANT: if you fix the issue, please add the following tag to the commit:
-Reported-by: syzbot+db7bd0f41c2a7e82d4ba@syzkaller.appspotmail.com
+Or from blackbox perspective it reduces I/O traffic between kernel
+and the hardware platform.
 
-------------[ cut here ]------------
-r == 0 || r == -EIO
-WARNING: arch/x86/kvm/../../../virt/kvm/kvm_main.c:4389 at kvm_vcpu_pre_fault_memory+0x45d/0x470 virt/kvm/kvm_main.c:4389, CPU#1: syz-executor267/8523
-Modules linked in:
-CPU: 1 UID: 0 PID: 8523 Comm: syz-executor267 Not tainted syzkaller #0 PREEMPT(full) 
-Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 09/16/2026
-RIP: 0010:kvm_vcpu_pre_fault_memory+0x45d/0x470 virt/kvm/kvm_main.c:4389
-Code: fe ff ff e8 85 2e 88 00 90 0f 0b 90 e9 0d ff ff ff e8 77 2e 88 00 e8 42 85 f3 ff eb 8f e8 6b 2e 88 00 eb 05 e8 64 2e 88 00 90 <0f> 0b 90 e9 a7 fe ff ff 66 66 2e 0f 1f 84 00 00 00 00 00 90 90 90
-RSP: 0018:ffffc900024dfc28 EFLAGS: 00010293
-RAX: ffffffff813fe025 RBX: ffffc900024dfe00 RCX: ffff88807fcc0000
-RDX: 0000000000000000 RSI: ffffffff8eaf6510 RDI: fffffffffffffffb
-RBP: dffffc0000000000 R08: ffff88807fcc0000 R09: 0000000000000002
-R10: fffffffffffffffb R11: 0000000000000000 R12: ffffc900024dfe00
-R13: ffff88807fcc0000 R14: 1ffff1100ff98000 R15: fffffffffffffffb
-FS:  00007f9c411186c0(0000) GS:ffff888124dc7000(0000) knlGS:0000000000000000
-CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-CR2: 00007f9c4116312d CR3: 0000000026a4a000 CR4: 00000000003526f0
-Call Trace:
- <TASK>
- kvm_vcpu_ioctl+0x8a6/0xfd0 virt/kvm/kvm_main.c:4668
- vfs_ioctl fs/ioctl.c:51 [inline]
- __do_sys_ioctl fs/ioctl.c:597 [inline]
- __se_sys_ioctl+0xfc/0x170 fs/ioctl.c:583
- do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
- do_syscall_64+0x166/0x520 arch/x86/entry/syscall_64.c:84
- entry_SYSCALL_64_after_hwframe+0x77/0x7f
-RIP: 0033:0x7f9c4118db49
-Code: c0 79 93 eb d5 48 8d 7c 1d 00 eb 99 0f 1f 44 00 00 48 89 f8 48 89 f7 48 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c 24 08 0f 05 <48> 3d 01 f0 ff ff 73 01 c3 48 c7 c1 d0 ff ff ff f7 d8 64 89 01 48
-RSP: 002b:00007f9c411181d8 EFLAGS: 00000246 ORIG_RAX: 0000000000000010
-RAX: ffffffffffffffda RBX: 00007f9c4123bb88 RCX: 00007f9c4118db49
-RDX: 0000200000000100 RSI: 00000000c040aed5 RDI: 0000000000000005
-RBP: 00007f9c4123bb80 R08: 38203a6b63617473 R09: 38203a6b63617473
-R10: 38203a6b63617473 R11: 0000000000000246 R12: 00007f9c4120b858
-R13: 0000200000000118 R14: 0000200000000100 R15: 0000200000000600
- </TASK>
+> 
+> Signed-off-by: Srish Srinivasan <ssrish@linux.ibm.com>
+> Reviewed-by: Stefan Berger <stefanb@linux.ibm.com>
+> ---
+> Changelog:
+> 
+>  v2:
+>   - Use bool to indicate whether the chip is TPM 2.0 in the option helpers
+> 
+>  security/keys/trusted-keys/trusted_tpm1.c | 35 +++++++++--------------
+>  1 file changed, 13 insertions(+), 22 deletions(-)
+> 
+> diff --git a/security/keys/trusted-keys/trusted_tpm1.c b/security/keys/trusted-keys/trusted_tpm1.c
+> index 3ec078ca3f97..6dbce058368f 100644
+> --- a/security/keys/trusted-keys/trusted_tpm1.c
+> +++ b/security/keys/trusted-keys/trusted_tpm1.c
+> @@ -700,7 +700,7 @@ static const match_table_t key_tokens = {
+>  
+>  /* can have zero or more token= options */
+>  static int getoptions(char *c, struct trusted_key_payload *pay,
+> -		      struct trusted_key_options *opt)
+> +		      struct trusted_key_options *opt, bool is_tpm2)
+>  {
+>  	struct trusted_key_tpm *private = opt->private;
+>  	substring_t args[MAX_OPT_ARGS];
+> @@ -712,13 +712,8 @@ static int getoptions(char *c, struct trusted_key_payload *pay,
+>  	unsigned long token_mask = 0;
+>  	unsigned int digest_len;
+>  	int i;
+> -	int tpm2;
+> -
+> -	tpm2 = tpm_is_tpm2(chip);
+> -	if (tpm2 < 0)
+> -		return tpm2;
+>  
+> -	private->hash = tpm2 ? HASH_ALGO_SHA256 : HASH_ALGO_SHA1;
+> +	private->hash = is_tpm2 ? HASH_ALGO_SHA256 : HASH_ALGO_SHA1;
+>  
+>  	if (!c)
+>  		return 0;
+> @@ -773,7 +768,7 @@ static int getoptions(char *c, struct trusted_key_payload *pay,
+>  				break;
+>  			}
+>  
+> -			if (tpm2 &&
+> +			if (is_tpm2 &&
+>  			    private->blobauth_len <=
+>  			    sizeof(private->blobauth)) {
+>  				memcpy(private->blobauth, args[0].from,
+> @@ -808,14 +803,15 @@ static int getoptions(char *c, struct trusted_key_payload *pay,
+>  			}
+>  			if (i == HASH_ALGO__LAST)
+>  				return -EINVAL;
+> -			if  (!tpm2 && i != HASH_ALGO_SHA1) {
+> +			if (!is_tpm2 && i != HASH_ALGO_SHA1) {
+>  				pr_info("TPM 1.x only supports SHA-1.\n");
+>  				return -EINVAL;
+>  			}
+>  			break;
+>  		case Opt_policydigest:
+>  			digest_len = hash_digest_size[private->hash];
+> -			if (!tpm2 || strlen(args[0].from) != (2 * digest_len))
+> +			if (!is_tpm2 ||
+> +			    strlen(args[0].from) != (2 * digest_len))
+>  				return -EINVAL;
+>  			res = hex2bin(private->policydigest, args[0].from,
+>  				      digest_len);
+> @@ -824,7 +820,7 @@ static int getoptions(char *c, struct trusted_key_payload *pay,
+>  			private->policydigest_len = digest_len;
+>  			break;
+>  		case Opt_policyhandle:
+> -			if (!tpm2)
+> +			if (!is_tpm2)
+>  				return -EINVAL;
+>  			res = kstrtoul(args[0].from, 16, &handle);
+>  			if (res < 0)
+> @@ -838,15 +834,10 @@ static int getoptions(char *c, struct trusted_key_payload *pay,
+>  	return 0;
+>  }
+>  
+> -static struct trusted_key_options *trusted_options_alloc(void)
+> +static struct trusted_key_options *trusted_options_alloc(bool is_tpm2)
+>  {
+>  	struct trusted_key_tpm *private;
+>  	struct trusted_key_options *options;
+> -	int tpm2;
+> -
+> -	tpm2 = tpm_is_tpm2(chip);
+> -	if (tpm2 < 0)
+> -		return NULL;
+>  
+>  	options = kzalloc_obj(*options);
+>  	if (options) {
+> @@ -858,7 +849,7 @@ static struct trusted_key_options *trusted_options_alloc(void)
+>  			kfree_sensitive(options);
+>  			options = NULL;
+>  		} else {
+> -			if (!tpm2)
+> +			if (!is_tpm2)
+>  				private->keyhandle = SRKHANDLE;
+>  			options->private = private;
+>  		}
+> @@ -877,13 +868,13 @@ static int trusted_tpm_seal(struct trusted_key_payload *p, char *datablob)
+>  	if (tpm2 < 0)
+>  		return tpm2;
+>  
+> -	options = trusted_options_alloc();
+> +	options = trusted_options_alloc(tpm2);
+>  	if (!options)
+>  		return -ENOMEM;
+>  
+>  	private = options->private;
+>  
+> -	ret = getoptions(datablob, p, options);
+> +	ret = getoptions(datablob, p, options, tpm2);
+>  	if (ret < 0)
+>  		return ret;
+>  	dump_options(options);
+> @@ -922,12 +913,12 @@ static int trusted_tpm_unseal(struct trusted_key_payload *p, char *datablob)
+>  	if (tpm2 < 0)
+>  		return tpm2;
+>  
+> -	options = trusted_options_alloc();
+> +	options = trusted_options_alloc(tpm2);
+>  	if (!options)
+>  		return -ENOMEM;
+>  	private = options->private;
+>  
+> -	ret = getoptions(datablob, p, options);
+> +	ret = getoptions(datablob, p, options, tpm2);
+>  	if (ret < 0)
+>  		return ret;
+>  	dump_options(options);
+> -- 
+> 2.53.0
+> 
 
-
----
-This report is generated by a bot. It may contain errors.
-See https://goo.gl/tpsmEJ for more information about syzbot.
-syzbot engineers can be reached at syzkaller@googlegroups.com.
-
-syzbot will keep track of this issue. See:
-https://goo.gl/tpsmEJ#status for how to communicate with syzbot.
-
-If the report is already addressed, let syzbot know by replying with:
-#syz fix: exact-commit-title
-
-If you want syzbot to run the reproducer, reply with:
-#syz test: git://repo/address.git branch-or-commit-hash
-If you attach or paste a git patch, syzbot will apply it before testing.
-
-If you want to overwrite report's subsystems, reply with:
-#syz set subsystems: new-subsystem
-(See the list of subsystem names on the web dashboard)
-
-If the report is a duplicate of another one, reply with:
-#syz dup: exact-subject-of-another-report
-
-If you want to undo deduplication, reply with:
-#syz undup
+Br, Jarkko
