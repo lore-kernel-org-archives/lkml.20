@@ -1,33 +1,33 @@
 Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 60F3047ECF1
-	for <linux-kernel@vger.kernel.org>; Mon,  5 Oct 2026 11:04:27 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 35B5B47D456
+	for <linux-kernel@vger.kernel.org>; Mon,  5 Oct 2026 11:04:35 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791198269; cv=none; b=nJpIlk0izZFl2GjMx5S9GGQMmSDqLMhJp3+H21h1vSrE4WDzD6afA9tfA3xU7VDDHbL+UsmSW0ne38ZlBeq2yXh3+he5M+R0iKSdYLLK6hjNI/l3Oe6c0KkevlZLL8tHCOL1H1c+baacfyZI8TfIBsAdN53XgxegOzcH2d27XrM=
+	t=1791198276; cv=none; b=trxCsFFJWBHHK51f9vGZZO7bLuP/E2o6UgnD2TlnMiEWlF1w/hEPkMZrDcT4DarVBVqk6+54AV0yX8fYETyyOebDvLWuGsWHHT6nb7x4vH9WegcPUBzNRmEUnQPDuN4P1MfRnt/EiW3q7N4zvKUtyLibP8XvF3FGw/Rf2ovU4/s=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791198269; c=relaxed/simple;
-	bh=XDt7l5+heHHFipJFixXA70C5ALhG8kjN/okhl2/TzA4=;
+	s=arc-20240116; t=1791198276; c=relaxed/simple;
+	bh=cLnVbSzXmcf7qdo5sG4C7PT6pFLAkJEH/Z2HJd1r/QA=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=pO8byYl+M51PRmSvZUlljD4VVT3iDBJt5HJ5tVogGK520iAuk9EakIrYgdtYrk0INCR38uoBX6EB92xVJvPmglRLkIRD68s+TyF9jjI9BijJ6s6GUzm+oDtIM4v8XqY7JOyGbB8uPIiPESj2w9DThBdnK8a0nlsWePokqLD44XM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=lcHjKamr; arc=none smtp.client-ip=217.140.110.172
+	 In-Reply-To:Content-Type; b=upfNh2Knows9eJDQjAlYIBpSzpXKnaPYEO/YHkZz/aOonfjdEiT8p9sq1ti26eLD6cH4eO+MjpnhPgfX4vMRrWzqJ09lRPVJPuxdooQV0mJAaxukviZi+iWOvYGO+aCzB+6EylZMSfvOLbyq9lmRR9ivKPKYS+CMMi4e78xdszk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=pZIpAmPs; arc=none smtp.client-ip=217.140.110.172
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="lcHjKamr"
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="pZIpAmPs"
 Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id F128C153B;
-	Mon,  5 Oct 2026 04:04:22 -0700 (PDT)
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 32B69152B;
+	Mon,  5 Oct 2026 04:04:31 -0700 (PDT)
 Received: from [10.57.78.53] (unknown [10.57.78.53])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id B6DCC3F86F;
-	Mon,  5 Oct 2026 04:04:24 -0700 (PDT)
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 0C3E03FA7A;
+	Mon,  5 Oct 2026 04:04:26 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1791198266; bh=XDt7l5+heHHFipJFixXA70C5ALhG8kjN/okhl2/TzA4=;
+	t=1791198274; bh=cLnVbSzXmcf7qdo5sG4C7PT6pFLAkJEH/Z2HJd1r/QA=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=lcHjKamr6kUxfprMi7cBOp7+u9JSJJZlqRjNPMw1mlEB2r274IYLGfy3q1K6jnYF2
-	 EDHlfwjhWlvwn/qrjZcUDttwRoi0yMJTYwnbIz3kpb4GMozVevaQmGxDPBAAgM9xr0
-	 P4pS2nSXF28GiL4LLNT2got1LXsBb3TlFF8vu8Mo=
-Message-ID: <678b9346-a53d-49bd-9c90-fa63e6c81169@arm.com>
-Date: Mon, 5 Oct 2026 12:03:26 +0100
+	b=pZIpAmPssATGP/Dwrj5TIgau4OLpuEGhl6Q1wxJvb6AFh3UcaztvqOe1D865Gx/+C
+	 7j0F/eV/WHBfzRzxM8n08FjK/CChgv0j3Aop9BKziMgONjzMqsdKCoJCZlLt78gmcG
+	 o8mwtG5OMYAhXlVSyaMu2zeQiNyIxsaQkMIg5buw=
+Message-ID: <cf996cfc-dbd4-458f-a656-d85e9014d6c5@arm.com>
+Date: Mon, 5 Oct 2026 12:03:29 +0100
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -35,8 +35,8 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 4/5] drm/panthor: Actually check huge-page mapping on
- sparse regions
+Subject: Re: [PATCH v2 5/5] drm/panthor: Remove redundant
+ panthor_fix_sparse_map_offset() call
 To: Boris Brezillon <boris.brezillon@collabora.com>,
  Liviu Dudau <liviu.dudau@arm.com>,
  =?UTF-8?Q?Adri=C3=A1n_Larumbe?= <adrian.larumbe@collabora.com>,
@@ -46,94 +46,65 @@ Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
  David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
  dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
 References: <20260924-panthor-fix-partial-unmap-v2-0-59a68a1f9e14@collabora.com>
- <20260924-panthor-fix-partial-unmap-v2-4-59a68a1f9e14@collabora.com>
+ <20260924-panthor-fix-partial-unmap-v2-5-59a68a1f9e14@collabora.com>
 From: Steven Price <steven.price@arm.com>
 Content-Language: en-GB
-In-Reply-To: <20260924-panthor-fix-partial-unmap-v2-4-59a68a1f9e14@collabora.com>
+In-Reply-To: <20260924-panthor-fix-partial-unmap-v2-5-59a68a1f9e14@collabora.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
 On 24/09/2026 12:04, Boris Brezillon wrote:
-> With the recent changes to iova_mapped_as_huge_page(), the check for
-> huge-page mapping of sparse BOs is actually simple:
+> op->remap.next->gem.offset is adjusted twice in
+> panthor_gpuva_sm_step_remap() (once on the remap.next object, and once on
+> the local map_op). Let's do it only once, and move this adjusment closer
+> to the place it matters.
 > 
-> - for a sparse mapping, we know the BO offset any VA in this regions is
->   va & (SZ_2M - 1)
-> - the VA we're searching the BO offset for is the 2M-aligned
->   aligned_va value
-> 
-> This guarantees that the BO offset to check is always zero in that case.
-> 
-> This is simple enough to let the code check if page 0 is a huge page
-> and save the unmap+map dance when the dummy BO is not backed by a
-> a huge page. So let's do that and kill the comment that says it's too
-> complicated.
-> 
-> Reviewed-by: Liviu Dudau <liviu.dudau@arm.com>
-> Reviewed-by: Akash Goel <akash.goel@arm.com>
+> Reported-by: Akash Goel <akash.goel@arm.com>
+> Closes: https://lore.kernel.org/dri-devel/b85679e3-5ca2-4d36-8675-2b968d97cb5b@arm.com/
 > Signed-off-by: Boris Brezillon <boris.brezillon@collabora.com>
-
-In itself I can't see anything wrong with this change, so:
 
 Reviewed-by: Steven Price <steven.price@arm.com>
 
-However...
-
 > ---
->  drivers/gpu/drm/panthor/panthor_mmu.c | 15 ++++++++-------
->  1 file changed, 8 insertions(+), 7 deletions(-)
+>  drivers/gpu/drm/panthor/panthor_mmu.c | 12 ++++++------
+>  1 file changed, 6 insertions(+), 6 deletions(-)
 > 
 > diff --git a/drivers/gpu/drm/panthor/panthor_mmu.c b/drivers/gpu/drm/panthor/panthor_mmu.c
-> index d2897099763e..01564d250adf 100644
+> index 01564d250adf..d8fb29ace5c4 100644
 > --- a/drivers/gpu/drm/panthor/panthor_mmu.c
 > +++ b/drivers/gpu/drm/panthor/panthor_mmu.c
-> @@ -2337,18 +2337,18 @@ iova_mapped_as_huge_page(struct drm_gpuva *mapping, u64 va)
+> @@ -2397,11 +2397,6 @@ static int panthor_gpuva_sm_step_remap(struct drm_gpuva_op *op,
 >  
->  		return false;
->  	} else {
-> -		const struct page *pg = bo->backing.pages[bo_offset >> PAGE_SHIFT];
->  		struct panthor_vma *vma = container_of(mapping, struct panthor_vma, base);
->  		bool is_sparse = vma->flags & DRM_PANTHOR_VM_BIND_OP_MAP_SPARSE;
-> +		const struct page *pg;
+>  	drm_gpuva_op_remap_to_unmap_range(&op->remap, &unmap_start, &unmap_range);
 >  
-> -		/* If the unmapped VMA stands for a sparse mapping, always
-> -		 * assume the backing storage is a THP, since the overhead of
-> -		 * unmapping 2MiB worth of 4KiB pages and remapping some of
-> -		 * them is offset by the logic of working out whether it's
-> -		 * the opposite case right below.
-> +		/* BO offset on a sparse mapping is chosen so that 2M-aligned
-> +		 * VAs point to the start of the BO. Since aligned_va (the
-> +		 * address we check huge-page against) is 2M-aligned, the BO
-> +		 * offset is guaranteed to be zero.
-> +		 * Check panthor_fix_sparse_map_offset() for more details.
->  		 */
->  		if (is_sparse)
-> -			return true;
-> +			bo_offset = 0;
+> -	/* op->remap.prev's BO offset is always the same as the unmap va's, but
+> -	 * that of op->remap.next must be adjusted so as to remain < SZ_2M
+> -	 */
+> -	panthor_fix_sparse_map_offset(op->remap.next, unmap_vma->flags);
+> -
+>  	if (!unmap_vma->evicted) {
+>  		/*
+>  		 * ARM IOMMU page table management code disallows partial unmaps of huge pages,
+> @@ -2447,6 +2442,12 @@ static int panthor_gpuva_sm_step_remap(struct drm_gpuva_op *op,
+>  		u64 addr = op->remap.next->va.addr;
+>  		u64 size = unmap_start + unmap_range - op->remap.next->va.addr;
 >  
->  		/* In case of shmem backing, we know we can only have a huge
->  		 * mapping if the bo_offset is 2M aligned, meaning we can skip
-> @@ -2357,6 +2357,7 @@ iova_mapped_as_huge_page(struct drm_gpuva *mapping, u64 va)
->  		if (!IS_ALIGNED(bo_offset, SZ_2M))
->  			return false;
+> +		/* op->remap.prev's BO offset is always the same as the unmap
+> +		 * va's, but that of op->remap.next must be adjusted so as to
+> +		 * remain < SZ_2M
+> +		 */
+> +		panthor_fix_sparse_map_offset(op->remap.next, unmap_vma->flags);
+> +
+>  		if (!unmap_vma->evicted && size > 0) {
+>  			struct drm_gpuva_op_map map_op = {
+>  				.va.addr = addr,
+> @@ -2454,7 +2455,6 @@ static int panthor_gpuva_sm_step_remap(struct drm_gpuva_op *op,
+>  				.gem.obj = op->remap.next->gem.obj,
+>  				.gem.offset = op->remap.next->gem.offset,
+>  			};
+> -			panthor_fix_sparse_map_offset(&map_op, unmap_vma->flags);
 >  
-> +		pg = bo->backing.pages[bo_offset >> PAGE_SHIFT];
->  		return folio_size(page_folio(pg)) >= SZ_2M;
-
-... this seems like it could be problematic. On the mapping side we use
-the scatter list to decide whether the region is huge page mapped or
-not. The scatter list code can merge segments that are contiguous (see
-pages_are_mergeable()), so if we have a region which has small folios we
-fail this check even though the pages might have been mapped as huge pages.
-
-This is a problem on the non-sparse path as well (hence not really
-related to this patch). I'm not really sure how to test this though - I
-may well have overlooked something here.
-
-Thanks,
-Steve
-
->  	}
->  }
+>  			ret = panthor_vm_exec_map_op(vm, unmap_vma->flags, &map_op);
+>  			if (ret)
 > 
 
