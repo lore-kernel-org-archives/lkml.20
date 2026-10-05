@@ -1,85 +1,88 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DF4EA445AD6
-	for <linux-kernel@vger.kernel.org>; Mon,  5 Oct 2026 10:39:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CD0B146C4AE
+	for <linux-kernel@vger.kernel.org>; Mon,  5 Oct 2026 10:39:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791196782; cv=none; b=Q8RRbrxRBS8tnIE2XE87ArHwVDVvfs4Bvi359cQVuNMEVAcRZwvOlLl0tMEP1enX+Oaa2PGbPaK65iPcXR5vQM0/0jtaTTWUY9QGvkuVFEtDlRt9ynwChQcMUqESUZ7q3p9xsix1yYzyhIA2bJ52YtwZ07FnocKNpBwQkGGcZlw=
+	t=1791196787; cv=none; b=N/oJGt39SkCurXt4kZCChJPAjo1WMrM5+LiXXGgLyR7AIAf63EYAtiRCgHVm5EMW0SOJQynOWWKzD5WSEW0qAYyyaDAcAYCrIY/kqf74G+cq6PxIn/qgotOupnpWwXn9fTHN5CGFEgxRMQWX7tITRnvdsh2PaZu7QGX5DJ3g5wE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791196782; c=relaxed/simple;
-	bh=bc5GFRQiIGiADHORo9EuaMGvjImIKx+DzfnfjV56Axg=;
-	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=rnfYQak31IdUmfMigckeRZ7CEBtOyttE0cZ6Qj3m2JHjq/loBHCMj+X2POg2rs5EqKHKT4r9k+IBpAKkSVwERhWKhXW++a/OjQ9HSxCEIeVFHpFKivvaBc7p+ZAz4pLvbbGuL0x5kVY2m0V0I5sUefYqNvM7fzN3XfUJFZ/Tmts=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=GuKo0Zri; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=AEM77GLM; arc=none smtp.client-ip=205.220.180.131
+	s=arc-20240116; t=1791196787; c=relaxed/simple;
+	bh=WQwZuEMFI0EGrTL8vHKAukXCmiRo/SaTCgvzlteroVc=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=oDCHm5PyKMIecatDNG1yP4YlryQoKF+TT6RsJRd35ArDmXGwiNeGBcvANHO3OgToVpxT5O3R/3SJGVZwyW0dGsMEkQ5A+SAekmsOpB6wIxo73Lu97PlFf4nOT/csn8ZEaTHh4wnitMs6SaWWf2Ixa7b8CG7s/9k5npojOCNZrd4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=D+8T1ekZ; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=ZKDNI/ZL; arc=none smtp.client-ip=205.220.168.131
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="GuKo0Zri";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="AEM77GLM"
-Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6958xRD21300185
-	for <linux-kernel@vger.kernel.org>; Mon, 5 Oct 2026 10:39:40 GMT
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="D+8T1ekZ";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="ZKDNI/ZL"
+Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6958xVBv1502681
+	for <linux-kernel@vger.kernel.org>; Mon, 5 Oct 2026 10:39:45 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:message-id
-	:mime-version:subject:to; s=qcppdkim1; bh=VYZZiRmnjas3w9PBHGWmvS
-	vkLtLWSqfv4c+kGyXuZMM=; b=GuKo0ZriCn0+TIxeXucbTNpuwhkIDr1a4LPTU0
-	zEIEmVQBblcAiaJl0lUF+QKjDs3A3kjezO6WbAhTiihx8XCePkQ3tzMMp0qVKK96
-	VszhMAAzLz5Wv/vYYm893DSwSwvnH0KhFJhZZqm2HK5OMs8HOcpDbrje3kU3PTKI
-	wwnD7trfJ3DfixyWLL/KW26+mcYsYoP7MMad9aGQ8lmYcCvHddr1BwUlL0mDzLdN
-	kRcgHGBwN+e8TEYZq2YNJxV49rszwxeB5uAfEa5UtQhgiW61nYD/FFXViwinHk1Y
-	WexRFLV71K8mFUFptD5B/twdK2so2udEr5HMZ36OcfAtj3tA==
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	Y9oUSEdsnHJrKTM7IFgvHlcAuPB6PaqD5TTrEShb2fU=; b=D+8T1ekZ4wcJqczj
+	Qw0RNnawd6dNCHXGJTm1K42yqfGAcXnhx8XWlMbb2F42R0JSoNk69p7juaEfMgow
+	vBLb2gxqouT1U/ZBjC2XMwBHpBzBiRSkyURNXkwChQej8upV/4H9cvdcx9XPEbxY
+	K8fDRGpVX0kKQK+4SeBCZTNJI27joQ+9qhGxgmhNi9ML1gm1r3MxRAbJSOJUbdW3
+	/AGuoTmb/SkxLsVi76KvqC3nJrc6sAdatLAok/0yyLBloOS7tfVYPbvdcTt849cm
+	6QwdRlBrxF4MNCTqI0e3IgNjAEsup6qaNy4knmhlyFX473B85hWwIEuuzBbsq2oh
+	peSkyw==
 Received: from mail-pj1-f70.google.com (mail-pj1-f70.google.com [209.85.216.70])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h3xhs1q4u-1
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h3xgysrbe-1
 	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Mon, 05 Oct 2026 10:39:39 +0000 (GMT)
-Received: by mail-pj1-f70.google.com with SMTP id 98e67ed59e1d1-3a834ff6550so142923a91.0
-        for <linux-kernel@vger.kernel.org>; Mon, 05 Oct 2026 03:39:39 -0700 (PDT)
+	for <linux-kernel@vger.kernel.org>; Mon, 05 Oct 2026 10:39:45 +0000 (GMT)
+Received: by mail-pj1-f70.google.com with SMTP id 98e67ed59e1d1-3a6f6af95beso1790828a91.2
+        for <linux-kernel@vger.kernel.org>; Mon, 05 Oct 2026 03:39:44 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1791196779; x=1791801579; darn=vger.kernel.org;
-        h=cc:to:content-transfer-encoding:content-type:mime-version
-         :message-id:date:subject:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=VYZZiRmnjas3w9PBHGWmvSvkLtLWSqfv4c+kGyXuZMM=;
-        b=AEM77GLM2KXFr0iWkdsQU2HcZoqiT/x3mkFGooHWKh6wsKVrR9+yPE/8nsCGhK8RpY
-         C6r96HB7g6NckG2WVBitZwT2X2B5DeGcJQFSIC39k1ZJCmNAKLDcQfAZE+NfbJHeJdtG
-         Ke16OjVFzuLbI9dgpAqXkq8n1xqdRN7lshduITcYFCW9dCR0G155B1KPV+maFnxN5sTN
-         ysfqm7+ofqlr7wfeQAyreh2hGvVU3vCqmsAt/fGin5yDCdoztz1mtV1JuadqKub7ATpm
-         Ax58E2VImaQUr9PEjXEuMu6T6cTi/G5IegQ+YLMK9S5Hj29PqAA4hwzXiQWrGG+8ae2c
-         l6CA==
+        d=oss.qualcomm.com; s=google; t=1791196784; x=1791801584; darn=vger.kernel.org;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Y9oUSEdsnHJrKTM7IFgvHlcAuPB6PaqD5TTrEShb2fU=;
+        b=ZKDNI/ZLZB3fYFgXLCWPAwxMaYZvTknHDEbX5kqflNnD2/cydXn5EnRw5z4phSgb5l
+         ammPTrnaL++EvZpyeHiU8baZYKAbR3yFDWxpme4dihUCQGxLcbn9vIOeZ6+7P5h3Pvam
+         HyKMtd3Kgwb/LQ/jFYzv2c1Gp79XpRnmITlC4/T/MJifMUVTBsWJQaPKB6SSls7FCikU
+         CyveQsUn8PSAES0K1ThjsKHoD0EWKS3atEimCLPCRXTcfmpPEAOrIYhfSe8Gx9Enaa2U
+         XrH+/vLYxt2W9F0Ylm35jaBJ0k0ONnMSJfFQMHrmCNbRg7qZR7MCUbvA3tW4DJq2ByAW
+         NnNg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791196779; x=1791801579;
-        h=cc:to:content-transfer-encoding:content-type:mime-version
-         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=VYZZiRmnjas3w9PBHGWmvSvkLtLWSqfv4c+kGyXuZMM=;
-        b=0jRqGQiqG0bM8T1fiL5rZMMQRA1A8cgK3qbJXTy2nxauWH7HWVaewSqYS/cjyixQEN
-         Pfi5mL9YByUa/6MaiGMDg38K5/ltLixSa26cs4OqMvVkt8LeZjBSga7EKl4Ck99ai1TF
-         IG9VZfvddNqtinjVMdSH9vkmvfQugol9VStIkfvIDD2ximrv978MYd5Y01ipmYkW2Wws
-         pEmmrJ3tSbtQb8VtgMXjXod5W/YL+kjTgrHTGwISDIR3PX4weSfv8Dgnlr67RoW+wh0B
-         oUI5l4wFPn35CPOtIjc9/AlyNJyxoyFEQ144TItW5YlAvS3UWdqEYhZzUAYI8Zc4bg/H
-         KhPA==
-X-Forwarded-Encrypted: i=1; AKwUvByrw4PhnJRQ5FUkO7eLJvL89iGRcaRuHYYezi5EZFcGnEHIO99Eb01Go9Dxrifq8w9SYoPaukR/7lluqY8=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKXaSpD2tF1cJB2ZgvIY2/sTAaoVPEQvD/FMZvWEmm6oyi6xJM7
-	2kvm1nVdnlNI2Jytgi326WcaGC0b8JEOT2KocAcGBdEraHeSgdgr8Xb2cOFDaAwxBwyV8AWmO+O
-	jboqkHt2m2+86nMJboRWWl2teoTvV2V3o0JwnW4rZmgQ+yPwQO92oXmpp7MJpgIxAFGA=
-X-Gm-Gg: AYBFou01QcwW19Q0g0SMsULS3+8/32Hetjf6umemq6A1L5tY2dZvt3/sN1PiOA1UoKM
-	eOWsdkrpWLCzBm63pxvRVih9QNGXkONlZ/V8CffKBrnuwPLyT06Vr2mGWt9IXLoq4XFxdOw0tCT
-	caRkiEUwxm3utXfrYd8ejOwPaZul7QV+8W5c3ZxGsyKOXoY1WvGDND0M4TGaDsFzPao0NHqhyM5
-	tRA2n5841RlDM0JtwGAiWV7lWQXYm5pCaP9/8acF+Jw3Yne2u5AAMxnzQtNLnf3PMhvOfgELDyq
-	Ug4lX7OAdSVNnLOmLJrjh0l5kYeuNK/FuElUvgBFeSu9o0+sETL4vswfX0UseUFGT9lgUvtXBfn
-	G/RT3i1cfeStvLkMFzhInf1EQ
-X-Received: by 2002:a17:90b:3b87:b0:3a2:b04e:8084 with SMTP id 98e67ed59e1d1-3a6cec8273fmr4751686a91.42.1791196778531;
-        Mon, 05 Oct 2026 03:39:38 -0700 (PDT)
-X-Received: by 2002:a17:90b:3b87:b0:3a2:b04e:8084 with SMTP id 98e67ed59e1d1-3a6cec8273fmr4751673a91.42.1791196778008;
-        Mon, 05 Oct 2026 03:39:38 -0700 (PDT)
+        d=1e100.net; s=20260707; t=1791196784; x=1791801584;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Y9oUSEdsnHJrKTM7IFgvHlcAuPB6PaqD5TTrEShb2fU=;
+        b=Wvpq50k8zGADaA0pMuucV4M0rXt9P/8XgCEK2sjzn9WLVQeKHr8M8THZFxnxKhYS68
+         SczjbIVX096dTrksXg8BFVGSP/5AFi9XAkajb9EeFjMuF8GIVuE5WNUy+M7fn9nn61T1
+         Azhr7c6bDX5i7dgSI4pOptNAEGE2bPG78Fq6kIG1gL2nm0FcK752fKn94p98sEW59rF1
+         LTF1SR5VSWGk+SRTWJ9750Dml0xRNFYFoWZWqMgonpiEQZkt3aRXQg6yuJI/xav7ShlV
+         7wiEK7bSBxIOjMvaSMDazPOHbWYkM5YE9a6myk4gDuOhzlCi5WU6YluT+fJZnEyWMuhF
+         PavQ==
+X-Forwarded-Encrypted: i=1; AKwUvByomyFw7UTufzRqbuiq847QQKx5udJcy6oToXGJxw3E6oAiTqbunsVJnNT7LZtWfxutu/8MSg+SUY63f9s=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKVyTMdFijbs5VO6iMg46BL2YTVeKnihxUiKZv8LS5HhA3ySh9h
+	KxHNHnniBb0PSsYP3BiWlUMl5Up8GYrLsfGs/sC9BpFyK+hqgufS2OvJa4ebePqvIagI5ZdYvwa
+	SOa729byxX/laHidiR526w5dLKhjLzY9DHH+9uRsf3yBENGRneK5RwgKOR8Z+jvIwewA=
+X-Gm-Gg: AYBFou1LW40k3mAFhNlBxT+Mj/BypBsobYfUSFFS+knsSzdDpuWViQzBO7kNQZd/YdJ
+	1qyufac7UTMa0E/MOZU84PwxwzBxx70Iedqa1Lznr1OM+pEFPoTfCADzH8xN9agx/3Ja53CyPmP
+	DrPB9UKns2or3DEYH5L+qCL+NO4VkvdbwniEMB8U69IuIxEiUPVkQZUGbLgg8lwEyN7OsdEwUEc
+	IBzbhkwYKmlp8qJDUz1Oy6Ua5WHqqDHDTolWx+neVJq/mXsmhbadw4rCwxIwBrEVQJSE3unSJ7/
+	i7S1ARs2sWgDx3EBRI+5p+GSU0k0O95ZeDhhmPEA9i/5t+GfnDx6PNjRUJEERwqSJV7PtNzzWUX
+	WlwPpA/+a1ccwOnkgATDN1+1c
+X-Received: by 2002:a17:90b:5285:b0:3a8:211b:6c6f with SMTP id 98e67ed59e1d1-3a8211b748fmr1067265a91.67.1791196784316;
+        Mon, 05 Oct 2026 03:39:44 -0700 (PDT)
+X-Received: by 2002:a17:90b:5285:b0:3a8:211b:6c6f with SMTP id 98e67ed59e1d1-3a8211b748fmr1067246a91.67.1791196783719;
+        Mon, 05 Oct 2026 03:39:43 -0700 (PDT)
 Received: from hu-sumk-hyd.qualcomm.com ([202.46.23.25])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a78e61386csm11223918a91.17.2026.10.05.03.39.35
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a78e61386csm11223918a91.17.2026.10.05.03.39.41
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 05 Oct 2026 03:39:37 -0700 (PDT)
+        Mon, 05 Oct 2026 03:39:43 -0700 (PDT)
 From: Sumit Kumar <sumit.kumar@oss.qualcomm.com>
-Subject: [PATCH v7 0/3] bus: mhi: Add loopback driver
-Date: Mon, 05 Oct 2026 16:09:28 +0530
-Message-Id: <20261005-lb-v7-0-36a268b6386f@oss.qualcomm.com>
+Date: Mon, 05 Oct 2026 16:09:30 +0530
+Subject: [PATCH v7 2/3] bus: mhi: ep: Add mhi_ep_queue_buf() API for raw
+ buffer queuing
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -88,207 +91,166 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAGB+w2oC/yWMwQ6CMBBEf4Xs2ZJSQime/A/Dga6LbAJUW200p
- P9uwcskbzJvNgjkmQKciw08RQ7s1gztqQCchvVOgm+ZQUmlpVFSzFaMlaXaYGfQ1JCHD08jf46
- Ta5954vBy/nt8Rr23f72TZtejFlJo3TYNkq004sWFUD7fw4xuWcoc0KeUfqJrI9ibAAAA
-X-Change-ID: 20260820-lb-f1be38c98c83
+Message-Id: <20261005-lb-v7-2-36a268b6386f@oss.qualcomm.com>
+References: <20261005-lb-v7-0-36a268b6386f@oss.qualcomm.com>
+In-Reply-To: <20261005-lb-v7-0-36a268b6386f@oss.qualcomm.com>
 To: Manivannan Sadhasivam <mani@kernel.org>,
         Jeff Hugo <jeff.hugo@oss.qualcomm.com>
 Cc: mhi@lists.linux.dev, linux-arm-msm@vger.kernel.org,
         linux-kernel@vger.kernel.org,
-        Sumit Kumar <sumit.kumar@oss.qualcomm.com>,
-        Krishna Chaitanya Chundru <krishna.chundru@oss.qualcomm.com>
+        Sumit Kumar <sumit.kumar@oss.qualcomm.com>
 X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1791196774; l=8614;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1791196775; l=4444;
  i=sumit.kumar@oss.qualcomm.com; s=20250409; h=from:subject:message-id;
- bh=bc5GFRQiIGiADHORo9EuaMGvjImIKx+DzfnfjV56Axg=;
- b=eOHazO4BBOj3sGjWA5m9o3rRbaNmOJYmuk4EI4AZmspVNoZzrUW94/1H3skqDapjG97ve+VLt
- eKFOqR2hrXhBFbUxpr/URggpKGuRm9delzr1GmvasK2kmQjaztYj1sA
+ bh=WQwZuEMFI0EGrTL8vHKAukXCmiRo/SaTCgvzlteroVc=;
+ b=SNdArPsDZmVUJXgAX0uLNZemyLJdkOcTqb1APkZzAcUJM1zNuHq5jQQn97aryKXTw7atAUPlB
+ z/6VGSHgkzdDbZyi1Op9ynsW4nRP2JOPijYHdC4qYBr0iyLDjynnlDw
 X-Developer-Key: i=sumit.kumar@oss.qualcomm.com; a=ed25519;
  pk=3cys6srXqLACgA68n7n7KjDeM9JiMK1w6VxzMxr0dnM=
-X-Proofpoint-ORIG-GUID: G8DqlahlvjjR6EAKVNHC-E3ij5i9VqWc
-X-Proofpoint-GUID: G8DqlahlvjjR6EAKVNHC-E3ij5i9VqWc
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDA1MDA0MSBTYWx0ZWRfX2Ae0Fu4JWuMk
- v3RVoUbb1jWDIb/00iq1c0COi75haprVzxYar1xvCRprdFetmf9JGj2iNh6/D8xlkK54t0yRcUt
- 2SzBaI4KhdZHRN4Wu6Z/1xSQcZoZFIA=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDA1MDA0MSBTYWx0ZWRfX8xPvYWqPDPxF
- piV+Ubc/AIPTS6Ac1WCWs5hLL6lppUV7VlH63ceHMfsYSKMXgn2P1/r3Rwu0hfA4uNdwWW9JVPv
- t6weMWhrYUmzCHCpDchwbzJ6BaORMmf87lz05NaZK2ijHmrSD2t7ROCZuFfCmIVaAeifBTF8uLU
- AwL3wt8UroxSG4hRKyClVVsTVtCrOIy2Z1TrYZglhZENQub7rAAPWyoQ4z+kvTl0YMtVepcchHR
- N5673slUPNIXkvgPL7wRr2QXJfUhDkhXG3foVfdAK1PHYPwcIqTumb6hfI7wDTPKkE/pTlyeG7V
- pTrsPB10EKB2rRUJy166gNmnl/1l9v5ypHCYBy5N/lyIOu9/yThYw+/Y7M3vJTsjhG9xq8tKnHZ
- wuz+0o3SIbWuG6jZaeP/z3/gsQK3RyVXpO/X/pus12VnM7UUxPE+le5bItcpxic88Ta4wz9DfkW
- xKa0yJb5eo5brdUiifg==
-X-Authority-Analysis: v=2.4 cv=Q6tHcI2a c=1 sm=1 tr=0 ts=6ac37e6b cx=c_pps
+X-Proofpoint-GUID: 6LaJw0XgfFtodl4HHFaj-r3EGpj1YqmZ
+X-Proofpoint-ORIG-GUID: 6LaJw0XgfFtodl4HHFaj-r3EGpj1YqmZ
+X-Authority-Analysis: v=2.4 cv=A6b5rKWG c=1 sm=1 tr=0 ts=6ac37e71 cx=c_pps
  a=0uOsjrqzRL749jD1oC5vDA==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
  a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=rJkE3RaqiGZ5pbrm-msn:22
- a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=3ZmytVxvEA25S_oFN6sA:9 a=QEXdDO2ut3YA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22
+ a=EUspDBNiAAAA:8 a=27Ti7_ZD70JoqEhemiIA:9 a=QEXdDO2ut3YA:10
  a=mQ_c8vxmzFEMiUWkPHU9:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDA1MDA0MSBTYWx0ZWRfXyPwyyxupcaJe
+ R4Y5gPQ3rMozfpPjM8yeJ8in7CRTpTyRw6C4tiw+Zc8+Fcl3RjYxtlb4OObNHd2WJy+SMuRUlxe
+ qhBUMNEvH+nHvyA0FwiDrLUryitVFC0IpuzZqCFCPUzj+s3lGHHTZ+4e1tPYiO8c3u7gjsmmBgt
+ O/77Zbs/RfHSHg7YoWDEjnAYHbbP1A2fEBeEJ12kkquJPwMAucUsYId0DH6ZG4bqht0uC1KqHrE
+ Jro6wiSrIZaO6Ls1/avZZYyeuXcvLE0JbNbPnKb9uLYJx94cZT7DJWAXBGoVGoMnrfZwQWVFWaq
+ YxHfL4eXVvL9W1y9KaXSeQ97QfICDN+O+8Aw9dcvjTYF/fOPquQlSOKC80lgR1O96JDZ8Nv3BBR
+ NAANLtLjAlwy+q2uHRd178QE7hfDQMi8VT6dj+5s83SP0AoaGaj1n1F16XzpWUK51poJGEt1U4D
+ ZR+T6PTeP9wAD6pg9mA==
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDA1MDA0MSBTYWx0ZWRfX3Ly9Jpc4PWIR
+ V3fJ9BrOuMR3pNgkKSvGCPgv93YGtkqpJQ8PXOHstBwP7kBJDdt38Pb9ibJkeYlHEeXWG+SB8Mi
+ cVAM1X/97/zxN9/Z3dgJga8Rw5w7CFc=
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
  definitions=2026-10-05_01,2026-10-02_02,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 bulkscore=0 priorityscore=1501 adultscore=0 lowpriorityscore=0
- malwarescore=0 impostorscore=0 suspectscore=0 phishscore=0 spamscore=0
+ clxscore=1015 spamscore=0 lowpriorityscore=0 bulkscore=0 suspectscore=0
+ priorityscore=1501 impostorscore=0 phishscore=0 malwarescore=0 adultscore=0
  classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
  reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2610050041
 
-The MHI specification defines a LOOPBACK channel that is already
-implemented by MHI-based devices (modems, WLAN) deployed in the field.
-The endpoint firmware echoes back whatever the host sends on this channel.
-Without a host-side driver, there is no way to exercise this channel to
-validate MHI data path integrity between host and endpoint.
+Some MHI endpoint clients do not use socket buffers and need a way to queue
+raw buffers for DL transfers. Add mhi_ep_queue_buf() to support this use
+case.
 
-This series adds drivers to exercise the LOOPBACK channel from both the
-host and endpoint sides. The host driver (patch 1) binds to the LOOPBACK
-channel and provides a sysfs interface for configuring transfer parameters,
-triggering a test, and reading the result. The sysfs interface is stable
-ABI because the wire protocol is fixed by the endpoint firmware already
-deployed in the field and cannot be changed.
-
-The endpoint driver (patch 3) echoes received data back to the host using
-a workqueue for asynchronous processing. Patch 2 introduces the
-mhi_ep_queue_buf() API needed by the endpoint driver for raw buffer
-queuing without an skb dependency.
+Refactor mhi_ep_queue_skb() to delegate to a new internal mhi_ep_queue()
+helper shared by both APIs, and rename mhi_ep_skb_completion() to
+mhi_ep_buf_completion() to reflect its broader use.
 
 Signed-off-by: Sumit Kumar <sumit.kumar@oss.qualcomm.com>
 ---
-Changes in v7:
-- Fix the tre_pending comment: it only tracks DL completions, not DL+UL
-  completions (Mani)
-- Add a new 'max_num_tre' RO sysfs attribute reporting the live channel
-  ring capacity, and reword the num_tre ABI description to reference it,
-  so callers don't have to guess a value and parse dmesg on failure
-- Reset the channel on every early-failure path in start_store(), not just
-  the timeout path, so TREs already queued to the device can't outlive the
-  buffers they point to once freed (Mani)
-- Replace sysfs_create_group()/sysfs_remove_group() with
-  driver.dev_groups so the driver core manages the sysfs group across
-  probe()/remove() (Mani)
-- ep: restore the blank line after mhi_ep_buf_completion() (Mani)
-- Link to v6: https://lore.kernel.org/r/20260908-lb-v6-0-66755ceb16cc@oss.qualcomm.com
+ drivers/bus/mhi/ep/main.c | 28 ++++++++++++++++++++--------
+ include/linux/mhi_ep.h    | 16 ++++++++++++++++
+ 2 files changed, 36 insertions(+), 8 deletions(-)
 
-Changes in v6:
-- Add comment explaining the purpose of atomic_t tre_pending (Jeff)
-- Drop <linux/mod_devicetable.h>; already covered by <linux/mhi.h> after
-  recent tree cleanups (Jeff, Uwe)
-- Drop the trailing comma after the NULL sentinel in
-  mhi_loopback_attrs[] (Uwe)
-- Use dev_err_probe() in the probe() error path (Uwe)
-- Fix spacing in the mhi_device_id table entries (Uwe)
-- Reword Kconfig help text so modems/WLAN read as examples of LOOPBACK
-  channel implementers, not an exhaustive list (Jeff)
-- Spell out Transfer Ring Element (TRE) in the max_tre_size ABI
-  description, matching the neighbouring entries (Jeff)
-- Clarify in the commit message that the new ABI is added under
-  Documentation/ABI/testing/, not stable/, and is unrelated to the
-  existing stable MHI ABI entry sharing the same MAINTAINERS line (Jeff)
-- Bump KernelVersion from 7.2 to 7.4 in the ABI documentation, since
-  this series missed both 7.2 and 7.3 (Jeff)
-- Link to v5: https://lore.kernel.org/all/20260817-loopback_mhi-v5-0-50efc7360b7f@oss.qualcomm.com/
+diff --git a/drivers/bus/mhi/ep/main.c b/drivers/bus/mhi/ep/main.c
+index db7ee6547eefa75995393f761ac3b66a6e37112d..b57dea00aaf52d16843ee72d98cf3e8afc08a10a 100644
+--- a/drivers/bus/mhi/ep/main.c
++++ b/drivers/bus/mhi/ep/main.c
+@@ -504,7 +504,7 @@ static int mhi_ep_process_ch_ring(struct mhi_ep_ring *ring)
+ 	return 0;
+ }
+ 
+-static void mhi_ep_skb_completion(struct mhi_ep_buf_info *buf_info)
++static void mhi_ep_buf_completion(struct mhi_ep_buf_info *buf_info)
+ {
+ 	struct mhi_ep_device *mhi_dev = buf_info->mhi_dev;
+ 	struct mhi_ep_cntrl *mhi_cntrl = mhi_dev->mhi_cntrl;
+@@ -534,20 +534,21 @@ static void mhi_ep_skb_completion(struct mhi_ep_buf_info *buf_info)
+ }
+ 
+ /* TODO: Handle partially formed TDs */
+-int mhi_ep_queue_skb(struct mhi_ep_device *mhi_dev, struct sk_buff *skb)
++static int mhi_ep_queue(struct mhi_ep_device *mhi_dev, void *buf, size_t len,
++			void *cb_buf)
+ {
+ 	struct mhi_ep_cntrl *mhi_cntrl = mhi_dev->mhi_cntrl;
+ 	struct mhi_ep_chan *mhi_chan = mhi_dev->dl_chan;
+ 	struct device *dev = &mhi_chan->mhi_dev->dev;
+ 	struct mhi_ep_buf_info buf_info = {};
+ 	struct mhi_ring_element *el;
+-	u32 buf_left, read_offset;
++	size_t buf_left, read_offset;
+ 	struct mhi_ep_ring *ring;
+ 	size_t tr_len;
+ 	u32 tre_len;
+ 	int ret;
+ 
+-	buf_left = skb->len;
++	buf_left = len;
+ 	ring = &mhi_cntrl->mhi_chan[mhi_chan->chan].ring;
+ 
+ 	mutex_lock(&mhi_chan->lock);
+@@ -570,13 +571,13 @@ int mhi_ep_queue_skb(struct mhi_ep_device *mhi_dev, struct sk_buff *skb)
+ 		tre_len = MHI_TRE_DATA_GET_LEN(el);
+ 
+ 		tr_len = min(buf_left, tre_len);
+-		read_offset = skb->len - buf_left;
++		read_offset = len - buf_left;
+ 
+-		buf_info.dev_addr = skb->data + read_offset;
++		buf_info.dev_addr = buf + read_offset;
+ 		buf_info.host_addr = MHI_TRE_DATA_GET_PTR(el);
+ 		buf_info.size = tr_len;
+-		buf_info.cb = mhi_ep_skb_completion;
+-		buf_info.cb_buf = skb;
++		buf_info.cb = mhi_ep_buf_completion;
++		buf_info.cb_buf = cb_buf;
+ 		buf_info.mhi_dev = mhi_dev;
+ 
+ 		/*
+@@ -615,8 +616,19 @@ int mhi_ep_queue_skb(struct mhi_ep_device *mhi_dev, struct sk_buff *skb)
+ 
+ 	return ret;
+ }
++
++int mhi_ep_queue_skb(struct mhi_ep_device *mhi_dev, struct sk_buff *skb)
++{
++	return mhi_ep_queue(mhi_dev, skb->data, skb->len, skb);
++}
+ EXPORT_SYMBOL_GPL(mhi_ep_queue_skb);
+ 
++int mhi_ep_queue_buf(struct mhi_ep_device *mhi_dev, void *buf, size_t len)
++{
++	return mhi_ep_queue(mhi_dev, buf, len, buf);
++}
++EXPORT_SYMBOL_GPL(mhi_ep_queue_buf);
++
+ static int mhi_ep_cache_host_cfg(struct mhi_ep_cntrl *mhi_cntrl)
+ {
+ 	size_t cmd_ctx_host_size, ch_ctx_host_size, ev_ctx_host_size;
+diff --git a/include/linux/mhi_ep.h b/include/linux/mhi_ep.h
+index f6383a57a872bf3cdea236ae9fe65f4ec8747b3e..852f331f03fda5c0212585de7d6f4eb9f8270609 100644
+--- a/include/linux/mhi_ep.h
++++ b/include/linux/mhi_ep.h
+@@ -304,4 +304,20 @@ bool mhi_ep_queue_is_empty(struct mhi_ep_device *mhi_dev, enum dma_data_directio
+  */
+ int mhi_ep_queue_skb(struct mhi_ep_device *mhi_dev, struct sk_buff *skb);
+ 
++/**
++ * mhi_ep_queue_buf - Transfer buffer contents to host over MHI Endpoint
++ * @mhi_dev: Device associated with the DL channel
++ * @buf: Buffer to be queued. On success, ownership passes to the MHI stack;
++ *       the caller must not free @buf until the DL transfer callback fires
++ *       with result->buf_addr equal to @buf. On failure, the caller retains
++ *       ownership and must free @buf.
++ *       Note: if @len spans multiple host DL TREs, the DL transfer callback
++ *       fires once per TRE, each time with result->buf_addr equal to @buf.
++ * @len: Size of the buffer
++ *
++ * Return: 0 if the buffer contents have been transferred successfully, a
++ * negative error code otherwise.
++ */
++int mhi_ep_queue_buf(struct mhi_ep_device *mhi_dev, void *buf, size_t len);
++
+ #endif
 
-Changes in v5:
-- Rebase onto mhi-next to pick up the EP flush_async() support, which
-  disables the channels and flushes the in-flight transfers before calling
-  the client driver's remove()
-- Drop the file header comment block duplicating the Kconfig help text (Mani)
-- Rename tres_pending to tre_pending (Mani)
-- Replace devm_device_add_group() with sysfs_create_group() and remove it
-  explicitly in remove(); this drops the !loopback guards from all sysfs
-  show/store callbacks (Mani)
-- Reset the channel in the start_store() timeout path so the device releases
-  the queued TREs before the buffers are freed (Mani)
-- Drop the status sysfs attribute; start already blocks and returns the
-  errno (Mani)
-- Capitalize the error strings and print the errno (Mani)
-- Drop the mutex_lock()/mutex_unlock() pair and dev_set_drvdata(NULL) from
-  mhi_loopback_remove() (Mani)
-- Use ret instead of rc and return 0 on the probe() success path (Mani)
-- Validate num_tre against both the UL and DL rings, and check both for free
-  space in start_store() before queuing any TRE
-- Log the transaction status in the host ul_xfer_cb() callback
-- ep: rename loopback_wq to wq, log the kmemdup()/kmalloc() failures, and
-  reword the error strings (Mani)
-- Link to v4: https://lore.kernel.org/r/20260622-loopback_mhi-v4-0-782b3a0f2eef@oss.qualcomm.com
-
-Changes in v4:
-- Fix MHI_LOOPBACK_MAX_TRE_SIZE: change SZ_64K to (SZ_64K - 1) since the TRE
-  length field is 16 bits and cannot encode 65536 (sashiko)
-- Move mhi_prepare_for_transfer() to probe() so ring->el_size is initialized
-  before num_tre_store() calls mhi_get_free_desc_count() (sashiko)
-- Add mhi_unprepare_from_transfer() in mhi_loopback_remove() (sashiko)
-- Add NULL guard in all sysfs show/store callbacks against post-remove drvdata
-  race with devres teardown (sashiko)
-- Add KMALLOC_MAX_SIZE check before kzalloc() to prevent page allocator WARN
-  on large tre_count * tre_size values (sashiko)
-- Fix start_store() to use __free(kfree) locals instead of goto-based cleanup
-  to comply with cleanup.h guard+goto mixing rule (sashiko)
-- Change buf_left and read_offset from u32 to size_t in mhi_ep_queue() to
-  avoid truncation of size_t len parameter (sashiko)
-- Add zero-length guard in mhi_ep_loopback_ul_callback() before kmemdup() to
-  handle 0-byte transfers returning ZERO_SIZE_PTR (sashiko)
-- Add NULL guard in mhi_ep_loopback_ul_callback() against post-remove drvdata
-  race (sashiko)
-- Link to v3: https://lore.kernel.org/r/20260610-loopback_mhi-v3-0-a733c0cef61a@oss.qualcomm.com
-
-Changes in v3:
-- Move ep driver to drivers/bus/mhi/ep/clients/loopback.c (Mani)
-- Move host driver to drivers/bus/mhi/host/clients/loopback.c; keep
-  module name mhi_loopback (Bjorn, Mani)
-- Add ABI documentation in Documentation/ABI/testing/sysfs-bus-mhi-devices-loopback
-  (Bjorn, Mani)
-- Rename sysfs attribute 'size' to 'tre_size'; add 'max_tre_size' attribute
-- Update Kconfig title to 'MHI LOOPBACK client driver' and describe that
-  the driver binds to the MHI LOOPBACK channel defined in the MHI spec
-  (Mani).
-- Fix memory leak in ep loopback DL transfer error path.
-- Rename mhi_ep_skb_completion() to mhi_ep_buf_completion().
-- Document buffer ownership semantics in mhi_ep_queue_buf() kernel-doc
-- Fix use-after-free in host loopback
-- Fix completion race: arm completion before queuing recv TREs
-- Fix teardown race: synchronize mhi_loopback_remove() with start_store()
-  via lb_mutex
-- Fix u32 multiplication overflow in total_size: use size_mul()
-- Replace kmalloc+memcpy with kmemdup in ep loopback UL callback
-- Update mhi_ep_queue_buf() kernel-doc: note per-TRE callback behavior
-  when buffer length spans multiple host DL TREs
-- Move mhi_prepare_for_transfer()/mhi_unprepare_from_transfer() into
-  start_store() to avoid holding the channel open when idle
-- Link to v2: https://lore.kernel.org/r/20251104-loopback_mhi-v2-0-727a3fd9aa74@oss.qualcomm.com
-
-Changes in v2:
-- Use __free(kfree) macro for buffers
-- Removed NET layer socket buffer dependency, now using buffer and len
-- Created a New Api for queuing buffers for clients which do not use skb
-- Link to v1: https://lore.kernel.org/r/20250923-loopback_mhi-v1-0-8618f31f44aa@oss.qualcomm.com
-
----
-Sumit Kumar (3):
-      bus: mhi: host: clients: Add loopback driver with sysfs interface
-      bus: mhi: ep: Add mhi_ep_queue_buf() API for raw buffer queuing
-      bus: mhi: ep: clients: Add loopback driver for data path testing
-
- .../ABI/testing/sysfs-bus-mhi-devices-loopback     |  49 ++++
- MAINTAINERS                                        |   1 +
- drivers/bus/mhi/ep/Kconfig                         |   2 +
- drivers/bus/mhi/ep/Makefile                        |   1 +
- drivers/bus/mhi/ep/clients/Kconfig                 |  16 ++
- drivers/bus/mhi/ep/clients/Makefile                |   2 +
- drivers/bus/mhi/ep/clients/loopback.c              | 129 +++++++++
- drivers/bus/mhi/ep/main.c                          |  28 +-
- drivers/bus/mhi/host/Kconfig                       |   1 +
- drivers/bus/mhi/host/Makefile                      |   1 +
- drivers/bus/mhi/host/clients/Kconfig               |  17 ++
- drivers/bus/mhi/host/clients/Makefile              |   2 +
- drivers/bus/mhi/host/clients/loopback.c            | 312 +++++++++++++++++++++
- include/linux/mhi_ep.h                             |  16 ++
- 14 files changed, 569 insertions(+), 8 deletions(-)
----
-base-commit: 6a746cd265aed59107ebdaa9ce039bb832922969
-change-id: 20260820-lb-f1be38c98c83
-
-Best regards,
 -- 
-Sumit Kumar <sumit.kumar@oss.qualcomm.com>
+2.34.1
 
