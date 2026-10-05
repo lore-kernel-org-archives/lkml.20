@@ -1,40 +1,67 @@
-Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C5CD4137923;
-	Mon,  5 Oct 2026 06:17:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=124.126.103.232
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7C61D33A9FE
+	for <linux-kernel@vger.kernel.org>; Mon,  5 Oct 2026 06:20:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791181053; cv=none; b=q48jCBK5pxi3F6K6fO0zdy+jT9hfBWOHGg5R1YTTQOwWncM8DK/R/Ig33V/QL/4M9UUEGQU/dYwydBNDziiYtxPdBGY8deIO/b7zxQoTRnhCq1rh6IHTOJB6+vm9/Dxc9t2TkfH13At/Tuh7hHXuLgHGndOqMF+L2vfviYDvD9E=
+	t=1791181219; cv=none; b=pG0GrQN73jueYiVs42OOHatf+PGoee67Y+VGW/uzviPENwQhS/UKwqnqNMpM2RCZkfV/tcMKeVk23bjAW56JAJPkPslhywatpiCs5BGpmxEuJad9+YV7N1HYcX+WialDJp3MegLQ+CHJcrBDQDZR0HzHxY7eDvIeqRJlU5AxfNg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791181053; c=relaxed/simple;
-	bh=aDGNUxFnoGNZoKx51Rif4l0kxdmZi6UolPntCC8eR8c=;
+	s=arc-20240116; t=1791181219; c=relaxed/simple;
+	bh=0ExWA1l1yPQaHfCJdCeIV2uvEiOA/vQlQ+Irax5DPyI=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=dtWI0lqVUN5wwioUXcn7jIF3FUKfITmK1AqmNVwLLjFX1+oPg6JbPZpEAtmWILbwjUf296sWO1xJ/yPpLCocuK4GEUA4EqDXwVNdkXfaSbbePJhIUCojPRRBRaUoNy7tvnDi6uW3HFBeqyZth93D+7GYlxCzcX81Sgl57TUdmLA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn; spf=pass smtp.mailfrom=kylinos.cn; arc=none smtp.client-ip=124.126.103.232
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kylinos.cn
-X-UUID: 6f957b10c08411f19a56ed5b684f684d-20261005
-X-CID-P-RULE: Release_Ham
-X-CID-O-INFO: VERSION:1.3.19,REQID:3c361553-7787-4014-9ec1-90f1dcc92796,IP:0,U
-	RL:0,TC:0,Content:0,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION:
-	release,TS:0
-X-CID-META: VersionHash:7db8b62,CLOUDID:0bad8d6b600c03dd905a494a9d71863b,BulkI
-	D:nil,BulkQuantity:0,SF:80|81|82|83|102|136|865|898,TC:nil,Content:0|15|52
-	|99,EDM:-3|-100,IP:nil,URL:0,File:nil,RT:nil,Bulk:nil,QS:nil,BEC:nil,COL:0
-	,OSI:0,OSA:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
-X-CID-BVR: 2,SSN|SDN
-X-CID-BAS: 2,SSN|SDN,0,_
-X-CID-FACTOR: TF_CID_SPAM_SNR
-X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
-X-UUID: 6f957b10c08411f19a56ed5b684f684d-20261005
-X-User: xiaopei01@kylinos.cn
-Received: from [10.42.12.251] [(10.44.16.150)] by mailgw.kylinos.cn
-	(envelope-from <xiaopei01@kylinos.cn>)
-	(Generic MTA with TLSv1.3 TLS_AES_128_GCM_SHA256 128/128)
-	with ESMTP id 514251661; Mon, 05 Oct 2026 14:17:26 +0800
-Message-ID: <42828ffb-d2c4-4f31-88d0-c4b939631ab8@kylinos.cn>
-Date: Mon, 5 Oct 2026 14:17:23 +0800
+	 In-Reply-To:Content-Type; b=dostawjwZBNKGR812H6u+34nTGjKsc5/c+GphZRbmFC4XE1Hr8JUSOluWxgFth73n+0AAJGxoBFWr8ctU93K6oQ5EZ+z6YBlQpoPN5BeBlEGrmzaXDU6cRWohbJVC7+UiXe4WxAUJTw524v+7tKkRrAfO8bTOFnFkvpMXMXnOks=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=q9KBmsWh; arc=none smtp.client-ip=74.125.225.141
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="q9KBmsWh"
+Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49ccf3ca626so8883855e9.0
+        for <linux-kernel@vger.kernel.org>; Sun, 04 Oct 2026 23:20:17 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791181216; x=1791786016; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=l0FuaBTKJktE8SOUhXZCNhOW7/MvZW2r4riGHbubmm4=;
+        b=q9KBmsWhfZMVyRclrbFV8f7IbGpLSWluuU/gbU3jxm8cOtIjRVFba2WSHKwaRrkqcb
+         1fhHLrT5EgPRFh5riFLIzyoNsDN1UqKStbwOjTMNTe4EggulZPSZfaNwGtj3oi+EzGak
+         jE239znaCP7800R0O6f3/nB1goV1SDFU6ZPEXbgZ/i4qB65caC7YCOIqfmkZWUPW17Ey
+         i89SREcmNpZev12POteSKn1kMaCRGbUsPHEGWWtdYzsodAHIspHZ/br+QeoGnZ+6O3kY
+         z3PfqvcR1oc2PG+7TgHYW4wSYll+zTPBU9RFMia80L+kMkvBoph3GxadP3gxefx2LrG5
+         eJKg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791181216; x=1791786016;
+        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=l0FuaBTKJktE8SOUhXZCNhOW7/MvZW2r4riGHbubmm4=;
+        b=AbX+F82hV1RH7SkXuH73Ilg9tVakpnjWGFJUfpDkUxwbe0E7qDAOhFPabwBRoQw1oU
+         PlGJw9V9OCk8CkfpXF/Nhfzof7gEGF8tpsHoKHBXKOl+dwvnhxcOgjOIUkNvNRXmriaU
+         Tm99LY/HAeB0s14UY6i05WJtLR4S8N3SgfQFxuOovSgT6Ak0/RB6GVm+7NTVC0LnkLkq
+         SzqJI4LmHU6Vy3KXcMaQ2O+tadUbmu0lVbvbKcURl/SuRqxPS1IqPAvwgeHCywAPRqXb
+         +jtxKuRnsuNG3aDW+fuHny6QgFnR8829LCeGEeE+RAu7mI/yAw7psyeWV3U+/SofKiWC
+         ZtGQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzyyoEJ9pXIlAD7FiBUvjeA2MwhLenBY1kGD/kPwj+/G46kXVaRlvoEK2CY0wb07z8wz0Om8ETVZRbjSPQ=@vger.kernel.org
+X-Gm-Message-State: AFuF++kQENakBDUnMHXZpZMmoL/cbElmTH7d0gJpIXkbAwmXYNDBEvw8
+	myYIoE9u6pBPWAZclfpSFJeOZ7vA/ofAztZi095BfsTGY9WkbX14kEYQ
+X-Gm-Gg: AYBFou0A1fxlhSbvKQS5WTFPM3QHzCaXSYyfFAjWXlwUX8NieP/NqEiQiubRZmC99iB
+	8xuuptkT0tjFSkMcNGYwClPqJ74Cdn6CmOQ/YBRp+rDAgEKNkEqunDDy1sWmnlSNOXhqJo10DJF
+	tZSKzykiCk0bNyZ0RollU2bexq7KuUQG6Wb7aOSasfLHn6R/gDJGuHJ05XXvZECuYmDAAQuuqDz
+	fmUlRNm7InXW/5H7z/NmABMS39Ta90tm8kO4UZ/sj4rP+GxIFjP6uD4nDJJ9F965mPt5rxbF4E2
+	sRkv1A2TWzjhW/5KKRNtsDB3N8M8XjW8I3tUxUeaVOKzzr2sS8impLtX845gFZmRgTrVO9SfnNH
+	WgZLCQRnxOkkDMx8TAWkKvR++q/Xo54/k14WQVJAnj6CRsAwRp57giwubeO2bJfwF7iak2cOt7H
+	U133bXxs0OEMuzv589jgn4FH8FzH9OuduEuQHbA3mELvhutyD/Hw0cE5yAiqzDeizX8WE7sIk=
+X-Received: by 2002:a05:600c:1e0f:b0:49e:6249:268b with SMTP id 5b1f17b1804b1-4a027697ef2mr157549445e9.32.1791181215479;
+        Sun, 04 Oct 2026 23:20:15 -0700 (PDT)
+Received: from [192.168.1.109] ([178.17.7.30])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48c622704a5sm3189409f8f.15.2026.10.04.23.20.14
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Sun, 04 Oct 2026 23:20:15 -0700 (PDT)
+Message-ID: <ff601118-7ef4-4ece-94a3-9671e78fa3c8@gmail.com>
+Date: Mon, 5 Oct 2026 08:20:14 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -42,76 +69,112 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/5] tpm: tpm_ppi: fix wrong error code returned to user
- space
-To: Jarkko Sakkinen <jarkko.sakkinen@iki.fi>
-Cc: jarkko@kernel.org, peterhuewe@gmx.de, jgg@ziepe.ca,
- linux-integrity@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <cover.1791015549.git.xiaopei01@kylinos.cn>
- <16ff8f5a35246d5932068ce1b01438bc2895a46a.1791015549.git.xiaopei01@kylinos.cn>
- <asMkuS55pG_q8RsT@iki.fi>
-From: Pei Xiao <xiaopei01@kylinos.cn>
-In-Reply-To: <asMkuS55pG_q8RsT@iki.fi>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Subject: Re: [RFC PATCH 1/1] dm-integrity: support keys in the kernel keyring
+To: Eric Biggers <ebiggers@kernel.org>
+Cc: Mikulas Patocka <mpatocka@redhat.com>,
+ Lorenz Kofler <lorenz@sigma-star.at>, Mike Snitzer <snitzer@kernel.org>,
+ Benjamin Marzinski <bmarzins@redhat.com>, Alasdair Kergon <agk@redhat.com>,
+ dm-devel@lists.linux.dev, linux-kernel@vger.kernel.org,
+ upstream+dm@sigma-star.at, David Howells <dhowells@redhat.com>,
+ Jarkko Sakkinen <jarkko@kernel.org>, keyrings@vger.kernel.org
+References: <20260928062734.3805458-1-lorenz@sigma-star.at>
+ <20260928062734.3805458-2-lorenz@sigma-star.at>
+ <6e7bd72b-6f1a-211d-16a8-a35a530af408@redhat.com>
+ <b0f8f47a-beb0-426e-bdee-5d0d80ade8ad@sigma-star.at>
+ <1e53661e-42f4-72b2-3331-33af21e9fe0f@redhat.com>
+ <20261002201419.GA205250@google.com>
+ <d737b17e-7872-4afb-b4c2-bfa8f4e119df@gmail.com>
+ <20261004172934.GC1906@quark>
+Content-Language: en-US
+From: Milan Broz <gmazyland@gmail.com>
+Autocrypt: addr=gmazyland@gmail.com; keydata=
+ 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
+In-Reply-To: <20261004172934.GC1906@quark>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-
-
-在 2026/10/5 12:16, Jarkko Sakkinen 写道:
-> On Sat, Oct 03, 2026 at 04:27:51PM +0800, Pei Xiao wrote:
->> tpm_show_ppi_response() stores its return value in an acpi_status,
->> a typedef of u32.  Both error paths of the function (-EINVAL on a
->> malformed _DSM package, -EFAULT on a non-zero operation return
->> code) end up as huge positive values when returned as ssize_t, so
->> user space cannot detect the failure with the usual "ret < 0"
->> check.
-> 
-> I have no idea what you mean by huge value and why that would be
-> a problem, and overall this is disconnected from the code change.
-> 
-> Two's complement value is correctly stored in status up until the
-> ssize_t cast, which results the value to be zero-extended, and
-> as a result corrupt the negative values.
-How does the following Git commit message look：
-
-tpm: tpm_ppi: fix zero-extension of negative error codes
-
-tpm_show_ppi_response() keeps its return value in an acpi_status,
-a typedef of u32.  The two's complement of the error code is stored
-correctly there, but on return the value is converted to ssize_t and
-zero-extended, so the sign is lost: user space receives 0xFFFFFFEA
-(4294967274) instead of -EINVAL, which breaks the usual "ret < 0" error
-check.
-Declare the variable as ssize_t so that negative values survive the
-conversion.
-> 
+On 10/4/26 7:29 PM, Eric Biggers wrote:
+> On Sun, Oct 04, 2026 at 09:44:57AM +0200, Milan Broz wrote:
+>> On 10/2/26 10:14 PM, Eric Biggers wrote:
+>> ...
+>>>   From what I understand, the point of the keyring support in
+>>> dm-{crypt,inlinecrypt,integrity} is:
+>>>
+>>> - To support "trusted" keys.  But that is not what was actually
+>>>     implemented in dm-inlinecrypt.
+>>>
+>>> - To avoid having the key be readable with STATUSTYPE_TABLE.  But that
+>>>     is not what was actually implemented in dm-inlinecrypt.  Keyrings are
+>>>     also unnecesary to solve that problem.
 >>
->> Declare the variable as ssize_t to match the show callback's
->> return type.
+>> There is more to that
 >>
->> Fixes: 84b1667dea23 ("ACPI / TPM: replace open-coded _DSM code with helper functions")
->> Assisted-by: GLM-5.3
->> Signed-off-by: Pei Xiao <xiaopei01@kylinos.cn>
->> ---
->>  drivers/char/tpm/tpm_ppi.c | 2 +-
->>  1 file changed, 1 insertion(+), 1 deletion(-)
->>
->> diff --git a/drivers/char/tpm/tpm_ppi.c b/drivers/char/tpm/tpm_ppi.c
->> index c9793a3d986d..949fb7055bea 100644
->> --- a/drivers/char/tpm/tpm_ppi.c
->> +++ b/drivers/char/tpm/tpm_ppi.c
->> @@ -234,7 +234,7 @@ static ssize_t tpm_show_ppi_response(struct device *dev,
->>  				     struct device_attribute *attr,
->>  				     char *buf)
->>  {
->> -	acpi_status status = -EINVAL;
->> +	ssize_t status = -EINVAL;
->>  	union acpi_object *obj, *ret_obj;
->>  	u64 req, res;
->>  	struct tpm_chip *chip = to_tpm_chip(dev);
->> -- 
->> 2.25.1
->>
+>> - to avoid key cached in dm-crypt (or other target)
+>> (dmsetup must be able to retrieve mapping table in the form directly
+>> reusable for recreating DM mapping, so raw key must be available)
 > 
-> Br, Jarkko
+> It's of course still there anyway, so that the data can be encrypted or
+> decrypted.  crypt_config::cipher_tfm for dm-crypt, inlinecrypt_ctx::key
+> for dm-inlinecrypt, or dm_integrity_c::internal_shash for dm-integrity.
+
+Raw key is then not part of internal dm-crypt structures, that was the point.
+Crypto API needs key, obviously. I did not check recent dm-inline crypt, though.
+>> - to avoid inclusion of key in DM ioctl calls (mapping table again)
+> 
+> Unless the "trusted" key type is being used it just makes the raw key be
+> passed to the kernel using a different syscall: add_key() instead of
+> ioctl().  It doesn't seem fundamentally different.
+
+Technically, yes.  Just the key is now sent through ioctl that (should)
+be designed for it, not in DM-ioctls that are used extensively for all other
+parameters.
+We had to add wiping of all buffers there exactly for this reason.
+And I think the split is better also for tracing calls etc.
+
+And while all these subsystems are not perfect, they are compatible for many
+years. IMO this is very important. We are not in Google monorepo environment
+where anything can be changed anytime as you know all users.
+
+Milan
 
