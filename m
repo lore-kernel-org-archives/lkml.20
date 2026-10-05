@@ -1,276 +1,223 @@
-Received: from CY7PR03CU001.outbound.protection.outlook.com (mail-westcentralusazon11010060.outbound.protection.outlook.com [40.93.198.60])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0C319374721;
-	Mon,  5 Oct 2026 07:03:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.198.60
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791183835; cv=fail; b=VgTQFAAokWR/srIweSaIS7nKbkocXZH8ag9kIQjEMI67rfY9g/GHco5WVDqwlkCHTuIdS7Yc2D64seAK30uMK1+ZzmZ9kp1LlCT9wIs5mLUL2BEzU0xENbAafTmxQYtwQmpNUmEFUW6ha/+JIi5rRwth73HhZnvwNjbrF9ZQR5Y=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791183835; c=relaxed/simple;
-	bh=6YVFgDKjpB32oDKr93MuEb9P2RHrLX1NkvrowuzNQG0=;
-	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=t60RRftWE2XOcBGiCBXpGscSC8MbuSNss8sUNciNsejelAVe1qUBPnaK8DL+B4pDQLsXaOEMOxJ2VvgMQ25a+A6msQz+Ejpv9gUo5lBSj854vGYp4ylky+g65DJXpXhtpWktiELbdI+zu4B48IjNAsnxM3YEfys0aMkgUFSkQlM=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=snD9H5cK; arc=fail smtp.client-ip=40.93.198.60
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 043BC361DBF
+	for <linux-kernel@vger.kernel.org>; Mon,  5 Oct 2026 07:04:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791183888; cv=none; b=hVK0RtCykuQ0hHxO5cOqeiOh/kFli19kjLSeaxRugXklAHf/EEGAltmzhiZyhys/labCLlP0YxFmXRO2itRvR6OT9nSXZ9Mw/uHcxnoXi92gFBhYIPX0osLwRVH0RhRkyLXiLqnbVCfYJaN477va3O0nxFNXroWeaorjpwiPn7A=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791183888; c=relaxed/simple;
+	bh=QVyR7CP7FE2myu62IAV9y7e29voRASCl4OzYEjj0lHQ=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=qPXLNxc5Cp7gZ56j7LpeddnnpYSdAh+dMUZ4weA/h8uqr7LC4To8FGjDCC2o2AINO3RdhaMXnm/mpQX2ag+PzBlmioCMG9Mk2KdwKMNlXn7RyoqV2iPFfbmvI84CFctnQ1iwSC9S7Ombu+CFVllgHA74HPdqeN/19yztfcbjo2M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=LCKMfVy6; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=YilHN8Qk; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="snD9H5cK"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=UyTRdbgiYAawvsc4hV1u+GYtN8gWyzUjjO1oLxEpFXEpiIVspGpw6Itp2Fw2ciw1HooR07Wd5ugC6pGVxivW+/EV3N9PorfBsUaEmuQO0SR4GebIIZ5bkBr0gV4HkNZ34aiIkz55HyotM6d7aGFKWC4JdTsBv6AEy+aa6H/MOZVTEtMEfhjc6P+YsVsdCclN8HLFMRa9uPof6MjdEXxfOe1D9rN6i2vrhBguQGJgYzToxO7p9rbmhqvwP6HqGwcw7g0JvCUZE/U6M8C1/HGX8AmzOiruBl4kCCSIuiFhWF7Lz7XX7CXEV51oXbdrDaDzODVseK0scUcfpqivCllgFQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Bk4jN7DxI0XK2wRetl9w+Hjh1ExSTtRc9AuiVPSwMyk=;
- b=hwuveHl0+3yECPHwejcVmu1WoX/5Ua1sStNawXQzZ9m4+T2IKORdr0PRvGZJID05D6k/qBU9zNKJ6QJ5hdZxxnZNY7zw8XFFzAd8xpeFXouH5uWGyxFV5IHFgxWCWMn+O4PivwfKBEqZLt3BjunUYUgG11TSdO6okhiWHDw8wbxHTBplr3Z4RDi4y3hw9jkq4NvdGgU2r5uuxdHiMk8Y4X39BWczIz854LouXhTak6OOGTb16V/lvFIyAPGLNIW6CPdJQEAPlX3rzL3ur+AP8IbM+bNESiacAGTKwyvvl/4IzP5ge9D4r8Y6g3BlvDY/r+tzZ9wdjlEhuRazKVY9Kw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 216.228.117.161) smtp.rcpttodomain=vger.kernel.org smtp.mailfrom=nvidia.com;
- dmarc=pass (p=reject sp=reject pct=100) action=none header.from=nvidia.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Bk4jN7DxI0XK2wRetl9w+Hjh1ExSTtRc9AuiVPSwMyk=;
- b=snD9H5cK/AA9RtfF3wRj6fRnFlIkPKTqYJuHI4wV6IkZ6n4/REtyLqb2R2aZTanTG/y2yTebpjeGo95TCwht9M/ujEjZXPLjCP9W45uZM6f0el2pK+62rS3UTTxSJZNm6Rj7yx8aiEGnJ+NL9/2Xcmzy34ndV5TCf8ScGHDgmd5lpxNdMS4ah0SMswO0ecT+1PDfKBtkmHy4bvkGed9tw0u7VWwp8Oyx2+jLot1/0LbVH0rLfv+13zc2QMbPAPKK19LZt2/hzkghla3/YrKLwBu0fUapX9A1ZzRBBbOcT8Lw5GHoVyxFwSnLKz1qy+1tusB4NTAqjum/Tn3STYyWIQ==
-Received: from BN9PR03CA0754.namprd03.prod.outlook.com (2603:10b6:408:13a::9)
- by CH3PR12MB8457.namprd12.prod.outlook.com (2603:10b6:610:154::21) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.26; Mon, 5 Oct
- 2026 07:03:45 +0000
-Received: from LV8PEPF0000006B.namprd03.prod.outlook.com
- (2603:10b6:408:13a:cafe::3b) by BN9PR03CA0754.outlook.office365.com
- (2603:10b6:408:13a::9) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.472.20 via Frontend Transport; Mon, 5
- Oct 2026 07:03:45 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 216.228.117.161) smtp.mailfrom=nvidia.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=nvidia.com;
-Received-SPF: Pass (protection.outlook.com: domain of nvidia.com designates
- 216.228.117.161 as permitted sender) receiver=protection.outlook.com;
- client-ip=216.228.117.161; helo=mail.nvidia.com; pr=C
-Received: from mail.nvidia.com (216.228.117.161) by
- LV8PEPF0000006B.mail.protection.outlook.com (10.167.248.40) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.472.14 via Frontend Transport; Mon, 5 Oct 2026 07:03:45 +0000
-Received: from rnnvmail201.nvidia.com (10.129.68.8) by mail.nvidia.com
- (10.129.200.67) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Mon, 5 Oct
- 2026 00:03:27 -0700
-Received: from NV-9TMPJL3.nvidia.com (10.126.231.37) by rnnvmail201.nvidia.com
- (10.129.68.8) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Mon, 5 Oct
- 2026 00:03:22 -0700
-From: Ankit Agrawal <ankita@nvidia.com>
-To: <linux-cxl@vger.kernel.org>, <linux-pci@vger.kernel.org>,
-	<linux-kernel@vger.kernel.org>
-CC: <dave@stgolabs.net>, <jic23@kernel.org>, <dave.jiang@intel.com>,
-	<alison.schofield@intel.com>, <vishal.l.verma@intel.com>, <jgg@nvidia.com>,
-	<aneesh.kumar@kernel.org>, <aik@amd.com>, <yilun.xu@linux.intel.com>,
-	<iweiny@kernel.org>, <ming.li@zohomail.com>, <icheng@nvidia.com>,
-	<bhelgaas@google.com>, <smadhavan@nvidia.com>, <ankita@nvidia.com>,
-	<ilpo.jarvinen@linux.intel.com>, <Smita.KoralahalliChannabasappa@amd.com>,
-	<andriy.shevchenko@linux.intel.com>, <linux-coco@lists.linux.dev>
-Subject: [RFC PATCH 4/4] PCI/TSM: Support multiple coherent ranges via coh_idx
-Date: Mon, 5 Oct 2026 09:02:52 +0200
-Message-ID: <20261005070252.84810-5-ankita@nvidia.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261005070252.84810-1-ankita@nvidia.com>
-References: <20261005070252.84810-1-ankita@nvidia.com>
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="LCKMfVy6";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="YilHN8Qk"
+Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 695102RQ1464768
+	for <linux-kernel@vger.kernel.org>; Mon, 5 Oct 2026 07:04:46 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	FvnM3Ex3fN1kuVWZlKJ62wpzcxskyyIy0mNGiZDRwtM=; b=LCKMfVy6z41UGH1f
+	5BezKTKfKxMyj6OSMRiLsA98jDJpOE8pqGOxhOcpRiVpNNpbJB138HYtzohzaKKX
+	jHpV8yWsk5GwIqAlFV+7xwrZekxg9Uecfepzl6tGUV24nEFBVjszCKiAO2KlUXfa
+	btBUAEEOw9hAIgWSLwflmtj6PhNJAyPenkSWHiPrg0a98x4cPYkXd9ZSq+psaIAA
+	aePeAvdyiekyhIE5KrwrUvOnYiii2sZ298SQqvgf9+zeOzgG9BHtqQ27XT1CTwdU
+	pdLhrEtEB/b/w+ZY/gUj/8ZvuDnoiSg0389Y1qUblQskwdqyg9nRosMU/QWph5Hb
+	GL1jsQ==
+Received: from mail-qk1-f199.google.com (mail-qk1-f199.google.com [209.85.222.199])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h2sssmskf-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Mon, 05 Oct 2026 07:04:45 +0000 (GMT)
+Received: by mail-qk1-f199.google.com with SMTP id af79cd13be357-93cbacbb996so219849385a.2
+        for <linux-kernel@vger.kernel.org>; Mon, 05 Oct 2026 00:04:45 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1791183885; x=1791788685; darn=vger.kernel.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=FvnM3Ex3fN1kuVWZlKJ62wpzcxskyyIy0mNGiZDRwtM=;
+        b=YilHN8QkuF74UPlfuh7pcE/C3LRkiBbKO4OJRcgur1KbnjJh90ooDje+dfEiqbXoSO
+         9SpBEeJXjt3YYJTH8vLCBInwPYeYVifbobpTPrA3aNbgT9Q5DNScIwpm8vF7RXwUqKTi
+         gM83/+/71rcYX5LwMk1ps0/uzUeYooalhtzYAsHk8vkPXk01LmNkBFFVjE8rdO4dAlVS
+         9JloXB/VQ88OrvHDnGHaxl6QtJWbEtcWyWrewSq1X9Ki240JxrCADdTbYYVW7rr0x1Nn
+         kGLqgF3LeW4NdLuMtJb0Ggqx1mafnvrsT7uPnTWaT9IgdogsZBAsed8IB0dkjKnow1Jn
+         AyCg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791183885; x=1791788685;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=FvnM3Ex3fN1kuVWZlKJ62wpzcxskyyIy0mNGiZDRwtM=;
+        b=0iUoZK6g5QMZfMK28gBU+1AqmIpglIRTjkgRmwRDtuH0gLwHjB47GxJNfftDwEDEUf
+         xxSCOw0J9OMGp2HMy1jqC83I+4iAsjnbXRbVsYhw4OHFnaWZRJpHFS98i9FxKowY13vh
+         8cojWEdMFUZodaNAAORnJ87KMuvlS0xF5e/OXU6ZW/gdASfnnUbZS4lTysjLsUACJGyY
+         nWQTze3DXZ8z7MPbOLcfai7sdRfXSNTroI4nlVpt0S8Hc2Rv9xNRzVbuebGe8JLgoERH
+         fwElZOSnqlUU3eQppf0Qyo7l6Vz7NUHmR6x7ZErUVX+JnXrBiQfgnTkx+KsbID2gKhY1
+         NVVA==
+X-Forwarded-Encrypted: i=1; AKwUvBxFqz7ip+MtAVs0Y4vCkotA57a3QmXlujJpxsoYBXuB1/NmVHsKHo3/MG8PZkohCaJQyTXlQPrAraNIpHg=@vger.kernel.org
+X-Gm-Message-State: AFuF++ndwgseihz9WyyxxLZFlWewlxt7hHfr87ihnFTzIOd+NZv7A/RI
+	DoTzLNDaof3cW0LBXJArtFqyecIh/Xm8QasUpgNWbQJT9tLNNBn8vSgyXEqxnZ+CnOA9T5PD1xj
+	HUax0Y9TlzNIQ/4ji4uWPhkAXpiUd/aLFVIH/mvCD9IXXaIjijSrxf3NE0DBtuFvBstc=
+X-Gm-Gg: AYBFou3cDqtmEcDuV4l5G39RdJpXYInxqTEKBI54TE2MmN9ukdUf0smssJetCjfhOAe
+	HlU9iXFsRM5i22ct7I2RDB2xog4FeiJXL1y+hh4banMBGcbeZ+UdGe3QeK6hXC6dNFRw7mZqBHJ
+	ECHZLu4Gjlad+eANDugmGwZrrTu21cISUSpZGLCx0JY6VoX4EMjY4iM5SSZOELiU2KSS3Qle0rG
+	Ka0RB+GkN3fGKR26/NiDrr/+pd7tMH8V8wh3Jj7c1TA5ip3DJunvlIVwjNCBmkwsCOdz5sXZfVO
+	EaFQvgWwS+u9WZcogAZ9uxEmUItcyuXJjc6Z3oM9fxq+u0kcs6xHaNn1kc37eT32LakG+fOwdHv
+	rSTb0K67cw+3QKqBH6aUXpjTPta6O1IAOoso8BrD8YYmh1OPMwSA65jVyi1uoZzisyT8m/gSDCA
+	oyQKhTw0WpSyLg
+X-Received: by 2002:a05:620a:4622:b0:93e:63fd:40a4 with SMTP id af79cd13be357-93e63fd4833mr596288685a.55.1791183884719;
+        Mon, 05 Oct 2026 00:04:44 -0700 (PDT)
+X-Received: by 2002:a05:620a:4622:b0:93e:63fd:40a4 with SMTP id af79cd13be357-93e63fd4833mr596284885a.55.1791183884239;
+        Mon, 05 Oct 2026 00:04:44 -0700 (PDT)
+Received: from umbar.lan (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi. [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
+        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5bb7c79f7dfsm2905025e87.58.2026.10.05.00.04.42
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 05 Oct 2026 00:04:43 -0700 (PDT)
+Date: Mon, 5 Oct 2026 10:04:41 +0300
+From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+To: =?utf-8?B?QmFybmFiw6FzIEN6w6ltw6Fu?= <barnabas.czeman@mainlining.org>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Mathieu Poirier <mathieu.poirier@linaro.org>,
+        Konrad Dybcio <konradybcio@kernel.org>,
+        Stephan Gerhold <stephan@gerhold.net>, Ulf Hansson <ulfh@kernel.org>,
+        Abel Vesa <abelvesa@kernel.org>, linux-arm-msm@vger.kernel.org,
+        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+        linux-pm@vger.kernel.org, linux-remoteproc@vger.kernel.org
+Subject: Re: [PATCH v3 3/7] pmdomain: qcom: rpmpd: Split SDM632 pm domains
+ from MSM8953
+Message-ID: <i4zm6zil2qyfdrclkxf6sifgup4phi6dlggspxrd7khlvbqv4e@yxotc3cslqss>
+References: <20261002-sdm632-rpmpd-v3-0-95c47d0f26cf@mainlining.org>
+ <20261002-sdm632-rpmpd-v3-3-95c47d0f26cf@mainlining.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: rnnvmail203.nvidia.com (10.129.68.9) To
- rnnvmail201.nvidia.com (10.129.68.8)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: LV8PEPF0000006B:EE_|CH3PR12MB8457:EE_
-X-MS-Office365-Filtering-Correlation-Id: 71fb85aa-7a46-45f4-a801-08df22aecc33
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|23010399003|7416014|376014|36860700016|82310400026|11063799006|5023799004|56012099006|10067099003|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info:
-	U6m3qa83G86e3jgKbKZ4xTnmRBvbiYnY1WCXliSebPb6MfHq8KkX88REx20LrFwMhotRsp4p4VwLRoz39gfgemYSbi+QarbZxaMzJ1zsnJ2a9MkM+u8xxQg7aJscK6o1QSeYgLsOVAsoqe55lx3C8y26/+ybEUivRMByzcliI+BeDG08o6eMq1YB6yD7MHKpYOgY5QYDxKTnFcwxB2AeKPvc/CHksGzegtHmjGQALhRwsF2jIhoGRcB9x3uMesymgpE4YZvwv9utIg9lCpwvMeV0wynOmVZ3VeIrY/GfOINcy6MfhbaPVM+Hez6xW+uWOh8ID59mNvxbPNHpKaFSIJepsP4HwejxX+bwgfT7R81gC7DD5zl88uTDpjmhQUJ/Jo7+D7AA1+IjBLjFNLw8sLjdA3IJiy0msbtKeYmEYy8oTd1DLm6k6cxGR1l8AtdnjXuuneOFG/sT4eh6GwZ39hMhLT6SEUfA9RlpRLSjbxoL99UrJpCl+KgK9JABVSFwXyyNaXZkoxIU3C11YLAnRWHzSyhmE2OJWEgBPpGnczNmFRbVDWppD6llYtAB1AJqpBhhSqMq0pjowWarWKoGhknM7z97jPbBln7PMeNFAZpfMGf74YQu3Iq8zYgc+5itinX/4IjCQvQgCQZNY2y2EA1F73GvAIDNaA1u/Y9MUxF/jCG0JlrP21uYx6MDSI0iB5j9zi4Z5IYPftg+CqJQOw==
-X-Forefront-Antispam-Report:
-	CIP:216.228.117.161;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.nvidia.com;PTR:dc6edge2.nvidia.com;CAT:NONE;SFS:(13230040)(1800799024)(23010399003)(7416014)(376014)(36860700016)(82310400026)(11063799006)(5023799004)(56012099006)(10067099003)(18002099003)(22082099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	KiOit5pW3ywKAsIpXbXa/LR8oDfUyBrpGYZKJ7ACw2LDSDsdvVqFw6xK3wlJBOFdOUmGL2vVK8afFxNNVbVAXf3nhQmK6WDlXnSAwW7B6gE5qwbcgem+Qm640TFAz4XqoPautcynBmFEV/yIq/Z+ibiD6MvMiYIx/XbAYvzrOrxcmgyrm3FIu/JIaoTKM5ItT/t93dOR2SeT3CtsHrIdjCfZzwXJoWnrwqllcftyg7j6LsDmYXeiLT4js3bIMjY9MxT1DADkj91wcnWX3r9Abz3q/B3+7cMbZhFp1cnP/0FUrUvMzvUzHfcjojeswazFRFzoWmIk3mZYI+Ff7AZff0Lwe6qfjTs4Cagh1hGCAtGleWMIoJrirNRazMedDC9ajJ0deHKsPlBxdYOo03D+xi9T+3ZtCCIMpcA+9bzSmzBKfarsF+6fuNzlbH+7VXkT
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Oct 2026 07:03:45.3606
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 71fb85aa-7a46-45f4-a801-08df22aecc33
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a;Ip=[216.228.117.161];Helo=[mail.nvidia.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	LV8PEPF0000006B.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB8457
+In-Reply-To: <20261002-sdm632-rpmpd-v3-3-95c47d0f26cf@mainlining.org>
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDA1MDAyNyBTYWx0ZWRfX6zq62K7nzaB/
+ bZD85Z9PPrBhlKaPbZ3W5JMijyjFWbUHnCABbChsAITk9mjRUpLu9Gvgb00x05/RsJR5p/scqQH
+ NARyjJpSANX7KYQ+1EdFP31CQmrdCWQ=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDA1MDAyNyBTYWx0ZWRfX/xx5GVauEBEX
+ r05xOArGkNVkL/qOEqiWGVMPNxcVBgi1Y6+GvbSMKvm3FnJZKjZL/S1dqVdOlvRBxw8iXGEXcul
+ ZrswBXoiDmMqf4AG6zv+ZWnieV1f43aYgR7WxP5jGcmli9FS4IqnBerSGCo0cW0ba3lCurowEmx
+ HYLOLvM9PzR55SFpYxjEhrVtW5P3omAtIHb9AOLVNW2F9hb1JjsAp0QE2EB9Zys6W4GoQsHaPAQ
+ HnDIn+dXgARcxml5oAdwqo+9IMWj5FHZ/FDFOO5KCb6sRGlkBVvngB9W9RFDPkh/UOOORuXOrG5
+ G7GoQ4JIQHOmtwoQLyytbmYuKepQCxLr1TdHBM/AVqGGKvPPMPcfQzjjsfmmQU7+VIbZEtuNDTH
+ 1juX03Ng/pLtjYYqhbBpojz6Lm4jzetKzf6VyJazSwG5JUlWZ0w19CCKOQKqNtTFTmWDtynx2xL
+ N+utFmIJlYpmZyeH0TQ==
+X-Proofpoint-GUID: XyIhsJ9pbzGjx91GnUQg1dEAr7b81MQl
+X-Authority-Analysis: v=2.4 cv=HqjjiETS c=1 sm=1 tr=0 ts=6ac34c0d cx=c_pps
+ a=HLyN3IcIa5EE8TELMZ618Q==:117 a=xqWC_Br6kY4A:10 a=8nJEP1OIZ-IA:10
+ a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=eoimf2acIAo5FJnRuUoq:22 a=OuZLqq7tAAAA:8
+ a=hzH8MGf3hV44y3egIwkA:9 a=3ZKOabzyN94A:10 a=wPNLvfGTeEIA:10
+ a=bTQJ7kPSJx9SKPbeHEYW:22 a=AKGiAy9iJ-JzxKVHQNES:22
+X-Proofpoint-ORIG-GUID: XyIhsJ9pbzGjx91GnUQg1dEAr7b81MQl
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-05_01,2026-10-02_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ lowpriorityscore=0 clxscore=1015 phishscore=0 bulkscore=0 adultscore=0
+ impostorscore=0 suspectscore=0 spamscore=0 malwarescore=0 priorityscore=1501
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2610050027
 
-Devices with multiple decoders can report more than one coherent
-window in a single interface report. Generalize the single
-0xffff sentinel into a small id space:
-PCI_TSM_DEVIF_REPORT_MMIO_RANGE_ID_TO_COH_IDX() treats any range id in
-the top PCI_CXL_MAX_COHERENT_RANGES values (counting down from ~0) as
-a coherent range index coh_idx. This keeps id 0xffff (~0) backward
-compatible with the single-range case (coh_idx 0) while allowing ~1,
-~2, and so on for additional windows.
+On Fri, Oct 02, 2026 at 12:38:31AM +0200, Barnabás Czémán wrote:
+> Remove modem related pm domains from MSM8953 rpmpd because MSM8953 MSS
+> is using mss-supply as regulator.
+> Split SDM632 rpmpd from MSM8953 because SDM632 MSS is using mss-supply
+> as pm domain.
+> 
+> Signed-off-by: Barnabás Czémán <barnabas.czeman@mainlining.org>
+> ---
+>  drivers/pmdomain/qcom/rpmpd.c | 29 ++++++++++++++++-------------
+>  1 file changed, 16 insertions(+), 13 deletions(-)
+> 
+> diff --git a/drivers/pmdomain/qcom/rpmpd.c b/drivers/pmdomain/qcom/rpmpd.c
+> index 5f55fc791131..c37a79d6bc43 100644
+> --- a/drivers/pmdomain/qcom/rpmpd.c
+> +++ b/drivers/pmdomain/qcom/rpmpd.c
+> @@ -503,19 +503,8 @@ static struct rpmpd md_s1a_corner_ao = {
+>  	.key = KEY_CORNER,
+>  };
+>  
+> -static struct rpmpd md_s1a_lvl_ao;
 
-Only id 0xffff (~0) is spec-defined: Arm RME System Architecture
-(DEN0129) section B2.3.5.2 reserves range ID 0xFFFF for a device's
-region range. ~1, ~2, and so on are this tree's own extension of that
-idea, invented to cover multi-range reporting.
+I'd rather see #define RPMPD_VDDMD_AO unless you have a good reason to
+drop it.
 
-Use coh_idx through pci_tsm_coherent_range() to select the coh_idx
-entry of pdev->coh_resource[], the precommitted-decoder snapshot and
-relax pci_tsm_mmio_alloc() to accept more than one coherent region.
-The coherent-range entries follow all BAR entries in the report
-and allow multiple trailing coherent ranges.
+>  static struct rpmpd md_s1a_lvl = {
+>  	.pd = { .name = "md", },
+> -	.peer = &md_s1a_lvl_ao,
+> -	.res_type = RPMPD_SMPA,
+> -	.res_id = 1,
+> -	.key = KEY_LEVEL,
+> -};
+> -
+> -static struct rpmpd md_s1a_lvl_ao = {
+> -	.pd = { .name = "md_ao", },
+> -	.peer = &md_s1a_lvl,
+> -	.active_only = true,
+>  	.res_type = RPMPD_SMPA,
+>  	.res_id = 1,
+>  	.key = KEY_LEVEL,
+> @@ -703,8 +692,6 @@ static const struct rpmpd_desc msm8917_desc = {
+>  };
+>  
+>  static struct rpmpd *msm8953_rpmpds[] = {
+> -	[MSM8953_VDDMD] =	&md_s1a_lvl,
+> -	[MSM8953_VDDMD_AO] =	&md_s1a_lvl_ao,
+>  	[MSM8953_VDDCX] =	&cx_s2a_lvl,
+>  	[MSM8953_VDDCX_AO] =	&cx_s2a_lvl_ao,
+>  	[MSM8953_VDDCX_VFL] =	&cx_s2a_vfl,
+> @@ -844,6 +831,21 @@ static const struct rpmpd_desc qm215_desc = {
+>  	.max_state = RPM_SMD_LEVEL_TURBO,
+>  };
+>  
+> +static struct rpmpd *sdm632_rpmpds[] = {
+> +	[RPMPD_VDDMD] =		&md_s1a_lvl,
+> +	[RPMPD_VDDCX] =		&cx_s2a_lvl,
+> +	[RPMPD_VDDCX_AO] =	&cx_s2a_lvl_ao,
+> +	[RPMPD_VDDCX_VFL] =	&cx_s2a_vfl,
+> +	[RPMPD_VDDMX] =		&mx_s7a_lvl,
+> +	[RPMPD_VDDMX_AO] =	&mx_s7a_lvl_ao,
+> +};
+> +
+> +static const struct rpmpd_desc sdm632_desc = {
+> +	.rpmpds = sdm632_rpmpds,
+> +	.num_pds = ARRAY_SIZE(sdm632_rpmpds),
+> +	.max_state = RPM_SMD_LEVEL_TURBO,
+> +};
+> +
+>  static struct rpmpd *sdm660_rpmpds[] = {
+>  	[RPMPD_VDDCX] =		&cx_rwcx0_lvl,
+>  	[RPMPD_VDDCX_AO] =	&cx_rwcx0_lvl_ao,
+> @@ -954,6 +956,7 @@ static const struct of_device_id rpmpd_match_table[] = {
+>  	{ .compatible = "qcom,qcm2290-rpmpd", .data = &qcm2290_desc },
+>  	{ .compatible = "qcom,qcs404-rpmpd", .data = &qcs404_desc },
+>  	{ .compatible = "qcom,qm215-rpmpd", .data = &qm215_desc },
+> +	{ .compatible = "qcom,sdm632-rpmpd", .data = &sdm632_desc },
+>  	{ .compatible = "qcom,sdm660-rpmpd", .data = &sdm660_desc },
+>  	{ .compatible = "qcom,shikra-rpmpd", .data = &shikra_desc },
+>  	{ .compatible = "qcom,sm6115-rpmpd", .data = &sm6115_desc },
+> 
+> -- 
+> 2.56.0
+> 
 
-Signed-off-by: Ankit Agrawal <ankita@nvidia.com>
-Assisted-by: Claude:sonnet-5
----
- drivers/pci/tsm.c | 78 ++++++++++++++++++++++++++++-------------------
- 1 file changed, 46 insertions(+), 32 deletions(-)
-
-diff --git a/drivers/pci/tsm.c b/drivers/pci/tsm.c
-index 1d736b606a7c..b4f18a7c7187 100644
---- a/drivers/pci/tsm.c
-+++ b/drivers/pci/tsm.c
-@@ -1031,7 +1031,14 @@ EXPORT_SYMBOL_GPL(pci_tsm_mmio_teardown);
- #define PCI_TSM_DEVIF_REPORT_MMIO_ATTR_IS_NON_TEE BIT(2)
- #define PCI_TSM_DEVIF_REPORT_MMIO_ATTR_IS_UPDATABLE BIT(3)
- #define PCI_TSM_DEVIF_REPORT_MMIO_ATTR_RANGE_ID GENMASK(31, 16)
--#define PCI_TSM_DEVIF_REPORT_MMIO_RANGE_ID_COHERENT 0xffff
-+
-+/*
-+ * Only id ~0 (0xffff) is spec-defined (Arm RME DEN0129 section B2.3.5.2);
-+ * ~1, ~2, etc. extend it for multi-range reporting: id ~N selects coherent
-+ * window N, keeping coherent ids disjoint from BAR ids
-+ * (0..PCI_STD_NUM_BARS-1) without a separate flag.
-+ */
-+#define PCI_TSM_DEVIF_REPORT_MMIO_RANGE_ID_TO_COH_IDX(id) ((u16)~(id))
- 
- /* An interface report 'pfn' is 4K in size */
- struct pci_tsm_devif_mmio {
-@@ -1052,37 +1059,39 @@ struct pci_tsm_devif_report {
- 
- #ifdef CONFIG_CXL_RESET
- /*
-- * pci_tsm_coherent_range() - resolve the device's coherent CXL window
-+ * pci_tsm_coherent_range() - resolve the device coherent CXL window
-  * @pdev: device owner of the reported ranges
-+ * @coh_idx: which coherent range to resolve, per
-+ *	     %PCI_TSM_DEVIF_REPORT_MMIO_RANGE_ID_TO_COH_IDX()
-  * @out_base: host physical (guest IPA) base of the coherent window
-  * @out_size: size of the coherent window
-  *
-- * The coherent range carries no BAR number, so its address comes from
-- * pdev->coh_resource[], a pre-driver-bind snapshot of committed CXL HDM
-- * decoders.
-+ * Each @coh_idx names one of the device coherent (CXL) windows. It carries
-+ * no BAR number and so its address comes from pdev->coh_resource[@coh_idx],
-+ * which is a snapshot of committed CXL HDM decoders regions.
-  *
-- * Return: 0 with *@out_base / *@out_size set from the first populated entry,
-- * or -ENODEV if no entry is populated.
-+ * Return: 0 with *@out_base / *@out_size set, or -ENODEV if @coh_idx is out
-+ * of range or has no populated coh_resource[] entry.
-  */
--static int pci_tsm_coherent_range(struct pci_dev *pdev, u64 *out_base,
--				  u64 *out_size)
-+static int pci_tsm_coherent_range(struct pci_dev *pdev, unsigned int coh_idx,
-+				  u64 *out_base, u64 *out_size)
- {
--	for (int i = 0; i < PCI_CXL_MAX_COHERENT_RANGES; i++) {
--		struct resource *res = &pdev->coh_resource[i];
-+	struct resource *res;
- 
--		if (!(res->flags & IORESOURCE_MEM))
--			continue;
-+	if (coh_idx >= PCI_CXL_MAX_COHERENT_RANGES)
-+		return -ENODEV;
- 
--		*out_base = res->start;
--		*out_size = resource_size(res);
--		return 0;
--	}
-+	res = &pdev->coh_resource[coh_idx];
-+	if (!(res->flags & IORESOURCE_MEM))
-+		return -ENODEV;
- 
--	return -ENODEV;
-+	*out_base = res->start;
-+	*out_size = resource_size(res);
-+	return 0;
- }
- #else
--static int pci_tsm_coherent_range(struct pci_dev *pdev, u64 *out_base,
--				  u64 *out_size)
-+static int pci_tsm_coherent_range(struct pci_dev *pdev, unsigned int coh_idx,
-+				  u64 *out_base, u64 *out_size)
- {
- 	return -ENODEV;
- }
-@@ -1107,6 +1116,7 @@ struct pci_tsm_mmio *pci_tsm_mmio_alloc(struct pci_dev *pdev,
- 	u64 reporting_bar_base, last_reporting_end;
- 	u32 mmio_range_count;
- 	int last_bar = -1;
-+	bool seen_coherent = false;
- 	int i;
- 
- 	if (report_len < sizeof(*devif_report))
-@@ -1135,28 +1145,32 @@ struct pci_tsm_mmio *pci_tsm_mmio_alloc(struct pci_dev *pdev,
- 		u32 attr = __le32_to_cpu(mmio_data->attributes);
- 		int bar = FIELD_GET(PCI_TSM_DEVIF_REPORT_MMIO_ATTR_RANGE_ID,
- 				    attr);
--		bool coherent =
--			bar == PCI_TSM_DEVIF_REPORT_MMIO_RANGE_ID_COHERENT;
-+		unsigned int coh_idx =
-+			PCI_TSM_DEVIF_REPORT_MMIO_RANGE_ID_TO_COH_IDX(bar);
-+		bool coherent = coh_idx < PCI_CXL_MAX_COHERENT_RANGES;
- 
- 		if (coherent) {
--			if (i != mmio_range_count - 1) {
--				pci_dbg(pdev, "Coherent reporting range is not last\n");
--				return NULL;
--			}
-+			seen_coherent = true;
- 
- 			/*
--			 * No BAR names the coherent range, so fail closed if
--			 * neither a CXL region nor a committed HDM decoder
--			 * resolves its address.
-+			 * Fail closed if pdev->coh_resource[coh_idx] isn't
-+			 * populated: nothing else in the report identifies
-+			 * the window's address.
- 			 */
--			if (pci_tsm_coherent_range(pdev, &range_base,
-+			if (pci_tsm_coherent_range(pdev, coh_idx, &range_base,
- 						   &range_len)) {
--				pci_dbg(pdev, "No CXL region or committed HDM decoder for coherent reporting range\n");
-+				pci_dbg(pdev, "No populated coh_resource[] entry for coherent range %u\n",
-+					coh_idx);
- 				return NULL;
- 			}
- 
--			/* Coherent range is last and not part of the BAR sequence. */
-+			/* Coherent ranges are not part of the BAR sequence. */
- 		} else {
-+			if (seen_coherent) {
-+				pci_dbg(pdev, "BAR reporting range follows a coherent range\n");
-+				return NULL;
-+			}
-+
- 			if (bar >= PCI_STD_NUM_BARS ||
- 			    !(pci_resource_flags(pdev, bar) & IORESOURCE_MEM) ||
- 			    (pci_resource_flags(pdev, bar) & IORESOURCE_UNSET)) {
 -- 
-2.43.0
-
+With best wishes
+Dmitry
