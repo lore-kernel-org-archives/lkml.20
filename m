@@ -1,95 +1,118 @@
-Received: from mailgw02.mediatek.com (unknown [210.61.82.184])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2EEC936B909;
-	Mon,  5 Oct 2026 08:34:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=210.61.82.184
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2D0D636B909;
+	Mon,  5 Oct 2026 08:35:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791189272; cv=none; b=TzFU0ER4uOlqg2D9XRQihUP4netlQtammeutOJGaZ//pqX4n9qJn34qYEVxWdxKJ1F/BklCuiOrpxjrHzSVp4dW0shrD3L1x3l7N2ZyHCz33qBM93mawWnTJDOtDw43yY9iU2vMpzvYojFkrfMOmA/LkQ1Y6na87umPPoTFJOeU=
+	t=1791189303; cv=none; b=PQs+0cca34X9cVCp/C2D/QELBSb4TmQksHfg8bjUFcyDLgrKtKOBediFWo0j2p5RnFS1/ji0DM2tjNf1KDbAbtmI3KRmLRdSUgg0+61zKIqWVFLidEJRUrnibfM/1C9Lcl74kNLptMLqlHERjBN5vgSAxmhOiaFBMy3i/ztmQJw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791189272; c=relaxed/simple;
-	bh=w+wwFVK6KHQeaI9uRymOZz39D1QHGigoaSM3nqJFb2o=;
-	h=Message-ID:Subject:From:To:CC:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=cuTcruimFhmMA0lHmoeqeup3xV4csyRrv1RVG9yqvjPqpPoV6u+jZgK3q1D9NpTKhpF0tAuAgbrmOcL4tzI7W2rbrB8aF153j+86x4+znCr0BWJ0jvVgDiPn/YQo2xmANAef32pQ78lIYZ3D7m8Z4QifVC3X3wwBJmGA1GJ8opE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mediatek.com; spf=pass smtp.mailfrom=mediatek.com; dkim=pass (1024-bit key) header.d=mediatek.com header.i=@mediatek.com header.b=T82Yj+bf; arc=none smtp.client-ip=210.61.82.184
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mediatek.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mediatek.com
+	s=arc-20240116; t=1791189303; c=relaxed/simple;
+	bh=8CgGXeL4qoXn7oGswBC/lA97xsP5Gdemx8cM5Fn5UkA=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=D+pVTMn9ypPRFeC/G5Eoy7JxRfHz8yp6JAqJVUqR0vN8D2KCjuqGNGWpNTQfB4ll7YYHP3byjzR+bs6L3deQqb9WEEiJd0k+b5frDTg3QhiGdhCf064zoiOPXvbJ8R1YQcByuh/m0O67D880F0dULlFanm1Sas9gO6MSeZE73iU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=YxMTLgxU; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=mediatek.com header.i=@mediatek.com header.b="T82Yj+bf"
-X-UUID: 91014c30c09711f18dc8c9802ae25ab1-20261005
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=mediatek.com; s=dk;
-	h=MIME-Version:Content-Transfer-Encoding:Content-Type:References:In-Reply-To:Date:CC:To:From:Subject:Message-ID; bh=w+wwFVK6KHQeaI9uRymOZz39D1QHGigoaSM3nqJFb2o=;
-	b=T82Yj+bfTswDS50xJKmn8YEuCE/0gz5Dwpekm18qsdMCgRXxZ8QyY0yuTzaWVgb7zSbQ+iLJTYSZIIFYAOHQN0tWuZy5+lv2gB04NdpU7rp/LJwUdFQ+/uQ2WyLMF48ahaPJwyNDLmz3JedCkaFb6TdOg0eVPOVaLy9gjUAFtyo=;
-X-CID-P-RULE: Release_Ham
-X-CID-O-INFO: VERSION:1.3.20,REQID:101acceb-3428-4f4d-88bd-8739f094ec14,IP:0,U
-	RL:0,TC:0,Content:0,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION:
-	release,TS:0
-X-CID-META: VersionHash:291e20b,CLOUDID:8e95a094-f92e-44c1-a195-feed1a426245,B
-	ulkID:nil,BulkQuantity:0,SF:80|81|82|83|102|836|865|888|898,TC:-5,Content:
-	0|15|50|99,EDM:-3,IP:nil,URL:0,File:130,RT:0,Bulk:nil,QS:nil,BEC:-1,COL:0,
-	OSI:0,OSA:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
-X-CID-BVR: 2,SSN|SDN
-X-CID-BAS: 2,SSN|SDN,0,_
-X-CID-FACTOR: TF_CID_SPAM_SNR
-X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
-X-UUID: 91014c30c09711f18dc8c9802ae25ab1-20261005
-Received: from mtkmbs11n1.mediatek.inc [(172.21.101.185)] by mailgw02.mediatek.com
-	(envelope-from <alice.chao@mediatek.com>)
-	(Generic MTA with TLSv1.2 ECDHE-RSA-AES256-GCM-SHA384 256/256)
-	with ESMTP id 106743173; Mon, 05 Oct 2026 16:34:23 +0800
-Received: from mtkmbs11n1.mediatek.inc (172.21.101.185) by
- MTKMBS09N2.mediatek.inc (172.21.101.94) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.29; Mon, 5 Oct 2026 16:34:21 +0800
-Received: from [10.233.130.16] (10.233.130.16) by mtkmbs11n1.mediatek.inc
- (172.21.101.73) with Microsoft SMTP Server id 15.2.2562.29 via Frontend
- Transport; Mon, 5 Oct 2026 16:34:21 +0800
-Message-ID: <be68524572540edfd87ec4b5f25c28933ccd45f6.camel@mediatek.com>
-Subject: Re: [PATCH 6.18.y] scsi: ufs: core: Re-arm the device command
- completion before submitting
-From: Alice Chao <alice.chao@mediatek.com>
-To: <martin.petersen@oracle.com>, <bvanassche@acm.org>
-CC: Sasha Levin <sashal@kernel.org>, <stable@vger.kernel.org>,
-	<linux-scsi@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
-	<James.Bottomley@HansenPartnership.com>, <avri.altman@sandisk.com>,
-	<alim.akhtar@samsung.com>, <wsd_upstream@mediatek.com>,
-	<linux-mediatek@lists.infradead.org>, <peter.wang@mediatek.com>,
-	<chun-hung.wu@mediatek.com>, <cc.chou@mediatek.com>,
-	<chaotian.jing@mediatek.com>, <tun-yu.yu@mediatek.com>,
-	<naomi.chu@mediatek.com>, <ed.tsai@mediatek.com>
-Date: Mon, 5 Oct 2026 16:34:21 +0800
-In-Reply-To: <daily-reply-20260915-0008-re-ufs-dev-cmd-completion@kernel.org>
-References: <20260915052638.459390-1-alice.chao@mediatek.com>
-	 <daily-reply-20260915-0008-re-ufs-dev-cmd-completion@kernel.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.52.3-0ubuntu1.1 
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="YxMTLgxU"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 06EF31F00898;
+	Mon,  5 Oct 2026 08:35:02 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791189302;
+	bh=E5SZttTyES90Zw6ClM9sjxcQWTQunMvhZdqFjl3y/fk=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=YxMTLgxUMZxmalkP9CbMvd6gaqFmci9mgzUidwqOcKgsFe9yd2Eu16uArb8ENZld3
+	 I2EA709vIP45dnxVphm81lgNI9jnBl2qJCZgW575gb8e0NyoGatssjc3y0Gel7em/H
+	 FlIsGskY77A5I3VQGluKP0AC6Egxn+ZwN7HYDMqKNvo9HT/GRH1hvl5QLQsIlRWf/w
+	 eWfbjr8SRyCfd0pySgMTlHWL2MMJBwcbz6T5WZpDUGMw6yl0u7GX2pj9wnz/jEWu9u
+	 F461SjTjBd884mLflZLxrBfLsM/AVzCrCiPSADbyZLU4riSfdnEgRtAaPoaqQx5nP7
+	 ayO2d1XM8zkTw==
+Received: from johan by theta with local (Exim 4.100.1)
+	(envelope-from <johan@kernel.org>)
+	id 1xDe9s-0000000014e-42Xm;
+	Mon, 05 Oct 2026 10:34:52 +0200
+Date: Mon, 5 Oct 2026 10:34:52 +0200
+From: Johan Hovold <johan@kernel.org>
+To: Marinela Tatiana Selseth <marinela.selseth@firmwaredesign.org>
+Cc: vaibhav.sr@gmail.com, mgreer@animalcreek.com, elder@kernel.org,
+	gregkh@linuxfoundation.org, greybus-dev@lists.linaro.org,
+	linux-staging@lists.linux.dev, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] staging: greybus: audio: fix use-after-free in
+ gbcodec_hw_params
+Message-ID: <asNhLGdigxSqU5Op@hovoldconsulting.com>
+References: <20261005060126.93732-1-marinela.selseth@firmwaredesign.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MTK: N
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261005060126.93732-1-marinela.selseth@firmwaredesign.org>
 
-On Tue, 2026-09-15 at 21:52 -0400, Sasha Levin wrote:
-> > Re-arm the completion in ufshcd_issue_dev_cmd(), immediately before
-> > submitting. All submitters - ufshcd_exec_dev_cmd(),
-> > ufshcd_issue_devman_upiu_cmd() and ufshcd_advanced_rpmb_op() -
-> > reach it
-> > holding hba->dev_cmd.lock, so no extra serialization is needed.
->=20
-> The analysis reads correct to me and the patch is clean against 6.18,
-> but
-> this is a stable only change in the UFS core completion path with no
-> mainline counterpart, since 08b12cda6c44 ("scsi: ufs: core: Switch to
-> scsi_get_internal_cmd()") deleted this code outright. I would like a
-> subsystem ack before queueing it.
->=20
+On Mon, Oct 05, 2026 at 01:01:26AM -0500, Marinela Tatiana Selseth wrote:
+> Automated semantic analysis via Coccinelle uncovered a use-after-free
+> vulnerability in gbcodec_hw_params() caused by accessing a list
+> iterator variable outside the loop boundary.
+> 
+> The routine walks through the codec module list using
+> 'list_for_each_entry' to locate a matching data connection.
+> After the loop exits, the iterator pointer 'module' becomes
+> out-of-bounds. Attempting to pass this unmapped reference into
+> 'to_gb_bundle()' down the line triggers a critical kernel panic.
+> 
+> Fix this flaw by introducing a dedicated copy 'allocated_module'.
+> Cache the matched pointer inside the loop block only when
+> 'find_data()' returns a valid reference, and route the subsequent
+> power management execution steps safely through this verified object
+> tracking reference.
+> 
+> Assisted-by: Gemini
+> Signed-off-by: Marinela Tatiana Selseth <marinela.selseth@firmwaredesign.org>
+> ---
+>  drivers/staging/greybus/audio_codec.c | 7 +++++--
+>  1 file changed, 5 insertions(+), 2 deletions(-)
+> 
+> diff --git a/drivers/staging/greybus/audio_codec.c b/drivers/staging/greybus/audio_codec.c
+> index 6daa4e706792..a0645bf83097 100644
+> --- a/drivers/staging/greybus/audio_codec.c
+> +++ b/drivers/staging/greybus/audio_codec.c
+> @@ -396,6 +396,7 @@ static int gbcodec_hw_params(struct snd_pcm_substream *substream,
+>  	u8 sig_bits, channels;
+>  	u32 format, rate;
+>  	struct gbaudio_module_info *module;
+> +	struct gbaudio_module_info *allocated_module = NULL;
+>  	struct gbaudio_data_connection *data;
+>  	struct gb_bundle *bundle;
+>  	struct gbaudio_codec_info *codec = dev_get_drvdata(dai->dev);
+> @@ -439,8 +440,10 @@ static int gbcodec_hw_params(struct snd_pcm_substream *substream,
+>  	/* find the data connection */
+>  	list_for_each_entry(module, &codec->module_list, list) {
+>  		data = find_data(module, dai->id);
+> -		if (data)
+> +		if (data) {
+> +			allocated_module = module;
+>  			break;
+> +		}
+>  	}
+>  
+>  	if (!data) {
 
+The code bails out here when no data is found (and the function bails
+out early when there are no modules), so how could module be out of
+bounds below?
 
-Gentle Ping.
+Again, don't send LLM assisted patches to staging which is used for people
+to learn.
 
-Hi Martin and Bart, any thoughts on this one?
+> @@ -456,7 +459,7 @@ static int gbcodec_hw_params(struct snd_pcm_substream *substream,
+>  		return -EINVAL;
+>  	}
+>  
+> -	bundle = to_gb_bundle(module->dev);
+> +	bundle = to_gb_bundle(allocated_module->dev);
+>  	ret = gb_pm_runtime_get_sync(bundle);
+>  	if (ret) {
+>  		mutex_unlock(&codec->lock);
 
-Thanks.
+Johan
