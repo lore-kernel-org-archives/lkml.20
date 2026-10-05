@@ -1,190 +1,125 @@
-Received: from www.nmnhosting.com (watt.d-silva.org [119.15.109.137])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 11D7935C185;
-	Mon,  5 Oct 2026 08:20:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=119.15.109.137
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 96E222BE033;
+	Mon,  5 Oct 2026 08:21:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791188456; cv=none; b=peb1Ej9ZQVusv3qoX9SDrpdCleyxZ0PRksIbeGZHNh2eDvLNdIq3TUkVBWE9AQjoz/Blk6+bEa11enYkU3lWqunwWzd7OAquduNwMsDwzAxqAF2qxcxxglyxPYXLrm11dWYUfcJZ2zYW1cavtfPYXn0ZNf25xyWdwszK/lfGsH0=
+	t=1791188479; cv=none; b=NoAbJLekuuAORbeZNtL7xInFjgUJkmCt2rZpXAxyjn0k0nx4YAIxKRGJYVN+fJT8Jl3H8mrcPhLT0ljZE4i2Hn+E72RIoa8bcUHdX724mexqH1TQJrWyAHiMJMWHUnujtUjLWY7Ph8vhffAa7sQtYkybZk69N486heybLhIF77U=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791188456; c=relaxed/simple;
-	bh=fA0Y3qxufq1MW/zwb/eczKYFzXaz5Vgncte0e1IO4B4=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=Rx6oIZMThS+21VdSoaUSgqpceYBtzSvW3RiE1eF+DLxjXUDtD7HZBzWKoLr1Hg9YS0G1nrZGmJ/Cb47pHG71y2dhh+t7zkF2N2PHDxStYuUxQqO/0A/TR+BNDKWSKDaOS6aYV1HAifUqJE1SqpEVAp67oIyzyO8zlQkklaRRLfw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=d-silva.org; spf=pass smtp.mailfrom=d-silva.org; dkim=pass (2048-bit key) header.d=d-silva.org header.i=@d-silva.org header.b=MAqv9q9d; arc=none smtp.client-ip=119.15.109.137
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=d-silva.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=d-silva.org
+	s=arc-20240116; t=1791188479; c=relaxed/simple;
+	bh=npM3+cA0q+QeJUr+douMJJ4JVbTbXucb6thhFs04TFY=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=HIrBqUkygPwK8HQ/v5Krdk30lRxE69SIUd+DSOSje22HROL6m9I8aT20YIiRMJPE50PrNqtdDde6NadFeOcwzWLzbW7fHfZNibCc+h1/yzTD1iAMDMxavyg3GLDVm4etM5crCR1C7ae9Sqvhpj0cRH5z4nt2XaVqhlQADTabLXE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=g7wuFhSX; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=d-silva.org header.i=@d-silva.org header.b="MAqv9q9d"
-Received: from hawking.lan (ntp.lan [10.0.1.1])
-	by www.nmnhosting.com (Postfix) with ESMTPSA id EFE77405F6;
-	Mon,  5 Oct 2026 19:20:43 +1100 (AEDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=d-silva.org; s=2025a;
-	t=1791188444;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=fA0Y3qxufq1MW/zwb/eczKYFzXaz5Vgncte0e1IO4B4=;
-	b=MAqv9q9dANTorVVaw3n3K4vorgqdbDO7t7IvBWbha7F8qEM7feseQb/R76giUr6MYFn+JQ
-	TRJRDai9zHyXOmW9KmYngkUYYjfgLcZzNKUflF7fZQtSOFIScJfUyGlqQV4eYWd0f5p3sz
-	UuVah7U8g7K5MD/g7Vb4gi+PDS7/Psp5XI1G2iMYYEjVGl7wt15WibVm6iU8nZQj7zGnO6
-	VPrKXokuBXzeBycxmYkyvmIdN0ig0NnJ7DTnCxNUe4AQLWYJhU0phfAciuDjYz1LmjOGW6
-	cC1puA434YYeE3KeFlJWSozj4nUVbpeF592w5SkAt6mtiFhBe+yCldl/PO9BWQ==
-X-GPT-Reason: legitimate; This is a technical, professional correspondence
-	regarding Linux kernel development (specifically a WiFi driver
-	patch) that perfectly aligns with the sender's domain (alastair@d-silva.org)
-	and the technical nature of the content; The email contains detailed
-	code logic, commit hashes (e.g., 65371a3f14e7), and architecture-specific
-	hardware discussions (8051 vs. 3081 chipsets) which are consistent
-	with open-source software development; There are no indicators
-	of spam, such as urgency, marketing, or suspicious links, and the
-	"Reply-To" and "From" domains match perfectly.
-Message-ID: <50d48391aef50cbc4c7f9292f7467b8be17b4ec1.camel@d-silva.org>
-Subject: Re: [PATCH v3 1/2] wifi: rtw88: sdio: Fix unhandled RX request
- interrupt storm
-From: Alastair D'Silva <alastair@d-silva.org>
-To: Ping-Ke Shih <pkshih@realtek.com>, "linux-wireless@vger.kernel.org"
-	 <linux-wireless@vger.kernel.org>
-Cc: Martin Blumenstingl <martin.blumenstingl@googlemail.com>, Ulf Hansson
-	 <ulfh@kernel.org>, Jernej Skrabec <jernej.skrabec@gmail.com>, Kalle Valo
-	 <kvalo@kernel.org>, Luka Gejak <luka.gejak@linux.dev>, 
- "linux-kernel@vger.kernel.org"
-	 <linux-kernel@vger.kernel.org>, "stable@vger.kernel.org"
-	 <stable@vger.kernel.org>
-Date: Mon, 05 Oct 2026 19:20:43 +1100
-In-Reply-To: <661b9fc47ce942a491f8c53d90fdf39a@realtek.com>
-References: <20261001000303.3505264-1-alastair@d-silva.org>
-	 <20261001000303.3505264-2-alastair@d-silva.org>
-	 <661b9fc47ce942a491f8c53d90fdf39a@realtek.com>
-Autocrypt: addr=alastair@d-silva.org; prefer-encrypt=mutual;
- keydata=mQINBGactvoBEADBFM2HqfQUUM4j40ZQPyYzmnM8S6zrycO0ipDDPMs7nZMzyzGzOdqfS
- VB/tuYvZOOKVWzJuWJ5aT/YyHx54r3L+D5hTkEG0sXPVJky3yTS9sbHEMSLBHb8TVVuhPVPuieV4g
- Nkqg5POMTidk8xAw50WpV++tUlewXVSciehnuCQPXhXMP7FcCh4uO8LdN7E8m7ir1LafKTFfoWPah
- KVT8NGG9r+ucrFcN5F+VnHxTDaI68yRPkNdtUWmp22wIX1KwDCtKFrndYO4p5Hv2hlDKomsuIIHHn
- muQGRwuh0xpf0nVJNF8ETZHMzxQLfo3e/HvxBFOTkwY9w7CuuQFZchbhS0I3PfmGT0+jiNcdfqjDC
- fPPB5uhy+DkR6wO72vuwFYUrpU2mdliDSdKEtWBHulnXMJjpBOXetfIwhI8G2dTVg59lN5i9DvJZc
- 7y1Sp+qfZQ4P9qpYZyQEKR4GNDOdnm6F2LW2cZkcyAU/Ii765zdDMTQMIzZNSxT/FcDd0K1voTNRl
- QHbQw+kmIMhzSv2JefcC9oNbE0XYzcBDNP5T3O/4itOQ90GCKQEPAbIPeBjlQif7kkyvo/H6yv4s9
- duuK7zbJD9AID/+KGLkpU3p68VDB/C2ZSb9rQz3p1CJNSfsX/CPk7sPqA7RKZ4a2B0hSJ2pJCncNZ
- KXtMlkkm/FmewARAQABtCdBbGFzdGFpciBEJ1NpbHZhIDxhbGFzdGFpckBkLXNpbHZhLm9yZz6JAl
- EEEwEKADsWIQTQGemDFwqYyU/dBWv75AdnjVo60gUCZpy2+gIbAwULCQgHAgIiAgYVCgkICwIEFgI
- DAQIeBwIXgAAKCRD75AdnjVo60qHZEACJnLfpS71Hk8bX0CLCNJ5wgqdZD3pBHEdbv9Ux9kRlZp4a
- ZFwlg9ltwBjl2dZP3PLtD9xQdsdYKVippKd5a7ZZC2y81oDaHjeC9LnPYn8+ce3mGE/+gRyoNfToY
- N06DeUNJKSlZ9t11UIqZCgfp12u16/Yrigy8C4ihEeHXlLhNX6JkeJR5gsHXJnC7vSuMZY+Qz2R72
- ZidWg+cd2WDMGop5sbTvc+55q94A7vTMlWzaix5HdbEUA3sd2U0dMBju5QodRGGhDQMcCu64TydRD
- MtMzzOk9ThJ036ze3HASWGOppyQmaw58k+XNzbHlr9Sc1LsFUNF7zpWXac2rzlywbyRAdFIT/TC76
- hy9zOkwIo2nwA/tdIwLx1j0UZPpAMQmcDUvJqZh6sE+fv6HN0yMPr+sSYJmriMt8Z6leCEHQXOHVI
- SI5z5FvV3coMmHYRq6aXpfs/8SLiYgkV3B0HE/E18Y3j1OkeLYoqIH1VfzQZeCSL/S77NYvk60/MV
- 1HFSyqLdUR3uWZI4uZzoEcMoB0GX33uCTp2Ntc00+wSntwekCUQLCMLUb7dZrbpVuobHoWWtkiD2I
- uE5kAiaVwwwzM0BUwiM6VzVoKbeECz93rdsNtwoDqM0NtzoISC46H/BKVQ9mRNXDO4ThEBpJ4H2Tn
- mPNRYYcR0u2mNy1EJII04w==
-Content-Type: text/plain; charset="UTF-8"
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="g7wuFhSX"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 717511F000FF;
+	Mon,  5 Oct 2026 08:21:17 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791188478;
+	bh=c/G1XSRkKImry3vyKFaUvjIQzmHGHq4zy54WQCT7DR0=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=g7wuFhSXu0X/70AdYFbtvGM5nhuZJ70Z3jVz1/6fz7uHw8AGjKOY4zS7U1NZc/zP1
+	 SABaVCdYbXsyc4GsEU4HquXXkAUCcvVbNU92nfm+9W4a4N6py9dGKT8T2Bi40KkPjt
+	 Zi9/Sgd+2ITCWSiEnhpeA4V+wJNtzP/Ha86a/MRv/3qvpk4yDJJ1PhrUrKc+6TAQiK
+	 QZI7nXt/oHR62chN/AVRKxMtr+Cq2Q3KdBVmky/xSFbIEDGSMvsspiBOcMYPEwG+zy
+	 3DCt5o7oAPpvnPcmv0LW/DTjMOLUSlmo90GhuDJKzbnQi4DDOtItXufpDfNJXhrmcQ
+	 DErNeL001FeRA==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH 4/5] spi: cadence-xspi: Don't use infinite timeout in
+ register poll
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Paul Cercueil" <paul.cercueil@bootlin.com>, "Thomas Petazzoni" <thomas.petazzoni@bootlin.com>, "Mark
+ Brown" <broonie@kernel.org>, "Takahiro Kuwano" <takahiro.kuwano@infineon.com>, "Richard
+ Weinberger" <richard@nod.at>, "Vignesh Raghavendra" <vigneshr@ti.com>, "Miquel
+ Raynal" <miquel.raynal@bootlin.com>, "Michael Walle" <mwalle@kernel.org>, "Pratyush
+ Yadav" <pratyush@kernel.org>
+Cc: "Kees Cook" <kees@kernel.org>, linux-kernel@vger.kernel.org, linux-spi@vger.kernel.org, "Tanmay
+ Jagdale" <tanmay@marvell.com>, linux-mtd@lists.infradead.org, "Guilherme G
+ . Piccoli" <gpiccoli@igalia.com>, "Tony Luck" <tony.luck@intel.com>
+In-Reply-To: <20261005081141.33688-5-paul.cercueil@bootlin.com>
+References: <20261005081141.33688-1-paul.cercueil@bootlin.com>
+ <20261005081141.33688-5-paul.cercueil@bootlin.com>
+Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.56.2-9 
+Date: Mon, 05 Oct 2026 08:21:17 +0000
+Message-Id: <20261005082117.717511F000FF@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
 
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [High] spi: cadence-xspi: deadlock in panic writes due to non-atomic poll=
+ macro
+--
 
-On Mon, 2026-10-05 at 03:35 +0000, Ping-Ke Shih wrote:
-> Alastair D'Silva <alastair@d-silva.org> wrote:
-> > 8051 and 3081 SDIO chipsets handle the REG_SDIO_HISR_RX_REQUEST status =
-bit
-> > differently:
-> >=20
-> > - 8051-based chips (e.g. RTL8723BS, RTL8723CS, RTL8723DS):
-> > =C2=A0 The hardware automatically clears REG_SDIO_HISR_RX_REQUEST once =
-the RX
-> > =C2=A0 buffer is empty. Software must not clear this bit, because the d=
-rain
-> > =C2=A0 loop in rtw_sdio_rx_isr() re-reads REG_SDIO_HISR across iteratio=
-ns to
-> > =C2=A0 decide whether more requests are pending. Clearing it in softwar=
-e
-> > =C2=A0 terminates the loop after a single request, stranding the remain=
-der of
-> > =C2=A0 the FIFO. Additionally, RTL8723BS requires RTW_SDIO_HISR_CLEAR_M=
-ASK to
-> > =C2=A0 avoid undefined bits causing resume storms.
-> >=20
-> > - 3081-based chips (e.g. RTL8821CS, RTL8822CS):
-> > =C2=A0 The hardware does not automatically clear REG_SDIO_HISR_RX_REQUE=
-ST when
-> > =C2=A0 the RX buffer is empty. Masking this bit out in software before =
-writing
-> > =C2=A0 back to HISR prevented it from ever being acknowledged in hardwa=
-re,
-> > =C2=A0 trapping the CPU core in an infinite interrupt storm loop that s=
-tarved
-> > =C2=A0 RCU and locked up the system. Furthermore, on 3081 chips the phy=
-sical
-> > =C2=A0 RX FIFO capacity is at most 24 KB (16 KB on RTL8821CS, 24 KB on
-> > =C2=A0 RTL8822CS), which is well within the 64 KB loop budget.
-> >=20
-> > As the number of architecture-specific special cases has grown (16-bit =
-vs
-> > 32-bit register widths, differing HISR writeback timing, synthetic loop
-> > flags, and RTL8723BS resume masking), attempting to accommodate both
-> > architectures within a single monolithic handler has become fragile and
-> > prone to cross-architecture regressions.
-> >=20
-> > Resolve this by making rtw_sdio_handle_interrupt() a dispatcher with
-> > separate paths for 8051 and 3081:
-> >=20
-> > 1. 8051 chips preserve the existing unmasked writeback behavior, leavin=
-g
-> > =C2=A0=C2=A0 REG_SDIO_HISR_RX_REQUEST for hardware to drop and respecti=
-ng
-> > =C2=A0=C2=A0 RTW_SDIO_HISR_CLEAR_MASK on RTL8723BS.
-> > 2. 3081 chips adopt the interrupt masking pattern: disable HIMR,
-> > =C2=A0=C2=A0 acknowledge pending status bits in HISR via W1C, service t=
-he pending
-> > =C2=A0=C2=A0 events, and re-enable HIMR. Any packet arriving during ser=
-vicing
-> > =C2=A0=C2=A0 latches REG_SDIO_HISR_RX_REQUEST in hardware and re-assert=
-s the IRQ line
-> > =C2=A0=C2=A0 once unmasked.
-> >=20
-> > Splitting into separate handlers isolates these quirks cleanly and
-> > simplifies future maintenance.
-> >=20
-> > Fixes: 65371a3f14e7 ("wifi: rtw88: sdio: Add HCI implementation for SDI=
-O based chipsets")
->=20
-> At this moment, did it support 3081-seris already?
-> I feel this tag is too serious.=20
->=20
+commit 3f62b2245460c33dcb6fb6615d7fdf03de827776
+Author: Tanmay Jagdale <tanmay@marvell.com>
 
-Yes, 3081 chipsets were actually the original devices enabled in that initi=
-al SDIO series.
+spi: cadence-xspi: Don't use infinite timeout in register poll
 
-In commit 65371a3f14e7 ("wifi: rtw88: sdio: Add HCI implementation for SDIO=
- based chipsets"), the
-SDIO HCI was introduced along with hisr &=3D ~REG_SDIO_HISR_RX_REQUEST;. La=
-ter in that exact same 10-
-patch series (merged into v6.4-rc1), the following SDIO devices were added:
+The commit modifies the register polling functions to enforce a non-zero
+timeout even when the sleep argument is false. This prevents busy-waits from
+switching to infinite timeouts. The change anticipates future panic write
+handling support.
 
-Commit 095e62dd7427: RTL8822BS (3081)
-Commit 6fdacb78f799: RTL8822CS (3081)
-Commit b2a777d68434: RTL8821CS (3081)
+> diff --git a/drivers/spi/spi-cadence-xspi.c b/drivers/spi/spi-cadence-xsp=
+i.c
+> index 7cf52bcb05df6..09ed2afbd4af3 100644
+> --- a/drivers/spi/spi-cadence-xspi.c
+> +++ b/drivers/spi/spi-cadence-xspi.c
+> @@ -374,7 +374,7 @@ static bool cdns_xspi_is_stig_ready(struct cdns_xspi_=
+dev *cdns_xspi, bool sleep)
+>  		ctrl_stat,
+>  		((ctrl_stat & BIT(3)) =3D=3D 0),
+>  		sleep ? MRVL_XSPI_POLL_DELAY_US : 0,
+> -		sleep ? MRVL_XSPI_POLL_TIMEOUT_US : 0);
+> +		MRVL_XSPI_POLL_TIMEOUT_US);
 
-No 8051 SDIO chipsets existed in rtw88 at that time (RTL8723DS was added in=
- v6.5, and RTL8723BS much
-later).
+[Severity: High]
+Does this unconditionally trigger timekeeping functions in panic contexts?
 
-That said, if you prefer attributing the regression to the device enablemen=
-t commit rather than the
-core SDIO HCI commit, we can change the tag to: Fixes: b2a777d68434 ("wifi:=
- rtw88: Add support for
-the SDIO based RTL8821CS chipset")
+When sleep is false, the panic write handler can deadlock.
 
-Both commits landed in v6.4-rc1, so the stable tree targeting remains ident=
-ical. Please let us know
-your preference.
+The readl_relaxed_poll_timeout() macro expands to poll_timeout_us(), which
+unconditionally calls ktime_get() when a non-zero timeout is provided.
+
+In a panic context, timekeeping is suspended.
+
+If a system panic occurs while another CPU holds the timekeeping seqlock
+(tk_core.seq) and is stopped, ktime_get() will spin endlessly in
+read_seqcount_begin(), deadlocking the system.
+
+This prevents oops/kmsg crash logs from being written to flash, which is why
+the <linux/iopoll.h> API contract explicitly forbids using it in atomic
+contexts with a non-zero timeout.
+
+To safely poll without sleeping in panic contexts, should the driver
+conditionally use readl_relaxed_poll_timeout_atomic(), which relies on
+udelay() and cycle counting instead of ktime_get()?
+
+>  }
+> =20
+>  static bool cdns_xspi_is_sdma_ready(struct cdns_xspi_dev *cdns_xspi, boo=
+l sleep)
+> @@ -386,7 +386,7 @@ static bool cdns_xspi_is_sdma_ready(struct cdns_xspi_=
+dev *cdns_xspi, bool sleep)
+>  		ctrl_stat,
+>  		(ctrl_stat & CDNS_XSPI_SDMA_TRIGGER),
+>  		sleep ? MRVL_XSPI_POLL_DELAY_US : 0,
+> -		sleep ? MRVL_XSPI_POLL_TIMEOUT_US : 0);
+> +		MRVL_XSPI_POLL_TIMEOUT_US);
+
+[Severity: High]
+Can the same deadlock occur in the SDMA polling loop since this also calls
+readl_relaxed_poll_timeout() with a non-zero timeout when sleep is false?
+
+>  }
 
 --=20
-Alastair D'Silva
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261005081141.3368=
+8-1-paul.cercueil@bootlin.com?part=3D4
