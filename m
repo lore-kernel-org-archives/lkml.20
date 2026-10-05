@@ -1,167 +1,147 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from va-1-115.ptr.blmpb.com (va-1-115.ptr.blmpb.com [209.127.230.115])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0689E37F30C
-	for <linux-kernel@vger.kernel.org>; Mon,  5 Oct 2026 07:47:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5A6A63290B1
+	for <linux-kernel@vger.kernel.org>; Mon,  5 Oct 2026 07:48:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.127.230.115
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791186453; cv=none; b=bX5A86Cp+za/9Tkxb5PRL2gdgoKfhPe+OmMHRKEG6ZzyhX4h7O4a2L6SKDcoSkrKi84AfmX8T6NL5b5MRbin1ew0pQlm+sal5iCUMZuTdshglipp5qZyipRA2muXtj9R+8TEJ3PCKeX7F7rgr6foF/leCa0nwKO73PH3yE3mBNU=
+	t=1791186526; cv=none; b=IvtO1SteYt14hE9K0geWYWnowUjuwqDcNtpysDMOnClQVYt3JxRdJ+j7BarD6O9n4ND3bmtFJC+RnpbtT01ebf8MYsitIALn6iEncMkD2KFRfNdZ32WTD2tcTkmB4Rfrbv7EaZh9E/9NpGAn+YrerVuiAXDnUd3Q3xHoOEI7O68=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791186453; c=relaxed/simple;
-	bh=TqM8zbKN8T61p5b/PN1xTYoB386eN8l+jAQ/Coow/NQ=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=evuG0pwOdu77wTPBOS519ByPGK2BXXEESPO29NBsfs31jUKUVET0mLdZFMuXh88X2l4CnfvGW86Po/AC5LG6mlzhnIru2lU/Wmldvl6d73BUYfaquhP/B/IHS0f/k+UJE4yvfnHXqhYAt1lPS6EZcRMfteOC8bVy93FWL+GdYEA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=oWlztjsy; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=OD+sZ70V; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1791186526; c=relaxed/simple;
+	bh=1WgxqFj0TK3sZC/WcR8KKTUmv23zZmK3A7bpWnG2iVM=;
+	h=To:Date:Content-Type:From:Subject:References:Cc:Message-Id:
+	 Mime-Version:In-Reply-To; b=l59ceXJWBQWc/sikBewyxOqEufrwkYtosaeP3I3GqYiJzFR1/ULozkhachCP3ZkLdgSQzfKx6gf1Q5/0sE8D6N/QGQI6AOLTBDTPLwx195uEexMwATNuUZAMMWP6audr0E4DvX9mFM97MHAqPCV8XJMn/0AzQ4IniFry2tw6jfA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com; spf=pass smtp.mailfrom=bytedance.com; dkim=pass (2048-bit key) header.d=bytedance.com header.i=@bytedance.com header.b=k/dzuN4B; arc=none smtp.client-ip=209.127.230.115
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bytedance.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="oWlztjsy";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="OD+sZ70V"
-Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 695102FJ470698
-	for <linux-kernel@vger.kernel.org>; Mon, 5 Oct 2026 07:47:29 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	a9Q2PJEzfcPJVGlDIk+ValG1ScMx1NsHq3SmgOoVq+U=; b=oWlztjsywJRAJj/L
-	uUf4Olh1d06x8cVE/2OfxO5PywMEcVdfTmMNBGMmUSVpzPoaNb5S8q8PCW4qdTwd
-	W8vwMEqOhK1ZUb+qPeBzsjO+ClLVRRNpOj3OR0SyOq6S9LJIjh/F4R1vD8diHwyv
-	VPT7vd/hV0QLEmzLuSC/nswPPjbuZfkJVUQVZV6NKzg4xhwWF61ceBRSZ1RYBRaw
-	l0A/mbmDNRBBwKPpWvSPNDzBDvIBotNh6m4Co3XuW/t70Gl6zLLSJ/iJ1PIu+pmj
-	CBt+tnAxFRgacvIL/yJiKnKqGXRj7zHktvQ3o6beFRM/8oeltnHTavLLfzaoE0Ic
-	GRhfVg==
-Received: from mail-pl1-f199.google.com (mail-pl1-f199.google.com [209.85.214.199])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h2ssucy64-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Mon, 05 Oct 2026 07:47:29 +0000 (GMT)
-Received: by mail-pl1-f199.google.com with SMTP id d9443c01a7336-2e2e064b7a6so14054775ad.0
-        for <linux-kernel@vger.kernel.org>; Mon, 05 Oct 2026 00:47:29 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1791186449; x=1791791249; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=a9Q2PJEzfcPJVGlDIk+ValG1ScMx1NsHq3SmgOoVq+U=;
-        b=OD+sZ70V1L1hJOwn7e86RD2YkhAVzYeMg16cmQGPDjawHo7b3hX1NLAjtB+DDxCkNP
-         leTL99Dg64oVhcmyBgOz7m/NKZU2cYcltN1rqnZ7n4QdZR1+UyjWyC+qrAg2wpLYQLiO
-         tzAnRxz7cMDm09LurRTu8+Nc8P+44R8XptbqtkRtTzINLEG9gkmxWu4QxfNF0F2TjL2Z
-         M2+xah6/RuarfIdpFyUuwAnywyEFOxNXblaQaBgJdPsj3BwDts/cRxyYJ29chdYwSWSe
-         0c2RcE2S22vedRx7dmB/1cWKmetO3AVnElUbj16lF5LydmwxZ6GFcXLC5svtWrO8ZbXW
-         DADw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791186449; x=1791791249;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=a9Q2PJEzfcPJVGlDIk+ValG1ScMx1NsHq3SmgOoVq+U=;
-        b=W60qKPEQk3xKskGRi/oTPQbRXSLy41Cr2e7cv8Cn5Ui6HUzioCRIRaR+umXMvbXAlG
-         5E86wdO66Uejtz1Ed+Dyy+T92IoGI1GFu9CLPGXzB1gLaNzvs5qTIacXEAm6nJysQUQf
-         M83Nxh9u9PougAN5jl0xQ74Xhi2hmFJIrW73ktAbB3GLRP1Gc2iDJICZ+TlaoDAVjKR4
-         A4Jem81wBzAkVq0W7lnoqHe6Eye1+fAIfL0G0KjW+2mv/BJ9BjkDpB1DylonBZJVxVn8
-         e6V+eYDCOfBEiK4854ZxnDTpzuN7mv0ifgNQjQzfagKewB9y7boK6Q+fXlytvjS/XhrT
-         AJyg==
-X-Forwarded-Encrypted: i=1; AKwUvBybtWHeAMlsKfKQRcQzO6+3CODZPG+ijkRuN8fBz6CYhFb5CrWYujNbmvtvQLMFchzpSNgrhQ4z/RRO+iY=@vger.kernel.org
-X-Gm-Message-State: AFq9FYILRrOymQUksh8Mrn47By3mqdun38jEW/S1Oo8oq8kkroDSyJoJ
-	LsDuZoLhim+2xL1nGgyCdBevERU9DvNhW1QEJDnLi3oCCeEut6V8AblDqjTOAdkXHmKr65GZKpC
-	zWoac9rLeRDNfhpLBWmwspQl9cS2RxYRR1w+gxD1oVJb1RNrgaKYM1r4wW8NkdSKlTBU=
-X-Gm-Gg: AYBFou0AA0P3VyRCt0W8vbYWCKVmCxK6jNE+9onUeux8c6tkdP5+bNhtlIiGN1vbjvZ
-	4ITP0VHRK9J0v9pWYqXZzU3TK2yDTUGoA2kiSgyA8fbpo2ctCcgV6wCoph+INdTT/Zor8E3Gtg7
-	Ib+n/REnUcFEzi2JP/2osppDG6zwR50dIdWzVMrc/UsY/jdWJbF62JbH9B5zzTdn372gWLHD5Qz
-	bUL3NWkyuWVRTSI7rm9EgmryRtyxBiKyfh/3FyAmSvPlqu2kRfI/57hAgF/edqSCqpC1AUKvc3d
-	Wz3kjyBkurvY3ULvKxRNSHDdxoTmv2+UAE9wixUyzwmhOtVNsMjN9gJwcmQa5pKkW5H06+MCMXM
-	WK5cSDQDBXBwHnndOCb4/lG2TKdo=
-X-Received: by 2002:a17:903:fa6:b0:2e5:334f:f47e with SMTP id d9443c01a7336-2e5334ff6aamr58115075ad.21.1791186448750;
-        Mon, 05 Oct 2026 00:47:28 -0700 (PDT)
-X-Received: by 2002:a17:903:fa6:b0:2e5:334f:f47e with SMTP id d9443c01a7336-2e5334ff6aamr58114905ad.21.1791186448296;
-        Mon, 05 Oct 2026 00:47:28 -0700 (PDT)
-Received: from [10.217.217.179] ([202.46.22.19])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2e5a5cae50fsm3608305ad.25.2026.10.05.00.47.23
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 05 Oct 2026 00:47:27 -0700 (PDT)
-Message-ID: <92f75bff-47aa-401f-b232-edaba8fa2061@oss.qualcomm.com>
-Date: Mon, 5 Oct 2026 13:17:22 +0530
+	dkim=pass (2048-bit key) header.d=bytedance.com header.i=@bytedance.com header.b="k/dzuN4B"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ s=2212171451; d=bytedance.com; t=1791186512; h=from:subject:
+ mime-version:from:date:message-id:subject:to:cc:reply-to:content-type:
+ mime-version:in-reply-to:message-id;
+ bh=1sOpn9EiTvVXVl/l1lljOqafyddYxvDxWEEPHo5jI9A=;
+ b=k/dzuN4BU2J5Tx0AeS1gMvE+oQXNA2ecby4+2XlBAgO7CB+flhJfFy6IWbh78KipDVg/gV
+ CmqdZsdb6lac7N2nVrg78/bKS5m/kFk9uWD0X97pc5v7Axj4ciE6rMcdmzVUFJoA7N9IAR
+ v2DyaK3tcVIFtOzk+PtxSLysaKoT2A3ZYyBA7ZoJrlalp3b4+WtaGNJUmyM44yCZzCb0Zs
+ W0pwYk3gFS+z+tSC1txAzXXWCUqiWa5ilx7UstqU8ciHn7Xpo2Ed/KMFEjj9hpSXUaybY7
+ RDDT8WxJXKMxNY7P1PUmxay0WPet87C75r29QSkQZzbdSPUHhnoUIusHiLTu7w==
+To: "Nadav Amit" <nadav.amit@gmail.com>
+Date: Mon, 5 Oct 2026 15:48:14 +0800
+X-Lms-Return-Path: <lba+26ac3564e+e892cd+vger.kernel.org+zhouchuyi@bytedance.com>
+User-Agent: Mozilla Thunderbird
+Content-Type: text/plain; charset=UTF-8
+From: "Chuyi Zhou" <zhouchuyi@bytedance.com>
+Subject: Re: [PATCH v2 0/5] x86/mm: Allow preemption while waiting for kernel TLB flushes
+References: <cover.1791179421.git.zhouchuyi@bytedance.com> <3520FAB5-83C3-4116-BF19-87D66048D993@gmail.com>
+Content-Transfer-Encoding: 7bit
+Cc: <tglx@kernel.org>, <mingo@redhat.com>, <luto@kernel.org>, 
+	<peterz@infradead.org>, <paulmck@kernel.org>, <muchun.song@linux.dev>, 
+	<bp@alien8.de>, <dave.hansen@linux.intel.com>, <pbonzini@redhat.com>, 
+	<bigeasy@linutronix.de>, <clrkwllms@kernel.org>, <rostedt@goodmis.org>, 
+	<linux-kernel@vger.kernel.org>
+Message-Id: <278e53d1-e0ca-4886-a762-ca98d1a21a69@bytedance.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] clk: qcom: mmcc-sdm660: enable the parents of the
- pixel clock sources
-To: fabricioakio@gmail.com, Bjorn Andersson <andersson@kernel.org>,
-        Abel Vesa <abelvesa@kernel.org>, Stephen Boyd <sboyd@kernel.org>,
-        Brian Masney <bmasney+clk@redhat.com>,
-        Jerome Brunet <jbrunet+clk@baylibre.com>,
-        Konrad Dybcio <konradybcio@kernel.org>,
-        AngeloGioacchino Del Regno <angelogioacchino.delregno@somainline.org>,
-        Martin Botka <martin.botka@somainline.org>
-Cc: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
-        linux-arm-msm@vger.kernel.org, linux-clk@vger.kernel.org,
-        linux-kernel@vger.kernel.org
-References: <20261002-sdm660-pclk0-parent-enable-v2-1-b07f6c33e96f@gmail.com>
-Content-Language: en-US
-From: Taniya Das <taniya.das@oss.qualcomm.com>
-In-Reply-To: <20261002-sdm660-pclk0-parent-enable-v2-1-b07f6c33e96f@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDA1MDAzMCBTYWx0ZWRfXzMIQ3qZ8AAVt
- x1VmfnEi2NGwO/b5ryFu5CbqgUKgmM7dIlcAMDrQUva50Ayo85TlkMchhEr+BozK/Ala8+oVefU
- QUCWWAkht90+JuWkoPPGFa8zKoJTRHQ=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDA1MDAzMCBTYWx0ZWRfX+VKnsXEH+4+h
- 9qzNRgIlMZdw7xq/SRIO6Hdc8yLcSj576brXV19iKNluo95MSVJCe/IZbqPB0s60fotXKnZUdxJ
- ac/gsAKtyY8Nl5T4r8ni4gkJGAaB+vZiXQ1WEgtwm/t7PvhZYTbL8nTp4gcSsuI/vyC1lHlDqhf
- 11ps78fqbCU6j4SIIDnNOxHQkQhC1tEidVb2Rri11LHbDtkcrgr8qWf0kRLiis1p3FR0oae6OmI
- l550xJCEhPFiroYLIqOjYqCNVkYTBqoAGT4dU4LBcdaL0R4QTHtt9Mr+XvXeQebdz8gMBDES0na
- lGbNzbM4wLXf/C+5WrzlKF0zqKcHKb+0JO8C8s9LJ8uipujeUryOW7rXCxr5C1aCa1PA/i2kkoc
- YTDIVqsxVzUREKNfH+LkV66WzS1jNd3eoIi6W3gOijhxYZmZJkqSRemiP5uprcxKyuD8p4IYPTU
- wCRvgUytRIaw8C43OPA==
-X-Proofpoint-GUID: 2fCCtCv59QOgmdce6JC9W8KHFcgPTnyU
-X-Proofpoint-ORIG-GUID: 2fCCtCv59QOgmdce6JC9W8KHFcgPTnyU
-X-Authority-Analysis: v=2.4 cv=FryQbGrq c=1 sm=1 tr=0 ts=6ac35611 cx=c_pps
- a=JL+w9abYAAE89/QcEU+0QA==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
- a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=gowsoOTTUOVcmtlkKump:22
- a=pGLkceISAAAA:8 a=EUspDBNiAAAA:8 a=V8gMRo3A-47TgN-c6xAA:9 a=QEXdDO2ut3YA:10
- a=324X-CrmTo6CU4MGRt3R:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-10-05_01,2026-10-02_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 lowpriorityscore=0 phishscore=0 bulkscore=0 priorityscore=1501
- malwarescore=0 impostorscore=0 suspectscore=0 adultscore=0 clxscore=1015
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2610050030
+Mime-Version: 1.0
+X-Original-From: Chuyi Zhou <zhouchuyi@bytedance.com>
+In-Reply-To: <3520FAB5-83C3-4116-BF19-87D66048D993@gmail.com>
 
-
-
-On 10/2/2026 10:16 PM, Fabricio Akio via B4 Relay wrote:
-> From: Fabricio Akio <fabricioakio@gmail.com>
+On 2026-10-05 2:50 p.m., Nadav Amit wrote:
 > 
-> pclk0_clk_src and pclk1_clk_src are fed by the DSI PHY PLLs, which
-> dsi_pll_14nm_vco_set_rate() resets and only clk_prepare() restarts. The
-> DSI host sets the link rates before it prepares the PLL, so the RCG is
-> updated against a stopped source, and if it is enabled at that point
-> the update times out:
+>> On 5 Oct 2026, at 8:57, Chuyi Zhou <zhouchuyi@bytedance.com> wrote:
+>>
+>> Changes in v2:
+>>   - Patch 2: Reuse flush_tlb_all() for kernel ranges promoted to a full
+>>     flush and remove kernel_tlb_flush_all() (Sebastian).
+>>   - Patch 4: Drop the explicit TLB_FLUSH_ALL check on the end argument.
+>>     Callers pass actual address ranges and can use flush_tlb_all() for
+>>     unconditional full flushes (Sebastian).
 > 
->   pclk0_clk_src: rcg didn't update its configuration.
+> Chuyi,
 > 
-> Seen on a board whose simple-framebuffer node lists the pixel clock:
-> the RCG then reads enabled at msm's first modeset.
+> It all looks nice and clean, but I am not sure the end result is that
+> great. I think that instead of consolidating different TLB flush paths,
+> you break them further apart. Then you try to copy the logic from
+> userspace TLB flushed into the kernel code (TLB flush counting and such).
 > 
-> Set CLK_OPS_PARENT_ENABLE on both so the core prepares the PLL around
-> the rate change, as dispcc-sm8250 does for its pixel clock sources since
-> commit acf7a91d0b0e ("clk: qcom: dispcc-sm8250: Enable parents for pixel
-> clocks").
+> I think that perhaps a better path would be to further consolidate the
+> two instead of separating them. There is functionality that is missing
+> from kernel-space TLB flushes, and might be needed in the future.
 > 
-> Fixes: 5db3ae8b33de ("clk: qcom: Add SDM660 Multimedia Clock Controller (MMCC) driver")
-> Signed-off-by: Fabricio Akio <fabricioakio@gmail.com>
+> For instance, you can see userspace TLB-flushing has a mechanism to
+> prevent TLB shootdown storm using TLB generations; and you see it
+> supports TLB-flushing stride. Now, the shootdown storm might be less
+> of an issue (for now?) but stride support is something you may want
+> eventually to support range flush with stride for stuff like [1].
+> 
 
-Reviewed-by: Taniya Das <taniya.das@oss.qualcomm.com>
+Hi Nadav,
 
--- 
-Thanks,
-Taniya Das
+The motivation for the descriptor split was that init_flush_tlb_info()
+initializes initiating_cpu with smp_processor_id(). The kernel flush
+callbacks do not use that field, but removing the outer preemption
+guard would allow the initializer to run in a preemptible context.
 
+We could retain flush_tlb_info and initialize the range fields directly
+in the kernel path. On top of the first three patches, the following
+change could replace patches 4 and 5:
+
+--- a/arch/x86/mm/tlb.c
++++ b/arch/x86/mm/tlb.c
+@@ -1466,10 +1466,13 @@
+  /* Flush an arbitrarily large range of memory with INVLPGB. */
+  static void invlpgb_kernel_range_flush(struct flush_tlb_info *info)
+  {
+  	unsigned long addr, nr;
+
++	/* Keep the INVLPGB operations and TLBSYNC on the same CPU. */
++	guard(preempt)();
++
+  	for (addr = info->start; addr < info->end; addr += nr << PAGE_SHIFT) {
+  		nr = (info->end - addr) >> PAGE_SHIFT;
+
+  		/*
+  		 * INVLPGB has a limit on the size of ranges it can
+@@ -1502,17 +1505,16 @@
+  		on_each_cpu(do_kernel_range_flush, info, 1);
+  }
+
+  void flush_tlb_kernel_range(unsigned long start, unsigned long end)
+  {
+-	struct flush_tlb_info info;
+-
+-	guard(preempt)();
+-	init_flush_tlb_info(&info, NULL, start, end, PAGE_SHIFT, false,
+-			    TLB_GENERATION_INVALID);
+-
+-	if (info.end == TLB_FLUSH_ALL)
++	struct flush_tlb_info info = {
++		.start = start,
++		.end = end,
++	};
++
++	if (tlb_range_exceeds_ceiling(start, end, PAGE_SHIFT))
+  		flush_tlb_all();
+  	else
+  		kernel_tlb_flush_range(&info);
+  }
+
+
+The kernel helpers would continue to use flush_tlb_info, and the mm
+paths would retain init_flush_tlb_info() and its smp_processor_id()
+check. The synchronous on_each_cpu() call keeps the stack descriptor
+valid until all callbacks complete.
+
+This keeps the common descriptor and threshold policy, while allowing
+preemption during the final IPI completion wait. It does not yet
+provide the broader consolidation you suggested, but retains the
+existing stride_shift field for future kernel stride support.
+
+Would this smaller change be a better direction for the preemption
+work, with further consolidation handled separately?
+
+Thanks.
