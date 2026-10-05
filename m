@@ -1,94 +1,140 @@
-Received: from mail-pz2-f37.google.com (mail-pz2-f37.google.com [74.125.228.37])
+Received: from mta0.migadu.com (out-168.mta0.migadu.com [91.218.175.168])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8F0684AD4C1
-	for <linux-kernel@vger.kernel.org>; Mon,  5 Oct 2026 15:36:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.37
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C77BE4A4EE6
+	for <linux-kernel@vger.kernel.org>; Mon,  5 Oct 2026 15:36:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.168
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791214608; cv=none; b=SGrrrWb0QJ4X7JtuY3h/XlXZ0IjUttNST6nfDQ4lfdrDeqUPaLv9evVnNRMYGCJ+fG24jvTrlAS/iDXCxzw+vZmPBaVl31iLw8hngb2S5VkEeFgnofW07pzJz+Ub9Xo8QC2bKe9npupDa9OfAN3HrsckCUmFuud3UmBIRLRXQcc=
+	t=1791214619; cv=none; b=t9mrNs8cttom5bC6nCcRz4nVUQ8+4hKhA0M1aIKolC8uOQVozc58XxvwpPaBrCIHlhgPfUXae0a5ep4x08kZfhmlOfuaRoLMeGzOEpxIT52eWlQaYtkAf/SY9TBJWL1AEcljYHJ8JWRViaJHIQF/E/7OmcM3ai+yMVUImudMDr0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791214608; c=relaxed/simple;
-	bh=rjpL4llTsXpkQauEKSLeEbt4jKXhpoQ8xqnmJ38lg5Y=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=VNv4i67ph8JnkB++R3ArWLiCiFTMW4WhRXWBX3kP3HjA6eEa4eZ8J4KWZvEhnH74fD+MjZCk6rsLfmb0y6IFPTsVb2A8CZgJlx/F4Yhpx1AQYBaIcBjZrp9YPZFHa/43bV4iM5qZaIkRb0OS2A0P0iGEpF2rwRhx4cEhy56BWfM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=W/QWJGba; arc=none smtp.client-ip=74.125.228.37
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1791214619; c=relaxed/simple;
+	bh=5zX+01E1uYtcKNTedIU5E0EoruaCd2DT0fqXgC7ia5I=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=g53awaYdlieY7ngJEkLyvrKwKoNz5C/LNtnbtkD7xOC584RuGaX4GsFKaAQzpEbWk5GulcHWGmwyyFGcQFcy/YkVp+arFkyij847L8PdRiljKUK3GSd76WJ9ew/yIdN2n+A+W5irfVjsX0ThJ5+J2bodKB7Vi4gwEWL8zcfSVZ4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=QoEIM2Ha; arc=none smtp.client-ip=91.218.175.168
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="W/QWJGba"
-Received: by mail-pz2-f37.google.com with SMTP id d2e1a72fcca58-886ce63c1c5so556038b3a.0
-        for <linux-kernel@vger.kernel.org>; Mon, 05 Oct 2026 08:36:46 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791214606; x=1791819406; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=rjpL4llTsXpkQauEKSLeEbt4jKXhpoQ8xqnmJ38lg5Y=;
-        b=W/QWJGbaCvZicSiUvVgsntWJHBCVmPrS/XA7IBCapAD6EdPzzcFTc+tssuO9Z87Xn/
-         a3m2e28svriSGJQPbEbbt8dGn6ikyFj7jjCvTpeuuOeRoy1CFHC1aB/k7szwdqY7/I3k
-         +90hWu5keKNR7QYrqRbpmnkRMrYc2UnYj3UXLnBhGaNTkghczT8KvTOKSKtOoYsakMAX
-         +xc3RgcSN5WTwRzWD99IAE8ewGebKxyUPoInx9VoMsN6JnqgJewXzRdqFCD7O7MJy5ax
-         U8oieW24QcCZ3NTjVbDEr428b5w8tQKgXIJ9DsYm3q1Ec1hem+ctX0wDVMNwX6xjb6M7
-         2Jkw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791214606; x=1791819406;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=rjpL4llTsXpkQauEKSLeEbt4jKXhpoQ8xqnmJ38lg5Y=;
-        b=nLTeg43guqZUAK5ZqoGOEWoEJv01irZN8Hlbjk8LYbuAXscWINLKW8IVH3oUnpyCqQ
-         4cA2jo6GmvmW3+zmiar9luaZOJfPy2WCy/AI/LYJAfM/vvLlMFlFPtB2/+WyDiSLpJQN
-         /WxuxFJ4h+U1c8pIM3XKe3mNp4ndKNoKpnnK41BmbuM4hSLVoUNkisCmWUhTlgBB5sN5
-         vddGAJ/T9sdjPEiBNGVfx87wXqL0wJt69ME7R9GowzmVnxlLFf+0UBuGTAT4oxfd7f27
-         vSDdxG55clY3sTi5JaMVuQ2e9FCF8h/Zg2t7f5u9sGN3kCxKQ3gFbQhBcn4BUrMKOQ12
-         d3Dw==
-X-Forwarded-Encrypted: i=1; AKwUvByDE11cRFax292cIQKe27Ai5rjW0OlWJY4usSpEwOJ4uFTemgviNf2OL0G9pLrSzTKpopIz6VEOE7//7RI=@vger.kernel.org
-X-Gm-Message-State: AFuF++nSP4E9AfsBR7eHfkSYmNPyY4qXIND9S79Rr1Cd6gUAnBKh62Bo
-	qYy0omVitkBocDvndVM2q4NQ3pvxofdyn9m7acooMPY6ljX44IhxYRaF
-X-Gm-Gg: AYBFou0P/ACTiD7HQ8K/9by46o+WNQda6CbNqPfpe65CZwvdVWKzuOY0omJBhFTb0i+
-	qEvrdZOwqFmok34oQ+Z2J0TrK6wGunKs8b4B7roNa2qMDH6OYUqIwf1Y1gVzh/PBesYQ3BsKMR8
-	Ne0T3S4uf7VDtIPslH6ZFfcIMLoteZqlSDM6qaLBZgACbLJjPjfsJOJi200Cc813WBcifqVI9s3
-	r9RrC15NL2lWraOWzam5SxMH85odB8bsEZPfRyqXvB8caktCtNgystGHaS+bVHEwFapGJ7KyZVu
-	qgWaR0h6I8xgtiJUcJ5u5x5AQiBiA0n2ypyuqaZSGNepkaTn+X86Q/OgOqQ85iG9kZc0/fGFHq+
-	NKqlkVf4eC7dyJkRXoT2Wf8J27I49fvynoD9vLwdiuO+VujThkfwV6KHqq2XQsCleQKh8mjs7ID
-	9CZpAhsZqkV3lf2WSih085NafAeTYlND/J9r32pxq37wC61i9/hlL/0h4oTL5wkbqVqPo/fFQN8
-	NzIJNKgo36vWT5lziqLKOZnGaer
-X-Received: by 2002:a05:6a00:f87:b0:874:705d:f652 with SMTP id d2e1a72fcca58-88af6e19923mr9775863b3a.32.1791214605735;
-        Mon, 05 Oct 2026 08:36:45 -0700 (PDT)
-Received: from localhost.localdomain ([119.14.238.184])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-88d62aaf2f8sm1966099b3a.10.2026.10.05.08.36.43
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Mon, 05 Oct 2026 08:36:45 -0700 (PDT)
-From: Wayne Ho <wayneho219@gmail.com>
-To: griffin@kroah.com
-Cc: lee@kernel.org,
-	pavel@kernel.org,
-	linux-leds@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 1/2] Documentation: ABI: leds: inverted is specific to the backlight trigger
-Date: Mon,  5 Oct 2026 23:35:55 +0800
-Message-ID: <20261005153555.85944-1-wayneho219@gmail.com>
-X-Mailer: git-send-email 2.50.1
-In-Reply-To: <179119698191.10341.17981065372386761527.b4-review@b4>
-References: <179119698191.10341.17981065372386761527.b4-review@b4>
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="QoEIM2Ha"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=5zX+01E1uYtcKNTedIU5E0EoruaCd2DT0fqXgC7ia5I=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1791214615; v=1; x=1791819415;
+ b=QoEIM2HaXyPtk7CN494dWenrpWjsWWgEMg+swUH9vkjcn2co6GeBCNw8Ph6nj8SvPT9DDQzg
+ KOULzsPzjm5jNf5CQjkZv2FLUVjTpabtBq3Cl3Yl78+V6HkS+GE7HCDuEHsooEYsxrHW/KwSo8w
+ 325ie3y0MOYH9BNQaciGz8lE=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 8941f7e82ec68c72;
+	Mon, 05 Oct 2026 15:36:55 +0000
+X-Mizu-Trace-ID: 8941f7e82ec68c72
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <6ad07601-eeef-4fe6-9758-f6936a3bff41@linux.dev>
+Date: Mon, 5 Oct 2026 23:36:36 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/1] x86/mm: fix incomplete page-table invalidation with
+ TCE
+Content-Language: en-US
+To: Andrew Cooper <andrew.cooper3@citrix.com>,
+ Pedro Falcato <pfalcato@suse.de>
+Cc: dave.hansen@linux.intel.com, luto@kernel.org, peterz@infradead.org,
+ tglx@kernel.org, mingo@redhat.com, bp@alien8.de, x86@kernel.org,
+ hpa@zytor.com, riel@surriel.com, linux-kernel@vger.kernel.org,
+ qi.zheng@linux.dev, nadav.amit@gmail.com, thomas.lendacky@amd.com,
+ kernel-team@meta.com, linux-mm@kvack.org, akpm@linux-foundation.org,
+ brendan.jackman@linux.dev, jannh@google.com, mhklinux@outlook.com,
+ Manali.Shukla@amd.com, mingo@kernel.org, stable@vger.kernel.org,
+ toshi.kani@hpe.com, david@kernel.org, mikhail.v.gavrilov@gmail.com
+References: <20261005052302.43042-1-lance.yang@linux.dev>
+ <asM7b8ECO34-jiwi@pedro-suse.tail5790ac.ts.net>
+ <60d5db86-8002-4d87-b8d3-c161d674122b@linux.dev>
+ <ab077b6a-160f-41a2-a167-813f0560e30d@citrix.com>
+ <38541ec6-d796-4f35-a700-75ab097b6df5@linux.dev>
+ <7ad90e94-d04d-453a-ba22-9640a5024d8c@citrix.com>
+ <6801221a-6307-407a-85fc-46906f95d22e@linux.dev>
+ <9459bab2-b373-4008-8f3d-f84b62db5b67@citrix.com>
+From: Lance Yang <lance.yang@linux.dev>
+In-Reply-To: <9459bab2-b373-4008-8f3d-f84b62db5b67@citrix.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 
-On Mon, 05 Oct 2026 12:43:01 +0200, Griffin Kroah-Hartman <griffin@kroah.com> wrote:
-> What commit changed this? Should there be a fixes tag?
 
-The inverted attribute was removed from the gpio trigger by commit
-4a11dbf04f31 ("leds: triggers: gpio: Rewrite to use trigger-sources"),
-which dropped the inversion handling since GPIO descriptors can describe
-it themselves.
 
-I've added the Fixes tag and referenced the commit in the changelog in v2:
-https://lore.kernel.org/r/20261005-docs-leds-abi-trigger-attrs-v2-0-c5f8970b1b42@gmail.com
+On 2026/10/5 23:22, Andrew Cooper wrote:
+> On 05/10/2026 11:12 am, Lance Yang wrote:
+>> On 2026/10/5 17:57, Andrew Cooper wrote:
+>>> On 05/10/2026 9:32 am, Lance Yang wrote:
+>>>> On 2026/10/5 16:19, Andrew Cooper wrote:
+>>>>> On 05/10/2026 8:29 am, Lance Yang wrote:
+>>>>>>>
+>>>>>>> Did you repro any bug related to this? The functionality is perhaps
+>>>>>>> underspecified in the AMD manual.
+>>>>>>
+>>>>>> TBH, I don't have a reproducer yet. Just LLM stumbled upon this while
+>>>>>> I was investigating another memory corruption issue [1].
+>>>>>>
+>>>>>> [1]
+>>>>>> https://lore.kernel.org/linux-mm/arY1Wq6R9OY20ans@pcnci.linuxbox.cz/#t
+>>>>>>
+>>>>>
+>>>>> What hardware are you running on?
+>>>>>
+>>>>> That looks like the Zen5 issue, for which you want either the latest
+>>>>> microcode out of linux-firmware and/or
+>>>>> https://lore.kernel.org/r/20261002211617.1001617-1-bp@kernel.org
+>>>>>
+>>>>> TCE is a no-op in Zen1 and later, so unless you're on older
+>>>>> hardware, it
+>>>>> won't be that.
+>>>>
+>>>> Just to clarify ... these are two separate issues.
+>>>>
+>>>> I mentioned [1] only to explain how this came up while investigating
+>>>> something else. I'm not claiming that TCE caused the corruption
+>>>> reported
+>>>> there :)
+>>>
+>>> Please can you answer the question.  Which CPU are you seeing this on?
+>>>
+>>
+>> Which CPU? None so far. As I said, I don't have a reproducer. I'm trying
+>> to make sense of what the manual says and what the code does ...
+> 
+> I'm afraid that if you're trying to be helpful, you've had entirely the
+> opposite effect.
+> 
+> TLB handling is a complicated topic.  What you've done is present what
+> is effectively a query about the AMD manual as if it were a bugfix for
+> an critical-sounding issue.  You even sited a real bug-report for an
+> actually-critical issue, despite it turning out to have nothing to do
+> with your submission.
+> 
+> The patch is buggy.  For starters, you should be checking is whether TCE
+> is enabled, not whether it's available on the system.  This causes the
+> more expensive option to use used even when TCE is turned off.
+> 
+> But, AIUI INVLPG only flushes the whole structure cache because of a
+> windows bug which caused it to crash on a 486.  AMD deliberately
+> introduced TCE to remove this overhead for every OS which didn't want
+> lumbering with a workaround for buggy windows.
+> 
+> Linux currently believes that it's TLB invalidation algorithm is
+> compatible with TCE, so at a bare minimum, you need to have some kind of
+> discussion on why you believe this not to be true before claiming that
+> it "might be unsafe because the manual says so".
+> 
+> 
+> It's fine to ask a question, and even ask "so shouldn't the code look
+> like this?" but such a patch needs a very clear RFC or QUESTION tag.
 
-Thanks,
-Wayne
+Thanks for explaining! Lesson learned. I should have made it clear
+that this was a question about the manual ...
+
+Let's drop the patch. I'll take another look.
+
