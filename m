@@ -1,139 +1,121 @@
-Received: from proxmox-new.maurer-it.com (proxmox-new.maurer-it.com [94.136.29.106])
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.10])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1E79148BD29;
-	Mon,  5 Oct 2026 14:06:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=94.136.29.106
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 524944968F0;
+	Mon,  5 Oct 2026 14:07:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.10
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791209209; cv=none; b=h3oGwPex1DLsnpqwQzaEMM/U7Ef1K5de3BM1AqVWGGzXbPsMfz2TfuPcuj5HKgi3X7KwjqOQgw18YFpCvoe6RSneWC79jS6IyPnL7WJxPNGnlQPuN5HdB796qMb+dhKHCORRbOe5uSw6/Ub+60fhI38L4v+UD1TxyocTuH6pyjs=
+	t=1791209225; cv=none; b=i2DGJH/9FkFcUwKRwtZS8MruCw0rL8XoeAxVyjfRQPyyr6ZtRYB6DJ4cjziewubwFn4Y2VjrmKc92siM01QOn51orI57wY/Vm1vVniNMEvltEbUVkBzlIwmBfo6XmsN4ncPTBc5YZwh1AaUQpW3P68K7KUxbB5oTD81rovv/hwU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791209209; c=relaxed/simple;
-	bh=p1HsFVRFpCHQyno+iaA9TH4o+Ur+oGzvppKT1DuYC9U=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=aWpWydgQnGkqQ15BPjgbQL6JfjdzNugdqWh80j7IUOyNBMXAWDIyaK0U3StJMheRB6a3LC1L4qx0/c9z8NKxcvrzh5CblZpU+IyTFs+Nm5T7Dv2mdNnVGe1YZo1QqL2P38Rf/ITWwGTi95aYEAi23KsX6mTJ0o4kcBFFAR645tw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=proxmox.com; spf=pass smtp.mailfrom=proxmox.com; arc=none smtp.client-ip=94.136.29.106
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=proxmox.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=proxmox.com
-Received: from proxmox-new.maurer-it.com (localhost.localdomain [127.0.0.1])
-	by proxmox-new.maurer-it.com (Proxmox) with ESMTP id 6A62E453DB;
-	Mon, 05 Oct 2026 16:06:43 +0200 (CEST)
-From: Gabriel Goller <g.goller@proxmox.com>
-To: Andrea Mayer <andrea.mayer@uniroma2.it>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>
-Cc: netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v4] net: ipv6: seg6: report lwtunnel setup errors via extack
-Date: Mon,  5 Oct 2026 16:06:34 +0200
-Message-ID: <20261005140637.644840-1-g.goller@proxmox.com>
-X-Mailer: git-send-email 2.47.3
+	s=arc-20240116; t=1791209225; c=relaxed/simple;
+	bh=K0C7ZRKkYc5oZdVRs/GKc0PcrqSunya3jpm+B/s738A=;
+	h=From:Date:To:cc:Subject:In-Reply-To:Message-ID:References:
+	 MIME-Version:Content-Type; b=AgCtIZToCPJpWmmROLnKjeZ1trHTbpeIV3rRoy2Mzwkl+mxO3DhKTllhFb+A7eyQqjk4IhL8+Zk2ZkBHX7PDJ3Zeyzp4LMJOWcciX28c3qCJVs4ZWSphMOhhnnk3D/ESL4rBSat8A4dpLnwhgP8Q64frhRGwN2gtiWtn5hVOPns=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=ODx0X0Wd; arc=none smtp.client-ip=198.175.65.10
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="ODx0X0Wd"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1791209223; x=1822745223;
+  h=from:date:to:cc:subject:in-reply-to:message-id:
+   references:mime-version;
+  bh=K0C7ZRKkYc5oZdVRs/GKc0PcrqSunya3jpm+B/s738A=;
+  b=ODx0X0WdaA06D6MFnWeBIukY2F49/IRcniZMryPY+wsggNBtRkXWxrmA
+   uvV8sav3pSmifP5KR6g6k6b0UewO1TWv1tncd4QFzN6yu3WZgQWdRvRQS
+   p4MuYEV16P2tDXv9nJVZZukOo3GTDFsLKQxaqYf0X8v5J8MVS4ecInvm1
+   01uU6Xuv5/JAiZi0dm4/AcTAFBuS6gtyLcx1xdEvHSZQIb34yKXtnpebn
+   wUN0kijx0UKgnW3sb8hapafgO0XvfPRWDYa9U9TvsYzd8BORdHMNKxduq
+   MGEAm1/UR0ikFjIasJqQjBJSD89kmG9WGrMSk0Zdet8eqfNvSEXnTy8j5
+   Q==;
+X-CSE-ConnectionGUID: N5rKgR2IStO2uAhwU4w92g==
+X-CSE-MsgGUID: eySDoEL8TRepIKEVMZ8XoQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11926"; a="108258378"
+X-IronPort-AV: E=Sophos;i="6.27,142,1787036400"; 
+   d="scan'208";a="108258378"
+Received: from fmviesa006.fm.intel.com ([10.60.135.146])
+  by orvoesa102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 05 Oct 2026 07:07:02 -0700
+X-CSE-ConnectionGUID: vJIhLKHiQUegmUG9SptLAQ==
+X-CSE-MsgGUID: k1YgWq2ASWeeSeSx6XJYfQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,142,1787036400"; 
+   d="scan'208";a="275471331"
+Received: from ijarvine-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.199])
+  by fmviesa006-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 05 Oct 2026 07:07:00 -0700
+From: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
+Date: Mon, 5 Oct 2026 17:06:57 +0300 (EEST)
+To: Aaron Erhardt <aer@tuxedocomputers.com>
+cc: Werner Sembach <wse@tuxedocomputers.com>, Hans de Goede <hansg@kernel.org>, 
+    platform-driver-x86@vger.kernel.org, LKML <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH v4 4/6] platform/x86/tuxedo: Fix keyboard LED map
+ ordering
+In-Reply-To: <20260928085448.9024-5-aer@tuxedocomputers.com>
+Message-ID: <c6592aba-a3af-f012-361f-52e29b070459@linux.intel.com>
+References: <20260928085448.9024-1-aer@tuxedocomputers.com> <20260928085448.9024-5-aer@tuxedocomputers.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Bm-Milter-Handled: 55990f41-d878-4baa-be0a-ee34c49e34d2
-X-Bm-Transport-Timestamp: 1791209202531
+Content-Type: text/plain; charset=US-ASCII
 
-seg6_build_state() rejected invalid configurations with a generic -EINVAL,
-so "ip route add ... encap seg6 ..." always reported "Invalid argument".
+On Mon, 28 Sep 2026, Aaron Erhardt wrote:
 
-Attach an extack message to each of them. The checks themselves and their
-return values are unchanged.
+> The LED mappings in sirius_16_[iso|ansii]_kbl_map did contain a
+> flipped line that caused LEDs to turn on in the wrong order when
+> counting up the Lamp ID.
+> 
+> Fixes: cfd84b3f419b
 
-Signed-off-by: Gabriel Goller <g.goller@proxmox.com>
----
+Please see Documentation/process/submitting-patches.rst how to format 
+the Fixes tag properly.
 
-v4 (https://lore.kernel.org/all/20260923120228.172643-1-g.goller@proxmox.com/):
- * use NL_SET_ERR_MSG when the SRH attr is missing
- * use NL_SET_ERR_MSG_ATTR when we have an invalid attr
+You seem to also have not carried over Werner's Reviewed-by tags to a new 
+version. Whenever you're submitting a new version of the series, collect 
+the tags given to the previous version. (Only if you've done very major
+changes to the patches, it may be warranted to not include tags given 
+earlier.)
 
-v3 (https://lore.kernel.org/all/20260922090851.38978-1-g.goller@proxmox.com/):
- * format fix
- * use NL_SET_ERR_MSG_ATTR
+Generally, maintainer tools will only pick tags for the current version of 
+the series (err'ing to the side of caution) which is why submitters are 
+expected to do that when a new version gets posted.
 
-v2 (https://lore.kernel.org/all/20260918153544.1178884-1-g.goller@proxmox.com/):
- * dropped tests
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Aaron Erhardt <aer@tuxedocomputers.com>
+> ---
+>  drivers/platform/x86/tuxedo/nb04/wmi_ab.c | 8 ++++----
+>  1 file changed, 4 insertions(+), 4 deletions(-)
+> 
+> diff --git a/drivers/platform/x86/tuxedo/nb04/wmi_ab.c b/drivers/platform/x86/tuxedo/nb04/wmi_ab.c
+> index 8f1ffca0430d..2b985b030197 100644
+> --- a/drivers/platform/x86/tuxedo/nb04/wmi_ab.c
+> +++ b/drivers/platform/x86/tuxedo/nb04/wmi_ab.c
+> @@ -232,8 +232,8 @@ static const struct tux_kbl_map_entry_t sirius_16_ansii_kbl_map[] = {
+>  	{ 0x2e, { 246000,  67500, 5250 } },
+>  	{ 0x2a, { 269500,  67500, 5250 } },
+>  	{ 0x53, { 294500,  67500, 5250 } },
+> -	{ 0x55, { 311200,  67500, 5250 } },
+> -	{ 0x54, { 327900,  67500, 5250 } },
+> +	{ 0x54, { 311200,  67500, 5250 } },
+> +	{ 0x55, { 327900,  67500, 5250 } },
+>  	{ 0x56, { 344600,  67500, 5250 } },
+>  	{ 0x2b, {  31000,  85500, 5500 } },
+>  	{ 0x14, {  51500,  85500, 5500 } },
+> @@ -337,8 +337,8 @@ static const struct tux_kbl_map_entry_t sirius_16_iso_kbl_map[] = {
+>  	{ 0x2e, { 246000,  67500, 5250 } },
+>  	{ 0x2a, { 269500,  67500, 5250 } },
+>  	{ 0x53, { 294500,  67500, 5250 } },
+> -	{ 0x55, { 311200,  67500, 5250 } },
+> -	{ 0x54, { 327900,  67500, 5250 } },
+> +	{ 0x54, { 311200,  67500, 5250 } },
+> +	{ 0x55, { 327900,  67500, 5250 } },
+>  	{ 0x56, { 344600,  67500, 5250 } },
+>  	{ 0x2b, {  31000,  85500, 5500 } },
+>  	{ 0x14, {  51500,  85500, 5500 } },
+> 
 
- net/ipv6/seg6_iptunnel.c | 27 ++++++++++++++++++++++-----
- 1 file changed, 22 insertions(+), 5 deletions(-)
-
-diff --git a/net/ipv6/seg6_iptunnel.c b/net/ipv6/seg6_iptunnel.c
-index 69a6ef5c5317..73160179a545 100644
---- a/net/ipv6/seg6_iptunnel.c
-+++ b/net/ipv6/seg6_iptunnel.c
-@@ -762,8 +762,11 @@ static int seg6_build_state(struct net *net, struct nlattr *nla,
- 	struct seg6_lwt *slwt;
- 	int err;
- 
--	if (family != AF_INET && family != AF_INET6)
-+	if (family != AF_INET && family != AF_INET6) {
-+		NL_SET_ERR_MSG(extack,
-+			       "unsupported address family for SRv6 encapsulation");
- 		return -EINVAL;
-+	}
- 
- 	err = nla_parse_nested_deprecated(tb, SEG6_IPTUNNEL_MAX, nla,
- 					  seg6_iptunnel_policy, extack);
-@@ -771,8 +774,10 @@ static int seg6_build_state(struct net *net, struct nlattr *nla,
- 	if (err < 0)
- 		return err;
- 
--	if (!tb[SEG6_IPTUNNEL_SRH])
-+	if (!tb[SEG6_IPTUNNEL_SRH]) {
-+		NL_SET_ERR_MSG(extack, "missing SRv6 SRH attribute");
- 		return -EINVAL;
-+	}
- 
- 	tuninfo = nla_data(tb[SEG6_IPTUNNEL_SRH]);
- 	tuninfo_len = nla_len(tb[SEG6_IPTUNNEL_SRH]);
-@@ -782,13 +787,19 @@ static int seg6_build_state(struct net *net, struct nlattr *nla,
- 	 */
- 	min_size = sizeof(*tuninfo) + sizeof(struct ipv6_sr_hdr) +
- 		   sizeof(struct in6_addr);
--	if (tuninfo_len < min_size)
-+	if (tuninfo_len < min_size) {
-+		NL_SET_ERR_MSG_ATTR(extack, tb[SEG6_IPTUNNEL_SRH],
-+				    "truncated SRv6 SRH attribute");
- 		return -EINVAL;
-+	}
- 
- 	switch (tuninfo->mode) {
- 	case SEG6_IPTUN_MODE_INLINE:
--		if (family != AF_INET6)
-+		if (family != AF_INET6) {
-+			NL_SET_ERR_MSG_ATTR(extack, tb[SEG6_IPTUNNEL_SRH],
-+					    "inline mode requires an IPv6 route");
- 			return -EINVAL;
-+		}
- 
- 		if (tb[SEG6_IPTUNNEL_SRC]) {
- 			NL_SET_ERR_MSG(extack, "incompatible mode for tunsrc");
-@@ -804,12 +815,18 @@ static int seg6_build_state(struct net *net, struct nlattr *nla,
- 	case SEG6_IPTUN_MODE_L2ENCAP_RED:
- 		break;
- 	default:
-+		NL_SET_ERR_MSG_ATTR(extack, tb[SEG6_IPTUNNEL_SRH],
-+				    "invalid SRv6 encapsulation mode");
- 		return -EINVAL;
- 	}
- 
- 	/* verify that SRH is consistent */
--	if (!seg6_validate_srh(tuninfo->srh, tuninfo_len - sizeof(*tuninfo), false))
-+	if (!seg6_validate_srh(tuninfo->srh, tuninfo_len - sizeof(*tuninfo),
-+			       false)) {
-+		NL_SET_ERR_MSG_ATTR(extack, tb[SEG6_IPTUNNEL_SRH],
-+				    "invalid SRv6 segment routing header");
- 		return -EINVAL;
-+	}
- 
- 	newts = lwtunnel_state_alloc(tuninfo_len + sizeof(*slwt));
- 	if (!newts)
 -- 
-2.47.3
-
+ i.
 
