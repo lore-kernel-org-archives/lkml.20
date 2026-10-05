@@ -1,75 +1,78 @@
-Received: from mail-pl1-f227.google.com (mail-pl1-f227.google.com [209.85.214.227])
+Received: from mail-yx1-f99.google.com (mail-yx1-f99.google.com [74.125.224.99])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 772A3423EBA
-	for <linux-kernel@vger.kernel.org>; Mon,  5 Oct 2026 12:18:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.227
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AB5C047ECCC
+	for <linux-kernel@vger.kernel.org>; Mon,  5 Oct 2026 12:18:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.224.99
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791202715; cv=none; b=NeFOlFcoFBAdEzJ84usSNprNjFbQ2ffBxka9K62besE2l+aiUTwIIVT/c05sE0g+LUZVojgGNnx3PeNvtHXVwpIFIYzPfFVMe3VeUd1bMf55iEPKGm/1DNrKQ845dnyLcmsugjUekPavXUA21JHS8ITiJqHoEKA6jT6TJ5ZrHg8=
+	t=1791202722; cv=none; b=G1E2MCc0Y+mHqQP8GIxmpqGQoqdMRnlJHl1cPg7+sC2gk+l5xitQ6YOmfJ4VG936sUGf2FFRm6bqLGxWBRJq8GcvDYyFleDF6uEUxsy0JhO11+YQ+7dMdQY/xkMkwVEHSScGvAX9xS6qfrjV5hYKZPkTcVl6X9YVlOn0+gL+Pn4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791202715; c=relaxed/simple;
-	bh=YeuUasXs+6xt7daRBb8mSHnS9/zyWR2dsiVqHatSlXo=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=NQ3BJpDKE56DlIs48T9aDALLe5mS9WQZJ/lNkG9zqP4aZGV+0k8HWVwY1hUCLht6Y0tyQo6TOPu/26W36/v8UXH0IuTZ+rPeyOoFIgHbFUXmKnho18JY9unao3M9mhXMxVI+zOC6BCDGIqHFhCJbGwEIEDCgYVJSsSixVnLakQU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com; spf=fail smtp.mailfrom=broadcom.com; dkim=pass (1024-bit key) header.d=broadcom.com header.i=@broadcom.com header.b=gUu0pHqG; arc=none smtp.client-ip=209.85.214.227
+	s=arc-20240116; t=1791202722; c=relaxed/simple;
+	bh=/LIJEt6ejiM4yERzOT0rN7VVwt8hL8mUZVByIZk08+Y=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=VSoKNp7BWgEVi4a9VmZQ1/TfgYgPTV1HZtW+mMYOytzSWT2+Amtkb6ZYMV8+UZx4dGI+GdeNPD/WY/WWwQbQSbMcm+AL4NIlvQ1aGgtFcufqUKxgbl+kL58w/7WIVgjzjbOfvs/Al3HUxjGmX2OU1wrPWghausEKf2RrjwZJFuE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com; spf=fail smtp.mailfrom=broadcom.com; dkim=pass (1024-bit key) header.d=broadcom.com header.i=@broadcom.com header.b=SCaHe6Rc; arc=none smtp.client-ip=74.125.224.99
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com
 Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=broadcom.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=broadcom.com header.i=@broadcom.com header.b="gUu0pHqG"
-Received: by mail-pl1-f227.google.com with SMTP id d9443c01a7336-2db18e5cb56so2886065ad.0
-        for <linux-kernel@vger.kernel.org>; Mon, 05 Oct 2026 05:18:34 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=broadcom.com header.i=@broadcom.com header.b="SCaHe6Rc"
+Received: by mail-yx1-f99.google.com with SMTP id 956f58d0204a3-6714595153cso894984d50.0
+        for <linux-kernel@vger.kernel.org>; Mon, 05 Oct 2026 05:18:40 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791202714; x=1791807514;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:dkim-signature:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=T0Lp2TEBCmYO9pyb+VFPjyIlyK9zV+FfIYIe/n06RwY=;
-        b=0egqihzLUw7C9UrujVmobs9pBJz30l/no8Y3jsPTkZ4NHY8zJgi3TjXuhGQri7oz0O
-         96yFsHzPMMhvz6Lq/pKiUZskExg4orD0OfwMbgOdEkkmBnC3jP43eg4i+A/XYmiOXIVn
-         DGGowymJSsS4bGEcwyES4qPsu4eL68J3y1ynp5LvLsgI3Eom8UdSgHNXK4TYmLDH37u1
-         GKontKiWmlYFUQLz0MLm8ihgQ8DpMFLOZgACHGDrKwNvifAyeXUIed1l0zvqMY2ZpYEg
-         UWCdBR/WxcO8OyZsYvjq0yJqw8NqYzd4Cyrd7nJsibMy9roZcJLGqgbqhXId4CIMDi4Y
-         ORPQ==
-X-Forwarded-Encrypted: i=1; AKwUvBz6pHgRtTrVu7B/3EpCQ/S9/R/0dDa9y+lMtx0n8bK6+3smwPGeIxwrXf8YFjj0ZRfu04R4s1if5c+gclI=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIiZyLZpIPgXwRIDvKCx7lvMo4kd6GAjgFiCqnhGMi0RBm1pc8T
-	BMwondRDduflDrVDwMUG/JeeRyVNN/nBaiNDtlA5JgrusNuI64mLuec/079ygwGLVPo+hGB14nY
-	szabw2vyFB6EJXP5WZVCIGCG7injGeeLDA1MHJsU2S1rUXLpvy5Qcxdc53XbsrGFzy9wRqQmfay
-	UR6bY+/wSlEtsRztnWzfsCZ0UtGqIAtnhfBi7mPYvzE4e7dV8SMt9pHfSl/jUaV21ev0YrfLOQ6
-	IM4htSXgQk5f24D+68e+x5Rvw==
-X-Gm-Gg: AYBFou11XdtfOs8L1nKxrECI2rcevFBV6F7SxTdLy2kttnYAz6aSRHQMboVMRMlqGyI
-	vp3KNno1lgDiccpqsm4iPJRvDu7vGkghcjtk9wNoSwgscCJy7mmUi5QRi2pz70ImOu6VUVEzPgF
-	YH+2a1vh7Z/0gk0THtU51Rt60kmBJuGK6G11Kqdtw44K5lTvjG4hruWcM78xyp4wI9UvJdM7I/n
-	iVY1KHLR97Malf2ythvj2X/Vr+sj2W6kYXAkdQ+E+Df1kS3oXor2JrUgyj55ytrjMFoBvw4pMof
-	A2W8yscZR/v13vYcjjO25M1CWAq5ZXqVRYwzqaSb1uvfIuoXCfCfoKIhXvrAQuvWqzbxggMKLh+
-	q6VMzUoQxJnFOkL9KBp8iGMAstMoVWRrb6C2aj91ApoPNCTIolIu3du/19Bjw4wrAeUCheppEHb
-	L8P+49B3KS96whTUPNBe8dxu5UOSa0+/u9PSZv+WAX5PMr
-X-Received: by 2002:a17:90b:3842:b0:3a0:9fe0:3aaf with SMTP id 98e67ed59e1d1-3a6ce823cb2mr8437576a91.48.1791202713703;
-        Mon, 05 Oct 2026 05:18:33 -0700 (PDT)
+        d=1e100.net; s=20260707; t=1791202719; x=1791807519;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:dkim-signature:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=W16N+IdCORWhF5gZqUbJpJO3Io4bveWZ57iIEGn649w=;
+        b=pHuIaG48/Ni1dm1dpT2WLB3Ql+u+OouJYm9G7ZEdPu4Q0rps33zWhmRU/uhIShsvEM
+         /K1vUOWnRmsu8FzQncrZT6iw0/Z0EYbU9ubfxJ0kiD720mf8gLpSBSISZI+VzuxnDXA3
+         gPhljVkG92EYwNSd8lYNu+PS/QvXYfNnMFYPIovGWdZXGlCPKm1AyUaC+1vOkW9u2Wh9
+         3VlZ4P5nrESyCeu+gIwNcBEd+G2WRu2GEQEOf45M4lS73/yIBADxNIobPDQp0GDh8qlX
+         Cl/Z1pAh8zk0sNPHKuKJf1ZkmhOCFQIAXeF41CS/iTPhxHRiEv45tdkIG2Gk9FQhqqdr
+         VV1A==
+X-Forwarded-Encrypted: i=1; AKwUvBzMAVNogksgYegThHZuTGD682jj+L2OmmJEz4AP4aoR6wl0q5sju7z7DTtCXpR4GbEszXftfw8UbhztVzc=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJJxmHXeEw9PLmyV2dn4voWvmpqSzYh38QdNgSSlc2tSM1UKvpo
+	4t66pgoqMDQPWGwm5Bdqc+ckm6nsFsEnPVwuefoLZkDYM2xcJ2JqGnBALPp6H8FLk1RG5fABpSB
+	6PtE9V9PjXoJE6R2PdX1OjA0iMxbdWSZGVXawSzlv1GVGlIKmxbvfEt2RC6FdFW1yZeL/730ET1
+	+uHbGpLdnqg5itpT71Pceq+GgvFPKdYyD2y5k3IOQ+NckhCcvs9ocZlE0ggcYFdfC4s1lzVeB78
+	UvmjOFLDFi9limGACMon/pjVA==
+X-Gm-Gg: AYBFou0u4lVck/QIFhWiypNQB/ADpmwLPegTfeDQG4lSvkrBUASC1XV3MSZMvZUZFz1
+	vKOcVGUlJYZwG5O6zUKGxqARHevpnjWeN+XGXsh4S3dWaxy+IHCmryFx8ET42Y8Z4nN8uj+nJaJ
+	MMaoxisaY0g4X02shaGo70qaeRJRa6hqHw1Gee4N3BoO7o9VD7b3liCGmm59jBS8u64408wwLJr
+	Bdh57pMA5e7x5cG4c0WYW2SxE5+k96ZzZWkCrfBQsiDD3x6/hKpleqfLoRsUhNtDAxsfjrYEWww
+	j+vW/g1rGyYzw8K8F6UOpptstHPnkltXG/RLsUam+C9eMDsnhPtzoJMEqwAImvOwxuzZgXRFm+T
+	hD/QptjtSpOfMddlrt5YDq+995Yjd63CqWsb0iprxqkL6CPWSj3Na+qH5jFlC6P4KybgYGna51p
+	MHkB0o4gxpV9hHUaD9f2N3R0xvmSZALE3tn+8FRPp69XwJ
+X-Received: by 2002:a05:690e:1c4:b0:675:449d:3d68 with SMTP id 956f58d0204a3-677ac1a8545mr2818761d50.31.1791202719525;
+        Mon, 05 Oct 2026 05:18:39 -0700 (PDT)
 Received: from smtp-us-east1-p01-i01-si01.dlp.protect.broadcom.com (address-144-49-247-120.dlp.protect.broadcom.com. [144.49.247.120])
-        by smtp-relay.gmail.com with ESMTPS id 98e67ed59e1d1-3a78e2dc1b0sm4437127a91.1.2026.10.05.05.18.33
+        by smtp-relay.gmail.com with ESMTPS id 956f58d0204a3-677c1ae866fsm1282979d50.11.2026.10.05.05.18.38
         for <linux-kernel@vger.kernel.org>
         (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
-        Mon, 05 Oct 2026 05:18:33 -0700 (PDT)
+        Mon, 05 Oct 2026 05:18:39 -0700 (PDT)
 X-Relaying-Domain: broadcom.com
 X-CFilter-Loop: Reflected
-Received: by mail-dy1-f197.google.com with SMTP id 5a478bee46e88-313d1015161so5128979eec.1
-        for <linux-kernel@vger.kernel.org>; Mon, 05 Oct 2026 05:18:32 -0700 (PDT)
+Received: by mail-dy1-f199.google.com with SMTP id 5a478bee46e88-3282d5302ffso2361880eec.1
+        for <linux-kernel@vger.kernel.org>; Mon, 05 Oct 2026 05:18:38 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=broadcom.com; s=google; t=1791202712; x=1791807512; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=T0Lp2TEBCmYO9pyb+VFPjyIlyK9zV+FfIYIe/n06RwY=;
-        b=gUu0pHqGxR1WQojj0s3RdFtG6rXaURi1FqirgaJwJnHiL9+q0LHTRVEiBfVjrZZhTB
-         lCpNKNQfd4UBzfJrwAamT2YtR6rc6caQO8MD/rQLfLo1MYAulkzIIBAFt+fW7R3AXQ8A
-         kLyG9wvmsX6eVVSyOocHlJfkZk4PPXhfqIiFU=
-X-Forwarded-Encrypted: i=1; AKwUvBxaTF5y7QhjdpTx3pXzo/BEqqj9IHkXH/5lH2XVYfi0jLWSG2ayVutY89yKciwkF3x8ni6OxNL5Ti+hatQ=@vger.kernel.org
-X-Received: by 2002:a05:693c:8952:20b0:351:207d:bff4 with SMTP id 5a478bee46e88-351207dc13amr6603687eec.4.1791202711661;
-        Mon, 05 Oct 2026 05:18:31 -0700 (PDT)
-X-Received: by 2002:a05:693c:8952:20b0:351:207d:bff4 with SMTP id 5a478bee46e88-351207dc13amr6603650eec.4.1791202710909;
-        Mon, 05 Oct 2026 05:18:30 -0700 (PDT)
+        d=broadcom.com; s=google; t=1791202718; x=1791807518; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=W16N+IdCORWhF5gZqUbJpJO3Io4bveWZ57iIEGn649w=;
+        b=SCaHe6RcFeIw21SZFCyPxxrbckzaIQ6AjbHwhlyzc4dAlRG79SMUPhusUd/7OM0Ydl
+         4VYVyvd12Xpqfpb0Punuv6/ZepK9t4uV5UpzMMcnKKkynJN+OLsOUzB6v/TNLl3JoC0X
+         wk5ECw2KKhC4GtqR+IH1MnE1LeqiCP7U9NRT4=
+X-Forwarded-Encrypted: i=1; AKwUvByjLvR+uAor9t4bUddoXEUkNGZWU15gi/VCUcwS7TGCUTZNXqlYouHE0FpiyFuyqhWMFf2qLtTd44YMn4g=@vger.kernel.org
+X-Received: by 2002:a05:693c:894b:20b0:351:2f0a:cb2a with SMTP id 5a478bee46e88-3512f0acda4mr3139205eec.2.1791202717981;
+        Mon, 05 Oct 2026 05:18:37 -0700 (PDT)
+X-Received: by 2002:a05:693c:894b:20b0:351:2f0a:cb2a with SMTP id 5a478bee46e88-3512f0acda4mr3139181eec.2.1791202717100;
+        Mon, 05 Oct 2026 05:18:37 -0700 (PDT)
 Received: from localhost.localdomain ([192.19.203.250])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-351272ceb02sm25687542eec.25.2026.10.05.05.18.26
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-351272ceb02sm25687542eec.25.2026.10.05.05.18.31
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 05 Oct 2026 05:18:30 -0700 (PDT)
+        Mon, 05 Oct 2026 05:18:36 -0700 (PDT)
 From: Bhargava Marreddy <bhargava.marreddy@broadcom.com>
 To: davem@davemloft.net,
 	edumazet@google.com,
@@ -83,11 +86,16 @@ Cc: netdev@vger.kernel.org,
 	pavan.chebbi@broadcom.com,
 	vsrama-krishna.nemani@broadcom.com,
 	vikas.gupta@broadcom.com,
-	Bhargava Marreddy <bhargava.marreddy@broadcom.com>
-Subject: [PATCH net 0/4] bnge: Fix error-path and IRQ setup bugs in probe/open
-Date: Mon,  5 Oct 2026 17:47:00 +0530
-Message-ID: <20261005121704.227866-1-bhargava.marreddy@broadcom.com>
+	Bhargava Marreddy <bhargava.marreddy@broadcom.com>,
+	Dharmender Garg <dharmender.garg@broadcom.com>,
+	Rajashekar Hudumula <rajashekar.hudumula@broadcom.com>,
+	Ramakrishna Koduri <ramakrishna.koduri@broadcom.com>
+Subject: [PATCH net 1/4] bnge: fix NULL deref in bnge_alloc_core() on failure
+Date: Mon,  5 Oct 2026 17:47:01 +0530
+Message-ID: <20261005121704.227866-2-bhargava.marreddy@broadcom.com>
 X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20261005121704.227866-1-bhargava.marreddy@broadcom.com>
+References: <20261005121704.227866-1-bhargava.marreddy@broadcom.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -97,27 +105,125 @@ MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-DetectorID-Processed: b00c1d49-9d2e-4205-b15f-d015386d3d5e
 
-Four independent fixes for existing bugs in the bnge driver's probe/open
-path:
+bnge_alloc_core() previously jumped to a single error label that called
+bnge_free_core() to unwind. However, bnge_free_core() assumes a fully
+initialized state and dereferences rx/tx ring arrays unconditionally.
+If ring allocations fail early, this causes a near-NULL dereference.
 
- [1/4] Unwind bnge_alloc_core() incrementally to avoid a NULL deref when an
-       allocation fails.
- [2/4] Require aux_msix + min vectors so nq_nr_rings cannot end up 0.
- [3/4] Treat an irq_set_affinity_hint() failure as a warning, not an open
-       failure.
- [4/4] Clear bd->netdev when bnge_netdev_alloc() fails so it does not
-       point at a freed net_device.
+Introduce a standard goto ladder to unwind only the resources that were
+successfully allocated, preventing NULL dereferences.
 
-Bhargava Marreddy (4):
-  bnge: fix NULL deref in bnge_alloc_core() on failure
-  bnge: require NQ vectors beyond aux reservation
-  bnge: do not fail open if IRQ affinity hint fails
-  bnge: clear bd->netdev on allocation failure
+Fixes: 0259379037ca ("bng_en: Add initial support for RX and TX rings")
+Signed-off-by: Bhargava Marreddy <bhargava.marreddy@broadcom.com>
+Reviewed-by: Dharmender Garg <dharmender.garg@broadcom.com>
+Reviewed-by: Rajashekar Hudumula <rajashekar.hudumula@broadcom.com>
+Reviewed-by: Ramakrishna Koduri <ramakrishna.koduri@broadcom.com>
+---
+ .../net/ethernet/broadcom/bnge/bnge_netdev.c  | 46 ++++++++++++++-----
+ 1 file changed, 34 insertions(+), 12 deletions(-)
 
- .../net/ethernet/broadcom/bnge/bnge_netdev.c  | 51 +++++++++++++------
- .../net/ethernet/broadcom/bnge/bnge_resc.c    |  2 +-
- 2 files changed, 37 insertions(+), 16 deletions(-)
-
+diff --git a/drivers/net/ethernet/broadcom/bnge/bnge_netdev.c b/drivers/net/ethernet/broadcom/bnge/bnge_netdev.c
+index a4288f0258f8..bf101eded3bf 100644
+--- a/drivers/net/ethernet/broadcom/bnge/bnge_netdev.c
++++ b/drivers/net/ethernet/broadcom/bnge/bnge_netdev.c
+@@ -1243,7 +1243,7 @@ static int bnge_alloc_core(struct bnge_net *bn)
+ 
+ 	bn->rx_ring = kzalloc_objs(struct bnge_rx_ring_info, bd->rx_nr_rings);
+ 	if (!bn->rx_ring)
+-		goto err_free_core;
++		goto err_free_bnapi;
+ 
+ 	for (i = 0; i < bd->rx_nr_rings; i++) {
+ 		struct bnge_rx_ring_info *rxr = &bn->rx_ring[i];
+@@ -1258,12 +1258,12 @@ static int bnge_alloc_core(struct bnge_net *bn)
+ 
+ 	bn->tx_ring = kzalloc_objs(struct bnge_tx_ring_info, bd->tx_nr_rings);
+ 	if (!bn->tx_ring)
+-		goto err_free_core;
++		goto err_free_rx_ring;
+ 
+ 	bn->tx_ring_map = kcalloc(bd->tx_nr_rings, sizeof(u16),
+ 				  GFP_KERNEL);
+ 	if (!bn->tx_ring_map)
+-		goto err_free_core;
++		goto err_free_tx_ring;
+ 
+ 	if (bd->flags & BNGE_EN_SHARED_CHNL)
+ 		j = 0;
+@@ -1289,42 +1289,64 @@ static int bnge_alloc_core(struct bnge_net *bn)
+ 
+ 	rc = bnge_alloc_ring_stats(bn);
+ 	if (rc)
+-		goto err_free_core;
++		goto err_free_tx_ring_map;
+ 
+ 	bnge_init_stats(bn);
+ 
+ 	rc = bnge_alloc_vnics(bn);
+ 	if (rc)
+-		goto err_free_core;
++		goto err_free_ring_stats;
+ 
+ 	rc = bnge_alloc_nq_arrays(bn);
+ 	if (rc)
+-		goto err_free_core;
++		goto err_free_vnics;
+ 
+ 	bnge_init_ring_struct(bn);
+ 
+ 	rc = bnge_alloc_rx_rings(bn);
+ 	if (rc)
+-		goto err_free_core;
++		goto err_free_nq_arrays;
+ 
+ 	rc = bnge_alloc_tx_rings(bn);
+ 	if (rc)
+-		goto err_free_core;
++		goto err_free_rx_rings;
+ 
+ 	rc = bnge_alloc_nq_tree(bn);
+ 	if (rc)
+-		goto err_free_core;
++		goto err_free_tx_rings;
+ 
+ 	bn->vnic_info[BNGE_VNIC_DEFAULT].flags |= BNGE_VNIC_RSS_FLAG |
+ 						  BNGE_VNIC_MCAST_FLAG |
+ 						  BNGE_VNIC_UCAST_FLAG;
+ 	rc = bnge_alloc_vnic_attributes(bn);
+ 	if (rc)
+-		goto err_free_core;
++		goto err_free_nq_tree;
+ 	return 0;
+ 
+-err_free_core:
+-	bnge_free_core(bn);
++err_free_nq_tree:
++	bnge_free_nq_tree(bn);
++err_free_tx_rings:
++	bnge_free_tx_rings(bn);
++err_free_rx_rings:
++	bnge_free_rx_rings(bn);
++err_free_nq_arrays:
++	bnge_free_nq_arrays(bn);
++err_free_vnics:
++	bnge_free_vnics(bn);
++err_free_ring_stats:
++	bnge_free_ring_stats(bn);
++err_free_tx_ring_map:
++	kfree(bn->tx_ring_map);
++	bn->tx_ring_map = NULL;
++err_free_tx_ring:
++	kfree(bn->tx_ring);
++	bn->tx_ring = NULL;
++err_free_rx_ring:
++	kfree(bn->rx_ring);
++	bn->rx_ring = NULL;
++err_free_bnapi:
++	kfree(bn->bnapi);
++	bn->bnapi = NULL;
+ 	return rc;
+ }
+ 
 -- 
 2.47.3
 
