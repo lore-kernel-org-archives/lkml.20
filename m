@@ -1,113 +1,139 @@
-Received: from mta1.migadu.com (out-193.mta1.migadu.com [95.215.58.193])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mout-p-103.mailbox.org (mout-p-103.mailbox.org [80.241.56.161])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4D8D01632DD
-	for <linux-kernel@vger.kernel.org>; Mon,  5 Oct 2026 07:29:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.193
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 47DA9248881
+	for <linux-kernel@vger.kernel.org>; Mon,  5 Oct 2026 07:32:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=80.241.56.161
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791185378; cv=none; b=EPQHc/WJZoVtUyG/rbRlTgklzOnLi4ZzGaIt4d8v83tKzHh5FYFCYBgyBKfsH78TN7WNwT6X7UnIe0GZw/PMTRWiQTvdzlFqIFXnF+Lo0EZ2awFh++LlxRsLebKNE2brljZoL3WRWzW8Qq2CRfG0drc05mrAeatClmN2hBfIqzo=
+	t=1791185547; cv=none; b=qAJYDW1MWLtnw9NttQ2JnjVbcqqtgb/BDGf65R1Eo0dHaFdJXJnvi3aKmLmoLlhl1KUAuoqRysxyIM4Z4cGuld5El/DhpS0KqaVM+KYP7iDG141TcqKCqAyo6AsBXtcjuKhp+kAbBQ/tWuhEOJC0sYh84dHiE1M9yPHlv9JXt/0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791185378; c=relaxed/simple;
-	bh=sK9V2jYPHnq/dXSshCTHnIO11I1X6+eo1StxCE06jiE=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=FP+7t6B16l5Du43K3eoAMqXsDdobp2jEdBs7t8n9AoHDAPkAShlWnl8WPmV4aL+faWhcbH6v3i27NaMxZ2NRCWaw2SrAbnhj8DvYdLISleq/WNqyvOPK5nN/B9A/MbOlrj5sYVENDeKXyJvX0WrIEtjO0UEMaZ5aVi3G2el0oeY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=jYPdXbL0; arc=none smtp.client-ip=95.215.58.193
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1791185547; c=relaxed/simple;
+	bh=i3MhW3u4rI/7fSNYkPSGDXp9wwNmPkOkLpaVV2av/2g=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=WvzaseMUsIO0IliRfkr1g5uziwSG1oRDUQ5Q75rr9FC1a2C589OIQhpQvPtloWqCNsDENvGuefLiRGOfT8fBoW7CA2gs8B0YDtVBYb0447yMF1wVrB6kFS2iJdhnA1pTYa8n+QoxKB9JWfpdmaudoR23auiSFh7UssDUJsBHpJk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org; spf=pass smtp.mailfrom=mailbox.org; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=DHay7A2/; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=togabaCg; arc=none smtp.client-ip=80.241.56.161
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mailbox.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="jYPdXbL0"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=sK9V2jYPHnq/dXSshCTHnIO11I1X6+eo1StxCE06jiE=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1791185374; v=1; x=1791790174;
- b=jYPdXbL0bEvo4/CEfima5qxmIMBAoDtxF5EhkCsW2q8qWeMN+37WuD9rlTJbTbUItvpO1gcP
- pkgs9zmzljDymTwLNKL8wNHtGhoBJiVUE3lICIlRIFNx4iNfAi7j7DmMlZinl+ZKmwK89+yhY6b
- QEFMk5nv10+erCzergbo74uU=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 443fea304e721487;
-	Mon, 05 Oct 2026 07:29:33 +0000
-X-Mizu-Trace-ID: 443fea304e721487
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <60d5db86-8002-4d87-b8d3-c161d674122b@linux.dev>
-Date: Mon, 5 Oct 2026 15:29:22 +0800
+	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="DHay7A2/";
+	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="togabaCg"
+Received: from smtp2.mailbox.org (smtp2.mailbox.org [IPv6:2001:67c:2050:b231:465::2])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mout-p-103.mailbox.org (Postfix) with ESMTPS id 4hyrgq20D3zKm5M;
+	Mon, 05 Oct 2026 09:32:23 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
+	t=1791185543;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=EPCFXPYp6jHIgMNbN/Hqj2UocbXOr6W6kRzBx/pb5Cs=;
+	b=DHay7A2/ZgQeEUsXGbxwItE0gxgFmvvrrVc8KMIaFPXGKnL/VSCfJO1tG1wOM64IuQ9HF3
+	PEDPDJ827F9Ry4SRWb7vfBh86jKNOXsAkXwXAmxDeUQjCodPZDd9lLz7AGUU+JbO+1q+VO
+	NtFtdTByG44p9A+94SfypKU0YrF2BM5sUku+N95FJDpeYi1Cj5T8qkDlHhB2CEBp3RZzZE
+	uoI16HIonH4x7Rng5OqoOpgYTU1i2iGjMdNwz7agqHLxfhvKoyrU2cqp4PnO/qsWfnjf3Q
+	G173MvUQCCRraws5WVwtoi5/Akrw/MAiSRoT5kgcRWVbGbkm3ed27Wrox/vIiA==
+Authentication-Results: outgoing_mbo_mout;
+	dkim=pass header.d=mailbox.org header.s=mail20150812 header.b=togabaCg;
+	spf=pass (outgoing_mbo_mout: domain of manuelebnerli@mailbox.org designates 2001:67c:2050:b231:465::2 as permitted sender) smtp.mailfrom=manuelebnerli@mailbox.org
+From: Manuel Ebner <manuelebnerli@mailbox.org>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
+	t=1791185541;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=EPCFXPYp6jHIgMNbN/Hqj2UocbXOr6W6kRzBx/pb5Cs=;
+	b=togabaCgvXQzSok1Fx2fX7VyL0Q/fcUa58xHvyF5xy8xIBSUDKCPijjpGTCeLBOjeZc/II
+	+0I1saByj2xt6ye32lRGQoKQA46W9R0ZeY4F5FSdOM4/leB4AKvyTD6yuJJGqUjs6LWkmn
+	OGvwly7DyVDdgzCHKcnSZ7ben/liGTiIcJjBL0tXX58QpfwGsq7u6/qqq89gDrgU14WVg0
+	Sw2FFDnbFpLIau47tvpiVdSG01+lt3iCXCUtM4WMz+rsAgphCXrUW+63R5HfFxHZqG/B7R
+	wptcWpl4bEz8rM4hHMkd1TTdfLI9vyTZu4CND3Gow1HpGObQCjpBuQgOqLlNoQ==
+To: Ingo Molnar <mingo@redhat.com>,
+	Peter Zijlstra <peterz@infradead.org>,
+	Juri Lelli <juri.lelli@redhat.com>,
+	Vincent Guittot <vincent.guittot@linaro.org>,
+	Dietmar Eggemann <dietmar.eggemann@arm.com>,
+	Steven Rostedt <rostedt@goodmis.org>,
+	Ben Segall <bsegall@google.com>,
+	Mel Gorman <mgorman@suse.de>,
+	Valentin Schneider <vschneid@redhat.com>,
+	K Prateek Nayak <kprateek.nayak@amd.com>
+Cc: Manuel Ebner <manuelebnerli@mailbox.org>,
+	linux-kernel@vger.kernel.org
+Subject: [Question] sched: rt.c: kernel-doc warning
+Date: Mon,  5 Oct 2026 09:27:38 +0200
+Message-ID: <20261005072738.2902503-2-manuelebnerli@mailbox.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/1] x86/mm: fix incomplete page-table invalidation with
- TCE
-Content-Language: en-US
-To: Pedro Falcato <pfalcato@suse.de>
-Cc: dave.hansen@linux.intel.com, luto@kernel.org, peterz@infradead.org,
- tglx@kernel.org, mingo@redhat.com, bp@alien8.de, x86@kernel.org,
- hpa@zytor.com, riel@surriel.com, linux-kernel@vger.kernel.org,
- qi.zheng@linux.dev, nadav.amit@gmail.com, thomas.lendacky@amd.com,
- kernel-team@meta.com, linux-mm@kvack.org, akpm@linux-foundation.org,
- brendan.jackman@linux.dev, jannh@google.com, mhklinux@outlook.com,
- andrew.cooper3@citrix.com, Manali.Shukla@amd.com, mingo@kernel.org,
- stable@vger.kernel.org, toshi.kani@hpe.com, david@kernel.org,
- mikhail.v.gavrilov@gmail.com
-References: <20261005052302.43042-1-lance.yang@linux.dev>
- <asM7b8ECO34-jiwi@pedro-suse.tail5790ac.ts.net>
-From: Lance Yang <lance.yang@linux.dev>
-In-Reply-To: <asM7b8ECO34-jiwi@pedro-suse.tail5790ac.ts.net>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-MBO-RS-META: 8436aoce3gitb78do9dktr8ddjpbd3hq
+X-MBO-RS-ID: ac1ef69d79a06a0a7cb
+X-Rspamd-Queue-Id: 4hyrgq20D3zKm5M
 
+Hi,
 
+I'm trying to fix built warning and stumbled over this one:
 
-On 2026/10/5 14:09, Pedro Falcato wrote:
-> On Mon, Oct 05, 2026 at 01:23:02PM +0800, Lance Yang wrote:
->> pud_free_pmd_page() uses a single-address invalidation to flush the
->> paging-structure caches before freeing the page tables. With AMD TCE
->> enabled, this only invalidates upper-level entries associated with the
->> target address. Cached PMD entries for other addresses in the PUD range can
->> still reference the PTE pages being freed.
->>
->> The AMD manual quoted in the commit enabling TCE says these instructions
->> remove
->>
->>    "only those upper-level entries that lead to the target PTE in the page
->>    table hierarchy, leaving unrelated upper-level entries intact."
->>
->> Even with all PTEs cleared, speculative page walks can cache present PMD
->> entries after the earlier TLB purge.
->>
->> Use a full TLB flush before freeing the page tables on CPUs with TCE. Keep
->> the single-address invalidation otherwise.
->>
->> Fixes: 440a65b7d25f ("x86/mm: Enable AMD translation cache extensions")
->> Cc: stable@vger.kernel.org
->> Signed-off-by: Lance Yang <lance.yang@linux.dev>
-> 
-> I'm not sure this is correct. The PUD is clear. We invalidate the TLB, which
-> invalidates the translation caches for that walk. invlpg will notice the PUD
-> isn't present. I don't see a case where it can ever not clear the rest
-> of the translation caches for all leaves. And, in fact, by that point the CPU
-> can (does?) probably formally treat the PUD as the leaf.
+$make W=1 -j8 > make_output.txt
+In file included from kernel/sched/build_policy.c:52:
+kernel/sched/rt.c:12:18: warning: ‘max_rt_runtime’ defined but not used [-Wunused-const-variable=]
+   12 | static const u64 max_rt_runtime = MAX_BW;
+      |                  ^~~~~~~~~~~~~~
 
-IIUC, clearing the PUD in memory doesn't invalidate cached PMD entries by
-itself. With TCE enabled, flushing one address only invalidates the entries
-associated with that address ...
+I just can't make sense of this, because max_rt_runtime is used later in the
+file - see diff.
+What am I missing?
 
-(That's how I read the manual, but AMD folks, please correct me if I'm
-missing something.)
+Thanks
+ Manuel Ebner
+---
+ kernel/sched/rt.c | 14 ++++++++++++++
+ 1 file changed, 14 insertions(+)
 
-So couldn't other cached PMDs under the same PUD survive?
+diff --git a/kernel/sched/rt.c b/kernel/sched/rt.c
+index 1535046a2..4d15f5c47 100644
+--- a/kernel/sched/rt.c
++++ b/kernel/sched/rt.c
+@@ -10,6 +10,14 @@
+ int sched_rr_timeslice = RR_TIMESLICE;
+ /* More than 4 hours if BW_SHIFT equals 20. */
+ static const u64 max_rt_runtime = MAX_BW;
++/* When I build a tinyconfig this warning is triggered
++ *
++ * $make W=1 -j8 > make_output.txt
++ * In file included from kernel/sched/build_policy.c:52:
++ * kernel/sched/rt.c:12:18: warning: ‘max_rt_runtime’ defined but not used [-Wunused-const-variable=]
++ *   12 | static const u64 max_rt_runtime = MAX_BW;
++ *      |                  ^~~~~~~~~~~~~~
++ */
+ 
+ /*
+  * period over which we measure -rt task CPU usage in us.
+@@ -2766,6 +2774,9 @@ static int tg_set_rt_bandwidth(struct task_group *tg,
+ 	 * Bound quota to defend quota against overflow during bandwidth shift.
+ 	 */
+ 	if (rt_runtime != RUNTIME_INF && rt_runtime > max_rt_runtime)
++/* 
++ * here max_rt_runtime is obviosly used
++ */
+ 		return -EINVAL;
+ 
+ 	mutex_lock(&rt_constraints_mutex);
+@@ -2857,6 +2868,9 @@ static int sched_rt_global_validate(void)
+ 		((sysctl_sched_rt_runtime > sysctl_sched_rt_period) ||
+ 		 ((u64)sysctl_sched_rt_runtime *
+ 			NSEC_PER_USEC > max_rt_runtime)))
++/*
++ * here it is used again
++ */
+ 		return -EINVAL;
+ 
+ #ifdef CONFIG_RT_GROUP_SCHED
+-- 
+2.55.0
 
-Later/speculative page walks could use one of those cached entries
-without rereading the cleared PUD, and access a PTE page we've already
-freed ... If that can happen, it sounds pretty serious ...
-
-> 
-> Did you repro any bug related to this? The functionality is perhaps
-> underspecified in the AMD manual.
-
-TBH, I don't have a reproducer yet. Just LLM stumbled upon this while
-I was investigating another memory corruption issue [1].
-
-[1] https://lore.kernel.org/linux-mm/arY1Wq6R9OY20ans@pcnci.linuxbox.cz/#t
