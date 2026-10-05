@@ -1,238 +1,212 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DCBA14CB8DD;
-	Mon,  5 Oct 2026 15:37:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EBDDE4CC63C
+	for <linux-kernel@vger.kernel.org>; Mon,  5 Oct 2026 15:37:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791214669; cv=none; b=GhkjQla9KkpoN371YORCv68u1xpKCYPwgHcGtbs62pEw1GdJGRaNxZTQGZuWfgEPSM9yrD02yPsffZh53ZPLlEKUYvMvLmmWhcolEmS6XAECGwiUuNEfo6f0D4C7jD2tsY8saaEcSBzRjJqz9vxckmwH9w9z3zrDys1xQhwWM68=
+	t=1791214670; cv=none; b=QklQAMmtxYQzPraL3lOyIAvFkG+WN6QmBcogtTpdOhoPHZdrqtHnvnlYlfnCxIyMMj/YbMGML2CQH+CrGGUqaDZkJh+6rRsXs5sDpqrfxZUe8CdAcD+bEeL8HWsFqQxnzHovd/bDI++5U3tqAbL705HRyoAD3pOUnfvuDNNJw8A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791214669; c=relaxed/simple;
-	bh=tcujtAke6uyWDLBFD5X3SweiZyj79MIlBLmrKTqhkaA=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=IIQhjZ8KO7apQAvfBP+K4tkcIOM5nV+H9NUSiW3Moi3/YdxthUv2vqk0nlbHxmhjpgwAABW6u3uUgZ0yJEmz8dyJvNhc7dF4V9fhxS/gYGbkpS2tz+ydMSevclG9nlZGkoH6nI6mJmVJ9h+V/tVQJ6T0078Lvxs653+1zF5ABRc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=UisdzB2R; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791214670; c=relaxed/simple;
+	bh=vgvpS2Lk6t04h09l0rE9jrfZbwTb6cPjhGPRaAfSZOE=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=h2nBhWCrEzh4iAyOaEi+bxwK5rL/l/gLkvyIxt/7pD/Focvhl2qG3Pv8Qb4K2i7XdA3kdKwnnVyxBkmc0YkZihftAgpMe0sbuSQBpL5uC+oU3hP5b8dAQhtPyVU1pW2hm2Hh8Zohc2n28b8CqWkZkUeMNfUWcvdGIJuBoa8vXTY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=clNeinDe; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=KszjiGTr; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="UisdzB2R"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AB1DD1F00893;
-	Mon,  5 Oct 2026 15:37:45 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791214667;
-	bh=IL2P4hsFJ0Ydq3jczaWxSU+Tke4Ds9QL4SVN875yCwI=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=UisdzB2Rx7Qih+FLAVcGw3EH7EKH+7X/1FKs5BobIHKxNu3W+E0OO9cpe71TDHQAl
-	 hoFEmWKldlon1m7+tXUXbpecNtYtStjvhq0LhhOP8oMyL7afuaZbOMQAB2b6fGhvmR
-	 8FhAVmIHCMf6V49MIvbd62b4/aI2jm9XKlCuApcLr5yNVyi5tF7z6HfNZ5ZQ5AwM2x
-	 t5nUXBrv4ZNNiafgZeOJ5Hgrv46dHwsx3ZJXKGFr0cYek8VYxCu+mHOa5BQmJa+wuD
-	 ET6YQXfxAE2emERavVRMGL3HQ+h9622Mw1flVlOz6I8oIaxu5+3R/PqMzpBFImVFI+
-	 6M+TUvM+/jlLg==
-From: Jisheng Zhang <jszhang@kernel.org>
-To: Mark Brown <broonie@kernel.org>,
-	Joseph Steel <recv.jo@gmail.com>
-Cc: linux-spi@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v5 4/4] spi: dw: use threaded interrupt and optimize the threaded ISR
-Date: Mon,  5 Oct 2026 23:17:39 +0800
-Message-ID: <20261005151739.25233-5-jszhang@kernel.org>
-X-Mailer: git-send-email 2.51.0
-In-Reply-To: <20261005151739.25233-1-jszhang@kernel.org>
-References: <20261005151739.25233-1-jszhang@kernel.org>
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="clNeinDe";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="KszjiGTr"
+Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 695EPgkB1815286
+	for <linux-kernel@vger.kernel.org>; Mon, 5 Oct 2026 15:37:47 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=qcppdkim1; bh=86MBTh4FdyWb1ob4vTVauW7y
+	JoJdeXbZGpl/ARXQ3s4=; b=clNeinDe7Tk5BhyPcv46soRco1RRK1OSNiyBZsWx
+	LhBvPIo43t7TANxY29MSNRs+Z0iTJEkcgxVIyPSMPYx7DamFxZf1IXEpkWHa0cL7
+	7gu+qu2Q8IbjLgfOw8VtI6bsXQ+J5cDOV5iLlESEN+oRHh/PobXqWCFMFjQLRInj
+	+XBJwsb31d+PCtgzXp3XPazljeiErH0HgLEijkgFLm9KBIHcqdSD+P6JuEy0CYU7
+	0ckQBF4XRJqi9BZFBvXksRe7gef6BGITEF/2N/wdBmFssPMFPzkHI5qDVYMhVzxN
+	uOYDJ7ylWnDflNLPMu78gAC26uYnrCABCJxO21DYUzlFfA==
+Received: from mail-pl1-f198.google.com (mail-pl1-f198.google.com [209.85.214.198])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h4a7ds3bp-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Mon, 05 Oct 2026 15:37:47 +0000 (GMT)
+Received: by mail-pl1-f198.google.com with SMTP id d9443c01a7336-2df8d1e91c9so34634735ad.0
+        for <linux-kernel@vger.kernel.org>; Mon, 05 Oct 2026 08:37:47 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1791214667; x=1791819467; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=86MBTh4FdyWb1ob4vTVauW7yJoJdeXbZGpl/ARXQ3s4=;
+        b=KszjiGTrZq1nxDG3XOCl4KZJZrEDixaM6jZpPMEQ0Cl17S1RvkyLMQ6MSRs1+FlERp
+         yQGaGBOUrA/nAfIvo9M0NlZF3ovpLg+kCQOARBF8nI/xjOlSre4nK3TPY9r6ES4m8qh4
+         tT5nRo14noLtyl6pI8O4n0d9Y0ib3GvP1H0zsubJ9gV64s8SaLxgpUaDlvqvSCFf4Dng
+         btO0kcdCvQ33m18wTCzdc7HlsTya70MaoCYrayDHIzMThh+kVgV65tYdh3vfng5SbUVI
+         d5xLd93s8yrnCXTpiFIBwquk8qrYBiJOWQ0ZkdzsnA77qXuhlqwp09QM9qROZtav+aE3
+         kBDw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791214667; x=1791819467;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=86MBTh4FdyWb1ob4vTVauW7yJoJdeXbZGpl/ARXQ3s4=;
+        b=KR2HyFlVeoIwNkE3TPgDZrVj4xYuwWssq16ioENMojbhtn+4YvshNtmUgdU9MkO164
+         1P7mcrNG6gTp4F7WHd4/jWSC3JRY2Xe8sSB56Y0vEZO475+zP0sIY/8eJoTj/v7DKxLO
+         19bHoEWEYy6eFcs2EY0A06epgwrfnmyRWrkWlZs/qKzdOcYPuoQm2Bjq8KGCsCfZjbtL
+         bsivKB/pD1tRSujTPrnSvbKeCV8SbMZoBuYOMFpOWBOGD2JuEZs+5x9C35+9IZ7CsV1S
+         nVr7su2uK/RgsYf7aGOT+3YwsG3CTRILh8m//RzQb/cfQAtf0SyWUsmI12Xe/nImZOsT
+         jLFQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxK+1/Bh07HHBZxo8fosa8uGvGsoI0AjbX1ajX6guNO8X+gU1mnvH5bflBE6yZWoPH7y8oo6moDRO4RXDM=@vger.kernel.org
+X-Gm-Message-State: AFq9FYK7yy8OTyMZocRKSMTHM2dFZxN5KCqb1SyinwHTWora2gtern/X
+	0Z7xcpq91yqUCrBV/G94cOXPZQBOn0dkqa0CyiZnSYJHF8AW74K9f4dpiz6XKjN2DYPSbkXdTX3
+	8zGOBGApjAfVG2Chi8yHxuYFx1gawc28KYd8m1ZX0tvt4MUJ7Q49E++SZNCtCZiTzOvo=
+X-Gm-Gg: AYBFou2JKKKo/8SCpddYSvj2pldUNNBaJYIgmWBdZRuaYVKkinIZgJpKRWMX/pRdKNT
+	NLKna7cRnj1i6O17m1PlVyIKSU8RS40etQmGs+vN+4uKkyM6o7ttaItJAEjr4zT/M6l5o4FWanm
+	xbGOrZFrux5U5d7vDdFWw87FAXycquREtPdPuKUq9gCmoesyGCBbZMIXAeH7sXEy6+Iw1wuKAfm
+	y+BOEifCyp4yEYm425yaIoRpACSOzLtfleBRmgiYJRTeyANSYMC7UvWa+mbNts/TDSf+N6OtOzT
+	uoTmrUdUapirEBU61W+nIjiwp2WdEe11eyVM3UpkR8XPJn7O5MwVROqsO6nfjCnaAoLDX33YiH+
+	tbuMrx273CWp/NG4EfqJKq+Z9Ew==
+X-Received: by 2002:a17:903:f8e:b0:2e5:397a:b70 with SMTP id d9443c01a7336-2e5397a0cffmr67153965ad.56.1791214666629;
+        Mon, 05 Oct 2026 08:37:46 -0700 (PDT)
+X-Received: by 2002:a17:903:f8e:b0:2e5:397a:b70 with SMTP id d9443c01a7336-2e5397a0cffmr67153565ad.56.1791214665994;
+        Mon, 05 Oct 2026 08:37:45 -0700 (PDT)
+Received: from hu-mojha-hyd.qualcomm.com ([202.46.23.25])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2e5a5edd6d4sm9450835ad.56.2026.10.05.08.37.41
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 05 Oct 2026 08:37:45 -0700 (PDT)
+Date: Mon, 5 Oct 2026 21:07:37 +0530
+From: Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>
+To: Komal Bajaj <komal.bajaj@oss.qualcomm.com>
+Cc: Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>,
+        Abel Vesa <abelvesa@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Mathieu Poirier <mathieu.poirier@linaro.org>,
+        Manivannan Sadhasivam <mani@kernel.org>, linux-arm-msm@vger.kernel.org,
+        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+        linux-remoteproc@vger.kernel.org
+Subject: Re: [PATCH v3 1/2] dt-bindings: remoteproc: qcom,shikra-pas: Allow 3
+ IOMMUs for LPAICP
+Message-ID: <20261005153737.opzzuflsioi6cxqo@hu-mojha-hyd.qualcomm.com>
+References: <20261005-shikra-el2-v3-0-618f7343695c@oss.qualcomm.com>
+ <20261005-shikra-el2-v3-1-618f7343695c@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261005-shikra-el2-v3-1-618f7343695c@oss.qualcomm.com>
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDA1MDA2MSBTYWx0ZWRfX9k+dAUcqty87
+ aI3RynARwEYffAq2dtJCyIpORSL9iNmDXlV9Ap0eGhzsa2jbN8Fd5pchBxXofdbBEdp32ztc3+E
+ VntvxYg4RvqzEhLo0a8eWERmQbsB9oI=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDA1MDA2MSBTYWx0ZWRfX6EjPpYX95Nbs
+ tKZ7xQeEEFwAPk2YZFDKZkqmXyvBbRexq23wEDRt/169XwUyGS3HoAY9KcopIkNAJHafn2v9YvA
+ tPU7AwtgwnlyKd2mu28puq2rI0yoVZkJ7OUpDJSaqqH1TUY07n71YYfsp4ouAC7tuqamPF1P3wX
+ vtzY/xhplTiNBtnhuOjslR2kqwcj6b1H+/ti2hiZemJ5ZT4tGNFbEjUBCMu59Y8cOiQZF3QrV9V
+ C3AR7pbKjGaT28ffDLfKmD5Jgsok4nh3pem6TnHHd+0ZPKVQGW9eiXflT1mOTUqPQ77pYood898
+ z+6uARZJM79eRa3vAgoZOl5yyUO8MPNdScsaJV9B4eXwERzmwqZEjcdDthr3WLtw26eyBQOLvDC
+ ZmWpm+9W1dfxdxnmDmL4ElZeOsreFlTb17zdzBdEltPDHHYyaxEkCllueeeKWHAI95yzGM0WsaS
+ 83De7c/WvYcZslFQ+XA==
+X-Proofpoint-GUID: IudA_371fMrwoc9p4nBRfTQpRZ9o0RqP
+X-Authority-Analysis: v=2.4 cv=SvwFe/O0 c=1 sm=1 tr=0 ts=6ac3c44b cx=c_pps
+ a=MTSHoo12Qbhz2p7MsH1ifg==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
+ a=kj9zAlcOel0A:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=ZpdpYltYx_vBUK5n70dp:22
+ a=EUspDBNiAAAA:8 a=jaYNTG2l0Jz8a-xFDoAA:9 a=CjuIK1q_8ugA:10
+ a=GvdueXVYPmCkWapjIL-Q:22
+X-Proofpoint-ORIG-GUID: IudA_371fMrwoc9p4nBRfTQpRZ9o0RqP
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-05_04,2026-10-05_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ suspectscore=0 bulkscore=0 lowpriorityscore=0 impostorscore=0 spamscore=0
+ adultscore=0 malwarescore=0 clxscore=1015 phishscore=0 priorityscore=1501
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2610050061
 
-To avoid blocking for an excessive amount of time, eventually impacting
-on system responsiveness, hard interrupt handlers should finish
-executing in as little time as possible.
+On Mon, Oct 05, 2026 at 04:44:45PM +0530, Komal Bajaj wrote:
+> The Shikra LPAICP PAS requires three IOMMU entries. However,
+> qcom,shikra-pas.yaml inherits the `iommus` schema from
+> qcom,pas-common.yaml, which limits property to a single entry.
+> 
+> As a result, the LPAICP-specific `maxItems: 3` constraint conflicts
+> with the inherited `maxItems: 1` constraint, and a valid LPAICP node
+> fails schema validation.
+> 
+> Remove the pas-common schema reference and specify IOMMU entry limit
+> for each Shikra PAS compatible: one entry for CDSP and MPSS, and
+> three entries for LPAICP.
+> 
+> Signed-off-by: Komal Bajaj <komal.bajaj@oss.qualcomm.com>
+> ---
+>  .../devicetree/bindings/remoteproc/qcom,shikra-pas.yaml   | 15 +++++++++++++--
+>  1 file changed, 13 insertions(+), 2 deletions(-)
+> 
+> diff --git a/Documentation/devicetree/bindings/remoteproc/qcom,shikra-pas.yaml b/Documentation/devicetree/bindings/remoteproc/qcom,shikra-pas.yaml
+> index 34a2f15e9361..4196f61a8ba0 100644
+> --- a/Documentation/devicetree/bindings/remoteproc/qcom,shikra-pas.yaml
+> +++ b/Documentation/devicetree/bindings/remoteproc/qcom,shikra-pas.yaml
+> @@ -32,6 +32,9 @@ properties:
+>      items:
+>        - const: xo
+>  
+> +  interconnects:
+> +    maxItems: 1
+> +
+>    memory-region:
+>      minItems: 1
+>      maxItems: 2
+> @@ -92,10 +95,14 @@ required:
+>    - compatible
+>    - reg
+>    - memory-region
+> +  - clocks
+> +  - clock-names
+> +  - interrupts
+> +  - interrupt-names
+> +  - qcom,smem-states
+> +  - qcom,smem-state-names
+>  
+>  allOf:
+> -  - $ref: /schemas/remoteproc/qcom,pas-common.yaml#
 
-Use threaded interrupt and move the SPI transfer handling to an
-interrupt thread when non-native CS and host only.
+I think the right approach would be to remove iommu from the common binding
+and let the corresponding target put the constraints.
 
-After that, since the dw_reader() and dw_writer() are called in
-threaded ISR now, so we can delay the unmasking interrupts until no
-rx and tx action is taken, thus reduce the interrupt numbers further.
+> -
+>    - if:
+>        properties:
+>          compatible:
+> @@ -112,6 +119,8 @@ allOf:
+>            maxItems: 1
+>          firmware-name:
+>            maxItems: 1
+> +        iommus:
+> +          maxItems: 1
+>          power-domains:
+>            items:
+>              - description: CX power domain
+> @@ -134,6 +143,8 @@ allOf:
+>            minItems: 2
+>          firmware-name:
+>            minItems: 2
+> +        iommus:
+> +          maxItems: 3
+>          power-domains: false
+>          power-domain-names: false
+>  
+> 
+> -- 
+> 2.34.1
+> 
 
-Tested with below two cmds
-./spidev_test -D /dev/spidev1.3 -s 30000000 -S 327680 -I 1
-
-./spidev_test -D /dev/spidev1.3 -s 30000000 -S 327680 -I 1000
-./rtla timerlat top -q -k -P f:95
-
-The first cmd is to check the interrupt numbers optmizaion result, the
-2nd cmd group is to check the threaded interrupt improvement.
-
-Before the patch:
-each 320KB spi spidev_test transfer triggers 33118 interrupts
-
-spidev_test reports ~22090 kbps
-and rtla reports:
-                                     Timer Latency
-  0 00:00:37   |          IRQ Timer Latency (us)        |         Thread Timer Latency (us)
-CPU COUNT      |      cur       min       avg       max |      cur       min       avg       max
-  0 #9958      |        1         0        67    103394 |        6         4      2198    105031
-  1 #36902     |        1         0         1        18 |        5         4         5        29
-
-After the patch:
-each 320KB spi spidev_test transfer only triggers 1 interrupts
-spidev_test reports ~23520 kbps
-and now rtla reports:
-                                    Timer Latency
-  0 00:00:58   |          IRQ Timer Latency (us)        |         Thread Timer Latency (us)
-CPU COUNT      |      cur       min       avg       max |      cur       min       avg       max
-  0 #58362     |        1         0         0        29 |        6         3         4        56
-  1 #58363     |        1         0         1        23 |        6         4         5        68
-
-In summary:
-before the patch	after the patch
-33118 interrutps	1 interrupts		reduced by 33117 times!
-103394 us max latency	29 us max latency	reduced by 3564 times!
-22090 kbps rate		23520 kbps rate		improved by 6.5%
-
-Signed-off-by: Jisheng Zhang <jszhang@kernel.org>
----
- drivers/spi/spi-dw-core.c | 70 ++++++++++++++++++++++++++++++++++++---
- 1 file changed, 65 insertions(+), 5 deletions(-)
-
-diff --git a/drivers/spi/spi-dw-core.c b/drivers/spi/spi-dw-core.c
-index 06f4b0ea954e..a73c051437b6 100644
---- a/drivers/spi/spi-dw-core.c
-+++ b/drivers/spi/spi-dw-core.c
-@@ -132,10 +132,11 @@ static inline u32 dw_spi_rx_max(struct dw_spi *dws)
- 	return min_t(u32, dws->rx_len, dw_readl(dws, DW_SPI_RXFLR));
- }
- 
--static void dw_writer(struct dw_spi *dws)
-+static u32 dw_writer(struct dw_spi *dws)
- {
- 	u32 max = dw_spi_tx_max(dws);
- 	u32 txw = 0;
-+	u32 tx = 0;
- 
- 	while (max--) {
- 		if (dws->tx) {
-@@ -150,13 +151,16 @@ static void dw_writer(struct dw_spi *dws)
- 		}
- 		dw_write_io_reg(dws, DW_SPI_DR, txw);
- 		--dws->tx_len;
-+		++tx;
- 	}
-+	return tx;
- }
- 
--static void dw_reader(struct dw_spi *dws)
-+static u32 dw_reader(struct dw_spi *dws)
- {
- 	u32 max = dw_spi_rx_max(dws);
- 	u32 rxw;
-+	u32 rx = 0;
- 
- 	while (max--) {
- 		rxw = dw_read_io_reg(dws, DW_SPI_DR);
-@@ -171,7 +175,9 @@ static void dw_reader(struct dw_spi *dws)
- 			dws->rx += dws->n_bytes;
- 		}
- 		--dws->rx_len;
-+		++rx;
- 	}
-+	return rx;
- }
- 
- int dw_spi_check_status(struct dw_spi *dws, bool raw)
-@@ -210,9 +216,55 @@ int dw_spi_check_status(struct dw_spi *dws, bool raw)
- }
- EXPORT_SYMBOL_NS_GPL(dw_spi_check_status, "SPI_DW_CORE");
- 
-+static irqreturn_t dw_spi_irq_thread_fn(int irq, void *dev_id)
-+{
-+	struct spi_controller *ctlr = dev_id;
-+	struct dw_spi *dws = spi_controller_get_devdata(ctlr);
-+	u32 rx, tx, imask, mask = 0;
-+	bool finalize = false;
-+
-+	do {
-+		/*
-+		 * Read data from the Rx FIFO every time we've got a chance executing
-+		 * this method. If there is nothing left to receive, terminate the
-+		 * procedure. Otherwise adjust the Rx FIFO Threshold level if it's a
-+		 * final stage of the transfer. By doing so we'll get the next IRQ
-+		 * right when the leftover incoming data is received.
-+		 */
-+		rx = dw_reader(dws);
-+		if (!dws->rx_len) {
-+			mask |= 0xff;
-+			finalize = true;
-+		} else if (dws->rx_len <= dw_readl(dws, DW_SPI_RXFTLR)) {
-+			dw_writel(dws, DW_SPI_RXFTLR, dws->rx_len - 1);
-+		}
-+
-+		/*
-+		 * Send data out as much as possible. The Tx FIFO Empty IRQ will be
-+		 * disabled after the data transmission is finished so not to
-+		 * have the TXE IRQ flood at the final stage of the transfer.
-+		 */
-+		tx = dw_writer(dws);
-+		if (!dws->tx_len)
-+			mask |= DW_SPI_INT_TXEI;
-+		cond_resched();
-+	} while (rx != 0 || tx != 0);
-+
-+	imask = DW_SPI_INT_TXEI | DW_SPI_INT_TXOI |
-+		DW_SPI_INT_RXUI | DW_SPI_INT_RXOI | DW_SPI_INT_RXFI;
-+	imask &= ~mask;
-+	dw_spi_umask_intr(dws, imask);
-+
-+	if (finalize)
-+		spi_finalize_current_transfer(dws->ctlr);
-+
-+	return IRQ_HANDLED;
-+}
-+
- static irqreturn_t dw_spi_transfer_handler(struct dw_spi *dws)
- {
- 	u16 irq_status = dw_readl(dws, DW_SPI_ISR);
-+	bool finalize = false;
- 
- 	if (dw_spi_check_status(dws, false)) {
- 		spi_finalize_current_transfer(dws->ctlr);
-@@ -229,6 +281,7 @@ static irqreturn_t dw_spi_transfer_handler(struct dw_spi *dws)
- 	dw_reader(dws);
- 	if (!dws->rx_len) {
- 		dw_spi_mask_intr(dws, 0xff);
-+		finalize = true;
- 		spi_finalize_current_transfer(dws->ctlr);
- 	} else if (dws->rx_len <= dw_readl(dws, DW_SPI_RXFTLR)) {
- 		dw_writel(dws, DW_SPI_RXFTLR, dws->rx_len - 1);
-@@ -245,7 +298,14 @@ static irqreturn_t dw_spi_transfer_handler(struct dw_spi *dws)
- 			dw_spi_mask_intr(dws, DW_SPI_INT_TXEI);
- 	}
- 
--	return IRQ_HANDLED;
-+	if (spi_controller_is_target(dws->ctlr) || finalize ||
-+		!dws->rx_len || !dws->tx_len ||
-+		!spi_get_csgpiod(dws->ctlr->cur_msg->spi, 0)) {
-+		return IRQ_HANDLED;
-+	}
-+
-+	dw_spi_mask_intr(dws, 0xff);
-+	return IRQ_WAKE_THREAD;
- }
- 
- static irqreturn_t dw_spi_enh_handler(struct dw_spi *dws)
-@@ -1334,8 +1394,8 @@ int dw_spi_add_controller(struct device *dev, struct dw_spi *dws)
- 	/* Basic HW init */
- 	dw_spi_hw_init(dev, dws);
- 
--	ret = request_irq(dws->irq, dw_spi_irq, IRQF_SHARED, dev_name(dev),
--			  ctlr);
-+	ret = request_threaded_irq(dws->irq, dw_spi_irq, dw_spi_irq_thread_fn,
-+				   IRQF_SHARED, dev_name(dev), ctlr);
- 	if (ret < 0 && ret != -ENOTCONN) {
- 		dev_err(dev, "can not request IRQ\n");
- 		goto err_free_ctlr;
 -- 
-2.53.0
-
+-Mukesh Ojha
