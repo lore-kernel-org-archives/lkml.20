@@ -1,35 +1,34 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9BCA1502D4F;
-	Mon,  5 Oct 2026 17:17:40 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DB062503BF6;
+	Mon,  5 Oct 2026 17:17:43 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791220661; cv=none; b=W/LnZNz0FTGuTwEIU87tcmqXmFunukCLOEUzVS3Rwis8qmBRPPdLzz+/a8ZLFTeuxFI/J//K7Ip3Htw7IUFMwmME+WLjoMdIVprfwDme2YyHWSMk/r1kcgXdggTvGj85HFdkoWAgbc88rCl3fCbtwM71yucJ3X7L8Hlw8bjl9sU=
+	t=1791220665; cv=none; b=CUbyMthToSGQ/YNniu7oJvUaW3f7AOXNICTn9fe0QnVru6xurS2XDYdjDQ5s7GOQgrx0/slrOwoiHvTvJhoS2WaAbZBaLTplrS5SngpWUVGCbDnUF7tFRqlLZarCZk+W0r2sAPm+cGEunE6k/Cmh86ghCXXIPs7XHqF0nHZq8Dk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791220661; c=relaxed/simple;
-	bh=tZIxlDjNw6l3MRn2Lqz4AemzqxVTKOk5PddIewZVj2M=;
+	s=arc-20240116; t=1791220665; c=relaxed/simple;
+	bh=wUtdl28khs+0I+Z5cNLNJYVNLp/g7ZTBDa8t2iBKs1A=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=b49ChkGKyJ2DLDk2I3/iQEmdvzj+y8J8jVOOULnMHRDiZ31tk2Zl2MCmXUefNomwMTypL5fR4IyHwXlzvOxI9iUMqJKUu+YwZkInGDrn0DC9fq55yd7IE1+4OvQjEjkWrW+gUNuGueDNwSE4PDWBqMcX42edeQn460b4LjH/33k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Og1IJ1Qf; arc=none smtp.client-ip=100.103.45.18
+	 In-Reply-To:To:Cc; b=GMBxzKdwMRXiCcERC5vKuumHVdI7kAu45P1EKw8xcNwlOTBEqJH+6Dii/6x5MDSkvADUSrU2OFcWbHpNTM0ALD3w3cS1VQp8BMZVZQzAnni2Vm23w1Wd2PRr/zxFUSgbSRZoCthBzKOW5EJHhT1ItLVZsK3nWwJqH+QDdZiaMqo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=RzlvFKSX; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Og1IJ1Qf"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 431831F00898;
-	Mon,  5 Oct 2026 17:17:37 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="RzlvFKSX"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B584E1F00899;
+	Mon,  5 Oct 2026 17:17:40 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791220660;
-	bh=mUGJit4NGFOCX/gRlLnj7Qx+ngU2dmR+OY1BemaQ2Rc=;
+	s=k20260515; t=1791220663;
+	bh=yykY9jN6PhqnD8o1Z/And/V1/szY5f5sRDUanGcMcRU=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=Og1IJ1QfgSQHuSW+fLGnnpGfk34nPELTPMGF5yUIY3yQf19ALnJ5vA2A+QzBN8mWv
-	 YY2OWuGkEM+Twm9zdc/fkKxdFUHy9r3f6cHaVQamAj6goL2xZg4mAHLXQCX7lRxWEU
-	 MzG50lsS24kO9TW3W+Kcy36TOxDSA0ljR2mKy12HwOQTL+05ld0/NWEQUMjduHWQQ4
-	 A3dx+ZpoP/QteHVnxAeilG1K+3Y3bKNkF/IHSMfFkt9mEG5nKQqwnSmTIMS/NGRvKg
-	 VpD7R0gXBouowlUOdVZdJRd0gIwqk56wPBSQDKTdyJRDFK0molvwxurJ8ILxkAg0un
-	 TudeSn+6/xzog==
-From: Bryan O'Donoghue <bod@kernel.org>
-Date: Mon, 05 Oct 2026 19:14:03 +0200
-Subject: [PATCH 33/74] media: qcom: camss: vfe: Add support for stopping
- outputs which contain multiple write masters
+	b=RzlvFKSXTS6wHWU6iDnDLk50ui8xWAHSyArdwZSfG9NrEper1SxowkxZJ+4CXWj+L
+	 GzherKB3hv5XGz5KdCr40gKyRuTWjqjcsYuX3zqJTrl6OEnAyk8iAStN3P2skUEsoN
+	 OzXRBbuMy2CHfqyEP4FB/uofVj+omZ+59retbDTTTx0P5TinViEC/GhLq/PPfLxFIU
+	 n0emO+uTbsRbb37+Mq8DskQWHr0CbgRuR8vjmcTnGA4GRXluO8dD5xK1UOrQFLw8Zr
+	 4PLKiQ7xgSR+FqfdVHDk0d8NJ8hYkrVoWIQMI3Si/LbOIx28stcFXaUKaQZfGTOREt
+	 EHJfX7yo043QA==
+From: bod@kernel.org
+Date: Mon, 05 Oct 2026 19:14:04 +0200
+Subject: [PATCH 34/74] media: qcom: camss: vfe: Stop an output group once
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -38,7 +37,7 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261005-linux-mainline-7-2-sm8650-hdk-rfc-0-v1-33-ed985aefd611@kernel.org>
+Message-Id: <20261005-linux-mainline-7-2-sm8650-hdk-rfc-0-v1-34-ed985aefd611@kernel.org>
 References: <20261005-linux-mainline-7-2-sm8650-hdk-rfc-0-v1-0-ed985aefd611@kernel.org>
 In-Reply-To: <20261005-linux-mainline-7-2-sm8650-hdk-rfc-0-v1-0-ed985aefd611@kernel.org>
 To: Bryan O'Donoghue <bryan.odonoghue@linaro.org>, 
@@ -55,51 +54,54 @@ To: Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
 Cc: linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
  linux-kernel@vger.kernel.org, Bryan O'Donoghue <bod@kernel.org>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1125; i=bod@kernel.org;
- h=from:subject:message-id; bh=tZIxlDjNw6l3MRn2Lqz4AemzqxVTKOk5PddIewZVj2M=;
- b=owEBbQKS/ZANAwAKASJxO7Ohjcg6AcsmYgBqw9sYIEKW4S+biLLFuomuZFZEDH3niRbyjYyC1
- jbloWkgxa6JAjMEAAEKAB0WIQTmk/sqq6Nt4Rerb7QicTuzoY3IOgUCasPbGAAKCRAicTuzoY3I
- OrpQD/9Y9MFkjW7XYMIxn8wh2lWoyTwSb0TsXPn4VmThza7WD4MVM0m6jniG8+u9UedITPRlUEt
- G2C0khtAhMr4VQiZMqlooJighjsRrPwH8wjGc3pLEivtS/ujb+cPfLDpavOpBzcmRrf3mZrb8vq
- kJ0TMnnKHagW0tgxUokuBYIO8ky7zug0CZ+ZfA88Z+D2Wd45ClL7tAU+Gi6bKX6um1YKuTS32Gr
- o2JQS/iJhoXnl/6aG89jk49d08ZxUXWkRp32ix/R1h4sa3FZ06ec6hnKCtf9Psi0NAGmSVqtq+v
- 9iTI/Xd33FDVwHiISg1/IvRuzresS5vo/k88b7LBR7WpJ2ttn3zGJUjvvWK44+CRpuDqKIJJYdu
- aF9b8CFWYruFLxoMQL/JupeQBPUum1kOJ1OIfvsAvc8vucndBf7rRvTPyB6Fi2p2J4RvPWdWeTC
- mK3scilBgrE4RkHIE71Pv6gE5MiOeWktEmixp5sui9pN+UhLfB9rs3wnDJiUQnOv3xAeeArV6eR
- biJs8EgBJZMc2NiM176Btn1uUCAfJeU1YPH/dlv+14JNlS+6KIW5LVz0U/vg6cC3vtmBDVIWM5j
- ZAyIN1fG25+N2IVeOQC4iKHZ/36qc5Yb3UwPEmhpXTxhc6+l6Mq3jf4A61NBWX876AhgfQm1Jzb
- LR0k/eVFyxsBWfw==
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1203; i=bod@kernel.org;
+ h=from:subject:message-id; bh=LolIAGKSIPU2rCi1LlY4JcGpJKkMsUqJ3GvXe9vNAdo=;
+ b=owEBbQKS/ZANAwAKASJxO7Ohjcg6AcsmYgBqw9sZOhE3LxhPoObaPdU5mHckXAz76nrIhrNCC
+ kmwolgwzXiJAjMEAAEKAB0WIQTmk/sqq6Nt4Rerb7QicTuzoY3IOgUCasPbGQAKCRAicTuzoY3I
+ OgmtEAC1R54kHjFNnNR2yATNa7yE6u/LsnPYnYa+iVYHkp7jFD5e5xTP2uZP+jKMbKHJIavsCU4
+ 54i8W66b7HRa2Gr8UBHN0Sgb4Qe+yzsJhblUjMqNKEBMkurkUw/+8Yybb5Y9k6Wr1kDsenMj/vh
+ Tf/OGSZbaYhNZbkBt33PbUwPZYENkcsrZ6HPuHmjFwvtrqFyIv6PqQZjT/9ZmpEJcn5oGQgAusn
+ V9xcr9ziVS/ZCdoAH7u+XxLuA0qRIRLJR3IED+Sk5iOiKTTtjq+oTbPAAqvcfqWB4oHBNhbl9w2
+ V2qe2ZV9/wgEpRO+YmsbfG35wk4d7oxsjbcgFgW2HnlOfUyOw7I1CFC5oGnrhJLuLhX7iplkOtI
+ 1r4+oKYEIsCqWNLcpJTKWA+RmyRuNlsuOWTi/SvdNc0R7KPn+4xKQNCWyOeiAercs8fH/LMosic
+ 0mVQ3cMWiMeuLJ+ngGcJhnHNStgvCwrm/1yUSDi7LX2FkC5zQZ4gIoUQLr0wu6rOGKB3mRuyxXJ
+ byY6KR7A29MqTE1Xazo7ElgkRv6VP0XfeC71f7/V9d78ZbcEURiY1e9cYDXFcAAWhNfAm0NMn8Q
+ LtaUHUL6U+o+sSv6FYSiuGvWmtXIhD7XYpSo5PQxUYWfom1ADjypYGdE34DXz6xYvUxF4Tw2wbi
+ Bk42UQ6ZV9x5STw==
 X-Developer-Key: i=bod@kernel.org; a=openpgp;
  fpr=E693FB2AABA36DE117AB6FB422713BB3A18DC83A
 
-Signed-off-by: Bryan O'Donoghue <bod@kernel.org>
+From: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
+
+vfe_disable_output() calls vfe_output_stop() once per write master of
+the output, but the output op stops all of the group's write masters
+itself. Call it once, and loop over the write masters only for backends
+without one.
+
+Signed-off-by: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
 ---
- drivers/media/platform/qcom/camss/camss-vfe.c | 6 +++++-
- 1 file changed, 5 insertions(+), 1 deletion(-)
+ drivers/media/platform/qcom/camss/camss-vfe.c | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
 
 diff --git a/drivers/media/platform/qcom/camss/camss-vfe.c b/drivers/media/platform/qcom/camss/camss-vfe.c
-index 23c86e08776ea..f7907287c8ed4 100644
+index f7907287c8ed4..9793df66b4149 100644
 --- a/drivers/media/platform/qcom/camss/camss-vfe.c
 +++ b/drivers/media/platform/qcom/camss/camss-vfe.c
-@@ -968,13 +968,17 @@ int vfe_put_output(struct vfe_line *line)
- static int vfe_disable_output(struct vfe_line *line)
- {
- 	struct vfe_device *vfe = to_vfe(line);
-+	const struct vfe_hw_ops *ops = vfe->res->hw_ops;
- 	struct vfe_output *output = &line->output[0];
- 	unsigned long flags;
+@@ -974,10 +974,10 @@ static int vfe_disable_output(struct vfe_line *line)
  	unsigned int i;
  
  	spin_lock_irqsave(&vfe->output_lock, flags);
- 	for (i = 0; i < output->wm_num; i++)
--		vfe->res->hw_ops->vfe_wm_stop(vfe, output->wm[i].bus_client);
-+		if (ops->vfe_output_stop)
-+			ops->vfe_output_stop(vfe, output);
-+		else
-+			ops->vfe_wm_stop(vfe, output->wm[i].bus_client);
+-	for (i = 0; i < output->wm_num; i++)
+-		if (ops->vfe_output_stop)
+-			ops->vfe_output_stop(vfe, output);
+-		else
++	if (ops->vfe_output_stop)
++		ops->vfe_output_stop(vfe, output);
++	else
++		for (i = 0; i < output->wm_num; i++)
+ 			ops->vfe_wm_stop(vfe, output->wm[i].bus_client);
  	output->gen2.active_num = 0;
  	spin_unlock_irqrestore(&vfe->output_lock, flags);
- 
 
 -- 
 2.55.0
