@@ -1,104 +1,86 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oi1-f200.google.com (mail-oi1-f200.google.com [209.85.167.200])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 61B5D38C421;
-	Mon,  5 Oct 2026 20:53:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BA8A3396D19
+	for <linux-kernel@vger.kernel.org>; Mon,  5 Oct 2026 20:55:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.200
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791233601; cv=none; b=iriRfADzlpqpROWHFdhNM/fZNxP8C12prMWMFjW6umjCDzHCQHktMGXs4omhNtxvG5QLrrhAJrf586CwUqV56T+CGAE+Ihk2elqLe/+qi1BNogVGn1ptBV0hX+VU5gndOJkE5jnYaPjIYOZgDrpVwkYDOrSHazYPatufda1eHxY=
+	t=1791233707; cv=none; b=pTXX99JTjXMxgQH0lawMQFB9sD26R6k4H1+1odQ1GHTMLztFH0iyc0nLM8w2N26uF5bO8W8U1i39jToR1nCGoslbIQW6Lhaj/AQ/OioDNUM4lfO9VUmnxW9aE5BRu1pa4fQhmSyvxHXt7MMEWg+q8MZP+B2OxIynGail+kx+gRk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791233601; c=relaxed/simple;
-	bh=tquE/NVmKX3DPsVOXDQsR6wB3VzJBz/LmH09qdrtUBE=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=qwYgfFVF8e2VYavnrlUxcp+sh37N5fkiR/B1LUK9k0P0IjsyqEySXCcb/ZOBCzSQsIohLANaqxLuwXKqtVIatvbyJm97anSM6F1qffJMn1wGO81oa0ya/gkHsiunqmVXMmZJgGkg+wBVu2eCVZZoCHnYvxQpYHqxUlsQ1oNblCM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KQA9aNw3; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KQA9aNw3"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7D1861F000FF;
-	Mon,  5 Oct 2026 20:53:15 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791233595;
-	bh=gHNk22pbCqfx8E0EQYn4xb/j24xuqJC3MOGMKoEHKBU=;
-	h=From:To:Cc:Subject:Date;
-	b=KQA9aNw3LfjFyp5T6252uI+7LpqZyygd0ftKw8DQCbL3rC+0K/TnneLulTnAvMVJJ
-	 qQJv1dMUmZvXQ2lcjbkDVvYD2vIAi07QiDPiMp9vf8Ad8m/wj2zEhF5GvC1iYpmCmF
-	 japMa02wnEwjDTkxlGTvWwxRRWy2bL+kVr1NuEIsN8gOMJZNuBlPamh8c7ctGk5uWM
-	 Ag+/RqHXLGFnG0fsLEvh5+gQ+qVpFCp3CA7wJqxr6D+Yl77HAb/u30m+jXh72ZOgHd
-	 UGU5hZ8pv3RUgkB7cEPsVBi38Ik9brthbtLxLxvW8YDOfR2PO48w7RthM+cP5ow5gn
-	 2/U+ZqP4PalgQ==
-From: "Rob Herring (Arm)" <robh@kernel.org>
-To: Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Wei Xu <xuwei5@hisilicon.com>
-Cc: devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH] dt-bindings: bus: Add HiSilicon local bus
-Date: Mon,  5 Oct 2026 15:53:09 -0500
-Message-ID: <20261005205310.2079198-1-robh@kernel.org>
-X-Mailer: git-send-email 2.53.0
+	s=arc-20240116; t=1791233707; c=relaxed/simple;
+	bh=IIMMIB5yZntj79h+uvpZEG92MvGuR49gw/nRCTIMEsI=;
+	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:
+	 Content-Type; b=pKze/vCK73XVa6FV47U9AdkRT9JxxFJKKAI9KtvFcEaaKxjqEJM9RZK61Y6vS6MgL46a7Yjmjd60HDfrnxudfKOsbYbVFtEVcgrUnB10OPBvZRIJB1Dhy+SpBG1bjsWKIuZ37rLpWoh7d86pYiJhbWEF+VugPEQWNdS1t4lhLiQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.167.200
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-oi1-f200.google.com with SMTP id 5614622812f47-4b2f2b8d88fso3448437b6e.2
+        for <linux-kernel@vger.kernel.org>; Mon, 05 Oct 2026 13:55:05 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791233704; x=1791838504;
+        h=content-type:to:from:subject:message-id:in-reply-to:date
+         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=U+v4hJ6i5lxdKH51nxY645I+vQt6491YsupVDGPjZvU=;
+        b=AtpuIlcKyO0Yl1B7Ie6IPg6dzGyJx9pIFtvs9xUsUN6fDuJnis2Z65OaGwvYuMiJ23
+         DIXnQ0BekOI0RO9Dr8KHmFnXsM2DwT91S5YCrhpoRwRavgKiKGIK7V1Gs1k55ankKFxW
+         vQ+8IUCD0/hSJzB6XShX/kdXwcUoqaVWVtMcxkLkU61NCG4eU1/iyGJApMaVEFUlDWjv
+         x4/w65jC0sQk6ojacDpwmcFk7PX3gpTAgpSWphvPubxQNukgWmDuDvnqs1VbMmjHup00
+         0HD1FJoDWLMR5Av8FhRoYKtvoHjlIvrWWdZzJHhJLy5C1ROwbhEtng+LLmUi2ydGImRm
+         y34A==
+X-Gm-Message-State: AFuF++nGjKo4BUUMbruR2Ne2CJb5IZ02AT13fHpTMs5ZcjIt2fnt5TkZ
+	1+s83mpoPEMelmHWyCsrSwA6xGvjLezPwVpNhdn87BHwMDVzZb969UbCpDXsMJs2kCx35HZjUK5
+	OTYvYXrbQr7DZEBsIq7AZLfvDUpVIFeY+TlHQ+DmpNyh32bKu/R2rw+JdG2Y=
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-Received: by 2002:a05:6808:1205:b0:4f5:2195:e3d4 with SMTP id
+ 5614622812f47-4f52a572fb5mr11224843b6e.36.1791233704693; Mon, 05 Oct 2026
+ 13:55:04 -0700 (PDT)
+Date: Mon, 05 Oct 2026 13:55:04 -0700
+In-Reply-To: <6ac332eb.598348e0.18b15.0000.GAE@google.com>
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6ac40ea8.598348e0.18b15.0004.GAE@google.com>
+Subject: Forwarded: [PATCH] media: usb: siano: do not resubmit urb after
+ EPROTO status
+From: syzbot <syzbot+d627b1495de0e851be32@syzkaller.appspotmail.com>
+To: linux-kernel@vger.kernel.org, syzkaller-bugs@googlegroups.com
+Content-Type: text/plain; charset="UTF-8"
 
-Add a schema for hisilicon,hisi-localbus which is already in use for a
-long time.
+For archival purposes, forwarding an incoming command email to
+linux-kernel@vger.kernel.org, syzkaller-bugs@googlegroups.com.
 
-Assisted-by: LLM
-Signed-off-by: Rob Herring (Arm) <robh@kernel.org>
+***
+
+Subject: [PATCH] media: usb: siano: do not resubmit urb after EPROTO status
+Author: jakovnovak30@gmail.com
+
+#syz test
+
 ---
- .../bindings/bus/hisilicon,hisi-localbus.yaml | 40 +++++++++++++++++++
- 1 file changed, 40 insertions(+)
- create mode 100644 Documentation/devicetree/bindings/bus/hisilicon,hisi-localbus.yaml
+ drivers/media/usb/siano/smsusb.c | 5 +++++
+ 1 file changed, 5 insertions(+)
 
-diff --git a/Documentation/devicetree/bindings/bus/hisilicon,hisi-localbus.yaml b/Documentation/devicetree/bindings/bus/hisilicon,hisi-localbus.yaml
-new file mode 100644
-index 000000000000..cd9ecea88269
---- /dev/null
-+++ b/Documentation/devicetree/bindings/bus/hisilicon,hisi-localbus.yaml
-@@ -0,0 +1,40 @@
-+# SPDX-License-Identifier: GPL-2.0-only OR BSD-2-Clause
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/bus/hisilicon,hisi-localbus.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
-+
-+title: HiSilicon local bus
-+
-+maintainers:
-+  - Wei Xu <xuwei5@hisilicon.com>
-+
-+allOf:
-+  - $ref: /schemas/simple-bus.yaml#
-+
-+properties:
-+  compatible:
-+    items:
-+      - const: hisilicon,hisi-localbus
-+      - const: simple-bus
-+
-+  reg:
-+    maxItems: 1
-+
-+unevaluatedProperties: false
-+
-+examples:
-+  - |
-+    soc {
-+        #address-cells = <2>;
-+        #size-cells = <2>;
-+
-+        local-bus@80380000 {
-+            compatible = "hisilicon,hisi-localbus", "simple-bus";
-+            reg = <0x0 0x80380000 0x0 0x10000>;
-+            #address-cells = <2>;
-+            #size-cells = <1>;
-+            ranges = <0 0 0x0 0x90000000 0x08000000>,
-+                     <1 0 0x0 0x98000000 0x08000000>;
-+        };
-+    };
+diff --git a/drivers/media/usb/siano/smsusb.c b/drivers/media/usb/siano/smsusb.c
+index 0fdc2e0950b7..a1db99a64bef 100644
+--- a/drivers/media/usb/siano/smsusb.c
++++ b/drivers/media/usb/siano/smsusb.c
+@@ -93,6 +93,11 @@ static void smsusb_onresponse(struct urb *urb)
+ 			urb->status, urb->actual_length);
+ 		return;
+ 	}
++	if (urb->status == -EPROTO) {
++		pr_err("error, urb status %d (-EPROTO), %d bytes\n",
++			urb->status, urb->actual_length);
++		return;
++	}
+ 
+ 	if ((urb->actual_length > 0) && (urb->status == 0)) {
+ 		struct sms_msg_hdr *phdr = (struct sms_msg_hdr *)surb->cb->p;
 -- 
-2.53.0
+2.56.0
 
