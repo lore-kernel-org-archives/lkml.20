@@ -1,78 +1,78 @@
-Received: from mail-yx1-f98.google.com (mail-yx1-f98.google.com [74.125.224.98])
+Received: from mail-pl1-f225.google.com (mail-pl1-f225.google.com [209.85.214.225])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 648AB47DD7C
-	for <linux-kernel@vger.kernel.org>; Mon,  5 Oct 2026 12:18:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.224.98
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4C35E47F3DE
+	for <linux-kernel@vger.kernel.org>; Mon,  5 Oct 2026 12:18:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.225
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791202734; cv=none; b=OfJ9oMp4jWBitIIyHAs4PULmNQ3wk3i2uQRve9NvkXHBzbzosTAzKQO2o4jKY3GsEpmTICLLpZk79+10ZzbeTm05cD8bijnkXS0Qmx4E4b4aYrAs4AYbOfdRW+fCG3QsE7868HnbtvD+Da8G0cFpPMO21px7yjncxAgi8313yCE=
+	t=1791202740; cv=none; b=nSY8Btb1irZ1V2N79ivUybR3Lfy1FcHp8ArKTroFlCqw1G+LXSnSJDPq/bDllTzlC3VdVS5oioduL/wWi0cyhZ0JinHVuEjQXnFocAazPIeF86IYD1GlVlW+0e5ihlcvDIsJnhHk0sSgzx7kWGG07RUTHDfVR+bj2eEaM1x3z54=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791202734; c=relaxed/simple;
-	bh=YivNhXHyFNj2qLkN1DUjLdFawMx7+V5jdVVmNV/OF6I=;
+	s=arc-20240116; t=1791202740; c=relaxed/simple;
+	bh=LwT8YD/0iQneScUmn7PmYzkkA+TpVxuKTz+5LjxFZ38=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=LSnmN0WE58Y9mvmKJPDXnSctGHU9MScKqTrWf/PKLQez9jYa5JL4i1zGeGFMQHMkew1zE1dYoi6kPASmWUgsQHLjHIiwhik63ztcCjT1yRTc3fx8EH39awKXUZJZLQMaAOF0Y6xgINkuC/1LTjvBH6VJrnF1C3wCQKyfQ0HIn/4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com; spf=fail smtp.mailfrom=broadcom.com; dkim=pass (1024-bit key) header.d=broadcom.com header.i=@broadcom.com header.b=Dlp2H5c5; arc=none smtp.client-ip=74.125.224.98
+	 MIME-Version; b=uRDuhTyyMECkSEBmHbvHGtOt0tImsLp1nnu2/pokYLO0dlrV34LjFh7QWH6+TlbDcv2C3hi5F7nUdxVkPZcKP2XDWHye1Pj5obUxUxr26YPhXcWwrSirxwtHbHa9OoMLjI9MP7aQQHo2PZhu8bEDRsHXc9FcFn70kmI4RIPrX8k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com; spf=fail smtp.mailfrom=broadcom.com; dkim=pass (1024-bit key) header.d=broadcom.com header.i=@broadcom.com header.b=g4D7Jq1A; arc=none smtp.client-ip=209.85.214.225
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com
 Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=broadcom.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=broadcom.com header.i=@broadcom.com header.b="Dlp2H5c5"
-Received: by mail-yx1-f98.google.com with SMTP id 956f58d0204a3-677d35fd1d2so760412d50.1
-        for <linux-kernel@vger.kernel.org>; Mon, 05 Oct 2026 05:18:53 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=broadcom.com header.i=@broadcom.com header.b="g4D7Jq1A"
+Received: by mail-pl1-f225.google.com with SMTP id d9443c01a7336-2db18e5cb56so2886495ad.0
+        for <linux-kernel@vger.kernel.org>; Mon, 05 Oct 2026 05:18:59 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791202732; x=1791807532;
+        d=1e100.net; s=20260707; t=1791202738; x=1791807538;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:dkim-signature:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=8iJV9KU13K8AUXhp7jJwHB/8UbdXVud6Ux/9BnQZ+qo=;
-        b=hWJNeA6VtkX4OU7eCdiee5JdRnzeYs6m2uf+Czfd2greHa69lSSLnp3WqOSx6s8hgl
-         hmSnyXX4Zr/yMogoKsbC/ZmFtRVKk1QynZQapLnF8z3gEo4cz6BfBZRV+LyvTUle5kp+
-         OjUDJ7GG4PRGLMycmI3Up6olFMDOmKOc2pHb9lsR0I7x9na1MzJacEybEc7+Z3ddV74+
-         uvbkZnEZMxlnxLw3+S0Cz/iUUUpcOcJq/0AtKvxisVL2fk3OGD7J3FBTbsNL35EqaaGN
-         zjuVD2s+1Q5xbk94SXiljPx2Nt909q8pP2ZhflEgVf7cAvcttOPrItrAVqbzAzs/z4kD
-         5YSw==
-X-Forwarded-Encrypted: i=1; AKwUvBzKvBg9ox8q+rl9avQQaUSles0NrH8GZ6cQG+dM2fyT0Y911bWO8HWnPQmSWk+4sFIoh7Oe/072Nbqmjik=@vger.kernel.org
-X-Gm-Message-State: AFuF++lreyTOBWn4z7zyV4MOi/hgL9AXnPGfMBL/iRIijKM6y7x3LcE9
-	5bECrMYkLzio16AMOZ7RME5/03Z2oVAxjFP/RLpa1yDf5pEw+v1HHopO9UToDQ2UotLJf7FeLSn
-	IhUKWXSlSfqP3wbawEEA9GjTNWzi5m5ngI7XMeV0QUkXbxBBFTA8trU4iq4pDLSoq3xsx3ZOHlr
-	tdb1yVtgmnGP4k7eTWBm8YAw/wYqVfSdSfgI93Wd2o7NBmszQA9IgZHiNUfk28rraU/nvaj7Xd5
-	O1QpdGAs4ldcmonKtKBZMW/Xw==
-X-Gm-Gg: AYBFou2yXEc1aXuw3CesjYnzzaihEs31A6lpQ6IXwoIkhWZrvJtqkyyoaXTXPqoAlB+
-	l+Tf6P9ij3KwOGAx2Q7mDYOLtsYRNrMI83X2cGDM7dYLwdY22UoNyCfYPiLgimrpNfrdlcu/Xv+
-	3VE7gG3741dmu9gRFmMSurddLaZaBp65NFLp09aKGFU/Uc20q0og7F7drxxN/XaxLt9BdP9CVWH
-	JxnVIo/dHMTyiXLG2djhGMazQ0NXKkWt7adrYyF+Ilnn2AXELnDfhZHP1Sltgk7OX6jmd/42dXB
-	dOTYkgEyDXS77Aszv8U+6Pg+XWreKVoNj8bpuX04AVXepDU8fzqsxUwBF3DuN7Q0X0b6OoE2GGH
-	Tu4gDPU4hcKwI89HuqSNGvzt+OWF4SH4K7j/crIrcRxkAeNpN71fS/LIBnHip0URpSzCxGNBhBH
-	lNOdREtssMvYeO5LXP6RsmRMvI1VV65+DQARzjLeN8BU4A
-X-Received: by 2002:a05:690e:484d:b0:677:b1da:ba3f with SMTP id 956f58d0204a3-677bd371642mr1711819d50.51.1791202732325;
-        Mon, 05 Oct 2026 05:18:52 -0700 (PDT)
-Received: from smtp-us-east1-p01-i01-si01.dlp.protect.broadcom.com (address-144-49-247-120.dlp.protect.broadcom.com. [144.49.247.120])
-        by smtp-relay.gmail.com with ESMTPS id 956f58d0204a3-677c1ae84b5sm1291635d50.8.2026.10.05.05.18.52
+        bh=TrBS4PnotPAQvpTrqkrnkQqMR1v1OmiTLLbvti1RdcE=;
+        b=H+gwGHs9+CfRyWjEBTNOwDxShTbQT9zIVh7nDEbbSM7pg68ftuB8iQDU6wYWZVgr1n
+         P/NCMRaWezfH8G5ZP73+p/tgdqxAEai50Wqy950pbGyU2YYfEbbVq94wusuzQVp0PM+S
+         Wu1d9C6DGIl1SPLSVkwc0sxDVyUm4eyGqfovefLpAzBk2IBnJ7BMcekAvOgAs+GN82O0
+         28sldmRbqNOrztmpF2nKKN0AeOll39EEKi/S1W7yruyJrfqmTVgChn12DPGwrUQ+DD36
+         y7yOj5fqJ1YeaFuO9ldAzWIqH+or5YVx5+vbjsTLEkOAB4uE4Z3DtOpf+J+AHVMJLlVZ
+         long==
+X-Forwarded-Encrypted: i=1; AKwUvBzwHy10qPhFZF2WQoeqzZcOflnGTKeAdiJZuPqbUUBl9+VFW5s2nKWVGnf9B4+zlrYNcmMI/VqfdCZnrLM=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJJxwcIdinXxJIx8CS+f7GwfmWdGMfRT+vi6ZvwjlYwQS/uuv0E
+	c7QHyhSjcZNgZGYs2pVLGS+FRoWPax0rzUYY6KEmKAVmDIz5KrqBAnJybmLrYdYUFO1240jvy82
+	qg1uICFuTRraVOip6KCfL55aatz4UywRdq5tOO+/sueMxRB3ovYZ0/+4EKIzQcZ3R2F57gFoyWG
+	4nDeDNvpaXIEv2jQz3I8dISytnOFJRz/6b58AHnrsCBFBDFpRVAeUz+U8VJxODalrPtUIVSG1Be
+	HKRIo/JSEy13jvr29AHxcZ0EQ==
+X-Gm-Gg: AYBFou38qxuPbR+EK8MDh8nxvecZimHT/WwCz6mTsH52+ZEOS416Ix9YykWfLiPWgL3
+	fUMFDNGf+XAJivF4A5lubyVjEh3d5NVJPEsgKkFDjCIuAP3nDLNWOQqnv0tLax1BafIodHxKcPV
+	8ecvy5qfGRRJtGA8OTCs8l0UrihJU8efvzYAYCUnZwgT+fPWYiby2uDzuJslDnnLp+8UDIlyc6m
+	+MbwLVRiFEm/4fodWy9a8r1xOueuJZPLxmDM9VSvARIupSf/xmIvHoZrV1BZFTOq6kChkxs3z2x
+	jiBC5XDxZNjrIMIaUqYyUZ0po53YWn33grn2DQDPOXKvgYwmGwT3+F5KNwwIKIbN4Ka6UMm8ODA
+	kD5IiSm0KIwKT765y+GM1v0AdASDq8FP6z44DVccKgcGZAttoGONhXr0ItRQhDu7WNImWhvV1va
+	YA8Vn3umnAEpzEfQlXcz8CqNeCQ3VAsjY6Gf0rfotJ3N5s
+X-Received: by 2002:a17:90b:53d0:b0:3a4:b022:1747 with SMTP id 98e67ed59e1d1-3a6ce79ae90mr7968242a91.33.1791202738492;
+        Mon, 05 Oct 2026 05:18:58 -0700 (PDT)
+Received: from smtp-us-east1-p01-i01-si01.dlp.protect.broadcom.com (address-144-49-247-125.dlp.protect.broadcom.com. [144.49.247.125])
+        by smtp-relay.gmail.com with ESMTPS id 98e67ed59e1d1-3a80fb9777fsm1360602a91.8.2026.10.05.05.18.58
         for <linux-kernel@vger.kernel.org>
         (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
-        Mon, 05 Oct 2026 05:18:52 -0700 (PDT)
+        Mon, 05 Oct 2026 05:18:58 -0700 (PDT)
 X-Relaying-Domain: broadcom.com
 X-CFilter-Loop: Reflected
-Received: by mail-dy1-f200.google.com with SMTP id 5a478bee46e88-3510d0baf63so3285048eec.1
-        for <linux-kernel@vger.kernel.org>; Mon, 05 Oct 2026 05:18:51 -0700 (PDT)
+Received: by mail-dy1-f199.google.com with SMTP id 5a478bee46e88-313d1015161so5129799eec.1
+        for <linux-kernel@vger.kernel.org>; Mon, 05 Oct 2026 05:18:57 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=broadcom.com; s=google; t=1791202731; x=1791807531; darn=vger.kernel.org;
+        d=broadcom.com; s=google; t=1791202737; x=1791807537; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=8iJV9KU13K8AUXhp7jJwHB/8UbdXVud6Ux/9BnQZ+qo=;
-        b=Dlp2H5c5s84MRGp45insb0YGC/3GwnRkCBHIEZ+JC1CiySUFiW8rrpmipd3z2vgrXK
-         8WcGYsPca4W6BvDt8FzIeLNbUrC8j3Om/kY0uI03H92mocm/YTlNYFdoH+TlxcgAg/n2
-         QjFdBseDsqOVC/+lz+u+zphWEfohcaFKyesmE=
-X-Forwarded-Encrypted: i=1; AKwUvBxNGwpzf5MdGHfwbsY0RmW1GZV6WzU7n9qBd00Wlpx83MfIwipA8S5l7Sxny3/FNkY6HzeKbD75N67OHRI=@vger.kernel.org
-X-Received: by 2002:a05:693c:2181:b0:34b:4b99:24ab with SMTP id 5a478bee46e88-3511147e728mr9583392eec.22.1791202731088;
-        Mon, 05 Oct 2026 05:18:51 -0700 (PDT)
-X-Received: by 2002:a05:693c:2181:b0:34b:4b99:24ab with SMTP id 5a478bee46e88-3511147e728mr9583357eec.22.1791202730183;
-        Mon, 05 Oct 2026 05:18:50 -0700 (PDT)
+        bh=TrBS4PnotPAQvpTrqkrnkQqMR1v1OmiTLLbvti1RdcE=;
+        b=g4D7Jq1ARb0c+rSacECM5qM33MqgsSM5PgI2PtEfHCcHQXG5cz2J9YNSF+Sqq3nktp
+         8wPALHbYE2zuO+M+tergobp2H54UcK+M1V/Fms5BdbRAFiLZHjrnLLC0ui2EtQWXTCkY
+         5tqDVKR+u9wkYkbyPdvAZkHNbjjSZi5cTbVMc=
+X-Forwarded-Encrypted: i=1; AKwUvBzAVPxGS+pg4MkHwkdFIqjkRksz+4m/h1+9AzFADeSnCd4qpbdMXGxZQyjz/EAZxu/K2eaicVKm0K1PuQk=@vger.kernel.org
+X-Received: by 2002:a05:7301:c005:b0:347:8d01:164f with SMTP id 5a478bee46e88-34f150a378amr13881953eec.19.1791202736849;
+        Mon, 05 Oct 2026 05:18:56 -0700 (PDT)
+X-Received: by 2002:a05:7301:c005:b0:347:8d01:164f with SMTP id 5a478bee46e88-34f150a378amr13881920eec.19.1791202736093;
+        Mon, 05 Oct 2026 05:18:56 -0700 (PDT)
 Received: from localhost.localdomain ([192.19.203.250])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-351272ceb02sm25687542eec.25.2026.10.05.05.18.43
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-351272ceb02sm25687542eec.25.2026.10.05.05.18.50
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 05 Oct 2026 05:18:49 -0700 (PDT)
+        Mon, 05 Oct 2026 05:18:55 -0700 (PDT)
 From: Bhargava Marreddy <bhargava.marreddy@broadcom.com>
 To: davem@davemloft.net,
 	edumazet@google.com,
@@ -90,9 +90,9 @@ Cc: netdev@vger.kernel.org,
 	Dharmender Garg <dharmender.garg@broadcom.com>,
 	Rajashekar Hudumula <rajashekar.hudumula@broadcom.com>,
 	Ramakrishna Koduri <ramakrishna.koduri@broadcom.com>
-Subject: [PATCH net 3/4] bnge: do not fail open if IRQ affinity hint fails
-Date: Mon,  5 Oct 2026 17:47:03 +0530
-Message-ID: <20261005121704.227866-4-bhargava.marreddy@broadcom.com>
+Subject: [PATCH net 4/4] bnge: clear bd->netdev on allocation failure
+Date: Mon,  5 Oct 2026 17:47:04 +0530
+Message-ID: <20261005121704.227866-5-bhargava.marreddy@broadcom.com>
 X-Mailer: git-send-email 2.47.3
 In-Reply-To: <20261005121704.227866-1-bhargava.marreddy@broadcom.com>
 References: <20261005121704.227866-1-bhargava.marreddy@broadcom.com>
@@ -105,39 +105,34 @@ MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-DetectorID-Processed: b00c1d49-9d2e-4205-b15f-d015386d3d5e
 
-IRQ affinity hints are advisory and not fatal to driver operations.
-On uniprocessor builds (CONFIG_SMP=n), irq_set_affinity_hint() always
-returns -EINVAL, which currently prevents ndo_open() from succeeding.
+If bnge_netdev_alloc() fails after storing the net_device pointer in
+bd->netdev, it calls free_netdev() but leaves bd->netdev as a dangling
+pointer.
 
-Log a warning and continue instead of failing open on affinity error.
+Explicitly set bd->netdev to NULL on the error path to prevent potential
+use-after-free or invalid pointer dereferences.
 
-Fixes: bd06d729722e ("bng_en: Add initial support for CP and NQ rings")
+Fixes: 13a68c1ed754 ("bng_en: Add a network device")
 Signed-off-by: Bhargava Marreddy <bhargava.marreddy@broadcom.com>
 Reviewed-by: Dharmender Garg <dharmender.garg@broadcom.com>
 Reviewed-by: Rajashekar Hudumula <rajashekar.hudumula@broadcom.com>
 Reviewed-by: Ramakrishna Koduri <ramakrishna.koduri@broadcom.com>
 ---
- drivers/net/ethernet/broadcom/bnge/bnge_netdev.c | 4 +---
- 1 file changed, 1 insertion(+), 3 deletions(-)
+ drivers/net/ethernet/broadcom/bnge/bnge_netdev.c | 1 +
+ 1 file changed, 1 insertion(+)
 
 diff --git a/drivers/net/ethernet/broadcom/bnge/bnge_netdev.c b/drivers/net/ethernet/broadcom/bnge/bnge_netdev.c
-index bf101eded3bf..ca14d13fa3e9 100644
+index ca14d13fa3e9..7dbe853a5a47 100644
 --- a/drivers/net/ethernet/broadcom/bnge/bnge_netdev.c
 +++ b/drivers/net/ethernet/broadcom/bnge/bnge_netdev.c
-@@ -2666,12 +2666,10 @@ static int bnge_request_irq(struct bnge_net *bn)
- 			irq->have_cpumask = 1;
- 			cpumask_set_cpu(cpumask_local_spread(i, numa_node),
- 					irq->cpu_mask);
--			rc = irq_set_affinity_hint(irq->vector, irq->cpu_mask);
--			if (rc) {
-+			if (irq_set_affinity_hint(irq->vector, irq->cpu_mask)) {
- 				netdev_warn(bn->netdev,
- 					    "Set affinity failed, IRQ = %d\n",
- 					    irq->vector);
--				goto err_free_irq;
- 			}
- 		}
- 	}
+@@ -3551,6 +3551,7 @@ int bnge_netdev_alloc(struct bnge_dev *bd, int max_irqs)
+ 	destroy_workqueue(bn->bnge_pf_wq);
+ err_netdev:
+ 	free_netdev(netdev);
++	bd->netdev = NULL;
+ 	return rc;
+ }
+ 
 -- 
 2.47.3
 
