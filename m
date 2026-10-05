@@ -1,273 +1,146 @@
-Received: from mail-dy2-f39.google.com (mail-dy2-f39.google.com [74.125.229.39])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from DUZPR83CU001.outbound.protection.outlook.com (mail-northeuropeazon11012053.outbound.protection.outlook.com [52.101.66.53])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 82D7827E1DC
-	for <linux-kernel@vger.kernel.org>; Mon,  5 Oct 2026 01:44:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.39
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791164675; cv=none; b=ntwOBlG0bXSvkPnVpqepIuoPZ1qw0SaLm/7bgn70gdYk19z/aIUYgdPnkbWAZGl6vcyMuTnKeTLQhv6pxGTr8rTB2cbqGd/WmEHSnlsbrfP1D8K8Lm7bjixYdCzL548OtdXTPkfpvbo6+lVkcbFVGbDuTCeNWNIPgYbvhFrENgA=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791164675; c=relaxed/simple;
-	bh=yPHi56gAtqA/TDzFJ72uOu5MIoHc4QHdXCJoW2ufS4w=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=O1oEEy+uqTMwx0drZXLy42JDtq2Ige8VYqB+A6eWPvtm9mZcipKue7EE30jlGagdznj7tj5hfwxT0bbcD7/k4DaGD0kB+yN0AbRy9TbNpeyIFZgC3lhvRN9jk8helFf8IdYSlMsw9WIWTHUzIxoa0NuIoccSZCiCvRKQQq3MY/Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=pu8smvcS; arc=none smtp.client-ip=74.125.229.39
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 223F21A267;
+	Mon,  5 Oct 2026 01:45:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.66.53
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791164715; cv=fail; b=P/MmtZjeuQItTIQ8+QwU2NjNqYbdGdMuSC+foZckU3tm+y+bMPQ6oSuoLpicpROx2TFOX2J6CgluUfA5ijMXYA+Zx/fHbkJEJzycmZcon4/zpKelzUusfa+3RC5e4NOUFi6Vzdq2ibVKHgNxj+rsNKLuNdOpCs4uSuDNYn/Ujmk=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791164715; c=relaxed/simple;
+	bh=dv7CEl5HiUxnl9f27Rf60SddAiymows6lJQApNPNnwk=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:MIME-Version; b=fRaxx/SZg5af8MAd3MbwyPG+6fGV37rs58a9y9JEhhTxstIsuQ1NbkD9YiwKsGiuldsMiaHtM2mtMGKrv5/Wja/8g7+ViKzUi6kcqRZcYkwDp0wNzPLVNJzY25IcvNqZPgULhNpd6AizEPMHxejFvNN3QiYMK3H8Jq1oKmPEMvs=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=est.tech; spf=pass smtp.mailfrom=est.tech; dkim=pass (2048-bit key) header.d=est.tech header.i=@est.tech header.b=mZJd6b+0; arc=fail smtp.client-ip=52.101.66.53
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=est.tech
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=est.tech
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="pu8smvcS"
-Received: by mail-dy2-f39.google.com with SMTP id 5a478bee46e88-34b3a9cd8edso558085eec.1
-        for <linux-kernel@vger.kernel.org>; Sun, 04 Oct 2026 18:44:33 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791164672; x=1791769472; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=z11OeYwmY+zK3ViQe25TXbebJyVJEKxWldYjNJp9g2c=;
-        b=pu8smvcS31NjqG4rc6Q+J3OzsNIh2anoDOunDbWNGexjQdDgDdMYv0/Jt0QClwYXRQ
-         SgPET79Wgfzp0TiUmNs0BrsPYy6g5+1+q5RbaKNBmj/QvrTvwsgfO17Mp5ZCbWeaeTdd
-         85b1UO/QAz2smBDFNKCjfNN24yG7ZsUI+XSN5pkFheiUK6PL/lbWqW8NMx6EiGB2C0zq
-         OkuKBWMKFJP7tm54SY9JEbHj3W0J+kPelO/txrBFB4Fkofp7lf9+lSRz9dsC/ZVY+Lvf
-         MTwvzyc6rrD0F7nyu4oSSwKLOS9Z4VFcYF96sx4f4KnrPEDDOojNc03mOX58xRWeW8bb
-         p62Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791164672; x=1791769472;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=z11OeYwmY+zK3ViQe25TXbebJyVJEKxWldYjNJp9g2c=;
-        b=rKl+XT/plwgcdlOd8btcOU/J98uZ81/o4KCFO5BUImAVWQTD4Iou+dRLTU2pMLXNIf
-         I01Le9P8i3FDwP5JVWN/2d1mokJUDz1j1DWgG30xhgbwBRDTWQ/Dvmk/pYwO9H2d0gVN
-         HCbQNKeOk72LKsz+tbXGS27Zs83QC5gk72I1qIEUyMzlFypYnXYl0SKLb43aKpRf4A0J
-         kkXP/VpYBqMQTO/MS3Pm1jfSnDOE1Gmo5Z4+1IxYo/uwHYxqM5Y4KDrdQmQMuXkZFTHN
-         s6k2AdZBOHMt1N1Yv/KXBvUagJoUUrq1OaIi0BgsO5v8fWVUy4pP4qwOEzq5plTvhz/O
-         6UBQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzPI2o1Wwtlw3quzQqB9TlXfx3abByqpAxNY8ALph0qh4DfquBhlXcNSjX6r66gSjcnJAbBiy+FJbArnD0=@vger.kernel.org
-X-Gm-Message-State: AFuF++n6Qh0OsjzUtPiDAuoPMHtrKA9drPClOSYWCnT8P5jdsL79Em6B
-	qQJt7bHypqBNikRa6rKKqmKQ0CLfYxrL52amoBe+Ja+d5GspK00gabEH8YGnF/ZGt3U=
-X-Gm-Gg: AYBFou0p0RZnM+JAYzKPKl7eq7dW2iZnSIZf88DEr4KrL7TwretCUyO7q3zd+BVOhOo
-	cUq6SHFp1Lm6X40hig0ui42ySxBLf/ts1Gxobu5EeqrAWWHg6k2zsgeqsLLCLl7iA4CY2uAcyQF
-	88O/f66/MnpLl7P2IqGVeHdykZPc47CYuzgiztgEQEMHd/hg8P4LjDNVkI2/6tPI1c4yXln3Ezh
-	Ox6SJ1lFcN3V3qZivb2PERkRz8Lh1WdcOhQ01KDnAibkZ1JMFbl3ZY3RDpTeqPSciyAUgEhM3SK
-	AtYBjP3B+VmuxJPJEiprQFIuukHFbqsRrFZOzBSc5AawDqr8jkPrZSc2gcMEnblbR/ckcFSRx60
-	8LEBnH7ZQ8DgHglJfsDKcrSn0OGNpxuYaMsNJohunxsk8uDGO9CCVDIeg3QVpkKcu8rbXb71tXB
-	Rtvk8n0zNVgaSqaHBUyZDmgK0nH6SZfRx1p/xEI8t9LFD5T1Sa6xm9S0gNYN7sH6fOHMAJu1IY9
-	4xwWNZD9JZosm21OnLmibAHNHwPEASzrMOjl8MRMDqxsIZ4KuyG993CiLp8SYbs6lPDJzm656A7
-	2xtuxjTL7QOb54ItDkgtMFxzFB9W1ZHTEqJQQ003ofT9d4Dy1ski4+29fBpTfZwcHFHZ6FVqsXe
-	EvTmUXRTEZAn0rENBhLDH4zxHn1CyMD5K6zVA33/H+uaj4gdJ93HC5v7C4rezdJo2UQ==
-X-Received: by 2002:a05:693c:408c:b0:33e:aa3d:ebe9 with SMTP id 5a478bee46e88-34f21991794mr12389583eec.12.1791164672128;
-        Sun, 04 Oct 2026 18:44:32 -0700 (PDT)
-Received: from FT6N242TWK ([223.181.113.176])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-351272d5103sm8912084eec.27.2026.10.04.18.44.29
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Sun, 04 Oct 2026 18:44:31 -0700 (PDT)
-From: Shashank Mohan Jain <jain.sm@gmail.com>
-To: Andrew Morton <akpm@linux-foundation.org>
-Cc: Alex Elder <elder@kernel.org>,
-	David Gow <david@davidgow.net>,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v3 2/2] lib/tests: add KUnit test for parser number helpers
-Date: Mon,  5 Oct 2026 07:14:23 +0530
-Message-ID: <20261005014423.78677-2-jain.sm@gmail.com>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20261005014423.78677-1-jain.sm@gmail.com>
-References: <20261005014423.78677-1-jain.sm@gmail.com>
+	dkim=pass (2048-bit key) header.d=est.tech header.i=@est.tech header.b="mZJd6b+0"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=dTFMLMK04YCAToG9bCn9VHT0VehCYe9DNRoScCPRSjBDWu2wlvyfmUP8DNuPeRgaJf0BGU4TQrxqMocBLXmMC5O1kT5H7xHvPx4LPgAezOS8Ai1bUPvgOE6PXQ+5e8hGYf8W1ftNmeWQ3Lj2UDCabzb6tBoza9/pMAICNFmyRrENTUA97g6qNrAC8aUBMmK+E6cRF9P/HYdpBMqJQF3vmyRlhrr6BbUsJEYIfQCTg5kVBVc+XUkdhd3ASwRMTKZOJZosb48kWVkzOWNe+RUaE2cFCfXWziXun8k9rSMR0F7wN7goniD+WTB9DOUfrUvRsqzJ+JHdr+KeqHj8spuzKQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=dv7CEl5HiUxnl9f27Rf60SddAiymows6lJQApNPNnwk=;
+ b=TzFWSSgbdNdmj0pkxwerOVuIoKqWv10fVfI1PN5z8wzcQEXDqty105Xoxn6JwWozYuZgHc31itq5wxcHvvTzFQXQ2MBPY+Bk8Z7mjL0fs7Iuk9BJlmPjueBzO3Y+u9Qt9CrUH/vTt4ZD9HmiweyNAEYU2/laHZqgBThPPcYnS8dWsXYSwzNdQjB6iCbxwSJurVWqjlvnaouTxkhSysUDuQITgo86MrbI2MUnzi8o4CsFuC0k1h/GGaNbjnSIfChgIfQy4KEKL7m3grxzcUJD8w/2Vc5217lP4TTNpdtksrkGpenpYJ1pc2CpoyF1ekkMCZ+l/AIx7mlbAEdRuV/fCw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=est.tech; dmarc=pass action=none header.from=est.tech;
+ dkim=pass header.d=est.tech; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=est.tech; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=dv7CEl5HiUxnl9f27Rf60SddAiymows6lJQApNPNnwk=;
+ b=mZJd6b+0ooOEDpJ1ZVjfGJkoJc7fzfy1qlEGBUHuYEwoPks8NdAS5FMVpYzqbuyUPN7g/UXagMGhi6/GKHRQpqIBDwyp7n6gkfEnpLINcwXzl9Bg6cS8yCIEpxzE9fvl62wqDWpj9Q45B0H3pMqZPPv80bZEedto1FmWYgCfxkGZejRsZqaUt9dWXBrrc/ReZG//R7H59U5jip8qvnxfUTjpbyGHAqvUWIDiisEYhL+f6DT3b7yjtw7J149D1NieCJTIqffx64Gq9yv68cnIdyxe/QddePMlbdNULGSGMW+DsQor7/lR9AJsFDcXagbcdvXqFFJAkmRh0P1YDBwpeg==
+Received: from DU4P189MB3750.EURP189.PROD.OUTLOOK.COM (2603:10a6:10:617::19)
+ by VI0P189MB2687.EURP189.PROD.OUTLOOK.COM (2603:10a6:800:217::21) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.472.20; Mon, 5 Oct
+ 2026 01:45:07 +0000
+Received: from DU4P189MB3750.EURP189.PROD.OUTLOOK.COM
+ ([fe80::d422:dd3a:7c1e:f4f3]) by DU4P189MB3750.EURP189.PROD.OUTLOOK.COM
+ ([fe80::d422:dd3a:7c1e:f4f3%3]) with mapi id 15.21.0472.016; Mon, 5 Oct 2026
+ 01:45:07 +0000
+From: Tung Quang Nguyen <tung.quang.nguyen@est.tech>
+To: =?utf-8?B?SsOpcsOpbXkgSmVhbg==?= <Jeremy.Jean@oss.cyber.gouv.fr>
+CC: "netdev@vger.kernel.org" <netdev@vger.kernel.org>,
+	"tipc-discussion@lists.sourceforge.net"
+	<tipc-discussion@lists.sourceforge.net>, "linux-kernel@vger.kernel.org"
+	<linux-kernel@vger.kernel.org>, "stable@vger.kernel.org"
+	<stable@vger.kernel.org>, Jon Maloy <jmaloy@redhat.com>
+Subject: RE: [PATCH v2 1/2] tipc: skip socketless connections in topsrv
+ teardown
+Thread-Topic: [PATCH v2 1/2] tipc: skip socketless connections in topsrv
+ teardown
+Thread-Index: AQHdVENhiBl69M9Ihk+V9UOeiHoxIbbuLMJQ
+Date: Mon, 5 Oct 2026 01:45:07 +0000
+Message-ID:
+ <DU4P189MB37509EDC07ED80A505938D05C6962@DU4P189MB3750.EURP189.PROD.OUTLOOK.COM>
+References: <20261004210016.3051310-1-Jeremy.Jean@oss.cyber.gouv.fr>
+ <20261004210016.3051310-2-Jeremy.Jean@oss.cyber.gouv.fr>
+In-Reply-To: <20261004210016.3051310-2-Jeremy.Jean@oss.cyber.gouv.fr>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+authentication-results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=est.tech;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: DU4P189MB3750:EE_|VI0P189MB2687:EE_
+x-ms-office365-filtering-correlation-id: 41c26b22-6e47-4edb-17de-08df22824907
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam:
+ BCL:0;ARA:13230040|366016|1800799024|4022899009|376014|23010399003|38070700021|11063799006|56012099006|4143699003|10067099003|18002099003|22082099003;
+x-microsoft-antispam-message-info:
+ m5yyGEnKd24ew9AFx0ybIhLtWqdSlsrlehsFjT4UuZjItuYPVHKxjIXRwQGBEDr7pOdB9pbZnbJryp+E15UpSZCq+4Za0rL9fDStIlbHvcNwBLi3x6BwbUbuzp4t0XYt5qbssQKtfOoea0xgx6Sof3kRC7G+vLMXDyioVxnpTA3OtCoeQ3rVdI2X1oHSJU5Y8Uc3q6IBx1XNGOHXUPxCVvc5K7u3UXS9y1zG6XRxPqEUOaf3GYf03zRClc53a6OxFHlFwzn6SYSqmZCJI4qlHPowBgCTj7qM4Uj0Mk/6+SEHIoY26aWa2LwHG19gFL/Fn9kOqVSl1Cu3GDWkFf8orEfH85wc2M+N5FGx6jzWp6X0xHPtqYJD0MHCZg1zr54UzP4cB/1JGwGU+rjOUk+JWwiudiMN30fcltiYiwx6z7MofBz6qtyNFJ7BmE2s46XxU+tbOuSjMfHpgg0lIka35UgKpk9zH1H85Hkmt9iWWzWHRrINekSInHou7Rh8KyMBYFy8sEFwoLRm9iO41Rwlzw94m+5yXG9w5kMFE4ekTAn1jtP79CW58iQADpecQwuN5gvWHRRVwGyU0ui+SDDe4gwFNmyiscxak1hspAsAws92rBCnXJLvHcLUfe9n/Pqwab1UPBQi76/rZChzRpvcQUNQMOFuClwao1p9yqdBGrXnPHTtYcNqHcfSaMhw2Y64jXDkZEFd2hfl+7v7hxzb1RWrLuJ8kLjkZcJt9ZDX9MA=
+x-forefront-antispam-report:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DU4P189MB3750.EURP189.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(4022899009)(376014)(23010399003)(38070700021)(11063799006)(56012099006)(4143699003)(10067099003)(18002099003)(22082099003);DIR:OUT;SFP:1101;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0:
+ =?utf-8?B?NE55L245eXh6VzZxQ3hVSWExbXQzQUVWa1A2SHczMytWNFVGRG1pLzY4S3JC?=
+ =?utf-8?B?SkN1STFKdklhanZMWkVqaEcyRXgwOHV1UzNPa0U4SWZXTSt5ajlHbEFlYmZ6?=
+ =?utf-8?B?eGNtODIrZ0dISVNMcmc2bnplQjBoNjc1b1VpbS9EV3d0Y2RlcWltTzhuaWpo?=
+ =?utf-8?B?RWVLa015V2tJbXMwUEdiTSs5OFg4TjFtS29KZEt4STV6SVlESk94MFBXd1dy?=
+ =?utf-8?B?b1BObTl5TnQzOEZHWHVTZmh2M0NLajhoVUlucEZ0MHh6SHdBT3l3UzhDYzVP?=
+ =?utf-8?B?OUpDQnhzZEdlWEN2MjRhQ09VMW1ONzhOajAxZ2lBTm1GTytyZlFXdE5JR3Z1?=
+ =?utf-8?B?UUZrYTc4ZTVBN1VrSWNaWFFhQlhkVVV5UkNJVzRTNXpHL1VBdlJvY1FIT0Z5?=
+ =?utf-8?B?RVBMbmp6WHV4d0F6UFE0c3BsRThmbjJ4eE41NlFIYld5RjNNKzd6OGVlWjZL?=
+ =?utf-8?B?M3l4NHVVd0kxakpGSks1cm9kaTJHbk55eldnRmd0V09rNU83MFU1Y3ltNUlr?=
+ =?utf-8?B?WmdKbDVXUnp1dlhFTWF6Ni9HSTUrRWh4cGMyWFEyVHRUQ08vY3RLSlAwdDAz?=
+ =?utf-8?B?YzZ5R3ovSnozN0RKM1VhbDcxK0tPWDR5RUZBamdaSC9DNE9jcFhCakVmaExl?=
+ =?utf-8?B?TFczY1hxejdrOTdQelVuYk83ZGFuMFl4MHRxQkRnRnQ3S0R0b1pxQ3I0VXkx?=
+ =?utf-8?B?OWRqOXRJdmdqSTJBc0Qzb0tabktjWWRrUHhac0I5WXJYY2JHMGJnTVpKcklh?=
+ =?utf-8?B?NFBXMFJOYUdPSkIxaWhZbklPOTlqMzBnYVRNTFp6b2s1dWlaTmFuOWVzbktT?=
+ =?utf-8?B?Qzgzd2VYaDA4ZUhYTHRCTGg4QzlyMFBhUmJGV1E5SlVXdVAyMytJMm92OXE2?=
+ =?utf-8?B?UXFEdE44YW85UDAyZC95SjJuNk05Tm4vdGdhY2lYNE90YjhPeHlBd1hnWmFr?=
+ =?utf-8?B?dlp4VVg3ZFdkam5yeWZYM25TcGpYSkh4RmR1NmQwZzhGSjNGbXBTS0NCWjJZ?=
+ =?utf-8?B?WEtUVVpQbzBvcDZtdVdaODlQcnUwcExxNlA4MzAyeUUxcGlWaWtrN3NuRFRB?=
+ =?utf-8?B?ek1Ebi9JaHZoeEFBbFp1ZENVNEtBUUg0K29NYU91b1h4M0ViZVY0WGNpcFI3?=
+ =?utf-8?B?Z2x5M3lTODNZb0x2cER0SVlsM1E4MmJqaHREN0FMa3g3bm5nWk1nMGYzNkNX?=
+ =?utf-8?B?T1BDWG8vMFp0djA1R1d6NWIxL2gzWThHaDFSOU82d2ZCMVFqVEZhWFJNdE1O?=
+ =?utf-8?B?N0VrTCtDbHdvQ3g1T08vM0hlR0Z2Ky9GMm43Z3ZzRGRKSjFVWGtnbnVVYURN?=
+ =?utf-8?B?YVZLMmp0ZHJXZ0h1ZjMwOTd5RnF5RVhRWVJaU05FdFdZbHFrSng5Skd4Sk16?=
+ =?utf-8?B?U1dtc1hNTVd3c04zbkE2OVdITlFNMGQ4bEZPd09xV1RRVE9oa1U3NDB1VFhW?=
+ =?utf-8?B?a3hLdW56UE9CaXBEMUVxZnZ0UGNFK0ZuSXhpVW5wNEpmNDhFM054eWZUN3ZE?=
+ =?utf-8?B?RUthOElYMXlWUVFsVHRGQy9sQ3gwdXBqMXZhRTRPZ3VSbDkvY1NWTi91dTRC?=
+ =?utf-8?B?bytZLzJSOXR5eUdUOVdtM3N1ZXZZOUpxajN5ZEdHeUIydmxaSkRrVE9QYVJL?=
+ =?utf-8?B?Y0RRNGRXQ052L0UrK01hRkZJbnpwczFUZ3lhZVZyamJWcE02YnAwZHp4NGFp?=
+ =?utf-8?B?Q2krZUpWOFUvczlpdGNSMldoTlBRb2szRlNKYUF1OTRTNE1SSnhqSENwQzZ4?=
+ =?utf-8?B?WjRzN0kzclBIcUR6V0o3bUJJUVNOUHphdVRrbStSYUtsYSswZCtHY0U3U0lL?=
+ =?utf-8?B?YTJJbEJFVnc5TWNSeXhUNkJpYkRDaTZKenBoOFV0MXdtYmE5VnE2STlqQ0Q5?=
+ =?utf-8?B?OFk5WGszdmxaR0RUZ0w5VkJQMzFtc0lrQkFnOHJ4NjQyUUdoNURyQ1ZnaytI?=
+ =?utf-8?B?YTZpMDdTR0QwSEFHUmhwTTNxQXBlVG1EVW8vTytkbjgwOTFyOXVoeXBvblFI?=
+ =?utf-8?B?NlRCMHRhZFNaSU1vT3FCcE14TnVqSVRtMTc2c0U5OVA2UHE4MmFNRUxNK3o0?=
+ =?utf-8?B?bVRJakthbEdQSkRYTUZCdjVjdGhXaTFVSS9wVDE4REYrSlJDaW8xMGlMc2tS?=
+ =?utf-8?B?T0lTY2NWTVk5SjU4ejAzWWJiUUFHSmVSUEVNR2VnejJhTWwyQWdSVGFJODNr?=
+ =?utf-8?B?eVZ1YlZzc0xLL0lqeWVFckJHSmxkNEZsbXBlOVM5WkdQUkxQczRIbXlJZmtS?=
+ =?utf-8?B?d01KUE5MU1YyS01vU1VjWkNKVmc3NktPOUVPQTIvRkhRNWdzUlF4bWd2NExS?=
+ =?utf-8?B?RUpQUXZocDBza1YwdGRZbDRaZzZGS3MxR2FUVzM5dWlLUXBON1hEUT09?=
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-OriginatorOrg: est.tech
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: DU4P189MB3750.EURP189.PROD.OUTLOOK.COM
+X-MS-Exchange-CrossTenant-Network-Message-Id: 41c26b22-6e47-4edb-17de-08df22824907
+X-MS-Exchange-CrossTenant-originalarrivaltime: 05 Oct 2026 01:45:07.6020
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: d2585e63-66b9-44b6-a76e-4f4b217d97fd
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: hNI+X95+ZVK7/YURtBOwey7dJBmT2aiTHgvnScgKygeiEVBymQdla3drTx6RQqbbGPo5nx18tnmJbYWTrqsXOw2iXTdi89b9E4bkQR19OOA=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI0P189MB2687
 
-Add a small KUnit suite for match_int(), match_octal() and match_hex(),
-covering values at and just beyond the int range, values that overflow
-64 bits, and a match_token() round trip with an out-of-range argument.
-
-Assisted-by: LLM
-Signed-off-by: Shashank Mohan Jain <jain.sm@gmail.com>
----
-Changes in v3:
-- None (the test passes with the kstrtol() based match_number() of patch 1/2).
-
- lib/Kconfig.debug        |  12 ++++
- lib/tests/Makefile       |   1 +
- lib/tests/parser_kunit.c | 131 +++++++++++++++++++++++++++++++++++++++
- 3 files changed, 144 insertions(+)
- create mode 100644 lib/tests/parser_kunit.c
-
-diff --git a/lib/Kconfig.debug b/lib/Kconfig.debug
-index 134b15a44625..905ccec61868 100644
---- a/lib/Kconfig.debug
-+++ b/lib/Kconfig.debug
-@@ -2918,6 +2918,18 @@ config CMDLINE_KUNIT_TEST
- 
- 	  If unsure, say N.
- 
-+config PARSER_KUNIT_TEST
-+	tristate "KUnit test for parser number helpers" if !KUNIT_ALL_TESTS
-+	depends on KUNIT
-+	default KUNIT_ALL_TESTS
-+	help
-+	  This builds the unit test for the number parsing helpers in
-+	  lib/parser.c (match_int(), match_octal(), match_hex()).
-+	  For more information on KUnit and unit tests in general please refer
-+	  to the KUnit documentation in Documentation/dev-tools/kunit/.
-+
-+	  If unsure, say N.
-+
- config BASE64_KUNIT
- 	tristate "KUnit test for base64 decoding and encoding" if !KUNIT_ALL_TESTS
- 	depends on KUNIT
-diff --git a/lib/tests/Makefile b/lib/tests/Makefile
-index 3cac3b63a752..cbabf4939ce8 100644
---- a/lib/tests/Makefile
-+++ b/lib/tests/Makefile
-@@ -41,6 +41,7 @@ obj-$(CONFIG_MEMCPY_KUNIT_TEST) += memcpy_kunit.o
- obj-$(CONFIG_MIN_HEAP_KUNIT_TEST) += min_heap_kunit.o
- CFLAGS_overflow_kunit.o = $(call cc-disable-warning, tautological-constant-out-of-range-compare)
- obj-$(CONFIG_OVERFLOW_KUNIT_TEST) += overflow_kunit.o
-+obj-$(CONFIG_PARSER_KUNIT_TEST) += parser_kunit.o
- obj-$(CONFIG_PRANDOM_KUNIT_TEST) += random32_kunit.o
- obj-$(CONFIG_PRINTF_KUNIT_TEST) += printf_kunit.o
- obj-$(CONFIG_RANDSTRUCT_KUNIT_TEST) += randstruct_kunit.o
-diff --git a/lib/tests/parser_kunit.c b/lib/tests/parser_kunit.c
-new file mode 100644
-index 000000000000..b92476cf711f
---- /dev/null
-+++ b/lib/tests/parser_kunit.c
-@@ -0,0 +1,131 @@
-+// SPDX-License-Identifier: GPL-2.0-only
-+/*
-+ * KUnit tests for the number helpers in lib/parser.c
-+ */
-+
-+#include <kunit/test.h>
-+#include <linux/limits.h>
-+#include <linux/parser.h>
-+#include <linux/string.h>
-+
-+struct parser_number_case {
-+	const char *in;
-+	int ret;
-+	int val;
-+};
-+
-+typedef int (*match_fn_t)(substring_t *s, int *result);
-+
-+static void parser_check(struct kunit *test, match_fn_t fn, const char *name,
-+			 const struct parser_number_case *c, size_t n)
-+{
-+	size_t i;
-+
-+	for (i = 0; i < n; i++) {
-+		char buf[64];
-+		substring_t s;
-+		int val = 0x5a5a5a5a;
-+		int ret;
-+
-+		strscpy(buf, c[i].in, sizeof(buf));
-+		s.from = buf;
-+		s.to = buf + strlen(buf);
-+
-+		ret = fn(&s, &val);
-+		KUNIT_EXPECT_EQ_MSG(test, ret, c[i].ret, "%s(\"%s\")",
-+				    name, c[i].in);
-+		if (!c[i].ret)
-+			KUNIT_EXPECT_EQ_MSG(test, val, c[i].val, "%s(\"%s\")",
-+					    name, c[i].in);
-+	}
-+}
-+
-+static const struct parser_number_case match_int_cases[] = {
-+	{ "0",				0,		0 },
-+	{ "42",				0,		42 },
-+	{ "-42",			0,		-42 },
-+	{ "0x10",			0,		16 },
-+	{ "010",			0,		8 },
-+	{ "2147483647",			0,		INT_MAX },
-+	{ "-2147483648",		0,		INT_MIN },
-+	{ "2147483648",			-ERANGE,	0 },
-+	{ "-2147483649",		-ERANGE,	0 },
-+	{ "4294967295",			-ERANGE,	0 },
-+	{ "9223372036854775808",	-ERANGE,	0 },
-+	{ "18446744073709551615",	-ERANGE,	0 },
-+	{ "-18446744073709551615",	-ERANGE,	0 },
-+	{ "99999999999999999999",	-ERANGE,	0 },
-+	{ "0xffffffffffffffff",		-ERANGE,	0 },
-+	{ "abc",			-EINVAL,	0 },
-+};
-+
-+static const struct parser_number_case match_octal_cases[] = {
-+	{ "755",			0,		0755 },
-+	{ "17777777777",		0,		INT_MAX },
-+	{ "20000000000",		-ERANGE,	0 },
-+	{ "1777777777777777777777",	-ERANGE,	0 },
-+	{ "8",				-EINVAL,	0 },
-+};
-+
-+static const struct parser_number_case match_hex_cases[] = {
-+	{ "ff",				0,		0xff },
-+	{ "7fffffff",			0,		INT_MAX },
-+	{ "80000000",			-ERANGE,	0 },
-+	{ "ffffffffffffffff",		-ERANGE,	0 },
-+	{ "10000000000000000",		-ERANGE,	0 },
-+	{ "g",				-EINVAL,	0 },
-+};
-+
-+static void parser_test_match_int(struct kunit *test)
-+{
-+	parser_check(test, match_int, "match_int", match_int_cases,
-+		     ARRAY_SIZE(match_int_cases));
-+}
-+
-+static void parser_test_match_octal(struct kunit *test)
-+{
-+	parser_check(test, match_octal, "match_octal", match_octal_cases,
-+		     ARRAY_SIZE(match_octal_cases));
-+}
-+
-+static void parser_test_match_hex(struct kunit *test)
-+{
-+	parser_check(test, match_hex, "match_hex", match_hex_cases,
-+		     ARRAY_SIZE(match_hex_cases));
-+}
-+
-+enum { PARSER_TEST_OPT_SIZE, PARSER_TEST_OPT_ERR };
-+
-+static const match_table_t parser_test_tokens = {
-+	{ PARSER_TEST_OPT_SIZE, "size=%d" },
-+	{ PARSER_TEST_OPT_ERR, NULL },
-+};
-+
-+static void parser_test_match_token_int(struct kunit *test)
-+{
-+	char opt[] = "size=18446744073709551615";
-+	substring_t args[MAX_OPT_ARGS];
-+	int val = 0;
-+
-+	KUNIT_ASSERT_EQ(test, match_token(opt, parser_test_tokens, args),
-+			PARSER_TEST_OPT_SIZE);
-+	KUNIT_EXPECT_EQ(test, match_int(&args[0], &val), -ERANGE);
-+}
-+
-+static struct kunit_case parser_test_cases[] = {
-+	KUNIT_CASE(parser_test_match_int),
-+	KUNIT_CASE(parser_test_match_octal),
-+	KUNIT_CASE(parser_test_match_hex),
-+	KUNIT_CASE(parser_test_match_token_int),
-+	{}
-+};
-+
-+static struct kunit_suite parser_test_suite = {
-+	.name = "parser",
-+	.test_cases = parser_test_cases,
-+};
-+
-+kunit_test_suite(parser_test_suite);
-+
-+MODULE_DESCRIPTION("KUnit tests for lib/parser.c number helpers");
-+MODULE_LICENSE("GPL");
--- 
-2.43.0
-
+PlN1YmplY3Q6IFtQQVRDSCB2MiAxLzJdIHRpcGM6IHNraXAgc29ja2V0bGVzcyBjb25uZWN0aW9u
+cyBpbiB0b3BzcnYgdGVhcmRvd24NCj4NCj5LZXJuZWwgc3Vic2NyaXB0aW9uIGNvbm5lY3Rpb25z
+IGhhdmUgbm8gc29ja2V0IGJ1dCBjYW4gcmVtYWluIGluIGNvbm5faWRyDQo+YWZ0ZXIgdW5zdWJz
+Y3JpYmUgd2hpbGUgc2VuZCB3b3JrIGlzIHBlbmRpbmcuDQo+DQo+U2tpcCB0aXBjX2Nvbm5fY2xv
+c2UoKSBmb3IgdGhlc2UgZW50cmllcyB0byBhdm9pZCBhIE5VTEwgZGVyZWZlcmVuY2UgZHVyaW5n
+DQo+bmV0bnMgdGVhcmRvd24uDQo+DQoNClRoaXMgZG9lcyBub3QgZml4IHRoZSByb290IGNhdXNl
+Lg0KSSBmaXhlZCB0aGUgaXNzdWUgaW4gdGhpcyBwYXRjaDogaHR0cHM6Ly9naXQua2VybmVsLm9y
+Zy9uZXRkZXYvbmV0L2MvM2FjZGQ0NDM4NWJjDQpQbGVhc2UgdXBkYXRlIHlvdXIgbmV0IHRyZWUg
+dG8gY2hlY2sgb3V0ICB0aGUgZml4Lg0KDQotLQ0KcHctYm90OiByZWplY3RlZA0K
