@@ -1,249 +1,219 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 42E3D434E28;
-	Mon,  5 Oct 2026 09:17:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791191840; cv=none; b=RqjDN5KfngBCMm8Myboz2Qdh33gmP7fJwIVYQiEdsg0KNM8eMB759CCpErjWS7AComRX62vnxPt8kEfLppnjb+nj97lW7bV1F1cuaIjoWgPnH/vmXf30GE4eldO7znLoAIxMp1vB++cIRRJK1HbkmTfhwzbUEefT7UnwhLUh1HM=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791191840; c=relaxed/simple;
-	bh=HVeqBCma9XhPQYuXr7Z1BFby/I89QIvKhp1Qz/Sy+Fc=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=lI26REcdZtECnAR9fHyEsmN0arXleQKlePi9NmlNdVEa1ojbZRqIHUmNCC9nL5c+6vkTHlSQnv9NF1jhymyNY4Wckf2j7mEozfKmQqXfVN/Ctlh8jU0KO/wqryTK2kCxePFHZbxnNv4Pknrnm3U4mgDGbnCL2fj2yfpVHaEaKQ4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=lpUkjIKq; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+Received: from CH1PR05CU001.outbound.protection.outlook.com (mail-northcentralusazon11010057.outbound.protection.outlook.com [52.101.193.57])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 69D4535B65D;
+	Mon,  5 Oct 2026 09:17:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.193.57
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791191848; cv=fail; b=kio2UDP/9EWVylolUKOk6iIW77PT5LF19ZL9tReccB12rPAQnYRe6sQvtGv4Bk/4LUzVKSHwGUlMfriHHWOQLeaTd+jOXCq4IOJE2g+7ze8CHGSaC2ApYtSySpuF2ATwmM2aceavQyrEEIdIkQxditdF568ctpocSASJB+8MPZ4=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791191848; c=relaxed/simple;
+	bh=yb76xX3rINqtqky/8K1e1vILl8lQJrefgV9mI+rzmWY=;
+	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=dfcQTSoooOUptHumgfcY82JYWbytuUKz/qQCmMwB9iU4VaTTX5Ga3RXW+7pRecNKAoZOg1fV46SqR8lqQ13Chm2P+Q8B8s2xmWKAyghw3YYW1XJFqlC/grGIG0PFEdlIdEDUMoYKhxC2uwr4eiO4stKL/cyVVLeJf3OoFnBRPGE=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=pIAXwDGU; arc=fail smtp.client-ip=52.101.193.57
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="lpUkjIKq"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id D8221152B;
-	Mon,  5 Oct 2026 02:17:12 -0700 (PDT)
-Received: from [192.168.178.24] (usa-sjc-mx-foss1.foss.arm.com [172.31.20.19])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id ED5D03F66F;
-	Mon,  5 Oct 2026 02:17:11 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1791191836; bh=HVeqBCma9XhPQYuXr7Z1BFby/I89QIvKhp1Qz/Sy+Fc=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=lpUkjIKqVD2+wgOZwWjHfaqcnAIOIiZd3eLZsf6wSBSB4hW0xAMMT3/10Lmlrwifu
-	 CN9yeYzy+LatTmrx6kdYmZFt+2+4QqkeIsWO4jHmUJbkhdKQV+jDepAzXQYqnw21Fc
-	 AcKyquEiAMypKcdXGDJ87Dsc2jJveIx5ZKcjOXDk=
-Message-ID: <4ac4c90f-887e-4545-9c26-9706bdaa1a79@arm.com>
-Date: Mon, 5 Oct 2026 11:17:00 +0200
+	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="pIAXwDGU"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=E7zFKZctWLCLkRV439VdYndSGV3AOW2ZDy/1gaJrl2bv/5bWNySjAH3ZOq9hwxBgx4VFNpWTkXqnOg2qp22Be1QpjttMvqn191yyfPpLS/10eObeHkDJxdBfCeYn63evjVm9slVdRUk6LCB7RQCZAvT2IxViD6HRSH1SR0x67vPxQ3wTTxjE1DTebUVd3wedMD1qocd+kxqXTIIsJdJUy2rhbw9ImM7WGzmB673f1u+vnAxTWJwQ6uZrsWFspb+C9d6KTFonPbMRvdSHGNrYz++kS+FsDRzUoMYbsGAuSw/Kfx34013JROjzaABBzZnJrjTLXSM0lUB0Z46pPQi+DQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=4EBEWFNjBvJx3hVFlMaLuzWu7lvWxRbNVlT2LUlFLwY=;
+ b=uoE9qhN06bh62svcGvLv+VznDMWO98dYoRdTWbNeTpi3X0ERCVqQF4BjGKg5Hv6AlkD0/bI7FOHPO2IrzXDKSMEm0zegzN1+5sNSqXPLEB/QsUEVfriRyBSL49rk3kWOphYnbsmHx+TBOXw6PYQUA/ExpKRXLcwsdjPhP1rvbg86bp+Uzx3EHyxouvI1lTEH2eMfbeoQFbWIjG2EaleyK5eCE0VVRJLelD47NOxavg56GnMsbSKhXVySwct5feumFc8+hgMfYfg5iPJDqG4W0uX45s1l1FUq/gF3hT+anT1JDuc6KKKZTTJaiqGWnwpdS1lptYviMExxmxhzWpWUZA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=kernel.org smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=4EBEWFNjBvJx3hVFlMaLuzWu7lvWxRbNVlT2LUlFLwY=;
+ b=pIAXwDGUtEx8S7imy+Hz8jN+saZ3uPgyD/Caq0XkMrAxN8hmQvIaZCQrqv7Tb+W5520V5AefGtg2Ewn8XEuWD79x+dnNgiPMBgStDMba4rmttdpknjIpiFf0H5BmnZJyoGQ7geTIrosy3RbxKNCGm9oJRcZ3nVUydSKw92VMNsE=
+Received: from SJ0PR05CA0134.namprd05.prod.outlook.com (2603:10b6:a03:33d::19)
+ by IA0PPF6E99B1BC1.namprd12.prod.outlook.com (2603:10b6:20f:fc04::bd1) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.472.20; Mon, 5 Oct
+ 2026 09:17:19 +0000
+Received: from MW1PEPF00016159.namprd21.prod.outlook.com
+ (2603:10b6:a03:33d:cafe::98) by SJ0PR05CA0134.outlook.office365.com
+ (2603:10b6:a03:33d::19) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.496.5 via Frontend Transport; Mon, 5
+ Oct 2026 09:17:18 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 165.204.84.17) smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
+Received: from satlexmb08.amd.com (165.204.84.17) by
+ MW1PEPF00016159.mail.protection.outlook.com (10.167.249.84) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.522.3 via Frontend Transport; Mon, 5 Oct 2026 09:17:18 +0000
+Received: from satlexmb10.amd.com (10.181.42.219) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Mon, 5 Oct
+ 2026 04:17:17 -0500
+Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb10.amd.com
+ (10.181.42.219) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Mon, 5 Oct
+ 2026 04:17:16 -0500
+Received: from amd-B550M-DS3H.amd.com (10.180.168.240) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.49 via Frontend
+ Transport; Mon, 5 Oct 2026 04:17:14 -0500
+From: Syed Saba Kareem <syed.sabakareem@amd.com>
+To: <vkoul@kernel.org>
+CC: <broonie@kernel.org>, <Sunil-kumar.Dommati@amd.com>,
+	<vijendar.mukunda@amd.com>, <Mario.Limonciello@amd.com>,
+	<venkataprasad.potturu@amd.com>, <yung-chuan.liao@linux.intel.com>,
+	<pierre-louis.bossart@linux.dev>, <anson.tsao@amd.com>, Syed Saba Kareem
+	<Syed.SabaKareem@amd.com>, "open list:SOUNDWIRE SUBSYSTEM"
+	<linux-sound@vger.kernel.org>, open list <linux-kernel@vger.kernel.org>,
+	"open list:BPF [MISC]:Keyword:(?:\\b|_)bpf(?:\\b|_)" <bpf@vger.kernel.org>
+Subject: [PATCH v3 5/5] soundwire: amd: honor peripheral BRA block alignment
+Date: Mon, 5 Oct 2026 14:45:48 +0530
+Message-ID: <20261005091620.1390916-6-syed.sabakareem@amd.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20261005091620.1390916-1-syed.sabakareem@amd.com>
+References: <20261005091620.1390916-1-syed.sabakareem@amd.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 7/8] clk: sunxi-ng: a733: Add bus clock gates
-To: Junhui Liu <junhui.liu@pigmoral.tech>, wens@kernel.org
-Cc: Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>,
- Jerome Brunet <jbrunet+clk@baylibre.com>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Jernej Skrabec <jernej.skrabec@gmail.com>,
- Samuel Holland <samuel@sholland.org>, Philipp Zabel
- <p.zabel@pengutronix.de>, Paul Walmsley <pjw@kernel.org>,
- Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>,
- Alexandre Ghiti <alex@ghiti.fr>, Richard Cochran <richardcochran@gmail.com>,
- linux-clk@vger.kernel.org, devicetree@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-sunxi@lists.linux.dev,
- linux-kernel@vger.kernel.org, linux-riscv@lists.infradead.org,
- netdev@vger.kernel.org, Jerome Brunet <jbrunet@baylibre.com>,
- Enzo Adriano <enzo.adriano.code@gmail.com>
-References: <20260930-a733-clk-v5-0-11175b41cd2d@pigmoral.tech>
- <20260930-a733-clk-v5-7-11175b41cd2d@pigmoral.tech>
- <CAGb2v65Lqo7NiFhc2GYdfY7+jkC4Y+p6=Zy85HOFmXJzT0u1fg@mail.gmail.com>
- <DLWMN3TYBP9F.3N62QFP7QEE9U@pigmoral.tech>
-Content-Language: en-GB
-From: Andre Przywara <andre.przywara@arm.com>
-In-Reply-To: <DLWMN3TYBP9F.3N62QFP7QEE9U@pigmoral.tech>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: MW1PEPF00016159:EE_|IA0PPF6E99B1BC1:EE_
+X-MS-Office365-Filtering-Correlation-Id: 879993a7-6043-4120-4f4b-08df22c1747b
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|36860700016|376014|82310400026|23010399003|1800799024|11063799006|56012099006|10067099003|18002099003|22082099003|3023799007;
+X-Microsoft-Antispam-Message-Info:
+	DOs2RfzdL98tZpUrSvpaMksMag1MuMOXoRC528mWpBPnaZAYsvALolsp5wQGCMIXoo1rE0FLSIiSikeCqAfyiadGQnMeJ80chIPVT62o52LKyioWrH+b0KDxxG6zUr4JrhJyPej663oEFqU70ylT7CHbgVeDBvfo+241Sp91uecMAjyX6muLsa5ls0tUi0btppIeg56yIbbRdYyhDQvz+aTKxeJsylnL3HN/Wey8/+DdzxXt1o/8gakFmlPYuCZYQRvJ2gt7xeH/OKV+mROUFCSGZkTlFRrG54bFo6bb5i7tG5a7GjXlNXFkQwsFXy/rgxbFe4rgv5FbMhHYeMaGJioIzJF+dtD3fOxyTRhlan5bn669asak70mcKR7ismt3EhqB2U6hPC813KraGuIpKWfiVHkSyRz1PQw41aZIY7uSAsTsNdE7H7wZHkHBANGohgmLffR2nbEYHnnILE+p1k4/tc0j2wXIc+gzFYlnzhEl1EQcVBSiGULotnybAJj/9/VwJ6wU/QoDmMWCPLjhUpyNR0BhcBxXvFW2gafh9BctKypVhDZgbvzXQVWio/kPCpwsKJQaWUrP4cJexQL2Ei0iHUPA6QLDIjxUL6xGHCPKITNTOQF7EXz+/OJAGPBu4ctw1BCqpYQquMeq5Agp+YAenbXXHQTCLc3IjYQzhefXDW/SGhvAfI3FU0yaw0FvHIkjlubjUOlzc2c6ETpchw==
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb08.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(36860700016)(376014)(82310400026)(23010399003)(1800799024)(11063799006)(56012099006)(10067099003)(18002099003)(22082099003)(3023799007);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	+mMD+Auf0JCTko4AiKIPhIIAAaoNMMZhEILkNETtWHJ5S4gL3dCx0U7RyQ6La4ozVQccLh47Xy0aE9xwgfnuQG3a2q9hFKSZovlvUj4QcveBlJN7wjVw4TwN6EgMbolwXo2vWAmPPK2EGsX87P99E91WPcs+ZlwlWsPmUAViDscofij1E+rRcPyCfH9o4H7TAJbiT7XgUur1TapTzebGriyWlaoxIU1NTTGCpj+wEA1Qv06reKjDfpkWwyBAhsc8pODzrWOIHFLEYDKpjNGB8CBsotBmbz2D6vG5o+xRzJ0SX2j6CAR+VE5CfdCG2kzVODWBjNUmlvDLQmqn3y30ZQfNVrwtbuazb98AbkixFh802vP57guqG/FJtt7mWU60J8a1kUC7CsS5nrCrz77e92ukVk/bjWSDT9sYD9wMRvTxJSJRtuGnObhg2kQm+aTe
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Oct 2026 09:17:18.6829
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 879993a7-6043-4120-4f4b-08df22c1747b
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb08.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	MW1PEPF00016159.namprd21.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA0PPF6E99B1BC1
 
-Hi,
+From: Syed Saba Kareem <Syed.SabaKareem@amd.com>
 
-On 10/5/26 06:41, Junhui Liu wrote:
-> Hi Chen-Yu,
-> 
-> On Sun Oct 4, 2026 at 7:03 PM CST, Chen-Yu Tsai wrote:
->> On Tue, Sep 29, 2026 at 7:28 PM Junhui Liu <junhui.liu@pigmoral.tech> wrote:
->>>
->>> Add the bus clock gates that control access to the devices' register
->>> interface on the Allwinner A733 SoC. These clocks are typically
->>> single-bit controls in the BGR registers, covering UARTs, SPI, I2C, and
->>> various multimedia engines. It also includes bus gates for system
->>> components like the IOMMU and MSI-lite interfaces.
->>>
->>> Also mark the ahb-store, mbus-store and ahb-cpus clocks as critical.
->>> Disabling either store gate breaks access to boot/storage devices such
->>> as MMC and SPI NOR, while gating ahb-cpus hangs any access to the CPUS
->>> power domain registers when unused clocks are disabled.
->>>
->>> Tested-by: Jerome Brunet <jbrunet@baylibre.com>
->>> Reviewed-by: Andre Przywara <andre.przywara@arm.com>
->>> Signed-off-by: Junhui Liu <junhui.liu@pigmoral.tech>
->>> ---
->>>   drivers/clk/sunxi-ng/ccu-sun60i-a733.c | 492 ++++++++++++++++++++++++++++++++-
->>>   1 file changed, 491 insertions(+), 1 deletion(-)
->>>
->>> diff --git a/drivers/clk/sunxi-ng/ccu-sun60i-a733.c b/drivers/clk/sunxi-ng/ccu-sun60i-a733.c
->>> index 1b2d4d36ec4c..b077e5d2f32c 100644
->>> --- a/drivers/clk/sunxi-ng/ccu-sun60i-a733.c
->>> +++ b/drivers/clk/sunxi-ng/ccu-sun60i-a733.c
->>> @@ -4,6 +4,10 @@
->>>    * Copyright (C) 2026 Junhui Liu <junhui.liu@pigmoral.tech>
->>>    * Based on the A523 CCU driver:
->>>    *   Copyright (C) 2023-2024 Arm Ltd.
->>> + *
->>> + * TODO: The real parents of some bus gates, including its-pcie0-aclk,
->>> + * msi-lite, npu, ufs, sgpio, lpc and i2spcm, are not documented in the
->>> + * manual. For now, follow the vendor BSP, which keeps them on hosc.
->>>    */
->>
->> [...]
->>
->>> @@ -510,9 +522,118 @@ static SUNXI_CCU_M_DATA_WITH_MUX_GATE_FEAT(mbus_clk, "mbus", mbus_parents, 0x588
->>>                                             BIT(31),     /* gate */
->>>                                             CLK_IS_CRITICAL,
->>>                                             CCU_FEATURE_UPDATE_BIT);
->>> +static const struct clk_hw *mbus_hws[] = { &mbus_clk.common.hw };
->>> +
->>> +static SUNXI_CCU_GATE_HWS(mbus_iommu0_sys_clk, "mbus-iommu0-sys", mbus_hws, 0x58c, BIT(0), 0);
->>> +static SUNXI_CCU_GATE_HWS(apb_iommu0_sys_clk, "apb-iommu0-sys", apb0_hws, 0x58c, BIT(1), 0);
->>> +static SUNXI_CCU_GATE_HWS(ahb_iommu0_sys_clk, "ahb-iommu0-sys", ahb_hws, 0x58c, BIT(2), 0);
->>> +
->>> +static SUNXI_CCU_GATE_DATA(bus_msi_lite0_clk, "bus-msi-lite0", hosc, 0x594, BIT(0), 0);
->>> +static SUNXI_CCU_GATE_DATA(bus_msi_lite1_clk, "bus-msi-lite1", hosc, 0x59c, BIT(0), 0);
->>> +static SUNXI_CCU_GATE_DATA(bus_msi_lite2_clk, "bus-msi-lite2", hosc, 0x5a4, BIT(0), 0);
->>> +
->>> +static SUNXI_CCU_GATE_HWS(mbus_iommu1_sys_clk, "mbus-iommu1-sys", mbus_hws, 0x5b4, BIT(0), 0);
->>> +static SUNXI_CCU_GATE_HWS(apb_iommu1_sys_clk, "apb-iommu1-sys", apb0_hws, 0x5b4, BIT(1), 0);
->>> +static SUNXI_CCU_GATE_HWS(ahb_iommu1_sys_clk, "ahb-iommu1-sys", ahb_hws, 0x5b4, BIT(2), 0);
->>
->>> +static SUNXI_CCU_GATE_HWS(ahb_ve_dec_clk, "ahb-ve-dec", ahb_hws,
->>> +                         0x5c0, BIT(0), 0);
->>> +static SUNXI_CCU_GATE_HWS(ahb_ve_enc_clk, "ahb-ve-enc", ahb_hws,
->>> +                         0x5c0, BIT(1), 0);
->>> +static SUNXI_CCU_GATE_HWS(ahb_vid_in_clk, "ahb-vid-in", ahb_hws,
->>> +                         0x5c0, BIT(2), 0);
->>> +static SUNXI_CCU_GATE_HWS(ahb_vid_cout0_clk, "ahb-vid-cout0", ahb_hws,
->>> +                         0x5c0, BIT(3), 0);
->>> +static SUNXI_CCU_GATE_HWS(ahb_vid_cout1_clk, "ahb-vid-cout1", ahb_hws,
->>> +                         0x5c0, BIT(4), 0);
->>> +static SUNXI_CCU_GATE_HWS(ahb_de_clk, "ahb-de", ahb_hws,
->>> +                         0x5c0, BIT(5), 0);
->>> +static SUNXI_CCU_GATE_HWS(ahb_npu_clk, "ahb-npu", ahb_hws,
->>> +                         0x5c0, BIT(6), 0);
->>> +static SUNXI_CCU_GATE_HWS(ahb_gpu0_clk, "ahb-gpu0", ahb_hws,
->>> +                         0x5c0, BIT(7), 0);
->>> +static SUNXI_CCU_GATE_HWS(ahb_serdes_clk, "ahb-serdes", ahb_hws,
->>> +                         0x5c0, BIT(8), 0);
->>> +static SUNXI_CCU_GATE_HWS(ahb_usb_sys_clk, "ahb-usb-sys", ahb_hws,
->>> +                         0x5c0, BIT(9), 0);
->>> +static SUNXI_CCU_GATE_HWS(ahb_msi_lite0_clk, "ahb-msi-lite0", ahb_hws,
->>> +                         0x5c0, BIT(16), 0);
->>> +static SUNXI_CCU_GATE_HWS(ahb_store_clk, "ahb-store", ahb_hws,
->>> +                         0x5c0, BIT(24), CLK_IS_CRITICAL);
->>> +static SUNXI_CCU_GATE_HWS(ahb_cpus_clk, "ahb-cpus", ahb_hws,
->>> +                         0x5c0, BIT(28), CLK_IS_CRITICAL);
->>
->> I suspect these refer to a AHB-AHB bridge for the various subsystems shown
->> in the memory map. That would explain why when the "ahb-store" clock is
->> gated, the storage bits stop working.
->>
->> If that's the case, we should describe it as the parent of each storage
->> peripheral bus gate's parent. Same would go for the other types. I haven't
->> checked what the BSP does though.
-> 
-> As Norman mentioned in his reply, the vendor BSP also does not model
-> this hierarchy and instead models these gates as independent clocks
-> parented to the oscillator. The manual does not describe the hierarchy
-> either, so I don't think we have enough information to model it
-> differently at this point.
+The MIPI DisCo property "mipi-sdw-bra-mode-block-alignment" (parsed into
+sdw_slave_prop.bra_block_alignment) states that the BRA data payload must
+be an integer multiple of the advertised value. Some peripherals only
+ingest the BRA payload in fixed-size blocks and mis-assemble a trailing
+partial block otherwise.
 
-Well, I wouldn't use the BSP as a good example on how to model the clock 
-tree, they have been very misguided in the past.
-What the BSP does is to add just more input/gate MBUS clocks for each 
-device, which is something I think we should avoid.
-To that regard using them as parent clocks for the existing gates, as 
-Chen-Yu suggested, sounds like a good idea: We keep a single clock for 
-the devices, but still can turn both clocks off (I think, not tested).
+The ACP BRA descriptor programs BytesPerFrame (frame_format[19:11]), which
+is the number of data payload bytes the engine packs into each BRA frame.
+Derive it as before, then, when the peripheral advertises a non-zero
+alignment, round bytes_per_frame down to the nearest multiple of it; the
+engine simply uses more frames to cover the same transfer_length. This
+mirrors the Cadence/Intel handling in sdw_cdns_bpt_find_buffer_sizes().
 
-Cheers,
-Andre
+To read the property, amd_sdw_calculate_bra_params() now takes the
+sdw_slave directly instead of just its device number, and derives
+dev_addr from it.
 
-> I will add comments explaining why ahb_store_clk, mbus_store_clk, and
-> ahb_cpus_clk are marked critical.
-> 
->>
->>> +static SUNXI_CCU_GATE_HWS(mbus_iommu0_clk, "mbus-iommu0", mbus_hws,
->>> +                         0x5e0, BIT(0), 0);
->>> +static SUNXI_CCU_GATE_HWS(mbus_iommu1_clk, "mbus-iommu1", mbus_hws,
->>> +                         0x5e0, BIT(1), 0);
->>> +static SUNXI_CCU_GATE_HWS(mbus_desys_clk, "mbus-desys", mbus_hws,
->>> +                         0x5e0, BIT(11), 0);
->>> +static SUNXI_CCU_GATE_HWS(mbus_ve_enc0_gate_clk, "mbus-ve-enc0-gate", mbus_hws,
->>> +                         0x5e0, BIT(12), 0);
->>> +static SUNXI_CCU_GATE_HWS(mbus_ve_dec0_gate_clk, "mbus-ve-dec0-gate", mbus_hws,
->>> +                         0x5e0, BIT(14), 0);
->>> +static SUNXI_CCU_GATE_HWS(mbus_gpu0_clk, "mbus-gpu0", mbus_hws,
->>> +                         0x5e0, BIT(16), 0);
->>> +static SUNXI_CCU_GATE_HWS(mbus_npu_clk, "mbus-npu", mbus_hws,
->>> +                         0x5e0, BIT(18), 0);
->>> +static SUNXI_CCU_GATE_HWS(mbus_vid_in_clk, "mbus-vid-in", mbus_hws,
->>> +                         0x5e0, BIT(24), 0);
->>> +static SUNXI_CCU_GATE_HWS(mbus_serdes_clk, "mbus-serdes", mbus_hws,
->>> +                         0x5e0, BIT(28), 0);
->>> +static SUNXI_CCU_GATE_HWS(mbus_msi_lite0_clk, "mbus-msi-lite0", mbus_hws,
->>> +                         0x5e0, BIT(29), 0);
->>> +static SUNXI_CCU_GATE_HWS(mbus_store_clk, "mbus-store", mbus_hws,
->>> +                         0x5e0, BIT(30), CLK_IS_CRITICAL);
->>
->> Same thing for the MBUS clocks.
->>
->>> +static SUNXI_CCU_GATE_HWS(mbus_msi_lite2_clk, "mbus-msi-lite2", mbus_hws,
->>> +                         0x5e0, BIT(31), 0);
->>> +
->>> +static SUNXI_CCU_GATE_HWS(mbus_dma0_clk, "mbus-dma0", mbus_hws,
->>> +                         0x5e4, BIT(0), 0);
->>> +static SUNXI_CCU_GATE_HWS(mbus_ve_enc0_clk, "mbus-ve-enc0", mbus_hws,
->>> +                         0x5e4, BIT(1), 0);
->>> +static SUNXI_CCU_GATE_HWS(mbus_ce_clk, "mbus-ce", mbus_hws,
->>> +                         0x5e4, BIT(2), 0);
->>> +static SUNXI_CCU_GATE_HWS(mbus_dma1_clk, "mbus-dma1", mbus_hws,
->>> +                         0x5e4, BIT(3), 0);
->>> +static SUNXI_CCU_GATE_HWS(mbus_nand_clk, "mbus-nand", mbus_hws,
->>> +                         0x5e4, BIT(5), 0);
->>> +static SUNXI_CCU_GATE_HWS(mbus_csi_clk, "mbus-csi", mbus_hws,
->>> +                         0x5e4, BIT(8), 0);
->>> +static SUNXI_CCU_GATE_HWS(mbus_isp_clk, "mbus-isp", mbus_hws,
->>> +                         0x5e4, BIT(9), 0);
->>> +static SUNXI_CCU_GATE_HWS(mbus_gmac0_clk, "mbus-gmac0", mbus_hws,
->>> +                         0x5e4, BIT(11), 0);
->>> +/* Undocumented, taken from the vendor kernel. */
->>> +static SUNXI_CCU_GATE_HWS(mbus_gmac1_clk, "mbus-gmac1", mbus_hws,
->>> +                         0x5e4, BIT(12), 0);
->>> +static SUNXI_CCU_GATE_HWS(mbus_ve_dec0_clk, "mbus-ve-dec0", mbus_hws,
->>> +                         0x5e4, BIT(18), 0);
->>
->> [...]
->>
->> The remaining definitions look correct (minus the vendor BSP ones which I
->> couldn't check at this time).
->>
->> I didn't check the clock list additions.
->>
->> Consider this
->>
->> Reviewed-by: Chen-Yu Tsai <wens@kernel.org>
->>
-> 
-> Thanks!
-> 
->>
->> We can change the AHB / MBUS clock parents later if we do figure it out.
->>
->>
->> ChenYu
-> 
+Peripherals that do not advertise the property leave bra_block_alignment
+at 0, so the new path is skipped and behavior is unchanged.
+
+Signed-off-by: Syed Saba Kareem <Syed.SabaKareem@amd.com>
+---
+ drivers/soundwire/amd_manager.c | 30 +++++++++++++++++++++++++-----
+ 1 file changed, 25 insertions(+), 5 deletions(-)
+
+diff --git a/drivers/soundwire/amd_manager.c b/drivers/soundwire/amd_manager.c
+index 078e13b01ac9..9da60e8681f0 100644
+--- a/drivers/soundwire/amd_manager.c
++++ b/drivers/soundwire/amd_manager.c
+@@ -901,7 +901,7 @@ static int amd_sdw_port_enable(struct sdw_bus *bus,
+ 
+ static int amd_sdw_calculate_bra_params(struct amd_sdw_manager *amd_manager,
+ 					struct amd_bra_params *params,
+-					u8 peripheral_addr)
++					struct sdw_slave *slave)
+ {
+ 	struct sdw_bus *bus = &amd_manager->bus;
+ 	u32 nr = bus->params.row;  /* current rows - NOT enlarged */
+@@ -912,6 +912,7 @@ static int amd_sdw_calculate_bra_params(struct amd_sdw_manager *amd_manager,
+ 	u32 sample_interval;
+ 	u32 bits_per_frame;
+ 	u32 bpf;
++	u32 block_alignment = slave->prop.bra_block_alignment;
+ 
+ 	params->hstart      = hstart;
+ 	params->hstop       = hstop;
+@@ -943,14 +944,33 @@ static int amd_sdw_calculate_bra_params(struct amd_sdw_manager *amd_manager,
+ 	if (bpf > 511)
+ 		bpf = 511;
+ 
++	/*
++	 * If the peripheral advertises the DisCo BRA block-alignment property
++	 * (mipi-sdw-bra-mode-block-alignment), the data payload carried in each
++	 * BRA frame must be an integer multiple of that value. Round
++	 * bytes_per_frame down to the nearest multiple; the ACP BRA engine then
++	 * packs an aligned payload per frame and simply uses more frames to
++	 * cover the same transfer_length. When the property is absent (0) the
++	 * value is left unchanged.
++	 */
++	if (block_alignment) {
++		if (bpf < block_alignment) {
++			dev_err(amd_manager->dev,
++				"BPT: bytes_per_frame %u smaller than block alignment %u\n",
++				bpf, block_alignment);
++			return -EINVAL;
++		}
++		bpf -= bpf % block_alignment;
++	}
++
+ 	params->sample_interval = sample_interval;
+ 	params->bytes_per_frame = bpf;
+-	params->dev_addr        = peripheral_addr;
++	params->dev_addr        = (u8)slave->dev_num;
+ 
+ 	dev_dbg(amd_manager->dev,
+ 		"BPT calc_params: NR=%u NC=%u col_width=%u WL=%u SI=%u BPF=%u hstart=%u hstop=%u dev=%u\n",
+ 		nr, nc, col_width, params->word_length, sample_interval,
+-		bpf, hstart, hstop, peripheral_addr);
++		bpf, hstart, hstop, slave->dev_num);
+ 	return 0;
+ }
+ 
+@@ -1356,7 +1376,7 @@ static int amd_sdw_bra_transfer(struct amd_sdw_manager *amd_manager,
+ 	int ret;
+ 
+ 	ret = amd_sdw_calculate_bra_params(amd_manager, &params,
+-					   (u8)slave->dev_num);
++					   slave);
+ 	if (ret < 0)
+ 		return ret;
+ 
+@@ -1780,7 +1800,7 @@ static int amd_sdw_bpt_wait(struct sdw_bus *bus,
+ 	 * to register read/write commands.
+ 	 */
+ 	ret = amd_sdw_calculate_bra_params(amd_manager, &prep_params,
+-					   (u8)slave->dev_num);
++					   slave);
+ 	if (ret < 0) {
+ 		dev_err(amd_manager->dev,
+ 			"BPT: failed to calc params: %d\n", ret);
+-- 
+2.43.0
 
