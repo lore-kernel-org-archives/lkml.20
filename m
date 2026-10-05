@@ -1,133 +1,113 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.19])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C1CD94825D9;
-	Mon,  5 Oct 2026 13:13:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.19
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 92EEC480DDB;
+	Mon,  5 Oct 2026 13:14:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791206028; cv=none; b=eK/K5tAWa0xYY5y+oZRZyWAlqEGhtR6PgxibQoOR3gq2CFr2usHuvW3tBE00CEWXbQw6pwtCjbdVTmSMTgN6iBLkcFa82aYV9bZ0gx3Kiurz+BQOgmg/t6hRsD91mIipprORJxcAzAwY9PuG2vykWHrxrcs+3bLoRwNyVCprD9k=
+	t=1791206045; cv=none; b=tB2qMMNmmpTeye3+vI9gnaLLSS9sJ5zm4NIjwI0PhDpPMP/0GVu01fhvuCj6lZz0qq6hDy4fAW8wSlwYV7tQr8cuZhW4J8nxfjQxXdG454CmoFn6YIA9VBYFvsB8sZP1yXtc3s2R6QqS9G44xgQK0GTqOIHzPHnMjgp5BBT5BNA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791206028; c=relaxed/simple;
-	bh=jHYIbSaADz5P1gQxuCMHQV3cSCPTdVjdEGqvYaf9DMg=;
-	h=From:Date:To:cc:Subject:In-Reply-To:Message-ID:References:
-	 MIME-Version:Content-Type; b=cYvcxeK6TIwQB8gvqEPHse+IN69bsMHarH21GtxFGO/tuGv8wWkvuXJtiJJxTJfvLERpEYoA6M0cDmCLFj7voektptq99fi2UVnS3jwQAtYo2RycQ39e1e+UBO7TiutkDZ3QNCcTmkg6rWD1TtnuL9uNtBBxNQZRbgDsQSEz2Vk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=GFLk0JwG; arc=none smtp.client-ip=198.175.65.19
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	s=arc-20240116; t=1791206045; c=relaxed/simple;
+	bh=WrXLcdf03a2YjyH6cRgHc8eKTJj1s7s0p638tHBnO/Y=;
+	h=Date:From:To:Cc:Subject:Message-Id:In-Reply-To:References:
+	 Mime-Version:Content-Type; b=Z+GkLrBOmXi2eQ6kMYBtnVBtpkMAFDojKcGyA60qmh9hT3Kpz9WZhPmXL/lDYN7Yka7S7E1sL8IbJk4bA6x32EdK5y1trL4vV8Dd75NTBu/Y1VxCaOIs+GHlKj8Rmuc0IyiXio/k7mPjTOPYgwithZuvehC4pWhfbvLqPkHnI18=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=cDU+31SQ; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="GFLk0JwG"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1791206027; x=1822742027;
-  h=from:date:to:cc:subject:in-reply-to:message-id:
-   references:mime-version;
-  bh=jHYIbSaADz5P1gQxuCMHQV3cSCPTdVjdEGqvYaf9DMg=;
-  b=GFLk0JwG30HOaDVlep5DvlDOJgWNsxbhuVnO61DEbN78bMkC2wmxD68t
-   wMAyZiAYEVHc2HlTxcPvd0Liuu8VjWerZTjTihZkm3VEcogxk3+2k/o2/
-   HejoUnvFB1lue/46RQYTVVte6obEnbivj1MRfcZHkedWbNKy+q0zd92qf
-   CWjESveP6azTDndItLxlrIQYF01VZrxoImPNa1Q149xDCLRwCVQA8z6Zj
-   LsDe1y6mWmkXy6H1rCm7L/O82EMDWQrRAWI6Tlg800Z2lDZ5GhkuoAy0t
-   m+bcCE7F6HdiK9iTOnc1Y6YDNxQ4uKtWc3QuwCy7U3FANyCkHmxIEtJAx
-   g==;
-X-CSE-ConnectionGUID: 46aEwm8/SGaCFFzN5Tasig==
-X-CSE-MsgGUID: WoTpnC+nRBSXkOonSPaJZw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11925"; a="90824816"
-X-IronPort-AV: E=Sophos;i="6.27,142,1787036400"; 
-   d="scan'208";a="90824816"
-Received: from orviesa001.jf.intel.com ([10.64.159.141])
-  by orvoesa111.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 05 Oct 2026 06:13:47 -0700
-X-CSE-ConnectionGUID: 2EAiuyU3RNuIH2fw3c2Tgw==
-X-CSE-MsgGUID: NrO5WPpKQGCsSijM4yzicA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,142,1787036400"; 
-   d="scan'208";a="314826421"
-Received: from ijarvine-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.199])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 05 Oct 2026 06:13:43 -0700
-From: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
-Date: Mon, 5 Oct 2026 16:13:39 +0300 (EEST)
-To: Muhammad Bilal <meatuni001@gmail.com>
-cc: Jorge Lopez <jorge.lopez2@hp.com>, Hans de Goede <hansg@kernel.org>, 
-    Andy Shevchenko <andriy.shevchenko@linux.intel.com>, 
-    =?ISO-8859-15?Q?Thomas_Wei=DFschuh?= <linux@weissschuh.net>, 
-    platform-driver-x86@vger.kernel.org, LKML <linux-kernel@vger.kernel.org>, 
-    stable@vger.kernel.org
-Subject: Re: [PATCH v4 4/9] platform/x86: hp-bioscfg: allow clearing
- current_password
-In-Reply-To: <20261002191434.58529-5-meatuni001@gmail.com>
-Message-ID: <5522067a-b952-6e75-8e76-beda285fa4c9@linux.intel.com>
-References: <20261002191434.58529-1-meatuni001@gmail.com> <20261002191434.58529-5-meatuni001@gmail.com>
+	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="cDU+31SQ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C4EA51F000FF;
+	Mon,  5 Oct 2026 13:14:03 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux-foundation.org; s=korg; t=1791206044;
+	bh=SOwk2gRR2wubV/8ffEd72Oz/SMOuKQpB0ZwJVP46qYQ=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=cDU+31SQVYNX5xT89G2pFWqY/WaMPt30y5TA0Qci6WFBk9SWnTQVIbqp1fjX3bWto
+	 XMBBH0qkVC/6BHwcOJBOfP5kHNcF1vL+iZXnhLTddIXL6/PGbpp5MLf0TZJ0QFgCup
+	 4VRscTnLdf059OpDGck071C+oTsGAOCEYLlDvNvY=
+Date: Mon, 5 Oct 2026 06:14:03 -0700
+From: Andrew Morton <akpm@linux-foundation.org>
+To: Mark Brown <broonie@kernel.org>
+Cc: Takashi Iwai <tiwai@suse.de>, Baoquan He <hebaoquan@kylinos.cn>, David
+ Hildenbrand <david@kernel.org>, Linux Kernel Mailing List
+ <linux-kernel@vger.kernel.org>, Linux Next Mailing List
+ <linux-next@vger.kernel.org>, Mike Rapoport <rppt@kernel.org>, Vlastimil
+ Babka <vbabka@kernel.org>
+Subject: Re: linux-next: manual merge of the sound tree with the mm tree
+Message-Id: <20261005061403.750dc014ce53e441a3ee6271@linux-foundation.org>
+In-Reply-To: <asOIPgOu7MHRPLWU@sirena.co.uk>
+References: <asOIPgOu7MHRPLWU@sirena.co.uk>
+X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
+Mime-Version: 1.0
 Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-On Sat, 3 Oct 2026, Muhammad Bilal wrote:
+On Mon, 5 Oct 2026 13:21:34 +0200 Mark Brown <broonie@kernel.org> wrote:
 
-> The ABI documents echo "" > current_password as the way to end a
-> session, but validate_password_input() rejects an empty string when
-> min_password_length is nonzero. The password stays cached, and since
-> the previous patch the write also fails with -E2BIG.
+> Hi all,
+> 
+> Today's linux-next merge of the sound tree got a conflict in:
+> 
+>   sound/mips/snd-n64.c
+> 
+> between commit:
+> 
+>   0d62c52af5499 ("ALSA: n64: don't use GFP_DMA when calling dma_alloc_coherent()")
+> 
+> from the mm tree and commit:
+> 
+>   e81f85fd3ca66 ("ALSA: mips: n64: Handle card removal properly")
+> 
+> from the sound tree.
+> 
+> I fixed it up (see below) and can carry the fix as necessary. This
+> is now fixed as far as linux-next is concerned, but any non trivial
+> conflicts should be mentioned to your upstream maintainer when your tree
+> is submitted for merging.  You may also want to consider cooperating
+> with the maintainer of the conflicting tree to minimise any particularly
+> complex conflicts.
 
-After I apply a patch, it's no longer a "patch", so the wording should 
-anticipate that.
+Thanks.
 
-> Skip the length check for an empty current_password so the write
-> clears it.
-> 
-> Before the previous patch the write returned 1 on an HP EliteBook 840
-> G2 (min_password_length is 8) but cleared nothing.
-> 
-> Compile tested only.
-> 
-> Fixes: 8646a3b5ee3a ("platform/x86: hp-bioscfg: passwdobj-attributes")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Muhammad Bilal <meatuni001@gmail.com>
-> ---
-> Changes in v4:
->  - New patch
-> 
->  .../platform/x86/hp/hp-bioscfg/passwdobj-attributes.c    | 9 +++++++--
->  1 file changed, 7 insertions(+), 2 deletions(-)
-> 
-> diff --git a/drivers/platform/x86/hp/hp-bioscfg/passwdobj-attributes.c b/drivers/platform/x86/hp/hp-bioscfg/passwdobj-attributes.c
-> index 3f4c45d9b..f0551b455 100644
-> --- a/drivers/platform/x86/hp/hp-bioscfg/passwdobj-attributes.c
-> +++ b/drivers/platform/x86/hp/hp-bioscfg/passwdobj-attributes.c
-> @@ -60,7 +60,8 @@ int hp_get_password_instance_for_type(const char *name)
->  	return -EINVAL;
->  }
->  
-> -static int validate_password_input(int instance_id, const char *buf)
-> +static int validate_password_input(int instance_id, const char *buf,
-> +				   bool is_current)
->  {
->  	int length;
->  	struct password_data *password_data = &bioscfg_drv.password_data[instance_id];
-> @@ -69,6 +70,10 @@ static int validate_password_input(int instance_id, const char *buf)
->  	if (length > 0 && buf[length - 1] == '\n')
->  		length--;
->  
-> +	/* An empty current_password clears the session password */
-> +	if (is_current && !length)
-> +		return 0;
-> +
->  	if (length > MAX_PASSWD_SIZE)
->  		return -E2BIG;
->  
-> @@ -97,7 +102,7 @@ static int store_password_instance(struct kobject *kobj, const char *buf,
->  		id = get_password_instance_id(kobj);
->  
->  		if (id >= 0)
-> -			ret = validate_password_input(id, buf_cp);
-> +			ret = validate_password_input(id, buf_cp, is_current);
->  	}
->  
->  	if (!ret) {
-> 
+Easy fix: move mm's little one-liner into the alsa tree.
 
--- 
- i.
+Takashi, please can you add this?
+
+I'll drop the mm.git copy now.
+
+
+From: Baoquan He <hebaoquan@kylinos.cn>
+Subject: ALSA: n64: don't use GFP_DMA when calling dma_alloc_coherent()
+Date: Thu,  3 Sep 2026 19:18:26 +0800
+
+dma_alloc_coherent() allocates the DMA buffer with the device's addressing
+limitation in mind; the DMA core picks the zone from the device's coherent
+DMA mask and ignores GFP_DMA passed by the caller.  Remove the redundant
+GFP_DMA flag.
+
+Link: https://lore.kernel.org/20260903111836.1777265-4-hebaoquan@kylinos.cn
+Signed-off-by: Baoquan He <hebaoquan@kylinos.cn>
+Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+Cc: Christoph Hellwig <hch@lst.de>
+Cc: Harry Yoo <harry@kernel.org>
+---
+
+ sound/mips/snd-n64.c |    2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+--- a/sound/mips/snd-n64.c~alsa-n64-dont-use-gfp_dma-when-calling-dma_alloc_coherent
++++ a/sound/mips/snd-n64.c
+@@ -298,7 +298,7 @@ static int __init n64audio_probe(struct
+ 	priv->card = card;
+ 
+ 	priv->ring_base = dma_alloc_coherent(card->dev, 32 * 1024, &priv->ring_base_dma,
+-					     GFP_DMA|GFP_KERNEL);
++					     GFP_KERNEL);
+ 	if (!priv->ring_base) {
+ 		err = -ENOMEM;
+ 		goto fail_card;
+_
 
