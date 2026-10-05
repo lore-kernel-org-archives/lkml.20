@@ -1,203 +1,141 @@
-Received: from BYAPR05CU005.outbound.protection.outlook.com (mail-westusazon11010037.outbound.protection.outlook.com [52.101.85.37])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C2046359A6F
-	for <linux-kernel@vger.kernel.org>; Mon,  5 Oct 2026 06:41:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.85.37
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791182488; cv=fail; b=kHfHvflqdyY47ywbRq7I7dnKPh/RlRnu/TFIfavdKJyJ925201/2Q98JHgKjrDOndelNSdBE4BYZD3/NEjakblH9khnwgX9qTPEMp3aJnlBKBRteQzYKkJObgoeMzbVpXOgXtmOJM70HspyTnjlG8qAT/zYdcq2rYd6KBoQx8r4=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791182488; c=relaxed/simple;
-	bh=jUdFhYIOmUIEibIR/tkubq0P+CdRsk11L1eTceKsLBM=;
-	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=JyUgBaJD7B/00+vcks/myecaeLCunua68Zr994RLuzPR9nxSfL1uPsTumSjCVs4/+dO8jrh6DAoGDZV+lYoTHky1ObX2OyDCqIhohTG4gegYdoYGV7LWRIyI+Wh/ZwehKstbJuFk4WOynZEOjzKoh4FJ6cF9twDA8ytYqGY4Rpg=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=FNXsmzq9; arc=fail smtp.client-ip=52.101.85.37
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 0C86336197E
+	for <linux-kernel@vger.kernel.org>; Mon,  5 Oct 2026 06:41:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791182501; cv=none; b=eQXA1hyINAXDrr1pcWnUn5d6ZJD+mQIEoYGu2RU6mOKSCudje4B4d04QCuxb82umvy/w1Ip4gFpJUHj09c97d+pNfyjOJNmrXuXbdi6aivRB+8c0Ckd0UUFQmAeboWYCWwQhFglG2pxsNpWdpj/HIPVEqrEmnFz5raGcOf4E8KQ=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791182501; c=relaxed/simple;
+	bh=gPS4BaPCtTXPkS/p8WI2ZOze4/Fjezx1OmLe4zcOaeU=;
+	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To; b=WSQP95RBBLHZAX132dk6PBG5GVnhtYY8qivTeOHaLFzR4csu7uHtQsuOftxKiX2pmimc46mCBcmSxYpSilvCE6QgDuG+Wccgf3lUFmt4URAm6v8cwMQAUw7f0jZ6tDGkjQKKTWZJIF3nXuBxr35kwejpo/LI16LbLf8UGoSvrYY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=iJBOFkhy; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="FNXsmzq9"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=l0InNaDCk3pzJ9o5NZcCkHNwpGnGS//BVnnUo0KFpWMNz5vcQrNsnCNIHMy5ckOh7cHcDy5RDS83jzE9CWTN/LNZvgoVWhhI6TA5WkEBUp6nZOzEXSvnnsvO+5ijoHh0vnmgtee3MsuHhf7mH1SPuVotCUYXuVG7C1+fv6QOxXjllZiWXIrkd1Hl0jaqicQCHCp7JGlt7ryWOYZ3fhKrPDOeSVgXLgJ5W3x9/GeMjRi/yJZLhfDpchMC05RodFzfdXJw28yNdG+Ch9H3oEWPUjokT82XBlkETqfSABRR2hJXFEHNKGZojZc7eHTyCU+YBAes7He4xxVz7S6mD/k7vA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=9tUH1RygVr23BK8GsFjUDbQTutc5H8KcpqzvV162kYI=;
- b=yj+f4RnUCOVuSghPSilajU5q4uqUvnEbaPikGJsB64A4swUwerICuNzeFS4k00yG/O+pjwNzokEox9tfiqbi387TTqwuCKtl0CUAmkq1kGMfUv2Rmh61I10C2LLXGuV4AzOEW5sGTJJcqe0F2QncgZdiVGAkjRTim4n6eATTTGNceo156OTNUHfM+cunUE1w1fF/h4hHGYln+kT/ql3BWLLBaYrvyFtIN4ZJ7qoe6BrkEBrSwSWGSX3FqBdqsg5YpfRcvg0jJR/8jUrr7+MA9YHS6XaPk0RiJBNXysjldOWjnQNn7BSxqG/tft8BLOzdP6eAtOyJua3lGCXj5lTAZQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.linux.dev smtp.mailfrom=amd.com;
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=9tUH1RygVr23BK8GsFjUDbQTutc5H8KcpqzvV162kYI=;
- b=FNXsmzq9+Eacw10cjn1OpyIZWdcjPzC14Muwf9Ld+TxyJrb4mlvVmTiFdXKQfh0040sIkWGOXsTogfgRqdbz70HTLugCazdJW4meJW9brBiEseyDVlLhJgjZ7iVhkBbVlucs5FWwmV85tV2DaiAvAuSBCIa4vaGpXciSyNnENds=
-Received: from SJ0P220CA0011.NAMP220.PROD.OUTLOOK.COM (2603:10b6:a03:41b::31)
- by DS5PPF5FAA0E762.namprd12.prod.outlook.com (2603:10b6:f:fc00::651) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.472.20; Mon, 5 Oct
- 2026 06:41:23 +0000
-Received: from CO1PEPF00012E60.namprd05.prod.outlook.com
- (2603:10b6:a03:41b:cafe::9f) by SJ0P220CA0011.outlook.office365.com
- (2603:10b6:a03:41b::31) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.472.20 via Frontend Transport; Mon, 5
- Oct 2026 06:41:22 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 165.204.84.17) smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- CO1PEPF00012E60.mail.protection.outlook.com (10.167.249.69) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.472.14 via Frontend Transport; Mon, 5 Oct 2026 06:41:22 +0000
-Received: from BLRANKISONI.amd.com (10.180.168.240) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Mon, 5 Oct
- 2026 01:41:13 -0500
-From: Ankit Soni <Ankit.Soni@amd.com>
-To: <iommu@lists.linux.dev>, <joro@8bytes.org>, <will@kernel.org>,
-	<jgg@nvidia.com>
-CC: <suravee.suthikulpanit@amd.com>, <vasant.hegde@amd.com>,
-	<robin.murphy@arm.com>, <joao.m.martins@oracle.com>,
-	<alejandro.j.jimenez@oracle.com>, <pasha.tatashin@soleen.com>,
-	<rppt@kernel.org>, <pratyush@kernel.org>, <skhawaja@google.com>,
-	<praan@google.com>, <baolu.lu@linux.intel.com>, <dwmw2@infradead.org>,
-	<kevin.tian@intel.com>, <dmatlack@google.com>, <vipinsh@google.com>,
-	<kexec@lists.infradead.org>, <linux-kernel@vger.kernel.org>
-Subject: [RFC PATCH 2/7] liveupdate: parse the incoming handover tree before late_time_init()
-Date: Mon, 5 Oct 2026 06:40:12 +0000
-Message-ID: <20261005064018.1558-3-Ankit.Soni@amd.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261005064018.1558-1-Ankit.Soni@amd.com>
-References: <20261005064018.1558-1-Ankit.Soni@amd.com>
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="iJBOFkhy"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id DBACF1595;
+	Sun,  4 Oct 2026 23:41:34 -0700 (PDT)
+Received: from localhost (a085714.arm.com [10.164.19.28])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 88A5B3F763;
+	Sun,  4 Oct 2026 23:41:37 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1791182498; bh=gPS4BaPCtTXPkS/p8WI2ZOze4/Fjezx1OmLe4zcOaeU=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:From;
+	b=iJBOFkhyRkxDNSYu02g9UxsbHGxbruPrgL0D5tGBG06toBL2lw8y5vZyyuenf0q+4
+	 1eOIIWsEa7tWNBClthYMJ/VFcNqRFOCoGaSYEujimXlW7ms7jJX8ZxyFPait/jXuUx
+	 Hrf3cEXGPzzoFMxv490xa3FwfIB0J1XyQUHUg8/M=
+Date: Mon, 5 Oct 2026 12:11:34 +0530
+From: Anshuman Khandual <anshuman.khandual@arm.com>
+To: linux-arm-kernel@lists.infradead.org, akpm@linux-foundation.org, 
+	catalin.marinas@arm.com
+Cc: Catalin Marinas <catalin.marinas@arm.com>, 
+	Will Deacon <will@kernel.org>, Ryan Roberts <ryan.roberts@arm.com>, 
+	Mark Rutland <mark.rutland@arm.com>, Lorenzo Stoakes <ljs@kernel.org>, 
+	Andrew Morton <akpm@linux-foundation.org>, David Hildenbrand <david@kernel.org>, 
+	Mike Rapoport <rppt@kernel.org>, Linu Cherian <linu.cherian@arm.com>, 
+	linux-kernel@vger.kernel.org, linux-mm@kvack.org
+Subject: Re: [PATCH V3 0/4] arm64/mm: Convert pgtable READ_ONCE() as
+ pxdp_get()
+Message-ID: <6eghulpg35z63dpimrtw6p6x3zwfllfzjhpkpmgs5vcz4mpoda@poqgboea7nz5>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: satlexmb07.amd.com (10.181.42.216) To satlexmb07.amd.com
- (10.181.42.216)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CO1PEPF00012E60:EE_|DS5PPF5FAA0E762:EE_
-X-MS-Office365-Filtering-Correlation-Id: 931b20e1-4b17-4732-a8f5-08df22abab99
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|36860700016|1800799024|376014|7416014|82310400026|23010399003|5023799004|11063799006|56012099006|10067099003|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	OX7U621EuOx7qUzmbmIFSXhOKo+Ew8vvrNvcoIWJdyD5NNjDDbreRbwNlrX04/2Jzozpeq+R1TaoP6e9fl4Hc/GPg6kf5Dxyu6wwhs+YSAewRMjOshlT1ccMF+e52Q4MdLsnSK/fbzh3E4l9eaNkndDZtv0QJBTIj/+IXEr5lk3HKMEnLyWx0cQq+ogBKo58EaDOiu/15Zw8BwzIVohET8Aj3gib69OuDUlJE4VH4DFb0RYwYw2C3ouo1YR9z5s/PUB1D4mJP9E7L3UJ9auytNJizwyhDIeZbfPXrF5rrw3Lr3lHudpVnV4jQ6KbJl0TE0pI70bWbsyMJ2VpmtpJ7i2fMz4Fbzmo+3InDN5qdz7b7b+eq8zr+C1yvJ4roH7u0jvGh9wR58Inn55ppC239zWVNSAXYcw7If/ivZUqj2AdFac+5jf4bswwxkMW3ItToUn2Aj5FdePUYIwyp4G51E+RGl6tth/11Ei/NVPXCCcIOQin5zcw8hJmMEuZ6kL2uEn2nNZLd2OTpruS/j4naOQBdxn01G8CheIusWOAJYKkfC4TxZ3frD3tn/v9khRfscfjWNlUzNgSe2QQDO7p1UZL14H2xg3rErP5kzme0SQlP3cfDRq6ZWWL5kqRbxlgv5l0e2T4rie+kwLqx33v+hJvw5xZvJYgEUmDD4M7rI+R1u1gg9pXRrGoIoWEcVEjjx9oPejj5CmyCYJSLVMxzg==
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(36860700016)(1800799024)(376014)(7416014)(82310400026)(23010399003)(5023799004)(11063799006)(56012099006)(10067099003)(22082099003)(18002099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	1iy0SGkJ2U/xx0RIufpn2kAjTS3KPm6m9oUPWCGCf3tOzcfmLZ12M+lrJZmDy9LjH387dZHZRAtpxpsIHwhFTUlGhN1qIaUVzuRI0bxqCoopkkNgeZ8KTXYGvm7YTG7ay7eV0T7E4TXk80vJ1RW79U3jnBXMSiGsuM9Bh/BD1WsZJVPboa6Rq2eEHxc+vY/EF/C1w+YD07VH1Me79MACc6O1rac9dM25REDXnKqj5uLYYXJsnVqW0O+MIWk7B3r1B+Aj0nEG/0Z9D0tNtk9P+64ykM5lKXf9fhiybhdyqVZcBtyT9SGt+G6f8IUznXtsJWUi6nU7D0vgcQG46FpyOefEF4sZCGhRIKWhxB+Kb0iYJudWYBB4Dg4wguCiQ0xot1sMsB+yOFfejnGJr+RZ0G0flfM7fdFCpU7gTvkVgayu0N4JQaCXbDTjBKTS2C/L
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Oct 2026 06:41:22.2268
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 931b20e1-4b17-4732-a8f5-08df22abab99
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	CO1PEPF00012E60.namprd05.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS5PPF5FAA0E762
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260924062214.1635078-1-anshuman.khandual@arm.com>
 
-LUO parses the handover tree from an early_initcall, which runs inside
-rest_init() -- the last statement of start_kernel(). Anything earlier in
-start_kernel() cannot see the incoming state, and cannot tell that it
-cannot see it: luo_flb_retrieve_one() returns -ENODATA both before the
-parse and when the previous kernel handed nothing over.
+On Thu, Sep 24, 2026 at 11:52:10AM +0530, Anshuman Khandual wrote:
+> Route READ_ONCE() accesses on pgtable entries via level specific generic MM
+> pxdp_get() helpers which platforms could then override when required. These
+> accessors on arm64, will help in ensuring page table accesses are performed
+> in an atomic manner while reading 128 bit page table entries later. But for
+> now they just default to READ_ONCE(), thus preserving existing behaviour on
+> current D64 translation a well.
+> 
+> This is similar to generic MM where all atomic accesses have already been
+> converted from READ_ONCE() into pgtable level specific accessors.
+> 
+> These are preparatory patches for D128 enablement, although standing their
+> own for D64 translation as well. These patches are split from earlier D128
+> V1 series. There are no functional changes here and besides mm kselftests
+> do not show any regression.
+> 
+> https://lore.kernel.org/linux-mm/20260729122452.3797443-1-anshuman.khandual@arm.com/
+> 
+> This series applies on v7.3-rc4 but after applying the following patches on
+> pgtable entry print standardization posted earlier.
+> 
+> https://lore.kernel.org/linux-mm/20260831054331.625505-1-anshuman.khandual@arm.com/
+> 
+> https://lore.kernel.org/linux-mm/20260916044933.2689426-1-anshuman.khandual@arm.com/
 
-On x86 the IOMMU is such a consumer, because it is also the interrupt
-remapping provider. amd_iommu_prepare() runs from late_time_init() via
-enable_IR_x2apic() -> irq_remapping_prepare(), and reaches
-init_iommu_one_late() long before any initcall.
+Hello Catalin/Andrew,
 
-Fix the ordering rather than teaching each consumer to cope. Call the
-parse directly from start_kernel(), immediately before late_time_init().
-Rename it to liveupdate_init_early() at the same time, since
-liveupdate_early_init() was named after the early_initcall that no longer
-exists.
+The above mentioned dependencies are already in mm-unstable, thus reflecting
+in linux-next as well. Just to rule out merge conflict - this series applies
+cleanly, builds and boots on latest tag next-20261002, which contains above
+dependencies. But please do let me know if there are still some issues in
+resolving this situation - will be happy to help. Thank you.
 
-Signed-off-by: Ankit Soni <Ankit.Soni@amd.com>
----
- include/linux/liveupdate.h   | 4 ++++
- init/main.c                  | 2 ++
- kernel/liveupdate/luo_core.c | 5 +----
- 3 files changed, 7 insertions(+), 4 deletions(-)
+- Anshuman
 
-diff --git a/include/linux/liveupdate.h b/include/linux/liveupdate.h
-index 6051abc0612c..07dbe8366f76 100644
---- a/include/linux/liveupdate.h
-+++ b/include/linux/liveupdate.h
-@@ -229,6 +229,8 @@ struct liveupdate_flb {
- 
- #ifdef CONFIG_LIVEUPDATE
- 
-+void liveupdate_init_early(void);
-+
- /* Return true if live update orchestrator is enabled */
- bool liveupdate_enabled(void);
- 
-@@ -259,6 +261,8 @@ int liveupdate_get_token_outgoing(struct liveupdate_session *s,
- 
- #else /* CONFIG_LIVEUPDATE */
- 
-+static inline void liveupdate_init_early(void) { }
-+
- static inline bool liveupdate_enabled(void)
- {
- 	return false;
-diff --git a/init/main.c b/init/main.c
-index 2613d3f9b3ce..221c22489c04 100644
---- a/init/main.c
-+++ b/init/main.c
-@@ -108,6 +108,7 @@
- #include <linux/time_namespace.h>
- #include <linux/unaligned.h>
- #include <linux/vdso_datastore.h>
-+#include <linux/liveupdate.h>
- #include <net/net_namespace.h>
- 
- #include <asm/io.h>
-@@ -1145,6 +1146,7 @@ void start_kernel(void)
- 	setup_per_cpu_pageset();
- 	numa_policy_init();
- 	acpi_early_init();
-+	liveupdate_init_early();
- 	if (late_time_init)
- 		late_time_init();
- 	sched_clock_init();
-diff --git a/kernel/liveupdate/luo_core.c b/kernel/liveupdate/luo_core.c
-index 91703715e993..54771d67d922 100644
---- a/kernel/liveupdate/luo_core.c
-+++ b/kernel/liveupdate/luo_core.c
-@@ -135,7 +135,7 @@ static int __init luo_early_startup(void)
- 	return err;
- }
- 
--static int __init liveupdate_early_init(void)
-+void __init liveupdate_init_early(void)
- {
- 	int err;
- 
-@@ -145,10 +145,7 @@ static int __init liveupdate_early_init(void)
- 		luo_restore_fail("The incoming tree failed to initialize properly [%pe], disabling live update\n",
- 				 ERR_PTR(err));
- 	}
--
--	return err;
- }
--early_initcall(liveupdate_early_init);
- 
- /* Called during boot to create outgoing LUO state */
- static int __init luo_state_setup(void)
--- 
-2.43.0
-
+> 
+> These patches have been hosted here as well.
+> 
+> git@git.gitlab.arm.com:linux-arm/linux-anshuman.git (arm64_pxdp_get_v3)
+> 
+> Changes in V3:
+> 
+> - Added overrides for pxdp_get() and replaced remaining READ_ONCE()
+> - Updated all commit messages as required
+> - Dropped previous tags
+> 
+> Changes in V2:
+> 
+> https://lore.kernel.org/all/20260922061638.3967467-1-anshuman.khandual@arm.com/
+> 
+> - Rebased on v7.3-rc4 along with all latest dependencies
+> - Updated commit messages per Ryan
+> - Added tags from Ryan
+> 
+> Changes in V1:
+> 
+> https://lore.kernel.org/all/20260903060657.2717457-1-anshuman.khandual@arm.com/
+> 
+> Cc: Catalin Marinas <catalin.marinas@arm.com>
+> Cc: Will Deacon <will@kernel.org>
+> Cc: Ryan Roberts <ryan.roberts@arm.com>
+> Cc: Mark Rutland <mark.rutland@arm.com>
+> Cc: Lorenzo Stoakes <ljs@kernel.org>
+> Cc: Andrew Morton <akpm@linux-foundation.org>
+> Cc: David Hildenbrand <david@kernel.org>
+> Cc: Mike Rapoport <rppt@kernel.org>
+> Cc: Linu Cherian <linu.cherian@arm.com>
+> Cc: linux-arm-kernel@lists.infradead.org
+> Cc: linux-kernel@vger.kernel.org
+> Cc: linux-mm@kvack.org
+> 
+> Anshuman Khandual (4):
+>   arm64/mm: Use pmdp_get() for PMD accesses
+>   arm64/mm: Use pudp_get() for PUD accesses
+>   arm64/mm: Use p4dp_get() for P4D accesses
+>   arm64/mm: Use pgdp_get() for PGD accesses
+> 
+>  arch/arm64/include/asm/pgtable.h | 40 +++++++++++++++++----
+>  arch/arm64/mm/fault.c            |  8 ++---
+>  arch/arm64/mm/fixmap.c           |  6 ++--
+>  arch/arm64/mm/hugetlbpage.c      | 10 +++---
+>  arch/arm64/mm/kasan_init.c       | 18 +++++-----
+>  arch/arm64/mm/mmu.c              | 60 ++++++++++++++++----------------
+>  arch/arm64/mm/pageattr.c         |  8 ++---
+>  arch/arm64/mm/trans_pgd.c        | 14 ++++----
+>  8 files changed, 95 insertions(+), 69 deletions(-)
+> 
+> -- 
+> 2.43.0
+> 
