@@ -1,34 +1,34 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E8F3C30B50D
-	for <linux-kernel@vger.kernel.org>; Mon,  5 Oct 2026 17:00:14 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3B9A030ACEE
+	for <linux-kernel@vger.kernel.org>; Mon,  5 Oct 2026 17:00:18 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791219616; cv=none; b=ScjCVGZLGsu4CQHORuK4++Q2PK0sUjD5CiRWU1Zrn3YSZ7uBBN4o9j/H3kEJqP71dsdVc9vj4j2LTCp7rAS34yDO+r+98ZRNmu1N9yorlGywXuF+MPWLAHGxV2jCgil11BpLn7M/gFDSDgPDMAhfU7RxkZ/8tqJ4pbgzUTQhDH0=
+	t=1791219620; cv=none; b=KA/BWXVOuxC8UM426Wz5vwjqZr8bxODM1dOmXWhFGj9onrMEaqvYlRL2eE6KBb3gmwasfvVknEJrszvQUXeWYE+GJ7c2VDU3eOIYfBfs+7qIkEHrEWFHk2yX01LcBI/RQTS9Z4BnsNu3lKE0ShRYhYLVJKRMskFohw+ZISS4w48=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791219616; c=relaxed/simple;
-	bh=ewT1hesdv4MkSQGzg+V0stzJylVbS26L4l46syapVA4=;
+	s=arc-20240116; t=1791219620; c=relaxed/simple;
+	bh=fVEvrqt6WjDpLD7k0EEIJMqpIf6dLHVhyJBZwjn0ds4=;
 	h=Content-Type:MIME-Version:Subject:From:Message-Id:Date:References:
-	 In-Reply-To:To:Cc; b=i53txEGegBQCFfco7+QGRisH0gpQXGknZ+16dzp02kuGpZMWrKMvcMxWkon/5fzfYLytvpS5WPbifjH6egsRXBVCx8PSrKLfAnHnsO66bPkccK9Q4MbqCpAsh6YrshSP8eFmreO1cGe9ckGIARrlh6nzmNPrJVtz8hTn1TAtWmU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ld8axjVZ; arc=none smtp.client-ip=100.103.45.18
+	 In-Reply-To:To:Cc; b=tGwd3dxeYhr6oaXrlB6R9auaCxxZuZ91hcOMAiPhRIS8IOfWJEoMiT88YNtR3118UcjOA9B86rWiI34/fuKMQHkCD3Hrxvp0X5u/xRZAwwob6fRbDBdCZTPLPNd8w8Mrt9ovcSunWtyLGuOf7pzHz+11Kb6Qf2WgTiIRP+R0luA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=eld28IbS; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ld8axjVZ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BF96A1F000FF;
-	Mon,  5 Oct 2026 17:00:14 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="eld28IbS"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 435C21F000FF;
+	Mon,  5 Oct 2026 17:00:18 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791219614;
-	bh=oL863QUbr2KktNxa4NPcahhyRHUXYgpw83Q5ivTFq2o=;
+	s=k20260515; t=1791219618;
+	bh=k678DWlUUZ3k9HwvntazIqDsfedGb7Bg2oWOWK4FHPQ=;
 	h=Subject:From:Date:References:In-Reply-To:To:Cc;
-	b=ld8axjVZXiUSSE4/o9p/XlQcYQL+VbWMJYUTt6NjSI1Smh2KDFfVxuCQzUubGVUgp
-	 XSRKDFcrEg8eySCKyoSMeJRq1kSE4BAEabbujrqli3Latd6ZyauM9hFu/C9dIIFVW2
-	 ttJcrRhijJaL5PQp2lL8RHSnUUcyopV/KeSeGopIMsg/FnEWzYXDo2RS5+g1o6sdKE
-	 5Tx181pfwLUX3Vczcc4vuiw8jnOA1YNA18ZllGxYXxCsFDhC6NJL2P8hyVwl8pIQnS
-	 0PP4qEhbVzZWVmLEJBsZtcNNq+p4yXtkq96QEGdFwjs9by1TiLPahxMTfZ6R2wmWQq
-	 lyS15sevi9GhQ==
+	b=eld28IbSGRFsMzZt7XBnJ3a+L1l3olWRiA762brUpoSe0SNT4UO8VFzHx5hIdV4XI
+	 pMIu/wYK9OJCwcahBFziB3uzhTc85K1kJRZf3KqrHzDBH2u2LZy34/agz2UcJgQQ/8
+	 McGubgH2ZtnrY3OK1gjVMKHpVqmHxbLXCaHpFFcOUuQU5UJ46k3hT9uzgOT+F3JxIq
+	 wFZWyb0WWafnnww2gWQhvJ1S016mXMlKKy0fa59QKCXV14Zt5KS5XQ+9JoagBt2Iaf
+	 vnO0wUA1zXG00Z60DDTAfsKCdAUjXBBtUzgMcMq1XWR9zsMjLOkux+ZWCmi/Zbspdy
+	 FimOu+ef98EMg==
 Received: from [10.30.226.235] (localhost [IPv6:::1])
-	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id B43CC39263B5;
-	Mon,  5 Oct 2026 17:00:14 +0000 (UTC)
+	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 3A30639263B5;
+	Mon,  5 Oct 2026 17:00:18 +0000 (UTC)
 Content-Type: text/plain; charset="utf-8"
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -37,45 +37,40 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: Re:
- =?utf-8?q?=5BPATCH_v4=5D_riscv=3A_lib=3A_Fix_ZBB_strnlen_wrap-aroun?=
-	=?utf-8?q?d_regression_on=C2=A0huge_counts?=
+Subject: Re: [PATCH v2] riscv: crash: Add crash hotplug support
 From: patchwork-bot+linux-riscv@kernel.org
 Message-Id: 
- <179121961336.1813719.13062784666984813861.git-patchwork-notify@kernel.org>
-Date: Mon, 05 Oct 2026 17:00:13 +0000
-References: <20260915152656708z04s4oSYY2BGj34F36RZa@zte.com.cn>
-In-Reply-To: <20260915152656708z04s4oSYY2BGj34F36RZa@zte.com.cn>
-To:  <shao.mingyin@zte.com.cn>
-Cc: linux-riscv@lists.infradead.org, pjw@kernel.org, mikey@neuling.org,
- jiangfeng@kylinos.cn, palmer@dabbelt.com, aou@eecs.berkeley.edu,
- alex@ghiti.fr, linux-kernel@vger.kernel.org, zhang.yue5@zte.com.cn,
- david.laight.linux@gmail.com, qingfang.deng@linux.dev
+ <179121961677.1813719.4405826480158733209.git-patchwork-notify@kernel.org>
+Date: Mon, 05 Oct 2026 17:00:16 +0000
+References: <20260910032619.2477279-1-qirui.001@bytedance.com>
+In-Reply-To: <20260910032619.2477279-1-qirui.001@bytedance.com>
+To: Rui Qi <qirui.001@bytedance.com>
+Cc: linux-riscv@lists.infradead.org, palmer@dabbelt.com, pjw@kernel.org,
+ aou@eecs.berkeley.edu, alex@ghiti.fr, debug@rivosinc.com, martin@kaiser.cx,
+ mindal@semihalf.com, fustini@kernel.org, kees@kernel.org,
+ linux-kernel@vger.kernel.org
 
 Hello:
 
-This patch was applied to riscv/linux.git (fixes)
+This patch was applied to riscv/linux.git (for-next)
 by Paul Walmsley <pjw@kernel.org>:
 
-On Tue, 15 Sep 2026 15:26:56 +0800 (CST) you wrote:
-> From: Shao Mingyin <shao.mingyin@zte.com.cn>
+On Thu, 10 Sep 2026 11:26:19 +0800 you wrote:
+> When CPUs or memory are hot-plugged on a running system, the crash
+> dump's elfcorehdr -- which describes the available CPUs and memory to
+> the capture kernel -- must be kept in sync, otherwise a crash after a
+> hotplug event would produce a vmcore that does not reflect the current
+> system topology.
 > 
-> The aligned scan boundary is derived from the last valid byte,
-> (s + count - 1).  When count is huge (e.g. SIZE_MAX, which FORTIFY
-> strcat/strlcat pass when the destination size is not known at compile
-> time), s + count wraps around and the boundary lands before s, so the
-> ZBB path returns a bogus length.  The original implementation
-> (5ba15d419fab) had the same wrap-around in its (s + count) & ~7
-> boundary computation; after 5d588c684833 the wrapped boundary is caught
-> by the pre-loop guard "bgeu t0, t4, 2f", which then always exits for
-> aligned strings of 8 or more characters and strnlen() returns 8
-> instead of the real length.
+> Enable crash hotplug for RISC-V by selecting
+> ARCH_SUPPORTS_CRASH_HOTPLUG and providing the three architecture hooks
+> invoked through the override macros in <asm/kexec.h>:
 > 
 > [...]
 
 Here is the summary with links:
-  - [v4] riscv: lib: Fix ZBB strnlen wrap-around regression on huge counts
-    https://git.kernel.org/riscv/c/d3b055d5d168
+  - [v2] riscv: crash: Add crash hotplug support
+    https://git.kernel.org/riscv/c/dfc0c564b4b0
 
 You are awesome, thank you!
 -- 
