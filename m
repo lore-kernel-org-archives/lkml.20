@@ -1,129 +1,161 @@
-Received: from mail-pj2-f38.google.com (mail-pj2-f38.google.com [74.125.227.166])
+Received: from mail-vs1-f41.google.com (mail-vs1-f41.google.com [209.85.217.41])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 962844854ED
-	for <linux-kernel@vger.kernel.org>; Mon,  5 Oct 2026 15:50:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.166
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CC3AE481AAD
+	for <linux-kernel@vger.kernel.org>; Mon,  5 Oct 2026 15:50:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.217.41
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791215404; cv=none; b=HrZV2HZnLwufEk8wd9BLUT6OynHnMPghvEE+mfNazsLdmOV6M7csdWKKl5J2w/wrG3FT6KfpXl9X7BONMupryHraTlu23qsYFVMVQzDifgV8uuetGQf1gTO9xzSkqmG5hg5NYgOrvfLyLMqkbZ8XTDcwuXCMHj8QJGMdjBE3gA4=
+	t=1791215419; cv=none; b=mY08FaL4EN33CM93WRGlfgQNW+w2Tpn4fFFS6ioKKKNqwv9nY/hJoUthHKG6aizQ76cxZc5FPM74gKydgcDmYMAr1eNhRx1VXd3bleqHjXnKfoqEThSjLklSEaM7QuJVEN4PFR+bZVJKm5pEJ75AB216hPngzFmQmGQUwyqiwno=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791215404; c=relaxed/simple;
-	bh=+GwAb1diWY2eoSKclgDlISa3D7i9c6YoSdbSLUNeHmY=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=SVb8VCHt1iM2qYBn7rWuF7ms8iFFo57TUXXtQZ4aABLgelEGCdqbaqRoOsHe1uepGugHhJIpyg2rvQg2CgmHK+w0oiRufnoRHBaYrBegEAvQ5y478ZehRA87shRZ1BMS1qHEl4jBsrkk7u0yv9qrAw7o9tZGydEXFNNwvdSYW/M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=OvUEIitC; arc=none smtp.client-ip=74.125.227.166
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1791215419; c=relaxed/simple;
+	bh=vdpsJ3hZNyAcL4ng7ir9nttQMH7WO6n1mJsbI2s3ZfQ=;
+	h=From:MIME-Version:References:In-Reply-To:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=nKzMUYt4PY7VoLcxobz0+LoS24RwNlg1EAn2gLUqkeCJHO53MD/LEmKIwKqlshEDKtwVcoD3XtKr67P7EXJWuY8dnqPviwpSKIrlRpbR921hkv6SMf0Gztq57fnkvpcQ6GtavUopri61o1me2/NONsNl6kEZFrxSZTyM8iHJr0g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ossystems.com.br; spf=pass smtp.mailfrom=ossystems.com.br; dkim=pass (2048-bit key) header.d=ossystems.com.br header.i=@ossystems.com.br header.b=iGxMBD5U; arc=none smtp.client-ip=209.85.217.41
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ossystems.com.br
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ossystems.com.br
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="OvUEIitC"
-Received: by mail-pj2-f38.google.com with SMTP id 98e67ed59e1d1-3a81335d54cso295439a91.0
-        for <linux-kernel@vger.kernel.org>; Mon, 05 Oct 2026 08:50:02 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=ossystems.com.br header.i=@ossystems.com.br header.b="iGxMBD5U"
+Received: by mail-vs1-f41.google.com with SMTP id ada2fe7eead31-779d18ef706so1470133137.2
+        for <linux-kernel@vger.kernel.org>; Mon, 05 Oct 2026 08:50:17 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791215402; x=1791820202; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=t/MEt8ox8UMec1YG4VRL7RRNUQZVW+IA9Yj7RDmYjWI=;
-        b=OvUEIitCjQUR/w/Ngdk1h5vDefFWXGMF4H6reutxfw61fjEV8dIK6cFYCIASjnd2vw
-         dcevzjiWf52goWIrmzzo7kLEpdxxQ3toYlp+loR6hqigIF0r9Ddy3j2AZobfyimm1P7d
-         xrTVtlpwm7ooylvjFjqXREodJa3pfLe2rYjgCmJsUkCc9FxoKCsuBlAa/icb/gNASg9B
-         3E3/1b4rAaW4pHap2edtHkGXJNmSZ5zhELy3Dsfie9KMx1moFTil71Z1u1AnDABzn8LG
-         fHDPQY4VhEFfDBVO8rYhH9oBc76unzaPTJihgimWilRm5Rcexdi5AV7+zU0cJ1woCgyu
-         mCFA==
+        d=ossystems.com.br; s=os; t=1791215417; x=1791820217; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:in-reply-to:references:mime-version:from:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=C54WbketwFUMnlhWt0X/x+0i291DYrFlSIzr7u5PmQc=;
+        b=iGxMBD5Uo4zYet5tlE2VYT1Jwy0iTPSGqlXU7tUA4EA5GyQZyxbcrnvU+T/ywXai27
+         UoCtXM2GztpWaegImtlL2AV2O4h9Tebw3mQWfguGL4FPBOR71mZo2B2qbCm9eKFDjSB0
+         +H3/WUidthjsh2XTcLjSESqkDiSZEvbXcMGVYSqyQ1yFMqZsW6jTBZgD9ahURlSWADhi
+         TXFIDyXn/fwmopJPbW5AGBlp9F9KIsE6n7977QRDEHwoglRaZCNgfkCsRfAzRPIasp5o
+         QsruayJUC8vy3MB+wlTO5JyKMEzDtkToyI0iKmztGHK9k+76rmRm2qqkZaOsQgvdBlcg
+         uCMA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791215402; x=1791820202;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=t/MEt8ox8UMec1YG4VRL7RRNUQZVW+IA9Yj7RDmYjWI=;
-        b=zDBda7+AoicoyTGBa3VGv6Tjsx2rO7NTVa783urOvh0RPHNkYW+8OFi5h/GaUaZ3I7
-         LkNrknC1vKPBW4j57njDp3BCYz+RkBkQKu+hq6YFEY2YtZx1BipFHMSyTPI4GgLTMeYM
-         Qnjp+3Hx06Cx9i2ksIE1tcIbGMe5MxdO8joe1VGx8jBZG+u+U856is0SQWuA1MAhpJo+
-         PSy71+3aIOtib64nXFbu8psb/8KU/9XgQjM0Rsg/WOmqZ9sAp7KSDKxBc9UXEw9/Ocwk
-         ANw224E7uRVciSsYkv6GMpnEVI7LRtuFrLvC14ogg+KIz11irugWXJPlhqOdf/a+0BCA
-         0+aw==
-X-Forwarded-Encrypted: i=1; AKwUvBwbiAXs2RVxeNeeO1d9uisLwp8Pnkt/t6lgrxWhS5C81hrKMTtnPw6ToOaZvDFGQEwgGIervHalmE0i9n0=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJCFqGue9pHrWEq+UxZhaanZ9YcL0TmYQ5wdAdP7AqqdBkbBDZ/
-	5SUce2YsTOuTUeL9j/8HJhwLVz66T7EHUxVpcqRKbdpMEtm14ODMZAm3
-X-Gm-Gg: AYBFou1CkqE1QYKvgHlTa/1YGxidPc1fcFJ49BX74nBf5pQQIcz5OYBK9TP48z2owVP
-	aJt0AeUKEaQxfgyRi6b9S+yRQ3L6kmSiAtwS2QXIlnjakSr40KDOPzcyqJMlDZSTuIxTCsmkGql
-	0voAtPS4C9hHuucJDSE30UW6maKkwus21hqXqvBmcEQvm0pN9xmvQcWd9vgrkay2FHJfjSKM5ct
-	y27NIC8E7dpdFFtENEbtqstt3W2jzdNz+bzK2a7NqYtssIdxogI4s2EwmudUq6AjZ6YL6W1G51S
-	QTkhYtMysWDVSkubXa2KzaC3zh1jXg1Byjc54U9et1Hker1zqaeyUnKRf76wZadHxydQyKJrCZ9
-	j0sVb1xPlq/W816msOmdfG/w82KO1a56qumMmrB2db9RlOx3GmiT5LrvLZfqcWJphVJnZZ0L1sJ
-	4d9L3dGND27ZYKSBmu1fkiUBNN7alwi2Hn0z0/FvlIi4fT47iSBpNEiY4GCyTGatnb/OYpLWcGN
-	6VPfgOWFm3c0x6aV3A1dw==
-X-Received: by 2002:a17:90a:c88b:b0:3a4:930e:6c35 with SMTP id 98e67ed59e1d1-3a853cdb44bmr28181a91.4.1791215401795;
-        Mon, 05 Oct 2026 08:50:01 -0700 (PDT)
-Received: from osman.mioffice.cn ([43.224.245.178])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a853ce2b46sm47748a91.14.2026.10.05.08.49.59
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 05 Oct 2026 08:50:01 -0700 (PDT)
-From: Zhan Xusheng <zhanxusheng1024@gmail.com>
-X-Google-Original-From: Zhan Xusheng <zhanxusheng@xiaomi.com>
-To: Jaegeuk Kim <jaegeuk@kernel.org>,
-	Chao Yu <chao@kernel.org>
-Cc: linux-f2fs-devel@lists.sourceforge.net,
-	linux-kernel@vger.kernel.org,
-	Zhan Xusheng <zhanxusheng@xiaomi.com>
-Subject: [PATCH] f2fs: fix defragment writeback range truncation on 32-bit
-Date: Mon,  5 Oct 2026 23:49:54 +0800
-Message-ID: <20261005154954.2097054-1-zhanxusheng@xiaomi.com>
-X-Mailer: git-send-email 2.43.0
+        d=1e100.net; s=20260707; t=1791215417; x=1791820217;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:in-reply-to:references:mime-version:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=C54WbketwFUMnlhWt0X/x+0i291DYrFlSIzr7u5PmQc=;
+        b=Jnf+HqTl7Eihd3L8rqyhXYF4TslXQVe/vSmQo3794asXrqPUZRrnCDpNDGD1wFeuBc
+         e7s/zzEkdNXG25WAv2hINAGJaoh3cZXQ5z9fYGhjhw/6U6I+WQvgqot8iNtZHVKOudCN
+         JBI2rg6oR/mRkRYapozKCn/1SY9YgiFAOnceq7YZkKDSKegAc4mRoUn7wxlgLlD2pWOX
+         xCA3yjxCTYLhbuRqt69rNVqK3fbk7ruFbfdZ2ye2nlNpLwgwIfeTM5RiaVC8DRJVB77j
+         ZQAbhQapI2LaURw21W/3ljbFQI4Ko+2xf36DuwlU0Rg3T+DQj0bUIMDfY8mQ4tPDTfjB
+         yboA==
+X-Forwarded-Encrypted: i=1; AKwUvBxXeUHAvZG8gPbWm7qV51HWLdfxBnJV9spq2JIQXqgJunn+XwCG+DjE/DorVyxGfN1p44oDwqQk1BFWGrE=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJizipzNVVSaw5SQebOxODkog4HP6YwvhYIbpLhb/NnII5ZkZ1i
+	l7b7jsh0KJ4qtpRaY6EbfJJnYP78PAuTTtRSwfblbJuMO8Cuf65Ln0gXMeFvKR8H09hsoMZ1/JH
+	R1hdVpVY=
+X-Gm-Gg: AYBFou3VPms/6vOE21NWsmbgjeiZHqn2nOKol0GRAO5iUBksTvLoNG8V0aPsVfoxjMW
+	UAzHCK2EBl45FVvMKwTBq2mnIU94iZ2xZkA+cWGRb01XfQ4zCxn3HGE+oQwUIYOrI/sNXDaItwb
+	xoV/J0Y+6me3y2M1pEC1nmkSvi2y8Z7VYylljA5n5+eBVUdLAEViIpvi2kp7jtanq9AYOkpglh2
+	+iSxLRQ66D2o0RmP50IDCt0yf22DRfBuAZH1m5aMcrJVmzyZPHwncXzHIlRBGqBTc6CmDLZEaYZ
+	juZNV5HldBZrfLGiRPRVYCEuHh2mglE2mPCeET9A1EtJ1f+zonrMIBPjE4/PcFaklnygx/MaJbt
+	cpMoETYSrfIFMKZT4ctxIji2Za7tgsCmutDdS/s218XEOYAemcTHBQRcU8B1kR4MaaCGTNfC9ar
+	8d8emGZdsB1Naahon7KZKziD17jJCiEvEDjOugH7NIbfmoMPWu8fsu/gwtOCJy65owojp4YUx6H
+	74nQFQr6x+VRaK2U/zNTniSU/hZpokiTym9EY3NEb755P6l46Gu
+X-Received: by 2002:a05:6102:32cd:b0:7a3:4e75:d1f0 with SMTP id ada2fe7eead31-7c2457ce32amr2061274137.23.1791215416461;
+        Mon, 05 Oct 2026 08:50:16 -0700 (PDT)
+Received: from mail-vs1-f48.google.com (mail-vs1-f48.google.com. [209.85.217.48])
+        by smtp.gmail.com with ESMTPSA id 71dfb90a1353d-5da641688e2sm14545383e0c.18.2026.10.05.08.50.10
+        for <linux-kernel@vger.kernel.org>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 05 Oct 2026 08:50:14 -0700 (PDT)
+From: Otavio Salvador <otavio.salvador@ossystems.com.br>
+X-Google-Original-From: Otavio Salvador <otavio@ossystems.com.br>
+Received: by mail-vs1-f48.google.com with SMTP id ada2fe7eead31-779d18ef706so1470002137.2
+        for <linux-kernel@vger.kernel.org>; Mon, 05 Oct 2026 08:50:10 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBz5WvzkJuzTSgzMP3LJWKuYh0+HKWYk2XhPUUyIYu7jDwDEHKoqCLHn3GoCCONlBI4cq23uMOeHwOwMAuE=@vger.kernel.org
+X-Received: by 2002:a05:6102:50a1:b0:7c3:2f13:d905 with SMTP id
+ ada2fe7eead31-7c32f13da5fmr1970603137.3.1791215410224; Mon, 05 Oct 2026
+ 08:50:10 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20261003012534.418820-3-otavio@ossystems.com.br>
+ <20261003012534.418820-5-otavio@ossystems.com.br> <2c75983e-5e63-4613-a9a8-055015d04bbf@arm.com>
+In-Reply-To: <2c75983e-5e63-4613-a9a8-055015d04bbf@arm.com>
+Date: Mon, 5 Oct 2026 12:49:57 -0300
+X-Gmail-Original-Message-ID: <CAP9ODKr2FQ2xeg-u_UQ-krUGsaU3mcWjWYfPAPd7V=ks2=GwzQ@mail.gmail.com>
+X-Gm-Features: AclHuK9M-oP6_gI2ooGV7CYgI6qML-uXhAEOVd9YWl1vJlrxk84aNQ57MoMLtgc
+Message-ID: <CAP9ODKr2FQ2xeg-u_UQ-krUGsaU3mcWjWYfPAPd7V=ks2=GwzQ@mail.gmail.com>
+Subject: Re: [PATCH 2/2] ARM: dts: sun8i-r40: Add SID node and THS calibration
+To: Andre Przywara <andre.przywara@arm.com>
+Cc: Otavio Salvador <otavio@ossystems.com.br>, Chen-Yu Tsai <wens@kernel.org>, 
+	Jernej Skrabec <jernej.skrabec@gmail.com>, Samuel Holland <samuel@sholland.org>, 
+	Srinivas Kandagatla <srini@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Maxime Ripard <mripard@kernel.org>, devicetree@vger.kernel.org, 
+	linux-arm-kernel@lists.infradead.org, linux-sunxi@lists.linux.dev, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-f2fs_defragment_range() flushes the range it is about to defragment:
+Hi Andre,
 
-	filemap_write_and_wait_range(inode->i_mapping,
-				pg_start << PAGE_SHIFT,
-				(pg_end << PAGE_SHIFT) - 1);
+Thanks for the review.
 
-pg_start and pg_end are pgoff_t, 32 bits on 32-bit kernels, so both
-shifts are evaluated in 32 bits and truncated before they are widened to
-the loff_t parameters.  pg_end is only capped by the file's page count,
-so for a file larger than 4 GiB the shift wraps.
+Em seg., 5 de out. de 2026 =C3=A0s 06:02, Andre Przywara
+<andre.przywara@arm.com> escreveu:
+>
+> Hi Otavio,
+>
+> thanks for sending the patch!
+>
+> On 10/3/26 03:25, Otavio Salvador wrote:
+> > Without the calibration cell, the THS driver leaves the sensor
+> > calibration registers at their reset value (0x800) and the reported
+> > temperatures drift from the real die temperature by a chip-dependent
+> > offset.
+> >
+> > Add the SID node at 0x01c1b000 and wire the thermal sensor to its
+> > factory calibration at eFuse offset 0x40, one 16-bit word for each of
+> > the two sensors.
+> >
+> > The R40 user manual gives the size of the thermal sensor key (32 bits)
+> > but not its offset. The vendor SDK key map names 0x48 "thermal_sensor",
+> > but that word is zero on all the boards checked. On an A40i running the
+> > Boardcon vendor kernel, the THS_0_1_CDATA register holds exactly the
+> > eFuse word at 0x40 (0x08780875), which confirms the location.
+>
+> So in some U-Boot BSP sources on github I see
+> arch/arm/include/asm/arch-sun8iw11p1/sid.h putting the sensor at 0x34
+> (like the H3 or A64).
+> Can you check the values there? I see that Tina-Linux puts them at 0x40,
+> as you reported, and it's probably more reliable there than in the
+> U-Boot sources, but it's worth double checking.
+>
+> The rest looks alright (checked the manual and how the compatible string
+> is handled in the driver), so if you can confirm that it's 0x40:
+>
+> Reviewed-by: Andre Przywara <andre.przywara@arm.com>
 
-For a 5 GiB file pg_end is 1310720 and the range collapses from
-[0, 5 GiB) to [0, 1 GiB), leaving the rest of the dirty pages unwritten
-before the blocks are moved.  For 8 GiB the shift yields 0, the minus one
-makes it (loff_t)-1, and the range becomes [0, LLONG_MAX].
+Yes, I checked 0x34. The BPI U-Boot sid.h for sun8iw11p1 puts the
+thermal key there, but that word is zero on every A40i I dumped: three
+boards on mainline with this patch, and the Boardcon board on its
+vendor kernel. 0x48 is zero too. Only 0x40 holds two plausible 12-bit
+values:
 
-The matching call in f2fs_collapse_range() already casts:
+  board 1: 0x08780875 (vendor kernel, THS_0_1_CDATA =3D 0x08780875)
+  board 2: 0x082d0822
+  board 3: 0x083d0838
 
-	filemap_write_and_wait_range(inode->i_mapping,
-				(loff_t)index << PAGE_SHIFT,
-				((loff_t)pg_end << PAGE_SHIFT) - 1);
+The value differs per board, and on the vendor kernel THS_0_1_CDATA
+holds exactly the word at 0x40. With this patch, CDATA on boards 2 and
+3 also matches their word at 0x40. So 0x40 it is, matching Tina Linux.
 
-Do the same here.  On i386 the shift changes from "shl $0xc,%ecx" to
-"shld", i.e. from a 32-bit shift to a double-precision one.
+I also compared the MMIO window at SID + 0x200 with the register-based
+readout (the H3 method) across several boots. All 64 words matched, so
+the R40 doesn't seem to have the H3 readout problem.
 
-Fixes: d323d005ac4a ("f2fs: support file defragment")
-Signed-off-by: Zhan Xusheng <zhanxusheng@xiaomi.com>
----
- fs/f2fs/file.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+Best regards,
+Otavio
 
-diff --git a/fs/f2fs/file.c b/fs/f2fs/file.c
-index ef4d218e694b..0d9919d89d93 100644
---- a/fs/f2fs/file.c
-+++ b/fs/f2fs/file.c
-@@ -3036,8 +3036,8 @@ static int f2fs_defragment_range(struct f2fs_sb_info *sbi,
- 
- 	/* writeback all dirty pages in the range */
- 	err = filemap_write_and_wait_range(inode->i_mapping,
--						pg_start << PAGE_SHIFT,
--						(pg_end << PAGE_SHIFT) - 1);
-+						(loff_t)pg_start << PAGE_SHIFT,
-+						((loff_t)pg_end << PAGE_SHIFT) - 1);
- 	if (err)
- 		goto out;
- 
-
-base-commit: caae4bfcf5b5794fdf6299eb6c4fbf3d149db000
--- 
-2.43.0
-
+--=20
+Otavio Salvador                             O.S. Systems
+http://www.ossystems.com.br        http://code.ossystems.com.br
+Mobile: +55 (53) 9 9981-7854
