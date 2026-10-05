@@ -1,103 +1,158 @@
-Received: from mail-ua1-f43.google.com (mail-ua1-f43.google.com [209.85.222.43])
+Received: from mta1.migadu.com (out-157.mta1.migadu.com [95.215.58.157])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2B97019CC0F
-	for <linux-kernel@vger.kernel.org>; Mon,  5 Oct 2026 00:25:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.43
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 315891EFFA1
+	for <linux-kernel@vger.kernel.org>; Mon,  5 Oct 2026 00:29:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.157
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791159940; cv=none; b=PwUJOniMKlAy6vuExJPoFrHmsEp7F/WoZbGTctmO78XnKD9rGjELzOBpacAHzSEtVkl2X1oziVli8riDKiX6eBZ5nb9ifPrtnLwCjykNMRphePw1QALz+LwmQI19WikR08htYY3kYjD4wHsiTHEUwx/xItCwMPSqnP+pryU5YaQ=
+	t=1791160193; cv=none; b=uNek6XS/gSh7cp6weAbaY9vjyqIpUx6U9qXkHMXMPCg20uw3BCZeOygBVxJQ9Z+9vWekpASG8S3p+zdN4yO0RIaX/q8XLzapIVJYxp+5IDQ29EN1zBNpypmQkrfEfLNxXKOf7/T+AqeBoH7kQS1DQ0sfVVJFHlhM9vLzWyF5pK0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791159940; c=relaxed/simple;
-	bh=UjOBKbAKoYtFXedpgYaUu+eAQwTobi8qej6jfEwI434=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=tq9vxEO6bKcfwGv0DHY68GAeEB8qcSA1E/jN+tCE/7Z0RR1FhrJ+a++mB1AAT2tbhIGQrNVBQoY/3nZQWDqOZurQMctlO4HBpQf5HeE2EvMtsp0M3A+sxcFc5iDd4avU5zp9WvWSeSVPnk603gngit77+AOsY5KRfwu9REz4pyY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Th8sWnca; arc=none smtp.client-ip=209.85.222.43
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1791160193; c=relaxed/simple;
+	bh=B3/DFcp+SyH8b+Kah5V3t9QdusNse+6V3nxVXGVaM10=;
+	h=Message-ID:Date:MIME-Version:Subject:To:References:From:
+	 In-Reply-To:Content-Type; b=e57Fc/Tr8ui6LbGu8XHtBv4bezAEEaaVc0TswZS/B7sAch5ox8UFQtRlIwbSVZRh9I/X/B2nQMxAfIVK9ceFjxvuAbSduiBBXStCLKLGHJ4mj0F/JO1aDagePefBqQuTMvZ1OuSjjjQcRQKA4IbXc+ZIzQ49KfBGtP0qX249Kfw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=GekuV4fl; arc=none smtp.client-ip=95.215.58.157
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Th8sWnca"
-Received: by mail-ua1-f43.google.com with SMTP id a1e0cc1a2514c-988f270d308so799150241.2
-        for <linux-kernel@vger.kernel.org>; Sun, 04 Oct 2026 17:25:39 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791159938; x=1791764738; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=FRktsRR8jsvxEuGT6N6yXFN0RwMzMtvHCyMuqTTf4kI=;
-        b=Th8sWncaWdjYhP4jMWC1EEw+aZyoKR8q7n97nwPoM6nGCE+92S+CZDk+Hit+rlS7Ym
-         6n+mKm2UUA6WDijYmdf7YMdSxjwjQBXF/pwvYiEb+7vP2UkeFJ2dbSliwgTKxVnK4mz6
-         D7uf+hvtht1Z/6BlyKlamFUY5YdfIyX0yjugvkqZ4RnPHGw1kLbwf69BbQVY/SIEJqXP
-         Gu/uBoyEVTLulvuv8X3BZcY+Xt4YwMBFYDvh4bcxP4U5kIf/AiHL88lhdSODrkDhoiyl
-         cj9AJ++9EndUYyahpsuXxbAFBULrdZgr2sTD1bVIhJ+iQr5puYhngy/riFzK8B+M3qjK
-         IhVQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791159938; x=1791764738;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=FRktsRR8jsvxEuGT6N6yXFN0RwMzMtvHCyMuqTTf4kI=;
-        b=B6+fSGPm+coYf51AhJht2JvWoH3tT0834VgLE+T4nFrAoDS6901XZ3dRhWpksC1sxT
-         rXnURHAwWof666qE3JTn9+mHm9gCAVW6enOoX/JEIND4ywMnZ12iFYoxK0ri2e4p08hF
-         Lg/GnHq7MqnZ0OG8OB9yTqGJFZ1uVAeMgDjb+o4AUS3jZCOp8GgExPzPL+nAJ7cofdZ8
-         6O91A6EivZMqJKsbx3isB1GKQPFvLf+UGNGF+fYic3iwL3rFUzrFlSSD2jAZGYmGYLV/
-         MXXMHARH8iQlvNhEvOXrLXsBab63HAcD+j/6BJZyM6h8XaMNC7y9vXj+n04wxZmOPCCD
-         bdqg==
-X-Forwarded-Encrypted: i=1; AKwUvBxYof9LTxcJLcIVwWCXPtPJf6CJAcBrkPnwKBdzTXiqdJ+n5jLHRnax7bYmQK0/Xj2MzjhbE3sWQ11sqEg=@vger.kernel.org
-X-Gm-Message-State: AFq9FYK7jgMKZOHH2zXidFH1hlGANHy992BoG0LPQvX8umCHw2K0ubPJ
-	qOuDFYKsQN4Jll1sPipVU4Q7YuZESDtWAk3Hzy+ovJFmJltVkJyx01Bv
-X-Gm-Gg: AYBFou1f5gBw9j6/WhLvo7kg/qKxzBS0zKhChlfcAWOfkMmtlUCPeATAmILoB5Y1LoC
-	mSM8pHnyUv3py6bBRKIHRmiGBm5RRfFzpGK5ltdNgePeESi2VQ96IRDJL0VOWq3STzOqPnTZRY9
-	2WljYa49pn3fIekqVJzMJIClqw5xqi96Nm8xQdHCV6ivT+dxr/CH2ZzACoiXCKPrOm5KMysSVMr
-	q+5J0isihjA510k9PsxkUP4Y/vOxUiNkuiwEoDjXQXusLOsXP82RfMXFDPC0k4zHwqvlcL0WaoT
-	yqwrfkwpLgOcv5Pe1fjzfJe9PN6j27t8z/ubnjrg2oD42yvVsGRICNtZ670dVhp7DkAVf9w5aAg
-	WodxWvbqZu30bGFArY21eF2pgkgcZzmbK7Klh8/xd5iqeIC2VMAOsT4tHEoFgeltL+pzywfPkJB
-	f1iCulXBjww6mgTqED+v5Txo6ZiHoBu/26lF5/jxPE/PtuT0vLVyOAiRmG1rt05rDbxU34jo5+Y
-	o+z
-X-Received: by 2002:a05:6102:1623:b0:7a2:2068:6e37 with SMTP id ada2fe7eead31-7c244daeec9mr1578540137.15.1791159938090;
-        Sun, 04 Oct 2026 17:25:38 -0700 (PDT)
-Received: from localhost ([2804:30c:96c:bf00:7844:c38c:894:4054])
-        by smtp.gmail.com with ESMTPSA id a1e0cc1a2514c-98b2f115fc9sm8981087241.10.2026.10.04.17.25.35
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 04 Oct 2026 17:25:37 -0700 (PDT)
-Date: Sun, 4 Oct 2026 21:25:50 -0300
-From: Marcelo Schmitt <marcelo.schmitt1@gmail.com>
-To: Kanak Shilledar <kanak.shilledar@axis.com>
-Cc: Henrik Grimler <henrik.grimler@axis.com>,
-	Jonathan Cameron <jic23@kernel.org>,
-	David Lechner <dlechner@baylibre.com>,
-	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
-	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Jean-Baptiste Maneyrol <jean-baptiste.maneyrol@tdk.com>,
-	Joshua Crofts <joshua.crofts1@gmail.com>,
-	Chris Morgan <macromorgan@hotmail.com>, kernel@axis.com,
-	linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v5 2/6] iio: imu: inv_icm42607: Simplify IIO channel
- macros
-Message-ID: <asLujlrqvfRirW5a@debian-BULLSEYE-live-builder-AMD64>
-References: <20261002-b4-inv_icm42370p-v5-0-c65281b745c9@axis.com>
- <20261002-b4-inv_icm42370p-v5-2-c65281b745c9@axis.com>
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="GekuV4fl"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=B3/DFcp+SyH8b+Kah5V3t9QdusNse+6V3nxVXGVaM10=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1791160186; v=1; x=1791764986;
+ b=GekuV4flybzCCwWCfshcp9Ik9T1cjnVmroys/xX9qMmhG7/TJH4VjsVWFAwK4hwj4j/mEWen
+ GWjalnvcNCVZxbNt2VTifjVEQCkoE70BOsPIg443s76uP/TGHMy3p7ivCubGCcNmhg1QIVkOAJP
+ GJOxMTGzO9NhvVV1NzISGYdg=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 8d3e8eaf5c7ddbfd;
+	Mon, 05 Oct 2026 00:29:46 +0000
+X-Mizu-Trace-ID: 8d3e8eaf5c7ddbfd
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <009f918c-f77a-4b46-ab6d-96d81e1ed87d@linux.dev>
+Date: Sun, 4 Oct 2026 17:29:42 -0700
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261002-b4-inv_icm42370p-v5-2-c65281b745c9@axis.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3] RDMA/rxe: Validate inline data range in user WQEs
+To: Jiale Yao <yaojiale02@163.com>, Zhu Yanjun <zyjzyj2000@gmail.com>,
+ Jason Gunthorpe <jgg@ziepe.ca>, Leon Romanovsky <leon@kernel.org>,
+ Doug Ledford <dledford@redhat.com>, Moni Shoua <monis@mellanox.com>,
+ Haggai Eran <haggaie@mellanox.com>, Kamal Heib <kamalh@mellanox.com>,
+ Amir Vadai <amirv@mellanox.com>, linux-rdma@vger.kernel.org,
+ linux-kernel@vger.kernel.org, "yanjun.zhu@linux.dev" <yanjun.zhu@linux.dev>
+References: <20261004064445.1488753-1-yaojiale02@163.com>
+From: Zhu Yanjun <yanjun.zhu@linux.dev>
+In-Reply-To: <20261004064445.1488753-1-yaojiale02@163.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-On 10/02, Kanak Shilledar wrote:
-> The INV_ICM42607_ACCEL_CHAN and INV_ICM42607_GYRO_CHAN macro had a third
-> parameter of _ext_info, drop it and just point the .ext_info field to
-> the respective inv_icm42607_*_ext_infos. This reduces the repetitive
-> calling of inv_icm42607_*_ext_infos struct in the IIO channel spec
-> struct and makes the code more easy to follow.
+在 2026/10/3 23:44, Jiale Yao 写道:
+> For a user QP, the send queue is an mmap'd ring which userspace writes
+> directly.  rxe_post_send() only schedules the send task for such a QP,
+> so userspace can also change WQE fields while rxe_requester() processes
+> the WQE.
 > 
-> Signed-off-by: Kanak Shilledar <kanak.shilledar@axis.com>
+> Commit 126c757e4cd46f866ddc283143b58eb4d9bf52cd ("RDMA/rxe:
+> Validate num_sge/cur_sge before indexing wqe->dma.sge[]") added bounds
+> checks for two members of the userspace-controlled dma structure, but
+> left sge_offset unchecked.  For an inline WQE, finish_packet() uses that
+> value directly as an index into inline_data[] and copies dma.resid bytes
+> from the resulting pointer into the packet payload.
+> 
+> A local user with access to uverbs can therefore put an out-of-range
+> sge_offset in the mmap'd SQ ring.  This can disclose kernel memory in the
+> outgoing packet or cause a vmalloc out-of-bounds access.
+> 
+> Since sge_offset comes from shared memory, validating it in
+> rxe_requester() and then reading it again in finish_packet() leaves a
+> TOCTOU window.  Load it exactly once with READ_ONCE() in finish_packet(),
+> validate that local value, and use the same value for the copy and update.
+> Check the offset first and use subtraction for the length check to avoid
+> an integer overflow.
+> 
+> I reproduced this on Linux 7.3-rc4 with an RC user QP, IB_SEND_INLINE,
+> a 64-byte residual length, and sge_offset set to 0x100000.  KASAN
+> reported:
+> 
+>    BUG: KASAN: vmalloc-out-of-bounds in rxe_requester+0x1f27/0x4940
+>    Read of size 64 at addr ffffc90000191250 by task kworker/u16:0/12
+>    Workqueue: rxe_wq do_work
+>    Call Trace:
+>     __asan_memcpy
+>     rxe_requester+0x1f27/0x4940
+>     rxe_sender+0xe/0x30
+>     do_work+0x184/0x3d0
+>     process_scheduled_works+0x7c0/0xf10
+
+Conceptually, wqe->dma.sge_offset is runtime state that should be 
+exclusively managed by the kernel, but mapping the SQ into user space 
+via mmap exposes it to untrusted asynchronous writes.
+
+Beyond finish_packet(), every reader of sge_offset across the driver 
+(such as in rxe_sge.c and rxe_resp.c) must treat it as untrusted input.
+
+We should audit all access points to ensure they consistently use a 
+READ_ONCE() local snapshot followed by underflow-safe bounds checks. 
+Longer term, moving kernel-managed progress state into kernel-private 
+memory would eliminate this attack surface entirely.
+
+Yanjun Zhu
+
+> 
+> Fixes: 8700e3e7c485 ("Soft RoCE driver")
+> Link: https://lore.kernel.org/all/20260708224534.1206-1-security@auditcode.ai/
+> Signed-off-by: Jiale Yao <yaojiale02@163.com>
 > ---
-LGTM
-Reviewed-by: Marcelo Schmitt <marcelo.schmitt1@gmail.com>
+> 
+> Notes:
+>      Changes in v3:
+>      - Read sge_offset from the shared WQE with READ_ONCE(), as requested.
+>      
+>      Changes in v2:
+>      - Copy sge_offset into a local variable in finish_packet(), validate that
+>        value, and reuse it for the memcpy and update.
+> 
+>   drivers/infiniband/sw/rxe/rxe_req.c | 14 +++++++++++---
+>   1 file changed, 11 insertions(+), 3 deletions(-)
+> 
+> diff --git a/drivers/infiniband/sw/rxe/rxe_req.c b/drivers/infiniband/sw/rxe/rxe_req.c
+> index 24f5c044363f..9be753d2e5dd 100644
+> --- a/drivers/infiniband/sw/rxe/rxe_req.c
+> +++ b/drivers/infiniband/sw/rxe/rxe_req.c
+> @@ -503,6 +503,7 @@ static int finish_packet(struct rxe_qp *qp, struct rxe_av *av,
+>   			 struct sk_buff *skb, u32 payload)
+>   {
+>   	int err;
+> +	u32 sge_offset;
+>   
+>   	err = rxe_prepare(av, pkt, skb);
+>   	if (err)
+> @@ -510,12 +511,19 @@ static int finish_packet(struct rxe_qp *qp, struct rxe_av *av,
+>   
+>   	if (pkt->mask & RXE_WRITE_OR_SEND_MASK) {
+>   		if (wqe->wr.send_flags & IB_SEND_INLINE) {
+> -			u8 *tmp = &wqe->dma.inline_data[wqe->dma.sge_offset];
+> +			sge_offset = READ_ONCE(wqe->dma.sge_offset);
+> +			if (unlikely(sge_offset > qp->sq.max_inline ||
+> +				     payload >
+> +				     qp->sq.max_inline - sge_offset)) {
+> +				rxe_dbg_qp(qp, "invalid inline data range in send wqe\n");
+> +				return -EINVAL;
+> +			}
+>   
+> -			memcpy(payload_addr(pkt), tmp, payload);
+> +			memcpy(payload_addr(pkt),
+> +			       &wqe->dma.inline_data[sge_offset], payload);
+>   
+>   			wqe->dma.resid -= payload;
+> -			wqe->dma.sge_offset += payload;
+> +			wqe->dma.sge_offset = sge_offset + payload;
+>   		} else {
+>   			err = copy_data(qp->pd, 0, &wqe->dma,
+>   					payload_addr(pkt), payload,
+
