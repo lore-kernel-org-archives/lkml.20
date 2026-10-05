@@ -1,122 +1,215 @@
-Received: from mail-dy2-f42.google.com (mail-dy2-f42.google.com [74.125.229.42])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from CH4PR04CU002.outbound.protection.outlook.com (mail-northcentralusazon11013000.outbound.protection.outlook.com [40.107.201.0])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F1E8D2931FF
-	for <linux-kernel@vger.kernel.org>; Mon,  5 Oct 2026 06:40:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.42
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791182422; cv=none; b=AFcqYh5OYkHDydPmvsqrEFQlT6ukj74qqvq4f3LuMOY3ndsPIvo2KBCn6G9rsuVPnmkDS4S1isC6JUY0D2cu1Su44lxQUoqA1RV1PXzK3Vlx25z7zmtiTECtAP5Mc5X7+wtKaP6zPjAUxFWe6Mkm/DNl1oDQkxMrl8XIaOs7l/E=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791182422; c=relaxed/simple;
-	bh=IbMfvgO+8M6pdQu44MwzP91gmhyP0v9jbj8THyyagJY=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=fsBOhES2S9x4DQCNE4xhzKO8h3jjh3UaR4sUUSNEEfmsGkfAumF+TNFGDlL16I1Vji2v0jUMUWE3Xe76LiS+HhVCUNBMq/a04a7gQ6JR2IUXbC+JP3iKOCKyEV5T88UTZBYWBCJU5/b5+FKih+wqCJn9nw0fx1dswErM8HOFfkg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=QMZwg2Mg; arc=none smtp.client-ip=74.125.229.42
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9DDDE365A03
+	for <linux-kernel@vger.kernel.org>; Mon,  5 Oct 2026 06:40:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.201.0
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791182443; cv=fail; b=QaBP3biz+01iAhBR0802Xj6qabGGGbmQlo8/TLOHXL30DQXR1z9U9rcEMxUM3RqDGWJp+xHrA5Vwwhn7sARwHUoyRHU7WuPVgzPhUfJx8C5/Mx7e5eqA/fvjYoVG9cXnXSQeA2qUZ9yiC1VVXl63wj8XhS6KnN9ftDbmCrrUOLE=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791182443; c=relaxed/simple;
+	bh=ibhAuucKdR1g8du8xhZfUsFKy+6WmvNj4uhgIk++Ib0=;
+	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=sIj5SO/VAGK/Vq6LOUinN06MN/PvBKM7hDgCG6OVBtcw6730KqNPC9AZ/nOkeGx2pwLCxJxK8BEa26CzX8GLcKM8jpwc3kI8STddHgNbpEsksHmYmgJ4vfdH49a2aVoKdEGgo6+/0irr8FzyXmF+rbeGHmN+cwhZqWpKlyDTJY8=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=Lnc2zZma; arc=fail smtp.client-ip=40.107.201.0
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="QMZwg2Mg"
-Received: by mail-dy2-f42.google.com with SMTP id 5a478bee46e88-3512f0ac09bso530038eec.1
-        for <linux-kernel@vger.kernel.org>; Sun, 04 Oct 2026 23:40:20 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1791182420; x=1791787220; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=UX8x8ImfgI/m4flRrmfw9BuPrzImgwK/Apj6ObaD9rA=;
-        b=QMZwg2MgkzTv3mQA4mCZLHM1vVd4U5ylASHVuZud/vPnGiTFlNUCFwJSlRG14tPbx8
-         bdZLgg6ebL7m4+ifei77gD/HroDdTJ1eCqKSTUF3W+9bZJXseThyszjpiLFS2gr4Ot9G
-         Z8A++mTf5XSHyyTIaomdlD62gUlcK+RcU4xpeBDMpG4aEGzWkypx2reSl7SjjXoXF4yn
-         G1R2y3i5TKGlQW66uRFl18KVvsBLFQNtdlKASj5ePJmQY17Tvz8xqb1ObS4ZngINKPkV
-         Uon2i+FF4tVj2D0Y8/rkkEdO/u3PgbyiBK4nEFDIrRSxIi49VIYqcz+oFMdDJjZ+K5xY
-         PKWg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791182420; x=1791787220;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=UX8x8ImfgI/m4flRrmfw9BuPrzImgwK/Apj6ObaD9rA=;
-        b=ddknvl0nyEvALbEnPnMsNAPXsF9jAzK/GOIRNuA6+aCX6Rs+Y8HWCGRsGG2rAh0+ep
-         06rtwdopd2/FYvRWP2jniNiERO8KPd8weAWMx4he4vLSZJg1ts6HRKNYOsucjUGqejtp
-         Tt7mUBJHODKzLHY3wbbtEwEhT/vsr/gtxIoBJHjPPR4nmDDHxr1Zv8F139RjieBAcFGE
-         XgLgSL0547JTAsSpp5A0h+tPL4YCqP0SFLLPQ5A76/2EsP2xW5slNsldK2zxgldw0/+c
-         O6xk79wUoR1xOx0+iEj5C+H9caOBetrMGLTCN6sLBtyQAnMORKbnM1NnDsRX7R3RyVm3
-         0bEA==
-X-Forwarded-Encrypted: i=1; AKwUvBxknlw/FWBeqUV1HDKiH4EHBIMZDjvOaX8H3uMAFj4ZWC7Q8k0OPZ2cMX3G1xT7uCLO4uoMvXSX9vYeabU=@vger.kernel.org
-X-Gm-Message-State: AFuF++l3kIYKd/+q+aPLdkgvzpg5EolLKy4D4zfGbzQq3aSr4ktEUTnM
-	DWou9R3p9O/rVkivK7p1W9vRRWUwaPHQ4IcSP3WGOn+cYCG4qWv1/9V9ZsMDX815aqE=
-X-Gm-Gg: AYBFou3CjJxma7j8IHAE42sTLdc6Rn/K+gg8TzgeCJkffCnuG+Eg1msQNwoMrDOes8v
-	ZiDoKA3yQgOz11Za3MqHfvCae5SRRp8nWha6jZH0NWxaAs1hDxK55Bi09DZE1CMChp+Om5O0XZF
-	0RofxEcPP4/DDmfy2aa85Z/GaO8RIxwuoYfuHkxMRW8hNfotSfmXAY0wHp0iJFMBRbGR0/Z7kB8
-	Tekzoh2tnU7IO3cOoonyNUKHIlWb0NUuaZvt0WCKktczW0FXeWPxVGsGToomqZTz37d4h2nSW4f
-	ZGCOmoS4jjgZJY87xCimOs6OSMBW8X79hMXmPexxQzG5WjnKPZPb6X7f+rBIM8EpJrlTutFXAXS
-	dPFN7nGEjwT9OvN75UrH37Tw7TopnjhnDtSnP0WQwdWMgHhK10NvqOY/5y+0DiuGegY4nijBrwG
-	OQkKpoYBXf5cfs5XUqv16eKglE6tEEn/P07Q4r1s+98nuBOqUDnoJFJdW7SUVNza4zhvC/9oRv
-X-Received: by 2002:a05:7022:296:10b0:15b:7f7a:730d with SMTP id a92af1059eb24-15b7f7a734dmr130358c88.28.1791182419835;
-        Sun, 04 Oct 2026 23:40:19 -0700 (PDT)
-Received: from localhost ([122.172.87.224])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-151fa74fa1csm21255659c88.1.2026.10.04.23.40.18
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 04 Oct 2026 23:40:19 -0700 (PDT)
-Date: Mon, 5 Oct 2026 12:10:16 +0530
-From: Viresh Kumar <viresh.kumar@linaro.org>
-To: rafael@kernel.org, spidermana <xuyiwen14@gmail.com>
-Cc: ojeda@kernel.org, boqun@kernel.org, gary@garyguo.net,
-	bjorn3_gh@protonmail.com, lossin@kernel.org, a.hindborg@kernel.org,
-	aliceryhl@google.com, tmgross@umich.edu, dakr@kernel.org,
-	daniel.almeida@collabora.com, tamird@kernel.org,
-	acourbot@nvidia.com, work@onurozkan.dev, linux-pm@vger.kernel.org,
-	rust-for-linux@vger.kernel.org, linux-kernel@vger.kernel.org,
-	sumit.semwal@linaro.org
-Subject: Re: [BUG] rust: cpufreq: get_callback() recursively read-locks
- cpufreq_driver_lock
-Message-ID: <asNGUIFbiCncMXf6@vireshk-B250M-D3H>
-References: <20261001172953.4013498-1-xuyiwen14@gmail.com>
+	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="Lnc2zZma"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=rwvG2qhUk4Xr8yQJMdLuUUpHrH51JxH8NwGfNGTOXKYCA0PoSEXy+OFJ35P+8CNS/JFH1DDvRW5I73m2R73ALndhV6d0DQ/rA84iBWrVnLZQlozdyTeJDJY5bcHFQCrEvGAGUEHBU+PdU6w7WYLvfe8XhmxXztsFjvstia+krb3i2kJUrnfUItb4W7urztvZceCyjrQ2QRO5b8K3TzAzHVbUSx5c/bqpa59Edm8yXuCt++/5liaLIbj9TLC0mSxFQT9YylL1mk/M8YBrjdbb1s6F49ZpZlI4fzR/h9lJT/cTY9HOmHZA7nZsGikh6dfzdZH6PpTV1ByGZ4IMSpjkfg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=IvM7MByXrJFG2taEc9TfZZq4wWUIUoKdPVHs+kH/ogk=;
+ b=Dh9ETG0x3cVw0JgXYbqOR5L1MRI5ZH7xrHmFzbos+gF4+TBtZlM3qbKbclk6KgLRKZS/14AeK+95AuvfY4vR/vbTeTzqXNe8n8JRZatxHA/vrQRs1GYCvTLNNwPXi9Hs3GVu/fk5JpsU0KEePSjR/CNqYsajh4mrmbwDOCzh38rQY5YiBooFJKsW5XOA8Qx3vreQxZrL9PSNbgVSRLdiknOqlw5myhEdLllBEX5D3fEklhSHLa0XbkblkxfiCaSsFwukCTfn2xpcg92S/84pfp4a9S+HqDq6Ky6unAzobFTGda8mC3BlMcon1fkXo0sythjUJ1Z5OI9nhpsXWxbCKA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.linux.dev smtp.mailfrom=amd.com;
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=IvM7MByXrJFG2taEc9TfZZq4wWUIUoKdPVHs+kH/ogk=;
+ b=Lnc2zZmaw8+Cf8tK3hoAQCby577oxwtDlAZ+tN65pbdIWs8w1eVm5y7HliCHkFjA2sdl4Fqmb+vjfokOTfyvDm7yT6tzQRJu+Szomyu8AKsnf0+REYeMu2HGPUNknMgC/PX1TjEqdGPSOHuumDaN8UevmKXOGAZJI/e4dj92YkY=
+Received: from SJ0PR05CA0196.namprd05.prod.outlook.com (2603:10b6:a03:330::21)
+ by SN7PR12MB6814.namprd12.prod.outlook.com (2603:10b6:806:266::6) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.24; Mon, 5 Oct
+ 2026 06:40:36 +0000
+Received: from CO1PEPF00012E64.namprd05.prod.outlook.com
+ (2603:10b6:a03:330:cafe::7a) by SJ0PR05CA0196.outlook.office365.com
+ (2603:10b6:a03:330::21) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.496.5 via Frontend Transport; Mon, 5
+ Oct 2026 06:40:36 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 165.204.84.17) smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ CO1PEPF00012E64.mail.protection.outlook.com (10.167.249.73) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.472.14 via Frontend Transport; Mon, 5 Oct 2026 06:40:35 +0000
+Received: from BLRANKISONI.amd.com (10.180.168.240) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Mon, 5 Oct
+ 2026 01:40:26 -0500
+From: Ankit Soni <Ankit.Soni@amd.com>
+To: <iommu@lists.linux.dev>, <joro@8bytes.org>, <will@kernel.org>,
+	<jgg@nvidia.com>
+CC: <suravee.suthikulpanit@amd.com>, <vasant.hegde@amd.com>,
+	<robin.murphy@arm.com>, <joao.m.martins@oracle.com>,
+	<alejandro.j.jimenez@oracle.com>, <pasha.tatashin@soleen.com>,
+	<rppt@kernel.org>, <pratyush@kernel.org>, <skhawaja@google.com>,
+	<praan@google.com>, <baolu.lu@linux.intel.com>, <dwmw2@infradead.org>,
+	<kevin.tian@intel.com>, <dmatlack@google.com>, <vipinsh@google.com>,
+	<kexec@lists.infradead.org>, <linux-kernel@vger.kernel.org>
+Subject: [RFC PATCH 0/7] iommu/amd: Implement live update state preservation
+Date: Mon, 5 Oct 2026 06:40:10 +0000
+Message-ID: <20261005064018.1558-1-Ankit.Soni@amd.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261001172953.4013498-1-xuyiwen14@gmail.com>
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: satlexmb07.amd.com (10.181.42.216) To satlexmb07.amd.com
+ (10.181.42.216)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CO1PEPF00012E64:EE_|SN7PR12MB6814:EE_
+X-MS-Office365-Filtering-Correlation-Id: 8b70e0e7-f2b7-4d03-271e-08df22ab9000
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|82310400026|1800799024|23010399003|376014|7416014|36860700016|13003099007|18002099003|5023799004|6133799003|10067099003|56012099006|11063799006;
+X-Microsoft-Antispam-Message-Info:
+	dZIy80wxZSIln+CZEvNvkd5eQFqcgNgLD206VO42WYjPv5BhWyUbJlbifR06YI4nla222TCm+ekzi4epb7ORjucBhb6QiI8vhc5KtItkjIajC/++p3YlZVxg5bQvK7agk2quba5jhB0w55ab4T85QhkgIUdmu8+YoVqYP0UvMrw8Npv5DoGDRbitBvXfid7RA6c47/Nzp6ytWrh7kUnAoRKDMPrenPvGvCEFVJCGxqw+o/Fl6fV6oYikmWB7XLscPXbEGMPORATk5VWEBnhfPTNBIbzT9LrpUUdmaIN1wtTMTHbbrs9L1i3O01evQIk321UOv7pa17fs+f6iBTjSqG2Rz6tzMdZ/2ZTxW1Bbn0IX17HgDNxrjJMKI2jZfPGP+cBYjzSBXWk2vplEDVjk7615z5MlczzREfhiE7APyhFKw924QvluoDGL2M2jU4xZxtEsWUtMCoowO6J7GnI+/o+va4gF+MCO+fN1OAo4o2c4LEK2LLhftY6yuWCEA6PB0pXSKHLWhb0z5gj0eaFcQTtuMyfVCqkSGuK36xGW5JvhSVtH3pyL0AzRMRBz9J/D1odQR+9U+xQMtxcyRNhoVAxh3A7B+i2VVtV023QK8XnT5btb4bHcNU6hE0EnkFgicTzv7EqKrgRsgCFlaFtp+pR+8Zr5y5RJ48Z9sgLCOQs=
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(82310400026)(1800799024)(23010399003)(376014)(7416014)(36860700016)(13003099007)(18002099003)(5023799004)(6133799003)(10067099003)(56012099006)(11063799006);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	lic8PUoimXDc8vcWdNoEDHoM/TlBlWKs7vCQB39wBmBZge9++opx1UZHS1EfC1d2TeRlwaq8lQQaKFwNW2D2UeR0R+CZVt68x+rHC834HwjWzx2Hhn4rTEcbOORSAI/cyc04m7OByJ3v0HMtpm8kGKwQjIsHhE11rVKCSuLENvlM7vMu3M6HX/c8UKDDqz0iPdNkepn8Om701vcFQdpZphFK3LgBWgYtjGUkN9foUJo1pqL67suY711VNkhrPM3ZXdIAa7jkKnaggt+uqrTurMPxo/W/HKW52R98KVgMUDCigcFMEzvXGF9/EzzZBIbO4R0EvqZsn7yL7KwtAWIghw4+xYAq8GcPwQAAsbaJlyzxfeM/1Tp04xDCHYxztwvkerRLXFhT+eb7g+D+tJXsSeSEJ+kz6UUXHbbxpc4teSI6zX5ZPr60bkCElZBYP3be
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Oct 2026 06:40:35.9265
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 8b70e0e7-f2b7-4d03-271e-08df22ab9000
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	CO1PEPF00012E64.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR12MB6814
 
-On 01-10-26, 19:29, spidermana wrote:
-> Possible fixes
-> --------------
-> I'm not sure what the right fix is, so I'd appreciate guidance:
+This series adds AMD-Vi support for IOMMU state preservation across a
+kexec-based live update, so a passed-through device keeps its translations
+and keeps doing DMA while the kernel underneath is replaced.
 
-From C API's perspective, cpufreq_quick_get() needs the lock (for setplicy
-drivers) to make sure the driver stays around while its ->get() callback is
-executing. But the ->get() callback is free to call cpufreq_cpu_get() in that
-case to get hold of the policy if needed. Many drivers do call cpufreq_cpu_get()
-from their .get() callback and it should ideally be fine.
+It applies on top of the IOMMU live update core series v5 [1], currently in
+review, and reuses the FLB preservation mechanism that series introduces.
 
-Thankfully the only cpufreq driver with both setpolicy() and get() callbacks
-doesn't call cpufreq_cpu_get() for now.
+This is an RFC. The reclaim path is not included; it depends on the phase 2
+iommufd work and will follow.
 
-> 1. Use cpufreq_cpu_get_raw()/cpufreq_generic_get() in get_callback(). This
->    avoids the lock, but it does not take a reference on the policy. And I'm
->    not sure it is safe for the other ->get() call paths in the future that
->    don't hold cpufreq_driver_lock.
+What is preserved
+=================
+The Device Table, adopted by the incoming kernel rather than rebuilt, and for
+each preserved device its domain ID, page-table mode, and GCR3 tree if the
+device uses PASID.
 
-Calling cpufreq_cpu_get_raw() (as you suggested) isn't enough as the policy may
-get unregistered regardless while being used.
+What is not preserved
+=====================
+The command buffer, event log, PPR log, GA log, GA tail and cmd_sem, and the
+interrupt remapping tables. The incoming kernel allocates all of them fresh.
+Interrupts raised during the window are lost, but the data and the completion
+records travel by DMA, so a driver finds the completed work when it next
+reads its queues.
 
-cpufreq_generic_get() returns the frequency directly for drivers that have a
-valid policy->clk. That won't work here.
+Disabling the PPR log also disables PPR, so a preserved device cannot
+raise a page request across the window. That is safe only because an HWPT
+with a fault queue cannot be marked for preservation today; if that is
+relaxed for SVA, such a request would go unanswered and, with the event
+log stopped, unlogged. Whoever adds PRI preservation needs to revisit
+this.
 
-> 2. Change the Rust ->get() so it does not look up the policy at all, which matches the C
->     callback signature.
-> 3. Something else you'd prefer.
+Architectural overview
+======================
+At preserve time the driver pins the PCI segment's Device Table for KHO and
+records each preserved device's domain ID, page-table mode and GCR3 tree.
 
-I think this is a C API problem as longrun doesn't call cpufreq_cpu_get() at the
-moment just by chance. Maybe we need to add some workaround in
-cpufreq_quick_get() instead so it doesn't take lock any longer.
+At shutdown translation stays enabled on any unit carrying preserved devices,
+so their DMA never stops. Everything else on that unit is made safe: DTEs of
+unpreserved devices are reset to blocked, the interrupt fields of every DTE
+are cleared because no DTE may point at a table the next kernel can recycle,
+and the command, event, PPR and GA engines are stopped and polled until idle.
+That last step matters because the incoming kernel may reuse the pages those
+buffers occupied, and an engine still writing after the kexec would corrupt
+them with nothing to attribute the damage to. If an engine does not go idle
+the driver panics rather than complete the handover.
 
-Rafael, what do you suggest ?
+On the live update boot the driver finds its record by MMIO physical base,
+adopts the Device Table, and reserves the domain IDs it describes so a new
+domain cannot alias a preserved one. A unit handed over translating is left
+translating. When the core probes the preserved devices their domain ID and
+GCR3 tree are adopted on attach and verified against the live DTE; a mismatch
+fails the attach. A restored domain is immutable, so a preserved device may
+only attach to the domain restored for it.
 
+One generic change
+==================
+Patch 2 moves the LUO handover-tree parse into start_kernel(), immediately
+before late_time_init().
+
+AMD-Vi needs this because it is the x86 interrupt remapping provider, so
+amd_iommu_prepare() runs from late_time_init() via enable_IR_x2apic(). It
+queries preserved state from three sites on that path. LUO parses the tree
+from an early_initcall inside rest_init(), so those queries run before the
+data exists and cannot tell "nothing was preserved" from "not parsed yet".
+The driver then disables a unit the previous kernel left translating.
+
+Note:
+ATS and PASID state on the device itself is not adopted. For a preserved
+device the attach path still runs the normal enable sequence, so an
+ATS-capable device would have its ATS Control register rewritten while it
+is doing DMA. Adopting that state is PCI core roadmap item #4 [2], so this
+series leaves it alone rather than reprogramming the PCI side here. The
+restored DTE's IOTLB bit is checked against the device's ATS state, which
+catches a disagreement.
+
+[1] Samiullah Khawaja, "iommu: Add live update state preservation" (v5)
+    https://lore.kernel.org/linux-iommu/20260921004834.2601285-1-skhawaja@google.com/
+[2] David Matlack, "RFC: PCI core Live Update Roadmap"
+    https://lore.kernel.org/linux-pci/20261001232133.560284-1-dmatlack@google.com/
+
+Ankit Soni (7):
+  iommu/amd: defer device attach only on a kdump boot
+  liveupdate: parse the incoming handover tree before late_time_init()
+  iommu/kho/abi: add AMD IOMMU live-update serialisation structs
+  iommu/amd: preserve IOMMU and device state for live update
+  iommu/amd: clear unpreserved DTEs and quiesce logs at live-update shutdown
+  iommu/amd: restore preserved state on a live-update boot
+  iommu/amd: reattach preserved devices to their restored domains
+
+ drivers/iommu/amd/Makefile          |   1 +
+ drivers/iommu/amd/amd_iommu.h       |  34 ++
+ drivers/iommu/amd/amd_iommu_types.h |  14 +
+ drivers/iommu/amd/init.c            | 253 +++++++++++--
+ drivers/iommu/amd/iommu.c           | 144 +++++++-
+ drivers/iommu/amd/liveupdate.c      | 543 ++++++++++++++++++++++++++++
+ drivers/iommu/amd/nested.c          |   8 +
+ include/linux/kho/abi/iommu.h       |  70 ++++
+ include/linux/liveupdate.h          |   4 +
+ init/main.c                         |   2 +
+ kernel/liveupdate/luo_core.c        |   5 +-
+ 11 files changed, 1039 insertions(+), 39 deletions(-)
+ create mode 100644 drivers/iommu/amd/liveupdate.c
+
+
+base-commit: 1d195de0e8caf627e93c0a39af1e84bb19e3cc53
 -- 
-viresh
+2.43.0
+
