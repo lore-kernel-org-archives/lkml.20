@@ -1,219 +1,418 @@
-Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com [148.163.158.5])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from rtits2.realtek.com.tw (rtits2.realtek.com [211.75.126.72])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A8AD95474E;
-	Mon,  5 Oct 2026 06:08:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.158.5
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5A28E5474E;
+	Mon,  5 Oct 2026 06:08:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=211.75.126.72
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791180530; cv=none; b=mMpYUzotY8k26DpAuL8WTYqtLsoWMTyrgea1sEcztoT3c/8/SCBg11+URbA+zQ35yNWudzl/mszsmVrJrppcDU8/w9HRXCjbtVXYTpShZPH75BlenjMpJBDh7q7crvKJTeTd8TLihlj6cPWkuC8VbNnL3qAuHqa6rCVhK9MzoSY=
+	t=1791180537; cv=none; b=NowGPAAlVaNXLXfe+nMqyD1l8bx8yStXnMpx7mlJQ302goQozQ5hSoonA6n4rD/nX24LTw6ST2kLrKMxgRy3GRBCxU73BGjX9Vayxxr5U1B9qZ05BecEJ/wRf4fNLKul/rtKQerEYjKvyv6heY4V6FOTZ0EVut6/TF1tZgK/eRA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791180530; c=relaxed/simple;
-	bh=oR2KZGQB6xy4DVZwuXHfq1F8R4rQiR1FPn0GE/CnUE4=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=saN22lDUwNN9nABc/GeVDh35iOhWxd6XCqOpK06xHbvqlyvNbi9m8Ukdn+rfQElGDp+iYYIVHnYbl+cI/TVHe+vj0lb0ERbqduaZq5VfVU5X40d7kT1uNcyPJ7tKvzwnT6n4CPv688/vGL+M3+aqVpdnhv3REz5Ai20fXs9d/Zg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=bSiX+cFJ; arc=none smtp.client-ip=148.163.158.5
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
+	s=arc-20240116; t=1791180537; c=relaxed/simple;
+	bh=OqrYdfocAV3Ne9xe55PeqM1pTWsjtJqqxrsIySk3Qpk=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:MIME-Version; b=IbOxcBl5nLi2xIskoZbO2L8f74hxD21NM0Wjtgn3FjpvO58aCmB1s/taXBUMmI2j1PQXFV4+qGOA232qeqzs5HA6EqOihiYmyrcOMVpky8dejtc5V2+74sWG5/12j6Tn20zFgvRGBLECGNgDoqQgYS1HnRtpcUZzRqLcYtbibaU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=realtek.com; spf=pass smtp.mailfrom=realtek.com; dkim=pass (2048-bit key) header.d=realtek.com header.i=@realtek.com header.b=GHt+LWub; arc=none smtp.client-ip=211.75.126.72
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=realtek.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=realtek.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="bSiX+cFJ"
-Received: from pps.filterd (m0353725.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69515aND2065851;
-	Mon, 5 Oct 2026 06:08:20 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
-	:content-transfer-encoding:date:from:in-reply-to:message-id
-	:mime-version:references:subject:to; s=pp1; bh=tYClt3lmIILQLA821
-	d39NNFWxQV/4Pb0zdEwca4t53o=; b=bSiX+cFJehstqd0TR0Exay9EvFpWjaj83
-	5t3lkyupQ13ukivfQmbH7k6u3VzaJiY5RWyT/JQ2pZn5dKGn85+cb3ni2zWMgKKk
-	2kawnRDhIcoiUNkfJvFYyvoN1QMyPo5iB0UUImwXVBkq085ctmg5b8ikgA0pwNHL
-	JegqswIWDI7o5eFfFLr4H/3wUw0/Q5wsPcvo7XsERPhWXWC4xtyjya/xEFS6Rbko
-	byfejrnXYEAqPjnwF2vAYicS/oL56JdvY5s5Rz7l4HUgPuP9mGGHuopGZNwQkgYN
-	eb0d8x+j1cW7VFS5a0AxQlS9JVSfNi93cjjw8Veu/+XTRKfb+A2Mw==
-Received: from ppma11.dal12v.mail.ibm.com (db.9e.1632.ip4.static.sl-reverse.com [50.22.158.219])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4h2r4fr3gk-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Mon, 05 Oct 2026 06:08:20 +0000 (GMT)
-Received: from pps.filterd (ppma11.dal12v.mail.ibm.com [127.0.0.1])
-	by ppma11.dal12v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 69512SG82175570;
-	Mon, 5 Oct 2026 06:08:19 GMT
-Received: from smtprelay04.dal12v.mail.ibm.com ([172.16.1.6])
-	by ppma11.dal12v.mail.ibm.com (PPS) with ESMTPS id 4h3eqy3xx8-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Mon, 05 Oct 2026 06:08:19 +0000 (GMT)
-Received: from smtpav02.wdc07v.mail.ibm.com (smtpav02.wdc07v.mail.ibm.com [10.39.53.229])
-	by smtprelay04.dal12v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 69568HXT13107750
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Mon, 5 Oct 2026 06:08:18 GMT
-Received: from smtpav02.wdc07v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id C3D335805B;
-	Mon,  5 Oct 2026 06:08:17 +0000 (GMT)
-Received: from smtpav02.wdc07v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 59C7E5805D;
-	Mon,  5 Oct 2026 06:08:14 +0000 (GMT)
-Received: from localhost.localdomain (unknown [9.67.97.222])
-	by smtpav02.wdc07v.mail.ibm.com (Postfix) with ESMTP;
-	Mon,  5 Oct 2026 06:08:14 +0000 (GMT)
-From: Mingming Cao <mmc@linux.ibm.com>
-To: netdev@vger.kernel.org
-Cc: horms@kernel.org, davemarq@linux.ibm.com, bjking1@linux.ibm.com,
-        Mingming Cao <mmc@linux.ibm.com>, nnac123@linux.ibm.com,
-        maddy@linux.ibm.com, mpe@ellerman.id.au, npiggin@gmail.com,
-        chleroy@kernel.org, ritesh.list@gmail.com, sshegde@linux.ibm.com,
-        andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@kernel.org,
-        kuba@kernel.org, pabeni@redhat.com, jeff@garzik.org,
-        linuxppc-dev@lists.ozlabs.org, linux-kernel@vger.kernel.org
-Subject: [PATCH net-next v2 2/8] ibmveth: do not close twice after a failed reopen
-Date: Sun,  4 Oct 2026 23:06:03 -0700
-Message-Id: <f9f424944b0ed249ea5288e728832867cd945e1d.1791178212.git.mmc@linux.ibm.com>
-X-Mailer: git-send-email 2.39.3 (Apple Git-146)
-In-Reply-To: <cover.1791178212.git.mmc@linux.ibm.com>
-References: <cover.1791178212.git.mmc@linux.ibm.com>
+	dkim=pass (2048-bit key) header.d=realtek.com header.i=@realtek.com header.b="GHt+LWub"
+X-SpamFilter-By: ArmorX SpamTrap 5.80 with qID 69568imN61706503, This message is accepted by code: ctloc85258
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=realtek.com; s=dkim;
+	t=1791180524; bh=GH18l2PwL1ZlKfwVKhLJ8NhI1vRhmVKb1mguo7/lxw8=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:MIME-Version;
+	b=GHt+LWub68Z5oIK3oE2uDdAUFl/xHoa/d7j6wndSAqmkzvvHaVAsdBDq+Msb1Qmbx
+	 ZggtSuYxC8ceF1gTf0OMx1xfdT1jEhmSGVXnUo+QyLHydSVcwtPTrkAFmeVyTc1zCp
+	 F3VntRsuLQyY+0u++C1gEysfv1KBkUp21q6EqHLWpzf9im0JHXNR4OdX1rTXf2WTx7
+	 RgPmc7/KLJvmy1SWmrdEJFST0tM9OOKlrXuI0cna8h+CVqTEExJRkY+qGilxmIsp+0
+	 0wQywOsgLEEWtIVGAXwOKxKN0gQwNC47MjE6UCALlBOEDhfkiucgb+ZJqbyaX+9AHF
+	 SpZg54D3FMfhg==
+Received: from mail.realtek.com (rtkexhmbs03.realtek.com.tw[10.21.1.53])
+	by rtits2.realtek.com.tw (8.15.2/3.29/5.94) with ESMTPS id 69568imN61706503
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
+	Mon, 5 Oct 2026 14:08:44 +0800
+Received: from RTKEXHMBS06.realtek.com.tw (10.21.1.56) by
+ RTKEXHMBS03.realtek.com.tw (10.21.1.53) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.49; Mon, 5 Oct 2026 14:08:44 +0800
+Received: from RTKEXHMBS06.realtek.com.tw ([::1]) by
+ RTKEXHMBS06.realtek.com.tw ([fe80::b3cc:c263:b82d:e87c%10]) with mapi id
+ 15.02.2562.049; Mon, 5 Oct 2026 14:08:44 +0800
+From: Ping-Ke Shih <pkshih@realtek.com>
+To: Luka Gejak <luka.gejak@linux.dev>
+CC: "linux-wireless@vger.kernel.org" <linux-wireless@vger.kernel.org>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, "Michael
+ Straube" <straube.linux@gmail.com>, Peter Robinson <pbrobinson@gmail.com>,
+	Bitterblue Smith <rtl8821cerfe2@gmail.com>
+Subject: RE: [PATCH rtw-next v7 4/6] wifi: rtw88: 8723b: add the RTL8723B chip
+ driver
+Thread-Topic: [PATCH rtw-next v7 4/6] wifi: rtw88: 8723b: add the RTL8723B
+ chip driver
+Thread-Index: AQHdUkEe+6mTN1t+pkmrNCm0JOCqYbbudRJA
+Date: Mon, 5 Oct 2026 06:08:44 +0000
+Message-ID: <aa7d919d98304ee095990735f39095ac@realtek.com>
+References: <20261002073845.31486-1-luka.gejak@linux.dev>
+ <20261002073845.31486-5-luka.gejak@linux.dev>
+In-Reply-To: <20261002073845.31486-5-luka.gejak@linux.dev>
+Accept-Language: en-US, zh-TW
+Content-Language: zh-TW
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-TM-AS-GCONF: 00
-X-Proofpoint-Reinject: loops=2 maxloops=12
-X-Authority-Analysis: v=2.4 cv=TOPQ2Fla c=1 sm=1 tr=0 ts=6ac33ed4 cx=c_pps
- a=aDMHemPKRhS1OARIsFnwRA==:117 a=aDMHemPKRhS1OARIsFnwRA==:17
- a=660iZSQnnn4A:10 a=VkNPw1HP01LnGYTKEx00:22 a=RnoormkPH1_aCDwRdu11:22
- a=V8glGbnc2Ofi9Qvn3v5h:22 a=VnNF1IyMAAAA:8 a=PY5afY-jqzY7CZaCxLEA:9
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDA1MDAyNCBTYWx0ZWRfXwhkAFKlmE4xN
- l4cR2u+yD0Nz1eWkide6+i4Ro2psF0baAQFYp7pOiMxEaR26K/Q2qqeM9oL4hNXpkOJTXOuSE30
- pxGqmlcQLYQyb5vZxZag8/BGcGre84T7WXwaw7Q/4ej/CRuh6n4ukedQuz66BL9nsGwlfgIJYfU
- EPdegt7oOL2Is6WCP3dSdrmBFbJSUiBaT0e4g3ReLWWyW5PQeen/VoXMbPagrU+ny/QlXOUqn3O
- zJdWg05H/2uMEFfZNLmMWY1A9QJ1kYZq1HYSXvUWAqGU4PQtyJ5tJ1CTBvX+jz033+G7m33qIHA
- GzG9JQauEk84HYKfhSrx/U7m9t8rX73FWMgqmNHG5gxjqiccN7JgIq/67fPGE75pzudP8QHmrwX
- IHKXGLjdyCop5iC5j6zt/A0ntgtbTT4zW54YessUoLpHFbH6sGzR4Ka0pMcaQM7YQp1B+mHgHEq
- f6JDdGfGXl7k4UhpFXA==
-X-Proofpoint-GUID: oBTQaqYdFR82klUvB5jFSbLy5Xfyn3vc
-X-Proofpoint-ORIG-GUID: swkk5krLBCBfrrVKkgAvryegfiJ-aPoy
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDA1MDAyNCBTYWx0ZWRfX79BwGzyUeTbe
- 0VgH0XAxhJxSI5FdtHSkkEwoqPQ3UJ5JILYWca5ZMfA9VU7/axg74SF3sPX35gsXEI50u40FeHn
- YxgSLv2y7YUlnciYfU3cXGoNm03ul9M=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-10-05_01,2026-10-02_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- malwarescore=0 priorityscore=1501 spamscore=0 adultscore=0 clxscore=1015
- lowpriorityscore=0 impostorscore=0 bulkscore=0 phishscore=0 suspectscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2610050024
 
-ibmveth_change_mtu(), veth_pool_store(), ibmveth_set_csum_offload()
-and ibmveth_set_tso() call close() and open() directly. If open() fails,
-NAPI is left disabled while IFF_UP stays set, so the next close()
-(ifdown, unregister or another reconfiguration) calls napi_disable()
-again and waits forever with RTNL held. Networking and shutdown
-hang; only a reboot recovers. ethtool -L in that state also wakes
-queues that have no TX buffer and dereferences NULL in
-ibmveth_start_xmit().
+Luka Gejak <luka.gejak@linux.dev> wrote:
+> Add the Realtek RTL8723B 802.11n chip driver: the chip operations, the
+> power sequences, the efuse layout, the RF and IQ calibration, and the
+> chip specific coexistence handling.
+>=20
+> The RTL8723B chip support is based on the initial work by
+> Michael Straube <straube.linux@gmail.com>.
+> Link: https://github.com/mistraube/rtw88/tree/rtl8723bs
+>=20
+> Co-developed-by: Michael Straube <straube.linux@gmail.com>
+> Signed-off-by: Michael Straube <straube.linux@gmail.com>
+> Signed-off-by: Luka Gejak <luka.gejak@linux.dev>
+> ---
+>  drivers/net/wireless/realtek/rtw88/rtw8723b.c | 2550 +++++++++++++++++
+>  drivers/net/wireless/realtek/rtw88/rtw8723b.h |   14 +
+>  2 files changed, 2564 insertions(+)
+>  create mode 100644 drivers/net/wireless/realtek/rtw88/rtw8723b.c
+>  create mode 100644 drivers/net/wireless/realtek/rtw88/rtw8723b.h
+>=20
+> diff --git a/drivers/net/wireless/realtek/rtw88/rtw8723b.c
+> b/drivers/net/wireless/realtek/rtw88/rtw8723b.c
+> new file mode 100644
+> index 000000000000..8791cd2e0e27
+> --- /dev/null
+> +++ b/drivers/net/wireless/realtek/rtw88/rtw8723b.c
+> @@ -0,0 +1,2550 @@
+> +// SPDX-License-Identifier: GPL-2.0 OR BSD-3-Clause
+> +/* Copyright(c) 2026  Realtek Corporation
+> + * Copyright(c) Michael Straube <straube.linux@gmail.com>
+> + * Copyright(c) 2024-2026 Luka Gejak <luka.gejak@linux.dev>
+> + */
+> +
+> +#include "main.h"
+> +#include "coex.h"
+> +#include "fw.h"
+> +#include "mac.h"
+> +#include "phy.h"
+> +/*
+> + * Shares the receive PHY status layout, the SDIO aggregation burst fiel=
+ds
+> + * and a few baseband registers with the RTL8703B; reuse that header.
+> + */
+> +#include "rtw8703b.h"
 
-Any open() failure on those paths triggers it, for example an
-allocation failure on an MTU change to jumbo frames.
+Which layout you are using?
+Should you move the layout to rtw8723x.h ?
 
-Track a successful open in adapter->opened. close() returns early
-when it is clear, and set_channels() checks it instead of IFF_UP.
+> +/*
+> + * Row 20 (-6.0 dB) intentionally does not match the v5.2.17 vendor driv=
+er,
 
-The open() error-path leaks are fixed separately in net by
-commit af0524bf4ce1 ("ibmveth: h_free logical LAN on open-fail after
-register") and commit 84bec0bf0352 ("ibmveth: fix TX LTB and filter
-unwind on open-fail"); this patch does not depend on them. Without
-them, the TX buffers and the logical LAN registration that a failed
-open() leaves behind stay in place after the early return, as they
-did before this patch.
+I really don't want to mention vendor driver here. If you really need it,
+mention it in commit message or cover-letter.
 
-Found by AI-assisted review of the ibmveth multi-queue RX series and
-confirmed by code inspection. Tested on a POWER10 LPAR with
-ibmveth_open() forced to fail by a test-only module parameter (not part
-of this patch): 'ip link set dev eth1 mtu 9000' fails, then 'ip link set
-dev eth1 down' returns at once and 'ip link set dev eth1 up' recovers
-the interface. No kernel selftests cover ibmveth.
+> + * which has 0x1c, 0x1a, 0x18, 0x12, 0x0e, 0x08 there. Every other row a=
+grees.
+> + * The values below are what rtl8723be, the mainline driver for this sam=
+e
+> + * chip, uses at the same index, and they are also what the vendor's own
+> + * cck_swing_table_ch1_ch13_92e and the staging rtl8723bs driver use. Th=
+ey
+> + * also track the 0.5 dB step of the surrounding rows: against row 32 as=
+ 0 dB,
+> + * 0x1b is within 0.06 of the ideal -6.0 dB value while 0x1c is 0.94 awa=
+y,
+> + * the largest error anywhere in the table. Treat the vendor row as the
+> + * anomaly and do not "fix" this towards it.
 
-Fixes: 860f242eb534 ("[PATCH] ibmveth change buffer pools dynamically")
-Signed-off-by: Mingming Cao <mmc@linux.ibm.com>
----
+And you have comments each row. Is it still need this block comment to expl=
+ain?
 
-Changes in v2:
-- commit message: say what a failed open() leaves behind without the
-  two net fixes
+> + */
+> +static const u8 rtw8723b_cck_swing_table_ch1_ch13[][8] =3D {
+> +       {0x09, 0x08, 0x07, 0x06, 0x04, 0x03, 0x01, 0x01},       /* 0, -16=
+.0dB */
+> +       {0x09, 0x09, 0x08, 0x06, 0x05, 0x03, 0x01, 0x01},       /* 1, -15=
+.5dB */
+> +       {0x0a, 0x09, 0x08, 0x07, 0x05, 0x03, 0x02, 0x01},       /* 2, -15=
+.0dB */
+> +       {0x0a, 0x0a, 0x09, 0x07, 0x05, 0x03, 0x02, 0x01},       /* 3, -14=
+.5dB */
+> +       {0x0b, 0x0a, 0x09, 0x08, 0x06, 0x04, 0x02, 0x01},       /* 4, -14=
+.0dB */
+> +       {0x0b, 0x0b, 0x0a, 0x08, 0x06, 0x04, 0x02, 0x01},       /* 5, -13=
+.5dB */
+> +       {0x0c, 0x0c, 0x0a, 0x09, 0x06, 0x04, 0x02, 0x01},       /* 6, -13=
+.0dB */
+> +       {0x0d, 0x0c, 0x0b, 0x09, 0x07, 0x04, 0x02, 0x01},       /* 7, -12=
+.5dB */
+> +       {0x0d, 0x0d, 0x0c, 0x0a, 0x07, 0x05, 0x02, 0x01},       /* 8, -12=
+.0dB */
+> +       {0x0e, 0x0e, 0x0c, 0x0a, 0x08, 0x05, 0x02, 0x01},       /* 9, -11=
+.5dB */
+> +       {0x0f, 0x0f, 0x0d, 0x0b, 0x08, 0x05, 0x03, 0x01},       /* 10, -1=
+1.0dB */
+> +       {0x10, 0x10, 0x0e, 0x0b, 0x08, 0x05, 0x03, 0x01},       /* 11, -1=
+0.5dB */
+> +       {0x11, 0x11, 0x0f, 0x0c, 0x09, 0x06, 0x03, 0x01},       /* 12, -1=
+0.0dB */
+> +       {0x12, 0x12, 0x0f, 0x0c, 0x09, 0x06, 0x03, 0x01},       /* 13, -9=
+.5dB */
+> +       {0x13, 0x13, 0x10, 0x0d, 0x0a, 0x06, 0x03, 0x01},       /* 14, -9=
+.0dB */
+> +       {0x14, 0x14, 0x11, 0x0e, 0x0b, 0x07, 0x03, 0x02},       /* 15, -8=
+.5dB */
+> +       {0x16, 0x15, 0x12, 0x0f, 0x0b, 0x07, 0x04, 0x01},       /* 16, -8=
+.0dB */
+> +       {0x17, 0x16, 0x13, 0x10, 0x0c, 0x08, 0x04, 0x02},       /* 17, -7=
+.5dB */
+> +       {0x18, 0x17, 0x15, 0x11, 0x0c, 0x08, 0x04, 0x02},       /* 18, -7=
+.0dB */
+> +       {0x1a, 0x19, 0x16, 0x12, 0x0d, 0x09, 0x04, 0x02},       /* 19, -6=
+.5dB */
+> +       {0x1b, 0x1a, 0x17, 0x13, 0x0e, 0x09, 0x04, 0x02},       /* 20, -6=
+.0dB */
+> +       {0x1d, 0x1c, 0x18, 0x14, 0x0f, 0x0a, 0x05, 0x02},       /* 21, -5=
+.5dB */
+> +       {0x1f, 0x1e, 0x1a, 0x15, 0x10, 0x0a, 0x05, 0x02},       /* 22, -5=
+.0dB */
+> +       {0x20, 0x20, 0x1b, 0x16, 0x11, 0x08, 0x05, 0x02},       /* 23, -4=
+.5dB */
+> +       {0x22, 0x21, 0x1d, 0x18, 0x11, 0x0b, 0x06, 0x02},       /* 24, -4=
+.0dB */
+> +       {0x24, 0x23, 0x1f, 0x19, 0x13, 0x0c, 0x06, 0x03},       /* 25, -3=
+.5dB */
+> +       {0x26, 0x25, 0x21, 0x1b, 0x14, 0x0d, 0x06, 0x03},       /* 26, -3=
+.0dB */
+> +       {0x28, 0x28, 0x22, 0x1c, 0x15, 0x0d, 0x07, 0x03},       /* 27, -2=
+.5dB */
+> +       {0x2b, 0x2a, 0x25, 0x1e, 0x16, 0x0e, 0x07, 0x03},       /* 28, -2=
+.0dB */
+> +       {0x2d, 0x2d, 0x27, 0x1f, 0x18, 0x0f, 0x08, 0x03},       /* 29, -1=
+.5dB */
+> +       {0x30, 0x2f, 0x29, 0x21, 0x19, 0x10, 0x08, 0x03},       /* 30, -1=
+.0dB */
+> +       {0x33, 0x32, 0x2b, 0x23, 0x1a, 0x11, 0x08, 0x04},       /* 31, -0=
+.5dB */
+> +       {0x36, 0x35, 0x2e, 0x25, 0x1c, 0x12, 0x09, 0x04},       /* 32, +0=
+dB */
+> +};
+> +
 
- drivers/net/ethernet/ibm/ibmveth.c | 24 +++++++++++++++++-------
- drivers/net/ethernet/ibm/ibmveth.h |  2 ++
- 2 files changed, 19 insertions(+), 7 deletions(-)
+[...]
 
-diff --git a/drivers/net/ethernet/ibm/ibmveth.c b/drivers/net/ethernet/ibm/ibmveth.c
-index 33af8e57be6e..dab571fe8dde 100644
---- a/drivers/net/ethernet/ibm/ibmveth.c
-+++ b/drivers/net/ethernet/ibm/ibmveth.c
-@@ -738,6 +738,7 @@ static int ibmveth_open(struct net_device *netdev)
 
- 	netif_tx_start_all_queues(netdev);
+> +
+> +static void rtw8723b_query_phy_status_cck(struct rtw_dev *rtwdev, u8 *ph=
+y_raw,
+> +                                         struct rtw_rx_pkt_stat *pkt_sta=
+t)
+> +{
+> +       struct phy_status_8703b *phy_status =3D (struct phy_status_8703b =
+*)phy_raw;
 
-+	adapter->opened = true;
- 	netdev_dbg(netdev, "open complete\n");
+nit: Avoid casting by argument 'void *phy_raw'.=20
 
- 	return 0;
-@@ -779,6 +780,14 @@ static int ibmveth_close(struct net_device *netdev)
- 	long lpar_rc;
- 	int i;
+> +       u8 lna_idx =3D (phy_status->cck_agc_rpt_ofdm_cfosho_a & 0xE0) >> =
+5;
+> +       u8 vga_idx =3D (phy_status->cck_agc_rpt_ofdm_cfosho_a & 0x1F);
 
-+	/* change_mtu, pool sysfs, set_csum and set_tso call close() and
-+	 * open() directly. If that open() fails, IFF_UP stays set and
-+	 * NAPI is disabled; a second close() would hang in napi_disable().
-+	 */
-+	if (!adapter->opened)
-+		return 0;
-+	adapter->opened = false;
-+
- 	netdev_dbg(netdev, "close starting\n");
+u8_get_bits()
 
- 	napi_disable(&adapter->napi);
-@@ -830,10 +839,10 @@ static int ibmveth_close(struct net_device *netdev)
-  *
-  * @w: pointer to work_struct embedded in adapter structure
-  *
-- * Context: This routine acquires rtnl_mutex and disables its NAPI through
-- *          ibmveth_close. It can't be called directly in a context that has
-- *          already acquired rtnl_mutex or disabled its NAPI, or directly from
-- *          a poll routine.
-+ * Context: This routine acquires rtnl_mutex and, if the device is open,
-+ *          disables its NAPI through ibmveth_close. It can't be called
-+ *          directly in a context that has already acquired rtnl_mutex or
-+ *          disabled its NAPI, or directly from a poll routine.
-  *
-  * Return: void
-  */
-@@ -1127,10 +1136,11 @@ static int ibmveth_set_channels(struct net_device *netdev,
- 		     goal = channels->tx_count;
- 	int rc, i;
+> +       s8 rx_power =3D rtw8723b_cck_rx_power(lna_idx, vga_idx);
+> +       s8 min_rx_power =3D -120;
+> +
+> +       pkt_stat->bw =3D RTW_CHANNEL_WIDTH_20;
+> +
+> +       pkt_stat->rx_power[RF_PATH_A] =3D rx_power;
+> +       pkt_stat->rssi =3D rtw_phy_rf_power_2_rssi(pkt_stat->rx_power, 1)=
+;
+> +       pkt_stat->signal_power =3D max(pkt_stat->rx_power[RF_PATH_A],
+> +                                    min_rx_power);
+> +       rtwdev->dm_info.rssi[RF_PATH_A] =3D pkt_stat->rssi;
+> +}
+> +
+> +static void rtw8723b_query_phy_status_ofdm(struct rtw_dev *rtwdev, u8 *p=
+hy_raw,
+> +                                          struct rtw_rx_pkt_stat *pkt_st=
+at)
+> +{
+> +       struct phy_status_8703b *phy_status =3D (struct phy_status_8703b =
+*)phy_raw;
 
--	/* If ndo_open has not been called yet then don't allocate, just set
--	 * desired netdev_queue's and return
-+	/* If the device is not open (including a failed close/open with
-+	 * IFF_UP still set) then don't allocate, just set desired
-+	 * netdev_queue's and return
- 	 */
--	if (!(netdev->flags & IFF_UP))
-+	if (!adapter->opened)
- 		return netif_set_real_num_tx_queues(netdev, goal);
+ditto. (void *phy_raw)
 
- 	/* We have IBMVETH_MAX_QUEUES netdev_queue's allocated
-diff --git a/drivers/net/ethernet/ibm/ibmveth.h b/drivers/net/ethernet/ibm/ibmveth.h
-index d87713668ed3..3f2240823f6a 100644
---- a/drivers/net/ethernet/ibm/ibmveth.h
-+++ b/drivers/net/ethernet/ibm/ibmveth.h
-@@ -172,6 +172,8 @@ struct ibmveth_adapter {
- 	int rx_csum;
- 	int large_send;
- 	bool is_active_trunk;
-+	/* Set by a successful ibmveth_open(), cleared by ibmveth_close(). */
-+	bool opened;
- 	unsigned int rx_buffers_per_hcall;
+> +
+> +static const struct rtw_chip_ops rtw8723b_ops =3D {
+> +       .power_on               =3D rtw_power_on,
+> +       .power_off              =3D rtw_power_off,
+> +
+> +       .mac_init               =3D rtw8723x_mac_init,
+> +       .mac_postinit           =3D rtw8723x_mac_postinit,
+> +
+> +       .dump_fw_crash          =3D NULL,
+> +       /*
+> +        * 8723d sets REG_HCI_OPT_CTRL BIT_USB_SUS_DIS in its shutdown
+> +        * function; that is USB-only.
+> +        */
+> +       .shutdown               =3D NULL,
+> +       .read_efuse             =3D rtw8723b_read_efuse,
+> +       .phy_set_param          =3D rtw8723b_phy_set_param,
+> +
+> +       .set_channel            =3D rtw8723b_set_channel,
+> +
+> +       .query_phy_status       =3D rtw8723b_query_phy_status,
+> +       .read_rf                =3D rtw_phy_read_rf_sipi,
+> +       .write_rf               =3D rtw_phy_write_rf_reg_sipi,
+> +       .set_tx_power_index     =3D rtw8723x_set_tx_power_index,
+> +       .rsvd_page_dump         =3D NULL,
+> +       .set_antenna            =3D NULL,
+> +       .cfg_ldo25              =3D rtw8723b_cfg_ldo25,
+> +       .efuse_grant            =3D rtw8723b_efuse_grant,
+> +       .set_ampdu_factor       =3D NULL,
+> +       .false_alarm_statistics =3D rtw8723x_false_alarm_statistics,
+> +       .phy_calibration        =3D rtw8723b_phy_calibration,
+> +       .dpk_track              =3D NULL,
+> +       .cck_pd_set             =3D rtw_phy_cck_pd_set,
+> +       .pwr_track              =3D rtw8723b_pwr_track,
+> +       .config_bfee            =3D NULL,
+> +       .set_gid_table          =3D NULL,
+> +       .cfg_csi_rate           =3D NULL,
+> +       .adaptivity_init        =3D NULL,
+> +       .adaptivity             =3D NULL,
+> +       .cfo_init               =3D NULL,
+> +       .cfo_track              =3D NULL,
+> +       .config_tx_path         =3D NULL,
+> +       .config_txrx_mode       =3D NULL,
+> +       .led_set                =3D NULL,
+> +       .fill_txdesc_checksum   =3D rtw8723b_fill_txdesc_checksum,
+> +
+> +       .coex_set_init          =3D rtw8723b_coex_cfg_init,
+> +       .coex_set_ant_switch    =3D rtw8723b_coex_cfg_ant_switch,
+> +       .coex_set_gnt_fix       =3D rtw8723b_coex_set_gnt_fix,
+> +       .coex_set_gnt_debug     =3D rtw8723b_coex_set_gnt_debug,
+> +       .coex_set_rfe_type      =3D rtw8723b_coex_set_rfe_type,
+> +       .coex_set_wl_tx_power   =3D rtw8723b_coex_set_wl_tx_power,
+> +       .coex_set_wl_rx_gain    =3D rtw8723b_coex_set_wl_rx_gain,
+> +};
+> +
+> +const struct rtw_chip_info rtw8723b_hw_spec =3D {
+> +       .ops =3D &rtw8723b_ops,
+> +       .id =3D RTW_CHIP_TYPE_8723B,
+> +       .fw_name =3D "rtw88/rtw8723b_fw.bin",
+> +       .wlan_cpu =3D RTW_WCPU_8051,
+> +       .tx_pkt_desc_sz =3D 40,
+> +       .tx_buf_desc_sz =3D 16,
+> +       .rx_pkt_desc_sz =3D 24,
+> +       .rx_buf_desc_sz =3D 8,
+> +       .phy_efuse_size =3D 512,
+> +       .log_efuse_size =3D 512,
+> +       .ptct_efuse_size =3D 15,
+> +       .txff_size =3D 32768,
+> +       .rxff_size =3D 16384,
+> +       .rsvd_drv_pg_num =3D 8,
+> +       .txgi_factor =3D 1,
+> +       .is_pwr_by_rate_dec =3D true,
+> +       .max_power_index =3D 0x3f,
+> +       .csi_buf_pg_num =3D 0,
+> +       .band =3D RTW_BAND_2G,
+> +       .page_size =3D TX_PAGE_SIZE,
+> +       .dig_min =3D 0x20,
+> +       .usb_tx_agg_desc_num =3D 6,
+> +       /*
+> +        * The firmware reports id 0xfd instead of C2H_HW_FEATURE_REPORT,=
+ so
+> +        * the hardware feature report is not supported on this chip.
+> +        */
+> +       .hw_feature_report =3D false,
+> +       .c2h_ra_report_size =3D 4,
+> +       .old_datarate_fb_limit =3D true,
+> +       .path_div_supported =3D false,
+> +       .ht_supported =3D true,
+> +       .vht_supported =3D false,
+> +       .lps_deep_mode_supported =3D 0,
+> +       .sys_func_en =3D 0xfd,
+> +       .pwr_on_seq =3D card_enable_flow_8723b,
+> +       .pwr_off_seq =3D card_disable_flow_8723b,
+> +       .page_table =3D page_table_8723b,
+> +       .rqpn_table =3D rqpn_table_8723b,
+> +       /* same shared table as the sibling rtw8703b and rtw8723d */
+> +       .prioq_addrs =3D &rtw8723x_common.prioq_addrs,
+> +       /* used only in pci.c, not needed for SDIO devices */
+> +       .intf_table =3D NULL,
+> +       .dig =3D rtw8723x_common.dig,
+> +       /* The vendor driver never writes the CCK IGI on this chip. */
+> +       .dig_cck =3D NULL,
+> +       .rf_sipi_addr =3D {0x840, 0x844},
+> +       .rf_sipi_read_addr =3D rtw8723x_common.rf_sipi_addr,
+> +       .fix_rf_phy_num =3D 2,
+> +       /* This chip has no LTE coex registers. */
+> +       .ltecoex_addr =3D NULL,
+> +       .mac_tbl =3D &rtw8723b_mac_tbl,
+> +       .agc_tbl =3D &rtw8723b_agc_tbl,
+> +       .bb_tbl =3D &rtw8723b_bb_tbl,
+> +       .rf_tbl =3D {&rtw8723b_rf_a_tbl},
+> +       .rfe_defs =3D rtw8723b_rfe_defs,
+> +       .rfe_defs_size =3D ARRAY_SIZE(rtw8723b_rfe_defs),
+> +       .iqk_threshold =3D 8,
+> +       .rx_ldpc =3D false,
+> +       .tx_stbc =3D false,
+> +       .ampdu_density =3D IEEE80211_HT_MPDU_DENSITY_16,
+> +       .max_scan_ie_len =3D IEEE80211_MAX_DATA_LEN,
+> +       .coex_para_ver =3D 20180201,      /* glcoex_ver_date_8723b_1ant *=
+/
+> +       .bt_desired_ver =3D 0x6d,
+> +       .scbd_support =3D false,
+> +       .new_scbd10_def =3D true,
+> +       .ble_hid_profile_support =3D false,
+> +       .wl_mimo_ps_support =3D false,
+> +       .pstdma_type =3D COEX_PSTDMA_FORCE_LPSOFF,
+> +       .bt_rssi_type =3D COEX_BTRSSI_RATIO,
+> +       .ant_isolation =3D 15,
+> +       .rssi_tolerance =3D 2,
+> +       .wl_rssi_step =3D wl_rssi_step_8723b,
+> +       .bt_rssi_step =3D bt_rssi_step_8723b,
+> +       .table_sant_num =3D ARRAY_SIZE(table_sant_8723b),
+> +       .table_sant =3D table_sant_8723b,
+> +       .table_nsant_num =3D ARRAY_SIZE(table_nsant_8723b),
+> +       .table_nsant =3D table_nsant_8723b,
+> +       .tdma_sant_num =3D ARRAY_SIZE(tdma_sant_8723b),
+> +       .tdma_sant =3D tdma_sant_8723b,
+> +       .tdma_nsant_num =3D ARRAY_SIZE(tdma_nsant_8723b),
+> +       .tdma_nsant =3D tdma_nsant_8723b,
+> +       .wl_rf_para_num =3D ARRAY_SIZE(rf_para_tx_8723b),
+> +       .wl_rf_para_tx =3D rf_para_tx_8723b,
+> +       .wl_rf_para_rx =3D rf_para_rx_8723b,
+> +       .bt_afh_span_bw20 =3D 0x20,
+> +       .bt_afh_span_bw40 =3D 0x30,
+> +       .afh_5g_num =3D  ARRAY_SIZE(afh_5g_8723b),
+> +       .afh_5g =3D afh_5g_8723b,
+> +       /* BTG_SEL is driven by the cardemu_to_act power sequence instead=
+. */
+> +       .btg_reg =3D NULL,
+> +       .coex_info_hw_regs_num =3D 0,
+> +       .coex_info_hw_regs =3D NULL,
+> +};
+> +EXPORT_SYMBOL(rtw8723b_hw_spec);
 
- 	u64 fw_ipv6_csum_support;
---
-2.39.3 (Apple Git-146)
+I guess you copy these two tables from somewhere and modify the values.
+However, when I compare these with RTL8822C's ones. The order is very
+different... Can you align the order?
+
+Realtek WiFi chips are different from one to another, and we add many
+parameters to support the variants. To prevent the order being messed
+up, I ask people to add dummy (unused) fields (e.g. .xxx =3D NULL, .yyy =3D=
+ 0)
+to keep the order and consistent. But now, rtw88 becomes very different
+again.=20
+
+Let me know your source, I'd think how we can align them sometime.=20
 
