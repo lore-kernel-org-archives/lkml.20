@@ -1,82 +1,137 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 39D83202C29;
-	Mon,  5 Oct 2026 13:58:30 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 153DA4921B4;
+	Mon,  5 Oct 2026 13:58:45 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791208712; cv=none; b=Vb6eY7dV3ZHE4Me+9P/694Vi2w6G2UFgHIbpgDfjq5gfT8WEfGp664jSGEUt3iQQKybro4/Oxshf2MaiKP4LX/vhjrpKg819SLelI7BdSqy78sbMWbc2AKvaqguVP/rKl5XwoBkCAiH1adfeQOz9wF87W34EU9OrA/BHZQdj6D0=
+	t=1791208727; cv=none; b=UpokLmIyOsHX55Qe8G9yBFsnWu3yghipYwfnb0HqMm3yq0/CDgS7x6V6DbdKKOtyv1cRPZMdEx/pxmLftqx1q4+mg6JyI4NUaAeTkiojocMqemTdSJn2+dXm+28rtLNocaVfqOheHBJ43DPzLPUO4dIzj73+jKeHr3Zzg231JVs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791208712; c=relaxed/simple;
-	bh=Mmx5yBTxMfzqckU6blWvNUte/S0b/AiBMRSEz/dcfsw=;
-	h=Message-ID:Date:MIME-Version:Subject:To:References:From:
-	 In-Reply-To:Content-Type; b=ue6Ief7IfK/bntx8sPmNtH0BZPk+hb1nLQTcVk82Q/AwyhFTsn39Ah0P+aY0cmOUNFhDYrLbtvUCJCRFp+FJ4y3aVi78T3VqaDmtEKVE1B6P964evCSIs7cZdpSFjCzau0s2wWCtWuXsvLSh/ZM2y7gxynGKmA6txN9sD7HXbvo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gWXT4zNq; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791208727; c=relaxed/simple;
+	bh=mvvRQkunNlMJ1zfHdjZmp7OWJJ/efZMOdpUneWqAgBM=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=EgRfu5OKqt8VCSIMeyuXin+Ghtc0f8HZUhzhBLUFpCpCN1fwHnL0bJzG3dP8ekHDTBau8WsYgKDDG60yRBCXxJaC5N7lcAJp/r2MVajzSm9zdE/AGngiorW2Gub2Rco8hP+gQNIP2meQnhAt4+QzlGYFZKTaXrBDvaXnxJRS/Ig=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=lxcb1had; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gWXT4zNq"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 470B41F000FF;
-	Mon,  5 Oct 2026 13:58:30 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="lxcb1had"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F2FE91F000FF;
+	Mon,  5 Oct 2026 13:58:44 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791208710;
-	bh=7qDDzokCihd3MTnzDmQWLnU+JR5Hxfrh2K/vuo2BLX8=;
-	h=Date:Subject:To:References:From:In-Reply-To;
-	b=gWXT4zNqA32JXNEPxSsog2PmWo60CWjMdxbxiSSSTUOFAe+5m+PKA+X9+LpLBXFUJ
-	 kV66qDMowDhINTXqEB7LLLWybPXmNpOhNSoGaJbObd/Z4R3F6FWw0q/txlpOx8eH+f
-	 WYZcNv31iRKQB7ZzqxkKetNRslo4rOTVKh/9FqeM4jn3TR9iLIKI8T7ua4Dmwda01W
-	 58NdWgPMfnWIYONkFE6Jz4CoY/qxbbKei1Ub1HWkSB5RUZmVJZM7yRZ04cnappc84U
-	 YRQrAtViWiSua/ZZqsKsH+/QyI0cX8XCyP2G70AQPCNVL3uoo2c2c5MJXmvByfft0L
-	 0gITsVUnW99Hg==
-Message-ID: <afb5e34a-0616-42f6-9d18-23ff3ebcbde4@kernel.org>
-Date: Mon, 5 Oct 2026 08:58:29 -0500
+	s=k20260515; t=1791208725;
+	bh=hB96Gs8hLMTWWdb83gK/pYz1+UsEAi8km31i/cat4RQ=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=lxcb1hadOyNcndGwI00W4Z2i9T1Fj36nxN1D2FABJulC5gVeSYv5Q9e2v7Du8iSo8
+	 l9EdafQXzGFQb+2bUrP9KVZaLoOCsN3EgLkxVj1c87x5MSVAPl57SMTUU2P4+p3VHu
+	 dW7zwbSIFQGEybrPwwAxc4rTFnnJed0v+0TOEGX/5ZFrzX6u/FnQw01BhKBweU9dvK
+	 +D3bIIVYRcoPMn/kerQrg3ohui+YMleOC/fVXOCg5cZZ9yK+kQCyC0For2J9Km7QWi
+	 49zRK2Pc3DelHioJT8W1saw4BDmTjJXwguBFIRXNl58T9Pk7EUgTrIfmKsWsFVXd3n
+	 rzZ6qquDq2Z5g==
+Date: Mon, 5 Oct 2026 15:58:42 +0200
+From: Vinod Koul <vkoul@kernel.org>
+To: Hemanth Selam <hemanth.selam@gmail.com>
+Cc: Frank Li <Frank.Li@kernel.org>,
+	Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
+	Michal Simek <michal.simek@amd.com>, dmaengine@vger.kernel.org,
+	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org
+Subject: Re: [PATCH] dmaengine: fix typos in comments
+Message-ID: <asOtEhjOMXc9SVNP@parshuram>
+References: <20260907063343.22255-1-hemanth.selam@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/6] arm64: dts: socfpga: agilex5: add DDR50 read-path
- tuning to sdmmc
-To: tze.yee.ng@altera.com, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <cover.1790151203.git.tze.yee.ng@altera.com>
- <096868737ae11bd457ec791099dcfbec775d23ad.1790151203.git.tze.yee.ng@altera.com>
-Content-Language: en-US
-From: Dinh Nguyen <dinguyen@kernel.org>
-In-Reply-To: <096868737ae11bd457ec791099dcfbec775d23ad.1790151203.git.tze.yee.ng@altera.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260907063343.22255-1-hemanth.selam@gmail.com>
 
-
-
-On 9/23/26 03:22, tze.yee.ng@altera.com wrote:
-> From: Tze Yee Ng <tze.yee.ng@altera.com>
+On 07-09-26, 12:03, Hemanth Selam wrote:
+> Fix typos in comments, reported by scripts/checkpatch.pl using the
+> misspelling list in scripts/spelling.txt.  Only touches comments, no code
+> changes.
 > 
-> Add the Cadence SD6HC DDR50 read-path tuning properties to the shared
-> Agilex5 sdmmc node so that boards enabling SD UHS DDR50 pick up sane
-> defaults for the loopback DQS selection and the read DQS delay:
-> 
->    - cdns,ddr50-use-lpbk-dqs = <0>
->    - cdns,ddr50-read-dqs-delay = <96>
-> 
-> Signed-off-by: Tze Yee Ng <tze.yee.ng@altera.com>
+> Assisted-by: Cursor:claude-opus-5
+> Signed-off-by: Hemanth Selam <hemanth.selam@gmail.com>
 > ---
->   arch/arm64/boot/dts/intel/socfpga_agilex5.dtsi | 2 ++
->   1 file changed, 2 insertions(+)
+>  drivers/dma/bcm-sba-raid.c        | 8 ++++----
+>  drivers/dma/ppc4xx/xor.h          | 2 +-
+>  drivers/dma/xilinx/xilinx_dpdma.c | 2 +-
+>  3 files changed, 6 insertions(+), 6 deletions(-)
 > 
-> diff --git a/arch/arm64/boot/dts/intel/socfpga_agilex5.dtsi b/arch/arm64/boot/dts/intel/socfpga_agilex5.dtsi
-> index 5f22e6d7ab85..dc25b7382a29 100644
-> --- a/arch/arm64/boot/dts/intel/socfpga_agilex5.dtsi
-> +++ b/arch/arm64/boot/dts/intel/socfpga_agilex5.dtsi
-> @@ -322,6 +322,8 @@ sdmmc: mmc@10808000 {
->   			resets = <&rst SDMMC_RESET>, <&rst COMBOPHY_RESET>,
->   				 <&rst SDMMC_OCP_RESET>;
->   			reset-names = "sdhc-reset", "combophy", "sdmmc-ocp";
-> +			cdns,ddr50-use-lpbk-dqs = <0>;
-> +			cdns,ddr50-read-dqs-delay = <96>;
->   
-These bindings haven't been accepted yet right?
+> diff --git a/drivers/dma/bcm-sba-raid.c b/drivers/dma/bcm-sba-raid.c
+> index 0de03611252e..485fcde390dd 100644
+> --- a/drivers/dma/bcm-sba-raid.c
+> +++ b/drivers/dma/bcm-sba-raid.c
+> @@ -734,7 +734,7 @@ sba_prep_dma_memcpy(struct dma_chan *dchan, dma_addr_t dst, dma_addr_t src,
+>  	struct sba_device *sba = to_sba_device(dchan);
+>  	struct sba_request *first = NULL, *req;
+>  
+> -	/* Create chained requests where each request is upto hw_buf_size */
+> +	/* Create chained requests where each request is up to hw_buf_size */
 
-Dinh
+This is bogus, pls drop these... If there are real typos pls fix those
+instead! This is not a language book, it is code, upto should be just
+fine!
+
+>  	while (len) {
+>  		req_len = (len < sba->hw_buf_size) ? len : sba->hw_buf_size;
+>  
+> @@ -877,7 +877,7 @@ sba_prep_dma_xor(struct dma_chan *dchan, dma_addr_t dst, dma_addr_t *src,
+>  	if (unlikely(src_cnt > sba->max_xor_srcs))
+>  		return NULL;
+>  
+> -	/* Create chained requests where each request is upto hw_buf_size */
+> +	/* Create chained requests where each request is up to hw_buf_size */
+>  	while (len) {
+>  		req_len = (len < sba->hw_buf_size) ? len : sba->hw_buf_size;
+>  
+> @@ -1356,7 +1356,7 @@ sba_prep_dma_pq(struct dma_chan *dchan, dma_addr_t *dst, dma_addr_t *src,
+>  	if (!(flags & DMA_PREP_PQ_DISABLE_Q))
+>  		dst_q = &dst[1];
+>  
+> -	/* Create chained requests where each request is upto hw_buf_size */
+> +	/* Create chained requests where each request is up to hw_buf_size */
+>  	while (len) {
+>  		req_len = (len < sba->hw_buf_size) ? len : sba->hw_buf_size;
+>  
+> @@ -1626,7 +1626,7 @@ static int sba_probe(struct platform_device *pdev)
+>  	sba->dev = &pdev->dev;
+>  	platform_set_drvdata(pdev, sba);
+>  
+> -	/* Number of mailbox channels should be atleast 1 */
+> +	/* Number of mailbox channels should be at least 1 */
+>  	ret = of_count_phandle_with_args(pdev->dev.of_node,
+>  					 "mboxes", "#mbox-cells");
+>  	if (ret <= 0)
+> diff --git a/drivers/dma/ppc4xx/xor.h b/drivers/dma/ppc4xx/xor.h
+> index da1230df2817..0931e18cd0d3 100644
+> --- a/drivers/dma/ppc4xx/xor.h
+> +++ b/drivers/dma/ppc4xx/xor.h
+> @@ -12,7 +12,7 @@
+>  
+>  #include <linux/types.h>
+>  
+> -/* Number of XOR engines available on the contoller */
+> +/* Number of XOR engines available on the controller */
+>  #define XOR_ENGINES_NUM		1
+>  
+>  /* Number of operands supported in the h/w */
+> diff --git a/drivers/dma/xilinx/xilinx_dpdma.c b/drivers/dma/xilinx/xilinx_dpdma.c
+> index d9a3542c4531..bcc188e70441 100644
+> --- a/drivers/dma/xilinx/xilinx_dpdma.c
+> +++ b/drivers/dma/xilinx/xilinx_dpdma.c
+> @@ -1032,7 +1032,7 @@ static int xilinx_dpdma_chan_wait_no_ostand(struct xilinx_dpdma_chan *chan)
+>  {
+>  	int ret;
+>  
+> -	/* Wait for a no outstanding transaction interrupt upto 50msec */
+> +	/* Wait for a no outstanding transaction interrupt up to 50msec */
+>  	ret = wait_event_interruptible_timeout(chan->wait_to_stop,
+>  					       !xilinx_dpdma_chan_ostand(chan),
+>  					       msecs_to_jiffies(50));
+> -- 
+> 2.48.1
+
+-- 
+~Vinod
