@@ -1,104 +1,76 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 221C7471D1C
-	for <linux-kernel@vger.kernel.org>; Mon,  5 Oct 2026 10:43:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A88F4477E2E;
+	Mon,  5 Oct 2026 10:43:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791197012; cv=none; b=u7v9bBhlSJ7K/hI077+UgYmhcN+cpX16fMKrWyJecLPU0UfPMSS8ertgv/C683a7lgJ7wj0NZI5irQhDJ0Xabq7yMGHQB4+5GWkEKoq5YsJAF8rJtEN7ZXHQDoia2982w9J4vPE6hA+luFYAG098m6v/CDZXIqo7j204CrBvp1E=
+	t=1791197017; cv=none; b=Ql9RqLA0LOx6UbefRvWnkB3ADF9Mc5pBMj+knwewH+/Z1K4oC3wZVJJhzWbeouiPBLiWLstIA5NBf4Zzc69jlf51f8ybhchNhi/0/LDqS35ylJq5bjLR1yGyFe5CjQK0QzwDLg0CWlm5wb/PWLjJC1RipHM7iLRdzHuCgqT+z1w=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791197012; c=relaxed/simple;
-	bh=MnsiDEqJnb4T//6WE5x5LJlKc86KP2STmSRUpBXHhJQ=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=BooKsoFkHCVlTh6mkCAqzePcWnyH1fV8Fae/plg7Aondgr9Jkjmglo8etxIA9Yo4HcQYyZ+HEI/HVojsEb6rfyvohaw8T2dwCcnxvHP116Tmizpp5uWFqb0GTgxIFMXk9PFm1+uhrPtUA/+/vsKBNEt2sTjqCXAsA/BVy5rvjq4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=f/Z7ewd0; arc=none smtp.client-ip=170.10.133.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	s=arc-20240116; t=1791197017; c=relaxed/simple;
+	bh=1r9Zy4rUA0hJWHzu/wbDg/CORkn5tv3aD2QFTlY6W7w=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=U/x4K4qCIEXboTX4wHeBrSFbrmx9AwRl6aYvPm0Qunw9YyKu8Qb1SCPLG1IHCAfpwQEfdSy+2ERA6Ae8eVJv1jhdH0OvEnDUcvqhXAKZSG3jVG/bjpin11f2A9tDd+ffqd32A4Z8/KEh2AMkXO38E1/8oY7qkOgN7+fDjljCYBo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=WbDtHklA; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="f/Z7ewd0"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1791197010;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding;
-	bh=hIf+LbEnAibRNW0LghjeWrQApvOlkEKDvJZ+yAUOTXE=;
-	b=f/Z7ewd0xmYfIWIqQLfE2LDVeA/KRHrh1f/ujd68BAIO9fDppVXpR/YLzJGkFc3uMztTET
-	4lHpRQi3mWXK+RqJbK+/Ws9ipd2EVan6g/3LzxKqAjoj/SIJAFxydx4BsOZB9Ztz83wBPT
-	ENfewfZFxyaquGQDka2MFp/0yyzmNhg=
-Received: from mx-prod-mc-01.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-172-c7oRkp2wMLa74nXPJ94IhQ-1; Mon,
- 05 Oct 2026 06:43:26 -0400
-X-MC-Unique: c7oRkp2wMLa74nXPJ94IhQ-1
-X-Mimecast-MFC-AGG-ID: c7oRkp2wMLa74nXPJ94IhQ_1791197005
-Received: from mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.12])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mx-prod-mc-01.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 2F7371954239;
-	Mon,  5 Oct 2026 10:43:25 +0000 (UTC)
-Received: from llong-thinkpadp16vgen1.redhat.corp (headnet04.pony-001.prod.iad2.dc.redhat.com [10.2.32.116])
-	by mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id CED7B1956044;
-	Mon,  5 Oct 2026 10:43:22 +0000 (UTC)
-From: Waiman Long <longman@redhat.com>
-To: Ridong Chen <ridong.chen@linux.dev>,
-	Tejun Heo <tj@kernel.org>,
-	Johannes Weiner <hannes@cmpxchg.org>,
-	=?UTF-8?q?Michal=20Koutn=C3=BD?= <mkoutny@suse.com>
-Cc: cgroups@vger.kernel.org,
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="WbDtHklA"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D92031F00893;
+	Mon,  5 Oct 2026 10:43:33 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791197016;
+	bh=UE1ia2+Nnud8lkNlwJM2jeNw6p+Ex5NbnOjwL06Qys0=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=WbDtHklAq128TTT3jUfClAR3xWOifVFJPEnubk4AizHnxIh19nAdiBH00borMMGqb
+	 MAByAPlZgwLeHr29YA1AU3O1TrkOcGP8mkFJ77PQAefyTWj54GNmaJ6dsHYSAVvuhF
+	 O7/xIkhsHbhsIrTaLqeX/r9UCJs4OQdtwHfaQ6srnFxfRdv9zj4I7r+4qsD/y98567
+	 dz6LKDD+C5PGOiwV7+J+fdUI5btnNGAIIjpsZQOSuXg2UoLwqLLEIlHUZYPe4wTd64
+	 aolLoU0lhO0Cq6uPtbMKV+YBEjXPTlioPWrLJM1iCBBlPSdL5aJcjUBfY3VFs78swS
+	 iQYCnEjoBAsDQ==
+From: "Christophe Leroy (CS GROUP)" <chleroy@kernel.org>
+To: Ioana Ciornei <ioana.ciornei@nxp.com>,
+	Myeonghun Pak <mhun512@gmail.com>
+Cc: Christophe Leroy <chleroy@kernel.org>,
 	linux-kernel@vger.kernel.org,
-	Waiman Long <longman@redhat.com>
-Subject: [PATCH] cgroup/cpuset: Call is_in_v2_mode() after acquiring cpuset_mutex in cpuset_handle_hotplug()
-Date: Mon,  5 Oct 2026 06:43:10 -0400
-Message-ID: <20261005104310.1068789-1-longman@redhat.com>
+	linuxppc-dev@lists.ozlabs.org,
+	linux-arm-kernel@lists.infradead.org,
+	Ijae Kim <ae878000@gmail.com>,
+	stable@vger.kernel.org
+Subject: Re: [PATCH v2 0/2] soc: fsl: dpio: Fix IRQ cleanup during probe and removal
+Date: Mon,  5 Oct 2026 12:43:20 +0200
+Message-ID: <179119699110.180542.13258001668157935133.b4-ty@kernel.org>
+X-Mailer: git-send-email 2.54.0
+In-Reply-To: <20261002194802.375497-1-mhun512@gmail.com>
+References: <20261002194802.375497-1-mhun512@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+X-Developer-Signature: v=1; a=openpgp-sha256; l=783; i=chleroy@kernel.org; h=from:subject:message-id; bh=JwNYDRoRQhU9WQin3CftpaZ6xeoE0xQIsjPgxSQIBJM=; b=owGbwMvMwCV2d0KB2p7V54MZT6slMWQdrveyvLVe91fb/K1b+vZIn2RcyCvKuOO23mmNkocn9 xxs6Fgq0lHKwiDGxSArpshy/D/3rhldX1Lzp+7Sh5nDygQyhIGLUwAm8uoeI8OzmZGPhVU/fPia Urxe8uK9vqSF5slLv1fx/C26nXtn2fbHDP/UnrerP1ip5bfrmxavl+KEKbdXqs//mverxb504nO z8tdMAA==
+X-Developer-Key: i=chleroy@kernel.org; a=openpgp; fpr=10FFE6F8B390DE17ACC2632368A92FEB01B8DD78
 Content-Transfer-Encoding: 8bit
-X-Scanned-By: MIMEDefang 3.0 on 10.30.177.12
 
-It is reported by sashiko that calling is_in_v2_mode() outside of
-cpuset_mutex critical section in cpuset_handle_hotplug() can introduce
-a TOCTOU race where cgroup hierarchy may have changed from v1 to v2 or
-vice versa after is_in_v2_mode() is called leading to erroneously skip
-the allocation of tmpmasks or incorrectly modify cpus_allowed masks,
-resulting in cpuset state corruption. Fix that by calling is_in_v2_mode()
-after acquiring the cpuset_mutex.
 
-Fixes: b8d1b8ee93df ("cpuset: Allow v2 behavior in v1 cgroup")
-Signed-off-by: Waiman Long <longman@redhat.com>
----
- kernel/cgroup/cpuset.c | 9 +++++----
- 1 file changed, 5 insertions(+), 4 deletions(-)
+On Fri, 02 Oct 2026 15:48:00 -0400, Myeonghun Pak wrote:
+> This series fixes two DPIO I/O object lifetime issues during probe
+> failure and device removal.
+> 
+> Patch 1 releases the I/O object when IRQ registration fails and removes
+> the unnecessary unregister call from the probe error path. Patch 2 frees
+> the managed IRQ before returning its resource to the MC pool and before
+> releasing the I/O object during removal.
+> 
+> [...]
 
-diff --git a/kernel/cgroup/cpuset.c b/kernel/cgroup/cpuset.c
-index 3f52717c1965..2a4b2cdbc866 100644
---- a/kernel/cgroup/cpuset.c
-+++ b/kernel/cgroup/cpuset.c
-@@ -4044,15 +4044,16 @@ static void cpuset_handle_hotplug(void)
- 	static cpumask_t new_cpus;
- 	static nodemask_t new_mems;
- 	bool cpus_updated, mems_updated;
--	bool on_dfl = is_in_v2_mode();
-+	bool on_dfl;
- 	struct tmpmasks tmp, *ptmp = NULL;
- 
--	if (on_dfl && !alloc_tmpmasks(&tmp))
--		ptmp = &tmp;
--
- 	lockdep_assert_cpus_held();
- 	mutex_lock(&cpuset_mutex);
- 
-+	on_dfl = is_in_v2_mode();
-+	if (on_dfl && !alloc_tmpmasks(&tmp))
-+		ptmp = &tmp;
-+
- 	/* fetch the available cpus/mems and find out which changed how */
- 	cpumask_copy(&new_cpus, cpu_active_mask);
- 	new_mems = node_states[N_MEMORY];
+Applied, thanks!
+
+[1/2] soc: fsl: dpio: Fix cleanup on IRQ registration failure
+      commit: 899559907f9d8bce0720f6d4336b2871e83957ae
+[2/2] soc: fsl: dpio: Free the IRQ before releasing the I/O object
+      commit: c4ddf1eb1d321e40d82fb89d34b61edb3f927198
+
+Best regards,
 -- 
-2.55.0
-
+Christophe Leroy (CS GROUP) <chleroy@kernel.org>
