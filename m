@@ -1,170 +1,176 @@
-Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr2-f33.google.com (mail-wr2-f33.google.com [74.125.225.97])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7C5954D09FB
-	for <linux-kernel@vger.kernel.org>; Mon,  5 Oct 2026 15:48:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.251.105.195
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 001D74C10C0
+	for <linux-kernel@vger.kernel.org>; Mon,  5 Oct 2026 15:49:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.97
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791215315; cv=none; b=Voylu60C3G0I/HDkhm58gnlNYr0ZbafutDRla5EzqZJBgiMyt3twpZYhYyqTiNshLZjVAyM2tqr9BwqMasjhuGNiUMTJ+UW/CcKFtkhlia6kRwc4OMp1qLZEAZjdWfeoc7MovdRb67jdbmCzZxEETzBVxw+S+VE1A2DHrpfIkVU=
+	t=1791215352; cv=none; b=hgzIGAgI6bwMyIiJPWWiz981vV3wo1+MGiZwHCBkiqvo3pJ9uHI7Wf38jooJLT4ppsC981isV4+8gqWcvCxLgrjHGyPV+O/i9TKvJFsF+yW/RSk6Li1DZpTMT4aXqO06MGOyMuliSF4Syek4EAxpkIkPij5ShSA5CUaaYN77FBo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791215315; c=relaxed/simple;
-	bh=s9oZ2zVxhNcUAC1WPQkD6zpHTkJ3iYRAqKqgEgNsA98=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=HMFiK25L8dq2f8mbp9rCFiFlJGuOMws9rPrxKU5BtJ3tPHh3Eb1xp3khLu5RfbcvQ9ycuJ7Glo5hXKDbFp2AfcItaf2RrcFgMXS/v8xmFwdSDP4b6sEpYSCXK0MsumBy9N5+RMYRcErta3jW0y+0Ik2G3B0YnfMCqYd9z9L8qr8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=SyU2QJaY; arc=none smtp.client-ip=148.251.105.195
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+	s=arc-20240116; t=1791215352; c=relaxed/simple;
+	bh=86vd1ZJmIRtc6IXUtGVaQflwbbFOYMvM7RqGwkiQTyQ=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=JMp3y+8+lmA4/ERn3OSxOHE+GAUr3TUkVCkD9GeDrdH6kaPiHfpgMZ8cPayjH7xgjojaC/pBo9Mv4xNVa5ZaNURPmHzUt4GEtTAHO5sdQPfonWSx/wKHYLCuwcFaoSqdPciNnY1WDCor9HWqvTINHB+xQyh0hOQXZn83DRsdXIg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=kGIhMdOO; arc=none smtp.client-ip=74.125.225.97
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="SyU2QJaY"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
-	s=mail; t=1791215311;
-	bh=s9oZ2zVxhNcUAC1WPQkD6zpHTkJ3iYRAqKqgEgNsA98=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
-	b=SyU2QJaY5ctWOGIpsxSJ0srXy/lznwOxng9YzETQ+yGldPAjWnBj2w0+eNaAfHHDU
-	 7Y5m3FCX96jsFz8n7UkoQn5coIo8D9nOcZJQReX9jdnQ510Lj8onFfNIq+RoLAkad6
-	 sG1jKm2KqZq4NzuKkhtMM0kgKXHpezI5I4kNTawIytgBBLQagmjz1ZNfs/l7w9X6As
-	 HKpLpOVsOR/L6xdO4YXq2UPprZ5Plc6uqvjrezMsgyE/S38s54YBdh/XwaytYtaAy+
-	 4QcUhASfQpF6dShs0/WDFBM7+orrHLITkUFv7VeCBLC1jR2iX3a6fnP+1tQCa38MyU
-	 RtKCPNc3Yc1GQ==
-Received: from fedora-61.home (unknown [100.64.0.11])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange secp256r1 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	(Authenticated sender: bbrezillon)
-	by bali.collaboradmins.com (Postfix) with ESMTPSA id 07DD817E043C;
-	Mon, 05 Oct 2026 17:48:30 +0200 (CEST)
-Date: Mon, 5 Oct 2026 17:48:27 +0200
-From: Boris Brezillon <boris.brezillon@collabora.com>
-To: Steven Price <steven.price@arm.com>
-Cc: Liviu Dudau <liviu.dudau@arm.com>, =?UTF-8?B?QWRyacOhbg==?= Larumbe
- <adrian.larumbe@collabora.com>, Akash Goel <akash.goel@arm.com>, Maarten
- Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard
- <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, David Airlie
- <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 4/5] drm/panthor: Actually check huge-page mapping on
- sparse regions
-Message-ID: <20261005174827.4541b816@fedora-61.home>
-In-Reply-To: <5b0254d0-1be2-4dad-b6ce-368d341dd319@arm.com>
-References: <20260924-panthor-fix-partial-unmap-v2-0-59a68a1f9e14@collabora.com>
-	<20260924-panthor-fix-partial-unmap-v2-4-59a68a1f9e14@collabora.com>
-	<678b9346-a53d-49bd-9c90-fa63e6c81169@arm.com>
-	<20261005135312.43d132cf@fedora-61.home>
-	<5b0254d0-1be2-4dad-b6ce-368d341dd319@arm.com>
-Organization: Collabora
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="kGIhMdOO"
+Received: by mail-wr2-f33.google.com with SMTP id ffacd0b85a97d-48c54d65743so1195943f8f.1
+        for <linux-kernel@vger.kernel.org>; Mon, 05 Oct 2026 08:49:10 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791215349; x=1791820149; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=xDA7SE8Bs6IcBW2j1ppM+dM+f01g1/9YMIx6NP+5lIU=;
+        b=kGIhMdOODplxYSfKL1lo23U1KWeyPNRYHtFK7Fsl8PtSzaVOgXJ+DUn2Ju7wcPx+gH
+         FQ/0ER2YHiAHGW6i320V9MIdpqST5ZJZDfmIg6wbWQLB1HCyDPHk+5Yq3PL8KdQWWNx0
+         ipythfc3VEv4zIhFeI24BsR2P+H156RZM6td8ISyMx5BfbEqq58vxWG+GfLYVynUwDsi
+         sErL0z4mdj2ukZQb7YFG8ixxx1RasBi/whWEubuxs5D7BUSeJWvFKHnI39UXZa6r839o
+         SLZZ+n8uXZv3ygNlCLMDMDMFttAqPHTy9pnaeOo/ro6pbZqjMuCcbYntw9unpvGh343S
+         Jc8Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791215349; x=1791820149;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=xDA7SE8Bs6IcBW2j1ppM+dM+f01g1/9YMIx6NP+5lIU=;
+        b=nMnZg/65XPFu1AgdSCALzmOQmMTg9kQ9fPOI2jVSvssktLlbtu1CuXzuO50tXvoIE5
+         6yWhBhMqPJO/R6dN2dhQLq/bDG1Us/bjWPNOfO7RKJiteHXMX9MNqza6T7Prvf9va3yU
+         KsBgTkvfuPji5LSHvZFzYF5REl8reXMjMc51eK8zpj+D0ahCcIt+9aiENV7oQMx6hvfQ
+         gqJDPt3MG6oJWFaWD6GeDnRaFe4aT9PSeKDAdaU5VhupjQZnYovkjdAub9M9YK6hg/8i
+         Z8afZx4tKCAPQ87+l+yJJS4fhobsdNsNIonqpwO8qkMKDg5vQfcdLaBAMs7KIFDJlPFV
+         qbMQ==
+X-Forwarded-Encrypted: i=1; AKwUvBx4Wul6zEgsmdILQ3mtENR0x9E63QLA95rs14ra6gyMyNUB06wjfDhxqAAtqR6QoBYuz3WXZtSt2nNris0=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKOfFXPc4cZIkgxhAzSGiAZhK0dVeBsQImhIba5evgQTGA8cE6k
+	a95OkjuMj1rkRKDks8BIBTqNg0KyYjqnbOYa/wAJq1CmZXUe22rI5RKO
+X-Gm-Gg: AYBFou0Rw00SzYO1/rzZvwjwhz2+/x2II0aurNz5XKeeY8rpTJGggsrmxznYPjEZluA
+	qe6dAZlEdjWqvVy7RZsG/bquie3lMkqBzvc+/KKxTvP90Ne+uXKgHNuQr0uuQcDSbN0KpU3PBdq
+	XFyxLuBO1zQXElyyia1J2ZYaI85SgQtAwNy6c6IYIjCQoRB7ieRTRJgjesh8eWRRjymF1G38ej7
+	D/z3V2PaOyoAYloioD02DbLoETlScp23VA79sSIxNenRYemVpjZBbPCuADRY3APJLnvQukFFQ/M
+	aiIitfX8kkup6vPf0rKkIPeamp5+z2MSTYpKmF7YGNghtZ9tcWk61eYotrWN24YTPNx4zO6Ezgz
+	/vQrikl70VqAGP06IDjaisRPtsrshDi64iFbssNNySeZczLt7r4n/J7e1DXgB/f2KactfZBEDjU
+	UR+9V0JCnmeHuqEwfQ47AtJvG5IMX/1R1iwhpPtJaG4y0Gu/evxAenwE34zryW9esmklvEMcbCg
+	vGHpatqjBT6RKGYri9V3XVeU7SzXOcuQWRKdJ1rjFT/PX5rFIa+lmxvdR2iGJvB9WlpEpbUBUGM
+	I1UqjQEo
+X-Received: by 2002:a5d:5f42:0:b0:487:27f9:82f with SMTP id ffacd0b85a97d-48b1271aaa4mr19605297f8f.36.1791215348860;
+        Mon, 05 Oct 2026 08:49:08 -0700 (PDT)
+Received: from iku.Home ([2a06:5906:61b:2d00:19ee:7722:1d2a:b728])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48c622704c1sm3714976f8f.10.2026.10.05.08.49.07
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 05 Oct 2026 08:49:08 -0700 (PDT)
+From: Prabhakar <prabhakar.csengg@gmail.com>
+X-Google-Original-From: Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+To: Yoshihiro Shimoda <yoshihiro.shimoda.uh@renesas.com>,
+	Vinod Koul <vkoul@kernel.org>,
+	Neil Armstrong <neil.armstrong@linaro.org>,
+	Manivannan Sadhasivam <mani@kernel.org>,
+	Geert Uytterhoeven <geert+renesas@glider.be>,
+	Magnus Damm <magnus.damm@gmail.com>
+Cc: linux-renesas-soc@vger.kernel.org,
+	linux-phy@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	Prabhakar <prabhakar.csengg+renesas@gmail.com>,
+	Biju Das <biju.das.jz@bp.renesas.com>,
+	Fabrizio Castro <fabrizio.castro.jz@renesas.com>,
+	Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>,
+	Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+Subject: [PATCH] phy: renesas: rcar-gen3-usb2: Keep OTG VBUS disabled until role is known
+Date: Mon,  5 Oct 2026 16:48:41 +0100
+Message-ID: <20261005154841.168047-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On Mon, 5 Oct 2026 16:31:09 +0100
-Steven Price <steven.price@arm.com> wrote:
+From: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
 
-> On 05/10/2026 12:53, Boris Brezillon wrote:
-> > On Mon, 5 Oct 2026 12:03:26 +0100
-> > Steven Price <steven.price@arm.com> wrote:
-> >   
-> >> On 24/09/2026 12:04, Boris Brezillon wrote:  
-> >>> With the recent changes to iova_mapped_as_huge_page(), the check for
-> >>> huge-page mapping of sparse BOs is actually simple:
-> >>>
-> >>> - for a sparse mapping, we know the BO offset any VA in this regions is
-> >>>   va & (SZ_2M - 1)
-> >>> - the VA we're searching the BO offset for is the 2M-aligned
-> >>>   aligned_va value
-> >>>
-> >>> This guarantees that the BO offset to check is always zero in that case.
-> >>>
-> >>> This is simple enough to let the code check if page 0 is a huge page
-> >>> and save the unmap+map dance when the dummy BO is not backed by a
-> >>> a huge page. So let's do that and kill the comment that says it's too
-> >>> complicated.
-> >>>
-> >>> Reviewed-by: Liviu Dudau <liviu.dudau@arm.com>
-> >>> Reviewed-by: Akash Goel <akash.goel@arm.com>
-> >>> Signed-off-by: Boris Brezillon <boris.brezillon@collabora.com>    
-> >>
-> >> In itself I can't see anything wrong with this change, so:
-> >>
-> >> Reviewed-by: Steven Price <steven.price@arm.com>
-> >>
-> >> However...
-> >>  
-> >>> ---
-> >>>  drivers/gpu/drm/panthor/panthor_mmu.c | 15 ++++++++-------
-> >>>  1 file changed, 8 insertions(+), 7 deletions(-)
-> >>>
-> >>> diff --git a/drivers/gpu/drm/panthor/panthor_mmu.c b/drivers/gpu/drm/panthor/panthor_mmu.c
-> >>> index d2897099763e..01564d250adf 100644
-> >>> --- a/drivers/gpu/drm/panthor/panthor_mmu.c
-> >>> +++ b/drivers/gpu/drm/panthor/panthor_mmu.c
-> >>> @@ -2337,18 +2337,18 @@ iova_mapped_as_huge_page(struct drm_gpuva *mapping, u64 va)
-> >>>  
-> >>>  		return false;
-> >>>  	} else {
-> >>> -		const struct page *pg = bo->backing.pages[bo_offset >> PAGE_SHIFT];
-> >>>  		struct panthor_vma *vma = container_of(mapping, struct panthor_vma, base);
-> >>>  		bool is_sparse = vma->flags & DRM_PANTHOR_VM_BIND_OP_MAP_SPARSE;
-> >>> +		const struct page *pg;
-> >>>  
-> >>> -		/* If the unmapped VMA stands for a sparse mapping, always
-> >>> -		 * assume the backing storage is a THP, since the overhead of
-> >>> -		 * unmapping 2MiB worth of 4KiB pages and remapping some of
-> >>> -		 * them is offset by the logic of working out whether it's
-> >>> -		 * the opposite case right below.
-> >>> +		/* BO offset on a sparse mapping is chosen so that 2M-aligned
-> >>> +		 * VAs point to the start of the BO. Since aligned_va (the
-> >>> +		 * address we check huge-page against) is 2M-aligned, the BO
-> >>> +		 * offset is guaranteed to be zero.
-> >>> +		 * Check panthor_fix_sparse_map_offset() for more details.
-> >>>  		 */
-> >>>  		if (is_sparse)
-> >>> -			return true;
-> >>> +			bo_offset = 0;
-> >>>  
-> >>>  		/* In case of shmem backing, we know we can only have a huge
-> >>>  		 * mapping if the bo_offset is 2M aligned, meaning we can skip
-> >>> @@ -2357,6 +2357,7 @@ iova_mapped_as_huge_page(struct drm_gpuva *mapping, u64 va)
-> >>>  		if (!IS_ALIGNED(bo_offset, SZ_2M))
-> >>>  			return false;
-> >>>  
-> >>> +		pg = bo->backing.pages[bo_offset >> PAGE_SHIFT];
-> >>>  		return folio_size(page_folio(pg)) >= SZ_2M;    
-> >>
-> >> ... this seems like it could be problematic. On the mapping side we use
-> >> the scatter list to decide whether the region is huge page mapped or
-> >> not. The scatter list code can merge segments that are contiguous (see
-> >> pages_are_mergeable()), so if we have a region which has small folios we
-> >> fail this check even though the pages might have been mapped as huge pages.
-> >>
-> >> This is a problem on the non-sparse path as well (hence not really
-> >> related to this patch). I'm not really sure how to test this though - I
-> >> may well have overlooked something here.  
-> > 
-> > So, this is based on the assumption that shmem backing is allocated
-> > with the buddy allocator, and because of how this allocator splits
-> > bigger order blocks to service smaller allocations, it's my
-> > understanding that two consecutive folios of the same size/order can't
-> > be physically contiguous.  
-> 
-> Yes, you'd expect the buddy allocator to combine the folios back into a
-> larger one if they were contiguous. I guess we should be safe, at least
-> for now. I still feel it's unnecessarily fragile and complex trying to
-> work out whether we've mapped as a huge page or not. But I don't
-> actually have a better solution at the moment, and this series is at
-> least improving things. I'll put it on my todo list to look at later.
+Prevent the OTG PHY from driving VBUS during probe, as the port role has
+not yet been determined and doing so can back-power an external host.
 
-One way to make that consistent would be to have the same logic on the
-map_pages() side, where we'd use the pages array to check for physical
-contiguity in addition to the dma_addr/size-based checks we already
-have. This being said, this might be moot if we consider moving to
-our own PT implementation with full sub-tree updates (see how [1]
-doesn't have a get_pgsize() anymore). In the meantime, I can add a
-comment explaining the assumptions at play here.
+Keep the regulator enabled while disabling its physical VBUS output until
+the port role is established. If disabling the hardware output fails,
+release the regulator reference to avoid leaving the regulator enabled
+after probe fails.
 
-[1]https://gitlab.freedesktop.org/bbrezillon/linux/-/commits/b4/panthor-part-ways-with-iopgtbl?ref_type=heads
+Rename the regulator helper to reflect that it acquires the regulator
+without enabling its physical VBUS output.
+
+Signed-off-by: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+---
+ drivers/phy/renesas/phy-rcar-gen3-usb2.c | 26 +++++++++++++++++-------
+ 1 file changed, 19 insertions(+), 7 deletions(-)
+
+diff --git a/drivers/phy/renesas/phy-rcar-gen3-usb2.c b/drivers/phy/renesas/phy-rcar-gen3-usb2.c
+index b5ba751805aa..08db619a43a0 100644
+--- a/drivers/phy/renesas/phy-rcar-gen3-usb2.c
++++ b/drivers/phy/renesas/phy-rcar-gen3-usb2.c
+@@ -1114,8 +1114,8 @@ static void rcar_gen3_phy_usb2_vbus_disable_action(void *data)
+ 	regulator_disable(vbus);
+ }
+ 
+-static int rcar_gen3_phy_usb2_vbus_regulator_get_exclusive_enable(struct rcar_gen3_chan *channel,
+-								  bool enable)
++static int rcar_gen3_phy_usb2_vbus_regulator_get_exclusive(struct rcar_gen3_chan *channel,
++							   bool acquire)
+ {
+ 	struct device *dev = channel->dev;
+ 	int ret;
+@@ -1133,15 +1133,27 @@ static int rcar_gen3_phy_usb2_vbus_regulator_get_exclusive_enable(struct rcar_ge
+ 		return 0;
+ 	}
+ 
+-	if (enable) {
++	if (acquire) {
+ 		ret = regulator_enable(channel->vbus);
+ 		if (ret)
+ 			return ret;
+ 	}
+ 
+-	if (regulator_is_enabled(channel->vbus))
++	if (regulator_is_enabled(channel->vbus)) {
++		/*
++		 * The internal regulator is enabled above only so that the regulator
++		 * core holds a reference to it. Do not drive VBUS until the port's
++		 * role is known; rcar_gen3_enable_vbus_ctrl() switches it from then on.
++		 */
++		ret = regulator_hardware_enable(channel->vbus, false);
++		if (ret) {
++			regulator_disable(channel->vbus);
++			return ret;
++		}
++
+ 		return devm_add_action_or_reset(dev, rcar_gen3_phy_usb2_vbus_disable_action,
+ 						channel->vbus);
++	}
+ 
+ 	return 0;
+ }
+@@ -1151,7 +1163,7 @@ static int rcar_gen3_phy_usb2_vbus_regulator_register(struct rcar_gen3_chan *cha
+ 	struct device *dev = channel->dev;
+ 	struct regulator_config rcfg = { .dev = dev, };
+ 	struct regulator_dev *rdev;
+-	bool enable = false;
++	bool acquire = false;
+ 
+ 	rcfg.of_node = of_get_available_child_by_name(dev->of_node,
+ 						      "vbus-regulator");
+@@ -1165,10 +1177,10 @@ static int rcar_gen3_phy_usb2_vbus_regulator_register(struct rcar_gen3_chan *cha
+ 					     "Failed to create vbus-regulator\n");
+ 
+ 		channel->otg_internal_reg = true;
+-		enable = true;
++		acquire = true;
+ 	}
+ 
+-	return rcar_gen3_phy_usb2_vbus_regulator_get_exclusive_enable(channel, enable);
++	return rcar_gen3_phy_usb2_vbus_regulator_get_exclusive(channel, acquire);
+ }
+ 
+ static int rcar_gen3_phy_usb2_probe(struct platform_device *pdev)
+-- 
+2.55.0
+
