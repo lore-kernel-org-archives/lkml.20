@@ -1,310 +1,305 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj1-f51.google.com (mail-pj1-f51.google.com [209.85.216.51])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CDCDF4D90DE;
-	Mon,  5 Oct 2026 17:16:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ADAE84DF4B4
+	for <linux-kernel@vger.kernel.org>; Mon,  5 Oct 2026 17:16:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.51
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791220575; cv=none; b=KC7+nz2b4AJaoc9cW4cmaZFf4K7v+9x1lXUcTKeI+ufuLR4z8SwjEyPyDBb95v5dl19CSKNgJzrlWKW6x8gmQWRMFTnziQS3lzKV08TPYL2RUE1eMMaNGTDOB/ZhaaGqLWQtaRu+ZaaED18bsjzGzrlmwiLyfKoE992Oop18ZVE=
+	t=1791220578; cv=none; b=c0IMnWorlgx2D6cvFjKSGWn5L/Y7VQiqfIQ9m4KuYsX26/2lpk+rfCJ7oytsobcVR+R/MMuNiObQing1HDGnbPof1ZOsS7i9884SIksAkCpvqFceavFthXIrrf+Jz3LlUgj+p5ZDuRwzM4MCbqmbUjwAvHUi5M2tNBxYrkhgbkQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791220575; c=relaxed/simple;
-	bh=WX/7UlzNPZyY5LZqYAmovxqpm7JL4YPistaGCcwSJek=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=b8TUSs0bzX++sXmn1orLOnwTFxh7rGhuBNmOABFf2FQI5b7Y1WGD2bC5YzziIrqmi29NAKKDrHDBx996j5t0BUnnNru5WfiFOLBw9ATP9UYy7IOyK2IL++92L4O3415LfcXXDYmDbAOWEmf313mqWxDJvzExUfaIEc7NegWyIXY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=a+Vh6oGP; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791220578; c=relaxed/simple;
+	bh=LfZ5/lSdai4qmcULNQ0sZLI2MsuRTJuBplORHvku1dE=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=lDDozvBZgEvLEoqzsaC5In04KrR0OlbTol5IsYl0N73pimMLs8D28vzxGMzp24DZye9u9E2pbJzog0x2gi5cd8tG0aonspIgTZ/mlgY9tngYh2pZ0Iscqb24wW+xQKooy8gmmhto8LGRTouu5C+E0r0OkQd7A2N37u3sCdc+j+w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=GV0Gh6fA; arc=none smtp.client-ip=209.85.216.51
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="a+Vh6oGP"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 23A061F000FF;
-	Mon,  5 Oct 2026 17:16:09 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791220573;
-	bh=veFGkuCJHr2qLBukOS4BoWp/zHJhP3HQl60FbCT/Sn4=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=a+Vh6oGPHAAk8NEQd/BfZeB1hvLhoZAVrFLSDTKJTs2vfL5CGJ4qphDO+dsvnngkU
-	 DqtSf+JdwUbbDZKXna/PsqO+dIwYdJOl4jtjHcV/tcBC1eeaMuMLIQwL9aATWO9p75
-	 1PmpV60F5bip3ghk4hY8z9QuluuI/vitQ0ixFx0S+swpayEKs0nrHdsJkPBehUobS3
-	 t+Qj5S5lReT2Sa41d/sR886BU3ZtqiQFON2boHj4iREy5MfKnXP8rbWLCQadGwl7Wk
-	 rUGVcA095prQ6zpFUCLTFVLW+75ycTMYswS2vNX0FRZUB5wY0WRpZb2OVKDaF1ZiKc
-	 FM8tHk8pYwowg==
-From: bod@kernel.org
-Date: Mon, 05 Oct 2026 19:13:39 +0200
-Subject: [PATCH 09/74] media: uapi: Add CAMSS ISP configuration definition
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="GV0Gh6fA"
+Received: by mail-pj1-f51.google.com with SMTP id 98e67ed59e1d1-3a80d1c98f5so815579a91.0
+        for <linux-kernel@vger.kernel.org>; Mon, 05 Oct 2026 10:16:16 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791220576; x=1791825376; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=HaUov767om1ufidMBuv+Qa8IE9x5ePpDXkwVM9ozpyI=;
+        b=GV0Gh6fA3xe81BoLIjJ5x8qfv4Tq4+ZBfVb+9dcQnRuWDWr04LMlzhUV6dzNTgoXvA
+         6ibd8NZ5ee8H+3y+7g0YOR08PWSCkj7UPEeJfANL3iosLKyvX+Zf6gumjpv17uP0Mgam
+         rdQn+iPWBzLVJI9Lg2AkYF0NDNJBrnPgGevESJGTynQTZGXjjRvXhMkBc/BJf51dGlrk
+         VcIQvNmS3HbVkzjYi7m52WTGUTaO2okjTzs8qw4Jf8Xyh+LAriBayO6Tb0v5sST5O7dP
+         ZOjXVbiSeXfFiX6YXk36FKzJsR4OmwadjQdD7+OCb8zz4n8Y6DqyX9liGTKTOZzw1R8x
+         6PHA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791220576; x=1791825376;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=HaUov767om1ufidMBuv+Qa8IE9x5ePpDXkwVM9ozpyI=;
+        b=HTHwhl1gNAJ0VbzPoa/Osjfq/REgXXhvdgRoTn9pMTPvNn8y30yChxxbJmwjDWnq7E
+         zjlyE3w/kBheeaz82PXFQnoBWPdm9mgy9SjNgPewaG7bSYwwY8tioBsvrFYVi36FlyJc
+         mdUMM1vTcJ9HVZhaa3IfSE3IGzV4oMDxuxY4RAhciGiuDu8cf5Njgoxrzf7WDfprASTe
+         V8rsMEJqBp/pTQLlPwnYN7Azk0x7v9JaeqJzD8WH6ypNNs9faTMtZPdJcHiFh0jHHZIs
+         9UvmoEzp7Szg8rOBWLMBNbotkmU2XsDk8GJf+nKjN2iNWQM9jV8u3P9y5JTuWoQeN4zU
+         r40A==
+X-Forwarded-Encrypted: i=1; AKwUvBwOAc8DuVS0hQczwtvvgyrPwf+qp0GPhw8Hbxw98ZUPIYAmZambb5GNVQErYfRVl9GCFb/si61ySVRXWqc=@vger.kernel.org
+X-Gm-Message-State: AFq9FYL+iVPfIYl5XgHhx44n9wxLLhEpSucdQtXyFDcUCTc9fh2T6KZj
+	CiPJhVmxCapmL/ip08emmh2x81Dgb0Ydeho+9BQre7d3wJyUUzz2xJ75
+X-Gm-Gg: AYBFou2DeQunTprpSJKWnNVRiyDxtaKhv87yBiQHRak5j4yWYCth91FJVPQZBmX6Vov
+	W0IdTFbilP8WAYoy3D0pLRkuzoUjTrg1HCXYh0sKp+IqKksgPjWG49aTitm5cDkOexoU8k7tYqz
+	KrjpDBsx7NEtVfj303FG7MOYdIhYxtzSgtcvAHodFpJgNCiZgJk4J+yPuTkY6Mnit0OHQT0rK9f
+	1wsvYLewhFinrVTju2RvOAMRt9pvOXRWvaXQV30fE7eH7lfiv5L1BU3eR9cKiFmEFXB5t4IhiQN
+	Qh+ATeDGgeI3rudI32bD0tkG4GReY75kU40LYlovWfkpp0UwoSOyyLcudjKDs94SZVQoVRc0nF6
+	mxUV77rUGiwh037VK6QKxYA2hINlnTt8eGgNvrBqdBzdsVgDr3eehMzSu0mlVHCPg7FrtMtZrif
+	BW0BrSJVphnTG+0z7s4LP0b7upbph7rGCDA15fanGPBUtL0UJyiJDmLF+HokI99Uuxx/mCUgFBD
+	aQZm2FPtVHJtb4cpZzZJ1l9SB8V9g==
+X-Received: by 2002:a17:90b:4a48:b0:39e:4c81:6c5f with SMTP id 98e67ed59e1d1-3a7872b63bdmr7172810a91.26.1791220575398;
+        Mon, 05 Oct 2026 10:16:15 -0700 (PDT)
+Received: from kernel.tail6741c6.ts.net ([216.195.201.24])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a853cafddesm406910a91.10.2026.10.05.10.16.03
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 05 Oct 2026 10:16:14 -0700 (PDT)
+From: Kunwu Chan <kunwu.chan@gmail.com>
+To: paulmck@kernel.org,
+	corbet@lwn.net,
+	mingo@redhat.com,
+	frederic@kernel.org,
+	neeraj.upadhyay@kernel.org,
+	josh@joshtriplett.org,
+	urezki@gmail.com,
+	dave@stgolabs.net,
+	lianux.mm@gmail.com
+Cc: stern@rowland.harvard.edu,
+	parri.andrea@gmail.com,
+	will@kernel.org,
+	peterz@infradead.org,
+	boqun@kernel.org,
+	npiggin@gmail.com,
+	dhowells@redhat.com,
+	j.alglave@ucl.ac.uk,
+	luc.maranget@inria.fr,
+	akiyks@gmail.com,
+	dlustig@nvidia.com,
+	joelagnelf@nvidia.com,
+	skhan@linuxfoundation.org,
+	rdunlap@infradead.org,
+	longman@redhat.com,
+	rostedt@goodmis.org,
+	mathieu.desnoyers@efficios.com,
+	jiangshanlai@gmail.com,
+	qiang.zhang@linux.dev,
+	kunwu.chan@gmail.com,
+	brads@mainlining.org,
+	linux-kernel@vger.kernel.org,
+	linux-arch@vger.kernel.org,
+	lkmm@lists.linux.dev,
+	linux-doc@vger.kernel.org,
+	rcu@vger.kernel.org,
+	linux-kselftest@vger.kernel.org
+Subject: [PATCH RFC v3 02/15] hazptr: use Bloom filter for shared scan waiters
+Date: Tue,  6 Oct 2026 01:15:16 +0800
+Message-ID: <20261005171529.1378809-3-kunwu.chan@gmail.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20261005171529.1378809-1-kunwu.chan@gmail.com>
+References: <20261005171529.1378809-1-kunwu.chan@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Message-Id: <20261005-linux-mainline-7-2-sm8650-hdk-rfc-0-v1-9-ed985aefd611@kernel.org>
-References: <20261005-linux-mainline-7-2-sm8650-hdk-rfc-0-v1-0-ed985aefd611@kernel.org>
-In-Reply-To: <20261005-linux-mainline-7-2-sm8650-hdk-rfc-0-v1-0-ed985aefd611@kernel.org>
-To: Bryan O'Donoghue <bryan.odonoghue@linaro.org>, 
- Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>, 
- Loic Poulain <loic.poulain@oss.qualcomm.com>, 
- Mauro Carvalho Chehab <mchehab@kernel.org>, 
- Jacopo Mondi <jacopo.mondi@ideasonboard.com>, 
- Daniel Scally <dan.scally@ideasonboard.com>, Keke Li <keke.li@amlogic.com>, 
- Richard Acayan <mailingradian@gmail.com>, 
- Hans Verkuil <hverkuil@kernel.org>, 
- Gjorgji Rosikopulos <quic_grosikop@quicinc.com>, 
- Radoslav Tsvetkov <quic_rtsvetko@quicinc.com>, 
- Robert Foss <rfoss@kernel.org>, Milen Mitkov <quic_mmitkov@quicinc.com>
-Cc: linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
- linux-kernel@vger.kernel.org, Bryan O'Donoghue <bod@kernel.org>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=8540; i=bod@kernel.org;
- h=from:subject:message-id; bh=hsUT8SGygLRjym6lXKe3jSuVqlzN+37plgukrihEslk=;
- b=owEBbQKS/ZANAwAKASJxO7Ohjcg6AcsmYgBqw9sHfK2s7O8BR2OmVotfDSkEHQnDxVF2b4yqM
- D4E5tzsIIGJAjMEAAEKAB0WIQTmk/sqq6Nt4Rerb7QicTuzoY3IOgUCasPbBwAKCRAicTuzoY3I
- OisBD/9p4VoIq1vG4fIjIN13bJ0ub0io+qzC4iFtzw+dX1WYZxCyOlaieXvk4lR0uoRQU86fIsT
- 0BPGfP2bAolmDOwZIO49t6tkwDYG0QfBd1q0/8dDYe2SfsZ9jafmshxV0Yp/I9HZEX9Ab1DOYvD
- Fg7bh2vSOjopii1EAt6ii+eKz32pjLu6DD9X+Ac27S8XLS0e/7pSf8r/sfL0fK9ZYEnfmDg99b3
- VJikeSq6mUYKmfXCDtIkJvjBMZkvs8BchVmaJhrv28Qe6yx68E02cLPJ7m5Qrc2dHWogrw+s8CP
- Kzuj6FXTOgIx6cqsd4y79+JjyZNut3fpVhYQmvW5EBn2sDe0eyQA0iukaWOCqDikIUrBZOBqvK6
- iEb8pE/2jbMH3mJ6kiM3GDsm4syvbk71mygEF6Mc28d0F/LqvDNHD4GMjEirMLGufNEgCNtswV/
- m+TINijqUpdTFOewa360tZ4KLG/M0ePnC5WzNhpuXiGV1wWBaay9dgpkimoz4aFJQgzPW25sSYN
- 6K9lOq7aFO+fHJkutZj8MKMSc3QC4G6Nq5NcfMVhYcmoGrT5tQuHDDU3izPI1YG1aJzV6j21s8w
- J9xLxw1tPKY/i640nKhMF2l7/a1sKwoZOT2xosSOpnImOV54pvvVWPppRBSnmze+Lw0Fk9sZpxt
- M2OVyvcEO7+DDyw==
-X-Developer-Key: i=bod@kernel.org; a=openpgp;
- fpr=E693FB2AABA36DE117AB6FB422713BB3A18DC83A
 
-From: Loic Poulain <loic.poulain@oss.qualcomm.com>
+Replace the per-waiter exact-match scan with a shared Bloom filter
+built during the second drain pass: each observed non-wildcard
+address sets three bits, so a waiter whose address hashes to an
+unset bit can be completed without another slot walk.
 
-Add the uapi header qcom-camss-config.h defining the ISP parameter
-structures used by the CAMSS Offline Processing Engine (OPE) driver.
-This includes structures for white balance, chroma enhancement and
-color correction configuration.
+A Bloom filter has no false negatives, so an address absent from
+the final drain scan cannot be held by an observed slot; false
+positives only delay completion to a later scan cycle.
 
-The block type enum is shared across CAMSS ISPs so that userspace only
-has to deal with a single set of block identifiers.
+The filter uses a one-page bitmap with three multiply-shift hash
+functions.  It lives in the hazptr_scan_state and is only touched
+by the scan kthread, so waiter state remains on the caller's stack
+and no dynamic allocation is needed.
 
-Signed-off-by: Loic Poulain <loic.poulain@oss.qualcomm.com>
+Suggested-by: Boqun Feng <boqun@kernel.org>
+Signed-off-by: Kunwu Chan <kunwu.chan@gmail.com>
 ---
- include/uapi/linux/qcom-camss-config.h | 212 +++++++++++++++++++++++++++++++++
- 1 file changed, 212 insertions(+)
+ kernel/hazptr.c | 93 +++++++++++++++++++++++++++++++++++++++++++------
+ 1 file changed, 83 insertions(+), 10 deletions(-)
 
-diff --git a/include/uapi/linux/qcom-camss-config.h b/include/uapi/linux/qcom-camss-config.h
-new file mode 100644
-index 0000000000000..aa3d97cfcc78e
---- /dev/null
-+++ b/include/uapi/linux/qcom-camss-config.h
-@@ -0,0 +1,212 @@
-+/* SPDX-License-Identifier: GPL-2.0-only WITH Linux-syscall-note */
-+/*
-+ * Qualcomm CAMSS ISP Driver - Userspace API
-+ *
-+ * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
-+ */
+diff --git a/kernel/hazptr.c b/kernel/hazptr.c
+index 9e274a691af5..900ba35de2cb 100644
+--- a/kernel/hazptr.c
++++ b/kernel/hazptr.c
+@@ -7,6 +7,7 @@
+  */
+ 
+ #include <linux/hazptr.h>
++#include <linux/bitops.h>
+ #include <linux/percpu.h>
+ #include <linux/spinlock.h>
+ #include <linux/mutex.h>
+@@ -16,6 +17,7 @@
+ #include <linux/kthread.h>
+ #include <linux/swait.h>
+ #include <linux/sched.h>
++#include <linux/bitmap.h>
+ 
+ /*
+  * The current hazard pointer wildcard. Flips between 1UL and 2UL to guarantee
+@@ -213,6 +215,55 @@ void hazptr_scan_period(void *addr, void *scan_wildcard)
+ 	}
+ }
+ 
++/* Number of hash functions for the Bloom filter. */
++#define HAZPTR_BLOOM_HASHES 3
 +
-+#ifndef _UAPI_LINUX_QCOM_CAMSS_CONFIG_H
-+#define _UAPI_LINUX_QCOM_CAMSS_CONFIG_H
++/* Number of bits in the Bloom filter bitmap: one page. */
++#define HAZPTR_BLOOM_NBITS (PAGE_SIZE * 8)
 +
-+#include <linux/types.h>
-+#include <linux/media/v4l2-isp.h>
-+
-+/**
-+ * enum camss_params_block_type - CAMSS ISP parameter block identifiers
-+ *
-+ * Each value identifies one ISP processing block.  The value is placed in
-+ * the @type field of &struct v4l2_isp_params_block_header.
-+ *
-+ * @CAMSS_PARAMS_WB_GAIN: white balance gains and offsets (CLC_WB),
-+ *	&struct camss_params_wb_gain
-+ * @CAMSS_PARAMS_CHROMA_ENHAN: RGB to YUV colour transfer matrix
-+ *	(CLC_CHROMA_ENHAN), &struct camss_params_chroma_enhan
-+ * @CAMSS_PARAMS_COLOR_CORRECT: colour correction matrix (CLC_CC),
-+ *	&struct camss_params_color_correct
-+ * @CAMSS_PARAMS_GAMMA: per-channel gamma correction curves (CLC_GLUT),
-+ *	&struct camss_params_gamma
-+ */
-+enum camss_params_block_type {
-+	CAMSS_PARAMS_WB_GAIN = 1,
-+	CAMSS_PARAMS_CHROMA_ENHAN = 2,
-+	CAMSS_PARAMS_COLOR_CORRECT = 3,
-+	CAMSS_PARAMS_GAMMA = 4,
++struct hazptr_bloom {
++	unsigned long map[PAGE_SIZE / sizeof(unsigned long)];
 +};
 +
-+/* Number of entries in each gamma channel LUT. */
-+#define CAMSS_GAMMA_LUT_SIZE	256
-+
-+/**
-+ * struct camss_params_wb_gain - White Balance gains
-+ *
-+ * Implements the CLC_WB pipeline module.  The pipeline applies three
-+ * sequential operations per channel:
-+ *   1. Subtract sub-offset (black-level subtraction)
-+ *   2. Multiply by gain    (colour balance)
-+ *   3. Add add-offset      (output pedestal)
-+ *
-+ * Gains are 15uQ10 (15-bit unsigned, 10 fractional bits). Offsets
-+ * are 16-bit unsigned, normalised to full input scale (65535 = 1.0)
-+ *
-+ * @header:   block header; @header.type = CAMSS_PARAMS_WB_GAIN
-+ * @g_gain:   green channel gain (15uQ10, 1024 = 1.0)
-+ * @b_gain:   blue  channel gain (15uQ10, 1024 = 1.0)
-+ * @r_gain:   red   channel gain (15uQ10, 1024 = 1.0)
-+ * @g_sub:    green sub-offset, subtracted before gain (16u)
-+ * @b_sub:    blue  sub-offset, subtracted before gain (16u)
-+ * @r_sub:    red   sub-offset, subtracted before gain (16u)
-+ * @g_add:    green add-offset, added after gain (16u)
-+ * @b_add:    blue  add-offset, added after gain (16u)
-+ * @r_add:    red   add-offset, added after gain (16u)
-+ * @_pad:     padding for 64-bit alignment, must be zero
++/*
++ * Multiply @addr by a per-hash odd constant and use the high bits
++ * as the Bloom filter index.
 + */
-+struct camss_params_wb_gain {
-+	struct v4l2_isp_params_block_header header;
-+	__u16 g_gain;
-+	__u16 b_gain;
-+	__u16 r_gain;
-+	__u16 g_sub;
-+	__u16 b_sub;
-+	__u16 r_sub;
-+	__u16 g_add;
-+	__u16 b_add;
-+	__u16 r_add;
-+	__u16 _pad[3];
-+} __attribute__((aligned(8)));
++static unsigned long hazptr_bloom_hash(void *addr, unsigned int i)
++{
++	static const u64 mult[HAZPTR_BLOOM_HASHES] = {
++		0x9E3779B97F4A7C15ULL,
++		0xC2B2AE3D27D4EB4FULL,
++		0x165667B19E3779F9ULL,
++	};
++	u64 hash = (u64)(unsigned long)addr * mult[i];
 +
-+/**
-+ * struct camss_params_chroma_enhan - RGB to YUV colour transfer matrix
-+ *
-+ * Implements the CLC_CHROMA_ENHAN pipeline module. All coefficients are
-+ * signed 12-bit fixed-point Q3.8 (range roughly -8.0 to +7.996).
-+ *
-+ * RGB2Y - Luma (Y) coefficients
-+ * Y = v0 * R + v1 * G + v2 * B
-+ *
-+ * @luma_v0:  R-to-Y coefficient (12sQ8)
-+ * @luma_v1:  G-to-Y coefficient (12sQ8)
-+ * @luma_v2:  B-to-Y coefficient (12sQ8)
-+ * @luma_k:   Y output offset    (9s,  0 = no offset)
-+ *
-+ * RGB2Cb - Chroma (Cb) coefficients
-+ * Cb = a x ((B - G) + b(R - G)) + KCb
-+ * with:
-+ *   a = ap, when (B-G) + b(R-G) > 0; a = am, when (B-G) + b(R-G) ≤ 0;
-+ *   b = bp when (R-G) > 0; b = bm when (R-G) ≤ 0
-+ *
-+ * @coeff_ap: Cb positive coefficient (12sQ8)
-+ * @coeff_am: Cb negative coefficient (12sQ8)
-+ * @coeff_bp: Cb positive coefficient (12sQ8)
-+ * @coeff_bm: Cb negative coefficient (12sQ8)
-+ * @kcb:      Cb output offset        (11s)
-+ *
-+ * RGB2Cr - Chroma (Cr) coefficients:
-+ * Cr = c x ((R - G) + d(B - G)) + KCr
-+ * with:
-+ *   c = cp, when (R-G) + d(B-G) > 0; c = cm, when (R-G) + d(B-G) ≤ 0
-+ *   d = dp when (B-G) > 0; d = dm when (B-G) ≤ 0
-+ *
-+ * @coeff_cp: Cr positive coefficient (12sQ8)
-+ * @coeff_cm: Cr negative coefficient (12sQ8)
-+ * @coeff_dp: Cr positive coefficient (12sQ8)
-+ * @coeff_dm: Cr negative coefficient (12sQ8)
-+ * @kcr:      Cr output offset        (11s)
-+ *
-+ * @header: generic block header; @header.type = CAMSS_PARAMS_CHROMA_ENHAN
-+ * @_pad:   padding for 64-bit alignment, must be zero
-+ */
-+struct camss_params_chroma_enhan {
-+	struct v4l2_isp_params_block_header header;
-+	__u16 luma_v0;
-+	__u16 luma_v1;
-+	__u16 luma_v2;
-+	__u16 luma_k;
-+	__u16 coeff_ap;
-+	__u16 coeff_am;
-+	__u16 coeff_bp;
-+	__u16 coeff_bm;
-+	__u16 coeff_cp;
-+	__u16 coeff_cm;
-+	__u16 coeff_dp;
-+	__u16 coeff_dm;
-+	__u16 kcb;
-+	__u16 kcr;
-+	__u16 _pad[2];
-+} __attribute__((aligned(8)));
++	return hash >> (64 - ilog2(HAZPTR_BLOOM_NBITS));
++}
 +
-+/**
-+ * struct camss_params_color_correct - colour correction matrix
-+ *
-+ * Implements the CLC_CC pipeline module.  The matrix computes:
-+ *   Out_ch0 (G) = a0*G + b0*B + c0*R + k0
-+ *   Out_ch1 (B) = a1*G + b1*B + c1*R + k1
-+ *   Out_ch2 (R) = a2*G + b2*B + c2*R + k2
-+ *
-+ * @header:  block header; @header.type = CAMSS_PARAMS_COLOR_CORRECT
-+ * @a:       G-input coefficients per output channel (12s;
-+ *           a[0]=Out_G, a[1]=Out_B, a[2]=Out_R)
-+ * @b:       B-input coefficients (12s)
-+ * @c:       R-input coefficients (12s)
-+ * @k:       per-output-channel offsets (typically 9s effective)
-+ * @qfactor: Q-format selector (2u):
-+ *           0 = 12sQ7  (range ~-16.0 .. +15.992)
-+ *           1 = 12sQ8  (range  ~-8.0 ..  +7.996)
-+ *           2 = 12sQ9  (range  ~-4.0 ..  +3.998)
-+ *           3 = 12sQ10 (range  ~-2.0 ..  +1.999)
-+ * @_pad:    padding for 64-bit alignment, must be zero
-+ */
-+struct camss_params_color_correct {
-+	struct v4l2_isp_params_block_header header;
-+	__u16 a[3];
-+	__u16 b[3];
-+	__u16 c[3];
-+	__u16 k[3];
-+	__u16 qfactor;
-+	__u16 _pad[3];
-+} __attribute__((aligned(8)));
++static void hazptr_bloom_reset(struct hazptr_bloom *bloom)
++{
++	bitmap_zero(bloom->map, HAZPTR_BLOOM_NBITS);
++}
 +
-+/**
-+ * struct camss_params_gamma - per-channel gamma correction curves
-+ *
-+ * Implements the CLC_GLUT pipeline module, applied in the RGB domain.  It
-+ * holds one independent lookup table per colour channel. Each table is a
-+ * direct (not segmented) map of input level to output level.
-+ *
-+ * Each table has @CAMSS_GAMMA_LUT_SIZE (256) entries of 16-bit unsigned
-+ * output. The number of significant output bits follows the width of the
-+ * engine's internal bus; the upper bits are ignored by the hardware.
-+ *
-+ * The module maps a 12-bit input to an 8-bit output: the top 8 input bits
-+ * index the table and the low 4 bits are used to linearly interpolate
-+ * between adjacent entries. Entry i therefore represents the output for
-+ * input level i/255 of full scale.
-+ * Output range: 0x00 = black, 0xFF = white.
-+ *
-+ * How to fill a curve (same on all three channels for pure luminance
-+ * gamma; different curves per channel additionally shift colour balance):
-+ *
-+ *   Identity (pass-through, gamma 1.0):
-+ *     lut[i] = i;                                // i = 0..255
-+ *
-+ *   Encode with gamma g (e.g. sRGB-like, g = 2.2):
-+ *     lut[i] = round(pow(i / 255.0, 1.0 / g) * 255.0);
-+ *
-+ * @header:  block header; @header.type = CAMSS_PARAMS_GAMMA
-+ * @glut:    green channel gamma curve
-+ * @blut:    blue  channel gamma curve
-+ * @rlut:    red   channel gamma curve
-+ */
-+struct camss_params_gamma {
-+	struct v4l2_isp_params_block_header header;
-+	__u16 glut[CAMSS_GAMMA_LUT_SIZE];
-+	__u16 blut[CAMSS_GAMMA_LUT_SIZE];
-+	__u16 rlut[CAMSS_GAMMA_LUT_SIZE];
-+} __attribute__((aligned(8)));
++static void hazptr_bloom_add(struct hazptr_bloom *bloom, void *addr)
++{
++	unsigned int i;
 +
-+#define CAMSS_PARAMS_OPE_MAX_PAYLOAD		\
-+	(sizeof(struct camss_params_wb_gain)	+\
-+	 sizeof(struct camss_params_chroma_enhan)	+\
-+	 sizeof(struct camss_params_color_correct)	+\
-+	 sizeof(struct camss_params_gamma))
++	for (i = 0; i < HAZPTR_BLOOM_HASHES; i++)
++		__set_bit(hazptr_bloom_hash(addr, i), bloom->map);
++}
 +
-+#endif /* _UAPI_LINUX_QCOM_CAMSS_CONFIG_H */
-
++static bool hazptr_bloom_contains(const struct hazptr_bloom *bloom, void *addr)
++{
++	unsigned int i;
++
++	for (i = 0; i < HAZPTR_BLOOM_HASHES; i++)
++		if (!test_bit(hazptr_bloom_hash(addr, i), bloom->map))
++			return false;
++	return true;
++}
++
+ struct hazptr_waiter {
+ 	struct list_head node;
+ 	void *addr;
+@@ -226,17 +277,26 @@ struct hazptr_scan_state {
+ 	struct mutex lock;
+ 	struct list_head pending;
+ 	struct list_head scanning;	/* kthread only */
++	struct hazptr_bloom bloom;	/* kthread only */
+ };
+ static struct hazptr_scan_state hazptr_scan;
+ 
+ /*
+- * Check per-CPU slots before overflow-list slots to match the
+- * acquisition ordering of promoted slots.
++ * Walk all slots and return true if @watch is present.  If @bloom
++ * is non-NULL, record observed non-wildcard addresses in it.
++ *
++ * Per-CPU slots are examined before overflow-list slots on each CPU
++ * to preserve the acquisition ordering required by the promote path:
++ * synchronize must observe the per-CPU slot release before the
++ * overflow-list entry can be missed.
+  */
+-static bool hazptr_value_present(void *val)
++static bool hazptr_scan_walk(void *watch, struct hazptr_bloom *bloom)
+ {
+ 	int cpu;
+ 
++	if (bloom)
++		hazptr_bloom_reset(bloom);
++
+ 	for_each_possible_cpu(cpu) {
+ 		struct hazptr_percpu_slots *percpu_slots = per_cpu_ptr(&hazptr_percpu_slots, cpu);
+ 		struct hazptr_overflow_list_flip *overflow_list_flip = per_cpu_ptr(&percpu_overflow_list_flip, cpu);
+@@ -244,10 +304,14 @@ static bool hazptr_value_present(void *val)
+ 
+ 		for (idx = 0; idx < NR_HAZPTR_PERCPU_SLOTS; idx++) {
+ 			struct hazptr_slot_item *item = &percpu_slots->items[idx];
++			void *v;
+ 
+ 			/* Pairs with smp_store_release in hazptr_release(). */
+-			if (smp_load_acquire(&item->slot.addr) == val)
++			v = smp_load_acquire(&item->slot.addr);
++			if (v == watch)
+ 				return true;
++			if (bloom && v && !is_wildcard(v))
++				hazptr_bloom_add(bloom, v);
+ 		}
+ 		for (int i = 0; i < 2; i++) {
+ 			struct hazptr_overflow_list *list = &overflow_list_flip->array[i];
+@@ -256,11 +320,16 @@ static bool hazptr_value_present(void *val)
+ 
+ 			raw_spin_lock_irqsave(&list->lock, flags);
+ 			hlist_for_each_entry(b, &list->head, overflow_node) {
++				void *v;
++
+ 				/* Pairs with smp_store_release in hazptr_release(). */
+-				if (smp_load_acquire(&b->slot.addr) == val) {
++				v = smp_load_acquire(&b->slot.addr);
++				if (v == watch) {
+ 					raw_spin_unlock_irqrestore(&list->lock, flags);
+ 					return true;
+ 				}
++				if (bloom && v && !is_wildcard(v))
++					hazptr_bloom_add(bloom, v);
+ 			}
+ 			raw_spin_unlock_irqrestore(&list->lock, flags);
+ 		}
+@@ -276,7 +345,7 @@ static bool hazptr_value_present(void *val)
+  */
+ static void hazptr_drain_wildcard(void *wc)
+ {
+-	while (hazptr_value_present(wc))
++	while (hazptr_scan_walk(wc, NULL))
+ 		cond_resched();
+ }
+ 
+@@ -309,12 +378,16 @@ static void hazptr_scan_do_cycle(void)
+ 	WRITE_ONCE(hazptr_wildcard, scan_wildcard);
+ 	old_wildcard = flip_wildcard(scan_wildcard);
+ 
+-	/* Pass 2: drain the old wildcard. */
+-	hazptr_drain_wildcard(old_wildcard);
++	/*
++	 * Pass 2: drain the old wildcard while collecting observed
++	 * addresses into the Bloom filter.
++	 */
++	while (hazptr_scan_walk(old_wildcard, &hazptr_scan.bloom))
++		cond_resched();
+ 
+-	/* Complete waiters whose address is no longer held by any slot. */
++	/* Complete waiters whose address is not in the filter. */
+ 	list_for_each_entry_safe(w, n, &hazptr_scan.scanning, node) {
+-		if (!hazptr_value_present(w->addr))
++		if (!hazptr_bloom_contains(&hazptr_scan.bloom, w->addr))
+ 			list_move(&w->node, &done);
+ 	}
+ 
 -- 
-2.55.0
+2.43.0
 
