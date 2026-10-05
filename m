@@ -1,305 +1,351 @@
-Received: from mail-pf1-f225.google.com (mail-pf1-f225.google.com [209.85.210.225])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from fout-a4-smtp.messagingengine.com (fout-a4-smtp.messagingengine.com [103.168.172.147])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 405BF47F2FA
-	for <linux-kernel@vger.kernel.org>; Mon,  5 Oct 2026 12:42:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.225
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AA6ED48122C
+	for <linux-kernel@vger.kernel.org>; Mon,  5 Oct 2026 12:42:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=103.168.172.147
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791204170; cv=none; b=M0tiHcPPBLpK+0pYmLtwx693jqSpAecMk1OFfmRdxY5n7fWp8TqxtQR++vUQy9ZykNXWgpGbyF5fESfH7UOjkvHfURnbP3cu8WXmVIBzLxu+VEwiRuNh50QEQRQ7exFlH5rOU1fUgCBfd+W2xMpda5UspxbeNamrSOpVK0aDzPg=
+	t=1791204177; cv=none; b=I0ZONMm1ZT8ugssEFW2SXoqwaBfCc/id7gFwYj/wHW1NCCwmY++xIXaIXBGxMC6iV3VWbvW2iNiTIZAax04jHTlUoxF/pWv+6NPJ9hFooFBkZTkXQlOLpHtffC22cSuMt/pOAVMoTsmQBpkq5vIP0K3YPAYYbGloRd2uuk9ksa8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791204170; c=relaxed/simple;
-	bh=akFveV0zvQhWUIVXZwUMPUp5qllH1Ir9GOgeSJR66bM=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=ImUvWEuF9lMwi2jfKf3d+1xXTL8M7kKjoI+i+BinaSPy2jh8qkOmPd78cVw0daQumOX3P6n1cxJLByiXOVKrj2r0t5Fm5fSCe+PsUfk9jq4jVr+Ykc6khKASvRwN8nzkuDWPy6Pc5Zj6yP7PyEMd2UTs1nFBAitFr01uIuNbKN0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com; spf=fail smtp.mailfrom=broadcom.com; dkim=pass (1024-bit key) header.d=broadcom.com header.i=@broadcom.com header.b=avcWmZIP; arc=none smtp.client-ip=209.85.210.225
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=broadcom.com
+	s=arc-20240116; t=1791204177; c=relaxed/simple;
+	bh=MeeF+CrxXpmhlixg9jiu/837NW9C8nofsMS1C8K2YpY=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=D0Joz8HViVsdQk+x5UF1CI4Wq7OQ5W+60uhLnRF0Rpu3IdeeGn6SBiDX2ZqImksd8fVSngaETSYK3TIUg0eMTd+Ht8MjjMdiXoQoMoRVx3xFII8YNeFKRwdFNDtK1maXGnhLVt3rpSsDIy8XmyPxAF0IKPmZjShntZ9//C+MtyU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=polyxeno.com; spf=pass smtp.mailfrom=polyxeno.com; dkim=pass (2048-bit key) header.d=polyxeno.com header.i=@polyxeno.com header.b=BTpjst6t; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=y91fhonA; arc=none smtp.client-ip=103.168.172.147
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=polyxeno.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=polyxeno.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=broadcom.com header.i=@broadcom.com header.b="avcWmZIP"
-Received: by mail-pf1-f225.google.com with SMTP id d2e1a72fcca58-8819033dbadso35203b3a.0
-        for <linux-kernel@vger.kernel.org>; Mon, 05 Oct 2026 05:42:49 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791204168; x=1791808968;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:dkim-signature:x-gm-gg:x-gm-message-state
-         :from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=RADvsNGI6PI0+H8DO+zWlB8SV5fMzMIvbDFiKUJGRvM=;
-        b=cUA1YgJHABmQu+WvPhEvC+XCIOnosIduGiBRBUiJBt7BDFqepOngFyD0SVsCZx1jqw
-         MOwwd7ldKx52LVmRnHnwYjwHG37znaZjdiGTNNoSkY+6KHYaA3JGQApcNOJNVq6CDaai
-         2EFnTOttStcuM1gMuVdWqcJ6yHlqblWJ2274Ga0BB9pyZfZLOtERPz841Vz53qnyw1q/
-         WXwW9qJiPuYClVKYnOJcfeQzaW5J6XtZSc2ureHGIoza+J14riu3PXciXqkYnzZbfyeB
-         hlrGCeF87k4Ob/eXRvLTOC4WWuUH/niIFT4IqSuNIk30U4cNTsuNPL9IJcWUvRgPH/bN
-         xUBA==
-X-Forwarded-Encrypted: i=1; AKwUvBzL6DSqqUN/L+NxtFE5S+U9yuNTqqpuZcOB+GQ0liemkAKu0A7WCWzgZdDO2nTDQtXHN4DhyiwCXH2MZe8=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIqigteuIF6D03hGOWSP8cLe8w9E8REXOIe24qYcCLI6P9dMfFq
-	+N9spFUZtlQryGg5zA533tGOVUVxig+3oiFF+Tlfd61K2SHQZz534Sobo2kSm8hI07+JWkg4YUa
-	pQYaHnaNdKRpJPna2cp34HGa6iJ3YEuszBkhY1ugrhwKhcpsEvs7KROLz2BBUa9v0muP+gBjQOF
-	sqekBVut/U97ohYee9zr0M+2HeMyazMa+LU5zQAn17lpZqBKu4ADrJiovuekryPAhxaz2N6xenk
-	91yByn03TmrfoBdbmXneMkh4A==
-X-Gm-Gg: AYBFou0UhGY3poMJ9309cDHH7eQeQTYPDk6kuaZgq+gVUIV/EZt51Uy6AQsAOqbYv1V
-	AvfHD0hn9rdLVsTBMWW7nH/NTcvteM80/v3/eNXybnu17JFFzc413txFYW56WtBOxBT42J9S2R2
-	3nw4jI4WlHU++hwFzqWhiJNorovHZ+Ej0ViDaPOGdbnElInxyEYISn96hjh9prXRUO3YqLTud0o
-	s155LWHdtXG9wmIVJ+zI6aZALf/4bFRss3/Jp/8eGEJ2dGirXiOIIUwkaWlQtxZdLJIjPLukxh/
-	ew8aIqv4L6T3QE/rTmYeOf/FeWhm3LyIaYiSf35oh3fe3FGyxfsoXVgXklkwrxgCcVXb+2GCpWO
-	CHcCd/xa5NPWr4MxwIWW9jhjTr++m5RCbSKREt8g/PB6maL2SaMnwBlSYCr8J9tZ6jaMivWJDL4
-	Kpy1GRxMK/Vo25qDw+Gdpw+pnk/ZiHKL0Q8bTOmJVF/woa
-X-Received: by 2002:a17:902:e5c1:b0:2e2:c602:2072 with SMTP id d9443c01a7336-2e49b6adb1cmr98843815ad.36.1791204168319;
-        Mon, 05 Oct 2026 05:42:48 -0700 (PDT)
-Received: from smtp-us-east1-p01-i01-si01.dlp.protect.broadcom.com (address-144-49-247-120.dlp.protect.broadcom.com. [144.49.247.120])
-        by smtp-relay.gmail.com with ESMTPS id d9443c01a7336-2e5b61f995esm84305ad.13.2026.10.05.05.42.47
-        for <linux-kernel@vger.kernel.org>
-        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
-        Mon, 05 Oct 2026 05:42:48 -0700 (PDT)
-X-Relaying-Domain: broadcom.com
-X-CFilter-Loop: Reflected
-Received: by mail-dy1-f199.google.com with SMTP id 5a478bee46e88-341eff9e381so3966123eec.1
-        for <linux-kernel@vger.kernel.org>; Mon, 05 Oct 2026 05:42:47 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=broadcom.com; s=google; t=1791204166; x=1791808966; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=RADvsNGI6PI0+H8DO+zWlB8SV5fMzMIvbDFiKUJGRvM=;
-        b=avcWmZIPQKXtQ6FgwzPCBEKaiqneNwpCpjbgzD8SIHv+99qpvE/1NdcZ7oKjL0Qnh8
-         Ywr2GKyS7TxKxBMPbmKJGNGOgeFwPVN4LwtJLAKcuQrnmE4i/9BKXDo6j/MTdpDVgpJd
-         Fnr/J9E5mv27QV8+dBYtYk2fPs1V1y8Dmx9vc=
-X-Forwarded-Encrypted: i=1; AKwUvBwfI6QB3sZry7BZIIvqxQQiaVVIQB3m9yMAPyU9ZiCT+MXl9DzogQjs6WWiFi9MiUuys+fZUX9GCXnZEC4=@vger.kernel.org
-X-Received: by 2002:a05:7301:1a03:b0:33b:bea7:84dd with SMTP id 5a478bee46e88-34f21994b42mr13189307eec.34.1791204166356;
-        Mon, 05 Oct 2026 05:42:46 -0700 (PDT)
-X-Received: by 2002:a05:7301:1a03:b0:33b:bea7:84dd with SMTP id
- 5a478bee46e88-34f21994b42mr13189267eec.34.1791204165735; Mon, 05 Oct 2026
- 05:42:45 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=polyxeno.com header.i=@polyxeno.com header.b="BTpjst6t";
+	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="y91fhonA"
+Received: from phl-compute-10.internal (phl-compute-10.internal [10.202.2.50])
+	by mailfout.phl.internal (Postfix) with ESMTP id A32F7EC08CA
+	for <linux-kernel@vger.kernel.org>; Mon,  5 Oct 2026 08:42:53 -0400 (EDT)
+Received: from phl-frontend-04 ([10.202.2.163])
+  by phl-compute-10.internal (MEProxy); Mon, 05 Oct 2026 08:42:53 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=polyxeno.com; h=
+	cc:cc:content-transfer-encoding:content-type:content-type:date
+	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to; s=fm2; t=1791204173;
+	 x=1791290573; bh=/r+VbIM658CiC0hWNXkDFMWJuEF2FkNsawZszh5+cTs=; b=
+	BTpjst6tP3PTKNFtLmfkfatMqMOWmj3orwQZTTvY8Fb9BQMvYTishyCn+4zdDHXx
+	i5PEmBtpX06sjap88bvtxr6rNki6DljQw1e/jWWAO47mmMEcvTK2Ja28xUL+VI5/
+	FOuMWu0V6IyeCiLR8IXHp1q3Msf38mww19ZG9YrVQZopHB1+LkF0WYDR22iM7vF+
+	2Bkz6bYz6YULBvGb1f62fF+jHfPHQoWHl76HxFNWgqczIZwWu6l0bKjG94S+J5uk
+	AYF31CKqYjxDx5dK/YNIBw48kLhEdxZuQGkz4umCnbNCtD/mFoHYjLFXZI9+/8nH
+	OpA+1jb6Cxipz87wTUtbRA==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:content-type:date:date:feedback-id:feedback-id
+	:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to:x-me-proxy
+	:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=1791204173; x=
+	1791290573; bh=/r+VbIM658CiC0hWNXkDFMWJuEF2FkNsawZszh5+cTs=; b=y
+	91fhonArTNzuw/yaaN5ybjYgEhoq/MFi68y226hrMB4tG553C59lb0fTHbg+tDKs
+	qlGfrZnP7FguXTOA+Gy/VbUG9VAKezyt7enULBVTo2WpqvO2qwVk+9kxnnTIOPjd
+	BK7+HDA9gVkXATkvoPdkGxc/PZZWUKBd3EXPSfn410vMHxpeY2oEYYFe3j3JHv3g
+	VzgNjl2vqFt2KxGFkPnlAaC6gCzvmgyJK2m/uFgGGv748gN/ku9A+5OPwL5LLtq7
+	rUuowaBMLXALSfzNPSi+YO3/WbHNF6D0kSn1ILDPyskU/20Fx2OMbvhujVo9lkxK
+	l5k4ykJvVQwjGAvCluvSw==
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
+	repo=github.com/dkim2wg/interop; date=2026-09-30; sw=lmtpprox;
+	action=sign d=polyxeno.com a=rsa-sha256;
+DKIM2-Signature: i=1; m=1; t=1791204173; d=polyxeno.com;
+	mf=PGdlcmdAcG9seXhlbm8uY29tPg==;
+	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
+	s=fm2:rsa-sha256:Zxf7UbpZTcF0C0cLWSbayN+qHXlT5ZDpKnuuJi9RCwRMzgh
+	PTX5MD3rNGOPLg+HMTQ6pNgXMSNLtiu35XLPp1K0ErL8A36piXG1rGEgxn5jVzys
+	FZRPES8PNlYtlJbn9wig+H8D1Gw2yEDh2BXIGlBPvg2wLVr6yodi66TEQEoZdadG
+	siUMEyTLNtXjlXPl0Haf+h4w2TJUjRCbrgtc2Hj5CPlQgP3NY9JCW0M+s8FkCdMF
+	Cd5/N6FbbLMuEyjoNalWxGgfoU2uTjBlwC9r8fM0mrTBlPM+dvRvPGk/MlTZr2nk
+	79auuTsd2Evxd0F3A3oabzSqmeUQPYz8C8qDueg==;
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
+	repo=github.com/dkim2wg/interop; date=2026-09-30; sw=lmtpprox;
+	action=mi-m=1; hc=14;
+	hn=cc,content-language,content-transfer-encoding,content-type,
+	date,feedback-id,from,in-reply-to,message-id,mime-version,
+	references,subject,to,user-agent;
+Message-Instance: m=1; h=sha256:upo6ejqGADHgwgcDylnzrnqjKrzWLRgbPxDmK8ELjOE=:MeeF+CrxXpmhlixg9jiu/837NW9C8nofsMS1C8K2YpY=;
+X-ME-Sender: <xms:TZvDamKO-zZkbUUGU9Y1SmwaWeUoLk1wTRjuNLwatinCBZYpSuzT2w>
+    <xme:TZvDavrVAC9GqQ4dDNInzpmDG4wGbsl0XLRQ4rNEeao7CzLazmtXilICH775JmvhJ
+    Y9OnuhAD2UMVeGBSoQeKFnIc3DIUJKN0u8u5-mnafa1jG_-b758k7A>
+X-ME-Received: <xmr:TZvDamx0JwdHd9wY1OHVhxKf73DlauGG7Kwhbrff3UB8FaDiyT1AREZMekfOLQVJRwItnXs5BU34JNC4HkCSweAg5A>
+X-ME-Proxy-Cause: dmFkZTGkdktSZ2XjHZVQ3qlR2/hzwrvg5W3AwpNBai5bB8qNSpci0/YIAXHGjX8ji6LMVL
+    7WSqPYIdQqthOLpG9u3uVsbfPKC9rw8H4X+9PYFkyC1Vxag2Hi4ItG4H0tGd+EMpTMmt6W
+    cnKjHmLHpjbztw6Q+8HC2HHFH+aNCuSAAU3698dmCYwG8mfEZl7RS8ptvZrYzDb5oV9ZvG
+    WfPZ2qf12NUmXxSO962npqntMQ3RxK3K7ceqJeFhVxkn8T1IzHVUthcAXIaWkmDSBuAF2L
+    p8u7gQugY5Gaon9lB4//2g0nd/xQoQyJnytQC1fez297YBb9FmE0jW1MlVj7m1mHK+9TCG
+    aOy+MSZEaqZbr88kbtNiGx8xEfMxo1x496DGvB3g4cO6VK5rSTJtA6eoAFr82qlNSq+QxW
+    Bkvd+QrQpyAEIa0nwIfyg3Q0jcRRcZozaGpadzZ0W33XJMTqZCljbTWWrepY6xmVYvVG1a
+    tBFDS7+DvXx3DLK5s/aVwEgdov9T4JloJ+d4gp25Qih2Q2Qti1jSOoRYdINyAi3kdCsMMz
+    vZphqmm8Xy/IASawFZu6thYvU7LvxftNCCrCn0Oz1MXANwOYirFWVaXRSx1nsrJoRoy1bM
+    WYFoDY9fyz9PUtiW7BX98BG3v/LKVv+ugPP5m+0MsBuuujnzY7mI6YXBR74w
+X-ME-Proxy: <xmx:TZvDarPz8X1SCyE8ALBhKSxVGCXzdJLN3_t-HEUtEY_4lDyjN-DOpg>
+    <xmx:TZvDaj7dNDrfnTWWFK4m13-lVrdP50_hEvS9TOT6fDhX5jYbmQ7_XQ>
+    <xmx:TZvDasko4feZLTP3bZznssT8ma0hiGV_eK3iD-3QrufAFk91LNWiAg>
+    <xmx:TZvDakROkgVNZM5U6OLk6V2KyF9U0f8fKVzFi5REG5_rsbQAdJF2MQ>
+    <xmx:TZvDaj52xmhCfJgtDYZia217w9a9kVVM8cyBfwOWAzwW5TObuRywwbnf>
+Feedback-ID: i09fe4b60:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Mon,
+ 5 Oct 2026 08:42:50 -0400 (EDT)
+Message-ID: <5bb9f586-6939-433e-9e06-a9bbc08a69a0@polyxeno.com>
+Date: Mon, 5 Oct 2026 22:42:47 +1000
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20261005121704.227866-1-bhargava.marreddy@broadcom.com> <179120300167.1402591.3718496528368377342@kernel.org>
-In-Reply-To: <179120300167.1402591.3718496528368377342@kernel.org>
-From: Bhargava Chenna Marreddy <bhargava.marreddy@broadcom.com>
-Date: Mon, 5 Oct 2026 18:12:29 +0530
-X-Gm-Features: AclHuK8XM6JniRoIQZRdD7OPHsTu9ycKVNU8ZEBJs2oiW0KxiZZ2n-_uhef5_hk
-Message-ID: <CANXQDtZ_7u51Tsqx8ugZHSVY0Nc+O0bJMNtB7bCLBYdVaKE7bA@mail.gmail.com>
-Subject: Re: [PATCH net 0/4] bnge: Fix error-path and IRQ setup bugs in probe/open
-To: netdev-bot+sinfo@kernel.org
-Cc: davem@davemloft.net, edumazet@google.com, kuba@kernel.org, 
-	pabeni@redhat.com, andrew+netdev@lunn.ch, horms@kernel.org, 
-	netdev@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	michael.chan@broadcom.com, pavan.chebbi@broadcom.com, 
-	vsrama-krishna.nemani@broadcom.com, vikas.gupta@broadcom.com
-X-DetectorID-Processed: b00c1d49-9d2e-4205-b15f-d015386d3d5e
-Content-Type: multipart/signed; protocol="application/pkcs7-signature"; micalg=sha-256;
-	boundary="00000000000016ecff065d173891"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH RESEND] m68k: Handle put_user faults more carefully
+To: Michael Schmitz <schmitzmic@gmail.com>,
+ Geert Uytterhoeven <geert@linux-m68k.org>, Finn Thain <fthain@linux-m68k.org>
+Cc: linux-m68k@lists.linux-m68k.org, linux-kernel@vger.kernel.org
+References: <88e752e0bca92c7b65533cc1b334052dd272f8ef.1790842086.git.fthain@linux-m68k.org>
+ <02c53c37-d2ee-4c03-a8f9-0a757c3af59e@gmail.com>
+ <CAMuHMdVbfUH1ZoFcS64t=gyE_cskMWv6gGvL8pjGirSGvAKu2w@mail.gmail.com>
+ <dfcbbc59-4204-478b-b8da-867621056c62@gmail.com>
+Content-Language: en-US
+From: Greg Ungerer <gerg@polyxeno.com>
+In-Reply-To: <dfcbbc59-4204-478b-b8da-867621056c62@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
---00000000000016ecff065d173891
-Content-Type: multipart/alternative; boundary="00000000000004fad6065d173864"
+Hi Michael,
 
---00000000000004fad6065d173864
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+On 3/10/26 09:55, Michael Schmitz wrote:
+> Hi Geert,
+> 
+> On 03/10/2026 5:28 AM, Geert Uytterhoeven wrote:
+> 
+>> Hi Michael, Finn,
+>>
+>> On Thu, 1 Oct 2026 at 20:57, Michael Schmitz <schmitzmic@gmail.com> wrote:
+>>> On 1/10/26 22:08, Finn Thain wrote:
+>>>> Running 'stress-ng --sysbadaddr -1' on my MC68040 system immediately
+>>>> produces an oops:
+>>>>
+>>>>       Unable to handle kernel access at virtual address f1c422fb
+>>>>       Oops: 00000000
+>>>>       Modules linked in:
+>>>>       PC: [<00005a1a>] do_040writeback1+0xae/0x160
+>>>>       SR: 2010  SP: 96087dc2  a2: 01500000
+>>>>       d0: 00000000    d1: 014e8000    d2: 00000081    d3: 00000000
+>>>>       d4: 00000481    d5: c043dfff    a0: 014e8000    a1: 00632fd5
+>>>>       Process stress-ng (pid: 221, task=1b729d30)
+>>>>       Frame format=7 eff addr=014e9eb8 ssw=0c81 faddr=c043dfff
+>>>>       wb 1 stat/addr/data: 0001 00000481 c043dfff
+>>>>       wb 2 stat/addr/data: 0081 c043dfff 2f746d70
+>>>>       wb 3 stat/addr/data: 0005 014e9ed4 2f746d70
+>>>>       push data: c043dfff 800daa70 00000000 014e9f1c
+>>>>       Stack from 014e9ed4:
+>>>>         2f740000 8017c000 014e9f10 00006830 00000081 c043dfff 2f746d70 2f746d70
+>>>>         0081a000 00000400 c043dfff 800daa70 c043dfff 80016a20 00000003 014e9f88
+>>>>         000026c8 014e9f1c 00000001 2f746d70 0081a000 00000400 c043dfff 0081afff
+>>>>         c043dfff 01500000 00000001 ffffffff 00000000 20000046 41d67008 014e9f58
+>>>>         04810005 00810045 c043dfff 014e9f84 2f746d70 c043dfff 2f746d70 c043dfff
+>>>>         80016a20 8017c000 00000000 0081affb 00000005 014e9fc4 00128bc6 c043dfff
+>>>>       Call Trace: [<00006830>] buserr_c+0x510/0x698
+>>>>         [<000026c8>] buserr+0x20/0x28
+>>>>         [<00128bc6>] sys_getcwd+0xc8/0x15a
+>>>>         [<000027a2>] syscall+0x8/0xc
+>>>>         [<0008800d>] sanity_check_segment_list+0x17/0x11e
+>>>>
+>>>>       Code: 000c 0e90 1800 220f 0281 ffff e000 2041 <2228> 0008 0281 00ff
+>>>>             ff00 67a4 6026 4280 122e 0013 206e 000c 0e10 1800 220f 0281
+>>>>
+>>>> 0000596c <do_040writeback1>:
+>>>>       596c:       4e56 fffc       linkw %fp,#-4
+>>>>       5970:       2f02            movel %d2,%sp@-
+>>>>       5972:       202e 0008       movel %fp@(8),%d0
+>>>>       5976:       4282            clrl %d2
+>>>>       5978:       3400            movew %d0,%d2
+>>>>       597a:       220f            movel %sp,%d1
+>>>>       597c:       0281 ffff e000  andil #-8192,%d1
+>>>>       5982:       2041            moveal %d1,%a0
+>>>>       5984:       2228 0008       movel %a0@(8),%d1
+>>>>       5988:       0281 00ff ff00  andil #16776960,%d1
+>>>>       598e:       6600 0104       bnew 5a94 <do_040writeback1+0x128>
+>>>>       5992:       4e7b 2000       movec %d2,%sfc
+>>>>       5996:       4e7b 2001       movec %d2,%dfc
+>>>>       599a:       0240 0060       andiw #96,%d0
+>>>>       599e:       0c40 0020       cmpiw #32,%d0
+>>>>       59a2:       6700 0084       beqw 5a28 <do_040writeback1+0xbc>
+>>>>       59a6:       0c40 0040       cmpiw #64,%d0
+>>>>       59aa:       6730            beqs 59dc <do_040writeback1+0x70>
+>>>>       59ac:       4a40            tstw %d0
+>>>>       59ae:       6752            beqs 5a02 <do_040writeback1+0x96>
+>>>>       59b0:       4280            clrl %d0
+>>>>       59b2:       220f            movel %sp,%d1
+>>>>       59b4:       0281 ffff e000  andil #-8192,%d1
+>>>>       59ba:       2041            moveal %d1,%a0
+>>>>       59bc:       2228 0008       movel %a0@(8),%d1
+>>>>       59c0:       0281 00ff ff00  andil #16776960,%d1
+>>>>       59c6:       6600 0086       bnew 5a4e <do_040writeback1+0xe2>
+>>>>       59ca:       7201            moveq #1,%d1
+>>>>       59cc:       4e7b 1000       movec %d1,%sfc
+>>>>       59d0:       4e7b 1001       movec %d1,%dfc
+>>>>       59d4:       242e fff8       movel %fp@(-8),%d2
+>>>>       59d8:       4e5e            unlk %fp
+>>>>       59da:       4e75            rts
+>>>>       59dc:       4280            clrl %d0
+>>>>       59de:       322e 0012       movew %fp@(18),%d1
+>>>>       59e2:       206e 000c       moveal %fp@(12),%a0
+>>>>       59e6:       0e50 1800       movesw %d1,%a0@
+>>>>       59ea:       220f            movel %sp,%d1
+>>>>       59ec:       0281 ffff e000  andil #-8192,%d1
+>>>>       59f2:       2041            moveal %d1,%a0
+>>>>       59f4:       2228 0008       movel %a0@(8),%d1
+>>>>       59f8:       0281 00ff ff00  andil #16776960,%d1
+>>>>       59fe:       67ca            beqs 59ca <do_040writeback1+0x5e>
+>>>>       5a00:       604c            bras 5a4e <do_040writeback1+0xe2>
+>>>>       5a02:       4280            clrl %d0
+>>>>       5a04:       222e 0010       movel %fp@(16),%d1
+>>>>       5a08:       206e 000c       moveal %fp@(12),%a0
+>>>>       5a0c:       0e90 1800       movesl %d1,%a0@
+>>>>       5a10:       220f            movel %sp,%d1
+>>>>       5a12:       0281 ffff e000  andil #-8192,%d1
+>>>>       5a18:       2041            moveal %d1,%a0
+>>>>       5a1a:       2228 0008       movel %a0@(8),%d1
+>>>>       5a1e:       0281 00ff ff00  andil #16776960,%d1
+>>>>       5a24:       67a4            beqs 59ca <do_040writeback1+0x5e>
+>>>>       5a26:       6026            bras 5a4e <do_040writeback1+0xe2>
+>>>>       ...
+>>>>
+>>>> The cause is a deliberately misaligned access in the 'bad_end_addr' test
+>>>> case in the 'sysbadaddr' stressor. The location being accessed here,
+>>>> 0xc043dfff, was contrived to span the boundary between a r/w anonymous page
+>>>> and an unmapped page. The address was then passed to the getcwd syscall
+>>>> which faulted in copy_to_user().
+>>>>
+>>>> The fault for the mapped page appears to be handled okay -- up until
+>>>> do_040writeback1() called put_user() which produced a second fault due to
+>>>> the unmapped page.
+>>>>
+>>>> Michael Schmitz helpfully deciphered the oops and explained the exception
+>>>> processing leading up to it.
+>>>>
+>>>>       "regs->pc does point to the PC in the format 7 frame which is the PC
+>>>>       the fault was detected at, but not (in case of a writeback fault)
+>>>>       the PC of the faulting instruction [that is, MOVES.L].
+>>>>
+>>>>       "The writeback would still cross the page boundary, and fault if the
+>>>>       unmapped page still isn't present. We would not see the PC of the
+>>>>       movesl in that case, and fail to find the PC in the exception
+>>>>       table."
+>>>>
+>>>> One solution is to add a NOP instruction after the MOVES.L to flush the
+>>>> pipeline and take the fault. That way, the PC value in the exception frame
+>>>> becomes dependable so the exception table works.
+>>>>
+>>>> Theoretically, there seems to be another bug in the existing code. If
+>>>> the instruction following the MOVES faulted, then after the fixup,
+>>>> execution would resume at the instruction which caused the fault. This
+>>>> appears to be a loop. After this patch, that cannot happen.
+>>>>
+>>>> Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
+>>>> Signed-off-by: Finn Thain <fthain@linux-m68k.org>
+>>>> ---
+>>>>    arch/m68k/include/asm/uaccess.h | 10 ++++++----
+>>>>    1 file changed, 6 insertions(+), 4 deletions(-)
+>>>>
+>>>> diff --git a/arch/m68k/include/asm/uaccess.h b/arch/m68k/include/asm/uaccess.h
+>>>> index 31d133faa45e..728a6dfb7414 100644
+>>>> --- a/arch/m68k/include/asm/uaccess.h
+>>>> +++ b/arch/m68k/include/asm/uaccess.h
+>>>> @@ -31,11 +31,12 @@
+>>>>    #define __put_user_asm(inst, res, x, ptr, bwl, reg, err) \
+>>>>    asm volatile ("\n"                                  \
+>>>>        "1:     "inst"."#bwl"   %2,%1\n"                \
+>>>> -     "2:\n"                                          \
+>>>> +     "2:     nop\n"                                  \
+>>>> +     "3:\n"                                          \
+>>>>        "       .section .fixup,\"ax\"\n"               \
+>>>>        "       .even\n"                                \
+>>>>        "10:    moveq.l %3,%0\n"                        \
+>>>> -     "       jra 2b\n"                               \
+>>>> +     "       jra 3b\n"                               \
+>>>>        "       .previous\n"                            \
+>>>>        "\n"                                            \
+>>>>        "       .section __ex_table,\"a\"\n"            \
+>>>> @@ -53,11 +54,12 @@ do {                                                              \
+>>>>        asm volatile ("\n"                                      \
+>>>>                "1:     "inst".l %2,(%1)+\n"                    \
+>>>>                "2:     "inst".l %R2,(%1)\n"                    \
+>>>> -             "3:\n"                                          \
+>>>> +             "3:     nop\n"                                  \
+>>>> +             "4:\n"                                          \
+>>>>                "       .section .fixup,\"ax\"\n"               \
+>>>>                "       .even\n"                                \
+>>>>                "10:    movel %3,%0\n"                          \
+>>>> -             "       jra 3b\n"                               \
+>>>> +             "       jra 4b\n"                               \
+>>>>                "       .previous\n"                            \
+>>>>                "\n"                                            \
+>>>>                "       .section __ex_table,\"a\"\n"            \
+>>>> Reviewed-by: Michael Schmitz <schmitzmic@gmail.com>
+>>>>
+>>>> in case it helps.
+>>>>
+>>>> Anecdotally, I've seen similar uaccess faults causing kernel oops on 030
+>>>> as well, so this may not merely be an artificial unaligned access issue.
+>> Shouldn't this include
+>> https://lore.kernel.org/20240429030945.22451-3-schmitzmic@gmail.com
+>> ?
+> 
+> Along with https://lore.kernel.org/20240429030945.22451-2-schmitzmic@gmail.com, perhaps.
+> 
+> Can't recall the details, but Finn's solution was to add a nop in order to make the fault PC reliable. That's not a great deal of overhead in the case of put_user(). My changes to copy_to_user try to avoid flushing the pipeline inside of a loop, and only use the nop after exiting the loop. The cost of that is larger exception tables. Not sure which is worse.
+> 
+> What's more, I can't be certain that my 'fault is taken two instructions past faulting instruction' observation is 100% reliable. AFAIK this has only been tested on 030 and 040. Coldfire(MMU) and 060 tests are still missing.
 
-Hi,
+ColdFire seems to have more, or maybe just different problems for "stress-ng --sysbadaddr -1".
+Running a kernel with and without this patch resulted in:
 
-To provide the requested context for reviewers:
+# stress-ng --sysbadaddr -1process '/usr/bin/stress-ng' started with executable stack
+stress-ng: info:  [40] defaulting to a 86400 second (1 day, 0.00 secs) run per stressor
+stress-ng: info:  [40] dispatching hogs: 1 sysbadaddr
+*** ILLEGAL INSTRUCTION ***   FORMAT=4
+Current process id is 250
+BAD KERNEL TRAP: 00000000
+Modules linked in:
+PC: [<00000000>] 0x0
+SR: 2004  SP: 013da6cc  a2: bfccd950
+d0: 00000000    d1: 00000002    d2: bfccd814    d3: 00000001
+d4: 80174c1e    d5: 800bd9ac    a0: 800bd9ac    a1: 800bdb54
+Process stress-ng-sysba (pid: 250, task=f7e050bd)
+Frame format=4 eff addr=44090004 pc=80115870
+Stack from 013ea000:
+Call Trace:
+Code: 0000 0000 0000 0000 0000 0000 0000 0000 <0000> 0000 0000 0000 0000 0000 0000 0000 0002 a6c4 0002 a6c4 0002 a6c4 0002 a6c4
+Disabling lock debugging due to kernel taint
+note: stress-ng-sysba[250] exited with irqs disabled
+*** ILLEGAL INSTRUCTION ***   FORMAT=4
+Current process id is 42
+BAD KERNEL TRAP: 00000000
+Modules linked in:
+PC: [<00000000>] 0x0
+SR: 2004  SP: affae50f  a2: 012d1f80
+d0: 00000000    d1: 0000000b    d2: 01057db0    d3: 00035b9a
+d4: 00000000    d5: bfccd814    a0: bfccd814    a1: 0050c21c
+Process stress-ng-sysba (pid: 42, task=1b5bfafe)
+Frame format=4 eff addr=480a2004 pc=00035ab2
+Stack from 013d3f28:
+        00000000 000000fa 00000000 00000004 01057db0 00000000 0000000b 00000000
+        00000000 012d1f80 000336b4 00000100 00000122 fffffff6 bfccd76c 00035c1c
+        000000fa bfccd814 00000000 00000000 bfccd76c 00000000 0000000a 000000fa
+        00000000 8011685e 80119990 00935414 0002ce18 013d3fcc 00000000 00000000
+        00000000 00000000 8011685e 013d3fcc 00000005 bfccd7a0 80010686 0002a6bc
+        0002df3c 000000fa bfccd814 00000000 00000000 bfccd814 00000000 800bdb54
+Call Trace: [<000336b4>] child_wait_callback+0x0/0x86
+ [<00035c1c>] sys_wait4+0x82/0x92
+ [<0002ce18>] buserr_c+0x130/0x1dc
+ [<0002a6bc>] buserr+0x28/0x30
+ [<0002df3c>] system_call+0x58/0xac
 
-- Discovery: Identified during review of the "bnge: Support async
-  events while down" series -- three were flagged by Sashiko, and one
-  was flagged by Simon Horman.
 
-- Trigger: Identified via code review and static analysis (potential
-  issues in failure handling and IRQ setup paths).
+I have not debugged any further yet.
 
-- Testing: Tested on physical bnge hardware; compile-tested and
-  verified checkpatch --strict clean.
-
-Regards,
-Bhargava, Marreddy.
+Regards
+Greg
 
 
-On Mon, Oct 5, 2026 at 5:53=E2=80=AFPM <netdev-bot+sinfo@kernel.org> wrote:
-
-> Hi!
->
-> This is an automated message. This series looks like a fix, but its
-> commit messages seem to be missing some information:
->
->  - How the issue was discovered, e.g. hit in production, hit during
->    development, syzbot report, manual code inspection, LLM or static
->    analysis tool scan.
->
->  - Whether the issue was actually triggered, or is only theoretical
->    (e.g. found by code inspection). If it was triggered please include
->    the symptoms, like the stack trace or error messages.
->
->  - What hardware the change was tested on. For driver fixes please
->    mention the device (and if relevant firmware version) used for
->    testing, or say that the change was not tested on real hardware.
->
-> Please do not repost the series just to address the above. Instead,
-> reply to this email with the missing information, so that reviewers
-> can take it into account. If the series needs another revision for
-> other reasons, please include the information in the commit messages
-> then.
->
-> The evaluation is done by an LLM so it may be wrong, if you think
-> that is the case please reply and explain.
->
-
---00000000000004fad6065d173864
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr"><div dir=3D"ltr"><div>Hi,<br><br>To provide the requested =
-context for reviewers:<br><br>- Discovery: Identified during review of the =
-&quot;bnge: Support async<br>=C2=A0 events while down&quot; series -- three=
- were flagged by Sashiko, and one<br>=C2=A0 was flagged by Simon Horman.<br=
-><br>- Trigger: Identified via code review and static analysis (potential<b=
-r>=C2=A0 issues in failure handling and IRQ setup paths).<br><br>- Testing:=
- Tested on physical bnge hardware; compile-tested and<br>=C2=A0 verified ch=
-eckpatch --strict clean.<br><br></div><div><div dir=3D"ltr" class=3D"gmail_=
-signature"><div dir=3D"ltr">Regards,<div>Bhargava, Marreddy.</div></div></d=
-iv></div><br></div><br><div class=3D"gmail_quote gmail_quote_container"><di=
-v dir=3D"ltr" class=3D"gmail_attr">On Mon, Oct 5, 2026 at 5:53=E2=80=AFPM &=
-lt;<a href=3D"mailto:netdev-bot%2Bsinfo@kernel.org">netdev-bot+sinfo@kernel=
-.org</a>&gt; wrote:<br></div><blockquote class=3D"gmail_quote" style=3D"mar=
-gin:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204);padding-left:1=
-ex">Hi!<br>
-<br>
-This is an automated message. This series looks like a fix, but its<br>
-commit messages seem to be missing some information:<br>
-<br>
-=C2=A0- How the issue was discovered, e.g. hit in production, hit during<br=
->
-=C2=A0 =C2=A0development, syzbot report, manual code inspection, LLM or sta=
-tic<br>
-=C2=A0 =C2=A0analysis tool scan.<br>
-<br>
-=C2=A0- Whether the issue was actually triggered, or is only theoretical<br=
->
-=C2=A0 =C2=A0(e.g. found by code inspection). If it was triggered please in=
-clude<br>
-=C2=A0 =C2=A0the symptoms, like the stack trace or error messages.<br>
-<br>
-=C2=A0- What hardware the change was tested on. For driver fixes please<br>
-=C2=A0 =C2=A0mention the device (and if relevant firmware version) used for=
-<br>
-=C2=A0 =C2=A0testing, or say that the change was not tested on real hardwar=
-e.<br>
-<br>
-Please do not repost the series just to address the above. Instead,<br>
-reply to this email with the missing information, so that reviewers<br>
-can take it into account. If the series needs another revision for<br>
-other reasons, please include the information in the commit messages<br>
-then.<br>
-<br>
-The evaluation is done by an LLM so it may be wrong, if you think<br>
-that is the case please reply and explain.<br>
-</blockquote></div></div>
-
---00000000000004fad6065d173864--
-
---00000000000016ecff065d173891
-Content-Type: application/pkcs7-signature; name="smime.p7s"
-Content-Transfer-Encoding: base64
-Content-Disposition: attachment; filename="smime.p7s"
-Content-Description: S/MIME Cryptographic Signature
-
-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
-tJVewHuOmXgWQxNWV7Oiszu1d9xAcqyj65s1PrEIIaHnxEM3eTK+teecLEy8QymZjjDTrCHg4x36
-2AczdlQAIiq5TSAucGja5VP8g1zTnfL/RAxEZvLS471GABptArolXY2hMVHdVEYcTduZlu8aHARc
-phXveOB5/l3bPqpMVf2aFalv4ab733Aw6cPuQkbtwpMFifp9Y3s/0HGBfADomK4OeDTDJfuvCp8g
-a907E48SjOJBGkh6c6B3ace2XH+CyB7+WBsoK6hsrV5twAXSe7frgP4lN/4Cm2isQl3D7vXM3PBQ
-ddI2aZzmewTfbgZptt4KCUhZh+t7FGB6ZKppQ++Rx0zsGN1s71MtjJnhXvJyPs9UyL1n7KQPTEX/
-07kwIwdMjxC/hpbZmVq0mVccpMy7FYlTuiwFD+TEnhmxGDTVTJ267fcfrySVBHioA7vugeXaX3yL
-SqGQdCWnsz5LyCxWvcfI7zjiXJLwefechLp0LWEBIH5+0fJPB1lfiy1DUutGDJTh9WZHeXfVVFsf
-rSQ3y0VaTqBESMjYsJnFFYQJ9tZJScBluOYacW6gqPGC6EU+bNYC1wpngwVayaQQMIIGqjCCBJKg
-AwIBAgIMFJTEEB7G+bRSFHogMA0GCSqGSIb3DQEBCwUAMFIxCzAJBgNVBAYTAkJFMRkwFwYDVQQK
-ExBHbG9iYWxTaWduIG52LXNhMSgwJgYDVQQDEx9HbG9iYWxTaWduIEdDQyBSNiBTTUlNRSBDQSAy
-MDIzMB4XDTI1MDYyMDEzNTI1NVoXDTI3MDYyMTEzNTI1NVowge0xCzAJBgNVBAYTAlVTMRMwEQYD
-VQQIEwpDYWxpZm9ybmlhMREwDwYDVQQHEwhTYW4gSm9zZTEZMBcGA1UEYRMQTlRSVVMrREUtNjYx
-MDExNzERMA8GA1UEBBMITWFycmVkZHkxGDAWBgNVBCoTD0JoYXJnYXZhIENoZW5uYTEWMBQGA1UE
-ChMNQlJPQURDT00gSU5DLjEnMCUGA1UEAwweYmhhcmdhdmEubWFycmVkZHlAYnJvYWRjb20uY29t
-MS0wKwYJKoZIhvcNAQkBFh5iaGFyZ2F2YS5tYXJyZWRkeUBicm9hZGNvbS5jb20wggEiMA0GCSqG
-SIb3DQEBAQUAA4IBDwAwggEKAoIBAQCq1sbXItt9Z31lzjb1WqEEegmLi72l7kDsxOJCWBCSkART
-C/LTHOEoELrltkLJnRJiEujzwxS1/cV0LQse38GKog0UmiG5Jsq4YbNxmC7s3BhuuZYSoyCQ7Jg+
-BzqQDU+k9ESjiD/R/11eODWJOxHipYabn/b+qYM+7CTSlVAy7vlJ+z1E/LnygVYHkWFN+IJSuY26
-OWgSyvM8/+TPOrECYbo+kLcjqZfLS9/8EDThXQgg9oCeQOD8pwExycHc9w6ohJLoK7mVWrDol6cl
-vW0XPONZARkdcZ69nJIHt/aMhihlyTUEqD0R8yRHfBp9nQwoSs8z+8xZ+cczX/XvtCVJAgMBAAGj
-ggHiMIIB3jAOBgNVHQ8BAf8EBAMCBaAwDAYDVR0TAQH/BAIwADCBkwYIKwYBBQUHAQEEgYYwgYMw
-RgYIKwYBBQUHMAKGOmh0dHA6Ly9zZWN1cmUuZ2xvYmFsc2lnbi5jb20vY2FjZXJ0L2dzZ2NjcjZz
-bWltZWNhMjAyMy5jcnQwOQYIKwYBBQUHMAGGLWh0dHA6Ly9vY3NwLmdsb2JhbHNpZ24uY29tL2dz
-Z2NjcjZzbWltZWNhMjAyMzBlBgNVHSAEXjBcMAkGB2eBDAEFAwMwCwYJKwYBBAGgMgEoMEIGCisG
-AQQBoDIKAwIwNDAyBggrBgEFBQcCARYmaHR0cHM6Ly93d3cuZ2xvYmFsc2lnbi5jb20vcmVwb3Np
-dG9yeS8wQQYDVR0fBDowODA2oDSgMoYwaHR0cDovL2NybC5nbG9iYWxzaWduLmNvbS9nc2djY3I2
-c21pbWVjYTIwMjMuY3JsMCkGA1UdEQQiMCCBHmJoYXJnYXZhLm1hcnJlZGR5QGJyb2FkY29tLmNv
-bTATBgNVHSUEDDAKBggrBgEFBQcDBDAfBgNVHSMEGDAWgBQAKTaeXHq6D68tUC3boCOFGLCgkjAd
-BgNVHQ4EFgQUkiPQZ5IKnCUHj3xJyO85n4OdVl4wDQYJKoZIhvcNAQELBQADggIBALtu8uco00Hh
-dGp+c7lMOYHnFquYd6CXMYL1sBTi51PmiOKDO2xgfVvR7XI/kkqK5Iut0PYzv7kvUJUpG7zmL+XW
-ABC2V9jvp5rUPlGSfP9Ugwx7yoGYEO+x42LeSKypUNV0UbBO8p32C1C/OkqikHlrQGuy8oUMNvOl
-rrSoYMXdlZEravXgTAGO1PLgwVHEpXKy+D523j8B7GfDKHG7M7FjuqqyuxiDvFSoo3iEjYVzKZO9
-NkcawmbO73W8o/5QE6GiIIvXyc+YUfVSNmX5/XpZFqbJ/uFhmiMmBhsT7xJA+L0NHTR7m09xCfZd
-+XauyU42jyqUrgRWA36o20SMf1IURZYWgH4V7gWF2f95BiJs0uV1ddjo5ND4pejlKGkCGBfXSAWP
-Ye5wAfgaC3LLKUnpYc3o6q5rUrhp9JlPey7HcnY9yJzQsw++DgKprh9TM/9jwlek8Kw1SIIiaFry
-iriecfkPEiR9HVip63lbWsOrBFyroVEsNmmWQYKaDM4DLIDItDZNDw0FgM1b6R/E2M0ME1Dibn8P
-alTJmpepLqlS2uwywOFZMLeiiVfTYSHwV/Gikq70KjVLNF59BWZMtRvyD5EoPHQavcOQTr7I/5Gc
-GboBOYvJvkYzugiHmztSchEvGtPA10eDOxR1voXJlPH95MB73ZQwqQNpRPq04ElwMYICVzCCAlMC
-AQEwYjBSMQswCQYDVQQGEwJCRTEZMBcGA1UEChMQR2xvYmFsU2lnbiBudi1zYTEoMCYGA1UEAxMf
-R2xvYmFsU2lnbiBHQ0MgUjYgU01JTUUgQ0EgMjAyMwIMFJTEEB7G+bRSFHogMA0GCWCGSAFlAwQC
-AQUAoIHHMC8GCSqGSIb3DQEJBDEiBCCEL7JydKWKsWGCwnKivkr+8c5qRpv9PBmdOVNKPQtqcjAY
-BgkqhkiG9w0BCQMxCwYJKoZIhvcNAQcBMBwGCSqGSIb3DQEJBTEPFw0yNjEwMDUxMjQyNDZaMFwG
-CSqGSIb3DQEJDzFPME0wCwYJYIZIAWUDBAEqMAsGCWCGSAFlAwQBFjALBglghkgBZQMEAQIwCgYI
-KoZIhvcNAwcwCwYJKoZIhvcNAQEHMAsGCWCGSAFlAwQCATANBgkqhkiG9w0BAQEFAASCAQBUp1Ve
-iqUhUy7pqiYCEIZ8g/O5OeNJ1zRSaymRQ+zKn38TN18mTqhD4swf0OZbP+ZlEY+72T54vRVaJr8Q
-QQtGvdEvQqqBar4AD/ioaLHCiM9Qf6P6VL9SPOxEGsharXbHRqRavRF+3zxnPn1fHDQaBj3anARx
-wKLNzPvapaAYYK5EA+h8NCYFTPnk9o5u+uPrRrGiWvvaj31XGvNBTGwKfGLsmcQADtio6Ne0cjzT
-jcpSg0WYoW/EVgu6MdjMmgWY9rUEApSUNtmaAcPMYcr9DhB3DItmEZoJu2VKi6xG2CEVqb5J8kOi
-jYxFJolw7ezjt03Qi/qsvEYIAVJ3ajwU
---00000000000016ecff065d173891--
