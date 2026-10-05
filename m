@@ -1,205 +1,106 @@
-Received: from mail-pl1-f175.google.com (mail-pl1-f175.google.com [209.85.214.175])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5C27C525A90
-	for <linux-kernel@vger.kernel.org>; Mon,  5 Oct 2026 17:18:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.175
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0C7255275B8;
+	Mon,  5 Oct 2026 17:19:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791220740; cv=none; b=KSXofLZOdARUJ29yr446jy/qNKd/zZZz9izTi7HgpN6PS0j+cQb8li//ydHt9sm5oqWURcO7e2HO7KjfUgsHQt71AYLJn5+5yEhCJ43zqwPzxhR86g3fDywVRkq+VJWJremObY7i9O6+yjBTEmOfXNyXQIJv8buPX59ihWTZ8w4=
+	t=1791220742; cv=none; b=KAN2agdBYWt3AoHQmAOW3+daEl5HLdtNfuCAxBHgsQvXqD+dSTRq36Z2vUB0sVjJ47jj0UEej9tOMbtx266zBrWY4LAWaIsQvvLLvQggX1srT1JBMNi5VQp12z5Z4zm7yOHameHhRcxUd9ljgPpaUOx2OsSzLPpWS7d/SghNe88=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791220740; c=relaxed/simple;
-	bh=ikRDPvJS94ZCR7PUsAAuEp28RxgBvB/t5DdR/IX8Lk4=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=G93QLJ3Sc8KjTYCpBjZieQv77KJltsypyBS7HVzpTmMqvuoOryyyD4jtTXr5CYzRyGKwzjpayhupME4Ya2MnaAEYpOH5J2Gm2+9a3N+6DDUBycZAUCh/yzbwc9JfM1tUCrsaYItLS470qz2I429RiKBCIaCmFTQFwm2g7VUX68k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=kDcH/Xg4; arc=none smtp.client-ip=209.85.214.175
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1791220742; c=relaxed/simple;
+	bh=yZ2HVuTygVJMzapQCYCssfDOm8otkJGGwtq6aLgbdCk=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=DUS1wL1nMJ4T8Vj/Cj3o9xoIu7miG9hBXmQpzckb4HOuFHuT9nzCr4NUNcjir6MY3Voumgl3MsNjp67JptCY2Ys5djS/nnvhtBIBmsni5BjhogEaOusvXphqekdHTHfaNh1HDXUPaD7EYdvPY+CVILOQ+0Bv1psfC+6Kydt4MWw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=AdGKcaJC; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="kDcH/Xg4"
-Received: by mail-pl1-f175.google.com with SMTP id d9443c01a7336-2e4a4e92234so17533115ad.2
-        for <linux-kernel@vger.kernel.org>; Mon, 05 Oct 2026 10:18:58 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791220737; x=1791825537; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=7JGfeM05iMohWhPKcbFv96DJOpIFn77eSNSRuB4K3d4=;
-        b=kDcH/Xg4RjPEoEdcznaabc1cj2uwxJg4oniQl4A51j2bmvptrqvvHOf6DDAE8q80wo
-         3yoLGzDuz92YOw7q+wa5u/qhtrYL+yIxtqWgxVgPj/JSkIm5JBVNRFHu6msivq1EH9Z6
-         m3zbvr+9epLBV5yBHxuxmzIuDTURGKhSgWyEZg1t+pHpgZCn5M4rhct10VPvCpsfMLkG
-         G0jKFtqAvGByfEsHM2fhut8K6OxF0g1xu3jrsjifJXDAY1fQzxe7J+Kcn4nefAlXesfP
-         LLR2G+0ZXMZNfSkC0DW3SRqsLlKwuJt63H/D/lVgSDTvXB1lRrR/3fYJrAiE01HAeOSw
-         hsAQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791220737; x=1791825537;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=7JGfeM05iMohWhPKcbFv96DJOpIFn77eSNSRuB4K3d4=;
-        b=k0MHMFhmN4+8Jg/HqE0D6AOkQ6FQWPQqURLwfrLRHKCkYkTeXgN7R3+9JGHTGh4Hc5
-         XKWCMychIhsqIhe0c7yGeCNb7uR1LMhrPSwfHdr8Gfh6wj80q4xLO4A+1zM6TSO89QWG
-         kJMXlazE7yunq3oXJ+7ka4w3bvo2suoreX66juZ355ywd3MxMc7+N8w34xDn12V3pmI6
-         q7y0CM/l6aOy5zHyCGpZkZO6XpAqKfAbqdUU5JRPaYKDWaKsk5HqUBG0pX5rloeN64ka
-         PtbahQyW//UI+yl+RNYJqwCPG64nsB6XesJq82YOvdRkEJSozG8BBvG2BVqMoZ49uKm9
-         CRWQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzQTbeYa46ilDp8b1Y6bTryszG/eHSpftYyhmHveKgt3bj3py8fZp0J0vc62XOhjhddVLAnsHgEDNSIVsk=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJpzAi4dut3JxT8TIxtR6lANkMG//eFfDf0IFYoDL1KkZyJhsT6
-	Mz2z48Roa/3PJiZTdfqmHOEixPTK0mCJ4d7/83GqVqB7g0HTpRsySR42
-X-Gm-Gg: AYBFou3CZyBn0jZRc2sk8wDHrdGiaSktUTxNEzhhJ0YBBRkPzUqaQCISofZiifx9gNi
-	NpcYkBn7/YJoY0nA1vIcq8bR/9m8YTjJrX6/xm3gFlHreqV/fSJFL0+xNJuyqcgdM0VYzem4rMI
-	yEzZxP8sVobnovZLqbb1A9WmEM1DIw1L0zlfaH/k6FObFMqm3DzeTafHyq+AlWj11tMVgcEnwXV
-	m2m+c6umac/ihLP6SXuZf2AMGDsKU5YjMtbHLjJnZ1FaWnIKes4Ke+r0vkb2ZSEGY/xEj3+dGL8
-	KH4pdV5xdb4OaIaBItczWDIBY+oN6QE1xyCN0dFu00OTp6NbV9DDAYbG566Q+nsA7ioDyhuZeQ5
-	XbPMpw7fwmd0IUHajiMAeqqFqq4BVOiCJ5Ga8qryXvRmBp/6VjIenUIwwpsMgCxScFkH4zYdm4Q
-	g1/qnf922PfQM7KhFmlwPTpVE0GLxXViKJZNC369OtfYdcHrE5De6iStMSAQ4gPEifz4rUj2YR3
-	FptIKDbU5jrnaomXOSsGMqsGOotDQ==
-X-Received: by 2002:a17:90b:540b:b0:3a0:7cbf:b8cd with SMTP id 98e67ed59e1d1-3a787182b90mr6948956a91.14.1791220737102;
-        Mon, 05 Oct 2026 10:18:57 -0700 (PDT)
-Received: from kernel.tail6741c6.ts.net ([216.195.201.24])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a853cafddesm406910a91.10.2026.10.05.10.18.42
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 05 Oct 2026 10:18:55 -0700 (PDT)
-From: Kunwu Chan <kunwu.chan@gmail.com>
-To: paulmck@kernel.org,
-	corbet@lwn.net,
-	mingo@redhat.com,
-	frederic@kernel.org,
-	neeraj.upadhyay@kernel.org,
-	josh@joshtriplett.org,
-	urezki@gmail.com,
-	dave@stgolabs.net,
-	lianux.mm@gmail.com
-Cc: stern@rowland.harvard.edu,
-	parri.andrea@gmail.com,
-	will@kernel.org,
-	peterz@infradead.org,
-	boqun@kernel.org,
-	npiggin@gmail.com,
-	dhowells@redhat.com,
-	j.alglave@ucl.ac.uk,
-	luc.maranget@inria.fr,
-	akiyks@gmail.com,
-	dlustig@nvidia.com,
-	joelagnelf@nvidia.com,
-	skhan@linuxfoundation.org,
-	rdunlap@infradead.org,
-	longman@redhat.com,
-	rostedt@goodmis.org,
-	mathieu.desnoyers@efficios.com,
-	jiangshanlai@gmail.com,
-	qiang.zhang@linux.dev,
-	kunwu.chan@gmail.com,
-	brads@mainlining.org,
-	linux-kernel@vger.kernel.org,
-	linux-arch@vger.kernel.org,
-	lkmm@lists.linux.dev,
-	linux-doc@vger.kernel.org,
-	rcu@vger.kernel.org,
-	linux-kselftest@vger.kernel.org
-Subject: [PATCH RFC v3 13/15] hazptrtorture: add READERS4 and READERS0 torture configs
-Date: Tue,  6 Oct 2026 01:15:27 +0800
-Message-ID: <20261005171529.1378809-14-kunwu.chan@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261005171529.1378809-1-kunwu.chan@gmail.com>
-References: <20261005171529.1378809-1-kunwu.chan@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="AdGKcaJC"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DACCE1F00893;
+	Mon,  5 Oct 2026 17:18:57 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791220740;
+	bh=CfRbBBC5BsG4pdm4602y4R/JQAo7FMM0EFzZK8cdzQk=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc;
+	b=AdGKcaJC4uPtEVP+YoXrW0kihvI2CEWPWNo+esOsBKt8enU7D8s8jylVuhcqoNT/c
+	 nfGT7L0pQa/bdcu4AmtKWkxp2I0LTuzDu4hUS0TVbMj5snzA/NZzf2LkSoTMq6MVq3
+	 DDi9WOKXgNLwdn8lhsGKJzauYEXYfUif5UbKqYkK38k4i4C2CYM24MpmS1DUC2hgNA
+	 8V3Sam/0cJyCmapXjDYeNOeCXaO8fU8rVslaCsZcPpNmoGVJ2gV6Jq+iX0PKwJeS9v
+	 NKmxGPxIi87h/Ex/WcqrsNrRoSOo85sFebh/tM5d0H4RLKw2S4lOkmvJ3L73hDe93O
+	 kOUTwX5XSl+/Q==
+From: bod@kernel.org
+Date: Mon, 05 Oct 2026 19:14:26 +0200
+Subject: [PATCH 56/74] media: qcom: camss: csid-gen3: Route IPP completions
+ to the port the IPP feeds
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261005-linux-mainline-7-2-sm8650-hdk-rfc-0-v1-56-ed985aefd611@kernel.org>
+References: <20261005-linux-mainline-7-2-sm8650-hdk-rfc-0-v1-0-ed985aefd611@kernel.org>
+In-Reply-To: <20261005-linux-mainline-7-2-sm8650-hdk-rfc-0-v1-0-ed985aefd611@kernel.org>
+To: Bryan O'Donoghue <bryan.odonoghue@linaro.org>, 
+ Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>, 
+ Loic Poulain <loic.poulain@oss.qualcomm.com>, 
+ Mauro Carvalho Chehab <mchehab@kernel.org>, 
+ Jacopo Mondi <jacopo.mondi@ideasonboard.com>, 
+ Daniel Scally <dan.scally@ideasonboard.com>, Keke Li <keke.li@amlogic.com>, 
+ Richard Acayan <mailingradian@gmail.com>, 
+ Hans Verkuil <hverkuil@kernel.org>, 
+ Gjorgji Rosikopulos <quic_grosikop@quicinc.com>, 
+ Radoslav Tsvetkov <quic_rtsvetko@quicinc.com>, 
+ Robert Foss <rfoss@kernel.org>, Milen Mitkov <quic_mmitkov@quicinc.com>
+Cc: linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, Bryan O'Donoghue <bod@kernel.org>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1115; i=bod@kernel.org;
+ h=from:subject:message-id; bh=JISvBcJmWKg6nJyaUMCRJVlQy02ThhkRIddi6R/1SCM=;
+ b=owEBbQKS/ZANAwAKASJxO7Ohjcg6AcsmYgBqw9soWl6uPnUaklOFjIucrZ2bnIn+wMS4H1hiR
+ syYCl1l4sCJAjMEAAEKAB0WIQTmk/sqq6Nt4Rerb7QicTuzoY3IOgUCasPbKAAKCRAicTuzoY3I
+ Ok8+EACcAO4qqp6d9DHInSEC8XYxyod74yunq6RdMwDQZc0iOnovMHM8rH0OlXcqglJJbLCQ3B0
+ 8tCd/z6swvGVR9VPwjZRp74yRc21+oIzN9L9rKdgCa1HJndLKpSIJ0YfLjKVVVVMc91BhW6S4xS
+ 9gRHELyFqUi2qyG81uGRnDa1F78/KNzeF6dIIwfYEJm3OOU4CDBL94QW/RIzPBJ1iSaydCMPhJp
+ 4r6U0YH0iUfq1+n4dM88PdM+irB3UTiivW79JEK4kGK5rG37MU22Bv4oAUN8TtwdBkI8zt+BLgz
+ 1Cz7J3LEm0dnWlqNM1Az+BCb49c1dw9oP89lm2Ss7PMdRi0XNOOn4vxhdr59actKaNdNGrAohs6
+ uZpIGhp9B9vhRpL40pNv3i16jERcpM28Co7Y7HO+PZt3JP2Zd0KswKk7l9zVA3ygXMJWv4cU1Og
+ VXyXeX5IVM1AacgB8H5S7WZ92eeBGKEXPE0zhWM1Vdm8+pzTgnwJWIDFMZGyQA+qbgQBiLeSpj/
+ 2p23S0Wz5MvbfCGx/pLs2TUzuJPSiatW/f2U3nEHRz0G1148u5uIs3fH5z1sa9KMbVuObIzfNyE
+ 3lTf1Q6rkmHU5fVm2BXwZczsW+wMLYcZ/9ATjcKoBf17HRIa1IfeKgvq85RzKG+x0qoOCrXnYrc
+ cO+QWk7UGUQb/2A==
+X-Developer-Key: i=bod@kernel.org; a=openpgp;
+ fpr=E693FB2AABA36DE117AB6FB422713BB3A18DC83A
 
-Add READERS4 and READERS0 configs to cover reader-active and
-reader-free synchronize paths.
+From: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
 
-Both use the PREEMPT baseline and hazptr-stack torture type,
-with four readers for READERS4 and no readers for READERS0.
+The pixel and stats completion groups sit below the first RDI bit in
+CSID_BUF_DONE_IRQ_STATUS. csid_isr() hands them to port 0, which only
+holds for Valve's NV12-on-RDI, where the IPP output is written through
+RDI0's line.
 
-Signed-off-by: Kunwu Chan <kunwu.chan@gmail.com>
+Record the source port csid_configure_stream() routed through the IPP
+and complete the groups there. That is the PIX line when it is
+streaming, and RDI0 on the NV12-on-RDI path as before.
+
+Signed-off-by: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
 ---
- .../selftests/rcutorture/configs/hazptr/CFLIST   |  2 ++
- .../selftests/rcutorture/configs/hazptr/READERS0 | 16 ++++++++++++++++
- .../rcutorture/configs/hazptr/READERS0.boot      |  2 ++
- .../selftests/rcutorture/configs/hazptr/READERS4 | 16 ++++++++++++++++
- .../rcutorture/configs/hazptr/READERS4.boot      |  2 ++
- 5 files changed, 38 insertions(+)
- create mode 100644 tools/testing/selftests/rcutorture/configs/hazptr/READERS0
- create mode 100644 tools/testing/selftests/rcutorture/configs/hazptr/READERS0.boot
- create mode 100644 tools/testing/selftests/rcutorture/configs/hazptr/READERS4
- create mode 100644 tools/testing/selftests/rcutorture/configs/hazptr/READERS4.boot
+ drivers/media/platform/qcom/camss/camss-csid.h | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/tools/testing/selftests/rcutorture/configs/hazptr/CFLIST b/tools/testing/selftests/rcutorture/configs/hazptr/CFLIST
-index 380b8402ccc9..1826be30c066 100644
---- a/tools/testing/selftests/rcutorture/configs/hazptr/CFLIST
-+++ b/tools/testing/selftests/rcutorture/configs/hazptr/CFLIST
-@@ -1,4 +1,6 @@
- NOPREEMPT
- PREEMPT
-+READERS0
-+READERS4
- SLOWPATH
- LOCKDEP
-diff --git a/tools/testing/selftests/rcutorture/configs/hazptr/READERS0 b/tools/testing/selftests/rcutorture/configs/hazptr/READERS0
-new file mode 100644
-index 000000000000..c5b12f3bef74
---- /dev/null
-+++ b/tools/testing/selftests/rcutorture/configs/hazptr/READERS0
-@@ -0,0 +1,16 @@
-+CONFIG_SMP=y
-+CONFIG_NR_CPUS=16
-+CONFIG_PREEMPT_NONE=n
-+CONFIG_PREEMPT_VOLUNTARY=n
-+CONFIG_PREEMPT=y
-+CONFIG_HZ_PERIODIC=n
-+CONFIG_NO_HZ_IDLE=y
-+CONFIG_NO_HZ_FULL=n
-+CONFIG_HOTPLUG_CPU=y
-+CONFIG_SUSPEND=n
-+CONFIG_HIBERNATION=n
-+CONFIG_DEBUG_LOCK_ALLOC=n
-+CONFIG_PROVE_LOCKING=n
-+CONFIG_DEBUG_OBJECTS_RCU_HEAD=n
-+CONFIG_DEBUG_KERNEL=y
-+CONFIG_HAZPTR_DEBUG=y
-diff --git a/tools/testing/selftests/rcutorture/configs/hazptr/READERS0.boot b/tools/testing/selftests/rcutorture/configs/hazptr/READERS0.boot
-new file mode 100644
-index 000000000000..f5564c218902
---- /dev/null
-+++ b/tools/testing/selftests/rcutorture/configs/hazptr/READERS0.boot
-@@ -0,0 +1,2 @@
-+hazptrtorture.nreaders=0
-+hazptrtorture.torture_type=hazptr-stack
-diff --git a/tools/testing/selftests/rcutorture/configs/hazptr/READERS4 b/tools/testing/selftests/rcutorture/configs/hazptr/READERS4
-new file mode 100644
-index 000000000000..c5b12f3bef74
---- /dev/null
-+++ b/tools/testing/selftests/rcutorture/configs/hazptr/READERS4
-@@ -0,0 +1,16 @@
-+CONFIG_SMP=y
-+CONFIG_NR_CPUS=16
-+CONFIG_PREEMPT_NONE=n
-+CONFIG_PREEMPT_VOLUNTARY=n
-+CONFIG_PREEMPT=y
-+CONFIG_HZ_PERIODIC=n
-+CONFIG_NO_HZ_IDLE=y
-+CONFIG_NO_HZ_FULL=n
-+CONFIG_HOTPLUG_CPU=y
-+CONFIG_SUSPEND=n
-+CONFIG_HIBERNATION=n
-+CONFIG_DEBUG_LOCK_ALLOC=n
-+CONFIG_PROVE_LOCKING=n
-+CONFIG_DEBUG_OBJECTS_RCU_HEAD=n
-+CONFIG_DEBUG_KERNEL=y
-+CONFIG_HAZPTR_DEBUG=y
-diff --git a/tools/testing/selftests/rcutorture/configs/hazptr/READERS4.boot b/tools/testing/selftests/rcutorture/configs/hazptr/READERS4.boot
-new file mode 100644
-index 000000000000..0d0df3f7dca4
---- /dev/null
-+++ b/tools/testing/selftests/rcutorture/configs/hazptr/READERS4.boot
-@@ -0,0 +1,2 @@
-+hazptrtorture.nreaders=4
-+hazptrtorture.torture_type=hazptr-stack
+diff --git a/drivers/media/platform/qcom/camss/camss-csid.h b/drivers/media/platform/qcom/camss/camss-csid.h
+index 400995f35f0ef..b67cb1306acf2 100644
+--- a/drivers/media/platform/qcom/camss/camss-csid.h
++++ b/drivers/media/platform/qcom/camss/camss-csid.h
+@@ -161,6 +161,7 @@ struct csid_device {
+ 	u32 irq;
+ 	char irq_name[30];
+ 	u32 reg_update;
++	u8 ipp_port;	/* source port the IPP feeds: PIX, or RDI0 for NV12 compat */
+ 	struct camss_clock *clock;
+ 	int nclocks;
+ 	struct regulator_bulk_data *supplies;
+
 -- 
-2.43.0
+2.55.0
 
