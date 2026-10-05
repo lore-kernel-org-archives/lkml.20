@@ -1,155 +1,177 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3C4BF37E2EB;
-	Mon,  5 Oct 2026 07:36:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D0B3E369208
+	for <linux-kernel@vger.kernel.org>; Mon,  5 Oct 2026 07:36:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791185772; cv=none; b=XKwHEVh59U8Lt8Jit+tKy3DzrONx/4e9+5ynVppwLOD8fY3FDFwIUjcb+WT5vsvZnbdHTxOluAvvtYkCx9oxdXnEAwpB8/Yt/nlrv83TwfAehAIIE0ytolhRpQedaCCoR4yDSA7yNteOVK2y5z7NGrFzepZ9cIWRAsWFzMIzTRg=
+	t=1791185792; cv=none; b=ml9uqKYWVZzLFEyH1CiZQuB6kFUsv62EpYdwWTlcpFDuReweJwyIjBE6/OxrGockbu6eECf3IY64XHtotTgZJWyomWYrq1ATuLyphKu4MLPVSaQsaweb8hA9NVATtwTPMvjTzNx1cvOpwbZYk3bCxFYnkBpzZjuXIc9v1mUyl/E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791185772; c=relaxed/simple;
-	bh=lWFA/lphBDfFlKdg5ZeH8Da13s7WF/Y+TGpl0iNPuM4=;
-	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=XuFtAKhQhQUsOryug/9aK5I9xTc9Arin6CCCz4evO7JuDevu+6IvLUCajg6Xy1Nj3MZXdFxVwSBPHc7u/6840fvUzkfdo5fHkBY+iQajInajEXjH23+Gs/1t7ZIUBAGHGHidzYFjxfWcOHwHaWKkJpExB+8QLiiWk3AngceL1/o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=frTp5m5F; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791185792; c=relaxed/simple;
+	bh=3rr4LwQX+nXpLvqjzfnjc0qC2ZiHpp/e3plWdkVTZCY=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=gK7rcN3XWJzfEvZ2jMHf5MbBPW0o/+5ohWOHgB7RMev7whr8a/VnlB6fUlDT1aU3suroYgHG8GyCJuBey3AMgyEensHSDtXsOdeppd9vZfxyzv79RNo///546XQhHkbb9X2AfWftipZNgu3w6jBBWBtEl7tGpX60IdE/ySjlCa8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=J6ZyBoBd; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=YXtUCStG; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="frTp5m5F"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2F37D1F00893;
-	Mon,  5 Oct 2026 07:36:10 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791185770;
-	bh=wlE1MxfAOeA6OUdgmn9IID89AexVN0AIyazCIkBDGrY=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=frTp5m5FFMiIehoN9KO4h/49gjrqMsWBVS16+FSM4hQstV1Qfe9V9OTxGS6aSTsnL
-	 jVDYI7x9YQE+CEdXEd+EomI6cnaTWjxFJCBz6LVI8kWWFC/vPWSmp+8ayq5XxLRz5r
-	 jveLNMX9g262A2+fcHTN0en0+dvFIyYEfYJwvsGrE1CdGh6QbB9QNx6hnjGKiIB7TY
-	 oc4rl5dfWMHTMM2VZfwtnTzZZ/arMLWSxXsuQS79qkzldjuavox8lUdPwfcvCknLLZ
-	 M1lLFoSRFHa6Zbb8+eNpB4BDYVNG3DK3UYsQXh2cEJAsBgqi9oLGmagg53AFj0UiY6
-	 Kz18bZCDMnxdg==
-Subject:
- Re: [PATCH net v2] vhost/vsock: size receive SKBs from declared payload
-From: netdev-bot+sashiko@kernel.org
-To: 4ncienth@gmail.com
-Cc: stefanha@redhat.com, sgarzare@redhat.com, mst@redhat.com,
- jasowangio@gmail.com, eperezma@redhat.com, xuanzhuo@linux.alibaba.com,
- will@kernel.org, kvm@vger.kernel.org, virtualization@lists.linux.dev,
- netdev@vger.kernel.org, linux-kernel@vger.kernel.org, kuba@kernel.org
-Date: Mon, 05 Oct 2026 07:36:09 +0000
-Message-ID: <179118576977.434549.3015022133910830215@kernel.org>
-In-Reply-To: <20261004073419.4039011-1-4ncienth@gmail.com>
-References: <20261004073419.4039011-1-4ncienth@gmail.com>
-X-sashiko-severity: Medium
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="J6ZyBoBd";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="YXtUCStG"
+Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 695103pc496788
+	for <linux-kernel@vger.kernel.org>; Mon, 5 Oct 2026 07:36:30 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	OvE90PLb4SD4ZAizJF3vBu6QMBqFDMhNe9329Pa7vgc=; b=J6ZyBoBdS4qG/SG3
+	fLrM9aS1HOXqeVEVUw7J0btHNRL8pQ6PKQ6oneRYPeht8aw29WH8TGBXk7kUaE1p
+	oGa9isbudNyrLgvub19f7juWnYFyXX2ZlukGZmD2VNvbqiLC/urxxfMUZdzmjW1Y
+	wk8tK5coPRYXmzPDmojyPdhwEf1W0d5i+GRnv7qgwfzS1hOEHB3SrSVodT1lwBbw
+	Iz0WCAPUtyvzTsFb16XsZMvGN/mURd07G4NfdAbpxWBeyxUYlL1D6Jpqhg1yeOW0
+	O7cEH9yNuIrFU1hT0L89HWACH9wmPM/k6ApIhE7BK7sjcY5kV1bv9F7USnlXdcZk
+	0ma1tQ==
+Received: from mail-pf1-f199.google.com (mail-pf1-f199.google.com [209.85.210.199])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h3xgys5rb-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Mon, 05 Oct 2026 07:36:29 +0000 (GMT)
+Received: by mail-pf1-f199.google.com with SMTP id d2e1a72fcca58-88a10162189so2534434b3a.2
+        for <linux-kernel@vger.kernel.org>; Mon, 05 Oct 2026 00:36:29 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1791185789; x=1791790589; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=OvE90PLb4SD4ZAizJF3vBu6QMBqFDMhNe9329Pa7vgc=;
+        b=YXtUCStGoIFiuzDmiGh7ive+saqpGEjKCzftzyJ6URolC6RTpxJ7UnSfPp6gNPNle/
+         kcjNaPB9nkCy02Ku9uuzVflNgPG90+LcTpTOVt7DPHXjfXOZ+r1EsxJpBRdC2Un3m72R
+         5RI+/4MQZQGxfmbxUNflDh7L87Pk035la7dljHsVce4Ww4zeC05rfbFzShKnRzQFghgo
+         KxjvMrefsN7yTtBW72FT0Z43XyINJnGACcvWb62rGHh8A+YuubVRUdGJppvPFPdCj1GB
+         ExP7qNizVkAGiKZGoUcpaEkYAIc5tIj/cQNCgn3hFUS9dV2PcjFoXM7oldyaqcYfcq0x
+         WgHA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791185789; x=1791790589;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=OvE90PLb4SD4ZAizJF3vBu6QMBqFDMhNe9329Pa7vgc=;
+        b=YUZDKcuLh5eIg9yCnvROptYAkhKtslQH/zvothcv4ppV4c5P8md3oBVtz95Eh6gilz
+         L6/MWLiAslrzpxzHnn9gPmZlENUmW8ljbV0S8HK2sAR3lLjiG78MFtye0gKjsqi6D0GP
+         WSZ9v7oGfYswQqwsvfwBfAjWUOn+ioVCBrGT4IPmiypAvIGeP2vAWGvfRLxxoZqbNeqg
+         A1wSx/70kCVyJ2m/iQ4Sk9Xcs+47JXUFhmYzigEjjl9eUA63WYcEQnzEQSRpJ3vKBy5f
+         hVBzrvTbIpaIsdXKddbalY/QX+D0RqggNaUIzLlsoCsA9gnCZDLaytgbBetQ69Na4EK+
+         iRrA==
+X-Forwarded-Encrypted: i=1; AKwUvBy1PB0+0WfupVpwkrsINOVMEZWVVjiFTeGnZ59eL/x1Y0TUM/TIH41bf26xWkpaP2qd8GfbYzXLHqYVOic=@vger.kernel.org
+X-Gm-Message-State: AFuF++kRTEtBHmwBAL4xn6n9AEpIMaC3qtht4InMwUAG4ovbmygS5XaA
+	vg02DtHXN1m0Xw2lykkkAHmek7fAKsIyqZi9SXOevXsNGLfiDx1ZSen7pKY1Kyn6l/dQOEqSoLf
+	jks4fyZOuF4ChSRZ37Rk/GvBw9C/YR71iSRAuJI7uzsu6o/vQoSH5Pu1eM3ZyzpS8eec=
+X-Gm-Gg: AYBFou0xzz2dTy3b2ZbtvYGsREczEFzkJdVS38ywud7XVcfUOdthplETt55NRR8tPOk
+	XWDOG5qxgGwIZT4RHecW9+iltpn6/BRKbx7PeivAD+3vvmrVq4Pi87ROf0o1M8ex9YSKu50S3Ue
+	KUaAdTntLFfhZBFh2DEvoDR07qAD1jucr6IMqH8ghkPUw8JVeetNfT3oYhra/IoIkwlbGEQMXOs
+	gVNMeHbvTHjK8B0rQA/lr8VTpdart8s2VyyM1GXM0wwoIqCDyZCg+DnIoqu99PV78lZ7s6wzXxO
+	08jDLf4BiK7vd1I6oZRuik/d2+a63aYS3a52t2x0Ce+JrWRMwfgU41QIr/VQ1BsW30WeqI6g2E6
+	LJjeS5wXnuHq/bQCPgZV8XTj9gsE=
+X-Received: by 2002:a05:6a00:1251:b0:880:8fe8:a3ea with SMTP id d2e1a72fcca58-88c6492f52emr5380495b3a.45.1791185789186;
+        Mon, 05 Oct 2026 00:36:29 -0700 (PDT)
+X-Received: by 2002:a05:6a00:1251:b0:880:8fe8:a3ea with SMTP id d2e1a72fcca58-88c6492f52emr5380480b3a.45.1791185788717;
+        Mon, 05 Oct 2026 00:36:28 -0700 (PDT)
+Received: from [10.92.214.69] ([202.46.23.19])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-88cb27d93bdsm1759232b3a.30.2026.10.05.00.36.24
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 05 Oct 2026 00:36:28 -0700 (PDT)
+Message-ID: <53724835-33ff-4746-81a5-7017b84453a1@oss.qualcomm.com>
+Date: Mon, 5 Oct 2026 13:05:58 +0530
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2] arm64: dts: qcom: shikra: Add WCN clock to wcn3988-pmu
+ node
+To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+        Bjorn Andersson <andersson@kernel.org>
+Cc: Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley
+ <conor+dt@kernel.org>,
+        Imran Shaik <imran.shaik@oss.qualcomm.com>,
+        linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
+        devicetree@vger.kernel.org, quic_mohamull@quicinc.com,
+        quic_hbandi@quicinc.com
+References: <20260929-bt-wcn-clk-enable-v2-1-7a90902f3df5@oss.qualcomm.com>
+ <ar3LTBFtF_qqw7U2@zenbook>
+ <0eef230f-1db5-4419-91f3-ba220891e577@oss.qualcomm.com>
+ <284d1013-5bc7-4732-91c0-87a6c870a349@oss.qualcomm.com>
+Content-Language: en-US
+From: Yepuri Siddu <yepuri.siddu@oss.qualcomm.com>
+In-Reply-To: <284d1013-5bc7-4732-91c0-87a6c870a349@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-GUID: 2NckCOLh3hSNxvAyFcqxhc6NfcYlEucf
+X-Proofpoint-ORIG-GUID: 2NckCOLh3hSNxvAyFcqxhc6NfcYlEucf
+X-Authority-Analysis: v=2.4 cv=A6b5rKWG c=1 sm=1 tr=0 ts=6ac3537d cx=c_pps
+ a=WW5sKcV1LcKqjgzy2JUPuA==:117 a=j4ogTh8yFefVWWEFDRgCtg==:17
+ a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22
+ a=EUspDBNiAAAA:8 a=J9omWgiKjRi8sk1810UA:9 a=QEXdDO2ut3YA:10
+ a=OpyuDcXvxspvyRM73sMx:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDA1MDAzMCBTYWx0ZWRfX3ZOwbTU0PI6+
+ 5O3Twa/gUoC9dB4WT9ivg1a5s8+ddd3ATnK0l6E8+7z6J1NPLoQyLsZxzzoeqhmQtH2Io6BiPZg
+ 3lzi4SV5G7P8CUWTX/YSsSnEYM2vHcdBZ0P1s2eN4p6QXWzMCJKzq4du7mJYCrGyyD6zKnJgsF9
+ QRjICPcwKX7ccoyhrtKsxZrKFL4aC8FQjWVLp1eE3abiV7zfJMecmr4J8Hkw+qifkV0nm/vyB8c
+ jUbrPK2k9KtxTilNcCOwLFH2LFDuJN3Rj6fJAMlb65F8SEEIju8EuLMp4PC69K4I0XQTawtTOqV
+ cW3o4MsyOloEhmcp6pYNIUdXLHAUUyYrIZWknnQPkF7X2OAeARI+CdCTgt0cj+UZBca9Mc+tu9w
+ oBYGDs0+QXIOBCa7jd6EOm21H0d+5oTXCrly6dnJDvS1cOOrUDHLRwvERgJCWuMV6UhVUATZtdF
+ 14+U3FagHdmCMDS0kBA==
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDA1MDAzMCBTYWx0ZWRfX0WH01M/vgYAG
+ iAB8DJ/ODhBpgiAG9gIjO/1xjIImU9HU2UDLS8195xnGgTG2UncRWn3W2oSVvEZTSsTubnPnRLx
+ OGPSCqq6pY2wKwtr3JhlHAKzxRZXy7Y=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-05_01,2026-10-02_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ clxscore=1015 spamscore=0 lowpriorityscore=0 bulkscore=0 suspectscore=0
+ priorityscore=1501 impostorscore=0 phishscore=0 malwarescore=0 adultscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2610050030
 
-Thank you for your contribution! Sashiko AI review found 2 potential
-issue(s) to consider.
 
-Critical: 0 · High: 0 · Medium: 1 · Low: 1
 
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
+On 10/1/2026 12:59 PM, Konrad Dybcio wrote:
+> On 10/1/26 7:12 AM, Yepuri Siddu wrote:
+>>
+>>
+>> On 10/1/2026 8:28 AM, Bjorn Andersson wrote:
+>>> On Tue, Sep 29, 2026 at 03:31:29PM +0530, Yepuri Siddu wrote:
+>>>> With RPMCC proxy vote removal, the WCN clock must be explicitly declared
+>>>> so the wcn3988-pmu driver can vote for it during WCN power on/off.
+>>>>
+>>>> Place the clock in the wcn3988-pmu node since the PMU driver owns the
+>>>> WCN power sequencing. CQM SOM uses RPM_SMD_RF_CLK2 while IQS SOM uses
+>>>> RPM_SMD_RF_CLK1, reflecting the WCN clock assignments on each board
+>>>> variant.
+>>>>
+>>>> Signed-off-by: Yepuri Siddu <yepuri.siddu@oss.qualcomm.com>
+>>>> ---
+>>>
+>>> Why do you have one problem description above and a different one below?
+>>>
+>>> The information after "---" is not merged so the git history only
+>>> contains the one above - and there's some interesting details in the
+>>> description below. Perhaps this is the b4 "cover letter"?
+>>
+>> Yes, the detailed description was in the b4 cover letter body which
+>> gets placed below "---" in the email automatically and does not make
+>> it into git history.
+> 
+> FWIW you can simply ignore the "cover letter" for single-patch series
+> and leave it empty (minus of course, the changelog)
+> 
+Thanks for the tip. Will drop the cover letter description in v4.
 
-- [Medium] The Fixes: tag names the wrong commit.
-- [Low] The commit message presents the new `payload_len > len -
-  sizeof(hdr)` check in vhost_vsock_alloc_skb() (drivers/vhost/vsock.c)…
+Thanks,
+Siddu.
 
---
-
-vhost/vsock: size receive SKBs from declared payload
-
-This patch changes vhost_vsock_alloc_skb() to copy the virtio_vsock_hdr
-into a stack object and validate hdr.len before allocating. The skb is
-then sized from the declared payload plus the header, not from the total
-guest descriptor length. A guest can then no longer pin descriptor-sized
-allocations by sending zero or short payloads.
-
-> Use payload_len > len - sizeof(hdr) for validation.  This avoids addition
-> overflow on 32-bit hosts and ensures payload_len fits the subsequent
-> int-length copy path.
-
-[Severity: Low]
-Should this paragraph say that the old check already overflowed on
-32-bit hosts? This patch removes the following check from
-vhost_vsock_alloc_skb():
-
-	if (payload_len + sizeof(*hdr) > len) {
-
-That check came from 10a886aaed29 ("vhost/vsock: Avoid allocating
-arbitrarily-sized SKBs"), which is Cc: stable. That commit dropped the
-earlier payload_len > VIRTIO_VSOCK_MAX_PKT_BUF_SIZE short-circuit and
-kept only the addition.
-
-VHOST_VSOCK has no 64BIT dependency, so size_t can be 32 bits. If the
-guest sets hdr.len anywhere in [0xFFFFFFD4, 0xFFFFFFFF], then
-payload_len + 44 wraps to a value in [0, 43]. That is below len, so the
-bad length passes the check.
-
-In mainline this seems harmless. virtio_vsock_skb_put() sets skb->len to
-about 4 GiB. skb_copy_datagram_from_iter() then gets a negative int
-length, copies nothing and returns -EFAULT, and the skb is freed.
-
-Trees that have 10a886aaed29 but not ab9aa2f3afc2 still copy the payload
-with:
-
-	copy_from_iter(skb->data, payload_len, &iov_iter)
-
-Wouldn't check_copy_size() hit WARN_ON_ONCE(bytes > INT_MAX) there? On
-32-bit hosts that would be a WARN the guest can trigger, and a host
-panic with panic_on_warn.
-
-This patch fixes that as a side effect. Would it be worth saying so in
-the changelog and adding a Fixes: tag for 10a886aaed29?
-
-> Fixes: ab9aa2f3afc2 ("vhost/vsock: Allocate nonlinear SKBs for handling large receive buffers")
-
-[Severity: Medium]
-Is this the right commit for the Fixes: tag? vhost_vsock_alloc_skb()
-sizes the skb from the descriptor length:
-
-	len = iov_length(vq->iov, out);
-	...
-	/* len contains both payload and hdr */
-	skb = virtio_vsock_alloc_skb(len, GFP_KERNEL);
-
-This sizing seems to date from 71dc9ec9ac7d ("virtio/vsock: replace
-virtio_vsock_pkt with sk_buff"). Before that commit,
-vhost_vsock_alloc_pkt() sized the buffer from the header:
-
-	pkt->buf = kvmalloc(pkt->len, GFP_KERNEL);
-
-Here pkt->len came from hdr.len, which is the behaviour this patch
-restores.
-
-ab9aa2f3afc2 only switched the call from virtio_vsock_alloc_linear_skb(len)
-to virtio_vsock_alloc_skb(len) so that large sizes could be nonlinear. It
-did not change how the size is chosen.
-
-ab9aa2f3afc2 isn't tagged for stable. Trees with 71dc9ec9ac7d and
-10a886aaed29 but not ab9aa2f3afc2 would still have the problem in its
-linear form. That probably includes 6.6.y and 6.12.y.
-
-In those trees, a 64 KiB descriptor with a short payload allocates and
-keeps a kmalloc head of about 128 KiB. Payloads above GOOD_COPY_LEN (128
-bytes) skip the coalescing path in virtio_transport_recv_enqueue(). The
-whole head stays queued, but only the payload bytes count against
-buf_alloc. The changelog itself says "Linear skbs retain their full head",
-which covers this case.
-
-10a886aaed29 already uses Fixes: 71dc9ec9ac7d for the descriptor-sized
-allocation. Should this patch use the same tag, so the stable trees pick
-it up?
-
-Fixes: 71dc9ec9ac7d ("virtio/vsock: replace virtio_vsock_pkt with sk_buff")
-
--- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261004073419.4039011-1-4ncienth%40gmail.com
