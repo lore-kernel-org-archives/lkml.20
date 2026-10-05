@@ -1,282 +1,98 @@
-Received: from mail-dy1-f172.google.com (mail-dy1-f172.google.com [74.125.82.172])
+Received: from mail-pj2-f9.google.com (mail-pj2-f9.google.com [74.125.227.137])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 850062367B8
-	for <linux-kernel@vger.kernel.org>; Tue,  6 Oct 2026 02:19:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.172
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 75C981F192E
+	for <linux-kernel@vger.kernel.org>; Tue,  6 Oct 2026 02:21:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.137
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791253156; cv=none; b=rwuv3GQoWbGO8uNd2DrK6Sjdm9wiA2al2mn6DG/Yc5mh5ouuv3pmDEVez7ECdeaxJUR3pOPuYIrgUBn1IM8HzbYlgZqfF6VGZDl6gXJIAb8Fxrm8MtZgDv8wcet/SE/lrle27f07Pe3zR0PO+LaltJWEPAh/ZJuikCxi8JfVuF4=
+	t=1791253310; cv=none; b=QcgZHE/6b7uYNt0t5Iuo7C4qy9EplhmXv7P3no1ID/ixH3Sh4zoazN9st6/R7nb7nllQK58tAEn1XBmbo0LLYYOrYnSRCM6tQMDPEFXZqsH4x2DQkxwYzBDCbSEYwyYRzIA19W+o3lF8e8TQjnrsBLwCW+X4Di6fnsXGlaNRCN4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791253156; c=relaxed/simple;
-	bh=BmaEHSA4Sc5Ix5xoHHxmdmGUN9bsHAfm5IqRRWj5dtQ=;
-	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
-	 Content-Disposition; b=Xd+Mcb8P6Z5lYZBa6pP3KK49lnFzfelj9Z3UnBRfgIeGYMdZAJyUQrKzDiz0fPAe95xCZuewM+IL2q0W+IFpAxD1+S8oapCY4vc0p8wjR+6MOXVpFjHzFjIrLAWgW350xZQo2EyUp2eY3ZaTNP8GR2+ffY7B0ENXl8F2J8aIOtE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ji0YnFNQ; arc=none smtp.client-ip=74.125.82.172
+	s=arc-20240116; t=1791253310; c=relaxed/simple;
+	bh=X+ApK4aJZtFExDbkXvaDoXYcLNfzIgduLawtL28y0aU=;
+	h=MIME-Version:Content-Type:Subject:From:To:Cc:In-Reply-To:
+	 References:Date:Message-Id; b=hdA8hi+dr+r6C6e3cU0QAN/GctNnpktwrXPwDBacQ003TmOedK7nbGPTbfuz7zd7ju7IdtPrt6agIw14aKpIWeL+53/jA6pCWokV3ppFHbnGL8sW8jDZLLOUOiGh7MjY/pC+ieL1/SBdK7XTzngitIR6cTU0GPIF0LN/yx+R1Xo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=URkQY5Q7; arc=none smtp.client-ip=74.125.227.137
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ji0YnFNQ"
-Received: by mail-dy1-f172.google.com with SMTP id 5a478bee46e88-351348eb579so677030eec.0
-        for <linux-kernel@vger.kernel.org>; Mon, 05 Oct 2026 19:19:14 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="URkQY5Q7"
+Received: by mail-pj2-f9.google.com with SMTP id d9443c01a7336-2e497ed2ccbso11575195ad.1
+        for <linux-kernel@vger.kernel.org>; Mon, 05 Oct 2026 19:21:49 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791253154; x=1791857954; darn=vger.kernel.org;
-        h=content-disposition:content-type:mime-version:message-id:subject:cc
-         :to:from:date:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=goSUC8rOLbR1QanLKh3MMf1EmDUtSXdm+TglUr6s/zM=;
-        b=ji0YnFNQKiH/7x9YSr9W2x55fxqgEZImVE5KwYUUe4LreOYV7redWibTtcYCvNAf9W
-         gNkq+qWf4EqFRp4f2mkbAbMw/qD/fvUu/unjE0tMmMZGjurVVIoHLhzfSJMl/13/PpGT
-         8HO6aX0FFdqNvyMuKVJQlCZAQWYXOgJDeJH9OqEjy8B5hIBLqCdW5WxeUZwC+bDlBLZM
-         3XQzEfkkWzwDZM2NH9mULpPimxrmbjbr6XdhKcO7OvxpCwAWn6g3jhBtTSZcBqvCRXpL
-         ehFFywwf+nKp/mNiMRK3e9y0nRFjrufdL/JufKMMirD7wdrtRafftqnHsf37pIsZ6DK5
-         RrdQ==
+        d=gmail.com; s=20251104; t=1791253309; x=1791858109; darn=vger.kernel.org;
+        h=message-id:date:references:in-reply-to:cc:to:from:subject
+         :content-transfer-encoding:content-type:mime-version:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=yHf9jQyY1fl7nbJNPZDapSRASsYMYa+IT9UPrDjnf0A=;
+        b=URkQY5Q7Jua73dZHJIBl14Xsm5VJmY10W2KjRDJGtQKd+LHmX0yNg2JcElqyPN5Wtl
+         AVespsUFjIYUvMGjTYxizg3IBqaEwxTQ2fCrMqzxRQIlFQnkLl29z4jN05WLggZLMrTq
+         V6f51hEaCPIkhAEMqyaVVKZIaty9e6xA95mhp+pCq+cBO6+2s1xvxriZtQgyZsAxpa12
+         UHrsLuBO7LpLNXWQoHyg03rN4JJ3xey3gwiPRkNm+fjpERaAKkwwM6+S+pyxlt6cx16h
+         NtUXLxZ6FJwCemWcrzUKT9NF+X/NtNAhMcg2qPhh0MJEKQefQ7YlzgO9z2BznRcq26JR
+         82iw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791253154; x=1791857954;
-        h=content-disposition:content-type:mime-version:message-id:subject:cc
-         :to:from:date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=goSUC8rOLbR1QanLKh3MMf1EmDUtSXdm+TglUr6s/zM=;
-        b=YxgWx3GdUKtlb/PaQ1jts3q6qm1RScQXbfHM9tqNGdRLSd3WaHXlvhf0ncNI5Gmeo8
-         DpzLT9Gd0kRjNacCcxUEAIyOuBHcvKsFJFoEWzL05HjLONNRO7xj0UI7bLsYALszKSoz
-         thgSo1DPk60N9PCN46ijPuW+Q2xh6tbE7ye8uXOgOcJxqeTYDOhReXwBHbim1Cz0RsYr
-         vH9igugDPAyR2ce2TDifRY9npb7smF5i8H7naLSIjcdq9sqK4HMjNcBHCTv7vFGWT+cv
-         Oj1jmBVVGL1azyJJiRDTEN2vEvCUMBj93B2OVp+rB/4x8DfwGCH+D1hwosbrIliY1GWE
-         1fsw==
-X-Forwarded-Encrypted: i=1; AKwUvBykwn1ORsUTbl/C1T3mcol3c1bPcVFQlCKA5fO5o5QA29ZNuaWFdHDbtYeiXHwlt7kjWrpZSjHib9mNuGA=@vger.kernel.org
-X-Gm-Message-State: AFq9FYImroYtvEQvM+olVxGx0bXGko91Xn13b6ldItsjJ5m42eyKyunl
-	pVrTTUbdcCBwurrF2b2uht0iitMQfp+8rT9K8cV3HxyFPl6xTGn/7rUKHgWQrPWKB+E=
-X-Gm-Gg: AYBFou1LwNYQkvLsRKKm7Lc2906B/Z/uVLWPyBlxu0fxW5x9Jn9N7Cl+wQZp4p1nrU6
-	HG082yxN4Mkl0zUR1C76jVDehY1bIb7MZMMId8n3YGwCP2vmyNGQzSI97lfNNrwsucTPkhH8xvk
-	YwOWPDm3p262QgXHj+2L9VvNlSU2REiHARuFuBST5MBE6kBllSDZiKheYsvsTXjLhHdaTYgo7/f
-	NJoR9KoF8R3uQI+HXD+nWMhSXGQdr9WUJTAClgL6YU0SPfJWdw8YLCHZuYgDIxx0cuVCmByUC2i
-	GWhk/jSUaIxs2Edi8ckLTC/v61cRbqMYD/ZaHM5jaQhrFuIATPELRvEZxonYGz1zTLxx5su0CK+
-	2MWXbHAWr4vlTVGesC/445bbRxERjOt4zN1tuPRrnW+S+hiLV+0UDtdw1AfsBu0H6fOokylSCl/
-	P0oJrZHZpMXjtPq0wVmoLpW2OoGPUpJ6Zbi8cHkB0RlRt8J80YSL39wyZSB+XAsMp5SQn315xv
-X-Received: by 2002:a05:7300:e9d7:10b0:351:2200:1cde with SMTP id 5a478bee46e88-35145200a8emr1646887eec.8.1791253153514;
-        Mon, 05 Oct 2026 19:19:13 -0700 (PDT)
-Received: from arlo ([2607:fb90:742b:7290:cb9a:9a47:ea69:3868])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-35146a5b004sm3016308eec.18.2026.10.05.19.19.12
+        d=1e100.net; s=20260707; t=1791253309; x=1791858109;
+        h=message-id:date:references:in-reply-to:cc:to:from:subject
+         :content-transfer-encoding:content-type:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=yHf9jQyY1fl7nbJNPZDapSRASsYMYa+IT9UPrDjnf0A=;
+        b=zTCG1s7kdoqfYrzAdz+bLSLJFCcyh37olEV+D43g0mcIV9cgCkmcEkCGzn1Fl/45WQ
+         USZe6QDnYPhuTb+2c+Ac0Yo0GJC1FuojlBU8X9HQpdiP26ukY470Bf2SjurNBYrnA5hv
+         tklp1kuwjyt5VkIlTUSjCQ2WokM0oxk0LaSSc6CWRuA8KEgYtbov8letKus9NDdK/Ca6
+         Kx6lLUktiH5AYY0gbJCNORINgY2gf6HEaM7ElGJ/kMycsjj3oF5h6FQlrkbxYfIGXYD5
+         T8Q+dRXpxo/lEDiIqO6byJkHH7yaTw7rKtwzu5/Oc9QU4FLN8kOvmzLzq42cRYAMCPQS
+         StKw==
+X-Forwarded-Encrypted: i=1; AKwUvBxZIx0FxxZqqiFamTsdS3D6t4pHLrVe7YJ6sHr/SBLv2jXYDePsMnHUWzBsRn7OlW5Ckkpp0SO+IrIi6Sw=@vger.kernel.org
+X-Gm-Message-State: AFq9FYK2I3aTevrf381QhLU/c13L5XNRa+FqEs7QrTPFJhBOCkj8IjB2
+	C4IIHEsFshvcbuwjDGAEQTY+gkyaLs9T6nw4/mois9dO1BhNZWLsT+2i
+X-Gm-Gg: AYBFou1nqYsGY8HaOCFnCP8l7DVKUIoJdtoUOdtSK5YR0c6y+D4eToUuG+FPitcuIYY
+	5/nWeQlHPjs1BHa10iCo8Ucj0+zAEY1QcCGjIl2OCcjv12yJnQNEkH02HUmzoZug97ROY+dLi3F
+	rSd5PnMTNWm6o9RS39x/3q0QEljt2RHd0JbVybWrC6VfE0Hn6k55MSmQfBWjbJwJ4dsu4X0LAjg
+	od4DdjKE6fsrNPb27enHyPrBdSal4LS1oJ7k+rjxrnGiLSjpHOcx65Py57HT1YTn6g4pkD2ACQW
+	UhaK+PQK1LQpqsl6qoI/FjigzOSANJdWWnZbZq3UJqQNqvwhT/O/nW32Gq1+/y5/YEF6i0/Pxq3
+	drS5rU2JLW3sQT5Zb73z5PnR8wTKteFK9oAuBF/ZcOsSWPwhWUF5W0+QGUnPWaDZuucMcLfmSmt
+	LIkvbZ8uBGrN6/ne5FX8dDCQ+Ku1g6/jUcyOfVcTe2yOngEnbjQqL/cy2AB8n7mJQKYVC9u6dnn
+	dSNNYTcXY5OO/34Lq9tZYZGoRfDLyC59YQpGr5pa1oygShf6Mt+x+doPFGmgJ9Ejdr7oKfA2Hla
+	33g=
+X-Received: by 2002:a17:902:ef48:b0:2dd:c100:943e with SMTP id d9443c01a7336-2e5dcdfd37cmr230685ad.60.1791253308790;
+        Mon, 05 Oct 2026 19:21:48 -0700 (PDT)
+Received: from [192.168.73.37] (n106-71-19-159.sun21.vic.optusnet.com.au. [106.71.19.159])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2e5ccdd1f8esm2815245ad.83.2026.10.05.19.21.40
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 05 Oct 2026 19:19:12 -0700 (PDT)
-Date: Mon, 5 Oct 2026 16:19:08 -1000
-From: Raiden Horner <raidenhornerdev@gmail.com>
-To: slongerbeam@gmail.com, p.zabel@pengutronix.de, Frank.Li@nxp.com,
-	mchehab@kernel.org, gregkh@linuxfoundation.org
-Cc: imx@lists.linux.dev, linux-media@vger.kernel.org,
-	linux-staging@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v2] staging: media: imx: Fixed depricated implementations of
- 80 char limit & open parentheses line ending
-Message-ID: <asRanEEXSR2hDM_e@arlo>
+        Mon, 05 Oct 2026 19:21:48 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Subject: Re: [PATCH 3/4] HID: picolcd: Use min() macro to simplify code
+From: Aveline Noir <jm5905938@gmail.com>
+To: Chen Changcheng <chenchangcheng@kylinos.cn>
+Cc: bonbons@linux-vserver.org, jikos@kernel.org, bentiss@kernel.org, 
+ srinivas.pandruvada@linux.intel.com, even.xu@intel.com, 
+ xinpeng.sun@intel.com, linux-input@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, ccc194101@163.com
+In-Reply-To: <20260728025750.48249-4-chenchangcheng@kylinos.cn>
+References: <20260728025750.48249-1-chenchangcheng@kylinos.cn>
+ <20260728025750.48249-4-chenchangcheng@kylinos.cn>
+Date: Tue, 06 Oct 2026 02:59:11 +0800
+Message-Id: <179122675117.249704.5624307905971961639.b4-review@b4>
+X-Mailer: b4 0.15.2
 
-Fixed open parentheses line ending issues & readability.
+On Tue, 28 Jul 2026 10:57:49 +0800, Chen Changcheng <chenchangcheng@kylinos.cn> wrote:
 
-I presume this syntax was there to meet the old 80 char limit, and
-double checked the changelogs to make sure this was not already
-submitted.
+GCC/Clang builds, W=1, sparse and checkpatch passed
+with no new warnings. QEMU/UHID EEPROM tests passed;
+both versions showed the same existing 
+atomic-scheduling warnings.
+Makes sense to me.
 
-If not I apologize, I am still getting used to using the indexing
-system.
+Reviewed-by: Aveline Noir <jm5905938@gmail.com>
+Tested-by: Aveline Noir <jm5905938@gmail.com>
 
-Signed-off-by: Raiden Horner <raidenhornerdev@gmail.com>
----
-Changes in v2:
-	- Fixed line wrapping in the commit message to adhere to 75
-	  columns
- drivers/staging/media/imx/imx-ic-prpencvf.c   | 13 +++--
- drivers/staging/media/imx/imx-media-csi.c     |  4 +-
- .../staging/media/imx/imx-media-dev-common.c  |  2 +-
- drivers/staging/media/imx/imx-media-fim.c     |  5 +-
- drivers/staging/media/imx/imx-media-utils.c   | 54 +++++--------------
- 5 files changed, 24 insertions(+), 54 deletions(-)
-
-diff --git a/drivers/staging/media/imx/imx-ic-prpencvf.c b/drivers/staging/media/imx/imx-ic-prpencvf.c
-index 77360bfe081a..69f5ca280454 100644
---- a/drivers/staging/media/imx/imx-ic-prpencvf.c
-+++ b/drivers/staging/media/imx/imx-ic-prpencvf.c
-@@ -704,11 +704,11 @@ static int prp_start(struct prp_priv *priv)
- 	}
- 
- 	if (ipu_rot_mode_is_irt(priv->rot_mode))
--		priv->eof_irq = ipu_idmac_channel_irq(
--			ic_priv->ipu, priv->rot_out_ch, IPU_IRQ_EOF);
-+		priv->eof_irq = ipu_idmac_channel_irq(ic_priv->ipu,
-+						      priv->rot_out_ch, IPU_IRQ_EOF);
- 	else
--		priv->eof_irq = ipu_idmac_channel_irq(
--			ic_priv->ipu, priv->out_ch, IPU_IRQ_EOF);
-+		priv->eof_irq = ipu_idmac_channel_irq(ic_priv->ipu,
-+						      priv->out_ch, IPU_IRQ_EOF);
- 
- 	ret = devm_request_irq(ic_priv->ipu_dev, priv->eof_irq,
- 			       prp_eof_interrupt, 0,
-@@ -761,9 +761,8 @@ static void prp_stop(struct prp_priv *priv)
- 	/*
- 	 * and then wait for interrupt handler to mark completion.
- 	 */
--	ret = wait_for_completion_timeout(
--		&priv->last_eof_comp,
--		msecs_to_jiffies(IMX_MEDIA_EOF_TIMEOUT));
-+	ret = wait_for_completion_timeout(&priv->last_eof_comp,
-+					  msecs_to_jiffies(IMX_MEDIA_EOF_TIMEOUT));
- 	if (ret == 0)
- 		v4l2_warn(&ic_priv->sd, "wait last EOF timeout\n");
- 
-diff --git a/drivers/staging/media/imx/imx-media-csi.c b/drivers/staging/media/imx/imx-media-csi.c
-index ef22a083f8eb..4eb621ddda25 100644
---- a/drivers/staging/media/imx/imx-media-csi.c
-+++ b/drivers/staging/media/imx/imx-media-csi.c
-@@ -679,8 +679,8 @@ static void csi_idmac_wait_last_eof(struct csi_priv *priv)
- 	/*
- 	 * and then wait for interrupt handler to mark completion.
- 	 */
--	ret = wait_for_completion_timeout(
--		&priv->last_eof_comp, msecs_to_jiffies(IMX_MEDIA_EOF_TIMEOUT));
-+	ret = wait_for_completion_timeout(&priv->last_eof_comp,
-+					  msecs_to_jiffies(IMX_MEDIA_EOF_TIMEOUT));
- 	if (ret == 0)
- 		v4l2_warn(&priv->sd, "wait last EOF timeout\n");
- }
-diff --git a/drivers/staging/media/imx/imx-media-dev-common.c b/drivers/staging/media/imx/imx-media-dev-common.c
-index 0d0ee8627a2d..be445df93518 100644
---- a/drivers/staging/media/imx/imx-media-dev-common.c
-+++ b/drivers/staging/media/imx/imx-media-dev-common.c
-@@ -377,7 +377,7 @@ struct imx_media_dev *imx_media_dev_init(struct device *dev,
- EXPORT_SYMBOL_GPL(imx_media_dev_init);
- 
- int imx_media_dev_notifier_register(struct imx_media_dev *imxmd,
--			    const struct v4l2_async_notifier_operations *ops)
-+				    const struct v4l2_async_notifier_operations *ops)
- {
- 	int ret;
- 
-diff --git a/drivers/staging/media/imx/imx-media-fim.c b/drivers/staging/media/imx/imx-media-fim.c
-index ccbc0371fba2..9e9bacf9dcec 100644
---- a/drivers/staging/media/imx/imx-media-fim.c
-+++ b/drivers/staging/media/imx/imx-media-fim.c
-@@ -205,9 +205,8 @@ static void fim_acquire_first_ts(struct imx_media_fim *fim)
- 	if (!fim->enabled || fim->num_skip > 0)
- 		return;
- 
--	ret = wait_for_completion_timeout(
--		&fim->icap_first_event,
--		msecs_to_jiffies(IMX_MEDIA_EOF_TIMEOUT));
-+	ret = wait_for_completion_timeout(&fim->icap_first_event,
-+					  msecs_to_jiffies(IMX_MEDIA_EOF_TIMEOUT));
- 	if (ret == 0)
- 		v4l2_warn(fim->sd, "wait first icap event timeout\n");
- }
-diff --git a/drivers/staging/media/imx/imx-media-utils.c b/drivers/staging/media/imx/imx-media-utils.c
-index f119477cac6b..00cd391b5ff7 100644
---- a/drivers/staging/media/imx/imx-media-utils.c
-+++ b/drivers/staging/media/imx/imx-media-utils.c
-@@ -16,18 +16,12 @@ static const struct imx_media_pixfmt pixel_formats[] = {
- 	/*** YUV formats start here ***/
- 	{
- 		.fourcc	= V4L2_PIX_FMT_UYVY,
--		.codes  = IMX_BUS_FMTS(
--			MEDIA_BUS_FMT_UYVY8_2X8,
--			MEDIA_BUS_FMT_UYVY8_1X16
--		),
-+		.codes  = IMX_BUS_FMTS(MEDIA_BUS_FMT_UYVY8_2X8, MEDIA_BUS_FMT_UYVY8_1X16),
- 		.cs     = IPUV3_COLORSPACE_YUV,
- 		.bpp    = 16,
- 	}, {
- 		.fourcc	= V4L2_PIX_FMT_YUYV,
--		.codes  = IMX_BUS_FMTS(
--			MEDIA_BUS_FMT_YUYV8_2X8,
--			MEDIA_BUS_FMT_YUYV8_1X16
--		),
-+		.codes  = IMX_BUS_FMTS(MEDIA_BUS_FMT_YUYV8_2X8, MEDIA_BUS_FMT_YUYV8_1X16),
- 		.cs     = IPUV3_COLORSPACE_YUV,
- 		.bpp    = 16,
- 	}, {
-@@ -71,10 +65,7 @@ static const struct imx_media_pixfmt pixel_formats[] = {
- 		.cycles = 2,
- 	}, {
- 		.fourcc	= V4L2_PIX_FMT_RGB24,
--		.codes  = IMX_BUS_FMTS(
--			MEDIA_BUS_FMT_RGB888_1X24,
--			MEDIA_BUS_FMT_RGB888_2X12_LE
--		),
-+		.codes  = IMX_BUS_FMTS(MEDIA_BUS_FMT_RGB888_1X24, MEDIA_BUS_FMT_RGB888_2X12_LE),
- 		.cs     = IPUV3_COLORSPACE_RGB,
- 		.bpp    = 24,
- 	}, {
-@@ -132,55 +123,36 @@ static const struct imx_media_pixfmt pixel_formats[] = {
- 		.bayer  = true,
- 	}, {
- 		.fourcc = V4L2_PIX_FMT_SBGGR16,
--		.codes  = IMX_BUS_FMTS(
--			MEDIA_BUS_FMT_SBGGR10_1X10,
--			MEDIA_BUS_FMT_SBGGR12_1X12,
--			MEDIA_BUS_FMT_SBGGR14_1X14,
--			MEDIA_BUS_FMT_SBGGR16_1X16
--		),
-+		.codes  = IMX_BUS_FMTS(MEDIA_BUS_FMT_SBGGR10_1X10, MEDIA_BUS_FMT_SBGGR12_1X12,
-+				       MEDIA_BUS_FMT_SBGGR14_1X14, MEDIA_BUS_FMT_SBGGR16_1X16),
- 		.cs     = IPUV3_COLORSPACE_RGB,
- 		.bpp    = 16,
- 		.bayer  = true,
- 	}, {
- 		.fourcc = V4L2_PIX_FMT_SGBRG16,
--		.codes  = IMX_BUS_FMTS(
--			MEDIA_BUS_FMT_SGBRG10_1X10,
--			MEDIA_BUS_FMT_SGBRG12_1X12,
--			MEDIA_BUS_FMT_SGBRG14_1X14,
--			MEDIA_BUS_FMT_SGBRG16_1X16
--		),
-+		.codes  = IMX_BUS_FMTS(MEDIA_BUS_FMT_SGBRG10_1X10, MEDIA_BUS_FMT_SGBRG12_1X12,
-+				       MEDIA_BUS_FMT_SGBRG14_1X14, MEDIA_BUS_FMT_SGBRG16_1X16),
- 		.cs     = IPUV3_COLORSPACE_RGB,
- 		.bpp    = 16,
- 		.bayer  = true,
- 	}, {
- 		.fourcc = V4L2_PIX_FMT_SGRBG16,
--		.codes  = IMX_BUS_FMTS(
--			MEDIA_BUS_FMT_SGRBG10_1X10,
--			MEDIA_BUS_FMT_SGRBG12_1X12,
--			MEDIA_BUS_FMT_SGRBG14_1X14,
--			MEDIA_BUS_FMT_SGRBG16_1X16
--		),
-+		.codes  = IMX_BUS_FMTS(MEDIA_BUS_FMT_SGRBG10_1X10, MEDIA_BUS_FMT_SGRBG12_1X12,
-+				       MEDIA_BUS_FMT_SGRBG14_1X14, MEDIA_BUS_FMT_SGRBG16_1X16),
- 		.cs     = IPUV3_COLORSPACE_RGB,
- 		.bpp    = 16,
- 		.bayer  = true,
- 	}, {
- 		.fourcc = V4L2_PIX_FMT_SRGGB16,
--		.codes  = IMX_BUS_FMTS(
--			MEDIA_BUS_FMT_SRGGB10_1X10,
--			MEDIA_BUS_FMT_SRGGB12_1X12,
--			MEDIA_BUS_FMT_SRGGB14_1X14,
--			MEDIA_BUS_FMT_SRGGB16_1X16
--		),
-+		.codes  = IMX_BUS_FMTS(MEDIA_BUS_FMT_SRGGB10_1X10, MEDIA_BUS_FMT_SRGGB12_1X12,
-+				       MEDIA_BUS_FMT_SRGGB14_1X14, MEDIA_BUS_FMT_SRGGB16_1X16),
- 		.cs     = IPUV3_COLORSPACE_RGB,
- 		.bpp    = 16,
- 		.bayer  = true,
- 	}, {
- 		.fourcc = V4L2_PIX_FMT_GREY,
--		.codes = IMX_BUS_FMTS(
--			MEDIA_BUS_FMT_Y8_1X8,
--			MEDIA_BUS_FMT_Y10_1X10,
--			MEDIA_BUS_FMT_Y12_1X12
--		),
-+		.codes = IMX_BUS_FMTS(MEDIA_BUS_FMT_Y8_1X8, MEDIA_BUS_FMT_Y10_1X10,
-+				      MEDIA_BUS_FMT_Y12_1X12),
- 		.cs     = IPUV3_COLORSPACE_RGB,
- 		.bpp    = 8,
- 		.bayer  = true,
 -- 
-2.47.3
-
+Aveline Noir <jm5905938@gmail.com>
