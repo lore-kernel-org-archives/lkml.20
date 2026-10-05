@@ -1,68 +1,95 @@
-Received: from mail-yw1-f174.google.com (mail-yw1-f174.google.com [209.85.128.174])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3CF714C1505
-	for <linux-kernel@vger.kernel.org>; Mon,  5 Oct 2026 15:09:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.174
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1C78A4C14FC
+	for <linux-kernel@vger.kernel.org>; Mon,  5 Oct 2026 15:09:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791212994; cv=none; b=dQ0uD0d6Gk2f+f6T5Ey9XLjvENQDWPJ5XscZCIvbXuhallNXpUbTCoTO8Dk7GdgEfiKRLfZPq8LDrCk+A9hEowtT7Q+NrpTjbCwCsQM5jAAutz/0UjjT3ugZAp61gGKkZ4Zyn4jxopcRjgIGzvMM/2i8yN2jCoxCP3XYlpEH8+A=
+	t=1791212998; cv=none; b=Rw7ZQhf7WIwQi4wDSge3Z92JmLI29/YWojBWcod5MVBEjf2+ys3ymd8u1yvMxOVkVFY+uAGAH9VNA1yGWsYjlHBlp6aUR6XeqURAHW2/cM0XXrfq1fGfmGzY92aajMV3k/617C/J2KRYmfT2KYKVJBukCRXAG17VFSZFzVQSvKk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791212994; c=relaxed/simple;
-	bh=JqdhYArLfQMq1mboPKSJjgurXFhylbSgNQRp7J5U3IA=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=YZLm0hbAFUclFakgPI236b0JAe85QQA7/RIZtsTt9wJmh4bQJ7kCyNSsAuQS74tOYohjilQnh7izsv+iz2xZlXFYOvj1WEnDwPIsXneSHp5QCbodBn0dbYI2ykwHqhHHPPNzcXYK1EfXLOzGnKCI6fY3WdFG5qMUCBFG2qbS1cY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=amutable.com; spf=pass smtp.mailfrom=amutable.com; dkim=pass (2048-bit key) header.d=amutable-com.20251104.gappssmtp.com header.i=@amutable-com.20251104.gappssmtp.com header.b=xkYIJyvV; arc=none smtp.client-ip=209.85.128.174
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=amutable.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amutable.com
+	s=arc-20240116; t=1791212998; c=relaxed/simple;
+	bh=z7pGQWfb1LAA/kgbLXti5Rmd5f63nEbmiUqodt0mor0=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
+	 MIME-Version:Content-Type; b=Q/U6SF3K/Qp3iGNTlZNVzOE8bx0aqZJubFQT/+vUAQb2VCynMFC74PURFv7Eoln4IurQrTwkndRS4T8pjct32eMebvH/PnDajGT7iydcHwOfEpjTuCfwDO3n9kntULKZhoLWsqFeshYNYnBxM5uyj6PvHh93+knyfl6IN2xdCio=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=MjLF8oYf; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=dLTloOSJ; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=amutable-com.20251104.gappssmtp.com header.i=@amutable-com.20251104.gappssmtp.com header.b="xkYIJyvV"
-Received: by mail-yw1-f174.google.com with SMTP id 00721157ae682-8925e417565so14854957b3.2
-        for <linux-kernel@vger.kernel.org>; Mon, 05 Oct 2026 08:09:51 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="MjLF8oYf";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="dLTloOSJ"
+Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 695EP4DJ2214845
+	for <linux-kernel@vger.kernel.org>; Mon, 5 Oct 2026 15:09:52 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	k7BOMJomIb9HIja7jhV/C5sopCF+u5DG9RsBVy1jMAI=; b=MjLF8oYf6UQDqEcG
+	hhN+MQfqZvDMVlzvUnqzAtZ2EUVtRgdJq/Fb8a27TIfIXF/k6ddlobO9ycR9TIeb
+	h1dT6XofYnZ5MRHL4xrTAXRL+Ll0pc8nz4/oBNZyltenionpC3uoLFR5T6ikvQ8Z
+	NVRDFxZwDHWDjZDvNf+S06YXdb9XTWFGW5LQ+570KTU9nvbFlSZW4yC9oybyhM4m
+	2DoeChcmuZPnm/W+BPpJ2Zbfc0OVqCR0rOkaylpY9OXktCPwzzdfLpbUfgpXq4hp
+	JFmSPcR9woD/UvIEW7o29bGzogbYgrHbZcyQWQKXgvxAeiqMBz8VpR4KL3YecmoO
+	E1Aj2g==
+Received: from mail-pl1-f199.google.com (mail-pl1-f199.google.com [209.85.214.199])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h3xgyts8j-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Mon, 05 Oct 2026 15:09:52 +0000 (GMT)
+Received: by mail-pl1-f199.google.com with SMTP id d9443c01a7336-2e2e7425601so16406595ad.0
+        for <linux-kernel@vger.kernel.org>; Mon, 05 Oct 2026 08:09:52 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=amutable-com.20251104.gappssmtp.com; s=20251104; t=1791212990; x=1791817790; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
+        d=oss.qualcomm.com; s=google; t=1791212992; x=1791817792; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:date:message-id
+         :subject:references:in-reply-to:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=K9eqsrwslFJI2AH2PY+QHhIr0sWb1wdjAmFsW2YT3Y0=;
-        b=xkYIJyvVSsrL2Q3Y9YFXx5aLkiqFt4P8PjbpbT/HjiNu99J80///PSqxOcvTYMIn4n
-         ZYj1vjhJOR6quX8l9IFT50DhaQfZOS+omYFvEKywSAdfYmz55OX98Sg38eBmwd2j0pjD
-         +ycTNwwnpiIb1gQRGIK4b03NFkT7Qu3nJvy+hdH9WEIq9jH03DPf8cXjzeQKYiUwBT7H
-         Mi8XDLF6Er77YJi9U6KOzZOm59smdJ6quxijdveQuKYZ/baYi1LW4+455bYzjTB4Jx+/
-         E2c0ueTAgZrd9jwhPGa1Xp9gqpZD+So86eQ1bnSrFu7oAgMufZRlIuAi/VqHIgkLDKaI
-         JvXQ==
+        bh=k7BOMJomIb9HIja7jhV/C5sopCF+u5DG9RsBVy1jMAI=;
+        b=dLTloOSJtSv/2U6ob2YPoWGsPDR1K/4g+ZfS2i1O4uA/OHBf/sr0o2hsjLP2Rqe6F7
+         Ui9UxPvfk71Q3506AFS1+lPUlVHq4NOK9qC1GM7DgYgjla+VHKj0b1V/maVyMEZ3eJvC
+         KpncH+Ks8xlYvTiKZlNiGgNCdS5hHTNVv0m3WzNI3yNVI6oekMAChnSP+vAXhXYL2kqj
+         CjbXdC9iwEIiPYvALFZhwVJjcQRdPl3lEBxk4PYg1rkqTvkyAlQxbKHPr5ftfJJuB5Rz
+         YzCGN65Hu98TiTULLNEG40ZCCniWC/1zbZd99UMR4x3JxaNfxipaJ5928lyvRYqK2LTz
+         VSSw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791212990; x=1791817790;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
+        d=1e100.net; s=20260707; t=1791212992; x=1791817792;
+        h=content-transfer-encoding:content-type:mime-version:date:message-id
+         :subject:references:in-reply-to:cc:to:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=K9eqsrwslFJI2AH2PY+QHhIr0sWb1wdjAmFsW2YT3Y0=;
-        b=Lffgp/chcciyoMZdfsMKobEeoMU1918DdnoW6+0Jd/y57BQ76SiGpbm5J3UfG0E6Q0
-         N3+sUyNsyhT8qum86AT6eibAoBglbCbaxqUm8TXDkTcCSLOgNpdZVIO6zkqrpzDF1hn/
-         7szkAJYS+jDQRHAVFbBRYkybnpCGP8zGGR482oHP83Sv3D45sDF8et8OR6wE98tCA7dq
-         PtH3LToGLLldhkp7qPhdkdKMEZSvDu5hY0cX3WgVNcgSqUuU11FRpRsXM3V0Ehl52dwa
-         OVb8Bx2O2s+AEQu9NZDgYgaJVdP8ARg1WL5xlev1Z+GANmSeWUNeHz6D+pIkyoBD7xTt
-         5Hqw==
-X-Forwarded-Encrypted: i=1; AKwUvBwfIgDj2Ohq+ZjG6sKk0vCKsDgP83TBYmQ8b6kDnwwqtt34g3fP/TSfwDcdcHFB5IQUQR8waH2dvWg+E/0=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLp8gu1qUtvnDhZqX5xz/cwAXxRaRQACJ7vROCgr12B39LdjXDu
-	UWEK9NZq0SFTVs6XWD/l9sDGacNLGnQ1XEV92ZI/B1ClRU4kNIM8H19FzGSv8Navc5mu
-X-Gm-Gg: AYBFou0U998F1+abqGa+sZS6DZXtnGdxGchb8ig/s8dQPDJ7CedX0YEH/YXYstlUUvx
-	93vkIgXrqmu2wxxN6PFKXxjp5vZwrSGUYX3Mm88XlDT/oH8Rw8ZxpCPqp/dzt6BDWCuu/k7HbV2
-	6DtW6hG4yyh458T6hRQ359tMvD6Mdi35jhC6EkbON9HGZtlpelByXlQgeJPCck04Jhyt7szC1UL
-	x6EQMsX5VWM4mmuKtqddOyjBrla8UbrTFPw0RJ5XTJ/n7PLqLAndFf2LYu4pZo/BjxweTIPuBCP
-	qRYxfXcVd+Y3Ami8XnpxQaJh/uIoLdE45t4eEnFd/IwRKOVS191TO6dLsDcVjwzOhgwLBS1oroG
-	jgzlflhecOOwJzQjY8kBVL2OcJ4SBQmbDWy0qUq6MPHQj8WzjNW3IfQ5umnV5nnfPKZ8i4wAuRU
-	Bznoz67ldrPXyvRu6Y65ejQmU5zgcVhYjEIGK4yEDlvTmm4Kx84QRuglOi3Bt0G7okz+u/6Fvt+
-	nlxfssqVLuhe2V68BwPR/HTCf5Fhe64vD99QvQWJSTLzYN+RWoUJGiMd7CthCdxMQ==
-X-Received: by 2002:a05:690c:386:b0:8ab:4a67:71a8 with SMTP id 00721157ae682-8ae94ca2e24mr23162597b3.38.1791212989741;
-        Mon, 05 Oct 2026 08:09:49 -0700 (PDT)
-Received: from [192.168.1.110] (104-53-165-62.lightspeed.stlsmo.sbcglobal.net. [104.53.165.62])
-        by smtp.gmail.com with ESMTPSA id 00721157ae682-8ae33fe81fdsm41210467b3.47.2026.10.05.08.09.48
+        bh=k7BOMJomIb9HIja7jhV/C5sopCF+u5DG9RsBVy1jMAI=;
+        b=Ov1YIDnBvBxPJJnCvN8CRKnCHt7AUGtMkHwnJ9UbLT6XX+ICF9fDz6YL/CbL/Bh4Bt
+         HjcBQ3pNp0Jne69i2m1Am4AoOUlHlgP3hJTmm3LN5F4w99h31moV6rdoJvu0SWhO8HAJ
+         Vi43ivaW+y5IgCnwEtXnIBRLrabEIpCP+VXJLE7qg3C1udnUe5EGrXHHWFik5MVASSYZ
+         2ynJ/Q0zHImVxqPM3pKAbkbhWEURtyv9ZEzSK+E8ECx4g7AEsHpIXnNiFryABIlw6AN3
+         2qDeTjTHzA8xHslWY3baske4Cve2mU9Kl2PilKQ/1zrAOgAxCBYYIt8ZF2Q2a1YzQ9Ch
+         Z4Hw==
+X-Forwarded-Encrypted: i=1; AKwUvBz5SERgZspngofKZwqhsnjoO/x+3pGp2Wfwdr9OdxVQS7U7dp0eRdMLl0O4oWPf/qMJ0+fMwJ68/+cn11w=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIceYegG2+BvJOHK+XHV3oLIeCBFwLvmyRpF1onzRcYe2KCRuUr
+	cILBtneUe/BFfbPuLaBP7D1Wcn9QJfMF4ZKsyVvLZ9P+Wt34NJKIWECtrlMWSXR2EpwMnKsUiRt
+	SU+dKCYaV7Iw5cfvWhpVV8g0M4nuOfSaiXODJJ+gFlh94BsO45MeE83FGHEMvVxR3pvk10fIc4B
+	k=
+X-Gm-Gg: AYBFou34YV1yID8wOjaW9eFFqW8cLQO0O5TyJQ2FrkPVOw4vj+kVK/f295o7XgetYgg
+	Zd5e/5FeRHBa6hzbzTzmaHeu4DzY76rXeACraGXG6LNrhkRKfQSw5Xo/Q4+VXCXuXscdIS5QYom
+	l3Y4Tgdsa8f2CFH73x/2zXnQzxs8OIqhzXtP5xPq9FMhfn6XtdbR65fsvqeotUqWenn7NcZZGuc
+	YkTjepUDaaqpC/eNWXpHxzrf4OgJfBrTSrzqfI10JrZ2QKpUfFrXoigFkp8DGHnWlgE/jy3z0sZ
+	FsWjBx40QpzwIht0L9ALUIsvblumBPRS8w6pwrOgeTu+kc4Qrrv8esN/750D9amp5BS9hTIh0kq
+	q+An1LOtFuXqx0VC8P+suXE+XlbJDAF7+Jn1iy+oISf733e086s+oC/A=
+X-Received: by 2002:a17:902:d512:b0:2df:375f:b7ee with SMTP id d9443c01a7336-2e49b675014mr77177735ad.18.1791212991924;
+        Mon, 05 Oct 2026 08:09:51 -0700 (PDT)
+X-Received: by 2002:a17:902:d512:b0:2df:375f:b7ee with SMTP id d9443c01a7336-2e49b675014mr77177375ad.18.1791212991307;
+        Mon, 05 Oct 2026 08:09:51 -0700 (PDT)
+Received: from hu-jjohnson-lv.qualcomm.com (Global_NAT1.qualcomm.com. [129.46.96.20])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2e5a5cae1bfsm9130075ad.28.2026.10.05.08.09.49
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
         Mon, 05 Oct 2026 08:09:49 -0700 (PDT)
-From: Andrew Halaney <andrew@amutable.com>
-Date: Mon, 05 Oct 2026 10:09:32 -0500
-Subject: [PATCH v4 02/10] af_unix: record the pid of the sending thread
+From: Jeff Johnson <jeff.johnson@oss.qualcomm.com>
+To: linux-wireless@vger.kernel.org, Rosen Penev <rosenp@gmail.com>
+Cc: =?utf-8?q?Toke_H=C3=B8iland-J=C3=B8rgensen?= <toke@toke.dk>,
+        linux-kernel@vger.kernel.org
+In-Reply-To: <20260911213144.130192-1-rosenp@gmail.com>
+References: <20260911213144.130192-1-rosenp@gmail.com>
+Subject: Re: [PATCHv2 ath-next] wifi: ath9k: delete channel-context timers
+ on deinit
+Message-Id: <179121298946.2358654.16856566476480505783.b4-ty@oss.qualcomm.com>
+Date: Mon, 05 Oct 2026 08:09:49 -0700
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -71,229 +98,54 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261005-work-unix-passpidfd-v4-2-350183b6e02a@amutable.com>
-References: <20261005-work-unix-passpidfd-v4-0-350183b6e02a@amutable.com>
-In-Reply-To: <20261005-work-unix-passpidfd-v4-0-350183b6e02a@amutable.com>
-To: Jakub Kicinski <kuba@kernel.org>, Kuniyuki Iwashima <kuniyu@google.com>, 
- Oleg Nesterov <oleg@redhat.com>
-Cc: "David S. Miller" <davem@davemloft.net>, 
- Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, 
- Willem de Bruijn <willemb@google.com>, netdev@vger.kernel.org, 
- linux-kernel@vger.kernel.org, Alexander Viro <viro@zeniv.linux.org.uk>, 
- Jan Kara <jack@suse.cz>, linux-fsdevel@vger.kernel.org, 
- Alexander Mikhalitsyn <alexander@mihalicyn.com>, 
- "Christian Brauner (Amutable)" <brauner@kernel.org>, 
- Andrew Halaney <andrew@amutable.com>, Eric Dumazet <edumazet@kernel.org>, 
- Alexander Mikhalitsyn <alexander@mihalicyn.com>
 X-Mailer: b4 0.14.3
+X-Proofpoint-GUID: cMMJWkxDdpMUGcKkpS-HD-8qg1-ZMSla
+X-Proofpoint-ORIG-GUID: cMMJWkxDdpMUGcKkpS-HD-8qg1-ZMSla
+X-Authority-Analysis: v=2.4 cv=A6b5rKWG c=1 sm=1 tr=0 ts=6ac3bdc0 cx=c_pps
+ a=JL+w9abYAAE89/QcEU+0QA==:117 a=ouPCqIW2jiPt+lZRy3xVPw==:17
+ a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22
+ a=EUspDBNiAAAA:8 a=7eYl0IV7dGDCLOCTNgAA:9 a=QEXdDO2ut3YA:10
+ a=324X-CrmTo6CU4MGRt3R:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDA1MDA1OSBTYWx0ZWRfX74auv+f22/SM
+ HqL+s4c5xFxN3RdD0YOxTDq5+KtfvSgTnH7+Ef/oLPBiSa0VmQ4eY2+jZwNlcppR1izV3wnjXYD
+ wKXAVNFZAUdYt5sYpHsJxvBePTTqdfK5cyJU4HPi29h2eg2+qXTd48CnbsOqZPCF8VbGc9J3GrD
+ Zh1pt8LqFT9k4oSCAev8oVARCu9PybWc+4WYrEfAMA9gXC3ZWV3gLCRSfsTWP64xhakj6LIs3fm
+ tUAS0wBJLRjMCUwQfJWWbYMP3LWbk+cXD9Qo5vXPUH7lCzqbl8lRmtoWPa6yzVh92d5pC8NNWcU
+ vEa5zb5itmL1EMRepYBMCMpNoXH/VRyBf8WTvustibUuwqynNGBbYCLQPY2kslH/5Wjh6eEqy1L
+ f/Jy8hTQHzYwRdmB6Wjk3ipsjwpJisoWJDqJUE5Rt3xGJ/4cooLV7MjUOibph98k4RISXt0/r2A
+ SaSsw3bEIyFSdBj1Kqg==
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDA1MDA1OSBTYWx0ZWRfX2G412D786izr
+ l8cUTdI+Ghv7bpPwwG6+LlElpKyG7XYYfwbI42dHRb8CnKTi5cftitURJY4xY/LjXVaIbOkmJ8N
+ V08QLvHIaLtR3QaBnRTyOGMx7q2/Bhw=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-05_04,2026-10-05_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ clxscore=1015 spamscore=0 lowpriorityscore=0 bulkscore=0 suspectscore=0
+ priorityscore=1501 impostorscore=0 phishscore=0 malwarescore=0 adultscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2610050059
 
-From: Christian Brauner <brauner@kernel.org>
 
-Currently only the struct pid of the thread-group leader is recorded.
-The identity of the actual thread that sent the message or is connected
-to a given socket cannot be retrieved.
+On Fri, 11 Sep 2026 14:31:44 -0700, Rosen Penev wrote:
+> ath9k_deinit_channel_context() cancels chanctx_work but does not delete
+> the offchannel and sched timers set up by ath9k_init_channel_context().
+> If either timer fires after deinit (e.g. during driver unload or
+> suspend), it accesses sc->sc_ah which may already be freed by
+> ath9k_hw_deinit(), causing a use-after-free.
+> 
+> Delete both timers with timer_shutdown_sync() before cancelling the work
+> item.
+> 
+> [...]
 
-Add the plumbing to make it possible to retrieve a pidfd for the sender.
-Nothing uses the thread-specific struct pid yet. No functional changes.
+Applied, thanks!
 
-Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
-Reviewed-by: Alexander Mikhalitsyn <aleksandr.mikhalitsyn@futurfusion.io>
-Signed-off-by: Andrew Halaney <andrew@amutable.com>
----
- include/net/scm.h  | 10 +++++-----
- net/core/scm.c     | 21 +++++++++++++++++----
- net/unix/af_unix.c | 21 +++++++++++----------
- net/unix/af_unix.h |  3 ++-
- 4 files changed, 35 insertions(+), 20 deletions(-)
+[1/1] wifi: ath9k: delete channel-context timers on deinit
+      commit: 81394dfb9a7905472957628b560ae894eae3a30f
 
-diff --git a/include/net/scm.h b/include/net/scm.h
-index 86ae6bc109ec..b68a143f42de 100644
---- a/include/net/scm.h
-+++ b/include/net/scm.h
-@@ -42,7 +42,7 @@ struct scm_fp_list {
- };
- 
- struct scm_cookie {
--	struct pid		*pid;		/* Skb credentials */
-+	DECLARE_PIDS(pid, PIDTYPE_TGID);	/* Skb credentials by pid type */
- 	struct scm_fp_list	*fp;		/* Passed files		*/
- 	struct scm_creds	creds;		/* Skb credentials	*/
- #ifdef CONFIG_SECURITY_NETWORK
-@@ -69,7 +69,6 @@ static __inline__ void unix_get_peersec_dgram(struct socket *sock, struct scm_co
- static __inline__ void scm_set_cred(struct scm_cookie *scm,
- 				    struct pid *pid, kuid_t uid, kgid_t gid)
- {
--	scm->pid = get_pid(pid);
- 	scm->creds.pid = pid_vnr(pid);
- 	scm->creds.uid = uid;
- 	scm->creds.gid = gid;
-@@ -77,8 +76,7 @@ static __inline__ void scm_set_cred(struct scm_cookie *scm,
- 
- static __inline__ void scm_destroy_cred(struct scm_cookie *scm)
- {
--	put_pid(scm->pid);
--	scm->pid = NULL;
-+	put_pids(scm->pid);
- }
- 
- static __inline__ void scm_destroy(struct scm_cookie *scm)
-@@ -94,8 +92,10 @@ static __inline__ int scm_send(struct socket *sock, struct msghdr *msg,
- 	memset(scm, 0, sizeof(*scm));
- 	scm->creds.uid = INVALID_UID;
- 	scm->creds.gid = INVALID_GID;
--	if (forcecreds)
-+	if (forcecreds) {
-+		scm->pid[PIDTYPE_TGID] = get_pid(task_tgid(current));
- 		scm_set_cred(scm, task_tgid(current), current_uid(), current_gid());
-+	}
- 	unix_get_peersec_dgram(sock, scm);
- 	if (msg->msg_controllen <= 0)
- 		return 0;
-diff --git a/net/core/scm.c b/net/core/scm.c
-index f0d44ecdb11f..9b9e119c353a 100644
---- a/net/core/scm.c
-+++ b/net/core/scm.c
-@@ -149,6 +149,7 @@ EXPORT_SYMBOL(__scm_destroy);
- 
- static inline int scm_replace_pid(struct scm_cookie *scm, struct pid *pid)
- {
-+	struct pid *thread_pid;
- 	int err;
- 
- 	/* drop all previous references */
-@@ -158,7 +159,18 @@ static inline int scm_replace_pid(struct scm_cookie *scm, struct pid *pid)
- 	if (unlikely(err))
- 		return err;
- 
--	scm->pid = pid;
-+	/* A sender naming its own thread-group sends from the current thread. */
-+	if (pid == task_tgid(current))
-+		thread_pid = task_pid(current);
-+	else
-+		thread_pid = pid;
-+
-+	err = pidfs_register_pid(thread_pid);
-+	if (unlikely(err))
-+		return err;
-+
-+	scm->pid[PIDTYPE_TGID] = pid;
-+	scm->pid[PIDTYPE_PID] = get_pid(thread_pid);
- 	scm->creds.pid = pid_vnr(pid);
- 	return 0;
- }
-@@ -207,7 +219,8 @@ int __scm_send(struct socket *sock, struct msghdr *msg, struct scm_cookie *p)
- 			if (err)
- 				goto error;
- 
--			if (!p->pid || pid_vnr(p->pid) != creds.pid) {
-+			if (!p->pid[PIDTYPE_TGID] ||
-+			    pid_vnr(p->pid[PIDTYPE_TGID]) != creds.pid) {
- 				struct pid *pid;
- 				err = -ESRCH;
- 				pid = find_get_pid(creds.pid);
-@@ -504,10 +517,10 @@ static void scm_pidfd_recv(struct msghdr *msg, struct scm_cookie *scm)
- 		return;
- 	}
- 
--	if (!scm->pid)
-+	if (!scm->pid[PIDTYPE_TGID])
- 		return;
- 
--	pidfd = pidfd_prepare(scm->pid, PIDFD_STALE, &pidfd_file);
-+	pidfd = pidfd_prepare(scm->pid[PIDTYPE_TGID], PIDFD_STALE, &pidfd_file);
- 
- 	if (put_cmsg(msg, SOL_SOCKET, SCM_PIDFD, sizeof(int), &pidfd)) {
- 		if (pidfd_file) {
-diff --git a/net/unix/af_unix.c b/net/unix/af_unix.c
-index 42cffeafc8c1..64e720bd289b 100644
---- a/net/unix/af_unix.c
-+++ b/net/unix/af_unix.c
-@@ -1973,7 +1973,7 @@ static void unix_destruct_scm(struct sk_buff *skb)
- {
- 	struct scm_cookie scm = {};
- 
--	swap(scm.pid, UNIXCB(skb).pid);
-+	swap_pids(scm.pid, UNIXCB(skb).pid);
- 
- 	if (UNIXCB(skb).fp)
- 		unix_detach_fds(&scm, skb);
-@@ -1991,7 +1991,7 @@ static int unix_scm_to_skb(struct scm_cookie *scm, struct sk_buff *skb, bool sen
- {
- 	int err = 0;
- 
--	UNIXCB(skb).pid = get_pid(scm->pid);
-+	get_pids(UNIXCB(skb).pid, scm->pid);
- 	UNIXCB(skb).uid = scm->creds.uid;
- 	UNIXCB(skb).gid = scm->creds.gid;
- 	UNIXCB(skb).fp = NULL;
-@@ -2005,7 +2005,8 @@ static int unix_scm_to_skb(struct scm_cookie *scm, struct sk_buff *skb, bool sen
- 
- static void unix_skb_to_scm(struct sk_buff *skb, struct scm_cookie *scm)
- {
--	scm_set_cred(scm, UNIXCB(skb).pid, UNIXCB(skb).uid, UNIXCB(skb).gid);
-+	get_pids(scm->pid, UNIXCB(skb).pid);
-+	scm_set_cred(scm, UNIXCB(skb).pid[PIDTYPE_TGID], UNIXCB(skb).uid, UNIXCB(skb).gid);
- 	unix_set_secdata(scm, skb);
- }
- 
-@@ -2025,20 +2026,20 @@ static void unix_skb_to_scm(struct sk_buff *skb, struct scm_cookie *scm)
- static int unix_maybe_add_creds(struct sk_buff *skb, const struct sock *sk,
- 				const struct sock *other)
- {
--	if (UNIXCB(skb).pid)
-+	if (UNIXCB(skb).pid[PIDTYPE_TGID])
- 		return 0;
- 
- 	if (unix_may_passcred(sk) || unix_may_passcred(other) ||
- 	    !other->sk_socket) {
--		struct pid *pid;
- 		int err;
- 
--		pid = task_tgid(current);
--		err = pidfs_register_pid(pid);
--		if (unlikely(err))
-+		get_task_pids(UNIXCB(skb).pid, current);
-+		err = pidfs_register_pids(UNIXCB(skb).pid);
-+		if (unlikely(err)) {
-+			put_pids(UNIXCB(skb).pid);
- 			return err;
-+		}
- 
--		UNIXCB(skb).pid = get_pid(pid);
- 		current_uid_gid(&UNIXCB(skb).uid, &UNIXCB(skb).gid);
- 	}
- 
-@@ -2048,7 +2049,7 @@ static int unix_maybe_add_creds(struct sk_buff *skb, const struct sock *sk,
- static bool unix_skb_scm_eq(struct sk_buff *skb,
- 			    struct scm_cookie *scm)
- {
--	return UNIXCB(skb).pid == scm->pid &&
-+	return UNIXCB(skb).pid[PIDTYPE_TGID] == scm->pid[PIDTYPE_TGID] &&
- 	       uid_eq(UNIXCB(skb).uid, scm->creds.uid) &&
- 	       gid_eq(UNIXCB(skb).gid, scm->creds.gid) &&
- 	       unix_secdata_eq(scm, skb);
-diff --git a/net/unix/af_unix.h b/net/unix/af_unix.h
-index 8119dbeef3a3..402742895acc 100644
---- a/net/unix/af_unix.h
-+++ b/net/unix/af_unix.h
-@@ -2,6 +2,7 @@
- #ifndef __AF_UNIX_H
- #define __AF_UNIX_H
- 
-+#include <linux/pid_types.h>
- #include <linux/uidgid.h>
- 
- #define UNIX_HASH_MOD	(256 - 1)
-@@ -11,7 +12,7 @@
- struct sock *unix_peer_get(struct sock *sk);
- 
- struct unix_skb_parms {
--	struct pid		*pid;		/* skb credentials	*/
-+	DECLARE_PIDS(pid, PIDTYPE_TGID);	/* skb credentials by pid type */
- 	kuid_t			uid;
- 	kgid_t			gid;
- 	struct scm_fp_list	*fp;		/* Passed files		*/
-
+Best regards,
 -- 
-2.55.0
+Jeff Johnson <jeff.johnson@oss.qualcomm.com>
 
