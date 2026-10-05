@@ -1,140 +1,95 @@
-Received: from mta0.migadu.com (out-168.mta0.migadu.com [91.218.175.168])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.15])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C77BE4A4EE6
-	for <linux-kernel@vger.kernel.org>; Mon,  5 Oct 2026 15:36:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.168
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3F8751FA859;
+	Mon,  5 Oct 2026 15:37:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.15
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791214619; cv=none; b=t9mrNs8cttom5bC6nCcRz4nVUQ8+4hKhA0M1aIKolC8uOQVozc58XxvwpPaBrCIHlhgPfUXae0a5ep4x08kZfhmlOfuaRoLMeGzOEpxIT52eWlQaYtkAf/SY9TBJWL1AEcljYHJ8JWRViaJHIQF/E/7OmcM3ai+yMVUImudMDr0=
+	t=1791214648; cv=none; b=L6I07P1Gi5T234VdOqUQ1T70E7yYtamAGsoFWjcWtydvyOMpo6sIWcjjUDLZ4glzFwp9Spm7sJ5ieYJWcLwl7MG1rlqZV/Cku2BQGONXsRuHTBi8KxqVLdq3if2QYaPl+R2iQ/QQrIH77xygs4B1gLJwA9anNpsn4mpATDszDpM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791214619; c=relaxed/simple;
-	bh=5zX+01E1uYtcKNTedIU5E0EoruaCd2DT0fqXgC7ia5I=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=g53awaYdlieY7ngJEkLyvrKwKoNz5C/LNtnbtkD7xOC584RuGaX4GsFKaAQzpEbWk5GulcHWGmwyyFGcQFcy/YkVp+arFkyij847L8PdRiljKUK3GSd76WJ9ew/yIdN2n+A+W5irfVjsX0ThJ5+J2bodKB7Vi4gwEWL8zcfSVZ4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=QoEIM2Ha; arc=none smtp.client-ip=91.218.175.168
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1791214648; c=relaxed/simple;
+	bh=7nIYgaNXx5R6yZ6L1oC+Fn6fHYTn3KhW/0zQFvgNmNM=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
+	 MIME-Version:Content-Type; b=eleaGPxuL+PXO+aWO9azXONEbOM/XK9DgYRIzm6ZPN/co+oUqthvxAs03nlZ8chbkltOMdJbdg6Oh/k3DVB/qiIoxh8Hu3tbClkELfazhf4v6KT0mqBmNY9qL6YOz/Vx1s2PQZq7v593hMD31NLC42s5NLRAa96in/XmIsHI0U0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=REjafX7l; arc=none smtp.client-ip=192.198.163.15
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="QoEIM2Ha"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=5zX+01E1uYtcKNTedIU5E0EoruaCd2DT0fqXgC7ia5I=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1791214615; v=1; x=1791819415;
- b=QoEIM2HaXyPtk7CN494dWenrpWjsWWgEMg+swUH9vkjcn2co6GeBCNw8Ph6nj8SvPT9DDQzg
- KOULzsPzjm5jNf5CQjkZv2FLUVjTpabtBq3Cl3Yl78+V6HkS+GE7HCDuEHsooEYsxrHW/KwSo8w
- 325ie3y0MOYH9BNQaciGz8lE=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 8941f7e82ec68c72;
-	Mon, 05 Oct 2026 15:36:55 +0000
-X-Mizu-Trace-ID: 8941f7e82ec68c72
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <6ad07601-eeef-4fe6-9758-f6936a3bff41@linux.dev>
-Date: Mon, 5 Oct 2026 23:36:36 +0800
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="REjafX7l"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1791214646; x=1822750646;
+  h=from:to:cc:in-reply-to:references:subject:message-id:
+   date:mime-version:content-transfer-encoding;
+  bh=7nIYgaNXx5R6yZ6L1oC+Fn6fHYTn3KhW/0zQFvgNmNM=;
+  b=REjafX7lcEnBLra50uHPlKyxhsYx1BTbasyfPhrkJCLcg9DOWRxzM+KW
+   Ej55CGF1p+u53oAri2l5lnPCTfLT5NdChtFSSQV+fvvbPZgdyC9e5y42j
+   rkNc9vrxWnfsNVQoEmI4dm2Wh+jPrHTwRpWQNmiV5R6v6uQHXfO2PEviP
+   KK4BJvv/jK6VNTGXcsxhJlSY8FWUYyt5vPYtvLanZ4ZZ3XE4Z0UbYU2kJ
+   K/e7M5YiSsGgzYJGnuf1Prz4V4v/ANkQ7A+hWrOscDGsTDFmN5BwoPAM5
+   Bmoym5eJPCEyhsJlJNEwkhRi7Dt6S9bVx6eO9rnt9hM9XqmBo8v39Wtez
+   w==;
+X-CSE-ConnectionGUID: o92b6/KbT4mHJh4YkvpgPQ==
+X-CSE-MsgGUID: hvDzYQZhTG+nVe9RuhFRjQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11926"; a="91995626"
+X-IronPort-AV: E=Sophos;i="6.27,142,1787036400"; 
+   d="scan'208";a="91995626"
+Received: from fmviesa013.fm.intel.com ([10.60.135.153])
+  by fmvoesa109.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 05 Oct 2026 08:37:25 -0700
+X-CSE-ConnectionGUID: GkbyNIrwQRWQkM8a8t07XQ==
+X-CSE-MsgGUID: UyJS79hBTE2GWlnzkGsDCA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,142,1787036400"; 
+   d="scan'208";a="873913"
+Received: from ijarvine-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.199])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 05 Oct 2026 08:37:23 -0700
+From: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
+To: Armin Wolf <W_Armin@gmx.de>, Hans de Goede <hansg@kernel.org>, 
+ Werner Sembach <wse@tuxedocomputers.com>
+Cc: platform-driver-x86@vger.kernel.org, linux-kernel@vger.kernel.org
+In-Reply-To: <20260822003012.851574-1-wse@tuxedocomputers.com>
+References: <20260822003012.851574-1-wse@tuxedocomputers.com>
+Subject: Re: [PATCH v3 1/2] platform/x86: uniwill-laptop: Fix brightness
+ notify for 3 level keyboards
+Message-Id: <179121463882.12659.16687091928056823717.b4-ty@b4>
+Date: Mon, 05 Oct 2026 18:37:18 +0300
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/1] x86/mm: fix incomplete page-table invalidation with
- TCE
-Content-Language: en-US
-To: Andrew Cooper <andrew.cooper3@citrix.com>,
- Pedro Falcato <pfalcato@suse.de>
-Cc: dave.hansen@linux.intel.com, luto@kernel.org, peterz@infradead.org,
- tglx@kernel.org, mingo@redhat.com, bp@alien8.de, x86@kernel.org,
- hpa@zytor.com, riel@surriel.com, linux-kernel@vger.kernel.org,
- qi.zheng@linux.dev, nadav.amit@gmail.com, thomas.lendacky@amd.com,
- kernel-team@meta.com, linux-mm@kvack.org, akpm@linux-foundation.org,
- brendan.jackman@linux.dev, jannh@google.com, mhklinux@outlook.com,
- Manali.Shukla@amd.com, mingo@kernel.org, stable@vger.kernel.org,
- toshi.kani@hpe.com, david@kernel.org, mikhail.v.gavrilov@gmail.com
-References: <20261005052302.43042-1-lance.yang@linux.dev>
- <asM7b8ECO34-jiwi@pedro-suse.tail5790ac.ts.net>
- <60d5db86-8002-4d87-b8d3-c161d674122b@linux.dev>
- <ab077b6a-160f-41a2-a167-813f0560e30d@citrix.com>
- <38541ec6-d796-4f35-a700-75ab097b6df5@linux.dev>
- <7ad90e94-d04d-453a-ba22-9640a5024d8c@citrix.com>
- <6801221a-6307-407a-85fc-46906f95d22e@linux.dev>
- <9459bab2-b373-4008-8f3d-f84b62db5b67@citrix.com>
-From: Lance Yang <lance.yang@linux.dev>
-In-Reply-To: <9459bab2-b373-4008-8f3d-f84b62db5b67@citrix.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.15.2
 
+On Sat, 22 Aug 2026 02:28:39 +0200, Werner Sembach wrote:
 
+> The devices with 3 brightness level keyboards send
+> UNIWILL_OSD_KB_LED_LEVEL0, UNIWILL_OSD_KB_LED_LEVEL2, and
+> UNIWILL_OSD_KB_LED_LEVEL4 and not UNIWILL_OSD_KB_LED_LEVEL0,
+> UNIWILL_OSD_KB_LED_LEVEL1, and UNIWILL_OSD_KB_LED_LEVEL2.
+> 
+> This patch maps the events correctly to brightness levels 0, 1, and 2.
+> 
+> [...]
 
-On 2026/10/5 23:22, Andrew Cooper wrote:
-> On 05/10/2026 11:12 am, Lance Yang wrote:
->> On 2026/10/5 17:57, Andrew Cooper wrote:
->>> On 05/10/2026 9:32 am, Lance Yang wrote:
->>>> On 2026/10/5 16:19, Andrew Cooper wrote:
->>>>> On 05/10/2026 8:29 am, Lance Yang wrote:
->>>>>>>
->>>>>>> Did you repro any bug related to this? The functionality is perhaps
->>>>>>> underspecified in the AMD manual.
->>>>>>
->>>>>> TBH, I don't have a reproducer yet. Just LLM stumbled upon this while
->>>>>> I was investigating another memory corruption issue [1].
->>>>>>
->>>>>> [1]
->>>>>> https://lore.kernel.org/linux-mm/arY1Wq6R9OY20ans@pcnci.linuxbox.cz/#t
->>>>>>
->>>>>
->>>>> What hardware are you running on?
->>>>>
->>>>> That looks like the Zen5 issue, for which you want either the latest
->>>>> microcode out of linux-firmware and/or
->>>>> https://lore.kernel.org/r/20261002211617.1001617-1-bp@kernel.org
->>>>>
->>>>> TCE is a no-op in Zen1 and later, so unless you're on older
->>>>> hardware, it
->>>>> won't be that.
->>>>
->>>> Just to clarify ... these are two separate issues.
->>>>
->>>> I mentioned [1] only to explain how this came up while investigating
->>>> something else. I'm not claiming that TCE caused the corruption
->>>> reported
->>>> there :)
->>>
->>> Please can you answer the question.  Which CPU are you seeing this on?
->>>
->>
->> Which CPU? None so far. As I said, I don't have a reproducer. I'm trying
->> to make sense of what the manual says and what the code does ...
-> 
-> I'm afraid that if you're trying to be helpful, you've had entirely the
-> opposite effect.
-> 
-> TLB handling is a complicated topic.  What you've done is present what
-> is effectively a query about the AMD manual as if it were a bugfix for
-> an critical-sounding issue.  You even sited a real bug-report for an
-> actually-critical issue, despite it turning out to have nothing to do
-> with your submission.
-> 
-> The patch is buggy.  For starters, you should be checking is whether TCE
-> is enabled, not whether it's available on the system.  This causes the
-> more expensive option to use used even when TCE is turned off.
-> 
-> But, AIUI INVLPG only flushes the whole structure cache because of a
-> windows bug which caused it to crash on a 486.  AMD deliberately
-> introduced TCE to remove this overhead for every OS which didn't want
-> lumbering with a workaround for buggy windows.
-> 
-> Linux currently believes that it's TLB invalidation algorithm is
-> compatible with TCE, so at a bare minimum, you need to have some kind of
-> discussion on why you believe this not to be true before claiming that
-> it "might be unsafe because the manual says so".
-> 
-> 
-> It's fine to ask a question, and even ask "so shouldn't the code look
-> like this?" but such a patch needs a very clear RFC or QUESTION tag.
+Thank you for your contribution, it has been applied to my local
+review-ilpo-next branch. Note it will show up in the public
+platform-drivers-x86/review-ilpo-next branch only once I've pushed my
+local branch there, which might take a while.
 
-Thanks for explaining! Lesson learned. I should have made it clear
-that this was a question about the manual ...
+FYI [if applicable to your patch], as per Linus' policy change, also
+fixes are mostly routed through for-next unless the fix is for a
+commit introduced in the most recent cycle or is clearly a regression
+fix.
 
-Let's drop the patch. I'll take another look.
+The list of commits applied:
+[1/2] platform/x86: uniwill-laptop: Fix brightness notify for 3 level keyboards
+      commit: d8ccaadcd39497870233ed7c160c51db332b7a82
+[2/2] platform/x86: uniwill-laptop: Enable kb backlight and lightbar for TUXEDO
+      commit: f0da86d5222d8e10b2c79782cb5a174157c24049
+
+--
+ i.
 
