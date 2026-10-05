@@ -1,419 +1,163 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj2-f13.google.com (mail-pj2-f13.google.com [74.125.227.141])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AAF754D9542;
-	Mon,  5 Oct 2026 17:16:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 517254EE86D
+	for <linux-kernel@vger.kernel.org>; Mon,  5 Oct 2026 17:16:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.141
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791220615; cv=none; b=DZ5V1v0JOp2LYX1Md8ZiYeLMqIJA6hal6v8yRhwfq6zqVUg2HKk2JMc2FEtqnF3wrAzaKrsvOYVGn2wMdLtjL1rX7cPCyXpKJGWDr+qJFbo8FCco2osCtcRSFwyhK1QsST4xxtn9QDfyR6pBhasrWOX2R5fLf0SanxF+Y3mDck0=
+	t=1791220619; cv=none; b=X2pNuxYFulYH3rEIrYOptHmqC299R+7NzSjB3B97S1SP91TuKSPc5J3Tmp2ZZZEPxpqzDSzfi3hDdkyKGLgVm7zAEJCYoBduOJ/ne7KL+Qjmha65oUz82GbYOMtEDRxXVQ0/kMqkh91y0cQwqxYAiKmBvkZbsJV5hEzZA2RHT2Q=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791220615; c=relaxed/simple;
-	bh=8tE/VrSYseq1rYuBIbNmyYqUqa/PPxg1KS78abVx2Uc=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=SHAmNF9WUi0Yu3TTqbV3d11dB3yE+VS5nzZsiMdzDqQoDUj5sLXRIZ+ItfLNe2LugJSyBRRLEEaDiLeBVI2cA2q/Ks4WLDshqVjyTPdBndIsvv2vWV4XnPqZVIjuKXgxQksGZEiRlnMQm4VGXf7zjgOiSvLGRWYPEsPQSGNdlqw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=oGDmw/WM; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791220619; c=relaxed/simple;
+	bh=9wEbN2n5LQFaWEnfgc/fjcdj12CgL82mEepIN/jxNKo=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=YNhlsfxs9+xK+8QT5g/hyDwHlmGpjKpPGMjGMOrjSksWVFqM0Calwkf6+1X8hqbwGho+/8Cq6LvcEEOwUNAja8Kv42gxqwLw5WPwwziA8AhRpUkxsZFyMopbLipAHZoSz91dbvkia9By75UA+4WGB5pham1SDOR8eLZbCkuzrIQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=QbL07d6a; arc=none smtp.client-ip=74.125.227.141
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="oGDmw/WM"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E26EE1F000FF;
-	Mon,  5 Oct 2026 17:16:49 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791220613;
-	bh=IYq3aZblsL+IEQB02Wc/GznQOyWSkQDG2qUoH13L2Tk=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=oGDmw/WM2mMeKedE9zmZ+YLDZZtpabPnviKHv0DIuoj2ukGAfLUNQ5aQbUG2XKoRa
-	 0yKsjtkbkLkwoUQPRfuo/omuCHSDRLe7w1nvag5iaBsyiSvdrJAM8t+tFdmOi0iXfL
-	 zYzBaRwyaKEzv1ldqEK7KVXXSzd7G442MyeH45KKiSfGlpV8v/WxI2A4E0wh4gMXLl
-	 N59axHlgRAciEj7WQVu0Fpusy2dQuFFe9Y8WzQ3WxVlXd+9LDXB1O0eUpuP/f2PWUk
-	 /wV4ka5+f0fc4P5Yml2eUiH0AkYPvUothtPZi1B2bug1b2wFlXT/Oio6LR8JtTZZgf
-	 LA4lIHCFNl0lg==
-From: Bryan O'Donoghue <bod@kernel.org>
-Date: Mon, 05 Oct 2026 19:13:50 +0200
-Subject: [PATCH 20/74] media: qcom: camss: vfe: Move video_out from
- vfe_line to vfe_output
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="QbL07d6a"
+Received: by mail-pj2-f13.google.com with SMTP id 98e67ed59e1d1-396ccb65437so1070426a91.3
+        for <linux-kernel@vger.kernel.org>; Mon, 05 Oct 2026 10:16:57 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791220617; x=1791825417; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=InVY38nfxVAqb/WmgYkdpIBcCwx01OQ8UJwYgwWPio4=;
+        b=QbL07d6azUEZP/YgXxJwnZHrBE7Emtw9fZ9uAoWdNta0PxzGeVEH9cdyBwnP0kM6nW
+         NhPhFcVGXVi52g3tTCcTgvhZjgV1scowezYg8/MdHe0QydTs66hR7bIQ3mcWDtioq6Ht
+         wTtjOohdhBnmATxJJ9ny3J4xzb99AGqW5DWp3WCVnfPpBA4HA7iFFwm3QPM+szpCRkX+
+         nD6oV1fLhYLz9h5rYwwucbcvd/170kFqdeK6Fd1y76IoE7fWWWeNnZA5ZfwiJZ5Mvm9D
+         1Vwe6lJLcknwrDexGy2Na0LwWbqW6sRuVQ+Fwb+fEt/50MEDUSNtU0kiGCLKteSvHbMS
+         64LQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791220617; x=1791825417;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=InVY38nfxVAqb/WmgYkdpIBcCwx01OQ8UJwYgwWPio4=;
+        b=et3dt9yTl4kN0hBeWyclJWOdd0o43IpRTHddGHtd58kArfr6CKMLkPIgaA9ClQGjEB
+         U2sEZwHma7CJOS8X7JatxojuEsnOECB8qEXaj298MLFV/vmG9u+lkrG/SmU//efIQBfR
+         dDkwAJRwdxtoCaiVEO17rIlmtR32kaCWKUGYxXNEgfM8SAQ4Qlop4ykGC19ceyO/JGXd
+         UtHtn5D9vLcf93L1G+be8HhKk5TMBQ4uHhWK0aPZYZ64f7QcT0yaWq01ljvH+t4dvxQU
+         Hq1yEVRlT6Bt4DpuRaNKbMDrG4fvrjGoIje3tMi/YKh3Gz+q4hw5aPg1r+7xT3UHMnGv
+         rfFA==
+X-Forwarded-Encrypted: i=1; AKwUvBwDEqtIPMOTMTLZZmuVGhljRiuzrDr202sEre05o3dCDBsAZLLuuDmDiq2IfWgggz3ZqFaNFKqILBoOpUY=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKOu6fRJZ7tE6QyEa8+k4RilGyv43NSmjLtVNImEFLUaVnI6RzV
+	va0FoJb1h9XTLC+WVK83EKPzGQWAf4NOLuWbkNN8OQVBLD6Q9LVht9f9
+X-Gm-Gg: AYBFou0HIbcNwCCzC/JaMkHPwacBkDAXEILOZuiNuRlF/QFk4rpx9CiVyyOTx98b/Wx
+	QW7yI5pIpUJVjVNl0y2USqqQOSWW1SopWSmYDU8FG1wVlKTDDkabZEl5OBPslv51N4eye3Tke3p
+	9+KSGJRThEknJ2GwOLbTPG3lfZheWeBMqq4amgA81ZdmHg+LG/RpwPfHCVFSAIrsiL3eifRSmxx
+	WpspxNl9eVv9WwOgqFI2EnfZ1TbC9k+ZpCfz9EDnCAorN4WzVmDdtrgpN6DdNbmRwyBezO4ihOG
+	iNq/EsHQhkPmR6z508Nd/3DGFc6+rYdA4RtliYnPaiyKPANz1BQGWnwPKwFsOBq4QqIqcN378TL
+	hpXbiRQ/jSNGIYXTIPl1omiONfkZOUcrVMF71RSPWLk94epvaCg+xitbIEAYH/22B5Mzm9PCQHc
+	vH3jrgs+hgmaSUw+pD/Ql/aYv9EgtBJQELwBmYfL6rrzSeZ66DwyI8y7SsqwsBuA0VuqlG/QsOB
+	2EM4QPai22iQ0qzTh/mE5GBGxHxJg==
+X-Received: by 2002:a17:90b:3e85:b0:3a7:8350:3f7e with SMTP id 98e67ed59e1d1-3a783504695mr5636453a91.44.1791220616043;
+        Mon, 05 Oct 2026 10:16:56 -0700 (PDT)
+Received: from kernel.tail6741c6.ts.net ([216.195.201.24])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a853cafddesm406910a91.10.2026.10.05.10.16.42
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 05 Oct 2026 10:16:55 -0700 (PDT)
+From: Kunwu Chan <kunwu.chan@gmail.com>
+To: paulmck@kernel.org,
+	corbet@lwn.net,
+	mingo@redhat.com,
+	frederic@kernel.org,
+	neeraj.upadhyay@kernel.org,
+	josh@joshtriplett.org,
+	urezki@gmail.com,
+	dave@stgolabs.net,
+	lianux.mm@gmail.com
+Cc: stern@rowland.harvard.edu,
+	parri.andrea@gmail.com,
+	will@kernel.org,
+	peterz@infradead.org,
+	boqun@kernel.org,
+	npiggin@gmail.com,
+	dhowells@redhat.com,
+	j.alglave@ucl.ac.uk,
+	luc.maranget@inria.fr,
+	akiyks@gmail.com,
+	dlustig@nvidia.com,
+	joelagnelf@nvidia.com,
+	skhan@linuxfoundation.org,
+	rdunlap@infradead.org,
+	longman@redhat.com,
+	rostedt@goodmis.org,
+	mathieu.desnoyers@efficios.com,
+	jiangshanlai@gmail.com,
+	qiang.zhang@linux.dev,
+	kunwu.chan@gmail.com,
+	brads@mainlining.org,
+	linux-kernel@vger.kernel.org,
+	linux-arch@vger.kernel.org,
+	lkmm@lists.linux.dev,
+	linux-doc@vger.kernel.org,
+	rcu@vger.kernel.org,
+	linux-kselftest@vger.kernel.org
+Subject: [PATCH RFC v3 05/15] hazptr: add debug option to force the acquire slow path
+Date: Tue,  6 Oct 2026 01:15:19 +0800
+Message-ID: <20261005171529.1378809-6-kunwu.chan@gmail.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20261005171529.1378809-1-kunwu.chan@gmail.com>
+References: <20261005171529.1378809-1-kunwu.chan@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261005-linux-mainline-7-2-sm8650-hdk-rfc-0-v1-20-ed985aefd611@kernel.org>
-References: <20261005-linux-mainline-7-2-sm8650-hdk-rfc-0-v1-0-ed985aefd611@kernel.org>
-In-Reply-To: <20261005-linux-mainline-7-2-sm8650-hdk-rfc-0-v1-0-ed985aefd611@kernel.org>
-To: Bryan O'Donoghue <bryan.odonoghue@linaro.org>, 
- Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>, 
- Loic Poulain <loic.poulain@oss.qualcomm.com>, 
- Mauro Carvalho Chehab <mchehab@kernel.org>, 
- Jacopo Mondi <jacopo.mondi@ideasonboard.com>, 
- Daniel Scally <dan.scally@ideasonboard.com>, Keke Li <keke.li@amlogic.com>, 
- Richard Acayan <mailingradian@gmail.com>, 
- Hans Verkuil <hverkuil@kernel.org>, 
- Gjorgji Rosikopulos <quic_grosikop@quicinc.com>, 
- Radoslav Tsvetkov <quic_rtsvetko@quicinc.com>, 
- Robert Foss <rfoss@kernel.org>, Milen Mitkov <quic_mmitkov@quicinc.com>
-Cc: linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
- linux-kernel@vger.kernel.org, Bryan O'Donoghue <bod@kernel.org>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=15016; i=bod@kernel.org;
- h=from:subject:message-id; bh=8tE/VrSYseq1rYuBIbNmyYqUqa/PPxg1KS78abVx2Uc=;
- b=owEBbQKS/ZANAwAKASJxO7Ohjcg6AcsmYgBqw9sOLD1TlDGV4J0XUgevZsLx43pANnOLdtO47
- YAtEl3uJq2JAjMEAAEKAB0WIQTmk/sqq6Nt4Rerb7QicTuzoY3IOgUCasPbDgAKCRAicTuzoY3I
- Oi3MD/0alLrqJYtgh21wttBVvutMsEBpLtYMU6U5WMdBU/OPi1UbxhV89mlbYKIq68MH/zkBXK5
- JvcpLm00vYu6k5Zv/xY6JEt73CWwU7r5/1RVt+SXeIOTQCkKJIfPqx/XW0SqXjJ3fCaztn/txiC
- WVyN+dswqSAjS6PD4cw7ra2cRrszd/K1Y2nWrsGkC9FH+Hw4M4i5j91Cg9zEsBx7pwSi2rJOJ1g
- xiT96OdJ291yxTn/enG/iD4R6FTfC0hkMqxCkODlaHebwRN9fDuHzV67uhHxax8u5IyWGYrmgVM
- 751FbR1ClYt0hASTcDuFR7bt9SxmHqDCTUWPsivWADcWiEdNwgnfEThXO1da7Ikd9CNrh1fuaVs
- 6AZrnSUFM3kDd/fTMdxcK0+zwfCssEFQj6OJXZWykYC4hDuR8p1DGX2CsKRiOhg6k53/Qif3QXS
- NHAyCFn5Vm9ResDSZA4/pgudO0FZkCpzq8p7JmszgefU9/ZSdD4D3We475+nHe/GHY0BWN4YrdW
- ZKCYRCzxLLpJN4IZH9W6TlKWxqQQWG6DVgU7ckXyH3rl6lSiPrUG7OoFxMmWp7xPIuj6ylFJKAL
- +kQJDwZqq1xRAk53aY6IaSsOrH5UtV4awQ9sEOiZxN2CemBvlbdpHWcBZ80G/w4CHFQL2VysQEI
- NJQihu9khyzuSzg==
-X-Developer-Key: i=bod@kernel.org; a=openpgp;
- fpr=E693FB2AABA36DE117AB6FB422713BB3A18DC83A
+Content-Transfer-Encoding: 8bit
 
-In preparation for having multiple source/sink pads on VFE PIX nodes, move
-the video_out structure to vfe_output.
+Add a debug option that makes hazptr_acquire() always enter
+__hazptr_acquire(), even when a per-CPU slot is available.
 
-Signed-off-by: Bryan O'Donoghue <bod@kernel.org>
+This allows the slow path, including its lock acquisition, to be
+exercised by lockdep-heavy workloads.  It also lets hazptrtorture
+exercise the slow path without requiring the per-CPU slots to be
+exhausted.
+
+Suggested-by: Boqun Feng <boqun@kernel.org>
+Signed-off-by: Kunwu Chan <kunwu.chan@gmail.com>
 ---
- drivers/media/platform/qcom/camss/camss-vfe-17x.c  |  2 +-
- drivers/media/platform/qcom/camss/camss-vfe-340.c  |  2 +-
- drivers/media/platform/qcom/camss/camss-vfe-4-1.c  |  6 +++---
- drivers/media/platform/qcom/camss/camss-vfe-4-7.c  |  8 ++++----
- drivers/media/platform/qcom/camss/camss-vfe-4-8.c  |  8 ++++----
- drivers/media/platform/qcom/camss/camss-vfe-480.c  |  2 +-
- drivers/media/platform/qcom/camss/camss-vfe-680.c  |  2 +-
- drivers/media/platform/qcom/camss/camss-vfe-690.c  |  2 +-
- drivers/media/platform/qcom/camss/camss-vfe-780.c  |  2 +-
- drivers/media/platform/qcom/camss/camss-vfe-gen1.c | 10 ++++------
- drivers/media/platform/qcom/camss/camss-vfe.c      | 22 +++++++++-------------
- drivers/media/platform/qcom/camss/camss-vfe.h      |  2 +-
- 12 files changed, 31 insertions(+), 37 deletions(-)
+ include/linux/hazptr.h   |  3 ++-
+ kernel/rcu/Kconfig.debug | 10 ++++++++++
+ 2 files changed, 12 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/media/platform/qcom/camss/camss-vfe-17x.c b/drivers/media/platform/qcom/camss/camss-vfe-17x.c
-index d2dc2acc9d234..d9e37cf609823 100644
---- a/drivers/media/platform/qcom/camss/camss-vfe-17x.c
-+++ b/drivers/media/platform/qcom/camss/camss-vfe-17x.c
-@@ -257,7 +257,7 @@ static void vfe_wm_update(struct vfe_device *vfe, u8 wm, u32 addr,
- 			  struct vfe_line *line)
- {
- 	struct v4l2_pix_format_mplane *pix =
--		&line->video_out.active_fmt.fmt.pix_mp;
-+		&line->output[0].video_out.active_fmt.fmt.pix_mp;
- 	u32 stride = pix->plane_fmt[0].bytesperline;
+diff --git a/include/linux/hazptr.h b/include/linux/hazptr.h
+index 275cbe54b075..4ee02d23abc9 100644
+--- a/include/linux/hazptr.h
++++ b/include/linux/hazptr.h
+@@ -245,7 +245,8 @@ void *hazptr_acquire(struct hazptr_ctx *ctx, void * const *addr_p)
+ 	ctx->acquire_cpu = smp_processor_id();
+ 	ctx->acquire_caller = _THIS_IP_;
+ #endif
+-	if (unlikely(slot->addr))
++	if (IS_ENABLED(CONFIG_HAZPTR_ACQUIRE_FORCE_SLOWPATH) ||
++	    unlikely(slot->addr))
+ 		return __hazptr_acquire(ctx, addr_p);
+ 	WRITE_ONCE(slot->addr, READ_ONCE(hazptr_wildcard));	/* Store B */
  
- 	writel_relaxed(addr, vfe->base + VFE_BUS_WM_IMAGE_ADDR(wm));
-diff --git a/drivers/media/platform/qcom/camss/camss-vfe-340.c b/drivers/media/platform/qcom/camss/camss-vfe-340.c
-index 2526d568686db..6edbfcf766dad 100644
---- a/drivers/media/platform/qcom/camss/camss-vfe-340.c
-+++ b/drivers/media/platform/qcom/camss/camss-vfe-340.c
-@@ -282,7 +282,7 @@ static u32 vfe_packer_format(struct vfe_device *vfe, u32 pixelformat)
+diff --git a/kernel/rcu/Kconfig.debug b/kernel/rcu/Kconfig.debug
+index 7c3c6017b266..3a2e9d7f58f8 100644
+--- a/kernel/rcu/Kconfig.debug
++++ b/kernel/rcu/Kconfig.debug
+@@ -265,4 +265,14 @@ config HAZPTR_DEBUG
  
- static void vfe_wm_start(struct vfe_device *vfe, u8 wm, struct vfe_line *line)
- {
--	struct v4l2_pix_format_mplane *pix = &line->video_out.active_fmt.fmt.pix_mp;
-+	struct v4l2_pix_format_mplane *pix = &line->output[0].video_out.active_fmt.fmt.pix_mp;
- 	u32 stride = pix->plane_fmt[0].bytesperline;
- 	u8 client = tfe_wm_client_map[wm];
- 	u32 cfg = TFE_BUS_CLIENT_CFG_EN;
-diff --git a/drivers/media/platform/qcom/camss/camss-vfe-4-1.c b/drivers/media/platform/qcom/camss/camss-vfe-4-1.c
-index a2a91217a3cf8..ccc065924b6b6 100644
---- a/drivers/media/platform/qcom/camss/camss-vfe-4-1.c
-+++ b/drivers/media/platform/qcom/camss/camss-vfe-4-1.c
-@@ -476,7 +476,7 @@ static void vfe_set_xbar_cfg(struct vfe_device *vfe, struct vfe_output *output,
- 			     u8 enable)
- {
- 	struct vfe_line *line = output->line;
--	u32 p = line->video_out.active_fmt.fmt.pix_mp.pixelformat;
-+	u32 p = line->output[0].video_out.active_fmt.fmt.pix_mp.pixelformat;
- 	u32 reg;
- 	unsigned int i;
+ 	  Say Y here if you want to enable those assert, N otherwise.
  
-@@ -631,7 +631,7 @@ static void vfe_set_demux_cfg(struct vfe_device *vfe, struct vfe_line *line)
- 
- static void vfe_set_scale_cfg(struct vfe_device *vfe, struct vfe_line *line)
- {
--	u32 p = line->video_out.active_fmt.fmt.pix_mp.pixelformat;
-+	u32 p = line->output[0].video_out.active_fmt.fmt.pix_mp.pixelformat;
- 	u32 reg;
- 	u16 input, output;
- 	u8 interp_reso;
-@@ -686,7 +686,7 @@ static void vfe_set_scale_cfg(struct vfe_device *vfe, struct vfe_line *line)
- 
- static void vfe_set_crop_cfg(struct vfe_device *vfe, struct vfe_line *line)
- {
--	u32 p = line->video_out.active_fmt.fmt.pix_mp.pixelformat;
-+	u32 p = line->output[0].video_out.active_fmt.fmt.pix_mp.pixelformat;
- 	u32 reg;
- 	u16 first, last;
- 
-diff --git a/drivers/media/platform/qcom/camss/camss-vfe-4-7.c b/drivers/media/platform/qcom/camss/camss-vfe-4-7.c
-index 2eb4c3d505ebf..1f02adb79f921 100644
---- a/drivers/media/platform/qcom/camss/camss-vfe-4-7.c
-+++ b/drivers/media/platform/qcom/camss/camss-vfe-4-7.c
-@@ -566,7 +566,7 @@ static void vfe_set_xbar_cfg(struct vfe_device *vfe, struct vfe_output *output,
- 			     u8 enable)
- {
- 	struct vfe_line *line = output->line;
--	u32 p = line->video_out.active_fmt.fmt.pix_mp.pixelformat;
-+	u32 p = line->output[0].video_out.active_fmt.fmt.pix_mp.pixelformat;
- 	u32 reg;
- 
- 	switch (p) {
-@@ -635,7 +635,7 @@ static void vfe_set_xbar_cfg(struct vfe_device *vfe, struct vfe_output *output,
- static void vfe_set_realign_cfg(struct vfe_device *vfe, struct vfe_line *line,
- 				u8 enable)
- {
--	u32 p = line->video_out.active_fmt.fmt.pix_mp.pixelformat;
-+	u32 p = line->output[0].video_out.active_fmt.fmt.pix_mp.pixelformat;
- 	u32 val = VFE_0_MODULE_ZOOM_EN_REALIGN_BUF;
- 
- 	if (p != V4L2_PIX_FMT_YUYV && p != V4L2_PIX_FMT_YVYU &&
-@@ -782,7 +782,7 @@ static void vfe_set_demux_cfg(struct vfe_device *vfe, struct vfe_line *line)
- 
- static void vfe_set_scale_cfg(struct vfe_device *vfe, struct vfe_line *line)
- {
--	u32 p = line->video_out.active_fmt.fmt.pix_mp.pixelformat;
-+	u32 p = line->output[0].video_out.active_fmt.fmt.pix_mp.pixelformat;
- 	u32 reg;
- 	u16 input, output;
- 	u8 interp_reso;
-@@ -837,7 +837,7 @@ static void vfe_set_scale_cfg(struct vfe_device *vfe, struct vfe_line *line)
- 
- static void vfe_set_crop_cfg(struct vfe_device *vfe, struct vfe_line *line)
- {
--	u32 p = line->video_out.active_fmt.fmt.pix_mp.pixelformat;
-+	u32 p = line->output[0].video_out.active_fmt.fmt.pix_mp.pixelformat;
- 	u32 reg;
- 	u16 first, last;
- 
-diff --git a/drivers/media/platform/qcom/camss/camss-vfe-4-8.c b/drivers/media/platform/qcom/camss/camss-vfe-4-8.c
-index 3166660d864ec..577d1ddfe84b4 100644
---- a/drivers/media/platform/qcom/camss/camss-vfe-4-8.c
-+++ b/drivers/media/platform/qcom/camss/camss-vfe-4-8.c
-@@ -537,7 +537,7 @@ static void vfe_set_xbar_cfg(struct vfe_device *vfe, struct vfe_output *output,
- 			     u8 enable)
- {
- 	struct vfe_line *line = output->line;
--	u32 p = line->video_out.active_fmt.fmt.pix_mp.pixelformat;
-+	u32 p = line->output[0].video_out.active_fmt.fmt.pix_mp.pixelformat;
- 	u32 reg;
- 
- 	switch (p) {
-@@ -606,7 +606,7 @@ static void vfe_set_xbar_cfg(struct vfe_device *vfe, struct vfe_output *output,
- static void vfe_set_realign_cfg(struct vfe_device *vfe, struct vfe_line *line,
- 				u8 enable)
- {
--	u32 p = line->video_out.active_fmt.fmt.pix_mp.pixelformat;
-+	u32 p = line->output[0].video_out.active_fmt.fmt.pix_mp.pixelformat;
- 	u32 val = VFE_0_MODULE_ZOOM_EN_REALIGN_BUF;
- 
- 	if (p != V4L2_PIX_FMT_YUYV && p != V4L2_PIX_FMT_YVYU &&
-@@ -753,7 +753,7 @@ static void vfe_set_demux_cfg(struct vfe_device *vfe, struct vfe_line *line)
- 
- static void vfe_set_scale_cfg(struct vfe_device *vfe, struct vfe_line *line)
- {
--	u32 p = line->video_out.active_fmt.fmt.pix_mp.pixelformat;
-+	u32 p = line->output[0].video_out.active_fmt.fmt.pix_mp.pixelformat;
- 	u32 reg;
- 	u16 input, output;
- 	u8 interp_reso;
-@@ -808,7 +808,7 @@ static void vfe_set_scale_cfg(struct vfe_device *vfe, struct vfe_line *line)
- 
- static void vfe_set_crop_cfg(struct vfe_device *vfe, struct vfe_line *line)
- {
--	u32 p = line->video_out.active_fmt.fmt.pix_mp.pixelformat;
-+	u32 p = line->output[0].video_out.active_fmt.fmt.pix_mp.pixelformat;
- 	u32 reg;
- 	u16 first, last;
- 
-diff --git a/drivers/media/platform/qcom/camss/camss-vfe-480.c b/drivers/media/platform/qcom/camss/camss-vfe-480.c
-index 616d80ae1da74..73bfb53266c3e 100644
---- a/drivers/media/platform/qcom/camss/camss-vfe-480.c
-+++ b/drivers/media/platform/qcom/camss/camss-vfe-480.c
-@@ -99,7 +99,7 @@ static void vfe_global_reset(struct vfe_device *vfe)
- static void vfe_wm_start(struct vfe_device *vfe, u8 wm, struct vfe_line *line)
- {
- 	struct v4l2_pix_format_mplane *pix =
--		&line->video_out.active_fmt.fmt.pix_mp;
-+		&line->output[0].video_out.active_fmt.fmt.pix_mp;
- 
- 	wm = RDI_WM(wm); /* map to actual WM used (from wm=RDI index) */
- 
-diff --git a/drivers/media/platform/qcom/camss/camss-vfe-680.c b/drivers/media/platform/qcom/camss/camss-vfe-680.c
-index 99036e7c1e763..c002ff126135a 100644
---- a/drivers/media/platform/qcom/camss/camss-vfe-680.c
-+++ b/drivers/media/platform/qcom/camss/camss-vfe-680.c
-@@ -155,7 +155,7 @@ static void vfe_wm_update(struct vfe_device *vfe, u8 rdi, u32 addr,
- static void vfe_wm_start(struct vfe_device *vfe, u8 rdi, struct vfe_line *line)
- {
- 	struct v4l2_pix_format_mplane *pix =
--		&line->video_out.active_fmt.fmt.pix_mp;
-+		&line->output[0].video_out.active_fmt.fmt.pix_mp;
- 	u32 stride = pix->plane_fmt[0].bytesperline;
- 	u32 cfg;
- 	u8 wm;
-diff --git a/drivers/media/platform/qcom/camss/camss-vfe-690.c b/drivers/media/platform/qcom/camss/camss-vfe-690.c
-index 6f90134d5ed64..88dc902dd30dd 100644
---- a/drivers/media/platform/qcom/camss/camss-vfe-690.c
-+++ b/drivers/media/platform/qcom/camss/camss-vfe-690.c
-@@ -56,7 +56,7 @@
- static void vfe_wm_start(struct vfe_device *vfe, u8 wm, struct vfe_line *line)
- {
- 	struct v4l2_pix_format_mplane *pix =
--		&line->video_out.active_fmt.fmt.pix_mp;
-+		&line->output[0].video_out.active_fmt.fmt.pix_mp;
- 
- 	wm = RDI_WM(wm);
- 
-diff --git a/drivers/media/platform/qcom/camss/camss-vfe-780.c b/drivers/media/platform/qcom/camss/camss-vfe-780.c
-index 4adbd0680898f..a4a2beb0c38b7 100644
---- a/drivers/media/platform/qcom/camss/camss-vfe-780.c
-+++ b/drivers/media/platform/qcom/camss/camss-vfe-780.c
-@@ -52,7 +52,7 @@
- static void vfe_wm_start(struct vfe_device *vfe, u8 wm, struct vfe_line *line)
- {
- 	struct v4l2_pix_format_mplane *pix =
--		&line->video_out.active_fmt.fmt.pix_mp;
-+		&line->output[0].video_out.active_fmt.fmt.pix_mp;
- 
- 	wm = RDI_WM(wm);
- 
-diff --git a/drivers/media/platform/qcom/camss/camss-vfe-gen1.c b/drivers/media/platform/qcom/camss/camss-vfe-gen1.c
-index 3e3d103e0d09d..ac4c4fd261b33 100644
---- a/drivers/media/platform/qcom/camss/camss-vfe-gen1.c
-+++ b/drivers/media/platform/qcom/camss/camss-vfe-gen1.c
-@@ -255,7 +255,7 @@ static int vfe_enable_output(struct vfe_line *line)
- 			vfe->ops_gen1->wm_set_ub_cfg(vfe, output->wm_idx[i],
- 						     (ub_size + 1) * output->wm_idx[i], ub_size);
- 			vfe->ops_gen1->wm_line_based(vfe, output->wm_idx[i],
--						     &line->video_out.active_fmt.fmt.pix_mp, i, 1);
-+						     &line->output[0].video_out.active_fmt.fmt.pix_mp, i, 1);
- 			vfe->ops_gen1->wm_enable(vfe, output->wm_idx[i], 1);
- 			vfe->ops_gen1->bus_reload_wm(vfe, output->wm_idx[i]);
- 		}
-@@ -282,7 +282,7 @@ static int vfe_get_output(struct vfe_line *line)
- {
- 	struct vfe_device *vfe = to_vfe(line);
- 	struct vfe_output *output;
--	struct v4l2_format *f = &line->video_out.active_fmt;
-+	struct v4l2_format *f = &line->output[0].video_out.active_fmt;
- 	unsigned long flags;
- 	int i;
- 	int wm_idx;
-@@ -688,13 +688,11 @@ static void vfe_isr_wm_done(struct vfe_device *vfe, u8 wm)
-  */
- static int vfe_queue_buffer(struct camss_video *vid, struct camss_buffer *buf)
- {
--	struct vfe_line *line = container_of(vid, struct vfe_line, video_out);
-+	struct vfe_output *output = container_of(vid, struct vfe_output, video_out);
-+	struct vfe_line *line = output->line;
- 	struct vfe_device *vfe = to_vfe(line);
--	struct vfe_output *output;
- 	unsigned long flags;
- 
--	output = &line->output[0];
--
- 	spin_lock_irqsave(&vfe->output_lock, flags);
- 
- 	vfe_buf_update_wm_on_new(vfe, output, buf, line);
-diff --git a/drivers/media/platform/qcom/camss/camss-vfe.c b/drivers/media/platform/qcom/camss/camss-vfe.c
-index 54ab906b01a82..18f66bea5e3b1 100644
---- a/drivers/media/platform/qcom/camss/camss-vfe.c
-+++ b/drivers/media/platform/qcom/camss/camss-vfe.c
-@@ -713,14 +713,12 @@ int vfe_enable_output_v2(struct vfe_line *line)
- int vfe_queue_buffer_v2(struct camss_video *vid,
- 			struct camss_buffer *buf)
- {
--	struct vfe_line *line = container_of(vid, struct vfe_line, video_out);
-+	struct vfe_output *output = container_of(vid, struct vfe_output, video_out);
-+	struct vfe_line *line = output->line;
- 	struct vfe_device *vfe = to_vfe(line);
- 	const struct vfe_hw_ops *ops = vfe->res->hw_ops;
--	struct vfe_output *output;
- 	unsigned long flags;
- 
--	output = &line->output[0];
--
- 	spin_lock_irqsave(&vfe->output_lock, flags);
- 
- 	if (output->state == VFE_OUTPUT_ON &&
-@@ -1320,13 +1318,11 @@ void vfe_put(struct vfe_device *vfe)
- int vfe_flush_buffers(struct camss_video *vid,
- 		      enum vb2_buffer_state state)
- {
--	struct vfe_line *line = container_of(vid, struct vfe_line, video_out);
-+	struct vfe_output *output = container_of(vid, struct vfe_output, video_out);
-+	struct vfe_line *line = output->line;
- 	struct vfe_device *vfe = to_vfe(line);
--	struct vfe_output *output;
- 	unsigned long flags;
- 
--	output = &line->output[0];
--
- 	spin_lock_irqsave(&vfe->output_lock, flags);
- 
- 	vfe_buf_flush_pending(output, state);
-@@ -2052,8 +2048,8 @@ int msm_vfe_subdev_init(struct camss *camss, struct vfe_device *vfe,
- 	for (i = VFE_LINE_RDI0; i < vfe->res->line_num; i++) {
- 		struct vfe_line *l = &vfe->line[i];
- 
--		l->video_out.type = V4L2_BUF_TYPE_VIDEO_CAPTURE_MPLANE;
--		l->video_out.camss = camss;
-+		l->output[0].video_out.type = V4L2_BUF_TYPE_VIDEO_CAPTURE_MPLANE;
-+		l->output[0].video_out.camss = camss;
- 		l->id = i;
- 
- 		l->num_outputs = 1;
-@@ -2212,7 +2208,7 @@ int msm_vfe_register_entities(struct vfe_device *vfe,
- 
- 		sd = &vfe->line[i].subdev;
- 		pads = vfe->line[i].pads;
--		video_out = &vfe->line[i].video_out;
-+		video_out = &vfe->line[i].output[0].video_out;
- 
- 		v4l2_subdev_init(sd, &vfe_v4l2_ops);
- 		sd->internal_ops = &vfe_v4l2_internal_ops;
-@@ -2297,7 +2293,7 @@ int msm_vfe_register_entities(struct vfe_device *vfe,
- error_init:
- 	for (i--; i >= 0; i--) {
- 		sd = &vfe->line[i].subdev;
--		video_out = &vfe->line[i].video_out;
-+		video_out = &vfe->line[i].output[0].video_out;
- 
- 		msm_video_unregister(video_out);
- 		v4l2_device_unregister_subdev(sd);
-@@ -2320,7 +2316,7 @@ void msm_vfe_unregister_entities(struct vfe_device *vfe)
- 
- 	for (i = 0; i < vfe->res->line_num; i++) {
- 		struct v4l2_subdev *sd = &vfe->line[i].subdev;
--		struct camss_video *video_out = &vfe->line[i].video_out;
-+		struct camss_video *video_out = &vfe->line[i].output[0].video_out;
- 
- 		msm_video_unregister(video_out);
- 		v4l2_device_unregister_subdev(sd);
-diff --git a/drivers/media/platform/qcom/camss/camss-vfe.h b/drivers/media/platform/qcom/camss/camss-vfe.h
-index e043ef4468626..42ac030d339b0 100644
---- a/drivers/media/platform/qcom/camss/camss-vfe.h
-+++ b/drivers/media/platform/qcom/camss/camss-vfe.h
-@@ -105,6 +105,7 @@ struct vfe_output {
- 	struct completion reg_update;
- 
- 	struct vfe_line *line;
-+	struct camss_video video_out;
- };
- 
- struct vfe_line {
-@@ -114,7 +115,6 @@ struct vfe_line {
- 	struct v4l2_mbus_framefmt fmt[MSM_VFE_PADS_NUM];
- 	struct v4l2_rect compose;
- 	struct v4l2_rect crop;
--	struct camss_video video_out;
- 	struct vfe_output output[MSM_VFE_NUM_OUTPUTS];
- 	u32 num_outputs;
- 	const struct camss_format_info *formats;
-
++config HAZPTR_ACQUIRE_FORCE_SLOWPATH
++	bool "Force hazard-pointer acquire into the slow path"
++	depends on DEBUG_KERNEL
++	default n
++	help
++	  Make hazptr_acquire() always enter __hazptr_acquire().
++	  This is useful for testing slow-path locking, especially
++	  with lockdep.  It also lets hazptrtorture exercise the slow
++	  path without filling the per-CPU slots.
++
+ endmenu # "RCU Debugging"
 -- 
-2.55.0
+2.43.0
 
