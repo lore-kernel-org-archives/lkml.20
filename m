@@ -1,284 +1,213 @@
-Received: from fout-a8-smtp.messagingengine.com (fout-a8-smtp.messagingengine.com [103.168.172.151])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1C22C499F0E
-	for <linux-kernel@vger.kernel.org>; Mon,  5 Oct 2026 16:08:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=103.168.172.151
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6CC594CEE59
+	for <linux-kernel@vger.kernel.org>; Mon,  5 Oct 2026 16:12:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791216520; cv=none; b=YVtbnu00+k29AnCsFLMs7+pLVWhfHSULFWviTi3pWoMr78Oe6p0pSn+bYZFAR6L1FmGrxQ+NXSBmAtac9vWVspxMDZvFu50Y/X43PqZ+pCaErNvgfm1FqzOv20pb46hUWLsKfZ1qO/SbB+9zkA0t5OI11Uqw1ooCI+As38qBXb0=
+	t=1791216765; cv=none; b=gj8CxaVnd4Ab2iDUuS6h4QOaThxLQDD5y7F88aFUblqdKZ/nj2b//vU4+o36swdq2GjdrZdzQpK/InmwZyoYAPDYL476UYn2WiXJw7KHwtZnKAIRqGKpL/dnLuAT5ggJ/Ol8/Wyjds8F5oz6Rj3wBYCySUzBTmz7H92qRy4YVaE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791216520; c=relaxed/simple;
-	bh=HGg3vTFwT9cs3xra0Fdacg6LFkzkpZ0eEPl0PzLPJsk=;
+	s=arc-20240116; t=1791216765; c=relaxed/simple;
+	bh=pGL7OPUTou100s2Ao9RAWlBCSCF6/32S03caCjf9SXs=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=lGVrafuYfe9/iiCX6PO8gPvE6XD9EqDFG5Jpu7r9+XGvxBFsFCm8EOxNQS4QBP7y45Z+LVWgw8mxvTqkKccEQvUnacUiyrpTwH9vMkjfJfzNQWV+90iP1WBVIFTQ2Hfv8Hc0iMbcpEXzaaLYi4NktQp/maWyvc2z3Wv0VcFBTek=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ragnatech.se; spf=pass smtp.mailfrom=ragnatech.se; dkim=pass (2048-bit key) header.d=ragnatech.se header.i=@ragnatech.se header.b=YVY0B1WW; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=A0ro46Hc; arc=none smtp.client-ip=103.168.172.151
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ragnatech.se
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ragnatech.se
+	 Content-Type:Content-Disposition:In-Reply-To; b=u2iYLjHxMCFE90hnZ+PWdGLg+zmvjFPB7EkrbuyZ3RH/28YZTGq5erQQzOMAlEbswgMwbkWinEy3xnR6aV+tC7pQAfkHabNBmMflinGLWZSgHO6L/Z+f/CcnWLNXZgiZDmakPIzxqVnIP4Vp+xJ0kbYgVl9Tnt6Wh0/8dLRXyX8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=YhxtBiJE; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=eGQZBudJ; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ragnatech.se header.i=@ragnatech.se header.b="YVY0B1WW";
-	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="A0ro46Hc"
-Received: from phl-compute-05.internal (phl-compute-05.internal [10.202.2.45])
-	by mailfout.phl.internal (Postfix) with ESMTP id 32C52EC091A
-	for <linux-kernel@vger.kernel.org>; Mon,  5 Oct 2026 12:08:37 -0400 (EDT)
-Received: from phl-frontend-04 ([10.202.2.163])
-  by phl-compute-05.internal (MEProxy); Mon, 05 Oct 2026 12:08:37 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ragnatech.se; h=
-	cc:cc:content-transfer-encoding:content-type:content-type:date
-	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to; s=fm1; t=1791216517;
-	 x=1791302917; bh=u2CmOWw6YQCImPNSkhIO4WX/l034UQ2ZOYIj4264qHs=; b=
-	YVY0B1WWsRH91/b/X+KPYhiUsf9DZJ1Y8ZfuB+hBmqHi4voCyBrEVCzTAzcnqqJ+
-	xweWbYlSZ+PZnhTmJ3JhxvuRro2Iml/GmrcNFVxSZL5AcmeEUjxG66is42fCHL56
-	/lIFf4axF6Vtqb6ie445lx+YMO8gLkhshzRD2yiVW0/e0tHH0h8LkoYgMs3PvNWL
-	adBX9Nw2YMN11IqpE1XZGqVoKxHd5wVZTQXOmIYOHAXTj3jfiN4OzNgCeNUStGUN
-	tOfv2nzraiB8O1CkFJRIceT9n2S5qYMtVfaIGImNnLYUzUHdZag0D4zGacxUGpxc
-	x4x95tLDGJGdJTjKM4Zp8g==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:content-type:date:date:feedback-id:feedback-id
-	:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to:x-me-proxy
-	:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=1791216517; x=
-	1791302917; bh=u2CmOWw6YQCImPNSkhIO4WX/l034UQ2ZOYIj4264qHs=; b=A
-	0ro46HcYIRQnOHuepcitLupojocReZd3H6bcLPKttkTG6cDqobmX3058UHpWM+U2
-	lGOPln3HEuQZIO2bVnl8rGIIafz+9K/IJ8e3KAezMKF2TJbrJNL0FLlPZlFJ1OuO
-	eam6CMq5N6HvxQFC4H7H3nqC81ZN4vUVr+wjUvp4j2jow3FMzbW3shkyTYuVFu2q
-	5XaCaoMyD9ZVGtHteXFdXzWiMAYjwHe+DbFFCDdOWn6VHw15Tgle/0G0594tkmbu
-	Dd3JSjaIbB11Rr574+Wq5lawtBwmlbIkZZOP77iMGyq5yQ/mZAPRiq7p8ZJ9PRNv
-	6k1ONqZYU5bpd35x40dCw==
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
-	repo=github.com/dkim2wg/interop; date=2026-09-30; sw=lmtpprox;
-	action=sign d=ragnatech.se a=rsa-sha256;
-DKIM2-Signature: i=1; m=1; t=1791216517; d=ragnatech.se;
-	mf=PG5pa2xhcy5zb2Rlcmx1bmRAcmFnbmF0ZWNoLnNlPg==;
-	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
-	s=fm1:rsa-sha256:oNYwqXE/dViIeNz47qIJLS4yNxXma00t4fbC4qzx8VZ4GBq
-	VbBAKQ7yGhQjT/VBggUEl47eEhNZbBYI9SQtWL3PyFR0KF6eLY8jE3hsr6M1h/KM
-	Bjh/jqgrJsdNmikdvDAg29awDYdojtMfeIhiUshU29uoTT7FSq4tBqemMTivh1Da
-	S29PO/Tnv/JQKiPLjV9f6BMdLwZiUJF9FhrZAJ4s2rF3TCQkfcfdRc2KJ8QiHgeM
-	Kl1pdNXUeNtnbeIVvI2/+EXZIzbzfJdDpx/E4/Xy6pEt1FfCES+KKYi5LBOU8VOq
-	Nuak4iTwGx3gE0ZCWjOPn2E3YYBA+nG+DvFDKCQ==;
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
-	repo=github.com/dkim2wg/interop; date=2026-09-30; sw=lmtpprox;
-	action=mi-m=1; hc=13;
-	hn=cc,content-disposition,content-transfer-encoding,
-	content-type,date,feedback-id,from,in-reply-to,message-id,
-	mime-version,references,subject,to;
-Message-Instance: m=1; h=sha256:iA6wwhB8tKDaU4UCn0XNx1K55ruGkX8hpu3bQCvG7io=:HGg3vTFwT9cs3xra0Fdacg6LFkzkpZ0eEPl0PzLPJsk=;
-X-ME-Sender: <xms:hMvDaoytEeT2olvWEwLdwJx_Pyng208iSQa12GYLclBHnryS3o-vrA>
-    <xme:hMvDake99CRE0QWQGdo-urUXwPjj5uJYjc8hawIAzLMiHFQRpzxxNmgmGoU_Ihmwo
-    LhkQX5gEtMe9zX0RgNAEifrkiwDbw53ce-R7gfWScf2R_5qKoN1Hco>
-X-ME-Received: <xmr:hMvDal4jMTfJ8s_TE0WuJFhcsYVGee5G30vSJ3HO_jHpIpicWOIo6tXKNcalqjLU40Na4jmFDnt5LOtY8KICs0OxNfX2YEg>
-X-ME-Proxy-Cause: dmFkZTEe/uWcROJxRt3zO8jNocSwmVFJ5uPbz41vUYEWE+TUmS238r+h2WpJh52laQKGvX
-    1YKxt5ljwfLSQ3JZdtFZBCyC/5SNa59sSKzPvJvRgMuGW9UJKKK/jg8uf9C1lO6vAEdcXs
-    scFnRyp4V/HJov7uDxt/+E4NBs4RSshGzIIgzmCXUFsRsFdyLpU0bhWgbwVJ1KxaMadG7y
-    diQatgwvyMhF7aScITKogHJSgpA9GsnKigGpoFotF2svSTs3RgCq2y0SRgPPmHyafeYuoZ
-    XKZbFJQ1iYJYK96f0anGkzWZwRrdwug2qYqN55rmvffCHlLJ7dQbsX1LuUeNda92nEToFp
-    LrzpjzK2Gok2ty6RbhtrUlRn0Rn4bIJBJmf3vVBvv3bwyh5SXfYdKGUJEoc4Zs4q4YkqWc
-    MVvf4+3qHAS+62g+bSgJu6AwNL+Q1XoCdyNo909eCcyCqMRDDHFDDU9BiGFxocH7USPMHr
-    Qc5U4jXjZv2ehMkz0Gqh/PVQfUk6ySPsubrgFv+2Dnuh+bmcsCC4hbNbHMRaTJJlDzlqxA
-    9uLuwUaHX24QfswaYP/VJJVnOtqxBn6MAbkTnhDhG62GC6XyM5O6Z+WIUXEB9UXr0yenTG
-    nMYa4Z9nP9vgGKzR+2+Es2B6eThiB8NvMi1834efgAd14ZDDL0g+VEU2y8vQ
-X-ME-Proxy: <xmx:hMvDahIJ0yadXp4XvQDiqTs4CnXKOiD-L705PNbNo9G_im8N_7V10A>
-    <xmx:hMvDalxM5xF7vjgZXnD_fhOGAYwIBFQCopHv3zqlgy-Ilv2Zrrb0Kw>
-    <xmx:hMvDahL-ypFWOwe_LC0J21QkMSr9sk9VWOm_qj0B4uHqNTHvio9xpg>
-    <xmx:hMvDasV0FRh1ArmstVtBqi8mlpqkAgS8ViR1V0rGDD-BoZt42KKlVw>
-    <xmx:hcvDavaqsJEoMr_aRS6Mwj_-pXm29n6bAJKtP_9Cjt6SjY4LJHXgoSGq>
-Feedback-ID: i80c9496c:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Mon,
- 5 Oct 2026 12:08:35 -0400 (EDT)
-Date: Mon, 5 Oct 2026 18:08:33 +0200
-From: Niklas =?utf-8?Q?S=C3=B6derlund?= <niklas.soderlund@ragnatech.se>
-To: Jacopo Mondi <jacopo.mondi@ideasonboard.com>
-Cc: =?utf-8?Q?Barnab=C3=A1s_P=C5=91cze?= <barnabas.pocze@ideasonboard.com>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Geert Uytterhoeven <geert+renesas@glider.be>,
-	Magnus Damm <magnus.damm@gmail.com>,
-	Jacopo Mondi <jacopo.mondi+renesas@ideasonboard.com>,
-	Sakari Ailus <sakari.ailus@linux.intel.com>,
-	linux-media@vger.kernel.org, linux-renesas-soc@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2] media: rcar-isp: ispcore: Fix inconsistent step sizes
-Message-ID: <20261005160833.GA3658258@ragnatech.se>
-References: <20261001085130.84565-1-barnabas.pocze+renesas@ideasonboard.com>
- <asIXMIVjbusYLbaR@zed>
- <58f364aa-0960-4ae1-95e6-1313b9d08bdd@ideasonboard.com>
- <asNsjkhHv9OoMjqm@zed>
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="YhxtBiJE";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="eGQZBudJ"
+Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 695EP7tt2515698
+	for <linux-kernel@vger.kernel.org>; Mon, 5 Oct 2026 16:12:33 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=qcppdkim1; bh=pZuZ1lDBf+lhAoCkovyGqzsT
+	No9dAJ7sm4hyDqgMjos=; b=YhxtBiJE0PD7HIsh8JT09+Svv9Ve9wJcUsbOrLFK
+	rxSegQ286TGsSG4AaArzLQGDRQUMXcIB2pB5oDvrJQljFZH6SUAdLNPkouCwtYjB
+	Cx1QNRSbq2sS0YlisU50NqaGTcqVXHqEryO2bnV6QVlTH2Z+TC1A1N7eA8e2RWir
+	un7DNEyZDH0MAxPO0WrE8swC3qjZ7/o2PzCSZiEsdLfx4uGSAaEygn3QgRoQVe2j
+	6zXzPIYt/IFhmpeupcJhKk0GJTM1fb2ybtAIcY/gWcjkrE0FGFWS3jGR1nRy2y74
+	0uJ2JPOHs4sbCDWcdJCfx1OZMTPOt1/v4Uyfcv4B8yhEbg==
+Received: from mail-dl1-f71.google.com (mail-dl1-f71.google.com [74.125.82.71])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h4bhg11d8-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Mon, 05 Oct 2026 16:12:33 +0000 (GMT)
+Received: by mail-dl1-f71.google.com with SMTP id a92af1059eb24-154e9d2d94fso3474331c88.0
+        for <linux-kernel@vger.kernel.org>; Mon, 05 Oct 2026 09:12:32 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1791216752; x=1791821552; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=pZuZ1lDBf+lhAoCkovyGqzsTNo9dAJ7sm4hyDqgMjos=;
+        b=eGQZBudJNvB4yKmFbmWQPJO62nSFhmu+t5TSSf4m409ohKJtQVmvIiei/MordFwLvL
+         s7FXM44eRgCZU98OVZtNFNxIeOmnJjozUqRTG5arpMf/U7oLFgjMoSvEq4luWz55FsEF
+         45h1rf9kzZvBFZSLCHOoc6rcnua9RKnbL3wyUr8VY9PDTgAZPANFy02UrqwE2c8DAzd0
+         oXm+XnD/fqTBsB8Ny7SkWgo5yHz6O9/ivKIBQ1MxbjnUsu3l4e5d3p7mz2C6WcTpwd+T
+         Qx6YiK9y2+e/B/QXCg9qlSIUpqYLZcNdjWoHIQBO5qjp8yeiiVc3KzAo78rqKbXqSTJX
+         hcuQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791216752; x=1791821552;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=pZuZ1lDBf+lhAoCkovyGqzsTNo9dAJ7sm4hyDqgMjos=;
+        b=gQBO8MBai5CU1HOz1Zmd9R8sgtvWb/oBeggtzyJQ+RwS6Y6COezF8uKLmraIEAYMHF
+         YR6p0P68UkyGnikcf0dgwxg6pmG8q6gs0c17L1TuvjeZD+3+dZ8siNbHMHxnh1h1yAGB
+         1uQD6/vtoNSw1E7l9Uph6UldkrN+veFfrEfA5lq/I+lm6h1Fj2k5sbslzmu0IBdPARHO
+         N58QScRfl41RbYIMtVOiMRXgJi94JPvgqHYx2yaNlTVC1iVKaOUVHxAWUfQgFmBnwIJr
+         LEURASeRWsiyDhD5NQSqThYgJ5cG9++p7bNy+ym2QeOkgMbyPZLx4jF/Bs0mikUBA1jm
+         cWcQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwZRjkWHoYR15QMv0lSCvVxENthCeRsMdf1A7IGo0NdSR4gRiTSYVBQLjX4tMGsxnGQwJB4ugCJfO/Dqoo=@vger.kernel.org
+X-Gm-Message-State: AFuF++nJ6aUU4nB5a7y/l7XHvF7jiwX/WQqb0CkqPbZvAySaN+FlM/RB
+	6ibQqlarqYq0OgkLXZ6VekBGMQdnC+F3bSdw7WbiEe/5SeuRjNX2nxYVuP99rr/yc6wo+3Nd7Id
+	qI4mTGnJkXXyhq2gtXecTRLE/TdDYIbNor5VC4/EvbtnCWZc8qLqHwKOicorV3XhmwEM=
+X-Gm-Gg: AYBFou1zqP27IGLg+usPQRkgFi9Ybc5bvQ9EGZSIU4hCKEvqFGf2UFuGdaLyTctKYhj
+	9/K1XQRQ6iMk3EqLbjDPx+NQjF3GPKWuWGfWVuofQ3NopVq5+R7xaQRp5kNeakE0zTCSH/lsfvI
+	8fqm0GU99qYDN9zTrpOrnViTvRy2TAqiLOFl1j3pGX/mk36osALTW+r/aNVOiYExmAvM/zYZSzb
+	rB5C482l2++D4c0cY07X+jkMyUOUyDiy0IWDxQBlwzIbm7ScAqJbaDn+3DqZBRRqAjzJvNMDmpd
+	KbPkw50+OePK1yb7zRVy7VF16hrW33SdMjxvp7UBBb9DnI2IM8FagxbQ62x3624ssoNw4PmC/cT
+	sRR09PLlaHyUgHeqjikUyJHVdCQ==
+X-Received: by 2002:a05:7023:889:b0:144:f096:4dd1 with SMTP id a92af1059eb24-151c492533cmr11482398c88.41.1791216751885;
+        Mon, 05 Oct 2026 09:12:31 -0700 (PDT)
+X-Received: by 2002:a05:7023:889:b0:144:f096:4dd1 with SMTP id a92af1059eb24-151c492533cmr11482362c88.41.1791216751113;
+        Mon, 05 Oct 2026 09:12:31 -0700 (PDT)
+Received: from hu-mojha-hyd.qualcomm.com ([202.46.23.25])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-35127021d1esm15885013eec.4.2026.10.05.09.12.27
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 05 Oct 2026 09:12:30 -0700 (PDT)
+Date: Mon, 5 Oct 2026 21:42:24 +0530
+From: Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>
+To: Jorge Ramirez-Ortiz <jorge.ramirez@oss.qualcomm.com>
+Cc: andersson@kernel.org, mathieu.poirier@linaro.org,
+        konrad.dybcio@oss.qualcomm.com, sumit.garg@kernel.org,
+        linux-arm-msm@vger.kernel.org, linux-remoteproc@vger.kernel.org,
+        linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] remoteproc: qcom: pas: pass no resource table when the
+ firmware has none
+Message-ID: <20261005161224.umj6zzov57tifv7v@hu-mojha-hyd.qualcomm.com>
+References: <20261005125411.2151326-1-jorge.ramirez@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <asNsjkhHv9OoMjqm@zed>
+In-Reply-To: <20261005125411.2151326-1-jorge.ramirez@oss.qualcomm.com>
+X-Proofpoint-ORIG-GUID: 9EnWNBtXt8hHazO6nFI2cLBJnE6iFdvh
+X-Authority-Analysis: v=2.4 cv=GMGdgeNK c=1 sm=1 tr=0 ts=6ac3cc71 cx=c_pps
+ a=JYo30EpNSr/tUYqK9jHPoA==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
+ a=kj9zAlcOel0A:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_glEPmIy2e8OvE2BGh3C:22
+ a=EUspDBNiAAAA:8 a=nURcFc7YoTJHLg9ZjdYA:9 a=CjuIK1q_8ugA:10
+ a=Fk4IpSoW4aLDllm1B1p-:22
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDA1MDA2MyBTYWx0ZWRfX09nGd+SV2RZX
+ uQUOKRU2/hFW07qNu9F4UANcDAr0Mcu/9F/iAHTncSOwOpxaJiZ1I4M0bKjVp95V3JpHLY5e8bR
+ P9lqiEt4oV7x7N1QtM/lhSpMuf9Rw+w=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDA1MDA2MyBTYWx0ZWRfX9LQrVGBGALmm
+ DR5tY0GQUR9pg6zY8jRjVneHD4DY8ODgeGh8NvB2rZwkUXG5/RXrwWf9FSaPRjp07RROs5JoTAv
+ K85Iae46uYGVzfu0qkm41qU2WegRJBFfCx/NAKX6XDWrQ4r6lY5P9TNf/Otpg56OsHuz+pgjYoL
+ T08xLGNmYefzVRkIUPXykVbl0TjMLZEK0PJt4fj7OXIT700Fi9T/8CyxAXeSRD7K9TO7kDp12JQ
+ HaG/wVqFp5h4PGKEHAbTSfdytOyb+V+OZeg6cVJ7YdVSnPOBHOqufZrYlvfPkPrMCoVCQye9Qev
+ 1QvytAI96EbIPvFJrmFSF1INb5VpGiE9OMdn+iYc5DO8P9ZRjUroLAjtl7k2FCqbp6c5lGDA0ub
+ 3V23t1wnltK1bZxvWcHynjx2UhwQkSq+avsPzJMEWLRE6yoVpCGqiHswps5Qzk0XokdwMqSy7Il
+ BiU2OiHC5dhQH5CCZIQ==
+X-Proofpoint-GUID: 9EnWNBtXt8hHazO6nFI2cLBJnE6iFdvh
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-05_04,2026-10-05_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ bulkscore=0 suspectscore=0 spamscore=0 adultscore=0 malwarescore=0
+ priorityscore=1501 impostorscore=0 lowpriorityscore=0 clxscore=1015
+ phishscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2609040000
+ definitions=main-2610050063
 
-On 2026-10-05 11:24:14 +0200, Jacopo Mondi wrote:
-> Hi Barnabás
+On Mon, Oct 05, 2026 at 02:54:00PM +0200, Jorge Ramirez-Ortiz wrote:
+> The firmware resource table is passed to the PAS backend even when the
+> firmware carries none. This only works on the first boot, while the
+> cached pointer and its size are both zero.
 > 
-> On Mon, Oct 05, 2026 at 10:55:00AM +0200, Barnabás Pőcze wrote:
-> > 2026. 10. 04. 11:14 keltezéssel, Jacopo Mondi írta:
-> > > Hi Barnabás
-> > >
-> > > On Thu, Oct 01, 2026 at 10:51:30AM +0200, Barnabás Pőcze wrote:
-> > > > `risp_io_{input,capture}_enum_framesizes()` sets the horizontal and vertical
-> > > > step size to 2. However, `risp_io_{input,capture}_try_format()` passes 2
-> > > > to `v4l_bound_align_image()`, which corresponds to a step size of 2^2 = 4.
-> > > >
-> > > > So move these constants into macros to avoid the repetition, and with that,
-> > > > use 4 as the step size everywhere.
-> > >
-> > > Why 4 ?
-> > >
-> > > I can't find any such limit in documentation.
-> > >
-> > > For input I don't find alignment constraints nor in CS or VSPX
-> > > documentation.
-> > >
-> > > For output I only see a requirement that the stride is 256 bits
-> > > aligned, something that is enforced by risp_io_capture_try_format()
-> > > already.
-> > >
-> > > I see Niklas has reviewed the patch, so he might have found somewhere
-> > > in the long documentation where the alignment for both input and
-> > > capture nodes is described.
-> >
-> > My primary goal was to remove the inconsistency between the reported and applied
-> > step sizes. So I went with 4 because that was the applied step size, so with that,
+> Stopping the remote processor, or failing to start it, frees the cached
+> table and clears the pointer but leaves the size set. The next start
+> then pairs a NULL table with a non-zero size.
 > 
-> Let's first clarify if the 4 was intentional or is the API of
-> v4l_bound_align_image() that confused us.
+> The SCM backend substitutes an empty table and hides the problem. The
+> TEE backend copies from the NULL pointer:
 > 
-> Niklas: any recollection here ?
+>   remoteproc remoteproc2: powering up cdsp
+>   pc : __pi_memcpy_generic+0x110/0x22c
+>   lr : qcom_pas_tee_get_rsc_table+0xf4/0x25c
+>   Call trace:
+>    __pi_memcpy_generic+0x110/0x22c (P)
+>    qcom_pas_get_rsc_table+0x38/0x60
+>    qcom_pas_parse_firmware+0xa0/0x100
+>    rproc_boot+0x2d4/0x380
+>    state_store+0x40/0x100
+> 
+> Fixes: a4584bff63c8 ("remoteproc: pas: Extend parse_fw callback to fetch resources via SMC call")
+> Signed-off-by: Jorge Ramirez-Ortiz <jorge.ramirez@oss.qualcomm.com>
+> ---
+>  drivers/remoteproc/qcom_q6v5_pas.c | 11 ++++++-----
+>  1 file changed, 6 insertions(+), 5 deletions(-)
+> 
+> diff --git a/drivers/remoteproc/qcom_q6v5_pas.c b/drivers/remoteproc/qcom_q6v5_pas.c
+> index a005546c265d..e871e03ba794 100644
+> --- a/drivers/remoteproc/qcom_q6v5_pas.c
+> +++ b/drivers/remoteproc/qcom_q6v5_pas.c
+> @@ -463,7 +463,7 @@ static int qcom_pas_parse_firmware(struct rproc *rproc, const struct firmware *f
+>  	struct resource_table *table = NULL;
+>  	size_t output_rt_size;
+>  	void *output_rt;
+> -	size_t table_sz;
+> +	size_t table_sz = 0;
+>  	int ret;
+>  
+>  	ret = qcom_register_dump_segments(rproc, fw);
+> @@ -476,11 +476,12 @@ static int qcom_pas_parse_firmware(struct rproc *rproc, const struct firmware *f
+>  		return 0;
+>  
+>  	ret = rproc_elf_load_rsc_table(rproc, fw);
+> -	if (ret)
+> +	if (ret) {
+>  		dev_dbg(&rproc->dev, "Failed to load resource table from firmware\n");
+> -
+> -	table = rproc->table_ptr;
+> -	table_sz = rproc->table_sz;
+> +	} else {
+> +		table = rproc->table_ptr;
+> +		table_sz = rproc->table_sz;
+> +	}
 
-I think this was picked/discovered early when we where debuggin the 
-issues in the DMA from the VSPX and never re-evaluated. I acked the 
-packed as it do the correct thing, expose the limit we enforce in 
-TRY_FORMAT to the enumeration of frame sizes which was inconsistent.
 
+Earlier code was intentional please read the comment below.. /**...*/
+
+diff --git a/drivers/remoteproc/qcom_q6v5_pas.c b/drivers/remoteproc/qcom_q6v5_pas.c
+index 2e1e39826ffa..5edb39ad5277 100644
+--- a/drivers/remoteproc/qcom_q6v5_pas.c
++++ b/drivers/remoteproc/qcom_q6v5_pas.c
+@@ -504,8 +504,11 @@ static int qcom_pas_parse_firmware(struct rproc *rproc, const struct firmware *f
+                return 0;
+
+        ret = rproc_elf_load_rsc_table(rproc, fw);
+-       if (ret)
++       if (ret) {
+                dev_dbg(&rproc->dev, "Failed to load resource table from firmware\n");
++               rproc->table_ptr =  NULL;
++               rproc->table_sz = 0;
++       }
+
+
+>  
+>  	/*
+>  	 * The resources consumed by Qualcomm remote processors fall into two categories:
+> -- 
+> 2.54.0
 > 
-> > it's quite certain that nothing that has worked will break.
-> >
-> > Admittedly I do not know if that is the correct number, but I think that can
-> > be considered a separate issue.
-> >
-> >
-> >
-> > >
-> > > >
-> > > > Fixes: 2151350f60d1 ("media: rcar-isp: Add support for ISPCORE")
-> > > > Signed-off-by: Barnabás Pőcze <barnabas.pocze+renesas@ideasonboard.com>
-> > > > Reviewed-by: Niklas Söderlund <niklas.soderlund+renesas@ragnatech.se>
-> > > > ---
-> > > > changes in v2:
-> > > >    * fix typo
-> > > >
-> > > > v1: https://lore.kernel.org/linux-media/20260929133020.342677-2-barnabas.pocze+renesas@ideasonboard.com
-> > > > ---
-> > > >   .../media/platform/renesas/rcar-isp/core-io.c | 40 +++++++++++--------
-> > > >   1 file changed, 24 insertions(+), 16 deletions(-)
-> > > >
-> > > > diff --git a/drivers/media/platform/renesas/rcar-isp/core-io.c b/drivers/media/platform/renesas/rcar-isp/core-io.c
-> > > > index 820af506f896c..b60b91f43d42d 100644
-> > > > --- a/drivers/media/platform/renesas/rcar-isp/core-io.c
-> > > > +++ b/drivers/media/platform/renesas/rcar-isp/core-io.c
-> > > > @@ -15,6 +15,12 @@
-> > > >
-> > > >   #include "risp-core.h"
-> > > >
-> > > > +#define RISP_MIN_WIDTH 128
-> > > > +#define RISP_MAX_WIDTH 5120
-> > > > +#define RISP_MIN_HEIGHT 128
-> > > > +#define RISP_MAX_HEIGHT 4096
-> > > > +#define RISP_SIZE_ALIGNMENT 2 /* 2^2 = 4 */
-> > >
-> > > The fact that 2 means 2^2 is only because of how
-> > > v4l_bound_align_image() is implemented
-> > >
-> > > > +
-> > > >   #define risp_io_err(d, fmt, arg...)         dev_err((d)->core->dev, fmt, ##arg)
-> > > >
-> > > >   static struct risp_buffer *risp_io_vb2buf(struct vb2_v4l2_buffer *vb)
-> > > > @@ -330,8 +336,9 @@ static void risp_io_input_try_format(struct rcar_isp_core_io *io,
-> > > >   {
-> > > >   	unsigned int bpp = 0;
-> > > >
-> > > > -	v4l_bound_align_image(&pix->width, 128, 5120, 2,
-> > > > -			      &pix->height, 128, 4096, 2, 0);
-> > > > +	v4l_bound_align_image(&pix->width, RISP_MIN_WIDTH, RISP_MAX_WIDTH, RISP_SIZE_ALIGNMENT,
-> > > > +			      &pix->height, RISP_MIN_HEIGHT, RISP_MAX_HEIGHT, RISP_SIZE_ALIGNMENT,
-> > >
-> > > Should we maybe use 1 here, unless it is documented that 4 is a
-> > > requirement ?
-> > >
-> > > My suspicion is that we originally meant '2' everywhere, but
-> > > v4l_bound_align_image() is weird and if you pass '2' in it means
-> > > '2^2' and this went unnoticed.
-> > >
-> > > > +			      0);
-> > > >
-> > > >   	for (unsigned int i = 0; i < ARRAY_SIZE(risp_io_input_formats); i++) {
-> > > >   		if (risp_io_input_formats[i].fourcc == pix->pixelformat) {
-> > > > @@ -423,13 +430,13 @@ static int risp_io_input_enum_framesizes(struct file *file, void *fh,
-> > > >
-> > > >   	fsize->type = V4L2_FRMSIZE_TYPE_STEPWISE;
-> > > >
-> > > > -	fsize->stepwise.min_width = 128;
-> > > > -	fsize->stepwise.max_width = 5120;
-> > > > -	fsize->stepwise.step_width = 2;
-> > > > +	fsize->stepwise.min_width = RISP_MIN_WIDTH;
-> > > > +	fsize->stepwise.max_width = RISP_MAX_WIDTH;
-> > > > +	fsize->stepwise.step_width = 1u << RISP_SIZE_ALIGNMENT;
-> > > >
-> > > > -	fsize->stepwise.min_height = 128;
-> > > > -	fsize->stepwise.max_height = 4096;
-> > > > -	fsize->stepwise.step_height = 2;
-> > > > +	fsize->stepwise.min_height = RISP_MIN_HEIGHT;
-> > > > +	fsize->stepwise.max_height = RISP_MAX_HEIGHT;
-> > > > +	fsize->stepwise.step_height = 1u << RISP_SIZE_ALIGNMENT;
-> > > >
-> > > >   	return 0;
-> > > >   }
-> > > > @@ -720,8 +727,9 @@ static const struct v4l2_pix_format_mplane risp_io_capture_default_format = {
-> > > >   static void risp_io_capture_try_format(struct rcar_isp_core_io *io,
-> > > >   				       struct v4l2_pix_format_mplane *pix)
-> > > >   {
-> > > > -	v4l_bound_align_image(&pix->width, 128, 5120, 2,
-> > > > -			      &pix->height, 128, 4096, 2, 0);
-> > > > +	v4l_bound_align_image(&pix->width, RISP_MIN_WIDTH, RISP_MAX_WIDTH, RISP_SIZE_ALIGNMENT,
-> > > > +			      &pix->height, RISP_MIN_HEIGHT, RISP_MAX_HEIGHT, RISP_SIZE_ALIGNMENT,
-> > > > +			      0);
-> > > >
-> > > >   	pix->field = V4L2_FIELD_NONE;
-> > > >   	pix->colorspace = V4L2_COLORSPACE_SRGB;
-> > > > @@ -824,13 +832,13 @@ static int risp_io_capture_enum_framesizes(struct file *file, void *fh,
-> > > >
-> > > >   	fsize->type = V4L2_FRMSIZE_TYPE_STEPWISE;
-> > > >
-> > > > -	fsize->stepwise.min_width = 128;
-> > > > -	fsize->stepwise.max_width = 5120;
-> > > > -	fsize->stepwise.step_width = 2;
-> > > > +	fsize->stepwise.min_width = RISP_MIN_WIDTH;
-> > > > +	fsize->stepwise.max_width = RISP_MAX_WIDTH;
-> > > > +	fsize->stepwise.step_width = 1u << RISP_SIZE_ALIGNMENT;
-> > > >
-> > > > -	fsize->stepwise.min_height = 128;
-> > > > -	fsize->stepwise.max_height = 4096;
-> > > > -	fsize->stepwise.step_height = 2;
-> > > > +	fsize->stepwise.min_height = RISP_MIN_HEIGHT;
-> > > > +	fsize->stepwise.max_height = RISP_MAX_HEIGHT;
-> > > > +	fsize->stepwise.step_height = 1u << RISP_SIZE_ALIGNMENT;
-> > > >
-> > > >   	return 0;
-> > > >   }
-> > > > --
-> > > > 2.55.0
-> > > >
-> > > >
-> >
 
 -- 
-Kind Regards,
-Niklas Söderlund
+-Mukesh Ojha
