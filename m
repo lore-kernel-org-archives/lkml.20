@@ -1,104 +1,81 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3F949418A33
-	for <linux-kernel@vger.kernel.org>; Mon,  5 Oct 2026 10:05:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1D515472523;
+	Mon,  5 Oct 2026 10:05:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791194713; cv=none; b=Rqxyu2cnjQUk/pa7WkQaB6PV8yr/hpYT2riKPjqx1DLu44BlYC/RS2NvUJYbEqk3EdjXu6QRe7F9gptR/lodrkdKWFcgu5XHZkxeqvAB3O9ZLDVwTw83qxHMJjH4xJ1bfpFJkx5khae4by1be14bq3Ggq4+BmtPZ3kwHlDWCrVw=
+	t=1791194720; cv=none; b=uD1M/Qm7JTa3HFMuRqtshJP6aLdnPQ+J76spjwMgKuYUUrEBn3Txn0HYjmeVpJuY2gKZDL4f6CpCRs1P+y87onPTp4IkyfVGVkuasQ6XLv9niDKDij0+kxHKgOJnHI/z2UDa7fbBlHpOXVgpfumpHUMLOB2HgWRloKLlfbLoNQY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791194713; c=relaxed/simple;
-	bh=KbGiJXXwoQ3jClubF7TlnL0TPDmyhwqYFebqjctSX/U=;
+	s=arc-20240116; t=1791194720; c=relaxed/simple;
+	bh=ZiuGDrdc6aZGtiV36uQBUTDHEKtykfDGsCQ5qvgYNP4=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=n3nBHvCFvX3oJ+GtSZ8/aNdi0XiGRSP0EBOojA6kk0IbM7y7LxXvVrQcNqlPPmXnzWa+37d2OfZ19Qpsa768JqY8DjY0q2tKjoPl2Up66q4hUY15r8ZNqWrU8+QghyFLZ4pTxwzW7LtMWRC6EE23EWLSrFpFf5gHk0FgiPc2BKY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=LWVoVLal; arc=none smtp.client-ip=170.10.129.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=nvWyweunTOX8TSRrXtJq7PSNxIVPsZP/lG5ps+jDY2uBa/35tKYbpH9vGqxXsXvlFjEjjBsVStlGDpLMXasl4El4tLLrW8KRm1GVOZ1vhMcyB+xKitjI1yKcpCjxlha7AHHGwnxfAGIwmsuwHEFsh1pGFFLHP/X1kJjGwpL6AfQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nbdTYaz5; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="LWVoVLal"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1791194704;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=bMe63t1nHujMN1HvYyQr8Mnh6elbHxeuI9TNQO12M4g=;
-	b=LWVoVLalTc2PU3WuTGRZRbLnhDtBHo84esbP54n2VZHRsV1bL1zz88tVvDlaQ/epz+ekif
-	UTHf96PjH9qkDFlv/YjqE8P6y7HexDciVhuQ1KbCO1wRCSG4hO3Iz3NR4j/TbL2gi+QN7g
-	RzSDw8w847Q30d5rlunm7W4k26QkZ4w=
-Received: from mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-91-DrvbuV9FNA-Z4zd5ZwMBkQ-1; Mon,
- 05 Oct 2026 06:05:01 -0400
-X-MC-Unique: DrvbuV9FNA-Z4zd5ZwMBkQ-1
-X-Mimecast-MFC-AGG-ID: DrvbuV9FNA-Z4zd5ZwMBkQ_1791194699
-Received: from mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.17])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 2F18318002E6;
-	Mon,  5 Oct 2026 10:04:59 +0000 (UTC)
-Received: from localhost (headnet05.pony-001.prod.iad2.dc.redhat.com [10.2.32.117])
-	by mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 926141944CC0;
-	Mon,  5 Oct 2026 10:04:55 +0000 (UTC)
-Date: Mon, 5 Oct 2026 12:04:53 +0200
-From: Miroslav Lichvar <mlichvar@redhat.com>
-To: David Woodhouse <dwmw2@infradead.org>
-Cc: Thomas Gleixner <tglx@kernel.org>, John Stultz <jstultz@google.com>,
-	Stephen Boyd <sboyd@kernel.org>,
-	Rodolfo Giometti <giometti@enneenne.com>,
-	Ryan Luu <rluu@amazon.com>, Julien Ridoux <ridouxj@amazon.com>,
-	linux-kernel@vger.kernel.org, David Woodhouse <dwmw@amazon.co.uk>
-Subject: Re: [PATCH 4/5] timekeeping: Reinstate proportional correction of
- ntp_error
-Message-ID: <asN2RcjoTNN5rpaK@localhost>
-References: <20261001202134.33929-1-dwmw2@infradead.org>
- <20261001202134.33929-5-dwmw2@infradead.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nbdTYaz5"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C973A1F00893;
+	Mon,  5 Oct 2026 10:05:12 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791194712;
+	bh=RbmlOi1nGG3+a2z8L1s863EzCm/o39cVEUMyhcapV9Q=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=nbdTYaz5G5Vkm8F9hfuQAM0E0M1F5n3QWdYI5CrJ18VVF4g5ez2EotxymSCFYDWME
+	 3yDzw+8uah/GcVop/IKDGdRijkxrUpylpwXVIV0YDghdLk4hMtObdGQgLeeXATPvPv
+	 ApeEf/6jesqm5R/1nQsZK6bkoweYBvg5XFQOsImy5jyX9SMXxwKlSruYVO45eiN65m
+	 MldLiX/5LBwCxjJAsyNWLJbxi0a207TQ7iZCkcYS0S/vCp7PE6y2MDb904rQocX3y+
+	 qHaoevr+sVWKgJHJIdYcHCs9tjR7zt/WJTmmAN4gWx/heUF+zEDulsT/4EWQrSBHk4
+	 ZWcF8RB/RSCeg==
+Date: Mon, 5 Oct 2026 03:05:12 -0700
+From: Kees Cook <kees@kernel.org>
+To: bot+bpf-ci@kernel.org
+Cc: morbo@google.com, akpm@linux-foundation.org, david@davidgow.net,
+	pmladek@suse.com, senozhatsky@chromium.org, shuvampandey1@gmail.com,
+	rostedt@goodmis.org, corbet@lwn.net, gnoack@google.com,
+	willy@infradead.org, mic@digikod.net,
+	andriy.shevchenko@linux.intel.com, mhiramat@kernel.org,
+	mathieu.desnoyers@efficios.com, jikos@kernel.org, ast@kernel.org,
+	daniel@iogearbox.net, andrii@kernel.org, eddyz87@gmail.com,
+	memxor@gmail.com, martin.lau@linux.dev, song@kernel.org,
+	yonghong.song@linux.dev, jolsa@kernel.org, emil@etsalapatis.com,
+	ihor.solodrai@linux.dev, chleroy@kernel.org,
+	u.kleine-koenig@baylibre.com, maddy@linux.ibm.com,
+	mpe@ellerman.id.au, npiggin@gmail.com, sbhat@linux.ibm.com,
+	blum@kernel.org, alison.schofield@intel.com, dave.jiang@intel.com,
+	gregkh@linuxfoundation.org, lgs201920130244@gmail.com,
+	iweiny@kernel.org, u.kleine-koenig@pengutronix.de,
+	vishal.l.verma@intel.com, rdunlap@infradead.org,
+	skhan@linuxfoundation.org, linux-kernel@vger.kernel.org,
+	bpf@vger.kernel.org, linux-security-module@vger.kernel.org,
+	linux-trace-k@lists.ozlabs.org, ernel@vger.kernel.org,
+	linuxppc-dev@lists.ozlabs.org, nvdimm@lists.linux.dev,
+	linux-doc@vger.kernel.org, linux-hardening@vger.kernel.org,
+	martin.lau@kernel.org, mason@kernel.org
+Subject: Re: [PATCH v4 01/11] seq_buf: Do not print an empty line from an
+ overflowed seq_buf_do_printk()
+Message-ID: <20261005100502.86b595-kees@kernel.org>
+References: <20261003035921.1918874-1-kees@kernel.org>
+ <aa721817952d2aff37a77588339c61d5090f1589203451243ed88149bf00f1d5@mail.kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20261001202134.33929-5-dwmw2@infradead.org>
-X-Scanned-By: MIMEDefang 3.0 on 10.30.177.17
+In-Reply-To: <aa721817952d2aff37a77588339c61d5090f1589203451243ed88149bf00f1d5@mail.kernel.org>
 
-On Thu, Oct 01, 2026 at 09:21:33PM +0100, David Woodhouse wrote:
-> From: David Woodhouse <dwmw@amazon.co.uk>
-> 
-> The ±1 mult dithering is sufficient to keep ntp_error at zero once
-> it's already there, but it doesn't do much to reduce it once any
-> significant ntp_error has accumulated (e.g. from frequency or phase
-> adjustments) — it can typically only drain single-digit nanoseconds
-> per second. Commit dc491596f639 ("timekeeping: Rework frequency
-> adjustments to work better w/ nohz") removed a larger skew because in
-> a tickless kernel, it would remain in effect for a full idle period
-> and overshoot. Now that timekeeping_max_deferment() ensures that the
-> system wakes at the top of the second when skew is active, the
-> correction can be reinstated. If ntp_error exceeds an amount that a
-> single ±1 change to mult can drain within a minute, add an
-> additional bias to mult to close the gap.
+On Sat, Oct 03, 2026 at 04:50:50AM +0000, bot+bpf-ci@kernel.org wrote:
+> TL;DR: The new KUnit test may fail spuriously, and stop detecting the bug,
+> when console_loglevel suppresses KERN_INFO (quiet, loglevel=N) or
+> CONFIG_PRINTK=n, since the capture console never sees records.
 
-The dithering is switching between an adjustment of +0 and +1, there
-is no -1. The time to drain depends on the direction. If the mult
-division has no remainder, it's infinite for +0. I think that's ok for
-this change, but the message and comment could be more clear.
+That's a pointless state to handle: KUnit reports its own results at
+KERN_INFO, so with a console that hides KERN_INFO, or with printk
+compiled out, all of KUnit is unusable, not just this test.
 
-A faster correction creates a larger frequency error.
-
-Is this patch considered a requirement of the one adding the ntp_error
-correction to PPS and other timestamps to avoid larger inconsistencies
-with clock_gettime()?
-
-I'm wondering if this duality of the clock wrt the way it's read
-couldn't cause any issues. Any chance there could be a new clock ID
-for applications to do clock_gettime() with the ntp_error corrected as
-well?
+-Kees
 
 -- 
-Miroslav Lichvar
-
+Kees Cook
