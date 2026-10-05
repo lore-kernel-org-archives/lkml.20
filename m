@@ -1,146 +1,252 @@
-Received: from mail-pj2-f5.google.com (mail-pj2-f5.google.com [74.125.227.133])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E8E5F4BA1D8
-	for <linux-kernel@vger.kernel.org>; Mon,  5 Oct 2026 20:18:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.133
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 111FC4CC62E
+	for <linux-kernel@vger.kernel.org>; Mon,  5 Oct 2026 20:18:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791231505; cv=none; b=pKLGCp0TsytpEeyTf1CVhoYrNUxW+lXfTaDq2cArJh4za6UeMJt2FlZ43349KGHYJVzOJcbHVhBwPeKKDkiGQxGnrp1jOxSEOY0QlkDZlmkTeAW3F5m44jxWb9Zo6CM7WKQMw+ry4bp4irLibmgp2LKWKlRPjrXbDKSyoyhgdJU=
+	t=1791231518; cv=none; b=onRqc6Cg0vTXUB/THZ4PeDpYbj6TgJzWH404a9pmckjScso5Yc9enA/+/HcDrApjaqCU8uvj3mPE2fMGj6InUTMYfdZGULbEoUbUuc2OQEpKXedbi+xc67WVppHdYhsPAR9qMv8kfacc+dW+ImxC1X8ueV6xYfpw2m2aYD3V8rE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791231505; c=relaxed/simple;
-	bh=BXoFvpeLE9KoGidUa4e0smSWqKCrh9rC2ND9HlaDXpM=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=IDNFzl/kR25cyS4eZZMdehyWk8N042oHGU0XdzPkT3e8nM7201vd4pCx3xRpKcJN2j3mzzqu7IgGAIsMSlcE7Kc7c8VKdA2fNkPEKe4YKWyB4niSn/OhVDFaeXao2PGPTag3Li/o81QKx9vFN/CS11aOSmelpOuE9z4h2mQwZCA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=q92ijepU; arc=none smtp.client-ip=74.125.227.133
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1791231518; c=relaxed/simple;
+	bh=zLaVXxu1hPRvVTtGn52v4GtmGQd+187pU7Ln8Rsorjw=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=jG2D1OQTvhzSHEjzQiLqoNSdqFNcc+b3I6uvJ93/ffkIOduEdtpAclF7/TLNGGTMZ9DNpclcYcqpRgQLH/wrbnnXD9WPc6Ks6iWat8793K++Qshw4kUbafcYAQbxnxEFJdlnhTiDWxOxcS7FpdYxeo4jCGit09598pE9ZMtEB3I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Vib4knmL; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="q92ijepU"
-Received: by mail-pj2-f5.google.com with SMTP id 98e67ed59e1d1-3a7a8e9a874so159966a91.1
-        for <linux-kernel@vger.kernel.org>; Mon, 05 Oct 2026 13:18:23 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791231503; x=1791836303; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=UaqXT4ErWO3i859O4DLN6R0LDK8LuXc4vcaqlzX/HHc=;
-        b=q92ijepUkteqdvbpwBJ+Q9rqk5H07n+2J55qNuy1I1QxHjZ6pwiTUJ0MBn5WmxPYcn
-         XsPKR/miPhuuHD5Rg76ez7Gn8ScmGkTNNHJNakzLEHqr1zsfIYbQrHWQptOKnwEU4rdz
-         bgRpOuhrEgtk0LJRqeVqyNtD6Lo1FIJiJ3MUbVnpvnicu3B6K6WacbZPskjtuBvqC/OQ
-         QQT/kOpyXxiQF88mB5KXGUeNjgSPbofTUBXNvhkc5fPz6TFYv4I9wSvol/MSqFe/XBws
-         N/NG/yj/wBX9aDAXCv2XQZ8wB0ZwRxTPIpRpKXwuYOx125w7tDftDATSzzHQp2syMVGd
-         HmMg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791231503; x=1791836303;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=UaqXT4ErWO3i859O4DLN6R0LDK8LuXc4vcaqlzX/HHc=;
-        b=enl+oCx/2kq+rZ5/ae+z+ekJeaohv70kTkmC1LED66jAqBZKXtO89DdFeRQLUp0QJv
-         oosA53XiUPEeDB2J8NIBL1bfP7P5mnYRAc4SgrLAKsuRMnoBWGt3cHFtCALzj06hohw0
-         3Hhpt9+yCHznH1PJyvkPvK73IZmjmiZNrA+LhjQlA+8iOlFD3FCHNqUd8z5fCe3/LHTg
-         CnJFPfN/BXuMrG6dGyhjwzmJFM7FblWUUtvyzPPRxdr6aG9XjNk7XapXeONvG5niGptJ
-         AKYWP94zcdHL/DiO5othIpWAKZDfF4JqOEMOXvn/svkM0beEsXJ318KfImq+DiYexpCe
-         wDow==
-X-Forwarded-Encrypted: i=1; AKwUvBwrXB4fsZKlXFt7KePSqGpPVL9/nVPZ8WVxnPRWRXBYo5KsgfQajBYY9mZqD8f0UlcZwKQuy/Z8nDTxq0w=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKlRmDJOkc/W5X0biR87V43c7G2Bx0cYPN5d85/ON/p74BdtkTU
-	4NVsYEeigmSL2Ev6DdPPEUPCoafr59eU/gZ0dDhqGYXdpKd2mYB6jP1S
-X-Gm-Gg: AYBFou1ue1djoeYOlQWsDV/aitwWtV8Q6V3M7zV84+5HW0SBSx15GYYR/egA+O9JV8k
-	ZclOfoByz4f12oLF/KNMN+LufyLMFWrYRiXjT8zzw8/bbl9ryArCYZ6hlWU4ohUTUDTy1Gxd3xS
-	/oUNftd3PyIuhH5MKJsLc5J56DQanSn5YfsAU94SWg7+nMRRctO0LPW/he/jfsK2P2NOW8aKnwi
-	Q0qO132rrm3D95DHOirHoXthuSV1qe6d9Vj32ktNXJ43qz+DIY3JjZp+gVrlv1g2/UBXo1B53XU
-	oaekNc3Q9G/4y6huEWLFmOFJfQG0EJSWTcXYrJj987QkGBbQP7UF5Yb5MbyR12TtkVWRxYSOCqI
-	AKzHiFFmk3iC5K7eXKwmw/s9xC0USH4sTX4SSsOQkZi2IMoH2Vdrpq/e1XwWA0ftsZ2iu0sC7Jh
-	JGN8pQNm8uHheWGyY5LVypOuKaLdHlxzixV9xxs1BQMKzJJsX8rS+jjNRRUsNIxWMc2n6M1y/jW
-	Xo=
-X-Received: by 2002:a17:90b:582f:b0:3a4:ee64:f492 with SMTP id 98e67ed59e1d1-3a85439e2camr322431a91.33.1791231503215;
-        Mon, 05 Oct 2026 13:18:23 -0700 (PDT)
-Received: from localhost ([2a03:2880:2ff:71::])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a853d00fc5sm1125229a91.16.2026.10.05.13.18.22
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 05 Oct 2026 13:18:22 -0700 (PDT)
-From: Stanislav Fomichev <sdf.kernel@gmail.com>
-X-Google-Original-From: Stanislav Fomichev <sdf@fomichev.me>
-To: netdev@vger.kernel.org
-Cc: davem@davemloft.net,
-	edumazet@google.com,
-	kuba@kernel.org,
-	pabeni@redhat.com,
-	edumazet@kernel.org,
-	horms@kernel.org,
-	sdf@fomichev.me,
-	bobbyeshleman@meta.com,
-	almasrymina@google.com,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH net-next] net: devmem: remove net_iov_area base_virtual
-Date: Mon,  5 Oct 2026 13:18:22 -0700
-Message-ID: <20261005201822.3060658-1-sdf@fomichev.me>
-X-Mailer: git-send-email 2.53.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Vib4knmL"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8F8891F00898
+	for <linux-kernel@vger.kernel.org>; Mon,  5 Oct 2026 20:18:36 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791231516;
+	bh=aY2j7X8wBXJnkUSvdFrO7hrVLgYV9VQvfdE75ziBQEw=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=Vib4knmLGfUAovO3FFzzs1eZAaIJw1IddjkmwyiDgQB/MHE4iE7ZzjBsfBVIiC/K5
+	 uMvB4Ih45YfMJ0uT7vzUqJJerb6guypqGS3ddEJXhJzj2DWye+4QxlyrAz+ooirKq0
+	 9ClIlMWFiSwppQl48oAN8OghNE8n7MuDoy/U86vgMUo6V3NuvCg7JNBkrRZwrGHZMO
+	 NxvI0nIcgXJttMsZAWJdscctsveqoI3CTudqUJHb0xexiuEYAeCUVdvGz49FT2OG3A
+	 Jul3VE6F24zADMyXM2cmZCyEb3FkKrozHKNrGr2/Eqi26XLOGtaavDdcB7vpIsSNLW
+	 TAoFKgVHPPOUw==
+Received: by mail-ej2-f43.google.com with SMTP id a640c23a62f3a-c2e1b09e0c7so326287466b.1
+        for <linux-kernel@vger.kernel.org>; Mon, 05 Oct 2026 13:18:36 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvByGJMV6///ujxi0A+uD8m2qXGD7JI/VifkZZSJOtzQpHt04zVXLyyJMw0jivWOtDsnG8kZ34j2FDun9U80=@vger.kernel.org
+X-Gm-Message-State: AFuF++krBdhrSXXwyKMzH+DAQrVlmypo2gHwEiaOEl9/IsBN8n28yAtV
+	6cr1PFA614cPtR4dMLWjRxaBdIwAkrLrIxP3B0qOt8Vic6aYJFuv1wxGLnme/GszqlePFRfH4/k
+	AbLNg/F8yBOulhTLg/gv+IQoFXA9cy0U=
+X-Received: by 2002:a17:907:3f95:b0:c25:32b0:e56c with SMTP id
+ a640c23a62f3a-c2e4a95e407mr977900466b.4.1791231515414; Mon, 05 Oct 2026
+ 13:18:35 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20261002095503.3585565-1-usama.arif@linux.dev> <20261002095503.3585565-15-usama.arif@linux.dev>
+In-Reply-To: <20261002095503.3585565-15-usama.arif@linux.dev>
+From: Yosry Ahmed <yosry@kernel.org>
+Date: Mon, 5 Oct 2026 13:18:24 -0700
+X-Gmail-Original-Message-ID: <CAO9r8zN+9F0yh0bTDsysumziGc=zgs7vZMLvt-nWPhxq36wT0Q@mail.gmail.com>
+X-Gm-Features: AclHuK-vsi3EfpgIHJBHYD0tDXS4EbYOA2yKu19KkRG6I9OLgQqCV9dXUAiOl5Y
+Message-ID: <CAO9r8zN+9F0yh0bTDsysumziGc=zgs7vZMLvt-nWPhxq36wT0Q@mail.gmail.com>
+Subject: Re: [PATCH v8 14/30] mm: zswap: reject high-order swap cache
+ allocations backed by zswap
+To: Usama Arif <usama.arif@linux.dev>
+Cc: Andrew Morton <akpm@linux-foundation.org>, david@kernel.org, chrisl@kernel.org, 
+	kasong@tencent.com, ljs@kernel.org, ziy@nvidia.com, linux-mm@kvack.org, 
+	ying.huang@linux.alibaba.com, Baoquan He <baoquan.he@linux.dev>, willy@infradead.org, 
+	youngjun.park@lge.com, hannes@cmpxchg.org, riel@surriel.com, 
+	shakeel.butt@linux.dev, alex@ghiti.fr, kas@kernel.org, baohua@kernel.org, 
+	dev.jain@arm.com, baolin.wang@linux.alibaba.com, 
+	Nico Pache <nico.pache@linux.dev>, "Liam R. Howlett" <liam@infradead.org>, ryan.roberts@arm.com, 
+	Vlastimil Babka <vbabka@kernel.org>, lance.yang@linux.dev, linux-kernel@vger.kernel.org, 
+	nphamcs@gmail.com, shikemeng@huaweicloud.com, qi.zheng@linux.dev, 
+	luizcap@redhat.com, kernel-team@meta.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Since commit 083e64a3af77 ("net: devmem: replace gen_pool with
-freelist"), a binding has a single net_iov_area covering the whole
-dma-buf, and base_virtual is always 0. Its only reader is
-net_iov_virtual_addr(), where it adds nothing. io_uring zcrx never
-uses it.
+On Fri, Oct 2, 2026 at 2:56=E2=80=AFAM Usama Arif <usama.arif@linux.dev> wr=
+ote:
+>
+> zswap stores swapped-out pages one at a time, so a range of swap slots ca=
+n
+> be split between zswap entries and the backing device. A high-order
+> swap-cache folio over such a range cannot be read back in one go: the dis=
+k
+> read would return stale or zero data for every slot zswap owns.
+>
+> Reject that in __swap_cache_alloc(). Do the check after the folio is in t=
+he
+> swap cache: from that point zswap can neither start storing nor start
+> writing back any slot in the range, so the answer is stable. Callers
+> already fall back to order-0, which zswap_load() handles per page.
+>
+> Export zswap_is_present() for the PMD-order swap-in users added later.
+>
+> Co-developed-by: Alexandre Ghiti <alex@ghiti.fr>
+> Signed-off-by: Alexandre Ghiti <alex@ghiti.fr>
+> Signed-off-by: Usama Arif <usama.arif@linux.dev>
 
-Drop the field and the store, and compute the dma-buf offset from the
-net_iov index alone.
+Overall looks good, but I think it can be split into 3 patches (one of
+which doesn't have to be part of this series), see below.
 
-No functional change. From review feedback on:
-https://lore.kernel.org/netdev/asPUZ8DPllHd6Yu9@devvm7509.cco0.facebook.com/
 
-Signed-off-by: Stanislav Fomichev <sdf@fomichev.me>
----
- include/net/netmem.h | 3 ---
- net/core/devmem.c    | 1 -
- net/core/devmem.h    | 3 +--
- 3 files changed, 1 insertion(+), 6 deletions(-)
 
-diff --git a/include/net/netmem.h b/include/net/netmem.h
-index cc97611632dc..0cc8572f62ca 100644
---- a/include/net/netmem.h
-+++ b/include/net/netmem.h
-@@ -102,9 +102,6 @@ struct net_iov_area {
- 	/* Array of net_iovs for this area. */
- 	struct net_iov *niovs;
- 	size_t num_niovs;
--
--	/* Offset into the dma-buf where this chunk starts.  */
--	unsigned long base_virtual;
- };
- 
- static inline struct net_iov_area *net_iov_owner(const struct net_iov *niov)
-diff --git a/net/core/devmem.c b/net/core/devmem.c
-index 71c83730d73d..07c62e2e3088 100644
---- a/net/core/devmem.c
-+++ b/net/core/devmem.c
-@@ -252,7 +252,6 @@ net_devmem_bind_dmabuf(struct net_device *dev, void *vdev,
- 		goto err_unmap;
- 	}
- 
--	binding->area.base_virtual = 0;
- 	binding->area.num_niovs = dmabuf->size >> niov_shift;
- 	if (direction == DMA_TO_DEVICE) {
- 		binding->tx_vec = kvmalloc_objs(struct net_iov *,
-diff --git a/net/core/devmem.h b/net/core/devmem.h
-index 28d6fa7bcb57..1cec10f0257c 100644
---- a/net/core/devmem.h
-+++ b/net/core/devmem.h
-@@ -112,8 +112,7 @@ static inline unsigned long net_iov_virtual_addr(const struct net_iov *niov)
- 	struct net_devmem_dmabuf_binding *binding =
- 		net_devmem_iov_binding(niov);
- 
--	return net_iov_owner(niov)->base_virtual +
--	       ((unsigned long)net_iov_idx(niov) << binding->niov_shift);
-+	return (unsigned long)net_iov_idx(niov) << binding->niov_shift;
- }
- 
- static inline bool
--- 
-2.53.0-Meta
+> ---
+>  include/linux/zswap.h |  6 ++++++
+>  mm/swap_state.c       | 39 +++++++++++++++++++++++++--------------
+>  mm/zswap.c            | 12 +++++++++---
+>  3 files changed, 40 insertions(+), 17 deletions(-)
+>
+> diff --git a/include/linux/zswap.h b/include/linux/zswap.h
+> index df6cafbe95dc0..94746fb71bb65 100644
+> --- a/include/linux/zswap.h
+> +++ b/include/linux/zswap.h
+> @@ -35,6 +35,7 @@ void zswap_lruvec_state_init(struct lruvec *lruvec);
+>  void zswap_folio_swapin(struct folio *folio);
+>  bool zswap_is_enabled(void);
+>  bool zswap_never_enabled(void);
+> +bool zswap_is_present(swp_entry_t entry, unsigned int nr);
+>  #else
+>
+>  struct zswap_lruvec_state {};
+> @@ -73,6 +74,11 @@ static inline bool zswap_never_enabled(void)
+>         return true;
+>  }
+>
+> +static inline bool zswap_is_present(swp_entry_t entry, unsigned int nr)
+> +{
+> +       return false;
+> +}
+> +
+>  #endif
+>
+>  #endif /* _LINUX_ZSWAP_H */
+> diff --git a/mm/swap_state.c b/mm/swap_state.c
+> index 625c185a1ca4d..251b48b2c60e1 100644
+> --- a/mm/swap_state.c
+> +++ b/mm/swap_state.c
+> @@ -12,6 +12,7 @@
+>  #include <linux/kernel_stat.h>
+>  #include <linux/mempolicy.h>
+>  #include <linux/swap.h>
+> +#include <linux/zswap.h>
+>  #include <linux/leafops.h>
+>  #include <linux/init.h>
+>  #include <linux/pagemap.h>
+> @@ -466,26 +467,27 @@ static struct folio *__swap_cache_alloc(struct swap=
+_cluster_info *ci,
+>         __swap_cache_do_add_folio(ci, folio, entry);
+>         spin_unlock(&ci->lock);
+>
+> +       /*
+> +        * Now that the folio is in the swap cache, zswap can no longer s=
+tart
+> +        * storing or writing back any slot in the range, so this is a st=
+able
+> +        * answer. Reject a high-order allocation over a range that alrea=
+dy
+> +        * has per-page zswap entries.
+> +        */
+> +       if (order && zswap_is_present(entry, nr_pages)) {
+> +               err =3D -EBUSY;
+> +               goto delete_folio;
+> +       }
+> +
+>         if (mem_cgroup_swapin_charge_folio(folio, memcg_id,
+>                                            vmf ? vmf->vma->vm_mm : NULL, =
+gfp)) {
+> -               spin_lock(&ci->lock);
+> -               __swap_cache_do_del_folio(ci, folio, entry, shadow);
+> -               spin_unlock(&ci->lock);
+> -               folio_unlock(folio);
+> -               /* nr_pages refs from swap cache, 1 from allocation */
+> -               folio_put_refs(folio, nr_pages + 1);
+> +               err =3D -ENOMEM;
+>                 count_mthp_stat(order, MTHP_STAT_SWPIN_FALLBACK_CHARGE);
+> -               return ERR_PTR(-ENOMEM);
+> +               goto delete_folio;
+>         }
+>
+>         if (order > 1 && folio_memcg_alloc_deferred(folio)) {
+> -               spin_lock(&ci->lock);
+> -               __swap_cache_do_del_folio(ci, folio, entry, shadow);
+> -               spin_unlock(&ci->lock);
+> -               folio_unlock(folio);
+> -               /* nr_pages refs from swap cache, 1 from allocation */
+> -               folio_put_refs(folio, nr_pages + 1);
+> -               return ERR_PTR(-ENOMEM);
+> +               err =3D -ENOMEM;
+> +               goto delete_folio;
+>         }
+>
+>         /* memsw uncharges swap when folio is added to swap cache */
+> @@ -499,6 +501,15 @@ static struct folio *__swap_cache_alloc(struct swap_=
+cluster_info *ci,
+>         /* Caller will initiate read into locked new_folio */
+>         folio_add_lru(folio);
+>         return folio;
+> +
+> +delete_folio:
+> +       spin_lock(&ci->lock);
+> +       __swap_cache_do_del_folio(ci, folio, entry, shadow);
+> +       spin_unlock(&ci->lock);
+> +       folio_unlock(folio);
+> +       /* nr_pages refs from swap cache, 1 from allocation */
+> +       folio_put_refs(folio, nr_pages + 1);
+> +       return ERR_PTR(err);
 
+Nit: You can pull the refactoring into a separate patch (as well as
+most zswap changes, see below), so that this patch only has the
+logical change to bail for higher orders if any entry is in zswap.
+
+>  }
+>
+>  /**
+> diff --git a/mm/zswap.c b/mm/zswap.c
+> index 507f2d19fd2a4..f5b5827d30084 100644
+> --- a/mm/zswap.c
+> +++ b/mm/zswap.c
+> @@ -1587,11 +1587,14 @@ bool zswap_store(struct folio *folio)
+>   * @entry: base swap entry of the range
+>   * @nr: number of contiguous slots to check
+>   *
+> - * Context: The caller must keep the range pinned, otherwise the answer =
+can
+> - * change under it.
+> + * Context: Unless the caller keeps the range pinned, the answer is only=
+ a
+> + * hint: zswap can store or write back a slot right after this returns. =
+A
+> + * caller that needs a stable answer must pin the range first, as
+> + * __swap_cache_alloc() does by inserting the folio into the swap cache =
+before
+> + * asking.
+
+I would rather avoid naming specific functions as it will go stale
+quickly, and instead list the ways of "pinning" a range.
+
+Also, generally, the changes to mm/zswap.c seem orthogonal to this
+patch and can be a separate patch (which would be clearer if
+__swap_cache_alloc() isn't named here).
+
+>   * Return: true if at least one slot in the range is in zswap.
+>   */
+> -static bool zswap_is_present(swp_entry_t entry, unsigned int nr)
+> +bool zswap_is_present(swp_entry_t entry, unsigned int nr)
+>  {
+>         pgoff_t offset =3D swp_offset(entry);
+>         struct xarray *tree =3D swap_zswap_tree(entry);
+> @@ -1605,6 +1608,9 @@ static bool zswap_is_present(swp_entry_t entry, uns=
+igned int nr)
+>          */
+>         BUILD_BUG_ON(SWAPFILE_CLUSTER > ZSWAP_ADDRESS_SPACE_PAGES);
+>
+> +       if (zswap_never_enabled())
+> +               return false;
+> +
+>         return xa_find(tree, &index, offset + nr - 1, XA_PRESENT);
+>  }
+>
+> --
+> 2.53.0-Meta
+>
