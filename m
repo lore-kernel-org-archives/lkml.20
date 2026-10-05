@@ -1,37 +1,66 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3CD2741A549;
-	Mon,  5 Oct 2026 22:25:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 353BB36A376
+	for <linux-kernel@vger.kernel.org>; Mon,  5 Oct 2026 22:27:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791239126; cv=none; b=dAoee5iHdP4ldM/kCruVV0TN0DlZwsSgGBQDNl7/+q8EIpb4d8N065y/qPh6stnCxpZ09TrQe+BJ3WqOmXitEn3LU0y/x/DiUeCREDdHwJf8eDFBFIQtXa0Vb1XZ5deSceIprSnwC3GKrhauIdTaPnE6j0JE9x3F4SUZcGYh044=
+	t=1791239258; cv=none; b=JaPfoNHZt97q4G+Fp5srgFCGpecINpAR0a9AeAmCsNkdy5gjQ1AGAbFogg4pcugGga9UDrA2RGcsxDpV92XQvDSdN12r3hO1bzYr+dGtjznn3h991s7qtARhKylyLDYxVWnQRlLaMGmZMHvYp2USaXqqmQS4wQj9uIsxjbtdvAk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791239126; c=relaxed/simple;
-	bh=Mpu/PU1YjKAjpl8OyjYBUppFaXLbD2sFSKhSe9p2oi0=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=qCU8+3kLd+/ciBtkbWWm3M8BYSgd6XtVmvhTJJBJXWbs/xAxytZ4ZG+nTXLC5JEvdCEgdnJvfbFsdCxazI0IVpOsRuvEWs7Tr5eqru/l9H3IrNT3A66mHBmkesPhVczbybYJjT/WD1eCDieiiPUeuLewIDA74y2QSZVbwPu3VHI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Zwv2r6+c; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1791239258; c=relaxed/simple;
+	bh=dg3ZaLQQ5iPEnRBM7P7O0Vfd0AamQZttwuLTaXPMgIY=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=Ze1Al/gZ81e2ZkUdsKWU8xup27FcO+9t57/27htKHBhJkbqamhzC3KNCFbWb0TYfq8b7h72muBCXhlBC31UAm+xsJRgfdS0Wauf6rpPEL4xknfFPaJaV5Q7B4a9l1jTorI5JsNXsvHjYPFsz4ZZ4mAvcOvYKT8BFUcr7OPTN3pg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=KNqavLtg; arc=none smtp.client-ip=74.125.225.141
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Zwv2r6+c"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id F130CC4AF66;
-	Mon,  5 Oct 2026 22:25:25 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1791239126;
-	bh=Mpu/PU1YjKAjpl8OyjYBUppFaXLbD2sFSKhSe9p2oi0=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=Zwv2r6+cnGoVuKv4LGP9+05OLBgVSCZ5X16455JtTQZdwUWcScv4rZmlYe1dACM9S
-	 MbbjRr1uy2wiEUkeAZb443hWyLqFmcr2ImtIvfl8l7ncaYkM1sqVIeVdScFW+CoetS
-	 52thXg8TSIzzISwpD3mAiM8BF2gs9y+f5ei69fABByXiuJ5on3Ya0mptLCxQDvTT4L
-	 rRdkouS8FRBdh+KhRQ0Z9SZfoLRP+Tx2sUqnC2/X1D3A+PCySOlYcIpTISuIG56jS5
-	 1V0JjHun+cn5tVXK7/ol+tr2gc/aIZLPFM8v1VpdhlFU6Pv64FYlAeC22JinZk7eXF
-	 2r9cwlJNi4aBw==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id C8F4ECA5FFE;
-	Mon,  5 Oct 2026 22:25:25 +0000 (UTC)
-From: Serv Pol via B4 Relay <devnull+servpol.tuta.io@kernel.org>
-Date: Mon, 05 Oct 2026 22:25:25 +0000
-Subject: [PATCH 2/2] power: supply: Add GL.iNet GL-E750 MCU battery driver
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="KNqavLtg"
+Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49fe8bf173aso13581855e9.3
+        for <linux-kernel@vger.kernel.org>; Mon, 05 Oct 2026 15:27:37 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791239255; x=1791844055; darn=vger.kernel.org;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=5SXfZIcVyEClMhDE1K+HuTBhEkNW/aofeMzBlGv0E5U=;
+        b=KNqavLtgbyVUcPQc6+WDfvZqm5vltTl09dghZ2dUtFDyLAdeE0BJZ4l0HC40kKjZzD
+         b7OCIxNw+i7ZHeeYiAooOB/j1fW5TVQavoS3W1md4MHtbSsaCf1mb1kYjLvqjciJx66q
+         xfKWK1LEHrRfrbdlmliN4PEdvFa0NaYiLt0k2GcPeJFeddpiGOIUgDTE/oExKFxWrc6Y
+         5m58MrmLyhsriID0D84lPh2+Y2bgR0etvJqqIi9Hu4H0eTJ9Y5hALghTrSZWv0/67ut3
+         9DazMoX90kzdTaijt8dAej+t9Ofe889eqNpHBedrlgyDp8/DSYyMTJMsdf4rKUdhRnwd
+         Xmbw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791239255; x=1791844055;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=5SXfZIcVyEClMhDE1K+HuTBhEkNW/aofeMzBlGv0E5U=;
+        b=kksDyWljJwJbO5R3Dg8c6NKfhcce/YvHeZchCnyY8ll3/1RzQUxkty+YLdICWj1YuU
+         5/zQZhBu3TYFupDhh6K//uwHtF5rlRZJsJVRJS6C7emtbUR20YB2bHh6CBJ+jRwX4R7X
+         BQ8+sIbuFkt5nK8+SoYrdFI1CAzokOzmeFeYuyP9ck7rHdpJL20yAY9Gz8//Td3MD1bI
+         li/O1ZPk4u2GjS053AW44yEXos826BTsiv15x29phpcoz/nDcZTIQbMaEz2lk8E43kxS
+         EcxHcScJYvE0EnuEZsU8HAB++gNZKD74Ge/AaID4wE8DnU/IYQu/sWyx4yjEAKY+4yoJ
+         +q/Q==
+X-Forwarded-Encrypted: i=1; AKwUvByZ+a5CwCql3ryrcAJpw5C+IHfhU0Qvr8+/lZr00eVA3tpMNrXTR+4ia+h+nrazjsvHl+AYoIi29a8TYoU=@vger.kernel.org
+X-Gm-Message-State: AFuF++mC49zgFTJlolWya9eLMfjbn+oZQsM0QtHaGbHF/zmKCk1WvW9Y
+	4rmdGmQeHNx8n6I3lIyGsvGamRtpcpJc7xm7seMRlphR+KDtBVO5fP1afEyAlj43T8Y=
+X-Gm-Gg: AYBFou0ckAtnUjiaY7rDkyLHu7OoAKOrJbC25RpfPkWVK9WLs86Kxa6ZQklCvebmr/P
+	HDa/RaEcAIy/pwB+5HxA/6N0Fa7a4RuLbpo285DDIVSdsx1OU2viks0dwLh0LXLdsd1GUeHJl+9
+	sMwRTx38VdYAn7QVDnLzl3c5vANqDcXOjg1DKW3e85RwIEUwg3075l0NCxwPb5QX5B+Bmdqhm31
+	qmVxCZCA+8SW8aRnBDf/O8T9E3MmTRKgkHaBFMf9OvlQ4l7fH3Jkrll9mSN1rWMCimVxGveT3Ls
+	2W2yRSSdrQ7bzHoSdzDmOciM8JZM4HHSg8pEwDF//8NKlZkLJngUn4EScVWC8eqp2R7SbLoBPd+
+	OCowfW+Lvxd4uyjeExKHkvwu1JJm55sCsXwCHccIpqau0MXYJh0CR6iAC0ELhSvTBZxIH5gDtHJ
+	7b1LdGOhUiuZuvNT3Gvw0lSD+o27zoOqNuSo/ETXNXxDe5QtZ6yq0G5+xDEa16nePcUChlRZelz
+	qsfTDNmR+KYY+zwE2o0LBkUkY5sA63UlEFDhl2MxDdIvrLjH8ERn/Uz
+X-Received: by 2002:a05:600c:500d:b0:4a0:1fe2:d4f1 with SMTP id 5b1f17b1804b1-4a027598d25mr205495365e9.28.1791239255321;
+        Mon, 05 Oct 2026 15:27:35 -0700 (PDT)
+Received: from [127.0.0.1] (230-197.cgnat.interconnect.cz. [185.100.197.230])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a178ca8127sm22346505e9.2.2026.10.05.15.27.34
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 05 Oct 2026 15:27:34 -0700 (PDT)
+From: Serapheim Dimitropoulos <serapheimd@gmail.com>
+Date: Tue, 06 Oct 2026 00:27:19 +0200
+Subject: [PATCH] mm/fadvise: skip remote LRU drains for ineligible folios
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -40,460 +69,175 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261005-gl-e750-mcu-v1-2-499d2e31f786@tuta.io>
-References: <20261005-gl-e750-mcu-v1-0-499d2e31f786@tuta.io>
-In-Reply-To: <20261005-gl-e750-mcu-v1-0-499d2e31f786@tuta.io>
-To: Serv Pol <servpol@tuta.io>, Sebastian Reichel <sre@kernel.org>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>
-Cc: linux-pm@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1791239123; l=13339;
- i=servpol@tuta.io; s=20261005; h=from:subject:message-id;
- bh=rcgI0nZmKFG3g5c+fhrZDMdvXPcReybCrASp7IB4yxw=;
- b=AX6ou7+uEHrr6OE+DsLlq1wRwblaE711F83M7CtD8FAEFBczJsDn6tEG8bIqDFjlldOloIhJs
- SBXOyHOCF8rC2FUL4O/zsL8WM8lpFBmvi6rL6eJi9Mdgg9eImOPWPeE
-X-Developer-Key: i=servpol@tuta.io; a=ed25519;
- pk=2HCjaqYjXxgwTYu30Nem9DOHT8mtKgjitt1vEXKpwrE=
-X-Endpoint-Received: by B4 Relay for servpol@tuta.io/20261005 with
- auth_id=1120
-X-Original-From: Serv Pol <servpol@tuta.io>
-Reply-To: servpol@tuta.io
+Message-Id: <20261006-fadvise-lru-drain-v1-1-1e8fcf785057@coreweave.com>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/zWM3QrCMAxGX2Xk2kA3qFNfRbxIm9QFXJUUf2Ds3
+ c0ELw/f+c4CTUylwalbwOSlTe/Vod91kCeqV0FlZxjCsO9DiFiI3RK82RPZSCtyTGMcDzEfC4P
+ /HiZFP7/m+eKcyPVkVPO0lf6BecYqb9xWWNcvcckmt4kAAAA=
+X-Change-ID: 20261005-fadvise-lru-drain-d5b75785c9fd
+To: Andrew Morton <akpm@linux-foundation.org>, linux-mm@kvack.org
+Cc: David Hildenbrand <david@kernel.org>, 
+ "Matthew Wilcox (Oracle)" <willy@infradead.org>, Jan Kara <jack@suse.cz>, 
+ fujunjie <fujunjie1@qq.com>, Lorenzo Stoakes <ljs@kernel.org>, 
+ "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
+ Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
+ Michal Hocko <mhocko@suse.com>, linux-fsdevel@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, 
+ Serapheim Dimitropoulos <sdimitropoulos@coreweave.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1791239254; l=5993;
+ i=sdimitropoulos@coreweave.com; s=20260302; h=from:subject:message-id;
+ bh=xmcmt8qXwptEfsyFlOCeswfoPaIK18LLe7PFw9b7oko=;
+ b=8JZENOLol5hUT5cGN3YqxX7QkVDB5zAe5dpkpMG2uXqc4lG2duh9g5NZhyWgANCUN8PrGIWJF
+ 4WgauIv7721BCMC2ZhtIV6uX6rMsh6Jpp5xaAPFxEMyagD6cFoqsg9h
+X-Developer-Key: i=sdimitropoulos@coreweave.com; a=ed25519;
+ pk=Qysvg7jaTIU0posaYFtqa5SKJlFwqzil4X0U1p1zo/g=
 
-From: Serv Pol <servpol@tuta.io>
+From: Serapheim Dimitropoulos <sdimitropoulos@coreweave.com>
 
-The status MCU of the GL.iNet GL-E750 (Mudi) travel router sits on the
-SoC UART and talks in text lines: the host sends JSON objects whose values
-are all strings, and a request containing "mcu_status": "1" is answered
-with
+POSIX_FADV_DONTNEED retries invalidation after a global LRU drain whenever
+mapping_try_invalidate() reports a failed eviction. This includes failures
+for mapped, dirty or writeback folios, which dropping LRU batch references
+cannot make evictable while those conditions persist.
 
-  {OK},<percent>,<temperature>,<charging>,<cycles>
+Filter those failures in mapping_try_invalidate(), while the folio is still
+locked and before deactivation can enqueue another batch reference. Leave
+mapping_evict_folio() and its eviction safety checks unchanged.
 
-Poll that every 30 seconds and expose the result as a power_supply.
+Use a boolean retry flag instead of a failure count: generic_fadvise() only
+needs to decide whether to drain and retry once. This remains a heuristic,
+not a test for remote LRU references. Preserve the retry for other failures
+on clean, unmapped folios, including failures from filemap_release_folio()
+and remove_mapping(), rather than limiting it to the early refcount check.
 
-When the power switch is turned off, the MCU sends {"shut_down": "1"},
-without a line ending, and cuts the power a few seconds later. Shut the
-system down cleanly in that case.
+This follows the problem identified in fujunjie's earlier proposal, with
+the filtering kept in mapping_try_invalidate() and a conservative fallback
+for other eviction failures.
 
-The MCU also renders the status screen from JSON fields (SSIDs, clients,
-cellular state...). That vendor-specific content is not handled here.
-
-Assisted-by: Claude:claude-opus-5-5
-Signed-off-by: Serv Pol <servpol@tuta.io>
+Link: https://lkml.rescloud.iu.edu/2605.0/07547.html
+Link: https://lkml.iu.edu/2605.1/03284.html
+Link: https://lkml.iu.edu/2605.1/03732.html
+Signed-off-by: Serapheim Dimitropoulos <sdimitropoulos@coreweave.com>
 ---
- MAINTAINERS                        |   1 +
- drivers/power/supply/Kconfig       |  13 ++
- drivers/power/supply/Makefile      |   1 +
- drivers/power/supply/gl-e750-mcu.c | 352 +++++++++++++++++++++++++++++++++++++
- 4 files changed, 367 insertions(+)
+Tested baseline and patched kernels in QEMU on ext4, XFS and OverlayFS.
+For clean mapped files on each filesystem, 32 POSIX_FADV_DONTNEED calls
+produced 32 lru_add_drain_all() calls before the patch and none afterwards.
+A separate dirty, unmapped test using ext4 data=journal showed the same
+reduction.
 
-diff --git a/MAINTAINERS b/MAINTAINERS
-index 247432449..505aa205c 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -11110,6 +11110,7 @@ M:	Serv Pol <servpol@tuta.io>
- L:	linux-pm@vger.kernel.org
- S:	Maintained
- F:	Documentation/devicetree/bindings/power/supply/glinet,gl-e750-mcu.yaml
-+F:	drivers/power/supply/gl-e750-mcu.c
- 
- GNSS SUBSYSTEM
- M:	Johan Hovold <johan@kernel.org>
-diff --git a/drivers/power/supply/Kconfig b/drivers/power/supply/Kconfig
-index ee7dc5f26..e87c76c18 100644
---- a/drivers/power/supply/Kconfig
-+++ b/drivers/power/supply/Kconfig
-@@ -1203,4 +1203,17 @@ config MACSMC_POWER
- 
- 	  Say Y or M here if you have an Apple Silicon based Mac.
- 
-+config BATTERY_GL_E750_MCU
-+	tristate "GL.iNet GL-E750 status MCU battery driver"
-+	depends on SERIAL_DEV_BUS
-+	depends on OF || COMPILE_TEST
-+	help
-+	  Say Y or M here to enable the battery driver for the status
-+	  microcontroller of the GL.iNet GL-E750 (Mudi) travel router.
-+	  It reports the battery state and shuts the system down when
-+	  the power switch is turned off.
-+
-+	  To compile this driver as a module, choose M here: the module
-+	  will be called gl-e750-mcu.
-+
- endif # POWER_SUPPLY
-diff --git a/drivers/power/supply/Makefile b/drivers/power/supply/Makefile
-index f3c0d1006..5d405556e 100644
---- a/drivers/power/supply/Makefile
-+++ b/drivers/power/supply/Makefile
-@@ -78,6 +78,7 @@ obj-$(CONFIG_CHARGER_TWL4030)	+= twl4030_charger.o
- obj-$(CONFIG_CHARGER_TWL6030)	+= twl6030_charger.o
- obj-$(CONFIG_CHARGER_LP8727)	+= lp8727_charger.o
- obj-$(CONFIG_CHARGER_LP8788)	+= lp8788-charger.o
-+obj-$(CONFIG_BATTERY_GL_E750_MCU)	+= gl-e750-mcu.o
- obj-$(CONFIG_CHARGER_GPIO)	+= gpio-charger.o
- obj-$(CONFIG_CHARGER_MANAGER)	+= charger-manager.o
- obj-$(CONFIG_CHARGER_LT3651)	+= lt3651-charger.o
-diff --git a/drivers/power/supply/gl-e750-mcu.c b/drivers/power/supply/gl-e750-mcu.c
-new file mode 100644
-index 000000000..0799e41d5
---- /dev/null
-+++ b/drivers/power/supply/gl-e750-mcu.c
-@@ -0,0 +1,352 @@
-+// SPDX-License-Identifier: GPL-2.0-only
-+/*
-+ * GL.iNet GL-E750 (Mudi) status MCU battery driver
-+ *
-+ * The MCU sits on the SoC UART. It drives the OLED screen, monitors the
-+ * battery and watches the power switch. The host sends one JSON object per
-+ * line, where every value is a string. When a line contains
-+ * "mcu_status": "1", the MCU answers with
-+ *
-+ *	{OK},<percent>,<temperature>,<charging>,<cycles>
-+ *
-+ * When the power switch is turned off, the MCU sends {"shut_down": "1"} and
-+ * cuts the power a few seconds later.
-+ *
-+ * Copyright (C) 2026 Serv Pol <servpol@tuta.io>
-+ */
-+
-+#include <linux/completion.h>
-+#include <linux/ctype.h>
-+#include <linux/devm-helpers.h>
-+#include <linux/math.h>
-+#include <linux/mod_devicetable.h>
-+#include <linux/module.h>
-+#include <linux/power_supply.h>
-+#include <linux/property.h>
-+#include <linux/reboot.h>
-+#include <linux/serdev.h>
-+#include <linux/spinlock.h>
-+#include <linux/string.h>
-+#include <linux/workqueue.h>
-+
-+#define MCU_BAUDRATE		115200
-+#define MCU_RX_LINE_MAX		128
-+#define MCU_POLL_INTERVAL_MS	30000
-+#define MCU_REPLY_TIMEOUT_MS	1500
-+
-+static const u8 mcu_status_req[] = "{ \"mcu_status\": \"1\" }\n";
-+
-+struct gl_e750_mcu {
-+	struct serdev_device *serdev;
-+	struct power_supply *psy;
-+	struct delayed_work poll_work;
-+	struct work_struct poweroff_work;
-+	struct completion reply;
-+
-+	/* receive buffer and battery state, filled from the serdev callback */
-+	spinlock_t lock;
-+	char rx_line[MCU_RX_LINE_MAX];
-+	size_t rx_len;
-+	bool valid;
-+	int capacity;		/* percent */
-+	int temp;		/* tenths of a degree Celsius */
-+	bool charging;
-+	int cycles;
-+};
-+
-+/* "37.4", "40" or "-1.5" -> tenths of a degree */
-+static int mcu_parse_tenths(const char *s, int *out)
-+{
-+	const char *dot = strchr(s, '.');
-+	char whole_str[8];
-+	int whole, frac = 0;
-+
-+	if (!dot) {
-+		if (kstrtoint(s, 10, &whole))
-+			return -EINVAL;
-+		*out = whole * 10;
-+		return 0;
-+	}
-+
-+	if (dot == s || dot - s >= sizeof(whole_str))
-+		return -EINVAL;
-+	memcpy(whole_str, s, dot - s);
-+	whole_str[dot - s] = '\0';
-+	if (kstrtoint(whole_str, 10, &whole))
-+		return -EINVAL;
-+	if (isdigit(dot[1]))
-+		frac = dot[1] - '0';
-+	*out = whole * 10 + (*s == '-' ? -frac : frac);
-+	return 0;
-+}
-+
-+/*
-+ * "{OK},<percent>,<temperature>,<charging>,<cycles>", called with the lock
-+ * held. Returns true if the line was a valid status reply.
-+ */
-+static bool mcu_parse_status(struct gl_e750_mcu *mcu, char *line)
-+{
-+	char *p = line + 4, *f[4];
-+	int capacity, temp, charging, cycles, i;
-+	bool changed;
-+
-+	if (*p++ != ',')
-+		return false;
-+	for (i = 0; i < ARRAY_SIZE(f); i++) {
-+		f[i] = strsep(&p, ",");
-+		if (!f[i] || !*f[i])
-+			return false;
-+	}
-+
-+	if (kstrtoint(f[0], 10, &capacity) || mcu_parse_tenths(f[1], &temp) ||
-+	    kstrtoint(f[2], 10, &charging) || kstrtoint(f[3], 10, &cycles))
-+		return false;
-+	if (capacity < 0 || capacity > 100)
-+		return false;
-+
-+	changed = !mcu->valid || mcu->capacity != capacity ||
-+		  mcu->charging != !!charging || mcu->cycles != cycles ||
-+		  abs(mcu->temp - temp) >= 10;
-+	mcu->capacity = capacity;
-+	mcu->temp = temp;
-+	mcu->charging = !!charging;
-+	mcu->cycles = cycles;
-+	mcu->valid = true;
-+
-+	complete(&mcu->reply);
-+	if (changed)
-+		power_supply_changed(mcu->psy);
-+	return true;
-+}
-+
-+/* called with the lock held */
-+static void mcu_handle_line(struct gl_e750_mcu *mcu, char *line)
-+{
-+	if (!strncmp(line, "{OK}", 4))
-+		mcu_parse_status(mcu, line);
-+	else if (strstr(line, "\"shut_down\""))
-+		schedule_work(&mcu->poweroff_work);
-+	else
-+		dev_dbg_ratelimited(&mcu->serdev->dev, "unhandled: %s\n", line);
-+}
-+
-+static size_t mcu_receive_buf(struct serdev_device *serdev, const u8 *data,
-+			      size_t count)
-+{
-+	struct gl_e750_mcu *mcu = serdev_device_get_drvdata(serdev);
-+	unsigned long flags;
-+	size_t i;
-+
-+	spin_lock_irqsave(&mcu->lock, flags);
-+	for (i = 0; i < count; i++) {
-+		char c = data[i];
-+
-+		if (c == '\r' || c == '\n') {
-+			if (mcu->rx_len) {
-+				mcu->rx_line[mcu->rx_len] = '\0';
-+				mcu_handle_line(mcu, mcu->rx_line);
-+				mcu->rx_len = 0;
-+			}
-+			continue;
-+		}
-+		if (mcu->rx_len < MCU_RX_LINE_MAX - 1)
-+			mcu->rx_line[mcu->rx_len++] = c;
-+
-+		/* JSON events from the MCU come without a line ending */
-+		if (c == '}' && mcu->rx_line[0] == '{' &&
-+		    strncmp(mcu->rx_line, "{OK}", 4)) {
-+			mcu->rx_line[mcu->rx_len] = '\0';
-+			mcu_handle_line(mcu, mcu->rx_line);
-+			mcu->rx_len = 0;
-+		}
-+	}
-+	spin_unlock_irqrestore(&mcu->lock, flags);
-+
-+	return count;
-+}
-+
-+static const struct serdev_device_ops mcu_serdev_ops = {
-+	.receive_buf = mcu_receive_buf,
-+	.write_wakeup = serdev_device_write_wakeup,
-+};
-+
-+static void mcu_poll_work(struct work_struct *work)
-+{
-+	struct gl_e750_mcu *mcu = container_of(to_delayed_work(work),
-+					       struct gl_e750_mcu, poll_work);
-+	unsigned long timeout = msecs_to_jiffies(MCU_REPLY_TIMEOUT_MS);
-+	unsigned long flags;
-+	int ret;
-+
-+	spin_lock_irqsave(&mcu->lock, flags);
-+	mcu->rx_len = 0;
-+	reinit_completion(&mcu->reply);
-+	spin_unlock_irqrestore(&mcu->lock, flags);
-+
-+	ret = serdev_device_write(mcu->serdev, mcu_status_req,
-+				  sizeof(mcu_status_req) - 1, timeout);
-+	if (ret < 0) {
-+		dev_warn_ratelimited(&mcu->serdev->dev, "write failed: %d\n", ret);
-+	} else if (!wait_for_completion_timeout(&mcu->reply, timeout)) {
-+		/* the reply may also come without a line ending */
-+		spin_lock_irqsave(&mcu->lock, flags);
-+		mcu->rx_line[mcu->rx_len] = '\0';
-+		if (!(mcu->rx_len > 4 && !strncmp(mcu->rx_line, "{OK}", 4) &&
-+		      mcu_parse_status(mcu, mcu->rx_line)))
-+			dev_dbg(&mcu->serdev->dev, "no status reply\n");
-+		mcu->rx_len = 0;
-+		spin_unlock_irqrestore(&mcu->lock, flags);
-+	}
-+
-+	schedule_delayed_work(&mcu->poll_work,
-+			      msecs_to_jiffies(MCU_POLL_INTERVAL_MS));
-+}
-+
-+static void mcu_poweroff_work(struct work_struct *work)
-+{
-+	struct gl_e750_mcu *mcu = container_of(work, struct gl_e750_mcu,
-+					       poweroff_work);
-+
-+	/* the MCU cuts the power a few seconds after reporting the switch */
-+	dev_info(&mcu->serdev->dev, "power switch turned off, shutting down\n");
-+	orderly_poweroff(true);
-+}
-+
-+static const enum power_supply_property mcu_battery_props[] = {
-+	POWER_SUPPLY_PROP_PRESENT,
-+	POWER_SUPPLY_PROP_STATUS,
-+	POWER_SUPPLY_PROP_TECHNOLOGY,
-+	POWER_SUPPLY_PROP_CAPACITY,
-+	POWER_SUPPLY_PROP_TEMP,
-+	POWER_SUPPLY_PROP_CYCLE_COUNT,
-+};
-+
-+static int mcu_battery_get_property(struct power_supply *psy,
-+				    enum power_supply_property psp,
-+				    union power_supply_propval *val)
-+{
-+	struct gl_e750_mcu *mcu = power_supply_get_drvdata(psy);
-+	unsigned long flags;
-+	int ret = 0;
-+
-+	spin_lock_irqsave(&mcu->lock, flags);
-+	switch (psp) {
-+	case POWER_SUPPLY_PROP_PRESENT:
-+		val->intval = 1;
-+		break;
-+	case POWER_SUPPLY_PROP_TECHNOLOGY:
-+		val->intval = POWER_SUPPLY_TECHNOLOGY_LION;
-+		break;
-+	case POWER_SUPPLY_PROP_STATUS:
-+		if (!mcu->valid)
-+			val->intval = POWER_SUPPLY_STATUS_UNKNOWN;
-+		else if (mcu->charging)
-+			val->intval = mcu->capacity >= 100 ?
-+				      POWER_SUPPLY_STATUS_FULL :
-+				      POWER_SUPPLY_STATUS_CHARGING;
-+		else
-+			val->intval = POWER_SUPPLY_STATUS_DISCHARGING;
-+		break;
-+	case POWER_SUPPLY_PROP_CAPACITY:
-+		if (mcu->valid)
-+			val->intval = mcu->capacity;
-+		else
-+			ret = -ENODATA;
-+		break;
-+	case POWER_SUPPLY_PROP_TEMP:
-+		if (mcu->valid)
-+			val->intval = mcu->temp;
-+		else
-+			ret = -ENODATA;
-+		break;
-+	case POWER_SUPPLY_PROP_CYCLE_COUNT:
-+		if (mcu->valid)
-+			val->intval = mcu->cycles;
-+		else
-+			ret = -ENODATA;
-+		break;
-+	default:
-+		ret = -EINVAL;
-+	}
-+	spin_unlock_irqrestore(&mcu->lock, flags);
-+
-+	return ret;
-+}
-+
-+static const struct power_supply_desc mcu_battery_desc = {
-+	.name = "gl-e750-battery",
-+	.type = POWER_SUPPLY_TYPE_BATTERY,
-+	.properties = mcu_battery_props,
-+	.num_properties = ARRAY_SIZE(mcu_battery_props),
-+	.get_property = mcu_battery_get_property,
-+};
-+
-+static int gl_e750_mcu_probe(struct serdev_device *serdev)
-+{
-+	struct device *dev = &serdev->dev;
-+	struct power_supply_config psy_cfg = {};
-+	struct gl_e750_mcu *mcu;
-+	int ret;
-+
-+	mcu = devm_kzalloc(dev, sizeof(*mcu), GFP_KERNEL);
-+	if (!mcu)
-+		return -ENOMEM;
-+
-+	mcu->serdev = serdev;
-+	spin_lock_init(&mcu->lock);
-+	init_completion(&mcu->reply);
-+	serdev_device_set_drvdata(serdev, mcu);
-+	serdev_device_set_client_ops(serdev, &mcu_serdev_ops);
-+
-+	/*
-+	 * devm teardown runs in reverse: the poll work is cancelled before the
-+	 * port is closed, the power-off work (queued from the receive path)
-+	 * and the battery only after it.
-+	 */
-+	psy_cfg.drv_data = mcu;
-+	psy_cfg.fwnode = dev_fwnode(dev);
-+	mcu->psy = devm_power_supply_register(dev, &mcu_battery_desc, &psy_cfg);
-+	if (IS_ERR(mcu->psy))
-+		return dev_err_probe(dev, PTR_ERR(mcu->psy),
-+				     "failed to register battery\n");
-+
-+	ret = devm_work_autocancel(dev, &mcu->poweroff_work, mcu_poweroff_work);
-+	if (ret)
-+		return ret;
-+
-+	ret = devm_serdev_device_open(dev, serdev);
-+	if (ret)
-+		return dev_err_probe(dev, ret, "failed to open serdev\n");
-+
-+	serdev_device_set_baudrate(serdev, MCU_BAUDRATE);
-+	serdev_device_set_flow_control(serdev, false);
-+	ret = serdev_device_set_parity(serdev, SERDEV_PARITY_NONE);
-+	if (ret)
-+		return dev_err_probe(dev, ret, "failed to set parity\n");
-+
-+	ret = devm_delayed_work_autocancel(dev, &mcu->poll_work, mcu_poll_work);
-+	if (ret)
-+		return ret;
-+
-+	schedule_delayed_work(&mcu->poll_work, 0);
-+	return 0;
-+}
-+
-+static const struct of_device_id gl_e750_mcu_of_match[] = {
-+	{ .compatible = "glinet,gl-e750-mcu" },
-+	{ }
-+};
-+MODULE_DEVICE_TABLE(of, gl_e750_mcu_of_match);
-+
-+static struct serdev_device_driver gl_e750_mcu_driver = {
-+	.probe = gl_e750_mcu_probe,
-+	.driver = {
-+		.name = "gl-e750-mcu",
-+		.of_match_table = gl_e750_mcu_of_match,
-+	},
-+};
-+module_serdev_device_driver(gl_e750_mcu_driver);
-+
-+MODULE_AUTHOR("Serv Pol <servpol@tuta.io>");
-+MODULE_DESCRIPTION("GL.iNet GL-E750 status MCU battery driver");
-+MODULE_LICENSE("GPL");
+Cross-CPU and mixed-range tests confirmed that clean, unmapped folios were
+still evicted and the global-drain fallback remained available. Writeback
+and concurrent pwrite/mmap/fadvise tests also passed, with file contents
+verified after fsync, eviction and refault.
 
+Skipping the retry can miss opportunistic eviction if a folio becomes
+eligible immediately afterwards; POSIX_FADV_DONTNEED remains advisory.
+---
+ mm/fadvise.c  | 12 ++++++------
+ mm/internal.h |  2 +-
+ mm/truncate.c | 22 +++++++++++++---------
+ 3 files changed, 20 insertions(+), 16 deletions(-)
+
+diff --git a/mm/fadvise.c b/mm/fadvise.c
+index b63fe2141..daf655846 100644
+--- a/mm/fadvise.c
++++ b/mm/fadvise.c
+@@ -141,7 +141,7 @@ int generic_fadvise(struct file *file, loff_t offset, loff_t len, int advice)
+ 		}
+ 
+ 		if (end_index >= start_index) {
+-			unsigned long nr_failed = 0;
++			bool need_drain = false;
+ 
+ 			/*
+ 			 * It's common to FADV_DONTNEED right after
+@@ -155,14 +155,14 @@ int generic_fadvise(struct file *file, loff_t offset, loff_t len, int advice)
+ 			lru_add_drain();
+ 
+ 			mapping_try_invalidate(mapping, start_index, end_index,
+-					&nr_failed);
++					&need_drain);
+ 
+ 			/*
+-			 * The failures may be due to the folio being
+-			 * in the LRU cache of a remote CPU. Drain all
+-			 * caches and try again.
++			 * Clean, unmapped folios may still have references in
++			 * remote LRU batches. Drain and retry only if a failure
++			 * might be resolved by dropping those references.
+ 			 */
+-			if (nr_failed) {
++			if (need_drain) {
+ 				lru_add_drain_all();
+ 				invalidate_mapping_pages(mapping, start_index,
+ 						end_index);
+diff --git a/mm/internal.h b/mm/internal.h
+index 0ca863f26..1637d4275 100644
+--- a/mm/internal.h
++++ b/mm/internal.h
+@@ -628,7 +628,7 @@ bool truncate_inode_partial_folio(struct folio *folio, loff_t lstart,
+ 		loff_t lend, pgoff_t *pstart, pgoff_t *pend);
+ long mapping_evict_folio(struct address_space *mapping, struct folio *folio);
+ unsigned long mapping_try_invalidate(struct address_space *mapping,
+-		pgoff_t start, pgoff_t end, unsigned long *nr_failed);
++		pgoff_t start, pgoff_t end, bool *need_drain);
+ 
+ /**
+  * folio_evictable - Test whether a folio is evictable.
+diff --git a/mm/truncate.c b/mm/truncate.c
+index 5b1b13cf8..42b6a1b63 100644
+--- a/mm/truncate.c
++++ b/mm/truncate.c
+@@ -567,13 +567,14 @@ EXPORT_SYMBOL(truncate_inode_pages_final);
+  * @mapping: the address_space which holds the folios to invalidate
+  * @start: the offset 'from' which to invalidate
+  * @end: the offset 'to' which to invalidate (inclusive)
+- * @nr_failed: How many folio invalidations failed
++ * @need_drain: Optional flag, set if a remote LRU drain may help eviction
+  *
+- * This function is similar to invalidate_mapping_pages(), except that it
+- * returns the number of folios which could not be evicted in @nr_failed.
++ * This function is similar to invalidate_mapping_pages(), except that it can
++ * indicate whether a remote LRU drain may allow a failed eviction to succeed.
++ * Callers using @need_drain must initialize it to false before the first call.
+  */
+ unsigned long mapping_try_invalidate(struct address_space *mapping,
+-		pgoff_t start, pgoff_t end, unsigned long *nr_failed)
++		pgoff_t start, pgoff_t end, bool *need_drain)
+ {
+ 	pgoff_t indices[FOLIO_BATCH_SIZE];
+ 	struct folio_batch fbatch;
+@@ -599,17 +600,20 @@ unsigned long mapping_try_invalidate(struct address_space *mapping,
+ 			}
+ 
+ 			ret = mapping_evict_folio(mapping, folio);
++			/*
++			 * Draining LRU batches cannot unmap a folio or clean it.
++			 * Other failures may be due to remote batch references.
++			 */
++			if (!ret && need_drain && !folio_mapped(folio) &&
++			    !folio_test_dirty(folio) && !folio_test_writeback(folio))
++				*need_drain = true;
+ 			folio_unlock(folio);
+ 			/*
+ 			 * Invalidation is a hint that the folio is no longer
+ 			 * of interest and try to speed up its reclaim.
+ 			 */
+-			if (!ret) {
++			if (!ret)
+ 				deactivate_file_folio(folio);
+-				/* Likely in the lru cache of a remote CPU */
+-				if (nr_failed)
+-					(*nr_failed)++;
+-			}
+ 			count += ret;
+ 		}
+ 
+
+---
+base-commit: 0aaec43576cd41474a8e90c919631c0c9fc88417
+change-id: 20261005-fadvise-lru-drain-d5b75785c9fd
+
+Best regards,
 -- 
-2.47.3
-
+Serapheim Dimitropoulos <sdimitropoulos@coreweave.com>
 
