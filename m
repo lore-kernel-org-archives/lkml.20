@@ -1,195 +1,132 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 9B075313E36
-	for <linux-kernel@vger.kernel.org>; Mon,  5 Oct 2026 16:42:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from mail-ed2-f35.google.com (mail-ed2-f35.google.com [74.125.228.99])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ECA8148B37B
+	for <linux-kernel@vger.kernel.org>; Mon,  5 Oct 2026 16:43:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.99
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791218544; cv=none; b=J/90kYxphLpEgiLjcm2GhxEefAYa1E/nDhj0pmGm8jgUG4GuScGR1i6ipSd/Ip7ho4hk3H01qy2PYccPgL5zbMhyT8PqEoAAKQP3eAOtR+P3LnzHePHlKMnaGSY3pLDyrlvCriN7YOir7u2jSF//fd9waAivV1IuM8Av+DmhIpg=
+	t=1791218591; cv=none; b=LnGNoBEqtGQlbxcKJ5RMTdEY1muywyMYB6v9oM2W9henqOQodF0roiIQn9ILWk2oQ4rCO6afknCPLZpXP7xzPRcRgQCdQlTI4+2dnGw4TEjRsCNoRteMQ26/eRA3Zhz/r1YAKbqJMwoUASZ5iVvd2u5WDwQnYJ9lQiWjb30m0Fc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791218544; c=relaxed/simple;
-	bh=2BnlRaekwJa1zpDI6gqSZacNqin8Ey/6G0b7goZB50g=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=Diygyzn3Lf0JEZigAJBDaIjtypIVw1ko/BxeXqP7N+V7w817VXqfwYSUhrwqkIdhp6V0qN0z6NQnt5lQEFHr9leCRf0Tzcruhicai0wUB/VzdklkoqUsFcwEiQa8ewlRNKsoRBnPagRngn9Tib5tHJe8BIgwwBWIMdEWsQmUaw4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=qyhDh8CB; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	s=arc-20240116; t=1791218591; c=relaxed/simple;
+	bh=InZ5RYagRV1LLDs2R4y2SbFxXZgYthEw5PQqVjO3KWM=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=qLJ1HwzI0GyW5or93pAqeiMpZSUm3Cv6S4U91UTPotztp9x0ZIWcsS69fmpEinc3kle7TfSRQyEE7ksoZr2D0kd+Y+Qbf40AUBbvLk/lnPqhys63YMw34RmaWKUuT5m+8IZzAE6iTBY6D4QwM8fzNp/b1xGkmyJMzQisTuEzAuI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ggGUmTPT; arc=none smtp.client-ip=74.125.228.99
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="qyhDh8CB"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 8B02D152B;
-	Mon,  5 Oct 2026 09:42:18 -0700 (PDT)
-Received: from [10.2.212.23] (e121345-lin.cambridge.arm.com [10.2.212.23])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 5BD493F66F;
-	Mon,  5 Oct 2026 09:42:20 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1791218541; bh=2BnlRaekwJa1zpDI6gqSZacNqin8Ey/6G0b7goZB50g=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=qyhDh8CBsi951EOcBfBUDIHumzCLo47ccOMIUJDsSuohreAS7MXXrJo4dOkI8aj4O
-	 MrB+rBKHKC8Y6BoNArUQec2mz+M0U8RjTpFR6eod3zbw0+MlftqBbASthksqHol57V
-	 sbEGMZlCj5sszfJ4YWbwnh4qxo7TJGzUXBK2ZdHU=
-Message-ID: <92758f79-d5b7-4c15-a55d-6bea5f84a028@arm.com>
-Date: Mon, 5 Oct 2026 17:42:18 +0100
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ggGUmTPT"
+Received: by mail-ed2-f35.google.com with SMTP id 4fb4d7f45d1cf-6aa1d00daaaso2832553a12.1
+        for <linux-kernel@vger.kernel.org>; Mon, 05 Oct 2026 09:43:09 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791218588; x=1791823388; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=/u1zvTg+FDBSornCk/zN7IM9H8d2POoh7CUYlVwxFqk=;
+        b=ggGUmTPTw2gp6/Ik0mK8kBkvHn9f4N5cz7fEX2YM80lmSCkoN2kJvloRuSZi8RXSNY
+         pFvvsMu4b5ThNtX3NV8gFbqKshRxpRCCXN1XPZjlhhU9la7PxLeordYxU+V8Vt72C4Wl
+         kYi4ZEPBn34UFe0631IWzHiLTrp4oCJGugXTecdmB5k9iBk3Yh44yL+OpvpWoWgRQfTl
+         e/97wcVG0kH10eEzA+Cm/AQCaVU6+LSLpeSnmJFq9+2g8lBrPZkSN2jdUOvmKII0WtZt
+         PaZTjusW9RNKoxeiCluYOv1LhoM9gp83K9RGR8wYFRUDWLJC9o0ut1XLJORZKSHtFk6r
+         fuMw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791218588; x=1791823388;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=/u1zvTg+FDBSornCk/zN7IM9H8d2POoh7CUYlVwxFqk=;
+        b=tVnvm9vhg56wdTI0n73sRtB7QGXwGpmpwZg9dU/Wl4QMn5/cYJZXtuYumRxtGWxkd5
+         5tFDD0++O2MhVLgvyIIVLMdZEKH/x7P0mgbukYUet6pGK7C4fw3Kvn4we8+vw4nGs4wq
+         /pvK/Buu+zEcNcagSa035eCbKehdB5w2ZIIYJtAFn+7y7bCW82a3749KK+/y/SimaelI
+         mN0NcadZFaErXb0q8TmNLT6jp4h27YVBUHTCsLUqGKkMWGRXn/NXmwqNjYDYtLvsfs2t
+         lMoLvdPtPfBa90Lt/dehP6ucw3aRglgoCjX8UCH/SDHy0cNgzt1jQldlDugLPtYpgbbR
+         Hgwg==
+X-Forwarded-Encrypted: i=1; AKwUvBwQ17l+w4tzp3aoafs+udMeBho72CeA1Z2ce6aC7PA+wcnqocXNOBI65mVc6qY/8NsasS8UVWiEz8wUjtc=@vger.kernel.org
+X-Gm-Message-State: AFq9FYK3d6j0zUnq7cJlhumRyhsSceO8mCqE017E8FMkPfQCX0gOeQ/a
+	c2Xk9kJQpDuX5JCgugeZiP57Hh+A+YYnDSwt79W6gNf7UZPm2A72JpXWItRzTgot
+X-Gm-Gg: AYBFou1gIsyu8YvuhZI62Y2JHx0qfMwnuws5WYMoYEw5ljNRISqqhFUo9N7D+IFJIcH
+	+OVOLMiNE/WU9LjuB3461walQ7N03vkHwGpOU2t3AJgCAFtONI1EvElzAgMZ/dM4OgSj6C+MWcv
+	JFlA6Ol84wq4tabHXuQ9W8WM4Ojo4vwGVcBrJeew84IP1S8g9jsw8RiPFF7Tx7yTydCqC6scZIa
+	8FZx6I69g4iPzRmU9y89F/5/TKhs2HvPDhYOVUu/gEO1/lz+oBnR1NT99gUsw8LrF3HWDC+muH5
+	JOA7iqBMYFBV7AvJYuWMQi85vstOgzlaJmTTW4b0H5HgxhWrmTr4iXsgnWjk5hOSFCkwNxEawoa
+	czi9FcjJt422EwZm0Px88wRp1rAtU3IxZiXxwMoCoD1pF3HAnDih+2N4KdHsFrE3S7yoM7i+oMG
+	rAXK5knN8bCGjKkgJLMXiDeGQXJMy5NW6dWvKcckXFRhbKSwC9IPrHFOqiE+t0+/GRj6oTNt6QX
+	R/Jb5QaI1BGFrMCntWLkzmd2diyfVsJ6IyExQ==
+X-Received: by 2002:a05:6402:46c1:b0:6aa:1c24:8f7d with SMTP id 4fb4d7f45d1cf-6af9e301528mr9516864a12.21.1791218587878;
+        Mon, 05 Oct 2026 09:43:07 -0700 (PDT)
+Received: from workstation.home (161-53-210-87.ftth.glasoperator.nl. [87.210.53.161])
+        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6afb021af56sm3485851a12.31.2026.10.05.09.43.05
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 05 Oct 2026 09:43:06 -0700 (PDT)
+From: Stanislav Zaikin <zstaseg@gmail.com>
+To: Bjorn Andersson <andersson@kernel.org>,
+	Konrad Dybcio <konradybcio@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Sebastian Reichel <sre@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-pm@vger.kernel.org,
+	Stanislav Zaikin <zstaseg@gmail.com>
+Subject: [PATCH v5 0/3] Add Xiaomi 12 Lite 5G (taoyao) battery support
+Date: Mon,  5 Oct 2026 18:43:00 +0200
+Message-ID: <20261005164303.1208127-1-zstaseg@gmail.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] iommu/arm-smmu-v3: Align memory attributes for
- SMMU-originated accesses
-To: Daniel Mentz <danielmentz@google.com>, iommu@lists.linux.dev
-Cc: will@kernel.org, joro@8bytes.org, nicolinc@nvidia.com,
- smostafa@google.com, linux-arm-kernel@lists.infradead.org,
- linux-kernel@vger.kernel.org, dawei.li@linux.dev, jgg@ziepe.ca,
- praan@google.com
-References: <20261004195027.227748-1-danielmentz@google.com>
-From: Robin Murphy <robin.murphy@arm.com>
-Content-Language: en-GB
-In-Reply-To: <20261004195027.227748-1-danielmentz@google.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 04/10/2026 8:50 pm, Daniel Mentz wrote:
-> The SMMU specification defines several types of SMMU-originated memory
-> accesses, including Stage 1 and Stage 2 translation table walks, stream
-> table accesses (L1STD and STE fetches), CD table accesses (L1CD and CD
-> fetches), and queue accesses (CMDQ fetch, EVENTQ write, PRIQ write).
-> 
-> While the memory attributes used for Stage 1 and Stage 2 translation
-> table walks are configured in io-pgtable-arm based on whether the SMMU
-> is coherent (ARM_SMMU_FEAT_COHERENCY), the attributes for stream tables,
-> CD tables, and queues are currently hardcoded to Inner Shareable,
-> Write-Back.
-> 
-> On non-coherent systems, however, memory for stream tables, CD tables,
-> and queues is allocated via dma_alloc_coherent() /
-> dmam_alloc_coherent(), which provides CPU mappings with Normal
-> Non-Cacheable attributes. Having a non-coherent SMMU access these
-> buffers with Inner Shareable, Write-Back attributes results in
-> mismatched memory attributes between the CPU and the SMMU.
-> 
-> Configure the memory attributes for tables and queues in
-> arm_smmu_device_reset() and arm_smmu_make_cdtable_ste() based on
-> ARM_SMMU_FEAT_COHERENCY, matching the attributes used for translation
-> table walks:
+Xiaomi 12 Lite 5G (taoyao) has an additional property with ID 12 that
+breaks the parsing in qcom_battmgr. Fix that by introducing separate
+maps for lookups properties in both directions.
 
-This still isn't answering the question of "why?" though. Yes the 
-architecture says some things, but if we were strict about avoiding 
-mismatched attributes then Linux couldn't ever support non-coherent DMA 
-at all! Similarly while the architecture does permit SMMU 
-implementations to be picky about their output attributes, does any such 
-implementation actually exist at all, let alone in a system capable of 
-running mainline Linux?
+The other approach that I tried is manual shifting properties:
 
-And yes, io-pgtable-arm does happen to be a little more fastidious with 
-attributes, but that is more to do with Qualcomm SMMUv2 platforms that 
-gave a magic meaning to the outer-cacheable attribute on a 
-still-otherwise-non-coherent downstream interconnect - which we support 
-via IO_PGTABLE_QUIRK_ARM_OUTER_WBWA - but is not directly relevant to 
-arm-smmu-v3 itself.
++	if (battmgr->variant == QCOM_BATTMGR_TAOYAO && prop > BATT_CHG_CTRL_LIM_MAX)
++		prop++;
+...
++		if (battmgr->variant == QCOM_BATTMGR_TAOYAO && property > BATT_CHG_CTRL_LIM_MAX + 1)
++			property--;
 
-So, short of a justification why it is unavoidably _necessary_ to change 
-an assumption that in practice has held since day one, I'm still going 
-to hold the opinion that at worst this smells like a sneaky hack around 
-DT/ACPI describing coherency incorrectly, which really should be fixed 
-in the firmware; or at best is just churn for no practical benefit that 
-will only help hide that bug in future. And if someone does have a 
-justifiable use-case for wanting to use a coherent SMMU non-coherently, 
-then it's all the more reason to add proper DMA API support for that 
-rather than bodging firmware to try to trick Linux, as there's already a 
-wishlist of similar use-cases (PCIe No Snoop, Panfrost's tiler heap, etc.)
+But I found that more obscure.
 
-Thanks,
-Robin.
+Will be happy to switch if the maintainers prefer this one.
 
-> - In SMMU_CR1, use Outer Shareable, Non-Cacheable for non-coherent
->    SMMUs, while retaining Inner Shareable, Write-Back for coherent SMMUs.
->    This applies to stream table accesses as well as queue accesses (CMDQ
->    fetch, EVENTQ write, PRIQ write).
-> - In STE.{S1CIR, S1COR, S1CSH}, use Outer Shareable, Non-Cacheable for
->    non-coherent SMMUs, while retaining Inner Shareable, Write-Back
->    Read-Allocate for coherent SMMUs. This applies to CD table accesses.
-> 
-> Assisted-by: LLM
-> Reviewed-by: Nicolin Chen <nicolinc@nvidia.com>
-> Signed-off-by: Daniel Mentz <danielmentz@google.com>
-> ---
-> Changes in v2:
-> - Rename local variables 'cache' and 'sh' to 'cr1_cache' and 'cr1_sh' in
->    arm_smmu_device_reset() (Nicolin, Will)
-> - Collect Reviewed-by from Nicolin
-> - Link to v1: https://lore.kernel.org/linux-iommu/20260929032229.3532247-1-danielmentz@google.com/
-> 
->   drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.c | 37 +++++++++++++++------
->   1 file changed, 27 insertions(+), 10 deletions(-)
-> 
-> diff --git a/drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.c b/drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.c
-> index 34e916ea339f..02cc6fb83461 100644
-> --- a/drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.c
-> +++ b/drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.c
-> @@ -1905,6 +1905,15 @@ void arm_smmu_make_cdtable_ste(struct arm_smmu_ste *target,
->   {
->   	struct arm_smmu_ctx_desc_cfg *cd_table = &master->cd_table;
->   	struct arm_smmu_device *smmu = master->smmu;
-> +	u64 s1c, s1csh;
-> +
-> +	if (smmu->features & ARM_SMMU_FEAT_COHERENCY) {
-> +		s1c = STRTAB_STE_1_S1C_CACHE_WBRA;
-> +		s1csh = ARM_SMMU_SH_ISH;
-> +	} else {
-> +		s1c = STRTAB_STE_1_S1C_CACHE_NC;
-> +		s1csh = ARM_SMMU_SH_OSH;
-> +	}
->   
->   	memset(target, 0, sizeof(*target));
->   	target->data[0] = cpu_to_le64(
-> @@ -1916,9 +1925,9 @@ void arm_smmu_make_cdtable_ste(struct arm_smmu_ste *target,
->   
->   	target->data[1] = cpu_to_le64(
->   		FIELD_PREP(STRTAB_STE_1_S1DSS, s1dss) |
-> -		FIELD_PREP(STRTAB_STE_1_S1CIR, STRTAB_STE_1_S1C_CACHE_WBRA) |
-> -		FIELD_PREP(STRTAB_STE_1_S1COR, STRTAB_STE_1_S1C_CACHE_WBRA) |
-> -		FIELD_PREP(STRTAB_STE_1_S1CSH, ARM_SMMU_SH_ISH) |
-> +		FIELD_PREP(STRTAB_STE_1_S1CIR, s1c) |
-> +		FIELD_PREP(STRTAB_STE_1_S1COR, s1c) |
-> +		FIELD_PREP(STRTAB_STE_1_S1CSH, s1csh) |
->   		((smmu->features & ARM_SMMU_FEAT_STALLS &&
->   		  !master->stall_enabled) ?
->   			 STRTAB_STE_1_S1STALLD :
-> @@ -5102,7 +5111,7 @@ static void arm_smmu_write_strtab(struct arm_smmu_device *smmu)
->   static int arm_smmu_device_reset(struct arm_smmu_device *smmu)
->   {
->   	int ret;
-> -	u32 reg, enables;
-> +	u32 reg, enables, cr1_cache, cr1_sh;
->   
->   	/* Clear CR0 and sync (disables SMMU and queue processing) */
->   	reg = readl_relaxed(smmu->base + ARM_SMMU_CR0);
-> @@ -5116,12 +5125,20 @@ static int arm_smmu_device_reset(struct arm_smmu_device *smmu)
->   		return ret;
->   
->   	/* CR1 (table and queue memory attributes) */
-> -	reg = FIELD_PREP(CR1_TABLE_SH, ARM_SMMU_SH_ISH) |
-> -	      FIELD_PREP(CR1_TABLE_OC, CR1_CACHE_WB) |
-> -	      FIELD_PREP(CR1_TABLE_IC, CR1_CACHE_WB) |
-> -	      FIELD_PREP(CR1_QUEUE_SH, ARM_SMMU_SH_ISH) |
-> -	      FIELD_PREP(CR1_QUEUE_OC, CR1_CACHE_WB) |
-> -	      FIELD_PREP(CR1_QUEUE_IC, CR1_CACHE_WB);
-> +	if (smmu->features & ARM_SMMU_FEAT_COHERENCY) {
-> +		cr1_cache = CR1_CACHE_WB;
-> +		cr1_sh = ARM_SMMU_SH_ISH;
-> +	} else {
-> +		cr1_cache = CR1_CACHE_NC;
-> +		cr1_sh = ARM_SMMU_SH_OSH;
-> +	}
-> +
-> +	reg = FIELD_PREP(CR1_TABLE_SH, cr1_sh) |
-> +	      FIELD_PREP(CR1_TABLE_OC, cr1_cache) |
-> +	      FIELD_PREP(CR1_TABLE_IC, cr1_cache) |
-> +	      FIELD_PREP(CR1_QUEUE_SH, cr1_sh) |
-> +	      FIELD_PREP(CR1_QUEUE_OC, cr1_cache) |
-> +	      FIELD_PREP(CR1_QUEUE_IC, cr1_cache);
->   	writel_relaxed(reg, smmu->base + ARM_SMMU_CR1);
->   
->   	/* CR2 (random crap) */
+Changed in v5:
+- Fixed the commit message (patch #1)
+
+Changes in v4:
+- Added Konrad's r-b (patch #2)
+- Dropped RFC tag
+
+Changes in v3:
+- Fix QCOM_BATTMGR_TAOYAO enum ordering (patch #2)
+- Order in qcom_battmgr_of_variants[] is already right (no change)
+- Revert the qcom,sm7325-pmic-glink SoC fallback (patch #1 and #3)
+- Rephrased commit message (patch #3)
+- Design question from v1/v2 still open: lookup tables vs. inline shift
+
+Changes in v2:
+- Keep the qcom,sm7325-pmic-glink SoC fallback in the compatible chain
+  of the taoyao pmic-glink node (review feedback, patch #1 and #3)
+
+Stanislav Zaikin (3):
+  dt-bindings: soc: qcom: qcom,pmic-glink: Document Xiaomi taoyao
+    compatible
+  power: supply: qcom_battmgr: add Xiaomi taoyao support
+  arm64: dts: qcom: sm7325-xiaomi-taoyao: switch to device-specific
+    pmic-glink compatible
+
+ .../bindings/soc/qcom/qcom,pmic-glink.yaml    |  1 +
+ .../boot/dts/qcom/sm7325-xiaomi-taoyao.dts    |  2 +-
+ drivers/power/supply/qcom_battmgr.c           | 86 ++++++++++++++++++-
+ 3 files changed, 84 insertions(+), 5 deletions(-)
+
+-- 
+2.55.0
 
