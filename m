@@ -1,35 +1,35 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9141B53162B;
-	Mon,  5 Oct 2026 17:19:25 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 59B2653161E;
+	Mon,  5 Oct 2026 17:19:29 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791220767; cv=none; b=dcnsN+t9cUfmVkiVSA7MtHiatXbg43STcqwCNhOXkHPHBbPptnUTP3aXLPlufI+6gSXO+cegOR1LeIklI00tltFrqytY+PuWWhfYkSMOoD2IMsnr/Yfq2nIILHT5bH7wOcgGKc/5boCZwNKwsiU+dtGg5wB8ShfCiiYeTBpu+Vo=
+	t=1791220771; cv=none; b=GWOQGLhJJvvQQ7L6fdVz3kJcYjarWMpG5x/jzsX4fNJYxw1xRnpHkKt6qqANVfVEB2F9FEcEt8IkrDDLsMJmztDDm9R6lyE3y5gpCbaVZ0ize+aoSExqMdlfEVG8DBJ+obVVPJajWugmbfN4a2V2bFc62JC9JoFuwQj51V74T5M=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791220767; c=relaxed/simple;
-	bh=l4nj61+L8CKSjjK81dSL8Ze75gii8ZRwG+fkLXfJJVU=;
+	s=arc-20240116; t=1791220771; c=relaxed/simple;
+	bh=suIKByc22EBVd6NzZw3DGC/UVpmB8QIcsdotoZKHyJQ=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=eDe8+pjDqmvTc6L3pWOLXXybQptu36o6Oj0qtnzovHI2tR3idK1lz59jaHoFY5hs9/kIpU2QmctLMxUx+8aoOetQ4dX48Cm0DJ4obJzWkOZgp7IJw4OaB3Z8zaqM2AaRemRZ0Sa7ZQi7snBsT/39ZbBbz90dk+g+Y4oJSjfmugQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=buERHcXy; arc=none smtp.client-ip=100.103.45.18
+	 In-Reply-To:To:Cc; b=S2Z6xfM3NyETOam3MnvKstQjW16ahfXDeyq/Hwnq+FIbW917qDZ3agOH8I1BD/TzCD+ON2s/xhK6pC5vKhX0RliEdhoWQMdLAzE1q35Z/AZ3E1UpcBAOpOibYPI6CGGiWNhidt7xYPt1G6zZ9eEGGbqom/rdq5vyVvoPjBlPJy8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Ek08A4rk; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="buERHcXy"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2897E1F00898;
-	Mon,  5 Oct 2026 17:19:21 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Ek08A4rk"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A3EB41F00893;
+	Mon,  5 Oct 2026 17:19:25 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791220765;
-	bh=yE8hrDea3oUOg/49nEkAZZj08ClsXWgu/jlIjT8zFPQ=;
+	s=k20260515; t=1791220768;
+	bh=PUS1VqT1unHEmRoX3yoBazSvna/Wqg3AnG0UfHiqWvQ=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=buERHcXywesWI/k68hqnwhqyipTmEdhafvl57fcrabJzdVTCOG2yqNAXbR+kTJTgv
-	 ad9K0V1gb/4XcspXb7yXYW1lqKap2IQ3/QVYGx2sy9LnAEiv9Q59ke8+NruxqphJvb
-	 8q2LrsTdjY/zSVccJ+HGm/BQaH1Rl/GLX1kbzUviPVmsMT/X/Xwzm/gmR9G4WPsPR7
-	 kjtsPIgBHduR6mNp/b3nKGGNtYQnKqmvPo4RLgPpYXsaO+wiE+EY8eWJNlMtvToixh
-	 rHqFxmJ9J75PVun0Or4VzXqrci1boeRrsasUBGwBOsR8+I1y/J4mNiKNy5qxbzKz0A
-	 osQKWLxImN9qg==
+	b=Ek08A4rkyT5ieak7UQL3oXm4aR1HYBW42dZNhXJWnqYkuVCXdWtEic4qjzTiEWtnV
+	 3WPic958cc0LoYYBguvtgT39PswxglkY3fRD3wTLJ5e+GHUYgitkMdW6HOqgbgloF/
+	 PhLMB1OBGS36mdMcF6MPM1vohPV/0+lJuGUxBsX3XWRhEIh+J3FpT7hAtcTe+LqPWO
+	 2Qfqj5eF1r0+nZ06wwJn8yp5L+ue4JF2cXDaIqqSLXza29qDgbVi2sNpC24m26efTP
+	 eWyev0qY5SauMi8/aLxbCgbFZxULjwfNFPpCLvu+D1mYlZcT3/zP/eBvz7fDbXs9fK
+	 fu2tuziTvRozA==
 From: bod@kernel.org
-Date: Mon, 05 Oct 2026 19:14:33 +0200
-Subject: [PATCH 63/74] media: qcom: camss: video: Support metadata capture
- nodes
+Date: Mon, 05 Oct 2026 19:14:34 +0200
+Subject: [PATCH 64/74] media: qcom: camss: vfe: Register a statistics node
+ for the pixel line
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -38,7 +38,7 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261005-linux-mainline-7-2-sm8650-hdk-rfc-0-v1-63-ed985aefd611@kernel.org>
+Message-Id: <20261005-linux-mainline-7-2-sm8650-hdk-rfc-0-v1-64-ed985aefd611@kernel.org>
 References: <20261005-linux-mainline-7-2-sm8650-hdk-rfc-0-v1-0-ed985aefd611@kernel.org>
 In-Reply-To: <20261005-linux-mainline-7-2-sm8650-hdk-rfc-0-v1-0-ed985aefd611@kernel.org>
 To: Bryan O'Donoghue <bryan.odonoghue@linaro.org>, 
@@ -55,249 +55,163 @@ To: Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
 Cc: linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
  linux-kernel@vger.kernel.org, Bryan O'Donoghue <bod@kernel.org>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=7941; i=bod@kernel.org;
- h=from:subject:message-id; bh=thslKgbAh/JmEhLkeimHSvwzopS7cfg4KYkWh8s9Uts=;
- b=owEBbQKS/ZANAwAKASJxO7Ohjcg6AcsmYgBqw9suOWjxnL6w3pyNkH4C9zFSqxbKVaMvA9T57
- UP8JarGUXCJAjMEAAEKAB0WIQTmk/sqq6Nt4Rerb7QicTuzoY3IOgUCasPbLgAKCRAicTuzoY3I
- OjuZD/4lriSqtK0DIA6Y5DehcKNFAiiFZ1pX2uL1PypKPkfADvfdvv1Qi9jPsmEEzYD6spmSPZg
- xHNhAPKGAYYIiNzMwPGEKts2f3jyasl57T0dPiqGC1bWsAe4Zqhj6hbFuqnCM3Sk7nTbhbiscQ0
- 8HyVtddWhw5GeDweLdFpD/LN+3d3WOWnzc0rqWljbWQOYGk0Rw9tFdvW/ugRRdB/KILAm2VYA7L
- MvPLvAL3fiHo3Ndb3U0bfR1anR1FtktBhKEYpoL+w1ZC1UhJG5bAAh/D9j7i1CNT2HRgpaxt6P9
- hr0vJxySOWxPX378HvEu0NH1rrM4tKT/7jhPbf1QhDqny+4ePrUHrVaNMBdulGP8a/mGvVE5D16
- +ehqd2/RFhD5sV0Xhddsj1K5/UgFgnA4zLVZ0srqXayAcVB1lNOXVCVsgBcvSP/pSKn6LoSjSkO
- EcczmIPNebb+62QEhLo5R0LtZNa9xUzIGD2p5FZp7r6o3rguLnaVE3JqtI5655mpd3LAO3xXaQp
- XSnpPm7XAEdNXApk5r3Aui0F3YV9Vm9tjgKkBp/FsNo8n3cW9gJhiAfnfW70yoWgpZxee6pCCWa
- uwMyq67Aa0cfaYQXGAFj0m89pRe4Y2GLdT8VReea0MWgrCbo1lrMFA4850okI8EG/Y4NTSbESBo
- ggi1SpQvG48mBtw==
+X-Developer-Signature: v=1; a=openpgp-sha256; l=4548; i=bod@kernel.org;
+ h=from:subject:message-id; bh=5A2KoQwEXT2+D4A1qWNDb5wIIoIA0EWL30AFwbOSegA=;
+ b=owEBbQKS/ZANAwAKASJxO7Ohjcg6AcsmYgBqw9suCsNCKG61iiufrkWxnley5A0ZRlYTlwYs+
+ B+WJ67nKRmJAjMEAAEKAB0WIQTmk/sqq6Nt4Rerb7QicTuzoY3IOgUCasPbLgAKCRAicTuzoY3I
+ OsuaD/9Dce93l/PiCNyA0RGgZ8Xk7uwS+AII8SmdbAEqJSwe/uHBZs1l+kjvGYuHbL0IZJ3NiNC
+ 9DgZoNTVTjZxzJT/O8tMxctgB1mXKhRQLaQdKSpSGw4TLb/ZAKxLcZUn0eQumDcSJkn28w3xOgs
+ TvikHQkEpyAVxU1vpBKJOQQ/C0d7R6cn6NSxN/iI8sie3st+06clCR4cYVTLbMmcuRYzFgWYAwZ
+ W9JMTCejrYY2uDeb5ZXXWwWQConALvUIbyo9wfWnUGaHSclqZzSRadlDuqhCM2qjht5uODNvUzd
+ s/wavlisplCIXr7NRgXBp22AILhLuNyI092S8jB0CTRHSeNJBCH5heolwkm2f7sKEj+MXKoznpb
+ ICu+8aHOCw0V6cnIaGXrfjgxH6YEmzbbcHu2U9DzE6vXbpi6TMWo0ayItgODGEjtBpKm5p/zwOX
+ TLLaf9ClZKZE7psGjGHTaG2hDMNCA82rM2FaEDP+yyl0zzrcr+Ar06sm070pnjTchqXHtOx11YU
+ GGvR2uH75dSgMTHIk5QKBcgy45nK49MajBZCiwC9kN8tyN5yCAKyU9Idyr0LqFPu/Dl9tGM32ar
+ wA3izmJiU2KiRYWJGnxtcmqBK7xaFu24OM10XGoRtfWtNsI4eCx/eSZSU6zqjpq7NqoszFlynUo
+ dyLCcCayTO/XFrQ==
 X-Developer-Key: i=bod@kernel.org; a=openpgp;
  fpr=E693FB2AABA36DE117AB6FB422713BB3A18DC83A
 
 From: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
 
-A video node is always a VIDEO_CAPTURE_MPLANE node. Statistics need
-metadata capture nodes.
+A line whose descriptor declares a statistics output gets a metadata
+capture node, msm_vfeN_stats, linked immutably from its statistics pad.
+The node carries V4L2_META_FMT_QCOM_ISP_STATS, sized for every
+statistics block the format defines.
 
-Register a node of video->type V4L2_BUF_TYPE_META_CAPTURE with its own
-queue and ioctl operations:
-
-- one plane of the fixed buffersize the producer sets with dataformat
-  before registration; G, S and TRY_FMT all return that format
-- buffers are vmalloc backed: the kernel fills them by CPU
-- the node follows the image node of its line: starting it provides
-  buffers and stopping it returns them, but neither starts nor stops the
-  line
+Select V4L2_ISP for the statistics buffer helpers.
 
 Signed-off-by: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
 ---
- drivers/media/platform/qcom/camss/Kconfig       |   1 +
- drivers/media/platform/qcom/camss/camss-video.c | 146 ++++++++++++++++++++++--
- 2 files changed, 136 insertions(+), 11 deletions(-)
+ drivers/media/platform/qcom/camss/Kconfig     |  1 +
+ drivers/media/platform/qcom/camss/camss-vfe.c | 76 +++++++++++++++++++++++++++
+ 2 files changed, 77 insertions(+)
 
 diff --git a/drivers/media/platform/qcom/camss/Kconfig b/drivers/media/platform/qcom/camss/Kconfig
-index 4eda48cb1adf0..42c3ee13e548b 100644
+index 42c3ee13e548b..4f1c1000a501e 100644
 --- a/drivers/media/platform/qcom/camss/Kconfig
 +++ b/drivers/media/platform/qcom/camss/Kconfig
-@@ -6,4 +6,5 @@ config VIDEO_QCOM_CAMSS
- 	select MEDIA_CONTROLLER
- 	select VIDEO_V4L2_SUBDEV_API
+@@ -8,3 +8,4 @@ config VIDEO_QCOM_CAMSS
  	select VIDEOBUF2_DMA_SG
-+	select VIDEOBUF2_VMALLOC
+ 	select VIDEOBUF2_VMALLOC
  	select V4L2_FWNODE
-diff --git a/drivers/media/platform/qcom/camss/camss-video.c b/drivers/media/platform/qcom/camss/camss-video.c
-index 0852eb6f13154..b8501c895d393 100644
---- a/drivers/media/platform/qcom/camss/camss-video.c
-+++ b/drivers/media/platform/qcom/camss/camss-video.c
-@@ -14,6 +14,7 @@
- #include <media/v4l2-ioctl.h>
- #include <media/v4l2-mc.h>
- #include <media/videobuf2-dma-sg.h>
-+#include <media/videobuf2-vmalloc.h>
++	select V4L2_ISP
+diff --git a/drivers/media/platform/qcom/camss/camss-vfe.c b/drivers/media/platform/qcom/camss/camss-vfe.c
+index 8bcacede0f969..12d94bdf13bc8 100644
+--- a/drivers/media/platform/qcom/camss/camss-vfe.c
++++ b/drivers/media/platform/qcom/camss/camss-vfe.c
+@@ -20,7 +20,9 @@
+ #include <linux/spinlock.h>
+ #include <media/media-entity.h>
+ #include <media/v4l2-device.h>
++#include <media/v4l2-isp.h>
+ #include <media/v4l2-subdev.h>
++#include <linux/qcom-camss-config.h>
  
- #include "camss-video.h"
+ #include "camss-vfe.h"
  #include "camss.h"
-@@ -351,6 +352,68 @@ static const struct vb2_ops msm_video_vb2_q_ops = {
- 	.unprepare_streaming = video_unprepare_streaming,
- };
+@@ -2370,6 +2372,74 @@ static int vfe_bpl_align_pix(struct vfe_device *vfe)
+ 	return ret;
+ }
  
-+/* -----------------------------------------------------------------------------
-+ * Metadata capture queue operations
++/*
++ * vfe_register_stats_node - Register the statistics node of a pixel line
++ * @vfe: VFE device
++ * @line: VFE line
++ * @v4l2_dev: V4L2 device
 + *
-+ * A metadata capture node follows the image node of its line: the line starts
-+ * and stops with the image node, and the node only provides buffers. The
-+ * kernel fills them by CPU, so they are vmalloc backed.
++ * A line whose descriptor declares a statistics output gets a metadata
++ * capture node, msm_vfeN_stats, linked from its statistics pad.
++ *
++ * Return 0 on success or a negative error code otherwise
 + */
-+
-+static int video_meta_queue_setup(struct vb2_queue *q,
-+				  unsigned int *num_buffers,
-+				  unsigned int *num_planes, unsigned int sizes[],
-+				  struct device *alloc_devs[])
++static int vfe_register_stats_node(struct vfe_device *vfe,
++				   struct vfe_line *line,
++				   struct v4l2_device *v4l2_dev)
 +{
-+	struct camss_video *video = vb2_get_drv_priv(q);
-+	unsigned int size = video->active_fmt.fmt.meta.buffersize;
++	struct device *dev = vfe->camss->dev;
++	unsigned int o;
++	int ret;
 +
-+	if (*num_planes)
-+		return (*num_planes != 1 || sizes[0] < size) ? -EINVAL : 0;
++	for (o = 1; o < line->num_outputs; o++) {
++		struct vfe_output *output = &line->output[o];
++		struct camss_video *video = &output->video_out;
++		char name[32];
 +
-+	*num_planes = 1;
-+	sizes[0] = size;
++		if (output->pad != MSM_VFE_PAD_SRC_STATS || !output->wm_num)
++			continue;
 +
-+	return 0;
-+}
++		video->type = V4L2_BUF_TYPE_META_CAPTURE;
++		video->active_fmt.fmt.meta.dataformat =
++			V4L2_META_FMT_QCOM_ISP_STATS;
++		video->active_fmt.fmt.meta.buffersize =
++			v4l2_isp_buffer_size(CAMSS_STATS_MAX_PAYLOAD);
++		video->ops = &vfe->video_ops;
 +
-+static int video_meta_buf_prepare(struct vb2_buffer *vb)
-+{
-+	struct vb2_v4l2_buffer *vbuf = to_vb2_v4l2_buffer(vb);
-+	struct camss_video *video = vb2_get_drv_priv(vb->vb2_queue);
-+	unsigned int size = video->active_fmt.fmt.meta.buffersize;
-+
-+	if (vb2_plane_size(vb, 0) < size)
-+		return -EINVAL;
-+
-+	vb2_set_plane_payload(vb, 0, size);
-+	vbuf->field = V4L2_FIELD_NONE;
-+
-+	return 0;
-+}
-+
-+static int video_meta_start_streaming(struct vb2_queue *q, unsigned int count)
-+{
-+	return 0;
-+}
-+
-+static void video_meta_stop_streaming(struct vb2_queue *q)
-+{
-+	struct camss_video *video = vb2_get_drv_priv(q);
-+
-+	video->ops->flush_buffers(video, VB2_BUF_STATE_ERROR);
-+}
-+
-+static const struct vb2_ops msm_video_meta_vb2_q_ops = {
-+	.queue_setup     = video_meta_queue_setup,
-+	.buf_prepare     = video_meta_buf_prepare,
-+	.buf_queue       = video_buf_queue,
-+	.prepare_streaming = video_prepare_streaming,
-+	.start_streaming = video_meta_start_streaming,
-+	.stop_streaming  = video_meta_stop_streaming,
-+	.unprepare_streaming = video_unprepare_streaming,
-+};
-+
- /* -----------------------------------------------------------------------------
-  * V4L2 ioctls
-  */
-@@ -613,6 +676,51 @@ static const struct v4l2_ioctl_ops msm_vid_ioctl_ops = {
- 	.vidioc_s_input			= video_s_input,
- };
- 
-+static int video_meta_enum_fmt(struct file *file, void *fh,
-+			       struct v4l2_fmtdesc *f)
-+{
-+	struct camss_video *video = video_drvdata(file);
-+
-+	if (f->index || f->type != video->type)
-+		return -EINVAL;
-+
-+	f->pixelformat = video->active_fmt.fmt.meta.dataformat;
-+
-+	return 0;
-+}
-+
-+/* The metadata format is fixed: G, S and TRY all return it */
-+static int video_meta_g_fmt(struct file *file, void *fh, struct v4l2_format *f)
-+{
-+	struct camss_video *video = video_drvdata(file);
-+
-+	if (f->type != video->type)
-+		return -EINVAL;
-+
-+	memset(&f->fmt.meta, 0, sizeof(f->fmt.meta));
-+	f->fmt.meta.dataformat = video->active_fmt.fmt.meta.dataformat;
-+	f->fmt.meta.buffersize = video->active_fmt.fmt.meta.buffersize;
-+
-+	return 0;
-+}
-+
-+static const struct v4l2_ioctl_ops msm_vid_meta_ioctl_ops = {
-+	.vidioc_querycap		= video_querycap,
-+	.vidioc_enum_fmt_meta_cap	= video_meta_enum_fmt,
-+	.vidioc_g_fmt_meta_cap		= video_meta_g_fmt,
-+	.vidioc_s_fmt_meta_cap		= video_meta_g_fmt,
-+	.vidioc_try_fmt_meta_cap	= video_meta_g_fmt,
-+	.vidioc_reqbufs			= vb2_ioctl_reqbufs,
-+	.vidioc_querybuf		= vb2_ioctl_querybuf,
-+	.vidioc_qbuf			= vb2_ioctl_qbuf,
-+	.vidioc_expbuf			= vb2_ioctl_expbuf,
-+	.vidioc_dqbuf			= vb2_ioctl_dqbuf,
-+	.vidioc_create_bufs		= vb2_ioctl_create_bufs,
-+	.vidioc_prepare_buf		= vb2_ioctl_prepare_buf,
-+	.vidioc_streamon		= vb2_ioctl_streamon,
-+	.vidioc_streamoff		= vb2_ioctl_streamoff,
-+};
-+
- /* -----------------------------------------------------------------------------
-  * V4L2 file operations
-  */
-@@ -688,6 +796,7 @@ static int msm_video_init_format(struct camss_video *video)
- int msm_video_register(struct camss_video *video, struct v4l2_device *v4l2_dev,
- 		       const char *name)
- {
-+	bool meta = video->type == V4L2_BUF_TYPE_META_CAPTURE;
- 	struct media_pad *pad = &video->pad;
- 	struct video_device *vdev;
- 	struct vb2_queue *q;
-@@ -699,10 +808,12 @@ int msm_video_register(struct camss_video *video, struct v4l2_device *v4l2_dev,
- 
- 	q = &video->vb2_q;
- 	q->drv_priv = video;
--	q->mem_ops = &vb2_dma_sg_memops;
--	q->ops = &msm_video_vb2_q_ops;
--	q->type = V4L2_BUF_TYPE_VIDEO_CAPTURE_MPLANE;
--	q->io_modes = VB2_DMABUF | VB2_MMAP | VB2_READ;
-+	q->mem_ops = meta ? &vb2_vmalloc_memops : &vb2_dma_sg_memops;
-+	q->ops = meta ? &msm_video_meta_vb2_q_ops : &msm_video_vb2_q_ops;
-+	q->type = meta ? V4L2_BUF_TYPE_META_CAPTURE :
-+			 V4L2_BUF_TYPE_VIDEO_CAPTURE_MPLANE;
-+	q->io_modes = meta ? VB2_DMABUF | VB2_MMAP :
-+			     VB2_DMABUF | VB2_MMAP | VB2_READ;
- 	q->timestamp_flags = V4L2_BUF_FLAG_TIMESTAMP_MONOTONIC;
- 	q->buf_struct_size = sizeof(struct camss_buffer);
- 	q->dev = video->camss->dev;
-@@ -723,16 +834,29 @@ int msm_video_register(struct camss_video *video, struct v4l2_device *v4l2_dev,
- 
- 	mutex_init(&video->lock);
- 
--	ret = msm_video_init_format(video);
--	if (ret < 0) {
--		dev_err(v4l2_dev->dev, "Failed to init format: %d\n", ret);
--		goto error_video_register;
-+	if (meta) {
-+		/* dataformat and buffersize are set by the producer */
-+		video->active_fmt.type = V4L2_BUF_TYPE_META_CAPTURE;
-+	} else {
-+		ret = msm_video_init_format(video);
++		snprintf(name, ARRAY_SIZE(name), "%s%d_%s",
++			 MSM_VFE_NAME, vfe->id, "stats");
++		ret = msm_video_register(video, v4l2_dev, name);
 +		if (ret < 0) {
-+			dev_err(v4l2_dev->dev, "Failed to init format: %d\n",
-+				ret);
-+			goto error_video_register;
++			dev_err(dev, "Failed to register stats node: %d\n", ret);
++			return ret;
 +		}
++
++		ret = media_create_pad_link(&line->subdev.entity, output->pad,
++					    &video->vdev.entity, 0,
++					    MEDIA_LNK_FL_IMMUTABLE |
++					    MEDIA_LNK_FL_ENABLED);
++		if (ret < 0) {
++			dev_err(dev, "Failed to link stats node: %d\n", ret);
++			msm_video_unregister(video);
++			return ret;
++		}
++	}
++
++	return 0;
++}
++
++static void vfe_unregister_stats_node(struct vfe_line *line)
++{
++	unsigned int o;
++
++	for (o = 1; o < line->num_outputs; o++) {
++		struct camss_video *video = &line->output[o].video_out;
++
++		if (video_is_registered(&video->vdev))
++			msm_video_unregister(video);
++	}
++}
++
+ /*
+  * msm_vfe_register_entities - Register subdev node for VFE module
+  * @vfe: VFE device
+@@ -2472,6 +2542,10 @@ int msm_vfe_register_entities(struct vfe_device *vfe,
+ 				ret);
+ 			goto error_link;
+ 		}
++
++		ret = vfe_register_stats_node(vfe, &vfe->line[i], v4l2_dev);
++		if (ret < 0)
++			goto error_link;
  	}
  
- 	vdev->fops = &msm_vid_fops;
--	vdev->device_caps = V4L2_CAP_VIDEO_CAPTURE_MPLANE | V4L2_CAP_STREAMING
--			  | V4L2_CAP_READWRITE | V4L2_CAP_IO_MC;
--	vdev->ioctl_ops = &msm_vid_ioctl_ops;
-+	if (meta) {
-+		vdev->device_caps = V4L2_CAP_META_CAPTURE | V4L2_CAP_STREAMING |
-+				    V4L2_CAP_IO_MC;
-+		vdev->ioctl_ops = &msm_vid_meta_ioctl_ops;
-+	} else {
-+		vdev->device_caps = V4L2_CAP_VIDEO_CAPTURE_MPLANE |
-+				    V4L2_CAP_STREAMING | V4L2_CAP_READWRITE |
-+				    V4L2_CAP_IO_MC;
-+		vdev->ioctl_ops = &msm_vid_ioctl_ops;
-+	}
- 	vdev->release = msm_video_release;
- 	vdev->v4l2_dev = v4l2_dev;
- 	vdev->vfl_dir = VFL_DIR_RX;
+ 	return 0;
+@@ -2490,6 +2564,7 @@ int msm_vfe_register_entities(struct vfe_device *vfe,
+ 		sd = &vfe->line[i].subdev;
+ 		video_out = &vfe->line[i].output[0].video_out;
+ 
++		vfe_unregister_stats_node(&vfe->line[i]);
+ 		msm_video_unregister(video_out);
+ 		v4l2_device_unregister_subdev(sd);
+ 		media_entity_cleanup(&sd->entity);
+@@ -2513,6 +2588,7 @@ void msm_vfe_unregister_entities(struct vfe_device *vfe)
+ 		struct v4l2_subdev *sd = &vfe->line[i].subdev;
+ 		struct camss_video *video_out = &vfe->line[i].output[0].video_out;
+ 
++		vfe_unregister_stats_node(&vfe->line[i]);
+ 		msm_video_unregister(video_out);
+ 		v4l2_device_unregister_subdev(sd);
+ 		media_entity_cleanup(&sd->entity);
 
 -- 
 2.55.0
