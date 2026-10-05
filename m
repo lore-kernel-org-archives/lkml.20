@@ -1,141 +1,210 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 0C86336197E
-	for <linux-kernel@vger.kernel.org>; Mon,  5 Oct 2026 06:41:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from mail-wr1-f46.google.com (mail-wr1-f46.google.com [209.85.221.46])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 05EFF366042
+	for <linux-kernel@vger.kernel.org>; Mon,  5 Oct 2026 06:41:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.46
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791182501; cv=none; b=eQXA1hyINAXDrr1pcWnUn5d6ZJD+mQIEoYGu2RU6mOKSCudje4B4d04QCuxb82umvy/w1Ip4gFpJUHj09c97d+pNfyjOJNmrXuXbdi6aivRB+8c0Ckd0UUFQmAeboWYCWwQhFglG2pxsNpWdpj/HIPVEqrEmnFz5raGcOf4E8KQ=
+	t=1791182503; cv=none; b=IpEc+UcuQ0FasS0TF6LZItSnqTKSkqIMR3p47ukByivpaeX5OPl4xPLOUmOkyn46UJLu1hoDwROJatwR4lDtObQaRXQcttQO60zJNmhoff4GrDyBnw84pzRk7YnFT+iXughHueyhdC17cnnXKKn4ccNE19u6qVzpJmS5irQyqCc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791182501; c=relaxed/simple;
-	bh=gPS4BaPCtTXPkS/p8WI2ZOze4/Fjezx1OmLe4zcOaeU=;
-	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To; b=WSQP95RBBLHZAX132dk6PBG5GVnhtYY8qivTeOHaLFzR4csu7uHtQsuOftxKiX2pmimc46mCBcmSxYpSilvCE6QgDuG+Wccgf3lUFmt4URAm6v8cwMQAUw7f0jZ6tDGkjQKKTWZJIF3nXuBxr35kwejpo/LI16LbLf8UGoSvrYY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=iJBOFkhy; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	s=arc-20240116; t=1791182503; c=relaxed/simple;
+	bh=yCkXo4sSj6S2ElefNk4UC31+4JoEn9L05JKIXoGqVks=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version:Content-Type; b=pGnBME5WLm6Jd9brLG/YRHnGVq7jkAcxWwKDxNrJfNxYqcTiW7E6fJImeAYWRjCv8wRgSOv91uEjdM1DFj5QX/LA/NZhwG/vinPhGpJpWNrAD6ZTDXP5gx1MRYdTNwphvURbIhYRZGliInx4cmHB4ki78v009II3swphRPk1qmM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=gpefHT+v; arc=none smtp.client-ip=209.85.221.46
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="iJBOFkhy"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id DBACF1595;
-	Sun,  4 Oct 2026 23:41:34 -0700 (PDT)
-Received: from localhost (a085714.arm.com [10.164.19.28])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 88A5B3F763;
-	Sun,  4 Oct 2026 23:41:37 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1791182498; bh=gPS4BaPCtTXPkS/p8WI2ZOze4/Fjezx1OmLe4zcOaeU=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:From;
-	b=iJBOFkhyRkxDNSYu02g9UxsbHGxbruPrgL0D5tGBG06toBL2lw8y5vZyyuenf0q+4
-	 1eOIIWsEa7tWNBClthYMJ/VFcNqRFOCoGaSYEujimXlW7ms7jJX8ZxyFPait/jXuUx
-	 Hrf3cEXGPzzoFMxv490xa3FwfIB0J1XyQUHUg8/M=
-Date: Mon, 5 Oct 2026 12:11:34 +0530
-From: Anshuman Khandual <anshuman.khandual@arm.com>
-To: linux-arm-kernel@lists.infradead.org, akpm@linux-foundation.org, 
-	catalin.marinas@arm.com
-Cc: Catalin Marinas <catalin.marinas@arm.com>, 
-	Will Deacon <will@kernel.org>, Ryan Roberts <ryan.roberts@arm.com>, 
-	Mark Rutland <mark.rutland@arm.com>, Lorenzo Stoakes <ljs@kernel.org>, 
-	Andrew Morton <akpm@linux-foundation.org>, David Hildenbrand <david@kernel.org>, 
-	Mike Rapoport <rppt@kernel.org>, Linu Cherian <linu.cherian@arm.com>, 
-	linux-kernel@vger.kernel.org, linux-mm@kvack.org
-Subject: Re: [PATCH V3 0/4] arm64/mm: Convert pgtable READ_ONCE() as
- pxdp_get()
-Message-ID: <6eghulpg35z63dpimrtw6p6x3zwfllfzjhpkpmgs5vcz4mpoda@poqgboea7nz5>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="gpefHT+v"
+Received: by mail-wr1-f46.google.com with SMTP id ffacd0b85a97d-48b03f23305so1185972f8f.1
+        for <linux-kernel@vger.kernel.org>; Sun, 04 Oct 2026 23:41:41 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791182500; x=1791787300; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=+EGFppMfswXU/fV+uWCD2+0j1OKAXO1MerJRCo45qjU=;
+        b=gpefHT+v+PuWiM2I9C7k22I8aLGVqVvXcYDdoa/DNkxz4fm2nZ2R04FQkr/+o0/R8r
+         SvjRKyHS5vQzGUbOr6O1Ug/h/QSIeVvQWgEzdjHg+c/sp45bzhWKutA6nMLTsRp1tY0I
+         KXh43CeNes6fqNt7imQRYOh0lCV9QD9hVwq9TyZNlTzG6Ixc016GJuMmz05nZvf4+Bwe
+         n6/DYoED59QpRv7shl9ICdeUYkMU8ZyslGwBAdJdt9eDI99zkzAKJdby85alA5oXqN1G
+         6TfxcpsbsyeP+jtsvrxaYhzZ34VrN41pyDIEHg7MT0MrYVAMUH82gI/sVDPaUjad4AgO
+         Thug==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791182500; x=1791787300;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=+EGFppMfswXU/fV+uWCD2+0j1OKAXO1MerJRCo45qjU=;
+        b=vBPJA1qya8byvM78Ye3mdndl4qMcZ+6lKFIL5H8qY2a6M5uctokGfT29jIMk909Cx4
+         oge9N03QOeEzXamURvQjywLcrXyZ5Fd4/YPFI5AKaZ5Q8+0ffjgjGmDaPZ5+cOrKzKyt
+         a9hKyBiXo9KybZ4y+7vTqe/+Tvs2gMLK89bj3ckOU06/s66v0J76Axz3Xg46AV1A/k3T
+         tBq5GhxsawN+7BJXGh7ACOYj45smC05BDcdPzWDT1xky9pBtHwElT1iT15CZ0VPHCKPA
+         ouP5XyuuaY3XGSNo4P+bTxsGMAECbA7VVN8NdNwVElPIGDg22mWIPon3jMBnrYvAdObY
+         xa7g==
+X-Forwarded-Encrypted: i=1; AKwUvBx9junMiWYCaH7l5bniStHl0LKbcvUULDb6vGBaShi9a+8rd9jCgITN8DjkgYTR+wI+vpsRpPGVsOyvwcc=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIsmuOGqpQcW17YE2u7M4Qm8KvbwO3MvWCbOgwWx+xyZOte6x+Y
+	YddFTqiFErx38xguA8+A0mvJcjRR/+mZU2lzpCzhY4+OiryYdzg+qEtv
+X-Gm-Gg: AYBFou21JwcMUyR0sAtL8jahsvkKuUaMGhS624DOv0F2WeBGpKxMpN8WycOV0wYwlVW
+	94m3PH4X0F9CtE4KFWLYh07KDcqmLIgCVLoCxPyuL4jqHMKjxUeQSBWv4iDTKp9WDOYEIQlYChB
+	LJoMXGNVm2QShlCjtr3yyO+uFVEOzjU7eQyH2+trOz2UF2ztlYfzG7cnSHQArgLdEI2UpG4GYQf
+	rFcThsnwaUsqytCN4Hrkbpogm4ejXbUTpLgxN+M+cAaopodqoHqDFkNgm+BfYCGI5chv/QROv1y
+	XXfd+xhM4/Rzif1yr0AvB/HUfbvtcxB8Yt/6Yautwrb6Ms6jrI2hB8DyyRy+ati7mh52QW+9beR
+	zsXqGThlZfErPeWuZqpQj7DdR279mQCuGcL2jBp+rpk6xfId0oI+Mc5IJDygmn4XhyA40EtHh/f
+	KrUU3Hoq8eqYlepimae0Td28K+J+i2C+n1eDb7CyBs7T7cZ1PgJM7gqGFEyZNuOgvHGj9cEZhtw
+	nNKVrZXM9PIhckO1zRs/JjkdGj0jMfdH1Sv7acuajFRqz3aO/zVqcQHNxZQfyfbfESfkFu/OeA1
+	IHuqb3oAcDxlt3f4sJgoyh+FgE9Od0WZ9++FBz4LNZl62ydRe4wOW/z8ea9mO+p0OX5GviugIQn
+	uyac=
+X-Received: by 2002:a05:6000:24c6:b0:48a:f5cb:4356 with SMTP id ffacd0b85a97d-48c4801ac46mr10819804f8f.45.1791182499704;
+        Sun, 04 Oct 2026 23:41:39 -0700 (PDT)
+Received: from localhost.localdomain (dynamic-2a02-3100-b305-2001-39fa-3d24-821a-4eae.310.pool.telefonica.de. [2a02:3100:b305:2001:39fa:3d24:821a:4eae])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48c62289b62sm1666871f8f.20.2026.10.04.23.41.38
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Sun, 04 Oct 2026 23:41:39 -0700 (PDT)
+From: Karl Mehltretter <kmehltretter@gmail.com>
+To: Sumit Semwal <sumit.semwal@linaro.org>,
+	=?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>
+Cc: Karl Mehltretter <kmehltretter@gmail.com>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Jason Gunthorpe <jgg@nvidia.com>,
+	Rob Clark <rob.clark@oss.qualcomm.com>,
+	Jianfeng Liu <liujianfeng1994@gmail.com>,
+	Diederik de Haas <diederik@cknow-tech.com>,
+	Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+	Vinod Koul <vkoul@kernel.org>,
+	Bjorn Andersson <andersson@kernel.org>,
+	linux-media@vger.kernel.org,
+	dri-devel@lists.freedesktop.org,
+	linaro-mm-sig@lists.linaro.org,
+	linux-kernel@vger.kernel.org
+Subject: [RFC PATCH 0/3] dma-buf: warn-only mode for DMABUF_DEBUG
+Date: Mon,  5 Oct 2026 08:41:30 +0200
+Message-Id: <20261005064133.7305-1-kmehltretter@gmail.com>
+X-Mailer: git-send-email 2.39.5 (Apple Git-154)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260924062214.1635078-1-anshuman.khandual@arm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On Thu, Sep 24, 2026 at 11:52:10AM +0530, Anshuman Khandual wrote:
-> Route READ_ONCE() accesses on pgtable entries via level specific generic MM
-> pxdp_get() helpers which platforms could then override when required. These
-> accessors on arm64, will help in ensuring page table accesses are performed
-> in an atomic manner while reading 128 bit page table entries later. But for
-> now they just default to READ_ONCE(), thus preserving existing behaviour on
-> current D64 translation a well.
-> 
-> This is similar to generic MM where all atomic accesses have already been
-> converted from READ_ONCE() into pgtable level specific accessors.
-> 
-> These are preparatory patches for D128 enablement, although standing their
-> own for D64 translation as well. These patches are split from earlier D128
-> V1 series. There are no functional changes here and besides mm kselftests
-> do not show any regression.
-> 
-> https://lore.kernel.org/linux-mm/20260729122452.3797443-1-anshuman.khandual@arm.com/
-> 
-> This series applies on v7.3-rc4 but after applying the following patches on
-> pgtable entry print standardization posted earlier.
-> 
-> https://lore.kernel.org/linux-mm/20260831054331.625505-1-anshuman.khandual@arm.com/
-> 
-> https://lore.kernel.org/linux-mm/20260916044933.2689426-1-anshuman.khandual@arm.com/
+With DMABUF_DEBUG, dma_buf_map_attachment() gives the importer a copy of
+the exporter's sg_table without the struct pages and offsets, and
+without the lengths where sg_dma_len() is a separate field. An importer
+that uses those fields stops working. That is the point of the option,
+but the failure usually shows up somewhere else and says nothing about
+the cause.
 
-Hello Catalin/Andrew,
+Commit 143755bdabaa9 ("dma-buf: Make DMABUF_DEBUG default to y on
+DEBUG_KERNEL kernels"), which I wrote, went into v7.3-rc4. It made the
+default from commit 646013f513f3 ("dma-buf: enable DMABUF_DEBUG by
+default on DEBUG kernels") take effect, and distribution configs
+usually have DEBUG_KERNEL=y. Two reports followed:
 
-The above mentioned dependencies are already in mm-unstable, thus reflecting
-in linux-next as well. Just to rule out merge conflict - this series applies
-cleanly, builds and boots on latest tag next-20261002, which contains above
-dependencies. But please do let me know if there are still some issues in
-resolving this situation - will be happy to help. Thank you.
+- Jianfeng Liu: hardware video decode with drm/msm ends in GPU
+  translation faults [1]. He then sent a revert [2].
 
-- Anshuman
+- Diederik de Haas: rockchip fails to import buffers when playing
+  video, on a config based on Debian's [3].
 
-> 
-> These patches have been hosted here as well.
-> 
-> git@git.gitlab.arm.com:linux-arm/linux-anshuman.git (arm64_pxdp_get_v3)
-> 
-> Changes in V3:
-> 
-> - Added overrides for pxdp_get() and replaced remaining READ_ONCE()
-> - Updated all commit messages as required
-> - Dropped previous tags
-> 
-> Changes in V2:
-> 
-> https://lore.kernel.org/all/20260922061638.3967467-1-anshuman.khandual@arm.com/
-> 
-> - Rebased on v7.3-rc4 along with all latest dependencies
-> - Updated commit messages per Ryan
-> - Added tags from Ryan
-> 
-> Changes in V1:
-> 
-> https://lore.kernel.org/all/20260903060657.2717457-1-anshuman.khandual@arm.com/
-> 
-> Cc: Catalin Marinas <catalin.marinas@arm.com>
-> Cc: Will Deacon <will@kernel.org>
-> Cc: Ryan Roberts <ryan.roberts@arm.com>
-> Cc: Mark Rutland <mark.rutland@arm.com>
-> Cc: Lorenzo Stoakes <ljs@kernel.org>
-> Cc: Andrew Morton <akpm@linux-foundation.org>
-> Cc: David Hildenbrand <david@kernel.org>
-> Cc: Mike Rapoport <rppt@kernel.org>
-> Cc: Linu Cherian <linu.cherian@arm.com>
-> Cc: linux-arm-kernel@lists.infradead.org
-> Cc: linux-kernel@vger.kernel.org
-> Cc: linux-mm@kvack.org
-> 
-> Anshuman Khandual (4):
->   arm64/mm: Use pmdp_get() for PMD accesses
->   arm64/mm: Use pudp_get() for PUD accesses
->   arm64/mm: Use p4dp_get() for P4D accesses
->   arm64/mm: Use pgdp_get() for PGD accesses
-> 
->  arch/arm64/include/asm/pgtable.h | 40 +++++++++++++++++----
->  arch/arm64/mm/fault.c            |  8 ++---
->  arch/arm64/mm/fixmap.c           |  6 ++--
->  arch/arm64/mm/hugetlbpage.c      | 10 +++---
->  arch/arm64/mm/kasan_init.c       | 18 +++++-----
->  arch/arm64/mm/mmu.c              | 60 ++++++++++++++++----------------
->  arch/arm64/mm/pageattr.c         |  8 ++---
->  arch/arm64/mm/trans_pgd.c        | 14 ++++----
->  8 files changed, 95 insertions(+), 69 deletions(-)
-> 
-> -- 
-> 2.43.0
-> 
+In [2] Rob Clark said the problem goes beyond msm and cannot be fixed
+quickly, and Christian König offered to set the default to N for
+another few months [4]. I listed more importers that look affected and
+mentioned this RFC in [5]. As of v7.3-rc6 the default is unchanged.
+
+This series adds DMABUF_DEBUG_WARN as a sub-option of DMABUF_DEBUG. The
+importer still gets a copy, but one that keeps the CPU side of the
+exporter's table. The entries are marked with a new bit in dma_flags.
+sg_page(), sg_nents_for_len() and sg_split() print a rate limited
+message with a stack trace when they see the bit. These CPU-side
+accesses can continue after the report instead of failing because the
+fields were cleared. The report is not a WARN(), so it does not taint
+and does not trigger panic_on_warn. Strict mode remains the default and
+continues to remove the CPU-side fields.
+
+Known limits:
+
+- Only access through sg_page(), sg_nents_for_len() and sg_split() is
+  seen. sg_page() covers sg_phys(), sg_virt() and the page iterators.
+  An importer that reads sg->length or sg->offset directly is not
+  noticed.
+
+- When the option is enabled, every sg_page() tests the flag.
+
+- It selects NEED_SG_DMA_FLAGS, which adds dma_flags and may increase
+  the size of struct scatterlist. It also relies on dma_flags being
+  initialised, as the DMA mapping code already does.
+
+- It finds importers. It does not fix them.
+
+Question for the maintainers: could warn mode be what DEBUG_KERNEL
+kernels get by default, with strict mode kept for CI? Or is an opt-in
+sub-option all that is wanted, if anything? The series does not change
+any default.
+
+Testing, on the commits as posted:
+
+- KUnit, the dma-buf suites, under UML and on x86_64 in QEMU, in strict
+  and in warn mode: 56 passed, 1 skipped (it needs 2 CPUs) each time.
+
+- Builds: x86_64, arm64 and ARM926 with DMABUF_DEBUG_WARN=y, ARM926
+  without DMABUF_DEBUG. Without DMABUF_DEBUG the generated code of
+  dma-buf.o and lib/scatterlist.o is the same as before, except for
+  line numbers.
+
+- IIO DMABUF capture on a Zynq in QEMU, with local device models. The
+  IIO dmaengine buffer calls sg_nents_for_len() on the attachment's
+  table. In strict mode with NEED_SG_DMA_LENGTH the capture fails with
+  -EBUSY. In warn mode it works, the kernel is not tainted, and the log
+  has:
+
+  DMA-BUF: importer used the CPU side of an exporter's sg_table
+  CPU: 0 UID: 0 PID: 48 Comm: iio-dmabuf Not tainted 7.3.0-rc4+ #2 VOLUNTARY
+  Call trace:
+   [...]
+   dump_stack_lvl from sg_nents_for_len+0xd8/0xe4
+   sg_nents_for_len from iio_dmaengine_buffer_submit_block+0x4c/0x33c
+   iio_dmaengine_buffer_submit_block from iio_dma_buffer_submit_block.part.0+0x5c/0x104
+   iio_dma_buffer_submit_block.part.0 from iio_dma_buffer_enqueue_dmabuf+0x68/0xa0
+   iio_dma_buffer_enqueue_dmabuf from iio_buffer_chrdev_ioctl+0x520/0x9a4
+   iio_buffer_chrdev_ioctl from sys_ioctl+0x460/0x914
+
+- sur40 behind xHCI and intel-iommu on x86_64 in QEMU, with a one-line
+  test-only change in sur40. Here sg_page() is called in
+  iommu_dma_map_sg(), and the trace leads back to sur40_poll(). The
+  capture itself did not finish in that setup.
+
+Details are in the notes on the patches. Not tested on hardware.
+
+Based on v7.3-rc4-70-gfe2ec83746e5.
+
+An LLM agent helped with the code and the testing.
+
+[1] https://lore.kernel.org/r/20260923074256.9357-1-liujianfeng1994@gmail.com
+[2] https://lore.kernel.org/r/20260926022026.10539-1-liujianfeng1994@gmail.com
+[3] https://lists.freedesktop.org/archives/dri-devel/2026-September/600904.html
+[4] https://lore.kernel.org/r/50a9c1f1-6889-4bd5-b4f7-0500d30d3dd9@amd.com
+[5] https://lore.kernel.org/r/arrAvk4aYQ4sDEzN@gmail.com
+
+Karl Mehltretter (3):
+  dma-buf: keep the DMA flags in the DMABUF_DEBUG copy
+  dma-buf: add a warn-only mode to DMABUF_DEBUG
+  dma-buf: test the debug scatterlist wrapper
+
+ drivers/dma-buf/.kunitconfig |   1 +
+ drivers/dma-buf/Kconfig      |  23 ++++
+ drivers/dma-buf/Makefile     |   1 +
+ drivers/dma-buf/dma-buf.c    |  48 ++++++-
+ drivers/dma-buf/st-dma-buf.c | 253 +++++++++++++++++++++++++++++++++++
+ include/linux/scatterlist.h  |  26 +++-
+ lib/scatterlist.c            |  22 +++
+ lib/sg_split.c               |   2 +
+ 8 files changed, 372 insertions(+), 4 deletions(-)
+ create mode 100644 drivers/dma-buf/st-dma-buf.c
+
+
+base-commit: fe2ec83746e501645709761605c2464a44fd2929
+-- 
+2.53.0
+
