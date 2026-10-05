@@ -1,412 +1,193 @@
-Received: from mail-dl2-f39.google.com (mail-dl2-f39.google.com [74.125.229.167])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 51BEA4DA9A4
-	for <linux-kernel@vger.kernel.org>; Mon,  5 Oct 2026 18:37:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.229.167
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791225476; cv=pass; b=nbeEYrZpeO6YglUx1/u1g+2VCeMfxkcSmUcNVx4k2kEuXY5rJPPz3g2zF02Uf918v+ulNElvPXOm+fyMyqjrWqtSCi03o/BfjsQb/bh/4hQPjb5KpZorhXZ3WHaqwtHEPVVPERDyhueYDN0yWcgjbLUAEaBKu9b0Z9c1lY1jY5E=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791225476; c=relaxed/simple;
-	bh=TRxWNGFhdqQpfPO5v46Kexu45qU4McKCASsfdcBOpnY=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=jvu8cXanpYvQTNEfZwIJOjj9BDtXsH4aPtDYf4I1nX/yYZrpCqMElq/I0+1MjO45w8TTeWlP2F59IFnzTIc6JoKaFAEbuOqe1Qrwcsu60l4UrJWkwf6n15bh59XwCWXVNwK0hdPuze/MMdCoLgqHKy50cyn95IzZz+pEWdGgOUU=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=OMIbriL/; arc=pass smtp.client-ip=74.125.229.167
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 57BCF4DA9A0;
+	Mon,  5 Oct 2026 18:40:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791225604; cv=none; b=FcgvNNX5GjQ5rcyaF8sGp+FV+UFmWohy/whaoYQbn2ePp93ag2B+EGXOU50uQwBhc5rXKAYwqHfKnW0Wcv5+GkTRPX8QJANFIT2kbbH6MvtgVYlyvujgilMrjQhOx+5VJ32dEIueTVcehosx0hVhe772pA1KACWebdsQfPrsMM0=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791225604; c=relaxed/simple;
+	bh=kYrojStYa9f2rkzVS/+86vqhqOx0RVVx0KJzaPqITa8=;
+	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=VUYoVqPSJrJa1nh/4dWwx3RcYTdTH3gTchPnmVPgEQ7oMSkHNrZxbrpVggfMo0PDKy6DHBZe8QX1Y6Aw/5TfG8u2mVuBeg/HAHP/MoALhEfk+PPguA0Z3qAqO+G1bk2k2cE3c+YWhKz7oKod2gpk61G8+MtsofnZjwe/Vrdo1CE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=V4adeSDi; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="OMIbriL/"
-Received: by mail-dl2-f39.google.com with SMTP id a92af1059eb24-1438cb9b3a3so1870369c88.2
-        for <linux-kernel@vger.kernel.org>; Mon, 05 Oct 2026 11:37:54 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1791225473; cv=none;
-        d=google.com; s=arc-20260327;
-        b=WlhRoBmPH1HPXIxQos8fNLnTuFnnHCCjaq12u6/KejaShj1QDnmVrtzDhQB00r3nhV
-         lQacl2Xvo3QQA1fFhPcEftOc/sKXJpoY8W5/V5gjxUUX3iD+cA+BoyG4b0ygirPNmM6h
-         42ShtLV390FzX5YAoZU6UfbX5YrYymVWiWbo4bMwd2nPxtM8ygIcq2JbWDytGWWjrqQE
-         Bk14CYjpb5g+6fe4GnoeXEeVpO3H+a9AKPKCMEMp0D5bBjubfKyUueILtNOLOFXxPaEy
-         HWXraos1aRLZRgLhcR45l/SD1bHMJBbQuP2u+houVn5QVtVf4fD+oTqb9F9Sy4Uke6WC
-         V6Rg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=hQlAwXEHFQ9S4vHabSWS5zY7cMkoUtpZoiB4ZpGvqWA=;
-        fh=rgvxBdk70M6VzVDaC14FJNG4AXsTB63hXVGx8UkhVhA=;
-        b=ifldgEKXmfWXoO5HV4QxzjM1cN2lLIhoi3/re0qMWrYb0JdBqvBzxDcYEu0yQEn3X4
-         Hxqdmt5IM2CBtizjvpNCOATRXzarhkqXfOthPODvakMTY5k4sNvoAFuRe7XtSu7NVqa1
-         iOUgSN4jzmLO7dkNzHjQ0z/8b7DW94SMWvR8vXIRVOJCm+lnOI7fsTgrhk0Q5bhswp0u
-         +adx9HhqXTwWOQHCAFse0FC+RsbLca9VGVjgoiv/Xun3ZZVs2dmY6DDdZE46005oRFV8
-         TeQa/FFa4p4jbebr4V3a7uuirfSqtO1WIRIqoFHenoT4KG6ptZCEPDJvLcFGwAAv/hUW
-         SjLQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791225473; x=1791830273; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=hQlAwXEHFQ9S4vHabSWS5zY7cMkoUtpZoiB4ZpGvqWA=;
-        b=OMIbriL/bZy9sa873iuoXrFabWDUuXstkrd/KEQdJA0OZP+mlNBoIVvL7H6cYaKKXY
-         3B7/4YCs/7k/JbRCTee6IrjEFMJYv9NxBzOCgntyPvCk5RU45dUX3eUhpRbKyyfduJ9c
-         rhN823F/AxzPRBGHQ9NvEoep0X3PQ+RhFp2k7oZdbPzRmMxLaXpVmQCDimcs4dCd7QRp
-         Zrstxp8GvX/UM4V4+k0q9sdKpIrsfXXSW2UX23OQqvBMPu4smm4QEq5nOILOdNt6kkHV
-         HH+48Tcn4hagvSJn3OSbNNEFFchCtT6iA0linEPKrDLHyjTjjVd4JZ9qiPqH3mXRK+EA
-         0Tng==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791225473; x=1791830273;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=hQlAwXEHFQ9S4vHabSWS5zY7cMkoUtpZoiB4ZpGvqWA=;
-        b=wcSKaDxsHx1iD71FrClt95sZ70wpz0mHtKJ2lDcEs7+wCTn9HJCRdgCK8BIHx89gXz
-         t5r3ar2AOQJJbLABLi/2uC/SbEbH89A1MjqX7ujvx/ceenvLU6i/H0zWrV9cd1vX/JV2
-         Jogwo9lGTnoUNBeSwEiuSwB9+IXwDInomyUlrnskrgDh0E6S9R29JPbhrAbREqNNpkb7
-         qE2rOtuvKO9pOx9Z+8JJNFCqgn7Qp/EEfKevxjSxovmWuzCfio+iomlIDCOiGNWQSyEP
-         vlnJHHmdYJGbKFTAktWBkVQaFSm7Ei85iFCtjNj+9u/Y8s7yeH1V4lLmAlMkGQPnaV2L
-         AA2w==
-X-Forwarded-Encrypted: i=1; AKwUvBzA/eiH0VgOsSQX5yaBxRFXSe1xFdKxxht6q2YDZ+dHfvYTarbDI9R1ELe1UTrWfhoC0v/8dcHMsR5DCWM=@vger.kernel.org
-X-Gm-Message-State: AFuF++nkJgNG6Ou03l3u3NT0gkWG/JCViHLcgMjfpdqcQCEJafKs8S7S
-	UHnTl6ditWMZMswdg1Mk4eZZrc3TM3MoANVMR71ZvHiHFyzyWGO4A2Noj18IbAn5eebPpFbNEDd
-	8QX4/OghajMzth9lx77liNlXO3FYvx/A=
-X-Gm-Gg: AYBFou2cClm6TLbIwicqxPLwmmM7mMPhUfiKAYCBBY7cvDp9q8zOJ+8txkcQAjHZ7+G
-	NVIQmx3ymQtTR9Yb/insNrSAHjG4E1cTmS8YfFNNUPBLZwmUvcN1s/u9UEZIHF9D2psbs5BLoGV
-	QN1iMZeGkuFAxvxlxnqSL42VZf+xVWKuwmFvrN7dR3w3x+B7z1ZsjItgd2mZ7MCo+RsmAbTembl
-	YRTTbGvxqmkgjKtqMMd8dXZhqWaPewR0Q3ccnHSiUngSh5iXOYGE7GN3nguq44KQtddSjgpVC9g
-	QvJt0HVZcmNBihJH8JM5VuTK4sCgOMEoPDSktA5M+h8Uh/05S6pqOO7yyfXpg+BisMwCCGGJVzm
-	q2ERmsTd1z+cgdp6yfhn5h/H/U9Jj/ZkKdX6EfLyD9TvwkUBDeRi0wzwo5EwyiS3VlXnFfpTs+E
-	NcPowmn7Cxtf/pQPmMyd2gA4MDsalmK3g=
-X-Received: by 2002:a05:7023:b84:b0:14a:5284:1bf5 with SMTP id
- a92af1059eb24-14f5b9fd404mr18332616c88.13.1791225472710; Mon, 05 Oct 2026
- 11:37:52 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="V4adeSDi"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9ACAF1F000FF;
+	Mon,  5 Oct 2026 18:39:59 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791225600;
+	bh=EyJBhpnt+a00Z6n4RfwT1Ttm6wadK+l2MLfsyB5eVlE=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=V4adeSDiis4Tu3mLwOrA4li1WNPNYoKuTp3nBZss3a1FwwsUcAo1AGl3Z0XwuWZfz
+	 CIIfcTL7MdxfXWSSzMnMZu29toQ/vvwEjSDdoUq/+C4Swgy82eeDwC7xdWiMh6lg7r
+	 DDYx+90xv18geUveeDvYvS6+v73i6xEIjosU+RCVhTxT0aqrBHF3mZfinRrKEqigOo
+	 bJLgpWmf2MR+rMRnbttWCLEkE9587+eoefTF3SqyPA5UIBmC29lLgPXXViHyyPKkLd
+	 HUs6CIpz0Ng6gkxzejpV66YgyIuEpsHyNapA6yRVVKLIbkyLpf0q0xOUaCRvRFiqr7
+	 ZMsu/MGMKepNQ==
+Subject: Re: [PATCH net v2 1/2] ipv6: serialize address publication with
+ device teardown
+From: netdev-bot+sashiko@kernel.org
+To: 4ncienth@gmail.com
+Cc: dsahern@kernel.org, idosch@nvidia.com, davem@davemloft.net,
+ edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com, horms@kernel.org,
+ netdev@vger.kernel.org, linux-kernel@vger.kernel.org
+Date: Mon, 05 Oct 2026 18:39:59 +0000
+Message-ID: <179122559913.434549.12720841717630168470@kernel.org>
+In-Reply-To: <20261004183639.3773498-2-4ncienth@gmail.com>
+References: <20261004183639.3773498-2-4ncienth@gmail.com>
+X-sashiko-severity: High
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <CABZrw2HcaOh3DHTJtxU5dXrb3Vg19scr6+qR-xe_+R7rME35_Q@mail.gmail.com>
-In-Reply-To: <CABZrw2HcaOh3DHTJtxU5dXrb3Vg19scr6+qR-xe_+R7rME35_Q@mail.gmail.com>
-From: "Perlow, Jason" <jperlow@gmail.com>
-Date: Mon, 5 Oct 2026 14:37:38 -0400
-X-Gm-Features: AclHuK_CcX3L73EjkzAgLR0Rz_ApNrzl0SBmsWs0SCnQ38SLSykgSI5uaAveYEw
-Message-ID: <CABZrw2FEsTL=qkFyrRbyET6-7ZvEu6-p8KS=4fH95vGQ2A0f1A@mail.gmail.com>
-Subject: Re: [REGRESSION] PCI/AER: MacBookPro16,1 powers off ~20 s after boot
-To: Lukas Wunner <lukas@wunner.de>, Bjorn Helgaas <bhelgaas@google.com>
-Cc: linux-pci@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	regressions@lists.linux.dev, Aditya Garg <aditya.garg@linux.dev>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
 
-Follow-up: the trigger is one device, the T2 Secure Enclave function
-(106b:1802, 04:00.2).
+Thank you for your contribution! Sashiko AI review found 1 potential
+issue(s) to consider.
 
-To find which device matters I built a diagnostic kernel on v7.3-rc6
-(same config and recipe as the bisect, no revert). It adds a boot
-parameter, aer_anfe_skip=3D<list>, that leaves the Advisory Non-Fatal
-bit masked on the listed devices (a BDF, a vendor:device pair, or
-"all") and logs one line per device at unmask time. Without the
-parameter it behaves as v7.3-rc6 does.
+Critical: 0 · High: 1 · Medium: 0 · Low: 0
 
-Each boot ran on the same MacBookPro16,1, with kernel messages
-streamed over the network. A cut means the machine powered off with
-no clean shutdown; every cut so far has come before 27 s.
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
 
- #  masked (skipped)                      result
- 1  all five functions that latch it      survived
- 2  04:00.0 04:00.1 04:00.2 04:00.3       survived, 343 s
-    (the four Apple functions only;
-    the AMD switch port 01:00.0 unmasked)
- 3  04:00.0 04:00.1 only                  powered off at 14 s
-    (NVMe and T2 Bridge; Enclave and
-    Audio unmasked)
- 4  04:00.2 only (106b:1802)              survived, 120 s
+- [High] The patch leaves a teardown race open that leaks a reference and
+  has the same symptom it sets out to fix.
 
-So the AMD switch port is not involved. Test 3 cuts with the Enclave
-and Audio unmasked, and test 4 survives with Audio still unmasked, so
-unmasking the bit on 04:00.2 alone is what triggers the power-off.
-Each case was run once; I can repeat them if that would help.
+--
 
-I still do not know why the T2 reacts. No AER message is logged before
-the cut, and the Uncorrectable Error Status of that function is clear,
-so this is only about the Correctable path that the commit enables.
+ipv6: serialize address publication with device teardown
 
-Since the bit is only wrong on this one function, a quirk may be
-better than a revert: keep Advisory Non-Fatal Errors masked on Apple
-106b:1802, for example with a DECLARE_PCI_FIXUP_EARLY entry that makes
-pci_aer_init() leave the mask alone. I am happy to write and test
-that patch on both of my T2 machines if you tell me which form you
-prefer (a quirk flag in the PCI core, or a device-specific fixup).
+This patch takes idev->lock around the write of idev->dead in
+addrconf_ifdown(). In ipv6_add_addr() it holds idev->lock across both the
+hash and the device-list publication, and rechecks dead and disable_ipv6
+before publishing. The goal is to stop an address being published on a
+dead idev, which leaks references and makes device deletion hang.
 
-The diagnostic patch, the lspci -vvv output and the captured boot
-logs are available on request.
+> diff --git a/net/ipv6/addrconf.c b/net/ipv6/addrconf.c
+> index c90ee6dd7446c..426739abb0744 100644
+> --- a/net/ipv6/addrconf.c
+> +++ b/net/ipv6/addrconf.c
+> @@ -1168,14 +1168,20 @@ ipv6_add_addr(struct inet6_dev *idev, struct ifa6_config *cfg,
+>  
+>  	rcu_read_lock();
+>  
+> -	err = ipv6_add_addr_hash(idev->dev, ifa);
+> +	write_lock_bh(&idev->lock);
+> +
+> +	if (idev->dead)
+> +		err = -ENODEV;
+> +	else if (READ_ONCE(idev->cnf.disable_ipv6))
+> +		err = -EACCES;
+> +	else
+> +		err = ipv6_add_addr_hash(idev->dev, ifa);
+>  	if (err < 0) {
+> +		write_unlock_bh(&idev->lock);
+>  		rcu_read_unlock();
+>  		goto out;
+>  	}
+>  
+> -	write_lock_bh(&idev->lock);
+> -
+>  	/* Add to inet6_dev unicast addr list. */
+>  	ipv6_link_dev_addr(idev, ifa);
+>  
 
-Thanks,
-Jason Perlow
+[Severity: High]
+Can the same kind of leak still happen for temporary addresses after this
+change?
 
-On Mon, Oct 5, 2026 at 1:53=E2=80=AFPM Perlow, Jason <jperlow@gmail.com> wr=
-ote:
->
-> Hi Lukas, Bjorn,
->
-> Since commit eddba19b8b5f ("PCI/AER: Support Advisory Non-Fatal
-> Errors"), first in v7.3-rc1, an Apple MacBookPro16,1 (T2 chip) loses
-> power 17 to 24 s after boot. v7.2.9 is fine; v7.3-rc5 and v7.3-rc6 are
-> not. Bisection lands on that commit, and v7.3-rc6 with only that
-> commit reverted no longer powers off. aer.c has not changed since, as
-> of v7.3-rc6-3, so I expect it is still unfixed; I did not find an
-> existing report.
->
-> Hardware
-> --------
->
-> MacBookPro16,1 with an AMD Navi 14 dGPU and the Apple T2. The bisect
-> machine has a Core i7-9750H; a second unit of the same model, used for
-> cross-checks, has a Core i9-9980HK. I have not tested any other T2
-> model. The internal SSD, the T2 and the audio device are functions of
-> one Apple PCIe device behind root port 00:1b.0:
->
->   04:00.0 Apple ANS2 NVMe          [106b:2005]
->   04:00.1 Apple T2 Bridge          [106b:1801]
->   04:00.2 Apple T2 Secure Enclave  [106b:1802]
->   04:00.3 Apple Audio Device       [106b:1803]
->
-> Symptom
-> -------
->
-> The machine powers off abruptly 17 to 24 s after boot. There is no
-> shutdown sequence; the previous boot's journal simply ends. Nothing is
-> logged beforehand: no AER message, no oops, no lockup, no thermal
-> event. The T2 controls power on these machines, so I assume (but
-> cannot show) that the T2/SMC removes power.
->
-> Bisect
-> ------
->
-> v7.2.9 good, v7.3-rc5 bad. Vanilla mainline trees, no out-of-tree
-> patches in the kernel image, CONFIG_PCIEAER=3Dy,
-> CONFIG_ACPI_APEI_GHES=3Dy, kernel messages captured over the network.
-> 19 steps, 4 skipped because those trees oops early for an unrelated
-> reason (the ones I looked at were in thunderbolt icm_probe at about
-> 5 s). Good boots were watched for 55.8 to 69.7 s; bad boots stopped
-> logging between 17.9 and 24.1 s. The complete history, every commit
-> tested and every result, is in Appendix B, and the exact method in
-> Appendix A. The result:
->
->   # first bad commit: [eddba19b8b5f] PCI/AER: Support Advisory
->   # Non-Fatal Errors
->
-> Revert test, v7.3-rc6, same config:
->
->   v7.3-rc6 unmodified:            powers off at 16.7 s
->   only eddba19b8b5f reverted:     survives the full 64 s capture
->
-> With that revert on top of 7.3.0-rc6 plus the out-of-tree t2linux
-> series (one kernel image, built once), a normal desktop runs on both
-> MacBookPro16,1 units: the second one has been up for more than 45
-> minutes, and the bisect machine ran sessions of 32 and 22 minutes.
-> For completeness: the bisect machine once lost power after about 10
-> minutes while I was manually switching the display mux and powering
-> off the AMD GPU, which I do not expect the firmware to support. I
-> have not established the cause and have no evidence either way on
-> whether it is related.
->
-> Which devices are affected
-> --------------------------
->
-> On v7.2.9, where the Advisory Non-Fatal Error bit is still masked, the
-> Correctable Error Status register has AdvNonFatalErr latched on
-> exactly these functions, with every Uncorrectable Error Status
-> register clear:
->
->   04:00.0 04:00.1 04:00.2 04:00.3  (the Apple device above)
->   01:00.0 AMD Navi 10 XL PCIe switch upstream port [1002:1478]
->
-> The pattern is identical on both MacBookPro16,1 units (same model, so
-> this says nothing about other T2 models). The Titan Ridge 4C bridges
-> and NHI on the same machine do not have the bit set.
-> These devices report the advisory bit without any matching
-> Uncorrectable Error status, which looks like the "non-compliant
-> products" case the commit message mentions.
->
-> Only one of the two machines was used for the bisect and the
-> power-off tests above. I have not yet booted an unreverted 7.3 kernel
-> on the second one, so I cannot yet say that the power-off reproduces
-> there.
->
-> Control: an ASUS ROG Zephyrus M15 GU502LV (i7-10750H, RTX 2060, no
-> T2) has the same bit latched on its NVIDIA TU106 functions
-> [10de:10f9, 10de:1ada, 10de:1adb] and on Titan Ridge 2C [8086:15e7,
-> 8086:15e8, 8086:15e9]. It ran a 7.3.0-rc6 build with the commit
-> applied (plus the t2linux series) for more than 15 hours without a
-> problem, and the same reverted kernel image as above also runs on it
-> normally. So unmasking the bit is not harmful in general; something
-> specific to the T2 platform is.
->
-> What I do not know
-> ------------------
->
-> Which device triggers the power-off, and why. My guess, and it is
-> only a guess: treating a possible Advisory Non-Fatal Error as
-> non-Advisory and recovering through the uncorrectable path resets or
-> disturbs a T2 function, and the T2 then powers the machine down. I
-> intend to build a diagnostic kernel that can leave the bit masked per
-> device to find out which one.
->
-> Possibly related, different symptom: "PCI/portdev: Disable AER for
-> Titan Ridge 4C 2018" (Atharva Tiwari, January 2026) concerned AER
-> warnings on T2 iMacs.
->
-> What I am asking
-> ----------------
->
-> Which direction would you prefer: a revert, or a quirk that keeps
-> Advisory Non-Fatal Errors masked on the affected Apple functions (and
-> possibly the AMD switch port)? The t2linux project carries a revert
-> for now: https://github.com/t2linux/linux-t2-patches/pull/70
->
-> I can test patches on real hardware and can provide full lspci -vvv
-> output, the complete bisect log and the captured boot logs.
->
-> #regzbot introduced: eddba19b8b5f76d57424ee328a68fd495c5db857
->
-> Thanks,
-> Jason Perlow
->
->
-> APPENDIX A - METHOD
->
-> Machine: one MacBookPro16,1 for every boot below, running a Debian
-> trixie userland from its internal SSD. The distribution's 7.2.9 kernel
-> was the default boot entry between tests.
->
-> Build: git bisect in a clone of torvalds/linux (git.kernel.org). Each
-> candidate was built on a separate x86-64 build host (16 threads, gcc
-> 15.2.0, binutils 2.46) with the same recipe:
->
->   cp bisect-trimmed.config .config
->   make olddefconfig
->   make -j10 bindeb-pkg LOCALVERSION=3D-bisN-vanilla-rc0 \
->        KDEB_PKGVERSION=3D<release>-1
->
-> bisect-trimmed.config is a 7.3.0-rc5 configuration trimmed to build
-> quickly (2068 options built in, 204 modules). It has CONFIG_PCIEAER=3Dy,
-> CONFIG_PCIE_DPC=3Dy, CONFIG_PCIEASPM=3Dy, CONFIG_ACPI_APEI=3Dy and
-> CONFIG_ACPI_APEI_GHES=3Dy. The same file was used for all 19 steps and
-> for both v7.3-rc6 tests. No out-of-tree patches were applied to the
-> kernel. The release strings come from each tree's Makefile, so commits
-> on 7.2-based topic branches show as 7.2.0.
->
-> Boot: the .deb packages were installed on the laptop and booted through
-> a one-shot rEFInd entry; the default entry stayed the stable kernel.
-> Kernel command line for every test boot:
->
->   console=3Dtty0 ignore_loglevel keep_bootcon initcall_debug
->   printk.time=3D1 log_buf_len=3D16M panic=3D0 fbcon=3Dfont:TER16x32
->   systemd.show_status=3D1 systemd.unit=3Dmulti-user.target
->   modprobe.blacklist=3Dsbs,sbshc
->   systemd.mask=3Dncz-usb2-rescan.service
->   systemd.wants=3Dncz-netlog.service
->
-> (plus the root=3D options). So there was no graphical session. sbs and
-> sbshc are the ACPI smart battery drivers; ncz-usb2-rescan is an
-> unrelated distribution boot workaround. Steps 13 to 19 and the two
-> v7.3-rc6 tests also had module_blacklist=3Dthunderbolt,t2thunderbolt,
-> added after the early oopses (in thunderbolt icm_probe, at about 5 s)
-> had cost several skipped steps. Steps 1 to 12 ran with Thunderbolt
-> enabled.
->
-> Capture: a small userspace unit (ncz-netlog.service) streams /dev/kmsg
-> and the journal over TCP to a second machine from early multi-user
-> boot, so captures begin at roughly 10 s of uptime. Each capture file
-> records the uptime of its last line.
->
-> Verdicts:
->   good: the machine kept running and logging past the point where bad
->         kernels die (the cut always came before 25 s).
->   bad:  the capture stops before 45 s, the machine stays unreachable
->         for at least 60 s, and the next boot's journal shows the
->         previous boot ending with no clean shutdown.
->   skip: a kernel oops or panic in the capture or the previous boot's
->         journal.
->
-> After a cut the laptop does not restart by itself, so it was powered
-> on by hand and booted the stable kernel; the verdict was then confirmed
-> from the previous boot's journal.
->
-> Caveats:
->   - One machine was used for the bisect and for the power-off tests.
->   - No desktop session was running.
->   - sbs/sbshc were blocked on every boot, and Thunderbolt from step 13
->     on.
->   - The laptop was powered from, and networked through, a Thunderbolt
->     dock during the bisect. An earlier test of a T2-patched
->     7.3.0-rc5 kernel with the dock unplugged also lost power, but I
->     did not repeat the bisect undocked.
->   - Out-of-tree DKMS modules for the T2 hardware (t2smc, t2gmux,
->     t2smp, t2thunderbolt) were installed for these kernels and may
->     have been loaded, which would taint them. An earlier test with
->     those modules blocked still lost power.
->   - Step 12 ran 816 s before an unrelated oops, so it did not show
->     the cut and was treated as a skip rather than as good; this does
->     not change the result.
->   - The device that triggers the cut is not identified.
->
-> APPENDIX B - FULL BISECT HISTORY
->
-> Good: v7.2.9 (5fce161649b4). Bad: v7.3-rc5 (72d3fcf802c4). The first
-> commit tested is the merge base, "Linux 7.2". Observed =3D uptime of the
-> last line captured. Results: 8 good, 7 bad, 4 skip.
->
->  #  commit        result observed   subject
->  1  8d3ae59288f1  good   55.8 s     Linux 7.2
->  2  56ea4e86832d  good   67.7 s     nstree: check listing permission
->                                     before taking a namespace ref
->  3  93e4b3076b5f  bad    24.1 s     Merge tag 'char-misc-7.3-rc1'
->  4  21bd0802cd3f  good   60.1 s     Merge tag 'for-linus' (rdma)
->  5  0b0e645ed2c8  bad    22.9 s     Merge tag 'auxdisplay-v7.3-1'
->  6  e5f92606156a  good   69.5 s     Merge tag 'mm-nonmm-stable-2026-08-
->                                     22-16-57'
->  7  b6b019a1d9b9  good   69.2 s     Merge tag 'parisc-for-7.3-rc1'
->  8  b130a2caf5d3  skip   oops 5.3 s Merge branch
->                                     'pci/controller/tegra264'
->  9  455b454c87bb  good   69.0 s     i3c: mipi-i3c-hci: Add support for
->                                     AMD_PT I3C controller
-> 10  9bb52aa1972d  skip   oops 5.5 s Merge branch
->                                     'pci/controller/dwc-meson'
-> 11  b4b07fb82b9e  skip   oops 5.3 s Merge branch 'pci/wake'
-> 12  651fb94aaf24  skip   oops 816 s alpha/PCI: Fix I/O port accessor
->                                     argument order in
->                                     pci_legacy_write()
-> 13  625ae0ff41e5  bad    19.9 s     Merge branch 'pci/dt-binding'
-> 14  9f91b2b716a0  bad    19.1 s     Merge branch 'pci/procfs'
-> 15  ea55835bc538  bad    23.3 s     Merge branch 'pci/dpc'
-> 16  d358e9ad15c2  bad    22.3 s     Merge branch 'pci/aer'
-> 17  8446e1147f65  good   69.7 s     PCI/AER: Deduplicate logging of
->                                     Error Source Identification
-> 18  f141f74c45c6  good   67.6 s     PCI/AER: Move retrieval of FEP and
->                                     TLP Log into helper
-> 19  eddba19b8b5f  bad    17.9 s     PCI/AER: Support Advisory
->                                     Non-Fatal Errors
->
-> Full hashes of the decisive steps:
->   eddba19b8b5f76d57424ee328a68fd495c5db857  (first bad)
->   f141f74c45c6f774eebdb7e45bd609be5122bfa8  (last good before it)
->   8446e1147f65563d374ffa54dc3ba81adb1342c5
->
-> The v7.3-rc6 tests (a90ee4305c4a) used the same recipe and command line:
-> unmodified, power off at 16.7 s; with only eddba19b8b5f reverted,
-> survived the full 64 s capture.
->
-> --
-> Jason
+The new critical section ends in ipv6_add_addr() once the address is on the
+hash, addr_list and tempaddr_list:
 
+net/ipv6/addrconf.c:ipv6_add_addr() {
+    ...
+	in6_ifa_hold(ifa);
+	write_unlock_bh(&idev->lock);
 
+	rcu_read_unlock();
 
---=20
-Jason Perlow | Argonaut Media Communications
+	inet6addr_notifier_call_chain(NETDEV_UP, ifa);
+    ...
+}
 
-Voice/Text  (954) 242-3484 | jperlow@gmail.com | Blog: techbroiler.net
-Read my Tech and Food Industry articles: https://linktr.ee/jperlow
-Bluesky: https://bsky.app/profile/jperlow.bsky.social
+The ifp reference held by ipv6_create_tempaddr() is handed to the new
+address only after ipv6_add_addr() returns:
 
-Need to schedule a meeting with me? https://bit.ly/3y8P3Gp
+net/ipv6/addrconf.c:ipv6_create_tempaddr() {
+    ...
+	ift = ipv6_add_addr(idev, &cfg, block, NULL);
+    ...
+	spin_lock_bh(&ift->lock);
+	ift->ifpub = ifp;
+	ift->cstamp = now;
+    ...
+	addrconf_dad_start(ift);
+	in6_ifa_put(ift);
+    ...
+}
+
+On the RA path, ipv6_create_tempaddr() runs in softirq without RTNL:
+
+ndisc_router_discovery()
+  addrconf_prefix_rcv()
+    addrconf_prefix_rcv_add_addr()
+      manage_tempaddrs()
+        ipv6_create_tempaddr(ifp, false)
+
+Meanwhile, addrconf_notify() handles NETDEV_CHANGEMTU with
+dev->mtu < IPV6_MIN_MTU by calling addrconf_ifdown(dev, true). The device
+is still up and keeps receiving RAs. This is the same trigger the commit
+message cites.
+
+Suppose addrconf_ifdown() takes idev->lock right after ipv6_add_addr()
+drops it. It sets dead, and the new recheck can't help because the address
+is already published. Step 3 then sees ift on tempaddr_list with ifpub
+still NULL, so it has nothing to drop:
+
+net/ipv6/addrconf.c:addrconf_ifdown() {
+    ...
+		if (ifa->ifpub) {
+			in6_ifa_put(ifa->ifpub);
+			ifa->ifpub = NULL;
+		}
+    ...
+}
+
+The rest of the loop marks ift DEAD, unlinks it and puts it. Then
+ipv6_create_tempaddr() stores ifp in ift->ifpub. addrconf_dad_start() does
+nothing because ift is DEAD, and in6_ifa_put(ift) drops the last reference.
+
+inet6_ifa_finish_destroy() never releases ifpub. Only ipv6_del_addr() and
+Step 3 of addrconf_ifdown() do, and only while the address is still on
+tempaddr_list.
+
+If so, the public ifp stays pinned. That pins its idev, and the idev pins
+the net_device through dev_tracker. Later device deletion would then wait
+forever in netdev_wait_allrefs_any(), which is the symptom described in the
+commit message.
+
+Would it make sense to set ifpub inside the idev->lock publication section,
+for example by passing it into ipv6_add_addr()? Another option would be a
+teardown or destroy path that releases an ifpub attached this late.
+
+> @@ -3897,7 +3903,9 @@ static int addrconf_ifdown(struct net_device *dev, bool unregister)
+>  	 *	   Do not dev_put!
+>  	 */
+>  	if (unregister) {
+> +		write_lock_bh(&idev->lock);
+>  		WRITE_ONCE(idev->dead, 1);
+> +		write_unlock_bh(&idev->lock);
+>  
+>  		/* protected by rtnl_lock */
+>  		RCU_INIT_POINTER(dev->ip6_ptr, NULL);
+
+-- 
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261004183639.3773498-1-4ncienth%40gmail.com
