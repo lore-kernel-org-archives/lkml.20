@@ -1,101 +1,147 @@
-Received: from mail-pj2-f43.google.com (mail-pj2-f43.google.com [74.125.227.171])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E7AE33793B8
-	for <linux-kernel@vger.kernel.org>; Mon,  5 Oct 2026 11:50:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.171
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B9C297081E
+	for <linux-kernel@vger.kernel.org>; Mon,  5 Oct 2026 11:53:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.251.105.195
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791201059; cv=none; b=IkkKq1kD3U+zj9hQVyPWCh5NMx2VqSwfcAqb6+m6WNx2KDjZ71Ct2NOCIJIBYiNyuDxZ8UJG9lZghxaGWcnnU1yuTykex1uLmBno89C7UWffd5YQlxC9iojjolKsaLpvN5OEJ/KeB59gLXNL41QOBcvSr8JefHyNU0/vWJBecEI=
+	t=1791201207; cv=none; b=YgH4IA8m/xlL2DDnxjxBreb9qxtGIsVI+OY1x4QFfJm2F1kz97NX5Ll/dOp5Sf+Li2IP4I95K2VnzHKRF1cnBpQASkeT3tZBoBNS3s2B0OC9vTslJcMlOoDbEUkMkvwPsjM+7LcqvEgm0g9LjVH3VCsVfD+XeYc3fOeVhKJKDgg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791201059; c=relaxed/simple;
-	bh=e3CuOM2eCvGmHoYcmlFPplrZp0K02m2jIXVmvukgLTM=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=MCobp2jAq1gykUE30d9G0tj3xWAE5PNqurbmMVOI7vGDJY2M/Jy137yLJG9JeZVoatCWeRvRdYqgPH72+gRMorLN4BAGfb4N4u1l5JkRzXPrOYF+sllLCwdl8FiQvy7+mxdarFBx0cUoxoFRFB4SxEwnkQqeWsB6ZQG+LXkd64s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=HLauzBld; arc=none smtp.client-ip=74.125.227.171
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1791201207; c=relaxed/simple;
+	bh=1cvRFs3e3GOgEv20ZHhlqN3hVJ2EwB0TmbkyrTnmpbY=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=SEZySo4ckxWYCMH4PcDCED3bDcOWRCsDSc5kWBr+1birtauJRk59SeTwShb3VqZ/4Iqs940jsC2PXuBCg/IKXhaaGvQ272HvyfQEfrB5s0FdlxEgg0O7PLY8IYkTbepMSheZoEERqjykVjTRgDxZtoF/fOcfaNz3qKKLv8NJ8i8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=lNZ6aA3S; arc=none smtp.client-ip=148.251.105.195
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="HLauzBld"
-Received: by mail-pj2-f43.google.com with SMTP id 98e67ed59e1d1-3a4c8262465so1274522a91.2
-        for <linux-kernel@vger.kernel.org>; Mon, 05 Oct 2026 04:50:57 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791201057; x=1791805857; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=e3CuOM2eCvGmHoYcmlFPplrZp0K02m2jIXVmvukgLTM=;
-        b=HLauzBld6OB1jTJcwIjaKdOQlgdQIWME9ns3a3QtMls4+FjLHqc77dM6+iQBw+xZRf
-         qG1LxV098oSnOxSZu/46qi24vR0u+ix+FlWmWbWFIkmjrp5OiO8SyQluqm05tZLTOLUP
-         BPVEHCY6jTXOe1xP47qVnCp0s0oy22jE1vGsTrZoWo8PYRfb2Klvafs73dfNg3s36RfV
-         jgTgtPuzMkqcKpf1r8zZ++G+l9+1a1EeWYifiblZPtD3Hp0o9zRBK0SzsBzdz6bPAWWt
-         Vk2yob0Eb3+Q+SVC0qwPJvJN95+EYqD0LaYpSd6gZH3w25Vi8uQQQA0lvybuT6FlljYN
-         LjWg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791201057; x=1791805857;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=e3CuOM2eCvGmHoYcmlFPplrZp0K02m2jIXVmvukgLTM=;
-        b=cSPnyFfXp+LeUCgbRc0qRbc3EVU+UbEpKkBw8xz4NhEbmAp8n7sdbblHPxj7XZ36K9
-         7cOTWLU/iFzlPZ0N8KzTaym2vixaLyjhdZJXZXbO6V7Vy5NXSeSBhNdqq9MAQhKtHX3J
-         8Q4w24s7zxePWRJs5NsjXujxI38aXRckAq/eKXt1ulC1IANB9HPM9whVYl013SwcIyx6
-         CyJ0eugUz0zlPAsxbyXdIibvght0HjzxCyh/O8p0I0DT+eC/3uugKBsT/I5UJAvyMCAt
-         wILavpP3gaqk5vZSipPzpPJkSNYlecmNqFWBEppWNEJzCCM07B1+0p0D9d3Vao7bRVUN
-         CopQ==
-X-Forwarded-Encrypted: i=1; AKwUvByJwhVULYDrSe+1iIyZAS5atcybjwx+/xAa7cgZ2ZfZOx/OY3N6cfzN85PpOR9xtyQbIa6Cx0ceQfLYCvA=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIPRt+MYyP8iUHPVQVnP1SyUfsIe7ExaA1on1b9IZaJj7QXniS8
-	Iz2g36EPb7jD9cY0Wc+QQzcULkzKcAuxnL8Zk1saIrJJxTeVrQtv6SA=
-X-Gm-Gg: AYBFou0+24m8YHcQMzSr+t420wpe1oJabxEH2ubrxBrbzPRFDPFvF45D8n07Eps8pOt
-	hgVbg4J2Z1rTmKCPUBRiB1l1wVLSox4pi+p2bJRSsgtS/bThYpBR0eCX6PUaGWv7RWltIRJDVnN
-	e79DzziebDWwnuAPp+TJ3qiv2ukT1qGJKweKK8BGqanezRfUEtwg/NN4Qi41FqnUCnEYbOoP5Ub
-	0Lj16nUfzxTegtTeyPn0gNbRoCC/dCLIenTnrdLxPx1xhF3PXN83vk1MDOKyVNMzsPd6wK/8a2e
-	6Q+qECx3V1zCNK1BHcxdxvSlJsE/dINczmOagfsL7Oow8Z90C4irJW5nqxzp9b0k3jMVrSdhzlN
-	UhRaU8LnR8ymKQhd24QN1bw7igdRZcl2dSpehRhOTvFQkgcZqDguEj3M/ZKhr5g8lDacbxaaz/G
-	fqwOHwP86teP2ZBomcWrc9IHXz8y4fhXXZktnG7aheYyum772StTPHnWe6q8OMFu+prOi+62iUe
-	yC6kRy8fcIjyehrPEDZncZ2jt4=
-X-Received: by 2002:a17:90b:17ca:b0:3a7:f45:5cbf with SMTP id 98e67ed59e1d1-3a70f45678amr6816057a91.28.1791201057185;
-        Mon, 05 Oct 2026 04:50:57 -0700 (PDT)
-Received: from ydg-Zenbook-14-UM3406GA ([2001:2d8:7102:e8f6:be5c:45bf:9b70:944a])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a78e4262f0sm11942752a91.4.2026.10.05.04.50.53
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 05 Oct 2026 04:50:56 -0700 (PDT)
-From: Donggeun Yoo <donggeunyoo.kernel@gmail.com>
-To: linux-mm@kvack.org,
-	linux-kselftest@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Cc: peterx@redhat.com,
-	surenb@google.com,
-	aarcange@redhat.com,
-	ljs@kernel.org,
-	liam@infradead.org,
-	vbabka@kernel.org,
-	mhocko@suse.com,
-	shuah@kernel.org,
-	kas@kernel.org,
-	donggeunyoo.kernel@gmail.com
-Subject: Re: [PATCH v4 2/2] selftests/mm: add tests for UFFDIO_MOVE of a uffd-protected swap entry
-Date: Mon,  5 Oct 2026 20:50:51 +0900
-Message-ID: <20261005115051.3950585-1-donggeunyoo.kernel@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <4a24f7b1-65f7-4947-a325-7c9e9f642f2a@kernel.org>
-References: <20261003103030.63380-3-donggeunyoo.kernel@gmail.com> <4a24f7b1-65f7-4947-a325-7c9e9f642f2a@kernel.org>
+	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="lNZ6aA3S"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+	s=mail; t=1791201203;
+	bh=1cvRFs3e3GOgEv20ZHhlqN3hVJ2EwB0TmbkyrTnmpbY=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
+	b=lNZ6aA3SkHmVAFvrtWo7caeNZEV9FCAt43KunoyBwuP7UPLdDLDQFrLumCxxG5kgv
+	 GW5QLGgL8AnNEv6MPWcYaOkcWmmYAAvUja9oip5jELj5Kvj1pG1cY9kxqvUlRnEHmL
+	 6CU6+mLl3c/Z3qyp/wH8q6V2WttayIRfCRgUD8dWp4vaEokGHtMh3i4Tw6y99qN8Aa
+	 NEUsJ9hEhNeXcOF1x0PjSeJ/Mg0N8JRtyM6tZphJMynOKxOI1zWJKf8XWSXYyQRIVZ
+	 qoNbF9ojBADZ8bTgLZXzv2hVwBT7h0v6UBpfbv9b8PFIDAy9KiIAAo6verCGED/+Qe
+	 VhnJjgZg5FyhQ==
+Received: from fedora-61.home (unknown [100.64.0.11])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange secp256r1 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	(Authenticated sender: bbrezillon)
+	by bali.collaboradmins.com (Postfix) with ESMTPSA id 3761E17E006F;
+	Mon, 05 Oct 2026 13:53:23 +0200 (CEST)
+Date: Mon, 5 Oct 2026 13:53:12 +0200
+From: Boris Brezillon <boris.brezillon@collabora.com>
+To: Steven Price <steven.price@arm.com>
+Cc: Liviu Dudau <liviu.dudau@arm.com>, =?UTF-8?B?QWRyacOhbg==?= Larumbe
+ <adrian.larumbe@collabora.com>, Akash Goel <akash.goel@arm.com>, Maarten
+ Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard
+ <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, David Airlie
+ <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 4/5] drm/panthor: Actually check huge-page mapping on
+ sparse regions
+Message-ID: <20261005135312.43d132cf@fedora-61.home>
+In-Reply-To: <678b9346-a53d-49bd-9c90-fa63e6c81169@arm.com>
+References: <20260924-panthor-fix-partial-unmap-v2-0-59a68a1f9e14@collabora.com>
+	<20260924-panthor-fix-partial-unmap-v2-4-59a68a1f9e14@collabora.com>
+	<678b9346-a53d-49bd-9c90-fa63e6c81169@arm.com>
+Organization: Collabora
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-On Mon, 5 Oct 2026 12:43:48 +0200, David Hildenbrand (Arm) wrote:
-> The CI complains as reply to this patch:
-> ...
-> ✗ userfaultfd(2) test failed:
-> # not ok 43 minor-collapse on shmem
+On Mon, 5 Oct 2026 12:03:26 +0100
+Steven Price <steven.price@arm.com> wrote:
 
-Thanks for passing it on. I couldn't reproduce it here. Could you share
-the full log of the failing run, or a link to it?
+> On 24/09/2026 12:04, Boris Brezillon wrote:
+> > With the recent changes to iova_mapped_as_huge_page(), the check for
+> > huge-page mapping of sparse BOs is actually simple:
+> > 
+> > - for a sparse mapping, we know the BO offset any VA in this regions is
+> >   va & (SZ_2M - 1)
+> > - the VA we're searching the BO offset for is the 2M-aligned
+> >   aligned_va value
+> > 
+> > This guarantees that the BO offset to check is always zero in that case.
+> > 
+> > This is simple enough to let the code check if page 0 is a huge page
+> > and save the unmap+map dance when the dummy BO is not backed by a
+> > a huge page. So let's do that and kill the comment that says it's too
+> > complicated.
+> > 
+> > Reviewed-by: Liviu Dudau <liviu.dudau@arm.com>
+> > Reviewed-by: Akash Goel <akash.goel@arm.com>
+> > Signed-off-by: Boris Brezillon <boris.brezillon@collabora.com>  
+> 
+> In itself I can't see anything wrong with this change, so:
+> 
+> Reviewed-by: Steven Price <steven.price@arm.com>
+> 
+> However...
+> 
+> > ---
+> >  drivers/gpu/drm/panthor/panthor_mmu.c | 15 ++++++++-------
+> >  1 file changed, 8 insertions(+), 7 deletions(-)
+> > 
+> > diff --git a/drivers/gpu/drm/panthor/panthor_mmu.c b/drivers/gpu/drm/panthor/panthor_mmu.c
+> > index d2897099763e..01564d250adf 100644
+> > --- a/drivers/gpu/drm/panthor/panthor_mmu.c
+> > +++ b/drivers/gpu/drm/panthor/panthor_mmu.c
+> > @@ -2337,18 +2337,18 @@ iova_mapped_as_huge_page(struct drm_gpuva *mapping, u64 va)
+> >  
+> >  		return false;
+> >  	} else {
+> > -		const struct page *pg = bo->backing.pages[bo_offset >> PAGE_SHIFT];
+> >  		struct panthor_vma *vma = container_of(mapping, struct panthor_vma, base);
+> >  		bool is_sparse = vma->flags & DRM_PANTHOR_VM_BIND_OP_MAP_SPARSE;
+> > +		const struct page *pg;
+> >  
+> > -		/* If the unmapped VMA stands for a sparse mapping, always
+> > -		 * assume the backing storage is a THP, since the overhead of
+> > -		 * unmapping 2MiB worth of 4KiB pages and remapping some of
+> > -		 * them is offset by the logic of working out whether it's
+> > -		 * the opposite case right below.
+> > +		/* BO offset on a sparse mapping is chosen so that 2M-aligned
+> > +		 * VAs point to the start of the BO. Since aligned_va (the
+> > +		 * address we check huge-page against) is 2M-aligned, the BO
+> > +		 * offset is guaranteed to be zero.
+> > +		 * Check panthor_fix_sparse_map_offset() for more details.
+> >  		 */
+> >  		if (is_sparse)
+> > -			return true;
+> > +			bo_offset = 0;
+> >  
+> >  		/* In case of shmem backing, we know we can only have a huge
+> >  		 * mapping if the bo_offset is 2M aligned, meaning we can skip
+> > @@ -2357,6 +2357,7 @@ iova_mapped_as_huge_page(struct drm_gpuva *mapping, u64 va)
+> >  		if (!IS_ALIGNED(bo_offset, SZ_2M))
+> >  			return false;
+> >  
+> > +		pg = bo->backing.pages[bo_offset >> PAGE_SHIFT];
+> >  		return folio_size(page_folio(pg)) >= SZ_2M;  
+> 
+> ... this seems like it could be problematic. On the mapping side we use
+> the scatter list to decide whether the region is huge page mapped or
+> not. The scatter list code can merge segments that are contiguous (see
+> pages_are_mergeable()), so if we have a region which has small folios we
+> fail this check even though the pages might have been mapped as huge pages.
+> 
+> This is a problem on the non-sparse path as well (hence not really
+> related to this patch). I'm not really sure how to test this though - I
+> may well have overlooked something here.
 
-Donggeun
+So, this is based on the assumption that shmem backing is allocated
+with the buddy allocator, and because of how this allocator splits
+bigger order blocks to service smaller allocations, it's my
+understanding that two consecutive folios of the same size/order can't
+be physically contiguous.
