@@ -1,78 +1,75 @@
-Received: from mail-lj1-f173.google.com (mail-lj1-f173.google.com [209.85.208.173])
+Received: from mail-pj2-f39.google.com (mail-pj2-f39.google.com [74.125.227.167])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 80B22490BF8
-	for <linux-kernel@vger.kernel.org>; Mon,  5 Oct 2026 19:12:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.173
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C765B34EEE5
+	for <linux-kernel@vger.kernel.org>; Mon,  5 Oct 2026 19:13:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.167
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791227558; cv=none; b=gEOl6fKyswCN2lvGVXHwyf39l0gKXhvOGemEG6y4JhWz7zgkb4JSrDKMy+ud6o7H145FmZTS2PJoKxmw6YaoT1j4mrxC2SiLqMmq4Ecg5katQQJ+wvuFNSYbfaEgUEE/sUxZCm49pESAGHK63xo6C7euR9d9/UYjKQ55uRccF2Q=
+	t=1791227584; cv=none; b=beOv07RbsADCixicct0IDcX+iXrz+FwCnqJi9W2/TME4PW0zQERSLi25ySvFzqV5t+LX8bwoxlzyg9lfJ8Vx0mD21yKwhILg+6mpU9MFdetLtwmZyJ/3Pi8ODsq932c5fYMFjq1tJoGlnPgVkEfWpZtTQ7RVGDaFmW3cMVd/mr8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791227558; c=relaxed/simple;
-	bh=bGuH6rALRBK+sbzj2wBftT7BD2By1a2L0HSgmfvzPt4=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=aBC/ACnkUzjgADJqEVX5QknqEMCoMhlImIqmStbiYDy0Skg3gNDpGGb+tnFmn8Gq8jjWOU3IYwNcmhkRyXioi2lw3BmP/7bQerAu5vOC4ndNmE6EW5Zl7rj+nuUfsfAfoxcx6y6daTY1KbZAoOYbX5FM8yH7s+VuEeO2kPl1Ezc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=RELXIVWr; arc=none smtp.client-ip=209.85.208.173
+	s=arc-20240116; t=1791227584; c=relaxed/simple;
+	bh=BGMwkFjT+LLKb/t9OZ6A8jAn04l+gtGoLYbfaDbzehU=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=tXQX7o5Be7IgJR360VNAGV9uIz9iagB9IhC7qDXlAoBDr3P6rVJxXQSIiLpu7UQX+GG4KKl7lyciJxe5cSQs8u89QWrT7RspqKW76+3xc7w3g2bbw81CKlUn9EbHFbtOKFOvJbBotToDp4/r469SPlgEmk3Izpzwkbutu1WGWRc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=XyspmF7v; arc=none smtp.client-ip=74.125.227.167
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="RELXIVWr"
-Received: by mail-lj1-f173.google.com with SMTP id 38308e7fff4ca-3a980c01033so14448021fa.3
-        for <linux-kernel@vger.kernel.org>; Mon, 05 Oct 2026 12:12:36 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="XyspmF7v"
+Received: by mail-pj2-f39.google.com with SMTP id 98e67ed59e1d1-3a49b6bb21eso1167961a91.3
+        for <linux-kernel@vger.kernel.org>; Mon, 05 Oct 2026 12:13:02 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791227555; x=1791832355; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1791227582; x=1791832382; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=g3eN2HBqV1SkLIMIkDb0JiBM6JPfW8s3nutw0XArY0U=;
-        b=RELXIVWr8gUb18KfvtKZYf8gj/qL46h7GFKNOCUU5wyPmxGnuK09M9G+s9KD+qHfku
-         f3Df9ukjDGyavrsyDwH82XVsd8e+G0/aekHU/oEupcICwOeq71cLIHdSGM+qOgl4GE/r
-         BpPnlOmR79sUkAmqIX1DnUWbDcdY34G+y7m/7HlsIgjWfrwKz3wnGmH5vF8gv9KT7JTG
-         R0fjmKcEW8RRyt4QudI6ZYALFIH2MFpRWoqf5VA2G9weMnrewOW1DwHecozeqG0XMW8q
-         jlw2OoLsa8xpz64xC3/nLRAEtzkrghNCTuBRQHRwKwOKwAayi7mxNvj9WQC6BU1HXHAy
-         WQBg==
+        bh=sQ5MRPC4I9fA9ZFAcaPBErsj9RjadP4yXm5H6MNvFrM=;
+        b=XyspmF7vdzieI6ZinGGYx1IR5UHbzCvxoApu9tBDSvmfP4eubugj0WIZYCyNW/gkgI
+         VIFLejKMTm1TChpbysUFB6J3a5p84/i48QKMUOizOHqB10dduIq0Ty9MxEDnlkLe1hBh
+         wj73fG6nPk9A9HHX1/3Tk1RL5aNc+vhZ0gZ3VIzaim/bCLL1LQzBUcy25rc2vGUqHdeW
+         AXDhvzSDpw8PLS6s7GLlc5NG0JaQoZxfYTU89GmsxJufiBDC+mGsP4FRYX4H+0Vzj/mz
+         KIOwUBKRyum5I8L4VZKEc6vysOl3QV3ahfcwXI3gGjH6vDxCqZ7I3scn5v32Izf/3V7B
+         hkIQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791227555; x=1791832355;
+        d=1e100.net; s=20260707; t=1791227582; x=1791832382;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=g3eN2HBqV1SkLIMIkDb0JiBM6JPfW8s3nutw0XArY0U=;
-        b=QcJOefoV9K6eShZohol0E+sq0Y6olp7ERUl4ktrxTK5QMzbIgXDfHUQvH9hl+5t3Ag
-         sQtKEnK9FzaQEzwXLPDcMaaSGmlfxJZriwu186UckK0Nl1YDMFuZPTcGDb14QNrBb+23
-         Xpn8kMN4ec+ItdULHrijDjW84cMNcudkvcaAgAvMv2QKIRX2atg811KcPITNxZSL0sYh
-         FP1g3X3VJO0Vx3Fx8goLbP3HDO39zo/juw202+cpGtEPK4mU3wipnnUKyZkERbQsouox
-         GZhzHLl7hGd2JjT/7+3024KrrIU8O5meV7VwgtzciTTtaO109VSvF878XN7gQqHsECLB
-         kNwA==
-X-Forwarded-Encrypted: i=1; AKwUvBxK02+E8hydYfsEGsVBKftb5x+5kV2OZOXW4eb159eTcmjikvX+3NV2FvBOO0JSrkoHxBQNtaZShIOhhVY=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJUw9w4JT5gnMxQnKc8RDUAlMsWbK3TfhynmYp5uqjeg35Ihcmh
-	YtyXzKgWu7lQ0uqJPvhL7O3L01kgUlPDhdGa41FzoBTU97ygbgIQtYHk
-X-Gm-Gg: AYBFou1Bfy0vBBLvUnIcG6RGEWQ84veajqjCIt4vDzrGmiVNYgLk7DCM95q5QhOg3TJ
-	rfcZmzed0c0vYM3g2pFUhxtPmYoCk7RyPguQCnyZFsVXlYJFvEkhIFG39KaCYN+dzOOii6wYcjN
-	Ofl66SUvhkZ6sMG+S1bvRGln2+d0/4e6r6LdeM4Q4EmPRe5hs87o4yeVPfO7J4l1/4mB7b2pTrw
-	RQ14dajvoqamGmx+FbBCEXBRzcHjcK8mNolRhItP3wej4KqU3+9WWcem7I0oHs+9xZnj7QC1+JN
-	iH/uh3l8se5297iKZCXiY10x6q3ZxsyLuR7BQ7IFvv1uh6hNbW33GDN46Qla9/VEIXMzTD2aLhj
-	HOgQubb0m23GM2gUxxEGEKpA58tCxDPZbuUrHTh8rNdBZL4PVjKr/xdO4dq5SpLx31AVnR/Ufh1
-	nU6TMNrYyVN9lP6LoInIDZqs6+a/UdWfAPy+OXudk7GAyr/mVYkpQ3VUz//MMJOIjgo8SQMt4yE
-	C19Y9b9FYlT3B1Qhe1q7EeiB3vM59WS5onvwhfVfQ==
-X-Received: by 2002:a05:651c:b2b:b0:3a7:67ae:1a52 with SMTP id 38308e7fff4ca-3a974dd0abcmr22579581fa.0.1791227554356;
-        Mon, 05 Oct 2026 12:12:34 -0700 (PDT)
-Received: from dau-home-pc.. ([212.35.161.1])
-        by smtp.gmail.com with ESMTPSA id 38308e7fff4ca-3a87e2f81ffsm44107661fa.7.2026.10.05.12.12.33
+        bh=sQ5MRPC4I9fA9ZFAcaPBErsj9RjadP4yXm5H6MNvFrM=;
+        b=gXz6y+Gl3oLdMWbl93thGSOfR+89SPTZ9aBkPNTxs6UlTEUDJcBo2aNUcWCrYtQKO3
+         WQOEUMisOxyfXBUsTW1JdAzx85ZPqwoUyEcDmGBdmWrZcCxDMWervVUcBCKeuR8Ga39v
+         nO746Q5Z9IpbBzOpif8VWKIAYpLi6t9ZK9Eo52YGBJiUIxBWbH6W/RnJ6/PhePc3GKqT
+         1RBdEdqI5Q6Mr4GBWqAVzA8acUhl/aB+hq1DE0s5yh9/gizr06ZaRp8HesygLt2olMMS
+         qcS5//b+ukhklklWM4EdW1bGwavg5ZzDQY3SGRmdxMWHMSOuWlAmHggGsXB0AELrUVqG
+         DuQQ==
+X-Forwarded-Encrypted: i=1; AKwUvByFQBMhWh3iUumRF5zZRekUTw1YpzyB+haOYWnMiIun+kuMOOFG1sYQ/lfnv1MLqw7LDLVOswnj+GfyDuk=@vger.kernel.org
+X-Gm-Message-State: AFq9FYImM1YCntNAsrnBT+BMjNxfnTTAf7z5hJXPhoZ62XJerZOnoDJC
+	g6MRPLaWHvvlFL0sEA59KxJ8vqwVeGKoT7mFjyM5MGfbIo8psuK8ewkU
+X-Gm-Gg: AYBFou3+L7dfvwwflyAAt1f2LyacoMMaJLwCioN/8oBn7IMXn1FgFRTtuiwmdUIxffE
+	zZV+hg6dB6vsnuBYkjt3UlmCKH7TA0hcZYnFhtdvjRBwgtWpsOFFnl4U2BQ2wKFymLh/vdsPCwm
+	AUDgP9lSZ9BcL9uxSFiz5gwXmamcJIqEPYHfDJ9E6kdlyWRci7RLFze9kWaOqR2xxxNbAMarsKm
+	BJdG1Vh3XNGNMPSrPFm0gPE/iK7svaFzY/WOAh5ei20imSU4pKW6hGQRmQrbOhY6UQ7mD2kYH6d
+	iaHhrFVPl1I6ZPIjNcd8BH6FfRQ3aQ9EbRpPizyspH6xawJNdsCukbdwSnczVXp4FrAnVqIXeQF
+	LXX1y+CdhVBqmI120DljT7k7qotpL3FnApKA6Lss7CTzOAXHNTImIdzSB1FgQHSRFQSjczX+NAD
+	RJtA03bGcKHQudZvDts46Nqf7jl2I4Pcce9vaimLsERXbphnowE/tmJ8/TxYTYKfr4L2L6ZTWlZ
+	JnPpTlfzuYQXFCWXO6OPRFgjiVkuCUyGZRj27RB//AVs3+NbeSQTocS9Bmam08vuLd+b+jE1zWf
+	8Qn/IRoJTD2nq+diqNUSOPbuMLWpKfA9Y3ikR4ymqb3EJCOF
+X-Received: by 2002:a17:90b:1fc7:b0:3a7:9afb:78c5 with SMTP id 98e67ed59e1d1-3a79afb87cemr3208892a91.30.1791227582073;
+        Mon, 05 Oct 2026 12:13:02 -0700 (PDT)
+Received: from ryzen.lan ([2601:644:8000:7a86::e35])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a8543bf138sm801736a91.15.2026.10.05.12.13.00
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 05 Oct 2026 12:12:33 -0700 (PDT)
-From: Anton Danilov <littlesmilingcloud@gmail.com>
-To: netdev@vger.kernel.org
-Cc: David Ahern <dsahern@kernel.org>,
-	Ido Schimmel <idosch@nvidia.com>,
-	"David S . Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>,
-	William Tu <u9012063@gmail.com>,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: [PATCH net] ip6_gre: let collect_md ip6gretap send from the unspecified address
-Date: Mon,  5 Oct 2026 22:12:27 +0300
-Message-ID: <20261005191227.894665-1-littlesmilingcloud@gmail.com>
-X-Mailer: git-send-email 2.47.3
+        Mon, 05 Oct 2026 12:13:01 -0700 (PDT)
+From: Rosen Penev <rosenp@gmail.com>
+To: linux-input@vger.kernel.org
+Cc: Jiri Kosina <jikos@kernel.org>,
+	Benjamin Tissoires <bentiss@kernel.org>,
+	Kees Cook <kees@kernel.org>,
+	"Gustavo A. R. Silva" <gustavoars@kernel.org>,
+	linux-kernel@vger.kernel.org (open list),
+	linux-hardening@vger.kernel.org (open list:KERNEL HARDENING (not covered by other areas):Keyword:\b__counted_by(_le|_be|_ptr)?\b)
+Subject: [PATCH v2] HID: core: use flex array allocation
+Date: Mon,  5 Oct 2026 12:13:00 -0700
+Message-ID: <20261005191300.80818-1-rosenp@gmail.com>
+X-Mailer: git-send-email 2.56.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -81,54 +78,75 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-ip6gre_xmit_ipv6() drops an IPv6 packet whose source address equals the
-tunnel remote, to avoid a trivial tunneling loop. On a collect_md
-ip6gretap device t->parms.raddr is not the exit point: the outer
-destination comes from the per-packet tunnel metadata. Such devices are
-normally created without a remote, so raddr is ::, and the check never
-matches a real tunnel endpoint. It matches every frame sent from the
-unspecified address instead.
+Instead of embedding a pointer in the struct, use a flexible array
+member to avoid the + 1 trick to point to allocation after the struct.
+This also shrinks struct hid_field by one pointer.
 
-On an L2 tunnel those frames are regular link traffic. Duplicate Address
-Detection sends its Neighbor Solicitations from :: (RFC 4862, section
-5.4.2), and MLD reports are sent from :: while an interface has no
-link-local address yet (RFC 3590, section 4). Frames bridged into a
-collect_md ip6gretap device, e.g. with tc tunnel_key and mirred, are
-dropped even though they carry valid metadata, so DAD cannot detect a
-duplicate address on the other side of the tunnel.
+Annotate the array with __counted_by(maxusage) so that FORTIFY_SOURCE
+and UBSAN_BOUNDS can check accesses at runtime. maxusage already
+holds the number of allocated usages, but it was only set after the
+usage table was populated, so move the assignment into
+hid_register_field() right after allocation.
 
-Skip the check for collect_md devices of type ARPHRD_ETHER. It stays for
-L3 ip6gre, where sending a packet with an unspecified source means
-forwarding it (RFC 4291, section 2.5.2), and for ip6gretap without
-collect_md. ip6erspan does not run this check in collect_md mode either.
-
-Fixes: 6712abc168eb ("ip6_gre: add ip6 gre and gretap collect_md mode")
-Cc: stable@vger.kernel.org
 Assisted-by: LLM
-Signed-off-by: Anton Danilov <littlesmilingcloud@gmail.com>
-
+Signed-off-by: Rosen Penev <rosenp@gmail.com>
 ---
- net/ipv6/ip6_gre.c | 7 ++++++-
- 1 file changed, 6 insertions(+), 1 deletion(-)
+ v2: use __counted_by
+ drivers/hid/hid-core.c | 8 +++-----
+ include/linux/hid.h    | 2 +-
+ 2 files changed, 4 insertions(+), 6 deletions(-)
 
-diff --git a/net/ipv6/ip6_gre.c b/net/ipv6/ip6_gre.c
-index e61cb10b50dc..ba1ed459ee79 100644
---- a/net/ipv6/ip6_gre.c
-+++ b/net/ipv6/ip6_gre.c
-@@ -831,7 +831,12 @@ static inline int ip6gre_xmit_ipv6(struct sk_buff *skb, struct net_device *dev)
- 	__u32 mtu;
- 	int err;
+diff --git a/drivers/hid/hid-core.c b/drivers/hid/hid-core.c
+index ec7c2860c93e..76bf4da89d2c 100644
+--- a/drivers/hid/hid-core.c
++++ b/drivers/hid/hid-core.c
+@@ -130,15 +130,14 @@ static struct hid_field *hid_register_field(struct hid_report *report, unsigned
+ 		return NULL;
+ 	}
  
--	if (ipv6_addr_equal(&t->parms.raddr, &ipv6h->saddr))
-+	/* The outer destination of a collect_md tunnel comes from the
-+	 * metadata, so raddr is not its exit point, and hosts on the link
-+	 * bridged into an L2 one do send from :: (DAD, early MLD).
-+	 */
-+	if (!(t->parms.collect_md && dev->type == ARPHRD_ETHER) &&
-+	    ipv6_addr_equal(&t->parms.raddr, &ipv6h->saddr))
- 		return -1;
+-	field = kvzalloc((sizeof(struct hid_field) +
+-			  usages * sizeof(struct hid_usage) +
+-			  3 * usages * sizeof(unsigned int)), GFP_KERNEL);
++	field = kvzalloc(struct_size(field, usage, usages) +
++			  3 * usages * sizeof(unsigned int), GFP_KERNEL);
+ 	if (!field)
+ 		return NULL;
  
- 	if (!t->parms.collect_md &&
++	field->maxusage = usages;
+ 	field->index = report->maxfield++;
+ 	report->field[field->index] = field;
+-	field->usage = (struct hid_usage *)(field + 1);
+ 	field->value = (s32 *)(field->usage + usages);
+ 	field->new_value = (s32 *)(field->value + usages);
+ 	field->usages_priorities = (s32 *)(field->new_value + usages);
+@@ -357,7 +356,6 @@ static int hid_add_field(struct hid_parser *parser, unsigned report_type, unsign
+ 		field->usage[i].resolution_multiplier = 1;
+ 	}
+ 
+-	field->maxusage = usages;
+ 	field->flags = flags;
+ 	field->report_offset = offset;
+ 	field->report_type = report_type;
+diff --git a/include/linux/hid.h b/include/linux/hid.h
+index 8d17b741638c..16e8f19d42c5 100644
+--- a/include/linux/hid.h
++++ b/include/linux/hid.h
+@@ -524,7 +524,6 @@ struct hid_field {
+ 	unsigned  physical;		/* physical usage for this field */
+ 	unsigned  logical;		/* logical usage for this field */
+ 	unsigned  application;		/* application usage for this field */
+-	struct hid_usage *usage;	/* usage table for this function */
+ 	unsigned  maxusage;		/* maximum usage index */
+ 	unsigned  flags;		/* main-item flags (i.e. volatile,array,constant) */
+ 	unsigned  report_offset;	/* bit offset in the report */
+@@ -549,6 +548,7 @@ struct hid_field {
+ 	struct hid_input *hidinput;	/* associated input structure */
+ 	__u16 dpad;			/* dpad input code */
+ 	unsigned int slot_idx;		/* slot index in a report */
++	struct hid_usage usage[] __counted_by(maxusage);	/* usage table for this function */
+ };
+ 
+ #define HID_MAX_FIELDS 256
 -- 
-2.47.3
+2.56.0
 
