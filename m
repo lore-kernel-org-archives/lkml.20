@@ -1,89 +1,89 @@
 Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7A88D440A07
-	for <linux-kernel@vger.kernel.org>; Mon,  5 Oct 2026 09:11:46 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A9421442FD8
+	for <linux-kernel@vger.kernel.org>; Mon,  5 Oct 2026 09:11:49 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791191508; cv=none; b=dC9qlVhj95Fdjqv6eYuNVMX2wM/RSEn3iO1AZ2+membA4t9MRDUMH/IPYZcEEQnSPVkxoO+hWai7VQIan7vdA/EK5CwLMGUi+GqVmhOHaQTjrytRavbamtVGXYMRJHAHwPT1SSBhdUlH5ZtC3U3mgIaxJqpT777Mc9gZtFqC8i0=
+	t=1791191511; cv=none; b=El80uD+6KAeOD0KodHhX5GK2Cl9NFZ/aKCMyRVx8S/nEL0VeZQKhr6NdDiEtxgCU8KJVA4f4RR/Z9hzccFfxhs72v0ZWqY10RHdmqMbQoIPk7Hbup1PcRTHPqyAyG5raDe1MWNj3vOO/0GMmyVuwZkRF0mnPnDxi+yXUNqbjl9k=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791191508; c=relaxed/simple;
-	bh=b4WvXQ0COzU5NuxznFesN5SzpLiS/QR0/NbsHm44HGs=;
+	s=arc-20240116; t=1791191511; c=relaxed/simple;
+	bh=Xq53i4DvREansymo8LhN7blZ3Irmefaf3T+L4KAoc20=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=fWucUHrfyPjtLB1/vHPoj9khqr3jh6pmPv6LSpFloQbwX5R1cwHUgcgjQ5aUAjplI5fVSgGZ/52ypLkzb3np4itWrWMaDDxoupWS/ftugISVs/zL9h2qf0d9iBdnRGS+e+PM+Y4zC97mNMWGPDxv1rkMR0CqqtyS7a9EXaKtmbQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=CYQQnSxi; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=kJUCp3c3; arc=none smtp.client-ip=205.220.180.131
+	 In-Reply-To:To:Cc; b=rfrbOc+JmpCk0RFuJVT3zZoi87g+CxvWRkysWId12ezJer43MKryPnjH80bbbbQwXxAY9TUeko4rmcft9yIik1GbiHCQTnXoQM10JtThJna47CLKr6540Lm/M15VqdZRnvUvNdqUyJ1Kdc+Ezlm9ThV2u7SlYJbFvmpECemBwIw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=ZH+r4pgt; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=LJXAZ+3D; arc=none smtp.client-ip=205.220.180.131
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="CYQQnSxi";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="kJUCp3c3"
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="ZH+r4pgt";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="LJXAZ+3D"
 Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6958xSwC1941664
-	for <linux-kernel@vger.kernel.org>; Mon, 5 Oct 2026 09:11:45 GMT
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6958xRk91941515
+	for <linux-kernel@vger.kernel.org>; Mon, 5 Oct 2026 09:11:48 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
 	cc:content-transfer-encoding:content-type:date:from:in-reply-to
 	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	P0hFYEAWjOWGQHPFsazn/kZWAVEinVYrYfd3wwodbro=; b=CYQQnSxii/jf51Lh
-	EWjcbE3/WoPIMTC5eXlSfQU89FNCsOtZ0nIrp7rNBTzFKg1ZXNizGObyEgbiRhfu
-	yPFNTSyVs/xh28d+duADeuUKR0UDcdn1CIkj+TLhjj2jVyLWHW7gUdwzO1l/9GB7
-	Rs3zvcGQ7gVhtVfzC67L14DRX0mBVBgProqqomh7DQbQih0rNg0m5XdPP/ixC5h9
-	8SY2aZ7vdL35hkI9qlT9repM4+VXkAllQmBqK3oA4gqG4g2WjfjQOn0U/DizrLTB
-	5V66zmIbh4b3W/ERikf6AsZqKeKsNKhc5ZDDz4K+ApXGi3M0rhdOLjUx5W0Iaa1Y
-	/F5B+g==
-Received: from mail-pg1-f200.google.com (mail-pg1-f200.google.com [209.85.215.200])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h2sq8w71n-1
+	ss19VBcc+YgAI+y0F6urtLQpxiZ41oXUqnmy+BcLHWE=; b=ZH+r4pgt4OFf/VOb
+	coBnoqQUPLv2SE3H+o0T+poamtwppGCwIUK4l81sfHz/f752/QHw6A0N6+7iDbQn
+	gYQZ8DUyhNoy+eQCfkGyHbBoMhyaLXO7cmNEsteYeoZV90EWLEcjhwODZtqWFJO5
+	j3ltQQZb2dZxl8slso9am9LjEBjLE9HJI27OascWLD/XpxMiW6aqas/V+bOTjc9X
+	ipARsJavHWH20jh1fOHUVQbK8qkxW3qH7BV7l2yz1YKs/jLKluvs5b5AbRta+bYY
+	5QFb3CDUEp2vszqZ+vuGodEKhrc1MyTI40eoQ8FLmxkef3MnD9h0WjVKwbtNka5Z
+	Zot2IQ==
+Received: from mail-pg1-f199.google.com (mail-pg1-f199.google.com [209.85.215.199])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h2sq8w71u-1
 	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Mon, 05 Oct 2026 09:11:45 +0000 (GMT)
-Received: by mail-pg1-f200.google.com with SMTP id 41be03b00d2f7-cc4922b7c31so1056951a12.1
-        for <linux-kernel@vger.kernel.org>; Mon, 05 Oct 2026 02:11:45 -0700 (PDT)
+	for <linux-kernel@vger.kernel.org>; Mon, 05 Oct 2026 09:11:48 +0000 (GMT)
+Received: by mail-pg1-f199.google.com with SMTP id 41be03b00d2f7-cc489e7a701so1710902a12.2
+        for <linux-kernel@vger.kernel.org>; Mon, 05 Oct 2026 02:11:48 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1791191504; x=1791796304; darn=vger.kernel.org;
+        d=oss.qualcomm.com; s=google; t=1791191507; x=1791796307; darn=vger.kernel.org;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=P0hFYEAWjOWGQHPFsazn/kZWAVEinVYrYfd3wwodbro=;
-        b=kJUCp3c3Ug5WhJnwo6inqJ0S++dSUQWRhKPZ9ArCs1ScThvOedE/vv+cFC0WnTdq+z
-         sjOyp48Y+82CP+e3kPjg7xJQgQdy6dE/FWwC+RcqXslVGT2dC+NakzhbcMzJLetAuZyB
-         9yvDMNdJ2w1HAswDM8CUB7W9VCWZulEd6j8wRrkEwFzvP5VZcWTVG8Vl3s6D7vbxFK3w
-         UhnJYPb+Y4Di4UGX4sPlaDxrSnfWk/nyv20c4tX9l7Ou34ewg0Jvka6rrNTdkkrsRJHG
-         tA69hk6dJyvtPblyJCBmG4FLbtFApvAmuFWKTf9/qZZjKiUasqiemGhFX/EOjpsdaW0C
-         xPLw==
+        bh=ss19VBcc+YgAI+y0F6urtLQpxiZ41oXUqnmy+BcLHWE=;
+        b=LJXAZ+3DPBqMe3oCf5hebgoIhd6oKlheuQPybSsbbxW4nO9ROXZ+3U2nDo8dwjQSFS
+         6e4yit2A8yINfTOZvx9M4ekb1Vihi07aVlrf0gdYDYJkgo+esyiwDM47/nHxXQdlUv4+
+         wkmnz+4h530QUi4Xzeix9q9zqOvxav58TCDVKJsIiZ62HrkvyVAWF78wFTF2xu8OP1n2
+         oPXYYhwCeHUmaGaO4pvA9qSpxIXvO+yncvxAIH58wybix5KK/bWYULnE7mpepiiC08Pt
+         2Iw6u+daNUIQ6e+y86XN+ZvuEA4VhoEo1Pz2rVKN16he4Y+Rcfs8xs+Z4oAsBBYfZLsZ
+         xiOw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791191504; x=1791796304;
+        d=1e100.net; s=20260707; t=1791191507; x=1791796307;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=P0hFYEAWjOWGQHPFsazn/kZWAVEinVYrYfd3wwodbro=;
-        b=pCDomRMwRupd0DJpkkzBFAW9F85+YwMX7pHDOTcI+u2Zb+49QFWX2HtaqSc8vEG4fb
-         ypWrfF9k/eB5MqFebdVBK5D9UlP2drra/9k1mMMz1LClajLeGN/ZMULLfTBq1MQYlIdU
-         nIOG3kTaoVP5PkJ8JEEePIO3yayssywL96r6yn03T6HrCi5WjA/RGHoEn5GP3fnUwcBk
-         Tzv8TLMCBhAvZ1wqxR5pW/3vaSjWgB7L094FqpCKXP3cd+uBBaLuD2G84T8Au6rh2ynA
-         UvtulUIIygx2QEjz5FueedFXuhwQBbgtQj5tW+WMH5Btak+fce5QOQMQk6R5RReX4c+f
-         5H9A==
-X-Forwarded-Encrypted: i=1; AKwUvByvd9X6hENjZL/Vm2PnikVqYq3SPJ1iEj6943TDUiirMW7Ee9uoJ/gV1tCfvz/FSAFZvEDNvMOjgyjaYZY=@vger.kernel.org
-X-Gm-Message-State: AFuF++mVKs5cGGOfwgTwfiP3sfNvqyozOncxq8wmZp+Q2aZSlQK2g9P4
-	n0ubtSFwUdJ5rx1K8wH/3LdG6jvo25ENTEIrVWfRc9dyYejg+TW94AFyfu+HkFPCr+F0dPicWxI
-	vPioKlHtUbqTo2IHH2eklJepLyNyNwRhEjUJED64t7Uu038SO6WsvVchai8mPmFle95i2IL56i/
-	k=
-X-Gm-Gg: AYBFou0uIf1zvvVj0s5jgTRZGIGxYHOAi7yzn33rR/eC555fCwKaKVzX+5k33OSX9G7
-	Y/4eQp51e+mQfNbSeIeZq0O3MUNkd92WXmNxPaGW2kbwkhns4FbcIXR4QVRvg8Cx93tCiTtGono
-	O03ArKPtWmqBMPBXl6vufscrUwf0AtvkLMmxdlncu/VNqKynJosihUAlxFRMq637g6Tryl9QalY
-	CBjquJh6d6Mu/Ev9ZYrS97b7RfUBauectjS5wesIzok82dRDIUNRazuwpGZb5/9e/AY5223F8TJ
-	rabTvRrD7gYzGrcQJ0lRxzgK4rNIkh2XPCl+7trWBXH6JQQZkqWky70jZ4WP9dMIy59yLhJJh1T
-	GU8g9sIgGeXYbG3MxgDQTJYw9J1kc
-X-Received: by 2002:a05:6a21:b82:b0:3cf:a7a5:e310 with SMTP id adf61e73a8af0-3e0bcabf587mr8790547637.9.1791191504205;
-        Mon, 05 Oct 2026 02:11:44 -0700 (PDT)
-X-Received: by 2002:a05:6a21:b82:b0:3cf:a7a5:e310 with SMTP id adf61e73a8af0-3e0bcabf587mr8790527637.9.1791191503758;
-        Mon, 05 Oct 2026 02:11:43 -0700 (PDT)
+        bh=ss19VBcc+YgAI+y0F6urtLQpxiZ41oXUqnmy+BcLHWE=;
+        b=kvtYuGItevcF1rTcXxOn5JIk4QjKhKZ+FRejTAyf1IpE7nKjgjmE2G7Xn7rDV00bD1
+         UewVI9ss672aQ4MPhI8uhhL05LZZPZmye46it4RTCdyCKvylC1CDealt+D79Rej3ejtH
+         cBCK1vCuIw7ockWk4bBp8uTYhVrHJvOiwYvOnP7FOsRMo3Nwz+WYGepJR+hxdsuOx2Gb
+         myufA/GxcoxF6RNv2rgFcElv0EP6OkQiDUdYdzH75xCR1mtQwdyY2E/s88BpsmrQW3kT
+         v825c/hDo4rAM08rYdm4/7OWd3SwADjMaqJuIrADQ8tcxrIfHOJ5+CtRQ93yjPURd3w0
+         14dg==
+X-Forwarded-Encrypted: i=1; AKwUvByFxbhpIdgii60O3Q1xQJXJOG19NM4QhenaRpTwGg99yF50nwhhfsQBAlAbIX4A/k32BEiLFrswju0n1v0=@vger.kernel.org
+X-Gm-Message-State: AFuF++mFgzCAzVM4I2RFRoWwj3Cu8aRJMOWtXL3LkTZsNEGJ6KRwMNwX
+	gEdNi9JtJHpMKFSqQBbtwYxcT8EbUdK+ABGxfVN4vrTxihGU27/mYdsOGKAgVdV4RHvn6q4m7pP
+	rzNNoMZbZWMJY1N1CYD7vO25wc2JjzVcYYw5ryiBIyppYgSl9IkStkdYsSMMDlNP2pzEElObJ5a
+	Y=
+X-Gm-Gg: AYBFou3I9chnxHexkIBcAR+amXOPb5XVUUtdNtRkjAhy0NRsUbvKGBMwJrfB+GI0flm
+	GK61UwwIC21lvqKvquexxQTHoKO2eLou8ox9ZodEkJhbtn25lrUJ7OHtIXdEch2zBpnAwujf+vf
+	a20ApKWKl87htvORKfYvwWVapOAeZtXFqiIKyX/ezipaeHQMjAvdphXAQB7kqc7WDVhF5T2VrBz
+	Q0HUqe7JfVIPXjTd30pRuXBzdUL7eVjo3lnfa+22OZ1PDXuvgqybEm3gjjBNz9h539I0/T2STgf
+	h2+5A+/0//VsUBMC+w80GIyeEkgU+2u6G/zYJbtzIbS1G2flZrUDtevqJbZeNoWwhTmYzUcHfBd
+	uPS7OIdpuGJcwq6uWRL10vakxNsw4
+X-Received: by 2002:a05:6300:2189:b0:3de:4f56:cf03 with SMTP id adf61e73a8af0-3e0bd21770dmr9322458637.69.1791191507359;
+        Mon, 05 Oct 2026 02:11:47 -0700 (PDT)
+X-Received: by 2002:a05:6300:2189:b0:3de:4f56:cf03 with SMTP id adf61e73a8af0-3e0bd21770dmr9322435637.69.1791191506894;
+        Mon, 05 Oct 2026 02:11:46 -0700 (PDT)
 Received: from hu-mkshah-hyd.qualcomm.com ([202.46.22.19])
-        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cce6d8ffc38sm497262a12.15.2026.10.05.02.11.40
+        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cce6d8ffc38sm497262a12.15.2026.10.05.02.11.44
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 05 Oct 2026 02:11:43 -0700 (PDT)
+        Mon, 05 Oct 2026 02:11:46 -0700 (PDT)
 From: Maulik Shah <maulik.shah@oss.qualcomm.com>
-Date: Mon, 05 Oct 2026 14:41:27 +0530
-Subject: [PATCH v5 2/3] soc: qcom: cmd-db: add reverse address-to-name
- lookup
+Date: Mon, 05 Oct 2026 14:41:28 +0530
+Subject: [PATCH v5 3/3] soc: qcom: rpmh-rsc: Output debug information from
+ RSC
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -92,7 +92,7 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261005-rpmh-timeout-debug-v1-v5-2-7b9c457a191c@oss.qualcomm.com>
+Message-Id: <20261005-rpmh-timeout-debug-v1-v5-3-7b9c457a191c@oss.qualcomm.com>
 References: <20261005-rpmh-timeout-debug-v1-v5-0-7b9c457a191c@oss.qualcomm.com>
 In-Reply-To: <20261005-rpmh-timeout-debug-v1-v5-0-7b9c457a191c@oss.qualcomm.com>
 To: Bjorn Andersson <andersson@kernel.org>,
@@ -100,36 +100,35 @@ To: Bjorn Andersson <andersson@kernel.org>,
         Abel Vesa <abelvesa@kernel.org>
 Cc: linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
         Maulik Shah <maulik.shah@oss.qualcomm.com>,
-        Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
-        Navya Malempati <navya.malempati@oss.qualcomm.com>,
-        Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+        "Raju P.L.S.S.S.N" <quic_rplsssn@quicinc.com>,
+        "Raju P.L.S.S.S.N" <quic_rplsssn@quicinc.com>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1791191492; l=4138;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1791191492; l=9923;
  i=maulik.shah@oss.qualcomm.com; s=20240109; h=from:subject:message-id;
- bh=b4WvXQ0COzU5NuxznFesN5SzpLiS/QR0/NbsHm44HGs=;
- b=RNvVzcrs56sHnargdf38NNNxa31yA6gFSFR1dcaqDF8Wv05IZy8BQSFGL0C0IkuLogz0SfzjQ
- ni42ddIpZ6LBnWHGluMjGZk2u1gXzp3XrUOHToAeRI6uMQRQLdgxs+b
+ bh=cGGI6rhEOR5PhXGMHtL1aBSKa+tLjTZuprToKLdnc/Q=;
+ b=WPlt2t9C0kwL/tsaM/A+L0V1jLOpwuOr1sCG1Z7Rpv2lbUzzTdeZme6if2my/NSmnGFhkaaON
+ nwRuTS55uGYDF8oaeW0XCZO0osU2L6sUeWwDC7vVqYjjXMYBgGZdrJW
 X-Developer-Key: i=maulik.shah@oss.qualcomm.com; a=ed25519;
  pk=bd9h5FIIliUddIk8p3BlQWBlzKEQ/YW5V+fe759hTWQ=
-X-Proofpoint-GUID: _-4RNOnSpK94YfkOO7xOU26g_xHbyYQ4
-X-Proofpoint-ORIG-GUID: _-4RNOnSpK94YfkOO7xOU26g_xHbyYQ4
-X-Authority-Analysis: v=2.4 cv=TKzQ2Fla c=1 sm=1 tr=0 ts=6ac369d1 cx=c_pps
- a=oF/VQ+ItUULfLr/lQ2/icg==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
+X-Proofpoint-GUID: s-QpeocjvERRpp2s7cM1Ervf5K2FlCyr
+X-Proofpoint-ORIG-GUID: s-QpeocjvERRpp2s7cM1Ervf5K2FlCyr
+X-Authority-Analysis: v=2.4 cv=TKzQ2Fla c=1 sm=1 tr=0 ts=6ac369d4 cx=c_pps
+ a=Oh5Dbbf/trHjhBongsHeRQ==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
  a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
  a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=3WHJM1ZQz_JShphwDgj5:22
- a=EUspDBNiAAAA:8 a=7Q9v_upN9S1qH8PsicYA:9 a=QEXdDO2ut3YA:10
- a=3WC7DwWrALyhR5TkjVHa:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDA1MDAzNiBTYWx0ZWRfX3673yKoNNlrH
- OnKGaj5A9IV4BFmrvwAKbpLchAAo0gKm3rREX+ytbsYr/z0MxOiBrX6PgMDITUZT99HZGEiJBc4
- ocRkipjkRRlMz7sEpYJOD0dnQ/imRg2FsInxlM06N0yoXgm2d27968Ek/69of+D3k3WsW9YpOVb
- cCSV2uYpctb8qGZbVzFVJhfaues8fpdUG7PTrhzAjrUcKSzaSqZzKqv44MB72UlWko2Ptd4PucX
- mhAuuhgb9Ms7MDPXOBWXfLgRzW4+ESoOQKalxjmgvDqCzTLytjuVTvsPanGmDPxxCF64grBihok
- /+b+81aKAc4uEUjiADI8BQ5SnuSGkKMJBXNA9bk8uVDf5It1dxveInfcsiUGmb/7q+Adtga3EXv
- UOG1rh+A70z0WtDh2KIgw4yhqdpVP9EIeYx379yG0r2XpqIFwAxr4xYv/RIk+Mq/qgE4pau24HQ
- aVOQ0ysID2Zj5cPwPIQ==
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDA1MDAzNiBTYWx0ZWRfXyc4YOPSRwzWo
- +BvzUmRU/LxdY0i62yEFi+MO5s6rcAbbaqv22DYsDKKEW/kJ/VwylD5jWPpWTLUhEx+WIh0SDsM
- lqshffX/R9gsTO/+E8AkGP902TOZ3d4=
+ a=LpQP-O61AAAA:8 a=EUspDBNiAAAA:8 a=dJJuL2mqxW2t2NE-lFUA:9 a=QEXdDO2ut3YA:10
+ a=_Vgx9l1VpLgwpw_dHYaR:22 a=pioyyrs4ZptJ924tMmac:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDA1MDAzNiBTYWx0ZWRfX+QVnxPWPMa05
+ txQVDicO6wIAXzduYaSvjP86SLvQTCtbwPt2TvqGa2Jzfs5xZhTgF/C62jhb/MC7RuNU9/+EsOL
+ pz7MpPujFhEq+ai/po4KjOK5GTlWFy3N8CU2e/fwKAc+LTJ5d52Pzp0XudZqv1PR1Hg0sb7LKk/
+ p+9K0VNkF9eLEKPM6F+swqHOynN2xulBVQEHLl9dQriQtfwUSbKZOu6fdl9JCAyIXeUliFmsRY0
+ kMjv+qK9rbXf231kopyKLA+3m9SOuGwKefOwELA93XrPq2IfYOW+hk6aNsg/2XX9TsCldaiM7QY
+ FOzi6o3JUvRm0hgcaW5Cq+MWDWHC9inLEErWxzfg8JMSm7yHZ1eOv1iuoQOIGQfPTogpFUjqaaC
+ q7MvOp7SV+RbglfOpg+1ApFbrEqUUhk5WvQZ/gUOXm0OWggedSw4A1eoZLCs1rbm5DzY87Os32y
+ 44diI9E5uZYMxIu1kgQ==
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDA1MDAzNiBTYWx0ZWRfXz3R/f9fVbdyy
+ HrP1oqYm/pthg/x525pab5dJpvK4CMBj/Q749FwCCMwsuYBK9zp4HVoUIXa6irTLvoLX1k6gM0o
+ D+pl6jarAE3kDu7zHnjeF3WE64ikKwA=
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
  definitions=2026-10-05_01,2026-10-02_02,2025-10-01_01
@@ -139,121 +138,271 @@ X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
  classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
  reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2610050036
 
-RPMh resource addresses are opaque 32-bit values. While the slave ID
-in bits [19:16] identifies the accelerator type (ARC/VRM/BCM), the
-lower bits encode a resource index that is only meaningful when mapped
-back to the human-readable resource name stored in the command DB
-(e.g. 0x30000 -> cx.lvl).
+From: "Raju P.L.S.S.S.N" <rplsssn@codeaurora.org>
 
-Add cmd_db_read_name() to perform this reverse lookup by iterating
-the command DB entries and matching on address. Unlike other exported
-cmd-db APIs which go through cmd_db_get_header() (which calls
-cmd_db_ready() internally), this function iterates cmd_db_header
-directly for address matching, so it calls cmd_db_ready() itself.
+When an RPMh transfer times out there is no visibility into which
+TCS was stuck, what commands it was carrying, or whether the
+completion IRQ was pending at the GIC. Add rpmh_rsc_debug() to
+capture this state at timeout:
 
-For VRM resources,
-which have up to 4 contiguous 4-byte-aligned addresses per resource,
-the match uses VRM_ADDR() on bits [19:4] so that any sub-address
-(enable, voltage, mode, headroom) resolves to the same resource name.
+- Iterates all in-use TCSes and dumps per-TCS control register
+  state (controller status, AMC mode, IRQ status) and per-command
+  register state (address, data, message ID, completion status).
+  The accelerator type (ARC/VRM/BCM) is decoded from the address
+  using cmd_db_hw_type_str().
 
-Also export CMD_DB_ID_SIZE so callers can size their name buffers
-correctly without open-coding the magic constant 8.
+- Queries the GIC pending state for the RSC IRQ via
+  irq_get_irqchip_state() to distinguish two failure modes:
+  * AOSS firmware did not respond (IRQ never fired)
+  * Linux lockup (IRQ pending at GIC but handler never ran)
 
-Assisted-by: Claude:claude-sonnet-4-5
-Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Reviewed-by: Navya Malempati <navya.malempati@oss.qualcomm.com>
-Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+- Reports the completion object state to cross-check with the
+  IRQ status.
+
+Store the IRQ number in struct rsc_drv to enable the GIC query.
+
+Wire rpmh_rsc_debug() into the rpmh_write(), rpmh_write_batch(), and
+rpmh_read() timeout paths so that all three blocking RPMh callers
+produce the same structured TCS/GIC diagnostic output on timeout.
+
+Signed-off-by: Raju P.L.S.S.S.N <rplsssn@codeaurora.org>
+Co-developed-by: Maulik Shah <maulik.shah@oss.qualcomm.com>
 Signed-off-by: Maulik Shah <maulik.shah@oss.qualcomm.com>
 ---
- drivers/soc/qcom/cmd-db.c | 45 +++++++++++++++++++++++++++++++++++++++++++++
- include/soc/qcom/cmd-db.h |  5 +++++
- 2 files changed, 50 insertions(+)
+ drivers/soc/qcom/rpmh-internal.h |   5 ++
+ drivers/soc/qcom/rpmh-rsc.c      | 100 +++++++++++++++++++++++++++++++++++++++
+ drivers/soc/qcom/rpmh.c          |  14 +++++-
+ 3 files changed, 117 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/soc/qcom/cmd-db.c b/drivers/soc/qcom/cmd-db.c
-index 117f810d5ca4..e1453b194aa3 100644
---- a/drivers/soc/qcom/cmd-db.c
-+++ b/drivers/soc/qcom/cmd-db.c
-@@ -287,6 +287,51 @@ const char *cmd_db_hw_type_str(u32 addr)
- }
- EXPORT_SYMBOL_GPL(cmd_db_hw_type_str);
+diff --git a/drivers/soc/qcom/rpmh-internal.h b/drivers/soc/qcom/rpmh-internal.h
+index 39441a25af9b..4e465bdb5a27 100644
+--- a/drivers/soc/qcom/rpmh-internal.h
++++ b/drivers/soc/qcom/rpmh-internal.h
+@@ -104,6 +104,9 @@ struct rsc_ver {
+  * @tcs_base:           Start address of the TCS registers in this controller.
+  * @id:                 Instance id in the controller (Direct Resource Voter).
+  * @num_tcs:            Number of TCSes in this DRV.
++ * @irq:                IRQ number used by the TCS completion interrupt;
++ *                      stored to allow querying GIC pending state for
++ *                      timeout diagnostics.
+  * @rsc_pm:             CPU PM notifier for controller.
+  *                      Used when solver mode is not present.
+  * @cpus_in_pm:         Number of CPUs not in idle power collapse.
+@@ -131,6 +134,7 @@ struct rsc_drv {
+ 	void __iomem *tcs_base;
+ 	int id;
+ 	int num_tcs;
++	int irq;
+ 	struct notifier_block rsc_pm;
+ 	struct notifier_block genpd_nb;
+ 	atomic_t cpus_in_pm;
+@@ -149,6 +153,7 @@ int rpmh_rsc_write_ctrl_data(struct rsc_drv *drv,
+ 			     const struct tcs_request *msg);
+ void rpmh_rsc_invalidate(struct rsc_drv *drv);
+ void rpmh_rsc_write_next_wakeup(struct rsc_drv *drv);
++void rpmh_rsc_debug(struct rsc_drv *drv, struct completion *compl);
  
-+/**
-+ * cmd_db_read_name() - Look up the resource name for a given RPMh address.
-+ * @addr:  RPMh resource address to reverse-look up.
-+ * @buf:   Output buffer to write the resource name into.
-+ * @len:   Size of @buf; must be at least CMD_DB_ID_SIZE + 1.
-+ *
-+ * Iterates the command DB to find the entry whose address matches @addr.
-+ * For VRM resources, which have up to 4 contiguous 4-byte-aligned addresses
-+ * per resource, the match is performed on bits [19:4] so that any of the
-+ * sub-addresses resolve to the same resource name.
-+ *
-+ * Return: 0 on success, -ENODEV if not found or DB not ready.
-+ */
-+int cmd_db_read_name(u32 addr, char *buf, size_t len)
+ void rpmh_tx_done(const struct tcs_request *msg);
+ int rpmh_flush(struct rpmh_ctrlr *ctrlr);
+diff --git a/drivers/soc/qcom/rpmh-rsc.c b/drivers/soc/qcom/rpmh-rsc.c
+index c4542318eac4..04016439644d 100644
+--- a/drivers/soc/qcom/rpmh-rsc.c
++++ b/drivers/soc/qcom/rpmh-rsc.c
+@@ -10,6 +10,7 @@
+ #include <linux/cpu_pm.h>
+ #include <linux/delay.h>
+ #include <linux/interrupt.h>
++#include <linux/irq.h>
+ #include <linux/io.h>
+ #include <linux/iopoll.h>
+ #include <linux/kernel.h>
+@@ -25,6 +26,7 @@
+ #include <linux/pm_runtime.h>
+ #include <linux/slab.h>
+ #include <linux/spinlock.h>
++#include <linux/string_choices.h>
+ #include <linux/wait.h>
+ 
+ #include <clocksource/arm_arch_timer.h>
+@@ -89,6 +91,7 @@ enum {
+ #define CMD_MSGID_LEN			8
+ #define CMD_MSGID_RESP_REQ		BIT(8)
+ #define CMD_MSGID_WRITE			BIT(16)
++#define CMD_STATUS_TRIGGERED		BIT(0)
+ #define CMD_STATUS_ISSUED		BIT(8)
+ #define CMD_STATUS_COMPL		BIT(16)
+ 
+@@ -693,6 +696,101 @@ int rpmh_rsc_send_data(struct rsc_drv *drv, const struct tcs_request *msg)
+ 	return 0;
+ }
+ 
++static void print_tcs_info(struct rsc_drv *drv, int tcs_id,
++			   bool *aoss_irq_sts)
 +{
-+	const struct rsc_hdr *rsc_hdr;
-+	const struct entry_header *ent;
-+	int ret, i, j;
++	const struct tcs_request *req = get_req_from_tcs(drv, tcs_id);
++	unsigned long cmds_enabled;
++	char rname[CMD_DB_ID_SIZE + 1];
++	u32 addr, data, msgid, sts, irq_sts;
++	bool in_use = test_bit(tcs_id, drv->tcs_in_use);
++	int i;
 +
-+	ret = cmd_db_ready();
-+	if (ret)
-+		return ret;
++	sts = read_tcs_reg(drv, drv->regs[RSC_DRV_STATUS], tcs_id);
++	cmds_enabled = read_tcs_reg(drv, drv->regs[RSC_DRV_CMD_ENABLE], tcs_id);
++	if (!cmds_enabled)
++		return;
 +
-+	for (i = 0; i < MAX_SLV_ID; i++) {
-+		rsc_hdr = &cmd_db_header->header[i];
-+		if (!rsc_hdr->slv_id)
-+			break;
++	if (!req)
++		goto print_tcs_data;
 +
-+		ent = rsc_to_entry_header(rsc_hdr);
-+		for (j = 0; j < le16_to_cpu(rsc_hdr->cnt); j++, ent++) {
-+			u32 ent_addr = le32_to_cpu(ent->addr);
++	data = read_tcs_reg(drv, drv->regs[RSC_DRV_CONTROL], tcs_id);
++	irq_sts = readl_relaxed(drv->tcs_base + drv->regs[RSC_DRV_IRQ_STATUS]);
++	dev_warn(drv->dev, "Request: tcs-in-use:%s state=%d wait_for_compl=%u\n",
++		 str_yes_no(in_use), req->state, req->wait_for_compl);
++	dev_warn(drv->dev, "TCS=%d [ctrlr-sts:%s amc-mode:0x%x irq-sts:%s]\n",
++		 tcs_id, sts ? "IDLE" : "BUSY", data,
++		 (irq_sts & BIT(tcs_id)) ? "DONE" : "WAITING");
 +
-+			if (cmd_db_match_resource_addr(ent_addr, addr)) {
-+				snprintf(buf, len, "%.*s",
-+					 (int)strnlen(ent->id, sizeof(ent->id)),
-+					 ent->id);
-+				return 0;
-+			}
-+		}
++	*aoss_irq_sts |= !!(irq_sts & BIT(tcs_id));
++
++print_tcs_data:
++	/* All TCSes on a given RSC have the same number of commands per TCS. */
++	for_each_set_bit(i, &cmds_enabled, drv->tcs[0].ncpt) {
++		addr = read_tcs_cmd(drv, drv->regs[RSC_DRV_CMD_ADDR], tcs_id, i);
++		data = read_tcs_cmd(drv, drv->regs[RSC_DRV_CMD_DATA], tcs_id, i);
++		msgid = read_tcs_cmd(drv, drv->regs[RSC_DRV_CMD_MSGID], tcs_id, i);
++		sts = read_tcs_cmd(drv, drv->regs[RSC_DRV_CMD_STATUS], tcs_id, i);
++		if (cmd_db_read_name(addr, rname, sizeof(rname)))
++			strscpy(rname, "unknown", sizeof(rname));
++		dev_warn(drv->dev,
++			 "\tCMD=%d [addr=0x%x(%s/%s) data=0x%x %s sts=%s%s%s]\n",
++			 i, addr, cmd_db_hw_type_str(addr), rname, data,
++			 (msgid & CMD_MSGID_RESP_REQ) ? "resp-required" :
++							 "fire-n-forget",
++			 (sts & CMD_STATUS_TRIGGERED) ? "triggered" : "-",
++			 (sts & CMD_STATUS_ISSUED) ? "+sent-to-aoss" : "",
++			 (sts & CMD_STATUS_COMPL) ? "+resp-received" : "");
++	}
++}
++
++/**
++ * rpmh_rsc_debug() - Dump debug information on a transfer timeout.
++ * @drv:   The RSC controller.
++ * @compl: The completion object that timed out.
++ *
++ * Dumps TCS state for all in-use TCSes and reports which accelerators
++ * did not respond, to aid in diagnosing RPMH timeout failures.
++ */
++void rpmh_rsc_debug(struct rsc_drv *drv, struct completion *compl)
++{
++	struct irq_data *rsc_irq_data = irq_get_irq_data(drv->irq);
++	bool gic_irq_sts, aoss_irq_sts = false;
++	int i, ret, busy = 0;
++
++	dev_err(drv->dev, "Timeout on RSC %s\n", drv->name);
++
++	for (i = 0; i < drv->num_tcs; i++) {
++		if (!test_bit(i, drv->tcs_in_use))
++			continue;
++		busy++;
++		print_tcs_info(drv, i, &aoss_irq_sts);
 +	}
 +
-+	return -ENODEV;
++	if (!rsc_irq_data) {
++		dev_err(drv->dev, "No IRQ data for RSC:%s\n", drv->name);
++		return;
++	}
++
++	ret = irq_get_irqchip_state(drv->irq, IRQCHIP_STATE_PENDING,
++				    &gic_irq_sts);
++	dev_warn(drv->dev, "HW IRQ %lu is %s at GIC\n", rsc_irq_data->hwirq,
++		 ret ? "UNKNOWN" : (gic_irq_sts ? "PENDING" : "NOT PENDING"));
++	dev_warn(drv->dev, "Completion is %s\n",
++		 completion_done(compl) ? "done" : "not done");
++
++	if (ret)
++		dev_err(drv->dev,
++			"Failed to read IRQ pending state (%d); cannot determine timeout cause\n",
++			ret);
++	else if ((busy && !gic_irq_sts) || !aoss_irq_sts)
++		dev_err(drv->dev,
++			"Accelerator(s) at AOSS did not respond\n");
++	else if (gic_irq_sts)
++		dev_err(drv->dev,
++			"IRQ pending at GIC but not handled within timeout\n");
 +}
-+EXPORT_SYMBOL_GPL(cmd_db_read_name);
 +
- #ifdef CONFIG_DEBUG_FS
- static int cmd_db_debugfs_dump(struct seq_file *seq, void *p)
+ /**
+  * find_slots() - Find a place to write the given message.
+  * @tcs:    The tcs group to search.
+@@ -1114,6 +1212,8 @@ static int rpmh_rsc_probe(struct platform_device *pdev)
+ 	if (ret)
+ 		return ret;
+ 
++	drv->irq = irq;
++
+ 	/*
+ 	 * CPU PM/genpd notification are not required for controllers that support
+ 	 * 'HW solver' mode where they can be in autonomous mode executing low
+diff --git a/drivers/soc/qcom/rpmh.c b/drivers/soc/qcom/rpmh.c
+index 360242a315e3..1f10b85514f1 100644
+--- a/drivers/soc/qcom/rpmh.c
++++ b/drivers/soc/qcom/rpmh.c
+@@ -224,7 +224,7 @@ static int __fill_rpmh_msg(struct rpmh_request *req, enum rpmh_state state,
+ }
+ 
+ /**
+- * rpmh_read: Read a resource value
++ * rpmh_read() - Read a resource value
+  *
+  * @dev: The device making the request
+  * @cmd: The payload having address of resource to read
+@@ -240,6 +240,7 @@ int rpmh_read(const struct device *dev, struct tcs_cmd *cmd)
  {
-diff --git a/include/soc/qcom/cmd-db.h b/include/soc/qcom/cmd-db.h
-index 34adc04eac94..d03d64f3407d 100644
---- a/include/soc/qcom/cmd-db.h
-+++ b/include/soc/qcom/cmd-db.h
-@@ -9,6 +9,8 @@
+ 	DECLARE_COMPLETION_ONSTACK(compl);
+ 	DEFINE_RPMH_MSG_ONSTACK(dev, RPMH_ACTIVE_ONLY_STATE, &compl, rpm_msg);
++	struct rpmh_ctrlr *ctrlr = get_rpmh_ctrlr(dev);
+ 	int ret;
  
- #include <linux/err.h>
+ 	ret = __fill_rpmh_msg(&rpm_msg, RPMH_ACTIVE_ONLY_STATE, cmd, 1, true);
+@@ -251,6 +252,10 @@ int rpmh_read(const struct device *dev, struct tcs_cmd *cmd)
+ 		return ret;
  
-+#define CMD_DB_ID_SIZE		8
-+
- enum cmd_db_hw_type {
- 	CMD_DB_HW_INVALID = 0,
- 	CMD_DB_HW_MIN     = 3,
-@@ -31,6 +33,7 @@ enum cmd_db_hw_type cmd_db_read_slave_id(const char *resource_id);
- int cmd_db_ready(void);
+ 	ret = wait_for_completion_timeout(&compl, RPMH_TIMEOUT_MS);
++	if (!ret) {
++		rpmh_rsc_debug(ctrlr_to_drv(ctrlr), &compl);
++		WARN_ON(1);
++	}
+ 	cmd[0].data = rpm_msg.cmd[0].data;
  
- const char *cmd_db_hw_type_str(u32 addr);
-+int cmd_db_read_name(u32 addr, char *buf, size_t len);
- #else
- static inline u32 cmd_db_read_addr(const char *resource_id)
- { return 0; }
-@@ -49,5 +52,7 @@ static inline int cmd_db_ready(void)
+ 	return (ret > 0) ? 0 : -ETIMEDOUT;
+@@ -308,6 +313,7 @@ int rpmh_write(const struct device *dev, enum rpmh_state state,
+ {
+ 	DECLARE_COMPLETION_ONSTACK(compl);
+ 	DEFINE_RPMH_MSG_ONSTACK(dev, state, &compl, rpm_msg);
++	struct rpmh_ctrlr *ctrlr = get_rpmh_ctrlr(dev);
+ 	int ret;
  
- static inline const char *cmd_db_hw_type_str(u32 addr)
- { return "unknown"; }
-+static inline int cmd_db_read_name(u32 addr, char *buf, size_t len)
-+{ return -ENODEV; }
- #endif /* CONFIG_QCOM_COMMAND_DB */
- #endif /* __QCOM_COMMAND_DB_H__ */
+ 	ret = __fill_rpmh_msg(&rpm_msg, state, cmd, n, false);
+@@ -319,7 +325,10 @@ int rpmh_write(const struct device *dev, enum rpmh_state state,
+ 		return ret;
+ 
+ 	ret = wait_for_completion_timeout(&compl, RPMH_TIMEOUT_MS);
+-	WARN_ON(!ret);
++	if (!ret) {
++		rpmh_rsc_debug(ctrlr_to_drv(ctrlr), &compl);
++		WARN_ON(1);
++	}
+ 	return (ret > 0) ? 0 : -ETIMEDOUT;
+ }
+ EXPORT_SYMBOL_GPL(rpmh_write);
+@@ -438,6 +447,7 @@ int rpmh_write_batch(const struct device *dev, enum rpmh_state state,
+ 			 * the completion that we're going to free once
+ 			 * we've returned from this function.
+ 			 */
++			rpmh_rsc_debug(ctrlr_to_drv(ctrlr), &compls[i]);
+ 			WARN_ON(1);
+ 			ret = -ETIMEDOUT;
+ 			goto exit;
 
 -- 
 2.43.0
