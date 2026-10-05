@@ -1,341 +1,151 @@
-Received: from mail-pj1-f49.google.com (mail-pj1-f49.google.com [209.85.216.49])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BC80A377A97
-	for <linux-kernel@vger.kernel.org>; Mon,  5 Oct 2026 17:16:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.49
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F1AC64E50B9;
+	Mon,  5 Oct 2026 17:16:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791220592; cv=none; b=iv9Oa7lNwyZXgfLPFmS3IHKidWkHP5bSxaa4IzoMtbpV14Cl3b5CMnJYW/f+M28zCW6Ste0VicT058+C5LMpomoyehQly8wCu9JydK1mCYXVu+btq7QgXteiHGIjLb+mZwZ39VLfO3jNrPCjEzINp7/nckomGht8AcjEkxBZ984=
+	t=1791220597; cv=none; b=ov7cij0J65ThabTRmplv1MkwQuQJbAzWI5fn5DxOYHWXNRxNvCSOqS2Xpp98IsL9qArZmGBkPjV/1Awb6V48LkhBIX/vOR5hN0ZQ3Di7BhkvHvFwKcmrrguDenU4LXmwZW59MDPdzrcsW2QEV2Yo/TXROYSIRamBsQ4eOUNh4Qc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791220592; c=relaxed/simple;
-	bh=SrwdHIX17te8vYpXerlPrT9uvUAXxdpliS9rJVsJABc=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=kXpfdwQQQA5ht8beDdJsoRbMp47FyOPrCnDw5+5zUzC4KCNv4XLbxwseZLg6l5SlVyANAZdgHtUl7GP0RQIhlQ9gY9ZkD6HhBpx1e32xbFmzpMGL6bbvsH/ppsZi8RmcI6zg3XAoircJEnMK7/bNfbWZoRF2XhWaIzSV/h6Swuk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=FuCetfeQ; arc=none smtp.client-ip=209.85.216.49
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1791220597; c=relaxed/simple;
+	bh=uJYbVeA2d/vLeZPMg5dBOonjFGP9beuFqeFEPc0Yy/M=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=nmEMYZAuhgu07Y07Elvl27G049d9oppUQU35CXaNxF11vmRLfNzIMy1QlYO4VZc/vyIoVecYbV06Iib9lqs/s97v8f1EAQNkog6rMn5B+O9tC3ILtRPHtpkh1xFIgkPFfF5aK2nMugShGgGQ1XDEUzIKAPzjEELQYOw+Pe+4Moc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dueI2aop; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="FuCetfeQ"
-Received: by mail-pj1-f49.google.com with SMTP id 98e67ed59e1d1-381b831d535so1879383a91.0
-        for <linux-kernel@vger.kernel.org>; Mon, 05 Oct 2026 10:16:30 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791220590; x=1791825390; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=kkxMy1Mx1AmQEa8UR49QVnQhvwoc8QcMpxJihofQjBM=;
-        b=FuCetfeQPYQ9q6XoNLb/0FiUiLdxi1QAwveu3hX0y7bSaevicbnvYYZEQSO3e2eFSU
-         va2AOxzfeDfJpeRA08mdu1+HUxFDUxfrufRPOvuck1GPc6Oxr/9c94CzhUtW9kk2mvPF
-         ai5n9S7tVnkiw2aZZ0KQTG6fXu/a7Y7VfCSD30vAjIJzWvTlCS9RtWLF1vpb752OQnMM
-         IvydeE7qYQjH4QN3ljwwwh+cVzZ/jR7O5Whc1Nedysqeak2ebXKTJP2+3lDtScCYjq5x
-         nXzET6ELaiE2DYg9tUeKXN4EdFpZBki4EQtLcTHcb+0n8EAhWK5uVldFKNPvG2g7O1XH
-         YdHQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791220590; x=1791825390;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=kkxMy1Mx1AmQEa8UR49QVnQhvwoc8QcMpxJihofQjBM=;
-        b=vXGdRN0VOUXCCS6BL7ZB5pMpZVSPW6jZV6C40ZRFCna6RtiLNK0mHSot5BMlyDVbZp
-         EHKIzXkRxkdPDSa6yZpSztnFx4KzA6UCT0DeB/+GcuV5wuii2ftHByIFOYANpxY3VZfb
-         9HTiBXaTVOwo4/jSKQP2yAJvwb0DBnYuOihUN1yucyh/0UWMOyHRjZvOoIJjmD7/gQm4
-         TM+KVlT8TBSBDAPDkrPM6y2WEq6DJEUtt01aN2ZY3cfJ50c+05HwDJU0YK076LuzsadN
-         GdzGdVwN+Byu8hZKXY5L9NtYchElSMrAgP13XK0EjPAH8fFtnQ7464mybtFWsyN49YSQ
-         +bFQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwmm/ipbURefq8945+MRvOXHEPor8Tj3Tsv3hNQpvHcyeY5V663bybi4MNkC7Q4iNcA9CUOsJtxYVdaguY=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLsC73SfjYdxpKHD19wCfTODMe5JnJ2PLpSRX05B8VLrI9AWkoZ
-	gFsf8kWuL4itmLZLatbs325gkKDtploK/yS3MPt5idQUcn3KI5eQB67p
-X-Gm-Gg: AYBFou1gnsP4YM2ZEH0OVWS6Jaq5UAw0V3RCHXtQlpwT6ApGBjHooqyvvXxUg4PbGwy
-	I5sIdckMR8BBXXZ5CvG9HWA8yzHtLsLxyZ/lNuahoYhiWbZ+rl5FNRwUqAob1WtF/YU8vONj7Y9
-	AUSJ71ODtEAKUDIvcBJzNjUG9ej+8IYzgJTaFrk+WndzfqqisImiJobA8BSMbVQcINQH0TR1+8S
-	sbSU83sUVp7uZSVD9gMTRTiUaz1s/ULx8x3mk81Y15DQpvNL6Rnl6p2H/5sh7cyxN6lO0VTJX7m
-	O7hknZCiEE+d0MR6oG1t/xJZfQD9oP8gRlf0QMmubkcFcrTrjTY7ODKvEwYrKAnsWAGc5hWnEBx
-	YpAr0hPqwlko/VxexGWWezNrjLvg+boY4rXALHwsXqFQT+r8zN77hJNXd1tu/QAmK+YUTiFMLoe
-	wvc2eV2L7ecvd/ourB5Yg3QNzO+bMkg2P9Se4rrgS3GWmafHAnIXuHHQIs2EA/N6Z+P43BLsPpN
-	eLlZSHmN2ItN5K12RnedsmUKq9/oA==
-X-Received: by 2002:a17:90b:4a0a:b0:39e:6a82:afda with SMTP id 98e67ed59e1d1-3a7873ea58amr6998626a91.44.1791220589334;
-        Mon, 05 Oct 2026 10:16:29 -0700 (PDT)
-Received: from kernel.tail6741c6.ts.net ([216.195.201.24])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a853cafddesm406910a91.10.2026.10.05.10.16.15
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 05 Oct 2026 10:16:28 -0700 (PDT)
-From: Kunwu Chan <kunwu.chan@gmail.com>
-To: paulmck@kernel.org,
-	corbet@lwn.net,
-	mingo@redhat.com,
-	frederic@kernel.org,
-	neeraj.upadhyay@kernel.org,
-	josh@joshtriplett.org,
-	urezki@gmail.com,
-	dave@stgolabs.net,
-	lianux.mm@gmail.com
-Cc: stern@rowland.harvard.edu,
-	parri.andrea@gmail.com,
-	will@kernel.org,
-	peterz@infradead.org,
-	boqun@kernel.org,
-	npiggin@gmail.com,
-	dhowells@redhat.com,
-	j.alglave@ucl.ac.uk,
-	luc.maranget@inria.fr,
-	akiyks@gmail.com,
-	dlustig@nvidia.com,
-	joelagnelf@nvidia.com,
-	skhan@linuxfoundation.org,
-	rdunlap@infradead.org,
-	longman@redhat.com,
-	rostedt@goodmis.org,
-	mathieu.desnoyers@efficios.com,
-	jiangshanlai@gmail.com,
-	qiang.zhang@linux.dev,
-	kunwu.chan@gmail.com,
-	brads@mainlining.org,
-	linux-kernel@vger.kernel.org,
-	linux-arch@vger.kernel.org,
-	lkmm@lists.linux.dev,
-	linux-doc@vger.kernel.org,
-	rcu@vger.kernel.org,
-	linux-kselftest@vger.kernel.org
-Subject: [PATCH RFC v3 03/15] hazptr: scan all per-CPU slots before overflow lists
-Date: Tue,  6 Oct 2026 01:15:17 +0800
-Message-ID: <20261005171529.1378809-4-kunwu.chan@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261005171529.1378809-1-kunwu.chan@gmail.com>
-References: <20261005171529.1378809-1-kunwu.chan@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dueI2aop"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3278A1F00899;
+	Mon,  5 Oct 2026 17:16:32 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791220595;
+	bh=YyR7Pg9tARS9hhwBZN8G9pK77PaZDn8OCMSreMfPa80=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc;
+	b=dueI2aopjtw7I7YFGkYIqEyFOcIr9Hm097KGeUTfknvtZWyZEc++x1sYocvAOqeNe
+	 JzKhy5y3DsNapypoXxqXgRPhxI9nzUw+OLMvJXLHuVgKgTGh2HkStRb1UKXJwFxcyT
+	 XAtF2c62+EjtrtpeMZGz7q8BduDogX/bcESZRWYVf6h2JRyAJdFS3jPlYmfLBnp35W
+	 48mjeCbGlqrXhBFUYeWl3I2E8lMGDAhJ7qJBgIFOSE0BupEjThh1bs7SFQC+vWukeU
+	 PzK73bhqw0j9J9uWRfv4n2Fd9HdwxWCcZPv5gbJm1y7GAAGgi9Ii6VkKZO6aMjqLsg
+	 k1LihIdRtFc0A==
+From: bod@kernel.org
+Date: Mon, 05 Oct 2026 19:13:45 +0200
+Subject: [PATCH 15/74] media: qcom: camss: csid: Configure the stream on
+ every s_stream
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261005-linux-mainline-7-2-sm8650-hdk-rfc-0-v1-15-ed985aefd611@kernel.org>
+References: <20261005-linux-mainline-7-2-sm8650-hdk-rfc-0-v1-0-ed985aefd611@kernel.org>
+In-Reply-To: <20261005-linux-mainline-7-2-sm8650-hdk-rfc-0-v1-0-ed985aefd611@kernel.org>
+To: Bryan O'Donoghue <bryan.odonoghue@linaro.org>, 
+ Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>, 
+ Loic Poulain <loic.poulain@oss.qualcomm.com>, 
+ Mauro Carvalho Chehab <mchehab@kernel.org>, 
+ Jacopo Mondi <jacopo.mondi@ideasonboard.com>, 
+ Daniel Scally <dan.scally@ideasonboard.com>, Keke Li <keke.li@amlogic.com>, 
+ Richard Acayan <mailingradian@gmail.com>, 
+ Hans Verkuil <hverkuil@kernel.org>, 
+ Gjorgji Rosikopulos <quic_grosikop@quicinc.com>, 
+ Radoslav Tsvetkov <quic_rtsvetko@quicinc.com>, 
+ Robert Foss <rfoss@kernel.org>, Milen Mitkov <quic_mmitkov@quicinc.com>
+Cc: linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, Bryan O'Donoghue <bod@kernel.org>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2763; i=bod@kernel.org;
+ h=from:subject:message-id; bh=OoN/Wr7IqWQPvXdm3zVLFQgGCMhHnMKbzRIzonG9vWI=;
+ b=owEBbQKS/ZANAwAKASJxO7Ohjcg6AcsmYgBqw9sLPaVrQEpC93llEqKIkBy6iy5QXPlS/g3CJ
+ f+M71c1f32JAjMEAAEKAB0WIQTmk/sqq6Nt4Rerb7QicTuzoY3IOgUCasPbCwAKCRAicTuzoY3I
+ OhG1D/9T1yw9c1OjZ3c4ZXSteX5kVUDmAU9QdFNR/Z+ddeFNfRsg07ahIWCCtoT0gCX/tEKd+Ft
+ 1FeTlTX5Imb4L1db3c5rGohsIuXAJEzQ49lbgTfSZOD1qPT4jPM8Pul2zIMSgYNfzT66mlEbF8r
+ UL0Fi5amlTc6eqtpOWsiJocZj0TaQ160wdesdMcuaX6OevH78DUlxHJn5yZ+eVXDZ+5nXdSOqCt
+ SsnjaBDHcs5Y9lXEJIfUyHquFrcPTk7rBqYirBtMGj5LRuFMJNOFHKlWdUE7lGUJdOPp2LpoUSC
+ DU40abZJ8vpmAc+deD7X3TFHHuZnQca9bZZX7ylTpCdv1c2l++EXaD4JIgf24naZgflD7cF5vKL
+ HyTw8haCuCB2tpdyeCW9ctrBUOjXCvqaO0psV4Hpf/ifBZwg8JYtR8oNUmDeObot3yfOaTeFNb2
+ GjvMqkQtZ7+LkhxSVdGfSXNqR5vVKGcmCYsVL7tmcKm3NoydGx1R8wPvxqkFZ48NLn0VdqAbfXL
+ cKWmIpmoIPjTl/isD7YXEVjEBc2vuoPn90lHY5E0AUbHYTUsTF/RJDDtRLQjkdFIC9c67JqGWT2
+ bkWDEs79gcrWd6BH6xb/gBVAJRNDiiT3L1mXdp6Daw9Tk3K/nSwXY1UvqmLEBJs8h1wGVM2AoKt
+ 6fDM7QJmGCiRptQ==
+X-Developer-Key: i=bod@kernel.org; a=openpgp;
+ fpr=E693FB2AABA36DE117AB6FB422713BB3A18DC83A
 
-Boqun Feng pointed out that a promote racing a scan can cause the
-scan to miss a hazard pointer: hazptr_promote_to_backup_slot()
-chains the backup slot into an overflow list before clearing the
-per-CPU slot, so the scan must observe the old location before the
-new one.  The scan currently visits each CPU's overflow lists right
-after that CPU's per-CPU slots, so a promote that moves a hazard
-pointer from a per-CPU slot of a later-scanned CPU into an overflow
-list of an earlier-scanned CPU can be missed.
+From: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
 
-The direct two-phase scan has a related race because the overflow
-list selection follows the wildcard phase: a promote racing the
-wildcard flip can move a backup slot to the list not covered by the
-second phase.
+csid_set_stream() only calls configure_stream() when need_vc_update is
+set, and need_vc_update is only set at power on and on a CSID link
+change. Stopping and restarting a stream while the pipeline stays
+powered, as userspace does when it keeps the video node open across
+STREAMOFF and STREAMON, therefore breaks the CSID in two ways:
 
-Fix this by scanning all per-CPU slots before any overflow-list
-slot, in both the shared-scan walk and the direct fallback scan.
-Give the overflow lists a flip phase of their own, independent of
-the wildcard, so each list is scanned while it is the non-live one:
-new backup slots are chained to the other list, preserving forward
-progress.
+- STREAMOFF does not stop the CSID: the paths it enabled keep running
+  after the VFE has stopped.
+- The following STREAMON does not configure the CSID: a format set
+  between the two streams is never programmed, and the CSID runs with
+  the previous stream's configuration.
 
-The same race was also addressed by Mathieu Desnoyers.
+need_vc_update was added so that several video nodes streaming through
+one CSID would configure it only once. Its counterpart in
+video_stop_streaming() was removed by commit 25f18cb1b673 ("media: qcom:
+camss: Remove use_count guard in stop_streaming"). Drop the rest of it and
+configure the stream on every s_stream.
 
-Fixes: 0b8114b25f17 ("hazptr: Implement two-phase wildcard scan")
-Reported-by: Boqun Feng <boqun@kernel.org>
-Link: https://lore.kernel.org/all/20260925195958.4766-1-mathieu.desnoyers@efficios.com/
-Signed-off-by: Kunwu Chan <kunwu.chan@gmail.com>
+Fixes: 3c4ed72a16bc ("media: camss: sm8250: Virtual channels for CSID")
+Signed-off-by: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
 ---
- kernel/hazptr.c | 88 +++++++++++++++++++++++++++++++++++--------------
- 1 file changed, 64 insertions(+), 24 deletions(-)
+ drivers/media/platform/qcom/camss/camss-csid.c | 9 +--------
+ drivers/media/platform/qcom/camss/camss-csid.h | 1 -
+ 2 files changed, 1 insertion(+), 9 deletions(-)
 
-diff --git a/kernel/hazptr.c b/kernel/hazptr.c
-index 900ba35de2cb..799784f698ed 100644
---- a/kernel/hazptr.c
-+++ b/kernel/hazptr.c
-@@ -23,13 +23,20 @@
-  * The current hazard pointer wildcard. Flips between 1UL and 2UL to guarantee
-  * hazptr_synchronize forward progress even with a steady stream of readers.
-  * This wildcard value is used by acquire to temporarily tag the per-CPU slots.
-- * This also affects the overflow list selection: the current list used by
-- * readers is array[(unsigned long) hazptr_wildcard - 1].
-  */
--static DEFINE_MUTEX(hazptr_wildcard_lock);	/* Protect the wildcard flip. */
-+static DEFINE_MUTEX(hazptr_phase_lock);
-+/* Protect the wildcard and overflow-list phase flips. */
- void *hazptr_wildcard = (void *) 1UL;
- EXPORT_SYMBOL_GPL(hazptr_wildcard);
- 
-+/*
-+ * The current overflow list phase. Independent from the wildcard so that the
-+ * overflow list scan can be placed after the per-CPU slot scan while still
-+ * scanning the non-live list: the current list used by readers is
-+ * array[hazptr_overflow_list_phase].
-+ */
-+static unsigned int hazptr_overflow_list_phase;
-+
- struct hazptr_overflow_list {
- 	raw_spinlock_t lock;		/* Lock protecting overflow list and list generation. */
- 	struct hlist_head head;		/* Overflow list head. */
-@@ -59,6 +66,12 @@ void *flip_wildcard(void *wildcard)
- 	return ((unsigned long) wildcard == 1UL) ? (void *) 2UL : (void *) 1UL;
- }
- 
-+static
-+unsigned int flip_list_phase(unsigned int phase)
-+{
-+	return 1 - phase;
-+}
-+
- static
- bool is_wildcard(void *addr)
- {
-@@ -184,15 +197,12 @@ void hazptr_synchronize_cpu_slots(int cpu, void *addr, void *scan_wildcard)
- }
- 
- static
--void hazptr_scan_period(void *addr, void *scan_wildcard)
-+void hazptr_scan_cpu_slots_period(void *addr, void *scan_wildcard)
- {
--	unsigned int scan_idx = (unsigned long) scan_wildcard - 1;
- 	int cpu;
- 
- 	/* Scan all CPUs slots. */
- 	for_each_possible_cpu(cpu) {
--		struct hazptr_overflow_list_flip *overflow_list_flip = per_cpu_ptr(&percpu_overflow_list_flip, cpu);
--
- 		/*
- 		 * Scan CPU slots.
- 		 * Forward progress against recurring wildcards is guaranteed
-@@ -205,12 +215,22 @@ void hazptr_scan_period(void *addr, void *scan_wildcard)
- 		 * to acquire that same hazard pointer value.
- 		 */
- 		hazptr_synchronize_cpu_slots(cpu, addr, scan_wildcard);
-+	}
-+}
-+
-+static
-+void hazptr_scan_overflow_list_period(void *addr, unsigned int scan_idx)
-+{
-+	int cpu;
-+
-+	/*
-+	 * Scan backup slots in percpu overflow lists.
-+	 * Forward progress is guaranteed by scanning one list
-+	 * while new elements are added into the other list.
-+	 */
-+	for_each_possible_cpu(cpu) {
-+		struct hazptr_overflow_list_flip *overflow_list_flip = per_cpu_ptr(&percpu_overflow_list_flip, cpu);
- 
--		/*
--		 * Scan backup slots in percpu overflow lists.
--		 * Forward progress is guaranteed by scanning one list
--		 * while new elements are added into the other list.
--		 */
- 		hazptr_synchronize_overflow_list(&overflow_list_flip->array[scan_idx], addr);
- 	}
- }
-@@ -285,10 +305,13 @@ static struct hazptr_scan_state hazptr_scan;
-  * Walk all slots and return true if @watch is present.  If @bloom
-  * is non-NULL, record observed non-wildcard addresses in it.
-  *
-- * Per-CPU slots are examined before overflow-list slots on each CPU
-- * to preserve the acquisition ordering required by the promote path:
-- * synchronize must observe the per-CPU slot release before the
-- * overflow-list entry can be missed.
-+ * All per-CPU slots are examined before any overflow-list slot: a
-+ * promote (hazptr_detach() or a context switch) moves a hazard
-+ * pointer from a per-CPU slot to an overflow list by chaining the
-+ * backup slot before clearing the per-CPU slot, see
-+ * hazptr_promote_to_backup_slot().  Therefore the scan must observe
-+ * the old location before the new location for every slot/list
-+ * pair, including pairs on different CPUs.
-  */
- static bool hazptr_scan_walk(void *watch, struct hazptr_bloom *bloom)
- {
-@@ -297,9 +320,9 @@ static bool hazptr_scan_walk(void *watch, struct hazptr_bloom *bloom)
- 	if (bloom)
- 		hazptr_bloom_reset(bloom);
- 
-+	/* Scan all per-CPU slots before any overflow-list slot. */
- 	for_each_possible_cpu(cpu) {
- 		struct hazptr_percpu_slots *percpu_slots = per_cpu_ptr(&hazptr_percpu_slots, cpu);
--		struct hazptr_overflow_list_flip *overflow_list_flip = per_cpu_ptr(&percpu_overflow_list_flip, cpu);
- 		unsigned int idx;
- 
- 		for (idx = 0; idx < NR_HAZPTR_PERCPU_SLOTS; idx++) {
-@@ -313,6 +336,10 @@ static bool hazptr_scan_walk(void *watch, struct hazptr_bloom *bloom)
- 			if (bloom && v && !is_wildcard(v))
- 				hazptr_bloom_add(bloom, v);
+diff --git a/drivers/media/platform/qcom/camss/camss-csid.c b/drivers/media/platform/qcom/camss/camss-csid.c
+index 48459b46a981b..645e02ad6b9b1 100644
+--- a/drivers/media/platform/qcom/camss/camss-csid.c
++++ b/drivers/media/platform/qcom/camss/camss-csid.c
+@@ -721,8 +721,6 @@ static int csid_set_power(struct v4l2_subdev *sd, int on)
+ 			return ret;
  		}
-+	}
-+	for_each_possible_cpu(cpu) {
-+		struct hazptr_overflow_list_flip *overflow_list_flip = per_cpu_ptr(&percpu_overflow_list_flip, cpu);
-+
- 		for (int i = 0; i < 2; i++) {
- 			struct hazptr_overflow_list *list = &overflow_list_flip->array[i];
- 			struct hazptr_backup_slot *b;
-@@ -359,14 +386,14 @@ static void hazptr_scan_do_cycle(void)
- 	struct hazptr_waiter *w, *n;
- 	LIST_HEAD(done);
  
--	mutex_lock(&hazptr_wildcard_lock);
-+	mutex_lock(&hazptr_phase_lock);
+-		csid->phy.need_vc_update = true;
+-
+ 		enable_irq(csid->irq);
  
- 	mutex_lock(&hazptr_scan.lock);
- 	list_splice_tail_init(&hazptr_scan.pending, &hazptr_scan.scanning);
- 	mutex_unlock(&hazptr_scan.lock);
- 
- 	if (list_empty(&hazptr_scan.scanning)) {
--		mutex_unlock(&hazptr_wildcard_lock);
-+		mutex_unlock(&hazptr_phase_lock);
- 		return;
+ 		ret = csid->res->hw_ops->reset(csid);
+@@ -777,10 +775,7 @@ static int csid_set_stream(struct v4l2_subdev *sd, int enable)
+ 			return -ENOLINK;
  	}
  
-@@ -391,7 +418,7 @@ static void hazptr_scan_do_cycle(void)
- 			list_move(&w->node, &done);
- 	}
+-	if (csid->phy.need_vc_update) {
+-		csid->res->hw_ops->configure_stream(csid, enable);
+-		csid->phy.need_vc_update = false;
+-	}
++	csid->res->hw_ops->configure_stream(csid, enable);
  
--	mutex_unlock(&hazptr_wildcard_lock);
-+	mutex_unlock(&hazptr_phase_lock);
- 
- 	list_for_each_entry_safe(w, n, &done, node) {
- 		list_del_init(&w->node);
-@@ -463,6 +490,7 @@ static void hazptr_synchronize_queued(void *addr)
- void hazptr_synchronize(void *addr)
- {
- 	void *scan_wildcard;
-+	unsigned int scan_list_phase;
- 
- 	/*
- 	 * Busy-wait should only be done from preemptible context.
-@@ -486,18 +514,30 @@ void hazptr_synchronize(void *addr)
- 	}
- 
- 	/* Fallback: use the direct scan path. */
--	guard(mutex)(&hazptr_wildcard_lock);
-+	guard(mutex)(&hazptr_phase_lock);
- 	scan_wildcard = flip_wildcard(hazptr_wildcard);
--	hazptr_scan_period(addr, scan_wildcard);
-+	/* Scan per-CPU slots. */
-+	hazptr_scan_cpu_slots_period(addr, scan_wildcard);
- 	WRITE_ONCE(hazptr_wildcard, scan_wildcard);	/* Flip the current wildcard. */
--	hazptr_scan_period(addr, flip_wildcard(scan_wildcard));
-+	hazptr_scan_cpu_slots_period(addr, flip_wildcard(scan_wildcard));
-+
-+	/*
-+	 * Scan overflow lists *after* scanning all per-CPU slots, see
-+	 * hazptr_promote_to_backup_slot().  Flip the overflow list phase
-+	 * between the two lists so that each list is scanned while it is
-+	 * the non-live one.
-+	 */
-+	scan_list_phase = flip_list_phase(hazptr_overflow_list_phase);
-+	hazptr_scan_overflow_list_period(addr, scan_list_phase);
-+	WRITE_ONCE(hazptr_overflow_list_phase, scan_list_phase);
-+	hazptr_scan_overflow_list_period(addr, flip_list_phase(scan_list_phase));
+ 	return 0;
  }
- EXPORT_SYMBOL_GPL(hazptr_synchronize);
+@@ -1306,8 +1301,6 @@ static int csid_link_setup(struct media_entity *entity,
+ 		else
+ 			csid->phy.en_vc &= ~BIT(local->index - 1);
  
- struct hazptr_slot *hazptr_chain_backup_slot(struct hazptr_ctx *ctx)
- {
- 	struct hazptr_overflow_list_flip *overflow_list_flip = this_cpu_ptr(&percpu_overflow_list_flip);
--	unsigned int list_idx = (unsigned long) READ_ONCE(hazptr_wildcard) - 1;
-+	unsigned int list_idx = READ_ONCE(hazptr_overflow_list_phase);
- 	struct hazptr_overflow_list *overflow_list = &overflow_list_flip->array[list_idx];
- 	struct hazptr_slot *slot = &ctx->backup_slot.slot;
+-		csid->phy.need_vc_update = true;
+-
+ 		dev_dbg(dev, "%s: Enabled CSID virtual channels mask 0x%x\n",
+ 			__func__, csid->phy.en_vc);
+ 	}
+diff --git a/drivers/media/platform/qcom/camss/camss-csid.h b/drivers/media/platform/qcom/camss/camss-csid.h
+index 5296b10f6bac8..53f43ae7b9327 100644
+--- a/drivers/media/platform/qcom/camss/camss-csid.h
++++ b/drivers/media/platform/qcom/camss/camss-csid.h
+@@ -69,7 +69,6 @@ struct csid_phy_config {
+ 	u8 lane_cnt;
+ 	u32 lane_assign;
+ 	u32 en_vc;
+-	u8 need_vc_update;
+ };
  
+ struct csid_device;
+
 -- 
-2.43.0
+2.55.0
 
