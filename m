@@ -1,167 +1,116 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 5070E44A3F1
-	for <linux-kernel@vger.kernel.org>; Mon,  5 Oct 2026 13:48:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7E0C648643C;
+	Mon,  5 Oct 2026 13:49:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.85.4
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791208098; cv=none; b=YEbS8R/XVKG4gZ0mKOayaki4AyHJxgkUQZFWkLzIqra9JHgWsRASHsptTErQX+K2iqtAjnvYL53B86htN767UIsmTAlxTr3YCF69fQ0LgZavxjdk7bM5h/6V/ekMnG6aFGK90815pjMwiC2Y+yidHGssGqGoaMapqlT7yNMonJk=
+	t=1791208198; cv=none; b=kXlqgEXtp44lCe6nZ7yp2Ywy89DvJA155vMGpPmLeFY2Zxkc2pbC9xaFAqiJNUxGvLJDr3AJQ9+/AEe68kOCdTBKBeN5HdP+89INhnZlABgjIueDA9TIKdW5+5LENpSMdmaKztNZS3HkWCe9pYf2aUDXBf4nve5AH4F7R0pdgoM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791208098; c=relaxed/simple;
-	bh=2GMHsOwhhLRJxYzsvnSnRcaGszSH1LEMmm6JkzS5eLI=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=eZzFMZUkHzpJrczXKAfYFwRPVxLofoxi+KkyrVqLnivo4qvscgD3tsEDQqwSjLkCvVniZvruOzR9RarbLx8mfbV4L69PQsf02dBDZLJlNh6AZDtYVZ2MGizGMYjHKDWtoIVVrz+kvw0ZB/etBadu2j3HeQW/J2ZKj+80WAG1awQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=NKHAyisg; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	s=arc-20240116; t=1791208198; c=relaxed/simple;
+	bh=z8mXgqPbfnrHMfG4x/CaUWbgGlKztCRm8rTge2kpu24=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=nwQ/VePAf2rPmoXF1yX411Yz8bIscPDgLbjz2c3cLDl6kohXwln47VAaexmMWjJjqKiHygA+F0wgtLIVb4bcivi2rMZIgEnyLMgEP6T6jNVEvYIZ7Iz8SNRM0CsHbPopHpjQjnoCIS8L4b2z3C2QA4Op7tQj8DCRg4u/0HYnCKs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=OUgTN+wb; arc=none smtp.client-ip=185.246.85.4
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="NKHAyisg"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 21C6C152B;
-	Mon,  5 Oct 2026 06:48:12 -0700 (PDT)
-Received: from [10.57.78.53] (unknown [10.57.78.53])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 1CA163F86F;
-	Mon,  5 Oct 2026 06:48:12 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1791208095; bh=2GMHsOwhhLRJxYzsvnSnRcaGszSH1LEMmm6JkzS5eLI=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=NKHAyisgoqP215hu3VhI99n9NoZqEksTsDpoR1M6QqOnSAsxFV5sJqYRRqXfQJKFi
-	 z7DLZqvvr1Qtb9j+rcNd1wPVHK/ycB+uk6PgEXqzIeRa80wb/Zk8VMY2syNmhr0KG1
-	 zQEcsMAW9YiB86qkK21wV2bcLqLCbS7TEAEC7D7Y=
-Message-ID: <78190a05-47a6-4089-a688-121466c9a370@arm.com>
-Date: Mon, 5 Oct 2026 14:48:11 +0100
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="OUgTN+wb"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-03.galae.net (Postfix) with ESMTPS id 922364E4117C;
+	Mon,  5 Oct 2026 13:49:53 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 60413601A5;
+	Mon,  5 Oct 2026 13:49:53 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id E4DC010330663;
+	Mon,  5 Oct 2026 15:49:47 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1791208188; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 in-reply-to:references; bh=8vA+I9C9/mU7kAI15YDstDuXZm6iy0kIk5yK3NXlhgw=;
+	b=OUgTN+wbXTbIxIDJm7T8feK2nR+kOoXoQGzSHWiTQc0lYbJ+hDsF7ZmEfH7FG96s7xsHjN
+	w6zAzq4cP5/BmkSCqh/sFLuMkFOFiq7+QNJwbHrOVl4Up3V8h2n3V7pjQU7YkTlSZ55Qxi
+	rrVpXR6psvEUeXs7O84DX/62DJL1yvw6YrE0cXjVzKxJsN/mBTTTTNsxRP3EYHGVefJ5WU
+	HEM5cj4dtKzgKSA9eW/pf85pXUZeRoiULwVHFvZTa5uORabLYpKgXFW+KYiW4lZQIjcI90
+	k4oZ+hMZU15Hs1V2glYhwXBr/E17z0146beA+GCMdB1bF2hElNpk0pYh31UREw==
+Date: Mon, 5 Oct 2026 15:49:45 +0200
+From: Alexandre Belloni <alexandre.belloni@bootlin.com>
+To: Arnd Bergmann <arnd@arndb.de>
+Cc: Karl Mehltretter <kmehltretter@gmail.com>, linux-rtc@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] rtc: class: Make the time32 hctosys limit configurable
+Message-ID: <202610051349454ed35b56@mail.local>
+References: <20260914212537.1452-1-kmehltretter@gmail.com>
+ <7c020979-cf03-4ece-a7d4-b1475d1400c3@app.fastmail.com>
+ <aqnHDxRIBncNH6qr@gmail.com>
+ <59ba6707-c5d5-4fd8-9200-f910e61d9232@app.fastmail.com>
+ <aq3R5QnCpu_fOq8g@gmail.com>
+ <5515c266-f9cd-405f-b7a8-1ec45d9d902a@app.fastmail.com>
+ <202609222137059e745547@mail.local>
+ <d7825e87-93f2-4444-bf3b-45a4127de7a9@app.fastmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/panfrost: add Mali-G68 support
-To: =?UTF-8?Q?Adri=C3=A1n_Larumbe?= <adrian.larumbe@collabora.com>,
- markuss.broks@gmail.com
-Cc: Boris Brezillon <boris.brezillon@collabora.com>,
- Rob Herring <robh@kernel.org>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-References: <20260803-staging-mainline-v1-1-5071dc782149@gmail.com>
- <asA6VefBKQQD3eSH@sobremesa>
-From: Steven Price <steven.price@arm.com>
-Content-Language: en-GB
-In-Reply-To: <asA6VefBKQQD3eSH@sobremesa>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <d7825e87-93f2-4444-bf3b-45a4127de7a9@app.fastmail.com>
+X-Last-TLS-Session-Version: TLSv1.3
 
-On 03/10/2026 00:19, Adrián Larumbe wrote:
-> Queued to drm-misc-next.
+On 24/09/2026 17:07:30+0200, Arnd Bergmann wrote:
+> On Tue, Sep 22, 2026, at 23:37, Alexandre Belloni wrote:
+> > On 19/09/2026 11:16:29+0200, Arnd Bergmann wrote:
+> >> On Sat, Sep 19, 2026, at 02:10, Karl Mehltretter wrote:
+> >>
+> >> config RTC_HCTOSYS_TIME32_LIMIT
+> >> 	bool "Reject RTC dates after the 2038 cutoff"
+> >> 	depends on RTC_HCTOSYS && !64BIT && COMPAT_32BIT_TIME
+> >> 	default y
+> >> 
+> >> to completely disallow it. I think we should wait for Alexandre
+> >> to comment here, as it's his subsystem in the end and I'm sure
+> >> he has an opinion on the matter.
+> >> 
+> >
+> > I gave it some thought for the past month as this is an issue that is
+> > regularly brought up.
+> >
+> > The first thing is that this is an issue that disappears as soon as
+> > RTC_HCTOSYS is not used. RTC_HCTOSYS has plenty of issue and one of
+> > those is that is doesn't actually work well with NTP. There is a fix for
+> > this and it would slow down every boot by a second or two.
 > 
-> One thing though, I had to adjust the indentation of the GPU_REV() macro before merging.
-> Not a big deal, but always make sure to run the following in your branch before submission:
+> Sure, simply disallowing RTC_HCTOSYS on any build that contains support
+> for time32 userspace would also avoid this.
 > 
-> ./scripts/checkpatch.pl --strict --git first_commit~..HEAD
+> > The main issue is that systemd decided to mandate RTC_HCTOSYS when
+> > raising up the issue, the answer is that it is unacceptable to have logs
+> > that are not properly dated until userspace sets the system time. But
+> > letting userspace set the system time simply solves the issue as it will
+> > always set a time that it can handle, even if not correct.
 > 
-> Also, I suppose you didn't have a chance to test it on a g68_r1p0. That would be of interest
-> because of HW_ISSUE_TTRX_3485, which seems to mandate the submission of a dummy job before
-> any real further work. It seems at the moment there's no such a workaround either in the
-> UM Mesa driver or the Panfrost KMD.
+> Not sure what exactly you are suggesting here. Do you mean we should
+> try again to address this in systemd in order to no longer need
+> the RTC_HCTOSYS hack?
 > 
-> Maybe Steven or Boris could elaborate on this?
 
-Yes, it's an unpleasant workaround. But it's also a rare issue. It
-requires that the kernel driver decides to stop a fragment job at the
-wrong moment when the fragment endpoint is first configured. The GPU can
-then end up hanging[1]. The hardware r1p1 fixed the issue. I believe the
-workaround is to submit a dummy fragment job after power up which
-ensures that the fragment endpoint is configured before any real work
-(which might need to be stopped) is submitted.
+Well I guess we'll get the same answer that this is too late in the boot
+process.
 
-What I don't actually know is if anyone shipped a r1p0 implementation.
-There were internal test chips, but many if not all customers jumped to
-r1p1 where the fix is present.
+My proposed solution is to have a way to tell the kernel what size of
+time_t userspace actually supports as there is no way to automatically
+detect it. That's why I was thinking a kernel cmdline parameter would
+fit. This would allow us to be 100% correct.
 
-If there are G68 r1p0s out in the wild then they will "mostly work".
-It's hard to hit the issue accidentally. So there's definitely still
-value in the support even without the workaround. But if anyone does
-have a Mali-G68 r1p0 (that they are trying to use Panfrost on) then it
-would be good to know.
+Else, I'm fine with your last proposal. I guess this would leave us with
+two unhandled cases:
+ - 64bit systems with 32 bit userspace that you said we don't want to
+   support
+ - 32bit systems with 64bit time_t userspace that would not work
+   properly with the default configuration.
 
-Thanks,
-Steve
-
-[1] I believe the reset logic will then recover the GPU, but will lose
-any in-flight work. So you'll get rendering errors for that frame, but
-things should recover.
-
-> On 03.08.2026 12:35, Markuss Broks via B4 Relay wrote:
->> From: Markuss Broks <markuss.broks@gmail.com>
->>
->> Add the features, issues, and ID for Mali-G68, a first-generation
->> (v9) Valhall GPU.
->> Tested on Exynos8835: the GPU reports GPU_ID 0x9204 (G68 r1p1).
->>
->> Signed-off-by: Markuss Broks <markuss.broks@gmail.com>
->> ---
->>  drivers/gpu/drm/panfrost/panfrost_features.h | 2 ++
->>  drivers/gpu/drm/panfrost/panfrost_gpu.c      | 3 +++
->>  drivers/gpu/drm/panfrost/panfrost_issues.h   | 8 ++++++++
->>  3 files changed, 13 insertions(+)
->>
->> diff --git a/drivers/gpu/drm/panfrost/panfrost_features.h b/drivers/gpu/drm/panfrost/panfrost_features.h
->> index 52f9d69f6db9..34c65847192f 100644
->> --- a/drivers/gpu/drm/panfrost/panfrost_features.h
->> +++ b/drivers/gpu/drm/panfrost/panfrost_features.h
->> @@ -121,6 +121,8 @@ enum panfrost_hw_feature {
->>  	BIT_ULL(HW_FEATURE_IDVS_GROUP_SIZE) | \
->>  	BIT_ULL(HW_FEATURE_CLEAN_ONLY_SAFE))
->>  
->> +#define hw_features_g68 hw_features_g57
->> +
->>  static inline bool panfrost_has_hw_feature(struct panfrost_device *pfdev,
->>  					   enum panfrost_hw_feature feat)
->>  {
->> diff --git a/drivers/gpu/drm/panfrost/panfrost_gpu.c b/drivers/gpu/drm/panfrost/panfrost_gpu.c
->> index 7d555e63e21a..83223192a544 100644
->> --- a/drivers/gpu/drm/panfrost/panfrost_gpu.c
->> +++ b/drivers/gpu/drm/panfrost/panfrost_gpu.c
->> @@ -242,6 +242,9 @@ static const struct panfrost_model gpu_models[] = {
->>  	/* MediaTek MT8188 Mali-G57 MC3 */
->>  	GPU_MODEL(g57, 0x9093,
->>  		GPU_REV(g57, 0, 0)),
->> +
->> +	GPU_MODEL(g68, 0x9004,
->> +		GPU_REV(g68, 1, 0), GPU_REV(g68, 1, 1)),
->>  	{0},
->>  };
->>  
->> diff --git a/drivers/gpu/drm/panfrost/panfrost_issues.h b/drivers/gpu/drm/panfrost/panfrost_issues.h
->> index eb60cb83667a..dd39946bb572 100644
->> --- a/drivers/gpu/drm/panfrost/panfrost_issues.h
->> +++ b/drivers/gpu/drm/panfrost/panfrost_issues.h
->> @@ -265,6 +265,14 @@ enum panfrost_hw_issue {
->>  #define hw_issues_g57_r0p0 (\
->>  	BIT_ULL(HW_ISSUE_TTRX_3485))
->>  
->> +#define hw_issues_g68 (\
->> +	BIT_ULL(HW_ISSUE_TTRX_2968_TTRX_3162))
->> +
->> +#define hw_issues_g68_r1p0 (\
->> +	BIT_ULL(HW_ISSUE_TTRX_3485))
->> +
->> +#define hw_issues_g68_r1p1 0
->> +
->>  static inline bool panfrost_has_hw_issue(const struct panfrost_device *pfdev,
->>  					 enum panfrost_hw_issue issue)
->>  {
->>
->> ---
->> base-commit: 415606a7be939835db9b0d6b711887586646346d
->> change-id: 20260803-staging-mainline-ebe89543b632
->>
->> Best regards,
->> --  
->> Markuss Broks <markuss.broks@gmail.com>
-> 
-> 
-> 
-> Adrian Larumbe
-
+-- 
+Alexandre Belloni, co-owner and COO, Bootlin
+Embedded Linux and Kernel engineering
+https://bootlin.com
