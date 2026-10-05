@@ -1,66 +1,66 @@
-Received: from mail-wr2-f33.google.com (mail-wr2-f33.google.com [74.125.225.97])
+Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com [209.85.128.41])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 29D9F4DDB2A
-	for <linux-kernel@vger.kernel.org>; Mon,  5 Oct 2026 18:58:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.97
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4EAAA4DB547
+	for <linux-kernel@vger.kernel.org>; Mon,  5 Oct 2026 18:58:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.41
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791226713; cv=none; b=FbBeAhEh6ZbfpTpmf9701/y34gcqRu+o4GqCbnts/D+/pCBKf9WOXrPSEqslDcVc9z9sL/geDJyPfene2gs1cnNW9i81w/+xwayR/n+qrfWz0bVegMHBuTU7w1pmO13ZvCSpqzruaSyORcSPZ0FVDb3h4mLnMckxp5wu6XLVX1U=
+	t=1791226717; cv=none; b=h0PNvoHrPjH0G2wWUzMbzBlBuxWwlP2Zv3MMRwy5ZRKUpTmfBVTgQZfj4a+tUewM4c3q9b1xP8zcplkqcGnkGd58eq4TD8bJkooDP1q/btgDW6Knsawl5SfNBDS7GtVjJxSEQ4unh2vN3H4dqDQfFMgJv4i2MTtLTa49m5G/510=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791226713; c=relaxed/simple;
-	bh=uWLJhE4gif7RZ8mt+wzYrxDcQS3MG1MxrDZwbp4qFO0=;
+	s=arc-20240116; t=1791226717; c=relaxed/simple;
+	bh=u/B9IvaEgiAIw9fjlzqtULKm2yBgA+iavYEM8xsWyAA=;
 	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=F43E+j/VLS9b6exN4Q64ciuNTOHgF1D0jq+h2yASUs9qR82Z99PK/5VXYw4fm2jJuHsERMEfYFzURC19iUXReF0s/XAKbOJNL3h/UBu6QbNQ1GvhOQR6yk18f59IMp2twRCtMk/FQJzv79mmXG5IaPejJ1flSUhwGnT+PzcrVjA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Vo7ene6M; arc=none smtp.client-ip=74.125.225.97
+	 MIME-Version; b=iz5vKWQ5UCEEuJXn88js+nqKC59y1Fn5xOj8Js09chVVHCcYHvmS6Lq8tXImstv7GaKfhK1Wq9mUdb9zXWds3RbG1uGv2NmaPzSF2wtjnni2mP2aJ/1gnahUdGkWHAIx+8oNsJ3XO4zs2YMEwWsnVpxJU8ezC5ctBpk04ZCXvdw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=AfIPZGbY; arc=none smtp.client-ip=209.85.128.41
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Vo7ene6M"
-Received: by mail-wr2-f33.google.com with SMTP id ffacd0b85a97d-48b104f6aa3so1182775f8f.0
-        for <linux-kernel@vger.kernel.org>; Mon, 05 Oct 2026 11:58:31 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="AfIPZGbY"
+Received: by mail-wm1-f41.google.com with SMTP id 5b1f17b1804b1-49ff680331aso21428015e9.3
+        for <linux-kernel@vger.kernel.org>; Mon, 05 Oct 2026 11:58:35 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791226710; x=1791831510; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1791226713; x=1791831513; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=YBT8VnKHbqUAHOFreCce12tKQFcAcgcsqsShePksoqw=;
-        b=Vo7ene6MNmTf5GRX0WzbskPTTa4wd4NB0VBABCyZM8IUdQHhKzlwGlU1eggnRelThJ
-         SmHpK0fAc3JTJjBuzkxKcJtG7TXg3P8t3+DZwmphxrjdGrIu/GMNHcQrHhoeDnYUrH2i
-         3HPDj/q+Km69gAeIIUprsksk7WtsCLkZvRboJvZrVSIZB4YjvyZRGQQSjZQTLVpLBxVG
-         l+3edu1dhMFE2aHxqcBL/seCrWGI/Sou92lICvPtkYVtlNl4tgf7dr3/BWlc4Hds3RO3
-         v+MNgu/ggvUyeQvGdWOsorGqVbXXJbgJAQCmFBEsGkf3qPnH5USFFGjI7zn8cHYu0JjJ
-         1Xig==
+        bh=xwC+jUdtFWGLh86kjV+y4udd2rd2bSTuCpSQzL1jA44=;
+        b=AfIPZGbYlH9/+AzmjFHiaYh1Biq3dIDgLXACcDCCWp6GBT1G6pcXRORIUjaLq6JmAt
+         kU6nf10qxVi8xVEPRDrXghT+t6Ubg+JU1HqrJAgcX+yEwI/hOdwqIDc+G1X91ot4J5Xo
+         ICCDtnNGHv8WmSGzzhL9QYxlvUWhAQhFwnvJx6uB0mb9qq9gif4hwg6TE4DGuN+TXa6H
+         SlPnaks1KxWj8lB3N1gSnfy5v72QL34mbeMgC7uFtZ/A5x9ClIfOBE5xxecpuEXQDdPA
+         umoAMiSTqeSL1XW8CRFV4JT+3VjNWQAzvtOpeMMELOx3tHyncMY8ECm1jrIRH84T2A7C
+         6B7Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791226710; x=1791831510;
+        d=1e100.net; s=20260707; t=1791226713; x=1791831513;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=YBT8VnKHbqUAHOFreCce12tKQFcAcgcsqsShePksoqw=;
-        b=Sa4GuVIeO6Hokx8Cq+3RTUN18skooytsRJKau9W/t1fKYYn/NH3ERSbnvy7e8oCoLA
-         HC6bEziVbASgbH0WKm3gLsb4WFxjxQKmYMdO/H/sNQzWCEGjb2Ld5aoUh4Y8LWX0neUV
-         j6MAebauy1ktfOIXSfo47f3ySVoQmGCXFfC0rjIpKb6GyOerrApCVReIudyGntTsL0Tx
-         JrHQPaGFxQGI3uIvOhJRWSy4+WfB4YhnI6W2VduVmS258rCjqzgc8ji2c4gPOP3EuGjj
-         TAeWmXr3XIBVO+JPPDEwlQdkCieMXIGyTXozxLJ3cAswv9Q50nDV+AqL/gIg9fBWVfO3
-         LGvw==
-X-Forwarded-Encrypted: i=1; AKwUvBxVsIuyPmJ6xSOcxtIMO/7wLcSNE94KH+kUrZioyH9Ca3iJwYlgt32XWYBV5G+7sSNTteqUU7jMNoal9is=@vger.kernel.org
-X-Gm-Message-State: AFuF++nSEzLkh7Zu+aGN17pKqpjQAOlqVrAWb1FyV/2jG33e6zIKjN47
-	wygBQ3CS7t2UdLz57jht4m/V/FwyxY5w1z2ks+1SmxvkKgaBAUVHO76p
-X-Gm-Gg: AYBFou1o2T8nGmv64ccwTjIkwWEmNy83UVvu1cnAgHqqIeyYluQ6EUpPTtVk9qLGMTC
-	qGHWaYrM3t00kTK9xIPow3QzzwhrpxF8RFE1x29TnD6sG/izxisTzPcU26XrygJfwONu3lmp+oP
-	HcAH1/+pinhMunuOfJ2t84ZsvVGaZjpkGPPlmmdEaJugTLtCobN2llIVJ1YV50K0zBEaoeQJQBB
-	vjkMT8gju8JT1V2GfgQAUY4jruGswMqpcWE8DHUlhY20p0eSkGGG4b+jbYDDZKpb4VTxzV7QIHQ
-	DCuYqPapfsFpJ6j62g4NtBckg4fN66yato17y2aFOLkuZOKgzdrzbW1B8xXJkFAZjQzg7fDL5W8
-	aOmHFJLG48bMdeYOwsPehIUP5VAfiz7/KHAGqlPu75sp1w5xmr/v6C7kO0Gueidb5NFwLRZpX8i
-	whQysHh+1dIiwEOwGJQAZJgcz9vPfDBfdfe89f5T3SxneDHTEG/dk6rs1zTWwFmipu9Z2JJGu08
-	GQCDB/Ahj9FUKeFmDaxNvvNajI9fFxORg0xAd8pJz7JFxbgPpiJDnIIGL4ADMg1xnfxgF0Tl5ij
-	2daCw8HhUpSIL/eU5ceFPNYPrabcFWJphyqGaKHGb0x90sonP8O8vHJXzFfcWWQrGkto8oU+z/+
-	Sgg==
-X-Received: by 2002:a05:600c:37cc:b0:49c:fc6c:be03 with SMTP id 5b1f17b1804b1-4a1772c5ee2mr27447175e9.26.1791226709978;
-        Mon, 05 Oct 2026 11:58:29 -0700 (PDT)
+        bh=xwC+jUdtFWGLh86kjV+y4udd2rd2bSTuCpSQzL1jA44=;
+        b=1T8mdKzEhttpwoGsB/QUqR8q7+LII/aiKCLJk/dbjOVoEGtC7H74JLvgSkNXlHuzWf
+         ZF3Ojau4LJmIxQ9xPUjTyFrOymTT9PRdk8D9GKSLP3TlguwsiozRoS/2jXH2VSAPqMn3
+         j9mtuAWL3SCi51L+z9Khoe2qRWaxQxAQ4i/WNhQXz/z/CEzb7JrZ8AG2NqVBu+7bDaF3
+         LZYrMoTzd837itqhttQJZs/B5ZQmu3145Kxlle2Gi72uMNLzBbXt4b0Pd2Qk/D12LDcj
+         EqJKFaA0Y+tJnPEPdo/VfN442DPutIUf2gFM3H0Ek0HwPiRtIoaNpSGdNZLTXQC09eYA
+         7Byw==
+X-Forwarded-Encrypted: i=1; AKwUvBwxsfVmHuFrOMAjMSQ7ZgI7xLwz1YYAFXcSzhbCpuYiQTJGRkzHCESaLfKbMJCQ9YUpx09JRYnDCJdoS70=@vger.kernel.org
+X-Gm-Message-State: AFuF++nS3P/ZalHm9uBWXJNs8y4ZwQJmV7T2TiREmK1qd+YIvzI0UVvx
+	QzNC7r/SOZOXCG7sXIC3PNgjBf6Xc/KXjOpzKS+QAJDfdOb6d5tirigE
+X-Gm-Gg: AYBFou1/WA5OhiKlyuWsWNAfIfIJ4FNrOsYGhjFYg8jBU9/p3DCaqiMMS0ElQCbIshM
+	cLSSuTpLVORRToVLb0sEVbJS8EkmeZWkljTS1sqohIbGv+Gap6YgNNJWexpSxDnGvUUOwuN30Ie
+	8cpzT4CrdZoNDVmItU6UbpojFmt1qhvYiX6PEF1zgt05ZOEcgOJ/JCSY9d35KNTkFGW/Sb3ahUE
+	1RC1zbmMHF4CT5xidApHZNSrCMerxJYkRNBCNvSQ5aq2j90PLhJKYctYMcHHeeZHM4X637/m2WQ
+	cNuUaswwaxQyq+JKVNyNKxIwSSQ2yJbe8D8CW6wecoh9ozmA0Vgn0nKX0Bk5tND/GRE3MWYfBQW
+	x8B8mRen/dXcXYtQZP1g9qXxXxJWafj6vPoZ1l00UF2y9xsLyA2AWmZ3tmGxN6vDtFLBztCoEl/
+	Y6rO48o7yv9sxNlHohKnwPoUjR6lXWgi0Hl+5UKylyJYgos2kjDh6gT51ETfn/yGsPkHM7Pz0GE
+	diBAE16U2IleABMQjevX3coaxvzMJkbeF6+w96vln6PMB+jvoebqXsQufmBAAGWNIXpimS55X+g
+	HYu5s6vXLsm3X9n3vkIv+cUWO+2K7XiHwfU3swQrmKKcWPdgTMsk3iLIA6QXYbyc5qzvq5ysg1s
+	YJA==
+X-Received: by 2002:a05:600c:c44c:10b0:49c:fc6e:a3d7 with SMTP id 5b1f17b1804b1-4a1680f7b15mr98951035e9.22.1791226713432;
+        Mon, 05 Oct 2026 11:58:33 -0700 (PDT)
 Received: from localhost.localdomain (dynamic-2a02-3100-b305-2001-39fa-3d24-821a-4eae.310.pool.telefonica.de. [2a02:3100:b305:2001:39fa:3d24:821a:4eae])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a0394e6c5asm281196795e9.2.2026.10.05.11.58.27
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a0394e6c5asm281196795e9.2.2026.10.05.11.58.31
         (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Mon, 05 Oct 2026 11:58:29 -0700 (PDT)
+        Mon, 05 Oct 2026 11:58:33 -0700 (PDT)
 From: Karl Mehltretter <kmehltretter@gmail.com>
 To: Andrew Morton <akpm@linux-foundation.org>
 Cc: Karl Mehltretter <kmehltretter@gmail.com>,
@@ -87,9 +87,9 @@ Cc: Karl Mehltretter <kmehltretter@gmail.com>,
 	linux-rt-devel@lists.linux.dev,
 	kasan-dev@googlegroups.com,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH v4 5/6] sched/core: Pause KCOV in try_to_wake_up()
-Date: Mon,  5 Oct 2026 20:58:02 +0200
-Message-Id: <20261005185803.39170-6-kmehltretter@gmail.com>
+Subject: [PATCH v4 6/6] sched/core: Pause KCOV in wake_up_new_task()
+Date: Mon,  5 Oct 2026 20:58:03 +0200
+Message-Id: <20261005185803.39170-7-kmehltretter@gmail.com>
 X-Mailer: git-send-email 2.39.5 (Apple Git-154)
 In-Reply-To: <20261005185803.39170-1-kmehltretter@gmail.com>
 References: <20261005185803.39170-1-kmehltretter@gmail.com>
@@ -101,41 +101,35 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-try_to_wake_up() is built without KCOV instrumentation, but it calls
-helpers instrumented with KCOV, such as kthread_is_per_cpu(), CPU
-capacity helpers and SCHED_HRTICK arming. They can record into current
-while in_task() is true.
+wake_up_new_task() is built without KCOV instrumentation, but CPU
+selection and enqueue call helpers instrumented with KCOV. During a
+KCOV-enabled fork, they can record scheduler, hrtimer and clockevent
+coverage into the parent.
 
-CONFIG_KCOV_SELFTEST exposes this under PREEMPT_RT. The interrupt
-selftest fails on x86_64 in kthread_is_per_cpu(): RT runs the timer
-softirq in a thread, so the wakeup runs in task context during the
-selftest's spin. The same helpers leak into non-RT syscall wakeups such
-as a pipe write waking a reader.
-
-Pause the wakeup body with the kcov_pause guard. Take it before the
-preemption guard so preemption is re-enabled while KCOV remains paused.
-Wrapping only select_task_rq() would miss SCHED_HRTICK arming during
-enqueue.
+The paths depend on runqueue and CPU state, so coverage varies between
+identical forks. Pause KCOV for the whole function, extending the
+scheduler exclusion to new-task wakeups.
 
 Assisted-by: LLM
 Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
 ---
- kernel/sched/core.c | 2 ++
- 1 file changed, 2 insertions(+)
+ kernel/sched/core.c | 3 +++
+ 1 file changed, 3 insertions(+)
 
 diff --git a/kernel/sched/core.c b/kernel/sched/core.c
-index 419dd98645bd..f19221282278 100644
+index f19221282278..888460c97952 100644
 --- a/kernel/sched/core.c
 +++ b/kernel/sched/core.c
-@@ -4273,6 +4273,8 @@ bool ttwu_state_match(struct task_struct *p, unsigned int state, int *success)
-  */
- int try_to_wake_up(struct task_struct *p, unsigned int state, int wake_flags)
- {
+@@ -4969,6 +4969,9 @@ void wake_up_new_task(struct task_struct *p)
+ 	struct rq *rq;
+ 	int wake_flags = WF_FORK;
+ 
 +	/* Callees instrumented with KCOV would leak coverage into current. */
 +	guard(kcov_pause)();
- 	guard(preempt)();
- 	int cpu, success = 0;
- 
++
+ 	raw_spin_lock_irqsave(&p->pi_lock, rf.flags);
+ 	WRITE_ONCE(p->__state, TASK_RUNNING);
+ 	/*
 -- 
 2.53.0
 
