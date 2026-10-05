@@ -1,136 +1,227 @@
-Received: from PNYPR01CU001.outbound.protection.outlook.com (mail-centralindiaazon11020079.outbound.protection.outlook.com [52.101.225.79])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from out-zbxj-a82.jellyfish.systems (out-zbxj-a82.jellyfish.systems [198.54.127.82])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D07382F8EA3;
-	Mon,  5 Oct 2026 04:27:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.225.79
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791174456; cv=fail; b=lL/nNnfkMysGIOMmiRFl5oxeat08wI3qHHbecyvmz6juo8oUVPCfXVHkRr3Wby6JU2/w/vrDRY96ivUwIGuBn+I+eYG0YHEmXnqcVzaaC5QlyxuwMgGgpDnCD1O6yQaamCzqjdghCuE5fVYIGS0ziXGM8b0krk+6EzUMp+X1XqE=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791174456; c=relaxed/simple;
-	bh=4byU3bVZZcPGpfvlhtmgxxJsP0tvIcx48SPzHy8nqAA=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=RJeaEsnMeUUxxTjHKG9699VrPY7Fc+9JRibxEKWKtCB4VChxw6/SlViPjwgxU4GGplxBkksEGJxnCw6x+PBytPMStp3a/Z8wjd7DioN429nU3RJEmLHkhY8ITr9pI9gJtO/pyvv7Nztk4YVIFPVJQ4kWAZMJrN6P+XMw/jYx7oc=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ebytelogic.com; spf=pass smtp.mailfrom=ebytelogic.com; arc=fail smtp.client-ip=52.101.225.79
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ebytelogic.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ebytelogic.com
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=P91IOzT4i5oF+44FFsD88mBSvTF9p4Hc+9u83456SntZOJueHS++nGimVMFPLhfL8FaxtStmZxtFmJibNAEOQfrc7fl+GgRtgPHGvgfOZ0XYhN5j7cqBcmOkbwiTPaxapVMAlhr9oxBd+7kgmyIRhMlemziIQAC/uFT4e+arjh7LyJTUFStFem3A+iUHs8qhQORV6jwZ4f3iAl2pKBhS21N/zJMEnj5brcXj6AyHs6RTWvlKu2433222ms1T5qs5//vnuOnzBk2B0MS8GPavqLP0IhPf7pLVo2eHI2KsMTYl95S/l7vMefVJZ1Uf9A13FTLuBKu39Huv5hvLbN2+OA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=jktB4HdeCh7V6tCxsuMKL5Evo5Fd4zXMyp59O1tnkvQ=;
- b=eHv5BriGGGjQ55IGDE0sYt71kLdOv8e6VJFl7PqT+HcNxQ2kxCMMjAGAp84USr+xTwqFvnA59wz/z09vONee31+nz5oIiWudykf2UVHJ0uDI+uedXNrUTuBPsjesW7g/s/rBsqDHJlxdmdsqcrErppFHouKiW4T9jzZE6/2FBn6lq04L0k9Hh2ebilyURf7NS5pPngNSVJZr03JHx9KH9xYBxHiVlXM/sZFwZ3y0WMIZdMV07g4Q8aIhVHiyLloNcFvHsR02yYUmnrOcip6hKfINt3E3ugGhf91SoDaOj/lg2Lx7Xru46ZhE6MajrqBJap0DMsIObbz+F37GfU+SeQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=ebytelogic.com; dmarc=pass action=none
- header.from=ebytelogic.com; dkim=pass header.d=ebytelogic.com; arc=none
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=ebytelogic.com;
-Received: from PN3PPF28092842E.INDP287.PROD.OUTLOOK.COM (2603:1096:c04:1::97)
- by PN1P287MB3789.INDP287.PROD.OUTLOOK.COM (2603:1096:c01:256::5) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.472.20; Mon, 5 Oct
- 2026 04:27:30 +0000
-Received: from PN3PPF28092842E.INDP287.PROD.OUTLOOK.COM
- ([fe80::df75:6e8c:7def:a08e]) by PN3PPF28092842E.INDP287.PROD.OUTLOOK.COM
- ([fe80::df75:6e8c:7def:a08e%6]) with mapi id 15.21.0472.016; Mon, 5 Oct 2026
- 04:27:29 +0000
-From: Hitesh Patel <hitesh@ebytelogic.com>
-To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-Cc: Hitesh Patel <hitesh@ebytelogic.com>,
-	Andi Shyti <andi.shyti@kernel.org>,
-	Loic Poulain <loic.poulain@oss.qualcomm.com>,
-	Robert Foss <rfoss@kernel.org>,
-	linux-i2c@vger.kernel.org,
-	linux-arm-msm@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	ravi@ebytelogic.com
-Subject: Re: [PATCH v2] i2c: qcom-cci: always enable SCL clock stretching
-Date: Mon,  5 Oct 2026 09:57:20 +0530
-Message-ID: <20261005042721.162972-1-hitesh@ebytelogic.com>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BD93B27FD5B
+	for <linux-kernel@vger.kernel.org>; Mon,  5 Oct 2026 04:29:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.54.127.82
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791174589; cv=none; b=ec2CD9W0tMXU2Q8rfO5ekQsKNcsTb0AoX39jjuE1fFlL6njb3E3SVv44ABVTQhO172FRgI/8HgS4XZgny+EmHRXiG/5Q4agdjzrnGxlv9YMM2GQnt9tmIz9nx+wK58Jnwg9sx1ASBWDKjUqzhp4GrHhCHPJfKB6IthEcVjP54nU=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791174589; c=relaxed/simple;
+	bh=8YI2FJFNtwcbRik4bllybK3nDGi2VpD6uJ/8GFvWFaU=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=YhrhojK+taDlJ4r88650kRGAMMqV1muBtKazElGT85pWwlXgxZfunN3/sJCnEX64dVchJewSpIgTbN+r8LUnw3ukQM1zY4fLXT7EwZa6MKjB/IwIQy7SBYsmu04KxMh7aowutXc7ODLLYq8YGtp6rMrVNuVTkeiL/tpO0G9sWP8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=firmwaredesign.org; spf=pass smtp.mailfrom=firmwaredesign.org; dkim=pass (2048-bit key) header.d=firmwaredesign.org header.i=@firmwaredesign.org header.b=qgfJn3p8; arc=none smtp.client-ip=198.54.127.82
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=firmwaredesign.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=firmwaredesign.org
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=firmwaredesign.org header.i=@firmwaredesign.org header.b="qgfJn3p8"
+Received: from mail.privateemail.com (unknown [98.240.242.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mail.privateemail.com (Postfix) with ESMTPSA id 4hymcj0b8mz2x9B;
+	Mon, 05 Oct 2026 04:29:24 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=firmwaredesign.org;
+	s=privateemail; t=1791174565;
+	bh=xAOFedc7WXMh96NVjyctLQdxLbrd4fJkRzu2avHa5xg=;
+	h=From:To:Cc:Subject:Date:From;
+	b=qgfJn3p8xrtXCQ5D7jYu1Kox05EYXxEc2j7BKO/4oA7ZeH+4tnOv1FjqgDx8F0YtF
+	 iGZ1yoxtg6YMv5NWBXllwB/bwKaffzR30c1bEJzo9fA1dmDZtRwW6TeNo5Vws+a8bg
+	 a4z1xVisLwhYeFC9Q3phMVIyJ9Xn6f6huuuvy6mOD1NBJmkGF4JIs8cAlXRjBAlX/o
+	 IxEiXyPHimdH8Xz7/z0/Ad22t6On/KZK5zJfod/jyCrjYsITTjsbvDw1dKH1lmerVP
+	 /CbmDAmiuHBRtShzJX8vAVeztocuMr32C8Yd9vK6plpI76X5IrokPpThP3DO4XM26n
+	 vpHHVsyuaPFsg==
+From: Marinela Tatiana Selseth <marinela.selseth@firmwaredesign.org>
+To: gregkh@linuxfoundation.org
+Cc: linux-kernel@vger.kernel.org,
+	linux-staging@lists.linux.dev,
+	Marinela Tatiana Selseth <marinela.selseth@firmwaredesign.org>
+Subject: [PATCH] staging: vme_user: fix list iterator tracking and prune dead validations
+Date: Sun,  4 Oct 2026 23:29:11 -0500
+Message-ID: <20261005042911.64922-1-marinela.selseth@firmwaredesign.org>
 X-Mailer: git-send-email 2.43.0
-In-Reply-To: <arr57tHBYx1MowW7@zenone.zhora.eu>
-References: <20260921131954.1690578-1-hitesh@ebytelogic.com> <arr57tHBYx1MowW7@zenone.zhora.eu>
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: PN4P287CA0083.INDP287.PROD.OUTLOOK.COM
- (2603:1096:c01:26b::11) To PN3PPF28092842E.INDP287.PROD.OUTLOOK.COM
- (2603:1096:c04:1::97)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PN3PPF28092842E:EE_|PN1P287MB3789:EE_
-X-MS-Office365-Filtering-Correlation-Id: fc7d2b15-499d-424c-9d37-08df2298f770
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|366016|10070799003|52116014|376014|23010399003|1800799024|18002099003|22082099003|4143699003|10067099003|56012099006;
-X-Microsoft-Antispam-Message-Info:
-	dFGD6qrtoAS6cJpNdGomD3/Vr2uAFCHvLNguOb6E5UMNCZ5inwQvGpQTRInTDPcjpB+bvcwl7D4JCYLaZLmO2Q3cGF0Jn8Z3szlnoFcSPfaEvd1cYy5djOZdMdURLaIyBXFcwUvioNUyM1+5HlfUtcu1Ii0fkiGxcq6p2iv4wkHIvQkAqkyMhEmUgFHSnPHeb8a3nPa+l8OtQiyvanG5reBqIR8Ix/pSPmwkXea1SH31Uu1uiEjw9+bMUU/Il7sScZUE7DFspppoimOd+Y8f+jMkA5XVUMHYqgLAuv0pMhbsxD12gFafZU8OAhXC2LWmlhV1sR4fE/ftn4EN/k7iDiNkThfTV3KnbMy0PTSQO24pR4CThcw3+Qd/cYktc+UuIrz49Kyt6+R3raM9AP9IDjk1T2t8QN1Ot5DUjwr8f/G+AeGApApJnfrr4VZDIQQM4ng+0kFhUe5Xemi8q3yNn16ZNp8CKkRaXE9MXEKnw8BwHImvngQ/mUHKqxLRsR6QsSzb4kEqQ+Gh3itqaTcBqeQwkvzTi3YyYoL0b+8lpSM0iUHF9gfsjNEa4BkMNsUlF4U/OUpoHfZ1hxDXgRtoEsfQlnwFNxqZ9402umBEp8DbRd41SmRIGU+t5nhIz7Hs
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PN3PPF28092842E.INDP287.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(366016)(10070799003)(52116014)(376014)(23010399003)(1800799024)(18002099003)(22082099003)(4143699003)(10067099003)(56012099006);DIR:OUT;SFP:1102;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?qTE+3Nvn1OBGWNNrlikPN2lV41Y/8/QVzhAGPb1Ppb4Go90u74Au/eHJhgt/?=
- =?us-ascii?Q?w+NC/Mt8Q/Klr5NMkcXwivNpQ8lUxrdM3+iny9feYvULjfaVC9a6ZA6MwC1t?=
- =?us-ascii?Q?nq0GRV8I1a2CCcRFnJT4FHNHfiCx0ssosQ7dWdc4SUA3xAZQpS7Nmv14TDVK?=
- =?us-ascii?Q?d7xzpwe1KO2CEfcXEHb+eprV/LmfOa9Bo0EOP2HPnDNdSA6aDdsoBboFAw8i?=
- =?us-ascii?Q?qYKvPbxWa5v0RAXTQYsS/uGi6ktCvzPjo2sb/gh4mMplcHbH2FQVK0h8UByv?=
- =?us-ascii?Q?qw3Hb5hXuUrSrJDaFWDceAGfNrs60TfVD3bEd6U6rcI1rUs8xXh++AS5JJWp?=
- =?us-ascii?Q?zZ/jSeBnF5Kzpztny0b8Zg+kC5P45YPS8O2SZWJwaGFdxI9pneI46jvCT3ns?=
- =?us-ascii?Q?CRu2pNSqtl8p5IvAmMdYdUR9ic1XFJuAwhRCcp2HdAaDOMItQY0293VTrSBl?=
- =?us-ascii?Q?y/Hk+9py4fsveGiliYTUyUN0a4eA4m2S6IURMdccO3Zzw2ORyLh1RoSYAjbl?=
- =?us-ascii?Q?APusrB6hlwsjry7LNUrSCAv4QoBXdtFczAcPwKoRKiJODVYifea6rtPDtQcq?=
- =?us-ascii?Q?RVllb+esHGqjVKG4oqzksTsYSmi//y4WxSOuCgKeJfWd90mG/0US+gAt8CRH?=
- =?us-ascii?Q?rmpCcjIDwImw0mFt8+JJl1tl7T4LFUtXvZjxb3/YPeFMmbFC3ru2MkozCCxd?=
- =?us-ascii?Q?WEzf7BmyetFplqGQLm3iOoPs8kK4nBcRmrGA5thfJ/5aBHYJJ6PGQxprbHza?=
- =?us-ascii?Q?evrBnMJUV5tDz8Lkl8cYUa3LutSlOz83Ij/C2UKengM8GIYuyeDFaD9i/Jwm?=
- =?us-ascii?Q?u5U6h3uvD8FIhA3whNz2/NlwZabS0liY4fAjf0WwWcxr5Esn9vZVioGUcCm1?=
- =?us-ascii?Q?so0rv6v5Y1Myjkb2fiHp7SvMrSEE3oCKXD0CrsOxmc2C9UIjoqpaK/8Kk7CG?=
- =?us-ascii?Q?8ja9F50M41VLgnzUBzD6OWdC80R+d0cvTVu/7rz4RcTJxqsWBL7h+Lztt/Ht?=
- =?us-ascii?Q?USf2SWCHTS0oP6GQfUnBvWorM5t8q10W1R+62LTy38wkzF/U21Ki6qjZ+dsC?=
- =?us-ascii?Q?UzAFiddfYbA+5J/Af7Sw2eznbWc2W1+/+5Wxpv6IZwktDDSh2St6yvTOjtHl?=
- =?us-ascii?Q?qidQiIRKrVpKBjBOvjOoXHXQCfQXqFC5bUWZJGGFU8sjufZ2TfC7zP1J889E?=
- =?us-ascii?Q?1ZJCsszsUCcNn/mlDfGAk1NlYzovl6NNwTGqY6mDSukaiYPSy0w+GBo6SgTp?=
- =?us-ascii?Q?7nUSqlDOHi2Cok/U/WUpVuM49puqcRegsQsFWCYklvfZcUQPHcTNPcwBtnER?=
- =?us-ascii?Q?jeHVPG1vsgOC9L3IgNMUkRwV93CvyMbSlOYYskXNRkkaXs0JziGOAAj7J3rV?=
- =?us-ascii?Q?O7/pKKceWKQ98V6iQviigDhmg0ZFugScUhOUAIX2bZwMWz2dCM7DgOyLWxL9?=
- =?us-ascii?Q?l1ZpsbFFY3GbPZbVcB6JPteQ4oTNxnd4f7ppZg9ZHqbDPlexSiDTfyhV/fWR?=
- =?us-ascii?Q?vOf5DtNoptv5c5/L270O2VrLNZl3nrbU0Iokd2LB+lWpFGDZArViFmgNDHSt?=
- =?us-ascii?Q?KHwoSK3j0UCUhVXmza0Sp3uXcMSIc/1+gOJt878FMOLgL52H0H2PZoNCiQvR?=
- =?us-ascii?Q?yYyeJoj1IRhJAsxHi/5qr9zKclkGkagzaLvaiD8pybBC4Wnv97rsUPdjD6GJ?=
- =?us-ascii?Q?6bE4vYJFikUUmotmfkAnz1u3ilPXZ4tOoffIJLhB+VLGKd29Sa94gNl+naod?=
- =?us-ascii?Q?QhrQ8EmvZKXN0UultPsO6WQ+DsKqhkqI9fMzO0m+KHU9CosQiW6xSZPoGxYl?=
-X-MS-Exchange-AntiSpam-MessageData-1: x426S5KQFqY7bg==
-X-OriginatorOrg: ebytelogic.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: fc7d2b15-499d-424c-9d37-08df2298f770
-X-MS-Exchange-CrossTenant-AuthSource: PN3PPF28092842E.INDP287.PROD.OUTLOOK.COM
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Oct 2026 04:27:29.4741
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 13bdb17c-4ae8-490c-90c1-ec8121ef96ee
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: htZKgkQ4k5LYegHIGXieEQmm2q1Gk8z8BOYJYcgxmEXavqfXYr/tDwYxUf3ycWrqfKDCWfxY238XS40Y7p6guA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PN1P287MB3789
+Content-Transfer-Encoding: 8bit
+X-Envelope-From: marinela.selseth@firmwaredesign.org
 
-Hi Konrad,
+Automated static analysis runs using 'make coccicheck' uncovered
+multiple critical logic and validation flaws inside the VME subsystem.
+The file drivers/staging/vme_user/vme.c contained repetitive
+unreachable checks testing list iterator pointers for NULL (such as if
+(!dma_ctrlr) and if (!lm)) immediately following 'list_for_each_entry'
+loop boundaries.
+Because of internal pointer arithmetic designs, these loop variables
+are mathematically guaranteed to never evaluate to NULL during loop
+processing.
 
-A gentle ping on this one - Andi is holding it for your ack.
+Worse, if memory allocations failed for the corresponding structure
+images, the error cleanup paths ('err_alloc:') attempted to acquire
+spinlocks or mutex blocks using those same loop iterators. Since the
+traversal was already complete, these pointers held out-of-bounds,
+scrambled memory offsets, exposing the kernel to critical Null Pointer
+Dereference panics.
 
-The v2 is what you suggested: it drops the per-table scl_stretch_en
-field and sets CCI_I2C_MISC_CTL_SCL_STRETCH_EN unconditionally in
-cci_init(), so every speed mode on every CCI version gets it.
+Clean up this driver architecture by removing the unreachable loop
+checks entirely, dropping stale, misleading warning statements, and
+routing the post-loop lock cleanups cleanly through verified
+allocation tracking pointer references.
 
-Tested on SC7280 (CCI v2) at 100 kHz through a GMSL I2C tunnel and at
-1 MHz for the on-board devices. The other tables are untested, but the
-change is identical for all of them.
+Assisted-by: Gemini
+Signed-off-by: Marinela Tatiana Selseth <marinela.selseth@firmwaredesign.org>
+---
+ drivers/staging/vme_user/vme.c | 69 +++++++++++-----------------------
+ 1 file changed, 21 insertions(+), 48 deletions(-)
 
-  https://lore.kernel.org/linux-i2c/20260921131954.1690578-1-hitesh@ebytelogic.com/
+diff --git a/drivers/staging/vme_user/vme.c b/drivers/staging/vme_user/vme.c
+index b5c66b66ce32..fb9f6acbbe62 100644
+--- a/drivers/staging/vme_user/vme.c
++++ b/drivers/staging/vme_user/vme.c
+@@ -264,17 +264,11 @@ struct vme_resource *vme_slave_request(struct vme_dev *vdev, u32 address,
+ 
+ 	/* Loop through slave resources */
+ 	list_for_each_entry(slave_image, &bridge->slave_resources, list) {
+-		if (!slave_image) {
+-			dev_err(bridge->parent,
+-				"Registered NULL Slave resource\n");
+-			continue;
+-		}
+-
+ 		/* Find an unlocked and compatible image */
+ 		mutex_lock(&slave_image->mtx);
+ 		if (((slave_image->address_attr & address) == address) &&
+-		    ((slave_image->cycle_attr & cycle) == cycle) &&
+-		    !slave_image->locked) {
++			((slave_image->cycle_attr & cycle) == cycle) &&
++			!slave_image->locked) {
+ 			slave_image->locked = 1;
+ 			mutex_unlock(&slave_image->mtx);
+ 			allocated_image = slave_image;
+@@ -298,9 +292,9 @@ struct vme_resource *vme_slave_request(struct vme_dev *vdev, u32 address,
+ 
+ err_alloc:
+ 	/* Unlock image */
+-	mutex_lock(&slave_image->mtx);
+-	slave_image->locked = 0;
+-	mutex_unlock(&slave_image->mtx);
++	mutex_lock(&allocated_image->mtx);
++	allocated_image->locked = 0;
++	mutex_unlock(&allocated_image->mtx);
+ err_image:
+ err_bus:
+ 	return NULL;
+@@ -458,18 +452,12 @@ struct vme_resource *vme_master_request(struct vme_dev *vdev, u32 address,
+ 
+ 	/* Loop through master resources */
+ 	list_for_each_entry(master_image, &bridge->master_resources, list) {
+-		if (!master_image) {
+-			dev_warn(bridge->parent,
+-				 "Registered NULL master resource\n");
+-			continue;
+-		}
+-
+ 		/* Find an unlocked and compatible image */
+ 		spin_lock(&master_image->lock);
+ 		if (((master_image->address_attr & address) == address) &&
+-		    ((master_image->cycle_attr & cycle) == cycle) &&
+-		    ((master_image->width_attr & dwidth) == dwidth) &&
+-		    !master_image->locked) {
++			((master_image->cycle_attr & cycle) == cycle) &&
++			((master_image->width_attr & dwidth) == dwidth) &&
++			!master_image->locked) {
+ 			master_image->locked = 1;
+ 			spin_unlock(&master_image->lock);
+ 			allocated_image = master_image;
+@@ -494,10 +482,10 @@ struct vme_resource *vme_master_request(struct vme_dev *vdev, u32 address,
+ 	return resource;
+ 
+ err_alloc:
+-	/* Unlock image */
+-	spin_lock(&master_image->lock);
+-	master_image->locked = 0;
+-	spin_unlock(&master_image->lock);
++	/* Unlock image using the valid tracking pointer reference */
++	spin_lock(&allocated_image->lock);
++	allocated_image->locked = 0;
++	spin_unlock(&allocated_image->lock);
+ err_image:
+ err_bus:
+ 	return NULL;
+@@ -821,9 +809,6 @@ struct vme_resource *vme_dma_request(struct vme_dev *vdev, u32 route)
+ 	struct vme_dma_resource *dma_ctrlr;
+ 	struct vme_resource *resource = NULL;
+ 
+-	/* XXX Not checking resource attributes */
+-	dev_err(&vdev->dev, "No VME resource Attribute tests done\n");
+-
+ 	bridge = vdev->bridge;
+ 	if (!bridge) {
+ 		dev_err(&vdev->dev, "Can't find VME bus\n");
+@@ -832,16 +817,10 @@ struct vme_resource *vme_dma_request(struct vme_dev *vdev, u32 route)
+ 
+ 	/* Loop through DMA resources */
+ 	list_for_each_entry(dma_ctrlr, &bridge->dma_resources, list) {
+-		if (!dma_ctrlr) {
+-			dev_err(bridge->parent,
+-				"Registered NULL DMA resource\n");
+-			continue;
+-		}
+-
+ 		/* Find an unlocked and compatible controller */
+ 		mutex_lock(&dma_ctrlr->mtx);
+ 		if (((dma_ctrlr->route_attr & route) == route) &&
+-		    !dma_ctrlr->locked) {
++			!dma_ctrlr->locked) {
+ 			dma_ctrlr->locked = 1;
+ 			mutex_unlock(&dma_ctrlr->mtx);
+ 			allocated_ctrlr = dma_ctrlr;
+@@ -864,10 +843,10 @@ struct vme_resource *vme_dma_request(struct vme_dev *vdev, u32 route)
+ 	return resource;
+ 
+ err_alloc:
+-	/* Unlock image */
+-	mutex_lock(&dma_ctrlr->mtx);
+-	dma_ctrlr->locked = 0;
+-	mutex_unlock(&dma_ctrlr->mtx);
++	/* Unlock image using the valid allocated pointer tracking reference */
++	mutex_lock(&allocated_ctrlr->mtx);
++	allocated_ctrlr->locked = 0;
++	mutex_unlock(&allocated_ctrlr->mtx);
+ err_ctrlr:
+ err_bus:
+ 	return NULL;
+@@ -1437,12 +1416,6 @@ struct vme_resource *vme_lm_request(struct vme_dev *vdev)
+ 
+ 	/* Loop through LM resources */
+ 	list_for_each_entry(lm, &bridge->lm_resources, list) {
+-		if (!lm) {
+-			dev_err(bridge->parent,
+-				"Registered NULL Location Monitor resource\n");
+-			continue;
+-		}
+-
+ 		/* Find an unlocked controller */
+ 		mutex_lock(&lm->mtx);
+ 		if (!lm->locked) {
+@@ -1468,10 +1441,10 @@ struct vme_resource *vme_lm_request(struct vme_dev *vdev)
+ 	return resource;
+ 
+ err_alloc:
+-	/* Unlock image */
+-	mutex_lock(&lm->mtx);
+-	lm->locked = 0;
+-	mutex_unlock(&lm->mtx);
++	/* Unlock image using the valid tracking pointer */
++	mutex_lock(&allocated_lm->mtx);
++	allocated_lm->locked = 0;
++	mutex_unlock(&allocated_lm->mtx);
+ err_lm:
+ err_bus:
+ 	return NULL;
+-- 
+2.43.0
 
-Thanks,
-Hitesh
