@@ -1,181 +1,81 @@
-Received: from mail-dy1-f200.google.com (mail-dy1-f200.google.com [74.125.82.200])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 194343AFB0C
-	for <linux-kernel@vger.kernel.org>; Mon,  5 Oct 2026 21:04:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.200
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BB9F9318BB8;
+	Mon,  5 Oct 2026 21:05:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791234253; cv=none; b=DVLjv2R6MvnatBtNOvNBmfhVC0Aw5pcOQG/fczNi4EQL65a1iW2pAHZEh2zumAlo1xEnxSfxfxoOtP6cPTT8Gn350qSETl0sXOfQ4ZBGvvKW5LvrNk3GPQHgknP4aagS0FTSQ+kPWX/DfprNmIA0NuM4gnAkFO8iFwJnYUiNy6M=
+	t=1791234337; cv=none; b=uUP9CG3s/Rip7bO+YgU/l/92ItfCRwKXkFlVWkn30P6WFM6dJFxh3esVoBRagDRrka8Mjd70lHJvO3oWiv5mexJy1Z/rLMHZoUKXLPSoxQkB5HLB0mNztGHaIUIAaaHkV9GmvidhzDFvUHjt2pczXt+Gslyj+zOn3xqwkGowRwo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791234253; c=relaxed/simple;
-	bh=TmqEykrRbiCeVgmK3AIV82QcHK8mCtpYZEu6FYVJNtU=;
-	h=Date:Mime-Version:Message-ID:Subject:From:To:Cc:Content-Type; b=msGP5YxCNY+0rU3ccSkWCxIW7ulfoKJcvwtDi9xkAuzWTOQtckjG7IcBjg1wjJcFt5LUluQAre9uUfsqs+qee535gVJgJTf6OE+f4aQQ2uGHDScNbycrFp30NZ77rGXRRXMGvhD3/LXnz8HyjUk4M52T422tZjx9g+C+2I0MMik=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--kaifengw.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=Plo3XmAR; arc=none smtp.client-ip=74.125.82.200
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--kaifengw.bounces.google.com
+	s=arc-20240116; t=1791234337; c=relaxed/simple;
+	bh=G+w7EkzR9iONABXgqKNyTfrfF1ClH+VVNNkqFimY3Pk=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=CRY1oUSo69tC2wezIpo2YANkaR6msk/ATKW8M5Y1+6xSjS0UFYBhWmy5d0Pg9KBQQYrU7mPTmGovoGaPyXWxGRJwQZyZSDsqubXVt7dK5vraY8ILqhkzqow7zIKkvwC+r5CaQF2gVASw7QjcZ9eHINZxvMFL+MAt8EuAyRFh5F0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bFBMVAKT; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="Plo3XmAR"
-Received: by mail-dy1-f200.google.com with SMTP id 5a478bee46e88-34d49d8dee1so3823035eec.0
-        for <linux-kernel@vger.kernel.org>; Mon, 05 Oct 2026 14:04:11 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1791234251; x=1791839051; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:mime-version:date:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=KI04OHVNMk1iREh5Vcyr0z3kyY0Bw6/QOTWCwAjjS5Q=;
-        b=Plo3XmAR6IOMiP0lTk5KvpNlKyZWqwB19e54yf4iL6tFOKMsUlyEuBOCfNvutzyZbn
-         dLRBEsPWkFe9ezeGyKWscIlqW/+pdIt4gsnHbOXHlG1nOg+08uT6sLSirL4dHG/jMOyV
-         eHVU4QF0dfuIOVdrU2dghkwPZaxJE3Pb+Gya2YyTNlrrpQczEfBIlVMmmR2T4u/+E4YA
-         diCLDL0Nzr93yS/vTEehkdYhyyedpi3+cQf1J5HpQanM7QYKG/27zzYyrKwBdqTzif1N
-         oyNEbvKFq3qT7NxI3aZQGic/NaS9G8wBZmclffubhTVnjeu9Jx/8qej8cX5lVcnMRjwl
-         /W1A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791234251; x=1791839051;
-        h=content-type:cc:to:from:subject:message-id:mime-version:date
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=KI04OHVNMk1iREh5Vcyr0z3kyY0Bw6/QOTWCwAjjS5Q=;
-        b=QdXod3Wd3utXZgPWTbS3QWfNClXeyWZBsWff4DLY8FODRw1IxVW1V7zThCdLvuvMv/
-         Lx0e6kEAfiHNw7Qj0Wwrz3gts/FWaHH2G4ykYNA2EqG++aT6HaOjQdZG0PV5TV6MWKeF
-         WIMZT7OR8+ozCkTTSt5wJ3xVdTF8E+qxiNsksv8ANsD2NWpMbz7afqd81IgY+Dvgcel1
-         JFJJTzYHzgWp776TRoLimbFoqO9sd7nH8CfEisxHkTvvcXlrQm76wxuN86frYhi3sLIH
-         T1MuNxPgoQrsYE5Q00q5CYOUsXx7GjLKBh0U7tp3wCqKFJxMb6bDVzvznur/RnOCPc3n
-         0f7Q==
-X-Forwarded-Encrypted: i=1; AKwUvBxkzCKZ7uehOPWCun97fSttrfgBLjuVU5TAZYGz/qDem9zYpbPVEwBX+5Dpu29xKK5XIwwMKwZgVUkuKRs=@vger.kernel.org
-X-Gm-Message-State: AFuF++k0xHEZ+CJssz4OqC63isnnwFoS7SazmRuI9gWKacQu9yL2HgrW
-	/frBKsqVSgsIk9CS7B9mInPj6lVNapUtQOwb0YGuYpzedsv29gY56kGZQpwsbKgwvMtpla9rBYb
-	9l6qfU7a3c5jPPA==
-X-Received: from dycpr6.prod.google.com ([2002:a05:7301:fd86:b0:347:7fea:9fec])
- (user=kaifengw job=prod-delivery.src-stubby-dispatcher) by
- 2002:a05:7301:4208:b0:351:1e3f:812d with SMTP id 5a478bee46e88-3511e3f8878mr8117223eec.36.1791234250456;
- Mon, 05 Oct 2026 14:04:10 -0700 (PDT)
-Date: Mon,  5 Oct 2026 21:04:03 +0000
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bFBMVAKT"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 323311F000FF;
+	Mon,  5 Oct 2026 21:05:36 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791234336;
+	bh=w2pIgFiEsXU056asN4AfqubB2EFM4zS7a5OgX9F1Kac=;
+	h=From:To:Cc:Subject:Date;
+	b=bFBMVAKTvhIR2n3To4WWdXuc9KtDdFGha11HRSsirugMVFeHsODpkBYxxUkcbZ6Ap
+	 jR7k7gKTGezDUKdDDHiCuHDSffJBWPHDigfRJ/k1udQjSvEydA/jCj/AWJLh3xc0d4
+	 hxbH1QG42KGyST/xRlpqkDKMuOVUae85+32BnT878E+TlcUBONBoUyTvaVX2mQphgR
+	 +zCJlGztuhKsHiuLQ8mcJM1yv/zo/OZz/spgKt+dSFytpcaE7y8lwoPlZrytm1NtAO
+	 uVBA+rmaikFSd0ZWPJfEVOh8dyP89JqJyugbrf80eD61+WWyoQr5rKAob3PS7ncO6s
+	 tHo6MGMsi3K/w==
+From: "Rob Herring (Arm)" <robh@kernel.org>
+To: Liviu Dudau <liviu.dudau@arm.com>,
+	Sudeep Holla <sudeep.holla@kernel.org>,
+	Lorenzo Pieralisi <lpieralisi@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>
+Cc: linux-arm-kernel@lists.infradead.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v2] arm64: dts: arm: corstone1000-a320: Fix GIC redistributor region size
+Date: Mon,  5 Oct 2026 16:05:06 -0500
+Message-ID: <20261005210506.2118052-2-robh@kernel.org>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-X-Mailer: git-send-email 2.56.0.rc1.315.gc6ed9934b7-goog
-Message-ID: <20261005210403.3206872-1-kaifengw@google.com>
-Subject: [PATCH net] net: devmem: check uid and netns in net_devmem_get_binding()
-From: Kaifeng Wang <kaifengw@google.com>
-To: netdev@vger.kernel.org
-Cc: almasrymina@google.com, edumazet@google.com, pabeni@redhat.com, 
-	willemb@google.com, davem@davemloft.net, kuba@kernel.org, horms@kernel.org, 
-	sdf@fomichev.me, bobbyeshleman@meta.com, kaiyuanz@google.com, 
-	linux-kernel@vger.kernel.org, Kaifeng Wang <kaifengw@google.com>
-Content-Type: text/plain; charset="UTF-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-NETDEV_CMD_BIND_TX is unprivileged, and dmabuf binding IDs are allocated
-from a single global xarray. Currently net_devmem_get_binding() looks up
-the binding by ID without checking whether the sending socket belongs to
-the same user or network namespace that created the binding.
+The Arm Corstone1000-A320 has a GICv4 which means the redistributor
+region should be 4x256KB rather than 512KB. This issue didn't become
+apparent as SMP was disabled as a work-around in early versions of the
+FVP.
 
-Record the creating netlink socket's network namespace and UID on the
-binding, and verify both in net_devmem_get_binding() before checking the
-route destination device. Return -EINVAL on mismatch so callers cannot
-distinguish non-existent IDs from bindings owned by other users.
-
-Fixes: bd61848900bf ("net: devmem: Implement TX path")
-Signed-off-by: Kaifeng Wang <kaifengw@google.com>
+Fixes: 87599f1843d3 ("arm64: dts: arm/corstone1000: Add corstone-1000-a320")
+Reviewed-by: Liviu Dudau <liviu.dudau@arm.com>
+Signed-off-by: Rob Herring (Arm) <robh@kernel.org>
 ---
- net/core/devmem.c      | 7 ++++++-
- net/core/devmem.h      | 5 +++++
- net/core/netdev-genl.c | 5 +++--
- 3 files changed, 14 insertions(+), 3 deletions(-)
+Hi, this still hasn't been applied.
 
-diff --git a/net/core/devmem.c b/net/core/devmem.c
-index f4d60654ce7f..9a773b1ce92d 100644
---- a/net/core/devmem.c
-+++ b/net/core/devmem.c
-@@ -191,6 +191,7 @@ net_devmem_bind_dmabuf(struct net_device *dev, void *vdev,
- 		       enum dma_data_direction direction,
- 		       unsigned int dmabuf_fd, unsigned int niov_shift,
- 		       struct netdev_nl_sock *priv,
-+		       const struct sock *nl_sk,
- 		       struct netlink_ext_ack *extack)
- {
- 	struct net_devmem_dmabuf_binding *binding;
-@@ -220,6 +221,8 @@ net_devmem_bind_dmabuf(struct net_device *dev, void *vdev,
+v2:
+ - No changes, rebase on v7.3-rc1
+---
+ arch/arm64/boot/dts/arm/corstone1000-a320.dtsi | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/arch/arm64/boot/dts/arm/corstone1000-a320.dtsi b/arch/arm64/boot/dts/arm/corstone1000-a320.dtsi
+index f0937914350c..f895a024fc92 100644
+--- a/arch/arm64/boot/dts/arm/corstone1000-a320.dtsi
++++ b/arch/arm64/boot/dts/arm/corstone1000-a320.dtsi
+@@ -73,7 +73,7 @@ gic: interrupt-controller@1c000000 {
+ 		#size-cells = <1>;
+ 		interrupt-controller;
+ 		reg = <0x1c000000 0x10000>,
+-		      <0x1c040000 0x80000>;
++		      <0x1c040000 0x100000>;
+ 		interrupts = <GIC_PPI 9 IRQ_TYPE_LEVEL_LOW>;
+ 	};
  
- 	binding->dev = dev;
- 	binding->vdev = vdev;
-+	write_pnet(&binding->net, sock_net(nl_sk));
-+	binding->uid = sk_uid(nl_sk);
- 	binding->niov_shift = niov_shift;
- 	xa_init_flags(&binding->bound_rxqs, XA_FLAGS_ALLOC);
- 
-@@ -390,7 +393,9 @@ struct net_devmem_dmabuf_binding *net_devmem_get_binding(struct sock *sk,
- 	int err = 0;
- 
- 	binding = net_devmem_lookup_dmabuf(dmabuf_id);
--	if (!binding || !binding->tx_vec) {
-+	if (!binding || !binding->tx_vec ||
-+	    !net_eq(sock_net(sk), read_pnet(&binding->net)) ||
-+	    !uid_eq(sk_uid(sk), binding->uid)) {
- 		err = -EINVAL;
- 		goto out_err;
- 	}
-diff --git a/net/core/devmem.h b/net/core/devmem.h
-index 4a293a7d1149..7b9d3e04367c 100644
---- a/net/core/devmem.h
-+++ b/net/core/devmem.h
-@@ -10,6 +10,7 @@
- #ifndef _NET_DEVMEM_H
- #define _NET_DEVMEM_H
- 
-+#include <net/net_namespace.h>
- #include <net/netmem.h>
- #include <net/netdev_netlink.h>
- 
-@@ -26,6 +27,8 @@ struct net_devmem_dmabuf_binding {
- 	 * dereferenced.
- 	 */
- 	void *vdev;
-+	possible_net_t net;
-+	kuid_t uid;
- 	struct gen_pool *chunk_pool;
- 	/* Protect dev */
- 	struct mutex lock;
-@@ -97,6 +100,7 @@ net_devmem_bind_dmabuf(struct net_device *dev, void *vdev,
- 		       enum dma_data_direction direction,
- 		       unsigned int dmabuf_fd, unsigned int niov_shift,
- 		       struct netdev_nl_sock *priv,
-+		       const struct sock *nl_sk,
- 		       struct netlink_ext_ack *extack);
- struct net_devmem_dmabuf_binding *net_devmem_lookup_dmabuf(u32 id);
- void net_devmem_unbind_dmabuf(struct net_devmem_dmabuf_binding *binding);
-@@ -181,6 +185,7 @@ net_devmem_bind_dmabuf(struct net_device *dev, void *vdev,
- 		       unsigned int dmabuf_fd,
- 		       unsigned int niov_shift,
- 		       struct netdev_nl_sock *priv,
-+		       const struct sock *nl_sk,
- 		       struct netlink_ext_ack *extack)
- {
- 	return ERR_PTR(-EOPNOTSUPP);
-diff --git a/net/core/netdev-genl.c b/net/core/netdev-genl.c
-index 33b9f4eb9565..847814e3df3f 100644
---- a/net/core/netdev-genl.c
-+++ b/net/core/netdev-genl.c
-@@ -1094,7 +1094,7 @@ int netdev_nl_bind_rx_doit(struct sk_buff *skb, struct genl_info *info)
- 
- 	binding = net_devmem_bind_dmabuf(netdev, NULL, dma_dev, DMA_FROM_DEVICE,
- 					 dmabuf_fd, niov_shift, priv,
--					 info->extack);
-+					 NETLINK_CB(skb).sk, info->extack);
- 	if (IS_ERR(binding)) {
- 		err = PTR_ERR(binding);
- 		goto err_rxq_bitmap;
-@@ -1243,7 +1243,8 @@ int netdev_nl_bind_tx_doit(struct sk_buff *skb, struct genl_info *info)
- 	binding = net_devmem_bind_dmabuf(bind_dev,
- 					 bind_dev != netdev ? netdev : NULL,
- 					 dma_dev, DMA_TO_DEVICE, dmabuf_fd,
--					 PAGE_SHIFT, priv, info->extack);
-+					 PAGE_SHIFT, priv, NETLINK_CB(skb).sk,
-+					 info->extack);
- 	if (IS_ERR(binding)) {
- 		err = PTR_ERR(binding);
- 		goto err_unlock_bind_dev;
 -- 
-2.56.0.rc1.315.gc6ed9934b7-goog
+2.53.0
 
