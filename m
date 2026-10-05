@@ -1,41 +1,78 @@
-Received: from mx.itxnorge.no (itx-kvm-14.itxnorge.no [91.189.121.228])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-dy2-f43.google.com (mail-dy2-f43.google.com [74.125.229.43])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EDFFD30AAD8
-	for <linux-kernel@vger.kernel.org>; Mon,  5 Oct 2026 19:40:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.189.121.228
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7D9774DA9B6
+	for <linux-kernel@vger.kernel.org>; Mon,  5 Oct 2026 19:41:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.43
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791229230; cv=none; b=ONSCprhyFJD5JL+pyeKA23qk1v2TD47UwMT8sfGGEg3zG+LiC/t71PyvqIMdsXsMHZrhK407gV63lZODAFdmPLA2+ZeMDaMFIAz0jdOqvNJAkWPuiaRbPm9kjukG41kWE42rf5KB5KpkQGm4sF9jGKAjqSjQ4cKMod+UMH9kZkQ=
+	t=1791229291; cv=none; b=KnF/FdZWFfDkwUXHASTsB3gX0hvt7ZF37oisgINqs9MTigFnpQ67CAJ2/Vbll3UlzM4a0fbxaeAbKvbmQ8/NvAbmQeBQQIKQqFC364Njfp/q3kkMc+OFUUDszEVSnkhZJQdVj7gTnUhCzVJm5XQYnAz+u8Ngmzfv0WddJspMtBk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791229230; c=relaxed/simple;
-	bh=+V2yOU+IEx2bRGNa7AKhNr+tqi17KL3zZ8Qi4Qd+OpA=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=vC3if+m3P+tuB7H0GRvhiDuEMY1QyEJx6brG5XQXLPxd8sZOVZtZK5dibdauOzYfk2WTM6JIXGbmt2IjiTo48f5QivuhN8M8lO+oFZF4npQg4C9uoMcW0dZzDeScQXuoGnlhRJiEkvbYvSIIq/Tj01V3M+TeS+4ckLqEOUche0k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=itx.no; spf=pass smtp.mailfrom=itx.no; dkim=pass (1024-bit key) header.d=itx.no header.i=@itx.no header.b=V/Lo2cS3; arc=none smtp.client-ip=91.189.121.228
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=itx.no
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=itx.no
+	s=arc-20240116; t=1791229291; c=relaxed/simple;
+	bh=+bTXWDMaQZNDFcLiKDdbOjDGn95EDSIv0eXDY3F1Hp4=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=bBhcBmATqdprFdvCezuF2P4yhBvVrc7dxxkzHfuzp7fcVMtbBYQPlrh6KWAEznBN0N2sx4iHWLq95Zegete3Lu4P3+0O1f9ZgZE55r5Om2JMnRdNik1tEbQqmJhRCs5nGn3BaWNK7KtsrNzGozcvzaAPTF6bLnFZpGAjxuPgIXc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=fl6rIVeR; arc=none smtp.client-ip=74.125.229.43
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=itx.no header.i=@itx.no header.b="V/Lo2cS3"
-From: Stian Halseth <stian@itx.no>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=itx.no; s=mx.itx.no;
-	t=1791229219;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding;
-	bh=RXXaTH0thaDIWQ2rIWXTHhz8bvjMei03oLIjkgt3krU=;
-	b=V/Lo2cS3jLLjRugz+6/LqJ5sVr5kw09XkZ8HR+CdrdXqwgmw9C/oYfeFQ4kiZcSG5tZRpL
-	zxY8b3M/P4nU6yib7aiUeminU31Z7PAUNfJL65MSmgYWddPHjnZAOUlQPui0AGtJa52PW7
-	eVI6Sddqyj9r4zyIIktgQZpMUBKEjH0=
-To: Frederic Weisbecker <frederic@kernel.org>,
-	Thomas Gleixner <tglx@kernel.org>
-Cc: Anna-Maria Behnsen <anna-maria@linutronix.de>,
-	Ingo Molnar <mingo@redhat.com>,
-	Peter Zijlstra <peterz@infradead.org>,
-	Shrikanth Hegde <sshegde@linux.ibm.com>,
-	regressions@lists.linux.dev,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v2] sched/cputime: Don't account idle time twice after dyntick-idle
-Date: Mon,  5 Oct 2026 21:40:10 +0200
-Message-ID: <20261005194010.168299-1-stian@itx.no>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="fl6rIVeR"
+Received: by mail-dy2-f43.google.com with SMTP id 5a478bee46e88-33c11ef641aso3527230eec.1
+        for <linux-kernel@vger.kernel.org>; Mon, 05 Oct 2026 12:41:30 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791229289; x=1791834089; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=Uv7afzpq7+dnopZxaVqr0Kj31R9b5sq4pmvrJx8z7b8=;
+        b=fl6rIVeR9vUkxIHGTLLADTYZDqO4xnuBdvbkFaegUFE+PGtDXDPyZoQUBEQdRJUTsp
+         +FyFM4G7T+Me0EDpJbqXcOFArsw3cjGuDL5Nisf+RHuQvVrYRfjIZERquj9HpLUA8NKG
+         PDEyj5Az8+1KXhKwfSG6DrSlxQQtwyJPXYyhrXzxZm6OlGrr3KOygimop6Vb0nStoneR
+         5tcdzq7uw0uqENbxa3Hqi/XtPQ/S1wfw+BULKP8nUbL4j8IJ6/IMaEOM0zyu93ndf3ll
+         DJ5B7hOmM1+RG63K4wjmWP1o22UUcuUqkyY420gfKDlzZXx+erH4/ycc38bZBvIbOdBl
+         ArUw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791229289; x=1791834089;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Uv7afzpq7+dnopZxaVqr0Kj31R9b5sq4pmvrJx8z7b8=;
+        b=H5R1gGQVHsjdq1dtqTCnpA4XgsYV8RNv4HwQOIwHPWKZN0zgqV+rwruCMOQAcu3pmu
+         jr8wNW8Y8/IRDRle3RSQFXfnKv/f6Gczz3NF3mrh5XG3WtBXK33cSVT9DJHbnP5th2/c
+         tu1SoavwBxHcn0h+ARfL/tzJE7mcHFCE5IHMBkjZ5aN1UvaPLojyOe6EPIqALMNF2U8n
+         U9qLxGsXmtCfkKgJdXIn79o3eNFSOvLebxYcvbhyqKq6aN7okXl5ovmJLQLh08AnhMqV
+         C1FXwOFsYE5/kZr1AS0y0/Ybp+8M0beywip4c2Q4ueoCs4HcPEoc2Js1FONrWxZ4lIsP
+         plhQ==
+X-Forwarded-Encrypted: i=1; AKwUvBz2fUjWCQ4IUwmCKJUX45xUMasSWh4kOqijBVmudRQkjGsJmxjXdakp1b0uo4wch88o1niepvNHg9HdewA=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKJNKBGpRKKno0t8VGw3bgOtEfQXHdYK9s8Vwp+/WhIoyDy1TsH
+	iob6BwW7WUGEPWQ/MvzHhGvx7ZS/iQgqQnLnacvRzfus2HszR/V8Lkdt
+X-Gm-Gg: AYBFou1fUWcZ/sQMrV9TFtoHZUVPEu9yQSzkTMzIDOpsOv4u/DnCEwHsemmoL0sBFu1
+	+VEb4aOC4ILYC8PMxERZm9Nm7imeseIFu9AJ30niWgV7zkFo8BcjCkGh8SVVunJ72EWJBHgQnh1
+	AWxSHNfw3hrvGthKwcg1stLU0fSjzSBc09UFFy/VEk3mTh0zEdec+eJjpFcVvAyL4gTJjQM1D4u
+	qpJNa+1H9PfbAxU18tn47ed16pAvQS7COLnYNhwBQD5LvFeTLEGdeGo718pg7JcWO/EOhkT7Whi
+	6aoYLteDC1PVeZHLfITHLzYIY7GsyZh9EOyc47j5wjYHJY48cKVL4OO6oighvoJ6AAgQtCV6VjO
+	6uzWsdLGL7jRMzGaDnSNIr+kCOWAmZRMfY6yxJvimQCSL0oXNraKZWGTPQKZUHe2etYLo/wHvJn
+	eQRIcbeYLFpxQPpkOQcuBqoLVb7Dx/abHR5TgDxCGgZEdA/KadMnEoTdxijpziQyBSjCEATOTUb
+	0OhBUSnQLf1GJX1WiUrA8+6biYdoerkQRlGEpR51UsM7xKuc72XLMbEYhz4zaqaXAUbPAQxYUqD
+	hGdlUkcBw+n7f8lTd9KxLR9CTf/8pK4t8XV6y/330Nvly1Jl
+X-Received: by 2002:a05:693c:65c4:b0:350:2a5c:56c with SMTP id 5a478bee46e88-3502a5c09d7mr14871911eec.20.1791229289353;
+        Mon, 05 Oct 2026 12:41:29 -0700 (PDT)
+Received: from ryzen.lan ([2601:644:8000:7a86::e35])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-35146b3b5aesm848241eec.29.2026.10.05.12.41.28
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 05 Oct 2026 12:41:28 -0700 (PDT)
+From: Rosen Penev <rosenp@gmail.com>
+To: dri-devel@lists.freedesktop.org
+Cc: Alessio Belle <alessio.belle@imgtec.com>,
+	Luigi Santivetti <luigi.santivetti@imgtec.com>,
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Maxime Ripard <mripard@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	David Airlie <airlied@gmail.com>,
+	Simona Vetter <simona@ffwll.ch>,
+	imagination@lists.freedesktop.org (open list:IMGTEC POWERVR DRM DRIVER),
+	linux-kernel@vger.kernel.org (open list)
+Subject: [PATCH v2] drm/imagination: simplify pvr_fw_trace_seq_data
+Date: Mon,  5 Oct 2026 12:41:27 -0700
+Message-ID: <20261005194127.151181-1-rosenp@gmail.com>
+X-Mailer: git-send-email 2.56.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -44,253 +81,96 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-On idle exit the dyntick-idle accounting accounts the time up to now,
-then the tick is restarted on its old period. The first tick accounts a
-whole TICK_NSEC to whatever runs, although the part of that period
-before the idle exit has just been accounted as idle time, or with
-IRQ_TIME_ACCOUNTING as IRQ time. That is up to a full tick per idle
-exit, and /proc/stat reports more idle time than wall time.
+The trace buffer copy always has ROGUE_FW_TRACE_BUF_DEFAULT_SIZE_IN_DWORDS
+entries, so embed it in struct pvr_fw_trace_seq_data as a fixed-size
+array instead of allocating it separately. This removes one allocation
+and its error handling, and lets FORTIFY_SOURCE and UBSAN_BOUNDS see the
+real size of the buffer.
 
-Record how much of the current tick period dyntick-idle has accounted,
-and leave it out of the tick that ends the period.
+At about 48KB, the struct needs an order-4 page allocation, which can
+fail under memory fragmentation. Allocate it with kvzalloc_obj() so it
+falls back to vmalloc in that case, and free it with kvfree().
 
-Fixes: cf6444c3e1bb7 ("tick/sched: Unify idle cputime accounting")
-Link: https://lore.kernel.org/all/20261004142724.3896396-1-stian@itx.no/
-Signed-off-by: Stian Halseth <stian@itx.no>
+Assisted-by: LLM
+Signed-off-by: Rosen Penev <rosenp@gmail.com>
 ---
-v2:
-- Keep the overlap per tick period, so that a second dyntick-idle
-  period before the tick adds to it instead of replacing it (Frederic)
-- Read it through a helper in the NO_HZ_COMMON block, with a stub in
-  its #else, like kcpustat_field_dyntick(). IS_ENABLED() does not build,
-  as the field only exists with NO_HZ_COMMON. The helper is static
-  inline, as there is no user with VIRT_CPU_ACCOUNTING_NATIVE.
+ v2: use kvzalloc_obj()
+ drivers/gpu/drm/imagination/pvr_fw_trace.c | 25 ++++++----------------
+ 1 file changed, 7 insertions(+), 18 deletions(-)
 
-Frederic's case does not happen in my tests on its own. Since
-f4c31b07b136 ("sched: idle: Consolidate the handling of two special
-cases"), without a cpuidle driver or with a single state, the tick is
-only stopped after it woke up the idle loop, and that tick takes the
-overlap first. With a test-only change that stops the tick on every
-idle entry, as a governor may, the guest added to a pending overlap
-about 900 times a second under a pipe ping-pong between two CPUs.
-
-So it is not what is left with steal time. That is the same with v2,
-+0.7% to +1.4%, and only shows when the task also spins for 1 ms after
-each wakeup.
-
-Total CPU time per wall second on the loaded CPU, v2:
-
-  SPARC T7-1, HZ=100, busiest CPU*       1.0001
-  SPARC T7-1, HZ=100, 3.7 ms sleeps      1.0000
-  SPARC T7-1, HZ=100, 25 ms sleeps       0.9998
-  SPARC T7-1, HZ=100, pipe ping-pong     1.0000
-  x86_64 KVM guest, HZ=250, 3.7 ms       0.997  (1.505 before)
-  same guest, pipe ping-pong             1.000  (1.152 before)
-  same guest, 9 ms sleeps                0.985
-
-  * under its normal load, about 90 tick stops/s
-
-The guest was tested as for v1, with and without IRQ_TIME_ACCOUNTING,
-with highres=off, with steal time and with the forced restart path. The
--1.5% with 9 ms sleeps is the late tick delivery described in v1.
-
-v1: https://lore.kernel.org/all/20261004184701.4112237-1-stian@itx.no/
-
- include/linux/kernel_stat.h |  7 +++++--
- kernel/sched/cputime.c      | 35 +++++++++++++++++++++++++++++------
- kernel/time/tick-sched.c    | 23 ++++++++++++++++++++---
- 3 files changed, 54 insertions(+), 11 deletions(-)
-
-diff --git a/include/linux/kernel_stat.h b/include/linux/kernel_stat.h
-index 9ca6c2259dfea..6e252048b5ade 100644
---- a/include/linux/kernel_stat.h
-+++ b/include/linux/kernel_stat.h
-@@ -40,6 +40,9 @@ struct kernel_cpustat {
- 	seqcount_t	idle_sleeptime_seq;
- 	u64		idle_entrytime;
- 	u64		idle_stealtime[2];
-+	u64		idle_dyntick_entry;
-+	u64		idle_tick_period;
-+	u64		idle_tick_overlap;
- #endif
- 	u64		cpustat[NR_STATS];
+diff --git a/drivers/gpu/drm/imagination/pvr_fw_trace.c b/drivers/gpu/drm/imagination/pvr_fw_trace.c
+index 6fe478f64f02..27bbc62114b1 100644
+--- a/drivers/gpu/drm/imagination/pvr_fw_trace.c
++++ b/drivers/gpu/drm/imagination/pvr_fw_trace.c
+@@ -240,9 +240,6 @@ update_logtype(struct pvr_device *pvr_dev, u32 group_mask)
+ }
+ 
+ struct pvr_fw_trace_seq_data {
+-	/** @buffer: Pointer to copy of trace data. */
+-	u32 *buffer;
+-
+ 	/** @start_offset: Starting offset in trace data, as reported by FW. */
+ 	u32 start_offset;
+ 
+@@ -251,6 +248,9 @@ struct pvr_fw_trace_seq_data {
+ 
+ 	/** @assert_buf: Trace assert buffer, as reported by FW. */
+ 	struct rogue_fwif_file_info_buf assert_buf;
++
++	/** @buffer: Copy of trace data. */
++	u32 buffer[ROGUE_FW_TRACE_BUF_DEFAULT_SIZE_IN_DWORDS];
  };
-@@ -111,7 +114,7 @@ static inline unsigned long kstat_cpu_irqs_sum(unsigned int cpu)
- #ifdef CONFIG_HAVE_VIRT_CPU_ACCOUNTING_IDLE
  
- static inline void kcpustat_dyntick_start(u64 now) { }
--static inline void kcpustat_dyntick_stop(u64 now) { }
-+static inline void kcpustat_dyntick_stop(u64 now, u64 tick_start) { }
- static inline void kcpustat_irq_enter(u64 now) { }
- static inline void kcpustat_irq_exit(u64 now) { }
- static inline bool kcpustat_idle_dyntick(void) { return false; }
-@@ -132,7 +135,7 @@ static inline u64 kcpustat_field_iowait(int cpu)
- #else /* !CONFIG_HAVE_VIRT_CPU_ACCOUNTING_IDLE */
+ static u32 find_sfid(u32 id)
+@@ -454,17 +454,10 @@ static int fw_trace_open(struct inode *inode, struct file *file)
+ 	struct pvr_fw_trace_seq_data *trace_seq_data;
+ 	int err;
  
- extern void kcpustat_dyntick_start(u64 now);
--extern void kcpustat_dyntick_stop(u64 now);
-+extern void kcpustat_dyntick_stop(u64 now, u64 tick_start);
- extern void kcpustat_irq_enter(u64 now);
- extern void kcpustat_irq_exit(u64 now);
- extern u64 kcpustat_field_idle(int cpu);
-diff --git a/kernel/sched/cputime.c b/kernel/sched/cputime.c
-index 06bddaa738e52..3c6185e9e0963 100644
---- a/kernel/sched/cputime.c
-+++ b/kernel/sched/cputime.c
-@@ -381,9 +381,9 @@ void thread_group_cputime(struct task_struct *tsk, struct task_cputime *times)
-  * softirq as those do not count in task exec_runtime any more.
-  */
- static void irqtime_account_process_tick(struct task_struct *p, int user_tick,
--					 int ticks)
-+					 u64 cputime)
- {
--	u64 other, cputime = TICK_NSEC * ticks;
-+	u64 other;
+-	trace_seq_data = kzalloc_obj(*trace_seq_data);
++	trace_seq_data = kvzalloc_obj(*trace_seq_data);
+ 	if (!trace_seq_data)
+ 		return -ENOMEM;
  
+-	trace_seq_data->buffer = kcalloc(ROGUE_FW_TRACE_BUF_DEFAULT_SIZE_IN_DWORDS,
+-					 sizeof(*trace_seq_data->buffer), GFP_KERNEL);
+-	if (!trace_seq_data->buffer) {
+-		err = -ENOMEM;
+-		goto err_free_data;
+-	}
+-
  	/*
- 	 * When returning from idle, many ticks can get accounted at
-@@ -418,7 +418,7 @@ static void irqtime_account_process_tick(struct task_struct *p, int user_tick,
+ 	 * Take a local copy of the trace buffer, as firmware may still be
+ 	 * writing to it. This will exist as long as this file is open.
+@@ -477,17 +470,14 @@ static int fw_trace_open(struct inode *inode, struct file *file)
  
- #else /* !CONFIG_IRQ_TIME_ACCOUNTING: */
- static inline void irqtime_account_process_tick(struct task_struct *p, int user_tick,
--						int nr_ticks) { }
-+						u64 cputime) { }
- #endif /* !CONFIG_IRQ_TIME_ACCOUNTING */
+ 	err = seq_open(file, &pvr_fw_trace_seq_ops);
+ 	if (err)
+-		goto err_free_buffer;
++		goto err_free_data;
  
- #if defined(CONFIG_NO_HZ_COMMON) && !defined(CONFIG_HAVE_VIRT_CPU_ACCOUNTING_IDLE)
-@@ -468,18 +468,34 @@ static void kcpustat_idle_start(struct kernel_cpustat *kc, u64 now)
- 	write_seqcount_end(&kc->idle_sleeptime_seq);
+ 	((struct seq_file *)file->private_data)->private = trace_seq_data;
+ 
+ 	return 0;
+ 
+-err_free_buffer:
+-	kfree(trace_seq_data->buffer);
+-
+ err_free_data:
+-	kfree(trace_seq_data);
++	kvfree(trace_seq_data);
+ 
+ 	return err;
  }
+@@ -498,8 +488,7 @@ static int fw_trace_release(struct inode *inode, struct file *file)
+ 		((struct seq_file *)file->private_data)->private;
  
--void kcpustat_dyntick_stop(u64 now)
-+void kcpustat_dyntick_stop(u64 now, u64 tick_start)
- {
- 	struct kernel_cpustat *kc = kcpustat_this_cpu;
+ 	seq_release(inode, file);
+-	kfree(trace_seq_data->buffer);
+-	kfree(trace_seq_data);
++	kvfree(trace_seq_data);
  
- 	if (!vtime_generic_enabled_this_cpu()) {
- 		WARN_ON_ONCE(!kc->idle_dyntick);
-+		if (kc->idle_tick_period != tick_start) {
-+			kc->idle_tick_period = tick_start;
-+			kc->idle_tick_overlap = 0;
-+		}
-+		tick_start = max(tick_start, kc->idle_dyntick_entry);
-+		if (now > tick_start)
-+			kc->idle_tick_overlap += now - tick_start;
- 		kcpustat_idle_stop(kc, now);
- 		kc->idle_dyntick = false;
- 		vtime_dyntick_stop();
- 	}
+ 	return 0;
  }
- 
-+/*
-+ * The first tick after dyntick-idle covers a period that the dyntick-idle
-+ * accounting may already have accounted in part.
-+ */
-+static inline u64 kcpustat_tick_overlap(void)
-+{
-+	return __this_cpu_xchg(kernel_cpustat.idle_tick_overlap, 0);
-+}
-+
- void kcpustat_dyntick_start(u64 now)
- {
- 	struct kernel_cpustat *kc = kcpustat_this_cpu;
-@@ -487,6 +503,7 @@ void kcpustat_dyntick_start(u64 now)
- 	if (!vtime_generic_enabled_this_cpu()) {
- 		vtime_dyntick_start();
- 		kc->idle_dyntick = true;
-+		kc->idle_dyntick_entry = now;
- 		kcpustat_idle_start(kc, now);
- 	}
- }
-@@ -555,6 +572,11 @@ u64 kcpustat_field_iowait(int cpu)
- }
- EXPORT_SYMBOL_GPL(kcpustat_field_iowait);
- #else
-+static inline u64 kcpustat_tick_overlap(void)
-+{
-+	return 0;
-+}
-+
- static u64 kcpustat_field_dyntick(int cpu, enum cpu_usage_stat idx,
- 				  bool compute_delta, ktime_t now)
- {
-@@ -695,12 +717,13 @@ void account_process_tick(struct task_struct *p, int user_tick)
- 	if (kcpustat_idle_dyntick())
- 		return;
- 
-+	cputime = TICK_NSEC - kcpustat_tick_overlap();
-+
- 	if (irqtime_enabled()) {
--		irqtime_account_process_tick(p, user_tick, 1);
-+		irqtime_account_process_tick(p, user_tick, cputime);
- 		return;
- 	}
- 
--	cputime = TICK_NSEC;
- 	steal = steal_account_process_time(ULONG_MAX);
- 
- 	if (steal >= cputime)
-diff --git a/kernel/time/tick-sched.c b/kernel/time/tick-sched.c
-index 6c3fea3867139..1c5cefbb10812 100644
---- a/kernel/time/tick-sched.c
-+++ b/kernel/time/tick-sched.c
-@@ -763,13 +763,20 @@ static ktime_t tick_forward_now(ktime_t expires, ktime_t now)
- 	return expires + TICK_NSEC;
- }
- 
--static void tick_nohz_restart(struct tick_sched *ts, ktime_t now)
-+static ktime_t tick_nohz_restart_expires(struct tick_sched *ts, ktime_t now)
- {
- 	ktime_t expires = ts->last_tick;
- 
- 	if (now >= expires)
- 		expires = tick_forward_now(expires, now);
- 
-+	return expires;
-+}
-+
-+static void tick_nohz_restart(struct tick_sched *ts, ktime_t now)
-+{
-+	ktime_t expires = tick_nohz_restart_expires(ts, now);
-+
- 	if (tick_sched_flag_test(ts, TS_FLAG_HIGHRES)) {
- 		hrtimer_start(&ts->sched_timer,	expires, HRTIMER_MODE_ABS_PINNED_HARD);
- 	} else {
-@@ -1329,6 +1336,16 @@ unsigned long tick_nohz_get_idle_calls_cpu(int cpu)
- 	return ts->idle_calls;
- }
- 
-+static void tick_nohz_dyntick_stop(struct tick_sched *ts, ktime_t now)
-+{
-+	ktime_t tick_start = now;
-+
-+	if (!tick_nohz_full_cpu(smp_processor_id()))
-+		tick_start = tick_nohz_restart_expires(ts, now) - TICK_NSEC;
-+
-+	kcpustat_dyntick_stop(now, tick_start);
-+}
-+
- void tick_nohz_idle_restart_tick(void)
- {
- 	struct tick_sched *ts = this_cpu_ptr(&tick_cpu_sched);
-@@ -1341,7 +1358,7 @@ void tick_nohz_idle_restart_tick(void)
- 		 * no tiny amount of idle time is accounted twice.
- 		 */
- 		ts->idle_entrytime = ktime_get();
--		kcpustat_dyntick_stop(ts->idle_entrytime);
-+		tick_nohz_dyntick_stop(ts, ts->idle_entrytime);
- 		tick_nohz_restart_sched_tick(ts, ts->idle_entrytime);
- 	}
- }
-@@ -1385,7 +1402,7 @@ void tick_nohz_idle_exit(void)
- 
- 	if (tick_sched_flag_test(ts, TS_FLAG_STOPPED)) {
- 		now = ktime_get();
--		kcpustat_dyntick_stop(now);
-+		tick_nohz_dyntick_stop(ts, now);
- 		tick_nohz_idle_update_tick(ts, now);
- 	}
- 
 -- 
-2.43.0
+2.56.0
 
