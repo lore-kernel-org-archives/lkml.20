@@ -1,98 +1,121 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ED4B5282F29
-	for <linux-kernel@vger.kernel.org>; Mon,  5 Oct 2026 02:26:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id B78A7547072
+	for <linux-kernel@vger.kernel.org>; Mon,  5 Oct 2026 02:37:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791167203; cv=none; b=iGh9rg04ZXL59+7FNfCT+7xCYMqvY6rME1qX9QsdbrGU0E/zD9CCXdbeJhfeBH6ekcrtLrHFaXKlBD62/cTr9M+u+LlB2OdhR2UXTDeo9ytgkLFKN7Eg1hitQp7Yhm5vh9MTRGg/EiMm8lbUPJtP6UAeQ9JNiX3KcOa0ZrICEx0=
+	t=1791167825; cv=none; b=FH6Si8z/df6vJNTymRsql8BOdfauiemuRmmILrfHhy2oV4We0iTRgYstIZDedoTo3SD3RJKw7QG4K7ADUPrtH3kHSkwy+hNOxn6xr5oU7V5+XZmAbqQ40t7H4w42Cp7CPWCNBE1zIM8+wBr2pWYnTZ40t2e6jv3iMeyhzMR29/k=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791167203; c=relaxed/simple;
-	bh=BZu7kbKm7tXVt4cHXmSjQCuMo1kUNFde6jUcPtpGWN0=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=upziEPgmZ0nXCsbP7v5IRdtHbApJeqU1zU3CTiYEjTREx3YI/zy+y4qRDtx3srlRpA6156jwe3rj/lSwW+j2tMrBaZsLSBDhhZseVjP80ZqD2kcCJlYQJI1tOhcffibopZ6bKkC24dh3UZB7QTQhuDALdZB5oZGAdV4ew4s9hcE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZpFxUfA6; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791167825; c=relaxed/simple;
+	bh=vl5s19mW9JNXxaeLZH+yT4sg+eJntMKRYJiYiz2MomI=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=OFbuLoiCRT2Pe9PIYN15Nxo41g9TpapKK5ydeBPdMgYCj3lcoJkBoPejV7gTraUoVSR/Gnii+JDGop9UFQO0LFWrj2FThxGlS5WQpLTduGxTS2HrRECBIPhV86RdCbBVEucwfZTdJEPZ3UXMOZY0xtQpFSGMybs9BJ7H2rr1840=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=rnGKV3nE; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZpFxUfA6"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9581F1F00899
-	for <linux-kernel@vger.kernel.org>; Mon,  5 Oct 2026 02:26:41 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791167201;
-	bh=fmBmJMA9CHZROT69fKavj/o6WX65hjRDOpiQKalyZuo=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=ZpFxUfA6rBd/KwyHo8PsNODPMrCEargjylR7+P6JUKsosVxR3Gqws1feeuwsRUuY7
-	 Ukz+GN0TZu8vWLZ6EZbDKTJiANu2/IB8Mm3XJ2a/3Q2rbtnhK7pWh1aOBbz5cgXLFR
-	 sAWULgMtyTg9LnC2r98LEEjIw+bZMC+FA8HvpxylYIpiKCfAGYx10i0hCHcgOsMzev
-	 N3cD/5rSABBYz0YXmv3jjQNSuJmpedDxHpHHOVxWMoWGZgaP2Tb0Bd9qm6GkZfqLx6
-	 X0/ovHJMFaE14WYoq+tCG14rnTOJPXh0Mr7c0EUq9EZARwDO1n354bqMnTl6Dy8yaM
-	 EY3lTOrMUR4dQ==
-Received: by mail-ed2-f32.google.com with SMTP id 4fb4d7f45d1cf-6acb91ecaccso1886389a12.2
-        for <linux-kernel@vger.kernel.org>; Sun, 04 Oct 2026 19:26:41 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBxGVfDFS0gj96820ctkf5ZBlJ8I8f7BT8A0PVj8kNTc2YcOeeA0MZr0sKT2pADexUbNT8xauzCRtktvDiU=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJogCAEr/HfKq1HMi2vSvrddhGn6rh8Aj7/+q+yJoVqhQewY+XL
-	ZVhl9gwG3iYt9xu6oMkiJ3trey6NylXk0EsjwtVyaT8k7HqTnQxViHPUcBPOuywUr/2Opog3CRz
-	tU1u6+hRZjNRiaaqnnPJuAptBTgQ9AF4=
-X-Received: by 2002:a05:6402:210a:b0:6ac:6fd3:1e97 with SMTP id
- 4fb4d7f45d1cf-6af9e361a2bmr7693828a12.35.1791167200235; Sun, 04 Oct 2026
- 19:26:40 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="rnGKV3nE"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id F37D81595;
+	Sun,  4 Oct 2026 19:36:57 -0700 (PDT)
+Received: from localhost (a085714.arm.com [10.164.19.28])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 9D30B3F763;
+	Sun,  4 Oct 2026 19:37:00 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1791167821; bh=vl5s19mW9JNXxaeLZH+yT4sg+eJntMKRYJiYiz2MomI=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=rnGKV3nEwlK1X7k2zdzTLzFY3mWapTTQwNrztTtOi3ummT0/lyYsdvlaUhu45qvFY
+	 xpwyQmnpwBWKkCvOdt+6ByczUIMmQ23umDaPucYD6k+OSjQ5ZsFEXF3+XcahbKsM9i
+	 XYobLAf2SI5KCsWqouvorXCBMdU284WPfwjFxhIc=
+Date: Mon, 5 Oct 2026 08:06:57 +0530
+From: Anshuman Khandual <anshuman.khandual@arm.com>
+To: Sang-Heon Jeon <ekffu200098@gmail.com>
+Cc: Andrew Morton <akpm@linux-foundation.org>, 
+	David Hildenbrand <david@kernel.org>, "Jose A . Perez de Azpillaga" <azpijr@gmail.com>, 
+	"Liam R. Howlett" <liam@infradead.org>, linux-kernel@vger.kernel.org, linux-mm@kvack.org, 
+	Lorenzo Stoakes <ljs@kernel.org>, Michal Hocko <mhocko@suse.com>, Mike Rapoport <rppt@kernel.org>, 
+	Suren Baghdasaryan <surenb@google.com>, Vlastimil Babka <vbabka@kernel.org>
+Subject: Re: [PATCH v2 1/3] mm/memory: remove unused
+ vmf_insert_mixed_mkwrite()
+Message-ID: <d7bksa3fzrynovdlajlvlnlwzgkyw433dyp7zkvme562hrxap6@xfifh46fce5n>
+References: <20261002160535.661399-1-ekffu200098@gmail.com>
+ <20261002160535.661399-2-ekffu200098@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <cover.1791107674.git.matthias.goergens@gmail.com>
-In-Reply-To: <cover.1791107674.git.matthias.goergens@gmail.com>
-From: Namjae Jeon <linkinjeon@kernel.org>
-Date: Mon, 5 Oct 2026 11:26:27 +0900
-X-Gmail-Original-Message-ID: <CAKYAXd9HfQJGC14R2o1zxN__DQwg11RXvpZXmdSRN5-=VjVEJA@mail.gmail.com>
-X-Gm-Features: AclHuK-rFEsyGvCTAXbMzRjNRbIHSZ2OatIr2asBmKKfNHcSM9hMdklvE-i9bb8
-Message-ID: <CAKYAXd9HfQJGC14R2o1zxN__DQwg11RXvpZXmdSRN5-=VjVEJA@mail.gmail.com>
-Subject: Re: [PATCH v3 0/4] ntfs: fix spurious EIO and ENOSPC on nearly full volumes
-To: Matthias Goergens <matthias.goergens@gmail.com>
-Cc: Hyunchul Lee <hyc.lee@gmail.com>, Baolin Liu <liubaolin12138@163.com>, ntfs@lists.linux.dev, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261002160535.661399-2-ekffu200098@gmail.com>
 
-On Sun, Oct 4, 2026 at 6:56=E2=80=AFPM Matthias Goergens
-<matthias.goergens@gmail.com> wrote:
->
-> These fix three errors returned while free space is left, and a
-> contiguous cluster allocation that comes back in two runs.  Patch 1
-> fixes file creation failing with EIO on a nearly full volume; it now
-> goes on until the volume is full and then fails with ENOSPC.  Patch 2
-> fixes the cluster allocator missing free clusters when its start hint
-> lies at or past the end of the volume, which empties the MFT zone, and
-> patch 3 removes the fallocate() check that then fails every later call.
-> Together the two bugs make fallocate() refuse space that is free until
-> the next mount.  Patch 4 keeps a contiguous request to a single run:
-> fallocate() zeroes only the first run, so the clusters of a second one
-> kept the data of a deleted file.  Reproducers, run with KASAN and
-> lockdep:
-> https://github.com/matthiasgoergens/linux/tree/reproducer/2026-10-04-ntfs=
--nearfull-v3
->
-> Changes in v3: Namjae Jeon asked whether a contiguous request can still
-> get a second run once the search has left the hint, for instance when
-> the run reaches the end of a bitmap page and the next page is skipped as
-> full.  It can, on that path and on two more: where the search wraps to
-> pass 2, and where it shrinks the MFT zone after trying every zone.  On
-> ntfs-next each left 16 of 20 fallocated clusters reading the data of a
-> deleted file.  New patch 4 does what he suggested: before setting a
-> cluster's bit, it checks that the cluster follows the run, and returns
-> the run otherwise.  Patches 1 to 3 are unchanged apart from Hyunchul
-> Lee's Reviewed-by.  Rebased on ntfs-next.
->
-> v2: https://lore.kernel.org/all/cover.1790853718.git.matthias.goergens@gm=
-ail.com/
-> v1: https://lore.kernel.org/all/cover.1790503811.git.matthias.goergens@gm=
-ail.com/
->
-> Matthias Goergens (4):
->   ntfs: set the attribute list size before reserving space for it
->   ntfs: restart the zone search when the allocation hint fails
->   ntfs: do not refuse fallocate() when the MFT zone is empty
->   ntfs: do not give a contiguous cluster allocation a second run
-Applied them to #ntfs-next.
-Thanks!
+On Sat, Oct 03, 2026 at 01:05:32AM +0900, Sang-Heon Jeon wrote:
+> Since commit 38607c62b34b ("fs/dax: properly refcount fs dax pages"),
+> vmf_insert_mixed_mkwrite() has no callers.
+> 
+> So remove the function and its declaration.
+> 
+> The comment above the function describes the -EBUSY handling in
+> __vm_insert_mixed(). Move it above that check.
+> 
+> No functional change.
+> 
+> Signed-off-by: Sang-Heon Jeon <ekffu200098@gmail.com>
+
+Reviewed-by: Anshuman Khandual <anshuman.khandual@arm.com>
+
+> ---
+>  include/linux/mm.h |  2 --
+>  mm/memory.c        | 16 +++++-----------
+>  2 files changed, 5 insertions(+), 13 deletions(-)
+> 
+> diff --git a/include/linux/mm.h b/include/linux/mm.h
+> index c038d06825c3..2ac734efd4ec 100644
+> --- a/include/linux/mm.h
+> +++ b/include/linux/mm.h
+> @@ -5008,8 +5008,6 @@ vm_fault_t vmf_insert_pfn_prot(struct vm_area_struct *vma, unsigned long addr,
+>  			unsigned long pfn, pgprot_t pgprot);
+>  vm_fault_t vmf_insert_mixed(struct vm_area_struct *vma, unsigned long addr,
+>  			unsigned long pfn);
+> -vm_fault_t vmf_insert_mixed_mkwrite(struct vm_area_struct *vma,
+> -		unsigned long addr, unsigned long pfn);
+>  int vm_iomap_memory(struct vm_area_struct *vma, phys_addr_t start, unsigned long len);
+>  
+>  static inline vm_fault_t vmf_insert_page(struct vm_area_struct *vma,
+> diff --git a/mm/memory.c b/mm/memory.c
+> index 330cde31bf8b..4b2e4be28031 100644
+> --- a/mm/memory.c
+> +++ b/mm/memory.c
+> @@ -3052,6 +3052,11 @@ static vm_fault_t __vm_insert_mixed(struct vm_area_struct *vma,
+>  
+>  	if (err == -ENOMEM)
+>  		return VM_FAULT_OOM;
+> +	/*
+> +	 *  If the insertion of PTE failed because someone else already added a
+> +	 *  different entry in the mean time, we treat that as success as we assume
+> +	 *  the same entry was actually inserted.
+> +	 */
+>  	if (err < 0 && err != -EBUSY)
+>  		return VM_FAULT_SIGBUS;
+>  
+> @@ -3085,17 +3090,6 @@ vm_fault_t vmf_insert_mixed(struct vm_area_struct *vma, unsigned long addr,
+>  }
+>  EXPORT_SYMBOL(vmf_insert_mixed);
+>  
+> -/*
+> - *  If the insertion of PTE failed because someone else already added a
+> - *  different entry in the mean time, we treat that as success as we assume
+> - *  the same entry was actually inserted.
+> - */
+> -vm_fault_t vmf_insert_mixed_mkwrite(struct vm_area_struct *vma,
+> -		unsigned long addr, unsigned long pfn)
+> -{
+> -	return __vm_insert_mixed(vma, addr, pfn, true);
+> -}
+> -
+>  /*
+>   * maps a range of physical memory into the requested pages. the old
+>   * mappings are removed. any references to nonexistent pages results
+> -- 
+> 2.43.0
+> 
