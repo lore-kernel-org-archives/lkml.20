@@ -1,204 +1,243 @@
-Received: from BYAPR05CU005.outbound.protection.outlook.com (mail-westusazon11020112.outbound.protection.outlook.com [52.101.85.112])
+Received: from OS0P286CU010.outbound.protection.outlook.com (mail-japanwestazon11021072.outbound.protection.outlook.com [40.107.74.72])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8B72734E745;
-	Mon,  5 Oct 2026 17:04:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.85.112
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5EC3930B50D;
+	Mon,  5 Oct 2026 17:05:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.74.72
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791219871; cv=fail; b=EQa4QDjYQ3nhuv40V/gQzaGaIfFiaRQlH6+Zt5+qkdHGWNpc7HdlZD09Jct2G2mdA8VttJvN+OC7IDJRA0LP6Py9vWfMrWd5f9aMrSQjnC+BaRq11TXbyhAxjBnvFZZzigonkfif9woAxikB3IuJccZ55sCNctNQWAV3+scVkTI=
+	t=1791219912; cv=fail; b=JrCdCj3q+D/3FrIlhwi7UFDTAgAjFfYz5HZgfByfbjSZ/AAAtZOfL+2xgR0pvqzQYtTLy30XDienNueY0LeSNiOFB/UqNxQOqOY/rfTbeveKUqvtidgfo3/BHMkSmUN9tyWxlTs3vW61QZickNwsKCj4fvdEXVKtlhPnxb5A3gA=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791219871; c=relaxed/simple;
-	bh=rA/my2MlkTmkcIQaE/p1EUxZ6jkvJH4zbOF11QIwWx0=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:MIME-Version; b=DUAz/Ai1i1f95QdjRF67g3DHuDY4OeyCMFG48s2NKQxDl1XHIkS28RNOmcd0Y+L3Cd9J+/R2/Dgz/+CcFh9LFq26/bfwZlwPquYKxOWYyREkYEG10sLgNnpoTyP830paL0Wx/8s1MVzR+LO7NEn0YibXUIm7xbU5h8UngRlaJ5A=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=rambus.com; spf=fail smtp.mailfrom=rambus.com; dkim=pass (2048-bit key) header.d=rambus.com header.i=@rambus.com header.b=29piLxEb; arc=fail smtp.client-ip=52.101.85.112
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=rambus.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=rambus.com
+	s=arc-20240116; t=1791219912; c=relaxed/simple;
+	bh=FISGhnQrk7hEpSTXQr2EHlhR4cm+Q8FGnYD958aw/cU=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
+	 Content-Disposition:In-Reply-To:MIME-Version; b=f1PBKYei5zWC91C3TqqqGiZILoRnxr8Lq0fdLqG/UC0bUC6lKtxykhkLZHPOGTovqWTRozEOytf67tLh/Pgm4xJ88QwL97U1wZhaMr9+CeqSTQvR4hwa3YvKkTcUWg+wJOkq28E3+uwM9F5UPeAwtcohreiPNAEdoQ8wTCYYB1M=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=valinux.co.jp; spf=pass smtp.mailfrom=valinux.co.jp; dkim=pass (1024-bit key) header.d=valinux.co.jp header.i=@valinux.co.jp header.b=uTn1fnhj; arc=fail smtp.client-ip=40.107.74.72
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=valinux.co.jp
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=valinux.co.jp
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=rambus.com header.i=@rambus.com header.b="29piLxEb"
+	dkim=pass (1024-bit key) header.d=valinux.co.jp header.i=@valinux.co.jp header.b="uTn1fnhj"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Y4k30nW8vlysqOD+tegvpygvvVZ5ewiGyRDv0XqkUBT2O3tys5DRQWoCkHq/QRUtjfjbHItzQplYObMMMKmE7zOA1ni9txx4C9ChfAOQFxjTrxoToE2LsZVkm3rnObL3UAXtHzSj99KEfBcpeJkDF4Oy9JsfHnQyYxhlV5VfgPDWV6+9E9DFTzlwDtJPguaiA2kfe+I/MFEoBS+KKXAlc+kNPW7Ka44n8CaEVpnRFMCKmfC5iw+Gt4qs+g7HN27SwUjkOCbPaFapPLos5kl/Cu1Qu19kkD/SCL4Yw0wnSovM0mc6fZ78MNpeOurI0Sc7FGCVyRyvcjgDEjIs9hZDRA==
+ b=Pokyqyy0+EMAeb5GQq3MsMmBGN0ZDWYk3DsMlSrKGci79YzZ6Cg6g1AxsR0Xv5yxHmLC2MYZcfvDHJw2hQoRFJ4yt/2UALYzO72H+2YdmCskgGwkoC7Fjz0YhYDujifReFGIHCTAPLfr1BMMhPuOi3dCh6bbeH/sZlw6T7uH/rHAe+blBOxQoYwfhZkQ6MPSWl/WLS+Kk03tg3Ynn+PWlc+ODTq3u9tYiai1XrhWozzPaSPK9a6X29KUa4CB1vUeibwtHq7i1l00kML+SoVg3tWInf5csEWRfYvULAUgyRZ8TYWrfh6MlRGOPOLmJmuPyk/AXY8UwBR2s2nfAe2pJg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=SfTWZmLKTZLaPNd0GyMSgq6m1WohaMbyoIjQM3jKHwA=;
- b=rDtNNqPN+JfsTjJCgcZVnTLasj25nE42tteDbJ+WWlzhRvlGZez6/xZLkyUsZi+2rxZxDt08mvhxgCU6sXCB6fAIMtV3/rQ/ZfzhsEHLCm9Qn/Hvw6sKXhJohNHpjAQ1YC44eV3N72Hm04PaHiT5RABgDSJj4Z8Uk9r6EhXhtkszB5TdLr86g+J4i11kuAobJ0K7R4BuaaSxmCOYwiT+1GmJbegDDFAyR+eM56M/2Y6gnkdpz2n5qUIy4haGPlziRNCcFsNRLCaZ8uaeGudHJvC/vPcbteud5Kxc6T8lFz99vFWijnSOTEDYSZb5mqRpx/bBCJGLq7/XQCWQZMSpxg==
+ bh=M+InXs4NZwxrvMK6JLaDIOoD3GWgtB6TGGJqaLAle2g=;
+ b=iYuuArcJd5Uc1sysrdhGHQMN1JUexyDvdjULxiPRCLeY4bcitHnRzwTQKw/0mdNZ7jqW7Pxi9pjTHHetocJC+hL1NTHtRwvCscM99KKkXDPaMntv6snN7fMIH8ZyQp56A7/oyWCzv5FwOliWuujUlb0u02O5EaJ6/hVZCLGEmtKmM7Yv9KmfKic//N6NpDTeVODM7tNMavMGL1Iziqr8TosUZ+ZNsUwediqO9Xz1acvDhZxXHtzZCKjkeXRvsEkg2c0HviNbHixTcHtsgdYP56kHi4Vrb5KAvS7aqdpCFuY7Nuc/qa07NHXJY/1/utSHRZ2/jRWUWMPAa7SogZjpCw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=rambus.com; dmarc=pass action=none header.from=rambus.com;
- dkim=pass header.d=rambus.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=rambus.com;
+ smtp.mailfrom=valinux.co.jp; dmarc=pass action=none
+ header.from=valinux.co.jp; dkim=pass header.d=valinux.co.jp; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=valinux.co.jp;
  s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=SfTWZmLKTZLaPNd0GyMSgq6m1WohaMbyoIjQM3jKHwA=;
- b=29piLxEbZqwhYeNJcabVnsWz1yfUnV/irJiTJBYroCap+vpw9KOmKer0tEsf/5fIfXgTHceqgvEukkPhmhl9e2yDn8dTDiYQHglV17Vv2sODZbv4PQw6UF+2hQSHZaW9lWDunLi0e5mV1N40wIVnqcnEtsILetEiGxpp6uHczGbpbTJ8ZGAnfMqWRadTptZKHn9WgWj5tenya8qT52RrIJsDBb5bRxk8beln//Qa6gfE4pjm93mNbIE9dmEzpioxdMQOO1Zg3XYh5iu2LOC4ztT5qM4GXEG/tlNZlWJNaD4kqcV6Sm1ao3tuOnqlJUF32hHTLW6PehZSEOdDU+hOnA==
-Received: from SJ0PR04MB8406.namprd04.prod.outlook.com (2603:10b6:a03:3d3::14)
- by BN0PR04MB8032.namprd04.prod.outlook.com (2603:10b6:408:15b::24) with
+ bh=M+InXs4NZwxrvMK6JLaDIOoD3GWgtB6TGGJqaLAle2g=;
+ b=uTn1fnhjRE20RmabUOMrI1JWyFnKRBMrEcj819fxj+cXHyTOxjZJbAXQJ51uyEgTwJ3HKH8j1r6JpoffouT0kn08432S3nabbvg7iGJTDpeRvDhYKit6GENScJZkKoPBHmvV7jixcHaQxfep8ToN5i2WzjoEdEe8VrJ50X9LHkg=
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=valinux.co.jp;
+Received: from TY7P286MB6866.JPNP286.PROD.OUTLOOK.COM (2603:1096:405:325::11)
+ by TYRP286MB5578.JPNP286.PROD.OUTLOOK.COM (2603:1096:405:18a::9) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.472.20; Mon, 5 Oct
- 2026 17:04:25 +0000
-Received: from SJ0PR04MB8406.namprd04.prod.outlook.com
- ([fe80::cbad:dfcc:82:7dbf]) by SJ0PR04MB8406.namprd04.prod.outlook.com
- ([fe80::cbad:dfcc:82:7dbf%6]) with mapi id 15.21.0472.016; Mon, 5 Oct 2026
- 17:04:25 +0000
-From: "Ousherovitch, Alex" <aousherovitch@rambus.com>
-To: Herbert Xu <herbert@gondor.apana.org.au>
-CC: Albert Ou <aou@eecs.berkeley.edu>, Conor Dooley <conor+dt@kernel.org>,
-	"David S. Miller" <davem@davemloft.net>, Jonathan Corbet <corbet@lwn.net>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Palmer Dabbelt
-	<palmer@dabbelt.com>, Paul Walmsley <pjw@kernel.org>, Rob Herring
-	<robh@kernel.org>, "Krishnamoorthy, Saravanakrishnan"
-	<skrishnamoorthy@rambus.com>, Shuah Khan <shuah@kernel.org>, Alexandre Ghiti
-	<alex@ghiti.fr>, "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
-	"Wittenauer, Joel" <Joel.Wittenauer@cryptography.com>,
-	"linux-api@vger.kernel.org" <linux-api@vger.kernel.org>,
-	"linux-crypto@vger.kernel.org" <linux-crypto@vger.kernel.org>,
-	"linux-doc@vger.kernel.org" <linux-doc@vger.kernel.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
-	"linux-kselftest@vger.kernel.org" <linux-kselftest@vger.kernel.org>,
-	"linux-riscv@lists.infradead.org" <linux-riscv@lists.infradead.org>, Shuah
- Khan <skhan@linuxfoundation.org>, "Nguyen, Thi" <thin@rambus.com>
-Subject: RE: [PATCH v5 04/19] crypto: cmh - add SHA-2/SHA-3/SHAKE ahash
-Thread-Topic: [PATCH v5 04/19] crypto: cmh - add SHA-2/SHA-3/SHAKE ahash
-Thread-Index: AQHdRvg30t1+45dAjEm+KmT5OENVbLbbsCeAgAD8JwCABtcDgIALxW1Q
-Date: Mon, 5 Oct 2026 17:04:25 +0000
-Message-ID:
- <SJ0PR04MB8406AD1C92438FBCBA2EEED4D7962@SJ0PR04MB8406.namprd04.prod.outlook.com>
-References: <20260917225929.2494111-1-aousherovitch@rambus.com>
- <20260917225929.2494111-5-aousherovitch@rambus.com>
- <arNn_fjy4jamSitO@gondor.apana.org.au>
- <LV8PR04MB9006374FD8621EBF3C7E7F6CD7822@LV8PR04MB9006.namprd04.prod.outlook.com>
- <arn4XYwPYt6i2k7d@gondor.apana.org.au>
-In-Reply-To: <arn4XYwPYt6i2k7d@gondor.apana.org.au>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-dlp-product: dlpe-windows
-dlp-version: 11.11.2.117
-dlp-reaction: no-action
-authentication-results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=rambus.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: SJ0PR04MB8406:EE_|BN0PR04MB8032:EE_
-x-ms-office365-filtering-correlation-id: 529269b6-74ea-4048-1c33-08df2302b574
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam:
- BCL:0;ARA:13230040|7416014|23010399003|376014|1800799024|366016|18002099003|22082099003|10067099003|3023799007|38070700021|4143699003|56012099006|11063799006;
-x-microsoft-antispam-message-info:
- 3Zjv3WHoOvXtirZW77/U4Z6YT4qYclr7DPlqLQ6x6YZC32CU6IMzjSC/OcJMtmISJo80VDfI3PNbUeS/0yxHMtdVrVzd9Sv3XNT6tiT6iIeNyLwFtZcJQ52wycbmU1P5UU8ph6dSB5dvCOuO8iU+WIowfORnFZfFtyqGEeDvl/NXOmkpy4epgAul0qjxnnMPb2X8ESkS/lWqqYCC9tBaetuoi9RYxnZb2csQwP/L6z1KLTwPYtLKJJEy8vDO3nZmBJRK90XpbfjYxjdiG6y9yI+FaJfZWH3ZXJ7EDYbL/HI0vUJIFaNNh1I8uC70CDzV+oZxQpndislsYMuZy56fWvWRUMGze/T/QBdPg9TQQIX6zPJp9MHlxA+zhrr8GnvIUI/Es6t6sKqn6pNhj+Him5qcm/OeqV7jEmJki2/vXmmLhsmc31ktKUWg6SpLF/q5xmJ3SHlAak3hHAFIzcwC2RjlpRLgSL60X0Ww9bqCBPwlFqI7cb7mgRl+uNpNdWxK0kvrWpVR4vvRSDi0yjntm9LIZYI/qRELwYnRgTEvBT47g+6bCKWX3LKxy92uA5s/UxM8HlI6TJqj2Bq/D2qDPjuJk51Qsk2k6vYMdTqh65ezTPNZup8mXpz89QJCD2QnjwXehsVp4IT2i1WISbPSrxjSz+WlIPq82F8B9Fs5kry6CaLz+A15DZz2hMtgHemJKwF8gJV7hxKmHVgRdqbs5b/HYRw/jGxzVqiOjJunO1E=
-x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SJ0PR04MB8406.namprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(7416014)(23010399003)(376014)(1800799024)(366016)(18002099003)(22082099003)(10067099003)(3023799007)(38070700021)(4143699003)(56012099006)(11063799006);DIR:OUT;SFP:1102;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0:
- =?us-ascii?Q?8OT9OS4Vm83hSkCYv2nySyx91k13fmMk6z+WvaR2QJJvRs3qNJ9jnNBQ1VFB?=
- =?us-ascii?Q?c5j+4VZp5C07UFF4hWYucq9RT9nHX5Z6BTzN/hnaAomUT4y1vq33eYqUkNDP?=
- =?us-ascii?Q?lv/aHAVSt+2qwiTjj2qVu/PrrAd0a+3u7VbSLLo3rZdZ+q44v6OsDgmxy7Jq?=
- =?us-ascii?Q?YCXM/QPANs0mSd4E21IRsXnYnoyePEgogHlDbujS4qB4waTXhA24qJmN2Xhl?=
- =?us-ascii?Q?Pd+Dn2c7eB5IXTdmSawPz4GbzWz+rwcKBnVDSM1azCNeaYcqrfBnVb/tQ038?=
- =?us-ascii?Q?RUYUplC0XUsFQpD8E51oVnYqj+W6BcYbZQ9LUF4P/cHZvxu7lwWFddrVOEDP?=
- =?us-ascii?Q?68CcLOzRNFiJHfXVsYUwsIJLpI3eidOeSZfHk5ARTxhX/A7JR85g69vOfpC+?=
- =?us-ascii?Q?d1hqd/ayfwRgFArIJYoGZ1j03wiAaNUlmKHOAKo5Pbk1tfLUy1RboLkDGr7+?=
- =?us-ascii?Q?YX+Y92ZITXByYNWwGvxqumTNcnM8vB9HBiSngi2y/9j9iR0Pkkzqq3YZG+1l?=
- =?us-ascii?Q?Ryq8hGdn8dVXEXBLtHXFYJsJ6tuRzQNSBh5CO7PXgHtCG8Cs2qzt7X3HoFBN?=
- =?us-ascii?Q?5Ag0Fnk74v6uXDCJ1Cq/jrOx5pUdClEQTdFFA8Q5koX0v6H8W9mm/QmcMl/o?=
- =?us-ascii?Q?qlJmHOqct0CnhPVat3CRlIHFnM88rMxq7XwbIAY6WGMCAxOlOkicy1rofgoR?=
- =?us-ascii?Q?e+ADK3k9Z1HdrhQf38ber483C1Vd3jxUrNt9fFH9vsnQkw5ei6F9JhTL3cLT?=
- =?us-ascii?Q?/yQOtRRnJiFV0nI4EhkCtePy1AJelZSMiwuLTdyxjFMpW9Ha5tZLyMgl1CkG?=
- =?us-ascii?Q?ABngTKpn0r9STbw/EYEiKBeD6nbkrLvQ5v8totWjbwR9R633vlWspn/9iEU0?=
- =?us-ascii?Q?wOAD685KHKL5QWJgxS1RlFMlmjn/AW1nbJbXTCNNuUo9VuwtQmJHqxTJ1ULg?=
- =?us-ascii?Q?1X31s2TdgEIh7Ojv37QJnvRFUHvEPj3haiUyLVvs/MvkjXBzqzVBs6T00Jdc?=
- =?us-ascii?Q?d9tXGdsx5vfisZKHHsFKkYXHYQWEoCjcqqCmE2URPdC14KNEVPVFjmYeCk+Q?=
- =?us-ascii?Q?JJMT4rcVlVf4jlf8zQyOnOS9KlfGOmiuTl1JCMcqRBJtrlNiz+LpryduOOzd?=
- =?us-ascii?Q?hF2UqknnFYG2Xqod3r86RbpGR3Yff230bu4Rtl+yk51ex3Yedcp6aQN3UR+4?=
- =?us-ascii?Q?6K65erILpQ4tmf0FSexKnXexp2XrCZKmT0IDXLzqgRpImAw03mF851E0Mn5F?=
- =?us-ascii?Q?togqXDAuUGjiwz1qe4yS5V5Q9as6ODhQ7sOToVtpt248X0Z+CMdpgulNpZxq?=
- =?us-ascii?Q?Bh04DQoMS9FXS1JCwbYRftiLFDBc+1lY+iDxhOhtouO2deOXC62tD11Png24?=
- =?us-ascii?Q?skhimaE+XVBG4P51RhdGYxNN+oH+ujWmoGE1lFoRI08bJDdhAimR4GSCGVuX?=
- =?us-ascii?Q?YoINieIUa6O081k/Q9QcBHcIgO0C9yisqYBCisuWysIXmvOEPUojI2xaPe/E?=
- =?us-ascii?Q?g9BFAqamdWMvis6eAQLYsB6KHJTgEjn0vD9i5u2WAViDdOkVsMdAHKdMtarG?=
- =?us-ascii?Q?rFJz5zbw3w/57FAD6dCYzQIwQsqNk3lHFm0kIKLS5uEfiJlCGheC/CI+u+Nv?=
- =?us-ascii?Q?SnwD0pdbr2OCAyns65tAJFePMyL0PXbaBv2mhWtQRdey7zbykvfF2Aa3bDhI?=
- =?us-ascii?Q?+DJGi2IYaSLbaHRoR2SQKxYt2VL/mVqFgBDRIL9mWzVYeb0WFzL8XHgk7h9O?=
- =?us-ascii?Q?HqZm5aVmaA=3D=3D?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+ 2026 17:05:05 +0000
+Received: from TY7P286MB6866.JPNP286.PROD.OUTLOOK.COM
+ ([fe80::cce5:2aa8:53f9:dba9]) by TY7P286MB6866.JPNP286.PROD.OUTLOOK.COM
+ ([fe80::cce5:2aa8:53f9:dba9%5]) with mapi id 15.21.0472.016; Mon, 5 Oct 2026
+ 17:05:05 +0000
+Date: Tue, 6 Oct 2026 02:05:03 +0900
+From: Koichiro Den <den@valinux.co.jp>
+To: Marek Vasut <marek.vasut@mailbox.org>
+Cc: Marek Vasut <marek.vasut+renesas@mailbox.org>, 
+	Yoshihiro Shimoda <yoshihiro.shimoda.uh@renesas.com>, Lorenzo Pieralisi <lpieralisi@kernel.org>, 
+	Krzysztof =?utf-8?Q?Wilczy=C5=84ski?= <kwilczynski@kernel.org>, Manivannan Sadhasivam <mani@kernel.org>, 
+	Rob Herring <robh@kernel.org>, Bjorn Helgaas <bhelgaas@google.com>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Geert Uytterhoeven <geert+renesas@glider.be>, Magnus Damm <magnus.damm@gmail.com>, 
+	Jingoo Han <jingoohan1@gmail.com>, Philipp Zabel <p.zabel@pengutronix.de>, 
+	Frank Li <Frank.Li@nxp.com>, Niklas Cassel <cassel@kernel.org>, 
+	Wilfred Mallawa <wilfred.mallawa@wdc.com>, Serge Semin <fancer.lancer@gmail.com>, linux-pci@vger.kernel.org, 
+	linux-renesas-soc@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 10/15] PCI: rcar-gen4: Take over the iMSI-RX interrupt
+Message-ID: <bzonjl57inv2yr25bwn5nihjnrsxdswr44qom4raupdjtcwhao@333ri5yg6bil>
+References: <20260928165230.3397664-1-den@valinux.co.jp>
+ <20260928165230.3397664-11-den@valinux.co.jp>
+ <da9c10df-63af-4cf8-ad3a-084dd249cf21@mailbox.org>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <da9c10df-63af-4cf8-ad3a-084dd249cf21@mailbox.org>
+X-ClientProxiedBy: TYCPR01CA0193.jpnprd01.prod.outlook.com
+ (2603:1096:400:2b0::12) To TY7P286MB6866.JPNP286.PROD.OUTLOOK.COM
+ (2603:1096:405:325::11)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-OriginatorOrg: rambus.com
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: TY7P286MB6866:EE_|TYRP286MB5578:EE_
+X-MS-Office365-Filtering-Correlation-Id: b56dc865-78ec-4a2e-8427-08df2302cd78
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|7416014|376014|366016|10070799003|23010399003|1800799024|10067099003|56012099006|4143699003|5023799004|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info:
+	nD2Q3P7GsNc+ce5Z8wqA2p3bhEz+FS+UGrhQay9ejf0aFRaFugVqrhAuC5w8qHnIheeRuUwoUlba/H9OvI3wIO1DAPGoUmZwWkBZ4m2aF83X6t0Fa585i1+YTB9PRLc4SRm50kgl91Xh/bDpRSuXy6cNStkcv+unen1W/3qzsdB/mhZrDC5Stz8FltnblxdDBNsPCSIrFMqF2tqk7rjKZ6ebOG1eNVzi9f5skmjKjUJZ+Tuf0r5LvKPRZWL/Rtp5mZiRf6fxkz5JUsIpgG7qUo/3Mdkjr3BkYseQtSpzwQT1KAUHEl15gGUV/FJJJTkaTuhkEIJuLU4dyOh/kq0NvYqyUJkJAgYJ0FTxNzxB0zT2ERTi5upNjklX7zp/OHTvQu68JSSxY51fMLrWgRNhPf1mEGDYH26tEHDF0yiQclUOLWx3GOZYiGwe3SRo6tLOKHw2XRxadEVoGSTH1+8cK/9Gqfd2gfqxzR45WcGUtRfSMr+/vW0svQpZNDmsGI3d02Hs7jN00jj+kVNb5pf7L1twJhK8P1IgH1pwRAeovhSxmITCuinlzyLNNfGE+z/F0v91XvD0rUMUlY1PBNJW4319LJ9oB8hvkfaWw8erMou0YwvmFUBYZI9KotTeRRzx
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:TY7P286MB6866.JPNP286.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(7416014)(376014)(366016)(10070799003)(23010399003)(1800799024)(10067099003)(56012099006)(4143699003)(5023799004)(18002099003)(22082099003);DIR:OUT;SFP:1102;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?rVXP98IofAgBDQKFPOs2cmxA9ce9/28WfUciKrNvw3LYYtRnfajighp/g1op?=
+ =?us-ascii?Q?1+cSaF3T7XSQp49ezNfyyvp9/az9iTgXA3xWo/lGzHqTr9l9MUYWRSF00eTY?=
+ =?us-ascii?Q?DZcAgqmX5NyoTBwWjRDZOvJxnBH+x8bu0g7hRHqM+EyRpoXC0xCe2w3fgg59?=
+ =?us-ascii?Q?mUcCEaFowUxW9uCIHk8OdsqqeOwirW73r1KNugObHJOtCF/M9Po80EhEwLnA?=
+ =?us-ascii?Q?XAOSUMOtYj3wFWZe1xntBPxa/pC/aAOJaSvQht4D/Auk/Dkh77C+U7eV4DAa?=
+ =?us-ascii?Q?yFTH/5A/bSy0twdfRL5Lw62Wr9L8qyaYeoSX7fVVupaP6qgCcZpqS40khuZ8?=
+ =?us-ascii?Q?nlXuXFTw4/fAgIUON7BMe/cxOGhjkBmvARcNsbylggfk+6en17aX13/Z7dy2?=
+ =?us-ascii?Q?PYUynXz3tTb0Rwsruh8Kf+0cOXjdCqsBKPUo49aIumX8Z46MVapb66LgzxWv?=
+ =?us-ascii?Q?MSPQFad6gml4I1Le9g69GloAw0Um+S5caD//IhNQJOQjeeXvHGKwfHJKzYkq?=
+ =?us-ascii?Q?+c3v5BaOH4Cx+p5R89WoBU3uyP7PUWOzk241NFDOBtX6bU80QPbCcrJZTk+6?=
+ =?us-ascii?Q?ORXOoOrjPkYbfhUKW9yp7o5Npy+xHa8zFbwsv2nc8QaSXTvM41wDhTUkzW8h?=
+ =?us-ascii?Q?PEXgeXxfI2c7pueVu3R2KYJPNQu+Do82uhQcF3c+C/zn8c12zs0s41LwTJD9?=
+ =?us-ascii?Q?CHWnhvt6Q7HuE8njQMwavDPlLDlp6Z8MZwkm/EC1xaCE6UjPL9o4KJ4P1FEH?=
+ =?us-ascii?Q?wv3xW7o4zokxVQ/497/e8zz0VFg/uy7brCxQp1jX/3PbiNFUiXEZ1HgEM69Q?=
+ =?us-ascii?Q?rZMjRz+Az2TT30MzDhZA7RW+OV3pN8/Q4xJS2EMWbsUkloKpkbplO62wfamn?=
+ =?us-ascii?Q?SAgoXJSbvFpO7xXUTwmS9F1wXntaoTwEz9kBnjgtlpyj4foELyv1kF8kWnN3?=
+ =?us-ascii?Q?KnPZ3RX7+01an2WpN//ZxIUqgjEpSoDKcekGtbCQnu+uSShxLRm4x4rKb0kC?=
+ =?us-ascii?Q?3pmJkuMZFm+aWgLSQxsEwfMq1HvyYVXqYWTBkOQr5u4lF8Y2pPof6BJN9S3M?=
+ =?us-ascii?Q?l5bKwuzYduo0vv9E9RDz6qcKFXgv7JyDefEqz2oYNKI3NqaP3lTYdEn0CWQ+?=
+ =?us-ascii?Q?A9DdInm5Vfn+W4i88WDRkiVCyihJzwxlg2Qpc88cLZ7/LsXQmQ6JOJM8qX1Q?=
+ =?us-ascii?Q?2wnEqrUEyH5T0TCaEDKmr3tp8N+VPjeeRfLuHNuY90VWeCWXJibWIhVatDpb?=
+ =?us-ascii?Q?SjAWe7FPVnoDMqOOTomtrBVZ8SwDg7DK/ABknwSyCcNU3Bde7ViJfIE3hf7S?=
+ =?us-ascii?Q?PUVpBAoHITzMQa5EBhC2I0wZVbWSEwfCgGFL5E+jIEJj4NHHVjxBgKZY+/d2?=
+ =?us-ascii?Q?QNhM3X0rnXllwKG3ROTLiSDJi5tb5rWOxK5M+K3JMgXSWSdDKv3YkeBBiyOV?=
+ =?us-ascii?Q?6A01EXffQBtmDQsc6qsJTLFoUE4ZJMC2NV/AzycbqAU6Owh9M4hNI44S31iX?=
+ =?us-ascii?Q?40OgpAomgwStJ6veX29gRLudLEeClk7w3ymMahdzC2dhUTNOwojedWaMy1Kh?=
+ =?us-ascii?Q?QrmUkxkgApin0auJr0mirWef6UCF0fQDiETNeeqss68+OoqB7KKqRY7Z5bQ1?=
+ =?us-ascii?Q?BW+Op1elUR6utZTbX5JGnkiup6hNLiHY8ly2ldyTb4oTxevgQThYNOf3HrEN?=
+ =?us-ascii?Q?xw9X1LgU16ekm3pOe7Kdo6LAp4QZp5nEDRSe70Px7Le2XAz71pGXtulO9w9M?=
+ =?us-ascii?Q?d9JcypnUHpQdNBplUAcF2zudQWXB7OQRGgDpNuNcuZMuUD+yIP4O?=
+X-OriginatorOrg: valinux.co.jp
+X-MS-Exchange-CrossTenant-Network-Message-Id: b56dc865-78ec-4a2e-8427-08df2302cd78
+X-MS-Exchange-CrossTenant-AuthSource: TY7P286MB6866.JPNP286.PROD.OUTLOOK.COM
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: SJ0PR04MB8406.namprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 529269b6-74ea-4048-1c33-08df2302b574
-X-MS-Exchange-CrossTenant-originalarrivaltime: 05 Oct 2026 17:04:25.0666
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Oct 2026 17:05:05.5070
  (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: bd0ba799-c2b9-413c-9c56-5d1731c4827c
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: HYjXi+pDqBRb0M4Po1Ei3IkjOSxMUIv7Hndm2wtJ3ix2G+tP/OF+hB4eNeWnz/mKdl38rov643pAqx3qOS6YTjho67cYzYUW++nNL4N/qXk=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN0PR04MB8032
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 7a57bee8-f73d-4c5f-a4f7-d72c91c8c111
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: +fJsAB/1Z4bXBk9FKLGgzu0vrZTD0ZhquEaHPHHez7H6YIFV7KqPBkHOJNyFQWNwC0m5nWqTPv8vWAjL3kAAFA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: TYRP286MB5578
 
-On Mon, Sep 28, 2026 at 03:17:17PM +1000, Herbert Xu wrote:
-> Hang on, if an algorithm isn't even implemented in generic C for
-> the Crypto API, then it should not be implemented by a driver
-> either.
->
-> The reason these algorithms aren't in the Crypto API is because
-> they have no users.
->
-> So please drop them.
+On Sun, Oct 04, 2026 at 02:53:27AM +0200, Marek Vasut wrote:
+> On 9/28/26 6:52 PM, Koichiro Den wrote:
+> 
+> [...]
+> 
+> > @@ -724,6 +773,9 @@ static void rcar_gen4_pcie_quiesce_irqs(struct rcar_gen4_pcie *rcar)
+> >   		rcar->reinit_pending = true;
+> >   		rcar_gen4_pcie_app_irq_sync_locked(rcar);
+> >   	}
+> > +
+> > +	/* The MSI status lives in DBI; keep the handler away during the reset. */
+> 
+> Would it make sense to add lockdep_assert_held(&rcar->reset_lock) here, to
+> make it clear that this IRQ disable is protected by the reset lock ?
 
-Understood.  v6 drops SHAKE-128/256, cSHAKE-128/256, KMAC-128/256 and
-the standalone Poly1305.
+The reset_lock is going away in v3, per my reply at:
+https://lore.kernel.org/r/eivzz4zumuu32zrycw6wpt3orzk2dvlzuvj34krmbhjf7a3a6u@ccvu2nkupzid/
+These helpers are reached from reset_root_port(), which the core serializes as I
+wrote in the above link, and from .init()/.deinit() during probe/remove and
+suspend/resume, where no reset can be in flight. Sorry for the noise.
 
-> Sorry, that is not supported by our API.  If you cannot export the
-> hash state in a compatible format, then you will have to switch over
-> to fallbacks and only support digest operations.
+> 
+> > +	disable_irq(rcar->msi_irq);
+> >   }
+> >   static void rcar_gen4_pcie_resume_irqs(struct rcar_gen4_pcie *rcar,
+> > @@ -733,6 +785,8 @@ static void rcar_gen4_pcie_resume_irqs(struct rcar_gen4_pcie *rcar,
+> >   		rcar->reinit_pending = !recovered;
+> >   		rcar_gen4_pcie_app_irq_sync_locked(rcar);
+> >   	}
+> > +
+> 
+> Would it make sense to add lockdep_assert_held(&rcar->reset_lock) here, to
+> make it clear that this IRQ enable is protected by the reset lock ?
 
-Will do.  For the algorithms that have a generic provider -- SHA-2,
-SHA-3, SM3, HMAC(SHA-2/SHA-3), CMAC(AES), CMAC(SM4) and XCBC(SM4) --
-v6 switches to the fallback/digest-only model:
+ditto.
 
-  - drop the NO_FALLBACK / BLOCK_ONLY / REQ_VIRT flags and the
-    hand-rolled partial-block and fallback handling, and let the Crypto
-    API install the generic fallback;
-  - hardware-accelerate .digest() only;
-  - route everything else -- .init()/.update()/.final()/.finup()/
-    .export()/.import(), and .setkey() for the keyed ones -- through the
-    fallback, so the statesize and the exported state are the generic
-    ones.
+> 
+> > +	enable_irq(rcar->msi_irq);
+> >   }
+> >   /*
+> > @@ -804,11 +858,17 @@ static int rcar_gen4_pcie_host_init(struct dw_pcie_rp *pp)
+> >   	ret = rcar_gen4_pcie_host_setup(pp);
+> >   	if (ret)
+> > -		goto err;
+> > +		goto err_deinit;
+> > +
+> > +	ret = rcar_gen4_pcie_msi_irq_init(rcar);
+> 
+> Would it make sense to acquire the IRQ a bit earlier, so you could avoid
+> rcar_gen4_pcie_host_perst_assert(pp, true); in the fail path ?
+> 
+> I think if the MSI acquisition fails, perst signal would pulse (rapid
+> sequence of deassert and assert), and that could be avoided.
 
-That also answers your NO_FALLBACK question: the flag is gone.
+Good point, thanks. I agree that such a pulse is possible.
 
-> Please also elaborate what you mean by opaque checkpoint, does it
-> contain the entire hash state or not?
+However, if we simply move the request earlier within .init(), before
+deasserting PERST#, request_irq() would enable the line right away before the
+controller is configured, and since .init()/.deinit() are also reused for
+suspend/resume, keeping the request in .init() means freeing and re-requesting
+the IRQ on every sleep cycle.
 
-It holds everything needed to resume, but not in a portable layout.  The
-SAVE output is a fixed-size hardware container (600 bytes worst case)
-holding the core's internal state, the buffered partial block, the block
-counters, the mode and a CRC.  The state portion varies by algorithm:
+So for v3, I'm planning to move the request out of .init() entirely and into
+probe, using IRQF_NO_AUTOEN. That way:
+- The request happens before touching clocks, resets or PERST#, so a failure
+  bails out before the hardware is touched.
+- .init() only needs to enable the IRQ once the controller is set up, which
+  cannot fail.
+- The registration stays intact across suspend/resume, so .deinit() simply
+  disables the IRQ and .init() re-enables it.
 
-  - SHA-3/SHAKE: the 200-byte Keccak state is stored as two shares (the
-    core is DPA/side-channel protected), so it is not the canonical
-    state.
-  - SHA-2: a single 64-byte register block plus the partial block and
-    byte count, in a hardware-internal layout.
-  - Keyed SHA-3 HMAC state cannot be saved by the hardware at all.
+.. That said, this may well be what you had in mind in the first place. If so,
+apologies for the detour.
 
-None of these is the canonical export format the API needs, so the
-fallback/digest-only model above is the right fit and we are not pursuing
-incremental hashing upstream.
+> 
+> > +	if (ret)
+> > +		goto err_assert_perst;
+> >   	return 0;
+> > -err:
+> > +err_assert_perst:
+> > +	rcar_gen4_pcie_host_perst_assert(pp, true);
+> > +err_deinit:
+> >   	rcar->drvdata->deinit(rcar);
+> >   	return ret;
+> >   }
+> > @@ -818,6 +878,9 @@ static void rcar_gen4_pcie_host_deinit(struct dw_pcie_rp *pp)
+> >   	struct dw_pcie *dw = to_dw_pcie_from_pp(pp);
+> >   	struct rcar_gen4_pcie *rcar = to_rcar_gen4_pcie(dw);
+> > +	/* Stop the handler before asserting reset and disabling the clocks. */
+> > +	free_irq(rcar->msi_irq, rcar);
+> > +
+> >   	rcar_gen4_pcie_host_perst_assert(pp, true);
+> >   	rcar->drvdata->deinit(rcar);
+> Shouldn't the IRQ be released only after reset is asserted and clock are
+> stopped , otherwise it might accidentally fire and cause unhandled IRQ event
+> ?
 
-One process question, if you don't mind: we would like to fold as much as
-possible into v6 rather than spinning several revisions.  Have you had a
-chance to look at the rest of the series, or should we expect further
-comments on the remaining patches?  No rush at all -- it would just help
-us decide whether to post v6 now or hold it until the rest of your
-feedback has landed.
+That would be a concern with a shared line, where the remaining handlers would
+see spurious interrupts. This one is requested exclusively, so free_irq()
+removes the last action and shuts the line down, ie. it is masked at the GIC
+from then on, and nothing the controller does afterwards reaches a handler.
 
-Thanks for the review.
+The order matters the other way round. The handler reads the APP status and, for
+MSIs, DBI, so it must not run once the reset is asserted and the clocks are off,
+or it would hang. That is why the handler is stopped first.
 
-Alex
+With the v3 plan above this becomes: .deinit() calls disable_irq(), which also
+waits for a running handler to finish, before asserting the reset (again fine
+because the line is ours alone), and the registration itself is released by
+devres at driver detach, ie. only after the controller is down. I believe both
+concerns will be eliminated by that design in v3.
+
+Best regards,
+Koichiro Den
