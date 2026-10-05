@@ -1,68 +1,97 @@
-Received: from mail-yx2-f41.google.com (mail-yx2-f41.google.com [74.125.224.169])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 11F794BFE99
-	for <linux-kernel@vger.kernel.org>; Mon,  5 Oct 2026 15:09:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.224.169
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8A8AF4C10C5
+	for <linux-kernel@vger.kernel.org>; Mon,  5 Oct 2026 15:09:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791212991; cv=none; b=CDmTLHU0KIC1SFdCXH1iF+tFE+X5rC6ilRIoHLB1UI2tqntBfabVre6D5arQxe3NTcYZSGJou6xtFhller5FrrU49yQvBhmngPgYrMSmhIEsOSI2ijSA5QM89MsUfhiv9gw53e+bhhCZ1dh6hfD4PN49HP3S/t2zSjJiLA4cUn0=
+	t=1791212994; cv=none; b=ufmnIRkpd620K5JnMy0mSiWbBVG1swVeB0rbGL0zCpetYDGYzK5+5G84GTWqGIXcFtXiFhg62BXq1JNtSoxfCTxjpBm/1RUkAPY4QTJX/rLQ0X0nv2A/wic7rv8KVPwD2xMklvpyAOgVanx7WTxMNtDVYXcx0KwqsOp5EhCinGs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791212991; c=relaxed/simple;
-	bh=f/woB4zv5hScqqREFIP6f53WqZ95GL6Jj2Xs5j03KO4=;
-	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=IrRm59DDmIrNd+2TQEgXlcW+H355oiEYU/HvN0LY6UxLywr6gvCitTfTTtdWH7oo/KoUemUVNzl1z2p39fhYz33Zr5gSWtGH6rfwzOku57mk7t6p8vtNp1gFFwZuwiPo6Osd5HUkB1w1N0+kMmpHofCLMl+Pu1a/gpnne2uy6Ks=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=amutable.com; spf=pass smtp.mailfrom=amutable.com; dkim=pass (2048-bit key) header.d=amutable-com.20251104.gappssmtp.com header.i=@amutable-com.20251104.gappssmtp.com header.b=Ri3ctAsy; arc=none smtp.client-ip=74.125.224.169
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=amutable.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amutable.com
+	s=arc-20240116; t=1791212994; c=relaxed/simple;
+	bh=wtI7oVDUhsht2iKk+bjn2I94OjNNDcnadTbMhHCgNyA=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
+	 MIME-Version:Content-Type; b=UFt3WPrLXR+vx/bnk+S/ACmFRCqTku2S27IdQ9J3e+EmlI8RkdXdN/BS0wHXRQFhBq+S6l93asENUSUpldSl1QLpusbcLlrT2SQ27ylsR1Bbk3Faqssg7S0+zWw3MBUqAPH6IhOnbwtjcHYjg3VzVmoGlIFOLztkxVIWBd0422w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=VPgqw66d; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=F4NbScrJ; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=amutable-com.20251104.gappssmtp.com header.i=@amutable-com.20251104.gappssmtp.com header.b="Ri3ctAsy"
-Received: by mail-yx2-f41.google.com with SMTP id 00721157ae682-8ab748519f0so15486217b3.1
-        for <linux-kernel@vger.kernel.org>; Mon, 05 Oct 2026 08:09:48 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="VPgqw66d";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="F4NbScrJ"
+Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 695EOv9B1358096
+	for <linux-kernel@vger.kernel.org>; Mon, 5 Oct 2026 15:09:50 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	oVaB5GQWmscg0rsYJbxE8vQsJhAyc7OQmJS8eF/75jc=; b=VPgqw66dCbZZr3T/
+	vYEoQZULY6WyvCrsI/P22CIqOIEadYzZVxzY14pyaJlSd+yltII6PJxxBHl9k7J3
+	5oxliKGHkUHU90GQRkFDEd3tyl1Ec7nb6LYZLOSRTJuqBQczZW/jOLweqb38AU+q
+	ky/Eon8/vfFpLt03MWF0F36i/Et/sa6/GNdA5qO6YbpRJManxLQbNa9R8vyNVq+J
+	4CiW+TO1N8wFKBNuszUVlQHF48fPXxhdT/970tADddSWuQLQrPX1yVj8TsBPIR1q
+	yg1CUFnnoSYmB8v3saYAzx3q+QYgMvw4wCcCTTAl7fV/2NXLiS/wFvLPkHeOnWfQ
+	+Uz/8w==
+Received: from mail-pl1-f198.google.com (mail-pl1-f198.google.com [209.85.214.198])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h4cvngcne-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Mon, 05 Oct 2026 15:09:50 +0000 (GMT)
+Received: by mail-pl1-f198.google.com with SMTP id d9443c01a7336-2df8d1e91c9so34150975ad.0
+        for <linux-kernel@vger.kernel.org>; Mon, 05 Oct 2026 08:09:50 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=amutable-com.20251104.gappssmtp.com; s=20251104; t=1791212988; x=1791817788; darn=vger.kernel.org;
-        h=cc:to:content-transfer-encoding:content-type:mime-version
-         :message-id:date:subject:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=4D5E7ltBzHimp9ShKO1mDxupR9nAa8S/1Y35nys92p0=;
-        b=Ri3ctAsyzeoPsl2AqZ7RO34QMpgUrXFPTMPrQ3mWxAxM1wLJXKWuIyXP/hCZcpKrLz
-         FwoX2nmMgZfM6hNzfAY9+r3VL/m1zShTOZBktjH8hXTisB/JKXp25lzx5FbaP1P5MjGi
-         4y4sKVRlgX5pDzwd25ELPIB/gNdoLfSJHv20zuNXyDPW18fo5X9DwHxGYOzTdzUNhgvx
-         JzwMc4nWortBSUR8YUvgioutf1bvzaUlySgHB25JyttTvmi+jXqAyy2noSQpfAs/XORe
-         6nIpSRQFxGDxoyHC+wVOjipt9rpfLzrSIr8s2K+Kr8GrNxoOw80D6whWzzHsLUU/DN7U
-         wMjA==
+        d=oss.qualcomm.com; s=google; t=1791212990; x=1791817790; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:date:message-id
+         :subject:references:in-reply-to:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=oVaB5GQWmscg0rsYJbxE8vQsJhAyc7OQmJS8eF/75jc=;
+        b=F4NbScrJw2JA/WrD27NlTBEtS1KVgToyP0YPQxo/lAlwyMzpPSp4yRJ1rTIxOqNOtG
+         lmCD9s8vsM+QQBf1tJukryCCdWXFZX8SXlETGj/lD4R0smpFaTHJU16wbZti7jZjyu8h
+         GIXMoXMEuFgxjhDoxg6/jwLwP2G9mn9XusMMr2UfjfLcNrZiaD2Oft9vZ1tB22mPMMix
+         Eve3D1bO8eoHVyglD8A3Jk4bpNDx1CEGF/WfN+izWK35QfRzNU+et/3oXNVvsLIEd4EU
+         ETpYUGxf7ZnD0t7551JOxDJa1/OPvDNrRT1ZLd60tmNEDGwxoOQwN8F4OOzc3i2aL+PK
+         V2Kw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791212988; x=1791817788;
-        h=cc:to:content-transfer-encoding:content-type:mime-version
-         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=4D5E7ltBzHimp9ShKO1mDxupR9nAa8S/1Y35nys92p0=;
-        b=zGjkludPZQb/X2IPL31bVIhrwFglkFoWls6OyZiMRotIR8dW6th8/m7ZJiGa5twvbh
-         u3c55q5nPt3oWE75FjiYTJrWVheHdwiE6SpQZJ8gCJvA9dZmj4tf9Mq727Xxc85toBdK
-         g82SgzWYoYdWEjiRj1OAsa/WNLqq/5VuG1UgZWlIFnnq67ExY6abtgFERs72gyN78OXr
-         ZRfRB0Jj93HTDP+hJx8krXG6LLXXtEJhn1TfqfVwCiJ/O9umPR2xdeCDHOeEyUtI/nzb
-         w8ZzFBSz0yFXQQgRKR99JUsabKhF9TtAc/Fou56yoAl5zSTEqKkA6er6PQomRxWCi1qS
-         iD8A==
-X-Forwarded-Encrypted: i=1; AKwUvBz8PoFOcOZ3gb723jTu0p2enFoluBPgjZJikvC9wi+AWyz+MOSMQGmDQDBauMZ2Tn3gWK3ggod6xQREztg=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJat2BsFo2cu1sNFlOvxeDBRiWRIvc0PuUMatMZ+JEyq8QdYo3w
-	pdjfxS/lv8LByYvN0adE9Fp+q0LlASB5J5pdjo74EQqa2w67JcgYETfM0YvfUxDhPesl
-X-Gm-Gg: AYBFou2Dl3rzMtpsRjqptvTT6zQRTuQXcKvcpwMDkHR/UxSQ7+353ymnFQemYfNxM4o
-	clZTuTGbyMFAyRrYhtKfeEI6beMOmNMIpKYIWFutWZOtL8CHVgWT9vf/Kwelcr8i3m9xhDxDYGp
-	6qszuuozhAemABLddkFxteZab4nLwp7TV9QJR4gxSxhYaBzXUSL4ljVWv/C2TJgUmk6QRkpYc6P
-	zKrfjpSD8VIN7Lnw0B0/5VBUTFe6RkM8FguHZG/sX5nP2HWVuekDOK/vV8ZWct8om9jMJZOgQkt
-	tj7ePShJ3+N6oSPAAgXH86AzxGYUPB/oga87WNQRYNIAJotS75ZVWnE2gmNN8PULRdfSE5oiKcI
-	mbmeLkjk8zAIvNs9/4dpPG2H8ve9GFBCul7BUsXMZpl9gWOWjbTGwNBvcUji79tUnpRGEmWn4rp
-	EPG+2fbcq/q93Us5nDHnCvHU3mKvK3/+QUOQFzryn4PXYFKG2BCqfzzsberBZfA6BOqt5ao86TX
-	rdFHBUkPkZBRoOaONlYjMvPh5xO/XPIQ7++J7EJs6u3UvWk9xG8MMkTTkpWRU98MQ==
-X-Received: by 2002:a05:690c:e215:10b0:88c:b863:e405 with SMTP id 00721157ae682-8ae39ab3796mr31469067b3.38.1791212987733;
-        Mon, 05 Oct 2026 08:09:47 -0700 (PDT)
-Received: from [192.168.1.110] (104-53-165-62.lightspeed.stlsmo.sbcglobal.net. [104.53.165.62])
-        by smtp.gmail.com with ESMTPSA id 00721157ae682-8ae33fe81fdsm41210467b3.47.2026.10.05.08.09.46
+        d=1e100.net; s=20260707; t=1791212990; x=1791817790;
+        h=content-transfer-encoding:content-type:mime-version:date:message-id
+         :subject:references:in-reply-to:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=oVaB5GQWmscg0rsYJbxE8vQsJhAyc7OQmJS8eF/75jc=;
+        b=bQ7P4v3aF0XUDHy7mT5MCdIB15ksQvH+KM9TBFlolaXL71qnjeh1zG5YoPkdd3s3VU
+         Csc2G5013aarj50F20pXgOoO66zVq5PgwXON49JfM9ahNGJqlFZ4yz4Lyu9S73jxf68d
+         3GnB4MBI+RELp2XzB2X1EwqZT7kfYBoQRa7m68pU9zALrsZFPVRI69UttAxzs8uTBF+0
+         r5Qtl/5Hwtjkva5dAC8KayhCp2zSlBL8XbpQYRxJdu4mPKMb/Cmy6EqyH0xoMbZcuySz
+         +UOXnxwD99U9hKmOT8+jJxiOehHuFngEr2nItT0IKP/+O7fjqeDuDpqnRCfTvinLKM76
+         A1xg==
+X-Forwarded-Encrypted: i=1; AKwUvBwqggi6H1lTbNupJbw4XSNu6xJMgOFHelLN4QdUhWf5Gp/2A0Y28EhwGj7mNRpUM/MUzAQx9RzQjJ4PeJs=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKaumtV3KHYGVrCt6Q5L8zhVJ0oryrrkL0VGar+Ln7NUucmvIJD
+	4l8wQGQul89z2km3nAeQ+x0N05Tpf6JOW9c2AmGo2hfct+nNsJSaf5XXdoQa1WAfxbPwrMoRG8w
+	ayVN6iBTZYOUexI2cs2O8t20QvIA5rIpuUd5k15M6ZjRoeRrROkkgHfCc5wlvEzSEQUw=
+X-Gm-Gg: AYBFou2nSMN7ZAuqXa71mgUmr4oJd4GUplug0fFhXL8kdvnVqzE9OR31INwsJGG+Edw
+	KV2IYKH952D5H/V/7oIGWqXSG9xLL1b6Wwbdr/222AXlbraGZy7COk6JRUtvoTdeMRUStursHvL
+	GSw0iD/Gr/lAq1SDtpOZjM2GES4GLJvGBrn9frRJxZ24pOeSgwBV3YVSGCLLHeRxNJVUc1P/Cie
+	p+Nu6ZOPs5RQvaUTIEUcd9na/K+0IKmWI3RoIe29TCJPqjmAT47hVu2MriQqukYYzWa3d1QcRxE
+	48NRsWqyB1z55EwwLCtmzvtK1MipLiWq97JR/Z7CtpIDpo/TJqDHon1NMhtY+cunI/GOg7oQPsE
+	xNx+SIwbIFSvZ/W5tNPiSRyYhyvg/oF12aBtkph/WZh1rtrJvJCj9hzw=
+X-Received: by 2002:a17:902:d4cd:b0:2e5:a350:34f8 with SMTP id d9443c01a7336-2e5a3503728mr21624195ad.3.1791212989865;
+        Mon, 05 Oct 2026 08:09:49 -0700 (PDT)
+X-Received: by 2002:a17:902:d4cd:b0:2e5:a350:34f8 with SMTP id d9443c01a7336-2e5a3503728mr21623775ad.3.1791212989310;
+        Mon, 05 Oct 2026 08:09:49 -0700 (PDT)
+Received: from hu-jjohnson-lv.qualcomm.com (Global_NAT1.qualcomm.com. [129.46.96.20])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2e5a5cae1bfsm9130075ad.28.2026.10.05.08.09.47
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 05 Oct 2026 08:09:47 -0700 (PDT)
-From: Andrew Halaney <andrew@amutable.com>
-Subject: [PATCH v4 00/10] net: support thread-specific pidfds for send and
- connect
-Date: Mon, 05 Oct 2026 10:09:30 -0500
-Message-Id: <20261005-work-unix-passpidfd-v4-0-350183b6e02a@amutable.com>
+        Mon, 05 Oct 2026 08:09:48 -0700 (PDT)
+From: Jeff Johnson <jeff.johnson@oss.qualcomm.com>
+To: Jeff Johnson <jjohnson@kernel.org>,
+        Vasanthakumar Thiagarajan <vasanthakumar.thiagarajan@oss.qualcomm.com>,
+        Dan Carpenter <error27@gmail.com>, linux-wireless@vger.kernel.org,
+        ath12k@lists.infradead.org, linux-kernel@vger.kernel.org,
+        Jiale Yao <yaojiale02@163.com>
+Cc: Rameshkumar Sundaram <rameshkumar.sundaram@oss.qualcomm.com>,
+        Baochen Qiang <baochen.qiang@oss.qualcomm.com>
+In-Reply-To: <20261003095913.575108-1-yaojiale02@163.com>
+References: <20261003095913.575108-1-yaojiale02@163.com>
+Subject: Re: [PATCH] wifi: ath12k: Reserve space for a string terminator
+Message-Id: <179121298789.2358654.17588785788531487721.b4-ty@oss.qualcomm.com>
+Date: Mon, 05 Oct 2026 08:09:47 -0700
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -71,129 +100,52 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/23Oyw7CIBAF0F8xrIUA9UFd+R/GxUCnFh/QQFs1p
- v9uR41uXN7JnZP7YBmTx8w2swdLOPjsY5jCYj5jroFwQO6rKTMt9UoaveTXmE68D/7GW8i59VV
- dcWlWoNDJEg2w6bNNWPvbS93t3zn39oiuI4oaFjJymyC4hk6ECkLFFxVUoWrjcxfT/bVwUER+x
- hTq75hBccnX0tm6AunWFrYnTAHPIqYDozVD8UNKbf4jxYQsCy2VgVJZrbZw6TuwZxQuXth+HMc
- nqMF8ejsBAAA=
-X-Change-ID: 20260825-work-unix-passpidfd-086a1ec09e8a
-To: Jakub Kicinski <kuba@kernel.org>, Kuniyuki Iwashima <kuniyu@google.com>, 
- Oleg Nesterov <oleg@redhat.com>
-Cc: "David S. Miller" <davem@davemloft.net>, 
- Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, 
- Willem de Bruijn <willemb@google.com>, netdev@vger.kernel.org, 
- linux-kernel@vger.kernel.org, Alexander Viro <viro@zeniv.linux.org.uk>, 
- Jan Kara <jack@suse.cz>, linux-fsdevel@vger.kernel.org, 
- Alexander Mikhalitsyn <alexander@mihalicyn.com>, 
- "Christian Brauner (Amutable)" <brauner@kernel.org>, 
- Andrew Halaney <andrew@amutable.com>, Eric Dumazet <edumazet@kernel.org>, 
- Alexander Mikhalitsyn <alexander@mihalicyn.com>
 X-Mailer: b4 0.14.3
+X-Proofpoint-ORIG-GUID: TKZKUyJcwPZseAD49hz587VIpSaEsYQY
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDA1MDA1OSBTYWx0ZWRfX2CTCmyL3ri75
+ 5CA62NGGKkGVOGcQNzg4AzBFZOtVemOKrYPO4urxXQ/k0GfjxnydDUy8ggPVN5huj0kwXlPqsCj
+ +UrmZruAjwssEx1g5FbaqjjOXbeWPK7vcgawQ6zsJBz8/KQB6bn5/gmwiZoF5XDocquCFgcFQe5
+ aAnIgvy3Jj3K6y7pUpolJmS4mPonPOOZbq0AW/DqtrGJq2a6EVOfOu/Y9YPWMRf5vLlmprbk2Qv
+ RmNCWC8TgYplWcj9dUdVkQZPeNqFB1MP1Vu7dguoT9r+cQxyyqoeziLaTvbpQrWHV052S8jdJi9
+ uLwChw6Tu1zX8/SL4zj/6jKAk7K6D6PdQoW+T+vQQ0TgxIfCpPFTVKUwVKuu/Iuvhd2gXgkDVib
+ 2f651Na1/NBcouGYIweSNkeLWv9ha+WbLUFm4JaS9N/y36YhTWj2gPt+iSGKL5N/79bwWavWcc8
+ CJakpKCzk4sjFFcvQsA==
+X-Proofpoint-GUID: TKZKUyJcwPZseAD49hz587VIpSaEsYQY
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDA1MDA1OSBTYWx0ZWRfX7KLsSJJEZiNw
+ DC5WLKXSX5U52yBw92M8uTnT+Btjr+ePTfbvVle41grMctFldw629DWJoSNrbCf0o6T5DySnXXp
+ GhdpIMk0f5Kfp3qVG5otajjWzKI/gKw=
+X-Authority-Analysis: v=2.4 cv=ZYeIpcVA c=1 sm=1 tr=0 ts=6ac3bdbe cx=c_pps
+ a=MTSHoo12Qbhz2p7MsH1ifg==:117 a=ouPCqIW2jiPt+lZRy3xVPw==:17
+ a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=YMgV9FUhrdKAYTUUvYB2:22
+ a=EUspDBNiAAAA:8 a=oz8bYcBotx4uxxnimfgA:9 a=QEXdDO2ut3YA:10
+ a=GvdueXVYPmCkWapjIL-Q:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-05_04,2026-10-05_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ adultscore=0 suspectscore=0 malwarescore=0 bulkscore=0 impostorscore=0
+ priorityscore=1501 lowpriorityscore=0 spamscore=0 clxscore=1015 phishscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2610050059
 
-SO_PASSPIDFD/SCM_PIDFD and SO_PEERPIDFD allow to retrieve a pidfd for
-the thread-group leader. The coredump server using the coredump socket
-cannot get a handle on the task that took the signal and is writing the
-coredump easily. Workloads interested in per-thread authentification
-have similar problems.
 
-Add SO_PASSPIDFD_THREAD/SCM_PIDFD_THREAD and SO_PEERPIDFD_THREAD. We
-record the sending and the connecting thread in addition to the
-thread-group leader.
+On Sat, 03 Oct 2026 17:59:13 +0800, Jiale Yao wrote:
+> ath12k_write_htt_stats_type() accepts count == size, which fills the
+> zero-initialized buffer without a terminating NUL. sscanf() then reads
+> beyond the buffer.
+> 
+> Reject input that leaves no room for the trailing NUL.
+> 
+> 
+> [...]
 
-SO_PASSPIDFD_THREAD functions like SO_PASSPIDFD but instead of an
-SCM_PIDFD message for the thread-group leader, SCM_PIDFD_THREAD sends a
-pidfd for the specific thread. SO_PASSPIDFD / SO_PASSPIDFD_THREAD are
-independent, allowing callers to get both styles of pidfd back in their
-cmsg.
+Applied, thanks!
 
-SO_PEERPIDFD_THREAD allows to retrieve a pidfd for the specific thread
-that called connect(), listen(), or socketpair().
-
-pidfs_coredump() now also stamps the dumping thread's struct pid so a
-pidfd for that thread reports the coredump like the pidfd of the
-thread-group leader does.
-
-Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
-Signed-off-by: Andrew Halaney <andrew@amutable.com>
-
----
-Changes in v4:
-- Moved get_pid() out of scm_set_cred() into scm_send() (Kuniyuki)
-- Dropped unnecessary helps (Kuniyuki)
-- Rebased on v7.3-r6
-- Collected Kuniyuki's RB tags
-- Link to v3: https://lore.kernel.org/r/20260928-work-unix-passpidfd-v3-0-532018a91b21@amutable.com
-
-Changes in v3:
- - I picked this series up from Christian at his request (thanks!)
- - Make SO_PASSPIDFD and SO_PASSPIDFD_THREAD completely independent (and
-   in doing so add SCM_PIDFD_THREAD) instead of mutually exclusive. This goes
-   against Kuniyuki's suggestion for a separate flag option, which I
-   argued the mutually exclusive nature of the prior implementation +
-   that would be confusing in v2 thread. I think with it being
-   independent things are more clear, and useful, and it matches the
-   SO_PEERPIDFD_THREAD counterpart nicely. For that reason I dropped
-   Reviewed-by tags present on the implementation / selftests patches
-   related to that.
- - Address grammar, reverse xmas tree, sk_is_unix() feedback from
-   Kuniyuki Iwashima
- - Collect tags
- - Rebase on v7.3-rc5 for Christian to make shared branch for net to
-   pull from
- - Link to v2: https://lore.kernel.org/r/20260909-work-unix-passpidfd-v2-0-7bd342abb2d1@kernel.org
-
-Changes in v2:
-- Fix a few documentation issues.
-- Link to v1: https://patch.msgid.link/20260831-work-unix-passpidfd-v1-0-70cbfda0c7ba@kernel.org
-
----
-Christian Brauner (10):
-      pid: add helpers to operate on a struct pid array
-      af_unix: record the pid of the sending thread
-      net: add SO_PASSPIDFD_THREAD to get a thread-specific SCM_PIDFD
-      selftests/net: SO_PASSPIDFD_THREAD
-      net: turn sk_peer_pid into an array indexed by pid type
-      af_unix: record the pid of the connecting thread
-      net: add SO_PEERPIDFD_THREAD to get a thread-specific pidfd
-      selftests/net: SO_PEERPIDFD_THREAD
-      pidfs: record the coredump on the dumping thread's pid too
-      selftests/coredump: check the dumping thread's pidfd
-
- arch/alpha/include/uapi/asm/socket.h               |   4 +
- arch/mips/include/uapi/asm/socket.h                |   4 +
- arch/parisc/include/uapi/asm/socket.h              |   4 +
- arch/sparc/include/uapi/asm/socket.h               |   4 +
- fs/coredump.c                                      |  22 +-
- fs/pidfs.c                                         |  27 +-
- include/linux/coredump.h                           |   4 +-
- include/linux/pid.h                                |  53 ++
- include/linux/pid_types.h                          |   8 +
- include/linux/pidfs.h                              |   5 +
- include/linux/sched/signal.h                       |  18 +
- include/linux/socket.h                             |   9 +-
- include/net/scm.h                                  |  10 +-
- include/net/sock.h                                 |   8 +-
- include/trace/events/landlock.h                    |   2 +-
- include/uapi/asm-generic/socket.h                  |   4 +
- net/bluetooth/af_bluetooth.c                       |   6 +-
- net/bluetooth/hci_sock.c                           |   8 +-
- net/bluetooth/l2cap_sock.c                         |   2 +-
- net/core/scm.c                                     |  40 +-
- net/core/sock.c                                    | 108 ++--
- net/unix/af_unix.c                                 |  66 +--
- net/unix/af_unix.h                                 |   3 +-
- tools/lib/python/kdoc/xforms_lists.py              |   1 +
- .../selftests/coredump/coredump_socket_test.c      | 175 ++++++
- tools/testing/selftests/coredump/coredump_test.h   |   2 +
- .../selftests/coredump/coredump_test_helpers.c     |  49 ++
- tools/testing/selftests/net/af_unix/Makefile       |   2 +
- tools/testing/selftests/net/af_unix/scm_pidfd.c    | 602 +++++++++++++++++++++
- 29 files changed, 1137 insertions(+), 113 deletions(-)
----
-base-commit: a90ee4305c4a5df72c11b31dacfdc76e00fcf78a
-change-id: 20260825-work-unix-passpidfd-086a1ec09e8a
+[1/1] wifi: ath12k: Reserve space for a string terminator
+      commit: 13b15eabe2c541b80406166964cdc8ccb5e9c32a
 
 Best regards,
 -- 
-Andrew Halaney <andrew@amutable.com>
+Jeff Johnson <jeff.johnson@oss.qualcomm.com>
 
