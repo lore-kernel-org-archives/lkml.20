@@ -1,138 +1,83 @@
-Received: from www537.your-server.de (www537.your-server.de [188.40.3.216])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B30614A014F;
-	Mon,  5 Oct 2026 14:18:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=188.40.3.216
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5B59E4A341C;
+	Mon,  5 Oct 2026 14:19:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791209945; cv=none; b=pPvjzYMJH9tJvTxxtSRbHMzM38/nPZilwJWeUwv5tvCStDXAvykMZz2pMl64n6sRxipjfEgIEh6NtqcpOJLzVAESLd3sMe4nig7q3vmYpQjFWOkanmM7VHfg0kXaas8cqmePkbuYzYxhIYDfrGgsY6gTR8VHhh1IyaH9lMaYduk=
+	t=1791209975; cv=none; b=uFe/RS8GPvVO5UyDOz6KMz3/e9ee1n1HXFbeLPf16CMaQ313DfSOYiN9ZKoBOiL/qp4Nl3s25wcTi5rBVzpdHSyBrHl6SbnHMqzM/1BQ0XgpjrbMe8RhvcmmQzaAGyLzumGVTTQQu02pe4vLAbSn7WgI97l6xD47B4dNSHA0an0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791209945; c=relaxed/simple;
-	bh=EAXlvM5dJlg0s65oAgYauyX+rol0+GQHUrMPuvK6dYs=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=BGC5QUfMLnSnZQ9KIwWGviDKDtaY2GXFAduk/1IC9B7SE5ylFFRJewntAnwI30epJxGgy6neMD4eG9AZOVFRNq5E0VzHbKs/Y3mT/l1CZAT/W/cpGNPvI2Cr5/yHL57azfTrj8fA7OU8j+fzHTLrXRHpJ6W8R3CeT5BHuPALG3c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ew.tq-group.com; spf=pass smtp.mailfrom=ew.tq-group.com; dkim=pass (2048-bit key) header.d=ew.tq-group.com header.i=@ew.tq-group.com header.b=hBHL9NCX; arc=none smtp.client-ip=188.40.3.216
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ew.tq-group.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ew.tq-group.com
+	s=arc-20240116; t=1791209975; c=relaxed/simple;
+	bh=dR3nf6xCW4np55kOQycEYodNj9RL9fJ2Y54GNF1lX0I=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=NR/ujU/Ikk15zP556/gie31IvEB1cbUm1DIoT6ThOhexupODr0ZQyuzvpgEMP67OYOvqT+8DM7lFWKNRiIwWcc8wQMlImbdcpxe+0sOP5L6O96kAsBt3kXj3Ud0OHGSVWng4h1Aiu1uYbUAbvqMcT4RKSKaKPImtE/esRpyomJg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=WE1+f07b; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ew.tq-group.com header.i=@ew.tq-group.com header.b="hBHL9NCX"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=ew.tq-group.com; s=default2602; h=Content-Transfer-Encoding:Content-Type:
-	MIME-Version:References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Sender
-	:Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:
-	Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID;
-	bh=IJEizh6t5jIVwuWQ8ZXVOwOTAI3zq0m0du1qEnDfbD4=; b=hBHL9NCX171UaOWFEYP0sDyd11
-	K5xeZnK+loMVUvfDngXS18sV+6vFG8IZROsd1lZKAK3mjhkwohTcvH+FjJL+kggTi4hXXOrvq9HoV
-	NEoHjDFXZTiZCuaI3u+KTjirTLA7rISY8/6aDy5zhvRbop+KpTRwleW/3nHuUnTSyJF/y5dX87zo9
-	cgI6Bb8s8kof16etiQoBjvdXSJKKLIEmH5RYSIQdo+6GW19VsXXTSSETqEZ2PBMILrAy/c6haRPcM
-	COQuTmMUlmAHxdpAlItUYLzuLZVXpPxRdetYhs0RzxfBg03nSsYaSte3OYVU6mjgKaC/qN69Puw6l
-	HGwXZvpA==;
-Received: from sslproxy04.your-server.de ([78.46.152.42])
-	by www537.your-server.de with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
-	(Exim 4.96.2)
-	(envelope-from <nora.schiffer@ew.tq-group.com>)
-	id 1xDjWl-0005ka-0k;
-	Mon, 05 Oct 2026 16:18:51 +0200
-Received: from localhost ([127.0.0.1])
-	by sslproxy04.your-server.de with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
-	(Exim 4.96)
-	(envelope-from <nora.schiffer@ew.tq-group.com>)
-	id 1xDj9J-000HEr-0P;
-	Mon, 05 Oct 2026 15:54:37 +0200
-From: Nora Schiffer <nora.schiffer@ew.tq-group.com>
-To: Lee Jones <lee@kernel.org>,
-	Pavel Machek <pavel@kernel.org>
-Cc: Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Isai Gaspar <isaiezequiel.gaspar@nxp.com>,
-	Marek Vasut <marex@denx.de>,
-	Pieterjan Camerlynck <pieterjanca@gmail.com>,
-	Javier Carrasco <javier.carrasco.cruz@gmail.com>,
-	linux@ew.tq-group.com,
-	linux-leds@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Nora Schiffer <nora.schiffer@ew.tq-group.com>
-Subject: [PATCH v5 10/11] leds: pca995x: Do not use full on LED mode
-Date: Mon,  5 Oct 2026 15:53:34 +0200
-Message-ID: <4d1a741c5b78fe1dc5bf0d0ac47f3f3a161c335e.1791207391.git.nora.schiffer@ew.tq-group.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <cover.1791207391.git.nora.schiffer@ew.tq-group.com>
-References: <cover.1791207391.git.nora.schiffer@ew.tq-group.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="WE1+f07b"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 741221F000FF;
+	Mon,  5 Oct 2026 14:19:25 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791209966;
+	bh=REP6MYHxsdh3OHkYaHhZIo0xot4Ti1gN9Nb+mTFa5RM=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=WE1+f07bVgtvLavxmSBzqprPbpkXFOKlk+AzeqIBV9ESKFJmUNeBQgD2OlvEY7anA
+	 tgC/husuLQxl3QkKLJFhDRGFbWjl2hdB5TaSrzYK/vfJrTDAZnseNJ4yVi2/5dMfBQ
+	 DmjHwK2s0h42kz5kyVcBUJTUmAa0R4GI43AmEfYSYZY2FBF3L1xYEAqsDwOWW7ovyS
+	 hXDasPMgIDiT2TvpHi3UoUGEpMkkArtHZOvp0Tukab6boJJUyP8w634EVNMCnVZKgA
+	 P/38Rqy6wR40fiKNc9oleBEmgEyr1y93KbFOiS+2J6HJLpNSiD6D1gSvI7WIX3YaGX
+	 QZJrkuZ30ntbw==
+Date: Mon, 5 Oct 2026 16:19:23 +0200
+From: Vinod Koul <vkoul@kernel.org>
+To: Devendra K Verma <devverma@amd.com>
+Cc: mani@kernel.org, frank.li@kernel.org, den@valinux.co.jp,
+	dmaengine@vger.kernel.org, linux-pci@vger.kernel.org,
+	linux-kernel@vger.kernel.org, michal.simek@amd.com
+Subject: Re: [PATCH v2 1/2] dmaengine: dw-edma: Sort Register Field Macros by
+ Bit Position
+Message-ID: <asOx6y7hiVrEUNGa@parshuram>
+References: <20260917103050.1020982-1-devverma@amd.com>
+ <20260917103050.1020982-2-devverma@amd.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-Virus-Scanned: Clear (ClamAV 1.4.3/28144/Mon Oct  5 08:24:24 2026)
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260917103050.1020982-2-devverma@amd.com>
 
-LEDs in full on mode are unaffected by group dimming. Avoid using it,
-so group dimming is applied consistently.
+On 17-09-26, 16:00, Devendra K Verma wrote:
+> Sort register field macros by bit position to improve readability.
+> No functional change.
 
-This slightly changes the brightness at maximum (from 100% to 255/256
-duty cycle), which should be imperceptible; arguably it is also more
-consistent with the other brightness levels, as it will now scale
-linearly from 0/256 to 255/256 over the whole range.
+This fails on current code and needs a bit more sorting.
 
-Signed-off-by: Nora Schiffer <nora.schiffer@ew.tq-group.com>
----
- drivers/leds/leds-pca995x.c | 33 ++++++++++++++-------------------
- 1 file changed, 14 insertions(+), 19 deletions(-)
+> 
+> Signed-off-by: Devendra K Verma <devverma@amd.com>
+> ---
+> Changes in v1:
+>    o Corrected heading and body as per reviewer's suggestion
+> ---
+>  drivers/dma/dw-edma/dw-edma-pcie.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+> 
+> diff --git a/drivers/dma/dw-edma/dw-edma-pcie.c b/drivers/dma/dw-edma/dw-edma-pcie.c
+> index 9f237ba916de..006dea7d6322 100644
+> --- a/drivers/dma/dw-edma/dw-edma-pcie.c
+> +++ b/drivers/dma/dw-edma/dw-edma-pcie.c
+> @@ -31,8 +31,8 @@
+>  
+>  #define DW_PCIE_XILINX_MDB_VSEC_DMA_ID		0x6
+>  #define DW_PCIE_XILINX_MDB_VSEC_ID		0x20
+> -#define DW_PCIE_XILINX_MDB_VSEC_DMA_BAR		GENMASK(10, 8)
+>  #define DW_PCIE_XILINX_MDB_VSEC_DMA_MAP		GENMASK(2, 0)
+> +#define DW_PCIE_XILINX_MDB_VSEC_DMA_BAR		GENMASK(10, 8)
+>  #define DW_PCIE_XILINX_MDB_VSEC_DMA_WR_CH	GENMASK(9, 0)
+>  #define DW_PCIE_XILINX_MDB_VSEC_DMA_RD_CH	GENMASK(25, 16)
+>  
+> -- 
+> 2.43.0
 
-diff --git a/drivers/leds/leds-pca995x.c b/drivers/leds/leds-pca995x.c
-index 359803d0030fb..a95193059e747 100644
---- a/drivers/leds/leds-pca995x.c
-+++ b/drivers/leds/leds-pca995x.c
-@@ -121,28 +121,23 @@ static int pca995x_brightness_set(struct led_classdev *led_cdev,
- 	ledout_addr = PCA995X_LEDOUT0 + (led->led_no / PCA995X_OUTPUTS_PER_REG);
- 	shift = PCA995X_LDRX_BITS * (led->led_no % PCA995X_OUTPUTS_PER_REG);
- 
--	switch (brightness) {
--	case LED_FULL:
--		return regmap_update_bits(chip->regmap, ledout_addr,
--					  PCA995X_LDRX_MASK << shift,
--					  PCA995X_LED_ON << shift);
--	case LED_OFF:
-+	if (brightness == LED_OFF) {
- 		return regmap_update_bits(chip->regmap, ledout_addr,
- 					  PCA995X_LDRX_MASK << shift, 0);
--	default:
--		/* Adjust brightness as per user input by changing individual PWM */
--		ret = regmap_write(chip->regmap, pwmout_addr, brightness);
--		if (ret)
--			return ret;
--
--		/*
--		 * Change LDRx configuration to individual brightness via PWM.
--		 * LED will stop blinking if it's doing so.
--		 */
--		return regmap_update_bits(chip->regmap, ledout_addr,
--					  PCA995X_LDRX_MASK << shift,
--					  PCA995X_LED_PWM_MODE << shift);
- 	}
-+
-+	/* Adjust brightness as per user input by changing individual PWM */
-+	ret = regmap_write(chip->regmap, pwmout_addr, brightness);
-+	if (ret)
-+		return ret;
-+
-+	/*
-+	 * Change LDRx configuration to individual brightness via PWM.
-+	 * LED will stop blinking if it's doing so.
-+	 */
-+	return regmap_update_bits(chip->regmap, ledout_addr,
-+				  PCA995X_LDRX_MASK << shift,
-+				  PCA995X_LED_PWM_MODE << shift);
- }
- 
- static ssize_t status_show(struct device *dev, struct device_attribute *attr, char *buf)
 -- 
-TQ-Systems GmbH | Mühlstraße 2, Gut Delling | 82229 Seefeld, Germany
-Amtsgericht München, HRB 105018
-Geschäftsführer: Detlef Schneider, Rüdiger Stahl, Stefan Schneider
-https://www.tq-group.com/
-
+~Vinod
