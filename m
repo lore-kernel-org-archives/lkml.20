@@ -1,85 +1,155 @@
-Received: from bombadil.infradead.org (bombadil.infradead.org [198.137.202.133])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 723C03806D0;
-	Mon,  5 Oct 2026 08:23:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.137.202.133
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 02CA1384CCB;
+	Mon,  5 Oct 2026 08:24:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791188619; cv=none; b=cixgOUFwAnfcvYVlkoq1f5Shp9O5L8/NxnfzK7sZMVoXt2guVRC2XjEC3jC/CACjQLaojLGV5zL0I+siO9R+SDdBzSkCLtrjRoecbNSibVjZEmiCnEiGgfE2duejK9iqSqs6XldcS8ZgofTzdgYhozzUIPQDB3hapNHxNXyv6fI=
+	t=1791188649; cv=none; b=kuI3Du6AP8JX6FAJCinRzxpykkk9iSMvYM3xjrgXg2nyqo6jI2II+NjSj5Kk+8FAbFlwGnS+x+1f0iBi9Q+R/3yyNBoEFnVWI7s8yP/dNoax18N6LGcwsJw45oGiyB2IqukyQOHqmPfqL2fgxD0SxjVsyTLLRKhnP3NjrqCO3/s=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791188619; c=relaxed/simple;
-	bh=huvwHf6b6kpQy5qa5RyvFFPMRCNF22BZPSUsHgW1VMA=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=GMaEARzl+i0uHIkyjMGa53y7FQA/khMSbfdqzRhpAoF2Ql2X0usPkYsDSKYhW8kbWZAFHxRkXTso+MOAD0zeLowtRD9dphOLNvIWipTzUUtVKnohQr5cut6PPfaapBwL0qZHwq9VcGlH57ewhmmi6LZgz327iCHM+UdPiar6Syo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org; spf=none smtp.mailfrom=bombadil.srs.infradead.org; dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b=YqNqHgSG; arc=none smtp.client-ip=198.137.202.133
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=bombadil.srs.infradead.org
+	s=arc-20240116; t=1791188649; c=relaxed/simple;
+	bh=Q7XM34nLKB4Kz9KD7Xu9z77yAb/LTgwOQCWTAFjxiFs=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=HPKLqEIgkHWmRQKb2gz5jdpa/WVtbgNZ7pUqbHsY5QePq/u7JUca5kEoH0ObQb+T+YjgQDdPqZgKOb6jCucghGf4tlywMPxKhIgmNI4AgbAg3GFHoaA8PrwxiAQvMD3GdtIRvW8ekCtWquzH7d4aSSW2rnTQT/fQUb7aHpjHgX4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Nw3TIRcw; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="YqNqHgSG"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=infradead.org; s=bombadil.20210309; h=In-Reply-To:Content-Type:MIME-Version
-	:References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
-	Content-Transfer-Encoding:Content-ID:Content-Description;
-	bh=z6VraAbnd2mT0BKdlhv+L+o2/2Wa3LZYIp6gFv/bUHI=; b=YqNqHgSGGmvFI3iveGjHa2tQ2L
-	/jV3Ue8G5JbgDOIW+Gk4sFHwIF2YOp+16iyTnT9RAjDCE+Yqtx7kTfP0FJcXsNz2o8T05Vm9rVD+G
-	1psAI2EuqbDvwbuvfVYIESVhuvVi5w+VRMVb9Lamqgt1kIxqVmFPYRAcWxWE0cH0khMrZlahHqj8/
-	EEnFIEoASG2pNz5gA6XfR3c0TlJyU5I8OhDTddikXAVOMQwcysbo+fJvWSO2venfdD18/pjs8wOOl
-	q5o7G+o3NxhQbKCXPhbFIZygzSFInSBjkGaRHlVZFrAscdKwbjawO+gzny9tYUcY7koj9JTMvZh+V
-	jC0O0gKQ==;
-Received: from hch by bombadil.infradead.org with local (Exim 4.99.1 #2 (Red Hat Linux))
-	id 1xDdyk-0000000FsEH-47BZ;
-	Mon, 05 Oct 2026 08:23:23 +0000
-Date: Mon, 5 Oct 2026 01:23:22 -0700
-From: Christoph Hellwig <hch@infradead.org>
-To: Alexandre Ghiti <alexghiti@meta.com>
-Cc: Christoph Hellwig <hch@infradead.org>, Alexandre Ghiti <alex@ghiti.fr>,
-	linux-mm@kvack.org, linux-kernel@vger.kernel.org,
-	linux-block@vger.kernel.org, cgroups@vger.kernel.org,
-	Andrew Morton <akpm@linux-foundation.org>, david@kernel.org,
-	Johannes Weiner <hannes@cmpxchg.org>,
-	Yosry Ahmed <yosry@kernel.org>, Nhat Pham <nphamcs@gmail.com>,
-	Chengming Zhou <chengming.zhou@linux.dev>,
-	Jens Axboe <axboe@kernel.dk>, Tejun Heo <tj@kernel.org>,
-	Josef Bacik <josef@toxicpanda.com>, Chris Li <chrisl@kernel.org>,
-	Kairui Song <kasong@tencent.com>,
-	Kemeng Shi <shikemeng@huaweicloud.com>,
-	Baoquan He <baoquan.he@linux.dev>, Barry Song <baohua@kernel.org>,
-	Youngjun Park <youngjun.park@lge.com>
-Subject: Re: [RFC PATCH 1/4] block: do not issue background swap bios as root
-Message-ID: <asNeenTiIme0kzI6@infradead.org>
-References: <20260928081900.4187482-1-alex@ghiti.fr>
- <20260928081900.4187482-2-alex@ghiti.fr>
- <aro28ZGuYgmNg_n5@infradead.org>
- <CAEmasaX-6v_EpwAxHtnhA5SXk=jGW8+Lm4m8zAC=+f0yXmiCxw@mail.gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Nw3TIRcw"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D18B81F00898;
+	Mon,  5 Oct 2026 08:24:05 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791188646;
+	bh=mo8jDsq2x/sPYYjNNC4oneZ7ADjFoHWG7Rk3AGCOwAg=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=Nw3TIRcwrnU05+v7gBFQdKalXqjWShEYCDwx2F5Np5ZiTDq189C5FuX2ak5KYtZY+
+	 43HJbDZZeNja8rWVYiIHKZPDIGFHU2Lc3ZzF1qLiq1SxmbuQQRLYZ94a5D9gMrlM3g
+	 SeQCTixqzXBBUs17erUY2EETiVsU1+XXwxXN+ALbPjEAgh1cPfJiyRpzGCrCHGQsk5
+	 C41UiM3s/HiYmAjfCo7i8dJNSM8uPCFMyeMi5JuMM8FQ77JKEdOAGM2Nig6HKzW+uL
+	 PQZcENA8D4jd+9GD2cul1Hoe2uBIrFZs+Kl2T/TIw0Nsa/jyUxTFgrm/5XcUFL7a0y
+	 b4xaS6GEPjcBw==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH 3/5] spi: cadence-xspi: Add irq-less support
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Pratyush Yadav" <pratyush@kernel.org>, "Vignesh Raghavendra" <vigneshr@ti.com>, "Richard
+ Weinberger" <richard@nod.at>, "Takahiro Kuwano" <takahiro.kuwano@infineon.com>, "Paul
+ Cercueil" <paul.cercueil@bootlin.com>, "Miquel Raynal" <miquel.raynal@bootlin.com>, "Mark
+ Brown" <broonie@kernel.org>, "Michael Walle" <mwalle@kernel.org>, "Thomas
+ Petazzoni" <thomas.petazzoni@bootlin.com>
+Cc: "Tanmay Jagdale" <tanmay@marvell.com>, "Tony Luck" <tony.luck@intel.com>, "Kees
+ Cook" <kees@kernel.org>, linux-spi@vger.kernel.org, "Guilherme G . Piccoli" <gpiccoli@igalia.com>, linux-mtd@lists.infradead.org, linux-kernel@vger.kernel.org
+In-Reply-To: <20261005081141.33688-4-paul.cercueil@bootlin.com>
+References: <20261005081141.33688-1-paul.cercueil@bootlin.com>
+ <20261005081141.33688-4-paul.cercueil@bootlin.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Mon, 05 Oct 2026 08:24:05 +0000
+Message-Id: <20261005082405.D18B81F00898@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <CAEmasaX-6v_EpwAxHtnhA5SXk=jGW8+Lm4m8zAC=+f0yXmiCxw@mail.gmail.com>
-X-SRS-Rewrite: SMTP reverse-path rewritten from <hch@infradead.org> by bombadil.infradead.org. See http://www.infradead.org/rpr.html
 
-On Tue, Sep 29, 2026 at 11:16:03AM +0200, Alexandre Ghiti wrote:
-> > >
-> > > Such a bio cannot simply drop REQ_SWAP: dm-crypt and dm-thin rely on it
-> > > for limit_swap_bios, which caps in-flight swap bios to avoid a memory
-> > > deadlock, see commit a666e5c05e7c ("dm: fix deadlock when swapping to
-> > > encrypted device").
-> >
-> > Is that true?  REQ_BACKGROUND very much implies the I/O can the throttled
-> > and thus better not be foreground paging, and thus the caller should be
-> > able to tolerate a failure.
-> >
-> 
-> Yes, I agree, zswap writebacks are only best effort and in case of
-> failure, the compressed entry still lives. I don't see how
-> REQ_BACKGROUND could be an issue there?
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
+- [High] spi: cadence-xspi: unhandled interrupt storm in polling mode
+- [High] spi: cadence-xspi: SDMA W1C trigger bit not cleared in polling mode
+--
 
-The issue is that by definition it doesn't need REQ_SWAP then.
+commit 85002136114ad45055d6ac972dbcbdf8c8e3d6b2
+Author: Tanmay Jagdale <tanmay@marvell.com>
 
-Then again the whole concept of REQ_SWAP looks sketchy to me, non-swap
-paging can be just as important for forward progress, so if a driver
-needs it, it has other issues anyway.
+spi: cadence-xspi: Add irq-less support
+
+This commit makes the interrupt line optional. If an interrupt is not
+provided, the driver resorts to polling registers. It modifies
+cdns_xspi_send_stig_command() and probe functions to handle environments
+without a dedicated IRQ.
+
+> diff --git a/drivers/spi/spi-cadence-xspi.c b/drivers/spi/spi-cadence-xsp=
+i.c
+> index 39c868a5b171c..7cf52bcb05df6 100644
+> --- a/drivers/spi/spi-cadence-xspi.c
+> +++ b/drivers/spi/spi-cadence-xspi.c
+> @@ -365,6 +365,30 @@ static int cdns_xspi_wait_for_controller_idle(struct=
+ cdns_xspi_dev *cdns_xspi)
+[ ... ]
+> +static bool cdns_xspi_is_sdma_ready(struct cdns_xspi_dev *cdns_xspi, boo=
+l sleep)
+> +{
+> +	u32 ctrl_stat;
+> +
+> +	return !readl_relaxed_poll_timeout
+> +		(cdns_xspi->iobase + CDNS_XSPI_INTR_STATUS_REG,
+> +		ctrl_stat,
+> +		(ctrl_stat & CDNS_XSPI_SDMA_TRIGGER),
+> +		sleep ? MRVL_XSPI_POLL_DELAY_US : 0,
+> +		sleep ? MRVL_XSPI_POLL_TIMEOUT_US : 0);
+> +}
+
+[Severity: High]
+Does this leave the W1C (Write-1-to-Clear) trigger bit set?
+
+It appears CDNS_XSPI_INTR_STATUS_REG is a latching W1C register (as seen in
+cdns_xspi_irq_handler() which reads and writes back to clear latched events=
+).
+
+In polling mode (when irq < 0), this function only reads the register. For
+base Cadence hardware, cdns_xspi_set_interrupts() doesn't clear this either.
+
+Could this cause the CDNS_XSPI_SDMA_TRIGGER bit to remain permanently set
+after the first SDMA transfer, leading subsequent transfers to falsely see a
+ready state and potentially access memory prematurely?
+
+[ ... ]
+> @@ -562,16 +586,25 @@ static int cdns_xspi_send_stig_command(struct cdns_=
+xspi_dev *cdns_xspi,
+> =20
+>  		cdns_xspi_trigger_command(cdns_xspi, cmd_regs);
+> =20
+> -		wait_for_completion(&cdns_xspi->sdma_complete);
+> -		if (cdns_xspi->sdma_error) {
+> -			cdns_xspi->set_interrupts_handler(cdns_xspi, false);
+> +		if (cdns_xspi->irq >=3D 0) {
+> +			wait_for_completion(&cdns_xspi->sdma_complete);
+> +			if (cdns_xspi->sdma_error) {
+> +				cdns_xspi->set_interrupts_handler(cdns_xspi, false);
+> +				return -EIO;
+> +			}
+> +		} else if (!cdns_xspi_is_sdma_ready(cdns_xspi, true)) {
+>  			return -EIO;
+>  		}
+> +
+>  		cdns_xspi->sdma_handler(cdns_xspi);
+>  	}
+> =20
+> -	wait_for_completion(&cdns_xspi->cmd_complete);
+> -	cdns_xspi->set_interrupts_handler(cdns_xspi, false);
+> +	if (cdns_xspi->irq >=3D 0) {
+> +		wait_for_completion(&cdns_xspi->cmd_complete);
+> +		cdns_xspi->set_interrupts_handler(cdns_xspi, false);
+> +	} else if (!cdns_xspi_is_stig_ready(cdns_xspi, true)) {
+> +		return -EIO;
+> +	}
+
+[Severity: High]
+Does this leave hardware interrupts permanently unmasked in polling mode?
+
+At the start of cdns_xspi_send_stig_command(), interrupts are unmasked
+unconditionally:
+
+    cdns_xspi->set_interrupts_handler(cdns_xspi, true);
+
+However, when irq < 0, the corresponding teardown call:
+
+    cdns_xspi->set_interrupts_handler(cdns_xspi, false);
+
+is skipped because it is guarded by if (cdns_xspi->irq >=3D 0).=20
+
+If the physical IRQ line is connected or shared, could this cause the
+controller to assert it indefinitely, triggering an unhandled interrupt sto=
+rm
+that forces the kernel to disable the IRQ line?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261005081141.3368=
+8-1-paul.cercueil@bootlin.com?part=3D3
