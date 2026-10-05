@@ -1,126 +1,208 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.13])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 787CD443A98;
-	Mon,  5 Oct 2026 10:36:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.13
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 13D2D41D23A;
+	Mon,  5 Oct 2026 10:37:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791196565; cv=none; b=jEaC06rF4qPRLzEBjGpsN5CE8NdBwNWoWZRH5gr0QlROXu0wHoxbBGHUTyhNrrIOBb38xH95TPJagbdhJmXB/UGSnX+FcilRn/SrWroXUKAdcP/eSh78F+QTsL0HA3DTKdmK7YWb5279aixyQcdqP3jjAffsKEJKx1gKrhlvo1Q=
+	t=1791196656; cv=none; b=IzNNKd9yOpnHQeaQHwR1mkhYhCq2kB1lYEOlxL3gYGnQSwKgPAfDxy5JAZttmcIeX94j1VTs9YJzCyR6cV5caRb3rfjwOC98RCwIeRfUarIV51MKRiewNUcrGefZc9UASGRrQVXiPPJleslveP3HIJmOEVF8me/V0mBQswP0gnY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791196565; c=relaxed/simple;
-	bh=+Pnp5vYf8CSwmcwTvkKwdomoDPsd4+ZFsdVaZtJa6Sw=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=lHOCMQOKH2yQfTw/OtYv+sUC1CC+zIXXgByjEU7c6kNtOk6pP0PNeslZ4D9LrhR/ew8HaGiTyCkS/g3/NhXNuP/c+rbQAHs79+OX9iUCZNu9HFQ+zZwsp9alQ/0rotYnpG2ceuH/NRgbRQMoUqkXDZYUePK0UD//C3rXTS7CXuY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=Envfz/I+; arc=none smtp.client-ip=198.175.65.13
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	s=arc-20240116; t=1791196656; c=relaxed/simple;
+	bh=RDylGjdxj83XUypNAqtDW03hXKOxfYH18mbcAQXXxcg=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=X7nqYEEO+7V+mM32p3nowK2UAKsoloZ9aLyEcjc/r6TP95r9ht0GYPvudzv3yyyaKLD9uQNy3Y+G4WgNrHyp+QTZNWW6+F/YxbKIDSyqftZW6PIGydaB048cKZwM1Fww1mpfuQ2Ho0mpUWHnoz6U2oP95/X3+EDOZlq8DhhoIwY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=UFzxhi2O; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="Envfz/I+"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1791196563; x=1822732563;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:content-transfer-encoding:in-reply-to;
-  bh=+Pnp5vYf8CSwmcwTvkKwdomoDPsd4+ZFsdVaZtJa6Sw=;
-  b=Envfz/I+50XjHfgAz56TQIU8+WLCtAwk90GBjTpFTih/DxSZ5RQP+07D
-   0ySASwo/wNT7DivsEszmQQqWDljITU9q7Ul3VMbBUorK3vc19xaVN+TKN
-   sr11FuA/X9GONbeZRluSnBiTI1yn4GO2csdkSfX/XsWaTDHooKg+HRg2w
-   A06z2tIvTKWTMvhfe1WUfauO7WSdG7cLCfGigdRpOKqybOMusYbWx4fs0
-   zd9tfqsCuaJ8UBVYmulzHAX1EMDnlV18lO76Ugaz80PFdLLEpG8m1Ca2r
-   NAt83jgDaEJ330EzpGDReFdIpfV4T435DK1s1xV6xR3mhP5asidl6FahS
-   w==;
-X-CSE-ConnectionGUID: AQ/0Cq5fQMuPtAEJr2SRXA==
-X-CSE-MsgGUID: P7ynht1yQF6Gx1cF5isAJA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11925"; a="102025635"
-X-IronPort-AV: E=Sophos;i="6.27,141,1787036400"; 
-   d="scan'208";a="102025635"
-Received: from fmviesa004.fm.intel.com ([10.60.135.144])
-  by orvoesa105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 05 Oct 2026 03:36:03 -0700
-X-CSE-ConnectionGUID: uKpirUPySmKAOZDU9kKbXA==
-X-CSE-MsgGUID: 8UjFNjzFS0abXxBoCngh6g==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,141,1787036400"; 
-   d="scan'208";a="281557505"
-Received: from ettammin-mobl2.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.245.157])
-  by fmviesa004-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 05 Oct 2026 03:36:01 -0700
-Received: from kekkonen.localdomain (localhost [IPv6:::1])
-	by kekkonen.fi.intel.com (Postfix) with ESMTP id 108A911F73F;
-	Mon, 05 Oct 2026 13:36:01 +0300 (EEST)
-Date: Mon, 5 Oct 2026 13:36:00 +0300
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
-From: Sakari Ailus <sakari.ailus@linux.intel.com>
-To: Robert Bozik <robertbozik@gmail.com>
-Cc: linux-media@vger.kernel.org, mchehab@kernel.org, robh@kernel.org,
-	krzk+dt@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org, antti.laakso@linux.intel.com
-Subject: Re: [PATCH v4 2/3] media: i2c: Add driver for OmniVision OV32C4
-Message-ID: <asN9kKdqf6hY_iCV@kekkonen.localdomain>
-References: <20261005071010.7191-1-robertbozik@gmail.com>
- <20261005071010.7191-3-robertbozik@gmail.com>
- <asNsiKal6GgcqUSK@kekkonen.localdomain>
- <20261005101447.15264-1-robertbozik@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="UFzxhi2O"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 394661F000FF;
+	Mon,  5 Oct 2026 10:37:23 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791196654;
+	bh=cByG7GqhBvWV2hjaYwUvk7XARELXPjKV24/eCyNbhZQ=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=UFzxhi2OKhI7lOTnQNuT5HIVGpaxAbS1fgEPpdjeuyurAwRR8AVghIocUlZW6JGwR
+	 mnGCuSA4j3JWEpMfC4xPkdvyQAKVzSd/Jkj5tOT+vRbqFF0BcqFAj4HDAiqRyeXpgK
+	 rVFOS1s6YKwWKEiM//Z2aU/vsloh6wNr8iUpImltVL/MxI0rmEfGjkQkyLO3tsVRvK
+	 npu3l3PXt8mv0PZPj+ZEqOibABFIOqYktx455TvhuC6zXUmzbvs0vEi+sj+Xp5wBKR
+	 9N8QlqbV6+nm2AsncAr4ROh3G1k2HdVRDF68iEod47EmNtXDGQTexWFteH0cOtkckq
+	 LQ4dPVDY4yBrQ==
+Message-ID: <fabd52b6-36a7-442e-9cfb-47a39e4ae3d6@kernel.org>
+Date: Mon, 5 Oct 2026 12:37:20 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20261005101447.15264-1-robertbozik@gmail.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/1] riscv/mm: fix soft-dirty migration PMDs being treated
+ as present
+To: Lance Yang <lance.yang@linux.dev>, pjw@kernel.org, palmer@dabbelt.com,
+ aou@eecs.berkeley.edu
+Cc: alex@ghiti.fr, akpm@linux-foundation.org, zhangchunyan@iscas.ac.cn,
+ rppt@kernel.org, kas@kernel.org, andrew+kernel@donnellan.id.au,
+ rmclure@linux.ibm.com, debug@rivosinc.com, baolin.wang@linux.alibaba.com,
+ usama.arif@linux.dev, wangruikang@iscas.ac.cn, namcao@linutronix.de,
+ linux-riscv@lists.infradead.org, linux-kernel@vger.kernel.org,
+ alexghiti@rivosinc.com, viro@zeniv.linux.org.uk, ajones@ventanamicro.com,
+ arnd@arndb.de, axelrasmussen@google.com, brauner@kernel.org,
+ conor.dooley@microchip.com, conor@kernel.org, jack@suse.cz,
+ liam@infradead.org, ljs@kernel.org, mhocko@suse.com,
+ paul.walmsley@sifive.com, peterx@redhat.com, robh@kernel.org,
+ surenb@google.com, vbabka@kernel.org, yuanchu@google.com,
+ stable@vger.kernel.org, pasha.tatashin@soleen.com, linux-mm@kvack.org,
+ me@ziyao.cc
+References: <20261004030312.90163-1-lance.yang@linux.dev>
+From: "David Hildenbrand (Arm)" <david@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=david@kernel.org; keydata=
+ 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
+ qIws/H2t
+In-Reply-To: <20261004030312.90163-1-lance.yang@linux.dev>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-Hi Robert,
+On 10/4/26 05:03, Lance Yang wrote:
+> RISC-V uses _PAGE_EXEC for swap soft-dirty tracking when
+> CONFIG_MEM_SOFT_DIRTY is enabled and Svrsw60t59b is available. That's
+> a problem for PMD migration entries, since pmd_present() also checks
+> _PAGE_LEAF (R/W/X) to recognize THPs with _PAGE_PRESENT temporarily
+> cleared during splitting.
 
-On Mon, Oct 05, 2026 at 12:14:46PM +0200, Robert Bozik wrote:
-> Hi Sakari,
-> 
-> Thank you for the review.
-> 
-> On Mon, Oct 05, 2026 at 12:23:20PM +0300, Sakari Ailus wrote:
-> > > +	{ 0x6ad0, 0x00 },
-> > > +	{ 0x6ad1, 0x75 },
-> > 
-> > Are there any gaps in this deluge of 0x0 and 0x75? If not, could you write
-> > it programmatically rather than using a huge array?
-> 
-> Two contiguous ranges, 0x6ad0-0x6bef and 0x6c00-0x707f, with one gap of
-> 16 bytes between them; every even address holds 0x00 and the odd one
-> 0x75, so it is 720 16-bit registers set to 0x0075. v5 writes them from a
-> loop and the table shrinks to 345 entries. I'll verify the stream and
-> the image after the change, since it alters the bus transactions.
-> 
-> > > +	ret = acpi_dev_get_resources(adev, &resources, ov32c4_i2c_res_cb, &ctx);
-> > 
-> > The presence of additional chips like VCM is very much dependent on the
-> > module, and I think we should have parsing of the I²C address outside the
-> > sensor driver.
-> > 
-> > One option could be to stuff it into the reg property in the ipu-bridge,
-> > that way it'd work the same way for the driver on both DT and ACPI. In the
-> > ipu-bridge, I'd use a static value and provide the reg property for this
-> > sensor only (based on _HID). i2c_new_ancillary_device() will only use OF so
-> > the driver will need to dig the address manually still.
-> 
-> Agreed, that is better. For v5 I'd give ipu-bridge a small table of
-> sensors whose second I2C address belongs to the sensor itself,
-> { "OVTI32C4", 0x3e }; for a sensor in it the bridge adds reg = <main,
-> aon> to the sensor's software node and does not instantiate the VCM
-> from SSDB - so the no-VCM exception of patch 3 folds into the same
-> table. The driver reads reg with device_property_read_u32_array() on
-> both DT and ACPI and the _CRS walk goes away with its CONFIG_ACPI
-> guard. The property fits into the existing dev_properties slot that
-> lens-focus uses when there is a VCM, so no change to the header.
+I'm curious: why do we have to set leaf indications for non-present things? The
+HW sure will ignore it, right?
 
-You shouldn't assume there won't be a VCM; please do add an array entry for
-reg instead.
+Is this a sw problem? Who needs that?
 
 > 
-> The rest will be in v5 as suggested - the register names, the RGB/IR
-> comments, the function name, the error label and the comments; the HTS
-> define was unused and goes too.
+> When a soft-dirty THP is migrated, set_pmd_migration_entry() preserves
+> soft-dirty with pmd_swp_mksoft_dirty(), setting the X bit in the
+> migration PMD. Even with _PAGE_PRESENT clear, we end up treating a
+> migration PMD as a present THP! The fault handler skips
+> pmd_migration_entry_wait(), and a write fault can end up in
+> do_huge_pmd_wp_page(), where pmd_page() decodes the migration entry
+> as a mapped PFN.
+
+That sounds bad.
+
+> 
+> Move the swap soft-dirty bit to bit 12 and start the swap offset at
+> bit 13 when CONFIG_MEM_SOFT_DIRTY is enabled. This keeps R/W/X clear
+> in migration PMDs and lets us keep the existing pmd_present() check
+> for invalidated THPs. Leave the offset at bit 12 when soft-dirty
+> tracking is disabled.
+
+That reduces the effective swap size (and PFN we can store). Could that be a
+problem?
+
+> 
+> Fixes: 2a3ebad4db63 ("riscv: mm: add soft-dirty page tracking support")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Lance Yang <lance.yang@linux.dev>
+> ---
+> I found this while reviewing Usama's PMD-level swap entries series [1]
+> and comparing the swap flag bits with the PMD presence checks across
+> architectures.
+> 
+> [1] https://lore.kernel.org/all/20261002095503.3585565-1-usama.arif@linux.dev/
+> 
+>  arch/riscv/include/asm/pgtable-bits.h |  6 +++---
+>  arch/riscv/include/asm/pgtable.h      | 10 ++++++----
+>  2 files changed, 9 insertions(+), 7 deletions(-)
+> 
+> diff --git a/arch/riscv/include/asm/pgtable-bits.h b/arch/riscv/include/asm/pgtable-bits.h
+> index d5a86b4df3ce6..d84b459e010c1 100644
+> --- a/arch/riscv/include/asm/pgtable-bits.h
+> +++ b/arch/riscv/include/asm/pgtable-bits.h
+> @@ -27,12 +27,12 @@
+>  	((riscv_has_extension_unlikely(RISCV_ISA_EXT_SVRSW60T59B)) ?	\
+>  	 (1UL << 59) : 0)
+>  /*
+> - * Bit 3 is always zero for swap entry computation, so we
+> - * can borrow it for swap page soft-dirty tracking.
+> + * Bit 12 is reserved for swap soft-dirty tracking. The swap offset
+> + * starts at bit 13 when CONFIG_MEM_SOFT_DIRTY is enabled.
+>   */
+>  #define _PAGE_SWP_SOFT_DIRTY						\
+>  	((riscv_has_extension_unlikely(RISCV_ISA_EXT_SVRSW60T59B)) ?	\
+> -	 _PAGE_EXEC : 0)
+> +	 (1UL << 12) : 0)
+>  #else
+>  #define _PAGE_SOFT_DIRTY	0
+>  #define _PAGE_SWP_SOFT_DIRTY	0
+> diff --git a/arch/riscv/include/asm/pgtable.h b/arch/riscv/include/asm/pgtable.h
+> index b644db16bda94..acaf6d3b54d04 100644
+> --- a/arch/riscv/include/asm/pgtable.h
+> +++ b/arch/riscv/include/asm/pgtable.h
+> @@ -1178,18 +1178,20 @@ static inline pud_t pud_modify(pud_t pud, pgprot_t newprot)
+>   *
+>   * Format of swap PTE:
+>   *	bit            0:	_PAGE_PRESENT (zero)
+> - *	bit       1 to 2:	(zero)
+> - *	bit            3:	_PAGE_SWP_SOFT_DIRTY
+> + *	bit       1 to 3:	_PAGE_LEAF (zero)
+>   *	bit            4:	_PAGE_SWP_UFFD
+>   *	bit            5:	_PAGE_PROT_NONE (zero)
+>   *	bit            6:	exclusive marker
+>   *	bits      7 to 11:	swap type
+> - *	bits 12 to XLEN-1:	swap offset
+> + *	bit           12:	_PAGE_SWP_SOFT_DIRTY (CONFIG_MEM_SOFT_DIRTY)
+> + *	bits 12/13 to XLEN-1:	swap offset (without/with CONFIG_MEM_SOFT_DIRTY)
+>   */
+>  #define __SWP_TYPE_SHIFT	7
+>  #define __SWP_TYPE_BITS		5
+>  #define __SWP_TYPE_MASK		((1UL << __SWP_TYPE_BITS) - 1)
+> -#define __SWP_OFFSET_SHIFT	(__SWP_TYPE_BITS + __SWP_TYPE_SHIFT)
+> +#define __SWP_OFFSET_SHIFT \
+> +	(__SWP_TYPE_BITS + __SWP_TYPE_SHIFT + \
+> +	 IS_ENABLED(CONFIG_MEM_SOFT_DIRTY))
+>  
+>  #define MAX_SWAPFILES_CHECK()	\
+>  	BUILD_BUG_ON(MAX_SWAPFILES_SHIFT > __SWP_TYPE_BITS)
+
 
 -- 
-Regards,
+Cheers,
 
-Sakari Ailus
+David
