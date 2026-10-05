@@ -1,153 +1,357 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1B61A46D55A
-	for <linux-kernel@vger.kernel.org>; Mon,  5 Oct 2026 10:29:54 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D35E64772A4;
+	Mon,  5 Oct 2026 10:31:20 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791196196; cv=none; b=If4847XRZeXQ0xvoNUg9TvR5uOwAglssUszn8lve/tOW4bTh4PLZJUncevENaP31Gc8dEUhFvem2YWfNbfJ7M/OC64HnMXIvtqdWhZuL3FHCzEsI47Md0Rly78r3QUja9HHfPDSHPkJhxdwxUXoIo/4pC8olJ/ID5Xd+SZcN2UA=
+	t=1791196283; cv=none; b=hLaS8zeqhPCvqQu96t6MjqmnztaJU043SGfNtqJAujCvlQ0G+LnmEENzwXOkJu9L0QIPGEbK53TjY2S/1TcPge3w56obvjncxwPTcmEH2GdPESqoQbbkLQ3ptycghUSaUZ2JctbYG1la0CmjLUsxWzgJwPifowOO/CwAcQT7GL8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791196196; c=relaxed/simple;
-	bh=gonOtgwHxhyrgcsNLHiH+1JD8Uk7YI+9+146Ie/Eno8=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=nwDAyuR/5Z18099ehHXTV+URGaUtuj1askb414bp484M/jGV8Y2aSz7vqUzm5LwkPfukuWuyYNs5JUBI9KsBTVEdQzV2Uw3in13FRrce0kVn+quvICTzBu1X4QSP/erNBoUWzXa8WtCoTS2SeuS9KcUaQYwWMhfFxsgiauZxgEE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=DNQAufO1; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791196283; c=relaxed/simple;
+	bh=Z0CU3qmDRS82mdslwFhsmrPIbjGHUm9iRWYPiMuZtbE=;
+	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
+	 Content-Disposition; b=jl93/YiWB2sTp/oMfqLnay1z+SR9PA9XLVNk+KbmQ5Y4OuuFt4u5BaTaUgO+S/MGeUq9dU1dYjTNhqn8kVXWszdF4fNhCIsNVLvNHjkxu3HWel0KskJxfuIh/CE/ysXDSKHF9GvK+QwTaxYo6GpIiAylJyDBLVJD344rBje0kIo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Il5XChVo; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="DNQAufO1"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EA3FB1F000FF;
-	Mon,  5 Oct 2026 10:29:51 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Il5XChVo"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 68E6A1F000FF;
+	Mon,  5 Oct 2026 10:31:20 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791196194;
-	bh=+4EBiRglyhJAEZs7meWIg1gAIPLsVdJjKbMSKscHBro=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=DNQAufO12IvokR0ikNWlVFIiZQ28kRtWZnnTYray9D//Sg70spgwiNcT/8OgxX+dF
-	 hJbSK1gWIg1tq+qOrXfkbLbviPy/U6giQVGc4tqkWTz7o/KwXXZUJpbVFIg0/f10Uj
-	 AEEgmnNpbk85mKs2SPIR5VPUB02PPXmewo4KgyAOPh+ijS4uD19AdFWandppC32WmC
-	 4xjvYCQA/31WeRq8PychtqmYoZ2NnbNSOA1U+D1tJjaoFccTai6ctoJwQoUFS7IgDN
-	 uAsmTEPqD4bAoYP4mod71PJ4H5AhWkhtfRsvDcDXYxngn9ODrHmGfXhmGw2as+gcGk
-	 oIz/AdhUh+Ecg==
-Message-ID: <645204ff-6c50-4ef3-9070-78ac602560b1@kernel.org>
-Date: Mon, 5 Oct 2026 12:29:48 +0200
+	s=k20260515; t=1791196280;
+	bh=ZPYmDxH8vabn7vg3wY8kNRqXiHMt5Bo2ZuR2kjLDJwQ=;
+	h=Date:From:To:Cc:Subject;
+	b=Il5XChVoDW2Lkxh+cv7h9+oe8clSpTJ6KEdfHUPx6Z5+ZZZ4qmsxluu2tuMHc6LVC
+	 lJb0ffd5hXAHCQF+Ewl6yIKmXQM4W1dXLTOjMwpHh7t6FhAGW8cKOkukeoPiHGH9P7
+	 scxTnOmkJl2ILytxHJ1tQHmegIZZLEudT4LU9J9byojdzvrDudkdI3bL4hcaWcuC/r
+	 zIRpjhhw8070mVRIiKVQ893MeZkDMSdMiqLVufC68TZ5KGEGw5vS4G7QoL8sIf1E+Y
+	 cKX/zA6Ho9z8Kr8eoBUWG46vZs2cfp0f64vjo/ZErF3WaRHcg66mGeBgfIvcili5Qi
+	 8UdHpxQ6pWvTg==
+Received: by finisterre.sirena.org.uk (Postfix, from userid 1000)
+	id 47BF81AC57CE; Mon, 05 Oct 2026 11:31:18 +0100 (BST)
+Date: Mon, 5 Oct 2026 12:31:18 +0200
+From: Mark Brown <broonie@kernel.org>
+To: Nathan Chancellor <nathan@kernel.org>, Nicolas Schier <nsc@kernel.org>,
+	KBuild Mailing List <linux-kbuild@vger.kernel.org>
+Cc: Andrew Morton <akpm@linux-foundation.org>,
+	Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+	Linux Next Mailing List <linux-next@vger.kernel.org>,
+	Lorenzo Stoakes <ljs@kernel.org>,
+	Maciej =?utf-8?Q?=C5=BBenczykowski?= <maze@google.com>,
+	Wilson Felipe Pereira <wfelipe@google.com>
+Subject: linux-next: manual merge of the kbuild tree with the
+ mm-nonmm-unstable tree
+Message-ID: <asN8duP-cEdNqP5I@sirena.co.uk>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] mm/gup: document unlocked invariant in
- fixup_user_fault
-To: Nguyen Duy Nhat Anh <neganhat@gmail.com>, akpm@linux-foundation.org
-Cc: jgg@ziepe.ca, jhubbard@nvidia.com, peterx@redhat.com, linux-mm@kvack.org,
- linux-kernel@vger.kernel.org
-References: <20261004125601.c06953a6f0660df9859b0c2a@linux-foundation.org>
- <20261005093756.22709-1-neganhat@gmail.com>
-From: "David Hildenbrand (Arm)" <david@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=david@kernel.org; keydata=
- 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
- qIws/H2t
-In-Reply-To: <20261005093756.22709-1-neganhat@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="2CB9Td9mf/BAd8Fs"
+Content-Disposition: inline
 
-On 10/5/26 11:37, Nguyen Duy Nhat Anh wrote:
-> Static analysis tools flag potential NULL pointer
-> dereferences of 'unlocked' in fixup_user_fault() when handling
-> VM_FAULT_COMPLETED or VM_FAULT_RETRY.
-> 
-> These warnings are false positives. 'unlocked' is only dereferenced when
-> handle_mm_fault() returns VM_FAULT_COMPLETED or VM_FAULT_RETRY. Both of
-> these return codes require FAULT_FLAG_ALLOW_RETRY to be set in
-> fault_flags, which fixup_user_fault() only sets if 'unlocked' is non-NULL
-> upon entry. Therefore, if 'unlocked' is NULL, the control flow branches
-> that dereference 'unlocked' are unreachable.
-> 
-> However, this part of the code is subtle and can trip up
-> contributors or automated tools. Document this invariant with a comment
-> above 'if (unlocked)' where fault_flags is constructed, explaining why
-> omitting FAULT_FLAG_ALLOW_RETRY guarantees 'unlocked' will not be
-> dereferenced later in the fault recovery loop.
-> 
-> Suggested-by: Andrew Morton <akpm@linux-foundation.org>
-> Signed-off-by: Nguyen Duy Nhat Anh <neganhat@gmail.com>
-> ---
-> v1: https://lore.kernel.org/linux-mm/20261003194846.205918-1-neganhat@gmail.com/
-> 
-> v2 changes:
-> - Instead of adding runtime NULL checks at dereference sites,
->   document the FAULT_FLAG_ALLOW_RETRY invariant above if (unlocked).
-> ---
->  mm/gup.c | 6 ++++++
->  1 file changed, 6 insertions(+)
-> 
-> diff --git a/mm/gup.c b/mm/gup.c
-> index eb898ea1ee22..58fa75441da1 100644
-> --- a/mm/gup.c
-> +++ b/mm/gup.c
-> @@ -1570,6 +1570,12 @@ int fixup_user_fault(struct mm_struct *mm,
->  
->  	address = untagged_addr_remote(mm, address);
->  
-> +	/*
-> +	 * If the caller passes 'unlocked' as NULL, FAULT_FLAG_ALLOW_RETRY is omitted.
-> +	 * This guarantees handle_mm_fault() will never drop the lock or
-> +	 * return VM_FAULT_COMPLETED / VM_FAULT_RETRY, making subsequent
-> +	 * dereferences of 'unlocked' unreachable when NULL.
-> +	 */
->  	if (unlocked)
->  		fault_flags |= FAULT_FLAG_ALLOW_RETRY | FAULT_FLAG_KILLABLE;
->  
 
-For which audience is the comment targeted? For people that know what they are
-doing? No.
+--2CB9Td9mf/BAd8Fs
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-For tools that report such problems? No.
+Hi all,
 
-So I don't think this (4 lines of comment) is the right way to improve this.
+Today's linux-next merge of the kbuild tree got a conflict in:
 
--- 
-Cheers,
+  init/Kconfig
 
-David
+between commits:
+
+  d514d23689356 ("init/Kconfig: make config INIT_ENV_ARG_LIMIT user-configu=
+rable")
+  9998f5eea1407 ("init, arch: make CONFIG_COMMAND_LINE_SIZE globally config=
+urable")
+
+=66rom the mm-nonmm-unstable tree and commit:
+
+  f85147b291e35 ("kbuild: move the toolchain checks into scripts/Kconfig.to=
+olchain")
+
+=66rom the kbuild tree.
+
+I fixed it up (see below) and can carry the fix as necessary. This
+is now fixed as far as linux-next is concerned, but any non trivial
+conflicts should be mentioned to your upstream maintainer when your tree
+is submitted for merging.  You may also want to consider cooperating
+
+diff --combined init/Kconfig
+index 914c4c3ed7ee4,352601b44b5ca..0000000000000
+--- a/init/Kconfig
++++ b/init/Kconfig
+@@@ -1,203 -1,6 +1,6 @@@
+  # SPDX-License-Identifier: GPL-2.0-only
+- config CC_VERSION_TEXT
+- 	string
+- 	default "$(CC_VERSION_TEXT)"
+- 	help
+- 	  This is used in unclear ways:
+ =20
+- 	  - Re-run Kconfig when the compiler is updated
+- 	    The 'default' property references the environment variable,
+- 	    CC_VERSION_TEXT so it is recorded in include/config/auto.conf.cmd.
+- 	    When the compiler is updated, Kconfig will be invoked.
+-=20
+- 	  - Ensure full rebuild when the compiler is updated
+- 	    include/linux/compiler-version.h contains this option in the comment
+- 	    line so fixdep adds include/config/CC_VERSION_TEXT into the
+- 	    auto-generated dependency. When the compiler is updated, syncconfig
+- 	    will touch it and then every file will be rebuilt.
+-=20
+- config CC_IS_GCC
+- 	def_bool $(success,test "$(cc-name)" =3D GCC)
+-=20
+- config GCC_VERSION
+- 	int
+- 	default $(cc-version) if CC_IS_GCC
+- 	default 0
+-=20
+- config CC_IS_CLANG
+- 	def_bool $(success,test "$(cc-name)" =3D Clang)
+-=20
+- config CLANG_VERSION
+- 	int
+- 	default $(cc-version) if CC_IS_CLANG
+- 	default 0
+-=20
+- config AS_IS_GNU
+- 	def_bool $(success,test "$(as-name)" =3D GNU)
+-=20
+- config AS_IS_LLVM
+- 	def_bool $(success,test "$(as-name)" =3D LLVM)
+-=20
+- config AS_VERSION
+- 	int
+- 	# Use clang version if this is the integrated assembler
+- 	default CLANG_VERSION if AS_IS_LLVM
+- 	default $(as-version)
+-=20
+- config LD_IS_BFD
+- 	def_bool $(success,test "$(ld-name)" =3D BFD)
+-=20
+- config LD_VERSION
+- 	int
+- 	default $(ld-version) if LD_IS_BFD
+- 	default 0
+-=20
+- config LD_IS_LLD
+- 	def_bool $(success,test "$(ld-name)" =3D LLD)
+-=20
+- config LLD_VERSION
+- 	int
+- 	default $(ld-version) if LD_IS_LLD
+- 	default 0
+-=20
+- config RUSTC_VERSION
+- 	int
+- 	default $(rustc-version)
+- 	help
+- 	  It does not depend on `RUST` since that one may need to use the version
+- 	  in a `depends on`.
+-=20
+- config RUST_IS_AVAILABLE
+- 	def_bool $(success,$(srctree)/scripts/rust_is_available.sh)
+- 	help
+- 	  This shows whether a suitable Rust toolchain is available (found).
+-=20
+- 	  Please see Documentation/rust/quick-start.rst for instructions on how
+- 	  to satisfy the build requirements of Rust support.
+-=20
+- 	  In particular, the Makefile target 'rustavailable' is useful to check
+- 	  why the Rust toolchain is not being detected.
+-=20
+- config RUSTC_LLVM_VERSION
+- 	int
+- 	default $(rustc-llvm-version)
+-=20
+- config RUSTC_LLVM_MAJOR_VERSION
+- 	int
+- 	default $(shell,expr $(rustc-llvm-version) / 10000)
+-=20
+- config RUSTC_CLANG_LLVM_COMPATIBLE
+- 	bool
+- 	default y if CC_IS_CLANG && RUSTC_LLVM_MAJOR_VERSION =3D $(shell,expr $(=
+cc-version) / 10000)
+- 	help
+- 	  This indicates whether Rust and Clang use LLVM of the same major
+- 	  version.
+-=20
+- 	  Operations involving handling LLVM IR or bitcode (e.g. cross-language
+- 	  LTO) require the same LLVM major version to work properly. For best
+- 	  compatibility it is recommended that the exact same LLVM is used.
+-=20
+- config ARCH_HAS_CC_CAN_LINK
+- 	bool
+-=20
+- config CC_CAN_LINK
+- 	bool
+- 	default ARCH_CC_CAN_LINK if ARCH_HAS_CC_CAN_LINK
+- 	default $(cc_can_link_user,$(m64-flag)) if 64BIT
+- 	default $(cc_can_link_user,$(m32-flag))
+-=20
+- # Fixed in GCC 14, 13.3, 12.4 and 11.5
+- # https://gcc.gnu.org/bugzilla/show_bug.cgi?id=3D113921
+- config GCC_ASM_GOTO_OUTPUT_BROKEN
+- 	bool
+- 	depends on CC_IS_GCC
+- 	default y if GCC_VERSION < 110500
+- 	default y if GCC_VERSION >=3D 120000 && GCC_VERSION < 120400
+- 	default y if GCC_VERSION >=3D 130000 && GCC_VERSION < 130300
+-=20
+- config CC_HAS_ASM_GOTO_OUTPUT
+- 	def_bool y
+- 	depends on !GCC_ASM_GOTO_OUTPUT_BROKEN
+- 	depends on $(success,echo 'int foo(int x) { asm goto ("": "=3Dr"(x) ::: =
+bar); return x; bar: return 0; }' | $(CC) -x c - -c -o /dev/null)
+-=20
+- config CC_HAS_ASM_GOTO_TIED_OUTPUT
+- 	depends on CC_HAS_ASM_GOTO_OUTPUT
+- 	# Detect buggy gcc and clang, fixed in gcc-11 clang-14.
+- 	def_bool $(success,echo 'int foo(int *x) { asm goto (".long (%l[bar]) - =
+=2E": "+m"(*x) ::: bar); return *x; bar: return 0; }' | $CC -x c - -c -o /d=
+ev/null)
+-=20
+- config TOOLS_SUPPORT_RELR
+- 	def_bool $(success,env "CC=3D$(CC)" "LD=3D$(LD)" "NM=3D$(NM)" "OBJCOPY=
+=3D$(OBJCOPY)" $(srctree)/scripts/tools-support-relr.sh)
+-=20
+- config CC_HAS_ASM_INLINE
+- 	def_bool $(success,echo 'void foo(void) { asm inline (""); }' | $(CC) -x=
+ c - -c -o /dev/null)
+-=20
+- config CC_HAS_ASSUME
+- 	bool
+- 	# clang needs to be at least 19.1.0 since the meaning of the assume
+- 	# attribute changed:
+- 	# https://github.com/llvm/llvm-project/commit/c44fa3e8a9a44c2e9a575768a3=
+c185354b9f6c17
+- 	default y if CC_IS_CLANG && CLANG_VERSION >=3D 190100
+- 	# supported since gcc 13.1.0
+- 	# https://gcc.gnu.org/bugzilla/show_bug.cgi?id=3D106654
+- 	default y if CC_IS_GCC && GCC_VERSION >=3D 130100
+-=20
+- config CC_HAS_NO_PROFILE_FN_ATTR
+- 	def_bool $(success,echo '__attribute__((no_profile_instrument_function))=
+ int x();' | $(CC) -x c - -c -o /dev/null -Werror)
+-=20
+- config CC_HAS_COUNTED_BY
+- 	bool
+- 	# clang needs to be at least 20.1.0 to avoid potential crashes
+- 	# when building structures that contain __counted_by
+- 	# https://github.com/ClangBuiltLinux/linux/issues/2114
+- 	# https://github.com/llvm/llvm-project/commit/160fb1121cdf703c3ef5e61fb2=
+6c5659eb581489
+- 	default y if CC_IS_CLANG && CLANG_VERSION >=3D 200100
+- 	# supported since gcc 15.1.0
+- 	# https://gcc.gnu.org/bugzilla/show_bug.cgi?id=3D108896
+- 	default y if CC_IS_GCC && GCC_VERSION >=3D 150100
+-=20
+- config CC_HAS_COUNTED_BY_PTR
+- 	bool
+- 	# supported since clang 22
+- 	default y if CC_IS_CLANG && CLANG_VERSION >=3D 220100
+- 	# supported since gcc 16.0.0
+- 	default y if CC_IS_GCC && GCC_VERSION >=3D 160000
+-=20
+- config CC_HAS_BROKEN_COUNTED_BY_REF
+- 	bool
+- 	# https://github.com/llvm/llvm-project/issues/182575
+- 	default y if CC_IS_CLANG && CLANG_VERSION < 220100
+-=20
+- config CC_HAS_ALLOC_TOKEN
+- 	def_bool $(cc-option,-falloc-token-max=3D123)
+-=20
+- config CC_HAS_MULTIDIMENSIONAL_NONSTRING
+- 	def_bool $(success,echo 'char tag[][4] __attribute__((__nonstring__)) =
+=3D { };' | $(CC) $(CLANG_FLAGS) -x c - -c -o /dev/null -Werror)
+-=20
+- config CC_OPT_INLINE_MEMSET
+- 	string
+- 	default "-finline-stringops=3Dmemset" if $(cc-option,-finline-stringops=
+=3Dmemset)
+- 	default "-mllvm -max-store-memset=3D4294967294" if $(cc-option,-mllvm -m=
+ax-store-memset=3D4294967294)
+-=20
+- config LD_CAN_USE_KEEP_IN_OVERLAY
+- 	# ld.lld prior to 21.0.0 did not support KEEP within an overlay descript=
+ion
+- 	# https://github.com/llvm/llvm-project/pull/130661
+- 	def_bool LD_IS_BFD || LLD_VERSION >=3D 210000
+-=20
+- config RUSTC_HAS_UNNECESSARY_TRANSMUTES
+- 	def_bool RUSTC_VERSION >=3D 108800
+-=20
+- config RUSTC_HAS_FILE_WITH_NUL
+- 	def_bool RUSTC_VERSION >=3D 108900
+-=20
+- config RUSTC_HAS_FILE_AS_C_STR
+- 	def_bool RUSTC_VERSION >=3D 109100
+-=20
+- config RUSTC_HAS_SUSPICIOUS_RUNTIME_SYMBOL_DEFINITIONS
+- 	def_bool RUSTC_VERSION >=3D 109800
+-=20
+- config PAHOLE_VERSION
+- 	int
+- 	default "$(PAHOLE_VERSION)"
++ source "scripts/Kconfig.toolchain"
+ =20
+  config CONSTRUCTORS
+  	bool
+@@@ -233,10 -36,9 +36,10 @@@ config BROKEN_ON_SM
+  	default y
+ =20
+  config INIT_ENV_ARG_LIMIT
+ -	int
+ +	int "Maximum number of kernel command line arguments"
+  	default 32 if !UML
+  	default 128 if UML
+ +	range 32 4096
+  	help
+  	  Maximum of each of the number of arguments and environment
+  	  variables passed to init from the kernel command line.
+@@@ -1617,22 -1419,6 +1420,22 @@@ config CMDLINE_FROM_BOOTCONFI
+ =20
+  	  If unsure, say N.
+ =20
+ +config COMMAND_LINE_SIZE
+ +	int "Maximum size of kernel command line"
+ +	default 4096 if S390 || LOONGARCH || MIPS || UML
+ +	default 2048 if X86 || ARM64 || PPC || SPARC64 || RISCV
+ +	default 1024 if ARM || PARISC
+ +	default 256 if ALPHA || ARC || M68K || MICROBLAZE || SPARC32 || XTENSA
+ +	default 512
+ +	range 896 1048576 if S390
+ +	range 256 2048 if ARM || M68K || NIOS2 || PPC
+ +	range 256 3840 if SUPERH
+ +	range 256 256 if ALPHA
+ +	range 256 4096
+ +	help
+ +	  This allows you to specify the maximum length of the kernel command
+ +	  line.
+ +
+  config CMDLINE_LOG_WRAP_IDEAL_LEN
+  	int "Length to try to wrap the cmdline when logged at boot"
+  	default 1021
+with the maintainer of the conflicting tree to minimise any particularly
+complex conflicts.
+
+
+--2CB9Td9mf/BAd8Fs
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iHUEABYKAB0WIQReagvpf3TrrA7BoYYv73Ows9A4iQUCasN8awAKCRAv73Ows9A4
+iQivAQCMg+lVQmDZQRlztTpYUYF2fb5zPaf/n0+OAfzRjeZhrgD/Sd298RMmwamU
+lxoOLeizgFARBxKHY7aQ7sSPxdM8ZAM=
+=JgQJ
+-----END PGP SIGNATURE-----
+
+--2CB9Td9mf/BAd8Fs--
