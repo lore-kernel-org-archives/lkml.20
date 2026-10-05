@@ -1,130 +1,142 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oi1-f198.google.com (mail-oi1-f198.google.com [209.85.167.198])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4EAE5478E2C;
-	Mon,  5 Oct 2026 10:43:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 37980478E2B
+	for <linux-kernel@vger.kernel.org>; Mon,  5 Oct 2026 10:44:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.198
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791197036; cv=none; b=YKmhjQKjKfJYgmTTZb+RZOvlT6G4MPshUsmlPfp7B0/cU8Gyh9A3Wa+JbrhYtURT/lmtTvPdUP5DJw0r7VSUnVmTpCLPqvN5JSiq1jaXWKZMAFPFDDJHc9XlrLlWsWkKn++eJ1UmEO4atC2ag/EsifPWgmwIsqEWAjtoCURkF8g=
+	t=1791197059; cv=none; b=UP+JfmT5tpqSmwmfbFPmCzZkY/vx7G5HxTfYyAD/8bJ4hlAVoBML28AgkHNFVlzKntpgTWUDwh+Us5zNlM50mPXqbWuOIrWv57kKFv8nU2dfy5uxDL3Ba/1MpXUjwAd6agYNn6KypKjirUw/8ijyj/+00FXW4X4bV/aZF7JaRyQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791197036; c=relaxed/simple;
-	bh=+Syy2uvKFEEli46sXTLMeSFqCavE7FeW+ue6Wvoqyw8=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=o93OZLUtZXWB9KVnR0br66YtGBxpcK42trQapyI9IXk1VFdHx6mgSEjdBJwNOevap8MFyTErP2np7LG0MYjaLIeX8yiCQ3PKIgIjOssK/1/YBBomewlCBgq8QmO/McCAqqtf7aZBJizpY6sc/a9PB+hWRPJue7NYiw/4tLWUwmM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=YxyjbhaK; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791197059; c=relaxed/simple;
+	bh=hXqAAVZ7iU9coIiuKsZdIYbDpWgQ81ehzhxS/8jQUaw=;
+	h=Date:In-Reply-To:Mime-Version:Message-ID:Subject:From:To:Cc:
+	 Content-Type; b=rw1ranGFCujfhJ2dfhaLXmIfqDAwt/0zyB30sKnTtO7YiXD8XQklJoTIrhkuTOH0BkSGi64OMJ20FY4Y3peS1l15HTp41uop5cko3Ra7/vcOSBUT+gmXJrRA/WC2hJs3C+7zpJ+0AlIylqyyeyf1rW0t3XKL7NclA3wJCcpQY0o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--justinstitt.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=UydTROGy; arc=none smtp.client-ip=209.85.167.198
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--justinstitt.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="YxyjbhaK"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6530F1F00899;
-	Mon,  5 Oct 2026 10:43:51 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791197035;
-	bh=I9YxIdWVKeJd4/bB5ayzuob5ZI8t2MLqGLq4CqLRU6E=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=YxyjbhaKV4J3KWq5yAbCj043IUW/HILXjLF0F3kkPCQ2WaUvIjK1eq76i4d4auCLp
-	 /KY97mHjSMrICJPPlZd+0gIWHlBgtkFYBX2OoKJwf9/LP0Qe5Ph+XThvZ5E+h0iSqK
-	 Cscwr0iirEuj04JnGdZsrnY0ROtyRGzUeLrCqG80YHmMsLm+pk0DTUxr5O1tWwS2SP
-	 VQA5MkeLjX5LRrWHE3lasxUoRzxmdTB9IROC3KXUwv1kzS5QYGNe/i2V5H21pV2fpc
-	 vVOsRAom5vq9ZevdHDyTHCPbeSp2a/sxNECVbqAGEBjIsUE+TLzx0TD+K2xZsxwGRz
-	 A2l/wGOuFT4cg==
-Message-ID: <4a24f7b1-65f7-4947-a325-7c9e9f642f2a@kernel.org>
-Date: Mon, 5 Oct 2026 12:43:48 +0200
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="UydTROGy"
+Received: by mail-oi1-f198.google.com with SMTP id 5614622812f47-4f9b643ae53so298607b6e.3
+        for <linux-kernel@vger.kernel.org>; Mon, 05 Oct 2026 03:44:17 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1791197057; x=1791801857; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:mime-version:in-reply-to
+         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=+TZBKNvvBhmDD3cSiSzM94pM4ii0iFMxmeGyibiGnBg=;
+        b=UydTROGy9SgK3t03M6KfrD4/sZvouL8vZQ9MG2mZ3C2zkLTXYq6rfhp9PaOTDZaT9A
+         bCkxEtZhYelXKj/FKQrm+oj9dJIiZJbV1lKF+AYjCauYx7/MSdcCIGYg6azdROFfAmNm
+         MrAVal7V2jnEm04vX8wouJaSVcnaohJIVGxJvaUixmW+phb9++5RrzgcznO3izltQogK
+         WazUCaa4BRU4IGZl/OFZLdLxh0TRq+lteCFtgqPie38XIENLaoRqQvj8VT1cAjunUy56
+         ZZh/aGf3L6G2cKNv9E6l40mxn2vsz5faZyYT7jE0GZS4lp5hQVBYiOil8NLvH3a01a74
+         +N7g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791197057; x=1791801857;
+        h=content-type:cc:to:from:subject:message-id:mime-version:in-reply-to
+         :date:x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=+TZBKNvvBhmDD3cSiSzM94pM4ii0iFMxmeGyibiGnBg=;
+        b=W/4vIcSWhiOABGW4MnuGmLl251f2+VyzbfweNgJ0XSP9hyKYZnYhjpjh9IReB53Mih
+         0OxX5yjn3PW2sXnkeVxT4sPqCXhhDQCV25p2AL+GGVDYUxFR+HHW5e0l6ztm/0uHVvtO
+         ND784W/D3Ms7HDrsIFlGmmqqxQ3Fk0Fa88r5zEvKqelsjkLyvINet00UxM2vvhpNygD2
+         w+mXIFW40JrVhZROB18rXXWEEzHBrJbvMorRh27PR9tlvXfRKmv9WQNGZi/zLDbZRM6a
+         z4/GhrUn/1K7PygnKD40fJYD1omQhXfxjmR4MtileblqMrK4aPlKGqQt+9p1f88g9p12
+         BWqQ==
+X-Forwarded-Encrypted: i=1; AKwUvByoJI5Qi0bFGJE8fXL9fo+rSvjiggjm8cXj9hDYNRIbkeR8jfcJS7H0V1FqZRQlIm0VqXIUwc9UERuuHa0=@vger.kernel.org
+X-Gm-Message-State: AFuF++m6SmcD+g39rGCyldxMHKmh4vJ8I52eUagiNo07qL14gFPxj4PP
+	yOT/cK29tntDYAGof6LJMky0i+UMIU7mcogGW84/zHtr96SHJ7SNJ3bKgpkemco1ytxr2F61rtC
+	XG5DlHXz//IQ9wX4V0dn9hTvRSA==
+X-Received: from ioa7.prod.google.com ([2002:a05:6602:8007:b0:9c7:3c39:1ace])
+ (user=justinstitt job=prod-delivery.src-stubby-dispatcher) by
+ 2002:a05:6808:1811:b0:4e6:46cf:4a14 with SMTP id 5614622812f47-4f528ee2d7bmr10154776b6e.25.1791197056690;
+ Mon, 05 Oct 2026 03:44:16 -0700 (PDT)
+Date: Mon, 5 Oct 2026 03:44:15 -0700
+In-Reply-To: <20261005102518.2400984-1-morbo@google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 2/2] selftests/mm: add tests for UFFDIO_MOVE of a
- uffd-protected swap entry
-To: Donggeun Yoo <donggeunyoo.kernel@gmail.com>, akpm@linux-foundation.org,
- rppt@kernel.org
-Cc: peterx@redhat.com, surenb@google.com, aarcange@redhat.com,
- ljs@kernel.org, liam@infradead.org, vbabka@kernel.org, mhocko@suse.com,
- shuah@kernel.org, kas@kernel.org, linux-mm@kvack.org,
- linux-kselftest@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20261003103030.63380-1-donggeunyoo.kernel@gmail.com>
- <20261003103030.63380-3-donggeunyoo.kernel@gmail.com>
-From: "David Hildenbrand (Arm)" <david@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=david@kernel.org; keydata=
- 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
- qIws/H2t
-In-Reply-To: <20261003103030.63380-3-donggeunyoo.kernel@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Mime-Version: 1.0
+Message-ID: <asN_J2XBnJgbJijS@google.com>
+Subject: Re: [PATCH] compiler_types: Allow opting out of __counted_by and __counted_by_ptr
+From: Justin Stitt <justinstitt@google.com>
+To: Bill Wendling <morbo@google.com>
+Cc: Kees Cook <kees@kernel.org>, ardb@kernel.org, gustavoars@kernel.org, 
+	nathan@kernel.org, ndesaulniers@google.com, broonie@kernel.org, 
+	elver@google.com, alan.maguire@oracle.com, namjain@linux.microsoft.com, 
+	peterz@infradead.org, linux-kernel@vger.kernel.org, 
+	linux-hardening@vger.kernel.org, llvm@lists.linux.dev
+Content-Type: text/plain; charset="us-ascii"
 
-On 10/3/26 12:30, Donggeun Yoo wrote:
-> Move a swapped-out page out of a write-protected or RWP-protected area into
-> a destination registered for missing faults only, and read pagemap bit 57
-> at the destination.  The destination was never protected, so the bit must
-> be clear.
+Hi,
+
+On Mon, Oct 05, 2026 at 10:25:18AM +0000, Bill Wendling wrote:
+> Code that runs outside the kernel proper, such as the EFI stub, gets
+> nothing out of the counted_by annotations: the bounds checks they feed
+> (FORTIFY_SOURCE, UBSAN_BOUNDS) are already disabled there.
+> 
+> The annotations can also break the build. A __counted_by_ptr() that
+> names a member declared after the pointer needs Clang's
+> '-fexperimental-late-parse-attributes', which the top-level Makefile
+> adds to 'KBUILD_CFLAGS'. The x86 EFI stub builds its own cflags and does
+> not get that flag, so it fails as soon as such a struct is pulled in
+> through a common header.
+> 
+> Overriding the macros from a Makefile doesn't work:
+> 'compiler_types.h' is pulled in with '-include', which is processed
+> after all -D/-U options, so it re-establishes the definitions. Follow
+> the '__NO_FORTIFY' precedent instead: let a build define
+> '__NO_COUNTED_BY' or '__NO_COUNTED_BY_PTR' to turn the corresponding
+> annotation into a no-op.  The two are kept separate but parallel so they
+> can be folded together once all supported compilers handle
+> '__counted_by' on pointers.
 > 
 > Assisted-by: LLM
-> Signed-off-by: Donggeun Yoo <donggeunyoo.kernel@gmail.com>
+> Signed-off-by: Bill Wendling <morbo@google.com>
 > ---
->  tools/testing/selftests/mm/uffd-unit-tests.c | 84 ++++++++++++++++++++
+>  include/linux/compiler_types.h | 15 +++++++++++++--
+>  1 file changed, 13 insertions(+), 2 deletions(-)
+> 
+> diff --git a/include/linux/compiler_types.h b/include/linux/compiler_types.h
+> index c5921f139007..916a946f623c 100644
+> --- a/include/linux/compiler_types.h
+> +++ b/include/linux/compiler_types.h
+> @@ -371,8 +371,14 @@ struct ftrace_likely_data {
+>   *
+>   * __bdos on clang < 19.1.3 can be off by 4:
+>   * https://github.com/llvm/llvm-project/pull/112636
+> + *
+> + * Code that runs outside the kernel proper (e.g. the EFI stub) can define
+> + * __NO_COUNTED_BY to drop the annotation, since it gains nothing from the
+> + * bounds checks. Kept in step with __NO_COUNTED_BY_PTR below so the two can
+> + * be folded together once __counted_by covers pointers on all supported
+> + * compilers.
+>   */
+> -#ifdef CONFIG_CC_HAS_COUNTED_BY
+> +#if defined(CONFIG_CC_HAS_COUNTED_BY) && !defined(__NO_COUNTED_BY)
+>  # define __counted_by(member)		__attribute__((__counted_by__(member)))
+>  #else
+>  # define __counted_by(member)
+> @@ -387,8 +393,13 @@ struct ftrace_likely_data {
+>   *
+>   *   gcc: https://gcc.gnu.org/pipermail/gcc-patches/2025-April/681727.html
+>   * clang: https://clang.llvm.org/docs/AttributeReference.html#counted-by-counted-by-or-null-sized-by-sized-by-or-null
+> + *
+> + * Code that runs outside the kernel proper (e.g. the EFI stub) can define
+> + * __NO_COUNTED_BY_PTR to drop the annotation, as with __NO_COUNTED_BY. Such
+> + * code may also lack the flag Clang needs to parse a reference to a
+> + * later-declared member (-fexperimental-late-parse-attributes).
+>   */
+> -#ifdef CONFIG_CC_HAS_COUNTED_BY_PTR
+> +#if defined(CONFIG_CC_HAS_COUNTED_BY_PTR) && !defined(__NO_COUNTED_BY_PTR)
+>  #define __counted_by_ptr(member)	__attribute__((__counted_by__(member)))
+>  #else
+>  #define __counted_by_ptr(member)
+> -- 
+> 2.56.0.rc1.315.gc6ed9934b7-goog
+> 
 
-The CI complains as reply to this patch:
-...
-Running userfaultfd(2) test
-✗ userfaultfd(2) tests failed
-Running VMA merge test
-# # Totals: pass:27 fail:0 xfail:0 xpass:0 skip:0 error:0
-# SUMMARY: PASS=1 SKIP=0 FAIL=0
-✓ VMA merge tests passed
-Running vmalloc test
-# SUMMARY: PASS=1 SKIP=0 FAIL=0
-✓ vmalloc tests passed
-==========================================
-✗ userfaultfd(2) test failed:
-# not ok 43 minor-collapse on shmem
-------------------------------------------
+Reviewed-by: Justin Stitt <justinstitt@google.com>
 
-Didn't look into the details / trying to reproduce.
-
--- 
-Cheers,
-
-David
+Thanks
+Justin
