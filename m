@@ -1,63 +1,63 @@
 Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 45C1647F778;
-	Mon,  5 Oct 2026 13:28:36 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8867848C408;
+	Mon,  5 Oct 2026 13:28:37 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=185.203.200.13
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791206925; cv=pass; b=HRpYdKYB3BwS8ba5r+FcsiYdv0lN8vtq5FBLaqXVXYAagu/J0CaDixm3+wkblSGHHgpsMBljuut83mHcpAVLkCdvG1lVIud9Ym3CeOu29XeVF2f3ujYRPZesbPwrg3k9zz7caxpWqMuktew9YSdsNh3vyNNp3a76apmlw9hMJUE=
+	t=1791206925; cv=pass; b=SQJXhaAhIgm9DauZHaQA7xYj8+dwidv+A+/spHtMiSEgKv3mVD6qiv5IU9+D0nW6sUByXLg6EXH0alQlko2VmGZsCdbbcJ+ybhskMcj31QEyfavg+OMnz1vQLF58On6Eo8Rpq1IwgfrklenFFbmRSuZ2WSe3e9C4RgOZwAcXKMM=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1791206925; c=relaxed/simple;
-	bh=DClOr0+yOImOxTrcmpWDm+2EO4QLwXSB8e44TdRLPzE=;
+	bh=QoItqWYB1tPwT8qC/b4UpvujQtUuQZlmHOFl58ac5+U=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=HRcNU7EDfZNUlNQqICJYuhwhTIQfDzw30scowrcpV6OOafUBwok3V8IYDPDEnNR7qpwk2LsFQagzaHzvvK7uMnC22XAXJCjX+vBVlVUdhiFJNAxqfeayixqZTuFxiVaDnguA/q0t6aK6AUi6jWkfkcjYBgFNoy1yGLDwsoLAe/o=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de; spf=pass smtp.mailfrom=pengutronix.de; dkim=pass (2048-bit key) header.d=pengutronix.de header.i=@pengutronix.de header.b=YDSJpUux; arc=pass smtp.client-ip=185.203.200.13
+	 In-Reply-To:To:Cc; b=dpqEwXvDD+lHARtpFQYtQ/+kNiAJHh46t6O7Mw6Idla+BPErNMQ5AA2onedqghwUX3J7sq2F0EvYSgThSOC9dDwSct7fB548HDZz9FUrfm0cu7/i6xe5tc43+XTmdctZLGLMTY7f8pM70Vpeiz+mmEDdJHoE7qlPcp3Ae1AWy8M=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de; spf=pass smtp.mailfrom=pengutronix.de; dkim=pass (2048-bit key) header.d=pengutronix.de header.i=@pengutronix.de header.b=ap25M7OI; arc=pass smtp.client-ip=185.203.200.13
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=pengutronix.de header.i=@pengutronix.de header.b="YDSJpUux"
+	dkim=pass (2048-bit key) header.d=pengutronix.de header.i=@pengutronix.de header.b="ap25M7OI"
 Received: from [127.0.1.1] (unknown [IPv6:2a02:560:5ca5:d100:9ebf:dff:fe00:fdb5])
 	(Authenticated sender: sha@pengutronix.de)
-	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id F20B32003F0;
+	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id C6C1720235B;
 	Mon, 05 Oct 2026 15:28:22 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
-	s=20260414; t=1791206903;
+	s=20260414; t=1791206902;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=LVxcHnOifvxEj+zRMcyCSI6+UVk9ei6O1aps6P0UxMw=;
-	b=YDSJpUux1T+TnoqvU43thODg2u+oO2X65+R6YW5RMfE5IARqthqJdrD/rLi7oTdqno6xYU
-	a7sHBwq1RUpdHUOVZXFTYRVPEK68VPpsHM+lJ4aUYK1OtE6LXt2sIz0p2YMMuw+NnGjV8Y
-	ID24GTCdLZZUQpW8tpBxh6E5ji8j5U7vS4X73gtPMp2lFyQzuDB14yt8ESizilf6/mD64U
-	/cD1EJhxtF7PL50aUxQ8DLS7fcTKxESghg2xs78yNyev4lxSyJuXlWENNy4stW5FtKRh1P
-	63vZjBNd5QQH24BB26p6kRK2MXn3kbIhYvzwDFvSv66xhUkQC+2j4/Um7xgtlA==
-ARC-Seal: i=1; s=20260414; d=pengutronix.de; t=1791206903; a=rsa-sha256;
+	bh=6/8bqlHYqc90Vlexdz/vheutiT4y8bmGDEG090hrK/w=;
+	b=ap25M7OIxfccQgRNc2CK758u7ToHVWzXHjArXRlDOGBF6u79QtBqJV62dnbxE85A1JDU08
+	NvpSB61NNLs7QKqXpxiAtMutKw9TkSmz5H394sMO9tMCty0Q/kn5DzEygR/fG3xfA7VIRy
+	XqpVGqSIUvdS1agoR/oP85kLy0MAHaPz+yR0vZZfGVjR9Wl+/+pT5gMS0bCAB/RzrvHoCs
+	jtQbBNG20twwPcglmeRBbcC6iYLUK+RcP+PW1M5+kQM5+FeY4qIHuuRZm1NxgwReVO+fXG
+	9jfrC2HwkQJjuIFlKpoQEIIU+uog7/GEXGph6uipgGFm1wgJML1gkPr1+IKSfA==
+ARC-Seal: i=1; s=20260414; d=pengutronix.de; t=1791206902; a=rsa-sha256;
 	cv=none;
-	b=OpXh3kKnz/nlTbucZJllrGLDav+h2U2viY+fXuU/Ffg0cq9jQ4WnH6eIssJQpN/d6dKbh/
-	H62GRhCx0aCivZZ+LyQ0Wgm+g757M/RMYECsV/E7j8nqbkLSqHENf3FqENo7eY2QPbBmTc
-	xmFlTRV3ZBKqIWneJTLdthZoociu9iu4uMQq9qRCHyJ7b8NCKUOnLRn4iUOPqwsQyRbFe3
-	sKekisIlJlvTpPyroHKOUNYxNP7v2a5XvlzIlPIbeX5bwAIAPoSp4UjB8fgmnmXFFGZrsi
-	ZVUx3+a4bhVkFiaJCXOs06htnHRMfkjXnxIZCHFa9jHS4beBwWHjVY43mDdkVg==
+	b=dVFC4GfV49qqMJb8g5wow9jDy1X0yfcxWGR4zDATXXY0cQMi5W9a6greE2kkia6EibMySw
+	VrpmXsc6ZdEIhQeZy60R18FM1EFjYLWzDLYgTRkMxcljZXcvaxPa/8wmWFW+CtxldN18OI
+	pnAocGecfUqYIiLtKQXopwdx57O8DeCZJ7uYvkd1DWGEvcqZxaAszPW/doJLlSA8KAa7t0
+	vdp807scTz488TsXND6WjsgzrF8APh+Ap2IhD36Ve4W5rM1WJoPL9A5mhDO7RiElHm/jQD
+	b0Y/8Qmm1JxaeQ+RyN28NmxxsZtor6F9n44eJ3JYndCcqvm7U0WiUi5KceTo9A==
 ARC-Authentication-Results: i=1;
 	ORIGINATING;
 	auth=pass smtp.auth=sha@pengutronix.de smtp.mailfrom=s.hauer@pengutronix.de
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
-	s=20260414; t=1791206903;
+	s=20260414; t=1791206902;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=LVxcHnOifvxEj+zRMcyCSI6+UVk9ei6O1aps6P0UxMw=;
-	b=QCEBgcSjZI18R9k18/n40bc0APWECgzNb1uvgxhsOAyetg1mF1bmZEKCqObKQNukgZ92YV
-	3XflNjSoZv9tchBDzGJfaD+xe0QNBobZp5IE7llIeVyQ3TPWqR2P0YbX1DtHIjjjhbg/k6
-	cDfqQ7JUj7+vxtll485/ygu3gg0TjyDNiJEPhLKrkVcWja1oRaonxXqoe/2w/CpMLuF7q4
-	Ciy2RkegIdaP3TyGXdbUAohmDoxdSbgL3nt5Gv8Yu6g/hUeLipisMDZz5DPkSutviT7ZNf
-	aOvfXQJzv9jgSt2+vUPvv06uKjViOwoUsZ1DHkq9FbEu7AUWt/2FCc5e9qEbwQ==
+	bh=6/8bqlHYqc90Vlexdz/vheutiT4y8bmGDEG090hrK/w=;
+	b=Qfq5kkGRmw3pIT74dWZax7N3aboiMy/lCp5Ppi0eJ/gBPJFLUO+8anbelyVy1h+NIPSiuL
+	ZfyEu2dt/eoYRfniwrepTA/3dkkVyo8JO0bt/9lncg7g3nP91HT/UNc6ShyNCWFTLQyCGW
+	G/8ePKFVrPV18b7Tzh+S2HQT61nEH609vohTKmwWgiwZ82SUsGw4axdrnrPtjMQbEMNIWM
+	qM0TSSAUbBYb8daYfXrt+/7aixATOejefY+i12sDkiSTNvOjCPudRaMfjr7kFIP9MbYMZw
+	6TgXl+K7SXQftm5sNmWaaY+TB4VRga0dSPNp7nw10ovTzYMFg3fgmf0o2HK6fw==
 From: Sascha Hauer <s.hauer@pengutronix.de>
-Date: Mon, 05 Oct 2026 15:28:28 +0200
-Subject: [PATCH v3 09/10] media: v4l2-subdev: notify the bridge when the
- source power changes
+Date: Mon, 05 Oct 2026 15:28:26 +0200
+Subject: [PATCH v3 07/10] media: synopsys: hdmirx: skip the 5V detect
+ interrupt without a GPIO
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -66,7 +66,7 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261005-hdmirx-media-v3-9-71a11a2e3e76@pengutronix.de>
+Message-Id: <20261005-hdmirx-media-v3-7-71a11a2e3e76@pengutronix.de>
 References: <20261005-hdmirx-media-v3-0-71a11a2e3e76@pengutronix.de>
 In-Reply-To: <20261005-hdmirx-media-v3-0-71a11a2e3e76@pengutronix.de>
 To: Dmitry Osipenko <dmitry.osipenko@collabora.com>, 
@@ -80,56 +80,99 @@ Cc: Gerald Loacker <gerald.loacker@wolfvision.net>,
  devicetree@vger.kernel.org, kernel@collabora.com, 
  linux-kernel@vger.kernel.org, Sascha Hauer <s.hauer@pengutronix.de>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1791206902; l=1748;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1791206902; l=3129;
  i=s.hauer@pengutronix.de; s=20230412; h=from:subject:message-id;
- bh=DClOr0+yOImOxTrcmpWDm+2EO4QLwXSB8e44TdRLPzE=;
- b=5mjKpjNqn9FozE9+/2K0qVKGA1WvPepAxCuGdB13DQbrv+BjAb4xf6T8net/1zt/zRJPMbaAW
- c/gt4phif/FCSsVM0TNMh3qnImybIBa6dcKIemT+uruim6W7B9JxSZ7
+ bh=Z4cdgkG7/1Ptol34iC+YqqMuGizzO3KgoOhfnNtvV+k=;
+ b=MCT+xpUsFWhuhq/5fGkGakgS+uzD0iuD4QMI0MpvDs1RgyzGPTPGob3BuH0z3/5+lmLMTc0Ch
+ aPfEYIkLr0YA2Z7yekbEAnTv+vDXI50T0cVSyDhquaiBcdBmFebK4JX
 X-Developer-Key: i=s.hauer@pengutronix.de; a=ed25519;
  pk=4kuc9ocmECiBJKWxYgqyhtZOHj5AWi7+d0n/UjhkwTg=
 
-Whether a source is driving the connector's +5V line is published as
-V4L2_CID_DV_RX_POWER_PRESENT and nowhere else. adv7604, adv7842,
-tc358743 and tda1997x all set that control from their cable detect
-interrupt and stop there, so a driver that has to act on the change in
-hardware, rather than hand the value to userspace, has nothing to hook.
+From: Gerald Loacker <gerald.loacker@wolfvision.net>
 
-The in-kernel channel already exists for the neighbouring events. A
-format change goes out through v4l2_subdev_notify_event() as
-V4L2_EVENT_SOURCE_CHANGE, and adv7604 sends a private ADV76XX_HOTPLUG
-when the bridge has to drive HPD back out at the connector, which cobalt
-consumes. Only the source power state is missing.
+The hpd GPIO is fetched with devm_gpiod_get_optional(), so a board that
+does not wire 5V detect to the receiver leaves detect_5v_gpio NULL.
+hdmirx_setup_irq() then calls gpiod_to_irq() on it anyway, which returns
+-EINVAL for a NULL descriptor, and probe fails. The GPIO is only
+optional as far as the fetch goes.
 
-Add a generic notification for it. The argument carries the same
-per-input mask as the control, so a device in front of a receiver can
-pass on what it sees without the receiver having to reach into its
-control handler.
+Set the interrupt up only when the GPIO is there. det_irq then keeps the
+zero devm_kzalloc() gave it, so hdmirx_enable_irq() and
+hdmirx_disable_irq() skip it as well.
+
+Nothing else has to change for such a board to probe: 5V is then never
+reported as present, which is what gpiod_get_value_cansleep() on a NULL
+descriptor already returns. Getting the state from somewhere else is a
+separate matter.
 
 Assisted-by: LLM
+Signed-off-by: Gerald Loacker <gerald.loacker@wolfvision.net>
 Signed-off-by: Sascha Hauer <s.hauer@pengutronix.de>
 ---
- include/media/v4l2-subdev.h | 8 ++++++++
- 1 file changed, 8 insertions(+)
+ .../media/platform/synopsys/hdmirx/snps_hdmirx.c   | 34 ++++++++++++----------
+ 1 file changed, 19 insertions(+), 15 deletions(-)
 
-diff --git a/include/media/v4l2-subdev.h b/include/media/v4l2-subdev.h
-index c1483a85d0c72..a3ee4866cce69 100644
---- a/include/media/v4l2-subdev.h
-+++ b/include/media/v4l2-subdev.h
-@@ -29,6 +29,14 @@
+diff --git a/drivers/media/platform/synopsys/hdmirx/snps_hdmirx.c b/drivers/media/platform/synopsys/hdmirx/snps_hdmirx.c
+index a28eb86e0b83c..a937ee23e230c 100644
+--- a/drivers/media/platform/synopsys/hdmirx/snps_hdmirx.c
++++ b/drivers/media/platform/synopsys/hdmirx/snps_hdmirx.c
+@@ -2521,7 +2521,8 @@ static void hdmirx_disable_irq(struct device *dev)
+ {
+ 	struct snps_hdmirx_dev *hdmirx_dev = dev_get_drvdata(dev);
  
- #define	V4L2_DEVICE_NOTIFY_EVENT		_IOW('v', 2, struct v4l2_event)
+-	disable_irq(hdmirx_dev->det_irq);
++	if (hdmirx_dev->det_irq > 0)
++		disable_irq(hdmirx_dev->det_irq);
+ 	disable_irq(hdmirx_dev->dma_irq);
+ 	disable_irq(hdmirx_dev->hdmi_irq);
  
-+/*
-+ * The source power state a receiver publishes as
-+ * V4L2_CID_DV_RX_POWER_PRESENT has changed. The argument points at an
-+ * unsigned int holding the same per-input mask as that control, so zero
-+ * means no input sees a source.
-+ */
-+#define	V4L2_DEVICE_NOTIFY_RX_POWER_PRESENT	_IOW('v', 3, unsigned int)
-+
- struct v4l2_device;
- struct v4l2_ctrl_handler;
- struct v4l2_event;
+@@ -2535,7 +2536,8 @@ static void hdmirx_enable_irq(struct device *dev)
+ 
+ 	enable_irq(hdmirx_dev->hdmi_irq);
+ 	enable_irq(hdmirx_dev->dma_irq);
+-	enable_irq(hdmirx_dev->det_irq);
++	if (hdmirx_dev->det_irq > 0)
++		enable_irq(hdmirx_dev->det_irq);
+ 
+ 	queue_delayed_work(system_dfl_wq,
+ 			   &hdmirx_dev->delayed_work_hotplug,
+@@ -2619,21 +2621,23 @@ static int hdmirx_setup_irq(struct snps_hdmirx_dev *hdmirx_dev,
+ 		return ret;
+ 	}
+ 
+-	irq = gpiod_to_irq(hdmirx_dev->detect_5v_gpio);
+-	if (irq < 0) {
+-		dev_err_probe(dev, irq, "failed to get hdmirx-5v irq\n");
+-		return irq;
+-	}
++	if (hdmirx_dev->detect_5v_gpio) {
++		irq = gpiod_to_irq(hdmirx_dev->detect_5v_gpio);
++		if (irq < 0) {
++			dev_err_probe(dev, irq, "failed to get hdmirx-5v irq\n");
++			return irq;
++		}
+ 
+-	irq_set_status_flags(irq, IRQ_NOAUTOEN);
++		irq_set_status_flags(irq, IRQ_NOAUTOEN);
+ 
+-	hdmirx_dev->det_irq = irq;
+-	ret = devm_request_irq(dev, irq, hdmirx_5v_det_irq_handler,
+-			       IRQF_TRIGGER_FALLING | IRQF_TRIGGER_RISING,
+-			       "rk_hdmirx-5v", hdmirx_dev);
+-	if (ret) {
+-		dev_err_probe(dev, ret, "failed to request hdmirx-5v irq\n");
+-		return ret;
++		hdmirx_dev->det_irq = irq;
++		ret = devm_request_irq(dev, irq, hdmirx_5v_det_irq_handler,
++				       IRQF_TRIGGER_FALLING | IRQF_TRIGGER_RISING,
++				       "rk_hdmirx-5v", hdmirx_dev);
++		if (ret) {
++			dev_err_probe(dev, ret, "failed to request hdmirx-5v irq\n");
++			return ret;
++		}
+ 	}
+ 
+ 	return 0;
 
 -- 
 2.47.3
