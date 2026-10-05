@@ -1,163 +1,85 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from bombadil.infradead.org (bombadil.infradead.org [198.137.202.133])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A99193806D2;
-	Mon,  5 Oct 2026 08:23:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 723C03806D0;
+	Mon,  5 Oct 2026 08:23:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.137.202.133
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791188601; cv=none; b=RpHdgWdI+gwEvw5biG044kbheimkjuQ2hgix8fb0ucAgs+EvVmbzuFUFe+KEzLkGrbXi1NDb2YDqOkYsjEUBlGbGqe1Sj1ypKGwVmvijbMsb0l7ubShmH8zZVbcI8Y4mblx76JaQ9B1zmmLS7bZ2HM0hBx3apsHMoMWl2howPQk=
+	t=1791188619; cv=none; b=cixgOUFwAnfcvYVlkoq1f5Shp9O5L8/NxnfzK7sZMVoXt2guVRC2XjEC3jC/CACjQLaojLGV5zL0I+siO9R+SDdBzSkCLtrjRoecbNSibVjZEmiCnEiGgfE2duejK9iqSqs6XldcS8ZgofTzdgYhozzUIPQDB3hapNHxNXyv6fI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791188601; c=relaxed/simple;
-	bh=DmDo/eXuu0Vq6kXaezgnv12eQiz1QsKS4zjwCzOqRgY=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=pe7czaN8EZOFGg+UyEZo6uxmO5oie6f2JwxOyie7gAwYmgAo1q4hUBUFsUvzhzK4AmsvVADW9XoRY62Ja8ondDSbb66LiDr7NDHs9yYLdtf09KOmsDU6IuoXre2AmMz8D0IiTiGVu7CD3CaqQF5NNlFsO5P57EIIgOMtK7EbByc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=OWy4Gupn; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791188619; c=relaxed/simple;
+	bh=huvwHf6b6kpQy5qa5RyvFFPMRCNF22BZPSUsHgW1VMA=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=GMaEARzl+i0uHIkyjMGa53y7FQA/khMSbfdqzRhpAoF2Ql2X0usPkYsDSKYhW8kbWZAFHxRkXTso+MOAD0zeLowtRD9dphOLNvIWipTzUUtVKnohQr5cut6PPfaapBwL0qZHwq9VcGlH57ewhmmi6LZgz327iCHM+UdPiar6Syo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org; spf=none smtp.mailfrom=bombadil.srs.infradead.org; dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b=YqNqHgSG; arc=none smtp.client-ip=198.137.202.133
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=bombadil.srs.infradead.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="OWy4Gupn"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7BFFB1F00893;
-	Mon,  5 Oct 2026 08:23:19 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791188600;
-	bh=JXtmNkDO/zngR307i5pw0zwBcB9EHK5hI5rUTmwK4BE=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=OWy4GupnZgQTGwrkD8RIOQL7DCeuTNOFfU9icdRm7OLmwJ3ziuRjTlb5+IJGNko6M
-	 F6CpyrF1S8VhCH1VRnWP/Q1sgg+FfE/C/idCYZXfFQemlk0ZNNQb9w5Z0Q/JpNC8UW
-	 pXbQfl/g6rwB7t8TgeK2Ebqj4KYnzUnT+7xNpDz3P8ZWnmWPCmNeyTqh5ZctJK56z0
-	 mfHo8+i2VR5C9el/Z/YcBq5pScvVrByf6cYWGw3i+lEv6uAvRouEdbs3xkN8O7WIu+
-	 mOGViERr4XwkSMLbmvrZjIfF1RiNCR/nYi/383U0dNZmH94l0qx7KL+My9MSQcNZ0s
-	 UTtAgDtzrWVyA==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 2/5] mtd: spi-nor: Add support for panic writes
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Pratyush Yadav" <pratyush@kernel.org>, "Michael Walle" <mwalle@kernel.org>, "Vignesh
- Raghavendra" <vigneshr@ti.com>, "Miquel Raynal" <miquel.raynal@bootlin.com>, "Richard
- Weinberger" <richard@nod.at>, "Thomas Petazzoni" <thomas.petazzoni@bootlin.com>, "Takahiro
- Kuwano" <takahiro.kuwano@infineon.com>, "Paul Cercueil" <paul.cercueil@bootlin.com>, "Mark
- Brown" <broonie@kernel.org>
-Cc: linux-kernel@vger.kernel.org, linux-spi@vger.kernel.org, "Kees Cook" <kees@kernel.org>, "Tanmay
- Jagdale" <tanmay@marvell.com>, "Tony Luck" <tony.luck@intel.com>, "Guilherme
- G . Piccoli" <gpiccoli@igalia.com>, linux-mtd@lists.infradead.org
-In-Reply-To: <20261005081141.33688-3-paul.cercueil@bootlin.com>
-References: <20261005081141.33688-1-paul.cercueil@bootlin.com>
- <20261005081141.33688-3-paul.cercueil@bootlin.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 05 Oct 2026 08:23:19 +0000
-Message-Id: <20261005082319.7BFFB1F00893@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="YqNqHgSG"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=infradead.org; s=bombadil.20210309; h=In-Reply-To:Content-Type:MIME-Version
+	:References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
+	Content-Transfer-Encoding:Content-ID:Content-Description;
+	bh=z6VraAbnd2mT0BKdlhv+L+o2/2Wa3LZYIp6gFv/bUHI=; b=YqNqHgSGGmvFI3iveGjHa2tQ2L
+	/jV3Ue8G5JbgDOIW+Gk4sFHwIF2YOp+16iyTnT9RAjDCE+Yqtx7kTfP0FJcXsNz2o8T05Vm9rVD+G
+	1psAI2EuqbDvwbuvfVYIESVhuvVi5w+VRMVb9Lamqgt1kIxqVmFPYRAcWxWE0cH0khMrZlahHqj8/
+	EEnFIEoASG2pNz5gA6XfR3c0TlJyU5I8OhDTddikXAVOMQwcysbo+fJvWSO2venfdD18/pjs8wOOl
+	q5o7G+o3NxhQbKCXPhbFIZygzSFInSBjkGaRHlVZFrAscdKwbjawO+gzny9tYUcY7koj9JTMvZh+V
+	jC0O0gKQ==;
+Received: from hch by bombadil.infradead.org with local (Exim 4.99.1 #2 (Red Hat Linux))
+	id 1xDdyk-0000000FsEH-47BZ;
+	Mon, 05 Oct 2026 08:23:23 +0000
+Date: Mon, 5 Oct 2026 01:23:22 -0700
+From: Christoph Hellwig <hch@infradead.org>
+To: Alexandre Ghiti <alexghiti@meta.com>
+Cc: Christoph Hellwig <hch@infradead.org>, Alexandre Ghiti <alex@ghiti.fr>,
+	linux-mm@kvack.org, linux-kernel@vger.kernel.org,
+	linux-block@vger.kernel.org, cgroups@vger.kernel.org,
+	Andrew Morton <akpm@linux-foundation.org>, david@kernel.org,
+	Johannes Weiner <hannes@cmpxchg.org>,
+	Yosry Ahmed <yosry@kernel.org>, Nhat Pham <nphamcs@gmail.com>,
+	Chengming Zhou <chengming.zhou@linux.dev>,
+	Jens Axboe <axboe@kernel.dk>, Tejun Heo <tj@kernel.org>,
+	Josef Bacik <josef@toxicpanda.com>, Chris Li <chrisl@kernel.org>,
+	Kairui Song <kasong@tencent.com>,
+	Kemeng Shi <shikemeng@huaweicloud.com>,
+	Baoquan He <baoquan.he@linux.dev>, Barry Song <baohua@kernel.org>,
+	Youngjun Park <youngjun.park@lge.com>
+Subject: Re: [RFC PATCH 1/4] block: do not issue background swap bios as root
+Message-ID: <asNeenTiIme0kzI6@infradead.org>
+References: <20260928081900.4187482-1-alex@ghiti.fr>
+ <20260928081900.4187482-2-alex@ghiti.fr>
+ <aro28ZGuYgmNg_n5@infradead.org>
+ <CAEmasaX-6v_EpwAxHtnhA5SXk=jGW8+Lm4m8zAC=+f0yXmiCxw@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <CAEmasaX-6v_EpwAxHtnhA5SXk=jGW8+Lm4m8zAC=+f0yXmiCxw@mail.gmail.com>
+X-SRS-Rewrite: SMTP reverse-path rewritten from <hch@infradead.org> by bombadil.infradead.org. See http://www.infradead.org/rpr.html
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
-s) to consider:
-- [High] mtd: spi-nor: infinite loop in panic write timeout via jiffies
-- [High] mtd: spi-nor: panic write ignores ongoing_pe causing hardware conf=
-lict
-- [High] mtd: spi-nor: sleep in atomic context during panic write
---
+On Tue, Sep 29, 2026 at 11:16:03AM +0200, Alexandre Ghiti wrote:
+> > >
+> > > Such a bio cannot simply drop REQ_SWAP: dm-crypt and dm-thin rely on it
+> > > for limit_swap_bios, which caps in-flight swap bios to avoid a memory
+> > > deadlock, see commit a666e5c05e7c ("dm: fix deadlock when swapping to
+> > > encrypted device").
+> >
+> > Is that true?  REQ_BACKGROUND very much implies the I/O can the throttled
+> > and thus better not be foreground paging, and thus the caller should be
+> > able to tolerate a failure.
+> >
+> 
+> Yes, I agree, zswap writebacks are only best effort and in case of
+> failure, the compressed entry still lives. I don't see how
+> REQ_BACKGROUND could be an issue there?
 
-commit 6866cee3049043ab91dbf3b45f823a4010bb97cc
-Author: Tanmay Jagdale <tanmay@marvell.com>
+The issue is that by definition it doesn't need REQ_SWAP then.
 
-mtd: spi-nor: Add support for panic writes
-
-This commit adds support for panic writes to the SPI NOR framework. It
-plumbs the oops_panic_write flag through to the SPI controllers,
-avoiding mutexes and blocking calls when preemption and IRQs are
-disabled.
-
-> diff --git a/drivers/mtd/spi-nor/core.c b/drivers/mtd/spi-nor/core.c
-> --- a/drivers/mtd/spi-nor/core.c
-> +++ b/drivers/mtd/spi-nor/core.c
-
-[ ... ]
-
-> @@ -729,7 +738,10 @@ static int spi_nor_wait_till_ready_with_timeout(stru=
-ct spi_nor *nor,
->  		if (ret)
->  			return 0;
-> =20
-> -		cond_resched();
-> +		if (nor->mtd.oops_panic_write)
-> +			cpu_relax();
-
-[Severity: High]
-In spi_nor_wait_till_ready_with_timeout(), the loop condition relies on:
-
-if (time_after_eq(jiffies, deadline))
-
-Since jiffies does not advance in a panic context because local IRQs are
-disabled, does this mean the system will hang indefinitely during a panic
-if the flash chip takes time to complete or becomes unresponsive?
-
-> +		else
-> +			cond_resched();
->  	}
-
-[ ... ]
-
-> @@ -3393,6 +3429,26 @@ static void spi_nor_soft_reset(struct spi_nor *nor)
->  	usleep_range(SPI_NOR_SRST_SLEEP_MIN, SPI_NOR_SRST_SLEEP_MAX);
->  }
-> =20
-> +static int spi_nor_panic_write(struct mtd_info *mtd, loff_t to, size_t l=
-en,
-> +			       size_t *retlen, const u_char *buf)
-> +{
-> +	struct spi_nor *nor =3D mtd_to_spi_nor(mtd);
-> +
-> +	/*
-> +	 * At this point preemption and local interrupts are disabled, so we
-> +	 * can't get the lock if it's taken.
-> +	 */
-> +	if (mutex_is_locked(&nor->lock))
-> +		return -EPERM;
-> +
-> +	if (spi_nor_use_parallel_locking(nor) &&
-> +	    (nor->rww.ongoing_io || nor->rww.ongoing_rd)) {
-> +		return -EPERM;
-> +	}
-
-[Severity: High]
-Does this omit checking nor->rww.ongoing_pe?
-
-If a panic occurs while a long-running erase or program operation is in
-progress, ongoing_pe will be true. If the lock was released during the
-parallel hardware operation, the panic write might proceed and send write
-commands while the hardware write in progress bit is set.
-
-The hardware will ignore the commands, but the software will loop in
-spi_nor_wait_till_ready() until the original operation finishes, incorrectly
-assuming the panic dump was successfully written.
-
-> +
-> +	return spi_nor_write(mtd, to, len, retlen, buf);
-
-[Severity: High]
-Can this sequence lead to a sleep-in-atomic bug?
-
-spi_nor_write() can call down to spi_nor_octal_dtr_write() which does a
-sleepable memory allocation when unaligned addresses are passed:
-
-tmp_buf =3D kmalloc(nor->params->page_size, GFP_KERNEL);
-
-Additionally, the write eventually reaches spi_mem_exec_op() and then
-spi_mem_access_start(), which unconditionally takes mutexes:
-
-mutex_lock(&ctlr->bus_lock_mutex);
-mutex_lock(&ctlr->io_mutex);
-
-Since mtd->_panic_write operates with local IRQs and preemption disabled,
-would these paths cause a recursive panic and completely halt the crash
-dump process?
-
-> +}
-> +
->  /* mtd suspend handler */
->  static int spi_nor_suspend(struct mtd_info *mtd)
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261005081141.3368=
-8-1-paul.cercueil@bootlin.com?part=3D2
+Then again the whole concept of REQ_SWAP looks sketchy to me, non-swap
+paging can be just as important for forward progress, so if a driver
+needs it, it has other issues anyway.
