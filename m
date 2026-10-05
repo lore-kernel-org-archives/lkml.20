@@ -1,137 +1,163 @@
-Received: from mail-ed2-f32.google.com (mail-ed2-f32.google.com [74.125.228.96])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from MW6PR02CU001.outbound.protection.outlook.com (mail-westus2azon11012061.outbound.protection.outlook.com [52.101.48.61])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DEC1437D11F
-	for <linux-kernel@vger.kernel.org>; Mon,  5 Oct 2026 07:57:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.228.96
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3BBCF37C936
+	for <linux-kernel@vger.kernel.org>; Mon,  5 Oct 2026 07:57:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.48.61
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791187022; cv=pass; b=Ptzayl4aXriWfo8EsCrO5T9Vby9mwwxQrA8c1G2lwvSok4h7TEHTXOj3SUECOee0eMptu/b2rw5TmVTh57mZd04xomGcFmOBLtRSrQoVoGTPnCBySwBEN99UphQejOUpcz0+TT7YfV1uuq+aFc1GuPbL4CJBMDn9wDKUVN7dLpE=
+	t=1791187024; cv=fail; b=etLkqogxHVtMlumXcarSjcKyNsQi5Vy9YSftN8LDrW5Sx0oFndZjv+z01BXH8DZ6fvyaLKnPfoU4ArccYHmnDfN6jgdxnT+8N6v7iCInFHpi1+EhkXbRHukHm/iVoOgaCul09RGlLVNFymbEa+3fb5Fo4IaP4D/DkqsTW/yfziU=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791187022; c=relaxed/simple;
-	bh=Cqt6Fu+sk8V6mLKmZzliQOQ130R6uksTirlfpR1CVrU=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=Xvlh5Eg8DcKbU1EcdlFGibBRoGN/1U6SuuK4oFykiasieiZYoU4G6H9VCIlDHe4z2Qe3c5tsfPvdAJAYI/56qzORt3XFXmOtSyvWfK95swvkg9uym80BuvC19mnhB82iB721V9QCPf35dNIUKtyvk18kiFJGtbNsGKKogw3s/eE=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=NdFTF936; arc=pass smtp.client-ip=74.125.228.96
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1791187024; c=relaxed/simple;
+	bh=lpiTOk4fFsQqRJWAJiHIDf9qUNCJyQZw1PUcOKl2nhY=;
+	h=Date:From:To:CC:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=iDc/WgpLNkyK7h9qdRemOic4lIr2hEgjqFiLWnLmYOZPm4GsidPI+1puDfImdyUuemjeDvo02gwF71H94hRiz6EpVHhzuvMrvy2N8nok6dDN2jJGip8tZN2b1OI7H/t8gSitjL3hR7MO+yC0vroqw9AUR6nGLXDUkYiAPS2LtR8=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=GDFJ6GZ+; arc=fail smtp.client-ip=52.101.48.61
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="NdFTF936"
-Received: by mail-ed2-f32.google.com with SMTP id 4fb4d7f45d1cf-6ad59dfd3a7so123467a12.0
-        for <linux-kernel@vger.kernel.org>; Mon, 05 Oct 2026 00:57:00 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1791187019; cv=none;
-        d=google.com; s=arc-20260327;
-        b=aHR/BnxgA0VR+0+1/lIpoExcmALVcPXUgPGPg2T3hgT3BWryljbgh1Ss1gp9R7t5fN
-         FI2rsRrheMpTu8OUlp87Mm/F7S1hh0mqw3gG3gMZ6cjIjePkrMMbdQm+dNYXO9x9/T1R
-         bFhn60LS3ehhKTzgU/yQ4f/NXHEyEF4dSPOlPHJTNguk/8wanznP+70Sf57KbFziJ0pq
-         J/AmqKnYXkyERXnLWF8PLILZTaO8gLIjWB4GgBAwkZHzOrlSR6AXEXs8sDCh0WJlbqd7
-         hhmoU69lEiLGZz5y+b6qlLucs7UwBrwuyU5nYqkQDVP+B/+6Y8I0PgcVKFpXaPI5ACB0
-         aFIQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=Cqt6Fu+sk8V6mLKmZzliQOQ130R6uksTirlfpR1CVrU=;
-        fh=Z11LeOJO+HMehSUmo8WhAb07okgOU/t6rv0X5utpESQ=;
-        b=b9qSOnFlmwIZ0wtjnHLyZbZO2qcr7Wcc67NJquOz8NzuDRmKpdf90RgOkrdOArKy0v
-         tnnRHJRiwQyOi/teM5LTbv7wUa5Cu2CnA9dM7GAP+xC+t4X3QddFejSUizXk2nGSmVgx
-         9VTRRkVxiiG6l/zzEhP6lbH4UIIbLaZmYhZGJFLbH261qkMBKhp88uDrjo8/wNbCbisT
-         Xpw+82HN7XhzI58gZFGeEoVsuQIdMAuocKf78UrGXPmKNVoYeNsxhauJmRSibsFmmHQU
-         3QJ+fGd5xSMUiRKZmn0vKYUjYF64WtfX+RN1LwH8XIxuR5QQpz4eFh8YenSisHky9avj
-         Bq9A==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791187019; x=1791791819; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=Cqt6Fu+sk8V6mLKmZzliQOQ130R6uksTirlfpR1CVrU=;
-        b=NdFTF936OLuM/81O1dlM+ND24KqVqhozqAzWRiQFixsNqqaeCAd3FPwgM9BMQEv1Qd
-         VlwakQ3Jbexah13atoyKeaBwMHoFyr+Pt409dWN8TuvbyTo5MosAQR7DrhX1z4JFNzox
-         6VIlz2f8MXudLIrFBg9pWKeBBD1tlb/PJIbT3dG4+kzIaft/VAYXVpXLrWo1fml1ighR
-         ZzLVdexNT3AFUvcRK8/piOsjRTQAhRiloy8BrvPG8xi9n4Nia9W1CbrAq8BPZbMdSQI8
-         U4SBR/9zsyigUNMkoKoYCfKC3KRGSY9qef4Qq4z7AJiCc3M7TXr2dHrVejzHG8o85fEL
-         PhQA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791187019; x=1791791819;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Cqt6Fu+sk8V6mLKmZzliQOQ130R6uksTirlfpR1CVrU=;
-        b=p9A44ZpEpXssse5KRmnUSkpoDbVp5b3dGvRaZm90XWhubicBYWZeq5h9d35q42jyVJ
-         Nw0mzuBVbEFpkVtjuYmEA33xD9WQ9hliINi6QxlGp/wH2jieetvYT2JhscESOQXmdvGp
-         zU+jjbN+mbo9y3ShEJH9Q8JitjjKv6Q9uxD9GAu9RWYfTShtDPIn5puwvp6bFdh6nlFr
-         OPi1z/RT+LmMEHM2ko8n8niDyFmsgZjZZlex7xxOxurBoqaiR2s21KPKAAhWStWVWNpD
-         FkNO9GmFZSJKatn4OqCUItl1PCThls+clda57v4siqotOZC2vqedRibNqIHr1LiMLrPK
-         H0FA==
-X-Forwarded-Encrypted: i=1; AKwUvBxj1pVNOj74YLrbADAIR2VnbG2VmrhCpN8MomSHg6gS+XvHHOwPNS2ulw0nCpYIw0zUhrLsadw/dtE0Ap8=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKZkSFPT1BWuELwAER6n8MZXe8r1fMhrqeRhEO3c9WeyhT0OtDD
-	AnxPLiX9ekDeFXWDsEL76K3gai5DutrttlV6znsljHm+GkNHTGD3MuYyHUyeSZJDrB5nRJNSw6m
-	BdW5aJk1zT3xjQDdA5/0Wl2V1kCAwQac=
-X-Gm-Gg: AYBFou1KqYnnjKaIeb7cJ6qvVo56W5YpJ6TM2N6ODPpILAicD/ywGSzQCP7MJKvU1hv
-	0sMwx8b7siZ1gWH5TJ1ip0O4VUk8vGnCGSIr91fbu+ILrO9B6izPxBG+R2rzhAlSK/r8EXimSow
-	wN1PryPfFIn+v23NO/nIcW9nUPOYP0Q9OW4463G46+mhAou4KsxDm6z7fVXYX0fte1ps/Qm79hc
-	eTIKoTiB1JdZT8p9SsWL4LTGvAWvX4SmwOVGLkYZWboMt1qK+AH0m9T13gZghmNjsAjZRblQMYj
-	PEF4DI3EfvuW88zz50ipTOyqtBhoQuzWUCEExxv/HVRp9DDk9I21H5X8O68ukUdo0CPQsvvBDJ5
-	7jva3sYdvdRQ=
-X-Received: by 2002:a05:6402:3228:b0:6aa:d21c:9c18 with SMTP id
- 4fb4d7f45d1cf-6af9e2f9d57mr8176215a12.3.1791187018776; Mon, 05 Oct 2026
- 00:56:58 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="GDFJ6GZ+"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=yUjGznyiuMfZG4sK5EmCKGlc0dv7gw40jBVZSZ/Rk8OwrWiAP29xr0O/kf34BtFX977TmTP6p0eYT3TRS1FhIhFZ6/ZNEYUqy8tNGqXCQ1nMYGIgrkvr3M+HdmGp8s6ba/QPr8vVxIqmCFiU4eeCX1fu2QhGW6aQlKRRdt1L46X2ZU+sEUPf5LNeIWIx7utPDikuV9xro5tNBWPAS8PDehfbNGGIJPGirBQieM89xbJ2RipGU8abpmAhHT/4fuF6qAKsnasX6WuWQxKbaSQHvulIgQMk56wUQ4rO5xY8dE3U8yP+TsOmWPDwfAL4XQ5/tXWIwJOXLL1gs7JcOWOYTg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=xAVQMT6mdhsNRSuRByO+cLEzQhlwcOKja0nvC5l/Hb4=;
+ b=j2fqJOesR1cZBBC5q/XCY390pT9m11EtEP6GTe15Wz+yLTX/9+1pyhLsqM1+1mUFGKxFg6QA/4xFrDzFXXRNRm6iX6bwxXWQ+biIxu6KEoH7OjJCHNYGBZqci/+ub5jfFiuXAJFqGeLSWpwczqUUJoEeOEMuyyjpVR6YGU2gjPcjlKa8YKwnJ1vIFiMhchoMRM5bLydT+V9T6y+qvnF7/Jy19rnk1+5lsLh669PUY1BtLI9h765InBqIssIAj9N3iTwGGeoKSByq2CgQsov8pfEDMse8jjmsToepKg6ZmEYZVT8fVKrik9Q3DjXzWg67ijcoZOh1FbFOpN54A6IKXQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 216.228.118.232) smtp.rcpttodomain=kernel.org smtp.mailfrom=nvidia.com;
+ dmarc=pass (p=reject sp=reject pct=100) action=none header.from=nvidia.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=xAVQMT6mdhsNRSuRByO+cLEzQhlwcOKja0nvC5l/Hb4=;
+ b=GDFJ6GZ+6En6UUsvN8Mkx9kZhAPOUxM1SPG0MPm/nTfixcbrT6Ilp4S6ldjdPOyDnzAKI1YZ2cryqzKCWN5aGSdtNR3W2Rcp6bitEI1f0khiCf/y6VqF9hYSrD6JUGyqagHcS2P2EgwO9F8b9OWdpsTfKXgLwVMuSGwXllVbWIBIQjjttpM8ZVUZaJoT+zU4i/J3VnQF2GRno3TbsAvkCe9Zmfh3mV6+eAo1WzfO9yzNMPtqLN6IokruR3Ifu85XXiEMQSmu0hUmfuVA6Ta4tH6Di/R2GFbZE6CmJuHRrKQ2qzXnprOUraGIXayHTSzqnOWkcQ+mrANiWYRTNbIeRg==
+Received: from PH7P220CA0024.NAMP220.PROD.OUTLOOK.COM (2603:10b6:510:326::11)
+ by SA3PR12MB9179.namprd12.prod.outlook.com (2603:10b6:806:3a1::12) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.472.20; Mon, 5 Oct
+ 2026 07:56:59 +0000
+Received: from SJ5PEPF000001EE.namprd05.prod.outlook.com
+ (2603:10b6:510:326:cafe::a0) by PH7P220CA0024.outlook.office365.com
+ (2603:10b6:510:326::11) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.472.19 via Frontend Transport; Mon, 5
+ Oct 2026 07:56:58 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 216.228.118.232) smtp.mailfrom=nvidia.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=nvidia.com;
+Received-SPF: Pass (protection.outlook.com: domain of nvidia.com designates
+ 216.228.118.232 as permitted sender) receiver=protection.outlook.com;
+ client-ip=216.228.118.232; helo=mail.nvidia.com; pr=C
+Received: from mail.nvidia.com (216.228.118.232) by
+ SJ5PEPF000001EE.mail.protection.outlook.com (10.167.242.202) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.472.14 via Frontend Transport; Mon, 5 Oct 2026 07:56:58 +0000
+Received: from drhqmail203.nvidia.com (10.126.190.182) by mail.nvidia.com
+ (10.127.129.5) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Mon, 5 Oct
+ 2026 00:56:37 -0700
+Received: from drhqmail201.nvidia.com (10.126.190.180) by
+ drhqmail203.nvidia.com (10.126.190.182) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.49; Mon, 5 Oct 2026 00:56:37 -0700
+Received: from nvidia.com (10.127.8.10) by mail.nvidia.com (10.126.190.180)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49 via Frontend
+ Transport; Mon, 5 Oct 2026 00:56:36 -0700
+Date: Mon, 5 Oct 2026 00:56:34 -0700
+From: Nicolin Chen <nicolinc@nvidia.com>
+To: Will Deacon <will@kernel.org>
+CC: <robin.murphy@arm.com>, <jgg@nvidia.com>, <joro@8bytes.org>,
+	<praan@google.com>, <kevin.tian@intel.com>, <smostafa@google.com>,
+	<linux-arm-kernel@lists.infradead.org>, <iommu@lists.linux.dev>,
+	<linux-kernel@vger.kernel.org>, <jamien@nvidia.com>, <kas@kernel.org>
+Subject: Re: [PATCH v10 06/13] iommu/arm-smmu-v3: Add
+ ARM_SMMU_OPT_KDUMP_ADOPT for kdump kernel
+Message-ID: <asNYMpZfyMHakuZ6@nvidia.com>
+References: <cover.1788130528.git.nicolinc@nvidia.com>
+ <d661395d986d3aa78af200f55e43740996ee8a0f.1788130528.git.nicolinc@nvidia.com>
+ <asJTsw-oWDlSqNa3@willie-the-truck>
+ <asK7VILK4CgEFjdT@nvidia.com>
+ <asNEmjxZ73ezL4I3@willie-the-truck>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20261004162458.3968546-1-nicoyip.dev@gmail.com> <225d8d84c8e5155d5af0adfbea270eeeda326021.camel@iki.fi>
-In-Reply-To: <225d8d84c8e5155d5af0adfbea270eeeda326021.camel@iki.fi>
-From: Chengfeng Ye <nicoyip.dev@gmail.com>
-Date: Mon, 5 Oct 2026 15:56:46 +0800
-X-Gm-Features: AclHuK9vopQGKPch616H4XPEsAiU40667tZEfF-9543oK_7dTTKxojOLxqJFuSY
-Message-ID: <CAAo+4rV9B=QUBAWZfpHL_W8jCoCLTqv79kha6G-x0UZP9Swm_A@mail.gmail.com>
-Subject: Re: [PATCH] Bluetooth: ISO: Serialize concurrent connect calls
-To: Pauli Virtanen <pav@iki.fi>
-Cc: Marcel Holtmann <marcel@holtmann.org>, Luiz Augusto von Dentz <luiz.dentz@gmail.com>, 
-	linux-bluetooth@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="us-ascii"
+Content-Disposition: inline
+In-Reply-To: <asNEmjxZ73ezL4I3@willie-the-truck>
+X-NV-OnPremToCloud: ExternallySecured
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SJ5PEPF000001EE:EE_|SA3PR12MB9179:EE_
+X-MS-Office365-Filtering-Correlation-Id: 23c6e39a-2e6a-44fd-0cfa-08df22b63b9b
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|36860700016|1800799024|82310400026|376014|7416014|23010399003|11063799006|56012099006|4143699003|10067099003|22082099003|18002099003|6133799003;
+X-Microsoft-Antispam-Message-Info:
+	meNuGWJPZwkFhs4VQJegb5s3BgbHhOy9Pt7cATVmFPSuNtFEcGn2h4hrnkA7Zc9YfDynK1ELPefMfcPdeP6XdyFWRJdF7nl65J8NJ03szoWT4mc6azoGaCG1QmBeHslHJaCUBgrcx1C/T0pV7MM7UwTzpJggKc/QkexVCasW2u8ehUNJiP0xmUdyBdW1zMCAjgb/TWqG3gAPVakGbinRmoptluRIDAEiNKLDdbUit4gneNJKpOm3gpNbfzrua55SlPjr8CW08tvfMtzQuepiAjNKG6OUBO1c5bc5Co+eHgJGLYPCwQXUtWxuswqE2R9IIptPjX2nqsTw2EplU6kvMp5Y2IX7cnlfmvp0N3oUqjK4E4HsXWxTytsc1+kIbmvn4EcYhpNAGimU8apEQ50u3TfXSiO2/cvkol69hGvOa/zAsMeChT0t9ss8DOojPpk5ieYm5uTWXLPII0EPt3mo3nfNJXf9dTzyBw0fqx0Bvyv1HxsHw/dB+Ikb0rqtruJCsZQccj2EGnfwUhhJ/yvagO+SVJ0r4vqhDBueNHpKHK//x8WT9C+KzUIrlzSRvuMjC5AP0Pq7PT3cKGCT5fQIj3Fc+DFuU2o146Ri9HdCuGbobgRUPxgu7XO1iKS8fyDnxIRx8zJhPisByuZMaM9L7iOWdNjrXcnEdkzuRNSCtwhqPR8kXuO3eNzwreNdUqp7Wp6h3QpendE2FCiMSU+afg==
+X-Forefront-Antispam-Report:
+	CIP:216.228.118.232;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.nvidia.com;PTR:dc7edge1.nvidia.com;CAT:NONE;SFS:(13230040)(36860700016)(1800799024)(82310400026)(376014)(7416014)(23010399003)(11063799006)(56012099006)(4143699003)(10067099003)(22082099003)(18002099003)(6133799003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	vfXX90Z6IzULzgLbwjyUpxCXsgykg9rhk6mDmgzZxjhC8GWilxkber58WdLtNu6TSvKnq6juJzs6Yb45uot6FzCr+xB+rfvUFncXC7ig1XrskqQCMXqbO0IULdJlTkl5PdyHDipCyMT3OmIg2g/J/PmWiOFX7UnVmfcDJJ3qrPrMn3nkgRnRhHGIOdCcnd6ZF3yPfuGF/UtYK+WA4fFwN+YlbPkMgfG9cR7GryK8i5Izt6a5R8t2whhznLZObyqYQ+caSqY4f6MhqL41zf/fhmyaKfXHgKq4Px8sVQy+ymiZch2q5xSAhJ2YKLEBqv7Ml0ShwTNrSZe1pSdOOsjKNYUU8RCaKKK/62RPGxOY1HvzkvgWpYNTiCx+XAmKzt4jV3pV57sRzKDoY3InfzTtfZM2WIu+lK0Cl3v8Pd5n0hJEzWBQK1X04pTEn5Q8N3yJ
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Oct 2026 07:56:58.9100
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 23c6e39a-2e6a-44fd-0cfa-08df22b63b9b
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a;Ip=[216.228.118.232];Helo=[mail.nvidia.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	SJ5PEPF000001EE.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA3PR12MB9179
 
-On Mon, Oct 5, 2026 at 1:16=E2=80=AFAM Pauli Virtanen <pav@iki.fi> wrote:
->
-> Hi,
->
-> ma, 2026-10-05 kello 00:24 +0800, Chengfeng Ye kirjoitti:
-> > iso_sock_connect() checks the socket state before taking the socket loc=
-k
-> > and drops the lock again before setting up a connection. Two callers ca=
-n
-> > both pass the admission check while the socket is open or bound.
-> >
-> > Caller A can copy its destination for route selection, then caller B ca=
-n
-> > replace the socket destination before A binds or connects the CIS. A
-> > then uses B's destination with the route selected for its own request.
-> > B can also proceed after A attaches a connection and sets BT_CONNECT.
-> > For deferred BIS setup, B can bind a second BIS and overwrite
-> > iso_pi(sk)->conn, leaving the first connection's reference and conn->sk
-> > back-pointer stranded. Concurrent CIS connects can likewise replace the
->
-> Memory safety probably should be enforced somewhat down the calls,
-> likely __iso_chan_add() should reject adding a different iso_conn to sk
-> if it already has one, since that looks like it leaks the
-> iso_conn_hold() reference and the back pointer association.
+On Mon, Oct 05, 2026 at 07:32:58AM +0100, Will Deacon wrote:
+> On Sun, Oct 04, 2026 at 01:47:16PM -0700, Nicolin Chen wrote:
+> > On Sun, Oct 04, 2026 at 02:25:07PM +0100, Will Deacon wrote:
+> > > On Sun, Aug 30, 2026 at 04:18:07PM -0700, Nicolin Chen wrote:
+> > > >  drivers/iommu/arm/arm-smmu-v3/Makefile        |   1 +
+> > > >  drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.h   |  21 ++
+> > > >  .../iommu/arm/arm-smmu-v3/arm-smmu-v3-kdump.c | 229 ++++++++++++++++++
+> > > 
+> > > Please don't put this here. The live update / handover stuff is going to
+> > > need very similar logic (see the RFC from Pranjal) and I don't fancy
+> > > having to rename or resplit this file when that comes along.
+> > > 
+> > > Maybe just stick all of arm-smmu-v3-kexec.c and arm-smmu-v3-kdump.c into
+> > > arm-smmu-v3-handover.c or something?
+> > 
+> > Hmm, Pranjal and I already aligned that cleanly. And there is no
+> > further rename/resplit in his series.
+> > 
+> > arm-smmu-v3-kexec: common helpers for both
+> > arm-smmu-v3-kdump: kdump specific (my series)
+> > arm-smmu-v3-liveupdate: liveupdate specific (Pranj's)
+> > 
+> > Each of them is built on a separate config:
+> >  arm_smmu_v3-$(CONFIG_ARM_SMMU_V3_KEXEC) += arm-smmu-v3-kexec.o
+> >  arm_smmu_v3-$(CONFIG_IOMMU_LIVEUPDATE) += arm-smmu-v3-liveupdate.o
+> >  arm_smmu_v3-$(CONFIG_CRASH_DUMP) += arm-smmu-v3-kdump.o
+> > 
+> > If we put everything into one big file, we'd add the two individual
+> > config guards internally, which isn't as clean as currently IMHO.
+> > 
+> > Note that the kdump file has a very long notes (kdump specific).
+> 
+> I dunno, three files seems way over the top for this imo. I'd rather have
+> one (even if it uses preprocessor guards internally) otherwise it just
+> seems inevitable that we'll have random internals exposed from one file
+> to the other, or duplication of logic or both. Even if we end up splitting
+> it eventually, I'd much rather start from a position where everything is
+> in one place.
 
-Hi Pauli,
+OK. I'll merge them, maybe into arm-smmu-v3-kexec as Jason suggested?
 
-Thanks for the review. I have just sent v2 with the check in __iso_chan_add=
-().
+Or do you still prefer handover?
 
-I also adjusted the outgoing BIS and CIS callers to handle conflicting
-attachments early. The BIS check prevents modifying a reusable
-connection before attachment is rejected. The CIS check releases the
-HCI hold acquired by the current attempt on rejection, while
-preserving same-connection reuse for deferred setup.
-
-Best regards,
-Chengfeng
+Thanks
+Nicolin
