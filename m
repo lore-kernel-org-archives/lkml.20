@@ -1,150 +1,200 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com [74.125.227.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6750C52F276;
-	Mon,  5 Oct 2026 17:19:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6D74552F29D
+	for <linux-kernel@vger.kernel.org>; Mon,  5 Oct 2026 17:19:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791220752; cv=none; b=qZp7KazZBE6Q16dDazX9hMFjqGAmi8c/4xDNWJ2+etDius9h6/6xyW+RIYfkW4wsle2rLlRsSN1zES6HtAi6ehVqYua6eWMECXIIVU6r4Nife3maiVlvWC33g10C8mupTlJUos6Ju0Ok3lFNcitu5GbZ/nBt9zWAQVtehjDI4pY=
+	t=1791220755; cv=none; b=SIV4xzWD2rCR7YkEhn4GT9NdUocLa18prtWiXgie0CCaiUf74q995hjB4F419e6joVjTGD8lHb4iDN0ADkgqbJ+vHFWCAVGujC5S5LQyd3jbJ95ll3QJBy3y7WJRO9OqujcqbGHQMS9Hop2tL3TzN2OYQSQH40j1dSawWvOYXFU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791220752; c=relaxed/simple;
-	bh=5e+q4TCXQGoXItJZIg01pjZhKGXCsA1kAZgp8jkqTME=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=ZXrbRIlx78HLReE9Wainz8CvZVYE5NAY5h1x33tChYScE/CFfBQ3y/pD0+3D4bA8vgQdawi15G0EN0sVe8tLcDdc8GsQ10HY2bkMWiYGHuJ8FC9DR7hVdaZR+6g0mmi6DsfcpTwnsGJme8gNpc4ogO3dcnfXkdUz5OnW2et0VF4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Ax/1dOU4; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791220755; c=relaxed/simple;
+	bh=c7ckEYnsoc8lY6bepSRx0MX3kspdeIxVPo6r8T3T7fY=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=cZywJSHldxgb/0z0bnGRXFi6/PaZIiwwDO97iYeEKffPZOLtE9rRoKX7nHFGfyf3qF2qkV+IRsj0OKzf4/JSqsZbZH66zv+DU9E/U3t+CxsWbjiagRKjnoBoHdCewLi2wrvALFQTfeEjB6Mjhp/dXVxL3OvwXyETgB/9Wzk7f9k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Gpb852/k; arc=none smtp.client-ip=74.125.227.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Ax/1dOU4"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4796E1F000FF;
-	Mon,  5 Oct 2026 17:19:08 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791220751;
-	bh=eM2eSoBfK7UQlxslfOLMAUF8tLhozKrVeJnSTAKakz4=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=Ax/1dOU4GKGU82UeWrh1Hmf224urdOHAUckJ7Zln7gDDiJDBjoXbAp0wyvijE8YtD
-	 1XJql7qOh8C6ToXRAnR6bj51cb+GqgzLPAKaiAabvjMLUYfGloEo+TpQ7dauXEfedy
-	 jAlaHDY/07P4M9sJUCvrqGnlCkuUhEqEaCpgTKa3ly/IWHuutG2/+HubsmGengxgna
-	 /s5iRVbRm/C9j6npzhNrVBWycjSu+P7A8Vnn4NSNmylv62sX0uom2M8si8PxdNI4im
-	 aR6MiK1H4Jk4nWKsI3L5QyNJQOKYL5Q/N0KxBM3FarqFoS6UqeAbWggexuPiFU1asx
-	 BJMHmm4P7RWMQ==
-From: bod@kernel.org
-Date: Mon, 05 Oct 2026 19:14:29 +0200
-Subject: [PATCH 59/74] media: Documentation: uapi: Add qcom-camss ISP
- statistics
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Gpb852/k"
+Received: by mail-pj2-f12.google.com with SMTP id 98e67ed59e1d1-396ccc02279so1229642a91.1
+        for <linux-kernel@vger.kernel.org>; Mon, 05 Oct 2026 10:19:13 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791220753; x=1791825553; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=bU/Grob0sdS1Fvpq0qkYiAVVEirXYMwyKGEgxNCUeKM=;
+        b=Gpb852/kZNQzKwMkCSt6i9I8zSYwCJziA3DHzw/GkdUYIfkHutSzFg7Kr3knnFjUo4
+         2KdZW+tvKqe4nU87yo4dIeML84p0jQx0rUth/NQn4zwU5ItUue6iWKUJAtpZ54WktieS
+         pBirJqWa7ULs50NYRbspvw8UR6qe77zOApTXPgH2iCSnz2WTUDELXOd4XrYl55x3+Im6
+         AqSzdJhtVAT0nanKU1EjvEheFgTX2JZAU3gAPeL0OoLl37jKF6ZGF+PHz2+aqe/zKZv8
+         1EZuI0V/nLLtVPO/75Rkle7+dLEZb9dvCOSbH+TvVdYXqlP7n1IRK7uOFY3zWd5UtEFy
+         /++g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791220753; x=1791825553;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=bU/Grob0sdS1Fvpq0qkYiAVVEirXYMwyKGEgxNCUeKM=;
+        b=hs9u5q5CkUIbiQlnOa+1KLdXWXE7CU24GYT9VVR6YyfouRo/K3UNPNiBX2POQ/tYt9
+         ijm60pTuIbbrMx3W4ixkf++rJ8eJDvgHrs8C/HJNUl1mXjSgUDA1+fviSu/nGSj3MWAb
+         F7FzWvBWahi9L2Q/kEsBam2E+rSUHjc5ETufqjJuA+fYRekLr8MNMWEs3nhB9trpfoyX
+         rNw789HXqds5ZTD5SV0bz37QAR4ac0mPYgkcv0Ht/j3ZgeQJqvjTlyEgV6F7K4w1wEu4
+         Lkb3HvKYLmgzxd43Ip7vg0xQzaAjKLWMXgva/zVTC4RWx2K2LAI9NgzxnDUB9miainvE
+         W8kQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxxd0ASrNDDoJHa86jHBh7DhuzEYoxbcR2SShVBmJ9psi7fc5ODmwt4kSuCwjJrb+rmixlL5xtLNEqkPtQ=@vger.kernel.org
+X-Gm-Message-State: AFq9FYI2hG33GeyS0ZHgieGyRo2aHgdc/r62f3ZNYMyK/SjIhIAlz6z7
+	zstzWjJ/Acw2q8xHehZks/Et4RwuH5Uujbhy6bIw4aps3pTxfTSwz8s3
+X-Gm-Gg: AYBFou0pckDd3nLbtAeqKUY3OD1SRk0d46HAAHjHoAZYyakO3Fc3GWFioQc3/3zLk7O
+	VYguBiZynXinwLvZ1+NuSrgqVjhU9a90RjjkyYcpuc1Wap1y8tcXKDiilkvh3skzB3AQWuzVrx0
+	gWKIxizldtUfl8LsUHVc6xY/1twrmbk8SLcSwxNTCdqYj3rgi2Y/ZPe9SiCZkw3DXAK3e3xpMB2
+	2jKiqqtfAbEG3c4jH0Webk34RYMsFB5nQALOrcSJt985w18UWoYe9H5caHOi7U5rpxfbrl2q7rd
+	eQb1l/8AzLb7cu+nu75Yn4RhwNtSrE/0NSki1jWXOh/DBMRLG9ZU3frX02d8nJXJQTvqUqtfd4b
+	HRDqzDHF21wwlh5f5OWgEhiPp04v7/S7f6/qFHAaZiepyIvqra0IuUrz5a+1F6sPLhOkSTpkhzo
+	HxUSGLmDULn+gaIspyxpeJx/Lstt2nYhWCORMVgpcZ7xJs6r6Y6mwP++2HxJ0BVb41Qh3flKpkQ
+	3P4jd+m3D75LCBFboxepGIshjeWK8w=
+X-Received: by 2002:a17:90b:3c07:b0:3a7:9adb:2a0e with SMTP id 98e67ed59e1d1-3a79adb32ecmr5763152a91.33.1791220752112;
+        Mon, 05 Oct 2026 10:19:12 -0700 (PDT)
+Received: from kernel.tail6741c6.ts.net ([216.195.201.24])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a853cafddesm406910a91.10.2026.10.05.10.18.57
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 05 Oct 2026 10:19:11 -0700 (PDT)
+From: Kunwu Chan <kunwu.chan@gmail.com>
+To: paulmck@kernel.org,
+	corbet@lwn.net,
+	mingo@redhat.com,
+	frederic@kernel.org,
+	neeraj.upadhyay@kernel.org,
+	josh@joshtriplett.org,
+	urezki@gmail.com,
+	dave@stgolabs.net,
+	lianux.mm@gmail.com
+Cc: stern@rowland.harvard.edu,
+	parri.andrea@gmail.com,
+	will@kernel.org,
+	peterz@infradead.org,
+	boqun@kernel.org,
+	npiggin@gmail.com,
+	dhowells@redhat.com,
+	j.alglave@ucl.ac.uk,
+	luc.maranget@inria.fr,
+	akiyks@gmail.com,
+	dlustig@nvidia.com,
+	joelagnelf@nvidia.com,
+	skhan@linuxfoundation.org,
+	rdunlap@infradead.org,
+	longman@redhat.com,
+	rostedt@goodmis.org,
+	mathieu.desnoyers@efficios.com,
+	jiangshanlai@gmail.com,
+	qiang.zhang@linux.dev,
+	kunwu.chan@gmail.com,
+	brads@mainlining.org,
+	linux-kernel@vger.kernel.org,
+	linux-arch@vger.kernel.org,
+	lkmm@lists.linux.dev,
+	linux-doc@vger.kernel.org,
+	rcu@vger.kernel.org,
+	linux-kselftest@vger.kernel.org
+Subject: [PATCH RFC v3 14/15] hazptrtorture: add 128- and 256-CPU configs
+Date: Tue,  6 Oct 2026 01:15:28 +0800
+Message-ID: <20261005171529.1378809-15-kunwu.chan@gmail.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20261005171529.1378809-1-kunwu.chan@gmail.com>
+References: <20261005171529.1378809-1-kunwu.chan@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261005-linux-mainline-7-2-sm8650-hdk-rfc-0-v1-59-ed985aefd611@kernel.org>
-References: <20261005-linux-mainline-7-2-sm8650-hdk-rfc-0-v1-0-ed985aefd611@kernel.org>
-In-Reply-To: <20261005-linux-mainline-7-2-sm8650-hdk-rfc-0-v1-0-ed985aefd611@kernel.org>
-To: Bryan O'Donoghue <bryan.odonoghue@linaro.org>, 
- Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>, 
- Loic Poulain <loic.poulain@oss.qualcomm.com>, 
- Mauro Carvalho Chehab <mchehab@kernel.org>, 
- Jacopo Mondi <jacopo.mondi@ideasonboard.com>, 
- Daniel Scally <dan.scally@ideasonboard.com>, Keke Li <keke.li@amlogic.com>, 
- Richard Acayan <mailingradian@gmail.com>, 
- Hans Verkuil <hverkuil@kernel.org>, 
- Gjorgji Rosikopulos <quic_grosikop@quicinc.com>, 
- Radoslav Tsvetkov <quic_rtsvetko@quicinc.com>, 
- Robert Foss <rfoss@kernel.org>, Milen Mitkov <quic_mmitkov@quicinc.com>
-Cc: linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
- linux-kernel@vger.kernel.org, Bryan O'Donoghue <bod@kernel.org>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2863; i=bod@kernel.org;
- h=from:subject:message-id; bh=g1c9IKan9MOjGAcLlQSt2+4Sn8dFibLAGkmvn6iMdNU=;
- b=owEBbQKS/ZANAwAKASJxO7Ohjcg6AcsmYgBqw9srKc1qM5VVsH6RzQk7aIUmBdQrVEO3U3/HD
- voHQzRh8qeJAjMEAAEKAB0WIQTmk/sqq6Nt4Rerb7QicTuzoY3IOgUCasPbKwAKCRAicTuzoY3I
- OjWpEACintDPXqIEcnMv/mKxNDCzLiJkb0eJWsGHWSoqmIZ2JROU3Vbr0lo+han4CwCe92c2l/W
- 2Vi50hczZHyfhOdVczR7qRrR2h/5GdFoyyvCZwGAJCDjc1TmdTprLrI/rNfL+kIkWNUrOGBK9xb
- hvFMPhfFrXluFIVh1Rm3HCZFMNH7gOY+yV8os1HkCbV7F8Gs5uWavVArLoH5A8ELNk8ebfmZJ2/
- gE4QQKMKfCDl4qjxBQe/Ttt97izzHmYT1LV7DOR6YdouLRO8iytZ8ishvHwrWRyifXBPVp7nGAn
- NkfRsFOLoZlt4sursQPHv0T0MRcGMUJDrkHdJQVxoxY7Szobp3XqZnI8M1YNPv9YIoi+tG5GxBD
- eMcZghD+Vw3jbtkOtVqGokef2UmrmHWJR7DGo5QyxAFxYsMgW9ml+GP2HndgaBTKlqyqwXlUUiQ
- nH5hbuVi9dPRZi/y2PEcrC+bzYaDT/6MO0kWKvdtAqICnsgAC1PjQ0ZBkWYBLrOwChhB9ijLlf5
- 6YH7PNvxlDB8bZTy325nq/AeyR4KOM2gXMf7bLMkOlz5TzJDa+4HyAkw9d9D5sAXmgUY/Z97JpE
- Xxs7DafPzAxkq5WZFWtaPZo97nWGT0rNo1aqdGLWIBQ46qRs5HP4Weidp8BcJZ/uTW95qE7wWZr
- +WmB1Ktlj7xGXFA==
-X-Developer-Key: i=bod@kernel.org; a=openpgp;
- fpr=E693FB2AABA36DE117AB6FB422713BB3A18DC83A
+Content-Transfer-Encoding: 8bit
 
-From: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
+Add CPU128 and CPU256 configs for hazptr-stack torture testing.
 
-Document V4L2_META_FMT_QCOM_ISP_STATS: the v4l2-isp extensible statistics
-container, the block types, and the AEC Bayer histogram produced by the
-SM8650 IFE pixel path, with an example of walking the blocks.
+These configs exercise the shared-scan path at larger CPU counts.
 
-Signed-off-by: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
+Signed-off-by: Kunwu Chan <kunwu.chan@gmail.com>
 ---
- .../userspace-api/media/v4l/metafmt-qcom-isp.rst   | 50 ++++++++++++++++++++++
- 1 file changed, 50 insertions(+)
+ .../selftests/rcutorture/configs/hazptr/CFLIST   |  2 ++
+ .../selftests/rcutorture/configs/hazptr/CPU128   | 16 ++++++++++++++++
+ .../rcutorture/configs/hazptr/CPU128.boot        |  1 +
+ .../selftests/rcutorture/configs/hazptr/CPU256   | 16 ++++++++++++++++
+ .../rcutorture/configs/hazptr/CPU256.boot        |  1 +
+ 5 files changed, 36 insertions(+)
+ create mode 100644 tools/testing/selftests/rcutorture/configs/hazptr/CPU128
+ create mode 100644 tools/testing/selftests/rcutorture/configs/hazptr/CPU128.boot
+ create mode 100644 tools/testing/selftests/rcutorture/configs/hazptr/CPU256
+ create mode 100644 tools/testing/selftests/rcutorture/configs/hazptr/CPU256.boot
 
-diff --git a/Documentation/userspace-api/media/v4l/metafmt-qcom-isp.rst b/Documentation/userspace-api/media/v4l/metafmt-qcom-isp.rst
-index 2f3654a9ba897..77372b3a32d7d 100644
---- a/Documentation/userspace-api/media/v4l/metafmt-qcom-isp.rst
-+++ b/Documentation/userspace-api/media/v4l/metafmt-qcom-isp.rst
-@@ -141,6 +141,56 @@ and a gamma correction block:
- 	for (unsigned int i = 0; i < CAMSS_GAMMA_LUT_SIZE; i++)
- 		gamma->glut[i] = gamma->blut[i] = gamma->rlut[i] = i;
- 
-+.. _v4l2-meta-fmt-qcom-isp-stats:
-+
-+*************************************
-+V4L2_META_FMT_QCOM_ISP_STATS ('QCIS')
-+*************************************
-+
-+Statistics
-+==========
-+
-+The ``V4L2_META_FMT_QCOM_ISP_STATS`` format carries the statistics an ISP
-+engine of the Qualcomm Camera Subsystem (CAMSS) gathers from a frame. It is
-+captured from a metadata capture video node using the
-+:c:type:`v4l2_meta_format` interface.
-+
-+Statistics use the :ref:`v4l2-isp` extensible format. The driver serialises one
-+block per statistics engine into the data member of :c:type:`v4l2_isp_buffer`.
-+Each block embeds :c:type:`v4l2_isp_block_header` as its first member, with the
-+type member set to a value from :c:type:`camss_stats_block_type`. Blocks are
-+placed consecutively, and their combined size is reported in the data_size
-+member of :c:type:`v4l2_isp_buffer`.
-+
-+Which blocks a buffer holds depends on the engine producing it and on the
-+statistics enabled for the stream. Their order is not defined: userspace walks
-+the blocks by the size member of each header and skips types it does not know.
-+
-+The SM8650 IFE pixel path produces the AEC Bayer histogram,
-+:c:type:`camss_stats_bhist`, on its ``msm_vfeN_stats`` metadata capture node.
-+
-+The following example reads the AEC Bayer histogram from a statistics buffer:
-+
-+.. code-block:: c
-+
-+	const struct v4l2_isp_buffer *stats =
-+		(const struct v4l2_isp_buffer *)buffer;
-+	size_t offset = 0;
-+
-+	while (offset < stats->data_size) {
-+		const struct v4l2_isp_block_header *header =
-+			(const struct v4l2_isp_block_header *)&stats->data[offset];
-+
-+		if (header->type == CAMSS_STATS_AEC_BHIST) {
-+			const struct camss_stats_bhist *bhist =
-+				(const struct camss_stats_bhist *)header;
-+
-+			use_histogram(bhist->bins, CAMSS_STATS_BHIST_BINS);
-+		}
-+
-+		offset += header->size;
-+	}
-+
- Qualcomm CAMSS ISP uAPI data types
- ==================================
- 
-
+diff --git a/tools/testing/selftests/rcutorture/configs/hazptr/CFLIST b/tools/testing/selftests/rcutorture/configs/hazptr/CFLIST
+index 1826be30c066..90ef09b0e654 100644
+--- a/tools/testing/selftests/rcutorture/configs/hazptr/CFLIST
++++ b/tools/testing/selftests/rcutorture/configs/hazptr/CFLIST
+@@ -4,3 +4,5 @@ READERS0
+ READERS4
+ SLOWPATH
+ LOCKDEP
++CPU128
++CPU256
+diff --git a/tools/testing/selftests/rcutorture/configs/hazptr/CPU128 b/tools/testing/selftests/rcutorture/configs/hazptr/CPU128
+new file mode 100644
+index 000000000000..079b463607e8
+--- /dev/null
++++ b/tools/testing/selftests/rcutorture/configs/hazptr/CPU128
+@@ -0,0 +1,16 @@
++CONFIG_SMP=y
++CONFIG_NR_CPUS=128
++CONFIG_PREEMPT_NONE=n
++CONFIG_PREEMPT_VOLUNTARY=n
++CONFIG_PREEMPT=y
++CONFIG_HZ_PERIODIC=n
++CONFIG_NO_HZ_IDLE=y
++CONFIG_NO_HZ_FULL=n
++CONFIG_HOTPLUG_CPU=y
++CONFIG_SUSPEND=n
++CONFIG_HIBERNATION=n
++CONFIG_DEBUG_LOCK_ALLOC=n
++CONFIG_PROVE_LOCKING=n
++CONFIG_DEBUG_OBJECTS_RCU_HEAD=n
++CONFIG_DEBUG_KERNEL=y
++CONFIG_HAZPTR_DEBUG=y
+diff --git a/tools/testing/selftests/rcutorture/configs/hazptr/CPU128.boot b/tools/testing/selftests/rcutorture/configs/hazptr/CPU128.boot
+new file mode 100644
+index 000000000000..1d09a6446080
+--- /dev/null
++++ b/tools/testing/selftests/rcutorture/configs/hazptr/CPU128.boot
+@@ -0,0 +1 @@
++hazptrtorture.torture_type=hazptr-stack
+diff --git a/tools/testing/selftests/rcutorture/configs/hazptr/CPU256 b/tools/testing/selftests/rcutorture/configs/hazptr/CPU256
+new file mode 100644
+index 000000000000..b00a984977f3
+--- /dev/null
++++ b/tools/testing/selftests/rcutorture/configs/hazptr/CPU256
+@@ -0,0 +1,16 @@
++CONFIG_SMP=y
++CONFIG_NR_CPUS=256
++CONFIG_PREEMPT_NONE=n
++CONFIG_PREEMPT_VOLUNTARY=n
++CONFIG_PREEMPT=y
++CONFIG_HZ_PERIODIC=n
++CONFIG_NO_HZ_IDLE=y
++CONFIG_NO_HZ_FULL=n
++CONFIG_HOTPLUG_CPU=y
++CONFIG_SUSPEND=n
++CONFIG_HIBERNATION=n
++CONFIG_DEBUG_LOCK_ALLOC=n
++CONFIG_PROVE_LOCKING=n
++CONFIG_DEBUG_OBJECTS_RCU_HEAD=n
++CONFIG_DEBUG_KERNEL=y
++CONFIG_HAZPTR_DEBUG=y
+diff --git a/tools/testing/selftests/rcutorture/configs/hazptr/CPU256.boot b/tools/testing/selftests/rcutorture/configs/hazptr/CPU256.boot
+new file mode 100644
+index 000000000000..1d09a6446080
+--- /dev/null
++++ b/tools/testing/selftests/rcutorture/configs/hazptr/CPU256.boot
+@@ -0,0 +1 @@
++hazptrtorture.torture_type=hazptr-stack
 -- 
-2.55.0
+2.43.0
 
