@@ -1,145 +1,158 @@
-Received: from SN4PR2101CU001.outbound.protection.outlook.com (mail-southcentralusazon11012028.outbound.protection.outlook.com [40.93.195.28])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oi1-f198.google.com (mail-oi1-f198.google.com [209.85.167.198])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 79F4E36AB77
-	for <linux-kernel@vger.kernel.org>; Mon,  5 Oct 2026 20:49:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.195.28
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791233347; cv=fail; b=JSnMHusVhyUtd25DfauCGo2OUc1DuptJsa8S1H7LJcBRd2DgGRFBTr3S1Uyubr1mGsQM/xeYCG4PNxQrmrBEkO7RiJQvDgYVxzfayiqDqklo/zsA6ZZyGeBEVWnauKYnwkAicyWPwBUXBkvLRVDBoz3EqnJAtVLbD4hy1AEVks4=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791233347; c=relaxed/simple;
-	bh=x8zUQyfca1xus1C+P7tdQlIcIgQCOlgIQvhxBtMi5jI=;
-	h=Date:From:To:CC:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=HLlPv/+T2VWnPrFktI3DontsC4c6Tfn95Z4g9B8VgZR/yNrC40MMYNUwJaUyU3laaryHCEdhEulosFyK2u7bJNziFaRST6QLomeKzUbPdKr9z5CHqUTFqM+egNTzP1LZXYfeJ912iED/AuiqgoHe+miaa+6DTJVoqacUzjol/Zw=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=erlZjm0E; arc=fail smtp.client-ip=40.93.195.28
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="erlZjm0E"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=r7592dF816jADNKXN/dEQobk6oLcUa/W1+PdDUsagBP+L5NZa4mYONisafqQryUhHwFWXrsltHymgTwfywl4209NgHwAmNl7CxlqNI01M48u0RwAoBiz7XXvn2o4jgQKUInWV7+Pg0hlvlv1oNXXwqz1ta4A0jxxfGCso02fJQIXW6W6l3tfKJcBX65+0jap/lCiSyhYnGeBwnanHnswuH8h2gRjLkRT335J+fWGyK3KWSbbumJhrGZYx10Kp/QGmcWFNeC/sA225ORWu2kgFwUdI1U3av5FfjkPjhiyWYUy2UvwuGX0y1AGnw94557qvzkfAWj8lQhFZxxESOwwbA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=PNafjFO4Ut1TwDaTPr3P/axyEnqBWHbeDSGq9rqxadc=;
- b=QeZL7cuQ53H9hw+D0Ze/8JsucJXhHiVD10cVBc2LvFI2EHi9iF/rkosrvn6QnIIGB63YM6Avn2LQxD1IHOfK1KBC2mpuypmg8tELHapT45cOcpi/H9pIe+HMQAoroHmmpRHyXGpxomqDXOEYcn9p9jT6HSiC+UBKYMu1A4x1kFvtHYPT/+0TikZtyOLfLZHwkTT+wLEUw29DJ3Sle2IIvdoYJhwM+QLxyoYRzTRbYy/JCRefo0/2fEEQtjSjaGjXtdSxqwEzuaYqGVj5vX9QQDOHb8OV3XZM6iyRknMK7IErjOTCKakrrjsNLSNnXd5foCocUfl5rhrVnMX6TS/klA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 216.228.117.161) smtp.rcpttodomain=kernel.org smtp.mailfrom=nvidia.com;
- dmarc=pass (p=reject sp=reject pct=100) action=none header.from=nvidia.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=PNafjFO4Ut1TwDaTPr3P/axyEnqBWHbeDSGq9rqxadc=;
- b=erlZjm0EQQGEmeO/XVXEENhQbg6ChnelGiscUKmxBBb+3rNdh6eP1/jUfedW9ciEHpH2RZCAFTBUBQi/eMeVTyW1XpwvC5wsqbvWtx6DYen77cdOE3ZHB+Y44UpD6uuqrY2G9sfiZdAwGiUDrTCVH4P59/TAStJRrYOMjlcEr8PNJImLEiaBNj1W62icLpT7Gj6fclXgycMJbALJUtjdc0BFx2gSWH2GfQKp88/sbLyJMwXo6539WLdAJR1MmQHT4UXlEBwAMt5IFsfLiTGeEq+63OkCWdehlbtlmFOINyXRcSZOzXaxv8LJS4IkuS2sLr8ZXyYcYZMTOrN8vfSE3Q==
-Received: from CH2PR10CA0021.namprd10.prod.outlook.com (2603:10b6:610:4c::31)
- by IA0PPFFEC453979.namprd12.prod.outlook.com (2603:10b6:20f:fc04::beb) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.472.20; Mon, 5 Oct
- 2026 20:48:59 +0000
-Received: from BN5PEPF0004698D.namprd02.prod.outlook.com
- (2603:10b6:610:4c:cafe::19) by CH2PR10CA0021.outlook.office365.com
- (2603:10b6:610:4c::31) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.472.20 via Frontend Transport; Mon, 5
- Oct 2026 20:48:59 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 216.228.117.161) smtp.mailfrom=nvidia.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=nvidia.com;
-Received-SPF: Pass (protection.outlook.com: domain of nvidia.com designates
- 216.228.117.161 as permitted sender) receiver=protection.outlook.com;
- client-ip=216.228.117.161; helo=mail.nvidia.com; pr=C
-Received: from mail.nvidia.com (216.228.117.161) by
- BN5PEPF0004698D.mail.protection.outlook.com (10.167.245.42) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.496.14 via Frontend Transport; Mon, 5 Oct 2026 20:48:58 +0000
-Received: from rnnvmail201.nvidia.com (10.129.68.8) by mail.nvidia.com
- (10.129.200.67) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Mon, 5 Oct
- 2026 13:48:33 -0700
-Received: from rnnvmail205.nvidia.com (10.129.68.10) by rnnvmail201.nvidia.com
- (10.129.68.8) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Mon, 5 Oct
- 2026 13:48:32 -0700
-Received: from nvidia.com (10.127.8.10) by mail.nvidia.com (10.129.68.10) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49 via Frontend
- Transport; Mon, 5 Oct 2026 13:48:31 -0700
-Date: Mon, 5 Oct 2026 13:48:29 -0700
-From: Nicolin Chen <nicolinc@nvidia.com>
-To: <will@kernel.org>
-CC: <robin.murphy@arm.com>, <joro@8bytes.org>, <jgg@nvidia.com>,
-	<praan@google.com>, <kevin.tian@intel.com>, <smostafa@google.com>,
-	<linux-arm-kernel@lists.infradead.org>, <iommu@lists.linux.dev>,
-	<linux-kernel@vger.kernel.org>, <jamien@nvidia.com>, <kas@kernel.org>,
-	Cristian Prundeanu <cpru@amazon.com>, Breno Leitao <leitao@kernel.org>
-Subject: Re: [PATCH v11 00/11] iommu/arm-smmu-v3: Adopt the crashed kernel's
- stream table for kdump
-Message-ID: <asQNHT9Vk61t/vrn@nvidia.com>
-References: <cover.1791226953.git.nicolinc@nvidia.com>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ABEC1381E92
+	for <linux-kernel@vger.kernel.org>; Mon,  5 Oct 2026 20:50:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.198
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791233416; cv=none; b=hXZI2Pgc77uaKrU/dFvUc7XAT/+O6ICqmWWmjS+lZMREipRlbs02Pp7FnqVXWy9FqPk8xJLDUw0bNkd1qrUR8TVofaGq4aML7Rg0NAksVp6iI38BUlEmlHTalNSOrlqK9AXU6NPZpCJvjvcMZpJL0Mt+PAooL/m9vPygnwXFKAQ=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791233416; c=relaxed/simple;
+	bh=coABcNt9pq1f/wV1AHqFcBxAb7vOCClP3Fn8fGdyhkQ=;
+	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:
+	 Content-Type; b=thrnXtBW9PubSeMhEuzGnL9QicLwebUQTCBqBrHXlWNaVoTmfZrELADeHWI0cxkqm5yl4GKc9I0/3nYZIRbyn/3F7tEHb5rdCBT2Rw8xMstNXMACFoIFQ7HZvySBAMtMQOrRnkGRwhXyYVnPyd8UqLOk/ftkYpFMUkW/a1A8KKQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.167.198
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-oi1-f198.google.com with SMTP id 5614622812f47-4c7f887ac6bso63674b6e.3
+        for <linux-kernel@vger.kernel.org>; Mon, 05 Oct 2026 13:50:04 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791233403; x=1791838203;
+        h=content-type:to:from:subject:message-id:in-reply-to:date
+         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=eWfIPMVihs7XhLygF6xalMQJlt9soBemAGjC60lH4dk=;
+        b=AaOkvrMsy5d10HnubDHhu11UqiCuC1q4rkbjCEFSTFPcc7Aj6Hj6Timv0zWPTtvoCv
+         Zi+osDYBk8BWuIsIFo5SeCi5V/ohAu8L8P21b26dCQPZachYadmfEEI/x4vIooLCI2QC
+         Ul4XbYFk+fgFhiX7nMpRRN0pM0y1OEKCSvx0p4xfAVqw3OE1BuITLOZR8wcWMJkR3lKC
+         1jyczTJ7bnwH9eQcQWNXW94wpHKmLC6Bs2/JPPmgnnlAGc2bf8eZBVMvG8npobGMu7MG
+         gKJsRU1dhL9Gptpy8vrzSjTJXV9tUoJ1XG/2/jpB6aJtAH5kTRSuvpzo7wUIkIpCi5hS
+         yv6Q==
+X-Forwarded-Encrypted: i=1; AKwUvBwBO/0J5fp6t5ZBcQJ2UJaSdB3ngwyjtHyIrWJw/esd6S5mTnBdpxiiuGC6csLTRIKvXL+HkAdmIFbJPkk=@vger.kernel.org
+X-Gm-Message-State: AFuF++lvajcWqhhAkLdDpioszGCfiKUK0wLEo4UQcCNaPz6BsX8JwGHL
+	DRHDdld/OhjZhxi/e8tV1WRbST7yxvw+SjNxcTJp8Lw4an8UYSqSrA9Oq2tnEx+Hai8/yqtO223
+	oVd4uqk9MNXmFBhCJld1o9GEzSzbJMEa+BIsUUnMBw/GQp6xBYYbQo5LpGXY=
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-Disposition: inline
-In-Reply-To: <cover.1791226953.git.nicolinc@nvidia.com>
-X-NV-OnPremToCloud: ExternallySecured
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN5PEPF0004698D:EE_|IA0PPFFEC453979:EE_
-X-MS-Office365-Filtering-Correlation-Id: 0b753c89-ff3a-4eba-41dd-08df23221498
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|7416014|23010399003|36860700016|376014|1800799024|82310400026|11063799006|56012099006|10067099003|22082099003|18002099003|6133799003|13003099007;
-X-Microsoft-Antispam-Message-Info:
-	+XYHK8nCWh0ul8EaEOBbwChUV8Igy1N7x+fqPu9cNGydJxhSeYIt2JKnTOrBhHUpifjEYfCeSHCOnuar072ubfcPOWeSaKDzxkGNgt/ZzRc99eCudPgMy1Je8NPupVW4HM943Y1KM5DEeolV/fB46G3eSjGwu3sBfJ9ukaIF4n9w2Qoy82Ir3LhXV5byT0e9iv5n59tbswXE7TwM3kNXzxmbaRxBINTOnN2VK/1nuUnndzKJUIuBvseRwTcngqZ4r526ZXfxZuR9WkDtRP8SypiFF0/9jdhwSwHDYvS4KADrgiR4fqyQy9dHKBj7Oq5XrAGv2FCBtMENBDVqV4pZPKeR3orLWcb+bX6FmZ1gXzb8nsDOaA6RifWr7+SkVDpXVLw0NPND7C+xZoD8Ee4vl10vBgPwrtLql+fvkr1XgAyiezKo15X5xA8LwR3LUyaS+QzXWXDoI1pYcaSWUVYCR3EoSnFPE1KlxxGTdohA7AIIf30ZSHXkjtuVkU6+RMwGGO0NsDNLKwXa+oOzK63jC8uHtYZ5tWil/C7WZzs9ARtWBv12D6EdGeqzcfJ4IAETX8VETQXxCuJu/Txp4vooUoc/RvPpTcQtEPSfOOUxSVXWoxd8jg+ZD62xPKlxerPaYpxISMGkA+vHgmX5bETOFoIYRQ3MPygXQR+uWgJ8y8S5PoHoOzLVsHwZJFXMJAnXc4Z+ZC1DyLuJujEgF2hKYg==
-X-Forefront-Antispam-Report:
-	CIP:216.228.117.161;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.nvidia.com;PTR:dc6edge2.nvidia.com;CAT:NONE;SFS:(13230040)(7416014)(23010399003)(36860700016)(376014)(1800799024)(82310400026)(11063799006)(56012099006)(10067099003)(22082099003)(18002099003)(6133799003)(13003099007);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	LInX/I+2WZ9dK6+MFMN47ckOwFRwABy1U8MHPG9kcOPGldPvvxcw1dPZrk8M1tt+LdBxNgDIQMap0GSavvhwGF9delncvAp10EzAxWb+pQiJLTAQJP8KswQHBoi0BDbqwEZVqYOpysJxKYT9TKUimi7/GWmWjvA1vih1vX4NX0HF6w6387a3fCdvopAcxXt9t5wapewXyq3aRy83+OyHeW7iILVo5YgF2kmoxLOcBEezEqnVgAT4/7a5fOeBcpC0ngptm5sJ9gchxwbKhz0miQPW5o2TpfCRXghoyX4SMp7xMzWeRnM032CAkgnNyAX8Q/KmQwMXuEwKUXTasvF7r6jco1jQYsuXuDYXuMfMevtwnfLggbU05IeMF8DlQQr+jf9jZ/4ElCd0kqsEMnFvHtq6aSST4LsBZrb0fdtK4vI5AOcs5Yj1KrW9+7sKT7w3
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Oct 2026 20:48:58.9444
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 0b753c89-ff3a-4eba-41dd-08df23221498
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a;Ip=[216.228.117.161];Helo=[mail.nvidia.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	BN5PEPF0004698D.namprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA0PPFFEC453979
+X-Received: by 2002:a05:6808:4fe3:b0:4f8:716d:7706 with SMTP id
+ 5614622812f47-4f8716d795amr4893687b6e.65.1791233403632; Mon, 05 Oct 2026
+ 13:50:03 -0700 (PDT)
+Date: Mon, 05 Oct 2026 13:50:03 -0700
+In-Reply-To: <20261005180430.24652-2-jakovnovak30@gmail.com>
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6ac40d7b.9ad129c8.3858c0.0040.GAE@google.com>
+Subject: Re: [syzbot] [media?] [usb?] WARNING in smsusb_term_device (2)
+From: syzbot <syzbot+d627b1495de0e851be32@syzkaller.appspotmail.com>
+To: jakovnovak30@gmail.com, linux-kernel@vger.kernel.org, 
+	syzkaller-bugs@googlegroups.com
+Content-Type: text/plain; charset="UTF-8"
 
-On Mon, Oct 05, 2026 at 12:30:43PM -0700, Nicolin Chen wrote:
-> This is on Github:
-> https://github.com/nicolinc/iommufd/commits/smmuv3_kdump-v11
-> 
-> Changelog
-> v11
->  * Rebase on arm/smmu/updates branch
->  * Add Tested-by from Breno and Cristian
->  * Add Reviewed/Acked-by from Jason and Kiryl
->  * Update commit messages and Assisted-by tags
->  * New prep patch: swap EVTQ/GERROR MSI indexes
->  * Skip EVTQ's CFG0 write and vector allocation
->  * Merge arm-smmu-v3-kdump code into arm-smmu-v3-kexec
->  * Fold patches accordingly as static functions require callers
+Hello,
 
-Will,
+syzbot has tested the proposed patch but the reproducer is still triggering an issue:
+WARNING in enable_work
 
-I have checked the new Sashiko finding against this v11.
+------------[ cut here ]------------
+workqueue: work disable count underflowed
+WARNING: kernel/workqueue.c:4530 at work_offqd_enable kernel/workqueue.c:4530 [inline], CPU#1: kworker/1:2/5325
+WARNING: kernel/workqueue.c:4530 at enable_work+0x1c7/0x230 kernel/workqueue.c:4701, CPU#1: kworker/1:2/5325
+Modules linked in:
+CPU: 1 UID: 0 PID: 5325 Comm: kworker/1:2 Not tainted syzkaller #0 PREEMPT_{RT,(full)} 
+Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 09/16/2026
+Workqueue: usb_hub_wq hub_event
+RIP: 0010:work_offqd_enable kernel/workqueue.c:4530 [inline]
+RIP: 0010:enable_work+0x1c7/0x230 kernel/workqueue.c:4701
+Code: cf 19 38 00 4d 85 f6 75 48 e8 c5 19 38 00 eb 47 e8 be 19 38 00 90 0f 0b 90 e9 bc fe ff ff e8 b0 19 38 00 48 8d 3d 99 1c 26 0e <67> 48 0f b9 3a e9 d2 fe ff ff e8 9a 19 38 00 90 0f 0b 90 e9 1d ff
+RSP: 0018:ffffc900048aeae0 EFLAGS: 00010093
+RAX: ffffffff818ebc00 RBX: 0000000000000000 RCX: ffff888020bc0000
+RDX: 0000000000000000 RSI: 0000000000000000 RDI: ffffffff8fb4d8a0
+RBP: 0000000000000000 R08: 0000000000000000 R09: 0000000000000000
+R10: dffffc0000000000 R11: ffffed10170e7719 R12: 1ffff110053a8807
+R13: 0000000001800001 R14: ffff888029d44038 R15: 0000000000000000
+FS:  0000000000000000(0000) GS:ffff888125cc2000(0000) knlGS:0000000000000000
+CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+CR2: 00007fd1bfdeb840 CR3: 0000000038686000 CR4: 00000000003526f0
+Call Trace:
+ <TASK>
+ __cancel_work_sync+0xf8/0x110 kernel/workqueue.c:4571
+ smsusb_stop_streaming drivers/media/usb/siano/smsusb.c:183 [inline]
+ smsusb_term_device+0xdd/0x260 drivers/media/usb/siano/smsusb.c:345
+ smsusb_init_device drivers/media/usb/siano/smsusb.c:499 [inline]
+ smsusb_probe+0x1aba/0x2280 drivers/media/usb/siano/smsusb.c:577
+ usb_probe_interface+0x788/0xe50 drivers/usb/core/driver.c:399
+ call_driver_probe drivers/base/dd.c:-1 [inline]
+ really_probe+0x254/0xae0 drivers/base/dd.c:706
+ __driver_probe_device+0x1e8/0x360 drivers/base/dd.c:868
+ driver_probe_device+0x4f/0x240 drivers/base/dd.c:898
+ __device_attach_driver+0x270/0x410 drivers/base/dd.c:1026
+ bus_for_each_drv+0x25b/0x2f0 drivers/base/bus.c:500
+ __device_attach+0x2c7/0x450 drivers/base/dd.c:1098
+ device_initial_probe+0xa1/0xd0 drivers/base/dd.c:1153
+ bus_probe_device+0x12d/0x220 drivers/base/bus.c:620
+ device_add+0x7d7/0xb80 drivers/base/core.c:3776
+ usb_set_configuration+0x1bb5/0x2260 drivers/usb/core/message.c:2274
+ usb_generic_driver_probe+0x8d/0x150 drivers/usb/core/generic.c:250
+ usb_probe_device+0x1c3/0x3b0 drivers/usb/core/driver.c:293
+ call_driver_probe drivers/base/dd.c:-1 [inline]
+ really_probe+0x254/0xae0 drivers/base/dd.c:706
+ __driver_probe_device+0x1e8/0x360 drivers/base/dd.c:868
+ driver_probe_device+0x4f/0x240 drivers/base/dd.c:898
+ __device_attach_driver+0x270/0x410 drivers/base/dd.c:1026
+ bus_for_each_drv+0x25b/0x2f0 drivers/base/bus.c:500
+ __device_attach+0x2c7/0x450 drivers/base/dd.c:1098
+ device_initial_probe+0xa1/0xd0 drivers/base/dd.c:1153
+ bus_probe_device+0x12d/0x220 drivers/base/bus.c:620
+ device_add+0x7d7/0xb80 drivers/base/core.c:3776
+ usb_new_device+0x99a/0x1680 drivers/usb/core/hub.c:2713
+ hub_port_connect drivers/usb/core/hub.c:5585 [inline]
+ hub_port_connect_change drivers/usb/core/hub.c:5725 [inline]
+ port_event drivers/usb/core/hub.c:5889 [inline]
+ hub_event+0x28cf/0x4cf0 drivers/usb/core/hub.c:5971
+ process_one_work kernel/workqueue.c:3396 [inline]
+ process_scheduled_works+0xc3d/0x1630 kernel/workqueue.c:3479
+ worker_thread+0xa47/0xfb0 kernel/workqueue.c:3560
+ kthread+0x38b/0x470 kernel/kthread.c:436
+ ret_from_fork+0x514/0xb70 arch/x86/kernel/process.c:158
+ ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
+ </TASK>
+----------------
+Code disassembly (best guess):
+   0:	cf                   	iret
+   1:	19 38                	sbb    %edi,(%rax)
+   3:	00 4d 85             	add    %cl,-0x7b(%rbp)
+   6:	f6 75 48             	divb   0x48(%rbp)
+   9:	e8 c5 19 38 00       	call   0x3819d3
+   e:	eb 47                	jmp    0x57
+  10:	e8 be 19 38 00       	call   0x3819d3
+  15:	90                   	nop
+  16:	0f 0b                	ud2
+  18:	90                   	nop
+  19:	e9 bc fe ff ff       	jmp    0xfffffeda
+  1e:	e8 b0 19 38 00       	call   0x3819d3
+  23:	48 8d 3d 99 1c 26 0e 	lea    0xe261c99(%rip),%rdi        # 0xe261cc3
+* 2a:	67 48 0f b9 3a       	ud1    (%edx),%rdi <-- trapping instruction
+  2f:	e9 d2 fe ff ff       	jmp    0xffffff06
+  34:	e8 9a 19 38 00       	call   0x3819d3
+  39:	90                   	nop
+  3a:	0f 0b                	ud2
+  3c:	90                   	nop
+  3d:	e9                   	.byte 0xe9
+  3e:	1d                   	.byte 0x1d
+  3f:	ff                   	.byte 0xff
 
-To approach its claimed 35-trillion bound, every L1 descriptor,
-STE and CD L1 descriptor must pass the validations, which takes
-a deliberately built aliasing table but is not likely reachable
-in practice: with a corrupted memory, one of the entries would
-more likely either skip the iteration (V=0) or fail the test.
 
-I tend to ignore that. But if you think it is worth addressing
-and have some good idea about it, I don't mind a respin.
+Tested on:
 
-Thanks
-Nicolin
+commit:         67f0943b Merge tag 'selinux-pr-20261005' of git://git...
+git tree:       upstream
+console output: https://syzkaller.appspot.com/x/log.txt?x=14f27ec9580000
+kernel config:  https://syzkaller.appspot.com/x/.config?x=341a98f91c13ec9
+dashboard link: https://syzkaller.appspot.com/bug?extid=d627b1495de0e851be32
+compiler:       Debian clang version 22.1.8 (++20260613092233+e80beda6e255-1~exp1~20260613092250.77), Debian LLD 22.1.8
+patch:          https://syzkaller.appspot.com/x/patch.diff?x=1237bec9580000
+
