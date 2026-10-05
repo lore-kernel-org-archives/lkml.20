@@ -1,172 +1,111 @@
-Received: from mail-ej2-f41.google.com (mail-ej2-f41.google.com [74.125.228.169])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1D83735E92F
-	for <linux-kernel@vger.kernel.org>; Mon,  5 Oct 2026 07:52:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.169
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8AE3735E92F;
+	Mon,  5 Oct 2026 07:53:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791186762; cv=none; b=pDE2cNE94+e7zn9DifNYjPA2vgFGeofm1Z9YaiAQictLe5YL0FJwGoKOyC0WJpcuS/8tfnI9eRgwQEo3mQg0exzcFzpog+X/PUIC1zwwDUxstgeExwtOccmu/Xng82EGAkQR3fu7QJfc1qShYKHNeaTpxvWNWEkrsLQsm1qzAB8=
+	t=1791186795; cv=none; b=M/Vn9j8vEtTPaAYutl7Uo7F7wWKwX2YO9KUB2gfovlQL0h6DCRBJxVOyQ17l8wSSArHxgpih7LNoAdDy360XsT6pjnH1dgwoBd4fgwhpDD5BzRR+qEtyuptAtSCA9BGilJVbzR4NXvkwF6xW7n/E7VF5cUbKehbapoGUfCdL648=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791186762; c=relaxed/simple;
-	bh=82r4qovijQ1dYl4fpF5dysLdPQXbMGcexIEnsSETYVA=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Znj9s120KyzGWJBH9dgrX+oAYcqgHhHtYPPG45yYiEhO9pEQ+BQ6dSplhh6AYHteAZhPxvtYndF5QinHau9AX1zldOiKVkxGp4+h8/PU9rz1fefKHiGdZh0JPesnMvahIFVNC2yStseJAFG/enprupW8s2kj4vUfgCCkDHcp95k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=CelSwl3R; arc=none smtp.client-ip=74.125.228.169
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1791186795; c=relaxed/simple;
+	bh=PBXa2DuXdFqBZRICIabALpvUzRmhBpiMuPaWLmZTUGs=;
+	h=Content-Type:MIME-Version:Message-Id:In-Reply-To:References:
+	 Subject:From:To:Cc:Date; b=WzxOdAGTHAWM6xYZnoiIWysoS9mv+sipFIMWgt3rQm43yo4MkSRQMYDJ+aC0hdj9hM7lPQIYsPOBnvQ6cvkcHGo6MvVnBiYl5OCg5JwNQxjOAQO+y/jfoNj1DwQIcxt0SBAOzEUBdPwCeIX4wZ8dJilSaKSM+dPuuFtZ2u9Gjgc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=EEX+P8CP; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="CelSwl3R"
-Received: by mail-ej2-f41.google.com with SMTP id a640c23a62f3a-c2e0b486d91so249320166b.2
-        for <linux-kernel@vger.kernel.org>; Mon, 05 Oct 2026 00:52:40 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791186759; x=1791791559; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Hkbmmu29f4ESmjhS/R6fVuQiC+U9d5xHF0gJ/jLHU0E=;
-        b=CelSwl3RTr8JSTz99vh2oPK3bQgXmhmwggJLgEX2LDuOAtB+rgsW4E1jjgCzwkp7oK
-         5JQaMJcpkvSPxwZzWWTqqfWqTxwqTcf0cVC6aqWG2YV59psGQonjjZwWTn3vMkiqAHsn
-         e1Te0XEyVb3AZpJ22AovJzkgxQHnfe0jyW882MY6xEXBdnTICOfOV2qZYlN3KTJp5bGs
-         ZjhgXtmRGgBz9TvCPWn40PSobRl/HmZNp0c67u8jkcaSiEPG4jQEfSnjjAUZY8fMUAO9
-         22VZZR/KW7NTFRQkK0LO2V/PgDtuSX9C9koMoGqEN/2G5MdeXu0E5VweHVliFa56jnxA
-         eBIA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791186759; x=1791791559;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Hkbmmu29f4ESmjhS/R6fVuQiC+U9d5xHF0gJ/jLHU0E=;
-        b=QeKx7fMoj9S4z7s+4H0KlB4PKpsK00qv8w1bqYZsdSfmhFTImHiT1zMjeFEnd2YJWH
-         gfWIlTTy3wTkODgIWvMao9pm3ufmem8zuKW//bPlRnrE1XL5ipYGNcvMhiSg/FjP06tK
-         l04GBpnKdxaPCMX3KkwTGitG1IhnxciU2jHUbKX/fawW8ZbtKZvFaHVFJG8+ILzKCZB9
-         vuKAXOPB5LiZdOIeIq3Y5WqogBLVimjYy3yIj3fXLLOwWA8m1rXNiTIbLCW4Gcvu6uca
-         Ump+taxBd2YDZxLHtlJbXsLihwDXE32dOUCc1w9cz3sbqDh5/KSW6+e/C8aiQYoSUK/T
-         FUTA==
-X-Forwarded-Encrypted: i=1; AKwUvBwf1Ayh6ytr5UdHeQsrI6nt2zi11WqAR5wqEjqTr3BLTnm8AjXnJeO060h/6TvJVOGsR0y2pgYkKe94FsM=@vger.kernel.org
-X-Gm-Message-State: AFuF++nzw+TfC2sexWSY/MAyqhc6U19BWwbra5JO22Mn2PDzJ7NlYGQL
-	ol8F6lejf2ogZD2//cUZGpuSVba+lP/RlARFR0eTcXQdfFib11ctnjbA
-X-Gm-Gg: AYBFou3ixoPpgYNnvVdxwMBUsOeeAe+Hb0YimVwJC/5nuW653tiPxZ8SilR0MfNp3WV
-	ifbiiBvPlGotW67IYw0b+y8EU6oEa9WTvpG8dYIKpiaz4eucaFk7cH61NWneJSgAzYwHoKyn5Yc
-	Xdrrj7rfP+3JzHl6kA8Icpt6iUaVep2Kg893NCzsMvn2gb391cSOxB3VaJqhEh3Kc+xzkuYzqiG
-	DzBBLfPr9D/OPFuNIFFpyRSLdc+WSrRVVo0ckfu6Izs9fHWCJoGXGIbSrRPGrPa16xtRt6efR4e
-	JuWtlC4Kn2fWoq2hqABFcVM+h1yBEzrz3wcZpjcHFI6JVff2S9guNYOyZtg6oLMVcSud+6kYXdy
-	Tty4Jxk99eTZ3ysSFzmYzZKazfaMZsLU9ZXUruuUyu/iSnVUJWZ44EmGgMKK2/U0T7imsRcWy0v
-	cWeoqP3nZWgnrvgFmtopEXjW02b0adJCl/TfR/xp7WRzxQLNnevlGpagvnXuER7G4oUN4+kUnvl
-	Aa5iGbO71r/lBxY9jd6
-X-Received: by 2002:a17:907:398f:b0:c29:f199:5fa7 with SMTP id a640c23a62f3a-c2e4af87abemr808224266b.44.1791186759326;
-        Mon, 05 Oct 2026 00:52:39 -0700 (PDT)
-Received: from gentoo (m-37-0-164-22.cust.tele2.lt. [37.0.164.22])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c3157ec8c0esm21330266b.44.2026.10.05.00.52.37
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 05 Oct 2026 00:52:39 -0700 (PDT)
-From: Rokas Juras <asrokasjuras@gmail.com>
-To: netdev@vger.kernel.org
-Cc: andrew+netdev@lunn.ch,
-	davem@davemloft.net,
-	edumazet@kernel.org,
-	kuba@kernel.org,
-	pabeni@redhat.com,
-	gregkh@linuxfoundation.org,
-	linux-usb@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH net] rndis_host: enable RX aggregation for OnePlus Nord CE 2
-Date: Mon,  5 Oct 2026 10:48:52 +0300
-Message-ID: <20261005074852.76818-1-asrokasjuras@gmail.com>
-X-Mailer: git-send-email 2.55.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="EEX+P8CP"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CB9521F000FF;
+	Mon,  5 Oct 2026 07:53:09 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791186793;
+	bh=p8pB98yXVn3emMjSSVc5iGuD87aD74hXLFXwrp1IR14=;
+	h=In-Reply-To:References:Subject:From:To:Cc:Date;
+	b=EEX+P8CPFeqWLSN59RzmGW3okJrWBjL6X4WZQ29o3f4Nq0tIqMaqJhXpenBYRESYX
+	 yLr/6vNkyiB/QVgs5zLCeYF1lZ/eWykY2jayP+n3JLO0BDVzLklA2oN66POyCpJ0M8
+	 ACoSS1yP91wzs2/kkXR6AGYVCW0G3/htMwHDa56r5fUmx5ZGlnI2TlDZval00GP2vd
+	 evxYEkphbACrDVnO3o/U/I9epZ0n8riPwtBTcw9qOkk/kHJh8Lw7KxjINSemSfbp9e
+	 jjBzb3UMLUYfwz81sU923vgWgmRmwclgx/rRb5kdSlzAN6+bKnYI9hvtvI9VL3OaWd
+	 EQXmRq8LXJ6Mw==
+Content-Type: multipart/mixed; boundary="===============0647874907332121866=="
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Message-Id: <3a4688cd7929354339fc61a5f4e8a0109e426a83097d9d9a2357ac6e3fe2c9ea@mail.kernel.org>
+In-Reply-To: <20261005070625.8871-4-kmehltretter@gmail.com>
+References: <20261005070625.8871-4-kmehltretter@gmail.com>
+Subject: Re: [RFC PATCH v2 3/3] selftests/bpf: exercise task storage from hrtimer_start
+From: bot+bpf-ci@kernel.org
+To: kmehltretter@gmail.com,peterz@infradead.org,tglx@linutronix.de,bigeasy@linutronix.de,akpm@linux-foundation.org,vbabka@kernel.org,harry@kernel.org,ast@kernel.org
+Cc: kmehltretter@gmail.com,mingo@redhat.com,will@kernel.org,boqun@kernel.org,longman@redhat.com,corbet@lwn.net,david@kernel.org,hannes@cmpxchg.org,shakeel.butt@linux.dev,stevensd@google.com,daniel@iogearbox.net,andrii@kernel.org,martin.lau@linux.dev,shuah@kernel.org,ameryhung@gmail.com,swarajgaikwad1925@gmail.com,clrkwllms@kernel.org,rostedt@goodmis.org,linux-kernel@vger.kernel.org,linux-doc@vger.kernel.org,linux-mm@kvack.org,linux-rt-devel@lists.linux.dev,bpf@vger.kernel.org,linux-kselftest@vger.kernel.org,cgroups@vger.kernel.org,ast@kernel.org,andrii@kernel.org,daniel@iogearbox.net,martin.lau@kernel.org,eddyz87@gmail.com,yonghong.song@linux.dev,mason@kernel.org,ihor.solodrai@linux.dev
+Date: Mon,  5 Oct 2026 07:53:09 +0000 (UTC)
 
-USB tethering on the OnePlus Nord CE 2 (IV2201, USB ID 22d9:2766)
-running Android 13 has download speeds of approximately 2mbps
-with the default 2048-byte receive limit.
+--===============0647874907332121866==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
 
-The phone's published RNDIS code only enables packet batching
-when the computer reports a receive limit above 2048 bytes.
-Testing shows that increasing this limit to 2560 bytes
-restores normal speeds.
+> selftests/bpf: exercise task storage from hrtimer_start
 
-Add a quirk for USB device 22d9:2766 to use and advertise a
-receive buffer of at least 16 KiB. This fits the phone code's default
-batch of ten packets at a 1500-byte MTU.
+TL;DR: Test-organization question only: should the new hrtimer task-storage
+selftest be a subtest of task_local_storage.c instead of a separate file? The
+review finds the test logic correct and the standalone file defensible.
 
-Tested on 7.3.0-rc5 with the affected phone, including reconnecting
-USB tethering. Download speeds with the change exceed 100mpbs.
+> diff --git a/tools/testing/selftests/bpf/prog_tests/task_storage_hrtimer.c b/tools/testing/selftests/bpf/prog_tests/task_storage_hrtimer.c
+> new file mode 100644
+> index 000000000000..216e66263bf6
+> --- /dev/null
+> +++ b/tools/testing/selftests/bpf/prog_tests/task_storage_hrtimer.c
+> @@ -0,0 +1,50 @@
+> +// SPDX-License-Identifier: GPL-2.0
+> +#include <sys/timerfd.h>
+> +#include <unistd.h>
+> +
+> +#include <test_progs.h>
+> +#include "task_storage_hrtimer.skel.h"
+> +
+> +#define TRIGGER_COUNT 1000
+> +
+> +void test_task_storage_hrtimer(void)
+> +{
 
-Fixes: 7e99eeddb35c ("rndis_host: support WM6 devices as modems")
-Link: https://github.com/OnePlusOSS/android_kernel_oneplus_mt6877/blob/3c1e3d432d0c35afa7fded974b50fa6617219e0f/drivers/usb/gadget/function/f_rndis.c#L538-L551
-Link: https://github.com/OnePlusOSS/android_kernel_oneplus_mt6877/blob/3c1e3d432d0c35afa7fded974b50fa6617219e0f/drivers/usb/gadget/function/u_ether.c#L869-L874
-Assisted-by: LLM
-Signed-off-by: Rokas Juras <asrokasjuras@gmail.com>
+A subsystem pattern flags this as potentially concerning: this adds a new
+top-level test file for a narrow variant of behavior that an existing test
+in the same directory already covers more generally.
+
+prog_tests/task_local_storage.c already groups the general task-local
+storage tests as subtests, including test_nodeadlock(), backed by
+progs/task_storage_nodeadlock.c.  That subtest performs the same
+bpf_task_storage_get(..., BPF_LOCAL_STORAGE_GET_F_CREATE) followed by
+bpf_task_storage_delete() sequence and counts failures, just from a
+different hook (lsm.s/socket_post_create).
+
+The only difference here is the attach point, tp_btf/hrtimer_start, which
+reaches the task storage allocator under the hrtimer base raw lock on
+PREEMPT_RT.
+
+Should this be a new subtest of test_task_local_storage() instead of a
+separate prog_tests/task_storage_hrtimer.c?
+
+For balance, the standalone file may well be defensible.  It uses its own
+skeleton, as the existing task_local_storage.c subtests also do, so folding
+it in would mostly move the test function rather than share setup.  It also
+exercises a path that no existing selftest reaches: none of the current
+programs that use task storage attach to tracepoints emitted from inside the
+hrtimer code, and the programs that do use hrtimer tracepoints
+(timer_start_deadlock.c, test_vmlinux.c) do not use task storage.
+
+The test logic itself looks correct: the tp_btf prototype matches
+TP_PROTO(hrtimer, mode, was_armed), and timerfd_settime() with a non-zero
+it_value emits one trace_hrtimer_start under cpu_base->lock, so the counter
+assertions are consistent.
+
+
 ---
- drivers/net/usb/rndis_host.c   | 21 +++++++++++++++++++++
- include/linux/usb/rndis_host.h |  5 +++--
- 2 files changed, 24 insertions(+), 2 deletions(-)
+AI reviewed your patch. Please fix the bug or email reply why it's not a bug.
+See: https://github.com/kernel-patches/vmtest/blob/master/ci/claude/README.md
 
-diff --git a/drivers/net/usb/rndis_host.c b/drivers/net/usb/rndis_host.c
-index 37d4865f5..b001bc834 100644
---- a/drivers/net/usb/rndis_host.c
-+++ b/drivers/net/usb/rndis_host.c
-@@ -345,6 +345,11 @@ generic_rndis_bind(struct usbnet *dev, struct usb_interface *intf, int flags)
- 
- 	dev->rx_urb_size = dev->hard_mtu + (dev->maxpacket + 1);
- 	dev->rx_urb_size &= ~(dev->maxpacket - 1);
-+
-+	/* some devices require a receive limit above 2048 for RX aggregation */
-+	if (dev->driver_info->data & RNDIS_DRIVER_DATA_RX_AGGREGATION)
-+		dev->rx_urb_size = max_t(size_t, dev->rx_urb_size, 16 * 1024);
-+
- 	u.init->max_transfer_size = cpu_to_le32(dev->rx_urb_size);
- 
- 	net->netdev_ops = &rndis_netdev_ops;
-@@ -612,6 +617,17 @@ static const struct driver_info	rndis_info = {
- 	.tx_fixup =	rndis_tx_fixup,
- };
- 
-+static const struct driver_info	rndis_rx_aggregation_info = {
-+	.description =	"RNDIS device",
-+	.flags =	FLAG_ETHER | FLAG_POINTTOPOINT | FLAG_FRAMING_RN | FLAG_NO_SETINT,
-+	.data =		RNDIS_DRIVER_DATA_RX_AGGREGATION,
-+	.bind =		rndis_bind,
-+	.unbind =	rndis_unbind,
-+	.status =	rndis_status,
-+	.rx_fixup =	rndis_rx_fixup,
-+	.tx_fixup =	rndis_tx_fixup,
-+};
-+
- static const struct driver_info	rndis_poll_status_info = {
- 	.description =	"RNDIS device (poll status before control)",
- 	.flags =	FLAG_ETHER | FLAG_POINTTOPOINT | FLAG_FRAMING_RN | FLAG_NO_SETINT,
-@@ -649,6 +665,11 @@ static const struct driver_info	rndis_info_lowpower = {
- 
- static const struct usb_device_id	products [] = {
- {
-+	/* OnePlus Nord CE 2 */
-+	USB_DEVICE_AND_INTERFACE_INFO(0x22d9, 0x2766,
-+				      USB_CLASS_WIRELESS_CONTROLLER, 1, 3),
-+	.driver_info = (unsigned long)&rndis_rx_aggregation_info,
-+}, {
- 	/* 2Wire HomePortal 1000SW */
- 	USB_DEVICE_AND_INTERFACE_INFO(0x1630, 0x0042,
- 				      USB_CLASS_COMM, 2 /* ACM */, 0x0ff),
-diff --git a/include/linux/usb/rndis_host.h b/include/linux/usb/rndis_host.h
-index 489cfb1d0..3eaf57a9b 100644
---- a/include/linux/usb/rndis_host.h
-+++ b/include/linux/usb/rndis_host.h
-@@ -182,8 +182,9 @@ struct rndis_keepalive_c {	/* IN (optionally OUT) */
- #define FLAG_RNDIS_PHYM_WIRELESS	0x0002
- 
- /* Flags for driver_info::data */
--#define RNDIS_DRIVER_DATA_POLL_STATUS	1	/* poll status before control */
--#define RNDIS_DRIVER_DATA_DST_MAC_FIXUP	2	/* device ignores configured MAC address */
-+#define RNDIS_DRIVER_DATA_POLL_STATUS		1	/* poll status before control */
-+#define RNDIS_DRIVER_DATA_DST_MAC_FIXUP		2	/* device ignores configured MAC address */
-+#define RNDIS_DRIVER_DATA_RX_AGGREGATION	4	/* needs RX limit > 2048 */
- 
- extern void rndis_status(struct usbnet *dev, struct urb *urb);
- extern int
--- 
-2.55.0
-
+CI run summary: https://github.com/kernel-patches/bpf/actions/runs/37277547264
+--===============0647874907332121866==--
