@@ -1,108 +1,133 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CC0A33F3288;
-	Mon,  5 Oct 2026 10:54:03 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1E2704766A7;
+	Mon,  5 Oct 2026 10:54:04 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791197644; cv=none; b=G+vv7nMQXflWHnjEaDzOhC1yiOup3+ddbfpyABNHl2ECAHCVytgYRT/EH1ErCaHc1YMfBbNEtDJ0DQ6DPWGLdOJ0g2VeIeS9/xWPKuenx5EwST9lX2sTF8KnU8J+NDxI3jwm0AcCixGoOtUuDWutInd5G31t8RpU1reqyTLJTiY=
+	t=1791197645; cv=none; b=KSAkxTl/sH5Rzhpq1K3zpcxucUC5X8FKm3kHWHSivjw7IUFbeushINJ/+Pl2v5QBJ29W/UVuemYJ03FqTvBFzpk0Kb5eRpe5jiHOU7VuKwxs90reP6CoOPR8EQVgTeoXZtK1yIAYA5GMQ5j63pJ1CA1xpePPnmAhHEmfVO5CAwo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791197644; c=relaxed/simple;
-	bh=paPXWUYsnV7ykCsbiZzaQNLH27n/4AhlQ1LYPVddCFk=;
-	h=MIME-Version:Date:From:To:Cc:Message-Id:In-Reply-To:References:
-	 Subject:Content-Type; b=Xu/902t5b954/7uhSwyEytRK57Y8RJKVvdSLvfti3s1DP7W56/Hr8dQPh8n5nHbJtgVsQ6GWCpivi+jHtI1fW256N5OrxbbGREQXpcHwf/ul0kLqX8mlMlgqjAZ9ez0I00RnkHh3j89MvEomWAdldeXmoCY7OTHi+rgJmbGnhpI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hKTT4Ynj; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791197645; c=relaxed/simple;
+	bh=Jo1mU8+O8M1j1DxxhL38J2XFwPd5MPGjkNvak8PIuVk=;
+	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
+	 Content-Disposition; b=gU/9EC8/CTimDpzc12mJ+VzMxr4EPd3jotbQmGno90kwW50ZbYSuCdyAotMpW3fpOwpYa1mjYKz/tmNRn5Gz1Fir151Yh0/czCkH3kBk0siSLXLhYkfeqWZFKk367MFDn4V9C2TtCNHltm65LPMBbe3nAZ4+MWXRBEXqdPEqcEw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=I4dCQcsC; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hKTT4Ynj"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AD2BB1F00893;
-	Mon,  5 Oct 2026 10:54:02 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="I4dCQcsC"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BBF4E1F0089A;
+	Mon,  5 Oct 2026 10:54:03 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
 	s=k20260515; t=1791197643;
-	bh=X9RFb/buyI8n2HPvTUKM+p0nQi/e6u6dw5s7YNwYpLc=;
-	h=Date:From:To:Cc:In-Reply-To:References:Subject;
-	b=hKTT4YnjfZafPj+ObvqjmrunS+uFiUV135chM3/vA4scqWvWKearR9W41Mp4TtR+4
-	 +1E0dNGv50O2KZss1Ma0Gv9qk8hrmYhiIZ0j6HcYlxGmygvGAIdHiFshJ1+zd+dtL9
-	 HLN0lSDj/Qvptb3zAMrXFFkl7NHykX/5wxL/mn3/MNVxqsw+t82r7vxRv9tZvjihC/
-	 bYzsTjIMd/o9Ox5O2Ak2CiKGyfsx/vv1d9sGs1AMUIFluaNuNZsI+zOWvJuVn1jLPi
-	 F435tAIhPrpgfJ7fjVnLp48laYoPb/84SZdm4SAvlaoH6aYUrgPZnuHPeeGCmVk3Fc
-	 3PoQTxAnFg8EA==
-Received: from ams-compute-02.internal (ams-compute-02.internal [10.64.2.62])
-	by mailfauth.ams.internal (Postfix) with ESMTP id CA6AA1980047;
-	Mon,  5 Oct 2026 06:54:00 -0400 (EDT)
-Received: from ams-imap-11 ([10.64.2.31])
-  by ams-compute-02.internal (MEProxy); Mon, 05 Oct 2026 06:54:00 -0400
-X-ME-Sender: <xms:xoHDavkTYBY79n2X673zo853Qa_bdqs7aTHhEnQTyy8DTNK3pReLHQ>
-    <xme:xoHDatoK9QuqOVeSVVV_do1ckRhU4Tn8FUPYbUpPhsokqaHUAstFoye7nJgUZhope
-    aW8ws6ZFKCAXQWFZ8TJTapm6ZvJTgExi1RkbyQoLkVx6hYM2W2k3kY>
-X-ME-Proxy-Cause: dmFkZTGLdks8gB5Qx52BxQMp2/Yz0QHw5YjDPkSdp5TVhyLY6N1QLaTIp3WlWwACde0uTa
-    BW/cgz4w3Ngk+7Dz590jcvc/Jlsa8+h8dlnnRkMjcj9dHpnhfjYs0Pe9lGJzr2bi6xuEEx
-    ug7LDOpWoA17Q+yMpPx9AjIn53uNCUdtNogGRkAScebNJG1rGch4dmbUmpheHwaZ1+RA8s
-    r2dayGEuj6i0XAOQh/7+s7xTGHzks1ootpmN8phOQ4gusqHwJqyy4YSOR8g7SMUTiVlbqa
-    UJ2iDm6MN4R9tpj+pjQpGao33nGpLApaJG3edt4wmWkRXoV9AbA9Wkm3kAAoIQlKvmpGp7
-    HMds26gPzwLhslCAvmDcGPGD/pyAWDiP9WPANbErSY1951zw/fEy7rD5Lb5V5jy+qeAN/9
-    OfJVzSPLLIUUeA0hjttWMZFhqTS0cf1uMpNBzj0+4TQ2Oo6VDWD5euJpdo5AlDdqOvecKw
-    0N2yUin/mAyewFOHpQNYcJA9cgI42Mfi4CQriNOR/ND+mJ+7eL8b5RcbCQYkiCyjDUYKYz
-    3oHj8OHFybwR+PdDNcYqPMkdTqcjcbO0RV1W6j5/gvwaPTMnQL7skNEbxf8Ly54W/kZEZB
-    KizkWF9JaM+o1ZvI3qnn0RcZiSS84ziaGIX13aJR02vvfJxSb1v+XMhaVFQg
-X-ME-Proxy: <xmx:yIHDahXmHc2v2zh3U__P_pVXnIVgy0G0vyT6sop-aS_k6GEEOr8ybw>
-    <xmx:yIHDar_pAgthej9WeR11jtT4SIP7NbiEpzi6jwhDRRlSWBtHejTYxg>
-    <xmx:yIHDajjAGRk55Ye8y4d22eyGrs2A6kvvRLN_tG7ikoOexV3zmYLsew>
-    <xmx:yIHDavdLsLF-GNY4GTJQs6EjULKFqtzoG0hkQ0ais2TLhZtj53AewA>
-    <xmx:yIHDakJHL9oVYivuwruHtD9uYFTsiQ-n8o7PpMsNHfRVC0wmn0WUjtZk>
-Feedback-ID: ice86485a:Fastmail
-Received: by mailuser.ams.internal (Postfix, from userid 501)
-	id 3A33AF80086; Mon,  5 Oct 2026 06:53:58 -0400 (EDT)
-X-Mailer: MessagingEngine.com Webmail Interface
+	bh=PkWMPEeQmQFDxxmbrkJ9DHwD02vrhosTFTc+pj9bTAc=;
+	h=Date:From:To:Cc:Subject;
+	b=I4dCQcsCpm4V4XE8liVPcNVqb1O5XJFcFRctha3b9XH+CgG1CzPABI5hMvmkMFTVJ
+	 gKJugYMNt8FFGWOlnI+pskqkkGCtvOHrm9i5ASsK1wgFpA/aUlhXCJ51wmJMWDhEvs
+	 ZeKYQfl5ESRei9RyHRGLCAA4Km3VZ35JCWWDIPAllEzjpLN9qZ0pT5oUvt9bEpJVvx
+	 DzqMdEI7pV9OIBzrESKb3MKDJ7nO4LUOaKzKmDxJLOhZZ7qJjmy/R2H89bywXp6e5S
+	 Q0nUPb+0IlQckYsMqOufn0KSo202isyZjVxLdbYulRx0dAniwbRPSGVzXxCnOhA4jA
+	 2GZWfTtIhufZw==
+Received: by finisterre.sirena.org.uk (Postfix, from userid 1000)
+	id BC7101AC57CE; Mon, 05 Oct 2026 11:54:00 +0100 (BST)
+Date: Mon, 5 Oct 2026 12:54:00 +0200
+From: Mark Brown <broonie@kernel.org>
+To: Dave Airlie <airlied@redhat.com>, DRI <dri-devel@lists.freedesktop.org>
+Cc: Alex Deucher <alexander.deucher@amd.com>, Alex Hung <alex.hung@amd.com>,
+	Ivan Lipski <ivan.lipski@amd.com>,
+	Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+	Linux Next Mailing List <linux-next@vger.kernel.org>,
+	Ray Wu <ray.wu@amd.com>, Sasha Levin <sashal@kernel.org>,
+	Wenjing Liu <wenjing.liu@amd.com>
+Subject: linux-next: manual merge of the drm tree with the origin tree
+Message-ID: <asOByBk2DUB9J4qI@sirena.co.uk>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Date: Mon, 05 Oct 2026 12:53:36 +0200
-From: "Ard Biesheuvel" <ardb@kernel.org>
-To: "Bill Wendling" <morbo@google.com>, "Kees Cook" <kees@kernel.org>
-Cc: "Gustavo A. R. Silva" <gustavoars@kernel.org>,
- "Nathan Chancellor" <nathan@kernel.org>,
- "Nick Desaulniers" <ndesaulniers@google.com>,
- "Justin Stitt" <justinstitt@google.com>, "Mark Brown" <broonie@kernel.org>,
- "Marco Elver" <elver@google.com>, alan.maguire@oracle.com,
- namjain@linux.microsoft.com, "Peter Zijlstra" <peterz@infradead.org>,
- linux-kernel@vger.kernel.org, linux-hardening@vger.kernel.org,
- llvm@lists.linux.dev
-Message-Id: <ea6e022d-e04b-42e7-b526-ac96559b3633@app.fastmail.com>
-In-Reply-To: <20261005102518.2400984-1-morbo@google.com>
-References: <20261005102518.2400984-1-morbo@google.com>
-Subject: Re: [PATCH] compiler_types: Allow opting out of __counted_by and
- __counted_by_ptr
-Content-Type: text/plain
-Content-Transfer-Encoding: 7bit
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="e7PHVkRnAXL2h9S0"
+Content-Disposition: inline
 
-Hi Bill,
 
-On Mon, 5 Oct 2026, at 12:25, Bill Wendling wrote:
-> Code that runs outside the kernel proper, such as the EFI stub, gets
-> nothing out of the counted_by annotations: the bounds checks they feed
-> (FORTIFY_SOURCE, UBSAN_BOUNDS) are already disabled there.
->
-> The annotations can also break the build. A __counted_by_ptr() that
-> names a member declared after the pointer needs Clang's
-> '-fexperimental-late-parse-attributes', which the top-level Makefile
-> adds to 'KBUILD_CFLAGS'. The x86 EFI stub builds its own cflags and does
-> not get that flag, so it fails as soon as such a struct is pulled in
-> through a common header.
->
-> Overriding the macros from a Makefile doesn't work:
-> 'compiler_types.h' is pulled in with '-include', which is processed
-> after all -D/-U options, so it re-establishes the definitions. Follow
-> the '__NO_FORTIFY' precedent instead: let a build define
-> '__NO_COUNTED_BY' or '__NO_COUNTED_BY_PTR' to turn the corresponding
-> annotation into a no-op.  The two are kept separate but parallel so they
-> can be folded together once all supported compilers handle
-> '__counted_by' on pointers.
->
+--e7PHVkRnAXL2h9S0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-I'd prefer a single macro here - if there is ever a case where we need to
-turn off one but not the other, we can revisit.
+Hi all,
 
-Otherwise, this looks good to me - thanks.
+Today's linux-next merge of the drm tree got conflicts in:
+
+  drivers/gpu/drm/amd/display/dc/dml2_0/Makefile
+  drivers/gpu/drm/amd/display/dc/dml/Makefile
+
+between commits:
+
+  18779dd84515d ("drm/amd/display: Bump frame warning limit for clang build=
+s of dml")
+  15814c01ac576 ("drm/amd/display: Bump frame warning limit for all builds =
+of dml")
+  fbc988f236a60 ("drm/amd/display: Fix sanitizer check for the DML frame si=
+ze limit")
+
+=66rom the origin tree and commits:
+
+  7e3422ee337f9 ("drm/amd/display: Add dml2_core_dcn6_calcs function pointe=
+r table")
+  ebf8b0fd8508b ("drm/amd/display: Relax DML frame limit with UBSAN")
+  21711b6e66bb7 ("drm/amd/display: Bump frame warning limit for clang build=
+s of dml")
+  76b9706e7fa1a ("drm/amd/display: Bump frame warning limit for all builds =
+of dml")
+
+=66rom the drm tree.
+
+I fixed it up (see below) and can carry the fix as necessary. This
+is now fixed as far as linux-next is concerned, but any non trivial
+conflicts should be mentioned to your upstream maintainer when your tree
+is submitted for merging.  You may also want to consider cooperating
+with the maintainer of the conflicting tree to minimise any particularly
+complex conflicts.
+
+diff --cc drivers/gpu/drm/amd/display/dc/dml/Makefile
+index eb4ce5b1ecfbb,91465ac05c971..0000000000000
+--- a/drivers/gpu/drm/amd/display/dc/dml/Makefile
++++ b/drivers/gpu/drm/amd/display/dc/dml/Makefile
+@@@ -29,7 -29,7 +29,7 @@@ dml_ccflags :=3D $(CC_FLAGS_FPU
+  dml_rcflags :=3D $(CC_FLAGS_NO_FPU)
+ =20
+  ifneq ($(CONFIG_FRAME_WARN),0)
+-     ifneq ($(filter y,$(CONFIG_KASAN) $(CONFIG_KCSAN) $(CONFIG_UBSAN)),)
+ -    ifeq ($(filter y,$(CONFIG_KASAN)$(CONFIG_KCSAN)$(CONFIG_UBSAN)),y)
+++    ifneq ($(filter y,$(CONFIG_KASAN)$(CONFIG_KCSAN)$(CONFIG_UBSAN)),y)
+          ifeq ($(CONFIG_CC_IS_CLANG)$(CONFIG_COMPILE_TEST),yy)
+              frame_warn_limit :=3D 4096
+          else
+diff --cc drivers/gpu/drm/amd/display/dc/dml2_0/Makefile
+index 289bac08c82c1,e8bd061be05c1..0000000000000
+--- a/drivers/gpu/drm/amd/display/dc/dml2_0/Makefile
++++ b/drivers/gpu/drm/amd/display/dc/dml2_0/Makefile
+@@@ -28,7 -28,7 +28,7 @@@ dml2_ccflags :=3D $(CC_FLAGS_FPU
+  dml2_rcflags :=3D $(CC_FLAGS_NO_FPU)
+ =20
+  ifneq ($(CONFIG_FRAME_WARN),0)
+-     ifneq ($(filter y,$(CONFIG_KASAN) $(CONFIG_KCSAN) $(CONFIG_UBSAN)),)
+ -    ifeq ($(filter y,$(CONFIG_KASAN)$(CONFIG_KCSAN)$(CONFIG_UBSAN)),y)
+++    ifneq ($(filter y,$(CONFIG_KASAN)$(CONFIG_KCSAN)$(CONFIG_UBSAN)),y)
+          ifeq ($(CONFIG_CC_IS_CLANG)$(CONFIG_COMPILE_TEST),yy)
+              frame_warn_limit :=3D 4096
+          else
+
+--e7PHVkRnAXL2h9S0
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iHUEABYKAB0WIQReagvpf3TrrA7BoYYv73Ows9A4iQUCasOBuQAKCRAv73Ows9A4
+iYBRAQDXmlRyfO8Z5gFoo30c29J/qYNzLn9V8jA40CgY529xqwD8CiQzIIHF09hG
+2raGdkXpyzV5a5YZEv/O775dhET0MQg=
+=ZkUC
+-----END PGP SIGNATURE-----
+
+--e7PHVkRnAXL2h9S0--
