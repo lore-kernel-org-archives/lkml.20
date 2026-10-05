@@ -1,61 +1,108 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mail.netfilter.org (mail.netfilter.org [217.70.190.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2F1EF3EC82D;
-	Mon,  5 Oct 2026 21:18:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6E3C43EDE57;
+	Mon,  5 Oct 2026 21:20:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.70.190.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791235136; cv=none; b=eSM84vnigRy92ia3bkL2q5gAmeTLqr+RVS48bkupAtcLbVvny/bVOIoQtmN0HO5Kwr+7vWmWpGTeCExXzgUPWSNwb0gF8zQexOE70CtKz8Z8Kq7z+UFzbBEsBYviNWpX7xsz3Csjh2pMuisEqVSjpB1/SOkwkzdR2SGYvcfy6L4=
+	t=1791235261; cv=none; b=PYEZal3GUHMuAZ44TxWRvzBL2L+erlLuRNILTwfacDwDYJn5Op4UxwyUpqzT2M/HVJ+B2ca4pLOChGYm1xVvefOQWqoTzU60ciAkh8tbgsodDGJqq2RWG/AyuiJUGczRv6zOr8lOXExTCnsPazJbXNowvexxQ2CAAoGzzuOKmWQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791235136; c=relaxed/simple;
-	bh=vRsYo0wkKnNQnOT4mtIV+Z9lDQm1mC7uC/SG0UxRKWo=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=aRQdS2bVzfKVMxiSrsgiMVWlX3pk5fmFItIDVHVohhpoN1Cx+0ZpiYmNz3IIDcxDt+DnGVzDUd6rlMY0jCt20lDOiAm4H7AwwNCjiWzoXY857Xi9TzMUsRpBs3rz91Npe7xGkpzV6BzLC2RY1V5ASKFclAHGDXoBzMuo5ge6ztc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=oF6+THh3; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791235261; c=relaxed/simple;
+	bh=D2pPu3n9s9LnqNHido/tw+DSajEQeFC/BGgpQoBc4WI=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=tVkmV4pXFpZT2eg2dItDgjm0YK4kGvlX5noS74/jEDZnEVbMaDPwz9w8iNv3ezgGDjNHUHzy5z7iDZQ0Tqp21nhD3grdakekiGJ8082U5nN5OURy+a2SrUnPUROniuMLKYvyWgcEeAE9gCuaGhGjmXhnHBLh4fhJSfU+wEYwmBw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=netfilter.org; spf=pass smtp.mailfrom=netfilter.org; dkim=pass (2048-bit key) header.d=netfilter.org header.i=@netfilter.org header.b=B3WfefxA; arc=none smtp.client-ip=217.70.190.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=netfilter.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=netfilter.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="oF6+THh3"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8D0CF1F000FF;
-	Mon,  5 Oct 2026 21:18:51 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791235131;
-	bh=XZOxIri3ww3bedA7hdQqfiZk8oMD9FYJ6/aNOkgIZeg=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=oF6+THh3hi44S0oG2/xEhLocfjSwOHufDfRJ4Ism+K2r8lFt49OEOo1IN4FIfZRNX
-	 FTbm3nznEZuNbkB1xVHuNss5zEmT0k1MtvoCfWagGTORsRtGigCWNBPm+EydbSiCyF
-	 NxV4qVlCtm+Rt+c2L7afJD/xI4zGgdCxwOLArApCfh+ZWjAvsVuMc4WYDUM6tR3Hvq
-	 Nx40DNtttRBVq+BFgd4QfcZUYdi0tUyY6AV51S7pT8tQldkQfmG6p4qVOXDy5Ku0GB
-	 SvsawBMUkE9PvIPBpOz7+czvcQTzaVZlLsXDVdkThAmtfDEHUBFsfJSyFVXiNDXp0Y
-	 SrlWz4FrBukMw==
-Date: Mon, 5 Oct 2026 14:18:50 -0700
-From: Jakub Kicinski <kuba@kernel.org>
-To: Gabriel Goller <g.goller@proxmox.com>
-Cc: Andrea Mayer <andrea.mayer@uniroma2.it>, "David S. Miller"
- <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, Paolo Abeni
- <pabeni@redhat.com>, Simon Horman <horms@kernel.org>,
- netdev@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v4] net: ipv6: seg6: report lwtunnel setup errors via
- extack
-Message-ID: <20261005141850.278fdefb@kernel.org>
-In-Reply-To: <20261005140637.644840-1-g.goller@proxmox.com>
-References: <20261005140637.644840-1-g.goller@proxmox.com>
+	dkim=pass (2048-bit key) header.d=netfilter.org header.i=@netfilter.org header.b="B3WfefxA"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=netfilter.org;
+	s=2025; t=1791235256;
+	bh=hMImMHdFPmaPXwylUEh+oYDb/6Sc2OxqrAPjmMlbPZw=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=B3WfefxA4TXeIwa7LpAsEaqROd4QWbL/9O8UubQ6XMh3CUbjBVTXodm2u9MGlKLAA
+	 KsEnFeb2/1jIktjUmHpT/qBRt3rQikjDe0ZOMC2/KUCnpQbdR2s0J6KJTMx2fDlkuo
+	 8UjQNgV0W2LGw9HutzGK8y7yBb8yunCnyDRxlDy3lZE6s/RtsxaPcPa7FXNdjKE8n3
+	 XDgnAjG3qnpTMh6P+5mOEZGyejwwjjp/3hTsgty8zdcq0XIlQu7Jk3Anl0ZibqGvtI
+	 k4dOX5p+II3ysB+QyZrt5O6kUCikZs5UGylUPZfpY01wLL+m7BiZpt2G9cVtzePqLM
+	 T9GkRzPCKFZfQ==
+Received: from netfilter.org (mail-agni [217.70.190.124])
+	by mail.netfilter.org (Postfix) with UTF8SMTPSA id BD2596005F;
+	Mon,  5 Oct 2026 23:20:56 +0200 (CEST)
+Date: Mon, 5 Oct 2026 23:20:53 +0200
+From: Pablo Neira Ayuso <pablo@netfilter.org>
+To: =?utf-8?B?SsOpcsOpbXk=?= Jean <Jeremy.Jean@oss.cyber.gouv.fr>
+Cc: Florian Westphal <fw@strlen.de>, Phil Sutter <phil@nwl.cc>,
+	netfilter-devel@vger.kernel.org, coreteam@netfilter.org,
+	netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH nf] netfilter: nft_set_rbtree: reject expired interval
+ ends
+Message-ID: <asQUte0AcCGaTZcS@chamomile>
+References: <20261005200404.3544062-2-Jeremy.Jean@oss.cyber.gouv.fr>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20261005200404.3544062-2-Jeremy.Jean@oss.cyber.gouv.fr>
 
-On Mon,  5 Oct 2026 16:06:34 +0200 Gabriel Goller wrote:
-> seg6_build_state() rejected invalid configurations with a generic -EINVAL,
-> so "ip route add ... encap seg6 ..." always reported "Invalid argument".
+On Mon, Oct 05, 2026 at 08:04:05PM +0000, Jérémy Jean wrote:
+> Consider two ranges in a netfilter verdict map:
+> * keys 10-19 accept packets, and
+> * keys 30-39 jump to chain 'victim'.
+> Now, delete the end marker at 20. The lookup array now uses element 30
+> as the first range's end, so an INTERVAL_END query for key 15 returns
+> element 30, including its jump verdict and chain pointer. This can make
+> KASAN reports a UAF after the GC releases reference chain for 30 that
+> has expired:
 > 
-> Attach an extack message to each of them. The checks themselves and their
-> return values are unchanged.
+>   BUG: KASAN: slab-use-after-free in nft_verdict_dump+0xdd/0x110
+>   Read of size 8 at addr ff110000009dfb58 by task repro/50
+>   ...
+>   Call Trace:
+>   ...
+>    nft_verdict_dump+0xdd/0x110
+>    nft_data_dump+0x4d/0x80
+>    nf_tables_fill_setelem+0x30b/0x8a0
+>    ? __asan_memcpy+0x3c/0x60
+>    nf_tables_fill_setelem_info+0x1b0/0x200
+>    nft_get_set_elem+0x3fd/0x4b0
+>   ...
+>   Freed by task 24:
+>   ...
+>    kfree+0x1a5/0x280
+>    nf_tables_trans_destroy_work+0x2cb/0x520
+> 
+> Reject expired endpoints in nft_rbtree_get() before returning them.
+> 
+> Fixes: 2aa34191f06f ("netfilter: nft_set_rbtree: use binary search array in get command")
+> Cc: stable@vger.kernel.org
+> Assisted-by: LLM
+> Signed-off-by: Jérémy Jean <Jeremy.Jean@oss.cyber.gouv.fr>
+> ---
+>  net/netfilter/nft_set_rbtree.c | 2 ++
+>  1 file changed, 2 insertions(+)
+> 
+> diff --git a/net/netfilter/nft_set_rbtree.c b/net/netfilter/nft_set_rbtree.c
+> index 9894832..1fd9cbe 100644
+> --- a/net/netfilter/nft_set_rbtree.c
+> +++ b/net/netfilter/nft_set_rbtree.c
+> @@ -187,6 +187,8 @@ nft_rbtree_get(const struct net *net, const struct nft_set *set,
+>  	if (flags & NFT_SET_ELEM_INTERVAL_END) {
+>  		if (!interval->to)
+>  			return NULL;
+> +		if (nft_set_elem_expired(interval->to))
+> +			return ERR_PTR(-ENOENT);
 
-Why not use _MISS were appropriate?
+End elements carry no timeout set extension.
 
-https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261005140637.644840-1-g.goller@proxmox.com
--- 
-pw-bot: cr
+>  		rbe = container_of(interval->to, struct nft_rbtree_elem, ext);
+>  	} else {
+> -- 
+> 2.47.3
+> 
