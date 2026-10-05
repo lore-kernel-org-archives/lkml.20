@@ -1,134 +1,269 @@
-Received: from shelob.surriel.com (shelob.surriel.com [96.67.55.147])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6E0D54B95B2;
-	Mon,  5 Oct 2026 15:15:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=96.67.55.147
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D44B54C33EC
+	for <linux-kernel@vger.kernel.org>; Mon,  5 Oct 2026 15:16:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791213360; cv=none; b=p02mnJORyMc4/ebP8Mi1X/l08eJPTsWG0s0w9MvS1mnS5i4jA26FTK8bKcxRcYXoBur0GTs8753tyJ+d1Inu88kSYynnVQIcjSUVDk42UNKHbaaY6uE0z3xRZGlTiQxkaVa49RWARSIkXhxbQXjPUZ9pPmBu6NdnFBm97dRHXd4=
+	t=1791213363; cv=none; b=ko0Wr2c4un7+ehbt+5SwioHdwYE2+S7i+JnsO0rmJ4Zz8gTAkdpzW+grTL1PKlXBkszmmlrdeALWumed06wnLuwTcyYLW+BFNdpWCyOH+AshVBb5p5++7M/zhdhqfCd3zeaT7FKCZLXiLr2x6nmm/zKf29x68DM88QdJ7KRxDGw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791213360; c=relaxed/simple;
-	bh=uWQLeNOxsComWCIOqGdY0uS9YTS69A3nhBq06GXeH+E=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=NoWf6ygsTuH/RUEB5uigvMYsG0YaPy90NJuYEM2O6d8++TIoEQf1YEsPYsvV7supuEymSDnu3Pl2ayJhI1x700nMLniJyBxkwEwgCJZrNoV1UxuZM5KVJ4E76DbZkKyWR0Me4CFTd7+Bg5SbDQOipXVDz7cMJ7LcWiEGTpFaUi0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=surriel.com; spf=pass smtp.mailfrom=surriel.com; dkim=pass (2048-bit key) header.d=surriel.com header.i=@surriel.com header.b=Rwv/1DYq; arc=none smtp.client-ip=96.67.55.147
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=surriel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=surriel.com
+	s=arc-20240116; t=1791213363; c=relaxed/simple;
+	bh=di9sLD7L59euqQ5+ItFDihe1+WHuLOg9s6IkVVktlX4=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
+	 MIME-Version:Content-Type; b=olJwjBVghAebEBYHSSgshLLJDvNbTyZAxhv/wi0VuMqkPOHGuyI8f28hPkPYvSI/NFpmvP3Ai3vipXebJ0wQd07AwXIZhJowfKy47o61h3uhd03l/Q4q3OirYNDYsEHGRWHnvc77PwjoHxhRMo7vRA0UguupgRd7V+VvDxJHwII=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=Z/cwPz6g; arc=none smtp.client-ip=74.125.225.141
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=surriel.com header.i=@surriel.com header.b="Rwv/1DYq"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=surriel.com
-	; s=mail; h=MIME-Version:Content-Transfer-Encoding:Content-Type:References:
-	In-Reply-To:Date:Cc:To:From:Subject:Message-ID:Sender:Reply-To:Content-ID:
-	Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
-	:Resent-Message-ID; bh=uWQLeNOxsComWCIOqGdY0uS9YTS69A3nhBq06GXeH+E=; b=Rwv/1D
-	YqKojMzxXW7ifrzuve7WNNLOz8yEFDnFY28bdQt5PWOR5qJVU4aisH7HmK3u+OvWd85CauHKjaqmC
-	0xTO1p/FQyfpXpReEJAbbKMwuixRr2FWrk/SkPcLdfY4Vzd2sprhB7ie4zm1H8jW3N8XFeNhBU4eQ
-	U0Ob1AqZ7r7xDdYF7iHr+RN3CPnScOd+e43XOxebhoCrZLdqbqz8w2fGPJRPIur6sidp73N4upKOj
-	+WFv99sRd4SooCprqq2NGRFV+d1nPTXZbaZIYBQiTxQcz5Y2wH9ik4cwUrkDHg2TWer7OFMihS0WQ
-	rWbrIUZZYruaGAQIPqpUH0/JQgYw==;
-Received: from [2601:18c:8100:a0e0:2541:b86e:2586:d219]
-	by shelob.surriel.com with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
-	(Exim 4.99.5)
-	(envelope-from <riel@surriel.com>)
-	id 1xDkPN-00000006JzU-1Y0n;
-	Mon, 05 Oct 2026 15:15:17 +0000
-Message-ID: <4686fbed54796cbd32b5d524938d9cde184ca501.camel@surriel.com>
-Subject: Re: [PATCH 1/1] x86/mm: fix incomplete page-table invalidation with
- TCE
-From: Rik van Riel <riel@surriel.com>
-To: Lance Yang <lance.yang@linux.dev>, dave.hansen@linux.intel.com
-Cc: luto@kernel.org, peterz@infradead.org, tglx@kernel.org,
- mingo@redhat.com, 	bp@alien8.de, x86@kernel.org, hpa@zytor.com,
- linux-kernel@vger.kernel.org, 	qi.zheng@linux.dev, nadav.amit@gmail.com,
- thomas.lendacky@amd.com, 	kernel-team@meta.com, linux-mm@kvack.org,
- akpm@linux-foundation.org, 	brendan.jackman@linux.dev, jannh@google.com,
- mhklinux@outlook.com, 	andrew.cooper3@citrix.com, Manali.Shukla@amd.com,
- mingo@kernel.org, 	stable@vger.kernel.org, toshi.kani@hpe.com,
- david@kernel.org, 	mikhail.v.gavrilov@gmail.com, pfalcato@suse.de
-Date: Mon, 05 Oct 2026 11:15:17 -0400
-In-Reply-To: <20261005052302.43042-1-lance.yang@linux.dev>
-References: <20261005052302.43042-1-lance.yang@linux.dev>
-Autocrypt: addr=riel@surriel.com; prefer-encrypt=mutual;
- keydata=mQENBFIt3aUBCADCK0LicyCYyMa0E1lodCDUBf6G+6C5UXKG1jEYwQu49cc/gUBTTk33A
- eo2hjn4JinVaPF3zfZprnKMEGGv4dHvEOCPWiNhlz5RtqH3SKJllq2dpeMS9RqbMvDA36rlJIIo47
- Z/nl6IA8MDhSqyqdnTY8z7LnQHqq16jAqwo7Ll9qALXz4yG1ZdSCmo80VPetBZZPw7WMjo+1hByv/
- lvdFnLfiQ52tayuuC1r9x2qZ/SYWd2M4p/f5CLmvG9UcnkbYFsKWz8bwOBWKg1PQcaYHLx06sHGdY
- dIDaeVvkIfMFwAprSo5EFU+aes2VB2ZjugOTbkkW2aPSWTRsBhPHhV6dABEBAAG0HlJpayB2YW4gU
- mllbCA8cmllbEByZWRoYXQuY29tPokBHwQwAQIACQUCW5LcVgIdIAAKCRDOed6ShMTeg05SB/986o
- gEgdq4byrtaBQKFg5LWfd8e+h+QzLOg/T8mSS3dJzFXe5JBOfvYg7Bj47xXi9I5sM+I9Lu9+1XVb/
- r2rGJrU1DwA09TnmyFtK76bgMF0sBEh1ECILYNQTEIemzNFwOWLZZlEhZFRJsZyX+mtEp/WQIygHV
- WjwuP69VJw+fPQvLOGn4j8W9QXuvhha7u1QJ7mYx4dLGHrZlHdwDsqpvWsW+3rsIqs1BBe5/Itz9o
- 6y9gLNtQzwmSDioV8KhF85VmYInslhv5tUtMEppfdTLyX4SUKh8ftNIVmH9mXyRCZclSoa6IMd635
- Jq1Pj2/Lp64tOzSvN5Y9zaiCc5FucXtB9SaWsgdmFuIFJpZWwgPHJpZWxAc3VycmllbC5jb20+iQE
- +BBMBAgAoBQJSLd2lAhsjBQkSzAMABgsJCAcDAgYVCAIJCgsEFgIDAQIeAQIXgAAKCRDOed6ShMTe
- g4PpB/0ZivKYFt0LaB22ssWUrBoeNWCP1NY/lkq2QbPhR3agLB7ZXI97PF2z/5QD9Fuy/FD/jddPx
- KRTvFCtHcEzTOcFjBmf52uqgt3U40H9GM++0IM0yHusd9EzlaWsbp09vsAV2DwdqS69x9RPbvE/Ne
- fO5subhocH76okcF/aQiQ+oj2j6LJZGBJBVigOHg+4zyzdDgKM+jp0bvDI51KQ4XfxV593OhvkS3z
- 3FPx0CE7l62WhWrieHyBblqvkTYgJ6dq4bsYpqxxGJOkQ47WpEUx6onH+rImWmPJbSYGhwBzTo0Mm
- G1Nb1qGPG+mTrSmJjDRxrwf1zjmYqQreWVSFEt26tBpSaWsgdmFuIFJpZWwgPHJpZWxAZmIuY29tP
- okBPgQTAQIAKAUCW5LbiAIbIwUJEswDAAYLCQgHAwIGFQgCCQoLBBYCAwECHgECF4AACgkQznneko
- TE3oOUEQgAsrGxjTC1bGtZyuvyQPcXclap11Ogib6rQywGYu6/Mnkbd6hbyY3wpdyQii/cas2S44N
- cQj8HkGv91JLVE24/Wt0gITPCH3rLVJJDGQxprHTVDs1t1RAbsbp0XTksZPCNWDGYIBo2aHDwErhI
- omYQ0Xluo1WBtH/UmHgirHvclsou1Ks9jyTxiPyUKRfae7GNOFiX99+ZlB27P3t8CjtSO831Ij0Ip
- QrfooZ21YVlUKw0Wy6Ll8EyefyrEYSh8KTm8dQj4O7xxvdg865TLeLpho5PwDRF+/mR3qi8CdGbkE
- c4pYZQO8UDXUN4S+pe0aTeTqlYw8rRHWF9TnvtpcNzZw==
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.60.2 (3.60.2-1.fc44) 
+	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="Z/cwPz6g"
+Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-4a0977b9c20so24713895e9.2
+        for <linux-kernel@vger.kernel.org>; Mon, 05 Oct 2026 08:16:00 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=baylibre.com; s=google; t=1791213359; x=1791818159; darn=vger.kernel.org;
+        h=content-type:mime-version:message-id:date:references:in-reply-to
+         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=E6x/AsX38zbMGVV1Hr2xi2v0Hi8bQK/pkRp82/YE/O4=;
+        b=Z/cwPz6gOjPH2qGmog0V1op0cNOtj7fEu8Kc5JuI5cfp0g/4FVpPFN03PNEA1bVxIO
+         orLTtwSbnhLzStMtZ5dL5HI0g0W2/u2QL9hRLPFLE0RoGUWuWPtIeJApA5TPm4ZIKTyQ
+         vlnVev76/wpMF/y8F89L5HSV9029MLxsvF4mv3iC7gXop5OkAlaKHCrQN9QzFBW/EGKT
+         RcK6pKLWIQ378Cim1wxPu2cH5a1D0lxEcx4cAGCBUWHnwyTZXNy/YB99xNp98aZwXMoO
+         sxJBrMnHgUeyBIzx4p3v1WvdCNEKRbL4cQYuIRyoSC0K0VAROK7svoovkqkozPU81gia
+         cs3A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791213359; x=1791818159;
+        h=content-type:mime-version:message-id:date:references:in-reply-to
+         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=E6x/AsX38zbMGVV1Hr2xi2v0Hi8bQK/pkRp82/YE/O4=;
+        b=F5+mvpRI2qWmDA8++7utt3RKM4jUqErP360pCjNI/8U+rKk0/D4a/kEjWho7JPz23M
+         Pq6TgQatg0h3f0Tv+YFhgPJTtMNixMIEeT1f9HR/iOLwd2wOmaEMaG2glIMfQzPJGS3I
+         y88SaQeO/horUJWblWMv7kheokRSSfpZ8NmfElS5RCLu5oTKCXE1YBxU+fKxjynyj6O8
+         wC6u6Xer2WbkAzK8zKnKnLsLDhhCyVuKFonQ9R8Kn8cSQRHlNlHPCyETjVxjxrl5in63
+         qOcWZKPxSSHAeTFTWW5Nh90nbZB28w6ZtKIwR0GNDooZTy8zi1N2fS6hIQtsVbsmij66
+         HHlw==
+X-Forwarded-Encrypted: i=1; AKwUvBxCB4ojHeBNS3lt/fflvlU8bPf+lDrEqwo7KnVWhNkC8lpa8KLkNybcgqk/ivWJufWepMN57ha5bksyZgc=@vger.kernel.org
+X-Gm-Message-State: AFuF++mTllFUVUDE2S6AdzPNzJLIB9QKWu2xqvcqKBZD/qUNJbzETfy6
+	b4/A+eHf8x5SWuGMO1S0vlaR3YGdTUERUCmRJPLJ+wYbZ6wD7DZXjUefBXClbtRmDkA=
+X-Gm-Gg: AYBFou2xPCXm9qwb7ipSRtdG0lvvoMyh3J1NYaV9P/5tSHZUFI5kBNijUEruT/7K173
+	18XQshsZLW/DHIYhE4Veprh/snVn8DRfGdZyrtaAgMdeWu3NSj0/Hq5xcAE3xyMnaVgq2p3+Axw
+	+wCvYvS8m7Rz9Oas/a/ZiO8/BlEurlbzfmoMoDAfznHcw/12pilmaydNpSTRRb9jyw/nWOvQFt4
+	s7jGpWZFMQ1AP937oEy+id6L+TzuuVslNVxsPRAH/GJ9G9XQ5GvAcZH+O1FMiiRWjFqNvv79gJ4
+	CpRlrp/sj0n1hLo1TDdouxgqzdsZZEG8G79xI4wB91qTVYgFyVUlWKBBmu0HTR9/rhyB5kI1Eok
+	rDB5K/01sJ8gjX6Q/Yl/IIi/j3GEltIHp0+TDSzmiMSFkf74AA7cxMzGYl4BWRi1CHwMdeJ+vfX
+	AlXVCcuDGGP5bRGjlWD4X6hB4MLeSjm8jFQ1RqFV7HMs+gxRKqd3jiV/YX6HJvBcKKMp1GUc7Oo
+	KQYi2Y30SzGqMqM
+X-Received: by 2002:a05:600c:4594:b0:4a0:394f:d4d1 with SMTP id 5b1f17b1804b1-4a0394fd57bmr148733425e9.20.1791213358892;
+        Mon, 05 Oct 2026 08:15:58 -0700 (PDT)
+Received: from localhost (90-182-211-1.rcp.o2.cz. [90.182.211.1])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48c622bb17esm4076218f8f.45.2026.10.05.08.15.57
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 05 Oct 2026 08:15:58 -0700 (PDT)
+From: Jerome Brunet <jbrunet@baylibre.com>
+To: Sascha Hauer <s.hauer@pengutronix.de>
+Cc: Sascha Hauer <s.hauer@pengutronix.de>, Michael Turquette
+ <mturquette@baylibre.com>, Stephen
+ Boyd <sboyd@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof
+ Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Brian
+ Masney <bmasney+clk@redhat.com>, Jerome Brunet <jbrunet+clk@baylibre.com>,
+ linux-clk@vger.kernel.org, linux-kernel@vger.kernel.org,
+ devicetree@vger.kernel.org, kernel@pengutronix.de,
+ linux-gpio@vger.kernel.org, Sascha
+ Hauer <s.hauer@pengutronix.de>, Linus Walleij <linusw@kernel.org>, Alvin
+ =?utf-8?Q?=C5=A0ipraga?= <alvin.sipraga@analog.com>
+Subject: Re: [PATCH v9 2/2] clk: add TI CDCE6214 clock driver
+In-Reply-To: <97e38914-bd04-4e01-8e5a-a729dfe0c7f5@pengutronix.de>
+References: <20260921-clk-cdce6214-v9-0-f2ea74fd38a2@pengutronix.de>
+ <20260921-clk-cdce6214-v9-2-f2ea74fd38a2@pengutronix.de>
+ <1jcxu18xme.fsf@starbuckisacylon.baylibre.com>
+ <97e38914-bd04-4e01-8e5a-a729dfe0c7f5@pengutronix.de>
+Date: Mon, 05 Oct 2026 17:15:55 +0200
+Message-ID: <1j33uki3f8.fsf@starbuckisacylon.baylibre.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain
 
-On Mon, 2026-10-05 at 13:23 +0800, Lance Yang wrote:
-> pud_free_pmd_page() uses a single-address invalidation to flush the
-> paging-structure caches before freeing the page tables. With AMD TCE
-> enabled, this only invalidates upper-level entries associated with
-> the
-> target address. Cached PMD entries for other addresses in the PUD
-> range can
-> still reference the PTE pages being freed.
->=20
-> The AMD manual quoted in the commit enabling TCE says these
-> instructions
-> remove
->=20
-> =C2=A0 "only those upper-level entries that lead to the target PTE in the
-> page
-> =C2=A0 table hierarchy, leaving unrelated upper-level entries intact."
->=20
-> Even with all PTEs cleared, speculative page walks can cache present
-> PMD
-> entries after the earlier TLB purge.
+On Tue 29 Sep 2026 at 10:43, "Sascha Hauer" <s.hauer@pengutronix.de> wrote:
 
-The comment above the function says it all. The TLB
-range should already have been cleared by the time
-pud_free_pmd_page() gets called:
+> Hi Jerome,
+>
+> On 2026-09-25 11:54, Jerome Brunet wrote:
+>> > +
+>> > +#define R0	0
+>> > +#define RO_I2C_A0			BIT(15)
+>> > +#define RO_PDN_INPUT_SEL		BIT(14)
+>> > +#define RO_GPIO4_DIR_SEL		BIT(13)
+>> > +#define RO_GPIO1_DIR_SEL		BIT(12)
+>> > +#define RO_ZDM_CLOCKSEL			BIT(10)
+>> > +#define RO_ZDM_EN			BIT(8)
+>> > +#define RO_SYNC				BIT(5)
+>> > +#define RO_RECAL			BIT(4)
+>> > +#define RO_RESETN_SOFT			BIT(3)
+>> > +#define RO_SWRST			BIT(2)
+>> > +#define RO_POWERDOWN			BIT(1)
+>> > +#define RO_MODE				BIT(0)
+>> > +
+>> > +#define R1	1
+>> 
+>> I don't really get the point of those defines
+>
+> It was requested by Stephen [1]:
+>
+>> Maybe it would be better to have '#define R30 30' just so we can easily
+>> jump to the fields like R30_PLL_NDIV. I see that the datasheet doesn't
+>> give a name to these registers besides prefixing the decimal offset with
+>> the letter 'R'.
+>
+> I don't have any personal preference.
+>
+> [1] https://lore.kernel.org/all/e5858fe5d4276a735c5354e955358f27@kernel.org/
+>
 
-/**
- * pud_free_pmd_page - Clear PUD entry and free PMD page
- * @pud: Pointer to a PUD
- * @addr: Virtual address associated with PUD
- *
- * Context: The PUD range has been unmapped and TLB purged.
- * Return: 1 if clearing the entry succeeded. 0 otherwise.
- *
- * NOTE: Callers must allow a single page allocation.
- */
-int pud_free_pmd_page(pud_t *pud, unsigned long addr)
-{
+I've sync with him. keep it that way
 
-The PMD could have been (speculatively) loaded by the
-CPU after the PTEs were freed, so that one PMD mapping
-needs to be flushed here, but there should not be
-anything else left to flush.
+>> > +static int cdce6214_clk_out_set_parent(struct clk_hw *hw, u8 index)
+>> > +{
+>> > +	struct cdce6214_clock *clock = hw_to_cdce6214_clk(hw);
+>> > +	struct cdce6214 *priv = clock->priv;
+>> > +
+>> > +	switch (clock->index) {
+>> > +	case CDCE6214_CLK_OUT1:
+>> > +		regmap_update_bits(priv->regmap, R56, R56_CH1_MUX, FIELD_PREP(R56_CH1_MUX, index));
+>> > +		break;
+>> > +	case CDCE6214_CLK_OUT2:
+>> > +		regmap_update_bits(priv->regmap, R62, R62_CH2_MUX, FIELD_PREP(R62_CH2_MUX, index));
+>> > +		break;
+>> > +	case CDCE6214_CLK_OUT3:
+>> > +		regmap_update_bits(priv->regmap, R67, R67_CH3_MUX, FIELD_PREP(R67_CH3_MUX, index));
+>> > +		break;
+>> > +	case CDCE6214_CLK_OUT4:
+>> > +		regmap_update_bits(priv->regmap, R72, R72_CH4_MUX, FIELD_PREP(R72_CH4_MUX, index));
+>> > +		break;
+>> 
+>> Can you properly describe your clock rather than doing this sort of
+>> matching ?
+>
+> You mean something like:
+>
+> struct cdce6214_clk_data {
+>         unsigned int pd_reg;
+>         u32 pd_mask;
+>         unsigned int reg;
+>         u32 mux_mask;
+>         u32 div_mask;
+> };
+>
+> static const struct cdce6214_clk_data cdce6214_clk_data[CDCE6214_NUM_CLOCKS] = {
+>         [CDCE6214_CLK_OUT1] = {
+>                 .pd_reg = R4,
+>                 .pd_mask = R4_CH1_PD,
+>                 .reg = R56,
+>                 .mux_mask = R56_CH1_MUX,
+>                 .div_mask = R56_CH1_DIV,
+>         },
+>         ...
+> };
+>
+> If yes, I can do that.
 
-The code looks odd, but it's a good idea to always
-ask your AI to draw up a full chain of events for
-a bug to trigger, going all the way back to something
-calling the mm from the outside.
+The way you've done it above is duplication of code. Each clock appears
+to have an offset and a field, those data should be associated to clock
+then your function is just a single regmap_update_bits.
 
---=20
-All Rights Reversed.
+>
+>> > +static int cdce6214_get_psx_div(unsigned long rate, unsigned long parent_rate)
+>> > +{
+>> > +	unsigned int div = DIV_ROUND_CLOSEST(parent_rate, max(rate, 1UL));
+>> > +
+>> > +	return clamp(div, 4, 6);
+>> > +}
+>> 
+>> Can't you just use a regular divider operation ? split you clocks in
+>> different entities ?
+>
+> I can switch to use the generic divider helpers (divider_recalc_rate,
+> divider_determine_rate). Is that where you aiming at or do you want me
+> to register the clocks as composite clocks?
+
+No I don't mean composite, I mean use helper functions such has
+divider_determine_rate(), divider_recalc_rate(), etc ...
+
+>
+>> > +static int cdce6214_probe(struct i2c_client *client)
+>> > +{
+>> > +	struct device *dev = &client->dev;
+>> > +	struct cdce6214 *priv;
+>> > +	struct pinctrl_dev *pctl;
+>> > +	int ret;
+>> > +
+>> > +	priv = devm_kzalloc(dev, sizeof(*priv), GFP_KERNEL);
+>> > +	if (!priv)
+>> > +		return -ENOMEM;
+>> > +
+>> > +	priv->client = client;
+>> > +	priv->dev = dev;
+>> > +	i2c_set_clientdata(client, priv);
+>> > +	dev_set_drvdata(dev, priv);
+>> > +
+>> > +	priv->reset_gpio = devm_gpiod_get_optional(dev, "reset", GPIOD_OUT_LOW);
+>> > +	if (IS_ERR(priv->reset_gpio)) {
+>> > +		return dev_err_probe(dev, PTR_ERR(priv->reset_gpio),
+>> > +				     "failed to get reset gpio\n");
+>> > +	}
+>> > +
+>> > +	priv->regmap = devm_regmap_init_i2c(client, &cdce6214_regmap_config);
+>> > +	if (IS_ERR(priv->regmap))
+>> > +		return dev_err_probe(dev, PTR_ERR(priv->regmap),
+>> > +				     "failed to init regmap\n");
+>> > +
+>> > +	ret = cdce6214_configure(priv);
+>> > +	if (ret)
+>> > +		return ret;
+>> > +
+>> > +	ret = devm_pinctrl_register_and_init(dev, &cdce6214_pdesc, priv, &pctl);
+>> > +	if (ret)
+>> > +		return dev_err_probe(dev, ret, "pinctrl register failed");
+>> > +
+>> > +	ret = pinctrl_enable(pctl);
+>> > +	if (ret)
+>> > +		return dev_err_probe(dev, ret, "pinctrl enable failed");
+>> 
+>> It feels like it should an MFD driver. half the driver belong in pinctrl
+>
+> I'd rather not go that way as it means splitting a relatively straight
+> forward driver into three subsystems with different maintainers. Also it
+> means getting cross device dependencies right.
+
+... and then the trouble is for us maintainers to sort things out
+whenever the framework needs change.
+
+>
+> Taking "Multi Function Device" by its name it means it's a device with
+> multiple functions. The CDCE6214 is not that, it's only purpose is to
+> generate clocks, only that the pins need some configuration. Most other
+> devices of this type just have device specific properties in the device
+> tree for configuring their pins (which I was rightfully pushed away from
+> in earlier reviews).
+
+It may have a single purpose but it is still providing multiple functions
+and we will not have this pinctrl driver under clock. Please submit it
+to pinctrl where it will receive proper review and maintainance.
+
+IMO MFD is proper way to do it.
+
+>
+> Sascha
+>
+> -- 
+> Pengutronix e.K.                           |                             |
+> Steuerwalder Str. 21                       | http://www.pengutronix.de/  |
+> 31137 Hildesheim, Germany                  | Phone: +49-5121-206917-0    |
+> Amtsgericht Hildesheim, HRA 2686           | Fax:   +49-5121-206917-5555 |
+>
+
+-- 
+Jerome
