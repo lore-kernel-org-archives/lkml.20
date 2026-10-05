@@ -1,197 +1,134 @@
-Received: from smtp-outgoing-1801.laposte.net (smtp-outgoing-1801.laposte.net [160.92.124.102])
+Received: from shelob.surriel.com (shelob.surriel.com [96.67.55.147])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8D4334C151F
-	for <linux-kernel@vger.kernel.org>; Mon,  5 Oct 2026 15:15:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=160.92.124.102
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6E0D54B95B2;
+	Mon,  5 Oct 2026 15:15:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=96.67.55.147
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791213321; cv=none; b=HD7PKQmmV5qSrltj3zsczWhPdrUwtTRks4EpuIUamqAJz9nloLyKbRGOIwQ1VDWP8+zcN9n5SwTOysMPi5P7kIrxbA3ctP0C0ez9+YybwlUgsz9n7SpdKo2Qe1pfLHAkrHnTKHBPb4vJNTaQN2CbWk5kJOPiTl55CbvbrL+t8KA=
+	t=1791213360; cv=none; b=p02mnJORyMc4/ebP8Mi1X/l08eJPTsWG0s0w9MvS1mnS5i4jA26FTK8bKcxRcYXoBur0GTs8753tyJ+d1Inu88kSYynnVQIcjSUVDk42UNKHbaaY6uE0z3xRZGlTiQxkaVa49RWARSIkXhxbQXjPUZ9pPmBu6NdnFBm97dRHXd4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791213321; c=relaxed/simple;
-	bh=vQgNfaifqJBfWvhAJLZYmdCmSToBEbMrsQb5xsLkevc=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=hyxiVPMMAj+Di+bCtPSaitKOUkYDW3F9wKUx6H9ZBB7Ezg3wtmVaHv95vtTk5XUBNcVJHpj2Ft4I6x/KcRMHNtH0qx6gqb6kPs3TNeI0HM8ZK3sIIcCaxJ250lsagNglJUcZ96yN+kkiCZOZnNJtQ9Yk4AZwgjI6C+0spGO0OTo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=laposte.net; spf=pass smtp.mailfrom=laposte.net; dkim=pass (2048-bit key) header.d=laposte.net header.i=@laposte.net header.b=SbdTtjcu; arc=none smtp.client-ip=160.92.124.102
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=laposte.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=laposte.net
+	s=arc-20240116; t=1791213360; c=relaxed/simple;
+	bh=uWQLeNOxsComWCIOqGdY0uS9YTS69A3nhBq06GXeH+E=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=NoWf6ygsTuH/RUEB5uigvMYsG0YaPy90NJuYEM2O6d8++TIoEQf1YEsPYsvV7supuEymSDnu3Pl2ayJhI1x700nMLniJyBxkwEwgCJZrNoV1UxuZM5KVJ4E76DbZkKyWR0Me4CFTd7+Bg5SbDQOipXVDz7cMJ7LcWiEGTpFaUi0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=surriel.com; spf=pass smtp.mailfrom=surriel.com; dkim=pass (2048-bit key) header.d=surriel.com header.i=@surriel.com header.b=Rwv/1DYq; arc=none smtp.client-ip=96.67.55.147
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=surriel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=surriel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=laposte.net header.i=@laposte.net header.b="SbdTtjcu"
-X-mail-filterd: {"version":"1.9.7","queueID":"4hz0Gv1kZfz10MQR","contextId":
- "775944a0-e23f-4087-bb77-5e4c87d0348a"}
-Received: from outgoing-mail.laposte.net (localhost.localdomain [127.0.0.1])
-	by mlpnf0120.laposte.net (SMTP Server) with ESMTP id 4hz0Gv1kZfz10MQR;
-	Mon,  5 Oct 2026 15:14:47 +0200 (CEST)
-X-mail-filterd: {"version":"1.9.7","queueID":"4hz0Gt4y5Cz10MQN","contextId":
- "407ccb37-f746-4378-8a4c-0d794e65b55c"}
-X-lpn-mailing: LEGIT
-X-lpn-spamrating: 36
-X-lpn-spamlevel: not-spam
-Received: from PAR-95296130.bcg.com (unknown [147.161.232.172])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mlpnf0120.laposte.net (SMTP Server) with ESMTPSA id 4hz0Gt4y5Cz10MQN;
-	Mon,  5 Oct 2026 15:14:46 +0200 (CEST)
-From: Jean-Francois Bobier <jean-francois.bobier@laposte.net>
-To: linux-arm-msm@vger.kernel.org
-Cc: Rob Clark <robin.clark@oss.qualcomm.com>,
-	Dmitry Baryshkov <lumag@kernel.org>,
-	Abhinav Kumar <abhinav.kumar@linux.dev>,
-	Jessica Zhang <jesszhan0024@gmail.com>,
-	Sean Paul <sean@poorly.run>,
-	Marijn Suijten <marijn.suijten@somainline.org>,
-	Xilin Wu <sophon@radxa.com>,
-	Bjorn Andersson <andersson@kernel.org>,
-	Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
-	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
-	Sumit Garg <sumit.garg@oss.qualcomm.com>,
-	Saim Shujah <saimzst@gmail.com>,
-	Shawn Guo <shengchao.guo@oss.qualcomm.com>,
-	Geert Uytterhoeven <geert+renesas@glider.be>,
-	Yongxing Mou <yongxing.mou@oss.qualcomm.com>,
-	David Airlie <airlied@gmail.com>,
-	Simona Vetter <simona@ffwll.ch>,
-	dri-devel@lists.freedesktop.org,
-	freedreno@lists.freedesktop.org,
-	linux-kernel@vger.kernel.org,
-	Jean-Francois Bobier <jean-francois.bobier@laposte.net>
-Subject: [PATCH 2/3] drm/msm/dp: don't log an expected link-training fallback as errors
-Date: Mon,  5 Oct 2026 15:14:31 +0200
-Message-ID: <20261005131432.22840-3-jean-francois.bobier@laposte.net>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20261005131432.22840-1-jean-francois.bobier@laposte.net>
-References: <20261005131432.22840-1-jean-francois.bobier@laposte.net>
+	dkim=pass (2048-bit key) header.d=surriel.com header.i=@surriel.com header.b="Rwv/1DYq"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=surriel.com
+	; s=mail; h=MIME-Version:Content-Transfer-Encoding:Content-Type:References:
+	In-Reply-To:Date:Cc:To:From:Subject:Message-ID:Sender:Reply-To:Content-ID:
+	Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
+	:Resent-Message-ID; bh=uWQLeNOxsComWCIOqGdY0uS9YTS69A3nhBq06GXeH+E=; b=Rwv/1D
+	YqKojMzxXW7ifrzuve7WNNLOz8yEFDnFY28bdQt5PWOR5qJVU4aisH7HmK3u+OvWd85CauHKjaqmC
+	0xTO1p/FQyfpXpReEJAbbKMwuixRr2FWrk/SkPcLdfY4Vzd2sprhB7ie4zm1H8jW3N8XFeNhBU4eQ
+	U0Ob1AqZ7r7xDdYF7iHr+RN3CPnScOd+e43XOxebhoCrZLdqbqz8w2fGPJRPIur6sidp73N4upKOj
+	+WFv99sRd4SooCprqq2NGRFV+d1nPTXZbaZIYBQiTxQcz5Y2wH9ik4cwUrkDHg2TWer7OFMihS0WQ
+	rWbrIUZZYruaGAQIPqpUH0/JQgYw==;
+Received: from [2601:18c:8100:a0e0:2541:b86e:2586:d219]
+	by shelob.surriel.com with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
+	(Exim 4.99.5)
+	(envelope-from <riel@surriel.com>)
+	id 1xDkPN-00000006JzU-1Y0n;
+	Mon, 05 Oct 2026 15:15:17 +0000
+Message-ID: <4686fbed54796cbd32b5d524938d9cde184ca501.camel@surriel.com>
+Subject: Re: [PATCH 1/1] x86/mm: fix incomplete page-table invalidation with
+ TCE
+From: Rik van Riel <riel@surriel.com>
+To: Lance Yang <lance.yang@linux.dev>, dave.hansen@linux.intel.com
+Cc: luto@kernel.org, peterz@infradead.org, tglx@kernel.org,
+ mingo@redhat.com, 	bp@alien8.de, x86@kernel.org, hpa@zytor.com,
+ linux-kernel@vger.kernel.org, 	qi.zheng@linux.dev, nadav.amit@gmail.com,
+ thomas.lendacky@amd.com, 	kernel-team@meta.com, linux-mm@kvack.org,
+ akpm@linux-foundation.org, 	brendan.jackman@linux.dev, jannh@google.com,
+ mhklinux@outlook.com, 	andrew.cooper3@citrix.com, Manali.Shukla@amd.com,
+ mingo@kernel.org, 	stable@vger.kernel.org, toshi.kani@hpe.com,
+ david@kernel.org, 	mikhail.v.gavrilov@gmail.com, pfalcato@suse.de
+Date: Mon, 05 Oct 2026 11:15:17 -0400
+In-Reply-To: <20261005052302.43042-1-lance.yang@linux.dev>
+References: <20261005052302.43042-1-lance.yang@linux.dev>
+Autocrypt: addr=riel@surriel.com; prefer-encrypt=mutual;
+ keydata=mQENBFIt3aUBCADCK0LicyCYyMa0E1lodCDUBf6G+6C5UXKG1jEYwQu49cc/gUBTTk33A
+ eo2hjn4JinVaPF3zfZprnKMEGGv4dHvEOCPWiNhlz5RtqH3SKJllq2dpeMS9RqbMvDA36rlJIIo47
+ Z/nl6IA8MDhSqyqdnTY8z7LnQHqq16jAqwo7Ll9qALXz4yG1ZdSCmo80VPetBZZPw7WMjo+1hByv/
+ lvdFnLfiQ52tayuuC1r9x2qZ/SYWd2M4p/f5CLmvG9UcnkbYFsKWz8bwOBWKg1PQcaYHLx06sHGdY
+ dIDaeVvkIfMFwAprSo5EFU+aes2VB2ZjugOTbkkW2aPSWTRsBhPHhV6dABEBAAG0HlJpayB2YW4gU
+ mllbCA8cmllbEByZWRoYXQuY29tPokBHwQwAQIACQUCW5LcVgIdIAAKCRDOed6ShMTeg05SB/986o
+ gEgdq4byrtaBQKFg5LWfd8e+h+QzLOg/T8mSS3dJzFXe5JBOfvYg7Bj47xXi9I5sM+I9Lu9+1XVb/
+ r2rGJrU1DwA09TnmyFtK76bgMF0sBEh1ECILYNQTEIemzNFwOWLZZlEhZFRJsZyX+mtEp/WQIygHV
+ WjwuP69VJw+fPQvLOGn4j8W9QXuvhha7u1QJ7mYx4dLGHrZlHdwDsqpvWsW+3rsIqs1BBe5/Itz9o
+ 6y9gLNtQzwmSDioV8KhF85VmYInslhv5tUtMEppfdTLyX4SUKh8ftNIVmH9mXyRCZclSoa6IMd635
+ Jq1Pj2/Lp64tOzSvN5Y9zaiCc5FucXtB9SaWsgdmFuIFJpZWwgPHJpZWxAc3VycmllbC5jb20+iQE
+ +BBMBAgAoBQJSLd2lAhsjBQkSzAMABgsJCAcDAgYVCAIJCgsEFgIDAQIeAQIXgAAKCRDOed6ShMTe
+ g4PpB/0ZivKYFt0LaB22ssWUrBoeNWCP1NY/lkq2QbPhR3agLB7ZXI97PF2z/5QD9Fuy/FD/jddPx
+ KRTvFCtHcEzTOcFjBmf52uqgt3U40H9GM++0IM0yHusd9EzlaWsbp09vsAV2DwdqS69x9RPbvE/Ne
+ fO5subhocH76okcF/aQiQ+oj2j6LJZGBJBVigOHg+4zyzdDgKM+jp0bvDI51KQ4XfxV593OhvkS3z
+ 3FPx0CE7l62WhWrieHyBblqvkTYgJ6dq4bsYpqxxGJOkQ47WpEUx6onH+rImWmPJbSYGhwBzTo0Mm
+ G1Nb1qGPG+mTrSmJjDRxrwf1zjmYqQreWVSFEt26tBpSaWsgdmFuIFJpZWwgPHJpZWxAZmIuY29tP
+ okBPgQTAQIAKAUCW5LbiAIbIwUJEswDAAYLCQgHAwIGFQgCCQoLBBYCAwECHgECF4AACgkQznneko
+ TE3oOUEQgAsrGxjTC1bGtZyuvyQPcXclap11Ogib6rQywGYu6/Mnkbd6hbyY3wpdyQii/cas2S44N
+ cQj8HkGv91JLVE24/Wt0gITPCH3rLVJJDGQxprHTVDs1t1RAbsbp0XTksZPCNWDGYIBo2aHDwErhI
+ omYQ0Xluo1WBtH/UmHgirHvclsou1Ks9jyTxiPyUKRfae7GNOFiX99+ZlB27P3t8CjtSO831Ij0Ip
+ QrfooZ21YVlUKw0Wy6Ll8EyefyrEYSh8KTm8dQj4O7xxvdg865TLeLpho5PwDRF+/mR3qi8CdGbkE
+ c4pYZQO8UDXUN4S+pe0aTeTqlYw8rRHWF9TnvtpcNzZw==
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.60.2 (3.60.2-1.fc44) 
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=laposte.net; s=lpn-wlmd; t=1791213317; bh=vQgNfaifqJBfWvhAJLZYmdCmSToBEbMrsQb5xsLkevc=; h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:MIME-Version:Content-Transfer-Encoding; b=SbdTtjcubLJ6/+991h9VB0fnZCw7/+ziaWH6IbvEldSkChDxKPvdxJNAPsLdr7O/8hOCahks6PuB2kquwIzr+9qse9aGrlZuAfKfni+BDauOJdvUSqELP3fCKjgqCdX1OBYBUbXcuTTVFEPCLQyINKsEz5rYsD/3JJ8NyqtzSdyZ7Pg8w28HUWPMHe4An3vPOcUjkpHfsgEVeecLj1Z5v5FGsg/AkkqDMc9TZOJOVAwPb6yNFw/TjgYFFAlIDVkJGUOkR2VX1ME4aIgoJIqVQr2zQX8gsmQFRtpYjOCXIPW4L1PMI331XStS3e1WziX7qDlTQyDgi/WZPCEe3fCrIw==;
 
-msm_dp_ctrl_on_link() implements DP link fallback: it retries
-msm_dp_ctrl_setup_main_link() up to five times, stepping the link rate
-down HBR3 -> HBR2 -> HBR -> RBR and then reducing the lane count, and
-breaks as soon as training succeeds. Every step of that search is
-therefore expected to fail before the one that works.
+On Mon, 2026-10-05 at 13:23 +0800, Lance Yang wrote:
+> pud_free_pmd_page() uses a single-address invalidation to flush the
+> paging-structure caches before freeing the page tables. With AMD TCE
+> enabled, this only invalidates upper-level entries associated with
+> the
+> target address. Cached PMD entries for other addresses in the PUD
+> range can
+> still reference the PTE pages being freed.
+>=20
+> The AMD manual quoted in the commit enabling TCE says these
+> instructions
+> remove
+>=20
+> =C2=A0 "only those upper-level entries that lead to the target PTE in the
+> page
+> =C2=A0 table hierarchy, leaving unrelated upper-level entries intact."
+>=20
+> Even with all PTEs cleared, speculative page walks can cache present
+> PMD
+> entries after the earlier TLB purge.
 
-Each failed attempt currently logs at error level, from four places:
+The comment above the function says it all. The TLB
+range should already have been cleared by the time
+pud_free_pmd_page() gets called:
 
-  max v_level reached
-  link training #1 on phy %d failed. ret=3D%d
-  link training #2 on phy %d failed. ret=3D%d
-  link training on sink failed. ret=3D%d
+/**
+ * pud_free_pmd_page - Clear PUD entry and free PMD page
+ * @pud: Pointer to a PUD
+ * @addr: Virtual address associated with PUD
+ *
+ * Context: The PUD range has been unmapped and TLB purged.
+ * Return: 1 if clearing the entry succeeded. 0 otherwise.
+ *
+ * NOTE: Callers must allow a single page allocation.
+ */
+int pud_free_pmd_page(pud_t *pud, unsigned long addr)
+{
 
-A monitor that settles on two lanes after three attempts prints nine
-error lines on a completely successful attach -- which is how a cable
-that merely has two bad lanes looks identical in the log to a sink that
-never trains at all.
+The PMD could have been (speculatively) loaded by the
+CPU after the PTEs were freed, so that one PMD mapping
+needs to be flushed here, but there should not be
+anything else left to flush.
 
-Nothing is lost by demoting them. When the retry loop really does
-exhaust itself, msm_dp_ctrl_on_link() returns the error and
-msm_dp_display_process_hpd_high() already reports it once, at error
-level, as "Failed link training (rc=3D%d)" -- which is the correct place,
-because it is the only one that knows the search is over.
+The code looks odd, but it's a good idea to always
+ask your AI to draw up a full chain of events for
+a bug to trigger, going all the way back to something
+calling the mm from the outside.
 
-Demote the per-attempt messages to drm_dbg_dp() so they remain available
-with drm.debug, and keep the final verdict where it is.
-
-Also demote the unsolicited AUX interrupt message. msm_dp_aux_isr()
-returns IRQ_NONE when no AUX transaction is outstanding, which is the
-whole of the correct response for an interrupt that is not ours -- the
-AUX block shares its interrupt and sinks raise AUX status asynchronously
-around hotplug, so this fires twice on a normal DisplayPort attach.
-
-Signed-off-by: Jean-Francois Bobier <jean-francois.bobier@laposte.net>
----
- drivers/gpu/drm/msm/dp/dp_aux.c  |  9 ++++++++-
- drivers/gpu/drm/msm/dp/dp_ctrl.c | 15 ++++++++++-----
- 2 files changed, 18 insertions(+), 6 deletions(-)
-
-diff --git a/drivers/gpu/drm/msm/dp/dp_aux.c b/drivers/gpu/drm/msm/dp/dp_=
-aux.c
-index 3825a2fb4..2c0bc719a 100644
---- a/drivers/gpu/drm/msm/dp/dp_aux.c
-+++ b/drivers/gpu/drm/msm/dp/dp_aux.c
-@@ -458,7 +458,14 @@ irqreturn_t msm_dp_aux_isr(struct drm_dp_aux *msm_dp=
-_aux, u32 isr)
- 	aux =3D container_of(msm_dp_aux, struct msm_dp_aux_private, msm_dp_aux)=
-;
-=20
- 	if (!aux->cmd_busy) {
--		DRM_ERROR("Unexpected DP AUX IRQ %#010x when not busy\n", isr);
-+		/*
-+		 * Not ours: the AUX block shares its interrupt, and sinks
-+		 * raise AUX status asynchronously around hotplug. Returning
-+		 * IRQ_NONE is the whole of the correct response, so this is
-+		 * a trace point and not a fault.
-+		 */
-+		drm_dbg_dp(msm_dp_aux->drm_dev,
-+			   "Unexpected DP AUX IRQ %#010x when not busy\n", isr);
- 		return IRQ_NONE;
- 	}
-=20
-diff --git a/drivers/gpu/drm/msm/dp/dp_ctrl.c b/drivers/gpu/drm/msm/dp/dp=
-_ctrl.c
-index d6219d87d..ccc6cf63d 100644
---- a/drivers/gpu/drm/msm/dp/dp_ctrl.c
-+++ b/drivers/gpu/drm/msm/dp/dp_ctrl.c
-@@ -1534,7 +1534,8 @@ static int msm_dp_ctrl_link_train_1(struct msm_dp_c=
-trl_private *ctrl,
-=20
- 		if (ctrl->link->phy_params.v_level >=3D
- 			DP_TRAIN_LEVEL_MAX) {
--			DRM_ERROR_RATELIMITED("max v_level reached\n");
-+			drm_dbg_dp(ctrl->drm_dev,
-+				   "max v_level reached, retrying at a lower rate or lane count\n");
- 			return -EAGAIN;
- 		}
-=20
-@@ -1681,14 +1682,16 @@ static int msm_dp_ctrl_link_train_1_2(struct msm_=
-dp_ctrl_private *ctrl,
-=20
- 	ret =3D msm_dp_ctrl_link_train_1(ctrl, panel, training_step, dp_phy);
- 	if (ret) {
--		DRM_ERROR("link training #1 on phy %d failed. ret=3D%d\n", dp_phy, ret=
-);
-+		drm_dbg_dp(ctrl->drm_dev,
-+			   "link training #1 on phy %d failed. ret=3D%d\n", dp_phy, ret);
- 		return ret;
- 	}
- 	drm_dbg_dp(ctrl->drm_dev, "link training #1 on phy %d successful\n", dp=
-_phy);
-=20
- 	ret =3D msm_dp_ctrl_link_train_2(ctrl, panel, training_step, dp_phy);
- 	if (ret) {
--		DRM_ERROR("link training #2 on phy %d failed. ret=3D%d\n", dp_phy, ret=
-);
-+		drm_dbg_dp(ctrl->drm_dev,
-+			   "link training #2 on phy %d failed. ret=3D%d\n", dp_phy, ret);
- 		return ret;
- 	}
- 	drm_dbg_dp(ctrl->drm_dev, "link training #2 on phy %d successful\n", dp=
-_phy);
-@@ -1739,13 +1742,15 @@ static int msm_dp_ctrl_link_train(struct msm_dp_c=
-trl_private *ctrl,
- 	}
-=20
- 	if (ret) {
--		DRM_ERROR("link training of LTTPR(s) failed. ret=3D%d\n", ret);
-+		drm_dbg_dp(ctrl->drm_dev,
-+			   "link training of LTTPR(s) failed. ret=3D%d\n", ret);
- 		goto end;
- 	}
-=20
- 	ret =3D msm_dp_ctrl_link_train_1_2(ctrl, panel, training_step, DP_PHY_D=
-PRX);
- 	if (ret) {
--		DRM_ERROR("link training on sink failed. ret=3D%d\n", ret);
-+		drm_dbg_dp(ctrl->drm_dev,
-+			   "link training on sink failed. ret=3D%d\n", ret);
- 		goto end;
- 	}
-=20
 --=20
-2.55.0
-
+All Rights Reversed.
