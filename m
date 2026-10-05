@@ -1,90 +1,156 @@
-Received: from mta0.migadu.com (out-177.mta0.migadu.com [91.218.175.177])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 73B8E4DE73F
-	for <linux-kernel@vger.kernel.org>; Mon,  5 Oct 2026 20:01:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.177
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EEE574DDB4B;
+	Mon,  5 Oct 2026 20:01:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.142.43.55
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791230503; cv=none; b=iXxyskFodLOKUD2c1HJcj+amlsRArynL1U3dc/jqKUgIg1RSqRn8BwVhqkHUI0eF0D6XIdFGgnFpmrMHcY2qMXFmQkxedk4F6xqAKlMQI6VcZpz+RgarO4gqQGK3xl0MN6DSKvbc3V/Mm+bh3ZHJEVS9c/NRpvf9nrDBbuWOgBs=
+	t=1791230508; cv=none; b=jQEzfUwzZHJSnybyxu70BKH/lo/DOPtSbmtX5QOKM2ZwTlSxFAknu8NW6A8i72JD1sFFAPRrVHNiDsUNlWkIGcEy013AnRyNz8J0Ni65qdvgLmSJVrfwhCLTlxLqg+VDm9XC0k+DuBkCUt2mzVl70UFryx1FEGYW3pHd75QDMaE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791230503; c=relaxed/simple;
-	bh=pxNRpQR1aM1prySYd9a9xcqeZnHu3QNp3wCGlteiBH4=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=ho2P99JniiYC2QuIbvjVgaTLBkGY9rx3aYuKNLEcr6zoDMcr2byGBgib5tX3qz25NB0W4khIkSA9XSQlIt0OT9NurE8UUF1MrPxZPO6GjOV74iRgFBd8bJu3o7itSkUBBmlqp2wwHXgriUwg/Fgw7m8stnUf4OJ7x5k476PIiPc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=BlHCRwtb; arc=none smtp.client-ip=91.218.175.177
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1791230508; c=relaxed/simple;
+	bh=BELa2DDWfS8U8jl+SDkG2uJ4g1bJg+pZUDCMnr17IaA=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=FcROeNC/LSf5+uyWRfHdKbCC26/UBv7rhgjyc59rkxFs+cqo39ZDQN1fr3ZiTo4jKKKYNeM5tG7O5A4Q4p86tfc9jwu1tHcTJW5kWmF6GPCix02Q4qYuHXlS6tBDyWLggeAk2rEw9YNwX0LcHpoaxSv8qmY0qj9KXIiTyGJErQY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de; spf=pass smtp.mailfrom=linutronix.de; dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=zSP9HcJG; dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=+gNEbAke; arc=none smtp.client-ip=193.142.43.55
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="BlHCRwtb"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=pxNRpQR1aM1prySYd9a9xcqeZnHu3QNp3wCGlteiBH4=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1791230489; v=1; x=1791835289;
- b=BlHCRwtbIPOi+ofW3nlEQk8OEogEtlqBDC9jxMp9gUgLpd0tCV9NaS0b6Tq5j/fl7558srWf
- oLKwFshu/s3RwI4wMlAtpbKL5zdUlcgw4c53pKLbV4soebLSHIwGoAV9xtg+5XbYsCIu7tKieKf
- wiSk86j9HEvueI2DJjoxuCRo=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 0542c9c1650a45ee;
-	Mon, 05 Oct 2026 20:01:29 +0000
-X-Mizu-Trace-ID: 0542c9c1650a45ee
-X-Migadu-Flow: FLOW_OUT
-From: Denis Benato <denis.benato@linux.dev>
-To: linux-kbuild@vger.kernel.org
-Cc: nathan@kernel.org,
-	nsc@kernel.org,
-	thomas.weissschuh@linutronix.de,
-	chewi@gentoo.org,
-	abelvesa@kernel.org,
-	linux-kernel@vger.kernel.org,
-	Denis Benato <denis.benato@linux.dev>
-Subject: [PATCH] kbuild: install-extmod-build: install kernel/kallsyms_internal.h
-Date: Mon,  5 Oct 2026 20:01:23 +0000
-Message-ID: <20261005200123.146822-1-denis.benato@linux.dev>
-X-Mailer: git-send-email 2.47.3
+	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="zSP9HcJG";
+	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="+gNEbAke"
+Message-ID: <f078112879455b0f59b7278f966b84f2ddea1a0f.camel@linutronix.de>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020; t=1791230495;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=S+U78JOwbOPXwnC4RFGdnqyGIfBIo2MNgXS2aKLjSCU=;
+	b=zSP9HcJGNuewebdEUnlDr1NPl/4iqp4M9vZxBm06NlF1rfRleoUQtJS27Z9u9CAsYBt3o3
+	O5Ch+jXTYIbsVgQdYAPC73F5X/ZIXxmjalZSyIaWrozDuxbY55j4yJrUCc2tG06nHwzGlW
+	+8A+BwHa2k2rF3Ptp4xlLjSaAbJfaGSfhCmKKg7xCUVTFSUiE/MF7v+oGD2YNufiyWxpjM
+	k6nWWpXtNzapkvLD26G24DP4pPZwpRR2rik28nAGtnNnRWLqAyGJhq1bgjG2plfaWtrCpL
+	X03ENB9oqwDEW6klSsqI+1Kd2mRr+y0WyqvzUXDB+Qf5WM8DVSKU3O+4VXHDYg==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020e; t=1791230495;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=S+U78JOwbOPXwnC4RFGdnqyGIfBIo2MNgXS2aKLjSCU=;
+	b=+gNEbAketoxkH6J3Kiub669W1QnkNLa4q6q0rtwDPmpbJgGcIiMY/eGOjo0rTXDiIlmbOU
+	XvVNrVDZxw/kbYCg==
+Subject: Re: [PATCH net-next v3 2/8] dt-bindings: net: Add SoC-e SWIP MDIO
+ controller
+From: Vasilij Strassheim <v.strassheim@linutronix.de>
+To: Andrew Lunn <andrew@lunn.ch>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+  Conor Dooley <conor+dt@kernel.org>, Vladimir Oltean <olteanv@gmail.com>,
+ "David S. Miller" <davem@davemloft.net>, Eric Dumazet
+ <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni
+ <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, Russell King
+ <linux@armlinux.org.uk>, Andrew Lunn <andrew+netdev@lunn.ch>, Heiner
+ Kallweit <hkallweit1@gmail.com>,  devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, netdev@vger.kernel.org,  Martin Kaistra
+ <martin.kaistra@linutronix.de>, Benedikt Spranger <b.spranger@linutronix.de>
+Date: Mon, 05 Oct 2026 22:01:32 +0200
+In-Reply-To: <6a635aa0-3489-4d2b-b302-06b793326654@lunn.ch>
+References: 
+	<20260923-devel-vstrassheim-soce-dsa-ml-v3-0-ddebafcb9ba7@linutronix.de>
+	 <20260923-devel-vstrassheim-soce-dsa-ml-v3-2-ddebafcb9ba7@linutronix.de>
+	 <e5aa5cd8-e805-47d3-a105-07bf1b9eb9b8@lunn.ch>
+	 <218d4c1cf5f05cd6cc648c01f8a20ec66b95362c.camel@linutronix.de>
+	 <6416b34a-83ce-4aca-8adf-c8894ca7b3c3@lunn.ch>
+	 <ad24be6928e33b544f9c8c72ea05f64c2968035f.camel@linutronix.de>
+	 <6a635aa0-3489-4d2b-b302-06b793326654@lunn.ch>
+Organization: Linutronix GmbH
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-The tree staged by install-extmod-build contains no kernel/ files, but
-since commit 4fafd1165b33 ("kallsyms: increase marker density to 16:1
-to accelerate lookups") scripts/kallsyms.c includes
-../kernel/kallsyms_internal.h.
+On Wed, 2026-09-30 at 20:24 +0200, Andrew Lunn wrote:
+> On Wed, Sep 30, 2026 at 07:13:35PM +0200, Vasilij Strassheim wrote:
+> > On Wed, 2026-09-30 at 17:14 +0200, Andrew Lunn wrote:
+> > > On Wed, Sep 30, 2026 at 04:00:56PM +0200, Vasilij Strassheim wrote:
+> > > > On Sat, 2026-09-26 at 00:55 +0200, Andrew Lunn wrote:
+> > > > > > The controller exposes separate register regions for transactio=
+n data
+> > > > > > and for the shared transaction control and external bus selecto=
+r
+> > > > > > register.
+> > > > >=20
+> > > > > > +examples:
+> > > > > > +  - |
+> > > > > > +    mdio@204 {
+> > > > > > +        compatible =3D "soce,swip-mdio-23-02";
+> > > > > > +        reg =3D <0x204 0xc>, <0x200 0x4>;
+> > > > >=20
+> > > > > At least in the example, they are not separate?
+> > > >=20
+> > > > Not separate regions but registers...
+> > > > I'm obviously bad at documenting things.
+> > > >=20
+> > > > The current information in the commit message is misleading and
+> > > > irrelevant. Looking at the bot's feedback, it's at the same time no=
+t
+> > > > clear enough yet that the mdio controller part is mapped within the
+> > > > switch memory and can't be used separately from it.
+> > > >=20
+> > > > I will update the commit message to something like this:
+> > > > Add a binding for the MDIO controller integrated into SoC-e SWIP
+> > > > Ethernet switch IP cores.
+> > > > The controller shares the memory of the synthesized switch IP core =
+and
+> > > > cannot be used independently.
+> > >=20
+> > > I think part of the issue is the compatible. That suggests it is a
+> > > separate device, with its own driver. But it is actually driven by th=
+e
+> > > switch driver.
+> >=20
+> > I can't avoid the compatible right now. Somehow it is still a separate
+> > functionality. I hope the following example doesn't cause unnecessary
+> > confusion, but rather helps to understand the system better:
+> >=20
+> > The relationship between the MDIO controller and the switch core is mor=
+e
+> > like that of tools in a Swiss Army knife.
+> > There are a few standalone tools, such as the knife and the screwdriver=
+.
+> > These can also be described on their own. But they only make sense when
+> > they are attached to the knife as a whole. As soon as one takes it
+> > apart, the individual tools can no longer be used effectively. At the
+> > same time, no one needs to worry about the screwdriver if they only nee=
+d
+> > the knife.
+>=20
+> Maybe consider an MFD.
+>=20
+> You then do get independent devices.
+>=20
+> Also, with the current structure, i'm not sure how the mdio-mux is
+> getting instantiated. You list it inside the switch node, so i don't
+> think i will get turned into a platform device and probed. An MFD
+> might helper, maybe.
+>=20
+> There are other switches which are described as MFD, so it is not
+> unknown.
 
-install-extmod-build rebuilds the host programs inside the staged tree
-whenever CC differs from HOSTCC (cross builds, or a ccache-wrapped CC).
-scripts/kallsyms is hostprogs-always-y, so that rebuild fails with:
+I was initially thinking that an MFD would be too much for a switch, but
+after looking at it more closely, it seems to be the right model here.
+I will update this again with a bigger change.
 
-  scripts/kallsyms.c:39:10: fatal error: '../kernel/kallsyms_internal.h' file not found
-     39 | #include "../kernel/kallsyms_internal.h"
-        |          ^~~~~~~
+I would also update the Kconfig structure. The Ethernet switch child
+will be the only user-visible entry point. Selecting it will select the
+"SWIP IP Core" MFD parent as well as the required MDIO controller and
+mux drivers. The MFD and MDIO controller symbols will have only empty
+tristate options.
 
-Stage the header so the linux-headers-* and kernel-devel style packages
-can rebuild scripts/kallsyms.
-
-Fixes: 4fafd1165b33 ("kallsyms: increase marker density to 16:1 to accelerate lookups")
-Assisted-by: ZCode:glm-5.3
-Signed-off-by: Denis Benato <denis.benato@linux.dev>
----
- scripts/package/install-extmod-build | 2 ++
- 1 file changed, 2 insertions(+)
-
-diff --git a/scripts/package/install-extmod-build b/scripts/package/install-extmod-build
-index f12e1ffe409eb..aad2cd59a37ba 100755
---- a/scripts/package/install-extmod-build
-+++ b/scripts/package/install-extmod-build
-@@ -20,6 +20,8 @@ mkdir -p "${destdir}"
- (
- 	cd "${srctree}"
- 	echo Makefile
-+	# scripts/kallsyms.c includes this header
-+	echo kernel/kallsyms_internal.h
- 	find "arch/${SRCARCH}" -maxdepth 1 -name 'Makefile*'
- 	find "arch/${SRCARCH}" -name generated -prune -o -name include -type d -print
- 	find "arch/${SRCARCH}" -name Kbuild.platforms -o -name Platform
--- 
-2.47.3
-
+>=20
+>       Andrew
+Thanks,
+Vasilij
