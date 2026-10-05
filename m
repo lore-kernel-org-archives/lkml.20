@@ -1,252 +1,343 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj2-f40.google.com (mail-pj2-f40.google.com [74.125.227.168])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5BE3F4D5983;
-	Mon,  5 Oct 2026 17:18:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 29E315208B6
+	for <linux-kernel@vger.kernel.org>; Mon,  5 Oct 2026 17:18:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.168
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791220726; cv=none; b=i7u0j56wKIkdWMiTntpTNklVbaK0EzOH5wlT0WJgw2oaJ7fVKN7LBeJrxyfoHcs14S27zL7qY4YAcOrNemuQFFM2ZFRQTiOdepjToctD3MAqxdyv5AZOHc18ZB2L8ZEfnwknDTDXAW5WHYtEYiadeCmncDJe9xZtprpP3pXnAjQ=
+	t=1791220725; cv=none; b=bD0s/CCqYV7Jlav9h5Yt/c19S57vcAK6y8U59QiyZ8Bt1o6EKNPQjCFT3rymPMZIAaofMALQrZqDvqrpWf9obzdE1jAGEqYPNET5s8dLLrJp+Xg3+u89exG+8cXt5PZeoJWU5bixW7XtCJvzVXeF2QaeYm3ozYy7+JION+HeEBo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791220726; c=relaxed/simple;
-	bh=eEx4ZayQDnxGFg69fImu7l+5ALHFOFuZ7T2UwtQKIQE=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=XrM0QgK0hZOkPMCJnZCoSTjGoIiMWXR0hzdCxku+913WA2K1BsQQ2f1bf2Tucz+NzQfhPQ73rVL5hcQO+hsCnUkpif6We8+c/AbD3l/1fgAa0uUSkWkywM0L32DZECz/2CMusxtcEcG8JkfBS3I9NuAzglPtBXZ6+C1P1gI65yo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=DZIqYSCi; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791220725; c=relaxed/simple;
+	bh=C2wOzyIOv3PKV0kqXDjtVyjEqQMMN4LevJPzrcZB1UU=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=DuB/9HaqTFRi65dRDd1nYDUMJxwbwJVz6iMLPdXbjpKD8LN9gFBraC98v7p8HRAVQQKeKfB34f2EaTxhsErNgrHih035eT7trEWPTHo2CFRXmCX7VzaQn6DgYZngoo9L141cwYYDS7Jm6O577YWot9EN2cGyIlUGJQz3/xGvt4w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=aLE5dfsj; arc=none smtp.client-ip=74.125.227.168
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="DZIqYSCi"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DCF301F00899;
-	Mon,  5 Oct 2026 17:18:39 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791220722;
-	bh=KMR1alMBbC6rdV1jL4YTxPV7dBXmHlXqdqHq4ZttuZs=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=DZIqYSCiRjHCCAOQE5jidAwvoHeo/jQj0c04Hvl02f5xzvtZp8wpQ73iHGv5oA4le
-	 Oy+klKbfvuKwrBNH0dCEowwyzl4+8ut5KBMD4Dv+e0ogeO0vwBG19skRx+aK5L3Vhu
-	 dg8phZvg0fXeH7diP7FOEh0aYxxd4cqNmngMAlMJoOA321Hxw0QGNnnA7hm3528XDQ
-	 fmVjc5U5vD5vptI4BtgDhEMBGNxkeQLE6/duRHrPWOdmUcr7bJef9fpUDy1XQizayn
-	 EY69EVyG13ONWUwMmBdD2ajywpb0jJjSlcLGlEo76YZu83lAnYDezS2CCaAq4lgx3V
-	 lc5E4ghrKTQSw==
-From: bod@kernel.org
-Date: Mon, 05 Oct 2026 19:14:21 +0200
-Subject: [PATCH 51/74] media: qcom: camss: vfe: Pass the buffer to
- vfe_wm_update()
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="aLE5dfsj"
+Received: by mail-pj2-f40.google.com with SMTP id 98e67ed59e1d1-3a7e13e2a77so724631a91.3
+        for <linux-kernel@vger.kernel.org>; Mon, 05 Oct 2026 10:18:43 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791220722; x=1791825522; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=W8wrdTJQlbRjUn5NpoPjM6vdB6JwNJfV9JGCjAJWWp8=;
+        b=aLE5dfsjKYwur/GumgLWARhWG3wDCJ1unCTqKpUlcWU5/I+v+p4rN8XKd2+b2W1Ip8
+         YAxwwsGqrYU62d6LUVIhXSRxxsG9T2n0Eei5v95XGrEokv4UHju2Lat2nXK201D8Gflk
+         xdkGzQ/KlaOoJ1CAGsMTwmpigUmuABmmV0L7rw6qTLC+S6CWpdhBZNrbKz2jjmIF8chu
+         /FbcDhdXvdjQeTkFKvYTFyEg7ZuxNN6QFmD6FU/nhWo3lfO/zx8XOt5EmwwhtGl4MqjK
+         p0ny8OOhWIHCLNvmrpK/tE0HYOaVd7k2GI+rsxH4q1g+3aIJ7MAtZ8QZkb5wEu8Rg1I9
+         F4Kg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791220722; x=1791825522;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=W8wrdTJQlbRjUn5NpoPjM6vdB6JwNJfV9JGCjAJWWp8=;
+        b=g46tDTiA/IMoHF9oVOObcR7LVFTsYDfmTaM+gtAjgCV7sWhZ6mDncDfr6kk+98IK6f
+         MQdk/LbEBo0n7XPiIi1/7AhHdnOLN7kg0xbNSwahxqRvPusD7v+G60aGYgGJ9bYSC0EW
+         42FHB0uYCE7QUHcM8VeOiCBvvHys0CJwRC+kw8+hdaLANuP5/nyc9S7XVPDPRN/hymPg
+         n7/pCtc9bOd1mIC8x8rH+FsT0nGvbwP0g+kV8MuDZBEHrSrU8gJVGJwT3rH5EEZeUsud
+         giYczq3NREly368V8K/vCsdezlHLk3QuYTVUP+SViDPM9fKiQebim73W1a4A0KNzL42G
+         oFzw==
+X-Forwarded-Encrypted: i=1; AKwUvBy6krxQeazvO6Ej1ebUblgiCJfAhJaRzG5ipJfDilPtJfaIlLTcN4TWhspBa6RzZ0NzW+I1p0MKTKFb4Do=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJlzBWD/KNk0IlDVDC3m4zfpo8FU1+Oe/05+7WT8Qds34pOuRTR
+	2KODrr3vRm3Iu2zGzCSu2MiLK+NVeRF/j+5KKkH55p+weNWtv2Pv/Y6f
+X-Gm-Gg: AYBFou1y095W1WHThNUMvY8S+MAjhTK5/bZ8BFTbbEFsAUETlTwkFHL6sFRkw1PBr8M
+	7PlW4QH6PhJnWA0wMwgOE1iie+IUEf4rUWnY7dhp3bomdQVn5huk7fHMuWgVcNQJpwOxSqToBv5
+	Jf96B7Q/dVaOslArXPgXkz5RQUPhhfUQCGzLf54oCy/C5ncLwel3hi0rbtzKEAzyTygDJaHFj8H
+	g/cG+83pss4E2xupaziSOiaQMv2Nr2kLYDg7LFMDtt1PzYKrgsjjXVrUlkFo01ZJW+cpP3lHksD
+	6UC4Va/0CgmyuQtlX199zbcwtYcgQ+TDqEB+dtCRB1sZA96JHMyQa7E0bCSYAsxPPW4DohWr/5z
+	bHrjqewIZrbjQMJZMsTAzwe9mwzIH7WN7i5e5K0rB2dHHkPFIkldoI1unl8OlNYM7+GzhLIcf4C
+	ZXbiiHdaEqJtgCYG2BqW3LOVQEQmHyVLVXrfO9cWPxH4klcdoSzsrKhG8FlfA1E/1J54kwjyjlB
+	8/aoYxR5RXU5UxIEkoNzHO/d8eiww==
+X-Received: by 2002:a17:90b:6c5:b0:3a0:809b:1972 with SMTP id 98e67ed59e1d1-3a6ce7916bbmr8589810a91.26.1791220721836;
+        Mon, 05 Oct 2026 10:18:41 -0700 (PDT)
+Received: from kernel.tail6741c6.ts.net ([216.195.201.24])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a853cafddesm406910a91.10.2026.10.05.10.18.28
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 05 Oct 2026 10:18:41 -0700 (PDT)
+From: Kunwu Chan <kunwu.chan@gmail.com>
+To: paulmck@kernel.org,
+	corbet@lwn.net,
+	mingo@redhat.com,
+	frederic@kernel.org,
+	neeraj.upadhyay@kernel.org,
+	josh@joshtriplett.org,
+	urezki@gmail.com,
+	dave@stgolabs.net,
+	lianux.mm@gmail.com
+Cc: stern@rowland.harvard.edu,
+	parri.andrea@gmail.com,
+	will@kernel.org,
+	peterz@infradead.org,
+	boqun@kernel.org,
+	npiggin@gmail.com,
+	dhowells@redhat.com,
+	j.alglave@ucl.ac.uk,
+	luc.maranget@inria.fr,
+	akiyks@gmail.com,
+	dlustig@nvidia.com,
+	joelagnelf@nvidia.com,
+	skhan@linuxfoundation.org,
+	rdunlap@infradead.org,
+	longman@redhat.com,
+	rostedt@goodmis.org,
+	mathieu.desnoyers@efficios.com,
+	jiangshanlai@gmail.com,
+	qiang.zhang@linux.dev,
+	kunwu.chan@gmail.com,
+	brads@mainlining.org,
+	linux-kernel@vger.kernel.org,
+	linux-arch@vger.kernel.org,
+	lkmm@lists.linux.dev,
+	linux-doc@vger.kernel.org,
+	rcu@vger.kernel.org,
+	linux-kselftest@vger.kernel.org
+Subject: [PATCH RFC v3 12/15] hazptrtorture: add slowpath and lockdep scenarios
+Date: Tue,  6 Oct 2026 01:15:26 +0800
+Message-ID: <20261005171529.1378809-13-kunwu.chan@gmail.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20261005171529.1378809-1-kunwu.chan@gmail.com>
+References: <20261005171529.1378809-1-kunwu.chan@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261005-linux-mainline-7-2-sm8650-hdk-rfc-0-v1-51-ed985aefd611@kernel.org>
-References: <20261005-linux-mainline-7-2-sm8650-hdk-rfc-0-v1-0-ed985aefd611@kernel.org>
-In-Reply-To: <20261005-linux-mainline-7-2-sm8650-hdk-rfc-0-v1-0-ed985aefd611@kernel.org>
-To: Bryan O'Donoghue <bryan.odonoghue@linaro.org>, 
- Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>, 
- Loic Poulain <loic.poulain@oss.qualcomm.com>, 
- Mauro Carvalho Chehab <mchehab@kernel.org>, 
- Jacopo Mondi <jacopo.mondi@ideasonboard.com>, 
- Daniel Scally <dan.scally@ideasonboard.com>, Keke Li <keke.li@amlogic.com>, 
- Richard Acayan <mailingradian@gmail.com>, 
- Hans Verkuil <hverkuil@kernel.org>, 
- Gjorgji Rosikopulos <quic_grosikop@quicinc.com>, 
- Radoslav Tsvetkov <quic_rtsvetko@quicinc.com>, 
- Robert Foss <rfoss@kernel.org>, Milen Mitkov <quic_mmitkov@quicinc.com>
-Cc: linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
- linux-kernel@vger.kernel.org, Bryan O'Donoghue <bod@kernel.org>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=7932; i=bod@kernel.org;
- h=from:subject:message-id; bh=AfM3XyhCG387zTBcoOaSgl0Pd+s8U3J9Ble6CGxqP2I=;
- b=owEBbQKS/ZANAwAKASJxO7Ohjcg6AcsmYgBqw9slvFCqzJvxVDDmq6wt+PVEfOPkgJ4C8jXT1
- mHh7vTlzteJAjMEAAEKAB0WIQTmk/sqq6Nt4Rerb7QicTuzoY3IOgUCasPbJQAKCRAicTuzoY3I
- OpESD/9+BH+I1L1mNocbbApDBpethFhxD0EaibXi1gI5R0o2Xx7uPJnrRidPUhJJeNAuG1Nkud3
- wLT7uTB1j7f9ddfRZ3fMoZ3sUdiBP3IIsMrcMa54d24G0OD8vH8tMn+3PhOJovJxOCGSsxTfyX0
- QkJtT+rgT/DR8Z5eekHo3BScw9gnSCd/imbPB4ZrCXWodbIMcHR/4uQrimqwkBaxERD/62cIcCi
- hgl/UisnFz6v2Y/YEXcvNP1p9aKYTQk0OGtUHtz1YJr2LWmJ4uFLA7sI4VBRGFTl96kvxjdgGwe
- xmnguUwT7+5e7PIPEPCbPhRgD1xalATo+t8hIqF/Hv9Jd4yT+j3Zgdr5JUVSRikHwYQAEZFqkyY
- zmqJhZJCCKwvl1g9jq6xGeSPBBcH2Uk+sgOgrqXDygaAh4RfJ84gmeEd9JnAGSw6X3LjADx5TMf
- IeV0rtKgDx89U5uORES++v9DNMTAMOXShSGTvCOcHX+ikF/skKitynROMlU+wumI5tfVLI0Dbvc
- ko0RHptexa2ZWJ18JhXTncMhnV0BpsyXAr8BUg8CcKPJh+O7VLXB3E7bH6NjdsZYTW6CJgJUBFQ
- RHSbj6YBYXsOtZS1xEE3HVIeCsLYtacEzxDc67gLnMFFPr1b0Osh9cYM7rmLEkCxMMS5+pO14tV
- w3akxXSf1Xe7P/A==
-X-Developer-Key: i=bod@kernel.org; a=openpgp;
- fpr=E693FB2AABA36DE117AB6FB422713BB3A18DC83A
+Content-Transfer-Encoding: 8bit
 
-From: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
+Add a wq_churn kthread and module parameter to exercise lockdep
+dynamic-key handling by repeatedly creating and destroying
+workqueues.  Each workqueue creation registers a dynamic lock
+class key and each destruction unregisters it, exercising both
+is_dynamic_key() and lockdep_unregister_key().
 
-A write master of a multi-planar output needs the address of its own
-plane. Pass the struct camss_buffer to the vfe_wm_update() hw op instead
-of its first address; every existing backend still programs addr[0].
+Add SLOWPATH and LOCKDEP torture scenarios to exercise the
+hazptr acquire slow path, including its use by lockdep under
+CONFIG_PROVE_LOCKING.
 
-Signed-off-by: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
+Add both scenarios to CFLIST so that torture.sh --do-hazptr
+includes them.
+
+Signed-off-by: Kunwu Chan <kunwu.chan@gmail.com>
 ---
- drivers/media/platform/qcom/camss/camss-vfe-17x.c | 5 +++--
- drivers/media/platform/qcom/camss/camss-vfe-340.c | 3 ++-
- drivers/media/platform/qcom/camss/camss-vfe-480.c | 3 ++-
- drivers/media/platform/qcom/camss/camss-vfe-680.c | 5 +++--
- drivers/media/platform/qcom/camss/camss-vfe-690.c | 4 +++-
- drivers/media/platform/qcom/camss/camss-vfe-780.c | 4 +++-
- drivers/media/platform/qcom/camss/camss-vfe.c     | 6 +++---
- drivers/media/platform/qcom/camss/camss-vfe.h     | 2 +-
- 8 files changed, 20 insertions(+), 12 deletions(-)
+ kernel/rcu/hazptrtorture.c                    | 57 +++++++++++++++++--
+ .../rcutorture/configs/hazptr/CFLIST          |  2 +
+ .../rcutorture/configs/hazptr/LOCKDEP         | 17 ++++++
+ .../rcutorture/configs/hazptr/LOCKDEP.boot    |  1 +
+ .../rcutorture/configs/hazptr/SLOWPATH        | 16 ++++++
+ 5 files changed, 89 insertions(+), 4 deletions(-)
+ create mode 100644 tools/testing/selftests/rcutorture/configs/hazptr/LOCKDEP
+ create mode 100644 tools/testing/selftests/rcutorture/configs/hazptr/LOCKDEP.boot
+ create mode 100644 tools/testing/selftests/rcutorture/configs/hazptr/SLOWPATH
 
-diff --git a/drivers/media/platform/qcom/camss/camss-vfe-17x.c b/drivers/media/platform/qcom/camss/camss-vfe-17x.c
-index 52812d34530d6..a2d336e7f7aa9 100644
---- a/drivers/media/platform/qcom/camss/camss-vfe-17x.c
-+++ b/drivers/media/platform/qcom/camss/camss-vfe-17x.c
-@@ -253,12 +253,13 @@ static void vfe_wm_stop(struct vfe_device *vfe, u8 wm, struct vfe_line *line)
- 	writel_relaxed(0, vfe->base + VFE_BUS_WM_CFG(wm));
+diff --git a/kernel/rcu/hazptrtorture.c b/kernel/rcu/hazptrtorture.c
+index 7c8b5899fb01..7c144b9bca6a 100644
+--- a/kernel/rcu/hazptrtorture.c
++++ b/kernel/rcu/hazptrtorture.c
+@@ -23,6 +23,7 @@
+ #include <linux/torture.h>
+ #include <linux/hazptr.h>
+ #include <linux/rcupdate.h>
++#include <linux/workqueue.h>
+ 
+ #include "rcu.h"
+ 
+@@ -49,6 +50,8 @@ torture_param(int, shutdown_secs, 0, "Shutdown time (s), <= zero to disable.");
+ torture_param(int, stat_interval, 60, "Number of seconds between stats printk()s");
+ torture_param(int, stutter, 5, "Number of seconds to run/halt test");
+ torture_param(int, verbose, 1, "Enable verbose debugging printk()s");
++torture_param(bool, wq_churn, false,
++	      "Churn workqueues to exercise lockdep dynamic keys");
+ 
+ static char *torture_type = "hazptr";
+ module_param(torture_type, charp, 0444);
+@@ -60,6 +63,7 @@ static struct task_struct *preempt_task;
+ static struct task_struct **reader_tasks;
+ static struct task_struct *do_pending_task;
+ static struct task_struct *stats_task;
++static struct task_struct *wq_churn_task;
+ 
+ #define HAZPTR_TORTURE_PIPE_LEN 10
+ 
+@@ -87,6 +91,7 @@ static DEFINE_PER_CPU(atomic_long_t, hazptr_torture_acquires_irq);
+ static DEFINE_PER_CPU(atomic_long_t, hazptr_torture_releases_irq);
+ static DEFINE_PER_CPU(atomic_long_t, hazptr_torture_releases_defer);
+ static DEFINE_PER_CPU(atomic_long_t, hazptr_torture_releases_undefer);
++static atomic_t n_hazptr_torture_wq_churn;
+ static struct list_head hazptr_torture_removed;
+ 
+ // State for a deferred (AKA pending) hazard pointer
+@@ -643,13 +648,14 @@ hazptr_torture_stats_print(void)
+ 		atomic_read(&n_hazptr_torture_alloc_fail),
+ 		atomic_read(&n_hazptr_torture_free));
+ 	torture_onoff_stats();
+-	pr_cont("acq: %lld rel: %lld acqirq: %lld relirq: %lld reldefer: %lld relundefer %lld\n",
++	pr_cont("acq: %lld rel: %lld acqirq: %lld relirq: %lld reldefer: %lld relundefer %lld wqchurn: %d\n",
+ 		torture_sum_pcpu_atomic_long(&hazptr_torture_acquires),
+ 		torture_sum_pcpu_atomic_long(&hazptr_torture_releases),
+ 		torture_sum_pcpu_atomic_long(&hazptr_torture_acquires_irq),
+ 		torture_sum_pcpu_atomic_long(&hazptr_torture_releases_irq),
+ 		torture_sum_pcpu_atomic_long(&hazptr_torture_releases_defer),
+-		torture_sum_pcpu_atomic_long(&hazptr_torture_releases_undefer));
++		torture_sum_pcpu_atomic_long(&hazptr_torture_releases_undefer),
++		atomic_read(&n_hazptr_torture_wq_churn));
+ 
+ 	pr_alert("%s%s ", torture_type, TORTURE_FLAG);
+ 	if (i > 1) {
+@@ -720,14 +726,14 @@ hazptr_torture_print_module_parms(struct hazptr_torture_ops *cur_ops, const char
+ 		 "defer_modulus=%d irq_acquire=%d irq_release=%d kthread_do_pending_ms=%d "
+ 		 "onoff_interval=%d onoff_holdoff=%d "
+ 		 "preempt_duration=%d preempt_interval=%d "
+-		 "reader_sleep_us=%d "
++		 "reader_sleep_us=%d wq_churn=%d "
+ 		 "shuffle_interval=%d shutdown_secs=%d stat_interval=%d stutter=%d "
+ 		 "verbose=%d\n",
+ 		 torture_type, tag, nrealreaders, nwriters,
+ 		 defer_modulus, irq_acquire, irq_release, kthread_do_pending_ms,
+ 		 onoff_interval, onoff_holdoff,
+ 		 preempt_duration, preempt_interval,
+-		 reader_sleep_us,
++		 reader_sleep_us, wq_churn,
+ 		 shuffle_interval, shutdown_secs, stat_interval, stutter,
+ 		 verbose);
+ }
+@@ -761,6 +767,42 @@ static int hazptr_torture_preempt(void *unused)
+ 	return 0;
  }
  
--static void vfe_wm_update(struct vfe_device *vfe, u8 wm, u32 addr,
-+static void vfe_wm_update(struct vfe_device *vfe, u8 wm, struct camss_buffer *buffer,
- 			  struct vfe_line *line)
- {
- 	struct v4l2_pix_format_mplane *pix =
- 		&line->output[0].video_out.active_fmt.fmt.pix_mp;
- 	u32 stride = pix->plane_fmt[0].bytesperline;
-+	u32 addr = buffer->addr[0];
- 
- 	writel_relaxed(addr, vfe->base + VFE_BUS_WM_IMAGE_ADDR(wm));
- 	writel_relaxed(stride * pix->height, vfe->base + VFE_BUS_WM_FRAME_INC(wm));
-@@ -541,7 +542,7 @@ static void vfe_isr_wm_done(struct vfe_device *vfe, u8 wm)
- 	output->buf[index] = vfe_buf_get_pending(output);
- 
- 	if (output->buf[index])
--		vfe_wm_update(vfe, output->wm[0].bus_client, output->buf[index]->addr[0], line);
-+		vfe_wm_update(vfe, output->wm[0].bus_client, output->buf[index], line);
- 	else
- 		output->gen2.active_num--;
- 
-diff --git a/drivers/media/platform/qcom/camss/camss-vfe-340.c b/drivers/media/platform/qcom/camss/camss-vfe-340.c
-index 493c4b2e64162..e5a0a70eed1e6 100644
---- a/drivers/media/platform/qcom/camss/camss-vfe-340.c
-+++ b/drivers/media/platform/qcom/camss/camss-vfe-340.c
-@@ -252,9 +252,10 @@ static void vfe_enable_irq(struct vfe_device *vfe)
- 	       TFE_BUS_IRQ_MASK_0_IMG_VIOL, vfe->base + TFE_BUS_IRQ_MASK_0);
- }
- 
--static void vfe_wm_update(struct vfe_device *vfe, u8 wm, u32 addr,
-+static void vfe_wm_update(struct vfe_device *vfe, u8 wm, struct camss_buffer *buffer,
- 			  struct vfe_line *line)
- {
-+	u32 addr = buffer->addr[0];
- 	u8 client = tfe_wm_client_map[wm];
- 
- 	writel_relaxed(addr, vfe->base + TFE_BUS_IMAGE_ADDR(client));
-diff --git a/drivers/media/platform/qcom/camss/camss-vfe-480.c b/drivers/media/platform/qcom/camss/camss-vfe-480.c
-index 75dc73eadd6d0..bb065e47fe91e 100644
---- a/drivers/media/platform/qcom/camss/camss-vfe-480.c
-+++ b/drivers/media/platform/qcom/camss/camss-vfe-480.c
-@@ -133,9 +133,10 @@ static void vfe_wm_stop(struct vfe_device *vfe, u8 wm, struct vfe_line *line)
- 	writel_relaxed(0, vfe->base + VFE_BUS_WM_CFG(wm));
- }
- 
--static void vfe_wm_update(struct vfe_device *vfe, u8 wm, u32 addr,
-+static void vfe_wm_update(struct vfe_device *vfe, u8 wm, struct camss_buffer *buffer,
- 			  struct vfe_line *line)
- {
-+	u32 addr = buffer->addr[0];
- 	wm = RDI_WM(wm); /* map to actual WM used (from wm=RDI index) */
- 	writel_relaxed(addr, vfe->base + VFE_BUS_WM_IMAGE_ADDR(wm));
- }
-diff --git a/drivers/media/platform/qcom/camss/camss-vfe-680.c b/drivers/media/platform/qcom/camss/camss-vfe-680.c
-index d9a6402e8d928..242bacb051cc0 100644
---- a/drivers/media/platform/qcom/camss/camss-vfe-680.c
-+++ b/drivers/media/platform/qcom/camss/camss-vfe-680.c
-@@ -144,10 +144,11 @@ static void vfe_disable_irq(struct vfe_device *vfe)
- 	writel(0u, vfe->base + VFE_BUS_IRQn_MASK(vfe, 1));
- }
- 
--static void vfe_wm_update(struct vfe_device *vfe, u8 rdi, u32 addr,
-+static void vfe_wm_update(struct vfe_device *vfe, u8 wm, struct camss_buffer *buffer,
- 			  struct vfe_line *line)
- {
--	u8 wm = RDI_WM(rdi);
-+	u32 addr = buffer->addr[0];
-+	wm = RDI_WM(wm); /* map to actual WM used (from wm=RDI index) */
- 
- 	writel(addr, vfe->base + VFE_BUS_IMAGE_ADDR(vfe, wm));
- }
-diff --git a/drivers/media/platform/qcom/camss/camss-vfe-690.c b/drivers/media/platform/qcom/camss/camss-vfe-690.c
-index fb40560d4ab41..efe8d963b4703 100644
---- a/drivers/media/platform/qcom/camss/camss-vfe-690.c
-+++ b/drivers/media/platform/qcom/camss/camss-vfe-690.c
-@@ -96,9 +96,11 @@ static void vfe_wm_stop(struct vfe_device *vfe, u8 wm, struct vfe_line *line)
- 	writel(0, vfe->base + VFE_BUS_WM_CFG(wm));
- }
- 
--static void vfe_wm_update(struct vfe_device *vfe, u8 wm, u32 addr,
-+static void vfe_wm_update(struct vfe_device *vfe, u8 wm, struct camss_buffer *buffer,
- 			  struct vfe_line *line)
- {
-+	u32 addr = buffer->addr[0];
++static void hazptr_torture_wq_churn_fn(struct work_struct *work)
++{
++}
 +
- 	wm = RDI_WM(wm);
- 
- 	writel(addr, vfe->base + VFE_BUS_WM_IMAGE_ADDR(wm));
-diff --git a/drivers/media/platform/qcom/camss/camss-vfe-780.c b/drivers/media/platform/qcom/camss/camss-vfe-780.c
-index 88d74323fe276..d70e829524fdf 100644
---- a/drivers/media/platform/qcom/camss/camss-vfe-780.c
-+++ b/drivers/media/platform/qcom/camss/camss-vfe-780.c
-@@ -118,9 +118,11 @@ static void vfe_wm_stop(struct vfe_device *vfe, u8 wm, struct vfe_line *line)
- 	writel(0, vfe->base + VFE_BUS_WM_CFG(wm));
- }
- 
--static void vfe_wm_update(struct vfe_device *vfe, u8 wm, u32 addr,
-+static void vfe_wm_update(struct vfe_device *vfe, u8 wm, struct camss_buffer *buffer,
- 			  struct vfe_line *line)
- {
-+	u32 addr = buffer->addr[0];
++/*
++ * Repeatedly create and destroy workqueues.  Each workqueue creation
++ * registers a lockdep dynamic key and each destruction unregisters it,
++ * which exercises both is_dynamic_key() and lockdep_unregister_key(),
++ * the two lockdep paths that use hazptr.  Most useful in kernels with
++ * CONFIG_PROVE_LOCKING=y and CONFIG_HAZPTR_ACQUIRE_FORCE_SLOWPATH=y.
++ */
++static int hazptr_torture_wq_churn(void *unused)
++{
++	DEFINE_TORTURE_RANDOM(rand);
 +
- 	wm = line->output[0].wm[0].bus_client;
++	VERBOSE_TOROUT_STRING("hazptr_torture_wq_churn task started");
++	do {
++		struct workqueue_struct *wq;
++		struct work_struct churn_work;
++
++		wq = alloc_workqueue("hazptr-torture-churn", WQ_PERCPU, 1);
++		if (!wq) {
++			torture_hrtimeout_ms(10, 10, &rand);
++			continue;
++		}
++		INIT_WORK(&churn_work, hazptr_torture_wq_churn_fn);
++		queue_work(wq, &churn_work);
++		flush_work(&churn_work);
++		destroy_workqueue(wq);
++		atomic_inc(&n_hazptr_torture_wq_churn);
++		stutter_wait("hazptr_torture_wq_churn");
++	} while (!torture_must_stop());
++	torture_kthread_stopping("hazptr_torture_wq_churn");
++	return 0;
++}
++
+ static void
+ hazptr_torture_cleanup(void)
+ {
+@@ -775,6 +817,7 @@ hazptr_torture_cleanup(void)
  
- 	writel((addr >> 8), vfe->base + VFE_BUS_WM_IMAGE_ADDR(wm));
-diff --git a/drivers/media/platform/qcom/camss/camss-vfe.c b/drivers/media/platform/qcom/camss/camss-vfe.c
-index 896e8d8e8d8a0..fbc2068b301bc 100644
---- a/drivers/media/platform/qcom/camss/camss-vfe.c
-+++ b/drivers/media/platform/qcom/camss/camss-vfe.c
-@@ -662,7 +662,7 @@ void vfe_buf_done(struct vfe_device *vfe, int wm, struct camss_buf_done_info *bu
- 			ops->vfe_output_update(vfe, output, output->buf[index]);
- 		else
- 			ops->vfe_wm_update(vfe, output->wm[0].bus_client,
--					   output->buf[index]->addr[0],
-+					   output->buf[index],
- 					   line);
- 		ops->reg_update(vfe, line->id);
- 	} else {
-@@ -714,7 +714,7 @@ static int vfe_enable_one_output(struct vfe_line *line, struct vfe_output *outpu
- 			ops->vfe_output_update(vfe, output, output->buf[i]);
- 		else
- 			ops->vfe_wm_update(vfe, output->wm[0].bus_client,
--					   output->buf[i]->addr[0], line);
-+					   output->buf[i], line);
- 		ops->reg_update(vfe, line->id);
+ 	torture_stop_kthread(hazptr_torture_do_pending, do_pending_task);
+ 	torture_stop_kthread(hazptr_torture_preempt, preempt_task);
++	torture_stop_kthread(hazptr_torture_wq_churn, wq_churn_task);
+ 	torture_stop_kthread(hazptr_torture_writer, writer_task);
+ 
+ 	if (reader_tasks) {
+@@ -853,6 +896,7 @@ static int __init hazptr_torture_init(void)
+ 	atomic_set(&n_hazptr_torture_alloc_fail, 0);
+ 	atomic_set(&n_hazptr_torture_free, 0);
+ 	atomic_set(&n_hazptr_torture_error, 0);
++	atomic_set(&n_hazptr_torture_wq_churn, 0);
+ 	for (i = 0; i < HAZPTR_TORTURE_PIPE_LEN + 1; i++)
+ 		atomic_set(&hazptr_torture_wcount[i], 0);
+ 	for_each_possible_cpu(cpu) {
+@@ -928,6 +972,11 @@ static int __init hazptr_torture_init(void)
+ 		if (torture_init_error(firsterr))
+ 			goto unwind;
  	}
++	if (wq_churn) {
++		firsterr = torture_create_kthread(hazptr_torture_wq_churn, NULL, wq_churn_task);
++		if (torture_init_error(firsterr))
++			goto unwind;
++	}
  
-@@ -785,7 +785,7 @@ int vfe_queue_buffer_v2(struct camss_video *vid,
- 			ops->vfe_output_update(vfe, output, buf);
- 		else
- 			ops->vfe_wm_update(vfe, output->wm[0].bus_client,
--					   buf->addr[0], line);
-+					   buf, line);
- 		ops->reg_update(vfe, line->id);
- 	} else {
- 		vfe_buf_add_pending(output, buf);
-diff --git a/drivers/media/platform/qcom/camss/camss-vfe.h b/drivers/media/platform/qcom/camss/camss-vfe.h
-index 4e99a2c5b33af..0b632479cefc6 100644
---- a/drivers/media/platform/qcom/camss/camss-vfe.h
-+++ b/drivers/media/platform/qcom/camss/camss-vfe.h
-@@ -185,7 +185,7 @@ struct vfe_hw_ops {
- 			    struct vfe_line *line);
- 	void (*vfe_buf_done)(struct vfe_device *vfe, int port_id,
- 			     struct camss_buf_done_info *buf_done_info);
--	void (*vfe_wm_update)(struct vfe_device *vfe, u8 wm, u32 addr,
-+	void (*vfe_wm_update)(struct vfe_device *vfe, u8 wm, struct camss_buffer *buffer,
- 			      struct vfe_line *line);
- 
- 	/* Output based API - new and shiny */
-
+ 	torture_init_end();
+ 	return 0;
+diff --git a/tools/testing/selftests/rcutorture/configs/hazptr/CFLIST b/tools/testing/selftests/rcutorture/configs/hazptr/CFLIST
+index 4d62eb4a39f9..380b8402ccc9 100644
+--- a/tools/testing/selftests/rcutorture/configs/hazptr/CFLIST
++++ b/tools/testing/selftests/rcutorture/configs/hazptr/CFLIST
+@@ -1,2 +1,4 @@
+ NOPREEMPT
+ PREEMPT
++SLOWPATH
++LOCKDEP
+diff --git a/tools/testing/selftests/rcutorture/configs/hazptr/LOCKDEP b/tools/testing/selftests/rcutorture/configs/hazptr/LOCKDEP
+new file mode 100644
+index 000000000000..129769e2e32e
+--- /dev/null
++++ b/tools/testing/selftests/rcutorture/configs/hazptr/LOCKDEP
+@@ -0,0 +1,17 @@
++CONFIG_SMP=y
++CONFIG_NR_CPUS=16
++CONFIG_PREEMPT_NONE=n
++CONFIG_PREEMPT_VOLUNTARY=n
++CONFIG_PREEMPT=y
++CONFIG_HZ_PERIODIC=n
++CONFIG_NO_HZ_IDLE=y
++CONFIG_NO_HZ_FULL=n
++CONFIG_HOTPLUG_CPU=y
++CONFIG_SUSPEND=n
++CONFIG_HIBERNATION=n
++CONFIG_DEBUG_LOCK_ALLOC=y
++CONFIG_PROVE_LOCKING=y
++CONFIG_DEBUG_OBJECTS_RCU_HEAD=n
++CONFIG_DEBUG_KERNEL=y
++CONFIG_HAZPTR_DEBUG=y
++CONFIG_HAZPTR_ACQUIRE_FORCE_SLOWPATH=y
+diff --git a/tools/testing/selftests/rcutorture/configs/hazptr/LOCKDEP.boot b/tools/testing/selftests/rcutorture/configs/hazptr/LOCKDEP.boot
+new file mode 100644
+index 000000000000..7b16720214bd
+--- /dev/null
++++ b/tools/testing/selftests/rcutorture/configs/hazptr/LOCKDEP.boot
+@@ -0,0 +1 @@
++hazptrtorture.wq_churn=1
+diff --git a/tools/testing/selftests/rcutorture/configs/hazptr/SLOWPATH b/tools/testing/selftests/rcutorture/configs/hazptr/SLOWPATH
+new file mode 100644
+index 000000000000..4d13028ca84c
+--- /dev/null
++++ b/tools/testing/selftests/rcutorture/configs/hazptr/SLOWPATH
+@@ -0,0 +1,16 @@
++CONFIG_SMP=y
++CONFIG_NR_CPUS=16
++CONFIG_PREEMPT_NONE=n
++CONFIG_PREEMPT_VOLUNTARY=n
++CONFIG_PREEMPT=y
++CONFIG_HZ_PERIODIC=n
++CONFIG_NO_HZ_IDLE=y
++CONFIG_NO_HZ_FULL=n
++CONFIG_HOTPLUG_CPU=y
++CONFIG_SUSPEND=n
++CONFIG_HIBERNATION=n
++CONFIG_PROVE_LOCKING=n
++CONFIG_DEBUG_OBJECTS_RCU_HEAD=n
++CONFIG_DEBUG_KERNEL=y
++CONFIG_HAZPTR_DEBUG=y
++CONFIG_HAZPTR_ACQUIRE_FORCE_SLOWPATH=y
 -- 
-2.55.0
+2.43.0
 
