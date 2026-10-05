@@ -1,143 +1,147 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 556B746AA8D
-	for <linux-kernel@vger.kernel.org>; Mon,  5 Oct 2026 10:28:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5B87E457E65;
+	Mon,  5 Oct 2026 10:28:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.130
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791196086; cv=none; b=UUMT7LD3IYv5+yFDcRY6ImTwY1u+a/cfMyoGqB2Bc4qNS5/JPi1a77bWex7bSOGr5LjBNRmldDyzsqkq6ObFAXBaj6waeOzHx85Pvn/VTQLC4A1apKzPFO6Zw7dogxB0IR2jR3LBEtW6Cki8F7nOPFtTls4K/HMft+KN8nWebZs=
+	t=1791196096; cv=none; b=fx+8SNir3FmCy3lMpBQtjogvXnCAo9ZUrMluGNM6Bq985zDTAmLsXl4sv/EY2wZ1uAGGBwJvjWFkklYUFVDRNIVEtMQRdE8F660Wxd6Z6121ofChd2YtXCfM+kdR3u6h4EG71MJIGh3U+GeYX9Mg7czz+pWc/ZeR1bXIdtHIsKI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791196086; c=relaxed/simple;
-	bh=/9iUHi9Bi1jgQjVEf08XKO/MeZy1Rn9ANGY0DGevM1M=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=SHWjaVA0/zJWnbZPCvvEPhE5/38T/81nQCY/TurV8IlfrQM1NNgKx3G/oEGs9m7SCZlfzIJxQamyfiW/1O/5ZrBUBmNzAlA/FAUZiVY3un3xNU/Bw0lEikgZulpLfUebw1GuUugG1qtod/jBDE0FruFG1hntfuMroS4W50Twe9s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=E9qUpCYf; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	s=arc-20240116; t=1791196096; c=relaxed/simple;
+	bh=RUGabXB01WVBYscIOh3a6k+U6RGIgCxG0UI9tqZtglM=;
+	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=s35Ee4ZVj7clVTJDxTHaOKD37RqaUz1q4KAjbfMerE19pUTap+VNx9HWEb/0QCB8CnIGVZZBWrqBLFlzDP0zwG3hMVMQtNH5Tn4n2Gr7S4GYclXL5XemrIkT7nhAM/LnoIE4FI64rb8Lrh3X5H8+az7VhZv13AZ97/3Q49o0+jg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=QvZ8tg/N; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=avvF+c2J; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=rHUkIc/I; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=dwbDSzd7; arc=none smtp.client-ip=195.135.223.130
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="E9qUpCYf"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id AB38A152B;
-	Mon,  5 Oct 2026 03:27:58 -0700 (PDT)
-Received: from [10.57.78.53] (unknown [10.57.78.53])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id C78043F763;
-	Mon,  5 Oct 2026 03:27:59 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1791196082; bh=/9iUHi9Bi1jgQjVEf08XKO/MeZy1Rn9ANGY0DGevM1M=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=E9qUpCYfFm9WbXY341x/lNERiXeQp/UmmthYuulPGrwNI1Rx3ejKWn6cMsFrPZwjR
-	 mMyYOgyrBOavr26arcsL/utYXv1/CQL7IA6L0UH8FIaQWsBxTERvnxKsP7ZkOUcUJ+
-	 KLdQg/lOgE1Dixz2mpwq233maYrzM+6aY2TlHio8=
-Message-ID: <17c2fbf8-295c-4bca-a488-f101dcadd8ca@arm.com>
-Date: Mon, 5 Oct 2026 11:27:57 +0100
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="QvZ8tg/N";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="avvF+c2J";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="rHUkIc/I";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="dwbDSzd7"
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out1.suse.de (Postfix) with ESMTPS id 0F89221E85;
+	Mon,  5 Oct 2026 10:28:05 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1791196089; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=dpnyF9kWu5HUOFuoMW2EGXX3vg3/k1B3QaCRnwhKEdQ=;
+	b=QvZ8tg/NB3JXdFbwzNd9PjuXAYegvaBBJrv87lRqof8u1TbRCwuB4S+9NX2CEikuZSnlVT
+	0RdCh853IS9q8OeUdztLnNb0oZ+zsN88ctKmkonancy80HPz8ISAEr6U02vSUUDwJkZsO2
+	S1K/PTFUFlKCkZ6JzAdzZRUnZSK4hp8=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1791196089;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=dpnyF9kWu5HUOFuoMW2EGXX3vg3/k1B3QaCRnwhKEdQ=;
+	b=avvF+c2Jeff/ifyMvbfyqB1oJdLiIpkejk2DmGj4oUuFJI/otfSiTPb/3uwDBqslEvcWts
+	YuzPCtXqdNd08yCg==
+Authentication-Results: smtp-out1.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1791196085; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=dpnyF9kWu5HUOFuoMW2EGXX3vg3/k1B3QaCRnwhKEdQ=;
+	b=rHUkIc/I+3ZlhfqGdI39tRm0SYAmIH8AYuWuCaiG/5M8lqtmv1SSzIw7DFvUJao9sZf42R
+	UoSMSl+nqLIqgcPHgFDBVJUx/rd0N9RVMPupDFytXlg4fZeusftXiSxTYGMnNLS6e2rBT2
+	XW70JRvYjPxShTC9dwq2opo/4FytcNI=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1791196085;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=dpnyF9kWu5HUOFuoMW2EGXX3vg3/k1B3QaCRnwhKEdQ=;
+	b=dwbDSzd7f3x+TP5glNT7rNmM4Lr5PR3uVZitQwOQNqtr0cChDqh6cSUdIVr+29E3lTPYLf
+	D1Dnnxyp9DQJT/Dg==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id CC9C2132D3;
+	Mon,  5 Oct 2026 10:28:04 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id 7b0vKbR7w2rlJQAAD6G6ig
+	(envelope-from <tiwai@suse.de>); Mon, 05 Oct 2026 10:28:04 +0000
+Date: Mon, 05 Oct 2026 12:27:56 +0200
+Message-ID: <87se2ksaqb.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Scott Gauche <scott-dev@scottgauche.com>
+Cc: Jaroslav Kysela <perex@perex.cz>,
+	Takashi Iwai <tiwai@suse.com>,
+	linux-sound@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v1] ALSA: hda/realtek: Fix audio after Windows reboot on ASUS Q423SA
+In-Reply-To: <20261004212623.1098793-1-scott-dev@scottgauche.com>
+References: <20261004212623.1098793-1-scott-dev@scottgauche.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/30.2 Mule/6.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 1/5] drm/panthor: Avoid false positives in
- iova_mapped_as_huge_page()
-To: Boris Brezillon <boris.brezillon@collabora.com>,
- Liviu Dudau <liviu.dudau@arm.com>,
- =?UTF-8?Q?Adri=C3=A1n_Larumbe?= <adrian.larumbe@collabora.com>,
- Akash Goel <akash.goel@arm.com>
-Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-References: <20260924-panthor-fix-partial-unmap-v2-0-59a68a1f9e14@collabora.com>
- <20260924-panthor-fix-partial-unmap-v2-1-59a68a1f9e14@collabora.com>
-From: Steven Price <steven.price@arm.com>
-Content-Language: en-GB
-In-Reply-To: <20260924-panthor-fix-partial-unmap-v2-1-59a68a1f9e14@collabora.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+X-Spamd-Result: default: False [-3.30 / 50.00];
+	BAYES_HAM(-3.00)[99.99%];
+	MID_CONTAINS_FROM(1.00)[];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	MIME_TRACE(0.00)[0:+];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	TO_DN_SOME(0.00)[];
+	ARC_NA(0.00)[];
+	RCVD_TLS_ALL(0.00)[];
+	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	RCPT_COUNT_FIVE(0.00)[5];
+	FROM_EQ_ENVFROM(0.00)[];
+	RCVD_COUNT_TWO(0.00)[2];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:mid,imap1.dmz-prg2.suse.org:helo]
+X-Spam-Flag: NO
+X-Spam-Score: -3.30
+X-Spam-Level: 
 
-On 24/09/2026 12:04, Boris Brezillon wrote:
-> The check on the folio size is actually moot if the BO offset matching
-> the VA we're checking huge-mapping for is not 2M aligned as well.
-> This means that we are sometimes returning true when we shouldn't, which
-> forces an extra unmap+map to deal with block-mapping splits. It's not
-> a functional bug per-se, because the unmap+map sequence will restore
-> things in the state we expect them to be, but it's better to properly
-> optimize those cases.
+On Sun, 04 Oct 2026 23:26:23 +0200,
+Scott Gauche wrote:
 > 
-> Note that we now align the VA on 2M address below it otherwise we can't
-> check the bo_offset alignment (both physical and virtual address need
-> to be aligned, in addition to the physically contiguous size being 2M,
-> which the folio size check ensures).
+> The ASUS Vivobook S 14 Q423SA-U5512 (DMI family S5406SA) with the
+> ALC294 codec has working analog audio when booted directly after a full
+> shutdown. After a warm reboot from Windows 11, audio works briefly during
+> Linux startup, then both the internal speakers and headphones become
+> silent. PCM playback continues without errors.
 > 
-> These changes force us to pass the drm_gpuva that's being unmapped
-> instead of the new mappings that will be created to cover the left/right
-> sections we remap. This changes makes the logic a lot easier to reason
-> about, because it doesn't make sense to how things were mapped by
-> passing the new mappings that are not yet in place.
+> Coefficient 0x1b is 0x4e4b on a direct cold boot, but 0x4a4b after the
+> Windows warm reboot. Restoring bit 10 changes it back to 0x4e4b and
+> immediately enables both analog outputs. Speaker playback, headphone
+> playback, jack switching, cold boot, and suspend/resume were tested
+> successfully. The same 0x4a4b state and immediate recovery with 0x4e4b
+> were independently confirmed on another S5406SA with subsystem 1043:10c4.
 > 
-> Fixes: 8e7460eac786 ("drm/panthor: Support partial unmaps of huge pages")
-> Reviewed-by: Liviu Dudau <liviu.dudau@arm.com>
-> Reviewed-by: Akash Goel <akash.goel@arm.com>
-> Signed-off-by: Boris Brezillon <boris.brezillon@collabora.com>
+> The same coefficient write is already used by
+> ALC294_FIXUP_ASUS_COEF_1B for the ASUS UX431DA. That fixup cannot be
+> reused here because it chains to ALC289_FIXUP_ASUS_GA401 and applies
+> unrelated DAC routing and microphone pin configuration.
+> 
+> Add a model-specific fixup for subsystem 1043:10c4 and chain it to the
+> existing ALC2XX_FIXUP_HEADSET_MIC fixup instead.
+> 
+> Link: https://github.com/thesofproject/sof/issues/11051
+> Signed-off-by: Scott Gauche <scott-dev@scottgauche.com>
 
-Reviewed-by: Steven Price <steven.price@arm.com>
+As this looks like correcting an existing quirk, could you point to
+the commit introducing the original quirk via Fixes tag?
+At best, please resubmit v2 with it.
 
-> ---
->  drivers/gpu/drm/panthor/panthor_mmu.c | 24 +++++++++++++++++++-----
->  1 file changed, 19 insertions(+), 5 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/panthor/panthor_mmu.c b/drivers/gpu/drm/panthor/panthor_mmu.c
-> index 9f63a048df61..b0a7033480e6 100644
-> --- a/drivers/gpu/drm/panthor/panthor_mmu.c
-> +++ b/drivers/gpu/drm/panthor/panthor_mmu.c
-> @@ -2295,15 +2295,29 @@ static int panthor_gpuva_sm_step_map(struct drm_gpuva_op *op, void *priv)
->  }
->  
->  static bool
-> -iova_mapped_as_huge_page(struct drm_gpuva_op_map *op, u64 addr)
-> +iova_mapped_as_huge_page(struct drm_gpuva *mapping, u64 va)
->  {
-> -	struct panthor_gem_object *bo = to_panthor_bo(op->gem.obj);
-> +	struct panthor_gem_object *bo = to_panthor_bo(mapping->gem.obj);
-> +	u64 aligned_va = ALIGN_DOWN(va, SZ_2M);
->  	const struct page *pg;
->  	pgoff_t bo_offset;
->  
-> -	bo_offset = addr - op->va.addr + op->gem.offset;
-> +	/* If the 2M-aligned VA is outside the mapping being tested, we know
-> +	 * it's not a huge map.
-> +	 */
-> +	if (aligned_va < mapping->va.addr)
-> +		return false;
-> +
-> +	bo_offset = aligned_va - mapping->va.addr + mapping->gem.offset;
->  	pg = bo->backing.pages[bo_offset >> PAGE_SHIFT];
->  
-> +	/* In case of shmem backing, we know we can only have a huge mapping
-> +	 * if the bo_offset is 2M aligned, meaning we can skip the folio size
-> +	 * check if it's not the case.
-> +	 */
-> +	if (!IS_ALIGNED(bo_offset, SZ_2M))
-> +		return false;
-> +
->  	return folio_size(page_folio(pg)) >= SZ_2M;
->  }
->  
-> @@ -2328,7 +2342,7 @@ unmap_hugepage_align(const struct drm_gpuva_op_remap *op,
->  	 */
->  	if (op->prev && aligned_unmap_start < *unmap_start &&
->  	    op->prev->va.addr <= aligned_unmap_start &&
-> -	    (is_sparse || iova_mapped_as_huge_page(op->prev, *unmap_start))) {
-> +	    (is_sparse || iova_mapped_as_huge_page(op->unmap->va, *unmap_start))) {
->  		*unmap_range += *unmap_start - aligned_unmap_start;
->  		*unmap_start = aligned_unmap_start;
->  	}
-> @@ -2338,7 +2352,7 @@ unmap_hugepage_align(const struct drm_gpuva_op_remap *op,
->  	 */
->  	if (op->next && aligned_unmap_end > unmap_end &&
->  	    op->next->va.addr + op->next->va.range >= aligned_unmap_end &&
-> -	    (is_sparse || iova_mapped_as_huge_page(op->next, unmap_end - 1))) {
-> +	    (is_sparse || iova_mapped_as_huge_page(op->unmap->va, unmap_end - 1))) {
->  		*unmap_range += aligned_unmap_end - unmap_end;
->  	}
->  }
-> 
 
+thanks,
+
+Takashi
