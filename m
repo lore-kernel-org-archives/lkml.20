@@ -1,218 +1,285 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj1-f54.google.com (mail-pj1-f54.google.com [209.85.216.54])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 59B2653161E;
-	Mon,  5 Oct 2026 17:19:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 092EA531AF0
+	for <linux-kernel@vger.kernel.org>; Mon,  5 Oct 2026 17:19:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.54
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791220771; cv=none; b=GWOQGLhJJvvQQ7L6fdVz3kJcYjarWMpG5x/jzsX4fNJYxw1xRnpHkKt6qqANVfVEB2F9FEcEt8IkrDDLsMJmztDDm9R6lyE3y5gpCbaVZ0ize+aoSExqMdlfEVG8DBJ+obVVPJajWugmbfN4a2V2bFc62JC9JoFuwQj51V74T5M=
+	t=1791220771; cv=none; b=cxT9v6+/7z8wJ1PG8WnCR5WMH2atVToup9X2SGT2NRWrcYSqTng7EzYpu/l/JJjQ1WC7yK7TQJ6u5jSomM6VfWlQg6W4rpaOzRdzZu9kwxEE1QmC09ctU2DSOOigZOAR4tN28VZ5naqqBriqSr1ZcmEovNgvIy2XHvNuqaW1RDA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1791220771; c=relaxed/simple;
-	bh=suIKByc22EBVd6NzZw3DGC/UVpmB8QIcsdotoZKHyJQ=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=S2Z6xfM3NyETOam3MnvKstQjW16ahfXDeyq/Hwnq+FIbW917qDZ3agOH8I1BD/TzCD+ON2s/xhK6pC5vKhX0RliEdhoWQMdLAzE1q35Z/AZ3E1UpcBAOpOibYPI6CGGiWNhidt7xYPt1G6zZ9eEGGbqom/rdq5vyVvoPjBlPJy8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Ek08A4rk; arc=none smtp.client-ip=100.103.45.18
+	bh=DSy90Vi1pYW2azdUTwrc0TT6kW6QsQGO8Rlo/8MHFWI=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=fsjf7cU2Sh0UjxEkM3kM5YcjUXcmGvd8rWw6cI/mQ+ry5KjZMU+dwt66GwLAOZnRG4hEpGCyHmIPiT3zJcnqtOLzyNhmE3b9AueJB11uF8yWX6EXhAR7roAGeoBaKz1AiQjG1EZC4A9MD7oqNfZ6sAQGeVcLDMaao6G1O8tY4Qo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=gGnt2UfA; arc=none smtp.client-ip=209.85.216.54
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Ek08A4rk"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A3EB41F00893;
-	Mon,  5 Oct 2026 17:19:25 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791220768;
-	bh=PUS1VqT1unHEmRoX3yoBazSvna/Wqg3AnG0UfHiqWvQ=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=Ek08A4rkyT5ieak7UQL3oXm4aR1HYBW42dZNhXJWnqYkuVCXdWtEic4qjzTiEWtnV
-	 3WPic958cc0LoYYBguvtgT39PswxglkY3fRD3wTLJ5e+GHUYgitkMdW6HOqgbgloF/
-	 PhLMB1OBGS36mdMcF6MPM1vohPV/0+lJuGUxBsX3XWRhEIh+J3FpT7hAtcTe+LqPWO
-	 2Qfqj5eF1r0+nZ06wwJn8yp5L+ue4JF2cXDaIqqSLXza29qDgbVi2sNpC24m26efTP
-	 eWyev0qY5SauMi8/aLxbCgbFZxULjwfNFPpCLvu+D1mYlZcT3/zP/eBvz7fDbXs9fK
-	 fu2tuziTvRozA==
-From: bod@kernel.org
-Date: Mon, 05 Oct 2026 19:14:34 +0200
-Subject: [PATCH 64/74] media: qcom: camss: vfe: Register a statistics node
- for the pixel line
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="gGnt2UfA"
+Received: by mail-pj1-f54.google.com with SMTP id 98e67ed59e1d1-3a7d283e017so1059711a91.3
+        for <linux-kernel@vger.kernel.org>; Mon, 05 Oct 2026 10:19:28 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791220768; x=1791825568; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=j4yfFb6320kdlQ6cch251gfqYxfn4Y6pwvS8rFGl1n0=;
+        b=gGnt2UfAUg8JGW1bFWJFnF7t2rGWUEm8RerDWNKaHe0IPoU+2PYQczquL4Y/sP1+K6
+         /xwns+zHRaVLuX5NbVo4kPcLLWJ+KSbbhC6Y9cjktEFpPYmQDegqOnRceQpPFZ3/jSgT
+         tX46Nt+1DaDU06KHwCjTq14Jmz0NeNtHge1pAmCJwUQBGx5STGlxVHxDAhuUA9lcdH2S
+         8+mYO+2lDIWMgmOIlB+CxKC9e8HogVa3aS3QaHjakCTysQQ/xT1uV7efuW0pAcKpXd2d
+         ptUfmOrUB/w9dEY8138jPEq3eazJO3NDawGjapb/04CPKcRVixg5F/hKHtE/6vRtfyp8
+         ScdQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791220768; x=1791825568;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=j4yfFb6320kdlQ6cch251gfqYxfn4Y6pwvS8rFGl1n0=;
+        b=jfgIKpHFiXxjGjlkWm+O7J1EPnaE4daJjT2e9KwMNWrWJs5MuO6vZBr0WadCeQjQP0
+         P5NYxD0/BHUNvFiFQ0ZDa4Tc+wGNWQq0kLFNbJgRn1iHLxMk2X1CUC70Sn+ytBefNsad
+         16XdqNHGNHomZ8P4yBkjWn+OIsMU/ywgFb4bBj2JfB2U+QF9PYkl6XBeXZ+4eOTtv4gM
+         NZVYrvQCGSzjvyny0/cP8cGweVvVI5zQ5uTh4/6GKAvn4fMwQkAXiC3myy49pdqNLok6
+         6CS+GNFrQweXeYlO3p+z3WIE43UAAbUqnqJExYKFNkgPWvG/D2CPxVSa7+Tq1vEyvRmH
+         ZGWQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxGwlQVXjrLHxbVzJI3gcLXk2JXCVsYWwklMcfA00ybWrA/VQnVy6f7hm5Aac4BAWdpj+sdjMWKY2Nk9qY=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLgdQoId52zG6KurkRquZJymEVOFwCt+9g8fSnBfrK8EGaygBIz
+	8wYJcCauq17Tok0VqB+BVpzgzbEy58VNLPEdDhC5qom1oQSfm2gdV+HQ
+X-Gm-Gg: AYBFou3/PQrGg8tMmR+8RNi9qYrI5ututBJuBP2BFTtXFrS7E+sh8ChbvV5G2vkveni
+	StN+plam1IN+gSjiXN712mwR2C805tVW/V37SaP5n7IUmo7L5rcJpW7Yhqb2vrIwo8LEJlwz0iR
+	500jb4DDWbBDSKMKnOexM4hUimWndDTXklTp3CEmbEnftMxw/e2sBvS7ipiP4KUmaImCsKNSAlB
+	Oi9fhF+FL4eXknVTF3D8HasscJg5ZRvgiZ2sOFaBXIqp74MoqpZ3dPplqN3EvhdnD3sZruqmeSv
+	raCgF1yS0n8cKtwP0TtAHaF9NEzCpjVZrHfsEn74WTriUrLxO6mIH+L+dBiihaA+fAn2YFCeG5f
+	dkzY+hDjw6IgyeEVI/kfqRJEe1qz6LMXGyiKkhvxqImyUEbPfb2st6jmCCl4Y9SMDsoSzT5qXfY
+	+sq2UoI03cGyErhSsC7UvQNYSS15pfzzsYAj/At/B4YGVywxNWiRkznO6ZLKaMsa0qU/yC62R6z
+	2HGFUSyDERGmgf4PzbJ93PASxsdvQ==
+X-Received: by 2002:a17:90a:2cc4:b0:398:c3ca:1ebc with SMTP id 98e67ed59e1d1-3a78eca8911mr3952064a91.18.1791220767601;
+        Mon, 05 Oct 2026 10:19:27 -0700 (PDT)
+Received: from kernel.tail6741c6.ts.net ([216.195.201.24])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a853cafddesm406910a91.10.2026.10.05.10.19.12
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 05 Oct 2026 10:19:26 -0700 (PDT)
+From: Kunwu Chan <kunwu.chan@gmail.com>
+To: paulmck@kernel.org,
+	corbet@lwn.net,
+	mingo@redhat.com,
+	frederic@kernel.org,
+	neeraj.upadhyay@kernel.org,
+	josh@joshtriplett.org,
+	urezki@gmail.com,
+	dave@stgolabs.net,
+	lianux.mm@gmail.com
+Cc: stern@rowland.harvard.edu,
+	parri.andrea@gmail.com,
+	will@kernel.org,
+	peterz@infradead.org,
+	boqun@kernel.org,
+	npiggin@gmail.com,
+	dhowells@redhat.com,
+	j.alglave@ucl.ac.uk,
+	luc.maranget@inria.fr,
+	akiyks@gmail.com,
+	dlustig@nvidia.com,
+	joelagnelf@nvidia.com,
+	skhan@linuxfoundation.org,
+	rdunlap@infradead.org,
+	longman@redhat.com,
+	rostedt@goodmis.org,
+	mathieu.desnoyers@efficios.com,
+	jiangshanlai@gmail.com,
+	qiang.zhang@linux.dev,
+	kunwu.chan@gmail.com,
+	brads@mainlining.org,
+	linux-kernel@vger.kernel.org,
+	linux-arch@vger.kernel.org,
+	lkmm@lists.linux.dev,
+	linux-doc@vger.kernel.org,
+	rcu@vger.kernel.org,
+	linux-kselftest@vger.kernel.org
+Subject: [PATCH RFC v3 15/15] selftests/rcutorture: add hazptr torture test script
+Date: Tue,  6 Oct 2026 01:15:29 +0800
+Message-ID: <20261005171529.1378809-16-kunwu.chan@gmail.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20261005171529.1378809-1-kunwu.chan@gmail.com>
+References: <20261005171529.1378809-1-kunwu.chan@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261005-linux-mainline-7-2-sm8650-hdk-rfc-0-v1-64-ed985aefd611@kernel.org>
-References: <20261005-linux-mainline-7-2-sm8650-hdk-rfc-0-v1-0-ed985aefd611@kernel.org>
-In-Reply-To: <20261005-linux-mainline-7-2-sm8650-hdk-rfc-0-v1-0-ed985aefd611@kernel.org>
-To: Bryan O'Donoghue <bryan.odonoghue@linaro.org>, 
- Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>, 
- Loic Poulain <loic.poulain@oss.qualcomm.com>, 
- Mauro Carvalho Chehab <mchehab@kernel.org>, 
- Jacopo Mondi <jacopo.mondi@ideasonboard.com>, 
- Daniel Scally <dan.scally@ideasonboard.com>, Keke Li <keke.li@amlogic.com>, 
- Richard Acayan <mailingradian@gmail.com>, 
- Hans Verkuil <hverkuil@kernel.org>, 
- Gjorgji Rosikopulos <quic_grosikop@quicinc.com>, 
- Radoslav Tsvetkov <quic_rtsvetko@quicinc.com>, 
- Robert Foss <rfoss@kernel.org>, Milen Mitkov <quic_mmitkov@quicinc.com>
-Cc: linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
- linux-kernel@vger.kernel.org, Bryan O'Donoghue <bod@kernel.org>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=4548; i=bod@kernel.org;
- h=from:subject:message-id; bh=5A2KoQwEXT2+D4A1qWNDb5wIIoIA0EWL30AFwbOSegA=;
- b=owEBbQKS/ZANAwAKASJxO7Ohjcg6AcsmYgBqw9suCsNCKG61iiufrkWxnley5A0ZRlYTlwYs+
- B+WJ67nKRmJAjMEAAEKAB0WIQTmk/sqq6Nt4Rerb7QicTuzoY3IOgUCasPbLgAKCRAicTuzoY3I
- OsuaD/9Dce93l/PiCNyA0RGgZ8Xk7uwS+AII8SmdbAEqJSwe/uHBZs1l+kjvGYuHbL0IZJ3NiNC
- 9DgZoNTVTjZxzJT/O8tMxctgB1mXKhRQLaQdKSpSGw4TLb/ZAKxLcZUn0eQumDcSJkn28w3xOgs
- TvikHQkEpyAVxU1vpBKJOQQ/C0d7R6cn6NSxN/iI8sie3st+06clCR4cYVTLbMmcuRYzFgWYAwZ
- W9JMTCejrYY2uDeb5ZXXWwWQConALvUIbyo9wfWnUGaHSclqZzSRadlDuqhCM2qjht5uODNvUzd
- s/wavlisplCIXr7NRgXBp22AILhLuNyI092S8jB0CTRHSeNJBCH5heolwkm2f7sKEj+MXKoznpb
- ICu+8aHOCw0V6cnIaGXrfjgxH6YEmzbbcHu2U9DzE6vXbpi6TMWo0ayItgODGEjtBpKm5p/zwOX
- TLLaf9ClZKZE7psGjGHTaG2hDMNCA82rM2FaEDP+yyl0zzrcr+Ar06sm070pnjTchqXHtOx11YU
- GGvR2uH75dSgMTHIk5QKBcgy45nK49MajBZCiwC9kN8tyN5yCAKyU9Idyr0LqFPu/Dl9tGM32ar
- wA3izmJiU2KiRYWJGnxtcmqBK7xaFu24OM10XGoRtfWtNsI4eCx/eSZSU6zqjpq7NqoszFlynUo
- dyLCcCayTO/XFrQ==
-X-Developer-Key: i=bod@kernel.org; a=openpgp;
- fpr=E693FB2AABA36DE117AB6FB422713BB3A18DC83A
+Content-Transfer-Encoding: 8bit
 
-From: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
+Add hazptr.sh as a one-command regression test for the hazptr
+torture configs.
 
-A line whose descriptor declares a statistics output gets a metadata
-capture node, msm_vfeN_stats, linked immutably from its statistics pad.
-The node carries V4L2_META_FMT_QCOM_ISP_STATS, sized for every
-statistics block the format defines.
+Run NOPREEMPT, PREEMPT, READERS0, and READERS4, followed by
+LOCKDEP with wq_churn and SLOWPATH with CONFIG_PROVE_LOCKING=y.
+The latter two also check the console for lockdep warnings.
 
-Select V4L2_ISP for the statistics buffer helpers.
+With --allcpus, repeat the PREEMPT test at CPU counts 8, 16, 32,
+and so on up to 256.
 
-Signed-off-by: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
+Follow the pattern of the existing srcu_lockdep.sh script.
+
+Signed-off-by: Kunwu Chan <kunwu.chan@gmail.com>
 ---
- drivers/media/platform/qcom/camss/Kconfig     |  1 +
- drivers/media/platform/qcom/camss/camss-vfe.c | 76 +++++++++++++++++++++++++++
- 2 files changed, 77 insertions(+)
+ .../selftests/rcutorture/bin/hazptr.sh        | 146 ++++++++++++++++++
+ 1 file changed, 146 insertions(+)
+ create mode 100755 tools/testing/selftests/rcutorture/bin/hazptr.sh
 
-diff --git a/drivers/media/platform/qcom/camss/Kconfig b/drivers/media/platform/qcom/camss/Kconfig
-index 42c3ee13e548b..4f1c1000a501e 100644
---- a/drivers/media/platform/qcom/camss/Kconfig
-+++ b/drivers/media/platform/qcom/camss/Kconfig
-@@ -8,3 +8,4 @@ config VIDEO_QCOM_CAMSS
- 	select VIDEOBUF2_DMA_SG
- 	select VIDEOBUF2_VMALLOC
- 	select V4L2_FWNODE
-+	select V4L2_ISP
-diff --git a/drivers/media/platform/qcom/camss/camss-vfe.c b/drivers/media/platform/qcom/camss/camss-vfe.c
-index 8bcacede0f969..12d94bdf13bc8 100644
---- a/drivers/media/platform/qcom/camss/camss-vfe.c
-+++ b/drivers/media/platform/qcom/camss/camss-vfe.c
-@@ -20,7 +20,9 @@
- #include <linux/spinlock.h>
- #include <media/media-entity.h>
- #include <media/v4l2-device.h>
-+#include <media/v4l2-isp.h>
- #include <media/v4l2-subdev.h>
-+#include <linux/qcom-camss-config.h>
- 
- #include "camss-vfe.h"
- #include "camss.h"
-@@ -2370,6 +2372,74 @@ static int vfe_bpl_align_pix(struct vfe_device *vfe)
- 	return ret;
- }
- 
-+/*
-+ * vfe_register_stats_node - Register the statistics node of a pixel line
-+ * @vfe: VFE device
-+ * @line: VFE line
-+ * @v4l2_dev: V4L2 device
-+ *
-+ * A line whose descriptor declares a statistics output gets a metadata
-+ * capture node, msm_vfeN_stats, linked from its statistics pad.
-+ *
-+ * Return 0 on success or a negative error code otherwise
-+ */
-+static int vfe_register_stats_node(struct vfe_device *vfe,
-+				   struct vfe_line *line,
-+				   struct v4l2_device *v4l2_dev)
-+{
-+	struct device *dev = vfe->camss->dev;
-+	unsigned int o;
-+	int ret;
+diff --git a/tools/testing/selftests/rcutorture/bin/hazptr.sh b/tools/testing/selftests/rcutorture/bin/hazptr.sh
+new file mode 100755
+index 000000000000..ef636e519a55
+--- /dev/null
++++ b/tools/testing/selftests/rcutorture/bin/hazptr.sh
+@@ -0,0 +1,146 @@
++#!/bin/bash
++# SPDX-License-Identifier: GPL-2.0+
++#
++# Run hazptr torture tests and report any that fail.
++#
++# Usage: hazptr.sh [ --cpus N ] [ --allcpus ] [ --datestamp string ]
++#
++# Copyright (C) 2026 Kunwu Chan
++#
++# Authors: Kunwu Chan <kunwu.chan@gmail.com>
 +
-+	for (o = 1; o < line->num_outputs; o++) {
-+		struct vfe_output *output = &line->output[o];
-+		struct camss_video *video = &output->video_out;
-+		char name[32];
-+
-+		if (output->pad != MSM_VFE_PAD_SRC_STATS || !output->wm_num)
-+			continue;
-+
-+		video->type = V4L2_BUF_TYPE_META_CAPTURE;
-+		video->active_fmt.fmt.meta.dataformat =
-+			V4L2_META_FMT_QCOM_ISP_STATS;
-+		video->active_fmt.fmt.meta.buffersize =
-+			v4l2_isp_buffer_size(CAMSS_STATS_MAX_PAYLOAD);
-+		video->ops = &vfe->video_ops;
-+
-+		snprintf(name, ARRAY_SIZE(name), "%s%d_%s",
-+			 MSM_VFE_NAME, vfe->id, "stats");
-+		ret = msm_video_register(video, v4l2_dev, name);
-+		if (ret < 0) {
-+			dev_err(dev, "Failed to register stats node: %d\n", ret);
-+			return ret;
-+		}
-+
-+		ret = media_create_pad_link(&line->subdev.entity, output->pad,
-+					    &video->vdev.entity, 0,
-+					    MEDIA_LNK_FL_IMMUTABLE |
-+					    MEDIA_LNK_FL_ENABLED);
-+		if (ret < 0) {
-+			dev_err(dev, "Failed to link stats node: %d\n", ret);
-+			msm_video_unregister(video);
-+			return ret;
-+		}
-+	}
-+
-+	return 0;
++usage () {
++	echo "Usage: $scriptname optional arguments:"
++	echo "       --cpus N       override CPU count (default: auto-detect)"
++	echo "       --allcpus      test at CPU counts 8,16,32,...,256"
++	echo "       --datestamp string"
++	exit 1
 +}
 +
-+static void vfe_unregister_stats_node(struct vfe_line *line)
-+{
-+	unsigned int o;
++ds=`date +%Y.%m.%d-%H.%M.%S`-hazptr
++scriptname="$0"
 +
-+	for (o = 1; o < line->num_outputs; o++) {
-+		struct camss_video *video = &line->output[o].video_out;
++RCUTORTURE="`pwd`/tools/testing/selftests/rcutorture"; export RCUTORTURE
++PATH=${RCUTORTURE}/bin:$PATH; export PATH
++. functions.sh
 +
-+		if (video_is_registered(&video->vdev))
-+			msm_video_unregister(video);
-+	}
++cpus=""		# empty = let kvm.sh auto-detect
++allcpus=0
++
++while test $# -gt 0
++do
++	case "$1" in
++	--datestamp)
++		checkarg --datestamp "(relative pathname)" "$#" "$2" '^[a-zA-Z0-9._/-]*$' '^--'
++		ds=$2
++		shift
++		;;
++	--cpus)
++		checkarg --cpus "(number)" "$#" "$2" '^[0-9]\+$' '^--'
++		cpus="$2"
++		shift
++		;;
++	--allcpus)
++		allcpus=1
++		;;
++	*)
++		echo Unknown argument $1
++		usage
++		;;
++	esac
++	shift
++done
++
++nerrs=0
++
++run_kvm () {
++	local ds_suffix="$1"
++	local configs="$2"
++	local cpu_arg="$3"
++	local kconfig="$4"
++	local resdir="$RCUTORTURE/res/$ds/$ds_suffix"
++
++	mkdir -p "$resdir"
++
++	tools/testing/selftests/rcutorture/bin/kvm.sh \
++		--torture hazptr \
++		--duration 5s \
++		--configs "$configs" \
++		${cpu_arg:+--cpus "$cpu_arg"} \
++		${kconfig:+--kconfig "$kconfig"} \
++		--trust-make \
++		--datestamp "$ds/$ds_suffix" > "$resdir/kvm.sh.out" 2>&1
++	return $?
 +}
 +
- /*
-  * msm_vfe_register_entities - Register subdev node for VFE module
-  * @vfe: VFE device
-@@ -2472,6 +2542,10 @@ int msm_vfe_register_entities(struct vfe_device *vfe,
- 				ret);
- 			goto error_link;
- 		}
++check_lockdep () {
++	local ds_suffix="$1" config_dir="$2" label="$3"
++	local resdir="$RCUTORTURE/res/$ds/$ds_suffix"
++	local console="$resdir/$config_dir/console.log"
 +
-+		ret = vfe_register_stats_node(vfe, &vfe->line[i], v4l2_dev);
-+		if (ret < 0)
-+			goto error_link;
- 	}
- 
- 	return 0;
-@@ -2490,6 +2564,7 @@ int msm_vfe_register_entities(struct vfe_device *vfe,
- 		sd = &vfe->line[i].subdev;
- 		video_out = &vfe->line[i].output[0].video_out;
- 
-+		vfe_unregister_stats_node(&vfe->line[i]);
- 		msm_video_unregister(video_out);
- 		v4l2_device_unregister_subdev(sd);
- 		media_entity_cleanup(&sd->entity);
-@@ -2513,6 +2588,7 @@ void msm_vfe_unregister_entities(struct vfe_device *vfe)
- 		struct v4l2_subdev *sd = &vfe->line[i].subdev;
- 		struct camss_video *video_out = &vfe->line[i].output[0].video_out;
- 
-+		vfe_unregister_stats_node(&vfe->line[i]);
- 		msm_video_unregister(video_out);
- 		v4l2_device_unregister_subdev(sd);
- 		media_entity_cleanup(&sd->entity);
-
++	if ! test -f "$console"
++	then
++		echo "Missing console.log for $label ($ds_suffix)" > "$resdir/kvm.sh.err"
++		return 1
++	fi
++	if grep -qE "WARNING: possible (recursive locking|circular locking dependency)" "$console"
++	then
++		echo "Lockdep warning in $label" > "$resdir/kvm.sh.err"
++		return 1
++	fi
++	return 0
++}
++
++# Basic torture: all hazptr configs, CPU count auto-detected
++
++echo "--- hazptr basic torture${cpus:+ ($cpus CPUs)} ---"
++run_kvm basic "NOPREEMPT PREEMPT READERS0 READERS4" "$cpus" || nerrs=$((nerrs+1))
++
++# LOCKDEP: verify no lockdep splats with PROVE_LOCKING + wq_churn
++
++echo "--- hazptr lockdep + wq_churn ---"
++if run_kvm lockdep-wq LOCKDEP "$cpus"
++then
++	check_lockdep lockdep-wq LOCKDEP "LOCKDEP wq_churn" ||
++		nerrs=$((nerrs+1))
++else
++	nerrs=$((nerrs+1))
++fi
++
++# SLOWPATH + PROVE_LOCKING: verify forced-slowpath does not deadlock
++
++echo "--- hazptr SLOWPATH + lockdep ---"
++if run_kvm slowpath-lockdep SLOWPATH "$cpus" \
++	"CONFIG_PROVE_LOCKING=y"
++then
++	check_lockdep slowpath-lockdep SLOWPATH \
++		"SLOWPATH+PROVE_LOCKING" ||
++		nerrs=$((nerrs+1))
++else
++	nerrs=$((nerrs+1))
++fi
++
++# CPU scaling: optionally test at multiple CPU counts
++
++if test "$allcpus" -ne 0
++then
++	max_cpus=`grep '^processor' /proc/cpuinfo 2>/dev/null | wc -l`
++	for n in 8 16 32 64 128 256
++	do
++		if test "$n" -le "$max_cpus"
++		then
++		echo "--- hazptr CPU=$n ---"
++		run_kvm "cpu$n" "PREEMPT" "$n" "CONFIG_NR_CPUS=$n" || nerrs=$((nerrs+1))
++		fi
++	done
++fi
++
++# Report
++
++if test "$nerrs" -ne 0
++then
++	echo "hazptr.sh: $nerrs test(s) failed"
++	exit 1
++fi
++echo "hazptr.sh: all tests passed"
++exit 0
 -- 
-2.55.0
+2.43.0
 
