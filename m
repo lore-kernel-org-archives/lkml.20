@@ -1,218 +1,191 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj2-f40.google.com (mail-pj2-f40.google.com [74.125.227.168])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 006654D4893;
-	Mon,  5 Oct 2026 17:16:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 66CF44D796A
+	for <linux-kernel@vger.kernel.org>; Mon,  5 Oct 2026 17:16:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.168
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791220604; cv=none; b=epq8tHRq4B0rsnzeLJcNNynaX5Iqq9AYELdW94cF2JDAKQLy1+J+demCJuKJ50F2/FuQzyOkGCSGY8O0RbYdSF2Fgxyun3ap9xHDHbBo5I/Qgig3r1wmhV/6lMnPT6tY2lok2C43EgDuIeXjmOyK6Joucmm8dyyThdEDThkdMvk=
+	t=1791220605; cv=none; b=VHDii72SE6s6aKrJ2AhpKGri9c1GVCsj+e43JvJlBk3lHEDjw/MXwRX0XF9WhgkLV5ddARTTiaU35xUkqTL6Ori9Pg2GKU2P3NoUCjTlUJa+wyz7aJkpmD9pPsxl69z96qVR4YMgfFCXi3ssnVeTDo6V7iy10lOZPVt65Lb7qPs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791220604; c=relaxed/simple;
-	bh=IQLyGXidtpbkyCvZQIX4xJNh4l5zzGcp0xK8oMd/3m0=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=mTKg0CQOgoSgzWvIDTquEb/kYVRz7rImO7r8W6kc5qyzxVsAxg/ngfxughwVAn45eW5OaymExbWnAiqv2eAUGBVr3lln7gCD8Tr3mOLJ/PK/7TcXvamqYQrLOLSo0YYiDX1wTLXdTXZF7ld7xgGxom2ZlorRD15Qrsh1HU8FooU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=B+N2Z+s1; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791220605; c=relaxed/simple;
+	bh=8NuyF6qDUWQBXBIkLeP3/lavelfuwnWRCmtSE2YKnuQ=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=Rtk0IQGaGfCBBLs80c6U1KJ5hC1Tinby6XnXrTjs0kKMhZN3XvoqeJVBteicdD5V3WpDtjn1CLD7LbOLgoSYAX0Qq4kopi1UTh72YXFVYiH+MUhLDOlhICSJ4Lq31Qy/T97mgmDms3LwTFhDE222JELdHyvh9KtQJo1J9jPeyE0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=cBBcsIKd; arc=none smtp.client-ip=74.125.227.168
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="B+N2Z+s1"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 860AB1F0089C;
-	Mon,  5 Oct 2026 17:16:39 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791220602;
-	bh=vi4UyExXfuLIBkR6lt//Pf4ohXDPksZy8Lxi7mswrSA=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=B+N2Z+s1ObTdVcsyb++lX0kMdkizNOuENTlP+uPA16S17H89kvadurduqw0/uAYQr
-	 qAowdvZkDEv7d5Z6fIPNVWoyA4OwVnP8kmTDhDZSj5vtjO7/ukR7Yu+aalp6wjLgZf
-	 qD2PovicmYgukw4qJgiQx+r3P2/7cTULhwS5hVd1iqg+0IXORAlNVwbiIcVdysk1+N
-	 63bgGvAzGJu55+tZinX6d/78CN76JAxScLaDHY9Jyt+5ftqWfdeYQ4wrjeKkF2LYah
-	 dlrnD62zJ8xDN2hKntayoIgVGq4fNuYFT0Z5Y5jA4olmCF9k0CURhAVAO3Q0CCDGFK
-	 M8HkAM2DlX0TA==
-From: Bryan O'Donoghue <bod@kernel.org>
-Date: Mon, 05 Oct 2026 19:13:47 +0200
-Subject: [PATCH 17/74] media: qcom: camss: Define PIX formats for x1e PIX
- interface
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="cBBcsIKd"
+Received: by mail-pj2-f40.google.com with SMTP id 98e67ed59e1d1-3a7d725ca09so713652a91.0
+        for <linux-kernel@vger.kernel.org>; Mon, 05 Oct 2026 10:16:42 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791220602; x=1791825402; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=xtL6vbzPvQXVWHTKwirmF+KIwLuuD5CR0v0OHwTiljs=;
+        b=cBBcsIKdTf/4BM0kB37KIEAy8UOCwt6erlxIBf/0s9m8sWiH9s6KTjZG/xgjgnnKmB
+         vksAzdqXZnKnPuqx9/06JECP01BeUCmNFvV+CHyv3oTocAapkIHFVv6UYSG4+yFzNQV4
+         0T8jkn0uPcNI+qhgjXkRJTUn58+xcVxVWC7rXq4a7GBsvOkJLyGzFez95P7qGhL+9zfv
+         F1JC9nn5oC9OaH4WKSS4VexzXarso1GqrPTZro8LSscwIZHSA74348qxYrmz6KUZERt2
+         4IdgP31u8tU/gimJ+M/DXrFX/HeeStwt4AqsY+Hmy+SSeQSlFalUSSts3j0fCz9C79Nh
+         A0Gg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791220602; x=1791825402;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=xtL6vbzPvQXVWHTKwirmF+KIwLuuD5CR0v0OHwTiljs=;
+        b=1LaXOMrVDiFJut0gisr9NTcR7Lc5EJAFg/yj9y/cxhP5mUifjeQKv4ruEaYPEDxeae
+         ulZ8R8CjqZNPAUJGnuzmzpdzi03Gj3dGqxBQdyDoljUS6OKwC2UHWMEEHL6pQmYWlI6D
+         NQX8gqReCV2HB/qU22i44MNYhU1M+cFaU1ndpzELwlQdfORrfmUJYP/phi4gKEcAW7i2
+         fW8aCfzdjLR6C+NVkIPoZc5Oaons4JNGFbgyc+iNok/NAn3b6VrpKegiIuBEhdjqHLO3
+         y0r3z5UIWcfNJK7QrR/SyRCCIpoud78nVh59/cfveWuXB/yU/AMpIG4cW802H8WoVdjm
+         4VNw==
+X-Forwarded-Encrypted: i=1; AKwUvBz305qO5NSVW9k99NBXjfOadoQ3xCDSjblx/PekpUiV5X9oBZKOk9M6G8iCmwweA2w6E550NcKZ4YkaydE=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIYu8Xh2/1yPN44NUIlIYCFkcSBrCj6M/jK08+AI8XPsvSL+7ci
+	shlulBMz3m9TpHwNNhgpVUIQ0dlgcNVy08datFEyo3gzA0Thv0DnRxLL
+X-Gm-Gg: AYBFou0t0ElDepOSsEbo4vzSRa17cdP6c/1CaGiBQXcfFP1IaLmaSw8HdJQM+81rZ7B
+	ZnFpmgMnOVPlskSGI0cPfFjOH0UrZ6FD4Jwfyzi7xUoWsUeLE2+sp/lwV0OWVfjEuz37UPjX13y
+	CGjwrIvMwY1o8uOnZ9zMkN+/bxGQ6myVyDsBNE51ugx8N80YVf/n+dUoRc9al3IrF4tWTYvJjXH
+	pdoX0YVCifdSEEiwx4P/ArO7B0tsGc/5mjeOA6JQ0dK46MQNKbnf9wJtq8itP7p/jD6d6xuKs87
+	tDQxbgmVHvISAMVx0xaw3Q+CAC+z+8aC8VKZnUbm/JQKlo88y7yuYLZz4i3H3yJgqIdHDksDSa3
+	hAPsr/7f3kLqSwQjhUtM8hBNNDY2u7l7SP5DSvDL1P00xAvNLNTqTxEhWkKua7gSd9cp8G8VKlv
+	1xkkHpLwH1uzjCQQ2+FsYlspcFqQ7CPrVmFCFyqz/VvgUeifKNmkPd3EpHP8i9aIF3j/m7yZ1gP
+	tussyjoMu2rbEq5AgRje7k9EeLRQA==
+X-Received: by 2002:a17:90a:dfd0:b0:3a4:bc68:310e with SMTP id 98e67ed59e1d1-3a6ce7f684amr7983000a91.39.1791220601705;
+        Mon, 05 Oct 2026 10:16:41 -0700 (PDT)
+Received: from kernel.tail6741c6.ts.net ([216.195.201.24])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a853cafddesm406910a91.10.2026.10.05.10.16.29
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 05 Oct 2026 10:16:41 -0700 (PDT)
+From: Kunwu Chan <kunwu.chan@gmail.com>
+To: paulmck@kernel.org,
+	corbet@lwn.net,
+	mingo@redhat.com,
+	frederic@kernel.org,
+	neeraj.upadhyay@kernel.org,
+	josh@joshtriplett.org,
+	urezki@gmail.com,
+	dave@stgolabs.net,
+	lianux.mm@gmail.com
+Cc: stern@rowland.harvard.edu,
+	parri.andrea@gmail.com,
+	will@kernel.org,
+	peterz@infradead.org,
+	boqun@kernel.org,
+	npiggin@gmail.com,
+	dhowells@redhat.com,
+	j.alglave@ucl.ac.uk,
+	luc.maranget@inria.fr,
+	akiyks@gmail.com,
+	dlustig@nvidia.com,
+	joelagnelf@nvidia.com,
+	skhan@linuxfoundation.org,
+	rdunlap@infradead.org,
+	longman@redhat.com,
+	rostedt@goodmis.org,
+	mathieu.desnoyers@efficios.com,
+	jiangshanlai@gmail.com,
+	qiang.zhang@linux.dev,
+	kunwu.chan@gmail.com,
+	brads@mainlining.org,
+	linux-kernel@vger.kernel.org,
+	linux-arch@vger.kernel.org,
+	lkmm@lists.linux.dev,
+	linux-doc@vger.kernel.org,
+	rcu@vger.kernel.org,
+	linux-kselftest@vger.kernel.org
+Subject: [PATCH RFC v3 04/15] hazptr: add scoped_guard() support
+Date: Tue,  6 Oct 2026 01:15:18 +0800
+Message-ID: <20261005171529.1378809-5-kunwu.chan@gmail.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20261005171529.1378809-1-kunwu.chan@gmail.com>
+References: <20261005171529.1378809-1-kunwu.chan@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261005-linux-mainline-7-2-sm8650-hdk-rfc-0-v1-17-ed985aefd611@kernel.org>
-References: <20261005-linux-mainline-7-2-sm8650-hdk-rfc-0-v1-0-ed985aefd611@kernel.org>
-In-Reply-To: <20261005-linux-mainline-7-2-sm8650-hdk-rfc-0-v1-0-ed985aefd611@kernel.org>
-To: Bryan O'Donoghue <bryan.odonoghue@linaro.org>, 
- Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>, 
- Loic Poulain <loic.poulain@oss.qualcomm.com>, 
- Mauro Carvalho Chehab <mchehab@kernel.org>, 
- Jacopo Mondi <jacopo.mondi@ideasonboard.com>, 
- Daniel Scally <dan.scally@ideasonboard.com>, Keke Li <keke.li@amlogic.com>, 
- Richard Acayan <mailingradian@gmail.com>, 
- Hans Verkuil <hverkuil@kernel.org>, 
- Gjorgji Rosikopulos <quic_grosikop@quicinc.com>, 
- Radoslav Tsvetkov <quic_rtsvetko@quicinc.com>, 
- Robert Foss <rfoss@kernel.org>, Milen Mitkov <quic_mmitkov@quicinc.com>
-Cc: linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
- linux-kernel@vger.kernel.org, Bryan O'Donoghue <bod@kernel.org>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=6247; i=bod@kernel.org;
- h=from:subject:message-id; bh=IQLyGXidtpbkyCvZQIX4xJNh4l5zzGcp0xK8oMd/3m0=;
- b=owEBbQKS/ZANAwAKASJxO7Ohjcg6AcsmYgBqw9sMtgeovv52EiMRe/4bedxd3fsn2zCY1Q6Qs
- t5HKPsFIOeJAjMEAAEKAB0WIQTmk/sqq6Nt4Rerb7QicTuzoY3IOgUCasPbDAAKCRAicTuzoY3I
- OsGaEACJEB0ioxwTL5RhzQsmq13EhPTM23XOg4It/Tk3WGXaFhBIBpgckp+/+/fscWy6jToa50/
- 4weMe1v+l8S0runuPHez5c8Y2Oh3mW0w6fWvC90G5jkePexqKGAo98S/jtaJKiZtQj27F59ZhEV
- miKv575xhShhT30Cx+wI997HM9mC1Yc23Pq4Z8aVCHxbPOnWi5tSKDl86KL28ZemgxIfNY1HNkh
- Wlnn8hdP0hZ+YjZ9vEtRsXko6A41yvYd2QVJoNyodlMSmH5gyBtJxZU1x/+40cUT6EXD3LzT2qy
- 4aQwyJU/pAUc5k16KKKiRn5BDpXwcMW0K2zPaGQ3FQ4kR4pU8Df80pmod1DoK3szkjR3vc8pg43
- q+x6q9tph9egR9Xnl5JUpGmRHVC6Ern8TG+xQfEKV0r1Y3/s4H8KzfBBRRD9JvxatuBPpgwDJIk
- +N1EqvLm5G38yLymaKhVCcDwsp/zSmDi74/cPm/iZVRKtFUhpEf4wlixXjhJ7xYd9nbijmCNZrb
- Ypr/+wDthxqkHI3M1y176XVHYrt6C70I5Xbu8fKIYlEQO2apRnjMJ4k78s5H1sNxBkmAwy7O0cq
- KpVgMyhP/Wl05FDZOJvW4gMBMrO5wcqE+SM6SyunYtNuUlI6mgfRVhxgQ6QtSTjXtSzAuNP57mQ
- mTUTsRxN+YZqHuw==
-X-Developer-Key: i=bod@kernel.org; a=openpgp;
- fpr=E693FB2AABA36DE117AB6FB422713BB3A18DC83A
+Content-Transfer-Encoding: 8bit
 
-Signed-off-by: Bryan O'Donoghue <bod@kernel.org>
+Add a scoped_guard() class for hazptr so that callers can pair
+hazptr_acquire() with hazptr_release() on scope exit.
+
+The guard holds a pointer to a caller-provided hazptr_ctx rather
+than embedding it.  The ctx must remain at a stable address while
+the hazard pointer is held because the slow path can chain its
+backup slot into the overflow list by address.
+
+Suggested-by: Boqun Feng <boqun@kernel.org>
+Signed-off-by: Kunwu Chan <kunwu.chan@gmail.com>
 ---
- drivers/media/platform/qcom/camss/camss-vfe.c | 93 ++++++++++++++++++++++++++-
- drivers/media/platform/qcom/camss/camss.c     |  4 +-
- 2 files changed, 92 insertions(+), 5 deletions(-)
+ include/linux/hazptr.h | 51 ++++++++++++++++++++++++++++++++++++++++++
+ 1 file changed, 51 insertions(+)
 
-diff --git a/drivers/media/platform/qcom/camss/camss-vfe.c b/drivers/media/platform/qcom/camss/camss-vfe.c
-index 319d191589884..5b5201b55a485 100644
---- a/drivers/media/platform/qcom/camss/camss-vfe.c
-+++ b/drivers/media/platform/qcom/camss/camss-vfe.c
-@@ -174,6 +174,94 @@ static const struct camss_format_info formats_rdi_845[] = {
- 	  PER_PLANE_DATA(0, 1, 1, 1, 1, 16) },
- };
+diff --git a/include/linux/hazptr.h b/include/linux/hazptr.h
+index d1670121947a..275cbe54b075 100644
+--- a/include/linux/hazptr.h
++++ b/include/linux/hazptr.h
+@@ -320,6 +320,57 @@ void hazptr_release(struct hazptr_ctx *ctx, void *addr)
+ 		hazptr_unchain_backup_slot(ctx);
+ }
  
-+static const struct camss_format_info formats_pix_845[] = {
-+	/* Passthrought formats */
-+	{ MEDIA_BUS_FMT_UYVY8_1X16, 8, V4L2_PIX_FMT_UYVY, 1,
-+	  PER_PLANE_DATA(0, 1, 1, 1, 1, 16) },
-+	{ MEDIA_BUS_FMT_VYUY8_1X16, 8, V4L2_PIX_FMT_VYUY, 1,
-+	  PER_PLANE_DATA(0, 1, 1, 1, 1, 16) },
-+	{ MEDIA_BUS_FMT_YUYV8_1X16, 8, V4L2_PIX_FMT_YUYV, 1,
-+	  PER_PLANE_DATA(0, 1, 1, 1, 1, 16) },
-+	{ MEDIA_BUS_FMT_YVYU8_1X16, 8, V4L2_PIX_FMT_YVYU, 1,
-+	  PER_PLANE_DATA(0, 1, 1, 1, 1, 16) },
-+	{ MEDIA_BUS_FMT_SBGGR8_1X8, 8, V4L2_PIX_FMT_SBGGR8, 1,
-+	  PER_PLANE_DATA(0, 1, 1, 1, 1, 8) },
-+	{ MEDIA_BUS_FMT_SGBRG8_1X8, 8, V4L2_PIX_FMT_SGBRG8, 1,
-+	  PER_PLANE_DATA(0, 1, 1, 1, 1, 8) },
-+	{ MEDIA_BUS_FMT_SGRBG8_1X8, 8, V4L2_PIX_FMT_SGRBG8, 1,
-+	  PER_PLANE_DATA(0, 1, 1, 1, 1, 8) },
-+	{ MEDIA_BUS_FMT_SRGGB8_1X8, 8, V4L2_PIX_FMT_SRGGB8, 1,
-+	  PER_PLANE_DATA(0, 1, 1, 1, 1, 8) },
-+	{ MEDIA_BUS_FMT_SBGGR10_1X10, 10, V4L2_PIX_FMT_SBGGR10P, 1,
-+	  PER_PLANE_DATA(0, 1, 1, 1, 1, 10) },
-+	{ MEDIA_BUS_FMT_SGBRG10_1X10, 10, V4L2_PIX_FMT_SGBRG10P, 1,
-+	  PER_PLANE_DATA(0, 1, 1, 1, 1, 10) },
-+	{ MEDIA_BUS_FMT_SGRBG10_1X10, 10, V4L2_PIX_FMT_SGRBG10P, 1,
-+	  PER_PLANE_DATA(0, 1, 1, 1, 1, 10) },
-+	{ MEDIA_BUS_FMT_SRGGB10_1X10, 10, V4L2_PIX_FMT_SRGGB10P, 1,
-+	  PER_PLANE_DATA(0, 1, 1, 1, 1, 10) },
-+	{ MEDIA_BUS_FMT_SBGGR10_2X8_PADHI_LE, 16, V4L2_PIX_FMT_SBGGR10, 1,
-+	  PER_PLANE_DATA(0, 1, 1, 1, 1, 16) },
-+	{ MEDIA_BUS_FMT_SBGGR12_1X12, 12, V4L2_PIX_FMT_SBGGR12P, 1,
-+	  PER_PLANE_DATA(0, 1, 1, 1, 1, 12) },
-+	{ MEDIA_BUS_FMT_SGBRG12_1X12, 12, V4L2_PIX_FMT_SGBRG12P, 1,
-+	  PER_PLANE_DATA(0, 1, 1, 1, 1, 12) },
-+	{ MEDIA_BUS_FMT_SGRBG12_1X12, 12, V4L2_PIX_FMT_SGRBG12P, 1,
-+	  PER_PLANE_DATA(0, 1, 1, 1, 1, 12) },
-+	{ MEDIA_BUS_FMT_SRGGB12_1X12, 12, V4L2_PIX_FMT_SRGGB12P, 1,
-+	  PER_PLANE_DATA(0, 1, 1, 1, 1, 12) },
-+	{ MEDIA_BUS_FMT_SBGGR14_1X14, 14, V4L2_PIX_FMT_SBGGR14P, 1,
-+	  PER_PLANE_DATA(0, 1, 1, 1, 1, 14) },
-+	{ MEDIA_BUS_FMT_SGBRG14_1X14, 14, V4L2_PIX_FMT_SGBRG14P, 1,
-+	  PER_PLANE_DATA(0, 1, 1, 1, 1, 14) },
-+	{ MEDIA_BUS_FMT_SGRBG14_1X14, 14, V4L2_PIX_FMT_SGRBG14P, 1,
-+	  PER_PLANE_DATA(0, 1, 1, 1, 1, 14) },
-+	{ MEDIA_BUS_FMT_SRGGB14_1X14, 14, V4L2_PIX_FMT_SRGGB14P, 1,
-+	  PER_PLANE_DATA(0, 1, 1, 1, 1, 14) },
-+	{ MEDIA_BUS_FMT_Y8_1X8, 8, V4L2_PIX_FMT_GREY, 1,
-+	  PER_PLANE_DATA(0, 1, 1, 1, 1, 8) },
-+	{ MEDIA_BUS_FMT_Y10_1X10, 10, V4L2_PIX_FMT_Y10P, 1,
-+	  PER_PLANE_DATA(0, 1, 1, 1, 1, 10) },
-+	{ MEDIA_BUS_FMT_Y10_2X8_PADHI_LE, 16, V4L2_PIX_FMT_Y10, 1,
-+	  PER_PLANE_DATA(0, 1, 1, 1, 1, 16) },
-+
-+	/* 4:2:0 Bayer to YUV */
-+	{ MEDIA_BUS_FMT_YUYV8_1_5X8, 8, V4L2_PIX_FMT_NV12, 1,
-+	  PER_PLANE_DATA(0, 1, 1, 2, 3, 8) },
-+	{ MEDIA_BUS_FMT_YVYU8_1_5X8, 8, V4L2_PIX_FMT_NV12, 1,
-+	  PER_PLANE_DATA(0, 1, 1, 2, 3, 8) },
-+	{ MEDIA_BUS_FMT_UYVY8_1_5X8, 8, V4L2_PIX_FMT_NV12, 1,
-+	  PER_PLANE_DATA(0, 1, 1, 2, 3, 8) },
-+	{ MEDIA_BUS_FMT_VYUY8_1_5X8, 8, V4L2_PIX_FMT_NV12, 1,
-+	  PER_PLANE_DATA(0, 1, 1, 2, 3, 8) },
-+	{ MEDIA_BUS_FMT_YUYV8_1_5X8, 8, V4L2_PIX_FMT_NV21, 1,
-+	  PER_PLANE_DATA(0, 1, 1, 2, 3, 8) },
-+	{ MEDIA_BUS_FMT_YVYU8_1_5X8, 8, V4L2_PIX_FMT_NV21, 1,
-+	  PER_PLANE_DATA(0, 1, 1, 2, 3, 8) },
-+	{ MEDIA_BUS_FMT_UYVY8_1_5X8, 8, V4L2_PIX_FMT_NV21, 1,
-+	  PER_PLANE_DATA(0, 1, 1, 2, 3, 8) },
-+	{ MEDIA_BUS_FMT_VYUY8_1_5X8, 8, V4L2_PIX_FMT_NV21, 1,
-+	  PER_PLANE_DATA(0, 1, 1, 2, 3, 8) },
-+
-+	/* 4:2:2 Bayer to YUV */
-+	{ MEDIA_BUS_FMT_YUYV8_1X16, 8, V4L2_PIX_FMT_NV16, 1,
-+	  PER_PLANE_DATA(0, 1, 1, 1, 2, 8) },
-+	{ MEDIA_BUS_FMT_YVYU8_1X16, 8, V4L2_PIX_FMT_NV16, 1,
-+	  PER_PLANE_DATA(0, 1, 1, 1, 2, 8) },
-+	{ MEDIA_BUS_FMT_UYVY8_1X16, 8, V4L2_PIX_FMT_NV16, 1,
-+	  PER_PLANE_DATA(0, 1, 1, 1, 2, 8) },
-+	{ MEDIA_BUS_FMT_VYUY8_1X16, 8, V4L2_PIX_FMT_NV16, 1,
-+	  PER_PLANE_DATA(0, 1, 1, 1, 2, 8) },
-+	{ MEDIA_BUS_FMT_YUYV8_1X16, 8, V4L2_PIX_FMT_NV61, 1,
-+	  PER_PLANE_DATA(0, 1, 1, 1, 2, 8) },
-+	{ MEDIA_BUS_FMT_YVYU8_1X16, 8, V4L2_PIX_FMT_NV61, 1,
-+	  PER_PLANE_DATA(0, 1, 1, 1, 2, 8) },
-+	{ MEDIA_BUS_FMT_UYVY8_1X16, 8, V4L2_PIX_FMT_NV61, 1,
-+	  PER_PLANE_DATA(0, 1, 1, 1, 2, 8) },
-+	{ MEDIA_BUS_FMT_VYUY8_1X16, 8, V4L2_PIX_FMT_NV61, 1,
-+	  PER_PLANE_DATA(0, 1, 1, 1, 2, 8) },
++/**
++ * struct hazptr_guard - cleanup.h guard for a single hazard pointer
++ *
++ * @ctx: Pointer to the caller-provided hazard-pointer context.
++ * @addr: The address returned by the matching hazptr_acquire().
++ */
++struct hazptr_guard {
++	struct hazptr_ctx *ctx;
++	void *addr;
 +};
 +
- static const struct camss_format_info formats_pix_8x16[] = {
- 	{ MEDIA_BUS_FMT_YUYV8_1_5X8, 8, V4L2_PIX_FMT_NV12, 1,
- 	  PER_PLANE_DATA(0, 1, 1, 2, 3, 8) },
-@@ -277,10 +365,9 @@ const struct camss_formats vfe_formats_rdi_845 = {
- 	.formats = formats_rdi_845
- };
++/**
++ * hazptr_guard_acquire - Acquire a hazard pointer for scoped_guard() use
++ *
++ * @ctx: The caller-provided hazard-pointer context.
++ * @addr_p: Pointer to the pointer that is to be hazard-pointer protected.
++ *
++ * Acquire a hazard pointer using @ctx and return a guard that
++ * cleanup.h releases via hazptr_release() on scope exit.  The guard
++ * only carries the ctx pointer and the address returned by
++ * hazptr_acquire().
++ */
++static inline struct hazptr_guard
++hazptr_guard_acquire(struct hazptr_ctx *ctx, void * const *addr_p)
++{
++	struct hazptr_guard g;
++
++	g.ctx = ctx;
++	g.addr = hazptr_acquire(ctx, addr_p);
++	return g;
++}
++
++DEFINE_CLASS(hazptr, struct hazptr_guard,
++	     hazptr_release(_T.ctx, _T.addr),
++	     hazptr_guard_acquire(ctx, addr_p),
++	     struct hazptr_ctx *ctx, void * const *addr_p)
++DEFINE_CLASS_IS_UNCONDITIONAL(hazptr)
++
++/*
++ * The ctx must remain at a stable address while the hazard pointer
++ * is held because the slow path can chain its backup slot
++ * into the overflow list by address.
++ *
++ *	struct hazptr_ctx ctx;
++ *	void *obj = ptr;
++ *
++ *	scoped_guard(hazptr, &ctx, &obj) {
++ *		...
++ *	}
++ */
++
+ void hazptr_init(void);
  
--/* TODO: Replace with pix formats */
- const struct camss_formats vfe_formats_pix_845 = {
--	.nformats = ARRAY_SIZE(formats_rdi_845),
--	.formats = formats_rdi_845
-+	.nformats = ARRAY_SIZE(formats_pix_845),
-+	.formats = formats_pix_845
- };
- 
- static u32 vfe_src_pad_code(struct vfe_line *line, u32 sink_code,
-diff --git a/drivers/media/platform/qcom/camss/camss.c b/drivers/media/platform/qcom/camss/camss.c
-index ff09873706c0d..6f3de2c185bc9 100644
---- a/drivers/media/platform/qcom/camss/camss.c
-+++ b/drivers/media/platform/qcom/camss/camss.c
-@@ -4434,7 +4434,7 @@ static const struct camss_subdev_resources vfe_res_x1e80100[] = {
- 			.pd_name = "ife0",
- 			.hw_ops = &vfe_ops_680,
- 			.formats_rdi = &vfe_formats_rdi_845,
--			.formats_pix = &vfe_formats_rdi_845
-+			.formats_pix = &vfe_formats_pix_845
- 		},
- 	},
- 	/* IFE1 */
-@@ -4458,7 +4458,7 @@ static const struct camss_subdev_resources vfe_res_x1e80100[] = {
- 			.pd_name = "ife1",
- 			.hw_ops = &vfe_ops_680,
- 			.formats_rdi = &vfe_formats_rdi_845,
--			.formats_pix = &vfe_formats_rdi_845
-+			.formats_pix = &vfe_formats_pix_845
- 		},
- 	},
- 	/* IFE_LITE_0 */
-
+ #endif /* _LINUX_HAZPTR_H */
 -- 
-2.55.0
+2.43.0
 
