@@ -1,31 +1,31 @@
 Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 9F87242E419;
-	Mon,  5 Oct 2026 09:08:20 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id CDB5D42C514;
+	Mon,  5 Oct 2026 09:08:27 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791191308; cv=none; b=ciOcgpyMgNwP6Q/ffprtRktxl1vh9GeHOieXr4A3VC0HY2Q8dnFs6dFePMUgdzetyz+TE3WDpt+ImNPV7AcD81aXfk825uPu4GFsI/l27W53V1R+B4d5DXfRNNPU8t81IQpyODkIWMu2Hx6EOuA81R7tmZArBTA9V3RX+wsjyYM=
+	t=1791191310; cv=none; b=Qed/vpf9Z1PbGcIp9WArAqXaBwp4Ff4pXbscTCbUEO3Pqju25AH9o4psg8uCBM9UG9vupk1D4vRM6VEfscWIcMjmImof1+4y8IrdlkBZeQ0tK5jzVZ41nbVMjb05oNtRjcRepo++eRkCSLZCYZAmxZt91I80bx21jrUR+p6+3sk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791191308; c=relaxed/simple;
-	bh=1Ms5qLJVNPR5n23ejc1pMT4NfsrietEoM1o9II90Ows=;
+	s=arc-20240116; t=1791191310; c=relaxed/simple;
+	bh=z2LIrMIFE7EZF/TVEdQSDUxiMgdKOJBaWzN/bjwGxjQ=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=j62XUPnGXlwyzlHdt7vFDaTwHp3Y6B9hGqcsMg5uTSzw36v802MpWp0yEa5e3NJnjTjpE1EmMBTLDfqeoFz29Jb7gzURWU4sIVmvBkeLN7bB8MrDp4VdPdl27VGLtOaBU6RtFyAhceu29uacsAA2BCo4aYzMI/P6lX7UUZ3KbhU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=g5RtsZkf; arc=none smtp.client-ip=217.140.110.172
+	 MIME-Version; b=WoFX/XQIOtrptNPGbFLn6fN5Dv+PWtoJCXDqQWm3KXkCHybkfsBYMV8/YYiUyEkIAXdSwLCY3DrEAOj2nT4DXMsnEBP6NYx+wirU4ns02892QIX6OulJ5nxVmXR6dxhKIIWQ8FXSixyO0094Qbmd4tUGO+hquD0dBzCSD+0hD3A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=SwvMORJZ; arc=none smtp.client-ip=217.140.110.172
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="g5RtsZkf"
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="SwvMORJZ"
 Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 98E3E1576;
-	Mon,  5 Oct 2026 02:08:16 -0700 (PDT)
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 312581684;
+	Mon,  5 Oct 2026 02:08:23 -0700 (PDT)
 Received: from ewhatever.cambridge.arm.com (ewhatever.cambridge.arm.com [10.2.197.99])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id DD3C33F66F;
-	Mon,  5 Oct 2026 02:08:16 -0700 (PDT)
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id 910723F66F;
+	Mon,  5 Oct 2026 02:08:23 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1791191300; bh=1Ms5qLJVNPR5n23ejc1pMT4NfsrietEoM1o9II90Ows=;
+	t=1791191306; bh=z2LIrMIFE7EZF/TVEdQSDUxiMgdKOJBaWzN/bjwGxjQ=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=g5RtsZkfrpEXPNDPzJPaYuGo82Sv+QclA4NMUWmeBDNAUkudRfEQIn1S3NcL1KVBY
-	 jlxPwPb6+9bIyKOs9MAGamR3Y2bFWv5mulbxUSUdHjjIxemETowfTaG7ns9xYvfl2B
-	 CS9EUMUxBwhw7VJa4AAKGI423LYNYS6fKLMPJ+dU=
+	b=SwvMORJZlIlOgBlqZh4x7TdaL3H8J1hDi1q1+aJtu9rqzeKo/rcNdeMIazfX5Ef1p
+	 FdVprzlhucKg4BGW0SNTxJAyrdvea6bmwDvgmGCFhfC+vqKh7YhEdtHlALsy4ozVrf
+	 zPNQ0HTqLmrYktBSX946vASixC312jIvMqzAS1Ig=
 From: Suzuki K Poulose <suzuki.poulose@arm.com>
 To: kvm@vger.kernel.org,
 	kvmarm@lists.linux.dev
@@ -51,11 +51,10 @@ Cc: maz@kernel.org,
 	enju.kohei@fujitsu.com,
 	sudeep.holla@arm.com,
 	jonathan.cameron@oss.qualcomm.com,
-	Fuad Tabba <fuad.tabba@linux.dev>,
 	Suzuki K Poulose <suzuki.poulose@arm.com>
-Subject: [PATCH v22 04/23] KVM: arm64: Avoid including linux/kvm_host.h in kvm_pgtable.h
-Date: Mon,  5 Oct 2026 10:07:35 +0100
-Message-ID: <20261005090754.2140522-5-suzuki.poulose@arm.com>
+Subject: [PATCH v22 06/23] KVM: arm64: Don't call vcpu_set_pauth_traps for pKVM host
+Date: Mon,  5 Oct 2026 10:07:37 +0100
+Message-ID: <20261005090754.2140522-7-suzuki.poulose@arm.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20261005090754.2140522-1-suzuki.poulose@arm.com>
 References: <20261005090754.2140522-1-suzuki.poulose@arm.com>
@@ -67,82 +66,96 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Steven Price <steven.price@arm.com>
+vcpu_set_pauth_traps() bails out and does nothing for pKVM hosts.
+Clean this up by moving the is_protected_kvm_enabled() check to the
+caller, in preparation for adding VM specific vcpu load/put callbacks.
 
-To avoid future include cycles, drop the linux/kvm_host.h include in
-kvm_pgtable.h and include the lightweight headers required for the types
-and inline helpers used there. Additionally provide a forward
-declaration for struct kvm_s2_mmu as it's only used as a pointer in this
-file.
+While at it, do an early return if the vcpu doesn't have ptrauth.
 
-Both pgtable.c and kvm_pkvm.h relied on the indirect inclusion of
-kvm_host.h, so make that explicit.
+No functional changes
 
-Reviewed-by: Fuad Tabba <fuad.tabba@linux.dev>
-Reviewed-by: Gavin Shan <gshan@redhat.com>
-Signed-off-by: Steven Price <steven.price@arm.com>
 Signed-off-by: Suzuki K Poulose <suzuki.poulose@arm.com>
 ---
 Changes since v19:
- - Include asm/memory.h, asm/page.h , linux/bitfield.h in asm/kvm_pgtable.h
-   (Sashiko)
+ - New patch, since addition of this to the Refactoring patch makes it a bit
+   more bigger and harder to review
 ---
- arch/arm64/include/asm/kvm_pgtable.h | 10 +++++++++-
- arch/arm64/include/asm/kvm_pkvm.h    |  2 +-
- arch/arm64/kvm/hyp/pgtable.c         |  1 +
- 3 files changed, 11 insertions(+), 2 deletions(-)
+ arch/arm64/kvm/arm.c | 52 +++++++++++++++++++++++---------------------
+ 1 file changed, 27 insertions(+), 25 deletions(-)
 
-diff --git a/arch/arm64/include/asm/kvm_pgtable.h b/arch/arm64/include/asm/kvm_pgtable.h
-index 41a8687938eb6..a211a5d87bf96 100644
---- a/arch/arm64/include/asm/kvm_pgtable.h
-+++ b/arch/arm64/include/asm/kvm_pgtable.h
-@@ -7,10 +7,18 @@
- #ifndef __ARM64_KVM_PGTABLE_H__
- #define __ARM64_KVM_PGTABLE_H__
+diff --git a/arch/arm64/kvm/arm.c b/arch/arm64/kvm/arm.c
+index bcec14c587119..50b84065ead1a 100644
+--- a/arch/arm64/kvm/arm.c
++++ b/arch/arm64/kvm/arm.c
+@@ -631,33 +631,34 @@ void kvm_arch_vcpu_unblocking(struct kvm_vcpu *vcpu)
  
-+#include <linux/bitfield.h>
- #include <linux/bits.h>
--#include <linux/kvm_host.h>
-+#include <linux/kvm_types.h>
-+#include <linux/rbtree_types.h>
-+#include <linux/rcupdate.h>
- #include <linux/types.h>
+ static void vcpu_set_pauth_traps(struct kvm_vcpu *vcpu)
+ {
+-	if (vcpu_has_ptrauth(vcpu) && !is_protected_kvm_enabled()) {
+-		/*
+-		 * Either we're running an L2 guest, and the API/APK bits come
+-		 * from L1's HCR_EL2, or API/APK are both set.
+-		 */
+-		if (unlikely(is_nested_ctxt(vcpu))) {
+-			u64 val;
++	if (!vcpu_has_ptrauth(vcpu))
++		return;
  
-+#include <asm/memory.h>
-+#include <asm/page.h>
+-			val = __vcpu_sys_reg(vcpu, HCR_EL2);
+-			val &= (HCR_API | HCR_APK);
+-			vcpu->arch.hcr_el2 &= ~(HCR_API | HCR_APK);
+-			vcpu->arch.hcr_el2 |= val;
+-		} else {
+-			vcpu->arch.hcr_el2 |= (HCR_API | HCR_APK);
+-		}
++	/*
++	 * Either we're running an L2 guest, and the API/APK bits come
++	 * from L1's HCR_EL2, or API/APK are both set.
++	 */
++	if (unlikely(is_nested_ctxt(vcpu))) {
++		u64 val;
+ 
+-		/*
+-		 * Save the host keys if there is any chance for the guest
+-		 * to use pauth, as the entry code will reload the guest
+-		 * keys in that case.
+-		 */
+-		if (vcpu->arch.hcr_el2 & (HCR_API | HCR_APK)) {
+-			struct kvm_cpu_context *ctxt;
++		val = __vcpu_sys_reg(vcpu, HCR_EL2);
++		val &= (HCR_API | HCR_APK);
++		vcpu->arch.hcr_el2 &= ~(HCR_API | HCR_APK);
++		vcpu->arch.hcr_el2 |= val;
++	} else {
++		vcpu->arch.hcr_el2 |= (HCR_API | HCR_APK);
++	}
+ 
+-			ctxt = this_cpu_ptr_hyp_sym(kvm_hyp_ctxt);
+-			ptrauth_save_keys(ctxt);
+-		}
++	/*
++	 * Save the host keys if there is any chance for the guest
++	 * to use pauth, as the entry code will reload the guest
++	 * keys in that case.
++	 */
++	if (vcpu->arch.hcr_el2 & (HCR_API | HCR_APK)) {
++		struct kvm_cpu_context *ctxt;
 +
-+struct kvm_s2_mmu;
-+
- #define KVM_PGTABLE_FIRST_LEVEL		-1
- #define KVM_PGTABLE_LAST_LEVEL		3
++		ctxt = this_cpu_ptr_hyp_sym(kvm_hyp_ctxt);
++		ptrauth_save_keys(ctxt);
+ 	}
+ }
  
-diff --git a/arch/arm64/include/asm/kvm_pkvm.h b/arch/arm64/include/asm/kvm_pkvm.h
-index beea00e693a0a..54a618d887fa4 100644
---- a/arch/arm64/include/asm/kvm_pkvm.h
-+++ b/arch/arm64/include/asm/kvm_pkvm.h
-@@ -7,9 +7,9 @@
- #define __ARM64_KVM_PKVM_H__
+@@ -749,7 +750,8 @@ void kvm_arch_vcpu_load(struct kvm_vcpu *vcpu, int cpu)
+ 	else
+ 		vcpu->arch.hcr_el2 |= HCR_TWI;
  
- #include <linux/arm_ffa.h>
-+#include <linux/kvm_host.h>
- #include <linux/memblock.h>
- #include <linux/scatterlist.h>
--#include <asm/kvm_host.h>
- #include <asm/kvm_pgtable.h>
+-	vcpu_set_pauth_traps(vcpu);
++	if (!is_protected_kvm_enabled())
++		vcpu_set_pauth_traps(vcpu);
  
- /* Maximum number of VMs that can co-exist under pKVM. */
-diff --git a/arch/arm64/kvm/hyp/pgtable.c b/arch/arm64/kvm/hyp/pgtable.c
-index b74dd5ce1efd3..f48253b9d88b5 100644
---- a/arch/arm64/kvm/hyp/pgtable.c
-+++ b/arch/arm64/kvm/hyp/pgtable.c
-@@ -8,6 +8,7 @@
-  */
- 
- #include <linux/bitfield.h>
-+#include <linux/kvm_host.h>
- #include <asm/kvm_pgtable.h>
- #include <asm/stage2_pgtable.h>
- 
+ 	if (is_protected_kvm_enabled()) {
+ 		kvm_call_hyp_nvhe(__pkvm_vcpu_load,
 -- 
 2.43.0
 
