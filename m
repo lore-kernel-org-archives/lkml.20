@@ -1,35 +1,35 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2AE425012A4;
-	Mon,  5 Oct 2026 17:17:36 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9BCA1502D4F;
+	Mon,  5 Oct 2026 17:17:40 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791220658; cv=none; b=sJrdpyqG85dkQ1yvkBCrq8y1/OXMsxmCFPg+wlq1J6kj2Seb3TxzOkLoPp0UuKXnFpi6/Y3Gf5CcEkd+RYqxoI2W9pmQhiTDD2PiSxhgd345t5IO/HTkzI9zslRDQ18ucxKoD6kra2V8O+FHM93X9+9OaMWrLlcjVwhXFRXOsPM=
+	t=1791220661; cv=none; b=W/LnZNz0FTGuTwEIU87tcmqXmFunukCLOEUzVS3Rwis8qmBRPPdLzz+/a8ZLFTeuxFI/J//K7Ip3Htw7IUFMwmME+WLjoMdIVprfwDme2YyHWSMk/r1kcgXdggTvGj85HFdkoWAgbc88rCl3fCbtwM71yucJ3X7L8Hlw8bjl9sU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791220658; c=relaxed/simple;
-	bh=3LKbZzJvMlkyZ6XIb70OrMyiPpk2LCkQWOFdBhGInU4=;
+	s=arc-20240116; t=1791220661; c=relaxed/simple;
+	bh=tZIxlDjNw6l3MRn2Lqz4AemzqxVTKOk5PddIewZVj2M=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=qsNhlR/LedEkEqfjTy8/+QZCPX66e3xPtKk7NIAdZR18Y7kUarU+ips6okRBxjDFqG9hXO3Y5JXLSwvGKZcbQiJy4iKXZlovxpxn0Oe31QgVf5YFy2PO2u+1D4E8gXpBQ0Nx35A5oVKuWVneESpk1JQHz5zyFP/QvWn7p/TqRGo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=UwkT7LCT; arc=none smtp.client-ip=100.103.45.18
+	 In-Reply-To:To:Cc; b=b49ChkGKyJ2DLDk2I3/iQEmdvzj+y8J8jVOOULnMHRDiZ31tk2Zl2MCmXUefNomwMTypL5fR4IyHwXlzvOxI9iUMqJKUu+YwZkInGDrn0DC9fq55yd7IE1+4OvQjEjkWrW+gUNuGueDNwSE4PDWBqMcX42edeQn460b4LjH/33k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Og1IJ1Qf; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="UwkT7LCT"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 63AD71F00893;
-	Mon,  5 Oct 2026 17:17:33 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Og1IJ1Qf"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 431831F00898;
+	Mon,  5 Oct 2026 17:17:37 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791220656;
-	bh=aeomxX1QGtnD3U5IUgaJbh5Zhqt+z2pbZDdGXbfDXRw=;
+	s=k20260515; t=1791220660;
+	bh=mUGJit4NGFOCX/gRlLnj7Qx+ngU2dmR+OY1BemaQ2Rc=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=UwkT7LCTVUXfJhH43HPqKId5zK69xhvwuY1IFOt3XkICp90qcmBroaksEY2fiuPM1
-	 6DtyuVMMQaykwjBO9HpmrKJuEXwhuvJgEpymBcTUKe1WaUFSr+rfRLVkr1n/bAE47o
-	 3StmjNVVgimSNWeOF1d+tNSFFaDH8UoaYLgy/Fm3+B8fv5RivCnCVW0gn0xFPfTZ+s
-	 nR0YfyhdfQt+BmI4DnVYtT3LTvxEEnGhqXm9QWYQFz1hYlq0uWWfIXyxrsEO7HE6Hg
-	 9NuFWluSzwQXDfjiooD9TyuQM9HkJ8wykOcF87gQThHTOCG+mcqBpFZ53HAJySsZJ5
-	 p31o/0aZk4LCg==
-From: bod@kernel.org
-Date: Mon, 05 Oct 2026 19:14:02 +0200
-Subject: [PATCH 32/74] media: qcom: camss: vfe: Update an output group's
- write masters on buffer done
+	b=Og1IJ1QfgSQHuSW+fLGnnpGfk34nPELTPMGF5yUIY3yQf19ALnJ5vA2A+QzBN8mWv
+	 YY2OWuGkEM+Twm9zdc/fkKxdFUHy9r3f6cHaVQamAj6goL2xZg4mAHLXQCX7lRxWEU
+	 MzG50lsS24kO9TW3W+Kcy36TOxDSA0ljR2mKy12HwOQTL+05ld0/NWEQUMjduHWQQ4
+	 A3dx+ZpoP/QteHVnxAeilG1K+3Y3bKNkF/IHSMfFkt9mEG5nKQqwnSmTIMS/NGRvKg
+	 VpD7R0gXBouowlUOdVZdJRd0gIwqk56wPBSQDKTdyJRDFK0molvwxurJ8ILxkAg0un
+	 TudeSn+6/xzog==
+From: Bryan O'Donoghue <bod@kernel.org>
+Date: Mon, 05 Oct 2026 19:14:03 +0200
+Subject: [PATCH 33/74] media: qcom: camss: vfe: Add support for stopping
+ outputs which contain multiple write masters
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -38,7 +38,7 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261005-linux-mainline-7-2-sm8650-hdk-rfc-0-v1-32-ed985aefd611@kernel.org>
+Message-Id: <20261005-linux-mainline-7-2-sm8650-hdk-rfc-0-v1-33-ed985aefd611@kernel.org>
 References: <20261005-linux-mainline-7-2-sm8650-hdk-rfc-0-v1-0-ed985aefd611@kernel.org>
 In-Reply-To: <20261005-linux-mainline-7-2-sm8650-hdk-rfc-0-v1-0-ed985aefd611@kernel.org>
 To: Bryan O'Donoghue <bryan.odonoghue@linaro.org>, 
@@ -55,55 +55,51 @@ To: Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
 Cc: linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
  linux-kernel@vger.kernel.org, Bryan O'Donoghue <bod@kernel.org>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1257; i=bod@kernel.org;
- h=from:subject:message-id; bh=SKwvb3ZPmeegr2BsX2YLuxpYjLjRVFd0XaOCBdgz2vU=;
- b=owEBbQKS/ZANAwAKASJxO7Ohjcg6AcsmYgBqw9sXy7v0c+M+K3qckDWm/sWoZI84d/fTbeYJE
- f1bphGtmN6JAjMEAAEKAB0WIQTmk/sqq6Nt4Rerb7QicTuzoY3IOgUCasPbFwAKCRAicTuzoY3I
- OgM/D/9Em9DvYlKsvSyrHWr9ilbdZgFbvTH4BLlUS5bGHAIGt7e+RMIfgmidMw52R96FA5IM2KT
- xMqEeXRc7gL8zXgn34SxI8oTal5iYM6UitCGA2ipeGgNEwmI5MtEGlqvOHNDJVWLXRcKDYS8CbP
- u6pOFRSnSPAnxy3ixAuHpLQv1wSfPEZsxxrpDavaAToIzH7IbwRC/iltOi7bBg4TRTo/cr3Cz6b
- Z/8a1bF6so56Iq7qvGh0f8s2VuFbwrQkGnz4toYr0jxV5I2EzCbUf5pfn4j9/qVjRJLm9D3DFhP
- /Nq79RZIeoA8SPQg4n4wTf/eN0WEUqm3AtqwYno93gVPx5NhZRPMBguuzOWkhkOlXN59Y2xwf6/
- PRCgf8qh9goqPkSQSfz1HDwOUwO/ceKVjnriHUqQBt73F1y5D3qD2UNku7ptKpyMdYUkWXXyHtW
- YVWcLL5YzwwEj5nia0YVvoJLQa+LNng2/HeS9MSNbcb8VVnoyUHW1mHqy71LxBvcY1sKherP2K0
- /sFEaRj8ludGjvhX2eElTWMwZd9hwvWtguIBfDadacfcCHI61kxJaKeTl865TSvHLRCzfezMXnj
- tQLDga/yvTKWj14Fh96uhRz5DUer37drfwwtO2hg4wZaA7hwoUZKTEKws7mExWIqb9kBp7cQGmg
- w0gFy32YEPXp3eA==
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1125; i=bod@kernel.org;
+ h=from:subject:message-id; bh=tZIxlDjNw6l3MRn2Lqz4AemzqxVTKOk5PddIewZVj2M=;
+ b=owEBbQKS/ZANAwAKASJxO7Ohjcg6AcsmYgBqw9sYIEKW4S+biLLFuomuZFZEDH3niRbyjYyC1
+ jbloWkgxa6JAjMEAAEKAB0WIQTmk/sqq6Nt4Rerb7QicTuzoY3IOgUCasPbGAAKCRAicTuzoY3I
+ OrpQD/9Y9MFkjW7XYMIxn8wh2lWoyTwSb0TsXPn4VmThza7WD4MVM0m6jniG8+u9UedITPRlUEt
+ G2C0khtAhMr4VQiZMqlooJighjsRrPwH8wjGc3pLEivtS/ujb+cPfLDpavOpBzcmRrf3mZrb8vq
+ kJ0TMnnKHagW0tgxUokuBYIO8ky7zug0CZ+ZfA88Z+D2Wd45ClL7tAU+Gi6bKX6um1YKuTS32Gr
+ o2JQS/iJhoXnl/6aG89jk49d08ZxUXWkRp32ix/R1h4sa3FZ06ec6hnKCtf9Psi0NAGmSVqtq+v
+ 9iTI/Xd33FDVwHiISg1/IvRuzresS5vo/k88b7LBR7WpJ2ttn3zGJUjvvWK44+CRpuDqKIJJYdu
+ aF9b8CFWYruFLxoMQL/JupeQBPUum1kOJ1OIfvsAvc8vucndBf7rRvTPyB6Fi2p2J4RvPWdWeTC
+ mK3scilBgrE4RkHIE71Pv6gE5MiOeWktEmixp5sui9pN+UhLfB9rs3wnDJiUQnOv3xAeeArV6eR
+ biJs8EgBJZMc2NiM176Btn1uUCAfJeU1YPH/dlv+14JNlS+6KIW5LVz0U/vg6cC3vtmBDVIWM5j
+ ZAyIN1fG25+N2IVeOQC4iKHZ/36qc5Yb3UwPEmhpXTxhc6+l6Mq3jf4A61NBWX876AhgfQm1Jzb
+ LR0k/eVFyxsBWfw==
 X-Developer-Key: i=bod@kernel.org; a=openpgp;
  fpr=E693FB2AABA36DE117AB6FB422713BB3A18DC83A
 
-From: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
-
-vfe_buf_done() hands the next buffer to the write master directly with
-vfe_wm_update(), so an output group never sees it. Hand it to
-vfe_output_update() when the backend provides one, as starting the
-output and queuing a buffer already do.
-
-Signed-off-by: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
+Signed-off-by: Bryan O'Donoghue <bod@kernel.org>
 ---
- drivers/media/platform/qcom/camss/camss-vfe.c | 9 ++++++---
- 1 file changed, 6 insertions(+), 3 deletions(-)
+ drivers/media/platform/qcom/camss/camss-vfe.c | 6 +++++-
+ 1 file changed, 5 insertions(+), 1 deletion(-)
 
 diff --git a/drivers/media/platform/qcom/camss/camss-vfe.c b/drivers/media/platform/qcom/camss/camss-vfe.c
-index 20d8b3e1e4459..23c86e08776ea 100644
+index 23c86e08776ea..f7907287c8ed4 100644
 --- a/drivers/media/platform/qcom/camss/camss-vfe.c
 +++ b/drivers/media/platform/qcom/camss/camss-vfe.c
-@@ -624,9 +624,12 @@ void vfe_buf_done(struct vfe_device *vfe, int wm)
- 	output->buf[index] = vfe_buf_get_pending(output);
+@@ -968,13 +968,17 @@ int vfe_put_output(struct vfe_line *line)
+ static int vfe_disable_output(struct vfe_line *line)
+ {
+ 	struct vfe_device *vfe = to_vfe(line);
++	const struct vfe_hw_ops *ops = vfe->res->hw_ops;
+ 	struct vfe_output *output = &line->output[0];
+ 	unsigned long flags;
+ 	unsigned int i;
  
- 	if (output->buf[index]) {
--		ops->vfe_wm_update(vfe, output->wm[0].bus_client,
--				   output->buf[index]->addr[0],
--				   line);
-+		if (ops->vfe_output_update)
-+			ops->vfe_output_update(vfe, output, output->buf[index]);
+ 	spin_lock_irqsave(&vfe->output_lock, flags);
+ 	for (i = 0; i < output->wm_num; i++)
+-		vfe->res->hw_ops->vfe_wm_stop(vfe, output->wm[i].bus_client);
++		if (ops->vfe_output_stop)
++			ops->vfe_output_stop(vfe, output);
 +		else
-+			ops->vfe_wm_update(vfe, output->wm[0].bus_client,
-+					   output->buf[index]->addr[0],
-+					   line);
- 		ops->reg_update(vfe, line->id);
- 	} else {
- 		output->gen2.active_num--;
++			ops->vfe_wm_stop(vfe, output->wm[i].bus_client);
+ 	output->gen2.active_num = 0;
+ 	spin_unlock_irqrestore(&vfe->output_lock, flags);
+ 
 
 -- 
 2.55.0
