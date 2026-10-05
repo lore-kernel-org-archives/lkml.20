@@ -1,158 +1,100 @@
-Received: from mail-oi1-f198.google.com (mail-oi1-f198.google.com [209.85.167.198])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mail-4322.protonmail.ch (mail-4322.protonmail.ch [185.70.43.22])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ABEC1381E92
-	for <linux-kernel@vger.kernel.org>; Mon,  5 Oct 2026 20:50:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.198
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 473A6386C12;
+	Mon,  5 Oct 2026 20:51:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.70.43.22
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791233416; cv=none; b=hXZI2Pgc77uaKrU/dFvUc7XAT/+O6ICqmWWmjS+lZMREipRlbs02Pp7FnqVXWy9FqPk8xJLDUw0bNkd1qrUR8TVofaGq4aML7Rg0NAksVp6iI38BUlEmlHTalNSOrlqK9AXU6NPZpCJvjvcMZpJL0Mt+PAooL/m9vPygnwXFKAQ=
+	t=1791233525; cv=none; b=BtAKOiYfxVW31s9DCDYujwO12L9ysAsOP0WcIhn4wkbB7mu21S2iXOfJs5VFpl8bREyB3vEW2UN002H3ya2CmxQnsgTELceEVdo5yPjUZ2uFOza6hwRKUJMz9RVRCtmqwlHL5CkJ/r/Ka6izzFVfNHtK9EvulYPRTYMYTkw2BUU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791233416; c=relaxed/simple;
-	bh=coABcNt9pq1f/wV1AHqFcBxAb7vOCClP3Fn8fGdyhkQ=;
-	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:
-	 Content-Type; b=thrnXtBW9PubSeMhEuzGnL9QicLwebUQTCBqBrHXlWNaVoTmfZrELADeHWI0cxkqm5yl4GKc9I0/3nYZIRbyn/3F7tEHb5rdCBT2Rw8xMstNXMACFoIFQ7HZvySBAMtMQOrRnkGRwhXyYVnPyd8UqLOk/ftkYpFMUkW/a1A8KKQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.167.198
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oi1-f198.google.com with SMTP id 5614622812f47-4c7f887ac6bso63674b6e.3
-        for <linux-kernel@vger.kernel.org>; Mon, 05 Oct 2026 13:50:04 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791233403; x=1791838203;
-        h=content-type:to:from:subject:message-id:in-reply-to:date
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=eWfIPMVihs7XhLygF6xalMQJlt9soBemAGjC60lH4dk=;
-        b=AaOkvrMsy5d10HnubDHhu11UqiCuC1q4rkbjCEFSTFPcc7Aj6Hj6Timv0zWPTtvoCv
-         Zi+osDYBk8BWuIsIFo5SeCi5V/ohAu8L8P21b26dCQPZachYadmfEEI/x4vIooLCI2QC
-         Ul4XbYFk+fgFhiX7nMpRRN0pM0y1OEKCSvx0p4xfAVqw3OE1BuITLOZR8wcWMJkR3lKC
-         1jyczTJ7bnwH9eQcQWNXW94wpHKmLC6Bs2/JPPmgnnlAGc2bf8eZBVMvG8npobGMu7MG
-         gKJsRU1dhL9Gptpy8vrzSjTJXV9tUoJ1XG/2/jpB6aJtAH5kTRSuvpzo7wUIkIpCi5hS
-         yv6Q==
-X-Forwarded-Encrypted: i=1; AKwUvBwBO/0J5fp6t5ZBcQJ2UJaSdB3ngwyjtHyIrWJw/esd6S5mTnBdpxiiuGC6csLTRIKvXL+HkAdmIFbJPkk=@vger.kernel.org
-X-Gm-Message-State: AFuF++lvajcWqhhAkLdDpioszGCfiKUK0wLEo4UQcCNaPz6BsX8JwGHL
-	DRHDdld/OhjZhxi/e8tV1WRbST7yxvw+SjNxcTJp8Lw4an8UYSqSrA9Oq2tnEx+Hai8/yqtO223
-	oVd4uqk9MNXmFBhCJld1o9GEzSzbJMEa+BIsUUnMBw/GQp6xBYYbQo5LpGXY=
+	s=arc-20240116; t=1791233525; c=relaxed/simple;
+	bh=w2Pj/aA+ACoJ4sNLQmplkZrq+uo0XkJzKyEiCfYZGjs=;
+	h=Date:To:From:Cc:Subject:Message-ID:MIME-Version:Content-Type; b=FrdcMLOjMXxMXBkXS66X0k3KlqCpntwRzR5frcxjY2w4TXIdpT/7b4KtBLztw1MZ6eKHUqPCVO3u/APRuGXc+lW1kS+B35sbYTdO1C1vWGedgfvukBwzFf7cet8RWHdu/QYtorzvRiQf/FV2ogVR7AD0kC6Ow+aM2H0bbkD9P/Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=proton.me; spf=pass smtp.mailfrom=proton.me; dkim=pass (2048-bit key) header.d=proton.me header.i=@proton.me header.b=RnO3q848; arc=none smtp.client-ip=185.70.43.22
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=proton.me
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=proton.me
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=proton.me header.i=@proton.me header.b="RnO3q848"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=proton.me;
+	s=protonmail2; t=1791233507; x=1791492707;
+	bh=6W67tFHd6CiLu3WczG673m8vQK8JeD6Yh/iLbczubAI=;
+	h=Date:To:From:Cc:Subject:Message-ID:Feedback-ID:From:To:Cc:Date:
+	 Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
+	b=RnO3q848bpHeIatqJgLCMEcNkOP3wKufhsvlm4thJpKP5RM2sSJxX0jd3SqgnZo5c
+	 CB94MYz11k5/wqNmv6jIwO9kMS58VjoTYhucDbN+vp1oNZORE6tpTJcMEEBXKgAE6r
+	 C96ZivhPgUU9Cq6Jv8KPA/aaOvUmT9gsbpvBqngoabYXBoDfdj2/7nAj9WiqDJZ+0Q
+	 YyDbS6GoOVuM802IUrDE8GFDnpz1f9wGSVxckiM5e2Eo8tj1zU3nh3QO6S/Fad51Ct
+	 sEof4PuhWrv8Ehv6PfIbXsD5no9o7ICFeIjXuEVgT8ZakehIIBNpDh0BSazbHtYfK7
+	 v/4qpYnzaZhdA==
+Date: Mon, 05 Oct 2026 20:51:42 +0000
+To: David Heidelberg <david@ixit.cz>, Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>
+From: Kristian Brox <isyourbrainfoss@proton.me>
+Cc: Krzysztof Kozlowski <krzk@kernel.org>, Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, Luca Weiss <luca.weiss@fairphone.com>, Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, oe-linux-nfc@lists.linux.dev, netdev@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org, Kristian Brox <isyourbrainfoss@proton.me>, Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>, Tim auf der Landwehr <tadl-git@taufderl.de>, Abel Vesa <abel.vesa@oss.qualcomm.com>
+Subject: [PATCH v5 0/4] nfc: st-nci: Fairphone 5 NFC bring-up (ST21NFCD)
+Message-ID: <20261005-fp5-st21nfcd-v5-v5-0-7be15a86c61c@proton.me>
+Feedback-ID: 203906395:user:proton
+X-Pm-Message-ID: 770e7dd04a105c11704dbf4d72852d48b538ec69
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Received: by 2002:a05:6808:4fe3:b0:4f8:716d:7706 with SMTP id
- 5614622812f47-4f8716d795amr4893687b6e.65.1791233403632; Mon, 05 Oct 2026
- 13:50:03 -0700 (PDT)
-Date: Mon, 05 Oct 2026 13:50:03 -0700
-In-Reply-To: <20261005180430.24652-2-jakovnovak30@gmail.com>
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6ac40d7b.9ad129c8.3858c0.0040.GAE@google.com>
-Subject: Re: [syzbot] [media?] [usb?] WARNING in smsusb_term_device (2)
-From: syzbot <syzbot+d627b1495de0e851be32@syzkaller.appspotmail.com>
-To: jakovnovak30@gmail.com, linux-kernel@vger.kernel.org, 
-	syzkaller-bugs@googlegroups.com
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-Hello,
+This adds NFC on the Fairphone 5 (qcm6490). The board uses an ST21NFCD
+on I2C. That part speaks raw NCI; the current st-nci driver always
+wraps NDLC, so using st,st21nfcb-i2c leaves the adapter unusable.
 
-syzbot has tested the proposed patch but the reproducer is still triggering an issue:
-WARNING in enable_work
+The series adds a st,st21nfcd compatible for the raw-NCI path and the
+Fairphone 5 DT node. Boards that already use st21nfcb / st21nfcc keep
+the NDLC path.
 
-------------[ cut here ]------------
-workqueue: work disable count underflowed
-WARNING: kernel/workqueue.c:4530 at work_offqd_enable kernel/workqueue.c:4530 [inline], CPU#1: kworker/1:2/5325
-WARNING: kernel/workqueue.c:4530 at enable_work+0x1c7/0x230 kernel/workqueue.c:4701, CPU#1: kworker/1:2/5325
-Modules linked in:
-CPU: 1 UID: 0 PID: 5325 Comm: kworker/1:2 Not tainted syzkaller #0 PREEMPT_{RT,(full)} 
-Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 09/16/2026
-Workqueue: usb_hub_wq hub_event
-RIP: 0010:work_offqd_enable kernel/workqueue.c:4530 [inline]
-RIP: 0010:enable_work+0x1c7/0x230 kernel/workqueue.c:4701
-Code: cf 19 38 00 4d 85 f6 75 48 e8 c5 19 38 00 eb 47 e8 be 19 38 00 90 0f 0b 90 e9 bc fe ff ff e8 b0 19 38 00 48 8d 3d 99 1c 26 0e <67> 48 0f b9 3a e9 d2 fe ff ff e8 9a 19 38 00 90 0f 0b 90 e9 1d ff
-RSP: 0018:ffffc900048aeae0 EFLAGS: 00010093
-RAX: ffffffff818ebc00 RBX: 0000000000000000 RCX: ffff888020bc0000
-RDX: 0000000000000000 RSI: 0000000000000000 RDI: ffffffff8fb4d8a0
-RBP: 0000000000000000 R08: 0000000000000000 R09: 0000000000000000
-R10: dffffc0000000000 R11: ffffed10170e7719 R12: 1ffff110053a8807
-R13: 0000000001800001 R14: ffff888029d44038 R15: 0000000000000000
-FS:  0000000000000000(0000) GS:ffff888125cc2000(0000) knlGS:0000000000000000
-CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-CR2: 00007fd1bfdeb840 CR3: 0000000038686000 CR4: 00000000003526f0
-Call Trace:
- <TASK>
- __cancel_work_sync+0xf8/0x110 kernel/workqueue.c:4571
- smsusb_stop_streaming drivers/media/usb/siano/smsusb.c:183 [inline]
- smsusb_term_device+0xdd/0x260 drivers/media/usb/siano/smsusb.c:345
- smsusb_init_device drivers/media/usb/siano/smsusb.c:499 [inline]
- smsusb_probe+0x1aba/0x2280 drivers/media/usb/siano/smsusb.c:577
- usb_probe_interface+0x788/0xe50 drivers/usb/core/driver.c:399
- call_driver_probe drivers/base/dd.c:-1 [inline]
- really_probe+0x254/0xae0 drivers/base/dd.c:706
- __driver_probe_device+0x1e8/0x360 drivers/base/dd.c:868
- driver_probe_device+0x4f/0x240 drivers/base/dd.c:898
- __device_attach_driver+0x270/0x410 drivers/base/dd.c:1026
- bus_for_each_drv+0x25b/0x2f0 drivers/base/bus.c:500
- __device_attach+0x2c7/0x450 drivers/base/dd.c:1098
- device_initial_probe+0xa1/0xd0 drivers/base/dd.c:1153
- bus_probe_device+0x12d/0x220 drivers/base/bus.c:620
- device_add+0x7d7/0xb80 drivers/base/core.c:3776
- usb_set_configuration+0x1bb5/0x2260 drivers/usb/core/message.c:2274
- usb_generic_driver_probe+0x8d/0x150 drivers/usb/core/generic.c:250
- usb_probe_device+0x1c3/0x3b0 drivers/usb/core/driver.c:293
- call_driver_probe drivers/base/dd.c:-1 [inline]
- really_probe+0x254/0xae0 drivers/base/dd.c:706
- __driver_probe_device+0x1e8/0x360 drivers/base/dd.c:868
- driver_probe_device+0x4f/0x240 drivers/base/dd.c:898
- __device_attach_driver+0x270/0x410 drivers/base/dd.c:1026
- bus_for_each_drv+0x25b/0x2f0 drivers/base/bus.c:500
- __device_attach+0x2c7/0x450 drivers/base/dd.c:1098
- device_initial_probe+0xa1/0xd0 drivers/base/dd.c:1153
- bus_probe_device+0x12d/0x220 drivers/base/bus.c:620
- device_add+0x7d7/0xb80 drivers/base/core.c:3776
- usb_new_device+0x99a/0x1680 drivers/usb/core/hub.c:2713
- hub_port_connect drivers/usb/core/hub.c:5585 [inline]
- hub_port_connect_change drivers/usb/core/hub.c:5725 [inline]
- port_event drivers/usb/core/hub.c:5889 [inline]
- hub_event+0x28cf/0x4cf0 drivers/usb/core/hub.c:5971
- process_one_work kernel/workqueue.c:3396 [inline]
- process_scheduled_works+0xc3d/0x1630 kernel/workqueue.c:3479
- worker_thread+0xa47/0xfb0 kernel/workqueue.c:3560
- kthread+0x38b/0x470 kernel/kthread.c:436
- ret_from_fork+0x514/0xb70 arch/x86/kernel/process.c:158
- ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
- </TASK>
-----------------
-Code disassembly (best guess):
-   0:	cf                   	iret
-   1:	19 38                	sbb    %edi,(%rax)
-   3:	00 4d 85             	add    %cl,-0x7b(%rbp)
-   6:	f6 75 48             	divb   0x48(%rbp)
-   9:	e8 c5 19 38 00       	call   0x3819d3
-   e:	eb 47                	jmp    0x57
-  10:	e8 be 19 38 00       	call   0x3819d3
-  15:	90                   	nop
-  16:	0f 0b                	ud2
-  18:	90                   	nop
-  19:	e9 bc fe ff ff       	jmp    0xfffffeda
-  1e:	e8 b0 19 38 00       	call   0x3819d3
-  23:	48 8d 3d 99 1c 26 0e 	lea    0xe261c99(%rip),%rdi        # 0xe261cc3
-* 2a:	67 48 0f b9 3a       	ud1    (%edx),%rdi <-- trapping instruction
-  2f:	e9 d2 fe ff ff       	jmp    0xffffff06
-  34:	e8 9a 19 38 00       	call   0x3819d3
-  39:	90                   	nop
-  3a:	0f 0b                	ud2
-  3c:	90                   	nop
-  3d:	e9                   	.byte 0xe9
-  3e:	1d                   	.byte 0x1d
-  3f:	ff                   	.byte 0xff
+A later poll start that times out in "failed to set local general bytes"
+is still unreproduced on this phone.
 
+Signed-off-by: Kristian Brox <isyourbrainfoss@proton.me>
+---
+Link to v4:
+https://lore.kernel.org/oe-linux-nfc/20260902-fp5-st21nfcd-v4-v4-0-ded2f1c5=
+01be@proton.me/
 
-Tested on:
+Changes in v5:
+- Map proprietary RF protocol 0x90 to MIFARE (Tim). On this phone a
+  Classic 1K was accepted as 0x90 and was not dropped.
+- Binding carries Reviewed-by from Krzysztof Kozlowski. DTS carries
+  Reviewed-by from Konrad Dybcio and Abel Vesa. The patch bodies are
+  the v4 patches. The raw-NCI driver change is unchanged.
+- Tim's reference-clock restart and leading-0x7e check were tried on
+  this phone and left out.
 
-commit:         67f0943b Merge tag 'selinux-pr-20261005' of git://git...
-git tree:       upstream
-console output: https://syzkaller.appspot.com/x/log.txt?x=14f27ec9580000
-kernel config:  https://syzkaller.appspot.com/x/.config?x=341a98f91c13ec9
-dashboard link: https://syzkaller.appspot.com/bug?extid=d627b1495de0e851be32
-compiler:       Debian clang version 22.1.8 (++20260613092233+e80beda6e255-1~exp1~20260613092250.77), Debian LLD 22.1.8
-patch:          https://syzkaller.appspot.com/x/patch.diff?x=1237bec9580000
+---
+Kristian Brox (3):
+      dt-bindings: net: nfc: add st,st21nfcd
+      nfc: st-nci: add raw NCI path for ST21NFCD
+      arm64: dts: qcom: qcm6490-fairphone-fp5: add ST21NFCD NFC
+
+Tim auf der Landwehr (1):
+      nfc: st-nci: map proprietary RF protocol 0x90 to MIFARE
+
+ .../devicetree/bindings/net/nfc/st,st-nci.yaml     | 49 +++++++++----
+ arch/arm64/boot/dts/qcom/qcm6490-fairphone-fp5.dts | 34 ++++++++-
+ drivers/nfc/st-nci/core.c                          | 38 +++++++++-
+ drivers/nfc/st-nci/i2c.c                           | 82 ++++++++++++++++++=
+++--
+ drivers/nfc/st-nci/ndlc.c                          | 27 +++++--
+ drivers/nfc/st-nci/ndlc.h                          |  5 +-
+ drivers/nfc/st-nci/se.c                            |  3 +
+ drivers/nfc/st-nci/spi.c                           |  2 +-
+ drivers/nfc/st-nci/st-nci.h                        |  2 +
+ 9 files changed, 211 insertions(+), 31 deletions(-)
+---
+base-commit: cee9395acd8043be0644b25c34bfa86623f2b935
+change-id: 20261005-fp5-st21nfcd-v5-1818d4776267
+
+Best regards,
+-- =20
+Kristian Brox <isyourbrainfoss@proton.me>
+
 
