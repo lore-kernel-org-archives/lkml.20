@@ -1,373 +1,259 @@
-Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj2-f38.google.com (mail-pj2-f38.google.com [74.125.227.166])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0B80E42E8E7;
-	Mon,  5 Oct 2026 14:50:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.156.1
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791211818; cv=none; b=dRqaV6eefW1TI4Ts8Es/jU0YC9Yc7ZrE0I+6gqeXE+UhEVgzasHuE7GYtFTOymODtHh3G7t/z1xBswQN2fPrrs0nO7sHH14+WD8o0fIrlNkG9S2x2/68f0eetwfVGYBxKhREkPdg02PIR2aCLITPp8efSu0Ss1ULYtB3DGnuLr4=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791211818; c=relaxed/simple;
-	bh=izhUoT5nd0mhvIDdlCk4nRZ6cDlDLJkZ83wq+nhvCd8=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=bmsxIHtKeCT2gs/rR2EfFaJGYJABCkXQvZPOuLhgnhHwJw3w8fyQwG5PaaepMwyeZo4smWhGOWYhFsHuIMm3Q9Wubi/zd4ILpGFWy7Mogh51blcReJrPvZxlXgQSZwIoM+yPQI+7L2u/AmO6UNsGwJofuRk54pZA5iONRYEYcB8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=cyKSYVL8; arc=none smtp.client-ip=148.163.156.1
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E1F264B04A8
+	for <linux-kernel@vger.kernel.org>; Mon,  5 Oct 2026 14:51:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.227.166
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791211866; cv=pass; b=nDjkC7h12zOGmw3GLySWudEqHt3HqEJKRAqV8FH/PwqAsw7zPzVg0v7dKEvuT6WzMxVWODHeQLajT2QLa/+UMKCNwkg+Kf0S2wKKacfX1hHriqSFWfZ2upHsxP7FazFdBIVM6loMWi5685dLeVcJrBiRKPfLiv0Ev2T7PPmITm4=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791211866; c=relaxed/simple;
+	bh=YrLe/bgyFwpgpqiHffOcUv8w8epm9xRDZev+pTSWF4E=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=eFvQZFYBayREc1w1TifC71x0wbL3HtonpHqJRX2iGmJOHWfKp+IamR7K5YRNW9a0x9M9FpQDy+Pns922HjqkpJx+TGFDoi/PHOM3bX1vbB/nXNm07kA74SZrIw1nKjbp+iHWYM/apHc7hkVz4PAbs5jlmjXyNYvM64siQR3hOIg=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=AKaOuyIw; arc=pass smtp.client-ip=74.125.227.166
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="cyKSYVL8"
-Received: from pps.filterd (m0360083.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 695EZtgA965083;
-	Mon, 5 Oct 2026 14:50:10 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
-	:content-transfer-encoding:date:from:in-reply-to:message-id
-	:mime-version:references:subject:to; s=pp1; bh=UM8/lcaUNwV3a3Gjq
-	0QjWIWTMYLKGbOzWyiHTNHcsvE=; b=cyKSYVL8mIjZ0N+sm+USbYyNTczrkRbLy
-	c5XJ/uP3DjMRXT9w2IBYw+aVO0B9nVSlsxKfpTKENFCAKhvBCRQbHjASh8E7X1Qr
-	jktoUV6tMEIzeP9HCv0cFkclqXCxc6hZM1MmqIWqK0m8HhVSfThLoSW44PqhBEIr
-	VvMTscVnB7vWaTaO8+EjsYZIDybVBa5G5oG3LGLeRqyzCDv5ovI4QBiOdL70Vgix
-	27K7ECnOST7xUtDGhT5A/ciinv98M3MZY2jCKskaBNIr7LoZCi81/qa6lJb1gQ/D
-	AbHpVVhe6NPgFvRyrJlBQgZNeV0BFMP+94W3EBR7jMApWHb+DRBRA==
-Received: from ppma21.wdc07v.mail.ibm.com (5b.69.3da9.ip4.static.sl-reverse.com [169.61.105.91])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4h2s74jwkk-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Mon, 05 Oct 2026 14:50:10 +0000 (GMT)
-Received: from pps.filterd (ppma21.wdc07v.mail.ibm.com [127.0.0.1])
-	by ppma21.wdc07v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 695EWZgf3025094;
-	Mon, 5 Oct 2026 14:50:09 GMT
-Received: from smtprelay02.fra02v.mail.ibm.com ([9.218.2.226])
-	by ppma21.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4h3d1jnvqn-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Mon, 05 Oct 2026 14:50:09 +0000 (GMT)
-Received: from smtpav04.fra02v.mail.ibm.com (smtpav04.fra02v.mail.ibm.com [10.20.54.103])
-	by smtprelay02.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 695Eo5ws48497074
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Mon, 5 Oct 2026 14:50:05 GMT
-Received: from smtpav04.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 1359320040;
-	Mon,  5 Oct 2026 14:50:05 +0000 (GMT)
-Received: from smtpav04.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id D984A2004B;
-	Mon,  5 Oct 2026 14:50:04 +0000 (GMT)
-Received: from tuxmaker.boeblingen.de.ibm.com (unknown [9.87.85.9])
-	by smtpav04.fra02v.mail.ibm.com (Postfix) with ESMTP;
-	Mon,  5 Oct 2026 14:50:04 +0000 (GMT)
-From: Heiko Carstens <hca@linux.ibm.com>
-To: Gerald Schaefer <gerald.schaefer@linux.ibm.com>
-Cc: Alexander Gordeev <agordeev@linux.ibm.com>,
-        Sven Schnelle <svens@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>,
-        Christian Borntraeger <borntraeger@linux.ibm.com>,
-        linux-kernel@vger.kernel.org, linux-s390@vger.kernel.org
-Subject: [RFC PATCH 1/2] s390/appldata: Emulate virtual timer with delayed work
-Date: Mon,  5 Oct 2026 16:50:03 +0200
-Message-ID: <20261005145004.156348-2-hca@linux.ibm.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261005145004.156348-1-hca@linux.ibm.com>
-References: <20261005145004.156348-1-hca@linux.ibm.com>
+	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="AKaOuyIw"
+Received: by mail-pj2-f38.google.com with SMTP id 98e67ed59e1d1-3a81350dd08so479761a91.3
+        for <linux-kernel@vger.kernel.org>; Mon, 05 Oct 2026 07:51:01 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1791211859; cv=none;
+        d=google.com; s=arc-20260327;
+        b=CylAc1PSsEpOAbncWZTfiTd1ofPb103T6wLE2u8GAqSK99bJ2yH73FbrYu0quxDzIt
+         n95UIzcIchGAKvxc+aO//qKJ12g7gkv/OVpa7OAzOqGhgHh00So8qgBpmSJQqok6oX1Y
+         NFuGhR+EFnRvOYO6xz9iQ5lZbd69PUsa/oWoFA1xjzRnMq+v3sqVcjtsVOweM2wv0BLE
+         dCaAtMtRSfhpeVeB3uXkIkQD1IHqFa76QHPfmdbzUH8eL3Y9J9uWbcP5d8Gb4a6cXFe1
+         /eL+HcBIdzva5kcVxeOrl/o1fOei+6Q20EcxGx4K64L426J8uP0NzNF+gElMeZwbyQZl
+         XQUA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=wzyxtCc/xljY4tUYv36NHbjTq6FZebesi/It17iHYVo=;
+        fh=n5CBXI6PjsmFZ2O9D9lUnrluDBcqtWeOqRZeAv80CWA=;
+        b=nuAsE8iFdZPEwFTpjynQilGMTjO0gtlbcXwsljpIcV+TZY92xDv58sltmVnVQs2wmF
+         X7GEU6uv+tDPViDN3+Ih3YOGbYXEu7FTy1+0Mw2FiAnswsVxbU/eK9JbFwRvLRGbgSUo
+         FiocUaCeTur4p/j5BL5TlbLx+e3+DXG2DavGy1oQzuQeS3feZIolVNhTcQ6DtNNFiM8C
+         Fxzy+KCYhLL22Yv0wGQ1O9hutRAjDcNoM73iXpaLrRQO+0HMRODDZX+0glK7TyYZ0Woi
+         y503+u3A6zEzwyWG2MU1nuVVN20aQXzIWerB10UaYdkFOYaPGYxgwVIC9Dn+SI0h+o+L
+         40tw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=chromium.org; s=google; t=1791211859; x=1791816659; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=wzyxtCc/xljY4tUYv36NHbjTq6FZebesi/It17iHYVo=;
+        b=AKaOuyIw9xtWePTbrp2gtdG/GwFA1317C6uISMvp4MkcuVRlYNvt1c8Yvbo0s6ZDZ+
+         5QwB0hWzePNcowvxJCsGd3OrFJZS8b6fKOvcl83qkYHP9XrOX6SfFvcapDgNr55JsC5U
+         E5DV0kS7T5oo9y3zLW9pb/svLwACR6NFk0HIo=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791211859; x=1791816659;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=wzyxtCc/xljY4tUYv36NHbjTq6FZebesi/It17iHYVo=;
+        b=QGZffmTcPI30GlrtFZXu4ZW0Bkdnd9pqZmFYUITPBQRMr2CsD1OWEasHvBQL0WrrwY
+         9SzqSX1bEET09HwX9Pknyn1oVtM1wOOF+aFfzmhjtvkPUb3JrMUmiK8Ffway88+qhAfR
+         aFc5KNJMjtvAz4FBKdMWwP7l+H+crqXPT5VMlpnYwTyNVE5M7t27ZoPD2jSyuvXkNvug
+         vJ6UW+y2ibMsClAcFs7abO9zFxSQJFwlQVtBn/KCUtZiVGYYDo5YTTJ0OgV/h6d7qieV
+         IKwcdwxu22U5XYihPKSwEQact9thnzXp0lo4FhSdMBlZxR9heuNyCgm5GMMLbfNXm9EF
+         cVjg==
+X-Forwarded-Encrypted: i=1; AKwUvBxsHMeJPbLv9L6CrMitIomb/BvmXmmZV2Quyls0100vgFQZuCfj7l55hSnH5V2tGu75EwMXe1A2JL7P8pQ=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJjUgjSXZl6sg4airt4p6rSE3gijG3EE7LlrHjxsyFutGwl/yro
+	7KLdoVpSOT8I8VnJfVLQunAWar7YAH/vDz098FxMxCtqCsJstrB1FKTNRcK4li/ysTDl70Bda8r
+	I8zcLvk8bsheVxiduYyfhJwOVwhglMXWgBP5vrNgn
+X-Gm-Gg: AYBFou2xr6uTT0dwHKDL8qri56sAN79jYqsKoazQoQtxuTzQrvkzAccIGMzzQBHUv3s
+	jfSElw86p4b+6LV8JA9zSBmrPtpjTwO8SdlyG7qyIJuUjFxLyfuPDDtstjJR5VFL0CJ7E533ib8
+	IsW9lwsfX6nNDL053G3NseMNJzQ1y6IhSs0L1IEaz2FatBPKOZKfgofkLJPS5euxacA5ItR8O0F
+	RTdfCwk4/A/BqhOw4W6LjQ6OoF0iNe8Vy7KY7Fl/Rfrd2JvnNZ4w0Mi3Dh7xbTrsqgC22boOgb9
+	WvSLh7Tyy2A2rlzXV0Douj/KAJO362fTEADnnpJ/yWETlr8oMRtiaQMY/jDPUP4soVKje4ppbIk
+	G4cXith40BpURATkySQ==
+X-Received: by 2002:a17:90b:1c12:b0:3a4:9f7f:8cc1 with SMTP id
+ 98e67ed59e1d1-3a6ce75d149mr10175210a91.24.1791211858800; Mon, 05 Oct 2026
+ 07:50:58 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-TM-AS-GCONF: 00
-X-Proofpoint-ORIG-GUID: GJTk-dtBJgFBrwziyEgYAp8Ja7QTXsZV
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDA1MDA1NyBTYWx0ZWRfX/ARG5wVKscx4
- n4QmmjfwVDvUuL9puM14Ekh1TXhnospjKxO6x95MqhOUXqCzmzxAAyI1eukYTxW+m7KSFuZaZBo
- CZXt6WODzzNs6QxjvbzvY7mZwPIw2Ho=
-X-Proofpoint-GUID: GJTk-dtBJgFBrwziyEgYAp8Ja7QTXsZV
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDA1MDA1NyBTYWx0ZWRfX1VO15RUTZiln
- Y9SbDuiSzXu/iIl4fNFD6cUeSQfEYRdx08Px6gaLBG8Eda3rrTtI63hMa1dY4l+5wfAvuLN43Qi
- Hja0toYayWscGlUDV6ZpPPx60iPr/Uy8d698nxWWZw4LSPRMtqfcsaZGPDoeM8TePhJxxkDEKwA
- E2LqxuZ/6fqndGurlwjWTdE/D3qbVSqs12LDl1y8D9lam2heR/iCq8twB3sLO8tLoLygyz0X68h
- tjalujTqYNeA38eOt3jEGeiH/zNAwogrRFQeCYU1I+8csSTCZvMbEck+oOHQc4+yH8lY+Ys2G0E
- XsVCicM8h+YB/bilseW3bsNVJYuwsq1EEJs036bIETkDJkqP5FwZDR8v3AMNpu39YgmR8YoZLjS
- 66qgx4OHcYLBomjloizamj2vN7U/rYfy/9TNiOMu/Ottf4UnejA9FmDY5d/9yoHF+IAFmBHyRw9
- TLr7a4rUKOqohGKKbqg==
-X-Authority-Analysis: v=2.4 cv=fM2sTpae c=1 sm=1 tr=0 ts=6ac3b922 cx=c_pps
- a=GFwsV6G8L6GxiO2Y/PsHdQ==:117 a=GFwsV6G8L6GxiO2Y/PsHdQ==:17
- a=660iZSQnnn4A:10 a=VkNPw1HP01LnGYTKEx00:22 a=RnoormkPH1_aCDwRdu11:22
- a=iQ6ETzBq9ecOQQE5vZCe:22 a=VnNF1IyMAAAA:8 a=ii8wfsY1mSSEofDs_2AA:9
- a=O8hF6Hzn-FEA:10
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-10-05_04,2026-10-05_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0 bulkscore=0 priorityscore=1501 spamscore=0 lowpriorityscore=0
- phishscore=0 adultscore=0 malwarescore=0 clxscore=1015 suspectscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2610050057
+References: <20261002200108.399258-1-mhun512@gmail.com>
+In-Reply-To: <20261002200108.399258-1-mhun512@gmail.com>
+From: Andrei Kuchynski <akuchynski@chromium.org>
+Date: Mon, 5 Oct 2026 14:50:47 +0000
+X-Gm-Features: AclHuK_mpqiutglUoj4b9ypzT5hG7wQQ6C7TSD5Rqh4e7VfHWJcwxGbEsSCz5v4
+Message-ID: <CAMMMRMc7ZfanRcM_i8dCS+51Q5-dpTKnMvFJuEsvgF5V80iwHg@mail.gmail.com>
+Subject: Re: [PATCH v2] platform/chrome: cros_ec_typec: Stop altmode work
+ during partner removal
+To: Myeonghun Pak <mhun512@gmail.com>
+Cc: Benson Leung <bleung@chromium.org>, 
+	Abhishek Pandit-Subedi <abhishekpandit@chromium.org>, Jameson Thies <jthies@google.com>, 
+	Tzung-Bi Shih <tzungbi@kernel.org>, Guenter Roeck <groeck@chromium.org>, 
+	chrome-platform@lists.linux.dev, linux-kernel@vger.kernel.org, 
+	stable@vger.kernel.org, Ijae Kim <ae878000@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Emulate the virtual timer in appldata using delayed work: the work is
-scheduled for the minimum possible wall-clock time until the
-configured CPU-time interval elapses (remaining CPU time / number of
-online CPUs), with a minimum delay of 100ms. The work then reads
-per-CPU statistics of all online CPUs to check whether enough CPU time
-has elapsed, and if so runs the registered callbacks.
+On Fri, Oct 2, 2026 at 8:01=E2=80=AFPM Myeonghun Pak <mhun512@gmail.com> wr=
+ote:
+>
+> DisplayPort and Thunderbolt port altmodes queue work to deliver VDM
+> responses. Partner removal and port teardown do not drain this work,
+> allowing it to race with partner driver removal or access freed port
+> altmode data.
+>
+> Disable and drain port altmode work in the common partner cleanup path.
+> Partner drivers can still queue responses during removal, so keep the
+> work disabled until they are gone. Clear pending response and DP status
+> state, then re-enable it for the next connection. Cancel the work before
+> unregistering port altmodes during final teardown.
+>
+> Allocate list nodes before registering altmodes so allocation failures
+> also use the common cleanup path.
+>
+> This issue was identified during our ongoing static-analysis research
+> while reviewing kernel code.
+>
+> Fixes: dbb3fc0ffa95 ("platform/chrome: cros_ec_typec: Displayport support=
+")
+> Cc: stable@vger.kernel.org
+> Assisted-by: LLM
+> Co-developed-by: Ijae Kim <ae878000@gmail.com>
+> Signed-off-by: Ijae Kim <ae878000@gmail.com>
+> Signed-off-by: Myeonghun Pak <mhun512@gmail.com>
+> ---
+> Changes in v2:
+> - Quiesce port work in cros_typec_unregister_altmodes() before removing
+>   partner altmodes, covering disconnects and discovery cleanup.
+> - Re-enable work after resetting pending response and DP status state so
+>   port altmodes remain usable after reconnecting a partner.
+> - Cancel work in cros_typec_unregister_port_altmodes() during final port
+>   teardown, following the review suggestion to use cancel_work_sync().
+> - Allocate list bookkeeping before registering an altmode so allocation
+>   failures use the common guarded cleanup path.
+> - Drop the v1 Reviewed-by tag due to the reworked cleanup paths.
+>
+> Previous version:
+> https://lore.kernel.org/all/20260917204209.97699-1-mhun512@gmail.com/
+>
+> Validation: apply checks, whitespace checks and static source review.
+> No build or runtime testing was performed for this revision.
+>
+> Remaining review point: an in-flight port active sysfs callback may still
+> queue work after the final cancel_work_sync(), before the port altmode
+> is unregistered. Please confirm whether that ordering needs additional
+> synchronization.
+>
+>  drivers/platform/chrome/cros_ec_typec.c      | 27 ++++++++----
+>  drivers/platform/chrome/cros_typec_altmode.c | 46 ++++++++++++++++++++
+>  drivers/platform/chrome/cros_typec_altmode.h |  9 ++++
+>  3 files changed, 73 insertions(+), 9 deletions(-)
+>
+> diff --git a/drivers/platform/chrome/cros_ec_typec.c b/drivers/platform/c=
+hrome/cros_ec_typec.c
+> index 50a68819ceb7bbfbd888ca919d678d4c75237c26..2d6cbb7f51445fde4b4e83390=
+81e921a9a143a92 100644
+> --- a/drivers/platform/chrome/cros_ec_typec.c
+> +++ b/drivers/platform/chrome/cros_ec_typec.c
+> @@ -282,11 +282,19 @@ static void cros_typec_unregister_altmodes(struct c=
+ros_typec_data *typec, int po
+>         struct list_head *head;
+>
+>         head =3D is_partner ? &port->partner_mode_list : &port->plug_mode=
+_list;
+> +       /* Partner drivers can queue port work until their removal comple=
+tes. */
+> +       if (is_partner)
+> +               cros_typec_altmodes_set_enabled(port, false);
+> +
+>         list_for_each_entry_safe(node, tmp, head, list) {
+>                 list_del(&node->list);
+>                 typec_unregister_altmode(node->amode);
+>                 devm_kfree(typec->dev, node);
+>         }
+> +
+> +       /* Port altmodes are reused when a partner reconnects. */
+> +       if (is_partner)
+> +               cros_typec_altmodes_set_enabled(port, true);
 
-This slightly more expensive, but allows to subsequently remove the
-entire vtimer infrastructure.
+Have you considered fetching the port's altmode using
+typec_altmode_get_partner()?
 
-Signed-off-by: Heiko Carstens <hca@linux.ibm.com>
----
- arch/s390/appldata/appldata_base.c | 150 ++++++++++++++++-------------
- 1 file changed, 82 insertions(+), 68 deletions(-)
+        const struct typec_altmode *pdev =3D
+typec_altmode_get_partner(node->amode);
+        if (pdev)
+                cros_typec_enable_altmode(pdev, true/false);
 
-diff --git a/arch/s390/appldata/appldata_base.c b/arch/s390/appldata/appldata_base.c
-index 9cba4633c3f3..aca747c98f1b 100644
---- a/arch/s390/appldata/appldata_base.c
-+++ b/arch/s390/appldata/appldata_base.c
-@@ -28,19 +28,14 @@
- #include <linux/workqueue.h>
- #include <linux/uaccess.h>
- #include <linux/io.h>
-+#include <linux/kernel_stat.h>
- #include <asm/appldata.h>
--#include <asm/vtimer.h>
- #include <asm/smp.h>
- 
- #include "appldata.h"
- 
--
--#define APPLDATA_CPU_INTERVAL	10000		/* default (CPU) time for
--						   sampling interval in
--						   milliseconds */
--
--#define TOD_MICRO	0x01000			/* nr. of TOD clock units
--						   for 1 microsecond */
-+/* Default CPU time for sampling interval */
-+#define APPLDATA_CPU_INTERVAL	(10 * NSEC_PER_SEC)
- 
- /*
-  * /proc entries (sysctl)
-@@ -64,22 +59,14 @@ static const struct ctl_table appldata_table[] = {
- 	},
- };
- 
--/*
-- * Timer
-- */
--static struct vtimer_list appldata_timer;
-+static void appldata_work_fn(struct work_struct *work);
-+static DECLARE_DELAYED_WORK(appldata_work, appldata_work_fn);
- 
--static DEFINE_SPINLOCK(appldata_timer_lock);
--static int appldata_interval = APPLDATA_CPU_INTERVAL;
-+static DEFINE_MUTEX(appldata_timer_lock);
-+static u64 appldata_interval = APPLDATA_CPU_INTERVAL;
- static int appldata_timer_active;
- 
--/*
-- * Work queue
-- */
--static struct workqueue_struct *appldata_wq;
--static void appldata_work_fn(struct work_struct *work);
--static DECLARE_WORK(appldata_work, appldata_work_fn);
--
-+static u64 appldata_cputime_start;
- 
- /*
-  * Ops list
-@@ -89,34 +76,68 @@ static LIST_HEAD(appldata_ops_list);
- 
- 
- /*************************** timer, work, DIAG *******************************/
--/*
-- * appldata_timer_function()
-- *
-- * schedule work and reschedule timer
-- */
--static void appldata_timer_function(unsigned long data)
-+static u64 appldata_total_cpu_time_ns(void)
- {
--	queue_work(appldata_wq, (struct work_struct *) data);
-+	u64 total = 0;
-+	int cpu;
-+
-+	for_each_online_cpu(cpu) {
-+		total += kcpustat_cpu(cpu).cpustat[CPUTIME_USER];
-+		total += kcpustat_cpu(cpu).cpustat[CPUTIME_NICE];
-+		total += kcpustat_cpu(cpu).cpustat[CPUTIME_SYSTEM];
-+		total += kcpustat_cpu(cpu).cpustat[CPUTIME_IRQ];
-+		total += kcpustat_cpu(cpu).cpustat[CPUTIME_SOFTIRQ];
-+	}
-+	return total;
-+}
-+
-+static void appldata_schedule_work(u64 remaining)
-+{
-+	unsigned int ncpus = num_online_cpus();
-+	unsigned long delay = HZ / 10;
-+
-+	/*
-+	 * At most ncpus CPUs consume CPU time simultaneously, so the
-+	 * minimum wall-clock time until the remaining CPU time elapses
-+	 * is remaining / ncpus.
-+	 * Make sure the work is not scheduled more than once per 100ms.
-+	 */
-+	delay = max(delay, nsecs_to_jiffies(remaining / ncpus));
-+	schedule_delayed_work(&appldata_work, delay);
- }
- 
- /*
-  * appldata_work_fn()
-  *
-- * call data gathering function for each (active) module
-+ * Check whether the CPU-time interval has elapsed. If yes, run the
-+ * data-gathering callbacks and reschedule for the next full interval.
-+ * If no, only reschedule for the remaining time.
-  */
- static void appldata_work_fn(struct work_struct *work)
- {
--	struct list_head *lh;
-+	u64 now, elapsed, interval;
- 	struct appldata_ops *ops;
-+	struct list_head *lh;
- 
--	mutex_lock(&appldata_ops_mutex);
-+	now = appldata_total_cpu_time_ns();
-+	scoped_guard(mutex, &appldata_timer_lock) {
-+		if (!appldata_timer_active)
-+			return;
-+		interval = appldata_interval;
-+		elapsed = now - appldata_cputime_start;
-+		if (elapsed < interval) {
-+			appldata_schedule_work(interval - elapsed);
-+			return;
-+		}
-+		appldata_cputime_start = now;
-+		appldata_schedule_work(interval);
-+	}
-+	guard(mutex)(&appldata_ops_mutex);
- 	list_for_each(lh, &appldata_ops_list) {
- 		ops = list_entry(lh, struct appldata_ops, list);
--		if (ops->active == 1) {
-+		if (ops->active)
- 			ops->callback(ops->data);
--		}
- 	}
--	mutex_unlock(&appldata_ops_mutex);
- }
- 
- static struct appldata_product_id appldata_id = {
-@@ -162,33 +183,37 @@ int appldata_diag(char record_nr, u16 function, unsigned long buffer,
- #define APPLDATA_MOD_TIMER	2
- 
- /*
-- * __appldata_vtimer_setup()
-+ * appldata_work_setup()
-  *
-- * Add, delete or modify virtual timers on all online cpus.
-- * The caller needs to get the appldata_timer_lock spinlock.
-+ * Add, delete or modify the appldata delayed work.
-  */
--static void __appldata_vtimer_setup(int cmd)
-+static void appldata_work_setup(int cmd)
- {
--	u64 timer_interval = (u64) appldata_interval * 1000 * TOD_MICRO;
-+	u64 now, elapsed, remaining;
- 
- 	switch (cmd) {
- 	case APPLDATA_ADD_TIMER:
-+		lockdep_assert_held(&appldata_timer_lock);
- 		if (appldata_timer_active)
- 			break;
--		appldata_timer.expires = timer_interval;
--		add_virt_timer_periodic(&appldata_timer);
-+		appldata_cputime_start = appldata_total_cpu_time_ns();
-+		appldata_schedule_work(appldata_interval);
- 		appldata_timer_active = 1;
- 		break;
- 	case APPLDATA_DEL_TIMER:
--		del_virt_timer(&appldata_timer);
--		if (!appldata_timer_active)
--			break;
-+		lockdep_assert_not_held(&appldata_timer_lock);
- 		appldata_timer_active = 0;
-+		cancel_delayed_work_sync(&appldata_work);
- 		break;
- 	case APPLDATA_MOD_TIMER:
-+		lockdep_assert_held(&appldata_timer_lock);
- 		if (!appldata_timer_active)
- 			break;
--		mod_virt_timer_periodic(&appldata_timer, timer_interval);
-+		now = appldata_total_cpu_time_ns();
-+		elapsed = now - appldata_cputime_start;
-+		remaining = (elapsed < appldata_interval) ? (appldata_interval - elapsed) : 1;
-+		appldata_schedule_work(remaining);
-+		break;
- 	}
- }
- 
-@@ -215,12 +240,12 @@ appldata_timer_handler(const struct ctl_table *ctl, int write,
- 	if (rc < 0 || !write)
- 		return rc;
- 
--	spin_lock(&appldata_timer_lock);
--	if (timer_active)
--		__appldata_vtimer_setup(APPLDATA_ADD_TIMER);
--	else
--		__appldata_vtimer_setup(APPLDATA_DEL_TIMER);
--	spin_unlock(&appldata_timer_lock);
-+	if (timer_active) {
-+		scoped_guard(mutex, &appldata_timer_lock)
-+			appldata_work_setup(APPLDATA_ADD_TIMER);
-+	} else {
-+		appldata_work_setup(APPLDATA_DEL_TIMER);
-+	}
- 	return 0;
- }
- 
-@@ -234,11 +259,11 @@ static int
- appldata_interval_handler(const struct ctl_table *ctl, int write,
- 			   void *buffer, size_t *lenp, loff_t *ppos)
- {
--	int interval = appldata_interval;
-+	int interval_ms = appldata_interval / NSEC_PER_MSEC;
- 	int rc;
- 	struct ctl_table ctl_entry = {
- 		.procname	= ctl->procname,
--		.data		= &interval,
-+		.data		= &interval_ms,
- 		.maxlen		= sizeof(int),
- 		.extra1		= SYSCTL_ONE,
- 	};
-@@ -247,10 +272,10 @@ appldata_interval_handler(const struct ctl_table *ctl, int write,
- 	if (rc < 0 || !write)
- 		return rc;
- 
--	spin_lock(&appldata_timer_lock);
--	appldata_interval = interval;
--	__appldata_vtimer_setup(APPLDATA_MOD_TIMER);
--	spin_unlock(&appldata_timer_lock);
-+	scoped_guard(mutex, &appldata_timer_lock) {
-+		appldata_interval = interval_ms * NSEC_PER_MSEC;
-+		appldata_work_setup(APPLDATA_MOD_TIMER);
-+	}
- 	return 0;
- }
- 
-@@ -392,19 +417,8 @@ void appldata_unregister_ops(struct appldata_ops *ops)
- 
- /******************************* init / exit *********************************/
- 
--/*
-- * appldata_init()
-- *
-- * init timer, register /proc entries
-- */
- static int __init appldata_init(void)
- {
--	init_virt_timer(&appldata_timer);
--	appldata_timer.function = appldata_timer_function;
--	appldata_timer.data = (unsigned long) &appldata_work;
--	appldata_wq = alloc_ordered_workqueue("appldata", 0);
--	if (!appldata_wq)
--		return -ENOMEM;
- 	register_sysctl(appldata_proc_name, appldata_table);
- 	return 0;
- }
--- 
-2.53.0
+This allows implement cros_typec_enable_altmode() eliminating
+unnecessary checks and the additional loop:
 
+        struct cros_typec_dp_data *dp_data =3D typec_altmode_get_drvdata(al=
+t);
+        if (enable)
+               enable_work(&dp_data->adata.work);
+        else
+               disable_work_sync(&dp_data->adata.work);
+
+>  }
+>
+>  /*
+> @@ -366,8 +374,10 @@ static void cros_typec_unregister_port_altmodes(stru=
+ct cros_typec_port *port)
+>  {
+>         int i;
+>
+> -       for (i =3D 0; i < CROS_EC_ALTMODE_MAX; i++)
+> +       for (i =3D 0; i < CROS_EC_ALTMODE_MAX; i++) {
+> +               cros_typec_altmode_cancel(port->port_altmode[i]);
+
+That won't be necessary, as the work queue is already canceled in
+cros_typec_unregister_altmodes().
+
+>                 typec_unregister_altmode(port->port_altmode[i]);
+> +       }
+>  }
+>
+>  static void cros_unregister_ports(struct cros_typec_data *typec)
+> @@ -901,24 +911,23 @@ static int cros_typec_register_altmodes(struct cros=
+_typec_data *typec, int port_
+>                         desc.mode =3D j + 1;
+>                         desc.vdo =3D sop_disc->svids[i].mode_vdo[j];
+>
+> +                       node =3D devm_kzalloc(typec->dev, sizeof(*node), =
+GFP_KERNEL);
+> +                       if (!node) {
+> +                               ret =3D -ENOMEM;
+> +                               goto err_cleanup;
+> +                       }
+> +
+>                         if (is_partner)
+>                                 amode =3D typec_partner_register_altmode(=
+port->partner, &desc);
+>                         else
+>                                 amode =3D typec_plug_register_altmode(por=
+t->plug, &desc);
+>
+>                         if (IS_ERR(amode)) {
+> +                               devm_kfree(typec->dev, node);
+>                                 ret =3D PTR_ERR(amode);
+>                                 goto err_cleanup;
+>                         }
+>
+> -                       /* If no memory is available we should unregister=
+ and exit. */
+> -                       node =3D devm_kzalloc(typec->dev, sizeof(*node), =
+GFP_KERNEL);
+> -                       if (!node) {
+> -                               ret =3D -ENOMEM;
+> -                               typec_unregister_altmode(amode);
+> -                               goto err_cleanup;
+> -                       }
+> -
+
+Do we really need this?
+
+Thanks,
+Andrei
