@@ -1,143 +1,158 @@
-Received: from mail-qt1-f181.google.com (mail-qt1-f181.google.com [209.85.160.181])
+Received: from mail-wr2-f35.google.com (mail-wr2-f35.google.com [74.125.225.99])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 680575477E
-	for <linux-kernel@vger.kernel.org>; Mon,  5 Oct 2026 21:26:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.160.181
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791235582; cv=pass; b=PqQfbABC918LmU26uhJ4y4YxuZYDmxHT+9GPy7taUc5Xfr1Tso2bBRjDWAzfTl/g3g7K4wEPPQHxB825bIno/uAeFzP9kY+zUdM1Z7snsXZsF7D5cUU1bC+2LISLPcGEXAaVpH50gRfpBb4owsM0eEYuzUIYki8sa+F+FxUKOmA=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791235582; c=relaxed/simple;
-	bh=S2vBvVoHVnC1tWQn7yYkVMwt5nPTA4KFwEAWn+1KcrU=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=ICTQ/vg0wlu4OJXjwnUZho51zmr86x5dbtdRtRlWuzc4xwRTHVBlwYPixO0k8o85SlLKfcU789WlfbMgr2ZueuSfALXVpyWxEIT1oJ5CrHQrxxTBnTewgUeyzahddm1EX2sA3Ndnh9nv9pHnROVLnXbEVzYu61Ufhy7MWnLnvwc=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=gsq0n0m9; arc=pass smtp.client-ip=209.85.160.181
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EE1863EE1C5
+	for <linux-kernel@vger.kernel.org>; Mon,  5 Oct 2026 21:28:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.99
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791235712; cv=none; b=qbJmm4OcpkIJ/UIDZ+Mw4M16TFN/0N6X4/lTB8SpCnDoLd5PR2vq7DXZjNJFIIoSQHTP815ePnUrv9mfvgtENXdxYw/chPqCckqIF5T50EOVkzygQ7x6NohsZDDmMRXpWVtkYaTMlX1VBhUNB62vricBRkx4HiI0IZ3Ge9X8q8U=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791235712; c=relaxed/simple;
+	bh=ouHV/+Hp31owgYgLps/TUZoGlx095gw73t3hUXyE/2Q=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=mxC1hr15frHASUiU5qOd+Fdd2NKnduG4QzKoPxlbpKMjdy61XNLvyg6/aJqeJqgbz9vdJecVI6S2OJv8tSrslYZ+aeUqZ/v1ZJp6rgbMn15Pgm1ffVHudbFUVN4Wr+lxtIHNIzIcKG++DXXaXmEIT3eDipdHMHZkYI7CgQPox80=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=oiImM/+m; arc=none smtp.client-ip=74.125.225.99
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="gsq0n0m9"
-Received: by mail-qt1-f181.google.com with SMTP id d75a77b69052e-5351f9dbfe0so6421cf.1
-        for <linux-kernel@vger.kernel.org>; Mon, 05 Oct 2026 14:26:21 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1791235580; cv=none;
-        d=google.com; s=arc-20260327;
-        b=liM7kjCStxyl1So6eCDLw7idiiipcMBOA4vxn1OFu6fptlSwM935OalWgB2O2PWIj9
-         EgJMBaYHaIuYm0346M+dg3icc3gWkCnvenMYs5rGVvsRgwO+jvcvqx5h+CMIRNN/cgLe
-         2vT2trGmtGxAz7TFDs7U4Iaa9mELwiddG/XTS7KrlryL7QZ+FysmZcrZ6TZFev6Yeas0
-         LYxhp70NEGpR8XEvqzC065Z2nSxkiDiMi6gAI4I4FoGbDBqMW5770W6e9RRuNe90rKqp
-         K/RW4vk1AZi8SAICgqWShFqXmMk/boiXU3TxblR7E+zb9JwGPtrE2t0mI4pdxE5/cXbP
-         gWBQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=WKyjO6uz5lI4nCNYOIuplPGihZ8U3rsq+3xZ/QD0AP8=;
-        fh=G6F40S4u8edi4hS/GNbZH1t621lNazrMECc+Oh/X5lo=;
-        b=qwHUtD2u/sun/QYPUD3Htz8VhQrQHVY53s/Y3rJTHLWjtd7vCVrpYuYMeSS16E4uk8
-         lx1tCjN1IxDgpTmMAwYutW6GWwzpYV46tNreNY60tD1WJ+L6OsRFN/bE8G5yFa3VeJJ0
-         9BGYtb1lwEi7voDSnOQyOks0SrNAR/h6owllf4yaD81MiWFs5xlkoFU9R9BQHwDvU4FA
-         6ASF+gMFkvAQpGgoVWWKOCQyfmatCkAFcBO/t3yPhNXOcLK8QUiSsBdMNc5joBYM7gHv
-         kYzR8o3lFgrBXsbui2/Av2QJJ30o6QoHvgMggQ72Vx9xBBOqLB4nXhFUsXiYr40XgKLp
-         xYBQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="oiImM/+m"
+Received: by mail-wr2-f35.google.com with SMTP id ffacd0b85a97d-48b03eb33b2so887458f8f.0
+        for <linux-kernel@vger.kernel.org>; Mon, 05 Oct 2026 14:28:30 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1791235580; x=1791840380; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=WKyjO6uz5lI4nCNYOIuplPGihZ8U3rsq+3xZ/QD0AP8=;
-        b=gsq0n0m9LNcCrfCWdHl1czqVNCUR0HJMRhOEhgNVyupU0HcDuQGCzNdMLNzt8sgcT+
-         NYBIEBuatlDsGtDHzURw268OqPNxokzfWkxX/TTZ1XmVrwBTXH/MjmjcNHzJH53Y4s6u
-         cI2w73fr15DadQrY1NAd06OSPObxiqHKec5yPL47bwLtWDsAJuIsbLujoQA5Vrb9mq9L
-         Q/+FeZPaEMcIatxHe3pmycQdxz+1qhKcaqqwXKiYr3/eFmCvpvlQLO++M2AeqDT6L99W
-         gWaRV2PioPO+5Zqj42ULKfouNERUaB3LG+YoXPnUC+ocMAH3lM/7SF3K2iSkq6ZHsZ0L
-         IDQA==
+        d=gmail.com; s=20251104; t=1791235709; x=1791840509; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=OU/WYqJh0qLKM4UCOwNjeVXwsxO3AjzoVQDnExjaeWk=;
+        b=oiImM/+mEcb6t35UyZAYx4NMCivI3bC2VF6cPwuWxjA9UjPpZHGRWAfTKXZ25nin2/
+         haudFxokN3xOGP28OuZ4VT58v0iaYlxBD49aemOFjG01USr6RR7Ec/Sk+puOJJ0LrUg+
+         /uRSd3wCGknSabB35Q9VO/D4U/gUQ9uroAItmUK703nH6SsRJdkGDNIUWNSERGIhmyCL
+         igiV0bmIXAWYnJHm2+ffVm3L/Gt5/dip4ZNrKomWo/IdPcxRVZryOJ5iL7gJoSMyc0Vn
+         29LNWOA6kpDMleVCRWKbMOkyxKbiLXeNu3iztliWP77xug+jkJULOOEw0c3OIISEc7bZ
+         42hA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791235580; x=1791840380;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=WKyjO6uz5lI4nCNYOIuplPGihZ8U3rsq+3xZ/QD0AP8=;
-        b=FeQJ7OCmO1lQgj8+RntXX2/shXBId9qp3sxNur/OnD8idDusdcYKvhwI4dfidOiXAK
-         l1r56CQwhfE05ygHBcDlOfNvxtJlKuM0+2fC3O6x18LPQFUKJIj8Qpfhrgu6eSPaudDx
-         a9NnWNJnx4WX1ciKind1qZKGWyB0/MMXZTUNdRDcGZ/4IATYle5jyRypzpHyq5knOrMC
-         4xTtVm2Vx1aGsCTdBcDtT+GYZuUeltxAUx9O0yzjrQ7MHH4LsW/g2R41CfYhKu2h83lE
-         9B6BQ4q1sBxZhUr/TzKSrve//Ax1v9dhDdafFsVmFUa7LFJWP0+X09ZZ1VVrrPldshV0
-         +7ZA==
-X-Forwarded-Encrypted: i=1; AKwUvBznLUgg7JX+UvHECtn1fFN+mFIz8kz3rMz6A4pJLOyArpmzT9/VCBkju7MN6DQI2uEjO8tPkSkzcXmwZfQ=@vger.kernel.org
-X-Gm-Message-State: AFuF++mCcPe9eVF7T5iUgslsgUPN0yLb6Q5wlNA3m3m6hhxmQTTbVTxH
-	/X3gX7ul/nXIBRqrjmwVy8DD3kSd7bzZDpAOtHINTTydUitGtAL4CIzV9xBy+C0UlCgVbE5vBj+
-	YfkjrNtq7ipTVDC3I7aZ9PAPAwFFq7SXQGgBckM8v
-X-Gm-Gg: AYBFou03gVJrtN9Q5Kgs357AQ4ctP/f3i9R60ZQG+cIfoAe6AhiBPNptY4vbrDj8GlQ
-	R2I0dlk6n+qvXM4EAN8RPdTQW6j72Jjw0NaQ67tj4kCUjrOvh95PLFNp/QQ2Qs/NQBolQ7CaXcr
-	o+9Nfsl4rgC+z37JtytsEM8DmXt7in2M3UloYBL7X0dGuOL/niHWuvb1HSS6/V58sIDxX8HkLmL
-	gr68qMO6KXs7L6WCv962yrYC/zze4VP0zfcGaOjFlraq8EKUcYqzHcQSgTmuJwGGO1gYhn4NlZQ
-	OKLaCQ3dYRSwVx16G6m0aiTOmUMjbixtfqFg/i5awTY4AVepvRG0ZWYaGh5xWOce
-X-Received: by 2002:a05:622a:118f:b0:531:d8:e437 with SMTP id
- d75a77b69052e-5354229a448mr834721cf.7.1791235579527; Mon, 05 Oct 2026
- 14:26:19 -0700 (PDT)
+        d=1e100.net; s=20260707; t=1791235709; x=1791840509;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=OU/WYqJh0qLKM4UCOwNjeVXwsxO3AjzoVQDnExjaeWk=;
+        b=JWD2VCBd68DP44FsN87BpNrPjfP5f0YdoovMaxhb5/lkI3i++GoWZgjQZFLIBsafT6
+         7AvBzTrvQlxWlpML6CljY3HIh/vLg1YV1y4tGiwl09ka8ygdjlzNO2OWyB7hR5whAB8c
+         +VtaroCAdJ1jexA2VmWZALzDmHqz6d0cRP9rIENzLJmunU/7Kz21QzPXoTWdmpG1T63+
+         Y23IenmqCPncpDcAhx1jaLaG0ec4I/fxzp1796yOKffsK+T0DU60zfFg0GOepRlixrid
+         pcvFS//8BxfVU5zf/ZZjkAVP5aCsfIDPfI2JR4XYpPK0Gs9VxcDmCPvAZAh+kcWtFKhm
+         mItQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzb4xkiBp9CjHrDpr/TSYTAJ68XTRcQF6BiLP3j5EZ1Y1fA42JbooOa1pT4IrJVabb72kApl3ZLkGZPynI=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJ7chgspWEFdTkPhdRTWxDWzAwqpU5Q1X5neRLkQIflj5bp/xJT
+	TSxEuCFQ5MzuLpfelV/YwADIuOcsCEzhZzt5/h+gqf+gb3hods210c4T
+X-Gm-Gg: AYBFou1Wye4aukaG20nhTADhUaaHnZjwv1uJOBPJJ9TftGtFhB0QULxLtd8cWwtK703
+	JwgxieTDUy7vN87N5QBwwASw49NjgPF1PasW9jHDQhwo0o24/CSpReI1aMeBtQP47A7zIhVIY/J
+	IpnUjTAdETgwojrc+SAzU+7m44uG0KPW4p9BekEXLuGQPm2dtPfR9B3PztPW0LTVhpcEBwEXE2k
+	KMp03tkYB/wewcpBlgP5San/BSt94/CaAMpQJZ0d/95Bsx4ps8oOdL0s4aRd4LWaXEVCuYOWL4m
+	dTwEYLYEuUcJOtUZ4kUG5KgekwbLibwxfQr/yoP/62iQYxUjMgDHfS3FqfseypVcWwau83C60JQ
+	/oAtdUrTiImbhB6r4TS0uzH0foU3qCOtVxz+NApj5SLkuMgPpYUTOhXHQLTTXnkdQTWrrLnXpac
+	4wegt4h5htWzHWsPs9PLkuv86TOwigVfy/HbCqwowymF7BH9dxUYhDHKlqVZqy+quQZQ1/1/3//
+	DUSNZkso7Ui3g96eoh07FLi5u3f4NccPlCEapw7diNLYe89FVM/PxsuVEnCgMzXTx6AcVU8SGsr
+	8u5mtk87EUqLRsFTTOFfUlxcvlRZT2lg4D/lwZlnidkwqxNsZI/4HhhZk8kSRHA4qdhouKxwaAE
+	rBsOusA==
+X-Received: by 2002:adf:f7c7:0:b0:48c:511a:1f31 with SMTP id ffacd0b85a97d-48c6864fce8mr1113114f8f.8.1791235708840;
+        Mon, 05 Oct 2026 14:28:28 -0700 (PDT)
+Received: from MBP-von-Karl.localdomain (dynamic-2a02-3100-b305-2001-39fa-3d24-821a-4eae.310.pool.telefonica.de. [2a02:3100:b305:2001:39fa:3d24:821a:4eae])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48c622bb172sm13037665f8f.42.2026.10.05.14.28.27
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Mon, 05 Oct 2026 14:28:28 -0700 (PDT)
+From: Karl Mehltretter <kmehltretter@gmail.com>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: Karl Mehltretter <kmehltretter@gmail.com>,
+	John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>,
+	Geert Uytterhoeven <geert@linux-m68k.org>,
+	linux-usb@vger.kernel.org,
+	linux-sh@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v2] usb: r8a66597-hcd: fix buffer overflow on odd-length FIFO reads
+Date: Mon,  5 Oct 2026 23:28:23 +0200
+Message-Id: <20261005212823.55737-1-kmehltretter@gmail.com>
+X-Mailer: git-send-email 2.39.5 (Apple Git-154)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20261004195027.227748-1-danielmentz@google.com> <92758f79-d5b7-4c15-a55d-6bea5f84a028@arm.com>
-In-Reply-To: <92758f79-d5b7-4c15-a55d-6bea5f84a028@arm.com>
-From: Daniel Mentz <danielmentz@google.com>
-Date: Mon, 5 Oct 2026 14:26:08 -0700
-X-Gm-Features: AclHuK8Ya4qZUHEU4y2SIFN99XMdQR1xv1nuJUxB3fTt2xE4zcFS3toMd_5km7k
-Message-ID: <CAE2F3rAJdC9pAqMKcXhxpw1keGzH_kQUNBoPHXjTP8+7TOhfwQ@mail.gmail.com>
-Subject: Re: [PATCH v2] iommu/arm-smmu-v3: Align memory attributes for
- SMMU-originated accesses
-To: Robin Murphy <robin.murphy@arm.com>
-Cc: iommu@lists.linux.dev, will@kernel.org, joro@8bytes.org, 
-	nicolinc@nvidia.com, smostafa@google.com, 
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
-	dawei.li@linux.dev, jgg@ziepe.ca, praan@google.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On Mon, Oct 5, 2026 at 9:42=E2=80=AFAM Robin Murphy <robin.murphy@arm.com> =
-wrote:
-> This still isn't answering the question of "why?" though. Yes the
-> architecture says some things, but if we were strict about avoiding
-> mismatched attributes then Linux couldn't ever support non-coherent DMA
-> at all! Similarly while the architecture does permit SMMU
-> implementations to be picky about their output attributes, does any such
-> implementation actually exist at all, let alone in a system capable of
-> running mainline Linux?
+An external R8A66597 (pdata->on_chip is not set) is read through a 16-bit
+FIFO port. r8a66597_read_fifo() rounds the byte count up to whole words
+and passes that word count to ioread16_rep(), which stores two bytes for
+every word. For an odd byte count the last word puts one byte more into
+the buffer than packet_read() asked for. When the data ends at the end of
+the URB's transfer buffer, that byte is written behind the buffer.
 
-Fair point that existing implementations have been forgiving in
-practice. My thinking here is simply that a small, self-contained
-cleanup that brings the driver into line with the architecture spec is
-worthwhile on its own merits, even without a known implementation where
-this currently causes problems.
+Enumerating a device is enough to trigger it. The USB core reads the
+configuration descriptor header into a 9-byte kmalloc() buffer and the
+driver stores 10 bytes. An SH7785LCR board booted with slub_debug=FZPU
+reports:
 
-This is really in the same spirit as your commit 7618e4790982
-("iommu/io-pgtable-arm: Improve attribute handling"), which aligned the
-attribute handling with the architecture specification on the basis
-that:
+  [kmalloc Redzone overwritten] 0x820c4229-0x820c4229 @offset=553. First byte 0x9 instead of 0xcc
+  BUG kmalloc-32 (Not tainted): Object corrupt
+  Allocated in usb_get_configuration+0x12c/0x11d8 age=51 cpu=0 pid=10
+  Object   820c4220: 09 02 20 00 01 01 00 80 fa 09 cc cc cc cc cc cc
 
-  "Although the SMMU architectures seem to give some slightly stronger
-   guarantees of Non-Cacheable output types becoming implicitly Outer
-   Shareable in most cases, we may as well be explicit and not take any
-   chances."
+Odd-sized HID report descriptors are overrun in the same way. Without
+slab debugging the byte ends up in the unused tail of a kmalloc() object.
+A transfer buffer that is embedded in a larger object has the byte after
+it overwritten.
 
-As I noted in my reply on the v1 thread [1], under ARM IHI 0070
-(sections 3.15, 6.3.11, and 13.1.2), a non-coherent SMMUv3
-implementation (SMMU_IDR0.COHACC =3D=3D 0) in which every SMMU-originated
-access configured with Normal Write-Back, Inner Shareable attributes
-fails and records an External Abort (F_STE_FETCH, F_CD_FETCH,
-CERROR_ABT, etc.) is completely architecturally compliant, yet wouldn't
-work with the current arm-smmu-v3 driver.
+Section 2.8.5 of the R8A66597 datasheet tells software to discard the
+excess byte of the last 16-bit FIFO read when DTLN is odd. Read only the
+whole words into the buffer. Read the last word into a temporary and
+store only its first byte. Use ioread16_rep() for that word as well, so
+that the byte is taken in the same byte order as the words before it.
 
-It seems reasonable to be explicit here too and program attributes that
-are valid per the spec, rather than relying on the interconnect to
-silently degrade Write-Back attributes to Non-Cacheable.
+Fixes: 5d3043586db4 ("USB: r8a66597-hcd: host controller driver for R8A66597")
+Cc: stable@vger.kernel.org
+Reported-by: John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>
+Closes: https://lore.kernel.org/linux-sh/3bd32eaf159db61ed1d423e1d52a869b3689c682.camel@physik.fu-berlin.de/
+Tested-by: John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>
+Assisted-by: LLM
+Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
+---
 
-[1] https://lore.kernel.org/linux-iommu/CAE2F3rACz6Z7X3NNfLWEfjTD9K9YJyYHHy=
-GzcBafEemTFGhgqQ@mail.gmail.com/
+v2:
+- Simplify the handling of the last byte as suggested by Geert: no count
+  variable, len & 1, and a plain byte store instead of a 1-byte memcpy().
+- Reword the commit message and add the SLUB report from Adrian's board.
+- Add Adrian's Tested-by. It was given for v1. The FIFO accesses are the
+  same in v2, only the copy of the last byte changed.
 
-Thanks,
-Daniel
+v1: https://lore.kernel.org/r/20261002213225.27834-1-kmehltretter@gmail.com/
+
+Adrian tested v1 on an SH7785LCR board. I tested v2 on a custom QEMU
+model of the board with 32-bit and 29-bit kernels and slub_debug=FZPU.
+Both report the overflow without the patch and not with it.
+
+ drivers/usb/host/r8a66597.h | 11 +++++++++--
+ 1 file changed, 9 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/usb/host/r8a66597.h b/drivers/usb/host/r8a66597.h
+--- a/drivers/usb/host/r8a66597.h
++++ b/drivers/usb/host/r8a66597.h
+@@ -179,8 +179,15 @@ static inline void r8a66597_read_fifo(struct r8a66597 *r8a66597,
+ 			       len & 0x03);
+ 		}
+ 	} else {
+-		len = (len + 1) / 2;
+-		ioread16_rep(fifoaddr, buf, len);
++		ioread16_rep(fifoaddr, buf, len / 2);
++
++		if (len & 1) {
++			u16 tmp;
++
++			/* Keep the byte order of the string read above. */
++			ioread16_rep(fifoaddr, &tmp, 1);
++			((u8 *)buf)[len - 1] = *(u8 *)&tmp;
++		}
+ 	}
+ }
+ 
+-- 
+2.53.0
+
