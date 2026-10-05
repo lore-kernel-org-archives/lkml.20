@@ -1,141 +1,130 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AE3B937F00D;
-	Mon,  5 Oct 2026 08:26:57 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E7C7938836C;
+	Mon,  5 Oct 2026 08:27:36 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791188820; cv=none; b=BlMTMmroMcjrGJlDPmGEbvuyTmqPK8+bUVJkw8vkhoO7VzdcFcVtlH3lbeVfJXV+3D8LIjymEtMsuNaejxu1YsJNNS7Ve3Ns9HCJETdfLXGRMxpCysfRrJ6S61kq/YR3jAQ6TpyFgymdAg+W9QNoS52kO2q/Ef+xsIsRUa+GrSA=
+	t=1791188860; cv=none; b=fw+IRAy2d7/h6NGf3eolwHEpXk2uGA9Kh5g6LKu8tgVe8x4TG0yS9P/B64besWHdpB+fPYc5QZv/SeFFFslS8UlgArxq3Nxp90FDs0rSdwAgL9OSIUw9/MboSQ76X50XeX2OIZ4CHy4j3yFTSbQTasE2UyHIFD6i5thf0iKmljk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791188820; c=relaxed/simple;
-	bh=xf49CLyiZOHevEEMuvpzWUilJ6+dv8H6yvAxMpwHTTk=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=RMWYRvqPAMbCd3NMXLLmBIPlhOlpLwHgQNJL6pV/4SMX6l/ctpBJ47yUopHe724CRXBjK7iKNeQjnKNinUwi/fgjorF+Jhaw+91Em751gxASRS251wXvEEZjohZ1F4s6xZcW3f6/IFymj/B+ZOHDT/Pl43gLfNwCGvhdvOJaCSw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Aac/b0B3; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791188860; c=relaxed/simple;
+	bh=tPVv6cAJ4mS7KxYWT+/8HwELvC3Yq6cmUWBF2ZodqIU=;
+	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=lNSOh023S77KzxjFvyf/oBtFfCCJRGp79QYceQVpLRcu8/UTYjGj7Jk2OTgDfXtKpYEUoSbDV7Noc02eOq2u5dXbXsbOUCyf2/YoLA3LvBt/K8+oCheeut5BW2a7ajomRRnEY+IAfc3QavlhZ79NcYJUHscZ5G6COTABMipTuKo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZFgOJSus; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Aac/b0B3"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 214361F000FF;
-	Mon,  5 Oct 2026 08:26:52 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZFgOJSus"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 40A7A1F000FF;
+	Mon,  5 Oct 2026 08:27:34 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791188816;
-	bh=d6fLeRl3aR+E2ePxkPX9leInvYo16Bu4KYF4dHKWIKU=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=Aac/b0B34S+E7vUOvx08y0QczcJ2OBuE4MJAYHFCFCDZbnRBTUw3q6Naid03BCWB9
-	 iLC3SJ28Lk1FxcP8Lj63v7wRRQlzqeMxbbMAXuU7d/TIQ7vxrBqfW6RmN8zhZpq0Ng
-	 RRAU5Gm5H5wa9NkDAOFrOB/bULSPSGDrlcWpxPM1h7ZFIz2LV+P8ZMdT6kF3j3xCIO
-	 XB9JE5Uzo8SZjhoV7HbcXdaBrcrK4kRk9YhuyVBrtVR8DBLKLeN9IDokSoawGdVkf0
-	 MrSU1XflbTwvZGqEBNjKp8DYxWBWwoi1h57NQ1YEooa731n1p4zZE5QgnGpE+EybHn
-	 rzlplJhja2ZVA==
-Date: Mon, 5 Oct 2026 10:26:49 +0200
-From: Thorsten Blum <blum@kernel.org>
-To: Sourabh Jain <sourabhjain@linux.ibm.com>
-Cc: Thorsten Blum <thorsten.blum@linux.dev>,
-	Madhavan Srinivasan <maddy@linux.ibm.com>,
-	Michael Ellerman <mpe@ellerman.id.au>,
-	Nicholas Piggin <npiggin@gmail.com>,
-	"Christophe Leroy (CS GROUP)" <chleroy@kernel.org>,
-	Kees Cook <kees@kernel.org>,
-	"Gustavo A. R. Silva" <gustavoars@kernel.org>,
-	Aditya Gupta <adityag@linux.ibm.com>,
-	Hari Bathini <hbathini@linux.ibm.com>,
-	linuxppc-dev@lists.ozlabs.org, linux-kernel@vger.kernel.org,
-	linux-hardening@vger.kernel.org
-Subject: Re: [PATCH] powerpc/kexec: Annotate umem_info members with
- __counted_by_ptr
-Message-ID: <asNfSSp-AckyeO7P@kernel.org>
-References: <20260730130248.597249-2-thorsten.blum@linux.dev>
- <7d99725f-9c90-48ca-bee1-30e2e6c06617@linux.ibm.com>
- <asDClaRrHuKB44X-@kernel.org>
- <dbb4580d-7e20-4c38-9716-f39cf81a4942@linux.ibm.com>
+	s=k20260515; t=1791188854;
+	bh=fsKzr1wwNvOjG1lYsOOgfAPocI7bU4FNx1neeTdXdCU=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=ZFgOJSusJIoSOi11shbnQnrlSzUGgYbaD3c8YdF90OeX7PaXk7RuxWk0/vu9lA0Vj
+	 nUqK2foIIZ5QFyit1d67UQBHX7OkLSBMI8/G+6tmHeTUVMzp2th5bIY7SseS8ZL0sT
+	 bgmcxpLAHJOk7axStkf3y9j1GEnI0teRW0fcb1KwO5YX6na+1uLW1bdzCM0vVYT58i
+	 x3wWG+N/q5f9hzKRfeC3fyYhfWDCb8iE7gSxhkZ6QkAl0OmbMlQykWSGf8aZwyMGVH
+	 0o9PO+y9+MkeUQjKL06AY/4euFiG5MNwK/hm9+JQXTpc/dq2fmvOTxIbF/afYdgjwO
+	 DyWJEkRhLxFHQ==
+Received: from sofa.misterjones.org ([185.219.108.64] helo=lobster-girl.misterjones.org)
+	by disco-boy.misterjones.org with esmtpsa  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+	(Exim 4.98.2)
+	(envelope-from <maz@kernel.org>)
+	id 1xDe2l-0000000GzC6-42XU;
+	Mon, 05 Oct 2026 08:27:32 +0000
+Date: Mon, 05 Oct 2026 09:30:39 +0100
+Message-ID: <87ece435xs.wl-maz@kernel.org>
+From: Marc Zyngier <maz@kernel.org>
+To: Fuad Tabba <fuad.tabba@linux.dev>
+Cc: oupton@kernel.org,
+	kvmarm@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	catalin.marinas@arm.com,
+	will@kernel.org,
+	joey.gouly@arm.com,
+	seiden@linux.ibm.com,
+	suzuki.poulose@arm.com,
+	yuzenghui@huawei.com,
+	vdonnefort@google.com,
+	qperret@google.com,
+	tabba@google.com,
+	mark.rutland@arm.com
+Subject: Re: [PATCH] KVM: arm64: Pend host SErrors for protected vCPUs through HCR_EL2.VSE
+In-Reply-To: <20261005050352.836980-1-fuad.tabba@linux.dev>
+References: <20261005050352.836980-1-fuad.tabba@linux.dev>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI-EPG/1.14.7 (Harue)
+ FLIM-LB/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL-LB/10.8 EasyPG/1.0.0 Emacs/30.1
+ (aarch64-unknown-linux-gnu) MULE/6.0 (HANACHIRUSATO)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <dbb4580d-7e20-4c38-9716-f39cf81a4942@linux.ibm.com>
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+X-SA-Exim-Connect-IP: 185.219.108.64
+X-SA-Exim-Rcpt-To: fuad.tabba@linux.dev, oupton@kernel.org, kvmarm@lists.linux.dev, linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, catalin.marinas@arm.com, will@kernel.org, joey.gouly@arm.com, seiden@linux.ibm.com, suzuki.poulose@arm.com, yuzenghui@huawei.com, vdonnefort@google.com, qperret@google.com, tabba@google.com, mark.rutland@arm.com
+X-SA-Exim-Mail-From: maz@kernel.org
+X-SA-Exim-Scanned: No (on disco-boy.misterjones.org); SAEximRunCond expanded to false
 
-On Mon, Oct 05, 2026 at 01:42:01PM +0530, Sourabh Jain wrote:
-> On 03/10/26 14:23, Thorsten Blum wrote:
-> > On Fri, Sep 25, 2026 at 11:49:04AM +0530, Sourabh Jain wrote:
-> > > On 30/07/26 18:32, Thorsten Blum wrote:
-> > > > Add __counted_by_ptr() to umem_info::buf and umem_info::ranges to
-> > > > improve access bounds checking via CONFIG_UBSAN_BOUNDS and
-> > > > CONFIG_FORTIFY_SOURCE.
-> > > > 
-> > > > Set the count fields before assigning the corresponding pointers, return
-> > > > early on krealloc() failure, and use sizeof(*buf) when deriving
-> > > > max_entries from the allocation size.
-> > > > 
-> > > > Signed-off-by: Thorsten Blum <thorsten.blum@linux.dev>
-> > > > ---
-> > > >    arch/powerpc/kexec/file_load_64.c | 22 ++++++++++++----------
-> > > >    1 file changed, 12 insertions(+), 10 deletions(-)
-> > > > 
-> > > > diff --git a/arch/powerpc/kexec/file_load_64.c b/arch/powerpc/kexec/file_load_64.c
-> > > > index 8c72e12ea44e..6424b668f0e9 100644
-> > > > --- a/arch/powerpc/kexec/file_load_64.c
-> > > > +++ b/arch/powerpc/kexec/file_load_64.c
-> > > > @@ -34,14 +34,15 @@
-> > > >    #include <asm/cputhreads.h>
-> > > >    struct umem_info {
-> > > > -	__be64 *buf;		/* data buffer for usable-memory property */
-> > > > +	/* data buffer for usable-memory property */
-> > > > +	__be64 *buf __counted_by_ptr(max_entries);
-> > > >    	u32 size;		/* size allocated for the data buffer */
-> > > >    	u32 max_entries;	/* maximum no. of entries */
-> > > >    	u32 idx;		/* index of current entry */
-> > > >    	/* usable memory ranges to look up */
-> > > >    	unsigned int nr_ranges;
-> > > > -	const struct range *ranges;
-> > > > +	const struct range *ranges __counted_by_ptr(nr_ranges);
-> > > >    };
-> > > [...]
-> > > >    const struct kexec_file_ops * const kexec_file_loaders[] = {
-> > > > @@ -83,11 +84,12 @@ static __be64 *check_realloc_usable_mem(struct umem_info *um_info, int cnt)
-> > > >    	new_size = um_info->size + MEM_RANGE_CHUNK_SZ;
-> > > >    	tbuf = krealloc(um_info->buf, new_size, GFP_KERNEL);
-> > > > -	if (tbuf) {
-> > > > -		um_info->buf = tbuf;
-> > > > -		um_info->size = new_size;
-> > > > -		um_info->max_entries = (um_info->size / sizeof(u64));
-> > > > -	}
-> > > > +	if (!tbuf)
-> > > > +		return NULL;
-> > > > +
-> > > > +	um_info->size = new_size;
-> > > > +	um_info->max_entries = um_info->size / sizeof(*um_info->buf);
-> > > > +	um_info->buf = tbuf;
-> > > 
-> > > Could you please explain why size and max_entries are updated before the
-> > > buffer itself?
-> > __counted_by_ptr() requires the counter ->max_entries to be set before
-> > the ->buf pointer is assigned; otherwise you have an inconsistent state
-> > where the counter doesn't match the pointer.
+On Mon, 05 Oct 2026 06:03:52 +0100,
+Fuad Tabba <fuad.tabba@linux.dev> wrote:
 > 
-> But isn't updating the counter holding the buffer size before the actual
-> buffer
-> can cause problems?
+> kvm_inject_serror_esr() reads PSTATE.A and SCTLR2_EL1.NMEA to decide
+> whether to emulate the SError's exception entry or pend it through
+> HCR_EL2.VSE. For a protected vCPU, the host's copy of those is stale,
+> and when it reads as unmasked KVM emulates the entry on that copy. EL2
+> never delivers it as an SError: its entry handler turns the pending
+> exception into an external abort on the trapped access, and an MMIO
+> completion still pending trips WARN_ON(INCREMENT_PC).
 > 
-> Can you share the document link of __counted_by_ptr() which says that size
-> counter to be
-> updated before the buffer pointer.
+> Always pend through HCR_EL2.VSE for a protected vCPU. EL2 forwards it,
+> and the guest's own masking decides when the SError is taken.
 > 
-> Here is an example in fs/coredump.c file where size counter is updated after
-> the buffer
-> with __counter_by_ptr():
+> Fixes: 872383bd12e11 ("KVM: arm64: Add per-EC entry/exit state marshalling for protected guests")
+> Reported-by: Sashiko <sashiko-bot@kernel.org>
+> Closes: https://lore.kernel.org/all/20261001142109.794CA1F000FF@smtp.kernel.org/
+> Signed-off-by: Fuad Tabba <fuad.tabba@linux.dev>
+> ---
+> Applies on kvmarm/next. A follow-up to "KVM: arm64: Confine protected VM
+> vCPU state to EL2" [1], from Sashiko's review of its v4 patch 12.
 > 
-> https://github.com/torvalds/linux/blob/a90ee4305c4a5df72c11b31dacfdc76e00fcf78a/fs/coredump.c#L98
-> https://github.com/torvalds/linux/blob/a90ee4305c4a5df72c11b31dacfdc76e00fcf78a/fs/coredump.c#L115
+> [1] https://lore.kernel.org/all/20261001135711.1640520-1-fuad.tabba@linux.dev/
+> 
+>  arch/arm64/kvm/inject_fault.c | 5 ++++-
+>  1 file changed, 4 insertions(+), 1 deletion(-)
+> 
+> diff --git a/arch/arm64/kvm/inject_fault.c b/arch/arm64/kvm/inject_fault.c
+> index d6c4fc16f8795..49a342b078365 100644
+> --- a/arch/arm64/kvm/inject_fault.c
+> +++ b/arch/arm64/kvm/inject_fault.c
+> @@ -378,8 +378,11 @@ int kvm_inject_serror_esr(struct kvm_vcpu *vcpu, u64 esr)
+>  	 *
+>  	 * As we're emulating the SError injection we need to explicitly populate
+>  	 * ESR_ELx.EC because hardware will not do it on our behalf.
+> +	 *
+> +	 * A protected vCPU's PSTATE and SCTLR2_EL1 live at EL2, so pend through
+> +	 * HCR_EL2.VSE and let the guest's own masking apply.
+>  	 */
+> -	if (!serror_is_masked(vcpu)) {
+> +	if (!vcpu_is_protected(vcpu) && !serror_is_masked(vcpu)) {
+>  		pend_serror_exception(vcpu);
+>  		esr |= FIELD_PREP(ESR_ELx_EC_MASK, ESR_ELx_EC_SERROR) | ESR_ELx_IL;
+>  		vcpu_write_sys_reg(vcpu, esr, exception_esr_elx(vcpu));
+> 
 
-Maybe the order only matters for flexible arrays and __counted_by(), but
-not for __counted_by_ptr(). I reordered it mostly out of habit from
-__counted_by() annotations and assumed the same rules apply for
-__counted_by_ptr(). Happy to restore the old order if it's not required.
+I thought we had discussed that one before (or am I making things
+up?). Why can't the host always evaluate serror_is_masked() as true?
+Given that PSTATE is never synced back to the host, it would only be a
+matter of set PSTATE.A==1 at vcpu creation time.
 
-Kees or Gustavo, what's your take on this?
+It'd be more palatable than this sprinkling of vcpu_is_protected(),
+which really do not scale.
 
 Thanks,
-Thorsten
+
+	M.
+
+-- 
+Jazz isn't dead. It just smells funny.
