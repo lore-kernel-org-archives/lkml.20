@@ -1,260 +1,121 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-dy2-f42.google.com (mail-dy2-f42.google.com [74.125.229.42])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E70D3314B66;
-	Mon,  5 Oct 2026 04:38:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C633331715F
+	for <linux-kernel@vger.kernel.org>; Mon,  5 Oct 2026 04:38:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.42
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791175106; cv=none; b=h1UUfkqCrda1ktTqDWSD1Dr4sii9Y/Xoby3t2I4tAFIrhUPjaHJ6WVwqk9jpfXuRCyXVtxRLhiCBC8ZHN+u0EYqfNCeDq30i0z8d3VyzVqWHYvs2hJsEiGmW+LAUX6jgtcnmUMcL0uOqOcZLEdK11b4RDmogbGFEAiugJPNGxkg=
+	t=1791175114; cv=none; b=EHuBg/KDj/Wpv8nswXt/GBA3dnNmNpr++2DpWL/ryJs+UGT7IlH+HVOB1JjowZsF0rx+d3ub0h7BLh2sA0CiJt9K3ChBC2EbnqITre24v8/457d6oe1CP63dSMGfQ4tGyldl/RSzu6ZmnkNt7Mky3aHqroatb4wPf3S0sXEOYzs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791175106; c=relaxed/simple;
-	bh=15ur8fqV1OLEwbA54O5NhgsVr+d/c5hhHH+1oZwTt/Y=;
-	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=I7w0bQogqHqxUULE7tUrEseROQ6xjeoGvfFNKU8M4NiQBsJw0BYCRXS45K6e/7jpxh3oV8rjHl2muwv2tlww9R+WuvugtSvApKamRFyo2IebQMJ8R7GwNuZuctYy5apQvgdFAQCm5ZPZaQwVqXCSixoKOKHvSzBtgJFuSbBjUIw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Dpi0nWYX; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791175114; c=relaxed/simple;
+	bh=DVe/Uf9lRLG7TXnSdmrHU+KiaSzva7YYvHSdv24lx/w=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Q5/bKsKK944zHUz3dvrvD3ngcPQXglrnbCgBvjxjF5/FE1vZiapRv8wd1g7OinObd2n+PrAnUsAhYmjCjeV/x14ZuxJ43FKc1ULaA6tIOcb7/Y0MWLZ69DcU38pkYLcEgTB0dyR1ARyKLppyB0LN3PGw2EjEdOe8v0jeQabIHsU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=M8XM6jNx; arc=none smtp.client-ip=74.125.229.42
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Dpi0nWYX"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0B6E91F00893;
-	Mon,  5 Oct 2026 04:38:21 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791175103;
-	bh=prj36X89FCSiP6RVyAsb7oBjYhBNv9z/wSeGzLB7KRc=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=Dpi0nWYXHA/+IYTGJOk0pSaQ6hjK8U1RAeN8W44IaSHQGKhVHKyjF9bcuzD7i7q8S
-	 xlQ8N0sU6nceYvUxyu37VA3To8++ILJNp5BuASsFom8uqrjj+mYuygeZfFBEzUn6UD
-	 hkMwYEw1ASK2kt8kOMOF7XNTvUCvfvu2LzI0YnDTq3x79JXuQXhe864xVRQ3KfN4cG
-	 tO4fw6iP6f+x6BdBGzMJYrbm2g4COZsHe29DIcJm14PnbIltMB57zalVAQRvFoV3XI
-	 sgcnBvR9thh2nRy8dSqYmbDzoJWcfnHhwdOtgL/xz5RcNKy8T1aeKF1pF1RNUl53KB
-	 enEKt//dERFEg==
-Subject: Re: [PATCH net-next v4 4/4] net: stmmac: restore EST before starting
- DMA on open and resume
-From: netdev-bot+sashiko@kernel.org
-To: james.hilliard1@gmail.com
-Cc: netdev@vger.kernel.org, pabeni@redhat.com, kuba@kernel.org,
- lorenzo.bianconi@oss.qualcomm.com, andrew+netdev@lunn.ch, ast@kernel.org,
- daniel@iogearbox.net, hawk@kernel.org, john.fastabend@gmail.com,
- sdf@fomichev.me, Jose.Abreu@synopsys.com, linux@armlinux.org.uk,
- edumazet@google.com, davem@davemloft.net, mcoquelin.stm32@gmail.com,
- alexandre.torgue@foss.st.com, fancer.lancer@gmail.com, horms@kernel.org,
- maxime.chevallier@bootlin.com, richardcochran@gmail.com,
- linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
- bpf@vger.kernel.org
-Date: Mon, 05 Oct 2026 04:38:21 +0000
-Message-ID: <179117510159.434549.6990304999484677101@kernel.org>
-In-Reply-To:
- <20260930-stmmac-est-reapply-after-open-v4-4-9d4366587b73@gmail.com>
-References:
- <20260930-stmmac-est-reapply-after-open-v4-4-9d4366587b73@gmail.com>
-X-sashiko-severity: Medium
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="M8XM6jNx"
+Received: by mail-dy2-f42.google.com with SMTP id 5a478bee46e88-35122ae71e9so458713eec.1
+        for <linux-kernel@vger.kernel.org>; Sun, 04 Oct 2026 21:38:29 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791175109; x=1791779909; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=C4UZFNv6HMjAlmXNHL/VJdByu8s7YE2QayAHEqne0TE=;
+        b=M8XM6jNxmaSIfQzNsTHYKBlQ0p185Zit7Fdgb5h90oCVX59gvHFn2gt7jIq1YMuzN/
+         KQAdu1dxblylVMmCb3NTrGGcTvz8plkFR+7A+mi7PnxsKFw718fUz+/pFrnAAy/RJDBr
+         PlvnYr7/sj9fSO9NrqS4rgsJNhzNTz+cgbn6tirDbxTDr9Sh24fhHL1ZciKVzW3WZpsX
+         ZbaUS/osG8iDZ6z2Mnb/lGYDRp0TSczg/t7J0dhfiOQpTQpaacT7AjjLWZl/E302Czs/
+         tOdhb6vayKO2/JwKn4FiHhdAl4IXb+cM+EP6T0+W5iZkKoYf4cM9URA4tzg76V7mqVjv
+         mj/A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791175109; x=1791779909;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=C4UZFNv6HMjAlmXNHL/VJdByu8s7YE2QayAHEqne0TE=;
+        b=SEcp/Bw7j6YrTtlY9dJ2W6pqAcY4qPkBjBvlkA5/K0W5aixAZ5TWgwW5jiQ17LeA3X
+         BN74d5PCPniNNen03e7LcdrX/lFQY5vipPQuZyKHL7o4vfIxFtviwnfGI7g0Iu9tvNcb
+         gDeUEW/HlFYr3tXOKONAj00CNKYxvhqq2GCsU5D/j3Ld90+3oDSOx6IBTztvvJX6+CjD
+         K/XUCayJvPJHc67MscHOSAxulXXwNqS5/uLEkOaQj6aVb5d3VuCffxRjnKXUOf8JEO0x
+         VhBCQGidTLhazt9cVBeglRQqg5WB0r0LrUMlC4geEiLmOjKPtIo1gfTkpY2jjPK7FCqj
+         wO3A==
+X-Forwarded-Encrypted: i=1; AKwUvByOB5PRuCgbyRAX3SR/mhyI1XTpwo1CxQ6c41xKD1YQdtwVDOudu2WJZ1ltLytDvqfPVPxIkvuwKX9/m1k=@vger.kernel.org
+X-Gm-Message-State: AFq9FYL6XzIPVeA65roY4zQzoJPJgWfVCyHewXFTxCM4BaFXHZtrHHpO
+	dkGJy7AKPJX9pSUKnH4swS0b4xySdcE57Vv6ChGgB5mdm8eI1iVZuVBL
+X-Gm-Gg: AYBFou19+tOHh2Pu0YRk4PaKDxppCQqMWQsSY0iPwXKWggtHMOVGIbTUKq/JoF1/nju
+	Pvyr9MBDzkfpJK1HJ8IiyfBAR5930fv7qgshmQ0F60osHRxvdAq0fCdWxUdwo/thhoAwJbNDm3a
+	Fr9itDME55GiKtUiGUi5p6OwO9RCOh9ovpRVNSlokLlWJZ8HqImlc4hHJR6Hp1HQhBMsgqAKLdw
+	rAOGcgpQk2zCa45eSUgCrgR3IGEeWcYL0yWWLJ7S5fALca6pDMkhoBcei/o/7uXbtm5QV9cSqq+
+	2ix9ijRIO5G9ZlhEW1HzKb9k/j5DbJihwrCEmc9B02zNBytG0+qDpZPjEN3xX+nhoMwipY0rNwf
+	cdoTn57RNw+HhxcU9LLvn1Jt/sfKVC4bgP62nh6YxDH6vN7Ip6bi7i9Bk692JCOyuFMit9Wwg2E
+	fc7ow1JV6FhD+ijliLQCDcnJPrIEXinhVo5yqPYpc+0brW0RdiEEsh7oggcF/nhEvDOrjyqpime
+	J7YHHo=
+X-Received: by 2002:a05:7300:e5c2:b0:341:ec1b:5632 with SMTP id 5a478bee46e88-34f2199a7c6mr13011722eec.34.1791175108894;
+        Sun, 04 Oct 2026 21:38:28 -0700 (PDT)
+Received: from vscode-11-19.w453y.xyz ([59.164.88.43])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-35127136b8esm9518581eec.6.2026.10.04.21.38.25
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 04 Oct 2026 21:38:28 -0700 (PDT)
+From: Abdul Wasey <w453y.me@gmail.com>
+To: netdev@vger.kernel.org
+Cc: razor@blackwall.org,
+	idosch@nvidia.com,
+	davem@davemloft.net,
+	edumazet@kernel.org,
+	kuba@kernel.org,
+	pabeni@redhat.com,
+	horms@kernel.org,
+	horatiu.vultur@microchip.com,
+	bridge@lists.linux.dev,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH net-next v2 0/3] net: bridge: cfm: notify userspace on CFM config changes
+Date: Mon,  5 Oct 2026 04:38:19 +0000
+Message-ID: <20261005043822.3106580-1-w453y.me@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-Thank you for your contribution! Sashiko AI review found 3 potential
-issue(s) to consider.
+CFM status changes are sent to userspace, config changes are not, so
+the only way to see a MEP being created, a peer added or CCM
+transmission started is to poll RTM_GETLINK. Patch 3 adds the
+notification. Patches 1 and 2 fix the two problems the AI review found
+in v1.
 
-Critical: 0 · High: 0 · Medium: 3 · Low: 0
+Patch 1 makes br_get_link_af_size_filtered() count the CFM config
+attributes. Without it the notification overflows its skb once a MEP
+has about 32 peers, and br_info_notify() hits its WARN_ON. Patch 2 puts
+an empty IFLA_BRIDGE_CFM nest in the message when the bridge has no
+MEPs, so deleting the last MEP is visible to a listener.
 
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
+Tested with virtme-ng on net-next: 300 peer MEPs and config changes
+give one notification each (6248 byte CFM payload) and no warning;
+deleting the last MEP gives a notification with an empty
+IFLA_BRIDGE_CFM; a request that fails before changing anything sends
+nothing, one that fails half way still sends one. Also built with
+CONFIG_BRIDGE_CFM off.
 
-- [Medium] The patch gives stmmac_resume() a new way to fail: if
-  stmmac_setup_est() returns an error, resume jumps to error_stop_dma…
-- [Medium] __stmmac_open() can now fail at the new est_error exit
-  (stmmac_main.c:4205-4207).
-- [Medium] In __stmmac_open(), stmmac_start_all_dma() now runs after
-  phylink_start() (stmmac_main.c:4211 -> 4216).
+v2:
+- new patch 1, count the config attributes in the message size
+- new patch 2, empty CFM nest for a bridge with no MEPs
+- patch 3: unchanged, rebased on current net-next
 
---
+v1: https://lore.kernel.org/netdev/20261004041320.2684045-1-w453y.me@gmail.com/
 
-net: stmmac: restore EST before starting DMA on open and resume
+Abdul Wasey (3):
+  net: bridge: cfm: count CFM config attributes in the link message size
+  net: bridge: cfm: send an empty CFM nest when a bridge has no MEPs
+  net: bridge: cfm: notify userspace on CFM config changes
 
-The core reset clears the MTL_EST registers. This patch replays the cached
-taprio/EST schedule after timestamp initialization in __stmmac_open() and
-stmmac_resume(). It also moves stmmac_start_all_dma() out of
-stmmac_hw_setup() and into its callers, so DMA starts only after the EST
-replay succeeds.
-
-> diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-> index e93f3238be1fb..2104eaef8806f 100644
-> --- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-> +++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-
-[ ... ]
-
-> @@ -4200,12 +4199,22 @@ static int __stmmac_open(struct net_device *dev,
->  	if (ret)
->  		goto ptp_error;
->  
-> +	/* The core soft reset in stmmac_hw_setup() clears the MTL_EST
-> +	 * registers, so re-apply the taprio offload after PTP is up.
-> +	 */
-> +	ret = stmmac_setup_est(priv);
-> +	if (ret < 0)
-> +		goto est_error;
-
-[Severity: Medium]
-What state is the interface left in if this new exit is taken during an MTU
-change?
-
-The est_error exit comes after the memcpy() at the top of __stmmac_open()
-has overwritten priv->dma_conf. It also comes before stmmac_init_coalesce(),
-phylink_start() and the NAPI enable.
-
-stmmac_change_mtu() reopens the device in place:
-
-stmmac_change_mtu() {
-    ...
-		__stmmac_release(dev);
-
-		ret = __stmmac_open(dev, dma_conf);
-		if (ret) {
-			free_dma_desc_resources(priv, dma_conf);
-			kfree(dma_conf);
-			netdev_err(priv->dev, "failed reopening the interface after MTU change\n");
-			return ret;
-		}
-    ...
-}
-
-After this failure the interface stays IFF_UP. priv->dma_conf still holds
-the descriptor, buffer and page pool pointers that were just freed. The
-txtimers hold the zeroed hrtimers copied from the new dma_conf, because
-stmmac_init_coalesce() was skipped.
-
-The next close, ring parameter change or XDP change goes through
-__stmmac_release(). Every NAPI is already disabled at that point. Would
-stmmac_disable_all_queues() then hang forever in napi_disable() under
-RTNL?
-
-If execution got past that point, hrtimer_cancel() would run on
-uninitialized hrtimers. free_dma_desc_resources(priv, &priv->dma_conf)
-would then free the same rings a second time. Until then, readers such as
-the debugfs descriptors_status file would dereference the freed
-descriptor memory.
-
-The ptp_error and irq_error exits already used this weak unwind. What
-changes is that an EST register write timeout (readl_poll_timeout() in
-est_write()) during a routine MTU change can now reach it. Before this
-patch the device kept running, just without its EST schedule.
-
->  	stmmac_init_coalesce(priv);
->  
->  	phylink_start(priv->phylink);
->  
->  	stmmac_vlan_restore(priv);
->  
-> +	/* Restore the installed schedule before starting DMA. */
-> +	stmmac_start_all_dma(priv);
-
-[Severity: Medium]
-Can starting DMA after phylink_start() race with the phylink resolve
-worker?
-
-phylink_start() calls phylink_enable_and_run_resolve(), which queues
-pl->resolve. phylink_resolve() does not take RTNL, so it can call
-stmmac_mac_link_up() while __stmmac_open() is still running here.
-
-stmmac_mac_link_up() sets speed and duplex with an unlocked
-read-modify-write of MAC_CTRL_REG:
-
-	old_ctrl = readl(priv->ioaddr + MAC_CTRL_REG);
-	ctrl = old_ctrl & ~priv->hw->link.speed_mask;
-	...
-	if (ctrl != old_ctrl)
-		writel(ctrl, priv->ioaddr + MAC_CTRL_REG);
-
-For each channel, stmmac_start_all_dma() does its own unlocked
-read-modify-write of the same register. On dwmac4/5:
-
-dwmac4_dma_start_tx() {
-    ...
-	value = readl(ioaddr + GMAC_CONFIG);
-	value |= GMAC_CONFIG_TE;
-	writel(value, ioaddr + GMAC_CONFIG);
-}
-
-dwmac4_dma_start_rx() does the same for GMAC_CONFIG_RE. GMAC_CONFIG has
-the same offset as MAC_CTRL_REG. On XGMAC, dwxgmac2_dma_start_tx() does the
-same on XGMAC_TX_CONFIG, which holds the speed field.
-
-Consider this interleaving:
-
-__stmmac_open()                      phylink_resolve worker
-dwmac4_dma_start_tx()
-  value = readl(GMAC_CONFIG)
-                                     stmmac_mac_link_up()
-                                       writel(ctrl, MAC_CTRL_REG)
-  writel(value | TE, GMAC_CONFIG)
-
-The open path writes back the stale speed and duplex. stmmac_mac_set() in
-the worker only checks that TE/RE are set, so it does not correct this.
-Would the link then report up while the MAC runs at the wrong speed or
-duplex until the next link change?
-
-Before this patch, DMA started inside stmmac_hw_setup(), before
-phylink_start(), so these accesses could not overlap. stmmac_resume() is
-not affected because DMA starts there before phylink_resume().
-
-Would moving stmmac_start_all_dma() before phylink_start() close this
-window and still replay EST before DMA starts?
-
->  	ret = stmmac_request_irq(dev);
->  	if (ret)
->  		goto irq_error;
-
-[ ... ]
-
-> @@ -8420,6 +8430,10 @@ int stmmac_resume(struct device *dev)
->  	}
->  
->  init_coalesce:
-> +	ret = stmmac_setup_est(priv);
-> +	if (ret < 0)
-> +		goto error_stop_dma;
-
-[Severity: Medium]
-Does this error path leave the device half resumed?
-
-error_stop_dma stops DMA, clears MAC TX/RX, powers down the serdes and
-returns. It does not re-enable NAPI or call netif_device_attach().
-
-stmmac_suspend() had already done this:
-
-	netif_device_detach(ndev);
-
-	stmmac_disable_all_queues(priv);
-
-The interface is still IFF_UP. A later "ip link set down" would then run
-this on NAPIs that are already disabled:
-
-__stmmac_release()
-  stmmac_disable_all_queues()
-    napi_disable()
-      napi_disable_locked()
-
-napi_disable_locked() would then loop forever while holding RTNL:
-
-	while (val & (NAPIF_STATE_SCHED | NAPIF_STATE_NPSVC)) {
-		usleep_range(20, 200);
-		val = READ_ONCE(n->state);
-	}
-
-A stmmac_init_timestamping() failure could already reach this incomplete
-unwind. This patch adds an EST trigger, most realistically an est_write()
-register timeout. A failed EST reprogram used to be harmless at resume,
-but now it leaves the device in this state.
-
-[ ... ]
+ net/bridge/br_cfm_netlink.c | 32 ++++++++++++++++++-------
+ net/bridge/br_netlink.c     | 47 ++++++++++++++++++++++++++++++++++---
+ 2 files changed, 67 insertions(+), 12 deletions(-)
 
 -- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260930-stmmac-est-reapply-after-open-v4-0-9d4366587b73%40gmail.com
+2.53.0
+
