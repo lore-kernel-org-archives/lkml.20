@@ -1,161 +1,180 @@
-Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
+Received: from GVXPR05CU001.outbound.protection.outlook.com (mail-swedencentralazon11013019.outbound.protection.outlook.com [52.101.83.19])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A1B0A4AE12F;
-	Mon,  5 Oct 2026 17:42:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.142.43.55
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791222147; cv=none; b=j5iuqUSJMr03EGL+hC7RXGAoP1UdoTwObml5yAPFd+UnIcZxlqSzLdOeIi3oNFOjdSEdP5+CM7pGQDmDW8sAs+Ao16XecaLyJVXcKh9rsM6t8GdBiTnrdvwAn4VtRbHMOh4qq0tUCBuv6RtlTh0/Fy2TWmfo9sT4moMopAHRbEg=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791222147; c=relaxed/simple;
-	bh=1IhzbE0K/3tMW/zRuaVQoSOLmnWvA+Stq7l3GsJCWBQ=;
-	h=Date:From:To:Subject:Cc:In-Reply-To:References:MIME-Version:
-	 Message-ID:Content-Type; b=t/TeqL4ZHHHMHE0dD1VpjcqoZ2VBMlor6+8j5TC+inpioQU+kcaqT+6m+eoV0FyktZ3knlxzLycWZ+mFy00u2tKY9U0WbCoTf8fqdCJnw2k/V70MooR70hK0vYGeU/DuMMAsYxb50mWPtG0ogYs8cw8KShYSc6AG8RsewAquMg4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de; spf=pass smtp.mailfrom=linutronix.de; dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=gL13wYN3; dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=+8EoKTKN; arc=none smtp.client-ip=193.142.43.55
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EE64C4CC63C;
+	Mon,  5 Oct 2026 17:42:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.83.19
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791222153; cv=fail; b=nSloTTwNoHF6xOKPoSUxd98RJw+orSsPHqWULs+G1HxL0tVIsp/1oB/4Zts3y2O5Mh0iyRC27qAmhR4e1BpIvxqjY0rxaAm3gD2gFidk6hyOk8Ys/A6pTiJmllkoDpPQvQ5ADswQdVgb2SkL3RtRKllB6KmEZN2vf9yojGVVoCo=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791222153; c=relaxed/simple;
+	bh=v80/2z8/Y5cERp4pp9GUfOyQp/93ZMcOmMzezA5yBn8=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=bdVfwWtRwH/P0L8Jxne2bMQt1fWU1Awvl4Z7s4b3rW+sVYBHMoA/AGUR7+HkYl1uLadRc5nEusK45OhrU5T6EqGa/TpICdEuQ288w11IK/VMQhXrh7LVIFax2x3yMBz0kVdgP7XKBmEk3FXwjiVKAw50DboiTLkbXZw2HF8osUw=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com; spf=pass smtp.mailfrom=nxp.com; dkim=pass (2048-bit key) header.d=nxp.com header.i=@nxp.com header.b=AjXFkp8j; arc=fail smtp.client-ip=52.101.83.19
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="gL13wYN3";
-	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="+8EoKTKN"
-Date: Mon, 05 Oct 2026 17:42:21 -0000
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020; t=1791222143;
-	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=5EnMCzb4uE7olSeKQQmoSE6hBSQOUB7akYlTIxXuOFc=;
-	b=gL13wYN3WO+J9qMgGFELMgdT+fHYnKC0Pl7WOGhv4eWbU5cpamBNkYmbEZwun/eOvRZK0g
-	HSzJb6gIfabziVfftxG/K+4xKAWWM8ih7NiioG2AXza9PVaDVRKbBmRESyTbX/j2euKg7u
-	q6+bNJqyELURCNkwLmSO0reak/UD4A5yHrVo57aSkt3XoXVmwau0gZOGTJ+tu/z7Gt/P6z
-	ruk2ZAtaLUkrB3VZQEnbQBhs7VS4RitP8dvsdnmA5S7d/I0u6qU8pNaXNyU0EfrATvZghT
-	1RQn0YvD7KxCc0xMODiAd444wYuIXxLZ6m6TQF3WVu9XF6IFAWb3m/+TXHet2Q==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020e; t=1791222143;
-	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=5EnMCzb4uE7olSeKQQmoSE6hBSQOUB7akYlTIxXuOFc=;
-	b=+8EoKTKNvZw4jf45SRm6RGDDzPhTIltAniOHUsJ9axd8NL1f7EumXx9uY2qlZMg/GJrcNz
-	PZoKO9Rc0QGAxDDA==
-From: "tip-bot2 for Borislav Petkov (AMD)" <tip-bot2@linutronix.de>
-Sender: tip-bot2@linutronix.de
-Reply-to: linux-kernel@vger.kernel.org
-To: linux-tip-commits@vger.kernel.org
-Subject: [tip: x86/urgent] x86/CPU/AMD: Fix AMD TLBI Erratum #1718
-Cc: "Borislav Petkov (AMD)" <bp@alien8.de>, Rik van Riel <riel@surriel.com>,
- "Lorenzo Stoakes (ARM)" <ljs@kernel.org>, stable@kernel.org, x86@kernel.org,
- linux-kernel@vger.kernel.org
-In-Reply-To: <20261002211617.1001617-1-bp@kernel.org>
-References: <20261002211617.1001617-1-bp@kernel.org>
+	dkim=pass (2048-bit key) header.d=nxp.com header.i=@nxp.com header.b="AjXFkp8j"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=Xiz8bfwSODdeYDn92vdogNk+pEXUjFySeF7LxphrTz7eJFGBGH18ygZslPDIjGljCe+NNZxPpxOZWeNjFKrJM1h2tNLeDqVHZ8VeiiGDDzPFRcHShy/0F9P1XOisDhJuFHvhqyK3uZkHaaA1bdVehdx1MMTD+0pAWmNQZc7cujNtS4Mfn6NFXMVcy5dnPhnKtWARklAM5hmO/6spH6Q+6/QGMLaSE8abN6bT/QfxAHbTylladN2H2yObqnvu8/pXIA5aeP5PDVmHH8spQMUUeHiZwL32ADkSy/tpG+ca95MGAsoOQgU/93RHri36roIA6bCyzGrLwITVRlMhykpWwQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=mxqTs6xHafInPqfzWfAQhTSq/beW8/e5cG5wsUwbDG0=;
+ b=Bp6Qf+l0jZRnWR5Uf/A6dNotdyP31j5zBexUtaRebsKc7o6q4PTvgAAt0L/FEQi0Md16yv0WUSL1AW9EyXotwvuJpGVGck56xI+HIeOISDiBEdxB9vDYJY7Z4iztkk2sdt7HSPebjyOKi5F7rD1W244fquf6XNQvj6is8tuEt49jxNtTCwfMjtroZ/zzntDN4WVBCi3mP08cfjZS1cSYvc0pz68koNZ7NjcbFo4ct7Imuxt+E7j+BHTiQMnbCGzJkpjbez4Ke/lhwiYTCiNGkzPb+NML1F+3huN9Y17l+A5p+ihFIRT6QgyX0gk390EP3kjLhUm+AOMS/1h1LRxByQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nxp.com; dmarc=pass action=none header.from=nxp.com; dkim=pass
+ header.d=nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nxp.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=mxqTs6xHafInPqfzWfAQhTSq/beW8/e5cG5wsUwbDG0=;
+ b=AjXFkp8jWXU+QbmMgqd8eQRF6kdHXqKjGpwGdIl/5THEw9N2bcaK3hir+gykwP12tHZYvC+G1TEFmBrOxV7dvTxhnm3HebBiLPjaDG7vqMv8O1coZtgFcBm9HRboxMqh/78ummxosTMJ4EmzhJnYPew7NatCCGAL6NfRDNbw51TTOgRaeRQz76zLLRw3gAr6h6z7XaWtxqqlAu37DldTF4ORP1xLrhk1v8fj/5TiikgMQw/+DJjrDbhynFKZv31dL1CiEs2cx2Id6mgTM7h9hGo+8vNL5nMbxeQ3bOFDMWD7llLp3fbpy8BJicIa4kLvnY0EYhMoJtI6kJOobw4psw==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nxp.com;
+Received: from AS4PR04MB9244.eurprd04.prod.outlook.com (2603:10a6:20b:4e3::9)
+ by PAXPR04MB8096.eurprd04.prod.outlook.com (2603:10a6:102:1c7::19) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.472.16; Mon, 5 Oct
+ 2026 17:42:21 +0000
+Received: from AS4PR04MB9244.eurprd04.prod.outlook.com
+ ([fe80::adaf:805c:51c5:9538]) by AS4PR04MB9244.eurprd04.prod.outlook.com
+ ([fe80::adaf:805c:51c5:9538%6]) with mapi id 15.21.0472.016; Mon, 5 Oct 2026
+ 17:42:21 +0000
+From: Mirela Rabulea <mirela.rabulea@nxp.com>
+To: mchehab@kernel.org,
+	sakari.ailus@linux.intel.com,
+	hverkuil-cisco@xs4all.nl,
+	laurent.pinchart+renesas@ideasonboard.com,
+	r-donadkar@ti.com,
+	jai.luthra@ideasonboard.com,
+	robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org,
+	laurentiu.palcu@nxp.com
+Cc: linux-media@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	LnxRevLi@nxp.com,
+	kieran.bingham@ideasonboard.com,
+	johannes.goede@oss.qualcomm.com,
+	dave.stevenson@raspberrypi.com,
+	devicetree@vger.kernel.org,
+	robert.chiras@nxp.com,
+	tomas.babinec@nxp.com,
+	daniel.baluta@nxp.com,
+	frank.li@nxp.com
+Subject: [PATCH v5 3/4] MAINTAINERS: Add entry for OX05B1S sensor driver
+Date: Mon,  5 Oct 2026 20:51:01 +0300
+Message-ID: <20261005175102.2358881-4-mirela.rabulea@nxp.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20261005175102.2358881-1-mirela.rabulea@nxp.com>
+References: <20261005175102.2358881-1-mirela.rabulea@nxp.com>
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: AM8P251CA0023.EURP251.PROD.OUTLOOK.COM
+ (2603:10a6:20b:21b::28) To AS4PR04MB9244.eurprd04.prod.outlook.com
+ (2603:10a6:20b:4e3::9)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Message-ID: <179122214127.816309.14884640527661155843.tip-bot2@tip-bot2>
-Robot-ID: <tip-bot2@linutronix.de>
-Robot-Unsubscribe:
- Contact <mailto:tglx@kernel.org> to get blacklisted from these emails
-Precedence: bulk
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: quoted-printable
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: AS4PR04MB9244:EE_|PAXPR04MB8096:EE_
+X-MS-Office365-Filtering-Correlation-Id: 61972fd9-5fa0-48dd-b7da-08df230801e5
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|366016|7416014|19092799006|1800799024|376014|23010399003|56012099006|10067099003|11063799006|22082099003|18002099003|921020;
+X-Microsoft-Antispam-Message-Info:
+	dKwLzY9AEfjAcV/MAbs9Yp5Lkyw71nDa4E7VVo6+wgnfSGgkYDAQy65ykZXhmjyxQeHlN7q90OeR1kVQFhc0VILNeesw629YFmUBgS6Og6FOG9F3qLp/EWoFXzw9lIpt0I3lSfh9SiJDfSM1mkKvHO6l0pQkMzVi6kuCZ6CiVyUtdMGUp1dihCp5zrX65eplzazuV47I5gsdM3GcANiw16GzfwyWSuz5lsSKraHqY7Z8MqWoPS4GgSbKUXlH8G6ipEHF0RD4QXjtwZ+jT9LDUN3IBHjmaPeLn1xUOp+84CNdu8nLGLfWZRymr7fBCinOy2C5qo5ovyBS3k5iwoL5GtuSHhg1g+GD+2kSB/aZXNwDo2XHnudtwvB+GmtVnAMGL9/3rzXx92XVhcbI0KkGdw8gfokSV+GdcELX6rNnT2B8ldZp+oR1Zu1u1vrYHkZZmQlBf05CQ4ehqjbqJ/g9c18cAY3paC/yhQ8FI/a88r1EYZTxc2oszH9y3J0jId4Q70bYhRVdsUxPyQNcwL/27xV5l1YlHfJ2IVRJ77CrrfHgdA/OE8L7oK9yMwOwEoKx1cDoFSJXmgSpsF3ueYs4ZLWgU/18If3ngfmCBxqm8kOnSqDaB0Q6N7vMSCk2GMP7BzG74sBrqHg/UvgduvqC6oqrzcs0YoryaRYnL8P/ZZuflXRaIbCQN3234mPd6xbpikWCigdjmSuoRnJWIElGvA==
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AS4PR04MB9244.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(7416014)(19092799006)(1800799024)(376014)(23010399003)(56012099006)(10067099003)(11063799006)(22082099003)(18002099003)(921020);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?w35mWDl85kT/nZtEyOB2Unt0vt6S0QzRBhFGFVsTFp/aDZyd68jJfvbd5Y5X?=
+ =?us-ascii?Q?U/bgPKjWQ2QLjnTTgS9D06OOEo//pmqXnuCzEcuU6IVeSIFwZl03MnMZd9fS?=
+ =?us-ascii?Q?XuGR4a18ehQZzDjq6R9C6sexx5A9r8zXsGHKXi+A3Jr5X5R2xVEeZzu8Mc9K?=
+ =?us-ascii?Q?sST6G3P3AT98ss9Lhfjg/xYyFRh02jCFEO1dhuOMJ4ztyjorQsZnWXh0EJ5s?=
+ =?us-ascii?Q?JThP8yi8O8mV8AMyv/mbQPd0XMKfReh7zXnbY/U/iCH+LyCBIu/X/HsU3WZ4?=
+ =?us-ascii?Q?7UeSsdeO2OsgcRT2ZNsFUJpAEm8FYqq3lXVivTqBcp47FMZ/2TqgOYy8tdhs?=
+ =?us-ascii?Q?FooTb/G9pfpFvEG+f5Bm3MJKEA4aAgBsjLrGusYXdjBmcWItJAfNzRtlW7ZH?=
+ =?us-ascii?Q?kgs7vQghi8yq2bEjYkBH1xEhmX0PeEIpc8aHw1yRU0dc+AUkiIMfNv1YxfFq?=
+ =?us-ascii?Q?SnDUV9/uwuRjcebfwZgjlFVpF9TAzwNW7o/zaJILH+iD3XkNZUBybAWQqV62?=
+ =?us-ascii?Q?XXoz7DGwSAox9vSv+7f8FSmzo7CyifD5Xi+zI1RmsmmG461oTCIoawbMKXKn?=
+ =?us-ascii?Q?KObHfqlr0l14BFfxBdJLwF/5ncrxZxBdZJ2E3kqTB/z5fnkCUFHJv7NTHJBR?=
+ =?us-ascii?Q?OAP80VeQSGld0/nkr/PKglz8jdqoOoaRGTgANK7tqApO8QmlpgAQO0l/vIuX?=
+ =?us-ascii?Q?ZnqjI8NgQrsCaM2ysPl1mmx5VZQSbjS1+JTrO4UwHzv6Ec6hteutOE+Zf/s+?=
+ =?us-ascii?Q?E8tkE/EreBQpUinpb7W9HYxwW9DAdud5i1Rt+aMyhSB9IHC1GTSd1LK+EZJM?=
+ =?us-ascii?Q?EjvhIBY026p4pwbfk/HcRBSTuO5bl5ubnAMpmx5Wsi2XtgMLl+oC/s4mMZdo?=
+ =?us-ascii?Q?fd3DpS/3g301vaHGDjsQpNyinYdmPL3e4T83PdglR/aWJXbiDP9NMnECE1XR?=
+ =?us-ascii?Q?0N7/N692da+Wl1K/rLHN5YcVCnnV6CygFNGf4lT6YOWjwINVB3veiRAmbWBq?=
+ =?us-ascii?Q?EWr6qwqn7qoM5epMgOZJN9Z0Hf6BbJODLfk//T2bvLmACYoOGM2RFg/IhVfy?=
+ =?us-ascii?Q?7a+T08E+SAtLXxgwczXt/XsGgGoVSigvwDdbPP9MT/lQ5ktIdDdsxZUxl838?=
+ =?us-ascii?Q?V1Z9mX/k5FEARkJXkh0t91R2+GZuqD4W1Gb+zfEujSiWP/U3kW26BjAWRttD?=
+ =?us-ascii?Q?FYGaaY5pLaHzIKdBmRtafeQajAS5ncPpmz4nPG6Xw/5DsaRvdro/3NMA02gB?=
+ =?us-ascii?Q?rBHr3uCCY3NdH1ae74EN4E9hdtyyv4D/oSS4JHj11I1ZxuEPtjhqClX9MYld?=
+ =?us-ascii?Q?Jf7p65DS1eKfzNTVrehJldBs2wSxFMQgUVTgY5FdoY6YTo6QmnJ8sSvGB6iw?=
+ =?us-ascii?Q?jMDO2ej45ceJABSW5Rsbi4rphyDnDff0RXVxbMZGeQzdPE1GPyxMem4i6g4/?=
+ =?us-ascii?Q?oewoM1erzvf9pRzaQfnaW29YVUINVLEqzXoL5uXxYp0kjNTtT/Zk8zVJ04qk?=
+ =?us-ascii?Q?RDMdMc6u4gaEamtCkYbIgARUsA7uFAuqfmrm1Uai74+UtiRFIOGPaGeD1u5A?=
+ =?us-ascii?Q?kFtepMGEZnB/a9zTaNXLuUShTry700UAOaLEEggCjKjJto8Zr+k1LgvYkoGe?=
+ =?us-ascii?Q?saEpSmv7Rdc1zzUgZ2euzFVR55QEWraKQjuGYpjEflvsn3n+HbbfxY6Y43O1?=
+ =?us-ascii?Q?la8x34vDmsCVpG2k60LlejIPo5g29dw4OvByDDxYtuS8XvZEoCVLz+B1+4fe?=
+ =?us-ascii?Q?8ohpHsEjAg=3D=3D?=
+X-OriginatorOrg: nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 61972fd9-5fa0-48dd-b7da-08df230801e5
+X-MS-Exchange-CrossTenant-AuthSource: AS4PR04MB9244.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Oct 2026 17:42:20.9833
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 1f2+R4YfpkadP9/96GgmjQMyNYjY6LhO1HE0jqw6+mULq2pRjO+jHhlPXmIcO3M42Z4RYws38aDF3hgKUiZYYg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PAXPR04MB8096
 
-The following commit has been merged into the x86/urgent branch of tip:
+Add maintainer for Omnivision OX05B1S sensor driver.
 
-Commit-ID:     87db7795cbaaf636ae22ae031f4906db7bb77803
-Gitweb:        https://git.kernel.org/tip/87db7795cbaaf636ae22ae031f4906db7bb=
-77803
-Author:        Borislav Petkov (AMD) <bp@alien8.de>
-AuthorDate:    Fri, 02 Oct 2026 14:16:17 -07:00
-Committer:     Borislav Petkov (AMD) <bp@alien8.de>
-CommitterDate: Mon, 05 Oct 2026 10:29:08 -07:00
-
-x86/CPU/AMD: Fix AMD TLBI Erratum #1718
-
-The processor may fail to invalidate a TLB entry while executing an
-INVLPGB/TLBSYNC instruction pair.
-
-Detect the erratum and apply a software workaround when a microcode fix
-is not present.
-
-Fixes: 82378c6c2f43 ("x86/mm: Use INVLPGB for kernel TLB flushes")
-Signed-off-by: Borislav Petkov (AMD) <bp@alien8.de>
-Reviewed-by: Rik van Riel <riel@surriel.com>
-Acked-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
-Tested-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
-Tested-by: Rik van Riel <riel@surriel.com>
-Cc: stable@kernel.org
-Link: https://patch.msgid.link/20261002211617.1001617-1-bp@kernel.org
+Signed-off-by: Mirela Rabulea <mirela.rabulea@nxp.com>
 ---
- arch/x86/include/asm/cpufeatures.h | 3 +++
- arch/x86/include/asm/tlb.h         | 6 ++++++
- arch/x86/kernel/cpu/amd.c          | 4 ++++
- 3 files changed, 13 insertions(+)
+Changes in v5:
+	Update to git://linuxtv.org/media.git
 
-diff --git a/arch/x86/include/asm/cpufeatures.h b/arch/x86/include/asm/cpufea=
-tures.h
-index f70ee74..fe84cf4 100644
---- a/arch/x86/include/asm/cpufeatures.h
-+++ b/arch/x86/include/asm/cpufeatures.h
-@@ -477,6 +477,8 @@
- #define X86_FEATURE_NO_NESTED_DATA_BP	(20*32+ 0) /* No Nested Data Breakpoin=
-ts */
- #define X86_FEATURE_WRMSR_XX_BASE_NS	(20*32+ 1) /* WRMSR to {FS,GS,KERNEL_GS=
-}_BASE is non-serializing */
- #define X86_FEATURE_LFENCE_RDTSC	(20*32+ 2) /* LFENCE always serializing / s=
-ynchronizes RDTSC */
+Changes in v4:
+	None
+
+Changes in v3:
+	None
+
+Changes in v2:
+	None
+
+ MAINTAINERS | 10 ++++++++++
+ 1 file changed, 10 insertions(+)
+
+diff --git a/MAINTAINERS b/MAINTAINERS
+index 70a11f2ff61d..49826cbe34c0 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -20650,6 +20650,16 @@ S:	Maintained
+ T:	git git://linuxtv.org/media.git
+ F:	drivers/media/i2c/ov9734.c
+ 
++OMNIVISION OX05B1S SENSOR DRIVER
++M:	Mirela Rabulea <mirela.rabulea@nxp.com>
++R:	Laurentiu Palcu <laurentiu.palcu@oss.nxp.com>
++R:	Robert Chiras <robert.chiras@oss.nxp.com>
++L:	linux-media@vger.kernel.org
++S:	Maintained
++T:	git git://linuxtv.org/media.git
++F:	Documentation/devicetree/bindings/media/i2c/ovti,ox05b1s.yaml
++F:	drivers/media/i2c/ox05b1s/*
 +
-+#define X86_FEATURE_TLBSYNC_SFW_NO	(20*32+ 4) /* TLBI Erratum #1718 fixed in=
- microcode */
- #define X86_FEATURE_VERW_CLEAR		(20*32+ 5) /* The memory form of VERW mitiga=
-tes TSA */
- #define X86_FEATURE_NULL_SEL_CLR_BASE	(20*32+ 6) /* Null Selector Clears Bas=
-e */
-=20
-@@ -587,4 +589,5 @@
- #define X86_BUG_TSA			X86_BUG( 1*32+ 9) /* "tsa" CPU is affected by Transien=
-t Scheduler Attacks */
- #define X86_BUG_VMSCAPE			X86_BUG( 1*32+10) /* "vmscape" CPU is affected by =
-VMSCAPE attacks from guests */
- #define X86_BUG_SEAMRET_INVD_VMCS	X86_BUG( 1*32+11) /* "seamret_invd_vmcs" S=
-EAMRET from P-SEAMLDR clears the current VMCS */
-+#define X86_BUG_TLBI			X86_BUG( 1*32+12) /* "tlbi" AMD TLBI Erratum #1718 */
- #endif /* _ASM_X86_CPUFEATURES_H */
-diff --git a/arch/x86/include/asm/tlb.h b/arch/x86/include/asm/tlb.h
-index 866ea78..eba925c 100644
---- a/arch/x86/include/asm/tlb.h
-+++ b/arch/x86/include/asm/tlb.h
-@@ -110,6 +110,12 @@ static inline void __tlbsync(void)
-=20
- 	/* TLBSYNC: supported in binutils >=3D 0.36. */
- 	asm volatile(".byte 0x0f, 0x01, 0xff" ::: "memory");
-+
-+	if (!static_cpu_has_bug(X86_BUG_TLBI))
-+		return;
-+
-+	/* TLBSYNC: supported in binutils >=3D 0.36. */
-+	asm volatile(".byte 0x0f, 0x01, 0xff" ::: "memory");
- }
- #else
- /* Some compilers (I'm looking at you clang!) simply can't do DCE */
-diff --git a/arch/x86/kernel/cpu/amd.c b/arch/x86/kernel/cpu/amd.c
-index 54e14ed..40463ba 100644
---- a/arch/x86/kernel/cpu/amd.c
-+++ b/arch/x86/kernel/cpu/amd.c
-@@ -1049,6 +1049,10 @@ static void init_amd_zen5(struct cpuinfo_x86 *c)
- 		msr_clear_bit(MSR_AMD64_CPUID_FN_7, 18);
- 		pr_emerg_once("RDSEED32 is broken. Disabling the corresponding CPUID bit.\=
-n");
- 	}
-+
-+	if (cpu_has(c, X86_FEATURE_INVLPGB) &&
-+	    !cpu_has(c, X86_FEATURE_TLBSYNC_SFW_NO))
-+		set_cpu_bug(c, X86_BUG_TLBI);
- }
-=20
- static void init_amd(struct cpuinfo_x86 *c)
+ ONBOARD USB HUB DRIVER
+ M:	Matthias Kaehlcke <mka@chromium.org>
+ L:	linux-usb@vger.kernel.org
+-- 
+2.43.0
+
