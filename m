@@ -1,180 +1,189 @@
-Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
+Received: from mail-pj1-f47.google.com (mail-pj1-f47.google.com [209.85.216.47])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7C61D33A9FE
-	for <linux-kernel@vger.kernel.org>; Mon,  5 Oct 2026 06:20:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A370533F377
+	for <linux-kernel@vger.kernel.org>; Mon,  5 Oct 2026 06:22:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.47
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791181219; cv=none; b=pG0GrQN73jueYiVs42OOHatf+PGoee67Y+VGW/uzviPENwQhS/UKwqnqNMpM2RCZkfV/tcMKeVk23bjAW56JAJPkPslhywatpiCs5BGpmxEuJad9+YV7N1HYcX+WialDJp3MegLQ+CHJcrBDQDZR0HzHxY7eDvIeqRJlU5AxfNg=
+	t=1791181381; cv=none; b=mliuiS/RihahQW3eY1RHimmFjqrymwdrxPZMXtzK91wFTVrXPaDMN3VNr7BorYpoKu2GSSHwO27tLHurmvIqfyUAnzw/CHz0R7gh5g8fSsbX4Do7wjmoLE3ipvmt1599TZhy3j1tspxI1PFMTYA4+5WSHt5MzagZA7hn/qv+Aks=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791181219; c=relaxed/simple;
-	bh=0ExWA1l1yPQaHfCJdCeIV2uvEiOA/vQlQ+Irax5DPyI=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=dostawjwZBNKGR812H6u+34nTGjKsc5/c+GphZRbmFC4XE1Hr8JUSOluWxgFth73n+0AAJGxoBFWr8ctU93K6oQ5EZ+z6YBlQpoPN5BeBlEGrmzaXDU6cRWohbJVC7+UiXe4WxAUJTw524v+7tKkRrAfO8bTOFnFkvpMXMXnOks=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=q9KBmsWh; arc=none smtp.client-ip=74.125.225.141
+	s=arc-20240116; t=1791181381; c=relaxed/simple;
+	bh=B1rUO/u1yZK5lxU112EnHVMjQBFnPZUb8pDBsyHxQUE=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=ZJot/igOsw9aga0h85j+Z9Ky1OjYQqUXE3AnWkQLnkO/Ulf4Ikyo6v/S57SBL6DEBo3CWQwMcFC/rFJqvsIngOQjdq8PBfUWhmArScu6CEjVaBVWHnNj8E5mNRXxbMjd5+ilMYECgRU3m1GSzmq3B8ro+GwOAe/n91lO7Ndk6Us=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Ugb6AfYC; arc=none smtp.client-ip=209.85.216.47
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="q9KBmsWh"
-Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49ccf3ca626so8883855e9.0
-        for <linux-kernel@vger.kernel.org>; Sun, 04 Oct 2026 23:20:17 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Ugb6AfYC"
+Received: by mail-pj1-f47.google.com with SMTP id 98e67ed59e1d1-383b4a3755fso950145a91.3
+        for <linux-kernel@vger.kernel.org>; Sun, 04 Oct 2026 23:22:59 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791181216; x=1791786016; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=l0FuaBTKJktE8SOUhXZCNhOW7/MvZW2r4riGHbubmm4=;
-        b=q9KBmsWhfZMVyRclrbFV8f7IbGpLSWluuU/gbU3jxm8cOtIjRVFba2WSHKwaRrkqcb
-         1fhHLrT5EgPRFh5riFLIzyoNsDN1UqKStbwOjTMNTe4EggulZPSZfaNwGtj3oi+EzGak
-         jE239znaCP7800R0O6f3/nB1goV1SDFU6ZPEXbgZ/i4qB65caC7YCOIqfmkZWUPW17Ey
-         i89SREcmNpZev12POteSKn1kMaCRGbUsPHEGWWtdYzsodAHIspHZ/br+QeoGnZ+6O3kY
-         z3PfqvcR1oc2PG+7TgHYW4wSYll+zTPBU9RFMia80L+kMkvBoph3GxadP3gxefx2LrG5
-         eJKg==
+        d=gmail.com; s=20251104; t=1791181379; x=1791786179; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=sK5flBSyUz9JPc2AauHO028it+gKWcI0pXP1AO189cA=;
+        b=Ugb6AfYCAIY8EVoqgB4yHxYkebtOWSa9/Ivo1IL/voScXitIbGIvXQa7IZC1+ILh+b
+         1kCuQrYTA7k3i8x9LbZrdwSsga6LT+YoI73IY+FUrDVFDoYWGQvzFDd8q/PKC4C2KXc+
+         x7Sxa9LeDB4P38/+I9UGngt6XQy+sH+J5pTmRcjjzbEpx27W6g1relUALrhLl7S9SRev
+         vaaJ6mJbpwYB0OXOk06s2fSbkfLUosXzlZvRFJuJCYVBqC7mOUf1nQdNM4rmjwjQps1t
+         Az9k7Mc2r/PeiEdnPJaXAhDOHNq8/2JC+6rpTBzA6iaNC+8zSq/q+sXCp6z7IwK5gnR7
+         /EYw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791181216; x=1791786016;
-        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=1e100.net; s=20260707; t=1791181379; x=1791786179;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=l0FuaBTKJktE8SOUhXZCNhOW7/MvZW2r4riGHbubmm4=;
-        b=AbX+F82hV1RH7SkXuH73Ilg9tVakpnjWGFJUfpDkUxwbe0E7qDAOhFPabwBRoQw1oU
-         PlGJw9V9OCk8CkfpXF/Nhfzof7gEGF8tpsHoKHBXKOl+dwvnhxcOgjOIUkNvNRXmriaU
-         Tm99LY/HAeB0s14UY6i05WJtLR4S8N3SgfQFxuOovSgT6Ak0/RB6GVm+7NTVC0LnkLkq
-         SzqJI4LmHU6Vy3KXcMaQ2O+tadUbmu0lVbvbKcURl/SuRqxPS1IqPAvwgeHCywAPRqXb
-         +jtxKuRnsuNG3aDW+fuHny6QgFnR8829LCeGEeE+RAu7mI/yAw7psyeWV3U+/SofKiWC
-         ZtGQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzyyoEJ9pXIlAD7FiBUvjeA2MwhLenBY1kGD/kPwj+/G46kXVaRlvoEK2CY0wb07z8wz0Om8ETVZRbjSPQ=@vger.kernel.org
-X-Gm-Message-State: AFuF++kQENakBDUnMHXZpZMmoL/cbElmTH7d0gJpIXkbAwmXYNDBEvw8
-	myYIoE9u6pBPWAZclfpSFJeOZ7vA/ofAztZi095BfsTGY9WkbX14kEYQ
-X-Gm-Gg: AYBFou0A1fxlhSbvKQS5WTFPM3QHzCaXSYyfFAjWXlwUX8NieP/NqEiQiubRZmC99iB
-	8xuuptkT0tjFSkMcNGYwClPqJ74Cdn6CmOQ/YBRp+rDAgEKNkEqunDDy1sWmnlSNOXhqJo10DJF
-	tZSKzykiCk0bNyZ0RollU2bexq7KuUQG6Wb7aOSasfLHn6R/gDJGuHJ05XXvZECuYmDAAQuuqDz
-	fmUlRNm7InXW/5H7z/NmABMS39Ta90tm8kO4UZ/sj4rP+GxIFjP6uD4nDJJ9F965mPt5rxbF4E2
-	sRkv1A2TWzjhW/5KKRNtsDB3N8M8XjW8I3tUxUeaVOKzzr2sS8impLtX845gFZmRgTrVO9SfnNH
-	WgZLCQRnxOkkDMx8TAWkKvR++q/Xo54/k14WQVJAnj6CRsAwRp57giwubeO2bJfwF7iak2cOt7H
-	U133bXxs0OEMuzv589jgn4FH8FzH9OuduEuQHbA3mELvhutyD/Hw0cE5yAiqzDeizX8WE7sIk=
-X-Received: by 2002:a05:600c:1e0f:b0:49e:6249:268b with SMTP id 5b1f17b1804b1-4a027697ef2mr157549445e9.32.1791181215479;
-        Sun, 04 Oct 2026 23:20:15 -0700 (PDT)
-Received: from [192.168.1.109] ([178.17.7.30])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48c622704a5sm3189409f8f.15.2026.10.04.23.20.14
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sun, 04 Oct 2026 23:20:15 -0700 (PDT)
-Message-ID: <ff601118-7ef4-4ece-94a3-9671e78fa3c8@gmail.com>
-Date: Mon, 5 Oct 2026 08:20:14 +0200
+        bh=sK5flBSyUz9JPc2AauHO028it+gKWcI0pXP1AO189cA=;
+        b=nWtjtvuxUqyLh6xe+HllwD1Cbj6Poch5qJuo6vtc79qt2AVVTLDfaq3VJcLNhtvEvc
+         couPtbn0j4CGQ2Ct/CieYsEcD9sigsAAJEPZoDg38HaJyRfVLSYS53xDyDd1tSxel8vW
+         3SSCSXJuo2ZmQq0UhLOBe643sfM2GHHiOB5SszYhfp+uc1lNZJQMWxKuuuCa5+XUgJE/
+         oMgTOMF7tA/ZcSIGofVlugRaPwNZXuwOTbTCbA41uexKCN9b/eOC7CsFtAvDE23pJOMc
+         fs8u+PTGBEejHEICprzQko8eewDKXbZ70tTQkjCmRrjKQDcgcd4frDSrYIEAXHrgwtO+
+         P8CA==
+X-Forwarded-Encrypted: i=1; AKwUvBxVORensUtFaWGuiMCY62SrWJdBT33BRjDKuratYMke15yt2idrdQHOs6AUFfwokQXf33koJHQgK5KnUCo=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJjp3zHxs4KWI7C6E1cLBwwxRKKeLxbS5QOTJzKaELYTGO25T4i
+	7Seh/UgaN+LlKHqw6gxZ13M4STxFsCko2fZMY5BfIlJ+Q1LGkDb3ouWw
+X-Gm-Gg: AYBFou1/YHkxtQyaNfOCRvv16dMpRvnpjhRR3UgWwPFUO8ByAMloJsHKfApPNIjOt+R
+	tGGbYFC3VGs28/kyz6yQK+v2tQQmrf/jxGikj5U5quYO3+DysOGoNc7QMCN3z/r3aSDT7CCKkW6
+	Wu9oTNdIAYoNe5+nw8uzlLqBPuzVQaCKWNFCsGt7r9085O8yF610Iz5R2U80ODbGYLPKqCfYJvd
+	UsQSBF5urESFbPPSg3rtyZPR5Let6+eW3kzhiowa9WGRFUvAmHuzjAnOkRysfF5i2Ne02eGL45x
+	7dgZVhLTaGHZToFjwismJ/TyfzEaJ1rKJm/S48ZZxAoBB2fF/BfR4pqdFbfN4Cn4Ws7DHEulwrZ
+	W1iVZckP+ora7VI8jetQKiiHVGOiLjntzS0/0wGIUkAHGwPiTDQ1kNnLx4yijMl1tcpmM2c8+xX
+	nUVE1utJXL9O0sZhfJMtEQaFEuu/NLuBIfPUwPU92YfDJxh6D5pfd8AwDL2Cc/AmoblRVs/4nps
+	QMqJg9O2CGl1Q==
+X-Received: by 2002:a17:90b:2f0e:b0:3a8:1cc6:c8e0 with SMTP id 98e67ed59e1d1-3a81cc6c99amr788163a91.6.1791181379004;
+        Sun, 04 Oct 2026 23:22:59 -0700 (PDT)
+Received: from localhost.localdomain ([240e:b8f:1df9:a600:c693:b19f:ada0:748])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a78e4a1bfesm10661197a91.12.2026.10.04.23.22.51
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 04 Oct 2026 23:22:58 -0700 (PDT)
+From: Vernon Yang <vernon2gm@gmail.com>
+To: akpm@linux-foundation.org,
+	david@kernel.org,
+	kasong@tencent.com,
+	qi.zheng@linux.dev,
+	shakeel.butt@linux.dev,
+	baohua@kernel.org,
+	axelrasmussen@google.com,
+	yuanchu@google.com,
+	weixugc@google.com,
+	baoquan.he@linux.dev,
+	hannes@cmpxchg.org,
+	mhocko@kernel.org,
+	ljs@kernel.org,
+	roman.gushchin@linux.dev,
+	dave@stgolabs.net
+Cc: linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org,
+	Vernon Yang <yanglincheng@kylinos.cn>,
+	stable@vger.kernel.org
+Subject: [PATCH] mm: vmscan: don't count per-node proactive reclaim as memory pressure
+Date: Mon,  5 Oct 2026 14:22:36 +0800
+Message-ID: <20261005062236.564210-1-vernon2gm@gmail.com>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [RFC PATCH 1/1] dm-integrity: support keys in the kernel keyring
-To: Eric Biggers <ebiggers@kernel.org>
-Cc: Mikulas Patocka <mpatocka@redhat.com>,
- Lorenz Kofler <lorenz@sigma-star.at>, Mike Snitzer <snitzer@kernel.org>,
- Benjamin Marzinski <bmarzins@redhat.com>, Alasdair Kergon <agk@redhat.com>,
- dm-devel@lists.linux.dev, linux-kernel@vger.kernel.org,
- upstream+dm@sigma-star.at, David Howells <dhowells@redhat.com>,
- Jarkko Sakkinen <jarkko@kernel.org>, keyrings@vger.kernel.org
-References: <20260928062734.3805458-1-lorenz@sigma-star.at>
- <20260928062734.3805458-2-lorenz@sigma-star.at>
- <6e7bd72b-6f1a-211d-16a8-a35a530af408@redhat.com>
- <b0f8f47a-beb0-426e-bdee-5d0d80ade8ad@sigma-star.at>
- <1e53661e-42f4-72b2-3331-33af21e9fe0f@redhat.com>
- <20261002201419.GA205250@google.com>
- <d737b17e-7872-4afb-b4c2-bfa8f4e119df@gmail.com>
- <20261004172934.GC1906@quark>
-Content-Language: en-US
-From: Milan Broz <gmazyland@gmail.com>
-Autocrypt: addr=gmazyland@gmail.com; keydata=
- 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
-In-Reply-To: <20261004172934.GC1906@quark>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 10/4/26 7:29 PM, Eric Biggers wrote:
-> On Sun, Oct 04, 2026 at 09:44:57AM +0200, Milan Broz wrote:
->> On 10/2/26 10:14 PM, Eric Biggers wrote:
->> ...
->>>   From what I understand, the point of the keyring support in
->>> dm-{crypt,inlinecrypt,integrity} is:
->>>
->>> - To support "trusted" keys.  But that is not what was actually
->>>     implemented in dm-inlinecrypt.
->>>
->>> - To avoid having the key be readable with STATUSTYPE_TABLE.  But that
->>>     is not what was actually implemented in dm-inlinecrypt.  Keyrings are
->>>     also unnecesary to solve that problem.
->>
->> There is more to that
->>
->> - to avoid key cached in dm-crypt (or other target)
->> (dmsetup must be able to retrieve mapping table in the form directly
->> reusable for recreating DM mapping, so raw key must be available)
-> 
-> It's of course still there anyway, so that the data can be encrypted or
-> decrypted.  crypt_config::cipher_tfm for dm-crypt, inlinecrypt_ctx::key
-> for dm-inlinecrypt, or dm_integrity_c::internal_shash for dm-integrity.
+From: Vernon Yang <yanglincheng@kylinos.cn>
 
-Raw key is then not part of internal dm-crypt structures, that was the point.
-Crypto API needs key, obviously. I did not check recent dm-inline crypt, though.
->> - to avoid inclusion of key in DM ioctl calls (mapping table again)
-> 
-> Unless the "trusted" key type is being used it just makes the raw key be
-> passed to the kernel using a different syscall: add_key() instead of
-> ioctl().  It doesn't seem fundamentally different.
+When the cgroup has no memory pressure at all, writing to
+/sys/devices/system/nodeX/reclaim triggers proactive reclaim on
+NUMA node, causing increase in the writer cgroup's memory PSI.
 
-Technically, yes.  Just the key is now sent through ioctl that (should)
-be designed for it, not in DM-ioctls that are used extensively for all other
-parameters.
-We had to add wiping of all buffers there exactly for this reason.
-And I think the split is better also for tracing calls etc.
+Due to this reclaim is performed in the context of the write(),
+accounted as memory pressure on the writer, like
+commit e22c6ed90aa9 ("mm: memcontrol: don't count limit-setting reclaim
+as memory pressure"). This is unexpected, the phenomenon resembling
+senpai will appear again.
 
-And while all these subsystems are not perfect, they are compatible for many
-years. IMO this is very important. We are not in Google monorepo environment
-where anything can be changed anytime as you know all users.
+The Documentation/ABI/stable/sysfs-devices-node documentation also
+notes that "This interface is equivalent to the memcg variant."
 
-Milan
+This patch unifies the semantics of the memcg and node interfaces:
+per-node proactive reclaim is no longer counted as memory pressure,
+and the per-node proactive reclaim interface no longer produces
+phantom pressure.
+
+I ran demo[1] that performs per-node proactive reclaim 10000 times
+in qemu, writer cgroup memory.pressure as follows:
+
+without patch:
+
+some avg10=31.53 avg60=13.42 avg300=3.31 total=10602985
+full avg10=31.53 avg60=13.42 avg300=3.31 total=10602985
+
+with patch:
+
+some avg10=9.59 avg60=3.41 avg300=0.81 total=2686221
+full avg10=9.59 avg60=3.41 avg300=0.81 total=2686221
+
+[1] https://github.com/vernon2gh/app_and_module/tree/main/reclaim_node_psi
+
+Fixes: b980077899ea ("mm: introduce per-node proactive reclaim interface")
+Cc: stable@vger.kernel.org
+Signed-off-by: Vernon Yang <yanglincheng@kylinos.cn>
+---
+ mm/vmscan.c | 9 +++++----
+ 1 file changed, 5 insertions(+), 4 deletions(-)
+
+diff --git a/mm/vmscan.c b/mm/vmscan.c
+index 91295070ca33..8e22b8a6038b 100644
+--- a/mm/vmscan.c
++++ b/mm/vmscan.c
+@@ -7988,13 +7988,10 @@ static unsigned long __node_reclaim(struct pglist_data *pgdat,
+ {
+ 	struct task_struct *p = current;
+ 	unsigned int noreclaim_flag;
+-	unsigned long pflags;
+ 
+ 	trace_mm_vmscan_node_reclaim_begin(pgdat->node_id, sc->order,
+ 					   sc->gfp_mask);
+ 
+-	cond_resched();
+-	psi_memstall_enter(&pflags);
+ 	delayacct_freepages_start();
+ 	fs_reclaim_acquire(sc->gfp_mask);
+ 	/*
+@@ -8011,7 +8008,6 @@ static unsigned long __node_reclaim(struct pglist_data *pgdat,
+ 	memalloc_noreclaim_restore(noreclaim_flag);
+ 	fs_reclaim_release(sc->gfp_mask);
+ 	delayacct_freepages_end();
+-	psi_memstall_leave(&pflags);
+ 
+ 	trace_mm_vmscan_node_reclaim_end(sc->nr_reclaimed, NULL);
+ 
+@@ -8021,6 +8017,7 @@ static unsigned long __node_reclaim(struct pglist_data *pgdat,
+ unsigned long node_reclaim(struct pglist_data *pgdat, gfp_t gfp_mask, unsigned int order)
+ {
+ 	unsigned long ret;
++	unsigned long pflags;
+ 	/* Minimum pages needed in order to stay on node */
+ 	const unsigned long nr_pages = 1 << order;
+ 	struct scan_control sc = {
+@@ -8067,7 +8064,10 @@ unsigned long node_reclaim(struct pglist_data *pgdat, gfp_t gfp_mask, unsigned i
+ 	if (test_and_set_bit_lock(PGDAT_RECLAIM_LOCKED, &pgdat->flags))
+ 		return 0;
+ 
++	cond_resched();
++	psi_memstall_enter(&pflags);
+ 	ret = __node_reclaim(pgdat, nr_pages, &sc);
++	psi_memstall_leave(&pflags);
+ 	clear_bit_unlock(PGDAT_RECLAIM_LOCKED, &pgdat->flags);
+ 
+ 	if (ret >= nr_pages)
+@@ -8193,6 +8193,7 @@ int user_proactive_reclaim(char *buf,
+ 						  &pgdat->flags))
+ 				return -EBUSY;
+ 
++			cond_resched();
+ 			reclaimed = __node_reclaim(pgdat, batch_size, &sc);
+ 			clear_bit_unlock(PGDAT_RECLAIM_LOCKED, &pgdat->flags);
+ 		}
+-- 
+2.53.0
 
