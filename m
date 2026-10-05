@@ -1,135 +1,153 @@
-Received: from mail-ej2-f41.google.com (mail-ej2-f41.google.com [74.125.228.169])
+Received: from mail-pl1-f169.google.com (mail-pl1-f169.google.com [209.85.214.169])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AA7F0282F29
-	for <linux-kernel@vger.kernel.org>; Mon,  5 Oct 2026 04:58:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.228.169
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791176291; cv=pass; b=TLbsqRLNlgObuRJSYAnNy3i8QlJtwHZgJqEa0QuXmatRT6QqnrQ3bohSTjDTf7mWc7z8w/4iRSOdCqTFS043SWjoMRksySpUAHrg87okDV0F4lv6gZeIUf3QXeem1za6u/l1ZE0s4gXj6WO6CjPRSPWPeOIjiOrvIi5aVV7OSPY=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791176291; c=relaxed/simple;
-	bh=k8QhU0CgxteoVSnG2ChBJ+4Z+ni9b7jo7/wYqwD+m1A=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=tu4bWHXq2YhHoGNyeUu1WCK2zZKYmyilz6JtscY8Lp5N2uAYZuXww39BPd4JRWAtZPb/QjTG4Ibxv9dU01JiMTrADZL2A10JH7XwfXmrdafP82KdrzF+E09yQmb3xUoYolslZRRi8qNmu7vjK7rTT1xlQDMMgjp4eYSgaai3jrA=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cloud.ionos.com; spf=pass smtp.mailfrom=ionos.com; dkim=pass (2048-bit key) header.d=cloud.ionos.com header.i=@cloud.ionos.com header.b=HfmeeVb+; arc=pass smtp.client-ip=74.125.228.169
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cloud.ionos.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ionos.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 51A7F54707F
+	for <linux-kernel@vger.kernel.org>; Mon,  5 Oct 2026 04:58:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.169
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791176339; cv=none; b=nIPfYlBMfmtABXdjLZieCf7apARCpLuwXYwoDlMYpt4FsHzsVIp5b5tAu6ntE8X/kUYpUPEACE9s9PbHrpPbDv24R8zINaXfgxqBY4cwtETqe9x0PNq4u7briOAI6QghxPZfn+3OmZ6JXzU+0PxgifoY/5ex6mSv0YbbSJ/oD3g=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791176339; c=relaxed/simple;
+	bh=OWeLqewt6cDtSzZMGAcsd1VNoKJM2XpzzuMOzXs1SEU=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=nwr9uXieSKC3ABkRFaju94zFK4uNaKnVEY6lK3V+RzHLzMsAwTUF9dfhVVbt3L8kXDxlhbGLHcnDISol9MWY1VDo/RtdlnnpZMVL/9RITHxK5r1V3bdxzoExGFpGVkNCmFRQ55PMaBKnrKIB3seiic6/fZLiEaHRxH7Grvfnsms=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=BDle2CA1; arc=none smtp.client-ip=209.85.214.169
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=cloud.ionos.com header.i=@cloud.ionos.com header.b="HfmeeVb+"
-Received: by mail-ej2-f41.google.com with SMTP id a640c23a62f3a-c2df40380aeso7229866b.2
-        for <linux-kernel@vger.kernel.org>; Sun, 04 Oct 2026 21:58:09 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1791176288; cv=none;
-        d=google.com; s=arc-20260327;
-        b=j26HGcCh9MnmL7sItYJq+1Wn9XAstFvvlcu6/zs5NuzZmAQW0+Vsr0NsJsz0OYw1jE
-         9SfVzSMUE1NRPOIXi91GGnbIELt5VVFzZvTQi4/0FSRuMplAbvJ5P8h045xF4EuHX6zU
-         8wmW5wGiPlIiMNRPbv/UPpZRl2BM/w8mPiZRrXBZA9vnhdTlFRvo0dT8T2ooEM1rqRuv
-         SkTMQ0N9poRoKJuyKx5xXfKfe1cydzbcRjQHjx0Z+XyS4EPWYpUPUU3+feIWtYG+mVM3
-         POzhvggQKpIUuq6v0ZnyTSe3I5sD63LDze3vn7CzIGUGk0eEWNaIg16/xgzP0nrHtltP
-         WLPw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=Yb8J5ooNOneYN3yeLjRDUS+cu9SC1W2gX1QlAxi98Ro=;
-        fh=fXhaiEU+eFjFD2nE3o0TKqK03VPxKDUX/eT1Qy0S2Hc=;
-        b=AJYt4m/C2jCoWXK2ccQQAwGjvb5aGoDcDOselUG5z6xISjSZCMYSuV+cPq5YdRs2vF
-         +Q8NzmMpO5JBMIKGcXDbRspf6zSZOzszoTd0J1E/j2sjSDmOpMOyId9m0OVNEGxWpEMd
-         7DYMkmTOo9ujj+wFu3dsPrai5YfJDfZ+oZr1w/ST+bn6JDufQnRfM0SypV4SNiY8EQhR
-         IyZXZ+LL7TeibgHJK0CGqAFlAGMHc9gdj9HCiyQuRqnw8DA6Q+8pxzrsLGWuMq6p9k0N
-         L6JW2+9XRqqh32Cnx1GFBVEscuqSlvWhaH9q1hh+p2vDSPsN19IEKIiC7FdAhXp6kWWl
-         xldA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="BDle2CA1"
+Received: by mail-pl1-f169.google.com with SMTP id d9443c01a7336-2d8fd7a3f38so48305ad.1
+        for <linux-kernel@vger.kernel.org>; Sun, 04 Oct 2026 21:58:58 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=cloud.ionos.com; s=google; t=1791176288; x=1791781088; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+        d=google.com; s=20251104; t=1791176338; x=1791781138; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=Yb8J5ooNOneYN3yeLjRDUS+cu9SC1W2gX1QlAxi98Ro=;
-        b=HfmeeVb+gRHEJT/vobjNzTnfPqgXprm0Qg0J9QuoBDR3Pi0XGT/ff1ZcQT4pe8Zj5B
-         sl54pjARAZMooXepwOU1gNjFAKfyWrjZJEas2k7GVxK7jU2j7/4pNrQZ+xaGPrFLqtyP
-         baMKr+RNwdZh460yQGNKRO07zOXWptDnUrnexNLl/bwbCpRV0hxuSqWm8JxfWf03rc1s
-         XlZLIcRzK0sOuSoW/af7v2R1umZymuw3VD47gA66weSVmsU0Du+huHY9yRX5YMVSoMHc
-         a1BxfGWzvgZ0BwNs4W5kZ9ia4giqqMx+lSO255WRvAA6K495WJiRjTQtzVce8LedRL2f
-         M9yw==
+        bh=wh1AxkS8SWKuWWWh7pZFQjWGZF9aNJY94i0CrRQCRF8=;
+        b=BDle2CA1N8YViKalxWMaeUIabFFYJK75CyBPdggBqBUwrqQSo+4iu7xUiA0Ku334UU
+         Ze//pRClTf9Cluy6OK21LdSLCF8wZAxqXfpUznm+u4OhvLP8Npt7NgcuxourrV/ceL0C
+         hMGgWqNQktOjbdkt/Pjl11TqkHHlHJw+X03X4Fj6SDjNF9/hOtXEHkihAEs/TCsWJmHM
+         dC0uPpRLKsaAUea4xVb9ZJnVB/frrOIM8gZb0vz+qxbs62YGXsCxDCdmnBiadPsPD3lM
+         aplDoekDMhBkoauP/eTpM21OYs09FZNq0k6OqiL181HhXytPxj3mzlrc2pAPBgea+6Yc
+         6/7g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791176288; x=1791781088;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
+        d=1e100.net; s=20260707; t=1791176338; x=1791781138;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=Yb8J5ooNOneYN3yeLjRDUS+cu9SC1W2gX1QlAxi98Ro=;
-        b=GPVYrfMxaua/llzk5UNiawI8jW8/8vUddZoG2yXYQ2aAWFRXEbDaTw0g5ro7pW4Pex
-         IvUJbq2uUlElZmTq3U3LDjV7CmMMlCr4+WZneFtwv0ZvRxQGGBFA+G9jJO6TqTu3rhlJ
-         KPdHUuuOH7g03e36inZ3dmx5a98r/+7Bk+eIikAePOqwq14b2xXJuKeF7REmRauHF5z8
-         1FPfQU/1lxSFufHXHHRn8Msz22FjQ7rB5AY13lY9buMXLJoOpqkYHS8AXuFNMAQ+fl2w
-         vszavbC843J3lDC+jDt7gM2AQAf+uc335DpxB9Rc5GietD0ejt7JcO9I7iZCVbNO+9pR
-         N0oQ==
-X-Forwarded-Encrypted: i=1; AKwUvBy9fZhVIFrKf0sLf2gCVyPaDJKK90wTkB/Y8Cxz42LSW/NFjsvf0oZeuUM1O6ZJbp88yyZ29qFlgIyha+0=@vger.kernel.org
-X-Gm-Message-State: AFuF++kJ1n4uaHtKkZrKvKidwPHjYUrGNKxUJNqdmk4HqQihD8RBJU5O
-	cmFrfLhmuJTcBVcB/dUS2vR5NS2DFyfv7W3SqMnUwrQa3GltfkaRIl3E6XFcxw0G7ly6acJc8Xt
-	3G3Q3/qr6njqBrEDyCOt6GdE3cX4wfmgor/QSOT7Frg==
-X-Gm-Gg: AYBFou2KFevhdkXyo+V1cdGKbk9pYkiuLUyl2uZXcOprtPkLGCcgsp0vWl1Sb3MmAKj
-	SbjnCleqTLhbrQLGEbdPtbqeXVOQDEDH+TJePzMaEhW71K4SBxbOM1WXEBI4suSqkp1H2kdySHT
-	4SDxQ73gK3Eff6LuWPLxkOjOANLM3LXro9BlBhk/7B3UNo91m3rmGLIcqhVKm1PbbqdJzXkit9L
-	wYk0D97rah77P5mHq42fHly2+moiJ4KFp2p1fZxluYkhy9LGN6mV4KRjKPJOnHXacV7gMdoM0aT
-	ctoewb0e71ghmbYfYk1GwENPA1+2/1OWmdItfVCw5AsIeUEh5IuDqSU=
-X-Received: by 2002:a17:907:1ca4:b0:c25:3ec4:9e43 with SMTP id
- a640c23a62f3a-c2e4a7f48b0mr805405466b.0.1791176287731; Sun, 04 Oct 2026
- 21:58:07 -0700 (PDT)
+        bh=wh1AxkS8SWKuWWWh7pZFQjWGZF9aNJY94i0CrRQCRF8=;
+        b=cKiL7VEWe8HJlypXRM9VOm/QsiF70lkAMFrHEYMnPpr6YG8I93JQVylhcdMaUTPrBo
+         ETyU2aefuaQe+fArH75m12xA4Kf9HYLkA9T4kV8jJNFCFxC1UA1HzbuiEwgnnSF4kf2h
+         aBsDk5Zj+ggs95tJAwS+JNUtFmrlc29EX3e8sCwzY5PCylPiCrn25q4HCWCAPUYbT2bB
+         vQVESU2mPqTJFn7K3KkLXV/YMbsaJNspLtpiLohGq4HfZtU6DjtTEv5SpwDbjkOjjr3z
+         7jtjlSPoRpSJ3bktyHjFnGQ4yRnpuwMWqdvI/RrKS/qE3fe7841PVFVA+EriiyLm7kiv
+         oDSA==
+X-Forwarded-Encrypted: i=1; AKwUvBxpkxEzV50F/bxUpq1SjKMX0mId5pGB6lPCn/kuXNaUT2UIzDmewlOxtjlTf/g8bNQtP5vZBqnnU33ttCQ=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIRHeV+l1ve5LkBddlNuY6VcU97VvmOlUrVSUyp7eUn2swTChOi
+	d9Sx4koDS6hUj5yKTYCho0HW4Wk3TVw+96/jqUdXIUfGvOxzN905XTw+p/6WZjjFaQ==
+X-Gm-Gg: AYBFou1AsPgCS0yxd0O55npGdlfPRFyh3gvwMtR2p5mmjyqZSjZKPNcng938tr0VzE8
+	+X4l0IlHsY0dpnFcWfHfMCDep7dFiWR2maiip+hIEcihhxtUOCYWC9ukrGfJOqyB9aFDnUOt4X1
+	wmlx9wHHMX81XOoNKE+JkahKnoslZgoWYB9f1pUea7P41yTtRNyoDxoaCWBOa4UXwHpoXZTjMj/
+	KPtDHB1bUxuTglMS+7nJOPlvdOE3+PCDL/34LvAz7tpPbXrXwA5W+eGg5y0e1XtKurU/0wJNsNA
+	1X6uN4iyZQ88FMGVgi0vj41Zi9cthS4S7qzPJN0L2zF3BJcxhusAhorx4KwmoMeQMCIGLJZgk8y
+	fiqElfCkQh8KgFMtsLfFd4WJ4ECjrTuy8TTq7BzvnkMsm7elgjQMJSislck56rpcw9gg9QRR//h
+	yV/z2cgR28B4VCPEHzwLkase+0w3dKRkxLvdp/UDdD12gTeXX6frt2Pc2WunIjS0xgn0RpmoVGK
+	xFKLq1GL7XLqiJgnW45lf96gc9BLUdUTOno
+X-Received: by 2002:a17:902:d987:b0:2d7:1cc3:a69c with SMTP id d9443c01a7336-2e5339b60b6mr5288515ad.7.1791176337084;
+        Sun, 04 Oct 2026 21:58:57 -0700 (PDT)
+Received: from google.com (105.211.142.34.bc.googleusercontent.com. [34.142.211.105])
+        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cce6d901a2asm185534a12.17.2026.10.04.21.58.54
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 04 Oct 2026 21:58:56 -0700 (PDT)
+Date: Mon, 5 Oct 2026 04:58:50 +0000
+From: Pranjal Shrivastava <praan@google.com>
+To: Jason Gunthorpe <jgg@ziepe.ca>
+Cc: Joerg Roedel <joro@8bytes.org>, Will Deacon <will@kernel.org>,
+	Robin Murphy <robin.murphy@arm.com>,
+	Kevin Tian <kevin.tian@intel.com>,
+	Mostafa Saleh <smostafa@google.com>,
+	Daniel Mentz <danielmentz@google.com>,
+	Samiullah Khawaja <skhawaja@google.com>,
+	Logan Odell <loganodell@google.com>, iommu@lists.linux.dev,
+	linux-mm@kvack.org, linux-kernel@vger.kernel.org
+Subject: Re: [RFC PATCH 0/5] iommupt: Introduce IO page table shrinker
+Message-ID: <asMuigioXmHZmjO2@google.com>
+References: <20261001230219.818128-1-praan@google.com>
+ <20261002150844.GC3481470@ziepe.ca>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260920103705.23191-1-jinpu.wang@ionos.com>
-In-Reply-To: <20260920103705.23191-1-jinpu.wang@ionos.com>
-From: Jinpu Wang <jinpu.wang@cloud.ionos.com>
-Date: Mon, 5 Oct 2026 06:57:55 +0200
-X-Gm-Features: AclHuK9F6bDW0nS2vy3QRjl6tjhB0B-9YTim3Rc-1xgPDX9Z9hWewK_66u3Qn2w
-Message-ID: <CAMGffE=Vz19wLqdECCc3G47oZVRkQ=RuYFzZt8A1m7jxHUeV7A@mail.gmail.com>
-Subject: Re: [PATCH] md: fix mddev_unlock() called without holding lock in lbs_store()
-To: Song Liu <song@kernel.org>, Yu Kuai <yukuai@fygo.io>
-Cc: Li Nan <magiclinan@didiglobal.com>, Xiao Ni <xiao@kernel.org>, 
-	linux-raid@vger.kernel.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261002150844.GC3481470@ziepe.ca>
 
-On Sun, Sep 20, 2026 at 12:37=E2=80=AFPM Jack Wang <jinpu.wang@ionos.com> w=
-rote:
->
-> From: Jack Wang <jinpu.wang@cloud.ionos.com>
->
-> lbs_store() jumped to the unlock label on mddev_lock() failure,
-> calling mddev_unlock() on a mutex that was never acquired. Return
-> directly instead.
->
-> Fixes: 62ed1b582246 ("md: allow configuring logical block size")
-> Signed-off-by: Jack Wang <jinpu.wang@cloud.ionos.com>
+On Fri, Oct 02, 2026 at 12:08:44PM -0300, Jason Gunthorpe wrote:
+> On Thu, Oct 01, 2026 at 11:02:14PM +0000, Pranjal Shrivastava wrote:
+> > Introduce a lockless, deferred reclamation framework for IOMMU page tables
+> > built on the generic_pt library. As VMMs and userspace drivers map and
+> > unmap large, sparse IOVA regions through VFIO and iommufd, page table
+> > directories are often left allocated but completely empty. generic_pt
+> > frees a table when a single unmap covers it entirely, but tables that
+> > empty through a series of partial unmaps stay allocated until the domain
+> > is destroyed. Under memory pressure, this *stranded* memory cannot be
+> > reclaimed and has resulted in OOMs.
+> > 
+> > This series refcounts leaf directories natively in struct ioptdesc and
+> > registers a domain-aware MM shrinker that prunes empty directories under
+> > system memory pressure.
+> 
+> We had talked about doing it this way
+> 
+> But I had proposed a different, and possibly simpler, solution that
+> addresses *just* the iommufd use case.
+> 
+> After unmapping something have iommufd compute the gap in IOVA that
+> contains what was unmapped and then issue a 'clean(gap)' operation to
+> generic_pt.
+> 
+> This is the same operation as unmap, except we know now that the gap
+> has no PTEs so all it does is clean up the table pointers.
+> 
+> This requires no special refcounting or anything difficult beyond
+> some locking in iommufd to hold the gap stable while we clean it.
+> 
+> Would it work for you? It seems substantially simpler, but I never
+> tried to implement it.
+> 
 
-ping?
-> ---
->  drivers/md/md.c | 3 +--
->  1 file changed, 1 insertion(+), 2 deletions(-)
->
-> diff --git a/drivers/md/md.c b/drivers/md/md.c
-> index 680b34a63cb3..41fbe5d9961a 100644
-> --- a/drivers/md/md.c
-> +++ b/drivers/md/md.c
-> @@ -6048,11 +6048,10 @@ lbs_store(struct mddev *mddev, const char *buf, s=
-ize_t len)
->
->         err =3D mddev_lock(mddev);
->         if (err)
-> -               goto unlock;
-> +               return err;
->
->         err =3D mddev_set_logical_block_size(mddev, lbs);
->
-> -unlock:
->         mddev_unlock(mddev);
->         return err ?: len;
->  }
-> --
-> 2.43.0
->
+I was tempted to use the interval trees too, but I started thinking
+about:
+
+a) Locking: For the gap to stay stable while we clean it, we'd need to
+add some kind of serialization either through iova_rwsem or a dedicated
+gap_lock to prevent a concurrent map to allocate IOVA from that gap. 
+Thus, every unmap pays for clean under the lock. I haven't perf-ed it 
+yet, but I'm not sure whether users/Guests using virtio-iommu, where any 
+guest DMA unmap becomes an unmap on the host, would regress.
+
+b) Other users of IOMMU API (unmanaged domain) like the type 1 (which
+was the one hurting our systems) and other in-tree drivers that use an
+unmanaged domain and call iommu_map()/iommu_unmap() with their own IOVA
+allocator. One of the goals was to avoid enabling the user-space or
+in-kernel IOVA allocation (ab)users to cause OOMs via IOPT allocation.
+
+> An alternative version is closer to what you have here, somehow
+> connect iommufd to the shrinker and have it lock and walk the gaps
+> cleaning them on shrink requests?
+> 
+
+I like this one better than cleaning on every unmap, since it keeps
+the cost off the map/unmap path and only does work under memory
+pressure. Although, it doesn't help type1 or the in-tree iommu_map()
+users.
+
+Would you consider those users worth covering, or would you rather
+they track their own holes and call clean() themselves? Happy to dig
+into this at the LPC session too.
+
+Thanks,
+Praan
