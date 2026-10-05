@@ -1,209 +1,154 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EEF134AD4A1
-	for <linux-kernel@vger.kernel.org>; Mon,  5 Oct 2026 14:37:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BFCDA4AC161
+	for <linux-kernel@vger.kernel.org>; Mon,  5 Oct 2026 14:37:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791211077; cv=none; b=lZoYQn4/x/buqhn22h1jhXr7rzy5hoqRh5NqrOyP7Qk1ah3ZQjHEP/27R5vaIMsQcnOFy+HhEOxU6ItUSmUy2JjpDnq7S7Aw10Uuw1u2kLLnKNFxZ7k51u8NMT+0ktlObvOx5uI+N1L49eepFpgw5K3PC/C3QUwf8EeUhp+s7fU=
+	t=1791211077; cv=none; b=Df6OIulj5lu2mX8OyO7TzAN3BKmjpd0QjX2NhmloL6TKCqO2M7VuZz+2993Uy6cQnabQU/V6cAbmXHPMSFqXqbDe0+OPqkRD9Shm2quLX/tUDxh5M0RsiaI5030OdDzmqjWGWxnBdYAxhvQt3HQxJMjuUH4pVwaTdy/4mEHQUaI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1791211077; c=relaxed/simple;
-	bh=2SzhxrWuyWL8OXijp7aZ7p5Wq1jUPOcr0yrxzKmNLyM=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=gsfy0kSEzmpPJa4ZSwCobQ0ULfzxwBJtpuppSz3+0Cu9S8HLAYvzJkPhYhsXuMZUqV1V7oRnqHwNWxmR0vxs60ZfoIxQ3XGbWqlWbkU7uvZxznYy8tdmqhafjDtI2Ifq//41cDl/04qYRcURJD3SaR24xBWyBoD8aFymL8rsDxU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=JOW+uXb3; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=Zvx6oON0; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	bh=InKd0aGfeFCx3LdYyd/roSH5k1JSRlrS3BGElWrnj1g=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=f65aQy4ILJIn4rjYzirrhrhOK3VvYtPmNtQflC/eRKyAZabB4cuR58JI/12P3FwMJw2ZJwhvUHR6fdZbm+4JV308b0nHGpFuh7OT9m689UzOC8OsaAX35aIp5Tf0eO74e3TG98Rvs1FcEmob3o4buqgIKKfy0DvVfPIV9kXwU/c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=PoMTDZf5; arc=none smtp.client-ip=74.125.225.141
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="JOW+uXb3";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="Zvx6oON0"
-Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 695EP4KV2015019
-	for <linux-kernel@vger.kernel.org>; Mon, 5 Oct 2026 14:37:50 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	2eIAsOhaVPTC3xP3VsP6J8u+4Zt4CiPhaYh6vvOX53I=; b=JOW+uXb3RPBy2i2f
-	k0Rq0bqa9hOX+IVfUvD9Hc15GGu/Shfe8BhdR12q0zA6YCSS3XOOc6qgbspcAAxX
-	etRk7wp3EbCbLZm7VgWZNsoOQMND1Qz6cTqndtdcG8k6t4z6aMomDkQmcKbMiOgW
-	aUjlNuZU6utIH9HRoTVqNxQPLhVE76omG/uGadDW6FW6XS+eCGsIiBALvxMnDChE
-	36WlmRAX7Ru0QtqhJ7eDOBp2uCZtlOiE2SCO4BPgrWAPWoNNl6gpN2nGep1SwiOp
-	LvcRlmt3FdYmy8DhzMsDw+muG5wiaZNbEhqLy/JX7RLBoMSQXLrAR998KYFW8ZPR
-	i70CXg==
-Received: from mail-pj1-f72.google.com (mail-pj1-f72.google.com [209.85.216.72])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h3xhs2h7j-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Mon, 05 Oct 2026 14:37:50 +0000 (GMT)
-Received: by mail-pj1-f72.google.com with SMTP id 98e67ed59e1d1-3a7fa5e0442so1476068a91.0
-        for <linux-kernel@vger.kernel.org>; Mon, 05 Oct 2026 07:37:50 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="PoMTDZf5"
+Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-4a0977b9c20so24251595e9.2
+        for <linux-kernel@vger.kernel.org>; Mon, 05 Oct 2026 07:37:48 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1791211069; x=1791815869; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :from:references:cc:to:subject:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=2eIAsOhaVPTC3xP3VsP6J8u+4Zt4CiPhaYh6vvOX53I=;
-        b=Zvx6oON0bfWFlX+u9Yl8Ma6aHmTWwBKrRRF3QW6/MCtpykVGhjdCWyrZ8AtTT0qjRQ
-         O+X7h1tKaqsGGY5DT1aZYdQ0nR6wLE+0NXyX5IzHxPjNG5JBd3MbndVHqh7QpiCS7O9S
-         /TokC+18TUw1al4Mig1Hk1SPcMDWyfkwah2d41qD/KJwcMTUFkJH6X1SaRxsj6JqVqRm
-         u3wkHs1u1Xp76bAOU79fdekxa18fMV7HZDnYA+/T/kobfJeDu0bwqnG6LxQz1r4EpSPO
-         SZ9VvidD65hR+kmOfJYFtV/e9ckQz+6dwp2Leem8XD42eS9Zk3qSF9rw4E/JgwHPH6ts
-         6QCg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791211069; x=1791815869;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :from:references:cc:to:subject:user-agent:mime-version:date
-         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20251104; t=1791211065; x=1791815865; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=2eIAsOhaVPTC3xP3VsP6J8u+4Zt4CiPhaYh6vvOX53I=;
-        b=jAbwOMRMLFfW0+vx+DrlKbFHE4A3KRMgGpC814XjHZRSrNLaHxLSXr94o9XGr+lvAQ
-         pZQ7FN+iaoLLgbEL9JVsjYpJP/zGbYe4YvLVKqFm1iNq84arDD+X2W5B77xadcqi3BkT
-         8LvmYvgciPSDveOVpMR7rGoeHYNstQJJzQ0ajHYiXph5/Mm/uP47y2yJ0Uofq2dXheyP
-         mFlDrGJZ5SRLqACh68t6qnINowq+Qy62NsHPPleotDxfxyNn/ltM7Ss34gjoCA7Ive4H
-         VRBabXkXWMttfL1sehF837Vpqk4limvPPcCwrS4C9pU40YtNDTaR9xdRwO1EVs2QPAIW
-         9U4g==
-X-Forwarded-Encrypted: i=1; AKwUvBxDEEDjrZVgK998vNvI3Sv9uZL1UvrQB/+wLgDf5Q9L9fSA5cBTaglXsUYWH+PnAmz3fE3rSTvg4IcIhlQ=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKhtxO55ZJZKRkiHJ3hZg/kfyWkM5M0HlveRigxkHVkyibak/U1
-	gKAvQq0DplmlBKsGgqzBmQEAxJugNSxlvQOm1I/0qOitaruDpIo/uW5ewf94ZYhYyOu/T/nERsK
-	TP+Zl33qMlnA9Au3afD5VXtTK5GOtK572xXBQ0HsyejnEwTr5kbzPGUsjTV+QLQPLE2k=
-X-Gm-Gg: AYBFou2aiygroozAIAiVdFmQ8S2A5G5lJLKquLHvbfdpMpDzHduzgwsF627kGZCR6TK
-	rgzkeM4nN3XrEJLcCd+fzCBfR5mv0tWLvD7Q5XXvytX7T0ergkJ/AVSzruMnIDv9qLLVij3f+Z3
-	XgE5AT2z6GXERNsF8O+xIPRrPPQvTnGT19avo57az/yemG4BO0y0LZFqiJjqCIyiwDsMhsJaa2A
-	BmuiWmCYEost7ZayrUOYFa+3OmJIztQW0ofaflGgTh70vwmWflxL/rIzrf0QB/C+TBgaOwdv9a3
-	YOdYVnwqEUOGALupPpHiaM9G/B2lSO9F9zhbgJyaChUWQ4n9U2YZlc9EFvSfptM6FHwtRErMJhc
-	gG+8sM41uwSOiB4lLZoDr80LdrevBkjnw8T5IzjEDb0XspVUf+rfFOE9zpw==
-X-Received: by 2002:a17:90a:e7ce:b0:3a7:8c68:6446 with SMTP id 98e67ed59e1d1-3a78c687f95mr6625970a91.63.1791211069325;
-        Mon, 05 Oct 2026 07:37:49 -0700 (PDT)
-X-Received: by 2002:a17:90a:e7ce:b0:3a7:8c68:6446 with SMTP id 98e67ed59e1d1-3a78c687f95mr6625943a91.63.1791211068860;
-        Mon, 05 Oct 2026 07:37:48 -0700 (PDT)
-Received: from [192.168.1.20] (33.sub-75-218-193.myvzw.com. [75.218.193.33])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a6dcbdd97fsm7594125a91.0.2026.10.05.07.37.47
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 05 Oct 2026 07:37:48 -0700 (PDT)
-Message-ID: <d791e70f-9c3f-4916-94de-8d76517339bf@oss.qualcomm.com>
-Date: Mon, 5 Oct 2026 07:37:46 -0700
+        bh=vFDGRaN1e/ydGZumamNoz8kHvK8qVk3vu4oV3GD+iPM=;
+        b=PoMTDZf5G0Pqub7sbiAeq4Y5CCarFK8wiWQrKSsryrMAjoRFOiNp/P8PyNp7X+ZqaM
+         SH4MOV+sHEDYBPnTLepD8edpKByFPzRMgxdoatpgR1My87pAq28jkaiH89JdnjZB53C+
+         SbtOT7EWGSae4Drna8P7e0qXKl07YU1zv6LE9Ya+f1yUkbwGB51qwMbLpt9e7t/hlhAN
+         UqlF5HP6SHGQw2TrYgDf4U30x4WJx+HvDTq/QtSjmBp/7UHlZc3YbA+JSgFw3k9xQSCc
+         r0GndNLVrBTaRLFGiJR1vrtfeNhNIi2DnC1RAJoQCz28cW7ZrbQA2Q1KC0/AT7BJN/Z6
+         c7Gw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791211065; x=1791815865;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=vFDGRaN1e/ydGZumamNoz8kHvK8qVk3vu4oV3GD+iPM=;
+        b=Z8byRfkMpFuIyaczLvhIT5eLeBxJtMYi+J2G0u9retOXBkd7Kya2Ufa+XVGWVebEEO
+         b+F7ZKbSHZPYHMTahyr12U9xjEhzpfFcksGhKZqSdJNiyrr68mJp13H8QRUKq3LR9EYt
+         G9sFMnab4a0ZpVZHLBOoxqUF8Dlr4ij3qKl6N+3nCwTLYUniLkJaD/C0lzNbqORhpb7T
+         vBhJuDrAt4SyqFUupZkUbV8WarCt2rzbk3NuUEt8Pr4rdWP77LOysN6MrovYmfNzc0Ee
+         LN4/EfM+6Ve1OlTq5naxX1xKchUXCIHzY1WbkQ7yLpvm5jC9oAnRQM2uSuBWbXKPCse6
+         yswg==
+X-Forwarded-Encrypted: i=1; AKwUvBxWiX1JkFBF6fOSysIbPrSq8YYH4aBsPMWJLmU+eRJ5pK5K/gg0mkduG3XjaHYg2i+lj7KoS3YT/nuoSr8=@vger.kernel.org
+X-Gm-Message-State: AFuF++n91kvOHk9cv3DAlvcbL6E65PHP+9S03uomKPQi/PP+LLXrlv4d
+	5O/RUUphBjGfZEC5ban9WSpkuTyUU8b78QAjnTZbKKhcX1kDDxyFCQTh
+X-Gm-Gg: AYBFou2s5m1aCwLB7KhegvdZbBQfbxCCS2vxcrlOy61s9rdnoxFPHicwPLAc4xcv+ZB
+	REmU2LEeTlziZtkoVEYPBDzZQ3Ed807RHyZQ1G9OsZbgIhFhoDA6DqfKZLTSEGWLtnISubG5L3v
+	xCutOFjLsEVx72ZituE3NbDm+J6PwDCgVT0XnTv3ZtKuw3IRhS7sADmJcXvzm5t2qh9pcslwskI
+	fLDbHb3vsCONHq4PUf3iejqnI/caFEcMjnsuZ5eeuSPbHNyQsXL8oUbO2+z9kdJRlbHbDK+9q15
+	RsWMCiQ9xWNvEXPklWXFr9rWc1KRG2xni6IuX0wbFfGfTmLtOHgXDe/lWqqMx+0qzQH3O6nLLY6
+	fSb1RGrHn/ImCfUCsnhhF5+lUVQEjfq5/F9srHjMEKtU9Arm5XX+Ac2i06j8Le02WFyrBQMYt74
+	uFthZidv5KuX5fFOwE8rZmU/Ys3pfoEc2uLz05OxdAmqUGYQtf7GiSdemiY8ZHxvA4kY3wcbYba
+	2VRKnC+EgFd9VyTm+gYoEp/o6A9aiGcxeP+pa4v54NcunyW
+X-Received: by 2002:a05:600c:4e13:b0:49c:cee0:e7c1 with SMTP id 5b1f17b1804b1-4a02757999cmr178833835e9.16.1791211064403;
+        Mon, 05 Oct 2026 07:37:44 -0700 (PDT)
+Received: from andreayoga.localdomain ([80.188.242.210])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a0276fa954sm348555785e9.3.2026.10.05.07.37.43
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 05 Oct 2026 07:37:44 -0700 (PDT)
+From: Andrea Parri <parri.andrea@gmail.com>
+To: Jason Gunthorpe <jgg@ziepe.ca>,
+	Kevin Tian <kevin.tian@intel.com>
+Cc: Andrea Parri <parri.andrea@gmail.com>,
+	Joerg Roedel <joro@8bytes.org>,
+	Will Deacon <will@kernel.org>,
+	Robin Murphy <robin.murphy@arm.com>,
+	Nicolin Chen <nicolinc@nvidia.com>,
+	iommu@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	Sashiko <sashiko-bot@kernel.org>,
+	stable@vger.kernel.org
+Subject: [PATCH 1/2] iommufd: Keep dmabuf PFNs MMIO when filling another domain
+Date: Mon,  5 Oct 2026 16:37:35 +0200
+Message-ID: <20261005143737.2915-2-parri.andrea@gmail.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261005143737.2915-1-parri.andrea@gmail.com>
+References: <20261005143737.2915-1-parri.andrea@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] wifi: ath12k: skip hardware rfkill setup on Microsoft
- Surface Pro 11
-To: =?UTF-8?Q?Fran=C3=A7ois_Roux?= <franzelfranzel@gmail.com>,
-        Jeff Johnson <jjohnson@kernel.org>
-Cc: Manivannan Sadhasivam <mani@kernel.org>,
-        Krzysztof Kozlowski <krzk@kernel.org>,
-        Konrad Dybcio
- <konradybcio@kernel.org>,
-        Bjorn Andersson <andersson@kernel.org>,
-        =?UTF-8?Q?J=C3=A9r=C3=B4me_de_Bretagne?= <jerome.debretagne@gmail.com>,
-        Dale Whinham <daleyo@gmail.com>, ath12k@lists.infradead.org,
-        linux-wireless@vger.kernel.org, linux-arm-msm@vger.kernel.org,
-        linux-kernel@vger.kernel.org
-References: <20261004165132.4313-1-franzelfranzel@gmail.com>
-From: Jeff Johnson <jeff.johnson@oss.qualcomm.com>
-Content-Language: en-US
-In-Reply-To: <20261004165132.4313-1-franzelfranzel@gmail.com>
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-Proofpoint-ORIG-GUID: sty63Vt6Yf_r8SI-aoT3PrJnj9kO56tV
-X-Proofpoint-GUID: sty63Vt6Yf_r8SI-aoT3PrJnj9kO56tV
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDA1MDA1NyBTYWx0ZWRfX6ZkbunTiU/1F
- JG0p0D/PU4u1jO3/M8uKuxw+4Wdg2gR/yy9Nnz7wK2gjQeRRi0tlMh0jQVFWkLjrb7G+ZuHaCkT
- /oNXlCLShyPAdwZ7xO/rtb1BakNs4+o=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDA1MDA1NyBTYWx0ZWRfX4cfXZExasrqj
- 8fjSl8NGufHjNfmu1Rmb+JKdhH9s/JSLUQrBD/okNtPg/WlnHOgeRq2uMb4rF+1coYmIVP3HmyE
- XPYm7Dh/ApgBU2Zd6XF8UT84MmORn4pjyqIHo5nRZnwDOevS/YL2VMB0/jqXQUNBOtZVm3KZ1Oa
- 8tMhzYLlTTtns+yjqXuKsKRGlLmwo7vUcZk5nJ7fCCBgmtxfLKwxOjMicBFwLGAUz1mCc3rjvNb
- CkJtx+p5ZtaBQtu+ffs3HpOZHPeZ7r2TSWsgzxkdRnzURyY0YFqYXzhao2JWYPKJUKbWcOkh1oR
- UhdfDqOjnborIyO8rjpuSUS7qUDPKbKZmuKPogBy7qM6uhPNspd4gux+JKbxeU/4Z6eQQbnXRBW
- 6vda6P8JVlsek0xat5Q1Hkl6zfjmAv/CkGEPeoktRLzpEvS8fowTplDmsCINYF4+Y5x3w14Puiz
- yKWAnN1/zIBmlcuANVg==
-X-Authority-Analysis: v=2.4 cv=Q6tHcI2a c=1 sm=1 tr=0 ts=6ac3b63e cx=c_pps
- a=RP+M6JBNLl+fLTcSJhASfg==:117 a=AnolQpdaNwb4XK4FG+QP+g==:17
- a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=rJkE3RaqiGZ5pbrm-msn:22
- a=VwQbUJbxAAAA:8 a=pGLkceISAAAA:8 a=7PQHMOqyCB17KHk-lU0A:9 a=3ZKOabzyN94A:10
- a=QEXdDO2ut3YA:10 a=iS9zxrgQBfv6-_F4QbHw:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-10-05_04,2026-10-05_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 bulkscore=0 priorityscore=1501 adultscore=0 lowpriorityscore=0
- malwarescore=0 impostorscore=0 suspectscore=0 phishscore=0 spamscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2610050057
 
-On 10/4/2026 9:51 AM, François Roux wrote:
-> On the Microsoft Surface Pro 11 (X1E80100, "microsoft,denali"), the
-> WCN7850 hardware rfkill input reads as "radio off" and the OS has no
-> way to control it. ath12k enables hardware rfkill handling, so Wi-Fi
-> stays hard-blocked:
-> 
->   iwd: Error bringing interface 4 up: Operation not possible due to RF-kill
-> 
-> ACPI platforms can opt out through ath12k_acpi_get_disable_rfkill(),
-> but DT platforms cannot. A DT property was proposed for this and
-> rejected, because it describes what the OS should do rather than the
-> hardware. The suggested alternative was to handle this machine in the
-> driver, keyed on the board compatible and the device ID, until a
-> connector binding can describe a broken rfkill line. Do that.
-> 
-> Tested on a Surface Pro 11 with next-20260929, booted with the
-> unmodified mainline DTB: the interface is no longer blocked and
-> connects.
-> 
-> Link: https://lore.kernel.org/all/2ixwny6hzumlqmok5cjwutvtk7nzmx4t3dhxc44ao4l2u755pj@n6m7jyxf2o62/
-> Suggested-by: Manivannan Sadhasivam <mani@kernel.org>
-> Assisted-by: LLM
-> Signed-off-by: François Roux <franzelfranzel@gmail.com>
-> ---
-> This replaces my RFC series "Allow DT boards to disable WCN7850 hardware
-> rfkill", which duplicated the disable-rfkill DT property already proposed
-> and rejected in the Surface Pro 11 series:
-> 
-> https://lore.kernel.org/all/20261003091509.4822-1-franzelfranzel@gmail.com/
-> https://lore.kernel.org/all/20251220-surface-sp11-for-next-v5-2-16065bef8ef3@gmail.com/
-> 
-> The code is Manivannan's suggestion from that thread. Jérôme reported
-> there that the Surface Laptop 7 (microsoft,romulus13/15) has the same
-> problem. I left it out because I cannot test it.
-> 
->  drivers/net/wireless/ath/ath12k/core.c | 10 ++++++++++
->  1 file changed, 10 insertions(+)
-> 
-> diff --git a/drivers/net/wireless/ath/ath12k/core.c b/drivers/net/wireless/ath/ath12k/core.c
-> index 0c72948f3..dc41a2a7d 100644
-> --- a/drivers/net/wireless/ath/ath12k/core.c
-> +++ b/drivers/net/wireless/ath/ath12k/core.c
-> @@ -83,6 +83,16 @@ static int ath12k_core_rfkill_config(struct ath12k_base *ab)
->  	if (ath12k_acpi_get_disable_rfkill(ab))
->  		return 0;
->  
-> +	/*
-> +	 * TODO: On the Microsoft Surface Pro 11, the OS cannot control the
-> +	 * WCN7850 hardware rfkill input, which reads as "radio off". Keep
-> +	 * hardware rfkill disabled there. Ideally this would come from the
-> +	 * connector node of the board DT, but that binding does not exist
-> +	 * yet, so handle it in the driver for now.
-> +	 */
-> +	if (of_machine_is_compatible("microsoft,denali") && ab->id.device == 0x1107)
-> +		return 0;
-> +
+A VFIO PCI dmabuf mapped into an IOAS is mapped with IOMMU_MMIO only in
+the domains present when it is mapped. A domain added later, or a copy
+of the area into another IOAS, maps the same BAR as cacheable CPU
+memory: IOMMU_CACHE set and IOMMU_MMIO clear.
 
-my preference would to to break this out into a separate table-driven function
-so that if other devices have this issue they would just need to add to the table.
+Once the area is in pages->domains_itree, pfn_reader_fill_span() reads
+its PFNs back from the storage domain through batch_from_domain(), which
+adds them with batch_add_pfn() as BATCH_CPU_MEMORY. Only a hole in the
+span reaches pfn_reader_fill_dmabuf() and gets BATCH_MMIO, so
+batch_to_domain() programs the later domain with the wrong prot.
 
-reference ath11k_core_get_usecase_firmware() as a table-driven solution for a
-different device-specific problem (selects different firmware for specific
-compatibles).
+The effect depends on the page table format. io-pgtable-arm maps the BAR
+as Normal cacheable instead of Device memory, the AMDv1 and x86_64
+generic_pt formats set the SME C-bit on it when the tables are encrypted,
+and the RISC-V format with Svpbmt maps it as normal memory instead of IO.
 
+Read dmabuf PFNs from the recorded phys for every span, before the
+xarray and domain paths. The phys range is always available, and the
+read-back from a domain only serves to avoid re-pinning user pages.
 
->  	for (i = 0; i < ab->num_radios; i++) {
->  		ar = ab->pdevs[i].ar;
->  
-> 
-> base-commit: 6474fa070f2b8013b4b87350b775b8c3be6e8aac
-> prerequisite-patch-id: aafe3fac38f4020441979665509928f8cc832095
+Sashiko pointed this out while reviewing an RFC that plumbs the dma-buf
+memory type through pfn_reader_fill_dmabuf().
+
+Fixes: 74014a4b55f5 ("iommufd: Have pfn_reader process DMABUF iopt_pages")
+Reported-by: Sashiko <sashiko-bot@kernel.org>
+Link: https://lore.kernel.org/all/20260716154123.32DC01F000E9@smtp.kernel.org/
+Cc: stable@vger.kernel.org
+Assisted-by: LLM
+Signed-off-by: Andrea Parri <parri.andrea@gmail.com>
+---
+ drivers/iommu/iommufd/pages.c | 13 +++++++++----
+ 1 file changed, 9 insertions(+), 4 deletions(-)
+
+diff --git a/drivers/iommu/iommufd/pages.c b/drivers/iommu/iommufd/pages.c
+index 404f31d8f7291..2f6153108add7 100644
+--- a/drivers/iommu/iommufd/pages.c
++++ b/drivers/iommu/iommufd/pages.c
+@@ -1178,6 +1178,15 @@ static int pfn_reader_fill_span(struct pfn_reader *pfns)
+ 	    WARN_ON(span->last_used < start_index))
+ 		return -EINVAL;
+ 
++	/*
++	 * Always read a dmabuf from its phys, even where a domain already
++	 * maps it: a domain can only report CPU memory PFNs, losing
++	 * BATCH_MMIO. last_hole aliases last_used, so this covers any span.
++	 */
++	if (iopt_is_dmabuf(pfns->pages))
++		return pfn_reader_fill_dmabuf(&pfns->dmabuf, &pfns->batch,
++					      start_index, span->last_hole);
++
+ 	if (span->is_used == 1) {
+ 		batch_from_xarray(&pfns->batch, &pfns->pages->pinned_pfns,
+ 				  start_index, span->last_used);
+@@ -1201,10 +1210,6 @@ static int pfn_reader_fill_span(struct pfn_reader *pfns)
+ 		return 0;
+ 	}
+ 
+-	if (iopt_is_dmabuf(pfns->pages))
+-		return pfn_reader_fill_dmabuf(&pfns->dmabuf, &pfns->batch,
+-					      start_index, span->last_hole);
+-
+ 	user = &pfns->user;
+ 	if (start_index >= user->upages_end) {
+ 		rc = pfn_reader_user_pin(user, pfns->pages, start_index,
+-- 
+2.53.0
 
