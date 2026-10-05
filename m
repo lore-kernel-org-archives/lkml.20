@@ -1,222 +1,137 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ed2-f32.google.com (mail-ed2-f32.google.com [74.125.228.96])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D922918A6D4;
-	Mon,  5 Oct 2026 07:55:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791186957; cv=none; b=AE7fh1V4uty02zgoObUzOdE7YXKxojyusHZNBhVx65dUbI5Py52/MgUtJ1NTS5mmG1CHhCg3sCzTk9++sxVyGyTCB82wVOSPj0Sa2HhOMizxrZ2mPfJDPowoXVaw9OPyCB13BfGGbZ9pfTJS3A3G1SzqXwGNu40XKWDirac/1+E=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791186957; c=relaxed/simple;
-	bh=3U4X5UvYnUo/TN+47/qhU7ABi2eQ5DBjpw1gGMkM6/o=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=bYywPDT7kV4poq6yM0ZoczGAGHcGvE5cGuD5YofcSBNEocLSq4Z1GTG/4TDJZNN41nJHluAdvSTeiKUTyJo11iwc+bkjYJk5XQQz1av0ARCgzngczl6ZQqIh5BBBUUT2egXkyYi8MRkfEUYb7QGpG+cqK+5PDZlOU0yGjujokqE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=AOqoEEn3; arc=none smtp.client-ip=192.198.163.18
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DEC1437D11F
+	for <linux-kernel@vger.kernel.org>; Mon,  5 Oct 2026 07:57:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.228.96
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791187022; cv=pass; b=Ptzayl4aXriWfo8EsCrO5T9Vby9mwwxQrA8c1G2lwvSok4h7TEHTXOj3SUECOee0eMptu/b2rw5TmVTh57mZd04xomGcFmOBLtRSrQoVoGTPnCBySwBEN99UphQejOUpcz0+TT7YfV1uuq+aFc1GuPbL4CJBMDn9wDKUVN7dLpE=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791187022; c=relaxed/simple;
+	bh=Cqt6Fu+sk8V6mLKmZzliQOQ130R6uksTirlfpR1CVrU=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=Xvlh5Eg8DcKbU1EcdlFGibBRoGN/1U6SuuK4oFykiasieiZYoU4G6H9VCIlDHe4z2Qe3c5tsfPvdAJAYI/56qzORt3XFXmOtSyvWfK95swvkg9uym80BuvC19mnhB82iB721V9QCPf35dNIUKtyvk18kiFJGtbNsGKKogw3s/eE=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=NdFTF936; arc=pass smtp.client-ip=74.125.228.96
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="AOqoEEn3"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1791186955; x=1822722955;
-  h=from:to:cc:subject:date:message-id:mime-version:
-   content-transfer-encoding;
-  bh=3U4X5UvYnUo/TN+47/qhU7ABi2eQ5DBjpw1gGMkM6/o=;
-  b=AOqoEEn3OjoBU5UkrM2FY9s/CXFZtObOZvGukgSC8LzKcI8Mx+ZH0WWt
-   qbOY6uZg4VVzgGhutjEeJV+4VTPY3w6ED/wkUP58kZQnl0x/onobzZ1WO
-   Z3huIxdGlmG2GYb1gmwKQeJqDqZQEZSr1MHYwuas6htoOJb7IvOWLr/2h
-   7n3vVkjkg8bdZ5GEYsS4LNerI+gvLBRmjXF+xMml0+tJ830VCkkHujJVo
-   M5nXtzAd+lSwAEdzDXuWl5id62guAdXKdCsaHf/UckKO9p2yFJC2VQFHR
-   HWkpL+iPwa6XwQEHHiYey041oItiUfW65w3UEzio7boztD+hvaskPGiq+
-   Q==;
-X-CSE-ConnectionGUID: 6051GPD0STaT7vUgroOjTA==
-X-CSE-MsgGUID: xEo5MRRWSZGBPnYLc+lYxg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11925"; a="90982549"
-X-IronPort-AV: E=Sophos;i="6.27,141,1787036400"; 
-   d="scan'208";a="90982549"
-Received: from fmviesa008.fm.intel.com ([10.60.135.148])
-  by fmvoesa112.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 05 Oct 2026 00:55:54 -0700
-X-CSE-ConnectionGUID: C+k4WJjWRKCC4jWpsC6isA==
-X-CSE-MsgGUID: RInxy9gwRKKTFHpSf2z7UA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,141,1787036400"; 
-   d="scan'208";a="276896605"
-Received: from srf-bkc.iind.intel.com ([10.49.110.107])
-  by fmviesa008.fm.intel.com with ESMTP; 05 Oct 2026 00:55:51 -0700
-From: tirthendu.sarkar@intel.com
-To: Thomas Gleixner <tglx@linutronix.de>,
-	Ingo Molnar <mingo@redhat.com>,
-	Borislav Petkov <bp@alien8.de>,
-	Dave Hansen <dave.hansen@linux.intel.com>,
-	x86@kernel.org
-Cc: "H . Peter Anvin" <hpa@zytor.com>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Andy Shevchenko <andriy.shevchenko@intel.com>,
-	linux-doc@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH] x86/time: Enable HPET under ACPI hardware-reduced mode with hpet=force
-Date: Mon,  5 Oct 2026 03:55:50 -0400
-Message-ID: <20261005075550.463089-1-tirthendu.sarkar@intel.com>
-X-Mailer: git-send-email 2.52.0
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="NdFTF936"
+Received: by mail-ed2-f32.google.com with SMTP id 4fb4d7f45d1cf-6ad59dfd3a7so123467a12.0
+        for <linux-kernel@vger.kernel.org>; Mon, 05 Oct 2026 00:57:00 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1791187019; cv=none;
+        d=google.com; s=arc-20260327;
+        b=aHR/BnxgA0VR+0+1/lIpoExcmALVcPXUgPGPg2T3hgT3BWryljbgh1Ss1gp9R7t5fN
+         FI2rsRrheMpTu8OUlp87Mm/F7S1hh0mqw3gG3gMZ6cjIjePkrMMbdQm+dNYXO9x9/T1R
+         bFhn60LS3ehhKTzgU/yQ4f/NXHEyEF4dSPOlPHJTNguk/8wanznP+70Sf57KbFziJ0pq
+         J/AmqKnYXkyERXnLWF8PLILZTaO8gLIjWB4GgBAwkZHzOrlSR6AXEXs8sDCh0WJlbqd7
+         hhmoU69lEiLGZz5y+b6qlLucs7UwBrwuyU5nYqkQDVP+B/+6Y8I0PgcVKFpXaPI5ACB0
+         aFIQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=Cqt6Fu+sk8V6mLKmZzliQOQ130R6uksTirlfpR1CVrU=;
+        fh=Z11LeOJO+HMehSUmo8WhAb07okgOU/t6rv0X5utpESQ=;
+        b=b9qSOnFlmwIZ0wtjnHLyZbZO2qcr7Wcc67NJquOz8NzuDRmKpdf90RgOkrdOArKy0v
+         tnnRHJRiwQyOi/teM5LTbv7wUa5Cu2CnA9dM7GAP+xC+t4X3QddFejSUizXk2nGSmVgx
+         9VTRRkVxiiG6l/zzEhP6lbH4UIIbLaZmYhZGJFLbH261qkMBKhp88uDrjo8/wNbCbisT
+         Xpw+82HN7XhzI58gZFGeEoVsuQIdMAuocKf78UrGXPmKNVoYeNsxhauJmRSibsFmmHQU
+         3QJ+fGd5xSMUiRKZmn0vKYUjYF64WtfX+RN1LwH8XIxuR5QQpz4eFh8YenSisHky9avj
+         Bq9A==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791187019; x=1791791819; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=Cqt6Fu+sk8V6mLKmZzliQOQ130R6uksTirlfpR1CVrU=;
+        b=NdFTF936OLuM/81O1dlM+ND24KqVqhozqAzWRiQFixsNqqaeCAd3FPwgM9BMQEv1Qd
+         VlwakQ3Jbexah13atoyKeaBwMHoFyr+Pt409dWN8TuvbyTo5MosAQR7DrhX1z4JFNzox
+         6VIlz2f8MXudLIrFBg9pWKeBBD1tlb/PJIbT3dG4+kzIaft/VAYXVpXLrWo1fml1ighR
+         ZzLVdexNT3AFUvcRK8/piOsjRTQAhRiloy8BrvPG8xi9n4Nia9W1CbrAq8BPZbMdSQI8
+         U4SBR/9zsyigUNMkoKoYCfKC3KRGSY9qef4Qq4z7AJiCc3M7TXr2dHrVejzHG8o85fEL
+         PhQA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791187019; x=1791791819;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Cqt6Fu+sk8V6mLKmZzliQOQ130R6uksTirlfpR1CVrU=;
+        b=p9A44ZpEpXssse5KRmnUSkpoDbVp5b3dGvRaZm90XWhubicBYWZeq5h9d35q42jyVJ
+         Nw0mzuBVbEFpkVtjuYmEA33xD9WQ9hliINi6QxlGp/wH2jieetvYT2JhscESOQXmdvGp
+         zU+jjbN+mbo9y3ShEJH9Q8JitjjKv6Q9uxD9GAu9RWYfTShtDPIn5puwvp6bFdh6nlFr
+         OPi1z/RT+LmMEHM2ko8n8niDyFmsgZjZZlex7xxOxurBoqaiR2s21KPKAAhWStWVWNpD
+         FkNO9GmFZSJKatn4OqCUItl1PCThls+clda57v4siqotOZC2vqedRibNqIHr1LiMLrPK
+         H0FA==
+X-Forwarded-Encrypted: i=1; AKwUvBxj1pVNOj74YLrbADAIR2VnbG2VmrhCpN8MomSHg6gS+XvHHOwPNS2ulw0nCpYIw0zUhrLsadw/dtE0Ap8=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKZkSFPT1BWuELwAER6n8MZXe8r1fMhrqeRhEO3c9WeyhT0OtDD
+	AnxPLiX9ekDeFXWDsEL76K3gai5DutrttlV6znsljHm+GkNHTGD3MuYyHUyeSZJDrB5nRJNSw6m
+	BdW5aJk1zT3xjQDdA5/0Wl2V1kCAwQac=
+X-Gm-Gg: AYBFou1KqYnnjKaIeb7cJ6qvVo56W5YpJ6TM2N6ODPpILAicD/ywGSzQCP7MJKvU1hv
+	0sMwx8b7siZ1gWH5TJ1ip0O4VUk8vGnCGSIr91fbu+ILrO9B6izPxBG+R2rzhAlSK/r8EXimSow
+	wN1PryPfFIn+v23NO/nIcW9nUPOYP0Q9OW4463G46+mhAou4KsxDm6z7fVXYX0fte1ps/Qm79hc
+	eTIKoTiB1JdZT8p9SsWL4LTGvAWvX4SmwOVGLkYZWboMt1qK+AH0m9T13gZghmNjsAjZRblQMYj
+	PEF4DI3EfvuW88zz50ipTOyqtBhoQuzWUCEExxv/HVRp9DDk9I21H5X8O68ukUdo0CPQsvvBDJ5
+	7jva3sYdvdRQ=
+X-Received: by 2002:a05:6402:3228:b0:6aa:d21c:9c18 with SMTP id
+ 4fb4d7f45d1cf-6af9e2f9d57mr8176215a12.3.1791187018776; Mon, 05 Oct 2026
+ 00:56:58 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20261004162458.3968546-1-nicoyip.dev@gmail.com> <225d8d84c8e5155d5af0adfbea270eeeda326021.camel@iki.fi>
+In-Reply-To: <225d8d84c8e5155d5af0adfbea270eeeda326021.camel@iki.fi>
+From: Chengfeng Ye <nicoyip.dev@gmail.com>
+Date: Mon, 5 Oct 2026 15:56:46 +0800
+X-Gm-Features: AclHuK9vopQGKPch616H4XPEsAiU40667tZEfF-9543oK_7dTTKxojOLxqJFuSY
+Message-ID: <CAAo+4rV9B=QUBAWZfpHL_W8jCoCLTqv79kha6G-x0UZP9Swm_A@mail.gmail.com>
+Subject: Re: [PATCH] Bluetooth: ISO: Serialize concurrent connect calls
+To: Pauli Virtanen <pav@iki.fi>
+Cc: Marcel Holtmann <marcel@holtmann.org>, Luiz Augusto von Dentz <luiz.dentz@gmail.com>, 
+	linux-bluetooth@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-From: Tirthendu Sarkar <tirthendu.sarkar@intel.com>
+On Mon, Oct 5, 2026 at 1:16=E2=80=AFAM Pauli Virtanen <pav@iki.fi> wrote:
+>
+> Hi,
+>
+> ma, 2026-10-05 kello 00:24 +0800, Chengfeng Ye kirjoitti:
+> > iso_sock_connect() checks the socket state before taking the socket loc=
+k
+> > and drops the lock again before setting up a connection. Two callers ca=
+n
+> > both pass the admission check while the socket is open or bound.
+> >
+> > Caller A can copy its destination for route selection, then caller B ca=
+n
+> > replace the socket destination before A binds or connects the CIS. A
+> > then uses B's destination with the route selected for its own request.
+> > B can also proceed after A attaches a connection and sets BT_CONNECT.
+> > For deferred BIS setup, B can bind a second BIS and overwrite
+> > iso_pi(sk)->conn, leaving the first connection's reference and conn->sk
+> > back-pointer stranded. Concurrent CIS connects can likewise replace the
+>
+> Memory safety probably should be enforced somewhat down the calls,
+> likely __iso_chan_add() should reject adding a different iso_conn to sk
+> if it already has one, since that looks like it leaks the
+> iso_conn_hold() reference and the back pointer association.
 
-ACPI hardware-reduced platforms unconditionally stub
-x86_init.timers.timer_init() to a noop, on the assumption that such
-platforms never provide legacy timer hardware. That is not universally
-true: virtualized/embedded x86 platforms can declare hardware-reduced
-mode while still enumerating a genuine HPET via the standard ACPI HPET
-table. On those, HPET never gets a chance to initialize at all,
-regardless of whether one is present.
+Hi Pauli,
 
-"hpet=force" is the existing opt-in for forcing HPET on in unusual
-situations, but today its effect is limited to a later PCI-quirk
-address override and bypassing the PC10-damaged auto-disable; it does
-not reach this earlier stubbing. Passing it on such a platform
-silently does nothing.
+Thanks for the review. I have just sent v2 with the check in __iso_chan_add=
+().
 
-Let "hpet=force" call hpet_enable() when .timer_init() was stubbed by
-ACPI hardware-reduced mode. This has to happen in x86_late_time_init()
-rather than at the stub site: that decision runs from setup_arch(),
-while "hpet=" is a __setup() handler and so is not parsed until
-parse_args(), further into start_kernel().
+I also adjusted the outgoing BIS and CIS callers to handle conflicting
+attachments early. The BIS check prevents modifying a reusable
+connection before attachment is rejected. The CIS check releases the
+HCI hold acquired by the current attempt on rejection, while
+preserving same-connection reuse for deferred setup.
 
-Only hpet_enable() is wanted here, not hpet_time_init(), which also
-falls back to the PIT and requests the legacy timer interrupt. Neither
-has hardware behind it on such a platform, and the fallback is not
-merely inert: the PIT clockevent it registers as global_clock_event
-never ticks, and calibrate_APIC_clock() cross-checks the APIC timer
-against jiffies advancing via exactly that clockevent, so the APIC
-timer is marked CLOCK_EVT_FEAT_DUMMY and disabled as well ("APIC timer
-disabled due to verification failure"). Where the APIC timer was the
-only usable clockevent, that is a boot hang.
-
-This covers hardware-reduced platforms that install their own
-.timer_init() rather than being stubbed, too. Intel MID points
-x86_init.acpi.reduced_hw_early_init() at a noop, so
-acpi_generic_reduced_hw_init() never runs there and .timer_init() keeps
-pointing at intel_mid_time_init(), which sets up the local APIC timer
-only and never touches the HPET - even though Tangier does have one at
-0xfed00000. None of the platform .timer_init() implementations enable
-the HPET themselves, so it cannot end up registered twice.
-
-The ACPI hardware-reduced check is still required: without it,
-"hpet=force" on an ordinary platform would call hpet_enable() a second
-time after hpet_time_init() already did, registering the clocksource
-twice. Hyper-V guests run hardware-reduced too, so the path is
-reachable there as well, but only ever behind the explicit opt-in.
-
-Nothing changes for non-hardware-reduced platforms, or for
-hardware-reduced platforms booted without "hpet=force". With
-"hpet=force" but no usable HPET, hpet_enable() fails and nothing else
-happens, matching today's outcome.
-
-Also document the new behaviour under "hpet=", and fix that entry's
-stale "[X86-32,HPET]" tag.
-
-Signed-off-by: Tirthendu Sarkar <tirthendu.sarkar@intel.com>
-Reviewed-by: Andy Shevchenko <andriy.shevchenko@intel.com>
----
-Tested under QEMU on a hardware-reduced platform with no HPET table, and
-with an HPET table describing an HPET that does not come up; neither falls
-through to the PIT. Also forced the Intel MID boot path under QEMU
-(hardware_subarch = X86_SUBARCH_INTEL_MID), which exercises that code path
-but not real Merrifield/Moorefield silicon. On a hardware-reduced platform
-with a genuine HPET, the HPET initializes and is confirmed to drive
-timekeeping.
-
- .../admin-guide/kernel-parameters.txt         |  8 +++++--
- arch/x86/include/asm/hpet.h                   |  1 +
- arch/x86/kernel/time.c                        | 22 ++++++++++++++++++-
- 3 files changed, 28 insertions(+), 3 deletions(-)
-
-diff --git a/Documentation/admin-guide/kernel-parameters.txt b/Documentation/admin-guide/kernel-parameters.txt
-index 68647ff4bdd24..2722c74eb5a57 100644
---- a/Documentation/admin-guide/kernel-parameters.txt
-+++ b/Documentation/admin-guide/kernel-parameters.txt
-@@ -2033,12 +2033,16 @@ Kernel parameters
- 			not exceed the maximum allowed hostname length (usually
- 			64 characters) and will be truncated otherwise.
- 
--	hpet=		[X86-32,HPET] option to control HPET usage
-+	hpet=		[X86,HPET] option to control HPET usage
- 			Format: { enable (default) | disable | force |
- 				verbose }
- 			disable: disable HPET and use PIT instead
- 			force: allow force enabled of undocumented chips (ICH4,
--				VIA, nVidia)
-+				VIA, nVidia). Also attempts HPET initialization
-+				on ACPI hardware-reduced platforms, which
-+				otherwise skip legacy timer init entirely. The
-+				legacy PIT is never used as a fallback there,
-+				since such platforms do not provide one.
- 			verbose: show contents of HPET registers during setup
- 
- 	hpet_mmap=	[X86, HPET_MMAP] Allow userspace to mmap HPET
-diff --git a/arch/x86/include/asm/hpet.h b/arch/x86/include/asm/hpet.h
-index ab0c78855ecb2..4cb8f6d2e13dc 100644
---- a/arch/x86/include/asm/hpet.h
-+++ b/arch/x86/include/asm/hpet.h
-@@ -97,6 +97,7 @@ static inline int hpet_enable(void) { return 0; }
- static inline int is_hpet_enabled(void) { return 0; }
- #define hpet_readl(a) 0
- #define default_setup_hpet_msi	NULL
-+#define hpet_force_user		false
- 
- #endif
- #endif /* _ASM_X86_HPET_H */
-diff --git a/arch/x86/kernel/time.c b/arch/x86/kernel/time.c
-index 4061430ac74c5..5184493689396 100644
---- a/arch/x86/kernel/time.c
-+++ b/arch/x86/kernel/time.c
-@@ -10,13 +10,14 @@
-  *
-  */
- 
-+#include <linux/acpi.h>
- #include <linux/clocksource.h>
- #include <linux/clockchips.h>
-+#include <linux/export.h>
- #include <linux/interrupt.h>
- #include <linux/irq.h>
- #include <linux/i8253.h>
- #include <linux/time.h>
--#include <linux/export.h>
- 
- #include <asm/vsyscall.h>
- #include <asm/x86_init.h>
-@@ -72,6 +73,25 @@ static __init void x86_late_time_init(void)
- 	 */
- 	x86_init.irqs.intr_mode_select();
- 
-+	/*
-+	 * ACPI hardware-reduced mode unconditionally stubs .timer_init() to
-+	 * a noop, on the assumption that no legacy timer exists. Some such
-+	 * platforms do provide a real HPET, so let "hpet=force" give it a
-+	 * chance to come up. Only hpet_enable() is wanted here, not
-+	 * hpet_time_init(): its PIT fallback and legacy timer interrupt have
-+	 * no hardware behind them on such platforms, and registering a PIT
-+	 * clockevent whose interrupt can never be delivered also fails the
-+	 * local APIC timer's calibration cross-check, disabling that too.
-+	 *
-+	 * This also covers hardware-reduced platforms that install their own
-+	 * .timer_init() rather than being stubbed (e.g. Intel MID, which
-+	 * sets up the local APIC timer only). None of them enable the HPET
-+	 * themselves, so it cannot end up registered twice.
-+	 */
-+	if (IS_ENABLED(CONFIG_HPET_TIMER) && acpi_reduced_hardware() &&
-+	    hpet_force_user)
-+		hpet_enable();
-+
- 	/* Setup the legacy timers */
- 	x86_init.timers.timer_init();
- 
--- 
-2.52.0
-
+Best regards,
+Chengfeng
