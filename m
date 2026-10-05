@@ -1,146 +1,237 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.17])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 26F073E4109
-	for <linux-kernel@vger.kernel.org>; Mon,  5 Oct 2026 21:56:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.17
+Received: from linux.microsoft.com (linux.microsoft.com [13.77.154.182])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 8408041441C;
+	Mon,  5 Oct 2026 21:56:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=13.77.154.182
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791237383; cv=none; b=djH8TPO7ENTLFIiqrpAEVG3LL1XDzwAfJJ8/+MiLp7ur0soTrI4+nbh95lOjIEn8VDkqn1FRmRnaCjvGmEyAGmy19T0FHGv6AhN7mhv1uQLkklFAUxJaCWa6hGFBGXgY9SXEx7Uyh077ocM78SPzX7laNa/y3fqPmBb7+mzVluI=
+	t=1791237387; cv=none; b=Fw9qrFB4GFys5SfF3iZIH2tkXG4356q05awGqq9M6m4giLT1mATMgHhkGMyV/lrMXHxQqx+OuEK2ESA0ApqPtsyXksqZGcYzTxO4AjRRN6+X3T4ZSUKkirCMpcDVVddjOuNITcwN2H1AMZ5qvjV7RsY6eAmxe9HDmJYJQouKYKM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791237383; c=relaxed/simple;
-	bh=wNOk1B9Fw6kEVDJfH7+3oqs1YGf9LbkX9L4EQd5SBj0=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=dkkKtXAL+a9LGKHOuZ7UCZJSzFs3bxFfQtBVrevBk34ZWBc5ZcNmMwqGj+R2+p+PJsjyY5jZz3u3DvsHo4bs9pvfz6WfOb/qrP9fjEaQk/PlHsXGW5Bq37T+N7Ix/JOaWWea2btfbQThga+/1SbHPGktlV4cc71uekrAgr3Tjjw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=cOHK3jfF; arc=none smtp.client-ip=192.198.163.17
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	s=arc-20240116; t=1791237387; c=relaxed/simple;
+	bh=FbP2ch66dC3cc/NTJjxa33z3u7/rOe3RIRoTjCDidsU=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=YYVtq7YugEa4CoTh0yhIJY8a9SXAZPuW4Zj76MIcERNjAwQDSuDyPjggbfORu/8ltJ5oFQKtHml0ZGYJcJSgIu7kPsUCNJv1U4KIG2n6dCKlGHXQQwRqNNr52VMBgYIXjTgszISSz8XFDh/AmYKk6/apexaAYYCUfQiWTJOF8zs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com; spf=pass smtp.mailfrom=linux.microsoft.com; dkim=pass (1024-bit key) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.b=l62QHvzQ; arc=none smtp.client-ip=13.77.154.182
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.microsoft.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="cOHK3jfF"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1791237381; x=1822773381;
-  h=message-id:subject:from:to:cc:date:in-reply-to:
-   references:content-transfer-encoding:mime-version;
-  bh=wNOk1B9Fw6kEVDJfH7+3oqs1YGf9LbkX9L4EQd5SBj0=;
-  b=cOHK3jfFDOkIOgwZuM3i9u/qRCjfENwU+DyYqKWW0OZ9uT58kIbYiD9T
-   0V6J6XWb1OhFRFyViI4QVuLrSB3d6Kovh7eUICHQhQGt0f7G/fz5yfiS8
-   +HCLIRdF1yhaLT0Wpq4EdOE1115JvUIB0dIVQLPgXKbp8Q69YnZlpqMdy
-   E1JBT15gV4OhxGYrH1I08XLwxf9Vr68qXpQn0qSsrwmUbwXFdPnEn3L4c
-   Vep3CJDcupOOgWaV7c4gDpV3Z+qtuPWb4v4rZVT0/42eLM22qO7X5OI/z
-   kXwO3yOFZfwCVSG/bPFZwzEBrlPtfvIYFHjZi5EnKSW/JC0IGts0BbwZo
-   w==;
-X-CSE-ConnectionGUID: 9sfsx3SCSNibqYmnrAnaUw==
-X-CSE-MsgGUID: /f/GOgV4RpOeMFSew+eA/w==
-X-IronPort-AV: E=McAfee;i="6800,10657,11926"; a="91781473"
-X-IronPort-AV: E=Sophos;i="6.27,142,1787036400"; 
-   d="scan'208";a="91781473"
-Received: from orviesa004.jf.intel.com ([10.64.159.144])
-  by fmvoesa111.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 05 Oct 2026 14:56:20 -0700
-X-CSE-ConnectionGUID: FRZaB1ViTt2K4vhg49zCww==
-X-CSE-MsgGUID: UnIrFq5xQjOkNy0EYmrDug==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,142,1787036400"; 
-   d="scan'208";a="280215996"
-Received: from unknown (HELO [10.241.243.185]) ([10.241.243.185])
-  by orviesa004-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 05 Oct 2026 14:56:20 -0700
-Message-ID: <ff375bd27d03f4e13552c39b212c839254409b70.camel@linux.intel.com>
-Subject: Re: [PATCH v2 1/3] sched/fair: Add smt_balance and llc_balance to
- the decision matrix
-From: Tim Chen <tim.c.chen@linux.intel.com>
-To: Jemmy Wong <jemmywong512@gmail.com>, Ingo Molnar <mingo@redhat.com>, 
- Peter Zijlstra <peterz@infradead.org>, Juri Lelli <juri.lelli@redhat.com>,
- Vincent Guittot	 <vincent.guittot@linaro.org>
-Cc: Dietmar Eggemann <dietmar.eggemann@arm.com>, Steven Rostedt	
- <rostedt@goodmis.org>, Ben Segall <bsegall@google.com>, Mel Gorman	
- <mgorman@suse.de>, Valentin Schneider <vschneid@redhat.com>, K Prateek
- Nayak	 <kprateek.nayak@amd.com>, linux-kernel@vger.kernel.org
-Date: Mon, 05 Oct 2026 14:56:19 -0700
-In-Reply-To: <20261002154634.71878-2-jemmywong512@gmail.com>
-References: <20261002154634.71878-1-jemmywong512@gmail.com>
-	 <20261002154634.71878-2-jemmywong512@gmail.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.58.1 (3.58.1-1.fc43) 
+	dkim=pass (1024-bit key) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.b="l62QHvzQ"
+Received: from CPC-beaub-VBQ1L.localdomain (unknown [70.37.26.65])
+	by linux.microsoft.com (Postfix) with ESMTPSA id A1A9920B7168;
+	Mon,  5 Oct 2026 14:55:29 -0700 (PDT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com A1A9920B7168
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.microsoft.com;
+	s=default; t=1791237329;
+	bh=YaYPfGrT8pb6peFO0ifPaeJLF06E4n0OBiG5vN39X4M=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=l62QHvzQTxiZgRdtj6s5Xbd9XFCN0txFVXOUqjaApY9smgGF2JwSrlhfl0wfSJcEe
+	 79gFbePlFTstVTi7msqfL/PFyI/nCR3Oe3yGz/IwkKNoIKi8bcLjSNvj77+2RWElZj
+	 kefidcH4OEJTYDIbSHk/PQOaeqYwpy4+T+cqSjEM=
+Date: Mon, 5 Oct 2026 21:56:19 +0000
+From: Beau Belgrave <beaub@linux.microsoft.com>
+To: Steven Rostedt <rostedt@goodmis.org>
+Cc: Jeff Barnes <jeffbarnes@linux.microsoft.com>,
+	linux-trace-kernel@vger.kernel.org, mhiramat@kernel.org,
+	mathieu.desnoyers@efficios.com, linux-kernel@vger.kernel.org,
+	akpm@linux-foundation.org, kees@kernel.org
+Subject: Re: [PATCH] tracing/user_events: Fail fork when event state
+ duplication fails
+Message-ID: <20261005215619.GA404-beaub@linux.microsoft.com>
+References: <20261002222639.1964370-1-jeffbarnes@linux.microsoft.com>
+ <20261004040016.73e9d705@fedora>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261004040016.73e9d705@fedora>
 
-On Fri, 2026-10-02 at 23:46 +0800, Jemmy Wong wrote:
-> The group-type matrix was introduced in commit 0b0695f2b34a
-> ("sched/fair: Rework load_balance()"). When commit fee1759e4f04
-> ("sched/fair: Determine active load balance for SMT sched groups")
-> added group_smt_balance and commit f38cc2f0d8a3 ("sched/cache:
-> Prioritize tasks preferring destination LLC during balancing")
-> added group_llc_balance, neither commit updated the matrix table.
->=20
-> Both types are only tagged on non-local groups in update_sg_lb_stats(),
-> so their local columns are N/A.
->=20
-> As busiest, group_smt_balance is only set when dst_cpu is idle and the
-> SMT group runs more than one task. Against a local has_spare or
-> fully_busy group it goes through the nr_idle checks, where a non-SMT
-> dst group may also force the pull via smt_vs_nonsmt_groups(). Against a
-> local imbalanced or overloaded group the local group is busier and the
-> pair is balanced.
->=20
-> As busiest, group_llc_balance is not an unconditional force. Against a
-> local has_spare group it forces the pull when prefer_sibling is set,
-> because the group_llc_balance test comes before sibling_imbalance() in
-> sched_balance_find_src_group(). SD_PREFER_SIBLING is only cleared for
-> NUMA domains. Against a local fully_busy or imbalanced group the nr_idle
-> checks apply, and against a local overloaded group the local group is
-> busier and the pair is balanced.
->=20
-> No functional change.
->=20
-> Signed-off-by: Jemmy Wong <jemmywong512@gmail.com>
+On Sun, Oct 04, 2026 at 04:00:16AM -0400, Steven Rostedt wrote:
+> Beau,
+> 
+> Can you review this?
+> 
 
-Reviewed-by: Tim Chen <tim.c.chen@linux.intel.com>
+Sure thing.
 
-Tim
+> Thanks,
+> 
+> -- Steve
+> 
+> 
+> On Fri,  2 Oct 2026 18:26:39 -0400
+> Jeff Barnes <jeffbarnes@linux.microsoft.com> wrote:
+> 
+> > Registered user events are retained across fork, but duplicating their
+> > state for a child with a separate mm can fail. Both user_event_mm_dup() and
+> > user_events_fork() currently return void, so allocation failure silently
+> > creates a child without the inherited registration state.
+> > 
+> > The child can consequently retain a stale copy-on-write enable word and
+> > miss later event enable and disable updates.
+> > 
 
-> ---
->  kernel/sched/fair.c | 16 +++++++++-------
->  1 file changed, 9 insertions(+), 7 deletions(-)
->=20
-> diff --git a/kernel/sched/fair.c b/kernel/sched/fair.c
-> index 57360f5cdde4..bcb9987952b9 100644
-> --- a/kernel/sched/fair.c
-> +++ b/kernel/sched/fair.c
-> @@ -13184,13 +13184,15 @@ static inline void calculate_imbalance(struct l=
-b_env *env, struct sd_lb_stats *s
->  /*
->   * Decision matrix according to the local and busiest group type:
->   *
-> - * busiest \ local has_spare fully_busy misfit asym imbalanced overloade=
-d
-> - * has_spare        nr_idle   balanced   N/A    N/A  balanced   balanced
-> - * fully_busy       nr_idle   nr_idle    N/A    N/A  balanced   balanced
-> - * misfit_task      force     N/A        N/A    N/A  N/A        N/A
-> - * asym_packing     force     force      N/A    N/A  force      force
-> - * imbalanced       force     force      N/A    N/A  force      force
-> - * overloaded       force     force      N/A    N/A  force      avg_load
-> + * busiest \ local has_spare fully_busy misfit smt asym imbalanced llc o=
-verloaded
-> + * has_spare        nr_idle   balanced   N/A   N/A  N/A  balanced  N/A  =
-balanced
-> + * fully_busy       nr_idle   nr_idle    N/A   N/A  N/A  balanced  N/A  =
-balanced
-> + * misfit_task      force     N/A        N/A   N/A  N/A  N/A       N/A  =
-N/A
-> + * smt_balance      nr_idle   nr_idle    N/A   N/A  N/A  balanced  N/A  =
-balanced
-> + * asym_packing     force     force      N/A   N/A  N/A  force     N/A  =
-force
-> + * imbalanced       force     force      N/A   N/A  N/A  force     N/A  =
-force
-> + * llc_balance      force     nr_idle    N/A   N/A  N/A  nr_idle   N/A  =
-balanced
-> + * overloaded       force     force      N/A   N/A  N/A  force     N/A  =
-avg_load
->   *
->   * N/A :      Not Applicable because already filtered while updating
->   *            statistics.
+This code makes fork fail if we cannot duplicate the user_event
+enablements, uprobes just warns in these cases. The changes introduced
+look correct if that's what we want (to fail fork() when enablements
+would have been left behind).
+
+If we do not want the fork to actually fail, a simple call to
+user_event_mm_remove() within user_event_mm_dup() would address the
+inconsistency. However, it would be silent. Some questions follow.
+
+Steve, is it fine to have fork() fail when we cannot copy state? Uprobe
+seems to just warn here.
+
+Jeff, I assume we have cases in mind where we really prefer fork() to
+fail when user_events cannot be propogated? (For sure we want the
+inconsistency fixed, just not sure about if silent is OK or not).
+
+Thanks,
+-Beau
+
+> > Return an error from user_event_mm_dup() and user_events_fork(), and
+> > perform the duplication in copy_process() while failure can still be
+> > unwound. Return -ENOMEM when the child user_event_mm or any of its enablers
+> > cannot be duplicated.
+> > 
+> > Add a cleanup path so successfully acquired user-events state is removed if
+> > a later fork operation fails. Preserve the existing CLONE_VM behavior and
+> > its task reference accounting.
+> > 
+> > A deterministic allocation-failure test on upstream master previously
+> > allowed fork() to succeed while the child missed an enablement update. With
+> > this change, the same fork fails with ENOMEM. The complete user_events ABI
+> > suite passes.
+> > 
+> > Fixes: 7235759084a4 ("tracing/user_events: Use remote writes for event enablement")
+> > Cc: stable@vger.kernel.org
+> > Signed-off-by: Jeff Barnes <jeffbarnes@linux.microsoft.com>
+> > ---
+> >  include/linux/user_events.h      | 16 +++++++---------
+> >  kernel/fork.c                    |  8 ++++++--
+> >  kernel/trace/trace_events_user.c |  8 +++++---
+> >  3 files changed, 18 insertions(+), 14 deletions(-)
+> > 
+> > diff --git a/include/linux/user_events.h b/include/linux/user_events.h
+> > index 57d1ff006090..75f184126727 100644
+> > --- a/include/linux/user_events.h
+> > +++ b/include/linux/user_events.h
+> > @@ -27,28 +27,26 @@ struct user_event_mm {
+> >  	struct rcu_work		put_rwork;
+> >  };
+> >  
+> > -extern void user_event_mm_dup(struct task_struct *t,
+> > -			      struct user_event_mm *old_mm);
+> > +int user_event_mm_dup(struct task_struct *t, struct user_event_mm *old_mm);
+> >  
+> >  extern void user_event_mm_remove(struct task_struct *t);
+> >  
+> > -static inline void user_events_fork(struct task_struct *t,
+> > -				    u64 clone_flags)
+> > +static inline int user_events_fork(struct task_struct *t, u64 clone_flags)
+> >  {
+> >  	struct user_event_mm *old_mm;
+> >  
+> >  	if (!t || !current->user_event_mm)
+> > -		return;
+> > +		return 0;
+> >  
+> >  	old_mm = current->user_event_mm;
+> >  
+> >  	if (clone_flags & CLONE_VM) {
+> >  		t->user_event_mm = old_mm;
+> >  		refcount_inc(&old_mm->tasks);
+> > -		return;
+> > +		return 0;
+> >  	}
+> >  
+> > -	user_event_mm_dup(t, old_mm);
+> > +	return user_event_mm_dup(t, old_mm);
+> >  }
+> >  
+> >  static inline void user_events_execve(struct task_struct *t)
+> > @@ -67,9 +65,9 @@ static inline void user_events_exit(struct task_struct *t)
+> >  	user_event_mm_remove(t);
+> >  }
+> >  #else
+> > -static inline void user_events_fork(struct task_struct *t,
+> > -				    u64 clone_flags)
+> > +static inline int user_events_fork(struct task_struct *t, u64 clone_flags)
+> >  {
+> > +	return 0;
+> >  }
+> >  
+> >  static inline void user_events_execve(struct task_struct *t)
+> > diff --git a/kernel/fork.c b/kernel/fork.c
+> > index 10f2d05d816a..9e3da2e6059f 100644
+> > --- a/kernel/fork.c
+> > +++ b/kernel/fork.c
+> > @@ -2311,9 +2311,12 @@ __latent_entropy struct task_struct *copy_process(
+> >  	retval = copy_mm(clone_flags, p);
+> >  	if (retval)
+> >  		goto bad_fork_cleanup_signal;
+> > -	retval = copy_namespaces(clone_flags, p);
+> > +	retval = user_events_fork(p, clone_flags);
+> >  	if (retval)
+> >  		goto bad_fork_cleanup_mm;
+> > +	retval = copy_namespaces(clone_flags, p);
+> > +	if (retval)
+> > +		goto bad_fork_cleanup_user_events;
+> >  	retval = copy_io(clone_flags, p);
+> >  	if (retval)
+> >  		goto bad_fork_cleanup_namespaces;
+> > @@ -2575,7 +2578,6 @@ __latent_entropy struct task_struct *copy_process(
+> >  
+> >  	trace_task_newtask(p, clone_flags);
+> >  	uprobe_copy_process(p, clone_flags);
+> > -	user_events_fork(p, clone_flags);
+> >  
+> >  	copy_oom_score_adj(clone_flags, p);
+> >  
+> > @@ -2602,6 +2604,8 @@ __latent_entropy struct task_struct *copy_process(
+> >  		exit_io_context(p);
+> >  bad_fork_cleanup_namespaces:
+> >  	exit_nsproxy_namespaces(p);
+> > +bad_fork_cleanup_user_events:
+> > +	user_events_exit(p);
+> >  bad_fork_cleanup_mm:
+> >  	sched_cache_fork_cleanup(p);
+> >  	if (p->mm) {
+> > diff --git a/kernel/trace/trace_events_user.c b/kernel/trace/trace_events_user.c
+> > index f658c3a77aa7..8941c8d7c193 100644
+> > --- a/kernel/trace/trace_events_user.c
+> > +++ b/kernel/trace/trace_events_user.c
+> > @@ -863,7 +863,7 @@ void user_event_mm_remove(struct task_struct *t)
+> >  	queue_rcu_work(system_percpu_wq, &mm->put_rwork);
+> >  }
+> >  
+> > -void user_event_mm_dup(struct task_struct *t, struct user_event_mm *old_mm)
+> > +int user_event_mm_dup(struct task_struct *t, struct user_event_mm *old_mm)
+> >  {
+> >  	struct user_event_mm *mm = user_event_mm_alloc(t);
+> >  	struct user_event_enabler *enabler;
+> > @@ -872,7 +872,7 @@ void user_event_mm_dup(struct task_struct *t, struct user_event_mm *old_mm)
+> >  	t->user_event_mm = NULL;
+> >  
+> >  	if (!mm)
+> > -		return;
+> > +		return -ENOMEM;
+> >  
+> >  	rcu_read_lock();
+> >  
+> > @@ -884,10 +884,12 @@ void user_event_mm_dup(struct task_struct *t, struct user_event_mm *old_mm)
+> >  	rcu_read_unlock();
+> >  
+> >  	user_event_mm_attach(mm, t);
+> > -	return;
+> > +	return 0;
+> >  error:
+> >  	rcu_read_unlock();
+> >  	user_event_mm_destroy(mm);
+> > +
+> > +	return -ENOMEM;
+> >  }
+> >  
+> >  static bool current_user_event_enabler_exists(unsigned long uaddr,
