@@ -1,350 +1,180 @@
-Received: from CO1PR03CU002.outbound.protection.outlook.com (mail-westus2azon11010002.outbound.protection.outlook.com [52.101.46.2])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0A4214CC62E;
-	Mon,  5 Oct 2026 16:16:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.46.2
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791216999; cv=fail; b=ggMo7j5O+oRW7X08L/hfHgiLKWubI2av0Mjf+EEmm0cVP3rUSUbGsIbVdx6aaO5H2XGN/yOcV5zRQvYbIDZYUQgEu9o3PcOT5j0mjToFCBiAIFhhJUFO4Ku6MDFZgKLTfcKU3H2mrHWuyANSKdI2TXNQBilwNlE7z6nXlaQSsWs=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791216999; c=relaxed/simple;
-	bh=ZGtXSeAJZz/yOI1vr+67nkw+LNuTcLgWxze/8OmOf3c=;
-	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=gFQDwubkhM8fufrXsyRkHRb4pxRcRMsXQdGkAFUbQ3wgd3FoR3ntM2dB2gYF2L2eaktE8+VkSh3xGFeUPrZSSgYyBh6M+mCxZFPLjO+e+dC4Lr5OpUk5Mn6aHLfXHx8R09aogUt7PG4fa922oUp8ny0bkvGTYE9w2DBCK7h+q+Y=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=y6hdgJmi; arc=fail smtp.client-ip=52.101.46.2
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C453A4D0A16
+	for <linux-kernel@vger.kernel.org>; Mon,  5 Oct 2026 16:16:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791217010; cv=none; b=QiVqaT42KklnH/1bsiWDfTmjodnyI6V4PaGdvK9eGwczOyqWcxNlrkYhxKjwoZPOw7s0UoMj5pVqYMMw+DDQ9DSJ98CA7ACECTRifw+1tpJVoKPLsphLLihfKtZWWqZwYKJAKtfax/CGR3wE7frOy/5Y5yFNCQD39VMD1HH7eBo=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791217010; c=relaxed/simple;
+	bh=rlLYG6jqv3PimpyLK1/8g/oAhJGjh8GkcrmM4+65O0s=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=uUpamRa8BVuEtSynRaeAhGlFSyYig+PipdAoQl43Nay6qye7RQ5YVWkQCSu1ey8+NhjLdI1BErS2HUROTx5j6bctHo1rWqhzQLeyfrfImDT5ajTYrItzFUdbIfbEU+huf6X51yA5SyO4UMwgcgElALGuMhBSLjxxL83OIqAiRpM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=dFmv9Aek; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=RiwIolWx; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="y6hdgJmi"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=GoA2fexG6S1UUhPFGI3lgq1xXhfC5DLYBx4A7cq8ivJ1jUdceXNiIwAT3ziTFoDo2tsWkrml+Df/f420AfITW+Y8+x39/p3Cbf2R4ngHuOJj71WbHENcBzov9hGBYj7h71muK4C05VZve1mx0g7xioIJpmBP9V5JWkYk651abTKvzd3GTt3RUqaUPmhDTGe9Ptj3xBfnmHHvFIqiuq2NfR7kuuzsEZ9IhaquEKSe3p3r/Q60zSz91511N6ZxcTnAAevLP5Vr8w18VGkdA4O9YAkrcIqBnof1mWYphL5S+H3Nyo0rV/DcY0qTUVwX2IpTf8JGBQfORww/z3ejxquU8A==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=4/BoV4hqRgwNw7odkh4jDkqTT6DGoZwDLnGcrR92Qn4=;
- b=vm8j+w3hafNbxN0r/GTDoQnABBqk7FhVPDsDp/IYIP3aRXfDKLKShcoFoYn1KxuXD5pe8ubIClLhP+hqYLA2pOfbnPFngJwUSHN7URPbv6bvZyzy+CLiQakKHNMM6GVxrrBinmppr4V3M7EyEclsV8FulXcTThYSvir9T5tw+oVZ1xG2SZzOfy1nSSTzKd3S9E0lK2QE3MS/K/S6pvASnnD3T0JE5oZYUZ+ciIEFmy4nfCZDZM7GNF1ABAsXt1AKkqf1W89EpO5lmIxpaqTmAb07AyyTdERLes9ppCbloAQXUbCKJ3S9KGKScd0bWNG2NVZ+bB6jqfm5SuUMTr5biQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=kernel.org smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=4/BoV4hqRgwNw7odkh4jDkqTT6DGoZwDLnGcrR92Qn4=;
- b=y6hdgJmiScbhagf7ikDmj5FVX4abJSdvtzYNpjMt+7gd2+32fzR2pRoqqWzBiaULaHjm4E/35e85YiLw2r08o1XUXSeBcOvGpl5yy3yP2Cics8+5p/j1TVhVLj3Clg7H+hw7L/2nKrs5Flr5OVBiQlG+zSy2JiLJi3GJ7sJ1xr0=
-Received: from CH2PR19CA0010.namprd19.prod.outlook.com (2603:10b6:610:4d::20)
- by SA1PR12MB8945.namprd12.prod.outlook.com (2603:10b6:806:375::14) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.472.20; Mon, 5 Oct
- 2026 16:16:31 +0000
-Received: from BN2PEPF00004FC1.namprd04.prod.outlook.com
- (2603:10b6:610:4d:cafe::74) by CH2PR19CA0010.outlook.office365.com
- (2603:10b6:610:4d::20) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.472.20 via Frontend Transport; Mon, 5
- Oct 2026 16:16:31 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 165.204.84.17) smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- BN2PEPF00004FC1.mail.protection.outlook.com (10.167.243.187) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.472.14 via Frontend Transport; Mon, 5 Oct 2026 16:16:31 +0000
-Received: from speedway8455host.amd.com (10.180.168.240) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Mon, 5 Oct
- 2026 11:16:29 -0500
-From: "Pratik R. Sampat" <prsampat@amd.com>
-To: <mcgrof@kernel.org>, <russ.weight@linux.dev>, <dakr@kernel.org>,
-	<ashish.kalra@amd.com>, <thomas.lendacky@amd.com>,
-	<herbert@gondor.apana.org.au>, <davem@davemloft.net>
-CC: <linux-crypto@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
-	<gregkh@linuxfoundation.org>, <rafael@kernel.org>, <chao.gao@intel.com>,
-	<aik@amd.com>, <tycho@kernel.org>, <nikunj@amd.com>, <michael.roth@amd.com>,
-	<shansinha@google.com>, <prsampat@amd.com>
-Subject: [Patch v3 3/7] treewide: firmware_loader: Drop the unused @module argument
-Date: Mon, 5 Oct 2026 16:15:37 +0000
-Message-ID: <47426dca2cf1fa63495deb21337f16a33157387d.1791212077.git.prsampat@amd.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <cover.1791212077.git.prsampat@amd.com>
-References: <cover.1791212077.git.prsampat@amd.com>
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="dFmv9Aek";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="RiwIolWx"
+Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 695EP1Xq1195630
+	for <linux-kernel@vger.kernel.org>; Mon, 5 Oct 2026 16:16:46 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	zbICt7mq9cvO53jr/TjOqyTHGzuqZGS1C+bnfP8hMfA=; b=dFmv9AekT9ilee3h
+	Q3nveQkdbJlIPmH1tso9H5cwNl3V+rb6Q8h2eOFR8Zq+RoOlupkHrt3B/quA3jFF
+	QZISzQrk2OW5KmO/iwkrmbTlSy3kGVAmFNl/h28QikmwdGZfC0/X0ouOc7U2son3
+	/Rgy/eLcmqYmpDYnvCNVzYfQChzjm3dLbRA0alJyn1RMFUOy9HM3LC5kPmZ8oWW2
+	zZD86uLBRWao1MwQ3TX3lGR3ymnRGVi8Ht29BAw5asLxNw/Ikz0LeVLmZg1eBx91
+	uMizdNp9tgOfL11FgqpyjQoTkqMSOYEC87isuT/idcurVu2QlXNvQG/TANj4A1Da
+	sH9K4g==
+Received: from mail-pl1-f199.google.com (mail-pl1-f199.google.com [209.85.214.199])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h3chfmk8w-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Mon, 05 Oct 2026 16:16:45 +0000 (GMT)
+Received: by mail-pl1-f199.google.com with SMTP id d9443c01a7336-2e2ebeaa0a4so18119605ad.1
+        for <linux-kernel@vger.kernel.org>; Mon, 05 Oct 2026 09:16:45 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1791217005; x=1791821805; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=zbICt7mq9cvO53jr/TjOqyTHGzuqZGS1C+bnfP8hMfA=;
+        b=RiwIolWxS6YXnyWfYlFR0tprgRryR/IxKTF69zTTyuFWiEG0eqnsw2piqpKJi3odjI
+         qN88DCB95xbSblJmJcrFeFbcQLG+SBcbM715cENUddA6EnFdAEfF7uG5INHLWTRXsrsc
+         ar4R2Lu+/kaEg25u+EqRos6lU3PPQbgbky3VhkKt4aZ1FU+iXTurBlR6a/7z6W3Zv3G+
+         GirnatPwVBqrEQSsBWUW6xBzXDMX3RRGqYUp7BNc4PUIBSUZAT3bNXF/Yi4lIXzpRF0G
+         37BkhgCqo5JJTnJQT9xqGMMAi4YnLz2omygnY/ic9edqtNTpJwX6Nja4NJisG0dugZi7
+         WbXA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791217005; x=1791821805;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=zbICt7mq9cvO53jr/TjOqyTHGzuqZGS1C+bnfP8hMfA=;
+        b=oEJ98l+aZNWHvdNepmzM0Sg1TgVjso67ZdnWsorrIF6rL4+QiRfE15L3pMjTQno0tE
+         I1aQGBuRa2981vAuiDEU41lE5kaG5G2GNWNGz/zPMJxeOPi+eO6yl0WZ4O5TSwVeVFUs
+         2/TNgtw+weCFjwF4Is9rAnP2F7y3DXZIphV7febkqLRH0lBTcEw+eni2G1JKiY8RioJh
+         6g+HruXzExUMXm5YZ8++/VE/WYjGqWmR8l73mogEDFjMSCiVbd9iKvxiZEmFkLwOwL8o
+         ZugY2/FntDyTYXk3RaZ2SRasWuwh+tOKtWt+Dx/e73XCq0301Mhg+rrhl7o8D0G2S0Sm
+         m1LA==
+X-Forwarded-Encrypted: i=1; AKwUvBwbZgVTn1yghJnjWq/JXI/DcWDFx3aqky3igM97PlqcthBbhBFcddM8gq8NSneAtuV0cVcb+NNK5gHHUP8=@vger.kernel.org
+X-Gm-Message-State: AFq9FYI1ORO09Ic5JnA29vzTTRu9mpIoFNEWEjtlze+HYT8/+4wqgwZB
+	+QJ/QZaRxj5G5xcShpyBfIe7JohLGy9APfWRvhwQuiZbxgGC2EwTbRAemDgvdNG5NB6dWwDG1H/
+	Ims2xyzAfbFcYi4uPjxPyTpMi8u3IEc+c9cF+s6hpOHB8UTZI2ugZfqj71Nrf7o+wcQ==
+X-Gm-Gg: AYBFou05w8u5oQWLWpdUL0HE4yEkNGtbLhdU25e6tkQnUV4nAnudw4ztH2hqmD3IYjX
+	RLE7NP29HwqNm1QMm//j77R0ngaOIeTjibAvoiy+NKn+HKIwRh/EXdEXnPRyvoe7chW56yry3UI
+	cFDSqQ0BW1do2u8k+btY07l3diT1wepN1hK/5aqgRxzEp3WpF1WCJD1d5kK5fwRE9kYaBSplUll
+	WBUaVLa9lpysGVdxcs0XOq+YxqFcL6b6q9oDjALK9RgZVr5RS2kKdlc/R23XKhll0jtqim5butW
+	Jlpw+AcpOHCyHr8IyPOvIah539kfCxEm2dJ9NY8MlDgI9CXlmLiOZhVZNv4gDdXZRXFdYOfTaDy
+	5TYGdQTK03vKi1qI/aChE612bR9tnmwbWr8Ag1RsrxOJV4YeB7IhPTybC0UR/22Y5lQEPhbjSTl
+	vudTJqYx/nPl2dHBkP
+X-Received: by 2002:a17:902:d60e:b0:2dd:ad74:ac2d with SMTP id d9443c01a7336-2e5105a5a0amr66701195ad.31.1791217004642;
+        Mon, 05 Oct 2026 09:16:44 -0700 (PDT)
+X-Received: by 2002:a17:902:d60e:b0:2dd:ad74:ac2d with SMTP id d9443c01a7336-2e5105a5a0amr66700915ad.31.1791217004005;
+        Mon, 05 Oct 2026 09:16:44 -0700 (PDT)
+Received: from [10.50.23.243] (blr-bdr-fw-01_GlobalNAT_AllZones-Outside.qualcomm.com. [103.229.18.19])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2e5a5cae51asm10191485ad.29.2026.10.05.09.16.40
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 05 Oct 2026 09:16:43 -0700 (PDT)
+Message-ID: <d90da428-8e4f-405f-968b-062ce136657d@oss.qualcomm.com>
+Date: Mon, 5 Oct 2026 21:46:39 +0530
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: satlexmb07.amd.com (10.181.42.216) To satlexmb07.amd.com
- (10.181.42.216)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN2PEPF00004FC1:EE_|SA1PR12MB8945:EE_
-X-MS-Office365-Filtering-Correlation-Id: 75168ad4-90b5-4158-6f94-08df22fc0462
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|36860700016|7416014|82310400026|376014|23010399003|56012099006|11063799006|10067099003|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	r9kn3L2srBoVUXkf1E4fsMpNYRPTTMGEd1EB1pPTGIvrJwtTHuVN3dq4lol6OwQGNoRYET70ZMYPQAhnnso9EHWqAGf4001BPPWtx3PFrN1T3NwqRIddsYtmT40vL4zK03UZ4AKBk/TP86+JE7NfOYx6PN1EYj2YpWzJGKuz7o/aV5Bvl7MCkg+gQ3q7Hl+Nptg9mNgY/55dt9t3HoomVRPLtdkt0MdtiwVzmvCyDDfTtXsiJZ0tutx6zxEZeII1ZA9AtwlwI8M1SML6GcObuONwJgwLQt07j5k8lbR3Q2Eg0hL6R7PL3YqzeTV7zdStNJSy/mLIt7nozDUIbcGK+c7mvTqq/QiftvVS4BqihvDPw1uksRajroKesRCYlu3lvkGHztOyYS852O1jNUqXosK7Hb5ydozMuSS9+JSeGIQ1XcHuqd19jMpKHufk1EEJBwiJmTz2Dcneo8fCSVuGNf7FR0pmP9LajPrTLy3YuwpE2TVoebZnP7epFeFW4as/krOJDY6vAJkMtiZEe0JpernaReJxKj9KDRDPvhxxBhLKsjuYU6aNXt8eT1hP5OINYC2LifZCYUaly6wOsPlTGP4bQpHu+dYJGZxgKsJBTbPqG6gVhv7jlSTo+1BUS84UL9lLYrmWFfH7uIRMD8D/PzJSaultvJ3XtFrHawaxTULrFg6hOA0LzXp1VwUnQHg1DwV6Xo2wHu0k8rZivx0thQ==
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(1800799024)(36860700016)(7416014)(82310400026)(376014)(23010399003)(56012099006)(11063799006)(10067099003)(22082099003)(18002099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	fYzGkHg/eE+fq4td0vNVtyHQxNCOK1V3NTyVqudUOSnxzfp2jHUYoo7cJ3lYBiTV9LNWLM6O3MBeSb6aluwVrXlJ2AOvEhOZH0VnMWS+/RHI1ysJGEl6LDanGKrE224oQEbNABKh+Ft1bJ0nFU4hX9V1VD5gZa/+VQHQpemaCOG2V9SHs0SfRwvVczZNQLMk2/uM398PhPwEslLI1kCSAWf1+J9iWUQsT66xaQN/ndvujbMmo94SH0TOZ0rTbTwnflSOyVlj6HQ/LtZgDOozlwngRN3WcuKc3xkyy798nitz/1G7aYUxCxxmSmuEzm4QyfK1O2lvX4BpDONfHz3Be+4naEowMQSV21rB+PlTH014pLD2B5kME/ZRZgj8q641IqouKPeIEplRJJCt7TTbqoVuj7WTjvjeEY8fWTd87V+GrrD4FpKLDg7Ba1a2DqjF
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Oct 2026 16:16:31.0129
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 75168ad4-90b5-4158-6f94-08df22fc0462
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	BN2PEPF00004FC1.namprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR12MB8945
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH wireless-next v2 11/16] wifi: cfg80211/mac80211: Handle
+ UHR Link Reconfiguration frame
+To: Johannes Berg <johannes@sipsolutions.net>, Kees Cook <kees@kernel.org>,
+        "Gustavo A. R. Silva" <gustavoars@kernel.org>
+Cc: linux-wireless@vger.kernel.org, linux-kernel@vger.kernel.org,
+        linux-hardening@vger.kernel.org
+References: <20260924-smd-v2-0-bb40094da1d4@oss.qualcomm.com>
+ <20260924-smd-v2-11-bb40094da1d4@oss.qualcomm.com>
+ <616e0013e78323cbd6a1a307cd40d59b1e562373.camel@sipsolutions.net>
+Content-Language: en-US
+From: Pooventhiran G <pooventhiran.g@oss.qualcomm.com>
+In-Reply-To: <616e0013e78323cbd6a1a307cd40d59b1e562373.camel@sipsolutions.net>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-ORIG-GUID: SY0De9eVGI4Du6-Fs7rDmFTbSzLXB-8K
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDA1MDA2MyBTYWx0ZWRfX+yWmBsIzDz0c
+ XsO/awvwPfBS2uHm7YJp7dsrxP7zhOGgJP5AuhoSiYAJQnD2CmW+3J+irl0GoTcUqTIfD3dkteV
+ 8jIuAkO3DUkbT7TK3SNHUJruEg7wHdc=
+X-Authority-Analysis: v=2.4 cv=eZSo7LEH c=1 sm=1 tr=0 ts=6ac3cd6d cx=c_pps
+ a=JL+w9abYAAE89/QcEU+0QA==:117 a=Ou0eQOY4+eZoSc0qltEV5Q==:17
+ a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yx91gb_oNiZeI1HMLzn7:22
+ a=EUspDBNiAAAA:8 a=vuaycF0E-hVDLVIvCLkA:9 a=QEXdDO2ut3YA:10
+ a=324X-CrmTo6CU4MGRt3R:22
+X-Proofpoint-GUID: SY0De9eVGI4Du6-Fs7rDmFTbSzLXB-8K
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDA1MDA2MyBTYWx0ZWRfX+RLVU/jXD8nC
+ ZLKcFogLJYhPOeAyGIkkzXnemu7NyYA/Tf2EpGNsKyFtq/Gffi6oNyItxJj5EaTeZqlP8ALV5Qs
+ BF4XcsqKllcu6RZnE66+alj3ojMeMBJqLpmlDslRxo+QyxL6lAG0yItXOx+6JtHAlHgH1m1S84Z
+ u+T7mdDZ3KOohRLXz343ixDWCuWToTctz/u4dm13SKUGknFJfq18+EULZV3adbW1lW2wgegr2U6
+ gC1jBwOi3TXuSlq7no3rdbrTy0W3AYLhqDCq7RSNUDesDPkfzL3rV7ip25ZJH2a9B4Y+jrgQmpE
+ GhVstesCIitwDjcQPmppKx1jXoBjG8UE9ri9EkdUQeGCuPbP4Gigh4PavWxXoVP/n27n3av0DwT
+ PTsoXzO9TTeDJS/mFbMEVpemZB9MAPSVzE1deUihBwNt7a0FOY+zSDK27H4H5LGTN9We//viCc4
+ jLnnlbXbnP7TEi/LW4w==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-05_04,2026-10-05_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ spamscore=0 clxscore=1015 impostorscore=0 priorityscore=1501
+ lowpriorityscore=0 suspectscore=0 malwarescore=0 adultscore=0 bulkscore=0
+ phishscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2609040000
+ definitions=main-2610050063
 
-From: Dan Williams <djbw@kernel.org>
 
-Now that the firmware loader properly ceases all operations at
-firmware_upload_unregister() and no longer takes module references, clean
-up the unused parameter.
 
-Cc: Chao Gao <chao.gao@intel.com>
-Cc: Luis Chamberlain <mcgrof@kernel.org>
-Cc: Russ Weight <russ.weight@linux.dev>
-Cc: Danilo Krummrich <dakr@kernel.org>
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: "Rafael J. Wysocki" <rafael@kernel.org>
-Signed-off-by: Dan Williams <djbw@kernel.org>
-Acked-by: Conor Dooley <conor.dooley@microchip.com>
-[chao.gao@intel.com: drop leftover fw_upload_priv->module assignment
- and the unused @module field from struct fw_upload_priv]
-[prsampat@amd.com: convert the tdx-host caller added since the original
- posting]
-Signed-off-by: Pratik R. Sampat <prsampat@amd.com>
----
- Documentation/driver-api/firmware/fw_upload.rst |  2 +-
- drivers/base/firmware_loader/sysfs_upload.c     | 10 ++++------
- drivers/base/firmware_loader/sysfs_upload.h     |  1 -
- drivers/cxl/core/memdev.c                       |  4 ++--
- drivers/firmware/microchip/mpfs-auto-update.c   |  2 +-
- drivers/fpga/intel-m10-bmc-sec-update.c         |  4 ++--
- drivers/greybus/gb-beagleplay.c                 |  2 +-
- drivers/media/i2c/thp7312.c                     |  2 +-
- drivers/net/pse-pd/pd692x0.c                    |  4 ++--
- drivers/virt/coco/tdx-host/tdx-host.c           |  4 ++--
- include/linux/firmware.h                        | 15 +++++++--------
- lib/test_firmware.c                             |  3 +--
- 12 files changed, 24 insertions(+), 29 deletions(-)
+On 10/04/2026 03:53 pm, Johannes Berg wrote:
+> On Thu, 2026-09-24 at 08:10 +0530, Pooventhiran G wrote:
+>> A UHR Link Reconfiguration Request frame (ST Preparation or Execution)
+>> triggers SMD BSS Transition on the current AP MLD. Userspace needs
+>> reporting of the STA's dynamic context along with such frames so that
+>> the same can be transported to the target AP MLD for setting up the STA
+>> TX and RX queues.
+>>
+>> Reserve a field in ieee80211_rx_status that enables drivers to attach
+>> the STA's dynamic context to the corresponding frame. Since the maximum
+>> possible context can grow too big, attach the pointer to the context to
+>> the frame. Add handling for UHR ST Preparation and Execution Request
+>> frames so that the associated context is propagated through cfg80211 and
+>> nl80211 for userspace reporting.
+>>
+>> Signed-off-by: Pooventhiran G <pooventhiran.g@oss.qualcomm.com>
+>> ---
+>>  include/linux/ieee80211-uhr.h | 59 ++++++++++++++++++++++++++
+>>  include/net/cfg80211.h        | 13 ++++++
+>>  include/net/mac80211.h        | 10 ++++-
+>>  net/mac80211/ieee80211_i.h    |  2 +
+>>  net/mac80211/rx.c             | 96 +++++++++++++++++++++++++++++--------------
+> 
+> This change is big due to argument refactoring - better do that
+> separately.
+> 
 
-diff --git a/Documentation/driver-api/firmware/fw_upload.rst b/Documentation/driver-api/firmware/fw_upload.rst
-index edf1d0c5e7c3..702b1ed77551 100644
---- a/Documentation/driver-api/firmware/fw_upload.rst
-+++ b/Documentation/driver-api/firmware/fw_upload.rst
-@@ -57,7 +57,7 @@ function calls firmware_upload_unregister() such as::
- 		len = (truncate) ? truncate - fw_name : strlen(fw_name);
- 		sec->fw_name = kmemdup_nul(fw_name, len, GFP_KERNEL);
- 
--		fwl = firmware_upload_register(THIS_MODULE, sec->dev, sec->fw_name,
-+		fwl = firmware_upload_register(sec->dev, sec->fw_name,
- 					       &m10bmc_ops, sec);
- 		if (IS_ERR(fwl)) {
- 			dev_err(sec->dev, "Firmware Upload driver failed to start\n");
-diff --git a/drivers/base/firmware_loader/sysfs_upload.c b/drivers/base/firmware_loader/sysfs_upload.c
-index 890a242a7c20..920c4b640f96 100644
---- a/drivers/base/firmware_loader/sysfs_upload.c
-+++ b/drivers/base/firmware_loader/sysfs_upload.c
-@@ -273,7 +273,6 @@ void fw_upload_free(struct fw_sysfs *fw_sysfs)
- 
- /**
-  * firmware_upload_register() - register for the firmware upload sysfs API
-- * @module: kernel module of this device
-  * @parent: parent device instantiating firmware upload
-  * @name: firmware name to be associated with this device
-  * @ops: pointer to structure of firmware upload ops
-@@ -285,10 +284,10 @@ void fw_upload_free(struct fw_sysfs *fw_sysfs)
-  *	Return: struct fw_upload pointer or ERR_PTR()
-  *
-  **/
--struct fw_upload *
--firmware_upload_register(struct module *module, struct device *parent,
--			 const char *name, const struct fw_upload_ops *ops,
--			 void *dd_handle)
-+struct fw_upload *firmware_upload_register(struct device *parent,
-+					   const char *name,
-+					   const struct fw_upload_ops *ops,
-+					   void *dd_handle)
- {
- 	u32 opt_flags = FW_OPT_NOCACHE;
- 	struct fw_upload *fw_upload;
-@@ -320,7 +319,6 @@ firmware_upload_register(struct module *module, struct device *parent,
- 	fw_upload_priv->fw_upload = fw_upload;
- 	fw_upload_priv->ops = ops;
- 	mutex_init(&fw_upload_priv->lock);
--	fw_upload_priv->module = module;
- 	fw_upload_priv->name = name;
- 	fw_upload_priv->err_code = 0;
- 	fw_upload_priv->progress = FW_UPLOAD_PROG_IDLE;
-diff --git a/drivers/base/firmware_loader/sysfs_upload.h b/drivers/base/firmware_loader/sysfs_upload.h
-index 31931ff7808a..dc7ccdceb96f 100644
---- a/drivers/base/firmware_loader/sysfs_upload.h
-+++ b/drivers/base/firmware_loader/sysfs_upload.h
-@@ -26,7 +26,6 @@ enum fw_upload_prog {
- 
- struct fw_upload_priv {
- 	struct fw_upload *fw_upload;
--	struct module *module;
- 	const char *name;
- 	const struct fw_upload_ops *ops;
- 	struct mutex lock;		  /* protect data structure contents */
-diff --git a/drivers/cxl/core/memdev.c b/drivers/cxl/core/memdev.c
-index b3419df586b9..ee7a97b8b2c8 100644
---- a/drivers/cxl/core/memdev.c
-+++ b/drivers/cxl/core/memdev.c
-@@ -1151,8 +1151,8 @@ int devm_cxl_setup_fw_upload(struct device *host, struct cxl_memdev_state *mds)
- 	if (!test_bit(CXL_MEM_COMMAND_ID_GET_FW_INFO, cxl_mbox->enabled_cmds))
- 		return 0;
- 
--	fwl = firmware_upload_register(THIS_MODULE, dev, dev_name(dev),
--				       &cxl_memdev_fw_ops, mds);
-+	fwl = firmware_upload_register(dev, dev_name(dev), &cxl_memdev_fw_ops,
-+				       mds);
- 	if (IS_ERR(fwl))
- 		return PTR_ERR(fwl);
- 	return devm_add_action_or_reset(host, cxl_remove_fw_upload, fwl);
-diff --git a/drivers/firmware/microchip/mpfs-auto-update.c b/drivers/firmware/microchip/mpfs-auto-update.c
-index 1211fd8d0463..992088606204 100644
---- a/drivers/firmware/microchip/mpfs-auto-update.c
-+++ b/drivers/firmware/microchip/mpfs-auto-update.c
-@@ -437,7 +437,7 @@ static int mpfs_auto_update_probe(struct platform_device *pdev)
- 		return dev_err_probe(dev, ret,
- 				     "The current bitstream does not support auto-update\n");
- 
--	fw_uploader = firmware_upload_register(THIS_MODULE, dev, "mpfs-auto-update",
-+	fw_uploader = firmware_upload_register(dev, "mpfs-auto-update",
- 					       &mpfs_auto_update_ops, priv);
- 	if (IS_ERR(fw_uploader))
- 		return dev_err_probe(dev, PTR_ERR(fw_uploader),
-diff --git a/drivers/fpga/intel-m10-bmc-sec-update.c b/drivers/fpga/intel-m10-bmc-sec-update.c
-index 7d23d914df3f..3d318570faba 100644
---- a/drivers/fpga/intel-m10-bmc-sec-update.c
-+++ b/drivers/fpga/intel-m10-bmc-sec-update.c
-@@ -712,8 +712,8 @@ static int m10bmc_sec_probe(struct platform_device *pdev)
- 		goto fw_name_fail;
- 	}
- 
--	fwl = firmware_upload_register(THIS_MODULE, sec->dev, sec->fw_name,
--				       &m10bmc_ops, sec);
-+	fwl = firmware_upload_register(sec->dev, sec->fw_name, &m10bmc_ops,
-+				       sec);
- 	if (IS_ERR(fwl)) {
- 		dev_err(sec->dev, "Firmware Upload driver failed to start\n");
- 		ret = PTR_ERR(fwl);
-diff --git a/drivers/greybus/gb-beagleplay.c b/drivers/greybus/gb-beagleplay.c
-index 244966d56c9b..a097a3b10552 100644
---- a/drivers/greybus/gb-beagleplay.c
-+++ b/drivers/greybus/gb-beagleplay.c
-@@ -1172,7 +1172,7 @@ static int gb_fw_init(struct gb_beagleplay *bg)
- 		return PTR_ERR(desc);
- 	bg->rst_gpio = desc;
- 
--	fwl = firmware_upload_register(THIS_MODULE, &bg->sd->dev, "cc1352p7",
-+	fwl = firmware_upload_register(&bg->sd->dev, "cc1352p7",
- 				       &cc1352_bootloader_ops, bg);
- 	if (IS_ERR(fwl))
- 		return PTR_ERR(fwl);
-diff --git a/drivers/media/i2c/thp7312.c b/drivers/media/i2c/thp7312.c
-index 775cfba188d8..ebbe14393c9f 100644
---- a/drivers/media/i2c/thp7312.c
-+++ b/drivers/media/i2c/thp7312.c
-@@ -1909,7 +1909,7 @@ static int thp7312_register_flash_mode(struct thp7312_device *thp7312)
- 		goto error;
- 	}
- 
--	fwl = firmware_upload_register(THIS_MODULE, dev, "thp7312-firmware",
-+	fwl = firmware_upload_register(dev, "thp7312-firmware",
- 				       &thp7312_fw_upload_ops, thp7312);
- 	if (IS_ERR(fwl)) {
- 		ret = PTR_ERR(fwl);
-diff --git a/drivers/net/pse-pd/pd692x0.c b/drivers/net/pse-pd/pd692x0.c
-index 209de9cec849..5bb91a0f4438 100644
---- a/drivers/net/pse-pd/pd692x0.c
-+++ b/drivers/net/pse-pd/pd692x0.c
-@@ -1841,8 +1841,8 @@ static int pd692x0_i2c_probe(struct i2c_client *client)
- 		return dev_err_probe(dev, ret,
- 				     "failed to register PSE controller\n");
- 
--	fwl = firmware_upload_register(THIS_MODULE, dev, dev_name(dev),
--				       &pd692x0_fw_ops, priv);
-+	fwl = firmware_upload_register(dev, dev_name(dev), &pd692x0_fw_ops,
-+				       priv);
- 	if (IS_ERR(fwl))
- 		return dev_err_probe(dev, PTR_ERR(fwl),
- 				     "failed to register to the Firmware Upload API\n");
-diff --git a/drivers/virt/coco/tdx-host/tdx-host.c b/drivers/virt/coco/tdx-host/tdx-host.c
-index e8ed8dfa526e..f11a545d40cf 100644
---- a/drivers/virt/coco/tdx-host/tdx-host.c
-+++ b/drivers/virt/coco/tdx-host/tdx-host.c
-@@ -194,8 +194,8 @@ static int seamldr_init(struct device *dev)
- 	if (!supports_runtime_update())
- 		return 0;
- 
--	tdx_fwl = firmware_upload_register(THIS_MODULE, dev, "tdx_module",
--					   &tdx_fw_ops, NULL);
-+	tdx_fwl = firmware_upload_register(dev, "tdx_module", &tdx_fw_ops,
-+					   NULL);
- 	if (IS_ERR(tdx_fwl))
- 		return PTR_ERR(tdx_fwl);
- 
-diff --git a/include/linux/firmware.h b/include/linux/firmware.h
-index 0fa3b027f02f..aa0333095c10 100644
---- a/include/linux/firmware.h
-+++ b/include/linux/firmware.h
-@@ -197,20 +197,19 @@ static inline int request_partial_firmware_into_buf
- 
- #ifdef CONFIG_FW_UPLOAD
- 
--struct fw_upload *
--firmware_upload_register(struct module *module, struct device *parent,
--			 const char *name, const struct fw_upload_ops *ops,
--			 void *dd_handle);
-+struct fw_upload *firmware_upload_register(struct device *parent,
-+					   const char *name,
-+					   const struct fw_upload_ops *ops,
-+					   void *dd_handle);
- void firmware_upload_unregister(struct fw_upload *fw_upload);
- 
- #else
- 
- static inline struct fw_upload *
--firmware_upload_register(struct module *module, struct device *parent,
--			 const char *name, const struct fw_upload_ops *ops,
--			 void *dd_handle)
-+firmware_upload_register(struct device *parent, const char *name,
-+			 const struct fw_upload_ops *ops, void *dd_handle)
- {
--		return ERR_PTR(-EINVAL);
-+	return ERR_PTR(-EINVAL);
- }
- 
- static inline void firmware_upload_unregister(struct fw_upload *fw_upload)
-diff --git a/lib/test_firmware.c b/lib/test_firmware.c
-index 7459bba65444..a77a99404fd3 100644
---- a/lib/test_firmware.c
-+++ b/lib/test_firmware.c
-@@ -1322,8 +1322,7 @@ static ssize_t upload_register_store(struct device *dev,
- 		goto free_tst;
- 	}
- 
--	fwl = firmware_upload_register(THIS_MODULE, dev, tst->name,
--				       &upload_test_ops, tst);
-+	fwl = firmware_upload_register(dev, tst->name, &upload_test_ops, tst);
- 	if (IS_ERR(fwl)) {
- 		ret = PTR_ERR(fwl);
- 		goto free_buf;
--- 
-2.43.0
+Sure, I will split up the patch.
+
+> Also, I think better to combine the whole series a bit differently with
+> cfg80211 APIs more isolated and then mac80211 implementation(s)
+> 
+
+I will reorder the patches this way.
+
+> One thing I'm missing completely - which is why I was looking for the
+> rx.c changes - is handling of 4a substate frame limitations?
+> 
+
+I will add the sub-state frame limitations in v3.
+
+> johannes
 
