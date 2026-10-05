@@ -1,42 +1,42 @@
 Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A5C612874E6
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A1D0B2571B8
 	for <linux-kernel@vger.kernel.org>; Mon,  5 Oct 2026 00:38:58 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.251.105.195
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791160741; cv=none; b=r+8LrjzzkqZs6UREeBf1p3Pr7z3u9at90EBzjz8qnuWwMnfj0vqIImB3EMs9yl4Q/zTohQcVZeHL4e2oEQH5x18/LBglvfLk5Qzp1LN4e1ammYf/zpJ4tsvCFokJ+F1Wozp69quYnbNDfFUOfdxDkZK2AQRDgB+ysvRWLBarako=
+	t=1791160741; cv=none; b=uAhjzLRIoySKlulO+5RvQMPbuAqcXBt5uoDz3Sqx4Listuw/vVwvm4Bydtd/77PzSQ3c+LkguCKtBBHjUhObSqb7iA/3ITu/OAoTkb/eKD6/hgWX4okk4ej09qgRLVbrTRdUvGoykyacetGCyYmncEsPMTtzRrj1aCWs2pN0t24=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1791160741; c=relaxed/simple;
-	bh=owHsNVM0dvIItDRqvO4tVUDptJq+19rU1q/eyPIbg64=;
+	bh=TYdyiMCMQ8jJzb3Pp/1WSpEtutPZs8fJOVBWQ6/Qyao=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=JQCTqhPNS5akdrRm9cV7vgmXCsuBBygOQUjfx9FmhGxMB2OwpN9aChk5kKxe8RxoiDYhIkehNQIxi01MkFKqz+wajLUuOHtEQDvd6pzAFrK6rM5G5f0Or2H0Q7UB+RKKBmwjir2B9/68FwPqVrT2gBfpeNw+YCbNvEq94bqz0yg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=c6g58vfN; arc=none smtp.client-ip=148.251.105.195
+	 In-Reply-To:To:Cc; b=MQyqcLVBpO3/mw2F3JPvdL0/Sr9meTwj/RBNbwPRMUo7isqS9bNZqgHGUZQYU4CyNv4ii16C4EvIyokD+zyxGp/r5KJ72lMkjrQfev5ZFNMnJ0NjFttQ5v1Zb9GLta8ZvuLJzpj5XTC+0c3u4hi29msFMKvIHldX8qbtX3opArA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=MedLEFLp; arc=none smtp.client-ip=148.251.105.195
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="c6g58vfN"
+	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="MedLEFLp"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
 	s=mail; t=1791160729;
-	bh=owHsNVM0dvIItDRqvO4tVUDptJq+19rU1q/eyPIbg64=;
+	bh=TYdyiMCMQ8jJzb3Pp/1WSpEtutPZs8fJOVBWQ6/Qyao=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
-	b=c6g58vfN7hnIOEw6K8Dsr74QkZ5Ik1Ukn0Uge6+vCozNWP8CvQRgNo8oUDw/7fXGC
-	 /v7gmnI/sS+7xYzazzZlACqEzFsVHLy1mUFQoxhFY9ifS/pyZ+2GUFt/1Y2SoGNiVf
-	 kiB2Whi/ZQ0Pom8rlzZ5tX9L9jy656hBiQDnuGIiXn9mxB2Wm8LbOsM4c47nZoZ+Fx
-	 Xstu8EgFk6BQunPluog5V17Ixeg4iLzRG8U0Fv4eWGr0pbiKCkAppL6IhVmrVPZlyP
-	 4YAVPuIQyPUa70bJC1Bf7ktZyz5se3cHXtQyE9Ah+qqm+0dN9MOXmtO8E/zJntQlxH
-	 hB+NmcoMEgzWA==
+	b=MedLEFLp1Gv4gvJFwzGUsHyS7vo3mmF+8kFFQsEnuJMAf5i9iKvUli6NwAiDXVonS
+	 RiTSCaQv7yWkiCvZOH1FeJcbxUfi51gQxcRoa/AY+0ZbWQIeWHAlJAx3i46SeelNoZ
+	 mH3eVb+MTb5CSq022IxyWPBxeGX5tIJmDfTn2jLvEEjYCnM3VjZyBkf6p8C9GLEBdz
+	 Rcav3ar0eLEM8rw/9XSS6/C8sJuMGW8dv85XkHJ6a+WbfcVlf4e0fM3iLuAE+4QFs4
+	 jqrCIsg9lBiHqfKzswJkYA2OPa8eGLaCC+3UY4yJj24gsGyasiz3sfoBmrLAVMqHul
+	 4861k1a4/6Whg==
 Received: from localhost (unknown [100.64.0.241])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange secp256r1 server-signature RSA-PSS (4096 bits) server-digest SHA256)
 	(No client certificate requested)
 	(Authenticated sender: cristicc)
-	by bali.collaboradmins.com (Postfix) with ESMTPSA id BA0FB17E0FB7;
+	by bali.collaboradmins.com (Postfix) with ESMTPSA id 120CF17E0D84;
 	Mon, 05 Oct 2026 02:38:49 +0200 (CEST)
 From: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
-Date: Mon, 05 Oct 2026 03:38:07 +0300
-Subject: [PATCH v12 06/16] drm/rockchip: dw_hdmi_qp: Fix invalid drvdata
- access in PM ops
+Date: Mon, 05 Oct 2026 03:38:06 +0300
+Subject: [PATCH v12 05/16] drm/bridge: dw-hdmi-qp: Provide
+ dw_hdmi_qp_hpd_notify() helper
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -45,7 +45,7 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Message-Id: <20261005-dw-hdmi-qp-scramb-v12-6-195157ba0b40@collabora.com>
+Message-Id: <20261005-dw-hdmi-qp-scramb-v12-5-195157ba0b40@collabora.com>
 References: <20261005-dw-hdmi-qp-scramb-v12-0-195157ba0b40@collabora.com>
 In-Reply-To: <20261005-dw-hdmi-qp-scramb-v12-0-195157ba0b40@collabora.com>
 To: Sandy Huang <hjc@rock-chips.com>, 
@@ -61,93 +61,169 @@ To: Sandy Huang <hjc@rock-chips.com>,
  Algea Cao <algea.cao@rock-chips.com>, Daniel Stone <daniels@collabora.com>
 Cc: kernel@collabora.com, dri-devel@lists.freedesktop.org, 
  linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org, 
- linux-arm-kernel@lists.infradead.org, Sashiko <sashiko-bot@kernel.org>, 
+ linux-arm-kernel@lists.infradead.org, 
+ Maud Spierings <maud_spierings@hotmail.com>, 
+ Diederik de Haas <diederik@cknow-tech.com>, 
  =?utf-8?q?Robin_R=C3=A4ber?= <robin.raebi@gmail.com>, 
  Igor Paunovic <royalnet026@gmail.com>
 X-Mailer: b4 0.15.2
 
-The system-sleep PM callbacks fetch the driver state via
-dev_get_drvdata() and dereference it unconditionally.  However, the
-platform device is bound by ->probe(), which merely registers a
-component, hence the callbacks may well run when no valid state is
-available:
+Export dw_hdmi_qp_hpd_notify() for platform drivers to report hot-plug
+detection events.  Unlike drm_helper_hpd_irq_event() which polls all
+connectors, this helper targets only the affected connector and ensures
+.detect_ctx() is invoked on reconnection events to trigger SCDC state
+recovery.
 
-- Before the aggregate driver calls ->bind(), e.g. when the system
-  suspends while probing is still deferred waiting for the VOP,
-  dev_get_drvdata() returns NULL.
+Track the connector in use in curr_conn, set and cleared by the atomic
+enable/disable hooks.  Since the helper runs asynchronously from
+IRQ/work context, hold a reference on that connector for as long as the
+bridge is enabled, so that the pointer is always safe to dereference.
+Otherwise validity would rest on the platform glue quiescing HPD before
+the DRM-managed connector is freed during teardown, risking a
+use-after-free on a late HPD event.
 
-- After ->unbind(), or when ->bind() fails past platform_set_drvdata(),
-  drvdata is left pointing to memory obtained via drmm_kzalloc(), which
-  is released together with the DRM device, while this platform device
-  remains bound and PM-capable.
+The helper must take its own temporary reference while running, because
+the long-lived reference above only guarantees the pointer is valid at
+the time it is read, not that the connector survives a concurrent
+atomic_disable dropping that reference while the helper is still using
+it.  Moreover, reading the pointer and acquiring the temporary reference
+must be atomic with respect to atomic_disable, otherwise a window exists
+where drm_connector_get() is called on a connector whose refcount
+already reached zero, hence guard curr_conn with a mutex for this
+purpose.  Holding the mutex across the whole helper instead is not an
+option, as it takes modeset locks while atomic_disable is called with
+them held.
 
-Publish the driver data only after ->bind() completes successfully, and
-clear it in ->unbind().  This ensures that a non-NULL drvdata always
-represents live state, allowing each PM callback to rely on a single
-NULL check.
+Also note that this helper may sleep, so it must only be called from a
+threaded HPD interrupt handler or a work function.
 
-Fixes: 128a9bf8ace2 ("drm/rockchip: Add basic RK3588 HDMI output support")
-Reported-by: Sashiko <sashiko-bot@kernel.org>
-Closes: https://lore.kernel.org/all/20260702151550.8E14D1F000E9@smtp.kernel.org/
-Closes: https://lore.kernel.org/all/20260723014811.1F9F01F000E9@smtp.kernel.org/
+Tested-by: Maud Spierings <maud_spierings@hotmail.com>
+Tested-by: Diederik de Haas <diederik@cknow-tech.com>  # NanoPC-T6 LTS, Rock 5B
 Tested-by: Robin Räber <robin.raebi@gmail.com>
 Tested-by: Igor Paunovic <royalnet026@gmail.com> # RK3588 Orange Pi 5 Plus, dual HDMI
 Signed-off-by: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
 ---
- drivers/gpu/drm/rockchip/dw_hdmi_qp-rockchip.c | 12 +++++++++---
- 1 file changed, 9 insertions(+), 3 deletions(-)
+ drivers/gpu/drm/bridge/synopsys/dw-hdmi-qp.c | 59 ++++++++++++++++++++++++++++
+ include/drm/bridge/dw_hdmi_qp.h              |  1 +
+ 2 files changed, 60 insertions(+)
 
-diff --git a/drivers/gpu/drm/rockchip/dw_hdmi_qp-rockchip.c b/drivers/gpu/drm/rockchip/dw_hdmi_qp-rockchip.c
-index 9c4cf68d79d5..646a4cb96830 100644
---- a/drivers/gpu/drm/rockchip/dw_hdmi_qp-rockchip.c
-+++ b/drivers/gpu/drm/rockchip/dw_hdmi_qp-rockchip.c
-@@ -683,8 +683,6 @@ static int dw_hdmi_qp_rockchip_bind(struct device *dev, struct device *master,
- 	if (ret)
- 		return dev_err_probe(hdmi->dev, ret, "Failed to init encoder");
+diff --git a/drivers/gpu/drm/bridge/synopsys/dw-hdmi-qp.c b/drivers/gpu/drm/bridge/synopsys/dw-hdmi-qp.c
+index 14723ee5cb05..54181b052fe2 100644
+--- a/drivers/gpu/drm/bridge/synopsys/dw-hdmi-qp.c
++++ b/drivers/gpu/drm/bridge/synopsys/dw-hdmi-qp.c
+@@ -28,6 +28,7 @@
+ #include <drm/drm_edid.h>
+ #include <drm/drm_modes.h>
+ #include <drm/drm_print.h>
++#include <drm/drm_probe_helper.h>
  
--	platform_set_drvdata(pdev, hdmi);
--
- 	hdmi->hdmi = dw_hdmi_qp_bind(pdev, encoder, &plat_data);
- 	if (IS_ERR(hdmi->hdmi))
- 		return dev_err_probe(hdmi->dev, PTR_ERR(hdmi->hdmi),
-@@ -695,6 +693,8 @@ static int dw_hdmi_qp_rockchip_bind(struct device *dev, struct device *master,
- 		return dev_err_probe(hdmi->dev, PTR_ERR(connector),
- 				     "Failed to init bridge connector\n");
+ #include <media/cec.h>
  
-+	platform_set_drvdata(pdev, hdmi);
+@@ -81,6 +82,9 @@ struct dw_hdmi_qp {
+ 	struct regmap *regm;
+ 	int main_irq;
+ 
++	/* Guards curr_conn between atomic hooks and HPD notify readers */
++	struct mutex mutex;
++	struct drm_connector *curr_conn;
+ 	unsigned long tmds_char_rate;
+ 	bool no_hpd;
+ };
+@@ -564,6 +568,10 @@ static void dw_hdmi_qp_bridge_atomic_enable(struct drm_bridge *bridge,
+ 		dev_dbg(hdmi->dev, "%s mode=DVI\n", __func__);
+ 	}
+ 
++	drm_connector_get(connector);
++	scoped_guard(mutex, &hdmi->mutex)
++		hdmi->curr_conn = connector;
 +
- 	return 0;
- }
+ 	hdmi->phy.ops->init(hdmi, hdmi->phy.data);
  
-@@ -704,6 +704,8 @@ static void dw_hdmi_qp_rockchip_unbind(struct device *dev,
- {
- 	struct rockchip_hdmi_qp *hdmi = dev_get_drvdata(dev);
+ 	dw_hdmi_qp_mod(hdmi, HDCP2_BYPASS, HDCP2_BYPASS, HDCP2LOGIC_CONFIG0);
+@@ -578,6 +586,13 @@ static void dw_hdmi_qp_bridge_atomic_disable(struct drm_bridge *bridge,
+ 	struct dw_hdmi_qp *hdmi = bridge->driver_private;
+ 	struct drm_connector *connector;
  
-+	dev_set_drvdata(dev, NULL);
++	scoped_guard(mutex, &hdmi->mutex) {
++		if (hdmi->curr_conn) {
++			drm_connector_put(hdmi->curr_conn);
++			hdmi->curr_conn = NULL;
++		}
++	}
 +
- 	cancel_delayed_work_sync(&hdmi->hpd_work);
- }
+ 	hdmi->tmds_char_rate = 0;
  
-@@ -726,7 +728,8 @@ static int __maybe_unused dw_hdmi_qp_rockchip_suspend(struct device *dev)
- {
- 	struct rockchip_hdmi_qp *hdmi = dev_get_drvdata(dev);
+ 	connector = drm_atomic_get_old_connector_for_encoder(state, bridge->encoder);
+@@ -1099,6 +1114,10 @@ struct dw_hdmi_qp *dw_hdmi_qp_bind(struct platform_device *pdev,
+ 	if (IS_ERR(hdmi))
+ 		return ERR_CAST(hdmi);
  
--	dw_hdmi_qp_suspend(dev, hdmi->hdmi);
-+	if (hdmi)
-+		dw_hdmi_qp_suspend(dev, hdmi->hdmi);
- 
- 	return 0;
- }
-@@ -735,6 +738,9 @@ static int __maybe_unused dw_hdmi_qp_rockchip_resume(struct device *dev)
- {
- 	struct rockchip_hdmi_qp *hdmi = dev_get_drvdata(dev);
- 
-+	if (!hdmi)
-+		return 0;
++	ret = devm_mutex_init(dev, &hdmi->mutex);
++	if (ret)
++		return ERR_PTR(ret);
 +
- 	hdmi->ctrl_ops->io_init(hdmi);
+ 	hdmi->dev = dev;
  
- 	dw_hdmi_qp_resume(dev, hdmi->hdmi);
+ 	regs = devm_platform_ioremap_resource(pdev, 0);
+@@ -1194,6 +1213,46 @@ struct dw_hdmi_qp *dw_hdmi_qp_bind(struct platform_device *pdev,
+ }
+ EXPORT_SYMBOL_GPL(dw_hdmi_qp_bind);
+ 
++/**
++ * dw_hdmi_qp_hpd_notify() - Notify a hot-plug detection event
++ * @hdmi: pointer to the DW HDMI QP controller
++ *
++ * Platform drivers should call this from their threaded IRQ handler or work
++ * function to notify the bridge of a connection status change.
++ * The bridge's .read_hpd() phy_ops callback is used to read the current
++ * connection status.
++ */
++void dw_hdmi_qp_hpd_notify(struct dw_hdmi_qp *hdmi)
++{
++	enum drm_connector_status status;
++	struct drm_connector *conn;
++
++	scoped_guard(mutex, &hdmi->mutex) {
++		conn = hdmi->curr_conn;
++		if (conn)
++			drm_connector_get(conn);
++	}
++
++	status = hdmi->phy.ops->read_hpd(hdmi, hdmi->phy.data);
++	dev_dbg(hdmi->dev, "%s status=%d\n", __func__, status);
++
++	/*
++	 * When the display pipeline has been already active, switch to
++	 * drm_connector_helper_hpd_irq_event() to ensure .detect_ctx()
++	 * gets invoked, i.e. via drm_helper_probe_detect(), because
++	 * drm_bridge_hpd_notify() defers to a delayed hotplug path in
++	 * this case.
++	 */
++	if (conn && status == connector_status_connected)
++		drm_connector_helper_hpd_irq_event(conn);
++	else
++		drm_bridge_hpd_notify(&hdmi->bridge, status);
++
++	if (conn)
++		drm_connector_put(conn);
++}
++EXPORT_SYMBOL_GPL(dw_hdmi_qp_hpd_notify);
++
+ void dw_hdmi_qp_suspend(struct device *dev, struct dw_hdmi_qp *hdmi)
+ {
+ 	disable_irq(hdmi->main_irq);
+diff --git a/include/drm/bridge/dw_hdmi_qp.h b/include/drm/bridge/dw_hdmi_qp.h
+index b80fceffc315..b4fb1c578a5b 100644
+--- a/include/drm/bridge/dw_hdmi_qp.h
++++ b/include/drm/bridge/dw_hdmi_qp.h
+@@ -36,6 +36,7 @@ struct dw_hdmi_qp_plat_data {
+ struct dw_hdmi_qp *dw_hdmi_qp_bind(struct platform_device *pdev,
+ 				   struct drm_encoder *encoder,
+ 				   const struct dw_hdmi_qp_plat_data *plat_data);
++void dw_hdmi_qp_hpd_notify(struct dw_hdmi_qp *hdmi);
+ void dw_hdmi_qp_suspend(struct device *dev, struct dw_hdmi_qp *hdmi);
+ void dw_hdmi_qp_resume(struct device *dev, struct dw_hdmi_qp *hdmi);
+ #endif /* __DW_HDMI_QP__ */
 
 -- 
 2.55.0
