@@ -1,35 +1,35 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C7E455349D2;
-	Mon,  5 Oct 2026 17:19:53 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5E6C5534475;
+	Mon,  5 Oct 2026 17:19:57 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791220795; cv=none; b=l44TadGXVkgLurzd1Lb7PkX9AxwOk67rLMpQNNEc7tLA3EBPfvh9UELavxowt7oArPyVNEUF0QNC3Jy8quQTKjBRH8EfyiSqHQTyt+Go0Cwip5jgkvbBGkZCS8dzGx6dbWvC9dkncauQ6qUhr+rNYA8hhpZYPTsI3eEl+0Bb1zw=
+	t=1791220798; cv=none; b=reqxGQ0DtwQBA5B7zS0D+UX81xMsRrevPbDuYP4MOf8/4wx62qMdv7wbephyvdXP/VwlwgtknYkBIDYi36uuGdaWqFUeY61mtSt2g7wVHPMI9uMH8kC1gEwMGVoqFPVtJq0Q+ZJMYSfSzU+rsNoHc5hyHGtB+cpQgTM3DG0aD60=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791220795; c=relaxed/simple;
-	bh=M644TGZklROMH+51DhA88yGbJ2Xx7+MrAZY4VXBn3Bg=;
+	s=arc-20240116; t=1791220798; c=relaxed/simple;
+	bh=i73ogzvTCd0ulozWQ8euTo5sJJo+kehLMeVuuPs2dPE=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=eXYatTtvLd5caDkn9pmwXReJGBZQbnir+F3mIS7PLEcpWrewDTuwCrQoeUBdycwxYRVn7LVjOQgM+Q1I4Fj3pav9A4RiHfygNqEDav6VkW9HNlXwCMulpv3XEkAMTuW/9sFmiBTFsMOosDXhekOzg5VFG9/BqN0FUzrun8aSwOI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=DNOh+Wt7; arc=none smtp.client-ip=100.103.45.18
+	 In-Reply-To:To:Cc; b=qLqlsjPtO0KkCv6hnantz7yPMw01vrDIzpTUJyGfmIpYM8iFJ8Olgj2GQF5/AyYZnl2xIrpxa6RVyLUYL5URAFUNfFvafrJrntQgUZEw+22iGWkCPe1u84saDXp5y/lmx4qlahF7JnhLE230iaTnRV1hj9hJAPGjJD4nuQIY8bc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HNf4Cu7k; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="DNOh+Wt7"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 616091F00899;
-	Mon,  5 Oct 2026 17:19:50 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HNf4Cu7k"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D6E5C1F00898;
+	Mon,  5 Oct 2026 17:19:53 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791220793;
-	bh=B6pE3Ce2i9bhDUdAg4EBWapKiVAGsRR+VgS1nfnvDo4=;
+	s=k20260515; t=1791220796;
+	bh=f/ylcXvgUkSf60tvdEamQIwShZyKmnejx/DhwlszxC8=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=DNOh+Wt7IrHoYA4c/h1UwmAjhaAXkg6AAD2/EImEPMZmbghtCIJBnwcL5dfCiloA9
-	 ZrcWBYd3gekf+BjvXdZV06iC1A6cgdUW+dIQr8MnijOdSl1IfDIO6eexiOuA0cGVma
-	 J37wE7/dJaQuOmRJoeGEFhp8eLA2oW89f7UcMqArAzyzcvN5DNCVd/po81P0Ij5I/1
-	 20a84dBHiHRi2QlGwACdj9BKfaNCMeE2fmxIP6RoU0hpswMMbRkjVxaJi3zENldVLN
-	 lzFrtvlGMLoQU2ymsyx3CKqu+aqc5Jo4p/gUEq2VOqMWxyHjNgPZYlwq32N3wwcBvl
-	 myNK8/T/20Z1Q==
+	b=HNf4Cu7kH8s0Tr5x6/cmFUgbIPs4t8kf1z3A6zInvytD5TzZ1F8DNboq7/NDahS2j
+	 niWJKsPwf6yCpoQIH4K2Xbq7jfrIk72tuFldaJw5s1k5COxdsmANaf+oIDqaP1FQs0
+	 XynnUqLu0NlANGklNNiIKMjxZdstnU3WScuXLYNV8BW+YZegIVb3DVpQcK6QjBs489
+	 8enAQFFD5gu7GaFstOKrWB/RsitFFvIeX9vuxwp7hO2prQiKear0d11gDNfiSvDODd
+	 YEbc/gK5MOhXrNZ99fU+wy0PSHW59X08plTniwciqrQ+dm0K8ltRHgkZRkF5KvdOGK
+	 OE8/uTFRIJ/eQ==
 From: bod@kernel.org
-Date: Mon, 05 Oct 2026 19:14:41 +0200
-Subject: [PATCH 71/74] media: qcom: camss: vfe: Register and apply a
- parameters node for the pixel line
+Date: Mon, 05 Oct 2026 19:14:42 +0200
+Subject: [PATCH 72/74] media: qcom: camss: vfe-780: Apply the AEC Bayer
+ histogram parameters
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -38,7 +38,7 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261005-linux-mainline-7-2-sm8650-hdk-rfc-0-v1-71-ed985aefd611@kernel.org>
+Message-Id: <20261005-linux-mainline-7-2-sm8650-hdk-rfc-0-v1-72-ed985aefd611@kernel.org>
 References: <20261005-linux-mainline-7-2-sm8650-hdk-rfc-0-v1-0-ed985aefd611@kernel.org>
 In-Reply-To: <20261005-linux-mainline-7-2-sm8650-hdk-rfc-0-v1-0-ed985aefd611@kernel.org>
 To: Bryan O'Donoghue <bryan.odonoghue@linaro.org>, 
@@ -55,358 +55,212 @@ To: Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
 Cc: linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
  linux-kernel@vger.kernel.org, Bryan O'Donoghue <bod@kernel.org>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=11926; i=bod@kernel.org;
- h=from:subject:message-id; bh=lYRACBwwED+WzMqQ0GHUav7h3pazqjbNMlb+8zMKDDY=;
- b=owEBbQKS/ZANAwAKASJxO7Ohjcg6AcsmYgBqw9szdXrsvdCscBCmq0GeaBVb0S66LzEfqPsoE
- Vov/tGhNQqJAjMEAAEKAB0WIQTmk/sqq6Nt4Rerb7QicTuzoY3IOgUCasPbMwAKCRAicTuzoY3I
- OqEND/wKJKJnLHpPLcHBnrJ45C8oifeRk5rsX2+fEC9UlI8GhM0hQv+fBa3fnvonnNTkUZiiTnq
- YoS93wCAxnL6/P800t/75y0WZB2iZ8i5cDTFJttqNmSPoGMRLeshxHfb49OlSAf7K+8yx4BZE+9
- 8BJG7DtlcMN6J+bno0GuU5V5AlkKg8um4YjkSDTwdtC7dP+JxWbkY6mNpT2exFdhQ293iMm6lU6
- RE1oHbXKuR3oCECMt84v2EHp2HNB2SJEeSv6531KD2i/2d/Y+HA/aXs8NidItiyxWDUPTx1j+xK
- wpZ5l21rKNA8j9jlb1FKDAFboRcNtLKySlbOdSSudrKWtIm4cDq83iGVqjjcn/vhAtpZTWs7QCI
- 81S5WSg7qIQaTAnXrh5Iow9UXRn8Uz7Bu/x+2P5F9fyC4I9WflkrR3uqDb98GwAPkSvxh9qs4XS
- 4GrVKoe8zW6oIuYfzLYuxe47bvnNtEydxieTKjV4TndsNn1DEq2a9QS7m7EkO9k9vhAtGmhcZBf
- PuKEHH9vtffhFzgXDIPtChzfDPgETQJWQp/6X4kg8M4YIZRhwJjmDmS4EMTcOc06/TLxIup2lIO
- c55iMdZcF5jBf/C0NyucG0CgzWD1mIJdTms6Ri6w+2HtpSov87AtgbKBIBi89iWpuALSs6VNR/A
- wBdcC6QKFIduJGA==
+X-Developer-Signature: v=1; a=openpgp-sha256; l=7211; i=bod@kernel.org;
+ h=from:subject:message-id; bh=k8NT5r2w+Gxc4rPBpzLyvnYF179SFsJFAbvANTkh2mk=;
+ b=owEBbQKS/ZANAwAKASJxO7Ohjcg6AcsmYgBqw9s0L+xYP5v6FrOaxF1ugtfiKd0Nuea/Y2AiS
+ C8gpFPDEQyJAjMEAAEKAB0WIQTmk/sqq6Nt4Rerb7QicTuzoY3IOgUCasPbNAAKCRAicTuzoY3I
+ Oio/D/90f/yyNGiqlLkE5j1wQM10f0iWo9iguh5UfYpc5C5EVmncU4XdZ+23JT8dL4e85yfne7F
+ /YuDhhAZ3YK5I756xUKVjIh8V9w/0YTaMN3wfI72rWig6GsYr+WdjG2GFpk9jo+nffnQIwJy9cB
+ G45BJVpCJRc6WwcqJ1dmmSPKsQsBY3pqJWxhp1xnIEJBMXQbN61oQF4FNghLAjcvSW5hn/pq07K
+ +Qh9+nYF9u+ecxTKxGzhMlFq+B7H4mw6kiRF9exXWIwap2bR8OHYpAx1JlYeDGvo23BDxakZt6E
+ F2KomYtGdq6T2Y+ujMwt+gfzrepffjIer8DkGKzpmiMRFaUOVaFa3GwQDLizE+4t6FB0JYBDRVA
+ KanWM5jEJh548OU9eEuy/BW8omyIzE4VHtwgKuqzZzu7TW46loHn2/RRuqEyfTuNcs21dtVehKC
+ IwKVc52sGQky4vKX7S5TYBJUbBuKAjJAytS94/rk6m7i/QnsnNgIhIFsy/yzpbHyP1iWXfbkXEA
+ PpKJDEzJEnmikMBmxJqQHSjlE/bG++atcjqog5H3StOZ/djcJSRaXE1X5JYi4bfO2DLtZsR8Zi/
+ k5w5eL48AjPeH9iaI90b+ta+9cJxXvi6WLsxdU5Z2xsmL+1n93p8eQL5kDFuMItkLhfp6edhzCL
+ oWb/cV2/z2GfwlQ==
 X-Developer-Key: i=bod@kernel.org; a=openpgp;
  fpr=E693FB2AABA36DE117AB6FB422713BB3A18DC83A
 
 From: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
 
-A pixel line whose descriptor declares a parameters output, on a VFE
-whose backend can apply parameters, gets a metadata output node,
-msm_vfeN_params, linked immutably to its parameters pad. The node takes
-V4L2_META_FMT_QCOM_ISP_PARAMS, in the v4l2-isp extensible format.
+Accept CAMSS_PARAMS_AEC_BHIST on the pixel line's parameters node and
+program the region the AEC Bayer histogram counts. The region is clipped
+to the Bayer frame entering the line and converted to the 2x2 quads the
+histogram counts: RGN_OFFSET_CFG takes the offset and RGN_NUM_CFG the
+size, less one, as vfe_setup_aec_bhist() programs the full frame.
 
-The backend provides the blocks the line accepts, indexed by type, and
-how to apply a buffer. vfe_params_prepare() validates the kernel copy of
-each buffer against them when it is prepared.
-
-Parameters queued before the line starts are applied, oldest first,
-after the pixel pipe takes its defaults. While streaming, one queued
-buffer is applied per completed image frame, followed by a reg update.
-Each buffer is returned with the sequence number of the first frame it
-can affect.
+The other CAMSS parameters blocks belong to the OPE and are rejected.
+Every type up to CAMSS_PARAMS_AEC_BHIST has an entry in the block table,
+so that no block passes v4l2_isp_params_validate_buffer() with a size of
+zero.
 
 Signed-off-by: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
 ---
- drivers/media/platform/qcom/camss/camss-vfe.c | 173 +++++++++++++++++++++++---
- drivers/media/platform/qcom/camss/camss-vfe.h |  12 ++
- 2 files changed, 165 insertions(+), 20 deletions(-)
+ drivers/media/platform/qcom/camss/camss-vfe-780.c  | 103 +++++++++++++++++++++
+ .../media/platform/qcom/camss/camss-vfe-880-pp.c   |  17 ++++
+ .../media/platform/qcom/camss/camss-vfe-880-pp.h   |   2 +
+ 3 files changed, 122 insertions(+)
 
-diff --git a/drivers/media/platform/qcom/camss/camss-vfe.c b/drivers/media/platform/qcom/camss/camss-vfe.c
-index 1522f1046d8dd..5c72357bb8f02 100644
---- a/drivers/media/platform/qcom/camss/camss-vfe.c
-+++ b/drivers/media/platform/qcom/camss/camss-vfe.c
-@@ -680,6 +680,99 @@ static void vfe_stats_fill(struct vfe_device *vfe, struct vfe_output *output,
- 			      v4l2_isp_buffer_size(stats->data_size));
- }
+diff --git a/drivers/media/platform/qcom/camss/camss-vfe-780.c b/drivers/media/platform/qcom/camss/camss-vfe-780.c
+index 7642d9d4500de..33247e6de898c 100644
+--- a/drivers/media/platform/qcom/camss/camss-vfe-780.c
++++ b/drivers/media/platform/qcom/camss/camss-vfe-780.c
+@@ -9,6 +9,8 @@
+ #include <linux/io.h>
+ #include <linux/iopoll.h>
  
-+/*
-+ * vfe_params_prepare - Validate a parameters buffer when it is prepared
-+ * @vid: video node
-+ * @buf: buffer, whose kernel copy buf->meta is validated
-+ *
-+ * Return 0 on success or a negative error code otherwise
-+ */
-+int vfe_params_prepare(struct camss_video *vid, struct camss_buffer *buf)
++#include <linux/qcom-camss-config.h>
++
+ #include "camss.h"
+ #include "camss-csid-gen3.h"
+ #include "camss-vfe.h"
+@@ -273,7 +275,105 @@ static void vfe_line_prepare(struct vfe_line *line)
+ static const struct camss_video_ops vfe_video_ops_780 = {
+ 	.queue_buffer = vfe_queue_buffer_v2,
+ 	.flush_buffers = vfe_flush_buffers,
++	.prepare_buffer = vfe_params_prepare,
++};
++
++/* Blocks the IFE does not implement, the OPE's among them */
++static int vfe_params_block_unsupported(struct device *dev,
++					const struct v4l2_isp_block_header *block)
 +{
-+	struct vfe_output *output = container_of(vid, struct vfe_output,
-+						 video_out);
-+	struct vfe_device *vfe = to_vfe(output->line);
-+	const struct vfe_hw_ops *ops = vfe->res->hw_ops;
-+	struct vb2_buffer *vb = &buf->vb.vb2_buf;
-+	int ret;
++	dev_dbg(dev, "Unsupported parameters block type %u\n", block->type);
 +
-+	if (vid->type != V4L2_BUF_TYPE_META_OUTPUT)
-+		return 0;
-+
-+	ret = v4l2_isp_params_validate_buffer_size(vfe->camss->dev, vb,
-+						   vid->active_fmt.fmt.meta.buffersize);
-+	if (ret)
-+		return ret;
-+
-+	return v4l2_isp_params_validate_buffer(vfe->camss->dev, vb, buf->meta,
-+					       ops->params_info,
-+					       ops->params_num_types);
++	return -EINVAL;
 +}
 +
-+static struct vfe_output *vfe_params_output(struct vfe_line *line)
++static int vfe_params_aec_bhist_validate(struct device *dev,
++					 const struct v4l2_isp_block_header *block)
 +{
-+	unsigned int o;
++	const struct camss_params_aec_bhist *bhist =
++		container_of(block, struct camss_params_aec_bhist, header);
 +
-+	for (o = 1; o < line->num_outputs; o++)
-+		if (line->output[o].pad == MSM_VFE_PAD_SINK_PARAMS)
-+			return &line->output[o];
++	if ((bhist->left | bhist->top | bhist->width | bhist->height) & 1 ||
++	    bhist->width < 2 || bhist->height < 2) {
++		dev_dbg(dev, "Invalid AEC BHIST region %ux%u@%u,%u\n",
++			bhist->width, bhist->height, bhist->left, bhist->top);
++		return -EINVAL;
++	}
 +
-+	return NULL;
++	return 0;
 +}
 +
 +/*
-+ * vfe_params_apply_next - Apply the oldest queued parameters buffer
-+ * @vfe: VFE device
-+ * @line: VFE line
-+ * @sequence: sequence number of the first frame the parameters can affect
-+ *
-+ * Called with output_lock held.
-+ *
-+ * Return the applied buffer for the caller to complete once the lock is
-+ * dropped, or NULL if none was queued
++ * Every type up to the last one the IFE accepts has an entry, so that no
++ * block passes validation with a size of zero.
 + */
-+static struct camss_buffer *vfe_params_apply_next(struct vfe_device *vfe,
-+						  struct vfe_line *line,
-+						  u32 sequence)
++static const struct v4l2_isp_params_block_type_info vfe_params_info[] = {
++	[0] = {
++		.size = sizeof(struct v4l2_isp_params_block_header),
++		.block_validate = vfe_params_block_unsupported,
++	},
++	[CAMSS_PARAMS_WB_GAIN] = {
++		.size = sizeof(struct camss_params_wb_gain),
++		.block_validate = vfe_params_block_unsupported,
++	},
++	[CAMSS_PARAMS_CHROMA_ENHAN] = {
++		.size = sizeof(struct camss_params_chroma_enhan),
++		.block_validate = vfe_params_block_unsupported,
++	},
++	[CAMSS_PARAMS_COLOR_CORRECT] = {
++		.size = sizeof(struct camss_params_color_correct),
++		.block_validate = vfe_params_block_unsupported,
++	},
++	[CAMSS_PARAMS_GAMMA] = {
++		.size = sizeof(struct camss_params_gamma),
++		.block_validate = vfe_params_block_unsupported,
++	},
++	[CAMSS_PARAMS_AEC_BHIST] = {
++		.size = sizeof(struct camss_params_aec_bhist),
++		.block_validate = vfe_params_aec_bhist_validate,
++	},
+ };
++
++/* Clip the region to the Bayer frame entering the line, then count quads */
++static void vfe_params_aec_bhist(struct vfe_device *vfe, struct vfe_line *line,
++				 const struct camss_params_aec_bhist *bhist)
 +{
-+	const struct vfe_hw_ops *ops = vfe->res->hw_ops;
-+	struct vfe_output *params = vfe_params_output(line);
-+	struct camss_buffer *buf;
++	u32 frame_w = line->fmt[MSM_VFE_PAD_SINK].width & ~1u;
++	u32 frame_h = line->fmt[MSM_VFE_PAD_SINK].height & ~1u;
++	u32 left, top, width, height;
 +
-+	if (!params || !ops->vfe_params_apply)
-+		return NULL;
++	if (frame_w < 2 || frame_h < 2)
++		return;
 +
-+	buf = vfe_buf_get_pending(params);
-+	if (!buf)
-+		return NULL;
++	left = min_t(u32, bhist->left, frame_w - 2);
++	top = min_t(u32, bhist->top, frame_h - 2);
++	width = min_t(u32, bhist->width, frame_w - left);
++	height = min_t(u32, bhist->height, frame_h - top);
 +
-+	ops->vfe_params_apply(vfe, line, buf->meta);
-+
-+	buf->vb.vb2_buf.timestamp = ktime_get_ns();
-+	buf->vb.sequence = sequence;
-+
-+	return buf;
++	vfe_880_set_aec_bhist_region(vfe, left / 2, top / 2,
++				     width / 2 - 1, height / 2 - 1);
 +}
 +
-+/* Line start: apply every queued parameters buffer, oldest first */
-+static void vfe_params_apply_queued(struct vfe_device *vfe,
-+				    struct vfe_line *line)
++static void vfe_params_apply(struct vfe_device *vfe, struct vfe_line *line,
++			     const struct v4l2_isp_buffer *params)
 +{
-+	struct camss_buffer *buf;
-+	unsigned long flags;
++	size_t offset = 0;
 +
-+	for (;;) {
-+		spin_lock_irqsave(&vfe->output_lock, flags);
-+		buf = vfe_params_apply_next(vfe, line, 0);
-+		spin_unlock_irqrestore(&vfe->output_lock, flags);
++	/* validated at prepare: every block fits and has a non-zero size */
++	while (offset < params->data_size) {
++		const struct v4l2_isp_block_header *block =
++			(const struct v4l2_isp_block_header *)&params->data[offset];
 +
-+		if (!buf)
-+			break;
++		if (block->type == CAMSS_PARAMS_AEC_BHIST &&
++		    !(block->flags & V4L2_ISP_PARAMS_FL_BLOCK_DISABLE))
++			vfe_params_aec_bhist(vfe, line,
++					     container_of(block,
++							  struct camss_params_aec_bhist,
++							  header));
 +
-+		vb2_buffer_done(&buf->vb.vb2_buf, VB2_BUF_STATE_DONE);
++		offset += block->size;
 +	}
 +}
-+
- /*
-  * vfe_output_done - Retire the filled buffer of one output
-  * @vfe: VFE device
-@@ -752,6 +845,7 @@ static struct camss_buffer *vfe_output_done(struct vfe_device *vfe,
- void vfe_buf_done(struct vfe_device *vfe, int wm, struct camss_buf_done_info *buf_done_info)
+ static void vfe_subdev_init(struct device *dev, struct vfe_device *vfe)
  {
- 	struct camss_buffer *ready[MSM_VFE_NUM_OUTPUTS] = { };
-+	struct camss_buffer *params = NULL;
- 	struct vfe_line *line;
- 	unsigned long flags;
- 	unsigned int o;
-@@ -779,6 +873,14 @@ void vfe_buf_done(struct vfe_device *vfe, int wm, struct camss_buf_done_info *bu
- 
- 			ready[o] = vfe_output_done(vfe, line, output, ts);
- 		}
-+
-+		/* one parameters buffer per completed image frame */
-+		if (ready[0]) {
-+			params = vfe_params_apply_next(vfe, line,
-+						       line->output[0].sequence);
-+			if (params)
-+				vfe->res->hw_ops->reg_update(vfe, line->id);
-+		}
- 	}
- 
- out_unlock:
-@@ -788,6 +890,9 @@ void vfe_buf_done(struct vfe_device *vfe, int wm, struct camss_buf_done_info *bu
- 		if (ready[o])
- 			vb2_buffer_done(&ready[o]->vb.vb2_buf,
- 					VB2_BUF_STATE_DONE);
-+
-+	if (params)
-+		vb2_buffer_done(&params->vb.vb2_buf, VB2_BUF_STATE_DONE);
+ 	struct vfe_line *pix = &vfe->line[VFE_LINE_PIX];
+@@ -336,6 +436,9 @@ const struct vfe_hw_ops vfe_ops_780 = {
+ 	.vfe_disable = vfe_disable,
+ 	.vfe_enable = vfe_enable_v2,
+ 	.vfe_line_prepare = vfe_line_prepare,
++	.params_info = vfe_params_info,
++	.params_num_types = ARRAY_SIZE(vfe_params_info),
++	.vfe_params_apply = vfe_params_apply,
+ 	.vfe_halt = vfe_halt,
+ 	.vfe_wm_start = vfe_wm_start,
+ 	.vfe_wm_stop = vfe_wm_stop,
+diff --git a/drivers/media/platform/qcom/camss/camss-vfe-880-pp.c b/drivers/media/platform/qcom/camss/camss-vfe-880-pp.c
+index a4bccedb4a2f1..9b4bdad6d3963 100644
+--- a/drivers/media/platform/qcom/camss/camss-vfe-880-pp.c
++++ b/drivers/media/platform/qcom/camss/camss-vfe-880-pp.c
+@@ -460,6 +460,23 @@ static void vfe_setup_aec_bhist(struct vfe_device *vfe, u32 w, u32 h)
+ 	writel_relaxed(0x00000000, vfe->base + IFE_STATS_AEC_BHIST_MODULE_LUT_BANK_CFG);
  }
  
- /*
-@@ -950,6 +1055,10 @@ int vfe_enable_v2(struct vfe_line *line)
- 	if (ops->vfe_line_prepare)
- 		ops->vfe_line_prepare(line);
- 
-+	/* queued parameters override the defaults the line starts with */
-+	if (line->is_pix)
-+		vfe_params_apply_queued(vfe, line);
++/*
++ * vfe_880_set_aec_bhist_region - Select the region the AEC BHIST counts
++ * @vfe: VFE device
++ * @h_offset: horizontal offset, in 2x2 quads
++ * @v_offset: vertical offset, in 2x2 quads
++ * @h_num: width, in 2x2 quads, minus one
++ * @v_num: height, in 2x2 quads, minus one
++ */
++void vfe_880_set_aec_bhist_region(struct vfe_device *vfe, u32 h_offset,
++				  u32 v_offset, u32 h_num, u32 v_num)
++{
++	writel_relaxed(((v_offset & 0x3fff) << 16) | (h_offset & 0x3fff),
++		       vfe->base + IFE_STATS_AEC_BHIST_RGN_OFFSET_CFG);
++	writel_relaxed(((v_num & 0x1fff) << 16) | (h_num & 0x1fff),
++		       vfe->base + IFE_STATS_AEC_BHIST_RGN_NUM_CFG);
++}
 +
- 	ret = vfe_enable_output_v2(line);
- 	if (ret < 0)
- 		goto error_enable_output;
-@@ -2490,17 +2599,19 @@ static int vfe_bpl_align_pix(struct vfe_device *vfe)
- }
- 
- /*
-- * vfe_register_stats_node - Register the statistics node of a pixel line
-+ * vfe_register_meta_nodes - Register the metadata nodes of a pixel line
-  * @vfe: VFE device
-  * @line: VFE line
-  * @v4l2_dev: V4L2 device
-  *
-  * A line whose descriptor declares a statistics output gets a metadata
-- * capture node, msm_vfeN_stats, linked from its statistics pad.
-+ * capture node, msm_vfeN_stats, linked from its statistics pad. One that
-+ * declares a parameters output, on a VFE able to apply parameters, gets a
-+ * metadata output node, msm_vfeN_params, linked to its parameters pad.
-  *
-  * Return 0 on success or a negative error code otherwise
-  */
--static int vfe_register_stats_node(struct vfe_device *vfe,
-+static int vfe_register_meta_nodes(struct vfe_device *vfe,
- 				   struct vfe_line *line,
- 				   struct v4l2_device *v4l2_dev)
+ /* Main output round/clamp: round mode 2, clamp 0..255 */
+ static void vfe_setup_main_output_round_clamp(struct vfe_device *vfe)
  {
-@@ -2511,32 +2622,54 @@ static int vfe_register_stats_node(struct vfe_device *vfe,
- 	for (o = 1; o < line->num_outputs; o++) {
- 		struct vfe_output *output = &line->output[o];
- 		struct camss_video *video = &output->video_out;
-+		const char *suffix;
- 		char name[32];
+diff --git a/drivers/media/platform/qcom/camss/camss-vfe-880-pp.h b/drivers/media/platform/qcom/camss/camss-vfe-880-pp.h
+index 32f0a14e5b95a..e033880e5534d 100644
+--- a/drivers/media/platform/qcom/camss/camss-vfe-880-pp.h
++++ b/drivers/media/platform/qcom/camss/camss-vfe-880-pp.h
+@@ -7,5 +7,7 @@
+ struct vfe_device;
  
--		if (output->pad != MSM_VFE_PAD_SRC_STATS || !output->wm_num)
-+		if (output->pad == MSM_VFE_PAD_SRC_STATS && output->wm_num) {
-+			video->type = V4L2_BUF_TYPE_META_CAPTURE;
-+			video->active_fmt.fmt.meta.dataformat =
-+				V4L2_META_FMT_QCOM_ISP_STATS;
-+			video->active_fmt.fmt.meta.buffersize =
-+				v4l2_isp_buffer_size(CAMSS_STATS_MAX_PAYLOAD);
-+			suffix = "stats";
-+		} else if (output->pad == MSM_VFE_PAD_SINK_PARAMS &&
-+			   vfe->res->hw_ops->vfe_params_apply) {
-+			video->type = V4L2_BUF_TYPE_META_OUTPUT;
-+			video->active_fmt.fmt.meta.dataformat =
-+				V4L2_META_FMT_QCOM_ISP_PARAMS;
-+			video->active_fmt.fmt.meta.buffersize =
-+				v4l2_isp_buffer_size(CAMSS_PARAMS_IFE_MAX_PAYLOAD);
-+			suffix = "params";
-+		} else {
- 			continue;
-+		}
+ void vfe_880_setup_pixel_pipe(struct vfe_device *vfe, u32 width, u32 height);
++void vfe_880_set_aec_bhist_region(struct vfe_device *vfe, u32 h_offset,
++				  u32 v_offset, u32 h_num, u32 v_num);
  
--		video->type = V4L2_BUF_TYPE_META_CAPTURE;
--		video->active_fmt.fmt.meta.dataformat =
--			V4L2_META_FMT_QCOM_ISP_STATS;
--		video->active_fmt.fmt.meta.buffersize =
--			v4l2_isp_buffer_size(CAMSS_STATS_MAX_PAYLOAD);
- 		video->ops = &vfe->video_ops;
- 
- 		snprintf(name, ARRAY_SIZE(name), "%s%d_%s",
--			 MSM_VFE_NAME, vfe->id, "stats");
-+			 MSM_VFE_NAME, vfe->id, suffix);
- 		ret = msm_video_register(video, v4l2_dev, name);
- 		if (ret < 0) {
--			dev_err(dev, "Failed to register stats node: %d\n", ret);
-+			dev_err(dev, "Failed to register %s node: %d\n",
-+				suffix, ret);
- 			return ret;
- 		}
- 
--		ret = media_create_pad_link(&line->subdev.entity, output->pad,
--					    &video->vdev.entity, 0,
--					    MEDIA_LNK_FL_IMMUTABLE |
--					    MEDIA_LNK_FL_ENABLED);
-+		if (video->type == V4L2_BUF_TYPE_META_OUTPUT)
-+			ret = media_create_pad_link(&video->vdev.entity, 0,
-+						    &line->subdev.entity,
-+						    output->pad,
-+						    MEDIA_LNK_FL_IMMUTABLE |
-+						    MEDIA_LNK_FL_ENABLED);
-+		else
-+			ret = media_create_pad_link(&line->subdev.entity,
-+						    output->pad,
-+						    &video->vdev.entity, 0,
-+						    MEDIA_LNK_FL_IMMUTABLE |
-+						    MEDIA_LNK_FL_ENABLED);
- 		if (ret < 0) {
--			dev_err(dev, "Failed to link stats node: %d\n", ret);
-+			dev_err(dev, "Failed to link %s node: %d\n", suffix,
-+				ret);
- 			msm_video_unregister(video);
- 			return ret;
- 		}
-@@ -2545,7 +2678,7 @@ static int vfe_register_stats_node(struct vfe_device *vfe,
- 	return 0;
- }
- 
--static void vfe_unregister_stats_node(struct vfe_line *line)
-+static void vfe_unregister_meta_nodes(struct vfe_line *line)
- {
- 	unsigned int o;
- 
-@@ -2660,7 +2793,7 @@ int msm_vfe_register_entities(struct vfe_device *vfe,
- 			goto error_link;
- 		}
- 
--		ret = vfe_register_stats_node(vfe, &vfe->line[i], v4l2_dev);
-+		ret = vfe_register_meta_nodes(vfe, &vfe->line[i], v4l2_dev);
- 		if (ret < 0)
- 			goto error_link;
- 	}
-@@ -2681,7 +2814,7 @@ int msm_vfe_register_entities(struct vfe_device *vfe,
- 		sd = &vfe->line[i].subdev;
- 		video_out = &vfe->line[i].output[0].video_out;
- 
--		vfe_unregister_stats_node(&vfe->line[i]);
-+		vfe_unregister_meta_nodes(&vfe->line[i]);
- 		msm_video_unregister(video_out);
- 		v4l2_device_unregister_subdev(sd);
- 		media_entity_cleanup(&sd->entity);
-@@ -2705,7 +2838,7 @@ void msm_vfe_unregister_entities(struct vfe_device *vfe)
- 		struct v4l2_subdev *sd = &vfe->line[i].subdev;
- 		struct camss_video *video_out = &vfe->line[i].output[0].video_out;
- 
--		vfe_unregister_stats_node(&vfe->line[i]);
-+		vfe_unregister_meta_nodes(&vfe->line[i]);
- 		msm_video_unregister(video_out);
- 		v4l2_device_unregister_subdev(sd);
- 		media_entity_cleanup(&sd->entity);
-diff --git a/drivers/media/platform/qcom/camss/camss-vfe.h b/drivers/media/platform/qcom/camss/camss-vfe.h
-index 0b2634f1e4d6a..b39bce17f8dec 100644
---- a/drivers/media/platform/qcom/camss/camss-vfe.h
-+++ b/drivers/media/platform/qcom/camss/camss-vfe.h
-@@ -14,6 +14,7 @@
- #include <linux/spinlock_types.h>
- #include <media/media-entity.h>
- #include <media/v4l2-device.h>
-+#include <media/v4l2-isp.h>
- #include <media/v4l2-subdev.h>
- 
- #include "camss-video.h"
-@@ -205,6 +206,16 @@ struct vfe_hw_ops {
- 	 */
- 	void (*vfe_line_prepare)(struct vfe_line *line);
- 
-+	/*
-+	 * Optional: the parameters blocks the pixel line accepts, indexed by
-+	 * block type, and how to apply a validated parameters buffer. Applying
-+	 * runs with output_lock held, ahead of a reg update.
-+	 */
-+	const struct v4l2_isp_params_block_type_info *params_info;
-+	unsigned int params_num_types;
-+	void (*vfe_params_apply)(struct vfe_device *vfe, struct vfe_line *line,
-+				 const struct v4l2_isp_buffer *params);
-+
- 	/* Output based API - new and shiny */
- 	void (*vfe_output_start)(struct vfe_device *vfe, struct vfe_output *output);
- 	void (*vfe_output_stop)(struct vfe_device *vfe, struct vfe_output *output);
-@@ -431,6 +442,7 @@ void vfe_add_ds(struct vfe_output *output, u8 pad, u8 bus_client,
- 
- void vfe_add_stats(struct vfe_output *output, u8 bus_client, u8 comp_group);
- int vfe_alloc_stats(struct vfe_device *vfe, struct vfe_output *output);
-+int vfe_params_prepare(struct camss_video *vid, struct camss_buffer *buf);
- 
- void vfe_add_params(struct vfe_output *output, u8 comp_group);
- 
+ #endif
 
 -- 
 2.55.0
