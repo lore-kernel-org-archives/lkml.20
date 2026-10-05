@@ -1,161 +1,193 @@
-Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
+Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com [148.163.158.5])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EBE032931C3
-	for <linux-kernel@vger.kernel.org>; Mon,  5 Oct 2026 08:12:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.85.4
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BD0433803D3;
+	Mon,  5 Oct 2026 08:12:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.158.5
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791187947; cv=none; b=OgLNIQQiLlHbC7e1tZgXcdGGE+ek3MAjEM+g8qYPyKcu0NdYvblSW7GSVQxBujCKFQKTWvam6fvvWGeWrC8wZ5SB5RL9azkUeRz12ZopeAEJ+2pGu+SFO1UFJGaSLO5HkWHV7KmqDEeXD5wEMPHM1ATNM+ZSgbVk/AeE493dSQ4=
+	t=1791187950; cv=none; b=jouXTCehZhDsqh6fArSxjCZiLQrocs/PUmXY6TkPZT60qKCBlg+26idxpXgKCi+4h5/IkQ5SjkDEs892V0uBXXTPpAbmX9qpXDgWsQRBO/HOY7Ng50hwFVmxibsRexTW/Rb0cex60XaW9AXLVz0ZBLpDWjmhEfhxQietbNq5vD0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791187947; c=relaxed/simple;
-	bh=WXze5l23ss62nuB8A6mQWEJNGXEQPf46nDUtmjibv1U=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=NqIcUgOstIYrXJM9JIsjTx0Kl64CH6YdG5FBjjhYmZWxtnimhaxkmOjPoV8wzkPpG1CSVunm7sPb7wA/tSU1VHcdYt1chuicHJa0J+QjlVUP7kCKgLhi5+Lsmy/7PBiSyDI8yI3Ys1syIlkndDM7OI5DJqLlUPHOtV0KQU5uTN0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=2HGIfdor; arc=none smtp.client-ip=185.246.85.4
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	s=arc-20240116; t=1791187950; c=relaxed/simple;
+	bh=WRtZ/cz/FT4VfIcKEIK+ePSLetGDOvNcYIBTZcilCgc=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=GkKN1Z4Vn/hPjwCnpjoZ8SqcY/YcpTnvOnlUUWPVPRS5ev10KVskDb1AshvkQlt1GRTlA+LRkH0EWZ1Q+VKIMJErRkLJZu3Du5bC/9OJ/hhcK6tmFda3ESh01+43RIGwAJf8BsgpB/7vwKxzkL1m5GuIv18G0aXEwzgOCfKM6Yc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=ngO95+Jh; arc=none smtp.client-ip=148.163.158.5
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="2HGIfdor"
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-03.galae.net (Postfix) with ESMTPS id 7D7CE4E41190;
-	Mon,  5 Oct 2026 08:12:23 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 4B961604FE;
-	Mon,  5 Oct 2026 08:12:23 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id D52671033063D;
-	Mon,  5 Oct 2026 10:12:18 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1791187942; h=from:subject:date:message-id:to:cc:mime-version:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=tY98A2BYr6LRCOyMToXlNKtz1WF3lP1tVdRhJE2ACEE=;
-	b=2HGIfdorT5MeWmqbHkDBF6LROvE8d419L5sbGdlKLWfTtCi+1j8e2wrEsHSTPsjWqaE7yL
-	Wjid74rrFHA4HLFjgNgsIoZD7hirAg1Cat8mG8PjsfqIl8XXOpEjvjzn9C3jsGyTbdEnCk
-	Ce8zXo1SrNQxQT96LBugFVIOEORarF01+8Le/PqYsm3TyTTyF0o/m2U3c1swpnyV06FDTE
-	t79ZUTTwCMRZSwCvrVovzcgoZuw6SgA9pVEqnDMdtge64jXm3CXMzTPFvQ6xDR8eJLTyMK
-	TaiAFQbrB3EewF4fluoJP5VEU5DvYD3YXj+ZBgpVrwpeLDLrQDa9kJ0h67f8WA==
-From: Paul Cercueil <paul.cercueil@bootlin.com>
-To: Pratyush Yadav <pratyush@kernel.org>,
-	Michael Walle <mwalle@kernel.org>,
-	Takahiro Kuwano <takahiro.kuwano@infineon.com>,
-	Miquel Raynal <miquel.raynal@bootlin.com>,
-	Richard Weinberger <richard@nod.at>,
-	Vignesh Raghavendra <vigneshr@ti.com>,
-	Mark Brown <broonie@kernel.org>,
-	Thomas Petazzoni <thomas.petazzoni@bootlin.com>
-Cc: Kees Cook <kees@kernel.org>,
-	Tony Luck <tony.luck@intel.com>,
-	"Guilherme G . Piccoli" <gpiccoli@igalia.com>,
-	linux-mtd@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	linux-spi@vger.kernel.org,
-	Tanmay Jagdale <tanmay@marvell.com>,
-	Paul Cercueil <paul.cercueil@bootlin.com>
-Subject: [PATCH 1/5] spi: spi-mem: Add support for panic mem writes
-Date: Mon,  5 Oct 2026 10:11:36 +0200
-Message-ID: <20261005081141.33688-2-paul.cercueil@bootlin.com>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20261005081141.33688-1-paul.cercueil@bootlin.com>
-References: <20261005081141.33688-1-paul.cercueil@bootlin.com>
+	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="ngO95+Jh"
+Received: from pps.filterd (m0356516.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69516P9m3139667;
+	Mon, 5 Oct 2026 08:12:10 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+	:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=pp1; bh=3cbbU7
+	41SbgqZJRcAAr1PPJbwn07RoCYANAWs6/OtKM=; b=ngO95+JhozgjhU+iiLHEhU
+	R2UdJuTuHQZigkxpC2zy/K805ixzcp2SeEQi8B+Hddb+3/0lOUJ4iN8g18xGC/GM
+	um7ghf1OA9xQlmU+vyYX115CT7Kp56QM+LNk4CRNsg5Q+pwPuZSfLR64UAg85RKQ
+	xTiI4HQzzBrsg4PMPqlQt6AEfZfERDI0BvttWOYZlEaRTvrp1oE41yHd/Kiyrlug
+	XpWLznX3NJav+xP1GNTmCl+rURDCiBn9jSS2r9Iu4QabfUtxkbJnTd/RNoQh8UNM
+	7BYlBhPi1vYT+Pf8naF538N//wDa2KE1UAQjKhy96mdl/qUQjiYy6OLNd10IeVYQ
+	==
+Received: from ppma12.dal12v.mail.ibm.com (dc.9e.1632.ip4.static.sl-reverse.com [50.22.158.220])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4h2q4jgsfe-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Mon, 05 Oct 2026 08:12:09 +0000 (GMT)
+Received: from pps.filterd (ppma12.dal12v.mail.ibm.com [127.0.0.1])
+	by ppma12.dal12v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 6956Ex0M2165217;
+	Mon, 5 Oct 2026 08:12:08 GMT
+Received: from smtprelay01.fra02v.mail.ibm.com ([9.218.2.227])
+	by ppma12.dal12v.mail.ibm.com (PPS) with ESMTPS id 4h3c1pmr90-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Mon, 05 Oct 2026 08:12:08 +0000 (GMT)
+Received: from smtpav01.fra02v.mail.ibm.com (smtpav01.fra02v.mail.ibm.com [10.20.54.100])
+	by smtprelay01.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 6958C4Ox45679086
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Mon, 5 Oct 2026 08:12:04 GMT
+Received: from smtpav01.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id BAA0920043;
+	Mon,  5 Oct 2026 08:12:04 +0000 (GMT)
+Received: from smtpav01.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 6496C2004D;
+	Mon,  5 Oct 2026 08:12:02 +0000 (GMT)
+Received: from [9.123.14.142] (unknown [9.123.14.142])
+	by smtpav01.fra02v.mail.ibm.com (Postfix) with ESMTP;
+	Mon,  5 Oct 2026 08:12:02 +0000 (GMT)
+Message-ID: <dbb4580d-7e20-4c38-9716-f39cf81a4942@linux.ibm.com>
+Date: Mon, 5 Oct 2026 13:42:01 +0530
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Last-TLS-Session-Version: TLSv1.3
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] powerpc/kexec: Annotate umem_info members with
+ __counted_by_ptr
+To: Thorsten Blum <blum@kernel.org>
+Cc: Thorsten Blum <thorsten.blum@linux.dev>,
+        Madhavan Srinivasan <maddy@linux.ibm.com>,
+        Michael Ellerman <mpe@ellerman.id.au>,
+        Nicholas Piggin <npiggin@gmail.com>,
+        "Christophe Leroy (CS GROUP)" <chleroy@kernel.org>,
+        Kees Cook <kees@kernel.org>,
+        "Gustavo A. R. Silva" <gustavoars@kernel.org>,
+        Aditya Gupta <adityag@linux.ibm.com>,
+        Hari Bathini <hbathini@linux.ibm.com>, linuxppc-dev@lists.ozlabs.org,
+        linux-kernel@vger.kernel.org, linux-hardening@vger.kernel.org
+References: <20260730130248.597249-2-thorsten.blum@linux.dev>
+ <7d99725f-9c90-48ca-bee1-30e2e6c06617@linux.ibm.com>
+ <asDClaRrHuKB44X-@kernel.org>
+Content-Language: en-US
+From: Sourabh Jain <sourabhjain@linux.ibm.com>
+In-Reply-To: <asDClaRrHuKB44X-@kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-TM-AS-GCONF: 00
+X-Proofpoint-Reinject: loops=2 maxloops=12
+X-Proofpoint-ORIG-GUID: SQmkxSjXfSF0Aigi6LvjR4rGT_ajmLVq
+X-Proofpoint-GUID: 9Ws2SgDQDx_bhgExN4tr_8LPPrwIjVn5
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDA1MDAzMiBTYWx0ZWRfX+0yfOZeCg6vm
+ Uy7QXUgn19+yDolbA9djlMEm0MsnAaGWc4YDmeIld5zNQsRh1jOe9pxpSVioqG2wbrs+5QWdj1n
+ 3nJfH1jcwRPqWO4BfZ1az6/cuHK3i5Y=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDA1MDAzMiBTYWx0ZWRfXwpwS+slmMMhU
+ K3S8luuLydR1udZG+G+vNHsDKRrMNlFKF4lFAxhh2tlqbiNu74aQvmUvrWzxQyyOe5zN/jjyMNf
+ 718++icBmYkCM+OGsi2UUMqO5lXYD3N2r6featpLN4qYbAPHNVSQtCI8lLxcfPnBrzAPl1sfXiV
+ k6JVFlr2785uNn8IXFCwp+Z5z15K64eEAPPDnvBWOFebO8+xGDJEtwODjt9qFOyUobAXQrWaRnR
+ r4FxDZ4HJZ9mB6uAneEtHtP0fRsDTRSeYyqHj4rXfMdxUSWZcK5D+9nVE3h7k+Onl8f436/i9Tk
+ 75HW7nDmWpQZQLpwLEDga7BxJTlncIsy0uo9PVXxX3t/Y2CpAsZywVjdMhS4Hqwx4kbfABNs9dS
+ hejRV326jVGq3qwrQUlKL9OTE9Ed8T84g1mUbywhTIsFJcsPOsr1YOxZy+K3SXnSGx4Pvxg7uvX
+ ewiN5topA2limY/olZA==
+X-Authority-Analysis: v=2.4 cv=eYeo7LEH c=1 sm=1 tr=0 ts=6ac35bda cx=c_pps
+ a=bLidbwmWQ0KltjZqbj+ezA==:117 a=bLidbwmWQ0KltjZqbj+ezA==:17
+ a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=RnoormkPH1_aCDwRdu11:22 a=Y2IxJ9c9Rs8Kov3niI8_:22 a=9AdMxfjQAAAA:20
+ a=EDIrg12U6glrp4Io1RoA:9 a=QEXdDO2ut3YA:10 a=bA3UWDv6hWIuX7UZL3qL:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-05_01,2026-10-02_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ adultscore=0 lowpriorityscore=0 phishscore=0 bulkscore=0 clxscore=1015
+ spamscore=0 malwarescore=0 priorityscore=1501 impostorscore=0 suspectscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2610050032
 
-From: Tanmay Jagdale <tanmay@marvell.com>
 
-Add a 'panic_write' flag to the controller's capabilities struct.
-When set, the SPI controller indicates that it will be able to send
-commands to a connected NOR or NAND memory in the context of a kernel
-panic, which means without sleeping and without relying on IRQs.
 
-Whether or not a given memory operation is a panic mem write is given by
-the spi_mem_op.panic_write flag.
+On 03/10/26 14:23, Thorsten Blum wrote:
+> On Fri, Sep 25, 2026 at 11:49:04AM +0530, Sourabh Jain wrote:
+>> On 30/07/26 18:32, Thorsten Blum wrote:
+>>> Add __counted_by_ptr() to umem_info::buf and umem_info::ranges to
+>>> improve access bounds checking via CONFIG_UBSAN_BOUNDS and
+>>> CONFIG_FORTIFY_SOURCE.
+>>>
+>>> Set the count fields before assigning the corresponding pointers, return
+>>> early on krealloc() failure, and use sizeof(*buf) when deriving
+>>> max_entries from the allocation size.
+>>>
+>>> Signed-off-by: Thorsten Blum <thorsten.blum@linux.dev>
+>>> ---
+>>>    arch/powerpc/kexec/file_load_64.c | 22 ++++++++++++----------
+>>>    1 file changed, 12 insertions(+), 10 deletions(-)
+>>>
+>>> diff --git a/arch/powerpc/kexec/file_load_64.c b/arch/powerpc/kexec/file_load_64.c
+>>> index 8c72e12ea44e..6424b668f0e9 100644
+>>> --- a/arch/powerpc/kexec/file_load_64.c
+>>> +++ b/arch/powerpc/kexec/file_load_64.c
+>>> @@ -34,14 +34,15 @@
+>>>    #include <asm/cputhreads.h>
+>>>    struct umem_info {
+>>> -	__be64 *buf;		/* data buffer for usable-memory property */
+>>> +	/* data buffer for usable-memory property */
+>>> +	__be64 *buf __counted_by_ptr(max_entries);
+>>>    	u32 size;		/* size allocated for the data buffer */
+>>>    	u32 max_entries;	/* maximum no. of entries */
+>>>    	u32 idx;		/* index of current entry */
+>>>    	/* usable memory ranges to look up */
+>>>    	unsigned int nr_ranges;
+>>> -	const struct range *ranges;
+>>> +	const struct range *ranges __counted_by_ptr(nr_ranges);
+>>>    };
+>> [...]
+>>>    const struct kexec_file_ops * const kexec_file_loaders[] = {
+>>> @@ -83,11 +84,12 @@ static __be64 *check_realloc_usable_mem(struct umem_info *um_info, int cnt)
+>>>    	new_size = um_info->size + MEM_RANGE_CHUNK_SZ;
+>>>    	tbuf = krealloc(um_info->buf, new_size, GFP_KERNEL);
+>>> -	if (tbuf) {
+>>> -		um_info->buf = tbuf;
+>>> -		um_info->size = new_size;
+>>> -		um_info->max_entries = (um_info->size / sizeof(u64));
+>>> -	}
+>>> +	if (!tbuf)
+>>> +		return NULL;
+>>> +
+>>> +	um_info->size = new_size;
+>>> +	um_info->max_entries = um_info->size / sizeof(*um_info->buf);
+>>> +	um_info->buf = tbuf;
+>>
+>> Could you please explain why size and max_entries are updated before the
+>> buffer itself?
+> __counted_by_ptr() requires the counter ->max_entries to be set before
+> the ->buf pointer is assigned; otherwise you have an inconsistent state
+> where the counter doesn't match the pointer.
 
-Signed-off-by: Tanmay Jagdale <tanmay@marvell.com>
-Co-developed-by: Paul Cercueil <paul.cercueil@bootlin.com>
-Signed-off-by: Paul Cercueil <paul.cercueil@bootlin.com>
----
- drivers/spi/spi-mem.c       | 25 +++++++++++++++++++++++++
- include/linux/spi/spi-mem.h |  5 +++++
- 2 files changed, 30 insertions(+)
+But isn't updating the counter holding the buffer size before the actual 
+buffer
+can cause problems?
 
-diff --git a/drivers/spi/spi-mem.c b/drivers/spi/spi-mem.c
-index b94680b60af9..89710f9f555e 100644
---- a/drivers/spi/spi-mem.c
-+++ b/drivers/spi/spi-mem.c
-@@ -398,6 +398,31 @@ int spi_mem_exec_op(struct spi_mem *mem, const struct spi_mem_op *op)
- 	u8 *tmpbuf;
- 	int ret;
- 
-+	if (op->panic_write) {
-+		if (!spi_mem_controller_is_capable(ctlr, panic_write))
-+			return -EOPNOTSUPP;
-+
-+		/*
-+		 * Only support panic writes if we'll go through .exec_op().
-+		 * The regular SPI path (spi_sync(), etc.) explicitly mentions
-+		 * that it can only be used from a context that may sleep, which
-+		 * is not the case on a kernel panic.
-+		 * If this changes in the future, this could be reworked, but
-+		 * for now this will have to do.
-+		 */
-+		if (WARN_ON_ONCE(!ctlr->mem_ops || !ctlr->mem_ops->exec_op))
-+			return -EOPNOTSUPP;
-+
-+		if (spi_get_csgpiod(mem->spi, 0))
-+			return -EPERM;
-+
-+		/* On panic IRQs are disabled so we cannot wait on locks */
-+		if (mutex_is_locked(&ctlr->bus_lock_mutex) ||
-+		    mutex_is_locked(&ctlr->io_mutex)) {
-+			return -EPERM;
-+		}
-+	}
-+
- 	/* Make sure the operation frequency is correct before going futher */
- 	spi_mem_adjust_op_freq(mem, (struct spi_mem_op *)op);
- 
-diff --git a/include/linux/spi/spi-mem.h b/include/linux/spi/spi-mem.h
-index 0cce6b57242a..2633307bfad5 100644
---- a/include/linux/spi/spi-mem.h
-+++ b/include/linux/spi/spi-mem.h
-@@ -169,6 +169,7 @@ enum spi_mem_data_dir {
-  *		 operation does not involve transferring data
-  * @data.buf.in: input buffer (must be DMA-able)
-  * @data.buf.out: output buffer (must be DMA-able)
-+ * @panic_write: The command is executed in the context of a kernel panic
-  * @max_freq: frequency limitation wrt this operation. 0 means there is no
-  *	      specific constraint and the highest achievable frequency can be
-  *	      attempted.
-@@ -211,6 +212,7 @@ struct spi_mem_op {
- 		} buf;
- 	} data;
- 
-+	bool panic_write;
- 	unsigned int max_freq;
- };
- 
-@@ -392,6 +394,8 @@ struct spi_controller_mem_ops {
-  *                   is a pause in the transfer (eg. internal bus contention or
-  *                   DMA arbitration on an interconnect). Features such as NAND
-  *                   continuous reads shall not be leveraged.
-+ * @panic_write: Set to true if the controller driver supports writing to a
-+ *               connected NAND/NOR memory in a kernel panic context
-  */
- struct spi_controller_mem_caps {
- 	bool dtr;
-@@ -400,6 +404,7 @@ struct spi_controller_mem_caps {
- 	bool per_op_freq;
- 	bool secondary_op_tmpl;
- 	bool no_cs_assertion;
-+	bool panic_write;
- };
- 
- #define spi_mem_controller_is_capable(ctlr, cap)	\
--- 
-2.47.3
+Can you share the document link of __counted_by_ptr() which says that 
+size counter to be
+updated before the buffer pointer.
+
+Here is an example in fs/coredump.c file where size counter is updated 
+after the buffer
+with __counter_by_ptr():
+
+https://github.com/torvalds/linux/blob/a90ee4305c4a5df72c11b31dacfdc76e00fcf78a/fs/coredump.c#L98
+https://github.com/torvalds/linux/blob/a90ee4305c4a5df72c11b31dacfdc76e00fcf78a/fs/coredump.c#L115
+
+- Sourabh Jain
+
+> And ->size is moved up because ->max_entries depends on it.
+
 
