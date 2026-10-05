@@ -1,150 +1,104 @@
-Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 648DB4446E1;
-	Mon,  5 Oct 2026 10:04:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.85.4
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3F949418A33
+	for <linux-kernel@vger.kernel.org>; Mon,  5 Oct 2026 10:05:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791194700; cv=none; b=LVLGYAFAk2NnoPcPOeCAKur6FEzoGRciH7Xi7apwPUdueQ7tDVDj40jjg9tAHIDU+rXdHaR6ITzxtKwBTEoRXM4Ovi2kaaqh0bTzxwXfwAo4lmHR/uayjK/ElIFeuLPLzoutyGNXu/daUhYoh8vkaA1W5/VCGdIqU/E/U1B7jWA=
+	t=1791194713; cv=none; b=Rqxyu2cnjQUk/pa7WkQaB6PV8yr/hpYT2riKPjqx1DLu44BlYC/RS2NvUJYbEqk3EdjXu6QRe7F9gptR/lodrkdKWFcgu5XHZkxeqvAB3O9ZLDVwTw83qxHMJjH4xJ1bfpFJkx5khae4by1be14bq3Ggq4+BmtPZ3kwHlDWCrVw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791194700; c=relaxed/simple;
-	bh=V4f/K/Gnk/Z8OVIaq6Zpt4Non3+0kQdnB7k+cIA+TA0=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=bRyohp3rBEd2kg4xahuKYsDw1WqRLedOWt0958LWlPbPpJLKWFI5yktfO3jHlEuShy60MYUI8SqMIAoY1n1fIGneRgRM6IXip4ZfQ9cWJyQTP18Q7e1ojXKaWT2KOdI2d6mqozWXg6DrS2fyFhQvMSryIs/lVtFNLiVSWBUeJVU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=OmrgNyPO; arc=none smtp.client-ip=185.246.85.4
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	s=arc-20240116; t=1791194713; c=relaxed/simple;
+	bh=KbGiJXXwoQ3jClubF7TlnL0TPDmyhwqYFebqjctSX/U=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=n3nBHvCFvX3oJ+GtSZ8/aNdi0XiGRSP0EBOojA6kk0IbM7y7LxXvVrQcNqlPPmXnzWa+37d2OfZ19Qpsa768JqY8DjY0q2tKjoPl2Up66q4hUY15r8ZNqWrU8+QghyFLZ4pTxwzW7LtMWRC6EE23EWLSrFpFf5gHk0FgiPc2BKY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=LWVoVLal; arc=none smtp.client-ip=170.10.129.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="OmrgNyPO"
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-03.galae.net (Postfix) with ESMTPS id E677B4E4117E;
-	Mon,  5 Oct 2026 10:04:51 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id ABA5D604FE;
-	Mon,  5 Oct 2026 10:04:51 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id BE5EE103306CC;
-	Mon,  5 Oct 2026 12:04:43 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1791194690; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding; bh=fVpBYsXmVA5NBWB0gWGRojHkpJX3RwWJ3gjajsOdKJQ=;
-	b=OmrgNyPOVZj81RVXkuRvREAzl/uvGKvX77+1gse4ENETKgJDi0yPU3TeyxW5cUE4d5fnGe
-	A+JKI/vesJDp/T+/9CU0gBjIG929MPwlBm+AHf1vI5k+nu+wMJ9cTBzNqZH5ZfEwa426Zk
-	07VUBhv6WTrNjgivEaNiwvwqhjRFAmuR9gdYB3wsGlzHhK8bXNgazui3G2anxYnr8pQen4
-	Dc1LFOZk6eusq2yrS6pfli8amYsF35LhGJKr1+5qsIxnE4Xp6EMoCmKTjTHToR8KiyQRZv
-	UsuQjjagUB06Nv0oY20AZNymHQyuWZoQHSbmRNwbH622pytvC0/tIta1Ww/+PA==
-From: "Miguel Gazquez (Schneider Electric)" <miguel.gazquez@bootlin.com>
-Date: Mon, 05 Oct 2026 12:04:33 +0200
-Subject: [PATCH 5.10.y] loop: Fix use-after-free issues
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="LWVoVLal"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1791194704;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=bMe63t1nHujMN1HvYyQr8Mnh6elbHxeuI9TNQO12M4g=;
+	b=LWVoVLalTc2PU3WuTGRZRbLnhDtBHo84esbP54n2VZHRsV1bL1zz88tVvDlaQ/epz+ekif
+	UTHf96PjH9qkDFlv/YjqE8P6y7HexDciVhuQ1KbCO1wRCSG4hO3Iz3NR4j/TbL2gi+QN7g
+	RzSDw8w847Q30d5rlunm7W4k26QkZ4w=
+Received: from mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-91-DrvbuV9FNA-Z4zd5ZwMBkQ-1; Mon,
+ 05 Oct 2026 06:05:01 -0400
+X-MC-Unique: DrvbuV9FNA-Z4zd5ZwMBkQ-1
+X-Mimecast-MFC-AGG-ID: DrvbuV9FNA-Z4zd5ZwMBkQ_1791194699
+Received: from mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.17])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 2F18318002E6;
+	Mon,  5 Oct 2026 10:04:59 +0000 (UTC)
+Received: from localhost (headnet05.pony-001.prod.iad2.dc.redhat.com [10.2.32.117])
+	by mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 926141944CC0;
+	Mon,  5 Oct 2026 10:04:55 +0000 (UTC)
+Date: Mon, 5 Oct 2026 12:04:53 +0200
+From: Miroslav Lichvar <mlichvar@redhat.com>
+To: David Woodhouse <dwmw2@infradead.org>
+Cc: Thomas Gleixner <tglx@kernel.org>, John Stultz <jstultz@google.com>,
+	Stephen Boyd <sboyd@kernel.org>,
+	Rodolfo Giometti <giometti@enneenne.com>,
+	Ryan Luu <rluu@amazon.com>, Julien Ridoux <ridouxj@amazon.com>,
+	linux-kernel@vger.kernel.org, David Woodhouse <dwmw@amazon.co.uk>
+Subject: Re: [PATCH 4/5] timekeeping: Reinstate proportional correction of
+ ntp_error
+Message-ID: <asN2RcjoTNN5rpaK@localhost>
+References: <20261001202134.33929-1-dwmw2@infradead.org>
+ <20261001202134.33929-5-dwmw2@infradead.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261005-cve-2023-53111-v1-1-d844a2fc5e57@bootlin.com>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMwQ6CMBCE4Vche2ZJt9hKeBXjAeqg6wFNi42E8
- O5WPX6TzL9RQlQk6quNIrImfcwFUlcUbsN8BeulmKyxXoxxHDK4oGXXigh38AOmoz90YqmcnhG
- Tvn/BE7lGTLPS+b+n13hHWL412vcPfgwvjHoAAAA=
-X-Change-ID: 20261005-cve-2023-53111-8e6aef764812
-To: stable@vger.kernel.org, Jens Axboe <axboe@kernel.dk>, 
- Johannes Weiner <hannes@cmpxchg.org>, 
- Dan Schatzberg <schatzberg.dan@gmail.com>, 
- Andrew Morton <akpm@linux-foundation.org>, 
- Ming Lei <ming.lei@canonical.com>
-Cc: Benjamin Robin <benjamin.robin@bootlin.com>, 
- Thomas Petazzoni <thomas.petazzoni@bootlin.com>, 
- linux-block@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Bart Van Assche <bvanassche@acm.org>, Christoph Hellwig <hch@lst.de>, 
- Ming Lei <ming.lei@redhat.com>, Jan Kara <jack@suse.cz>, 
- Sasha Levin <sashal@kernel.org>, 
- "Miguel Gazquez (Schneider Electric)" <miguel.gazquez@bootlin.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1791194683; l=2740;
- i=miguel.gazquez@bootlin.com; s=20250708; h=from:subject:message-id;
- bh=3J3ULDIaQHTyYc9Lu+HeWPvp/O2decHG7gb4ZyGY2zk=;
- b=YS0cSVRrDOnYT/9q6tL57bC3wcTaTeKvYga7g+yYHHrX8eWerRBWCJImhjj5lacaHX4/987cN
- AIJtZVhEhh2AuUrmJCyyWxt1N/Nz8SCjSA0lQQOq+1aU5ksSRfhHNju
-X-Developer-Key: i=miguel.gazquez@bootlin.com; a=ed25519;
- pk=k/2KI9jkmayaF0ghZ8QYUH9Wm/kFHDhl8QoZ0RHbr4w=
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20261001202134.33929-5-dwmw2@infradead.org>
+X-Scanned-By: MIMEDefang 3.0 on 10.30.177.17
 
-From: Bart Van Assche <bvanassche@acm.org>
+On Thu, Oct 01, 2026 at 09:21:33PM +0100, David Woodhouse wrote:
+> From: David Woodhouse <dwmw@amazon.co.uk>
+> 
+> The ±1 mult dithering is sufficient to keep ntp_error at zero once
+> it's already there, but it doesn't do much to reduce it once any
+> significant ntp_error has accumulated (e.g. from frequency or phase
+> adjustments) — it can typically only drain single-digit nanoseconds
+> per second. Commit dc491596f639 ("timekeeping: Rework frequency
+> adjustments to work better w/ nohz") removed a larger skew because in
+> a tickless kernel, it would remain in effect for a full idle period
+> and overshoot. Now that timekeeping_max_deferment() ensures that the
+> system wakes at the top of the second when skew is active, the
+> correction can be reinstated. If ntp_error exceeds an amount that a
+> single ±1 change to mult can drain within a minute, add an
+> additional bias to mult to close the gap.
 
-[ Upstream commit 9b0cb770f5d7b1ff40bea7ca385438ee94570eec ]
+The dithering is switching between an adjustment of +0 and +1, there
+is no -1. The time to drain depends on the direction. If the mult
+division has no remainder, it's infinite for +0. I think that's ok for
+this change, but the message and comment could be more clear.
 
-do_req_filebacked() calls blk_mq_complete_request() synchronously or
-asynchronously when using asynchronous I/O unless memory allocation fails.
-Hence, modify loop_handle_cmd() such that it does not dereference 'cmd' nor
-'rq' after do_req_filebacked() finished unless we are sure that the request
-has not yet been completed. This patch fixes the following kernel crash:
+A faster correction creates a larger frequency error.
 
-Unable to handle kernel NULL pointer dereference at virtual address 0000000000000054
-Call trace:
- css_put.42938+0x1c/0x1ac
- loop_process_work+0xc8c/0xfd4
- loop_rootcg_workfn+0x24/0x34
- process_one_work+0x244/0x558
- worker_thread+0x400/0x8fc
- kthread+0x16c/0x1e0
- ret_from_fork+0x10/0x20
+Is this patch considered a requirement of the one adding the ntp_error
+correction to PPS and other timestamps to avoid larger inconsistencies
+with clock_gettime()?
 
-[ Dropped the part fixing c74d40e8b5e2 as this commit isn't included in
-5.10. Kept the part fixing bc07c10a3603 ]
+I'm wondering if this duality of the clock wrt the way it's read
+couldn't cause any issues. Any chance there could be a new clock ID
+for applications to do clock_gettime() with the ntp_error corrected as
+well?
 
-Cc: Christoph Hellwig <hch@lst.de>
-Cc: Ming Lei <ming.lei@redhat.com>
-Cc: Jan Kara <jack@suse.cz>
-Cc: Johannes Weiner <hannes@cmpxchg.org>
-Cc: Dan Schatzberg <schatzberg.dan@gmail.com>
-Fixes: c74d40e8b5e2 ("loop: charge i/o to mem and blk cg")
-Fixes: bc07c10a3603 ("block: loop: support DIO & AIO")
-Signed-off-by: Bart Van Assche <bvanassche@acm.org>
-Reviewed-by: Ming Lei <ming.lei@redhat.com>
-Link: https://lore.kernel.org/r/20230314182155.80625-1-bvanassche@acm.org
-Signed-off-by: Jens Axboe <axboe@kernel.dk>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
-Signed-off-by: Miguel Gazquez (Schneider Electric) <miguel.gazquez@bootlin.com>
----
- drivers/block/loop.c | 10 +++++++++-
- 1 file changed, 9 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/block/loop.c b/drivers/block/loop.c
-index 3db4dad0d072..dab31049bd4f 100644
---- a/drivers/block/loop.c
-+++ b/drivers/block/loop.c
-@@ -2032,16 +2032,24 @@ static void loop_handle_cmd(struct loop_cmd *cmd)
- 	const bool write = op_is_write(req_op(rq));
- 	struct loop_device *lo = rq->q->queuedata;
- 	int ret = 0;
-+	const bool use_aio = cmd->use_aio;
- 
- 	if (write && (lo->lo_flags & LO_FLAGS_READ_ONLY)) {
- 		ret = -EIO;
- 		goto failed;
- 	}
- 
-+	/*
-+	 * do_req_filebacked() may call blk_mq_complete_request() synchronously
-+	 * or asynchronously if using aio. Hence, do not touch 'cmd' after
-+	 * do_req_filebacked() has returned unless we are sure that 'cmd' has
-+	 * not yet been completed.
-+	 */
- 	ret = do_req_filebacked(lo, rq);
-+
-  failed:
- 	/* complete non-aio request */
--	if (!cmd->use_aio || ret) {
-+	if (!use_aio || ret) {
- 		if (ret == -EOPNOTSUPP)
- 			cmd->ret = ret;
- 		else
-
----
-base-commit: 587461ddf5d522bfcb50ebd55078c0dac37be496
-change-id: 20261005-cve-2023-53111-8e6aef764812
-
-Best regards,
---  
-Miguel Gazquez (Schneider Electric) <miguel.gazquez@bootlin.com>
+-- 
+Miroslav Lichvar
 
