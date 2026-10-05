@@ -1,112 +1,90 @@
-Received: from mail-oi1-f198.google.com (mail-oi1-f198.google.com [209.85.167.198])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from gwu.lbox.cz (gwu.lbox.cz [62.245.111.132])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4B84C442391
-	for <linux-kernel@vger.kernel.org>; Mon,  5 Oct 2026 09:31:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.198
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4F5394432FD
+	for <linux-kernel@vger.kernel.org>; Mon,  5 Oct 2026 09:31:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=62.245.111.132
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791192672; cv=none; b=PNpYIwV0giZvqjg46mRgy4cml11J/xCfp1bHkHxO+/QQr+t1Caxho5BFdWyLS6HE9qmKpD9SL6w+svWwTtsr5fXbj2e9I1pwRsBHZ/a7gAeN8R1y4p9FUPRUa5PCGW13QrLJllv8XOvYPNB6HebJkdcuL5E03njbxj5s+q5PX58=
+	t=1791192699; cv=none; b=Q1vmQEXumYotaDjXgxwpxO0JFcL8+iWjESDXylOHxzUdOnDUxL708OlWsMK6cU/2mAcul4NmvPxcXKiNH7Akxg41tYSZiT4m3MyF/4L5X5+bcuNnVl5lEqFcqsvBGk2sZD0w2jcp4QRTEgY5RdHrkLwkz291RhaLlfVBRi4z9Fk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791192672; c=relaxed/simple;
-	bh=I1FOVBU197Mzny6/azVFseqcvToUfn4RjS+DXV/3QO4=;
-	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
-	 To:Cc:Content-Type; b=K2ZG4j68ACLaj7K/XpXWVfL1BjVXhoKBvWy1e6HI/3yZpRL47uJ0W5fOkjceLsgYAF60ENgEDB0/I/j96XAAJb1pq/sF6SSn2tUHFK1O7/Af1U7a639B6zewM/ooNmbeRWFz5bxBpgRZoqLu595Uqv0WwOsAHjaNEjVfaFUa8RY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--justinstitt.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=pxu6bwom; arc=none smtp.client-ip=209.85.167.198
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--justinstitt.bounces.google.com
+	s=arc-20240116; t=1791192699; c=relaxed/simple;
+	bh=4dK1t9/7nUmp2dPlKwWv6j487aRsbkMk3Td44bvTXuA=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=b1NJRopOt5/MEaozjp97PiwVq15OqW15U3izaewufTOJ94iHu4GbR6MCSNNwIKSQTnBLRrjs6g/pb0fP0NXFePUPw6t7eBRnvMGFJSbPZNkrjY6ga58msKK1yV4AryrpbCpuY+jXiTR7Rv04H97tcFIcbg0Yg+ttBKPEkU2YAHs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linuxbox.cz; spf=pass smtp.mailfrom=linuxbox.cz; dkim=pass (1024-bit key) header.d=linuxbox.cz header.i=@linuxbox.cz header.b=4sE8ky3G; arc=none smtp.client-ip=62.245.111.132
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linuxbox.cz
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linuxbox.cz
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="pxu6bwom"
-Received: by mail-oi1-f198.google.com with SMTP id 5614622812f47-4db3db8687fso2053155b6e.0
-        for <linux-kernel@vger.kernel.org>; Mon, 05 Oct 2026 02:31:11 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1791192670; x=1791797470; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:from:subject
-         :message-id:references:mime-version:in-reply-to:date:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=biDZcx3VDN+hEHh4NXBE6TAaQj8s5MFRl03+ZPkW57Q=;
-        b=pxu6bwomkRoqZh/wO98IkJefS4Pheb7psQu/JchMD4ikRdGVaOIT5pyAuhSEYb8xoX
-         86rlCi1KpJJf3xc+4iAZfZy7NHjdnRUh94p+qRxXSxvvlkcyu+1bpilXkBRiHlGd0sew
-         U1dUm8GWIuBp398vrqzbLN8A+6S4ml6/PGJU+zf7ivY2TkXqKsUbbQPO5pFbbHFrQjWF
-         H9dublZU7hz6uS41K+fZyQfNaCeKh6a+gm2C/pflb5Yqsr8Rj4DSXiY47fM+JHzOYnbX
-         IozBzlpI05WT6G0dPBcOMS3yU9Ih29E8MKUOLauIoxYd+fxmEJ2rtEahHuZwnWwnkknv
-         lNKg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791192670; x=1791797470;
-        h=content-transfer-encoding:content-type:cc:to:from:subject
-         :message-id:references:mime-version:in-reply-to:date
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=biDZcx3VDN+hEHh4NXBE6TAaQj8s5MFRl03+ZPkW57Q=;
-        b=Peps6W7BP1g+4pTHVL+782MaBcG+4Ac0FDgbS4Qxh7Eu+Ikayf19ORrGIMBx1nd2WL
-         icKTJ3OIjlTimEGZ3/zboj+FUWqEQ2G3mXtiPaQZuimUsbYqPrg1FK9cBMMR3+zPBGzr
-         bazK8NZqJ8GiTCvKlxsQ6agK77tEaq+PmRPN6ANlyIzxS46SPVbph6ZxR3sRo+J02r55
-         wYN/qqqBNulDjQUmsh2vH53owWwDszf78yLIW1Sm820P0AU9w331sHfHTpyXeWIh7rGb
-         P1buKPOktjYhQO2ZvjF1m6674tPD74b6pv/uXcb790irpWX3IELh13jSUuxUAgffb2K5
-         iAsw==
-X-Forwarded-Encrypted: i=1; AKwUvBy1SfF6PS3Kl4yYHGVVGaS2yiKnSSvfgUFSoyDpuNhlMX/M8ft9qYgKSnuUtly2syik37pq+4o4hlqaz+U=@vger.kernel.org
-X-Gm-Message-State: AFuF++lK3g79By3DEXvqzQjUTI3V2F52pzU6Shw3NNoM/odjPvUHnXUX
-	NdYKt905slv9XLK/ZGbvb5rVc6Ud2eI+H3wwyeQrzEXOsnGLNx5hSQGHDm+P8TKJ9OEai1KOVIC
-	29yQLQgsyMLE9zedtm6K6weqxqA==
-X-Received: from jabfq15.prod.google.com ([2002:a05:6638:650f:b0:5fa:8360:37f0])
- (user=justinstitt job=prod-delivery.src-stubby-dispatcher) by
- 2002:a05:6808:4443:b0:4f4:8bec:ace3 with SMTP id 5614622812f47-4f52ac8ceb7mr8199054b6e.57.1791192669709;
- Mon, 05 Oct 2026 02:31:09 -0700 (PDT)
-Date: Mon, 5 Oct 2026 02:31:09 -0700
-In-Reply-To: <CAGG=3QV2k-nsZHNSuKEixZb+-LcxvhQsG379ghgyOpiDLTJWzw@mail.gmail.com>
+	dkim=pass (1024-bit key) header.d=linuxbox.cz header.i=@linuxbox.cz header.b="4sE8ky3G"
+Received: from linuxbox.linuxbox.cz (linuxbox.linuxbox.cz [10.76.66.10])
+	by gwu.lbox.cz (Sendmail) with ESMTPS id 6959VFPh4139732
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NO);
+	Mon, 5 Oct 2026 11:31:15 +0200
+DKIM-Filter: OpenDKIM Filter v2.11.0 gwu.lbox.cz 6959VFPh4139732
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxbox.cz;
+	s=default; t=1791192676;
+	bh=BBrWUUXSCL9gFn2uxP6KDGd2JEbEkHet4WqBH6N7+cY=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=4sE8ky3GOzfgE9kpii4L2Xy7yl3Zikrlo4fNKWxq5s7V9ucCj++gMHfHbqn9VdBv1
+	 YbPtF0QGA9G7noXmv2CTHzdHcotaZqpi6HI7eoeFz0PPOuGLkvQXQyjeePbeoQGqrS
+	 6mFKXe/j7ZxL98FmttFEoLqvRLedCZD2HqY6l1q0=
+Received: from pcnci.linuxbox.cz (pcnci.linuxbox.cz [10.76.3.14])
+	by linuxbox.linuxbox.cz (Sendmail) with ESMTPS id 6959VElD045326
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NO);
+	Mon, 5 Oct 2026 11:31:15 +0200
+Received: from pcnci.linuxbox.cz (localhost [127.0.0.1])
+	by pcnci.linuxbox.cz (8.18.1/8.15.2) with ESMTPS id 6959VDSw2367544
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Mon, 5 Oct 2026 11:31:14 +0200
+Date: Mon, 5 Oct 2026 11:31:13 +0200
+From: Nikola Ciprich <nikola.ciprich@linuxbox.cz>
+To: Rik van Riel <riel@surriel.com>
+Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org,
+        akpm@linux-foundation.org, david@kernel.org, ljs@kernel.org,
+        Nikola Ciprich <nikola.ciprich@linuxbox.cz>
+Subject: Re: hunting memory corruption bug in 6.18.x
+Message-ID: <asNuYVRrhwOvdWyu@pcnci.linuxbox.cz>
+References: <arY1Wq6R9OY20ans@pcnci.linuxbox.cz>
+ <e31bb97e34de9e37ef27f02ff98f63fb17fc57a0.camel@surriel.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-References: <20260928063824.1386524-1-morbo@google.com> <CAGG=3QWCmQ+LVvn2dtjEauj5WFwvx=pvg4Q6man_A2imdjRe7A@mail.gmail.com>
- <CAD++jLk2pFCpbpGVCQg2AdrwQecpb=wsehhwSuwTbKAXNeyfoQ@mail.gmail.com> <CAGG=3QV2k-nsZHNSuKEixZb+-LcxvhQsG379ghgyOpiDLTJWzw@mail.gmail.com>
-Message-ID: <asNuMzqz3G-gmIiD@google.com>
-Subject: Re: [PATCH] gpiolib: annotate struct acpi_gpio_mapping with __counted_by_ptr
-From: Justin Stitt <justinstitt@google.com>
-To: Bill Wendling <morbo@google.com>
-Cc: Linus Walleij <linusw@kernel.org>, Bartosz Golaszewski <brgl@kernel.org>, Kees Cook <kees@kernel.org>, 
-	"Gustavo A. R. Silva" <gustavoars@kernel.org>, linux-gpio@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-hardening@vger.kernel.org, 
-	codemender-patching+linux@google.com
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <e31bb97e34de9e37ef27f02ff98f63fb17fc57a0.camel@surriel.com>
+X-Scanned-By: MIMEDefang 3.7.1 on 10.76.66.3
+X-Scanned-By: MIMEDefang v3.7.1/SpamAssassin v4.000002 on lbxovapx9 (nik)
+X-Scanned-By: MIMEDefang 2.86 on 10.76.66.10
+X-Antivirus: on lbxovapx9 by Antivirus 
+X-Spam-Score: N/A (trusted relay)
+X-Milter-Copy-Status: O
 
-Hi,
+> THP has a recent patch that may be relevant:
+> 
+> https://lore.kernel.org/all/20260903031608.1194238-1-vernon2gm@gmail.com/
 
-On Thu, Oct 01, 2026 at 01:04:47PM -0700, Bill Wendling wrote:
-> On Thu, Oct 1, 2026 at 12:56=E2=80=AFPM Linus Walleij <linusw@kernel.org>=
- wrote:
+this one got to 6.18.53 which also crashed for us (this was the last crash,
+from which I have complete vmcore), so we're most probably hunting another
+bug.
+> 
+> > As a safety measure, we've disabled THP and NUMA balancing on all
+> > hosts.
+> 
+> Does the issue still happen with THP and NUMA balancing disabled?
+we've disabled numa balancing on all suspected machines, but there was
+some confusion with diabling THP, so I don't want to bring some confusion
+here.. let's rather assume it was NOT disabled.
 
-<snip>
+-- 
+Ing. Nikola CIPRICH
+technický ředitel
 
-> It's being #included transitively:
->=20
-> In file included from drivers/firmware/efi/libstub/efi-stub-helper.c:12:
-> In file included from ./include/linux/efi.h:20:
-> In file included from ./include/linux/rtc.h:18:
-> In file included from ./include/linux/nvmem-provider.h:16:
-> ./include/linux/gpio/consumer.h:670:55: error: use of undeclared
-> identifier 'size'; did you
->       mean 'ksize'?
->   670 |         const struct acpi_gpio_params *data __counted_by_ptr(size=
-);
->       |                                                              ^~~~
->       |                                                              ksiz=
-e
-> ././include/linux/compiler_types.h:392:64: note: expanded from macro
-> '__counted_by_ptr'
->   392 | #define __counted_by_ptr(member)
-> __attribute__((__counted_by__(member)))
->       |
->        ^~~~~~
-> ./include/linux/slab.h:602:8: note: 'ksize' declared here
->   602 | size_t ksize(const void *objp);
->       |        ^
->=20
++420 591 166 214
++420 777 093 799
+nikola.ciprich@linuxbox.cz
 
-I wonder if we could have a better warning here guiding you towards
--fexperimental-late-parse-attributes?
-
-Thanks
-Justin
+www.linuxbox.cz
