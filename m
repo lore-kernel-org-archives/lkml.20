@@ -1,221 +1,312 @@
-Received: from mail-ed1-f49.google.com (mail-ed1-f49.google.com [209.85.208.49])
+Received: from mail-oi1-f200.google.com (mail-oi1-f200.google.com [209.85.167.200])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DFB8428CF5D
-	for <linux-kernel@vger.kernel.org>; Mon,  5 Oct 2026 16:31:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.49
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791217882; cv=pass; b=fdHM/kn0QT3Kbj7Yr1FxDAU8v4maUNDZQwSsgqHrB+oY77AhEfJqwtrQJXs583ntCFY/3ILT4a97smMPH0KOaa8xGdqTNRIgfr8NylfSiRzpP6OUYmdgRFHquiWZoJ4L4WP5opKerPvxx6DFb9tex+qmrOcz/IesZnsSabI0lww=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791217882; c=relaxed/simple;
-	bh=w0y8VXrXD7IJTAsab3AkuemdIvyB9Itb1rE1TwYbRjc=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=sZJJjQFc0beEtJvRMTWDc1S6X+Zn8Y/RJgF3Q/gRWaC8W9XQyT2H54+OViOhQ8P8EzOsV7XJskrVwrpNTGhmR3tQHiZEc/yTT4UBvi4Xp6sHenKoJHzluTYJ4jItOfJzq+qFFdUVCNrcfqimQ/WhOVLaTIIq6kpOG3D5ztGoEi0=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=LLbGW7ji; arc=pass smtp.client-ip=209.85.208.49
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="LLbGW7ji"
-Received: by mail-ed1-f49.google.com with SMTP id 4fb4d7f45d1cf-6ab0140ecb2so18045a12.0
-        for <linux-kernel@vger.kernel.org>; Mon, 05 Oct 2026 09:31:20 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1791217879; cv=none;
-        d=google.com; s=arc-20260327;
-        b=FZVrnjR/bKRlk99GPSouKtO13aTAbq2BavcSq9M5Vtb3B0Gq5RkVIAm05ScIV2DCY6
-         gQ2rZKduZMgKXiI6LQxfWMgi5s2tugylaZOtsryP82IhbXRag+NfN6n2OymC5y+w8Kbp
-         R/U8wYyUPj1GVYRYkgE9KDZHxU5OvZMNPGsMacfrmVB9HBvd1lX//ltKJ0MkbAQhanqs
-         Ro4pTy5tc3ny3XVJQ63AGvm15tpJi9jh2EkQmdtokVyp33ysaJl6ZJwwbh9dfXypoAGG
-         GRgYfRHi1Qa6EJxj1RdEABHnOhb+Ro2CCY2Th4ApcRtFOj+aez6/Wbm/ukwAWypcp0X+
-         M2ZQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=85HkyTIaYpIyM4CMkxLDWOSkPWoXIpUm6C4+YzQKOh4=;
-        fh=RvqevzbE5WNV/jmhUiFRcVaNwJPKjEXd5u3HySAqc24=;
-        b=elGWj2xZsjebzA0LvGiot2WT/BQbwXcL9ggBpEy5jvsFyhH6LWPROU352RQ7wzxBMG
-         Gl9BmLUESedXdLQy3OXx7P5I56xkDHkaGBhY8PwRB5ZS4zl3kLnBQ9sKNR2zAsddw8Aw
-         uEjZjWjmhKp6T3gbH07f9jA+bw0LYI/HkuxfFmIHykXIjaVluyPgxttozzmmA06x24on
-         EcCDvRU+bBxX7ahXjtq2MZ0qVdGEkTwPf8y653NHm3+CtCOFqwmASN00/JYPNSSEntjH
-         ueQdlRC9qCUD5RBpSiaFQypy4iYnhkJep9mXTjIejSAoAXOdgVAKhvaHxO7bYIICZV3J
-         vIBA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1791217879; x=1791822679; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=85HkyTIaYpIyM4CMkxLDWOSkPWoXIpUm6C4+YzQKOh4=;
-        b=LLbGW7jikzNcfCwkTqjA+A6nJmSakdLiq/eu5NtIXLV/twkTLcxJzzasXTSYe5G3jx
-         Rs0LKmvpYELC7xWJFQUNiw/lTuS6hD7QQhzR4ajoIoHqIqd9Ft7f7rQ3wnFydAAZ1maQ
-         R2uXGQC8xJ8xP6aAcN7BNyt04MkUh7KAvgzdLc1taidxSKHgrpWWaeux2aYCK1SrlXCN
-         46GZyNzP8P33T+oHq3OsFiBakspvLXrni5nJHGGp76m15UWXh5mQ3ykLTWlQMbHt13lA
-         aG9FUhdBIOBG8UqvNAyzP28Quelc/t2U5Kra+krRft3JosZLVq+p99pINuO7aRAG9cok
-         DHrg==
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 16A7326CE32
+	for <linux-kernel@vger.kernel.org>; Mon,  5 Oct 2026 16:31:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.200
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791217896; cv=none; b=XJWSdb3WNdUnCLaTaZ0oENhB0y3F/kra2NhxbNzAgtiMhvO4ouNz4+gK1RiDgC7FYMmCFmFfKoEh1wJSDJsWoX3/OdLFCR9/civz+uxPixv+N2EQy4y7o4POm8esXwx1BVg00EO1+SLcM/bX1NYTQAmX+s3UhRjGUOOmNiC+sBI=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791217896; c=relaxed/simple;
+	bh=Pf1pvvigvjF5GBy/dGWlxkrPoFtBnbtZOeHRHY5GT9k=;
+	h=MIME-Version:Date:Message-ID:Subject:From:To:Content-Type; b=gIQZfUwYRmsnZ7Iowwunbgc8ZcHXs4p/1Cfm9Nq2QQv6oKM/CjLrwM8mhkXMu5qokBcdY0ohGAaw04A+0DfApjQLMCohsG7SlDjuA4wVYVUX+0FitbLWRgQdprkQ4CpJQRHGIeC4cuclpABNijKJ+h8If4fzS/UTnBaVRNimI/c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.167.200
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-oi1-f200.google.com with SMTP id 5614622812f47-4cc89e86e4dso3220944b6e.2
+        for <linux-kernel@vger.kernel.org>; Mon, 05 Oct 2026 09:31:33 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791217879; x=1791822679;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
+        d=1e100.net; s=20260707; t=1791217893; x=1791822693;
+        h=content-type:to:from:subject:message-id:date:mime-version
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=85HkyTIaYpIyM4CMkxLDWOSkPWoXIpUm6C4+YzQKOh4=;
-        b=F/IG3QivBrlnkhvb5P67iIVrk05I2/6YJheJyCp+qILD+8wBIiN6uOmp9bmjYgly7b
-         UTM5FpXeycP0N+GtfkpHA4BXOKY7MjS/KyVl2PgXXLhpYPKel6R/V9F+Y81D+TsnwM7n
-         sdW/fP/I8wkQre8PmXaaGVEAtyS/jX3BrToJD43B/ocLBnG1nm7CGuDEiLbNB0rIZJMd
-         /8JmTgiw75ofvX0EBJMbk/Gw6rE6zFqaKcbgV3le7rNgRigEf5DmpsnwYH94hDeqf3kM
-         B2eMv0O5RHjUj4msoLMMf7PcvAiMA55eGtq53VHNcTH8kGFYSuklioEpjlbr77UpxiEA
-         W3Sg==
-X-Forwarded-Encrypted: i=1; AKwUvBwQEE61UC7qu5ARwRpvp3nvtJBHaZnF9A4MaCBqQ2JXuXqfp6gYeHQX7KMyLJfru/EjuoxmxujQmd9l7nw=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKtBg4V/KN+7+Lm1MK64le0mdLJwEYKgk2jHqSUXPClUWPZEwNe
-	6exAPcVlpfiYBvOjvePxvaPJR1fppcFyMeWw+X4xO1q+ZkTBC7m+pt61767H1gbvYZr+HBcL4Fr
-	J/z6yelHJ/Pz10Q+FtvYzBQQoHPit6dSm575k4Qme
-X-Gm-Gg: AYBFou2eF2WIqafGpjmzO7wMmdSZQYWdp2HogQgDl1dKAuC183aj91Y1x71etMPA7HC
-	iuGgKWeQGMRZ2hJS83X3CsErGBUB7WLPKfavVqpN4PSgjWwmDrNbMmkJZJ3QW9kF0xBEh+VoFd5
-	3V4yrgGtwV1OlUoSbQwYJsFxtb7rXRm1f2ZvCwYR+jG0bmRJTDzUvGQowI6g+hLmEedsniV653a
-	NDIBAziTM0HMNott8m4N3eTt652vzhmyYhxuyvD1tqgCLKsNOX25HrehIws7uiseHNTqjhy7y73
-	R3mMJS12clXm56I7nGDqh34lxZxuLiDXiu4p6skS0hOerI7Ckj0=
-X-Received: by 2002:a05:6402:208d:20b0:6af:97a9:224a with SMTP id
- 4fb4d7f45d1cf-6afae09778bmr80868a12.2.1791217878514; Mon, 05 Oct 2026
- 09:31:18 -0700 (PDT)
+        bh=aIOSKYPrXX8if8EnWYoObqCaQyRR/W4O8yh2p31TQsw=;
+        b=DCKRH8KO4bGPQxR9ex7otgjAr/hHueTwcdfR+RvQajD+7V0aLDH+caQCQyq85VtDPq
+         E1bXro1RYYHUs3E+0Gpw+RwMu2OT6sZe7Kpsr72SNUMB8lT275HygKp8Rqaa25CYp+m6
+         27S6yclav05B58jxF26Jhvc8huv46EZ+d8JoP2FBuwYfvVaqU0KcwcRHs7DVXM6qJVMp
+         nP3iwBaIqSuUXUmuFBLdGsZJu0wfnmh7793whNJ+Cd5MzZxeJGqg3hLQaidvu/SEkLxt
+         arbn2A5ktWKnu1bv0VFdihOpT69w70eKK9h4orQQnljvBC2SUYwpVa2bWBTsegCi5aVB
+         cXsA==
+X-Gm-Message-State: AFuF++m9iXITI+Hf0paPrHKVqSLgR2mrAa/sJzdMWDj+qYjBSEuyIIZv
+	i0uR1jXWAqDbunRgxb4Wd5A83PxF8G4djml6QCy8hgF0mPcDFj/nq3GqRqsSO6b5QXawaVvWUXb
+	kI2u6p0+nJnCFpjv4tNVLIe3iA2IVmleq176DGmsGrEDgWTGpLvYkVN4kI5o=
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20261005004958.3603059-1-almasrymina@google.com>
- <20261005004958.3603059-3-almasrymina@google.com> <asPNJ2V8Tv2Z05n-@devvm7509.cco0.facebook.com>
-In-Reply-To: <asPNJ2V8Tv2Z05n-@devvm7509.cco0.facebook.com>
-From: Mina Almasry <almasrymina@google.com>
-Date: Mon, 5 Oct 2026 09:31:06 -0700
-X-Gm-Features: AclHuK8ZfaPvJinAR7i7H0zzzlU7HIPd4xr22-_5YOjFpgcmtCAc2d6PPSqyr34
-Message-ID: <CAHS8izOvea3eas4i09pMds2zzqbCtf8VL0Zdvo3fBT_+AM1TBg@mail.gmail.com>
-Subject: Re: [PATCH net-next v1 2/2] docs: netmem: document netmem and memory
- provider design principles
-To: Stanislav Fomichev <sdf.kernel@gmail.com>
-Cc: netdev@vger.kernel.org, linux-doc@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, bpf@vger.kernel.org, 
-	"David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, 
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, 
-	Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>, 
-	Randy Dunlap <rdunlap@infradead.org>, Jesper Dangaard Brouer <hawk@kernel.org>, 
-	Ilias Apalodimas <ilias.apalodimas@linaro.org>, Alexei Starovoitov <ast@kernel.org>, 
-	Daniel Borkmann <daniel@iogearbox.net>, John Fastabend <john.fastabend@gmail.com>, 
-	Stanislav Fomichev <sdf@fomichev.me>, Luigi Rizzo <lrizzo@google.com>, =?UTF-8?B?QmrDtnJuIFTDtnBlbA==?= <bjorn@kernel.org>, 
-	Pavel Begunkov <asml.silence@gmail.com>
+X-Received: by 2002:a05:6808:1b22:b0:4f5:1866:91ce with SMTP id
+ 5614622812f47-4f5267496a9mr9453983b6e.2.1791217892851; Mon, 05 Oct 2026
+ 09:31:32 -0700 (PDT)
+Date: Mon, 05 Oct 2026 09:31:32 -0700
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6ac3d0e4.ae2c267a.265a6c.0002.GAE@google.com>
+Subject: [syzbot] [mmc?] INFO: task hung in mmc_app_cmd
+From: syzbot <syzbot+c6d8091b47243f2023b8@syzkaller.appspotmail.com>
+To: linux-kernel@vger.kernel.org, linux-mmc@vger.kernel.org, 
+	syzkaller-bugs@googlegroups.com, ulf.hansson@linaro.org, ulfh@kernel.org
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
 
-On Mon, Oct 5, 2026 at 9:19=E2=80=AFAM Stanislav Fomichev <sdf.kernel@gmail=
-.com> wrote:
->
-> On 10/05, Mina Almasry wrote:
-> > Add a Design Principles section to Documentation/networking/netmem.rst
-> > covering the netmem_ref abstraction, the prohibition on direct
-> > downcasting in callers, decoupling memory providers from net_iov,
-> > decoupling net_iov from unreadability, delegating provider/type logic t=
-o
-> > memory_provider_ops and netmem helpers, and the homogeneous skb fragmen=
-t
-> > memory type invariant.
-> >
-> > Cc: Luigi Rizzo <lrizzo@google.com>
-> > Cc: Bj=C3=B6rn T=C3=B6pel <bjorn@kernel.org>
-> > Cc: Stanislav Fomichev <sdf@fomichev.me>
-> > Cc: Pavel Begunkov <asml.silence@gmail.com>
-> > Signed-off-by: Mina Almasry <almasrymina@google.com>
-> > ---
-> >  Documentation/networking/netmem.rst | 46 +++++++++++++++++++++++++++++
-> >  1 file changed, 46 insertions(+)
-> >
-> > diff --git a/Documentation/networking/netmem.rst b/Documentation/networ=
-king/netmem.rst
-> > index 217869d1108dd..57e52a947663d 100644
-> > --- a/Documentation/networking/netmem.rst
-> > +++ b/Documentation/networking/netmem.rst
-> > @@ -19,6 +19,52 @@ Benefits of Netmem :
-> >  * Simplified Development: Drivers interact with a consistent API,
-> >    regardless of the underlying memory implementation.
-> >
-> > +Design Principles
-> > +=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
-> > +
-> > +Memory providers (or the default ``page_pool`` allocator) allocate und=
-erlying
-> > +memory (``struct net_iov`` or ``struct page``), cast it to ``netmem_re=
-f``, and
-> > +supply it to ``page_pool``. The ``page_pool``, drivers, and networking=
- stack
-> > +operate on ``netmem_ref`` as the abstract type. Existing ``page_pool``=
- APIs
-> > +that allocate or free ``struct page`` are legacy compatibility wrapper=
-s for
-> > +drivers that do not yet support ``netmem_ref``. Code that is not yet
-> > +``netmem``-aware should be converted to ``netmem_ref`` unless it will =
-never
-> > +need to support ``netmem``.
-> > +
-> > +1. **Operate on netmem_ref, do not downcast**: ``page_pool``, drivers,=
- and the
-> > +   core networking stack should deal with ``netmem_ref`` rather than
-> > +   ``struct net_iov`` or ``struct page``. Downcasting ``netmem_ref`` t=
-o
-> > +   ``struct net_iov`` or ``struct page`` is not allowed unless a code =
-path
-> > +   strictly cannot function without knowing the underlying memory type=
- (for
-> > +   example, ``kmap_local_page()``). In those cases, to keep call sites=
- simple,
-> > +   add a ``netmem`` helper that performs the operation on behalf of th=
-e caller,
-> > +   cleanly handles all ``net_iov`` and ``page`` cases, and returns an =
-error if
-> > +   the ``netmem`` type cannot support the requested operation.
->
-> [..]
->
-> > +2. **Decouple memory providers from net_iov**: Memory providers are no=
-t limited
-> > +   to ``struct net_iov``. A memory provider that returns ``struct page=
-``-backed
-> > +   ``netmem_ref``\ s to upper layers is allowed. Code must not assume =
-that using
-> > +   a memory provider implies ``net_iov`` memory.
-> > +
-> > +3. **Decouple net_iov from unreadability**: ``struct net_iov`` is flex=
-ible and
-> > +   has no inherent restrictions. While current ``net_iov`` implementat=
-ions are
-> > +   unreadable by the CPU, future readable ``net_iov`` implementations =
-are
-> > +   allowed. Code must not assume ``net_iov`` is unreadable; check read=
-ability
-> > +   via ``netmem_address()`` or ``skb_frags_readable()`` instead.
->
-> For these, idk, I do agree in principle, but it is not true right now? An=
-d
-> there needs to be a bunch of work to generalize?
->
+Hello,
 
-I may have misunderstood, but I think Bjorn is creating readable
-net_iovs for his work (patch 5). And I think that's great work and I
-plan to support the series. So this will become true very soon.
+syzbot found the following issue on:
 
-https://lore.kernel.org/netdev/20261002190018.696925-1-bjorn@kernel.org/
+HEAD commit:    940de590b839 Merge tag 'hardening-v7.3-rc2' of git://git.k..
+git tree:       upstream
+console output: https://syzkaller.appspot.com/x/log.txt?x=17e6f0f9580000
+kernel config:  https://syzkaller.appspot.com/x/.config?x=8c5c3949d762a91f
+dashboard link: https://syzkaller.appspot.com/bug?extid=c6d8091b47243f2023b8
+compiler:       gcc (Debian 14.2.0-19) 14.2.0, GNU ld (GNU Binutils for Debian) 2.44
 
-> Should we document where we are right now (mp return niov, niov =3D=3D un=
-readable)
-> and where we wanna be (mp can return whatever, niov can imply readable or
-> unreadable). And when Bjorn's xsk work lands, he can update the mp sectio=
-n.
-> And sometime later maybe we'll lift niov =3D=3D unreadable.
+Unfortunately, I don't have any reproducer for this issue yet.
 
-I think that's a good idea with 1 addendum. I'll say something like,
-"This is where we are right now, but new code should, as much as
-possible, update existing limitations to generalize and match the
-design principles.""I basically don't want LLMs lazily reward hacking
-and say "I'll just write code matching where we are right now and
-ignore the design principles." WDYT?
+Downloadable assets:
+disk image: https://storage.googleapis.com/syzbot-assets/75055d1d5648/disk-940de590.raw.xz
+vmlinux: https://storage.googleapis.com/syzbot-assets/419590aed71c/vmlinux-940de590.xz
+kernel image: https://storage.googleapis.com/syzbot-assets/c51c5e853b44/bzImage-940de590.xz
 
---=20
-Thanks,
-Mina
+IMPORTANT: if you fix the issue, please add the following tag to the commit:
+Reported-by: syzbot+c6d8091b47243f2023b8@syzkaller.appspotmail.com
+
+INFO: task kworker/1:2:984 blocked for more than 143 seconds.
+      Tainted: G             L      syzkaller #0
+"echo 0 > /proc/sys/kernel/hung_task_timeout_secs" disables this message.
+task:kworker/1:2     state:D stack:23584 pid:984   tgid:984   ppid:2      task_flags:0x4208060 flags:0x00080000
+Workqueue: events_freezable mmc_rescan
+Call Trace:
+ <TASK>
+ context_switch kernel/sched/core.c:5520 [inline]
+ __schedule+0x1259/0x6920 kernel/sched/core.c:7270
+ __schedule_loop kernel/sched/core.c:7347 [inline]
+ schedule+0xdd/0x2c0 kernel/sched/core.c:7362
+ schedule_timeout+0x1b2/0x280 kernel/time/sleep_timeout.c:75
+ do_wait_for_common kernel/sched/completion.c:100 [inline]
+ __wait_for_common+0x2e7/0x4c0 kernel/sched/completion.c:121
+ mmc_wait_for_req_done+0xcd/0x3d0 drivers/mmc/core/core.c:408
+ mmc_wait_for_req+0x207/0x2c0 drivers/mmc/core/core.c:619
+ mmc_wait_for_cmd+0x154/0x200 drivers/mmc/core/core.c:645
+ mmc_app_cmd+0x170/0x340 drivers/mmc/core/sd_ops.c:64
+ mmc_wait_for_app_cmd+0xbf/0x3a0 drivers/mmc/core/sd_ops.c:87
+ sd_app_op_cond_cb+0xb9/0x220 drivers/mmc/core/sd_ops.c:152
+ __mmc_poll_for_busy+0x109/0x230 drivers/mmc/core/mmc_ops.c:529
+ mmc_send_app_op_cond+0x15a/0x270 drivers/mmc/core/sd_ops.c:189
+ mmc_attach_sd+0xb8/0x3d0 drivers/mmc/core/sd.c:1854
+ mmc_rescan_try_freq drivers/mmc/core/core.c:2138 [inline]
+ mmc_rescan+0xcd5/0x11c0 drivers/mmc/core/core.c:2316
+ process_one_work+0xac7/0x1b10 kernel/workqueue.c:3396
+ process_scheduled_works kernel/workqueue.c:3479 [inline]
+ worker_thread+0x5ef/0xe50 kernel/workqueue.c:3560
+ kthread+0x373/0x450 kernel/kthread.c:436
+ ret_from_fork+0x730/0xd60 arch/x86/kernel/process.c:158
+ ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
+ </TASK>
+INFO: task kworker/0:5:5709 blocked for more than 143 seconds.
+      Tainted: G             L      syzkaller #0
+"echo 0 > /proc/sys/kernel/hung_task_timeout_secs" disables this message.
+task:kworker/0:5     state:D stack:20536 pid:5709  tgid:5709  ppid:2      task_flags:0x4288060 flags:0x00080000
+Workqueue: usb_hub_wq hub_event
+Call Trace:
+ <TASK>
+ context_switch kernel/sched/core.c:5520 [inline]
+ __schedule+0x1259/0x6920 kernel/sched/core.c:7270
+ __schedule_loop kernel/sched/core.c:7347 [inline]
+ schedule+0xdd/0x2c0 kernel/sched/core.c:7362
+ schedule_timeout+0x1b2/0x280 kernel/time/sleep_timeout.c:75
+ do_wait_for_common kernel/sched/completion.c:100 [inline]
+ __wait_for_common+0x2e7/0x4c0 kernel/sched/completion.c:121
+ __flush_work+0x7c7/0xcb0 kernel/workqueue.c:4448
+ __cancel_work_sync kernel/workqueue.c:4568 [inline]
+ cancel_delayed_work_sync+0xd1/0xf0 kernel/workqueue.c:4642
+ __mmc_stop_host drivers/mmc/core/core.c:2368 [inline]
+ __mmc_stop_host drivers/mmc/core/core.c:2357 [inline]
+ mmc_stop_host+0xe9/0x400 drivers/mmc/core/core.c:2373
+ mmc_remove_host+0x15/0x60 drivers/mmc/core/host.c:681
+ vub300_disconnect+0x12d/0x170 drivers/mmc/host/vub300.c:2387
+ usb_unbind_interface+0x1dd/0x9e0 drivers/usb/core/driver.c:461
+ device_remove drivers/base/dd.c:618 [inline]
+ device_remove+0x12a/0x180 drivers/base/dd.c:610
+ __device_release_driver drivers/base/dd.c:1349 [inline]
+ device_release_driver_internal+0x44e/0x620 drivers/base/dd.c:1372
+ bus_remove_device+0x2bc/0x560 drivers/base/bus.c:664
+ device_del+0x376/0x9b0 drivers/base/core.c:3965
+ usb_disable_device+0x367/0x810 drivers/usb/core/message.c:1478
+ usb_disconnect+0x2e2/0x9a0 drivers/usb/core/hub.c:2350
+ hub_port_connect drivers/usb/core/hub.c:5420 [inline]
+ hub_port_connect_change drivers/usb/core/hub.c:5720 [inline]
+ port_event drivers/usb/core/hub.c:5884 [inline]
+ hub_event+0x1bb1/0x4420 drivers/usb/core/hub.c:5966
+ process_one_work+0xac7/0x1b10 kernel/workqueue.c:3396
+ process_scheduled_works kernel/workqueue.c:3479 [inline]
+ worker_thread+0x5ef/0xe50 kernel/workqueue.c:3560
+ kthread+0x373/0x450 kernel/kthread.c:436
+ ret_from_fork+0x730/0xd60 arch/x86/kernel/process.c:158
+ ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
+ </TASK>
+
+Showing all locks held in the system:
+locks held by kthreadd/2: 1, last CPU#0:
+ #0: ffffffff8edec060 (rcu_read_lock){....}-{1:3}, at: raw_spin_rq_lock_nested kernel/sched/core.c:685 [inline]
+ #0: ffffffff8edec060 (rcu_read_lock){....}-{1:3}, at: raw_spin_rq_lock_nested+0x88/0x140 kernel/sched/core.c:669
+locks held by kworker/u8:0/12: 3, last CPU#0:
+ #0: ffff8880358f4140 ((wq_completion)bat_events){+.+.}-{0:0}, at: process_one_work+0x1466/0x1b10 kernel/workqueue.c:3371
+ #1: ffffc90000117d08 ((work_completion)(&(&bat_priv->mcast.work)->work)){+.+.}-{0:0}, at: process_one_work+0xa2c/0x1b10 kernel/workqueue.c:3372
+ #2: ffffffff8edec060 (rcu_read_lock){....}-{1:3}, at: rcu_lock_acquire include/linux/rcupdate.h:309 [inline]
+ #2: ffffffff8edec060 (rcu_read_lock){....}-{1:3}, at: rcu_read_lock include/linux/rcupdate.h:849 [inline]
+ #2: ffffffff8edec060 (rcu_read_lock){....}-{1:3}, at: batadv_mcast_mla_meshif_get_ipv6 net/batman-adv/multicast.c:447 [inline]
+ #2: ffffffff8edec060 (rcu_read_lock){....}-{1:3}, at: batadv_mcast_mla_meshif_get net/batman-adv/multicast.c:535 [inline]
+ #2: ffffffff8edec060 (rcu_read_lock){....}-{1:3}, at: __batadv_mcast_mla_update net/batman-adv/multicast.c:912 [inline]
+ #2: ffffffff8edec060 (rcu_read_lock){....}-{1:3}, at: batadv_mcast_mla_update+0x88a/0x3200 net/batman-adv/multicast.c:949
+locks held by pr/ttyS0/16: 1, last CPU#0:
+ #0: ffffffff8edd8338 (console_srcu){....}-{0:0}, at: rcu_try_lock_acquire include/linux/rcupdate.h:314 [inline]
+ #0: ffffffff8edd8338 (console_srcu){....}-{0:0}, at: srcu_read_lock_nmisafe include/linux/srcu.h:439 [inline]
+ #0: ffffffff8edd8338 (console_srcu){....}-{0:0}, at: console_srcu_read_lock+0x49/0x60 kernel/printk/printk.c:291
+locks held by khungtaskd/32: 1, last CPU#0:
+ #0: ffffffff8edec060 (rcu_read_lock){....}-{1:3}, at: rcu_lock_acquire include/linux/rcupdate.h:309 [inline]
+ #0: ffffffff8edec060 (rcu_read_lock){....}-{1:3}, at: rcu_read_lock include/linux/rcupdate.h:849 [inline]
+ #0: ffffffff8edec060 (rcu_read_lock){....}-{1:3}, at: debug_show_all_locks+0x3d/0x184 kernel/locking/lockdep.c:6837
+locks held by kworker/1:2/984: 2, on CPU#1:
+ #0: ffff88801c056140 ((wq_completion)events_freezable){+.+.}-{0:0}, at: process_one_work+0x1466/0x1b10 kernel/workqueue.c:3371
+ #1: ffffc90004b9fd08 ((work_completion)(&(&host->detect)->work)){+.+.}-{0:0}, at: process_one_work+0xa2c/0x1b10 kernel/workqueue.c:3372
+locks held by syslogd/4955: 1, last CPU#0:
+ #0: ffff88801f3f16f0 (&u->iolock){+.+.}-{4:4}, at: __unix_dgram_recvmsg+0x255/0xc30 net/unix/af_unix.c:2587
+locks held by getty/5361: 2, on CPU#0:
+ #0: ffff8880391650a0 (&tty->ldisc_sem){++++}-{0:0}, at: tty_ldisc_ref_wait+0x24/0x80 drivers/tty/tty_ldisc.c:243
+ #1: ffffc9000321e2e8 (&ldata->atomic_read_lock){+.+.}-{4:4}, at: n_tty_read+0x419/0x14e0 drivers/tty/n_tty.c:2211
+locks held by syz-executor/5621: 1, last CPU#0:
+ #0: ffff8880351562e0 (&xt[i].mutex){+.+.}-{4:4}, at: xt_find_table_lock+0x5a/0x520 net/netfilter/x_tables.c:1336
+locks held by syz-executor/5622: 4, last CPU#0:
+ #0: ffffffff8ef3cc30 (dup_mmap_sem){++++}-{0:0}, at: dup_mm kernel/fork.c:1542 [inline]
+ #0: ffffffff8ef3cc30 (dup_mmap_sem){++++}-{0:0}, at: copy_mm kernel/fork.c:1595 [inline]
+ #0: ffffffff8ef3cc30 (dup_mmap_sem){++++}-{0:0}, at: copy_process+0x4806/0x8370 kernel/fork.c:2307
+ #1: ffff88802e6bf678 (&mm->mmap_lock){++++}-{4:4}, at: mmap_write_lock_killable include/linux/mmap_lock.h:562 [inline]
+ #1: ffff88802e6bf678 (&mm->mmap_lock){++++}-{4:4}, at: dup_mmap+0x127/0x2370 mm/mmap.c:1716
+ #2: ffff8880202d5038 (&mm->mmap_lock/1){+.+.}-{4:4}, at: mmap_write_lock_nested include/linux/mmap_lock.h:552 [inline]
+ #2: ffff8880202d5038 (&mm->mmap_lock/1){+.+.}-{4:4}, at: dup_mmap+0x1c9/0x2370 mm/mmap.c:1723
+ #3: ffffffff8edec060 (rcu_read_lock){....}-{1:3}, at: rcu_lock_acquire include/linux/rcupdate.h:309 [inline]
+ #3: ffffffff8edec060 (rcu_read_lock){....}-{1:3}, at: rcu_read_lock include/linux/rcupdate.h:849 [inline]
+ #3: ffffffff8edec060 (rcu_read_lock){....}-{1:3}, at: __pte_offset_map+0x2f/0x310 mm/pgtable-generic.c:290
+locks held by kworker/0:5/5709: 5, on CPU#0:
+ #0: ffff8880236ef940 ((wq_completion)usb_hub_wq){+.+.}-{0:0}, at: process_one_work+0x1466/0x1b10 kernel/workqueue.c:3371
+ #1: ffffc900040a7d08 ((work_completion)(&hub->events)){+.+.}-{0:0}, at: process_one_work+0xa2c/0x1b10 kernel/workqueue.c:3372
+ #2: ffff88802bb661d8 (&dev->mutex){....}-{4:4}, at: device_lock include/linux/device.h:1104 [inline]
+ #2: ffff88802bb661d8 (&dev->mutex){....}-{4:4}, at: hub_event+0x1bb/0x4420 drivers/usb/core/hub.c:5912
+ #3: ffff88802aa041d8 (&dev->mutex){....}-{4:4}, at: device_lock include/linux/device.h:1104 [inline]
+ #3: ffff88802aa041d8 (&dev->mutex){....}-{4:4}, at: usb_disconnect+0x10a/0x9a0 drivers/usb/core/hub.c:2341
+ #4: ffff88802aa011a0 (&dev->mutex){....}-{4:4}, at: device_lock include/linux/device.h:1104 [inline]
+ #4: ffff88802aa011a0 (&dev->mutex){....}-{4:4}, at: __device_driver_lock drivers/base/dd.c:1171 [inline]
+ #4: ffff88802aa011a0 (&dev->mutex){....}-{4:4}, at: device_release_driver_internal+0xb2/0x620 drivers/base/dd.c:1369
+locks held by kworker/1:7/5799: 5, on CPU#1:
+ #0: ffff8880236ef940 ((wq_completion)usb_hub_wq){+.+.}-{0:0}, at: process_one_work+0x1466/0x1b10 kernel/workqueue.c:3371
+ #1: ffffc900048c7d08 ((work_completion)(&hub->events)){+.+.}-{0:0}, at: process_one_work+0xa2c/0x1b10 kernel/workqueue.c:3372
+ #2: ffff88802b89c1d8 (&dev->mutex){....}-{4:4}, at: device_lock include/linux/device.h:1104 [inline]
+ #2: ffff88802b89c1d8 (&dev->mutex){....}-{4:4}, at: hub_event+0x1bb/0x4420 drivers/usb/core/hub.c:5912
+ #3: ffff88802b3d0568 (&port_dev->status_lock){+.+.}-{4:4}, at: usb_lock_port drivers/usb/core/hub.c:3265 [inline]
+ #3: ffff88802b3d0568 (&port_dev->status_lock){+.+.}-{4:4}, at: hub_port_connect drivers/usb/core/hub.c:5477 [inline]
+ #3: ffff88802b3d0568 (&port_dev->status_lock){+.+.}-{4:4}, at: hub_port_connect_change drivers/usb/core/hub.c:5720 [inline]
+ #3: ffff88802b3d0568 (&port_dev->status_lock){+.+.}-{4:4}, at: port_event drivers/usb/core/hub.c:5884 [inline]
+ #3: ffff88802b3d0568 (&port_dev->status_lock){+.+.}-{4:4}, at: hub_event+0x2b3e/0x4420 drivers/usb/core/hub.c:5966
+ #4: ffff88802bc8a860 (hcd->address0_mutex){+.+.}-{4:4}, at: hub_port_connect drivers/usb/core/hub.c:5478 [inline]
+ #4: ffff88802bc8a860 (hcd->address0_mutex){+.+.}-{4:4}, at: hub_port_connect_change drivers/usb/core/hub.c:5720 [inline]
+ #4: ffff88802bc8a860 (hcd->address0_mutex){+.+.}-{4:4}, at: port_event drivers/usb/core/hub.c:5884 [inline]
+ #4: ffff88802bc8a860 (hcd->address0_mutex){+.+.}-{4:4}, at: hub_event+0x2b67/0x4420 drivers/usb/core/hub.c:5966
+locks held by udevd/5912: 1, last CPU#0:
+ #0: ffffffff8edec060 (rcu_read_lock){....}-{1:3}
+, at: raw_spin_rq_lock_nested+0x2c/0x140 kernel/sched/core.c:677
+locks held by udevd/5916: 1, last CPU#1:
+ #0: ffffffff8f906338 (tomoyo_ss){.+.+}-{0:0}, at: srcu_lock_acquire include/linux/srcu.h:198 [inline]
+ #0: ffffffff8f906338 (tomoyo_ss){.+.+}-{0:0}, at: srcu_read_lock include/linux/srcu.h:305 [inline]
+ #0: ffffffff8f906338 (tomoyo_ss){.+.+}-{0:0}, at: tomoyo_read_lock security/tomoyo/common.h:1112 [inline]
+ #0: ffffffff8f906338 (tomoyo_ss){.+.+}-{0:0}, at: tomoyo_check_open_permission+0x169/0x3c0 security/tomoyo/file.c:772
+locks held by kworker/0:12/6851: 4, last CPU#0:
+ #0: ffff88801c057140 ((wq_completion)events){+.+.}-{0:0}, at: process_one_work+0x1466/0x1b10 kernel/workqueue.c:3371
+ #1: ffffc90004d47d08 ((work_completion)(&rfkill->sync_work)){+.+.}-{0:0}, at: process_one_work+0xa2c/0x1b10 kernel/workqueue.c:3372
+ #2: ffffffff911a5be0 (rfkill_global_mutex){+.+.}-{4:4}, at: rfkill_sync_work+0x1b/0x40 net/rfkill/core.c:1071
+ #3: ffffffff91272200 (uevent_sock_mutex){+.+.}-{4:4}, at: uevent_net_broadcast_untagged lib/kobject_uevent.c:317 [inline]
+ #3: ffffffff91272200 (uevent_sock_mutex){+.+.}-{4:4}, at: kobject_uevent_net_broadcast lib/kobject_uevent.c:410 [inline]
+ #3: ffffffff91272200 (uevent_sock_mutex){+.+.}-{4:4}, at: kobject_uevent_env+0xba8/0x18b0 lib/kobject_uevent.c:611
+locks held by syz.0.1283/10674: 1, last CPU#0:
+ #0: ffff8880202d5038 (&mm->mmap_lock){++++}-{4:4}, at: mmap_write_lock_killable include/linux/mmap_lock.h:562 [inline]
+ #0: ffff8880202d5038 (&mm->mmap_lock){++++}-{4:4}, at: vm_mmap_pgoff+0x1f5/0x470 mm/util.c:579
+locks held by syz.4.1285/10677: 3, last CPU#1:
+ #0: ffff8880390b57b0 (&f->f_pos_lock){+.+.}-{4:4}, at: fdget_pos+0x2aa/0x380 fs/file.c:1259
+ #1: ffff88804fff7998 (&p->lock){+.+.}-{4:4}, at: seq_read_iter+0xe1/0x1270 fs/seq_file.c:183
+ #2: ffffffff8f058668 (namespace_sem){++++}-{4:4}, at: m_start+0x4e/0x210 fs/namespace.c:1541
+
+=============================================
+
+NMI backtrace for cpu 1
+CPU: 1 UID: 0 PID: 32 Comm: khungtaskd Tainted: G             L      syzkaller #0 PREEMPT(full) 
+Tainted: [L]=SOFTLOCKUP
+Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 08/05/2026
+Call Trace:
+ <TASK>
+ __dump_stack lib/dump_stack.c:94 [inline]
+ dump_stack_lvl+0x100/0x190 lib/dump_stack.c:120
+ nmi_cpu_backtrace.cold+0x12d/0x151 lib/nmi_backtrace.c:123
+ nmi_trigger_cpumask_backtrace+0x21f/0x2a0 lib/nmi_backtrace.c:66
+ trigger_all_cpu_backtrace include/linux/nmi.h:164 [inline]
+ __sys_info lib/sys_info.c:157 [inline]
+ sys_info+0x141/0x190 lib/sys_info.c:165
+ check_hung_uninterruptible_tasks kernel/hung_task.c:353 [inline]
+ watchdog+0xcb1/0x1030 kernel/hung_task.c:561
+ kthread+0x373/0x450 kernel/kthread.c:436
+ ret_from_fork+0x730/0xd60 arch/x86/kernel/process.c:158
+ ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
+ </TASK>
+Sending NMI from CPU 1 to CPUs 0:
+NMI backtrace for cpu 0
+CPU: 0 UID: 0 PID: 16 Comm: pr/ttyS0 Tainted: G             L      syzkaller #0 PREEMPT(full) 
+Tainted: [L]=SOFTLOCKUP
+Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 08/05/2026
+RIP: 0010:io_serial_in+0x87/0xb0 drivers/tty/serial/8250/8250_port.c:410
+Code: 07 5c fc 48 8d 7d 40 44 89 e1 48 b8 00 00 00 00 00 fc ff df 48 89 fa d3 e3 48 c1 ea 03 80 3c 02 00 75 1a 66 03 5d 40 89 da ec <5b> 0f b6 c0 5d 41 5c c3 cc cc cc cc e8 48 1a cf fc eb a2 e8 d1 1a
+RSP: 0018:ffffc90000157958 EFLAGS: 00000002
+RAX: dffffc0000000000 RBX: 00000000000003fd RCX: 0000000000000000
+RDX: 00000000000003fd RSI: ffffffff85afe8d0 RDI: ffffffff9bc63ca0
+RBP: ffffffff9bc63c60 R08: 0000000000000001 R09: 000000000000001f
+R10: 0000000000000000 R11: 205d323354202020 R12: 0000000000000000
+R13: 0000000000000020 R14: fffffbfff378c7e9 R15: dffffc0000000000
+FS:  0000000000000000(0000) GS:ffff888123b61000(0000) knlGS:0000000000000000
+CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+CR2: 00007f38821556c8 CR3: 000000005afdf000 CR4: 00000000003526f0
+Call Trace:
+ <TASK>
+ serial_in drivers/tty/serial/8250/8250.h:128 [inline]
+ serial_lsr_in drivers/tty/serial/8250/8250.h:150 [inline]
+ wait_for_lsr+0x13a/0x210 drivers/tty/serial/8250/8250_port.c:2013
+ serial8250_fifo_wait_for_lsr_thre+0x5f/0xd0 drivers/tty/serial/8250/8250_port.c:3270
+ __serial8250_console_fifo_write+0xa5/0x290 drivers/tty/serial/8250/8250_port.c:3345
+ serial8250_console_fifo_write drivers/tty/serial/8250/8250_port.c:3378 [inline]
+ __serial8250_console_write drivers/tty/serial/8250/8250_port.c:3429 [inline]
+ serial8250_console_write+0xf46/0x1330 drivers/tty/serial/8250/8250_port.c:3493
+ nbcon_emit_next_record+0x8f7/0xa70 kernel/printk/nbcon.c:1070
+ nbcon_emit_one+0x1a8/0x2b0 kernel/printk/nbcon.c:1157
+ nbcon_kthread_func+0x613/0x7d0 kernel/printk/nbcon.c:1271
+ kthread+0x373/0x450 kernel/kthread.c:436
+ ret_from_fork+0x730/0xd60 arch/x86/kernel/process.c:158
+ ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
+ </TASK>
+
+
+---
+This report is generated by a bot. It may contain errors.
+See https://goo.gl/tpsmEJ for more information about syzbot.
+syzbot engineers can be reached at syzkaller@googlegroups.com.
+
+syzbot will keep track of this issue. See:
+https://goo.gl/tpsmEJ#status for how to communicate with syzbot.
+
+If the report is already addressed, let syzbot know by replying with:
+#syz fix: exact-commit-title
+
+If you want to overwrite report's subsystems, reply with:
+#syz set subsystems: new-subsystem
+(See the list of subsystem names on the web dashboard)
+
+If the report is a duplicate of another one, reply with:
+#syz dup: exact-subject-of-another-report
+
+If you want to undo deduplication, reply with:
+#syz undup
