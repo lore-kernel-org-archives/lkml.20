@@ -1,77 +1,108 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3EB3A475338;
-	Mon,  5 Oct 2026 10:53:18 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CC0A33F3288;
+	Mon,  5 Oct 2026 10:54:03 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791197599; cv=none; b=o1Rjd0sjOr9PtPosAShCxnDpHngdAHsDjA1/hk2BESkMQSS/zd81avNkWVHbmEBI9h7JWWXzocPdcvwMIU2x4mmPawWP04HMUXze1Px+zCtNUlImn+GY8ygQrcuJ7cJEBePR4GLIgqGJ2BzuvKzfP/b4SbeI8hssYAilPieMBdk=
+	t=1791197644; cv=none; b=G+vv7nMQXflWHnjEaDzOhC1yiOup3+ddbfpyABNHl2ECAHCVytgYRT/EH1ErCaHc1YMfBbNEtDJ0DQ6DPWGLdOJ0g2VeIeS9/xWPKuenx5EwST9lX2sTF8KnU8J+NDxI3jwm0AcCixGoOtUuDWutInd5G31t8RpU1reqyTLJTiY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791197599; c=relaxed/simple;
-	bh=gp7PRv3WjAiMJrp0DvXpRvTv3mwC8R3NiezXzUE7FxE=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=IoygIwiEpgwwSAVtr0IzaX+XkhAyWsmYNp9J7eKF5BvH4w3+HEgDn56vIUS1D3/28b4dFVrkPyRa5FWF28DZSNQmjmPdkHLEhbBv1Jv5Hb2BP1jVCYci1LZN91DOU8LLOEr/srnUmU5YENcKcJ5kBybI9bvTrmYHIVlvUaRZEqs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=DrSoIlXi; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791197644; c=relaxed/simple;
+	bh=paPXWUYsnV7ykCsbiZzaQNLH27n/4AhlQ1LYPVddCFk=;
+	h=MIME-Version:Date:From:To:Cc:Message-Id:In-Reply-To:References:
+	 Subject:Content-Type; b=Xu/902t5b954/7uhSwyEytRK57Y8RJKVvdSLvfti3s1DP7W56/Hr8dQPh8n5nHbJtgVsQ6GWCpivi+jHtI1fW256N5OrxbbGREQXpcHwf/ul0kLqX8mlMlgqjAZ9ez0I00RnkHh3j89MvEomWAdldeXmoCY7OTHi+rgJmbGnhpI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hKTT4Ynj; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="DrSoIlXi"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 435491F000FF;
-	Mon,  5 Oct 2026 10:53:17 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hKTT4Ynj"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AD2BB1F00893;
+	Mon,  5 Oct 2026 10:54:02 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791197598;
-	bh=Z9zRtXHe/J1k/4/9wAeq1n+PwAt+ioXmV3zyjSNrjDw=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=DrSoIlXiGR4Hn9+cSfMUi8oc6xCATyYk3LEXhRejXGNYTd+S+8zV388wgowGubC6R
-	 xl/4LsCowJhKvULNedWhn2Bl6tdPJ3WHet0PMccgxwEEOXVQAUkssBOt0ilQRE6Lv1
-	 sb9lraZfYS8BKiUG9juUiwMurjNchRzLgc1Iw1e0r2adHHKNZaOzBWr78Rl/cy0Gqs
-	 LPM3paGhcbzKI5/+RK/V1A9y+VHZPaoTSEgwc62yvJIyOPPzdztTwL7EaAUiB7lDK/
-	 dWNrisSXAWUD91YQjJv5vZc3hXjVYc7HX1xZYksww2XZtXoVeMOfOMvR8vd7HS9hD9
-	 Q2bCV31iT5shQ==
-From: netdev-bot+sinfo@kernel.org
-To: "Miguel Gazquez (Schneider Electric)" <miguel.gazquez@bootlin.com>
-Cc: stable@vger.kernel.org, Jamal Hadi Salim <jhs@mojatatu.com>,
- Cong Wang <xiyou.wangcong@gmail.com>, Jiri Pirko <jiri@resnulli.us>,
- "David S. Miller" <davem@davemloft.net>, Jakub Kicinski <kuba@kernel.org>,
- "Samudrala, Sridhar" <sridhar.samudrala@intel.com>,
- John Fastabend <john.r.fastabend@intel.com>,
- Benjamin Robin <benjamin.robin@bootlin.com>,
- Thomas Petazzoni <thomas.petazzoni@bootlin.com>, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org, Victor Nogueira <victor@mojatatu.com>,
- Pedro Tammela <pctammela@mojatatu.com>,
- Simon Horman <simon.horman@corigine.com>, Sasha Levin <sashal@kernel.org>
-Subject: Re: [PATCH 5.15.y] net: sched: cls_u32: Undo tcf_bind_filter if
- u32_replace_hw_knode
-Date: Mon, 05 Oct 2026 10:53:16 +0000
-Message-ID: <179119759679.1402591.553723338940135052@kernel.org>
-In-Reply-To: <20261005-cve-2023-53733-5-15-v1-1-caeaaf7de3f5@bootlin.com>
-References: <20261005-cve-2023-53733-5-15-v1-1-caeaaf7de3f5@bootlin.com>
-Auto-Submitted: auto-generated
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
+	s=k20260515; t=1791197643;
+	bh=X9RFb/buyI8n2HPvTUKM+p0nQi/e6u6dw5s7YNwYpLc=;
+	h=Date:From:To:Cc:In-Reply-To:References:Subject;
+	b=hKTT4YnjfZafPj+ObvqjmrunS+uFiUV135chM3/vA4scqWvWKearR9W41Mp4TtR+4
+	 +1E0dNGv50O2KZss1Ma0Gv9qk8hrmYhiIZ0j6HcYlxGmygvGAIdHiFshJ1+zd+dtL9
+	 HLN0lSDj/Qvptb3zAMrXFFkl7NHykX/5wxL/mn3/MNVxqsw+t82r7vxRv9tZvjihC/
+	 bYzsTjIMd/o9Ox5O2Ak2CiKGyfsx/vv1d9sGs1AMUIFluaNuNZsI+zOWvJuVn1jLPi
+	 F435tAIhPrpgfJ7fjVnLp48laYoPb/84SZdm4SAvlaoH6aYUrgPZnuHPeeGCmVk3Fc
+	 3PoQTxAnFg8EA==
+Received: from ams-compute-02.internal (ams-compute-02.internal [10.64.2.62])
+	by mailfauth.ams.internal (Postfix) with ESMTP id CA6AA1980047;
+	Mon,  5 Oct 2026 06:54:00 -0400 (EDT)
+Received: from ams-imap-11 ([10.64.2.31])
+  by ams-compute-02.internal (MEProxy); Mon, 05 Oct 2026 06:54:00 -0400
+X-ME-Sender: <xms:xoHDavkTYBY79n2X673zo853Qa_bdqs7aTHhEnQTyy8DTNK3pReLHQ>
+    <xme:xoHDatoK9QuqOVeSVVV_do1ckRhU4Tn8FUPYbUpPhsokqaHUAstFoye7nJgUZhope
+    aW8ws6ZFKCAXQWFZ8TJTapm6ZvJTgExi1RkbyQoLkVx6hYM2W2k3kY>
+X-ME-Proxy-Cause: dmFkZTGLdks8gB5Qx52BxQMp2/Yz0QHw5YjDPkSdp5TVhyLY6N1QLaTIp3WlWwACde0uTa
+    BW/cgz4w3Ngk+7Dz590jcvc/Jlsa8+h8dlnnRkMjcj9dHpnhfjYs0Pe9lGJzr2bi6xuEEx
+    ug7LDOpWoA17Q+yMpPx9AjIn53uNCUdtNogGRkAScebNJG1rGch4dmbUmpheHwaZ1+RA8s
+    r2dayGEuj6i0XAOQh/7+s7xTGHzks1ootpmN8phOQ4gusqHwJqyy4YSOR8g7SMUTiVlbqa
+    UJ2iDm6MN4R9tpj+pjQpGao33nGpLApaJG3edt4wmWkRXoV9AbA9Wkm3kAAoIQlKvmpGp7
+    HMds26gPzwLhslCAvmDcGPGD/pyAWDiP9WPANbErSY1951zw/fEy7rD5Lb5V5jy+qeAN/9
+    OfJVzSPLLIUUeA0hjttWMZFhqTS0cf1uMpNBzj0+4TQ2Oo6VDWD5euJpdo5AlDdqOvecKw
+    0N2yUin/mAyewFOHpQNYcJA9cgI42Mfi4CQriNOR/ND+mJ+7eL8b5RcbCQYkiCyjDUYKYz
+    3oHj8OHFybwR+PdDNcYqPMkdTqcjcbO0RV1W6j5/gvwaPTMnQL7skNEbxf8Ly54W/kZEZB
+    KizkWF9JaM+o1ZvI3qnn0RcZiSS84ziaGIX13aJR02vvfJxSb1v+XMhaVFQg
+X-ME-Proxy: <xmx:yIHDahXmHc2v2zh3U__P_pVXnIVgy0G0vyT6sop-aS_k6GEEOr8ybw>
+    <xmx:yIHDar_pAgthej9WeR11jtT4SIP7NbiEpzi6jwhDRRlSWBtHejTYxg>
+    <xmx:yIHDajjAGRk55Ye8y4d22eyGrs2A6kvvRLN_tG7ikoOexV3zmYLsew>
+    <xmx:yIHDavdLsLF-GNY4GTJQs6EjULKFqtzoG0hkQ0ais2TLhZtj53AewA>
+    <xmx:yIHDakJHL9oVYivuwruHtD9uYFTsiQ-n8o7PpMsNHfRVC0wmn0WUjtZk>
+Feedback-ID: ice86485a:Fastmail
+Received: by mailuser.ams.internal (Postfix, from userid 501)
+	id 3A33AF80086; Mon,  5 Oct 2026 06:53:58 -0400 (EDT)
+X-Mailer: MessagingEngine.com Webmail Interface
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Date: Mon, 05 Oct 2026 12:53:36 +0200
+From: "Ard Biesheuvel" <ardb@kernel.org>
+To: "Bill Wendling" <morbo@google.com>, "Kees Cook" <kees@kernel.org>
+Cc: "Gustavo A. R. Silva" <gustavoars@kernel.org>,
+ "Nathan Chancellor" <nathan@kernel.org>,
+ "Nick Desaulniers" <ndesaulniers@google.com>,
+ "Justin Stitt" <justinstitt@google.com>, "Mark Brown" <broonie@kernel.org>,
+ "Marco Elver" <elver@google.com>, alan.maguire@oracle.com,
+ namjain@linux.microsoft.com, "Peter Zijlstra" <peterz@infradead.org>,
+ linux-kernel@vger.kernel.org, linux-hardening@vger.kernel.org,
+ llvm@lists.linux.dev
+Message-Id: <ea6e022d-e04b-42e7-b526-ac96559b3633@app.fastmail.com>
+In-Reply-To: <20261005102518.2400984-1-morbo@google.com>
+References: <20261005102518.2400984-1-morbo@google.com>
+Subject: Re: [PATCH] compiler_types: Allow opting out of __counted_by and
+ __counted_by_ptr
+Content-Type: text/plain
+Content-Transfer-Encoding: 7bit
 
-Hi!
+Hi Bill,
 
-This is an automated message. This series looks like a fix, but its
-commit messages seem to be missing some information:
+On Mon, 5 Oct 2026, at 12:25, Bill Wendling wrote:
+> Code that runs outside the kernel proper, such as the EFI stub, gets
+> nothing out of the counted_by annotations: the bounds checks they feed
+> (FORTIFY_SOURCE, UBSAN_BOUNDS) are already disabled there.
+>
+> The annotations can also break the build. A __counted_by_ptr() that
+> names a member declared after the pointer needs Clang's
+> '-fexperimental-late-parse-attributes', which the top-level Makefile
+> adds to 'KBUILD_CFLAGS'. The x86 EFI stub builds its own cflags and does
+> not get that flag, so it fails as soon as such a struct is pulled in
+> through a common header.
+>
+> Overriding the macros from a Makefile doesn't work:
+> 'compiler_types.h' is pulled in with '-include', which is processed
+> after all -D/-U options, so it re-establishes the definitions. Follow
+> the '__NO_FORTIFY' precedent instead: let a build define
+> '__NO_COUNTED_BY' or '__NO_COUNTED_BY_PTR' to turn the corresponding
+> annotation into a no-op.  The two are kept separate but parallel so they
+> can be folded together once all supported compilers handle
+> '__counted_by' on pointers.
+>
 
- - How the issue was discovered, e.g. hit in production, hit during
-   development, syzbot report, manual code inspection, LLM or static
-   analysis tool scan.
+I'd prefer a single macro here - if there is ever a case where we need to
+turn off one but not the other, we can revisit.
 
- - Whether the issue was actually triggered, or is only theoretical
-   (e.g. found by code inspection). If it was triggered please include
-   the symptoms, like the stack trace or error messages.
-
-Please do not repost the series just to address the above. Instead,
-reply to this email with the missing information, so that reviewers
-can take it into account. If the series needs another revision for
-other reasons, please include the information in the commit messages
-then.
-
-The evaluation is done by an LLM so it may be wrong, if you think
-that is the case please reply and explain.
+Otherwise, this looks good to me - thanks.
