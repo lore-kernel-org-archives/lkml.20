@@ -1,79 +1,118 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7BB6547ACC0;
-	Mon,  5 Oct 2026 10:54:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4527A47125A
+	for <linux-kernel@vger.kernel.org>; Mon,  5 Oct 2026 10:54:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791197692; cv=none; b=M3nhYhLf/Ru1d3CvH5SKWrRDzZ0iIhmu8abQjAe5ecdNYWjybEneod/N05fWd7SminEK52ReWllHlgHJvXyq0L8hQXwAFlZhbHK0NFPKRAgy+4MVU6sr9oQuUCBWyMfLoYBJ3+4bSExLIFECTNIoUWR5vtwzODFuLYREQRqhDzo=
+	t=1791197692; cv=none; b=rz0pibiDw5MiETzTAb/bSqByeVPChFA5FWIWvept6yfDHoXhxVpl11uPYnFI8VGEfYV8TDB9EXI9OLz+l8SaPRnhI6fi+L9Wm+WpaNOXgYHulq497RAmxWB6soXKyAtOJ56KERyBC9uPl3ClFFbx6EsqrzwnL07H4jEDqWNUQB4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1791197692; c=relaxed/simple;
-	bh=4aOphlxRPVBxuWoEocxLm5Po9OeaVNbNJM8xAl/MU5I=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Ky2Ao50rIa7X0j7nDjKwIWZSK/hZa9KSLDBPMFm/bB0ZMGshgJJ7IBN7wV1jYqVn1E5MIUMonVo20793o6FrlOl5tEksHhv/jULvDnSD4U5q2VlRXJwXzvCIiCZHHM9eur0Yz+hYNmXwbixoupFJYpQx2NXRYMb3LVqmTdRggeA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZaeausFF; arc=none smtp.client-ip=100.103.45.18
+	bh=7yv2fDxwDW/izhtv/3qeKMCYEbfudsMQmfoewhpnBrU=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=TPVHuVwC/KgcS7OpG7GsntkzIC1XeGi1S5aoCn3snUWu/bGadfShoVRqTg+g52/ByFZafCG9yE3RwMhR41brGTCN6+h65M+4NXB6sqdCnA7bAgdSKedXzWBh+TgLJErJfg/tfrj2qpUFy/aWHRiGssZLp6N5amCjv06KECcyGMM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=HfW+zfZF; arc=none smtp.client-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZaeausFF"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2FCE51F000FF;
-	Mon,  5 Oct 2026 10:54:48 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791197691;
-	bh=4aOphlxRPVBxuWoEocxLm5Po9OeaVNbNJM8xAl/MU5I=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=ZaeausFFJYnLsWIPauJzCjGNEytEx2XpHyKTPBa+6hq1wC5ouXkOvcOq0qKPvtpsC
-	 QKw1NrbPto94WEc3DypNPEZDz2NPGyQkfAwxyIqnhZ6/ul+8si2C9W+U3ImMuxZwI0
-	 tWtkivT/kY+1fEYuHawJ4JqoQDvMW0bZgtj8wNanLhb0YqnzeSb6HejFkcMlHbZaRA
-	 DpcOawhFZfu1O26eGAKZmlzkGKd/+pEs0gKQ76aO/c10vf+Z6Hb7vI05D5+7tiL5m2
-	 nyYA/ysEShT3est/VhxLpoG+3QDldT+Jfo0Q63pAZaRjsOCZD7AUF5amKiYJXzABfN
-	 7Largm3793xkw==
-Date: Mon, 5 Oct 2026 11:54:45 +0100
-From: Conor Dooley <conor@kernel.org>
-To: Neil Armstrong <neil.armstrong@linaro.org>
-Cc: Luca Weiss <luca.weiss@fairphone.com>,
-	Jessica Zhang <jesszhan0024@gmail.com>,
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-	Maxime Ripard <mripard@kernel.org>,
-	Thomas Zimmermann <tzimmermann@suse.de>,
-	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Luca Weiss <luca@lucaweiss.eu>,
-	~postmarketos/upstreaming@lists.sr.ht, phone-devel@vger.kernel.org,
-	dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 1/2] dt-bindings: display: panel: himax,hx83112a: Tighten
- compatible matching
-Message-ID: <asOB9azB6OCN5fYH@squawk>
-References: <20261002-hx83112-compatible-contains-v1-0-d558635ab7fc@fairphone.com>
- <20261002-hx83112-compatible-contains-v1-1-d558635ab7fc@fairphone.com>
- <9be89803-974c-4746-8af0-a13e5a19fb33@linaro.org>
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="HfW+zfZF"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1791197690;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=GQIzOrD80cBVNE5h0CQa8C1wdzcpWOcigbQ+mlRDcY0=;
+	b=HfW+zfZFUILUBMsFVWLdBi1m8rqs6T8FpnEggOA9POM9VkcI623RuZBSMB8YCtTrSJGAPL
+	iyh/XdtlWiFiWfT4sZ5nWDJi/53ExgrHbTj/Yxc/J7nflV9txkbRCIS7N5pka+V3ljVGX0
+	LLaXs4u7WOLsp/L4l/2zEPL/NAiIKRY=
+Received: from mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-220-TFv9j6g5Mwa9XZ7D9O6MFQ-1; Mon,
+ 05 Oct 2026 06:54:47 -0400
+X-MC-Unique: TFv9j6g5Mwa9XZ7D9O6MFQ-1
+X-Mimecast-MFC-AGG-ID: TFv9j6g5Mwa9XZ7D9O6MFQ_1791197685
+Received: from mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.111])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id B373C18007E7;
+	Mon,  5 Oct 2026 10:54:44 +0000 (UTC)
+Received: from jtornosm-thinkpadp1gen7.rmtes.csb (headnet03.pony-001.prod.iad2.dc.redhat.com [10.2.32.114])
+	by mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id 4CFD71800446;
+	Mon,  5 Oct 2026 10:54:41 +0000 (UTC)
+From: Jose Ignacio Tornos Martinez <jtornosm@redhat.com>
+To: bhelgaas@google.com,
+	alex@shazbot.org,
+	mani@kernel.org
+Cc: jjohnson@kernel.org,
+	linux-pci@vger.kernel.org,
+	linux-wireless@vger.kernel.org,
+	ath11k@lists.infradead.org,
+	ath12k@lists.infradead.org,
+	mhi@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	Jose Ignacio Tornos Martinez <jtornosm@redhat.com>
+Subject: [PATCH v15 0/2] PCI: Add device-specific reset for Qualcomm devices
+Date: Mon,  5 Oct 2026 12:54:34 +0200
+Message-ID: <20261005105436.83962-1-jtornosm@redhat.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="RIqa/r0/keXy6YTE"
-Content-Disposition: inline
-In-Reply-To: <9be89803-974c-4746-8af0-a13e5a19fb33@linaro.org>
+Content-Transfer-Encoding: 8bit
+X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.111
 
---RIqa/r0/keXy6YTE
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+Some Qualcomm PCIe devices (WCN6855, WCN7850 WLAN; SDX62/SDX65 modems)
+lack working reset methods for VFIO passthrough scenarios. These devices
+have no FLR capability, advertise NoSoftRst+ (blocking PM reset), and have
+broken bus reset.
 
-Acked-by: Conor Dooley <conor.dooley@microchip.com>
-pw-bot: not-applicable
+Standard reset methods were already disabled for these devices by commit
+6a4f64c3a3ad ("PCI: Avoid SBR for Qualcomm WCN6855/WCN7850 WiFi,
+SDX62/SDX65 modems") because they were not working (quirk_no_bus_reset).
 
---RIqa/r0/keXy6YTE
-Content-Type: application/pgp-signature; name=signature.asc
+VFIO attempts to reset devices on every reassignment:
+- For the listed modems, without a proper reset capability, these devices
+never successfully initialize even on first VM assignment.
+- For the listed WLAN devices, without a working reset method, the attempt
+fails. On clean VM shutdown, the guest driver properly deinitializes the
+device via .shutdown/.remove callbacks, leaving it in a usable state despite
+the failed reset. However, on unclean VM termination (crash, force-off), the
+guest driver callbacks are not triggered, the device remains in an undefined
+state (DMA active, interrupts enabled, etc.), and without a working reset it
+cannot be reused.
 
------BEGIN PGP SIGNATURE-----
+Add device-specific reset methods using BAR-space hardware reset registers
+that exist in these devices:
 
-iHUEARYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCasOB9QAKCRB4tDGHoIJi
-0ioTAQCm9zEIddkeZKgrUFGRAvTEXyK9EGR5tMTlusa2quGuuAD7BHGyTr47xeBU
-y2PDNwtEgnc2DyFZx2ys0wU/gewdpAY=
-=pQsR
------END PGP SIGNATURE-----
+  Patch 1: SDX62/SDX65 modem reset via MHI SoC reset
+  Patch 2: WCN6855/WCN7850 WLAN reset via SoC global reset
 
---RIqa/r0/keXy6YTE--
+These are true hardware reset mechanisms (not power management or firmware
+error recovery), providing proper device reset for VFIO scenarios, allowing
+to enforce isolation between successive passthrough users.
+
+Testing shows stable operation over 100+ VM crash/reset cycles. Device-
+specific reset is position #1 in the reset hierarchy, so these devices
+will use hardware reset as their primary reset method.
+
+Jose Ignacio Tornos Martinez (2):
+  PCI: Add device-specific reset for Qualcomm SDX62/SDX65 modems
+  PCI: Add device-specific reset for Qualcomm WCN6855/WCN7850 WLAN
+
+ drivers/pci/quirks.c | 116 +++++++++++++++++++++++++++++++++++++++++++
+ 1 file changed, 116 insertions(+)
+
+---
+v15: Address Bjorn Helgaas feedback:
+  - Explain the relationship with 6a4f64c3a3ad ("PCI: Avoid SBR for Qualcomm
+    WCN6855/WCN7850 WiFi, SDX62/SDX65 modems") and previous status.
+  - No code changes from v14, only commit message clarifications (Mani's
+    Reviewed-by and Alex's Acked-by retained)
+v14: https://lore.kernel.org/all/20260917071651.14174-1-jtornosm@redhat.com/
+
+--
+2.54.0
+
