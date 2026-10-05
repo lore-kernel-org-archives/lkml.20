@@ -1,65 +1,66 @@
-Received: from mail-wr1-f46.google.com (mail-wr1-f46.google.com [209.85.221.46])
+Received: from mail-wr2-f12.google.com (mail-wr2-f12.google.com [74.125.225.76])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 05EFF366042
-	for <linux-kernel@vger.kernel.org>; Mon,  5 Oct 2026 06:41:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.46
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B202436657B
+	for <linux-kernel@vger.kernel.org>; Mon,  5 Oct 2026 06:41:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.76
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791182503; cv=none; b=IpEc+UcuQ0FasS0TF6LZItSnqTKSkqIMR3p47ukByivpaeX5OPl4xPLOUmOkyn46UJLu1hoDwROJatwR4lDtObQaRXQcttQO60zJNmhoff4GrDyBnw84pzRk7YnFT+iXughHueyhdC17cnnXKKn4ccNE19u6qVzpJmS5irQyqCc=
+	t=1791182507; cv=none; b=fezXe4rMFVNO73+kzCKLx2mfxk5ZP3mhX/GTV7S+JcOEBFeMWI0kO1US3vvrQ6oiT9203frJJaAm1/JhdvhgqLDOYscQoJIJI9ZSsjm2st2M2vUWIX4Vd47GdLvV6aJzUTuOyuVdbDdR+2Lp4uLRe6PwMNqj+dKEq1PW/xrGuKk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791182503; c=relaxed/simple;
-	bh=yCkXo4sSj6S2ElefNk4UC31+4JoEn9L05JKIXoGqVks=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version:Content-Type; b=pGnBME5WLm6Jd9brLG/YRHnGVq7jkAcxWwKDxNrJfNxYqcTiW7E6fJImeAYWRjCv8wRgSOv91uEjdM1DFj5QX/LA/NZhwG/vinPhGpJpWNrAD6ZTDXP5gx1MRYdTNwphvURbIhYRZGliInx4cmHB4ki78v009II3swphRPk1qmM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=gpefHT+v; arc=none smtp.client-ip=209.85.221.46
+	s=arc-20240116; t=1791182507; c=relaxed/simple;
+	bh=XMV0SKIvktN+WQZqgWaotOelQ5GC4dKvyGVuDdg18/0=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=izMe7Pg87qWz+WhwOVYpHfLe94FiSUxT74q8IcS4u0xuNxSjvDfgBj5d/MZmktwii6ZnI1EvFywR3O02j6eysAMKNCs5uqiy/Ru2BEVI5y2PsQ2jPI33iVg6YosXgmc4t0zLm3+hnWnwki7cxwfe/9/tJSy3qGa37m/Xk4mWXvs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=X31bpEyj; arc=none smtp.client-ip=74.125.225.76
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="gpefHT+v"
-Received: by mail-wr1-f46.google.com with SMTP id ffacd0b85a97d-48b03f23305so1185972f8f.1
-        for <linux-kernel@vger.kernel.org>; Sun, 04 Oct 2026 23:41:41 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="X31bpEyj"
+Received: by mail-wr2-f12.google.com with SMTP id ffacd0b85a97d-482f6350f91so576074f8f.1
+        for <linux-kernel@vger.kernel.org>; Sun, 04 Oct 2026 23:41:42 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791182500; x=1791787300; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=+EGFppMfswXU/fV+uWCD2+0j1OKAXO1MerJRCo45qjU=;
-        b=gpefHT+v+PuWiM2I9C7k22I8aLGVqVvXcYDdoa/DNkxz4fm2nZ2R04FQkr/+o0/R8r
-         SvjRKyHS5vQzGUbOr6O1Ug/h/QSIeVvQWgEzdjHg+c/sp45bzhWKutA6nMLTsRp1tY0I
-         KXh43CeNes6fqNt7imQRYOh0lCV9QD9hVwq9TyZNlTzG6Ixc016GJuMmz05nZvf4+Bwe
-         n6/DYoED59QpRv7shl9ICdeUYkMU8ZyslGwBAdJdt9eDI99zkzAKJdby85alA5oXqN1G
-         6TfxcpsbsyeP+jtsvrxaYhzZ34VrN41pyDIEHg7MT0MrYVAMUH82gI/sVDPaUjad4AgO
-         Thug==
+        d=gmail.com; s=20251104; t=1791182501; x=1791787301; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=vxYiwprUwInDcUC2IvTN3Wf8gv1RPqxCXCBp6IgMI3M=;
+        b=X31bpEyjPsb2ZA0OCglgGvpsZEwlazd/KMrRU5eDnisj8a0ficG5aBaCkRIcCuRepi
+         g2/thgHOg7LS+L87d3sba8ui74Qw/HHsdvpCg0U+fp+fKOZkFiuKsW4s022o7HZkv5AD
+         2UFxJ8XJTZNZJVPBrS9edri3iBLYEs1oMU1X52BdRr3KNr4N9J98fCnWqdzj7yHbEfQ9
+         WDcd/8n2HBzmHztlYIckRqP9nfZ8DLDvfKmXDunFS+7Tu+3oUfnKTz0Tj9pR+pr1rZRq
+         nR+UIHwspFsptIniqbnbsgUGOCYVfR79EePVoISR3VnCLmiivrwar9vFhqXOiPCfMXDp
+         y2zQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791182500; x=1791787300;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=+EGFppMfswXU/fV+uWCD2+0j1OKAXO1MerJRCo45qjU=;
-        b=vBPJA1qya8byvM78Ye3mdndl4qMcZ+6lKFIL5H8qY2a6M5uctokGfT29jIMk909Cx4
-         oge9N03QOeEzXamURvQjywLcrXyZ5Fd4/YPFI5AKaZ5Q8+0ffjgjGmDaPZ5+cOrKzKyt
-         a9hKyBiXo9KybZ4y+7vTqe/+Tvs2gMLK89bj3ckOU06/s66v0J76Axz3Xg46AV1A/k3T
-         tBq5GhxsawN+7BJXGh7ACOYj45smC05BDcdPzWDT1xky9pBtHwElT1iT15CZ0VPHCKPA
-         ouP5XyuuaY3XGSNo4P+bTxsGMAECbA7VVN8NdNwVElPIGDg22mWIPon3jMBnrYvAdObY
-         xa7g==
-X-Forwarded-Encrypted: i=1; AKwUvBx9junMiWYCaH7l5bniStHl0LKbcvUULDb6vGBaShi9a+8rd9jCgITN8DjkgYTR+wI+vpsRpPGVsOyvwcc=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIsmuOGqpQcW17YE2u7M4Qm8KvbwO3MvWCbOgwWx+xyZOte6x+Y
-	YddFTqiFErx38xguA8+A0mvJcjRR/+mZU2lzpCzhY4+OiryYdzg+qEtv
-X-Gm-Gg: AYBFou21JwcMUyR0sAtL8jahsvkKuUaMGhS624DOv0F2WeBGpKxMpN8WycOV0wYwlVW
-	94m3PH4X0F9CtE4KFWLYh07KDcqmLIgCVLoCxPyuL4jqHMKjxUeQSBWv4iDTKp9WDOYEIQlYChB
-	LJoMXGNVm2QShlCjtr3yyO+uFVEOzjU7eQyH2+trOz2UF2ztlYfzG7cnSHQArgLdEI2UpG4GYQf
-	rFcThsnwaUsqytCN4Hrkbpogm4ejXbUTpLgxN+M+cAaopodqoHqDFkNgm+BfYCGI5chv/QROv1y
-	XXfd+xhM4/Rzif1yr0AvB/HUfbvtcxB8Yt/6Yautwrb6Ms6jrI2hB8DyyRy+ati7mh52QW+9beR
-	zsXqGThlZfErPeWuZqpQj7DdR279mQCuGcL2jBp+rpk6xfId0oI+Mc5IJDygmn4XhyA40EtHh/f
-	KrUU3Hoq8eqYlepimae0Td28K+J+i2C+n1eDb7CyBs7T7cZ1PgJM7gqGFEyZNuOgvHGj9cEZhtw
-	nNKVrZXM9PIhckO1zRs/JjkdGj0jMfdH1Sv7acuajFRqz3aO/zVqcQHNxZQfyfbfESfkFu/OeA1
-	IHuqb3oAcDxlt3f4sJgoyh+FgE9Od0WZ9++FBz4LNZl62ydRe4wOW/z8ea9mO+p0OX5GviugIQn
-	uyac=
-X-Received: by 2002:a05:6000:24c6:b0:48a:f5cb:4356 with SMTP id ffacd0b85a97d-48c4801ac46mr10819804f8f.45.1791182499704;
-        Sun, 04 Oct 2026 23:41:39 -0700 (PDT)
+        d=1e100.net; s=20260707; t=1791182501; x=1791787301;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=vxYiwprUwInDcUC2IvTN3Wf8gv1RPqxCXCBp6IgMI3M=;
+        b=HD76T1JNGKkH9USmIErH9PdEFZgAZNnU1g+Ab+9iys0aP2JZtbw4o1qLjh7WtEYnZw
+         LpnRXBYWIpD25b0jCK7YajOVGZSFSKHl8pEPPGFeIyxYcVFoxT2pfCatg5NdDHcX/u7p
+         YjsxqrBsM378PZ+r5fLsoLZ9KX5ar/1zrbKtQ4Au5R6GPRrsqmQufO1i/jCkRfzwq35a
+         uHigm8sosExAbkXwxdiFHfk/jt7hgYqCnC3FD0AqdyWlUSrN3otb95x3v2PIPH2LBTom
+         21d+3k3tgFQlE+ykz68gSHDGCwwjpr2FJsZw7emARgZVVqer+0bPtQpqhmNwJvyq5mow
+         /zqA==
+X-Forwarded-Encrypted: i=1; AKwUvBzqlNziICZ5tjs8gZEOsc7h7MUXTaBB12ig2hUH6F8X605EkHY13fKjfixEACM05TnCcv4K87RBD9BKXYQ=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJl/5GIjWgNIwODZb1bD4k71tnP1eZE69dI7UEMm/qJpNCjkDOM
+	2SfbYeOEy8kPrOGunnnoUMvmlXgLK9iIY89KV4lFKf0KAzAF6oblL/Vr
+X-Gm-Gg: AYBFou0Ue80qYcBL5GU51wYDHOAQFAkyIhexduQPmA6MhbRbV/ZmfEmULlWPUBkoK7d
+	j8xcBBe/lonT6g1sOl2dWWmeGpZg+oE12exueRMglSU5J/88UbpIGm3udkPAq0fJxsgnJuF7JDK
+	eIA1wRZUAD+I1mhXtOBWVhFfBxOne+wOXmUC0oP0SLK0vC+uaYSySU4gy+LIrNnL3slyz5CoWC8
+	iSd/ZdHHxAy2lzdPsiZ0TuBy+qwERT2jYndQZm8lLEUmShxXcvZyqHu2sBya9j8hKLbISebM+0z
+	j5cHVyPCZiHgEoyVclVsuG1yNQ5LmXID3ar0O4bD54AdKJnFMnjrSPzIzB6WGQMcFUJw6zoENmm
+	7abJtzbwviOenyd3QFxSuaD3/17wE//ALJ43jD3fLY54nrEMuzDbVp+hDkTtBzI6qp+I/QyhZcb
+	lf8024Up7iWRbMuHajyvVzRKI58bkbjiOUEdvSOkGex3CEwVycGOB08Trqh8Idpq2IeFPeZ0rq+
+	LC2GsyKDikHpNnYhlRzLL6eittSz6Imlqdc9eB1XDLhDlUrO5qpD4fzbkT4oY3JC1Krp4lD3kvJ
+	NAP1x8D6UELd+w1osOzFIFYhfwZVZj4pjQU0iA1m8bnYbVjUowJAhzftg5xaG8NjcGjczkqFwEg
+	r78JM0YCo3dgI
+X-Received: by 2002:a5d:5e84:0:b0:48a:f52d:ca47 with SMTP id ffacd0b85a97d-48b1275c366mr16227419f8f.22.1791182500905;
+        Sun, 04 Oct 2026 23:41:40 -0700 (PDT)
 Received: from localhost.localdomain (dynamic-2a02-3100-b305-2001-39fa-3d24-821a-4eae.310.pool.telefonica.de. [2a02:3100:b305:2001:39fa:3d24:821a:4eae])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48c62289b62sm1666871f8f.20.2026.10.04.23.41.38
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48c62289b62sm1666871f8f.20.2026.10.04.23.41.39
         (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Sun, 04 Oct 2026 23:41:39 -0700 (PDT)
+        Sun, 04 Oct 2026 23:41:40 -0700 (PDT)
 From: Karl Mehltretter <kmehltretter@gmail.com>
 To: Sumit Semwal <sumit.semwal@linaro.org>,
 	=?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>
@@ -76,135 +77,61 @@ Cc: Karl Mehltretter <kmehltretter@gmail.com>,
 	dri-devel@lists.freedesktop.org,
 	linaro-mm-sig@lists.linaro.org,
 	linux-kernel@vger.kernel.org
-Subject: [RFC PATCH 0/3] dma-buf: warn-only mode for DMABUF_DEBUG
-Date: Mon,  5 Oct 2026 08:41:30 +0200
-Message-Id: <20261005064133.7305-1-kmehltretter@gmail.com>
+Subject: [RFC PATCH 1/3] dma-buf: keep the DMA flags in the DMABUF_DEBUG copy
+Date: Mon,  5 Oct 2026 08:41:31 +0200
+Message-Id: <20261005064133.7305-2-kmehltretter@gmail.com>
 X-Mailer: git-send-email 2.39.5 (Apple Git-154)
+In-Reply-To: <20261005064133.7305-1-kmehltretter@gmail.com>
+References: <20261005064133.7305-1-kmehltretter@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-With DMABUF_DEBUG, dma_buf_map_attachment() gives the importer a copy of
-the exporter's sg_table without the struct pages and offsets, and
-without the lengths where sg_dma_len() is a separate field. An importer
-that uses those fields stops working. That is the point of the option,
-but the failure usually shows up somewhere else and says nothing about
-the cause.
+With DMABUF_DEBUG, dma_buf_map_attachment() hands the importer a copy
+of the sg_table that keeps only sg_dma_address() and sg_dma_len(). The
+dma_flags (SG_DMA_BUS_ADDRESS, SG_DMA_SWIOTLB) are dropped.
 
-Commit 143755bdabaa9 ("dma-buf: Make DMABUF_DEBUG default to y on
-DEBUG_KERNEL kernels"), which I wrote, went into v7.3-rc4. It made the
-default from commit 646013f513f3 ("dma-buf: enable DMABUF_DEBUG by
-default on DEBUG kernels") take effect, and distribution configs
-usually have DEBUG_KERNEL=y. Two reports followed:
+The flags describe the DMA side of an entry, which is the side
+importers may use. Copy them as well.
 
-- Jianfeng Liu: hardware video decode with drm/msm ends in GPU
-  translation faults [1]. He then sent a revert [2].
+This is not a bug fix. No importer reads the flags today. Their only
+readers are dma-iommu, dma-direct and iommu_map_sg(), which are not
+supposed to see an importer's copy at all. The warn mode added in the
+next patch keeps its marker in dma_flags and lets importers that do
+get there continue. They should then see the same flags as without
+DMABUF_DEBUG.
 
-- Diederik de Haas: rockchip fails to import buffers when playing
-  video, on a config based on Debian's [3].
+Assisted-by: LLM
+Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
+---
 
-In [2] Rob Clark said the problem goes beyond msm and cannot be fixed
-quickly, and Christian König offered to set the default to N for
-another few months [4]. I listed more importers that look affected and
-mentioned this RFC in [5]. As of v7.3-rc6 the default is unchanged.
+Notes:
+    Built alone on x86_64 with NEED_SG_DMA_FLAGS=y (dma-buf.o, W=1). The
+    KUnit test in patch 3 checks the flags in the copy. It passes on x86_64
+    under QEMU in strict and in warn mode.
 
-This series adds DMABUF_DEBUG_WARN as a sub-option of DMABUF_DEBUG. The
-importer still gets a copy, but one that keeps the CPU side of the
-exporter's table. The entries are marked with a new bit in dma_flags.
-sg_page(), sg_nents_for_len() and sg_split() print a rate limited
-message with a stack trace when they see the bit. These CPU-side
-accesses can continue after the report instead of failing because the
-fields were cleared. The report is not a WARN(), so it does not taint
-and does not trigger panic_on_warn. Strict mode remains the default and
-continues to remove the CPU-side fields.
+ drivers/dma-buf/dma-buf.c | 4 ++++
+ 1 file changed, 4 insertions(+)
 
-Known limits:
-
-- Only access through sg_page(), sg_nents_for_len() and sg_split() is
-  seen. sg_page() covers sg_phys(), sg_virt() and the page iterators.
-  An importer that reads sg->length or sg->offset directly is not
-  noticed.
-
-- When the option is enabled, every sg_page() tests the flag.
-
-- It selects NEED_SG_DMA_FLAGS, which adds dma_flags and may increase
-  the size of struct scatterlist. It also relies on dma_flags being
-  initialised, as the DMA mapping code already does.
-
-- It finds importers. It does not fix them.
-
-Question for the maintainers: could warn mode be what DEBUG_KERNEL
-kernels get by default, with strict mode kept for CI? Or is an opt-in
-sub-option all that is wanted, if anything? The series does not change
-any default.
-
-Testing, on the commits as posted:
-
-- KUnit, the dma-buf suites, under UML and on x86_64 in QEMU, in strict
-  and in warn mode: 56 passed, 1 skipped (it needs 2 CPUs) each time.
-
-- Builds: x86_64, arm64 and ARM926 with DMABUF_DEBUG_WARN=y, ARM926
-  without DMABUF_DEBUG. Without DMABUF_DEBUG the generated code of
-  dma-buf.o and lib/scatterlist.o is the same as before, except for
-  line numbers.
-
-- IIO DMABUF capture on a Zynq in QEMU, with local device models. The
-  IIO dmaengine buffer calls sg_nents_for_len() on the attachment's
-  table. In strict mode with NEED_SG_DMA_LENGTH the capture fails with
-  -EBUSY. In warn mode it works, the kernel is not tainted, and the log
-  has:
-
-  DMA-BUF: importer used the CPU side of an exporter's sg_table
-  CPU: 0 UID: 0 PID: 48 Comm: iio-dmabuf Not tainted 7.3.0-rc4+ #2 VOLUNTARY
-  Call trace:
-   [...]
-   dump_stack_lvl from sg_nents_for_len+0xd8/0xe4
-   sg_nents_for_len from iio_dmaengine_buffer_submit_block+0x4c/0x33c
-   iio_dmaengine_buffer_submit_block from iio_dma_buffer_submit_block.part.0+0x5c/0x104
-   iio_dma_buffer_submit_block.part.0 from iio_dma_buffer_enqueue_dmabuf+0x68/0xa0
-   iio_dma_buffer_enqueue_dmabuf from iio_buffer_chrdev_ioctl+0x520/0x9a4
-   iio_buffer_chrdev_ioctl from sys_ioctl+0x460/0x914
-
-- sur40 behind xHCI and intel-iommu on x86_64 in QEMU, with a one-line
-  test-only change in sur40. Here sg_page() is called in
-  iommu_dma_map_sg(), and the trace leads back to sur40_poll(). The
-  capture itself did not finish in that setup.
-
-Details are in the notes on the patches. Not tested on hardware.
-
-Based on v7.3-rc4-70-gfe2ec83746e5.
-
-An LLM agent helped with the code and the testing.
-
-[1] https://lore.kernel.org/r/20260923074256.9357-1-liujianfeng1994@gmail.com
-[2] https://lore.kernel.org/r/20260926022026.10539-1-liujianfeng1994@gmail.com
-[3] https://lists.freedesktop.org/archives/dri-devel/2026-September/600904.html
-[4] https://lore.kernel.org/r/50a9c1f1-6889-4bd5-b4f7-0500d30d3dd9@amd.com
-[5] https://lore.kernel.org/r/arrAvk4aYQ4sDEzN@gmail.com
-
-Karl Mehltretter (3):
-  dma-buf: keep the DMA flags in the DMABUF_DEBUG copy
-  dma-buf: add a warn-only mode to DMABUF_DEBUG
-  dma-buf: test the debug scatterlist wrapper
-
- drivers/dma-buf/.kunitconfig |   1 +
- drivers/dma-buf/Kconfig      |  23 ++++
- drivers/dma-buf/Makefile     |   1 +
- drivers/dma-buf/dma-buf.c    |  48 ++++++-
- drivers/dma-buf/st-dma-buf.c | 253 +++++++++++++++++++++++++++++++++++
- include/linux/scatterlist.h  |  26 +++-
- lib/scatterlist.c            |  22 +++
- lib/sg_split.c               |   2 +
- 8 files changed, 372 insertions(+), 4 deletions(-)
- create mode 100644 drivers/dma-buf/st-dma-buf.c
-
-
-base-commit: fe2ec83746e501645709761605c2464a44fd2929
+diff --git a/drivers/dma-buf/dma-buf.c b/drivers/dma-buf/dma-buf.c
+index 4c9add51f9ef..b3d311acb883 100644
+--- a/drivers/dma-buf/dma-buf.c
++++ b/drivers/dma-buf/dma-buf.c
+@@ -904,6 +904,10 @@ static int dma_buf_wrap_sg_table(struct sg_table **sg_table)
+ 		sg_assign_page(to_sg, NULL);
+ 		sg_dma_address(to_sg) = sg_dma_address(from_sg);
+ 		sg_dma_len(to_sg) = sg_dma_len(from_sg);
++#ifdef CONFIG_NEED_SG_DMA_FLAGS
++		/* the flags describe the DMA side, e.g. SG_DMA_BUS_ADDRESS */
++		to_sg->dma_flags = from_sg->dma_flags;
++#endif
+ 		to_sg = sg_next(to_sg);
+ 	}
+ 
 -- 
 2.53.0
 
