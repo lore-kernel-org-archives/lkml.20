@@ -1,92 +1,39 @@
-Received: from mail-pj2-f4.google.com (mail-pj2-f4.google.com [74.125.227.132])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mail-24417.protonmail.ch (mail-24417.protonmail.ch [109.224.244.17])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0009B30B50D
-	for <linux-kernel@vger.kernel.org>; Mon,  5 Oct 2026 17:02:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.132
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D6E7230B517;
+	Mon,  5 Oct 2026 17:02:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=109.224.244.17
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791219725; cv=none; b=u1hHnz/q72ahdbOcrG62AWECb6VXBHR9XvClulcu07/g+1lCa5DuHbnRASnC88B3adjp5/XZF4Mg4ifYxMzKsSXZzcASitQ7su502mYqAI5B9zmdnMseEUoagGmuNnuZv9H2Hg8YpjUOGwFiCMFT1f89hlG+C+YtC6TbEap7V34=
+	t=1791219742; cv=none; b=E7fOHVlXiSs+ye57WeNS2isXQbcLnQPIapMrD+stgX2+ATR+qyPC8EdzU7fwH1YOcaS5Q62EraroNOulRNTyZzcERM8jRcLZ62gZMH1TYmf92iDrvG+aqA8duHP9CW4GxKhYUdOybXP1VyPCARiX3Q/NetsxtL40HoQa1XJsz1E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791219725; c=relaxed/simple;
-	bh=p2r4gcb42xTsxaNA5xPh+LYVuA5ynBc9KIAfNKRT2l0=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=b3gfEm72I6hhVIOviSfC6EwPZRsOZ+wpzXT9kHD+3eEX87BLaN5dCoorYiMcw6VD6+UndD0CwBXFE/zfFgnnlX0UBnhOWCqjAmrAO0zSw6bocg/C/oQwpJM/nj8k/rBY7UtlQCf/9WzZkCFi1qMJCpmQhXBNDUNtIdTtbZVMFFI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=HD+Ye1YG; arc=none smtp.client-ip=74.125.227.132
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1791219742; c=relaxed/simple;
+	bh=t/yEb69NqJwxXnY2yzDPMyvnZIr+lmNinV/kM6eADoc=;
+	h=Date:To:From:Cc:Subject:Message-ID:MIME-Version:Content-Type; b=jSxJNvKpImW+toR7N0bRNN0uymfF0wfXQw4odlBLiHzBt6TiljhqEi9mC7CwGHxYrmqhLXkWWL4/K3MYaAdHEnx9w3JgUugHL0fDf4mgHXURO125XYT6Jzc1xyj4HmmAZUA6ADOaFYJVWm+ZrO1z9uK97COZZvcQQrWZas/1HR8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me; spf=pass smtp.mailfrom=pm.me; dkim=pass (2048-bit key) header.d=pm.me header.i=@pm.me header.b=iHpcz3Jd; arc=none smtp.client-ip=109.224.244.17
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pm.me
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="HD+Ye1YG"
-Received: by mail-pj2-f4.google.com with SMTP id 98e67ed59e1d1-3a84a12aa97so83974a91.1
-        for <linux-kernel@vger.kernel.org>; Mon, 05 Oct 2026 10:02:03 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791219723; x=1791824523; darn=vger.kernel.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=ZsfW1R9N4QPstXuCZT7OiJ7xuKBOf1oZsvEYYuLcZDU=;
-        b=HD+Ye1YGzIXiImlWR3zGYVXshBf+UxHvyW7WDosAG2jHVh4LfYnJv7ANuRxbCqS9aO
-         2lMPunBqHs7dLxeOQAdlsEnuw7CR3QARePr80Pz8vQe7f9vMhXqZhN+tdAmYzIgsBP9x
-         Vo9rJAM4G03+ppu0QNv7DR62GA0fsExz8xWjyPR8M6vbrqyb5RDwagt5rcs+je8xB+86
-         qXPRC5HjoJAV59b/KiHMuvnEahkwc9gQNGWhRmr4Z3UmYyEUD6dh+S+mQ68kpn+OPUJI
-         wiDWT8B8fzc+5lRXwEJVCOW4DBKFTC4m6cUmX0Gz+4OIjb6d38elRh3kDMTZqCQrOAQt
-         FxKA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791219723; x=1791824523;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=ZsfW1R9N4QPstXuCZT7OiJ7xuKBOf1oZsvEYYuLcZDU=;
-        b=Yd+SBDfU9jIIf4WDvzS9kbtU2N1P5L/pg4+9OpVRWDwmBinlZgNVC2cki1Bb8pIIYl
-         v32wzZlp35Cv/yzvlaLb+YAcetaT7b0Dno0FehHmHl3cIdFlY3yCnvoj023MWrRIkkAW
-         gi5qV3FuYQC4i77ClITZTJwVP+KxWgvqyEMZ++NH/9Zf5rHNrxn3w7ssm/VMnA3Z/HAZ
-         GovK911ArtAGOXo8fGKwt+/kDZpPetEqExXNaQorprfHU4iVr1vN+9KUUsTo91J7YkgB
-         50wFdz+JYk6OxsClEtnXMbtro7a5LUKrqZ7/Q6pD2hDaq41WN1mTwrcCga4qkfMR1v1S
-         8EYw==
-X-Forwarded-Encrypted: i=1; AKwUvBxZ7oYWac2sAwreA+WhHj59xKAJc9KMBLymLA1ZsRH55sYgQBUd1eJauM200S/8eBi1pNJLKR7myK/uQ/s=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJjlPPMaWoDCkbSUWyiNI2YJIZnadnTdCRkleE0LpAGWyaILJfQ
-	x7In1yMJre5ohetcDI8hbimUykWYWdvY0GT98UeYFv+Rx1qxGvMiR3cd
-X-Gm-Gg: AYBFou0FTQm+pdMKFmVQ5yNGymZ6vr9ssz3dXwDUSQMYy+RDCLWlKr9iTwsrluWZrYz
-	2vu68qGxHsIiPGTnBTuOO1YhNXgk9TNypICGiDM+rLWcC4DKJOoVBj+uEdD8coCbQtTEKioVlDm
-	+dgfJ09pLz0A67U8Z/HgIeZYG6I9jvFrgcqoZ0KMUan5QCcsBlkn1ws6vrZd3YRiYY3Py/mINxH
-	8Bn+wBSS/JOObJRzZusx6QGwzM0TAPJtlxnElqKyufOjSK5428bpfJwP32rYDa2ItorIsbwttMt
-	lW6siH1Q5O4aDBtDMWJd4nV+j5ZZF51Eegg11hvEeGf4pLgsnTqj2mW4RHe55b9xa2jFmMqJH2c
-	S0+EWNIIEVxxSAJ/VMpTAb3jMcBCmOPZDvDFrlkXticEvGiBrtDTc5iTksbz37UcQYDDMgSoI+S
-	TXE/FEtfHt08z8okWeDc0N5GAFxrxW2Ip3+NmF+XrRr+/RaiWq6NjGtu9M4R7Y5WE=
-X-Received: by 2002:a17:90b:57c6:b0:3a0:c276:1ec0 with SMTP id 98e67ed59e1d1-3a7872b6af0mr6425813a91.28.1791219722834;
-        Mon, 05 Oct 2026 10:02:02 -0700 (PDT)
-Received: from localhost ([2a03:2880:2ff:3::])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a6dd0cd76bsm9240167a91.2.2026.10.05.10.02.02
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 05 Oct 2026 10:02:02 -0700 (PDT)
-Date: Mon, 5 Oct 2026 10:01:57 -0700
-From: Stanislav Fomichev <sdf.kernel@gmail.com>
-To: =?utf-8?B?QmrDtnJuIFTDtnBlbA==?= <bjorn@kernel.org>
-Cc: Magnus Karlsson <magnus.karlsson@intel.com>, 
-	Maciej Fijalkowski <maciej.fijalkowski@intel.com>, Stanislav Fomichev <sdf@fomichev.me>, 
-	"David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, 
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, 
-	Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>, 
-	Randy Dunlap <rdunlap@infradead.org>, Alexander Duyck <alexanderduyck@fb.com>, kernel-team@meta.com, 
-	Andrew Lunn <andrew+netdev@lunn.ch>, Jesper Dangaard Brouer <hawk@kernel.org>, 
-	Ilias Apalodimas <ilias.apalodimas@linaro.org>, Alexei Starovoitov <ast@kernel.org>, 
-	Daniel Borkmann <daniel@iogearbox.net>, John Fastabend <john.fastabend@gmail.com>, 
-	Pavel Begunkov <asml.silence@gmail.com>, Jens Axboe <axboe@kernel.dk>, 
-	Andrii Nakryiko <andrii@kernel.org>, Eduard Zingerman <eddyz87@gmail.com>, 
-	Kumar Kartikeya Dwivedi <memxor@gmail.com>, Martin KaFai Lau <martin.lau@linux.dev>, 
-	Song Liu <song@kernel.org>, Yonghong Song <yonghong.song@linux.dev>, 
-	Jiri Olsa <jolsa@kernel.org>, Emil Tsalapatis <emil@etsalapatis.com>, 
-	Ihor Solodrai <ihor.solodrai@linux.dev>, netdev@vger.kernel.org, bpf@vger.kernel.org, 
-	io-uring@vger.kernel.org, "Mike Marciniszyn (Meta)" <mike.marciniszyn@gmail.com>, 
-	Weiming Shi <bestswngs@gmail.com>, Nikolay Aleksandrov <razor@blackwall.org>, 
-	David Wei <dw@davidwei.uk>, Alexander Lobakin <aleksander.lobakin@intel.com>, 
-	linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	Mina Almasry <almasrymina@google.com>
-Subject: Re: [RFC net-next 06/15] xdp: Track non-page netmem in receive
- buffers
-Message-ID: <asPXa7k-_drxXiI0@devvm7509.cco0.facebook.com>
-References: <20261002190018.696925-1-bjorn@kernel.org>
- <20261002190018.696925-7-bjorn@kernel.org>
+	dkim=pass (2048-bit key) header.d=pm.me header.i=@pm.me header.b="iHpcz3Jd"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pm.me;
+	s=protonmail3; t=1791219731; x=1791478931;
+	bh=t/yEb69NqJwxXnY2yzDPMyvnZIr+lmNinV/kM6eADoc=;
+	h=Date:To:From:Cc:Subject:Message-ID:Feedback-ID:From:To:Cc:Date:
+	 Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
+	b=iHpcz3Jd7cuaTlXtlgEFIdxXp75oLf09jOLK+Z5B9oJEcnkip6yFmjCqzU3spAh+s
+	 isNGiJKpK7FMEkqV9L6lxvJyEarjcB3Qwpx9TDU/L6gSO4yWwSn5TdJD43LNL24Xhj
+	 ELFRiT+i7Oh/AYhwMUwd/79XPqXIhZkxI/geG7Oz3+FX5xnotAMqtfuyIgnnyMlE9q
+	 COPg5vlL43jE6hmU0FBIgx3J5Sr6iWLXszcgdxv7yGxWtoWgDFTJ+c1B8ezvvMFjVN
+	 MKqzs5C6wuWPsu2JNkxYrPkdcpvVNkgJ6gxeB6CAOH5hxSPn2paNbu1dU3yNB2XQGn
+	 55smCSXyd70lg==
+Date: Mon, 05 Oct 2026 17:02:06 +0000
+To: Manivannan Sadhasivam <mani@kernel.org>, "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>, "Martin K. Petersen" <mkp@kernel.org>, Abel Vesa <abel.vesa@oss.qualcomm.com>, Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, Luca Weiss <luca.weiss@fairphone.com>, Bjorn Andersson <andersson@kernel.org>, Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+From: Alexander Koskovich <akoskovich@pm.me>
+Cc: linux-arm-msm@vger.kernel.org, linux-scsi@vger.kernel.org, linux-kernel@vger.kernel.org, Alexander Koskovich <akoskovich@pm.me>
+Subject: [PATCH] scsi: ufs: qcom: Power down UFS during system suspend on Milos
+Message-ID: <20261005-milos-ufs-suspend-v1-1-a6f8b89d5b63@pm.me>
+Feedback-ID: 37836894:user:proton
+X-Pm-Message-ID: ce9a58eb4e9744b4aff0606b7f060f3d44db0ca5
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -94,147 +41,62 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20261002190018.696925-7-bjorn@kernel.org>
+Content-Transfer-Encoding: quoted-printable
 
-On 10/02, Björn Töpel wrote:
-> A page-pool memory provider can give net_iov buffers, and
-> virt_to_page() does not work for them. An xdp_buff holds only the
-> data pointer, so code that returns or converts a buffer cannot find
-> its net_iov.
-> 
-> Add NET_IOV_XSK, the net_iov type for AF_XDP. Add the internal flag
-> XDP_FLAGS_HAS_NETMEM. When it is set, the xdp_buff holds a netmem
-> reference in the union with the devmap TX queue, which only devmap
-> egress uses. The flag is cleared when flags are copied to an skb or
-> an xdp_frame. xdp_convert_buff_to_frame() sends such a buffer to the
-> zero-copy copy path.
-> 
-> A fragment from a readable net_iov area no longer marks the buffer's
-> fragments as unreadable. The skb layer still treats every net_iov as
-> unreadable, so such a buffer must be copied before it becomes an
-> skb. Later patches in this series do that.
-> 
-> skb_shared_info holds kernel pointers, so it cannot be in UMEM,
-> which userspace can write. A netmem xdp_buff points to a
-> skb_shared_info that the RX queue keeps in kernel memory instead.
-> xdp_init_buff_from_netmem() sets this up. Page-backed buffers still
-> use their tailroom.
-> 
-> On 64-bit, struct xdp_buff grows from 56 to 64 bytes. struct
-> xdp_buff_xsk stays at 128 bytes on x86-64. Where the largest
-> alignment is 8 bytes, as on s390, it grows from 120 to 128 bytes, so
-> a pool needs 8 more bytes per UMEM chunk. Only helpers that need the
-> netmem or the fragment info test the new flag. Page-backed receive
-> and return paths do not.
-> 
-> Signed-off-by: Björn Töpel <bjorn@kernel.org>
-> ---
->  include/net/netmem.h |  1 +
->  include/net/xdp.h    | 56 ++++++++++++++++++++++++++++++++++++++++----
->  2 files changed, 52 insertions(+), 5 deletions(-)
-> 
-> diff --git a/include/net/netmem.h b/include/net/netmem.h
-> index e6dff0b01581..76e4fe878863 100644
-> --- a/include/net/netmem.h
-> +++ b/include/net/netmem.h
-> @@ -68,6 +68,7 @@ DECLARE_STATIC_KEY_FALSE(page_pool_mem_providers);
->  enum net_iov_type {
->  	NET_IOV_DMABUF,
->  	NET_IOV_IOURING,
-> +	NET_IOV_XSK,
->  };
->  
->  /* A memory descriptor representing abstract networking I/O vectors,
-> diff --git a/include/net/xdp.h b/include/net/xdp.h
-> index 07231adfb5f8..80931490ca3a 100644
-> --- a/include/net/xdp.h
-> +++ b/include/net/xdp.h
-> @@ -11,6 +11,7 @@
->  #include <linux/netdevice.h>
->  #include <linux/skbuff.h> /* skb_shared_info */
->  
-> +#include <net/netmem.h>
->  #include <net/page_pool/types.h>
->  
->  /**
-> @@ -81,6 +82,8 @@ enum xdp_buff_flags {
->  	 * XDP program is not attached.
->  	 */
->  	XDP_FLAGS_FRAGS_UNREADABLE	= BIT(2),
-> +	/* The txq/netmem union contains a receive netmem reference. */
-> +	XDP_FLAGS_HAS_NETMEM		= BIT(3),
->  };
->  
->  struct xdp_buff {
-> @@ -89,7 +92,12 @@ struct xdp_buff {
->  	void *data_meta;
->  	void *data_hard_start;
->  	struct xdp_rxq_info *rxq;
-> -	struct xdp_txq_info *txq;
-> +	union {
-> +		/* Valid for DEVMAP egress programs. */
-> +		struct xdp_txq_info *txq;
-> +		/* Valid for receive buffers backed by non-page netmem. */
-> +		netmem_ref netmem;
-> +	};
->  
->  	union {
->  		struct {
-> @@ -104,6 +112,8 @@ struct xdp_buff {
->  		u64 frame_sz_flags_init;
->  #endif
->  	};
-> +	/* Kernel-owned fragment metadata for non-page netmem. */
-> +	struct skb_shared_info *sinfo;
->  };
->  
->  static __always_inline void xdp_reinit_buff(struct xdp_buff *xdp)
-> @@ -138,7 +148,7 @@ static __always_inline void xdp_buff_set_frag_unreadable(struct xdp_buff *xdp)
->  
->  static __always_inline u32 xdp_buff_get_skb_flags(const struct xdp_buff *xdp)
->  {
-> -	return xdp->flags;
-> +	return xdp->flags & ~XDP_FLAGS_HAS_NETMEM;
->  }
->  
->  static __always_inline void xdp_buff_clear_frag_pfmemalloc(struct xdp_buff *xdp)
-> @@ -150,6 +160,10 @@ static __always_inline void
->  xdp_init_buff(struct xdp_buff *xdp, u32 frame_sz, struct xdp_rxq_info *rxq)
->  {
->  	xdp->rxq = rxq;
-> +	/* Do not initialize the txq/netmem union here. DEVMAP generic XDP
-> +	 * sets txq before this helper is called; receive drivers set netmem
-> +	 * explicitly.
-> +	 */
->  
->  #ifdef __LITTLE_ENDIAN
->  	/*
-> @@ -176,6 +190,33 @@ xdp_prepare_buff(struct xdp_buff *xdp, unsigned char *hard_start,
->  	xdp->data_meta = meta_valid ? data : data + 1;
->  }
->  
-> +static __always_inline bool xdp_buff_has_netmem(const struct xdp_buff *xdp)
-> +{
-> +	return !!(xdp->flags & XDP_FLAGS_HAS_NETMEM);
-> +}
-> +
+On Milos the UFS PHY GDSC is turned off on every system suspend and the
+PHY loses its register state, so exiting hibern8 on resume fails:
 
-[..]
+ufshcd-qcom 1d84000.ufshc: pwr ctrl cmd 0x18 with (MIBattribute 0x0, mode 0=
+x0) failed, host upmcrs:0x5
+ufshcd-qcom 1d84000.ufshc: ufshcd_uic_hibern8_exit: hibern8 exit failed. re=
+t =3D 5
+ufshcd-qcom 1d84000.ufshc: __ufshcd_wl_resume: hibern8 exit failed 5
 
-> +static __always_inline netmem_ref
-> +xdp_buff_get_netmem(const struct xdp_buff *xdp)
-> +{
-> +	if (xdp_buff_has_netmem(xdp))
-> +		return xdp->netmem;
-> +
-> +	return virt_to_netmem(xdp->data);
-> +}
+Set no_phy_retention so the controller and device are powered down
+during system suspend and the link is brought up again on resume.
 
-You keep adding methods that are not used in the patch where they are added.
-I keep getting confused :-p
+Fixes: 04bb37433330 ("arm64: dts: qcom: milos: Add UFS nodes")
+Signed-off-by: Alexander Koskovich <akoskovich@pm.me>
+---
+ drivers/ufs/host/ufs-qcom.c | 5 +++++
+ 1 file changed, 5 insertions(+)
 
-For virt_to_netmem, maybe a meta question: does xsk pool need a treatment
-similar to the socket path? Where we did s/page/netmem_ref/ ? Then might
-be less reasons to special case?
+diff --git a/drivers/ufs/host/ufs-qcom.c b/drivers/ufs/host/ufs-qcom.c
+index 7e6cb6dc42d1..e979850c05cb 100644
+--- a/drivers/ufs/host/ufs-qcom.c
++++ b/drivers/ufs/host/ufs-qcom.c
+@@ -3033,6 +3033,10 @@ static void ufs_qcom_remove(struct platform_device *=
+pdev)
+ =09=09platform_device_msi_free_irqs_all(hba->dev);
+ }
+=20
++static const struct ufs_qcom_drvdata ufs_qcom_milos_drvdata =3D {
++=09.no_phy_retention =3D true,
++};
++
+ static const struct ufs_qcom_drvdata ufs_qcom_sm8550_drvdata =3D {
+ =09.quirks =3D UFSHCD_QUIRK_BROKEN_LSDBS_CAP,
+ =09.no_phy_retention =3D true,
+@@ -3044,6 +3048,7 @@ static const struct ufs_qcom_drvdata ufs_qcom_sa8255p=
+_drvdata =3D {
+=20
+ static const struct of_device_id ufs_qcom_of_match[] __maybe_unused =3D {
+ =09{ .compatible =3D "qcom,ufshc" },
++=09{ .compatible =3D "qcom,milos-ufshc", .data =3D &ufs_qcom_milos_drvdata=
+ },
+ =09{ .compatible =3D "qcom,sm8550-ufshc", .data =3D &ufs_qcom_sm8550_drvda=
+ta },
+ =09{ .compatible =3D "qcom,sm8650-ufshc", .data =3D &ufs_qcom_sm8550_drvda=
+ta },
+ =09{ .compatible =3D "qcom,sa8255p-ufshc", .data =3D &ufs_qcom_sa8255p_drv=
+data },
+
+---
+base-commit: bf1ee2bd5c2da8992f33c8950ef194aaff74ed6c
+change-id: 20261005-milos-ufs-suspend-7dd7439543a6
+
+Best regards,
+-- =20
+Alexander Koskovich <akoskovich@pm.me>
+
+
