@@ -1,167 +1,164 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2B0AC241C8C;
-	Mon,  5 Oct 2026 08:38:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5FD62379993
+	for <linux-kernel@vger.kernel.org>; Mon,  5 Oct 2026 08:39:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.251.105.195
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791189522; cv=none; b=DNQd77Oxl09yqN0UiZhAs2EIE/Y6ZXj5rTAPY2OJ7v4HELTBXNzxed3OUR0pzhQAPpoAsZG1qfMNlmgGxe9ZWyx2kEfd/6GYdmcn5QZ9lXtJ8wETlvhjxsTLGrXA2tODWM5+nxod8cUGUHjezmLC5/eQu3GxO6Nh0OVnU5V4Wbw=
+	t=1791189543; cv=none; b=PV5DAy6ayUlTVP0mMTWz5EiSFuHIRUe9QEP4HiOmXsCftk3Mt659673PwpMD0vD7F1/+qn66akrlqOrtFBdj1uBehDcvppBN8Pz2MEUKVfAJxXxRgXI7GLr238z9ySk4dw4QZtLrSGtLj4oxrU1qzeB4TLt09HG8hIMZDrr9J2Y=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791189522; c=relaxed/simple;
-	bh=MC1KmqeTtDk1eyOH8gIRGM2S3YtpB2hWGEh9wtV+Ypw=;
-	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=iqfaa8LyzFVNYtdTKKy5KqN6rNRJnIyCLpEjGztLYgT/VVav/bdEnrGU1BWHgrIb8aYYRC100sING/0eAJIAJuBhpwEEwabHWveRd6Tr9HvK0+V6KAwUxJ3doRObWbJmeumQ/PQlRrxeclBOOaVX0ZxhXdi9HsOeBZf30tRtRCk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KnBpTi3t; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791189543; c=relaxed/simple;
+	bh=0y8xOcu4Rdu0IG8YCBVtdnYuhm3D3y7YXgnCEBf5n6Q=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=VoRKl1jufZqUAFcLsA4r3JouvygJcaDTJeixzfEHkNSnMEbTngh1zTmQJ/sTttpducTatU9QEgID4vw9p5RMR3N/IDkOkY0dOR6SVzE3JjIUVGYl89/j0oZIXFsZT3TnDtMsQYrWxLEMok88vIcEyJ3wzMMpTy7NCiis2nB4/hA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=g/YxJoUS; arc=none smtp.client-ip=148.251.105.195
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KnBpTi3t"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C8A7D1F000FF;
-	Mon,  5 Oct 2026 08:38:39 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791189520;
-	bh=Cl0maxNxupkaqap8L0nASdcsNOyfNaewhXeRFnK8a5E=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=KnBpTi3tjAWly/xnxfB5gYgMvI5SUgY51rD0jAAyvmS0z+X9yxCV4IkgyZCow9E2y
-	 w0S00Z4AMdl59JclIK+sMfbmphAFCSPByzQZ8rrn9Bknyp47IOSVh/+1685vt/VVFt
-	 hkkDxUNMiWsd48A6ynw0cpbW88S7p1Ml3z5+j1uK1GxwLVOD9MvKidRZhHlw1ZH33z
-	 CKheF+tETMkEyU2MV2hX4tQfijk/4KmPBXZdGTyU3FTKYg5jsFCQBtuUmlnxGOqZqA
-	 pmlNil6C2SNWjiMaPdWm1RSrBK1wS/FKaqtdkf5bfqBATBRwhbMgQJdTBUCU1pOdhb
-	 MxUi9+02yARjA==
-Subject: Re: [PATCH net] Revert "net/mlx5: E-Switch, preserve max tx speed on
- vport state modification"
-From: netdev-bot+sashiko@kernel.org
-To: tariqt@nvidia.com
-Cc: andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@kernel.org,
- kuba@kernel.org, netdev@vger.kernel.org, pabeni@redhat.com, gal@nvidia.com,
- leon@kernel.org, linux-kernel@vger.kernel.org, linux-rdma@vger.kernel.org,
- mbloch@nvidia.com, moshe@nvidia.com, ohartoov@nvidia.com, saeedm@nvidia.com,
- shayd@nvidia.com, horms@kernel.org
-Date: Mon, 05 Oct 2026 08:38:39 +0000
-Message-ID: <179118951927.434549.1850225496015622556@kernel.org>
-In-Reply-To: <20261004083531.216988-1-tariqt@nvidia.com>
-References: <20261004083531.216988-1-tariqt@nvidia.com>
-X-sashiko-severity: Medium
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="g/YxJoUS"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+	s=mail; t=1791189539;
+	bh=0y8xOcu4Rdu0IG8YCBVtdnYuhm3D3y7YXgnCEBf5n6Q=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
+	b=g/YxJoUSuJt75+jdI86Xhw4lz6ilcqXOj0i/57VTnExuIm38Xza5MxC+89T8p6epS
+	 E01emjODx2Xv4ynmV9z5AhAzG171j2TLIQt+GLe9wn1T5yCQptV/OB8te/q1u0/cZ+
+	 rWcz2rkB+zXH8RyoFFDRf1NR5U8ohkAGSY6HGo2E41orAyQwD3gdyr3zSZdQCEIv9g
+	 uEXVhdtgZuyYYRZDGS/aERVhbcsJ/w6Anaa2owIh0WFx0dxPMCNVwNCEIw2cbMUJyj
+	 jMKv1qALg+4Ut/g90YxqPm4QrunmCe+pewLYMjyc+vB6F532j21AUp/3pKMBWl6xCS
+	 puTRPaR6R/YpA==
+Received: from fedora-61.home (unknown [100.64.0.11])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange secp256r1 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	(Authenticated sender: bbrezillon)
+	by bali.collaboradmins.com (Postfix) with ESMTPSA id C11CF17E006F;
+	Mon, 05 Oct 2026 10:38:58 +0200 (CEST)
+Date: Mon, 5 Oct 2026 10:38:55 +0200
+From: Boris Brezillon <boris.brezillon@collabora.com>
+To: Steven Price <steven.price@arm.com>
+Cc: =?UTF-8?B?QWRyacOhbg==?= Larumbe <adrian.larumbe@collabora.com>, Rob
+ Herring <robh@kernel.org>, Maarten Lankhorst
+ <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, Faith Ekstrand
+ <faith.ekstrand@collabora.com>, "Marty E. Plummer"
+ <hanetzer@startmail.com>, Tomeu Vizoso <tomeu@tomeuvizoso.net>, Eric Anholt
+ <eric@anholt.net>, Robin Murphy <robin.murphy@arm.com>, Philipp Zabel
+ <p.zabel@pengutronix.de>, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, Collabora Kernel Team <kernel@collabora.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>
+Subject: Re: [PATCH v12 12/15] drm/panfrost: Skip cache flush/invalidate
+ when enabling perfcnt
+Message-ID: <20261005103855.655f8199@fedora-61.home>
+In-Reply-To: <95174a67-0eee-4bf7-b883-9f1138c74a6f@arm.com>
+References: <20260929-claude-fixes-v12-0-62beb08de207@collabora.com>
+	<20260929-claude-fixes-v12-12-62beb08de207@collabora.com>
+	<95174a67-0eee-4bf7-b883-9f1138c74a6f@arm.com>
+Organization: Collabora
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
 
-Thank you for your contribution! Sashiko AI review found 1 potential
-issue(s) to consider.
+On Fri, 2 Oct 2026 16:14:38 +0100
+Steven Price <steven.price@arm.com> wrote:
 
-Critical: 0 · High: 0 · Medium: 1 · Low: 0
+> On 29/09/2026 04:44, Adri=C3=A1n Larumbe wrote:
+> > The GPU cache flush/invalidate operation is unnecessary. First off, the
+> > GPU doesn't read off the perfcnt sample buffer, only writes into it, so=
+ =20
+>=20
+> I don't think this is entirely true. The GPU performance counter unit
+> only writes the counters that are enabled, counters that share a cache
+> line but are not enabled are not written by the performance counter
+> unit, but if the L2 contains that cache line then the write can hit in
+> the L2 and dirty the entire line including stale data where the
+> unwritten cache line is.
 
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
+I don't think this can happen though, because _enable_locked() is
+creating a BO (and its GPU mapping) just before enabling the perfcnt
+block, meaning the buffer is known to have no dirty cacheline pointing
+to it until the first dump happens. And we do flush and invalidate GPU
+caches after each dump, so again, we should be covered.
 
-- [Medium] The revert's correctness rests on a firmware claim that cannot
-  be checked from the kernel tree, and that claim contradicts the commit…
+>=20
+> The upshot is that if the CPU has cleared a block of memory which the
+> GPU happens to have cached, then the "unused" counters may end up
+> showing the old data before the CPU cleared it (if they share a cache
+> line with an active counter).
 
---
+I agree, but that's not a case we can hit in the enable path. I think I
+mentioned the commit message was misleading, and that we should instead
+talk about the fact the GPU is not supposed to have cached anything up
+until the first SAMPLE following a the ENABLE step.
 
-Revert "net/mlx5: E-Switch, preserve max tx speed on vport state modification"
+>=20
+> I have to admit it's probably somewhat academic given that Panfrost
+> doesn't expose the ability to control which counters are enabled...
+>=20
+> Is there a good reason for this patch (i.e. have you seen a performance
+> problem with doing the invalidate)? Otherwise I'd prefer we keep to the
+> safe route rather than trying to over optimise cache maintenance.
 
-This reverts the query-and-write-back of max_tx_speed in
-mlx5_modify_vport_admin_state() and mlx5_esw_adj_vport_modify(). The
-commit message says FW treats a zero max_tx_speed in MODIFY_VPORT_STATE
-as "not provided", so no query is needed to keep the current value.
+I think I was the one suggesting dropping this flush so that
+panfrost_perfcnt_hw_enable() (in the last patch) has one less fallible
+operation. Besides, I find it confusing to have a cache flush+inval in
+a path where the GPU is not supposed to have accessed the buffer yet
+(or later on, when we re-enable after a RESET, in a path where the GPU
+has been reset and the caches are known to be empty).
 
-> diff --git a/drivers/net/ethernet/mellanox/mlx5/core/vport.c b/drivers/net/ethernet/mellanox/mlx5/core/vport.c
-> index 5774ec1174287..78f3d15b599d0 100644
-> --- a/drivers/net/ethernet/mellanox/mlx5/core/vport.c
-> +++ b/drivers/net/ethernet/mellanox/mlx5/core/vport.c
-> @@ -93,30 +93,6 @@ int mlx5_modify_vport_admin_state(struct mlx5_core_dev *mdev, u8 opmod,
->  	lockdep_assert_held(&mdev->priv.eswitch->state_lock);
->  #endif
->  
-> -	if (MLX5_CAP_ESW(mdev, esw_vport_state_max_tx_speed) &&
-> -	    opmod == MLX5_VPORT_STATE_OP_MOD_ESW_VPORT &&
-> -	    vport != MLX5_VPORT_UPLINK) {
-> -		u32 speed = 0;
-> -		int err;
-> -
-> -		err = mlx5_query_vport_max_tx_speed(mdev, opmod, vport,
-> -						    other_vport, &speed, NULL);
+>=20
+> Obviously in the fully coherent case the invalidate could be skipped (as
+> in the next patch).
+>=20
+> Thanks,
+> Steve
+>=20
+> > an invalidate doesn't make a difference. Then flushing GPU caches after
+> > each sample has been written is enough for the CPU to see updated value=
+s.
+> >=20
+> > Reviewed-by: Boris Brezillon <boris.brezillon@collabora.com>
+> > Signed-off-by: Adri=C3=A1n Larumbe <adrian.larumbe@collabora.com>
+> > ---
+> >  drivers/gpu/drm/panfrost/panfrost_perfcnt.c | 15 ++-------------
+> >  1 file changed, 2 insertions(+), 13 deletions(-)
+> >=20
+> > diff --git a/drivers/gpu/drm/panfrost/panfrost_perfcnt.c b/drivers/gpu/=
+drm/panfrost/panfrost_perfcnt.c
+> > index f71534e741b6..ffc77121070e 100644
+> > --- a/drivers/gpu/drm/panfrost/panfrost_perfcnt.c
+> > +++ b/drivers/gpu/drm/panfrost/panfrost_perfcnt.c
+> > @@ -124,21 +124,10 @@ static int panfrost_perfcnt_enable_locked(struct =
+panfrost_device *pfdev,
+> >  	panfrost_gem_internal_set_label(&bo->base, "Perfcnt sample buffer");
+> > =20
+> >  	/*
+> > -	 * Invalidate the cache and clear the counters to start from a fresh
+> > -	 * state.
+> > +	 * Clear the counters to start from a fresh state.
+> >  	 */
+> > -	reinit_completion(&pfdev->perfcnt->dump_comp);
+> > -	gpu_write(pfdev, GPU_INT_CLEAR,
+> > -		  GPU_IRQ_CLEAN_CACHES_COMPLETED |
+> > -		  GPU_IRQ_PERFCNT_SAMPLE_COMPLETED);
+> > +	gpu_write(pfdev, GPU_INT_CLEAR, GPU_IRQ_PERFCNT_SAMPLE_COMPLETED);
+> >  	gpu_write(pfdev, GPU_CMD, GPU_CMD_PERFCNT_CLEAR);
+> > -	gpu_write(pfdev, GPU_CMD, GPU_CMD_CLEAN_INV_CACHES);
+> > -	ret =3D wait_for_completion_timeout(&pfdev->perfcnt->dump_comp,
+> > -					  msecs_to_jiffies(1000));
+> > -	if (!ret) {
+> > -		ret =3D -ETIMEDOUT;
+> > -		goto err_vunmap;
+> > -	}
+> > =20
+> >  	ret =3D panfrost_mmu_as_get(pfdev, perfcnt->mapping->mmu);
+> >  	if (ret < 0)
+> >  =20
+>=20
 
-[ ... ]
-
-> -		MLX5_SET(modify_vport_state_in, in, max_tx_speed, speed);
-> -	}
-> -
->  	MLX5_SET(modify_vport_state_in, in, opcode,
->  		 MLX5_CMD_OP_MODIFY_VPORT_STATE);
->  	MLX5_SET(modify_vport_state_in, in, op_mod, opmod);
-
-[Severity: Medium]
-
-The commit being reverted, ad0ae7aefa7a, describes the opposite firmware
-behavior:
-
-  "When modifying vport state, the firmware interprets a zero in the max tx
-  speed field as an intentional reset, which can overwrite previously set
-  values."
-
-This revert says:
-
-  "FW skips writing it whenever it's 0, treating that as "not provided"
-  rather than "reset to zero"."
-
-Which of these is correct, and does it hold for every FW version?
-
-Could the commit message explain why the earlier description was wrong?
-For example, it could cite the PRM or a FW version where this behavior
-was confirmed.
-
-The command layout has valid bits for the connect fields but none for
-max_tx_speed:
-
-include/linux/mlx5/mlx5_ifc.h:mlx5_ifc_modify_vport_state_in_bits {
-    ...
-	u8         max_tx_speed[0x10];
-	u8         ingress_connect[0x1];
-	u8         egress_connect[0x1];
-	u8         ingress_connect_valid[0x1];
-	u8         egress_connect_valid[0x1];
-    ...
-}
-
-So after this patch, mlx5_modify_vport_admin_state() and
-mlx5_esw_adj_vport_modify() always send max_tx_speed=0. Whether that
-keeps the current speed is decided entirely by FW.
-
-Suppose some FW that advertises esw_vport_state_max_tx_speed does reset
-on zero. Would routine admin state changes then clear the LAG-aggregated
-speed programmed by mlx5_lag_modify_device_vports_speed()? For example:
-
-ip link set <rep> down
-  mlx5e_rep_close()
-    mlx5_modify_vport_admin_state(priv->mdev,
-                                  MLX5_VPORT_STATE_OP_MOD_ESW_VPORT,
-                                  rep->vport, 1,
-                                  MLX5_VPORT_ADMIN_STATE_DOWN);
-
-The same applies to mlx5e_rep_open(), mlx5e_rep_change_carrier() and
-mlx5_eswitch_set_vport_state(). It also applies to adjacent vport connect
-and disconnect, which mlx5_esw_fdb_active() and mlx5_esw_fdb_inactive()
-do through mlx5_esw_adj_vport_modify().
-
-In that case vport->agg_max_tx_speed would still hold the aggregated
-value. Nothing would reapply it until the next LAG event or
-mlx5_esw_vport_enable(). That is the hardware/software mismatch that
-ad0ae7aefa7a set out to fix.
-
-Also, this patch carries a Fixes: tag, but the commit message only calls
-the reverted code "unnecessary" and names no defect. The reverted code
-added one query and wrote back the value FW had just reported.
-
-Is there a user-visible problem being fixed here? If not, would this fit
-better as a cleanup without the Fixes: tag?
-
--- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261004083531.216988-1-tariqt%40nvidia.com
