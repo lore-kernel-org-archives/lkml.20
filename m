@@ -1,114 +1,212 @@
-Received: from meesny.iki.fi (meesny.iki.fi [195.140.195.201])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6A86B137923;
-	Mon,  5 Oct 2026 05:11:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=195.140.195.201
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791177097; cv=pass; b=poRWQi5+TJceJ0mk4hcXCjB5scS4tJvtyDzuBzo1oQ8H1Mj6hOY6i64p10V7y36zjbonwlTG7yArNXgBWhQ6Q7nvjbS+UkzxWe/Zatl73VVrRWZ4ebdo+avWFL0XkFrjIQUwunwoYgHbw+ssidefHSB8ncpeaWAtZoPnvJ+4Jwo=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791177097; c=relaxed/simple;
-	bh=xzKwoU4eSdqPHFvD6YTdxCELHA/rAUlEwDpDdXHPnNo=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=foo13LMJM9dYAF2qVpZGVrzWj05OISSBLalbQ18x2GAK+OD/4GjstfzSNXAOZarQERS0S6RO1HkVhw9gUD8WAmz/waVwfsbS1SWTAtuM/V738GsM7feLvjgav9dX4/nsk3+wfMHrmg9xZmDBGPFVAhiA+HfJzDWdYPKWN1NO/v8=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iki.fi; spf=pass smtp.mailfrom=iki.fi; dkim=pass (1024-bit key) header.d=iki.fi header.i=@iki.fi header.b=EwbnjnFP; arc=pass smtp.client-ip=195.140.195.201
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iki.fi
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iki.fi
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 99DB454655;
+	Mon,  5 Oct 2026 05:15:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791177345; cv=none; b=W542Wz2Zp7x4VZCzu4pKwBo9J8qVqJ1XBDijywvNMI2dYRHeT1ojul7pYrqLp3vqnRvudX7bgySZYh2CkzZ5FF5bMWDyAy79sip82t5Hyjb6rq1TVIugtqqU27Y14hI6PQM94cQtTCX2ErhKQf3GKqcTzU6MDBfz0Nd98WTVuYI=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791177345; c=relaxed/simple;
+	bh=wBKKtdP1U2i5bT1lgkF8LwfLVu0mNU/DPA0qArx6/54=;
+	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=OAosAVbKdtzq5VvsyatwKWTAoSxoIcAaatg0zSis1v4GrUbxHSIRhLpBPFUywfZUmTPmtUHuEpA+YSdVEfh4j3x6+FfziQu+OZH9OOaKykNIJY3Zfc8PWgfqYj7ADsCOHSW64aJX5i2DlH71c+D1tBI62pmLzK8jN6zocf6sdAo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Zwza98Tc; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=iki.fi header.i=@iki.fi header.b="EwbnjnFP"
-Received: from localhost (n216spl99sn8f5wgjwv-1.v6.elisa-laajakaista.fi [IPv6:2001:99a:1e1:d200::ccf])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange secp256r1 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	(Authenticated sender: sakkinen)
-	by meesny.iki.fi (Postfix) with UTF8SMTPSA id 4hynYJ6WK5zyTf;
-	Mon, 05 Oct 2026 08:11:32 +0300 (EEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=iki.fi; s=meesny;
-	t=1791177093;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=XwhwCnXCEOsEaber9WU629wTGUvOcN7Fww6xJiWaeBE=;
-	b=EwbnjnFPowMxLTVn89fllvZuzI6CT9ZDlIC9Iu6+04UKaN6XOlvBlXP9UBv2jhY1lX27fD
-	aoqExCtI5Ms8o319iBe555J87OHVAAxffRt/ZLNqHidTFIBAylmbTcEpR/B7fmek4PRzvK
-	c2U5RQS5vydPXAekL1lae2gZj/vJh0Y=
-ARC-Seal: i=1; a=rsa-sha256; d=iki.fi; s=meesny; cv=none; t=1791177093;
-	b=XNK35Hp1U8Jzp0TNDnNi76223O5RNscCIyP4l1FT1XFvx5keZWcsgJnBIwHByVIJkjOnyE
-	Onk6s1zf0lCkb13+oypFlOVcd8B+N81YSH6hf3HjnZvKRdKASnd797LO6E9LoTJwh74Enu
-	v2xhJ1BKSTxn2bRYbOLkT7PeMepij+M=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=iki.fi;
-	s=meesny; t=1791177093;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=XwhwCnXCEOsEaber9WU629wTGUvOcN7Fww6xJiWaeBE=;
-	b=ZjE40qiZaZFYLz/fcybvWxHw7XfLXJa/yEM4TxByJ1eFVGCd13d0ZiM031IC0wQe8aBxkR
-	kfYFHDiHFe3zrxh0pKPAJE0v50XfUfCXpMskNkaOsQNzQBLtkVWNARXJurvc16mcg+Pzf2
-	Kjemv0JXwFSh/zBNsjnQfL4AZ8cqB6o=
-ARC-Authentication-Results: i=1;
-	ORIGINATING;
-	auth=pass smtp.auth=sakkinen smtp.mailfrom=jarkko.sakkinen@iki.fi
-Date: Mon, 5 Oct 2026 08:11:31 +0300
-From: Jarkko Sakkinen <jarkko.sakkinen@iki.fi>
-To: Pei Xiao <xiaopei01@kylinos.cn>
-Cc: jarkko@kernel.org, peterhuewe@gmx.de, jgg@ziepe.ca,
-	linux-integrity@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 4/5] tpm: fix zero-length read discarding the pending
- response
-Message-ID: <asMxg-H6snoNSEiZ@iki.fi>
-References: <cover.1791015549.git.xiaopei01@kylinos.cn>
- <3f15140ab3c26e98b49d6aceaaa826585d56960b.1791015549.git.xiaopei01@kylinos.cn>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Zwza98Tc"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 84D0C1F000FF;
+	Mon,  5 Oct 2026 05:15:43 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791177344;
+	bh=hj/9G5bzfkiZv3U07vY05CzjC1JwCGbdlPhimH0cuRA=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=Zwza98Tcj/Vmr+Wgqtr07+70y5763OnxmBTSV2hK3CkS+0bjMtdYfwlMx32FSJ0nN
+	 Al6ylucFDJ5vc5w7nuF0nRzpOvI4fZus+xG7V3nmSPxDLQdQ7ipHdQLB+6KPFphSyT
+	 0uTAwEp6j0hLhe8ycrrzR+HoyxM+Qm3wxCeqY/YpE3FWOerJGaEh6+Upbjvk+th7wm
+	 3nT/6Jp0vmqAcsCO9s6fgOZ+047Pk85j+5v3S6xC0gvqFQNIZpthGlnQ/S+Fh3gVmV
+	 QjqXoKQH0viL7oJvqi5P6dm4KUQxyMGyJux6su+BVvaTe/sQdIgDlkoPG1FVy3+PO/
+	 4iMJL5TTWwnSQ==
+Subject: Re: [PATCH v2 1/2] wifi: iwlwifi: mvm: Fix GP2 to nanoseconds
+ overflow on 32-bit
+From: netdev-bot+sashiko@kernel.org
+To: zhanxusheng1024@gmail.com
+Cc: miriam.rachel.korenblit@intel.com, johannes@sipsolutions.net,
+ daniel.gabay@intel.com, emmanuel.grumbach@intel.com, avraham.stern@intel.com,
+ gregory.greenman@intel.com, richardcochran@gmail.com,
+ linux-wireless@vger.kernel.org, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org, zhanxusheng@xiaomi.com, kuba@kernel.org
+Date: Mon, 05 Oct 2026 05:15:43 +0000
+Message-ID: <179117734302.434549.2056296312989341685@kernel.org>
+In-Reply-To: <20261001050103.860584-2-zhanxusheng@xiaomi.com>
+References: <20261001050103.860584-2-zhanxusheng@xiaomi.com>
+X-sashiko-severity: High
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <3f15140ab3c26e98b49d6aceaaa826585d56960b.1791015549.git.xiaopei01@kylinos.cn>
 
-On Sat, Oct 03, 2026 at 04:27:54PM +0800, Pei Xiao wrote:
-> POSIX requires that a read() with a count of zero returns zero and
-> has no other effects.  tpm_common_read() treats such a call as a
-> consumed response: it marks the pending response as read and drops
-> it, so the response can never be retrieved; subsequent reads return
-> zero and the next write() is allowed to overwrite the response
-> buffer, silently breaking the command/response pairing of the TPM
-> character devices.
-> 
-> Return early when the caller passes a zero count, leaving any
-> pending response untouched for the next read.  A zero-length read
-> will not report a deferred asynchronous error; POSIX permits read()
-> to skip error detection for a zero count.
-> 
-> Fixes: 9488585b21be ("tpm: add support for partial reads")
-> Assisted-by: GLM-5.3
-> Signed-off-by: Pei Xiao <xiaopei01@kylinos.cn>
-> ---
->  drivers/char/tpm/tpm-dev-common.c | 3 +++
->  1 file changed, 3 insertions(+)
-> 
-> diff --git a/drivers/char/tpm/tpm-dev-common.c b/drivers/char/tpm/tpm-dev-common.c
-> index f942c0c8e402..6569212dc6b8 100644
-> --- a/drivers/char/tpm/tpm-dev-common.c
-> +++ b/drivers/char/tpm/tpm-dev-common.c
-> @@ -134,6 +134,9 @@ ssize_t tpm_common_read(struct file *file, char __user *buf,
->  	ssize_t ret_size = 0;
->  	int rc;
+Thank you for your contribution! Sashiko AI review found 2 potential
+issue(s) to consider.
+
+Critical: 0 · High: 1 · Medium: 0 (1) · Low: 1
+
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
+
+- [High] The series fix is incomplete for the mld op-mode.
+- [Low] The commit author (From:) is `Zhan Xusheng
+  <zhanxusheng1024@gmail.com>`, but the only Signed-off-by is `Zhan…
+
+Pre-existing issues:
+- [Medium] This problem wasn't introduced by this patch, but in mvm the
+  shared PTP state in mvm->ptp_data (last_gp2, wrap_counter,…
+
+--
+
+wifi: iwlwifi: mvm: Fix GP2 to nanoseconds overflow on 32-bit
+
+This patch casts the u32 GP2 microsecond timestamps to u64 before they are
+multiplied by NSEC_PER_USEC. The affected functions are
+iwl_mvm_ptp_get_adj_time(), iwl_mvm_ptp_adjfine() and
+iwl_mvm_rx_fill_status().
+
+On 32-bit kernels these products were computed in 32 bits. They wrapped
+for GP2 values above about 4.295 s, which made the PTP clock jump.
+
+> Signed-off-by: Zhan Xusheng <zhanxusheng@xiaomi.com>
+
+[Severity: Low]
+This isn't a bug, but the author address (zhanxusheng1024@gmail.com) is
+different from the Signed-off-by address (zhanxusheng@xiaomi.com).
+checkpatch reports this as a From:/Signed-off-by: email address mismatch.
+
+Could a Signed-off-by be added for the gmail address? Another option is a
+From: line with the xiaomi address in the patch body. The follow-up mld
+commit in this series has the same mismatch.
+
+> diff --git a/drivers/net/wireless/intel/iwlwifi/mvm/ptp.c b/drivers/net/wireless/intel/iwlwifi/mvm/ptp.c
+> index 49dcb1388007b..5f33e2f8fb2a9 100644
+> --- a/drivers/net/wireless/intel/iwlwifi/mvm/ptp.c
+> +++ b/drivers/net/wireless/intel/iwlwifi/mvm/ptp.c
+
+[ ... ]
+
+> @@ -259,7 +259,7 @@ static int iwl_mvm_ptp_adjfine(struct ptp_clock_info *ptp, long scaled_ppm)
+>  	 */
+>  	gp2 = iwl_mvm_get_systime(mvm);
+>  	data->scale_update_adj_time_ns =
+> -		iwl_mvm_ptp_get_adj_time(mvm, gp2 * NSEC_PER_USEC);
+> +		iwl_mvm_ptp_get_adj_time(mvm, (u64)gp2 * NSEC_PER_USEC);
+>  	data->scale_update_gp2 = gp2;
+>  	data->wrap_counter = 0;
+>  	data->delta = 0;
+
+[Severity: Medium]
+This is a pre-existing issue, and this patch did not introduce it. Is
+mvm->ptp_data safe from concurrent readers here?
+
+iwl_mvm_ptp_adjfine() updates scale_update_adj_time_ns, scale_update_gp2,
+wrap_counter and delta while holding only mvm->mutex.
+
+Some RX paths call iwl_mvm_ptp_get_adj_time() without taking any lock:
+
+  iwl_mvm_rx_fill_status()                (NAPI, rx_ts_ptp && monitor_on)
+  iwl_mvm_time_sync_msmt_event()          (RX_HANDLER_SYNC)
+  iwl_mvm_time_sync_msmt_confirm_event()  (RX_HANDLER_SYNC)
+
+That function also changes state through iwl_mvm_ptp_update_new_read():
+
+	if (gp2 < mvm->ptp_data.last_gp2) {
+		mvm->ptp_data.wrap_counter++;
+		...
+	}
+
+	mvm->ptp_data.last_gp2 = gp2;
+
+The writers that hold mvm->mutex are iwl_mvm_ptp_adjfine(),
+iwl_mvm_ptp_adjtime(), iwl_mvm_ptp_work(), iwl_mvm_ptp_gettime() and
+iwl_mvm_phc_get_crosstimestamp(). That mutex does not keep out softirq RX
+on other CPUs.
+
+These interleavings look possible:
+
+- RX sees the new scale_update_gp2 before wrap_counter is reset to 0, so
+  the timestamp is off by N * 2^32 us.
+
+- Two RSS queues both run the non-atomic wrap_counter++ / last_gp2
+  update, so a wrap is counted twice or lost.
+
+- On 32-bit, the u64 fields scale_update_adj_time_ns, scaled_freq and
+  delta can tear while adjfine or adjtime writes them.
+
+The mld driver protects the same state with data->lock, using
+spin_lock_bh() in mld/ptp.c. Does mvm need similar locking?
+
+> diff --git a/drivers/net/wireless/intel/iwlwifi/mvm/rxmq.c b/drivers/net/wireless/intel/iwlwifi/mvm/rxmq.c
+> index 7f0b4f5daa214..7a9a63a76f382 100644
+> --- a/drivers/net/wireless/intel/iwlwifi/mvm/rxmq.c
+> +++ b/drivers/net/wireless/intel/iwlwifi/mvm/rxmq.c
+> @@ -2017,7 +2017,9 @@ static void iwl_mvm_rx_fill_status(struct iwl_mvm *mvm,
 >  
-> +	if (!size)
-> +		return 0;
-> +
->  	mutex_lock(&priv->buffer_mutex);
+>  	if (mvm->rx_ts_ptp && mvm->monitor_on) {
+>  		u64 adj_time =
+> -			iwl_mvm_ptp_get_adj_time(mvm, phy_data->gp2_on_air_rise * NSEC_PER_USEC);
+> +			iwl_mvm_ptp_get_adj_time(mvm,
+> +						 (u64)phy_data->gp2_on_air_rise *
+> +						 NSEC_PER_USEC);
+
+[Severity: High]
+Does the mld op-mode still have this overflow in its RX path?
+
+The follow-up commit "wifi: iwlwifi: mld: Fix GP2 to nanoseconds overflow
+on 32-bit" says it fixes the "Same problem as the mvm driver". However, it
+only changes the two sites in mld/ptp.c, in iwl_mld_ptp_get_adj_time() and
+iwl_mld_ptp_adjfine().
+
+At the end of the series, iwl_mld_rx_fill_status() in mld/rx.c still has
+no cast:
+
+drivers/net/wireless/intel/iwlwifi/mld/rx.c:iwl_mld_rx_fill_status() {
+    ...
+		if (mld->monitor.ptp_time) {
+			u64 adj_time =
+				iwl_mld_ptp_get_adj_time(mld,
+							 phy_data->gp2_on_air_rise *
+							 NSEC_PER_USEC);
+    ...
+}
+
+gp2_on_air_rise is a u32 in struct iwl_mld_rx_phy_data, and NSEC_PER_USEC
+is 1000L. On 32-bit the product therefore wraps for any GP2 value above
+about 4,294,967 us.
+
+The truncated value is then passed to iwl_mld_ptp_update_new_read() as a
+small gp2. It is usually more than IWL_PTP_WRAP_THRESHOLD_USEC below
+last_gp2, so it looks like a wraparound:
+
+		mld->ptp_data.wrap_counter++;
+
+This would happen each time the truncated value wraps. It would also
+happen each time gettime or crosstimestamp stores a correct, large
+last_gp2.
+
+That would make rx_status->mactime wrong. It would also shift later
+iwl_mld_ptp_gettime() results by 2^32 us for each spurious wrap.
+
+IWLMLD does not depend on 64BIT, and this path is reachable with the
+rx_ts_ptp debugfs knob and a monitor interface. Should the mld follow-up
+also cast gp2_on_air_rise to u64 in iwl_mld_rx_fill_status()?
+
 >  
->  	if (priv->response_length) {
-> -- 
-> 2.25.1
-> 
+>  		rx_status->mactime = div64_u64(adj_time, NSEC_PER_USEC);
+>  		rx_status->flag |= RX_FLAG_MACTIME_IS_RTAP_TS64;
 
-This look good to me,  thanks.
-
-Reviewed-by: Jarkko Sakkinen <jarkko@kernel.org>
-
-Br, Jarkko
+-- 
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261001050103.860584-1-zhanxusheng%40xiaomi.com
