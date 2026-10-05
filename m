@@ -1,149 +1,154 @@
-Received: from mail-pf1-f197.google.com (mail-pf1-f197.google.com [209.85.210.197])
+Received: from mail-dy1-f179.google.com (mail-dy1-f179.google.com [74.125.82.179])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DE09621A453
-	for <linux-kernel@vger.kernel.org>; Mon,  5 Oct 2026 03:52:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.197
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C06F52E173D
+	for <linux-kernel@vger.kernel.org>; Mon,  5 Oct 2026 03:52:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.179
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791172364; cv=none; b=lt5D0busrThRg4fPy8SnZORPQK51G7TodPfVsoaYum90H0vuyuyPLsHmX4SEihrKoUZCPNIDb6XO3FTfQen7pMdXSF5AD68hmJus2hNLBs4ZxTtY91/I1RSuDcrXX82yME4vxIEKHT4//ZMOBUtx6IhljoXEDBB3zsKplV0I6gA=
+	t=1791172366; cv=none; b=T6IjmmQ7jM51YSgv8kCuw9u0yrEeM6Af66a6GWguq76CquSIQid1tIt48K2NzypKSQ5POCQJJ9PLfrQokf9dg9f2oY5f7WaHmEdEQiEcshsIPBuJx/XZoFnEy110E4lF7N73KpVNGFV7jWEePoFyLIJD2eq4vWhAVjjtf6NZZ1A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791172364; c=relaxed/simple;
-	bh=s2zh7kQOYUOfo5+PW6vusZ44faTYrMQ/g2KGrtLTDJI=;
-	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
-	 To:Cc:Content-Type; b=gI23WobTf2Z2RxfBy76A8PfJutVMCQeSO0lcv+rLRg69yX5EkT//Ay6yco1VU6aV7WJ3wz2Qi3pUpssV4qsVORsb/s1q/z4OXV9r21FbG8Phb08JywDYSqYV6txAIv3zcaKIa5EIbbObQkz92BD26wfsJxMUSWC84vJE9viB3aQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=Ucag5UES; arc=none smtp.client-ip=209.85.210.197
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com
+	s=arc-20240116; t=1791172366; c=relaxed/simple;
+	bh=rg8HqcEt6/UKvtkh4FvIyk7WZ6ROa9pdbPJeFBHWYtM=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Wi4SfAi48pDrIA/XcGW0tfTbyMQQ9PgTClW1yiqgzo9BThiiRnDhQtBHbGDoYxW0ToBSuBy1rw86zA9TUH/I/Q4JT8joOEFkn3O0QeDcuO05WRhUsHf/LakXntAPt4+4He7vCxim0VZiWpyp0p9eMz1vLV/KKhYv+tuFVqsw3f8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=rj2QoOZd; arc=none smtp.client-ip=74.125.82.179
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="Ucag5UES"
-Received: by mail-pf1-f197.google.com with SMTP id d2e1a72fcca58-887e45c7063so977655b3a.1
-        for <linux-kernel@vger.kernel.org>; Sun, 04 Oct 2026 20:52:42 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="rj2QoOZd"
+Received: by mail-dy1-f179.google.com with SMTP id 5a478bee46e88-3282db206d3so4833938eec.0
+        for <linux-kernel@vger.kernel.org>; Sun, 04 Oct 2026 20:52:44 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1791172362; x=1791777162; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=eT9i+7cM2ZrBnjrZ9dBZbNh3S/dmFUNTqgnErmGrbH0=;
-        b=Ucag5UESzUD4xkep/u/x+cHYaLgIlz1kG/KZVOTHTx5dZ/ki8OoppleI6J/mNtdG7N
-         UT2e26ttqc7FrMRWJ0CKS2PmmodidcpOYTDMcLTQfOsmgUMiejy3MuvBQ2bqXtL6CyMm
-         1kfmbRzkAWvzPWfrwnr/yRAEhQeeiNbpuPabXUwxwC5EzbaCflnenYmnhxQ9gpangCKf
-         IdcKDNT+Mw24KkDddKzsmDEtVeKQUvS0ZjRNkkO9A02KILnoyAIQENa7KINiTHjh+g3J
-         Oj6CbY1FM37cTeSlzjQTgKiXL4Rfl8sIbbhDCJAa0psPlDX3b6fRMRnpT1VP+yzQRyBL
-         D4MQ==
+        d=gmail.com; s=20251104; t=1791172364; x=1791777164; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=Y0A/ymLpHBtY+HqPCY23ZCUWm2WvUIC70nptaCiUNE4=;
+        b=rj2QoOZdzOgjAberCJa2w7HT3cqLsu6XGG4ZVqn2bGR+DW7wXHQImG9g8igd4U26y8
+         GldvwE7ZF5kU4RtMAubkxhuA08wbbPvW6e7j1hKzRo4+FR2uBjjA1/G8KGwZ21T6HoFT
+         7q8u500yuQ07Y6gWmwRik4ZC/HWexj6wxzNuTKBmrzg89fZKE4IBscfpJtrsbPeo5aL/
+         77Wwjyu51Q3bNVW+QPau5MmYLbG4VrzRWxm7w/geuY2qgrFcLaz5JoFgz4+xMyHPBAEQ
+         EaNCBBlg6TavHzzBbSFMCWtoVvdiRkV7mUeVJgniQtlraCNQx/dsTdCO8LTDMzaI2Dil
+         A7HQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791172362; x=1791777162;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=eT9i+7cM2ZrBnjrZ9dBZbNh3S/dmFUNTqgnErmGrbH0=;
-        b=FxJX0zYdN7STheEFVdEzCEdCMelCvwcXbmSz2Nto2asdojSmlZwwHzUkRE1M7Nedmt
-         Y0VuL3mYQvpcq3oNPZBp21m8XGZZ5ja68W2auroQmRQGccW9WT08NYJxZB7kZIuDItkB
-         CkDVO+0P0V+dtqvTsy3KkVYugLYC2X8y5HwS32WYs1CcYP2C0X4a05FmHXPiXb2cQ2gF
-         hdB1sMgA91sxVvhd1HfL04GyaKaFlyrcmWMwMCewOr274TFHBRug646q6RzYKBdYLQKL
-         zQqG+76sL8GMl2TwSWd7RzJLZMI7gqJQrlhlgTe3Lz7jSvebCjCAQfPWKMWKvRh1o3Ep
-         HK0w==
-X-Forwarded-Encrypted: i=1; AKwUvBxkqhpJziaSsprjxGaAzpd4UOUcaY1C7ObQUIJY9oXXo/05WvJR0ri/m4qZSIS8t4P782ZQRJJRprBuUdk=@vger.kernel.org
-X-Gm-Message-State: AFuF++kSGoDoW6DWHZKo5NcX3zbfJU+vmjxpIpU+ExpOLUjGQksAVIP6
-	95kR6Th/mnsrCbKa7mzk7iN4F0ShaIwSt89Mv3mUWpJObQnonppJLUeQJkal5+UI+e3PHBn3bBJ
-	GkIKZVA==
-X-Received: from pfbhu44.prod.google.com ([2002:a05:6a00:69ac:b0:88f:275d:43a9])
- (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a05:6a00:759a:b0:88d:20ff:15c1
- with SMTP id d2e1a72fcca58-88d20ff2bd5mr4191394b3a.18.1791172362021; Sun, 04
- Oct 2026 20:52:42 -0700 (PDT)
-Date: Sun, 4 Oct 2026 20:52:41 -0700
-In-Reply-To: <6ac316c7.01314a6c.556a8.000d.GAE@google.com>
+        d=1e100.net; s=20260707; t=1791172364; x=1791777164;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Y0A/ymLpHBtY+HqPCY23ZCUWm2WvUIC70nptaCiUNE4=;
+        b=cnqvfGUU0CUxb60V5tA2EfIXynh3vJzIqrMIW7Jmg6lTulIxwnnpFU0P5KMR8Sx4/A
+         s1BAJpJEgZSZP9D8gVzZk1rF7FcDg2Bm5BHO9QoDKUWcactz8hF6vHUFGhpyNaPQp1zs
+         eZdULxSZvYAGb6Sctq8crWzP1yiqr35ebmxvxm/ewGQJ6TxemqAqmImvSzjugi1K8+Zs
+         PBLL+mm2WoOL8mwa974sr/q1dgJZCflefLo6HhYzBIGDfufDLPM1cDgJt7a7FtE/e5SC
+         kqtr2sazDZXb9SfOVjRoB4kz1Ny8fKcS36Dhu6LxB2j7YBVyNx87fHMAiIG9sJZG24Uh
+         YaXw==
+X-Forwarded-Encrypted: i=1; AKwUvBz/MfDN3OGQ4ebs9R3cnmoGRCSonQRPR/rkfiF/JjHoBilm7h9Sgvu/6ZCC4nJkmAeNntC69WWCm8apL4Y=@vger.kernel.org
+X-Gm-Message-State: AFuF++m0pPQ8EtSUjwzn9fK7qbCiC/wS4EYOYeISXYYJLeJ5cq5B3KuH
+	HLx378Hl6zUSKN1i1e058dduV1WPHtk3SZDfPS3LuEJya7Q3dbR7IGS0
+X-Gm-Gg: AYBFou2DxFDIr6plZE9tTPb8R/w+bqmLarCOkfNufNZR1WcVJQEguKIRDrJYCfMGQD3
+	ZlcdABxMeLjni5DAUsXqF1U7t8G+2xwnTZsT6WMED+QLuA5jasTbFFSgZrmbV9wuL+Xrniwerif
+	6XLwRrF1/x1FwjPS/LDNpb5+ApFxVQkg0/Q8/e5lqP8vjwM052bASPYflOui9FnPSBDl24PPH1P
+	RTkrJnEjUoIoY/CzddXiE0uB+U0BuizvJtpjwxTprgskR/I8N7bCTXfb0hHivLbS3NpZ8cdD7TU
+	iiY+mIsTVewDZMH1C+cmTtEiShEQh/evtMGWwhtg58jlREjiyMZ5x9FcMnMim85mFJz87eLEFxD
+	nKvjjVv3eeYHsksHbbwaZeiUHSbt2qfXRAaRdEsUYlJuqD6zQ91yQlkiwLGK3RTkiMTgE76CTrw
+	OlBY4Z9xlz9HQIa+u4AVPbEp6LYLo1Dn9k2R3dsD8wo2M38CRzne++03+fLXOzd9R7i9sO5RcrE
+	NnWDKOAKImmrpYxQWf10wIC9y1O
+X-Received: by 2002:a05:7023:a4d:20b0:149:1feb:6d9d with SMTP id a92af1059eb24-151c38b3a52mr8616726c88.19.1791172363728;
+        Sun, 04 Oct 2026 20:52:43 -0700 (PDT)
+Received: from kernel ([103.219.206.69])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-151fa751693sm41149630c88.2.2026.10.04.20.52.40
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 04 Oct 2026 20:52:43 -0700 (PDT)
+Date: Mon, 5 Oct 2026 09:22:36 +0530
+From: Mohamad Raizudeen <raizudeen.kerneldev@gmail.com>
+To: Eric Biggers <ebiggers@kernel.org>
+Cc: ardb@kernel.org, Jason@zx2c4.com, skhan@linuxfoundation.org,
+	me@brighamcampbell.com, jkoolstra@xs4all.nl,
+	linux-crypto@vger.kernel.org, linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH v2] lib/crypto: chacha20poly1305: zeroize state in
+ __chacha20poly1305_decrypt
+Message-ID: <asMfBGbckJAhCa45@kernel>
+References: <20261004043413.6870-1-raizudeen.kerneldev@gmail.com>
+ <20261004172155.GB1906@quark>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-References: <6ac316c7.01314a6c.556a8.000d.GAE@google.com>
-Message-ID: <asMfCUiPnW-GGu5J@google.com>
-Subject: Re: [syzbot] [kvm?] WARNING in kvm_vcpu_pre_fault_memory
-From: Sean Christopherson <seanjc@google.com>
-To: syzbot <syzbot+db7bd0f41c2a7e82d4ba@syzkaller.appspotmail.com>
-Cc: kvm@vger.kernel.org, linux-kernel@vger.kernel.org, pbonzini@redhat.com, 
-	syzkaller-bugs@googlegroups.com
-Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261004172155.GB1906@quark>
 
-On Sun, Oct 04, 2026, syzbot wrote:
-> Hello,
+On Sun, Oct 04, 2026 at 07:21:55PM +0200, Eric Biggers wrote:
+> On Sun, Oct 04, 2026 at 10:04:13AM +0530, Mohamad Raizudeen wrote:
+> > The `__chacha20poly1305_decrypt` function does not zeroize the chacha
+> > state, unlike its encrypt counterpart. The regular
+> > `chacha20poly1305_decrypt` function handles this by manually calling
+> > chacha_zeroize_state(). However, `xchacha20poly1305_decrypt` returns
+> > the result directly without clearing the state, leaving the derived
+> > chacha20 subkey on the stack.
+> > 
+> > Fix this by moving the chacha_zeroize_state() call into
+> > __chacha20poly1305_decrypt() itself, so the helper cleans up after
+> > itself just like __chacha20poly1305_encrypt does. This ensures all
+> > callers are secure without needing manual cleanup.
+> > 
+> > Fixes: ed20078b7e333 ("crypto: chacha20poly1305 - import construction and selftest from Zinc")
+> > Cc: stable@vger.kernel.org
+> > Suggested-by: Ard Biesheuvel <ardb@kernel.org>
+> > Signed-off-by: Mohamad Raizudeen <raizudeen.kerneldev@gmail.com>
 > 
-> syzbot found the following issue on:
+> Sorry, to nitpick this a bit more:
 > 
-> HEAD commit:    ce1e0223d8ad Merge tag 'devicetree-fixes-for-7.3-2' of git..
-> git tree:       upstream
-> console+strace: https://syzkaller.appspot.com/x/log.txt?x=1353dbf5580000
-> kernel config:  https://syzkaller.appspot.com/x/.config?x=9d4242cb1c54cdf7
-> dashboard link: https://syzkaller.appspot.com/bug?extid=db7bd0f41c2a7e82d4ba
-> compiler:       Debian clang version 22.1.8 (++20260613092233+e80beda6e255-1~exp1~20260613092250.77), Debian LLD 22.1.8
-> syz repro:      https://syzkaller.appspot.com/x/repro.syz?x=14cdf6c9580000
-> C reproducer:   https://syzkaller.appspot.com/x/repro.c?x=12cdf6c9580000
+> Can you reword this to clarify that this is an ABI robustness
+> improvement rather than a fix, since currently the single caller of
+> xchacha20poly1305_decrypt() in wg_cookie_message_consume() doesn't
+> require forward secrecy, as mentioned by Jason.  And maybe remove Fixes
+> and 'Cc stable'.  Otherwise this commit will unnecessarily trigger all
+> the stable backport and CVE spam.
 > 
-> Downloadable assets:
-> disk image: https://storage.googleapis.com/syzbot-assets/217b0c1b14ee/disk-ce1e0223.raw.xz
-> vmlinux: https://storage.googleapis.com/syzbot-assets/335343cc5803/vmlinux-ce1e0223.xz
-> kernel image: https://storage.googleapis.com/syzbot-assets/760ef2f39df0/bzImage-ce1e0223.xz
+> > diff --git a/lib/crypto/chacha20poly1305.c b/lib/crypto/chacha20poly1305.c
+> > index ea42a28f4ff7..80904321458b 100644
+> > --- a/lib/crypto/chacha20poly1305.c
+> > +++ b/lib/crypto/chacha20poly1305.c
+> > @@ -137,8 +137,10 @@ __chacha20poly1305_decrypt(u8 *dst, const u8 *src, const size_t src_len,
+> >  		__le64 lens[2];
+> >  	} b;
+> >  
+> > -	if (unlikely(src_len < POLY1305_DIGEST_SIZE))
+> > +	if (unlikely(src_len < POLY1305_DIGEST_SIZE)) {
+> > +		chacha_zeroize_state(chacha_state);
+> >  		return false;
+> > +	}
 > 
-> IMPORTANT: if you fix the issue, please add the following tag to the commit:
-> Reported-by: syzbot+db7bd0f41c2a7e82d4ba@syzkaller.appspotmail.com
+> How about we move this length check into the two callers before they
+> write anything to the state at all?  Then the state would not need to be
+> zeroized if the length check fails.  Note that
+> chacha20poly1305_decrypt_sg_inplace() already does it this way.
 > 
-> ------------[ cut here ]------------
-> r == 0 || r == -EIO
-> WARNING: arch/x86/kvm/../../../virt/kvm/kvm_main.c:4389 at kvm_vcpu_pre_fault_memory+0x45d/0x470 virt/kvm/kvm_main.c:4389, CPU#1: syz-executor267/8523
-> Modules linked in:
-> CPU: 1 UID: 0 PID: 8523 Comm: syz-executor267 Not tainted syzkaller #0 PREEMPT(full) 
-> Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 09/16/2026
-> RIP: 0010:kvm_vcpu_pre_fault_memory+0x45d/0x470 virt/kvm/kvm_main.c:4389
-> Code: fe ff ff e8 85 2e 88 00 90 0f 0b 90 e9 0d ff ff ff e8 77 2e 88 00 e8 42 85 f3 ff eb 8f e8 6b 2e 88 00 eb 05 e8 64 2e 88 00 90 <0f> 0b 90 e9 a7 fe ff ff 66 66 2e 0f 1f 84 00 00 00 00 00 90 90 90
-> RSP: 0018:ffffc900024dfc28 EFLAGS: 00010293
-> RAX: ffffffff813fe025 RBX: ffffc900024dfe00 RCX: ffff88807fcc0000
-> RDX: 0000000000000000 RSI: ffffffff8eaf6510 RDI: fffffffffffffffb
-> RBP: dffffc0000000000 R08: ffff88807fcc0000 R09: 0000000000000002
-> R10: fffffffffffffffb R11: 0000000000000000 R12: ffffc900024dfe00
-> R13: ffff88807fcc0000 R14: 1ffff1100ff98000 R15: fffffffffffffffb
-> FS:  00007f9c411186c0(0000) GS:ffff888124dc7000(0000) knlGS:0000000000000000
-> CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-> CR2: 00007f9c4116312d CR3: 0000000026a4a000 CR4: 00000000003526f0
-> Call Trace:
->  <TASK>
->  kvm_vcpu_ioctl+0x8a6/0xfd0 virt/kvm/kvm_main.c:4668
->  vfs_ioctl fs/ioctl.c:51 [inline]
->  __do_sys_ioctl fs/ioctl.c:597 [inline]
->  __se_sys_ioctl+0xfc/0x170 fs/ioctl.c:583
->  do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
->  do_syscall_64+0x166/0x520 arch/x86/entry/syscall_64.c:84
->  entry_SYSCALL_64_after_hwframe+0x77/0x7f
+> >  	memzero_explicit(&b, sizeof(b));
+> >  
+> > +	chacha_zeroize_state(chacha_state);
+> >  	return !ret;
+> 
+> Nit: Use the same order and whitespace as
+> chacha20poly1305_crypt_sg_inplace():
+> 
+> 	chacha_zeroize_state(chacha_state);
+> 	memzero_explicit(&b, sizeof(b));
+> 
+> 	return !ret;
+> 
+> - Eric
 
-I haven't tried the reproducer yet, but based on code inspection I'm pretty sure
-the kvm_vm_dead() call in enter_smm() is colliding with commit 958810a09412d
-("KVM: x86/mmu: Bail out kvm_tdp_map_page() when VM dead"), especialy since there
-is SMM setup in the reproducer.
+Sure, that makes sense. I will drop the fixes and stable tags and reword
+the commit message to focus on ABI robustness.
 
-I'm think we can and should just drop EIO from the WARN.  It showed up in v5 of
-the original series without any real explanation.  v5 did add -EIO as a documented
-error code[1]:
-  
-  v4->v5:
-    - add EIO as possible error
+Moving the length check to the callers is a much cleaner approach. I
+will implement that and fix the whitespace ordering for v3.
 
-in response to Xiaoyao's review[2]:
-
-  > +	case RET_PF_CONTINUE:
-  > +	case RET_PF_INVALID:
-  > +	default:
-  > +		WARN_ON_ONCE(r);
-  > +		return -EIO;
-  
-  Need to update patch 1 for -EIO
-  
-  > +	}
-
-
-but AFAICT that was just talking about the documentation.  And at the time, KVM
-x86 already WARNed when returning -EIO, so I've no idea common KVM also WARNed
-on seeing -EIO.
-
-[1] https://lore.kernel.org/all/20240710174031.312055-1-pbonzini@redhat.com
-[2] https://lore.kernel.org/all/d5a6e125-bff4-4d82-ae65-b99d9cb10e90@intel.com
+Thanks,
+Mohamad Raizudeen
