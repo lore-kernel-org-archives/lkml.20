@@ -1,258 +1,120 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.14])
+Received: from twmbx01.aspeedtech.com (mail.aspeedtech.com [211.20.114.72])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B385C442FDF;
-	Mon,  5 Oct 2026 10:22:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=198.175.65.14
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791195779; cv=fail; b=tAnThm25hfBzcTS9ff+N2mmr3ugYfv8gzP5zmcPjiqSnt8PRTO2QRlAqwbRRLTCZPaOLcZZnd3KQGM2cOme0WKTdItxzbTPIGVJrKaMB0fsyizkrjzY1E2wAuoEeUfFIaWeNFOlyvVW3TYg1GlSXg/kJv6NTCu+F57QO9sFmwAg=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791195779; c=relaxed/simple;
-	bh=+nlrhPr4Qqn8lbtfOSdw88zmt/e77vWfungr6SYzLhU=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:MIME-Version; b=trFijIEDg1LPzqQw5bPJ4vJbIZzrdbW451/diTudOhmFS57G1jqQQu2YcXEDCwzRKMzaNmFdMqYdhf2X3ZnbdqtWToilRV9zfFPyavULJobBhbF5s2ieMcYHWcrLx1VVbJv1auiIOcGatdzVgvdD6baDo0BmfhTA+6iHlJG19Jc=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=eRC8xBWz; arc=fail smtp.client-ip=198.175.65.14
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="eRC8xBWz"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1791195778; x=1822731778;
-  h=from:to:cc:subject:date:message-id:references:
-   in-reply-to:content-transfer-encoding:mime-version;
-  bh=+nlrhPr4Qqn8lbtfOSdw88zmt/e77vWfungr6SYzLhU=;
-  b=eRC8xBWz92w2jlD5IvxUaXJa5DvQJivj2OXf8CdqdzVezPBU8/Npwv1e
-   loyNYtmHRKrbc9jEtt6RabOBakP/Tf+RyIjrDOtHyfDaxYGfRhG+0tVwL
-   i054e5oB7LKYqIeYv5CrVhBf+RX7J/a7U22/UV/eWjFL18KJdy2l97iVi
-   f2j8OzUXDbsx8BCchgmTuZ9oswBYgin+5ClByqTk+epihnMKDTWKaEnbI
-   84f87xxQCufbHOjohVhNA16n8cK9TiO2I1FcXYMTgkCA2c1zWxjwGPl1U
-   XfmmKkz7Q8+v2eTywr9yFqMyiJr1aHleKwGy/TZXxMJVLUtShZCHUNlys
-   Q==;
-X-CSE-ConnectionGUID: b9zAgfnsRY2Shc7x5DZ/8g==
-X-CSE-MsgGUID: o5XiyqjLSd+PDodCikzA3w==
-X-IronPort-AV: E=McAfee;i="6800,10657,11925"; a="94736751"
-X-IronPort-AV: E=Sophos;i="6.27,141,1787036400"; 
-   d="scan'208";a="94736751"
-Received: from orviesa006.jf.intel.com ([10.64.159.146])
-  by orvoesa106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 05 Oct 2026 03:22:58 -0700
-X-CSE-ConnectionGUID: w5bGTcDrSi6ED2gjuUbOFA==
-X-CSE-MsgGUID: 86Le7YF3Q/yEwiFwvLG2Nw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,141,1787036400"; 
-   d="scan'208";a="274586332"
-Received: from orsmsx903.amr.corp.intel.com ([10.22.229.25])
-  by orviesa006.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 05 Oct 2026 03:22:58 -0700
-Received: from ORSMSX901.amr.corp.intel.com (10.22.229.23) by
- ORSMSX903.amr.corp.intel.com (10.22.229.25) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.49; Mon, 5 Oct 2026 03:22:56 -0700
-Received: from ORSEDG903.ED.cps.intel.com (10.7.248.13) by
- ORSMSX901.amr.corp.intel.com (10.22.229.23) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.49 via Frontend Transport; Mon, 5 Oct 2026 03:22:56 -0700
-Received: from SN4PR0501CU005.outbound.protection.outlook.com (40.93.194.7) by
- edgegateway.intel.com (134.134.137.113) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.49; Mon, 5 Oct 2026 03:22:56 -0700
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=vVfwFiTZc0McN+a0/5zOR0EThElMETezFJi9bATvl07oJPGQ9+Lv9oA7iNVCcWSumD9aVXEpyPSyNueGqEiyRokFTvadD2wfUlRIfM05BlzaKN6AEtTOXcGSzTY1Ko/dbBeYenCyWDrq6kKSf3eh/KWp0SwtoXFsBsZnQy3DbI4RWtF88MQzMMzKITpTADMRtisp+Ux+liv2xpBGlPh7tUxupgnD1rJD0Vk7MVJxR0Qy9+7CX7F85Dr1axdaPK8Pt7eQmsJtLnXRCg4GP5vPihlprgRvN+vQ5TlUJDECEgzghdsIcctqRI9lhYlemkrihZ00DBIEJSG8Q/5tf18mmw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=n/9ue3ev6Xt9UV2I1OYcuVdZNZTvsowNc9sZSrbiT1Y=;
- b=d0DjpGE1aBupmM2vRUPsSxqW3f0c/becBvDFlYU0jR6R6SIrJgmL0USvQkt/OBmaUG+/6N1TpAhxDFqf3RGliYMedK9vcn9FAHbj7LD7OOLDV5eFuwqxgM7mZiLVWDf1LY9QmGN7nHyJKa2S1seOB1Shemi7E24Pb64VeMA0eGco9tp7+O2UOZEpQgYdfuOXF1GHjwkDSqCaOzNKv7so8yW8iyf/vX2lu1UXw4s2Um9jvkEwaj1W2QWdTmjC668bvxVdQ2OHFDhjzhiNPq1sRGRr3K/PcyMQXj0MkZifWzrKdMtAmXnykQL2cyXEkrRYuyNYTCek4HyQ2YqJNgg9sg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
-Received: from IA3PR11MB8986.namprd11.prod.outlook.com (2603:10b6:208:577::21)
- by MN6PR11MB8220.namprd11.prod.outlook.com (2603:10b6:208:478::8) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.472.16; Mon, 5 Oct
- 2026 10:22:54 +0000
-Received: from IA3PR11MB8986.namprd11.prod.outlook.com
- ([fe80::e6f0:6afb:6ef9:ab5c]) by IA3PR11MB8986.namprd11.prod.outlook.com
- ([fe80::e6f0:6afb:6ef9:ab5c%6]) with mapi id 15.21.0472.016; Mon, 5 Oct 2026
- 10:22:54 +0000
-From: "Loktionov, Aleksandr" <aleksandr.loktionov@intel.com>
-To: Benoit DE RANCOURT <b2rancourt@gmail.com>, "Nguyen, Anthony L"
-	<anthony.l.nguyen@intel.com>, "Kitszel, Przemyslaw"
-	<przemyslaw.kitszel@intel.com>, "intel-wired-lan@lists.osuosl.org"
-	<intel-wired-lan@lists.osuosl.org>
-CC: "netdev@vger.kernel.org" <netdev@vger.kernel.org>, Andrew Lunn
-	<andrew+netdev@lunn.ch>, "David S. Miller" <davem@davemloft.net>, "Eric
- Dumazet" <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni
-	<pabeni@redhat.com>, "Gomes, Vinicius" <vinicius.gomes@intel.com>, "Sasha
- Neftin" <sasha.neftin@intel.com>, "linux-kernel@vger.kernel.org"
-	<linux-kernel@vger.kernel.org>
-Subject: RE: [PATCH iwl-net 2/2] igc: Flush pending Tx descriptors before
- returning NETDEV_TX_BUSY
-Thread-Topic: [PATCH iwl-net 2/2] igc: Flush pending Tx descriptors before
- returning NETDEV_TX_BUSY
-Thread-Index: AQHdVBUmqD5C2cfzv0WqZJ4g+PbPp7buvr2Q
-Date: Mon, 5 Oct 2026 10:22:54 +0000
-Message-ID: <IA3PR11MB89869C7A76B0187265292A44E5962@IA3PR11MB8986.namprd11.prod.outlook.com>
-References: <20261004152840.61222-1-b2rancourt@gmail.com>
- <20261004152840.61222-3-b2rancourt@gmail.com>
-In-Reply-To: <20261004152840.61222-3-b2rancourt@gmail.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-authentication-results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: IA3PR11MB8986:EE_|MN6PR11MB8220:EE_
-x-ms-office365-filtering-correlation-id: fad40251-afb6-40d8-c282-08df22ca9e45
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;ARA:13230040|376014|366016|1800799024|23010399003|38070700021|56012099006|11063799006|10067099003|6133799003|18002099003|22082099003|4143699003;
-x-microsoft-antispam-message-info: KyHBNIYt64VCurLshvJ+eGH8RHUKky3ZOQ6AUFe8JBo5m5uO/GB1bNc5jhHIEseM/6jtspruHG+WU1TghY1Mja5RlUgH+r7M7m2k1QoqZqSXTjcM7kTJdM5T458za9ELWBJrEyskib1F0oiy2tYhzh4PdJ2L8Es5FMhAIGU/txxMfMqNaCMPqzeq8ksF6tuK5MX8c2mzNpLy3Bd4Xro8Ql1BaywEIPqYxMAZBpYZhbLjiixrAxenOxpPYrijIkctwfi/CH5VUUXThNGLwn2hl2qbcSyWWBwBhKUDkJ8OoFh0ZjmGBAb9shJP9qPpMqxaWLyioV7ip54/2BeA+Utufk3ex0OceCojDAPU6XFYeM24t7XxCmMCgycZY/6uLMkUoJzngF/feJUlrfpisddbyPHwStJMR2k9zG6DGRMScsC+2+na+a5XcxYtZpTGDBJZkYrGt9u3uslKjx/AlF1goG31Muhc6QJUp8vH5KHFZ0CVLyKJYZJvo/2Ey5u+cPReUelXj8oMRP9geWnDygwkp3sWV+KRIPBQr+3a/OPhFXaif4+x3uLtFsTiKWn1O84GbgzVepbR1L9vn4h8D0SpfRnxFURQBGtVp/1m8cq+A0vHsJA9Wdf58FSkS+3NyD0ceCkOEERvJ3fT6JLv267K7Kyl8h1IxFtWBDSPCcc8YhdYW+ledSNnxOwrGG0bilnx/KwIaWN9/WUJQg9JQoBmElOMAfhFy1BdferKAkg9Ezg=
-x-forefront-antispam-report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:IA3PR11MB8986.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(366016)(1800799024)(23010399003)(38070700021)(56012099006)(11063799006)(10067099003)(6133799003)(18002099003)(22082099003)(4143699003);DIR:OUT;SFP:1101;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?+j5IlKfg/DifDj1s56eOZMxb2QF7kn3wMbrX4ciV6XBXt7QBHcE2GBKnlfJ7?=
- =?us-ascii?Q?7xdn6RfDleaPivmnZ/+hUWuA7Cw5tYLjw7PSFDYEsEp7Pt7MDewK1lb3f5oM?=
- =?us-ascii?Q?Muyh/+JsE9Yt8xXNHf5N/WioH8OIasQHNDDF3vB0hw8s19iPeM0KBNCCK5KJ?=
- =?us-ascii?Q?fFc9EZ6AOtbUqWohg54fFM0SvtRJgtQkFNfvS/vUHrR7L69tMsUbcIr1Heya?=
- =?us-ascii?Q?h0hhWrsggGg0kpT56PL2935tUHGRFDN4gVMFfjrm2vs+lelJLH8uQWCb1K9d?=
- =?us-ascii?Q?CX73km4o9gyPcJceYBunT87sM/EbjOenYXvQtQUC+2G2Z0y4Bf/H5RJbzdvV?=
- =?us-ascii?Q?PqQxtnUpkDf6eSrk5uYRi7D0w7MDcuyWMtENtOteEDLAATEL2md6zL0Afh5l?=
- =?us-ascii?Q?yVQPXUuUvQaxjyiR9Am75FECIwestj0HZwEq+FUOj2iqAdvPoRrFcPAXhmUM?=
- =?us-ascii?Q?P9E4q4dnc2Na87E/zOO1NOIUZ5V+em9flm0JJomkbF73Pe7S/hMkIWlFdDjH?=
- =?us-ascii?Q?ksizRM5f0IR2xEQm26Lq691UL6eFqV9ZmEfWVsjc957jffpFLgjt3mwBA40x?=
- =?us-ascii?Q?NZl1MxSabx0ZR7RBwa2pA6l590xfa915hWMI4LtfNp9WzftrPSagLO+fUxuJ?=
- =?us-ascii?Q?MVtmFRyGQjWs3tEHMGWRgP/vmy1oof+P9fe9TRJAfEB1u3mL9L4TgeEhHuuH?=
- =?us-ascii?Q?737nwZLEEktioohSTZ4R+6ye7P6ElH+7HdpkOKMWTYxKDdQm/VZl5E57L9dI?=
- =?us-ascii?Q?YKUrTST6AOKLg2gsmXgsMXAPjdzM0iHJLd5XtThh2nCvmrjvD1fZsU15QcOZ?=
- =?us-ascii?Q?LNu5dSK3CUQCcyTP8kplq2kJkvZZdOj2jIFTxLRJI+FUkdx3JK+LRpAHqLB4?=
- =?us-ascii?Q?OBqSW5P3AuUDCOFRnVDK6XX12rpIkjl8OQ02GCHnJuYdFdHCgppouqQWo/uE?=
- =?us-ascii?Q?dtrG8e4g9JWbUxrmT/st3s2FKlDgCx7iMphRO2ZHdQlS3EDo+jgSO9RQxz+A?=
- =?us-ascii?Q?PPHHpnLaLIzBteqvpHJEnUW9ueEftF5XaRbTgkmCJKswljXCbqxzPd4+mV8M?=
- =?us-ascii?Q?UjoXFY2FGmVmBc49vyEvEJMXgfOzCPe/wZazwiInvtq3oTaM1tEcAGglLVay?=
- =?us-ascii?Q?qpsWCoya2sy9cqwJZjE8idIZn2B9+tmYTinVnaAUJLY0E6tVqt+FYPdut9J9?=
- =?us-ascii?Q?bk5vxhnln/xrOyFzLMhIcogb17CCQyETZqOxCTvVQBtPx6Yp8QG83dDsLOur?=
- =?us-ascii?Q?50aljhsYO1vCvHLU5jU2eAZ/9+aH/oRHcuXgIFv5opI5zjXhDxmIgMtoxU8R?=
- =?us-ascii?Q?oW29n50K7AKzRlqhrTbHH7VIfznONkFIlHR79Fx83mcP58wot2pj/D5iikwu?=
- =?us-ascii?Q?BxKU5bco496+M4tLhJgaeRKXg9hgpbzVmROg2P53Q62ASoCuY0TQ1lUXOZfM?=
- =?us-ascii?Q?PqIBzlUiosrxm04t6xZvxyip5K/F1QyF8iICEzrELog/K1VmXnQQuu90OsYh?=
- =?us-ascii?Q?pSnAPerixFQIlOFHcGs7X1aS7Sujj5ljcv42vgw1B2A2CB66ewxaYufLySzD?=
- =?us-ascii?Q?7GmfZ3At5LPk75QSnlatLQWlvldLyPEOrvrg6XudqwhUKOYtUlQeflhV8dYI?=
- =?us-ascii?Q?Nn9tZ7ir/FEcyjJGKfUin83a0XuKUgDiuHLYEmXafvrHMAYeetWVoCMR+b1d?=
- =?us-ascii?Q?M87JLmxXdz/vkTyN9YhCFiXn0eEAhJczRiUTnRgdiPJ9AWlwi4OI2/0oVgz0?=
- =?us-ascii?Q?P6MKZi6QL9PcCRzw+9CfY/+0OTG+2a8=3D?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0EF6045518A;
+	Mon,  5 Oct 2026 10:23:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=211.20.114.72
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791195784; cv=none; b=J0QZ+8t3c3zeu14fXvOVy7tmjAsYzK8uoCtlmx9XXOJyEOu7AV03qA+E8nWZiCpxFz4qIlsGFw7d1+RxLQuKZqQiFlwCGL0nMwIo//RjmjexHWjcl5iEQtEoesl4cyqrQL+0zyw7og99SuCCumKKGKbxEeQawLDkyEm5NeHiWvI=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791195784; c=relaxed/simple;
+	bh=MHyVw2ZKEJEd8TJ8ETLosBAMfdGwcfGP+L8N5MhXY2k=;
+	h=From:Subject:Date:Message-ID:MIME-Version:Content-Type:To:CC; b=AmR+uPgu/ZZmEASJlIXeyIFyI/rUMkpQYucmQLsjPZFskiP/tDUOA9fZIQCYBOuA0kGfPSIvM2uOvAhmzDtuCYiPYVVYiQ7kZe6+SUul3qL5pUurX0U/suKNfkOKaw3jPlgt7FBx+A3F60eXqxqO/r8kUEugl6MoCJG77CNTg20=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=aspeedtech.com; spf=pass smtp.mailfrom=aspeedtech.com; arc=none smtp.client-ip=211.20.114.72
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=aspeedtech.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=aspeedtech.com
+Received: from TWMBX01.aspeed.com (192.168.0.62) by TWMBX01.aspeed.com
+ (192.168.0.62) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1748.10; Mon, 5 Oct
+ 2026 18:22:54 +0800
+Received: from [127.0.1.1] (192.168.10.13) by TWMBX01.aspeed.com
+ (192.168.0.62) with Microsoft SMTP Server id 15.2.1748.10 via Frontend
+ Transport; Mon, 5 Oct 2026 18:22:54 +0800
+From: Billy Tsai <billy_tsai@aspeedtech.com>
+Subject: [PATCH v3 0/3] iio: adc: aspeed: Fix SCU lookup for multi-SCU
+ AST2700
+Date: Mon, 5 Oct 2026 18:22:52 +0800
+Message-ID: <20261005-ast27xx-adc-upstream-v3-0-ef25552d3a59@aspeedtech.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Exchange-RoutingPolicyChecked: ivC35FpvZrBmT2krLHc2XHIPqn3jaie/ljgjkso/pSr4x52t2NoE0Sa8iGbs3boGbdYKkDoNdCcWs78QxcvaoqmnI3VuxWU64ko9JZPA1F7CiCrUYLkOCs53Rw3fXBgoAwo7KVOl0bZn/WX4PpYaGy0DbJJ1aH2YvkTEwoUa9dyOX96Se3g48PTm1E1YJPL87dqaJ5WVYFPQL0qb+W/EeWnnOmfDJP//yuXaRJU+ZTZ4iO/5lAFXDJ3tFVQrNKof+yrGAZt5QnJ/38nZxNcXPDZRF/6eL9CnIF2dTH9P0AUdSu9vp0hkyBdoTg/DoipLYUTD2ctItuYnyxgMqbkzsg==
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: IA3PR11MB8986.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: fad40251-afb6-40d8-c282-08df22ca9e45
-X-MS-Exchange-CrossTenant-originalarrivaltime: 05 Oct 2026 10:22:54.2863
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 46c98d88-e344-4ed4-8496-4ed7712e255d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: lTFu+qer1PS9HU1Zx1mlIzM2FO9OntZ4B5TF6/E3rgwNBce5PK5wMRW/49YupqaTHrKsrYsy6ZfJNFQHPkMZgtfgnlBdqOwXVC+Bge4CvKQ=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN6PR11MB8220
-X-OriginatorOrg: intel.com
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAHx6w2oC/43NTQ6CMBCG4auQrq1ppxTQlfcwLsp0kC74SVsbD
+ OHuFrYudPl+yTyzskDeUWDXYmWekgtuGnOoU8GwN+OTuLO5GQiopBCSmxChXhZuLPLXHKInM3B
+ VtspeqCGoW5ZPZ0+dWw72/sjduxAn/z6+JLmvP8AkueDaIOlaK1XK5mbCTGQjYX/GaWC7muAfC
+ bIE3QWlRhSiKr+kbds+ZsKNHwcBAAA=
+X-Change-ID: 20261001-ast27xx-adc-upstream-34b3d9e8e27b
+To: Jonathan Cameron <jic23@kernel.org>, David Lechner
+	<dlechner@baylibre.com>, =?utf-8?q?Nuno_S=C3=A1?= <nuno.sa@analog.com>, "Andy
+ Shevchenko" <andy@kernel.org>, Rob Herring <robh@kernel.org>, "Krzysztof
+ Kozlowski" <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, "Joel
+ Stanley" <joel@jms.id.au>, Andrew Jeffery <andrew@codeconstruct.com.au>,
+	"Ryan Chen" <ryan_chen@aspeedtech.com>
+CC: <linux-iio@vger.kernel.org>, <devicetree@vger.kernel.org>,
+	<linux-arm-kernel@lists.infradead.org>, <linux-aspeed@lists.ozlabs.org>,
+	<linux-kernel@vger.kernel.org>, Billy Tsai <billy_tsai@aspeedtech.com>,
+	Jonathan Cameron <jic23@kernel.org>, Krzysztof Kozlowski
+	<krzysztof.kozlowski@oss.qualcomm.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1791195774; l=2794;
+ i=billy_tsai@aspeedtech.com; s=20251118; h=from:subject:message-id;
+ bh=MHyVw2ZKEJEd8TJ8ETLosBAMfdGwcfGP+L8N5MhXY2k=;
+ b=PLwS/wCnfPxX+nADfgg1wNzPo70a7CAhsL3H7u0XTCfapXutbtsVxUdlgGbZIMhueQeui6wjq
+ qx+KILeVT7sDxdsA2t22v1DM8uBIvsUffnY68eM7qAf/OcNxC7MPgsp
+X-Developer-Key: i=billy_tsai@aspeedtech.com; a=ed25519;
+ pk=/A8qvgZ6CPfnwKgT6/+k+nvXOkN477MshEGJvVdzeeQ=
 
+The ADC's reference-voltage trimming data lives in a SCU register. The
+driver has always located that SCU with a global, name-based
+device-tree search, which works as long as a platform only has a
+single node named "syscon". AST2700 splits its SCU into two
+instances, syscon0 and syscon1, that share that same node name and
+differ only by label and unit address, so the lookup always resolves
+to syscon0 even when the ADC's trimming data lives in syscon1.
 
+This series adds an explicit "aspeed,trim-syscon" phandle property so multi-SCU
+platforms can point the ADC at the right SCU, keeps the existing
+global lookup as a fallback for single-SCU platforms and already
+deployed device trees, and wires the new property up on AST2700.
 
-> -----Original Message-----
-> From: Benoit DE RANCOURT <b2rancourt@gmail.com>
-> Sent: Sunday, October 4, 2026 5:29 PM
-> To: Nguyen, Anthony L <anthony.l.nguyen@intel.com>; Kitszel,
-> Przemyslaw <przemyslaw.kitszel@intel.com>; intel-wired-
-> lan@lists.osuosl.org
-> Cc: netdev@vger.kernel.org; Andrew Lunn <andrew+netdev@lunn.ch>; David
-> S. Miller <davem@davemloft.net>; Eric Dumazet <edumazet@kernel.org>;
-> Jakub Kicinski <kuba@kernel.org>; Paolo Abeni <pabeni@redhat.com>;
-> Gomes, Vinicius <vinicius.gomes@intel.com>; Sasha Neftin
-> <sasha.neftin@intel.com>; linux-kernel@vger.kernel.org; Benoit DE
-> RANCOURT <b2rancourt@gmail.com>
-> Subject: [PATCH iwl-net 2/2] igc: Flush pending Tx descriptors before
-> returning NETDEV_TX_BUSY
->=20
-> When the stack sends a burst with xmit_more set, igc_tx_map() defers
-> the tail register write until the last skb of the burst or until the
-> queue is stopped. If igc_xmit_frame_ring() then refuses an skb with
-> NETDEV_TX_BUSY, it returns without flushing any pending tail write.
-> Descriptors of packets already accepted in the burst can therefore
-> remain unexposed to the hardware.
->=20
-> The queue is stopped at that point and igc_clean_tx_irq() only wakes
-> it once TX_WAKE_THRESHOLD descriptors are free. The hardware can only
-> complete what the tail exposes, so if the unsignalled descriptors keep
-> the free count below the threshold, the queue is never woken and the
-> Tx watchdog resets the adapter.
->=20
-> On an I226-V running 7.2.8, in all 25 Tx timeout episodes of the test
-> described in the previous patch, the stalled queue had pending
-> descriptors after a NETDEV_TX_BUSY return: the probes inferred at
-> least 214 of the 256 ring descriptors beyond the last tail write. For
-> that queue, the register dump showed TDH =3D TDT =3D the next_to_clean
-> value recorded by the probe: the hardware had completed everything it
-> had been given. For example, with queue 2 stopped, next_to_clean =3D 190
-> and next_to_use =3D 167:
->=20
->   igc 0000:08:00.0 terra: NETDEV WATCHDOG: CPU: 1: transmit queue 2
-> timed out 5353 ms
->   igc 0000:08:00.0 terra: TDH[0-3]        00000099 00000091 000000be
-> 000000f5
->   igc 0000:08:00.0 terra: TDT[0-3]        00000099 00000091 000000be
-> 000000f5
->=20
-> Write the tail before returning NETDEV_TX_BUSY. The refused skb is
-> left untouched; only descriptors of already accepted packets are
-> exposed to the hardware. Those packets have already been accounted to
-> BQL, so flushing their descriptors lets completion processing
-> progress; the refused skb is neither mapped nor accounted here.
->=20
-> The previous patch makes this path rare again for common skbs, but it
-> remains reachable, for instance when the linear part or a fragment of
-> an skb exceeds IGC_MAX_DATA_PER_TXD.
->=20
-> With this change alone (without the previous patch), three runs of the
-> same test on 7.2.8 still produced 10751 NETDEV_TX_BUSY returns, but no
-> Tx timeout, against 25 on the unpatched kernel.
->=20
-> Fixes: 0507ef8a0372 ("igc: Add transmit and receive fastpath and
-> interrupt handlers")
-> Cc: stable@vger.kernel.org
-> Assisted-by: LLM bpftrace
-> Signed-off-by: Benoit DE RANCOURT <b2rancourt@gmail.com>
-> ---
->  drivers/net/ethernet/intel/igc/igc_main.c | 6 +++++-
->  1 file changed, 5 insertions(+), 1 deletion(-)
->=20
-> diff --git a/drivers/net/ethernet/intel/igc/igc_main.c
-> b/drivers/net/ethernet/intel/igc/igc_main.c
-> index b94a08791102..16f2ca32f5f1 100644
-> --- a/drivers/net/ethernet/intel/igc/igc_main.c
-> +++ b/drivers/net/ethernet/intel/igc/igc_main.c
-> @@ -1621,7 +1621,11 @@ static netdev_tx_t igc_xmit_frame_ring(struct
-> sk_buff *skb,
->  						&skb_shinfo(skb)->frags[f]));
->=20
->  	if (igc_maybe_stop_tx(tx_ring, count + 5)) {
-> -		/* this is a hard error */
-> +		/* This is a hard error. Write the tail for packets
-> deferred
-> +		 * by xmit_more before returning busy, otherwise the
-> stopped
-> +		 * queue may never get enough completions to be woken.
-> +		 */
-> +		igc_flush_tx_descriptors(tx_ring);
->  		return NETDEV_TX_BUSY;
->  	}
->=20
-> --
-> 2.55.0
+Patch summary:
+1. dt-bindings: iio: adc: Add syscon property for multi-SCU SoCs
+2. iio: adc: aspeed: Use syscon phandle for trimming data when available
+3. arm64: dts: aspeed: Add syscon phandle to AST2700 ADC nodes
 
+Assisted-by: LLM
+Signed-off-by: Billy Tsai <billy_tsai@aspeedtech.com>
+---
+Changes in v3:
+- Switch the LLM attribution trailer to "Assisted-by: LLM", the format
+  required by Documentation/process/coding-assistants.rst, instead of
+  naming the specific tool/model
+- Move each patch's Signed-off-by to be the last trailer, after
+  Assisted-by
+- In patch 2, use dev_of_node() instead of dereferencing
+  data->dev->of_node, and check the new property with
+  of_property_present() before calling the non-optional
+  syscon_regmap_lookup_by_phandle()
+- Link to v2: https://lore.kernel.org/r/20261001-ast27xx-adc-upstream-v2-0-2f9c15cc0064@aspeedtech.com
 
-Reviewed-by: Aleksandr Loktionov <aleksandr.loktionov@intel.com>
+Changes in v2:
+- Rename the new property to "aspeed,trim-syscon": a bare "syscon" is
+  not a generic property per writing-bindings.rst, so follow its
+  vendor,type-syscon convention
+- Reword the property's description to state its purpose instead of
+  restating the schema's required condition in prose
+- Drop the extra AST2700 example added for the one new property
+- Link to v1: https://lore.kernel.org/r/20261001-ast27xx-adc-upstream-v1-0-5ace57533418@aspeedtech.com
+
+---
+Billy Tsai (3):
+      dt-bindings: iio: adc: Add syscon property for multi-SCU SoCs
+      iio: adc: aspeed: Use syscon phandle for trimming data when available
+      arm64: dts: aspeed: Add syscon phandle to AST2700 ADC nodes
+
+ .../bindings/iio/adc/aspeed,ast2600-adc.yaml       | 17 +++++++++++++++
+ arch/arm64/boot/dts/aspeed/aspeed-g7-soc1.dtsi     |  2 ++
+ drivers/iio/adc/aspeed_adc.c                       | 25 ++++++++++++++++------
+ 3 files changed, 37 insertions(+), 7 deletions(-)
+---
+base-commit: a3b3580713f3ac5a32dc2874ee546828977a1d68
+change-id: 20261001-ast27xx-adc-upstream-34b3d9e8e27b
+
+Best regards,
+-- 
+Billy Tsai <billy_tsai@aspeedtech.com>
+
