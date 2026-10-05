@@ -1,113 +1,89 @@
-Received: from mail-ed2-f34.google.com (mail-ed2-f34.google.com [74.125.228.98])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EA92E47AF57
-	for <linux-kernel@vger.kernel.org>; Mon,  5 Oct 2026 13:06:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.98
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 74D844825B2;
+	Mon,  5 Oct 2026 13:07:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791205585; cv=none; b=FBBix9DqZvFNyPxALajwj4yZ1bE17JlZNjLPiSdyXerpsEXo4aMUUhhLOiEywp1wQMNfIZ2R9ScIppo4LtAuvypiCrWYOzDfqBw/1Tn3vjJhY0c9QMojcOLsvMbwVMmd6I1Si9jN/vOevBct0Q3VS9Q91KBR0WvvEbtdh51ajIc=
+	t=1791205635; cv=none; b=JDn+o4D1OjfgLRVkv+Q4BksVr4Bk2FQYI6rgx/58kmwsGRrtwrdUZMxmSit9qJOSRgOVim3kuf9z1c1diG4kZRY+OTjMjWoQQu32WWUY+pnWgh5Wk4WY6xRIGeXLXwRRTXOasIKSyRh7R4USuxZjyea6MwLlapBX6CWQhbkW5zo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791205585; c=relaxed/simple;
-	bh=lWjHP6alA8c9bfJKDwOOPP5dbXqNnIjRZYB6Isxoog8=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=KeX+lznfElYCxd2uMbI/DmbjzjFxwJhi609rRx92NR9hZaqqinWKHyV6lrm6+n+wtG3SCe13tgs0oh5AZcWPllmz100jaxSzLYXOZS4VlpsPCQu+tWIQ/uvTqmIEdJXOwc3NyT6nJ/U/v+VKtf2nW1SHwoatOyLqEqOpGRceFNY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=lv6XDB4J; arc=none smtp.client-ip=74.125.228.98
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1791205635; c=relaxed/simple;
+	bh=jitezfqwji1pZx3701XLy05q7t2U4eoFU1bJbjXRNCw=;
+	h=Date:From:To:Cc:Subject:Message-Id:In-Reply-To:References:
+	 Mime-Version:Content-Type; b=GfPKX/fcsTzGQl9/s/VarpmN3BztuXJqWtNrccblPnAMZPdAlC9P1JaxmzrxuZbB/CS7LCGPFp4YYrl1Ntx3MDVPwCLNvvLFbgeDo/sKIYeaZCilBj8huTEa3IfIvrMOpzAjQAQd6eVagSRfRcJ1m5aWdXKkB+C0oh57Bsu9D8Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=e3OeAfC7; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="lv6XDB4J"
-Received: by mail-ed2-f34.google.com with SMTP id 4fb4d7f45d1cf-6aaf8415866so2376044a12.0
-        for <linux-kernel@vger.kernel.org>; Mon, 05 Oct 2026 06:06:23 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="e3OeAfC7"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9ED181F000FF;
+	Mon,  5 Oct 2026 13:07:13 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791205582; x=1791810382; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=BjL2pXlHfuAQFc/3GOIX7IQe1y00mLqM+xdgaQa2Gmw=;
-        b=lv6XDB4JcMjNcKWP1RwcCUGeHU+CuXynbx2p4HBMTgPlh1iC4zsxy/QVjpaDhuVDfM
-         jdo8cuRm7f2OiqPGdMS/pEmn4mSGo2bIMEf1IcNX/T5FLHXh8nCg/MaTZmpMmWFfu9Rj
-         +Ldonim7hAl8m+eeOLxLB8gEsIfsPlk4suff7oOPlqt/nJngHJo5V59v6j6Cd0hEr30e
-         tIMLCaFaxgY9bFXWmW0NUqEb36xKvNwG/GKIdc3v0m9yo9edrQz2MjoJxoc8SCeMazzw
-         EhoDjGEl7gq1AyLIyTLcMxf6Icw9ufNowWr0bMSOIIuEH9rYaUOcDh/lD67ifnlFanV9
-         HkLQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791205582; x=1791810382;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=BjL2pXlHfuAQFc/3GOIX7IQe1y00mLqM+xdgaQa2Gmw=;
-        b=jatnBGaAE3SEqE0I0+waugJ4oRV+RRtEKkvw5jgCQcc69BDKHdGND+ciZFiJATV1Qj
-         RDsa3Qd2TgkUXgHd0O4uiW9tPGIkqMfgGtU6oMFprQFAZFkKnt1HMNZE0TxXrA097f/v
-         AyZrFUr8acwHV/1xhiPVQvsJTgfce46RG+qVb6sy0KBZCXHWbu+3KV+KPXL6TUrj0xV1
-         wbAdLTZ8xDL9RIDw4FihlBwkOUSSxPVWLhLCwyuQHgfR3CMqHJM1/t1DPibLj6JXRnHH
-         y+aYgEIiCaMBD9WGuURGSm1wn8KqNqwB+KogmypS8eqMpTNiyEff56ls2mpzUYjDuNp7
-         +GWQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwEbwXP1Yk6i2IeQGZI+3+taLraCbkfv6fBN9oE+FdEbGRxpaHks26QaK/ASwwpJ1vRNmJWhoWpWWRnRZk=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLeeI/7ryoJScSh77BY5ZbP+uijbCU+bU/Pb0JzJgpPBjqQrejE
-	sAdCn5iSzpXZ9YN0weqZsHhagxulBKEoX+xa6mvd0m09Z1eYhhfT9pvO
-X-Gm-Gg: AYBFou3dPeQatMCCh1X5R9bHOrhYsCV/8d9nS1H5cujP93c98uPeq7vOm0EjJU47g4X
-	FjGtSfb4J+18ZjN4tBZhmw6YTyB1y6gHFRe9Q6RUey2jLVdLnpxR5uXzeirCpGguHX9LfUftXiL
-	GlEDS3NH1AAN4OXngzf/0h6mDysLWUHylp+YK2DloqmE6hgtSm8+gU7OifeTl/lU7K0iiJ9ft9k
-	5JfjW92VrRfQKrrLE1vyRN9r27bwmyt75plvhBWkOczs6n0cM6a5wZ0/SqZZE0SpKun8mjdBvnh
-	HJJVH2R9C3X5b81v0a2xnHTz/f9FDRWN4QHVFzHVlKd3I9uQwdaS84WXRa2m8/ZoyB2SXh7w1t0
-	q5mtRjNTTW5iaikeDUNBIIEbwUESvKfXIsdBYwqh/kjOJyEZmhiWX47y/11DZpmEuRz20UbPu9E
-	BtCATclSASZPtGlgZKX1C1Hsfh93vB4y8LmgOVPC2oDQSMzDMY6vi4mQg5O0C78XMXEp5TNjxdA
-	z/SBueesg==
-X-Received: by 2002:a05:6402:378e:b0:6ac:934e:a9d6 with SMTP id 4fb4d7f45d1cf-6af9e022bcamr9401777a12.5.1791205581824;
-        Mon, 05 Oct 2026 06:06:21 -0700 (PDT)
-Received: from fedora ([51.37.100.165])
-        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6afb005a424sm3390647a12.0.2026.10.05.06.06.19
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 05 Oct 2026 06:06:20 -0700 (PDT)
-From: Paul Dolan <paul.dolan.dev@gmail.com>
-To: keescook@chromium.org,
-	shuah@kernel.org
-Cc: linux-mm@kvack.org,
-	linux-kselftest@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Paul Dolan <paul.dolan.dev@gmail.com>
-Subject: [PATCH RESEND] selftests/exec: reject zero as power-of-two alignment
-Date: Mon,  5 Oct 2026 14:06:12 +0100
-Message-ID: <20261005130612.162824-1-paul.dolan.dev@gmail.com>
-X-Mailer: git-send-email 2.55.0
+	d=linux-foundation.org; s=korg; t=1791205633;
+	bh=Ym8fD57TQaFfPwXHnEQHQ0jtTOHEhACYrmL2ZU06asU=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=e3OeAfC74li1mJtHeZR88UojvHL0s0g4rgajUh8l/WNSHpEAhA/Kwf000Ab3UmTma
+	 kVg4cWtdmFsLc39aNL6kWZvVR4WGFCC50nmhnKb2chpA0tZ99qKSAG1QF6fb6cMwAb
+	 Y5ngqRZ4052EsI6I9sb2TchAy/kkrxM5iHEsf5wk=
+Date: Mon, 5 Oct 2026 06:07:13 -0700
+From: Andrew Morton <akpm@linux-foundation.org>
+To: Mark Brown <broonie@kernel.org>
+Cc: Nathan Chancellor <nathan@kernel.org>, Nicolas Schier <nsc@kernel.org>,
+ KBuild Mailing List <linux-kbuild@vger.kernel.org>, Linux Kernel Mailing
+ List <linux-kernel@vger.kernel.org>, Linux Next Mailing List
+ <linux-next@vger.kernel.org>, Lorenzo Stoakes <ljs@kernel.org>, Maciej
+ =?UTF-8?Q?=C5=BBenczykowski?= <maze@google.com>, Wilson Felipe Pereira
+ <wfelipe@google.com>, Wilson Felipe Pereira <wfelipe@google.com>
+Subject: Re: linux-next: manual merge of the kbuild tree with the
+ mm-nonmm-unstable tree
+Message-Id: <20261005060713.afde74805e607478d6bda2ea@linux-foundation.org>
+In-Reply-To: <asN8duP-cEdNqP5I@sirena.co.uk>
+References: <asN8duP-cEdNqP5I@sirena.co.uk>
+X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Mime-Version: 1.0
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-The load_address test reports whether an alignment was found separately
-from whether that alignment is a power of two. However, the usual
-x & (x - 1) check also evaluates to zero when x is zero, causing a
-missing alignment to be reported as a power of two.
+On Mon, 5 Oct 2026 12:31:18 +0200 Mark Brown <broonie@kernel.org> wrote:
 
-Require the alignment to be non-zero when reporting the power-of-two
-result.
+> Hi all,
+> 
+> Today's linux-next merge of the kbuild tree got a conflict in:
+> 
+>   init/Kconfig
+> 
+> between commits:
+> 
+>   d514d23689356 ("init/Kconfig: make config INIT_ENV_ARG_LIMIT user-configurable")
+>   9998f5eea1407 ("init, arch: make CONFIG_COMMAND_LINE_SIZE globally configurable")
+> 
+> from the mm-nonmm-unstable tree and commit:
+> 
+>   f85147b291e35 ("kbuild: move the toolchain checks into scripts/Kconfig.toolchain")
+> 
+> from the kbuild tree.
+> 
+> I fixed it up (see below) and can carry the fix as necessary. This
+> is now fixed as far as linux-next is concerned, but any non trivial
+> conflicts should be mentioned to your upstream maintainer when your tree
+> is submitted for merging.  You may also want to consider cooperating
 
-Fixes: b57a2907c9d9 ("selftests/exec: Build both static and non-static load_address tests")
-Signed-off-by: Paul Dolan <paul.dolan.dev@gmail.com>
----
- tools/testing/selftests/exec/load_address.c | 7 ++++---
- 1 file changed, 4 insertions(+), 3 deletions(-)
+Thanks.
 
-diff --git a/tools/testing/selftests/exec/load_address.c b/tools/testing/selftests/exec/load_address.c
-index 55fd3732f029..e279d85e8f19 100644
---- a/tools/testing/selftests/exec/load_address.c
-+++ b/tools/testing/selftests/exec/load_address.c
-@@ -92,9 +92,10 @@ int main(int argc, char **argv)
- 
- 	/* Is the alignment sane? */
- 	pow2 = extracted.alignment & (extracted.alignment - 1);
--	ksft_test_result(pow2 == 0,
--			 "Alignment is%s a power of 2: %#llx\n",
--			 pow2 == 0 ? "" : " NOT", extracted.alignment);
-+	ksft_test_result(extracted.alignment != 0 && pow2 == 0,
-+		"Alignment is%s a power of 2: %#llx\n",
-+		extracted.alignment != 0 && pow2 == 0 ? "" : " NOT",
-+		extracted.alignment);
- 
- 	/* Is the load address aligned? */
- 	misalign = extracted.load_address & (extracted.alignment - 1);
--- 
-2.55.0
+> diff --combined init/Kconfig
+> index 914c4c3ed7ee4,352601b44b5ca..0000000000000
+> ...
+> [250+ lines of diff]
+>
 
+yikes.  I think I'll disable Wilson's command-line patches until after
+kbuild has merged up.
+
+After kbuild is upstream I'll take a look at resurrecting command-line
+patches for a late merge-window thing or I'll bump them into 7.4-rcX. 
+Probably the former.
+
+kbuilders: please try to merge early!
