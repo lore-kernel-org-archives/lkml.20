@@ -1,176 +1,422 @@
-Received: from PA4PR04CU001.outbound.protection.outlook.com (mail-francecentralazon11023118.outbound.protection.outlook.com [40.107.162.118])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E283A446BF6;
-	Mon,  5 Oct 2026 10:12:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.162.118
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791195143; cv=fail; b=ux6khFtqLWZHHSgCiqMT9EzJXKbtlT+iJysLuDa4qKJZbEQ6Td1YipAS+8uCDaxORaRBcAASqNp+q+2oPcSZSUwaD5epOUnEog5ZEYaDXV/KJhIC0TlgYvnkYmEwa8kBr8IGGCXv4ExfgWoeBHjwImEwDkiNlDW7A3r5XXBpjRA=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791195143; c=relaxed/simple;
-	bh=63Qw3lvcmh45vrcwwkfR70ILnwwC4Bw8yrEUcsBYVyg=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:MIME-Version; b=AdNYQlbX/tuqi2/2FO9XlQYF4QC8EW1S711UP8ufT5fgOIdZDB2eGQ3h7i2tYHjpjamgSmy85dkqV17TAxTPe+e7m8RuZvGwJp+RFpYP7VgXTAxR2QQSTlRjkofWkvcQeHrQA30QEapzrTJatNQP7VUH6t2cExd4D2fgo32NFJI=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=sttls.nl; spf=pass smtp.mailfrom=sttls.nl; dkim=pass (2048-bit key) header.d=sttls.nl header.i=@sttls.nl header.b=Pjhu0Ls1; arc=fail smtp.client-ip=40.107.162.118
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=sttls.nl
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sttls.nl
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B7ECF356747;
+	Mon,  5 Oct 2026 10:12:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791195176; cv=none; b=G9qKE9Cx82R3OFEVLNHBIcDfzCKzfKL3BowId6EsM3s2XdJR7rOXiVPw2qPLCCyFKGK2gyTS9tu0Gsz+Ik+7qJrA0dEKEwQwLPrfoxsNC9Oa61rCsMKKlQXsTQBxsozNlFxHyVg1U1CYwEnUHuXW2G2pQWh6pbmh4bT9HlK6LfM=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791195176; c=relaxed/simple;
+	bh=5c81HyqGiDhpBxTqlTA/4q642VuWUMdcgfSUQfQB5tY=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=D11RXRBDM8WQEH1O9FscV1tSb5XiR8wJfMjNjdQsFPxdd2atYjLzJVh96E0bNzhzjq0NlTlxYXeIb/0rz0N/7pnWsuB5aoKco4C7KBUE1rWBO+/rjAuQKx0rvfQVbUxN1Dav13C3ZZrVwJX+3nfv+XkoWmUtimXb9kPWcjgzi6c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=RYA6x7w6; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=sttls.nl header.i=@sttls.nl header.b="Pjhu0Ls1"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=S4SCy8HfsJMP5gY0pCAE9ioA/bByuwNQVaz4osQ7u/R8a5uABO+iAWbRwAizo5ZQdeLiMX3QSmpun7tpSlZCuVE5O1ycCitMHnm00wwVfBeQ/llYq72DPEoCOiLsQbSX828YSFwdwYJvd4jhPl6gx3alBpaw+Ei9aky30bC6f6NRC955GCt5MseBzUqm69k+bae6oR9TgWps1meiC8qeYUgPBkKe+owSQBYpswgYhLchXXGTrGfkbIPEIPVRuPzEa9x302KWsYMc8/yQfF/9TxaAe6OCmil08uXYY8qo5p8Pb08ZSNdcUsPMNT7yP39umpbQ1DXpBQ/PpJLQ5/EFRQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=63Qw3lvcmh45vrcwwkfR70ILnwwC4Bw8yrEUcsBYVyg=;
- b=aRxvgL45WqVYN1dWEAdn9rYMK4OAW5y8LDrm2bUXMi5ClRwaSROk1CDQ9ZNn8SdDUKqR3tnL7b6OruTnypNdaAWkHT4O8NXOqFxLihN1SXmEGE0ti8m6XOsBluceTnTsNriEgbvBk/GZrFuplL4oC6BB5oXgCrxY1zvQENHMHQoYHMDepHAJpfSwpeHPtEIn2J8xOPA0FddtEWvXQ4pa0x0YYaODpXg5/wqFPk9bzOVSB9vI5fWG9yniFBvFfQJi9pWQQFBLzvXGhFNvNpvOHF4UnnDUzSxBmxw4dwEqFEf6tgJB06qRke4ozCgurdlJFQVol5Z6tHVlxjfe6OWDrA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 20.93.157.195) smtp.rcpttodomain=vaisala.com smtp.mailfrom=sttls.nl;
- dmarc=pass (p=none sp=none pct=100) action=none header.from=sttls.nl;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sttls.nl; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=63Qw3lvcmh45vrcwwkfR70ILnwwC4Bw8yrEUcsBYVyg=;
- b=Pjhu0Ls1I5AiZMIsREq2hbSqglJkKN+RSm4SzZUluIxDf1HNK9fIetaX25s4A/wGZLeMogwO2xSrJo2BmZYDZF1kr5h107VXqcBkNCe8d3+0nWTCNQH7rDH3WZas/u2SBQBsWLeJpoH2WhDZRJBqQ1SGppf5GVEQshKYRiQMJFDncZZ4wCk1x7AKdWaSI0ejTH1j+eP+SQ2NRFdhCAiDZ1pLD6yHve/sNQp7hCayzsOWwOnaPa6uMGvNyX8pY7t8JsHeTDUioCvqIvrCnxJC/HnE2iqybDNOh6CL9WfK0N7+/a+KnzsCpMb1N0O5aHP1b0akKEuHP4CsRwpVaEOZLA==
-Received: from AM0PR02CA0186.eurprd02.prod.outlook.com (2603:10a6:20b:28e::23)
- by VI0PR05MB690607.eurprd05.prod.outlook.com (2603:10a6:800:366::5) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.472.20; Mon, 5 Oct
- 2026 10:12:14 +0000
-Received: from AMS1EPF0000008E.eurprd05.prod.outlook.com
- (2603:10a6:20b:28e:cafe::23) by AM0PR02CA0186.outlook.office365.com
- (2603:10a6:20b:28e::23) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.472.20 via Frontend Transport; Mon, 5
- Oct 2026 10:12:14 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 20.93.157.195) smtp.mailfrom=sttls.nl; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=sttls.nl;
-Received-SPF: Pass (protection.outlook.com: domain of sttls.nl designates
- 20.93.157.195 as permitted sender) receiver=protection.outlook.com;
- client-ip=20.93.157.195; helo=westeu11-emailsignatures-cloud.codetwo.com;
- pr=C
-Received: from westeu11-emailsignatures-cloud.codetwo.com (20.93.157.195) by
- AMS1EPF0000008E.mail.protection.outlook.com (10.167.242.85) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.472.14 via Frontend Transport; Mon, 5 Oct 2026 10:12:14 +0000
-Received: from DUZPR08CU001.outbound.protection.outlook.com (40.93.64.68) by westeu11-emailsignatures-cloud.codetwo.com with CodeTwo SMTP Server (TLS12) via SMTP; Mon, 05 Oct 2026 10:12:13 +0000
-Received: from GV2PR05MB11941.eurprd05.prod.outlook.com
- (2603:10a6:150:2cf::21) by BR0PR05MB322490.eurprd05.prod.outlook.com
- (2603:10a6:2c8:4d::22) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.472.20; Mon, 5 Oct
- 2026 10:12:11 +0000
-Received: from GV2PR05MB11941.eurprd05.prod.outlook.com
- ([fe80::86e3:136c:737e:e29a]) by GV2PR05MB11941.eurprd05.prod.outlook.com
- ([fe80::86e3:136c:737e:e29a%3]) with mapi id 15.21.0472.016; Mon, 5 Oct 2026
- 10:12:11 +0000
-From: Maarten Brock <Maarten.Brock@sttls.nl>
-To: Tapio Reijonen <tapio.reijonen@vaisala.com>, Greg Kroah-Hartman
-	<gregkh@linuxfoundation.org>, Jiri Slaby <jirislaby@kernel.org>
-CC: "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
-	"linux-serial@vger.kernel.org" <linux-serial@vger.kernel.org>, Hugo
- Villeneuve <hvilleneuve@dimonoff.com>, Tapio Reijonen
-	<tapio.reijonen@kolumbus.fi>
-Subject: RE: [PATCH v6 5/9] serial: max310x: wait for TX to drain before
- powering down in shutdown
-Thread-Topic: [PATCH v6 5/9] serial: max310x: wait for TX to drain before
- powering down in shutdown
-Thread-Index: AQHdU/sVAs8zWDCW00C7L4OXp3pwSLbutdYw
-Date: Mon, 5 Oct 2026 10:12:10 +0000
-Message-ID: <GV2PR05MB119415B20C7D800FA6279CE4183962@GV2PR05MB11941.eurprd05.prod.outlook.com>
-References: <20261004-max310x-rs485-sw-delay-v6-0-3a0ef13ed9e3@vaisala.com>
- <20261004-max310x-rs485-sw-delay-v6-5-3a0ef13ed9e3@vaisala.com>
-In-Reply-To: <20261004-max310x-rs485-sw-delay-v6-5-3a0ef13ed9e3@vaisala.com>
-Accept-Language: en-US, nl-NL
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-Authentication-Results-Original: mx.microsoft.com 1; dkim=none (message not
- signed) header.d=none;dmarc=none action=none header.from=sttls.nl;
-x-ms-traffictypediagnostic:
-	GV2PR05MB11941:EE_|BR0PR05MB322490:EE_|AMS1EPF0000008E:EE_|VI0PR05MB690607:EE_
-X-MS-Office365-Filtering-Correlation-Id: 45d37626-5542-455d-b061-08df22c9209f
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam-Untrusted:
- BCL:0;ARA:13230040|23010399003|1800799024|376014|366016|10067099003|56012099006|4143699003|38070700021|260925021311599003|260925021911599003|260925022911599003|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info-Original:
- pdFkYUqtBSWXebu31V+qLqNK9lMkXgkpRtktxD18dZDWLWM2+mJJrnpQna1g9QqGeEUtbmy2GQv0zGOiY2M86mJHO2tjFdKoewMPuYXpjIylMe1klk8ImxZFPmAXMfBxqOfcAEQfNAV3vbD0+gDCeEJrylWs78b6gNnd3MBrw1JvT9rywRsu1i1l3n52OmQRv7BIkHm15yc3jiWVV0oyAoi4dHNuXq2Djmwqba4QKSFsp30QUYuJB72LoVEIVx/X7/zla3MVTqDG7jsxfX7+wK3ofzAuRU/khqWyOqbGu+N0op8F5Nb92EPCK2cKFQeePfbZ9y9jvsD8/QUM9RyJvzt2nyjrN1o5qEhEDH50lG0YW3sl4h7rMnAy6Dymzk+6HTr/eqrblkdxX8NEgHGxtC4ETvVZOWsyR3Rwux1IACQnjfX5pcUKSrvJDFhPI05LbsfIUDtf6bn6D+kNobza+UetbFPR7ouL3IlRw6B+KvAKQBtEZ+dsANQLhKo0PWDbpbu33FPzUxW0w5efWa/i7qkakc+FyxN75yHKvX+6KyTWewufFLqA2QqrLOr92K2A1GpBHdz9AjnfoHKGWjQK+92Rx6Z0usOvpJ+kDJSbJ3joxPIxOGGeVYW0dzLFOOzbzpzbVzPdJpMq9s84pJRaunyzp9nx8CuWmy6OGqnh3hm4/mYezmaf1TI4bj24xwyO7VKzHp5igyONRJFEVzMQ6w+HWDp3/0rkth2iGyRmbM4=
-X-Forefront-Antispam-Report-Untrusted:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GV2PR05MB11941.eurprd05.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(1800799024)(376014)(366016)(10067099003)(56012099006)(4143699003)(38070700021)(260925021311599003)(260925021911599003)(260925022911599003)(18002099003)(22082099003);DIR:OUT;SFP:1102;
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="RYA6x7w6"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 97E4D1F000FF;
+	Mon,  5 Oct 2026 10:12:53 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791195174;
+	bh=9SNdcPGhwA6p0Y49OM4WNGclRIzBx9bpXy4BEe7n/TA=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=RYA6x7w65uDKnrsrTriIpnIqd6iuskr/4R4eySUnZwM3l9n5Uzt175TIkhm6/bfcu
+	 PFmhNcDfdraZQvuVEkmxQJk9iAjyy/eKzP+0kOUJ2dznVRFD7152nw1oItmwas99PE
+	 8CAKsD3aEozz2qbGs0YDocKl1hYr0qtzkM7nKHHqXjRxmgqu+dDS3andZ5X2LZt5g/
+	 rXSzvV82WSySTCuYtiCWf+fNxVnZkkJMv2HiQxUonmq3Lvd7QpgbM831slyUONEYNu
+	 9cDEE9MKkpxsflpnz7pUgFf5CXtxDl7iaD8MQC/NQ1yGKFoDWui9dWcxPKjeSjg1su
+	 /mbBgKVKjZ0ng==
+Date: Mon, 5 Oct 2026 12:12:51 +0200
+From: Vinod Koul <vkoul@kernel.org>
+To: Inochi Amaoto <inochiama@gmail.com>
+Cc: Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+	Jonathan Corbet <corbet@lwn.net>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Randy Dunlap <rdunlap@infradead.org>,
+	Neil Armstrong <neil.armstrong@linaro.org>,
+	Manivannan Sadhasivam <mani@kernel.org>,
+	Rhys Tumelty <rhys@tumelty.co.uk>, linux-doc@vger.kernel.org,
+	linux-kernel@vger.kernel.org, linux-phy@lists.infradead.org,
+	Yixun Lan <dlan@gentoo.org>, Longbin Li <looong.bin@gmail.com>
+Subject: Re: [PATCH v4 3/5] phy: core: Add phy bulk data helper functions
+Message-ID: <asN4I1cpVb5HLNu7@parshuram>
+References: <20260929085235.469515-1-inochiama@gmail.com>
+ <20260929085235.469515-4-inochiama@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Exchange-RoutingPolicyChecked: OizvD6SIJEIZYPtb6y3blZXqKJ6IjjiW4qRA3nhKtGqdze4uIMW1Rs5EUKzHYa+bTat47A6sryiLaeI89Da+Z4zw7zdwMfzrC+qkbcbsR+vk8VAZttqZlBeUSe9Pov6S0L2KZQ/OAOzoPFpQhhp6h5LE4OaQBI2CztgLz6Q5eUnO2EQ/jYwzHvGL6NxwM+dKfFG2gpN15BQEe+jmLoX8hrYWxaNV/3gKcjsk5xme9JlkE5tVT6yYFI1xpYv1F9AOWaovVpolc444OVYDu3aX7T6ySE3MQVcC4hz+94zPcPmKHYndDM2qgnY7mAjzx+5cQCFFX5hnioCY291unGLVmQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BR0PR05MB322490
-X-CodeTwo-MessageID: 8cf1af6c-64f1-4478-84a6-34a071467cac.20261005101213@westeu11-emailsignatures-cloud.codetwo.com
-X-CodeTwoProcessed: true
-X-EOPAttributedMessage: 0
-X-MS-Exchange-Transport-CrossTenantHeadersStripped:
- AMS1EPF0000008E.eurprd05.prod.outlook.com
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id-Prvs:
-	c8881535-ea98-40c8-0b31-08df22c91ec1
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|82310400026|376014|14060799003|35042699022|23010399003|36860700016|1800799024|10067099003|56012099006|260925021911599003|260925021311599003|260925022911599003|4143699003|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info:
-	9ZYvYWNBaLKXZsBfsd4oluuqpn46etNei/leSAB0jABETt3wJRtZrrslEmdlSPOLyBTSuuVblmf7gG0bUK0cngYjMU5gG5VBAlVVi+B5oXZ/kkPuSIykY1vuKJFZcsT/Qy/tAyGpunp5KugKXzChw+s3NwdlBgVJVpHmyl5oT+/s6k8RSS6c/FKNMHsAZGodm9YGbSWQqGxPAGl1BJahMdM9Nazwiqhcc2Ot6a2rLXdXjYC/2ne7v0A2ols+gP3X1lgCOIrSCF7dqg0mR3AtBN7i8p9/zvhxL2FiHlbmN5vSo8e0ZNaN3XhmCNevE6O8AjAPEbB2X4D9fhBTtOVnQVuzB12PizIDaBwpv06DEKXtT8B458xQZO8FC4tDF1F8D7GDu3DLTrpl8EcD3f7du6Jtoa5wGX2eqiqgRtsrx3juWCSUvpEU3QM4QUtdTVvAgFrUBa0y1RLL6AFytGYomT/4nbz0twj2F0wIrjUAn3+66pPCWmDgf5DXnY+xOj5ZwyKB6TO8mZaqAZHX0HMYgAmGYk7+7vv9C/g6YDPnUFAz1QHuIPlWhvf++pS1lipI3pEJJOtGaxlWl9xV3uu0yy6YyQP8DINJO89hJpn3DFhr15qH+Gi8sYAD2DLT0vM++7JHY0ZDciQ3Cp+vdQxItygzuQhFauY9p2TERwtkCXkN5hmUt7tY8SjneojmpnI6GU7CFwSxdGCYB0cYx3cWRQ==
-X-Forefront-Antispam-Report:
-	CIP:20.93.157.195;CTRY:NL;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:westeu11-emailsignatures-cloud.codetwo.com;PTR:westeu11-emailsignatures-cloud.codetwo.com;CAT:NONE;SFS:(13230040)(82310400026)(376014)(14060799003)(35042699022)(23010399003)(36860700016)(1800799024)(10067099003)(56012099006)(260925021911599003)(260925021311599003)(260925022911599003)(4143699003)(18002099003)(22082099003);DIR:OUT;SFP:1102;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	IZUQgsFVNX0qzcTNoXKo4VgHbZVLOAm+d6YOYWCZSAYKKrkdumrrDDc6gvaV7q5jKqYJ13NDd7v3RO4Ly38fI4wSB9GLmFu9oybv72tKxyRSIrDf6/bj0RGhM86M9Af5gU+5LgrqW8aNBwW7WR1CLu0uneiZTSwxElQLNKOoZLoYMKivoqZEI43KK89jK3tCKCGa1Kq8xNI7YPMB3246ST3vMqhEC4VeS5DThdlFNgXvTMHXhUdDKQ7v8GdmEfcK6dgiCCDfm5D9Wdq4YEmC04HmOco5gs2fTkbO7FlCxHN940xoPbsWyENgiKTiaOz1URTumDmlgEwAg+3Du/FldYt8bUNh5HH2DneQY+gLWVerLg581Vct4UNHHf7yWQh8VOZwIJ8tfOtwPvjb53EoDl3RsZGAJI1BYn3L6qT6fnI1DJ+PGai/9BuBbiK3VdzA
-X-OriginatorOrg: sttls.nl
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Oct 2026 10:12:14.0897
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 45d37626-5542-455d-b061-08df22c9209f
-X-MS-Exchange-CrossTenant-Id: 86583a9a-af49-4f90-b51f-a573c9641d6a
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=86583a9a-af49-4f90-b51f-a573c9641d6a;Ip=[20.93.157.195];Helo=[westeu11-emailsignatures-cloud.codetwo.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	AMS1EPF0000008E.eurprd05.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI0PR05MB690607
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260929085235.469515-4-inochiama@gmail.com>
 
-PiBGcm9tOiBUYXBpbyBSZWlqb25lbiA8dGFwaW8ucmVpam9uZW5AdmFpc2FsYS5jb20+DQo+IFNl
-bnQ6IFN1bmRheSA0IE9jdG9iZXIgMjAyNiAxNDoxNg0KPiANCj4gV2FpdCBpbiBzaHV0ZG93bigp
-IGZvciB0aGUgRklGTyB0byBkcmFpbiwgYm91bmRlZCBieSBvbmUgY2hhcmFjdGVyDQo+IGR1cmF0
-aW9uIHBlciBGSUZPIHdvcmQsIHBsdXMgb25lIG1vcmUgY2hhcmFjdGVyIGZvciB0aGUgYnl0ZSBp
-biB0aGUNCj4gc2hpZnQgcmVnaXN0ZXIsIGJlZm9yZSBwb3dlcmluZyB0aGUgcG9ydCBkb3duLiBU
-aGUgcGVyLWNoYXJhY3Rlcg0KPiBkdXJhdGlvbiBpcyBjb21wdXRlZCBpbiBzZXRfdGVybWlvcygp
-IGZyb20gdGhlIGZyYW1lIHNpemUgYW5kIGJhdWQNCj4gcmF0ZS4NCj4gDQo+IEZpeGVzOiBmNjU0
-NDQxODdhNjYgKCJzZXJpYWw6IE5ldyBzZXJpYWwgZHJpdmVyIE1BWDMxMFgiKQ0KPiBBc3Npc3Rl
-ZC1ieTogQ2xhdWRlOmNsYXVkZS1mYWJsZS01DQo+IFNpZ25lZC1vZmYtYnk6IFRhcGlvIFJlaWpv
-bmVuIDx0YXBpby5yZWlqb25lbkB2YWlzYWxhLmNvbT4NCj4gLS0tDQo+ICBkcml2ZXJzL3R0eS9z
-ZXJpYWwvbWF4MzEweC5jIHwgMjUgKysrKysrKysrKysrKysrKysrKysrKystLQ0KPiAgMSBmaWxl
-IGNoYW5nZWQsIDIzIGluc2VydGlvbnMoKyksIDIgZGVsZXRpb25zKC0pDQo+IA0KPiBkaWZmIC0t
-Z2l0IGEvZHJpdmVycy90dHkvc2VyaWFsL21heDMxMHguYyBiL2RyaXZlcnMvdHR5L3NlcmlhbC9t
-YXgzMTB4LmMNCj4gaW5kZXggMjQ1NmEyYWY4OTFmNTI5NmNmZWM4MzNkNjQwNjkxNjA3M2QyODY1
-Zi4uOWRjYzgxN2I5Nzk0NTM3Mzg1YWE5Y2E3MjZjYjFjYzFiMmFmNmI0YyAxMDA2NDQNCj4gLS0t
-IGEvZHJpdmVycy90dHkvc2VyaWFsL21heDMxMHguYw0KPiArKysgYi9kcml2ZXJzL3R0eS9zZXJp
-YWwvbWF4MzEweC5jDQo+IEBAIC0xMjIzLDYgKzEyMjgsMjIgQEAgc3RhdGljIGludCBtYXgzMTB4
-X3N0YXJ0dXAoc3RydWN0IHVhcnRfcG9ydCAqcG9ydCkNCj4gDQo+ICBzdGF0aWMgdm9pZCBtYXgz
-MTB4X3NodXRkb3duKHN0cnVjdCB1YXJ0X3BvcnQgKnBvcnQpDQo+ICB7DQo+ICsJc3RydWN0IG1h
-eDMxMHhfb25lICpvbmUgPSB0b19tYXgzMTB4X3BvcnQocG9ydCk7DQo+ICsJdW5zaWduZWQgaW50
-IHRyaWVzID0gcG9ydC0+Zmlmb3NpemUgKyAxOw0KPiArDQo+ICsJLyoNCj4gKwkgKiBUaGUgdHR5
-IGxheWVyJ3Mgd2FpdC11bnRpbC1zZW50IGlzIGJvdW5kZWQgYnkgY2xvc2luZ193YWl0LCB3aGlj
-aA0KPiArCSAqIGNhbiBiZSBjb25maWd1cmVkIHRvIG5vbmUsIGFuZCBhIGhhbmd1cCByZWFjaGVz
-IGhlcmUgd2l0aCBubyB3YWl0DQo+ICsJICogYXQgYWxsLCBzbyB0aGUgRklGTyBtYXkgc3RpbGwg
-aG9sZCBhbnl0aGluZyB1cCB0byBpdHMgZnVsbCBzaXplLg0KPiArCSAqIHR4X2VtcHR5KCkgYWxz
-byBvbmx5IHJlZmxlY3RzIHRoZSBjaGlwIFRYIEZJRk8gLSB0aGUgbGFzdCBjaGFyYWN0ZXINCj4g
-KwkgKiBtYXkgc3RpbGwgYmUgaW4gdGhlIHRyYW5zbWl0IHNoaWZ0IHJlZ2lzdGVyLiBMZXQgdGhl
-IEZJRk8gZHJhaW4gYW5kDQo+ICsJICogdGhlIGZpbmFsIGNoYXJhY3RlciBjbG9jayBvdXQgYmVm
-b3JlIHRoZSBwb3J0IGlzIHBvd2VyZWQgZG93biwNCj4gKwkgKiBvdGhlcndpc2UgdGhlIHRyYW5z
-ZmVyIGlzIHRydW5jYXRlZCBvbiB0aGUgd2lyZS4NCj4gKwkgKi8NCj4gKwl3aGlsZSAoIW1heDMx
-MHhfdHhfZW1wdHkocG9ydCkgJiYgdHJpZXMtLSA+IDApDQoNCldvdWxkIGl0IG5vdCBiZSBiZXR0
-ZXIgdG8gcmV0cmlldmUgdGhlIGZpZm8gbGV2ZWwgYW5kIG11bHRpcGx5IHRoYXQgYnkgY2hhcl90
-aW1lX3VzDQp0byB3YWl0IGZpcnN0PyBZZXMsIHRoZSAoTUFYMzEwOSkgZGF0YXNoZWV0IG1lbnRp
-b25zIGl0cyB2YWx1ZSBtYXkgc29tZXRpbWVzIGJlDQppbmFjY3VyYXRlLCBidXQgdGhlIHdvcnN0
-IHRoYXQgY2FuIGhhcHBlbiBpcyB3YWl0aW5nIHRvbyBsb25nLiBBbmQgYWZ0ZXIgdGhhdCB1c2UN
-CnRoaXMgbWF4MzEweF90eF9lbXB0eSgpLg0KDQo+ICsJCWZzbGVlcChvbmUtPmNoYXJfdGltZV91
-cyk7DQo+ICsJZnNsZWVwKG9uZS0+Y2hhcl90aW1lX3VzKTsNCj4gKw0KPiAgCS8qIERpc2FibGUg
-YWxsIGludGVycnVwdHMgKi8NCj4gIAltYXgzMTB4X3BvcnRfd3JpdGUocG9ydCwgTUFYMzEwWF9J
-UlFFTl9SRUcsIDApOw0KDQpLaW5kIHJlZ2FyZHMsDQpNYWFydGVuDQoNCg==
+On 29-09-26, 16:52, Inochi Amaoto wrote:
+> Add several helper functions that allow drivers to get several phy
+> consumers in one operation. If any of the phy cannot be acquired then
+> any phys that were got will be put before returning to the caller.
+
+Do we have many such examples? Phy is not a many resource like
+clock/regulators... Do we really need this. How many in kernel users
+will benefit from this API?
+
+> 
+> This can relieve the driver owners' life who needs to handle many phys,
+> as well as each phy error reporting.
+> 
+> Signed-off-by: Inochi Amaoto <inochiama@gmail.com>
+> ---
+>  drivers/phy/phy-core.c  | 253 ++++++++++++++++++++++++++++++++++++++++
+>  include/linux/phy/phy.h |  55 +++++++++
+>  2 files changed, 308 insertions(+)
+> 
+> diff --git a/drivers/phy/phy-core.c b/drivers/phy/phy-core.c
+> index 8fbaea003b90..5b76c006575b 100644
+> --- a/drivers/phy/phy-core.c
+> +++ b/drivers/phy/phy-core.c
+> @@ -1004,6 +1004,259 @@ struct phy *devm_of_phy_get_by_index(struct device *dev, struct device_node *np,
+>  }
+>  EXPORT_SYMBOL_GPL(devm_of_phy_get_by_index);
+>  
+> +/**
+> + * of_phy_get_count() - Get the number of phys of a device node
+> + * @np: device_node for which to get the phy
+> + *
+> + * Return: the phy count if successful, %0 if no phy handle is found,
+> + * negative error value if error occurs.
+> + */
+> +static int of_phy_get_count(const struct device_node *np)
+> +{
+> +	int count;
+> +
+> +	count = of_count_phandle_with_args(np, "phys", "#phy-cells");
+> +
+> +	if (count == -ENOENT)
+> +		return 0;
+> +
+> +	return count;
+> +}
+> +
+> +/**
+> + * phy_bulk_put() - release a set of PHYs
+> + * @dev: device that acquired the PHYs
+> + * @num_phys: number of entries in the phys array
+> + * @phys: array of struct phy_bulk_data with PHYs set
+> + *
+> + * Releases the PHY references in reverse order and clears the PHY pointer in
+> + * each entry. The caller owns the phys array and is responsible for freeing it
+> + * if necessary.
+> + */
+> +static void phy_bulk_put(struct device *dev, unsigned int num_phys,
+> +			 struct phy_bulk_data *phys)
+> +{
+> +	while (num_phys--) {
+> +		if (!IS_ERR_OR_NULL(phys[num_phys].phy))
+> +			phy_put(dev, phys[num_phys].phy);
+> +		phys[num_phys].phy = NULL;
+> +	}
+> +}
+> +
+> +/**
+> + * of_phy_bulk_put() - release a set of PHYs
+> + * @num_phys: number of entries in the phys array
+> + * @phys: array of struct phy_bulk_data with PHYs set
+> + *
+> + * Releases the PHY references in reverse order and clears the PHY pointer in
+> + * each entry. The caller owns the phys array and is responsible for freeing it
+> + * if necessary.
+> + */
+> +static void of_phy_bulk_put(unsigned int num_phys, struct phy_bulk_data *phys)
+> +{
+> +	while (num_phys--) {
+> +		of_phy_put(phys[num_phys].phy);
+> +		phys[num_phys].phy = NULL;
+> +	}
+> +}
+> +
+> +static int of_phy_bulk_get_by_index(struct device_node *np,
+> +				    unsigned int num_phys,
+> +				    struct phy_bulk_data *phys)
+> +{
+> +	unsigned int i;
+> +	int ret;
+> +
+> +	for (i = 0; i < num_phys; i++) {
+> +		phys[i].id = NULL;
+> +		phys[i].phy = NULL;
+> +	}
+> +
+> +	for (i = 0; i < num_phys; i++) {
+> +		of_property_read_string_index(np, "phy-names", i, &phys[i].id);
+> +
+> +		phys[i].phy = of_phy_get_by_index(np, i);
+> +
+> +		ret = PTR_ERR_OR_ZERO(phys[i].phy);
+> +		if (ret) {
+> +			phys[i].phy = NULL;
+> +			goto err;
+> +		}
+> +	}
+> +
+> +	return 0;
+> +
+> +err:
+> +	of_phy_bulk_put(i, phys);
+> +
+> +	return ret;
+> +}
+> +
+> +/**
+> + * of_phy_bulk_get_all() - obtain all PHYs from a device node
+> + * @np: device node containing the PHY references
+> + * @phys: pointer to store the allocated array of struct phy_bulk_data
+> + *
+> + * Gets every PHY referenced by the phys property in index order. PHY names are
+> + * read from phy-names when present.
+> + *
+> + * Return: the number of PHYs on success, %0 if no PHYs are found, or a
+> + * negative error code otherwise
+> + */
+> +static int of_phy_bulk_get_all(struct device_node *np,
+> +			       struct phy_bulk_data **phys)
+> +{
+> +	struct phy_bulk_data *phy_bulk;
+> +	int num_phys;
+> +	int ret;
+> +
+> +	num_phys = of_phy_get_count(np);
+> +	if (num_phys <= 0)
+> +		return num_phys;
+> +
+> +	phy_bulk = kmalloc_objs(*phy_bulk, num_phys);
+> +	if (!phy_bulk)
+> +		return -ENOMEM;
+> +
+> +	ret = of_phy_bulk_get_by_index(np, num_phys, phy_bulk);
+> +	if (ret) {
+> +		kfree(phy_bulk);
+> +		return ret;
+> +	}
+> +
+> +	*phys = phy_bulk;
+> +
+> +	return num_phys;
+> +}
+> +
+> +/**
+> + * phy_bulk_put_all() - release and free PHYs
+> + * @dev: device that acquired the PHYs
+> + * @num_phys: number of entries in the phys array
+> + * @phys: array of struct phy_bulk_data to release and free
+> + */
+> +static void phy_bulk_put_all(struct device *dev, unsigned int num_phys,
+> +			     struct phy_bulk_data *phys)
+> +{
+> +	if (IS_ERR_OR_NULL(phys))
+> +		return;
+> +
+> +	phy_bulk_put(dev, num_phys, phys);
+> +	kfree(phys);
+> +}
+> +
+> +/**
+> + * phy_bulk_init() - initialize multiple PHYs
+> + * @num_phys: number of entries in the phys array
+> + * @phys: array of struct phy_bulk_data to initialize
+> + *
+> + * Initializes the PHYs in array order. If an initialization fails, all PHYs
+> + * initialized by this call are exited in reverse order.
+> + *
+> + * Return: %0 if successful, a negative error code otherwise
+> + */
+> +int phy_bulk_init(unsigned int num_phys, struct phy_bulk_data *phys)
+> +{
+> +	unsigned int i;
+> +	int ret;
+> +
+> +	for (i = 0; i < num_phys; i++) {
+> +		ret = phy_init(phys[i].phy);
+> +		if (ret)
+> +			goto err;
+> +	}
+> +
+> +	return 0;
+> +
+> +err:
+> +	while (i--)
+> +		phy_exit(phys[i].phy);
+> +
+> +	return ret;
+> +}
+> +EXPORT_SYMBOL_GPL(phy_bulk_init);
+> +
+> +/**
+> + * phy_bulk_exit() - exit multiple PHYs
+> + * @num_phys: number of entries in the phys array
+> + * @phys: array of struct phy_bulk_data to exit
+> + *
+> + * Exits the PHYs in reverse array order. All PHYs are processed even if an
+> + * error occurs.
+> + *
+> + * Return: %0 if successful, the first negative error code otherwise
+> + */
+> +int phy_bulk_exit(unsigned int num_phys, struct phy_bulk_data *phys)
+> +{
+> +	int ret = 0;
+> +	int err;
+> +
+> +	while (num_phys--) {
+> +		err = phy_exit(phys[num_phys].phy);
+> +		if (err && !ret)
+> +			ret = err;
+> +	}
+> +
+> +	return ret;
+> +}
+> +EXPORT_SYMBOL_GPL(phy_bulk_exit);
+> +
+> +/**
+> + * phy_bulk_power_on() - power on multiple PHYs
+> + * @num_phys: number of entries in the phys array
+> + * @phys: array of struct phy_bulk_data to power on
+> + *
+> + * Powers on the PHYs in array order. If a power-on operation fails, all PHYs
+> + * powered on by this call are powered off in reverse order.
+> + *
+> + * Return: %0 if successful, a negative error code otherwise
+> + */
+> +int phy_bulk_power_on(unsigned int num_phys, struct phy_bulk_data *phys)
+> +{
+> +	unsigned int i;
+> +	int ret;
+> +
+> +	for (i = 0; i < num_phys; i++) {
+> +		ret = phy_power_on(phys[i].phy);
+> +		if (ret)
+> +			goto err;
+> +	}
+> +
+> +	return 0;
+> +
+> +err:
+> +	while (i--)
+> +		phy_power_off(phys[i].phy);
+> +
+> +	return ret;
+> +}
+> +EXPORT_SYMBOL_GPL(phy_bulk_power_on);
+> +
+> +/**
+> + * phy_bulk_power_off() - power off multiple PHYs
+> + * @num_phys: number of entries in the phys array
+> + * @phys: array of struct phy_bulk_data to power off
+> + *
+> + * Powers off the PHYs in reverse array order. All PHYs are processed even if
+> + * an error occurs.
+> + *
+> + * Return: %0 if successful, the first negative error code otherwise
+> + */
+> +int phy_bulk_power_off(unsigned int num_phys, struct phy_bulk_data *phys)
+> +{
+> +	int ret = 0;
+> +	int err;
+> +
+> +	while (num_phys--) {
+> +		err = phy_power_off(phys[num_phys].phy);
+> +		if (err && !ret)
+> +			ret = err;
+> +	}
+> +
+> +	return ret;
+> +}
+> +EXPORT_SYMBOL_GPL(phy_bulk_power_off);
+> +
+>  /**
+>   * phy_create() - create a new phy
+>   * @dev: device that is creating the new phy
+> diff --git a/include/linux/phy/phy.h b/include/linux/phy/phy.h
+> index ea47975e288a..77d9d74682b7 100644
+> --- a/include/linux/phy/phy.h
+> +++ b/include/linux/phy/phy.h
+> @@ -81,6 +81,18 @@ union phy_configure_opts {
+>  	struct phy_configure_opts_hdmi		hdmi;
+>  };
+>  
+> +/**
+> + * struct phy_bulk_data - Data used for bulk phy operations.
+> + *
+> + * @id: phy consumer ID
+> + */
+> +struct phy_bulk_data {
+> +	const char	*id;
+> +
+> +	/* private: Internal use */
+> +	struct phy	*phy;
+> +};
+> +
+>  /**
+>   * struct phy_ops - set of function pointers for performing phy operations
+>   * @init: operation to be performed for initializing phy
+> @@ -309,6 +321,12 @@ void devm_of_phy_provider_unregister(struct device *dev,
+>  	struct phy_provider *phy_provider);
+>  int phy_create_lookup(struct phy *phy, const char *con_id, const char *dev_id);
+>  void phy_remove_lookup(struct phy *phy, const char *con_id, const char *dev_id);
+> +
+> +int phy_bulk_init(unsigned int num_phys, struct phy_bulk_data *phys);
+> +int phy_bulk_exit(unsigned int num_phys, struct phy_bulk_data *phys);
+> +int phy_bulk_power_on(unsigned int num_phys, struct phy_bulk_data *phys);
+> +int phy_bulk_power_off(unsigned int num_phys, struct phy_bulk_data *phys);
+> +
+>  #else
+>  static inline int phy_pm_runtime_get(struct phy *phy)
+>  {
+> @@ -493,6 +511,43 @@ static inline struct phy *devm_of_phy_get_by_index(struct device *dev,
+>  	return ERR_PTR(-ENOSYS);
+>  }
+>  
+> +static inline int phy_bulk_check_disabled(unsigned int num_phys,
+> +					  struct phy_bulk_data *phys)
+> +{
+> +	if (!phys)
+> +		return 0;
+> +
+> +	for (unsigned int i = 0; i < num_phys; i++)
+> +		if (phys[i].phy)
+> +			return -EOPNOTSUPP;
+> +
+> +	return 0;
+> +}
+> +
+> +static inline int phy_bulk_init(unsigned int num_phys,
+> +				struct phy_bulk_data *phys)
+> +{
+> +	return phy_bulk_check_disabled(num_phys, phys);
+> +}
+> +
+> +static inline int phy_bulk_exit(unsigned int num_phys,
+> +				struct phy_bulk_data *phys)
+> +{
+> +	return phy_bulk_check_disabled(num_phys, phys);
+> +}
+> +
+> +static inline int phy_bulk_power_on(unsigned int num_phys,
+> +				    struct phy_bulk_data *phys)
+> +{
+> +	return phy_bulk_check_disabled(num_phys, phys);
+> +}
+> +
+> +static inline int phy_bulk_power_off(unsigned int num_phys,
+> +				     struct phy_bulk_data *phys)
+> +{
+> +	return phy_bulk_check_disabled(num_phys, phys);
+> +}
+> +
+>  static inline void of_phy_put(struct phy *phy)
+>  {
+>  }
+> -- 
+> 2.55.0
+
+-- 
+~Vinod
