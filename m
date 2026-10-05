@@ -1,180 +1,106 @@
-Received: from mail-yw1-f170.google.com (mail-yw1-f170.google.com [209.85.128.170])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.11])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C6B0E3093D8
-	for <linux-kernel@vger.kernel.org>; Mon,  5 Oct 2026 18:51:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.170
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AE8EB2F2914;
+	Mon,  5 Oct 2026 18:52:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.11
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791226297; cv=none; b=gFJJhhECV7FT2yWxRvl4+zrPP1cml7NoK44X1uHXv3pzKAyGAufFbh30wUUK6TWgt8H2Za+aWP7wly8TX2O0f2tdcgtsekbWjg5MxXjwdzGqHQ5XoB9obH+kxo7tvQdhuqfqMRLrgWcc+Qyamr0X0btzF/2n4VZ5P0mPqlNWNR4=
+	t=1791226330; cv=none; b=DwrONUUqHD+P9JYJODJR5hJG2Jyh0Hvn4W4ILBBlLLCmCxRjjIi6/G03BnRds0PcZtYKYdCiHDXSi1oINfwdnFv8qFjJ/OEAbHMHfKlrsBtJcWIZX59QdGXpraWpNVZB6mvPdnyu+Jq+UGJhvOL7I9MdIVo1gKaCGA7Vo0Q+24g=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791226297; c=relaxed/simple;
-	bh=afabLY0tEyzNyvF7E/amUEefhxyzemzRLp0nd+BLF78=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=NQzX13GGJVRZmuYuSg305XMZS/l4cZgVTYdNeSJ8TFAUuSDoxUP41uHaAAnQOh6OPplthSxri9FKHGlUUxe8MpoB2WF7PByqrOR/d8dasu6AzooR3w4bqhz6KQEesIS3p5jWQryegboSyHT/tg3WvEExeiINYqqHN+IoA1eDHOc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=dubeyko.com; spf=pass smtp.mailfrom=dubeyko.com; dkim=pass (2048-bit key) header.d=dubeyko-com.20251104.gappssmtp.com header.i=@dubeyko-com.20251104.gappssmtp.com header.b=BPpmITV8; arc=none smtp.client-ip=209.85.128.170
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=dubeyko.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=dubeyko.com
+	s=arc-20240116; t=1791226330; c=relaxed/simple;
+	bh=FH+aeuDp8NdKZ9JBbfqbQJgik5kfQOC/+xAiDlvlp6c=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
+	 MIME-Version:Content-Type; b=KNTVCrFCMNvM8i04x5K1hSRrh1osPw7hNNlercQKx3tW40ZEynX4GRVkGMx8ubniTrPZjGnkGSAWH5EYD/Xlb7q1DPOQAehLGlZbCNgRoATxQlz47opzAzcf7TD0EYkiD7qoluy14Sae6gJGVIGtDJbO5kL28P3vbpU2Vila+ic=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=OoXPAdqh; arc=none smtp.client-ip=192.198.163.11
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=dubeyko-com.20251104.gappssmtp.com header.i=@dubeyko-com.20251104.gappssmtp.com header.b="BPpmITV8"
-Received: by mail-yw1-f170.google.com with SMTP id 00721157ae682-8a08bb1eda2so20511677b3.2
-        for <linux-kernel@vger.kernel.org>; Mon, 05 Oct 2026 11:51:35 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=dubeyko-com.20251104.gappssmtp.com; s=20251104; t=1791226295; x=1791831095; darn=vger.kernel.org;
-        h=mime-version:user-agent:content-transfer-encoding:content-type
-         :autocrypt:references:in-reply-to:date:cc:to:from:subject:message-id
-         :from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=afabLY0tEyzNyvF7E/amUEefhxyzemzRLp0nd+BLF78=;
-        b=BPpmITV830HSNjFjfGXS2zB7QKPE8QAxdtXrcwm705MOgv0FstrE7cu4IcMyzkfLtB
-         ewFfti/NAoSVFjviHegXUC/MDTvgJS8SzsH3no+i3A2Apafy+X3H0WYqK+aHhs+Vd2x6
-         GVZa4RVuXqbXP/Pvgd2oZrYrFwS5S8izEik7KDQeww87GKqqTz1aYQJjvyeKDWsAVyHq
-         36n8kL9lB2VkdDJDj5j8H6JfEWa11NZ09BfiHC+e0j/8mtLC44q75hEC4kGIkt9KBVU8
-         mRGlQpkWi+40Ocb8JgJF9Qbv3WhjSraRu95n+l7Zuk6J/hVFNuxUZb+O+TAjoIjG14dj
-         RWgg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791226295; x=1791831095;
-        h=mime-version:user-agent:content-transfer-encoding:content-type
-         :autocrypt:references:in-reply-to:date:cc:to:from:subject:message-id
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=afabLY0tEyzNyvF7E/amUEefhxyzemzRLp0nd+BLF78=;
-        b=qZLAowxWzymez8xry8zppW9YdizbyjQ7pr7BS+lIBDmSOhqARc+2K6MIDsK1Hyp+l5
-         LGsxhPgRTyvhC9qyc0AGJkQbii/1NXDfK9vw1n3mHYl8v64Dm7ythyxzDVnRKjvchVjb
-         bc5+zJbNCiZUzEB5cvLM8t9e/VQ2h3w/mcEI77cMUokfD7QG1WFs+tA8iu7WFCyk3Wx1
-         8QpjXT0Og9LIJZPDvnxLD5XBPxBFnArDieaap+qhncTVTbEoOe3xwn+kEtUWbHECt0ml
-         TcX1N50es0GYO1kU9SOLq0OPOzlknRn4rSerW/LYf2lG/kkZ28fTx8hkeALf3P8UCmuI
-         8FVA==
-X-Forwarded-Encrypted: i=1; AKwUvBw2FecZOoP5E50PAibpHcNK5nn7uE+A+jT/h3KIM3fgrIShnsEI9kCzxGxZVy+Pv9J5t6KvOfeh5j7HIbg=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIfXK6E1fLEFuTuaApLC1nlURLvZkT/BZbIBeVdDfaJeMmaviKE
-	jFDkLOuG341ADRh6RnME69maMygFZ6i5fgrYITQgp+x6Frxjfsyd+Mwm7RQIGpImXIQ=
-X-Gm-Gg: AYBFou069ThmUKQBxy0c/m+fQUQQz6pl/Y/IImcz9tMJ45wbiOi9EKikqgFh+dnvGEh
-	JZpQq7vFFGJK5t5tTVIacyoBVuQMjP3KkRLUddRjlwpyZ2rbBc+FFh2/9AEYBIl9rPVoVW+ZgAx
-	PJZq0JqTNe3bACJeX/9w1/gn2A7tqq0q/Hn/bt9fX4f6BwLdp7NNdpUshd56j1hkZPC+cpVm91N
-	AXkeDJyemIRkvnCD9xm8HUsgo4g/9WIBKehzI/ShB1tEif8gA6zi4VOAU821rFXVoXyfx8OIOPH
-	5guMHcEBus7pf9RaP+BMNNVsg91G8Z7bqT6uhL2Qlm4dlOaDgwaCGpqBJjay4Mo51E6+ge3u3Op
-	tEo5cve3ktRRlmBXbswwS48wH0GyTtJUZQ5rQZnXFYQA81LUAQgaH6iN8JaXw5dW7LXUvhefU6T
-	vIl8L+CicfFgqs5umWi0ztomObM5qdmUnVJ7h+Q4SBIdwox0Q5JDBfB5752j/emsMULGwbUpxLf
-	otuOpgv6Qh1H6bt3Rz03Ch6/qJ9xrPaTSp6WEq7qyceMHfhJQW0Ez1reIurNLs36aFgPXaQ1hZv
-	8zeKvAxw+S4z4814aDJjHtzmjj/zwJd0MqznUIsb0aI20+UM+YuV6ydEsLZ2Bpzj
-X-Received: by 2002:a05:690c:3:b0:873:5ddf:d861 with SMTP id 00721157ae682-8ae958d401cmr29228537b3.44.1791226294666;
-        Mon, 05 Oct 2026 11:51:34 -0700 (PDT)
-Received: from ?IPv6:2600:1700:6476:1430:3aa0:911f:4e09:b45d? ([2600:1700:6476:1430:3aa0:911f:4e09:b45d])
-        by smtp.gmail.com with ESMTPSA id 00721157ae682-8af20ecce9bsm18488247b3.41.2026.10.05.11.51.33
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 05 Oct 2026 11:51:34 -0700 (PDT)
-Message-ID: <17c099490060e40254ef25dacdad713d5356c2b7.camel@dubeyko.com>
-Subject: Re: [PATCH v3 0/2] hfsplus, hfs: fix B-tree node leak on
- hfs_btree_open() error path
-From: Viacheslav Dubeyko <slava@dubeyko.com>
-To: Mahmut Emin Kurhan <guvenlik@noroxi.com>, linux-fsdevel@vger.kernel.org
-Cc: glaubitz@physik.fu-berlin.de, frank.li@vivo.com, 
-	linux-kernel@vger.kernel.org
-Date: Mon, 05 Oct 2026 11:51:32 -0700
-In-Reply-To: <e03cec7e17be27fde6b51957c61fb6958b9832ad.camel@dubeyko.com>
-References: <0de056179e3e0a7c4ef525cdb143647b7493dc71.camel@dubeyko.com>
-		 <20261001213807.1519745-1-guvenlik@noroxi.com>
-	 <e03cec7e17be27fde6b51957c61fb6958b9832ad.camel@dubeyko.com>
-Autocrypt: addr=slava@dubeyko.com; prefer-encrypt=mutual;
- keydata=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
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.60.1 (by Flathub.org) 
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="OoXPAdqh"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1791226329; x=1822762329;
+  h=from:to:cc:in-reply-to:references:subject:message-id:
+   date:mime-version:content-transfer-encoding;
+  bh=FH+aeuDp8NdKZ9JBbfqbQJgik5kfQOC/+xAiDlvlp6c=;
+  b=OoXPAdqhEkm5C0AwjW/hFnN39DUCaz8AMeXamsOoceZR//7z8jdl3WGW
+   LCI7xJ0qxLA4JbkQCkio5B3xpict+zLl73/hTOM3z1oZEAU+eutkbfoXO
+   TgSF+2WDTSYPTbq9dDuijCJ6O7lzx8U+WD5IFYCUgiVM+Hoe8vI6zBTwz
+   Ssl6UN1/Q+qKCIvMoPR9MTvgAyceQCuRy82NrElvv+0Gl+wmgGOXTma+7
+   UFVFHrR6J+cxAjBVfgXxFMPaL7f2m/LewNiXeB2uRe7m4rdswjnknDRSw
+   n036wdqlNf6F3o5d1htamV62F89bM2BA/9qDEEw/R5h3oWYil/tYjQrG5
+   Q==;
+X-CSE-ConnectionGUID: 2SISAcKkQ5yWzGNnLz/djg==
+X-CSE-MsgGUID: Ip91bIyQTmu4DvEJIuLmiQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11926"; a="102484875"
+X-IronPort-AV: E=Sophos;i="6.27,142,1787036400"; 
+   d="scan'208";a="102484875"
+Received: from fmviesa007.fm.intel.com ([10.60.135.147])
+  by fmvoesa105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 05 Oct 2026 11:52:07 -0700
+X-CSE-ConnectionGUID: LV4/iba/SMycGmnz/sn5+w==
+X-CSE-MsgGUID: r5Lus3iKTlCIWwKoK/0cSQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,142,1787036400"; 
+   d="scan'208";a="276416128"
+Received: from ijarvine-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.199])
+  by fmviesa007-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 05 Oct 2026 11:52:03 -0700
+From: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
+To: Mark Pearson <mpearson-lenovo@squebb.ca>, 
+ "Derek J. Clark" <derekjohn.clark@gmail.com>, 
+ Dmitry Torokhov <dmitry.torokhov@gmail.com>
+Cc: Henrique de Moraes Holschuh <hmh@hmh.eng.br>, 
+ Hans de Goede <hansg@kernel.org>, Nitin Joshi <nitjoshi@gmail.com>, 
+ platform-driver-x86@vger.kernel.org, ibm-acpi-devel@lists.sourceforge.net, 
+ linux-kernel@vger.kernel.org, 
+ =?utf-8?q?Ali_Ahmet_Memi=C5=9F?= <aliamemis@disroot.org>
+In-Reply-To: <20260929-thinkpad-acpi-cleanup-v2-0-88e176953a4b@gmail.com>
+References: <20260929-thinkpad-acpi-cleanup-v2-0-88e176953a4b@gmail.com>
+Subject: Re: [PATCH v2 0/2] platform/x86: thinkpad_acpi: cleanup
+ conversions
+Message-Id: <179122631942.41716.8252463604518187809.b4-ty@b4>
+Date: Mon, 05 Oct 2026 21:51:59 +0300
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.15.2
 
-On Fri, 2026-10-02 at 11:18 -0700, Viacheslav Dubeyko wrote:
-> On Thu, 2026-10-01 at 23:38 +0200, Mahmut Emin Kurhan wrote:
-> > This is v3 of the hfsplus/hfs B-tree node leak fix, rebased onto
-> > the
-> > for-next branch of the HFS/HFS+ tree as requested.
-> >=20
-> > The leak is unchanged: hfs_btree_open() can fail after the head
-> > node
-> > has
-> > been inserted into tree->node_hash, and the error path does a bare
-> > kfree(tree) without freeing the hashed nodes. The fix factors the
-> > node-hash freeing out of hfs_btree_close() into
-> > hfs_bnode_hash_free()
-> > and
-> > calls it from both hfs_btree_close() and the hfs_btree_open() error
-> > path.
-> >=20
-> > Changes since v2:
-> > =C2=A0- rebased on for-next; the extracted helper now wraps the
-> > hash_lock
-> > =C2=A0=C2=A0 serialized close loop introduced by commit dce0e0248205
-> > ("hfs/hfsplus:
-> > =C2=A0=C2=A0 serialize B-tree close against folio release") (Slava Dube=
-yko)
-> > =C2=A0- on the open error path the tree is not published yet, so the
-> > lock
-> > is
-> > =C2=A0=C2=A0 uncontended but kept for consistency
-> > =C2=A0- no functional change to the leak fix itself
-> >=20
-> > v2:
-> > https://lore.kernel.org/linux-fsdevel/20260930232312.1405042-1-guvenlik=
-@noroxi.com
-> >=20
-> > Mahmut Emin Kurhan (2):
-> > =C2=A0 hfsplus: free cached B-tree nodes on hfs_btree_open() error path
-> > =C2=A0 hfs: free cached B-tree nodes on hfs_btree_open() error path
-> >=20
-> > =C2=A0fs/hfs/btree.c=C2=A0=C2=A0=C2=A0=C2=A0 | 40 +++++++++++++++++++++=
-++-----------------
-> > =C2=A0fs/hfsplus/btree.c | 41 +++++++++++++++++++++++------------------
-> > =C2=A02 files changed, 46 insertions(+), 35 deletions(-)
->=20
-> The patchset looks reasonable to me. Let me run xfstests for the
-> patchset. I'll share the results ASAP.
->=20
+On Tue, 29 Sep 2026 21:59:09 -0700, Dmitry Torokhov wrote:
 
-The xfstests HFS+ run hadn't reveal degradation or new issues.
+> This series converts thinkpad_acpi resource management to use helpers
+> from linux/cleanup.h:
+> - Convert conditional mutex lock calls to ACQUIRE() and ACQUIRE_ERR()
+> - Use __free(kfree) for local pointer allocations
+> 
+> Changes in v2:
+> - Dropped patch 1 ("convert mutex_lock() to guard(mutex)") as it was
+>   already applied upstream.
+> - Preserved 0 return value on failure in brightness_get().
+> - Fixed auxmac_init() to avoid setting auxmac to "unavailable" before
+>   evaluating the MACA ACPI method.
+> - Collected Reviewed-by and Tested-by trailers.
+> 
+> [...]
 
-Thanks,
-Slava.
+Thank you for your contribution, it has been applied to my local
+review-ilpo-next branch. Note it will show up in the public
+platform-drivers-x86/review-ilpo-next branch only once I've pushed my
+local branch there, which might take a while.
+
+FYI [if applicable to your patch], as per Linus' policy change, also
+fixes are mostly routed through for-next unless the fix is for a
+commit introduced in the most recent cycle or is clearly a regression
+fix.
+
+The list of commits applied:
+[1/2] platform/x86: thinkpad_acpi: convert conditional mutex locks to ACQUIRE_ERR()
+      commit: 86cab001301c4c65e6763282ca9a477dc1fc4e72
+[2/2] platform/x86: thinkpad_acpi: use __free(kfree) for automatic cleanup
+      commit: 40da5fbf461e4cefa45aa259b0771449597d3135
+
+--
+ i.
+
