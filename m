@@ -1,89 +1,200 @@
-Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com [209.85.128.48])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4278448BD29;
-	Mon,  5 Oct 2026 14:01:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=156.67.10.101
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 32342497B7D
+	for <linux-kernel@vger.kernel.org>; Mon,  5 Oct 2026 14:02:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.48
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791208881; cv=none; b=YJSyEvUDbo5wgxK1tN7KvZ6xqqFDUWTp9JIhE1eogK1pWYJi+v0Oh6XmKAVFjQzyPWw3lqV4zhFm4GcQ5mrs7bsqczicLa9BPeE0kYaP/R3miYDmHGwZbO4mZr/FjNc8Ba8VWFFDggUe2Z1b+4w5acZVoCKt9A7WflCRjKklZEI=
+	t=1791208968; cv=none; b=NQR/B1CLYDeOdAP4Am+AAl7Dvyq7e+cJNKHo85mKckJnDPpNwnXq/DkSTrILq4ZanJRxphMJWkYeCmLLxzvQ0ak48OlFwgsU77b7epraLBqJzeUi7DMH9Bf0pCJkrDu3kw9SXavO1KsCL5kfplyruYqbN85knLbjaSGarTFh88o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791208881; c=relaxed/simple;
-	bh=/s8QF0d1NfFKp+TDTgUFxcVXsHY1mVe6YbVKJ/Y+i5g=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=MgcHBw9s6YfEp9pugFsOLYp7BT/fhdhH5cPjwJU3ZVg5qdDNMm2lSVol0vfjsIvMi2tG+R2/VW+U0Kg5O722PcJZLV1nG6VC7vizMYgsGN5WD4nDbBklZVoLT/EHqk8UbK8HC8B0RSsq/Kt6GHyazbcMZY63Wzbc21eLnob6+c0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch; spf=pass smtp.mailfrom=lunn.ch; dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b=kAWlwXeT; arc=none smtp.client-ip=156.67.10.101
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
+	s=arc-20240116; t=1791208968; c=relaxed/simple;
+	bh=xSpP4cJ4lXmtalES6iPeGHIxhLR61DTDlBLhfPYhxik=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=mb5mVKXzCxa+auGO4wk0TpsE+0adEm/BiohpGiC11MPij7mVNnt56K+i5qhkNMoS6v/UEB6U/D/8zVryVd3lV1I8VJBS3NyhI9lqMI9+Qg918Pv7NjYMiMCymxXLzr8kOHLuW5pjLXpHjlGAC1GRXG9e/Mp+GMQupDogoSYzamA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=thegoodpenguin.co.uk; spf=pass smtp.mailfrom=thegoodpenguin.co.uk; dkim=pass (2048-bit key) header.d=thegoodpenguin-co-uk.20251104.gappssmtp.com header.i=@thegoodpenguin-co-uk.20251104.gappssmtp.com header.b=pXQ/UgGK; arc=none smtp.client-ip=209.85.128.48
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=thegoodpenguin.co.uk
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=thegoodpenguin.co.uk
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b="kAWlwXeT"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
-	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
-	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
-	bh=P3F315K0qJdSKIuuGbIvWLRuMzIRgjrnVfOHocrxmxM=; b=kAWlwXeTR8cMY89ktRtjo8ceZG
-	hvMaxFA/eofXNsAb035de+uQE42jALxXO3R4klt/2LJ6nskNItlnfSp+SajtrzZkZfJhw9wCDPMxJ
-	Z+/6oIRZvndmZ/v0rn/ojk5a3PesPW09uzhE9PCFSm4zTyhfcwK/d1PZ46Su6dz5B00k=;
-Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
-	(envelope-from <andrew@lunn.ch>)
-	id 1xDjFT-0093BG-UM; Mon, 05 Oct 2026 16:00:59 +0200
-Date: Mon, 5 Oct 2026 16:00:59 +0200
-From: Andrew Lunn <andrew@lunn.ch>
-To: Oskari Lemmela <oskari@lemmela.net>
-Cc: Heiner Kallweit <hkallweit1@gmail.com>,
-	Russell King <linux@armlinux.org.uk>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	Damien Dejean <dam.dejean@gmail.com>,
-	Manuel Stocker <mensi@mensi.ch>, netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH net] net: phy: realtek: fix RTL8224 package address
- selection
-Message-ID: <0cda40ae-b468-430c-8de9-10fdde8e2beb@lunn.ch>
-References: <20261004204637.721148-1-oskari@lemmela.net>
+	dkim=pass (2048-bit key) header.d=thegoodpenguin-co-uk.20251104.gappssmtp.com header.i=@thegoodpenguin-co-uk.20251104.gappssmtp.com header.b="pXQ/UgGK"
+Received: by mail-wm1-f48.google.com with SMTP id 5b1f17b1804b1-49d0da752ffso15491525e9.3
+        for <linux-kernel@vger.kernel.org>; Mon, 05 Oct 2026 07:02:45 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=thegoodpenguin-co-uk.20251104.gappssmtp.com; s=20251104; t=1791208964; x=1791813764; darn=vger.kernel.org;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=nbQtirZnYeKfajVchc5hVee9ka7n8Bg+JlW3DdQnaJs=;
+        b=pXQ/UgGKEWnxCQtgSgcJMioAiurE+0vzLAMxphvpp7+xeweReOSF3bn0SYK3byRYvi
+         PiBYUmgzA22w/bTj633wcZYUu+SUltvk4LNDvvUpLx/vsWmWYKOOdezeM+wz6PuRHq29
+         HT8Q5cICBHIO1TBABfoi7kw9QpoT0G9bFDtilagj1rr8Vl8UrEe2lhPYxwjWxEPxoz11
+         bTL4Tq55iQROPU7oK5fXkYyr32oUtEWz0EWgL8UtnWRMH+9X7m6U1u2AekEVYsmFiyjJ
+         HXcwD72MB6XZt0OOy1Nv6RcK/OQawi6tOqt+M/49/zDvDnCIL5E6G4ErYJoZzIsGyIct
+         jFaw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791208964; x=1791813764;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=nbQtirZnYeKfajVchc5hVee9ka7n8Bg+JlW3DdQnaJs=;
+        b=039vjsmLytuVNz22OC6QdaAlyrwEDkUXYugc8cUEZcyxDFBL4U/DCdAvVVvf+lD2u1
+         vHVVmBol1LBdV5DROiVOMo1NK8kTJI2S8pOjBcFw9FWRzf41uASa1gwFb8ARr6jJl799
+         Ye3nvan71KHw7pbFrJVb8+SZE3slR0Q52d9HDzhSY+F3Lxa4W2W9z/j9s2qnH7rpBti/
+         +rzO5XeHhYBE7Ns73yEGhOBZSxwS2ieDnBbbp9k80munJwZFKxIIOFg90gfK8kx1Pj2h
+         YWVSoGvIui6eXeIn55F5PlCJht1cXcEeAMERF23JrbV5Tm76teF5sSWZTuMwloq5tYv6
+         Ifkg==
+X-Forwarded-Encrypted: i=1; AKwUvBwc/B9dsSMJMaKgW77JnYbvfS7u1e84Yox3NaSN77fmAfUn1K2DtULBP7DxISpjCfohvMTq0PvaeIvrQCU=@vger.kernel.org
+X-Gm-Message-State: AFuF++kFctaTafMUa8lmCwj/iq0YQ9EkuwNoLGTYgJEmteiKxYiDxUqU
+	8rhHA04zeprWvt0jt+mN6jhVhCTU4cE8d4YtjfpDTkITF9U/Z/C6NMCWuA+5rQsV6cGF3bnEInY
+	69jMTAg8Q7w==
+X-Gm-Gg: AYBFou1+L7blAUzIEnP33Lo2lQk1x5vmcOeR1IVS/SGq/1vpRCRYaKxDZTAA0KW2qz5
+	WLswV7qNOlkTfUJvmpA04gs867cfMNYjfLHERGW767+T0xYUdfiBqk5YeP6VatoIAioflVclPUU
+	pUk51Wx8EVipQ4I7q6mqVlvZED8AGWEyqKOSSznm8JmGG1cFWkexrwvATt7R1GAQbvBj4SrYafL
+	JXhQWFyaJIqMS2BfUotNMjyEE+aAN3LlHkBnzbCJ+hjEM56BcLgoGPby3elsHzhkQH1Ji/7mSRi
+	2CCaflaGPezoPsmEj+ggjLfdoS8Cxn1k2e5QnO6V20nUzd9x8twaOqhm3oRS3AFhwIT7VAzyDFB
+	UPpscz+kcq6zP222HbItfvEiwT0b7WMGf6/vaUH8GHUh6dsvocm5By3PjMC3vm9N2UvURw0xPc1
+	3gPGBDIPBZLUM2MXiZ1aEPi6WTrbxd+iSlelm5JoB2jVWce5NO6JM0/UZRhTGT4NuR7DdOutL4a
+	zS4z4OQ8+AVxw==
+X-Received: by 2002:a05:600c:630a:b0:4a1:6425:be69 with SMTP id 5b1f17b1804b1-4a1680e5fb5mr134722385e9.17.1791208963644;
+        Mon, 05 Oct 2026 07:02:43 -0700 (PDT)
+Received: from [10.42.0.1] ([2a00:23c7:1d1a:9c01:9c1b:24c4:d43:125f])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a162e867e8sm324052715e9.15.2026.10.05.07.02.41
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 05 Oct 2026 07:02:43 -0700 (PDT)
+From: Pawel Zalewski <pzalewski@thegoodpenguin.co.uk>
+Date: Mon, 05 Oct 2026 15:01:58 +0100
+Subject: [PATCH 02/12] iio: adc: use named initializers for acpi_device_id
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261004204637.721148-1-oskari@lemmela.net>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261005-acpi-iio-v1-2-2796f713945a@thegoodpenguin.co.uk>
+References: <20261005-acpi-iio-v1-0-2796f713945a@thegoodpenguin.co.uk>
+In-Reply-To: <20261005-acpi-iio-v1-0-2796f713945a@thegoodpenguin.co.uk>
+To: =?utf-8?q?Nuno_S=C3=A1?= <nuno.sa@analog.com>, 
+ Michael Hennerich <Michael.Hennerich@analog.com>, 
+ Jonathan Cameron <jic23@kernel.org>, David Lechner <dlechner@baylibre.com>, 
+ Andy Shevchenko <andy@kernel.org>, 
+ Petre Rodan <petre.rodan@subdimension.ro>, 
+ Matteo Martelli <matteomartelli3@gmail.com>, 
+ Marius Cristea <marius.cristea@microchip.com>, 
+ Matti Vaittinen <mazziesaccount@gmail.com>, 
+ Lorenzo Bianconi <lorenzo@kernel.org>, 
+ Alex Lanzano <lanzano.alex@gmail.com>, 
+ Jagath Jog J <jagathjog1996@gmail.com>, 
+ Jean-Baptiste Maneyrol <jean-baptiste.maneyrol@tdk.com>, 
+ Kevin Tsai <ktsai@capellamicro.com>, Eddie James <eajames@linux.ibm.com>, 
+ Marcelo Schmitt <marcelo.schmitt@analog.com>
+Cc: linux@analog.com, linux-iio@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, 
+ Pawel Zalewski <pzalewski@thegoodpenguin.co.uk>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1791208959; l=3830;
+ i=pzalewski@thegoodpenguin.co.uk; s=20260430; h=from:subject:message-id;
+ bh=xSpP4cJ4lXmtalES6iPeGHIxhLR61DTDlBLhfPYhxik=;
+ b=l0+n2mxE225t+KjSEH8GprFBywSDtn+pK2JWX8G5FRpYBW9hCGwBDiiR5gHNpU/NvskpLcwXD
+ HitLcKb2QVICPahMQzGG4E9nngiMuqrhV0viB5+ZGCOerb9l79F/wY+
+X-Developer-Key: i=pzalewski@thegoodpenguin.co.uk; a=ed25519;
+ pk=vHq4n9IonORH2GTzLv8r6CWAFHzgfBuNkQPXA8NSly0=
 
-On Sun, Oct 04, 2026 at 11:46:36PM +0300, Oskari Lemmela wrote:
-> From: Manuel Stocker <mensi@mensi.ch>
-> 
-> The RTL8224 driver rounds each PHY address down to a multiple of four
-> to select the package base and uses the low two address bits as the
-> port index. For a package starting at an unaligned MDIO address, this
-> accesses shared registers at the wrong address and selects incorrect
-> MDI pair order and polarity fields.
-> 
-> The Hasivo S1100WP-8GT-2S+ uses two RTL8224 packages at MDIO
-> addresses 1-4 and 5-8. The aligned-address assumption splits each
-> physical package into incorrect software groups rather than using
-> the actual package bases of 1 and 5.
-> 
-> Use the base address from an ethernet-phy-package node when present
-> and calculate each port's offset relative to that address. Reject
-> PHY addresses outside the four-port package and propagate explicit
-> package errors instead of falling back to another base address.
-> 
-> Keep the existing aligned-address assumption when no package node
-> is present.
-> 
-> Fixes: 330296ea9e15 ("net: phy: realtek: add RTL8224 pair order support")
+Use a designated initializer for the acpi_device_id fields which makes the
+code more readable and consistent with how lists are initialized in the
+rest of the kernel code base. Also drop explicitly setting fields to 0
+where it is redundant.
 
-I suggest this gets merged to net-next. It never worked, so it is not
-a regression. This patch just extends the current implementation to be
-more generic.
-
-And now you are looking at DT properties, you need a DT binding
-document.
-
-    Andrew
-
+Signed-off-by: Pawel Zalewski <pzalewski@thegoodpenguin.co.uk>
 ---
-pw-bot: cr
+ drivers/iio/adc/ad7298.c        | 2 +-
+ drivers/iio/adc/pac1921.c       | 2 +-
+ drivers/iio/adc/pac1934.c       | 2 +-
+ drivers/iio/adc/ti-adc081c.c    | 2 +-
+ drivers/iio/adc/ti-adc108s102.c | 2 +-
+ drivers/iio/adc/ti-adc128s052.c | 2 +-
+ 6 files changed, 6 insertions(+), 6 deletions(-)
+
+diff --git a/drivers/iio/adc/ad7298.c b/drivers/iio/adc/ad7298.c
+index c669022b5dec..66b8ca4e3132 100644
+--- a/drivers/iio/adc/ad7298.c
++++ b/drivers/iio/adc/ad7298.c
+@@ -347,7 +347,7 @@ static int ad7298_probe(struct spi_device *spi)
+ }
+ 
+ static const struct acpi_device_id ad7298_acpi_ids[] = {
+-	{ "INT3494", 0 },
++	{ .id = "INT3494" },
+ 	{ }
+ };
+ MODULE_DEVICE_TABLE(acpi, ad7298_acpi_ids);
+diff --git a/drivers/iio/adc/pac1921.c b/drivers/iio/adc/pac1921.c
+index f0bab94462f4..730416ba147b 100644
+--- a/drivers/iio/adc/pac1921.c
++++ b/drivers/iio/adc/pac1921.c
+@@ -1322,7 +1322,7 @@ static const struct of_device_id pac1921_of_match[] = {
+ MODULE_DEVICE_TABLE(of, pac1921_of_match);
+ 
+ static const struct acpi_device_id pac1921_acpi_match[] = {
+-	{ "MCHP1921" },
++	{ .id = "MCHP1921" },
+ 	{ }
+ };
+ MODULE_DEVICE_TABLE(acpi, pac1921_acpi_match);
+diff --git a/drivers/iio/adc/pac1934.c b/drivers/iio/adc/pac1934.c
+index de59dc27c440..7e18a8728bd8 100644
+--- a/drivers/iio/adc/pac1934.c
++++ b/drivers/iio/adc/pac1934.c
+@@ -1612,7 +1612,7 @@ MODULE_DEVICE_TABLE(of, pac1934_of_match);
+  * https://ww1.microchip.com/downloads/aemDocuments/documents/OTH/ApplicationNotes/ApplicationNotes/PAC1934-Integration-Notes-for-Microsoft-Windows-10-and-Windows-11-Driver-Support-DS00002534.pdf
+  */
+ static const struct acpi_device_id pac1934_acpi_match[] = {
+-	{ "MCHP1930", .driver_data = (kernel_ulong_t)&pac1934_chip_config[PAC1934] },
++	{ .id = "MCHP1930", .driver_data = (kernel_ulong_t)&pac1934_chip_config[PAC1934] },
+ 	{ }
+ };
+ MODULE_DEVICE_TABLE(acpi, pac1934_acpi_match);
+diff --git a/drivers/iio/adc/ti-adc081c.c b/drivers/iio/adc/ti-adc081c.c
+index 2df8f1c21c2a..d222c5637a71 100644
+--- a/drivers/iio/adc/ti-adc081c.c
++++ b/drivers/iio/adc/ti-adc081c.c
+@@ -205,7 +205,7 @@ MODULE_DEVICE_TABLE(i2c, adc081c_id);
+ 
+ static const struct acpi_device_id adc081c_acpi_match[] = {
+ 	/* Used on some AAEON boards */
+-	{ "ADC081C", (kernel_ulong_t)&adc081c_model },
++	{ .id = "ADC081C", .driver_data = (kernel_ulong_t)&adc081c_model },
+ 	{ }
+ };
+ MODULE_DEVICE_TABLE(acpi, adc081c_acpi_match);
+diff --git a/drivers/iio/adc/ti-adc108s102.c b/drivers/iio/adc/ti-adc108s102.c
+index 10959e835cb8..316d2eb16991 100644
+--- a/drivers/iio/adc/ti-adc108s102.c
++++ b/drivers/iio/adc/ti-adc108s102.c
+@@ -270,7 +270,7 @@ static const struct of_device_id adc108s102_of_match[] = {
+ MODULE_DEVICE_TABLE(of, adc108s102_of_match);
+ 
+ static const struct acpi_device_id adc108s102_acpi_ids[] = {
+-	{ "INT3495", 0 },
++	{ .id = "INT3495" },
+ 	{ }
+ };
+ MODULE_DEVICE_TABLE(acpi, adc108s102_acpi_ids);
+diff --git a/drivers/iio/adc/ti-adc128s052.c b/drivers/iio/adc/ti-adc128s052.c
+index 1899813c1aee..381e2121a2b7 100644
+--- a/drivers/iio/adc/ti-adc128s052.c
++++ b/drivers/iio/adc/ti-adc128s052.c
+@@ -264,7 +264,7 @@ static const struct spi_device_id adc128_id[] = {
+ MODULE_DEVICE_TABLE(spi, adc128_id);
+ 
+ static const struct acpi_device_id adc128_acpi_match[] = {
+-	{ "AANT1280", (kernel_ulong_t)&adc124s_config },
++	{ .id = "AANT1280", .driver_data = (kernel_ulong_t)&adc124s_config },
+ 	{ }
+ };
+ MODULE_DEVICE_TABLE(acpi, adc128_acpi_match);
+
+-- 
+2.53.0
+
