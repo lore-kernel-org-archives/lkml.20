@@ -1,115 +1,68 @@
-Received: from mail.alien8.de (mail.alien8.de [65.109.113.108])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 56BA148A8C7;
-	Mon,  5 Oct 2026 14:54:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=65.109.113.108
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 107EC49B21D;
+	Mon,  5 Oct 2026 14:54:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791212043; cv=none; b=iSQ7VPoWqXQ57mZWeyeGv3eTYCdck8YG6T7ztiejbus70oK8p/U+up2Y0yxK+SyYQVZabE7C8tfz9dfN0sun61h6obGlZEyqSNe7mhDlfNLFAdRQVNp47aY0zq0ON1vQLBSlsI1wrIECFORuXMCMaACXUDtMcWz1gVlv2nHCj4Q=
+	t=1791212061; cv=none; b=evuDJ0w+MinmDCFFPoR+l+DOL3QwTvQEfUH/yPHq0PIL73AC40nbnbMIdBmr7NG0+ohmecnJltsQu9veDQ8SXNOs0R7yY/KtKQt8ZNRwNY+IzYjYtzbVzybNvAfkSTSFC0SK3V5p9FG5EDpzDULgMYcIjA480/tulo7xG52bFrA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791212043; c=relaxed/simple;
-	bh=mrBfKHy447twU3aeETfr87DO2x0IENzbr8uuCGlRLF8=;
+	s=arc-20240116; t=1791212061; c=relaxed/simple;
+	bh=nRmkUAiJquGXyaBqXrGxDvzrTNdrXzehZynjjgY6Arc=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=pN5f4XW5aH8NlTxFr6zi4qgrgWf0PJvNB5sQvzGml0EZTSJY5dP6QEMyS9MaGb15jPZCbfEaKwffx8LL4FbkerYPpZb/xAD+U9f5072Le3n0Ny74j7KLDfi7nLlTjUou/s7/X6wy01EoiYUfOxBAVXBiN0L3ieTNthiFUbb3Q78=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alien8.de; spf=pass smtp.mailfrom=alien8.de; dkim=pass (4096-bit key) header.d=alien8.de header.i=@alien8.de header.b=Be1sCz+n; arc=none smtp.client-ip=65.109.113.108
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alien8.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=alien8.de
+	 Content-Type:Content-Disposition:In-Reply-To; b=NTowBziW/BSx97k4r5oShXqbF9qBoyFQ+2jjAwyFQeTwwVLoyS39S3gjqjYOLA0j26kjl8pGdR1+gkeIT1pi0EFXu8qL8xg5m3Cpcafa/Svtja0wA79Syc6n+LynstkCTAnhhuZWN/dZab8OywDSYMCWsZudjYxNnP9JcGgygzY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XwCkGRTZ; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (4096-bit key) header.d=alien8.de header.i=@alien8.de header.b="Be1sCz+n"
-Received: from localhost (localhost.localdomain [127.0.0.1])
-	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTP id B517840E0486;
-	Mon,  5 Oct 2026 14:53:56 +0000 (UTC)
-X-Virus-Scanned: Debian amavisd-new at mail.alien8.de
-Authentication-Results: mail.alien8.de (amavisd-new); dkim=pass (4096-bit key)
-	header.d=alien8.de
-Received: from mail.alien8.de ([127.0.0.1])
-	by localhost (mail.alien8.de [127.0.0.1]) (amavisd-new, port 10026)
-	with ESMTP id GxC8E64juKXb; Mon,  5 Oct 2026 14:53:47 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=alien8.de; s=alien8;
-	t=1791212026; bh=QCTRJrRSMliG1y0HI1fW1TaWT0OQqIRjC93mDJT/OgM=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=Be1sCz+n5/PAMGPvHEB0svqS2EoG27rxXqpG4h78erSha+p+OCiqwepOJAPQPAu4g
-	 GUbUIy8uSvkXqVm3yCBFxq6xHimi/UGXuKb2wxNwYzW68ygz2vKjTJMcWpBsSySto+
-	 LoMRSKwM2dbGKMvzncFVNTxfVdSeDqzN13ZsOqamzfuyHloJxlaHfoYrPr9u7eu/rw
-	 y57EQq151grDPU/ZYMAd2tdLVJL2f1cTC5nwi4IS6etBo+5fdmNH0FGJVy2GwNWJpk
-	 spwPYvDmqj/YWQe7Yl673TlJ5WH8yMFEt/ISMbWtoc6oBuMITsn9S86xO3WlYiwbp3
-	 Q3r6zp0lwujc9TDSvjjTISJFAlRCKLNkSRb9N95Fjsn6Qe3mf/Xv7//VrkWWTsJRIo
-	 sGjrJxRb1GPIEXv9bbsg5cEr2cW7M/SiKwR5kZTB9Spa2l8jQXtwezQd4G/dlSM7pt
-	 UU4MKj+17mmykJf4BbgnpZcwDRJafjPzbWZgFnLcmMLXDb9eSMBPUEHxIbZwGE4GwQ
-	 GItF+o3akWdEuxVgoQNR7Z1Mbnj5fyH4SPsgvPJOyKFAXCsNOyUDrw+HjUD1Ccglvd
-	 hhqJUNYZiByb3jO2Y13o/ZUkSMUAP7bBtwGni5IAdnDvp3FlIbPe26/lgNln1VJGoy
-	 dssko10C2ca+xKh2FY3yV1ug=
-Received: from stx.tnic (unknown [IPv6:2600:1700:38ca:c00::3a])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (P-256) server-signature ECDSA (P-256) server-digest SHA256)
-	(No client certificate requested)
-	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTPSA id ECE5940E02A8;
-	Mon,  5 Oct 2026 14:53:18 +0000 (UTC)
-Date: Mon, 5 Oct 2026 07:53:15 -0700
-From: Borislav Petkov <bp@alien8.de>
-To: Lance Yang <lance.yang@linux.dev>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
-	Pedro Falcato <pfalcato@suse.de>, dave.hansen@linux.intel.com,
-	luto@kernel.org, peterz@infradead.org, tglx@kernel.org,
-	mingo@redhat.com, x86@kernel.org, hpa@zytor.com, riel@surriel.com,
-	linux-kernel@vger.kernel.org, qi.zheng@linux.dev,
-	nadav.amit@gmail.com, thomas.lendacky@amd.com, kernel-team@meta.com,
-	linux-mm@kvack.org, akpm@linux-foundation.org,
-	brendan.jackman@linux.dev, jannh@google.com, mhklinux@outlook.com,
-	Manali.Shukla@amd.com, mingo@kernel.org, stable@vger.kernel.org,
-	toshi.kani@hpe.com, david@kernel.org, mikhail.v.gavrilov@gmail.com
-Subject: Re: [PATCH 1/1] x86/mm: fix incomplete page-table invalidation with
- TCE
-Message-ID: <20261005145315.GCasO523MWyIIx2ngl@fat_crate.local>
-References: <20261005052302.43042-1-lance.yang@linux.dev>
- <asM7b8ECO34-jiwi@pedro-suse.tail5790ac.ts.net>
- <60d5db86-8002-4d87-b8d3-c161d674122b@linux.dev>
- <ab077b6a-160f-41a2-a167-813f0560e30d@citrix.com>
- <38541ec6-d796-4f35-a700-75ab097b6df5@linux.dev>
- <7ad90e94-d04d-453a-ba22-9640a5024d8c@citrix.com>
- <6801221a-6307-407a-85fc-46906f95d22e@linux.dev>
- <20261005142216.GAasOymJHYnmn6wD5m@fat_crate.local>
- <de41b083-6368-429e-9928-90aa5440f750@linux.dev>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XwCkGRTZ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0511E1F000FF;
+	Mon,  5 Oct 2026 14:54:16 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791212057;
+	bh=ml0bJq37gNah4nriSIxxfE2gWQxnHe7Kbi/7fwa6U18=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=XwCkGRTZwYx8gWHVO+Ok74pAsXqNKrj6FS3afHzOl/T2sRkgvtAarRk6ZWUjssgrr
+	 K6i8BGaNfkR5N0Nk+wLHFINwNTX9eK6fJ1TRzbcbHv0k6dNoXMiA8Mnvmvx27Brhg5
+	 Fdn4prvDFENiIcbudg6P4vGFtDwABfg/G0fJU1Y65MnYc8gtq31cORQ6qS50wxjCNc
+	 MFKnMatrZLpE54I9jyUBOZf6F77eVNW2mlLLq50SF9fz+EvkjyDaZjAfC/8h6ivfhS
+	 tV76cxqlzCDqvV4SWoAOi0L63STALFuuf28IKBKlr9Eg1LH6PY+QILvO6ZT2eJ+xPQ
+	 XB37MyRpg/qAQ==
+Date: Mon, 5 Oct 2026 16:54:14 +0200
+From: Frederic Weisbecker <frederic@kernel.org>
+To: Kunwu Chan <kunwu.chan@gmail.com>
+Cc: arnd@arndb.de, anna-maria@linutronix.de, mingo@kernel.org,
+	tglx@kernel.org, linux-arch@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 2/2] timers/nohz: Mark got_idle_tick accesses as
+ same-CPU races
+Message-ID: <asO6FntKFaxnTYX2@localhost.localdomain>
+References: <20261002151757.3605081-1-kunwu.chan@gmail.com>
+ <20261002151757.3605081-3-kunwu.chan@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset=iso-8859-1
 Content-Disposition: inline
-In-Reply-To: <de41b083-6368-429e-9928-90aa5440f750@linux.dev>
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20261002151757.3605081-3-kunwu.chan@gmail.com>
 
-On Mon, Oct 05, 2026 at 10:36:26PM +0800, Lance Yang wrote:
-> I don't have an AMD machine to test this on. I spotted something
-> that looked wrong in the code and sent it out to see what others
-> think.
+Le Fri, Oct 02, 2026 at 11:17:56PM +0800, Kunwu Chan a écrit :
+> got_idle_tick is a per-CPU flag set by the tick interrupt handler in
+> tick_sched_do_timer() and read and cleared by the idle path in
+> tick_nohz_idle_got_tick().  The flag is intentionally accessed without
+> ordering or locking; a concurrent set can be overwritten by the clear.
+> 
+> Use WRITE_ONCE_THIS_CPU() and READ_ONCE_THIS_CPU() to identify these
+> as intentional races between execution contexts on the same CPU,
+> rather than accesses that may race across CPUs.
+> 
+> Suggested-by: Thomas Gleixner <tglx@kernel.org>
+> Signed-off-by: Kunwu Chan <kunwu.chan@gmail.com>
 
-You send a normal mail - not a patch.
- 
-> Maybe I'm reading the manual wrong, but is raising a concern
-> based on the code and the manual really just "a wild hunch"?
-
-If it is formulated like a patch which is supposed to be even urgent, then
-you're reading our process wrong.
-
-https://docs.kernel.org/process/development-process.html
-
-And since you have not tested it to actually fix anything, then this patch is
-nothing but a wild hunch.
-
-And to answer your question, no, it is not needed. Definitely not the TCE
-angle.
-
-Now, the speculative thing is another story but that whole story you're
-referring to needs a lot more debugging.
-
-But we do not apply patches on a wild hunch, without any definitive data that
-they fix an issue and, if very much possible, with a clear explanation why
-they fix it.
+Reviewed-by: Frederic Weisbecker <frederic@kernel.org>
 
 -- 
-Regards/Gruss,
-    Boris.
-
-https://people.kernel.org/tglx/notes-about-netiquette
+Frederic Weisbecker
+SUSE Labs
