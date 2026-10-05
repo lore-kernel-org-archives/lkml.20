@@ -1,223 +1,127 @@
-Received: from BYAPR05CU005.outbound.protection.outlook.com (mail-westusazon11010061.outbound.protection.outlook.com [52.101.85.61])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pz2-f42.google.com (mail-pz2-f42.google.com [74.125.228.42])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 50E354C9E1A;
-	Mon,  5 Oct 2026 16:16:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.85.61
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791216975; cv=fail; b=SRJS2sEYLVed/SayU2hq1Ao23ewOCDSknJRa6ydfSPsNyKKK+SP/GRrr3fgPpfFtjnV7EVXhtoj5kzd4208+J/0HSXQLNhfCHZ6NbWNTOwUbxz69hzjyMDGxWytQEfmrgpQgZZhAxHR/uLTzHUra6wMMRuGWph/PvUhL7gyqiPo=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791216975; c=relaxed/simple;
-	bh=DFm2TppdLfJlu1cUdUdxJLjKcJ2HJiFT6DDwxAb3YyU=;
-	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=J3ILy+c6aOTQEJ/B9DZIk5Y2qz0sjxIe46b/YCFJdGzc9Sl412HTiPl6YhArf8XGlki1jNSWd10ixPOeUpTRJoc2A2ZBElV/YxPa71TH3FGqPyeoQcpOXnfybJ3OkNje/HEm4sjRQXIUZXX53+tMwUIX6eDVJDg/5VmmQodRn2g=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=NsCNipXD; arc=fail smtp.client-ip=52.101.85.61
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AF33F1FA859
+	for <linux-kernel@vger.kernel.org>; Mon,  5 Oct 2026 16:16:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.42
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791216977; cv=none; b=fbgQqRHEk1DZQSYDVtmiTnwR8ihMNrLwhexJpQNp8UE1ecxvyV9nMyOgwetaHRTEBu8ScaQJyKxBOrxr3CfgppiUACk0VR3gOmxMCKdp4gGXc3996JruMPkhVq+pby+cWhZKONkGTJc4ZT36UbnAXUYfD3NYwuEktVsveC+6cJU=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791216977; c=relaxed/simple;
+	bh=rh5d2cNKBXKMwPxK3EfMFKvJ8TMXw53ExafPjYEUPHg=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=cmSQ1eG7suQ7IcrMLnUHJewxAQSdAtPytk8rl0qmxPuTCQS1yzsd/T2xnEP+EHsFxmB03vuIe11w3HCsb5lJ6ZpwFhoOodqW0kTHCR78DKGryJ626fbMQtoY7MXU0zciD+k0O/4ghX0FIw0qR9kKLhCwAlYmoIw3FbLy3K/3ebA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=snu.ac.kr; spf=pass smtp.mailfrom=snu.ac.kr; dkim=pass (1024-bit key) header.d=snu.ac.kr header.i=@snu.ac.kr header.b=YiYM/PJc; arc=none smtp.client-ip=74.125.228.42
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=snu.ac.kr
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=snu.ac.kr
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="NsCNipXD"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=hJOcIw/cCEFaBABwSYY/kz8NURj3cRyaMLQY1L1tXGJj81Y5uKYIwpZngm6aGZ5iVtfJmU33MejkkhUS94HHGTbQG/IRZxCcgeDZV+YWgncWSSb0wDV6q/kmbj9a2cDKX8dD4HQR9+3YvjaOg/WFrmR4yu1EIcnv2tmZSsFzrHCS8NEhMu6YP6qJgQNKArz7vxUP+wP7wCyqZkvanYQCQhyOjcBCmfbRzKLTsGgu2zx55iYMH/j/dlOtGOkaG2uh/wUVeAbOsGYudBozvfU24VzDwAQj3ovtv8zaFGKAllzJ9IXv0FmWPDtI5HJgiox87L3JnV+bgTciWVOzjjU/jg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=pKUfNGul75L2lG1fF0qVELBxjx0XUz8Lu98o7ig/5dE=;
- b=UuLfXBXmulHbTCAtZAg/8PxB5L7xge7EnGiGkqYF2sRaF9PPi6kELLotGl/yylEsYJeDy3nQK6dP+B0ZTJ4FPNkUjD3e+DryczQThht3dDdp142reRoitEFiI0zBunG7tT1pz/hjvgrdTVgReGtnoJPfsI4Xou2PQdcgwdRTT2Xjc52VX3zDcigHCpT1eOPddXiGbPUHkT0fhGNYzlKkmSi8Nt2X2Zhmm+wIOKBqPWT97B5vdbi+O2YRArARX1XBfD9CEOj5tNSGS83iN1rwsvTPRSva4exdy6qP3nNTNFzFKBZ85fYhcWxCsK4mKdOpVNittzggWs32P2D+B4ADsw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=kernel.org smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=pKUfNGul75L2lG1fF0qVELBxjx0XUz8Lu98o7ig/5dE=;
- b=NsCNipXDuJCDW9jAoqxtTbiK/OIei7/OLMM6akKWfiL1afFjEW302d82xHAib3MDMHd+E6JTlXEDIN/FbWHMoUMpjbE5OjKNvdIxyAIrcCSAcq1WTArYOnTZVkiXqYwQMmezqZ1AavqmkFREy7peCZmQoqIv2xiPj2Fx21UBXBY=
-Received: from BN9PR03CA0491.namprd03.prod.outlook.com (2603:10b6:408:130::16)
- by PH8PR12MB7279.namprd12.prod.outlook.com (2603:10b6:510:221::10) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.472.20; Mon, 5 Oct
- 2026 16:15:52 +0000
-Received: from BN2PEPF00004FBE.namprd04.prod.outlook.com
- (2603:10b6:408:130:cafe::a9) by BN9PR03CA0491.outlook.office365.com
- (2603:10b6:408:130::16) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.472.20 via Frontend Transport; Mon, 5
- Oct 2026 16:15:47 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 165.204.84.17) smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- BN2PEPF00004FBE.mail.protection.outlook.com (10.167.243.184) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.472.14 via Frontend Transport; Mon, 5 Oct 2026 16:15:47 +0000
-Received: from speedway8455host.amd.com (10.180.168.240) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Mon, 5 Oct
- 2026 11:15:46 -0500
-From: "Pratik R. Sampat" <prsampat@amd.com>
-To: <mcgrof@kernel.org>, <russ.weight@linux.dev>, <dakr@kernel.org>,
-	<ashish.kalra@amd.com>, <thomas.lendacky@amd.com>,
-	<herbert@gondor.apana.org.au>, <davem@davemloft.net>
-CC: <linux-crypto@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
-	<gregkh@linuxfoundation.org>, <rafael@kernel.org>, <chao.gao@intel.com>,
-	<aik@amd.com>, <tycho@kernel.org>, <nikunj@amd.com>, <michael.roth@amd.com>,
-	<shansinha@google.com>, <prsampat@amd.com>
-Subject: [Patch v3 0/7] Implement SNP live firmware update support
-Date: Mon, 5 Oct 2026 16:15:34 +0000
-Message-ID: <cover.1791212077.git.prsampat@amd.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (1024-bit key) header.d=snu.ac.kr header.i=@snu.ac.kr header.b="YiYM/PJc"
+Received: by mail-pz2-f42.google.com with SMTP id 41be03b00d2f7-cc797656e44so700951a12.2
+        for <linux-kernel@vger.kernel.org>; Mon, 05 Oct 2026 09:16:13 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=snu.ac.kr; s=google; t=1791216973; x=1791821773; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=HZQZn6DIMQDQCLXf+RSqa5fylG7dJYyOrH4B8TI6hz0=;
+        b=YiYM/PJcenPgfbZ/n3Jm3OB9HIB8j4drOB7+froS+kXYkwgEb0VGBa1MaVHSGx5Rhh
+         X79DaJH0fer373z59lKkPyytcx7UP4bc5ZJCkbSj946+C4jbCUp/1W6s45E7IR8Dkv1c
+         e0xQlPQkglpFdoZv8IbOMT1RMO0QCWnolYqrk=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791216973; x=1791821773;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=HZQZn6DIMQDQCLXf+RSqa5fylG7dJYyOrH4B8TI6hz0=;
+        b=QwLjpIv/yjzEv0NRDsat5hYZR/yKoT2NKesMGzk0BF1JC+fxbCiv3QUwJfF26belaN
+         Rt0TMuy0T+kzUy8JaKwmUvJTUZm+fattwG77NiZupgfz/NhGdbVenDDGXv2YrEFy7PjR
+         82bnfuiVr1a8AF7Q5zHIXszg+ZIqdRLcFJ5eUS+pD5v0SXKMkJEXIn91Zs13rwfLtTmQ
+         Zy3ZBoraQRC+tfQ4uLah981YS2R2eLvUccNnLnZsSessCTm+7hDuns91p4BGFmJNw8BP
+         cE2hblwo7hyKmX8mxcO7EzRokt6eDtNoK4z5+klqaoPU5CGKZn3CA2/Ba5oVRmrkNa1v
+         z+DA==
+X-Forwarded-Encrypted: i=1; AKwUvBzDh/OVazGgzicqVSyuo4aO0RiI146NaqQVGNA8SLQWQAZKJehvCV0Bsb8VaVIVm8w6lK47QZHpY4ihbCY=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJ6fMXAxVONYcQ3JLBl1RWVog1IV2IqyQX3p88TsWh2HkrjbvSk
+	m81s2+8ZNHCBRv9qeTWq20oR5ZJU903PXD8LY/tY5MWhsywLkJ4U/lFTrzdkTh/F0A8=
+X-Gm-Gg: AYBFou2BSyLpCKgZiZhRjD8u9vau5BoVzXBDtuF/A7wol/yPtjs2vjNljv21lFnfc98
+	A1ambRPs+hMqr2v52KN26Ps4hbznOj8/9bqYz31suXFzN21T16fqy/KGdQCP6uRrJXR4JJ8JXFx
+	2qW5KLmtR+UDlZfkNzavnbgyX1oEm05AWbbQRtsnf31rYQCmDg0hzc2erL00V1VQH2vCNfTh8yF
+	fHUw4jPGrZwelP+00f3KhW5/vQJYCZXrrqcaFnWw2L9ghcM3sPYms18S00PCCwRnjVOA8ehjauk
+	4K6D9Bj5le/pK8dJ2tQLB5R3c3aqRu8dUYZ8H/oDFBN9CoWQ9GIAfrlpCt2NtzbytmbrTPH7v95
+	en5ZrudJ8Wwy75ANbrF2OCcMRvIHfQ+u/kdwY0NhAFTJOsa28b0zculFZ+LALB4DWbOL1/nUcxd
+	jv0iceQO1gcNmwD7SjEmBwqU9ON2Flj21sHKi1PF0ovqbCuVO2GN/vjk4xpYooMsZh
+X-Received: by 2002:a17:90b:2fd0:b0:3a7:a463:54c2 with SMTP id 98e67ed59e1d1-3a7a46356e6mr4340629a91.35.1791216972916;
+        Mon, 05 Oct 2026 09:16:12 -0700 (PDT)
+Received: from 1c1aead48890 ([49.142.45.25])
+        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cce6d901981sm1172982a12.14.2026.10.05.09.16.10
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 05 Oct 2026 09:16:12 -0700 (PDT)
+Date: Mon, 5 Oct 2026 16:16:07 +0000
+From: Seongjun Hong <hsj0512@snu.ac.kr>
+To: Yishai Hadas <yishaih@nvidia.com>
+Cc: Jason Gunthorpe <jgg@ziepe.ca>, 
+	Shameer Kolothum <skolothumtho@nvidia.com>, Kevin Tian <kevin.tian@intel.com>, 
+	Alex Williamson <alex@shazbot.org>, kvm@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] vfio/mlx5: Fix boundary check in set_report_output()
+Message-ID: <7fbiirwo2k34dcyza7ehmdevziqmch3foldxp6qeeclr3xjypg@enyyca5445pj>
+References: <20261004-vfio-mlx5-fix-boundary-check-v1-1-1d3b8e55e23f@snu.ac.kr>
+ <d4477773-a95d-4cc4-8d10-edf1f7b215df@nvidia.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: satlexmb07.amd.com (10.181.42.216) To satlexmb07.amd.com
- (10.181.42.216)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN2PEPF00004FBE:EE_|PH8PR12MB7279:EE_
-X-MS-Office365-Filtering-Correlation-Id: c69c8168-1d5b-4e49-f798-08df22fbeab4
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|36860700016|376014|1800799024|82310400026|7416014|23010399003|11063799006|5023799004|56012099006|260925022911599003|260925021911599003|260925021311599003|10067099003|18002099003|6133799003;
-X-Microsoft-Antispam-Message-Info:
-	A6CYcnTZ+C4Tf4a92VPJGyQRQ5RaVR4A/jY1HWAKI2HNAEK9FQGmp6WAk8uCy9bIMkDLY4ap2Tnfgu/wMcsVEIYH53Z/73Tx1YJ2PcVpamGyVdIFH20vwCAzhZo4fpvBOiAyjOXz0HbFT4Y83OoskWbIqwZeqUKaEdSbvZ/CBbZRsEVvuDCnpi7mx0e3xMajANqUSeT/pkwXE9CxGv1xMHXaqCPPsdeoEXSB0DAhJ56gA55lHHCghAsSlN3D5Yaz+FcuGnm53eVsXfcn1wRCkkJUlXiuye/rRuZ55wtw8yEHFyPqOfVB3iUMNAN1QCgIia5mLCmQz1LR/o0t/ge9+99Fm93w9dINwRwo10duj2YewO2a9SpINdsqWHYtflpHEH38JX6V3iwyX4VyX25SXpkUxfRuk9zszcn8xJMCuhQ3K2vhSFim1XHKQV5hwH+pdJj7ElnZfprO4twizjNjH7CkLZbFpY1KQZeDf28ZfXla+z40mYP6UvMAS/Pygai3yFbKjk2HhQFsIL8SBBHSXhbuTooR0+TD/VFvcB89wT502pCC87zbb/4l89R1YfkFKtwPYnjjIqdWyfNd7YyQWLSm+DGMJdvSatWXrdA2Yilvah08FvZUygT88Qaf9SoUhXkSYNeh72NVXUltFwkQV53pAqmMderK/d7VnoPQrmc=
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(36860700016)(376014)(1800799024)(82310400026)(7416014)(23010399003)(11063799006)(5023799004)(56012099006)(260925022911599003)(260925021911599003)(260925021311599003)(10067099003)(18002099003)(6133799003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	KkTzItub5gtBeN08OBcIlQlROVc5Ot6/8s+PBLJ/WDiwC+t11ukNCe7hWwmjtHfW6xEVweuyQy16JqHJp1zSbd+GN5eAx/fDLP2YxBukdwSoZy8fFlI+5QP7FN/Wgr9nYeytO0vp9JM4rvQeaI4oqzc3CPjH7dOJjVz75igWISV/f2FdCDrNKcWCD00U8q7L7JJ4ffQCkivUtQyTt2XyDp6/fIh79nTlRS2BXLFtey4cm+y4UcsYcHZC2U0EZWnsKpK+1ruKtU2qrqZ1yDUkoSMpno3/U4ojjtBPJEqvxpF0gUirE5RCm0c0Nu3v60qiGawY6X+w0q+7B+bxgBQprAhezQjN3D7guadLpzvtdhG6xvkjrMpWv4qFEXs66xGKz1MnzlPCK2uBl01dSY+xRStTfTN/3qwQ0OK5IagcKyj7oe8Y+IZHp90YrPApU9IP
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Oct 2026 16:15:47.9329
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: c69c8168-1d5b-4e49-f798-08df22fbeab4
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	BN2PEPF00004FBE.namprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH8PR12MB7279
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <d4477773-a95d-4cc4-8d10-edf1f7b215df@nvidia.com>
 
-Introducing support for live update on AMD SEV-SNP platforms via
-DOWNLOAD_FIRMWARE_EX.
+On Mon, Oct 05, 2026 at 06:43:08PM +0300, Yishai Hadas wrote:
+> On 04/10/2026 20:20, Seongjun Hong wrote:
+> > Use > instead of >= on boundary check of recv_buf to avoid the bug which
+> > the full message in the last slot of recv_buf is ignored even though the
+> > received data size does not overflow the recv_buf.
+> > 
+> > Clarify the second boundary condition by removing unnecessary division by
+> > entry_size. It directly shows that size should be within qp->max_msg_size.
+> > 
+> > Fixes: 9c7c5430bca3 ("vfio/mlx5: Align the page tracking max message size with the device capability")
+> > Signed-off-by: Seongjun Hong <hsj0512@snu.ac.kr>
+> > ---
+> >   drivers/vfio/pci/mlx5/cmd.c | 4 ++--
+> >   1 file changed, 2 insertions(+), 2 deletions(-)
+> > 
+> > diff --git a/drivers/vfio/pci/mlx5/cmd.c b/drivers/vfio/pci/mlx5/cmd.c
+> > index 5fe0621b5fbd..a49531666e6d 100644
+> > --- a/drivers/vfio/pci/mlx5/cmd.c
+> > +++ b/drivers/vfio/pci/mlx5/cmd.c
+> > @@ -1644,8 +1644,8 @@ set_report_output(u32 size, int index, struct mlx5_vhca_qp *qp,
+> >   	int i;
+> >   	buf_offset = index * qp->max_msg_size;
+> > -	if (WARN_ON(buf_offset + size >= qp->recv_buf.npages * PAGE_SIZE ||
+> > -		    (nent > qp->max_msg_size / entry_size)))
+> > +	if (WARN_ON(buf_offset + size > qp->recv_buf.npages * PAGE_SIZE ||
+> > +		    size > qp->max_msg_size))
+> >   		return;
+> >   	do {
+> > 
+> > ---
+> > base-commit: 6addb4f385570ebc11c4eb499a4f1c149f313e84
+> > change-id: 20261004-vfio-mlx5-fix-boundary-check-4839d6aecbe2
+> > 
+> > Best regards,
+> 
+> The patch should include also Cc stable for the first condition.
+> 
+> Reviewed-by: Yishai Hadas <yishaih@nvidia.com>
+> 
+> Yishai
+> 
+> 
 
-This patchset is an extension of the RFC patchset from Tycho
-Andersen.
+Thanks for the review. Done in v2, which also drops the second condition
+change so only the fix goes to stable.
 
-This series also fronts firmware_loader patches from Dan Williams[1]
-which majorly cleans up refcount issues so that registering the upload
-interface no longer pins the module. Without which having live firmware
-update will cause failure to reload the ccp module as well as break
-kexec.
-
-Patches based on cryptodev-2.6
-
-v3:
-* Print psp return codes along with driver returns for easier
-  parsing - Shantanu
-* Clean up error codes to map the right firmware/driver error condition
-  to the firmware error codes. - Shantanu
-* Report -ETIMEOUT case by checking for psp_dead after DLFW_EX command
-  is called instead of reporting unknown error - Shantanu
-* __sev_do_snp_platform_status() call can race and incorrect cached platform
-  states may be supplied. Guard the call under a mutex - Sashiko
-* firmware unregister can race when called from sev_dev_destroy() or
-  sev_pci_exit(). Guard the call under a mutex - Sashiko
-
-v2: https://lore.kernel.org/lkml/cover.1789749016.git.prsampat@amd.com/
-* In snp_get_platform_data() use snp_[alloc|free]_firmware_page() to
-  transition pages to and from firmware-owned state, instead of
-  open-coding rmp_mark_pages_firmware()/snp_reclaim_pages() around the
-  SNP_FEATURE_INFO command - Tom, Sashiko
-* Claim sev->fwl atomically with xchg() in unregister_sev_fw_uploader()
-  so a concurrent module removal and sysfs unbind cannot both reach
-  firmware_upload_unregister() - Sashiko
-
-Responding to other Sashiko comments:
-* __sev_release_firmware_buffers() called with panic=true can cause
-  deadlock as another stopped CPU might currently hold zone->lock or
-  other page allocator locks.
-        - I think having a panic param within __snp_free_firmware_pages
-          which checks and returns before __free_pages() should resolve
-          this issue. Since this is a pre-existing issue not relevant
-          to this patchset, plan to send this as a seperate patch
-* The sev_download_firmware_ex() function is called with the lock held
-  and performs a GFP_KERNEL allocation.  Since GFP_KERNEL can trigger
-  direct memory reclaim, could this invoke SEV page reclaim operations
-  that attempt to acquire the already-held sev_cmd_mutex, resulting in
-  a deadlocked state?
-        - GFP_KERNEL may perform direct MM reclaim, but SNP page
-          reclamation is not registered as an MM shrinker or normal
-          page-reclaim callback. snp_reclaim_pages() acquires
-          sev_cmd_mutex only when explicitly called with locked=false
-* "If snp_reclaim_cmd_buf() fails and returns early, the code skips
-  resetting sev->cmd_buf_active and sev->cmd_buf_backup_active.
-  Will this permanently leak the bounce buffer slots and result in
-  future -EBUSY failures?"
-        - Since the command buffer may still be firmware owned, I think
-          declaring psp_dead = true is the way to ensure we do not make
-          it available for reuse after a failed reclaim. Pre-existing
-          issue, plan to send this as a seperate patch
-
-v1: https://lore.kernel.org/linux-crypto/cover.1789059391.git.prsampat@amd.com/
- * firmware-loader patches are rebased as-is and only incorporates
-   fixes for minor build issues
- * Dropped crypto/ccp: Hoist kernel part of SNP_PLATFORM_STATUS as that
-   patch has been merged since
- * Dropped crypto/ccp: Reclaim command buffer when the PSP dies and
-   subsequent handling since firmware quirk is now resolved and need not be
-   handled in the OS
- * Use guard(mutex) for the locked region, which the split makes
-   possible since sev_get_api_version() acquires sev_cmd_mutex - Maxwell
- * Added a patch factoring out the TMR and INIT_EX teardown, so the update
-   path and __sev_firmware_shutdown() share it - Shantanu
- * Skip the re-init when the PSP is dead, not just when a rollback is
-   outstanding - Shantanu
- * Re-initialize the platform before refreshing the cached status -
-   Shantanu
- * Split the monolithic .write into a locked update helper, an error
-   translation helper, and a thin .write that refreshes the cached status
-   once the lock is dropped and clean up various allocations
- * Convert rollback required and reinit required globals to reside in
-   sev_dev struct to avoid carrying over states if manually reloaded
-
-RFC: https://lore.kernel.org/all/20260430160716.1120553-1-tycho@kernel.org/
-
-[1]: https://lore.kernel.org/lkml/20260331214726.903274-2-dan.j.williams@intel.comi/
-
-Dan Williams (3):
-  firmware_loader: Stop pinning modules on registration
-  firmware_loader: Stop pinning parent device per workqueue invocation
-  treewide: firmware_loader: Drop the unused @module argument
-
-Pratik R. Sampat (4):
-  crypto: ccp - Factor out the release of the SEV firmware buffers
-  crypto: ccp - Allow SNP platform data to be queried after SNP INIT
-  crypto/ccp: Register with fw_uploader and always fail
-  crypto/ccp: Implement SNP Download Firmware EX
-
- .../driver-api/firmware/fw_upload.rst         |   2 +-
- drivers/base/firmware_loader/sysfs_upload.c   |  50 +-
- drivers/base/firmware_loader/sysfs_upload.h   |   1 -
- drivers/crypto/ccp/sev-dev.c                  | 444 ++++++++++++++++--
- drivers/crypto/ccp/sev-dev.h                  |   4 +
- drivers/cxl/core/memdev.c                     |   4 +-
- drivers/firmware/microchip/mpfs-auto-update.c |   2 +-
- drivers/fpga/intel-m10-bmc-sec-update.c       |   4 +-
- drivers/greybus/gb-beagleplay.c               |   2 +-
- drivers/media/i2c/thp7312.c                   |   2 +-
- drivers/net/pse-pd/pd692x0.c                  |   4 +-
- drivers/virt/coco/tdx-host/tdx-host.c         |   4 +-
- include/linux/firmware.h                      |  15 +-
- include/linux/psp-sev.h                       |  19 +
- lib/test_firmware.c                           |   3 +-
- 15 files changed, 467 insertions(+), 93 deletions(-)
-
+Best regards,
 -- 
-2.43.0
-
+Seongjun Hong
