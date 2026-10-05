@@ -1,230 +1,130 @@
-Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ua1-f52.google.com (mail-ua1-f52.google.com [209.85.222.52])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 79355277818
-	for <linux-kernel@vger.kernel.org>; Mon,  5 Oct 2026 00:38:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.251.105.195
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C4217221FD4
+	for <linux-kernel@vger.kernel.org>; Mon,  5 Oct 2026 00:39:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.52
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791160741; cv=none; b=SaOkX/pDqC7IXjbOiPj41SdxKyt9yv3uoq6BQcPFeDtaFSQkoqL2pYtyMZmvd687hwbNATMmkuaQcs0M8aCWPQ7ZexCPWf3F0uD+RWCv7yc/J0IcNPe7DOTSdB5LiW9deHpv6l2uzarn/LjpVnj4UHa443oB4yclt4iEU5mxKJg=
+	t=1791160787; cv=none; b=g2qJ96CSkpaniTa/PSimhC+Mmx4tBmYqGmevRlMKfhXuIJgxQshFtIKHVSJ2TxIsB/AlRP/KRgU1Yhp86wuYK0go5+//Evgd0a2ban34lHa50/kdIs4TiKX7QiDWyioaOZSj+jzBf2L0UCWeuB6oxH+/B8FUFfxw3vPNEALnLks=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791160741; c=relaxed/simple;
-	bh=TASRq49hme2uQo/K/gA104MdMLmlEYc6sP7FfHC2c4c=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=IXghKmhWdJ3V6OCFzjZO/a4X/cxFMAxDL79+OPJdor09yOxLbbWJ0JZNiohe6xrXibgAMNE6pAdQwqNAXlh4GQxkPZTy8DcvnDAqoCsfjYCUbKihF3o2Vwv9Ke5f68wf5KTrwm/bVd+en5qEBIjSLTYSuJh5KfddhjxRE8UX7Lo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=U4n7Ho9m; arc=none smtp.client-ip=148.251.105.195
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+	s=arc-20240116; t=1791160787; c=relaxed/simple;
+	bh=FpAYV6dwtieSe65iB/tgTKFYEOT1Q5FcoDQ0+sN+rF8=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Up0GZJEpmR2lwSZErOd1dB3YjCPJFrPnJBBP90lH01MrDPVBvyiFsBMBh65783gDQB/Yl90Bg18DbgFZY8AGQR2uTZWT5IGVymQBanrIHT200HBIWZcMJ5UPyIXfLL+lHMbst16ufUOidAGxqQKpRag2kA/nSEkgPJAMP6LE3ZU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=I7wMABIB; arc=none smtp.client-ip=209.85.222.52
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="U4n7Ho9m"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
-	s=mail; t=1791160734;
-	bh=TASRq49hme2uQo/K/gA104MdMLmlEYc6sP7FfHC2c4c=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
-	b=U4n7Ho9m+xcxz9WADJctFcN+e7W/Tm0AmWmUdXjB7FOIO0I9IstrMAVmLXGxiSFTE
-	 zvi0A462jQG9phzfFn64HsHDmpafImjGNlTXLqWlwptTWAgrGJyd4rCfFDNyFNyt1Z
-	 kj90kl0mErrL4qdlOvGbaTrEz/jLbSLE9p2BsI/7yyHo68jtD13fbog9RoqAli5nsY
-	 CKvgFJ4etmphTIOkhmwpWnh+KbkR28lth5V6ediqfEL2Y4rF+SPVn5pC6vTdQQDn1G
-	 IwCtuxHe55IKycQHn5GO51wM1tjCdKWVEMVflEdGKNd/yV5BHXO5SXr9JUL8Ix3rpr
-	 /weFHHqVTAIFg==
-Received: from localhost (unknown [100.64.0.241])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange secp256r1 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	(Authenticated sender: cristicc)
-	by bali.collaboradmins.com (Postfix) with ESMTPSA id 8D57E17E1407;
-	Mon, 05 Oct 2026 02:38:54 +0200 (CEST)
-From: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
-Date: Mon, 05 Oct 2026 03:38:14 +0300
-Subject: [PATCH v12 13/16] drm/rockchip: dw_hdmi_qp: Factor out HPD
- interrupt (un)mask helpers
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="I7wMABIB"
+Received: by mail-ua1-f52.google.com with SMTP id a1e0cc1a2514c-98c7ad684d3so50911241.3
+        for <linux-kernel@vger.kernel.org>; Sun, 04 Oct 2026 17:39:45 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791160784; x=1791765584; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=IU7mqOMMBbfkeNzF2+wDQMXqKtPVHRNICdPeH0QrUdM=;
+        b=I7wMABIBl7gK6+ItrTodA3fv6bp5Fpw1KJQsu6ZO+lVOEhD7vBbKruAj5OI8IieYME
+         JGuFD+x5AZMdUz6IjYyzOiglt0eDoQ5YHe3tYCKVpbOrJKXU2a37wrxB78h1iodIKnLz
+         Ex9gNu64xS1GvPVMx/S4VGZfiAuI0/+GAJGJh6l4RyJxXaep2oLuj8nil3f9lqrwzDFR
+         cD0ZbbO2DSQR0cols8J6rafvfv2HTvdHJpOK2zv1joivHgOxMXaABTwc+vsVeGcM1KKa
+         fQJFfuNKiV8V3ZkRWbhaCFvbC0i60fQyp/8DdoaUFpbdLyoSYg6gxPoBWttyHieMsKN9
+         j2XQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791160784; x=1791765584;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=IU7mqOMMBbfkeNzF2+wDQMXqKtPVHRNICdPeH0QrUdM=;
+        b=tdOu3aQz9O17VsQtV/En4ixR/HF19KwJOnz7IiRVFtYGMpzAPBwnt3r2RuSTx2pX6e
+         Nb2NASNLYk5Urn91nGkx5nJSkSphlp8/st+M9q3ddEeQ7hjCuX7XWUu58cawQz+syT2q
+         djA9bt2bGUJ/R4rUc4URe+MyxsraLpjBezdqstLGDw+s0d8t7rP0J5pt8zygz3QfedrB
+         H3BSghYSh8b/iGfJwwqn75fkhdbJoO8m1G6w4c+Oq/igfpA9P5MLJ9JRyZhHO3ctFbII
+         mILbRPn5xUUfPr4DFLIp9Izn4r7fdpnQP2x+PhUJMXt22y/dR0GhtIqBjkjtLNMKFlq5
+         f6bA==
+X-Forwarded-Encrypted: i=1; AKwUvByUFv0y0S9Fxg//7XsOWFx1s2UUCPQL0X6pTHmmfXWoziqb6F67z4SQfalMgLLy790pFicWweIMIF0uzVk=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJqyOpUcCSlEBA2D1A+WuHoPQnVIGpnza0fW77Kuu7ipFShHsSl
+	NTNRoa14HHrRgKQBYjjPR8r5dUqwhvZbREklvz+9TUXG4OLww+TWJRtE
+X-Gm-Gg: AYBFou0g0hcbQPe2mbfMi3YoDXW8UJ8vOrVhrzzG7KXVDdPYhPvLJP6AY7JU42axZKw
+	eyFEt4jPIl6kE+MM1npN2kTltYu8H6EilK9zTyidy5At0cgOUWx1fAGIhcgl7Kxgy5nXkSf86UC
+	h7tdkyP4E6GOO1W2iEwiSDdNJmwECMfIzJx0/hSFqf6hWN9PU2NFRWrVUlUAiCGNKNnXGjgxpqb
+	WjuMssSGSm8Sx+ArBkBxQKTxYYKwFTTyHwm2RUNCchIvJ3IrEll6NYL6K0K8tYdkxrfhU1tWmNL
+	oA48ti2NKYKtQpC7cwVywDuhcq70h7HaqFUC0lILR+pY5MSszsLPkyUVw923HMz6+ieRE+ePVrW
+	vZ8yCWmtKG423p+Oy8rGL0JOqFT/+RLZOmaIfnFsEnOHRCdqhs4PkCnDb3Cq8Nw8cjAC+y//KU1
+	CYWWl4hI9VOPVppfIzYanp1PQVRVntphwVm3o+0J6uqE1XO9M6lPCVyhKFglgNDTy1FI5PKmEtO
+	KYIHNTUjRhCkzY=
+X-Received: by 2002:a05:6102:3713:b0:7c3:6caf:bdc6 with SMTP id ada2fe7eead31-7c36cafc094mr863360137.21.1791160784624;
+        Sun, 04 Oct 2026 17:39:44 -0700 (PDT)
+Received: from localhost ([2804:30c:96c:bf00:7844:c38c:894:4054])
+        by smtp.gmail.com with ESMTPSA id a1e0cc1a2514c-98c4c9d14bbsm7265834241.13.2026.10.04.17.39.42
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 04 Oct 2026 17:39:43 -0700 (PDT)
+Date: Sun, 4 Oct 2026 21:39:58 -0300
+From: Marcelo Schmitt <marcelo.schmitt1@gmail.com>
+To: Kanak Shilledar <kanak.shilledar@axis.com>
+Cc: Henrik Grimler <henrik.grimler@axis.com>,
+	Jonathan Cameron <jic23@kernel.org>,
+	David Lechner <dlechner@baylibre.com>,
+	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
+	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Jean-Baptiste Maneyrol <jean-baptiste.maneyrol@tdk.com>,
+	Joshua Crofts <joshua.crofts1@gmail.com>,
+	Chris Morgan <macromorgan@hotmail.com>, kernel@axis.com,
+	linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v5 3/6] iio: imu: inv_icm42607: Initialize gyro based on
+ chip_info
+Message-ID: <asLx3gLw8CqCHssc@debian-BULLSEYE-live-builder-AMD64>
+References: <20261002-b4-inv_icm42370p-v5-0-c65281b745c9@axis.com>
+ <20261002-b4-inv_icm42370p-v5-3-c65281b745c9@axis.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-Message-Id: <20261005-dw-hdmi-qp-scramb-v12-13-195157ba0b40@collabora.com>
-References: <20261005-dw-hdmi-qp-scramb-v12-0-195157ba0b40@collabora.com>
-In-Reply-To: <20261005-dw-hdmi-qp-scramb-v12-0-195157ba0b40@collabora.com>
-To: Sandy Huang <hjc@rock-chips.com>, 
- =?utf-8?q?Heiko_St=C3=BCbner?= <heiko@sntech.de>, 
- Andy Yan <andy.yan@rock-chips.com>, Andrzej Hajda <andrzej.hajda@intel.com>, 
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
- Luca Ceresoli <luca.ceresoli@bootlin.com>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Algea Cao <algea.cao@rock-chips.com>, Daniel Stone <daniels@collabora.com>
-Cc: kernel@collabora.com, dri-devel@lists.freedesktop.org, 
- linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org, 
- linux-arm-kernel@lists.infradead.org, 
- Diederik de Haas <diederik@cknow-tech.com>, 
- =?utf-8?q?Robin_R=C3=A4ber?= <robin.raebi@gmail.com>, 
- Igor Paunovic <royalnet026@gmail.com>
-X-Mailer: b4 0.15.2
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261002-b4-inv_icm42370p-v5-3-c65281b745c9@axis.com>
 
-Extract the GRF-level HPD interrupt mask/unmask register writes into
-dedicated dw_hdmi_qp_rk35{88,76}_{mask,unmask}_hpd() helpers, and use
-them from the .enable_hpd()/.disable_hpd() phy ops as well as the
-hardirq, threaded re-arm and io_init() paths.
+On 10/02, Kanak Shilledar wrote:
+> Update the chip_info struct with a new `has_gyro` property to support,
+> devices which do not have gyro functionality. This is a precursor to the
+> next commit which adds support for the Invensense, ICM-42370-P. It is
+> similar to the existing device except it only has accelerometer. Check
+> all operations related to gyro with the boolean.
+> 
+> Signed-off-by: Kanak Shilledar <kanak.shilledar@axis.com>
+> ---
+>  drivers/iio/imu/inv_icm42607/inv_icm42607.h      |  1 +
+>  drivers/iio/imu/inv_icm42607/inv_icm42607_core.c | 41 +++++++++++++++---------
+>  2 files changed, 26 insertions(+), 16 deletions(-)
+> 
+> diff --git a/drivers/iio/imu/inv_icm42607/inv_icm42607.h b/drivers/iio/imu/inv_icm42607/inv_icm42607.h
+> index 4d51b0da1aa16..e4075288247b8 100644
+> --- a/drivers/iio/imu/inv_icm42607/inv_icm42607.h
+> +++ b/drivers/iio/imu/inv_icm42607/inv_icm42607.h
+> @@ -130,6 +130,7 @@ struct inv_icm42607_hw {
+>  	const char *name;
+>  	const struct inv_icm42607_conf *conf;
+>  	u8 whoami;
+> +	bool has_gyro;
+>  };
+>  
 
-This is a preparatory refactor that separates the SoC-level HPD mask
-from the phy op entry points, so a subsequent change can gate the
-platform HPD IRQ line without affecting the debounce paths.
+Might not be an issue but, don't we need to check has_gyro in
+inv_icm42607_set_pwr_mgmt0() and inv_icm42607_get_pwr_mgmt0() as well? 
+If I'm not missing anything, a sample read could cause the device driver to
+read/write a reserved pair of bits (reserved for ICM-42370-P on the next patch).
+inv_icm42607_accel_read_raw() -> inv_icm42607_read_sensor() ->
+	inv_icm42607_set_sensor_conf() -> inv_icm42607_get_pwr_mgmt0()
 
-Tested-by: Diederik de Haas <diederik@cknow-tech.com>  # NanoPC-T6 LTS, Rock 5B
-Tested-by: Robin Räber <robin.raebi@gmail.com>
-Tested-by: Igor Paunovic <royalnet026@gmail.com> # RK3588 Orange Pi 5 Plus, dual HDMI
-Signed-off-by: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
----
- drivers/gpu/drm/rockchip/dw_hdmi_qp-rockchip.c | 54 ++++++++++++++++++--------
- 1 file changed, 37 insertions(+), 17 deletions(-)
+On the read side, a simple safeguard could be
+	if (st->hw->has_gyro)
+		*gyro = FIELD_GET(INV_ICM42607_PWR_MGMT0_GYRO_MODE_MASK, val);
 
-diff --git a/drivers/gpu/drm/rockchip/dw_hdmi_qp-rockchip.c b/drivers/gpu/drm/rockchip/dw_hdmi_qp-rockchip.c
-index 9e48ec06eb66..ecf12403101d 100644
---- a/drivers/gpu/drm/rockchip/dw_hdmi_qp-rockchip.c
-+++ b/drivers/gpu/drm/rockchip/dw_hdmi_qp-rockchip.c
-@@ -277,9 +277,8 @@ dw_hdmi_qp_rk3588_read_hpd(struct dw_hdmi_qp *dw_hdmi, void *data)
- 	return val ? connector_status_connected : connector_status_disconnected;
- }
- 
--static void dw_hdmi_qp_rk3588_enable_hpd(struct dw_hdmi_qp *dw_hdmi, void *data)
-+static void dw_hdmi_qp_rk3588_unmask_hpd(struct rockchip_hdmi_qp *hdmi)
- {
--	struct rockchip_hdmi_qp *hdmi = (struct rockchip_hdmi_qp *)data;
- 	u32 val;
- 
- 	if (hdmi->port_id)
-@@ -292,9 +291,8 @@ static void dw_hdmi_qp_rk3588_enable_hpd(struct dw_hdmi_qp *dw_hdmi, void *data)
- 	regmap_write(hdmi->regmap, RK3588_GRF_SOC_CON2, val);
- }
- 
--static void dw_hdmi_qp_rk3588_disable_hpd(struct dw_hdmi_qp *dw_hdmi, void *data)
-+static void dw_hdmi_qp_rk3588_mask_hpd(struct rockchip_hdmi_qp *hdmi)
- {
--	struct rockchip_hdmi_qp *hdmi = (struct rockchip_hdmi_qp *)data;
- 	u32 val;
- 
- 	if (hdmi->port_id)
-@@ -305,6 +303,20 @@ static void dw_hdmi_qp_rk3588_disable_hpd(struct dw_hdmi_qp *dw_hdmi, void *data
- 	regmap_write(hdmi->regmap, RK3588_GRF_SOC_CON2, val);
- }
- 
-+static void dw_hdmi_qp_rk3588_enable_hpd(struct dw_hdmi_qp *dw_hdmi, void *data)
-+{
-+	struct rockchip_hdmi_qp *hdmi = (struct rockchip_hdmi_qp *)data;
-+
-+	dw_hdmi_qp_rk3588_unmask_hpd(hdmi);
-+}
-+
-+static void dw_hdmi_qp_rk3588_disable_hpd(struct dw_hdmi_qp *dw_hdmi, void *data)
-+{
-+	struct rockchip_hdmi_qp *hdmi = (struct rockchip_hdmi_qp *)data;
-+
-+	dw_hdmi_qp_rk3588_mask_hpd(hdmi);
-+}
-+
- static const struct dw_hdmi_qp_phy_ops rk3588_hdmi_phy_ops = {
- 	.init		= dw_hdmi_qp_rk3588_phy_init,
- 	.disable	= dw_hdmi_qp_rk3588_phy_disable,
-@@ -325,23 +337,31 @@ dw_hdmi_qp_rk3576_read_hpd(struct dw_hdmi_qp *dw_hdmi, void *data)
- 		connector_status_connected : connector_status_disconnected;
- }
- 
-+static void dw_hdmi_qp_rk3576_unmask_hpd(struct rockchip_hdmi_qp *hdmi)
-+{
-+	regmap_write(hdmi->regmap, RK3576_IOC_MISC_CON0,
-+		     FIELD_PREP_WM16(RK3576_HDMI_HPD_INT_CLR, 1) |
-+		     FIELD_PREP_WM16(RK3576_HDMI_HPD_INT_MSK, 0));
-+}
-+
-+static void dw_hdmi_qp_rk3576_mask_hpd(struct rockchip_hdmi_qp *hdmi)
-+{
-+	regmap_write(hdmi->regmap, RK3576_IOC_MISC_CON0,
-+		     FIELD_PREP_WM16(RK3576_HDMI_HPD_INT_MSK, 1));
-+}
-+
- static void dw_hdmi_qp_rk3576_enable_hpd(struct dw_hdmi_qp *dw_hdmi, void *data)
- {
- 	struct rockchip_hdmi_qp *hdmi = (struct rockchip_hdmi_qp *)data;
--	u32 val;
- 
--	val = (FIELD_PREP_WM16(RK3576_HDMI_HPD_INT_CLR, 1) |
--	       FIELD_PREP_WM16(RK3576_HDMI_HPD_INT_MSK, 0));
--
--	regmap_write(hdmi->regmap, RK3576_IOC_MISC_CON0, val);
-+	dw_hdmi_qp_rk3576_unmask_hpd(hdmi);
- }
- 
- static void dw_hdmi_qp_rk3576_disable_hpd(struct dw_hdmi_qp *dw_hdmi, void *data)
- {
- 	struct rockchip_hdmi_qp *hdmi = (struct rockchip_hdmi_qp *)data;
- 
--	regmap_write(hdmi->regmap, RK3576_IOC_MISC_CON0,
--		     FIELD_PREP_WM16(RK3576_HDMI_HPD_INT_MSK, 1));
-+	dw_hdmi_qp_rk3576_mask_hpd(hdmi);
- }
- 
- static const struct dw_hdmi_qp_phy_ops rk3576_hdmi_phy_ops = {
-@@ -375,7 +395,7 @@ static irqreturn_t dw_hdmi_qp_rk3576_hardirq(int irq, void *dev_id)
- 	regmap_read(hdmi->regmap, RK3576_IOC_HDMI_HPD_STATUS, &intr_stat);
- 
- 	if (intr_stat & RK3576_HDMI_OHPD_INT) {
--		dw_hdmi_qp_rk3576_disable_hpd(NULL, hdmi);
-+		dw_hdmi_qp_rk3576_mask_hpd(hdmi);
- 		return IRQ_WAKE_THREAD;
- 	}
- 
-@@ -389,7 +409,7 @@ static irqreturn_t dw_hdmi_qp_rk3576_irq(int irq, void *dev_id)
- 	mod_delayed_work(system_percpu_wq, &hdmi->hpd_work,
- 			 msecs_to_jiffies(HOTPLUG_DEBOUNCE_MS));
- 
--	dw_hdmi_qp_rk3576_enable_hpd(NULL, hdmi);
-+	dw_hdmi_qp_rk3576_unmask_hpd(hdmi);
- 
- 	return IRQ_HANDLED;
- }
-@@ -404,7 +424,7 @@ static irqreturn_t dw_hdmi_qp_rk3588_hardirq(int irq, void *dev_id)
- 	intr_stat &= hdmi->port_id ? RK3588_HDMI1_OHPD_INT : RK3588_HDMI0_OHPD_INT;
- 
- 	if (intr_stat) {
--		dw_hdmi_qp_rk3588_disable_hpd(NULL, hdmi);
-+		dw_hdmi_qp_rk3588_mask_hpd(hdmi);
- 		return IRQ_WAKE_THREAD;
- 	}
- 
-@@ -418,7 +438,7 @@ static irqreturn_t dw_hdmi_qp_rk3588_irq(int irq, void *dev_id)
- 	mod_delayed_work(system_percpu_wq, &hdmi->hpd_work,
- 			 msecs_to_jiffies(HOTPLUG_DEBOUNCE_MS));
- 
--	dw_hdmi_qp_rk3588_enable_hpd(NULL, hdmi);
-+	dw_hdmi_qp_rk3588_unmask_hpd(hdmi);
- 
- 	return IRQ_HANDLED;
- }
-@@ -435,7 +455,7 @@ static void dw_hdmi_qp_rk3576_io_init(struct rockchip_hdmi_qp *hdmi)
- 
- 	regmap_write(hdmi->regmap, 0xa404, 0xffff0102);
- 
--	dw_hdmi_qp_rk3576_disable_hpd(NULL, hdmi);
-+	dw_hdmi_qp_rk3576_mask_hpd(hdmi);
- }
- 
- static void dw_hdmi_qp_rk3588_io_init(struct rockchip_hdmi_qp *hdmi)
-@@ -460,7 +480,7 @@ static void dw_hdmi_qp_rk3588_io_init(struct rockchip_hdmi_qp *hdmi)
- 		val = FIELD_PREP_WM16(RK3588_HDMI0_GRANT_SEL, 1);
- 	regmap_write(hdmi->vo_regmap, RK3588_GRF_VO1_CON9, val);
- 
--	dw_hdmi_qp_rk3588_disable_hpd(NULL, hdmi);
-+	dw_hdmi_qp_rk3588_mask_hpd(hdmi);
- }
- 
- static void dw_hdmi_qp_rk3576_enc_init(struct rockchip_hdmi_qp *hdmi,
-
--- 
-2.55.0
-
+With best regards,
+Marcelo
