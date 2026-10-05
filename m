@@ -1,288 +1,217 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B9D8430E0F2;
-	Mon,  5 Oct 2026 08:07:11 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 83FB72ED84A;
+	Mon,  5 Oct 2026 08:07:25 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791187633; cv=none; b=teeseZxfoGViWoQbgnYrESujSf2qVluY7v55v/F04bLFNesLk+SvKMOmQjNTZLluyUqMUxFiWYmg0VNu+q8MNIOpKUUFsNEB9Ro9grBgRbnnuh572OoRGZE584jtDe4wL/odvBEXmYJ28nHAoGNPvQ0CxsmnGqVjY5MalYQ7p0w=
+	t=1791187646; cv=none; b=C/XrRLLN4E6aytQ+fOe5/DNilesIBiMb9DlQ9F0SNuvQsoGzLkDHM3OtEyeoI/K3JPZ1UhTNZfCS0J2uRMLdalcWY5moHCY/3Tg39ciHscWGJViv4Wi36qSNnmBntuXntHCCBkGqw9HBrzL3Jh6aHqYJBOkVP5Du0k0WyFxGx40=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791187633; c=relaxed/simple;
-	bh=oAzDZvJEFg6Zv5WuIIwGSr2KQzitVQAnj6q1eGpQJxc=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=ScuiqWF2/AqDhvCEZdPUicG6y0v1z8Z05ZbvKXxTbri7Qz43/FTN9AOykHnSKLP3+pkqwkWe4qpSGkgJAY3XaZYqoZMQ6hsgdNfWCI1a977yAjwy7KaKe1JVYgse5SNNr//CZKV6O5wM1vvBaIV4JqXJunP/uM10TPmV9dNL8mQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nJOnsvUU; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791187646; c=relaxed/simple;
+	bh=5MAFg4lualOQ4wF9YuSfq87SCufHgj7pToEhAngQk4M=;
+	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=Eh7ShVgseQuOux6q6QD06w3BtpqvrfZdGTeThl3j5DQcNRdX2YqWrR8IuOzCt3hvjT9mSn+OiHbBW8gSGzxMiiN+ZpvieNMYglldvxsn3hbalagDtbI395MHiATfyA2YA+fiOS9AUa2VcXDF/SCBBHCi7DBb5gJBAop45Ccn52U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=FHKVX4rQ; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nJOnsvUU"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D1D401F000FF;
-	Mon,  5 Oct 2026 08:07:05 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="FHKVX4rQ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 45E231F000FF;
+	Mon,  5 Oct 2026 08:07:24 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791187631;
-	bh=pfHW3K5w13Dkio99Zn3/wVEATo3Ndc3O152LdPxJdVk=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=nJOnsvUUQdb6Wx362HMhtoXW9DFoKE9CCIukGK2zMmoxR4DsKElNx1TMaxSZ7qglB
-	 NrR0cpYD03ZsPZ8W7pUG5lcjsGaLl5kQZcwEFOC2soOavPjFpkebt1RxxpxCQUo8me
-	 88ELUiHvazikTOV/XyQBiJbhmVqg2WKYBUDw/BeGoXLJKvAgTMGmkg9VSe3qzs9bJO
-	 TwHjVJ/9yx4Z7DnyGnWQljYvui+IadUlc9raED2+FwnscbybBLer9lZVYgbCYDDlPp
-	 RAJ0kdvJEvWAHAEoK5t3ckkLkpr+eEnruXbUWTWeR/cF/Vh9gIFimaiIbSQ1ATf0JE
-	 K6tSEBXibbcGw==
-Date: Mon, 5 Oct 2026 10:07:02 +0200
-From: Alejandro Colomar <alx+linux-hardening@kernel.org>
-To: Rosen Penev <rosenp@gmail.com>, Kees Cook <kees@kernel.org>
-Cc: dri-devel@lists.freedesktop.org, Inki Dae <inki.dae@samsung.com>, 
-	Seung-Woo Kim <sw0312.kim@samsung.com>, Kyungmin Park <kyungmin.park@samsung.com>, 
-	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
-	Krzysztof Kozlowski <krzk@kernel.org>, Peter Griffin <peter.griffin@linaro.org>, 
-	Alim Akhtar <alim.akhtar@samsung.com>, Kees Cook <kees@kernel.org>, 
-	"Gustavo A. R. Silva" <gustavoars@kernel.org>, 
-	"moderated list:ARM/SAMSUNG S3C, S5P AND EXYNOS ARM ARCHITECTURES" <linux-arm-kernel@lists.infradead.org>, 
-	"open list:ARM/SAMSUNG S3C, S5P AND EXYNOS ARM ARCHITECTURES" <linux-samsung-soc@vger.kernel.org>, open list <linux-kernel@vger.kernel.org>, 
-	"open list:KERNEL HARDENING (not covered by other areas):Keyword:b__counted_by(_le|_be|_ptr)?b" <linux-hardening@vger.kernel.org>
-Subject: *allocflex() (was: [PATCH] drm/exynos: fimc: allocate formats as a
- flexible array member)
-Message-ID: <asNWiJT4Io2R7xGt@debian>
-References: <20261005001118.576198-1-rosenp@gmail.com>
+	s=k20260515; t=1791187645;
+	bh=XXkyvNpPZqrM5P5UyeacA+TyFuP56hMHBlt411AUfhk=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=FHKVX4rQKpRY8RrCMtnTYucloQH8ReN38hlkAK1CA5qYPt8kQamrFV62rn9/Pf0b8
+	 SYy8fhLnFufschUrdMxZlL4rkxwkLGq6jZ4BtVmBL+Rx1ydZQmh9D2EkBfAQc+EKco
+	 9PekgerDeWSVRzRGOUMDwxU9fF860loJZvgejSh+aU0Jla7I5iSJHuutjjrKsIwnNH
+	 +NiBMkVf7XBgVqIl0+E+bSh8J+dkzODQyb7FMav1auMNwIXYKb4MVRm/nWQgCGbBda
+	 n2sAWr1z04Qsuu3zcrtIbOLmdgY9SZo//jwuIMxT0HEKKuUDt4qzah/iDBIhfcT1jR
+	 UXMlF5+OQA9kQ==
+Subject:
+ Re: [PATCH net 2/2] net: phy: xilinx-gmii2rgmii: Restore PHY driver on remove
+From: netdev-bot+sashiko@kernel.org
+To: vineeth.karumanchi@amd.com
+Cc: git@amd.com, netdev@vger.kernel.org, andrew@lunn.ch, hkallweit1@gmail.com,
+ linux@armlinux.org.uk, davem@davemloft.net, edumazet@kernel.org,
+ kuba@kernel.org, pabeni@redhat.com, michal.simek@amd.com,
+ f.fainelli@gmail.com, harini.katakam@amd.com, appanad@amd.com,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+Date: Mon, 05 Oct 2026 08:07:23 +0000
+Message-ID: <179118764380.434549.2031845358588611322@kernel.org>
+In-Reply-To: <20261001074718.3944521-3-vineeth.karumanchi@amd.com>
+References: <20261001074718.3944521-3-vineeth.karumanchi@amd.com>
+X-sashiko-severity: High
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="cd4qmvxj2ervr6g5"
-Content-Disposition: inline
-In-Reply-To: <20261005001118.576198-1-rosenp@gmail.com>
 
+Thank you for your contribution! Sashiko AI review found 2 potential
+issue(s) to consider.
 
---cd4qmvxj2ervr6g5
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-From: Alejandro Colomar <alx+linux-hardening@kernel.org>
-To: Rosen Penev <rosenp@gmail.com>, Kees Cook <kees@kernel.org>
-Cc: dri-devel@lists.freedesktop.org, Inki Dae <inki.dae@samsung.com>, 
-	Seung-Woo Kim <sw0312.kim@samsung.com>, Kyungmin Park <kyungmin.park@samsung.com>, 
-	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
-	Krzysztof Kozlowski <krzk@kernel.org>, Peter Griffin <peter.griffin@linaro.org>, 
-	Alim Akhtar <alim.akhtar@samsung.com>, Kees Cook <kees@kernel.org>, 
-	"Gustavo A. R. Silva" <gustavoars@kernel.org>, 
-	"moderated list:ARM/SAMSUNG S3C, S5P AND EXYNOS ARM ARCHITECTURES" <linux-arm-kernel@lists.infradead.org>, 
-	"open list:ARM/SAMSUNG S3C, S5P AND EXYNOS ARM ARCHITECTURES" <linux-samsung-soc@vger.kernel.org>, open list <linux-kernel@vger.kernel.org>, 
-	"open list:KERNEL HARDENING (not covered by other areas):Keyword:b__counted_by(_le|_be|_ptr)?b" <linux-hardening@vger.kernel.org>
-Subject: *allocflex() (was: [PATCH] drm/exynos: fimc: allocate formats as a
- flexible array member)
-Message-ID: <asNWiJT4Io2R7xGt@debian>
-References: <20261005001118.576198-1-rosenp@gmail.com>
-MIME-Version: 1.0
-In-Reply-To: <20261005001118.576198-1-rosenp@gmail.com>
+Critical: 0 · High: 2 · Medium: 0 · Low: 0
 
-Hi,
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
 
-> Date: 2026-10-04 17:11:18-0700
-> From: Rosen Penev <rosenp@gmail.com>
->
-> The formats array is allocated separately with devm_kcalloc() and only
-> referenced through the fimc_context. Make it a flexible array member at
-> the end of the context and allocate both in one go with struct_size().
->=20
-> Annotate it with __counted_by(num_formats) so the array accesses can be
-> bounds checked with FORTIFY_SOURCE and UBSAN_BOUNDS.
->=20
-> Assisted-by: LLM
-> Signed-off-by: Rosen Penev <rosenp@gmail.com>
-> ---
->  drivers/gpu/drm/exynos/exynos_drm_fimc.c | 17 +++++------------
->  1 file changed, 5 insertions(+), 12 deletions(-)
->=20
-> diff --git a/drivers/gpu/drm/exynos/exynos_drm_fimc.c b/drivers/gpu/drm/e=
-xynos/exynos_drm_fimc.c
-> index 09e33a26caaf..079d24d0671c 100644
-> --- a/drivers/gpu/drm/exynos/exynos_drm_fimc.c
-> +++ b/drivers/gpu/drm/exynos/exynos_drm_fimc.c
-> @@ -99,7 +99,6 @@ struct fimc_context {
->  	void		*dma_priv;
->  	struct device	*dev;
->  	struct exynos_drm_ipp_task	*task;
-> -	struct exynos_drm_ipp_formats	*formats;
->  	unsigned int			num_formats;
-> =20
->  	void __iomem	*regs;
-> @@ -108,6 +107,7 @@ struct fimc_context {
->  	struct fimc_scaler	sc;
->  	int	id;
->  	int	irq;
-> +	struct exynos_drm_ipp_formats	formats[] __counted_by(num_formats);
->  };
-> =20
->  static u32 fimc_read(struct fimc_context *ctx, u32 reg)
-> @@ -1273,20 +1273,16 @@ static int fimc_probe(struct platform_device *pde=
-v)
->  	if (exynos_drm_check_fimc_device(dev) !=3D 0)
->  		return -ENODEV;
-> =20
-> -	ctx =3D devm_kzalloc(dev, sizeof(*ctx), GFP_KERNEL);
-> +	num_formats =3D ARRAY_SIZE(fimc_formats) + ARRAY_SIZE(fimc_tiled_format=
-s);
-> +	ctx =3D devm_kzalloc(dev, struct_size(ctx, formats, num_formats), GFP_K=
-ERNEL);
+- [High] xgmiitorgmii_remove()
+  (drivers/net/phy/xilinx_gmii2rgmii.c:147-149) always writes the driver…
+- [High] The fix relies on every reader of phydev->drv holding
+  phydev->lock, and that is not true.
 
-Unrelated to this patch, but this has triggered my attention.
+--
 
-I have been recently researching into allocation of FAMs, trying to make
-them more type safe, and found it safer to have a specialized API for
-such allocations, whose pseudo-prototype would look like this:
+net: phy: xilinx-gmii2rgmii: Restore PHY driver on remove
 
-	T *mallocflex(typename S, size_t n, flex);
+This adds a remove callback to the GMII-to-RGMII converter. The callback
+restores the attached PHY's original phydev->drv under phydev->lock, so
+phydev->drv no longer points at the devres-freed conv_phy_drv copy after
+the converter is unbound. It also drops the device reference taken by
+of_phy_find_device().
 
-A devm_kzallocflex() could then have an extra 'dev' parameter at the
-front, and the usual 'gpf' one at the end.  It could be used here as:
+> diff --git a/drivers/net/phy/xilinx_gmii2rgmii.c b/drivers/net/phy/xilinx_gmii2rgmii.c
+> index 61f71e977a574..b9aa5515577b5 100644
+> --- a/drivers/net/phy/xilinx_gmii2rgmii.c
+> +++ b/drivers/net/phy/xilinx_gmii2rgmii.c
+> @@ -128,10 +128,29 @@ static int xgmiitorgmii_probe(struct mdio_device *mdiodev)
 
-	n =3D ARRAY_SIZE(fimc_formats) + ARRAY_SIZE(fimc_tiled_formats);
-	ctx =3D devm_kzallocflex(dev, struct fimc_context, n, formats, GFP_KERNEL);
+[ ... ]
 
-Kees, do you think we could add something like this?
+> +static void xgmiitorgmii_remove(struct mdio_device *mdiodev)
+> +{
+> +	struct gmii2rgmii *priv = mdiodev_get_drvdata(mdiodev);
+> +
+> +	/*
+> +	 * The attached PHY is a separate, still-bound device whose state
+> +	 * machine keeps running and dispatches ->read_status / ->set_loopback
+> +	 * under phydev->lock. Restore its original driver under that lock so
+> +	 * the swap cannot race an in-flight dispatch; the restored driver is
+> +	 * the PHY's own static phy_driver, not the devres-freed conv_phy_drv.
+> +	 */
+> +	mutex_lock(&priv->phy_dev->lock);
+> +	priv->phy_dev->drv = priv->phy_drv;
 
-Here's a small program showing how it could be implemented:
+[Severity: High]
+Is it safe to write priv->phy_drv back here without first checking that
+phydev->drv still points at &priv->conv_phy_drv?
 
-	$ cat fam.c=20
-	#include <errno.h>
-	#include <stddef.h>
-	#include <stdint.h>
-	#include <stdio.h>
-	#include <stdlib.h>
-	#include <sys/param.h>
+The only thing the converter holds is the device reference from
+of_phy_find_device(). There is no device link and no module reference on
+the PHY driver. That means the PHY can be unbound or rebound while the
+converter stays bound, and in that case phylib has already changed
+phydev->drv:
 
-	#define typeof_typename(T)      typeof(*(typeof(T) *){_Generic(0, T: NULL,=
- default: NULL)})
-	#define memberof(T, member)     ((T){}.member)
-	#define sizeof_flex(T, n, fam)  MAX(sizeof(T), offsetof(T, fam[n]))
-	#define ptr_cast(T, p)          rvalue((typeof_typename(T) *){(p)})
-	#define rvalue(lv)              ((void)0, (lv))
+drivers/net/phy/phy_device.c:phy_remove() {
+    ...
+	phydev->drv = NULL;
 
-	#define reallocflex_T(p, S, n, flex)   reallocflex_T_(p, typeof_typename(S=
-), n, flex)
-	#define reallocflex_T_(p, S, n, flex)                         \
-	(                                                             \
-		_Generic(p, S *: (void)0),                            \
-		ptr_cast(S, reallocflex_T__(p, S, n, flex))           \
-	)
-	#define reallocflex_T__(p, S, n, f)                           \
-	(                                                             \
-		reallocflex(p, sizeof(S), offsetof(S, f), n, sizeof(memberof(S, f)[0]))\
-	)
-	#define mallocflex_T(S, n, flex)                              \
-	(                                                             \
-		ptr_cast(S, reallocflex_T__(NULL, S, n, flex))        \
-	)
+	return 0;
+}
 
+A rebind does the same thing: phy_probe() installs a new driver with
+phydev->drv = phydrv.
 
-	void *
-	reallocflex(void *p, size_t headsize, size_t off, size_t n, size_t eltsize)
-	{
-		if (n !=3D 0 && eltsize > SIZE_MAX / n) {
-			errno =3D ENOMEM;
-			return NULL;
-		}
-		if (off > SIZE_MAX - n*eltsize) {
-			errno =3D ENOMEM;
-			return NULL;
-		}
-		if (off > headsize) {
-			errno =3D ENOMEM;
-			return NULL;
-		}
+If the converter is unbound after that, xgmiitorgmii_remove() writes back
+the stale pointer that xgmiitorgmii_probe() saved. Three outcomes look
+possible.
 
-	#ifndef NDEBUG
-		printf("%zu (%zu, %zu, %zu, %zu)\n", MAX(headsize, off + n * eltsize), he=
-adsize, off, n, eltsize);
-	#endif
+First, an unbound PHY gets a non-NULL drv again. That passes the
+"if (!phydev->drv)" guards in phy.c and phy_device.c. The old driver's
+callbacks then run against a phydev->priv that devres already freed. If
+the PHY driver module was unloaded, they run in freed module text.
 
-		return realloc(p, MAX(headsize, off + n * eltsize));
-	}
+Second, if the PHY was rebound to another driver (for example Generic
+PHY), the old driver's ops get installed over the new binding. They then
+see the new driver's phydev->priv.
 
-	struct s {
-		long a;
-		char b,c,d;
-		int f[];
-	};
+Third, if the converter is probed again, it passes the
+!priv->phy_dev->drv check in xgmiitorgmii_probe() and memcpy()s from the
+stale driver struct.
 
-	int
-	main(void)
-	{
-		struct s  *p;
+The comment above assumes the PHY is still bound and that the restored
+driver is the PHY's own phy_driver. Nothing seems to enforce either
+assumption.
 
-		printf("s: %zu\n", sizeof(struct s));
-		printf("o: %zu\n", offsetof(struct s, f));
+Would it be better to restore only when phydev->drv == &priv->conv_phy_drv,
+and to tie the converter's lifetime to the PHY binding?
 
-		p =3D mallocflex_T(struct s, 2, f);
-		p =3D reallocflex_T(p, struct s, 0, f);
-		p =3D reallocflex_T(p, struct s, 1, f);
+> +	mutex_unlock(&priv->phy_dev->lock);
 
-		bzero(p, sizeof_flex(struct s, 1, f));
+[Severity: High]
+Does taking phydev->lock here actually prevent the use-after-free on
+conv_phy_drv? The commit message says:
 
-		free(p);
-	}
+    Restore the attached PHY's original driver while
+    holding phydev->lock so that the update cannot race with an active PHY
+    callback.
 
+The lock only excludes readers that also hold phydev->lock, and not every
+reader of phydev->drv does. Once xgmiitorgmii_remove() returns,
+devres_release_all() frees priv, and conv_phy_drv along with it.
 
-Have a lovely day!
-Alex
+The state machine drops the lock before its suspend step:
 
+drivers/net/phy/phy.c:phy_state_machine() {
+    ...
+	mutex_lock(&phydev->lock);
+	state_work = _phy_state_machine(phydev);
+	mutex_unlock(&phydev->lock);
 
->  	if (!ctx)
->  		return -ENOMEM;
-> =20
-> +	ctx->num_formats =3D num_formats;
-> +	formats =3D ctx->formats;
->  	ctx->dev =3D dev;
->  	ctx->id =3D of_alias_get_id(dev->of_node, "fimc");
-> =20
-> -	/* construct formats/limits array */
-> -	num_formats =3D ARRAY_SIZE(fimc_formats) + ARRAY_SIZE(fimc_tiled_format=
-s);
-> -	formats =3D devm_kcalloc(dev, num_formats, sizeof(*formats),
-> -			       GFP_KERNEL);
-> -	if (!formats)
-> -		return -ENOMEM;
-> -
->  	/* linear formats */
->  	if (ctx->id < 3) {
->  		limits =3D fimc_4210_limits_v1;
-> @@ -1320,9 +1316,6 @@ static int fimc_probe(struct platform_device *pdev)
->  		formats[j].num_limits =3D num_limits;
->  	}
-> =20
-> -	ctx->formats =3D formats;
-> -	ctx->num_formats =3D num_formats;
-> -
->  	/* resource memory */
->  	ctx->regs =3D devm_platform_ioremap_resource(pdev, 0);
->  	if (IS_ERR(ctx->regs))
-> --=20
-> 2.56.0
->=20
->=20
+	_phy_state_machine_post_work(phydev, state_work);
+}
 
---=20
-<https://www.alejandro-colomar.es>
+phy_stop() does the same. _phy_state_machine_post_work() then calls
+phy_suspend(), which copies phydev->drv into a local and dereferences it
+with no lock held:
 
---cd4qmvxj2ervr6g5
-Content-Type: application/pgp-signature; name="signature.asc"
+drivers/net/phy/phy_device.c:phy_suspend() {
+    ...
+	const struct phy_driver *phydrv = phydev->drv;
+    ...
+	if (phydev->wol_enabled && !(phydrv->flags & PHY_ALWAYS_CALL_SUSPEND))
+		return -EBUSY;
 
------BEGIN PGP SIGNATURE-----
+	if (!phydrv->suspend)
+		return 0;
 
-iQIzBAABCgAdFiEES7Jt9u9GbmlWADAi64mZXMKQwqkFAmrDWp8ACgkQ64mZXMKQ
-wqndww/8CDDAAm5f2tvfl0SP7UHg8H1zYS8pI0IPC5gQvEXr78/43DWG87YRfZEn
-XLhyDfxCJgWC6OlTTR3mgp31+zNRCwuG7kzPSxxx/LsO528gPWajhkHsS0zdjgc8
-+aGeJEMHRnBCkCLHLJFjgISSaCxseWGd4147RZYe5TxhDCUlM32g3UJCb3otvRMa
-RgqkFYMGCZ0mXbipj/PCzbSqy+QQPDw/1b3AKs+2NG1yOEKfQtyVmYCKRrWNPebb
-qSJIDdYIV5p2EcUTudH96Em+WaEC4lFklggB6YhNRvEmI6cAlAmlfRAHByTe6S9S
-aU7o5ExRfSrtuG63opsDafOL8hCHQqaoiZi7JfzO8dFFa6CxLDQOejz7rolHlqTB
-OvN+ppiVr+ehocq/IZmBdCWRQnjL2VM6WpgeyVPU0fImqTR12oHtxNUbnE2w17Wc
-dbUPhKLJh4eGwFQiBugdXXBzW0CBCaFS8Wrmm2zdxNv9CzbwD9NowZMHBx43/CDs
-naJIVnK2y+SOOz63AEIkaeqpSC1z7mxbHM0skWvu49MQEqSye5MWsDjqz71/4zQe
-mB185gQyBsY4Hw0jM0AZj47G6B5S6l4i/LDfyfRS/Mqqv912n+dTZWdC3N1M9KMR
-auNLd06e/+X6tIgz4lnMHtaJ64cPgmEThP0lME+bF3qhblsZM8A=
-=xQu8
------END PGP SIGNATURE-----
+	ret = phydrv->suspend(phydev);
+    ...
+}
 
---cd4qmvxj2ervr6g5--
+phy_ethtool_get_sset_count() also dereferences the driver before it takes
+the mutex. It is reachable from the ethtool ioctl through
+ethtool_get_phy_stats_phydev():
+
+drivers/net/phy/phy.c:phy_ethtool_get_sset_count() {
+    ...
+	if (phydev->drv->get_sset_count &&
+	    phydev->drv->get_strings &&
+	    phydev->drv->get_stats) {
+		mutex_lock(&phydev->lock);
+    ...
+}
+
+Could this sequence happen?
+
+CPU0                                  CPU1
+phy_suspend()
+  phydrv = &priv->conv_phy_drv
+                                      xgmiitorgmii_remove()
+                                        mutex_lock(&phydev->lock)
+                                        phydev->drv = priv->phy_drv
+                                        mutex_unlock(&phydev->lock)
+                                      devres_release_all()
+                                        kfree(priv)
+  phydrv->flags / phydrv->suspend
+
+If so, CPU0 would read freed memory and might call through it. That is the
+same kind of use-after-free this patch is meant to fix.
+
+-- 
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261001074718.3944521-1-vineeth.karumanchi%40amd.com
