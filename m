@@ -1,164 +1,71 @@
-Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
+Received: from bombadil.infradead.org (bombadil.infradead.org [198.137.202.133])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5FD62379993
-	for <linux-kernel@vger.kernel.org>; Mon,  5 Oct 2026 08:39:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.251.105.195
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AF321400DE8;
+	Mon,  5 Oct 2026 08:39:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.137.202.133
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791189543; cv=none; b=PV5DAy6ayUlTVP0mMTWz5EiSFuHIRUe9QEP4HiOmXsCftk3Mt659673PwpMD0vD7F1/+qn66akrlqOrtFBdj1uBehDcvppBN8Pz2MEUKVfAJxXxRgXI7GLr238z9ySk4dw4QZtLrSGtLj4oxrU1qzeB4TLt09HG8hIMZDrr9J2Y=
+	t=1791189581; cv=none; b=joEy5IoNK9sX24VpLxKyRYlsp0os3+Q1sutdJFBFUo8BKKibBrG9cqIYcV0vdJpbmmG1SSIHSK3RvZBP78UslowNGYWDxH3VqximX84O7lQ8Y1s7JrOOiSu8pn2WzYk8SH0KLehyaTZol/19ZdZeYgbFfNSkqUMuF30n1DJcHwI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791189543; c=relaxed/simple;
-	bh=0y8xOcu4Rdu0IG8YCBVtdnYuhm3D3y7YXgnCEBf5n6Q=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=VoRKl1jufZqUAFcLsA4r3JouvygJcaDTJeixzfEHkNSnMEbTngh1zTmQJ/sTttpducTatU9QEgID4vw9p5RMR3N/IDkOkY0dOR6SVzE3JjIUVGYl89/j0oZIXFsZT3TnDtMsQYrWxLEMok88vIcEyJ3wzMMpTy7NCiis2nB4/hA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=g/YxJoUS; arc=none smtp.client-ip=148.251.105.195
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+	s=arc-20240116; t=1791189581; c=relaxed/simple;
+	bh=g+Oo6kbYdXpTWrgAqiIP43Ul0a+nwIHetvB/s/2gGs4=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=f5of7RODT8SVQS+oglqx0xpLxAyMYywl4Id2lMtyG4nUKgw8KJUkqldA2pU5x/QmSc6/Y8LaPWMw1vYuRmCTeyPf4nalN0/zpd1FlF+a7gYIRazUjPkYdRkyBEHUkmnHg/lNfK2aS5l0t72vDpwu2sPjXLulv1gz2lT/CrcVgg0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org; spf=none smtp.mailfrom=bombadil.srs.infradead.org; dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b=Xn1etKoT; arc=none smtp.client-ip=198.137.202.133
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=bombadil.srs.infradead.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="g/YxJoUS"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
-	s=mail; t=1791189539;
-	bh=0y8xOcu4Rdu0IG8YCBVtdnYuhm3D3y7YXgnCEBf5n6Q=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
-	b=g/YxJoUSuJt75+jdI86Xhw4lz6ilcqXOj0i/57VTnExuIm38Xza5MxC+89T8p6epS
-	 E01emjODx2Xv4ynmV9z5AhAzG171j2TLIQt+GLe9wn1T5yCQptV/OB8te/q1u0/cZ+
-	 rWcz2rkB+zXH8RyoFFDRf1NR5U8ohkAGSY6HGo2E41orAyQwD3gdyr3zSZdQCEIv9g
-	 uEXVhdtgZuyYYRZDGS/aERVhbcsJ/w6Anaa2owIh0WFx0dxPMCNVwNCEIw2cbMUJyj
-	 jMKv1qALg+4Ut/g90YxqPm4QrunmCe+pewLYMjyc+vB6F532j21AUp/3pKMBWl6xCS
-	 puTRPaR6R/YpA==
-Received: from fedora-61.home (unknown [100.64.0.11])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange secp256r1 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	(Authenticated sender: bbrezillon)
-	by bali.collaboradmins.com (Postfix) with ESMTPSA id C11CF17E006F;
-	Mon, 05 Oct 2026 10:38:58 +0200 (CEST)
-Date: Mon, 5 Oct 2026 10:38:55 +0200
-From: Boris Brezillon <boris.brezillon@collabora.com>
-To: Steven Price <steven.price@arm.com>
-Cc: =?UTF-8?B?QWRyacOhbg==?= Larumbe <adrian.larumbe@collabora.com>, Rob
- Herring <robh@kernel.org>, Maarten Lankhorst
- <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Faith Ekstrand
- <faith.ekstrand@collabora.com>, "Marty E. Plummer"
- <hanetzer@startmail.com>, Tomeu Vizoso <tomeu@tomeuvizoso.net>, Eric Anholt
- <eric@anholt.net>, Robin Murphy <robin.murphy@arm.com>, Philipp Zabel
- <p.zabel@pengutronix.de>, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, Collabora Kernel Team <kernel@collabora.com>,
- Neil Armstrong <neil.armstrong@linaro.org>
-Subject: Re: [PATCH v12 12/15] drm/panfrost: Skip cache flush/invalidate
- when enabling perfcnt
-Message-ID: <20261005103855.655f8199@fedora-61.home>
-In-Reply-To: <95174a67-0eee-4bf7-b883-9f1138c74a6f@arm.com>
-References: <20260929-claude-fixes-v12-0-62beb08de207@collabora.com>
-	<20260929-claude-fixes-v12-12-62beb08de207@collabora.com>
-	<95174a67-0eee-4bf7-b883-9f1138c74a6f@arm.com>
-Organization: Collabora
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
+	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="Xn1etKoT"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=infradead.org; s=bombadil.20210309; h=In-Reply-To:Content-Type:MIME-Version
+	:References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
+	Content-Transfer-Encoding:Content-ID:Content-Description;
+	bh=8YAheal/bOJc18SMan7lnG9SW9YRTAdQQ//1cWA65q0=; b=Xn1etKoT/4y6enwBaTM8hDjAt7
+	UrW1RCRlTcUMc8P++S3bg2zlJG6tY7lWy4dOhPT5pClu8FhAQMyoSsRiQOVjArO3/u7HdwcPCvNB3
+	KhQyxVDEq5NXZrbbviFAjhuyeCwfSDG0m89rSgWfCV/gfppJTeREKi+QLPhlit/LlEq1Xq6k8AOBK
+	tpUo+EWb1zLbUpzXc1ne7cEo37CQJ8LLN02BXSCS3mwYQb07WyZm+oLGZUPMdK21US5x1stqn4ks6
+	bRh/IK8INtSAlClWOEi/65hZyOFoe6Gl9bNgryLImAb9YkbKSr7EvKU1BKhwcXTurDALFMlaJ3+Tl
+	8Wht0uVQ==;
+Received: from hch by bombadil.infradead.org with local (Exim 4.99.1 #2 (Red Hat Linux))
+	id 1xDeEQ-0000000FuGG-0C32;
+	Mon, 05 Oct 2026 08:39:34 +0000
+Date: Mon, 5 Oct 2026 01:39:34 -0700
+From: Christoph Hellwig <hch@infradead.org>
+To: Imre Kaloz <kaloz@kernel.org>
+Cc: Thomas Bogendoerfer <tsbogend@alpha.franken.de>,
+	linux-mips@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 21/38] MIPS: SGI-IP27: route XBridge and PIC DMA through
+ the 32-bit window
+Message-ID: <asNiRoPpv6dkAFD4@infradead.org>
+References: <cover.1790857966.git.kaloz@kernel.org>
+ <cce203c61386970826873f87cc9d0e6c732c3a53.1790857966.git.kaloz@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <cce203c61386970826873f87cc9d0e6c732c3a53.1790857966.git.kaloz@kernel.org>
+X-SRS-Rewrite: SMTP reverse-path rewritten from <hch@infradead.org> by bombadil.infradead.org. See http://www.infradead.org/rpr.html
 
-On Fri, 2 Oct 2026 16:14:38 +0100
-Steven Price <steven.price@arm.com> wrote:
+On Thu, Oct 01, 2026 at 06:11:56PM +0200, Imre Kaloz wrote:
+> XBridge does not honour the SN0-style 64-bit direct-mapped DMA address:
+> commands complete but no data moves. PIC moves no data either. Route
+> both through the 2GB 32-bit window and cap bus_dma_limit at its top, so
+> SWIOTLB bounces anything above it. PIC is flagged once a following
+> patch enumerates it.
+> 
+> Only XBridge (part 0xd002) is flagged; a Bridge (0xc002) behind a Hub
+> keeps the 64-bit direct map. The 64MB bounce pool comes from node 0
+> whenever DRAM passes 2GB, on Hub any multi-node machine. A PIC bus in
+> PCI-X mode takes the window too; IRIX does not.
 
-> On 29/09/2026 04:44, Adri=C3=A1n Larumbe wrote:
-> > The GPU cache flush/invalidate operation is unnecessary. First off, the
-> > GPU doesn't read off the perfcnt sample buffer, only writes into it, so=
- =20
->=20
-> I don't think this is entirely true. The GPU performance counter unit
-> only writes the counters that are enabled, counters that share a cache
-> line but are not enabled are not written by the performance counter
-> unit, but if the L2 contains that cache line then the write can hit in
-> the L2 and dirty the entire line including stale data where the
-> unwritten cache line is.
+It's been a while, but IIRC XBridge also support 64-bit direct-mapped
+DMA addresses, just differently.
 
-I don't think this can happen though, because _enable_locked() is
-creating a BO (and its GPU mapping) just before enabling the perfcnt
-block, meaning the buffer is known to have no dirty cacheline pointing
-to it until the first dump happens. And we do flush and invalidate GPU
-caches after each dump, so again, we should be covered.
-
->=20
-> The upshot is that if the CPU has cleared a block of memory which the
-> GPU happens to have cached, then the "unused" counters may end up
-> showing the old data before the CPU cleared it (if they share a cache
-> line with an active counter).
-
-I agree, but that's not a case we can hit in the enable path. I think I
-mentioned the commit message was misleading, and that we should instead
-talk about the fact the GPU is not supposed to have cached anything up
-until the first SAMPLE following a the ENABLE step.
-
->=20
-> I have to admit it's probably somewhat academic given that Panfrost
-> doesn't expose the ability to control which counters are enabled...
->=20
-> Is there a good reason for this patch (i.e. have you seen a performance
-> problem with doing the invalidate)? Otherwise I'd prefer we keep to the
-> safe route rather than trying to over optimise cache maintenance.
-
-I think I was the one suggesting dropping this flush so that
-panfrost_perfcnt_hw_enable() (in the last patch) has one less fallible
-operation. Besides, I find it confusing to have a cache flush+inval in
-a path where the GPU is not supposed to have accessed the buffer yet
-(or later on, when we re-enable after a RESET, in a path where the GPU
-has been reset and the caches are known to be empty).
-
->=20
-> Obviously in the fully coherent case the invalidate could be skipped (as
-> in the next patch).
->=20
-> Thanks,
-> Steve
->=20
-> > an invalidate doesn't make a difference. Then flushing GPU caches after
-> > each sample has been written is enough for the CPU to see updated value=
-s.
-> >=20
-> > Reviewed-by: Boris Brezillon <boris.brezillon@collabora.com>
-> > Signed-off-by: Adri=C3=A1n Larumbe <adrian.larumbe@collabora.com>
-> > ---
-> >  drivers/gpu/drm/panfrost/panfrost_perfcnt.c | 15 ++-------------
-> >  1 file changed, 2 insertions(+), 13 deletions(-)
-> >=20
-> > diff --git a/drivers/gpu/drm/panfrost/panfrost_perfcnt.c b/drivers/gpu/=
-drm/panfrost/panfrost_perfcnt.c
-> > index f71534e741b6..ffc77121070e 100644
-> > --- a/drivers/gpu/drm/panfrost/panfrost_perfcnt.c
-> > +++ b/drivers/gpu/drm/panfrost/panfrost_perfcnt.c
-> > @@ -124,21 +124,10 @@ static int panfrost_perfcnt_enable_locked(struct =
-panfrost_device *pfdev,
-> >  	panfrost_gem_internal_set_label(&bo->base, "Perfcnt sample buffer");
-> > =20
-> >  	/*
-> > -	 * Invalidate the cache and clear the counters to start from a fresh
-> > -	 * state.
-> > +	 * Clear the counters to start from a fresh state.
-> >  	 */
-> > -	reinit_completion(&pfdev->perfcnt->dump_comp);
-> > -	gpu_write(pfdev, GPU_INT_CLEAR,
-> > -		  GPU_IRQ_CLEAN_CACHES_COMPLETED |
-> > -		  GPU_IRQ_PERFCNT_SAMPLE_COMPLETED);
-> > +	gpu_write(pfdev, GPU_INT_CLEAR, GPU_IRQ_PERFCNT_SAMPLE_COMPLETED);
-> >  	gpu_write(pfdev, GPU_CMD, GPU_CMD_PERFCNT_CLEAR);
-> > -	gpu_write(pfdev, GPU_CMD, GPU_CMD_CLEAN_INV_CACHES);
-> > -	ret =3D wait_for_completion_timeout(&pfdev->perfcnt->dump_comp,
-> > -					  msecs_to_jiffies(1000));
-> > -	if (!ret) {
-> > -		ret =3D -ETIMEDOUT;
-> > -		goto err_vunmap;
-> > -	}
-> > =20
-> >  	ret =3D panfrost_mmu_as_get(pfdev, perfcnt->mapping->mmu);
-> >  	if (ret < 0)
-> >  =20
->=20
-
+If you find a late 2.4 or early 2.6 kernel, it comes with an open source
+copy of the IRIX-style PCI code under arch/ia64/ that also includes the
+older chips never used on Altix.  It might be worth to take a look at
+that for clues.
