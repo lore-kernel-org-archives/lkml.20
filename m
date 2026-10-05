@@ -1,158 +1,172 @@
-Received: from mail-oi1-f198.google.com (mail-oi1-f198.google.com [209.85.167.198])
+Received: from mail-oa1-f42.google.com (mail-oa1-f42.google.com [209.85.160.42])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 485A74A3841
-	for <linux-kernel@vger.kernel.org>; Mon,  5 Oct 2026 20:24:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.198
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1669F37F315
+	for <linux-kernel@vger.kernel.org>; Mon,  5 Oct 2026 20:24:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.42
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791231845; cv=none; b=OUR73kyhRQbOgEuPTg2DbkeOlBfQ01v/DOuipQ9+nhTobBWa3D6QCefVYxKvIDkS1nAonLdJZWyQv41PlA82jBk1T7SMyzx9XwJTE3qzPLUluQcB4e2nEvvQ0WDKyrL7Kh1OQPu9d3Hmc6Zx323KJ5hb/0nKKnhIm6SpiDLWGO4=
+	t=1791231868; cv=none; b=pjz8gb9aDdcEX0yxl3EFK5jAGDEabNpKKCzxznOm7c/XAuoeTPk7TirFA7h9V9wIZD2taRkhMaSrwYFxySEtFk/EZFwNZ/y8oW9Nb5jzWeFR9Cv6Ho6f+cHUwRxn8dPDqnN+wv4kRF3JFN0SjFSNFHNrg5om2ThqKzH40Nh6O1o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791231845; c=relaxed/simple;
-	bh=RDO4C/DaZVx3nnecMh5u+Z+MeIOraeIPiPNou6rth+8=;
-	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:
-	 Content-Type; b=qT7tNUyIiHVG019oG3BWUpm3j/K2MgYEA+NhEHNgGsZuKej7Eyi9aYcprgp6YYKs6/DFKZsMTipnTOKvC1KM78gM2E5IuMfxCNoGEqIR95Cv+A7Qce/k8cCJmaKDVLZkmFjSPGTnBNrYhP7DZzizTsVhTYvea85Qj4tOAlMOkQ4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.167.198
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oi1-f198.google.com with SMTP id 5614622812f47-4cc89e86e4dso31015b6e.2
-        for <linux-kernel@vger.kernel.org>; Mon, 05 Oct 2026 13:24:04 -0700 (PDT)
+	s=arc-20240116; t=1791231868; c=relaxed/simple;
+	bh=teFZD8/s7SkTvHRQ5E9gXwLE597l5z/O6G/MjJAPUDM=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=cZ7wDGE88RAz9+FfPHBGv3jJbec1AJb2qXwUzLp9aQ1EIjamceN8FapyZ//EfXyy9xJijXtepSVLLMzCTpXilNwDmo6XaloPg5Cf8bqRn+qLpm0AceZELOPWvXAx2KFNT4CazqEdwjwLWgjIZQPk2+UNMpz0c8Tmc0ITZKf64LQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=QF8y5nQV; arc=none smtp.client-ip=209.85.160.42
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="QF8y5nQV"
+Received: by mail-oa1-f42.google.com with SMTP id 586e51a60fabf-46556b9e02cso185752fac.1
+        for <linux-kernel@vger.kernel.org>; Mon, 05 Oct 2026 13:24:26 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791231866; x=1791836666; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=xGqv0c43jB8r7queaUWKNp+S9cfIBbcfleVdy/NuuJY=;
+        b=QF8y5nQVpTsLhs2XVSdE+tzxXs+YCPaMMvB/jK+b10e+SZVlKD/fi2d0xzt8QD8z8U
+         efl77YSLWMoMZDCCN6wqNcZ9A+9BssjWJ+qHE/raItMgJt/qMHU6pGxkXAIpCwrNgHiW
+         Q+RrDodWOf1LAtBRrPjl/89eDRnzqPzCSvSkk8EIJPdirgyTGcO1hEAhzRz19XJ0ZbTW
+         DJnSTQhOvj//JqmoxVKsJZcUO1T+shbzPlQm901XcZprlXMgjtTF3UxCL9O1250AVxIz
+         8vRc7hj6XCoHhcnjXJKmWxouUIo2N/SRVF5vq4WIg325XB/D1a2H83DITvAfL4UUuddg
+         sVVQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791231843; x=1791836643;
-        h=content-type:to:from:subject:message-id:in-reply-to:date
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=1ARtNH/TFJitDHaFt4Vy/AzHdG0TWjp1Ix2WaMBlobM=;
-        b=DOB46Q4ENFqs+6rmRUwA/dqMxirVsFVLEtMCzaGs+ptBWy5n0KRKYHdbkH8QiRTaT9
-         FUacySSc6sPawYZoStcOCCjP1ZUN4/69gavVz8dCJ4aHJTI4YRXJpmtCEynlEH2fHFje
-         kKhi4JeopZuOgq5fa2Bo0P8U2fD6c80jXGxkGYRexhWRY/5kVnqJ2Pi5//SrWYXq3TSI
-         UFkMUnCR29zNYIol7b3a5OyJfw5nU9IlUR/Zjzksc0IUfGnJUco3B/U6uoBV/ohSHxu2
-         NzMVQes9on0x7q1cmMWJwQ1ewkomYDV+F0Gq3IevFufgpjw7fPHow6WT73nCNaNZemue
-         rzzA==
-X-Forwarded-Encrypted: i=1; AKwUvBxaLu5STy6IrmYHBVPomOletLctnZRVOPRwbPiRLR4zhX69r5X6MDSSIWh+/F5mDxlqBcPgpJ8xli86F7k=@vger.kernel.org
-X-Gm-Message-State: AFuF++nhyVgA9BABCoRg2RgfAU9dwhyxlMB6Ek7zYokETodKgFktHWSB
-	s+Aoxdj/ImxZQeYalst0PaX8Pfp0e6BQ1jLu9FwWsZApmqVhG3nobqGQjU2InkhHr0fd5E17dlX
-	nNCDC7jxF2ICq3yVLtMs83uWFmOn9Lg9k+KRSTKYwy3HX9aHWLPim2R0g8ME=
+        d=1e100.net; s=20260707; t=1791231866; x=1791836666;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=xGqv0c43jB8r7queaUWKNp+S9cfIBbcfleVdy/NuuJY=;
+        b=RGaSGG1nSPC/LTP091fbwVsE1i16KxKbuENQZM4ngYMTA6ZnhhOR3BrQcrE5rmRycV
+         m5A6A4VZpXKnYMb1b3yUDH6x40XkLDvfpUYncsq/CL7wGlE4NK/AOIdNedntZNWj69q3
+         eDzpYHWJOs60rtpTDvlER5fxOA/I3/HjTjONBB2hGWecXccfSfWGZXA6KgTms1ftW1gb
+         +R+ZRdCUMXY66v7DPSojGTWVa45ibAab4PAQ4uwHvZ58wd7F/z5qRmJ6C0IllZ3NX5uL
+         ODML66wYbTLkDD5r22vOFslMs4QXmmnxdhvqvLvHKgNjTJiXpjjrrkDwxh6UW5nsJSu7
+         T84g==
+X-Gm-Message-State: AFuF++m44nyBhJa2mT8jGuDnq/uB03DNMqgElqZ6DnhTozmhsCh2IHpu
+	61+cAsArHRPlc1rS5GgxCYdDGMUuCMQhdlaBNOvRAVqEo1/ky04oncWb1gCmcdO9
+X-Gm-Gg: AYBFou1kTzhAz6AdxyUCg6r6M1xJv5fhwacDGLqNgdd5qwaO2L1l5zHB0gWdRPppA8B
+	/Ds+hx1gV6feNFruhmH2Hqjy+7wIelRsNZIKezGbim46U1D9BTFcubgrsDTr24BkI2w7fcDtv/o
+	2TjnFS8V1cF1+zOqAdSwA+KlS+MCDEE3Es5efEBaeLnDGWkscURpVAHS7Sqlds0skBraiyR8cJD
+	NUsfOKkWafZ6wxfFNfYDgtfF2PPblOogW3A5sH5F5VgC+VaGMU7MqeSizEUBw0CfsIABCgg8UDe
+	kavNBE2zBzzTgIdGAo2iDFKiHZxTuVVtfNTy1lQK80o9mR4xaAyc2igXxLrchFvshi/WGYQ9U5d
+	uVguPCh6c2KjnzaRcjvlyZmi+zAJUybmLHNLA4QvpzRJl9WSxbh4rXdfB4Rt7of6zydcOVMLosm
+	mlzvZ+ZsFlHPKj26pgW8umcX2UeC+e0R1285SPDzuKkGSuNDzGZEFIs4c8VzQFyrALh/6WOYAul
+	LsE7Kz8RPUfMRkd+l+7RVE=
+X-Received: by 2002:a05:6871:7a7:b0:490:d828:a7e5 with SMTP id 586e51a60fabf-49f4ef256afmr555774fac.30.1791231865644;
+        Mon, 05 Oct 2026 13:24:25 -0700 (PDT)
+Received: from sheng2080.cmix.louisiana.edu ([130.70.15.5])
+        by smtp.gmail.com with ESMTPSA id 586e51a60fabf-49e16ead0dbsm10900148fac.12.2026.10.05.13.24.24
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 05 Oct 2026 13:24:24 -0700 (PDT)
+From: lzhan011 <lzsx618@gmail.com>
+To: akpm@linux-foundation.org
+Cc: linux-kernel@vger.kernel.org
+Subject: [PATCH] lib/cmdline: fix integer overflow of the index in get_options()
+Date: Mon,  5 Oct 2026 15:24:12 -0500
+Message-Id: <20261005202412.3460441-1-lzsx618@gmail.com>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Received: by 2002:a05:6808:bc6:b0:4f4:dd0d:207a with SMTP id
- 5614622812f47-4f52683fd3cmr10387450b6e.4.1791231843085; Mon, 05 Oct 2026
- 13:24:03 -0700 (PDT)
-Date: Mon, 05 Oct 2026 13:24:03 -0700
-In-Reply-To: <20261005170717.9242-2-jakovnovak30@gmail.com>
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6ac40763.34119e79.2f92f3.0038.GAE@google.com>
-Subject: Re: [syzbot] [media?] [usb?] WARNING in smsusb_term_device (2)
-From: syzbot <syzbot+d627b1495de0e851be32@syzkaller.appspotmail.com>
-To: jakovnovak30@gmail.com, linux-kernel@vger.kernel.org, 
-	syzkaller-bugs@googlegroups.com
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 
-Hello,
+From: lzhan011 <zhangleizhen645@gmail.com>
 
-syzbot has tested the proposed patch but the reproducer is still triggering an issue:
-WARNING in enable_work
+For a range "M-N", get_options() advances its index by the size of the
+range:
 
-------------[ cut here ]------------
-workqueue: work disable count underflowed
-WARNING: kernel/workqueue.c:4530 at work_offqd_enable kernel/workqueue.c:4530 [inline], CPU#1: kworker/1:0/31
-WARNING: kernel/workqueue.c:4530 at enable_work+0x1c7/0x230 kernel/workqueue.c:4701, CPU#1: kworker/1:0/31
-Modules linked in:
-CPU: 1 UID: 0 PID: 31 Comm: kworker/1:0 Not tainted syzkaller #0 PREEMPT_{RT,(full)} 
-Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 09/16/2026
-Workqueue: usb_hub_wq hub_event
-RIP: 0010:work_offqd_enable kernel/workqueue.c:4530 [inline]
-RIP: 0010:enable_work+0x1c7/0x230 kernel/workqueue.c:4701
-Code: cf 19 38 00 4d 85 f6 75 48 e8 c5 19 38 00 eb 47 e8 be 19 38 00 90 0f 0b 90 e9 bc fe ff ff e8 b0 19 38 00 48 8d 3d 99 1c 26 0e <67> 48 0f b9 3a e9 d2 fe ff ff e8 9a 19 38 00 90 0f 0b 90 e9 1d ff
-RSP: 0018:ffffc90000a5eae0 EFLAGS: 00010093
-RAX: ffffffff818ebc00 RBX: 0000000000000000 RCX: ffff88801d2c0000
-RDX: 0000000000000000 RSI: 0000000000000000 RDI: ffffffff8fb4d8a0
-RBP: 0000000000000000 R08: 0000000000000000 R09: 0000000000000000
-R10: dffffc0000000000 R11: ffffed10170e7719 R12: 1ffff11006c07c5b
-R13: 0000000001800001 R14: ffff88803603e2d8 R15: 0000000000000000
-FS:  0000000000000000(0000) GS:ffff888125cc2000(0000) knlGS:0000000000000000
-CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-CR2: 000055cbac78e1a8 CR3: 000000003f5e0000 CR4: 00000000003526f0
-Call Trace:
- <TASK>
- __cancel_work_sync+0xf8/0x110 kernel/workqueue.c:4571
- smsusb_stop_streaming drivers/media/usb/siano/smsusb.c:183 [inline]
- smsusb_term_device+0xdd/0x260 drivers/media/usb/siano/smsusb.c:345
- smsusb_init_device drivers/media/usb/siano/smsusb.c:499 [inline]
- smsusb_probe+0x1aba/0x2280 drivers/media/usb/siano/smsusb.c:577
- usb_probe_interface+0x788/0xe50 drivers/usb/core/driver.c:399
- call_driver_probe drivers/base/dd.c:-1 [inline]
- really_probe+0x254/0xae0 drivers/base/dd.c:706
- __driver_probe_device+0x1e8/0x360 drivers/base/dd.c:868
- driver_probe_device+0x4f/0x240 drivers/base/dd.c:898
- __device_attach_driver+0x270/0x410 drivers/base/dd.c:1026
- bus_for_each_drv+0x25b/0x2f0 drivers/base/bus.c:500
- __device_attach+0x2c7/0x450 drivers/base/dd.c:1098
- device_initial_probe+0xa1/0xd0 drivers/base/dd.c:1153
- bus_probe_device+0x12d/0x220 drivers/base/bus.c:620
- device_add+0x7d7/0xb80 drivers/base/core.c:3776
- usb_set_configuration+0x1bb5/0x2260 drivers/usb/core/message.c:2274
- usb_generic_driver_probe+0x8d/0x150 drivers/usb/core/generic.c:250
- usb_probe_device+0x1c3/0x3b0 drivers/usb/core/driver.c:293
- call_driver_probe drivers/base/dd.c:-1 [inline]
- really_probe+0x254/0xae0 drivers/base/dd.c:706
- __driver_probe_device+0x1e8/0x360 drivers/base/dd.c:868
- driver_probe_device+0x4f/0x240 drivers/base/dd.c:898
- __device_attach_driver+0x270/0x410 drivers/base/dd.c:1026
- bus_for_each_drv+0x25b/0x2f0 drivers/base/bus.c:500
- __device_attach+0x2c7/0x450 drivers/base/dd.c:1098
- device_initial_probe+0xa1/0xd0 drivers/base/dd.c:1153
- bus_probe_device+0x12d/0x220 drivers/base/bus.c:620
- device_add+0x7d7/0xb80 drivers/base/core.c:3776
- usb_new_device+0x99a/0x1680 drivers/usb/core/hub.c:2713
- hub_port_connect drivers/usb/core/hub.c:5585 [inline]
- hub_port_connect_change drivers/usb/core/hub.c:5725 [inline]
- port_event drivers/usb/core/hub.c:5889 [inline]
- hub_event+0x28cf/0x4cf0 drivers/usb/core/hub.c:5971
- process_one_work kernel/workqueue.c:3396 [inline]
- process_scheduled_works+0xc3d/0x1630 kernel/workqueue.c:3479
- worker_thread+0xa47/0xfb0 kernel/workqueue.c:3560
- kthread+0x38b/0x470 kernel/kthread.c:436
- ret_from_fork+0x514/0xb70 arch/x86/kernel/process.c:158
- ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
- </TASK>
-----------------
-Code disassembly (best guess):
-   0:	cf                   	iret
-   1:	19 38                	sbb    %edi,(%rax)
-   3:	00 4d 85             	add    %cl,-0x7b(%rbp)
-   6:	f6 75 48             	divb   0x48(%rbp)
-   9:	e8 c5 19 38 00       	call   0x3819d3
-   e:	eb 47                	jmp    0x57
-  10:	e8 be 19 38 00       	call   0x3819d3
-  15:	90                   	nop
-  16:	0f 0b                	ud2
-  18:	90                   	nop
-  19:	e9 bc fe ff ff       	jmp    0xfffffeda
-  1e:	e8 b0 19 38 00       	call   0x3819d3
-  23:	48 8d 3d 99 1c 26 0e 	lea    0xe261c99(%rip),%rdi        # 0xe261cc3
-* 2a:	67 48 0f b9 3a       	ud1    (%edx),%rdi <-- trapping instruction
-  2f:	e9 d2 fe ff ff       	jmp    0xffffff06
-  34:	e8 9a 19 38 00       	call   0x3819d3
-  39:	90                   	nop
-  3a:	0f 0b                	ud2
-  3c:	90                   	nop
-  3d:	e9                   	.byte 0xe9
-  3e:	1d                   	.byte 0x1d
-  3f:	ff                   	.byte 0xff
+	i += (range_nums - 1);
 
+get_range() only bounds how many values it stores, but returns the full
+size of the range, which can be as large as INT_MAX. The addition then
+overflows i, which wraps to a negative value since the kernel is built
+with -fno-strict-overflow. As a result:
 
-Tested on:
+ - with nints > 0, the loop continues (i < nints still holds) and the
+   next get_option() call writes to ints[i], about 8 GiB below the
+   array;
 
-commit:         67f0943b Merge tag 'selinux-pr-20261005' of git://git...
-git tree:       upstream
-console output: https://syzkaller.appspot.com/x/log.txt?x=14fc4ff5580000
-kernel config:  https://syzkaller.appspot.com/x/.config?x=341a98f91c13ec9
-dashboard link: https://syzkaller.appspot.com/bug?extid=d627b1495de0e851be32
-compiler:       Debian clang version 22.1.8 (++20260613092233+e80beda6e255-1~exp1~20260613092250.77), Debian LLD 22.1.8
-patch:          https://syzkaller.appspot.com/x/patch.diff?x=147f2ff5580000
+ - in validation mode (nints == 0), the returned count is negative or
+   bogus, so callers such as parse_int_array() allocate a too small
+   array, and the second get_options() pass then performs the same out
+   of bounds write.
+
+For example, get_options("0-2147483647", 6, ints) writes to ints[INT_MIN].
+parse_int_array() is reachable from several root-writable debugfs
+files via parse_int_array_user() (e.g. in sound/soc/sof,
+sound/soc/intel/avs, drivers/gpu/drm/xe and
+drivers/platform/x86/intel/vsec_tpmi.c), and get_options() is used
+directly by e.g. the lux_table sysfs store handlers in
+drivers/iio/light/tsl2583.c and tsl2772.c.
+
+Stop parsing if the range would overflow the index, and add a KUnit test
+case. Ranges that don't overflow are parsed exactly as before.
+
+Found by fuzzing get_options() and parse_int_array() with ASan/UBSan
+in userspace; the new test case fails without this fix.
+
+Fixes: 22f2e2801799 ("[PATCH] get_options to allow a hypenated range for isolcpus")
+Assisted-by: Claude:claude-opus-5-5 ASan UBSan libFuzzer
+Signed-off-by: lzhan011 <zhangleizhen645@gmail.com>
+---
+ lib/cmdline.c             |  5 ++++-
+ lib/tests/cmdline_kunit.c | 19 +++++++++++++++++++
+ 2 files changed, 23 insertions(+), 1 deletion(-)
+
+diff --git a/lib/cmdline.c b/lib/cmdline.c
+index 16cce6621..76a4a39ec 100644
+--- a/lib/cmdline.c
++++ b/lib/cmdline.c
+@@ -125,8 +125,11 @@ char *get_options(const char *str, int nints, int *ints)
+ 			/*
+ 			 * Decrement the result by one to leave out the
+ 			 * last number in the range.  The next iteration
+-			 * will handle the upper number in the range
++			 * will handle the upper number in the range.
++			 * Stop if that would overflow @i.
+ 			 */
++			if (range_nums > INT_MAX - 1 - i)
++				break;
+ 			i += (range_nums - 1);
+ 		}
+ 		i++;
+diff --git a/lib/tests/cmdline_kunit.c b/lib/tests/cmdline_kunit.c
+index 3f61ff8d3..96e6593ff 100644
+--- a/lib/tests/cmdline_kunit.c
++++ b/lib/tests/cmdline_kunit.c
+@@ -252,12 +252,31 @@ static void cmdline_test_memparse(struct kunit *test)
+ 				    "    when parsing '%s'", e->input);
+ 	}
+ }
++static void cmdline_test_range_overflow(struct kunit *test)
++{
++	int r[16];
++
++	/*
++	 * A range spanning (almost) the whole int space must not overflow
++	 * the number of parsed integers; such a range is not counted.
++	 * Only the validation mode is used, as it never writes beyond r[0].
++	 */
++	r[0] = -1;
++	get_options("0-2147483647", 0, r);
++	KUNIT_EXPECT_EQ(test, r[0], 0);
++
++	r[0] = -1;
++	get_options("1,0-2147483647", 0, r);
++	KUNIT_EXPECT_EQ(test, r[0], 1);
++}
++
+ 
+ static struct kunit_case cmdline_test_cases[] = {
+ 	KUNIT_CASE(cmdline_test_noint),
+ 	KUNIT_CASE(cmdline_test_lead_int),
+ 	KUNIT_CASE(cmdline_test_tail_int),
+ 	KUNIT_CASE(cmdline_test_range),
++	KUNIT_CASE(cmdline_test_range_overflow),
+ 	KUNIT_CASE(cmdline_test_next_arg_quoted_value),
+ 	KUNIT_CASE(cmdline_test_next_arg_bare_quote_regression),
+ 	KUNIT_CASE(cmdline_test_next_arg_mixed_tokens),
+-- 
+2.34.1
 
