@@ -1,149 +1,71 @@
-Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from outgoing.mit.edu (outgoing-auth-1.mit.edu [18.9.28.11])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2C20E49B5A2
-	for <linux-kernel@vger.kernel.org>; Mon,  5 Oct 2026 14:03:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 322F6499F0E
+	for <linux-kernel@vger.kernel.org>; Mon,  5 Oct 2026 14:03:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=18.9.28.11
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791208989; cv=none; b=Olpj7Xlaukj7W7ypLnSB4CGckJ4Lc4mWige4DOKVXxsoF/a0MmipuolQpXro3bzYjlS8VXZzi1svcNMjCgcTJeTS9qorqh3Te2gC/k4k6j1fN0Gpd/F++NUOABYdybsv5lg52B5MVXNI0sNMjjk8Dcnxj9lpcIbEJfdhJUSjPh0=
+	t=1791209009; cv=none; b=hdUtiwuI97aQCqxfp7WgUknfDcIq9qb4jawfjhwBzD5HFH5Fdn+KYPhDKgKEl7qbyDeyZYXerECKbTuFwjBcUGbRRhvyY5A5JS7aXJpNK5Uz/d5kTCEE8+lKhn87qaudFV56RhJgpPXuLxqhANo44oOSQ7DUWCk84S+EXh9UTJ0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791208989; c=relaxed/simple;
-	bh=JjrYGntgpkHCX5paNkOYn8McUGlNbiymDVupgnjvCEw=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=eAeLYX4fqtLSzpRIutrKKyH8fEFnp1AJns+p/tl9eE1erRHNhcoaKLKl7vBX8QQHTN7QQ3pscYvHMRM7vHg1JXdp6FQi0Ot4Uk84MftbAoc1u3fM27K80N4yGhat0llaoZqq63HxrOZGndQHixE4XtJ2Blu1R+IGzlBBOZugyFU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=thegoodpenguin.co.uk; spf=pass smtp.mailfrom=thegoodpenguin.co.uk; dkim=pass (2048-bit key) header.d=thegoodpenguin-co-uk.20251104.gappssmtp.com header.i=@thegoodpenguin-co-uk.20251104.gappssmtp.com header.b=ZUTbJTjw; arc=none smtp.client-ip=74.125.225.141
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=thegoodpenguin.co.uk
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=thegoodpenguin.co.uk
+	s=arc-20240116; t=1791209009; c=relaxed/simple;
+	bh=Y0BFTkA47iyFJ29RfA9FIn0I7Rr/kvLIQWeKr2f47KQ=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=D+w6u382VWCw5NT7Ldp//PGBSpAnXr003HxodSj9pEZcF43+vfomua8dWTHjKIFv3sd1Z56MKkrc2GZhzXQG8cw5RnE3inHK5wCdX/Hs4DjPL3K+gC+A8i+OZqx34G101CLKnZfMo6ZsAM7GRf+AKkUSFj7Hkn/HBqOpEZv5hf4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mit.edu; spf=pass smtp.mailfrom=mit.edu; dkim=pass (2048-bit key) header.d=mit.edu header.i=@mit.edu header.b=V6LSENu8; arc=none smtp.client-ip=18.9.28.11
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mit.edu
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mit.edu
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=thegoodpenguin-co-uk.20251104.gappssmtp.com header.i=@thegoodpenguin-co-uk.20251104.gappssmtp.com header.b="ZUTbJTjw"
-Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-4a022e9cbebso15030965e9.0
-        for <linux-kernel@vger.kernel.org>; Mon, 05 Oct 2026 07:02:59 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=thegoodpenguin-co-uk.20251104.gappssmtp.com; s=20251104; t=1791208978; x=1791813778; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=wSBauqB5zF5k0g2pWKRs8w0XmZ/Qu8eAdzzpkSZQ1Wc=;
-        b=ZUTbJTjwi8YgYCyJ0vSQZojjwV7R3v1dGQL0H46J3T6D3+ZzfWvL1Riv531tmmQ3O9
-         tCmzxmoH30t4cuKplWDAhc3CYKdia0/ulp7F5KoqA7RQkb6OlAxIjt5ImKFNz2GomiII
-         /xkqFYSfrP2IKldnzn+vOpsjyddPp1fq2+F1a2A2cbOAw1tB7CE9d9oDypc9K4O947i1
-         nr3lbcisFaOIc3WKPVXh/3M6CuR/c/Ve/1NXprWdwLdiSMcjIjLhVcgkzimyhCttymTD
-         UFwvjpKyr4OEIusWFrtxwgnv4c0CeAs6H9tDUlLq2kR5DQitmQRMA86SGIYntqL36NsK
-         pybw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791208978; x=1791813778;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=wSBauqB5zF5k0g2pWKRs8w0XmZ/Qu8eAdzzpkSZQ1Wc=;
-        b=Ygyo9Or+M0sKT+b4ilZMA1M1Vku9zOgJ6fo+vOEqrpdnC7PE7imwfpux/dIkut4X9R
-         IRAwqqy3LwG4QZUwDwx7X3Hwdh+L2lu0g3zDaTfMlhJhZILO920dpPUIQoUNZenT5p6Q
-         Idn7HpOG/6fajVGNAxIKVZ9wQW8+4F1IEROnbQ+OiiV1Mx0kAhgBeI5FeseevC9GtVP7
-         5puBtEe9reMocgIf2cZ8RCi4ARtw6omMNs9DwGusviLBJHKW0/juroT6UYXK0AvK0JKS
-         71Ufx0Q3Tp0mPmlNKCe4SUn/nOgdu1FwUvYC9T/S2VebYN65lPVGxpsXGaYlOKFEV09Q
-         zw2w==
-X-Forwarded-Encrypted: i=1; AKwUvBy9/7Za4bqEiJlYwVXNlEQegx83J7rLBvrcSI+7vHUXMo5OccnzDzzuU7KB4lUWS76WyuVNYqeIuYrPkyY=@vger.kernel.org
-X-Gm-Message-State: AFuF++klC7aNtwODj4gpB6oZPhoW8vW9RNLVfGbkQHPYiKDXLQn1E7kt
-	Sh1Yv5j6a2ac39fm6dZrO98D/YlDx6MpkjRwJdeg7DQ2sLJW1hEjyYfDEeETZ+yBiqxa1lToE8t
-	4qoF+KacLuQ==
-X-Gm-Gg: AYBFou0ZaFwFowjFRR2L4tG8ng3GQMSCE1VmFzi6uayRxackeIcc/AqnXLV4kCNp9w0
-	0D/60BuluDvO4HTyfWe15GI8b/i6umBpGn7ElTq2j5Ca100GeYp7S+sTn5FXvZSA1/D2Ip+p2np
-	yPpsTlazhSXaxz6lkL8FPuUNccGtbiIkrEWQ4PjQcJJZRcEQfeBZ9Ugewu+b7hDqkqw+ctDqsWa
-	2JnyvTZrazdn/5xRH6EuQFvrAzLrNG0JNW1i4vPjDcYIHw3rwDL/w0LFS1QJ0WCwe+nTnRbafWD
-	+I7YVNk7mRuvOSFOQ0KNpbXMyXGKA9dX3W2T3IAXCZixyIrvZ+K69vMx7KkTC6N0LYkYjcRhroE
-	+CJ6Fl8rmjilxNSiqqWSfPwfAyYoKyZgH5dMFZKp2UTYQFnnwL0nDGdLCGclrahiW1pqZRFNQFb
-	P4SOlDAtDj8DxJ2BDXsL27FxhR5k0panVig+fxb+vdKNTBILQ2IREbwgP9NWPyCmFHVmvWluuiJ
-	KAVdgEQGFr0Dg==
-X-Received: by 2002:a05:600c:e557:10b0:4a0:2484:2800 with SMTP id 5b1f17b1804b1-4a0274f40d0mr121299315e9.3.1791208978225;
-        Mon, 05 Oct 2026 07:02:58 -0700 (PDT)
-Received: from [10.42.0.1] ([2a00:23c7:1d1a:9c01:9c1b:24c4:d43:125f])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a162e867e8sm324052715e9.15.2026.10.05.07.02.55
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 05 Oct 2026 07:02:56 -0700 (PDT)
-From: Pawel Zalewski <pzalewski@thegoodpenguin.co.uk>
-Date: Mon, 05 Oct 2026 15:02:07 +0100
-Subject: [PATCH 11/12] iio: proximity: use named initializers for
- acpi_device_id
+	dkim=pass (2048-bit key) header.d=mit.edu header.i=@mit.edu header.b="V6LSENu8"
+Received: from macsyma.thunk.org ([151.240.45.38])
+	(authenticated bits=0)
+        (User authenticated as tytso@ATHENA.MIT.EDU)
+	by outgoing.mit.edu (8.14.7/8.12.4) with ESMTP id 695E1pXg006784
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Mon, 5 Oct 2026 10:01:53 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mit.edu; s=outgoing;
+	t=1791208920; bh=Upl7F91amjUFqp9wyYmz9ODrIhZOAhPMAxoyRitl3L0=;
+	h=Date:From:Subject:Message-ID:MIME-Version:Content-Type;
+	b=V6LSENu82/5QHJEpjIQKsDLNWAZfXCMl7QKTnJluY+fal63ihQbkpYeXXhLxn3A6M
+	 W2cR9ekZVVHr/2qSqUztc47IiTgmEycOidY9Nq1YSiAIIGGOOqCvaWQ5WPyL9nsvRD
+	 1n0R0Z3LoU0MCg0F4jLyUNYX+FzTtsBd0jaoEealqrDQiNxMpRJnxRZVhp9QrACWcP
+	 0M6szUmqTf52z+bHbn5jlAgjpDq1G6HbseDDXC6KTCCLwSaW06SagzuDoA1UTrDZ19
+	 7TyOuVpsOZwnQSXRfYxKk2WXelHmVZ+W5ogB1/UPVOZNvCgfkEV7xrv7ZlgFf86aHw
+	 PkjbY6mtUUPMA==
+Received: by macsyma.thunk.org (Postfix, from userid 15806)
+	id 4019D1F15D36; Mon,  5 Oct 2026 10:01:50 -0400 (EDT)
+Date: Mon, 5 Oct 2026 10:01:50 -0400
+From: "Theodore Tso" <tytso@mit.edu>
+To: Zhang Yi <yi.zhang@huaweicloud.com>
+Cc: linux-ext4@vger.kernel.org, linux-fsdevel@vger.kernel.org,
+        linux-kernel@vger.kernel.org, adilger.kernel@dilger.ca,
+        libaokun@linux.alibaba.com, jack@suse.cz, ojaswin@linux.ibm.com,
+        ritesh.list@gmail.com, djwong@kernel.org, hch@infradead.org,
+        yi.zhang@huawei.com, yizhang089@gmail.com, chengzhihao1@huawei.com,
+        yangerkun@huawei.com, wangkefeng.wang@huawei.com,
+        yukuai@alb-78bjiv52429oh8qptp.cn-shenzhen.alb.aliyuncs.com
+Subject: Re: [PATCH v6 11/31] ext4: implement buffered read path using iomap
+Message-ID: <asOtpKyvNQOahh5X@mit.edu>
+References: <20260903123543.2302999-1-yi.zhang@huaweicloud.com>
+ <20260903123543.2302999-12-yi.zhang@huaweicloud.com>
+ <asNrmCSW8UjpyfRv@mit.edu>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261005-acpi-iio-v1-11-2796f713945a@thegoodpenguin.co.uk>
-References: <20261005-acpi-iio-v1-0-2796f713945a@thegoodpenguin.co.uk>
-In-Reply-To: <20261005-acpi-iio-v1-0-2796f713945a@thegoodpenguin.co.uk>
-To: =?utf-8?q?Nuno_S=C3=A1?= <nuno.sa@analog.com>, 
- Michael Hennerich <Michael.Hennerich@analog.com>, 
- Jonathan Cameron <jic23@kernel.org>, David Lechner <dlechner@baylibre.com>, 
- Andy Shevchenko <andy@kernel.org>, 
- Petre Rodan <petre.rodan@subdimension.ro>, 
- Matteo Martelli <matteomartelli3@gmail.com>, 
- Marius Cristea <marius.cristea@microchip.com>, 
- Matti Vaittinen <mazziesaccount@gmail.com>, 
- Lorenzo Bianconi <lorenzo@kernel.org>, 
- Alex Lanzano <lanzano.alex@gmail.com>, 
- Jagath Jog J <jagathjog1996@gmail.com>, 
- Jean-Baptiste Maneyrol <jean-baptiste.maneyrol@tdk.com>, 
- Kevin Tsai <ktsai@capellamicro.com>, Eddie James <eajames@linux.ibm.com>, 
- Marcelo Schmitt <marcelo.schmitt@analog.com>
-Cc: linux@analog.com, linux-iio@vger.kernel.org, 
- linux-kernel@vger.kernel.org, 
- Pawel Zalewski <pzalewski@thegoodpenguin.co.uk>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1791208959; l=1651;
- i=pzalewski@thegoodpenguin.co.uk; s=20260430; h=from:subject:message-id;
- bh=JjrYGntgpkHCX5paNkOYn8McUGlNbiymDVupgnjvCEw=;
- b=D7SXQcDe48iBcUBMBWwek43+A5JkmUQIi1NBul7YToWoafZT80IByGHlmmRoRCI3NrgcxpQnj
- tmMbqv2fpO5BqCSxoLRbsaDDT3CsoTAjmuOS5xerdbxR0mawn8uiOj9
-X-Developer-Key: i=pzalewski@thegoodpenguin.co.uk; a=ed25519;
- pk=vHq4n9IonORH2GTzLv8r6CWAFHzgfBuNkQPXA8NSly0=
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <asNrmCSW8UjpyfRv@mit.edu>
 
-Use a designated initializer for the acpi_device_id fields which makes the
-code more readable and consistent with how lists are initialized in the
-rest of the kernel code base. Also drop explicitly setting fields to 0
-where it is redundant.
+On Mon, Oct 05, 2026 at 05:23:31AM -0500, Theodore Tso wrote:
+> I tried running "git am" on your patch series, and after resolving a
+> patch conflict manually, I ran a build check to make sure things were
+> still building, and I ran into a couple of issues that caused the
+> build to fail:
 
-Signed-off-by: Pawel Zalewski <pzalewski@thegoodpenguin.co.uk>
----
- drivers/iio/proximity/sx9310.c | 4 ++--
- drivers/iio/proximity/sx9500.c | 4 ++--
- 2 files changed, 4 insertions(+), 4 deletions(-)
+Never mind; this was caused bby building on too old of a kernel base.
+When I applied this on a newer kernel, the problem went away.  Sorry
+for the noise!
 
-diff --git a/drivers/iio/proximity/sx9310.c b/drivers/iio/proximity/sx9310.c
-index 79ba46d8a0aa..8c197973479a 100644
---- a/drivers/iio/proximity/sx9310.c
-+++ b/drivers/iio/proximity/sx9310.c
-@@ -992,8 +992,8 @@ static const struct sx931x_info sx9311_info = {
- };
- 
- static const struct acpi_device_id sx9310_acpi_match[] = {
--	{ "STH9310", (kernel_ulong_t)&sx9310_info },
--	{ "STH9311", (kernel_ulong_t)&sx9311_info },
-+	{ .id = "STH9310", .driver_data = (kernel_ulong_t)&sx9310_info },
-+	{ .id = "STH9311", .driver_data = (kernel_ulong_t)&sx9311_info },
- 	{ }
- };
- MODULE_DEVICE_TABLE(acpi, sx9310_acpi_match);
-diff --git a/drivers/iio/proximity/sx9500.c b/drivers/iio/proximity/sx9500.c
-index dadce9b44227..cd67d88d2be4 100644
---- a/drivers/iio/proximity/sx9500.c
-+++ b/drivers/iio/proximity/sx9500.c
-@@ -1012,8 +1012,8 @@ static int sx9500_resume(struct device *dev)
- static DEFINE_SIMPLE_DEV_PM_OPS(sx9500_pm_ops, sx9500_suspend, sx9500_resume);
- 
- static const struct acpi_device_id sx9500_acpi_match[] = {
--	{"SSX9500", 0},
--	{"SASX9500", 0},
-+	{ .id = "SSX9500" },
-+	{ .id = "SASX9500" },
- 	{ }
- };
- MODULE_DEVICE_TABLE(acpi, sx9500_acpi_match);
-
--- 
-2.53.0
-
+						- Ted
