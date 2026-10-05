@@ -1,113 +1,311 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A1A8F54707A
-	for <linux-kernel@vger.kernel.org>; Mon,  5 Oct 2026 23:39:03 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 548B745563A;
+	Mon,  5 Oct 2026 23:39:57 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791243544; cv=none; b=PHTtykodtjAxO/uhpXfL3p+O9BhKXCf7gnOVbciuy0+oqKtO+Ct4vkWyztb7glVlukfDPY+J6dCTYEzvh2vK8Ti1xVCk58gq/vZup3v2Pf2W1cddZ3vhs8dR4rjuyaf9qTzU0ab9KuN1dmibNGa/B24pp431EWCFk2iaQcHHpOk=
+	t=1791243599; cv=none; b=MZkd67KoNd9u5qjkmLnNHgC49D4wtoJVdq3sRX+buAoaRzff/T7vPA91xH8vI738v5f+QmwJ/cfeN7LOyK6nKM8dchv2kd5i+5v3tLdsym43ijV8QWo/L8Y4rUV6hOIvzlj/fdlossMuWxMA37eATw28Gb8wGwyf1M0L0d0Nw20=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791243544; c=relaxed/simple;
-	bh=7Z4YQNQjAkp7fBRBfGTICKlRVpTs3liJVTbe9LCjByU=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=so1XoCMAh/WXb/MqYvoiV+lhes3xjIbkzNjhHMW5jpvv0SCz69BRZZZJj1+1YfOTHEpP5UHnxNlQPANvsBAHwEMe726Iol3UF26E5zWgUMNjpkyfb7wcVn0ETQ90bHldbp4GZ33dFTs8CL0AvXLrOzVo/9p0EUVH3aCa0+pxdNo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Vj0z80kQ; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791243599; c=relaxed/simple;
+	bh=GpF0i/FJN2rPF8w5W5/ZXftb4l48uhx5xGPr6J2c4Wg=;
+	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To; b=f6unt+hNa3gIEXqZ+8KNOPv0KVBHLFdFQ8xKzvTqwNC/rcFxWaC3RKlak5BINqOFQoBQNNOKpuiXelhkV5e1GTlZi4q+weQB9g+omE7rKEEDOty+1ERXJl5cIQ1ukSe9Nq7jjz8U+SJZiKWUh2GdGlTMgapQcTfXwGA4n8oJqI0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=RV3YvlF7; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Vj0z80kQ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 543291F00899
-	for <linux-kernel@vger.kernel.org>; Mon,  5 Oct 2026 23:39:03 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="RV3YvlF7"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 61B211F000FF;
+	Mon,  5 Oct 2026 23:39:56 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791243543;
-	bh=JBW2ODmtigkrsix+0HH/8z6xbG9n5M8X7qtAqWl/PSA=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=Vj0z80kQRnNbFBcWuyEU53Oq1Yd7O08hmIxSonFhF3dA8UjvJ6dY9n/6jTKCHWDIm
-	 OFCVAwcjAbS5YxRCcJ2RXN9U0iYNeWt2okSZqrypusfCnp/pvOf2i651GWYObKIKWk
-	 9BtZdV5zFWkVpO2JjGA/EuJOh4Bme9CffeBElqLVfeWnG9eMElKWwDSqe5FuoPqUxN
-	 IgBXtqrF0RNGmipku38DvufyhAkLvTv0xb/n2rYr8ZMeQqQVMROXj9ewoLqDjIcDgE
-	 xKQ6YEp2e6Qg7d9SNjPfpes8RlxTVJe9auu8foC4xojbqODD5VVVT3MzqMNeoxSWm6
-	 hse/ng3NhulNw==
-Received: by mail-lr2-f35.google.com with SMTP id 38308e7fff4ca-3a77da28307so20914271fa.1
-        for <linux-kernel@vger.kernel.org>; Mon, 05 Oct 2026 16:39:03 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBxl4MZXyPQKcNTmUNF3D6Sq26vRkj4X6rn8Mi9M0v/f2xP/WFeIF0mocVb2CNU9edx8ehBcrX9xq8oaKJo=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJRPuyeiChlXC4LC7C/7spZwWjVSyFPeRS+DoqTzAd5QU3MJLiU
-	7oVAKf0+IClt68Sy5TGAa1cCw0eg/3gsCgqF/T5xWYgv0ofVqPjFwv3rgBS+zw1SFty0l4UjIjT
-	VFZH0zObAV36b2Oz0ScvH1ia0qglCnnM=
-X-Received: by 2002:a05:651c:b27:b0:3a7:812b:d0b with SMTP id
- 38308e7fff4ca-3a8877e2986mr33078091fa.11.1791243542023; Mon, 05 Oct 2026
- 16:39:02 -0700 (PDT)
+	s=k20260515; t=1791243596;
+	bh=n2FeCcTUwln+ThglsluSIuBuud4m/NWKFhzd5XpTQMc=;
+	h=Date:From:To:Cc:Subject:In-Reply-To;
+	b=RV3YvlF7yDrEXMVAouuqa8zfo4sK4LagpqVYoc8IMB+Z5C0g78yUpFsDNfkmJFmbv
+	 FF5cRFaHO1OMmXwVz8XedmG5MXn7/SdZlJm7gBzcEpgo2iCF5E8x2IEJ8+2tZ5QUFf
+	 zdJCG7xgVQgk+TL97ojpR3wlS3qZPQu+Y8rSL5qULyVyJeujbtFMyQXG3b6hA5uBqR
+	 nvMjQSckZXeD7LS3SOte036RJwYtg4woENHSuS+dOwa9qQTq28vmZvD021IW3JkdAq
+	 ptXvn545oMzIlO6eVzCDU5L5Haa3fo9nwyGbexLse2Cbo2lhrs32fNxu1N5GCx2ma3
+	 hOlZwTrCEJrQw==
+Date: Mon, 5 Oct 2026 18:39:55 -0500
+From: Bjorn Helgaas <helgaas@kernel.org>
+To: Rickey Bartlett <subtexel@gmail.com>
+Cc: Nirmal Patel <nirmal.patel@linux.intel.com>,
+	Jonathan Derrick <jonathan.derrick@linux.dev>,
+	Lorenzo Pieralisi <lpieralisi@kernel.org>,
+	Krzysztof Wilczynski <kwilczynski@kernel.org>,
+	Bjorn Helgaas <bhelgaas@google.com>,
+	Kai-Heng Feng <kai.heng.feng@canonical.com>,
+	Keith Busch <kbusch@kernel.org>,
+	Manivannan Sadhasivam <mani@kernel.org>, linux-pci@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] PCI: vmd: Flush initiator posted writes before demuxing
+ interrupts on Meteor Lake
+Message-ID: <20261005233955.GA647215@bhelgaas>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20261002115850.962676-1-o.rempel@pengutronix.de> <20261002115850.962676-8-o.rempel@pengutronix.de>
-In-Reply-To: <20261002115850.962676-8-o.rempel@pengutronix.de>
-From: Linus Walleij <linusw@kernel.org>
-Date: Tue, 6 Oct 2026 01:38:49 +0200
-X-Gmail-Original-Message-ID: <CAD++jLmckJt44y4HNTs4yb2oMm3nJTTBKDVh8dohAeBrDX4a_Q@mail.gmail.com>
-X-Gm-Features: AclHuK8XA3y4aGMxpVyTYMYhnPBZuxOn10ShDpEb47GBNRqHJNMwmPMgq3wAZ4k
-Message-ID: <CAD++jLmckJt44y4HNTs4yb2oMm3nJTTBKDVh8dohAeBrDX4a_Q@mail.gmail.com>
-Subject: Re: [PATCH net-next v1 7/8] net: dsa: realtek: rtl8365mb: offload DCB apptrust
-To: Oleksij Rempel <o.rempel@pengutronix.de>
-Cc: Luiz Angelo Daros de Luca <luizluca@gmail.com>, Andrew Lunn <andrew@lunn.ch>, 
-	Vladimir Oltean <olteanv@gmail.com>, "David S. Miller" <davem@davemloft.net>, 
-	Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
-	kernel@pengutronix.de, linux-kernel@vger.kernel.org, 
-	=?UTF-8?Q?Alvin_=C5=A0ipraga?= <alvin.sipraga@analog.com>, 
-	netdev@vger.kernel.org, Simon Horman <horms@kernel.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <CAAqcVzyiXr3GvzgpL_Cwh9W5EwLOZTowa-Fj5=7LGGiyhnY6yQ@mail.gmail.com>
 
-Hi Oleksij,
+On Fri, Oct 02, 2026 at 11:40:22PM -0400, Rickey Bartlett wrote:
+> Bjorn,
+> 
+> Thanks for catching that. The September 3 patch you linked is the intended
+> reference for [1]. The message ID in my original link was incorrect.
+> 
+> Please use these references in the commit message:
+> 
+> [1] https://lore.kernel.org/all/20240903025544.286223-1-kai.heng.feng@canonical.com/
+> 
+> [2] https://lore.kernel.org/all/20240913111142.4cgrmirofhhgrbqm@thinkpad/
 
-thanks for your patch!
+Fixed, thanks!
 
-Again some potential to share code here, not going to
-repeat myself from patch 0.
-
-On Fri, Oct 2, 2026 at 1:59=E2=80=AFPM Oleksij Rempel <o.rempel@pengutronix=
-.de> wrote:
-
-> +/* rtl8365mb_apptrust_weight() gives the first entry the top weight,
-> + * RTL8365MB_QOS_WEIGHT_PORT + ARRAY_SIZE(rtl8365mb_apptrust_map); fail =
-the
-> + * build if adding a selector would raise it past the decision weight ra=
-nge.
-(...)
-> +/* Trusted sources outrank the port default, and earlier entries in
-> + * rtl8365mb_apptrust_map[] outrank later ones. Deriving the weight from=
- the
-> + * entry's position makes the table order the sole expression of precede=
-nce,
-> + * so the order and the hardware weights cannot drift apart.
-> + */
-> +static u8 rtl8365mb_apptrust_weight(unsigned int entry)
-> +{
-> +       return RTL8365MB_QOS_WEIGHT_PORT +
-> +              ARRAY_SIZE(rtl8365mb_apptrust_map) - entry;
-> +}
-
-RTL8365MB_QOS_WEIGHT_PORT is 1.
-The returned weights
-will be 1 (default), 2 (DSCP), 3 (PCP)
-if I understand correctly.
-
-The RTL8370 source has some other opionions about this,
-it writes a power-of-two value here, would be something like:
-
-return BIT(ARRAY_SIZE(rtl8365mb_apptrust_map) - entry);
-
-returning the weigths 1 (default), 2 (DSCP), 4 (PCP).
-
-So for RTL8365MB this value lands in register 0x0886
-for example if both sources are trusted as the value
-0x0302. But for the RTL8370 (which uses another register)
-the value is instead 0x0402 for both sources trusted.
-
-Can you check this in the RTL8365MB manual because
-the register usage overall seem very similar to
-RTL8370.
-
-Yours,
-Linus Walleij
+> On Thu, 01 Oct 2026 12:08:16 -0500, Bjorn Helgaas <helgaas@kernel.org> wrote:
+> > On Mon, Aug 24, 2026 at 09:32:20PM -0700, Rickey Bartlett wrote:
+> > > Meteor Lake VMD (8086:7d0b) is affected by erratum MTL016: the VMD can
+> > > signal its MSI before the posted writes carrying a child device's DMA
+> > > data have landed in memory. vmd_irq() then demuxes to the child handler
+> > > while the child's completion queue is not yet coherent, so the handler
+> > > observes no completion and returns without consuming it. The I/O is
+> > > only recovered when the block layer timeout expires and polls the queue:
+> > >
+> > >   nvme nvme0: I/O tag 253 (50fd) QID 1 timeout, completion polled
+> > >
+> > > The practical effect is therefore not a lost I/O but a 30 second stall
+> > > of the entire storage stack, repeated under any sustained read load.
+> > >
+> > > This was originally diagnosed and fixed by Kai-Heng Feng in September
+> > > 2024 [1]. That patch used udelay(4); Keith Busch objected that the delay
+> > > is merely a side effect of the read, and that flushing the pending
+> > > device-to-host writes is what the erratum actually requires. Kai-Heng
+> > > agreed to respin with a dummy register read. The thread then stalled on
+> > > an open question from Manivannan Sadhasivam [2]: whether the read must
+> > > target the child device (the "MSI initiator" named by the erratum)
+> > > rather than the VMD, and whether the workaround belongs in the NVMe
+> > > driver instead. No revision followed, and the erratum has remained
+> > > unmitigated in mainline since.
+> > >
+> > > This implements the flush read Keith asked for, and answers the open
+> > > question empirically: the read MUST complete at the initiating child
+> > > device. A read of the VMD's own config BAR was tried first and does not
+> > > help - it terminates at the VMD and never traverses the downstream
+> > > link, so it does not order against the child's posted writes (measured:
+> > > timeout rate unchanged). Reading the initiator's config space does
+> > > order correctly: per PCIe ordering rules the read completion cannot
+> > > pass the device's earlier posted writes, so returning from the read
+> > > guarantees the completion queue entry is visible.
+> > >
+> > > The initiator's config address is captured per-IRQ at MSI allocation
+> > > time from the requesting device, so the hot path adds one config read
+> > > only on affected parts, and only for vectors owned by a child device.
+> > > The read is serialized with cfg_lock like all other VMD config access.
+> > > No NVMe driver change is needed.
+> > >
+> > > Measured on a Dell Pro Max 14 MC14250 (Meteor Lake, VMD 8086:7d0b,
+> > > KIOXIA BG6 512GB, 7.0.0-30-generic). The drive is healthy (46C, 0 media
+> > > errors, 2% used) and ASPM is disabled on the link with all L1 substates
+> > > off, so neither ASPM nor APST is involved.
+> > >
+> > > Dropping caches and reading 3000 shared libraries, measuring
+> > > /proc/pressure/io "full" (every task on the system blocked on I/O),
+> > > with nvme_core.io_timeout=5:
+> > >
+> > >   unpatched:      round 1  wall 37.4s   full I/O stall 32.6s   timeouts 0
+> > >                   round 2  wall 30.6s   full I/O stall 28.7s   timeouts 1
+> > >                   round 3  wall 30.3s   full I/O stall 27.4s   timeouts 1
+> > >
+> > >   VMD-BAR read:   round 1  wall 44.8s   full I/O stall 38.6s   timeouts 8
+> > >   (insufficient)  round 2  wall 234.8s  full I/O stall 207.9s  timeouts 37
+> > >                   round 3  wall 3.6s    full I/O stall 0.8s    timeouts 0
+> > >
+> > >   this patch:     round 1  wall 3.6s    full I/O stall 1.3s    timeouts 0
+> > >                   round 2  wall 3.6s    full I/O stall 1.3s    timeouts 0
+> > >                   round 3  wall 3.6s    full I/O stall 1.4s    timeouts 0
+> > >
+> > > Before any workaround, 208 seconds of total-system I/O stall
+> > > accumulated in the first 13 minutes of uptime, roughly 27% of wall
+> > > clock. Userspace experiences this as GUI applications taking 30-60+
+> > > seconds to start while throughput between stalls looks entirely normal
+> > > (1.9 GB/s QD1) - which is what makes the fault easy to misattribute to
+> > > ASPM or to the drive.
+> > >
+> > > [1] https://lore.kernel.org/all/20240909082657.19660-1-kai.heng.feng@canonical.com/
+> >
+> > This link doesn't work.  Do you have a corrected one?  Maybe it was a
+> > followup to this one:
+> >
+> >   https://lore.kernel.org/all/20240903025544.286223-1-kai.heng.feng@canonical.com/
+> >
+> > > [2] https://lkml.iu.edu/hypermail/linux/kernel/2409.1/08047.html
+> >
+> > And this appears to be the email at
+> > https://lore.kernel.org/all/20240913111142.4cgrmirofhhgrbqm@thinkpad/
+> >
+> > Prefer lore.kernel.org over lkml.iu.edu because lore doesn't depend on
+> > non-kernel.org resources.
+> >
+> > > Reported-by: Kai-Heng Feng <kai.heng.feng@canonical.com>
+> > > Suggested-by: Keith Busch <kbusch@kernel.org>
+> > > Assisted-by: Claude:claude-opus-5
+> > > Signed-off-by: Rickey Bartlett <subtexel@gmail.com>
+> > > ---
+> > > This revives the MTL016 workaround that Kai-Heng Feng posted in September
+> > > 2024 [1]. To be clear about the provenance: the diagnosis and the fix are
+> > > his. Intel confirmed the silicon bug in that thread. What is new here is
+> > > the implementation Keith asked for, and the measurements needed to close
+> > > the question the thread ended on.
+> > >
+> > > That thread stalled on one unanswered point - whether the flush read has
+> > > to target the NVMe child device, the "MSI initiator" named in the erratum,
+> > > or whether the VMD's own register is enough, and whether the workaround
+> > > belongs in the NVMe driver at all. Nobody had hardware in front of them to
+> > > settle it, and the discussion stopped there. It has been two years, the
+> > > erratum is still unmitigated in mainline, and every affected machine has
+> > > been stalling that whole time.
+> > >
+> > > I have the hardware, so here is the answer: the read must complete at
+> > > the NVMe child device - the "MSI initiator" named in the erratum -
+> > > exactly as Manivannan suspected. I first tried reading the VMD's own
+> > > config BAR; it does not help (measured, numbers in the commit message:
+> > > timeout rate was unchanged). A read that terminates at the VMD never
+> > > traverses the downstream link, so PCIe ordering gives no guarantee
+> > > about the child's posted writes. Reading the initiator's config space
+> > > closes the race. The workaround still lives in the VMD driver rather
+> > > than the NVMe driver: the VMD is the broken component, the initiator
+> > > address is captured generically per-IRQ at MSI allocation time, and no
+> > > NVMe-specific knowledge is needed.
+> > >
+> > > Measurements are in the commit message.
+> > >
+> > >  drivers/pci/controller/vmd.c | 52 ++++++++++++++++++++++++++++++++++--
+> > >  1 file changed, 50 insertions(+), 2 deletions(-)
+> > >
+> > > diff --git a/drivers/pci/controller/vmd.c b/drivers/pci/controller/vmd.c
+> > > index 241023e..e45ef8c 100644
+> > > --- a/drivers/pci/controller/vmd.c
+> > > +++ b/drivers/pci/controller/vmd.c
+> > > @@ -92,6 +92,22 @@ enum vmd_features {
+> > >  	 * referred to as MEMBAR2 or MSI-X BAR.
+> > >  	 */
+> > >  	VMD_FEAT_USE_BIOS_INFO		= (1 << 6),
+> > > +
+> > > +	/*
+> > > +	 * Meteor Lake VMD (device ID 0x7d0b) is affected by erratum MTL016:
+> > > +	 * the VMD may signal its MSI before the posted writes that carry the
+> > > +	 * child device's DMA data have landed in memory.  The demuxed handler
+> > > +	 * then runs against a not-yet-coherent completion queue and misses the
+> > > +	 * completion entirely, so the I/O is only recovered when the block
+> > > +	 * layer timeout fires and polls the queue ("timeout, completion
+> > > +	 * polled").  Intel's documented workaround is to issue a dummy read
+> > > +	 * to the MSI initiator (the child device) before handling the
+> > > +	 * interrupt: the read completion cannot pass the device's earlier
+> > > +	 * posted writes, so it pulls them into memory per PCIe ordering
+> > > +	 * rules.  A read that terminates at the VMD itself does not order
+> > > +	 * against the child's writes and is not sufficient (measured).
+> > > +	 */
+> > > +	VMD_FEAT_INTERRUPT_QUIRK	= (1 << 7),
+> > >  };
+> > >
+> > >  #define VMD_BIOS_PM_QUIRK_LTR	0x1003	/* 3145728 ns */
+> > > @@ -114,6 +130,9 @@ static DEFINE_RAW_SPINLOCK(list_lock);
+> > >   * @irq:	back pointer to parent.
+> > >   * @enabled:	true if driver enabled IRQ
+> > >   * @virq:	the virtual IRQ value provided to the requesting driver.
+> > > + * @flush_addr:	config space address of the initiating device, read before
+> > > + *		demuxing to flush its posted writes (MTL016); NULL if the
+> > > + *		VMD is not affected.
+> > >   *
+> > >   * Every MSI/MSI-X IRQ requested for a device in a VMD domain will be mapped to
+> > >   * a VMD IRQ using this structure.
+> > > @@ -123,8 +142,14 @@ struct vmd_irq {
+> > >  	struct vmd_irq_list	*irq;
+> > >  	bool			enabled;
+> > >  	unsigned int		virq;
+> > > +	void __iomem		*flush_addr;
+> > >  };
+> > >
+> > > +struct vmd_dev;
+> > > +
+> > > +static void __iomem *vmd_cfg_addr(struct vmd_dev *vmd, struct pci_bus *bus,
+> > > +				  unsigned int devfn, int reg, int len);
+> > > +
+> > >  /**
+> > >   * struct vmd_irq_list - list of driver requested IRQs mapping to a VMD vector
+> > >   * @irq_list:	the list of irq's the VMD one demuxes to.
+> > > @@ -132,12 +157,15 @@ struct vmd_irq {
+> > >   * @count:	number of child IRQs assigned to this vector; used to track
+> > >   *		sharing.
+> > >   * @virq:	The underlying VMD Linux interrupt number
+> > > + * @vmd:	back pointer to the owning VMD device; serializes the MTL016
+> > > + *		flush read against other config space access.
+> > >   */
+> > >  struct vmd_irq_list {
+> > >  	struct list_head	irq_list;
+> > >  	struct srcu_struct	srcu;
+> > >  	unsigned int		count;
+> > >  	unsigned int		virq;
+> > > +	struct vmd_dev		*vmd;
+> > >  };
+> > >
+> > >  struct vmd_dev {
+> > > @@ -295,6 +323,13 @@ static int vmd_msi_alloc(struct irq_domain *domain, unsigned int virq,
+> > >  		INIT_LIST_HEAD(&vmdirq->node);
+> > >  		vmdirq->irq = vmd_next_irq(vmd, desc);
+> > >  		vmdirq->virq = virq + i;
+> > > +		if (vmd->features & VMD_FEAT_INTERRUPT_QUIRK) {
+> > > +			struct pci_dev *pdev = msi_desc_to_pci_dev(desc);
+> > > +
+> > > +			vmdirq->flush_addr = vmd_cfg_addr(vmd, pdev->bus,
+> > > +							  pdev->devfn,
+> > > +							  PCI_VENDOR_ID, 2);
+> > > +		}
+> > >
+> > >  		irq_domain_set_info(domain, virq + i, vmdirq->irq->virq,
+> > >  				    &vmd_msi_controller, vmdirq,
+> > > @@ -756,8 +791,20 @@ static irqreturn_t vmd_irq(int irq, void *data)
+> > >  	int idx;
+> > >
+> > >  	idx = srcu_read_lock(&irqs->srcu);
+> > > -	list_for_each_entry_rcu(vmdirq, &irqs->irq_list, node)
+> > > +	list_for_each_entry_rcu(vmdirq, &irqs->irq_list, node) {
+> > > +		/*
+> > > +		 * MTL016: the MSI may have outrun the initiating device's
+> > > +		 * posted writes (e.g. its NVMe completion entry).  A read
+> > > +		 * that completes at the initiator flushes them, so the
+> > > +		 * demuxed handler observes a coherent completion queue.
+> > > +		 * The value is discarded; only the ordering matters.
+> > > +		 */
+> > > +		if (vmdirq->flush_addr) {
+> > > +			guard(raw_spinlock)(&irqs->vmd->cfg_lock);
+> > > +			readw(vmdirq->flush_addr);
+> > > +		}
+> > >  		generic_handle_irq(vmdirq->virq);
+> > > +	}
+> > >  	srcu_read_unlock(&irqs->srcu, idx);
+> > >
+> > >  	return IRQ_HANDLED;
+> > > @@ -788,6 +835,7 @@ static int vmd_alloc_irqs(struct vmd_dev *vmd)
+> > >  			return err;
+> > >
+> > >  		INIT_LIST_HEAD(&vmd->irqs[i].irq_list);
+> > > +		vmd->irqs[i].vmd = vmd;
+> > >  		vmd->irqs[i].virq = pci_irq_vector(dev, i);
+> > >  		err = devm_request_irq(&dev->dev, vmd->irqs[i].virq,
+> > >  				       vmd_irq, IRQF_NO_THREAD,
+> > > @@ -1250,7 +1298,7 @@ static const struct pci_device_id vmd_ids[] = {
+> > >  	{PCI_VDEVICE(INTEL, 0xa77f),
+> > >  		.driver_data = VMD_FEATS_CLIENT,},
+> > >  	{PCI_VDEVICE(INTEL, 0x7d0b),
+> > > -		.driver_data = VMD_FEATS_CLIENT,},
+> > > +		.driver_data = VMD_FEATS_CLIENT | VMD_FEAT_INTERRUPT_QUIRK,},
+> > >  	{PCI_VDEVICE(INTEL, 0xad0b),
+> > >  		.driver_data = VMD_FEATS_CLIENT,},
+> > >  	{PCI_VDEVICE(INTEL, PCI_DEVICE_ID_INTEL_VMD_9A0B),
+> > > --
+> > > 2.53.0
+> > >
