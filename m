@@ -1,122 +1,104 @@
-Received: from mail-43101.protonmail.ch (mail-43101.protonmail.ch [185.70.43.101])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D109A38A739
-	for <linux-kernel@vger.kernel.org>; Mon,  5 Oct 2026 20:52:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.70.43.101
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 61B5D38C421;
+	Mon,  5 Oct 2026 20:53:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791233541; cv=none; b=fCjyGrYh2DbpHBO4pjTihso3ItX0ddXdiC1XRjj37pjxhUfBxKrZZKvgLjhSi/pGaXa3DmZnbFBrTFgTfIaD6lXNSUmDmCjskRr2AuyMIz+d6wr+t91irOVKLAG5BGPvtV3t6edsuv5YZBVfhAL3TA0Re29eSE26RpAbsaUt/NA=
+	t=1791233601; cv=none; b=iriRfADzlpqpROWHFdhNM/fZNxP8C12prMWMFjW6umjCDzHCQHktMGXs4omhNtxvG5QLrrhAJrf586CwUqV56T+CGAE+Ihk2elqLe/+qi1BNogVGn1ptBV0hX+VU5gndOJkE5jnYaPjIYOZgDrpVwkYDOrSHazYPatufda1eHxY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791233541; c=relaxed/simple;
-	bh=3biLYym7vGQpoSXoqvf4kLmr25gXZLB/lOyVRb/ctvM=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=Htm66ZqCH1oQrbiX+cK5Kj2QEkw3u580Q12sGHaOE5JADE7zWCDCvP3vLi0b3HOlYnmfMtXD6XmVtwezZtYTM25GdHxtVvvTACF3ceABbE+6w/7xdzCzwklgBd29XxJCXh6HsX+/dqoKsMpLGBHXa1nkJ4di40XcwuYbZQLSGSQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=proton.me; spf=pass smtp.mailfrom=proton.me; dkim=pass (2048-bit key) header.d=proton.me header.i=@proton.me header.b=WB2iIX4U; arc=none smtp.client-ip=185.70.43.101
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=proton.me
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=proton.me
+	s=arc-20240116; t=1791233601; c=relaxed/simple;
+	bh=tquE/NVmKX3DPsVOXDQsR6wB3VzJBz/LmH09qdrtUBE=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=qwYgfFVF8e2VYavnrlUxcp+sh37N5fkiR/B1LUK9k0P0IjsyqEySXCcb/ZOBCzSQsIohLANaqxLuwXKqtVIatvbyJm97anSM6F1qffJMn1wGO81oa0ya/gkHsiunqmVXMmZJgGkg+wBVu2eCVZZoCHnYvxQpYHqxUlsQ1oNblCM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KQA9aNw3; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=proton.me header.i=@proton.me header.b="WB2iIX4U"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=proton.me;
-	s=protonmail2; t=1791233527; x=1791492727;
-	bh=3biLYym7vGQpoSXoqvf4kLmr25gXZLB/lOyVRb/ctvM=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
-	 Message-ID:BIMI-Selector;
-	b=WB2iIX4U1quNpTcSKN4up5AQyFB3Oxkyn7MH+R7QxZfP7YQqYFDigr/W9hW8qL++Q
-	 bB0mxFLQy46UV0Nod2auCdhEsyGRG5pQ8LTMb7Ta36fSLOKs7VFVJMzAlLl1eW9byu
-	 OYv23XtyhayFEZuePlxRK7xZ6w1zpI2QoG68Yp231VpvoVWs6KKziB8Adx+CSICMQ3
-	 /4EJgFtBYBFWvW+b+4BKWz5QQrQdNmbly1R3gTgyzl665EX3m3eVQg5/sluzg4rPEl
-	 JjnQEQiuDS0KREPO2FuFRJtcDIiRaurYQOdUhQ1EGNg8BEMn0dhKka56HT/jLLBzT4
-	 rg9qcK2PDNDrg==
-Date: Mon, 05 Oct 2026 20:52:02 +0000
-To: David Heidelberg <david@ixit.cz>, Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>
-From: Kristian Brox <isyourbrainfoss@proton.me>
-Cc: Krzysztof Kozlowski <krzk@kernel.org>, Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, Luca Weiss <luca.weiss@fairphone.com>, Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, oe-linux-nfc@lists.linux.dev, netdev@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org, Kristian Brox <isyourbrainfoss@proton.me>, Abel Vesa <abel.vesa@oss.qualcomm.com>
-Subject: [PATCH v5 4/4] arm64: dts: qcom: qcm6490-fairphone-fp5: add ST21NFCD NFC
-Message-ID: <20261005-fp5-st21nfcd-v5-v5-4-7be15a86c61c@proton.me>
-In-Reply-To: <20261005-fp5-st21nfcd-v5-v5-0-7be15a86c61c@proton.me>
-References: <20261005-fp5-st21nfcd-v5-v5-0-7be15a86c61c@proton.me>
-Feedback-ID: 203906395:user:proton
-X-Pm-Message-ID: dd6ccd5ffe37ad9a70df7ac726de46ab6a0c595b
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KQA9aNw3"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7D1861F000FF;
+	Mon,  5 Oct 2026 20:53:15 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791233595;
+	bh=gHNk22pbCqfx8E0EQYn4xb/j24xuqJC3MOGMKoEHKBU=;
+	h=From:To:Cc:Subject:Date;
+	b=KQA9aNw3LfjFyp5T6252uI+7LpqZyygd0ftKw8DQCbL3rC+0K/TnneLulTnAvMVJJ
+	 qQJv1dMUmZvXQ2lcjbkDVvYD2vIAi07QiDPiMp9vf8Ad8m/wj2zEhF5GvC1iYpmCmF
+	 japMa02wnEwjDTkxlGTvWwxRRWy2bL+kVr1NuEIsN8gOMJZNuBlPamh8c7ctGk5uWM
+	 Ag+/RqHXLGFnG0fsLEvh5+gQ+qVpFCp3CA7wJqxr6D+Yl77HAb/u30m+jXh72ZOgHd
+	 UGU5hZ8pv3RUgkB7cEPsVBi38Ik9brthbtLxLxvW8YDOfR2PO48w7RthM+cP5ow5gn
+	 2/U+ZqP4PalgQ==
+From: "Rob Herring (Arm)" <robh@kernel.org>
+To: Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Wei Xu <xuwei5@hisilicon.com>
+Cc: devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH] dt-bindings: bus: Add HiSilicon local bus
+Date: Mon,  5 Oct 2026 15:53:09 -0500
+Message-ID: <20261005205310.2079198-1-robh@kernel.org>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-Enable the ST21NFCD on i2c9 (0x08), IRQ TLMM 41, reset TLMM 38
-active-low. Compatible is st,st21nfcd (raw NCI).
+Add a schema for hisilicon,hisi-localbus which is already in use for a
+long time.
 
-SYS_CLK is LN_BB_CLK2. VPS_IO is L18B (vreg_l18b). ese-present and
-uicc-present follow the public schematic (NFC_SWP1/SWP2: SWP_SE to
-SIM1, SWP_UICC to SIM2). Reader path is tested; SE/HCE is not.
-
-Signed-off-by: Kristian Brox <isyourbrainfoss@proton.me>
-Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-Reviewed-by: Abel Vesa <abel.vesa@oss.qualcomm.com>
+Assisted-by: LLM
+Signed-off-by: Rob Herring (Arm) <robh@kernel.org>
 ---
- arch/arm64/boot/dts/qcom/qcm6490-fairphone-fp5.dts | 34 ++++++++++++++++++=
-+++-
- 1 file changed, 33 insertions(+), 1 deletion(-)
+ .../bindings/bus/hisilicon,hisi-localbus.yaml | 40 +++++++++++++++++++
+ 1 file changed, 40 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/bus/hisilicon,hisi-localbus.yaml
 
-diff --git a/arch/arm64/boot/dts/qcom/qcm6490-fairphone-fp5.dts b/arch/arm6=
-4/boot/dts/qcom/qcm6490-fairphone-fp5.dts
-index f41ad446a..b028d1bb2 100644
---- a/arch/arm64/boot/dts/qcom/qcm6490-fairphone-fp5.dts
-+++ b/arch/arm64/boot/dts/qcom/qcm6490-fairphone-fp5.dts
-@@ -933,7 +933,23 @@ redriver_ss_in: endpoint {
- &i2c9 {
- =09status =3D "okay";
-=20
--=09/* ST21NFC NFC @ 28 */
-+=09nfc@8 {
-+=09=09compatible =3D "st,st21nfcd";
-+=09=09reg =3D <0x08>;
+diff --git a/Documentation/devicetree/bindings/bus/hisilicon,hisi-localbus.yaml b/Documentation/devicetree/bindings/bus/hisilicon,hisi-localbus.yaml
+new file mode 100644
+index 000000000000..cd9ecea88269
+--- /dev/null
++++ b/Documentation/devicetree/bindings/bus/hisilicon,hisi-localbus.yaml
+@@ -0,0 +1,40 @@
++# SPDX-License-Identifier: GPL-2.0-only OR BSD-2-Clause
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/bus/hisilicon,hisi-localbus.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
 +
-+=09=09interrupts-extended =3D <&tlmm 41 IRQ_TYPE_LEVEL_HIGH>;
-+=09=09reset-gpios =3D <&tlmm 38 GPIO_ACTIVE_LOW>;
++title: HiSilicon local bus
 +
-+=09=09pinctrl-0 =3D <&nfc_default>;
-+=09=09pinctrl-names =3D "default";
++maintainers:
++  - Wei Xu <xuwei5@hisilicon.com>
 +
-+=09=09clocks =3D <&rpmhcc RPMH_LN_BB_CLK2>;
-+=09=09vdd-io-supply =3D <&vreg_l18b>;
++allOf:
++  - $ref: /schemas/simple-bus.yaml#
 +
-+=09=09ese-present;
-+=09=09uicc-present;
-+=09};
++properties:
++  compatible:
++    items:
++      - const: hisilicon,hisi-localbus
++      - const: simple-bus
 +
- =09/* VL53L3 ToF @ 29 */
- };
-=20
-@@ -1462,6 +1478,22 @@ hall_sensor_default: hall-sensor-default-state {
- =09=09drive-strength =3D <2>;
- =09=09bias-pull-up;
- =09};
++  reg:
++    maxItems: 1
 +
-+=09nfc_default: nfc-default-state {
-+=09=09reset-pins {
-+=09=09=09pins =3D "gpio38";
-+=09=09=09function =3D "gpio";
-+=09=09=09drive-strength =3D <2>;
-+=09=09=09bias-disable;
-+=09=09};
++unevaluatedProperties: false
 +
-+=09=09int-pins {
-+=09=09=09pins =3D "gpio41";
-+=09=09=09function =3D "gpio";
-+=09=09=09drive-strength =3D <2>;
-+=09=09=09bias-disable;
-+=09=09};
-+=09};
- };
-=20
- &uart5 {
-
---=20
-2.55.0
-
++examples:
++  - |
++    soc {
++        #address-cells = <2>;
++        #size-cells = <2>;
++
++        local-bus@80380000 {
++            compatible = "hisilicon,hisi-localbus", "simple-bus";
++            reg = <0x0 0x80380000 0x0 0x10000>;
++            #address-cells = <2>;
++            #size-cells = <1>;
++            ranges = <0 0 0x0 0x90000000 0x08000000>,
++                     <1 0 0x0 0x98000000 0x08000000>;
++        };
++    };
+-- 
+2.53.0
 
