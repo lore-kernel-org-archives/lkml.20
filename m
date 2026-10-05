@@ -1,33 +1,68 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1FD70436BC0
-	for <linux-kernel@vger.kernel.org>; Mon,  5 Oct 2026 09:25:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 159D043E06F
+	for <linux-kernel@vger.kernel.org>; Mon,  5 Oct 2026 09:27:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791192308; cv=none; b=bBqHW56xAI80CIvtOu3clb2Khbp3PHgZnA9bHF5R2dkdIwdVQMHGGW5H5I/wQqJUfYrq64qOM6fbzwA375JgOWAdYNAfZtZ7NJK1OwEL7ugglhN84hxjAOlFwodF8r+T20rQN0BPSWQuXCvkrk1RIS1H57P4f6WSuY5mvZWGYqA=
+	t=1791192477; cv=none; b=hZSeX32Oa6uikX45Cy22UV4ocAb8472bhcek+EMiRoT/L2urL/XVzTS6qBG5Ryd/xgK74spSIxuWm8NskopKY+cL0BGmcW2L+zU8k+TfrtfBSnF7qkeb374HXvVcrtf3tXJ+8EfjlazU56DMBFVSiNrezGMYI5X4JL1JwPdChI4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791192308; c=relaxed/simple;
-	bh=y1kj9lY97xLVKAI4wcouMS8EPF/7EchJo2f9kuv624o=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=rN6AUZ8XDNBb6UQRTGruwL38aFhRzSSBAt8o5FKGD53o/rOovozL6JfU2u07SSdtRnvPE/palFWvhV7jxQHSP/Jw9hMFBtJo0/thTKzGrXEpS2z8GiMB8oKV76WIjKjmHIrEkeaXmRCSAlikwa1zPIHebi5IQ0TBYrDXejJRTBc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZuIjpnA8; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791192477; c=relaxed/simple;
+	bh=n+MNQ8jx2vDcJDj5wuKH0CEB4xVHHmqfqr4RxTw0l6M=;
+	h=Message-ID:Date:MIME-Version:From:Subject:To:Cc:References:
+	 In-Reply-To:Content-Type; b=nJ/DAYtTvPtFDgPsJBWf3d6Jj5PrmSUaxPqSaeaNL5DLai569ujEKLAS7pBqzq3nYKWnH45G7+4gADRuhEKMZ2mFBg+dMTfIkCiW8ObiYxF9D0rw23y2wBSV66PlUckf9Gt7NtIdFSAsf/a4Z9YG2VSesGcVM4BoQA970mADVxc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=vaxFGghk; arc=none smtp.client-ip=74.125.225.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZuIjpnA8"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B2D261F00893;
-	Mon,  5 Oct 2026 09:25:04 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791192306;
-	bh=byVa2dejwe5R5G4MFSTCg2eRH8VZASl2SG1iY0abgbw=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=ZuIjpnA8ddooEStEs7wryYcVO1ILKnXO+zFolrn4vCFMg5+znQPR09/KaibiR/dAU
-	 REi69GMUP0DrPTrMn+DvbpMk7ZK4Od72xgIPVQButQsZ+RfSQT3ooR4P3q89ViCf/E
-	 kzcAHClDGvdGI1Z9YWbZfnSzLHAI+7MO+LOYKdpPjW/4klDa8NgdRqinc7yWKcao06
-	 nDkapS+x5gHgzSgQV1qpJZabM0ttmXMrB6+Si0xhhvInUcrrvlEnHmz/KVWgUp/oIJ
-	 03FYfGFarjbVXAryam41K6H3YWAGhDwQPpsq5LkAsMENFj4mowwULNmnekvXiWrim/
-	 aYKz7Wt1ovTaw==
-Message-ID: <2b4571c5-8e51-4c91-9d88-11929f200875@kernel.org>
-Date: Mon, 5 Oct 2026 11:25:01 +0200
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="vaxFGghk"
+Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49ffde3cec6so9890705e9.3
+        for <linux-kernel@vger.kernel.org>; Mon, 05 Oct 2026 02:27:55 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1791192474; x=1791797274; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:organization
+         :autocrypt:content-language:references:cc:to:subject:reply-to:from
+         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=8rLD6lFejoN0T8xG1+fKNKHQcEvhqJXDjenF0dJEnUA=;
+        b=vaxFGghkr2D8O4aboLGbC09uHkehC12Q6VAtaiOgaMgc7oExRAf4yf6RAkSKlTMQny
+         +SKAbf7Eh9HyB0JiFuX+j6ku5o11RMIHbMst2Yf7kmt5mxdlT69ZPBh7gKo8uzXBnMcY
+         B9nRbhimU6Xr71tuaRKl6azJI7vUKZ80rE19NWPgYT6qPxPp+hiZkJuS1ZuvIL41Cyiu
+         p5LanmFpEYikRwQItscPpGb+qiI2gLCISmK7nev+D6fv8Q4AWVVy7pv44YyXFvIhe8Bq
+         G1cBCv6AydOHDLaVjkySVDW8Xo+4JjHs27R68JdYV9TClzqe4xiyo9ImmgnUMwW8xe0h
+         KYeA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791192474; x=1791797274;
+        h=content-transfer-encoding:content-type:in-reply-to:organization
+         :autocrypt:content-language:references:cc:to:subject:reply-to:from
+         :user-agent:mime-version:date:message-id:x-gm-gg:x-gm-message-state
+         :from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=8rLD6lFejoN0T8xG1+fKNKHQcEvhqJXDjenF0dJEnUA=;
+        b=Ah+XIA9VVl42Y3tnVdnceBJF52SDhB/G5pxTuKO/nbaLrZZkkx1vlXxUm7drydzgRT
+         XAnbIA1Ra+YwuiRdryIknKY8lGfvHj9likMjd6h0XbGpwW9PWCFl+rn0w1KfsjlBNQYR
+         3KhFhkACaWGMvHooVsm2MhFK3DdXNOhY0b3NyZ9D/t9s2mTjqnNrLIlfOALZsCtd/l0W
+         X526sDD/EXOhRLFAi6H/9bDJ5VxkxP3bJXGS18cAcCHvOv4bNVGz/7oeQvIxyb61QLYH
+         WsLn5cRyiVjX4cUeS+0XZFkcj8tdKOrC0YrvQ7rp5wNftyjOVm5VRZ3scrR9Q1YgKydV
+         eVBg==
+X-Forwarded-Encrypted: i=1; AKwUvByNOr0WOxBHi+UZgfqJgHpKmg9TcKEJ8Ls1J71J5TQtMuIhourXEsY46+B1B5zy+kt7KRuBGzNWyHghayE=@vger.kernel.org
+X-Gm-Message-State: AFuF++lPyIiNE9AH7/E6DzTP+VPZbjYPpmCUqXuc8IFgqoIvEuItclDe
+	MPY3ac4QgOToX2ir8WVQcG5PLwzAc4/8dvQFF/3Pgay8TjB/JnepMssI/EbDpuAq3Hk=
+X-Gm-Gg: AYBFou0RFAjnRiaTA5v+TKED8VqVnil95tcbRiWFm8Vj1nYofdqanXGAnsNrg2a0Vny
+	YRmEN/zjt4DMkUaSlCzz/9iOh3bDUA6/GW47w+V9tktY10asPeeOjWO9xvg7ok0GmXyCUsCe4wE
+	LMyV3g8ocWiwXZxuIF2NZyEGw61BeinRVVUELrJI3CdzrYZCALFSwHN4PXU099wbI7feEE51qeQ
+	m+Wy9HcaROlTWl4aOfj0Yzi35q8S6y1lDIs3nQb7DaYnc5gjmxHQddUGsthbrCwGT6TpRAIs0EG
+	3rzsYBoxrk4RpJB+CzNqjmwdxT6dEdOqz8Ij1nczmpNRoSxTI4YG28q7nhSxPV8zE6u4259CQW/
+	9VFaELGOtsq3guzjALjwxXtoKa2kJQJ7G1Am6ZxCWOjqJ5Ab34xTbcGI6RSSrP7eXzXesji8zPM
+	5ekTa+sVIHCeGJ1VJpDFkfH4OCPapkGeminhjv8fpicChd7mOS0eNxiqsdtfXFBKzIavH6UroRd
+	1TDkUmt3WVMwCCZgJhQn+3qHtQi1GA=
+X-Received: by 2002:a05:600c:468d:b0:4a1:7093:409a with SMTP id 5b1f17b1804b1-4a1709341bbmr63938175e9.27.1791192474107;
+        Mon, 05 Oct 2026 02:27:54 -0700 (PDT)
+Received: from [192.168.151.46] (90-182-211-1.rcp.o2.cz. [90.182.211.1])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a16620dbdfsm221932725e9.0.2026.10.05.02.27.53
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 05 Oct 2026 02:27:53 -0700 (PDT)
+Message-ID: <9be89803-974c-4746-8af0-a13e5a19fb33@linaro.org>
+Date: Mon, 5 Oct 2026 11:27:52 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -35,126 +70,82 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] mm/hugetlb: avoid recursive i_mmap_rwsem in PMD sharing
-To: Li Zhe <lizhe.67@bytedance.com>,
- "Jose A. Perez de Azpillaga" <azpijr@gmail.com>,
- "Lorenzo Stoakes (Arm)" <ljs@kernel.org>
-Cc: akpm@linux-foundation.org, muchun.song@linux.dev, osalvador@suse.de,
- linux-mm@kvack.org, linux-kernel@vger.kernel.org
-References: <20260930064308.58159-1-lizhe.67@bytedance.com>
- <arzVaC2IYkqSb0_U@gmail.com>
- <9a7c026e-f5f2-40e0-84aa-919c988cc136@bytedance.com>
-From: "David Hildenbrand (Arm)" <david@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=david@kernel.org; keydata=
- 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
- qIws/H2t
-In-Reply-To: <9a7c026e-f5f2-40e0-84aa-919c988cc136@bytedance.com>
-Content-Type: text/plain; charset=UTF-8
+From: Neil Armstrong <neil.armstrong@linaro.org>
+Reply-To: Neil Armstrong <neil.armstrong@linaro.org>
+Subject: Re: [PATCH 1/2] dt-bindings: display: panel: himax,hx83112a: Tighten
+ compatible matching
+To: Luca Weiss <luca.weiss@fairphone.com>,
+ Jessica Zhang <jesszhan0024@gmail.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Luca Weiss <luca@lucaweiss.eu>
+Cc: ~postmarketos/upstreaming@lists.sr.ht, phone-devel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <20261002-hx83112-compatible-contains-v1-0-d558635ab7fc@fairphone.com>
+ <20261002-hx83112-compatible-contains-v1-1-d558635ab7fc@fairphone.com>
+Content-Language: en-US, fr
+Autocrypt: addr=neil.armstrong@linaro.org; keydata=
+ xsBNBE1ZBs8BCAD78xVLsXPwV/2qQx2FaO/7mhWL0Qodw8UcQJnkrWmgTFRobtTWxuRx8WWP
+ GTjuhvbleoQ5Cxjr+v+1ARGCH46MxFP5DwauzPekwJUD5QKZlaw/bURTLmS2id5wWi3lqVH4
+ BVF2WzvGyyeV1o4RTCYDnZ9VLLylJ9bneEaIs/7cjCEbipGGFlfIML3sfqnIvMAxIMZrvcl9
+ qPV2k+KQ7q+aXavU5W+yLNn7QtXUB530Zlk/d2ETgzQ5FLYYnUDAaRl+8JUTjc0CNOTpCeik
+ 80TZcE6f8M76Xa6yU8VcNko94Ck7iB4vj70q76P/J7kt98hklrr85/3NU3oti3nrIHmHABEB
+ AAHNKk5laWwgQXJtc3Ryb25nIDxuZWlsLmFybXN0cm9uZ0BsaW5hcm8ub3JnPsLAkQQTAQoA
+ OwIbIwULCQgHAwUVCgkICwUWAgMBAAIeAQIXgBYhBInsPQWERiF0UPIoSBaat7Gkz/iuBQJk
+ Q5wSAhkBAAoJEBaat7Gkz/iuyhMIANiD94qDtUTJRfEW6GwXmtKWwl/mvqQtaTtZID2dos04
+ YqBbshiJbejgVJjy+HODcNUIKBB3PSLaln4ltdsV73SBcwUNdzebfKspAQunCM22Mn6FBIxQ
+ GizsMLcP/0FX4en9NaKGfK6ZdKK6kN1GR9YffMJd2P08EO8mHowmSRe/ExAODhAs9W7XXExw
+ UNCY4pVJyRPpEhv373vvff60bHxc1k/FF9WaPscMt7hlkbFLUs85kHtQAmr8pV5Hy9ezsSRa
+ GzJmiVclkPc2BY592IGBXRDQ38urXeM4nfhhvqA50b/nAEXc6FzqgXqDkEIwR66/Gbp0t3+r
+ yQzpKRyQif3OwE0ETVkGzwEIALyKDN/OGURaHBVzwjgYq+ZtifvekdrSNl8TIDH8g1xicBYp
+ QTbPn6bbSZbdvfeQPNCcD4/EhXZuhQXMcoJsQQQnO4vwVULmPGgtGf8PVc7dxKOeta+qUh6+
+ SRh3vIcAUFHDT3f/Zdspz+e2E0hPV2hiSvICLk11qO6cyJE13zeNFoeY3ggrKY+IzbFomIZY
+ 4yG6xI99NIPEVE9lNBXBKIlewIyVlkOaYvJWSV+p5gdJXOvScNN1epm5YHmf9aE2ZjnqZGoM
+ Mtsyw18YoX9BqMFInxqYQQ3j/HpVgTSvmo5ea5qQDDUaCsaTf8UeDcwYOtgI8iL4oHcsGtUX
+ oUk33HEAEQEAAcLAXwQYAQIACQUCTVkGzwIbDAAKCRAWmrexpM/4rrXiB/sGbkQ6itMrAIfn
+ M7IbRuiSZS1unlySUVYu3SD6YBYnNi3G5EpbwfBNuT3H8//rVvtOFK4OD8cRYkxXRQmTvqa3
+ 3eDIHu/zr1HMKErm+2SD6PO9umRef8V82o2oaCLvf4WeIssFjwB0b6a12opuRP7yo3E3gTCS
+ KmbUuLv1CtxKQF+fUV1cVaTPMyT25Od+RC1K+iOR0F54oUJvJeq7fUzbn/KdlhA8XPGzwGRy
+ 4zcsPWvwnXgfe5tk680fEKZVwOZKIEuJC3v+/yZpQzDvGYJvbyix0lHnrCzq43WefRHI5XTT
+ QbM0WUIBIcGmq38+OgUsMYu4NzLu7uZFAcmp6h8g
+Organization: Linaro
+In-Reply-To: <20261002-hx83112-compatible-contains-v1-1-d558635ab7fc@fairphone.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
-On 10/5/26 11:03, Li Zhe wrote:
-> On 9/30/26 5:31 PM, Jose A. Perez de Azpillaga wrote:
->> On Wed, Sep 30, 2026 at 02:43:08PM +0800, Li Zhe wrote:
->>> huge_pmd_share() always takes i_mmap_rwsem for read before looking for a
->>> shareable PMD page table.
->>>
->>> That is unsafe for callers that already hold the same mapping lock for
->>> write.  In particular, move_hugetlb_page_tables() takes i_mmap_rwsem for
->>> write to prevent truncation races, then calls huge_pte_alloc() for the
->>> destination address.  If the destination PUD is empty and PMD sharing is
->>> possible, huge_pte_alloc() can call huge_pmd_share(), which then tries to
->>> take the same rwsem for read and can deadlock on itself.
->>>
->>> PMD sharing is only an optimization.  If the read side of i_mmap_rwsem
->>> cannot be acquired immediately, fall back to allocating a private PMD
->>> table instead of blocking in the sharing path.
->>>
->>> Signed-off-by: Li Zhe <lizhe.67@bytedance.com>
->>> ---
->>>   mm/hugetlb.c | 14 ++++++++++++--
->>>   1 file changed, 12 insertions(+), 2 deletions(-)
->>>
->>> diff --git a/mm/hugetlb.c b/mm/hugetlb.c
->>> index cea25773a6c95..75631101a6807 100644
->>> --- a/mm/hugetlb.c
->>> +++ b/mm/hugetlb.c
->>> @@ -6995,7 +6995,15 @@ pte_t *huge_pmd_share(struct mm_struct *mm, struct vm_area_struct *vma,
->>>   	pte_t *spte = NULL;
->>>   	pte_t *pte;
->>>
->>> -	i_mmap_lock_read(mapping);
->>> +	/*
->>> +	 * Some callers already hold i_mmap_rwsem for write, for example
->>> +	 * move_hugetlb_page_tables(). PMD sharing is only an optimization, so
->>> +	 * fall back to a private PMD table instead of blocking on the same
->>> +	 * rwsem in read mode.
->>> +	 */
->>> +	if (!i_mmap_trylock_read(mapping))
->>> +		goto alloc;
->> try deadlock is not a fallback here. both callers already hold the write
->> lock, and that is enough for the walk, so sharing is never attempted on
->> these paths.
->>
->> hugetlb_change_protection() does thr same thing on the uffd-wp path and
->> is not in the changelog.
->>
->> and no Fixes tag either. does this want Cc: stable?
-> 
-> 
-> Thanks for the review.
-> 
-> I agree that holding the write lock should be enough for the walk, and
-> that avoiding PMD sharing on these paths is not the right direction.
-> 
-> David mentioned that Oscar was planning to send a proper fix for this
-> issue, so I will wait for that patch instead of moving forward with this
-> trylock fallback approach.
-@Lorenzo, if Oscar is too busy, I guess we can paste the overall idea for the
-fix here as well (publicly)?
+Hi,
 
--- 
-Cheers,
+On 10/2/26 16:49, Luca Weiss wrote:
+> The compatible was defined too wide, we just want "djn,9a-3r063-1102b"
+> and nothing else.
 
-David
+Can you add Fixes tags ?
+
+Thanks,
+Neil
+
+> 
+> Signed-off-by: Luca Weiss <luca.weiss@fairphone.com>
+> ---
+>   Documentation/devicetree/bindings/display/panel/himax,hx83112a.yaml | 3 +--
+>   1 file changed, 1 insertion(+), 2 deletions(-)
+> 
+> diff --git a/Documentation/devicetree/bindings/display/panel/himax,hx83112a.yaml b/Documentation/devicetree/bindings/display/panel/himax,hx83112a.yaml
+> index 2c60d0cd704e..3dd9b25ff13f 100644
+> --- a/Documentation/devicetree/bindings/display/panel/himax,hx83112a.yaml
+> +++ b/Documentation/devicetree/bindings/display/panel/himax,hx83112a.yaml
+> @@ -18,8 +18,7 @@ allOf:
+>   
+>   properties:
+>     compatible:
+> -    contains:
+> -      const: djn,9a-3r063-1102b
+> +    const: djn,9a-3r063-1102b
+>   
+>     reg:
+>       maxItems: 1
+> 
+
