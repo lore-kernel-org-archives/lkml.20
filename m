@@ -1,159 +1,203 @@
-Received: from TY3P286CU002.outbound.protection.outlook.com (mail-japaneastazon11010069.outbound.protection.outlook.com [52.101.229.69])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr2-f37.google.com (mail-wr2-f37.google.com [74.125.225.101])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CDA0347CA81;
-	Mon,  5 Oct 2026 11:02:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.229.69
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791198163; cv=fail; b=ZyE1SImCKZGeuMJPis+74/UiaQLj7OrfbhnjMwcrwIsIUAzXDcliYiGh6lVbft+TQaifc/KM9FkDNEr9ww2xUIiRz+9WnDhxPHiwk8KzA5dP4QDiEueWHvH+gSQwlSeOO5xbIdtBRXuJ35BJvgDpAiXK+TniWPmqO6mzHY8kFQQ=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791198163; c=relaxed/simple;
-	bh=1Atrb+0V3MLH0RZxRF9qgYpTdygfJr9MXSyVR8C7dps=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=WNtLTNFAao4Ori3Ylos74ZvpvrbA+l954lPDf6jvUkUMDpqK/Nx51FyE5C9qH7GuBxMP2o6Ueur+qdWjIfiFdyOmY+4AHQdQduyKLD3pSsZ+4AqqOe6yVf7wP5yrvo/DCundogu7L8Q7oUbIsgtfCU+dtC3gXrfUWKdswaEtatA=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=renesas.com; spf=pass smtp.mailfrom=renesas.com; dkim=pass (1024-bit key) header.d=renesas.com header.i=@renesas.com header.b=ValvWFw3; arc=fail smtp.client-ip=52.101.229.69
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=renesas.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=renesas.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5F6BB47ACFD
+	for <linux-kernel@vger.kernel.org>; Mon,  5 Oct 2026 11:03:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.101
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791198186; cv=none; b=J2t9zaxQFEDAa5WByXR5/KfLn4k0CE3p6CwfKIRiPO38Ozu7niwvm1rApuqUeWHnV0whDY5plvl46N8ADgKQwGPVnBGbwkJnYUwOASf4VWEoZEz1BmcO2YZiQQtwkiGZdhwX0Un0vWp+YQma4DLGU55qYdquaGgiP21d8sgwdq4=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791198186; c=relaxed/simple;
+	bh=XggvK/mbkYFgVJaPngBSf0EJ89oLS951tOm4dDdAJ9E=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=k3KztFwHWYo3W54C1XD0NBmM7Fd9rrUAzKdjrZ3t+/4g0P7qBnWboqu2PSsFDyr+t9SJmRDwtxUudquuQklW9u1POvcCexgclfMvna0qxB0vi4BGCNCtrIaGwNbsD1rlKq4bxSiCQEvSPzxPtn/4DGhzIbVTLqI0GnH6DB1fWOQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=V07ai6EV; arc=none smtp.client-ip=74.125.225.101
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=renesas.com header.i=@renesas.com header.b="ValvWFw3"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Bg3orlaZAGOYff2tsnqdTvQvurqb5sPhFPWpbeGolFM2yeIIVkd2Js2uf6m4Qw7afszqAem43VoHn0r4v5XJDwN4g1yHu+orrUvmead6e3wrceroNwj6QPNTxHUiyRLoCHABHHgRcOFKPz5F7MO4kfSskCdCP8HJEpse7XP0MQ86jmwzi695PCt/w0IAbpl35xzhvDiM67CWystcXRBFb0j2KTuKUEpUOUsAL0LuFFYM1p5Bw+FTfa7Xp/RhUUpxA0Vm2hNs8l/mOpraqykgLMkthIyC/eVZv0ANW64/3Fhs/xnstYm9j4VPbnmC23mrvlg70RUwSLD8NG78N6GZWg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Y/fcYpNLjBEpECwB+4aEqXY8kUy21PFM0EvC6Hu4l3E=;
- b=uQRn8cIrAVJu7yaFYTZiCcNjL7Kc+tTIg9gMHwHMx79bfCEe5lZv9vD6yXtEocsI9UmKY9d6icaVtTd6zC/WOTMUENWHJEJbqJG2FUQF9EVkCmyZX05cZaprlWfTXXq0PnZGqUvh/bd6BgJZrw5sbS1/xksDdcQebSlXN0WcVdUuksoKnhmsXJ9hdT7rpO+yWqi6woKDBXIkZ6sasMPPmn8MVtopHKOulIFYBuz1KLdn6spqw1u3uanlaJRb/GuYz+O4jDYR+FLrGGvgFDAbG4bLbUUScWkjwrVakGK5ftWuhv5H4p0yr19PtsF8hgG1113/cGd9q6GY5CqkyzftEQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 8.62.32.50) smtp.rcpttodomain=bp.renesas.com smtp.mailfrom=renesas.com;
- dmarc=pass (p=none sp=none pct=100) action=none header.from=renesas.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=renesas.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Y/fcYpNLjBEpECwB+4aEqXY8kUy21PFM0EvC6Hu4l3E=;
- b=ValvWFw3E/tE8bCNkB49FxBVzw+cixHnAiDcMC1LTRFsg9w7bUPJZxJR1rv60SkRmhl4irbhjcrA1k71KXEWEP3WCJFAf/96pbbFDTZhbYYfk002FA+aEweEmaE3kWUam/GyiyhfpdOc1hX55jXGdvtg6rWqndyloJYOqAlruXU=
-Received: from OS7P301CA0026.JPNP301.PROD.OUTLOOK.COM (2603:1096:604:26b::8)
- by TYWPR01MB9939.jpnprd01.prod.outlook.com (2603:1096:400:237::13) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.472.20; Mon, 5 Oct
- 2026 11:02:36 +0000
-Received: from OS1PEPF0000D214.JPNP286.PROD.OUTLOOK.COM
- (2603:1096:604:26b:cafe::41) by OS7P301CA0026.outlook.office365.com
- (2603:1096:604:26b::8) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.472.20 via Frontend Transport; Mon, 5
- Oct 2026 11:02:36 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 8.62.32.50) smtp.mailfrom=renesas.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=renesas.com;
-Received-SPF: Pass (protection.outlook.com: domain of renesas.com designates
- 8.62.32.50 as permitted sender) receiver=protection.outlook.com;
- client-ip=8.62.32.50; helo=ejcrelay004p.adwin.renesas.com; pr=E
-Received: from ejcrelay004p.adwin.renesas.com (8.62.32.50) by
- OS1PEPF0000D214.mail.protection.outlook.com (10.167.240.21) with Microsoft
- SMTP Server (version=TLS1_3, cipher=TLS_AES_256_GCM_SHA384) id 15.21.472.14
- via Frontend Transport; Mon, 5 Oct 2026 11:02:36 +0000
-Received: from vm01.adwin.renesas.com (unknown [10.226.93.89])
-	by ejcrelay004p.adwin.renesas.com (Postfix) with ESMTP id 88F263000204;
-	Mon,  5 Oct 2026 20:02:33 +0900 (JST)
-From: Ovidiu Panait <ovidiu.panait.rb@renesas.com>
-To: claudiu.beznea.uj@bp.renesas.com,
-	lpieralisi@kernel.org,
-	kwilczynski@kernel.org,
-	mani@kernel.org,
-	robh@kernel.org,
-	bhelgaas@google.com
-Cc: linux-pci@vger.kernel.org,
-	linux-renesas-soc@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Ovidiu Panait <ovidiu.panait.rb@renesas.com>
-Subject: [PATCH] PCI: rzg3s-host: Fix NVMe resume errors after s2idle
-Date: Mon,  5 Oct 2026 11:02:24 +0000
-Message-ID: <20261005110224.17160-1-ovidiu.panait.rb@renesas.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="V07ai6EV"
+Received: by mail-wr2-f37.google.com with SMTP id ffacd0b85a97d-4887840c529so530945f8f.1
+        for <linux-kernel@vger.kernel.org>; Mon, 05 Oct 2026 04:03:04 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1791198182; x=1791802982; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=wpVjroXVisHfj83brLQUbqEhnPiyl/yiKfc5znuepio=;
+        b=V07ai6EV+5DickJ3HEAl+FsOxkKH0Jd8Ff8Ske9zs+EWzLZinUatnJ3QnDX5ldUlkH
+         ZMb5t2yyGZuRH09l7knWwNpgfyJw1qZDutA0zupmnzlT+ny0fX98zK/Rq5SCMMYrEyZW
+         SjJ5U11VDtYJq5JXF9s5mVdFWJMDYHsMElMnPOjgY8kVSJDNQO8Oxo8N1BYvQjNUgxoC
+         aiorG2Ui08OyWRz8X1MjdO4xu+vVHH4EAJOwNs5cNZ8h7Ips5qH0FTYUHX3KhQ5wgn2x
+         APQB4JiiOdjlHKxmRLzR96Q2wxo+hYOwglr+bPKPdrGvg0ZKY5RwVRpPeo+Pd7T7qgeb
+         z2FQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791198182; x=1791802982;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=wpVjroXVisHfj83brLQUbqEhnPiyl/yiKfc5znuepio=;
+        b=oi/zLs5tV5E5VEuBYO6IRjKrPFU3G1ezaI4fMai+b34QAEztU5Z4R2v280ITWrwepu
+         T3vSKO7UL32yNSlb9toKFq8Nvd2tZkH0olZnOUGh37e/NJJbLyLwdHyw/eI0xLmL7ZTl
+         KIxkkNiqSqC6zXSO8Xa4AH3Q7ZndGzFKnJkvuhROLNQgE9ouUCOfeSj/+GsdzuppyhPz
+         t0MbQd7JHBZJTd8DBbs+cvsdZA6GTwuDRTpMysmFIa5ClK7jCQ198UyYvYDabG7QH5z4
+         ldkP0ESILHpV8qR7LRJX8pLczsBsk3VsILvMsY71sYOIBAmPKXfqTJRuKbiObfSc8tyA
+         5vYg==
+X-Forwarded-Encrypted: i=1; AKwUvBxOtSokf7gdX0DPn14lexuGWn5rmdejLZiMnZ3I/DB+rbOwDrISrsjUD0RK7xVBJotGs9tD9E/uIo1DpXE=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKrGb/57VyNa7jd9sCi31MjSIQ+/beT9ttVwabooyp1a5dLiktw
+	3XMCKT0jnAosvqMgpsgM3zGgqeB6raDO89pJGQy5FtaUNkjFHcSznSfu/IaXNJR0rw==
+X-Gm-Gg: AYBFou2DDvjhd/KjqmKf57m6wAXxt6v6iiPW+C7KP4bXycNYk7J24uACGQTdjQyeJlO
+	RDoRnPfiCb8/lokPgzVEaCkfZT1R4O1JmXnRlJdxRB/RXQ9vl/SZI1oLeb1d9HEq+QXsH/r88zm
+	ZVVVyVkctnK7P6gFvnelWjf6WCuWWHY3K+IsTqB1RuF5ybmlddQj8WLYU/MZnTBie1y6TIkPov2
+	5Im3WxpfRgCSquRpXWxaiweDP3LD6SYrKX4vWFs/3iG4UMCqzvgl7VF4qRgkySX61uo97dEu+wJ
+	vsbTDS1aNTyeIqMmseNULy7hxOewYsccLA26sjblLi3b7uD37dEy/gu4oCR14yT7gt/L44KCcqm
+	KhX1Q7+qdHDl7c/Ebhr3ClNRsiIwgcEjK0Lpfht80s1iXKpvIaN4hxglSDqH6PvseGgOZ5HGh5N
+	pXOyjT7MfrUdCb+cTB1oRWzPV1KiDqVETwEh5SmvjPGhS8Ap8Ht2EValWCEVOsp6YYUI9YHD17p
+	F4qTb8+xdJiFM8jLqrv3Dfow44zedmMEqJ51B8GU90=
+X-Received: by 2002:a05:6000:2906:b0:487:13a9:80d with SMTP id ffacd0b85a97d-48b12733c50mr18086704f8f.10.1791198180653;
+        Mon, 05 Oct 2026 04:03:00 -0700 (PDT)
+Received: from google.com (197.183.140.34.bc.googleusercontent.com. [34.140.183.197])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48c6227fa65sm2880630f8f.16.2026.10.05.04.02.58
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 05 Oct 2026 04:02:58 -0700 (PDT)
+Date: Mon, 5 Oct 2026 12:02:55 +0100
+From: Vincent Donnefort <vdonnefort@google.com>
+To: Will Deacon <will@kernel.org>, brendan.jackman@linux.dev,
+	catalin.marinas@arm.com, rppt@kernel.org, akpm@linux-foundation.org,
+	sudeep.holla@kernel.org, jenswi@kernel.org, robh@kernel.org,
+	mark.rutland@arm.com, ardb@kernel.org, thierry.reding@kernel.org,
+	david@kernel.org, danielmentz@google.com,
+	linux-arm-kernel@lists.infradead.org, linux-mm@kvack.org,
+	op-tee@lists.trustedfirmware.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Cc: sumit.garg@kernel.org
+Subject: Re: [PATCH v2 0/8] arm64: Unmap FF-A lent memory from direct map
+Message-ID: <asOD31rTX6dNfD1o@google.com>
+References: <20260921110050.3977591-1-vdonnefort@google.com>
+ <arIYtjmSKCs14SqO@sumit-xelite>
+ <arKW_91EeKA-w96m@willie-the-truck>
+ <are21BjeS1O3RYE3@sumit-xelite>
+ <aruh86rd5FMv2i9G@willie-the-truck>
+ <ar5TPvANFUoosxGW@sumit-xelite>
+ <asOAYODGZa-7EIV1@google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: OS1PEPF0000D214:EE_|TYWPR01MB9939:EE_
-Content-Type: text/plain
-X-MS-Office365-Filtering-Correlation-Id: d5d85191-c9cd-485c-f5ed-08df22d02a56
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|82310400026|376014|23010399003|36860700016|1800799024|10067099003|56012099006|6133799003|11063799006|5023799004|13003099007|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	41EUybhImkW8ApQ/J2Fm1gKOoe8ocu0xyBcd0z/qRRDH4fST4yViUzWGnBGW3DAv7GypYCTzRHMur7J1LfIyKV+/H++/+fCuyHqNtptgljX9znYqzc7nt8hPhSNU4NhG//lz/+4wC9SBwKC2Nlk39avblTc/657I06ctAPO0CRN0FkAZcQihAncY01KdXP2ATDSwQuFFH+qbfZTbS3juoJFgm8sYxcyOwlTXO3WG6OfnSCgIeth3rL/JkPdvX+/jGA6cnZydt9XguVqSc7DcZl7cAiQje2ETSV6/gpjUurrPaslG9mfLoaWviB2whGZOQg3GTvRTmU7VsqFU8DXN9a18sKy2csQLmmvBq4CiaIJ76NHHBri0PTiOs7QmJp3FBPNTc2644w+moxMBtY9A+SjiUlSDbryfGFqgE2CN7gBdmbuRpXAFMP6apahMgeNBU1LJtuq4xb7IqFZGLD6goQA5E0ib570Mr8PjqZCN33pk6Hwv4nMzINgHw9qGyfA9QZ9EjhjiO2z/uISI68cCBub55a7sMtjifkvfFx4HKkMSVBo+Gm+3zyv9FV2LZ19Ls/l81GvfFVn3fPhY5pTaC35Mwb7Vz1BZkGEn0V2jPGkvlh1l0p03DmOjee41HdNQYKa369TLzMEk8YEKHuXkYhh3iUnkHm9ueXA5yKAqic/NnAuNvGcnyVbC6WhHZL+pubyXjt8g8XLo0nwmAaoBLQ==
-X-Forefront-Antispam-Report:
-	CIP:8.62.32.50;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:ejcrelay004p.adwin.renesas.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(82310400026)(376014)(23010399003)(36860700016)(1800799024)(10067099003)(56012099006)(6133799003)(11063799006)(5023799004)(13003099007)(18002099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	nsWMpbCTpZCrS6tZ4WIix6IuFCoQsoQttBhtUI9S8al0NsoASFnl8IdpyXlbVYGwrCcyGYLyczbdegF7C4r7uy5e0OCVOU1jmwdl17fJcU5xh9KBydyhS79UY0zbxDsmMk8BGR2uqMsumaIOKfdwj0bxvNup6QeENCypnZ0MjMkSdImKptlqWR6qwRlwKyx1iAOv681KPL/2funvcCDT5IGCEOT4HtYxKJWrRXy+UUQHi+jPgFMc6+TNIpYejLcHSwRLHMif6UeHi7kITVb32c/FUHlkHHGeLPVLqnWeMMPT9+LRw85pQRj5tTxFSReKZl7SnJyyzhagPmlek40KDOmoQgeQ4jPp9/1ylzn9TiTojoliEoPZ8Py/T3jxUdUuXON52OYzaPzFx3XiSSvDmr5cAFbQenKye8duzR/Gdyvl9ylLezk6IHFQASukFXH8
-X-OriginatorOrg: renesas.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Oct 2026 11:02:36.8167
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: d5d85191-c9cd-485c-f5ed-08df22d02a56
-X-MS-Exchange-CrossTenant-Id: 53d82571-da19-47e4-9cb4-625a166a4a2a
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=53d82571-da19-47e4-9cb4-625a166a4a2a;Ip=[8.62.32.50];Helo=[ejcrelay004p.adwin.renesas.com]
-X-MS-Exchange-CrossTenant-AuthSource: OS1PEPF0000D214.JPNP286.PROD.OUTLOOK.COM
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: TYWPR01MB9939
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <asOAYODGZa-7EIV1@google.com>
 
-On the Renesas RZ/V2H platform, when ASPM is enabled, resuming from s2idle
-with an NVMe SSD connected fails with:
+Sorry, not sure why Sumit's email was dropped...
 
-  nvme nvme0: I/O tag 27 (001b) opcode 0x9 (Admin Cmd) QID 0 timeout, reset controller
-  nvme nvme0: Disabling device after reset failure: -19
+On Mon, Oct 05, 2026 at 11:48:00AM +0100, Vincent Donnefort wrote:
+> On Thu, Oct 01, 2026 at 06:04:06PM +0530, Sumit Garg wrote:
+> > On Tue, 29 Sep 2026 at 12:33:07 +0100, Will Deacon wrote:
+> > > On Sat, Sep 26, 2026 at 05:43:08PM +0530, Sumit Garg wrote:
+> > > > Looks like you dropped me from your reply.
+> > > 
+> > > Huh, that's weird. If I hit reply-all ('g') in mutt, it moves the entire
+> > > CC list to To: and drops you. I suspect the same thing happened to Thierry
+> > > when he replied here:
+> > > 
+> > > https://lore.kernel.org/all/arJcN60nagFKXj2Q@orome/
+> > > 
+> > > I can't figure out why that's happening :/
+> > > I manually tried to fix the To: and Cc: lines in this message.
+> > 
+> > Thanks.
+> > 
+> > > 
+> > > > On Tue, 22 Sep 2026 at 15:55:59 +0100, Will Deacon wrote:
+> > > > > I spoke to Brendan at LPC (?) last year but this doesn't really work
+> > > > > for arm64 because it relies on being able to unmap arbitrary parts of
+> > > > > the linear map, which isn't generally possible unless you force pte-level
+> > > > > mappings for everything, which is prohibitive for perf/power.
+> > > > 
+> > > > As per the cover letter it's about allocating pages that are not present
+> > > > in the direct map. This essentially fits the protected DMABufs use-case
+> > > > where we don't want any kernel mapping to exist at any time. Bufers
+> > > > allocated from protected DMABufs are only meant to be accessed by the
+> > > > TEE implementation or HW accelerators like in the secure media pipeline.
+> > > 
+> > > That sounds like it should probably build on top of this series, then.
+> > 
+> > The main problem I see with this series is it tries to move from the generic
+> > CMA allocator to a reserved FF-A CMA pool which again comes from the
+> > DT. We already support reserved pool allocations via "no-map" which are
+> > discovered dynamically from OP-TEE.
+> 
+> I can't think of a way around a DT declaration. We need to know what region is
+> PTE-level before the direct map is installed and of_reserved_mem is very handy
+> for that purpose. And as this PTE-level mapping is costly we certainly only want
+> to enable it for platforms that absolutely need it.
+> 
+> > 
+> > If we can rather support a generic CMA like allocator for arm64 which
+> > can support unmapped allocations then I am all for it. These platform
+> > specific reserved pools isn't a scalable solution.
+> 
+> What do you mean by generic CMA allocator here? An extension to
+> shared-dma-pool? Or having the CMA automatically doing the unmap/map on
+> cma_alloc() cma_release()?
+> 
+> Right now I have created an API for the unmapping/remapping part. It adds a
+> burden on the caller, but the alternative solution is introducing post-alloc
+> pre-dealloc callbacks in the CMA, which looked a bit overkilled to me when
+> the users of that "ffa-pool" are only optee and the nvidia video dma-buf heap.
+> 
+> -- 
+> Vincent
+> 
+> > 
+> > > You could allocate the DMABufs from a CMA region that has no linear alias.
+> > 
+> > Allocation from generic CMA pool is already the case here:
+> > 
+> > tee_shm_alloc_dma_mem() ->
+> >   dma_alloc_pages()
+> > 
+> > Do you mean it's just fine to unmap buffers allocated from generic CMA
+> > region since it doesn't have any linear alias?
+> > 
+> > > 
+> > > > > Vincent's series tackles that by using a pool so that only that part of
+> > > > > memory requires the pte-level mappings in the linear map. That's the
+> > > > > whole point of it, so I don't think it makes sense to drop it in favour
+> > > > > of Brendan's approach (which doesn't work).
+> > > > >
+> > > > 
+> > > > For protected DMABufs, we even don't require any pte-level mappings in
+> > > > linear map. The whole idea of mapping and unmapping is just a bottleneck
+> > > > for performance sensitive secure media pipeline use-cases. That's why if
+> > > > we can support __GFP_UNMAPPED with the memory allocator on arm64 would
+> > > > be the best fit for this use-case.
+> > > 
+> > > The point is that you will require pte-level mappings for the linear map
+> > > if you want to unmap from it at runtime on arm64. If you don't, then you
+> > > can end up needing to split a block mapping (e.g. pmd-level) when you
+> > > decide to unmap only part of it and there isn't a safe way to do that on
+> > > arm64 without transiently unmapping the entire block, which can lead to
+> > > fatal translation faults during that window.
+> > 
+> > I agree with you here, what I am rather trying to find if on arm64 there
+> > is any possibilty to have a generic allocator for unmapped pages. That's
+> > the use-case here as well as what Brendan't patch-set was trying to address.
+> > 
+> > > 
+> > > > Now the question is why arm64 can't support __GFP_UNMAPPED similar to
+> > > > how Brendan is doing it for x86?
+> > > 
+> > > Because arm64 != x86? Presumably x86 doesn't have the strict
+> > > break-before-make requirements we have on arm64.
+> > > 
+> > 
+> > Sure, sounds like you are eluding to that the generic MM flag
+> > __GFP_UNMAPPED being proposed can't be supported on arm64, right?
+> > 
+> > -Sumit
 
-This happens because during s2idle, when ASPM is enabled, nvme_suspend()
-does not shut the drive down. It leaves it in D0, puts it in its lowest
-NVMe power state, so that resume only has to restore the previous power
-state instead of a full reinitialization. This assumes the drive keeps
-its context over the suspend.
-
-However, rzg3s_pcie_suspend_noirq() doesn't take this into account and
-it always powers down the controller and asserts the controller resets,
-including PERST#. That resets the drive, and the command the NVMe driver
-sends on resume never completes.
-
-To fix this, similar to the dwc driver, use
-pci_host_common_d3cold_possible() to check if the controller should be
-powered down and keep the controller running otherwise. Do this only for
-s2idle, as deep sleep could power off the SoC and neither the power domain
-nor the driver will restore the controller clocks and resets on resume.
-
-Fixes: 7ef502fb35b2 ("PCI: Add Renesas RZ/G3S host controller driver")
-Signed-off-by: Ovidiu Panait <ovidiu.panait.rb@renesas.com>
----
-Note: this fix depends on the following series:
-https://lore.kernel.org/all/20261002110935.2004349-1-claudiu.beznea@kernel.org/
-
- drivers/pci/controller/pcie-rzg3s-host.c | 8 ++++++++
- 1 file changed, 8 insertions(+)
-
-diff --git a/drivers/pci/controller/pcie-rzg3s-host.c b/drivers/pci/controller/pcie-rzg3s-host.c
-index eea215818633..9fc1a5a4bed8 100644
---- a/drivers/pci/controller/pcie-rzg3s-host.c
-+++ b/drivers/pci/controller/pcie-rzg3s-host.c
-@@ -2272,6 +2272,14 @@ static int rzg3s_pcie_probe(struct platform_device *pdev)
- static int rzg3s_pcie_suspend_noirq(struct device *dev)
- {
- 	struct rzg3s_pcie_host *host = dev_get_drvdata(dev);
-+	struct pci_host_bridge *bridge = pci_host_bridge_from_priv(host);
-+	bool pme_capable;
-+
-+	if (!pm_suspend_via_firmware() &&
-+	    !pci_host_common_d3cold_possible(bridge, &pme_capable)) {
-+		device_set_awake_path(dev);
-+		return 0;
-+	}
- 
- 	return rzg3s_pcie_host_stop(host);
- }
 -- 
-2.34.1
-
+Vincent
