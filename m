@@ -1,280 +1,348 @@
-Received: from mail-oa2-f12.google.com (mail-oa2-f12.google.com [74.125.231.76])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1FAD24D9F7E
-	for <linux-kernel@vger.kernel.org>; Mon,  5 Oct 2026 18:17:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.76
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 07F2548551B;
+	Mon,  5 Oct 2026 18:20:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.156.1
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791224248; cv=none; b=Bo7V+5OUH8E5GBi1hrGnpIvnhmXxCTMoXWaT/omTfx84hQhXVnbkL5YBl/DisN/LqGa6gsWOnFOHLUx5HKG/9+1Pnmmcp3ZFIfEwYXyRiNEe58xPl6POLQdvtzsMV3sKlSFIladdZomNvjQEcaEYLrb1CSlXVfpYtc+s9xr2S0o=
+	t=1791224409; cv=none; b=UdeEcqBkrnCuY1AV09G8AD10a7dE0O792ZgIt9YXgKYGww+vw13/c7vjFiWas4bzWO4b3H56q9AbInikwpkTEzrCrfMXg5N545PEukbV9oeevEbm5PfrjYYP488AdHkw5wpzUcACxSKDCl5A/y9HSCJxtZtEamGAAUbapbTMWIc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791224248; c=relaxed/simple;
-	bh=SlfT5CpG1gfS0O6dGhXo30NrXX/THyrTJARh8LcTSNs=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=aW7gBbw7/V/NQ6kwfg8rIBpsvafBInyp0v/sjjI39U0WpXUxZUtYhiJDjD0Z/PrNQNNmoqP4nLToKuQ9wiDveHVwe3QzO4P8l4ce+4FzegPr+je1de0ufq/TPy8YTfpZiIxNfNtpgqf+nVAlF9ipA5svhaRyM0+uyN+h/xq5xS0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=GHc1A6mP; arc=none smtp.client-ip=74.125.231.76
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1791224409; c=relaxed/simple;
+	bh=8RjtvhztfKaiHybQasW0Hsdzq6yZm1JNEH40GnRMglw=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Kb5gfvHYLh29UL9Hd/qBoiKcJGD/WIEyTuTnZ0Qa1/7l0ZT67rsC5JVDUUTj9/Ly8prsiPbHCAjuCTaSmFpe/UvZ4Bz47t+Gvtpcat/UjVojapSBN2/jjAkZiMJVdp+ngUHzp7cqRl3uk1MqHjHtWS2ti3RFMgJwjYmyS+9RnP4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=F7t5N6Tl; arc=none smtp.client-ip=148.163.156.1
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="GHc1A6mP"
-Received: by mail-oa2-f12.google.com with SMTP id 586e51a60fabf-466ccbd4773so598643fac.2
-        for <linux-kernel@vger.kernel.org>; Mon, 05 Oct 2026 11:17:25 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791224245; x=1791829045; darn=vger.kernel.org;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=Rouq59a9OyBo1EeAraKbx0994ONwMJ1+oA66imSzKao=;
-        b=GHc1A6mPFwU1mQCKMjDNf+uUGZeU4DFLIqQ7sdz8bjBTnPFJ7011JJxtO0nZSKYktG
-         3+6QSHWijl+eWp4uyM4l+2MkUUet/D7BhKuSrHvAorUIXPSDrzlufyLMvXSpDG5MrT8z
-         1aYh2GxWSaz4MBe4I3Xz9OE+GyS/1zDejvxEP9UCwonjxMISA4hIKV1+nFjNprKUvbQl
-         mwmu98xVsf3m6cZBGx+kxMZHpfPJfdIJWF6F2k6+RUFCBwT2qeessGg3fB4vOSI47JKh
-         UJcMNe0vmB6azLj/KxovSf9Vwmq/SmnoH4K4Ay0Lg+gqw2UvQndHI/5UHti7zR8HYN0Z
-         9KhA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791224245; x=1791829045;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=Rouq59a9OyBo1EeAraKbx0994ONwMJ1+oA66imSzKao=;
-        b=bg/p9G8RKO/q1w8q4Rv0fLfKmS/G9RDw5cZDKgfLRK5kn9iBRhVFcA7/zgo8PwERZ+
-         gKEG28NBuU4dIIwgpKZx/I8wz3nbAvK6K5g+SKvRF+CjTClV/42080wWrNYc68Z2U5wg
-         Sh+gFwK8DAf/nFJSZoP1uJd+FM00jDyKlQRO11zRZ21smeDicXCJK114EuRYy7PAry8q
-         8jR+H0op5Zr8i7LZPqzHz36J3qYEW07JGwHWIuii0oUuzxohA9jSxVEuaWuRz3GQK/1X
-         KN1i9YHTxnu/TQ/Tdy4Tu27UcxQcWcZ1G2jJt6Fn/0W+Okb5xquE8hVuJm9Dn6pxo1cW
-         Dg3Q==
-X-Forwarded-Encrypted: i=1; AKwUvBzf85zJjRUgnd6hA42paD98xvz0QagrJn3QPe5qpoHSS+KaLf6De6Ff6p4qyrrs6hcUFbbwtlGA17ANh4Y=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLdmGPkQT+87ls9wtHz/tapCUsS/HgcsZjORoZ+sv1LtYpdQ4IL
-	QpX4SQohtKgi/m2ysfr4oxRGInykwQ9rDNXl6KyhZMrc4O8ZhPfCJKrK
-X-Gm-Gg: AYBFou32lac+jQeCPAb5xCz4ag2BZN9L8v0eZtHloX6TEAhF9nlb1q1vPfboIQLYEXz
-	x8kH4FTotLgAkLzvxB5o7T8+xAtwTTSQKVMmNOhe1JHwgI6cawb8sCqiOOiPmOMvfAs1zTz535C
-	JqbbwZwsS3IiasjqQXfe2s1+sV47ZInnGJs/FRPv44xstVBkZDexBttfQCJHhA7BDyvmmjAw5Rx
-	OgaGoMwYl3JwzYpuGcd2CXQroqYnhsvvbN6HIY65/C5cONG9x7cc4fy4PiXXkiXdlNy1hmseQmW
-	K6porTXOD+4S671ByqrTRYiTw3+jIkQLLG6Cx3hKakGBP7AwBJrdv+ObTagJYN5g+x3MQburrwo
-	4vL8E+VDSEgqDvQti2+sGkwZbwPwqa60CzTCF+5YU0ER/UivM1XA+WzHSqQ5+l9LHMjvKSoolbp
-	8ub4Jg8gf+V6tBoteEJ8jVVZwVWRl2kKBl6MJSMvMlGT+R/ZNn5Vv6FvuLFGBa8bVTj/A7JKIpl
-	JVBtECoE7KT9IE18uuvW7TXfwTjinNiuK7eE1IgByvNPydnXHYWCXBGtAhKem3otnyq1F3+iC/h
-	BzIpBGAByIL/e2VYHK9R4tEWBeuOTcfuDNWnZof6TvX2yeMyVM6FR/MSdTO19BkPns8tgAGPSML
-	yez1azWHVQGGeyoqtNkBctw==
-X-Received: by 2002:a05:6870:524f:b0:48f:e0f6:c465 with SMTP id 586e51a60fabf-49e15e5c8c3mr10012930fac.51.1791224244819;
-        Mon, 05 Oct 2026 11:17:24 -0700 (PDT)
-Received: from [127.0.1.1] (174-29-1-49.hlrn.qwest.net. [174.29.1.49])
-        by smtp.gmail.com with ESMTPSA id 586e51a60fabf-49e16d60931sm10358053fac.4.2026.10.05.11.17.23
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 05 Oct 2026 11:17:24 -0700 (PDT)
-From: James Hilliard <james.hilliard1@gmail.com>
-Date: Mon, 05 Oct 2026 12:17:21 -0600
-Subject: [PATCH net v2] xsk: freeze deferred pool teardown without blocking
- unregister
+	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="F7t5N6Tl"
+Received: from pps.filterd (m0356517.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 695HZT9E1257180;
+	Mon, 5 Oct 2026 18:19:49 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+	:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=pp1; bh=BWmqZ6
+	IYywvv2BPCxo/LGr78lDGWHdYIfGeiUXRN2Mo=; b=F7t5N6Tl3k+iOvRyVPT0Ys
+	t0LymEYy3l7MVX3k0y3x1EiE7KmMoFomRyVSI5tuPXwP3fYCGJXup3Tn4UNOlHfZ
+	OMD2yc/Tptxx9eLVqELmH6Adyu4jF7LP0Bmzip2JNCDwg5paDHvtgPYs8pDnd5ID
+	CJ0nPy46pAbA2HxKdR3swru9hJcdP98MvO0LmN2loDEe0dJwdCdHofJ4cfGWfcgd
+	QjEVAuGPCSB6+/rhZYIvk4dV2uBoqZbME1cpT3Yi5Rww76dB3MKxUeSsmdG3KYuZ
+	zhBsdRX3FQ2GWpU+mE0JTSphsa7wQFvcsxgUqTLqS4qvfiB643UxiWL9wvwEVFlQ
+	==
+Received: from ppma11.dal12v.mail.ibm.com (db.9e.1632.ip4.static.sl-reverse.com [50.22.158.219])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4h2se5bs8d-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Mon, 05 Oct 2026 18:19:48 +0000 (GMT)
+Received: from pps.filterd (ppma11.dal12v.mail.ibm.com [127.0.0.1])
+	by ppma11.dal12v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 695HMcPg3252065;
+	Mon, 5 Oct 2026 18:19:47 GMT
+Received: from smtprelay06.fra02v.mail.ibm.com ([9.218.2.230])
+	by ppma11.dal12v.mail.ibm.com (PPS) with ESMTPS id 4h3eqy6c8b-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Mon, 05 Oct 2026 18:19:47 +0000 (GMT)
+Received: from smtpav03.fra02v.mail.ibm.com (smtpav03.fra02v.mail.ibm.com [10.20.54.102])
+	by smtprelay06.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 695IJhU547383030
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Mon, 5 Oct 2026 18:19:43 GMT
+Received: from smtpav03.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id BD31920043;
+	Mon,  5 Oct 2026 18:19:43 +0000 (GMT)
+Received: from smtpav03.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 7C90320040;
+	Mon,  5 Oct 2026 18:19:40 +0000 (GMT)
+Received: from fedora (unknown [9.5.7.39])
+	by smtpav03.fra02v.mail.ibm.com (Postfix) with ESMTPS;
+	Mon,  5 Oct 2026 18:19:40 +0000 (GMT)
+Date: Mon, 5 Oct 2026 23:57:52 +0530
+From: Amit Machhiwal <amachhiw@linux.ibm.com>
+To: Shrikanth Hegde <sshegde@linux.ibm.com>
+Cc: Amit Machhiwal <amachhiw@linux.ibm.com>,
+        Madhavan Srinivasan <maddy@linux.ibm.com>,
+        linuxppc-dev@lists.ozlabs.org, Nicholas Piggin <npiggin@gmail.com>,
+        Michael Ellerman <mpe@ellerman.id.au>,
+        "Christophe Leroy (CS GROUP)" <chleroy@kernel.org>,
+        "Ritesh Harjani (IBM)" <ritesh.list@gmail.com>,
+        kvm-ppc@vger.kernel.org, kvm@vger.kernel.org,
+        linux-kernel@vger.kernel.org, Gautam Menghani <gautam@linux.ibm.com>,
+        Harsh Prateek Bora <harshpb@linux.ibm.com>,
+        R Nageswara Sastry <rnsastry@linux.ibm.com>,
+        Alexander Graf <agraf@suse.de>, linux-hardening@vger.kernel.org,
+        stable@vger.kernel.org, Avi Kivity <avi@redhat.com>
+Subject: Re: [PATCH v2 2/3] KVM: PPC: Book3S HV: Add preempt_disable() around
+ virtual-mode HPTE bit-lock users
+Message-ID: <20261005234024.20213ac7-78-amachhiw@linux.ibm.com>
+Mail-Followup-To: Shrikanth Hegde <sshegde@linux.ibm.com>, 
+	Madhavan Srinivasan <maddy@linux.ibm.com>, linuxppc-dev@lists.ozlabs.org, 
+	Nicholas Piggin <npiggin@gmail.com>, Michael Ellerman <mpe@ellerman.id.au>, 
+	"Christophe Leroy (CS GROUP)" <chleroy@kernel.org>, "Ritesh Harjani (IBM)" <ritesh.list@gmail.com>, 
+	kvm-ppc@vger.kernel.org, kvm@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	Gautam Menghani <gautam@linux.ibm.com>, Harsh Prateek Bora <harshpb@linux.ibm.com>, 
+	R Nageswara Sastry <rnsastry@linux.ibm.com>, Alexander Graf <agraf@suse.de>, linux-hardening@vger.kernel.org, 
+	stable@vger.kernel.org, Avi Kivity <avi@redhat.com>
+References: <20260930173750.56759-1-amachhiw@linux.ibm.com>
+ <20260930173750.56759-3-amachhiw@linux.ibm.com>
+ <fb954b17-c3b9-49f0-a7d4-8e0f7fc0e404@linux.ibm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-Message-Id: <20261005-xsk-suspend-teardown-v2-1-2d87228f4329@gmail.com>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/32OwQ6CMBBEf4Xs2ZqlaGk5+R/Gw1IWbZSibUWN4
- d9t0LNzm9nsm3lD5OA4QlO8IfDkoht9NnJVgD2RP7JwXfYgUSo0FYpnPIt4j1f2nUhMoRsfXhi
- UvdEb1NZUkF+vgXv3XLB78Jzg8A0D3+65Iv0uLUUWdhwGl5qCsnpdMxnT6lopa0gTIdcl0Uaya
- q2mbSVxYZ1cTGN4LbOncoH9XziVohSkLFltscKWd8eB3GWd2+Ewz/MHKiuLHQkBAAA=
-X-Change-ID: 20260930-xsk-suspend-teardown-902f98408c93
-To: netdev@vger.kernel.org, Paolo Abeni <pabeni@redhat.com>, 
- Jakub Kicinski <kuba@kernel.org>, 
- Magnus Karlsson <magnus.karlsson@intel.com>, 
- Maciej Fijalkowski <maciej.fijalkowski@intel.com>, 
- Stanislav Fomichev <sdf@fomichev.me>, Simon Horman <horms@kernel.org>, 
- Alexei Starovoitov <ast@kernel.org>, Daniel Borkmann <daniel@iogearbox.net>, 
- Jesper Dangaard Brouer <hawk@kernel.org>, 
- John Fastabend <john.fastabend@gmail.com>
-Cc: Eric Dumazet <edumazet@kernel.org>, 
- "David S. Miller" <davem@davemloft.net>, 
- =?utf-8?q?Bj=C3=B6rn_T=C3=B6pel?= <bjorn@kernel.org>, bpf@vger.kernel.org, 
- linux-kernel@vger.kernel.org, James Hilliard <james.hilliard1@gmail.com>, 
- Andrew Lunn <andrew+netdev@lunn.ch>
-X-Mailer: b4 0.15.2
+In-Reply-To: <fb954b17-c3b9-49f0-a7d4-8e0f7fc0e404@linux.ibm.com>
+X-TM-AS-GCONF: 00
+X-Proofpoint-Reinject: loops=2 maxloops=12
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDA1MDA3MSBTYWx0ZWRfXxbBME0SXbNfH
+ Fy+E35vRaQJLs4HwkjxuuMvUxl4tl7HQczLmt/fRHCbvp+Xps918e8NOjTDIfawGc+Ajeg/m69f
+ LUjPKOIDF8zdLg34v4UHlQ8G4sf2m10=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDA1MDA3MSBTYWx0ZWRfX/8j12AHp91GH
+ WrA2IfYvhbvY8rXQutpI/NcbUKRzyMJCP4lz20ng+0Jp94LIUWwlrnY+d0ebFbbGtQjHc+ie5HD
+ QKbvETTZaxggEnlGL3sFq0yq8ufMH74JH6+9mdsprZZuHmH2wLilXQTxP80JLqcfIlGIAKFvdef
+ v0TvyQT+x3dpDpSt0JoEuD4pA8JYdsEfKJdrq2fthPo4ZjR1clz04Nn/iEJLOuxq9LrpEdPlnFi
+ Nfrkxm8hYl7aOHkJPiiwb64X7wj9JaALFosmtby83ibgc/2DtwVN8eCYOBTIZYZbu2PmUjno4oS
+ qV2EOyZzxnxxEVvoM1bYS8zQISWhFIY888veTwwMfmzp57DpQ4oIop9R8VFIc9+XOdva2ZZhuNa
+ f8hRhhnM8DbMCI+DYkkIjnvmPQlTG2eIFYvIs/o6WHTAsVobzADkGEu+/bRtmTgW2PIPJBJFd1C
+ GkPVLtFhLL5n5uftISA==
+X-Proofpoint-GUID: l_FlaIUtu4yPXD4idRUQz3hwDx36bxGH
+X-Authority-Analysis: v=2.4 cv=UNRIjyfy c=1 sm=1 tr=0 ts=6ac3ea44 cx=c_pps
+ a=aDMHemPKRhS1OARIsFnwRA==:117 a=aDMHemPKRhS1OARIsFnwRA==:17
+ a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=RnoormkPH1_aCDwRdu11:22 a=U7nrCbtTmkRpXpFmAIza:22 a=VwQbUJbxAAAA:8
+ a=VnNF1IyMAAAA:8 a=DmuH68SPCCL6Sp2UwjMA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
+X-Proofpoint-ORIG-GUID: vilJbN7VEgVCopRAYTN15ceDyLpNL74R
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-05_05,2026-10-05_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ spamscore=0 impostorscore=0 adultscore=0 bulkscore=0 lowpriorityscore=0
+ phishscore=0 clxscore=1015 priorityscore=1501 suspectscore=0 malwarescore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2610050071
 
-Deferred pool destruction calls ndo_bpf() under RTNL. system_wq is
-not frozen during system sleep, so that callback can run after a
-device has suspended and gated its clocks. Use system_freezable_wq
-so running destruction finishes before device suspend and new work
-waits until process thaw.
+Hi Shrikanth,
 
-Keep assigned pools visible to NETDEV_UNREGISTER independently of
-the socket list. A released socket has already left that list, but
-its final pool put can queue destruction after workqueues freeze.
-A resume-time unregister would then wait for a device reference
-whose release cannot run until the resume completes.
+Thanks for the review.  Please find my responses inline below.
 
-Track assigned pools per netdev under RTNL and detach remaining pools
-after the notifier socket walk, including copy-mode pools. This also
-covers leased queues without scanning pools from unrelated devices or
-network namespaces. Remove the entry on assignment failure and normal
-teardown. The deferred worker still owns the pool and later observes
-the cleared device pointer, avoiding a second driver detach or put.
+On 2026/10/05 07:58 PM, Shrikanth Hegde wrote:
+> Hi Amit.
+> 
+> On 9/30/26 11:07 PM, Amit Machhiwal wrote:
+> > kvmppc_hv_find_lock_hpte() requires virtual-mode callers to run with
+> > preemption disabled, because it can return with HPTE_V_HVLOCK still held
+> > until the caller later unlocks the HPTE.  Existing virtual-mode callers
+> > in book3s_64_mmu_hv.c already follow that rule, but several paths do
+> > not.
+> > 
+> > kvmppc_handle_exit_hv() calls kvmppc_hpte_hv_fault() for hash-mode
+> > data-side and instruction-side faults after guest exit with preemption
+> > enabled.  kvmppc_pseries_do_hcall() executes virtual-mode HPT hcall
+> > handlers via kvmppc_pseries_do_hpt_hcall() with preemption enabled; the
+> > handlers for H_ENTER, H_REMOVE, H_READ, H_CLEAR_MOD, H_CLEAR_REF,
+> > H_PROTECT, and H_BULK_REMOVE all spin on try_lock_hpte() or lock_rmap().
+> > H_ENTER also reaches kvmppc_do_h_enter(), which uses arch_spin_lock() on
+> > kvm->mmu_lock.  That raw lock choice is intentional because
+> > kvmppc_do_h_enter() is also called from real-mode paths, so the correct
+> > fix is to establish the proper preemption context at the virtual-mode
+> > caller boundary.
+> > 
+> > On the host side, kvm_unmap_rmapp(), kvm_age_rmapp(),
+> > kvm_test_clear_dirty_npages(), and resize_hpt_rehash_hpte() also acquire
+> > HPTE_V_HVLOCK via try_lock_hpte() in process context with preemption
+> > enabled, serving MMU notifier callbacks, dirty-log harvesting, and HPT
+> > resize respectively.
+> > 
+> > If any of these threads is preempted while holding HPTE_V_HVLOCK, any
+> > other thread on the same CPU spinning on the same bit-lock can never
+> > make progress, as the lock owner cannot be rescheduled to release it.
+> > This is particularly acute when the spinning thread has preemption
+> > disabled: it will never yield, causing a permanent CPU hang.
+> > 
+> > Fix this by adding preempt_disable()/preempt_enable() pairs around the
+> > two kvmppc_hpte_hv_fault() call sites in kvmppc_handle_exit_hv(), around
+> > the kvmppc_pseries_do_hpt_hcall() invocation in kvmppc_pseries_do_hcall(),
+> > and around the try_lock_hpte() hold windows in kvm_unmap_rmapp(),
+> > kvm_age_rmapp(), kvm_test_clear_dirty_npages(), and resize_hpt_rehash_hpte().
+> > On failed lock acquisition the guard is released before the cpu_relax()
+> > spin so the lock owner can be scheduled.
+> > 
+> > Fixes: 6165d5dd99db ("KVM: PPC: Book3S HV: add virtual mode handlers for HPT hcalls and page faults")
+> > Cc: stable@vger.kernel.org # v5.14+
+> > Signed-off-by: Amit Machhiwal <amachhiw@linux.ibm.com>
+> > ---
+> > Changes in v2:
+> > - Extended preempt_disable()/preempt_enable() to also cover four
+> >    host-side virtual-mode HPTE bit-lock users in book3s_64_mmu_hv.c.
+> > - Added warning comment above kvmppc_pseries_do_hpt_hcall().
+> > - Dropped Reviewed-by as the patch was materially extended.
+> > 
+> >   arch/powerpc/kvm/book3s_64_mmu_hv.c | 12 ++++++++++++
+> >   arch/powerpc/kvm/book3s_hv.c        | 10 ++++++++++
+> >   2 files changed, 22 insertions(+)
+> > 
+> > diff --git a/arch/powerpc/kvm/book3s_64_mmu_hv.c b/arch/powerpc/kvm/book3s_64_mmu_hv.c
+> > index 2ccb3d138f46..59da958e09cb 100644
+> > --- a/arch/powerpc/kvm/book3s_64_mmu_hv.c
+> > +++ b/arch/powerpc/kvm/book3s_64_mmu_hv.c
+> > @@ -823,7 +823,9 @@ static void kvm_unmap_rmapp(struct kvm *kvm, struct kvm_memory_slot *memslot,
+> >   		 */
+> >   		i = *rmapp & KVMPPC_RMAP_INDEX;
+> >   		hptep = (__be64 *) (kvm->arch.hpt.virt + (i << 4));
+> > +		preempt_disable();
+> >   		if (!try_lock_hpte(hptep, HPTE_V_HVLOCK)) {
+> > +			preempt_enable();
+> >   			/* unlock rmap before spinning on the HPTE lock */
+> >   			unlock_rmap(rmapp);
+> >   			while (be64_to_cpu(hptep[0]) & HPTE_V_HVLOCK)
+> > @@ -834,6 +836,7 @@ static void kvm_unmap_rmapp(struct kvm *kvm, struct kvm_memory_slot *memslot,
+> >   		kvmppc_unmap_hpte(kvm, i, memslot, rmapp, gfn);
+> >   		unlock_rmap(rmapp);
+> >   		__unlock_hpte(hptep, be64_to_cpu(hptep[0]));
+> > +		preempt_enable();
+> >   	}
+> >   }
+> > @@ -909,7 +912,9 @@ static bool kvm_age_rmapp(struct kvm *kvm, struct kvm_memory_slot *memslot,
+> >   		if (!(be64_to_cpu(hptep[1]) & HPTE_R_R))
+> >   			continue;
+> > +		preempt_disable();
+> >   		if (!try_lock_hpte(hptep, HPTE_V_HVLOCK)) {
+> > +			preempt_enable();
+> >   			/* unlock rmap before spinning on the HPTE lock */
+> >   			unlock_rmap(rmapp);
+> >   			while (be64_to_cpu(hptep[0]) & HPTE_V_HVLOCK)
+> > @@ -928,6 +933,7 @@ static bool kvm_age_rmapp(struct kvm *kvm, struct kvm_memory_slot *memslot,
+> >   			ret = true;
+> >   		}
+> >   		__unlock_hpte(hptep, be64_to_cpu(hptep[0]));
+> > +		preempt_enable();
+> >   	} while ((i = j) != head);
+> >   	unlock_rmap(rmapp);
+> > @@ -1043,7 +1049,9 @@ static int kvm_test_clear_dirty_npages(struct kvm *kvm, unsigned long *rmapp)
+> >   		    (!hpte_is_writable(hptep1) || vcpus_running(kvm)))
+> >   			continue;
+> > +		preempt_disable();
+> >   		if (!try_lock_hpte(hptep, HPTE_V_HVLOCK)) {
+> > +			preempt_enable();
+> >   			/* unlock rmap before spinning on the HPTE lock */
+> >   			unlock_rmap(rmapp);
+> >   			while (hptep[0] & cpu_to_be64(HPTE_V_HVLOCK))
+> > @@ -1054,6 +1062,7 @@ static int kvm_test_clear_dirty_npages(struct kvm *kvm, unsigned long *rmapp)
+> >   		/* Now check and modify the HPTE */
+> >   		if (!(hptep[0] & cpu_to_be64(HPTE_V_VALID))) {
+> >   			__unlock_hpte(hptep, be64_to_cpu(hptep[0]));
+> > +			preempt_enable();
+> >   			continue;
+> >   		}
+> > @@ -1077,6 +1086,7 @@ static int kvm_test_clear_dirty_npages(struct kvm *kvm, unsigned long *rmapp)
+> >   		v &= ~HPTE_V_ABSENT;
+> >   		v |= HPTE_V_VALID;
+> >   		__unlock_hpte(hptep, v);
+> > +		preempt_enable();
+> >   	} while ((i = j) != head);
+> >   	unlock_rmap(rmapp);
+> > @@ -1219,6 +1229,7 @@ static unsigned long resize_hpt_rehash_hpte(struct kvm_resize_hpt *resize,
+> >   	if (!(vpte & HPTE_V_VALID) && !(vpte & HPTE_V_ABSENT))
+> >   		return 0; /* nothing to do */
+> > +	preempt_disable();
+> >   	while (!try_lock_hpte(hptep, HPTE_V_HVLOCK))
+> >   		cpu_relax();
+> > @@ -1346,6 +1357,7 @@ static unsigned long resize_hpt_rehash_hpte(struct kvm_resize_hpt *resize,
+> >   out:
+> >   	unlock_hpte(hptep, vpte);
+> > +	preempt_enable();
+> 
+> I don't like this sprinkling of preempt disable/enable.
+> Is there not a way to embedd this in try_lock_hpte/unlock_hpte?
 
-The lifetime problem was identified by code inspection of the deferred
-release and system-sleep paths.
+I understand the scattering of preempt_disable()/preempt_enable() looks ugly.
+But there are two blockers for that approach:
 
-Fixes: 1c1efc2af158 ("xsk: Create and free buffer pool independently from umem")
-Signed-off-by: James Hilliard <james.hilliard1@gmail.com>
----
-Changes in v2:
-- Track assigned pools per netdev instead of scanning a global pool list.
-- Keep deferred releases visible across queue changes and queue leases.
-- Rebase onto current net.
-- Link to v1: https://patch.msgid.link/20260930-xsk-suspend-teardown-v1-1-a6cac8c030be@gmail.com
+1. The real-mode hcall dispatch table (hcall_real_table in
+   book3s_hv_rmhandlers.S) calls kvmppc_h_enter(), kvmppc_h_remove(),
+   kvmppc_h_bulk_remove() and others in book3s_hv_rm_mmu.c, which all call
+   try_lock_hpte() from real mode.  Adding preempt_disable() inside
+   try_lock_hpte() would affect those real-mode callers, which brings us to your
+   second point.
 
-To: "David S. Miller" <davem@davemloft.net>
-To: Eric Dumazet <edumazet@kernel.org>
-To: Jakub Kicinski <kuba@kernel.org>
-To: Paolo Abeni <pabeni@redhat.com>
-To: Simon Horman <horms@kernel.org>
-To: Andrew Lunn <andrew+netdev@lunn.ch>
-To: Magnus Karlsson <magnus.karlsson@intel.com>
-To: Maciej Fijalkowski <maciej.fijalkowski@intel.com>
-To: Stanislav Fomichev <sdf@fomichev.me>
-To: Alexei Starovoitov <ast@kernel.org>
-To: Daniel Borkmann <daniel@iogearbox.net>
-To: Jesper Dangaard Brouer <hawk@kernel.org>
-To: John Fastabend <john.fastabend@gmail.com>
-To: Björn Töpel <bjorn@kernel.org>
-Cc: netdev@vger.kernel.org
-Cc: linux-kernel@vger.kernel.org
-Cc: bpf@vger.kernel.org
----
- include/linux/netdevice.h   |  5 +++++
- include/net/xsk_buff_pool.h |  3 +++
- net/xdp/xsk.c               |  5 +++++
- net/xdp/xsk_buff_pool.c     | 25 ++++++++++++++++++++++++-
- 4 files changed, 37 insertions(+), 1 deletion(-)
+2. The lock/unlock pair crosses function boundaries in several callers. For
+   example, kvmppc_hv_find_lock_hpte() acquires HPTE_V_HVLOCK via
+   try_lock_hpte() internally but returns with the lock still held — the comment
+   above it documents this.  The caller is responsible for the matching
+   unlock_hpte().  So even if preempt_disable() were placed inside
+   try_lock_hpte(), preempt_enable() would still need to be scattered across
+   every caller after their unlock_hpte() — the pairing cannot be made automatic
+   inside the primitives alone.
 
-diff --git a/include/linux/netdevice.h b/include/linux/netdevice.h
-index 3cff2174dc03..72091938f6e6 100644
---- a/include/linux/netdevice.h
-+++ b/include/linux/netdevice.h
-@@ -2545,6 +2545,11 @@ struct net_device {
- 	/* protected by rtnl_lock */
- 	struct bpf_xdp_entity	xdp_state[__MAX_XDP_MODE];
- 
-+#ifdef CONFIG_XDP_SOCKETS
-+	/** @xsk_pools: assigned AF_XDP pools, protected by rtnl_lock */
-+	struct hlist_head	xsk_pools;
-+#endif
-+
- 	u8 dev_addr_shadow[MAX_ADDR_LEN];
- 	netdevice_tracker	linkwatch_dev_tracker;
- 	netdevice_tracker	watchdog_dev_tracker;
-diff --git a/include/net/xsk_buff_pool.h b/include/net/xsk_buff_pool.h
-index a7df573784fd..5cc2f61d7fdf 100644
---- a/include/net/xsk_buff_pool.h
-+++ b/include/net/xsk_buff_pool.h
-@@ -48,6 +48,8 @@ struct xsk_buff_pool {
- 	struct device *dev;
- 	struct net_device *netdev;
- 	struct list_head xsk_tx_list;
-+	/* Assigned pools, including deferred releases; protected by RTNL. */
-+	struct hlist_node dev_node;
- 	/* Protects modifications to the xsk_tx_list */
- 	spinlock_t xsk_tx_list_lock;
- 	refcount_t users;
-@@ -119,6 +121,7 @@ bool xp_put_pool(struct xsk_buff_pool *pool);
- void xp_clear_dev(struct xsk_buff_pool *pool);
- void xp_add_xsk(struct xsk_buff_pool *pool, struct xdp_sock *xs);
- void xp_del_xsk(struct xsk_buff_pool *pool, struct xdp_sock *xs);
-+void xp_clear_dev_all(struct net_device *dev);
- 
- /* AF_XDP, and XDP core. */
- void xp_free(struct xdp_buff_xsk *xskb);
-diff --git a/net/xdp/xsk.c b/net/xdp/xsk.c
-index 33475b180ea6..781ba46eb152 100644
---- a/net/xdp/xsk.c
-+++ b/net/xdp/xsk.c
-@@ -2145,6 +2145,11 @@ static int xsk_notifier(struct notifier_block *this,
- 			mutex_unlock(&xs->mutex);
- 		}
- 		mutex_unlock(&net->xdp.lock);
-+		/*
-+		 * A released socket is no longer on xdp.list. Its pool can still
-+		 * hold a device reference on the frozen release workqueue.
-+		 */
-+		xp_clear_dev_all(dev);
- 		break;
- 	}
- 	return NOTIFY_DONE;
-diff --git a/net/xdp/xsk_buff_pool.c b/net/xdp/xsk_buff_pool.c
-index 9d2d94f1fb75..c4d722008670 100644
---- a/net/xdp/xsk_buff_pool.c
-+++ b/net/xdp/xsk_buff_pool.c
-@@ -204,6 +204,11 @@ int xp_assign_dev(struct xsk_buff_pool *pool,
- 	pool->cached_need_wakeup = XDP_WAKEUP_TX;
- 
- 	dev_hold(netdev);
-+	/*
-+	 * Socket removal precedes the final pool put. Keep the pool visible to
-+	 * NETDEV_UNREGISTER even while release work is waiting for process thaw.
-+	 */
-+	hlist_add_head(&pool->dev_node, &netdev->xsk_pools);
- 
- 	if (force_copy)
- 		/* For copy-mode, we are done. */
-@@ -265,6 +270,8 @@ int xp_assign_dev(struct xsk_buff_pool *pool,
- 		err = 0; /* fallback to copy mode */
- 	if (err) {
- 		xsk_clear_pool_at_qid(netdev, queue_id);
-+		hlist_del(&pool->dev_node);
-+		pool->netdev = NULL;
- 		dev_put(netdev);
- 	}
- 	return err;
-@@ -291,17 +298,29 @@ void xp_clear_dev(struct xsk_buff_pool *pool)
- {
- 	struct net_device *netdev = pool->netdev;
- 
-+	ASSERT_RTNL();
- 	if (!pool->netdev)
- 		return;
- 
- 	netdev_lock_ops(netdev);
- 	xp_disable_drv_zc(pool);
- 	xsk_clear_pool_at_qid(pool->netdev, pool->queue_id);
-+	hlist_del(&pool->dev_node);
- 	pool->netdev = NULL;
- 	netdev_unlock_ops(netdev);
- 	dev_put(netdev);
- }
- 
-+void xp_clear_dev_all(struct net_device *dev)
-+{
-+	struct xsk_buff_pool *pool;
-+	struct hlist_node *next;
-+
-+	ASSERT_RTNL();
-+	hlist_for_each_entry_safe(pool, next, &dev->xsk_pools, dev_node)
-+		xp_clear_dev(pool);
-+}
-+
- static void xp_release_deferred(struct work_struct *work)
- {
- 	struct xsk_buff_pool *pool = container_of(work, struct xsk_buff_pool,
-@@ -337,7 +356,11 @@ bool xp_put_pool(struct xsk_buff_pool *pool)
- 
- 	if (refcount_dec_and_test(&pool->users)) {
- 		INIT_WORK(&pool->work, xp_release_deferred);
--		schedule_work(&pool->work);
-+		/*
-+		 * Teardown calls ndo_bpf(), which may need powered hardware.
-+		 * RTNL alone does not exclude the device's system PM callbacks.
-+		 */
-+		queue_work(system_freezable_wq, &pool->work);
- 		return true;
- 	}
- 
+   This caller-side pattern is already established in the tree:
+   kvmppc_virtmode_do_h_enter() (book3s_64_mmu_hv.c:298) and
+   kvmppc_mmu_book3s_64_hv_xlate() (book3s_64_mmu_hv.c:367) both wrap
+   try_lock_hpte() call sites with preempt_disable()/preempt_enable() at the
+   caller level, not inside the primitives.
 
----
-base-commit: aaaaf87ea99b8766c9a8aa0e71aa42e6bc8a5320
-change-id: 20260930-xsk-suspend-teardown-902f98408c93
+> 
+> Also, Is any of these be called in real mode?
+> Note that currently preempt count is derived from thread info.
+> So it may not be safe in real mode.
 
-Best regards,
---  
-James Hilliard <james.hilliard1@gmail.com>
+The four functions modified in book3s_64_mmu_hv.c — kvm_unmap_rmapp(),
+kvm_age_rmapp(), kvm_test_clear_dirty_npages(), and resize_hpt_rehash_hpte() —
+are all static functions in book3s_64_mmu_hv.c, and not reachable from the
+real-mode hcall table.  They run in process context as MMU notifier callbacks,
+dirty-log harvesting, and HPT resize ioctl respectively. The call sites in
+book3s_hv.c are likewise post-guest-exit virtual mode.  The preempt_disable()
+placements in this patch are safe.
 
+Thanks,
+Amit
+
+> 
+> >   	return ret;
+> >   }
+> > diff --git a/arch/powerpc/kvm/book3s_hv.c b/arch/powerpc/kvm/book3s_hv.c
+> > index aa51968e206a..0b7743bb89d9 100644
+> > --- a/arch/powerpc/kvm/book3s_hv.c
+> > +++ b/arch/powerpc/kvm/book3s_hv.c
+> > @@ -1159,6 +1159,10 @@ static long kvmppc_h_rpt_invalidate(struct kvm_vcpu *vcpu,
+> >   	return H_SUCCESS;
+> >   }
+> > +/*
+> > + * Must be called with preemption disabled. The HPT hcall handlers spin
+> > + * on HPTE bit-locks and cannot make any blocking/sleeping calls.
+> > + */
+> >   static long kvmppc_pseries_do_hpt_hcall(struct kvm_vcpu *vcpu, unsigned long req)
+> >   {
+> >   	switch (req) {
+> > @@ -1212,9 +1216,11 @@ int kvmppc_pseries_do_hcall(struct kvm_vcpu *vcpu)
+> >   	case H_CLEAR_REF:
+> >   	case H_PROTECT:
+> >   	case H_BULK_REMOVE:
+> > +		preempt_disable();
+> >   		idx = srcu_read_lock(&kvm->srcu);
+> >   		ret = kvmppc_pseries_do_hpt_hcall(vcpu, req);
+> >   		srcu_read_unlock(&kvm->srcu, idx);
+> > +		preempt_enable();
+> >   		if (ret == H_TOO_HARD)
+> >   			return RESUME_HOST;
+> >   		break;
+> > @@ -1834,8 +1840,10 @@ static int kvmppc_handle_exit_hv(struct kvm_vcpu *vcpu,
+> >   		else
+> >   			vsid = vcpu->arch.fault_gpa;
+> > +		preempt_disable();
+> >   		err = kvmppc_hpte_hv_fault(vcpu, vcpu->arch.fault_dar,
+> >   				vsid, vcpu->arch.fault_dsisr, true);
+> > +		preempt_enable();
+> >   		if (err == 0) {
+> >   			r = RESUME_GUEST;
+> >   		} else if (err == -1 || err == -2) {
+> > @@ -1881,8 +1889,10 @@ static int kvmppc_handle_exit_hv(struct kvm_vcpu *vcpu,
+> >   		else
+> >   			vsid = vcpu->arch.fault_gpa;
+> > +		preempt_disable();
+> >   		err = kvmppc_hpte_hv_fault(vcpu, vcpu->arch.fault_dar,
+> >   				vsid, vcpu->arch.fault_dsisr, false);
+> > +		preempt_enable();
+> >   		if (err == 0) {
+> >   			r = RESUME_GUEST;
+> >   		} else if (err == -1) {
+> 
