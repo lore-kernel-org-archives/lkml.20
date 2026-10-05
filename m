@@ -1,222 +1,240 @@
-Received: from mail-yx1-f41.google.com (mail-yx1-f41.google.com [74.125.224.41])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from gwu.lbox.cz (gwu.lbox.cz [62.245.111.132])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1A57531D730
-	for <linux-kernel@vger.kernel.org>; Mon,  5 Oct 2026 19:02:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.224.41
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 04C131FF1C7
+	for <linux-kernel@vger.kernel.org>; Mon,  5 Oct 2026 19:04:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=62.245.111.132
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791226933; cv=none; b=jthxvSNV18OBwjXQv11T8/izngEEwBfamb2tnFsuTd80hv3r5QakLzHOaWqivRrrzyfa10APsMNFD+kBe0hLVl2nXXDTWnTesr52U2916o5DvJ1jOOAiuwjq+FVcw64EZaFKllBoXTO0Xm8bPTfqtK9xtCRE2U+FSOwKbQ/NRvY=
+	t=1791227061; cv=none; b=Lw/D8d35FWujCdx2D3Lc6vK0MygfEiShQqjGuzQ4+zNiMYAZ4Dyf8B64syWmqF+cZaxRWSOrjbR9jqslGSlTaIDe/jcQ5o4j69EmPLdcrPauL7j8Dfynwf98V2THTZD0NDPVBRTqup84vbkiGc7jpvayvyxCMhxQeX7mvPcmDiA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791226933; c=relaxed/simple;
-	bh=Q4n0AERx9QUP0tEzrHnmQ2XFk0zGGiZpIszcYMPYv7A=;
-	h=Message-ID:In-Reply-To:References:From:Date:Subject:To:Cc; b=BbUIE51ymgna4FTjmsFntUali/gn7faMVeo1gE2tm1fm/+qqM7VczbxTUzc/vrUuKxX280Tg9NpjqcmAaz/bVg9UJR47rjlxDnFzgPO7P67aOkTpFNx+yu6TZjjWA70khOnr6ArAQ20QI4jwARDMzmclNq63tVLF636s68eazEQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=toxicpanda.com; spf=pass smtp.mailfrom=toxicpanda.com; dkim=pass (2048-bit key) header.d=toxicpanda.com header.i=@toxicpanda.com header.b=RTo/lvJk; arc=none smtp.client-ip=74.125.224.41
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=toxicpanda.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=toxicpanda.com
+	s=arc-20240116; t=1791227061; c=relaxed/simple;
+	bh=IB4GlhD1OhlrINDhKPmngP5fIcKMGAKIgS0Ux4C0qwQ=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=iF5ahWfDeTpDMaP6ql3dTkXx/mw7dKXVPzXQXPSX5QzuCTsheFkW57oIxcYE6fszl1dHAJbAls/lx306MYFMJx65VnwdKpq6wvLr9kllk5UXh8NK4Wjr5xUDGgcPtadza9Dr7NZSliLqrPkJS7AojQ0TT1dOjjsBO3++UqNu+dc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linuxbox.cz; spf=pass smtp.mailfrom=linuxbox.cz; dkim=pass (1024-bit key) header.d=linuxbox.cz header.i=@linuxbox.cz header.b=tM9FntSM; arc=none smtp.client-ip=62.245.111.132
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linuxbox.cz
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linuxbox.cz
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=toxicpanda.com header.i=@toxicpanda.com header.b="RTo/lvJk"
-Received: by mail-yx1-f41.google.com with SMTP id 956f58d0204a3-66fca0709caso1627612d50.1
-        for <linux-kernel@vger.kernel.org>; Mon, 05 Oct 2026 12:02:11 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=toxicpanda.com; s=google; t=1791226931; x=1791831731; darn=vger.kernel.org;
-        h=cc:to:subject:date:from:references:in-reply-to:message-id:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=+Z7syrAz4LfxPjZQqKgbErbAJrKi+mPtI/lIkPWRbxU=;
-        b=RTo/lvJkzOP2jHwV3xNFaElkvXfwbGxgcyeOqBa16n33QrjSyqdYp8vx58qOUcrSuK
-         vcjNJ8luAmXg0kHIHjs8JY0BMSyU0FwSho50vdStGWnW35Qb1bQN2xpevvY5gPlRBic8
-         wCblcBrm30QEDSQmIuscbiqn2YAiGvKL0+CjMku8QJxprLQ1zdb3aaOK9I+OIDaO8xSd
-         prNqlwfzhxXNdwGkAOsDWCkcA0h6puKKN4T0Il/hdC52vx985Skh2rnUG+rImX2mYlgy
-         smBpAp6m+JBn1zffJCtbYfa+60ADLnF9vQSJoBOTGSxJv/F4lEcZ+TnpRCaOPvgegt1a
-         R5mg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791226931; x=1791831731;
-        h=cc:to:subject:date:from:references:in-reply-to:message-id:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=+Z7syrAz4LfxPjZQqKgbErbAJrKi+mPtI/lIkPWRbxU=;
-        b=nbLPAlqVO3ggnoXngvj3cWZYW6QGYwc/z9jUb1OxeXZQQMIMjAhnloeReFeJBIbFwO
-         LIM3DoccfHywNcZLuRpyszqm+i9JoO3bkJuBNNMxSeGQdUztBCCLDfZmEoEwCVS1OFyf
-         4WsKJ7yxRewG5vEe+3Y86JNVL3D5K+IVGJVAzkGWBfotQkRY3MkQvCn8ka/DCIMBeLdC
-         MsXpzUg2/4b+rYe2T/LN53rOO5C2i2Cq3pSWJTumIC5PWd6xMf8AQyFWYdOodVoJML50
-         Jaz584Z2no2ezH80yvSj91HZ+vZvHTiErnbyQrbR96+PLOTxOX9QOD5p+6JE5O7/kSbm
-         SmsA==
-X-Forwarded-Encrypted: i=1; AKwUvBx1OsBumb5ZZow67xqy/uFuRTXoNB4UiQ0d9OIv/EX5eIlFZ46VvulLXjLFR6zZSdzIzHbW+AQsowmwDQU=@vger.kernel.org
-X-Gm-Message-State: AFq9FYICBWCqRkiW9x921kcALaUfP+ARQ/BXtJuMxH/betKQWJNkenBF
-	gtBotnkeyZ/vJSPCMxU12Huq7d+GUNvFiZlhvjrf1N3/CL65u2vAsvlSRwkxwQIwZyI=
-X-Gm-Gg: AYBFou3yYkUbqrbuJ3bqakXCQFMX7x+Dgsu7Hh6f+HzSAPsDZdMhOVu1kR0LGdH1rK1
-	w03uoCKP1zfB7i8x16H3JZjRMLfCkTc+nl5UU0LdFiemMk2/FCGScGf3ozA4BXPXmFQ9prTD4iI
-	E97aaNPATXdd6dquq75vfJMnGErgWjk4/hTwKNSoN2Gd/WSAzEs9418G63UPR81eXq6qDB77FOS
-	0s6b7vpzcLOc0AywgCtLl3XYi1pD5rNEaEWzXWsQFgSoIul0SP7enmJXEU4bng8jX11ezyyEqCO
-	vxaiToc/R0FaNuPPeAlG7TmbMbTaHlCCHqczsuyEQTizdGW1zgDdj9bT3mPrpfw1eAvg0rNU8kL
-	zr4xIBcRBfDG1vwUHAFI/sK8UXyMJpZhtCtINYi4Q7XfOY0VSkrhJYI6eSVXGPLSvNLgbH5IZH/
-	hhXfO/b2PYfmRbmwivBwxNcD6R32ESuZGsdQTKRz9wCE4mw1SxmC2msI3dyQlZUMP6yE+egPnL7
-	NHl4SX88vFk3jI=
-X-Received: by 2002:a05:690e:e84:b0:677:bf19:f063 with SMTP id 956f58d0204a3-677bf19f74cmr3098451d50.9.1791226930786;
-        Mon, 05 Oct 2026 12:02:10 -0700 (PDT)
-Received: from toxicpanda.com ([153.61.196.250])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-917e0b67172sm93369286d6.20.2026.10.05.12.02.09
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 05 Oct 2026 12:02:10 -0700 (PDT)
-Message-ID: <9b876f2c061abc401ec4b9b3c2529eda.josef@toxicpanda.com>
-In-Reply-To: <20261001125422.1364260-1-tom.leiming@gmail.com>
-References: <20261001125422.1364260-1-tom.leiming@gmail.com>
-From: Josef Bacik <josef@toxicpanda.com>
-Date: Mon, 5 Oct 2026 16:23:51 +0000
-Subject: [PATCH] ublk: refuse to go live after an io command was canceled
-To: Ming Lei <tom.leiming@gmail.com>,
-    Jens Axboe <axboe@kernel.dk>
-Cc: Caleb Sander Mateos <csander@purestorage.com>,
-    linux-block@vger.kernel.org,
-    linux-kernel@vger.kernel.org,
-    linux-doc@vger.kernel.org
+	dkim=pass (1024-bit key) header.d=linuxbox.cz header.i=@linuxbox.cz header.b="tM9FntSM"
+Received: from linuxbox.linuxbox.cz (linuxbox.linuxbox.cz [10.76.66.10])
+	by gwu.lbox.cz (Sendmail) with ESMTPS id 695J31Y44189531
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NO);
+	Mon, 5 Oct 2026 21:03:01 +0200
+DKIM-Filter: OpenDKIM Filter v2.11.0 gwu.lbox.cz 695J31Y44189531
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxbox.cz;
+	s=default; t=1791226982;
+	bh=yYTefUiS8J+q/QM7CAZ/0oR8vJ+TPClAgdgMZ1CuPA4=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=tM9FntSMff4WJSyjqtV0uOmUjGMvvBarDDMI89Zm53FNDbCRQClLc/SXa/gK+3LYs
+	 /HGTLBdVQ5Gb21lyhopva2CUoGZ4d8wbSpbJVy3DRuvf90Ar4B2EW9oTdqsWIfGWiB
+	 XWNPpBI3OKtxxGBMWZT9gyzgmRMCgIDF2/4dZONM=
+Received: from pcnci.linuxbox.cz (pcnci.linuxbox.cz [10.76.3.14])
+	by linuxbox.linuxbox.cz (Sendmail) with ESMTPS id 695J30C1041279
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NO);
+	Mon, 5 Oct 2026 21:03:00 +0200
+Received: from pcnci.linuxbox.cz (localhost [127.0.0.1])
+	by pcnci.linuxbox.cz (8.18.1/8.15.2) with ESMTPS id 695J2w3b2386917
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Mon, 5 Oct 2026 21:03:00 +0200
+Date: Mon, 5 Oct 2026 21:02:58 +0200
+From: Nikola Ciprich <nikola.ciprich@linuxbox.cz>
+To: Rik van Riel <riel@surriel.com>
+Cc: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>, linux-mm@kvack.org,
+        linux-kernel@vger.kernel.org, akpm@linux-foundation.org,
+        david@kernel.org, Mike Rapoport <rppt@kernel.org>,
+        Dave Hansen <dave.hansen@linux.intel.com>,
+        Pedro Falcato <pfalcato@suse.de>, Kiryl Shutsemau <kas@kernel.org>,
+        luizcap@redhat.com, pbonzini@redhat.com,
+        Borislav Petkov <bp@alien8.de>, Tal Zussman <tz2294@columbia.edu>,
+        Matt Fleming <matt@readmodwrite.com>,
+        Nikola Ciprich <nikola.ciprich@linuxbox.cz>
+Subject: Re: hunting memory corruption bug in 6.18.x
+Message-ID: <asP0Yic4og6Zu11F@pcnci.linuxbox.cz>
+References: <arotyz5g6LozSjb1@pcnci.linuxbox.cz>
+ <arwNebjYXyGqrp32@pcnci.linuxbox.cz>
+ <arzRBv9ceJsxJppI@gremlin>
+ <ar1Xl7PE2rcoT9h3@pcnci.linuxbox.cz>
+ <ar63St2LBfCdyhwj@pcnci.linuxbox.cz>
+ <ar9yRqq6cBxHDWKA@gremlin>
+ <ar/F6+OUzj8qQ8YC@pcnci.linuxbox.cz>
+ <asAE3kLFDUx5v0Nw@gremlin>
+ <asKdhWiJb3qXeopz@pcnci.linuxbox.cz>
+ <bd8e9b01ad88cafb12da33331f32a1ce315f590b.camel@surriel.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <bd8e9b01ad88cafb12da33331f32a1ce315f590b.camel@surriel.com>
+X-Scanned-By: MIMEDefang 3.7.1 on 10.76.66.3
+X-Scanned-By: MIMEDefang v3.7.1/SpamAssassin v4.000002 on lbxovapx9 (nik)
+X-Scanned-By: MIMEDefang 2.86 on 10.76.66.10
+X-Antivirus: on lbxovapx9 by Antivirus 
+X-Spam-Score: N/A (trusted relay)
+X-Milter-Copy-Status: O
 
-Since commit "ublk: keep a canceled FETCH round canceling until the
-server is gone", a device whose FETCH round saw a cancel keeps its
-queues canceling until the server goes away, but START_DEV and
-END_USER_RECOVERY still bring it up. Without UBLK_F_USER_RECOVERY, or
-with UBLK_F_USER_RECOVERY_FAIL_IO, every request of the new disk fails.
-With UBLK_F_USER_RECOVERY, requests are requeued and never kicked: after
-START_DEV the partition scan hangs under disk->open_mutex, and after
-END_USER_RECOVERY every read parks while the command returned 0. The
-server cannot fetch the canceled commands again, so the device can't
-serve I/O until it restarts anyway.
+> Two copies of the exact address you crashed on,
+> in a vmalloc area, presumably the dentry_hashtable?
+> 
+> Can you use vtop to check that the different occurrences
+> of the 0fffffff0c930020 address in the same vmalloc
+> area map to the pages you found in this crash dump?
 
-Return -ENODEV from START_DEV and END_USER_RECOVERY while ub->canceling
-is set. In ublk_ctrl_start_dev() check it and publish ub->ub_disk in one
-cancel_mutex section, and have ublk_start_cancel() read the disk in its
-cancel_mutex section. Today ublk_start_cancel() samples the disk before
-taking the mutex, so a server dying during its own START_DEV can mark
-the queues without quiescing a disk START_DEV published in between, with
-its first I/O past the canceling check. Now either START_DEV sees the
-cancel, or the cancel sees the disk and quiesces it before marking. The
-END_USER_RECOVERY check is best effort: the disk exists there, and a
-cancel after it is the ordinary death of the new server, which
-ublk_start_cancel() handles by quiescing and marking.
+Confirmed. Both occurrences in the vmalloc (dentry_hashtable) area map to
+the same physical frame the physical search reported:
 
-Assisted-by: LLM
-Signed-off-by: Josef Bacik <josef@toxicpanda.com>
----
-This applies on top of Ming's "[PATCH 0/8] ublk: don't dispatch to
-canceled io commands" and needs patch 1 of it for ub->canceling to stay
-set for the whole FETCH round. generic_18 still passes with it.
+vtop 0xffffb18905f60440 -> 0x103360440
+vtop 0xffffb18905f60450 -> 0x103360450 (frame 0x103360000)
 
- Documentation/block/ublk.rst | 10 ++++++++--
- drivers/block/ublk_drv.c     | 38 ++++++++++++++++++++++++++++++++++--
- 2 files changed, 44 insertions(+), 4 deletions(-)
+(AI notes:  )
 
-diff --git a/Documentation/block/ublk.rst b/Documentation/block/ublk.rst
-index 28300fee22bf..b7875a3cf3fc 100644
---- a/Documentation/block/ublk.rst
-+++ b/Documentation/block/ublk.rst
-@@ -118,7 +118,11 @@ managing and controlling ublk devices with help of several control commands:
-   After the server prepares userspace resources (such as creating I/O handler
-   threads & io_uring for handling ublk IO), this command is sent to the
-   driver for allocating & exposing ``/dev/ublkb*``. Parameters set via
--  ``UBLK_CMD_SET_PARAMS`` are applied for creating the device.
-+  ``UBLK_CMD_SET_PARAMS`` are applied for creating the device. The command
-+  fails with ``-ENODEV`` if an I/O command fetched by the current server
-+  was canceled, because its io_uring is gone. The server can't fetch it
-+  again, and the device can be started again once the server has closed
-+  ``/dev/ublkc*``.
- 
- - ``UBLK_CMD_STOP_DEV``
- 
-@@ -195,7 +199,9 @@ managing and controlling ublk devices with help of several control commands:
-   command is accepted after ublk device is quiesced and a new process has
-   opened ``/dev/ublkc*`` and get all ublk queues be ready. When this command
-   returns, ublk device is unquiesced and new I/O requests are passed to the
--  new process.
-+  new process. It fails with ``-ENODEV`` if an I/O command of the new
-+  process was canceled already. The recovery can be started over once the
-+  new process has closed ``/dev/ublkc*``.
- 
- - user recovery feature description
- 
-diff --git a/drivers/block/ublk_drv.c b/drivers/block/ublk_drv.c
-index f57d544c1da2..39eb7775a351 100644
---- a/drivers/block/ublk_drv.c
-+++ b/drivers/block/ublk_drv.c
-@@ -2759,9 +2759,11 @@ static void ublk_abort_queue(struct ublk_device *ub, struct ublk_queue *ubq)
- 
- static void ublk_start_cancel(struct ublk_device *ub)
- {
--	struct gendisk *disk = ublk_get_disk(ub);
-+	struct gendisk *disk;
- 
-+	/* sync with ublk_ctrl_start_dev() publishing the disk */
- 	mutex_lock(&ub->cancel_mutex);
-+	disk = ublk_get_disk(ub);
- 	if (ub->canceling)
- 		goto out;
- 
-@@ -4575,6 +4577,7 @@ static int ublk_ctrl_start_dev(struct ublk_device *ub,
- 		.dma_alignment		= 3,
- 	};
- 	struct gendisk *disk;
-+	bool canceled;
- 	int ret = -EINVAL;
- 
- 	if (ublksrv_pid <= 0)
-@@ -4665,8 +4668,24 @@ static int ublk_ctrl_start_dev(struct ublk_device *ub,
- 	disk->fops = &ub_fops;
- 	disk->private_data = ub;
- 
-+	/*
-+	 * A command of this FETCH round was canceled and can't be fetched
-+	 * again, don't bring up a disk over it.  Check and publish the disk
-+	 * in one cancel_mutex section: either this sees ub->canceling, or
-+	 * ublk_start_cancel() sees the disk and quiesces it before marking
-+	 * the queues.
-+	 */
-+	mutex_lock(&ub->cancel_mutex);
-+	canceled = ub->canceling;
-+	if (!canceled)
-+		ub->ub_disk = disk;
-+	mutex_unlock(&ub->cancel_mutex);
-+	if (canceled) {
-+		put_disk(disk);
-+		ret = -ENODEV;
-+		goto out_unlock;
-+	}
- 	ub->dev_info.ublksrv_pid = ub->ublksrv_tgid;
--	ub->ub_disk = disk;
- 
- 	ublk_apply_params(ub);
- 
-@@ -5238,6 +5257,7 @@ static int ublk_ctrl_end_recovery(struct ublk_device *ub,
- 		const struct ublksrv_ctrl_cmd *header)
- {
- 	int ublksrv_pid = (int)header->data[0];
-+	bool canceled;
- 	int ret = -EINVAL;
- 
- 	pr_devel("%s: Waiting for all FETCH_REQs, dev id %d...\n", __func__,
-@@ -5261,6 +5281,20 @@ static int ublk_ctrl_end_recovery(struct ublk_device *ub,
- 		ret = -EBUSY;
- 		goto out_unlock;
- 	}
-+
-+	/*
-+	 * As in ublk_ctrl_start_dev(), a canceled command can't be fetched
-+	 * again.  Best effort: the disk exists here, and a cancel after this
-+	 * check is the ordinary death of the new server, which
-+	 * ublk_start_cancel() handles by quiescing and marking.
-+	 */
-+	mutex_lock(&ub->cancel_mutex);
-+	canceled = ub->canceling;
-+	mutex_unlock(&ub->cancel_mutex);
-+	if (canceled) {
-+		ret = -ENODEV;
-+		goto out_unlock;
-+	}
- 	ub->dev_info.ublksrv_pid = ub->ublksrv_tgid;
- 	ub->dev_info.state = UBLK_S_DEV_LIVE;
- 	pr_devel("%s: new ublksrv_pid %d, dev id %d\n",
+One detail that may matter: this vmalloc mapping is backed by a 2MB PSE
+hugepage (phys base 0x103200000); the crash frame 0x103360000 is a 4KB
+slice at offset 0x160000 within it. So a single 2MB TLB entry covers the
+whole bucket region.
+
+The other frames the value appears in (0x114c32000, 0x1ae234000,
+0x24f0e2000, 0x342c40000, ...) are scattered across physical memory and are
+not slices of that 2MB hashtable page. So the value is not confined to
+the dentry_hashtable — the hashtable frame is just the one that got walked
+and crashed.
+
+> 
+> > 
+> > crash> rd -p 0x103360000 512
+> > 
+> >        103360440:  0fffffff0c930020 0000000000000000   
+> > ...............
+> >        103360450:  0fffffff0c930020 fffff86eb0c30000   
+> > ...........n...
+> > 
+> The same thing when reading the page directly.
+> 
+> So the invalid value the CPU reads is being read from
+> memory, and not hallucinated by the CPU.
+> 
+> > crash> search -p 0x0fffffff0c930020
+> > 103360440: fffffff0c930020
+> > 103360450: fffffff0c930020
+> > 114c32440: fffffff0c930020
+> > 114c32450: fffffff0c930020
+> > 1ae234400: fffffff0c930020
+> > 1ae234420: fffffff0c930020
+> > 1ae234430: fffffff0c930020
+> > 1ae234450: fffffff0c930020
+> > 24f0e2400: fffffff0c930020
+> > 24f0e2420: fffffff0c930020
+> > 24f0e2430: fffffff0c930020
+> > 24f0e2450: fffffff0c930020
+> > 342c40400: fffffff0c930020
+> > 342c40420: fffffff0c930020
+> > 342c40430: fffffff0c930020
+> > 342c40450: fffffff0c930020
+> > 77475b400: fffffff0c930020
+> > 77475b420: fffffff0c930020
+> > 77475b430: fffffff0c930020
+> > 77475b450: fffffff0c930020
+> > b2fabe400: fffffff0c930020
+> > b2fabe420: fffffff0c930020
+> > b2fabe430: fffffff0c930020
+> > b2fabe450: fffffff0c930020
+> > ea2d7c400: fffffff0c930020
+> > ea2d7c420: fffffff0c930020
+> > ea2d7c430: fffffff0c930020
+> > ea2d7c450: fffffff0c930020
+> > ef7a2d400: fffffff0c930020
+> > ef7a2d420: fffffff0c930020
+> > ef7a2d430: fffffff0c930020
+> > ef7a2d450: fffffff0c930020
+> > ef7a90400: fffffff0c930020
+> > ef7a90420: fffffff0c930020
+> > ef7a90430: fffffff0c930020
+> > ef7a90450: fffffff0c930020
+> > 10371fa400: fffffff0c930020
+> > 10371fa420: fffffff0c930020
+> > 10371fa430: fffffff0c930020
+> > 10371fa450: fffffff0c930020
+> 
+> These are not random offsets in the page,
+> either.
+> 
+> These all seem to be at offsets 0, 0x20,
+> 0x30, 0x40, or 0x50 into the page.
+> 
+> If you look at the other addresses, are
+> there any that are not at one of these
+> offsets?
+
+I checked all 40 occurrences. Every one is at page offset 0x400, 0x420,
+0x430, 0x440, or 0x450 — nothing elsewhere, and nothing at 0x410 (so the
+hypothetical sixth slot at +0x10 is not populated in this dump).
+
+Relative to a 0x400 base, the counts are:
++0x00 : 9
++0x10 : 0
++0x20 : 9
++0x30 : 9
++0x40 : 2
++0x50 : 11
+
+There are two distinct per-frame patterns:
+ 9 frames carry the value at {+0x00, +0x20, +0x30, +0x50}
+ 2 frames (incl. the crash frame 0x103360000, and 0x114c32000) carry it
+ only at {+0x40, +0x50}
+
+The value-holding frames are a consistent class: kmem reports them as
+non-slab, no mapping, page flags 0x2ffff800000000 — the same as the crash
+frame. For the crash frame I dumped the struct page earlier: pp_magic set,
+pp_ref_count = 0 (i.e. stale page_pool metadata on a page now in use by the
+hashtable). I have not dumped struct page for the other frames yet; happy to
+if it helps.
+
+Two observations for the code search, offered as observations only:
+
+The offset signature (base 0x400, entries at +0x00/+0x20/+0x30/+0x40/
++0x50) looks like an array of 16- or 32-byte-stride objects starting
+0x400 into a page, with ~5-6 slots — in case that narrows "writes into
+one of 6 slots."
+The value 0x0fffffff0c930020 may be a legitimate pointer with a sheared
+top byte: 0xffffffff0c930020 -> 0x0fffffff0c930020 (ff -> 0f). If so it
+would be a partial/torn write of a real address rather than a constructed
+constant — might be worth having the code search consider both.
+
+I can dump struct page for the other value-holding frames, or pull the
+surrounding bytes of one of the 4-offset frames (they may show more context
+than the sparse crash frame) if either is useful.
+
+BR
+
+nik
+
+
+> 
+> If this is a case of "system writes
+> fffffff0c930020 into one of 6 slots",
+> there could be some at offset 0x10
+> too.
+> 
+> I'm having AI comb the kernel now for
+> places where we could conceivably
+> construct this value, and write it
+> into one out of 6 slots.
+> 
+> > 
+> -- 
+> All Rights Reversed.
+> 
+
 -- 
-2.55.0
+Ing. Nikola CIPRICH
+technický ředitel
 
++420 591 166 214
++420 777 093 799
+nikola.ciprich@linuxbox.cz
+
+www.linuxbox.cz
