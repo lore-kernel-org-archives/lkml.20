@@ -1,145 +1,65 @@
-Received: from mail-vs2-f35.google.com (mail-vs2-f35.google.com [74.125.227.35])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9A35979CD
-	for <linux-kernel@vger.kernel.org>; Mon,  5 Oct 2026 00:35:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.35
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EB43F79CD;
+	Mon,  5 Oct 2026 00:35:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791160545; cv=none; b=IEDph2jg9XnXCXG/+7lT+XoXIuAOLa9c3BHsTi6zh8+WF5xbkUuPYPR2lO7ztJD8o70adV6880bEXRsJx0agGYejhO6+Gw60Sjf0k7MxCXFrc3Mi70iCgpz/8+HCl5Rb/RFOWtXTlLHKojbFKAVIVGHkGm5ZHzfMUtXT+c3MNCA=
+	t=1791160548; cv=none; b=P6wqvFXaPFHZKCR5chOiPTG3E9c+A8Abaf3DpvboQNkl8FQuR87kkR9+6SF+zstWF4nNjlK8LOb3VYOTQ3P9blszLWlCplpd1uGIGsg4mkso6/1Ect58pyziOVinF2lslYhA2IumxQXG9ADjZi8AodaP4RI68baCQ4py5BG73t4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791160545; c=relaxed/simple;
-	bh=2FrvFsvX2x9s1teS7gnxDFE6GIWl1nvTF/TpcSBVZGA=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=G9f80Vch9b9NUwHxkHqNoplDzdDYAg7VI1TUhWfbSjfVgLQorGg+IY9er9syI15dE4g9DAcrg1xYQURwVUcdWwNc8slAW3ird7Z6azpzS7qmkhOZob/jO0nmulT6/NBv1oWkedIkSuajkiJXt8NGlllE5ixWo+DIz4AU2YDrRQU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=fMAWBAoK; arc=none smtp.client-ip=74.125.227.35
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1791160548; c=relaxed/simple;
+	bh=qQAb5M3Ldh3VAKcPKRRUntBg0VKcfBruUwKRe4B9Jpw=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=d8l2a748pqleWwoxiPkcAm6uDfz6WkfwZYzFn6vHSlZsd3hjAZaoJgECGiOf4+e0d7zTj1jPCq0gGz3aU2p9Y9gELW1AEupvvcCRJIJ3Xbw9lSuK2LQA7Hb+DCgGi3ryZII2dJlV+9hBu3NYDaB9mRo6KisoiO7W7bVU4Yz8Ejs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=U8TWGauj; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="fMAWBAoK"
-Received: by mail-vs2-f35.google.com with SMTP id ada2fe7eead31-7bf947fae49so648677137.2
-        for <linux-kernel@vger.kernel.org>; Sun, 04 Oct 2026 17:35:43 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791160542; x=1791765342; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=DIFlMzCD+Q6Ytncf1DaxxppB9CiAQqNyy2tvfDerbIY=;
-        b=fMAWBAoKMJtVrU+8ykYaOI2c0O3assXEyghTNSb9XhOWROzs0X/lQrldmdawYggh5v
-         DkhzKh5MsB7So2567csqx3VvtNYbJsgiJtKQNrmCR2mfa0Gb6p8mGItsi2cXn9Ua9EqN
-         GLas686JRmTI3oPImyEnz0cb+A5xfo/H8TBr5VbUFB4pBoHIQVe9CPpbpcWHySRovz8L
-         wLIr0DZyU8sTmRmNPBIIvArkAWrPhX8OxISoaBl2AxDpLBaqa8P8lmE/fylmYJ6jGdSu
-         RNsQgzoARPo8wLQZsjmUgb5ybRbhn8urZVgTaOWAtTbilsrKJgWy/+jpG7NK+7NcslwJ
-         rXtA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791160542; x=1791765342;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=DIFlMzCD+Q6Ytncf1DaxxppB9CiAQqNyy2tvfDerbIY=;
-        b=sWnEwHBvGXX6kWXAtuGi2WsIOcc4wVBBy+fivd3awkhqIL/E3YUXWCqiUj846Uk+PD
-         x5jCkFRv53wLQnupYsbAtGtbV1CJ20EGTdDj7Pm0xjg6KkaGoDMDdP/Xu/uEFfL/ebEx
-         HIc3vNl/x7yI8MGnLgWdNRSHrzaG5kYoG9sqtvLRxtWFKZtwhIC0QJw/YZg6uOMYMwuN
-         /Ng/grZQermeMlpJyKCR12m5elBNvN7ZWny3pvbHfy7s3bF+MUqDbI+DIIDtaRre7pA/
-         hZduPmZrY5jYq5pwZNdyolz+BNFItTQnk4sSt1PgzInGLOCsek5ZdJs22gTNKC+ICNyn
-         YKyw==
-X-Forwarded-Encrypted: i=1; AKwUvBxeiPt3uAgiRHhy0yIuhABCS7k43ptGfKBx4Hml7frfw9DSumJEoSKmK/BUPMO4v7LyM2+PwlDC/2aeZqM=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIHh/MHUut1wR/QbtVTbPx4qGLmdLXrkM6QeJNU+7KSXPbq3d0L
-	qlZ5Z2OyxVuKszTfTnGFyqt8u/Yuj1KJ3r5ZeWcmuGX92GCdFzYLOitk
-X-Gm-Gg: AYBFou2urE5PONtl+YtjhqM4p8dTO7Zy1KXXG7hb1XZNyl0dolj5yciOXhQX7fd9ftS
-	CMcNfQNNmHI53pYMsJCFB/6W0uI/q/rGxWTxewqKM0SrZYFrnKRSFT4Jr31DkhngO+IfiOgQK+9
-	AHLahs+sVHAn/9+HFPB/TtUAG60xh64blPbJxhTI1vgkq2F5PTZNEhexTi0VFEiaMeKhi++2Y9f
-	2SnZi2kDC66RUfp/ysEQrVp1qBn2jAUpHE5+AvcR6TGEW7EYmsdwRESKtivELgm1tMmnafMrqyZ
-	rkfTv3YfORWyWto7dtLcmGtx7e+c6fOy5KgNGMUQ/YZjiqTvMNB2Nykni9d/eavWBlmjLtb3Ued
-	FJXYYlK7fygaTnOPt+YFTau2OMma7F1dsw1aBEPmXOdzC6rZjdJLlsGyRb/uEGM1RqCvRYIR2Bd
-	YmuYtry5DODVVW7RYitAwwRVSEuaBLzbKsxo7DdrV69iDzR8Ny2k9rB8nfZ2xdtgEpTgqOWu7rI
-	Xc=
-X-Received: by 2002:a05:6102:6b03:b0:7a8:1837:9eb9 with SMTP id ada2fe7eead31-7c0f57aaf35mr2393143137.27.1791160542463;
-        Sun, 04 Oct 2026 17:35:42 -0700 (PDT)
-Received: from adriano ([190.215.95.120])
-        by smtp.gmail.com with ESMTPSA id ada2fe7eead31-7c100026109sm8546639137.9.2026.10.04.17.35.38
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 04 Oct 2026 17:35:41 -0700 (PDT)
-From: Adriano Cordova <adrianox@gmail.com>
-To: tytso@mit.edu
-Cc: adilger.kernel@dilger.ca,
-	libaokun@linux.alibaba.com,
-	jack@suse.cz,
-	ojaswin@linux.ibm.com,
-	ritesh.list@gmail.com,
-	yi.zhang@huawei.com,
-	linux-ext4@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Adriano Cordova <adrianox@gmail.com>,
-	syzbot+09bec78ee77613a3efdd@syzkaller.appspotmail.com
-Subject: [PATCH v2] ext4: don't append a directory block already mapped in the inode
-Date: Sun,  4 Oct 2026 21:35:28 -0300
-Message-ID: <20261005003528.92046-1-adrianox@gmail.com>
-X-Mailer: git-send-email 2.51.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="U8TWGauj"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1C00F1F000FF;
+	Mon,  5 Oct 2026 00:35:44 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791160547;
+	bh=c1QA4sWbnl2OZROjImqdrz4B2MciVP+03FyQwz6jKpE=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=U8TWGauju8zdK71GYRS9ptewoONg8b3X8M664SwbJw+a4JqhlcKEz1PaXHylp2bkv
+	 J7Y5JHBANBsdiordGw7egjY/tmqTSOM2jK68ph7tkCKwgsFd5sWacrD70y5jj06F3M
+	 GYCu7bBlZXYSRho42Zdqa/WwpCsJxqGDkSm6IUxKF+S9Oqjm4EkLRtYZAx3NaoVDtN
+	 8bg4FyyjrIKkMIsYxfTCublYRgOqCh0Iv+hzL1F7M8PrHuJgQJ3HC2c04puYOPTKHY
+	 Xmmf8J2oNqm5TxH1pSuPPZucOZ4qwG5NHDsfYP9eu+ARZ4ubPyh40d1ShrvzTv7lkw
+	 DaUrdQkaDt7gA==
+Date: Mon, 5 Oct 2026 02:35:41 +0200
+From: Thorsten Blum <blum@kernel.org>
+To: Dave Hansen <dave.hansen@intel.com>
+Cc: Bjorn Helgaas <bhelgaas@google.com>, Thomas Gleixner <tglx@kernel.org>,
+	Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>,
+	Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
+	"H. Peter Anvin" <hpa@zytor.com>, Lukas Wunner <lukas@wunner.de>,
+	linux-pci@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH RESEND v2] x86/early-quirks: Scan all functions in
+ early_pci_scan_bus()
+Message-ID: <asLw3ZfDy-rDxwtv@kernel.org>
+References: <20260916100206.92853-2-blum@kernel.org>
+ <asDr0tWYBNC296EQ@kernel.org>
+ <f9b1c1b6-03d9-44fb-bdc4-78342b05f2af@intel.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <f9b1c1b6-03d9-44fb-bdc4-78342b05f2af@intel.com>
 
-ext4_append() grows a directory by one block.  It checks that the target
-logical block is a hole, but a corrupt block bitmap can still make the
-allocator hand back a physical block that is already in use by this
-inode.  The in-memory copy of a block is keyed by its physical block
-number, so the "new" block and that existing one are the same memory;
-callers that split a directory (make_indexed_dir()/do_split()) then move
-entries between two aliased buffers and corrupt the directory, until a
-bogus rec_len read from the middle of a name runs the wipe out of bounds:
+On Sat, Oct 03, 2026 at 04:55:54AM -0700, Dave Hansen wrote:
+> On 10/3/26 04:49, Thorsten Blum wrote:
+> > Gentle ping. Is there anything you'd like to be changed here, or could
+> > someone please pick this up? Thanks.
+> 
+> How has this patch been tested?
 
-  BUG: KASAN: slab-use-after-free in dx_move_dirents [inline]
-  Write of size 90458 ...
+I tested it on an iMac13,1, and dmesg confirms the quirk is loaded, but
+only when this patch is applied:
 
-Reject the block and report the corrupt bitmap instead of corrupting
-memory.
+[    0.023863] Resetting Apple AirPort card (left enabled by EFI)
 
-Reported-by: syzbot+09bec78ee77613a3efdd@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=09bec78ee77613a3efdd
-Tested-by: syzbot+09bec78ee77613a3efdd@syzkaller.appspotmail.com
-Signed-off-by: Adriano Cordova <adrianox@gmail.com>
----
-Changes in v2:
-- Rework after review of v1 ("ext4: wipe moved dirents with their real
-  length"). dx_make_map() already validates each entry, so the bad
-  rec_len does not come from disk. The problem is that the block
-  allocator was handing back a block already mapped by the inode.
-
- fs/ext4/namei.c | 19 +++++++++++++++++++
- 1 file changed, 19 insertions(+)
-
-diff --git a/fs/ext4/namei.c b/fs/ext4/namei.c
-index 3b9740c1c16d..ff6013306b74 100644
---- a/fs/ext4/namei.c
-+++ b/fs/ext4/namei.c
-@@ -83,6 +83,25 @@ static struct buffer_head *ext4_append(handle_t *handle,
- 	bh = ext4_bread(handle, inode, *block, EXT4_GET_BLOCKS_CREATE);
- 	if (IS_ERR(bh))
- 		return bh;
-+
-+	for (map.m_lblk = 0; map.m_lblk < *block; map.m_lblk += map.m_len) {
-+		map.m_len = *block - map.m_lblk;
-+		err = ext4_map_blocks(NULL, inode, &map, 0);
-+		if (err < 0)
-+			goto out;
-+		if (err == 0) {
-+			map.m_len = 1;
-+			continue;
-+		}
-+		if (unlikely(map.m_pblk == bh->b_blocknr)) {
-+			EXT4_ERROR_INODE(inode,
-+					 "new block %llu already mapped",
-+					 (unsigned long long)bh->b_blocknr);
-+			err = -EFSCORRUPTED;
-+			goto out;
-+		}
-+	}
-+
- 	inode->i_size += inode->i_sb->s_blocksize;
- 	EXT4_I(inode)->i_disksize = inode->i_size;
- 	err = ext4_mark_inode_dirty(handle, inode);
--- 
-2.51.0
-
+lspci also confirms the hole at 00:1c.1.
