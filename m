@@ -1,148 +1,292 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 91C6D3A7848
-	for <linux-kernel@vger.kernel.org>; Mon,  5 Oct 2026 21:25:49 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 378B540681D;
+	Mon,  5 Oct 2026 21:26:05 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791235550; cv=none; b=KCVGLpqt5+O+kRMqLvULEsHK2Z5qC46ji5tfmTmT/HjyN9upDyiw3pfRHCelFR+W2Iar/xc6UwaZ9qy4cu9jm+ZDwVRgjYWCdlzWpPFHMh7NYxmLpmT3S7gyEvi4uC/F98ecTQyWDGRe8T3DjHqVWqANOdNleOHwV6qmk7xoK7o=
+	t=1791235568; cv=none; b=dr84Vby09Pe+eYx2YaPADTwGoQa9RP4L9QOJGJiDBob9HrEtFAt1yCAeB7pqbeOVGy2+uge9xyVTxudZxFb44K0sHajPbZ2cuV5HYuMGBjAEPV8UKYzesKV3hAaZzJpZOqSZvhv1Zzzc5XOE4sa5Xdo47peQL+x8UtPNZfLd6i4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791235550; c=relaxed/simple;
-	bh=oWoI7KU51zem5IclY14yT1yhw3LIz47deEPyi4Qi3cE=;
-	h=MIME-Version:Date:From:To:Cc:Message-Id:In-Reply-To:References:
-	 Subject:Content-Type; b=YJKbJOonLYdrNPz3Egayk5lMtRgs6qKhg2YS6Xw/O1EVMKkusCdZ1qaDlWNlLw4wvJN08JYoRIGrXWkI1JEMc/Xvpr3b1bzr3V0RGT1/ytB+R1CRp93HH9XpO+jxtYipgJ64ENhAvHlQB8zYOhJFQd/FH5ShMjtnJ7qJEyVx20Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=CTyoFfQM; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791235568; c=relaxed/simple;
+	bh=9NgEtDdJu3j+6pP0gmkv8B/r4M7eIow+qhdMXzrnJpc=;
+	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=iUxp0mHXZiRF7bRT+9PIvUYZV6GJQbJUJ4A3adP5sGcsbdx+eJPZBGJL3ErahkZ0tHoJdbtu9dzHnAX4G+w4Ps5C7fcNZUP9WXAVLBxpOZDZBwWv3518gdhiHEt4e1er/APQ5uGk4GeaDFyp5SDb4xLDdoc2I4NwlvW5b/1vaOQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=lSH+B4XP; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="CTyoFfQM"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7A8981F00898;
-	Mon,  5 Oct 2026 21:25:48 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="lSH+B4XP"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DC0BD1F00893;
+	Mon,  5 Oct 2026 21:26:03 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791235549;
-	bh=NVtCSF04+5hQftrDStv64+G8kBj0wfQzjaUvoe2fK1M=;
-	h=Date:From:To:Cc:In-Reply-To:References:Subject;
-	b=CTyoFfQMxyRDu8dCRnxTUJFOMYpC/a1QO3xq/5eVia+1aL2iHETv7cMP1XKR8g4/H
-	 Z4wccSaPxEcAJe50sBlpO5v4HW41usqLzGov0Q0NgJ97RurCKMZ4Nb3CM0zOZc885R
-	 Y910QwMtvj2CjHOv79IDntEKLj6s5D+r5okw0OLFbrExd6AJHdcnR2+bLn69uXJyv+
-	 EDIK5A8LXdW0PWAZ+kTRwoc+ArD4Tnwx7aiNqnXWD9DjR3EEyuziKxAMFmJyot61gC
-	 Sl0mKQpfw7DV7O1Bw0cqSqBn16I0dSRco8xjftzUADN6BEfvSOT9cPrA/ncq9/dyQC
-	 +b18/ZEMed0uw==
-Received: from ams-compute-02.internal (ams-compute-02.internal [10.64.2.62])
-	by mailfauth.ams.internal (Postfix) with ESMTP id ABC7E198003A;
-	Mon,  5 Oct 2026 17:25:46 -0400 (EDT)
-Received: from ams-imap-11 ([10.64.2.31])
-  by ams-compute-02.internal (MEProxy); Mon, 05 Oct 2026 17:25:46 -0400
-X-ME-Sender: <xms:2BXEak90g0Y2gyHWeyFmRp1Df0-iIO2rP0B5FXQ6CalaZu5ot50A4g>
-    <xme:2BXEanhT2rbLSIDCEIqmIcgC2Z85mXieEz_KNcWf1hfeeJSzun8YeqKsOYdzlMPzB
-    tvt37kmd8Wbvv5ZydmCxS-IsPwhWwc7wGx4a061bdHjmkuFeJDXo5GC>
-X-ME-Proxy-Cause: dmFkZTFYRYK7kCIdTUdiTrNjDf+K1m4N+n/n7BpfpOY/qFXuim304FuhNPbM9hfWJR3s0y
-    v7AZ+ywbG3UH2scS8AH+M0BvWEO5jr4Fq05tizrbLM206uLlpSKcHFjjh6Fol5a/Ad6k8A
-    BvytjI72RlVdjPc0h+tOvENrJQKR+WzEKigCkg6koAtBAYI/6hWKZEU2rKwuy61o0JJFw8
-    UN4T1G4Br4BvSr/S9EFpiAEabmc2rBSxBQUVnLjKrkph5KD6elP72eWsOJYASh0X0yOy4Y
-    GII4gzUasYApQH6tS+I+R7qhwuWHoR/H5yWA4eAlQ/yEiYkUXstYyRbFXrNkltmlXbFDMW
-    5Ez36r3DmZSv5Q+HDXOYsTL58jV9fT5ESYmINJOe2bKjIVLB8UZtR38KxwKPYgfPEFtl0+
-    G9oqZkSXRPMC4qr20RGDOfT75ZW4+GPU2Vvln9eHIXL0CoYJVACxPWTrgIn1+SEpjOOyYp
-    lCJGib/AF3mO8vAroxWagcrjq7mhxPYgBDIXb5v5fIPLj6hhpVzDvFin8n4EsGU9TFrqhz
-    ZTyPEG3969fLxIigtZNEFzMMc00Bo7md6mzEUXS3naL7D0xYhfTGavM1KMtdlqNDV0vRNw
-    Au7p0PGH606Tk4qgNRthbFB9olSr9F3B/yMbGE9PqrvpCOPuX5zESzWN6eug
-X-ME-Proxy: <xmx:2hXEavu9ic04Ng2petmdVSC2GvXWSAT1WuVpBybw4ByZTGYjCzVAvw>
-    <xmx:2hXEaq167pjSLZPl8reQhiwYFT-EOf6KjkRpencLhiCemRBD_W0MuQ>
-    <xmx:2hXEao5JBCoWivkhw0Rio8XM8uNmWEENEIKO1WvINu-fdfYuEIeYMA>
-    <xmx:2hXEapUJOMxK2BtDYT4M9rj9Ikld3WQ3qXKdeHa9uEdmWecBL5tPbA>
-    <xmx:2hXEaoj3_uvdGJs_VK2sqb79Q6Jfj-hJbMYJJRtA-AYdINwrsQ6aPTxX>
-Feedback-ID: ice86485a:Fastmail
-Received: by mailuser.ams.internal (Postfix, from userid 501)
-	id 0506DF80093; Mon,  5 Oct 2026 17:25:44 -0400 (EDT)
-X-Mailer: MessagingEngine.com Webmail Interface
+	s=k20260515; t=1791235564;
+	bh=8OefnokcNLrZKb9tp0wPND9CYM539M3kIWSCBZ65Krk=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=lSH+B4XPCI3w9p6prGscAXpaccvgAhpXFFAGoVn2ikp9LU15gnnpDuVZuh3zbzYkB
+	 SPpCl5Lhp5RAfHC5EIFV00YN+tqiElFz7UKV7ZQG7WWaYfNfB9bkSzo5jIeVVnZ/1n
+	 GdkakOmq5drmG/YTfL7POb+wAB7ketLrT5okyFda5FF12gRP5JM7UPY/zRjKwnLW2Q
+	 pVQhZJN58P1FwYgq31AIZaRJs9t0t+naeLsvMk77ToS60oB6N6ktnMZcHk0MHb0ALR
+	 nsWFfObhSiFUK4byIe6WCkB6pRPYdfyaIISHsXT1T5J+yxiTHDyyHQW/kHB/z/WF4E
+	 r06/n1v52Fp4A==
+Subject: Re: [PATCH net v2] vsock/bpf: release sock lock while waiting for
+ data in recvmsg
+From: netdev-bot+sashiko@kernel.org
+To: jrmmhm.kernel@eldare.de
+Cc: sgarzare@redhat.com, davem@davemloft.net, edumazet@kernel.org,
+ kuba@kernel.org, pabeni@redhat.com, horms@kernel.org, mst@redhat.com,
+ bobby.eshleman@bytedance.com, virtualization@lists.linux.dev,
+ netdev@vger.kernel.org, linux-kernel@vger.kernel.org, bpf@vger.kernel.org,
+ mhal@rbox.co, stable@vger.kernel.org
+Date: Mon, 05 Oct 2026 21:26:03 +0000
+Message-ID: <179123556339.434549.8635789838298158117@kernel.org>
+In-Reply-To: <20261001-kbh3-1-022-fix-v2-v1-1-cfae958a1976@eldare.de>
+References: <20261001-kbh3-1-022-fix-v2-v1-1-cfae958a1976@eldare.de>
+X-sashiko-severity: Medium
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Date: Mon, 05 Oct 2026 23:25:22 +0200
-From: "Ard Biesheuvel" <ardb@kernel.org>
-To: "Bill Wendling" <morbo@google.com>, "Kees Cook" <kees@kernel.org>
-Cc: "Gustavo A. R. Silva" <gustavoars@kernel.org>,
- "Nathan Chancellor" <nathan@kernel.org>,
- "Nick Desaulniers" <ndesaulniers@google.com>,
- "Justin Stitt" <justinstitt@google.com>, "Mark Brown" <broonie@kernel.org>,
- "Marco Elver" <elver@google.com>, alan.maguire@oracle.com,
- namjain@linux.microsoft.com, "Peter Zijlstra" <peterz@infradead.org>,
- linux-kernel@vger.kernel.org, linux-hardening@vger.kernel.org,
- llvm@lists.linux.dev
-Message-Id: <3176a197-baf8-4e5f-96a0-8c79d32a168c@app.fastmail.com>
-In-Reply-To: <20261005192052.2589382-1-morbo@google.com>
-References: <20261005102518.2400984-1-morbo@google.com>
- <20261005192052.2589382-1-morbo@google.com>
-Subject: Re: [PATCH v3] compiler_types: Allow opting out of __counted_by and
- __counted_by_ptr
-Content-Type: text/plain
-Content-Transfer-Encoding: 7bit
 
+Thank you for your contribution! Sashiko AI review found 2 potential
+issue(s) to consider.
 
+Critical: 0 · High: 0 (1) · Medium: 1 · Low: 1
 
-On Mon, 5 Oct 2026, at 21:20, Bill Wendling wrote:
-> Code that runs outside the kernel proper, such as the EFI stub, gets
-> nothing out of the counted_by annotations: the bounds checks they feed
-> (FORTIFY_SOURCE, UBSAN_BOUNDS) are already disabled there.
->
-> The annotations can also break the build. A __counted_by_ptr() that
-> names a member declared after the pointer needs Clang's
-> '-fexperimental-late-parse-attributes', which the top-level Makefile
-> adds to 'KBUILD_CFLAGS'. The x86 EFI stub builds its own cflags and does
-> not get that flag, so it fails as soon as such a struct is pulled in
-> through a common header.
->
-> Overriding the __counted_by_ptr macro from a Makefile doesn't work:
-> 'compiler_types.h' is pulled in with '-include', which is processed
-> after all -D/-U options, so it re-establishes the definitions. Follow
-> the '__NO_FORTIFY' precedent instead: let a build define
-> '__NO_COUNTED_BY_PTR' to turn the corresponding annotation into a no-op.
->
-> Assisted-by: LLM
-> Signed-off-by: Bill Wendling <morbo@google.com>
-> ---
-> v2: Only specify __NO_COUNTED_BY_PTR. Leave __NO_COUNTED_BY until we need it.
-> v3: Add the version to the Subject line.
-> ---
->  include/linux/compiler_types.h | 7 ++++++-
->  1 file changed, 6 insertions(+), 1 deletion(-)
->
-> diff --git a/include/linux/compiler_types.h 
-> b/include/linux/compiler_types.h
-> index c5921f139007..8bde6798b4ec 100644
-> --- a/include/linux/compiler_types.h
-> +++ b/include/linux/compiler_types.h
-> @@ -387,8 +387,13 @@ struct ftrace_likely_data {
->   *
->   *   gcc: 
-> https://gcc.gnu.org/pipermail/gcc-patches/2025-April/681727.html
->   * clang: 
-> https://clang.llvm.org/docs/AttributeReference.html#counted-by-counted-by-or-null-sized-by-sized-by-or-null
-> + *
-> + * Code that runs outside the kernel proper (e.g. the EFI stub) can 
-> define
-> + * __NO_COUNTED_BY_PTR to drop the annotation. Such code may also lack 
-> the flag
-> + * Clang needs to parse a reference to a later-declared member
-> + * (-fexperimental-late-parse-attributes).
->   */
-> -#ifdef CONFIG_CC_HAS_COUNTED_BY_PTR
-> +#if defined(CONFIG_CC_HAS_COUNTED_BY_PTR) && 
-> !defined(__NO_COUNTED_BY_PTR)
->  #define 
-> __counted_by_ptr(member)	__attribute__((__counted_by__(member)))
->  #else
->  #define __counted_by_ptr(member)
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
 
-Apologies, I may have been unclear.
+- [Medium] The rewritten vsock_msg_wait_data()
+  (net/vmw_vsock/vsock_bpf.c:47-77) detects a reset only through…
+- [Low] vsock_bpf_recvmsg() (net/vmw_vsock/vsock_bpf.c:105-109) sends
+  only MSG_ERRQUEUE to the native path before the new `if (!len) return…
 
-What I would like to see here is something like
+Pre-existing issues:
+- [High] This problem wasn't introduced by this patch, but the patch
+  rewrites the code around it.
 
-#ifndef __NO_COUNTED_BY
-#define __counted_by(member)  __attribute__((....))
-#define __counted_by_ptr(member)  __attribute__((....))
-#else
-#define __counted_by(member)
-#define __counted_by_ptr(member)
-#endif
+--
+
+vsock/bpf: release sock lock while waiting for data in recvmsg
+
+This patch changes vsock_msg_wait_data() so it drops the socket lock
+around wait_woken(). It also makes the helper loop until data is ready,
+an error or shutdown is seen, the timeout expires or a signal is pending.
+In vsock_bpf_recvmsg(), MSG_ERRQUEUE now goes to the native path, and
+zero-length reads return 0 early.
+
+> diff --git a/net/vmw_vsock/vsock_bpf.c b/net/vmw_vsock/vsock_bpf.c
+> index 9049d26486460..127a20429aa6c 100644
+> --- a/net/vmw_vsock/vsock_bpf.c
+> +++ b/net/vmw_vsock/vsock_bpf.c
+> @@ -34,24 +34,46 @@ static bool vsock_has_data(struct sock *sk, struct sk_psock *psock)
+>  	return vsock_sk_has_data(sk, psock);
+>  }
+>  
+> -static bool vsock_msg_wait_data(struct sock *sk, struct sk_psock *psock, long timeo)
+> +/* Returns 1 if data is ready, 0 on EOF/shutdown, or a negative error. */
+> +static int vsock_msg_wait_data(struct sock *sk, struct sk_psock *psock, long timeo)
+>  {
+
+[ ... ]
+
+> +	while (1) {
+> +		if (vsock_has_data(sk, psock)) {
+> +			ret = 1;
+> +			break;
+> +		}
+> +
+> +		if (sk->sk_err) {
+> +			ret = -sk->sk_err;
+> +			break;
+> +		}
+> +
+> +		if ((sk->sk_shutdown & RCV_SHUTDOWN) ||
+> +		    (vsk->peer_shutdown & SEND_SHUTDOWN)) {
+> +			ret = 0;
+> +			break;
+> +		}
+
+[Severity: Medium]
+Can this loop sleep forever on a connection that has already been reset?
+
+The only reset signal checked here is sk->sk_err. Its value can be cleared
+from userspace. virtio_vsock_reset_sock() runs on
+VIRTIO_VSOCK_EVENT_TRANSPORT_RESET (for example after live migration) and
+on device removal. It sets only the state and the error:
+
+net/vmw_vsock/virtio_transport.c:virtio_vsock_reset_sock() {
+	...
+	sk->sk_state = TCP_CLOSE;
+	sk->sk_err = ECONNRESET;
+	sk_error_report(sk);
+}
+
+It does not set any sk_shutdown or peer_shutdown bits, and the psock stays
+in place.
+
+Suppose the application then calls getsockopt(SO_ERROR). sk_getsockopt()
+calls sock_error(), which clears sk_err with xchg(). The next recv() on the
+sockmap'd socket with empty queues gets copied == 0 from sk_msg_recvmsg()
+and enters this loop. None of the exit conditions is true there. A blocking
+call waits until a signal arrives or SO_RCVTIMEO expires, and a
+non-blocking call returns -EAGAIN.
+
+The native path handles this case before it ever waits:
+
+net/vmw_vsock/af_vsock.c:__vsock_connectible_recvmsg() {
+	...
+	if (!transport || sk->sk_state != TCP_ESTABLISHED) {
+		...
+		if (sock_flag(sk, SOCK_DONE))
+			err = 0;
+		else
+			err = -ENOTCONN;
+
+		goto out;
+	}
+	...
+}
+
+The commit message says this fixes the case where "the socket errored (for
+example a reset), recv() did not notice and kept waiting". Should the loop
+also check sk->sk_state and SOCK_DONE, so that case still works after the
+error has been read?
+
+> +
+> +		if (!timeo) {
+> +			ret = -EAGAIN;
+> +			break;
+> +		}
+> +
+> +		release_sock(sk);
+> +		timeo = wait_woken(&wait, TASK_INTERRUPTIBLE, timeo);
+> +		lock_sock(sk);
+
+[ ... ]
+
+> @@ -80,6 +102,12 @@ static int vsock_bpf_recvmsg(struct sock *sk, struct msghdr *msg,
+>  	struct vsock_sock *vsk;
+>  	int copied;
+>  
+> +	if (unlikely(flags & MSG_ERRQUEUE))
+> +		return __vsock_recvmsg(sk, msg, len, flags);
+> +
+> +	if (!len)
+> +		return 0;
+
+[Severity: Low]
+Should MSG_OOB be rejected here as well, next to MSG_ERRQUEUE?
+
+With this shortcut, recv(fd, buf, 0, MSG_OOB) on a sockmap'd vsock socket
+always returns 0.
+
+Before this patch, the same call reached __vsock_recvmsg() when transport
+data was pending and ingress_msg was empty. __vsock_connectible_recvmsg()
+then returned -EOPNOTSUPP before its own zero-length check:
+
+	if (flags & MSG_OOB) {
+		err = -EOPNOTSUPP;
+		goto out;
+	}
+
+The commit message cites unix_bpf_recvmsg() as a model, and it does this
+before its len == 0 guard:
+
+	if (flags & MSG_OOB)
+		return -EOPNOTSUPP;
+
+	if (!len)
+		return 0;
+
+There is also an older issue from 634f1a7110b4. With len > 0 and data in
+ingress_msg, a MSG_OOB read reaches sk_msg_recvmsg(). That function only
+looks at MSG_PEEK, so it copies and consumes ordinary stream bytes. With
+empty queues, the read blocks in the wait loop instead of failing right
+away. Rejecting MSG_OOB next to the new MSG_ERRQUEUE check would fix both
+cases.
+
+> +
+>  	psock = sk_psock_get(sk);
+>  	if (unlikely(!psock))
+>  		return __vsock_recvmsg(sk, msg, len, flags);
+
+[ ... ]
+
+> @@ -101,11 +129,14 @@ static int vsock_bpf_recvmsg(struct sock *sk, struct msghdr *msg,
+>  	copied = sk_msg_recvmsg(sk, psock, msg, len, flags);
+>  	while (copied == 0) {
+>  		long timeo = sock_rcvtimeo(sk, flags & MSG_DONTWAIT);
+> +		int data = vsock_msg_wait_data(sk, psock, timeo);
+>  
+> -		if (!vsock_msg_wait_data(sk, psock, timeo)) {
+> -			copied = -EAGAIN;
+> +		if (data < 0) {
+> +			copied = data;
+>  			break;
+>  		}
+> +		if (!data)
+> +			break;
+>  
+>  		if (sk_psock_queue_empty(psock)) {
+>  			release_sock(sk);
+
+[Severity: High]
+This isn't a bug introduced by this patch, but the patch rewrites the code
+around it. Can a blocking recv() hang here while data is waiting in
+psock->ingress_msg?
+
+vsock_msg_wait_data() returns 1 whenever vsock_has_data() is true.
+vsock_sk_has_data() counts a non-empty psock->ingress_skb as data:
+
+#define vsock_sk_has_data(__sk, __psock)				\
+		({	!skb_queue_empty(&(__sk)->sk_receive_queue) ||	\
+			!skb_queue_empty(&(__psock)->ingress_skb) ||	\
+			!list_empty(&(__psock)->ingress_msg);		\
+		})
+
+sk_psock_queue_empty(), however, only checks ingress_msg. The same pair of
+checks is also used before the loop:
+
+	if (vsock_has_data(sk, psock) && sk_psock_queue_empty(psock)) {
+
+Redirected-ingress data always passes through ingress_skb first:
+
+net/core/skmsg.c:sk_psock_skb_redirect() {
+	...
+	skb_queue_tail(&psock_other->ingress_skb, skb);
+	schedule_delayed_work(&psock_other->work, 0);
+	...
+}
+
+If the only pending data is on ingress_skb and sk_psock_backlog() has not
+run yet, the reader drops the lock and the psock reference here and falls
+into the native path:
+
+__vsock_recvmsg()
+  __vsock_connectible_recvmsg()
+    __vsock_stream_recvmsg()
+      vsock_connectible_wait_data()
+
+That native wait loop only wakes for vsock_connectible_has_data() != 0,
+sk_err or a shutdown flag. It never looks at the psock queues. When the
+backlog worker later moves the data to ingress_msg and wakes the socket,
+the native reader sees transport data == 0 and goes back to sleep.
+
+If the socket also has a verdict program, sk_psock_verdict_data_ready()
+pulls new transport data via read_skb, and an SK_PASS verdict queues it on
+ingress_msg. The transport count therefore stays at 0. The blocking recv()
+then waits until a signal arrives or SO_RCVTIMEO expires.
+
+The reader can enter this window on a fresh recv(). It can also enter it
+after a spurious wakeup, such as the credit-update sk_write_space() wakeup
+mentioned in the commit message, which now makes the loop re-check.
+
+Should this fallback also take psock->ingress_skb into account?
+
+-- 
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261001-kbh3-1-022-fix-v2-v1-1-cfae958a1976%40eldare.de
