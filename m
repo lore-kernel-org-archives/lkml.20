@@ -1,117 +1,125 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.7])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3F0D547CC61;
-	Mon,  5 Oct 2026 13:41:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.7
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6F17248423B
+	for <linux-kernel@vger.kernel.org>; Mon,  5 Oct 2026 13:46:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791207687; cv=none; b=RMoK0+BiVdTPjDbaj8+L79eK7laHu6jB9q47ef/j9m7tfIE0HO+oLYTLLWvhcnR7qXqBoRU6XnUG9WDHHiEXrBIkxH+bm1hLiAoUK+5Lkzf4YxaMY2FiUHjHS3dP0qMZRLVkT55OSOQyXuL7MeSB2TVr1Db4wjALe0VkRP/sprY=
+	t=1791207974; cv=none; b=AgDGO+dS8w0lUlpxS3PDNmy7E7mjFrd9YXrukl1o+7JVKko/ctHmWHK5gZt1cF09j5DJXHCA2XWAeOr1j2r2TJGnZmBpBUn+cFFggpCkTcvrbA32Z+fJwLYVpH/2CtO+aM82L4sbps/sGeMmO14FOJMLEA0VcJe85xaczmzUHGY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791207687; c=relaxed/simple;
-	bh=Its1uLI0Y7rFTMZltg1TOVMxLOEmgb3xiZrFUQigsE0=;
-	h=From:Date:To:cc:Subject:In-Reply-To:Message-ID:References:
-	 MIME-Version:Content-Type; b=taBKh6lBR7Kc5AFJ2LbaOLspXPSGCZ86R30yyO/PtfmYXmG+/7lLn01su4xvDQPhIiB0eB8ng2hpIcETTQFUCeWqoYmLUSyFP2VWtJ5GX9zWsTpYxzQ+gVT/yO5O17ea8tX7XFiGhdOgGHYXVmVoH0iK5u97LBrihssvVv6Laig=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=YNPo21cb; arc=none smtp.client-ip=192.198.163.7
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	s=arc-20240116; t=1791207974; c=relaxed/simple;
+	bh=IVW/6ecOFWGfuMqheFlZx9C3H1D3xo0jPbhWRv9GWjk=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=PObfsDQHeOcdt95FcatCkOwLY7QLhMKlDsSE0xhMBUH1AAfxniW3l9O8PX0z4vvPbEeUWCbX8UuEl0AjqQH8dHHNVlhQcjJsQL3BKgtiBrYkASD/x+sBF7mAMFqqYObibwofOy9eSwHmZT+iCpBQ9w1XVUHxwCPP2DeWVKtsle4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=RGHWjtM5; arc=none smtp.client-ip=170.10.129.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="YNPo21cb"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1791207686; x=1822743686;
-  h=from:date:to:cc:subject:in-reply-to:message-id:
-   references:mime-version;
-  bh=Its1uLI0Y7rFTMZltg1TOVMxLOEmgb3xiZrFUQigsE0=;
-  b=YNPo21cboTKOI+N8w22KRlDA0mwuXyMSr1VmXvwtCvqV/sk95y171IGV
-   ZRdd6cD8NE95tvvFzW7OgSbBHJe0Qdvcvcly9b21JC81pH/LqfumR8YKp
-   kk0JJZxmz9cmwG16i3+a/roKb47N3+OfFg9AGYuzdg33lyefCuyZz/WbS
-   GUIEkFOs+zx6sZFEtdwrWFYnUby8mge2tRokijXD/ds5RX/9cL8CZYbnD
-   loot88+5bXRxSZct+J+xiPRwmz4uF75RvfKXjf3lEYkh6M1y8tJOCkxOt
-   cOWF+Q79eL2vemID+piTaB9hs22NrGXZis1yOcMt73gK88gOtu3pwfPs7
-   Q==;
-X-CSE-ConnectionGUID: yTwc1wopS7yPnNmeYeDnRA==
-X-CSE-MsgGUID: mgXUBHmWRcC4jxSGnKzBCw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11925"; a="117395291"
-X-IronPort-AV: E=Sophos;i="6.27,142,1787036400"; 
-   d="scan'208";a="117395291"
-Received: from fmviesa006.fm.intel.com ([10.60.135.146])
-  by fmvoesa101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 05 Oct 2026 06:41:25 -0700
-X-CSE-ConnectionGUID: zl2w/f3/TH6eDlbSJGz8fg==
-X-CSE-MsgGUID: pvbg3saRQUCYrzbTzRrGNw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,142,1787036400"; 
-   d="scan'208";a="275463252"
-Received: from ijarvine-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.199])
-  by fmviesa006-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 05 Oct 2026 06:41:21 -0700
-From: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
-Date: Mon, 5 Oct 2026 16:41:18 +0300 (EEST)
-To: Muhammad Bilal <meatuni001@gmail.com>
-cc: Jorge Lopez <jorge.lopez2@hp.com>, Hans de Goede <hansg@kernel.org>, 
-    Andy Shevchenko <andriy.shevchenko@linux.intel.com>, 
-    =?ISO-8859-15?Q?Thomas_Wei=DFschuh?= <linux@weissschuh.net>, 
-    platform-driver-x86@vger.kernel.org, LKML <linux-kernel@vger.kernel.org>, 
-    stable@vger.kernel.org
-Subject: Re: [PATCH v4 8/9] platform/x86: hp-bioscfg: NUL-terminate the SPM
- auth token
-In-Reply-To: <20261002191434.58529-9-meatuni001@gmail.com>
-Message-ID: <ec29e795-2b9a-36de-490e-64bb843d5dc8@linux.intel.com>
-References: <20261002191434.58529-1-meatuni001@gmail.com> <20261002191434.58529-9-meatuni001@gmail.com>
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="RGHWjtM5"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1791207972;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=6GrffBHNPUjhlOR40jzr6bm8eCCj3GOhwfQCP89Mw0U=;
+	b=RGHWjtM5a8mqgctJ88jNy/HLsNvqp1E2qAmorZoONL4O4cr9FR11aDjVqk/QE0OCtgBG+P
+	mM2ztKOnyytWKdZYMIDodyOZn51fE2hU8E/IQCX5jYPuwT/E+BNt8WgggyGWuz5nyriEyA
+	iEWJfa3CJKKyGM3/D/CfbNVRyaobglI=
+Received: from mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-591-3PfVqK_0MKeuM-0JVdmWEg-1; Mon,
+ 05 Oct 2026 09:46:08 -0400
+X-MC-Unique: 3PfVqK_0MKeuM-0JVdmWEg-1
+X-Mimecast-MFC-AGG-ID: 3PfVqK_0MKeuM-0JVdmWEg_1791207968
+Received: from mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.93])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id D5CDC18089A1;
+	Mon,  5 Oct 2026 13:46:07 +0000 (UTC)
+Received: from pauld.westford.csb (headnet05.pony-001.prod.iad2.dc.redhat.com [10.2.32.117])
+	by mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 579851800579;
+	Mon,  5 Oct 2026 13:46:05 +0000 (UTC)
+Date: Mon, 5 Oct 2026 15:46:02 +0200
+From: Phil Auld <pauld@redhat.com>
+To: Jahan Zaib Ashraf Mir <jahanzaibashraf1318@gmail.com>
+Cc: mingo@redhat.com, peterz@infradead.org, juri.lelli@redhat.com,
+	vincent.guittot@linaro.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] sched/core: fix coding style issues
+Message-ID: <20261005134602.GA83650@pauld.westford.csb>
+References: <20261002133626.20443-1-jahanzaibashraf1318@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261002133626.20443-1-jahanzaibashraf1318@gmail.com>
+X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.93
 
-On Sat, 3 Oct 2026, Muhammad Bilal wrote:
+Hi Jahan,
 
-> auth_token_store() copies the token with kmemdup(), which does not NUL
-> terminate it, but hp_calculate_security_buffer() and
-> hp_populate_security_buffer() treat it as a C string and read past the
-> allocation.
+On Fri, Oct 02, 2026 at 07:06:26PM +0530 Jahan Zaib Ashraf Mir wrote:
+> Fix three checkpatch warnings in sched/core.c:
+> - Use 'unsigned int' instead of bare 'unsigned' for mode parameter
+>   in default_wake_function()
 
-Again here.
+Probably not worth making this change. And even if it was worth it
+it would be good to make it all match (see wait.h). 
 
-If something is treated as C string later, how is it valid to prepare it 
-with kmemdup_nul()? I just don't follow that logic.
+> - Add missing blank line after variable declaration in
+>   __sched_setscheduler()
+> - Add missing blank line after variable declaration in
+>   sched_dynamic_update()
 
-Either something is a string or it isn't, which way this is?
+No need for a patch to justc change whitespace.
 
-> A lone newline (echo > auth_token) is worse: kmemdup() of 0 bytes
-> returns ZERO_SIZE_PTR, which passes the NULL checks, so a later
-> attribute write calls strlen() on address 0x10.
+
+Cheers,
+Phil
+
 > 
-> Use kmemdup_nul(), which allocates one extra byte for the terminator
-> and never returns ZERO_SIZE_PTR.
-> 
-> Compile tested only.
-> 
-> Fixes: b2715aa2e135 ("platform/x86: hp-bioscfg: spmobj-attributes")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Muhammad Bilal <meatuni001@gmail.com>
+> Signed-off-by: Jahan Zaib Ashraf Mir <jahanzaibashraf1318@gmail.com>
 > ---
-> Changes in v4:
->  - New patch
+>  kernel/sched/core.c | 4 +++-
+>  1 file changed, 3 insertions(+), 1 deletion(-)
 > 
->  drivers/platform/x86/hp/hp-bioscfg/spmobj-attributes.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> diff --git a/drivers/platform/x86/hp/hp-bioscfg/spmobj-attributes.c b/drivers/platform/x86/hp/hp-bioscfg/spmobj-attributes.c
-> index f0eb5c445..19f0f9f16 100644
-> --- a/drivers/platform/x86/hp/hp-bioscfg/spmobj-attributes.c
-> +++ b/drivers/platform/x86/hp/hp-bioscfg/spmobj-attributes.c
-> @@ -316,7 +316,7 @@ static ssize_t auth_token_store(struct kobject *kobj,
->  		length--;
+> diff --git a/kernel/sched/core.c b/kernel/sched/core.c
+> index e8c46f849f6e..9bd1bf3d7729 100644
+> --- a/kernel/sched/core.c
+> +++ b/kernel/sched/core.c
+> @@ -4723,6 +4723,7 @@ void force_schedstat_enabled(void)
+>  static int __init setup_schedstats(char *str)
+>  {
+>  	int ret = 0;
+> +
+>  	if (!str)
+>  		goto out;
 >  
->  	/* allocate space and copy current auth token */
-> -	bioscfg_drv.spm_data.auth_token = kmemdup(buf, length, GFP_KERNEL);
-> +	bioscfg_drv.spm_data.auth_token = kmemdup_nul(buf, length, GFP_KERNEL);
->  	if (!bioscfg_drv.spm_data.auth_token) {
->  		ret = -ENOMEM;
->  		goto exit_token;
+> @@ -7611,7 +7612,7 @@ asmlinkage __visible void __sched preempt_schedule_irq(void)
+>  	exception_exit(prev_state);
+>  }
+>  
+> -int default_wake_function(wait_queue_entry_t *curr, unsigned mode, int wake_flags,
+> +int default_wake_function(wait_queue_entry_t *curr, unsigned int mode, int wake_flags,
+>  			  void *key)
+>  {
+>  	WARN_ON_ONCE(wake_flags & ~(WF_SYNC|WF_CURRENT_CPU));
+> @@ -8087,6 +8088,7 @@ static int __init setup_preempt_mode(char *str)
+>  {
+>  	int mode = sched_dynamic_mode(str);
+>  	if (mode < 0) {
+> +
+>  		pr_warn("Dynamic Preempt: unsupported mode: %s\n", str);
+>  		return 0;
+>  	}
+> -- 
+> 2.56.0
+> 
 > 
 
 -- 
- i.
 
