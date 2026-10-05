@@ -1,102 +1,85 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F04FE49E5C9;
-	Mon,  5 Oct 2026 17:06:36 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7B92F49E5C9
+	for <linux-kernel@vger.kernel.org>; Mon,  5 Oct 2026 17:07:22 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791219998; cv=none; b=YGr/rWOazMVmWCsmbTn49V0gcmy+V4HsuKSsnoEtN+EdM5IMtf49xlARjrbdMAQDYWOB56qWtEDYhA7ub1LdIQNQZu6Y2wXBX+1veEoTv6cViPY+/hDGuuAeRHfS22DAI/suA7W0+Lczuj49RAuERzUJEpLqJ99Vnw4Oclu6bf8=
+	t=1791220043; cv=none; b=nPIEC9m4XYJB4G1nIT5F6+nkbhKc1cDtV+Q8mpsC9CShpB69i9BzfBJcYNT4fDloeSZSP2E0sWXzcL5o7Xr692KJX1cbwwFV3sIqhp1efkQ+dagy39uENRvb/LlkgWxQ2lPl+LJ19BbUMZtZL9J37OKdMSQxcRvtG9gbwCS/Bl8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791219998; c=relaxed/simple;
-	bh=8F8mSAW/k0eqIcHQ70tsevziv6GXTDd+oboqu2EBDCw=;
+	s=arc-20240116; t=1791220043; c=relaxed/simple;
+	bh=Tbjl7QCyd3XUz0f7QK7uBnlsLmdS/Tdn0PtBhGquPE0=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=SpJY2c8TMIKIWeQhmoxMi3+wqdSg/hEWR0CQXbiK9S4k5SivXtAkkJW6WPRb68EsjT8cunFQruvWAuv6SHQundv2GaxwjFGBgVC5FpNvmw1JVW3Yk2F7fWI8vDtkXIYofk8JjIkBWs3Boz2sOIwd7Fm0QQ/4zOyL8zPkqkYnkww=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=j6xEddsM; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=gRYF7AkadJ+kjDzu/7mFxoAelkzupn7xCcCmM2iXlfpVNfhVVFnYxno1viYSZCoarEAdU4nnMhd53rIfm+va41wLC9Bz66VSqkbpoBnUDklIYt+3vRi7fl6aa9p6g0OOzn2kj3B7PpLdLTO4j2C9THCtxnBrQD7NBK2jcHllhdw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=b3LSS7V1; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="j6xEddsM"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8C5641F000FF;
-	Mon,  5 Oct 2026 17:06:34 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="b3LSS7V1"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D949D1F000FF;
+	Mon,  5 Oct 2026 17:07:19 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791219996;
-	bh=v1Q6rTSslRIJu2shXHuYe/4dJXnmArSwjWE/5GtfHoo=;
+	s=k20260515; t=1791220042;
+	bh=mOi4oGFPPbeQhM3FWgE/6O7CyK7xCJC3sQnulZRZB1c=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=j6xEddsMVUnL2AuBgy26TFlP0pQuJmVipOXBVxzgB3k9ICirf6YzU1pOsvL2f/W6r
-	 aXB6gtOP1hrzbbMMcSMnGsPe69Jva3Cm1qHL3Qzi6L3+Tc0mHPw9sEQ5QnQqna0pV9
-	 rXVZ/Xev94L+m4mMp5YRNaJQL8b353/UsbPAumkeol098PIHDzOXUrpPWoAoiNNAHN
-	 PJdE80mrd/Ot7H5QEhoDEKzuZLEOXcF17eAR/kjBeNpWifAXoBR1SYmDNIWwcR9qgb
-	 hci7As2yVTkTES8m8lP931ZjQTPTCARvzSTzDjvCDlwLQDD3huCiECEoQfeY54YHY8
-	 08lvDQiTJBa+g==
-Date: Mon, 5 Oct 2026 18:06:32 +0100
-From: Simon Horman <horms@kernel.org>
-To: Hui Peng <benquike@gmail.com>
-Cc: "David S . Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	Xin Long <lucien.xin@gmail.com>,
-	Vlad Yasevich <vyasevich@gmail.com>,
-	Neil Horman <nhorman@tuxdriver.com>, linux-sctp@vger.kernel.org,
-	netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH net-next v2] sctp: copy zeroed stats to user in
- sctp_getsockopt_pr_streamstatus() when !streamoute
-Message-ID: <20261005170632.GB83879@horms.kernel.org>
-References: <20260930044611.204739-1-benquike@gmail.com>
+	b=b3LSS7V1BwwESZVnWv2XIhBfqkxY9a8RwcFE0m86fXEd5xr3DOVHYiVkxK4Qear0z
+	 Xp3ocelE6Buu1reNIo7BsB+BObIoDiGxiknA/+L/x4XXaBJnA3djP24uYOsfRFL/AK
+	 P0lnvnkTDiAFBkQFoOf3MIAGEwJ08iYXQbIEBib40Y2NePVXrt7F/i906pM/hvnEdZ
+	 X2HqxpH4MncFO4KluMkHfYD/8deFRU0L6lBnQCop5qjl6MtVT36xFV8ANHsachEcAG
+	 s0japRKyJ0qmm6CBBMRLhUxD9T6ZzVTWBeu/1zCdu++Hb1R8uHAhbe+epJBtOWiHpB
+	 kme0o5SRJFRUQ==
+Date: Mon, 5 Oct 2026 19:07:16 +0200
+From: Thorsten Blum <blum@kernel.org>
+To: Habil Eren =?iso-8859-1?Q?T=FCrker?= <habilerenturker@hotmail.com>
+Cc: "luto@kernel.org" <luto@kernel.org>,
+	"tglx@kernel.org" <tglx@kernel.org>,
+	"mingo@redhat.com" <mingo@redhat.com>,
+	"bp@alien8.de" <bp@alien8.de>,
+	"dave.hansen@linux.intel.com" <dave.hansen@linux.intel.com>,
+	"x86@kernel.org" <x86@kernel.org>, "hpa@zytor.com" <hpa@zytor.com>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH v2 0/2] x86/vdso: Replace deprecated simple_strtoul()
+ with kstrtouint()
+Message-ID: <asPZRBSZy9jf06As@kernel.org>
+References: <20261005163335.6716-1-habilerenturker@hotmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=iso-8859-1
 Content-Disposition: inline
-In-Reply-To: <20260930044611.204739-1-benquike@gmail.com>
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20261005163335.6716-1-habilerenturker@hotmail.com>
 
-On Wed, Sep 30, 2026 at 04:46:11AM +0000, Hui Peng wrote:
-> When an SCTP stream output extension structure (streamoute) has not yet
-> been allocated, sctp_getsockopt_pr_streamstatus() sets the local stack
-> variables params.sprstat_abandoned_unsent = 0 and
-> params.sprstat_abandoned_sent = 0, but then immediately jumps to 'out:',
-> bypassing copy_to_user(). As a result, when an uninitialized user buffer
-> is passed to getsockopt(SCTP_PR_STREAM_STATUS), the kernel returns
-> success (0) without copying the zeroed stats back to user space, leaving
-> uninitialized data in the user buffer.
+On Mon, Oct 05, 2026 at 04:33:37PM +0000, Habil Eren Türker wrote:
+> This patch series replaces the deprecated simple_strtoul() function
+> with the safer kstrtouint() variant in the x86 vdso setup code.
 > 
-> Refactor the !streamoute check into an if-else chain so that when
-> streamoute is NULL, params is zeroed and falls through to copy_to_user(),
-> copying the zeroed stats to user space and setting retval = 0 once before
-> returning.
+> The simple_strtoul() function is deprecated as it silently ignores
+> overflows. Proper bounds and lineer error checking are introduced.
 > 
-> Tested in QEMU against Linux 7.3.0-rc3 using an uninitialized
-> sctp_prstatus user struct passed to getsockopt(SCTP_PR_STREAM_STATUS) on a
-> freshly created stream: on the unfixed kernel the user struct contains
-> uninitialized stack garbage; whereas with this fix applied, getsockopt()
-> copies zeroed stats into user space and returns 0.
-> 
-> Fixes: 28b7eab0f910 ("sctp: add SCTP_PR_STREAM_STATUS getsockopt")
-
-The hash cited above does not seem to exist.
-I suggest that the appropriate fixes tag is as you had for v1:
-
-Fixes: 28b7eab0f910 ("sctp: add SCTP_PR_STREAM_STATUS getsockopt")
-
-Also, the patch should probably be targeted at net, again as you had for v1.
-I realised that Paolo suggested net-next, without a Fixes tag. But I
-believe the premise of that suggestion was that he felt this was not a bug fix.
-However, Xin responded stating he thought it was, and I expect that carries,
-especially when combined with the updated patch description you have
-supplied in v2.
-
-Please treat the above as FYI at this point.
-I do not expect a repost is required at this time.
-
-> Cc: stable@vger.kernel.org
-> Reviewed-by: Xin Long <lucien.xin@gmail.com>
-> Assisted-by: LLM
-> Signed-off-by: Hui Peng <benquike@gmail.com>
-> ---
 > Changes in v2:
-> - Re-target subject tag to [PATCH net-next v2].
-> - Remove redundant retval = 0 assignment in !streamoute block and fall
->   through to copy_to_user() as suggested by Paolo Abeni and Xin Long.
+> - Fixed the logical short-circuit operator bug in parsing error paths
+>   where invalid inputs could trigger deceptive warning logs.
+> - Refactored error handling into a linear flow with unlikely() macros
+>   to avoid branch misprediction.
+>  
+> Habil Eren Türker (2):
+>   x86/vdso: Replace deprecated simple_strtoul() with kstrtouint()
+>   x86/vdso: Replace deprecated simple_strtoul() with kstrtouint() in
+>     vdso_setup
+> 
+>  arch/x86/entry/vdso/vdso32-setup.c | 11 +++++++++--
+>  arch/x86/entry/vdso/vma.c          | 15 ++++++++++++++-
+>  2 files changed, 23 insertions(+), 3 deletions(-)
 
-...
+I submitted a very similar series a while ago [1], but haven't received
+feedback yet (besides a Reviewed-by from Randy on the documentation
+change).
+
+Dave, did you have a chance to take a look at my series yet?
+
+Thanks,
+Thorsten
+
+[1] https://lore.kernel.org/lkml/20260831101657.2947-5-blum@kernel.org/
