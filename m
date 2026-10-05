@@ -1,94 +1,139 @@
-Received: from send81.i.mail.ru (send81.i.mail.ru [89.221.237.176])
+Received: from www537.your-server.de (www537.your-server.de [188.40.3.216])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 00E7C47F3B0;
-	Mon,  5 Oct 2026 13:53:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=89.221.237.176
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F0E2A37DE99;
+	Mon,  5 Oct 2026 13:54:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=188.40.3.216
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791208395; cv=none; b=OT9ha5Bk6ahjOFYH0eCKysx4BhhnJY+PiOajxXkHv/jLd2588N9W7/TmKE4rvUXS7/MUBXIas+9Xpgc1Lnf0EusuBecfHpKH2rPhpbIip+oCs0m9U5Sej9rmN1XccpFJ4nYDKiQB0LKuvpy+CpsZJ6YD+4MdsbQZJdzZplbbof8=
+	t=1791208482; cv=none; b=gD5BjHL73pqW2JXsrRL7XhY1XDmhCErQ0MqtTQkWFyvWTpEk1+Vz18sSOST8agHeTHkk2dwuGKEEoDnN354wn7lgfCjw6FM8RQUUU4Fpz54wIVCIsqUDS175Kccwiz85WMDKY6sCIeJ+IKs3Uc8cDR3ZQ6eRZ1lhchopEXpSiMA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791208395; c=relaxed/simple;
-	bh=qFqpZmLgXQdD36JqzuxIBU26jHAI+zPnBqx40ODgbcw=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=jLZra/FIUXjoaxpnySJG+64B603ezEPeYywCg7F72QmWxPG32Sxu1NMeniNXUeWT6mdNE5KTyHZEXIu3tmToM0vJDkRonzY4SY0l6LpYKax7anwgMA2Y01si+xRugVrs3ii834ZAQlcw/h5qRgtsR2aaLGNPgu0V5rvL9Z3CYkw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mail.ru; spf=pass smtp.mailfrom=mail.ru; dkim=pass (2048-bit key) header.d=mail.ru header.i=@mail.ru header.b=AF3LBcm5; arc=none smtp.client-ip=89.221.237.176
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mail.ru
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mail.ru
+	s=arc-20240116; t=1791208482; c=relaxed/simple;
+	bh=LeHXcG9KS4npORtxIyRROa13wIKBeufTCVEbgLF/geE=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=srpWrpv4M+iW2TQTCiErhBV4U7m5Uo2LlPqQXwnk48mYAO35IRHSqvb0WKc5VraCuCB1/l3TomHBpNRidgujf32t8YCw2iuumVyONA6IQexlLWV5oBVZQshxIRxL2NRLBfmcP+oNSoOc6W4mUf33q3wL1RkxLrfP51PnOh1lvTk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ew.tq-group.com; spf=pass smtp.mailfrom=ew.tq-group.com; dkim=pass (2048-bit key) header.d=ew.tq-group.com header.i=@ew.tq-group.com header.b=H+Ywe0yc; arc=none smtp.client-ip=188.40.3.216
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ew.tq-group.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ew.tq-group.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=mail.ru header.i=@mail.ru header.b="AF3LBcm5"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=mail.ru;
-	s=mail4; h=In-Reply-To:Content-Type:MIME-Version:References:Message-ID:
-	Subject:Cc:To:From:Date:From:Sender:Reply-To:To:Cc:Content-Type:
-	Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
-	Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:
-	List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive:
-	X-Cloud-Ids:Disposition-Notification-To;
-	bh=jRMZkEQ1w8xAoRWT7fIuKzGi8bAdOsKoWDkqoL7Hhjw=; t=1791208392; x=1791298392; 
-	b=AF3LBcm5DGHIAvlcVwd1hVfGWfOcJB0rnBCHjXViKuGPRBLUMYQUM9PDlLm4lsSssGhZutSElNa
-	mzrdlOAXcWtsctoi09EtCCg97k14TDeopVfh6x+Gi4xgadI6ZIvxcAgPpWXG7It7ZfkVp5jAtO3eU
-	FiABKlbgR0YYABMeApWH7wnyxdWPIO6I7dusMcQGWo4voOlW3pWRPgKW8KU2vGEQ288q4zPTCfQIA
-	LHJ4BiI+RDmCAUnaUXTEE7tNWKRnrlU44MwPuuuA4dymmiFOQ+e7qo3MyOf5XroC+olr+6gSlgTgq
-	i+C1izJfeJuxJPFBgpjotzPQXMQvOtkLOQtg==;
-Received: by exim-smtp-5bd9c49696-zpn2x with esmtpa (envelope-from <misha.zavertkin@mail.ru>)
-	id 1xDj7r-00000000HQZ-43vA; Mon, 05 Oct 2026 16:53:08 +0300
-Date: Mon, 5 Oct 2026 20:53:05 +0700
-From: Michael Zavertkin <misha.zavertkin@mail.ru>
-To: Conor Dooley <conor@kernel.org>
-Cc: linux-i2c@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Chris Packham <chris.packham@alliedtelesis.co.nz>,
-	Andi Shyti <andi.shyti@kernel.org>, Rob Herring <robh@kernel.org>,
+	dkim=pass (2048-bit key) header.d=ew.tq-group.com header.i=@ew.tq-group.com header.b="H+Ywe0yc"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=ew.tq-group.com; s=default2602; h=Content-Transfer-Encoding:Content-Type:
+	MIME-Version:Message-ID:Date:Subject:Cc:To:From:Sender:Reply-To:Content-ID:
+	Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
+	:Resent-Message-ID:In-Reply-To:References;
+	bh=THhWSCP3j8arPcp30ni+dC3XmdCk47t1sUp/jlYxkg0=; b=H+Ywe0ycKyqMLxSF0H/oz2DDVI
+	B5JXFgNz3zFwCKqktCQuant+qOlj3oUCBoZhGqSpyGLX8+8YKivqJQaPeD8NarhNQxpxxGd4vK0s4
+	gSwh0FoLs4/wcTH6rCnnZTDuovXaGE1Dy3cIvmMe3kfXWDnVQm2PXxUgyeyTHfAxZ7/SXr0CKmlTo
+	VqAUNO8Ym3ElrGv0sKpRz0XlRRi4tUcc2IeXlI2Mv9H7sYJw6xoQKToQRMweMS1wd0Yl6s9P86cY/
+	dxJru4Vp2lYwMVZKZoeOCysLbYWG1LmvM9ScPxHeBFNbXHnbbwm2+uPdqc5tY/z+57lvET7No5ksx
+	g7SPGZUw==;
+Received: from sslproxy04.your-server.de ([78.46.152.42])
+	by www537.your-server.de with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
+	(Exim 4.96.2)
+	(envelope-from <nora.schiffer@ew.tq-group.com>)
+	id 1xDj9E-000Owo-0r;
+	Mon, 05 Oct 2026 15:54:32 +0200
+Received: from localhost ([127.0.0.1])
+	by sslproxy04.your-server.de with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
+	(Exim 4.96)
+	(envelope-from <nora.schiffer@ew.tq-group.com>)
+	id 1xDj9D-000HEr-1W;
+	Mon, 05 Oct 2026 15:54:31 +0200
+From: Nora Schiffer <nora.schiffer@ew.tq-group.com>
+To: Lee Jones <lee@kernel.org>,
+	Pavel Machek <pavel@kernel.org>
+Cc: Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Rustam Adilov <adilov@disroot.org>
-Subject: Re: [PATCH 2/2] dt-bindings: i2c: rtl9300: add pinctrl
-Message-ID: <asOrwd7eAddenA-_@gamepc>
-References: <cover.1791127538.git.misha.zavertkin@mail.ru>
- <0cd1f9b98511c55a375ab82b121fe256916b87e2.1791127538.git.misha.zavertkin@mail.ru>
- <asN-O5ntmiXvZBvs@squawk>
+	Conor Dooley <conor+dt@kernel.org>,
+	Isai Gaspar <isaiezequiel.gaspar@nxp.com>,
+	Marek Vasut <marex@denx.de>,
+	Pieterjan Camerlynck <pieterjanca@gmail.com>,
+	Javier Carrasco <javier.carrasco.cruz@gmail.com>,
+	linux@ew.tq-group.com,
+	linux-leds@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Nora Schiffer <nora.schiffer@ew.tq-group.com>
+Subject: [PATCH v5 00/11] leds: pca995x: Minor fixes; reset, output-gain, error reporting and group brightness support
+Date: Mon,  5 Oct 2026 15:53:24 +0200
+Message-ID: <cover.1791207391.git.nora.schiffer@ew.tq-group.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <asN-O5ntmiXvZBvs@squawk>
-Authentication-Results: exim-smtp-5bd9c49696-zpn2x; auth=pass smtp.auth=misha.zavertkin@mail.ru smtp.mailfrom=misha.zavertkin@mail.ru
-X-Mailru-Src: smtp
-X-7564579A: 646B95376F6C166E
-X-77F55803: 4F1203BC0FB41BD916CE66F793C04802681FD38DEF83E1DA77A7EB953293C78F00894C459B0CD1B91AC0D19862E7631589CEA9C911D09995A1F4E213D52D61C909E6AD5482958E394C6784DEA8096F07
-X-7FA49CB5: FF5795518A3D127A4AD6D5ED66289B5278DA827A17800CE712EB008F780777E9EA1F7E6F0F101C67BD4B6F7A4D31EC0BCC500DACC3FED6E28638F802B75D45FF8AA50765F7900637560334CFC131571A8638F802B75D45FF799C897B879640A07197CC67C87A96611B59CA4C82EFA658A7BF724E0505E4F3BB22F9947019DC91BD80732E7DD4A9D86F9789CCF6C18C3F8528715B7D10C86878DA827A17800CE767883B903EA3BAEA9FA2833FD35BB23D27C277FBC8AE2E8B5C00A253C229F406A471835C12D1D977C4224003CC836476EB9C41850244470149FD398EE364050F4B6963042765DA4BC8623B8F170C382FB3661434B16C20ACC84D3B47A649675FE827F84554CEF5019E625A9149C048EE902A1BE408319B293FC91FA280E0CE3D3A03B725D353964BAD74539164518AE535872C767BF85DA227C277FBC8AE2E8B7E5613B76AD15BA275ECD9A6C639B01B4E70A05D1297E1BBCB5012B2E24CD356
-X-C8649E89: 1C3962B70DF3F0AD73CAD6646DEDE1918E10F71CB4DF9F9677DD89D51EBB774225B6776AC983F447FC0B9F89525902EE6F57B2FD27647F25E66C117BDB76D6590C9F04931F3800364610A94AE8244E392067DC5E4DA32EB8563D06C2FC53B1166B9698CB35BE2FB0B8341EE9D5BE9A0A6F8A87A1133EC55E47E5CC68B884274153B1FF19FEEE2A4C546A885F7A58241B4C41F94D744909CE2D653CA06E969CEAC4926F5095E487D6D64CFEF34022E96A964550E41902C4E4
-X-D57D3AED: 3ZO7eAau8CL7WIMRKs4sN3D3tLDjz0dLbV79QFUyzQ2Ujvy7cMT6pYYqY16iZVKkSc3dCLJ7zSJH7+u4VD18S7Vl4ZUrpaVfd2+vE6kuoey4m4VkSEu53w8ahmwBjZKM/YPHZyZHvz5uv+WouB9+ObcCpyrx6l7KImUglyhkEat/+ysWwi0gdhEs0JGjl6ggRWTy1haxBpVdbIX1nthFXOcIETfglQORZ0zpDET4Zrk3igikrdHlWIVyuglZZ1THAP+qXqN/L60=
-X-Mailru-Sender: FD65D7C492470CAEE010D97EE9FDA1EF6C8C27904EEC8E8D20C74B26AAFF93457272C4DCA726D4EB1045281C71E08B15F767ED260C4F5E398B67290C0B8F2C0D0ACA136676B1AD1C82BADC8C81B40964835B6B713A4867D9C77752E0C033A69E3453F38A29522196
-X-Mras: Ok
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-Virus-Scanned: Clear (ClamAV 1.4.3/28144/Mon Oct  5 08:24:24 2026)
 
-On Mon, Oct 05, 2026 at 11:38:51AM +0100, Conor Dooley wrote:
-> On Sun, Oct 04, 2026 at 10:32:35PM +0700, Michael Zavertkin wrote:
-> > For RTL9607C driver used to configure IO_MODE register. This register is
-> > global and is a scope of pinctrl driver (either pinctrl-single or WIP
-> > driver for SoC).
-> > 
-> > Drop realtek,scl requirement for that SoC and require pinctrl instead.
-> 
-> This patch itself is probably fine, but the driver changes will cause
-> regressions because all existing devicetrees are going to have
-> realtek,scl and not the pinctrl properties. You need to retain the
-> driver code and make the register setting optional depending on if the
-> scl is there (or similar).
-> pw-bot: changes-requested
-> 
-> Thanks,
-> Conor.
+This series adds several new features to the PCA995x LED driver:
 
-I understand backward compatibilyti requirement. However all known users
-of this driver are here (me and Rustam Adilov). Does compatibility
-strictly required for such case?
+- Reset GPIO
+- Output current configuration
+- Error reporting via sysfs (short/open circuit)
+- Group brightness control (modulating individual LED brightness with a
+  second, chip-global PWM signal)
 
-If so, what would be better - print warning about realtek,scl (only for
-RTL9607C) and work as earlier, potentially interfering with pinctrl
-driver - or abort probe with error if there is no pinctrl property?
-Explicit error or message is better then silent regression, if I
-understand you correctly.
+The series also includes a number of low-priority fixes:
 
+- Prevent configuration of out-of-bounds LED indices on 16-channel variants
+- Avoid fwnode leaks in error paths
+- Finish initializing hardware before making LED devices visible to
+  userspace
+
+Changelog:
+
+v5:
+- Collect Reviewed-bys
+- Limit fault detection to PCA9955B/PCA9956B. PCA9952/PCA9955 have a fault
+  test feature that works differently and is not covered by this series.
+- Correctly specify MODE2 reset defaults for all supported chips. The
+  initialization of MODE2 is introduced in a separate patch now.
+
+v4:
+- Make code for output-gain range check and default value clearer
+- Use dev_get_drvdata() instead of i2c_get_clientdata()
+- Use devres for sysfs group
+
+v3:
+- Collect Reviewed-bys
+- New patch: Fix fwnode handle leaks in error paths
+- New patch: Write global registers before creating LED devices
+- Add chip-global sysfs groups before creating LED devices
+
+v2:
+- Collect Reviewed-bys
+- Use full hardware model names in commit descriptions
+- Add nxp, to output-gain property
+- Fix nxp,output-gain default in binding docs
+- Describe rationale for using register value directly in commit message
+- New patch: Fix maximum LED index for 16-channel variants
+- Use correct #includes for GPIO consumer and delays
+- Use udelay for small delay
+- Use sysfs_streq() for has_errors write
+- Explicitly initialize MODE2 register, clear reported errors on probe
+- Set GRPPWM register on probe
+
+Nora Schiffer (11):
+  dt-bindings: leds: pca995x: Describe reset-gpios property
+  dt-bindings: leds: pca995x: Describe nxp,output-gain property
+  leds: pca995x: Fix maximum LED index for 16-channel variants
+  leds: pca995x: Fix fwnode handle leaks in error paths
+  leds: pca995x: Write global registers before creating LED devices
+  leds: pca995x: Add support for reset GPIO
+  leds: pca995x: Make output gain configurable
+  leds: pca995x: Initialize MODE2 register on probe
+  leds: pca995x: Add sysfs files for error reporting
+  leds: pca995x: Do not use full on LED mode
+  leds: pca995x: Add support for group brightness control
+
+ .../devicetree/bindings/leds/nxp,pca995x.yaml |  13 +
+ drivers/leds/leds-pca995x.c                   | 265 +++++++++++++++---
+ 2 files changed, 244 insertions(+), 34 deletions(-)
+
+-- 
+TQ-Systems GmbH | Mühlstraße 2, Gut Delling | 82229 Seefeld, Germany
+Amtsgericht München, HRB 105018
+Geschäftsführer: Detlef Schneider, Rüdiger Stahl, Stefan Schneider
+https://www.tq-group.com/
