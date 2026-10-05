@@ -1,62 +1,62 @@
-Received: from pdx-out-007.esa.us-west-2.outbound.mail-perimeter.amazon.com (pdx-out-007.esa.us-west-2.outbound.mail-perimeter.amazon.com [52.34.181.151])
+Received: from pdx-out-005.esa.us-west-2.outbound.mail-perimeter.amazon.com (pdx-out-005.esa.us-west-2.outbound.mail-perimeter.amazon.com [52.13.214.179])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CB69447DFA7;
-	Mon,  5 Oct 2026 11:25:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=52.34.181.151
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2D32347DFA7;
+	Mon,  5 Oct 2026 11:25:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=52.13.214.179
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791199524; cv=none; b=M5tV4FG7fNinWuJSQM9/uFcEt0m7uxBkS+p4WOoiuZtlttPgyDP4/kUzJ4gragOmBSoia22Bw/oZAk0zKjzqdx/s19Bm8Ijd1K0YL8ChyJMhGIEDMdV/SfrHmHoKBP1snv89+3SyCs6IgmRozj3BHC5EzMHFSUn300AObYtN4y4=
+	t=1791199549; cv=none; b=uH2sk2gnbsBT4D2945NEfN/18msY/IDVkYDioZT7a5LeQwqvQqaXMUk69RVpy6HQNLdQTELY7FkjQIZtTOjDAHLfHIXJMEEI3WR+DlGtdF8kR99FQKksNn8bIIZHBcCp/zLy0IFdB7efKO9chx+7BTNPDthSZfLw3IbVzDPoboM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791199524; c=relaxed/simple;
-	bh=XCs/paEGYM17fjv+cHZo/UKaY3xp3WuoGtMAmiGLns4=;
+	s=arc-20240116; t=1791199549; c=relaxed/simple;
+	bh=ZcAWZAX9WJN7JV/gfckG4na0ordx5XVRa3Bc++vxvtk=;
 	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=DN4exCo+SRCE5jv6xV9SxL9siNsWGUoKavdfFM1vmbwNd8XRG0izyRZ7tSmed1TpgBCObKjRmWo0+J+HXbRVoIzSZgJRG53mCTHYq8Uch3ngHvXUfNUgZ/PtBUxlCc3w08A7lr66A803ECZhtRsDC+F3OoN76mqo4rIaA4vVQ7Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.com; spf=pass smtp.mailfrom=amazon.com; dkim=pass (2048-bit key) header.d=amazon.com header.i=@amazon.com header.b=KQiqJqWA; arc=none smtp.client-ip=52.34.181.151
+	 MIME-Version:Content-Type; b=V20rse8HPQHgh5jUhWxv3KzIpF0Jb+wAjdbuXJs4V9G0mLgVAqsd4yKvraumlKH8RtdFjRKFDI9oj6BL75YBRnJKVxuj4udwGZJ8JJ9Ou4qshBSn3+WFb36ers9vMPji5eeDyA0MaKmVpscn3Y4WrDSOdc2nGOtNV94u4hUSDoI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.com; spf=pass smtp.mailfrom=amazon.com; dkim=pass (2048-bit key) header.d=amazon.com header.i=@amazon.com header.b=AQ3ovLEN; arc=none smtp.client-ip=52.13.214.179
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amazon.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=amazon.com header.i=@amazon.com header.b="KQiqJqWA"
+	dkim=pass (2048-bit key) header.d=amazon.com header.i=@amazon.com header.b="AQ3ovLEN"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
   d=amazon.com; i=@amazon.com; q=dns/txt; s=amazoncorp2;
-  t=1791199513; x=1822735513;
+  t=1791199548; x=1822735548;
   h=from:to:cc:subject:date:message-id:in-reply-to:
    references:mime-version:content-transfer-encoding;
-  bh=uTkwUBd2rR2sTvGTWenad0+Q0AEGgLoC4T1XhpCn1BE=;
-  b=KQiqJqWAblhVbWP86qVO0TYoIHmt/gBE04eApIqZmk1sLonsKqbPISWk
-   /vbDs8GAawbYY+vgGpwjLZkfcSHcTzOGmYBG9qaNV7IdszPnwbIk+5Br/
-   BrHL5iiMQNGKQskG4Bijs8tUpkOry5bVwiIop8WV5mGzRtBxvtmWpoi71
-   9V8esUYrs/j0BxdllMN0y+ddXbIpOoe7P0vRX7Rq54K0YTYwKMW85BWM8
-   JGuct7kri6teePwDsViTaY9bTSvfwqit46azOUmHW1SvQWscg+eNW7UP8
-   0iOlX54IAJYYtGFTbzq/LXFNsbhWScA+27wpYZQk7uw2kGWxGdMoxIhse
-   Q==;
-X-CSE-ConnectionGUID: gFPzG05NTMeEo0QeOW5QSA==
-X-CSE-MsgGUID: O5vYiHICSUuaqUSoWpvOyA==
+  bh=/GG3eRLOhiC+zcGyq29YlG6Ys2br360IxLZHTgc6YQs=;
+  b=AQ3ovLENbOC0kDLX1wj2/Qq5AZtkzl8BONWW787e3Escn71Dk9O4swsb
+   vAJv2Bg5mOg4xG49HSn2xTfeMgnpSg8I9vE0U3COMElKuGJpKO5Ti8HSh
+   2w9KJX82UuBkF34mYi6yPPntf3mbKRM1THCrwEokMsg70acbvj8tRxgMy
+   +83InBEN2iGZkx/DYPbyV/3yaQtkluNikMLJ+ReHfn+vfpvn79/oFQvX3
+   3nZAoaV/iQmGuNBdNmSzaH++ycekikLx01uAYdiDpW/OQ4Nl4aLatvAtu
+   X2D+E4KmX4F3X1FWfSiPpI/lxphCEKxK+pwBRNhyCwpTL88uTYFDF/uVy
+   g==;
+X-CSE-ConnectionGUID: FV1HPLUmRGmNUsIGptaxhQ==
+X-CSE-MsgGUID: BQn4+kYJS1mBClFzBN4N2Q==
 X-IronPort-AV: E=Sophos;i="6.27,141,1787011200"; 
-   d="scan'208";a="30414840"
-Received: from ip-10-5-12-219.us-west-2.compute.internal (HELO smtpout.naws.us-west-2.prod.farcaster.email.amazon.dev) ([10.5.12.219])
-  by internal-pdx-out-007.esa.us-west-2.outbound.mail-perimeter.amazon.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 05 Oct 2026 11:25:11 +0000
-Received: from EX19MTAUWC002.ant.amazon.com [205.251.233.111:14704]
- by smtpin.naws.us-west-2.prod.farcaster.email.amazon.dev [10.0.61.153:2525] with esmtp (Farcaster)
- id 2a214ec6-14d1-4f47-b703-47b8f8c60f4e; Mon, 5 Oct 2026 11:25:11 +0000 (UTC)
-X-Farcaster-Flow-ID: 2a214ec6-14d1-4f47-b703-47b8f8c60f4e
+   d="scan'208";a="30399631"
+Received: from ip-10-5-6-203.us-west-2.compute.internal (HELO smtpout.naws.us-west-2.prod.farcaster.email.amazon.dev) ([10.5.6.203])
+  by internal-pdx-out-005.esa.us-west-2.outbound.mail-perimeter.amazon.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 05 Oct 2026 11:25:47 +0000
+Received: from EX19MTAUWA001.ant.amazon.com [205.251.233.236:12319]
+ by smtpin.naws.us-west-2.prod.farcaster.email.amazon.dev [10.0.36.96:2525] with esmtp (Farcaster)
+ id 4acab65b-0cce-4464-96db-f61aa557fa2f; Mon, 5 Oct 2026 11:25:47 +0000 (UTC)
+X-Farcaster-Flow-ID: 4acab65b-0cce-4464-96db-f61aa557fa2f
 Received: from EX19D001UWA001.ant.amazon.com (10.13.138.214) by
- EX19MTAUWC002.ant.amazon.com (10.250.64.143) with Microsoft SMTP Server
+ EX19MTAUWA001.ant.amazon.com (10.250.64.218) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.49;
- Mon, 5 Oct 2026 11:25:11 +0000
+ Mon, 5 Oct 2026 11:25:47 +0000
 Received: from dev-dsk-farbere-1a-46ecabed.eu-west-1.amazon.com
  (172.19.116.181) by EX19D001UWA001.ant.amazon.com (10.13.138.214) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.49; Mon, 5 Oct 2026
- 11:25:09 +0000
+ 11:25:45 +0000
 From: Eliav Farber <farbere@amazon.com>
 To: Thomas Gleixner <tglx@kernel.org>, Talel Shenhar <talel@amazon.com>
 CC: Radu Rendec <radu@rendec.net>, Rob Herring <robh@kernel.org>, "Krzysztof
  Kozlowski" <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, "Eliav
  Farber" <farbere@amazon.com>, <devicetree@vger.kernel.org>,
-	<linux-kernel@vger.kernel.org>
-Subject: [PATCH v3 4/8] irqchip/al-fic: switch to shared parent interrupt
-Date: Mon, 5 Oct 2026 11:24:54 +0000
-Message-ID: <20261005112458.22291-5-farbere@amazon.com>
+	<linux-kernel@vger.kernel.org>, Conor Dooley <conor.dooley@microchip.com>
+Subject: [PATCH v3 5/8] dt-bindings: interrupt-controller: amazon,al-fic: add mask selection
+Date: Mon, 5 Oct 2026 11:24:55 +0000
+Message-ID: <20261005112458.22291-6-farbere@amazon.com>
 X-Mailer: git-send-email 2.47.3
 In-Reply-To: <20261005112458.22291-1-farbere@amazon.com>
 References: <20261005112458.22291-1-farbere@amazon.com>
@@ -68,147 +68,98 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
-X-ClientProxiedBy: EX19D039UWA001.ant.amazon.com (10.13.139.110) To
+X-ClientProxiedBy: EX19D033UWC002.ant.amazon.com (10.13.139.196) To
  EX19D001UWA001.ant.amazon.com (10.13.138.214)
 
-Until now the driver requested its parent interrupt using the chained IRQ
-API (irq_set_chained_handler_and_data()), which only works when each
-parent interrupt is wired to a single FIC instance.
+The block this driver calls a FIC is the generic Annapurna Labs interrupt
+controller. It is built from groups of up to 32 triggers each; the number
+of groups differs from one controller to another, and each group has its
+own 0x40 register block.
 
-A FIC controller is built from groups, each described by its own DT node,
-and the groups of one controller share that controller's output line
-toward the parent. So a real devicetree has several FIC nodes on one
-parent GIC SPI, and a chained handler can only be installed once per
-parent. Cascading compounds this: an aggregating group collects several
-peripherals' outputs onto the line above it.
+A node in this binding describes one group, not a whole controller. reg
+points at that group's 0x40 block, and the 32 hwirqs of the domain are
+that group's triggers. A controller with several groups appears as several
+nodes, and controllers cascade when a tree needs more triggers than one
+controller has.
 
-To support that, request the parent interrupt as a shared interrupt
-(IRQF_SHARED) instead of installing a chained handler. The handler now has
-the standard irqreturn_t prototype and reports whether this instance had
-anything pending, so the shared-IRQ core can tell which instance on the
-line raised the interrupt. IRQF_NO_THREAD is set because the handler only
-demultiplexes to the child domain and must not be forced-threaded; all
-instances sharing a parent line agree on this flag, as the shared-IRQ core
-requires.
+A group has one cause register and three mask registers, which decide
+which output a set cause bit drives:
 
-The handler reads the group's cause register and returns IRQ_HANDLED when
-any unmasked cause bit is set, IRQ_NONE otherwise. That is the signal the
-shared-IRQ core needs - "did this instance's hardware raise the line" -
-rather than the result of dispatching to the child domain, which for a
-domain sized exactly to the cause register always succeeds.
+  0x10  info mask    gates the info output
+  0x2c  error mask   gates the error output
+  0x34  fatal mask   gates the fatal output
 
-request_irq() can fail, unlike irq_set_chained_handler_and_data(), so add
-an error path for it. Set IRQ_DOMAIN_FLAG_DESTROY_GC on the domain after
-creating it, so irq_domain_remove() tears the generic chips down too and
-the single call suffices for both the chip-allocation and request_irq()
-failure paths.
+The three outputs are aggregated into three separate interrupt trees
+(info, error, fatal); mapping one event to more than one severity is
+forbidden by the interrupt methodology, so a group belongs to exactly one
+tree. Which output a group drives is fixed when the SoC is wired and is
+not discoverable from any register, so it must be described in the
+devicetree.
 
-Co-developed-by: Talel Shenhar <talel@amazon.com>
-Signed-off-by: Talel Shenhar <talel@amazon.com>
+The error and fatal outputs, and their mask registers, exist only on
+controller revisions that implement them; earlier revisions provide the
+info output only. A controller reports its revision in the group control
+register (bits 29-28), so the revision itself does not need to appear in
+the devicetree and no per-revision compatible string is needed.
+
+Describe which output a group drives with a new optional property,
+amazon,al-fic-mask (info, error or fatal; default info).
+
 Signed-off-by: Eliav Farber <farbere@amazon.com>
+Reviewed-by: Radu Rendec <radu@rendec.net>
+Acked-by: Conor Dooley <conor.dooley@microchip.com>
 ---
-v3:
- - al_fic_irq_handler() no longer derives IRQ_HANDLED/IRQ_NONE from
-   generic_handle_domain_irq(), whose return value only reports whether
-   the hwirq to virq mapping succeeded - and since the loop iterates
-   exactly NR_FIC_IRQS bits, which is the domain's own size, that mapping
-   always succeeds. Return IRQ_HANDLED when the masked CAUSE snapshot is
-   non-zero instead, which is the correct signal for a shared interrupt.
- - Set IRQ_DOMAIN_FLAG_DESTROY_GC on the domain and let
-   irq_domain_remove() free the generic chips, instead of calling
-   irq_domain_remove_generic_chips() by hand. Both error paths now go
-   through one label. The invalid-free fix from v2 is unaffected; only the
-   teardown mechanism changed.
- - Use of_node_full_name() in the request_irq() call.
+v3: no change. Added Reviewed-by: Radu Rendec and Acked-by: Conor Dooley.
 
-v2:
- - Fix the request_irq() error path: v1 called irq_free_generic_chip(gc),
-   which is kfree(gc) on an interior pointer into the single allocation
-   made by irq_domain_alloc_generic_chips() - an invalid free reachable
-   when request_irq() fails at probe. Replace it with
-   irq_domain_remove_generic_chips() before irq_domain_remove(), and add a
-   commit-message paragraph explaining the teardown ordering.
- - Add Co-developed-by/Signed-off-by: Talel Shenhar.
- - Reworded to state the hardware reason for the shared parent (the groups
-   of one controller share that controller's output line).
+v2: redesigned in response to Conor Dooley's review of v1.
+ - Drop the two proposed per-output compatible strings
+   (amazon,al-fic-error / amazon,al-fic-fatal). A node describes one group,
+   and a controller reports its revision in the group control register
+   (bits 29-28), so no per-revision or per-output compatible is needed.
+ - Instead add an optional amazon,al-fic-mask property (info, error, fatal;
+   default info) selecting which output a group drives. Existing
+   amazon,al-fic nodes keep behaving as before.
+ - Rewrite the commit message to describe the hardware and the group
+   granularity, and add an example fragment to the YAML, as requested.
 
- drivers/irqchip/irq-al-fic.c | 28 ++++++++++++++++++----------
- 1 file changed, 18 insertions(+), 10 deletions(-)
+ .../interrupt-controller/amazon,al-fic.yaml      | 16 +++++++++++++++-
+ 1 file changed, 15 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/irqchip/irq-al-fic.c b/drivers/irqchip/irq-al-fic.c
-index ee06d0123b7a..4c60da8558ed 100644
---- a/drivers/irqchip/irq-al-fic.c
-+++ b/drivers/irqchip/irq-al-fic.c
-@@ -4,9 +4,9 @@
-  */
+diff --git a/Documentation/devicetree/bindings/interrupt-controller/amazon,al-fic.yaml b/Documentation/devicetree/bindings/interrupt-controller/amazon,al-fic.yaml
+index 26bc05dee0bc..1ebf9a427f2f 100644
+--- a/Documentation/devicetree/bindings/interrupt-controller/amazon,al-fic.yaml
++++ b/Documentation/devicetree/bindings/interrupt-controller/amazon,al-fic.yaml
+@@ -24,6 +24,19 @@ properties:
+   interrupts:
+     maxItems: 1
  
- #include <linux/bitfield.h>
-+#include <linux/interrupt.h>
- #include <linux/irq.h>
- #include <linux/irqchip.h>
--#include <linux/irqchip/chained_irq.h>
- #include <linux/irqdomain.h>
- #include <linux/module.h>
- #include <linux/of.h>
-@@ -95,24 +95,21 @@ static int al_fic_irq_set_type(struct irq_data *data, unsigned int flow_type)
- 	return 0;
- }
- 
--static void al_fic_irq_handler(struct irq_desc *desc)
-+static irqreturn_t al_fic_irq_handler(int irq, void *data)
- {
--	struct al_fic *fic = irq_desc_get_handler_data(desc);
-+	struct al_fic *fic = data;
- 	struct irq_domain *domain = fic->domain;
--	struct irq_chip *irqchip = irq_desc_get_chip(desc);
- 	struct irq_chip_generic *gc = irq_get_domain_generic_chip(domain, 0);
- 	unsigned long pending;
- 	u32 hwirq;
- 
--	chained_irq_enter(irqchip, desc);
--
- 	pending = readl_relaxed(fic->base + AL_FIC_CAUSE);
- 	pending &= ~gc->mask_cache;
- 
- 	for_each_set_bit(hwirq, &pending, NR_FIC_IRQS)
- 		generic_handle_domain_irq(domain, hwirq);
- 
--	chained_irq_exit(irqchip, desc);
-+	return pending ? IRQ_HANDLED : IRQ_NONE;
- }
- 
- static int al_fic_irq_retrigger(struct irq_data *data)
-@@ -140,6 +137,12 @@ static int al_fic_register(struct device_node *node,
- 		return -ENOMEM;
- 	}
- 
-+	/*
-+	 * Let irq_domain_remove() free the generic chips on either error path
-+	 * below, instead of calling irq_domain_remove_generic_chips() by hand.
-+	 */
-+	fic->domain->flags |= IRQ_DOMAIN_FLAG_DESTROY_GC;
++  amazon,al-fic-mask:
++    $ref: /schemas/types.yaml#/definitions/string
++    description:
++      Selects which of the controller's severity outputs this group drives,
++      and thus which mask register the driver programs. A group has one cause
++      register and three severity outputs - info, error and fatal - each
++      gated by its own mask register. Each output is aggregated into a
++      separate interrupt tree, and a group belongs to exactly one of them.
++      The error and fatal outputs exist only on controller revisions that
++      implement them; earlier revisions provide the info output only.
++    enum: [info, error, fatal]
++    default: info
 +
- 	ret = irq_alloc_domain_generic_chips(fic->domain,
- 					     NR_FIC_IRQS,
- 					     1, of_node_full_name(fic->node),
-@@ -162,9 +165,14 @@ static int al_fic_register(struct device_node *node,
- 	gc->chip_types->chip.flags = IRQCHIP_SKIP_SET_WAKE;
- 	gc->private = fic;
+ required:
+   - compatible
+   - reg
+@@ -39,8 +52,9 @@ examples:
  
--	irq_set_chained_handler_and_data(fic->parent_irq,
--					 al_fic_irq_handler,
--					 fic);
-+	ret = request_irq(fic->parent_irq, al_fic_irq_handler,
-+			  IRQF_NO_THREAD | IRQF_SHARED,
-+			  of_node_full_name(fic->node), fic);
-+	if (ret) {
-+		pr_err("fail to request irq (%d)\n", ret);
-+		goto err_domain_remove;
-+	}
-+
- 	return 0;
- 
- err_domain_remove:
+     interrupt-controller@fd8a8500 {
+         compatible = "amazon,al-fic";
+-        reg = <0xfd8a8500 0x1000>;
++        reg = <0xfd8a8500 0x40>;
+         interrupt-controller;
+         #interrupt-cells = <2>;
+         interrupts = <GIC_SPI 0x0 IRQ_TYPE_LEVEL_HIGH>;
++        amazon,al-fic-mask = "error";
+     };
 -- 
 2.47.3
 
