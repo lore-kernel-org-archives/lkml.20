@@ -1,163 +1,97 @@
-Received: from mail-pj2-f13.google.com (mail-pj2-f13.google.com [74.125.227.141])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 517254EE86D
-	for <linux-kernel@vger.kernel.org>; Mon,  5 Oct 2026 17:16:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.141
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BF5024D9563;
+	Mon,  5 Oct 2026 17:17:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791220619; cv=none; b=X2pNuxYFulYH3rEIrYOptHmqC299R+7NzSjB3B97S1SP91TuKSPc5J3Tmp2ZZZEPxpqzDSzfi3hDdkyKGLgVm7zAEJCYoBduOJ/ne7KL+Qjmha65oUz82GbYOMtEDRxXVQ0/kMqkh91y0cQwqxYAiKmBvkZbsJV5hEzZA2RHT2Q=
+	t=1791220622; cv=none; b=fJ+FFzYoioY93PBLd311QFAukm7BGqymB4tcRsMBEW3Ztevi90jFCC50jS5h8KRPlbD3nGFGuvisBRSH4pLfEOSGoptqOjL/QlEHR++Ufk1wsd8qTrdxb9tZ7Q6da+JyrgescaJmkZLZKrqiaMNlKNQPAY2bGkfzsveGKbijit4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791220619; c=relaxed/simple;
-	bh=9wEbN2n5LQFaWEnfgc/fjcdj12CgL82mEepIN/jxNKo=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=YNhlsfxs9+xK+8QT5g/hyDwHlmGpjKpPGMjGMOrjSksWVFqM0Calwkf6+1X8hqbwGho+/8Cq6LvcEEOwUNAja8Kv42gxqwLw5WPwwziA8AhRpUkxsZFyMopbLipAHZoSz91dbvkia9By75UA+4WGB5pham1SDOR8eLZbCkuzrIQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=QbL07d6a; arc=none smtp.client-ip=74.125.227.141
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1791220622; c=relaxed/simple;
+	bh=JPuva7QZtLamKWAdVeVsRE0euPZ+x87KqFuXg6nFB3Y=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=mrtLtfkCjfwhv+ObQOoKQPWaOjF7rSJAkC5g9xD+5ZSBjZucHvtnkTRygTw9lIV1FbbPB50iWA/JsKxKUashRS9/ecpvgtiGRwp9gFZ3bHAtMBMDvpGFjJGgWh/YtZs20oTSz1Tzp5FZi/u5+ExjeEBpTomh+Mc0le3SgtEs9WA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=DHP8OC73; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="QbL07d6a"
-Received: by mail-pj2-f13.google.com with SMTP id 98e67ed59e1d1-396ccb65437so1070426a91.3
-        for <linux-kernel@vger.kernel.org>; Mon, 05 Oct 2026 10:16:57 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791220617; x=1791825417; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=InVY38nfxVAqb/WmgYkdpIBcCwx01OQ8UJwYgwWPio4=;
-        b=QbL07d6azUEZP/YgXxJwnZHrBE7Emtw9fZ9uAoWdNta0PxzGeVEH9cdyBwnP0kM6nW
-         NhPhFcVGXVi52g3tTCcTgvhZjgV1scowezYg8/MdHe0QydTs66hR7bIQ3mcWDtioq6Ht
-         wTtjOohdhBnmATxJJ9ny3J4xzb99AGqW5DWp3WCVnfPpBA4HA7iFFwm3QPM+szpCRkX+
-         nD6oV1fLhYLz9h5rYwwucbcvd/170kFqdeK6Fd1y76IoE7fWWWeNnZA5ZfwiJZ5Mvm9D
-         1Vwe6lJLcknwrDexGy2Na0LwWbqW6sRuVQ+Fwb+fEt/50MEDUSNtU0kiGCLKteSvHbMS
-         64LQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791220617; x=1791825417;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=InVY38nfxVAqb/WmgYkdpIBcCwx01OQ8UJwYgwWPio4=;
-        b=et3dt9yTl4kN0hBeWyclJWOdd0o43IpRTHddGHtd58kArfr6CKMLkPIgaA9ClQGjEB
-         U2sEZwHma7CJOS8X7JatxojuEsnOECB8qEXaj298MLFV/vmG9u+lkrG/SmU//efIQBfR
-         dDkwAJRwdxtoCaiVEO17rIlmtR32kaCWKUGYxXNEgfM8SAQ4Qlop4ykGC19ceyO/JGXd
-         UtHtn5D9vLcf93L1G+be8HhKk5TMBQ4uHhWK0aPZYZ64f7QcT0yaWq01ljvH+t4dvxQU
-         Hq1yEVRlT6Bt4DpuRaNKbMDrG4fvrjGoIje3tMi/YKh3Gz+q4hw5aPg1r+7xT3UHMnGv
-         rfFA==
-X-Forwarded-Encrypted: i=1; AKwUvBwDEqtIPMOTMTLZZmuVGhljRiuzrDr202sEre05o3dCDBsAZLLuuDmDiq2IfWgggz3ZqFaNFKqILBoOpUY=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKOu6fRJZ7tE6QyEa8+k4RilGyv43NSmjLtVNImEFLUaVnI6RzV
-	va0FoJb1h9XTLC+WVK83EKPzGQWAf4NOLuWbkNN8OQVBLD6Q9LVht9f9
-X-Gm-Gg: AYBFou0HIbcNwCCzC/JaMkHPwacBkDAXEILOZuiNuRlF/QFk4rpx9CiVyyOTx98b/Wx
-	QW7yI5pIpUJVjVNl0y2USqqQOSWW1SopWSmYDU8FG1wVlKTDDkabZEl5OBPslv51N4eye3Tke3p
-	9+KSGJRThEknJ2GwOLbTPG3lfZheWeBMqq4amgA81ZdmHg+LG/RpwPfHCVFSAIrsiL3eifRSmxx
-	WpspxNl9eVv9WwOgqFI2EnfZ1TbC9k+ZpCfz9EDnCAorN4WzVmDdtrgpN6DdNbmRwyBezO4ihOG
-	iNq/EsHQhkPmR6z508Nd/3DGFc6+rYdA4RtliYnPaiyKPANz1BQGWnwPKwFsOBq4QqIqcN378TL
-	hpXbiRQ/jSNGIYXTIPl1omiONfkZOUcrVMF71RSPWLk94epvaCg+xitbIEAYH/22B5Mzm9PCQHc
-	vH3jrgs+hgmaSUw+pD/Ql/aYv9EgtBJQELwBmYfL6rrzSeZ66DwyI8y7SsqwsBuA0VuqlG/QsOB
-	2EM4QPai22iQ0qzTh/mE5GBGxHxJg==
-X-Received: by 2002:a17:90b:3e85:b0:3a7:8350:3f7e with SMTP id 98e67ed59e1d1-3a783504695mr5636453a91.44.1791220616043;
-        Mon, 05 Oct 2026 10:16:56 -0700 (PDT)
-Received: from kernel.tail6741c6.ts.net ([216.195.201.24])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a853cafddesm406910a91.10.2026.10.05.10.16.42
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 05 Oct 2026 10:16:55 -0700 (PDT)
-From: Kunwu Chan <kunwu.chan@gmail.com>
-To: paulmck@kernel.org,
-	corbet@lwn.net,
-	mingo@redhat.com,
-	frederic@kernel.org,
-	neeraj.upadhyay@kernel.org,
-	josh@joshtriplett.org,
-	urezki@gmail.com,
-	dave@stgolabs.net,
-	lianux.mm@gmail.com
-Cc: stern@rowland.harvard.edu,
-	parri.andrea@gmail.com,
-	will@kernel.org,
-	peterz@infradead.org,
-	boqun@kernel.org,
-	npiggin@gmail.com,
-	dhowells@redhat.com,
-	j.alglave@ucl.ac.uk,
-	luc.maranget@inria.fr,
-	akiyks@gmail.com,
-	dlustig@nvidia.com,
-	joelagnelf@nvidia.com,
-	skhan@linuxfoundation.org,
-	rdunlap@infradead.org,
-	longman@redhat.com,
-	rostedt@goodmis.org,
-	mathieu.desnoyers@efficios.com,
-	jiangshanlai@gmail.com,
-	qiang.zhang@linux.dev,
-	kunwu.chan@gmail.com,
-	brads@mainlining.org,
-	linux-kernel@vger.kernel.org,
-	linux-arch@vger.kernel.org,
-	lkmm@lists.linux.dev,
-	linux-doc@vger.kernel.org,
-	rcu@vger.kernel.org,
-	linux-kselftest@vger.kernel.org
-Subject: [PATCH RFC v3 05/15] hazptr: add debug option to force the acquire slow path
-Date: Tue,  6 Oct 2026 01:15:19 +0800
-Message-ID: <20261005171529.1378809-6-kunwu.chan@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261005171529.1378809-1-kunwu.chan@gmail.com>
-References: <20261005171529.1378809-1-kunwu.chan@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="DHP8OC73"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A23F51F00899;
+	Mon,  5 Oct 2026 17:16:57 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791220620;
+	bh=W0NKi1qQb48zzSUgOuY9xyOYM8hAR1kRMFhyRqRfWdg=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc;
+	b=DHP8OC73BMTCw5HIPlysfNk8rfX+2u/+6l2ezfSuLZk4rNHnM1jEnejVWmRPFQpO8
+	 8AOnjuuiTL/d8LNY1bM9EuiLA98jfD+6/hspamkLoXYrY9vBifOd1BXYpPE/Ztwrm3
+	 37K9JAzAKrvm4c4RebwaxCN27WgysMZu3CF38r/teKDhlWqX6VV7uyKvxRHOGaFgCT
+	 895/0QjVh+TXsp3CJppZLCY09qSjlwCWjpyEj3weO6UXt8J2IIuVWUKizvysQTgp8Q
+	 o8JMMOoe0jZbTeLfQvu1IYb9di4hIqZolm/rwfLNVlia1ZGxc5Ucu4/BuzfhvSStjC
+	 hdzilgiD1rt3g==
+From: Bryan O'Donoghue <bod@kernel.org>
+Date: Mon, 05 Oct 2026 19:13:52 +0200
+Subject: [PATCH 22/74] media: qcom: camss: vfe: Add is_pix to struct line
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261005-linux-mainline-7-2-sm8650-hdk-rfc-0-v1-22-ed985aefd611@kernel.org>
+References: <20261005-linux-mainline-7-2-sm8650-hdk-rfc-0-v1-0-ed985aefd611@kernel.org>
+In-Reply-To: <20261005-linux-mainline-7-2-sm8650-hdk-rfc-0-v1-0-ed985aefd611@kernel.org>
+To: Bryan O'Donoghue <bryan.odonoghue@linaro.org>, 
+ Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>, 
+ Loic Poulain <loic.poulain@oss.qualcomm.com>, 
+ Mauro Carvalho Chehab <mchehab@kernel.org>, 
+ Jacopo Mondi <jacopo.mondi@ideasonboard.com>, 
+ Daniel Scally <dan.scally@ideasonboard.com>, Keke Li <keke.li@amlogic.com>, 
+ Richard Acayan <mailingradian@gmail.com>, 
+ Hans Verkuil <hverkuil@kernel.org>, 
+ Gjorgji Rosikopulos <quic_grosikop@quicinc.com>, 
+ Radoslav Tsvetkov <quic_rtsvetko@quicinc.com>, 
+ Robert Foss <rfoss@kernel.org>, Milen Mitkov <quic_mmitkov@quicinc.com>
+Cc: linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, Bryan O'Donoghue <bod@kernel.org>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=openpgp-sha256; l=802; i=bod@kernel.org;
+ h=from:subject:message-id; bh=JPuva7QZtLamKWAdVeVsRE0euPZ+x87KqFuXg6nFB3Y=;
+ b=owEBbQKS/ZANAwAKASJxO7Ohjcg6AcsmYgBqw9sQTdJCRY28evpxoNO2zqHZCbF9ZAXpEeF5T
+ hgPBATjWhGJAjMEAAEKAB0WIQTmk/sqq6Nt4Rerb7QicTuzoY3IOgUCasPbEAAKCRAicTuzoY3I
+ OoYbEACW1iBNK+1Db0z0g6xuyMai55kGZ71o99IAFot/d1hzg9PxMJF19oRAZ0wp5I4981fiqQS
+ ieprbp6Tbn8XhnvATtVhVSVLfW5K/XGzbbjMGDJ+RvMaYonbBrh4ijOX8qcRC9gmD6MuFeKN69t
+ qG5xpWM6E+1FU8J/vjmZZ0/Ft20UurPnH/Qd7HLq11uLku1VD7xis7EPYY9xRQMikXRekbbSvzy
+ qkU9ozx+iTTmhOXOXRcxFiPYz84ImboBXSYQ3Me1LQJeT6TqFTowZYzBs91jnISyir+Si/L1fej
+ y1mQIqVcG4QBxrlZTcuJd0/Nig/Jg5B8JToC3vGuI9zwQIzqg521euvBzQKSS1GlMH2+NcnKUBK
+ wcXsB2ADMuvTPXNuMTaXwYjIyuHb+I82I4zT1K5J9SJTREJGDLbcXPvv6goTSQRv3wbVlCe5i7s
+ ewCS3T8c49ZVv4Oo9kbZNfmrvSUNqNxkwB40FewMMaVl91V2NaerZH/jDmgq5GK64ilnnVt7ecu
+ qL1u6A47MJgTYZjI4lP4+5TkVO/mxBFaxNEKk4IygexoLtAPW9QcxzgsEjYXAMKvbHVF0wZ4bSO
+ UxNz/aPLR5UsrH9g2Jolwhd2LES2fEPOCmIZnuVetbhGMzWGqcPQlNA8mwXNEGv/IrLrMLcaSs+
+ X4wLtTK+2Zq7FIg==
+X-Developer-Key: i=bod@kernel.org; a=openpgp;
+ fpr=E693FB2AABA36DE117AB6FB422713BB3A18DC83A
 
-Add a debug option that makes hazptr_acquire() always enter
-__hazptr_acquire(), even when a per-CPU slot is available.
+Differentiating the "line" the input line to the VFE as pix or non-pix will
+allow us to properly differentiate PIX from RDI without any magic indexing.
 
-This allows the slow path, including its lock acquisition, to be
-exercised by lockdep-heavy workloads.  It also lets hazptrtorture
-exercise the slow path without requiring the per-CPU slots to be
-exhausted.
-
-Suggested-by: Boqun Feng <boqun@kernel.org>
-Signed-off-by: Kunwu Chan <kunwu.chan@gmail.com>
+Signed-off-by: Bryan O'Donoghue <bod@kernel.org>
 ---
- include/linux/hazptr.h   |  3 ++-
- kernel/rcu/Kconfig.debug | 10 ++++++++++
- 2 files changed, 12 insertions(+), 1 deletion(-)
+ drivers/media/platform/qcom/camss/camss-vfe.h | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/include/linux/hazptr.h b/include/linux/hazptr.h
-index 275cbe54b075..4ee02d23abc9 100644
---- a/include/linux/hazptr.h
-+++ b/include/linux/hazptr.h
-@@ -245,7 +245,8 @@ void *hazptr_acquire(struct hazptr_ctx *ctx, void * const *addr_p)
- 	ctx->acquire_cpu = smp_processor_id();
- 	ctx->acquire_caller = _THIS_IP_;
- #endif
--	if (unlikely(slot->addr))
-+	if (IS_ENABLED(CONFIG_HAZPTR_ACQUIRE_FORCE_SLOWPATH) ||
-+	    unlikely(slot->addr))
- 		return __hazptr_acquire(ctx, addr_p);
- 	WRITE_ONCE(slot->addr, READ_ONCE(hazptr_wildcard));	/* Store B */
+diff --git a/drivers/media/platform/qcom/camss/camss-vfe.h b/drivers/media/platform/qcom/camss/camss-vfe.h
+index 29682e8e9f401..79786c34e48a9 100644
+--- a/drivers/media/platform/qcom/camss/camss-vfe.h
++++ b/drivers/media/platform/qcom/camss/camss-vfe.h
+@@ -116,6 +116,7 @@ struct vfe_output {
  
-diff --git a/kernel/rcu/Kconfig.debug b/kernel/rcu/Kconfig.debug
-index 7c3c6017b266..3a2e9d7f58f8 100644
---- a/kernel/rcu/Kconfig.debug
-+++ b/kernel/rcu/Kconfig.debug
-@@ -265,4 +265,14 @@ config HAZPTR_DEBUG
- 
- 	  Say Y here if you want to enable those assert, N otherwise.
- 
-+config HAZPTR_ACQUIRE_FORCE_SLOWPATH
-+	bool "Force hazard-pointer acquire into the slow path"
-+	depends on DEBUG_KERNEL
-+	default n
-+	help
-+	  Make hazptr_acquire() always enter __hazptr_acquire().
-+	  This is useful for testing slow-path locking, especially
-+	  with lockdep.  It also lets hazptrtorture exercise the slow
-+	  path without filling the per-CPU slots.
-+
- endmenu # "RCU Debugging"
+ struct vfe_line {
+ 	enum vfe_line_id id;
++	bool is_pix;
+ 	struct v4l2_subdev subdev;
+ 	struct media_pad pads[MSM_VFE_PADS_NUM];
+ 	struct v4l2_mbus_framefmt fmt[MSM_VFE_PADS_NUM];
+
 -- 
-2.43.0
+2.55.0
 
