@@ -1,187 +1,164 @@
-Received: from mail-dy1-f181.google.com (mail-dy1-f181.google.com [74.125.82.181])
+Received: from rtits2.realtek.com.tw (rtits2.realtek.com [211.75.126.72])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2B2A23B27F6
-	for <linux-kernel@vger.kernel.org>; Tue,  6 Oct 2026 09:24:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.181
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0ACEA3B27E8;
+	Tue,  6 Oct 2026 09:24:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=211.75.126.72
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791278663; cv=none; b=gWMK3YAtzYd56GHTbCakFLT/TQd1FP7473diRft4j4fI5JJM5oyhKbUF8SESE9nLT9NUMQxiW54E05B8ISpWxSZiVJM+VYdj/754dxTBGwFn5eAACU+p2pCVQLXhbRlZqXfnm49CWKgVGIAKt1iRr3haCiZDQtVYpe+VwSHbUl0=
+	t=1791278702; cv=none; b=PTrk3SJsekXjnygEXqNXr6v5wBuFUeFxz9fPOZxvR68BMIWL3f4v7XTi0DPCVbJt6n+1aOK0NfUhs+2lwvI5x8PRDfGCLznq+GNsBqlwYPnA5rtaHTmWuEYNE/oMUF8kf37wQuisDCFPMdv9QCjG/k6b+pEAmA/sDh12lNAyioc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791278663; c=relaxed/simple;
-	bh=srB8N8qCbjn8OYCn/cFHQPSvjruCyxi1S8AXEXH/ON4=;
-	h=From:To:Cc:Subject:In-Reply-To:Date:Message-ID:References; b=an+SFCgoNR8vZ6LLNdAQKo5DYtg3d56vHiZ46v+dMr1YaOVyT/jvDmZV2f0eZ3R+DKFt8z/upgx07gw2LqU0xgB4jv1BAvEq0nGrN/cAj4ROUQY5nx3kRG1/kGnyxfGIb0X0iYwvhqCeHkwvulZCcEehCggoW9fWrOte0NgpAZc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=QYIQH0Mq; arc=none smtp.client-ip=74.125.82.181
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1791278702; c=relaxed/simple;
+	bh=RTPyiP+J6hqBLL7VsBt9Y65vQ+7IOuJay0DnTXhA7+Y=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:MIME-Version; b=ou4y2i6waUa+2Wl+p3LQvdFBVFT9lGWUe11VrSq3N8X/ZDA4i3qVhUFx+jINyiLfrOhkScM3rmde7oaF5+UbtdLJgcdOv6yskvOWj/ZIWSoYiJFhCZyVGIwcDxgxBTHxHUpS4EgeJAbc1CYDArhr6S15XUvdOcGcTV3VaEYMd5M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=realtek.com; spf=pass smtp.mailfrom=realtek.com; dkim=pass (2048-bit key) header.d=realtek.com header.i=@realtek.com header.b=raBcIyYM; arc=none smtp.client-ip=211.75.126.72
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=realtek.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=realtek.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="QYIQH0Mq"
-Received: by mail-dy1-f181.google.com with SMTP id 5a478bee46e88-33e6279a1d7so1447162eec.1
-        for <linux-kernel@vger.kernel.org>; Tue, 06 Oct 2026 02:24:20 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791278660; x=1791883460; darn=vger.kernel.org;
-        h=references:message-id:date:in-reply-to:subject:cc:to:from:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=ohmud8dlW/23qmDZSut2G/bzXusBDFIZZACFjcnqkos=;
-        b=QYIQH0Mqp2AdDZi/sW2pklYv9BKhZvaF/vulbuxItdCqEWdCsBDegt126qtDl5k6cs
-         iqPEIHyBGQC2imrA8VaQjRmgjzw/oD1Fs2ed5W36WNXpouteNCnzKJUSENCI+UOkIn6/
-         OeXIZ/u8QBm+/FGQl1qc4Kls7u0sb+F3P2Pysz37tzGfpjcYsj7VqXopTA34t6CBtpGP
-         ZK7+eTqCxytlVv2/z6uKHhR+WnT58ieKyaGzi0AT2UnfeiYbdzvY4h6Z/P7585o1VNL7
-         Fx1Zu+uyYvrqxCi9kbljH58ljg2CGe1VCBfW+2ICBiOGGR/UCw5WHc3q/lPWTj4axGho
-         nfvQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791278660; x=1791883460;
-        h=references:message-id:date:in-reply-to:subject:cc:to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=ohmud8dlW/23qmDZSut2G/bzXusBDFIZZACFjcnqkos=;
-        b=Zd0Dx2a3Eo6z2YW0976mliSuXN5qQtXL9eHDNS8+2SibedKaXHqLh/pjHkEuodJjnT
-         NhutUJKWh0PEdSm/6kgW45NWmKY3lnSh8rra6bEdD/OgDUglr6MyTEebUvV1OSomIk3C
-         wVJ/wilc/o/D/nsNRxkE4+oQXXLj3GIZd4DLtXr08rf/q1nATd6lL6U3O1HilP+GWt4m
-         mWPbuoqg0x2n8I1x7m5KASeTahCf1APG1MzsI2S8g45Goh4FsgcuCO5H6H8TfvjYPgNg
-         XIRPJd3G9TDx+hWsHsYlHEK35zuQgYKIZS1GKndOwUv9qPQTIuNGjO4Qx0epbhoboYI8
-         S55g==
-X-Forwarded-Encrypted: i=1; AKwUvBzX7O74hHa5p5ZxfTIIzFWRPEZwONTlCR6HvfofK4AYOb64V3eH/2tqeqnyunZR9cxvNOpRcKacpLrs7yY=@vger.kernel.org
-X-Gm-Message-State: AFuF++k60FZAlVxDQliDVSj9zUot8lShZnHcluGJ5au3HFkjUFitNyKj
-	8kbbWJuKrpJ7WuQTrpkHbng4j3Z7z+z5pZfqvjSh+Dp/8/KKYzz3bsFwVraI7Q==
-X-Gm-Gg: AYBFou06Npsvnii+5CINsO8B0y82kjMlaGnWCHJOmFYXgto4IhZ5V++hTvfNGZgPKN6
-	NJSbqe7/zYyAgu+NAkO3QcW2S5/eG9XUj2uiNtrK9bmXaaWkfwz3Wm7EwOkInjJ0lvg/9EWYL7C
-	2/NX8g5FSWqsgfqHioemAOFhRVXnUpNE5BAsxEPzZ+2WdRMzUdvsIh5JwKaCAH8MAYbGJBL6+JE
-	HIVKh0tJ2yzhLmXzbO0CP7DfoCjAp0xpqq/LuIogfbF54i7svNLpW2TTB3i6D5DIoOW9+xcbXtw
-	1GN7b4JKXVIeqiS3sIdU/qdLU1rMpg1KY9TGiXYZdhAS10aLocFFEvvO85yHe0NDELH5/yFYGxz
-	jUd0Qyex5wI9Z92G50oRGAQ0LclxMpYJOgbbRZSn4XHYMu8ghLMMVX2k2B+GGYuybj4ycjCmR8S
-	xXZ39xHzguJDiLcIh1VtYAbeTj326grzREZe6PDlyyCHl/m5+G74/pKzYo5U2dc7yZRZIAJUwPk
-	IwDKSg9b3jp+vAhG5KiAGlIXlMOZtpoaj/pBNSrzlB1AYA1H0xKRA==
-X-Received: by 2002:a05:7300:51e9:b0:351:52ec:60ee with SMTP id 5a478bee46e88-35152ec672fmr48303eec.28.1791278659872;
-        Tue, 06 Oct 2026 02:24:19 -0700 (PDT)
-Received: from pve-server ([49.205.216.49])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-351469f73fcsm6424655eec.10.2026.10.06.02.24.14
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 06 Oct 2026 02:24:18 -0700 (PDT)
-From: Ritesh Harjani (IBM) <ritesh.list@gmail.com>
-To: Sean Christopherson <seanjc@google.com>
-Cc: kvm@vger.kernel.org, Paolo Bonzini <pbonzini@redhat.com>, linuxppc-dev@lists.ozlabs.org, Michael Ellerman <mpe@ellerman.id.au>, Christophe Leroy <chleroy@kernel.org>, Anushree Mathur <anushree.mathur@linux.ibm.com>, Venkat Rao Bagalkote <venkat88@linux.ibm.com>, Harsh Prateek Bora <harshpb@linux.ibm.com>, Madhavan Srinivasan <maddy@linux.ibm.com>, Shrikanth Hegde <sshegde@linux.ibm.com>, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v5 0/9] KVM: selftests: add powerpc support
-In-Reply-To: <asM-1-ptu1b_URqR@google.com>
-Date: Tue, 06 Oct 2026 08:13:01 +0530
-Message-ID: <ece3k0qy.ritesh.list@gmail.com>
-References: <cover.1790101179.git.ritesh.list@gmail.com> <pkxwkffc.ritesh.list@gmail.com> <asAydfQLscU6rXQL@google.com> <h5j3jn86.ritesh.list@gmail.com> <asMN_TAX-1_J3jiP@google.com> <fqykkc3j.ritesh.list@gmail.com> <asM-1-ptu1b_URqR@google.com>
+	dkim=pass (2048-bit key) header.d=realtek.com header.i=@realtek.com header.b="raBcIyYM"
+X-SpamFilter-By: ArmorX SpamTrap 5.80 with qID 6969OYuxC2776832, This message is accepted by code: ctloc85258
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=realtek.com; s=dkim;
+	t=1791278674; bh=RTPyiP+J6hqBLL7VsBt9Y65vQ+7IOuJay0DnTXhA7+Y=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:MIME-Version;
+	b=raBcIyYMPgdC4M2eG2zhqmzq9reDoXEDjIGQMH1DKAuyIjyk3Lw9tyXzuxw50hmMH
+	 b9bLubSU47U+Isg92aly6FmbZA902NUK82rLWWCOxUGUuLT1sa9YbyNJTSrsSFa69r
+	 YKj1hgVj12e4MnjeZF4ugdSk34OWu89bW7khTpO4BK5W+OzO27LXn4zA5KSL6HXCmW
+	 wfTuoiHS5h5MOQUiRynWE0D31uPP8qldTLNehSOvq2gPVhZnUimyGLecyHhBj5LU1p
+	 483pDM3EL4td92FzE7GwMMQqpvDE6W3LBFZoCXlC27E2Szkazjz2OVNfex2IOmeCcF
+	 7IpFdLz3w37cA==
+Received: from mail.realtek.com (rtkexhmbs02.realtek.com.tw[172.21.6.41])
+	by rtits2.realtek.com.tw (8.15.2/3.29/5.94) with ESMTPS id 6969OYuxC2776832
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
+	Tue, 6 Oct 2026 17:24:34 +0800
+Received: from RTKEXHMBS05.realtek.com.tw (10.21.1.55) by
+ RTKEXHMBS02.realtek.com.tw (172.21.6.41) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.49; Tue, 6 Oct 2026 17:24:35 +0800
+Received: from RTKEXHMBS06.realtek.com.tw (10.21.1.56) by
+ RTKEXHMBS05.realtek.com.tw (10.21.1.55) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.49; Tue, 6 Oct 2026 17:24:33 +0800
+Received: from RTKEXHMBS06.realtek.com.tw ([::1]) by
+ RTKEXHMBS06.realtek.com.tw ([fe80::b3cc:c263:b82d:e87c%10]) with mapi id
+ 15.02.2562.049; Tue, 6 Oct 2026 17:24:33 +0800
+From: Chih Kai Hsu <hsu.chih.kai@realtek.com>
+To: "netdev-bot+sashiko@kernel.org" <netdev-bot+sashiko@kernel.org>
+CC: "davem@davemloft.net" <davem@davemloft.net>, "kuba@kernel.org"
+	<kuba@kernel.org>, "netdev@vger.kernel.org" <netdev@vger.kernel.org>,
+	nic_swsd <nic_swsd@realtek.com>, "linux-kernel@vger.kernel.org"
+	<linux-kernel@vger.kernel.org>, "linux-usb@vger.kernel.org"
+	<linux-usb@vger.kernel.org>, "edumazet@google.com" <edumazet@google.com>,
+	"bjorn@mork.no" <bjorn@mork.no>, "pabeni@redhat.com" <pabeni@redhat.com>,
+	"andrew+netdev@lunn.ch" <andrew+netdev@lunn.ch>
+Subject: RE: [PATCH net-next v5 5/9] r8152: split r8157_hw_phy_cfg into
+ RTL8157 and RTL8159 variants
+Thread-Topic: [PATCH net-next v5 5/9] r8152: split r8157_hw_phy_cfg into
+ RTL8157 and RTL8159 variants
+Thread-Index: AQHdUYTkEma4fG9dkUqR3BHjNtno77buNq2AgAIO8nA=
+Date: Tue, 6 Oct 2026 09:24:33 +0000
+Message-ID: <64b9ad780af54796892a520bed4e1c37@realtek.com>
+References: <20261001091144.28191-6-nic_swsd@realtek.com>
+ <179119424162.434549.12438188375752636403@kernel.org>
+In-Reply-To: <179119424162.434549.12438188375752636403@kernel.org>
+Accept-Language: zh-TW, en-US
+Content-Language: zh-TW
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
 
-Sean Christopherson <seanjc@google.com> writes:
-
-> On Mon, Oct 05, 2026, Ritesh Harjani wrote:
->  > I think I'd even prefer to take on an #ifdef (to scope it to PPC if necessary)
->> > over open coding TEST_GEN_PROGS_COMMON.
->> 
->> Sure, so will add this check for kvm_create_max_vcpus()
->> 
->> #ifdef __powerpc64__
->>        TEST_REQUIRE(!is_pseries_lpar());
->> #endif 
->
-> Or maybe to avoid too many ifdefs, something like:
->
->   static inline kvm_is_ppc_pseries_lpar(void)
->   {
->           /*
->            * Comment about how this setup has unique limitations and isn't
->            * compatible with tests that create many VMs and/or vCPUs.
->            */
->   #ifdef __powerpc64___
->           return !access("/proc/device-tree/rtas/ibm,hypertas-functions", F_OK);
->   #else
->           return false;
->   #endif
->   }
->
-> Probably redundant naming to some extent, but having "ppc" in there would make it
-> super obvious it's a PPC-only check.
->  
-
-Sure. So I will get this definition added into kvm_util.h header file.
-
-
->> Actually I was thinking we may as well use the same check for now for
->> skipping hardware_disable_test on pseries. Because there also we suffer
->> from the same resource limitation. Let me know if that sounds ok to you
->> or do you want us to skip kvm_create_max_vcpus() only for now, since it
->> is part of TEST_GEN_PROGS_COMMON?
->> 
->> > LoongArch open coded its full test list
->> > for some reason, and in less than a year it has started missing out on new common
->> > tests.
->> >
->> >> (& maybe few others like vm_types_test) from that in v6.
->> >
->> > What's wrong with VM types test?  That one really should Just Work on all
->> > architectures.  It doesn't run on LoongArch, but I assume that's
->> > oversight?
->> 
->> So the test doesn't fail (it gets skipped). However this cap
->> "KVM_CAP_VM_TYPES" is only supported on x86 and since I was planning to
->> open code all common tests, hence I thought I may as well not add this
->> in the first place.
->
-> /facepalm
->
-> I completely forgot KVM_CAP_VM_TYPES is x86-only.  FWIW, I'd still say use
-> TEST_GEN_PROGS_COMMON if possible.
->
->> BTW, based on this discussion, I think I will re-arrange the patches in
->> the following order and send a v7. (The Makefile.kvm changes will only
->> get added after the main patch which adds powerpc support).
->> 
->> cfabdb049bd7 2026-10-05 [Ritesh Harjani (IBM)] (HEAD -> feat-ppc-kvm-selftests-new-sean-v7) KVM: selftests: Skip hardware_disable_test on pseries
->> 2b51fab87b95 2026-09-22 [Ritesh Harjani (IBM)] KVM: PPC: selftests: Skip idle-page check when running nested on pseries LPAR
->> f5d1de1be4e9 2026-10-05 [Ritesh Harjani (IBM)] KVM: selftests: Skip kvm_create_max_vcpus on pseries
->> e45ba15cea25 2026-10-03 [Ritesh Harjani (IBM)] KVM: PPC: selftests: Add helper for checking if running nested
->
-> Doesn't this one need to come first?  Or is this different than pseries LPAR?
->
-
-That is correct. The patches are in the reverse order taken from the
-output of: git log --oneline ...
-
-
->> 178c9bca0e20 2026-09-22 [Nicholas Piggin] KVM: PPC: selftests: add support for powerpc
->> 22320662e776 2026-09-11 [Ritesh Harjani (IBM)] KVM: selftests: Fix kvm_create_max_vcpus test for powerpc
->
-> This should come before "add support for powerpc", and should have a shortlog
-
-That is correct. The patches are in the reverse order taken from the
-output of: git log --oneline ...
-
-> more like "Skip max vCPU IDs test on PPC with <whatever is a good description of the SMT cap>"
->
-
-Sure, I will change this to something like:
-
-  KVM: selftests: Skip the max vCPU ID test when KVM_CAP_PPC_SMT is set
-  
-  kvm_create_max_vcpus creates vCPUs from 0..MAX_VCPUS-1, then again
-  with ids at the top of KVM_CAP_MAX_VCPU_ID.
-  
-  On PowerPC the vCPU id is not a flat index: it encodes SMT thread plus
-  core. So on powerpc maximum permitted vCPU ID depends on the VM's SMT
-  mode and the maximum reported by KVM_CAP_MAX_VCPU_ID exceeds a simple
-  non-SMT VM's limit.
-  
-  So, skip that second loop when KVM_CAP_PPC_SMT is non-zero. The cap is
-  0 on other arches, so they still run it. The 0..MAX_VCPUS pass is
-  unchanged.
-
->> 11b5712b213b 2026-09-22 [Ritesh Harjani (IBM)] KVM: selftests: Move memslot_perf_test off the 256M ELF load address
->> 63c900860b5f 2026-09-22 [Ritesh Harjani (IBM)] KVM: selftests: Don't limit LE dirty-bitmap bitops to s390x
->> 
->> 
->> Please let me know if this sounds ok?
->
-> Ya, works for me!
-
-Thanks! Will send v7 shortly with the discussed changes.
-
--ritesh
+PiBUaGFuayB5b3UgZm9yIHlvdXIgY29udHJpYnV0aW9uISBTYXNoaWtvIEFJIHJldmlldyBmb3Vu
+ZCAyIHBvdGVudGlhbA0KPiBpc3N1ZShzKSB0byBjb25zaWRlci4NCj4gDQo+IENyaXRpY2FsOiAw
+IMK3IEhpZ2g6IDAgwrcgTWVkaXVtOiAxIMK3IExvdzogMQ0KPiANCj4gSWYgeW91IGJlbGlldmUg
+bm9uZSBvZiB0aGUgaXNzdWVzIGFyZSBsZWdpdGltYXRlLCBwbGVhc2UgcmVwbHkgdG8gZWFjaCBp
+c3N1ZSBvZg0KPiBNZWRpdW0gc2V2ZXJpdHkgb3IgaGlnaGVyIGFuZCBleHBsYWluIHdoeSB0aGUg
+QUkgaXMgd3JvbmcuDQo+IElmIGFueSBvZiB0aGVtIGFyZSBsZWdpdGltYXRlIGFuZCB5b3UgcGxh
+biB0byByZXNwaW4sIHBsZWFzZSBsZXQgcGF0Y2h3b3JrIGtub3cNCj4gYnkgaW5jbHVkaW5nICJw
+dy1ib3Q6IGNyIiBhcyBhIHNlcGFyYXRlIGxpbmUgYXQgdGhlIGVuZCBvZiB5b3VyIHJlcGx5IChv
+bmUgc3VjaA0KPiByZXBseSBwZXIgc2VyaWVzIGlzIGVub3VnaCkuDQo+IA0KPiAtIFtNZWRpdW1d
+IHI4MTU5X2h3X3BoeV9jZmcoKSAoZHJpdmVycy9uZXQvdXNiL3I4MTUyLmMsDQo+ICAgUlRMX1ZF
+Ul8xN19RRk42OC9RRk4xMDApIG5vIGxvbmdlciBjYWxscyBydGxfZWVlX2VuYWJsZSh0cCwgZmFs
+c2UpLOKApg0KPiAtIFtMb3ddIFRoZSBjb21taXQgbWVzc2FnZSBzYXlzIHRoZSBzcGxpdCBnaXZl
+cyBlYWNoIGZ1bmN0aW9uICdpdHMgb3duDQo+ICAgY29weSBvZiB0aGUgc2hhcmVkIHByb2xvZ3Vl
+L2VwaWxvZ3VlIGluc3RlYWQgb2Ygc3dpdGNoaW5nIG9uIHZlcnNpb27igKYNCj4gDQo+IC0tDQo+
+IA0KPiByODE1Mjogc3BsaXQgcjgxNTdfaHdfcGh5X2NmZyBpbnRvIFJUTDgxNTcgYW5kIFJUTDgx
+NTkgdmFyaWFudHMNCj4gDQo+IFRoaXMgcGF0Y2ggc3BsaXRzIHI4MTU3X2h3X3BoeV9jZmcoKSBp
+bnRvIHI4MTU3X2h3X3BoeV9jZmcoKSBmb3INCj4gUlRMX1ZFUl8xNiBhbmQgYSBuZXcgcjgxNTlf
+aHdfcGh5X2NmZygpIGZvciBSVExfVkVSXzE3X1FGTjY4L1FGTjEwMC4NCj4gVGhlDQo+IFJUTDgx
+NTkgdmFyaWFudCBubyBsb25nZXIgY2FsbHMgcnRsX2VlZV9lbmFibGUodHAsIGZhbHNlKSwgY2hh
+bmdlcyBob3cgdGhlIEVFRQ0KPiBjbG9jayBkaXZpZGVyIGFuZCAweGE1ZWEgYXJlIHByb2dyYW1t
+ZWQsIGFuZCBhZGRzIG5ldyBQSFkgdHVuaW5nDQo+IHBhcmFtZXRlcnMuIEl0IGFsc28gYWRkcyB0
+aGUgc3JhbTJfc2V0X2JpdHMoKS9zcmFtMl9jbHJfYml0cygpIGhlbHBlcnMuDQo+IA0KPiA+IGRp
+ZmYgLS1naXQgYS9kcml2ZXJzL25ldC91c2IvcjgxNTIuYyBiL2RyaXZlcnMvbmV0L3VzYi9yODE1
+Mi5jIGluZGV4DQo+ID4gMWQ3Y2NhNTUxMDRjYy4uMTNhNTlhMWRmMzdlYSAxMDA2NDQNCj4gPiAt
+LS0gYS9kcml2ZXJzL25ldC91c2IvcjgxNTIuYw0KPiA+ICsrKyBiL2RyaXZlcnMvbmV0L3VzYi9y
+ODE1Mi5jDQo+IA0KPiBbIC4uLiBdDQo+IA0KPiA+ICtzdGF0aWMgdm9pZCByODE1OV9od19waHlf
+Y2ZnKHN0cnVjdCByODE1MiAqdHApIHsNCj4gPiArICAgICB1MTYgZGF0YTsNCj4gPiArDQo+ID4g
+KyAgICAgcjgxNTZiX3dhaXRfbG9hZGluZ19mbGFzaCh0cCk7DQo+IA0KPiBbIC4uLiBdDQo+IA0K
+PiA+ICsgICAgIHI4MTUyX21kaW9fdGVzdF9hbmRfY2xyX2JpdCh0cCwgTUlJX0JNQ1IsIEJNQ1Jf
+UERPV04pOw0KPiA+ICsNCj4gPiArICAgICByODE1M19hbGRwc19lbih0cCwgZmFsc2UpOw0KPiA+
+ICsNCj4gPiArICAgICBkYXRhID0gcjgxNTNfcGh5X3N0YXR1cyh0cCwgUEhZX1NUQVRfTEFOX09O
+KTsNCj4gDQo+IFtTZXZlcml0eTogTWVkaXVtXQ0KPiBXaXRoIHJ0bF9lZWVfZW5hYmxlKHRwLCBm
+YWxzZSkgZ29uZSwgZG9lcyBhbnl0aGluZyBvbiB0aGlzIHBhdGggc3RpbGwgd3JpdGUgdGhlDQo+
+IEVFRS1kaXNhYmxlZCBzdGF0ZSB0byB0aGUgY2hpcCB3aGVuIHRwLT5lZWVfZW4gaXMgZmFsc2U/
+DQo+IA0KPiBUaGUgZXBpbG9ndWUgb2YgcjgxNTlfaHdfcGh5X2NmZygpIG9ubHkgZG9lcyB0aGlz
+Og0KPiANCj4gICAgICAgICBpZiAodHAtPmVlZV9lbikNCj4gICAgICAgICAgICAgICAgIHJ0bF9l
+ZWVfZW5hYmxlKHRwLCB0cnVlKTsNCj4gDQo+IEJlZm9yZSB0aGlzIHBhdGNoLCBSVExfVkVSXzE3
+IGFsd2F5cyBjYWxsZWQgcnRsX2VlZV9lbmFibGUodHAsIGZhbHNlKSBmaXJzdC4NCj4gVGhyb3Vn
+aCByODE1Nl9lZWVfZW4odHAsIGZhbHNlKSwgdGhhdCBjYWxsIGNsZWFycyBFRUVfUlhfRU4gYW5k
+IEVFRV9UWF9FTg0KPiBpbiBQTEFfRUVFX0NSLCBFRUUxMF9FTiBpbiBPQ1BfRUVFX0NGRywgYW5k
+IHRoZSAyLjVHLzVHIGJpdHMgaW4NCj4gT0NQX0VFRV9BRFYyLiBJdCB0aGVuIHdyaXRlcyAwIHRv
+IE9DUF9FRUVfQURWLiBTbyBhdCB0aGUgZW5kIG9mIHRoZQ0KPiBmdW5jdGlvbiB0aGUgaGFyZHdh
+cmUgYWx3YXlzIG1hdGNoZWQgdHAtPmVlZV9lbi4NCj4gDQo+IFRha2UgYSB1c2VyIHdobyB0dXJu
+cyBFRUUgb2ZmOg0KPiANCj4gcjgxNTJfc2V0X2VlZSgpDQo+ICAgICB0cC0+ZWVlX2VuID0gZWVl
+LT5lZWVfZW5hYmxlZDsgICAvKiBmYWxzZSAqLw0KPiAgICAgcnRsX2VlZV9lbmFibGUodHAsIHRw
+LT5lZWVfZW4pOw0KPiANCj4gVGhlIGRldmljZSB0aGVuIGxvc2VzIHBvd2VyIG9yIGlzIHJlc2V0
+Og0KPiANCj4gcjgxNTZfdXBzX2VuKHRwLCBmYWxzZSkgICAvKiBQQ1VUX1NUQVRVUyBzZXQgKi8N
+Cj4gICAgIHRwLT5ydGxfb3BzLmh3X3BoeV9jZmcodHApICAgLT4gcjgxNTlfaHdfcGh5X2NmZygp
+DQo+ICAgICBydGw4MTUyX3NldF9zcGVlZCguLi4pDQo+IA0KPiBUaGUgc2FtZSBhcHBsaWVzIHRv
+IHJ0bDgxNTJfcmVzZXRfcmVzdW1lKCkgLT4gaHdfcGh5X3dvcmsgLT4NCj4gcjgxNTlfaHdfcGh5
+X2NmZygpLiBOZWl0aGVyIHBhdGggdG91Y2hlcyB0aGUgRUVFIHJlZ2lzdGVycywgc28gdGhleSBr
+ZWVwDQo+IHRoZWlyIHBvc3QtcmVzZXQgb3IgZmlybXdhcmUgZGVmYXVsdHMuDQo+IA0KPiBJZiB0
+aG9zZSBkZWZhdWx0cyBoYXZlIEVFRSBhZHZlcnRpc2VkLCBjb3VsZCB0aGUgUlRMODE1OSBhZHZl
+cnRpc2UgRUVFIGFuZA0KPiBlbnRlciBMUEkgYWZ0ZXIgdGhlIHVzZXIgZGlzYWJsZWQgaXQ/IHI4
+MTUzX2dldF9lZWUoKSB3b3VsZCB0aGVuIHJlcG9ydA0KPiBlZWVfZW5hYmxlZCBmcm9tIHRwLT5l
+ZWVfZW4sIGJ1dCB0aGUgYWR2ZXJ0aXNlZCBtYXNrIGZyb20NCj4gT0NQX0VFRV9BRFYvT0NQX0VF
+RV9BRFYyLg0KPiANCj4gVGhlIGNvbW1pdCBtZXNzYWdlIHNheXM6DQo+IA0KPiAgICAgUlRMODE1
+OSBkb2Vzbid0IG5lZWQgRUVFIGRpc2FibGVkIGJlZm9yZSByZXByb2dyYW1taW5nIFBIWQ0KPiAg
+ICAgcGFyYW1ldGVycywgc28gcjgxNTlfaHdfcGh5X2NmZygpIGRyb3BzIHRoZSBydGxfZWVlX2Vu
+YWJsZSh0cCwNCj4gICAgIGZhbHNlKSBjYWxsIHRoYXQgcjgxNTdfaHdfcGh5X2NmZygpIGtlZXBz
+Lg0KPiANCj4gVGhhdCBjYWxsIHdhcyBhbHNvIHRoZSBvbmx5IHBsYWNlIHdoZXJlIGVlZV9lbiA9
+PSBmYWxzZSBnb3QgYXBwbGllZCB0byBmcmVzaGx5DQo+IHJlc2V0IGhhcmR3YXJlLiBUaGUgb3Ro
+ZXIgaHdfcGh5X2NmZyB2YXJpYW50cyBrZWVwIHRoZQ0KPiBkaXNhYmxlLXRoZW4tY29uZGl0aW9u
+YWxseS1lbmFibGUgcGF0dGVybiwgYW5kIHI4MTUyYl9od19waHlfY2ZnKCkgdXNlcw0KPiBydGxf
+ZWVlX2VuYWJsZSh0cCwgdHAtPmVlZV9lbikuDQo+IA0KPiBXb3VsZCBjYWxsaW5nIHJ0bF9lZWVf
+ZW5hYmxlKHRwLCB0cC0+ZWVlX2VuKSBpbiB0aGUgcjgxNTlfaHdfcGh5X2NmZygpDQo+IGVwaWxv
+Z3VlIHJlc3BlY3QgdGhlIGRhdGFzaGVldCByZXF1aXJlbWVudCBhbmQgc3RpbGwgYXBwbHkgdGhl
+IHVzZXIncyBzZXR0aW5nPw0KDQpZZXMsIEkgd2lsbCBmaXggaXQuDQoNCj4gDQo+ID4gKyAgICAg
+V0FSTl9PTl9PTkNFKGRhdGEgIT0gUEhZX1NUQVRfTEFOX09OKTsNCj4gPiArDQo+ID4gKyAgICAg
+LyogUEZNIG1vZGUgKi8NCj4gPiArICAgICBvY3Bfd29yZF9jbHJfYml0cyh0cCwgTUNVX1RZUEVf
+UExBLCBQTEFfUEhZX1BXUiwNCj4gPiArIFBGTV9QV01fU1dJVENIKTsNCj4gDQo+IFsgLi4uIF0N
+Cj4gDQo+ID4gKyAgICAgLyogRGlzYWJsZSBieXBhc3NfdHVybl9vZmZfY2xrX2luX2FsZHBzICov
+DQo+ID4gKyAgICAgb2NwX2J5dGVfY2xyX2JpdHModHAsIE1DVV9UWVBFX1BMQSwgMHhkM2M4LCBC
+SVQoMCkpOw0KPiA+ICsNCj4gPiArICAgICBzd2l0Y2ggKHRwLT52ZXJzaW9uKSB7DQo+ID4gICAg
+ICAgY2FzZSBSVExfVkVSXzE3X1FGTjY4Og0KPiA+ICAgICAgIGNhc2UgUlRMX1ZFUl8xN19RRk4x
+MDA6DQo+IA0KPiBbU2V2ZXJpdHk6IExvd10NCj4gVGhpcyBpc24ndCBhIGJ1ZywgYnV0IHRoZSBj
+b21taXQgbWVzc2FnZSBzYXlzIGVhY2ggZnVuY3Rpb24gZ2V0czoNCj4gDQo+ICAgICBpdHMgb3du
+IGNvcHkgb2YgdGhlIHNoYXJlZCBwcm9sb2d1ZS9lcGlsb2d1ZSBpbnN0ZWFkIG9mIHN3aXRjaGlu
+ZyBvbg0KPiAgICAgdmVyc2lvbiBtaWQtZnVuY3Rpb24uDQo+IA0KPiBCb3RoIGZ1bmN0aW9ucyBz
+dGlsbCBzd2l0Y2ggb24gdHAtPnZlcnNpb24gbWlkLWZ1bmN0aW9uLg0KPiBydGxfb3BzX2luaXQo
+KSBhc3NpZ25zIHI4MTU3X2h3X3BoeV9jZmcoKSBvbmx5IGZvciBSVExfVkVSXzE2LCBhbmQNCj4g
+cjgxNTlfaHdfcGh5X2NmZygpIG9ubHkgZm9yIFJUTF9WRVJfMTdfUUZONjgvUUZOMTAwLg0KPiAN
+Cj4gVGhhdCBtZWFucyB0aGUgc3dpdGNoICh0cC0+dmVyc2lvbikgaGVyZSBhbmQgdGhlIG9uZSBp
+bg0KPiByODE1N19od19waHlfY2ZnKCkgZWFjaCBoYXZlIGp1c3Qgb25lIHJlYWNoYWJsZSBjYXNl
+LiBUaGUgZGVmYXVsdCBicmFuY2hlcw0KPiBjYW4gbmV2ZXIgcnVuLg0KPiANCj4gQ291bGQgdGhl
+c2Ugc3dpdGNoZXMgYmUgZHJvcHBlZCwgb3IgdGhlIGNvbW1pdCBtZXNzYWdlIGNoYW5nZWQgdG8g
+bWF0Y2gNCj4gdGhlIGNvZGU/DQoNCk9rLCBJIHdpbGwgcmV3b3JkIGl0Lg0KDQo+IA0KPiBbIC4u
+LiBdDQo+IA0KPiAtLQ0KPiBTYXNoaWtvIEFJIHJldmlldyDCtw0KPiBodHRwczovL25ldGRldi1h
+aS5ib3RzLmxpbnV4LmRldi9zYXNoaWtvLyMvcGF0Y2hzZXQvMjAyNjEwMDEwOTExNDQuMjgxOTEt
+MQ0KPiAtbmljX3N3c2QlNDByZWFsdGVrLmNvbQ0KDQpCZXN0IFJlZ2FyZHMsDQpDaGloLUthaQ0K
