@@ -1,120 +1,238 @@
-Received: from mail-gw01.astralinux.ru (mail-gw01.astralinux.ru [37.230.196.243])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com [209.85.128.45])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 637EF3B3C12;
-	Tue,  6 Oct 2026 15:45:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=37.230.196.243
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B0FAE463B91
+	for <linux-kernel@vger.kernel.org>; Tue,  6 Oct 2026 15:46:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.45
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791301543; cv=none; b=NZZ/hbCLRN+JQbdDKYLVGSxU8yHgyoBxLZZtKrsdzRbaqMShqKUIaK2FjAx/3LW5erlOFDH29QAJybAwnsAv04+xmQQOKtHVCdSRgrXOtcJlolK6HkhklH6owLZMPksgX5U2j7EIXxqM/8ARrCWrM3QcmShHyY5nk2lqMN7nkGo=
+	t=1791301580; cv=none; b=J/NzLpQEKgor7Y4+t9X3jd9UzSX9hUSyiVQlBQgzhDWzfCxNPmfnEddzxM06/1KEUagsqNIxW7jFcOkW+sEb9slx8niSEfOAVo+ucY+UzkLEg1wIPYRUgt9fMw0WEVnyRk0qAfDDh+3HcRyd+0di0/d9K22XAvuyndN1QRQOihc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791301543; c=relaxed/simple;
-	bh=PrlNmfCQUKdw9Wauj0oVzcv3V3RY/rPLLhINapCPhrI=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=T/mTOv50WIHSWFQXiLy0fi3mQdZoKj9iuVovxT02DJxytQ8gWAeN49fQC8BmLD/sUKHEVRWYO9ZHAvQ/2VgxObBmSY2u6KhA5zlH9Eu27w33u0GIFw/zUqZfpfEMsBumUbZpOOy2evqGk1om3KPRio1Qm6vJRo7HI/kowTXQ5PE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=astralinux.ru; spf=pass smtp.mailfrom=astralinux.ru; dkim=pass (2048-bit key) header.d=astralinux.ru header.i=@astralinux.ru header.b=hhgQr4aX; arc=none smtp.client-ip=37.230.196.243
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=astralinux.ru
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=astralinux.ru
+	s=arc-20240116; t=1791301580; c=relaxed/simple;
+	bh=NdKVx/kAAvIcfHYBklfeMUqMKDPbPiekB2a6KQ9cR4Y=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=Imwa3YGeg9WqUOl+AA3N8TeEfx5dD9ZqmIcUylqQykN3bAgNxyQm6YigNHmLXP+pzBohL8CrzTkwrESP+a76YvcsiipO8o0eOSwQMzQ9pDPi1P3W7HXOTfMAcNThSGyNitlpC00WL+ZjsvFgOH0C0kE8j/aZSV/pcuvJgwY3PbM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linbit.com; spf=pass smtp.mailfrom=linbit.com; dkim=pass (2048-bit key) header.d=linbit.com header.i=@linbit.com header.b=TY9toAUd; arc=none smtp.client-ip=209.85.128.45
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linbit.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linbit.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=astralinux.ru header.i=@astralinux.ru header.b="hhgQr4aX"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=astralinux.ru;
-	s=mail; t=1791301536;
-	bh=PrlNmfCQUKdw9Wauj0oVzcv3V3RY/rPLLhINapCPhrI=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=hhgQr4aXTjU5C3Pgz8R8dkCcXQvgbtmG21IKGtZmnv22kclziwaQ4UZvrjqbvjPs5
-	 oUfCN2AItlaKdkDbWcvE9ZXpjviLt7pd6KwXpWQZahhBtDU1dWFfv8+txExSRUoEfJ
-	 o8BeP4OE0mGKmlTKUbIa9rzOfTMbETH8r691jbIaaN6P3m44WnnV5Tio6iZuVRhZ21
-	 WgUMq2NTbvdHtldl37I6Ka5QuR13GZpl8n5sdG/Dhl2378Aejw+fr/c2ESBToh6zR0
-	 XhmVPWVWxY6nIEzPYX++qzgxJNNWwJ1fgrK7WwTgtXlrCQE47l3FEQG5NRr9iVCA+x
-	 auiOCixFlorjQ==
-Received: from gca-sc-a-srv-ksmg01.astralinux.ru (localhost [127.0.0.1])
-	by mail-gw01.astralinux.ru (Postfix) with ESMTP id 1C53826C86;
-	Tue,  6 Oct 2026 18:45:36 +0300 (MSK)
-Received: from new-mail.astralinux.ru (unknown [10.205.207.6])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (P-256) server-digest SHA256)
-	(No client certificate requested)
-	by mail-gw01.astralinux.ru (Postfix) with ESMTPS;
-	Tue,  6 Oct 2026 18:45:14 +0300 (MSK)
-Received: from rbta-msk-lt-169874.astralinux.ru (unknown [10.198.62.171])
-	by new-mail.astralinux.ru (Postfix) with ESMTPA id 4hzgZ21R62zDZD;
-	Tue, 06 Oct 2026 18:45:14 +0300 (MSK)
-From: Mikhail Dmitrichenko <mdmitrichenko@astralinux.ru>
-To: Elazar Leibovich <elazarl@gmail.com>
-Cc: Sivan Zohar-Kotzer <sivany32@gmail.com>,
-	Daniel Lezcano <daniel.lezcano@kernel.org>,
-	"Rafael J. Wysocki" <rafael@kernel.org>,
-	Lukasz Luba <lukasz.luba@arm.com>,
-	linux-pm@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 0/2] powercap: dtpm: Fix out-of-bounds read in the set_pd_power_limit() callbacks
-Date: Tue,  6 Oct 2026 18:43:59 +0300
-Message-Id: <20261006154359.132119-1-mdmitrichenko@astralinux.ru>
-X-Mailer: git-send-email 2.39.2
-In-Reply-To: <20260612062536.9147-1-elazarl@gmail.com>
-References: <20260612062536.9147-1-elazarl@gmail.com>
+	dkim=pass (2048-bit key) header.d=linbit.com header.i=@linbit.com header.b="TY9toAUd"
+Received: by mail-wm1-f45.google.com with SMTP id 5b1f17b1804b1-4a1728d8dfcso21385455e9.1
+        for <linux-kernel@vger.kernel.org>; Tue, 06 Oct 2026 08:46:18 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linbit.com; s=google; t=1791301577; x=1791906377; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=f/gteuD3CKm9wTyoGyLA2Y7vgXDVvYBBJ9de/wZCxOo=;
+        b=TY9toAUd1WymGHn/pSev/f4bR5bgpjMNBoJXNbNjgUVexf03yc+ucK1Hqi09zBiO8F
+         mL662qfgDK25MQHtraRkRunTH8L9GbFtLPSxdWovsDPXXKPuCVgpMq2eDgEirbw8s6EA
+         dgxYlNBJqNbkIHh42vV9fECbrCzu7jcXxwYuRF4nLrd7v0uNrGVJVb0/LYf8I8q0fqgE
+         BJlPPrADDIJeFzmLx6Eci+QcfDffatlC1V3JzMQe+wN/VCoOZ4P4vSfgbuIlyiRFqJdp
+         P5BxmWTE0hAHnZRM/hE8c1vo6n3wsT+txQOQvPVl3drcVzB/VdU9bX+Oa1M/CvwYIQzZ
+         XC+Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791301577; x=1791906377;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=f/gteuD3CKm9wTyoGyLA2Y7vgXDVvYBBJ9de/wZCxOo=;
+        b=u/wmInwqfC/0RbwsvP8lq3ttZ2UySaNbrsASL3Jz0lEE0/gDbtYBAhy11CHOUUnzPz
+         U2gsTfd7Qrit24bMv9TbWbc45SE6NSExVO26FoUNCh9b4QQ0x1Tb3FciUDY2/3qYcVaU
+         VSYl898evJRIyx/Ht5nyvwr+D5wQeptZihryOBovXH7v7ugWtBSmk3cjN0V2Zu+swfOp
+         ejwKf3Fk2qiSxCbBs75tP0JKWBoI1x07ux8AF4iqRnIeA+ZPIdBKk2da2Qw2j/hZuYJU
+         t4o1Cl3S2X6rvyaXy/n/FH6kVPrlPF6o9jR715arE/vLGA9400ZFSISuaZaSN2Sb5JLI
+         q8hA==
+X-Forwarded-Encrypted: i=1; AKwUvBwXCI2YSsXKpdbnLA9LI7HLXuunkKouy5FbFA30UYz4Lcf17Op0imDKkbGggif6zfIKYsUtVOrMYxYHb80=@vger.kernel.org
+X-Gm-Message-State: AFuF++lWPm7ab8qDaWe6FC4SHCbB+6tM13Svm+wm/biW7E+Gh6miDI1I
+	4wX4oAQk8d08A/lJ7AW06UTvr9zoWXFJmjsmf1kOcYnet2TmzCUy2RNHzCWQrYiTKTNaUpLd7Zm
+	75bb237o=
+X-Gm-Gg: AYBFou3ck+mLFSK6g3w82wCIhlJ0dJBLQqUmiFT1xrzyXzlDIuJ3bvD0tGpVNQvWPD2
+	eZJssXXwU563TXSqw4CYhwwRtWSgU75gORrExKnkj03jLn11NXtM9Gy646u42Ko1nDiN+IZAC1V
+	EQv8sWZmVs1GnKtB0s8bznRV5YVs6BWLE/u6ymTANhps0cpiHpVDVy7N6ArNC0S+mh+A7AIJijb
+	dDqLlX+sx5F8mUP9/QViDaWlBXHjxrRaP8wOfsTGwjLanElKl7VbGXKYC9HSgXabb+B++D+rd1v
+	fd5lb8ZY8lOM/NSYTWvVHJyLvqhbDBLphEQO+n6RlrCAZhvoz8COkDZWkeDW7clwhtdTwmmJSTc
+	fIUXiLtHHsoeGPRz9oZssQgUx2nspeICd9g7egZCDmqZSw+ItvXXkXVHkF8CPmM2qyv0Vm+Fcb9
+	eo+nTXVqyABs4+E869zGvmr4KE3e71BPX1siwkRa/LltBPsTYU5o1uZfFFHJHUWGaefUgNm3SRs
+	6JxeOQU0sA62WlN9XNzJXKu2Yresu25
+X-Received: by 2002:a05:600c:4687:b0:4a1:777b:8a12 with SMTP id 5b1f17b1804b1-4a1777b8a37mr65460095e9.14.1791301576850;
+        Tue, 06 Oct 2026 08:46:16 -0700 (PDT)
+Received: from localhost.localdomain ([2001:4bc9:b00f:d376:7c33:9a50:ef33:f391])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a178c5b9d6sm72087205e9.13.2026.10.06.08.46.15
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 06 Oct 2026 08:46:16 -0700 (PDT)
+From: =?UTF-8?q?Christoph=20B=C3=B6hmwalder?= <christoph.boehmwalder@linbit.com>
+To: Jens Axboe <axboe@kernel.dk>
+Cc: Philipp Reisner <philipp.reisner@linbit.com>,
+	Lars Ellenberg <lars@linbit.com>,
+	drbd-dev@lists.linux.dev,
+	linux-block@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	=?UTF-8?q?Christoph=20B=C3=B6hmwalder?= <christoph.boehmwalder@linbit.com>
+Subject: [PATCH v2 00/20] drbd: DRBD 9 rework
+Date: Tue,  6 Oct 2026 17:45:47 +0200
+Message-ID: <20261006154607.3936501-1-christoph.boehmwalder@linbit.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-KSMG-AntiPhishing: NotDetected, bases: 2026/10/06 15:19:00
-X-KSMG-AntiSpam-Auth: dkim=none
-X-KSMG-AntiSpam-Envelope-From: mdmitrichenko@astralinux.ru
-X-KSMG-AntiSpam-Info: LuaCore: 127 0.3.127 0884f7b061fa529b810563f359267cd65d2ec05c, {date_rfc_vio_soft_silent}, {Tracking_uf_ne_domains}, {Tracking_internal2}, {Tracking_from_domain_doesnt_match_to}, d41d8cd98f00b204e9800998ecf8427e.com:7.1.1;new-mail.astralinux.ru:7.1.1;lore.kernel.org:7.1.1;127.0.0.199:7.1.2;astralinux.ru:7.1.1, FromAlignment: s
-X-KSMG-AntiSpam-Interceptor-Info: scan successful
-X-KSMG-AntiSpam-Lua-Profiles: 206479 [Oct 06 2026]
-X-KSMG-AntiSpam-Method: none
-X-KSMG-AntiSpam-Rate: 0
-X-KSMG-AntiSpam-Status: not_detected
-X-KSMG-AntiSpam-Version: 6.1.1.27
-X-KSMG-AntiVirus: Kaspersky Secure Mail Gateway, version 2.1.0.7854, bases: 2026/10/06 15:00:00 #28658794
-X-KSMG-AntiVirus-Status: NotDetected, skipped
-X-KSMG-LinksScanning: NotDetected, bases: 2026/10/06 15:19:00
-X-KSMG-Message-Action: skipped
-X-KSMG-Rule-ID: 1
 
-Hi,
+As discussed (context: [0]), here is our DRBD 9 rework series, intended
+for linux-next via for-7.x/drbd.
 
-On Fri, Jun 12, 2026 at 09:25:34AM +0300, Elazar Leibovich wrote:
-> The powercap core clamps the requested limit to dtpm->power_min, but
-> that clamp can be computed from stale data: in dtpm_cpu the number of
-> online CPUs may have grown since power_min was last updated, and in
-> dtpm_devfreq the EM table may have been updated at runtime via
-> em_dev_update_perf_domain(). In both cases the clamped limit can still
-> be below the first state's power, making the underflow reachable.
+This replays about 10-15 years of active out-of-tree development work
+[1], depending on your way of counting. The out-of-tree module has
+severely diverged from the in-tree version over the years, which is
+what we are aiming to fix now.
 
-The underflow is also reachable without any race, by setting a power
-limit on a non-leaf node of the DTPM hierarchy.
+Hopefully that somewhat excuses (or at least explains) the massive
+diffs -- we've tried to come up with a way to group the changes by
+topic, but I realize it's still not exactly trivial to review.
 
-__set_power_limit_uw() distributes the limit of a node among its
-children proportionally to their weights, and the weights are computed
-from power_max only. The share of a child is not clamped to its own
-power_min, so when the limit of the parent is close to its power_min,
-a child whose power_min is high compared to its power_max gets a share
-below the power of its lowest performance state. set_pd_power_limit()
-then breaks at i == 0 and reads table[-1].
+We've been polishing this series for a while now, and we have taken
+great care to make it as "upstream-presentable" as possible. That said,
+there are still probably imperfections. It's a start -- feedback
+welcome!
 
-For instance, with two CPU performance domains under the same parent,
-one with a 80-1200 range and the other one with a 400-3000 range, the
-parent's range is 480-4200. Writing 500 to the parent's
-constraint_0_power_limit_uw gives a share of about 357 to the second
-domain, below its minimum of 400. The hierarchy created by
-drivers/soc/rockchip/dtpm.c (the CPU clusters and the GPU under the
-'package' node) has this shape. Whether a given limit triggers it
-depends on the energy model values of the platform.
+The netlink interface has been reworked so that userspace is not
+broken: the existing "drbd" generic netlink family keeps being served
+at version 1, and this series does not touch its generated
+serialization or its UAPI header.
+Every shipped drbd-utils release therefore keeps working against this
+driver. DRBD 9's own utilities speak a new family, "drbd2", written as
+a YNL specification under Documentation/netlink/specs/ and following
+current genetlink conventions; its generated code is checked in as
+usual. The driver registers both families and translates each onto the
+same wire-neutral core, so the multi-peer administration model is only
+reachable through drbd2, while version-1 clients see the single-peer
+semantics they expect.
 
-So this series also fixes an out-of-bounds read deterministically
-reachable from sysfs, by a single write to the power limit of a parent
-node.
+The RDMA and load-balancing TCP (lb-tcp) transports are not part of
+this series; they will be submitted separately once they have had the
+same treatment. The rdma_ctrl_rcvbuf_size
+and rdma_ctrl_sndbuf_size net options do remain in the UAPI: they are
+generic transport options that are interpreted by whichever transport is
+in use, so there is no reason to remove and later re-add them.
 
-I've posted a separate patch fixing the distribution itself, so a child
-doesn't get less than its minimum power when the parent's limit allows
-it [1]. It doesn't replace this series, which is still needed for the
-stale power_min cases you described.
+The base for these patches is for-7.4/block, plus a set of preparation
+patches that were sent earlier but have not yet been applied [2].
 
-[1] https://lore.kernel.org/all/20261006151519.126065-1-mdmitrichenko@astralinux.ru/
+As discussed, the goal is to get this applied to a for-7.x/drbd branch
+so it can land in linux-next via block-next. After letting it mature
+in linux-next for a while, it should go in via the block tree.
 
 Thanks,
-Mikhail
+Christoph
+
+[0] https://lore.kernel.org/linux-next/899e0337-9642-4ca6-9050-aeab14fa22ef@kernel.dk/
+[1] https://github.com/LINBIT/drbd
+[2] https://lore.kernel.org/linux-block/20260923140608.1116713-1-christoph.boehmwalder@linbit.com/
+
+
+Changes since v1:
+- New modern YNL-based drbd2 netlink family
+- Compat layer that serves the old drbd v1 netlink family for userspace
+  backward compatibility
+- Dropped rdma and lb-tcp transports to reduce the diff size, these will
+  be sent later
+- Incoroporated review feedback from the previous series
+- Many checkpatch/style fixes
+
+
+Christoph Böhmwalder (20):
+  drbd: mark as BROKEN during DRBD 9 rework
+  drbd: extend wire protocol definitions for DRBD 9
+  drbd: introduce DRBD 9 on-disk metadata format
+  drbd: add transport layer abstraction
+  drbd: add TCP transport implementation
+  drbd: add DAX/PMEM support for metadata access
+  drbd: add optional compatibility layer for DRBD 8.4
+  drbd: add application/resync IO synchronization documentation
+  drbd: rework sender for DRBD 9 multi-peer
+  drbd: replace per-device state model with multi-peer data structures
+  drbd: rewrite state machine for DRBD 9 multi-peer clusters
+  drbd: rework activity log and bitmap for multi-peer replication
+  drbd: rework request processing for DRBD 9 multi-peer IO
+  drbd: rework module core for DRBD 9 transport and multi-peer
+  drbd: rework receiver for DRBD 9 transport and multi-peer protocol
+  drbd: rework the netlink core for DRBD 9
+  drbd: serve the "drbd" genl family at version 1 for existing userspace
+  drbd: add the "drbd2" genl family
+  drbd: update monitoring interfaces for multi-peer topology
+  drbd: remove BROKEN for DRBD
+
+ .../application-resync-synchronization.rst    |   208 +
+ .../admin-guide/blockdev/drbd/index.rst       |     1 +
+ Documentation/netlink/specs/drbd2.yaml        |  2476 +++
+ drivers/block/drbd/Kconfig                    |    43 +
+ drivers/block/drbd/Makefile                   |     9 +-
+ drivers/block/drbd/drbd2_nl_gen.c             |   748 +
+ drivers/block/drbd/drbd2_nl_gen.h             |   107 +
+ drivers/block/drbd/drbd_actlog.c              |  1267 +-
+ drivers/block/drbd/drbd_bitmap.c              |  1989 +-
+ drivers/block/drbd/drbd_config.h              |    44 +-
+ drivers/block/drbd/drbd_dax_pmem.c            |   172 +
+ drivers/block/drbd/drbd_dax_pmem.h            |    43 +
+ drivers/block/drbd/drbd_debugfs.c             |  1721 +-
+ drivers/block/drbd/drbd_debugfs.h             |     2 +
+ drivers/block/drbd/drbd_int.h                 |  3748 ++--
+ drivers/block/drbd/drbd_interval.c            |    37 +-
+ drivers/block/drbd/drbd_interval.h            |   125 +-
+ drivers/block/drbd/drbd_legacy_84.c           |   641 +
+ drivers/block/drbd/drbd_legacy_84.h           |   129 +
+ drivers/block/drbd/drbd_main.c                |  6680 +++++--
+ drivers/block/drbd/drbd_meta_data.h           |   154 +
+ drivers/block/drbd/drbd_nl.c                  |  9477 ++++++---
+ drivers/block/drbd/drbd_nl.h                  |   390 +
+ drivers/block/drbd/drbd_nl_84.c               |  3622 ++++
+ drivers/block/drbd/drbd_nl_defaults.c         |   167 +
+ drivers/block/drbd/drbd_nl_drbd2.c            |  2533 +++
+ drivers/block/drbd/drbd_nl_types.h            |   388 +
+ drivers/block/drbd/drbd_polymorph_printk.h    |    37 +-
+ drivers/block/drbd/drbd_proc.c                |   327 +-
+ drivers/block/drbd/drbd_protocol.h            |   614 +-
+ drivers/block/drbd/drbd_receiver.c            | 16314 ++++++++++++----
+ drivers/block/drbd/drbd_req.c                 |  3172 ++-
+ drivers/block/drbd/drbd_req.h                 |   332 +-
+ drivers/block/drbd/drbd_sender.c              |  4354 +++--
+ drivers/block/drbd/drbd_state.c               |  8963 +++++++--
+ drivers/block/drbd/drbd_state.h               |   326 +-
+ drivers/block/drbd/drbd_state_change.h        |    80 +-
+ drivers/block/drbd/drbd_strings.c             |   103 +-
+ drivers/block/drbd/drbd_strings.h             |     4 +-
+ drivers/block/drbd/drbd_transport.c           |   545 +
+ drivers/block/drbd/drbd_transport.h           |   480 +
+ drivers/block/drbd/drbd_transport_tcp.c       |  1746 ++
+ drivers/block/drbd/drbd_transport_template.c  |   164 +
+ include/uapi/linux/drbd.h                     |   299 +-
+ include/uapi/linux/drbd2.h                    |  1012 +
+ include/uapi/linux/drbd_limits.h              |   135 +-
+ 46 files changed, 58914 insertions(+), 17014 deletions(-)
+ create mode 100644 Documentation/admin-guide/blockdev/drbd/application-resync-synchronization.rst
+ create mode 100644 Documentation/netlink/specs/drbd2.yaml
+ create mode 100644 drivers/block/drbd/drbd2_nl_gen.c
+ create mode 100644 drivers/block/drbd/drbd2_nl_gen.h
+ create mode 100644 drivers/block/drbd/drbd_dax_pmem.c
+ create mode 100644 drivers/block/drbd/drbd_dax_pmem.h
+ create mode 100644 drivers/block/drbd/drbd_legacy_84.c
+ create mode 100644 drivers/block/drbd/drbd_legacy_84.h
+ create mode 100644 drivers/block/drbd/drbd_meta_data.h
+ create mode 100644 drivers/block/drbd/drbd_nl.h
+ create mode 100644 drivers/block/drbd/drbd_nl_84.c
+ create mode 100644 drivers/block/drbd/drbd_nl_defaults.c
+ create mode 100644 drivers/block/drbd/drbd_nl_drbd2.c
+ create mode 100644 drivers/block/drbd/drbd_nl_types.h
+ create mode 100644 drivers/block/drbd/drbd_transport.c
+ create mode 100644 drivers/block/drbd/drbd_transport.h
+ create mode 100644 drivers/block/drbd/drbd_transport_tcp.c
+ create mode 100644 drivers/block/drbd/drbd_transport_template.c
+ create mode 100644 include/uapi/linux/drbd2.h
+
+
+base-commit: c3bcce56763375946bc31a4dac859b4b4cc07ccd
+-- 
+2.55.0
+
