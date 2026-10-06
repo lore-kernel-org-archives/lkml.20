@@ -1,119 +1,184 @@
-Received: from linux.microsoft.com (linux.microsoft.com [13.77.154.182])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id A124C466B03;
-	Tue,  6 Oct 2026 13:42:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=13.77.154.182
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 99856379993;
+	Tue,  6 Oct 2026 13:43:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791294164; cv=none; b=NO5ndyg2ZIjrDnyhkMFSBGnKkSUCUDtJXE+ystsj89/SExMKOnjyFCEDwXJwXgwcdfowewCct5DXknSBSb3X741zgejJMAyOCZrbtorq5vbQVH4caRaDl/J+7tMNkK4vobI+ntIuBKebLxiNpAsV0GHfIoqI1RtGtNxXopkJiQg=
+	t=1791294208; cv=none; b=MBHv9WFQNE3BezV0wEeAGT+M4DB8Uem3sq/MEhElnbr1BaTfZk9iA7MDTIghDE5q/EOG4crRUHyLCaDj2ZYGrO9nUO9zuWWAx4QPgOgGSFbWsFu6gfsdS3vUqZn4fSS0Vk3sx8CMaWTj5C0qVmDg2daju2ZA8uAgcsob4wiMzRo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791294164; c=relaxed/simple;
-	bh=NhrerJh+FIvyRhVhYK2RZ3+zs0tCPgHwWAK9TnlDqNQ=;
-	h=Date:From:To:Cc:Message-ID:In-Reply-To:References:Subject:
-	 MIME-Version:Content-Type:Content-Disposition; b=HKhOTovgd6B18u8YxyBugqePBwuf1Npl497oW42P91kiZR8jfOroW989ovDo77bVOMqhmqw6TlnYa/Dk7wKCpF8DhMVVTUZNX8OoxfjkVmng36n+unT8VBG8yGI6qT7tuVJNxjG1Dm2CXMahxebezZg3U0V/9SC4nHKjZVm4278=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com; spf=pass smtp.mailfrom=linux.microsoft.com; dkim=pass (1024-bit key) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.b=RuMjPgCm; arc=none smtp.client-ip=13.77.154.182
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.microsoft.com
+	s=arc-20240116; t=1791294208; c=relaxed/simple;
+	bh=bxhCmUtuP2znEB3DfJeUXBMtkcnBZ/7H0150E8PemBc=;
+	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=bKo7OW9ndQ8sZSdeZzUndx5gx80ZApmaQ+SYplw/kYFDNqtFGbPXII0mOqikL1yEE5P6UcWJ0tIe9f8HwUoMYJyYBElpXKp4SfuF9IshCtqnjEmlr88lbLZOpQlcQUoZ4fscfwb98fU1/9vqd/EyQhlR5A/qLs8NEfbfZNQPomk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=AeDPcBh0; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.b="RuMjPgCm"
-Received: from [100.96.208.29] (unknown [52.167.115.14])
-	by linux.microsoft.com (Postfix) with ESMTPSA id 32D2F20B7166;
-	Tue,  6 Oct 2026 06:41:45 -0700 (PDT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com 32D2F20B7166
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.microsoft.com;
-	s=default; t=1791294106;
-	bh=ymMYpd6/ibtw57JvGJoXuuopAlt6a2U5TBrWdbZiyQA=;
-	h=Date:From:To:Cc:In-Reply-To:References:Subject:From;
-	b=RuMjPgCmBvwWFqM+/GDz624NyLfl8MGbycwDBi/dO36j4yzCvNGbd42i29eU67ko9
-	 bZ/gwTZVNgJfYGSAzXf+jqQVR1ctGwg35Gh+faD+Fu865MgYWyzGt4suetKMUJ5lPM
-	 I1Gfd1BZYCNE436+NhDi1pXE0y/Xdz8lWpKcmo14=
-Date: Tue, 6 Oct 2026 09:42:39 -0400
-From: Jeff Barnes <jeffbarnes@linux.microsoft.com>
-To: Steven Rostedt <rostedt@goodmis.org>
-Cc: Beau Belgrave <beaub@linux.microsoft.com>, 
- "=?utf-8?Q?linux-trace-kernel=40vger.kernel.org?="
- <linux-trace-kernel@vger.kernel.org>, 
- "=?utf-8?Q?mhiramat=40kernel.org?=" <mhiramat@kernel.org>, 
- "=?utf-8?Q?mathieu.desnoyers=40efficios.com?="
- <mathieu.desnoyers@efficios.com>, 
- "=?utf-8?Q?linux-kernel=40vger.kernel.org?="
- <linux-kernel@vger.kernel.org>, 
- "=?utf-8?Q?akpm=40linux-foundation.org?=" <akpm@linux-foundation.org>, 
- "=?utf-8?Q?kees=40kernel.org?=" <kees@kernel.org>
-Message-ID: <0499A842-AA79-49A7-AAB5-47003DD799BE@getmailspring.com>
-In-Reply-To: <20261006083825.2bbeaef2@fedora>
-References: <20261006083825.2bbeaef2@fedora>
-Subject: Re: [PATCH] tracing/user_events: Fail fork when event state
- duplication fails
-X-Mailer: Mailspring
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="AeDPcBh0"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 603311F000FF;
+	Tue,  6 Oct 2026 13:43:26 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791294207;
+	bh=cYJrRs4VKwbkJF1Q6VKMuLhIAKjhpZO7YZGJq30E2rw=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=AeDPcBh0BBowrsQUskYEh5bbN83gPxtq4JxCMJMS/Li5SddfEQ5uUxPhSWAFRu68W
+	 4/5nU7u1Nrc9D5fMhDzWnSVVo/g0VMCAYNJLVHxOVprFuBbXUM4As3RAp5UpDMwi5o
+	 hl1zOO4tLU2GYP8TPxbs9skfLUFg2vR9qwyvJQtiJygYQDd1j0XY6xL3yndvicXotY
+	 76GxSFqAKdgYo2XtaZZiX2BduidNfz9Q0byUz+vw+QfqccdrDQaec55MZNaCdsKqEQ
+	 fW3rTxu9PHT75DhUIxqhLBYnmsEPAE5ch85QLIFfrx/SwxtIhNXFo6vVT7+oFN3ZfJ
+	 C/tiPodh7mj+Q==
+Subject: Re: [PATCH net-next v1 7/8] net: dsa: realtek: rtl8365mb: offload DCB
+ apptrust
+From: netdev-bot+sashiko@kernel.org
+To: o.rempel@pengutronix.de
+Cc: linusw@kernel.org, luizluca@gmail.com, andrew@lunn.ch, olteanv@gmail.com,
+ davem@davemloft.net, edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com,
+ kernel@pengutronix.de, linux-kernel@vger.kernel.org, alvin.sipraga@analog.com,
+ netdev@vger.kernel.org, horms@kernel.org
+Date: Tue, 06 Oct 2026 13:43:25 +0000
+Message-ID: <179129420591.434549.1307051695175527426@kernel.org>
+In-Reply-To: <20261002115850.962676-8-o.rempel@pengutronix.de>
+References: <20261002115850.962676-8-o.rempel@pengutronix.de>
+X-sashiko-severity: Low
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
 
+Thank you for your contribution! Sashiko AI review found more severe
+issue(s) in other patches of this series. This mail is only an FYI, in case
+you want to address the nit picks below when you respin.
 
+Low priority / nit picks for your consideration:
 
-On Oct 6 2026, at 8:38 am, Steven Rostedt <rostedt@goodmis.org> wrote:
+- [Low] At this commit, rtl8365mb_port_set_apptrust() accepts
+  IEEE_8021QAZ_APP_SEL_DSCP (listed in rtl8365mb_apptrust_map[]).
+- [Low] If a register access fails partway through
+  rtl8365mb_port_set_apptrust(), the switch-wide trusted decision table…
 
-> On Tue, 6 Oct 2026 08:01:14 -0400
-> Jeff Barnes <jeffbarnes@linux.microsoft.com> wrote:
-> 
->> Yes, that was intentional. My concern with allowing fork() to succeed
->> after removing the child's user_events state is that the allocation
->> failure then becomes a silent loss of inherited tracing state.
->> 
->> The enable word is the userspace-visible indication that an event is
->> enabled. If the child loses its inherited enablers, later enable and
->> disable changes will no longer be reflected in that child. Removing the
->> state fixes the stale-value inconsistency, but userspace has no
->> indication from fork() that the child is no longer following the
->> inherited tracing state.
->> 
->> I also think there is a potential security implication here. If
->> user_events are being used for tracing or auditing, an allocation
->> failure could result in a successfully created child silently no longer
->> following subsequent enablement changes. I don't want to characterize
->> that as a security vulnerability without a demonstrated security
->> boundary, but silently losing that state seems undesirable for auditing
->> in particular.
->> 
->> That is why I favored returning -ENOMEM: either the child is created
->> with the inherited user_events state intact, or the failure is visible
->> to userspace and the fork is unwound.
->> 
->> I agree that uprobes provides a useful comparison. If you think
->> user_events should likewise be best-effort across fork, then removing
->> the state on duplication failure would address the inconsistency without
->> introducing the new fork() failure path.
-> 
-> Question, to use user events the application needs to be involved,
-> correct? That is, there's code in the application specific for
-> user_events, as supposed to uprobes that can attach to any application.
-> 
-> Thus, it makes sense for uprobes to only warn on failure. Why should a
-> task fail to fork if something attaches a uprobe on it and it causes
-> issues.
-> 
-> Now if user_events is driven by the application that has them, then
-> yes, it makes sense for fork() to fail if the user_event it created
-> fails processing inside the fork(). If the user application is
-> expecting something, then if it fails it should know about it.
-> 
-> But this is only if user_events is driven by the application doing the
-> fork().
-> 
-> -- Steve
-> 
-Yes, that's correct. user_events registration is initiated by the
-application through the user_events interface, rather than being
-attached externally to an arbitrary application like an uprobe.
+--
 
-So in this case the state being duplicated during fork() is state that
-the application itself established. That's why I think propagating the
-allocation failure back through fork() is preferable to silently
-allowing the child to lose that state.
+net: dsa: realtek: rtl8365mb: offload DCB apptrust
 
-Thanks, Jeff
+This commit wires up port_get_apptrust/port_set_apptrust for rtl8365mb.
+It programs a second, switch-wide "trusted" priority-decision table with
+PCP and/or DSCP weights and steers ports to it with a per-port select
+bit. Precedence is fixed to PCP > DSCP, and a request that conflicts
+with the selectors another port already uses is refused with -EBUSY.
+
+> diff --git a/drivers/net/dsa/realtek/rtl8365mb_dcb.c b/drivers/net/dsa/realtek/rtl8365mb_dcb.c
+> index f48e95ef3947a..4afcae6e85a1e 100644
+> --- a/drivers/net/dsa/realtek/rtl8365mb_dcb.c
+> +++ b/drivers/net/dsa/realtek/rtl8365mb_dcb.c
+
+[ ... ]
+
+> @@ -84,6 +88,24 @@ static_assert(RTL8365MB_NUM_IPMS == IEEE8021Q_TT_MAX);
+>  #define RTL8365MB_QOS_WEIGHT_UNTRUSTED			0
+>  #define RTL8365MB_QOS_WEIGHT_PORT			1
+>  
+> +/* apptrust selectors this driver supports, in descending precedence. Each
+> + * entry binds a dcbnl selector to the priority-decision source it enables, so
+> + * this ordered table is the one place the fixed precedence lives.
+> + */
+> +static const struct rtl8365mb_apptrust_map {
+> +	u8 sel;		/* dcbnl apptrust selector */
+> +	u8 src;		/* priority-decision source it enables */
+> +} rtl8365mb_apptrust_map[] = {
+> +	{ DCB_APP_SEL_PCP,	     RTL8365MB_QOS_PRIDEC_1Q },
+> +	{ IEEE_8021QAZ_APP_SEL_DSCP, RTL8365MB_QOS_PRIDEC_DSCP },
+> +};
+
+[Severity: Low]
+Is DSCP trust usable yet at this point in the series?
+
+rtl8365mb_port_set_apptrust() accepts IEEE_8021QAZ_APP_SEL_DSCP. It
+writes a DSCP weight of 2 into the trusted table, which outranks the
+port default weight of 1.
+
+However, rtl8365mb_dcb_init() only programs the queue map, the PCP
+remap and the decision weights. The DSCP-to-internal-priority table
+keeps whatever the chip reset or the bootloader left there.
+rtl8365mb_switch_ops also has no port_get/add/del_dscp_prio ops yet.
+
+After "dcb apptrust set dev swpN order dscp", wouldn't IP traffic on
+that port be classified by a DSCP table that was never programmed, and
+that dcbnl has no way to change?
+
+The next patch in the series, "net: dsa: realtek: rtl8365mb: offload
+DCB DSCP-to-priority", seems to fix this. It adds
+rtl8365mb_qos_setup_dscp() to rtl8365mb_dcb_init(), which seeds all 64
+entries from ietf_dscp_to_ieee8021q_tt(). It also adds the dscp_prio
+ops and sets ds->dscp_prio_mapping_is_global. So the problem only shows
+up when a bisect stops exactly at this commit.
+
+Could the patches be reordered, or could DSCP be left out of
+rtl8365mb_apptrust_map[] until the DSCP map is programmed?
+
+[ ... ]
+
+> @@ -285,3 +323,158 @@ int rtl8365mb_port_set_default_prio(struct dsa_switch *ds, int port, u8 prio)
+
+[ ... ]
+
+> +int rtl8365mb_port_set_apptrust(struct dsa_switch *ds, int port, const u8 *sel,
+> +				int nsel)
+> +{
+
+[ ... ]
+
+> +	/* The trusted table is a single switch-wide resource. If another port
+> +	 * already uses it, this request must trust the same selectors.
+> +	 */
+> +	if (idx & ~BIT(port)) {
+
+[ ... ]
+
+> +	}
+> +
+> +	for (i = 0; i < ARRAY_SIZE(rtl8365mb_apptrust_map); i++) {
+> +		u8 weight = trust[i] ? rtl8365mb_apptrust_weight(i) :
+> +				       RTL8365MB_QOS_WEIGHT_UNTRUSTED;
+> +
+> +		ret = rtl8365mb_qos_set_pridec(priv,
+> +					       RTL8365MB_QOS_PRIDEC_TABLE_TRUSTED,
+> +					       rtl8365mb_apptrust_map[i].src,
+> +					       weight);
+> +		if (ret)
+> +			return ret;
+> +	}
+
+[Severity: Low]
+What happens to a port that is already on the trusted table if the
+second register write in this loop fails?
+
+Say port P is the only user of the trusted table. The idx & ~BIT(port)
+check is then skipped, and the table is rewritten in place while P's
+bit in RTL8365MB_QOS_PRIDEC_IDX_REG is still set.
+
+The loop does two separate read-modify-writes on the same register:
+
+  1Q weight   (source 3) -> bits 15:8 of 0x0886
+  DSCP weight (source 2) -> bits 7:0  of 0x0886
+
+Suppose the 1Q write succeeds and the DSCP write fails, for example
+with -ETIMEDOUT from realtek_smi_wait_for_ack(). The function then
+returns without restoring the old 1Q weight. Neither
+dsa_user_dcbnl_set_apptrust() nor dcbnl_ieee_set() rolls this back.
+
+The port would then end up in a state that is neither the old profile
+nor the new one:
+
+  DSCP-only -> PCP-only: the port trusts both PCP and DSCP
+  PCP-only -> DSCP-only: the port is on the trusted table but trusts
+                         neither
+
+Both weights live in the same register. Could they be written with a
+single combined-mask update, so a failure can't leave the table half
+written?
+
+-- 
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261002115850.962676-1-o.rempel%40pengutronix.de
