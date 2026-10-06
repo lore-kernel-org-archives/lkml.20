@@ -1,68 +1,70 @@
-Received: from mail-qt1-f182.google.com (mail-qt1-f182.google.com [209.85.160.182])
+Received: from mail-qv1-f53.google.com (mail-qv1-f53.google.com [209.85.219.53])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ACB772F8E9E
-	for <linux-kernel@vger.kernel.org>; Tue,  6 Oct 2026 17:15:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.182
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8CDE33BED46
+	for <linux-kernel@vger.kernel.org>; Tue,  6 Oct 2026 17:15:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.219.53
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791306948; cv=none; b=n+SGjI8nZveCycnvBitM8L9iz+JJFh0qKuVPUxQ2FtUb1RwPOX+4hw2djpjuJfY+D0ttbvi+GW1eFO8YIWAmUE96JOE8qFohWJvR7PEhJ5Prh9vYHAy/ePQOBy0qC+IDeBobJzSu99Q/RkGvhqruC+mCFBokJrKIRgFrfZ05Vms=
+	t=1791306951; cv=none; b=KdkIzSyrWbZx8cYrM7jhNgJcKW0OnU6pq7TlWd9+TnDLOuL6vZ16VI7EeaW84XVIsnztaXYTer3mOtTALuwVzRtWvHlas9SiB3VAp4IaR2iNDQymmc+RvDP2n+i25WeioaRnLZSJtkVRqpKIprOWRfBHvBnxCGHyQ3BU+q/Uss4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791306948; c=relaxed/simple;
-	bh=d8S055UBj/5wN71BcPPpjejTrrppkWE71ziPbZmIhNo=;
-	h=Message-ID:In-Reply-To:References:From:Date:Subject:To:Cc; b=B02y/qxpJF8jc7qI0lW6t/Wk63v13o5YnRd6MDId7t2ZCfgmJAo5twa2niKy8Lesb2KRR7m6BoGKZoU8HPjEPj2F12uBs9DWKsiWlJcDttAqYqjEE0qR/C8Rkdt0fSI7Tf1X8fopsx1a1mpyyyTNaw8ZKEg8uYhBk0RuG+OwrBo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=toxicpanda.com; spf=pass smtp.mailfrom=toxicpanda.com; dkim=pass (2048-bit key) header.d=toxicpanda.com header.i=@toxicpanda.com header.b=IOXpxqkv; arc=none smtp.client-ip=209.85.160.182
+	s=arc-20240116; t=1791306951; c=relaxed/simple;
+	bh=hCCGajtli712D3U8h4Ma3ed7yZx2pK0pPUNDH9Ebgmc=;
+	h=Message-ID:In-Reply-To:References:From:Date:Subject:To:Cc; b=BworWJqEMrL7v2bUMw/+87jnqjbkOpBHgW68oN/wkU9PLvyyeDBf/BAvKzs0D/iW97BmD7kIQR0y6HIaLDrns4rofuf49IP0P7XtfWhaBaDpaZsXJijPGYwhc+ciHiQmT78O/miXra9ebZpiTpgNRUZRV7Kwf0Ts44afVrAGQL0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=toxicpanda.com; spf=pass smtp.mailfrom=toxicpanda.com; dkim=pass (2048-bit key) header.d=toxicpanda.com header.i=@toxicpanda.com header.b=fcYdv+bh; arc=none smtp.client-ip=209.85.219.53
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=toxicpanda.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=toxicpanda.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=toxicpanda.com header.i=@toxicpanda.com header.b="IOXpxqkv"
-Received: by mail-qt1-f182.google.com with SMTP id d75a77b69052e-53394bffe0fso21934681cf.1
-        for <linux-kernel@vger.kernel.org>; Tue, 06 Oct 2026 10:15:46 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=toxicpanda.com header.i=@toxicpanda.com header.b="fcYdv+bh"
+Received: by mail-qv1-f53.google.com with SMTP id 6a1803df08f44-91054f537ccso10153326d6.1
+        for <linux-kernel@vger.kernel.org>; Tue, 06 Oct 2026 10:15:50 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=toxicpanda.com; s=google; t=1791306945; x=1791911745; darn=vger.kernel.org;
+        d=toxicpanda.com; s=google; t=1791306949; x=1791911749; darn=vger.kernel.org;
         h=cc:to:subject:date:from:references:in-reply-to:message-id:from:to
          :cc:subject:date:message-id:reply-to:content-type;
-        bh=tb6m6q3lI6SI4f4aZTEHuBTNP07WEiV8+eieTwoYduY=;
-        b=IOXpxqkvfhkZJDlXEkl09ZDv9f6QrHSc9XpFT6btkZ9QwfqU/yK/CvaScr9U5WwCtf
-         3XI8/504BhydaVbO8DiID6lwRTuQgnQMJ1FeytLD7g3ybZAxOp2cNnErNBhzTh7YBJ1r
-         Gql7gRDaBYnx3XV/N4BngNBOnrO1HogmIuFzdCsPOOfUZ+R5HK3d8cZuXQ01yxpJhDHo
-         QKqQuBwsBsaaR6as+q7uOZhFDp/a9NdS/rn2AozRZUAi6pyLzzziUUYupow11m80HohJ
-         fIZpeJztgwo0I97IWTmKxL8u/ipCG2IQmYAUUSmS8iUEd8HEZfk8kZk/uhcuKf2/xY2S
-         W7Ag==
+        bh=0ZQiw8K62IEDDDX0qjm61k9O0EHmc2uqOwATSUTzFtg=;
+        b=fcYdv+bhlzyp42JuZuRMHMTFtsmBp9ia4dRPNH5Vc7OPY+0EKWwkshOozuKFq5++WE
+         lC0Zc7HG5wkR9EMelGSOe3ETZyx6BdO1tWJTm2uuJCuXng4B8FmHDJ2CGZ+NRBttdFby
+         mo3SNlHxtrr2+2WA8GIK/E2HlX45GFzskY8GRNMVfKxW6W6PeDxVCXoynkMhWk3aAYx0
+         omzR6+5WRKXW8WtptznNB/PzydGPKGsWdF2woH+x68gH/wYIRTFrYqBzO1qhySjQ3AuY
+         qmSXouoqxfdtPijxGKe4NitYmEY90dTVlUu9BPEX9h60WIUnZj8C3octk6FM9mYD89vS
+         RSoQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791306945; x=1791911745;
+        d=1e100.net; s=20260707; t=1791306949; x=1791911749;
         h=cc:to:subject:date:from:references:in-reply-to:message-id:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=tb6m6q3lI6SI4f4aZTEHuBTNP07WEiV8+eieTwoYduY=;
-        b=P/R2xktI2BEtJNIffc9Pc3gtxxMPvJz57ExE7E6EZ9rIw1Z9Xuu9YEuuhu1GTz5QOU
-         pEImWfUYCVzZVZ6ld2Q0Xl7pkJoS1yM1PEhjGLkGvl0GQCX/O11nsuzLAac2D4ktc/pB
-         uuUuBBNTF0pj5aVcoTGaXKPuVyMM8ioKQywie6pSri8jgUmpbhnsS+NR8342jX5HAvPj
-         /LR87amlaDqgzrkAYsbdWgu3AcCz8zGQNDNO8fXmOqnDs79lxchlYS17T8K88jrE/nZp
-         FOtGgYMBokiEjQ/9TB3yZlM/HSGAxFdw44raXnvvgrOjPMeMIydozZr38G8TibqJr5Ep
-         36jA==
-X-Forwarded-Encrypted: i=1; AKwUvBwdOztmpRPSO3ZjeP60edHpc7migkiFynItTj+dDl+kSaHTKoAcy5iEltOzqMqosjItemofr3ZCiqsaEq4=@vger.kernel.org
-X-Gm-Message-State: AFuF++lb6ctvjhhlXH1kICIqCwCvpoEk0fHfjhibmCbR4X0b2INSz5JD
-	uQogD+n4B9dYalnMG89BNwU7XFsKS8uKARJJmB7bXqRH/JudJf2Aja8qZJ+QCBYULz4=
-X-Gm-Gg: AYBFou2xd9z5+d/49riRLUEVTwB7tNlB2tEmpiTQt1ZjddhN4Cm+iVsZtXKZqRbB2xp
-	hVtUWWUkH2WvDInICZ2+Rtis9Sclx/tkhiOjbecndUcXiMcTyHF9iPAj70aO8A+/HC22oT2JNt5
-	nSuv7Porpo4NRRfkm3RHy54LzoIQn/v5021YyC2H2e+4u/Dssn/3r2NZtgH0AMNa9DmPZKKmLdf
-	J99Q62FDUr0eYuTrg0aX0co24QOrfGz1FspniUrfF+q3baTAPxbYE4B5bnbGFhEl3klrD5qhZhv
-	CwUl44WHJUWeQUAKnHa4eSW+V8zvXam+9OwjNHl7SOnyPXTqU3SPOl50DfS9NTF2dftO7kNZT8i
-	RowalI2HN9Kh5MNPZY0hGi/GLV0k0A7CP8NZMK9XlCrZUAdJRFzjshyV46wJhXi74cjOxmkHEdy
-	4f66SMclusMZZG0mZOSonkK63nQ3hbWDjJcL+WUHFt3dZdOf60mwLIwD7pXJFLuBwIa2VUVXmtG
-	8U6aqheYOoN3XZ+A/uIVggOqQ==
-X-Received: by 2002:ac8:7e93:0:b0:533:37ff:92c1 with SMTP id d75a77b69052e-535668c9ad1mr33799181cf.8.1791306945270;
-        Tue, 06 Oct 2026 10:15:45 -0700 (PDT)
-Received: from toxicpanda.com ([153.61.196.249])
-        by smtp.gmail.com with ESMTPSA id d75a77b69052e-53571f185d7sm675691cf.2.2026.10.06.10.15.43
+        bh=0ZQiw8K62IEDDDX0qjm61k9O0EHmc2uqOwATSUTzFtg=;
+        b=GtfU+G/I5r0fB7Mh1nhllTaUbUEu0QNcvolu7ivLs4iVkZZzAb3y8F8Q9Sk+nSsb9L
+         nDbE0WftMhdBb6kVO/bVCM+qJDhXDTIlTcP8/RpAtAlxHL009ERfnMV8qBKj++wnfhQb
+         HkmtMtlZOc+LbOKYzhHeplql3Hbkm2PZxDrbls8Q/2tBOc03YdeqVF8Gx69GNDATWf1u
+         vu41n3ecOyiJe3wg4maobMgg/ogevuuaMzoQbsUxTZ2l47Pvsi/kdDxE0fYHH1JxjZjL
+         8T7Qpk0FEhl1PoUb9/fIB0T93+DHKvoIcziZESb9/1Yumm2skvfIo2UL5RLbvrf024NP
+         /O3Q==
+X-Forwarded-Encrypted: i=1; AKwUvBzIpfn5mKbAiQxk0HBt1eLz1rUx/QB4vuhr4wmoiVADP0hGBqxbo/CpxQXhJy6uRIAx+mgz3NvCCxbDQ/g=@vger.kernel.org
+X-Gm-Message-State: AFuF++mqGMMKASz1+ERNRksyNN4tlYCyCkgN1vXYOLwIhWmokVSk5+7R
+	mFGhuNqAHh0akRK6CqoOUUv9j31XCQCU1NaFPc4kAXfFqhNr7asrQ8JXRcFY0K3jJKg=
+X-Gm-Gg: AYBFou0GwqXS92ueRQEO2sMWhNp7x8muIiiOSvAXsLsOV2nEQVFiwQoD7kzJ4e2q/ic
+	fv7xLZEca/9cckCjU8rl/PLSXx8pCX/kKq2HtM74bEM3eBieQ/Edg06yaeDZKOPBkrzpf+g2GwU
+	3fMV+mc8tH5wcn1FmqYY+zTrbnT5AuFNWXA9FSvC09Y3/tk6Via75APA0UzlsPcbvNc0cdBCS+X
+	bSmsqTg26QYPq3Ik6g1Wfc0hbYGY494Fyr+Yx+BVL1M4kpFZbqRLNsTdWv0pzNIkTpyh2X6W0xE
+	ERkULvNktdKtpWsseAlSb9IxFdPQDzNRBEFW/UGgEUZ+P3lkMCBZSITqYPvYFgwHgoXdastDDVl
+	cK4yZx97gxjL1bdfjkXLQ7zm/zYKhbT2KSckc2OrGQgSItk2Q3wR5/qMvdTsRj5PQh+ZymVHG8P
+	iRBSJud0Ld9U3zYvjnsbIh5PH/BFY7r7korJToGn772t5WkzCOSyxO+ls6yIMG847W0U8Wiu4on
+	QD5WgXPEAgtzi8=
+X-Received: by 2002:a05:6214:5b05:b0:919:952d:f5ba with SMTP id 6a1803df08f44-919952e6836mr9099406d6.52.1791306949376;
+        Tue, 06 Oct 2026 10:15:49 -0700 (PDT)
+Received: from toxicpanda.com ([153.61.196.246])
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-919873f5f2asm23530006d6.25.2026.10.06.10.15.46
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 06 Oct 2026 10:15:43 -0700 (PDT)
-Message-ID: <cover.1791303049.git.josef@toxicpanda.com>
-In-Reply-To: <20261001125422.1364260-1-tom.leiming@gmail.com>
+        Tue, 06 Oct 2026 10:15:46 -0700 (PDT)
+Message-ID: <28e99b5949ffa9005596098f5a16b71b497f2123.1791303049.git.josef@toxicpanda.com>
+In-Reply-To: <cover.1791303049.git.josef@toxicpanda.com>
 References: <20261001125422.1364260-1-tom.leiming@gmail.com>
+	<cover.1791303049.git.josef@toxicpanda.com>
 From: Josef Bacik <josef@toxicpanda.com>
-Date: Tue, 6 Oct 2026 16:10:49 +0000
-Subject: [PATCH 0/4] ublk: fix UBLK_CMD_QUIESCE_DEV leaving commands behind
+Date: Tue, 6 Oct 2026 13:05:58 +0000
+Subject: [PATCH 1/4] ublk: don't cancel commands in QUIESCE_DEV on a device
+ that isn't live
 To: Ming Lei <tom.leiming@gmail.com>,
     Jens Axboe <axboe@kernel.dk>
 Cc: Caleb Sander Mateos <csander@purestorage.com>,
@@ -74,64 +76,72 @@ List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 
-UBLK_CMD_QUIESCE_DEV has two problems the fixes for STOP_DEV and the
-FETCH rounds don't touch.
+QUIESCE_DEV on a device which is not LIVE returns 0 as "already in
+expected state", but ublk_cancel_dev() still runs after ub->mutex is
+dropped. A device which is QUIESCED because its server died may have a
+new server fetching its commands for recovery at that point, and the
+cancel completes them without marking anything:
 
-Sent to a device that is not LIVE, it still cancels after it returns 0.
-A device whose server died is QUIESCED, and a new server may be
-fetching its commands for recovery at that point, so the cancel takes
-them without marking anything and END_USER_RECOVERY brings the device
-up over NULL io->cmd. Patch 1 makes it cancel nothing then.
+    new server                       QUIESCE_DEV
+    START_USER_RECOVERY
+    FETCH part of the queue
+                                     device is QUIESCED, ret = 0
+                                     ublk_cancel_dev()
+                                       io->cmd = NULL, command done
+    FETCH the rest of the queue
+    END_USER_RECOVERY
+      device goes LIVE
+                                     ublk_queue_rq()
+                                       NULL io->cmd
 
-On a LIVE device it cancels in one pass, which skips every command
-whose request is with the server. The server's COMMIT_AND_FETCH arms
-the command again right after, nothing ever completes it, and the
-server, which waits for all its commands, never exits. The device stays
-LIVE. Same for the active fetch command of a UBLK_F_BATCH_IO queue. The
-kublk selftest server hangs this way within a few quiesce and recover
-cycles under fio, on every kind of queue.
+Skip the cancel when the device was not LIVE. Its server is gone, so
+there is nothing of the server QUIESCE_DEV is meant for left to cancel.
 
-Patch 2 drops ublk_wait_for_idle_io(), which never waited and would
-hold ub->mutex against a stalled server if it did. Patch 3 has
-COMMIT_AND_FETCH and NEED_GET_DATA give their new command back on a
-canceling queue instead of publishing it, deciding inside an RCU read
-section, so the I/O path gains no lock or barrier. Patch 4 has
-QUIESCE_DEV wait for that with synchronize_rcu() and then keep taking
-the armed commands until the server owes none, bounded by its timeout,
-and stop once the server's FETCH round is over, so the next server's
-commands are left alone.
+Fixes: b465ae7b2524 ("ublk: add feature UBLK_F_QUIESCE")
+Assisted-by: LLM
+Signed-off-by: Josef Bacik <josef@toxicpanda.com>
+---
+ drivers/block/ublk_drv.c | 12 ++++++++++--
+ 1 file changed, 10 insertions(+), 2 deletions(-)
 
-QUIESCE_DEV now returns -EBUSY or -EINTR when its timeout or a signal
-ends that wait with commands still owed, where it returned 0 after one
-pass before.
-
-This applies on top of Ming's "[PATCH 0/8] ublk: don't dispatch to
-canceled io commands" [1] and my "ublk: refuse to go live after an io
-command was canceled" [2].
-
-Tested under QEMU with KASAN and lockdep. Without the series, 20
-quiesce and recover cycles under fio hang in every round on getdata,
-zero copy and user copy devices and in some on batch ones, and the
-quiesce-twice reproducer oopses. With it, 3 rounds of 20 cycles on each
-kind of device pass, the reproducer is fine, and the ublk selftests
-including generic_18 pass.
-
-[1] https://lore.kernel.org/linux-block/20261001125422.1364260-1-tom.leiming@gmail.com/
-[2] https://lore.kernel.org/linux-block/9b876f2c061abc401ec4b9b3c2529eda.josef@toxicpanda.com/
-
-Thanks,
-Josef
-
-Josef Bacik (4):
-  ublk: don't cancel commands in QUIESCE_DEV on a device that isn't live
-  ublk: drop QUIESCE_DEV's wait for an idle command
-  ublk: give the command back from COMMIT_AND_FETCH on a canceling queue
-  ublk: keep canceling in QUIESCE_DEV until the server's commands are
-    taken
-
- drivers/block/ublk_drv.c | 286 +++++++++++++++++++++++++++++++--------
- 1 file changed, 230 insertions(+), 56 deletions(-)
-
+diff --git a/drivers/block/ublk_drv.c b/drivers/block/ublk_drv.c
+index 39eb7775a351..0bd0b95b3217 100644
+--- a/drivers/block/ublk_drv.c
++++ b/drivers/block/ublk_drv.c
+@@ -5413,6 +5413,7 @@ static int ublk_ctrl_quiesce_dev(struct ublk_device *ub,
+ 	/* zero means wait forever */
+ 	u64 timeout_ms = header->data[0];
+ 	struct gendisk *disk;
++	bool live = true;
+ 	int ret = -ENODEV;
+ 
+ 	if (!(ub->dev_info.flags & UBLK_F_QUIESCE))
+@@ -5427,8 +5428,15 @@ static int ublk_ctrl_quiesce_dev(struct ublk_device *ub,
+ 
+ 	ret = 0;
+ 	/* already in expected state */
+-	if (ub->dev_info.state != UBLK_S_DEV_LIVE)
++	if (ub->dev_info.state != UBLK_S_DEV_LIVE) {
++		/*
++		 * Nothing to cancel either: the server this was meant for is
++		 * gone, and the commands of the next one, which may be fetching
++		 * them for recovery right now, are not ours to cancel.
++		 */
++		live = false;
+ 		goto put_disk;
++	}
+ 
+ 	/* Mark the device as canceling */
+ 	mutex_lock(&ub->cancel_mutex);
+@@ -5447,7 +5455,7 @@ static int ublk_ctrl_quiesce_dev(struct ublk_device *ub,
+ 	mutex_unlock(&ub->mutex);
+ 
+ 	/* Cancel pending uring_cmd */
+-	if (!ret)
++	if (!ret && live)
+ 		ublk_cancel_dev(ub);
+ 	return ret;
+ }
 -- 
 2.55.0
 
