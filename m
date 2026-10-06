@@ -1,141 +1,205 @@
-Received: from mail-pj1-f46.google.com (mail-pj1-f46.google.com [209.85.216.46])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 786BA3CD8BD
-	for <linux-kernel@vger.kernel.org>; Tue,  6 Oct 2026 08:22:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.46
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 037AB3C9EF6
+	for <linux-kernel@vger.kernel.org>; Tue,  6 Oct 2026 08:22:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791274922; cv=none; b=QbOFc7pEwKschXFdGzuhQIHX8ASksVcRtNCS34tVK8E52dpHa4vgHZonHjzIRuzfvXLd5JkvbKBio+D447E7bUO/y+dExF+bHhb+ExibeB65/0EBusq8zyH19uR8IBVKhrJy5hlJG8s531e1ZxMtt5hzrns6by4VmpmV4mv425Q=
+	t=1791274980; cv=none; b=ATb4Hh26IEcHeM2GNqXLdQwsrLQC5iLl3tN//t6IouK8wqr9Ywvtp4zjrBERyUj+7Om1eeGzYreZtmaQWMacoSG9XgjuKQFYYSb2R7jArfkRbstY9zSSgB3tr/3aA2BEhHrXH2WmSJGUgmpzsYedH4Ur3EV+hGdmT4iDzfCWqwA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791274922; c=relaxed/simple;
-	bh=8obgukGNW7ky7Kk/hIb7Tx1nD/UtTtHjcp92oif6oK4=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=pbDzUH/a7yAwX7n4gc1SVY/Pn7pCJoi811dDg+ljosZtL65NGLMKOORhenwrJTODfF5pDrlSiHp7P62z2GZKiYt/yXpdsTXo0GsWmMW2GLBu1/et24pHB9D5OWnjYk9YC5Wc4WAFRfHfHP2akOlHjKsUvvTufBoTybr3VPzxicE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=m0Xdv1+G; arc=none smtp.client-ip=209.85.216.46
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1791274980; c=relaxed/simple;
+	bh=ZIjNAmXtHmu4yN5iNA/Dw9g2gQ4eUYJ4OJCKIskmRoY=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=J16wIQnTwLf2umiO4WJSi85mXEOD9I4cHUZ0K3Q9m39CpUvCzjteBfe9j5pTKk/7kXhUR223PwYOiTpS7sOAxBXYZqKoiSemGSF0X3drhhmkqnfbDLdWS+yF9XKFktndPQaFF3h6tH4hTfGCkTYuLeuxQpOe/ZPw2TwADt/emHk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=Xo7E3WU4; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=eauhiq8Q; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="m0Xdv1+G"
-Received: by mail-pj1-f46.google.com with SMTP id 98e67ed59e1d1-3964dfb5a69so231615a91.1
-        for <linux-kernel@vger.kernel.org>; Tue, 06 Oct 2026 01:22:00 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="Xo7E3WU4";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="eauhiq8Q"
+Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6966gs7v1046211
+	for <linux-kernel@vger.kernel.org>; Tue, 6 Oct 2026 08:22:58 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	V4CxaEk1X/vxfIRRtAsFl33lTcdSoULtVCTw5xYmesg=; b=Xo7E3WU4WuuuakRK
+	TICHn4V55wQUPUsbBQdIGvKeHmy5h7FTEB5Dt2PdD0rck0qgcRNXDEvfoZIFJC9h
+	eZ/H+1HuDlqquGC0lSQ3CFCW1N/NFrQYf83vFlJ8sSUTxenpLST76/oxbgJV0r6d
+	ijsejg1BYyYppDRbjTNNUa0NWGmMxe+iR9mP4/JSSlLoPgU95NkIM6sOZJYOEaN+
+	QSX3zePSgGzRfSBCMomIG0zx8Z+9zeICybuLoB658dB/f69dllA3qjFLRFwKl5RE
+	9lG4cmFaxHvKi2RHsGUPJwDep5TwM+tGyqZ7THR45N/xVHZlPi4+8kkgLEB1hrzq
+	HR2a7Q==
+Received: from mail-pj1-f69.google.com (mail-pj1-f69.google.com [209.85.216.69])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h4uy4gbev-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Tue, 06 Oct 2026 08:22:58 +0000 (GMT)
+Received: by mail-pj1-f69.google.com with SMTP id 98e67ed59e1d1-3a7ab1ca9f4so2369112a91.2
+        for <linux-kernel@vger.kernel.org>; Tue, 06 Oct 2026 01:22:58 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791274920; x=1791879720; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=b8u3Yoco6qaMZId6V3SXGgwbYt0UtNsiNUBPhWK2nhU=;
-        b=m0Xdv1+Gml3S8Z5KJmDNN58lyZP1sgf6qPHbzMbWGTtrSX4ppMxjDzQjjkFitF3Tli
-         Ns0uq3bcJKCyUwIAFFc0o023gVefmmPDOF0KuLA/fY0S2Y9CUK3OupAS2UEkOrCugBkA
-         lIPJp0QmDKg7m+pOgAxbMfo4F+H+L+bo/VtFbNnNfilTYdC1jDKUcjwdR3iiOCyCcwlc
-         rOR3wLipqV1DVQ9P2gy9m2RsBS80kYcYjlghYjLFh0fkmO1635q+wj8Jehkkd1qRsV4w
-         T+pluCfp/ENkK4Nrpvac91SdcY1QYOiI9HQDJIMfxgG107jcGlv5MpMi96M/QRsRgYWS
-         hHzA==
+        d=oss.qualcomm.com; s=google; t=1791274977; x=1791879777; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=V4CxaEk1X/vxfIRRtAsFl33lTcdSoULtVCTw5xYmesg=;
+        b=eauhiq8QnQlmzl5zW4cdGzUvckz4AFS7WAPIrEe64Zsa0vKmsOxTuIS6D/q3+Y+eiu
+         yRnbKjqv9NVj+cCr0Blw2vF/VdcqP3M9yK+AVfmkG5e2NX1w6ACD23xvZAzOp5ENtgfm
+         TBAxSmUc7Vl9i5uXs7YsJ/2PMj25AcEpFneAIa06uIqZIYWYsTf2fjwaKCnRtQpJdOwa
+         rbZq3R0zprfbE/wthKGlZuYGflv3zReZLNy4sK8AlmsXG0H9CTe2GkE0Ffki34sM/8ct
+         0f0hj1C32dWikrm79dVC+C2l8e2doLFk2G3uhRgzI9yBaiKsG5gkgDjStrcYaI368kRM
+         VKmw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791274920; x=1791879720;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=1e100.net; s=20260707; t=1791274977; x=1791879777;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=b8u3Yoco6qaMZId6V3SXGgwbYt0UtNsiNUBPhWK2nhU=;
-        b=hcmcpn/rDRZk0nTrwe73WYKSCvh8YGy8MLHhgp6e80jooE6MUejA5hoZFJE6MX8Feb
-         3eUEMWVlypdKnzV/LUSiefsMyTMSvq86fkuuyU/c6xhXZAZVROCW4MmAWBJ+mZTBLrgp
-         Hc2FAIT4Q47N7S6pglG1u7JUK2biysq7AHBtXyMCfvVrxORwqgQq+pwYjO0m8BIfbGot
-         G1EKQxVNuTOu7F5OfPjcd/a5lHw3jswqtncEgxzuVfz3thhujKgooGa4Tx8EYa9sYuZZ
-         hIx+jWzM5RiivXsQiBg83hueMWjIjEhThvWUvtzgnNDrRHFM5bf+ylVsjH39n1eMzzdl
-         kwvw==
-X-Forwarded-Encrypted: i=1; AKwUvBy/WUA69OKG53vLli0JCj28ll33v/u8po0FDl3kJaXSUaajk80rOCuA6tlPb6j2ERFFDNNkGbaJy5Y98Pg=@vger.kernel.org
-X-Gm-Message-State: AFq9FYL9fREaKW9ClOV1WKuDOgraEd7Cza8A1FjWJoNZ+BvZN6xcGtWZ
-	LEAXnvjtJS/7ZBxfpMk6sPxEbdcoAUT7e0y766ebCYY84Rffvny0oSzD
-X-Gm-Gg: AYBFou0+WfVQ8DrAWPgKZhDyqIL5ncODeJ7biaEStaIcI5O38VcPI//pPZJCJ1GNEQO
-	0CLHz09xnTkWtAJ+wNxBHMoTnzSTdUGrAu0TKOXr/nxuqNFl996Cf5PTSV67wxgvieOtEt60e4j
-	CwbRs4G8Gu3BQDer3UlIhaOBEbHiRe6euxoRz3sJ+ebKmGqpIVP0Vp/UjmcERntyemOv1FLC3IQ
-	nb2NbxLZozhbRAxqImXVtH8QuhG3UMycf/Yg+4YlcHCxl/Jz/Gj/6sKxIEmcvddk3Fdn7SJLyqC
-	QbBNxiVqhA1MJ5TkxnBqh3Q0FhndR4WWXzi6Ozqc2EH+uZI87NIr4W7GK08nD7CydZ2h8nd/ky1
-	oPehyyuFVyc0KB8INB0o4rQoh+A9JnVlIkysRV4zq3pbLtY3Du76/aqkE3+QRLfYPCG1vUoFjWa
-	0Ii8PtH3aD2xrZcUpfmeYh1j8ATegWcards7bcVWaN7bjIAJn54OT7oiaRtd4T71JolYmxxck=
-X-Received: by 2002:a17:90b:288c:b0:3a2:b036:ed62 with SMTP id 98e67ed59e1d1-3a8733c829cmr301292a91.37.1791274919752;
-        Tue, 06 Oct 2026 01:21:59 -0700 (PDT)
-Received: from gmail.com ([188.253.12.30])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a853cea0f1sm3628152a91.15.2026.10.06.01.21.55
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 06 Oct 2026 01:21:59 -0700 (PDT)
-From: Jia Jia <physicalmtea@gmail.com>
-To: Mike Christie <michael.christie@oracle.com>
-Cc: "Michael S. Tsirkin" <mst@redhat.com>,
-	Jason Wang <jasowangio@gmail.com>,
-	Paolo Bonzini <pbonzini@redhat.com>,
-	Stefan Hajnoczi <stefanha@redhat.com>,
-	=?UTF-8?q?Eugenio=20P=C3=A9rez?= <eperezma@redhat.com>,
-	virtualization@lists.linux.dev,
-	kvm@vger.kernel.org,
-	netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Jia Jia <physicalmtea@gmail.com>
-Subject: [PATCH] vhost-scsi: do not count PI bytes in the data length
-Date: Tue,  6 Oct 2026 16:21:02 +0800
-Message-Id: <20261006082102.27085-1-physicalmtea@gmail.com>
-X-Mailer: git-send-email 2.34.1
+        bh=V4CxaEk1X/vxfIRRtAsFl33lTcdSoULtVCTw5xYmesg=;
+        b=zaMnex12TEeB+GikW1OVBQiFMUUHuMBJtatm8mGK7q9/S589Di/B+XHyAyj34qh5eP
+         +8fRXYx8OCHf1dF7a5sINo/AIyHyvVf6N0ayRfR8FuavQh/t/xFAQXNTLX+kg4vTXQbe
+         H1GwceLUCoToRMVvDNpC+pV8oFFeZwxogMgOe58pZ0u4aVd5PCQuv8bWXi9bJyjEZrJ5
+         XVZZNykl+3RtEiJThLWSzR1mdJmUrhixirYOZPb+QcFXUjtAPioiVoLf7bXVmZP27QJt
+         YTp6modHWgtIJdQGMvsS6AAnPlKzML3mBXyswwretUgLsohXKO02uNpLTpjnHcyJCHqh
+         z0jQ==
+X-Forwarded-Encrypted: i=1; AKwUvBx5QkllFCoZADTa7egDOOYbWvBOEGmrnttBmgt8QvVpIo/rovt2RRHMe/ntNx/o6zhnDigd24VKg5ovNAo=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJEepNzHNdnxr+aPj5X32bBhdcxtWmx6AbPe54ZXXzfe6hTZ6Sw
+	RESRIVklvnjh10UKXmMMEYius+RoCTBoHON3vg+rTeqaD3Uci1lgm767NJwc22mwHDfPLeInpiB
+	9ZZCe11ReWOEZ3yZkajiDVjxRrVwc0SjbxK8cRxuezLOi5l3JXzNFj8X2ilIKGE0T/NQ=
+X-Gm-Gg: AYBFou3hLebr6hFErC/JmzUXzkDlEBOGl4sfhaisc0USzuvNgLMcyYY4L2+JGeDEbjM
+	PNO23+zWPJXs0BclSC8I5+Wg2ksvyfJG+PYotAEM1+QPY1Xe3VyLnfNJbPR7lA3ZbxmofkLRiCI
+	BOMP8iuvU+0xHaLnaiuGDFhwhpGAjKN8RHtFFSYmOoSJEXAT9syeuZukJCd+d3cAIgD1ZxcqVwV
+	er5g8xENxcXzchGtQ+Ef5H0GNmvWtoa/FhKsahP0uZUZfupe0lu3OvNt7elTtirhCWHcRQDMQ01
+	XRIpG3cRSO7yUjJto5iSuBLfN0PHgHlkSr3qiqKhnplBGDPLaWcQMFKWaoEoqt/HuO+zdkPlI3Q
+	vNywcZtWLBZL9hw0l/ph71Ps+xYsXUzsjHJJ2Gydk/lU+s44BcOm0lfDVxNO8rdKOo0qrHCO6
+X-Received: by 2002:a17:90b:3810:b0:3a5:25e:85fc with SMTP id 98e67ed59e1d1-3a873750b3cmr493695a91.63.1791274977368;
+        Tue, 06 Oct 2026 01:22:57 -0700 (PDT)
+X-Received: by 2002:a17:90b:3810:b0:3a5:25e:85fc with SMTP id 98e67ed59e1d1-3a873750b3cmr493674a91.63.1791274976695;
+        Tue, 06 Oct 2026 01:22:56 -0700 (PDT)
+Received: from [10.133.33.116] (tpe-colo-wan-fw-bordernet.qualcomm.com. [103.229.16.4])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a853c88aa7sm3667676a91.5.2026.10.06.01.22.52
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 06 Oct 2026 01:22:56 -0700 (PDT)
+Message-ID: <c2d93d95-e623-4910-8d92-b3e16738703c@oss.qualcomm.com>
+Date: Tue, 6 Oct 2026 16:22:49 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] cpufreq: schedutil: Serialize start against rate limit
+ updates
+To: Hui Su <sh_def@163.com>, "Rafael J . Wysocki" <rafael@kernel.org>,
+        Viresh Kumar <viresh.kumar@linaro.org>
+Cc: Ingo Molnar <mingo@redhat.com>, Peter Zijlstra <peterz@infradead.org>,
+        Juri Lelli <juri.lelli@redhat.com>,
+        Vincent Guittot <vincent.guittot@linaro.org>,
+        Dietmar Eggemann <dietmar.eggemann@arm.com>,
+        Steven Rostedt <rostedt@goodmis.org>, Ben Segall <bsegall@google.com>,
+        Mel Gorman <mgorman@suse.de>, Valentin Schneider <vschneid@redhat.com>,
+        K Prateek Nayak <kprateek.nayak@amd.com>, linux-pm@vger.kernel.org,
+        linux-kernel@vger.kernel.org, zhongqiu.han@oss.qualcomm.com
+References: <20260929103635.3780346-1-sh_def@163.com>
+Content-Language: en-US
+From: Zhongqiu Han <zhongqiu.han@oss.qualcomm.com>
+In-Reply-To: <20260929103635.3780346-1-sh_def@163.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDA2MDAzMyBTYWx0ZWRfX9wz794a1si/E
+ q2bTqSLsA857fKb1tEfNdGEkrqpkLIRHDvsbUzcLC2ry4OVsaCinSx6Gv02a8JP1dI0MzBEsp3Z
+ 1tUG42mPdJMKccJSK2KVTyR0DSmm55ffGcHSBpA6dzfT1m723hXRvMl/WwxwEN3M5ZBT0Nm5ddp
+ MOJCdpw10KhCr7OrzAqxZTwOelfwkcTsjHHgpCq0CU0JUhSdn/TDtxGHpWxv3X5Jc9vXFneB1g6
+ WCBV9XUeHjVJ8rrEKCzfYSCBBmaxlzR1iEPhgwQnK7WBX9W1uZttbBRDkEZuJxW8JJBKi6X8fRs
+ 7QVUUS6/8Qcly1PQlLUxo/uozmLCcgFQwjPANaW456ECdK8y4cKxvQk50i/nAjMgqZZFhsAlGR/
+ etxz3e+jd7q5oTHIHUyhdNinZ83yuSuXQFvC7hMNMLRDAulESnzQC3Sr2/zAaR3D+9lQ1t631IY
+ go58TrJuhBJmhet1/kQ==
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDA2MDAzMyBTYWx0ZWRfXxETXsfHGwA9i
+ Imge5AOhbz6+VFQQYAY4Jd+4QPqROWc8hw3nPHkYSfJOGekM4EOk/BnSlpe0DUJsH3n0lzkJ8E8
+ wCZph7T/gPtuG8tLRu5YTzw7gA+cCbI=
+X-Authority-Analysis: v=2.4 cv=F97C5ahN c=1 sm=1 tr=0 ts=6ac4afe2 cx=c_pps
+ a=vVfyC5vLCtgYJKYeQD43oA==:117 a=nuhDOHQX5FNHPW3J6Bj6AA==:17
+ a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=Um2Pa8k9VHT-vaBCBUpS:22
+ a=Byx-y9mGAAAA:8 a=EUspDBNiAAAA:8 a=WbzL4V9Atknj4SyEsUoA:9 a=QEXdDO2ut3YA:10
+ a=rl5im9kqc5Lf4LNbBjHf:22
+X-Proofpoint-ORIG-GUID: 7WmY_zQq1hFN7zhob38Suk6EzZkrj0MY
+X-Proofpoint-GUID: 7WmY_zQq1hFN7zhob38Suk6EzZkrj0MY
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-06_02,2026-10-05_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ suspectscore=0 phishscore=0 clxscore=1015 impostorscore=0 malwarescore=0
+ bulkscore=0 priorityscore=1501 lowpriorityscore=0 adultscore=0 spamscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2610060033
 
-vhost_scsi_handle_vq() moves pi_bytesout and pi_bytesin into the
-protection sgl and subtracts them from exp_data_len.  The length passed
-to TCM is still exp_data_len + prot_bytes.
+On 9/29/2026 6:36 PM, Hui Su wrote:
+> rate_limit_us_store() is called with the governor attribute set
+> update_lock held, but sugov_start() updates freq_update_delay_ns from
+> the same tunable without taking that lock.
+> 
+> This allows the two paths to interleave as follows:
+> 
+>          sugov_start()             rate_limit_us_store()
+> 
+>          read old rate_limit_us
+>                                    write new rate_limit_us
+>                                    publish the new delay
+>          publish the old delay
+> 
+> The sysfs tunable then contains the new value while
+> freq_update_delay_ns contains the old one. Unlike a transient torn
+> read, the stale delay remains in effect until another rate limit update
+> or governor restart.
+> 
+> Serialize sugov_start() against sysfs stores by taking the existing
+> governor attribute set update_lock around sugov_update_rate_limit_us().
+> This keeps the fix off the scheduler hot path.
+> 
+> Fixes: 9bdcb44e391d ("cpufreq: schedutil: New governor based on scheduler utilization data")
 
-That sum matched an older target path which subtracted prot_length
-again.  sbc_check_prot() now replaces data_length from the CDB only
-when the protect field is non-zero, and only for READ and WRITE.
-target_cmd_size_check() leaves a write's data_length unchanged when the
-CDB size is smaller.
+The Fixes tag is accurate, but the patch cannot be cleanly backported
+because the code has since been refactored.
 
-MODE SELECT, SET TARGET PORT GROUPS and UNMAP then use data_length as
-the size of t_data_sg.  The PI bytes are not in that sgl.  A parameter
-list that ends on a page is followed by a read of the next physical
-page.
+> Signed-off-by: Hui Su <sh_def@163.com>
 
-Pass the data sgl length.  Protected READ and WRITE still take their
-length from the CDB.
+Reviewed-by: Zhongqiu Han <zhongqiu.han@oss.qualcomm.com>
 
-KASAN reports:
+> ---
+> kernel/sched/cpufreq_schedutil.c | 4 ++++
+>   1 file changed, 4 insertions(+)
+> 
+> diff --git a/kernel/sched/cpufreq_schedutil.c b/kernel/sched/cpufreq_schedutil.c
+> index 49ccd6f1c185..e759f09be638 100644
+> --- a/kernel/sched/cpufreq_schedutil.c
+> +++ b/kernel/sched/cpufreq_schedutil.c
+> @@ -861,7 +861,11 @@ static int sugov_start(struct cpufreq_policy *policy)
+>   	void (*uu)(struct update_util_data *data, u64 time, unsigned int flags);
+>   	unsigned int cpu;
+>   
+> +	/* Serialize against rate_limit_us_store(), which holds this lock. */
+> +	mutex_lock(&sg_policy->tunables->attr_set.update_lock);
 
-  BUG: KASAN: use-after-free in spc_emulate_modeselect+0x145/0x380 [target_core_mod]
-  Read of size 1
+Nit: Better to wrap this in a helper, e.g.gov_attr_set_lock().
 
-  spc_emulate_modeselect
-  __target_execute_cmd
-  target_execute_cmd
-  vhost_scsi_write_pending
-  transport_generic_new_cmd
-  __target_submit
-  target_queued_submit_work
-  process_one_work
-  worker_thread
-  kthread
-  ret_from_fork
-  ret_from_fork_asm
+Besides, When I started reviewing this patch, I initially considered
+removing the freq_update_delay_ns cache for a lockless design. However,
+since it is on a hot path, doing the multiplication every time could
+hurt performance.
 
-Fixes: 9f977ef7b671 ("vhost-scsi: Include prot_bytes into expected data transfer length")
-Signed-off-by: Jia Jia <physicalmtea@gmail.com>
----
-diff --git a/drivers/vhost/scsi.c b/drivers/vhost/scsi.c
-index 4f8c0260bc9e..4bd29c2ceed9 100644
---- a/drivers/vhost/scsi.c
-+++ b/drivers/vhost/scsi.c
-@@ -1534,9 +1534,13 @@ vhost_scsi_handle_vq(struct vhost_scsi *vs, struct vhost_virtqueue *vq)
- 		 * vhost_scsi_queue_data_in() and vhost_scsi_queue_status()
- 		 */
- 		cmd->tvc_vq_desc = vc.head;
-+		/*
-+		 * exp_data_len is the data sgl. prot_bytes already sit in
-+		 * the protection sgl. Protected READ and WRITE replace
-+		 * data_length from the CDB in sbc_check_prot().
-+		 */
- 		vhost_scsi_target_queue_cmd(nexus, cmd, cdb, lun, task_attr,
--					    data_direction,
--					    exp_data_len + prot_bytes);
-+					    data_direction, exp_data_len);
- 		ret = 0;
- err:
- 		/*
+>   	sugov_update_rate_limit_us(sg_policy);
+> +	mutex_unlock(&sg_policy->tunables->attr_set.update_lock);
+> +
+>   	sg_policy->last_freq_update_time	= 0;
+>   	sg_policy->next_freq			= 0;
+>   	sg_policy->work_in_progress		= false;
+> 
+> base-commit: 63de2367f6d280904a9c5e5bbc7c75bb91c5b3d8
+> 
+
+
+-- 
+Thx and BRs,
+Zhongqiu Han
