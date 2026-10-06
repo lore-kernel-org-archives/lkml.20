@@ -1,182 +1,333 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj1-f50.google.com (mail-pj1-f50.google.com [209.85.216.50])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B59C24519BB;
-	Tue,  6 Oct 2026 13:17:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DD5E74570F9
+	for <linux-kernel@vger.kernel.org>; Tue,  6 Oct 2026 13:17:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.50
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791292653; cv=none; b=Gq/mNm6P5O3WAl6JOM2KjsZQEf2orrDSilpqvgCZGCkA1NC4WF1oc5lH6geUz8sCRDPUwRU03YG8deEP4LGCxR5BL7PQdfg0BCY5ZCztH6/H3PMJR+YxJnwSp+m3Yjg4YUG5ZRlWhqRwxnsvCyLVyj99Qz9Kb5N27EWq776D3lQ=
+	t=1791292668; cv=none; b=fUFCSdCDnEY6DigKjY+SntjybCIBViX1UG+ekYza8LEClWWb7+up+Bw4qTAVuy+KUN7IdPrewWFg9OZBEs1tVqFcIbNbM/QZZEsJ3R3FOAsUhWjx4V1GO+zqELBptBnE9UurdyVhJ+Nq4ogI10uFONwrhTWgsNFDZfo3g2q4Y4E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791292653; c=relaxed/simple;
-	bh=QzAEcEVqY5gRpKDGkQWTS0Am9q6m2WzPJq+Jo6aq3N0=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=bPyFbEZEVtQrSjhqo10ct5vJuz73FwXujsICXXDsOscQhptt+Jt/8qT1qzZaeiGc/jKtVxayZGZgT2e1gER1NnOshAIhN/L/YIdAlde5X3CCVlf+tZ1wHdTOpQe8G6O31ivcF41uZsZdw63ijvuNSxPZixDXz0R4vnryokxTQww=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LtHD/eHL; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791292668; c=relaxed/simple;
+	bh=5MBdw2qFdXU/rSttiuzhfhM4WM65xuOHSkPq1R9UjCw=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type:Content-Disposition; b=MU7KSLLRtVatfaR2R6/G55TFaRJSIwEI+79XUr4GRocfaueR43mpA3exxORoYYFUOIF+R4n05VEV8OBB0wp5m0GtJCBYsriDVvWz4hBzR3xL1coLv2ooU4a9V9f8Lkoj5hoO4e0NIvcP0TXZACMYeTb4l/H6FLrQ0Yx1+YM5sH8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=oYyn2PWL; arc=none smtp.client-ip=209.85.216.50
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LtHD/eHL"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0E04B1F000FF;
-	Tue,  6 Oct 2026 13:17:28 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791292652;
-	bh=1wl8U8qEevNauiC6J2pbvxkX7VYWlgHKM2aJW6iFkDQ=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=LtHD/eHL3+f7Xjm+LpgVK4iEZwvZMs30aWje1TC6Rw7auT+o//+/5FhXSlE/t0N6k
-	 6H5rpCXKXDrvWESqmJF/yMebWW8oRaSZwLivBEE2hy5RMsf8T4oTpcv0udvRDFBz6P
-	 M+oPcyIa/szygwa7tTUBTPvBrxvMiJAAaRPFNj7sWd288Yf7WPxqcnoWo35x+7kdNM
-	 3xhA6lnJIDbCaq/BhmNfkDUW6a7Klw5dB9q4LrpfbdlZ5AzAU3aogIKkg8Z4NPpO05
-	 2QRM36Ma/E/BSvDFk5/wUqBEAVmHB5pZRSvqQBBsRu2sot4oUKKzKxSasKD3R4SvyR
-	 zOszerDR11zUg==
-Date: Tue, 6 Oct 2026 06:17:26 -0700
-From: Oliver Upton <oupton@kernel.org>
-To: Fuad Tabba <fuad.tabba@linux.dev>
-Cc: maz@kernel.org, kvmarm@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
-	catalin.marinas@arm.com, will@kernel.org, joey.gouly@arm.com,
-	seiden@linux.ibm.com, suzuki.poulose@arm.com, yuzenghui@huawei.com,
-	vdonnefort@google.com, qperret@google.com, tabba@google.com
-Subject: Re: [PATCH v4] KVM: arm64: selftests: Check the pending SError state
- in external_aborts
-Message-ID: <asT05hZqkMvVVnze@kernel.org>
-References: <20261006092841.2202109-1-fuad.tabba@linux.dev>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="oYyn2PWL"
+Received: by mail-pj1-f50.google.com with SMTP id 98e67ed59e1d1-38e42560ebcso1600523a91.1
+        for <linux-kernel@vger.kernel.org>; Tue, 06 Oct 2026 06:17:46 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791292666; x=1791897466; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-disposition:content-type
+         :mime-version:mail-followup-to:references:in-reply-to:message-id
+         :date:subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=HwSVzV9/NQkclbEISh7Vv0SoPGQums46C1TZ0hc0x8M=;
+        b=oYyn2PWLi2mG/Gxb/Z3PxStp1xK7fKjq75LjD0UtUw0vg/cDMgLyIvQ0/NbAZ+WpsQ
+         n+7kS3KzxL35UIB3H0tVGy+pzjW1wj+v7HgUlT/EAZvKdt7bpFrfTREfvObtw90e65/7
+         8QD2RXP4/3XDxWpzsO19sP1fFtXP8lq5AW/+H2JKLcNlRYA2Jh97aCMhnttXHVuaYbIH
+         6LJsDsCUMhY4bjJChTI3XvjaCmJmqE2lR8F+TEtUyLHKK+D52SzReGySh2r3pniQwWTj
+         vsQRpaZyKMf17zYp6IggRZC+qiie+OUX6qUIaO5Dh6jtFiFSZNDr0S5PiOHpNfbVXPpi
+         Z33Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791292666; x=1791897466;
+        h=content-transfer-encoding:content-disposition:content-type
+         :mime-version:mail-followup-to:references:in-reply-to:message-id
+         :date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=HwSVzV9/NQkclbEISh7Vv0SoPGQums46C1TZ0hc0x8M=;
+        b=xFTytbZdUEK2b5ecOCUWTKUJ82oGaCaFI12V6sZFjgqlvifGAD25B7mK2hAU7wrton
+         GclYhRY1XMaSSUz3bmDnCL6vWnJFd7kkR019U05ZwMMqz6N7baOwmRk6e+gk79Geig32
+         LYWYazNrUeHJnZ4HDfF/EgM8Gmdj+01NgrspzkbcjbqVeONfcLuIaO7vmU15mulzZYoV
+         gGnwLay8FaTV3AX0K0feUML4D2NMI0VD7ds9XLzxX9OiXtQRRp+WuLRRgR5oX3mqqFyw
+         RTJT8HXMcznfbiYsQJPsyzSrPK5BHqpANfcUHsYotDGEdvCZPzr4z0UYbqZz5Hg4N3KP
+         UxQQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxtI7BxsdS+u9flr//ULI2Qw0DGq0hiMjH07JWGvEHGLbaKmoWbsTWKnkL9abdMxMFywcgmXV15xbnsLKc=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIG8djffoOmkRPZFqDACybKHNWaNwgicC9NwXh2ISl9nGZ/LI0N
+	iEuKJAMB7ABwU3GdcaalQ4Rp5ioIv7p2LuL5wjAUz3vyhasRoAOy0fLA
+X-Gm-Gg: AYBFou2CNihhQPPqNF8RfRXdIdIE8P8xDZN/ja0FSWH/qaDK94LmPhfQIcqBwVLNqCr
+	LfiMuWgKWalYY99Rern6Kvn8fFO+8F115UsNwgNq8hJ7+9S+MyF+LivUqcNF1WGYolHC8LA7tdj
+	fLeThXNoAP3oCvrbqvIg5v5FELcIW7wVi3T6ibiLqepwCILFiIEUOnP//4Yw5GjT2gM8dZJl1W/
+	MvGo/h6z/KOoDc9C8/tesR1S326537Bdw12igNWHSOtYRZLBDSvaeGUa5sHcqT9ewwUvgWfXujf
+	sTYIPN1aPc1wbLncfOxHp7d90DkTaPrlzRzAzISEFxPB0MQtHFiHV9l/sMyi5MklR8IjCvqfLiW
+	dnE/B4G6a81AOyAsBbB16ir42O1rG3UHQFh5s86nd+oHrYYzOEuzFqVdl6AqMD1sivjFSe9YGTq
+	XyDnaI12rA7R65BwAhjC2Rbyd+/6NPAEOqgeCpq6jQFhyUxqsdSAK+B4Lus32q38SDUdX2Yaa5A
+	jnsNdnDwA==
+X-Received: by 2002:a17:90b:388b:b0:3a0:903b:f253 with SMTP id 98e67ed59e1d1-3a78717daaemr9010866a91.18.1791292665848;
+        Tue, 06 Oct 2026 06:17:45 -0700 (PDT)
+Received: from localhost.localdomain ([8.139.245.4])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a853e66d7fsm4892810a91.5.2026.10.06.06.17.41
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 06 Oct 2026 06:17:45 -0700 (PDT)
+From: Cunlong Li <shenxiaogll@gmail.com>
+To: Joel Fernandes <joelagnelf@nvidia.com>
+Cc: Jonathan Corbet <corbet@lwn.net>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Randy Dunlap <rdunlap@infradead.org>,
+	"Paul E. McKenney" <paulmck@kernel.org>,
+	Frederic Weisbecker <frederic@kernel.org>,
+	Neeraj Upadhyay <neeraj.upadhyay@kernel.org>,
+	Josh Triplett <josh@joshtriplett.org>,
+	Boqun Feng <boqun@kernel.org>,
+	Uladzislau Rezki <urezki@gmail.com>,
+	Steven Rostedt <rostedt@goodmis.org>,
+	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
+	Lai Jiangshan <jiangshanlai@gmail.com>,
+	Zqiang <qiang.zhang@linux.dev>,
+	"linux-doc@vger.kernel.org" <linux-doc@vger.kernel.org>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+	"rcu@vger.kernel.org" <rcu@vger.kernel.org>
+Subject: Re: [PATCH] rcu: Enable runtime reset of the RCU stall panic count
+Date: Tue,  6 Oct 2026 21:17:37 +0800
+Message-ID: <asT08QHOiIJrfIIZ@63b45mr6s164qmn>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <A522703D-CBCE-4F3A-9CA2-968BA382166C@nvidia.com>
+References: <20261004-rcu-v1-1-3799a44367f1@gmail.com> <00F6D386-FE41-42E3-9B89-07381A49E061@nvidia.com> <asThhHxoFP2L25Nc@63b45mr6s164qmn> <A522703D-CBCE-4F3A-9CA2-968BA382166C@nvidia.com>
+Mail-Followup-To: Cunlong Li <shenxiaogll@gmail.com>, Joel Fernandes <joelagnelf@nvidia.com>, Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>, Randy Dunlap <rdunlap@infradead.org>, "Paul E. McKenney" <paulmck@kernel.org>, Frederic Weisbecker <frederic@kernel.org>, Neeraj Upadhyay <neeraj.upadhyay@kernel.org>, Josh Triplett <josh@joshtriplett.org>, Boqun Feng <boqun@kernel.org>, Uladzislau Rezki <urezki@gmail.com>, Steven Rostedt <rostedt@goodmis.org>, Mathieu Desnoyers <mathieu.desnoyers@efficios.com>, Lai Jiangshan <jiangshanlai@gmail.com>, Zqiang <qiang.zhang@linux.dev>, "linux-doc@vger.kernel.org" <linux-doc@vger.kernel.org>, "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, "rcu@vger.kernel.org" <rcu@vger.kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20261006092841.2202109-1-fuad.tabba@linux.dev>
+Content-Transfer-Encoding: 8bit
 
-On Tue, Oct 06, 2026 at 10:28:41AM +0100, Fuad Tabba wrote:
-> None of the external abort tests look at the vCPU events once the guest
-> is done, so an SError left pending after the guest took it, or dropped
-> while the guest had it masked, goes unnoticed.
-> 
-> Read the vCPU events back at the end of every test that runs the guest.
-> The SError must still be pending in the masked case, with the injected
-> ESR when the vCPU has RAS, and no SError, injected or spurious, may be
-> pending in any of the others.
-> 
-> Signed-off-by: Fuad Tabba <fuad.tabba@linux.dev>
+Hi Joel,
 
-Reviewed-by: Oliver Upton <oupton@kernel.org>
+Thanks for the quick reply!
+
+On Tue, Oct 06, 2026 at 12:39:17PM +0000, Joel Fernandes wrote:
+> 
+> 
+> > On Oct 6, 2026, at 7:55 AM, Cunlong Li <shenxiaogll@gmail.com> wrote:
+> > 
+> > ﻿Hi Joel, thanks for the review!
+> > 
+> >> On Mon, Oct 05, 2026 at 12:56:30PM +0000, Joel Fernandes wrote:
+> >> 
+> >> 
+> >>>> On Oct 3, 2026, at 9:14 PM, Cunlong Li <shenxiaogll@gmail.com> wrote:
+> >>> 
+> >>> ﻿The kernel.panic_on_rcu_stall and kernel.max_rcu_stall_to_panic sysctls
+> >>> count RCU CPU stalls since system boot, and invoke panic() once
+> >>> max_rcu_stall_to_panic stalls have elapsed.  This count is never reset,
+> >>> so stalls caused by transient incidents keep consuming the budget of a
+> >>> long-running system, and a later unrelated stall can
+> >> 
+> >> Please provide examples of specific transient events you ran into, and recovered from?
+> >> 
+> >>> immediately
+> >>> trigger panic() instead of allowing the intended fresh window of
+> >>> stalls.
+> >>> 
+> >>> This commit therefore introduces the kernel.rcu_stall_panic_count
+> >>> sysctl.  Reading this file reports the number of stalls counted so far,
+> >>> and writing 0 to it resets the count.  This allows the cumulative stall
+> >>> history to be cleared after an incident has been resolved, and also
+> >>> allows userspace to clear the count periodically, so that panic() is
+> >>> only triggered by a burst of stalls occurring within a short period.
+> >> 
+> >> Could you provide details of such an incident that got resolved without requiring a reboot?
+> > 
+> > The motivation comes from our customer systems running codex on Ubuntu
+> > 24.04, with a memory limit of ~8G and zram enabled for swap.  When the
+> > agent's memory footprint grows, the box spends long stretches in direct
+> > reclaim (zram makes reclaim CPU-heavy), and we get a continuous stream
+> > of RCU stall warnings.  In the incidents we have seen so far, the
+> > warnings kept coming and the systems stayed hung, so we would like to
+> > enable panic_on_rcu_stall so that the box reboots and the service
+> > recovers automatically.  However, we do not actually know whether some
+> > of those stalls were transient, i.e. whether the systems would have
+> > recovered on their own once the memory pressure subsided.  If they
+> > were, a panic would kill an otherwise recoverable system, which is
+> > what we would like to avoid.
+> 
+> Wait, so does that not mean that if the stalls were legitimately non transient, you prevent killing the system too?
+
+All the incidents we have seen so far appeared to be non-transient:
+in one case a VM stayed hung for over 30 hours with repeated RCU stall
+warnings on the console, and was finally recovered only by a forced
+reset.  This is precisely why we want panic_on_rcu_stall, and the
+reset does not stand in its way.
+
+Our plan is to have userspace clear the count once an hour.  With a
+non-transient stall, the warnings keep coming, so the count still
+reaches max_rcu_stall_to_panic well within the hour, and the system
+panics and reboots as intended.
+
+> 
+> It sounds like you do know that it is likely transient - but based on this description and the below, it sounds like you have not yet found a use of this patch.
+> 
+> 
+
+To be precise, we worry that some of the stalls were transient, so a
+panic reboot would affect the users.  But we have no hard evidence
+either way: every incident ended in a forced reset, and the dmesg was
+lost.  Going forward, we plan to enable the NMI and kdump to keep
+investigating the cause of the RCU stalls. We will also monitor dmesg
+to confirm whether transient RCU stalls actually occur.
+
+> > 
+> > We have not yet been able to reproduce this in the lab.
+> 
+> So you are not using this patch or made use of it?
+
+Not in production yet.  We have exercised it with rcutorture's CPU
+stall testing and verified that the counting and reset behave as
+expected.
+
+> 
+> I am starting to doubt if we want this patch so please make your case properly :-)
+> 
+
+From my point of view, max_rcu_stall_to_panic needs improvement: as
+implemented, it triggers panic() on the Nth stall since boot.  Given
+the background of its introduction -- that some stalls are transient
+and the system fully recovers from them -- what it should provide is
+N consecutive stalls, or N stalls accumulated within a short period.
+The resettable count is the minimal change that provides this.
 
 Thanks,
-Oliver
+Cunlong
 
-> ---
-> The check that no SError is left pending after the guest took it is
-> what fails without commit 3708f6342f01 ("KVM: arm64: Sync HCR_EL2.VSE
-> back to the host vCPU under pKVM"), in kvmarm/next.
+> Thanks,
 > 
-> Changes since v3 [1]:
-> - Check the SError pending state at the end of every test that runs the
->   guest, and assert it is still pending, with the injected ESR, in the
->   masked case (Oliver [2]).
+> Joel
 > 
-> [1] https://lore.kernel.org/all/20261005050349.836795-1-fuad.tabba@linux.dev/
-> [2] https://lore.kernel.org/all/asNdAXGkxagm88Su@kernel.org/
-> 
->  .../selftests/kvm/arm64/external_aborts.c     | 20 +++++++++++++++++++
->  1 file changed, 20 insertions(+)
-> 
-> diff --git a/tools/testing/selftests/kvm/arm64/external_aborts.c b/tools/testing/selftests/kvm/arm64/external_aborts.c
-> index 7836756a38a6c..1a858d0d82968 100644
-> --- a/tools/testing/selftests/kvm/arm64/external_aborts.c
-> +++ b/tools/testing/selftests/kvm/arm64/external_aborts.c
-> @@ -75,6 +75,17 @@ static void vcpu_inject_serror(struct kvm_vcpu *vcpu)
->  	vcpu_events_set(vcpu, &events);
->  }
->  
-> +static void vcpu_assert_serror_pending(struct kvm_vcpu *vcpu, bool pending)
-> +{
-> +	struct kvm_vcpu_events events;
-> +
-> +	vcpu_events_get(vcpu, &events);
-> +	TEST_ASSERT_EQ(events.exception.serror_pending, pending);
-> +
-> +	if (pending && vcpu_has_ras(vcpu))
-> +		TEST_ASSERT_EQ(events.exception.serror_esr, EXPECTED_SERROR_ISS);
-> +}
-> +
->  static void __vcpu_run_expect(struct kvm_vcpu *vcpu, unsigned int cmd)
->  {
->  	struct ucall uc;
-> @@ -134,6 +145,7 @@ static void test_mmio_abort(void)
->  
->  	vcpu_inject_sea(vcpu);
->  	vcpu_run_expect_done(vcpu);
-> +	vcpu_assert_serror_pending(vcpu, false);
->  	kvm_vm_free(vm);
->  }
->  
-> @@ -162,6 +174,7 @@ static void test_mmio_nisv(void)
->  
->  	TEST_ASSERT(_vcpu_run(vcpu), "Expected nonzero return code from KVM_RUN");
->  	TEST_ASSERT_EQ(errno, ENOSYS);
-> +	vcpu_assert_serror_pending(vcpu, false);
->  
->  	kvm_vm_free(vm);
->  }
-> @@ -185,6 +198,7 @@ static void test_mmio_nisv_abort(void)
->  
->  	vcpu_inject_sea(vcpu);
->  	vcpu_run_expect_done(vcpu);
-> +	vcpu_assert_serror_pending(vcpu, false);
->  	kvm_vm_free(vm);
->  }
->  
-> @@ -212,6 +226,7 @@ static void test_serror_masked(void)
->  
->  	vcpu_inject_serror(vcpu);
->  	vcpu_run_expect_done(vcpu);
-> +	vcpu_assert_serror_pending(vcpu, true);
->  	kvm_vm_free(vm);
->  }
->  
-> @@ -247,6 +262,7 @@ static void test_serror(void)
->  
->  	vcpu_inject_serror(vcpu);
->  	vcpu_run_expect_done(vcpu);
-> +	vcpu_assert_serror_pending(vcpu, false);
->  	kvm_vm_free(vm);
->  }
->  
-> @@ -288,6 +304,7 @@ static void test_s1ptw_abort(void)
->  	*ptep |= bad_pa;
->  
->  	vcpu_run_expect_done(vcpu);
-> +	vcpu_assert_serror_pending(vcpu, false);
->  	kvm_vm_free(vm);
->  }
->  
-> @@ -313,6 +330,7 @@ static void test_serror_emulated(void)
->  	vcpu_run_expect_sync(vcpu);
->  	vcpu_inject_serror(vcpu);
->  	vcpu_run_expect_done(vcpu);
-> +	vcpu_assert_serror_pending(vcpu, false);
->  	kvm_vm_free(vm);
->  }
->  
-> @@ -356,6 +374,7 @@ static void test_mmio_ease(void)
->  
->  	vcpu_inject_sea(vcpu);
->  	vcpu_run_expect_done(vcpu);
-> +	vcpu_assert_serror_pending(vcpu, false);
->  done:
->  	kvm_vm_free(vm);
->  }
-> @@ -395,6 +414,7 @@ static void test_serror_amo(void)
->  	vcpu_run_expect_sync(vcpu);
->  	vcpu_inject_serror(vcpu);
->  	vcpu_run_expect_done(vcpu);
-> +	vcpu_assert_serror_pending(vcpu, false);
->  	kvm_vm_free(vm);
->  }
->  
-> 
-> base-commit: fa22cd9947fc245d71bc40482f7f78eb0d5a4af0
-> -- 
-> 2.39.5
-> 
+> >  But transient,
+> > self-recovering stalls are not a hypothetical: the commit that
+> > introduced max_rcu_stall_to_panic, dfe564045c65 ("rcu: Panic after
+> > fixed number of stalls"), states the premise outright:
+> > 
+> >    Some stalls are transient, so that system fully recovers.  This
+> >    commit therefore allows users to configure the number of stalls
+> >    that must happen in order to trigger kernel panic.
+> > 
+> > As described in the commit message, since the counter is never reset,
+> > stalls caused by transient incidents keep consuming the budget of
+> > max_rcu_stall_to_panic, and a later unrelated stall can immediately
+> > trigger panic() instead of allowing the intended fresh window of
+> > stalls.  This is what motivated the patch.
+> > 
+> >> 
+> >> 
+> >>> 
+> >>> Signed-off-by: Cunlong Li <shenxiaogll@gmail.com>
+> >> 
+> >> If the commit is AI assisted, please add an assisted tag.
+> > 
+> > Yes, it is AI-assisted, and I will state that in the v2 commit
+> > message.
+> > 
+> > Thanks,
+> > Cunlong
+> > 
+> >> 
+> >> Thanks,
+> >> 
+> >> Joel
+> >> 
+> >>> ---
+> >>> Documentation/admin-guide/sysctl/kernel.rst | 15 ++++++++++++++-
+> >>> kernel/rcu/tree_stall.h                     | 28 ++++++++++++++++++++++++++--
+> >>> 2 files changed, 40 insertions(+), 3 deletions(-)
+> >>> 
+> >>> diff --git a/Documentation/admin-guide/sysctl/kernel.rst b/Documentation/admin-guide/sysctl/kernel.rst
+> >>> index ffea61d448eb..64fe2985e358 100644
+> >>> --- a/Documentation/admin-guide/sysctl/kernel.rst
+> >>> +++ b/Documentation/admin-guide/sysctl/kernel.rst
+> >>> @@ -959,7 +959,20 @@ max_rcu_stall_to_panic
+> >>> When ``panic_on_rcu_stall`` is set to 1, this value determines the
+> >>> number of times that RCU can stall before panic() is called.
+> >>> 
+> >>> -When ``panic_on_rcu_stall`` is set to 0, this value is has no effect.
+> >>> +When ``panic_on_rcu_stall`` is set to 0, this value has no effect.
+> >>> +
+> >>> +rcu_stall_panic_count
+> >>> +=====================
+> >>> +
+> >>> +Indicates the number of RCU CPU stalls that have been counted since
+> >>> +system boot or since the counter was reset. When ``panic_on_rcu_stall``
+> >>> +is set to 1, this count is compared against ``max_rcu_stall_to_panic``
+> >>> +to decide whether panic() should be called.
+> >>> +
+> >>> +Writing 0 to this file resets the counter to zero, which restarts the
+> >>> +``max_rcu_stall_to_panic`` window of stalls. This allows system
+> >>> +administrators to clear the cumulative stall count after an incident
+> >>> +has been resolved, without requiring a system restart.
+> >>> 
+> >>> perf_cpu_time_max_percent
+> >>> =========================
+> >>> diff --git a/kernel/rcu/tree_stall.h b/kernel/rcu/tree_stall.h
+> >>> index 091e7850ab6e..a80f03e1c7ea 100644
+> >>> --- a/kernel/rcu/tree_stall.h
+> >>> +++ b/kernel/rcu/tree_stall.h
+> >>> @@ -19,6 +19,20 @@
+> >>> /* panic() on RCU Stall sysctl. */
+> >>> static int sysctl_panic_on_rcu_stall __read_mostly;
+> >>> static int sysctl_max_rcu_stall_to_panic __read_mostly;
+> >>> +static unsigned long sysctl_rcu_stall_panic_count;
+> >>> +
+> >>> +/* Reset the RCU stall panic count when written to. */
+> >>> +static int proc_do_rcu_stall_panic_count(const struct ctl_table *table, int write,
+> >>> +                     void *buffer, size_t *lenp, loff_t *ppos)
+> >>> +{
+> >>> +    if (!write)
+> >>> +        return proc_doulongvec_minmax(table, write, buffer, lenp, ppos);
+> >>> +
+> >>> +    WRITE_ONCE(sysctl_rcu_stall_panic_count, 0);
+> >>> +    *ppos += *lenp;
+> >>> +
+> >>> +    return 0;
+> >>> +}
+> >>> 
+> >>> static const struct ctl_table rcu_stall_sysctl_table[] = {
+> >>>   {
+> >>> @@ -39,6 +53,13 @@ static const struct ctl_table rcu_stall_sysctl_table[] = {
+> >>>       .extra1        = SYSCTL_ONE,
+> >>>       .extra2        = SYSCTL_INT_MAX,
+> >>>   },
+> >>> +    {
+> >>> +        .procname    = "rcu_stall_panic_count",
+> >>> +        .data        = &sysctl_rcu_stall_panic_count,
+> >>> +        .maxlen        = sizeof(sysctl_rcu_stall_panic_count),
+> >>> +        .mode        = 0644,
+> >>> +        .proc_handler    = proc_do_rcu_stall_panic_count,
+> >>> +    },
+> >>> };
+> >>> 
+> >>> static int __init init_rcu_stall_sysctl(void)
+> >>> @@ -161,7 +182,7 @@ early_initcall(check_cpu_stall_init);
+> >>> /* If so specified via sysctl, panic, yielding cleaner stall-warning output. */
+> >>> static void panic_on_rcu_stall(const struct cpumask *stalled_mask)
+> >>> {
+> >>> -    static int cpu_stall;
+> >>> +    unsigned long count;
+> >>> 
+> >>>   /*
+> >>>    * Attempt to kick out the BPF scheduler if it's installed and defer
+> >>> @@ -170,7 +191,10 @@ static void panic_on_rcu_stall(const struct cpumask *stalled_mask)
+> >>>   if (scx_rcu_cpu_stall(stalled_mask))
+> >>>       return;
+> >>> 
+> >>> -    if (++cpu_stall < sysctl_max_rcu_stall_to_panic)
+> >>> +    /* A lost RMW update only delays the panic by one stall. */
+> >>> +    count = READ_ONCE(sysctl_rcu_stall_panic_count) + 1;
+> >>> +    WRITE_ONCE(sysctl_rcu_stall_panic_count, count);
+> >>> +    if (count < (unsigned long)READ_ONCE(sysctl_max_rcu_stall_to_panic))
+> >>>       return;
+> >>> 
+> >>>   if (sysctl_panic_on_rcu_stall)
+> >>> 
+> >>> ---
+> >>> base-commit: ce1e0223d8ad4211275c82a17ed6d43ab81e13d9
+> >>> change-id: 20261003-rcu-375496d7704e
+> >>> 
+> >>> Best regards,
+> >>> --
+> >>> Cunlong Li <shenxiaogll@gmail.com>
+> >>> 
