@@ -1,288 +1,138 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ed1-f45.google.com (mail-ed1-f45.google.com [209.85.208.45])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F2D0A34752F
-	for <linux-kernel@vger.kernel.org>; Tue,  6 Oct 2026 15:16:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791299786; cv=none; b=WLNdQTtfajPrpKNn9rwVLnub8KXLUGwk0B+d92OqGfgetJIYAAweV1a9KApmvPZu8hh/pSmO2fmlIO3CGi5DAMFHhIK4wbehJ9ka9k3dbXD+wvwA514DSWVkJM6pQHm6QQFjzsoCurTifkAJ+h8wS0tdshh6xTv309WLndW2ptU=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791299786; c=relaxed/simple;
-	bh=AIAk9dR2qeH9nC0eiOFeAQQ8fKCgksr5ekr1SKtasZc=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=f6lWfsCrCyRlab9TrmUo6AIOWDmYRZwJ9t2oL5bosYZpoISgXIopBGci6pDPdsMFwF9Jm5nMcPYw0+LjDDIoUO5X/yNWsOB1e8umMioACEKp4k4gd0LBnv5t0UFg15IInDejJqD04HKSRsfUL0wDnWk1ei8V3v2BU3et67STIWk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=QbXdxlUG; arc=none smtp.client-ip=170.10.129.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2DD17489879
+	for <linux-kernel@vger.kernel.org>; Tue,  6 Oct 2026 15:18:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.45
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791299920; cv=pass; b=m9SK8kWiSEE+m5StFTyNoUrTj1KNK+EHesrtcvCsxFu0BLl+iwC7t51hmFvZg3812rzcfwyOcpHs6si74ZzRnbIS/ICH+FYf472xRpI+dfHTtkF2X7/nBvLtJhKMHbAZQQmk5l2uUWb1F+OvYDNZNIggqwCYTeWZx/q3KzreL/k=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791299920; c=relaxed/simple;
+	bh=Z6WbsAnp0/k5TRam8CoApQG5u2b0ang3JjfGRsR4/LE=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=A5/b2SsPOAZlK7jRkT8IZsd2Myco4I9tvWGwza6JCRNX1GKeLN7U01oCTdMScH+jvm0nfY8y6PCJ4eyGKi6ZgPCeUsG9qD0ELMgr46N74BVuQrj69g+A9xOPC/2lVGmdc2WhgiTqNNFfb7WhFW+HbgLedjdZfwGmkscmLtwJGxg=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=vinJemxj; arc=pass smtp.client-ip=209.85.208.45
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="QbXdxlUG"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1791299783;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=QzTOMvDj+JJjzO03quDmcKt3wcRTX17eYSh2It/X1yY=;
-	b=QbXdxlUGzqXnzFJ8PikFMi2ctRV0rWOWiCof0C8d+b0bW9YmyL2lnqCSA+/9ljBRlQhqpM
-	N3/UDJC4wp8/k0NDh17VDUNgZR3g2zGrOHXcmsUk2LSV/jnFHb08YXsM9lezvmVVnT7jq1
-	wl2fQPi83elOWveblXxrxogegH5+l7A=
-Received: from mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-647-8wnv1dQAO0eIpyGRN3o1FA-1; Tue,
- 06 Oct 2026 11:16:18 -0400
-X-MC-Unique: 8wnv1dQAO0eIpyGRN3o1FA-1
-X-Mimecast-MFC-AGG-ID: 8wnv1dQAO0eIpyGRN3o1FA_1791299776
-Received: from mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.93])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 94D711865FFD;
-	Tue,  6 Oct 2026 15:16:16 +0000 (UTC)
-Received: from [100.91.101.41] (headnet05.pony-001.prod.iad2.dc.redhat.com [10.2.32.117])
-	by mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id 2FDB31800579;
-	Tue,  6 Oct 2026 15:16:13 +0000 (UTC)
-Message-ID: <c0dd5313-360b-47a8-88ac-497409dfbc1b@redhat.com>
-Date: Tue, 6 Oct 2026 17:16:13 +0200
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="vinJemxj"
+Received: by mail-ed1-f45.google.com with SMTP id 4fb4d7f45d1cf-6aa5d092211so4909927a12.1
+        for <linux-kernel@vger.kernel.org>; Tue, 06 Oct 2026 08:18:37 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1791299916; cv=none;
+        d=google.com; s=arc-20260327;
+        b=fNLQT+LE+ys3ls1XUTCynBoY1VXpofllm3hDZfAn8yXHdT7n1FPr1RNwPk0cGdx0M6
+         sIOh9RVfuFQo9k0uV3pCsLv9n0Dmi1Zc84ReEu+eNPcUr8s2ikafpDyQpT3k7UdHLF2s
+         XKCvH0IKxy4cJO79lT7j9ve1SFy6rjLZyDDJtNR9L6XDJsIGW3HVhChiHn5snE99YUrD
+         cKSWFFdzMPIQ9E292imrKOGJvU+PUCU8P7V2h6H5hON/6TNqLE4/tN1/OC45dmjK5884
+         1gSkwTrKQAzcw7CqCvfftR1eYX/lEhePayKANfKSqzlnfwSOxoga8P9n70xC2YovaVil
+         QopA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=S8HNQKq2PFFrdWWXN5HW5t8uFb87m5DPyp4zd5PK5G0=;
+        fh=CvZLCNQ1o97wcdZYA83kgW9SeByc/Mq4FV2r/RzxQyA=;
+        b=SJHxEhx9nT/usnqGT8RvldF/gQPaCqUKrMw04IM8c99mjQ5Rw78upmQfPCKVx7cazu
+         6kIFXyKYphYC/Y4Swj0f+RV+UCC5EyZ1hgcScDlPvhqbnGnnA0zVHK6KOOVh+nHmgrJ8
+         2whNBNfsRXxo6zXclaVkTqT3hZJgTmssFGXk+VWERwuGQmu1CxcGFbD1RjCd24jOlhuL
+         hJVHUcVDV7irP2fFzQ9JyIsYPIeHxtY4DGS0StiGYWuoIiBLbBCJapODU6C0hQgHdiYa
+         T3RSr4PEI27ArsFvAUBEa4VN8XHC561R5oebhe0PmzN190JWJwXINoms+RGhlrdzjern
+         1ruw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1791299916; x=1791904716; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=S8HNQKq2PFFrdWWXN5HW5t8uFb87m5DPyp4zd5PK5G0=;
+        b=vinJemxjfo0wtpRpFAgFolIEmK5h1JEjPQcX/AMCwCwhdtc+zvrWlULgduJ50Pr9VO
+         xJX9/pmQZFWu0hcikEmrYOWlRLmLDMxRZuf60EZ+XAlxd8fuVz7tyIxfQcxqxTAOq021
+         qh0RQqMV161mW7VccuYWu+k8wFFtFyKkK5sgM0yybLeW5h0iOBx/RmkZyTLDOY0segSM
+         +24sbA92JaazYatCvTIfx3KBp2ZyoGvIwavOILBdB7oYuVHNCayu1x3d7J4dP02weV2z
+         N99S/vtuJlv34K4IhkZSwh8a/JPfbU8CbQGg1p0CTAJLX0L4vsAGNozXrFWsb9OngU22
+         h9jw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791299916; x=1791904716;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=S8HNQKq2PFFrdWWXN5HW5t8uFb87m5DPyp4zd5PK5G0=;
+        b=EItlp/Jh/EsTcBR/k1zEANVizJXJ6Mus0aT0E31ai7GrCA2TJkwWmXViznqM06H67T
+         v9R4HqHlpiuvQPlWMShp4Exgsd0vl7fPNSwNCvhKvXptG1hrpYJFnEtzJEx3/qW6gWu+
+         0Ij1fz3XbIBAwvgOvJXvgqMLVLXeLiFeMjaXIrv6woxGAHr7bOqEzf3gMvFAqVvmTsjM
+         mpOz5pggCVjlDUXt0kGPYcQPEyZSrLwXxsRq6dKsLIgo+lKSqZBNFbXl81FYLuAy712O
+         iDVxg0IFbKumDL853FLvW+iAyd2uh2LVcwPXvuqXmMs7ZayuULjzJ5z5/a0d/XQbX6o9
+         iBNA==
+X-Forwarded-Encrypted: i=1; AKwUvBw6fowveE10YX3Uk0y52sK1DALOhEC+O2x/sT+eo/Me9eFNxxSaM30LgN9PdNnV6WsuYbYd0P1vS+cPN9Y=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKMZ2LfUgL33BFS7FHEFwEjW+4p9WOISIrBla/N1vikvBL2K7aG
+	CLu6HVs3wiye6QOWLPXWb0ZoV09RieTzt7bgp5tiMw5prtXb0OPGSH09QJOGs6FpGDKbi+VDOTM
+	Wo+gLwQ/5niQJA31kuxX6XMnn21O9Y7Qd3vDlu5UlLQ==
+X-Gm-Gg: AYBFou3Rqbp4Kc+c9MTB63C86VSCAwHCtTWlT7Z7Qlz4R9n2AzyTQY4n8eolM2FHg4K
+	atCK9h6RoiI7w/L6Bc7UMMsW2OSAJ4XRvESFwXJAERs45icxhIq9/p1RiQ5A3+TA+S/4tmsQECu
+	uRn6W6YlmSGj3DRmN+5cipB6zNc6W8XFnhRuAUgWWN2gleAYeVFzeYDi4dVJHvMLK5YMEx4dNDn
+	vS6+6OAjt/WFDu03NYckrJ4EA8HB2A2enPEfiIa5Nk1siHZbR/DKCO/W+g8PTT41NeauU3sheXu
+	JYTpWoqVBZQIrPLvKjQ+d60Z6A0FA/HwflM7rYtMsQo4mfVOBgTKYw==
+X-Received: by 2002:a05:6402:52d2:b0:6a9:a5d6:622d with SMTP id
+ 4fb4d7f45d1cf-6afad731ef8mr8879468a12.3.1791299916262; Tue, 06 Oct 2026
+ 08:18:36 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH net v2 2/2] dpll: zl3073x: notify sibling pin when shared
- output config changes
-To: netdev-bot+sashiko@kernel.org
-Cc: netdev@vger.kernel.org, min.li@microchip.com, vadim.fedorenko@linux.dev,
- arkadiusz.kubalewski@intel.com, jiri@resnulli.us, kuba@kernel.org,
- Prathosh.Satish@microchip.com, pabeni@redhat.com,
- linux-kernel@vger.kernel.org
-References: <20261002074520.30048-3-ivecera@redhat.com>
- <179127408644.434549.11543498613900347079@kernel.org>
-Content-Language: en-US
-From: Ivan Vecera <ivecera@redhat.com>
-In-Reply-To: <179127408644.434549.11543498613900347079@kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.93
+References: <20260923184255.299034-1-shenwei.wang@oss.nxp.com>
+ <20260923184255.299034-3-shenwei.wang@oss.nxp.com> <20261006030739.GA3457522-robh@kernel.org>
+In-Reply-To: <20261006030739.GA3457522-robh@kernel.org>
+From: Mathieu Poirier <mathieu.poirier@linaro.org>
+Date: Tue, 6 Oct 2026 09:18:23 -0600
+X-Gm-Features: AclHuK9X3bTaGpN7i7UclAS_3sT01qVYKxTd90Hh58vpFwo0cpRNFUaLVMAbBaM
+Message-ID: <CANLsYkzcqapDYvKAEa2ZjA=q07iO=RM4TVNUbSqDrB0EmjeKyQ@mail.gmail.com>
+Subject: Re: [PATCH v16 2/5] dt-bindings: remoteproc: imx_rproc: Add "rpmsg"
+ subnode support
+To: Rob Herring <robh@kernel.org>
+Cc: Shenwei Wang <shenwei.wang@oss.nxp.com>, Linus Walleij <linusw@kernel.org>, 
+	Bartosz Golaszewski <brgl@kernel.org>, Jonathan Corbet <corbet@lwn.net>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Bjorn Andersson <andersson@kernel.org>, Frank Li <Frank.Li@nxp.com>, 
+	Sascha Hauer <s.hauer@pengutronix.de>, Shuah Khan <skhan@linuxfoundation.org>, 
+	linux-gpio@vger.kernel.org, linux-doc@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, Pengutronix Kernel Team <kernel@pengutronix.de>, 
+	Fabio Estevam <festevam@gmail.com>, Shenwei Wang <shenwei.wang@nxp.com>, Peng Fan <peng.fan@nxp.com>, 
+	devicetree@vger.kernel.org, linux-remoteproc@vger.kernel.org, 
+	imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org, linux-imx@nxp.com, 
+	Arnaud POULIQUEN <arnaud.pouliquen@foss.st.com>, b-padhi@ti.com, Andrew Lunn <andrew@lunn.ch>
+Content-Type: text/plain; charset="UTF-8"
 
-On 10/6/26 10:08, netdev-bot+sashiko@kernel.org wrote:
-> Thank you for your contribution! Sashiko AI review found 2 potential
-> issue(s) to consider.
-> 
-> Critical: 0 · High: 1 · Medium: 1 · Low: 0
-> 
-> If you believe none of the issues are legitimate, please reply to each
-> issue of Medium severity or higher and explain why the AI is wrong.
-> If any of them are legitimate and you plan to respin, please let patchwork
-> know by including "pw-bot: cr" as a separate line at the end of your reply
-> (one such reply per series is enough).
-> 
-> - [High] In zl3073x_dpll_output_pin_frequency_set()
->    (drivers/dpll/zl3073x/dpll.c), the N-div case is excluded from the new…
-> - [Medium] Pins are on zldpll->pins only for part of the time they are
->    registered with the DPLL core, so the new sibling lookup can miss a…
-> 
-> --
-> 
-> dpll: zl3073x: notify sibling pin when shared output config changes
-> 
-> This commit adds zl3073x_dpll_output_pin_sibling_get(). The output pin
-> frequency, esync and phase adjust setters use it to send a change
-> notification for the other pin of a P/N output pair. The setters move from
-> guard(mutex) to explicit lock/unlock so the notification is sent after
-> zldpll->lock is dropped, and all accesses to zldpll->pins are now
-> serialized with zldpll->lock.
-> 
->> diff --git a/drivers/dpll/zl3073x/dpll.c b/drivers/dpll/zl3073x/dpll.c
->> index 19456fbeeea84..b60d3280574ad 100644
->> --- a/drivers/dpll/zl3073x/dpll.c
->> +++ b/drivers/dpll/zl3073x/dpll.c
-> 
-> [ ... ]
-> 
->> @@ -1001,7 +1053,16 @@ zl3073x_dpll_output_pin_frequency_set(const struct dpll_pin *dpll_pin,
->>   		}
->>   
->>   		/* Commit output configuration */
->> -		return zl3073x_out_state_set(zldev, out_id, &out);
->> +		rc = zl3073x_out_state_set(zldev, out_id, &out);
->> +		if (rc)
->> +			goto unlock;
->> +
->> +		/* The other pin's frequency changed too - it has to be
->> +		 * notified about the change.
->> +		 */
->> +		sibling = zl3073x_dpll_output_pin_sibling_get(pin);
->> +
->> +		goto unlock;
->>   	}
->>   
->>   	if (zl3073x_dpll_is_p_pin(pin)) {
->> @@ -1013,8 +1074,10 @@ zl3073x_dpll_output_pin_frequency_set(const struct dpll_pin *dpll_pin,
->>   		 * Update divisor for N-pin to keep N-pin frequency.
->>   		 */
->>   		out.esync_n_period = (out.esync_n_period * out.div) / new_div;
->> -		if (!out.esync_n_period)
->> -			return -EINVAL;
->> +		if (!out.esync_n_period) {
->> +			rc = -EINVAL;
->> +			goto unlock;
->> +		}
->>   
->>   		/* Update the output divisor */
->>   		out.div = new_div;
-> 
-> [Severity: High]
-> Can the N-pin's frequency still change on this path without a
-> notification?
-> 
-> In N-div mode, zl3073x_dev_output_pin_freq_get() computes the N-pin
-> frequency from both the shared divisor and esync_n_period:
-> 
-> 	freq = zl3073x_synth_freq_get(synth) / out->div;
-> 
-> 	if (zl3073x_out_is_ndiv(out) && zl3073x_is_n_pin(id))
-> 		freq /= out->esync_n_period;
-> 
-> When the P-pin frequency is set, the esync_n_period rescale above
-> truncates whenever old_period * old_div is not a multiple of new_div.
-> 
-> For example, take a 1 GHz synth with div = 10 (P = 100 MHz) and period = 4
-> (N = 25 MHz). Setting P to 40 MHz gives new_div = 25 and period = 40 / 25 =
-> 1, so N becomes 40 MHz. Both frequencies pass zl3073x_pin_check_freq()
-> because they divide the synth frequency.
-> 
-> zl3073x_out_state_set() then commits the new DIV and ESYNC_PERIOD values.
-> However, sibling is only assigned in the non-N-div branch, so it is still
-> NULL at the tail of the function:
-> 
-> 	if (!rc && sibling)
-> 		__dpll_pin_change_ntf(sibling->dpll_pin);
-> 
-> No notification is sent for the N-pin, even though it is registered in
-> N-div mode.
-> 
-> The truncation itself predates this patch. The missing notification,
-> though, is the case this patch sets out to fix. The commit message says:
-> 
->      share a single HW output and, outside N-pin divide mode, share the
->      output's divisor, ...
-> 
-> and:
-> 
->      ... to notify the sibling pin, if it is registered, whenever the
->      shared HW state actually changes.
-> 
-> Is that accurate, given that the divisor is also part of the N-pin
-> frequency in N-div mode?
-> 
-> Should this branch either notify the N-pin when its effective frequency
-> changes, or reject a rescale that is not exact?
+On Mon, 5 Oct 2026 at 21:07, Rob Herring <robh@kernel.org> wrote:
+>
+> On Wed, Sep 23, 2026 at 01:42:29PM -0500, Shenwei Wang wrote:
+> > From: Shenwei Wang <shenwei.wang@nxp.com>
+> >
+> > Remote processors may announce multiple GPIO controllers over an RPMSG
+> > channel. These GPIO controllers may require corresponding device tree
+> > nodes, especially when acting as providers, to supply phandles for their
+> > consumers.
+> >
+> > Define an RPMSG node to work as a container for a group of RPMSG channels
+> > under the imx_rproc node. Each subnode within "rpmsg" represents an
+> > individual RPMSG channel. The name of each subnode corresponds to the
+> > channel name as defined by the remote processor.
+>
+> Sorry, but DT defines the names of nodes. If it's a gpio-controller,
+> then 'gpio'.
+>
+> I still don't understand where the unit address gets defined. 0 and 1
+> look a bit made up. I'm sure you explained it before, but *this patch*
+> needs to explain it. When you define a second protocol, the 0 and 1
+> addresses are taken already, so you can't have 'clock-controller@0' for
+> example.
+>
 
-I will take the second option and reject a rescale that is not exact. For
-the next version I plan to add a preparatory patch ("dpll: zl3073x:
-reject inexact frequencies for N-divided outputs"), ordered before this
-notification patch, that changes the P-pin branch to
+I had a conversation with Krzysztof about this here in Prague.  We
+have decided to adopt the bindings proposed by Francesco in this
+thread [1].
 
-     prod = esync_n_period * div;
-     esync_n_period = div_u64_rem(prod, new_div, &rem);
-     if (rem)                   -> reject (-EINVAL)
-     if (esync_n_period < 2)    -> reject (-EINVAL)
+[1].  https://lore.kernel.org/all/20260916-remoteproc_virtio_map-v1-8-dac8c5eb4aa9@valla.it/
 
-so the request is refused whenever the rescale is not exact. When the
-P-pin set succeeds, the N-pin frequency is
-
-     synth / (new_div * new_period)
-       = synth / (new_div * (old_period * old_div / new_div))
-       = synth / (old_div * old_period)
-
-i.e. exactly the old N-pin frequency. So on this path the N-pin's
-effective frequency never changes and no notification is required. With
-that patch in front, the claim in this commit message ("to notify the
-sibling pin ... whenever the shared HW state actually changes") holds,
-and I will adjust the wording to make the N-div case explicit.
-
-> [ ... ]
-> 
->> @@ -1954,7 +2049,9 @@ zl3073x_dpll_pins_register(struct zl3073x_dpll *zldpll)
->>   			goto error;
->>   		}
->>   
->> +		mutex_lock(&zldpll->lock);
->>   		list_add(&pin->list, &zldpll->pins);
->> +		mutex_unlock(&zldpll->lock);
->>   	}
-> 
-> [Severity: Medium]
-> Can zl3073x_dpll_output_pin_sibling_get() miss a sibling that is already
-> registered with the DPLL core?
-> 
-> zl3073x_dpll_pin_register()->dpll_pin_register() publishes the pin. It
-> takes and drops dpll_lock and sends PIN_CREATE before the pin is added to
-> zldpll->pins here. P (even id) is registered before N (odd id), so this
-> window exists:
-> 
-> CPU1 (probe)
-> zl3073x_dpll_pins_register()
->    zl3073x_dpll_pin_register(N)
->      dpll_pin_register()
->        N is now visible, PIN_CREATE sent
-> 
-> CPU2 (netlink PIN_SET on P, dpll_lock held)
-> zl3073x_dpll_output_pin_phase_adjust_set()
->    zl3073x_out_state_set()
->    zl3073x_dpll_output_pin_sibling_get()
->      N is not on zldpll->pins yet, returns NULL
-> 
-> CPU1
->    list_add(&pin->list, &zldpll->pins);
-> 
-> At that point userspace still has the CREATE values for N, but the shared
-> div, esync or phase_comp has already changed, and no change notification
-> is sent for N.
-> 
-> Teardown has the opposite window. zl3073x_dpll_pins_unregister() empties
-> the list before any dpll_pin_unregister() call:
-> 
-> 	mutex_lock(&zldpll->lock);
-> 	list_splice_init(&zldpll->pins, &pin_list);
-> 	mutex_unlock(&zldpll->lock);
-> 
-> A PIN_SET on a P-pin that is still registered therefore also skips an
-> N-pin that is still registered. A DELETE notification follows in that
-> case.
-> 
-> This cannot cause a use-after-free. The sibling is freed only after
-> dpll_pin_unregister(), which needs dpll_lock, and the PIN_SET path holds
-> dpll_lock.
-> 
-> However, list membership does not match DPLL registration state, so the
-> notification this patch adds can still be lost. Should the lookup be tied
-> to registration state instead of list membership?
-
-You are right, and I will tie the list membership to the registration
-state. For the next version I plan to:
-
-   - add the pin to zldpll->pins *before* dpll_pin_register() (removing it
-     again on a registration failure), and
-   - remove it from zldpll->pins only *after* dpll_pin_unregister(),
-     instead of splicing the whole list away before unregistering any pin,
-
-both under zldpll->lock. That closes both windows you described: a pin
-that is registered - and thus reachable by a PIN_SET on its sibling - is
-always present on the list, so the lookup will find it.
-
-The opposite transient state (a pin on the list that is not yet, or no
-longer, registered) is harmless:
-
-   - __dpll_pin_change_ntf() is a no-op for such a pin, because
-     dpll_pin_event_send() bails out on !dpll_pin_available(), and
-   - there is no use-after-free, as you also noted: the sibling is freed
-     only after dpll_pin_unregister(), which takes dpll_lock, and the
-     PIN_SET path holds dpll_lock across the lookup and the notification.
-
-Thanks,
-Ivan
-
+> Rob
