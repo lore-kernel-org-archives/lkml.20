@@ -1,94 +1,203 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta0.migadu.com (out-97.mta0.migadu.com [91.218.175.97])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E0BDA4195C8;
-	Tue,  6 Oct 2026 13:32:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0184B463B66
+	for <linux-kernel@vger.kernel.org>; Tue,  6 Oct 2026 13:32:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.97
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791293577; cv=none; b=fPUt7T/EwGEV5YFAIxqtE+dgbS4laA9dt/3ltTvhKSS6/9z63TSsWR/L0+rzkwdqRE2uPrFmIIheS9n9sKGc3U0Ox33O31vn5y/KEnhwuKNFSEte0hFVssIGtLUPeejKOZfqnRTof5VKV1jYYCrtzzGn1W7k5Gco6M/XtEh+OwY=
+	t=1791293580; cv=none; b=M5uyWe+EhSToOc4vuDdhtG7iD0HoKKEUMNIHtjtDIbTdEA6+fhyDdhFVEuknnRFQ9t6KSOESCa/9khaUdosI4iexgFOExGzqFUwoKt7wIyJlKzaKWgc1xTYiJG0MJYuvbTYiFYeImyczF0B331yJMW5XAlWbBdsTXFmsgwj98AA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791293577; c=relaxed/simple;
-	bh=rDBfT6pAvhNxalF+kSQQ02i8OGbRSXeGMZh1ZRM8VEs=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=b1MeNVf6+hMwrqt5DjJwRB6C/mFcLvl72mDkdHWx2JM17flxWaHb6OLsz3M3/mMUPAxVgjHnlBBAipT96xxwHCTx4ORN9jPxic+1mUODAp8tSioen4g/m7VmQa50XLPVqtpfaK0Vl0KejpCkWO1BoJXwAbow/Zw56XYjgWWLLCQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=h8BaYucA; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791293580; c=relaxed/simple;
+	bh=smNz1eVU0GPZ0bGB5TxQ5+zWKlDqUlqFk7rJBl1+TLI=;
+	h=Content-Type:Mime-Version:Subject:From:In-Reply-To:Date:Cc:
+	 Message-Id:References:To; b=MOrKYKWO+FRAQRBNbyq2NXl3tagM2vlrDDnK/eOv3h5a6wKItZoRCfHVlGM3bN8MrEnAs5KiX4UMBkGuHlCqzN0J3nel/OTPJFVbuyb1ifanRuaOVTWANNkrCVxnVZmnow2W03WGdEqwGWKsF4c7sxA68LkjK+E9hwEjz3arD3U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=Jekc39bp; arc=none smtp.client-ip=91.218.175.97
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="h8BaYucA"
-Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id 7520F1F000FF;
-	Tue,  6 Oct 2026 13:32:55 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791293575;
-	bh=6CZikXboQ4pJcmLiTLM5ulPxyvEM102hfSjAIL4v6vU=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date;
-	b=h8BaYucACLeuFvkOnlGfyIh75DNQcKCrpxM0dABHEBNL9cA2ScG1G5IdfMJNBjaKt
-	 77fZ2SVWNl0zPmlQtmDq+w02mOnT149nxE/OWIFUmB1KiTDESmuC1MhjY1dFUhlFZd
-	 Mc23Akff+DL8RyVJPKKQTNwQFN2s6PrOzQ8A+vQ8RPu37LHJGOgjJbJcH//glHuBC8
-	 sLD6LpxWGDllIHhb2XUoQtQP/fQbpvRfPuKRFyeaEpLKe+qvtxfMGV0vYfAPfS2QBj
-	 Lkkc+WJlBfxS0v2CjTu9a8Jxb1wjR6b0JKNFKyG1VTcQXBS5z+xvwktxaR4wIfLXlD
-	 vrxSf+DLZs1Vw==
-From: Kevin Hilman <khilman@kernel.org>
-To: Maulik Shah <maulik.shah@oss.qualcomm.com>, Rob Herring
- <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Ulf Hansson <ulfh@kernel.org>, "Rafael J. Wysocki"
- <rafael@kernel.org>, Bjorn Andersson <andersson@kernel.org>, Konrad Dybcio
- <konradybcio@kernel.org>, Abel Vesa <abelvesa@kernel.org>, Daniel Lezcano
- <daniel.lezcano@oss.qualcomm.com>
-Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-pm@vger.kernel.org, linux-arm-msm@vger.kernel.org, Maulik Shah
- <maulik.shah@oss.qualcomm.com>
-Subject: Re: [PATCH 0/3] pmdomain: Support system-suspend-only domain idle
- states
-In-Reply-To: <20261005-s2idle_state-v1-0-3c402c66f388@oss.qualcomm.com>
-References: <20261005-s2idle_state-v1-0-3c402c66f388@oss.qualcomm.com>
-Date: Tue, 06 Oct 2026 06:32:55 -0700
-Message-ID: <7h7bjv0xa0.fsf@baylibre.com>
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="Jekc39bp"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=smNz1eVU0GPZ0bGB5TxQ5+zWKlDqUlqFk7rJBl1+TLI=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1791293575; v=1; x=1791898375;
+ b=Jekc39bpI+ioS9+/6w+urByOeYORvH5fCIWg9NHDTuHFtSIJ4zHHA8DJ8fSensly7uHX/HR/
+ 107fIDjvmzrDpMlAjWnOOfZClu0j0s7hC1Mj6DPm/mAmZBfuONGQURZ+fMeBqUKxRJL59z83wPU
+ Jq8nzS/PSiEN8JYwtO+Vjud0=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 72132319fdfc02e7;
+	Tue, 06 Oct 2026 13:32:55 +0000
+X-Mizu-Trace-ID: 72132319fdfc02e7
+X-Migadu-Flow: FLOW_OUT
+Content-Type: text/plain;
+	charset=utf-8
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain
+Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3901.100.1.1.12\))
+Subject: Re: [PATCH v3 6/6] mm/mm_init: add zone mismatch warning during page
+ init
+From: Muchun Song <muchun.song@linux.dev>
+In-Reply-To: <asTS6OtxPMVshuIO@kernel.org>
+Date: Tue, 6 Oct 2026 15:32:43 +0200
+Cc: Muchun Song <songmuchun@bytedance.com>,
+ Madhavan Srinivasan <maddy@linux.ibm.com>,
+ Andrew Morton <akpm@linux-foundation.org>,
+ David Hildenbrand <david@kernel.org>,
+ Michael Ellerman <mpe@ellerman.id.au>,
+ Nicholas Piggin <npiggin@gmail.com>,
+ Christophe Leroy <chleroy@kernel.org>,
+ Ritesh Harjani <ritesh.list@gmail.com>,
+ Shrikanth Hegde <sshegde@linux.ibm.com>,
+ Lorenzo Stoakes <ljs@kernel.org>,
+ "Liam R . Howlett" <liam@infradead.org>,
+ Vlastimil Babka <vbabka@kernel.org>,
+ Suren Baghdasaryan <surenb@google.com>,
+ Michal Hocko <mhocko@suse.com>,
+ Qi Zheng <qi.zheng@linux.dev>,
+ linuxppc-dev@lists.ozlabs.org,
+ linux-kernel@vger.kernel.org,
+ linux-mm@kvack.org
+Content-Transfer-Encoding: quoted-printable
+Message-Id: <CF8ED1DC-9745-42D3-92F0-424A02385EC1@linux.dev>
+References: <20260929053231.66085-1-songmuchun@bytedance.com>
+ <20260929053231.66085-7-songmuchun@bytedance.com>
+ <ar5xbQsUpSQZg0wO@kernel.org>
+ <78D5D6AA-BE36-432C-B0F7-453F93DF18C0@linux.dev>
+ <ar9p39Y9SmlxvbA_@kernel.org>
+ <85941AA4-7E50-4AAE-BC05-0F443B21BE8B@linux.dev>
+ <ar_0GLYM6KsIH6tQ@kernel.org>
+ <D91CEA1E-6B79-434D-AF49-16C62C0FD095@linux.dev>
+ <asTS6OtxPMVshuIO@kernel.org>
+To: Mike Rapoport <rppt@kernel.org>
+X-Mailer: Apple Mail (2.3901.100.1.1.12)
 
-Maulik Shah <maulik.shah@oss.qualcomm.com> writes:
 
-[...]
 
-> All domain idle states described in devicetree are currently considered
-> during the regular idle path. This limits which states can be described in
-> devicetree. Due to hardware constraints, some domain idle states are only
-> applicable to system-wide suspend, including suspend-to-idle (s2idle).
->
-> To allow these states to be described in DT and used only during system
-> suspend, this series adds a boolean system-state property to domain idle
-> state bindings and a corresponding system_state boolean in genpd. The
-> genpd governors skip these states during normal operation. The system
-> suspend selection path remains unchanged, allowing these states during
-> suspend while retaining the existing wakeup latency checks for s2idle.
->
-> This series applies to cluster idle states with the "domain-idle-state"
-> compatible string managed by genpd and its governors, but can be extended
-> to CPU idle states with the "arm,idle-state" compatible string if the same
-> restriction is needed for CPUidle states too.
->
-> Assisted-by: Codex:GPT-6
-> Signed-off-by: Maulik Shah <maulik.shah@oss.qualcomm.com>
+> On Oct 6, 2026, at 12:52, Mike Rapoport <rppt@kernel.org> wrote:
+>=20
+> On Mon, Oct 05, 2026 at 06:27:52PM +0200, Muchun Song wrote:
+>>> On Oct 2, 2026, at 20:12, Mike Rapoport <rppt@kernel.org> wrote:
+>>>=20
+>>> On Fri, Oct 02, 2026 at 05:56:40PM +0800, Muchun Song wrote:
+>>>>> On Oct 2, 2026, at 16:22, Mike Rapoport <rppt@kernel.org> wrote:
+>>>>=20
+>>>>>>>> diff --git a/mm/mm_init.c b/mm/mm_init.c
+>>>>>>>> index 1650d6bc1211..bd02e8d06965 100644
+>>>>>>>> --- a/mm/mm_init.c
+>>>>>>>> +++ b/mm/mm_init.c
+>>>>>>>> @@ -609,6 +609,9 @@ void __meminit __init_single_page(struct =
+page *page, unsigned long pfn,
+>>>>>>>> if (!is_highmem_idx(zone))
+>>>>>>>> set_page_address(page, __va(pfn << PAGE_SHIFT));
+>>>>>>>> #endif
+>>>>>>>> + =
+VM_WARN_ON_ONCE(vmemmap_optimizable_order(pfn_to_section_compound_order(pf=
+n)) &&
+>>>>>>>> + page_zone_id(page + VMEMMAP_OPTIMIZATION_NR_STRUCT_PAGES) !=3D
+>>>>>>>> + page_zone_id(page));
+>>>>>>>=20
+>>>>>>> Hmm, page + VMEMMAP_OPTIMIZATION_NR_STRUCT_PAGES is initialized =
+a tad later
+>>>>>>> than page so it'll have stale data in the page->flags, won't it?
+>>>>>>=20
+>>>>>> Lance is right. The shared tail struct pages are already =
+initialized by
+>>>>>> vmemmap_shared_tail_page() during vmemmap population, so they're =
+not stale.
+>>>>>> The head 64 struct pages are initialized later =E2=80=94 right =
+here, after vmemmap
+>>>>>> population.
+>>>>>=20
+>>>>> Still it looks out of place here, can this check be done in =
+sparse-vmemmap
+>>>>> somehow?
+>>>>=20
+>>>> The struct page entries of a vmemmap-optimizable compound page
+>>>> are currently initialized in two stages. During vmemmap
+>>>> population, the shared tail entries are initialized first. The
+>>>> retained head area=E2=80=94normally 64=E2=80=94is initialized later =
+through
+>>>> __init_single_page().
+>>>>=20
+>>>> This warning connects the two stages: while initializing the
+>>>> retained entries in the second stage, it verifies that their zone
+>>>> information is consistent with the shared entries initialized in
+>>>> the first stage. Therefore, the same check cannot be performed
+>>>> during vmemmap population.
+>>>>=20
+>>>> I am planning to first unify the HugeTLB and Device DAX
+>>>> compound-page initialization through a common helper [1]. Once that
+>>>> work is complete, maybe it will be easy to move the initialization
+>>>> of the retained head area into vmemmap population. With both the
+>>>> retained and shared entries initialized in the same stage, there
+>>>> will be no cross-stage inconsistency to check, and this warning
+>>>> can be removed.
+>>>>=20
+>>>> Would keeping the check here for now and removing it as part of
+>>>> that follow-up sound reasonable to you?
+>>>=20
+>>> While it feels really out of place in __init_single_page(), but =
+having it
+>>> memmap_init_range() close to the if that skips shared tail pages =
+makes
+>>> sense.
+>>>=20
+>>> What do you say?
+>>=20
+>> Sorry for the late reply because of traveling to LPC.
+>>=20
+>> Putting the check in memmap_init_range() would validate the
+>> invariant for the shared-tail range skipped there. It would
+>> not, however, cover all vmemmap-optimized initialization
+>> paths: optimized Device DAX bypasses memmap_init_range()
+>> when there is no altmap, and deferred boot-time HugeTLB
+>> initialization may also initialize retained entries
+>> elsewhere.
+>>=20
+>> If the intention is to validate only the skip in
+>> memmap_init_range(), moving it there makes sense. If we want
+>> the warning to cover both HugeTLB and Device DAX generally,
+>> it still needs to remain in __init_single_page() or be
+>> called from the individual initialization paths.
+>=20
+> Yeah, putting this into all the callers sucks too :(
+>=20
+> With all the callers,__init_single_page() is the right place for this
+> check, but I think we can add a static inline in sparse.h, like e.g.
+>=20
+> vmemmap_optimization_verify_zone(page, pfn)
+>=20
+> to make it a bit nicer.
 
-Acked-by: Kevin Hilman <khilman@baylibre.com>
+Yeah, factoring this into a helper makes sense.
 
-Thank you for submitting this.  I have been considering how to add
-exactly this feature, so I add an enthusaistic +1 to the need for
-this feature.
-
-On TI SoCs where we use s2idle, we have similar reasons to have
-domain-idle-states that should only be available during system-wide
-suspend-to-idle.
-
-The current hack to supporting this is to just use absurdly high
-residency numbers for these system states such that the runtime CPUidle
-never picks the states.  But this is a hack, and is not describing the
-hardware, so I would much rather see a way to describe this in DT.
+Since it currently has only one caller, how about keeping it as a local
+static inline in mm_init.c instead of putting it in sparse.h?
 
 Thanks,
+Muchun
 
-Kevin
+>=20
+>> Thanks,
+>> Muchun
+>>=20
+>>>=20
+>>>> [1] =
+https://lore.kernel.org/20260513132044.41690-18-songmuchun@bytedance.com/
+>>>>=20
+>>>> Thanks,
+>>>> Muchun
+>>>=20
+>>> --=20
+>>> Sincerely yours,
+>>> Mike.
+>>=20
+>=20
+> --=20
+> Sincerely yours,
+> Mike.
+
+
