@@ -1,284 +1,148 @@
-Received: from mx0b-00128a01.pphosted.com (mx0a-00128a01.pphosted.com [148.163.135.77])
+Received: from mail.mainlining.org (mail.mainlining.org [5.75.144.95])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 94E1B4A387E;
-	Tue,  6 Oct 2026 18:20:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.135.77
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4F75A4A3D3D;
+	Tue,  6 Oct 2026 18:21:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=5.75.144.95
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791310827; cv=none; b=uL/Im1H71kuXUiRkUukObCpohToRwDJUe7E4xKcrI7AmX1WIKbujLj2Dm2dTxjkpG9OabeHYsmOIvKpSBtAA4jSBAdloYJ4qO3qn26mODNE9fFwcom4xyBn4/57OFF6WMVSHyGt8xWKIhxMVZZ9fNFyGBJ3tTCuo1mz1A+9h8SQ=
+	t=1791310888; cv=none; b=qsmR7X1Ce4J5YGGhthIWnzqEGzcmXhMilIjRIdXmBnevZqMLv9wcFi04/5yHKiP/FpcKsPuPrZ4UJbFfyxEritxpoVwEoKLbOBCR6sccgjRQJ1qmt+KTStDXSUW4RaBVt/96p+x+8sCGsT8dwRe4xu21ZBXxnlNMn1Y81oNAgsg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791310827; c=relaxed/simple;
-	bh=D/fqFJJmgk3W3q2oSz0m4mj/AzINb9KFaln8IfRz7d4=;
-	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=DVFjBPHdNkySCdG6nZlfMbYg2DsyWnWXq3qoNuDOjoC2SxDn4L7eO67pk2z60Nl0WPJjfS5cQxDRBWLhmc2stWM52Hs1nL7HJNl9ozlMVROiXOPlODHIt2W+3DTYbXyY9zL5CWL3sPRK/ndmo4RTryw3IXEaKe49JbNsGd0Udl4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=analog.com; spf=pass smtp.mailfrom=analog.com; dkim=pass (2048-bit key) header.d=vtelectron.com header.i=@vtelectron.com header.b=s/Cz9uD3; dkim=pass (2048-bit key) header.d=analog.com header.i=@analog.com header.b=mubi8SSP; arc=none smtp.client-ip=148.163.135.77
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=analog.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=analog.com
+	s=arc-20240116; t=1791310888; c=relaxed/simple;
+	bh=yvEowojj7lTWt336vh/tC/kyz8qXTbPbPQ9eaqjKYWQ=;
+	h=MIME-Version:Date:From:To:Cc:Subject:In-Reply-To:References:
+	 Message-ID:Content-Type; b=AREqOh3CCUz4NfXwpEH+Zzybk/tg8HK+FOXEPSRKRCa/hsQypZsJ4fHwBnJuN/iXC+lByWb9kwDmMNwVylqtU2W8GACYme97bIw6QRpGps3X7pvGZ1ThAHHjNVDKlrOi5E6ELfb65Uvd1NdKIL6da2Nt0L93q2uy6xGZoaCgq1Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org; spf=pass smtp.mailfrom=mainlining.org; dkim=pass (2048-bit key) header.d=mainlining.org header.i=@mainlining.org header.b=pF6YMycd; dkim=permerror (0-bit key) header.d=mainlining.org header.i=@mainlining.org header.b=2BpKq7No; arc=none smtp.client-ip=5.75.144.95
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mainlining.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=vtelectron.com header.i=@vtelectron.com header.b="s/Cz9uD3";
-	dkim=pass (2048-bit key) header.d=analog.com header.i=@analog.com header.b="mubi8SSP"
-Received: from pps.filterd (m0375855.ppops.net [127.0.0.1])
-	by mx0b-00128a01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 696Hga2A1610019;
-	Tue, 6 Oct 2026 14:20:20 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=vtelectron.com;
-	 h=cc:content-transfer-encoding:content-type:date:from
-	:in-reply-to:message-id:mime-version:references:subject:to; s=
-	DKIM; bh=g78t4aRzxVnpAiJB9bw5Mt7tVofb4ZCwTCbcZuMVaag=; b=s/Cz9uD
-	3aNjOMqPNJ/dm8IQSg6p7+OR3bTzhw342mX4Q1lFpWzONVZLZW9UDVuo30UBZYP3
-	yMbAvf6abUamXZhalEpVSb4nvR4Q3F2ekMO9BkhEsEynZXkjwejP7hIQePP8WzUI
-	hyz5WPHLw8tN/xsDv8vfSGO0ENbKKjcKlbY72puzhOOUq1meXt9/1pxCabNYKZyi
-	Akk8jTs8Hu6tYDGTBKMb0arjgY2TUet7uoPgfaGtdPA7MI65864Cn4xEIAc+bMgY
-	7IVee0/Jmzyk5wqY91mlBohuZiNlmC6dgtrkiuH8kIG48ps/alXtlLdUdN2guj1N
-	Zn+ZgLIyI3FZomA==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=analog.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=DKIM; bh=g78t4
-	aRzxVnpAiJB9bw5Mt7tVofb4ZCwTCbcZuMVaag=; b=mubi8SSP2glzAhUthr0dT
-	0LAWTM538Pj65MDHVamGzsFEv1Y9ibUnXXn1gsC7NgSZzIGSVsyjN6Zafu70POTG
-	z6uCxTbWVIdQHV3I67daA0BBUtS5hFU60ousLRowUVj8vrT+r52ph1wfn4jOKprg
-	/sd0u+sXDn7+yhG/12tDAWVPcP2drUMWODEKEmkCDh9wjRyjs0/80aDTiV3EiI+S
-	TsjbfYHx3Z0LjsLvJ2TRIuN0oAbqL9gH4WBA9eC/wI4l5/mpiBYMu89JEFQhtsI3
-	BDHg92CnI2XKFyzXb07baHI+H5j62643F24ZkuabfIPXF25Jh00a27fQXHVoIo/n
-	w==
-Received: from nwd2mta4.analog.com ([137.71.173.58])
-	by mx0b-00128a01.pphosted.com (PPS) with ESMTPS id 4h4ub43stj-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Tue, 06 Oct 2026 14:20:20 -0400 (EDT)
-Received: from ASHBMBX9.ad.analog.com (ASHBMBX9.ad.analog.com [10.64.17.10])
-	by nwd2mta4.analog.com (8.14.7/8.14.7) with ESMTP id 696IKJjQ010135
-	(version=TLSv1/SSLv3 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
-	Tue, 6 Oct 2026 14:20:19 -0400
-Received: from ASHBMBX9.ad.analog.com (10.64.17.10) by ASHBMBX9.ad.analog.com
- (10.64.17.10) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1748.37; Tue, 6 Oct
- 2026 14:20:19 -0400
-Received: from zeus.spd.analog.com (10.66.68.11) by ashbmbx9.ad.analog.com
- (10.64.17.10) with Microsoft SMTP Server id 15.2.1748.37 via Frontend
- Transport; Tue, 6 Oct 2026 14:20:19 -0400
-Received: from work.maxim-ic.internal ([10.66.6.193])
-	by zeus.spd.analog.com (8.15.1/8.15.1) with ESMTP id 696IK3L0001054;
-	Tue, 6 Oct 2026 14:20:05 -0400
-From: Marcelo Schmitt <marcelo.schmitt@analog.com>
-To: <linux-iio@vger.kernel.org>, <devicetree@vger.kernel.org>,
-        <linux-kernel@vger.kernel.org>, <linux@analog.com>
-CC: <jic23@kernel.org>, <nuno.sa@analog.com>, <dlechner@baylibre.com>,
-        <andy@kernel.org>, <Michael.Hennerich@analog.com>, <robh@kernel.org>,
-        <krzk+dt@kernel.org>, <conor+dt@kernel.org>, <corbet@lwn.net>,
-        <skhan@linuxfoundation.org>, <marcelo.schmitt1@gmail.com>
-Subject: [PATCH v4 13/13] Docs: iio: Add AD4134
-Date: Tue, 6 Oct 2026 15:19:58 -0300
-Message-ID: <c5dbd4bfabb8b747e7286a09e86a472ec3d38b92.1791309733.git.marcelo.schmitt@analog.com>
-X-Mailer: git-send-email 2.39.2
-In-Reply-To: <cover.1791309733.git.marcelo.schmitt@analog.com>
-References: <cover.1791309733.git.marcelo.schmitt@analog.com>
+	dkim=pass (2048-bit key) header.d=mainlining.org header.i=@mainlining.org header.b="pF6YMycd";
+	dkim=permerror (0-bit key) header.d=mainlining.org header.i=@mainlining.org header.b="2BpKq7No"
+DKIM-Signature: v=1; a=rsa-sha256; s=202507r; d=mainlining.org; c=relaxed/relaxed;
+	h=Message-ID:Subject:To:From:Date; t=1791310875; bh=hsmk0xUQOeuU61kOIu34tRH
+	SVUNEeNow5kkjB0uZ+9g=; b=pF6YMycdqjwNjEKoQ2HhTUkccc1ie0LzKTbc8VH1ENWUlajLTN
+	eLNWV3QYSZ2ffFEEIpUeX8V7ZDDaduBJ4D4Ia8n2Mb0oY4t53asrd8+2qxf7PBOtEgfdfwks848
+	K8s7TvXv88IYrmMUZaRvCid4EinhdkpIH5BRezL0ykl1F300tLsBbCsl/RMDw/Rz723Ly+lZR6K
+	B6qhp53xsepukvp/iMnNyufHPMubDexkc6pA89jT/ioE1V0zM+z3kOej49C4lOjxpfxcpvDy2lZ
+	3/qL02wrlon6i0xtoz9I9f4vJllfWer0w2rQwD4cDCuknRHWkZeyYxkBm97hdfmQDcA==;
+DKIM-Signature: v=1; a=ed25519-sha256; s=202507e; d=mainlining.org; c=relaxed/relaxed;
+	h=Message-ID:Subject:To:From:Date; t=1791310875; bh=hsmk0xUQOeuU61kOIu34tRH
+	SVUNEeNow5kkjB0uZ+9g=; b=2BpKq7Nox97rfTEWiyv6Gr2GUGWcJos/PFfvxRVuoP8vflWNNw
+	JlENeUSVpEOU6GQweHpKoRsfCm3qWpjlrPBQ==;
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="UTF-8"
+Date: Tue, 06 Oct 2026 20:21:15 +0200
+From: =?UTF-8?Q?Barnab=C3=A1s_Cz=C3=A9m=C3=A1n?=
+ <barnabas.czeman@mainlining.org>
+To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
+ Mathieu Poirier <mathieu.poirier@linaro.org>, Konrad Dybcio
+ <konradybcio@kernel.org>, Stephan Gerhold <stephan@gerhold.net>, Ulf Hansson
+ <ulfh@kernel.org>, Abel Vesa <abelvesa@kernel.org>,
+ linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-pm@vger.kernel.org,
+ linux-remoteproc@vger.kernel.org
+Subject: Re: [PATCH v3 3/7] pmdomain: qcom: rpmpd: Split SDM632 pm domains
+ from MSM8953
+In-Reply-To: <i4zm6zil2qyfdrclkxf6sifgup4phi6dlggspxrd7khlvbqv4e@yxotc3cslqss>
+References: <20261002-sdm632-rpmpd-v3-0-95c47d0f26cf@mainlining.org>
+ <20261002-sdm632-rpmpd-v3-3-95c47d0f26cf@mainlining.org>
+ <i4zm6zil2qyfdrclkxf6sifgup4phi6dlggspxrd7khlvbqv4e@yxotc3cslqss>
+Message-ID: <d514f6ad8c8d56dfb395f92ac100623b@mainlining.org>
+X-Sender: barnabas.czeman@mainlining.org
+Content-Type: text/plain; charset=UTF-8;
+ format=flowed
 Content-Transfer-Encoding: 8bit
-X-ADIRuleOP-NewSCL: Rule Triggered
-X-Proofpoint-ORIG-GUID: rl-mKce0JPn1RUIL1F8nc0YfKGoNGVCo
-X-Proofpoint-GUID: rl-mKce0JPn1RUIL1F8nc0YfKGoNGVCo
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDA2MDA3MiBTYWx0ZWRfX2E1l1N9Fa73k
- PmSusegCITWBKM/cwr11YIA4GCV3LnP/gb+KflUN+f0IckKQbn2f9VD3YALIQtbXEP7ts4cBqwc
- OmwcdfTpWS+6OpnIDJylViimrSFA8lfsK5P3Yl8U1X3U2CxsL3RkmLpTKXlhsWg7eF1NpglRoXJ
- CMvd/lt2o/N1j1YRlRvDKn5WsRceL8PokuJcbY2m9EGxQmcGGEdW6HRc7yk7GkPsKexv9tGgW48
- FVgjs/nLscyp0CGnASmiOdtaEhBGH3gsitZdIdYaXm0BbberfYcX0nQD1R6GiNzDBJgvpIpAYJE
- Y6Htg9wgTMGiz+ykoNVmX5Bn5pCm8Cuwruo72vCVuownjVxakUpYaujstxX8pkIvd5zZsv9yfk+
- ZUpMb8UiwVvaB06XVDEBk++eDVgcYRXCLyVXFts2/RUjQuJiq4T5O8WaQwkC/b+w23K1TUAf8wc
- GQq/UmogTnxr2nTUOCQ==
-X-Authority-Analysis: v=2.4 cv=O46sLx9W c=1 sm=1 tr=0 ts=6ac53be4 cx=c_pps
- a=3WNzaoukacrqR9RwcOSAdA==:117 a=3WNzaoukacrqR9RwcOSAdA==:17
- a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=VkNPw1HP01LnGYTKEx00:22
- a=0sLvza09kfJOxVLZPwjg:22 a=N--XFCr6TIEc_64PeIT2:22 a=gAnH3GRIAAAA:8
- a=wI1k2SEZAAAA:8 a=VwQbUJbxAAAA:8 a=5WHrTUun5MBT5U1ic48A:9
- a=qcg49hLlgF0N60+LroqrWnV/Vu4=:19 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
- a=6HWbV-4b7c7AdzY24d_u:22
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDA2MDA3MiBTYWx0ZWRfX/jQnDDYbagi3
- AitLanKB9fPxZvgtEx8zT9QQ44N2s6ZTx886mNHgJTvDV9XNxKmiOz075Dx064UfUSS49cr4nhR
- w2lHUXC78YqU/jXHGsGhmR7GObsw0cJG2OLKhQNw19Lrdn4CiXJ0
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-10-06_05,2026-10-06_03,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- phishscore=0 spamscore=0 lowpriorityscore=0 priorityscore=1501 clxscore=1015
- suspectscore=0 malwarescore=0 impostorscore=0 bulkscore=0 adultscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2610060072
 
-Add initial documentation for the ad4134 IIO driver.
-
-Signed-off-by: Marcelo Schmitt <marcelo.schmitt@analog.com>
----
-Change log v3 -> v4:
-- Minor adjust to AD4134 IIO Doc that made the doc 1 line shorter.
-
- Documentation/iio/ad4134.rst | 127 +++++++++++++++++++++++++++++++++++
- Documentation/iio/index.rst  |   1 +
- MAINTAINERS                  |   1 +
- 3 files changed, 129 insertions(+)
- create mode 100644 Documentation/iio/ad4134.rst
-
-diff --git a/Documentation/iio/ad4134.rst b/Documentation/iio/ad4134.rst
-new file mode 100644
-index 000000000000..c0889a21cd77
---- /dev/null
-+++ b/Documentation/iio/ad4134.rst
-@@ -0,0 +1,127 @@
-+.. SPDX-License-Identifier: GPL-2.0-only
-+
-+=============
-+AD4134 driver
-+=============
-+
-+Device driver for Analog Devices Inc. AD4134 and similar ADCs.
-+
-+Supported devices
-+=================
-+
-+* `AD4134 <https://www.analog.com/AD4134>`_
-+* `AD7134 <https://www.analog.com/AD7134>`_
-+
-+Wiring connections
-+------------------
-+
-+AD4134 and similar ADCs can operate in a few different wiring configurations.
-+Because AD4134 also supports control modes other than through SPI protocol,
-+the following pins must be statically set for all of the wiring modes described
-+below.
-+
-++----------------------------+----------------------+--------------------+
-+| Pin Function               |         Level        | Description        |
-++============================+======================+====================+
-+| PIN/SPI                    |         High         | SPI control mode   |
-++----------------------------+----------------------+--------------------+
-+| MODE                       |         Low          | ASRC slave mode    |
-++----------------------------+----------------------+--------------------+
-+| DEC0/DCLKI                 |         Low          | DCLK input         |
-++----------------------------+----------------------+--------------------+
-+| DEC1/DCLKMODE              |         Low          | Gated DCLK         |
-++----------------------------+----------------------+--------------------+
-+
-+Minimum I/O mode
-+^^^^^^^^^^^^^^^^
-+
-+The minimum I/O mode wiring allows AD4134 register and data access with the
-+conventional set of SPI bus lines. In this mode, the peripheral CS pin must be
-+tied to GND. A possible connection schema that sets AD4134 digital interface for
-+minimum I/O mode is::
-+
-+      +------------+         +-------------+
-+      |  AD4134    |         | SPI         |
-+      |            |         | Controller  |
-+      |       DCLK |<--+     |             |
-+      |       SCLK |<--+---- | SCLK        |
-+      |        SDI |<--------| SDO         |
-+      |        SDO |-------->| SDI         |
-+      |        ODR |<--------| GPIO        |
-+      |         CS |----+    |             |
-+      +------------+    |    +-------------+
-+                        V
-+                       GND
-+
-+Set ``adi,spi-mode = "no-cs"`` in device tree to indicate the device is
-+connected in minimum I/O wiring configuration.
-+
-+SPI 4-wire mode - single lane
-+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-+
-+The conventional SPI 4-wire configuration except a multiplexer is used to
-+select between SDO (for register data) and DOUT0 (for ADC sample data).::
-+
-+  +-----------------------+                         +-----------------+
-+  |         AD4134        |                         | SPI Controller  |
-+  |                       |                         |                 |
-+  | SPI interface    SCLK |<------------------------| SCLK            |
-+  | for register       CS |<------------------------| CS              |
-+  | access            SDI |<------------------------| SDO             |
-+  |                   SDO |------->|¯¯¯¯\           |                 |
-+  |                       |        |MUX  >--------->| SDI             |
-+  | Data interface DOUT0  |------->|____/           |                 |
-+  | for ADC sample        |          ^              |                 |
-+  | data read             |          |              |                 |
-+  |                  DCLK |<------------------------| DCLK            |
-+  |                   ODR |<----------------+    +->| Offload Trigger |
-+  +-----------------------+          |      |    |  +-----------------+
-+                                     |      |    +--| PWM1            |
-+                                     |      +-------| PWM0            |
-+                                     +--------------| GPIO            |
-+                                                    +-----------------+
-+
-+Set ``adi,spi-mode = "4-wire"`` in device tree to indicate the device is
-+connected in SPI 4-wire configuration.
-+
-+For SPI offload operation, a PWM is connected to the ADC ODR pin. The ``pwms``
-+firmware property specifies the PWM that is connected to the ADC. The SPI
-+offload will have a ``trigger-sources`` property to indicate the SPI offload
-+(PWM) trigger source.
-+
-+To achieve high sample rates while meeting ADC timing requirements, an offset
-+must be added between the rising edges of PWM0 and PWM1 to delay the SPI
-+transfer until ADC sample data is available. This requires a specialized PWM
-+controller that can provide such an offset.  The `AD4134-FMC HDL project`_, for
-+example, can be configured to sample AD4134 at high speed sample rates.
-+
-+.. _AD4134-FMC HDL project: https://analogdevicesinc.github.io/hdl/projects/ad4134_fmc/index.html
-+
-+SPI 4-wire mode - multi-lane
-+^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-+
-+Maximum throughput rate can be achieved by reading 4 input lines simultaneously.::
-+
-+  +-----------------------+                         +-----------------+
-+  |         AD4134        |                         | SPI Controller  |
-+  |                       |                         |                 |
-+  | SPI interface    SCLK |<------------------------| SCLK            |
-+  | for register       CS |<------------------------| CS              |
-+  | access            SDI |<------------------------| SDO             |
-+  |                   SDO |------->|¯¯¯¯\           |                 |
-+  |                       |        |MUX  >--------->| SDI0            |
-+  | Data interface  DOUT0 |------->|____/           |                 |
-+  | for ADC sample        |          ^              |                 |
-+  | data read       DOUT1 |------------------------>| SDI1            |
-+  |                 DOUT2 |------------------------>| SDI2            |
-+  |                 DOUT3 |------------------------>| SDI3            |
-+  |                  DCLK |<------------------------| DCLK            |
-+  |                   ODR |<----------------+    +->| Offload Trigger |
-+  +-----------------------+          |      |    |  +-----------------+
-+                                     |      |    +--| PWM1            |
-+                                     |      +-------| PWM0            |
-+                                     +--------------| GPIO            |
-+                                                    +-----------------+
-+
-+Each of SDI0 to SDI3 connect to a different SPI controller deserializer
-+(``spi-rx-bus-width = <1>, <1>, <1>, <1>``).
-diff --git a/Documentation/iio/index.rst b/Documentation/iio/index.rst
-index d0fb32f4b80f..3a49e08a2366 100644
---- a/Documentation/iio/index.rst
-+++ b/Documentation/iio/index.rst
-@@ -23,6 +23,7 @@ Industrial I/O Kernel Drivers
-    ad4000
-    ad4030
-    ad4062
-+   ad4134
-    ad4691
-    ad4695
-    ad7191
-diff --git a/MAINTAINERS b/MAINTAINERS
-index 3a2dfd1a4fd8..82a810ac788e 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -1533,6 +1533,7 @@ L:	linux-iio@vger.kernel.org
- S:	Supported
- W:	https://ez.analog.com/linux-software-drivers
- F:	Documentation/devicetree/bindings/iio/adc/adi,ad4134.yaml
-+F:	Documentation/iio/ad4134.rst
- F:	drivers/iio/adc/ad4134.c
- 
- ANALOG DEVICES INC AD4170-4 DRIVER
--- 
-2.53.0
-
+On 2026-10-05 09:04, Dmitry Baryshkov wrote:
+> On Fri, Oct 02, 2026 at 12:38:31AM +0200, Barnabás Czémán wrote:
+>> Remove modem related pm domains from MSM8953 rpmpd because MSM8953 MSS
+>> is using mss-supply as regulator.
+>> Split SDM632 rpmpd from MSM8953 because SDM632 MSS is using mss-supply
+>> as pm domain.
+>> 
+>> Signed-off-by: Barnabás Czémán <barnabas.czeman@mainlining.org>
+>> ---
+>>  drivers/pmdomain/qcom/rpmpd.c | 29 ++++++++++++++++-------------
+>>  1 file changed, 16 insertions(+), 13 deletions(-)
+>> 
+>> diff --git a/drivers/pmdomain/qcom/rpmpd.c 
+>> b/drivers/pmdomain/qcom/rpmpd.c
+>> index 5f55fc791131..c37a79d6bc43 100644
+>> --- a/drivers/pmdomain/qcom/rpmpd.c
+>> +++ b/drivers/pmdomain/qcom/rpmpd.c
+>> @@ -503,19 +503,8 @@ static struct rpmpd md_s1a_corner_ao = {
+>>  	.key = KEY_CORNER,
+>>  };
+>> 
+>> -static struct rpmpd md_s1a_lvl_ao;
+> 
+> I'd rather see #define RPMPD_VDDMD_AO unless you have a good reason to
+> drop it.
+There is no AO defined here: 
+https://git.codelinaro.org/clo/la/kernel/msm-4.9/-/blob/LA.UM.10.6.2.c26-01500-89xx.0/arch/arm64/boot/dts/qcom/msm8953-regulator.dtsi#L19
+https://git.codelinaro.org/clo/la/kernel/msm-4.9/-/blob/LA.UM.10.6.2.c26-01500-89xx.0/arch/arm64/boot/dts/qcom/sdm439-regulator.dtsi#L19
+> 
+>>  static struct rpmpd md_s1a_lvl = {
+>>  	.pd = { .name = "md", },
+>> -	.peer = &md_s1a_lvl_ao,
+>> -	.res_type = RPMPD_SMPA,
+>> -	.res_id = 1,
+>> -	.key = KEY_LEVEL,
+>> -};
+>> -
+>> -static struct rpmpd md_s1a_lvl_ao = {
+>> -	.pd = { .name = "md_ao", },
+>> -	.peer = &md_s1a_lvl,
+>> -	.active_only = true,
+>>  	.res_type = RPMPD_SMPA,
+>>  	.res_id = 1,
+>>  	.key = KEY_LEVEL,
+>> @@ -703,8 +692,6 @@ static const struct rpmpd_desc msm8917_desc = {
+>>  };
+>> 
+>>  static struct rpmpd *msm8953_rpmpds[] = {
+>> -	[MSM8953_VDDMD] =	&md_s1a_lvl,
+>> -	[MSM8953_VDDMD_AO] =	&md_s1a_lvl_ao,
+>>  	[MSM8953_VDDCX] =	&cx_s2a_lvl,
+>>  	[MSM8953_VDDCX_AO] =	&cx_s2a_lvl_ao,
+>>  	[MSM8953_VDDCX_VFL] =	&cx_s2a_vfl,
+>> @@ -844,6 +831,21 @@ static const struct rpmpd_desc qm215_desc = {
+>>  	.max_state = RPM_SMD_LEVEL_TURBO,
+>>  };
+>> 
+>> +static struct rpmpd *sdm632_rpmpds[] = {
+>> +	[RPMPD_VDDMD] =		&md_s1a_lvl,
+>> +	[RPMPD_VDDCX] =		&cx_s2a_lvl,
+>> +	[RPMPD_VDDCX_AO] =	&cx_s2a_lvl_ao,
+>> +	[RPMPD_VDDCX_VFL] =	&cx_s2a_vfl,
+>> +	[RPMPD_VDDMX] =		&mx_s7a_lvl,
+>> +	[RPMPD_VDDMX_AO] =	&mx_s7a_lvl_ao,
+>> +};
+>> +
+>> +static const struct rpmpd_desc sdm632_desc = {
+>> +	.rpmpds = sdm632_rpmpds,
+>> +	.num_pds = ARRAY_SIZE(sdm632_rpmpds),
+>> +	.max_state = RPM_SMD_LEVEL_TURBO,
+>> +};
+>> +
+>>  static struct rpmpd *sdm660_rpmpds[] = {
+>>  	[RPMPD_VDDCX] =		&cx_rwcx0_lvl,
+>>  	[RPMPD_VDDCX_AO] =	&cx_rwcx0_lvl_ao,
+>> @@ -954,6 +956,7 @@ static const struct of_device_id 
+>> rpmpd_match_table[] = {
+>>  	{ .compatible = "qcom,qcm2290-rpmpd", .data = &qcm2290_desc },
+>>  	{ .compatible = "qcom,qcs404-rpmpd", .data = &qcs404_desc },
+>>  	{ .compatible = "qcom,qm215-rpmpd", .data = &qm215_desc },
+>> +	{ .compatible = "qcom,sdm632-rpmpd", .data = &sdm632_desc },
+>>  	{ .compatible = "qcom,sdm660-rpmpd", .data = &sdm660_desc },
+>>  	{ .compatible = "qcom,shikra-rpmpd", .data = &shikra_desc },
+>>  	{ .compatible = "qcom,sm6115-rpmpd", .data = &sm6115_desc },
+>> 
+>> --
+>> 2.56.0
+>> 
