@@ -1,268 +1,106 @@
-Received: from mail-wr1-f41.google.com (mail-wr1-f41.google.com [209.85.221.41])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9A89C3D9545
-	for <linux-kernel@vger.kernel.org>; Tue,  6 Oct 2026 08:10:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.41
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 752571D54FA;
+	Tue,  6 Oct 2026 08:11:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791274262; cv=none; b=jk2r18qJo/l/kX3HGocQ4XGQIu6XlaomRHATLCQYhprRn6isAKEGXBljxoSePiTisJvPMXjvTPc1fqzynJJ5jVKTlvMSqbCh272/pyLYZzM55Ls9sl+HFQEswDqhj++M1S9EUaq7MhLB2GJVw17SLuNnGDvJfqyWQDmjfbfazs4=
+	t=1791274282; cv=none; b=qN/6oMkYBL9VHaUsrPULw0wzK9wQu6hGXeVJxi9rmtVIICtYwAmnl4gI1uiKaJtyLTJLMRD0bIXRpwBcVU9VzvFzxzJ2LxAhzDgNuZubRTyMPS2Oc4eO0Fq+2vFq2sFR8LiUKQ8S9gJl0NFBDpIN1omqlhzTqmtc6Y6eXavnWOY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791274262; c=relaxed/simple;
-	bh=iSaj9HreJrtjgeXQea0qlyhUh8GWapDSL8Ofyqv645w=;
+	s=arc-20240116; t=1791274282; c=relaxed/simple;
+	bh=ymAudHdAiT2usM8bzD+En9ax5jW+AnNTUw7C/PvsE7M=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=AMeiaZdGFBJyrmUrnIrpxMjqJL95cKH7I6QLSyL8HM6YKCOdDthlNkIFKp03XAj7AxRews5Rlcw4t/TKo+1cJV450kHhfbulNLHAOVP126CZzkKi1wo+O0BEwv4dLX2K4X1UtodixKqEnUD1Lcy5uFDG1wkDguDmnnM7md4GXdo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmpxchg.org; spf=pass smtp.mailfrom=cmpxchg.org; dkim=pass (2048-bit key) header.d=cmpxchg.org header.i=@cmpxchg.org header.b=jiW3RyTC; arc=none smtp.client-ip=209.85.221.41
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmpxchg.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cmpxchg.org
+	 Content-Type:Content-Disposition:In-Reply-To; b=ePKhcjhNC/+6wYRpEOTURWpP+Un9MJDT3LNrBc711j98SK2I3QI70VqOmZiIIDic3BoEBX3lvS0a8VrWBua+EYwMPQH2i2+udiHRYwm6T6OFZRMw2W2H/IIkdp9BnOlPN6qHCbZ9tf8mIqd3s9jPa7B/lKeSCYgT8Y76AxWVbO0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=P3T5jfbZ; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=cmpxchg.org header.i=@cmpxchg.org header.b="jiW3RyTC"
-Received: by mail-wr1-f41.google.com with SMTP id ffacd0b85a97d-48c4d870d54so216474f8f.2
-        for <linux-kernel@vger.kernel.org>; Tue, 06 Oct 2026 01:10:58 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=cmpxchg.org; s=google; t=1791274256; x=1791879056; darn=vger.kernel.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=tVXYOf8mvidID9ngA6Wiy5Zd6aixe2bdtBClg3CvrsU=;
-        b=jiW3RyTCnERM+gTO1/IKwFXi0GFXa+B/cwYGRDDDcrF2c7aIWgczdyuETSGzmq/JH2
-         4648F8Hw+05SbLlx8N2KQeniy8SfVA8E69Dj139spR2EpVIWat2XmQ8aPvS8u0/elyYy
-         0qG1UYDYxQlG8Le+LKg2K0wrR6f+/0ztCcc3vPzxPYEZaxAOAfhcE3LtplKRTqrOnT/9
-         2kkJDcB3HwRZxO/OP0uZYHUS41mt20rlDRAmhI+FPaCsnBp6BfG364+x27aBswWNHt8m
-         F4O6136Mu2xn+WpA/xDZNR8DRcBQu0rLH+fcBBBxqQu+zdDy0oEqKBhdo+lJVmCa538/
-         XlfA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791274256; x=1791879056;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=tVXYOf8mvidID9ngA6Wiy5Zd6aixe2bdtBClg3CvrsU=;
-        b=Y5/DajxspJBbdLAID72o5BVEw6/NUR0MeaiTAcQO1C0ogFYbIe/Kd3p5u1ENchz3yO
-         IeSyFPQJJtEGK/cvYDYBv3qAuYSrNpKQci3KUxD/Ziv/rW/ZNk4hrX4IPdWWnuWwO+js
-         ythHoZgG6iTAzNUvlTfUaJtC2z2Y38uTO+Aw/XRlBmhEn94cVINPmwnw95BwDJf7yq/J
-         JXZZ4mo2HnGhREPkfvQvon/eNBjym9WbSFqTis8wsgbfXMqYQb6Taw9upnag85MXugj9
-         GKtk/4k+amgl2yGHMw/ZJqFCR1Ime1A3tkvScd2YVhF4s40PJmT3RZyvLo2ttLl6LYrp
-         vZMA==
-X-Forwarded-Encrypted: i=1; AKwUvBy7y3WTfdLmWx7lEKghplAKsJlXaPiGlxR/BCY6nDECKbJ5NZxNQ97WDTjDE3eFDMz5dzSpvhWJf/n8euY=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKF9jR69XO354T6PmCWXY6RqgtiCrIiP7BDL+n6gwTT00YZTyvQ
-	65wJWGbkiZbvvOoFOHBN8+ZJdU/P/6vGz3qAs7rYMcmlk9uD1zMZGlNKHHXdGEorx+VSORujTjI
-	Carqyk2s=
-X-Gm-Gg: AYBFou2Llq5SvWZTKFw0KT5tEDzwoWA3vO4aI0WU8W3JPBYQGOBB25IsK4jUtBZIjE3
-	DW0uJtGZwxoBAs+CSFP/zHMwEeCD4tB+ZdVh4LVQ7I+rhC9pHBg+FfqKyNNAqTgFgNIoIUuaEeL
-	BMkLe2d14kiJ11SYS4WYBr2KiDzzaL5vYqQT/VA7FXW5j3BKhqj9LG1zFYwwuJiSOiqUdGPtTJl
-	nzjWr0PpeDFAnrw0O4TndcBkjHWFsm5+B/WNlauWwug6/Z6VE1oZEf8QzZKHfZw3i5snZHWxUmu
-	7+jLFy3nGSMiDAj3Al553XqVI5VrdRxSLmoQ+AzGZOfs2SNQI+cH3X9nwQ0t/U/w0gMLXIGr0Qb
-	6QN2OqSYK+m1023NoMcSMCcfXZRT7lqKi6tja2e69OJD73okvmV1vH6cOlSOEz7OxM9Kv53ZIzx
-	I2m5vErq6x9veQElA/D0RvC29qWw0DPI14d73mHvze/J4J3ItEfCCstMkugO5ND4f5VXsei7TVW
-	IiPEogdafXl
-X-Received: by 2002:a05:6000:220f:b0:48b:60a:760c with SMTP id ffacd0b85a97d-48c6d18629cmr1226749f8f.31.1791274255753;
-        Tue, 06 Oct 2026 01:10:55 -0700 (PDT)
-Received: from localhost (90-182-211-1.rcp.o2.cz. [90.182.211.1])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48c6308481dsm9975049f8f.3.2026.10.06.01.10.54
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 06 Oct 2026 01:10:54 -0700 (PDT)
-Date: Tue, 6 Oct 2026 10:10:50 +0200
-From: Johannes Weiner <hannes@cmpxchg.org>
-To: Kiryl Shutsemau <kirill@shutemov.name>
-Cc: Harry Yoo <harry@kernel.org>, Vlastimil Babka <vbabka@kernel.org>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	David Hildenbrand <david@kernel.org>,
-	Suren Baghdasaryan <surenb@google.com>,
-	Michal Hocko <mhocko@suse.com>,
-	Brendan Jackman <brendan.jackman@linux.dev>,
-	Zi Yan <ziy@nvidia.com>, Shakeel Butt <shakeel.butt@linux.dev>,
-	Usama Arif <usama.arif@linux.dev>, linux-mm@kvack.org,
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org,
-	kernel-team@meta.com
-Subject: Re: [PATCH] mm: page_alloc: make defrag_mode retries follow the
- promoted order
-Message-ID: <20261006081050.GA234057@cmpxchg.org>
-References: <20260929174553.175333-1-kirill@shutemov.name>
- <arv8J7ysrdazJmfY@thinkstation>
- <ar0NRMxps8UErXaQ@thinkstation>
- <ar0Xbs9mEu-vUHvc@cmpxchg.org>
- <ar5rOHWwc_iPJF6C@thinkstation>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="P3T5jfbZ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 127BD1F000FF;
+	Tue,  6 Oct 2026 08:11:18 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791274281;
+	bh=slwXC1hdG5VUEikD62TjJ3zlUcocHL1wSfrBV9dr1Y0=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=P3T5jfbZYCl/nN9japeFJMHzln7SBz0m5KIQWvzvjQw81BIPzD8Lu4SyDKhY6Iix1
+	 /Inj813rMfUzvIKhxyU7hAVuLvWYVUiNoWYdBUG4PkvsjG/iZT9jjO/ERwBJpJYf6Z
+	 rsB/CD6qbyS0rcWFcKwZ4PVGgIaIn5J6I7DJNeu3e5yXQYC6d3H90h5GNlTnouLrCs
+	 iI9PxsOEp4TM1EFJCGM1M+IPIdVnmTked5hT72as3SFTEKcSD3UbGT22na1sVKOzr0
+	 epu2VMMeqwjpwuREsCTiBNrBM1UQVoRAz5RMgCnuwF0m+/tNGNoA3Xyq0+BvlJ3dXc
+	 pW9LZKXZ45VlQ==
+Date: Tue, 6 Oct 2026 10:11:16 +0200
+From: Nathan Chancellor <nathan@kernel.org>
+To: Denis Benato <denis.benato@linux.dev>,
+	Jim Cromie <jim.cromie@gmail.com>,
+	Andrew Morton <akpm@linux-foundation.org>
+Cc: linux-kbuild@vger.kernel.org, nsc@kernel.org,
+	thomas.weissschuh@linutronix.de, chewi@gentoo.org,
+	abelvesa@kernel.org, linux-kernel@vger.kernel.org,
+	Kees Cook <kees@kernel.org>
+Subject: Re: [PATCH] kbuild: install-extmod-build: install
+ kernel/kallsyms_internal.h
+Message-ID: <20261006081116.GA830598@ax162>
+References: <20261005200123.146822-1-denis.benato@linux.dev>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <ar5rOHWwc_iPJF6C@thinkstation>
+In-Reply-To: <20261005200123.146822-1-denis.benato@linux.dev>
 
-On Fri, Oct 02, 2026 at 10:59:32AM +0100, Kiryl Shutsemau wrote:
-> On Wed, Sep 30, 2026 at 10:06:38AM -0400, Johannes Weiner wrote:
-> > > > > @@ -4127,6 +4127,31 @@ __alloc_pages_may_oom(gfp_t gfp_mask, unsigned int order,
-> > > > >  	return page;
-> > > > >  }
-> > > > >  
-> > > > > +/*
-> > > > > + * If fallbacks are not permitted (defrag_mode), we either need to
-> > > > > + * reclaim space in a block of matching type, or clear out an entire
-> > > > > + * block to allow __rmqueue_claim() to convert.
-> > > > > + *
-> > > > > + * Reclaim by itself is primarily freeing space in movable blocks,
-> > > > > + * since that's where the LRU pages live. So this works for movable
-> > > > > + * requests, but not for others.
-> > > > > + *
-> > > > > + * For those, promote the order of reclaim and compaction to help make
-> > > > > + * blocks, instead of spinning in reclaim alone unproductively. Retry
-> > > > > + * decisions based on the outcome of that work - reclaim progress and
-> > > > > + * compaction results - must account for the promotion as well, see
-> > > > > + * should_reclaim_retry() and should_compact_retry().
-> > > > > + */
-> > > > > +static inline unsigned int nofrag_promote_order(unsigned int order,
-> > > > > +						unsigned int alloc_flags,
-> > > > > +						const struct alloc_context *ac)
-> > > > > +{
-> > > > > +	if ((alloc_flags & ALLOC_NOFRAGMENT) && ac->migratetype != MIGRATE_MOVABLE)
-> > > > > +		return max(order, pageblock_order);
-> > > > > +
-> > > > > +	return order;
-> > > > > +}
-> > > > 
-> > > > I think we should start distinguishing order and compact/reclaim_order
-> > > > in __alloc_pages_slowpath(). Silently overriding it makes it harder to
-> > > > follow and easy to make a mistake.
-> > > 
-> > > Agreed, four callers recomputing the same thing is asking for a
-> > > mismatch.
-> > > 
-> > > I would rather not grow this patch, it has to go to stable.
-> > > 
-> > > I will look into a cleanup on top: __alloc_pages_slowpath() computes the
-> > > promoted order once per iteration and passes it to direct
-> > > reclaim/compaction and the two retry helpers next to the request order,
-> > > so the helpers stop knowing about defrag_mode.
-> > 
-> > +1
-> > 
-> > All they really need to know is the split into requested order vs
-> > production order (reclaim_order, compaction_order).
-> 
-> Will fold it into the fix itself. The cleanup changes the same places as
-> the fix. It makes zero sense to keep it separate.
-> 
-> > > > > @@ -4299,7 +4316,7 @@ should_compact_retry(gfp_t gfp_mask, struct alloc_context *ac, int order,
-> > > > >  	/*
-> > > > >  	 * Compaction failed. Retry with increasing priority.
-> > > > >  	 */
-> > > > > -	min_priority = (order > PAGE_ALLOC_COSTLY_ORDER) ?
-> > > > > +	min_priority = (compact_order > PAGE_ALLOC_COSTLY_ORDER) ?
-> > > > >  			MIN_COMPACT_COSTLY_PRIORITY : MIN_COMPACT_PRIORITY;
-> > > > 
-> > > > This would change how hard we try to compact with defrag_mode in direct
-> > > > compaction as it won't try compaction with MIN_COMPACT_PRIORITY anymore.
-> > > > 
-> > > > It doesn't make much sense to change that as part of this fix?
-> > > 
-> > > It is a choice between compacting harder and falling back, which
-> > > fragments a block.
-> > > 
-> > > It is a judgement call on what defrag_mode means.
-> > > 
-> > > It would also mean that order-0 allocation request promoted to pageblock
-> > > can trigger SYNC_FULL compaction. I cannot say I understand the
-> > > implications. Will give it a try with the reproducer.
-> > > 
-> > > Johannes, Vlastimil, any comments here?
-> > 
-> > I would leave this one with requested order unless the reproducer
-> > disagrees.
-> 
-> I built a reproducer around what we saw in production, which was oomd
-> killing the workload on sustained PSI, so PSI and the number of times
-> ALLOC_NOFRAGMENT gets dropped are the headline numbers. 32G VM, 8 CPUs:
-> 
->  - fill memory with 4K anon pages in a cgroup, memory.low = fill + 1G,
->    so page cache beyond that stays reclaimable;
-> 
->  - pin one page in every pageblock with io_uring registered buffers[1],
->    except one block in 50 (2%), so whole blocks can be made but only
->    from a few places. Without the pins rc5 does not storm in 180s:
->    compaction makes 130-210 blocks per run and every retry loop ends in
->    one. The storm needs blocks to be hard to produce, and the pin
->    fraction is the knob for that;
-> 
->  - free one page in eight so ~4G sit scattered in movable blocks;
-> 
->  - turn on defrag_mode and run 8 build-like workers on btrfs for 180s:
->    write 1-64K files, read earlier ones back, unlink 20%, fdatasync
->    every 50 creates.
-> 
-> Kernels: v7.3-rc5; the fix as posted; the fix with the priority floor
-> and the COMPACT_SUCCESS retry limit on the requested order. Three runs
-> each, mean ± stddev, 2% producible:
-> 
->                             rc5            posted        requested
->     ops/s                   4751 ± 684     5181 ± 18     5206 ± 84
->     PSI some, mean %        28.7 ± 11.5    22.0 ± 0      22.0 ± 0
->     PSI some, peak avg10    42.8 ± 30.7    24.9 ± 0.3    25.0 ± 0.8
->     s with some avg10 > 50  3.3 ± 5.8      0             0
->     give-ups (NOFRAG off)   0              222 ± 58      277 ± 199
->     movable blocks lost     641 ± 13       654 ± 10      652 ± 14
->     whole blocks claimed    90 ± 8         81 ± 10       76 ± 8
-> 
-> rc5 stormed in one of its three runs: 3.85M order-9 reclaim runs in
-> 180s, PSI at 42% with ten seconds above 50, workers that would not die
-> on SIGKILL. The other two were quiet, which matches a workload that
-> OOMs regularly rather than always. The fixed kernels never stormed.
+Hi Denis,
 
-Ack. Nice. Thanks for testing it out.
+On Mon, Oct 05, 2026 at 08:01:23PM +0000, Denis Benato wrote:
+> The tree staged by install-extmod-build contains no kernel/ files, but
+> since commit 4fafd1165b33 ("kallsyms: increase marker density to 16:1
+> to accelerate lookups") scripts/kallsyms.c includes
+> ../kernel/kallsyms_internal.h.
 
-> Between the two floors there is no difference I can measure here: same
-> PSI, same throughput, same give-ups, same movable blocks lost, same
-> whole blocks produced.
+You did not add either the author or the committer of 4fafd1165b33, I
+have done so now. This would need to be handled by them. However...
+
+> install-extmod-build rebuilds the host programs inside the staged tree
+> whenever CC differs from HOSTCC (cross builds, or a ccache-wrapped CC).
+> scripts/kallsyms is hostprogs-always-y, so that rebuild fails with:
 > 
-> The promoted path is a small part of what the allocator does in this
-> workload, 16-22k order-9 reclaim runs against a million order-0 ones for
-> page cache, and a few hundred give-ups in 180s.
+>   scripts/kallsyms.c:39:10: fatal error: '../kernel/kallsyms_internal.h' file not found
+>      39 | #include "../kernel/kallsyms_internal.h"
+>         |          ^~~~~~~
+
+I would rather not ship an internal kernel header in the external module
+build. If these defines are needed to build scripts/kallsyms.c, they
+should live in a separate header that is included in
+{kernel,scripts}/kallsyms.c that is safe to expose to the external
+module build but I defer to the 4fafd1165b33 folks.
+
+> Stage the header so the linux-headers-* and kernel-devel style packages
+> can rebuild scripts/kallsyms.
 > 
-> > There is a risk of defrag_mode self defeating over time by raising the
-> > bar for fallbacks but not high enough. Every fallback we let through
-> > will make it harder down the line to compact towards that higher bar.
+> Fixes: 4fafd1165b33 ("kallsyms: increase marker density to 16:1 to accelerate lookups")
+> Assisted-by: ZCode:glm-5.3
+> Signed-off-by: Denis Benato <denis.benato@linux.dev>
+> ---
+>  scripts/package/install-extmod-build | 2 ++
+>  1 file changed, 2 insertions(+)
 > 
-> Same movable blocks lost and same whole blocks produced in all three
-> kernels, so in this workload the extra SYNC_FULL passes neither produce
-> blocks nor save any.
-
-Ok that's good to know.
-
-Without counter indication, I would prefer to keep the tighter
-guarantees. ISTR this mattered on some of my ext4 tests in the past
-with the buffer locking.
-
-> > There is also a non-zero risk of connecting order-0 request contexts
-> > to SYNC compaction which they haven't done before 7e8756d7ad22. But
-> > you traced the problem to retrying, not sync compaction itself.
+> diff --git a/scripts/package/install-extmod-build b/scripts/package/install-extmod-build
+> index f12e1ffe409eb..aad2cd59a37ba 100755
+> --- a/scripts/package/install-extmod-build
+> +++ b/scripts/package/install-extmod-build
+> @@ -20,6 +20,8 @@ mkdir -p "${destdir}"
+>  (
+>  	cd "${srctree}"
+>  	echo Makefile
+> +	# scripts/kallsyms.c includes this header
+> +	echo kernel/kallsyms_internal.h
+>  	find "arch/${SRCARCH}" -maxdepth 1 -name 'Makefile*'
+>  	find "arch/${SRCARCH}" -name generated -prune -o -name include -type d -print
+>  	find "arch/${SRCARCH}" -name Kbuild.platforms -o -name Platform
+> -- 
+> 2.47.3
 > 
-> That shows up only when I take the I/O out: tmpfs, every block pinned,
-> 1M empty files. Then every exhausted order-0 refill does a whole-zone
-> SYNC_FULL pass before it falls back, PSI some runs at 39% against 20%,
-> and the churn takes 1.3-2.8x as long, five runs each.
 
-That seems acceptable for the no-hope worst-case behavior.
-
-> What do you prefer here? I don't have strong preference either way.
-> 
-> [1] One thing the pins made me notice. A FOLL_LONGTERM pin migrates
->     the page first only for ZONE_MOVABLE, CMA and isolated blocks, see
->     folio_is_longterm_pinnable(); a page in a MIGRATE_MOVABLE block in
->     ZONE_NORMAL is pinned where it sits, and the block can never be
->     made whole for as long as the pin lives. The migration target in
->     gup already uses GFP_USER without __GFP_MOVABLE, so a moved page
->     lands in a non-movable block.
-
-+1
-
->     Should defrag_mode treat MIGRATE_MOVABLE like ZONE_MOVABLE there and
->     move the page out at pin time? Ideally we might want to move it back
->     on unpin, but it can be done by compaction too.
-
-Should it even be specific to defrag_mode? I suppose without it, the
-poisoning from fallbacks would dominate by a landslide under
-pressure. But these pins can mess with compactability long before
-becoming capacity-bound.
+-- 
+Cheers,
+Nathan
