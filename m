@@ -1,170 +1,161 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj1-f54.google.com (mail-pj1-f54.google.com [209.85.216.54])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 943AF2F3C0E;
-	Tue,  6 Oct 2026 14:16:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4D59F4562A1
+	for <linux-kernel@vger.kernel.org>; Tue,  6 Oct 2026 14:16:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.54
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791296182; cv=none; b=CK8hVkGV7IquqoweiEKbCYFHj5F/M1ASZdN+RNuxK+KyzLRWxEyw8dcrRUCEd/Pcf4Uf0VajvyzRcaZo9RRHtDkc7M6SPEkfeRIavBT5+33jkeDH/7u+JIdc7NkVIBPL46Y1jUGYZ3b4mYHrWeoZFrCvLq67ppZdLkL2h2GbqpA=
+	t=1791296214; cv=none; b=HH8hnzUdtSSGHgRB+UfzzpH0nM6eXIUecCj0ojsnLRT5ePFJUZQkbcPXhmMqVZgWmU78+cdZgTSiiQTl5SPDm2q2JMWdksLlOON+hZCXe4r5yXHNf+95HblJ7XVKf+6jQLmzXldJYbzBdvMYeSM3PxJOz+GTDR52c/hnQlDqt34=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791296182; c=relaxed/simple;
-	bh=n8OE6sUU/22v8JYzcIXDQZhxlASUOVM3TzT5eZMXjqM=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=K97zX5p3ObctpaOcvfoSZrlBV2SKs4e1WM3LU21k45sWofmFIqrF4Zmk6gJZ8Hu7gYLzGsnJXSLcw/Ud+vfv0nExlaNO6C1sd5XPpYyjQ4fHLXlp8E0vFYHAS8eekzhh1W4/X0eIPZKkAt6+gchh6H5Lt95b09dfl6k86Bbu4mI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=NyCEzdx9; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791296214; c=relaxed/simple;
+	bh=02r4wGAOjM+0zaxUQkQ6LUoyUS4UyZaMWkhJRo0z8G4=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=pLNre24AOQjF128H8is3U6vb4UVnkxz0/+08rzdVL3oB7p/koy+AmAl0ECZTXF4PFk8u3aRTnWSulloclQPhWCd34Ecl0f2DR5jXEABtjIcpQoY6ZPEASqhokDayoekkqvWJQpSwnS+sLy9JedlayYanoazt3FxbpTiwL5TDJCc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=snu.ac.kr; spf=pass smtp.mailfrom=snu.ac.kr; dkim=pass (1024-bit key) header.d=snu.ac.kr header.i=@snu.ac.kr header.b=U6dy56Q1; arc=none smtp.client-ip=209.85.216.54
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=snu.ac.kr
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=snu.ac.kr
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="NyCEzdx9"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 46C5F1F000FF;
-	Tue,  6 Oct 2026 14:16:21 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791296181;
-	bh=uh0/HDHa65h1Y4pZiTg3gOriE1GFv13Xms4g8A5nBys=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=NyCEzdx9Ydf+B17eOZH1EF2eKJERKZHytvtlIuTT3Ioz042V1cTVG4aN0wNTPUMXZ
-	 LOd66+UCOI4k1iWV8RiE9hDDzlsb0O3kMdpr/x7IToGOZ9T+zTwgiF+CVmPhDrLo5A
-	 zdndmiRjb+kq1kN2b/HlLDabnTjMKOofvnF4YSmlJp9s4BSAQybyfzhpyTLQIEp51m
-	 eNrvdGG800yNfg8RUtnr4A8aGRB9qdgtWnZm9m1k0DqrfbiIftYMzhQmi5KHmDo/iv
-	 5NvS8UwDwqsDELQnZH8XXcgTq2cxlkLRRcrtgix3nzo63Q08I3bKTdoQ9EznCVS0jh
-	 m0OHHarEmlAEw==
-Date: Tue, 6 Oct 2026 09:16:20 -0500
-From: Rob Herring <robh@kernel.org>
-To: Harendra Gautam <harendra.gautam@oss.qualcomm.com>
-Cc: Srinivas Kandagatla <srini@kernel.org>, Mark Brown <broonie@kernel.org>,
-	Liam Girdwood <lgirdwood@gmail.com>,
-	Krzysztof Kozlowski <krzk@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
-	Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
-	linux-sound@vger.kernel.org, linux-arm-msm@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	Prasad Kumpatla <prasad.kumpatla@oss.qualcomm.com>,
-	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
-	Sarath Ganapathiraju <sarath.ganapathiraju@oss.qualcomm.com>,
-	Kumar Anurag Singh <kumar.singh@oss.qualcomm.com>,
-	Mohammad Rafi Shaik <mohammad.rafi.shaik@oss.qualcomm.com>
-Subject: Re: [PATCH v8 01/10] ASoC: dt-bindings: qcom,shikra-qaif-cpu: Add
- binding
-Message-ID: <20261006141620.GA1950759-robh@kernel.org>
-References: <20260928-b4-qaif-shikra-audio-v8-0-ac618057fe85@oss.qualcomm.com>
- <20260928-b4-qaif-shikra-audio-v8-1-ac618057fe85@oss.qualcomm.com>
+	dkim=pass (1024-bit key) header.d=snu.ac.kr header.i=@snu.ac.kr header.b="U6dy56Q1"
+Received: by mail-pj1-f54.google.com with SMTP id 98e67ed59e1d1-38759bcd877so892406a91.2
+        for <linux-kernel@vger.kernel.org>; Tue, 06 Oct 2026 07:16:51 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=snu.ac.kr; s=google; t=1791296211; x=1791901011; darn=vger.kernel.org;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=Y7W/stljCR7Yo3LPNubWsyzPTC2BQ+EVRhVLuL/EFgc=;
+        b=U6dy56Q1aBkmoRo7wfYzZ0NQnRj6ubXeTkf3XeFKhpT6R0y1K4nKAp3qRyxoiqIVrS
+         uJecWmQUFigQuqogS5xFYQLSxuZjqr4Wh0FKQNkBTPXzEeXVcg5p9x7sqjcjd2uGilaJ
+         LYU9D5lc8ACTO8mSWXVgpiR79bYImLLYBVvRA=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791296211; x=1791901011;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=Y7W/stljCR7Yo3LPNubWsyzPTC2BQ+EVRhVLuL/EFgc=;
+        b=PuMkYWE9dXoFe1+dTFEaLgYb32l/xgz1lIJ9NS9XNJKpdKdj6tvLgal/5bS5JjLurH
+         nKXreCUfQ0Wz1/XdJ+LV2jAsWCvRPyIrVlki44tCjBMaCVWgmbEiOx7zvOYfUAzpa2FE
+         uWP8Mujj5kELvQnhlfUObsFUmsoflrbYeNkWdPKQ2nltCOoHBv4/B+6W3ncSl4gnypKV
+         ERptKUMcdPqbZ47n55biHQDvldrZAbHySwguF7NAOHnaAJ1GH3HS8GzRJEZ3VoLf13Gq
+         fFnBWrS7zueblUEDRFQ6fglSP2EETLVsHpx/fIuxB9whqJTH96gK/WT8uTedySp76+Ia
+         SsiA==
+X-Forwarded-Encrypted: i=1; AKwUvBzxLT44mS80jTLis9VDKT7iARvR66cx+NGoWg9cioVyWQC/kIzFUGKvOVmyaKoXPWkDNoY2IjMQrcqdNrQ=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKa7j279QS0DlJo2ern15+lqroDOtlUQj6N8LMqNqw8swFYL/rd
+	UOW0m4VnBbY2pfzYavOXdxatfPf8tbcei8d/SmvjO+TAp7g/VsoFfBqynzhyUEdK29c=
+X-Gm-Gg: AYBFou0kO5E2xwdzaDadVvOV4HW1WcGpltba6k3h+NE4chJyjZP4ZvozD6RI2yDPk4S
+	Eb84FRCcf10B1ExkhViT9xt9QdO9u7Ejg9knh0LbkwYCxOxcT7V9gxE/VOmsjrafaaujN/BNpJH
+	SP56LHZVr1tFisP9eem0dp44V5cM1o/RGNP8vmY4gtFLQT9yMVByfVAZVNMJk9kBGaz+3YZxY5n
+	Wynx3yS4FqHdzBR/VYLhQn5WmdmUzp7vBLCiAupIIHaXmhYcpZXsbOOFX/S/biC8xGfzma1lyx2
+	rygT1D2YVhw+Hi8tpKYtpbcr1J0fwLshbno3Wh9moftvMB1bFBFf6JBbySoDyxqNB0WZ2w3IQsY
+	+kbkYUn8EQDcP3au0/VTzQge7CicRFrlN6vw8xwmV9IWJsVZBIBA70dUfCcWnn5qma8dHT0i/wo
+	akiFQv+DwIcZrdP4cv025sjENdRQByOs2qc05z6+wK8y4NwOj33XdYh6CHu0d70YdSO+cVeeefl
+	Dc=
+X-Received: by 2002:a17:90a:f94e:b0:3a4:c18c:b8a5 with SMTP id 98e67ed59e1d1-3a8737d4695mr910988a91.58.1791296210623;
+        Tue, 06 Oct 2026 07:16:50 -0700 (PDT)
+Received: from [172.19.0.2] ([49.142.45.25])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a853889388sm5969035a91.2.2026.10.06.07.16.46
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 06 Oct 2026 07:16:50 -0700 (PDT)
+From: Seongjun Hong <hsj0512@snu.ac.kr>
+Date: Tue, 06 Oct 2026 14:16:45 +0000
+Subject: [PATCH net-next v2] net/mlx5: allocate DMA pool structs on the
+ pool's NUMA node
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260928-b4-qaif-shikra-audio-v8-1-ac618057fe85@oss.qualcomm.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261006-net-mlx5-numa-allocate-pool-page-v2-1-0dc4c2eb1376@snu.ac.kr>
+X-B4-Tracking: v=1; b=H4sIAMwCxWoC/42NTQ6CMBCFr0Jm7ZC21D9W3sOwGHGQxtKSthAM4
+ e5WTuDuvbyfb4XIwXCEulgh8Gyi8S4bdSig7cm9GM0ze1BCnaQQR3SccLBLFtNASNb6lhLj6L3
+ FkXJfMStBQkt9Zsg3Y+DOLDviDr+14yVBk5PexOTDZ2fPcs//x8wSJQrZaXWprpV66Ft0U0lt+
+ Q7QbNv2BT4d5Z/aAAAA
+To: Saeed Mahameed <saeedm@nvidia.com>, Leon Romanovsky <leon@kernel.org>, 
+ Tariq Toukan <tariqt@nvidia.com>, Mark Bloch <mbloch@nvidia.com>, 
+ Andrew Lunn <andrew+netdev@lunn.ch>, 
+ "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, 
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>
+Cc: netdev@vger.kernel.org, linux-rdma@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, Seongjun Hong <hsj0512@snu.ac.kr>
+X-Mailer: b4 0.13.0
 
-On Mon, Sep 28, 2026 at 06:22:51PM +0530, Harendra Gautam wrote:
-> Add the Devicetree binding for the Qualcomm Audio Interface (QAIF) CPU DAI
-> controller used on the Shikra audio platform.
-> 
-> QAIF routes audio between system memory, external PCM/TDM/MI2S serial
-> interfaces and the internal Bolero/WCD codec. Platform Devicetree files
-> need a binding to describe the controller resources, DAI cells and per-
-> interface AIF configuration, and named constants to avoid raw numeric IDs
-> in sound-dai references and child-node reg values.
-> 
-> Describe the MMIO region, interrupt, clocks, DMA IOMMU mapping and
-> aif-interface child nodes required by the controller.
-> 
-> Signed-off-by: Harendra Gautam <harendra.gautam@oss.qualcomm.com>
-> ---
->  .../bindings/sound/qcom,shikra-qaif-cpu.yaml       | 305 +++++++++++++++++++++
->  1 file changed, 305 insertions(+)
-> 
-> diff --git a/Documentation/devicetree/bindings/sound/qcom,shikra-qaif-cpu.yaml b/Documentation/devicetree/bindings/sound/qcom,shikra-qaif-cpu.yaml
-> new file mode 100644
-> index 000000000000..5cabbe54d6fd
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/sound/qcom,shikra-qaif-cpu.yaml
+The mlx5 DMA pool structs (mlx5_dma_pool, mlx5_dma_pool_page and its
+block bitmap, and mlx5_frag_buf_node_pools) are allocated without a
+node hint, so they land on the node of whichever CPU happens to create
+or fill the pool, while the DMA pages they describe are allocated on
+the pool's node.
 
-> +
-> +  reg:
-> +    maxItems: 1
-> +    description: QAIF core registers
+The pool, page and bitmap are dereferenced on every block allocation
+and free. Allocate them on the pool's NUMA node as well, so that all
+of a pool's state lives on one node.
 
-Drop the description.
+These allocations happen on the control path, so the performance gain
+is expected to be small; the change is mainly for consistency.
 
-> +
-> +  interrupts:
-> +    maxItems: 1
-> +    description:
-> +      QAIF summary interrupt for this Execution Engine. Signals DMA period
-> +      completion, buffer underflow/overflow, error response, audio interface
-> +      underflow/overflow, interface-group done, rate detector and VFR events.
-> +
-> +  iommus:
-> +    maxItems: 1
-> +    description: Phandle to apps_smmu node with sid mask
+Signed-off-by: Seongjun Hong <hsj0512@snu.ac.kr>
+---
+Changes in v2:
+- fix typo and specify the structs are allocated on the control path
+- add a prefix net-next to the subject
+- Link to v1: https://lore.kernel.org/r/20261005-net-mlx5-numa-allocate-pool-page-v1-1-01f4283932b4@snu.ac.kr
+---
+ drivers/net/ethernet/mellanox/mlx5/core/alloc.c | 11 ++++++-----
+ 1 file changed, 6 insertions(+), 5 deletions(-)
 
-Drop. The exact provider is outside the scope of this binding.
+diff --git a/drivers/net/ethernet/mellanox/mlx5/core/alloc.c b/drivers/net/ethernet/mellanox/mlx5/core/alloc.c
+index a92cf545bdaf..dcd281c4691d 100644
+--- a/drivers/net/ethernet/mellanox/mlx5/core/alloc.c
++++ b/drivers/net/ethernet/mellanox/mlx5/core/alloc.c
+@@ -110,7 +110,7 @@ static struct mlx5_dma_pool *mlx5_dma_pool_create(struct mlx5_core_dev *dev,
+ {
+ 	struct mlx5_dma_pool *pool;
+ 
+-	pool = kzalloc_obj(*pool);
++	pool = kzalloc_node(sizeof(*pool), GFP_KERNEL, node);
+ 	if (!pool)
+ 		return NULL;
+ 
+@@ -127,19 +127,20 @@ mlx5_dma_pool_page_alloc(struct mlx5_dma_pool *pool)
+ {
+ 	int blocks_per_page = BIT(PAGE_SHIFT - pool->block_shift);
+ 	struct mlx5_dma_pool_page *page;
++	int node = pool->node;
+ 
+-	page = kzalloc_obj(*page);
++	page = kzalloc_node(sizeof(*page), GFP_KERNEL, node);
+ 	if (!page)
+ 		goto err_out;
+ 
+ 	page->pool = pool;
+-	page->bitmap = bitmap_zalloc(blocks_per_page, GFP_KERNEL);
++	page->bitmap = bitmap_zalloc_node(blocks_per_page, GFP_KERNEL, node);
+ 	if (!page->bitmap)
+ 		goto err_free_page;
+ 
+ 	bitmap_fill(page->bitmap, blocks_per_page);
+ 	page->buf = mlx5_dma_zalloc_coherent_node(pool->dev, PAGE_SIZE,
+-						  &page->dma, pool->node);
++						  &page->dma, node);
+ 	if (!page->buf)
+ 		goto err_free_bitmap;
+ 
+@@ -278,7 +279,7 @@ mlx5_frag_buf_node_pools_create(struct mlx5_core_dev *dev, int node)
+ {
+ 	struct mlx5_frag_buf_node_pools *node_pools;
+ 
+-	node_pools = kzalloc_obj(*node_pools);
++	node_pools = kzalloc_node(sizeof(*node_pools), GFP_KERNEL, node);
+ 	if (!node_pools)
+ 		return NULL;
+ 
 
-[...]
+---
+base-commit: 8b4e7209c842d8cb9516f1f5ef0a88aa2d8831a6
+change-id: 20261005-net-mlx5-numa-allocate-pool-page-2ee20a04147e
 
-> +patternProperties:
-> +  '^aif@[0-9a-f]+$':
-> +    type: object
-> +    description:
-> +      QAIF AIF interface child node for PCM, TDM or MI2S configuration.
-> +
-> +    properties:
-> +      reg:
-> +        maxItems: 1
-> +        description:
-> +          DAI ID of the AIF interface (QAIF_MI2S_AIF* or QAIF_TDM_AIF*).
-> +
-> +      dai-format:
-> +        description: Serial audio interface format (MI2S, TDM or PCM).
-> +        enum: [i2s, dsp_a, dsp_b]
-> +
-> +      dai-tdm-slot-width:
-> +        $ref: /schemas/types.yaml#/definitions/uint32
-> +        enum: [8, 16, 24, 32]
-> +        description:
-> +          Slot width in bits.
-> +
-> +      dai-tdm-slot-num:
-> +        $ref: /schemas/types.yaml#/definitions/uint32
-> +        description:
-> +          Number of slots per lane.
-> +        minimum: 1
-> +        maximum: 32
-> +
-> +      dai-tdm-slot-rx-mask:
-> +        $ref: /schemas/types.yaml#/definitions/uint32-array
-> +        description:
-> +          Active RX slots, one entry per slot. A nonzero value marks the
-> +          slot as active.
-> +        minItems: 1
-> +        maxItems: 32
-> +
-> +      dai-tdm-slot-tx-mask:
-> +        $ref: /schemas/types.yaml#/definitions/uint32-array
+Best regards,
+-- 
+Seongjun Hong
 
-These are all common properties. Don't redefine the type. You need to 
-reference the common schema (at the object/node level, not per 
-property).
-
-> +        description:
-> +          Active TX slots, one entry per slot. A nonzero value marks the
-> +          slot as active.
-> +        minItems: 1
-> +        maxItems: 32
-> +
-> +      qcom,qaif-aif-lane-map:
-> +        $ref: /schemas/types.yaml#/definitions/uint32-array
-> +        description:
-> +          Per-lane direction map, one entry per lane starting from lane 0.
-> +          Use 0 for TX (output/speaker) and 1 for RX (input/mic).
-> +        minItems: 1
-> +        maxItems: 8
-> +        items:
-> +          enum: [0, 1]
-
-Can't you use a single uint32 bit mask for this?
-
-Rob
