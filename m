@@ -1,221 +1,176 @@
-Received: from mail-oi1-f198.google.com (mail-oi1-f198.google.com [209.85.167.198])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 980CF3B6379
-	for <linux-kernel@vger.kernel.org>; Tue,  6 Oct 2026 09:30:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.198
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DD2493B14D9
+	for <linux-kernel@vger.kernel.org>; Tue,  6 Oct 2026 09:30:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791279012; cv=none; b=ojj5bfnSSL0VjtBt2WjX+MfBgC9tdZ86UPvQLa1XrXBiVQb0BJJcH8BIiWXkcSVFMa276QLe/Usq+BSp+/l6wIL45QyzJC2NoxKH/T0KzDwpJfQG7kIc1EF4YUWzSCX9oijUaMX68tAP1G5ufyBuO3eqeLFFKRb3ZbHhfp4Y/5c=
+	t=1791279024; cv=none; b=aBpCGMYRHt8jaXx8XJjSSmNSIj0fXt6hQ+pP7RhqsqlfX0kymO/hCQnxU443OInRBDzGEqwHcE2TYFY6RDg/CD/xh4swxN1l6bi7DUmPaa6YnPX/ITX/M1d6QMHPVwmrA3GcUBGlC8IVIMjLnYxFnoiwK11qaI7qOmhn/A8xgMo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791279012; c=relaxed/simple;
-	bh=4vz0yg+tm3P0F+O6a0pf4fzqKXJIa8kCEtNgyfQGRIk=;
-	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:
-	 Content-Type; b=CMKCzVaKkP4+nbN49ptzB1YgC+7wD2UVcuIRCxzmW7GFUvUxrXppKQblSFtpq17OOWf/LBYi3tIYIl+p2YTVWC3uVUH99Nu38E0UPpZnEaM9ncg9lxlQv9je5Yf3Y3vjHAiAdT1kLrIQ2/DCWFrRp5U+CC2RNekRrTwJVkfKAp8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.167.198
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oi1-f198.google.com with SMTP id 5614622812f47-4b597558c4cso4310703b6e.1
-        for <linux-kernel@vger.kernel.org>; Tue, 06 Oct 2026 02:30:10 -0700 (PDT)
+	s=arc-20240116; t=1791279024; c=relaxed/simple;
+	bh=Fv0hBvkz7ho20ttuSv2niqkqp5+xuqgKds7jvqrAZco=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Xb5m7fIHr5w7V+iDyu/Amr+3dXxcgCbbegbbeZ7uNflIIwMHKFUB3roC3nBqmMh4vtW5ZtSEa4r7E0Q37QCQzLO8ZE8LphuR1EhBNDjOpLg99f93YZ22jLEcn5AwKd1BXIw58wRNExiWOmFRTcz75p4tyhFFCGkhEIR1zcSJ/6Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=KVSTeQps; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=fx9+ZWbg; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="KVSTeQps";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="fx9+ZWbg"
+Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6966eDAm2834150
+	for <linux-kernel@vger.kernel.org>; Tue, 6 Oct 2026 09:30:22 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=qcppdkim1; bh=/jXVRZO2rth4o58n8sGnnHZ2
+	wLu4POvMIWBNar58HYc=; b=KVSTeQps/CUFDHfJdbKouCv66YK25XM43DixqsvK
+	G22zw4xQjZkVMkclELnop1m7xLdKSBBsqXfgE2MTYptgYhQbkUhVnfJQ872dPIr1
+	hicVElgbOaQ8WZEeICTiYiAW9O9q3LqKAyfgXn3NKud3gBrmY8+sDNu6HoqmKXGH
+	YRfuCBECyYSZmRSAqHi93GG7p4273a7SQHrlqNDISizy4zRQikKi80m1h0wbZEfz
+	u/U50qZTNcImL7JwRygaxD/Ck2K79K4N4ZEFY/9QtssZCOS1s3oo5Sx4WsAzNIsR
+	H4wLlolobvSQKWxjO5eDjbdBYBLtQlxvio65IEFSpsVXSw==
+Received: from mail-dl1-f69.google.com (mail-dl1-f69.google.com [74.125.82.69])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h4dnckujt-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Tue, 06 Oct 2026 09:30:22 +0000 (GMT)
+Received: by mail-dl1-f69.google.com with SMTP id a92af1059eb24-155a75f91e1so1818573c88.1
+        for <linux-kernel@vger.kernel.org>; Tue, 06 Oct 2026 02:30:22 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1791279022; x=1791883822; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=/jXVRZO2rth4o58n8sGnnHZ2wLu4POvMIWBNar58HYc=;
+        b=fx9+ZWbgk+lxBu3idfpbJs50QehfxgJ7MdlHkxb6hlviPzfwdpuQp/ZQv858h0sV4J
+         6dvZGqefF4Ih6JbOMHsd0eZUUA5dPJp6k/wHg/10UYTbNyORUN2ZSPc20I99P0RI+Ix8
+         p2xJAn+JCxyoR4alV3Jnnc63WFq/Hu/yDfV5KkjznJiJ0Go43aDTxJ+cs4KVZG/opjCj
+         5jx4FvVqszigUdCpYL+BAkdvIPAmrDUtFx0+mEAqGtSBqL62uEfcdDS3qdGk/hBINEK8
+         8tivuvaygwYHZu4RWpFAtCwdmGBU+16X9pxM2tfb12MyMWeLed9TQ0GGG0UaGzV2F14C
+         8R+g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791279009; x=1791883809;
-        h=content-type:to:from:subject:message-id:in-reply-to:date
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=O42IFvvxEdF9t6SbbLrXy6fFcYfgQqt+vXQ6iLzd7r0=;
-        b=fxW8rpZutLBWaz3RMyWF64UtdkubiBl2adD53zbV2N+itINy6KfelfJRiAkTAYZ3wi
-         mx/2YtDL1iI8qaFs/N8y2gsyjtVbOPZYPU9kW72YxQL+baBltGRVcCS5AqcKavyrY35f
-         v1uvHQRpihcWn1ZtuHuR9S1VfbZ2hIfT95UpLbTnkNWHvICCO4W8839PgQBPD7akjfPS
-         5Ej8bGfb6hT8xWqOWrD46EzpNU0oWK1rC5egDbtSHuUYDWNKcKKlxrGCcV3+o1eE0Lhm
-         GD6upqmutZaVReM4I7NAb24EJO7pJjnjphtp441+eDyWzOfbmBYZWdp6TXcEuNFlVaGt
-         hPtg==
-X-Gm-Message-State: AFuF++mxegkwN7n951ID3s7F25vJFwWTjOIm2jlnVqcW6f60FUUMOaSA
-	37/DSMC2vMDHmXFhDW1+E+KJPKwRIkauCrr8WoJqx5BbpuU1+dbktf2W6hgtDp6D9FzmMpbsRNC
-	lyTVlKNs5XscWHUI3fXgnDHgj6SmOzOQbnXL93wFsUsiBg9jUnfV/PFwZHG0=
+        d=1e100.net; s=20260707; t=1791279022; x=1791883822;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=/jXVRZO2rth4o58n8sGnnHZ2wLu4POvMIWBNar58HYc=;
+        b=i5+JU5azFz08nMYQExjOiqhddaKah1+ZVv8QXtwSs9678CH4uIdTiv5QXhjCb0C5wa
+         YD1+0wpmRuq+83XgTW3hXXlaQy0IiMsD8IjqkqCfgaK/wmLytNGDfy19NtxahtYUrgzA
+         +3SX1iS5SaqE8GgkL+w53kzB85nKgWiGQxz52Iow7OmUgOGAQ+0zgc6zkgpofH/BVeHh
+         uk4akPzdIerfxDhcyaXQ91/ondJmpFEHnbOjFEHGAr+rqPHUcWdKefjMOlPORO7FMLne
+         kOOXt6kUHy3Tj1uwtKBCovFKp295ovrrX6eQ7Lf40GdA5c/UaBy/3hNxFPCZ9gYtWk2q
+         pdKw==
+X-Forwarded-Encrypted: i=1; AKwUvBz5SejqvEfH8eo3rbSqKkBHbJi3NfZ0h1VdfwHFFQ4Mzl4gCG/03cIwbJnbi5Uu/MhYM0QRXwPfJqrqI10=@vger.kernel.org
+X-Gm-Message-State: AFuF++kKbcGMjHR75vrt3K2rjp3/cG5iA60EzlTmlzM0AkzRT+FbLz9/
+	c0wVf5I1qtt3qPfETPHupuB8vfHQY/9QunToAhlGZguZpLe/QJoKown1qKc1DAs+OE3xvcJYjgN
+	Cvis0xwr20HzK1gQXyW3d3QjBnVOFH1PE6sZWB4ZFfjLKo4bPcTBEBGItKKslU66euNA=
+X-Gm-Gg: AYBFou1H4WHsmHCH0xjrYJ2NFUYlQ849oEPD+uxslGgL+WTaGF0jgFwFajJD+RgsyTP
+	LxkEzJ2cZQh4rCnZMaHYhtFMQnboWW8oABNi023dzhuLyaBoPp9vEOuS0y0rVZEo0NC+cFb1rBC
+	U6sG1Ej5DF7Nr+5sdnU8MaYPyg+tgnyJhkV6LsFIYkKS9z7E3EAb3BypfPuaBfh2Ij1cOCA1CBl
+	a8D6InIw89lclMC8reQiJifHZndWXQSvAXt24hWUnPI+mC6nPEfG7WmahU3SqA59hfWaEzveD6b
+	LNMfL3x+Df7mJHWgGza3QxkP7UQ8MwUk4xm2Cb3ma7auSIJSoCmxTMtGGolM7g1S2W++blmN2Q9
+	rIs3rKwHcBRQ3M7NLYoCkxVh5LQ==
+X-Received: by 2002:a05:7023:a4b:10b0:155:734:9cc9 with SMTP id a92af1059eb24-15d301f2259mr2420963c88.16.1791279021396;
+        Tue, 06 Oct 2026 02:30:21 -0700 (PDT)
+X-Received: by 2002:a05:7023:a4b:10b0:155:734:9cc9 with SMTP id a92af1059eb24-15d301f2259mr2420925c88.16.1791279020728;
+        Tue, 06 Oct 2026 02:30:20 -0700 (PDT)
+Received: from hu-mojha-hyd.qualcomm.com ([202.46.23.25])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-15d82d04332sm5850583c88.9.2026.10.06.02.30.17
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 06 Oct 2026 02:30:20 -0700 (PDT)
+Date: Tue, 6 Oct 2026 15:00:14 +0530
+From: Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>
+To: Anup Vishwakarma <anup.vishwakarma@oss.qualcomm.com>
+Cc: Manivannan Sadhasivam <mani@kernel.org>,
+        Jassi Brar <jassisinghbrar@gmail.com>,
+        Huang Yiwei <quic_hyiwei@quicinc.com>,
+        Sudeep Holla <sudeep.holla@kernel.org>,
+        Jassi Brar <jaswinder.singh@linaro.org>, linux-arm-msm@vger.kernel.org,
+        linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 2/2] mailbox: arm_mhu_db: Remove redundant
+ mbox_controller_unregister() on probe failure
+Message-ID: <20261006093014.mak7ctqf37c22l4o@hu-mojha-hyd.qualcomm.com>
+References: <20261006-b4-mbox_double_unregister_fix-v1-0-9011ca208d36@oss.qualcomm.com>
+ <20261006-b4-mbox_double_unregister_fix-v1-2-9011ca208d36@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Received: by 2002:a05:6808:50aa:b0:4f8:716d:793e with SMTP id
- 5614622812f47-4fb40da0aaemr853642b6e.46.1791279009400; Tue, 06 Oct 2026
- 02:30:09 -0700 (PDT)
-Date: Tue, 06 Oct 2026 02:30:09 -0700
-In-Reply-To: <00000000000068ed3b060a0f1517@google.com>
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6ac4bfa1.fe639fcc.32b100.0001.GAE@google.com>
-Subject: Forwarded: Re: [syzbot] [mm?] BUG: spinlock recursion in try_to_wake_up
-From: syzbot <syzbot+6f49826383204e367d67@syzkaller.appspotmail.com>
-To: linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261006-b4-mbox_double_unregister_fix-v1-2-9011ca208d36@oss.qualcomm.com>
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDA2MDAzNyBTYWx0ZWRfX6KeT3Hz2Uek8
+ DdnbdObD/cyTuISianwWlN67KWf6x7LLZdS4UjtKlvoce8x9eEq+wS4n15hGE/Y/sR/ql0LPVdn
+ YGwrB8DOenvasNXxh0nrZs1rqMJWupM=
+X-Authority-Analysis: v=2.4 cv=Vdxir1p9 c=1 sm=1 tr=0 ts=6ac4bfae cx=c_pps
+ a=kVLUcbK0zfr7ocalXnG1qA==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
+ a=kj9zAlcOel0A:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=DJpcGTmdVt4CTyJn9g5Z:22
+ a=EUspDBNiAAAA:8 a=y-iOYEGbE81HM73byi4A:9 a=CjuIK1q_8ugA:10
+ a=vr4QvYf-bLy2KjpDp97w:22
+X-Proofpoint-GUID: 0qPnEOuDQ4sRPaHiV_q3aoCFiUj2JCrI
+X-Proofpoint-ORIG-GUID: 0qPnEOuDQ4sRPaHiV_q3aoCFiUj2JCrI
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDA2MDAzNyBTYWx0ZWRfX8e3XwJBrmWE8
+ 8w0T6PeK4DxzKPZOp4irljaF08+4mgf0dRkZl57CF9Iv759oQxWhHWpx0nFGNAYSr1mbZsnuGCe
+ YVym8W+CHOCSLlzWtvD0JSHzcNtWCZEcGGBzlg6TaR7WlnvRCgYplK5kpO9lrOBWsgD8+C/nGqe
+ LGf1qfeqBbxXJ9nstZPp8R4xFWMiXbvzs9lO77NyPn6BifUySJCyaZq8ueTc2PmvmgE6Q/zrF2o
+ PV5Kw7C61PG7bU4/o5HrTEOtl9i/WRQyyEUuIHI73fWJRR+Y7dAErg4dNdbZVz/SPLcVdopsEeJ
+ PdzcDiO1eEaN8gY1/5C2iJHjxkGV6yKsf3dj4aqMhNf13Unpi5tyH5PO3rGlETjJhQhCa7vPBds
+ gc2hWMaJH89e0R/8RbdSQ5o89iRo9QKe0e/Xo4Jn0iPb6tx/HqCJoihlE9YLShmYF/8EVy3Zpka
+ 3W9hoVHn0Ce5zozGvdg==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-06_02,2026-10-05_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ adultscore=0 priorityscore=1501 suspectscore=0 malwarescore=0 clxscore=1015
+ impostorscore=0 phishscore=0 spamscore=0 bulkscore=0 lowpriorityscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2610060037
 
-For archival purposes, forwarding an incoming command email to
-linux-kernel@vger.kernel.org.
-
-***
-
-Subject: Re: [syzbot] [mm?] BUG: spinlock recursion in try_to_wake_up
-Author: ebiggers@kernel.org
-
-On Mon, Nov 13, 2023 at 01:09:20PM -0800, syzbot wrote:
-> Hello,
+On Tue, Oct 06, 2026 at 02:44:15PM +0530, Anup Vishwakarma wrote:
+> mhu_db_probe() registers the mailbox controller via
+> devm_mbox_controller_register(), which automatically calls
+> mbox_controller_unregister() through devres when the device is removed
+> or probe fails. If devm_request_threaded_irq() subsequently fails in
+> the channel setup loop, the error path also manually calls
+> mbox_controller_unregister(), resulting in a double call that corrupts
+> the global mailbox controller list and causes a kernel panic.
 > 
-> syzbot found the following issue on:
+> Remove the redundant manual call and rely on devres for cleanup.
 > 
-> HEAD commit:    6bc986ab839c Merge tag 'nfs-for-6.7-1' of git://git.linux-..
-> git tree:       upstream
-> console output: https://syzkaller.appspot.com/x/log.txt?x=163b5f90e80000
-> kernel config:  https://syzkaller.appspot.com/x/.config?x=cd456c5e6582895e
-> dashboard link: https://syzkaller.appspot.com/bug?extid=6f49826383204e367d67
-> compiler:       gcc (Debian 12.2.0-14) 12.2.0, GNU ld (GNU Binutils for Debian) 2.40
-> syz repro:      https://syzkaller.appspot.com/x/repro.syz?x=15b34e04e80000
-> C reproducer:   https://syzkaller.appspot.com/x/repro.c?x=1308dc0f680000
-> 
-> Downloadable assets:
-> disk image (non-bootable): https://storage.googleapis.com/syzbot-assets/7bc7510fe41f/non_bootable_disk-6bc986ab.raw.xz
-> vmlinux: https://storage.googleapis.com/syzbot-assets/3ff7887a8f39/vmlinux-6bc986ab.xz
-> kernel image: https://storage.googleapis.com/syzbot-assets/60418843207c/bzImage-6bc986ab.xz
-> 
-> IMPORTANT: if you fix the issue, please add the following tag to the commit:
-> Reported-by: syzbot+6f49826383204e367d67@syzkaller.appspotmail.com
-> 
-> BUG: spinlock recursion on CPU#0, syz-executor110/7601
->  lock: 0xffff88806b63c740, .magic: dead4ead, .owner: syz-executor110/7601, .owner_cpu: 1
-> CPU: 0 PID: 7601 Comm: syz-executor110 Tainted: G      D            6.6.0-syzkaller-15494-g6bc986ab839c #0
-> Hardware name: QEMU Standard PC (Q35 + ICH9, 2009), BIOS 1.16.2-debian-1.16.2-1 04/01/2014
-> Call Trace:
->  <IRQ>
->  __dump_stack lib/dump_stack.c:88 [inline]
->  dump_stack_lvl+0xd9/0x1b0 lib/dump_stack.c:106
->  debug_spin_lock_before kernel/locking/spinlock_debug.c:86 [inline]
->  do_raw_spin_lock+0x237/0x2b0 kernel/locking/spinlock_debug.c:114
->  raw_spin_rq_lock_nested kernel/sched/core.c:566 [inline]
->  raw_spin_rq_lock_nested+0x7e/0x130 kernel/sched/core.c:551
->  raw_spin_rq_lock kernel/sched/sched.h:1349 [inline]
->  rq_lock kernel/sched/sched.h:1663 [inline]
->  ttwu_queue kernel/sched/core.c:4019 [inline]
->  try_to_wake_up+0x654/0x15d0 kernel/sched/core.c:4342
->  kick_pool+0x253/0x460 kernel/workqueue.c:1142
->  __queue_work+0x5d9/0x1050 kernel/workqueue.c:1800
->  call_timer_fn+0x193/0x580 kernel/time/timer.c:1700
->  expire_timers kernel/time/timer.c:1746 [inline]
->  __run_timers+0x585/0xb10 kernel/time/timer.c:2022
->  run_timer_softirq+0x58/0xd0 kernel/time/timer.c:2035
->  __do_softirq+0x21a/0x968 kernel/softirq.c:553
->  invoke_softirq kernel/softirq.c:427 [inline]
->  __irq_exit_rcu kernel/softirq.c:632 [inline]
->  irq_exit_rcu+0xb7/0x120 kernel/softirq.c:644
->  sysvec_apic_timer_interrupt+0x93/0xc0 arch/x86/kernel/apic/apic.c:1076
->  </IRQ>
->  <TASK>
->  asm_sysvec_apic_timer_interrupt+0x1a/0x20 arch/x86/include/asm/idtentry.h:645
-> RIP: 0010:lock_acquire+0x1ef/0x510 kernel/locking/lockdep.c:5721
-> Code: c1 05 8d 88 9a 7e 83 f8 01 0f 85 b0 02 00 00 9c 58 f6 c4 02 0f 85 9b 02 00 00 48 85 ed 74 01 fb 48 b8 00 00 00 00 00 fc ff df <48> 01 c3 48 c7 03 00 00 00 00 48 c7 43 08 00 00 00 00 48 8b 84 24
-> RSP: 0018:ffffc9000b427420 EFLAGS: 00000206
-> RAX: dffffc0000000000 RBX: 1ffff92001684e86 RCX: 0000000000000001
-> RDX: 1ffff1100526d3a7 RSI: ffffffff8accaca0 RDI: ffffffff8b2ec600
-> RBP: 0000000000000200 R08: 0000000000000000 R09: fffffbfff23e25d8
-> R10: ffffffff91f12ec7 R11: dffffc0000000000 R12: 0000000000000001
-> R13: 0000000000000000 R14: ffff88806b636e80 R15: 0000000000000000
->  local_lock_acquire include/linux/local_lock_internal.h:29 [inline]
->  folio_add_lru+0x2b2/0x7d0 mm/swap.c:515
->  folio_add_lru_vma+0xb0/0x100 mm/swap.c:537
->  wp_page_copy mm/memory.c:3189 [inline]
->  do_wp_page+0x19fa/0x3a70 mm/memory.c:3510
->  handle_pte_fault mm/memory.c:5054 [inline]
->  __handle_mm_fault+0x1d7c/0x3d60 mm/memory.c:5179
->  handle_mm_fault+0x478/0xa00 mm/memory.c:5344
->  do_user_addr_fault+0x3d1/0x1000 arch/x86/mm/fault.c:1413
->  handle_page_fault arch/x86/mm/fault.c:1505 [inline]
->  exc_page_fault+0x5c/0xd0 arch/x86/mm/fault.c:1561
->  asm_exc_page_fault+0x26/0x30 arch/x86/include/asm/idtentry.h:570
-> RIP: 0010:copy_user_generic arch/x86/include/asm/uaccess_64.h:112 [inline]
-> RIP: 0010:raw_copy_to_user arch/x86/include/asm/uaccess_64.h:133 [inline]
-> RIP: 0010:copy_to_user_iter lib/iov_iter.c:25 [inline]
-> RIP: 0010:iterate_iovec include/linux/iov_iter.h:51 [inline]
-> RIP: 0010:iterate_and_advance2 include/linux/iov_iter.h:247 [inline]
-> RIP: 0010:iterate_and_advance include/linux/iov_iter.h:271 [inline]
-> RIP: 0010:_copy_to_iter+0x4c7/0x11d0 lib/iov_iter.c:186
-> Code: 45 e8 8d 37 27 fd 48 8b 4c 24 18 89 ee 48 8b 44 24 28 4c 8d 34 01 4c 89 f7 e8 e5 6e 7d fd 0f 01 cb 48 89 e9 4c 89 ff 4c 89 f6 <f3> a4 0f 1f 00 0f 01 ca 48 89 e8 48 29 eb 48 29 c8 48 01 cb 48 01
-> RSP: 0018:ffffc9000b427970 EFLAGS: 00050246
-> RAX: 0000000000000001 RBX: 0000000000001000 RCX: 0000000000000e80
-> RDX: 0000000000000000 RSI: ffff888010b19180 RDI: 0000000020755000
-> RBP: 0000000000001000 R08: 0000000000000000 R09: ffffed10021633ff
-> R10: ffff888010b19fff R11: 0000000000000000 R12: 0000000000754b80
-> R13: ffffc9000b427d60 R14: ffff888010b19000 R15: 0000000020754e80
->  copy_page_to_iter lib/iov_iter.c:381 [inline]
->  copy_page_to_iter+0xf1/0x180 lib/iov_iter.c:368
->  process_vm_rw_pages mm/process_vm_access.c:45 [inline]
->  process_vm_rw_single_vec mm/process_vm_access.c:117 [inline]
->  process_vm_rw_core.constprop.0+0x5cd/0xa10 mm/process_vm_access.c:215
->  process_vm_rw+0x2ff/0x360 mm/process_vm_access.c:283
->  __do_sys_process_vm_readv mm/process_vm_access.c:295 [inline]
->  __se_sys_process_vm_readv mm/process_vm_access.c:291 [inline]
->  __x64_sys_process_vm_readv+0xe2/0x1b0 mm/process_vm_access.c:291
->  do_syscall_x64 arch/x86/entry/common.c:51 [inline]
->  do_syscall_64+0x3f/0x110 arch/x86/entry/common.c:82
->  entry_SYSCALL_64_after_hwframe+0x63/0x6b
-> RIP: 0033:0x7fd00a215259
-> Code: 28 00 00 00 75 05 48 83 c4 28 c3 e8 51 18 00 00 90 48 89 f8 48 89 f7 48 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c 24 08 0f 05 <48> 3d 01 f0 ff ff 73 01 c3 48 c7 c1 b0 ff ff ff f7 d8 64 89 01 48
-> RSP: 002b:00007fd00a1d3228 EFLAGS: 00000246 ORIG_RAX: 0000000000000136
-> RAX: ffffffffffffffda RBX: 00007fd00a29c308 RCX: 00007fd00a215259
-> RDX: 0000000000000002 RSI: 0000000020008400 RDI: 0000000000001db0
-> RBP: 00007fd00a29c300 R08: 0000000000000286 R09: 0000000000000000
-> R10: 0000000020008640 R11: 0000000000000246 R12: 00007fd00a269074
-> R13: 0000000000000000 R14: 00007ffec3c6eb10 R15: 00007ffec3c6ebf8
->  </TASK>
-> ----------------
-> Code disassembly (best guess):
->    0:	c1 05 8d 88 9a 7e 83 	roll   $0x83,0x7e9a888d(%rip)        # 0x7e9a8894
->    7:	f8                   	clc
->    8:	01 0f                	add    %ecx,(%rdi)
->    a:	85 b0 02 00 00 9c    	test   %esi,-0x63fffffe(%rax)
->   10:	58                   	pop    %rax
->   11:	f6 c4 02             	test   $0x2,%ah
->   14:	0f 85 9b 02 00 00    	jne    0x2b5
->   1a:	48 85 ed             	test   %rbp,%rbp
->   1d:	74 01                	je     0x20
->   1f:	fb                   	sti
->   20:	48 b8 00 00 00 00 00 	movabs $0xdffffc0000000000,%rax
->   27:	fc ff df
-> * 2a:	48 01 c3             	add    %rax,%rbx <-- trapping instruction
->   2d:	48 c7 03 00 00 00 00 	movq   $0x0,(%rbx)
->   34:	48 c7 43 08 00 00 00 	movq   $0x0,0x8(%rbx)
->   3b:	00
->   3c:	48                   	rex.W
->   3d:	8b                   	.byte 0x8b
->   3e:	84                   	.byte 0x84
->   3f:	24                   	.byte 0x24
-> 
-> 
+> Fixes: 7002ca237b21 ("mailbox: arm_mhu: Add ARM MHU doorbell driver")
+> Signed-off-by: Anup Vishwakarma <anup.vishwakarma@oss.qualcomm.com>
 > ---
-> This report is generated by a bot. It may contain errors.
-> See https://goo.gl/tpsmEJ for more information about syzbot.
-> syzbot engineers can be reached at syzkaller@googlegroups.com.
+>  drivers/mailbox/arm_mhu_db.c | 8 +++-----
+>  1 file changed, 3 insertions(+), 5 deletions(-)
 > 
-> syzbot will keep track of this issue. See:
-> https://goo.gl/tpsmEJ#status for how to communicate with syzbot.
-> 
-> If the report is already addressed, let syzbot know by replying with:
-> #syz fix: exact-commit-title
-> 
-> If you want syzbot to run the reproducer, reply with:
-> #syz test: git://repo/address.git branch-or-commit-hash
-> If you attach or paste a git patch, syzbot will apply it before testing.
-> 
-> If you want to overwrite report's subsystems, reply with:
-> #syz set subsystems: new-subsystem
-> (See the list of subsystem names on the web dashboard)
-> 
-> If the report is a duplicate of another one, reply with:
-> #syz dup: exact-subject-of-another-report
-> 
-> If you want to undo deduplication, reply with:
-> #syz undup
+> diff --git a/drivers/mailbox/arm_mhu_db.c b/drivers/mailbox/arm_mhu_db.c
+> index a39239e38a47..9668dfdedc78 100644
+> --- a/drivers/mailbox/arm_mhu_db.c
+> +++ b/drivers/mailbox/arm_mhu_db.c
+> @@ -315,12 +315,10 @@ static int mhu_db_probe(struct amba_device *adev, const struct amba_id *id)
+>  		mhu->mlink[i].tx_reg = mhu->mlink[i].rx_reg + TX_REG_OFFSET;
+>  
+>  		err = devm_request_threaded_irq(dev, irq, NULL,
+> -						mhu_db_mbox_rx_handler,
+> -						IRQF_ONESHOT, "mhu_db_link", mhu);
+> -		if (err) {
+> -			mbox_controller_unregister(&mhu->mbox);
+> +					mhu_db_mbox_rx_handler,
+> +					IRQF_ONESHOT, "mhu_db_link", mhu);
 
-This bug is assigned to the crypto and mm subsystems, but it doesn't
-seem to have anything to do with crypto.  It also seems to be obsolete,
-as it was last seen 775 days ago.
+It looks like alignment/indentation is unnecessary changing.
 
-#syz invalid
+> +		if (err)
+>  			return err;
+> -		}
+>  	}
+
+with the above fix.
+
+Reviewed-by: Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>
+
+-- 
+-Mukesh Ojha
