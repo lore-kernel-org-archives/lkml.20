@@ -1,262 +1,132 @@
-Received: from mx07-00376f01.pphosted.com (mx07-00376f01.pphosted.com [185.132.180.163])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pl1-f173.google.com (mail-pl1-f173.google.com [209.85.214.173])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AF45E3BE644
-	for <linux-kernel@vger.kernel.org>; Tue,  6 Oct 2026 08:08:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.132.180.163
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CBD433D9549
+	for <linux-kernel@vger.kernel.org>; Tue,  6 Oct 2026 08:09:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.173
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791274138; cv=none; b=YYDu70iqdnc5LfLFUYQnSXe8U4/VceHbZtC3hSRKWNzD4ZUyP5McfGRutHIsTG0qiJ9JcYnpPV+58GE+YL7uwn5v4uZR3LmnWdRRn3bAh+jw7gCJ0sCJkTafPjZpPmIfE0Yibiz5LvLVoyoqshQnBjIYSDR/An85n5Zjgl2aaW0=
+	t=1791274191; cv=none; b=UV93OHdLNlaVo/vhLHFkG6MkWEJzK+fEHOKT47bSm2xV1i4VRSJ5FDUdCjoHueCsGIiihTfO4UP1tL8T7osH2rtuehHVugCNEoYuPcNiJr1IwC5eRiHoKGoXjlYOVmALlbkS6z9PCBhwLM1SPeUGlId/AczwljwckqPaOU1eGrw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791274138; c=relaxed/simple;
-	bh=V1SGXRQcg9F4U0rJqrYR/QcPVxFLUqcWePUnp2GqMqg=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-ID:To:CC; b=XGXPl0v14C7pbGJ3BiCBhAk40H78KLecb8P8kJE2xDetcIE9ZAWWBG92OGXdD+58Q637hFPaVia/acOliBO1QG+YgT9tpQ8lI1N8zUPOqD6c5dRs2XcGURzQfR52UIhka76d52vjjS6nZObTTXj/RVjPQAR6yQ6qZZkA4EWsKaM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=imgtec.com; spf=pass smtp.mailfrom=imgtec.com; dkim=pass (2048-bit key) header.d=imgtec.com header.i=@imgtec.com header.b=J1D6Ke8o; arc=none smtp.client-ip=185.132.180.163
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=imgtec.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=imgtec.com
+	s=arc-20240116; t=1791274191; c=relaxed/simple;
+	bh=enBsXciepZa00b2yjc+JYOC6Y1UvYHKp+PIvstbTzf4=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=XG5EaNG54Sv0kUizv3qI5BThS3iSPdCKpTqZk4Hd1vpQ4XP4Dwb/m2mRB0ogkp7zfq8/H7ekx/UueF+c3x7ABV+LjanjfvNNR9OptbjaxNTsjiDDL/zAtRsulmK29jIpKNGCqoV3kkaibFvBv27YOv0ipxgbsPEhbvqgjjvnqYI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=n9mW/Yl3; arc=none smtp.client-ip=209.85.214.173
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=imgtec.com header.i=@imgtec.com header.b="J1D6Ke8o"
-Received: from pps.filterd (m0168889.ppops.net [127.0.0.1])
-	by mx07-00376f01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6966cs9W1414851;
-	Tue, 6 Oct 2026 09:08:25 +0100
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=imgtec.com; h=cc
-	:content-transfer-encoding:content-type:date:from:message-id
-	:mime-version:subject:to; s=dk201812; bh=zZJ2SmIPhTQl/7XrvycHTSJ
-	fZqlI79g1FTmuSaaV2V8=; b=J1D6Ke8oQQCP5cHoGuaPFrB5q9hSMdPRVoSeLkJ
-	W304sJPgEPK2XAqbw9pT1mTb6B9yqlwK1/Bxa4XoKo028XpvkcAE//RDSc5cl3pA
-	gPlbi3ktXrIUOaUjW+rgLU7EEtybmgxQnP9F6E1ZEiCPG9kPKUp9BHrml2j5Pfve
-	EixRTE3TOnQPI1J6oN8cFFtBF3c3hOmuG8/U9I6awQxQXCl6M4BaBmS9rldJFvsr
-	ZxCPTbbIfEsMIAp64ywryHrxK+0As3/V4jpw31Wb/z7TCUXfaew20TKgrRk7CgCf
-	KipSkeEaSaNT7kLiO/jiR6i81wahwbC6t2ZKZAVRNnToaOg==
-Received: from hhmail01.hh.imgtec.org (83-244-153-141.cust-83.exponential-e.net [83.244.153.141])
-	by mx07-00376f01.pphosted.com (PPS) with ESMTPS id 4h4brugq9y-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Tue, 06 Oct 2026 09:08:24 +0100 (BST)
-Received: from [127.0.1.1] (172.25.5.23) by HHMAIL01.hh.imgtec.org
- (10.100.10.19) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Tue, 6 Oct
- 2026 09:08:18 +0100
-From: Alexandru Dadu <alexandru.dadu@imgtec.com>
-Date: Tue, 6 Oct 2026 11:08:06 +0300
-Subject: [PATCH] drm/imagination: Check virtual address space size only
- once
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="n9mW/Yl3"
+Received: by mail-pl1-f173.google.com with SMTP id d9443c01a7336-2dd1dcdcf95so3079435ad.1
+        for <linux-kernel@vger.kernel.org>; Tue, 06 Oct 2026 01:09:47 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791274184; x=1791878984; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=JlNumo0XDQS2lJkteQBjfN8Fb96oMehV3mMd0MRgQKQ=;
+        b=n9mW/Yl3uXDzDNaBInoUjSI+qLDsjc9SM6uhCI+efamOB/eCP19SGfps5hhQKMZzmi
+         phO5sWwXbWCV4tRy5erFqLp6NCdlAifP+XBLAcjBX8d6q3v9DzstQrQzNrHaKAE5K7hW
+         5+XRm4E7+6Uul9uXxL37Dp3YYp43w5ybDG4iir6y7kQYs2HE8aJjKRdb8mT6X3JsYpU4
+         QQxUGNwPoItbgfpn/NrP9w5U4y7HG96bsUaBk6Ojftlnt05oRkRunbAm6VnGXxAJJXj7
+         95zxWJ7emaZvLpBvLvhsGp25dZIXgOhbV5+ieiUGqHDUoDrPVvC4FGC3qDiNh27nfNlH
+         oaKg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791274184; x=1791878984;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=JlNumo0XDQS2lJkteQBjfN8Fb96oMehV3mMd0MRgQKQ=;
+        b=SLa9vPKGziz3oe3B9cryHYGngSv45BFTE7hGRSIC+NLD7WYE9vv4Kk1X4cQ7d4Xjvg
+         3OOvhtY7nAgyxMoJZbCQn24v/Ypy4OXU6d/Yry8N5o0KVgRE5hhUKGblz6FFo3/fV0DC
+         DW5jt9FEPHOZdGyfZoBn4VCJj5GBi5Rf5bKd7+7BPZSxoWs02rQ4jqkKzmOV8hYNvkp4
+         M9LKOBj6WlqWzxQCsysDw5Y4nMZJLvQn4n70jvIjVW26NCtXitEm5gaKh7cqsxwY3mmP
+         jXCyqSr84Cuyho3XCUsPHMJUKhS7jSMHLNQ0xdhQ9gHbpMW1ZNaFASPlqrPY7ERisKG1
+         QOrg==
+X-Forwarded-Encrypted: i=1; AKwUvBwHdrIKfP0qap+R2N7doFzQI8QK84TKIN6kiwfga5kGUCkgd4RSNlDXseUs9Eio/pj4pbEHPgR/wIgWBH4=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKZfHmL9i6gSo1Hb4fukoTKqdolwhQmh/hf9cHyMnXugqEVV0rh
+	e58+sgQ5iwI6S66TR1/3wcmqfT7Rcr9dPbZlLqMUdL16OnRvSGtl3CB6
+X-Gm-Gg: AYBFou08SS4TyNMlRHQqTaE2Sxx+0zIQBePCinNzFzBCWFhNMX5iBxJk4LxpknjHeMY
+	quA3AIJ1eCTyXDQDYCsbSu0e6b5Blut6RnD9VyRaAJ41tfJBVjGHZoZAzGvU4kr7+vGuAAl4daV
+	8sqbJ9xGBZLF8sQguwUb0HqrpV8A9t9xbyROStuaP7aeOJynmLqglXH8xFbtvA1T3V2FP4TI1jP
+	PHqvp5FH6o69lcVI3I1GsVnX86B9fFzSdrYIRBFQx8aRgOfNsUWP3BNvsTxI7WVdOAFQuEqNFqj
+	WNum1yErFyQ/GEVDMIgMiTpIBn4XxM/3CfyuxYNtgN1c35nt5q1CRg48XsJtjHhdkysUfSBwJHW
+	Zfsbmp+k6GQqoK8/h+9vlV5shH9GWzrdNusl/J2yc7pB2F7nDeXf9lL8cBih2se3BakSW2n8vAA
+	KWObRd22JFhr9Bm5D5DwvFdBQM68zpclKBRq+nF622ShXxAJnRq3uis//zdXa2kwvI7cnNIDeqt
+	wrxm+dAlrITyMNYED2Vd5vLcFFclT/ruErIbqSCjZ4spwawSHHYJ1eKaIb6PSKSqk5hcOZaM7xp
+	G+ybfgsCPrzhJdAKY/uhVsNiBbvMDf/8NHwXGSQPKgvi3YthwPjzuxIKNg==
+X-Received: by 2002:a17:903:19e6:b0:2e5:dc5a:c795 with SMTP id d9443c01a7336-2e5dc5aca22mr5127565ad.36.1791274183691;
+        Tue, 06 Oct 2026 01:09:43 -0700 (PDT)
+Received: from 0xiviel.ip (122-63-128-121.mobile.spark.co.nz. [122.63.128.121])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2e5a5ef4dbasm18597775ad.71.2026.10.06.01.09.38
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 06 Oct 2026 01:09:43 -0700 (PDT)
+From: Eva Crystal <0xiviel@gmail.com>
+To: yidong.zhang@amd.com,
+	quic_jhugo@quicinc.com,
+	karol.wachowski@linux.intel.com,
+	max.zhen@amd.com,
+	lizhi.hou@amd.com,
+	ogabbay@kernel.org,
+	dri-devel@lists.freedesktop.org,
+	linux-kernel@vger.kernel.org
+Cc: sonal.santan@amd.com,
+	mario.limonciello@amd.com,
+	wendy.liang@amd.com
+Subject: Re: [PATCH V2 14/20] accel/amdxdna: Implement AIE4 command packet building and submission
+Date: Tue,  6 Oct 2026 20:12:45 +1300
+Message-ID: <20261006071245.197376-1-0xiviel@gmail.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261006042230.547807-15-yidong.zhang@amd.com>
+References: <20261006042230.547807-15-yidong.zhang@amd.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-ID: <20261006-b4-check-virtual-addr-space-size-once-v1-1-677687e661d1@imgtec.com>
-X-B4-Tracking: v=1; b=H4sIAGWsxGoC/yXNQQ6CMBCF4auQWTtJKaULr2JclOkgg6aQDhAi4
- e5W3b1v878DlLOwwrU6IPMmKlMqqC8V0BDSg1FiMVhjfW2Mx84hDUxP3CQva3hhiDGjzoEYVd6
- MUyrLOGd9S9z0oYHSmjP3sv9+bve/de1GpuUbh/P8ALdhINGJAAAA
-X-Change-ID: 20261006-b4-check-virtual-addr-space-size-once-044265ce3fa3
-To: Alessio Belle <alessio.belle@imgtec.com>,
-        Luigi Santivetti
-	<luigi.santivetti@imgtec.com>,
-        Maarten Lankhorst
-	<maarten.lankhorst@linux.intel.com>,
-        Maxime Ripard <mripard@kernel.org>,
-        Thomas Zimmermann <tzimmermann@suse.de>,
-        David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
-CC: <imagination@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>,
-        <linux-kernel@vger.kernel.org>,
-        Alexandru Dadu <alexandru.dadu@imgtec.com>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1791274103; l=6094;
- i=alexandru.dadu@imgtec.com; s=20260304; h=from:subject:message-id;
- bh=dmuwqQOKOOoNQ0Mo+Q18LUSH8EPSFoiUImyyUVnraGk=;
- b=cAmOuzjmLD9d1ekpcb3FND+4AnShgy7q9AxCeSHugQxSZvJ5jaOGPKmfjRrXrlPfw/7+ta2B7
- +HyQKguAd6pAKaYvY8iEongiJUGsDHgsNvKASYo9YF1Y08vLfawUjGk
-X-Developer-Key: i=alexandru.dadu@imgtec.com; a=ed25519;
- pk=FU07SyNrYGwhahqSxbWEuzyXlUh47xBXvLvOR7UA6+U=
-X-Authority-Analysis: v=2.4 cv=FNOOVOos c=1 sm=1 tr=0 ts=6ac4ac78 cx=c_pps
- a=AKOq//PuzOIrVTIF9yBwbA==:117 a=AKOq//PuzOIrVTIF9yBwbA==:17
- a=Vfs-8JXWiL0A:10 a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10
- a=VkNPw1HP01LnGYTKEx00:22 a=kQ-hrUj2-E3RCbRHssb7:22 a=7RYWX5rxfSByPNLylY2M:22
- a=r_1tXGB3AAAA:8 a=vv4RTzrVeQxDHaVKDvsA:9 a=QEXdDO2ut3YA:10
- a=t8nPyN_e6usw4ciXM-Pk:22
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDA2MDAzMiBTYWx0ZWRfX0+XjXtpx3hmr
- A51RC22V7x/nlgL0VTfmg8Zsxjp7ShZZjGuXCpv6OUj+eMIG/2lfwAESnQKfXmyV1PbZ5/B9Itq
- 9xP4xBmlwoivOO/Q1RXXehwh1ma9dDY=
-X-Proofpoint-ORIG-GUID: bS6WK1UDIV1epBB7CgmZfEI34gYq35aJ
-X-Proofpoint-GUID: bS6WK1UDIV1epBB7CgmZfEI34gYq35aJ
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDA2MDAzMiBTYWx0ZWRfX57XbWzfOO90F
- WZfEE8z/JnfrtCICRhvBHrwY8MyAQKX54Zyxwj785qk+cHLHwIUu+f69sExuVt9MHx0IXZ2XF6e
- q89DP8xOYteSpmSIrqhysJ3bkmb9gy8uOtGiGU+qRm7IFTPyocz4nPfSfZr8apX98oOSdX9G0pp
- w6yJVMeEbVeC3SwtZi6Ftq2E6Bv2KCd6IPmp4U7b77rEfmtYRPJeN9WWg5uRW6AiRcgvBr1/zFR
- nYxWFEkDri4L7ZqA8e1W3RPB0K536x+a1lE3NWhqfP/XPXzzE8VcWnE0ENL0O3uKXzBcUN1ySbD
- SiTCOGYbFtj+rp9ZEUij9gRxv3UUnj96m/iZc/2egil1SwwTuX3UDS3zqLoOUXauYr5iGwn0s/d
- VYye4UWlVzYcBFBmpIlY67d7Exk2ZJLEc+ZfHU4CvlYax0SmcBJ5/eYNYcpNWtcDOsrzPxyeqvM
- FUWnSlhF9Uaqoo+nwbA==
+Content-Transfer-Encoding: 8bit
 
-From: Alessio Belle <alessio.belle@imgtec.com>
+On Mon, Oct 05, 2026 at 09:22:24PM -0700, David Zhang wrote:
 
-Every time a virtual memory context is created, the driver reads the
-size of the virtual address space, as reported by the firmware binary,
-and compares it against a define for the same, but both values are fixed
-on a given core, and on top of that, all known Imagination GPU cores use
-the same 40-bit virtual address space.
+> +/* Job timeout detection (TDR) will guarantee the fence signalling */
+> +static void job_worker(struct work_struct *work)
+> +{
+> +	struct amdxdna_hwctx_priv *priv =
+> +		container_of(work, struct amdxdna_hwctx_priv, job_work);
+> +	struct amdxdna_hwctx *hwctx = priv->hwctx;
+> +	struct amdxdna_sched_job *job;
+> +
+> +	while ((job = peek_running_job(hwctx))) {
+> +		wait_till_seq_completed(hwctx, job->seq);
+> +		if (get_read_index(hwctx) > job->seq) {
+> +			dequeue_running_job(hwctx, job);
+> +			/* Abort partially submitted jobs; complete fully submitted ones. */
+> +			if (job->aie4_job_state != AIE4_JOB_STATE_SUBMITTED)
+> +				job_abort(job);
+> +			else
+> +				job_complete(job);
 
-Move the check above to a new function for GPU device info validation
-code, so it's performed only once.
-This also allows other areas of the driver to reference the relevant
-defines without having to perform other checks at runtime, as long as
-all cores keep using the same virtual address space.
+> +static void job_done(struct amdxdna_sched_job *job)
+> +{
+> +	job->aie4_job_state = AIE4_JOB_STATE_DONE;
+> +	dma_fence_signal(job->fence);
+> +	/* Release submitter mm reference taken at submit. */
+> +	mmput_async(job->mm);
+> +	kref_put(&job->refcnt, aie4_job_release);
+> +}
 
-Signed-off-by: Alessio Belle <alessio.belle@imgtec.com>
-Signed-off-by: Alexandru Dadu <alexandru.dadu@imgtec.com>
----
- drivers/gpu/drm/imagination/pvr_device.c | 43 +++++++++++++++++++++++++++++---
- drivers/gpu/drm/imagination/pvr_mmu.h    |  2 +-
- drivers/gpu/drm/imagination/pvr_vm.c     | 22 +---------------
- 3 files changed, 42 insertions(+), 25 deletions(-)
+The get_read_index(hwctx) > job->seq test here reads a value userspace can write, and this patch is the first to let it release resources rather than just end a wait.
 
-diff --git a/drivers/gpu/drm/imagination/pvr_device.c b/drivers/gpu/drm/imagination/pvr_device.c
-index 35eaa54f75ed..992509d95d28 100644
---- a/drivers/gpu/drm/imagination/pvr_device.c
-+++ b/drivers/gpu/drm/imagination/pvr_device.c
-@@ -5,6 +5,7 @@
- #include "pvr_device_info.h"
- 
- #include "pvr_fw.h"
-+#include "pvr_mmu.h"
- #include "pvr_power.h"
- #include "pvr_queue.h"
- #include "pvr_rogue_cr_defs.h"
-@@ -646,6 +647,36 @@ pvr_set_dma_info(struct pvr_device *pvr_dev)
- 	return 0;
- }
- 
-+/**
-+ * pvr_device_info_validate() - Validate PowerVR device information, read from
-+ * the firmware binary, against what is supported by the driver.
-+ * @pvr_dev: Target PowerVR device.
-+ *
-+ * Returns:
-+ *  * 0 on success, or
-+ *  * -%EINVAL if the validation failed.
-+ */
-+static int
-+pvr_device_info_validate(struct pvr_device *pvr_dev)
-+{
-+	struct drm_device *drm_dev = from_pvr_device(pvr_dev);
-+	u16 device_addr_bits;
-+	int err;
-+
-+	err = PVR_FEATURE_VALUE(pvr_dev, virtual_address_space_bits, &device_addr_bits);
-+	if (err) {
-+		drm_err(drm_dev, "Failed to get device virtual address space bits\n");
-+		return err;
-+	}
-+
-+	if (device_addr_bits != PVR_PAGE_TABLE_ADDR_BITS) {
-+		drm_err(drm_dev, "Device has unsupported virtual address space size\n");
-+		return -EINVAL;
-+	}
-+
-+	return err;
-+}
-+
- /**
-  * pvr_device_gpu_init() - GPU-specific initialization for a PowerVR device
-  * @pvr_dev: Target PowerVR device.
-@@ -661,9 +692,11 @@ pvr_set_dma_info(struct pvr_device *pvr_dev)
-  * Return:
-  *  * 0 on success,
-  *  * -%ENODEV if the GPU is not supported,
-- *  * Any error returned by pvr_set_dma_info(),
-- *  * Any error returned by pvr_memory_context_init(), or
-- *  * Any error returned by pvr_request_firmware().
-+ *  * Any error returned by pvr_request_firmware(),
-+ *  * Any error returned by pvr_fw_validate_init_device_info(),
-+ *  * Any error returned by pvr_device_info_validate(),
-+ *  * Any error returned by pvr_set_dma_info(), or
-+ *  * Any error returned by pvr_fw_init().
-  */
- static int
- pvr_device_gpu_init(struct pvr_device *pvr_dev)
-@@ -691,6 +724,10 @@ pvr_device_gpu_init(struct pvr_device *pvr_dev)
- 	else
- 		return -EINVAL;
- 
-+	err = pvr_device_info_validate(pvr_dev);
-+	if (err)
-+		return err;
-+
- 	pvr_stream_create_musthave_masks(pvr_dev);
- 
- 	err = pvr_set_dma_info(pvr_dev);
-diff --git a/drivers/gpu/drm/imagination/pvr_mmu.h b/drivers/gpu/drm/imagination/pvr_mmu.h
-index a8ecd460168d..1f9ae00a8b17 100644
---- a/drivers/gpu/drm/imagination/pvr_mmu.h
-+++ b/drivers/gpu/drm/imagination/pvr_mmu.h
-@@ -62,7 +62,7 @@ struct sg_table;
-  *
-  *    This value is checked at runtime against
-  *    &pvr_device_features.virtual_address_space_bits by
-- *    pvr_vm_create_context(), which will return an error if the feature value
-+ *    pvr_device_info_validate(), which will return an error if the feature value
-  *    does not match this constant.
-  *
-  *    .. admonition:: Future work
-diff --git a/drivers/gpu/drm/imagination/pvr_vm.c b/drivers/gpu/drm/imagination/pvr_vm.c
-index ceb78694cd98..304d0743c5aa 100644
---- a/drivers/gpu/drm/imagination/pvr_vm.c
-+++ b/drivers/gpu/drm/imagination/pvr_vm.c
-@@ -535,8 +535,6 @@ fw_mem_context_init(void *cpu_ptr, void *priv)
-  *
-  * Return:
-  *  * A handle to the newly-minted VM context on success,
-- *  * -%EINVAL if the feature "virtual address space bits" on @pvr_dev is
-- *    missing or has an unsupported value,
-  *  * -%ENOMEM if allocation of the structure behind the opaque handle fails,
-  *    or
-  *  * Any error encountered while setting up internal structures.
-@@ -544,27 +542,9 @@ fw_mem_context_init(void *cpu_ptr, void *priv)
- struct pvr_vm_context *
- pvr_vm_create_context(struct pvr_device *pvr_dev, bool is_userspace_context)
- {
--	struct drm_device *drm_dev = from_pvr_device(pvr_dev);
--
- 	struct pvr_vm_context *vm_ctx;
--	u16 device_addr_bits;
--
- 	int err;
- 
--	err = PVR_FEATURE_VALUE(pvr_dev, virtual_address_space_bits,
--				&device_addr_bits);
--	if (err) {
--		drm_err(drm_dev,
--			"Failed to get device virtual address space bits\n");
--		return ERR_PTR(err);
--	}
--
--	if (device_addr_bits != PVR_PAGE_TABLE_ADDR_BITS) {
--		drm_err(drm_dev,
--			"Device has unsupported virtual address space size\n");
--		return ERR_PTR(-EINVAL);
--	}
--
- 	vm_ctx = kzalloc_obj(*vm_ctx);
- 	if (!vm_ctx)
- 		return ERR_PTR(-ENOMEM);
-@@ -589,7 +569,7 @@ pvr_vm_create_context(struct pvr_device *pvr_dev, bool is_userspace_context)
- 	drm_gpuvm_init(&vm_ctx->gpuvm_mgr,
- 		       is_userspace_context ? "PowerVR-user-VM" : "PowerVR-FW-VM",
- 		       0, &pvr_dev->base, &vm_ctx->dummy_gem,
--		       0, 1ULL << device_addr_bits, 0, 0, &pvr_vm_gpuva_ops);
-+		       0, PVR_PAGE_TABLE_ADDR_SPACE_SIZE, 0, 0, &pvr_vm_gpuva_ops);
- 
- 	mutex_init(&vm_ctx->lock);
- 	kref_init(&vm_ctx->ref_count);
+priv->umq_read_index = &qhdr->read_index is already in drm-misc-next (drivers/accel/amdxdna/aie4_ctx.c:212 at 34e9ab018249), but there its only consumer was check_cmd_done() from aie4_cmd_wait() and aie4_vf_ops had no .cmd_submit, so forging it only ended your own wait early. Here it decides dma_fence_signal(), mmput_async() and the BO reference drops in aie4_job_release().
 
----
-base-commit: 6e375de99d0c420169481fcd36064177ab55b09d
-change-id: 20261006-b4-check-virtual-addr-space-size-once-044265ce3fa3
+The queue is userspace's own BO: hwctx->umq_bo_hdl is args->umq_bo from CREATE_HWCTX (drivers/accel/amdxdna/amdxdna_ctx.c:252) and is mmappable read-write (drivers/accel/amdxdna/amdxdna_gem.c:1409), so the submitter shares the pages the driver vmaps. valid_queue_index() bounds it only against the kernel copy priv->write_index, so any value in [write_index - 32, write_index] passes and one store retires every outstanding job. Nothing else is consulted: cert_comp_isr() (drivers/accel/amdxdna/aie4_pci.c:114) only calls wake_up_all(), and aie4 has no per-job mailbox handler.
 
-Best regards,
---  
-Alexandru Dadu <alexandru.dadu@imgtec.com>
+I may be overstating the impact. I found no kernel memory corruption: no driver allocation's free is gated on a job fence, and the queue BO reference drops in aie4_hwctx_fini(), after hwctx_stop() has done the synchronous aie4_msg_destroy_context(). User pages look covered, since SVA is the default and the core invalidates device TLBs on every mm invalidation (drivers/iommu/iommu-sva.c:341). What is left is cross-process integrity: job->out_fence sits in every argument BO's reservation as DMA_RESV_USAGE_WRITE and those export as dma-buf (drivers/accel/amdxdna/amdxdna_gem.c:680), so an importer is told the NPU is done when it is not. I cannot tell from source whether CERT keeps executing packets it already fetched once the host moves read_index past them; if it stops, this is self inflicted only. You have the hardware.
 
+Would a driver owned completion word work, device mapped but not user mapped? Or could CERT report the count in a register or mailbox message the ISR reads?
+
+Separately: abo->mem.map_invalid is set in the MMU notifier (drivers/accel/amdxdna/amdxdna_gem.c:247) and at mmap time for imported BOs (drivers/accel/amdxdna/amdxdna_gem.c:505), but cleared only in aie2_populate_range() (drivers/accel/amdxdna/aie2_ctx.c:1145), static and called only from aie2_cmd_submit(). On aie4 it is never cleared, so aie4_cmd_submit() returns -EINVAL for that BO's remaining life. An imported dma-buf argument BO that userspace mmapped starts with the flag set and can never be submitted.
+
+Eva Crystal (0xiviel)
+XSource Security
+https://xsourcesec.com
