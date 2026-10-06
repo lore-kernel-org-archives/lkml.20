@@ -1,105 +1,142 @@
-Received: from mail-pg1-f169.google.com (mail-pg1-f169.google.com [209.85.215.169])
+Received: from mail-ua1-f48.google.com (mail-ua1-f48.google.com [209.85.222.48])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CDC8C3793D0
-	for <linux-kernel@vger.kernel.org>; Tue,  6 Oct 2026 07:14:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.169
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791270902; cv=none; b=gXGewz+TTAW1rceOl+viPuC/lRNuSjzdm6JggjbMThal/o3LBDWby1o0K2l2KvF9fayQXXe2uAq7jUQqoW8R6To3bgQevKMxzqmsG9CRwaDyHROgiVPybwc7sadeBNYUByg28rMgerzyIjOqa/VT9b9gNWvvnngvVYYX7tzTSqE=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791270902; c=relaxed/simple;
-	bh=JNpViAt3rztoNvFFvGSsB1bX3qB9kMWEiZy0iNQ3tlM=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=mGi0xXix5P3cYCgbJp6XpE8CxDdFSKJ/VEys3PwaCW+7NKe43PKXEj/LXR0iXMG7fpxu50pjs1Xp9sWia3gLlnaiLGxEnF26xps4oxXs9Dm4tVfzE0XK/oRyybvSXSiAkJQKv5pcCjCG0+DQOpDYNrgrBdmJUVtOY4+OJ41ALj0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=eQP4mnql; arc=none smtp.client-ip=209.85.215.169
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3B0CE3B1EFC
+	for <linux-kernel@vger.kernel.org>; Tue,  6 Oct 2026 07:15:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.222.48
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791270906; cv=pass; b=fRGtGiGEFSaImTb3CSrwN5XHSiVEgzgCtqXauqNnx8vURG+FLbEIoxw/rzQ5F/lf2TA4YBdgM7Vc4Jgu0EafbRZtTU0jdxOJhTEUfk/CrAYf4VABnJYZFfkhtcu+ooR24Xzj+0E2HDWLPwkcXp6jMnaVOuTi2gSOA7SnMOjvrzk=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791270906; c=relaxed/simple;
+	bh=4ATp6PMQr7SBUWePCIQTDnn323iSU6dbR7/g0U4/YnU=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=WuhsU+zCTtX5wDUBIJmIlDU3Voqdobyxo6RPucKn5sj421DEgV6+/08qtoGhn98sYW567wdgJ6MBN3Av+ioy2jwr9hGm2LgIrMNa3YDD6yxnUGMpMXRYXFM3q8FLTw0g+myv08d6P9rtHDqbjNC1Gt7b+V4eAzk7m+/ZRnQ++Ds=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=p9rr3JLQ; arc=pass smtp.client-ip=209.85.222.48
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="eQP4mnql"
-Received: by mail-pg1-f169.google.com with SMTP id 41be03b00d2f7-ccce6d9abfeso148539a12.1
-        for <linux-kernel@vger.kernel.org>; Tue, 06 Oct 2026 00:14:59 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="p9rr3JLQ"
+Received: by mail-ua1-f48.google.com with SMTP id a1e0cc1a2514c-988f270d308so1827218241.2
+        for <linux-kernel@vger.kernel.org>; Tue, 06 Oct 2026 00:15:04 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1791270904; cv=none;
+        d=google.com; s=arc-20260327;
+        b=PTfocZ8a58dW5sJesfUFUFTmkfCgIk64VO+w3Xr22503Xbqf7soXCpAGmce6fD0QPf
+         /LhqvZ/NRo/EJ/vdNbeydzXC/uwkkRTRykz/CNnBl+y6xuPt3gwiARe3GrERc/KoWuTP
+         3ftnSA+V9VwCIxHqHFwlaoJkiTJ0UkSMjV9gL7k2MEwyFLQvgZTmui1e6VQ474vEJPUP
+         A6/k545FTzu7Oy5/iyBDtoKtAIr2ggCWY1HbT/sVVMlTfZ8FP6TN03o0IezcaKM9S4Py
+         xYFGsRREquVoUGVcRKG36+ZyRGC/LfksK6AIIii07hmeYN2/jYAHW3ho89j6oIv0fxza
+         A+6A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=uni4/TrlrriaXDkvx89QTAW+nKztkVVHOAjkaVmVW0Q=;
+        fh=JvOjGOPsjTU49HbmVEqfJxrmjCL/y/MMheS2HjRituc=;
+        b=FZDlhyNKHUyZEn43gF/jzp/kGo8hB9LlQVaIAJ88WS/5c1kRqouSg2caBAkq/NvEL+
+         aWtoayzUf6Kd9TFqKoE9D9zk4DnOA1bs13lK1iuYxzKETPstT7nwRpqEHUs3vV3Ku1NF
+         LuCdWMSEBXPBndiZH+ppGhn9qYG2GIehAyvH59wzRR1bd3oGHzlvJQZAWurP2lspzgFS
+         ieYwprymZnhReuQVQqt/eBxjzyG5Sp1TDHUtZe9fui0VH4Scjd0A5ZmVPnrH1tVuo++w
+         AwfFyE8YH5iAE9lIWe9RqntVM5+RrBBoAREd861oNVKuflioWI1DugmaInG89S3uWoAE
+         C9Wg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791270899; x=1791875699; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=JNpViAt3rztoNvFFvGSsB1bX3qB9kMWEiZy0iNQ3tlM=;
-        b=eQP4mnqlcpNqSchSirKmFq26ayeTv+BYKf4c8P3G/TktKXdQC8p9BJUrFwNvRUmqSN
-         uvqr+4rJcUkGM5iU/CsFb2w/G4yUjuyzAC+QWJ2sS83NYToNjsshOrqTVB43j5XnT/c1
-         iFeM74slfMt5PSyDTI/ddm2Gckd/oa2fCympmSIhVhOzKOr8gzeZZRQynSal5LIqx+Vc
-         uIUPBPBcBpUcSEGxRthlEMFf4f7g6SE9aDQF0nP5hebff8n/KXmsVARmfTcwdTM9G/Sf
-         GwAgC01OWkrPnoaywaYm/KpteIbkf6Z7EBF97zB5cW8+DhMT9A/7ITnpWfsqH40cVc4b
-         9kQA==
+        d=gmail.com; s=20251104; t=1791270904; x=1791875704; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=uni4/TrlrriaXDkvx89QTAW+nKztkVVHOAjkaVmVW0Q=;
+        b=p9rr3JLQaB0LlW22YlT5bqdnG+AuIALV481fmmCazJZJ17j4DMV3sXJC2XTNynF5IM
+         Ha+Hu4qJfVOPgkwlEQEB2UMppwDLtCtDPLBz/PqVgIGpQTTftK1g6uWzgtmzrgCkwDqY
+         zWSFyJjqbx5PVZBOdGQWV0DU/iJPwz9bNWFpTDeTw549cg674dv7opvzT05wdewh81vg
+         pd5Q7059cYTYmPHvwT6OZbxxrEgo0qtVweGg3tPwhtPc+rMLyOM9E0jbBaooc52KiMFA
+         lPYKBTrMSXhFQtVd2vilxWMRiyhV53k9/iBrbJASoh9n2Q2VX8G4EfNPqORPwsFoi7YN
+         fPVg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791270899; x=1791875699;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=JNpViAt3rztoNvFFvGSsB1bX3qB9kMWEiZy0iNQ3tlM=;
-        b=bRUghN0lo3ux0U9c9D4Oio3jpzijKeF5ihXZjl0vaOjmsT6r0nU9v7KiXWbp+ZD41e
-         CtodWHWtROQp5gNdWEbvk92d4CpG+n5dtV1crRphQxWH53y4Z9MAQ1MIhfdlTKHqT21/
-         v5tIqzsGGYbNrHN2nQZ+A74Qs6twW1ZxuecYeS0nF+JIEMnIveziOxlY1NKMVWRGZ0qv
-         h/VF0Ge4BzwaiBGcw+/QZwy6mH519j2xNOD+nYDpSu6s2oT2OUTRqELfTOy05LX44D2E
-         f56vGp3rXWFlVuErrzh2A5YsxB/G5mjGPdm2TlKypuNrxAr3z8drFrFQR1p74sJneabm
-         vWIQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwIAKFRtvzE/uwFhdfqsxBk7Q70QYJQdflW5tO8JSrY8mzBqA9FFJtoDergOvl6XyDQvQ6DjKRQ0yfdJFs=@vger.kernel.org
-X-Gm-Message-State: AFuF++mDCbFwzKaBlu590jedSJ/2zMmvXpP8UwEtWB+uMIAgducxcc43
-	BM7lXaA4HL0sbgapiskaRe2RO5s2PdjBtKFQ5/V9kxk0+NnWhvrcywaM
-X-Gm-Gg: AYBFou1LZmd3XlpadHrdniKWcwyNVY9hWZL9XHSG2ygX9J1ysujxx88feYIHq6wal2w
-	NuM+QeJPnFIwO24L6LtoD1MEaFqIPvhJ3qEUfcbp1MMcvyLg8rt6bHrcIXyg/dyBFlUNl4m8yCz
-	SvpG28fFHWjjxtzRgcKnoqoEqylFWEhqJUBTqv3XMzIH++tHK+Gkg/UY/ZaQ5V5oFmzkX8ueVND
-	sZNhjJZteN7t0W/eu5epxMNyYkQIz//C/bfsJtwuDUvrCSnpECfd/3RLH09llBwm/7R2ZPzj3mk
-	vBewJOAN/jUMyjzLMHJltE9jrV7gfUBkEsl43+5KGtdRWz1ur5EC6qfYeSlR2IyYdPDM+i3rhUl
-	KJNW28I3gB+T+OR8wa3tme8annONOoMKs1IHaCBZHImpACAcEN6bTVbxtmWVBhud/yZFbR3w2kl
-	ZoKMqv+oTWF43O9mps1B3KOYcKjn2JcODWHImjJLatOEN5s+ClfXR2zfV5pxrvOjxNpT63GeqZ5
-	M1SH+uq9iMKxhCxCGNEslwoLHjXOOek29u0r3NMM16EIieQfnLud1klMx3Pc8AJ5OcgSIRGfdi2
-	LelstGvZA0URCw==
-X-Received: by 2002:a05:6a21:9191:b0:3de:4976:a0fe with SMTP id adf61e73a8af0-3e124802d96mr502913637.64.1791270898475;
-        Tue, 06 Oct 2026 00:14:58 -0700 (PDT)
-Received: from eve ([2601:644:4300:43e6:fe7a:b82e:befa:cd4b])
-        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cce6ded11ebsm2073356a12.24.2026.10.06.00.14.57
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 06 Oct 2026 00:14:57 -0700 (PDT)
-From: Sergey Tiraspolsky <stiraspo@gmail.com>
-To: James Fairweather <james.a.fairweather@gmail.com>,
-	Tzung-Bi Shih <tzungbi@kernel.org>
-Cc: Sergey Tiraspolsky <stiraspo@gmail.com>,
-	Benson Leung <bleung@chromium.org>,
-	=?UTF-8?q?=C5=81ukasz=20Bartosik?= <ukaszb@chromium.org>,
-	Andrei Kuchynski <akuchynski@chromium.org>,
-	Jameson Thies <jthies@google.com>,
-	"Rafael J. Wysocki" <rafael.j.wysocki@intel.com>,
-	chrome-platform@lists.linux.dev,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] platform/chrome: cros_usbpd_notify: Only use parent drvdata when parent is GOOG0004
-Date: Tue,  6 Oct 2026 00:14:50 -0700
-Message-ID: <20261006071452.11422-1-stiraspo@gmail.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20261003222855.23707-1-james.a.fairweather@gmail.com>
-References: <20261003222855.23707-1-james.a.fairweather@gmail.com>
+        d=1e100.net; s=20260707; t=1791270904; x=1791875704;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=uni4/TrlrriaXDkvx89QTAW+nKztkVVHOAjkaVmVW0Q=;
+        b=XD51Y1v3fMlYRfs8puvyfp+8flZ719YqQCqwFXtbzA7glY6KzN/OsljunSKNEtUe4g
+         nHZxIa4WrkkEfkVVLXvDGUi8UsMCHzuj2liXs34LwHtWMxvJtz4EtlO+5a8uUEMuOUF9
+         EOdmhNGMPKiFHXYi+z3B5HIM7eP2w772swrBpaIqTy9D5pxTdRVXsU40bN+U8DzDlWP2
+         Va2E6gM6WivgqussRAFJ5JeP99uFWLXA+ZQBq4JfbuuR2bu0qvFUsaxREL2pHaC3J6qM
+         DIAc0UMxnT/lQxY/bWnAOo5MPMRj3aaZR+XJDr5GNIiy6kn4UWGXfNIYHSNXovHpXJ08
+         nb9w==
+X-Forwarded-Encrypted: i=1; AKwUvBwuqUrRjKjkzk7inDrHpchtxItLCoImteM5vQNAbFuhMzEJQ6zJOiB+cUIrUZF4bQYj+fPTvrGWy0UpQ3Y=@vger.kernel.org
+X-Gm-Message-State: AFq9FYINlDwvLQM/wyvJ8ubkemUIIJnlGbHgEKW0Z26U3ZDLFcSfcV2w
+	qhOG0OEIg1cqidrXKRxL6qi6pKT02PvehYDezArFB2PY2EY2DBz8ggLcaQncjHPKY1eIRoydBwU
+	gnL1DDbmIpeyWNjClnX+JlgXK5xu46s8=
+X-Gm-Gg: AYBFou0xlPLp9CBWc9VnIfOYk/OHiB4QrRgggeApv9l070Vf/eF38+IXy+zT3vkaBpq
+	YCFMdAAnMpbg65u+joeDE9sNVE6SXyrim5oBPPZTGrcb1E8HSvS+aCcO7iMXSsjw57ZI1i84KYh
+	MjhYPCkmx59uhsEw4RmpA+n21SiKhe0Go2u3gEUddw6KYcZBrzmjfkT6Yf+M5pe0tcjx3EJD7xO
+	X/My0n+1j9yfkp2YPsMMmQJSVFvCKGGyit+VDYB3TO+sDCOz4ufUs8W7lmHE5sKdDjJ4+U20uyv
+	IRaI7gdtiw8eas5cu2F/RqdvuJCTtLSEaCGt06/9FWNqNBgp7sBQNYiDA9ZeyDkNyBXAjCDp12e
+	5EtR6XPwJs1brfQIo36iOeLBIIT5V5QmNLXjqcWD/sADqSzGI/L20yG5Y76pdZEdfrqobCb6Vic
+	u9ft9gPa6doryjj4/OgHUYohQlWQRRtqbh0pxeV5UQ8QWE
+X-Received: by 2002:a05:6102:a53:b0:7a7:198b:674b with SMTP id
+ ada2fe7eead31-7c2460fb1demr3329504137.32.1791270903847; Tue, 06 Oct 2026
+ 00:15:03 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20261006-stmmac-irq-unwind-v2-1-194591c87460@gmail.com> <179127056620.2231598.8882282421523696709@kernel.org>
+In-Reply-To: <179127056620.2231598.8882282421523696709@kernel.org>
+From: James Hilliard <james.hilliard1@gmail.com>
+Date: Tue, 6 Oct 2026 01:14:52 -0600
+X-Gm-Features: AclHuK9NHnAoxqio4ND9YA1CPQjIIsifiUFyiINUer63TXcvYLe57-mIcc0zYw8
+Message-ID: <CADvTj4orth=RYtb78ND1rdiYh2yb6d+TjZt5ohK_-+1mnVpqfQ@mail.gmail.com>
+Subject: Re: [PATCH net v2] net: stmmac: unwind the WoL IRQ after a safety IRQ
+ request failure
+To: netdev-bot+sinfo@kernel.org
+Cc: netdev@vger.kernel.org, Paolo Abeni <pabeni@redhat.com>, 
+	Jakub Kicinski <kuba@kernel.org>, Maxime Chevallier <maxime.chevallier@bootlin.com>, 
+	Andrew Lunn <andrew+netdev@lunn.ch>, Eric Dumazet <edumazet@kernel.org>, 
+	Maxime Coquelin <mcoquelin.stm32@gmail.com>, Alexandre Torgue <alexandre.torgue@foss.st.com>, 
+	Serge Semin <fancer.lancer@gmail.com>, "David S. Miller" <davem@davemloft.net>, 
+	Nicolai Buchwitz <nb@tipi-net.de>, linux-arm-kernel@lists.infradead.org, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Sat, Oct 03, 2026 at 06:28:53PM -0400, James Fairweather wrote:
-> Only read the parent's driver data when the parent's ACPI node is
-> GOOG0004, and otherwise continue without an EC pointer. While at it,
-> drop the reference taken by fwnode_get_parent().
+On Tue, Oct 6, 2026 at 1:09=E2=80=AFAM <netdev-bot+sinfo@kernel.org> wrote:
+>
+> Hi!
+>
+> This is an automated message. This series looks like a fix, but its
+> commit messages seem to be missing some information:
+>
+>  - How the issue was discovered, e.g. hit in production, hit during
+>    development, syzbot report, manual code inspection, LLM or static
+>    analysis tool scan.
 
-Tested on a 2017 Google Pixelbook (Eve), where GOOG0003 is also a child
-of PNP0C09, on 7.2.5 (linux-omarchy 7.2.5-3), with this patch built as an
-out-of-tree module. The probe prints "Couldn't get Chrome EC device
-pointer.", a charger unplug/replug while awake and another while
-suspended produced 13 USB PD notifications, all taking the "EC device
-inaccessible; sending 0 event status" path, the suspend resumed normally,
-and there were no oopses. Without a fix the same machine oopsed on
-charger events and on resume.
+This was found while reviewing the error paths for the stmmac
+MTU/resume recovery series.
 
-The test was set up and checked with the help of an AI coding assistant;
-I ran it on the hardware.
+>  - Whether the issue was actually triggered, or is only theoretical
+>    (e.g. found by code inspection). If it was triggered please include
+>    the symptoms, like the stack trace or error messages.
 
-Tested-by: Sergey Tiraspolsky <stiraspo@gmail.com>
+It was reproduced in QEMU by injecting a safety IRQ request failure.
+The unwind reported "Trying to free already-free IRQ" and left the
+WoL handler registered.
+
+>  - What hardware the change was tested on. For driver fixes please
+>    mention the device (and if relevant firmware version) used for
+>    testing, or say that the change was not tested on real hardware.
+
+The affected path was tested in QEMU with mocked MAC/DMA hardware,
+not on physical hardware with separate WoL and safety IRQs.
+
+> Please do not repost the series just to address the above. Instead,
+> reply to this email with the missing information, so that reviewers
+> can take it into account. If the series needs another revision for
+> other reasons, please include the information in the commit messages
+> then.
+>
+> The evaluation is done by an LLM so it may be wrong, if you think
+> that is the case please reply and explain.
