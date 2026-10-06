@@ -1,83 +1,43 @@
-Received: from mail-pf1-f176.google.com (mail-pf1-f176.google.com [209.85.210.176])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mail.ispras.ru (mail.ispras.ru [83.149.199.84])
+	(using TLSv1.2 with cipher DHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 62D4F38E126
-	for <linux-kernel@vger.kernel.org>; Tue,  6 Oct 2026 12:29:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.176
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8EBCA26AC3
+	for <linux-kernel@vger.kernel.org>; Tue,  6 Oct 2026 12:29:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=83.149.199.84
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791289764; cv=none; b=H8hRh9J4eTPLxCteefuKamFL5GE90Oy3fandePAYT4S8XdU2XteColydl5A28oU3wsK7QlQsZnvU90DWhuXCgpyVHuGYgCrlnakmMDS1AbhBcFltUY103KS9f2OTNo/URwfk3a7KbJFqurKVuMrODuFf0u/dtY/WNFxPPVR++6g=
+	t=1791289801; cv=none; b=dNNLA8R4rI8VsA8DCdyu7g18he/tBx1GGzHKgjqwL5A8kRsErrygvdEV0zyEJipvvTaZaYpKoUFuSf6GqIFNTemaGgt5zQInPg4iq2kqHs6/VjtMygmhED14xFTCnbaTdg77W1vykTPnArYlLLBpBcqiwjMKAQiTpqqE9v9nSOo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791289764; c=relaxed/simple;
-	bh=lthPC1Aid3RzMwkXHABVJupMtn6Oz9nfXWocpfXLG6E=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=MPE14NmqfQlEvjgqTfzLZ72Yzoc0ijPrdQ0OEzw4HX5ZzQYSXyvHO71xeozNno+zSr7/VH8ZNHAMHTgCSodd58HAeAu86youSbtynImayo3QLlRZAEa6xv/Csg6jD9RkFKCBNr/F3+Zg+W2b+EjKdRlGgs8qqsTlIZDdpIcR33k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=dLmfm469; arc=none smtp.client-ip=209.85.210.176
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1791289801; c=relaxed/simple;
+	bh=LR2U809jmcLqe6/1R4HYlcvGcjd9RXk3n5XV4Y5q2LU=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=bqBz+VhiTmJQp/D+s7wQ4L5Et8AjEW72T3Vq8J5cOKgb2SY65pyGYePsEEMUBJh1IQIqe0xMwyjGCrzOzFhW0822dSIVRuB9iZmCOMTYGgtdv+/H6GQXnO0YSFPdNjfSPPuK77nbwZTUAnBJsypCAJmlGPO9Zt2C9OPmGHIhFxg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ispras.ru; spf=pass smtp.mailfrom=ispras.ru; dkim=pass (1024-bit key) header.d=ispras.ru header.i=@ispras.ru header.b=jQJv8aqg; arc=none smtp.client-ip=83.149.199.84
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ispras.ru
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ispras.ru
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="dLmfm469"
-Received: by mail-pf1-f176.google.com with SMTP id d2e1a72fcca58-85377c8bc96so365758b3a.3
-        for <linux-kernel@vger.kernel.org>; Tue, 06 Oct 2026 05:29:23 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791289763; x=1791894563; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=UBXDjxHdeZnn0EE9oAZG0kH7xmYbT9bOqu8043JSOZo=;
-        b=dLmfm469wfkY2FSQWsUOZQhiEeKazJlefm23rKBSNdpucKHj+mL8yieV/v1s8tbFOX
-         O0baBUY1QjIEi9LhWYZY7YWjty4rBjuxL+buE30zmdcUf8R9hB1QH4lTWkQeomnRPmMD
-         Vjz6Ax0Nd8j7OE7Z4l60nYKXC1sxG5crZ8pyuQsgtV8XlBgFMnGlC+5nMORgfkXzbo7h
-         vNEHw3sizjmxQ2BWc09viMSKxVRfLEUNpH7e0Hqky5BVn90E9K0UV9EbppgPyffDfmpT
-         vLfFS4gQA7ZuDW1fXkjr/zGLzfbSHk454IljA2lUcwHaSDjFJJcBDwwzgVx9sEI1uRJb
-         mJew==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791289763; x=1791894563;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=UBXDjxHdeZnn0EE9oAZG0kH7xmYbT9bOqu8043JSOZo=;
-        b=rdrRokR6RzkigU2oq6u84gcSJgyF2hHiEttjgYMFV+YH3ZL9/4tqarZ1klfn1jWrNy
-         VubN1IRcdp7J2n7a6xWVgyB0sD9qP+S0XySQ1KLnMTga0IyjinAweSArd6rJQoDwEZcl
-         MzzWQODxrI8lctr6wWia9mFgbxqdimI1PQkxqJN7ICmooAD70YXEfHREVCRXTkfHl1XJ
-         5bAxhpNeAsWEjqy6iWVgRPfYBsQjR5dpnLcDObL8RM2PHWpIoxK6e3hld/IgFAB1e8Ut
-         SCHJ9WtAPgpsNjXAtGIupBFL+zHoVQ641/wThCVzc8elNiEOhkS4sQpAHz6d1ZL+ES55
-         PRmQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzyY4v/XPqnwHu2gzESXCX6Mw/repURBkSEzynij+cpmlcTAB39RHBqrrsEN+KR/kiekE4akts0jAHgwJ0=@vger.kernel.org
-X-Gm-Message-State: AFuF++nNCIg9hmHv7jTuO8y2643P2BSS6UAuI6La0jB6yGWRgtj15iwg
-	5gp+k+uWBD968vclpLDXnOs/XxlB2ZWlAMUXfVrtX3R7XGSTjIt0dyea
-X-Gm-Gg: AYBFou1mMhNwJjqvBMcG2B9hiSH0/vgwb9rcDKJzN3aAQDTb624Tg9uDjO3ZicqUGM+
-	MuDM953pi0wc6pQKw335/4cT2N/8b3z3dSvCXzi3HJgilfLLSxTe+ckUYjPcb8t9ox8nVyfexhS
-	e0E+rWq3SP4GAFVwDDckD5dZ1M45E3RlGqmpMPaqDEnKnGpW8SPb875TJFewVBMf8KAHZAN5C8X
-	2eY8N7kARo08ly6+YR15gi/pUF2fAGfcBecCRXugO8Di517y8Llf66UXd9m3G/hqUCHfp4hqngK
-	P58ap3osG4Z3ZQrherVA/wUnwPfdT1yRYxvIGb5IM9zS4C63dCDhKzjYkGFbNjvEsaG6QMIBbN+
-	RxpzjLHUNQ8cfxxqCGpMKB+n8DZgR8sljbIpA1hUkQCGED2vgQn9y6iJGpRVSYYfJaNYnmkCLl9
-	//dDzm5G10sPugVPiZCZaJknutdZDjWai2UhvWtYFOb0yCnJarC60vRZ7kOZKCNnalVzs+ye5rT
-	OggfYv/hdz2tJ+J
-X-Received: by 2002:a05:6a00:1792:b0:869:9298:ba59 with SMTP id d2e1a72fcca58-890d8a4ec77mr1125260b3a.0.1791289762603;
-        Tue, 06 Oct 2026 05:29:22 -0700 (PDT)
-Received: from LAPTOP-450UDG4J ([2401:4900:6310:b8da:d139:f8fd:7043:7eb2])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-88b0c88a815sm4679332b3a.42.2026.10.06.05.29.15
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 06 Oct 2026 05:29:21 -0700 (PDT)
-From: Yogesh Gaur <yogeshgaur.83@gmail.com>
-To: Song Liu <song@kernel.org>,
-	Yu Kuai <yukuai@fygo.io>
-Cc: linux-raid@vger.kernel.org,
+	dkim=pass (1024-bit key) header.d=ispras.ru header.i=@ispras.ru header.b="jQJv8aqg"
+Received: from ubuntu-jammy.. (unknown [91.79.139.3])
+	by mail.ispras.ru (Postfix) with ESMTPSA id 998FF402837F;
+	Tue,  6 Oct 2026 12:29:38 +0000 (UTC)
+DKIM-Filter: OpenDKIM Filter v2.11.0 mail.ispras.ru 998FF402837F
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ispras.ru;
+	s=default; t=1791289779;
+	bh=BKBLXEA4pqAaaEOi5MqPw1pne2B6VSvXehQSyxAjCEY=;
+	h=From:To:Cc:Subject:Date:From;
+	b=jQJv8aqg5r9Go2zX0tkhQlF9D+OZdYfKG9x7cwmHtUYjPLfGjV4XlrakKpO3sYhsf
+	 xQoCx+QEFmFIRvnHyDwVhHHuzip4NLtfwEeeT7Q1BTB7en6x9H/SWSDGrOdLe63Iue
+	 DcymS9r+TW19fvahKP1WwTqrdFwRFm9Fvlv2RgQQ=
+From: Dmitry Morgun <d.morgun@ispras.ru>
+To: ocfs2-devel@lists.linux.dev
+Cc: joseph.qi@linux.alibaba.com,
+	heming.zhao@suse.com,
+	mark@fasheh.com,
+	jlbec@evilplan.org,
 	linux-kernel@vger.kernel.org,
-	Li Nan <magiclinan@didiglobal.com>,
-	Xiao Ni <xiao@kernel.org>,
-	Christoph Hellwig <hch@lst.de>,
-	Hannes Reinecke <hare@suse.de>,
-	Logan Gunthorpe <logang@deltatee.com>,
-	Yogesh Gaur <yogeshgaur.83@gmail.com>,
-	syzbot+95eeb4ada2349a2170ea@syzkaller.appspotmail.com,
-	stable@vger.kernel.org
-Subject: [PATCH v2] md: don't hand out the array before md_alloc() has added mddev->kobj
-Date: Tue,  6 Oct 2026 17:59:04 +0530
-Message-ID: <20261006122904.1538-1-yogeshgaur.83@gmail.com>
-X-Mailer: git-send-email 2.55.0.windows.5
-In-Reply-To: <20261004055712.1293-1-yogeshgaur.83@gmail.com/>
-References: <20261004055712.1293-1-yogeshgaur.83@gmail.com/>
+	lvc-project@linuxtesting.org
+Subject: [PATCH v4] ocfs2: validate la_size before ocfs2_clear_local_alloc()
+Date: Tue,  6 Oct 2026 12:28:42 +0000
+Message-Id: <20261006122842.1537-1-d.morgun@ispras.ru>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -86,94 +46,165 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-md_alloc() publishes the gendisk before it is done setting the mddev up:
+la_size, like the journal dirty flag, is read from disk. If dirty != 0,
+ocfs2_begin_local_alloc_recovery() is called, which invokes
+ocfs2_clear_local_alloc(). At this point, ocfs2_clear_local_alloc()
+uses la_size as the loop bound without validating it first. If
+la_size is oversized, the loop writes past the end of la_bitmap and
+may eventually start writing into memory that has already been freed.
 
-	disk->private_data = mddev;
-	...
-	error = add_disk(disk);
-	if (error)
-		goto out_put_disk;
+BUG: KASAN: use-after-free in ocfs2_clear_local_alloc fs/ocfs2/localalloc.c:919 [inline]
+BUG: KASAN: use-after-free in ocfs2_begin_local_alloc_recovery+0xb07/0xc00 fs/ocfs2/localalloc.c:515
+CPU: 1 PID: 2386 Comm: syz.2.190 Not tainted 6.1.174-syzkaller-00520-g10c505401422 #0
+Hardware name: QEMU Standard PC (i440FX + PIIX, 1996), BIOS 1.17.0-debian-1.17.0-1 04/01/2014
+Call Trace:
+ <TASK>
+ ocfs2_clear_local_alloc fs/ocfs2/localalloc.c:919 [inline]
+ ocfs2_begin_local_alloc_recovery+0xb07/0xc00 fs/ocfs2/localalloc.c:515
+ ocfs2_check_volume fs/ocfs2/super.c:2448 [inline]
+ ocfs2_mount_volume fs/ocfs2/super.c:1819 [inline]
+ ocfs2_fill_super+0x2033/0x3dc0 fs/ocfs2/super.c:1082
+ mount_bdev+0x356/0x410 fs/super.c:1443
+ legacy_get_tree+0x108/0x220 fs/fs_context.c:632
+ vfs_get_tree+0x8e/0x300 fs/super.c:1573
+ do_new_mount fs/namespace.c:3078 [inline]
+ path_mount+0x6af/0x1f70 fs/namespace.c:3408
+ do_mount fs/namespace.c:3421 [inline]
+ __do_sys_mount fs/namespace.c:3629 [inline]
+ __se_sys_mount fs/namespace.c:3606 [inline]
+ __x64_sys_mount+0x283/0x300 fs/namespace.c:3606
+ do_syscall_x64 arch/x86/entry/common.c:46 [inline]
+ do_syscall_64+0x35/0x80 fs/namespace.c:76
+ entry_SYSCALL_64_after_hwframe+0x6e/0xd8
 
-	kobject_init(&mddev->kobj, &md_ktype);
-	error = kobject_add(&mddev->kobj, &disk_to_dev(disk)->kobj, "%s", "md");
+The existing la_size check in ocfs2_load_local_alloc() runs after
+ocfs2_clear_local_alloc() on this recovery path. Memory corruption
+can therefore occur before the invalid size is detected and
+-EINVAL is returned.
 
-add_disk() makes /dev/mdN openable.  mddev comes from mddev_alloc() and
-is zeroed, so anything that gets in between add_disk() and kobject_add()
-sees an mddev->kobj that has never been through kobject_init() - no
-ktype, no kref, state_initialized clear.
+Reject inodes without OCFS2_LOCAL_ALLOC_FL in
+ocfs2_begin_local_alloc_recovery() before copying or clearing the
+bitmap, returning -EINVAL. The recovery code interprets id2 as
+i_lab, so it must not proceed when the local allocation flag is
+missing.
 
-syzbot opens the array in that window and issues ADD_NEW_DISK:
+Add la_size validation to ocfs2_validate_inode_block() for inodes
+marked with OCFS2_LOCAL_ALLOC_FL. Reject zero or a size exceeding
+the bitmap capacity through ocfs2_error(), which marks the
+filesystem read-only and returns -EROFS. The flag check in recovery
+prevents a corrupted inode from bypassing this validation by
+clearing OCFS2_LOCAL_ALLOC_FL.
 
-  kobject: '(null)' (ffff8880120640f0): is not initialized, yet kobject_get() is being called.
-  WARNING: lib/kobject.c:642 at kobject_add_internal+0xea/0xcd0 lib/kobject.c:225
-   kobject_add_varg lib/kobject.c:374 [inline]
-   kobject_add+0x163/0x240 lib/kobject.c:426
-   bind_rdev_to_array+0x80c/0xdd0 drivers/md/md.c:2621
-   md_add_new_disk+0xe3b/0x1850 drivers/md/md.c:7684
-   md_ioctl+0x200a/0x2610 drivers/md/md.c:8499
+Keep the existing size check in ocfs2_load_local_alloc(), whose
+flag check also accepts OCFS2_BITMAP_FL without OCFS2_LOCAL_ALLOC_FL.
 
-bind_rdev_to_array() is not the only way in.  md_run() calls
-sysfs_create_group(&mddev->kobj, &md_redundancy_group), and
-internal_create_group() has its own WARN_ON(!kobj->sd), so RUN_ARRAY in
-the same window warns too.
+The new checks can also return errors during node recovery. The
+recovery thread leaves a failed node in the recovery map and
+immediately retries it, so a persistent error prevents the loop
+from completing. Release the super lock and exit through the
+worker error path on failure, preserving the error status and
+leaving the failed node in the recovery map.
 
-Every ioctl that can reach mddev->kobj runs under reconfig_mutex, so
-hold it across add_disk() and kobject_add().  An ioctl issued in the
-window now waits for md_alloc() to finish instead of seeing a
-half-built mddev, and opening the array still succeeds.  The ioctls
-md_ioctl() serves without the mutex only read array state and return
--ENODEV on an array with no disks.
+Found by Linux Verification Center (linuxtesting.org) with Syzkaller.
 
-Hoisting kobject_init() above add_disk() is not an option: commit
-ca39f7502425 ("md: fix mddev->kobj lifetime") moved it below add_disk()
-so that md_alloc()'s error paths, which free the mddev directly, never
-see an initialised kobject.
-
-Fixes: ca39f7502425 ("md: fix mddev->kobj lifetime")
-Reported-by: syzbot+95eeb4ada2349a2170ea@syzkaller.appspotmail.com
-Suggested-by: Yu Kuai <yukuai@fygo.io>
+Fixes: ccd979bdbce9 ("[PATCH] OCFS2: The Second Oracle Cluster Filesystem")
 Cc: stable@vger.kernel.org
-Assisted-by: LLM
-Signed-off-by: Yogesh Gaur <yogeshgaur.83@gmail.com>
+Signed-off-by: Dmitry Morgun <d.morgun@ispras.ru>
 ---
-v2: Hold reconfig_mutex across add_disk() and kobject_add() instead of
-    refusing the open in md_open(), per Yu Kuai's review: v1 made an
-    open that raced with md_alloc() fail.
-v1: https://lore.kernel.org/all/20261004055712.1293-1-yogeshgaur.83@gmail.com/
+v4:
+- Supersede v3, which was an unintended resend of the v1-based
+  implementation.
+- Move la_size validation from
+  ocfs2_begin_local_alloc_recovery() to
+  ocfs2_validate_inode_block() (Joseph Qi).
+- Reject local allocation recovery when OCFS2_LOCAL_ALLOC_FL is
+  missing, before copying or clearing the bitmap (Heming Zhao).
+- Keep the existing size check in ocfs2_load_local_alloc().
+- Release the super lock and exit the recovery thread on error,
+  preserving the error status and the failed recovery-map entry
+  instead of immediately retrying the same node.
 
-Built with W=1 only, fix has not been runtime-tested.
+Link to v3:
+https://lore.kernel.org/ocfs2-devel/20260831143734.7243-1-d.morgun@ispras.ru/
 
- drivers/md/md.c | 12 +++++++++++-
- 1 file changed, 11 insertions(+), 1 deletion(-)
+v3:
+- Unintended resend of the v1-based implementation.
 
-diff --git a/drivers/md/md.c b/drivers/md/md.c
-index 67108c397c5a..85439f27d943 100644
---- a/drivers/md/md.c
-+++ b/drivers/md/md.c
-@@ -5906,12 +5906,22 @@ struct mddev *md_alloc(dev_t dev, char *name)
+v2:
+- Not posted publicly.
+
+Link to v1:
+https://lore.kernel.org/all/20260810113508.8513-1-d.morgun@ispras.ru/
+
+ fs/ocfs2/inode.c      | 13 +++++++++++++
+ fs/ocfs2/journal.c    |  2 ++
+ fs/ocfs2/localalloc.c |  9 ++++++++-
+ 3 files changed, 23 insertions(+), 1 deletion(-)
+
+diff --git a/fs/ocfs2/inode.c b/fs/ocfs2/inode.c
+index 9a6b1af4c..cc2233268 100644
+--- a/fs/ocfs2/inode.c
++++ b/fs/ocfs2/inode.c
+@@ -1477,6 +1477,19 @@ int ocfs2_validate_inode_block(struct super_block *sb,
+ 		}
+ 	}
  
- 	disk->events |= DISK_EVENT_MEDIA_CHANGE;
- 	mddev->gendisk = disk;
++	if (le32_to_cpu(di->i_flags) & OCFS2_LOCAL_ALLOC_FL) {
++		struct ocfs2_local_alloc *la = &di->id2.i_lab;
 +
-+	/*
-+	 * add_disk() makes the array openable before mddev->kobj exists.
-+	 * Hold reconfig_mutex until kobject_add() is done so that ioctls
-+	 * issued in between wait instead of using an uninitialised kobj.
-+	 */
-+	mddev_lock_nointr(mddev);
- 	error = add_disk(disk);
--	if (error)
-+	if (error) {
-+		mddev_unlock(mddev);
- 		goto out_put_disk;
++		if (la->la_size == 0 ||
++		    le16_to_cpu(la->la_size) > ocfs2_local_alloc_size(sb)) {
++			rc = ocfs2_error(sb,
++					 "Invalid dinode #%llu: invalid la_size %u\n",
++					 (unsigned long long)bh->b_blocknr,
++					 le16_to_cpu(la->la_size));
++			goto bail;
++		}
 +	}
++
+ 	rc = 0;
  
- 	kobject_init(&mddev->kobj, &md_ktype);
- 	error = kobject_add(&mddev->kobj, &disk_to_dev(disk)->kobj, "%s", "md");
-+	mddev_unlock(mddev);
- 	if (error) {
- 		/*
- 		 * The disk is already live at this point.  Clear the hold flag
+ bail:
+diff --git a/fs/ocfs2/journal.c b/fs/ocfs2/journal.c
+index 7f5fd16d3..46983a061 100644
+--- a/fs/ocfs2/journal.c
++++ b/fs/ocfs2/journal.c
+@@ -1525,6 +1525,8 @@ static int __ocfs2_recovery_thread(void *arg)
+ 			     status, node_num,
+ 			     MAJOR(osb->sb->s_dev), MINOR(osb->sb->s_dev));
+ 			mlog(ML_ERROR, "Volume requires unmount.\n");
++			ocfs2_super_unlock(osb, 1);
++			goto bail;
+ 		}
+ 
+ 		spin_lock(&osb->osb_lock);
+diff --git a/fs/ocfs2/localalloc.c b/fs/ocfs2/localalloc.c
+index c4426d12a..c5c80a17b 100644
+--- a/fs/ocfs2/localalloc.c
++++ b/fs/ocfs2/localalloc.c
+@@ -504,6 +504,14 @@ int ocfs2_begin_local_alloc_recovery(struct ocfs2_super *osb,
+ 		goto bail;
+ 	}
+ 
++	alloc = (struct ocfs2_dinode *)alloc_bh->b_data;
++	if (!(le32_to_cpu(alloc->i_flags) & OCFS2_LOCAL_ALLOC_FL)) {
++		mlog(ML_ERROR, "Invalid local alloc inode, %llu\n",
++		     (unsigned long long)OCFS2_I(inode)->ip_blkno);
++		status = -EINVAL;
++		goto bail;
++	}
++
+ 	*alloc_copy = kmalloc(alloc_bh->b_size, GFP_KERNEL);
+ 	if (!(*alloc_copy)) {
+ 		status = -ENOMEM;
+@@ -511,7 +519,6 @@ int ocfs2_begin_local_alloc_recovery(struct ocfs2_super *osb,
+ 	}
+ 	memcpy((*alloc_copy), alloc_bh->b_data, alloc_bh->b_size);
+ 
+-	alloc = (struct ocfs2_dinode *) alloc_bh->b_data;
+ 	ocfs2_clear_local_alloc(alloc);
+ 
+ 	ocfs2_compute_meta_ecc(osb->sb, alloc_bh->b_data, &alloc->i_check);
 -- 
-2.55.0.windows.5
+2.34.1
 
