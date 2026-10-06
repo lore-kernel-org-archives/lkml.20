@@ -1,267 +1,139 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+Received: from flow-b5-smtp.messagingengine.com (flow-b5-smtp.messagingengine.com [202.12.124.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BF0292FDC20
-	for <linux-kernel@vger.kernel.org>; Tue,  6 Oct 2026 15:14:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AF5BB2FDC20
+	for <linux-kernel@vger.kernel.org>; Tue,  6 Oct 2026 15:14:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.12.124.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791299687; cv=none; b=NHGCvdqJ9+TI4mQSovgnZC23NXIXrdYphb6+WluybHKLvxnF7TBz2aSB35G9FJ5It+toQ7xplQwLWKsY6AAkh270hxnlMg12Wh0b23ZcqJXq/M1flmwC0jfVyowdlcsd1Ij0elzTlYvvvRBsuisw/S9nYO1VX2EKWoIlDVfts+8=
+	t=1791299695; cv=none; b=ekbWzQEMTAUuJiSeOfj4rQ4MMxT1MFyWvcEQbMg5vwLunYzYuUMSn6nNJzLAu7THKm3M76mYCsvaQSYlC1/ua0y5noRCEI7M2WXwOK/nouqbgSzLE4I+jNBLeKTaD/l6JY9C827Kn/G2ELd4N4+YYcmrKn4DuV1zq4fSqgpfBnc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791299687; c=relaxed/simple;
-	bh=t9TjWoa9Ep5fv1CZltqsKXKThnPxH5Qvvp4QVUZyKOA=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=uW6i9g5eQoXimkCRYfZKMEHB9mVvQW7SsbYGFURflYIIXS6EyExx4RbVwh0Us/+X2uZgq8PXWsjXB/Z/82zxx9/ANPKW5jrEdhF8GNMsVIS1vNo4K4ghkcUtW0RHdokfkdiXpnnh5iZWGaNczJYKC5RGPgk78S5VjVzENKAuUSs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=ZXwmHy7i; arc=none smtp.client-ip=170.10.133.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	s=arc-20240116; t=1791299695; c=relaxed/simple;
+	bh=nrpoUjeGhXa3Jx6nQrwBvc6YjkiO96rVglBerQeILKs=;
+	h=MIME-Version:Date:From:To:Message-Id:Subject:Content-Type; b=T2voRMyqMMg3QG9JObWGUfp83um079g83NAYZgDQa+UiA4NW6X5Olbh5RdAt36Wq03Q2KVs3vK11KFLl1EHYhtQGOfHi6UQRzSRBny7sxtFVCkrUPGO5+ZGLgQKBpQmjrLLDP+KNDQOCInEKqlQFE9AZvnAGp5BI8MiD+6gOwRo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=wolber.net; spf=pass smtp.mailfrom=wolber.net; dkim=pass (2048-bit key) header.d=wolber.net header.i=@wolber.net header.b=es/4M4p7; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=kYzDHpf3; arc=none smtp.client-ip=202.12.124.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=wolber.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=wolber.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="ZXwmHy7i"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1791299684;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=E7M/FWRLC5KBLjqHC/8DNsmEQ8giOtO8ac2o4QKknuU=;
-	b=ZXwmHy7iAj41XvMj0qocoWM7aoq4v1RlYm1lFJ3U4fdIv2QAcNpUlyCBrYE7ctDMmGz5XZ
-	aJO7vy/JLSizI46LMGem1q/AWw12p9jwYi6yi4mL3m/r2Yhf9UV0gHbopEiXpZPORPqRvd
-	A8OKiDZBAo16bV2n/m/aRh+eYNy3eHY=
-Received: from mx-prod-mc-01.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-692-oZyP9VfePxiTF5hGONLxYQ-1; Tue,
- 06 Oct 2026 11:14:39 -0400
-X-MC-Unique: oZyP9VfePxiTF5hGONLxYQ-1
-X-Mimecast-MFC-AGG-ID: oZyP9VfePxiTF5hGONLxYQ_1791299677
-Received: from mx-prod-int-10.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-10.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.95])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mx-prod-mc-01.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 64E2B1967C63;
-	Tue,  6 Oct 2026 15:14:37 +0000 (UTC)
-Received: from [100.91.101.41] (headnet05.pony-001.prod.iad2.dc.redhat.com [10.2.32.117])
-	by mx-prod-int-10.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id AD79041D;
-	Tue,  6 Oct 2026 15:14:34 +0000 (UTC)
-Message-ID: <417953c9-001b-4f48-a594-bfa49f387b49@redhat.com>
-Date: Tue, 6 Oct 2026 17:14:33 +0200
+	dkim=pass (2048-bit key) header.d=wolber.net header.i=@wolber.net header.b="es/4M4p7";
+	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="kYzDHpf3"
+Received: from phl-compute-03.internal (phl-compute-03.internal [10.202.2.43])
+	by mailflow.stl.internal (Postfix) with ESMTP id 172D813009A3
+	for <linux-kernel@vger.kernel.org>; Tue,  6 Oct 2026 11:14:53 -0400 (EDT)
+Received: from phl-imap-03 ([10.202.2.93])
+  by phl-compute-03.internal (MEProxy); Tue, 06 Oct 2026 11:14:53 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=wolber.net; h=cc
+	:content-transfer-encoding:content-type:content-type:date:date
+	:from:from:in-reply-to:message-id:mime-version:reply-to:subject
+	:subject:to:to; s=fm3; t=1791299686; x=1791306886; bh=nrpoUjeGhX
+	a3Jx6nQrwBvc6YjkiO96rVglBerQeILKs=; b=es/4M4p7L48TZi0rOQK7DCLqAx
+	e3t+pJ6IcbLmok1HFzqJd9V/IuujTjl0yuWJQnEOztg1g+YiK2Aux9u1Rr5eo85g
+	hnVIZZmehyGgvygArQ+AHG132EYKfX0xAjLc2URwnrFcQFABk217tgheCWNePor8
+	hDMl/FhKo7Yv+FUx7LZkC/lw8WPEZw8LmLKCRHOK6GlNdE1c10lz8sgGTIR5nRf6
+	DydIzFbzq5j91W6qvnr6wuLiHNRhQu0DIEe38HF9YD27gc0Pll9PkRqoZ4MArChf
+	hcRI0Tb7D2jVJwGoFEZMXivfX5tJer4kDr3cOpOYlI0bjCKyURs36T9e7SXw==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:content-transfer-encoding:content-type
+	:content-type:date:date:feedback-id:feedback-id:from:from
+	:in-reply-to:message-id:mime-version:reply-to:subject:subject:to
+	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=
+	1791299686; x=1791306886; bh=nrpoUjeGhXa3Jx6nQrwBvc6YjkiO96rVglB
+	erQeILKs=; b=kYzDHpf3THRnM2zfN5O/hsIaFhd402s5TeiYovsBwwF7PWege5M
+	LyEhlazPavsDx56AlvU2tD3uONqYdqif6rRwyQgGMTIEeVgjH8ycsokYER9PkpGa
+	F90xTjStRDUUv8HK26TeefwT2gkA28Htnh12Xyr2X3r+0t2Ah0GbQvSltI5DnUDw
+	1wXCE/LSPx59wOzbTi3QRjDgs9r4064KA9qmjibGopLEWKAzIgxWGBqIcdiIrK14
+	/Qtmg3i/KQ8PEK+XuTG11xweUDQCxxcWkJ1NNkyyPvhVgA6GSlC9xxU/Dl7JgeoU
+	wzUb0+vXHcojbrUl8K7I+OB2ATbD37P3QIw==
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
+	repo=github.com/dkim2wg/interop; date=2026-10-04; sw=lmtpprox;
+	action=sign d=wolber.net a=rsa-sha256;
+DKIM2-Signature: i=1; m=1; t=1791299686; d=wolber.net;
+	mf=PGNodWNrQHdvbGJlci5uZXQ+;
+	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
+	s=fm3:rsa-sha256:T2vCPkoobQtx+PrLGQuyIHGFL0dUwi64R3D71dfJowr7QFe
+	EbXvbsfH/aWf+HWL6t7yu9yupFO9NFR520XHkhKwG5M3RBKcdG4lC+1INZaqyjlB
+	S1rt2P54I7wBRO3qmrXU1ZEK9XR5rR0k+9RWE5Irk7OzJ8/Eq04FqMOGa9pJP5W+
+	QznxpouAvm2WjTyKCOcEaGSkaIUKyxxdoKdO/PPi1kfy7I6QYUenf/7UbD+JkORR
+	bXARSIGtPa1HbxlgLQ47+sdbfM5muh6qRw2bUSwV43UlXo2LzwLEu+ow4ufhC3Ii
+	j1dRzqaltqMaHidmkqHDmL33oZXa8kMiM4eIyNg==;
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
+	repo=github.com/dkim2wg/interop; date=2026-10-04; sw=lmtpprox;
+	action=mi-m=1; hc=9;
+	hn=content-transfer-encoding,content-type,date,feedback-id,from,
+	message-id,mime-version,subject,to;
+Message-Instance: m=1; h=sha256:WChpd7i0wHWsLYVItBldyt7OGlmrwUkdH5bDeWvy/MI=:nrpoUjeGhXa3Jx6nQrwBvc6YjkiO96rVglBerQeILKs=;
+X-ME-Sender: <xms:YxDFatoBAj23ZS8XTzksOuL38eDSs8mFdmEukrGIudgVPEvOaTa69g>
+    <xme:YxDFaqd5C2Ql363Q-q5IqMaRrgHfxzmU17k1_8PV6_hl3qHRss3vvrJlpE_Ma6lBP
+    r3PZK8wS4MAXYGLiZWF1EFOdNizLt29VJo_e8cpsBfPQ7g5YvIOqZZu>
+X-ME-Proxy-Cause: dmFkZTFy8oI7AfTvE04zGVwLG2tUuj9jaUQLHwirElC4ORN1NUE3+pb2NAW9hifkaPD49+
+    eBAKpjh7FWCdul/sTjKKD1DMtJwrmP7oEb2aeN9euV0usbkhzB+gW0OZUSaU1UoOE63K2W
+    2A5GHMDlYXtC9ffCGK4i5sZ8go7hdnVmEpB50EmhywySR3j2zlBvpv/TICjGdUK8iDRMhc
+    IFOWmsVE4QTzmLt70dv/inbEdSr7GZnbfM5EsufFPTZt9PYMnsi8oXvlUFTnYBnI67aNyc
+    1FMRHLLaI2EjmOZ58qhHuA4DYVOdrcgUX8JsgRJSiioxtIWZHxgic5kc/iX7fgA/0y5DHY
+    3s9LU2iPyM3WvY/K3YlTYQcOX/Cf548eNMR7pyTwiKKSbAzb5zTJuWPRYcpdTW9Z7l+WNv
+    +C0S9saqoSn/GRNrFysG673VPazpNCpEhMENIimWbccBR8IjNJprlfRHtdpKsiQYs9a1lT
+    TO31/Fru5z60I2pUWx9M48KGp4mv5Z9Rrwns3//zqAFU2Tt7x00yD9XgyvDWtfXD99agfC
+    7gqEzHj3czAvT7aklQCCEYdlKaYO1mAFYGNWVbpTjoS+6LhmFL31LxBE3fOZjt4tX+4TyA
+    LZdWz6uPxkM/yJTfp+Sqa8TOYpRhFNn/Xvl3qZt5m5RDV2ZSndKUlp0XC9cQ
+X-ME-Proxy: <xmx:YxDFanzlpFSU09mL-fr1Xsr4D0B7gJrPmAGWBKA-e8tqECSxiVUZaw>
+    <xmx:YxDFagw6eggw4BhdTV9snjA_9TCnMxK-ZuPVXH1BPDt7zBKd-ggL0Q>
+    <xmx:YxDFap8NWgxE1yZY2NrowQzN0-3Aw96xR_1o5UrAP4E7TeVTO7P9Cw>
+    <xmx:YxDFaji5geDStHerljuenqt1kmVRnyNiPIzks_DqiI7Ko5j0nK2GBA>
+    <xmx:ZhDFagkMfsZ0OZvmIUTBeTItShUtN5SnOoEpMLpcKbkJqKrkBr8cSAuS>
+Feedback-ID: i5cf64821:Fastmail
+Received: by mailuser.phl.internal (Postfix, from userid 501)
+	id B59CB18E0071; Tue,  6 Oct 2026 11:14:43 -0400 (EDT)
+X-Mailer: MessagingEngine.com Webmail Interface
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH net v2 1/2] dpll: zl3073x: make embedded sync follow the
- output carrier frequency
-To: netdev-bot+sashiko@kernel.org
-Cc: netdev@vger.kernel.org, min.li@microchip.com, vadim.fedorenko@linux.dev,
- arkadiusz.kubalewski@intel.com, jiri@resnulli.us, kuba@kernel.org,
- Prathosh.Satish@microchip.com, pabeni@redhat.com,
- linux-kernel@vger.kernel.org
-References: <20261002074520.30048-2-ivecera@redhat.com>
- <179127408522.434549.10860667170628048867@kernel.org>
-Content-Language: en-US
-From: Ivan Vecera <ivecera@redhat.com>
-In-Reply-To: <179127408522.434549.10860667170628048867@kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-Scanned-By: MIMEDefang 3.6 on 10.30.177.95
+X-ThreadId: A8p1gvDKPv03
+Date: Tue, 06 Oct 2026 15:14:23 +0000
+From: "Chuck Wolber" <chuck@wolber.net>
+To: kasan-dev@googlegroups.com, nathan@kernel.org, akpm@linux-foundation.org,
+ anton.ivanov@cambridgegreys.com, oberpar@linux.ibm.com, ardb@kernel.org,
+ arnd@arndb.de, bhelgaas@google.com, bp@alien8.de,
+ dave.hansen@linux.intel.com, dvyukov@google.com, hpa@zytor.com,
+ jinghao7@illinois.edu, johannes@sipsolutions.net, jpoimboe@kernel.org,
+ justinstitt@google.com, kees@kernel.org, kent.overstreet@linux.dev,
+ linux-arch@vger.kernel.org, linux-efi@vger.kernel.org,
+ linux-kbuild@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-trace-kernel@vger.kernel.org, linux-um@lists.infradead.org,
+ llvm@lists.linux.dev, luto@kernel.org, marinov@illinois.edu,
+ masahiroy@kernel.org, maskray@google.com, mathieu.desnoyers@efficios.com,
+ mhiramat@kernel.org, mingo@redhat.com, morbo@google.com,
+ ndesaulniers@google.com, paulmck@kernel.org, richard@nod.at,
+ rostedt@goodmis.org, samitolvanen@google.com, tglx@linutronix.de,
+ tingxur@illinois.edu, tyxu@illinois.edu, wentaoz5@illinois.edu,
+ x86@kernel.org, peterz@infradead.org, sashal@kernel.org,
+ elver@google.com
+Message-Id: <00ed0b57-ad05-4c5d-b152-7c81df94b23a@app.fastmail.com>
+Subject: [PROPOSAL] Replace gcov and kcov with llvm-cov
+Content-Type: text/plain
+Content-Transfer-Encoding: 7bit
 
-On 10/6/26 10:08, netdev-bot+sashiko@kernel.org wrote:
-> Thank you for your contribution! Sashiko AI review found 2 potential
-> issue(s) to consider.
-> 
-> Critical: 0 · High: 0 · Medium: 1 · Low: 1
-> 
-> If you believe none of the issues are legitimate, please reply to each
-> issue of Medium severity or higher and explain why the AI is wrong.
-> If any of them are legitimate and you plan to respin, please let patchwork
-> know by including "pw-bot: cr" as a separate line at the end of your reply
-> (one such reply per series is enough).
-> 
-> - [Medium] zl3073x_dpll_output_pin_esync_get()
->    (drivers/dpll/zl3073x/dpll.c, lines 881-887) now reports esync->freq =…
-> - [Low] When the requested output frequency equals the synthesizer
->    frequency, new_div is 1.
-> 
-> --
-> 
-> dpll: zl3073x: make embedded sync follow the output carrier frequency
-> 
-> This patch moves the output pin eSync handling into new
-> zl3073x_out_esync_{is_enabled,enable,disable}() helpers in out.h and uses
-> them from esync_get() and esync_set(). It also makes
-> zl3073x_dpll_output_pin_frequency_set() recompute the eSync period and
-> width after the divider changes, and disables eSync when the new frequency
-> is 1 Hz.
-> 
->> diff --git a/drivers/dpll/zl3073x/dpll.c b/drivers/dpll/zl3073x/dpll.c
->> index f2e137475b40f..19456fbeeea84 100644
->> --- a/drivers/dpll/zl3073x/dpll.c
->> +++ b/drivers/dpll/zl3073x/dpll.c
-> 
-> [ ... ]
-> 
->> @@ -864,38 +864,28 @@ zl3073x_dpll_output_pin_esync_get(const struct dpll_pin *dpll_pin,
-> 
-> [ ... ]
-> 
->>   	esync->range = esync_freq_ranges;
->>   	esync->range_num = ARRAY_SIZE(esync_freq_ranges);
->>   
->> -	if (zl3073x_out_clock_type_get(out) != ZL_OUTPUT_MODE_CLOCK_TYPE_ESYNC) {
->> -		/* No need to read esync data if it is not enabled */
->> +	if (zl3073x_out_esync_is_enabled(out)) {
->> +		esync->freq = 1;
->> +		esync->pulse = 25;
->> +	} else {
->>   		esync->freq = 0;
->>   		esync->pulse = 0;
->> -
->> -		return 0;
->>   	}
->>   
->> -	/* Compute esync frequency */
->> -	esync->freq = out_freq / out->esync_n_period;
->> -
->> -	/* By comparing the esync_pulse_width to the half of the pulse width
->> -	 * the esync pulse percentage can be determined.
->> -	 * Note that half pulse width is in units of half synth cycles, which
->> -	 * is why it reduces down to be output_div.
->> -	 */
->> -	esync->pulse = (50 * out->esync_n_width) / out->div;
->> -
->>   	return 0;
->>   }
-> 
-> [Severity: Medium]
-> The commit message calls this factoring the eSync handling into helpers.
-> However, zl3073x_dpll_output_pin_esync_get() now reports freq = 1 and
-> pulse = 25 based only on the clock type. It no longer computes them from
-> esync_n_period, esync_n_width and div. Is this change in the reported
-> values intended?
-> 
-> zl3073x_out_state_fetch() reads the period and width from the device
-> as-is, and only rejects a zero period:
-> 
-> drivers/dpll/zl3073x/out.c:zl3073x_out_state_fetch() {
->      ...
-> 	rc = zl3073x_read_u32(zldev, ZL_REG_OUTPUT_ESYNC_PERIOD,
-> 			      &out->esync_n_period);
->      ...
-> 	rc = zl3073x_read_u32(zldev, ZL_REG_OUTPUT_ESYNC_WIDTH,
-> 			      &out->esync_n_width);
->      ...
-> }
-> 
-> The device could be running a non-1 Hz eSync, either from its flash
-> configuration or from a stale period left by an older kernel (probe does
-> not reset the chip). Would that now be reported as 1 Hz?
-> 
-> The pulse value looks affected too. zl3073x_out_esync_enable() sets
-> esync_n_width = out->div / 2, so an odd divider such as div = 5 gives 20%.
-> The old getter reported 20 here, and this one reports 25. With div = 1 the
-> width is 0, which is also reported as 25.
-> 
-> The frequency case is harder to recover from because the core skips the
-> driver when the requested value equals what esync_get() returns:
-> 
-> drivers/dpll/dpll_netlink.c:dpll_pin_esync_set() {
->      ...
-> 	if (freq == esync.freq)
-> 		return 0;
->      ...
-> }
-> 
-> Suppose the hardware eSync on an output is not 1 Hz and a user requests
-> 1 Hz. Would the request succeed without reprogramming anything?
-> 
-> For comparison, zl3073x_dpll_input_pin_esync_get() still checks the
-> hardware divider before it reports 1 Hz:
-> 
-> 	esync->freq = ref->esync_n_div == ZL_REF_ESYNC_DIV_1HZ ? 1 : 0;
-> 
-> Should the output pin getter keep deriving the values from the cached
-> register state in the same way?
 
-Yes, reporting the fixed values is intended. The driver only ever
-programs a 1 Hz / 25% eSync (zl3073x_out_esync_enable() always sets a
-1 Hz period and width = div / 2), so esync_get() reports that nominal
-model from the clock type and stays symmetric with esync_set(). I would
-like to keep this behaviour.
+Stemming from some hallway track conversations with maintainers at LPC
+2026, I propose replacing gcov and kcov in the kernel with llvm-cov.
 
-What I do not want to do is claim that it faithfully reports a
-configuration the driver did not establish. You are right that:
+llvm-cov instruments at the AST which enables precise mapping back to
+source code regardless of optimization level.
 
-   - a non-1 Hz eSync left in flash or by an older kernel would now be
-     reported as 1 Hz, and
-   - an odd divider gives width = div / 2, i.e. a duty cycle below 25%
-     (e.g. 20% for div = 5), which is still reported as 25%.
+We have a set of patches [1] that implements kernel based llvm-cov. They
+need to be updated and some additional patches are required to address
+some stubs that are missing noinstr annotation. But otherwise I should
+be able to send a full set of patches (including taking on the
+maintainer role) to remove gcov and kcov and replace it with llvm-cov in
+fairly short order.
 
-These are both configurations outside the driver's supported eSync model.
-The getter deliberately presents the model the driver implements rather
-than the raw register state. In practice mostly 1PPS and 1PP2S (0.5 Hz
-that is not supported by DPLL core) are used.
+If there is a desire to take this in pieces or implement other
+intermediate steps, let me know. Otherwise I can generate a monolithic
+set all at once.
 
-The real problem is the commit message, which overstated this. It said
-the computed form "could only differ for an inconsistent register state,
-which is exactly the stale configuration this change prevents". That is
-not accurate: a plain esync_set(1 Hz) over a stale non-1 Hz configuration
-is short-circuited by the core (freq == esync.freq in
-dpll_pin_esync_set()), so it would not reprogram anything. For the next
-version I will reword that paragraph so it only claims what the change
-actually does - report the nominal 1 Hz / 25% model - and explicitly
-notes the two cases above as configurations the driver does not try to
-reproduce. No code change is needed for this point.
+[1] https://lore.kernel.org/lkml/20240905043245.1389509-1-wentaoz5@illinois.edu/
 
-> 
-> [ ... ]
-> 
->> @@ -1009,6 +984,22 @@ zl3073x_dpll_output_pin_frequency_set(const struct dpll_pin *dpll_pin,
->>   		/* For 50/50 duty cycle the divisor is equal to width */
->>   		out.width = new_div;
->>   
->> +		/* The embedded sync period and width are computed relative to
->> +		 * the output carrier so they have to be adjusted to follow the
->> +		 * new frequency.
->> +		 */
->> +		if (zl3073x_out_esync_is_enabled(&out)) {
->> +			if (frequency == 1) {
->> +				/* Disable eSync if the new frequency is 1 Hz */
->> +				zl3073x_out_esync_disable(&out);
->> +			} else {
->> +				/* Update esync period and width according to
->> +				 * the new frequency.
->> +				 */
->> +				zl3073x_out_esync_enable(&out, synth_freq / out.div);
-> 
-> [Severity: Low]
-> What happens here when the requested frequency equals the synth frequency?
-> In that case new_div is 1, and zl3073x_out_esync_enable() sets:
-> 
-> 	out->esync_n_width = out->div / 2;
-> 
-> That gives a width of 0 while the ESYNC clock type stays set.
-> zl3073x_out_state_set() then writes 0 to ZL_REG_OUTPUT_ESYNC_WIDTH, and
-> esync_get() still reports freq = 1 and pulse = 25.
-> 
-> The 1 Hz case disables eSync. Should a divider that cannot hold a non-zero
-> 25% width also be rejected, or have eSync disabled?
-> 
-> zl3073x_dpll_output_pin_esync_set() already had the same div / 2
-> arithmetic. This patch adds a new path that reaches it automatically on a
-> frequency change.
+Thank you,
 
-Good catch. I will make this new path unreachable instead of handling
-the width = 0 case. For the next version I plan to add a preparatory
-patch ("dpll: zl3073x: reject output frequencies with too small divisor")
-that requires an output divisor of at least 2, so zl3073x_pin_check_freq()
-will no longer offer the synth frequency (div = 1) in freq_supported. The
-only way frequency == synth_freq could still reach frequency_set() is if
-the output is already at div = 1, and then the core skips the call
-(freq == old_freq in dpll_pin_frequency_set()). With that in place,
-frequency_set() can never compute new_div == 1, so the eSync path this
-patch adds cannot produce width = 0.
-
-Ivan
-
+..Ch:W..
