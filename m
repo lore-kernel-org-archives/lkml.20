@@ -1,301 +1,217 @@
-Received: from esa12.hc1455-7.c3s2.iphmx.com (esa12.hc1455-7.c3s2.iphmx.com [139.138.37.100])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oa1-f43.google.com (mail-oa1-f43.google.com [209.85.160.43])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C0FDB3839BD;
-	Tue,  6 Oct 2026 09:08:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=139.138.37.100
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4A4C23AE198
+	for <linux-kernel@vger.kernel.org>; Tue,  6 Oct 2026 09:11:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.43
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791277718; cv=none; b=PcAMNSFK7oWSVAAaTSTfXFHbvElvhCbdy7Mw/Rjr2lexlzXCS+kOBHN0U3arC5nE5TgodifJAM21ouNH8CwwvrsrjCDLafOkBeg6me6lAc54C2rM/1/rzyj6xvl3RQqCx9F8kSETnYVaEiwILa0AzNkkB1GORU+4IVcge5r4sBs=
+	t=1791277895; cv=none; b=LbyO/EoXeD1hK2Hh+v9hmqnD0doPHPHd3UdL+KAFLD70nRHMPTExzbMK8v0BSm/UEfBlnmn2lNny6nSG+g/cb+Yi6JSHwbG0FEYuUl+TDTEMIOcKpjOfo9MVj9DSHHy+vAFI4Ml+02o8q+yqeWnKv7ZIHL6OiJ58l1oM2Z55RG0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791277718; c=relaxed/simple;
-	bh=F4/2ziFaQ+14aJz8mQUHdsabipvtJe9Jxq46ZQmJerg=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=qUOZYCkwBsVuGcS8l+ykHtITxXNJyMwG5nSWsPThJewqy8JyFEmIy48VJDYPiLh9Jyc/05rsTm2XCTrwFEebkCkMvn52tpjIzkeyZB4BqYyZqP60hn15fnFG77UryzzKLlX3yYwV+czRXnmeUzcE4QEdDadj6+ssFsFpa7x/750=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=fujitsu.com; spf=pass smtp.mailfrom=fujitsu.com; dkim=pass (2048-bit key) header.d=fujitsu.com header.i=@fujitsu.com header.b=grF1s9SQ; arc=none smtp.client-ip=139.138.37.100
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=fujitsu.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fujitsu.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=fujitsu.com header.i=@fujitsu.com header.b="grF1s9SQ"
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=fujitsu.com; i=@fujitsu.com; q=dns/txt; s=fj2;
-  t=1791277716; x=1822813716;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=F4/2ziFaQ+14aJz8mQUHdsabipvtJe9Jxq46ZQmJerg=;
-  b=grF1s9SQ7r3HIj/kGSsPKaYkNqh/r8qXA5DcXClNqSfkxOneG79+swiA
-   xQy8FUwYi8LjNRl/5kpRupvRvmi1GIbPDvqruaC9UvnnH0iAZtnDtTQA/
-   yX473h4uKIZlEPyGSTiUGtHkwGgFFmzs37u5K3/tH1AqIG5o0r1N7G7Fs
-   vkMY3VDaYA9ZLyyOk//KQr/w7vwQdrYLJLCzEUqnQ6xbflqAqeN+RLc2t
-   /neJOT5zRzFTWhqivky3r/dX6WW8VdqaRVnOrJUXCgHvhAalyeNrZu1cZ
-   8e+IGUfia4zTry4+6HxF6D4jo5jAfinH1MB/odkV65yGTJCPubg5MEjz/
-   Q==;
-X-CSE-ConnectionGUID: CyrKHvuWToK1ES1DJ8nzXQ==
-X-CSE-MsgGUID: RkJRpu/eQWeJO87xh4O9xw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11926"; a="235074054"
-X-IronPort-AV: E=Sophos;i="6.27,143,1786978800"; 
-   d="scan'208";a="235074054"
-Received: from gmgwnl01.global.fujitsu.com ([52.143.17.124])
-  by esa12.hc1455-7.c3s2.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 06 Oct 2026 18:08:28 +0900
-Received: from az2nlsmgm3.fujitsu.com (unknown [10.150.26.205])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by gmgwnl01.global.fujitsu.com (Postfix) with ESMTPS id EEC28406126;
-	Tue,  6 Oct 2026 09:08:27 +0000 (UTC)
-Received: from az2nlsmom4.fujitsu.com (unknown [10.150.26.201])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by az2nlsmgm3.fujitsu.com (Postfix) with ESMTPS id 9E8571800336;
-	Tue,  6 Oct 2026 09:08:27 +0000 (UTC)
-Received: from FCCLS0092175.localdomain (unknown [10.10.34.24])
-	by az2nlsmom4.fujitsu.com (Postfix) with SMTP id 0228720002A7;
-	Tue,  6 Oct 2026 09:08:21 +0000 (UTC)
-Date: Tue, 6 Oct 2026 18:08:19 +0900
-From: Kohei Enju <enju.kohei@fujitsu.com>
-To: Marc Zyngier <maz@kernel.org>
-Cc: Tomohiro Misono <misono.tomohiro@fujitsu.com>, 
-	Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>, 
-	Mark Rutland <mark.rutland@arm.com>, Jonathan Corbet <corbet@lwn.net>, 
-	Shuah Khan <skhan@linuxfoundation.org>, Randy Dunlap <rdunlap@infradead.org>, 
-	Thomas Gleixner <tglx@kernel.org>, Radu Rendec <radu@rendec.net>, 
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org, 
-	linux-perf-users@vger.kernel.org
-Subject: Re: [PATCH 4/4] irqchip/gicv3: Add workaround for FUJITSU-MONAKA
- erratum E#030003
-Message-ID: <asS5r0WNCQpMIo4p@FCCLS0092175.localdomain>
-References: <20261002-monaka-fix-for-upstream-v1-0-4aec0b0cbe34@fujitsu.com>
- <20261002-monaka-fix-for-upstream-v1-4-4aec0b0cbe34@fujitsu.com>
- <86tsn42sqr.wl-maz@kernel.org>
+	s=arc-20240116; t=1791277895; c=relaxed/simple;
+	bh=QSk/c0xFPnxckSA8D/FbrazTD+8/+fmgSsCPpvOdXsA=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=DhDABDX1WvbKoWlvVseQSK00QYQ7DWJFyAyad2uApWKd+w0/3euGR++CSsT6+GTDwoVfSKrc3XAl7gnL+UKF8v7ePuQ0ZGkJbXrBCbhMjknnIh7Oly3ifZs7/Jji8mX2WFE28LQhSSQvio6Sf79oR52+feIj7WqxYldzePrqb5Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.com; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=209.85.160.43
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Received: by mail-oa1-f43.google.com with SMTP id 586e51a60fabf-49dd13a91d0so782681fac.0
+        for <linux-kernel@vger.kernel.org>; Tue, 06 Oct 2026 02:11:33 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791277892; x=1791882692;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:reply-to:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Tm8inQeYXbBmJrsjm+/9U5OYHNYAqX7VnlqX5vcQTFU=;
+        b=XQPQe8xRE3ZYcwgj2RbTdOfanhmHvl2b+4B1W50M4rhjMlEwJD/RDknI58OuKF+zIS
+         2MVh8Rvi3PvZSn4YJuaUqr3HOYS59x8+Yaiao3LrM3dg+xz4rwSpNFR6M69c8DoKkE0Q
+         58B9LjdCQEIlChFv99q31hmg0OWq+qAYb/TFNgG6h9bgFOsdvIC3g34mTM9KzyGsWZEl
+         y4RWYjqIAzIJ+ts52W5XC7il82KS0SOBjl63Rl7AOBvTckK8XvD3JuVoyTFyIzaAktfo
+         Q2nPhYt6d4FY/cTWcEi2JnMAJpooc2cJluzkdglZ5Vt+xxKKagl7RV3LyM9mLRajXs0o
+         x7Fg==
+X-Forwarded-Encrypted: i=1; AKwUvBwUpDC0ZHM/xQqbMxiRJOBbgHcMwPjmu/MZN6BbiVhQ01bKD+Pj5u3LbBFbiHfw5GPuj+ih8/XXpBgmLjw=@vger.kernel.org
+X-Gm-Message-State: AFuF++kyIyix5z/XgtV4TlFgIbOn6gg+sx3+eFuZMcbf+wFZHGWc8luU
+	Hf2i0Y/u/LgEHGUTJptfVBYt73t9uRYU9hHiA2RxluSUxZ/rUAMqen4Ijo/nbIGjMm4Jyg==
+X-Gm-Gg: AYBFou224PX3D3fHz5WWYFUWm2vx/dxN2lTggn8JYXgHAyVBNZ/E+my8zsd4byNEBY+
+	zawuiloRD5BU6dQkfDhTDOdMgaAGLGqA4BP3QrYtdoGOuJseO/qY04j0WZdsZ9bKMX8g6ttYtiO
+	4fyQkqidSxrmOTgv/rNlUN5CwVYHPB2Y9IXmy6cALx4nFNOoGBdzA+cOhwc8UTtSfwUKEjKFCXh
+	wbPLXumf5TpphSJogTuKLpl40PTA/J4dVTjCu8xxW/vDSVTo1PldbB0AgQagns8S6WW6DjnfcYc
+	FX2Udup4+++wlF7mxLoqpWbpbmJvBhMbklLb5zN72GMH4CNOC6+k2UQRuvN7VGC4ouBlhjZLrtT
+	f2h1EMv9q7yG6F14THErADk7xux/PWA67up8COozN/0OhXrHirr8cGk4RuJMrJ8B9gWrqqusQWf
+	N0FcnN3I6wpR4iWjhq4gfGLCAP+o/qBP583cH/+CEfMyf7ENBAaYSyqfGLWZ9raI+CpZQECmQ5T
+	tqdM1jNOZTFOptHas65Wf/F/D9Dl1bjgscibOoiHSj1KQUE7+IcQb0BsVKhPYgQ9lY=
+X-Received: by 2002:a05:6871:4727:b0:494:7c40:ed7c with SMTP id 586e51a60fabf-4a240484247mr612424fac.29.1791277891911;
+        Tue, 06 Oct 2026 02:11:31 -0700 (PDT)
+Received: from mail-oi1-f169.google.com (mail-oi1-f169.google.com. [209.85.167.169])
+        by smtp.gmail.com with ESMTPSA id 586e51a60fabf-49e16d70e59sm12265889fac.6.2026.10.06.02.11.31
+        for <linux-kernel@vger.kernel.org>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 06 Oct 2026 02:11:31 -0700 (PDT)
+Received: by mail-oi1-f169.google.com with SMTP id 5614622812f47-4af173320f9so1448233b6e.2
+        for <linux-kernel@vger.kernel.org>; Tue, 06 Oct 2026 02:11:31 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvByKaCJUqFGuXVcceKGNHe7xtWY3FwMd85aBeKnCFG3QT6CAxhPfjy7nGFqtkpQnlTQMN+vVbLddHJlv8EI=@vger.kernel.org
+X-Received: by 2002:a05:690c:e216:10b0:89a:63bc:8be with SMTP id
+ 00721157ae682-8b04f45511emr1435597b3.72.1791277525323; Tue, 06 Oct 2026
+ 02:05:25 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <86tsn42sqr.wl-maz@kernel.org>
+References: <20261004144046.391444-1-tanure@linux.com> <20261004144046.391444-7-tanure@linux.com>
+ <f282770c-2238-4a1b-b811-c0c483fa7681@lunn.ch>
+In-Reply-To: <f282770c-2238-4a1b-b811-c0c483fa7681@lunn.ch>
+Reply-To: tanure@linux.com
+From: Lucas Tanure <tanure@linux.com>
+Date: Tue, 6 Oct 2026 10:05:13 +0100
+X-Gmail-Original-Message-ID: <CAJX_Q+2pw9=+O0V=e_kNR=c5oVeymbViy0XGGuciw4LL2Y_Ctg@mail.gmail.com>
+X-Gm-Features: AclHuK8uuG7S1lotg92U6NQL5L-fFOK6A4NsqpautQX6RPIs4c5SrrUvYH9tz8s
+Message-ID: <CAJX_Q+2pw9=+O0V=e_kNR=c5oVeymbViy0XGGuciw4LL2Y_Ctg@mail.gmail.com>
+Subject: Re: [RFC PATCH 6/6] arm64: dts: amlogic: t7: khadas-vim4: enable the
+ ethernet port
+To: Andrew Lunn <andrew@lunn.ch>
+Cc: xianwei.zhao@amlogic.com, Andrew Lunn <andrew+netdev@lunn.ch>, 
+	"David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, 
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Neil Armstrong <neil.armstrong@linaro.org>, Kevin Hilman <khilman@baylibre.com>, 
+	Jerome Brunet <jbrunet@baylibre.com>, 
+	Martin Blumenstingl <martin.blumenstingl@googlemail.com>, 
+	Maxime Chevallier <maxime.chevallier@bootlin.com>, Maxime Coquelin <mcoquelin.stm32@gmail.com>, 
+	Alexandre Torgue <alexandre.torgue@foss.st.com>, netdev@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+	linux-amlogic@lists.infradead.org, linux-kernel@vger.kernel.org, 
+	linux-stm32@st-md-mailman.stormreply.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On 10/02 13:26, Marc Zyngier wrote:
-> On Fri, 02 Oct 2026 11:26:52 +0100,
-> Tomohiro Misono <misono.tomohiro@fujitsu.com> wrote:
-> > 
-> > From: Kohei Enju <enju.kohei@fujitsu.com>
-> > 
-> > On affected FUJITSU-MONAKA CPUs, an SGI generated by writing to
-> > ICC_SGI0R_EL1, ICC_SGI1R_EL1, or ICC_ASGI1R_EL1 may be lost if the
-> > operation races with CPU interface processing triggered by the arrival
-> > of a higher-priority interrupt, an update to a pending interrupt, or a
-> > transition of the PE to the Sleep state. When this occurs, the system
-> > register write does not complete, causing the issuing core to hang.
-> >
-> 
-> Is the SGI lost? Or is the sender core hanging?
-
-Both: the SGI is lost, and the sysreg write does not complete, causing
-the sending core to hang.
-
-> 
-> I expect that virtualised accesses to these registers are not
-> affected, since they trap, but it'd be good to document this.
-
-You're right. I'll document it in v2.
-
-> 
-> > Work around the erratum by writing 1 to the bit corresponding to the
-> > target SGI INTID in GICR_ISPENDR0 of each target PE's GIC Redistributor,
-> > instead of writing to the affected system registers.
-> > 
-> > The affinity topology of affected systems has Aff0 == 0 for every PE,
-> > with PEs distinguished by higher affinity levels. Consequently, an
-> > ICC_SGI1R_EL1 write can target only one PE, so the workaround does not
-> > increase the number of writes required to send an SGI to multiple PEs.
-> >
-> > Accessing a target PE's GICR_ISPENDR0 requires its Redistributor base to
-> > have been discovered. Affected platforms conform to SBBR, which requires
-> > PSCI for secondary CPU boot. They therefore do not use the ACPI Parking
-> > protocol, which sends an IPI before the secondary CPU has initialized
-> > its Redistributor. With PSCI, a secondary CPU discovers its
-> > Redistributor before becoming an IPI target.
-> > 
-> > Signed-off-by: Kohei Enju <enju.kohei@fujitsu.com>
-> > ---
-> >  Documentation/arch/arm64/silicon-errata.rst |  2 ++
-> >  drivers/irqchip/irq-gic-v3.c                | 48 +++++++++++++++++++++++++++++
-> >  2 files changed, 50 insertions(+)
-> > 
-> > diff --git a/Documentation/arch/arm64/silicon-errata.rst b/Documentation/arch/arm64/silicon-errata.rst
-> > index 429bdf9a3d9d..13328a30df59 100644
-> > --- a/Documentation/arch/arm64/silicon-errata.rst
-> > +++ b/Documentation/arch/arm64/silicon-errata.rst
-> > @@ -377,6 +377,8 @@ stable kernels.
-> >  +----------------+-----------------+-----------------+-----------------------------+
-> >  | Fujitsu        | MONAKA          | E#030002        | FUJITSU_ERRATUM_030002      |
-> >  +----------------+-----------------+-----------------+-----------------------------+
-> > +| Fujitsu        | MONAKA GICv3/v4 | E#030003        | N/A                         |
-> > ++----------------+-----------------+-----------------+-----------------------------+
-> >  +----------------+-----------------+-----------------+-----------------------------+
-> >  | ASR            | ASR8601         | #8601001        | N/A                         |
-> >  +----------------+-----------------+-----------------+-----------------------------+
-> > diff --git a/drivers/irqchip/irq-gic-v3.c b/drivers/irqchip/irq-gic-v3.c
-> > index 6e1fa5b247fc..e73fea8a0e27 100644
-> > --- a/drivers/irqchip/irq-gic-v3.c
-> > +++ b/drivers/irqchip/irq-gic-v3.c
-> > @@ -80,6 +80,8 @@ static DEFINE_STATIC_KEY_FALSE(gic_nvidia_t241_erratum);
-> >  
-> >  static DEFINE_STATIC_KEY_FALSE(gic_arm64_2941627_erratum);
-> >  
-> > +static DEFINE_STATIC_KEY_FALSE(gic_fujitsu_030003_erratum);
+On Mon, Oct 5, 2026 at 5:27=E2=80=AFPM Andrew Lunn <andrew@lunn.ch> wrote:
+>
+> > +&ethmac {
+> > +     status =3D "okay";
+> > +     pinctrl-0 =3D <&eth_pins>, <&eth_rgmii_pins>;
+> > +     pinctrl-names =3D "default";
 > > +
-> >  static struct gic_chip_data gic_data __read_mostly;
-> >  static DEFINE_STATIC_KEY_TRUE(supports_deactivate_key);
-> >  
-> > @@ -238,6 +240,9 @@ static DEFINE_PER_CPU(bool, has_rss);
-> >  #define gic_data_rdist()		(this_cpu_ptr(gic_data.rdists.rdist))
-> >  #define gic_data_rdist_rd_base()	(gic_data_rdist()->rd_base)
-> >  #define gic_data_rdist_sgi_base()	(gic_data_rdist_rd_base() + SZ_64K)
-> > +#define gic_data_rdist_cpu(cpu)		(per_cpu_ptr(gic_data.rdists.rdist, cpu))
-> > +#define gic_data_rdist_rd_base_cpu(cpu)	(gic_data_rdist_cpu(cpu)->rd_base)
-> > +#define gic_data_rdist_sgi_base_cpu(cpu)	(gic_data_rdist_rd_base_cpu(cpu) + SZ_64K)
-> >  
-> >  /* Our default, arbitrary priority value. Linux only uses one anyway. */
-> >  #define DEFAULT_PMR_VALUE	0xf0
-> > @@ -1373,6 +1378,13 @@ static void gic_send_sgi(u64 cluster_id, u16 tlist, unsigned int irq)
-> >  	gic_write_sgi1r(val);
-> >  }
-> >  
-> > +static void gic_send_sgi_via_rdist(int cpu, unsigned int irq)
-> > +{
-> > +	void __iomem *base = gic_data_rdist_sgi_base_cpu(cpu);
-> > +
-> > +	writel_relaxed(BIT(irq), base + GICR_ISPENDR0);
-> > +}
-> > +
-> 
-> I don't think there is any need for a helper, given that there is a
-> single caller.
+> > +     /*
+> > +      * The RGMII clock delays are added by the MAC, so the PHY is
+> > +      * asked for the mode that adds none.
+> > +      */
+> > +     phy-mode =3D "rgmii";
+> > +     phy-handle =3D <&external_phy>;
+> > +     amlogic,tx-delay-ns =3D <2>;
+> > +     rx-internal-delay-ps =3D <2000>;
+>
+> I agree with Maxime here, rgmii is wrong. We really need to understand
+> what is going on here, especially since you are asking for the MAC to
+> do the usual 2ns, nothing special.
+>
+> Is the PHY not actually inserting the correct delay?
+It does. The PHY driver shows both delay bits going from off to on, so
+nothing was strapped and the bootloader did not set them.
 
-Ack.
+I swept the MAC RX clock delay and counted CRC errors, to see where the
+good window is:
 
-> 
-> >  static void gic_ipi_send_mask(struct irq_data *d, const struct cpumask *mask)
-> >  {
-> >  	int cpu;
-> > @@ -1386,6 +1398,22 @@ static void gic_ipi_send_mask(struct irq_data *d, const struct cpumask *mask)
-> >  	 */
-> >  	dsb(ishst);
-> >  
-> > +	if (static_branch_unlikely(&gic_fujitsu_030003_erratum)) {
-> > +		/*
-> > +		 * The affinity topology of affected systems has Aff0 == 0 for
-> > +		 * every PE; PEs are distinguished by higher affinity levels.
-> > +		 * ICC_SGI1R_EL1 therefore targets only one PE per write, so
-> > +		 * using GICR_ISPENDR0 does not increase the number of writes
-> > +		 * required to send an SGI to multiple PEs.
-> 
-> This is not about the number of writes, but the cost of individual
-> writes. A sysreg access is almost free (at least it is on decent
-> implementations), while an MMIO access is probably one of the worst
-> offenders. Therefore implying that there is no extra overhead is
-> likely to be misleading. The commit message has the same problem.
-> 
-> In any case, I don't think you need to justify anything here, as the
-> choice between costly SGIs and a dead CPU is pretty moot.
+  MAC does RX delay, PHY none:  clean 400 .. 3800ps
+  PHY does RX delay, MAC adds:  clean 0 .. 1600ps
 
-Ack. I'll remove the comment and the corresponding explanation from the
-commit message.
+Same window, moved 11 steps. So the PHY gives about 2200ps, and the
+first window is centred at 2100ps. It is right.
 
-For context, on this implementation, we do not expect a significant
-latency difference between the MMIO and system register accesses, as
-both ultimately reach the same hardware block.
+Transmit is the broken one. With rgmii-txid the peer sees nothing we
+send.
 
-> 
-> > +		 */
-> > +		for_each_cpu(cpu, mask)
-> > +			gic_send_sgi_via_rdist(cpu, d->hwirq);
-> > +
-> > +		/* Force the above writes to GICR_ISPENDR0 to be executed */
-> > +		dsb(st);
-> 
-> This doesn't force things to be executed. This is about completion of
-> the access, and with an nGnRE mapping, it doesn't enforce that the
-> stores actually reach the RDs, only an arbitrary point in the memory
-> subsystem.  The only way to guarantee this is to perform a read-back.
+What does the
+> datasheet say?
+The A311D2 covers both ways of doing it. Table 5-21, RGMII receive:
 
-Understood.
+  PHY internal delay on:   needs 1.2ns setup and 1.2ns hold
+  PHY internal delay off:  needs -0.5 .. 0.5ns skew
 
-I hadn't considered this when writing v1, but on further reflection, I
-don't think gic_ipi_send_mask() needs to wait for the target CPUs to
-handle the IPIs. Given that the GICv2 driver does not wait for MMIO
-write completion either, I don't think we need to ensure completion of
-these writes before returning. 
+with a note to check setup/hold when the PHY delay is on, and skew when
+it is off. Table 5-22 does the same for transmit, separate numbers for
+"clock delay added" and "no clock delay added".
 
-If my understanding is correct, I'll remove the dsb(st) in v2.
+So the MAC doing the delay is a documented mode of this SoC.
 
-> 
-> If this is relying on some additional properties that are
-> implementation specific, then this requires to be documented (for
-> example, if the implementation treats nGnRE as nGnRnE).
-> 
-> > +		return;
-> > +	}
-> > +
-> >  	for_each_cpu(cpu, mask) {
-> >  		u64 cluster_id = MPIDR_TO_SGI_CLUSTER_ID(gic_cpu_to_affinity(cpu));
-> >  		u16 tlist;
-> > @@ -1871,6 +1899,20 @@ static bool gic_enable_quirk_rk3399(void *data)
-> >  	return false;
-> >  }
-> >  
-> > +#define SMCCC_SOC_ID_FUJITSU_MONAKA	0x00040003
-> > +
-> > +static bool gic_enable_quirk_fujitsu_030003(void *data)
-> > +{
-> > +	s32 soc_id = arm_smccc_get_soc_id_version();
-> > +
-> > +	/* Check JEP106 code for FUJITSU-MONAKA chip (0004:0003) */
-> > +	if (soc_id != SMCCC_SOC_ID_FUJITSU_MONAKA)
-> > +		return false;
-> 
-> Why is this keyed on some firmware interface, while it is the CPU
-> interface that is at fault? I'd expect that looking at the MIDR would
-> be more reliable.
+What it does not say is why the PHY TX delay misses. I asked Khadas
+about the clock trace lengths, no answer yet.
+>
+> Also, we have one vendor property and one generic property. Can
+> amlogic,tx-delay-ns be replaced by tx-internal-delay-ps? But that
+> comes later, once we have determined these properties really must be
+> used.
+A new version of the series will have a fix for it. It will prefer the
+generic one.
+One thing to know: that register field is a fraction of the clock
+period, not a time.
+The driver comment says "8ns / 4 * tx_dly_val". A quarter cycle is 2ns
+at 1Gbit and 10ns
+at 100Mbit, so 2000 is only true at gigabit.
+>
+> Humm, what is meson8b_init_rgmii_delays() doing?
+It picks the MAC delays from phy-mode alone, with the sense inverted:
 
-Ack.
+  rgmii       MAC adds both delays
+  rgmii-rxid  MAC adds TX
+  rgmii-txid  MAC adds RX
+  rgmii-id    MAC adds none
 
-> 
-> > +
-> > +	static_branch_enable(&gic_fujitsu_030003_erratum);
-> > +	return true;
-> > +}
-> > +
-> >  static bool rd_set_non_coherent(void *data)
-> >  {
-> >  	struct gic_chip_data *d = data;
-> > @@ -1951,6 +1993,12 @@ static const struct gic_quirk gic_quirks[] = {
-> >  		.mask	= 0xff000fff,
-> >  		.init	= gic_enable_quirk_rk3399,
-> >  	},
-> > +	{
-> > +		.desc	= "GICv3: Fujitsu erratum 030003",
-> > +		.iidr	= 0x0403043b,
-> > +		.mask	= 0xffffffff,
-> > +		.init	= gic_enable_quirk_fujitsu_030003,
-> 
-> Same problem. This is looking that the distributor instead of the CPU.
-> It's OK to use it as a proxy for further filtering, but the final
-> decision should probably rest on the MIDR.
+So the mode that says the delays are internal is the one where the MAC
+switches its own off. It also ignores the *-internal-delay-ps
+properties in those modes. With rgmii-id and both of them set I get:
 
-Ack. I'll use the MIDR instead of the SoC ID.
+  phy-mode rgmii-id: tx-delay-ns 2 rx-delay-ps 2000
+    -> PRG_ETH0 delay_config 0x0, PRG_ETH1 cfg_rxclk_dly 0x0
 
-Thanks,
-Kohei
+What is
+> phydev->interface in the PHY driver.
+Whatever phy-mode says, dwmac-meson8b.c never rewrites it. Which
+means the MAC and the PHY always split the job:
 
-> 
-> Thanks,
-> 
-> 	M.
-> 
-> -- 
-> Without deviation from the norm, progress is not possible.
+  rgmii       MAC both    PHY none
+  rgmii-rxid  MAC TX      PHY RX
+  rgmii-txid  MAC RX      PHY TX
+  rgmii-id    MAC none    PHY both
+
+They never both delay the same clock, and never both skip it. So the
+driver is self consistent, it is just labelled backwards from phy.rst.
+That is why the boards using "rgmii" work, and why rgmii-id is the one
+that does not here: it is the mode that hands everything to the PHY.
+>
+> Please take a read on:
+>
+> https://elixir.bootlin.com/linux/v6.15/source/Documentation/devicetree/bi=
+ndings/net/ethernet-controller.yaml#L287
+>
+> and figure out what is going on here, because at a first look, it
+> seems broken.
+>
+>       Andrew
+It is broken. phy-mode describes the PCB, but dwmac-meson8b.c reads it
+as which chip adds the delay. The labels are backwards, and in rgmii-id
+both *-internal-delay-ps properties are ignored.
+
+I measured each direction with an eye scan. The PHY RX delay is fine,
+about 2200ps. Its TX delay does not work at all, so the MAC must do
+that one.
+
+Fix: in the -id modes each *-internal-delay-ps property means the MAC
+does that delay, and the PHY is told to do the rest:
+
+  both properties    MAC does TX and RX     PHY told rgmii
+  tx property only    MAC does TX                 PHY told rgmii-rxid
+  rx property only    MAC does RX                 PHY told rgmii-txid
+  no property           MAC does nothing          PHY told rgmii-id
+
+Boards without those properties keep today's behaviour, so
+meson8b-odroidc1 and meson8m2-mxiii-plus are untouched.
+
+Vim4 will use phy-mode =3D "rgmii-id" with tx-internal-delay-ps =3D
+<2000>. 935Mbit/s both ways, no CRC errors.
+
+I am sending a v2 with the fix for dwmac-meson8b.c  as its own patch.
+
+Thanks
+Lucas
