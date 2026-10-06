@@ -1,108 +1,120 @@
-Received: from mail-pf1-f179.google.com (mail-pf1-f179.google.com [209.85.210.179])
+Received: from mail-wr1-f49.google.com (mail-wr1-f49.google.com [209.85.221.49])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0EC3F3559F8
-	for <linux-kernel@vger.kernel.org>; Tue,  6 Oct 2026 07:46:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.179
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 454C137F8CB
+	for <linux-kernel@vger.kernel.org>; Tue,  6 Oct 2026 07:46:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.49
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791272792; cv=none; b=qaHfeGls7El7cMH4l8jckmSHGubm2BYZvQ9KSh2La2IEuuC8eNwrAKGaW7sM8TVVzfOVP4Y6A5jHhvtS5WFYYGyuXFjAo51LbCM+C+0KB68dPgpZLTxaWhEOqIeZ3qx6X25ZnugxniNp4zrrpR6CclmdweQEheL+21e/a1si6Oc=
+	t=1791272792; cv=none; b=by12vPL2LHRgnxuf8e1sczmYqTQKKIMizx74Nia7dNvRPwYq9NJ9DV73Np5tAsJXe2Z/zt0xX2LPXWjpxBlz1ZJ2uqIfSu9xeGDi+NkW9i/lxDkm9OOBfzI93Tkf2+oUk8Gb99ntCra3QNzxD30qpKOExCpNqbgpVR/meegacOs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1791272792; c=relaxed/simple;
-	bh=UdG9F2lIHer1xG4Zoqrwu6VKdFz+R7tVZFYTs71Yh38=;
-	h=Date:Message-Id:To:Cc:Subject:From:In-Reply-To:References:
-	 Mime-Version:Content-Type; b=ujVhvvaUByOhbj3EIlHI7q7MNalTVIxms4ZQGFfhvB4I/4aYtIW88G+Nrq0NOdVz5omLtdJWKNaCkJgyurq1hdym/OhEzzc/RQgH/1hoHcHOTFJK3mz/xK8Az3lDa8HVcP2/wN1X7DucdsKXPwdnjpTEFg61mAvG8YwtkQkaR/0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=YKsYcXYf; arc=none smtp.client-ip=209.85.210.179
+	bh=Dbh4ppydX74jlkNg4Kn6ybU3AG2ilsWVZs+ROAx3A9U=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=Fq1gJqu4qzQagCpSSrX1cdemgDgOI6y+dvYJ/v8k8Ri8JBGAiSIkLZ8xNO583cUqq3px3G0dJx18MNve46c1D/5yOBKvZnUNn7sYVj+oiYjPXWODW2Zi1tH7BLJXJxgc7sVkj1immOlFLKmkJuJqytuUYzGooWj84w58GBWh4X0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=D9/kTnK3; arc=none smtp.client-ip=209.85.221.49
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="YKsYcXYf"
-Received: by mail-pf1-f179.google.com with SMTP id d2e1a72fcca58-8902af6d7daso150143b3a.2
-        for <linux-kernel@vger.kernel.org>; Tue, 06 Oct 2026 00:46:30 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="D9/kTnK3"
+Received: by mail-wr1-f49.google.com with SMTP id ffacd0b85a97d-48c4d99c32bso289774f8f.1
+        for <linux-kernel@vger.kernel.org>; Tue, 06 Oct 2026 00:46:31 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791272790; x=1791877590; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:from:subject:cc:to:message-id:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=ahYM4NlVkXWvh95ZjInYaFIKIIi23AFsDJ4bgdm9aQo=;
-        b=YKsYcXYfn5X/Jrs3PPzhv6MUsuRWzdijsU+AqPwXztwPG96gafPz+yHvJO0oCSFGcx
-         cqWeD08ZnUPBUAYGenJwels3lvDg7bHBzZkX9ZQhw9BdANMmCCU4rAL0GedOE1mmTGR5
-         uke61gOGyDU6O3JL0VskWJgRREJxW6je60yFJAMFHx4dXgnLEws+dIrzE2ON4JTP10E0
-         Wpx1r0qNt5jt0uHcmqyF0uHtHFeuAKCc7Fty2Jlec9/CPNpo1wL4gDWQUQSlPNH2AxGV
-         tP0egOK/A//mLIU435osENlRbGwsiK7wTNlzNkxXFxpHeRBXyoH1m5HEIgRY+AIofZj4
-         5nUg==
+        d=gmail.com; s=20251104; t=1791272789; x=1791877589; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Dbh4ppydX74jlkNg4Kn6ybU3AG2ilsWVZs+ROAx3A9U=;
+        b=D9/kTnK3xgWTzVttlACBbQ1Lwo7yDUZFuUFLYPIMOWhVp3qOJglSxo8YWcjNrcGMGu
+         XGaz3siZPuFc9zMfpkkI+veb7R2uIuNNXKWp1DexYRUbG50fAat4n5RYRB+xnjdhmLnC
+         rR0T4Nqz9X7Ru3dbuA1Uy9YFl1s8p/eZj1WPC/lYun5zR1JyfO0s/paKvJ+8G3a94/rr
+         uXtYuWHnfc+iGp4dfLwP3ReAHBvi4N0tYFoErD3Ih6tB1NL/5sLqCvF+eusaqIdqjHZ1
+         /7nxsrvU4sAI0LmIR4+AtjHpSakFTN+8P0vl4vBYH5J+ZC87jHFdVSAt5WWDiSn5BVUY
+         y8gg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791272790; x=1791877590;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:from:subject:cc:to:message-id:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=ahYM4NlVkXWvh95ZjInYaFIKIIi23AFsDJ4bgdm9aQo=;
-        b=rpKVXT4huzIiEjYDWF0JQH1VrDEUDTjqnHvugSmSit8OuR7/cwPjp/5o+pso0dm9Fn
-         zJCN+paN+mdDltbPHpgUlFAn5O/AkqW/9Z1lxHCtziP9xwBXTPA1VjulMSSbebk9X+s/
-         cEm4jSPIffdDHqbbfoSYf9vXpJdfFnU2Ggd0HZN89QQqFa/Ptp6Gl76CLtpORXWqs83+
-         DkHD/eg2erJI8C5vZMp1/9ZOUzTaEtedXPu0Syh4/UTxFT2ORZlpz1aK8X6udmqNbN/T
-         Z4FM9e2GMYzX8+3J+THBirfAetF/n/3K2SYWQLkv0HaDKVOHaLu0MmCFdWlBC729NSXF
-         dKfQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxEMaRLPwL62RDgnP4FhVovM1A/9jR0NR1EEr99Z0ug/ey8cUIBJZZJVJE0K4rxgqakRo1S9SLaf1a4xsE=@vger.kernel.org
-X-Gm-Message-State: AFuF++mG/1vzyn7szIvXfdpFC5hVW5hPG+DC6eWKFf5ML/gXEMOEXeM7
-	Hd+S7oJCdx09NhJjjAcy7qx37Afgq+8PB6BaKxxpNfBm1Uanqi7DzHe+
-X-Gm-Gg: AYBFou3Hn8h+NzQAXOmDHHzltoEp9QZ7PJbjreUBDYjvE/VIylp52nRdvrPfm+yBN9O
-	C3HKXXd3pIE5oEgRSrsF2SmWL1+dL6RUfC+k3Pom2mEKICvnrj9mmq91j9awwqZ1r3XmUUuyz5M
-	GnApVlT8jr2POrm+J2ruavfkEIZnTZxstnNYiEYreLyf+wCiMvwHX+mptDmswg5nZB8BlIz1rEO
-	UzR6Z0P8ws7nX4SzApWvG9S0r2uRe7HleDTewuV+lUSbpSVD9yg/2qt6rYWRGvI+hvfG4KfIDlh
-	cDFXji0ZzfM3fPs2qHm0rbbO15O3SDCRFGRVw2xrhlSs6mb+U8c0yR04Nvy+aQrdziC//wgzHZ3
-	D5QqZEfaBFq5NuTAcKUxwzQlW3umWVgqP9CDCrqG+pcl+CYXvaUzKJFCvpR3XPq9hJvhdYPBQBV
-	8FTpcKVJxAgw1cVMJti2VB0RJLwbow44fxfdvBaJe3wyB6vtRJikQjuvDLFoJIb5YFqef82HU/E
-	fuG5TC+c5QiXhcCXQihTrQKvNHx7ei4
-X-Received: by 2002:a05:6a21:b90:b0:3d3:aee4:66f3 with SMTP id adf61e73a8af0-3e1247c1c61mr592829637.25.1791272790301;
-        Tue, 06 Oct 2026 00:46:30 -0700 (PDT)
-Received: from localhost (madb688455.ap.nuro.jp. [219.104.132.85])
-        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cce6d901981sm2029776a12.14.2026.10.06.00.46.28
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        d=1e100.net; s=20260707; t=1791272789; x=1791877589;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=Dbh4ppydX74jlkNg4Kn6ybU3AG2ilsWVZs+ROAx3A9U=;
+        b=Ro3eL8fT4RUjyn0jfUEnW/krgTLPUgE+DAc/zSZjXEDFBa8faycy30+jvcF870y5xl
+         0dLZc0roGkwuWgwN/DeKOJTefWY9Vl2neU9qig8jFZTCokcvWSS3Ha3p3PTHqQ4U1A4Q
+         igTtqXw/4peL9PlzqmvW8O+ZJPGcqXSkV15FY5F3Ik3bfrISIlFFLYZdJMkV+KBeQJw6
+         5pKnqnCvoj4H1CmEOBAmv0XcAdojK8Qpt2bS1wTaUTlDjiDpHoYTon0y8VrqYcEkRwp2
+         YLSUuMvq7lSZ7bq9CVTUfRp/8sUEqpI8qaxNbimi5PVEVipCUALezDhNClhnqSy/bdzM
+         cJUg==
+X-Forwarded-Encrypted: i=1; AKwUvBwgy4o75HdQLrEOKg9jpRSfmFjLUnti0nMru6Uk5+/H2hiq2xSnb/ZI2Ej+rUyWYzNHa8UJzeO/NeQPLKw=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIKqFjtA18830HdIjdhZ+wED2BI9BfS4xrqqJ5H9yawd9yRgxL4
+	gIOdeTu+G6UnqS2mByBjqmPJlqCuc368ZEQv2As0HSLZX4ZAL7SkXNqd
+X-Gm-Gg: AYBFou29/yNWb+oEeUD6M9OSgO5rLs60sGbPy4k9+4+cYjLaRI3IMRYFNvVjQQbZa+y
+	8X4FmdnFJEuuIHhIp3j3vXiSbTadjqwpqY/VikYqAQW4PRqD1FFU0oWkIV6hMeAoXB3G0K1QAyZ
+	4Vp9k/YGpvIHU0fuedJNp/6TwaDc4kU8eypQrJMaxCi3tgJUwL5SoWp0nkCaMEdX4PB7IkRhRch
+	lYKCcOrOjbt4Q/igZM0jawGrENHBevGmyTjTSIvPX2uPm89HUapmC/wsM1C8AfT1izQHkOC7UGq
+	oxP3i6wnK/Q//XTw4QAUeORYjtQonSRRpCOXP+Cu+TkqQeV4bJnqAjDqwUuDGvL/eDdMgH9eUZV
+	Uq5is/nyW2gdv7vgQCGljLda3DcANZrGkxgYQHbssds3Ms10ETQ6DmuniPInu5Tks3jfy3N1NUr
+	TQzCpyzwlqmxIFDehoPk7SJ3xXyfPoyNaWR0sS34CS8/mFf2IhaSt7EW8LkjrXLq4bOAAgn/IqP
+	zfP
+X-Received: by 2002:a5d:5d0b:0:b0:488:8525:4979 with SMTP id ffacd0b85a97d-48c6d1aa7f7mr1024551f8f.45.1791272789223;
         Tue, 06 Oct 2026 00:46:29 -0700 (PDT)
-Date: Tue, 06 Oct 2026 16:46:26 +0900 (JST)
-Message-Id: <20261006.164626.1711564426255042769.konishi.ryusuke@gmail.com>
-To: syzbot+c388db0347b7fc88fa7a@syzkaller.appspotmail.com
-Cc: syzkaller-bugs@googlegroups.com, linux-kernel@vger.kernel.org,
- linux-nilfs@vger.kernel.org
-Subject: Re: [syzbot] [nilfs?] WARNING in nilfs_rmdir (3)
-From: Ryusuke Konishi <konishi.ryusuke@gmail.com>
-In-Reply-To: <6ac3ffc9.34119e79.2f92f3.0037.GAE@google.com>
-References: <6abadfc1.69bd487b.a6f8c.0008.GAE@google.com>
-	<6ac3ffc9.34119e79.2f92f3.0037.GAE@google.com>
-X-Mailer: Mew version 6.8 on Emacs 30.2
+Received: from deb05.proceq.com ([213.160.61.66])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48c6cd7c326sm1526081f8f.53.2026.10.06.00.46.28
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 06 Oct 2026 00:46:28 -0700 (PDT)
+From: Mehmet Fide <mehmet.fide@gmail.com>
+To: Ping-Ke Shih <pkshih@realtek.com>
+Cc: Luka Gejak <luka.gejak@linux.dev>,
+	Bitterblue Smith <rtl8821cerfe2@gmail.com>,
+	linux-wireless@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	mehmet.fide@screeningeagle.com
+Subject: Re: [PATCH rtw-next v3 2/2] wifi: rtw88: support channel switch in AP mode
+Date: Tue,  6 Oct 2026 09:46:27 +0200
+Message-ID: <20261006074627.372751-1-mehmet.fide@gmail.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <151d3d60da614e00b3a94bebd4f4f3a8@realtek.com>
+References: 
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Type: Text/Plain; charset=us-ascii
-Content-Transfer-Encoding: 7bit
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-#syz test: git://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git a90ee4305c4a
+Hi Ping-Ke,
 
-diff --git a/fs/nilfs2/namei.c b/fs/nilfs2/namei.c
-index e037e0c6e31a..dcfa70f9e5d4 100644
---- a/fs/nilfs2/namei.c
-+++ b/fs/nilfs2/namei.c
-@@ -341,10 +341,15 @@ static int nilfs_rmdir(struct inode *dir, struct dentry *dentry)
- 
- 	err = -ENOTEMPTY;
- 	if (nilfs_empty_dir(inode)) {
-+		if (unlikely(inode->i_nlink != 2)) {
-+			nilfs_warn(dir->i_sb,
-+				"inconsistent empty directory link count %u (ino=%llu)",
-+				inode->i_nlink, inode->i_ino);
-+		}
- 		err = nilfs_do_unlink(dir, dentry);
- 		if (!err) {
- 			inode->i_size = 0;
--			drop_nlink(inode);
-+			clear_nlink(inode);
- 			nilfs_mark_inode_dirty(inode);
- 			drop_nlink(dir);
- 			nilfs_mark_inode_dirty(dir);
--- 
-2.53.0
+On 2026-10-06 Ping-Ke Shih wrote:
+> There is single one caller, so just squash into rtw_fw_csa_active().
+>
+> I asked to move CS work to vif, because I want to avoid this kind of
+> getting vif from rsvd_pkt->rtwvif. Is there any way to avoid this?
 
+> I'm thinking if we move back csa work to rtwdev (like v2) to avoid this kind of
+> iterative.
+
+> and avoid this iterative.
+
+Yes. v4 puts the work back in rtw_dev, initialised once in
+rtw_core_init(), and adds rtwdev->csa_vif, set when the countdown
+starts and cleared when it finishes or is cancelled. rtw_fw_csa_active()
+is then a test of that pointer, and the lookup through the reserved page
+and both iterations are gone.
+
+> Will it be a problem just unconditionally initializing csa work?
+
+It was: a hardware restart replays add_interface() with the work still
+armed, and initialising it again would lose the pending timer. With the
+work in rtw_dev the question does not arise any more.
+
+> As the comment, this is to download new CAM settings. If CSA is ongoning,
+> you ignore the download. Then, my question is when will you download
+> this properly?
+
+The countdown work downloads the whole reserved page, which includes
+the PG info page built from the current CAM, once per beacon interval
+while the switch is announced, so the new settings reach the firmware
+at most one beacon interval later. The same holds for the TIM update
+and the download on association, which v4 skips too (Luka). The commit
+message says so now.
+
+Best regards,
+Mehmet
