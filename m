@@ -1,81 +1,76 @@
-Received: from mail-wr1-f52.google.com (mail-wr1-f52.google.com [209.85.221.52])
+Received: from mail-pj1-f50.google.com (mail-pj1-f50.google.com [209.85.216.50])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 836DA3D891F
-	for <linux-kernel@vger.kernel.org>; Tue,  6 Oct 2026 09:34:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.52
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2DAE73D9529
+	for <linux-kernel@vger.kernel.org>; Tue,  6 Oct 2026 09:34:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.50
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791279262; cv=none; b=sMIJ9a0Q3Z+qDRvQ79o0wh5YQWyNq1j8Rg1JzXwNxWugGrqIE+tU2XXw6tv5EtpXgCX0Y93RlLD/u8eWTE/qdeBmNjhT3FTAet9G0rWHo1n5nrlGmV7u3fc3G7WSsE2iB0nboTPQxWMtNNIC1xQi4II95pwOnJX3odm/PjKy4Fs=
+	t=1791279266; cv=none; b=OoxnuleqHvRQfNkoe06hgn41Se+B6VTbZ4vkQkZhoKVcYuRCzbYzYcNP2LO01FSu3cL28OsgagbJ+OTeQCgOC2fUI7DlsSzfaGnc7vjdflIhScU3u6LPfcsR4mQeZ45/p/Hdd4v3wOraCNCCFkrgu0/O5zCl7BjjXkIuDPzPasA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791279262; c=relaxed/simple;
-	bh=+V8uFO8KjUBEZ10FiDGjD6LAJ9EH5zGBb8kX+VfCtOk=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Mg09Hyuw8Pm3izvVV8fplQ4s0uUWMSc+PqaFY4Q5hhC01s86ASMfvNyqxoQXck3rr4g2+WEkKkfeJDDFDgl82se3jcVgOg8aDEJzZkP3rBUT/Ei1InDukfTj34HdpeBqmyM94o4O2pZm++++WrFHgA0Vc7ZADCRGaKOx/ngT4Ug=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=trailofbits.com; spf=pass smtp.mailfrom=trailofbits.com; dkim=pass (2048-bit key) header.d=trailofbits.com header.i=@trailofbits.com header.b=LDNmFn+v; arc=none smtp.client-ip=209.85.221.52
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=trailofbits.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=trailofbits.com
+	s=arc-20240116; t=1791279266; c=relaxed/simple;
+	bh=sRXARn7rltoKuuBkviV7Rzg2hh6wE9w+qedmvZuYEgE=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=qwx/n/O+4+nXBszZW9Jab25JefF518jvufxnpi4WyjPd++VxxkCYDgp4qA5XxfEy98+EgGOzI39W8n+0WRzofdrco3T3LeFjJ9cDt7AYqNt8tpC9bPxcxIpt1QjDirb4/Dkm0vqBzFVFK+T1xI78jH5keV7LyrQWePtCHBBsH90=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Sp7oTk3q; arc=none smtp.client-ip=209.85.216.50
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=trailofbits.com header.i=@trailofbits.com header.b="LDNmFn+v"
-Received: by mail-wr1-f52.google.com with SMTP id ffacd0b85a97d-48c4be28b82so347875f8f.2
-        for <linux-kernel@vger.kernel.org>; Tue, 06 Oct 2026 02:34:18 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Sp7oTk3q"
+Received: by mail-pj1-f50.google.com with SMTP id 98e67ed59e1d1-383b4a3755fso1883333a91.3
+        for <linux-kernel@vger.kernel.org>; Tue, 06 Oct 2026 02:34:21 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=trailofbits.com; s=google; t=1791279257; x=1791884057; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1791279260; x=1791884060; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Jq4MvvelPJmLJTP64CCeQVSZLu/IREWVL/wvvlYXR5M=;
-        b=LDNmFn+vPCgLAHGVEJ5RFSZOerw0K5YsVdDhGYeEEMnDdVbUHEoWvjiDevsA9m+kXY
-         2Smgk0XLv2lLOEgn//z8ypMN5f4k+uEPK+6+oABKIuQ7LaWN0k6zKb9id5PsupUxeBBF
-         EVc5jri1vpOfSJFAXf0Zear4Y/8gKQFeFa6ZmCJoH6pS5waZGuFzE1jH13QLRHBxN/Gb
-         UF9hMpSijvL/dxWTXTb/Zf98ztlelOVbOEozgZU7PxykEwHNxDduRrrxxNHxJd8sJqty
-         THmnl5q1FzkLG71LxZJXFH+BodhXeDXynEo3sDJ1xyaqlnLBPPUyvxYHx3/9hH3+ofaD
-         l53w==
+        bh=FfGw4pZW0aV8/Q7fkT5ZBmOHgIkxnICvN7ym0WNBWHU=;
+        b=Sp7oTk3qnC/OLANEJH9A17lWUqR5AH8nokqP7i7qKpv5YfDvsiO+qgakWOamLVSKxH
+         IHk2DEJ6NExHsD10EK0Ytyr2yBpNWQNVS2uXPxwoSGSUjHlC4L42rWFnb8JByZX7XIzc
+         DVuboT198j1uvXvUNG2+nRPeqjC2FVhXu+B+qXkJAGuQRm8wTJvZgQ8NkmytOBo9656D
+         uAQ2A9tZ9ThM7pH9A9NU0OyO0nLPeiHK9kJhW6V/nD3U0Wum/4T0WUIJ4l9KJM8ZtfLW
+         Ug/j8Gss42kuDW4Ds4AqkIpP/s6bne6Un85XcrGWLNkmHJ6Qq0pL0lw9hrnsmImH2Z7k
+         jc/Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791279257; x=1791884057;
+        d=1e100.net; s=20260707; t=1791279260; x=1791884060;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=Jq4MvvelPJmLJTP64CCeQVSZLu/IREWVL/wvvlYXR5M=;
-        b=odoGaC6/zIQa/E2vcxJo8epza/Q1QxnKZoUUg6JHysn6lGPTAEOX+QicJ3Q8gHn4Rc
-         IDT4uYLwgbxla4jpUtxY12SW3a6s1K7vtLLG5luDsRAbBnesNF3Deb8E5xnokbzow9vI
-         pwU74LZpoeTdkLUMlknFSaWhGxPNAXodagZNs1xSaeck3MBkgyDyn+/PKDXGi+w3q9WX
-         4sW6f34OfRVsfnfN95WAkdFZM+4ImSlUnOn1LwF5x8zTi9Bzn+FLXO+3OC20PjQQHZo+
-         7Dq803V2h7yLj9Yifs2m8v2hk1AQrl/7vhrP2kAQqcsrZZZTPR6dIkl8ymUsQEg+dTAt
-         mlDA==
-X-Forwarded-Encrypted: i=1; AKwUvBwAW0jZBaw9muDHQUEeEbV99q+krFlk+Lt+Khiak2ckpTbpmOqKPfFzDrPI4DiJ22gfOqvk00StOdPVj8g=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLLx28ZfXQQ48eDKBa8YacNJBLxvjZXBceEXV6wTHdtGVaRCIOO
-	NAERkqSXanYhE7o3KQ6IH2T51PmSZ00fjWcEQSrFe3Wm8G6EZuork/QEYl3k3n5tfkg=
-X-Gm-Gg: AYBFou2YDe3rRh+h+OqIc/Y1fIJVX8Pcq05MuatXDRgi+cmySBqgA+XBQPxO9pJTggH
-	ChConFViakTIE1WBcvbiFriiBtvKedt/rjHrfx8nTd+yWVTG/MGA9B+uSGCKMIW+dCzk6ZvmxNX
-	6b7XZ8PlgRIUZu9n8R/SWLaqR0dZWGftvUrCvUpJEweGddqazG6HC2io2aK845yw2UOQVWVasQR
-	/+5MYxnMgHEZFO8LsQIQvaGeCElKAU99cVHGX7spIoDyo05SeW2uA/UwhpWUv3+zU5FhALCS4Mq
-	wAatPZGSKRdkfgdlznlJN7EKBmRJ4mIztqoAL5pXt9jhbLER2vUiObTaqKAF0VsZ6gtjkqeoJvx
-	iF16tzBcVFdVNm7jyC6svYsCv03rBezEPJ48RZdBEF8ji6gievuHVSXNaoxzC0anSrQWFNW/ryn
-	qIvO1NTHY1tldWFaq9DI8IiWLw7jwp7N+Y0dmDW+pdTCcMPnIeD19p+4mOC6cgofLhcdyYHm3cU
-	RAsX9x2Pw==
-X-Received: by 2002:a05:6000:2210:b0:487:27f9:82c with SMTP id ffacd0b85a97d-48c6d19ba25mr1256715f8f.33.1791279256305;
-        Tue, 06 Oct 2026 02:34:16 -0700 (PDT)
-Received: from localhost ([2a02:168:9d56:1:9c5b:8aff:fed1:19b4])
-        by smtp.gmail.com with UTF8SMTPSA id ffacd0b85a97d-48c622b4685sm8853347f8f.41.2026.10.06.02.34.15
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 06 Oct 2026 02:34:15 -0700 (PDT)
-From: Bruno Produit <bruno.produit@trailofbits.com>
-To: Sean Christopherson <seanjc@google.com>,
+        bh=FfGw4pZW0aV8/Q7fkT5ZBmOHgIkxnICvN7ym0WNBWHU=;
+        b=JYUNgVC9m1toqX9J8w+jC+rF+FNPkhNiWjFYE7hn1R94gFqnfxLwbcDQpj5WWsmr9L
+         PmgsJ0LF7+RlvrbJVRwIU3+zouQA6oROqvmlNdZYX8jDILLJaDAcs0wYtsiG5TCQTJ5y
+         SzYAXnJkk57bL/6qwzG0xzxIJexGrBnNjs3Lqdqtwjdrf2uVLOE45B5YRNQMZ1CgO8tl
+         Gy08HOuXSYwrmBufwd4pQHgSuZWwGqKEkGAJ/9cyqJ+8evKLCWMnG4ZYETXb2E3r/Jln
+         IR6PvQ99AwfD+H2Hrv0B3L+aI6R/IwKiJMPuxKEYZfyhA3cSp1VS8y/4bcvGpTq/U84n
+         oeQQ==
+X-Forwarded-Encrypted: i=1; AKwUvBz+qO+LWnEXdpFwCAHYFaoKXfnb+8E4zb2W7TlLf/kFBLOXDt2rcUqzEBAAAlW5+hCywtGwx7MXPeLejN8=@vger.kernel.org
+X-Gm-Message-State: AFq9FYK4ZXErcA6/bpj3VL7vsj63ANNM+UwtThS2DWa43A2brtLWzVYN
+	8KHqtU7Dqc6iEnonUqvgtHfYJE65eGz0lgI7vx7Yr7akjz0umSxp91Jf
+X-Gm-Gg: AYBFou2dN+PkkQeosK9Yld+66nyRW7n1IOuMngpffXZQOSMGXyELaetmQqqOU/Upf6k
+	LdpbNf6DmVKZ7gHyiSRnjkQBjMmhmVot8jQ6csqqAgrBqU9ePXiE0Wr+HnAdyhATFpCgSC7oBgY
+	lsr3xujmDnQnPtL/NUU3uvaYCs1AbD2swgpq60dEQZb4IGwwnjS3+9sbcedVe9HUyZikbWtN9aL
+	kEYtp9N2EkOeH7NTK3vAQmLszGv3guVS4ICzjexzptePmTYIptmWdDPpjOPimhI8ICNgE1nLHUD
+	uYB86vncdJ7mIfIPR6h9kuQt1xmmhViZmd6ikSQEdigW8Feu28bxRrlMjlgS94fioyPVoreCoqG
+	getTSa9TU0754rWD92J0mwXBCp5exXhQx+1Tq+hbxxIt2zoNo/tsJcJ9R7Tt0NOAymX0iYB/mQ2
+	OjyHoDfZWzUplkAJigGPAro1kZAuIldk8Pmu0gjL91SMYTwl5euh+tPmM4AC1oVzMoR2Rs0A==
+X-Received: by 2002:a17:90b:164b:b0:3a4:d338:4136 with SMTP id 98e67ed59e1d1-3a78779e4e0mr8312336a91.66.1791279259449;
+        Tue, 06 Oct 2026 02:34:19 -0700 (PDT)
+Received: from gmail.com ([188.253.12.30])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a8543ab76bsm3905277a91.13.2026.10.06.02.34.15
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 06 Oct 2026 02:34:19 -0700 (PDT)
+From: Jia Jia <physicalmtea@gmail.com>
+To: "Martin K . Petersen" <mkp@kernel.org>
+Cc: Jan Engelhardt <jengelh@inai.de>,
+	Hannes Reinecke <hare@suse.de>,
 	Paolo Bonzini <pbonzini@redhat.com>,
-	Thomas Gleixner <tglx@kernel.org>,
-	Ingo Molnar <mingo@redhat.com>,
-	Borislav Petkov <bp@alien8.de>,
-	Dave Hansen <dave.hansen@linux.intel.com>,
-	"H. Peter Anvin" <hpa@zytor.com>,
-	x86@kernel.org
-Cc: kvm@vger.kernel.org,
-	Kyle Zeng <kylebot@openai.com>,
+	Akinobu Mita <akinobu.mita@gmail.com>,
+	James Bottomley <James.Bottomley@suse.de>,
+	linux-scsi@vger.kernel.org,
+	target-devel@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	Dominik Czarnota <dominik.czarnota@trailofbits.com>,
-	Bruno Produit <bruno.produit@trailofbits.com>,
-	stable@vger.kernel.org
-Subject: [PATCH v2] KVM: x86: Cancel PIT timer on failed creation
-Date: Tue,  6 Oct 2026 11:33:54 +0200
-Message-ID: <20261006093354.590415-1-bruno.produit@trailofbits.com>
-X-Mailer: git-send-email 2.55.0
+	Jia Jia <physicalmtea@gmail.com>
+Subject: [PATCH 0/8] scsi: target: keep command bytes inside the sg
+Date: Tue,  6 Oct 2026 17:33:30 +0800
+Message-Id: <20261006093338.27342-1-physicalmtea@gmail.com>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -84,40 +79,58 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Cancel the PIT hrtimer if PIT creation fails after registering the PIO
-device.  This matches normal teardown and ensures the timer no longer
-uses the PIT before its memory is freed.
+Eight fixes for target core reading or writing past an sg.  Patches 4
+through 6 and patch 8 share the DIF sg walk and apply in order.  The
+others stand alone.  vhost-scsi keeps one sg inside one page, so those
+bytes land on the next physical page.  The commands reach the host
+through a guest virtqueue.
 
-KVM registers the PIT's PIO device before registering the optional dummy
-speaker device.  If speaker registration fails, a vCPU can have already
-programmed channel 0 and armed pit_state.timer through the published PIT
-device.  When I/O bus registration became fallible, its cleanup did not
-cancel the timer before freeing the PIT.
+Patch 1 takes the COMPARE AND WRITE write half from its own sg entries.
+Adding the compare length to the first entry's offset loses the sg
+boundary when the two halves are split across pages.  The replacement
+table is released with sg_free_table().
 
-Fixes: 090b7aff2712 ("KVM: make io_bus interface more robust")
-Cc: stable@vger.kernel.org
-Assisted-by: Codex:gpt-5.6-sol
-Reported-by: Kyle Zeng <kylebot@openai.com>
-Signed-off-by: Kyle Zeng <kylebot@openai.com>
-Signed-off-by: Bruno Produit <bruno.produit@trailofbits.com>
----
-Sean's proposal, feel free to change the FROM upstream
-see https://lore.kernel.org/all/ar_PNEIvsQMQPMLg@google.com/
- 
- arch/x86/kvm/i8254.c | 1 +
- 1 file changed, 1 insertion(+)
+Patch 2 keeps each REPORT REFERRALS LBA store inside the data-in
+buffer.  The existing data_length checks cover one-byte fields, not the
+eight-byte LBA.
 
-diff --git a/arch/x86/kvm/i8254.c b/arch/x86/kvm/i8254.c
-index 1982b0077ddd..33d772c7160b 100644
---- a/arch/x86/kvm/i8254.c
-+++ b/arch/x86/kvm/i8254.c
-@@ -790,6 +790,7 @@ struct kvm_pit *kvm_create_pit(struct kvm *kvm, u32 flags)
- 
- fail_register_speaker:
- 	kvm_io_bus_unregister_dev(kvm, KVM_PIO_BUS, &pit->dev);
-+	hrtimer_cancel(&pit->pit_state.timer);
- fail_register_pit:
- 	mutex_unlock(&kvm->slots_lock);
- 	kvm_pit_set_reinject(pit, false);
+Patch 3 rejects a SET TARGET PORT GROUPS list that ends on a partial
+four-byte descriptor.
+
+Patch 4 copies an 8 byte protection tuple across sg entries in
+sbc_dif_generate().  A tuple that starts at the end of one entry is
+written into the next entry as well.
+
+Patch 5 does the same read in sbc_dif_verify().  A tuple that runs off
+the end of the protection list fails the command.  The generate change
+does not cover this function.
+
+Patch 6 limits the block CRC in both functions to the bytes each data
+sg actually holds.
+
+Patch 7 reads the pscsi MODE SENSE write-protect byte and the tape
+MODE SELECT block descriptor from the whole data buffer.  A short
+buffer is left unchanged.
+
+Patch 8 makes sbc_dif_verify() advance the data cursor across every sg
+entry of a logical block whose application tag is 0xffff.  The cursor
+uses the same kmap_local_page() calls as the CRC walk.
+
+Jia Jia (8):
+  scsi: target: take COMPARE AND WRITE data from the write half
+  scsi: target: keep REPORT REFERRALS stores inside the buffer
+  scsi: target: reject a short SET TARGET PORT GROUPS list
+  scsi: target: copy a DIF insert tuple across prot sgs
+  scsi: target: copy a DIF verify tuple across prot sgs
+  scsi: target: limit DIF block CRC to each data sg
+  scsi: target: keep pscsi mode bytes inside the data sgs
+  scsi: target: skip an escaped DIF block inside the data sg
+
+ drivers/target/target_core_alua.c      |  29 +++++++---
+ drivers/target/target_core_pscsi.c     |  98 +++++++++++++++++++++++---------
+ drivers/target/target_core_sbc.c       | 474 ++++++++++++++++++++++++++++---------
+ drivers/target/target_core_transport.c |  11 +++-
+ 4 files changed, 439 insertions(+), 173 deletions(-)
+
 -- 
-2.53.0
+2.43.0
