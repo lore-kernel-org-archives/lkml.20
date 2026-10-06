@@ -1,44 +1,41 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 54D5A39E177;
-	Tue,  6 Oct 2026 06:52:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+Received: from qmail.kvaser.se (static-195-22-86-94.cust.tele2.se [195.22.86.94])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id B88DC390981;
+	Tue,  6 Oct 2026 06:52:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.22.86.94
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791269548; cv=none; b=Nw+5WjGIKL9Cm3lZWgOdKsIVT7YNR1q8c64QioJ1FzL7O0ByWstByVnlM1qa3xLM8I26u4z6dkBRDKawuy3VuaBnypTvU7QRy2WXfxf1GWm0ON/4sD6sQvOYVmU+/RHN6rerrrrvgdVbgxyrAdWZ/R5ditYX7dVulX5wXjyamhQ=
+	t=1791269579; cv=none; b=ZW5bEQkOdPgXY2QzHKygEjrstIhCkdg+hE07vqJ768pFVPbaF3xhTIYb0o7Ozr2Hb4LT0uD5CYU2Kw/vMrTX1qiEGKXQtPLV9sKSfHG6RUY0LVnwBILqXFBjTayRiXcd14epbVbME1yJuf2TQ9ExC4OrK8tuBGHtmzyUzccw6hI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791269548; c=relaxed/simple;
-	bh=BXJoVN0Ef/kCVwiqKKDyjfquHdXmS5V/bfX7R4PwsFs=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=mKz6/HZwXuo3YsBNW+d/iIe4dUvJJKQmFVdtsTLGKWa7yGpDRzcio/MTwUzVtoNs32aUDJH2h9f70jBqZ4Sp4pDWzBszOKmHFYfCOB1Vu54RenQOo/VEkfyAC/G39BHuHLQ66UU6TyqqK97kOHPmdQvIuU8BL5CLuHGVxTwiXSQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=FA6B6DDd; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791269579; c=relaxed/simple;
+	bh=J8+6rIGLErPljvj6gVJ8DhsceoxHGriCDvswLriWPaE=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=FQLLkEayqRilLhyudrwby8maBcyn7c6Rq0ywMaykO2qnLXxaQM6Szf7/lmQfrYUd0bF+oi8flkrpY0p0RBav7ZjR2bynQGjYx7ILWlSPvx2jK9zVLoe5KAa4fN//C2TSVRXxntuarARz4P0CxHwIIlO9MjsTKXNuG5CsiEGk+aM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=kvaser.com; spf=pass smtp.mailfrom=kvaser.com; dkim=pass (2048-bit key) header.d=kvaser.com header.i=@kvaser.com header.b=TUm23LAz; arc=none smtp.client-ip=195.22.86.94
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=kvaser.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kvaser.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="FA6B6DDd"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C6C761F000FF;
-	Tue,  6 Oct 2026 06:52:17 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791269540;
-	bh=rjEiceRfwihVxvjUsA6PydjZA8ZEeM2KvlKASHa3zWY=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=FA6B6DDdGbXCE4uDg89PIIdqfeKxPGTGxV1RGHAlFJnKB6ymf04I3VPPi7qXxVh6b
-	 74rJxhhHcb8IP5rq0ZSrk766NYCBEyRz+uYEWunjHJ+cswbrKLr3huOPg6oBMWymvO
-	 s5clc2JeRA2bf2ipKRQrqZUEcADoq6o8BcjN+NLv4zw7bPwvMbNG+lx1FP5OPAWK8b
-	 LpIvhNwdTh+WoPIlJ/ww5XhCiCJUcPUCmRCg7XWkR8sPSFl4eCMHRceV9UcjKasI8B
-	 zmdSyavm4kMhm/OX7/TiyR3AUvW0IDpOMQezoqNL/CjW1FAAwJDVF5u9l+5Lh4Fu01
-	 I+4dsu1jk6ENg==
-From: SJ Park <sj@kernel.org>
-To: Andrew Morton <akpm@linux-foundation.org>
-Cc: Gregory Price <gourry@gourry.net>,
-	SJ Park <sj@kernel.org>,
-	damon@lists.linux.dev,
+	dkim=pass (2048-bit key) header.d=kvaser.com header.i=@kvaser.com header.b="TUm23LAz"
+Received: from larsgullin.kvaser.se (larsgullin.kvaser.se [10.0.3.101])
+	by qmail.kvaser.se (Postfix) with ESMTP id 0E0C0E3016;
+	Tue,  6 Oct 2026 08:46:42 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kvaser.com; s=qmail;
+	t=1791269202; bh=J8+6rIGLErPljvj6gVJ8DhsceoxHGriCDvswLriWPaE=;
+	h=From:To:Cc:Subject:Date:From;
+	b=TUm23LAzrK9S7Q57GJO1E/ahMJ+dk2Rd9SLbQVOIKg9dZcn729BQHn67zNusas4rv
+	 5/zcchEbCX+zMyuQnXMtxFyfVCsm1a/yukzw/0Mpn+6h+x0zqcka7foVvDxSSLtTzX
+	 3qmxYxcGSxBJpCXEwKkmrXLo0WRKvPy1IvSmH1ZygdS9KO8gkMapF5dryewTZh8kz2
+	 jye8GyOvqwDtwQrCQtWAPpcEUJVVQJH/vcJ9rI2PL4MI9OXwWaXQFWo4PhrUP+oAdz
+	 Zjy3HvaWtYJooiCKO83GtSQpwvO5TiGz0dCnqv/dyZIA+LebN/oXymrpDtBHqeF+3T
+	 HXV97sZZN+pMg==
+From: Marcus Flyckt <marcus.flyckt@kvaser.com>
+To: Lee Jones <lee@kernel.org>,
+	Pavel Machek <pavel@kernel.org>
+Cc: linux-leds@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	linux-mm@kvack.org
-Subject: [PATCH 2/3] mm/damon: use damon_get_monitor_folio() for hugetlb entries
-Date: Mon,  5 Oct 2026 23:52:06 -0700
-Message-ID: <20261006065209.41507-3-sj@kernel.org>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20261006065209.41507-1-sj@kernel.org>
-References: <20261006065209.41507-1-sj@kernel.org>
+	Marcus Flyckt <marcus.flyckt@kvaser.com>,
+	Jimmy Assarsson <extja@kvaser.com>
+Subject: [PATCH v2] leds: trigger: netdev: Support devices in other network namespaces
+Date: Tue,  6 Oct 2026 08:46:03 +0200
+Message-ID: <20261006064603.1081262-1-marcus.flyckt@kvaser.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -47,83 +44,170 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Gregory Price <gourry@gourry.net>
+The netdev LED trigger currently cannot resolve a network device that
+has been moved into another network namespace.
 
-Hugetlb folio acquisition is open-coded in three places:
-  - damon_hugetlb_mkold()
-  - damon_young_hugetlb_entry()
-  - damon_va_probe_hugetlb_entry()
+For example:
 
-DAMON already has damon_get_monitor_folio(), which paddr uses to
-get monitored LRU and hugetlb folios and to filter them through
-damon_folio_acceptable().  These paths bypass that check.
+  ip link add vm1 type veth peer vm2
+  tools/leds/uledmon test:green:netdev &
 
-Use that helper in these paths too, so that DAMON acquires hugetlb
-folios and applies its acceptance policy in one place.
+  echo netdev > /sys/class/leds/test:green:netdev/trigger
+  echo 1 > /sys/class/leds/test:green:netdev/link
 
-No functional change intended. All callers reach these paths with a
-present hugetlb PTE under the page table lock, so the folio is always
-a mapped hugetlb folio and the helper always returns it.
+  ip netns add ledns
+  ip link set vm2 netns ledns
+  ip netns exec ledns \
+          sh -c 'echo vm2 > /sys/class/leds/test:green:netdev/device_name'
 
-Cc: Gregory Price <gourry@gourry.net>
-Signed-off-by: Gregory Price (Meta) <gourry@gourry.net>
-Reviewed-by: SJ Park <sj@kernel.org>
-Signed-off-by: SJ Park <sj@kernel.org>
+Before this change, the lookup fails because it is always performed in
+the initial network namespace.
+
+Resolve the device name in the network namespace of the task writing
+device_name. Once resolved, follow the device through renames and
+network namespace moves.
+
+With the example above, bringing both ends up makes the LED reflect the
+link state of vm2:
+
+  ip link set vm1 up
+  ip netns exec ledns ip link set vm2 up
+
+A possibly confusing aspect of this change is that the feature uses the
+global LED sysfs interface, which is not network namespace aware. The
+namespace is therefore effectively selected by the task that last wrote
+device_name.
+
+Signed-off-by: Marcus Flyckt <marcus.flyckt@kvaser.com>
+Reviewed-by: Jimmy Assarsson <extja@kvaser.com>
+Tested-by: Jimmy Assarsson <extja@kvaser.com>
 ---
-Changes from v1
-- v1: https://lore.kernel.org/20261002140727.701709-1-gourry@gourry.net
-- Collect R-b: from SJ.
-- Rebase to the latest mm-new.
+Changes in v2:
+- Instead of taking a reference to a network namespace, use net_cookie
+- Include used headers explicitly
+- Use C-style comments
 
- mm/damon/ops-common.c |  6 ++++--
- mm/damon/vaddr.c      | 10 ++++++----
- 2 files changed, 10 insertions(+), 6 deletions(-)
+ drivers/leds/trigger/ledtrig-netdev.c | 50 +++++++++++++++++++--------
+ 1 file changed, 36 insertions(+), 14 deletions(-)
 
-diff --git a/mm/damon/ops-common.c b/mm/damon/ops-common.c
-index 7a7429359dc8..2f3bf86a221b 100644
---- a/mm/damon/ops-common.c
-+++ b/mm/damon/ops-common.c
-@@ -140,9 +140,11 @@ void damon_hugetlb_mkold(pte_t *pte, struct mm_struct *mm,
+diff --git a/drivers/leds/trigger/ledtrig-netdev.c b/drivers/leds/trigger/ledtrig-netdev.c
+index 5b0132484594..16357d45b3cd 100644
+--- a/drivers/leds/trigger/ledtrig-netdev.c
++++ b/drivers/leds/trigger/ledtrig-netdev.c
+@@ -22,10 +22,13 @@
+ #include <linux/list.h>
+ #include <linux/module.h>
+ #include <linux/netdevice.h>
++#include <linux/nsproxy.h>
+ #include <linux/mutex.h>
+ #include <linux/phy.h>
+ #include <linux/rtnetlink.h>
++#include <linux/string.h>
+ #include <linux/timer.h>
++#include <net/net_namespace.h>
+ #include <net/netdev_lock.h>
+ #include "../leds.h"
+ 
+@@ -64,6 +67,8 @@ struct led_netdev_data {
+ 	struct led_classdev *led_cdev;
+ 	struct net_device *net_dev;
+ 
++	/* net namespace cookie associated with device_name */
++	u64 net_cookie;
+ 	char device_name[IFNAMSIZ];
+ 	atomic_t interval;
+ 	unsigned int last_activity;
+@@ -274,7 +279,7 @@ static ssize_t device_name_show(struct device *dev,
+ }
+ 
+ static int set_device_name(struct led_netdev_data *trigger_data,
+-			   const char *name, size_t size)
++			   struct net *net, const char *name, size_t size)
  {
- 	bool referenced = false;
- 	pte_t entry = huge_ptep_get(mm, addr, pte);
--	struct folio *folio = pfn_folio(pte_pfn(entry));
-+	struct folio *folio;
+ 	struct net_device *new_dev = NULL;
+ 	char device_name[IFNAMSIZ];
+@@ -294,9 +299,12 @@ static int set_device_name(struct led_netdev_data *trigger_data,
+ 	 */
+ 	rtnl_lock();
+ 	if (device_name[0]) {
+-		new_dev = dev_get_by_name(&init_net, device_name);
++		trigger_data->net_cookie = net->net_cookie;
++		new_dev = dev_get_by_name(net, device_name);
+ 		if (new_dev)
+ 			netdev_lock_ops(new_dev);
++	} else {
++		trigger_data->net_cookie = 0;
+ 	}
+ 	mutex_lock(&trigger_data->lock);
  
--	folio_get(folio);
-+	folio = damon_get_monitor_folio(pte_pfn(entry));
-+	if (!folio)
-+		return;
+@@ -331,7 +339,8 @@ static ssize_t device_name_store(struct device *dev,
+ 	struct led_netdev_data *trigger_data = led_trigger_get_drvdata(dev);
+ 	int ret;
  
- 	referenced = damon_hugetlb_ptep_mkold(pte, mm, vma, addr, &entry);
- 	if (mmu_notifier_clear_young(mm, addr,
-diff --git a/mm/damon/vaddr.c b/mm/damon/vaddr.c
-index d5dde97b3cd0..b549496ea8e2 100644
---- a/mm/damon/vaddr.c
-+++ b/mm/damon/vaddr.c
-@@ -411,8 +411,9 @@ static int damon_young_hugetlb_entry(pte_t *pte, unsigned long hmask,
- 	if (!pte_present(entry))
- 		goto out;
+-	ret = set_device_name(trigger_data, buf, size);
++	ret = set_device_name(trigger_data, current->nsproxy->net_ns, buf,
++			      size);
  
--	folio = pfn_folio(pte_pfn(entry));
--	folio_get(folio);
-+	folio = damon_get_monitor_folio(pte_pfn(entry));
-+	if (!folio)
-+		goto out;
+ 	if (ret < 0)
+ 		return ret;
+@@ -616,15 +625,24 @@ static int netdev_trig_notify(struct notifier_block *nb,
+ 		container_of(nb, struct led_netdev_data, notifier);
+ 	struct led_classdev *led_cdev = trigger_data->led_cdev;
  
- 	if (pte_young(entry) || !folio_test_idle(folio) ||
- 	    mmu_notifier_test_young(walk->mm, addr))
-@@ -660,8 +661,9 @@ static int damon_va_probe_hugetlb_entry(pte_t *pte, unsigned long hmask,
- 	if (!pte_present(entry))
- 		goto out;
+-	if (evt != NETDEV_UP && evt != NETDEV_DOWN && evt != NETDEV_CHANGE
+-	    && evt != NETDEV_REGISTER && evt != NETDEV_UNREGISTER
+-	    && evt != NETDEV_CHANGENAME)
++	if (evt != NETDEV_UP && evt != NETDEV_DOWN && evt != NETDEV_CHANGE &&
++	    evt != NETDEV_REGISTER && evt != NETDEV_UNREGISTER &&
++	    evt != NETDEV_CHANGENAME)
+ 		return NOTIFY_DONE;
  
--	folio = pfn_folio(pte_pfn(entry));
--	folio_get(folio);
-+	folio = damon_get_monitor_folio(pte_pfn(entry));
-+	if (!folio)
-+		goto out;
- 	damon_va_probe_folio(priv->ctx, priv->r, folio, &entry, NULL,
- 			walk->vma->vm_mm);
- 	folio_put(folio);
+-	if (!(dev == trigger_data->net_dev ||
+-	      (evt == NETDEV_CHANGENAME && !strcmp(dev->name, trigger_data->device_name)) ||
+-	      (evt == NETDEV_REGISTER && !strcmp(dev->name, trigger_data->device_name))))
+-		return NOTIFY_DONE;
++	if (trigger_data->net_dev) {
++		if (dev != trigger_data->net_dev)
++			return NOTIFY_DONE;
++		/* Ignore namespace transfers */
++		if (evt == NETDEV_UNREGISTER &&
++		    dev->reg_state != NETREG_UNREGISTERING)
++			return NOTIFY_DONE;
++	} else {
++		if ((evt != NETDEV_REGISTER && evt != NETDEV_CHANGENAME) ||
++		    dev_net(dev)->net_cookie != trigger_data->net_cookie ||
++		    strcmp(dev->name, trigger_data->device_name) != 0)
++			return NOTIFY_DONE;
++	}
+ 
+ 	cancel_delayed_work_sync(&trigger_data->work);
+ 
+@@ -636,9 +654,12 @@ static int netdev_trig_notify(struct notifier_block *nb,
+ 	switch (evt) {
+ 	case NETDEV_CHANGENAME:
+ 	case NETDEV_REGISTER:
+-		dev_put(trigger_data->net_dev);
+-		dev_hold(dev);
+-		trigger_data->net_dev = dev;
++		if (!trigger_data->net_dev) {
++			dev_hold(dev);
++			trigger_data->net_dev = dev;
++		}
++		trigger_data->net_cookie = dev_net(dev)->net_cookie;
++		strscpy(trigger_data->device_name, dev->name, IFNAMSIZ);
+ 		if (evt == NETDEV_CHANGENAME)
+ 			get_device_state(trigger_data);
+ 		break;
+@@ -765,7 +786,8 @@ static int netdev_trig_activate(struct led_classdev *led_cdev)
+ 			const char *name = dev_name(dev);
+ 
+ 			trigger_data->hw_control = true;
+-			set_device_name(trigger_data, name, strlen(name));
++			set_device_name(trigger_data, dev_net(to_net_dev(dev)),
++					name, strlen(name));
+ 
+ 			rc = led_cdev->hw_control_get(led_cdev, &mode);
+ 			if (!rc)
 -- 
-2.47.3
+2.43.0
+
