@@ -1,196 +1,142 @@
-Received: from MW6PR02CU001.outbound.protection.outlook.com (mail-westus2azon11012010.outbound.protection.outlook.com [52.101.48.10])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com [209.85.128.52])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 495E949F105;
-	Tue,  6 Oct 2026 16:17:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.48.10
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791303435; cv=fail; b=hns/gTx28jwrcipKVUvSZmJZDUZpMNWKDa74MXPacemvSUnB6nZpMPkGolDile+ByrpMvTpe8QRG0Fje5eTnoMRWn/BlsK5NIQ18+ZmjzXPCJeI+n2w0+pfLGpCPnD/wRLxugLnbQKMDC6SGePu+mEVEXaXwlOFc2yLoYIDGb/I=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791303435; c=relaxed/simple;
-	bh=qYdUqINX0uzLg3I2mqUfMy+VJnuarivIjrAea5F6peM=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
-	 Content-Disposition:In-Reply-To:MIME-Version; b=LZND5JMjmVD+ufoP1S58+8yYs6pNg/7/IqopNETXODHMUHPmlY3PKKISXt8DLqL+W2kwmpzyb0H1xIUEeVkomRDxNDLwzwtTrlpHi/+8AHhtdzbvcBVcWuXe3ur9lMPP3OSz2fK1JMiJ93YiVq3nSKGuoGCC8PriKw7N+UYA6T8=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=Gb4OF7rx; arc=fail smtp.client-ip=52.101.48.10
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BD98149E13F
+	for <linux-kernel@vger.kernel.org>; Tue,  6 Oct 2026 16:17:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.52
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791303480; cv=none; b=QeIKef0zAIFwcpCmdwE7wHdGBd8MJ2oDbB0qvcLD78LGPBqtnAjedbR0fnDaJVEkQdtU4tpP00WHuiTwekSxh16IPLjei86mwO/bIktBY+e5wnVxTXqmE5LJXPsmoZJmsQJRFjEqKqCV21OytNq2d1EwCjTdfmIw1M9b3g9N5lo=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791303480; c=relaxed/simple;
+	bh=B1Mdpk03iIpWeMkqOfV1qprInLhjCazDZYQpMs3zUx8=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=RTEbsVqNX/sNnKrcq3JTXAoSY76UKMcwh84/IBE8+B1/VsMmKhUhU6XyolawK7qhwxefAamAAzuijrU6o+cKeSSIkFjEWy9/apKVWbVJ1GvOnXGWqVZDGDacxnqzj/JdK8oXwtzfTBu4M4SA0dgx9nNGTKNWgR/PTbwlXwDxM+k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=UptOmR/L; arc=none smtp.client-ip=209.85.128.52
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="Gb4OF7rx"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Y4OUk99B6CrykWYOSwdKBYK6lEZ2PUwiHm4HYlSLU44FUFVqZAxh7pq9dw1K4+icSoYOUWsFUTJoGrUcRW7rNyDeQkLgYbIN9fZrpQLBRnBuKFcBbQIhz9NRHX6ULJESDZDh1LaG/yVjG5Gm+SWeRbenvHAgN2DfIuMX+uHaNZ/go/Rw8EiPyKQu9WNF1lyuaMGlgDXiXEFFbQhp1zsjyPz6rB2l7HaOia8wtimrXv22mf++4G/0Fk7+m6xae4UMGb5lLDqOGppVEKbzSqar+bCkZeWtlKZjbj0vCEVvFiEqepybYkLwNY/6QcWgR3V+VSKpzjrBXAfCr2elZ4Y4Eg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=sxUALd5G4Ij+v/nSYKX4JmksiQRQm9H5DyyIlBw3UcE=;
- b=XuM71lpWS+f+ovrhRhY3qSuwkR0oY812TVFsWZUbfArhp0losaR7ptwwL4tHGgunq22MoxYMlQjfDg7Yx5A3lfYktzAm2xSl738pyTiAqPbgL6JNWt9Xic19O8kJ40qLaZsWDGTNFKjRURwhz9/uQwRFcDGpP8hJHg7oJJmR73JDhdK5X73FPqx4yrvltkm44VLnKHL58eMCPAgsiXC87iwigg7Zzf3PA80bvzQ1G23teCICQn66tvOpiJK2DjlAbaKKYRdngSD7yu5tPF8seG4CE3hFzouJQ2YqyyE9jGiocEj6ylAJNJ0NFT/pLjbSJB+a8lvr/4quZlvCRDkl8g==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=sxUALd5G4Ij+v/nSYKX4JmksiQRQm9H5DyyIlBw3UcE=;
- b=Gb4OF7rxnq0l07tFKIdhpA/qRyfdY0dXQDyHJ7GiX9xlwi3wok7Lx3v84rAHqB3bx4a9cVLc72ATfl3kFGT3zm/ou6iheYyKsxfbrBDlsiNArNSGz/lSWVvj+zEkMjCokKx6XaKXLsOm1gs7UP/tKToFwd1Kb1+51t+cLI8mIAGVO9y+aH6yZHEqhUpW8xDMZX9VbOfHPW7X5WBzxmw/p/DXyUut4EoG9mcaq1sl3ILxK4JaloOLo3scvQer3SbymTNfkAaPV8UaDQUxnb60Mac0H22nuRykxP5hZzNtHvrXPG1gYAmfdbhzLMOkpj6e0xJlcrv96v4wr/2Sr2j5zw==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from LV3PR12MB9356.namprd12.prod.outlook.com (2603:10b6:408:20c::21)
- by CH3PR12MB8211.namprd12.prod.outlook.com (2603:10b6:610:125::11) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.21; Tue, 6 Oct
- 2026 16:17:01 +0000
-Received: from LV3PR12MB9356.namprd12.prod.outlook.com
- ([fe80::1c36:31b4:c420:6286]) by LV3PR12MB9356.namprd12.prod.outlook.com
- ([fe80::1c36:31b4:c420:6286%5]) with mapi id 15.21.0451.026; Tue, 6 Oct 2026
- 16:17:01 +0000
-Date: Tue, 6 Oct 2026 12:16:59 -0400
-From: Yury Norov <ynorov@nvidia.com>
-To: Georgios Androutsopoulos <georgeandrout13@gmail.com>
-Cc: Alice Ryhl <aliceryhl@google.com>, Burak Emir <burak.emir@gmail.com>,
-	Miguel Ojeda <ojeda@kernel.org>, Yury Norov <yury.norov@gmail.com>,
-	Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>,
-	=?iso-8859-1?Q?Bj=F6rn?= Roy Baron <bjorn3_gh@protonmail.com>,
-	Benno Lossin <lossin@kernel.org>,
-	Andreas Hindborg <a.hindborg@kernel.org>,
-	Trevor Gross <tmgross@umich.edu>,
-	Danilo Krummrich <dakr@kernel.org>,
-	Daniel Almeida <daniel.almeida@collabora.com>,
-	Tamir Duberstein <tamird@kernel.org>,
-	Alexandre Courbot <acourbot@nvidia.com>,
-	Onur =?iso-8859-1?Q?=D6zkan?= <work@onurozkan.dev>,
-	Eliot Courtney <ecourtney@nvidia.com>,
-	rust-for-linux@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2] rust: id_pool: document panics in `find_unused_id`
- and `release_id`
-Message-ID: <asUe-3wpbPA9TgN9@yury>
-References: <20260908203157.1271219-1-georgeandrout13@gmail.com>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260908203157.1271219-1-georgeandrout13@gmail.com>
-X-ClientProxiedBy: BL1PR13CA0090.namprd13.prod.outlook.com
- (2603:10b6:208:2b8::35) To LV3PR12MB9356.namprd12.prod.outlook.com
- (2603:10b6:408:20c::21)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="UptOmR/L"
+Received: by mail-wm1-f52.google.com with SMTP id 5b1f17b1804b1-4a01933b584so8311655e9.0
+        for <linux-kernel@vger.kernel.org>; Tue, 06 Oct 2026 09:17:58 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791303477; x=1791908277; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=rj+ANBVjGQUDryG59riqH/2PuEnYDgs9HpOk5Pb5AgQ=;
+        b=UptOmR/Ljm5GHsdlffR+mAJFcjMDJn1UPlZf7I1qGo1jIPTaR5ybO7SoJ3PU4DrcIP
+         Zy2ksJ0OfXgvWgE+C9GlZre4Aehyr1j8WOqMuntb1lPCtXxsb8XO+kVty9BsdqGpxhrA
+         B+dqyhyeHx68h9tvWwqurwEYoRT4C/0ZVYIuj9+FGPg4qhi93jfwttvdfqntEsNUDvs0
+         BpbYgKByYmastLGeLAep3zrq55KDeO8xbiGZX3HLGZcxEengHRYM7vK9RnDJIknY3BZB
+         qv8+zE770M3aJuHUmn3lURwi8wES5AkRzlpI9lmdpUwWh0X3AucglsDQaP2EN+4uuuIN
+         3swA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791303477; x=1791908277;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=rj+ANBVjGQUDryG59riqH/2PuEnYDgs9HpOk5Pb5AgQ=;
+        b=cjaO+WilraLIERc9ej26FqyQJ/6HiF2QP8pTS3nUMKtLtwrcHNxWvsW87g2KafFh1g
+         a1qFM3AK1Ys2sxjoJG0gLQkO7fQ+NHaCAvKKJ6k8FQanHORQKKNZYpDNLe7NPbQs/ZC2
+         nchSGih36J/P6rly//lfXnCpgS/XoNhFnCN3b3PcttgZcK6hQ3clU8BWfV2WMtbvfJaW
+         ybJXfoShv2FmHcQnLhk/YQJ/4GXsQxPJNuvEIA56MwX57yAroO8WRz7RzkaIcoc+f9I5
+         L7UqLoKouJSUwzdfFogybPaiDjHWyBbpUqbJHy739zv9uEpGu7xKimB0tJgYkK75g5Su
+         pndw==
+X-Forwarded-Encrypted: i=1; AKwUvBzFAL3EmfgNuKQDe+43ouAy/HeoQfHiXLbF2/maaNWcJy055knMaNUxAfXv8K0FM6k5G7jfZpySJfAxLkg=@vger.kernel.org
+X-Gm-Message-State: AFuF++nMGlo4IeNJfZ4SIdnK4PdFjUtAJz5ZJ3kdePsnreIMD0OPRvq+
+	LNgrj+1AZPSJLekLtGycHmleZxpsmL8ZzgrCh+sCNGbDEJW4s4O62ZEX
+X-Gm-Gg: AYBFou3rX2vxCCkuWB30w9Zyr/3rBLFATpFVn0kzkL3vMCpK4qU8uSONXh/EHicaqsH
+	+xkIuA2S86MXyupvFy0K8gdZCF7LNu4PtS9Py79BZchRBFKyFP7kZ+I/DWkiIVugUI0m8s8BHFf
+	RsfFc0PQNbz0oaYoViH5vwyi1Z3uW0XH6ZfZ3EstLk7i8sdJZUauBsIPqsqlTfPNiH7IP1/UQwp
+	bdRNXmd+Pi1NLOOOmNjRz3Q1EH8FtXyMhLsZQtNOf23+XYwh8nJU+9FhhmRkAmCDShgLd2mxabk
+	vuO9QeDKLcVMf722fZp1uSoIkAu1gU11gxBM3cKfoworP2+IQZIE4orIZInnTyeH7G5cXXuuhJa
+	HXhbAgohmNesA2Z7quRhgMZnLYH4aBlXAaoG7YKcA8cuReJdaKNIDRwe9WevZsy6KXfvrQKFbX6
+	/v9PWPnaXiEDeqJxwxa1OLy4kJKZaTs0ntF9wGbLSXpytCMj60K3FsQKLcSUnABRJph5kLC+3pK
+	B0m8e4IDfWB5BuA39TjZw==
+X-Received: by 2002:a05:600c:8b09:b0:4a0:1b14:e283 with SMTP id 5b1f17b1804b1-4a17b4f4276mr32986425e9.1.1791303476638;
+        Tue, 06 Oct 2026 09:17:56 -0700 (PDT)
+Received: from FranzSP11.tail2d6612.ts.net ([31.31.60.25])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a03ff20831sm275692765e9.4.2026.10.06.09.17.54
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 06 Oct 2026 09:17:54 -0700 (PDT)
+From: =?UTF-8?q?Fran=C3=A7ois=20Roux?= <franzelfranzel@gmail.com>
+To: Johannes Berg <johannes@sipsolutions.net>
+Cc: Diederik de Haas <diederik@cknow-tech.com>,
+	Emmanuel Grumbach <emmanuel.grumbach@intel.com>,
+	linux-wireless@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH] wifi: nl80211: don't WARN on a missing self-managed regdom
+Date: Tue,  6 Oct 2026 18:17:44 +0200
+Message-ID: <20261006161744.3804-1-franzelfranzel@gmail.com>
+X-Mailer: git-send-email 2.56.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: LV3PR12MB9356:EE_|CH3PR12MB8211:EE_
-X-MS-Office365-Filtering-Correlation-Id: 698b1193-8965-488e-927e-08df23c54091
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|7416014|10070799003|1800799024|366016|376014|10067099003|11063799006|4133799003|56012099006|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info:
-	QaHyqp1DUIkK1nvYMgKjaf8IFXLtPyQa+MmydMUQXfrovQ99WniV0wY0kkcM8WFikWwA9NfOLllfJNJczk3Yii/izS9cx3ec8EthcbM39o3bqGlYF7FeEOK7wWbIi75vGfpvvUU4g0CYybVHlfXW+7ZlmtoqviEHr3k9zVZB804h1308qDjkDhC7izJnCXcVCufjjC0dGwOfj2T3LBbZ0EoVTzTUGpUJZ5+WFIySz7KdK4YcAcMv3vbXAXQ85mHsQW6bH6pKMFqbriU7fxOfNdY3b68lRzJielaHZ/Bi53Afw5e5hq53d1P/kAVA3aXtAItkYauXtXeHEgN4KjPEiOs0SZ7fDufKZHHYSF38xo2O1G1Hs3rt1N3nuR/VXBwM3tn6BlHeU5raJdpGT6j/BSQR5KDfudngIE4FBPLhw5t6pjCgBLfgaJ85urjZF+sj/xIsF1leCVugsL0ngFzw+nH1zWxVm7DQq3D/4jKrP6u93fZ9MfhCagj9kqUQwLMQ39GT48Zph0tuY/yQpoKk7wbMAsgpWXKFD32OVmSFkSLxfSXiZKRfpkKZlFTG7T5u7DJL/6ugYrr+O8rBd0aTDLc9c4nzirwm7sW55qod4HqRgHk1oyBNNqnLfb5PQK2zqZfoR8tWGezEc5teHyZROjHAJTGpWxDGqHbn7JTy654=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:LV3PR12MB9356.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(7416014)(10070799003)(1800799024)(366016)(376014)(10067099003)(11063799006)(4133799003)(56012099006)(18002099003)(22082099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?2Zs+L250fwzwtBUUPfKdiUPNlxUukleYoRPzIZgFawfpPZyqNVqqRnNnuyEu?=
- =?us-ascii?Q?D4bT7SUxliMLg4ZoM/M9MSZCM3Mj+g9VLpRtAHvWe2nl1smVSIyVrGp/5J1e?=
- =?us-ascii?Q?1ne6PPgh0OSlfE5gKubPeVHYbBVB2t/rBJqkpeqP54l30OH4YouvccgRkvHE?=
- =?us-ascii?Q?rdFRhLmrNC2q9qZGAQ88q6x3RQlLLFsZskNaPGHmOnSAiIYGnRdDrtrto+BR?=
- =?us-ascii?Q?4yZ+uSJFsU4q4gt69TXwQaIG6cr0dtRFtw1E/XlcWcWTyVNE67REnrRxeonD?=
- =?us-ascii?Q?UvQYdYpsW0vvTQpMki+e7CsemjF6Y20jnKAXOGPizXSQCR1BsgCXbaI3Lvdq?=
- =?us-ascii?Q?Wq+zpe9d858sSRs7OgXa3XD7Ki2b6xHOKLXZtBGWop5LoFVcYewgWF5TOq77?=
- =?us-ascii?Q?U+O2tqKrOwqSadaNpWDm1ooIYzPHEVelwp6A3JXKY0FoImDdVcNheiTbhIQD?=
- =?us-ascii?Q?ke7kEeRpjglaqErmyjCqSeQGFnwM+wNJGOMZdT7p/zOopymmyymsMJH8JBUD?=
- =?us-ascii?Q?j5PzJ6hKaAqhsUtAAi1riNuiZdlWLw3WWfYcEIhDSd8uhmPv5C5ewJqC/KwP?=
- =?us-ascii?Q?ylNX0gT5m73mIwKn7E81Js9iu31VyX4Ke0IfgM6i0pBVuDfS0MWCqyiy/yMA?=
- =?us-ascii?Q?Q3Xy/QiyCBFyWe22MHeTMIOE4RxGtkq+Yuli4MvfEw45x6/k96FYrBsyy2q+?=
- =?us-ascii?Q?Vb20AZ8r8NkJXjlxg0qotjESgKnLW6nDje3hTUyTtWnzpI55kYm9yk/38/TY?=
- =?us-ascii?Q?Zwo9TEv1UNPJRn38SydS8J+ivndWeVqJHyZucekGCDf++Z/DVkY+whR7YZsz?=
- =?us-ascii?Q?HlbX7/kf9lCR8CtbmqoM3uYKkMKtZGWAIZnZLYA9bND5C5KOdSM7B5TftzdW?=
- =?us-ascii?Q?ERcCZIJWtHitAaYRUrhEbOiifsnFi3K7XgYHeSiK5bdRG9ZMgSNtScoHSYjQ?=
- =?us-ascii?Q?6KAUEFiygNETPrlMN190amVePaUG+oHbtw7OUKs9fmymQyQ3Nx1mEOlBEKR1?=
- =?us-ascii?Q?w31VxcLe7MJl7XGjQsfsyaTJjjepO3HvNClLID+5Jo43NYb83nws0qlAmqrP?=
- =?us-ascii?Q?lY2KXziRdVX648oQqLb7jivflfox8oqAIBLce/4qx3VWL1dnCQBK/FBKtnpd?=
- =?us-ascii?Q?/yz9qf+chqXgXtxSgrd7nUgG3XTdcwEJxR5mBBt1+Ot024GWgqdhxgfgYWMT?=
- =?us-ascii?Q?OZGEBhGER2/HcYdQiK3dhzYTLDEwD0sJLPGzk44uMcz5j0OPiGF4jo1fbwNW?=
- =?us-ascii?Q?CWUx4enirpSX1G4LyGsrcdYMLoqRupYH7EBP/358F5vkQ2Wm4dfX+4joXBtF?=
- =?us-ascii?Q?UvB2uVQKtuS1gxjlCBSrKAyfzmoOwjUSE4+/XJToUJ40Ms5hFeX87nCQ5n02?=
- =?us-ascii?Q?N57isapIFN4VSGDGJ2677OSnDPQfXCCXq2r017Z0ohGYJMTJw1hiGFXoe0N8?=
- =?us-ascii?Q?thlYcRMkGYwfHnqTMGjmyMHpykgtcz//1MY53SetKBhvoRuqC7DwznJFEwF2?=
- =?us-ascii?Q?sS2WRUH8KIXxTtb7zYCIK3SrwNkzQirOY9FKB/XhFXdkxSS1bnIVgHzpVg0C?=
- =?us-ascii?Q?+L9KpTZQg1Lg+EZ6KOyVr55KKZUXgVNBHEOSMWpmANrI7idMwJ1XzTrgVTLm?=
- =?us-ascii?Q?4fKlt7vtn8gr7mh5yUuIPWDjTkY0RXkbQOX7mmKYZOim8ogUM1WQkOtynL+o?=
- =?us-ascii?Q?LVJRC/5SKyyT6CfgTnHe+WsUcYL0QV2MUswQyaO0dKTiGRMjBON5/IZcJ0zC?=
- =?us-ascii?Q?VT9h3zgReKAf4ICv/elhfWC3rzx5n0R0darjNKut645ICY+VWGB3?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 698b1193-8965-488e-927e-08df23c54091
-X-MS-Exchange-CrossTenant-AuthSource: LV3PR12MB9356.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Oct 2026 16:17:01.0345
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: rzRJXfpxHz6t5yuZGCtKDa2E73KGtpRQS9GiJiCpzkvOWlq7yZA+tfYddmqnKQ948pY6DWRTigPvmjvreiyAsg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB8211
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On Tue, Sep 08, 2026 at 04:31:57PM -0400, Georgios Androutsopoulos wrote:
-> `find_unused_id()` calls `Bitmap::next_zero_bit()` and `release_id()`
-> calls `Bitmap::clear_bit()`, both of which panic when
-> `CONFIG_RUST_BITMAP_HARDENED` is enabled and the index is out of
-> bounds. Neither `IdPool` method documents this.
-> 
-> Add the missing `# Panics` sections and state the bounds requirement
-> on `offset` and `id`.
-> 
-> Fixes: 2cdae413cd3e ("rust: add dynamic ID pool abstraction for bitmap")
-> Reviewed-by: Alexandre Courbot <acourbot@nvidia.com>
-> Signed-off-by: Georgios Androutsopoulos <georgeandrout13@gmail.com>
+nl80211_get_reg_do() has a WARN_ON() for a self-managed wiphy without a
+private regdomain. Userspace can trigger it with a plain
+NL80211_CMD_GET_REG request.
 
-Applied both in bitmap-for-next. Thanks!
+Drivers can register such a wiphy first and set its regdomain later.
+ath12k, for example, calls ieee80211_register_hw() and only then applies
+the regdomain with ath12k_regd_update(). iwd queries the regdomain of a
+new wiphy as soon as it shows up, so it can hit that window at boot:
 
-> ---
-> Changes in v2:
-> - Use "within bounds" instead of "in bounds", following feedback from
->   Alexandre Courbot.
-> - Add Fixes:, treating the documentation hole as a bug [1].
-> - Link to v1: https://lore.kernel.org/rust-for-linux/20260829153442.20799-1-georgeandrout13@gmail.com/
-> 
-> [1] https://lore.kernel.org/rust-for-linux/CANiq72mgZg-QBy4gwzHmD4gJm4wScktfpdDtyZt3Zijk83h2CA@mail.gmail.com/
-> ---
->  rust/kernel/id_pool.rs | 15 ++++++++++++++-
->  1 file changed, 14 insertions(+), 1 deletion(-)
-> 
-> diff --git a/rust/kernel/id_pool.rs b/rust/kernel/id_pool.rs
-> index 384753fe0e44..ae6960d7f638 100644
-> --- a/rust/kernel/id_pool.rs
-> +++ b/rust/kernel/id_pool.rs
-> @@ -224,7 +224,13 @@ pub fn grow(&mut self, mut resizer: PoolResizer) {
->      /// Finds an unused ID in the bitmap.
->      ///
->      /// Upon success, returns its index. Otherwise, returns [`None`]
-> -    /// to indicate that a [`Self::grow_request`] is needed.
-> +    /// to indicate that a [`Self::grow_request`] is needed. `offset` must be
-> +    /// within bounds.
-> +    ///
-> +    /// # Panics
-> +    ///
-> +    /// Panics if `CONFIG_RUST_BITMAP_HARDENED` is enabled and `offset` is out
-> +    /// of bounds.
->      #[inline]
->      #[must_use]
->      pub fn find_unused_id(&mut self, offset: usize) -> Option<UnusedId<'_>> {
-> @@ -236,6 +242,13 @@ pub fn find_unused_id(&mut self, offset: usize) -> Option<UnusedId<'_>> {
->      }
-> 
->      /// Releases an ID.
-> +    ///
-> +    /// The `id` must be within bounds.
-> +    ///
-> +    /// # Panics
-> +    ///
-> +    /// Panics if `CONFIG_RUST_BITMAP_HARDENED` is enabled and `id` is out of
-> +    /// bounds.
->      #[inline]
->      pub fn release_id(&mut self, id: usize) {
->          self.map.clear_bit(id);
-> 
-> base-commit: 73e3f0710014fe6d4ed98cfc02292f6121db7558
-> --
-> 2.47.3
+  WARNING: net/wireless/nl80211.c:10828 at nl80211_get_reg_do+0x1d0/0x1fc [cfg80211], CPU#5: iwd/721
+  Call trace:
+   nl80211_get_reg_do+0x1d0/0x1fc [cfg80211] (P)
+   genl_family_rcv_msg_doit+0xd0/0x138
+   genl_rcv_msg+0x58/0xd4
+   netlink_rcv_skb+0x5c/0x140
+   genl_rcv+0x34/0x4c
+   netlink_unicast+0x31c/0x39c
+   netlink_sendmsg+0x188/0x400
+
+The same trace has been reported with an Intel BE200 (iwlwifi). The dump
+variant, nl80211_get_reg_dump(), already skips a wiphy without a
+regdomain without warning.
+
+Keep returning -EINVAL, but drop the WARN_ON(). The same change was
+posted in 2021 but was never applied.
+
+Seen on a Microsoft Surface Pro 11 (WCN7850, ath12k) in 3 of 4 boots
+with next-20260929.
+
+Fixes: 1bdd716cbcca ("cfg80211: return private regdom for self-managed devices")
+Reported-by: Diederik de Haas <diederik@cknow-tech.com>
+Closes: https://lore.kernel.org/all/DL5P72WYQVOQ.23G9D01OY3BAA@cknow-tech.com/
+Link: https://lore.kernel.org/all/iwlwifi.20210409123755.ba2ea961f4ae.I8fde32d3196e860efa3b4ec464c42194195b42ec@changeid/
+Assisted-by: LLM
+Signed-off-by: François Roux <franzelfranzel@gmail.com>
+---
+ net/wireless/nl80211.c | 8 ++++++--
+ 1 file changed, 6 insertions(+), 2 deletions(-)
+
+diff --git a/net/wireless/nl80211.c b/net/wireless/nl80211.c
+index a18240455..2589491af 100644
+--- a/net/wireless/nl80211.c
++++ b/net/wireless/nl80211.c
+@@ -10824,8 +10824,12 @@ static int nl80211_get_reg_do(struct sk_buff *skb, struct genl_info *info)
+ 
+ 		regdom = get_wiphy_regdom(wiphy);
+ 
+-		/* a self-managed-reg device must have a private regdom */
+-		if (WARN_ON(!regdom && self_managed)) {
++		/*
++		 * A self-managed-reg device gets its private regdom from the
++		 * driver, which may happen only after the wiphy is registered.
++		 * Userspace can ask before that, so don't WARN.
++		 */
++		if (!regdom && self_managed) {
+ 			err = -EINVAL;
+ 			goto nla_put_failure_rcu;
+ 		}
+
+base-commit: 6474fa070f2b8013b4b87350b775b8c3be6e8aac
+-- 
+2.56.0
+
