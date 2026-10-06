@@ -1,83 +1,128 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pf1-f177.google.com (mail-pf1-f177.google.com [209.85.210.177])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7ECA13BCD17
-	for <linux-kernel@vger.kernel.org>; Tue,  6 Oct 2026 10:15:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E18EE3B42CE
+	for <linux-kernel@vger.kernel.org>; Tue,  6 Oct 2026 10:16:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.177
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791281721; cv=none; b=M+qEjGDy3kC3O/i3bwj3S7gMiSSgMPJmMDwW0Uz2wQRKw7eRQH/R2kbWwLXO9NqJ5XqE0AFDIfyf+GSOoM3WgAMkL6zKXiJvQiFt5WKD2GWpB75AP8NjhHa5mNl782X5QJQF3NH/gAeDyHDwKIwD+5wpbDKf7NUJQJ+Q/l6sQaU=
+	t=1791281786; cv=none; b=lGaxIuytWLmcIUONJOIRXN98HdyF6OUuj3Y3tScKIBzJUIZ9avFlZDupE82AZR4MfWXMA8hlCpuYFaiw4Es5gn4NewI+p6me7XrAeFU1g209onUayUVK+W0vX3cIVhkPThcBwGa/7+5rWsuIUrudrrsHjvx/4HUucmJUAtIHvA0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791281721; c=relaxed/simple;
-	bh=m3le0LRoIEqiKvYzrW3hqwYXLg+E5AHVO4iOgQS6Y7Y=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=bFwI8V2CVwVKZl19NYCQPBcrbhHjIDWDlj+MCIxihJJw+bWihjYO2mMHX+YcbWo7Q2lrUJdJZsnZI/rDEFMBT0PQ68saPnmKEkhXWT/+a9uO8InW+kj4GoKgB1QJHO3kQmowm+mF6PLVJG4u12Nq4f/DuyQif1pnmR4eBwmbnDw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Dhf+YsEl; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791281786; c=relaxed/simple;
+	bh=zMu7p4w1FFyQwFOl6coYwO47IzKVkZ6aTy9C/T+sik4=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=QrpjMZXIsDOOeJWYY1wX3GwoUllOZIuMp484iLfIXgPxjA86JiP3t/WfZY9dksL/m4tY1XRvd3/ag6xoKKvvMGP/BHwq9ydo2C4ANzjo29cODzExRGmnd1cB4mWaCIesJVnUeFH45m9cbfZHwdzNG4bRTA/enkj5n6FAzHMZN/I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=p7EYZqOa; arc=none smtp.client-ip=209.85.210.177
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Dhf+YsEl"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1937D1F000FF
-	for <linux-kernel@vger.kernel.org>; Tue,  6 Oct 2026 10:15:20 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791281720;
-	bh=m3le0LRoIEqiKvYzrW3hqwYXLg+E5AHVO4iOgQS6Y7Y=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=Dhf+YsEln3vVB4wzsSmjgpeVi3x2X4baGjRWCX/BAuNnzlmOVkT2NGlj2QOR3PvvA
-	 V6V5V41k8cFwlh+c2v6UMl0sjgu2TMkIgBP6FWD58e0qts+VqDsL0O1F69t6bGlyUu
-	 9jMSAvsQ6HVZ6Gwx+5Gcp1PQJ29VVHipPF2fVWN47aFmnpR8oN5moipOdAgBVH0aYz
-	 pAkx73sis9dtuJzAT0J36uXYFvHIHoZoNIlXZaJ0/ANLly980UoEhFcjRwBSlO9mGi
-	 FmD7cfazHfwmG7LBsKlxDNuLM/pcf2CI2ww0Ai6FWGC9zzZj4i6+rSxT81uzqXRcID
-	 q3oSmvuZ0Katg==
-Received: by mail-lf1-f46.google.com with SMTP id 2adb3069b0e04-5ba41ea31ccso317056e87.0
-        for <linux-kernel@vger.kernel.org>; Tue, 06 Oct 2026 03:15:20 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBzY1itO7TyRc8iPI7L/o1tEcgjjSghZbLf0DLz694bg1qY8uZ3E3Tq3URikvBSLEN7OIOLKdFEoVMSExAk=@vger.kernel.org
-X-Gm-Message-State: AFq9FYL4Ls8PuIXjyXFBC139jejCZDi6P4sKibQMFz8XhVeJSBoZMeXr
-	zJG65P4+SIa6jx3m05/X1oSBUsIOhiooujAbwABNs3WpXElzSfh5Uy4HneVLRIeT9o4NC3buGVb
-	lPhg45ZqD0luW2We7ZnXgxivennWwgg4=
-X-Received: by 2002:a05:6512:b94:b0:5bc:ca67:c338 with SMTP id
- 2adb3069b0e04-5bccc6f0982mr427514e87.18.1791281718870; Tue, 06 Oct 2026
- 03:15:18 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="p7EYZqOa"
+Received: by mail-pf1-f177.google.com with SMTP id d2e1a72fcca58-8875d220446so313277b3a.3
+        for <linux-kernel@vger.kernel.org>; Tue, 06 Oct 2026 03:16:24 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791281784; x=1791886584; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=qoB87xt/si/5SQ89z++VwfJlgKEBpZZ8oa5UH367RG0=;
+        b=p7EYZqOapn5+Oofy87z0phMPAtxOLSGK7YNzVgEDkbTkKpxcODNDYK6n/etNRhY80B
+         oNLPlnvesA/YiyAbkpvs8duz2Doi/5rp2OeQ4KBKXfHKKY3T9sRNT8+V4MuJHdHknvdh
+         IvePyDZgGm+IKyvn3kq9I6wCDEbrbOtbDAQZpkAvhJncfxXQlhsyjyI6EdmukYEBRUkU
+         tc/NATdtvmh2tdHX8vA/zbGW8XTQ8rhg/CBzsdywGLo4/1e9fGOSj+blKN+1Jwi61dv/
+         DwYx2pXlf2OoxTuVBK5EX6fivrzJFEtjFlzqMa4lUmR3ppth3Vi1JsO7082gCi284mXY
+         capQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791281784; x=1791886584;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=qoB87xt/si/5SQ89z++VwfJlgKEBpZZ8oa5UH367RG0=;
+        b=er0pC6OcvP43GSp+gIFGK+NxYamNPA4upKIavwMAsiaHG3Z1tHnM9f0RO2w2azdYzv
+         zmGEdDgOMvbf5bvm+CmNEKyI/pDXRTaFOlnX5TrqQuAUEP+BokdDdpqf5+ZH1uCNUwv1
+         t8REe+8W9Yy1MKICIsyL65KWDw3WOj2KZi2czwhf7qYzQsgp81sSaHuPhRbzSMBfK86C
+         NhS+ehgCjyyfA7keIVnmcCwFPu11s3Ppj4P6j6ZqGyFzkS5/neIiwD9IaW6NtezsRm+3
+         3lp030otLov6eGHHHBuq9T1ONrwtUAs0H9W7nwPN98vxM9BUK5voPQXrota1+xFzGRG2
+         Qg/A==
+X-Forwarded-Encrypted: i=1; AKwUvBzsjN6Hea1stKOCpsfAQpqz5C6T+nSe+K/8Z9qwZrG1LnU0NnE5neQuMn3paog0cz2Lu1lgc7o2vOiaNgQ=@vger.kernel.org
+X-Gm-Message-State: AFuF++mLdJKcZU6GW0OHLdxZPHAc15AoO6bd5UuG8meWIGowM4XAwULt
+	g5ng2t+Ocn5vB1y+b3imd3NqsiihE3jO7Yfy6Dba1Ujg/ES1IAZ2sdfi
+X-Gm-Gg: AYBFou0MPUFcY0CKNny74jSlULm4KF2flVONEwK/fTg2Td3XSOsCFfDcetSJixdyvib
+	qCtEktoBHYh+DoEESdCd8bEyGlUsA3OAYoxg84HX3T2ZPDkm/U70lqMlcMWPcxbC+Rb8zNz/I4g
+	FnPFeB0kN/9V9i4JxfT6RCXlbAHz7+JknZiywDRK5Im0CJm7t8jNNQMOdu+wyZlDJM7ssis1FsX
+	RaObUu367I48i5IALUt4INYJC8+EqVcs/BOEUx1+nZ6toJxbL8k/xVlTEG9dWWDQDVIXdVi34ly
+	BglMbSQ0DZygkmscqMqR26koN726cf1dDZI6EiexJ6RB6AgcWxTHIdcwvG+fiicXSl9ugtYer2n
+	DPMBaSgHVtruzvdkNED5Segk8dJ9rKIQoKK0Y4KljpozhW63H5GROQIBUNek20DYkcERp0/hu1f
+	Oe+TIs55XXJtD9LhHps6JB2MxzLNdZBsDChYssGWzypzdblz+y3N84EWMZmwpOUo2rcmBAbrJ1U
+	kKMTCl1CDTQqxnCPHF31K6wAhbu/jARlg4hn0jL61JtAFS1nY/FAeIXaUPKvMbkGyz0ld8qFN7y
+	dibV1GyByWGcx1hneI2OK0hh
+X-Received: by 2002:a05:6a21:511:b0:3e0:da23:874a with SMTP id adf61e73a8af0-3e1246e1ec9mr796494637.18.1791281784146;
+        Tue, 06 Oct 2026 03:16:24 -0700 (PDT)
+Received: from phuc-desktop.. ([183.91.15.56])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-88b0d152432sm4547505b3a.53.2026.10.06.03.16.18
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 06 Oct 2026 03:16:23 -0700 (PDT)
+From: phucduc.bui@gmail.com
+To: Mark Brown <broonie@kernel.org>,
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+	Trevor Wu <trevor.wu@mediatek.com>
+Cc: Liam Girdwood <lgirdwood@gmail.com>,
+	Matthias Brugger <matthias.bgg@gmail.com>,
+	Jaroslav Kysela <perex@perex.cz>,
+	Takashi Iwai <tiwai@suse.com>,
+	Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
+	cassiogabrielcontato@gmail.com,
+	Haotian Zhang <vulab@iscas.ac.cn>,
+	Christian Marangi <ansuelsmth@gmail.com>,
+	Cezary Rojewski <cezary.rojewski@intel.com>,
+	Cyril Chao <Cyril.Chao@mediatek.com>,
+	Tuo Li <islituo@gmail.com>,
+	Rosen Penev <rosenp@gmail.com>,
+	Garlic Tseng <garlic.tseng@mediatek.com>,
+	Alexandre Mergnat <amergnat@baylibre.com>,
+	Dan Carpenter <error27@gmail.com>,
+	linux-sound@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-mediatek@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	bui duc phuc <phucduc.bui@gmail.com>
+Subject: [PATCH 0/4] ASoC: mediatek: Return 0 from FE startup on success
+Date: Tue,  6 Oct 2026 17:16:02 +0700
+Message-ID: <20261006101606.54079-1-phucduc.bui@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20261006055223.9299-1-kmehltretter@gmail.com>
-In-Reply-To: <20261006055223.9299-1-kmehltretter@gmail.com>
-From: Linus Walleij <linusw@kernel.org>
-Date: Tue, 6 Oct 2026 12:15:04 +0200
-X-Gmail-Original-Message-ID: <CAD++jLmsvaNhEUM1e+zvk-s_r6s6h=b7dKn0k_kA3y=GVuBFfA@mail.gmail.com>
-X-Gm-Features: AclHuK9Kpq7WO3g2iO3espGL5Ug3bTlQit7RXbcEmcKP4KcWJvOiVVHvmmiRJnQ
-Message-ID: <CAD++jLmsvaNhEUM1e+zvk-s_r6s6h=b7dKn0k_kA3y=GVuBFfA@mail.gmail.com>
-Subject: Re: [PATCH] ARM: mm: compare ARM926 cache range sizes as unsigned
-To: Karl Mehltretter <kmehltretter@gmail.com>
-Cc: Russell King <linux@armlinux.org.uk>, Arnd Bergmann <arnd@arndb.de>, 
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On Tue, Oct 6, 2026 at 7:53=E2=80=AFAM Karl Mehltretter <kmehltretter@gmail=
-.com> wrote:
+From: bui duc phuc <phucduc.bui@gmail.com>
 
-> arm926_flush_user_cache_range() uses BGT to compare end - start
-> with CACHE_DLIMIT. Sizes of 2 GiB or more are treated as negative
-> and take the cache-line loop instead of the whole-cache path.
->
-> Use BHI for an unsigned comparison, keeping the line-by-line path
-> at exactly CACHE_DLIMIT.
->
-> With the default 3G/1G split, unmapping an untouched 2 GiB
-> PROT_NONE mapping flushes the range through tlb_start_vma().
-> On a SAM9X75 Curiosity board, munmap() took about 1.3 seconds
-> unpatched and 20 ms patched.
->
-> Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
-> Assisted-by: LLM
-> Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
+Hi all,
 
-Ooops!
-Reviewed-by: Linus Walleij <linusw@kernel.org>
+Some FE startup callbacks may return a positive value from constraint 
+helpers, but ASoC expects 0 on success. This can cause .shutdown() to be 
+skipped during rollback.
 
-Make sure to put this into Russell's patch tracker!
+Return 0 explicitly on success.
 
-Yours,
-Linus Walleij
+Compile-tested only.
+
+Best regards,
+Phuc
+
+bui duc phuc (4):
+  ASoC: mediatek: common: return 0 from mtk_afe_fe_startup() on success
+  ASoC: mediatek: mt8188: return 0 from mt8188_afe_fe_startup() on
+    success
+  ASoC: mediatek: mt8189:return 0 from mt8189_fe_startup() on success
+  ASoC: mediatek: mt8365: return 0 from mt8365_afe_fe_startup() on
+    success
+
+ sound/soc/mediatek/common/mtk-afe-fe-dai.c | 8 +++++---
+ sound/soc/mediatek/mt8188/mt8188-afe-pcm.c | 5 ++++-
+ sound/soc/mediatek/mt8189/mt8189-afe-pcm.c | 8 +++++---
+ sound/soc/mediatek/mt8365/mt8365-afe-pcm.c | 7 +++++--
+ 4 files changed, 19 insertions(+), 9 deletions(-)
+
+-- 
+2.43.0
+
