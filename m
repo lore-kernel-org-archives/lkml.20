@@ -1,110 +1,93 @@
-Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.2])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F0D363B38A2
-	for <linux-kernel@vger.kernel.org>; Wed,  7 Oct 2026 10:22:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.2
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CF1063515FA
+	for <linux-kernel@vger.kernel.org>; Wed,  7 Oct 2026 10:23:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791368588; cv=none; b=owtcmHBuy0SkOmypX+fcD/YvFayHF8Trp9J+Xuj/8tx8W2xUqTe6Atc10iCrIhxX/+WCYLEKbdkP6AMMc8MGDLBVlcapqNM0LqMkcVE561FY2pUbgfjWzFzU7uyacWEWNZebrGp57WVFrIcNYF4PiGVwfH0tRF2JIbxKxuFR1hs=
+	t=1791368596; cv=none; b=fCl98MbHg+hGbjdnoLT1DB3K6PixA37jJezgDco+51gAoPUv3rOOvgv7ZtVuQ5xa9tavRrNxgM0FBjJ8dN1/9tpqD67UKmPY2GGrXVzCJhGGmYdFJwrJVrvgdBQTYnod8VM17miXXjgbHaZTwWqAnJlw2Y3ttzl8VVz7Sz0cQY0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791368588; c=relaxed/simple;
-	bh=F54xiCetdpvrz4vgiBtSpiFLIWtTb1I9iqKAJNfnnFY=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=h/FZAG+slr3Qug1gkc/NNxV0qFZ6aO3VBbPo2ZYV+hL0uVW/Mc98j5Mr/zTvI3rq7rmbvcyIJiQBR2nH12JQtdJsGwLUfQFHWLtpMx/rQVT34a/xUGI3if8gu9FWA5ZQfgth85EwPROeRm8DMcliyLqZf4nBelLgm5Ou8RzwOnM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=LLVtSrL4; arc=none smtp.client-ip=117.135.210.2
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	s=arc-20240116; t=1791368596; c=relaxed/simple;
+	bh=zTnJ9YoWd10h5/mtfTymaNcs4l2FqbJo980Dg8AISY0=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
+	 MIME-Version:Content-Type; b=JoJalsFcdgTP/bIfN8zk3PcTkKCLLl/X1/8fWwhOVzR6jydrsQlR353VnVVquKbq0OsaedRHhKuSK2Ss1F4N8MQXuJhiEqU4tgYQm44mLZIbMKON+TJ2rx5z2jG5d74wCua/ITUWk6EzGuliNU06+Xcj0dSIXdlJ4VTvOrfV3nw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gUcYisYL; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="LLVtSrL4"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=1T
-	XlxLl74G0vZJit78lbEwFQKAorFZikf8iecNbpzco=; b=LLVtSrL4koqsyiK/9Z
-	HYfK6bT/ixMJyPRvvsfiL68AZlIcIteQXW/BNi7PwlFR0KyPQLBvI9r0Cf5AToxX
-	KFmVj37acbocRpN4WbfPlf2ppzpb2/RuFQCEPXhMwtT6jDggFJZ1LS5wGrcc7iCa
-	Uu3BuYDWW4nk11cAbxLV2y82k=
-Received: from localhost (unknown [])
-	by gzga-smtp-mtada-g0-2 (Coremail) with SMTP id _____wBnjvRlHcZqLFSMCw--.58404S2;
-	Wed, 07 Oct 2026 18:22:29 +0800 (CST)
-From: Feiyu Wang <wangfeiyu_mc_code@163.com>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: linux-staging@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	Feiyu Wang <wangfeiyu_mc_code@163.com>
-Subject: [PATCH] staging: rtl8723bs: fix logical continuation style
-Date: Wed,  7 Oct 2026 18:22:12 +0800
-Message-ID: <20261007102212.112463-1-wangfeiyu_mc_code@163.com>
-X-Mailer: git-send-email 2.55.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gUcYisYL"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6CE171F0089C;
+	Wed,  7 Oct 2026 10:23:05 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791368587;
+	bh=vObePtnGMmBnP8qhFPoFtYFxbOWdjnKoMLBrd7C1MiQ=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date;
+	b=gUcYisYLg+jZ2kSBOg7eoKrPavOAnUK8LRdE+YYjkWXs/BKlOQT1dsHOrIkkV3hJi
+	 9XaUK8MXZ0hP8sCn1XUkmScvtSrNAc0Rr3UmiI/ctEmKWn+WffzN9/TLW+ZbAdNVlB
+	 kR3P056AZ8W7RMFdxg4WNjPrubrGWwxlKvsXk7t5mZecXZFvzHuK9YakLaaqPpaB24
+	 OYaUhBQ5HIWKO+DmX+LBgDmWE84pofHkBjR9NQETVfjHisS7eMcg2Shsrf25PJ4oUe
+	 BXq4HA4vUD8AVWC3g3wdylf4epuxHaXT+M+cVi/c//D1aqoqd2LXAD/AiRN+syKEy/
+	 Vs4vWDgYLKrZw==
+From: Mark Brown <broonie@kernel.org>
+To: Mark@mail.savoirfairelinux.com, Brown@mail.savoirfairelinux.com, 
+ Abhishek Ojha <Abhishek.ojha@savoirfairelinux.com>
+Cc: Liam@mail.savoirfairelinux.com, Girdwood@mail.savoirfairelinux.com, 
+ lgirdwood@gmail.com, Tim@mail.savoirfairelinux.com, 
+ Harvey@mail.savoirfairelinux.com, tharvey@gateworks.com, 
+ linux-kernel@vger.kernel.org
+In-Reply-To: <20260902010701.3360310-1-Abhishek.ojha@savoirfairelinux.com>
+References: <20260902010701.3360310-1-Abhishek.ojha@savoirfairelinux.com>
+Subject: Re: [PATCH] regulator: ltc3676: don't read the write-only HRST and
+ CLIRQ registers
+Message-Id: <179130238523.150114.4620200289929153130.b4-ty@b4>
+Date: Tue, 06 Oct 2026 17:59:45 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:_____wBnjvRlHcZqLFSMCw--.58404S2
-X-Coremail-Antispam: 1Uf129KBjvJXoWxuFy7GF1xXrWDXF1DWr1fXrb_yoW5XF4Upr
-	s5Ca4DKr1qgr13KFs3CF1kAFyfGw4rKryruFyrK3ZI9F92vF45Xrn0gF1avF4qqFyqqwsY
-	yF1kGw15W3W3AwUanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0zRlks9UUUUU=
-X-CM-SenderInfo: pzdqww5hl13s5pfbu0lgh6il2tof0z/xtbC7AWs62rGHWU80AAA3W
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.17-dev
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1167; i=broonie@kernel.org;
+ h=from:subject:message-id; bh=zTnJ9YoWd10h5/mtfTymaNcs4l2FqbJo980Dg8AISY0=;
+ b=owEBbQGS/pANAwAKASTWi3JdVIfQAcsmYgBqxh2F8Xn3GlnD/PT+dctiz7zuKUPgZ96+4oZTK
+ ovv+qDhU12JATMEAAEKAB0WIQSt5miqZ1cYtZ/in+ok1otyXVSH0AUCasYdhQAKCRAk1otyXVSH
+ 0NPuCACC+PIJycESnzTJJjGCKAz8GQP1Erkh6CZbU3cPrZr6hI6LoDe+dzHMh0hlcpq+fxQ43j5
+ yavmVHVMiPxbj77McS97DfarIY1aclInIJsgQHRWRWBnxH73RQ4emPwdhV2lF8uz/7F9uDPY5tX
+ RStwTQsODI4s6DobjMAYW5Tu2tmDCH72GN3GovXVqiu+MeJORQ/smjqPlZqHR+X3Exnwf1t8FG5
+ MmoKhMXBI/WDjSh3fGK4ilEQTWfUDQDVTouqCxps/702ToFhq2UiVBUoQz/E7t+oUj6OaYIvgTU
+ toqHVODYQJNOm3muqYSqba+woL7/ALX25sRMdeDnQQyLL5Al
+X-Developer-Key: i=broonie@kernel.org; a=openpgp;
+ fpr=3F2568AAC26998F9E813A1C5C3F436CA30F5D8EB
 
-Move logical operators to the end of the previous line to follow
-the kernel coding style, as reported by checkpatch.pl.
+On Tue, 01 Sep 2026 21:07:01 -0400, Abhishek Ojha wrote:
+> regulator: ltc3676: don't read the write-only HRST and CLIRQ registers
 
-Signed-off-by: Feiyu Wang <wangfeiyu_mc_code@163.com>
----
- .../staging/rtl8723bs/os_dep/ioctl_cfg80211.c  | 18 +++++++++---------
- 1 file changed, 9 insertions(+), 9 deletions(-)
+Applied to
 
-diff --git a/drivers/staging/rtl8723bs/os_dep/ioctl_cfg80211.c b/drivers/staging/rtl8723bs/os_dep/ioctl_cfg80211.c
-index a715ac6aa6b9..5dfbb8d9f6ed 100644
---- a/drivers/staging/rtl8723bs/os_dep/ioctl_cfg80211.c
-+++ b/drivers/staging/rtl8723bs/os_dep/ioctl_cfg80211.c
-@@ -393,8 +393,8 @@ void rtw_cfg80211_indicate_connect(struct adapter *padapter)
- 	struct wlan_network  *cur_network = &pmlmepriv->cur_network;
- 	struct wireless_dev *pwdev = padapter->rtw_wdev;
- 
--	if (pwdev->iftype != NL80211_IFTYPE_STATION
--		&& pwdev->iftype != NL80211_IFTYPE_P2P_CLIENT
-+	if (pwdev->iftype != NL80211_IFTYPE_STATION &&
-+	    pwdev->iftype != NL80211_IFTYPE_P2P_CLIENT
- 	) {
- 		return;
- 	}
-@@ -462,8 +462,8 @@ void rtw_cfg80211_indicate_disconnect(struct adapter *padapter)
- 	struct mlme_priv *pmlmepriv = &padapter->mlmepriv;
- 	struct wireless_dev *pwdev = padapter->rtw_wdev;
- 
--	if (pwdev->iftype != NL80211_IFTYPE_STATION
--		&& pwdev->iftype != NL80211_IFTYPE_P2P_CLIENT
-+	if (pwdev->iftype != NL80211_IFTYPE_STATION &&
-+	    pwdev->iftype != NL80211_IFTYPE_P2P_CLIENT
- 	) {
- 		return;
- 	}
-@@ -971,8 +971,8 @@ static int cfg80211_rtw_get_station(struct wiphy *wiphy,
- 	}
- 
- 	/* for infra./P2PClient mode */
--	if (check_fwstate(pmlmepriv, WIFI_STATION_STATE)
--		&& check_fwstate(pmlmepriv, _FW_LINKED)) {
-+	if (check_fwstate(pmlmepriv, WIFI_STATION_STATE) &&
-+	    check_fwstate(pmlmepriv, _FW_LINKED)) {
- 		struct wlan_network  *cur_network = &pmlmepriv->cur_network;
- 
- 		if (memcmp((u8 *)mac, cur_network->network.mac_address, ETH_ALEN)) {
-@@ -1507,9 +1507,9 @@ static int rtw_cfg80211_set_wpa_ie(struct adapter *padapter, u8 *pie, size_t iel
- 	}
- 
- 	/* TKIP and AES disallow multicast packets until installing group key */
--	if (padapter->securitypriv.dot11_privacy_algrthm == _TKIP_
--		|| padapter->securitypriv.dot11_privacy_algrthm == _TKIP_WTMIC_
--		|| padapter->securitypriv.dot11_privacy_algrthm == _AES_)
-+	if (padapter->securitypriv.dot11_privacy_algrthm == _TKIP_ ||
-+	    padapter->securitypriv.dot11_privacy_algrthm == _TKIP_WTMIC_ ||
-+	    padapter->securitypriv.dot11_privacy_algrthm == _AES_)
- 		/* WPS open need to enable multicast */
- 		/*  check_fwstate(&padapter->mlmepriv, WIFI_UNDER_WPS) == true) */
- 		rtw_hal_set_hwreg(padapter, HW_VAR_OFF_RCR_AM, null_addr);
--- 
-2.55.0
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/regulator.git for-7.3
+
+Thanks!
+
+[1/1] regulator: ltc3676: don't read the write-only HRST and CLIRQ registers
+      https://git.kernel.org/broonie/regulator/c/28c2388ee24c
+
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.
+
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
+
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
+
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
+
+Thanks,
+Mark
 
