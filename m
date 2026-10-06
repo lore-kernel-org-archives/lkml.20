@@ -1,158 +1,378 @@
-Received: from mail-oi1-f200.google.com (mail-oi1-f200.google.com [209.85.167.200])
+Received: from mail-qk1-f174.google.com (mail-qk1-f174.google.com [209.85.222.174])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 706C24A1E01
-	for <linux-kernel@vger.kernel.org>; Tue,  6 Oct 2026 17:16:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.200
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D1615376BF1
+	for <linux-kernel@vger.kernel.org>; Tue,  6 Oct 2026 17:16:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.174
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791306965; cv=none; b=gdIkVYyAqriqpQK9ZkTembjPxkUyrN1EEZaBu3Ft65h4q0z1IoNKW26X/xvUm7NSNxB+DX9bFeiVDdgmuk3J2fUcDmSa79co7XZ2a392B8WWG/fIIih3xfZGSkEh45gNtVpYlZ0LGwy7u6aPCZEI8UvGFp8xNyzrj651NTOnMFk=
+	t=1791306963; cv=none; b=OojaixXSGoKTXxFoRb7b/XiOGOIs4teDB9wmgizpkqJtmV4nC7SpMBMwHtbJCceTtiATPIQ2xpWQOAnKg5nx0f5U4BfIXUqX0zlJkIQfUUSDoA8Kpvo7aF+WHvXWu/stEvAnwd6HDHV2z//ZbvjmgbxX3Q8IxjxL1DE65qS7TbY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791306965; c=relaxed/simple;
-	bh=2LhvKNfXjirIqU57oe2YY/T0W86EQijBsx+nVPG1t9E=;
-	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:
-	 Content-Type; b=WURH6fz4S5O7MDOI1HgDvq1CXv3ofPnzcyIZSn3PNXh+K/vWEsXy+eAFogei/OcIgYV0UAOT8dw76+FgngKCsNaaMrYq6Bb1HagSzdZheue4Bqz4MHshBcCpAxQeXn83vE3XSyzb08VqW9Qgv5f8M8BiW6g90rajAtoMXmZEY/g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.167.200
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oi1-f200.google.com with SMTP id 5614622812f47-4a7de733fa9so3903281b6e.3
-        for <linux-kernel@vger.kernel.org>; Tue, 06 Oct 2026 10:16:03 -0700 (PDT)
+	s=arc-20240116; t=1791306963; c=relaxed/simple;
+	bh=jtKlCwhLKmB4inSlh+K5NB4apZmXnxlHgAVm20K4nmY=;
+	h=Message-ID:In-Reply-To:References:From:Date:Subject:To:Cc; b=UCahQGiB2r8raRyUKYi7fg2SYqa2NzoPENpEmyLKiY+B4j6pZkVQZAXSyzxmPwDSrlp9EhOZ7dyfD076nYq21B28R171zLJPIJymI9UJ0x8+Ic/HPzkLEGXYAfRz1JlzeZFYuEVYO0FzRXQyai/cYD4I+vfHAHVPMln/59k0tL0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=toxicpanda.com; spf=pass smtp.mailfrom=toxicpanda.com; dkim=pass (2048-bit key) header.d=toxicpanda.com header.i=@toxicpanda.com header.b=r1QVlkUQ; arc=none smtp.client-ip=209.85.222.174
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=toxicpanda.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=toxicpanda.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=toxicpanda.com header.i=@toxicpanda.com header.b="r1QVlkUQ"
+Received: by mail-qk1-f174.google.com with SMTP id af79cd13be357-93c5b7f5bfaso215116385a.1
+        for <linux-kernel@vger.kernel.org>; Tue, 06 Oct 2026 10:16:01 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=toxicpanda.com; s=google; t=1791306961; x=1791911761; darn=vger.kernel.org;
+        h=cc:to:subject:date:from:references:in-reply-to:message-id:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=j6F+hA6obGyLmE9PtfwA4CrLTo8FSGDU65ZZ77hZT+c=;
+        b=r1QVlkUQqAL1EfSM7AMBDc8XdfrTGjtAbQQczFs0VDl440KtWvNXhDDuTO7UEgPabi
+         krU4YDxbB8C5e99mNd9lUc+5fZG0F5324lJbyXWe73alL3qw0wPVA8Ir3xdP5vl8Mfw3
+         twxyl/XWELHyNO0EkZsW0Z5OVIaEwc2tHRZj+PH49PBNzw/NO+r6vle9/eEC+aENkX8V
+         mRK/6vSrzKQ249v+ETiflnFVBVbo6eECzK73GwwbIgTWAw5kbQjnFqZ3ZhPcbBg8JnOn
+         MrjnfcLXuFa6ax9H9RE73ISsn/bmcbtR7epG4I+uDMW3rI4eX4BI7AGY/WO5e7l51fMP
+         OSJw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791306962; x=1791911762;
-        h=content-type:to:from:subject:message-id:in-reply-to:date
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=siyiGTq0y6RwxOFicmUR5RZfSwiB5r+3P84mEp+5CPk=;
-        b=EMRxPiXpaxuZcjFj1MPoT6S7cxO/Imlp0eFGCc/GtZfVMQEnAK5qEbHX9u7SwTh8vb
-         KJ7NkyrRiyLggrwrDPHbHcws4U0RQssSRpAibbaqOBNYG3dlCPR0f16LDlHCsd5osS4V
-         Hvh+g4fKLrS+aghMu6C9XQUsayP/GlzRM3+MWR1vkQJKcW8F7Hhw2EZhiPdoukha6sZu
-         FIqbjp1a3TpFnO9MmZjCEfww5OaQMYZhCsxOLXZuxU5HDXtA1BdDUCLDv/KHf2NhEn+l
-         /ikQhC2ekokK/Ze6ANXQfK8ZPHVqIjMjmcgi7v51cxvkmWKbC4Kvz5Ud5JMB/8kUi3ge
-         NtKg==
-X-Forwarded-Encrypted: i=1; AKwUvBwF82QIccf57hysCg5Rjcuj6v/h/4t4EDCOcRDwaOClkpF7vN5/jTmG8K+ekJQ6ya9GhAYiGWeJe8pmqOc=@vger.kernel.org
-X-Gm-Message-State: AFuF++kL66jw6F1DK0xLip63RgQ1uSyKsjHsA12TJfLIKw2AaCPsn7nD
-	dOL0OLp8Hf97ltj1xmbyK3PlvYmcqb0Ei6gK3LYCDIp1fJ7R2hGBEzyRCvB05DYH1EvfeP0Nzf2
-	CdhOHyeGlHfzoCjMjN0lCjbvduvhiRlwTGjv7Vvn5x1nhjuYw9HDuotAgiuA=
+        d=1e100.net; s=20260707; t=1791306961; x=1791911761;
+        h=cc:to:subject:date:from:references:in-reply-to:message-id:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=j6F+hA6obGyLmE9PtfwA4CrLTo8FSGDU65ZZ77hZT+c=;
+        b=Ak5kr4gxgNiw43xHtNYoK3dA2kghyHz8X6Ua8OJnbg47jFaJYnVetvSZUJZSCq98Kc
+         obnii/1OOqnzq0PBNaMZ9vlFzcvaRskJ+RsXNPHN4Ca3LzeruBCIlkgLDO2qyreN4OCp
+         EOOp2VBNVlNS0k+dZA1OfoYGI8p9NrCqew/dXd5oAltWHN0L6HEHcR0apXw7gCsJJzJ8
+         69Lkj82xuO+ZeKrk5pmh7oG2xc+XasC8nrQfFTexOc+vbnZzXbouaciIV46tf8lJgGFb
+         uKs5afFm5/rTyaNdGCnG6o70Wsyv8129LbBWOtimRT3z/uR6g1mq8UM6VNBgkDYL6Loo
+         lxmA==
+X-Forwarded-Encrypted: i=1; AKwUvBwclYo6W4HD/AiVF53mmtbcp8b/NEp2icUTKiTiyAaHTV3AnDd9eg+bCoZAhHa8oCYG4i79rEHtLHOcZ+Y=@vger.kernel.org
+X-Gm-Message-State: AFuF++nzefmPIu1Lcm4oFyU1Uck5VmaKFT53MUrYfUGXmHoCF6fNUxh/
+	kpxt+R6QxGvhoklI0HrtdbyOK0DRR5tSBV6US9Qau49GHk+Bfv+nrPviZdjhL3Mvy4hRBOZESJQ
+	lP3wu
+X-Gm-Gg: AYBFou317Qwv0cOUGz+JIaHXxyf9sL2RUXSnWPQQzgYRkAM3da4bphLuqwclPV2drcq
+	GgxCSvfbCWjWUUMX99o+kz8DubcoFDk18iaLAXbH1foi/hJahITgXrLmElCtqupbwBNTiVNJlBa
+	gRxc5JikjYcL9hc6PSbEHM8AgYPPHjDTL3+g4NQ7pucslN1OI7phUCblbnm4Vuxg26hg2Yi6HNn
+	b0p0R7c0KR7FtpQ5a9sa8NA/kfF0KkHio89MDdq+xPgiGQpgpub+4K8KauUIHVszxnjQGvJc5qB
+	jJCsh1Gca4DBW5Z0Xczc562tZnJwUU5//dR8BA9o1qAFY64io/0EGk6onPeHUOZQkBhnJsP5ea5
+	C429puYpONc3XPB2jMjvfVr/sLLZf1AWPlP3tTvlebQvRGJ4iZFqsc7LNzcwnYxkmg+KsBTO4Q/
+	8lIGJI5ZGvmtr4L0tvmDxeZceAcZxQnJc4iKidkUsgHePIy8xKZjw3WdK8ZY7c/RnmCIXGr5+n0
+	l7ARB1e7MKa6+g=
+X-Received: by 2002:a05:620a:2585:b0:93e:9809:9a21 with SMTP id af79cd13be357-93e9809a013mr88143385a.37.1791306960158;
+        Tue, 06 Oct 2026 10:16:00 -0700 (PDT)
+Received: from toxicpanda.com ([153.61.196.241])
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-93e991e9e5csm5411685a.37.2026.10.06.10.15.58
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 06 Oct 2026 10:15:58 -0700 (PDT)
+Message-ID: <20d60ea0e3c086d9985bc2763e0759d15372c03d.1791303049.git.josef@toxicpanda.com>
+In-Reply-To: <cover.1791303049.git.josef@toxicpanda.com>
+References: <20261001125422.1364260-1-tom.leiming@gmail.com>
+	<cover.1791303049.git.josef@toxicpanda.com>
+From: Josef Bacik <josef@toxicpanda.com>
+Date: Tue, 6 Oct 2026 14:50:51 +0000
+Subject: [PATCH 4/4] ublk: keep canceling in QUIESCE_DEV until the server's
+ commands are taken
+To: Ming Lei <tom.leiming@gmail.com>,
+    Jens Axboe <axboe@kernel.dk>
+Cc: Caleb Sander Mateos <csander@purestorage.com>,
+    linux-block@vger.kernel.org,
+    linux-kernel@vger.kernel.org
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-X-Received: by 2002:a05:6808:3a0b:b0:4e7:8f9b:1191 with SMTP id
- 5614622812f47-4fb40da837bmr1980959b6e.52.1791306962295; Tue, 06 Oct 2026
- 10:16:02 -0700 (PDT)
-Date: Tue, 06 Oct 2026 10:16:02 -0700
-In-Reply-To: <20261006105153.8625-2-jakovnovak30@gmail.com>
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6ac52cd2.9ad129c8.3ce5b3.0005.GAE@google.com>
-Subject: Re: [syzbot] [media?] [usb?] WARNING in smsusb_term_device (2)
-From: syzbot <syzbot+d627b1495de0e851be32@syzkaller.appspotmail.com>
-To: jakovnovak30@gmail.com, linux-kernel@vger.kernel.org, 
-	syzkaller-bugs@googlegroups.com
-Content-Type: text/plain; charset="UTF-8"
 
-Hello,
+UBLK_CMD_QUIESCE_DEV can leave the server with a command nothing ever
+completes. The server then never exits and the device stays LIVE:
 
-syzbot has tested the proposed patch but the reproducer is still triggering an issue:
-WARNING in enable_work
+    COMMIT_AND_FETCH                    QUIESCE_DEV
+                                        queues marked canceling
+                                        ublk_cancel_dev()
+                                          request still with the
+                                          server, io left alone
+    ublk_fill_io_cmd()
+      command armed again
+    request completed
 
-------------[ cut here ]------------
-workqueue: work disable count underflowed
-WARNING: kernel/workqueue.c:4530 at work_offqd_enable kernel/workqueue.c:4530 [inline], CPU#0: kworker/0:1/10
-WARNING: kernel/workqueue.c:4530 at enable_work+0x1c7/0x230 kernel/workqueue.c:4701, CPU#0: kworker/0:1/10
-Modules linked in:
-CPU: 0 UID: 0 PID: 10 Comm: kworker/0:1 Not tainted syzkaller #0 PREEMPT_{RT,(full)} 
-Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 09/16/2026
-Workqueue: usb_hub_wq hub_event
-RIP: 0010:work_offqd_enable kernel/workqueue.c:4530 [inline]
-RIP: 0010:enable_work+0x1c7/0x230 kernel/workqueue.c:4701
-Code: 9f 1b 38 00 4d 85 f6 75 48 e8 95 1b 38 00 eb 47 e8 8e 1b 38 00 90 0f 0b 90 e9 bc fe ff ff e8 80 1b 38 00 48 8d 3d 99 1c 26 0e <67> 48 0f b9 3a e9 d2 fe ff ff e8 6a 1b 38 00 90 0f 0b 90 e9 1d ff
-RSP: 0018:ffffc900000f6ae0 EFLAGS: 00010093
-RAX: ffffffff818ebc00 RBX: 0000000000000000 RCX: ffff88801ca8be80
-RDX: 0000000000000000 RSI: 0000000000000000 RDI: ffffffff8fb4d8a0
-RBP: 0000000000000000 R08: 0000000000000000 R09: 0000000000000000
-R10: dffffc0000000000 R11: ffffed10170c7719 R12: 1ffff11005420c3f
-R13: 0000000000800001 R14: ffff88802a1061f8 R15: 0000000000000000
-FS:  0000000000000000(0000) GS:ffff888125bc2000(0000) knlGS:0000000000000000
-CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-CR2: 00007f2ccbc072c0 CR3: 0000000037316000 CR4: 00000000003526f0
-Call Trace:
- <TASK>
- __cancel_work_sync+0xf8/0x110 kernel/workqueue.c:4571
- smsusb_stop_streaming drivers/media/usb/siano/smsusb.c:183 [inline]
- smsusb_term_device+0xdd/0x3d0 drivers/media/usb/siano/smsusb.c:345
- smsusb_init_device drivers/media/usb/siano/smsusb.c:497 [inline]
- smsusb_probe+0x1aba/0x2280 drivers/media/usb/siano/smsusb.c:575
- usb_probe_interface+0x788/0xe50 drivers/usb/core/driver.c:399
- call_driver_probe drivers/base/dd.c:-1 [inline]
- really_probe+0x254/0xae0 drivers/base/dd.c:706
- __driver_probe_device+0x1e8/0x360 drivers/base/dd.c:868
- driver_probe_device+0x4f/0x240 drivers/base/dd.c:898
- __device_attach_driver+0x270/0x410 drivers/base/dd.c:1026
- bus_for_each_drv+0x25b/0x2f0 drivers/base/bus.c:500
- __device_attach+0x2c7/0x450 drivers/base/dd.c:1098
- device_initial_probe+0xa1/0xd0 drivers/base/dd.c:1153
- bus_probe_device+0x12d/0x220 drivers/base/bus.c:620
- device_add+0x7d7/0xb80 drivers/base/core.c:3776
- usb_set_configuration+0x1bb5/0x2260 drivers/usb/core/message.c:2274
- usb_generic_driver_probe+0x8d/0x150 drivers/usb/core/generic.c:250
- usb_probe_device+0x1c3/0x3b0 drivers/usb/core/driver.c:293
- call_driver_probe drivers/base/dd.c:-1 [inline]
- really_probe+0x254/0xae0 drivers/base/dd.c:706
- __driver_probe_device+0x1e8/0x360 drivers/base/dd.c:868
- driver_probe_device+0x4f/0x240 drivers/base/dd.c:898
- __device_attach_driver+0x270/0x410 drivers/base/dd.c:1026
- bus_for_each_drv+0x25b/0x2f0 drivers/base/bus.c:500
- __device_attach+0x2c7/0x450 drivers/base/dd.c:1098
- device_initial_probe+0xa1/0xd0 drivers/base/dd.c:1153
- bus_probe_device+0x12d/0x220 drivers/base/bus.c:620
- device_add+0x7d7/0xb80 drivers/base/core.c:3776
- usb_new_device+0x99a/0x1680 drivers/usb/core/hub.c:2713
- hub_port_connect drivers/usb/core/hub.c:5585 [inline]
- hub_port_connect_change drivers/usb/core/hub.c:5725 [inline]
- port_event drivers/usb/core/hub.c:5889 [inline]
- hub_event+0x28cf/0x4cf0 drivers/usb/core/hub.c:5971
- process_one_work kernel/workqueue.c:3396 [inline]
- process_scheduled_works+0xc3d/0x1630 kernel/workqueue.c:3479
- worker_thread+0xa47/0xfb0 kernel/workqueue.c:3560
- kthread+0x38b/0x470 kernel/kthread.c:436
- ret_from_fork+0x514/0xb70 arch/x86/kernel/process.c:158
- ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
- </TASK>
-----------------
-Code disassembly (best guess):
-   0:	9f                   	lahf
-   1:	1b 38                	sbb    (%rax),%edi
-   3:	00 4d 85             	add    %cl,-0x7b(%rbp)
-   6:	f6 75 48             	divb   0x48(%rbp)
-   9:	e8 95 1b 38 00       	call   0x381ba3
-   e:	eb 47                	jmp    0x57
-  10:	e8 8e 1b 38 00       	call   0x381ba3
-  15:	90                   	nop
-  16:	0f 0b                	ud2
-  18:	90                   	nop
-  19:	e9 bc fe ff ff       	jmp    0xfffffeda
-  1e:	e8 80 1b 38 00       	call   0x381ba3
-  23:	48 8d 3d 99 1c 26 0e 	lea    0xe261c99(%rip),%rdi        # 0xe261cc3
-* 2a:	67 48 0f b9 3a       	ud1    (%edx),%rdi <-- trapping instruction
-  2f:	e9 d2 fe ff ff       	jmp    0xffffff06
-  34:	e8 6a 1b 38 00       	call   0x381ba3
-  39:	90                   	nop
-  3a:	0f 0b                	ud2
-  3c:	90                   	nop
-  3d:	e9                   	.byte 0xe9
-  3e:	1d                   	.byte 0x1d
-  3f:	ff                   	.byte 0xff
+The same holds for a command whose request was dispatched before the
+mark, and for the active fetch command of a UBLK_F_BATCH_IO queue, which
+ublk_batch_cancel_queue() leaves to its dispatcher, and the dispatcher
+only lets go of it. The kublk selftest server hangs this way within a
+few quiesce and recover cycles under fio, on every kind of queue.
 
+Since the previous patch a COMMIT_AND_FETCH on a canceling queue gives
+its command back itself, once synchronize_rcu() has passed after the
+mark. Keep taking the armed commands until no io of the server owes one
+any more, and an active batch fetch command once its dispatcher has put
+it back on the list. Stop on the QUIESCE_DEV timeout or a signal, with
+-EBUSY or -EINTR. Leave ->force_abort of a batch queue alone, which
+ublk_batch_cancel_queue() sets: requests of a recoverable device are
+then requeued through ->canceling until the next server is ready, as on
+a queue without UBLK_F_BATCH_IO, instead of failed.
 
-Tested on:
+The server may go away and a new one start fetching for recovery while
+this runs, and its commands are not QUIESCE_DEV's to cancel. Count the
+FETCH rounds in ub->fetch_round, which ublk_reset_ch_dev() bumps under
+cancel_mutex when it clears ub->canceling, before a new server can
+fetch. Each pass checks the round and takes the commands in one
+cancel_mutex hold, and stops once the round has changed. The commands
+are completed after cancel_mutex is dropped, since the ring's cancel
+callback takes cancel_mutex under uring_lock.
 
-commit:         69f80fef Merge tag 'ata-7.3-rc7' of git://git.kernel.o..
-git tree:       upstream
-console output: https://syzkaller.appspot.com/x/log.txt?x=14efef25580000
-kernel config:  https://syzkaller.appspot.com/x/.config?x=341a98f91c13ec9
-dashboard link: https://syzkaller.appspot.com/bug?extid=d627b1495de0e851be32
-compiler:       Debian clang version 22.1.8 (++20260613092233+e80beda6e255-1~exp1~20260613092250.77), Debian LLD 22.1.8
-patch:          https://syzkaller.appspot.com/x/patch.diff?x=129b6f25580000
+Fixes: b465ae7b2524 ("ublk: add feature UBLK_F_QUIESCE")
+Assisted-by: LLM
+Signed-off-by: Josef Bacik <josef@toxicpanda.com>
+---
+ drivers/block/ublk_drv.c | 187 ++++++++++++++++++++++++++++++++++++++-
+ 1 file changed, 186 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/block/ublk_drv.c b/drivers/block/ublk_drv.c
+index 6717dabf3a23..f8a5dd7e9404 100644
+--- a/drivers/block/ublk_drv.c
++++ b/drivers/block/ublk_drv.c
+@@ -129,6 +129,8 @@ struct ublk_uring_cmd_pdu {
+ 	union {
+ 		struct request *req;
+ 		struct request *req_list;
++		/* chains commands QUIESCE_DEV took, none has a request */
++		struct io_uring_cmd *next_claimed;
+ 	};
+ 
+ 	/*
+@@ -296,6 +298,9 @@ struct ublk_queue {
+ 
+ 		/* Currently active fetch command (NULL = none active) */
+ 		struct ublk_batch_fetch_cmd  *active_fcmd;
++
++		/* fetch commands QUIESCE_DEV took, for it to complete */
++		struct list_head quiesce_fcmds;
+ 	}____cacheline_aligned_in_smp;
+ 
+ 	struct ublk_io ios[] __counted_by(q_depth);
+@@ -344,6 +349,12 @@ struct ublk_device {
+ 	 * it is set, no queue clears its ->canceling.
+ 	 */
+ 	bool canceling;
++	/*
++	 * Counts FETCH rounds, bumped by ublk_reset_ch_dev() together with
++	 * clearing ->canceling, protected by cancel_mutex.  A cancel aimed at
++	 * one server checks it to leave the next server's commands alone.
++	 */
++	u32 fetch_round;
+ 	pid_t 	ublksrv_tgid;
+ 	struct delayed_work	exit_work;
+ 	struct work_struct	partition_scan_work;
+@@ -2432,6 +2443,7 @@ static void ublk_reset_ch_dev(struct ublk_device *ub)
+ 	/* a new FETCH round starts, the queues stay canceling until ready */
+ 	mutex_lock(&ub->cancel_mutex);
+ 	ub->canceling = false;
++	ub->fetch_round++;
+ 	mutex_unlock(&ub->cancel_mutex);
+ 
+ 	/* set to NULL, otherwise new tasks cannot mmap io_cmd_buf */
+@@ -4417,6 +4429,7 @@ static int ublk_init_queue(struct ublk_device *ub, u16 q_id)
+ 		if (ret)
+ 			goto fail;
+ 		INIT_LIST_HEAD(&ubq->fcmd_head);
++		INIT_LIST_HEAD(&ubq->quiesce_fcmds);
+ 	}
+ 	ub->queues[q_id] = ubq;
+ 	ubq->dev = ub;
+@@ -5394,11 +5407,180 @@ static int ublk_ctrl_set_size(struct ublk_device *ub, const struct ublksrv_ctrl_
+ 	return ret;
+ }
+ 
++/*
++ * Take the armed commands of a queue off their ios the way ublk_cancel_cmd()
++ * does, and chain them on @claimed.  Only after synchronize_rcu() in
++ * ublk_quiesce_cancel(): no COMMIT_AND_FETCH publishes a command on the
++ * canceling queue any more, see ublk_commit_io_cmd(), so an armed io is
++ * stable here.  Sets @left when an io still owes a command: its request is
++ * with the server, or its dispatch is pending and hands the request to the
++ * server, and either way the server's COMMIT_AND_FETCH gives the command
++ * back.
++ */
++static struct io_uring_cmd *ublk_quiesce_claim_queue(struct ublk_queue *ubq,
++						     struct io_uring_cmd *claimed,
++						     bool *left)
++	__must_hold(&ubq->dev->cancel_mutex)
++{
++	struct ublk_device *ub = ubq->dev;
++	u16 tag;
++
++	for (tag = 0; tag < ubq->q_depth; tag++) {
++		struct ublk_io *io = &ubq->ios[tag];
++		struct io_uring_cmd *cmd = NULL;
++		struct request *req;
++		bool started;
++
++		/* see ublk_cancel_cmd() */
++		req = blk_mq_tag_to_rq(ub->tag_set.tags[ubq->q_id], tag);
++		started = req && blk_mq_request_started(req) && req->tag == tag;
++
++		spin_lock(&ubq->cancel_lock);
++		if (!(io->flags & UBLK_IO_FLAG_CANCELED)) {
++			if ((io->flags & UBLK_IO_FLAG_ACTIVE) && !started) {
++				io->flags |= UBLK_IO_FLAG_CANCELED;
++				cmd = READ_ONCE(io->cmd);
++				io->cmd = NULL;
++			} else if (io->flags & (UBLK_IO_FLAG_ACTIVE |
++						UBLK_IO_FLAG_OWNED_BY_SRV)) {
++				*left = true;
++			}
++		}
++		spin_unlock(&ubq->cancel_lock);
++
++		if (cmd) {
++			ublk_get_uring_cmd_pdu(cmd)->next_claimed = claimed;
++			claimed = cmd;
++		}
++	}
++	return claimed;
++}
++
++/*
++ * The same for a UBLK_F_BATCH_IO queue: move its parked fetch commands to
++ * ->quiesce_fcmds.  The active one is left to its dispatcher, which puts it
++ * back on the list once it is done, and the next pass takes it.  Unlike
++ * ublk_batch_cancel_queue() this leaves ->force_abort alone: requests of a
++ * recoverable device are requeued through ->canceling until the next server
++ * is ready, as on a queue without UBLK_F_BATCH_IO.
++ */
++static void ublk_quiesce_claim_fcmds(struct ublk_queue *ubq, bool *left)
++	__must_hold(&ubq->dev->cancel_mutex)
++{
++	struct ublk_batch_fetch_cmd *fcmd;
++
++	spin_lock(&ubq->evts_lock);
++	list_splice_tail_init(&ubq->fcmd_head, &ubq->quiesce_fcmds);
++	fcmd = READ_ONCE(ubq->active_fcmd);
++	if (fcmd) {
++		list_move(&fcmd->node, &ubq->fcmd_head);
++		*left = true;
++	}
++	spin_unlock(&ubq->evts_lock);
++}
++
++/*
++ * The fetch commands stay linked, and the cancel callback of their ring may
++ * take one off the list first: whoever unlinks one under evts_lock
++ * completes it.
++ */
++static void ublk_quiesce_complete_fcmds(struct ublk_queue *ubq)
++{
++	struct ublk_batch_fetch_cmd *fcmd;
++
++	for (;;) {
++		spin_lock(&ubq->evts_lock);
++		fcmd = list_first_entry_or_null(&ubq->quiesce_fcmds,
++						struct ublk_batch_fetch_cmd, node);
++		if (fcmd)
++			list_del_init(&fcmd->node);
++		spin_unlock(&ubq->evts_lock);
++		if (!fcmd)
++			break;
++
++		io_uring_cmd_done(fcmd->cmd, UBLK_IO_RES_ABORT,
++				  IO_URING_F_UNLOCKED);
++		ublk_batch_free_fcmd(fcmd);
++	}
++}
++
++/*
++ * Cancel the server's commands for QUIESCE_DEV until none of the FETCH
++ * round it marked is left.  One pass is not enough: it has to skip a command
++ * whose request is with the server or whose dispatch is pending, and the
++ * server waits for every command before it exits.  After synchronize_rcu()
++ * a COMMIT_AND_FETCH gives its command back itself, and no new request is
++ * dispatched on a canceling queue, so each remaining command is either
++ * given back by its issuer or armed and taken by a later pass.
++ *
++ * Check the round and take the commands in one cancel_mutex hold, and stop
++ * once the round is over: ublk_reset_ch_dev() bumps it, under cancel_mutex,
++ * before the next server can fetch, and those commands are not ours to
++ * cancel.  Complete what was taken after cancel_mutex is dropped, the
++ * ring's cancel callback takes it under uring_lock.
++ */
++static int ublk_quiesce_cancel(struct ublk_device *ub, u32 round,
++			       unsigned int timeout_ms)
++{
++	unsigned int elapsed = 0;
++
++	/* see ublk_commit_io_cmd() */
++	synchronize_rcu();
++
++	for (;;) {
++		struct io_uring_cmd *claimed = NULL;
++		bool left = false;
++		u16 i;
++
++		mutex_lock(&ub->cancel_mutex);
++		if (ub->fetch_round != round) {
++			mutex_unlock(&ub->cancel_mutex);
++			return 0;
++		}
++		for (i = 0; i < ub->dev_info.nr_hw_queues; i++) {
++			struct ublk_queue *ubq = ublk_get_queue(ub, i);
++
++			if (ublk_support_batch_io(ubq))
++				ublk_quiesce_claim_fcmds(ubq, &left);
++			else
++				claimed = ublk_quiesce_claim_queue(ubq, claimed,
++								   &left);
++		}
++		mutex_unlock(&ub->cancel_mutex);
++
++		while (claimed) {
++			struct io_uring_cmd *cmd = claimed;
++
++			claimed = ublk_get_uring_cmd_pdu(cmd)->next_claimed;
++			io_uring_cmd_done(cmd, UBLK_IO_RES_ABORT,
++					  IO_URING_F_UNLOCKED);
++		}
++		for (i = 0; i < ub->dev_info.nr_hw_queues; i++) {
++			struct ublk_queue *ubq = ublk_get_queue(ub, i);
++
++			if (ublk_support_batch_io(ubq))
++				ublk_quiesce_complete_fcmds(ubq);
++		}
++
++		if (!left)
++			return 0;
++		if (signal_pending(current))
++			return -EINTR;
++		if (elapsed >= timeout_ms)
++			return -EBUSY;
++		msleep(UBLK_REQUEUE_DELAY_MS);
++		elapsed += UBLK_REQUEUE_DELAY_MS;
++	}
++}
++
+ static int ublk_ctrl_quiesce_dev(struct ublk_device *ub,
+ 				 const struct ublksrv_ctrl_cmd *header)
+ {
++	/* zero means wait forever */
++	u64 timeout_ms = header->data[0];
+ 	struct gendisk *disk;
+ 	bool live = true;
++	u32 round;
+ 	int ret = -ENODEV;
+ 
+ 	if (!(ub->dev_info.flags & UBLK_F_QUIESCE))
+@@ -5427,6 +5609,7 @@ static int ublk_ctrl_quiesce_dev(struct ublk_device *ub,
+ 	mutex_lock(&ub->cancel_mutex);
+ 	blk_mq_quiesce_queue(disk->queue);
+ 	ublk_set_canceling(ub, true);
++	round = ub->fetch_round;
+ 	blk_mq_unquiesce_queue(disk->queue);
+ 	mutex_unlock(&ub->cancel_mutex);
+ 
+@@ -5437,7 +5620,9 @@ static int ublk_ctrl_quiesce_dev(struct ublk_device *ub,
+ 
+ 	/* Cancel pending uring_cmd */
+ 	if (!ret && live)
+-		ublk_cancel_dev(ub);
++		ret = ublk_quiesce_cancel(ub, round,
++					  timeout_ms ? min_t(u64, timeout_ms, UINT_MAX) :
++					  UINT_MAX);
+ 	return ret;
+ }
+ 
+-- 
+2.55.0
 
