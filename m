@@ -1,386 +1,110 @@
-Received: from CH5PR02CU005.outbound.protection.outlook.com (mail-northcentralusazon11012006.outbound.protection.outlook.com [40.107.200.6])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj1-f42.google.com (mail-pj1-f42.google.com [209.85.216.42])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 86330380FF7
-	for <linux-kernel@vger.kernel.org>; Tue,  6 Oct 2026 19:53:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.200.6
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791316438; cv=fail; b=ccxYmY3fEe9WWmIwtTCmVLXGjWFagyIw6IkGESzDLov/FrI+HTa4Z4hj7qwekT61+0ijJiQBcyQ4cKx0vF75alwLUp56saxuS+g+Y90CDdkzs7mKYD3A8ofv55mR+E0INZt6FhOkojcYMRkEJcW3M30sjQzGws6MSKcNZjMZplY=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791316438; c=relaxed/simple;
-	bh=WvGMp5o9x4VZiW1U6ZsvTOVocHn0xjo6Qm1+I3jGFOU=;
-	h=Message-ID:Date:From:Subject:To:Cc:References:In-Reply-To:
-	 Content-Type:MIME-Version; b=kNRlxRDrCCZfZEN+lS2fBuilyEmBBjT6qUvm6uk1DiIXxr7FkVuRiL2oSolIn0qVro7TVDJRrts1ZSVJumLyoViBRxglJhbxlr6I6rdmNqAPqk3iO6yMdECMfweO+j64EY8uMhG4rzPWBSNO2bUTkvBEgJZT0f4lfgS9XskmXMA=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=zl/i/DXE; arc=fail smtp.client-ip=40.107.200.6
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B07F430DD00
+	for <linux-kernel@vger.kernel.org>; Tue,  6 Oct 2026 20:00:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.42
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791316821; cv=none; b=hgO/93akNd/3dufubGmG5qLnnUEMmZ3x+9rRHoGKIJuyEc60xzcZvIvqxVtB+DCGk+N45oW1ZSitay3YodyIUQ+g6qyd+9FA7CS216Xr35TL3dz1pKBl0xjeI08HYatKuqMYE2DJQ9ZSztLeYIXi2/iyChCtDCItUO3typ6nT6A=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791316821; c=relaxed/simple;
+	bh=7SFqUvYZyEeLgvCRE96WwdfkhzXxHXTyCW4wbZFK1EA=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Iz1PIuQMmrp+8Ur6wrmDDP1tKFU9/ml8A5Nt+HG1oHN35aMJzNm5FrZglD5ZXqLlSo3A9WTAaIRKGXW4TtEGfcUaY0DiQxTdizWEVlmsWtc/jUl6GuKTPJ/KqX3rvuUujpVfkT1301YtR1dOLMVvIHD928bCuGntD/Z2NuB1X1s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=dama.to; spf=none smtp.mailfrom=dama.to; dkim=pass (2048-bit key) header.d=dama-to.20251104.gappssmtp.com header.i=@dama-to.20251104.gappssmtp.com header.b=bkyu0B5Z; arc=none smtp.client-ip=209.85.216.42
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=dama.to
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=dama.to
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="zl/i/DXE"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=DLBgUD4y9Gx1h2V+0u1mXdJiC2U5aX+RveBVGqRMI/2Qwim0H3Hb0280r1/A9BiIMqElRdFY9sAYHxWipYgwN46kC+haqxfQTPJ7lrT+5BfaVy+a04dcLuMPBILX/9CnjIFN5BajgOTAGdU1rCWXjC11sAipN6gQYJij0hqLwPAIQyf3gVoAYZxVVc49PKiy4ZW58u69Np34wO/l57isXC3ELsEBSeHfLZp0kzg/hYSw0SFIY289/ZloVQ4Pmlgw+ZhZXLmSDkm/dZo4j91NO6NA7pBZyqnRB4+gp4LS0479SBDz/EYw/tOcFHKQw9llxQdwo+IxRUsCnkSnjbJA7A==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=VkTkKhHfGH3sR0dgZZsVMFUhKm/zfaAt5VBV+U9dMbo=;
- b=xF5KbOwNgQ/PPPfEw6bKI1/2MLxxE4SadiAGy0Q8nl76wONJBCT5eh+QQG4blC0UNuOtgDm/QnfdWMN/31Dg132+iuZN3mSYUJuZsA6OsKY46gY3vJWuwBHPRtrs9FPmiz2GEOps0T/Q5vjxYWUPJWJvWGFsssc8+yzboQASf4jtHr1lBjmHC71D04RALLKjGuAHpMZwPer/C+RcPbz96k8OQW2BINyNhHTyOM/d5iyRXBri8xaN9H0I2hXBXyLVxBsVhhTdbCbh7jIl28AsRJdAo3moBRmDofr03tQUR+9sxrDqAabNZsjWoK3d+fzHPSRwNkFhkMURwaqMCwpJCw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=VkTkKhHfGH3sR0dgZZsVMFUhKm/zfaAt5VBV+U9dMbo=;
- b=zl/i/DXEYZU1RV0f73IvawUjXjFWGCfvpsikHz7ih2c5L1+rA9bwMzYDbFfJ8fiIWjx4mH8o3f17gfEO+yHwkyrJXjvCPSmxLgVE8FkxunEru6uh00Ejz4hexdgXmvK4kEuqQx3409Q0RE591HX+eVv7C+a1dFgjvnrRMQGmD4I=
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from BL1PR12MB5320.namprd12.prod.outlook.com (2603:10b6:208:314::17)
- by LV5PR12MB9827.namprd12.prod.outlook.com (2603:10b6:408:305::21) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.472.20; Tue, 6 Oct
- 2026 19:53:52 +0000
-Received: from BL1PR12MB5320.namprd12.prod.outlook.com
- ([fe80::1876:4a6d:2cf5:b8d1]) by BL1PR12MB5320.namprd12.prod.outlook.com
- ([fe80::1876:4a6d:2cf5:b8d1%5]) with mapi id 15.21.0496.010; Tue, 6 Oct 2026
- 19:53:52 +0000
-Message-ID: <327d9248-2e4f-41b8-b4ad-4f6d01c85ecb@amd.com>
-Date: Tue, 6 Oct 2026 14:53:49 -0500
-User-Agent: Mozilla Thunderbird
-From: Babu Moger <babu.moger@amd.com>
-Subject: Re: [PATCH v13 13/25] arm,x86,fs/resctrl: Allocate maximum needed
- rmid_ptrs[]
-To: Tony Luck <tony.luck@intel.com>, Fenghua Yu <fenghuay@nvidia.com>,
- Reinette Chatre <reinette.chatre@intel.com>,
- Maciej Wieczor-Retman <maciej.wieczor-retman@intel.com>,
- Peter Newman <peternewman@google.com>, James Morse <james.morse@arm.com>,
- Drew Fustini <dfustini@baylibre.com>, Dave Martin <Dave.Martin@arm.com>,
- Chen Yu <yu.c.chen@intel.com>, David E Box <david.e.box@intel.com>,
- x86@kernel.org
-Cc: Christoph Hellwig <hch@infradead.org>, linux-kernel@vger.kernel.org,
- patches@lists.linux.dev
-References: <20260928221509.68002-1-tony.luck@intel.com>
- <20260928221509.68002-14-tony.luck@intel.com>
-Content-Language: en-US
-In-Reply-To: <20260928221509.68002-14-tony.luck@intel.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: CH0PR03CA0189.namprd03.prod.outlook.com
- (2603:10b6:610:e4::14) To BL1PR12MB5320.namprd12.prod.outlook.com
- (2603:10b6:208:314::17)
+	dkim=pass (2048-bit key) header.d=dama-to.20251104.gappssmtp.com header.i=@dama-to.20251104.gappssmtp.com header.b="bkyu0B5Z"
+Received: by mail-pj1-f42.google.com with SMTP id 98e67ed59e1d1-3a0aaa0fd13so1638826a91.2
+        for <linux-kernel@vger.kernel.org>; Tue, 06 Oct 2026 13:00:19 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=dama-to.20251104.gappssmtp.com; s=20251104; t=1791316819; x=1791921619; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:mail-followup-to:message-id:subject:cc:to:from:date:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=4cW3Rtfy0hQP+eT8zDQmID+6Pmx2WSOpAfGo5d96jXs=;
+        b=bkyu0B5ZCTxvmgCV65RVWCb4Ei8+K6XrHLpKiaM03i0fSDsChjVA+9iN8olUZrgJUB
+         Na6ah7gGyMJk/RhaRMyhRXfKy8U4wWXW7UuNUkmcV/yKEoUuWXEmNi+WfsmCQrDXSzxp
+         1lQkBp+GPIWYXfbgQZGOlE/C8rz+ewoE11DOCI48PDgVLKWPhreoRdHCdEQA7b1HV/bE
+         app9Pbn1sZ/0JyK3pZhWG6ew1RkJPRTWYT8JKbE+6jvjcthK/TYhAHDBMf46E6kvuJWq
+         GeqE6KY8LCZ4tlSdjgq72fnhK+KHoW0+XAG3VFdMBYiQYflkSgFd4Jp3R+LttGIwrA4k
+         U+MA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791316819; x=1791921619;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:mail-followup-to:message-id:subject:cc:to:from:date
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=4cW3Rtfy0hQP+eT8zDQmID+6Pmx2WSOpAfGo5d96jXs=;
+        b=cMltcqxTe8mOPsIaoYpUeaxBirbpJngX9RdvkLqG9z7IOnve5vfFfR/biOhoVuFqgz
+         XkwqytRaA3ID1aBmbqqDyuJH9BzY8IXL1GWW2ValEZJ2TwXqPUpuPJg/UxZHoiscQpfc
+         GJGuIUC3kLAADaGPL0GvbySF/pGICSFE5gwcVsw3GvwT26E6MZURqXi79pFOmQnlbfhb
+         ShRQHQOueg8t5rLc8eEj37aakJoAl4nqejFZtP6iVWuptB8xgeAkH1GuN/dusnu0yCIg
+         jC2psXznyHl7y8nvT7mbXZtEpoeOiSkqzYvLZ/PZ/ytmiMKFgkd/9zrzp7On5tWFRiBk
+         ZNnA==
+X-Forwarded-Encrypted: i=1; AKwUvBwRUOHr3DuzHf0CfZqXfZ36NLYuMUNiLhAEPB/F69dFN0WZUzWRPAxZi9h7SlLGpjpAgzPeeDVrdRSDsqI=@vger.kernel.org
+X-Gm-Message-State: AFq9FYK/03fDuziy+WMLb7CWrkfu4I4GOjcxu1XyBWpOLtrsHISK4r5N
+	BH2S0WYStxOmjDon6+v3nRMH35zvCOn/WHIFR9/nchwEnTBS3jpzvxwBF8sVxS3BxHc=
+X-Gm-Gg: AYBFou3LuzWpYomkdpZdyRTVLdX0zElB0UxQUlejW6i9RFOPEG8HQ14B2/DUZ9HgChe
+	5V3IrLiGuo+rdfnTslpijuR2ymFdrVZLngaWvgJTMnjD/VLSSAM3n6tC9ub6lG5jNcHs04msyqb
+	kbZQEJ35eH14sFXgI/UMeVu9V87b6jj0W1nnR10n5hZBdQwxG0Oygn6xYwik09BV/Py3hCeDmmy
+	EJLGspsvLHAv+NDuIt6uNrq2TLgORIZL3Z2yb25go8RK1OXkkUbsrN7HvUgEp5jjFfX+jMyk7An
+	VWchtlyoj7AI2/U930/jWFq3EhhvQUT87WMhXZlbD028gq4suLUB7TgoDCESS8OkWjcBgfdea0Y
+	5FaNIXecX5iFRfWZvaFMjt0j1atS5+WL07Wg5VJMPFTRSvrvn0g9A9rZpL86UWFFiDB4J74jayl
+	GJTHXPlBeGdiHhVoHgKCYHuTMarOhyrs6I+QY9BdyVrZMc/LW57KBOrjWBJjLPJHSrWXrASzGKZ
+	UGIJ6Frhok=
+X-Received: by 2002:a17:90b:2687:b0:3a4:97ea:f0d6 with SMTP id 98e67ed59e1d1-3a8a0f341e3mr231885a91.42.1791316818489;
+        Tue, 06 Oct 2026 13:00:18 -0700 (PDT)
+Received: from localhost ([2a03:2880:2ff:9::])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a89b7727a1sm951252a91.17.2026.10.06.13.00.16
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 06 Oct 2026 13:00:16 -0700 (PDT)
+Date: Tue, 6 Oct 2026 13:00:15 -0700
+From: Joe Damato <joe@dama.to>
+To: anmory <anmory@protonmail.com>
+Cc: netdev@vger.kernel.org, michael.chan@broadcom.com,
+	pavan.chebbi@broadcom.com, linux-kernel@vger.kernel.org
+Subject: Re: [RFC net v4 0/4] bnxt_en: Make RING FREE more robust
+Message-ID: <asVTT+FQPowDZWea@devvm20253.cco0.facebook.com>
+Mail-Followup-To: Joe Damato <joe@dama.to>, anmory <anmory@protonmail.com>,
+	netdev@vger.kernel.org, michael.chan@broadcom.com,
+	pavan.chebbi@broadcom.com, linux-kernel@vger.kernel.org
+References: <VyyrJwrwBZEIGezDRJP8QPxbcsGROaxnmohLCnzNQY6sX5CEt0BK3AEC_0MGBx6OxGf4H5UG_xQcqgtAonwmXLdZ5Bd3INWMsof8Oj6ruqg=@protonmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BL1PR12MB5320:EE_|LV5PR12MB9827:EE_
-X-MS-Office365-Filtering-Correlation-Id: de997fb0-f341-4098-8428-08df23e38b9f
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|366016|7416014|376014|1800799024|10067099003|56012099006|5023799004|11063799006|4143699003|921020|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	L2CEd9LpC69L8s17feN8Jzcgmy3w+NIC3m1uj0kpsb2csfk7sW6Hond+kvQ3XhtXy7sc9pbkIBmONq97rF26th07a0YubgBAU4542Ty6gXhr4pH1Mfv7L5VziHmeDo+ty0UQN98ZFOKIRh3t0PPRiQMJvbVq/9QJhCD2lOjc0lgvgT3SwAyNPTLaMBI3YMjq42uoRDHo/YS+Jjy06mlKn+KK23yST/Wqlm4xUtlabOHlGuzLWot7bl6HKxKE2sDjmmRj5XtHoawcKkcrbSvWjtEyhNH/QCRQ5MHUS2ANMVK+cYGe20sMhsPa4lpBoeCpwIwa5Yq49sd9yV3oY/TeR6bXWeNitNLN7FqxZfLTbBqCD2Ag0hUiMlPf963Y/4DOaUp2pFZndCeCwqrz4bFrca9FeUc1OoMm7i/RJ4/Is9xPTyJRXRIeT4Wwy6+Lbixph4gR56x34mMrztO3QR04G6sdiqcnRNpfbsirtQzlqQE9lt3SzkrkjWidYZT0ILC5sUU5FQyxhR8/qQ02VlMpYGALiRYf3xJwUIu3rzBeYu4hiWzLW0m0t11/IFhNYLNHYaijYkTjal8iPcGwK1fSK99faKAMdHuoaAb62RpgoDwUucqyqFMxELKEnM2RlZvAkzeM/WG31tNY4a8wL2GLAkInjT0l60qYTwPu86LrAZNHVhAQ7LFH1b1Hq+li+/5ftOphkfqSXuCkGttQdQRsSg==
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:BL1PR12MB5320.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(366016)(7416014)(376014)(1800799024)(10067099003)(56012099006)(5023799004)(11063799006)(4143699003)(921020)(22082099003)(18002099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?WTMrM1VNTW1zTFkyM2oxd2Y2MldHRHRFSkxZajBIMkQrT1FpbEgzWXVSekNB?=
- =?utf-8?B?VG81VTlTZXlaak5JRWRmWW1mbWxEY1grZU8vTG1MZ3o2V09pcU83b2srczBt?=
- =?utf-8?B?UTdUbXZWdGl1WmVVc2RsL2xsd0l6YWh4OUNGd0RKRVB5cUtoUTljMmV1Wmwx?=
- =?utf-8?B?TmJGTGFWbDdwMkRzZXZsR0h3MEpVN2haQnpXS3NTYVpkMkZtbTUrRUtxa1Ur?=
- =?utf-8?B?MklUb2tUWVp4a1NLZCt6TG5YTGVvQk40aXIvWExZeEdtOGlsY3FmclNGOXBS?=
- =?utf-8?B?THpBZTNzaVNJcWZmVlNyT1crL05GSWRGSnEydzFXNXFHWjg3K2hqS2JuZUVY?=
- =?utf-8?B?YlJOZ01tYmc5Uy8wMjJ0bXU2T0tmTnZGdUJITi9IUzVOWGRIQWc0UmowaThH?=
- =?utf-8?B?SFVLMzMwb2F5WHJOMEoyc05HV1p6VFlJMlg4d0trcUdZM1FsSUdZZjJnZ0lV?=
- =?utf-8?B?OGo5aUdPTTFQbkRvbHZUQXBqUGlkQndZa2duRWYxRlBHU3hUUVVDRUJVbFZG?=
- =?utf-8?B?QWQveWhKdDRjNm1LS1NBMXdRT3pHY2pLZXJ3WkJZV25mbnlteStKNTNNOG1Y?=
- =?utf-8?B?bXcrajVPdGwwZ3JRcG1oRk9HRDh6UlNOZUYyT2V4bm1TaVdTSC9iaitUVkgw?=
- =?utf-8?B?QjdEN0wrUFVoVW1DK1lCL0JHMGJONzZ1WnBXK3Z5NmFFOXBnemxJejJPQ05t?=
- =?utf-8?B?bUtOZDR1TjdPZTMzMUpWbWpkVVdMZDVBSUpTQWJHbTFqeUFLTElDSGtQWHNl?=
- =?utf-8?B?TlcvSSt0M0RFRnhlMjdBbzcrSVJJeXVkSkdYejJjemNsc2gwTTZvckJGdVl6?=
- =?utf-8?B?KzJ3bjYybUpzS09HbGdxTmdwS2doak1pSFRvK3d0RnVpd3RjS09JSzdZYmVJ?=
- =?utf-8?B?bzIvYUJ2WlNSVHErTXZQUzZmSzdjNUdmZW5PemFUZVYxL1p1SDdSRVNtQjgr?=
- =?utf-8?B?Ylc3bEtNUUhySVk5WkNwamdOaEJqSlVoTUlpL1pyVWJUcmcwb3d2cE9Xbmxx?=
- =?utf-8?B?dTdiWW9sU01IQkk3SGVtbEgvTlJWVG5DRFZFRmRvQVNZVDBraUdBZzM2ejVU?=
- =?utf-8?B?ZHNYUUI5eExzODVjWmZsTGZOeGtLZlNKSXBRREc0azVadEFzbnZ0TXIzemk1?=
- =?utf-8?B?N1I0UG9WL3Nna1RkU1U4c3RteXN0ZHhiaktIUm91RjZ2dWhVR2Z5OE1YbkNB?=
- =?utf-8?B?MW5Ma2U5NFpXVXdndmlGaVlsaWtMZzdDQjhXQk5RbkIwWlNRa0hEZVdIN0xM?=
- =?utf-8?B?TjB6ZFdYWngzcnd4dHd3T3dCTVQyUU10V3kyVDhuTjRZTGVTenBFRGJ5TmNY?=
- =?utf-8?B?TDdHb0VkWnJ6azdBU0IyWEh6U0xPekdPamxIT3RQQmNVd3JVaXlRVnNoU2ZE?=
- =?utf-8?B?aUREVWxQaVRpaURXb3AzNXh0elF1U3pST2c5Njc1bTFSQXVMZzY5bGZ1RVFP?=
- =?utf-8?B?RDRtL0h0eW96TWNsNEd0eFVuRmR6MmQvM2c5aUxMZmNEdjUxOE9kMlQ1RUxL?=
- =?utf-8?B?dGhXd0RKYm9jWVZhNnVmajdxalFPOXdHdklUV2JDc0xoN2JmQ3FVeWNTaXcx?=
- =?utf-8?B?UDhING81SVhSTC9jMHZDQTgxaTBEUVRlMCtVNHJLYnpNNmlHczQwYXJzTThD?=
- =?utf-8?B?NlBHcm9xeWhaaUYyRE9YVzFjM3VJRjluVmxHS3E1b256ZTJxT0JzL1Q3WnYr?=
- =?utf-8?B?b2hndzRvd2JBUUdWZnIwTks2akkwM1BXYmZ0WTVCdFd1eVp5aXlVSmc1TXBS?=
- =?utf-8?B?V1MwOFpNeXdVWG80Z3pkckRnN0hSVXFEb0NSajlRc2JwSEJ3VWlOVUVnR1pz?=
- =?utf-8?B?enJSWC85V01Ka1owNkJlQnFORFJBR3RMVWc0bDZVaXk0UWdWWHFVT1NJZzYr?=
- =?utf-8?B?WEh2OURiaFBzTHkrdEF2NDRVbXFXK0FnMm1aNVp5N3N1ZXdwTk9HVkFSM3Zi?=
- =?utf-8?B?dTErTlNFc2lHUWN6OGd3aUM0SC80a1JaMWpuUXJ3OUVMSGNodUtuOTdyejRn?=
- =?utf-8?B?VDRQVEt2WDE5cVMyYXZrU3JPbVBWaFcyeUF0TVcrL05RNmhXV1VZTTA5RXdo?=
- =?utf-8?B?d1FwTDZVMGQ3SGREd2VpdTgzRThMVk4zL3R4N1FFYmRwMVJGZ0ZudmpISUxo?=
- =?utf-8?B?TEhjdzVFSEx1OHcwMGJoZEU0aEZuUXVlZ2ZYY2VFWHV6ZGNGeEh2RGFHcWdI?=
- =?utf-8?B?VUl4MkxTblE5SXd1SDBFOWU2UDRsVnBPMjdkQmorWEpDZ0RjOHFpdjBEN2J4?=
- =?utf-8?B?RGN0Q1cvdWFrYm5YODljamw5TmZNVmd6R1I5cHZwaS95eDBoaVlWU2xLZWpv?=
- =?utf-8?Q?3pntKxKCyi892SNSDn?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: de997fb0-f341-4098-8428-08df23e38b9f
-X-MS-Exchange-CrossTenant-AuthSource: BL1PR12MB5320.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Oct 2026 19:53:51.9412
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 6QFwNylkwBpIJnBwpKfo6PQQhRu2P2vUZQWlxFKiD1/dxsyq50Tmg3KDrtuxHoej
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV5PR12MB9827
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <VyyrJwrwBZEIGezDRJP8QPxbcsGROaxnmohLCnzNQY6sX5CEt0BK3AEC_0MGBx6OxGf4H5UG_xQcqgtAonwmXLdZ5Bd3INWMsof8Oj6ruqg=@protonmail.com>
 
-Hi Tony,
-
-On 9/28/26 17:14, Tony Luck wrote:
-> resctrl keeps per-RMID state in rmid_ptrs[]. It is allocated on first mount,
-> sized for the number of RMIDs available at that time, and reused by every
-> subsequent mount.
+On Tue, Oct 06, 2026 at 04:43:42PM +0000, anmory wrote:
+> Hi Joe,
 > 
-> Application Energy Telemetry (AET) requires the pmt_telemetry driver to be
-> built in. Allowing it to be built as a module means the number of RMIDs can
-> change from one mount to the next, so a later mount may need more entries
-> than the first mount allocated. Reallocating per mount is not possible because
-> the limbo handler continues to access rmid_ptrs[] after resctrl is unmounted.
+> we appear to be hitting a very similar issue to the one described in
+> this RFC on two Broadcom BCM57504 systems.
 > 
-> Size rmid_ptrs[] for the maximum number of RMIDs the system can ever need,
-> so that it is large enough for any future mount. Build the free list
-> based on the number of RMIDs needed for the current mount cycle.
+> One detail that may be particularly relevant is the ordering in our
+> reproductions: on both systems the AMD-Vi IO_PAGE_FAULT occurs before
+> the NETDEV WATCHDOG / TX timeout.
 > 
-> Signed-off-by: Tony Luck <tony.luck@intel.com>
-> ---
-> v13:
-> 	Updated commit message using Reinette suggestion.
-> 	Merged patch 14 "Rebuild free RMID list on each mount" into
-> 	this patch as the split into separate patches didn't work
-> 	as well as I hoped.
-> ---
->   include/linux/resctrl.h            |  1 +
->   arch/x86/kernel/cpu/resctrl/core.c | 27 +++++++++++++
->   drivers/resctrl/mpam_resctrl.c     |  9 +++++
->   fs/resctrl/monitor.c               | 64 ++++++++++++++++++++----------
->   4 files changed, 79 insertions(+), 22 deletions(-)
+> We originally encountered the problem after updating from Debian
+> 6.12.107-1 to 6.12.111-1.
 > 
-> diff --git a/include/linux/resctrl.h b/include/linux/resctrl.h
-> index 764c45be2d59..7afeb3bd55d9 100644
-> --- a/include/linux/resctrl.h
-> +++ b/include/linux/resctrl.h
-> @@ -447,6 +447,7 @@ static inline u32 resctrl_get_default_ctrl(struct rdt_resource *r)
->   /* The number of closid supported by this resource regardless of CDP */
->   u32 resctrl_arch_get_num_closid(struct rdt_resource *r);
->   u32 resctrl_arch_system_num_rmid_idx(void);
-> +u32 resctrl_arch_system_max_rmid_idx(void);
->   int resctrl_arch_update_domains(struct rdt_resource *r, u32 closid);
->   
->   /**
-> diff --git a/arch/x86/kernel/cpu/resctrl/core.c b/arch/x86/kernel/cpu/resctrl/core.c
-> index 2e3b9c16cbda..8702a6da2374 100644
-> --- a/arch/x86/kernel/cpu/resctrl/core.c
-> +++ b/arch/x86/kernel/cpu/resctrl/core.c
-> @@ -45,6 +45,9 @@ static DEFINE_MUTEX(domain_list_lock);
->    */
->   DEFINE_PER_CPU(struct resctrl_pqr_state, pqr_state);
->   
-> +/* Number of unique RMID values that can be written to MSR_IA32_PQR_ASSOC.RMID */
-> +static u32 pqr_assoc_num_rmid;
-> +
->   static void mba_wrmsr_intel(struct msr_param *m);
->   static void cat_wrmsr(struct msr_param *m);
->   static void mba_wrmsr_amd(struct msr_param *m);
-> @@ -124,6 +127,28 @@ u32 resctrl_arch_system_num_rmid_idx(void)
->   	return num_rmids == U32_MAX ? 0 : num_rmids;
->   }
->   
-> +/**
-> + * resctrl_arch_system_max_rmid_idx - Largest possible RMID index
-> + *
-> + * Return: Largest possible RMID index used for boot time allocations.
-> + */
-> +u32 resctrl_arch_system_max_rmid_idx(void)
-> +{
-> +	struct rdt_resource *r = &rdt_resources_all[RDT_RESOURCE_L3].r_resctrl;
-> +	u32 num_rmid = pqr_assoc_num_rmid;
-> +
-> +	/*
-> +	 * If the system is capable of L3 monitoring the maximum RMID value may
-> +	 * be lower than the system maximum. Either because the L3 monitoring
-> +	 * feature supports fewer RMIDs, or because SNC (Sub-NUMA Cluster)
-> +	 * is enabled and divides RMIDs per cluster.
-> +	 */
-> +	if (r->mon_capable)
-> +		num_rmid = r->mon.num_rmid;
-> +
-> +	return num_rmid;
-> +}
-> +
->   struct rdt_resource *resctrl_arch_get_resource(enum resctrl_res_level l)
->   {
->   	if (l >= RDT_NUM_RESOURCES)
-> @@ -967,6 +992,8 @@ static __init bool get_rdt_mon_resources(void)
->   	if (!cpu_feature_enabled(X86_FEATURE_CQM))
->   		return false;
->   
-> +	pqr_assoc_num_rmid = cpuid_ebx(0xf) + 1;
-> +
->   	/* Any of the L3 monitoring features? */
->   	if (!cpu_feature_enabled(X86_FEATURE_CQM_LLC))
->   		return false;
-> diff --git a/drivers/resctrl/mpam_resctrl.c b/drivers/resctrl/mpam_resctrl.c
-> index 7ddee8f5162f..52726f7fd03f 100644
-> --- a/drivers/resctrl/mpam_resctrl.c
-> +++ b/drivers/resctrl/mpam_resctrl.c
-> @@ -257,6 +257,15 @@ u32 resctrl_arch_system_num_rmid_idx(void)
->   	return (mpam_pmg_max + 1) * (mpam_partid_max + 1);
->   }
->   
-> +/*
-> + * File system calls this for one-time allocation of structures.
-> + * Return the largest possible value.
-> + */
-> +u32 resctrl_arch_system_max_rmid_idx(void)
-> +{
-> +	return resctrl_arch_system_num_rmid_idx();
-> +}
-> +
->   u32 resctrl_arch_rmid_idx_encode(u32 closid, u32 rmid)
->   {
->   	return closid * (mpam_pmg_max + 1) + rmid;
-> diff --git a/fs/resctrl/monitor.c b/fs/resctrl/monitor.c
-> index 2a28fe04284b..ccfb1548fea1 100644
-> --- a/fs/resctrl/monitor.c
-> +++ b/fs/resctrl/monitor.c
-> @@ -75,6 +75,11 @@ static unsigned int rmid_limbo_count;
->    */
->   static struct rmid_entry	*rmid_ptrs;
->   
-> +/*
-> + * @num_rmid_ptrs - The number of elements in rmid_ptrs[].
-> + */
-> +static u32 num_rmid_ptrs;
-> +
->   /*
->    * This is the threshold cache occupancy in bytes at which we will consider an
->    * RMID available for re-allocation.
-> @@ -961,45 +966,60 @@ void mbm_setup_overflow_handler(struct rdt_l3_mon_domain *dom, unsigned long del
->   
->   int setup_rmid_lru_list(void)
->   {
-> -	struct rmid_entry *entry = NULL;
-> -	u32 idx_limit;
-> -	u32 idx;
-> +	struct rmid_entry *entry;
-> +	u32 cur_idx_limit;
-> +	u32 rsvd_idx;
->   	int i;
->   
->   	if (!resctrl_mon_capable())
->   		return 0;
->   
->   	/*
-> -	 * Called on every mount, but the number of RMIDs cannot change
-> -	 * after the first mount, so keep using the same set of rmid_ptrs[]
-> -	 * until resctrl_exit(). Note that the limbo handler continues to
-> -	 * access rmid_ptrs[] after resctrl is unmounted.
-> +	 * Allocate the largest number of RMIDs that this system will ever
-> +	 * need. These cannot be freed until resctrl_exit() because the limbo
-> +	 * handler continues to access rmid_ptrs[] after resctrl is unmounted.
->   	 */
-> -	if (rmid_ptrs)
-> -		return 0;
-> +	if (!rmid_ptrs) {
-> +		num_rmid_ptrs = resctrl_arch_system_max_rmid_idx();
-> +		rmid_ptrs = kzalloc_objs(struct rmid_entry, num_rmid_ptrs);
-> +		if (!rmid_ptrs) {
-> +			num_rmid_ptrs = 0;
-> +			return -ENOMEM;
-> +		}
->   
-> -	idx_limit = resctrl_arch_system_num_rmid_idx();
-> -	rmid_ptrs = kzalloc_objs(struct rmid_entry, idx_limit);
-> -	if (!rmid_ptrs)
-> -		return -ENOMEM;
-> +		for (i = 0; i < num_rmid_ptrs; i++) {
-> +			entry = &rmid_ptrs[i];
-> +			INIT_LIST_HEAD(&entry->list);
+> We subsequently reproduced it deliberately on two separate systems.
 
-[1]. All the nodes are initialized. Basically, it is pointing to itself 
-now.
+Can you provide a sample program or explanation on how *exactly* to reproduce
+this issue?
 
->   
-> -	for (i = 0; i < idx_limit; i++) {
-> -		entry = &rmid_ptrs[i];
-> -		INIT_LIST_HEAD(&entry->list);
-> +			resctrl_arch_rmid_idx_decode(i, &entry->closid, &entry->rmid);
-> +		}
-> +	}
->   
-> -		resctrl_arch_rmid_idx_decode(i, &entry->closid, &entry->rmid);
-> -		list_add_tail(&entry->list, &rmid_free_lru);
-> +	/* Find how many RMIDs are available for this mount */
-> +	cur_idx_limit = resctrl_arch_system_num_rmid_idx();
-> +	if (cur_idx_limit > num_rmid_ptrs) {
-> +		pr_warn_once("RMID count %u exceeds allocation. Limit to %u\n",
-> +			     cur_idx_limit, num_rmid_ptrs);
-> +		cur_idx_limit = num_rmid_ptrs;
->   	}
->   
-> +	INIT_LIST_HEAD(&rmid_free_lru);
+I've hit the same one you are describing (IO_PAGE_FAULT before the NETDEV TX
+timeout) but have not been able to reliably reproduce it. It happens fairly
+rarely on my systems, but I am very eager to debug this and fix it.
 
-Initializing the list head without first cleaning up existing entries 
-could be problematic here.
+If you have a way to reliably reproduce this, that would make it *much* easier
+to debug.
 
-The first mount works correctly, and INIT_LIST_HEAD() is not needed in 
-that case because the list head is already statically initialized.
-
-However, on a subsequent mount, the list entries remain linked from the 
-previous mount through the setup performed in [2] below.
-
-INIT_LIST_HEAD() only reinitializes the list head itself. It does not 
-traverse the list and detach or reinitialize existing entries as was 
-done in [1].
-
-I think you need to replace
-
-INIT_LIST_HEAD(&rmid_free_lru);
-
-to
-
-while (!list_empty(&rmid_free_lru))
-         list_del_init(rmid_free_lru.next);
-
-
-This ensures that any entries left over from a previous mount are 
-properly detached before the list is reinitialized.
-
-
-> +
->   	/*
->   	 * RESCTRL_RESERVED_CLOSID and RESCTRL_RESERVED_RMID are special and
->   	 * are always allocated. These are used for the rdtgroup_default
->   	 * control group, which was setup earlier in rdtgroup_setup_default().
->   	 */
-> -	idx = resctrl_arch_rmid_idx_encode(RESCTRL_RESERVED_CLOSID,
-> -					   RESCTRL_RESERVED_RMID);
-> -	entry = __rmid_entry(idx);
-> -	list_del(&entry->list);
-> +	rsvd_idx = resctrl_arch_rmid_idx_encode(RESCTRL_RESERVED_CLOSID,
-> +						RESCTRL_RESERVED_RMID);
-> +
-> +	for (i = 0; i < cur_idx_limit; i++) {
-> +		entry = &rmid_ptrs[i];
-> +		/* Don't add reserved or busy entries to free list */
-> +		if (i == rsvd_idx || entry->busy)
-> +			continue;
-> +		list_add_tail(&entry->list, &rmid_free_lru);
-
-[2]. Here nodes are linked to head.  Basically, Head <->A <->B <->HEAD
-
-
-Thanks
-
-Babu
+Thanks,
+Joe
