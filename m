@@ -1,346 +1,379 @@
-Received: from sender6-op-o12.zoho.com (sender6-op-o12.zoho.com [165.173.180.12])
+Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7A19B48D872;
-	Tue,  6 Oct 2026 14:51:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=165.173.180.12
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791298316; cv=pass; b=aKJIJfSthdsC8uyygCOoSCzftwdGHISmnarUcG+SHaxMBzqG+bnV+Mkv8XNV0GPCtnh/okdRU2+UUPi8xrXxIgRfOg8MxfwWRWJxxftPWP42uSCzbM0PvnLFqTokvgBHjfECwfcFCEZ7dD9J6dyXjwHyKL2EVB2LLkLU0dIsmTw=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791298316; c=relaxed/simple;
-	bh=xp4TpAnZJ8pV/cSJVVO6TBBgOg0fs10ejIwlTXONutI=;
-	h=Mime-Version:Content-Type:Date:Message-Id:Cc:Subject:From:To:
-	 References:In-Reply-To; b=r3tSj6bLhsBD1NCeQwxlxMJmCtRp5opvmpyWm5BlCF/XwkMhGk/S/doTxd8G4MamsCvDCCwpiVVc7ZPfeFW468gdcnbpYJyQrugTwNCH132biiQNcqutS+Fd8khjDvYKDbk7iwCDq+4NK4t7QUZC00mV58N8E7SUNnTZhm0JmEg=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pigmoral.tech; spf=pass smtp.mailfrom=pigmoral.tech; dkim=pass (1024-bit key) header.d=pigmoral.tech header.i=junhui.liu@pigmoral.tech header.b=IVzgev0T; arc=pass smtp.client-ip=165.173.180.12
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pigmoral.tech
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pigmoral.tech
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 86ACB43FD1F;
+	Tue,  6 Oct 2026 14:54:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.156.1
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791298476; cv=none; b=h2A2IMyhj6bosBDpdbI8wD+gQuGlPxdvJA5iCi2jDJBOo2dSFI++uTw45guWeCljOF2Z4gMvuqMBog71mC9gBz7r5DdGulTsaWdl7aR6Gfim27Ya3EVH8OTDOtFHglD97pVKXOngmX9xv66pEJnlg7G1CN8KL7s2p7J46MlgLs4=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791298476; c=relaxed/simple;
+	bh=YC7s4g2WHBRfFy7TMHcjGEvlQzhjNK8Yk6mlrMskU3M=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=sKierGM+so/WVBxzsH0CS0xcovEIMfbRnRR8aPvr9OZjPzY5idJVWM1N1kJbBnJZUMFctTHCqWuMaZzEIMsZ44X02j1iAoPmCI2moBYTYv3ImldjLqRQcuyAH5gQyML5pTC6W8NQ9ywipBjMJKJExGgDrNF/g3s37I/+3wGhWok=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=YpkMD3cf; arc=none smtp.client-ip=148.163.156.1
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=pigmoral.tech header.i=junhui.liu@pigmoral.tech header.b="IVzgev0T"
-ARC-Seal: i=1; a=rsa-sha256; t=1791298248; cv=none; 
-	d=zohomail.com; s=zohoarc; 
-	b=UrTUQfRR23+2xgdIqR7ufPIOQtXKYEmKzw22QZhkDTRkUab/dXpLLIeAWpsl6J04gQiIMaUqdHrfSYj8ibT4ScL49qqjdzpIVcBEJKje09vkKiZXEEksPT182OnrG4X+AdE6e2W8lepWIJfDNvDge4Ndm7ChAwmRXPbv1RggZX8=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1791298248; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=qW3JrXnSc/0PGNO65eZiaUtPOoi0orx1PmmfsGlG284=; 
-	b=Xj2v+E9DkNWwKyCFm2GwLlNrxcTWxTlvN5+DvEqO+/hXb2vXDpbGTR0p/ojgC0qyNODoqtSJOKEx5O7sm4yRM8zPuynEs1phkbJQ3J06K8XP6ZlSa4GOtFEJkv3TpQHkTrnsemxK6CSymjoeSlEQMrhHU3fGUQkMbGr8Gr0vS7U=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
-	dkim=pass  header.i=pigmoral.tech;
-	spf=pass  smtp.mailfrom=junhui.liu@pigmoral.tech;
-	dmarc=pass header.from=<junhui.liu@pigmoral.tech>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1791298248;
-	s=zmail; d=pigmoral.tech; i=junhui.liu@pigmoral.tech;
-	h=Mime-Version:Content-Transfer-Encoding:Content-Type:Date:Date:Message-Id:Message-Id:Cc:Cc:Subject:Subject:From:From:To:To:In-Reply-To:Reply-To;
-	bh=qW3JrXnSc/0PGNO65eZiaUtPOoi0orx1PmmfsGlG284=;
-	b=IVzgev0T1bHj9svuH4dGyZFR2ISdAvkNrGwqY/VQGNW1gWvE2brirG7Zu7Qsx7Sm
-	MUoiK6yo8bKGQx0d+lqAhNanirS+dz2/1HQhaKWDTtKEV7f3kkHDbRTJIiyYhExFQUq
-	/rYY1dLRM0wiVdFTN8BS07NGFSFnzKJ7Tqbr9idE=
-Received: by smtp.zohomail.com with SMTPS id 1791298245153771.1925389458397;
-	Tue, 6 Oct 2026 07:50:45 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="YpkMD3cf"
+Received: from pps.filterd (m0356517.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 696EZaIi3974878;
+	Tue, 6 Oct 2026 14:54:28 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+	:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=pp1; bh=nkUsov
+	x5EfrhppLUnB9/rpcJ0EVZfcpfNX7Bs3540gM=; b=YpkMD3cfBm/a4Is9LZGW4Q
+	AjjdM7qdg2jvakC7sZNB9tmaQ2iEdplrpqBlRS3JFTjCSLK1KqVlXLaGSduU4Cnl
+	HZlayhn2RkB9UVaEd3RuksqR3rThMZGmhFXlcXXUBCrxytDc6Xy/aNrGLgxaeYO8
+	MnsQzVBAinP0IZLpNnqxLQGCFTN8Ka5rTVWcn+BwL0uIGp/8mfHVvjMgFECaIL9K
+	f33Qx8MAAvbnYaoZw5zLbbS4+c/d2pATEQ8rA0JlXGkbhQu6mzKUOkDnf99qCQkA
+	Wxpt1Ykrq1yFQ0IONwVH/d/Tn2VeCZhM5iF19rvpg5rxT6b5kR0Oe5nTqJx9f4RQ
+	==
+Received: from ppma21.wdc07v.mail.ibm.com (5b.69.3da9.ip4.static.sl-reverse.com [169.61.105.91])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4h2se5gkjc-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Tue, 06 Oct 2026 14:54:28 +0000 (GMT)
+Received: from pps.filterd (ppma21.wdc07v.mail.ibm.com [127.0.0.1])
+	by ppma21.wdc07v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 696EHbYP387177;
+	Tue, 6 Oct 2026 14:54:27 GMT
+Received: from smtprelay04.wdc07v.mail.ibm.com ([172.16.1.71])
+	by ppma21.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4h3d1jtc3r-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Tue, 06 Oct 2026 14:54:27 +0000 (GMT)
+Received: from smtpav04.wdc07v.mail.ibm.com (smtpav04.wdc07v.mail.ibm.com [10.39.53.231])
+	by smtprelay04.wdc07v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 696EsQUw63701432
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Tue, 6 Oct 2026 14:54:26 GMT
+Received: from smtpav04.wdc07v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id E7FB858052;
+	Tue,  6 Oct 2026 14:54:25 +0000 (GMT)
+Received: from smtpav04.wdc07v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 53A1458050;
+	Tue,  6 Oct 2026 14:54:24 +0000 (GMT)
+Received: from [9.61.78.19] (unknown [9.61.78.19])
+	by smtpav04.wdc07v.mail.ibm.com (Postfix) with ESMTP;
+	Tue,  6 Oct 2026 14:54:24 +0000 (GMT)
+Message-ID: <8947ddf3-e6d1-4ef4-a44d-7e91472525a7@linux.ibm.com>
+Date: Tue, 6 Oct 2026 10:54:23 -0400
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Tue, 06 Oct 2026 22:50:34 +0800
-Message-Id: <DLXU88MGGIWX.2IUEKEMBTV4QC@pigmoral.tech>
-Cc: "Stephen Boyd" <sboyd@kernel.org>, "Brian Masney"
- <bmasney+clk@redhat.com>, "Jerome Brunet" <jbrunet+clk@baylibre.com>, "Rob
- Herring" <robh@kernel.org>, "Krzysztof Kozlowski" <krzk+dt@kernel.org>,
- "Conor Dooley" <conor+dt@kernel.org>, "Jernej Skrabec"
- <jernej.skrabec@gmail.com>, "Samuel Holland" <samuel@sholland.org>,
- "Philipp Zabel" <p.zabel@pengutronix.de>, "Paul Walmsley" <pjw@kernel.org>,
- "Palmer Dabbelt" <palmer@dabbelt.com>, "Albert Ou" <aou@eecs.berkeley.edu>,
- "Alexandre Ghiti" <alex@ghiti.fr>, "Richard Cochran"
- <richardcochran@gmail.com>, <linux-clk@vger.kernel.org>,
- <devicetree@vger.kernel.org>, <linux-arm-kernel@lists.infradead.org>,
- <linux-sunxi@lists.linux.dev>, <linux-kernel@vger.kernel.org>,
- <linux-riscv@lists.infradead.org>, <netdev@vger.kernel.org>, "Jerome
- Brunet" <jbrunet@baylibre.com>, "Enzo Adriano"
- <enzo.adriano.code@gmail.com>
-Subject: Re: [PATCH v5 7/8] clk: sunxi-ng: a733: Add bus clock gates
-From: "Junhui Liu" <junhui.liu@pigmoral.tech>
-To: "Andre Przywara" <andre.przywara@arm.com>, "Junhui Liu"
- <junhui.liu@pigmoral.tech>, <wens@kernel.org>
-X-Mailer: aerc 0.22.0
-References: <20260930-a733-clk-v5-0-11175b41cd2d@pigmoral.tech>
- <20260930-a733-clk-v5-7-11175b41cd2d@pigmoral.tech>
- <CAGb2v65Lqo7NiFhc2GYdfY7+jkC4Y+p6=Zy85HOFmXJzT0u1fg@mail.gmail.com>
- <DLWMN3TYBP9F.3N62QFP7QEE9U@pigmoral.tech>
- <4ac4c90f-887e-4545-9c26-9706bdaa1a79@arm.com>
-In-Reply-To: <4ac4c90f-887e-4545-9c26-9706bdaa1a79@arm.com>
-X-ZohoMailClient: External
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v7 10/15] s390/vfio-ap: File ops called to resume the vfio
+ device migration
+To: "Jason J. Herne" <jjherne@linux.ibm.com>, linux-s390@vger.kernel.org,
+        linux-kernel@vger.kernel.org, kvm@vger.kernel.org
+Cc: borntraeger@de.ibm.com, mjrosato@linux.ibm.com, pasic@linux.ibm.com,
+        alex@shazbot.org, kwankhede@nvidia.com, fiuczy@linux.ibm.com,
+        pbonzini@redhat.com, frankja@linux.ibm.com, imbrenda@linux.ibm.com,
+        agordeev@linux.ibm.com, hca@linux.ibm.com, gor@linux.ibm.com
+References: <20260807221834.562851-1-akrowiak@linux.ibm.com>
+ <20260807221834.562851-11-akrowiak@linux.ibm.com>
+ <dc3a7703-b4a9-4a7f-9078-f6f874962abf@linux.ibm.com>
+Content-Language: en-US
+From: Anthony Krowiak <akrowiak@linux.ibm.com>
+In-Reply-To: <dc3a7703-b4a9-4a7f-9078-f6f874962abf@linux.ibm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-TM-AS-GCONF: 00
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDA2MDA1OCBTYWx0ZWRfX3eLOELrQGBlL
+ vSrGvuVygRvWqWOujCgFcUn8qLVhRGzdGg6LcsMu3SrDU61UtBtVClG72622buU/Dc9BTi3+glT
+ BjlnxmLocw97YAumcH9EznRhfbkFGqw=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDA2MDA1OCBTYWx0ZWRfX2zO/1qDeh7iK
+ QW1UC5GawvvcVX3rBtzygOR2BlI+eBPKfHzYusahcjc2LJAAOIOJ2OvbwkGRZ5Go0ZwlcMNe1Sn
+ IPZceGKCCbCWn2AYQ0Z9JElZWznTUF/Qw3kPmWqOeLnbNT8DXZqZEw0YvGtB5hvKLeQRZtarY7r
+ 0DI6SCT0tpzamvVfjSpgZvVyaQ6udMzZO0qRVM4NA6nVsux6uP62ksrO4GAdhWE6Nl2SWX2SGA9
+ N5EyrpHoGcYDgdXLpf7qfenNfQmzyz8nxZZLxHmXWqrmMKnjUK1p61xX3N+6mCyKoC27WXxkfCO
+ HCihYIxCGetD606w9dcvjYp3f2uUWCNhH59yA+nguvMcLh7ygs+MN4MJZ3J58nLY5/943q+QKW8
+ vKMRmadH3a8UU+SjUZTDzDCJvE9I0v4j5EOrBvKAsYD6vGH6WQKRJRuqWWWmzvprk7Kxj4Dvd8U
+ vS4Tbzx4sz5mJzWqhVw==
+X-Proofpoint-GUID: eRPDULf1UEaPcWsOCXJlQIMwflp5taiY
+X-Authority-Analysis: v=2.4 cv=UNRIjyfy c=1 sm=1 tr=0 ts=6ac50ba4 cx=c_pps
+ a=GFwsV6G8L6GxiO2Y/PsHdQ==:117 a=GFwsV6G8L6GxiO2Y/PsHdQ==:17
+ a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=RnoormkPH1_aCDwRdu11:22 a=U7nrCbtTmkRpXpFmAIza:22 a=VnNF1IyMAAAA:8
+ a=_X_NOP1f7RCpyUVFa4AA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
+X-Proofpoint-ORIG-GUID: eRPDULf1UEaPcWsOCXJlQIMwflp5taiY
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-06_04,2026-10-06_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ spamscore=0 impostorscore=0 adultscore=0 bulkscore=0 lowpriorityscore=0
+ phishscore=0 clxscore=1015 priorityscore=1501 suspectscore=0 malwarescore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2610060058
 
-Hi Andre, Chen-Yu,
 
-I ran some tests and now have a better understanding of the clock
-hierarchy. Please see the results below.
 
-On Mon Oct 5, 2026 at 5:17 PM CST, Andre Przywara wrote:
-> Hi,
+On 8/19/26 1:49 PM, Jason J. Herne wrote:
 >
-> On 10/5/26 06:41, Junhui Liu wrote:
->> Hi Chen-Yu,
->>=20
->> On Sun Oct 4, 2026 at 7:03 PM CST, Chen-Yu Tsai wrote:
->>> On Tue, Sep 29, 2026 at 7:28=E2=80=AFPM Junhui Liu <junhui.liu@pigmoral=
-.tech> wrote:
->>>>
->>>> Add the bus clock gates that control access to the devices' register
->>>> interface on the Allwinner A733 SoC. These clocks are typically
->>>> single-bit controls in the BGR registers, covering UARTs, SPI, I2C, an=
-d
->>>> various multimedia engines. It also includes bus gates for system
->>>> components like the IOMMU and MSI-lite interfaces.
->>>>
->>>> Also mark the ahb-store, mbus-store and ahb-cpus clocks as critical.
->>>> Disabling either store gate breaks access to boot/storage devices such
->>>> as MMC and SPI NOR, while gating ahb-cpus hangs any access to the CPUS
->>>> power domain registers when unused clocks are disabled.
->>>>
->>>> Tested-by: Jerome Brunet <jbrunet@baylibre.com>
->>>> Reviewed-by: Andre Przywara <andre.przywara@arm.com>
->>>> Signed-off-by: Junhui Liu <junhui.liu@pigmoral.tech>
->>>> ---
->>>>   drivers/clk/sunxi-ng/ccu-sun60i-a733.c | 492 +++++++++++++++++++++++=
-+++++++++-
->>>>   1 file changed, 491 insertions(+), 1 deletion(-)
->>>>
->>>> diff --git a/drivers/clk/sunxi-ng/ccu-sun60i-a733.c b/drivers/clk/sunx=
-i-ng/ccu-sun60i-a733.c
->>>> index 1b2d4d36ec4c..b077e5d2f32c 100644
->>>> --- a/drivers/clk/sunxi-ng/ccu-sun60i-a733.c
->>>> +++ b/drivers/clk/sunxi-ng/ccu-sun60i-a733.c
->>>> @@ -4,6 +4,10 @@
->>>>    * Copyright (C) 2026 Junhui Liu <junhui.liu@pigmoral.tech>
->>>>    * Based on the A523 CCU driver:
->>>>    *   Copyright (C) 2023-2024 Arm Ltd.
->>>> + *
->>>> + * TODO: The real parents of some bus gates, including its-pcie0-aclk=
-,
->>>> + * msi-lite, npu, ufs, sgpio, lpc and i2spcm, are not documented in t=
-he
->>>> + * manual. For now, follow the vendor BSP, which keeps them on hosc.
->>>>    */
->>>
->>> [...]
->>>
->>>> @@ -510,9 +522,118 @@ static SUNXI_CCU_M_DATA_WITH_MUX_GATE_FEAT(mbus_=
-clk, "mbus", mbus_parents, 0x588
->>>>                                             BIT(31),     /* gate */
->>>>                                             CLK_IS_CRITICAL,
->>>>                                             CCU_FEATURE_UPDATE_BIT);
->>>> +static const struct clk_hw *mbus_hws[] =3D { &mbus_clk.common.hw };
->>>> +
->>>> +static SUNXI_CCU_GATE_HWS(mbus_iommu0_sys_clk, "mbus-iommu0-sys", mbu=
-s_hws, 0x58c, BIT(0), 0);
->>>> +static SUNXI_CCU_GATE_HWS(apb_iommu0_sys_clk, "apb-iommu0-sys", apb0_=
-hws, 0x58c, BIT(1), 0);
->>>> +static SUNXI_CCU_GATE_HWS(ahb_iommu0_sys_clk, "ahb-iommu0-sys", ahb_h=
-ws, 0x58c, BIT(2), 0);
->>>> +
->>>> +static SUNXI_CCU_GATE_DATA(bus_msi_lite0_clk, "bus-msi-lite0", hosc, =
-0x594, BIT(0), 0);
->>>> +static SUNXI_CCU_GATE_DATA(bus_msi_lite1_clk, "bus-msi-lite1", hosc, =
-0x59c, BIT(0), 0);
->>>> +static SUNXI_CCU_GATE_DATA(bus_msi_lite2_clk, "bus-msi-lite2", hosc, =
-0x5a4, BIT(0), 0);
->>>> +
->>>> +static SUNXI_CCU_GATE_HWS(mbus_iommu1_sys_clk, "mbus-iommu1-sys", mbu=
-s_hws, 0x5b4, BIT(0), 0);
->>>> +static SUNXI_CCU_GATE_HWS(apb_iommu1_sys_clk, "apb-iommu1-sys", apb0_=
-hws, 0x5b4, BIT(1), 0);
->>>> +static SUNXI_CCU_GATE_HWS(ahb_iommu1_sys_clk, "ahb-iommu1-sys", ahb_h=
-ws, 0x5b4, BIT(2), 0);
->>>
->>>> +static SUNXI_CCU_GATE_HWS(ahb_ve_dec_clk, "ahb-ve-dec", ahb_hws,
->>>> +                         0x5c0, BIT(0), 0);
->>>> +static SUNXI_CCU_GATE_HWS(ahb_ve_enc_clk, "ahb-ve-enc", ahb_hws,
->>>> +                         0x5c0, BIT(1), 0);
->>>> +static SUNXI_CCU_GATE_HWS(ahb_vid_in_clk, "ahb-vid-in", ahb_hws,
->>>> +                         0x5c0, BIT(2), 0);
->>>> +static SUNXI_CCU_GATE_HWS(ahb_vid_cout0_clk, "ahb-vid-cout0", ahb_hws=
-,
->>>> +                         0x5c0, BIT(3), 0);
->>>> +static SUNXI_CCU_GATE_HWS(ahb_vid_cout1_clk, "ahb-vid-cout1", ahb_hws=
-,
->>>> +                         0x5c0, BIT(4), 0);
->>>> +static SUNXI_CCU_GATE_HWS(ahb_de_clk, "ahb-de", ahb_hws,
->>>> +                         0x5c0, BIT(5), 0);
->>>> +static SUNXI_CCU_GATE_HWS(ahb_npu_clk, "ahb-npu", ahb_hws,
->>>> +                         0x5c0, BIT(6), 0);
->>>> +static SUNXI_CCU_GATE_HWS(ahb_gpu0_clk, "ahb-gpu0", ahb_hws,
->>>> +                         0x5c0, BIT(7), 0);
->>>> +static SUNXI_CCU_GATE_HWS(ahb_serdes_clk, "ahb-serdes", ahb_hws,
->>>> +                         0x5c0, BIT(8), 0);
->>>> +static SUNXI_CCU_GATE_HWS(ahb_usb_sys_clk, "ahb-usb-sys", ahb_hws,
->>>> +                         0x5c0, BIT(9), 0);
->>>> +static SUNXI_CCU_GATE_HWS(ahb_msi_lite0_clk, "ahb-msi-lite0", ahb_hws=
-,
->>>> +                         0x5c0, BIT(16), 0);
->>>> +static SUNXI_CCU_GATE_HWS(ahb_store_clk, "ahb-store", ahb_hws,
->>>> +                         0x5c0, BIT(24), CLK_IS_CRITICAL);
->>>> +static SUNXI_CCU_GATE_HWS(ahb_cpus_clk, "ahb-cpus", ahb_hws,
->>>> +                         0x5c0, BIT(28), CLK_IS_CRITICAL);
->>>
->>> I suspect these refer to a AHB-AHB bridge for the various subsystems sh=
-own
->>> in the memory map. That would explain why when the "ahb-store" clock is
->>> gated, the storage bits stop working.
->>>
->>> If that's the case, we should describe it as the parent of each storage
->>> peripheral bus gate's parent. Same would go for the other types. I have=
-n't
->>> checked what the BSP does though.
->>=20
->> As Norman mentioned in his reply, the vendor BSP also does not model
->> this hierarchy and instead models these gates as independent clocks
->> parented to the oscillator. The manual does not describe the hierarchy
->> either, so I don't think we have enough information to model it
->> differently at this point.
 >
-> Well, I wouldn't use the BSP as a good example on how to model the clock=
-=20
-> tree, they have been very misguided in the past.
-
-Understood. I will not rely on the BSP's clock hierarchy.
-
-> What the BSP does is to add just more input/gate MBUS clocks for each=20
-> device, which is something I think we should avoid.
-> To that regard using them as parent clocks for the existing gates, as=20
-> Chen-Yu suggested, sounds like a good idea: We keep a single clock for=20
-> the devices, but still can turn both clocks off (I think, not tested).
-
-I tested bus-mmc0, bus-mmc2, bus-spi0, bus-ufs, bus-nand0, and
-bus-spif individually. Disabling each bus gate made the corresponding
-controller's MMIO registers inaccessible: reads either returned zero or
-a fixed invalid value.
-
-With those individual bus gates enabled, disabling ahb-store made the
-MMIO registers of all those controllers inaccessible. Restoring
-ahb-store made them accessible again.
-
-Based on these results, I plan to make ahb-store the parent of the
-following bus clocks in the next version:
-
-  bus-nand0
-  bus-mmc0
-  bus-mmc1
-  bus-mmc2
-  bus-mmc3
-  bus-spi0
-  bus-spi1
-  bus-spi2
-  bus-spif
-  bus-spi3
-  bus-spi4
-  bus-ufs
-
-I directly tested MMC0, MMC2, SPI0, SPIF, NAND0, and UFS. The remaining
-instances use the same type of bus gates in the same storage subsystem,
-so I plan to model them in the same way.
-
-For mbus-store, testing with MMC0 and UFS showed that disabling it
-breaks the storage DMA paths.
-
-Most of these storage controllers do not have dedicated MBUS gate
-clocks, so there is no clock that can be parented to mbus-store to model
-their DMA dependency. I therefore plan to keep mbus-store marked as
-CLK_IS_CRITICAL, as we already do for the main mbus clock. For NAND,
-which does have a dedicated mbus-nand gate, I will make mbus-store its
-parent.
-
-I also tested NVMe, but disabling either ahb-store or mbus-store had no
-effect on it.
-
-Does this approach look reasonable to you?
-
-Best regards,
-Junhui Liu
-
+> On 8/7/26 6:18 PM, Anthony Krowiak wrote:
+>> Implements the 'write' callback function that was added to the
+>> 'file_operations' structure for the file stream created to restore the
+>> state of the vfio-ap device on the destination system when the migration
+>> state transitioned from STOP to RESUMING
+>>
+>> The write callback retrieves the vfio device migration state saved to 
+>> the
+>> file stream created when the vfio device state was transitioned from
+>> STOP to STOP_COPY. The saved state contains the source guest's AP
+>> configuration information. This data is copied from the userspace buffer
+>> passed to the 'write' callback and stored in the vfio_ap_config 
+>> structure
+>> used to set the state of the vfio-ap device on the destination host. 
+>> If the
+>> source guest's AP configuration is compatible with the AP 
+>> configuration on
+>> the destination host, it will be hot plugged into the destination guest.
+>>
+>> In order for the source guest's and destination host's AP configurations
+>> to be considered compatible:
+>>
+>> * Each APQN in the source guest's AP configuration must also be in the
+>>    destination host's AP configuration
+>>
+>> * Each matching APQN in the destination host's AP configuration must be
+>>    bound to the vfio_ap device driver
+>>
+>> * Each matching APQN in the destination host's AP configuration must
+>>    reference a queue device with compatible hardware:
+>>
+>>    - The source and destination queues must have the same facilities
+>>      installed:
+>>      ~ APSC facility
+>>      ~ APQKM facility
+>>      ~ AP4KC facility
+>>
+>>    - The source and destination queues must have the same mode:
+>>      ~ Coprocessor-mode
+>>      ~ Accelerator-mode
+>>      ~ XCP-mode
+>>
+>>    - The source and destination queues must have the same APXA facility
+>>      setting
+>>      ~ If the APXA facility is installed on source queue, it must also
+>>        be installed on the destination queue and vice versa
+>>
+>>    - The source and destination queues must have a compatible
+>>      classification setting. If the source queue has full native card
+>>      function, then the destination queue must also have full native
+>>      card function. If the source queue has stateless functions, then
+>>      the destination queue can have stateless functions or full 
+>> native card
+>>      function because the latter includes the stateless functions.
+>>
+>>    - The binding and associated state for both the source and 
+>> destination
+>>      queues must indicate that the queue is usable for all messages
+>>      (i.e., BS bits equal to 00).
+>>
+>>    - The AP type of the destination queue must be the same as or 
+>> newer than
+>>      the source queue (backward compatibility)
+>>
+>> Note: The get_hardware_info_for_queue function that was created in
+>>        a previous patch was modified to take a mediated device name 
+>> rather
+>>        than an ap_matrix_mdev object because that is what is needed for
+>>        this patch so the function can be executed without holding the
+>>        matrix_dev->mdevs_lock.
+>>
+>> Signed-off-by: Anthony Krowiak <akrowiak@linux.ibm.com>
+>> ---
+>>   drivers/s390/crypto/vfio_ap_migration.c | 1009 ++++++++++++++++++++++-
+>>   1 file changed, 1001 insertions(+), 8 deletions(-)
+>>
+>> diff --git a/drivers/s390/crypto/vfio_ap_migration.c 
+>> b/drivers/s390/crypto/vfio_ap_migration.c
+>> index e2e7ae8515e5..4dd7373c3d9d 100644
+>> --- a/drivers/s390/crypto/vfio_ap_migration.c
+>> +++ b/drivers/s390/crypto/vfio_ap_migration.c
+>> ...
+>>   static ssize_t vfio_ap_resuming_write(struct file *filp, const char 
+>> __user *buf,
+>>                         size_t len, loff_t *pos)
+>>   {
+>> -    /* TODO */
+>> -    return -EOPNOTSUPP;
+>> +    struct vfio_ap_config_buffer *resuming_config_buf;
+>> +    struct ap_matrix_mdev *matrix_mdev;
+>> +    struct vfio_ap_config *ap_config;
+>> +    bool new_allocation = false;
+>> +    ssize_t ret, cfg_sz;
+>> +    loff_t write_pos;
+>> +    size_t write_len;
+>> +
+>> +    /*
+>> +     * This file was opened with stream_open(), so pos should be 
+>> NULL for
+>> +     * sequential write() calls; a non-NULL pointer will be passed only
+>> +     * for positional pwrite() calls in which case we return an error
+>> +     * indicating broken pipe/illegal seek on a non-seekable file
+>> +     */
+>> +    if (pos)
+>> +        return -ESPIPE;
+>> +
+>> +    mutex_lock(&matrix_dev->mdevs_lock);
+>> +    pos = &filp->f_pos;
+>> +
+>> +    ret = validate_resuming_write_parms(filp, len, pos);
+>> +    if (ret) {
+>> +        mutex_unlock(&matrix_dev->mdevs_lock);
+>> +        return ret;
+>> +    }
+>> +
+>> +    matrix_mdev = filp->private_data;
+>> +    matrix_mdev->mig_data->write_in_progress = true;
+>> +    resuming_config_buf = &matrix_mdev->mig_data->resuming_config_buf;
+>> +
+>> +    /*
+>> +     * If we have not yet filled the vfio_ap_config_buffer, then we 
+>> need
+>> +     * to continue filling it with data sent from userspace.
+>> +     */
+>> +    if (!resuming_config_buf->filled) {
+>> +        ret = fill_resuming_config_buffer(resuming_config_buf, buf, 
+>> len,
+>> +                          *pos);
+>> +        if (ret) {
+>> +            matrix_mdev->mig_data->write_in_progress = false;
+>> +            mutex_unlock(&matrix_dev->mdevs_lock);
+>> +            return ret;
+>> +        }
+>> +
+>> +        /*
+>> +         * If the vfio_ap_config_buffer is not yet filled, we don't
+>> +         * yet have enough data to allocate the vfio_ap_config 
+>> instance;
+>> +         * otherwise, go ahead and allocate it.
+>> +         */
+>> +        if (!resuming_config_buf->filled) {
+>> +            *pos += len;
+>> +            matrix_mdev->mig_data->write_in_progress = false;
+>> +            mutex_unlock(&matrix_dev->mdevs_lock);
+>> +            return len;
+>> +        }
+>> +
+>> +        ret = allocate_ap_config(resuming_config_buf, &ap_config);
+>> +        if (ret < 0) {
+>> +            matrix_mdev->mig_data->write_in_progress = false;
+>> +            mutex_unlock(&matrix_dev->mdevs_lock);
+>> +            return ret;
+>> +        }
+>> +
+>> +        new_allocation = true;
+>> +        cfg_sz = ret;
+>> +    }
+>> +
+>> +    /*
+>> +     * If this is not a new allocation of the vfio_ap_config object,
+>> +     * then create a copy of it so we can continue filling it in via
+>> +     * the copy_from_user() while the mdevs_lock is dropped.
+>> +     */
+>> +    if (!new_allocation) {
+>> +        cfg_sz = matrix_mdev->mig_data->resuming_mig_file.config_sz;
+>> +        ap_config = kvzalloc(cfg_sz, GFP_KERNEL_ACCOUNT);
+>> +
+>> +        if (!ap_config) {
+>> +            matrix_mdev->mig_data->write_in_progress = false;
+>> +            mutex_unlock(&matrix_dev->mdevs_lock);
+>> +            return -ENOMEM;
+>> +        }
+>> +
+>> +        memcpy(ap_config,
+>> + matrix_mdev->mig_data->resuming_mig_file.ap_config, cfg_sz);
+>> +    }
+>> +
+>> +    /*
+>> +     * If ap_config is a new allocation, then the contents of the
+>> +     * 'magic', 'version' and 'num_queues' fields will already have
+>> +     * been copied in; so the write_pos must be set to the location
+>> +     * following the 'num_queues' field and the length to be written 
+>> must be
+>> +     * adjusted accordingly.
+>> +     */
+>> +    if (new_allocation) {
+>> +        size_t nbytes_already_copied = VFIO_AP_CONFIG_BUF_SIZE - *pos;
+>> +
+>> +        write_pos = VFIO_AP_CONFIG_BUF_SIZE;
+>> +        write_len = len - nbytes_already_copied;
+>> +        buf += nbytes_already_copied;
+>> +    } else {
+>> +        write_pos = *pos;
+>> +        write_len = len;
+>> +    }
+>> +
+>> +    *pos += len;
+>> +
+>> +    mutex_unlock(&matrix_dev->mdevs_lock);
+>> +
+>> +    if (copy_from_user((char *)ap_config + write_pos, buf, 
+>> write_len)) {
+>> +        if (new_allocation)
+>> +            kvfree(ap_config);
+>> +        ret = -EFAULT;
+>> +        goto out_clear_write_in_progress;
+>> +    }
+>> +
+>> +    /* Check if we've completed writing the entire configuration */
+>> +    if (write_pos + write_len == cfg_sz) {
+>> +        ret = do_post_copy_processing(matrix_mdev, ap_config);
+>> +
+>> +        if (ret) {
+>> +            kvfree(ap_config);
+>> +            goto out_clear_write_in_progress;
+>> +        }
+>> +    }
+>> +
+>> +    ret = set_new_ap_configuration(matrix_mdev, ap_config, cfg_sz);
+>> +    if (ret) {
+>> +        kvfree(ap_config);
+>> +        goto out_clear_write_in_progress;
+>> +    }
+>> +
+>> +    /*
+>> +     * If this is not a new allocation of vfio_ap_config, then the 
+>> contents
+>> +     * of ap_config would have been copied into the existing object, 
+>> so we
+>> +     * can free it so we don't leak the storage.
+>> +     */
+>> +    if (!new_allocation)
+>> +        kvfree(ap_config);
+>> +
+>> +    ret = len;
+>> +
+>> +out_clear_write_in_progress:
+>> +    mutex_lock(&matrix_dev->mdevs_lock);
+>> +    if (matrix_mdev->mig_data)
+>> +        matrix_mdev->mig_data->write_in_progress = false;
+>> +    mutex_unlock(&matrix_dev->mdevs_lock);
+>> +
+>> +    return ret;
+>>   }
+>>     static const struct file_operations vfio_ap_resume_fops = {
 >
-> Cheers,
-> Andre
+> Why can't vfio_ap_resuming_write() just copy the data it is given into 
+> a buffer, remembering the next position to write and then exit if the 
+> buffer is not full? If the buffer is full then it can then process 
+> that buffer. Whatever is happening here seems very convoluted.
 >
->> I will add comments explaining why ahb_store_clk, mbus_store_clk, and
->> ahb_cpus_clk are marked critical.
->>=20
->>>
->>>> +static SUNXI_CCU_GATE_HWS(mbus_iommu0_clk, "mbus-iommu0", mbus_hws,
->>>> +                         0x5e0, BIT(0), 0);
->>>> +static SUNXI_CCU_GATE_HWS(mbus_iommu1_clk, "mbus-iommu1", mbus_hws,
->>>> +                         0x5e0, BIT(1), 0);
->>>> +static SUNXI_CCU_GATE_HWS(mbus_desys_clk, "mbus-desys", mbus_hws,
->>>> +                         0x5e0, BIT(11), 0);
->>>> +static SUNXI_CCU_GATE_HWS(mbus_ve_enc0_gate_clk, "mbus-ve-enc0-gate",=
- mbus_hws,
->>>> +                         0x5e0, BIT(12), 0);
->>>> +static SUNXI_CCU_GATE_HWS(mbus_ve_dec0_gate_clk, "mbus-ve-dec0-gate",=
- mbus_hws,
->>>> +                         0x5e0, BIT(14), 0);
->>>> +static SUNXI_CCU_GATE_HWS(mbus_gpu0_clk, "mbus-gpu0", mbus_hws,
->>>> +                         0x5e0, BIT(16), 0);
->>>> +static SUNXI_CCU_GATE_HWS(mbus_npu_clk, "mbus-npu", mbus_hws,
->>>> +                         0x5e0, BIT(18), 0);
->>>> +static SUNXI_CCU_GATE_HWS(mbus_vid_in_clk, "mbus-vid-in", mbus_hws,
->>>> +                         0x5e0, BIT(24), 0);
->>>> +static SUNXI_CCU_GATE_HWS(mbus_serdes_clk, "mbus-serdes", mbus_hws,
->>>> +                         0x5e0, BIT(28), 0);
->>>> +static SUNXI_CCU_GATE_HWS(mbus_msi_lite0_clk, "mbus-msi-lite0", mbus_=
-hws,
->>>> +                         0x5e0, BIT(29), 0);
->>>> +static SUNXI_CCU_GATE_HWS(mbus_store_clk, "mbus-store", mbus_hws,
->>>> +                         0x5e0, BIT(30), CLK_IS_CRITICAL);
->>>
->>> Same thing for the MBUS clocks.
->>>
->>>> +static SUNXI_CCU_GATE_HWS(mbus_msi_lite2_clk, "mbus-msi-lite2", mbus_=
-hws,
->>>> +                         0x5e0, BIT(31), 0);
->>>> +
->>>> +static SUNXI_CCU_GATE_HWS(mbus_dma0_clk, "mbus-dma0", mbus_hws,
->>>> +                         0x5e4, BIT(0), 0);
->>>> +static SUNXI_CCU_GATE_HWS(mbus_ve_enc0_clk, "mbus-ve-enc0", mbus_hws,
->>>> +                         0x5e4, BIT(1), 0);
->>>> +static SUNXI_CCU_GATE_HWS(mbus_ce_clk, "mbus-ce", mbus_hws,
->>>> +                         0x5e4, BIT(2), 0);
->>>> +static SUNXI_CCU_GATE_HWS(mbus_dma1_clk, "mbus-dma1", mbus_hws,
->>>> +                         0x5e4, BIT(3), 0);
->>>> +static SUNXI_CCU_GATE_HWS(mbus_nand_clk, "mbus-nand", mbus_hws,
->>>> +                         0x5e4, BIT(5), 0);
->>>> +static SUNXI_CCU_GATE_HWS(mbus_csi_clk, "mbus-csi", mbus_hws,
->>>> +                         0x5e4, BIT(8), 0);
->>>> +static SUNXI_CCU_GATE_HWS(mbus_isp_clk, "mbus-isp", mbus_hws,
->>>> +                         0x5e4, BIT(9), 0);
->>>> +static SUNXI_CCU_GATE_HWS(mbus_gmac0_clk, "mbus-gmac0", mbus_hws,
->>>> +                         0x5e4, BIT(11), 0);
->>>> +/* Undocumented, taken from the vendor kernel. */
->>>> +static SUNXI_CCU_GATE_HWS(mbus_gmac1_clk, "mbus-gmac1", mbus_hws,
->>>> +                         0x5e4, BIT(12), 0);
->>>> +static SUNXI_CCU_GATE_HWS(mbus_ve_dec0_clk, "mbus-ve-dec0", mbus_hws,
->>>> +                         0x5e4, BIT(18), 0);
->>>
->>> [...]
->>>
->>> The remaining definitions look correct (minus the vendor BSP ones which=
- I
->>> couldn't check at this time).
->>>
->>> I didn't check the clock list additions.
->>>
->>> Consider this
->>>
->>> Reviewed-by: Chen-Yu Tsai <wens@kernel.org>
->>>
->>=20
->> Thanks!
->>=20
->>>
->>> We can change the AHB / MBUS clock parents later if we do figure it out=
-.
->>>
->>>
->>> ChenYu
->>=20
+> The AP config for a guest is pretty small. At most it will be 16 bytes 
+> * 64k queues = 1 MB. Allocating a max buffer up front would be a 
+> reasonable thing to do, in my opinion. Even if we don't,  I feel like 
+> this code could be simplified quite a bit.
+>
+> I'm imagining an algorithm similar to the this:
+>
+> read_data();
+> if (not have_all_data):
+>     return;
+> post_process_data();
+
+This is a good suggestion, I'll simplify the logic.
+
+
