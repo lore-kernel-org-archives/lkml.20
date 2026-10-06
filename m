@@ -1,267 +1,229 @@
-Received: from SA9PR02CU001.outbound.protection.outlook.com (mail-southcentralusazon11013000.outbound.protection.outlook.com [40.93.196.0])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj1-f69.google.com (mail-pj1-f69.google.com [209.85.216.69])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CC0384E50BC;
-	Tue,  6 Oct 2026 23:31:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.196.0
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791329493; cv=fail; b=AVYbBeKnzUspMmY8CYr1flOJ54QInBAUY/ZikskgfW3JVR75I9uVyWDJdqZzxEnf6vG+bJWNeod4pWM4QILBPRZsuW327GMgqld98VaEkHF5H9s/mvVYEd+Jxaph2aUv4GQdULblen8o6SgCM7wdaOmn0Qxj8ePBQQJTYgYV6gU=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791329493; c=relaxed/simple;
-	bh=5ZGHQKGUpscKoKM3n34s7kEACCjsntp+Ty1I4FBgKfw=;
-	h=Date:From:To:CC:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=FaFqD7ATGwRJPrY0sPzBty7kQ+QBekBPuQU4Cv3JYsOtvUaEBrKaWcs4Y0JmXUYplxyWrYtoX+W7ja2VvBHXSF0+RnnEMGi6tnI+z7eDje38cDWuPXC0rTYPWkRZrbPqAHcWuHzkrx0FkPYMm1wJ52ZndxqXCVL4edlM1myJ38c=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=F2x5BEoq; arc=fail smtp.client-ip=40.93.196.0
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E28562264AB
+	for <linux-kernel@vger.kernel.org>; Tue,  6 Oct 2026 23:32:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.69
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791329578; cv=none; b=OgkYFvqHdm/B/KVXrJv95E5QXWQAbLavSD7hSZMPaC+rTjGODn7DmKkQ+q+E7ckRmwjWelPCiC6baYBNuQ55ZwzPOG00DZAY0XI+GG7QyHO4n8sOWU3w7+Cep57OkxCn8Y5ktB3F6E/V8LcXjyagi1EIE02eHbjQ2tYtPFft0DU=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791329578; c=relaxed/simple;
+	bh=4xwuNzls6NknB+x3Ga8Zt/2DnX1UDxLV3pBZhiMx8tE=;
+	h=Date:Mime-Version:Message-ID:Subject:From:To:Cc:Content-Type; b=RxOHRJRSkyeeMbKuCyES2AHft6trR1yvIbufFY0UcY0UoXXLaGmJU4AH8ozbM8FUpFomR2GLTqRFxC79pYeELv0tq/cSxsiXTzHNRJAzFofCP2gHDXXV1JF0atObZQyTd8RxlZo7pKwcdvybTqsBfBw35QdgSJwa7va1yXT731E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--praan.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=o+exC42d; arc=none smtp.client-ip=209.85.216.69
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--praan.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="F2x5BEoq"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=UATWXz63gnfe4FQINwIK9gVH4++TsDqI6jtjm07Hnraq0B9sGZSRvPbxAWJ+e8i0Kjt0wwElNQNESEveOySb7PRHqE5rFPW4kh78Yr3Kceh0uq9ZKyxwz5Oq4/1JsFLtjjmOBSQDJwgDUvudOreDyYt/zbFlPd8rD4FOXAtWRJTaa1BUmvEA02hY+PlcBsaz5kMrimYAaiiHDEQP5SJEHEXVFDWV2HxTAdKVutAgCITubRAB9oKGBoD2IsDm/hy2kYspUIzRVofYcwYFbEQs7o8dkp+9nDU27Snm9+dhc9GqO9VoS1tfz3C/e0/n6dWTVXsnHufDosyZ02zvu+BtNQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=8EJKj3f1XYoEf5COtb7I7LvsI8iTutjXI+ACRTobhCo=;
- b=LJjhbS7uGRJBOZIgpJIqAQIABCbV1GwdmUaorr6IEcvwxBLPZ/nYG2koYhDH01RWSN8+5qtxIG610OZpjTwfCuYkvjL+RFvuWF8O5pgtCrsm4l7C6sSD/BBYjZEJGUu9V/CvHVecCbVHDRTZJSZwwX2lOyGyOTXI+D4z+kEVRrGuUwOP7dU5F7XomKpTZsMUphgC4McSyixaGxiuJcUZe/a0j8mbH0DMPY5vScBU+3Uxct/mso4a5/+IERp4abEf1zqvLqEb9dVZPbvxVvU5aGeEi9oJEN/l35rXXNoRcc1J1XSAgdO9moW5UzGLY03+n5azC7yyEuOBQW4CBqQUVg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 216.228.117.160) smtp.rcpttodomain=google.com smtp.mailfrom=nvidia.com;
- dmarc=pass (p=reject sp=reject pct=100) action=none header.from=nvidia.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=8EJKj3f1XYoEf5COtb7I7LvsI8iTutjXI+ACRTobhCo=;
- b=F2x5BEoq5EpU3kezsEUR03yQnOeGzKRG4JH1JvCVamxDAMouoZnW4MoCWKP6UMlAGo0rfNeuIG528KH84DKmkqiYUd4+gmxYbVCLaCGdLjOI8+PgVFosswYYUngBIz8xqmScFnagGXiiAcU6c+hbQ9nsIGBZgB3NbM4TmS218WiDhrXMBHFAIDzEqrgywRt3v0j4jGnCJSpgIuvrVRocXHo63DYpV4/r2nf0Ug8KH8hVkmQrKPF4r/2H4vkZuOwsACzBuyonqpSVfVYsSfuVfDA0Ri7w1em4JP0ccdfBkHFsk+37QE+bGvCatcOBV/1JPUSzkExSWO/HxhG9Aly/dg==
-Received: from SJ0PR13CA0075.namprd13.prod.outlook.com (2603:10b6:a03:2c4::20)
- by IA0PR12MB7554.namprd12.prod.outlook.com (2603:10b6:208:43e::19) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.24; Tue, 6 Oct
- 2026 23:31:23 +0000
-Received: from SJ5PEPF000001EA.namprd05.prod.outlook.com
- (2603:10b6:a03:2c4:cafe::68) by SJ0PR13CA0075.outlook.office365.com
- (2603:10b6:a03:2c4::20) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.472.18 via Frontend Transport; Tue, 6
- Oct 2026 23:31:23 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 216.228.117.160) smtp.mailfrom=nvidia.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=nvidia.com;
-Received-SPF: Pass (protection.outlook.com: domain of nvidia.com designates
- 216.228.117.160 as permitted sender) receiver=protection.outlook.com;
- client-ip=216.228.117.160; helo=mail.nvidia.com; pr=C
-Received: from mail.nvidia.com (216.228.117.160) by
- SJ5PEPF000001EA.mail.protection.outlook.com (10.167.242.198) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.496.14 via Frontend Transport; Tue, 6 Oct 2026 23:31:22 +0000
-Received: from rnnvmail202.nvidia.com (10.129.68.7) by mail.nvidia.com
- (10.129.200.66) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Tue, 6 Oct
- 2026 16:31:06 -0700
-Received: from rnnvmail202.nvidia.com (10.129.68.7) by rnnvmail202.nvidia.com
- (10.129.68.7) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Tue, 6 Oct
- 2026 16:31:06 -0700
-Received: from nvidia.com (10.127.8.10) by mail.nvidia.com (10.129.68.7) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49 via Frontend
- Transport; Tue, 6 Oct 2026 16:31:04 -0700
-Date: Tue, 6 Oct 2026 16:31:01 -0700
-From: Nicolin Chen <nicolinc@nvidia.com>
-To: Samiullah Khawaja <skhawaja@google.com>
-CC: David Woodhouse <dwmw2@infradead.org>, Lu Baolu
-	<baolu.lu@linux.intel.com>, Joerg Roedel <joro@8bytes.org>, Will Deacon
-	<will@kernel.org>, Jason Gunthorpe <jgg@ziepe.ca>, Robin Murphy
-	<robin.murphy@arm.com>, Kevin Tian <kevin.tian@intel.com>, Alex Williamson
-	<alex@shazbot.org>, Shuah Khan <shuah@kernel.org>, <iommu@lists.linux.dev>,
-	<linux-kernel@vger.kernel.org>, <kvm@vger.kernel.org>, Pratyush Yadav
-	<pratyush@kernel.org>, Pasha Tatashin <pasha.tatashin@soleen.com>, "David
- Matlack" <dmatlack@google.com>, Andrew Morton <akpm@linux-foundation.org>,
-	Pranjal Shrivastava <praan@google.com>, Vipin Sharma <vipinsh@google.com>
-Subject: Re: [PATCH v5 02/18] iommu: Implement IOMMU Live update FLB callbacks
-Message-ID: <asWEtTcNJSbrY579@nvidia.com>
-References: <20260921004834.2601285-1-skhawaja@google.com>
- <20260921004834.2601285-3-skhawaja@google.com>
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="o+exC42d"
+Received: by mail-pj1-f69.google.com with SMTP id 98e67ed59e1d1-3823dcc1647so2649210a91.3
+        for <linux-kernel@vger.kernel.org>; Tue, 06 Oct 2026 16:32:55 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1791329575; x=1791934375; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=63o+ETk0hEx3rHZzZwUiie6Jpi00EzurOJzH/KYltNI=;
+        b=o+exC42dAGQSJfeGEsGGDWCQtvk4cMEcfIiMyNBnzorYrj8ZRHjPegp73cbPdOqHzH
+         LvmW6K1aHnhsGAtkk/7ZW3DFgxB7mwCKjQG2TS6mr4rOPFTk8GXMmilUWWaBc1Sl94M2
+         5BXMRQ+gCuBBJimCCeo8KZ1OAzcqRy4NtB5ACXj2OUjw6FPVPcIoWXkTKlg+uFkDV/gQ
+         IbH9kiSP4p/hxZ02BsxzsBfqb56j0uMbw5xb8AUlebKRvz/qj16sA2frkl8i9J4wF4mz
+         qxOkOLSk47DNfgTM0aHRRBXLzRC5YnXZ5HhTquDGQ+7HVbRJuPlJ1LafFwWLALhhrYbj
+         N8mA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791329575; x=1791934375;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=63o+ETk0hEx3rHZzZwUiie6Jpi00EzurOJzH/KYltNI=;
+        b=VMZLm4EKdfPeVtiJ3jSLuaZfxa3aDM0ild7xqQT04A6GktvYg2mh9FZFJrkCgfAgi5
+         D4SL5XDbClXKe+IoT07VBlV6YwWUM2RPNoI8xETrSO1WEjuYEctHm6OF+mtGeU1vKvLQ
+         bTIj+m4bN9XovE6HgJNhsbC5Boc2NzGgYcSLvXtAvs8ZEI0/HS7QUzlAhBXeaC8P/BH7
+         BvA0IobkHyhMMaqMTbeDJPAnOnk8o80+5gwRUfdhCMDQhC90J9fnXADwexEw+Nzjvgff
+         Adf/yi2B+9QLJt8yQ5BPuU4yBW0VCgdYfEC4ZW2mK6Bld3EpMbtXLwWOBKaI0tQnZ+75
+         Y+Tg==
+X-Forwarded-Encrypted: i=1; AKwUvBx10L+QS3sZaoVU0zvnzjM6+HO0XSqmXLAtapYUw0i7jPbERtB01MIm9FGgShWuu8dwqCNVbYeJe7xqaBk=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJcNGXd6fes1cxHky/2yXk3siKQpPZDhy2ShX7YhlDKF8gX3uzG
+	OlWFl0ARG7jhPEg/0pjjY+EZCrIUPBG4Kgeej15zsEgunKZkmZ7UgtnzmSpweHM761NRzppaxJe
+	v/A==
+X-Received: from pgbcq11.prod.google.com ([2002:a05:6a02:408b:b0:cc7:f591:caa5])
+ (user=praan job=prod-delivery.src-stubby-dispatcher) by 2002:a17:90b:44:b0:3a6:e149:f17
+ with SMTP id 98e67ed59e1d1-3a8a1b8e280mr501054a91.41.1791329574905; Tue, 06
+ Oct 2026 16:32:54 -0700 (PDT)
+Date: Tue,  6 Oct 2026 23:32:40 +0000
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-Disposition: inline
-In-Reply-To: <20260921004834.2601285-3-skhawaja@google.com>
-X-NV-OnPremToCloud: ExternallySecured
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ5PEPF000001EA:EE_|IA0PR12MB7554:EE_
-X-MS-Office365-Filtering-Correlation-Id: 609bddb1-15e0-4c48-b5bf-08df2401eed2
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|7416014|82310400026|1800799024|36860700016|376014|22082099003|18002099003|10067099003|11063799006|56012099006|4143699003;
-X-Microsoft-Antispam-Message-Info:
-	+eh8IMJcBr+/BPQhW6MhcInbVoAi99Z6iIZxhd0lOhqi889hNKducq4rUk6dLwXG8M8B2VSDmKC4vS9cSe42pTRNLlBsJkSZ0dChwQ3GlvDSEgmLsOcdLWGunEdiiARcM0dC9xlisLHInWQwoi8ZeLOJQceIBn9Yq0U8i0apFHl7ZirSzoz5E/2bK2ctKjZucyaS3eSdpEDuo9Gv2HaxDHO8+xrrvjTRmo5Z7UOS9FEuGNGx1dAZQ9HYlwy7R3CbBSwY3BvIrd5+KpgvWVhvfwDKiD0FRnp4U8B5psZm6enFtR9McOvAyx175O/6Efmg17+ONO3mAeZj3pwgOnlcVB+VjMqvc1hC5nZz1Fv4NBby4FXS/Ty9pKYv0WqubutX9bkefO+iJYtu17ryc2o3l3sToSFOzpRRX1lGZtB5g4pDHAN0YCIeD65+sNUbsznbDcoT2Kl0MI5HBvfe/EGsF2rfJOER/WeRrD6vs8cL7HTzB7mb8YUalja9bdKEsVJ2q5rKgyb04y/9Fw1MZXn3wFUhoq1FZA6lRTPdJ5poD7CBRQSpklzForEm22LQnUyQY0V59CG0eYnAdVTFKH0w4RJw0DGMaTYgwU5MsPFt57ROMHstnmAUKiEsCLwqucL3XQdecVdMXLG+ukNf1HSEh6DApQ9c5BO6eRXeEtiF8l4MtDJtpCflvfZZvYIAc3bAsWRc1qtkejWmVoOkpQSUdQ==
-X-Forefront-Antispam-Report:
-	CIP:216.228.117.160;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.nvidia.com;PTR:dc6edge1.nvidia.com;CAT:NONE;SFS:(13230040)(23010399003)(7416014)(82310400026)(1800799024)(36860700016)(376014)(22082099003)(18002099003)(10067099003)(11063799006)(56012099006)(4143699003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	2+S7cii6HruVkITiOAqYbDKO9pl2rBeagAFzd7dWR6+TjbLZrLtWCgnhINNAoJOmxGh4LFN3legxiNfQ+xLNk3JNsd7fj8UJNFS/XyRdNaiSQ+yowoBIfroUU+M5RlgZq/bcrXLJzIe0x7Fmp0HzJhXTtH8I3l8QqdmF/kYQQp98YPcAHWgI1o/wYLRmQQsMEMnusmIUwU3q+n5zyw96nhbg4kMe2knOhDsxXE9cSct4AamfumywQskufLMxw2/zLh7gP+ryFvqRErG2HuDtJEVmkHN762ODblUCqnccfqziL+pMKtOyRtWQk6/o9VRjCmanV8+M60Q7VbrvFZVkHZ3eYdhMp910rGm5zBQ+KTvglu73gkFpxGzF4W9yuccAQ3wCzy+8bpjZlW7mpgRaIHMvkaOoa71Hb/p4Uif3orVwezid7VYLkwihIW+3r+cA
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Oct 2026 23:31:22.8908
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 609bddb1-15e0-4c48-b5bf-08df2401eed2
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a;Ip=[216.228.117.160];Helo=[mail.nvidia.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	SJ5PEPF000001EA.namprd05.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA0PR12MB7554
+Mime-Version: 1.0
+X-Mailer: git-send-email 2.56.0.rc1.315.gc6ed9934b7-goog
+Message-ID: <20261006233248.705086-1-praan@google.com>
+Subject: [RFC PATCH v1 0/8] nfs: PCI P2PDMA for O_DIRECT over RDMA
+From: Pranjal Shrivastava <praan@google.com>
+To: linux-nfs@vger.kernel.org, Trond Myklebust <trondmy@kernel.org>, 
+	Anna Schumaker <anna@kernel.org>
+Cc: Chuck Lever <cel@kernel.org>, Jeff Layton <jlayton@kernel.org>, linux-kernel@vger.kernel.org, 
+	Christoph Hellwig <hch@lst.de>, Logan Gunthorpe <logang@deltatee.com>, Jason Gunthorpe <jgg@ziepe.ca>, 
+	linux-pci@vger.kernel.org, linux-rdma@vger.kernel.org, 
+	Shivaji Kant <shivajikant@google.com>, Tom Talpey <tom@talpey.com>, 
+	Leon Romanovsky <leon@kernel.org>, Unnati Sachan <unnatisachan@google.com>, 
+	Pranjal Shrivastava <praan@google.com>
+Content-Type: text/plain; charset="UTF-8"
 
-On Mon, Sep 21, 2026 at 12:48:18AM +0000, Samiullah Khawaja wrote:
-> +struct iommu_flb_obj {
-> +	struct mutex lock;
-> +	struct iommu_flb_ser *ser;
-> +
-> +	struct iommu_hw_array_ser *curr_iommu_array;
-> +	struct iommu_domain_array_ser *curr_domain_array;
-> +	struct iommu_device_array_ser *curr_device_array;
-> +};
+Enable NFS O_DIRECT to and from PCI peer-to-peer DMA (P2PDMA) memory
+on RDMA mounts. This replaces the initial RFC [1] and builds on the
+Direct I/O modernization series [2].
 
-IIUIC, there should be one pair of obj + ser in the entire system:
-  - old kernel has one outgoing obj + ser
-  - new kernel has one incoming obj + ser
-right?
+P2PDMA memory can be an NVMe Controller Memory Buffer, or the BAR of a
+vfio-pci device exported as a ZONE_DEVICE-backed DMABUF, as proposed
+in [3]. Today, NFS O_DIRECT fails with -EREMOTEIO when the user buffer
+is such memory, since iov_iter_extract_pages() refuses P2PDMA pages
+unless the caller passes ITER_ALLOW_P2PDMA. Buffered I/O is not
+affected, as the CPU copies the data into the page cache.
 
-If so, things in iommu_flb_obj (except ser) are all transient, and
-there is no need to preserve them across the two kernels.
+P2PDMA memory may not be safe to access with the CPU. Thus, the series
+follows one rule: a P2PDMA payload moves only by DMA between the device
+memory and the NIC (or the local disk with LOCALIO). Any path that
+would touch the payload via CPU accesses refuses the I/O instead of
+copying it.
 
-It also feels redundant to have this iommu_flb_obj structure. Why
-not link liveupdate_flb_op_args directly to the ser? Then, things
-in iommu_flb_obj could be global?
+Design
+======
 
-> +static int iommu_liveupdate_flb_preserve(struct liveupdate_flb_op_args *argp)
-> +{
-> +	struct iommu_flb_obj *obj;
-> +	struct iommu_flb_ser *ser;
-> +	void *mem;
-> +
-> +	/* obj exists only in the current kernel to track preserved state */
-> +	obj = kzalloc_obj(*obj, GFP_KERNEL);
-> +	if (!obj)
-> +		return -ENOMEM;
-> +
-> +	mutex_init(&obj->lock);
-> +
-> +	/* mem is allocated via KHO and will survive the kexec */
-> +	mem = kho_alloc_preserve(sizeof(*ser));
-> +	if (IS_ERR(mem))
-> +		goto err_free_obj;
-> +
-> +	ser = mem;
-> +	obj->ser = ser;
-> +	ser->version = IOMMU_LUO_FLB_VERSION;
+  O_DIRECT, user buffer in P2PDMA memory
+      |
+  nfs_direct_extract_pages()  ITER_ALLOW_P2PDMA on RDMA, !pNFS mounts
+      |                       (other mounts: -EREMOTEIO, as today)
+  nfs_generic_pgio()          is_pci_p2pdma_page() -> args.p2pdma
+      |
+      +-- LOCALIO: disk lacks BLK_FEAT_PCI_P2PDMA  -> regular RPC
+      |            not one DIO-aligned segment     -> -EINVAL
+      |
+      +-- RPC: krb5i / krb5p                       -> -EREMOTEIO
+               encoders set XDRBUF_P2PDMA
+                 |
+                 +-- xprtsock                      -> -EREMOTEIO
+                 +-- xprtrdma: NIC can't do P2P    -> -EREMOTEIO
+                               NIC can't reach it  -> -EREMOTEIO
+                               otherwise: Read/Write chunks only
 
-As version is per ser, ...
+1. Per-RPC decision
+ITER_ALLOW_P2PDMA at extraction is only a hint. NFS tags each READ and
+WRITE whose pages are P2PDMA memory with XDRBUF_P2PDMA, and the
+transport serving that RPC decides whether it can move them. With
+nconnect, reconnects and migration, the transport and its device can
+change between extraction and transmission, so a mount-time capability
+cannot be trusted. LOCALIO does not use the NIC at all.
 
-> +static int iommu_liveupdate_flb_retrieve(struct liveupdate_flb_op_args *argp)
-> +{
-> +	struct iommu_flb_obj *obj;
-> +	struct iommu_flb_ser *ser;
-> +
-> +	obj = kzalloc_obj(*obj, GFP_KERNEL);
-> +	if (!obj) {
-> +		/*
-> +		 * If retrieve fails, the finish path won't be called as
-> +		 * can_finish() will fail, preventing the restore.
-> +		 */
-> +		return -ENOMEM;
-> +	}
-> +
-> +	/* Data must be present and valid from the previous kernel */
-> +	BUG_ON(!kho_restore_folio(argp->data));
-> +
-> +	mutex_init(&obj->lock);
-> +	ser = phys_to_virt(argp->data);
-> +	obj->ser = ser;
-> +
-> +	obj->curr_domain_array = iommu_liveupdate_restore_array(ser->iommu_domain_array_phys);
-> +	obj->curr_device_array = iommu_liveupdate_restore_array(ser->device_array_phys);
-> +	obj->curr_iommu_array = iommu_liveupdate_restore_array(ser->iommu_array_phys);
+2. Socket transports
+TCP (including TLS), UDP and AF_LOCAL move data via CPU accesses, so
+they return -EREMOTEIO for a tagged RPC before touching the socket.
+xprt_transmit() now fails only the refused RPC and keeps draining the
+transmit queue.
 
-... should we validate ser->version before restoring arrays?
+3. RPC-over-RDMA
+The inline paths copy the payload via CPU accesses or DMA-map it with
+calls that do not handle P2PDMA pages. Thus, xprtrdma always sends a
+P2PDMA WRITE payload in a Read chunk and receives a P2PDMA READ payload
+in a Write chunk, whatever its size. It returns -EREMOTEIO when:
+ - the NIC cannot DMA to PCI peer-to-peer memory (e.g. rxe, siw),
+ - the NIC cannot reach the P2PDMA memory (DMA mapping fails),
+ - the GSS service forbids direct data placement (krb5i, krb5p), or
+ - the rest of the READ reply does not fit inline.
+If a server returns READ data inline despite the Write chunk, which
+RFC 8166 forbids, the RPC fails instead of copying into the pages.
+Small P2PDMA I/O therefore always pays for memory registration.
 
-> +/**
-> + * enum iommu_type_ser - Type of the IOMMU being preserved
-> + * @IOMMU_INVALID: Invalid type of IOMMU
-> + *
-> + * IOMMU type is stored in the IOMMU HW state to differentiate between various
-> + * IOMMU HWs.
-> + */
-> +enum iommu_type_ser {
-> +	IOMMU_INVALID,
-> +};
+4. GSS
+krb5i checksums and krb5p encrypts the payload via CPU accesses while
+the RPC is encoded, before the transport sees it. nfs_pgio_prepare()
+fails such READs and WRITEs with -EREMOTEIO before encoding.
 
-Nit: IOMMU_* sounds too generic. Given it's ser-specific, maybe
-IOMMU_SER_TYPE_*?
+5. LOCALIO
+LOCALIO is used for P2PDMA pages only if the filesystem's block device
+supports P2PDMA. Otherwise, the I/O goes out as a regular RPC. I/O that
+is not a single DIO-aligned segment would fall back to buffered I/O,
+so it fails with -EINVAL instead.
 
-> +/**
-> + * struct iommu_domain_ser - Serialized state of an IOMMU domain
-> + * @hdr: Common object header
-> + * @top_table_phys: Physical address of the top-level page table
-> + * @top_level: Level of the top-level page table
-> + * @vasz: Virtual Address Size
+6. READ_PLUS
+READ_PLUS decoding moves data and zero-fills holes via CPU accesses, so
+it is never used for P2PDMA pages. RDMA mounts already disable it.
 
-Since it comes directly from iommupt, why not just reuse:
-    @max_vasz_lg2: Maximum number of bits the VA can contain
-?
+All refusals return -EREMOTEIO, the error iov_iter_extract_pages()
+returns today, except misaligned LOCALIO I/O, which returns -EINVAL.
+Refused I/O fails at once, even on hard mounts.
 
-> +/**
-> + * struct iommu_dev_map_ser - Serialized mapping between device, domain,
-> + *				    and IOMMU instance.
-> + * @attachment_id: ID of the attachment between device and domain.
-> + * @domain_phys: Physical address of the domain
-> + * @iommu_phys: Physical address of the IOMMU
-> + */
-> +struct iommu_dev_map_ser {
-> +	u64 attachment_id;
-> +	u64 domain_phys;
-> +	u64 iommu_phys;
-> +} __packed;
+Call for review
+===============
+Feedback is appreciated on:
 
-Hmm, why iommu<->domain?
+1. Layering: "RDMA transport, !pNFS" is only a hint, and each RPC
+   re-checks its transport. Should the transport advertise P2PDMA
+   capability up front instead? That would also allow LOCALIO on TCP
+   mounts, which this series refuses.
+2. nconnect: fail an RPC on a transport without P2PDMA, or pick a
+   capable transport?
+3. Migration / reconnect: the path can move to a NIC without P2PDMA,
+   and I/O that worked starts failing with -EREMOTEIO. Acceptable?
+4. Hard mounts: refused I/O fails at once instead of retrying.
+   Acceptable?
+5. LOCALIO: the check uses sb->s_bdev, which misses multi-device
+   filesystems. Is there a better way to ask whether a file can do
+   P2PDMA? Should misaligned I/O fall back to an RPC instead of
+   failing with -EINVAL?
+6. pNFS: excluded for now. Route P2PDMA I/O through the MDS, or let
+   each layout driver opt in?
 
-An attachment (software) is between device and domain.
+Known issue: the pNFS check happens at extraction. If a mount gains
+pNFS afterwards (e.g. after migration), a rescheduled WRITE could reach
+a layout driver. I plan to decide once per O_DIRECT call and force the
+MDS path when P2PDMA pages are allowed.
 
-A device is always behind an IOMMU IOMMU HW (fixed; hardware).
+Thanks,
+Praan
 
-Should iommu_phys be moved under iommu_device_ser directly?
+[1] https://lore.kernel.org/all/20260401194501.2269200-1-praan@google.com/
+[2] https://lore.kernel.org/all/20260814143255.861084-1-praan@google.com/
+[3] https://lore.kernel.org/all/20260804185050.2053672-1-praan@google.com/
 
-> +/**
-> + * struct iommu_device_ser - Serialized state of a device
-> + * @hdr: Common object header
-> + * @devid: Device ID
-> + * @pci_domain_nr: PCI domain number
-> + * @dma_owner_token: Token to identify the DMA owner of this device
-> + * @domain_iommu_ser: Domain and IOMMU mapping
-> + */
-> +struct iommu_device_ser {
-> +	struct iommu_hdr_ser hdr;
-> +	u32 devid;
-> +	u32 pci_domain_nr;
-> +	u64 dma_owner_token;
-> +	struct iommu_dev_map_ser domain_iommu_ser;
+Changes since the initial RFC [1]:
+ - Split the Direct I/O modernization into its own series [2].
+ - Drop NFS_CAP_P2PDMA, the 64-bit caps expansion and the
+   ->supports_p2pdma xprt op. Decide per RPC instead, as Chuck
+   suggested.
+ - Refuse P2PDMA pages in the socket transports, and fail only the
+   refused RPC.
+ - Move P2PDMA payloads only via chunks in xprtrdma, and return
+   -EREMOTEIO when the NIC cannot reach the memory.
+ - Refuse krb5i and krb5p, and allow LOCALIO only as aligned direct
+   I/O to a P2PDMA-capable disk.
 
-I guess this single attachment_id needs to be fixed in phase 2 for
-PASID?
+Pranjal Shrivastava (8):
+  sunrpc: introduce XDRBUF_P2PDMA flag
+  sunrpc: fail only the RPC a transport refuses
+  xprtrdma: move P2PDMA payloads only via chunks
+  xprtrdma: return -EREMOTEIO on P2PDMA map failure
+  nfs: tag READ/WRITE RPCs carrying P2PDMA pages
+  nfs: refuse P2PDMA pages with krb5i and krb5p
+  nfs: allow LOCALIO for P2PDMA pages only as aligned direct I/O
+  nfs: allow P2PDMA pages for O_DIRECT on RDMA mounts
 
-> +} __packed;
-> +
-> +/**
-> + * struct iommu_hw_ser - Serialized state of an IOMMU instance
-> + * @hdr: Common object header
-> + * @token: Unique token for the IOMMU
+ fs/nfs/direct.c                | 10 ++++++++-
+ fs/nfs/internal.h              |  8 +++++++
+ fs/nfs/localio.c               | 40 ++++++++++++++++++++++++++++++++++
+ fs/nfs/nfs2xdr.c               |  4 ++++
+ fs/nfs/nfs3xdr.c               |  4 ++++
+ fs/nfs/nfs4proc.c              |  3 +++
+ fs/nfs/nfs4xdr.c               |  4 ++++
+ fs/nfs/pagelist.c              | 13 +++++++++++
+ include/linux/nfs_xdr.h        |  1 +
+ include/linux/sunrpc/xdr.h     |  1 +
+ include/linux/sunrpc/xprt.h    |  5 +++++
+ net/sunrpc/xprt.c              |  9 ++++++++
+ net/sunrpc/xprtrdma/frwr_ops.c | 15 ++++++++-----
+ net/sunrpc/xprtrdma/rpc_rdma.c | 40 ++++++++++++++++++++++++++++++++--
+ net/sunrpc/xprtsock.c          | 12 ++++++++++
+ 15 files changed, 161 insertions(+), 8 deletions(-)
 
-Could be clearer:
-@token: Unique token to identify the IOMMU instance
+-- 
+2.56.0.rc1.315.gc6ed9934b7-goog
 
-Nicolin
