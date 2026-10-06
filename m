@@ -1,134 +1,133 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 5C21E37EFF1;
-	Tue,  6 Oct 2026 05:09:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.12])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 28444360745
+	for <linux-kernel@vger.kernel.org>; Tue,  6 Oct 2026 05:10:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.12
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791263360; cv=none; b=pFdo4PnlGT9QB4X1SAK6ENEGTzwlCVKQpNVxMw+nAbaR8MaVMtJJUi6ceSabtsq5FDVfWFuNN71QIG9mAs4vVpkmqtuPGcTK4cCKZfucLnbY5/UaosTN4nmv2sCmAq+WmQi7ZwDAmbr0WFF+v9xwykJB4MEQT0DgEA4A9Kkyywo=
+	t=1791263457; cv=none; b=GlGjk0iBbPrZXbs9d/Z7f9OJ3J/D6LHEV2u0WVAO8EAzJLdYzOAmNcJLQxqFBMHddCcey4yHnjNzlb/EnteIaRdKFl+uWo3lroCqmTKcBObjUQ6PEmVHq7DE9N+Jbw8x68hnRZgZ3xMwoBHCQ419dFoA21wrFRt/Wglck8SOY70=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791263360; c=relaxed/simple;
-	bh=pucEWuti4eI8C1TIGnOlgVd8hOoodN55Yfj70uLt46Q=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=RxmaKpuLOnjOpjJagz/rd7dG7ieVuEScD968DuiATS1FPfaqQA4+n/doxcz5DW73+PdwK5CTYY0qjyZ0Y4R+3dMUd7shqtq8HfwbejZY2c5VyECbtgytuJ31FJcN6ncPH78SA4F6b8v+lLXoEpiIUmb3qTpD06Bbb165Gxhlv6c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=ieN7Mhfm; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	s=arc-20240116; t=1791263457; c=relaxed/simple;
+	bh=gMzRaq3DDfNLKdRRoGwGMBdwUs1hP7ONJIUqEWtCFpU=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=azaBpcI1utTKECRHUgMNcK4kogdUxdghZ4BACihQW4hhZ+tgZ0R9zquwKAWCXBepjnbNwTgZcdAHhdYCTK8PBLg0DGUeqPGYcIsGZrcwxPz3YvWoToEHjoQpywweXixtuGvWRXexm3szbwWaKI90CT00BS6hZB7MQPF7e9jzr98=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=bHvSQazN; arc=none smtp.client-ip=198.175.65.12
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="ieN7Mhfm"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id AD8A71595;
-	Mon,  5 Oct 2026 22:09:10 -0700 (PDT)
-Received: from [10.57.10.233] (unknown [10.57.10.233])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 346BC3F763;
-	Mon,  5 Oct 2026 22:09:10 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1791263354; bh=pucEWuti4eI8C1TIGnOlgVd8hOoodN55Yfj70uLt46Q=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=ieN7Mhfm+583ckxOpzcQ0TPToOxynyRRUkZjdJtRAl0AohNUgC5EsQaW8hmhw+y6s
-	 m4YIkSwSBHboyH6NXYPwiaKt84uTG6AQVkQoy7qfwZlUjJCxi32DDzHB8JZpZyr9R8
-	 Feiu2FdOOHzqjNSLn1nMUW2N0kwJMmw6NOhpHQzQ=
-Message-ID: <43bfa699-f35d-4f0a-bebd-3e955dd82112@arm.com>
-Date: Tue, 6 Oct 2026 07:09:08 +0200
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="bHvSQazN"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1791263455; x=1822799455;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=gMzRaq3DDfNLKdRRoGwGMBdwUs1hP7ONJIUqEWtCFpU=;
+  b=bHvSQazNV+1Gtmta13IwaFU/Dl9dRQb2oeGX8O+VRtBom1GVFjvrl2gn
+   7kprxJARWET7QBTzn+HkgjFkTByLNM7PPSsAeJLDzkJQyd1U3nCxCY+r2
+   /05TBMjI8x6NsaEMjhXC9G7lY2BvQY/OXbm8xEN3TF5/EdL8r0chxUnw6
+   GkKHBiWQENj+eBf5WmaimrIty7/kIXl2KCN47YrJY1HiUoCVqndhmYnGO
+   Qylcmgqc7b+lYfe6G5tryc4yIOwTRafTzZRaq9ScoBRmbE1M6Ju3gphID
+   HQsSEoKPxqo59faQyVdmPnB94Y2T2N5OAOR8b4wRu0wdFDhCJrfQXf7Je
+   Q==;
+X-CSE-ConnectionGUID: OuMdqwJjSyiclolmqPnr2w==
+X-CSE-MsgGUID: jg161iihRaWYurcFC5JB0w==
+X-IronPort-AV: E=McAfee;i="6800,10657,11926"; a="102461422"
+X-IronPort-AV: E=Sophos;i="6.27,143,1787036400"; 
+   d="scan'208";a="102461422"
+Received: from fmviesa007.fm.intel.com ([10.60.135.147])
+  by orvoesa104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 05 Oct 2026 22:10:55 -0700
+X-CSE-ConnectionGUID: TymkvGTZT7aRvlsDydv3Pg==
+X-CSE-MsgGUID: O2fiyGz8RdCO8RmoZxmP3w==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,143,1787036400"; 
+   d="scan'208";a="276551934"
+Received: from lkp-server01.sh.intel.com (HELO 0caa9d2d175c) ([10.239.97.150])
+  by fmviesa007.fm.intel.com with ESMTP; 05 Oct 2026 22:10:52 -0700
+Received: from kbuild by 0caa9d2d175c with local (Exim 4.98.2)
+	(envelope-from <lkp@intel.com>)
+	id 1xDxRx-000000001BQ-1ziK;
+	Tue, 06 Oct 2026 05:10:49 +0000
+Date: Tue, 6 Oct 2026 13:09:57 +0800
+From: kernel test robot <lkp@intel.com>
+To: Habil Eren =?iso-8859-1?Q?T=FCrker?= <habilerenturker@hotmail.com>,
+	"tglx@kernel.org" <tglx@kernel.org>,
+	"mingo@redhat.com" <mingo@redhat.com>,
+	"bp@alien8.de" <bp@alien8.de>,
+	"dave.hansen@linux.intel.com" <dave.hansen@linux.intel.com>,
+	"x86@kernel.org" <x86@kernel.org>
+Cc: llvm@lists.linux.dev, oe-kbuild-all@lists.linux.dev,
+	"hpa@zytor.com" <hpa@zytor.com>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+	Habil Eren =?iso-8859-1?Q?T=FCrker?= <habilerenturker@hotmail.com>
+Subject: Re: [PATCH v2 2/2] x86/apic: Replace deprecated simple_strtol() with
+ sscanf() in x86_fwspec_is_hpet()
+Message-ID: <202610061356.8VHVO1CY-lkp@intel.com>
+References: <20261005163213.6515-3-habilerenturker@hotmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v22 16/23] KVM: arm64: CCA: Add VCPU load/put for Realms
-Content-Language: en-GB
-To: Gavin Shan <gshan@redhat.com>, kvm@vger.kernel.org, kvmarm@lists.linux.dev
-Cc: maz@kernel.org, will@kernel.org, catalin.marinas@arm.com,
- linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- steven.price@arm.com, aneesh.kumar@kernel.org, oupton@kernel.org,
- joey.gouly@arm.com, tabba@google.com, yuzenghui@huawei.com,
- linux-coco@lists.linux.dev, gankulkarni@os.amperecomputing.com,
- sdonthineni@nvidia.com, alpergun@google.com, fj0570is@fujitsu.com,
- WeiLin.Chang@arm.com, lpieralisi@kernel.org, enju.kohei@fujitsu.com,
- sudeep.holla@arm.com, jonathan.cameron@oss.qualcomm.com
-References: <20261005090754.2140522-1-suzuki.poulose@arm.com>
- <20261005090754.2140522-17-suzuki.poulose@arm.com>
- <fdc81d01-27df-4557-80bf-80d4527e4bf2@redhat.com>
-From: Suzuki K Poulose <suzuki.poulose@arm.com>
-In-Reply-To: <fdc81d01-27df-4557-80bf-80d4527e4bf2@redhat.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261005163213.6515-3-habilerenturker@hotmail.com>
+
+Hi Habil,
+
+kernel test robot noticed the following build warnings:
+
+[auto build test WARNING on tip/x86/core]
+[also build test WARNING on linus/master v7.3-rc6 next-20261005]
+[If your patch is applied to the wrong git tree, kindly drop us a note.
+And when submitting patch, we suggest to use '--base' as documented in
+https://git-scm.com/docs/git-format-patch#_base_tree_information]
+
+url:    https://github.com/intel-lab-lkp/linux/commits/Habil-Eren-T-rker/x86-apic-Replace-deprecated-simple_strtol-with-sscanf-for-robust-parsing/20261005-163219
+base:   tip/x86/core
+patch link:    https://lore.kernel.org/r/20261005163213.6515-3-habilerenturker%40hotmail.com
+patch subject: [PATCH v2 2/2] x86/apic: Replace deprecated simple_strtol() with sscanf() in x86_fwspec_is_hpet()
+config: x86_64-buildonly-randconfig-1003-20261006 (https://download.01.org/0day-ci/archive/20261006/202610061356.8VHVO1CY-lkp@intel.com/config)
+compiler: clang version 22.1.3 (https://github.com/llvm/llvm-project e9846648fd6183ee6d8cbdb4502213fcf902a211)
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20261006/202610061356.8VHVO1CY-lkp@intel.com/reproduce)
+
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202610061356.8VHVO1CY-lkp@intel.com/
+
+All warnings (new ones prefixed by >>):
+
+>> arch/x86/kernel/apic/vector.c:700:10: warning: comparison between pointer and integer ('unsigned int' and 'u32 *' (aka 'unsigned int *')) [-Wpointer-integer-compare]
+     700 |             val == fwspec->param)
+         |             ~~~ ^  ~~~~~~~~~~~~~
+   1 warning generated.
 
 
-Hi Gavin
+vim +700 arch/x86/kernel/apic/vector.c
 
-On 06/10/2026 04:16, Gavin Shan wrote:
-> On 10/5/26 7:07 PM, Suzuki K Poulose wrote:
->> RMM controls the VCPU settings and most are hidden from the KVM, except
->> for the VGIC and timer bits.
->>
->> A later patch would add syncing the VCPU state into the Realm REC related
->> SMC parameters.
+   685	
+   686	int x86_fwspec_is_hpet(struct irq_fwspec *fwspec)
+   687	{
+   688		const char *fwname;
+   689		unsigned int val;
+   690	
+   691		if (fwspec->param_count != 1)
+   692			return 0;
+   693	
+   694		if (!is_fwnode_irqchip(fwspec->fwnode))
+   695			return 0;
+   696	
+   697		fwname = fwnode_get_name(fwspec->fwnode);
+   698	
+   699		if (fwname && sscanf(fwname, "HPET-MSI-%u", &val) == 1 &&
+ > 700		    val == fwspec->param)
+   701			return 1;
+   702	
+   703		return 0;
+   704	}
+   705	
 
-This is what you are looking for ^^^
-
->>
->> Signed-off-by: Suzuki K Poulose <suzuki.poulose@arm.com>
->> ---
->>   arch/arm64/kvm/arm.c | 18 ++++++++++++++++++
->>   1 file changed, 18 insertions(+)
->>
->> diff --git a/arch/arm64/kvm/arm.c b/arch/arm64/kvm/arm.c
->> index 6c81fec35ecec..294cea4cc8271 100644
->> --- a/arch/arm64/kvm/arm.c
->> +++ b/arch/arm64/kvm/arm.c
->> @@ -802,6 +802,13 @@ static void pkvm_vcpu_load(struct kvm_vcpu *vcpu)
->>                 &vcpu->arch.vgic_cpu.vgic_v3);
->>   }
->> +static void realm_vcpu_load(struct kvm_vcpu *vcpu)
->> +{
->> +    kvm_timer_vcpu_load(vcpu);
->> +    kvm_vgic_load(vcpu);
->> +    vcpu_set_wfx_traps(vcpu);
-> 
-> Why we need to call vcpu_set_wfx_traps(), which updates 'vcpu- 
->  >arch.hcr_el2'? I don't
-> see how 'vcpu->arch.hcr_el2' is affects realm in RMM. Could you please 
-> explain in the
-> commit log.
-
-See above.
-
-
-Cheers
-Suzuki
-
-> 
->> +}
->> +
->>   void kvm_arch_vcpu_load(struct kvm_vcpu *vcpu, int cpu)
->>   {
->>       vcpu->cpu = cpu;
->> @@ -854,6 +861,12 @@ static void pkvm_vcpu_put(struct kvm_vcpu *vcpu)
->>       kvm_vcpu_pmu_restore_host(vcpu);
->>   }
->> +static void realm_vcpu_put(struct kvm_vcpu *vcpu)
->> +{
->> +    kvm_timer_vcpu_put(vcpu);
->> +    kvm_vgic_put(vcpu);
->> +}
->> +
->>   void kvm_arch_vcpu_put(struct kvm_vcpu *vcpu)
->>   {
->>       vcpu->arch.vcpu_ops->vcpu_put(vcpu);
->> @@ -2213,6 +2226,11 @@ static const struct kvm_vcpu_ops pkvm_vcpu_ops = {
->>       .vcpu_put = pkvm_vcpu_put,
->>   };
->> +static const struct kvm_vcpu_ops realm_vcpu_ops = {
->> +    .vcpu_load = realm_vcpu_load,
->> +    .vcpu_put = realm_vcpu_put,
->> +};
->> +
->>   #define KVM_VCPU_OPS(flavor, ops)        \
->>       [(flavor)] = &(ops)
-> 
-> Thanks,
-> Gavin
-> 
-> 
-
+--
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
