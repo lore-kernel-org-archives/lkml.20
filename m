@@ -1,213 +1,125 @@
-Received: from mail-dl1-f71.google.com (mail-dl1-f71.google.com [74.125.82.71])
+Received: from mail-dl1-f46.google.com (mail-dl1-f46.google.com [74.125.82.46])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 54E554A4999
-	for <linux-kernel@vger.kernel.org>; Tue,  6 Oct 2026 18:39:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.71
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791311960; cv=none; b=lfuBS67yPef8dZxadg2TsIxPO1yUtlUNOg0MNQEoe5OgYsYMKnSIy2lreKKp78lJ5vojVwh759RC1yXM0RnZeAihzFnkM7lKfBK/t6RBHJ+NFWsB+537q1KkKbytiaUxfiTMBZ6DBsvKDYF77fH41Q0OBHqqrHKGIV21ZNT+uBE=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791311960; c=relaxed/simple;
-	bh=K/j+bsonhNbTR5DrbOfhjLBpWLgePPTcrQwEmKtP0kA=;
-	h=Date:Mime-Version:Message-ID:Subject:From:To:Cc:Content-Type; b=VBWQBY+w+Ptp5rJ5Ps7fz07T92ch50dNt7XyYcGz8Jv2srzIxSBvuLfDFKKn6LhUkuC/CjpJ6VzZPJ/fBynVBKz5lc36c/NC4+6VUeiq3732viEMKU61UrlIEXZt5+1GeLlIykWgEYtV0jCjDQpZuNYLUbElqqSIwJreklWlcso=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--cmllamas.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=I/htNYOu; arc=none smtp.client-ip=74.125.82.71
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7F3C637269C
+	for <linux-kernel@vger.kernel.org>; Tue,  6 Oct 2026 18:41:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.82.46
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791312121; cv=pass; b=gDmrqfbN39gWWPFhc+UfUfi/ggRS4Wkl77cV++u77a/2KTJfLC6iHpdjqKAz5iU5GaZ/Q7VuaciiMBF1thjmkcVZEYvcNudrOyKkcmNqWl74v3eiYfVd9n3f38Y+WTTkqIlD6B656ROlhzKCB6nyZVCPkHlsy3u9g8CRV2R01c4=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791312121; c=relaxed/simple;
+	bh=MpAzFgxVWCMOvK7jjl5NbxEMkYdvU1eQNoXVbITb2nA=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=SRTmYxmeVEbP0zE5KE826ZBAXnUmlSB+W9PMkM9DWEgUn4wTb1dAIMJ0Js3jGV18Zo9O083myDnrB1r8VF0f8etH8OOfiXEqMpyg2msQgCgbSCIx5azihvVkvBaT93LHqvRGX/v2oNuii1lNISRT41ZqrcqkHYakpN/TsVFTOc4=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=D6uV6t5c; arc=pass smtp.client-ip=74.125.82.46
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--cmllamas.bounces.google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="I/htNYOu"
-Received: by mail-dl1-f71.google.com with SMTP id a92af1059eb24-1384427c3efso4644433c88.0
-        for <linux-kernel@vger.kernel.org>; Tue, 06 Oct 2026 11:39:18 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="D6uV6t5c"
+Received: by mail-dl1-f46.google.com with SMTP id a92af1059eb24-144e1b6d52cso1229c88.1
+        for <linux-kernel@vger.kernel.org>; Tue, 06 Oct 2026 11:41:54 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1791312110; cv=none;
+        d=google.com; s=arc-20260327;
+        b=DcGH1dXRhpJuyhmau3oEMTVdIol+Amo/RCJF38QSfAKqF9F9VAMg8MBXo6AJehQzHb
+         NiubxSc4zPKBH+Fjt3N2qDI0fx6oGITW+ANy4YYFr7KczmmDrFfTQPvCb8LdcIoqsk3Z
+         IFnKyQxkzI0ZEFeeLooh0VtbBZZDTI5/XrzzmBOwF1giMUY7bh8TW5Pwza4xI/w5uDHD
+         qR5aX4hS/y2qrl6WvLKzMiwJJX24UBvnY+yOFOVTNrEYtF9D/kRp3cDyjdQ/nmhVuSQq
+         QCLfP8ISBXixYjlm89GiQc5K38j59+2CW1ytGfTRF84l0xnkMqfs5XvXVaKerrzkI4Sh
+         0tqw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=7ndOBpyUVrvLUL8/BucAq7YTN0AfiGwI+dPlm0Y1IOo=;
+        fh=iMe4tpMnlbpUrIquNgyGWZG3sh29yw3Tc5EqJFhk6AI=;
+        b=nWKP9BCui6ODSra5SsEtJK8Yk6qCVnHNMTZuub3m3Es78iwf/UIQDnHOhC1WA9nc2D
+         OCc8CI71rEjmui4snPdo5gAF1KpjOnokJIjN12Yx/SxX832Q2ipSyd6lci/atCf2yE7F
+         U3DRrqVi9tAy2LOf2zswjUX+JAiwSRfiQddP2oddDHhwLW2bOb+TK/2geVvVf6Av13BL
+         O5ToGpTQlVATYs6qhCXlvEXsQx/X0iTGjdJf8lT4cIwxY00TcUc0IueYgkmxY6TvMMDe
+         7/cms1GuIwxnC+vgDP23EK9JwcGpjrUwXbpNR48fBPJs4pNj05NTjhJTO60thccGgV2B
+         WEtw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1791311957; x=1791916757; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:mime-version:date:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=eT3Gs/ct1o9Y5IkFW19eA0/7ZUOALFp5CHXC49qt6gs=;
-        b=I/htNYOu1fXLWYAB7EHCcQGvXuj4d9HpohC1xFipbOTJD3GxaI9+/NR7n3WOFB6W6F
-         nZp0ofwtscEhoftDzRNuJRZEJjG1U4FdrPS7prEnanWM/niuVO8X4Bg9FvXMgwjhwKEL
-         cD8R+7Gk0twQxefsGqqVU7i7FrTtCOxUFpa9ZogxNMqYYvPW7vVr5oqZ9ZMFGWgzpaC5
-         ostruIsvTL9wZjCc2QCTwLEdjW2Ql9axJZ9XSwAwpWEi3U/UzCsAIkP99xk0aMGYrZR8
-         cebO9Gc0pemrg1OZ5rf/4XOJJFA5zL9bbd+7vrPQeYE+nIWS/BhLE16Qj5aB2BCxmW/B
-         3Bpw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791311957; x=1791916757;
-        h=content-type:cc:to:from:subject:message-id:mime-version:date
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+        d=google.com; s=20251104; t=1791312110; x=1791916910; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=eT3Gs/ct1o9Y5IkFW19eA0/7ZUOALFp5CHXC49qt6gs=;
-        b=zk39D+z0a0jGinNX0ib0JjXHBg1AHRbeguJJ+4L8Y4gPRJZ35bjUUYzTHSL1G0g1p6
-         Ar1uBolhkzwkYGPCNvTs34HQBFRnlKDFF5VejpmBUsoxSf3pVJZ93Ixr1MREdoBOQaJ9
-         jrc/Gm8aSwygKeM+fVnGzqy7V9WtdCpvMqXIOuG2pl4bNVVK9krF0k8pAnvIZg7AUfyZ
-         ay6Ym6I4jIj5yU5fI3OLuMlZJZSA8yfEGYJ4MBdoWB83OVXwvKGecVAiz8ICSTnol0lI
-         gPSq/jIF3o4EeBIjtS76nkQPxWLMJcGMNSzk4OfZMaNyCA1O6r0I7a/H7+aH875b2HMd
-         DnSw==
-X-Forwarded-Encrypted: i=1; AKwUvBztLxFaC/eClrIGtidx47U511Bnt6X1UU+RlIamMQbOdEOpG65gjjlxoU2VexF5xQjPEkhH60EiruW9tHM=@vger.kernel.org
-X-Gm-Message-State: AFuF++nBRbI51bcSoOPnx7DCdlm9e/Dy01Jc7DRuCT037U+dwqiaGJ0p
-	hE/wfD4lAC450z/w3v5XsHFpfG2XiFhjImhKc5YlUvUuwkNPbll7TytOsMYFkFP5lB+NlHtkFXx
-	p1TBGTaPKS7n7kw==
-X-Received: from dly13-n1.prod.google.com ([2002:a05:701b:204d:10b0:15d:9efd:93a5])
- (user=cmllamas job=prod-delivery.src-stubby-dispatcher) by
- 2002:a05:701b:230e:b0:159:76b0:a9e3 with SMTP id a92af1059eb24-15ec01d3454mr2774882c88.6.1791311956910;
- Tue, 06 Oct 2026 11:39:16 -0700 (PDT)
-Date: Tue,  6 Oct 2026 18:38:23 +0000
+        bh=7ndOBpyUVrvLUL8/BucAq7YTN0AfiGwI+dPlm0Y1IOo=;
+        b=D6uV6t5cxilTp1Chf4NYnLBewK6R7vOxuEO1LWRldrmlSaiUTlna2YczJ1QTNJMIvY
+         7El3vroNyPVvrG+7wjJZyFgaamUB5UkaXsWiM3nE60rakNg0qunxyoaQ2CdbgcWUuY8P
+         hamDVJLYuZPZqauhpItsZF6X+ejgclt/xSyd+FzrkznN8YiEEUsq1fyKcDf/pCzgrnUJ
+         nImAI/7JEnJonvn2+/qgEbk+ui5C9Vw/snV1SGQmre57vIfglz2eCqgV7GlkZ6BJq2BC
+         G497kaAIEIQTWgLrTqXd/nn2GimjJE1OmuMCXmPRiN4LbNJ/JfHOYtrpg2JsRdA/Xag+
+         s39w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791312110; x=1791916910;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=7ndOBpyUVrvLUL8/BucAq7YTN0AfiGwI+dPlm0Y1IOo=;
+        b=cqagbsXCuj1imTDsBw5dmBlzsc0nEIyhHaH6EG7x3WhYWMfX1uaaql6Q6zd8FazBGC
+         J5x3bXOj/WtT62WAVJ34PzixX55U5i+Et6E1gYF630zpxtD6YMKiuo/QAMl6/9i2y3wr
+         1nI61txgHPnQNpLcYBy19Y0jSgv608iCRjJ/Tl+Y1Ja6aR9EHSn9rs1lnWYPulHGZIdP
+         nZjPSwwpLKP7X8t7qXd/NedCzV+aYQCNUOly30vH7xkGTLIMGfML4gYwmWg8zxdbmxRq
+         l/f566rj1gfLHRWbpe0gPG7/FYOUBfxtDMJGVe1YffhRh1Rn3lR0pEyO+W46RsS/dn3T
+         YkkQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxoktIA2xAqbLklDcl+DWypv5jhtJyT709LMUW7x8NuQoEt4lBuOlRON+UXlNruQrIahhfP7nlthLpJC+Y=@vger.kernel.org
+X-Gm-Message-State: AFuF++kAQvCsVOHQlAq4mcq40irDxcjMiXE5W7nbpufAIUAYzaLgmLmN
+	5iNUwmX0Zs6bapdF5uSEdS5AaFSe8GNsHD/1HTuT0rBhAs0kXhtho9GctoVR2ZVUP/isxXQvQyF
+	jA3+YSDDlw4Ad+HIVuu5kQUVQzQ0X5zOT66eFuRU=
+X-Gm-Gg: AYBFou2iPqgxmWcg0bdc4YXvhBNn7X1E/JhS9Vq5rOlfZniTI+xs3UU8/BKwugS49zU
+	b0V6rsF2UbwdZ5mHaW+i1gJy5b+8hZQ/A6gqAr76775xwpbrKsXAEgRjDBUQWXw2QhQxd1FGJbL
+	pfv8HU0zlcbQ+vwU9UTHAhGiJT+P3xndj7Pmrpst7g0khkt6EuGJ0diVPHJLJXI5BdoN5v+VzWz
+	Bl0JwQ9JdGZ+JlS+nyaFlg/jUbLXyG356G9HL9MJ76LHfBUZKpoF3B5F5+0nRQfk5tzAIeeUC8n
+	VYpg6U0OeGCWx7cRmWSHOKx31DVGiXJZcQjD5jvYpUEwl8w7qTWrvUs5FqRgyVf1SifU5HtQKuL
+	UBxxekighfASlH8DQg4WqMZQ3mhuFXBB4z9DE
+X-Received: by 2002:a05:7022:28b:10b0:138:38c7:6adb with SMTP id
+ a92af1059eb24-15df40d24b7mr384153c88.7.1791312109409; Tue, 06 Oct 2026
+ 11:41:49 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-X-Mailer: git-send-email 2.56.0.385.gd3acb90ef8-goog
-Message-ID: <20261006183857.396710-1-cmllamas@google.com>
-Subject: [PATCH] rust: fmt: drop the "0x" prefix from {:p} to match %p
-From: Carlos Llamas <cmllamas@google.com>
-To: Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>, 
-	"=?UTF-8?q?Bj=C3=B6rn=20Roy=20Baron?=" <bjorn3_gh@protonmail.com>, Benno Lossin <lossin@kernel.org>, 
-	Andreas Hindborg <a.hindborg@kernel.org>, Alice Ryhl <aliceryhl@google.com>, 
-	Trevor Gross <tmgross@umich.edu>, Danilo Krummrich <dakr@kernel.org>, 
-	Daniel Almeida <daniel.almeida@collabora.com>, Tamir Duberstein <tamird@kernel.org>, 
-	Alexandre Courbot <acourbot@nvidia.com>, "=?UTF-8?q?Onur=20=C3=96zkan?=" <work@onurozkan.dev>, Ke Sun <sunke@kylinos.cn>, 
-	Carlos Llamas <cmllamas@google.com>, Dirk Behme <dirk.behme@de.bosch.com>
-Cc: kernel-team@android.com, linux-kernel@vger.kernel.org, 
-	stable@vger.kernel.org, "open list:RUST" <rust-for-linux@vger.kernel.org>
+MIME-Version: 1.0
+References: <20260924173501.856380-1-dmatlack@google.com> <20260924173501.856380-3-dmatlack@google.com>
+In-Reply-To: <20260924173501.856380-3-dmatlack@google.com>
+From: Josh Hilke <jrhilke@google.com>
+Date: Tue, 6 Oct 2026 11:41:38 -0700
+X-Gm-Features: AclHuK9FyS0I6QMmX8Zk3xjrz1tbTyWGWZU5DOqGZ_KGJ50pE4yWQNuil68MSKM
+Message-ID: <CAAdrzjt51Rduf556+BjDb6-M2mfDEgnTsbxTO3JHn70uu7sr5w@mail.gmail.com>
+Subject: Re: [PATCH 02/15] PCI: Add an offset-indexed store for saved
+ capability registers
+To: David Matlack <dmatlack@google.com>, linux-kernel@vger.kernel.org, 
+	linux-pci@vger.kernel.org, linuxppc-dev@lists.ozlabs.org
+Cc: Alex Williamson <alex@shazbot.org>, Bjorn Helgaas <bhelgaas@google.com>, 
+	Jason Gunthorpe <jgg@nvidia.com>, Josh Hilke <jrhilke@google.com>, Lukas Wunner <lukas@wunner.de>, 
+	Mahesh J Salgaonkar <mahesh@linux.ibm.com>, "Oliver O'Halloran" <oohall@gmail.com>, 
+	Pasha Tatashin <pasha.tatashin@soleen.com>, Pratyush Yadav <pratyush@kernel.org>, 
+	Samiullah Khawaja <skhawaja@google.com>, Vipin Sharma <vipinsh@google.com>
 Content-Type: text/plain; charset="UTF-8"
 
-Commit 643a7c306b8c ("rust: fmt: route {:p} through HashedPtr to prevent
-address leaks") made {:p} go through the kernel's %p so that pointers
-are hashed by default. However, it formats them with %#0*p, where the
-'#' flag prepends a '0x' prefix that the plain %p does not produce in C.
-Thus the same pointer is printed differently from C and from Rust:
+On Thu, Sep 24, 2026 at 10:34 AM David Matlack <dmatlack@google.com> wrote:
+>   - Each capability allocates its own buffer, at nine call sites (plus
+>     one hand-built by a quirk) that can each fail independently. Four of
+>     them (AER, DPC, PTM, TPH) ignore the failure
 
-    C     %p      00000000e8efa736
-    Rust  {:p}  0x00000000e8efa736
+ After patch 1, DPC reports the failure with pci_err(), so at this
+point only AER, PTM and TPH ignore it.
 
-The prefix is a leftover from 'core::fmt::Pointer', which always adds
-one. However, doing so deviates from the %p format documented in
-Documentation/core-api/printk-formats.rst and makes it harder to
-correlate the same pointer across C and Rust messages.
+> +     *val = dword >> (8 * (off & (sizeof(u32) - 1)));
 
-Format the pointer with '%0*p' instead and adjust the default field
-width accordingly, so that {:p} produces exactly the same output as
-plain %p which is zero-padded to the width of a pointer and without any
-prefix, both for hashed pointers and for real addresses under
-'no_hash_pointers'. Update the KUnit test expectations to match.
+[...]
 
-Note this patch focuses only on fixing the '{:p}' prefix to match %p.
-The '#' flag remains ignored as before, so the '{:#p}' equivalent to
-%#p should be sent as a follow up patch.
+> +     unsigned int shift = 8 * (off & (sizeof(u32) - 1));
 
-Fixes: 643a7c306b8c ("rust: fmt: route {:p} through HashedPtr to prevent address leaks")
-Cc: stable@vger.kernel.org
-Assisted-by: LLM
-Signed-off-by: Carlos Llamas <cmllamas@google.com>
----
- rust/kernel/fmt.rs | 48 ++++++++++++++++++++++++----------------------
- 1 file changed, 25 insertions(+), 23 deletions(-)
+Nit: please put this shift in one small helper so the two copies can't
+drift.
 
-diff --git a/rust/kernel/fmt.rs b/rust/kernel/fmt.rs
-index 29582b053ab1..b35858a28d38 100644
---- a/rust/kernel/fmt.rs
-+++ b/rust/kernel/fmt.rs
-@@ -64,6 +64,9 @@ pub trait Pointer {
- /// By default, `%p` prints a hashed representation of the pointer address to prevent kernel address
- /// leaks. When the `no_hash_pointers` kernel command-line parameter is enabled, the real address is
- /// printed instead (for debugging purposes).
-+///
-+/// The output matches that of `%p` in C: zero-padded to the width of a pointer and, unlike
-+/// [`core::fmt::Pointer`], without a `0x` prefix.
- pub struct HashedPtr<T: ?Sized>(pub *const T);
- 
- impl<T: ?Sized> Pointer for HashedPtr<T> {
-@@ -72,33 +75,32 @@ fn fmt(&self, f: &mut Formatter<'_>) -> Result {
- 
-         let mut buf = [0u8; 32];
- 
--        // Use `%#0*p` for the `0x` prefix and zero-padding; `+2` compensates for
--        // the prefix counting toward the field width.
--        let default_width = (2 * size_of::<usize>() + 2) as c_int;
-+        // Like `%p`, zero-pad to the width of a pointer and do not add a `0x` prefix.
-+        let default_width = (2 * size_of::<usize>()) as c_int;
-         let width = match (f.sign_aware_zero_pad(), f.width()) {
-             (true, Some(w)) if w > 0 => w.min(buf.len() - 1) as c_int,
-             _ => default_width,
-         };
- 
-         // SAFETY: `buf` is a valid, writable 32-byte buffer, sufficient for
--        // all architectures (max 19 bytes for 64-bit under the default width).
-+        // all architectures (max 17 bytes for 64-bit under the default width).
-         // The format string is null-terminated; `width` (c_int) and pointer
-         // match the `%*` and `%p` specifiers.
-         let len = unsafe {
-             crate::bindings::scnprintf(
-                 buf.as_mut_ptr().cast(),
-                 buf.len(),
--                c"%#0*p".as_char_ptr(),
-+                c"%0*p".as_char_ptr(),
-                 width,
-                 self.0.cast::<c_void>(),
-             )
-         };
- 
--        // SAFETY: `%#0*p` produces only ASCII, which is valid UTF-8.
-+        // SAFETY: `%0*p` produces only ASCII, which is valid UTF-8.
-         let s = unsafe { core::str::from_utf8_unchecked(&buf[..len as usize]) };
- 
-         if f.sign_aware_zero_pad() {
--            // `scnprintf` already applied the width and zero-padding via `%#0*p`.
-+            // `scnprintf` already applied the width and zero-padding via `%0*p`.
-             f.write_str(s)
-         } else {
-             f.pad(s)
-@@ -224,26 +226,26 @@ mod tests {
-     mod expected {
-         pub(super) const PTR_VALUE: usize = 0xffffffffdeadbeef;
-         pub(super) const PTR_VAL_NO_CRNG: &str = "(____ptrval____)";
--        pub(super) const HASHED_PREFIX: &str = "0x00000000";
--        pub(super) const RAW_POINTER: &str = "0xffffffffdeadbeef";
--        pub(super) const PADDED_RIGHT: &str = "      0xffffffffdeadbeef";
--        pub(super) const ZERO_PADDED: &str = "0x000000ffffffffdeadbeef";
--        pub(super) const HASHED_PADDED_RIGHT_PREFIX: &str = "      ";
--        pub(super) const HASHED_ZERO_PADDED_PREFIX: &str = "0x00000000000000";
--        pub(super) const CLAMPED: &str = "0x0000000000000ffffffffdeadbeef";
-+        pub(super) const HASHED_PREFIX: &str = "00000000";
-+        pub(super) const RAW_POINTER: &str = "ffffffffdeadbeef";
-+        pub(super) const PADDED_RIGHT: &str = "        ffffffffdeadbeef";
-+        pub(super) const ZERO_PADDED: &str = "00000000ffffffffdeadbeef";
-+        pub(super) const HASHED_PADDED_RIGHT_PREFIX: &str = "        ";
-+        pub(super) const HASHED_ZERO_PADDED_PREFIX: &str = "0000000000000000";
-+        pub(super) const CLAMPED: &str = "000000000000000ffffffffdeadbeef";
-     }
- 
-     #[cfg(not(CONFIG_64BIT))]
-     mod expected {
-         pub(super) const PTR_VALUE: usize = 0xdeadbeef;
-         pub(super) const PTR_VAL_NO_CRNG: &str = "(ptrval)";
--        pub(super) const HASHED_PREFIX: &str = "0x";
--        pub(super) const RAW_POINTER: &str = "0xdeadbeef";
--        pub(super) const PADDED_RIGHT: &str = "              0xdeadbeef";
--        pub(super) const ZERO_PADDED: &str = "0x00000000000000deadbeef";
--        pub(super) const HASHED_PADDED_RIGHT_PREFIX: &str = "              ";
--        pub(super) const HASHED_ZERO_PADDED_PREFIX: &str = "0x00000000000000";
--        pub(super) const CLAMPED: &str = "0x0000000000000000000000deadbeef";
-+        pub(super) const HASHED_PREFIX: &str = "";
-+        pub(super) const RAW_POINTER: &str = "deadbeef";
-+        pub(super) const PADDED_RIGHT: &str = "                deadbeef";
-+        pub(super) const ZERO_PADDED: &str = "0000000000000000deadbeef";
-+        pub(super) const HASHED_PADDED_RIGHT_PREFIX: &str = "                ";
-+        pub(super) const HASHED_ZERO_PADDED_PREFIX: &str = "0000000000000000";
-+        pub(super) const CLAMPED: &str = "00000000000000000000000deadbeef";
-     }
- 
-     #[test]
-@@ -289,8 +291,8 @@ fn test_ptr_formatting() -> core::result::Result<(), crate::error::Error> {
- 
-             let cstr = CString::try_from_fmt(fmt!("{:0100p}", ptr))?;
-             let output = cstr.to_str()?;
--            assert!(output.starts_with("0x"));
--            assert!(!output[2..].chars().all(|c| c == '0'));
-+            assert_eq!(output.len(), expected::CLAMPED.len());
-+            assert!(!output.chars().all(|c| c == '0'));
-         }
- 
-         Ok(())
--- 
-2.56.0.385.gd3acb90ef8-goog
+- Josh Hilke
 
+
+
+
+
+- Josh Hilke
