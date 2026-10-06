@@ -1,42 +1,43 @@
 Received: from www537.your-server.de (www537.your-server.de [188.40.3.216])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 363F73DD533;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 364953DD847;
 	Tue,  6 Oct 2026 10:14:06 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=188.40.3.216
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791281650; cv=none; b=kX0+SDK98xGjabh4gVtIQL0oQslABi7zcnEhOdqqMVoNFxQWpdvo8ogBiea46PnlY/IeoFliOsmgRnz02cQ7NoBUSor/KTQvnWLJqejf5L+arHZCVzkYbJ5+Jo2rqsqS0NmDlqA/ZGRBk5wgiCwOKC9r2F0RFqXEm2mjPg/QNgA=
+	t=1791281650; cv=none; b=I5V+XSAI7Ik3HUgqTgHApO4V3eBbhLrbtXD43mQxGsrxyMOirlnYf0P/sBmXw8lEYXReAVJrI9RI7iFkYVcN1mqPzU8n/KFQ9j3ejcdBT0QdkwdtN7nv7+elBo6SdKqjvyjQ3ZOUy13/NAnh6RWZvapdOrF5vdoS3czTN1gWhdo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1791281650; c=relaxed/simple;
-	bh=z9iD+7Tx2AxBm1zWOh873HEWpljmnjIO14sA56qP0rg=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=DxX8H0NsOI4Lf58P4IqIx9Vwlcbg/WUK3gNYSVytKRZWMGtJ6zccUeb0M6ekRVAoiRO4oWJ6gGT9PzI/nApsxCp/fo4ehg7m5HwMHUQO7I6YlAQqxhupNFjRu5Y/yAm21zD0pSSoNbyaU1lLUH1adzAyYcm4wSfGR6n+LWJU8fs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ew.tq-group.com; spf=pass smtp.mailfrom=ew.tq-group.com; dkim=pass (2048-bit key) header.d=ew.tq-group.com header.i=@ew.tq-group.com header.b=Zy0LPWj3; arc=none smtp.client-ip=188.40.3.216
+	bh=yTvrC4MeqwfkwAzuTb0LRj5KU6peCV3xDJhCJSLOJkM=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=i/pQJ9hr8elMT8c60ganPM3ppVApCu1kMNOBjy0jLJEJVsIS9J/kLU2/KDzG0tIcnqst0mfS5Ljk4tzH9aDLavPAaF26jaFtSC2LdnWJX5qxea9TBh1Qng4sHNDCQvKWYldeaZDSBDkaWvm2pmUwT3/9vos/0glSiTiN3qIhGVc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ew.tq-group.com; spf=pass smtp.mailfrom=ew.tq-group.com; dkim=pass (2048-bit key) header.d=ew.tq-group.com header.i=@ew.tq-group.com header.b=Rgkt32MF; arc=none smtp.client-ip=188.40.3.216
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ew.tq-group.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ew.tq-group.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ew.tq-group.com header.i=@ew.tq-group.com header.b="Zy0LPWj3"
+	dkim=pass (2048-bit key) header.d=ew.tq-group.com header.i=@ew.tq-group.com header.b="Rgkt32MF"
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
 	d=ew.tq-group.com; s=default2602; h=Content-Transfer-Encoding:MIME-Version:
-	Message-ID:Date:Subject:Cc:To:From:Sender:Reply-To:Content-Type:Content-ID:
-	Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
-	:Resent-Message-ID:In-Reply-To:References;
-	bh=KS5H4193KPqxiaCispUvsgTKoX8n3WQynuhfM5yuyIY=; b=Zy0LPWj3mtgWSErT0qqoXqVVfT
-	l5XrwcM4gaGoeW9YCHOY1cu8kftZrAu4dhS8YZIO3b1AY/qXHPUbiRbv4FlASRydv4e6+WQ1SdSnL
-	Gwu6ou3+djiGOYlr6Oa+AYl8xlBcf7naK/4cyjKXdK+wvNh09QvrdN6yxtab1cNdjbveruy+YaPLu
-	npr207A4ibK7lJWjGxw716g2uys2xFNhk3K5KjURKxPK0C84ziCJP2nwwnmIjUGX55cEPPrOaFCzD
-	n4VV7u7GzS+n5VoI9oo/crDRiwyhoG9bxpMnM6UWPidm2SHAyNUuwO+cvMGLC8TYg3XSMk+jPRBkP
-	xCFq5ABA==;
+	References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Sender:Reply-To:
+	Content-Type:Content-ID:Content-Description:Resent-Date:Resent-From:
+	Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID;
+	bh=/MKRL/nN+GnLIL3zzwMXRu+DOLGuzft8SFSZnZqTRA8=; b=Rgkt32MFona3yOqeYiq4UlK3ms
+	XxAzvieLCpDSCcosPUId9noBDM1+GROWMAAP7YNEnlW3pcgK4l2ahv5PnzAX/XFaEpG8Ja2IU4IDx
+	Tuw1OzMuWUJnz0Sp0AcmAaPd/ubBQWFoYjnI2XjNeVum23nj7fOcki8VSAkwgwpwi5OldimqGkI0D
+	3tXtKQHRzruoVe4iQ8rGXwggSbFO/g7C5yKeVI7J1I1AqKOs0fhRqASk/CAJlw97UYL4PqcuCF3En
+	I2kGWR2upk0S4Wy7rnEZWseGcz7xsTcaI9KmuMxthiGXT5i4jI6SAhZnXFsYo9WzJ4on98hVDhRdH
+	pAFis36w==;
 Received: from sslproxy08.your-server.de ([78.47.166.52])
 	by www537.your-server.de with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
 	(Exim 4.96.2)
 	(envelope-from <alexander.stein@ew.tq-group.com>)
-	id 1xE2BP-000EyV-2o;
+	id 1xE2BQ-000Eyk-18;
 	Tue, 06 Oct 2026 12:14:04 +0200
 Received: from localhost ([127.0.0.1])
 	by sslproxy08.your-server.de with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
 	(Exim 4.96)
 	(envelope-from <alexander.stein@ew.tq-group.com>)
-	id 1xE2Ar-000Bni-2a;
+	id 1xE2As-000Bni-1D;
 	Tue, 06 Oct 2026 12:14:03 +0200
 From: Alexander Stein <alexander.stein@ew.tq-group.com>
 To: Rob Herring <robh@kernel.org>,
@@ -56,10 +57,12 @@ Cc: linux@ew.tq-group.com,
 	imx@lists.linux.dev,
 	linux-arm-kernel@lists.infradead.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH 1/6] arm64: dts: imx91-tqma9131-mba91xxca: remove pullup from CAN pins
-Date: Tue,  6 Oct 2026 12:13:45 +0200
-Message-ID: <20261006101358.2189639-1-alexander.stein@ew.tq-group.com>
+Subject: [PATCH 2/6] arm64: dts: imx91-tqma9131-mba93xxca: remove pullup from CAN pins
+Date: Tue,  6 Oct 2026 12:13:46 +0200
+Message-ID: <20261006101358.2189639-2-alexander.stein@ew.tq-group.com>
 X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20261006101358.2189639-1-alexander.stein@ew.tq-group.com>
+References: <20261006101358.2189639-1-alexander.stein@ew.tq-group.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -73,33 +76,46 @@ From: Markus Niebel <Markus.Niebel@ew.tq-group.com>
 
 Board has external PU, so internal PU are not needed.
 
-Fixes: e71db39f0c7c ("arm64: dts: freescale: add initial device tree for TQMa91xx/MBa91xxCA")
+Fixes: 4d0d3a3d1993 ("arm64: dts: add devicetree for TQMa91xx on MBa93xxCA")
 
 Signed-off-by: Markus Niebel <Markus.Niebel@ew.tq-group.com>
 Signed-off-by: Alexander Stein <alexander.stein@ew.tq-group.com>
 ---
- .../arm64/boot/dts/freescale/imx91-tqma9131-mba91xxca.dts | 8 ++++----
- 1 file changed, 4 insertions(+), 4 deletions(-)
+ .../dts/freescale/imx91-tqma9131-mba93xxca.dts   | 16 ++++++++--------
+ 1 file changed, 8 insertions(+), 8 deletions(-)
 
-diff --git a/arch/arm64/boot/dts/freescale/imx91-tqma9131-mba91xxca.dts b/arch/arm64/boot/dts/freescale/imx91-tqma9131-mba91xxca.dts
-index 60d11a4573e3f..db1940ab5cee8 100644
---- a/arch/arm64/boot/dts/freescale/imx91-tqma9131-mba91xxca.dts
-+++ b/arch/arm64/boot/dts/freescale/imx91-tqma9131-mba91xxca.dts
-@@ -618,10 +618,10 @@ pinctrl_fec_phy: fecphygrp {
- 	};
+diff --git a/arch/arm64/boot/dts/freescale/imx91-tqma9131-mba93xxca.dts b/arch/arm64/boot/dts/freescale/imx91-tqma9131-mba93xxca.dts
+index 3fb5bb71b6225..4a98cb0789c97 100644
+--- a/arch/arm64/boot/dts/freescale/imx91-tqma9131-mba93xxca.dts
++++ b/arch/arm64/boot/dts/freescale/imx91-tqma9131-mba93xxca.dts
+@@ -715,19 +715,19 @@ MX91_PAD_CCM_CLKO2__GPIO3_IO27			0x1000
  
  	pinctrl_flexcan1: flexcan1grp {
--		fsl,pins = /* HYS | PU | FSEL_0 | DSE no drive */
--			   <MX91_PAD_PDM_BIT_STREAM0__CAN1_RX		0x1200>,
--			   /* PU | FSEL_3 | DSE X4 */
--			   <MX91_PAD_PDM_CLK__CAN1_TX			0x039e>;
-+		fsl,pins = /* HYS | FSEL_0 | DSE no drive */
-+			   <MX91_PAD_PDM_BIT_STREAM0__CAN1_RX		0x1000>,
-+			   /* FSEL_3 | DSE X4 */
-+			   <MX91_PAD_PDM_CLK__CAN1_TX			0x019e>;
+ 		fsl,pins = <
+-			/* HYS | PU | FSEL_0 | DSE no drive */
+-			MX91_PAD_PDM_BIT_STREAM0__CAN1_RX		0x1200
+-			/* PU | FSEL_3 | DSE X4 */
+-			MX91_PAD_PDM_CLK__CAN1_TX			0x039e
++			/* HYS |FSEL_0 | DSE no drive */
++			MX91_PAD_PDM_BIT_STREAM0__CAN1_RX		0x1000
++			/* FSEL_3 | DSE X4 */
++			MX91_PAD_PDM_CLK__CAN1_TX			0x019e
+ 		>;
  	};
  
- 	pinctrl_jtag: jtaggrp {
+ 	pinctrl_flexcan2: flexcan2grp {
+ 		fsl,pins = <
+-			/* HYS | PU | FSEL_0 | DSE no drive */
+-			MX91_PAD_GPIO_IO27__CAN2_RX			0x1200
+-			/* PU | FSEL_3 | DSE X4 */
+-			MX91_PAD_GPIO_IO25__CAN2_TX			0x039e
++			/* HYS | FSEL_0 | DSE no drive */
++			MX91_PAD_GPIO_IO27__CAN2_RX			0x1000
++			/* FSEL_3 | DSE X4 */
++			MX91_PAD_GPIO_IO25__CAN2_TX			0x019e
+ 		>;
+ 	};
+ 
 -- 
 2.55.0
 
