@@ -1,80 +1,103 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0546F2DB7BF;
-	Tue,  6 Oct 2026 01:00:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 779D4A95E;
+	Tue,  6 Oct 2026 01:03:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791248408; cv=none; b=WecrtXeNO+6uGaXdQtPkusx6csm2mlsD4IdIUBf6qweVSqMbGBeSfkG/yklgKHch74dVLR8Ee0rPV6LCIBtIjkf5zgjnsMD77XHzOg9D9n+H9al84PtMh9MlSf2fpj817uQMyheWZ3zrnDEEDWmSRICqDLa09hGr23kFMuEiXEE=
+	t=1791248590; cv=none; b=GlWv4GSU8PCYbQ1V1xqWn1kYQk8Hfu8SWH42BmXG1u/ui86mBjX5zerTM40mPL16fUiX8a5sX1VKNxspf4NCfoligBFafAspu/qdXZNqZW8Bofo5Vrkdpk1gb15STz3PpUrF6JGpLVczSK5AXbLknVJJNakV3ZFVzGsia4VxCLk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791248408; c=relaxed/simple;
-	bh=UtuMmVX64Qq5QsPhW3D0FZCOSvp6D2DUoklXO69R36Y=;
-	h=Content-Type:MIME-Version:Subject:From:Message-Id:Date:References:
-	 In-Reply-To:To:Cc; b=nZgU0l9X+wa/PN53OW9EUWmVMeFBXWVStF/A5w8/dFokeJ1QyqPAirQpiiJahZHON+Xr+FQZbSVMaYPnihlnOYYRg7lH+ekdYo2dF2QedZD8NFs2/ZzcEz/US++/3hNl1BNGrUioNW7SYHiSxzAkviFUgTdIarjyEUBvIhhKg8A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=AZ4hZHtt; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791248590; c=relaxed/simple;
+	bh=QBBBbEsqPOyDi1gyLNQpOGAeLHGvZg8d7nUuIMJLoig=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=X+a3qtwxEjZCfnVpVnD8bYyyq9Y4TmfOa/VOwfYMO1Y9Ovs5IaNTn/0TEsH5/YrZpKwdvBW0/pwyMQZNg0rouudnc4Np32ybAYGXDGaWIrJoBHsSt8JiGEuW2wwF6S/e0JL+Cliz/0dz2ZfNjj/ivHxDrtHvRCzSX4zJvh1CR9E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fpPHrAY3; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="AZ4hZHtt"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8417C1F000FF;
-	Tue,  6 Oct 2026 01:00:06 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791248406;
-	bh=fmSHdEOjLyNe+GHx6L6yhQrxZwZE1u9619dhybyCLx8=;
-	h=Subject:From:Date:References:In-Reply-To:To:Cc;
-	b=AZ4hZHttCyXm7ZE36P8yA6Hr+o+dgADV1/ZWhB8sAPBr2wTczj2cJ7F2hsNeAf5YX
-	 RuvsdPE7lP9Uy+DxyR3JuC7kweFufqpJI7EcWnPm/hJdR2VDOsdke+IaUDeWyNC/e5
-	 lhUdltCi4wZngBz1AcKPMNUniLR4V4bnOKhAS1BLdcV6UMJoZKxbzxG0zb+qnECT3Z
-	 +1ErjRqIvmx1dHxd6s8X3EZheMZmOpUVIfSBgWbhX1y5saTR8ufp9rp/EUtEZ4eVdr
-	 psM/lzeTKjgFU/aLhruA29ALhzTFwD15HNGDe1Vs25O6FijtYusrSZ/Oz/E3n/rhks
-	 SiWbNHzhLinBg==
-Received: from [10.30.226.235] (localhost [IPv6:::1])
-	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 77382392667F;
-	Tue,  6 Oct 2026 01:00:06 +0000 (UTC)
-Content-Type: text/plain; charset="utf-8"
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fpPHrAY3"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 2E6F9C2BCF4;
+	Tue,  6 Oct 2026 01:03:10 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1791248590;
+	bh=QBBBbEsqPOyDi1gyLNQpOGAeLHGvZg8d7nUuIMJLoig=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
+	b=fpPHrAY3pEYpp/MLDFi36WBd0uwvn2mFdYmwXA+iFh4p4iEO3Jo4rIYa6UM/EiJqU
+	 ouj6M6+Cg2THaOta2f+rTbe8w8MrJBN/O8wOF2obALCdFOPCgzejWW+8AQ36rfFuRu
+	 AOb9I3wRVBGLuNbhP3khytIXhk5cEJL6BRMfj7OiQjPBgaV0L5upBJl0I5saPHQVZP
+	 iAYsi7w1KYzTPWR26Qeu/0pO/F5wQQZAN81O4ZQwfJrq9sXUVjHaSvqg8Cmdl81Jwt
+	 KScJBBjUftchmb6mTWzCYM4wO2FdEEDvm8sKDDoogQ6LhBpZ3piMcGbsu/OufRXFwj
+	 am2HJk1MdrVvw==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 08646CA6001;
+	Tue,  6 Oct 2026 01:03:10 +0000 (UTC)
+From: Roland Dreier via B4 Relay <devnull+rolanddreier.rivian.com@kernel.org>
+Date: Tue, 06 Oct 2026 01:03:08 +0000
+Subject: [PATCH 2/3] dmaengine: dw-axi-dmac: Report failed transfers in the
+ descriptor result
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Subject: Re: [PATCH net v6] net: airoha: Add retry mechanism to
- airoha_qdma_set_trtcm_param()
-From: patchwork-bot+netdevbpf@kernel.org
-Message-Id: 
- <179124840530.1963510.8749215756359738246.git-patchwork-notify@kernel.org>
-Date: Tue, 06 Oct 2026 01:00:05 +0000
-References: <20260930065855.46171-1-ansuelsmth@gmail.com>
-In-Reply-To: <20260930065855.46171-1-ansuelsmth@gmail.com>
-To: Christian Marangi (Ansuel) <ansuelsmth@gmail.com>
-Cc: lorenzo@kernel.org, andrew+netdev@lunn.ch, davem@davemloft.net,
- edumazet@google.com, kuba@kernel.org, pabeni@redhat.com,
- linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org,
- netdev@vger.kernel.org, linux-kernel@vger.kernel.org, Leto.Liu@airoha.com
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261006-dw-axi-fixes-v1-2-3b319e456d93@rivian.com>
+References: <20261006-dw-axi-fixes-v1-0-3b319e456d93@rivian.com>
+In-Reply-To: <20261006-dw-axi-fixes-v1-0-3b319e456d93@rivian.com>
+To: Eugeniy Paltsev <Eugeniy.Paltsev@synopsys.com>, 
+ Vinod Koul <vkoul@kernel.org>, Frank Li <Frank.Li@kernel.org>
+Cc: dmaengine@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Roland Dreier <rolanddreier@rivian.com>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1791248589; l=1473;
+ i=rolanddreier@rivian.com; s=20260814; h=from:subject:message-id;
+ bh=dCofrQtsaToPcFMjK0WnPAuxqv/qWfmPzjG50ShhZtI=;
+ b=bCwpgzy1rDeh+fkdCSIIb7DcxVLVKzfDguqxa7hSOrgx7ewVdEpXLrZzhCEjE+mpoKlP6zvtc
+ 9HHMxJAAt8zDHFlbLeWw5gn3FnxiNmryth7V2WCJVqPGVz7skvlXiaA
+X-Developer-Key: i=rolanddreier@rivian.com; a=ed25519;
+ pk=C7SBXsDIlarq7BpINqyDL67XV/AGNqNt09NCCpFcExk=
+X-Endpoint-Received: by B4 Relay for rolanddreier@rivian.com/20260814 with
+ auth_id=952
+X-Original-From: Roland Dreier <rolanddreier@rivian.com>
+Reply-To: rolanddreier@rivian.com
 
-Hello:
+From: Roland Dreier <rolanddreier@rivian.com>
 
-This patch was applied to netdev/net.git (main)
-by Jakub Kicinski <kuba@kernel.org>:
+axi_chan_handle_err() completes a failed descriptor without updating
+vd->tx_result. So clients using tx_result always get DMA_TRANS_NOERROR,
+even for incomplete / failed transfers (bus error or other reason).
 
-On Wed, 30 Sep 2026 08:58:48 +0200 you wrote:
-> From: Leto Liu (刘涛) <Leto.Liu@airoha.com>
-> 
-> CPU accesses QDMA via the bus. When multiple modules are using the bus
-> simultaneously, CPU access to QDMA may encounter bus timeouts and fails,
-> resulting in QDMA configuration failures and potentially causing packet
-> transmission issues. In order to mitigate the issue, introduce a retry
-> mechanism to airoha_qdma_set_trtcm_param routine in order to ensure the
-> configuration is correctly applied to the hardware.
-> 
-> [...]
+Set the result so a client can detect failures:
+ - DMA_TRANS_READ_FAILED for source decode or slave errors
+ - DMA_TRANS_WRITE_FAILED for destination decode or slave errors
+ - DMA_TRANS_ABORTED for everything else
 
-Here is the summary with links:
-  - [net,v6] net: airoha: Add retry mechanism to airoha_qdma_set_trtcm_param()
-    https://git.kernel.org/netdev/net/c/7e170da2edec
+Assisted-by: LLM
+Signed-off-by: Roland Dreier <rolanddreier@rivian.com>
+---
+ drivers/dma/dw-axi-dmac/dw-axi-dmac-platform.c | 7 +++++++
+ 1 file changed, 7 insertions(+)
 
-You are awesome, thank you!
+diff --git a/drivers/dma/dw-axi-dmac/dw-axi-dmac-platform.c b/drivers/dma/dw-axi-dmac/dw-axi-dmac-platform.c
+index 813d17a278e7..88362f181207 100644
+--- a/drivers/dma/dw-axi-dmac/dw-axi-dmac-platform.c
++++ b/drivers/dma/dw-axi-dmac/dw-axi-dmac-platform.c
+@@ -1084,6 +1084,13 @@ static noinline void axi_chan_handle_err(struct axi_dma_chan *chan, u32 status)
+ 		axi_chan_name(chan), vd->tx.cookie, status);
+ 	axi_chan_list_dump_lli(chan, vd_to_axi_desc(vd));
+ 
++	if (status & (DWAXIDMAC_IRQ_SRC_DEC_ERR | DWAXIDMAC_IRQ_SRC_SLV_ERR))
++		vd->tx_result.result = DMA_TRANS_READ_FAILED;
++	else if (status & (DWAXIDMAC_IRQ_DST_DEC_ERR | DWAXIDMAC_IRQ_DST_SLV_ERR))
++		vd->tx_result.result = DMA_TRANS_WRITE_FAILED;
++	else
++		vd->tx_result.result = DMA_TRANS_ABORTED;
++
+ 	vchan_cookie_complete(vd);
+ 
+ 	/* Try to restart the controller */
+
 -- 
-Deet-doot-dot, I am a bot.
-https://korg.docs.kernel.org/patchwork/pwbot.html
+2.54.0
 
 
