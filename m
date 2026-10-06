@@ -1,160 +1,233 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from sphereful.davidgow.net (sphereful.davidgow.net [203.29.242.92])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 55D2D1B3B19
-	for <linux-kernel@vger.kernel.org>; Tue,  6 Oct 2026 06:47:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4B23037757C;
+	Tue,  6 Oct 2026 06:47:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=203.29.242.92
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791269275; cv=none; b=RglvpCepah62O7f7qG4AC1ne02/4eC5GHnq6X21TJRR1Thx7h/raayyLSqvIKWHn5MdOU8SzncPra5mw/Mgyi1kvP+oeimKMFkmoOExPcZniIq1d0NNj9+GOQeuXX8EUqj77WhuoTxgNoJlGxbsPDvdQvgDIUDZwn6J0B1Qdu10=
+	t=1791269279; cv=none; b=kHyEib3GMXgOloYIjXX8mz7yPSYpx7niXqnbyR4k3vYGo2DmBgNgFO1tGjq9jy9n5qhXIfQsYoWwgNGkeaTwGl+BtXXYxIvD5CKvUB9ggta9e0hS9GulHtkOS+MUH4RY+fLZNGIk6XQnqe8pHCO9WMdqdmxVPDb1gZmTQ8/DgIo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791269275; c=relaxed/simple;
-	bh=MPN/w4fd5TNJiZBv1aH5s59Vk8uQssuUdgllkMx+sZ4=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=p/QtxUvL07UcOu7oHcLxdtO1lPDUzgtuk8VwOnbz82yP/STAC4zOREy8Sa1Wkhu6wU9bJNSpxmowRMTQowN4FTJv2Wq/F7mgCHoY/wLfJYdMB+A64wnX4RqssuVOTp6X929AQiaMq5dI0S3v69rCWkEpGLi192e8MvN91g/i+4A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=GbEO/cFr; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=A2JqbWo3; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="GbEO/cFr";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="A2JqbWo3"
-Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6966eCIA061314
-	for <linux-kernel@vger.kernel.org>; Tue, 6 Oct 2026 06:47:53 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:date:from:message-id:mime-version
-	:subject:to; s=qcppdkim1; bh=YTNWcUy5uXfw5fcm4xIoTb6pkrtsUZy/boO
-	3vBsoZfw=; b=GbEO/cFrPWAN0gxCRfLYavIkiXFDz/wuiQFIJkecaPdvlfi08sl
-	iDL/YviDPfBtCT3g/+U18LN1suVP+K3fPWlhBgPF0Y87u+lu6KOddA2qT13hR9M1
-	SJdU5Ia/c8FPHYDysunEvGpZU1315osC84WjGOpwYB0e3P7PL5lpsgEgIprYRuiy
-	d5qf3O+aVTTFsg5d81o6gUlttwdQLXMDzJYMCKkBux/zWjOxL3kk8BK6xHUcmzck
-	pT10FQD0at+h681FA4Lp+7eNj44qRKkKuFYvSGs/4XZwRnAZxo+cWSOlcHCXgXXA
-	FaXuEtucDyT09lkFXaRAU9O1YyZ3fIU/8yQ==
-Received: from mail-qk1-f200.google.com (mail-qk1-f200.google.com [209.85.222.200])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h4cj63mu2-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Tue, 06 Oct 2026 06:47:53 +0000 (GMT)
-Received: by mail-qk1-f200.google.com with SMTP id af79cd13be357-93cc40759b2so533176085a.1
-        for <linux-kernel@vger.kernel.org>; Mon, 05 Oct 2026 23:47:53 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1791269272; x=1791874072; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=YTNWcUy5uXfw5fcm4xIoTb6pkrtsUZy/boO3vBsoZfw=;
-        b=A2JqbWo3q8ajMk8cRe98LwRyW4t2IpcYMt3nalKnoRPu0uhD4dWnB7ZmQHo6lAGWmt
-         CnQSPbLtLdlSOkKtugfRcLohYlVKc1VsYhzv5qRBvHIyaDHOZc8Bb5MRWawr3Qwaata+
-         EBFd2p3cnicrai64EDUOpoxtV5cr14HwsbxwgO8BYImUIKC+UjrCjo8KeRVmZ8Ap2VsP
-         8tJG6FUd9pztrfL5uCtwv+pYFp8EU2V+uG0nevP3RO6XBjwDubYfT/Kq+xYVipQMtoXS
-         BHUaWXgsP6vfrjxH+RHdE6GiQJvRefC3DDmgjr+XuA8VjIePhIgK4RPp02my+blg/QOR
-         8P8Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791269272; x=1791874072;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=YTNWcUy5uXfw5fcm4xIoTb6pkrtsUZy/boO3vBsoZfw=;
-        b=qDCp0qrLAU15hwvom+hBKHlBY1MHhNgg1YmfAly3Nhwl1GTK7nmwA9EuOtwutAgZjf
-         0t8njRE+kyLocwjnXs//A2MErGYZrHpib+1ZSCF+OgcrYqxJIjHLIZxZZ/9XgwKbde0G
-         80Gnj+Ar666AVmIiyPF7IxarWkJDE5Zo1X38zDAkrK0y1h4kXlSRBZSPPHZKWs3TnfNP
-         EQGlHYpzDmEGuStf+fsxq+kC5OxbVi2YqwwY24piPhrDa5Wr87KcTP1MVHqeuD4dSCnb
-         b8BSqhRpQTzci7Di1MaPcIXUrLHgtOgl8jE7UcCeiZT233t+Y/DDQEhniQQqZWjCuqeL
-         h1Kw==
-X-Forwarded-Encrypted: i=1; AKwUvBxCbufp4+2dLVnZUfWn9imtb6yU40Taogrk1uM514SPsYhFX+eb6e+/CGVGtY57Z2XAbfKgyyX2tvk+0Tg=@vger.kernel.org
-X-Gm-Message-State: AFuF++kFdMj3Vz5zzW+6Jh2jcWQMTurFRU8shfscm4j//T7CMtCPa3xd
-	HUgd6BzPH4N+ELLxGV18yPnfaJ3iFCdFOO5EPzwRYxvHT9znWueW09EFactkCvnXtFslyXWECGG
-	nAuRa38i9LL4PujBJvKWb57ly1eh3YRROMWx2f0irS9VLJTpIRy+rC6CoJIVVy+xQY+8=
-X-Gm-Gg: AYBFou0AlAKB5bZGHdwU6gYC9rwVpKYzfuiXjeZfzesEVo36VQh3f0aPv4IPoK0xj+7
-	YsVqaXBXwxCBIIs9y047DkXoYmqlXXiv7jYwL/Z3Klft+SRV8QvYaFFGmnYAOHW/Mz40qttr547
-	2Fktl0x9F9I+2maY7sFvz4+x7ItDJPsAZYiWQGdYHHHEZ7D94P5ZvJWVVB8b/f0X3kVJKIMWwd0
-	K3n+AsehamK2oeTdugeEVqe76lyBdVq8hji2UjkHAWeHgnVgczcx/l1fMDQgr74hyw06q5BaCsp
-	8B+Y1oyxGyquxuQJhZvXknoH0auX2t9zeiwWtcQjFaWC4VIhOgTK+WG619LH0ZKTzP7pJ6R/db4
-	2DfYgUYD6vGvSUEGym1r8XTFclBa5TEU59VIr5NlTu3+r
-X-Received: by 2002:a05:620a:8084:b0:93c:72d2:ccc0 with SMTP id af79cd13be357-93e8f20d503mr78344385a.17.1791269272534;
-        Mon, 05 Oct 2026 23:47:52 -0700 (PDT)
-X-Received: by 2002:a05:620a:8084:b0:93c:72d2:ccc0 with SMTP id af79cd13be357-93e8f20d503mr78341885a.17.1791269271937;
-        Mon, 05 Oct 2026 23:47:51 -0700 (PDT)
-Received: from trex (5.red-79-144-193.dynamicip.rima-tde.net. [79.144.193.5])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48c6cd7c2c6sm1189326f8f.54.2026.10.05.23.47.50
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 05 Oct 2026 23:47:51 -0700 (PDT)
-From: Jorge Ramirez-Ortiz <jorge.ramirez@oss.qualcomm.com>
-To: jorge.ramirez@oss.qualcomm.com, mukesh.ojha@oss.qualcomm.com,
-        andersson@kernel.org, sumit.garg@oss.qualcomm.com,
-        konradybcio@kernel.org, harshal.dev@oss.qualcomm.com
-Cc: linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: [PATCH] firmware: qcom: pas_tee: handle a NULL resource table
-Date: Tue,  6 Oct 2026 08:41:49 +0200
-Message-ID: <20261006064747.2454980-1-jorge.ramirez@oss.qualcomm.com>
-X-Mailer: git-send-email 2.54.0
+	s=arc-20240116; t=1791269279; c=relaxed/simple;
+	bh=8wKPfrIzI6GQxDMp2iaUjY0OL7Vf5zwGRNY9dkqBbdU=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=BjZQGmWU9N8BhEf9HMgwZ/qiPxLShgsUZRD5uINcWU1s9a2jlTBElGe7RSKSw6lDTyJIB31GzqANcfJfEqOfZCjbrdHamjWOMnBeGMbHDjVOpsbe5D4zgWASqHTkyEKwpqjcKKHQJX7tYZnefVRt4l/rb5530S4T5nZSnu7IFhw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=davidgow.net; spf=pass smtp.mailfrom=davidgow.net; arc=none smtp.client-ip=203.29.242.92
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=davidgow.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=davidgow.net
+Received: by sphereful.davidgow.net (Postfix, from userid 119)
+	id 36F56200454; Tue,  6 Oct 2026 14:47:49 +0800 (AWST)
+X-Spam-Level: 
+Received: from [172.20.4.20] (unknown [193.85.242.110])
+	by sphereful.davidgow.net (Postfix) with ESMTPSA id 7571020043B;
+	Tue,  6 Oct 2026 14:47:36 +0800 (AWST)
+Message-ID: <f6cf93a1-8fce-4d7e-8f77-fd106a05647a@davidgow.net>
+Date: Tue, 6 Oct 2026 14:47:29 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 2/2] kunit: add KUnit test to assert kernel state
+ before KUnit suites are run
+To: Malte Wechter <maltewechter@gmail.com>
+Cc: Brendan Higgins <brendan.higgins@linux.dev>,
+ Rae Moar <raemoar63@gmail.com>, Miguel Ojeda <ojeda@kernel.org>,
+ Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>,
+ =?UTF-8?Q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>,
+ Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>,
+ Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>,
+ Danilo Krummrich <dakr@kernel.org>,
+ Daniel Almeida <daniel.almeida@collabora.com>,
+ Tamir Duberstein <tamird@kernel.org>, Alexandre Courbot
+ <acourbot@nvidia.com>, =?UTF-8?Q?Onur_=C3=96zkan?= <work@onurozkan.dev>,
+ linux-kselftest@vger.kernel.org, kunit-dev@googlegroups.com,
+ linux-kernel@vger.kernel.org, rust-for-linux@vger.kernel.org
+References: <20260824-lockdep-kunit-v2-0-36a6fec9f72e@gmail.com>
+ <20260824-lockdep-kunit-v2-2-36a6fec9f72e@gmail.com>
+ <205be33b-362d-45cb-b3a1-cadaba87b44a@davidgow.net>
+ <CAPB1BzeDC=V+jKZgX-2gucSZs8vOmZBvUgZLS8kTLvWa0x5S-Q@mail.gmail.com>
+Content-Language: en-US
+From: David Gow <david@davidgow.net>
+In-Reply-To: <CAPB1BzeDC=V+jKZgX-2gucSZs8vOmZBvUgZLS8kTLvWa0x5S-Q@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDA2MDAyNiBTYWx0ZWRfX7ZdPkRmaRYxZ
- 0LHvU530q1SnQMGO85m3bI2LvtwtX2m4tVGtkSIpOKqbdEl2HROio1sSpRhfxJtYa3obIbPMEd/
- Dbqf8T89EU0lWWbMAVAX+4DWgBSvnx6hORvnD+vSLVdKA4sVuYHVdiPZrIZ0b8cNIjOiOEmoRFC
- 2m5sb7i1hnjTXly6tMaGKRzK+3WbbM9WgFthBiA5kdt767vJHhme3aEh2LuY7wgEQULqzXJQud7
- URrUi6bmOtDPO0rjE4BUtTTcUlJCeQkjcu10i/o/YBP1pz0Hrh/is+7sSBpDhDs8+dfN2OP2hh6
- tqcu+VXF/XfY6ZbsAa7sZhPRSKcv7V/rTqvVFHATq7V9VXxCKTzYRdrQYh5BKZivYy2YM22NrmF
- lqN5yCR1NJX88AthBCwhQ/plfPoIjHzedAq3tkKA71VU9ISHJiXWm4nW80yREz9gPflOogaxUJd
- l5fFtZfP8JOaGBrPetg==
-X-Proofpoint-GUID: b0327385wDqYOM_D-Kx9unuYzyJch22l
-X-Proofpoint-ORIG-GUID: b0327385wDqYOM_D-Kx9unuYzyJch22l
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDA2MDAyNiBTYWx0ZWRfXyXKVzL8xTrbM
- DN3y1ZtRN3DHYX+LCD7JerEqNCVlv2XgBrB3b96l0uSkwIr8sOl79oYqn2iv9yOrkdqkmlmLwEM
- FNdB0DYB5zxYRcWMoQ1bcQvHN8P5iWk=
-X-Authority-Analysis: v=2.4 cv=bpTZl0ai c=1 sm=1 tr=0 ts=6ac49999 cx=c_pps
- a=hnmNkyzTK/kJ09Xio7VxxA==:117 a=nno+U714v6U58lXnMUU6PQ==:17
- a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=gowsoOTTUOVcmtlkKump:22 a=EUspDBNiAAAA:8
- a=tEyIeYPr_htp-YW85GYA:9 a=PEH46H7Ffwr30OY-TuGO:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-10-06_02,2026-10-05_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0 priorityscore=1501 spamscore=0 lowpriorityscore=0
- clxscore=1015 adultscore=0 suspectscore=0 bulkscore=0 malwarescore=0
- phishscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2609040000
- definitions=main-2610060026
 
-Stopping a remote processor clears its cached resource table pointer
-but leaves the size set. On restart, qcom_pas_tee_get_rsc_table() copies
-from NULL when the firmware has no resource table:
+Le 01/09/2026 à 19:02, Malte Wechter a écrit :
+> Den tirs. 25. aug. 2026 kl. 13.00 skrev David Gow <david@davidgow.net>:
+>>
+>> Le 24/08/2026 à 21:32, Malte Wechter a écrit :
+>>> add pre-defined KUnit test suite and test case that asserts both
+>>> `debug_locks` and `TAINT_WARN` prior to running any (user) KUnit tests.
+>>> This asserts integrity before tests are run.
+>>>
+>>> Signed-off-by: Malte Wechter <maltewechter@gmail.com>
+>>> ---
+>>
+>> I'm not quite as convinced by this as I am by the first patch. While
+>> ensuring the state of the system is good before tests are run is useful,
+>> this does seem a bit heavy-handed in some respects.
+>>
+>> This could probably use a more detailed description, particularly
+>> describing why such a test is useful, and why it would need to be
+>> implemented in a special way.
+>>
+>> And I do think the implementation here is a bit _too_ special-cased. One
+>> other possibility would be to prepend this suite using
+>> kunit_merge_suite_sets(), so we don't need to have any special handling
+>> of (e.g.) the test count. This could also allow this special suite to be
+>> filtered out (which has both advantages and disadvantages).
+>>
+>> It might also be nice to have this configurable independently from the
+>> other checks, and maybe at runtime (via a KUnit module / command-line
+>> parameter), particularly if this can't be filtered on. And, as before,
+>> this definitely needs to be documented. People need to know how to
+>> enable it, and where all of these extra results from tests they didn't
+>> enable came from.
+>>
+>> Thoughts?
+> I get your point, the purpose of this special test suite is to assert
+> that the kernel is in a "fine" state before any unit tests are run. If
+> this
+> check is left out the false positives could occur if the system is in
+> a bad state before the tests are run.
+> The reason that the case was handled differently compared to other was
+> because this assertion _must_ be run before any other tests,
+> and when kunit_merge_suite_sets() is called from kunit_run_all_tests()
+> it also filters the test suites, which would not give any guarentee
+> that this
+> special suite gets run first.
+> 
+> I do agree that this initial way is maybe a bit coarse, and i will see
+> if i can find a better fit for this assertion. But i dont want to
+> leave it out.
 
-  pc : __pi_memcpy_generic+0x110/0x22c
-  lr : qcom_pas_tee_get_rsc_table+0xf0/0x244
+Had a chat with Andreas about this yesterday, and we think we've come up 
+with another possible option here: instead of doing one check to verify 
+the state before any KUnit tests are run, have an option to check the 
+taint before _every_ test, and to skip it if the kernel isn't clean.
 
-Zero the input size when the table is NULL so the copy is skipped.
+There are a few consequences of this:
+- You'd need to be able to mask out taints you don't care about, 
+especially TAINT_TEST (as without it all tests but the first would 
+fail). Of course, that might still be useful if you really want to 
+ensure isolation between tests (e.g. --run_isolated)
+- If the kernel is already tainted, and so all tests are skipped, 
+kunit.py should report 'no tests run' as an error. I think this actually 
+only reports an error if no tests are executed at the moment, so this 
+may need looking at.
+- This will trigger if the kernel is tainted by some other part of the 
+kernel either between KUnit tests, or in another kthread. However, in 
+this case, the results will look like a series of successful tests, 
+followed by skipped ones, with no failed tests. (And hence won't trigger 
+a failure exit code from kunit.py). This is likely to be incredibly 
+rare, but we could add a fail-on-skip option or similar if needed.
 
-Fixes: b6f7978da0c4 ("firmware: qcom: Add a PAS TEE service")
-Signed-off-by: Jorge Ramirez-Ortiz <jorge.ramirez@oss.qualcomm.com>
----
- drivers/firmware/qcom/qcom_pas_tee.c | 5 ++++-
- 1 file changed, 4 insertions(+), 1 deletion(-)
+Thoughts?
 
-diff --git a/drivers/firmware/qcom/qcom_pas_tee.c b/drivers/firmware/qcom/qcom_pas_tee.c
-index ac33a00687aa..a52a7df385ff 100644
---- a/drivers/firmware/qcom/qcom_pas_tee.c
-+++ b/drivers/firmware/qcom/qcom_pas_tee.c
-@@ -230,12 +230,15 @@ static void *qcom_pas_tee_get_rsc_table(struct device *dev,
- 		},
- 		[1] = {
- 			.attr = TEE_IOCTL_PARAM_ATTR_TYPE_MEMREF_INOUT,
--			.u.memref.size = input_rt_size,
- 		}
- 	};
- 	void *rt_buf = NULL;
- 	int ret;
- 
-+	if (!input_rt)
-+		input_rt_size = 0;
-+	param[1].u.memref.size = input_rt_size;
-+
- 	ret = tee_client_invoke_func(data->ctx, &inv_arg, param);
- 	if (ret < 0 || inv_arg.ret != 0) {
- 		dev_err(dev, "PAS get RT failed, pas_id: %d, ret: %d, err: 0x%x\n",
--- 
-2.54.0
+Cheers,
+-- David
+
+>>
+>> Cheers,
+>> -- David
+>>
+>>>    lib/kunit/executor.c |  8 +++++++-
+>>>    lib/kunit/test.c     | 30 ++++++++++++++++++++++++++++++
+>>>    2 files changed, 37 insertions(+), 1 deletion(-)
+>>>
+>>> diff --git a/lib/kunit/executor.c b/lib/kunit/executor.c
+>>> index b0f8a41d61d36..0db67fe7f09f9 100644
+>>> --- a/lib/kunit/executor.c
+>>> +++ b/lib/kunit/executor.c
+>>> @@ -290,9 +290,15 @@ void kunit_exec_run_tests(struct kunit_suite_set *suite_set, bool builtin)
+>>>        size_t num_suites = suite_set->end - suite_set->start;
+>>>        bool autorun = kunit_autorun();
+>>>
+>>> +     #ifdef CONFIG_KUNIT_EXTRA_ASSERTS
+>>
+>> Nit: Let's not indent the #ifdefs.
+>>
+>>> +     size_t num_suites_plus_extra = num_suites+1;
+>>> +     #else
+>>> +     size_t num_suites_plus_extra = num_suites;
+>>> +     #endif
+>>> +
+>>
+>> I'm not particularly happy with this way of adding an extra suite.
+>>
+>>>        if (autorun && (builtin || num_suites)) {
+>>>                pr_info("KTAP version 1\n");
+>>> -             pr_info("1..%zu\n", num_suites);
+>>> +             pr_info("1..%zu\n", num_suites_plus_extra);
+>>>        }
+>>>
+>>>        __kunit_test_suites_init(suite_set->start, num_suites, autorun);
+>>> diff --git a/lib/kunit/test.c b/lib/kunit/test.c
+>>> index 99773e000e1b7..e64c6d1575280 100644
+>>> --- a/lib/kunit/test.c
+>>> +++ b/lib/kunit/test.c
+>>> @@ -835,6 +835,30 @@ bool kunit_enabled(void)
+>>>        return enable_param;
+>>>    }
+>>>
+>>> +#ifdef CONFIG_KUNIT_EXTRA_ASSERTS
+>>> +#define DEBUG_LOCKS_OK 1
+>>> +#define TAINT_WARN_OK 0
+>>
+>> Not totally sold on these #defines: I think I'd prefer to just have the
+>> literal 1/0.
+>>
+>>> +
+>>> +static void pre_kunit_assert(struct kunit *test)
+>>> +{
+>>> +     KUNIT_EXPECT_EQ_MSG(test, debug_locks, DEBUG_LOCKS_OK,
+>>> +             "debug_locks are off before any test ran");
+>>> +     KUNIT_EXPECT_EQ_MSG(test, test_taint(TAINT_WARN), TAINT_WARN_OK,
+>>> +             "kernel already TAINT_WARN tainted before any test ran");
+>>> +}
+>>
+>> If we are going to generate a special suite, let's have the taint and
+>> lockdep checks as separate tests.
+>>
+>> This would also make it easier to have them be configurable separately.
+>>
+>>> +
+>>> +static struct kunit_case pre_kunit_assert_cases[] = {
+>>> +     KUNIT_CASE(pre_kunit_assert),
+>>> +     {}
+>>> +};
+>>> +
+>>> +static struct kunit_suite pre_kunit_assert_clean_state_suite = {
+>>> +     .name = "pre_kunit_extra_asserts",
+>>
+>> I think we could probably find a better name for this.
+>> "initial_system_state" or similar might be better?
+>>
+>>> +     .test_cases = pre_kunit_assert_cases,
+>>> +};
+>>> +
+>>> +#endif /* CONFIG_RUST_KUNIT_EXTRA_ASSERTS */
+>>> +
+>>>    int __kunit_test_suites_init(struct kunit_suite * const * const suites, int num_suites,
+>>>                             bool run_tests)
+>>>    {
+>>> @@ -857,6 +881,12 @@ int __kunit_test_suites_init(struct kunit_suite * const * const suites, int num_
+>>>        }
+>>>        static_branch_inc(&kunit_running);
+>>>
+>>> +     #ifdef CONFIG_KUNIT_EXTRA_ASSERTS
+>>> +     kunit_init_suite(&pre_kunit_assert_clean_state_suite);
+>>> +     if (run_tests)
+>>> +             kunit_run_tests(&pre_kunit_assert_clean_state_suite);
+>>> +     #endif
+>>> +
+>>>        for (i = 0; i < num_suites; i++) {
+>>>                kunit_init_suite(suites[i]);
+>>>                if (run_tests)
+>>>
+>>
+> Best regards,
+> Malte :)
 
