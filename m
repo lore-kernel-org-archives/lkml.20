@@ -1,116 +1,145 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj1-f43.google.com (mail-pj1-f43.google.com [209.85.216.43])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 79DF346EC79;
-	Tue,  6 Oct 2026 14:15:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3288A46E007
+	for <linux-kernel@vger.kernel.org>; Tue,  6 Oct 2026 14:15:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.43
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791296120; cv=none; b=U0NFfdFYzg9xzW/qbgLk5VC0CfjRskJWowoTUbP2OKLWpgrmQuPQiuQ/NcIWvXfvTe+29K/nSoiuGN2eSwARdtDb6tE7HVs20J03MIzdO3y5WTZvl7J3MVoyGyuBAxxt8U9AkygZjHGTjx1vO5heL3VJBYFLLDiO7eM5281zk1A=
+	t=1791296126; cv=none; b=bm7nCt2z3N6TfFD4RMkN9jMxdovUNwNWp7D3EdXGzX5u/FsKonQaV9MQ41t/yDbpKPPQR319chKatLUUDrWM3XKXl5b/WMsYBIdULo0rMeAGjvMZkc6pe+qgi3SwusaspbAbMonbNW+CeIzLLdr4tfUb2ig5kFaAnLd10cTehhU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791296120; c=relaxed/simple;
-	bh=GQVRcnluMsT6WbBeW6txfNzcwk8/QinH0Noe//sOcAY=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=eoOuCJw4S3+cm7vMDo8jPd1rqIXQotBkXU5mpRIz8NA+k1LJBzIf64osiRNsKmwHHbRlZgOqFEJKadfWRI5zHZMe8FtTNMqkPBMAT5cU3tsOkmxSuseNGJTrLWi2wLoEm1ZpOYlJjcPJ6G30pKNDzLXLYyWxcSYwYGHeA/yAxcs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=djqjmfU6; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1791296126; c=relaxed/simple;
+	bh=3twLCOUVctvgm+7HXE5YvCiR9KmGS4GbaF3cOWVcIN8=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=LtcGbgbN+MAi9xDqj6+699kw2ZPi7thx85CBZukDz0yZfYc78pou0/Y9mVH/eG3v5OnE1WE50pR/SSkvJmHJGJBKjSfzFMy2JczzZLLFFgxJyZj7r/zTkTySks5G1r5+ln6lWlV34aEOz8WOlUc/kcslwvolbFPjnIG2SQhtgrY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=isslab.korea.ac.kr; spf=none smtp.mailfrom=isslab.korea.ac.kr; dkim=pass (2048-bit key) header.d=isslab-korea-ac-kr.20251104.gappssmtp.com header.i=@isslab-korea-ac-kr.20251104.gappssmtp.com header.b=G7RLSNBO; arc=none smtp.client-ip=209.85.216.43
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=isslab.korea.ac.kr
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=isslab.korea.ac.kr
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="djqjmfU6"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 03D26C2BCF4;
-	Tue,  6 Oct 2026 14:15:19 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1791296120;
-	bh=GQVRcnluMsT6WbBeW6txfNzcwk8/QinH0Noe//sOcAY=;
-	h=From:Date:Subject:To:Cc:Reply-To:From;
-	b=djqjmfU6trFWQ7/P+i0y+ZKSe76tHisrkuwqI+Bs/orEaWlreeCC7HAo3thnyvOfl
-	 e6ilaxjPz7drw8oOkwJuCZu+aoj1505AhFHeK6p6dS9Araf5C2kdYA3O/88eXBvHoh
-	 Ll68cML0CIcCaO+2O0VOIgWwxP7Eq09iZESJkLB9L8zGNTWY9+4PH90uD4pZlQe6tO
-	 c6V56CHMYrRfJzPtUwH7p1Qo87nLOV/PhSpUNBkHG0MHK2u1UdkpSGGutzT6vInBjY
-	 Mye2q7/vI8Niir3esdVyiwV0CoFrmcz9Hg/oNiUGQmuvo0MNYoLuw1jVe1oyg6BIsg
-	 AAzC2/gJ2mlAA==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id D2931CA6001;
-	Tue,  6 Oct 2026 14:15:19 +0000 (UTC)
-From: Matt Layher via B4 Relay <devnull+mdlayher.gmail.com@kernel.org>
-Date: Tue, 06 Oct 2026 10:14:54 -0400
-Subject: [PATCH v2] hwmon: (asus-ec-sensors) add CPU_Opt fan for ROG STRIX
- X570-E GAMING
+	dkim=pass (2048-bit key) header.d=isslab-korea-ac-kr.20251104.gappssmtp.com header.i=@isslab-korea-ac-kr.20251104.gappssmtp.com header.b="G7RLSNBO"
+Received: by mail-pj1-f43.google.com with SMTP id 98e67ed59e1d1-3964dfb5a69so436370a91.1
+        for <linux-kernel@vger.kernel.org>; Tue, 06 Oct 2026 07:15:24 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=isslab-korea-ac-kr.20251104.gappssmtp.com; s=20251104; t=1791296123; x=1791900923; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=5d+qEg9Unyo+IXTg1hjwRDAAFeW42uTSWnzee3KFft8=;
+        b=G7RLSNBOyl7q6oJ5DCDgFc20nYvj+MuWuWqvWLXjPvhI+jQ9v4a4BfNd0oJ6nOlB5a
+         dWKMPgiBndfBGXUcoFeXreslawCRgRRPu7c2oNc776W47h3FYjxmyQLfLcwkHQ5ZqIZy
+         rxVHW3ZiaBwUDiCmz/pJamWSiNcdLBVabaW49ZgnXrgZtosyZ7jyHRQQwX2qxfla/4LF
+         PXrNib9ED3+y1w7ZxBHPFECdCiZXYFHzKk4iRMJHw3H3mdlJj+j5IR891OWhUm7MYfUq
+         OmhAcfw66GqiZ5haQwMFYnB73gEVTehC6XPdxE6sLg52kbCmtdO9Ii7QH2U8ZlxWgs8Z
+         DAEg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791296123; x=1791900923;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=5d+qEg9Unyo+IXTg1hjwRDAAFeW42uTSWnzee3KFft8=;
+        b=sobi0vrlNIDRygrOlsSTmDwFV3/hIVGWBKmjjMHFRWGbibWWZkGZA+itvV5NhFR8Qw
+         fTMHV72Z3ajVIVarQkOTs7kAVWm2fCqF7DlRaDR6dSrE6yN+AZ1qVTd1xg4WgXXz+pNX
+         9fmvE77jj8EsWuyBe4WnDL4VWsfgR8WfLuRqSBNnuL7LgzZiSqOyihqsEHxMCp+1rhHF
+         udLSg4Z9DCkAs3fM7G5LYbZUeYLZU58P8Sp6MFCsmT27mtbmn/bIgGIuc4ue4Xz2HoLc
+         rEdyZHIboC/cTJ9wqv1Xik9QQjKjSRmo3C9uTF+Ll6P0h+FhJVY+LNdeYt6cDlW7TrsM
+         JXxw==
+X-Forwarded-Encrypted: i=1; AKwUvByZQxYvBBI091Y0lIB/H3QE9LbZbLJy23KsQ1pKd/6mTXuO4Ec2JRcPs3qOkQM9ueHEej6NGGpz/ODv6Bk=@vger.kernel.org
+X-Gm-Message-State: AFq9FYI2VmDYjXlufzcBhGuhpTRG73GaIwAhjVfVeKh9gWCd60iPBhET
+	ZQdVuCd7pWf5OGxh1L0Lm+GIBHi9lEHA08BZagRMfIUTxgt26ryrxgznS6qv2A5IsbU=
+X-Gm-Gg: AYBFou2mp00dtHVSL2ZadaG9/PozuTmexZkjZFeaoVodCQZF8OUiDVpLMWGmgF73MrT
+	03sgu5gJ3dGacvC/cWnQJxU9khCLZ02rpzuL750J5ASl9vGob5ingmZJokwRaQRzo9aKFycGlQ1
+	QN15m5hjwZRrDJF2xqLDODTtYd6TlvAlbdwoAi1u0HiizUgBUtiU6CwwfbybrF7Hwh+8cN0hYx4
+	JEt9seP3YOPw8KXabKYjQuECNLyPfAaIz2RiSPUZpgN0ioZecMMQc91671ZAjzLyWyVnJsjEzFx
+	vAp/YQcrZojboHX8UalgoPJVDPvsjyqwY71gx84gzr4S6eM5o4sB4r07yqT17CNT70rQxHLRU8N
+	IlI0q9S0u8QWmaJSkqEOL1CUd/1hDttTzAw5f9dILI+seZGD8M1ZyLMPnjXM+/krXsviIyTqK3m
+	rN2kCioZUVK7RpJTxLYOEivnmtqirjvg0Ow+sJFC0u1GDQ62ugky/HORa4mQ8qQ+sQSeOzKNkGw
+	YLy+neq3CICjywygHTJAw==
+X-Received: by 2002:a17:90b:4b04:b0:3a8:5543:5572 with SMTP id 98e67ed59e1d1-3a872551602mr689793a91.1.1791296123414;
+        Tue, 06 Oct 2026 07:15:23 -0700 (PDT)
+Received: from yhlee-960QFG.Davolink ([2406:5900:1044:110c:a229:268f:9226:1ba3])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a8533aba95sm5917618a91.2.2026.10.06.07.15.19
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 06 Oct 2026 07:15:22 -0700 (PDT)
+From: Yehyeong Lee <yhlee@isslab.korea.ac.kr>
+To: Philipp Reisner <philipp.reisner@linbit.com>,
+	Lars Ellenberg <lars.ellenberg@linbit.com>,
+	=?UTF-8?q?Christoph=20B=C3=B6hmwalder?= <christoph.boehmwalder@linbit.com>,
+	Jens Axboe <axboe@kernel.dk>,
+	drbd-dev@lists.linux.dev,
+	linux-block@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Cc: Yehyeong Lee <yhlee@isslab.korea.ac.kr>,
+	stable@vger.kernel.org
+Subject: [PATCH v2] drbd: reject an out-of-range offset when decoding a compressed bitmap
+Date: Tue,  6 Oct 2026 23:15:07 +0900
+Message-ID: <20261006141509.521128-1-yhlee@isslab.korea.ac.kr>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261006-asus-ec-x570e-cpu-opt-v2-1-74df23c22f04@gmail.com>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/4WNQQ6CMBBFr0Jm7Zi2CARX3MOwqGWAMUJJBwiGc
- HcBD+DyJe+/v4JQYBK4RysEmlnY9zuYSwSutX1DyNXOYJRJtVI3tDIJksMlyRShGyb0w4ipiVO
- jba2yXMG+HQLVvJzdR/ljmZ4vcuMRO4yWZfThcx7P+vD+fcwaNVY52TjTLlZVUjSd5ffV+Q7Kb
- du+u6AgncwAAAA=
-X-Change-ID: 20261004-asus-ec-x570e-cpu-opt-623621af0790
-To: Eugene Shalygin <eugene.shalygin@gmail.com>, 
- Guenter Roeck <linux@roeck-us.net>
-Cc: linux-hwmon@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Matt Layher <mdlayher@gmail.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1791296119; l=1907;
- i=mdlayher@gmail.com; s=linuxdev; h=from:subject:message-id;
- bh=r9Kqq/TD7jU/KmlKjk1tFe7tewjCRtaP4rus01J8hTU=;
- b=GGvYsehoIJvqAAzsP+p3srKlR+N6wM8pOzlAXoFNVOiKx5jxa1SOSWuorMz1fNtJiM8hsjdvq
- Yk60l8CIqG0DwYeGQqAsXEMpf80JY3w450CyGQmTrWZjWK/pVl0hSrz
-X-Developer-Key: i=mdlayher@gmail.com; a=ed25519;
- pk=jO44g3WNw2T0EoKPeB+RUgDmyrZpA5Pmr830ITlwhaA=
-X-Endpoint-Received: by B4 Relay for mdlayher@gmail.com/linuxdev with
- auth_id=1109
-X-Original-From: Matt Layher <mdlayher@gmail.com>
-Reply-To: mdlayher@gmail.com
+Content-Transfer-Encoding: 8bit
 
-From: Matt Layher <mdlayher@gmail.com>
+recv_bm_rle_bits() decodes a run-length-encoded bitmap from the peer and
+accumulates the bit position s across the runs.  The bound was only
+applied where bits are actually set: a clear run advanced s with no check
+at all, so a peer could leave c->bit_offset past the end of the bitmap
+once the bitstream ran out mid-sequence.  receive_bitmap() then carries
+that offset into the next packet, where the plain-bitmap path computes
+c->bm_words - c->word_offset, underflows it, and hands the result to
+drbd_bm_merge_lel(), which only WARN_ON()s an out-of-range word offset
+before reaching bm_word_to_page_idx() and its BUG_ON().
 
-The board has a CPU_OPT fan header, which the EC reports at the same
-register (bank 0, 0xb0) as the other AMD 500 series boards. Enable it.
+Check each run against the remaining bitmap before advancing s.  A single
+VLI code decodes to a run length of up to about 2^56, so checking after
+the loop would leave s free to move far out of range (and in principle to
+wrap) in the middle of the sequence; bounding every run instead keeps
+s <= c->bm_bits as an invariant, which also means c->bm_bits - s cannot
+underflow.  The set-run bound becomes redundant once that holds --
+e >= c->bm_bits is exactly rl > c->bm_bits - s -- so drop it rather than
+leave a check that can no longer fire.
 
-Assisted-by: LLM sparse
-Signed-off-by: Matt Layher <mdlayher@gmail.com>
+Fixes: b411b3637fa7 ("The DRBD driver")
+Cc: stable@vger.kernel.org
+Suggested-by: Philipp Reisner <philipp.reisner@linbit.com>
+Signed-off-by: Yehyeong Lee <yhlee@isslab.korea.ac.kr>
 ---
-An LLM coding assistant did most of the work on this patch: it found the
-missing sensor while auditing this machine's monitoring, compared the
-driver's board table with the BIOS hardware monitor, worked out which EC
-register to read, and drafted the change and this changelog. I
-reviewed both, and every test below ran on my own machines.
+v2: per Philipp Reisner's review -- check each run before advancing s so
+    s stays <= c->bm_bits throughout (a single VLI run can be ~2^56),
+    instead of only after the loop.  The set-run bound is then redundant
+    and is dropped.
+v1: https://lore.kernel.org/all/20261006034333.351130-1-yhlee@isslab.korea.ac.kr/
 
-Testing:
-- Runtime: the same one-line change applied to the driver in v6.18.54,
-  loaded on the board in place of the stock module; CPU_Opt read
-  1454-1463 RPM and the chipset fan 0.
-- Build: hwmon-next with W=1 and sparse (C=1), no warnings;
-  checkpatch --strict reports no errors, warnings or checks.
----
-Changes in v2:
-- Shorten the commit message (Eugene).
-- Link to v1: https://patch.msgid.link/20261004-asus-ec-x570e-cpu-opt-v1-1-d9ea371c30d5@gmail.com
----
- drivers/hwmon/asus-ec-sensors.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/block/drbd/drbd_receiver.c | 15 +++++++++++----
+ 1 file changed, 11 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/hwmon/asus-ec-sensors.c b/drivers/hwmon/asus-ec-sensors.c
-index 19f423e45ce5..8261ddd00653 100644
---- a/drivers/hwmon/asus-ec-sensors.c
-+++ b/drivers/hwmon/asus-ec-sensors.c
-@@ -721,7 +721,7 @@ static const struct ec_board_info board_info_strix_x470_i_gaming = {
+diff --git a/drivers/block/drbd/drbd_receiver.c b/drivers/block/drbd/drbd_receiver.c
+index 2135c14354a85..1febb5e089cc1 100644
+--- a/drivers/block/drbd/drbd_receiver.c
++++ b/drivers/block/drbd/drbd_receiver.c
+@@ -4529,12 +4529,19 @@ recv_bm_rle_bits(struct drbd_peer_device *peer_device,
+ 		if (bits <= 0)
+ 			return -EIO;
  
- static const struct ec_board_info board_info_strix_x570_e_gaming = {
- 	.sensors = SENSOR_SET_TEMP_CHIPSET_CPU_MB |
--		SENSOR_TEMP_T_SENSOR |
-+		SENSOR_TEMP_T_SENSOR | SENSOR_FAN_CPU_OPT |
- 		SENSOR_FAN_CHIPSET | SENSOR_CURR_CPU |
- 		SENSOR_IN_CPU_CORE,
- 	.mutex_path = ASUS_HW_ACCESS_MUTEX_ASMX,
-
----
-base-commit: 4781ca52761e666cf18b591e6bb0478396c90320
-change-id: 20261004-asus-ec-x570e-cpu-opt-623621af0790
-
-Best regards,
---  
-Matt Layher <mdlayher@gmail.com>
-
++		/*
++		 * A single run can be up to about 2^56, so check it before
++		 * advancing s: that keeps s <= c->bm_bits throughout and
++		 * leaves no way for s to wrap in the middle of the loop.
++		 */
++		if (rl > c->bm_bits - s) {
++			drbd_err(peer_device, "bitmap overflow (s:%lu rl:%llu) while decoding bm RLE packet\n",
++				 s, (unsigned long long)rl);
++			return -EIO;
++		}
++
+ 		if (toggle) {
+ 			e = s + rl -1;
+-			if (e >= c->bm_bits) {
+-				drbd_err(peer_device, "bitmap overflow (e:%lu) while decoding bm RLE packet\n", e);
+-				return -EIO;
+-			}
+ 			_drbd_bm_set_bits(peer_device->device, s, e);
+ 		}
+ 
+-- 
+2.43.0
 
