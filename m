@@ -1,69 +1,68 @@
-Received: from mail-wm1-f50.google.com (mail-wm1-f50.google.com [209.85.128.50])
+Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com [209.85.128.46])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DED51455185
-	for <linux-kernel@vger.kernel.org>; Tue,  6 Oct 2026 13:03:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.50
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1C2AC457E5F
+	for <linux-kernel@vger.kernel.org>; Tue,  6 Oct 2026 13:03:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.46
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791291837; cv=none; b=VFZr9NkTOVc4wodARpHdgsnr+T0NsupmyzxcEdXIJ9AzZNA1SdnWWbzdH+FzkW5ZKvJ8z1jM9QqFz3Lzu09WHyjqx4DNOxbSXmszME7jqH3LWCdk+0IiUbrzorC24XIg59CLXdh/IMarbKoBchaThLbp80CyDmFFc/9lUGNsfEI=
+	t=1791291838; cv=none; b=Ozmcrr9/Y1uDsEnZ70Ze1OI+x5XI2KSCiIJ5gooe8NghrnZ5AjNUQfl/TdMaCqQprORHMTh7xpVRm9fNgkAjoLEQpPvPSUZoMLb+m8Iybo1b0m7wDwRKbCDTLp5qbsaUrL8s7ovMEu1mwiH7q5FO6DliQPzA3Oyo1pp4EgrKDn4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791291837; c=relaxed/simple;
-	bh=9zQu7wg1xjbiD5jQtWxleHDg0CQmiEWV+WvaA8rFa1s=;
+	s=arc-20240116; t=1791291838; c=relaxed/simple;
+	bh=cZGv+RM43LYyL+G7mjZkb/QEwBbuRwqq9oCkCIPu7/E=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=WS0sccA5LpXyNVacUtCWt8xMerLBSZsjWeb8lI4SyreT/V2R8dTwIwKZ+YObSSqseUgFD6y7DPREYxm8YsYYtHRMbh7P11ykZbgLzglqcRHeWwJWzyT+AE3U5FUb4a+Pg+xSNGThb1iwBMYxhM0Vd1igiHLIbetz8+MByXgjSYM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=TvrCtNCd; arc=none smtp.client-ip=209.85.128.50
+	 In-Reply-To:To:Cc; b=enHsdZg2o6qxP3WJQUMbA7qtFiokFSDu3jQ/VbwidDdou60yXwq6yFv6WXFSaFkihJviQGQNKjQfcZ3RFCdMlW+z1vq7kniv4lq4ndXV9yH/606r4NseMeYoq/IDGUjBgtZ/ojh5YiL0YHD+9sGoW0GJ47VLKTtYoOHxZuD/8GY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=o5YOPfLi; arc=none smtp.client-ip=209.85.128.46
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="TvrCtNCd"
-Received: by mail-wm1-f50.google.com with SMTP id 5b1f17b1804b1-4a168355946so6795105e9.0
-        for <linux-kernel@vger.kernel.org>; Tue, 06 Oct 2026 06:03:55 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="o5YOPfLi"
+Received: by mail-wm1-f46.google.com with SMTP id 5b1f17b1804b1-4a01933b584so6228425e9.0
+        for <linux-kernel@vger.kernel.org>; Tue, 06 Oct 2026 06:03:56 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1791291834; x=1791896634; darn=vger.kernel.org;
+        d=linaro.org; s=google; t=1791291835; x=1791896635; darn=vger.kernel.org;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=fRxFX5jd7vzqIjZY35n79LbZDv/XaQ+6fw2e2XJNrQ8=;
-        b=TvrCtNCd6BTrYLyOMuscXZhkX/jhlXsRjVXeYORI9maCHVXIhHRZFx8+2xil+oGQeR
-         ZraG/C4q6NYpjEmKrqU44/RKzt88kmhrrMCf+TFE0rP6j742/LuhduKc35dpr0m60PbP
-         SRGkIhw40gQ/1+bYNFVmQmdAqgXaGOQi7+d1GIGcLz8PgMsImwUSgeZnND+1xvUUV91h
-         b5W88Oj2fwkBQZQtRvpMeQ/nRY3CRZcYS1HUy5OWMwDyV49Z9sXjFmKsNMonngyl++tU
-         uZpo3YJhMfRGM2nqyZgz+FyepJoZDJqUUtJp82i2GMnMfjIV22CYa9nFD70tnl3pejpI
-         uTdg==
+        bh=+tKEuAkF3xbmMsA7ckHZOCsBm88L2R1/w48DUv6kTy4=;
+        b=o5YOPfLiPhHAHzTWXIwNFkwcJaDC+tdNbGR6uVOFwO8813FWoniVVPAGj96l/Zt06E
+         8ws5m5Izznp/cNxK5tKFetBOkv5avzWGTyK7NiWDa1jR0CGsgMAyrzXM3r98a3mqVgDs
+         62bvpaCICqElGNJG1wkEUIiK5ANHQ4Z6QzJpCl4Z2u2zEUDEtgN+c76RcmARjy4JYvH9
+         Fb8Wj19lma3doPtYmuUV9r1VThaEH4tMfpiG6V1Vak/H+gV5t7+UmQfbBN33u6fHWY/U
+         iE5/csbK9YajDreQnAMpYd45K+weSMf/J4i6rpSc6euWIZ5ZYW/BdnA5DWkYSENg6+yv
+         e06w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791291834; x=1791896634;
+        d=1e100.net; s=20260707; t=1791291835; x=1791896635;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=fRxFX5jd7vzqIjZY35n79LbZDv/XaQ+6fw2e2XJNrQ8=;
-        b=K2S0r4u/dG7O+KViTx4c3JWML6LR8ejnTF5P5HPE9j3xW4D5RIRvTNlgQs9x5wBjTo
-         SSGLVgXjvFmPDQxH1J9nAWoaUU81bYwRtWLucT4TgzCkXNWyAkO82E2TKnsx52v1ueW+
-         z8+KPR5sLavoJ6uPh6Uiquu8Wn0JG9TqMbFWATW/8BcLNf47/AXCQD1WixUVL6yASm6Z
-         tT0LQPt6CfH+B58l0i1yGfSbS+l9eme2SwkSRpkZQU+ULbwprMNRiDyFtdeqFnQMyov5
-         KOb57rnp9nMCX+k4qqnSwxObRilcLXtLaHA+T5nsLYl9oXnIfVGussngP+YM0ans/ThZ
-         IyQw==
-X-Forwarded-Encrypted: i=1; AKwUvByMydjHi7F/jpRMRgD6RmXMMu9cmHL6T6gFKIcKvbMtYxsu2BXiJzu2XxleTbWIvmYUOMgyypQK5YOru7I=@vger.kernel.org
-X-Gm-Message-State: AFuF++lWEmHO/U+g4Vuo6REE6JXWD0nEuBcBLKfUEpxiMntav9wQT0Tc
-	qoROPxGgwLXDxWdY1CAsW3tI6z5LF6pnj3hVkUDb1EwqVvtMnjjuWYWQ3kiK7deQG2A=
-X-Gm-Gg: AYBFou0TEBREzkQI4PAirrMIiOEU4TNu6fzQXXjKyBr0tpCR9HqDRV/3Lo3MInTirTn
-	lf+6ky5w3xK8rk9x51gGubXSRGc79/6UY9tAwQ9JXR/b0y3xAX99Al8FHvx4umbkk3/yBnsplER
-	rhHcSwjtERISgmkfpet01Yk9T0PHt8FF3g4jOLbhpPco76p6uUHFUaAz+igKbxpyJxeiQC+J/Zv
-	M7w1SUEFtqnHkT2pVw7ENCAS7Dn6gHY2z1SLmuYlRzNC4oKJyn/NADVlipTog3GUg4ZPsO84K+/
-	//lS+skeYH7Bhp0+4Li8gH91HiLi5cOOxbU93nu8zKc1407jPpNWqU6S63cigPBQ/XPUlxkwzTT
-	ZWczB4Dj41Ihzjd9cmsKGzBro9WwHrWdstmqvCi0EkyTNgqzqh0Ihe2+yAkF3SZmhW4n/o2TRkl
-	jj2EJHieG/SCqDQIb94Oz9freYnQUz7a5mZDe5QbQuE+4IsuVROayZiXIf0g3XnVQW6Cz6Rutov
-	g==
-X-Received: by 2002:a05:600c:4712:b0:4a0:251c:fa72 with SMTP id 5b1f17b1804b1-4a17b53bf09mr21476995e9.11.1791291833973;
-        Tue, 06 Oct 2026 06:03:53 -0700 (PDT)
+        bh=+tKEuAkF3xbmMsA7ckHZOCsBm88L2R1/w48DUv6kTy4=;
+        b=Tuz/QCbWONT0k0oIZwvWQ/G8TWjrAGzgKxvBMi/EJefvhJH39AFCnZPZCvKp7DarWD
+         d5rWXIpQRpnZH1OXXTzxxTG1Y/OJbINdwwaRwkvXPSMBJk4v0WrY8S/79jhlCuJdNK80
+         6wp0LzdS5lP/OhYoG8JDGnJnQe+viThk0qbdGVUf1SLotgyo4NuQMnK3srDF53UMOE41
+         X55X6Eo7CdT1GfnLMAXkZwhb9q1wdbtrVloIBW5W+Ums2rdDoD/XVeUoQiKrKaBacu7i
+         MVcjpYUbWGgnVJUxEKAI6KM744l40AtFF1IYCsYUzmyFwb+nO2b9UfU0DKrALzy/dBHI
+         fKGw==
+X-Forwarded-Encrypted: i=1; AKwUvBzTeYEDB7u2+JZMakRiNMjHkDnLToCuchs+zCUgIMg2iITU+Xo1ufztHlUf+PuY/XGCfN3AtTSD9IoRNio=@vger.kernel.org
+X-Gm-Message-State: AFuF++k8xxNOq+ja4ZhpoocQgPvFDPyNahP0iTcB4TIXUYF+5N4hnZkk
+	+Ek5XTQEaKX3762uN1B7Wwg5TaoUcnmuWaP6sfPrzUuz4J2IQc2BMkUqUGXWWWeihPU=
+X-Gm-Gg: AYBFou0UScRREW7WYJiX8jQjAle0oPzp9P7zpcaBTDEkN8Jq4HhxcXuB4j7ErWHAiR8
+	kI6WBe1j0n/ZNSlN7QZGVCXH9iWnlY1HCnJO9XNG2H4CQwdfak6+hAbLi4Uj0R/jloYqaJgf6jq
+	1BmYTs6NKSI7T1FlFv3FKK4lBeuL+F7WGcYWJQ6Ncilog4XomS12FJNId7yBBKNdUt7Eq0Xb6Kk
+	WMNIelQ6bZYiKekZn1B8/sOJpFUdgzjtYbLz/mDIn86vChnn8CS1hOk/PC73/HvsGoRcYZTXYMN
+	CFhEYJbwQk2oBLSoY4mNtwtpgJ/q1r54lelBF+yYKU7tknwqhQLUHKqz9H4jHmYfid7jrQ1CnJt
+	Dt1cEJ5HUgNHcCMWfBEz93MUU/GXuxeX8YduJ8j9fCwgpmZaBcrl6t2+Wh/YYTMDmx272WmjxNv
+	/oTxnDula+FrQxmdtCVDWzYUbNRTS1BHAkfg2so8O1utqgRuyJooG2RFBhI+kJ2d62gb/G6g==
+X-Received: by 2002:a05:600c:6309:b0:4a1:7703:e537 with SMTP id 5b1f17b1804b1-4a17b5359fcmr23211325e9.10.1791291835000;
+        Tue, 06 Oct 2026 06:03:55 -0700 (PDT)
 Received: from pop-os.local ([37.18.141.193])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a178c49c35sm78638295e9.9.2026.10.06.06.03.52
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a178c49c35sm78638295e9.9.2026.10.06.06.03.54
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 06 Oct 2026 06:03:53 -0700 (PDT)
+        Tue, 06 Oct 2026 06:03:54 -0700 (PDT)
 From: James Clark <james.clark@linaro.org>
-Date: Tue, 06 Oct 2026 14:03:31 +0100
-Subject: [PATCH 1/2] perf timechart: Fix task row type narrowing in
- goto_task()
+Date: Tue, 06 Oct 2026 14:03:32 +0100
+Subject: [PATCH 2/2] perf treport: Fix profile builder type narrowing in
+ progress callback
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -72,7 +71,7 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261006-james-perf-timechart-mypy-v1-1-e2c7edf4dd31@linaro.org>
+Message-Id: <20261006-james-perf-timechart-mypy-v1-2-e2c7edf4dd31@linaro.org>
 References: <20261006-james-perf-timechart-mypy-v1-0-e2c7edf4dd31@linaro.org>
 In-Reply-To: <20261006-james-perf-timechart-mypy-v1-0-e2c7edf4dd31@linaro.org>
 To: Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>, 
@@ -87,44 +86,39 @@ Cc: Arnaldo Carvalho de Melo <acme@redhat.com>,
  James Clark <james.clark@linaro.org>
 X-Mailer: b4 0.15.2
 
-Mypy cannot narrow Row to TaskRow or IoRow when the class passed to
-isinstance() comes from a loop variable, causing the perf build to fail
-with:
+Mypy does not retain the narrowing of an optional local variable inside
+the nested progress callback, causing the perf build to fail with:
 
-  python/ttimechart.py:1686: error: "Row" has no attribute "task" [attr-defined]
+  python/treport.py:649: error: Item "None" of "ProfileBuilder | None" has no attribute "cancelled" [union-attr]
 
-Check against TaskRow and IoRow explicitly so mypy can verify access to
-the task attribute. The tasks and I/O views contain TaskRow and IoRow
-instances respectively, so task navigation behaves as before.
+Check the loading builder before assigning it to profile so the captured
+variable is inferred as ProfileBuilder rather than
+Optional[ProfileBuilder]. Keep the existing assertion and background
+loading behavior.
 
-Fixes: e7a72d691980 ("perf timechart: Add an interactive --tui mode")
+Fixes: b379b70b7b7b ("perf treport: Show the profile while it loads")
 Assisted-by: Codex:GPT-6.1-Sol
 Signed-off-by: James Clark <james.clark@linaro.org>
 ---
- tools/perf/python/ttimechart.py | 5 ++---
- 1 file changed, 2 insertions(+), 3 deletions(-)
+ tools/perf/python/treport.py | 5 +++--
+ 1 file changed, 3 insertions(+), 2 deletions(-)
 
-diff --git a/tools/perf/python/ttimechart.py b/tools/perf/python/ttimechart.py
-index 34ecf84e68c1..d7ba0276a9fb 100755
---- a/tools/perf/python/ttimechart.py
-+++ b/tools/perf/python/ttimechart.py
-@@ -1676,14 +1676,13 @@ class TimechartApp(App):
+diff --git a/tools/perf/python/treport.py b/tools/perf/python/treport.py
+index e02121475370..fb583786b17a 100755
+--- a/tools/perf/python/treport.py
++++ b/tools/perf/python/treport.py
+@@ -638,8 +638,9 @@ class ReportApp(App):
+     @work(thread=True, exclusive=True)
+     def load_profile(self) -> None:
+         """Build the profile in a thread so the UI stays responsive."""
+-        profile = self.loading
+-        assert profile is not None
++        loading = self.loading
++        assert loading is not None
++        profile = loading
  
-     def goto_task(self, tid: int, time: Optional[float]) -> None:
-         """Select the task in the tasks or I/O view, optionally moving the cursor."""
--        for tab_id, view_id, row_type in (("tasks", "#tasks_view", TaskRow),
--                                          ("io", "#io_view", IoRow)):
-+        for tab_id, view_id in (("tasks", "#tasks_view"), ("io", "#io_view")):
-             views = self.query(view_id)
-             if not views:
-                 continue
-             view = views.first(TimelineView)
-             for idx, row in enumerate(view.rows):
--                if isinstance(row, row_type) and row.task.tid == tid:
-+                if isinstance(row, (TaskRow, IoRow)) and row.task.tid == tid:
-                     self.query_one(TabbedContent).active = tab_id
-                     if time is not None:
-                         self.window = self.window.with_cursor(time)
+         def progress() -> None:
+             try:
 
 -- 
 2.43.0
