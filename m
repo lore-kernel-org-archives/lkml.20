@@ -1,60 +1,81 @@
-Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pg1-f227.google.com (mail-pg1-f227.google.com [209.85.215.227])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A42F2374A0C;
-	Tue,  6 Oct 2026 08:25:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.156.1
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0E7E23B6C15
+	for <linux-kernel@vger.kernel.org>; Tue,  6 Oct 2026 08:27:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.227
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791275104; cv=none; b=KntS79UgpYJ0ZsmtZDzR7rtYtW2SgNWDJ1yNyfVGo8gako4bNLJIZQ44AZIznSQie9MhvFVgM1DoME84Or2E9xZeIZwdRxrQ7PMJQ31c5Ps/feSFDTzAapljOeDXasjgrISkKeC1lH8FligcheFrHy9nzfG5sItS+fx/BFSqvdY=
+	t=1791275254; cv=none; b=RXO6LR4Du3stLj44a7Y3AMEJzLgzh97GFUEfihp3Eo6Rdj+DLLhI7fgs0mp648WUwbW194jBcW7P2cuS6GU5gsxcAwsUvEHm7zSXlNcYxzp0/e66QtM4QZiLo2GcqhjsZMYaGkM+ht08S7fz8+Y80LUXuBI6ewmWHKhjsbt8aSQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791275104; c=relaxed/simple;
-	bh=uYflY0zTm4HHZEDfbPhb/Td3FHDbqL8HyVV2T8gizGY=;
+	s=arc-20240116; t=1791275254; c=relaxed/simple;
+	bh=AhTSB+hX8DW5/UqPj/kPlDv4TilOhsZezix19Q9Y0hU=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=lnXEnz8nCGIFa9HV0LGpiPhz58rsfqsU+x0TgiiiqWsu9tz+dloO1V+8dmzKP1tHkJIhlqz0AOjlUG4hhhB6a0KuEFWx6DGFi5NecEKQr3ugIKXLnLkIaXhCMiPAZEtniypE89YDGaBLQ3EEhCwyxANw/R3+te72615kpsRuSdw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=iWLhMMJX; arc=none smtp.client-ip=148.163.156.1
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
+	 In-Reply-To:Content-Type; b=rBum2dushufF/GsoS8FmTTI4aqToSKMJBqUmmqzcAIVGmC1tj3QsM2NVNdASxkTLVNNWDUN0RtPLxG2H1oQV78P47yucOl+CY0gUCyrQ86wp95HYl2w2A6oBaZ4BXJS0Ni51b2esmZrOW5hpfAPILoSHU/OqVkUnk8Q1OsJSKeE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com; spf=fail smtp.mailfrom=broadcom.com; dkim=pass (1024-bit key) header.d=broadcom.com header.i=@broadcom.com header.b=YWnPD1cK; arc=none smtp.client-ip=209.85.215.227
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=broadcom.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="iWLhMMJX"
-Received: from pps.filterd (m0360083.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6966bOt62992197;
-	Tue, 6 Oct 2026 08:24:56 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=pp1; bh=ZWD/WR
-	vhpCPJ/98ouav+E3pNAVjar6vP/Z7l6ZC3FV4=; b=iWLhMMJXV/+bPkyM6TWvfE
-	Vj95aiePodXchzA3caduOGBVtZLfPxAZeQfbIe3+fWN4RHRoxbYyONRDQjAhWhd0
-	gbkgLD8qlugs1raacWR8kLS8FxqdeA9FvQC1sPgZ1Jtsd2cy+GEmE10RxSEYQDFf
-	J67ueUFo/jlzFN2S0iaHYj+mzxUGrPI3Hx/pg1Fjxmn0aH753iHsBs/T20eyMT3N
-	Q7FWxO2Qr6T3XBSIbNzoPc1uDcycNPDORb+zP+IdcM117XVvPWvWTMdnEkL4DUn0
-	jm1s8TqVosyFvWcqZmMJVtCXpcfstjBAOuXEcfE+7evZwrxv4i41KSjY2brYLUcA
-	==
-Received: from ppma12.dal12v.mail.ibm.com (dc.9e.1632.ip4.static.sl-reverse.com [50.22.158.220])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4h2s74pxr8-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Tue, 06 Oct 2026 08:24:56 +0000 (GMT)
-Received: from pps.filterd (ppma12.dal12v.mail.ibm.com [127.0.0.1])
-	by ppma12.dal12v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 6966lYRR4106906;
-	Tue, 6 Oct 2026 08:24:55 GMT
-Received: from smtprelay07.wdc07v.mail.ibm.com ([172.16.1.74])
-	by ppma12.dal12v.mail.ibm.com (PPS) with ESMTPS id 4h3c1ps9c6-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Tue, 06 Oct 2026 08:24:55 +0000 (GMT)
-Received: from smtpav06.wdc07v.mail.ibm.com (smtpav06.wdc07v.mail.ibm.com [10.39.53.233])
-	by smtprelay07.wdc07v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 6968OtPQ26739440
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Tue, 6 Oct 2026 08:24:55 GMT
-Received: from smtpav06.wdc07v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 0419658060;
-	Tue,  6 Oct 2026 08:24:55 +0000 (GMT)
-Received: from smtpav06.wdc07v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 5B01858054;
-	Tue,  6 Oct 2026 08:24:53 +0000 (GMT)
-Received: from [9.224.94.162] (unknown [9.224.94.162])
-	by smtpav06.wdc07v.mail.ibm.com (Postfix) with ESMTP;
-	Tue,  6 Oct 2026 08:24:53 +0000 (GMT)
-Message-ID: <a5937a0d-7951-46ff-87cc-aa47c9478169@linux.ibm.com>
-Date: Tue, 6 Oct 2026 10:24:21 +0200
+	dkim=pass (1024-bit key) header.d=broadcom.com header.i=@broadcom.com header.b="YWnPD1cK"
+Received: by mail-pg1-f227.google.com with SMTP id 41be03b00d2f7-cc1c9879395so139403a12.1
+        for <linux-kernel@vger.kernel.org>; Tue, 06 Oct 2026 01:27:32 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791275252; x=1791880052;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:dkim-signature:x-gm-gg:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=aO7ZMNOXH20rZFoB1a96CWPC5jLhbhIpE9Whu53E080=;
+        b=LsdFrcjb0prcC3p7K8HKNnmY4ebeJykeyMoj4zO+PlpYdM5b0/gY43urD0RIRL5So2
+         eekuVRb3djZnUl2fukXMS6xnQSSfGmDJRaPbJhHaO9Y6kYau2qXVPhWb5pQsdN1zdDMI
+         E4jrrklXs+77pwHZol2gYLzLB7vpJa+raw60s7YOTxZKv0W2hoXKuf97sJQG/s+K84eh
+         na8UTeOWeLJjL3wHxBNnxSMYLyTRMvgWswPoWMT9d7IH/96uDC3+8Z57L7U4uGxsFwYh
+         YQx5OS2jPg8LLbN9qdEe4sIxKVqn9bgPFo2N8qZH8U2MJVLGsTfrv8qDJ++5UH/qOK1W
+         7bTQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzXWMNasedBLqfOIOfhoMqpvxsJLv2FxGnrRHe5YfHOaVumJ86nyfX/iUy2Gij3Vbp3YYFPLGeoPQFcp60=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIaLnYv0PDNcXfnilA9mWbnX2zJ0HXBWgXyeScTnMQWgzJZ+yjl
+	WpzTLc6NDJopceX8fy9b2Bj8HrAB8RkCF6jrwT+Yx5SsgNFNTRkhihLPeJVa81PJthHyC5umgY3
+	p8yKbjSsClZqa0923Y1Tfu7lHIn2wMFkfyDK8a9dDWiiOEWbXOwZDcU13Q55cRXkNhFw7kuPSRg
+	ibBMVoHOYcjbwXwnqZZLZzu3yqtbdyPf8MPg0WeCNbcWWvxLzrgswoTdAMSQYjtQJNvWhw5qIte
+	d+3og6jNeszHGU3nI8KQNI=
+X-Gm-Gg: AYBFou3mFDZ1kIDAAJDDePE9XDD9xN09Gr30QzsC+kY8qC/nVxjL2+us7mpnZ7Lm98u
+	kzCXZDGs77NT1idFgVZqrPXHyydvTCN+03XhUlCFKxPQJpqUjGzm60LOkKN7TKQnlPr5MmPFyEF
+	Xw3/I1grOvvzNLAXcoh3kSroVr4GJeRdanzFKLMDVj6YZXTIH7PoCy1lejw/zIKetCZ57c9NrHk
+	M4cIPV4DSqyM+hYhqzdJY9/c2NWAYAURakb4z8E+YV8im88DZpLr9UiwAiQWf0SqgLf6MOwUxv7
+	aN3wwzUMZecUGFFg8KuZtBj6dGIcUHi5UB/qA3mw0cp54YWu4ujYrP+lmDhUcGXrOWZSTICnLdw
+	9HJrDMtY0N7c6U3ZHavJ947zn4Gkqo9jvCisvetlcahcH/ndYZ5zwAUQuXftJiyQfEzNVgHkAN5
+	tzq/CWkeNKxKJfXWGrwUbKt61G3PTe+eZcynfNH8M9sA==
+X-Received: by 2002:a17:90b:4b8b:b0:3a4:bbb9:e912 with SMTP id 98e67ed59e1d1-3a873554092mr538367a91.23.1791275252313;
+        Tue, 06 Oct 2026 01:27:32 -0700 (PDT)
+Received: from smtp-us-east1-p01-i01-si01.dlp.protect.broadcom.com (address-144-49-247-120.dlp.protect.broadcom.com. [144.49.247.120])
+        by smtp-relay.gmail.com with ESMTPS id 98e67ed59e1d1-3a8543792c8sm912446a91.8.2026.10.06.01.27.31
+        for <linux-kernel@vger.kernel.org>
+        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+        Tue, 06 Oct 2026 01:27:32 -0700 (PDT)
+X-Relaying-Domain: broadcom.com
+X-CFilter-Loop: Reflected
+Received: by mail-dl1-f70.google.com with SMTP id a92af1059eb24-1416f32fe11so4979689c88.0
+        for <linux-kernel@vger.kernel.org>; Tue, 06 Oct 2026 01:27:31 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=broadcom.com; s=google; t=1791275250; x=1791880050; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=aO7ZMNOXH20rZFoB1a96CWPC5jLhbhIpE9Whu53E080=;
+        b=YWnPD1cKKv+BA9qxVUDRvhJ12vc39zoc3nN2jC2KGqTtbX3crNdvFDVFXuJuHyaZ+O
+         CQtpD0ZDauOFIfP/CwEKHoxGLdMEgvN7n7qi6SZ3n+lMTIkHjF0vgiREXyPi320/R+OH
+         xiuqZ/rh8pyH1DGqoQapZvMzn2kBEix92aqlE=
+X-Forwarded-Encrypted: i=1; AKwUvBwFAB9sKDJoVsfLxa7ezM7OnJ9+hX9i5bhWeNLuFkMp44PMCR7NFlQHEWMezEwDJ1yorN+MdpYKij5pp6E=@vger.kernel.org
+X-Received: by 2002:a05:7022:288:b0:143:4d12:396d with SMTP id a92af1059eb24-15ec7b02b1dmr978954c88.26.1791275250411;
+        Tue, 06 Oct 2026 01:27:30 -0700 (PDT)
+X-Received: by 2002:a05:7022:288:b0:143:4d12:396d with SMTP id a92af1059eb24-15ec7b02b1dmr978913c88.26.1791275249521;
+        Tue, 06 Oct 2026 01:27:29 -0700 (PDT)
+Received: from [10.176.3.41] ([192.19.176.250])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-15d83d6af11sm5335442c88.10.2026.10.06.01.27.26
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 06 Oct 2026 01:27:28 -0700 (PDT)
+Message-ID: <802a092a-314a-4f77-aa1d-134b3d020069@broadcom.com>
+Date: Tue, 6 Oct 2026 10:27:27 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -62,73 +83,48 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 0/2] kbuild: GCOV cleanups following the prefer-atomic fix
-To: Konstantin Khorenko <khorenko@virtuozzo.com>,
-        Nathan Chancellor <nathan@kernel.org>, Nicolas Schier <nsc@kernel.org>,
-        Andrew Morton <akpm@linux-foundation.org>
-Cc: Masahiro Yamada <masahiroy@kernel.org>, Arnd Bergmann <arnd@arndb.de>,
-        Mikhail Zaslonko <zaslonko@linux.ibm.com>,
-        linux-kbuild@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20261001-b4-prep-gcov-v1-0-794792e06f24@virtuozzo.com>
-From: Peter Oberparleiter <oberpar@linux.ibm.com>
+Subject: Re: [PATCH] wifi: brcmfmac: avoid sleeping tx locks in netpoll
+ context
+To: Karl Mehltretter <kmehltretter@gmail.com>
+Cc: linux-wireless@vger.kernel.org,
+ Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
+ Clark Williams <clrkwllms@kernel.org>, Steven Rostedt <rostedt@goodmis.org>,
+ "David S . Miller" <davem@davemloft.net>, Eric Dumazet
+ <edumazet@google.com>, brcm80211@lists.linux.dev,
+ brcm80211-dev-list.pdl@broadcom.com, linux-kernel@vger.kernel.org,
+ linux-rt-devel@lists.linux.dev, stable@vger.kernel.org
+References: <20260930185417.61865-1-kmehltretter@gmail.com>
+ <20261004122910.1392318-1-arend.vanspriel@broadcom.com>
+ <asR1TaKQJlPFqEvR@gmail.com>
 Content-Language: en-US
-In-Reply-To: <20261001-b4-prep-gcov-v1-0-794792e06f24@virtuozzo.com>
-Content-Type: text/plain; charset=UTF-8
+From: Arend van Spriel <arend.vanspriel@broadcom.com>
+In-Reply-To: <asR1TaKQJlPFqEvR@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-X-TM-AS-GCONF: 00
-X-Proofpoint-ORIG-GUID: MBub8jOiPsl6_0RAkHolSTrdRE6GZlmT
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDA2MDAzMiBTYWx0ZWRfX7rHiK/Lp5EiA
- iaiQDxyjDURWe+kb/K2wk2zmdcszIhu7AblsRLCKqlHhlAO8bz9l/g/k/l3Xq5Me665EQfABut2
- XZmzKlWCaZOI2KIF2Bva6Njype8XF60=
-X-Proofpoint-GUID: MBub8jOiPsl6_0RAkHolSTrdRE6GZlmT
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDA2MDAzMiBTYWx0ZWRfX6ahQB7e7W3Oz
- xTuKeLJxbMXT6qt/UqcArcy/7idWjw8LE0dvFhVNNAI18lDgIuycnumpFSRn+w1KyYoPZyQ4S0b
- pU5Hk9LLdvlOtMvLKrBMmTjS6v6LKEKSeaaagOTOnEIq+6UQ03kwYyQg5pfnsCE2qwha6lDVvIm
- sLVuqAzE1jAz2Ilc40/gYDymXYSQDmp14Ee2lQC0+R/LNPrHrMyLX+MLTg47L5QP/Oh9+h8QFm9
- Pq7KV04FYhntqJ1Y7sqa5qmkhPpZVT0rt8FPYqre6VSHJzyHC3ijvFSt4yj2KhliBGdO/XjGCXb
- rfqSPh00RnOjtVl833s29ZTmtO54cDX6cItO1txRT93saTfmsU4sH4GneYaetHAwES2y+zvYieK
- G503kmHvVXZnh1L9E6UQaYiM9RCWFgL407KpAn8XdJoN+vXlQfBi5nFPhvHCfJdvb+TxM17RfOc
- jC907F6Y+m1lAsTRGZQ==
-X-Authority-Analysis: v=2.4 cv=fM2sTpae c=1 sm=1 tr=0 ts=6ac4b058 cx=c_pps
- a=bLidbwmWQ0KltjZqbj+ezA==:117 a=bLidbwmWQ0KltjZqbj+ezA==:17
- a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=VkNPw1HP01LnGYTKEx00:22
- a=RnoormkPH1_aCDwRdu11:22 a=iQ6ETzBq9ecOQQE5vZCe:22 a=VwQbUJbxAAAA:8
- a=VnNF1IyMAAAA:8 a=TYBLyS7eAAAA:8 a=7PMU586lhponhzwrbjQA:9 a=QEXdDO2ut3YA:10
- a=zvYvwCWiE4KgVXXeO06c:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-10-06_02,2026-10-05_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0 bulkscore=0 priorityscore=1501 spamscore=0 lowpriorityscore=0
- phishscore=0 adultscore=0 malwarescore=0 clxscore=1011 suspectscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2610060032
+X-DetectorID-Processed: b00c1d49-9d2e-4205-b15f-d015386d3d5e
 
-On 01.10.2026 18:57, Konstantin Khorenko wrote:
-> Two cleanups Peter Oberparleiter suggested while reviewing
-> commit 56cb9b7d96b2 ("gcov: use atomic counter updates to fix
-> concurrent access crashes"):
+On 06/10/2026 06:18, Karl Mehltretter wrote:
+> On Sun, Oct 04, 2026 at 05:29:10AM +0100, Arend van Spriel wrote:
+>> Is there an opportunity to reuse/refactor brcmf_sdio_prec_enq() rather than
+>> adding a separate brcmf_sdio_prec_enq_irqoff() helper? For example, passing
+>> a can_evict parameter:
+>>
 > 
-> https://lore.kernel.org/e1b6e768-51af-468b-a729-0ed3fceef2f1@linux.ibm.com
+> Thanks for the review!
 > 
-> Patch 1 makes the prefer-atomic try-run test reuse $(CFLAGS_GCOV)
-> instead of spelling the flags out again, so the test compiles with the
-> exact GCOV flags, -fno-tree-loop-im included.
+> Sharing the helper with a can_evict argument is cleaner.
 > 
-> Patch 2 moves the CFLAGS_GCOV block into scripts/Makefile.gcov,
-> included via include-$(CONFIG_GCOV_KERNEL) like the other
-> instrumentation makefiles. The try-run also stops running on builds
-> without GCOV.
+> One queue user does not hold txq_lock: brcmf_fws_bus_txq_cleanup()
+> dequeues through brcmu_pktq_pdeq_match().
 > 
-> Signed-off-by: Konstantin Khorenko <khorenko@virtuozzo.com>
+> Lockdep instrumentation in fcmode=1 and 2 confirmed that cleanup enters
+> without txq_lock.
 
-Looks great, thanks for following up on this!
+This is an observation unrelated to the patch, right? You mentioned in 
+the patch it only covers fcmode=0, right?
 
-For both patches:
+> I combined the helpers, but kept brcmu_pktq_penq() for normal calls.
+Sure.
 
-Reviewed-by: Peter Oberparleiter <oberpar@linux.ibm.com>
-Tested-by: Peter Oberparleiter <oberpar@linux.ibm.com>
-
--- 
-Peter Oberparleiter
-Linux on IBM Z Development - IBM Germany R&D
+Regards,
+Arend
