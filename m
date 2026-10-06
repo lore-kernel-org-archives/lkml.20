@@ -1,183 +1,261 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0DCF93C1411
-	for <linux-kernel@vger.kernel.org>; Tue,  6 Oct 2026 07:54:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9F1F737F8CB;
+	Tue,  6 Oct 2026 07:54:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791273259; cv=none; b=rRiDVUBkRKnIGpqVH7UUNJb6OLDg2YDJyTZo+VEACiG/8zoYCgGIRBMdEo1XRGp+ibEdQAa7tDcI8qHfUjB5w/oQBjhK3X5u5w3NH9O8afWknX04SQZJzJPRots2ASeoMu1ACHteYNxHz/zaHcix+aJlacGv9let3BgGGAh9FjA=
+	t=1791273290; cv=none; b=Do+otLzgxPJI+mJrMeMhWFpL+gGUcgF3AzWnmFXn5NDF92wzTGA/IgCp3n6d4j9VTV+0uiVHzYEsLwiNJERY9PR11OasssW1rH6rXFNCJFeFH3LqZbyR3iFMa7v/18AU9QXnI226UlwOPk9ZCYeBlVi3SYQkjuzlZy0zHo3fW28=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791273259; c=relaxed/simple;
-	bh=mboNFI0NzNca1nuO6WYgZ42DSDFcnlyM3BkqxONnINQ=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=Sh9MitZ3F4yQ/87LPRRwC8Y8aMmzXJkr9MzNYZa0MVSjfn998zC4mNAXUF3qpx4G/VSjWaae7giYyXmcaXzPAoow6vfxTxLNyJSWCBuL7Ebk7Bv/YlDAUBDbfv8ERhMlNAPkFvqzGFi4hZ9QWPvQZgsrdcsNE+qn43RZveIY+wM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=TCUUpHGq; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=MKSMQ4Mp; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1791273290; c=relaxed/simple;
+	bh=YNkQyaKyn6ScD9zx23d6iFoOM1y0gpFJNhhwGo6R3Ug=;
+	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=pkfWhJSJePR4bEchX7sveF8pv7TdSs4dimA85spRQ9BnJogstD5xwuEfuZEUn4zZY9oNOcT9MBS8XT06uySChVPU/uIDCBhvoG5w7E+jy5MPFI/t9NC9dkIVBsp1/EFWbrklwEYAlPh86I2UCOH2OD0tuPFRvgiSVcKz7CHZfBs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=j7eN6KNB; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="TCUUpHGq";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="MKSMQ4Mp"
-Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6966eB2Z095668
-	for <linux-kernel@vger.kernel.org>; Tue, 6 Oct 2026 07:54:17 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	pfgie0JUgoj2t3qdSY96bh/GuBapB4o0d4bNUXr17Dw=; b=TCUUpHGqUNnSnBbM
-	Ka2gFF6b1N63N8paycB00rfSWKRnvI978SQVTmHjYXiv1kPbeg6CFqEhC+rZ6Orh
-	lkcmeGrD7AxdoyL901td0qGJoVR6I4y4jzjlyUljPLWVX1iWqbw8x1RTRoncimlz
-	rXCXrkGeitLizDdnlbXL/8vXm7BEskhZUa13SpiWsYNgSFpAsElUwjFc5RMbpdoM
-	6VlYiNvUPE6sj2e1EhVCntjLcUmkd8qnMKK99pBZJwxT/dTGN3q85l5LnxCJ3mf1
-	xWYZ5nuCFc/8PtEONrWZmCeZl6ZdS50dTQjvzlEJWGzLDD2gCetF8AcvT3LeSuzm
-	QQetEQ==
-Received: from mail-qk1-f200.google.com (mail-qk1-f200.google.com [209.85.222.200])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h4gr3jkup-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Tue, 06 Oct 2026 07:54:16 +0000 (GMT)
-Received: by mail-qk1-f200.google.com with SMTP id af79cd13be357-93e834ff4d0so242960985a.3
-        for <linux-kernel@vger.kernel.org>; Tue, 06 Oct 2026 00:54:16 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1791273256; x=1791878056; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=pfgie0JUgoj2t3qdSY96bh/GuBapB4o0d4bNUXr17Dw=;
-        b=MKSMQ4Mpiy+TCzLof5W/FzpvvGT6pdG5U2uVkddvmu9WPS/RM61JuV+8qWvd9+FtQI
-         1lBw1R0ZhItVU6Q7zNWq9T1fiduW7Ooa0KrUMtrJmInPpSFh3itBbFn2J9GA6aKxW07I
-         Tup+gNF/GGeTVfOoVZZo3ecQX3WEwIF090dbCuZpS/BXMZ8V9DLsbhQ5sD+4PzY2X0NE
-         BNADZU5PGCYBF839nQ6F9SUdvNbcmpSG7YCyIHT4TIad3bTcTscugcJL5TGlh/zT/y1k
-         Q6xBo8M8jjeFLdtNjV4qEsBVY3SIGKKACW8fpHpvtW+LLMiY2h9lL7OscSI0RtBxSuvF
-         sbiQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791273256; x=1791878056;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=pfgie0JUgoj2t3qdSY96bh/GuBapB4o0d4bNUXr17Dw=;
-        b=Q3EtqqOEw59FhEhJ14rQFybgZpqwz45bjcrnYJ8lNZ2CyPMCS5B30oXBDCZKiXzY6T
-         mNfdUfIPEjIVoh3vgVru7Ww+c52rHlOzQjPQAEikFkQ8ZnY7Yv1m/vxVTr0STteovWWB
-         87vINuxuwNiCgyO7r+iJh9xZLEuzudir8OWtdU49g83m85C+vR1enQPbB8eeN0L5tUsY
-         T3NBnzkghNFsyIjpEPIVZctfnti0/nk5hpKAWzzm7J5ws6E016NguaGgMcGO3/IvUR7a
-         HFUbafhQQiq+AUONPUSS6Q50Ea0nQTqQjHMAYD6gRk8wXdSs6vkpqDQ4l4B2bH4eJL96
-         Tmwg==
-X-Gm-Message-State: AFuF++nBHa5tsf3mh2tJxwgiRxk0PQeAKMFg94VOMQLOBqYpGJbwNMJQ
-	/UAxKMLgn6U4nSwPK5UURfKzBNEDxPrMlIX56qgRIAnKDESY7EbRJgQ00/fauuK522FpAZJa4F9
-	Ma5qgQEYytV2gldhzI1HiSyaRcETpC6b902cLn/vmSEWmZygN5JSBVH7xw8aAwAv1QZA=
-X-Gm-Gg: AYBFou3aA9VVW0a8hSCuOg9UodvC76Z1fYuQjfZemun6c9BlCqOjOZ4bIqHdQ3yhJ+b
-	2IxFgOTEuPKCM043d9sZgWHk/qQxtxyP6wxWIqU1bGMTm75pW3YQP0ZqPyx5qbpfz+GaXPDoxGW
-	RKs1fNIwj277xyeXGNpx6C+YY/7vlB3RFK65r8D6XpF2BT6atrR/T5xzvmltbElSb3Zxuha2dWg
-	SXCtxYwJj5ToQge8IwdwaIAhJhzaCjhS7sNHuS96DpN3GbFgGl0q5NfxN6fUx7/RjFlNGEOGceI
-	dqZu6IZn9UROj8b2E1KykWLfUfqs3lO/F35348c9FQDVn7dEgpg1AKGcLbMvZXeGc+DL6ZFSaFj
-	lOHTQYbtvmRgifV1kHVycY0YZaB5K+QSPnN9Ptw==
-X-Received: by 2002:a05:620a:3950:b0:93c:1ecc:20d3 with SMTP id af79cd13be357-93e8f39c11cmr107848085a.28.1791273255793;
-        Tue, 06 Oct 2026 00:54:15 -0700 (PDT)
-X-Received: by 2002:a05:620a:3950:b0:93c:1ecc:20d3 with SMTP id af79cd13be357-93e8f39c11cmr107845685a.28.1791273255279;
-        Tue, 06 Oct 2026 00:54:15 -0700 (PDT)
-Received: from localhost (ip-78-44-132-10.bb.vodafone.cz. [78.44.132.10])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a178ca806fsm50828115e9.3.2026.10.06.00.54.14
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 06 Oct 2026 00:54:14 -0700 (PDT)
-From: =?UTF-8?q?Radim=20Kr=C4=8Dm=C3=A1=C5=99?= <radim.krcmar@oss.qualcomm.com>
-To: linux-riscv@lists.infradead.org
-Cc: linux-kernel@vger.kernel.org, Paul Walmsley <pjw@kernel.org>,
-        Palmer Dabbelt <palmer@dabbelt.com>, Alexandre Ghiti <alex@ghiti.fr>,
-        Samuel Holland <samuel.holland@sifive.com>,
-        Andy Chiu <andybnac@gmail.com>, Guodong Xu <guodong@riscstar.com>,
-        Zong Li <zong.li@sifive.com>,
-        Charlie Jenkins <thecharlesjenkins@gmail.com>
-Subject: [PATCH 6/6] riscv: hwprobe: Report SiFive vector extensions only when available
-Date: Tue,  6 Oct 2026 09:53:03 +0200
-Message-ID: <20261006075303.205216-7-radim.krcmar@oss.qualcomm.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20261006075303.205216-1-radim.krcmar@oss.qualcomm.com>
-References: <20261006075303.205216-1-radim.krcmar@oss.qualcomm.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="j7eN6KNB"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CBE611F00893;
+	Tue,  6 Oct 2026 07:54:48 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791273289;
+	bh=fpa5+JOtkZZuP2tvDHGlTsvFx2gQANVc+3ezgz25LyQ=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=j7eN6KNB25i4mlxGjDOQoCaROpurempRcNbJuXmh/nqQ51MuNvsXA4+NvqamqjkNu
+	 ko7PKQMixvo9LWGc5Q/IM+ldYt+6Uc7eDp8km2LW0ETehodUboQ6VrokfocMvi8mpi
+	 BzavtxLo7O7aKTczhmGk3btQKClmIK8k2jnwgn3YdW8PFcjYBATBOPw3f3rfVP1dg/
+	 XbEXNhoyeA7PWsQCcaHA0NEp3YJ/o+F8dySd9xKioHXgcouzPFvHh4VhkZJhKOKkoT
+	 XAZYNvpjgSsScAtLUbVQutDUwmPkxjxDb7S+AFPAbVeyEC5tzSQ/XpL0NuIzQLzo8s
+	 h5azkc7oUdCgg==
+Subject: Re: [PATCH net-next 1/2] tls: annotate lockless access to sk->sk_err
+From: netdev-bot+sashiko@kernel.org
+To: quanyeyang@proton.me
+Cc: john.fastabend@gmail.com, kuba@kernel.org, sd@queasysnail.net,
+ davem@davemloft.net, edumazet@kernel.org, pabeni@redhat.com, horms@kernel.org,
+ jakub@cloudflare.com, jiayuan.chen@linux.dev, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org, bpf@vger.kernel.org
+Date: Tue, 06 Oct 2026 07:54:48 +0000
+Message-ID: <179127328838.434549.8857657858630692504@kernel.org>
+In-Reply-To: <20261002-tls-fix-sk-kcsan-err-v1-1-baa0ba056323@proton.me>
+References: <20261002-tls-fix-sk-kcsan-err-v1-1-baa0ba056323@proton.me>
+X-sashiko-severity: High
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-Proofpoint-ORIG-GUID: zTw9i3cXxDtvjT4pUAAHk57HMSyc_coX
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDA2MDAzMSBTYWx0ZWRfX9JZunvofdVZD
- mTAQ3fl6uzysAA3bxXzVGD67+b50w59cykfeT6eN/x5uUX7FZPFtnSWoF3hHOnmZEVh5ATqX5qY
- kVtbP571HeMXzK9Fj6WHrX/48vb4Fn8=
-X-Authority-Analysis: v=2.4 cv=PNWaavqC c=1 sm=1 tr=0 ts=6ac4a928 cx=c_pps
- a=hnmNkyzTK/kJ09Xio7VxxA==:117 a=kVq+qqu7synz0czdOrlqmQ==:17
- a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=M51BFTxLslgA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22
- a=EUspDBNiAAAA:8 a=uPCuBOvzkMiWwmi2Qq8A:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
- a=PEH46H7Ffwr30OY-TuGO:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDA2MDAzMSBTYWx0ZWRfX6+YkMZFTEtCs
- Adp96qJkees4puaGwpd7+pcq86tVUL8LHaJ5rBJNv4yYGIEytbyIQBOsPBwAM6zoHHSJ3ebO3qr
- rUOlk32lLO7a8+6aLc1r171yfk066Yg3Nz859i3uyFP0vS1Dmi2W3lSHeOhDv8D/eOYIkuG4XKg
- tbnBbrmiqU9hrBfzQa3/pzHHRzC9j929I9rtuSMHeAcCYPQIgo5Nve8/S/JQVO1bgst249JzemZ
- F+D23IRY2mSjwOD3iadbgi1vw1IYGhDZrZPqDnuP3nRXS2jDCiSzbP+KBM4jpmrPGqhIQnc+r3B
- j4QNSh9pvq91VVZd37NbaxOKqwbTX1cRDrRCBtJK98JY8/uy2n+rvOZ8didDBl5nD4qdRxFLNLV
- 1fUn8oVbXnX6SFL4L/P8VnZDP+F6oKwAmnDnIFQTANlRRTtqajj3PUE+gsKm8exy5i5KKdFCgN8
- Hpf5iVtTtKQQSX9DEXg==
-X-Proofpoint-GUID: zTw9i3cXxDtvjT4pUAAHk57HMSyc_coX
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-10-06_02,2026-10-05_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0 priorityscore=1501 phishscore=0 clxscore=1015 adultscore=0
- malwarescore=0 spamscore=0 suspectscore=0 bulkscore=0 lowpriorityscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2610060031
 
-User-mode use of the SiFive vector extensions requires non-Off
-sstatus.VS, which we set only when has_vector() (CONFIG_RISCV_ISA_V and
-Zve32x on all harts).  Xsfvfnrclipxfqf and Xsfvfwmaccqqq also execute
-floating-point instructions, which additionally require non-Off
-sstatus.FS and hence has_fpu().  hwprobe reports the extensions from the
-per-hart vendor ISA bitmaps alone, so it can advertise extensions that
-are always disabled in user-mode.
+Thank you for your contribution! Sashiko AI review found 2 potential
+issue(s) to consider.
 
-Report correct environment to user-mode.
+Critical: 0 · High: 1 · Medium: 0 (1) · Low: 1
 
-Fixes: 1a6274f03534 ("riscv: hwprobe: Add SiFive vendor extension support and probe for xsfqmaccdod and xsfqmaccqoq")
-Fixes: 1d91224394c9 ("riscv: hwprobe: Add SiFive xsfvfnrclipxfqf vendor extension")
-Fixes: d9669e33c8fa ("riscv: hwprobe: Add SiFive xsfvfwmaccqqq vendor extension")
-Signed-off-by: Radim Krčmář <radim.krcmar@oss.qualcomm.com>
----
- Same as THeadVector, this could be optimized better.
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
 
- .../kernel/vendor_extensions/sifive_hwprobe.c      | 14 ++++++++++----
- 1 file changed, 10 insertions(+), 4 deletions(-)
+- [High] The fix is incomplete.
+- [Low] The title calls this an annotation change, but the patch carries
+  a user-visible behavioural fix and has no Fixes: tag.
 
-diff --git a/arch/riscv/kernel/vendor_extensions/sifive_hwprobe.c b/arch/riscv/kernel/vendor_extensions/sifive_hwprobe.c
-index 1f77f6309763..bcea4f7a81c4 100644
---- a/arch/riscv/kernel/vendor_extensions/sifive_hwprobe.c
-+++ b/arch/riscv/kernel/vendor_extensions/sifive_hwprobe.c
-@@ -1,5 +1,7 @@
- // SPDX-License-Identifier: GPL-2.0-only
- 
-+#include <asm/switch_to.h>
-+#include <asm/vector.h>
- #include <asm/vendor_extensions/sifive.h>
- #include <asm/vendor_extensions/sifive_hwprobe.h>
- #include <asm/vendor_extensions/vendor_hwprobe.h>
-@@ -14,9 +16,13 @@ void hwprobe_isa_vendor_ext_sifive_0(struct riscv_hwprobe *pair, const struct cp
- {
- 	VENDOR_EXTENSION_SUPPORTED(pair, cpus,
- 				   riscv_isa_vendor_ext_list_sifive.per_hart_isa_bitmap, {
--		VENDOR_EXT_KEY(XSFVQMACCDOD);
--		VENDOR_EXT_KEY(XSFVQMACCQOQ);
--		VENDOR_EXT_KEY(XSFVFNRCLIPXFQF);
--		VENDOR_EXT_KEY(XSFVFWMACCQQQ);
-+		if (has_vector()) {
-+			VENDOR_EXT_KEY(XSFVQMACCDOD);
-+			VENDOR_EXT_KEY(XSFVQMACCQOQ);
-+			if (has_fpu()) {
-+				VENDOR_EXT_KEY(XSFVFNRCLIPXFQF);
-+				VENDOR_EXT_KEY(XSFVFWMACCQQQ);
-+			}
-+		}
- 	});
- }
+Pre-existing issues:
+- [Medium] This problem wasn't introduced by this patch, but the async
+  receive epilogue of tls_sw_recvmsg() (net/tls/tls_sw.c) can overwrite…
+
+--
+
+tls: annotate lockless access to sk->sk_err
+
+On the no-data path, tls_rx_rec_wait() now calls sock_error() once
+instead of doing a plain sk_err check before it. The has_copied path
+keeps using READ_ONCE(). In tls_sw_sendmsg_locked(), tls_push_data() and
+bpf_exec_tx_verdict(), the two plain sk_err loads become a single
+READ_ONCE() snapshot.
+
+Link: https://lore.kernel.org/netdev/3d9d442f-f168-43da-87b0-010ad5a78365@redhat.com/
+
+> diff --git a/net/tls/tls_sw.c b/net/tls/tls_sw.c
+> index d1ad31986cf2c..12e4458b44bb8 100644
+> --- a/net/tls/tls_sw.c
+> +++ b/net/tls/tls_sw.c
+> @@ -704,10 +704,14 @@ static int bpf_exec_tx_verdict(struct sk_msg *msg, struct sock *sk,
+>  	int err;
+>  
+>  	err = tls_push_record(sk, flags, record_type);
+> -	if (err && err != -EINPROGRESS && sk->sk_err == EBADMSG) {
+> -		*copied -= sk_msg_free(sk, msg);
+> -		tls_free_open_rec(sk);
+> -		err = -sk->sk_err;
+> +	if (err && err != -EINPROGRESS) {
+> +		int skerr = READ_ONCE(sk->sk_err);
+> +
+> +		if (skerr == EBADMSG) {
+> +			*copied -= sk_msg_free(sk, msg);
+> +			tls_free_open_rec(sk);
+> +			err = -skerr;
+> +		}
+>  	}
+>  	return err;
+>  }
+
+[Severity: High]
+bpf_exec_tx_verdict() now uses a single snapshot. Its async
+counterpart, tls_encrypt_done(), still loads sk->sk_err three times
+with plain loads. Is that intended?
+
+net/tls/tls_sw.c:tls_encrypt_done() {
+    ...
+	/* Check if error is previously set on socket */
+	if (err || sk->sk_err) {
+		rec = NULL;
+
+		/* If err is already set on socket, return the same code */
+		if (sk->sk_err) {
+			ctx->async_wait.err = -sk->sk_err;
+		} else {
+			ctx->async_wait.err = err;
+			tls_err_abort(sk, err);
+		}
+	}
+    ...
+}
+
+tls_encrypt_done() is the async AEAD completion callback. It runs from
+the crypto engine, softirq or a kworker without the socket lock. The
+racing side is the one the commit message names: sk_getsockopt() for
+SO_ERROR does v.val = -sock_error(sk), which clears sk_err with xchg()
+without the socket lock.
+
+Suppose err is 0, the first check sees a non-zero sk_err, and the
+xchg() clears it before the second check. The else branch then runs
+with err == 0:
+
+	ctx->async_wait.err = 0;
+	tls_err_abort(sk, 0);
+
+tls_err_abort() starts with WARN_ON_ONCE(err >= 0). Can this fire the
+warning (or panic with panic_on_warn) and then write sk_err = 0?
+
+In the other interleaving, the second check sees a non-zero value but
+the -sk->sk_err load sees 0. async_wait.err becomes 0, and if err was
+non-zero the real AEAD error is lost too. rec was already set to NULL,
+so the record is never marked tx_ready. tls_encrypt_async_wait() then
+returns 0 to the sender, and tls_tx_records() stops at the first record
+that is not tx_ready.
+
+After this patch, this looks like the last plain sk_err reader in
+net/tls. The second patch in the series, "net: annotate lockless writes
+to sk->sk_err", does not touch tls_encrypt_done() either.
+
+Could this use one snapshot as well, for example
+int skerr = READ_ONCE(sk->sk_err), for the test, the branch and the
+assignment? Then tls_err_abort() would only ever be called with a
+negative err.
+
+[ ... ]
+
+> @@ -1107,10 +1110,16 @@ tls_rx_rec_wait(struct sock *sk, bool nonblock, bool released, bool has_copied)
+>  	timeo = sock_rcvtimeo(sk, nonblock);
+>  
+>  	while (!tls_strp_msg_ready(ctx)) {
+> -		if (sk->sk_err) {
+> -			if (has_copied)
+> -				return -READ_ONCE(sk->sk_err);
+> -			return sock_error(sk);
+> +		if (has_copied) {
+> +			int err = READ_ONCE(sk->sk_err);
+> +
+> +			if (err)
+> +				return -err;
+> +		} else {
+> +			int err = sock_error(sk);
+> +
+> +			if (err)
+> +				return err;
+>  		}
+
+[Severity: Low]
+This isn't a bug, but the subject calls this an annotation change, and
+this hunk changes user-visible behavior.
+
+Before the patch, another thread could clear sk_err between the plain
+check and sock_error(). The data_race(!sk->sk_err) fast path in
+sock_error() then returned 0. With nothing copied, tls_sw_recvmsg()
+passed that 0 to userspace as EOF:
+
+	return copied ? : err;
+
+The commit message describes this ("can return 0 after another thread
+consumes the error"), but there is no Fixes: tag.
+
+The first site comes from f508262ae9f2 ("tls: Preserve sk_err across
+recvmsg() when data has been copied"), which replaced the older
+return sock_error(sk) from 35560b7f06b8. The recheck after
+sk_flush_backlog() below comes from edcf32b8a48f ("tls: Flush backlog
+before waiting for a new record").
+
+Should Fixes: tags be added so stable and backport tooling can pick up
+the spurious EOF fix?
+
+>  
+>  		if (ret < 0)
+> @@ -1132,10 +1141,16 @@ tls_rx_rec_wait(struct sock *sk, bool nonblock, bool released, bool has_copied)
+>  		 * sk_err here so a connection abort surfaces as the
+>  		 * actual error rather than a clean EOF.
+>  		 */
+> -		if (sk->sk_err) {
+> -			if (has_copied)
+> -				return -READ_ONCE(sk->sk_err);
+> -			return sock_error(sk);
+> +		if (has_copied) {
+> +			int err = READ_ONCE(sk->sk_err);
+> +
+> +			if (err)
+> +				return -err;
+> +		} else {
+> +			int err = sock_error(sk);
+> +
+> +			if (err)
+> +				return err;
+>  		}
+>  		if (sk->sk_shutdown & RCV_SHUTDOWN)
+>  			return 0;
+
+[Severity: Medium]
+This is a pre-existing issue and was not introduced by this patch. Can
+the async receive epilogue in tls_sw_recvmsg() overwrite a negative
+return from tls_rx_rec_wait() with 0?
+
+tls_rx_msg_size() only rejects data_len < cipher_overhead, so it
+accepts a TLS 1.2 application-data record with empty plaintext. Take
+ctx->async_capable with an AEAD that returns -EINPROGRESS:
+
+tls_sw_recvmsg()
+  tls_rx_one_record()          /* darg.async stays true */
+  async |= darg.async;
+  chunk = min_t(int, to_decrypt, len);     /* 0 */
+  async_copy_bytes += chunk;               /* still 0 */
+  tls_rx_rec_wait(..., has_copied=false)   /* -EAGAIN, or sock_error() */
+recv_end:
+  tls_decrypt_async_wait()                 /* 0 */
+  err = process_rx_list(ctx, msg, &control, 0,
+                        async_copy_bytes, is_peek, NULL);
+
+The peek variant passes copied + peeked and decrypted - peeked, which
+are also 0 here. With skip and len both 0, process_rx_list() skips both
+of its loops and returns 0. That value overwrites err, and since copied
+is 0, return copied ? : err returns 0.
+
+On an open socket, would a non-blocking read return 0 (EOF) instead of
+-EAGAIN? Would a connection error that sock_error() already consumed in
+tls_rx_rec_wait() be lost and reported as a clean EOF?
+
+Could the original receive error be kept when the async drain produces
+no bytes and no error of its own?
+
 -- 
-2.55.0
-
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261002-tls-fix-sk-kcsan-err-v1-0-baa0ba056323%40proton.me
