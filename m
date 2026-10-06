@@ -1,58 +1,51 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6F7D93DDDD9;
-	Tue,  6 Oct 2026 18:02:33 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 30A6A286D70;
+	Tue,  6 Oct 2026 18:03:22 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791309754; cv=none; b=aQowH6wbuTUyA4AAmAeAZm1hawGvSqOfWLgKeQrywUNfIiKkMGhpX0KjpzEKivAQe6YNf1IfLRaxfFhGYwcLEcyQL0KaN2BSnFOud76Ct4h+xUxp0ozRmFBOpS/mdgpi34PdAIgpKhGK1UFDE0WzYATH64KC5aQOSjE5fYf+vfo=
+	t=1791309804; cv=none; b=PF0YUoa4HV4B1v9EeeaRCAmX6j2lBebeA0Hg7l9vMlzQxHGio135h2mPzsAUa5YGRqESiXubNDLpx8HRnu0YYhmzyOS7+RyvFsMezg2AGnzhkZp+ztbTVnIlBNlTCwX+u8XRgeIhmI+fgbbBCSca8fUthmWczAb3ACqEwpv6JY8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791309754; c=relaxed/simple;
-	bh=goVd4gDkeawuFXTB2jfoClWl7lU2fnOknBCv008N5b8=;
+	s=arc-20240116; t=1791309804; c=relaxed/simple;
+	bh=Vr8UPPhc/3LHeUxJYs/Dk6TYg9+1w2W65a17uHf9gFc=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=gafSVUoWO7gyTR1kIxsSg0ZK9CHcy4k4jFLlpAWN8FOtRSmO47JmKrDuvIa5qfiHCwjn0uuB/qflxrBN2ivXqNvYolbFoJKQgklDFHKjUyPhw6VhQb3t2EIUXJOMjo1mwiyCm9lVztVL0lS4Z1MjGgRDbZSg/vn+HTUjmp79IQY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BA52giKo; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=gb+XXUw4+nvJDgoHtIOFJV9GEXOaHHOiE73SdHkohmD8TJ03kGvF9+2Ok4WROZTmdifByDUylEF8HkM3hpmn7TZrgvDbYVkP0g7TyvRHDjA/spDVQW1llRq6kxqEC44dptpGcTJZwyzGtf04+eqEOGqdO09QvmgckleB0Q7S/mo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=UBj7NBLs; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BA52giKo"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EE90D1F0089C;
-	Tue,  6 Oct 2026 18:02:32 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="UBj7NBLs"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CE48E1F0089B;
+	Tue,  6 Oct 2026 18:03:22 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791309753;
-	bh=zn1cf/2G1XAfRKst7JuV3s2fqRbOiLvk8GIPBUJjUtg=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=BA52giKoyHfyhpCln4903eug87nhQVCKX/PDe97zkg8DEB4R5rpHLlYnmv0t2GvBO
-	 14OnGPEbXZhitW8AiOs3NBNAXGkyrR3coRIEnc9SJ9CL52M1rpG/OexOUUbFfjTF7M
-	 3z+i8ewsimtJ/aThbzYtD00P/7xe8Vb4qgOJNLjZjG/NomsjxRgUtG2D+OlJja2ZAx
-	 KGncZp8F7gyG/kHT3iRDTjhTlPGI0Y7sj6yUCdHMqc0llXONhqGoNJtO+GApmyFKKW
-	 3uCKz6TB/SYBLBZj8q/8KQD+X9vdXVzmmO3fm0gq3BPnNKV7ssoeJBLfwlfUtDXc5K
-	 5gxBj0lUizHKw==
-Date: Tue, 6 Oct 2026 13:02:32 -0500
-From: Rob Herring <robh@kernel.org>
-To: Mathieu Poirier <mathieu.poirier@linaro.org>
-Cc: Shenwei Wang <shenwei.wang@oss.nxp.com>,
-	Linus Walleij <linusw@kernel.org>,
-	Bartosz Golaszewski <brgl@kernel.org>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Bjorn Andersson <andersson@kernel.org>, Frank Li <Frank.Li@nxp.com>,
-	Sascha Hauer <s.hauer@pengutronix.de>,
-	Shuah Khan <skhan@linuxfoundation.org>, linux-gpio@vger.kernel.org,
-	linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Fabio Estevam <festevam@gmail.com>,
-	Shenwei Wang <shenwei.wang@nxp.com>, Peng Fan <peng.fan@nxp.com>,
-	devicetree@vger.kernel.org, linux-remoteproc@vger.kernel.org,
-	imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
-	linux-imx@nxp.com, Arnaud POULIQUEN <arnaud.pouliquen@foss.st.com>,
-	b-padhi@ti.com, Andrew Lunn <andrew@lunn.ch>
-Subject: Re: [PATCH v16 2/5] dt-bindings: remoteproc: imx_rproc: Add "rpmsg"
- subnode support
-Message-ID: <20261006180047.GD2194299-robh@kernel.org>
-References: <20260923184255.299034-1-shenwei.wang@oss.nxp.com>
- <20260923184255.299034-3-shenwei.wang@oss.nxp.com>
- <20261006030739.GA3457522-robh@kernel.org>
- <CANLsYkzcqapDYvKAEa2ZjA=q07iO=RM4TVNUbSqDrB0EmjeKyQ@mail.gmail.com>
+	s=k20260515; t=1791309802;
+	bh=T6bWreWqdh0pxVBLeOkV0ABsGL1g0LmIaRnT5mBAf/I=;
+	h=Date:From:To:Cc:Subject:Reply-To:References:In-Reply-To;
+	b=UBj7NBLsDZQ7ocM6BqdUOe2qYlzd5UPczmWKeTyKc7x9lQT/P9PU6B2fhBaMotm9P
+	 hFS0/uZYTdS3R78ivjW3f0/+wXC14eF1JteAxM6nwiquiciaPI2PWBGRYD2gns3vXN
+	 bahxojohxkT5+i61pURXc5eXYBj5+MQ28w0oHsSivLsfWviLGZtYziyjmJYT9SDn8x
+	 MPM7C2a7/31AIPeq4xE4xlMxRIpfN6LyZxxMNknGwFVqLWISWO5SHf2KEYA8Wcb5n8
+	 R1bKFMGdAgEgqzdZY2GYres3ccB1gvZkGuxLAXyJa252ltttZ5BI6zeV4Jl2X0F8j/
+	 dUcMAEkf046ZQ==
+Received: by paulmck-ThinkPad-P17-Gen-1.home (Postfix, from userid 1000)
+	id 8FB01CE3A08; Tue,  6 Oct 2026 11:03:22 -0700 (PDT)
+Date: Tue, 6 Oct 2026 11:03:22 -0700
+From: "Paul E. McKenney" <paulmck@kernel.org>
+To: Davidlohr Bueso <dave@stgolabs.net>
+Cc: Joel Fernandes <joelagnelf@nvidia.com>, linux-kernel@vger.kernel.org,
+	Josh Triplett <josh@joshtriplett.org>,
+	Frederic Weisbecker <frederic@kernel.org>,
+	Neeraj Upadhyay <neeraj.upadhyay@kernel.org>,
+	Boqun Feng <boqun@kernel.org>, Uladzislau Rezki <urezki@gmail.com>,
+	Steven Rostedt <rostedt@goodmis.org>,
+	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
+	Lai Jiangshan <jiangshanlai@gmail.com>,
+	Zqiang <qiang.zhang@linux.dev>, rcu@vger.kernel.org
+Subject: Re: [PATCH] rcuscale: Consolidate per-writer arrays into struct
+ writer_state
+Message-ID: <46027df6-75a9-4a6f-b6ac-b8348ed8ed8e@paulmck-laptop>
+Reply-To: paulmck@kernel.org
+References: <20261005005642.2312272-1-joelagnelf@nvidia.com>
+ <20261006104154.xflixj46auqpstff@offworld>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -61,44 +54,36 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <CANLsYkzcqapDYvKAEa2ZjA=q07iO=RM4TVNUbSqDrB0EmjeKyQ@mail.gmail.com>
+In-Reply-To: <20261006104154.xflixj46auqpstff@offworld>
 
-On Tue, Oct 06, 2026 at 09:18:23AM -0600, Mathieu Poirier wrote:
-> On Mon, 5 Oct 2026 at 21:07, Rob Herring <robh@kernel.org> wrote:
-> >
-> > On Wed, Sep 23, 2026 at 01:42:29PM -0500, Shenwei Wang wrote:
-> > > From: Shenwei Wang <shenwei.wang@nxp.com>
-> > >
-> > > Remote processors may announce multiple GPIO controllers over an RPMSG
-> > > channel. These GPIO controllers may require corresponding device tree
-> > > nodes, especially when acting as providers, to supply phandles for their
-> > > consumers.
-> > >
-> > > Define an RPMSG node to work as a container for a group of RPMSG channels
-> > > under the imx_rproc node. Each subnode within "rpmsg" represents an
-> > > individual RPMSG channel. The name of each subnode corresponds to the
-> > > channel name as defined by the remote processor.
-> >
-> > Sorry, but DT defines the names of nodes. If it's a gpio-controller,
-> > then 'gpio'.
-> >
-> > I still don't understand where the unit address gets defined. 0 and 1
-> > look a bit made up. I'm sure you explained it before, but *this patch*
-> > needs to explain it. When you define a second protocol, the 0 and 1
-> > addresses are taken already, so you can't have 'clock-controller@0' for
-> > example.
-> >
+On Tue, Oct 06, 2026 at 03:41:54AM -0700, Davidlohr Bueso wrote:
+> On Sun, 04 Oct 2026, Joel Fernandes wrote:
 > 
-> I had a conversation with Krzysztof about this here in Prague.  We
-> have decided to adopt the bindings proposed by Francesco in this
-> thread [1].
-
-Same question applies there. Where do the 0 and 1 addresses come from?  
-Will reply on that thread.
-
-Rob
-
+> > The writer kthreads keep their state in five parallel arrays indexed by
+> > writer number: writer_tasks, writer_durations, writer_n_durations,
+> > writer_done and writer_freelists.  Each must be allocated, NULL-checked,
+> > freed and cleared separately, and the cleanup path needs several
+> > guards to cope with any one of them being missing.
+> > 
+> > Collapse them into a single array of struct writer_state, holding the
+> > task pointer, the duration buffer, the measurement count, the done flag
+> > and the existing struct writer_freelist.
+> > 
+> > This reduces initialization to one allocation and one out-of-memory
+> > check, and cleanup to a single kfree().  As a side effect, this also
+> > fixes a leak: cleanup only ran its frees under "if (writer_tasks)", so
+> > if the writer_tasks allocation failed while a later allocation (for
+> > example writer_durations or writer_n_durations) still succeeded, those
+> > already-allocated arrays were never freed.  With a single allocation,
+> > that partial-allocation state can no longer occur.
+> > 
+> > Assisted-by: Codex
+> > Fixes: 8704baab9bc8 ("rcutorture: Add RCU grace-period performance tests")
+> > Signed-off-by: Joel Fernandes <joelagnelf@nvidia.com>
 > 
-> [1].  https://lore.kernel.org/all/20260916-remoteproc_virtio_map-v1-8-dac8c5eb4aa9@valla.it/
-> 
-> > Rob
+> Acked-by: Davidlohr Bueso <dave@stgolabs.net>
+
+Queued testing and further review, and for v4.5 (the merge window after
+this coming one), thank you all!
+
+							Thanx, Paul
