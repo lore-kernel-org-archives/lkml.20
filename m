@@ -1,99 +1,140 @@
-Received: from cvsmtppost06.nm.naver.com (cvsmtppost06.nm.naver.com [114.111.35.102])
+Received: from fhigh-a1-smtp.messagingengine.com (fhigh-a1-smtp.messagingengine.com [103.168.172.152])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 70DA83859E2
-	for <linux-kernel@vger.kernel.org>; Tue,  6 Oct 2026 09:13:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=114.111.35.102
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 74C3B3B0583
+	for <linux-kernel@vger.kernel.org>; Tue,  6 Oct 2026 09:13:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=103.168.172.152
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791278031; cv=none; b=HVtrogEjdiwzmbJWjf7ZGnsbHHSF9FSVoqnquJctwCWX3LehtqzdUnG2W1XeM4mt8U1dTpkxKhr8eUVucdbz7DwalNaRqTjz5o4x9DNx2cizKqb7ansdBf7GShzBlQzHvud/4+1QDpOuNVmUMHpTEKiVfERmGsmr7GdLupJ3YmU=
+	t=1791278032; cv=none; b=VhN4v2ahCiMPdIwS2zVovv8Fy06lG2cuu7oL0UqS+2OB8IfIcoWT8PC0s9pUM+ZoHICoFFA+QXrx5UhcM4fOhSem58lvnEqiyIiHXgdn25STH0aM2qbZhe8vENSOrv4Uuyikk1EIQSkbu6sfcnsgbO1/M4sTw384i2Ju4ovcHUA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791278031; c=relaxed/simple;
-	bh=gctVEGpOf55hwdl58t+HTQhT5gCOh5kd2dk3y2EwGa8=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=G46NWZOedjBwLsPRIMKTRodgYQR/px3DLo0ugJwYmWTxcVWRqRBJHeuIwemfDC5nipOYeqcW1QR/HqTWKKlXUGNrKl4ta6UsJVqlYfiU1NFO+v5iA+IOwlKmUfCcDkJQg1L7X2htXiaoOArdbF0Ns4C6u1kseXLD2IN81LPHbns=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=naver.com; spf=pass smtp.mailfrom=naver.com; dkim=pass (2048-bit key) header.d=naver.com header.i=@naver.com header.b=Am7MuhiV; arc=none smtp.client-ip=114.111.35.102
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=naver.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=naver.com
+	s=arc-20240116; t=1791278032; c=relaxed/simple;
+	bh=Uzht/gnnalOdKMOxMXIuqX3WZTTWDv2ShAnEFEPyhKE=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=UdDnKDJGQ6tCRIC1t2sCKA8MfzPrgAL35HQoFZp3MfUbOUOzXhUWYVIVoYU0PopfNYDfjd+QVrqA9wwEnCjUyEj6fvc0AKh95vCkfHTv/H1rGb22Wq4GJ0k2YGYKzv/r/uO+3I5HzFhE2pXTV8Vojj4smFEKQnV7YwasB6cxaEY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=shutemov.name; spf=pass smtp.mailfrom=shutemov.name; dkim=pass (2048-bit key) header.d=shutemov.name header.i=@shutemov.name header.b=MYzNnMS7; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=e0MmQS2y; arc=none smtp.client-ip=103.168.172.152
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=shutemov.name
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=shutemov.name
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=naver.com header.i=@naver.com header.b="Am7MuhiV"
-Received: from cvsendbo030.nm ([10.112.20.49])
-  by cvsmtppost06.nm.naver.com with ESMTP id zp0bEFcDQoC23ubJ4rGAZA
-  for <linux-kernel@vger.kernel.org>;
-  Tue, 06 Oct 2026 09:13:47 -0000
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=naver.com; s=s20171208;
-	t=1791278027; bh=gctVEGpOf55hwdl58t+HTQhT5gCOh5kd2dk3y2EwGa8=;
-	h=From:To:Subject:Date:Message-ID:From:Subject:Feedback-ID:
-	 X-Works-Security;
-	b=Am7MuhiVDmMGzqmyySuTsdqfvPJpdPO1Kdk4zSGawI4pTM3buHCN7y3vL/e7sl6or
-	 Ce1tkZ+uDBnScURnczgpMr9nOtk9SKoA6GV/KN2xMbBigHc4EfQRndk97R1OZA6Zhx
-	 khqc3a7DjByYBzqSLV5Ak/9scCG4EkB7/Aij27cYXOH0VECF+lQ6LSniuEfCuJwRR4
-	 AyDvc6AryJ7vw0QOPIoXZuCF8gQZ/NNNpPyyb04SORtBgQMrMmesIuR3yulipHM9Ig
-	 JyFWhGJvQHnBnm/L/vF1A6hgoZprovjOxRy1qHsue/FxVAbcYEfGJNvl7dkQ4+c9lV
-	 FSAe2sb0NGRAg==
-X-Session-ID: IvdhAuDFTiiE0Ff3WRPz+A
-X-Works-Send-Opt: OPRwpzGdjHmdKHFOMr39Ko3YKHmrjAudFqM9KqMqFxIYkEljxBmwjAg=
-X-Works-Smtp-Source: /dKdKoulFqJZ+HmXKoM9+6E=
-Received: from localhost.localdomain ([115.136.205.4])
-  by cvnsmtp010.nm.naver.com with ESMTP id IvdhAuDFTiiE0Ff3WRPz+A
-  for <multiple recipients>
-  (version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384);
-  Tue, 06 Oct 2026 09:13:47 -0000
-From: sungbyeongchan <tjdqudcks0424@naver.com>
-To: Zhu Yanjun <zyjzyj2000@gmail.com>,
-	Jason Gunthorpe <jgg@ziepe.ca>,
-	Leon Romanovsky <leon@kernel.org>
-Cc: linux-rdma@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	security@kernel.org
-Subject: [BUG] RDMA/rxe: mapped SQ opcode indexes past opcode table
-Date: Tue,  6 Oct 2026 18:13:38 +0900
-Message-ID: <20261006091339.828901-1-tjdqudcks0424@naver.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key) header.d=shutemov.name header.i=@shutemov.name header.b="MYzNnMS7";
+	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="e0MmQS2y"
+Received: from phl-compute-03.internal (phl-compute-03.internal [10.202.2.43])
+	by mailfhigh.phl.internal (Postfix) with ESMTP id 7FC7414000F8
+	for <linux-kernel@vger.kernel.org>; Tue,  6 Oct 2026 05:13:49 -0400 (EDT)
+Received: from phl-frontend-03 ([10.202.2.162])
+  by phl-compute-03.internal (MEProxy); Tue, 06 Oct 2026 05:13:49 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=shutemov.name;
+	 h=cc:cc:content-type:content-type:date:date:from:from
+	:in-reply-to:in-reply-to:message-id:mime-version:references
+	:reply-to:subject:subject:to:to; s=fm3; t=1791278028; x=
+	1791364428; bh=MbQD73+crd7vZ9QKN8oet3vSF/p7ePpJtz6mLHHA2fo=; b=M
+	YzNnMS7ZN3wVSn2vEjszZQBWv/gqXaybvo1BuDsA24Dv1uYKul3eMDqRHrZ59TYg
+	NtM50AO+2d+0tzTVAU8OZGJhydpPVoNghkJc6ctrvMtP9EcrTenBLFhsNRfnOg67
+	RqkkUsqnJdYW8sHuIzL7LEnGDIoc2B1w6eHmwBTOuGI8Yrtx+KV8Ft3Inr3t2qFa
+	cmQ0UPhjVoM9AtN09FGMYD/bskoWSGztPDBUg7ez1AI6PJ+n+vgaUitsJZ20jDnw
+	Pe/caucJEeirWsGMsWpFyxJ8Pqluw2Sfqcnri6h6Ub3W+QEklscvlFznQdE+6CNJ
+	vu9LN2nfJAerHb7zCSJSw==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-type:content-type:date:date
+	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
+	:message-id:mime-version:references:reply-to:subject:subject:to
+	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=
+	1791278028; x=1791364428; bh=MbQD73+crd7vZ9QKN8oet3vSF/p7ePpJtz6
+	mLHHA2fo=; b=e0MmQS2yZZ9YatnShEldHczseY8u/Cl142cD7PJEap/5ee30t18
+	cCTSQo64oi7NTKBxMWcwM/uwx6zKhYqpjpRQCbL+DS9qTZO8p++CpZm3pFdqy7z1
+	m7kGmofudCFATpHNN69DDVYLq0DwBrc+S/Ie7OEPnHE8/LVSZEeFOcmcRUrHyU4V
+	Ql2v7l4P5Xr/uAZoJizz0kUFpRNcHPnTQcb36QMhJJDFRnBKolVvdqNbUkQJ5oJF
+	6oCn7XckLLuZovW8XclyLNFekxUGgiKqvb75kr1iavPEcP+HZAHk11IKxIALmO+L
+	1cPbtmpZr+zsoHTgt6n1yYYbteAZ1PWanrw==
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
+	repo=github.com/dkim2wg/interop; date=2026-10-04; sw=lmtpprox;
+	action=sign d=shutemov.name a=rsa-sha256;
+DKIM2-Signature: i=1; m=1; t=1791278028; d=shutemov.name;
+	mf=PGtpcmlsbEBzaHV0ZW1vdi5uYW1lPg==;
+	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
+	s=fm3:rsa-sha256:MoNRkOUEm5Xv2Tvqm+OlYRQd1O3MaDYonv69QMiiYjyiQcv
+	hUh+StAj5cLPo0XNyNm5ZreYJcJS2ejeSaBDqTfbTZSZwAcY9VqQwOW98zSqNloK
+	wbmBW3cbqXkjPjhrDiUpZvNOP1ATqxnhhSvpRmEGSoTn4SHfUA35Zti1YS8sLl6O
+	fk/oNYrbKm7UG7UYWYtiqyM70DVGJGGET6tmvSUZs2+0Nd7ParA2/P9vRJ5FMjCM
+	zl+VpXDY/qXQAT8RATPfIXF9yaInpnkXPqwCCdlbXxehBQIKno4iIVy3XQKqJJm7
+	MjcgUu4kXHBYwOPzUmJzEk/da9zF3w9Jt09i/JA==;
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
+	repo=github.com/dkim2wg/interop; date=2026-10-04; sw=lmtpprox;
+	action=mi-m=1; hc=12;
+	hn=cc,content-disposition,content-type,date,feedback-id,from,
+	in-reply-to,message-id,mime-version,references,subject,to;
+Message-Instance: m=1; h=sha256:3q1TEc8G3uI4UoP5ag6eEF2ixUYiG8Gk1JdkBHKwrdA=:Uzht/gnnalOdKMOxMXIuqX3WZTTWDv2ShAnEFEPyhKE=;
+X-ME-Sender: <xms:zLvEaqVNCUxN4ccW14K2KFK0QXb49TzWtFKDF2X0Q3dK_3wtar0Awg>
+    <xme:zLvEao9zRkn-NMYh0yjfoAD29xzWXLWX5GSiXabJIt3o3C8UJEVvHM9Qg9LDpmAwo
+    l3ibLGfyyBYHdjVTJNh3BlHf_naNTGXJX18e7MHyrO6S291WwAYPac>
+X-ME-Received: <xmr:zLvEanqvOAI6cptylGAfXrbHpne4ZOfMbXDqHxPDhrfTykLquREzv-kMKB4>
+X-ME-Proxy-Cause: dmFkZTGj5C67xIbzcGLTgoQok/07Sc/orEjUInqIagiNX5tzfNrUnfY1jc1lLJwh2gzo3d
+    GB698lLckGkQyvrNDBFvobDZ3AKW7HlEJvdeuEuAlIxo1NdMYrrrtakWUQIQiEjBN1B6ri
+    wKi6qEUiJkKlNVegjOAgd0kUGjoPwR2IgA2mVnAWW8VbDla5+6eFmaorfJUN0WOYRndIYz
+    ROX+4JJqCmnVpPn32jhHBxpZJszOIgw5BxKJ/vniHlQHUTPspDkZn8zhQw0awtlwixI2g3
+    ZQGvwVpHDDhkkyRNR5r0tSVt1oN1XUrc8PaZB0foWj2F5PK6JJDPxdNR/3G99Mnb2qvrMU
+    c56mQJWj6ObswPBB90YvyTCtHf3ox7HVMuKz78cItUQKSFqXMvsOUzU1YutPwP6Vp0EtNg
+    zvaHKJI42l7V9TJ0PtV+gPEm3VW6l5/XgGbg2LEQIqoNJRWGFRPjO6mVeUFvHnf0OZ+Y/f
+    4U0nHEL2QJASnnhk7mRiDdptzT/IKVcoui7jBiKWondtSYcFEB2DTr9KCNiVa0Et8B7VNL
+    CCwc12rO2qO9rgrLt9TDix40u9rQecSgc6cc+ZDifD2hr4+OZ8aP4oavNuhISU7/obNUNe
+    ypS3e2WxOARZDzI/ev8A/xhnLBLFoVPsYk/rnhA+zd8K2PQGzyCNC4G75z+A
+X-ME-Proxy: <xmx:zLvEakf-Avx6HemUgYgNU-z-6nJ1Dj7h71J20c7xNyFzfY5K1YmJmQ>
+    <xmx:zLvEam8XoTo7jDk2JIPuEvKlekuwb2Wra6wbYoGndj0ziiLHy6V3Jw>
+    <xmx:zLvEaubjvbvOevENtcRI8NnnvuQGwAnSNAYoy3j7xxCeaAi3M-bfsA>
+    <xmx:zLvEah1DQVwbKNt_l8_s6Ds1zH6SXTER3iNUcEET-o_Lok2Q9bTT9w>
+    <xmx:zLvEaphCg6igknTLamJgXfAoRArks9hx9dtkfEUFwPqBRd26TKKctBxG>
+Feedback-ID: ie3994620:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Tue,
+ 6 Oct 2026 05:13:47 -0400 (EDT)
+Date: Tue, 6 Oct 2026 10:13:46 +0100
+From: Kiryl Shutsemau <kirill@shutemov.name>
+To: Johannes Weiner <hannes@cmpxchg.org>
+Cc: Harry Yoo <harry@kernel.org>, Vlastimil Babka <vbabka@kernel.org>, 
+	Andrew Morton <akpm@linux-foundation.org>, David Hildenbrand <david@kernel.org>, 
+	Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>, 
+	Brendan Jackman <brendan.jackman@linux.dev>, Zi Yan <ziy@nvidia.com>, Shakeel Butt <shakeel.butt@linux.dev>, 
+	Usama Arif <usama.arif@linux.dev>, linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
+	stable@vger.kernel.org, kernel-team@meta.com
+Subject: Re: [PATCH] mm: page_alloc: make defrag_mode retries follow the
+ promoted order
+Message-ID: <asS6uQPZY_9r2uUG@thinkstation>
+References: <20260929174553.175333-1-kirill@shutemov.name>
+ <arv8J7ysrdazJmfY@thinkstation>
+ <ar0NRMxps8UErXaQ@thinkstation>
+ <ar0Xbs9mEu-vUHvc@cmpxchg.org>
+ <ar5rOHWwc_iPJF6C@thinkstation>
+ <20261006081050.GA234057@cmpxchg.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261006081050.GA234057@cmpxchg.org>
 
-Hello,
+On Tue, Oct 06, 2026 at 10:10:50AM +0200, Johannes Weiner wrote:
+> Without counter indication, I would prefer to keep the tighter
+> guarantees. ISTR this mattered on some of my ext4 tests in the past
+> with the buffer locking.
 
-I found an unchecked opcode-table index in the RXE requester path.
+OK, v2 takes the priority floor and the COMPACT_SUCCESS retry limit
+from the requested order, with the explicit promoted order folded in.
 
-An RXE user QP exposes its send queue through mmap.  req_next_wqe()
-passes the userspace-controlled WQE opcode to wr_opcode_mask(), which
-indexes rxe_wr_opcode_info[] before checking whether the opcode is in
-range or implemented.
+> >     Should defrag_mode treat MIGRATE_MOVABLE like ZONE_MOVABLE there and
+> >     move the page out at pin time? Ideally we might want to move it back
+> >     on unpin, but it can be done by compaction too.
+> 
+> Should it even be specific to defrag_mode? I suppose without it, the
+> poisoning from fallbacks would dominate by a landslide under
+> pressure. But these pins can mess with compactability long before
+> becoming capacity-bound.
 
-I reproduced this twice on commit
-ff47652a4b66c067c765a7ad464d930b5a9367cc.  An unprivileged uid/gid
-65534 client published UINT32_MAX as the opcode and woke the production
-requester.  Both KASAN boots reported the same four-byte global
-out-of-bounds read.  Changing only the opcode to a normal SEND reached
-the same requester without KASAN or an oops.
+Agreed, a pinned page in a movable block hurts compaction regardless of
+defrag_mode.
 
-The demonstrated impact is a kernel memory-safety violation detected by
-KASAN.  I did not demonstrate disclosure of the read value, a write
-primitive, a reliable crash on a non-instrumented kernel, code execution,
-or privilege escalation.
+It can make longterm pinning more expensive, but it is the right place
+to pay the cost.
 
-I tested an unsigned upper-bound check before the opcode table lookup.
-It rejects negative signed values and values beyond the implemented
-table while preserving the normal invalid-WQE path.  The malicious case
-and normal SEND control were clean on the fixed kernel, and fixed A/B
-testing passed.
-
-I performed a best-effort public duplicate search through 2026-10-06
-and found no exact public report for this RXE opcode-table bounds issue.
-
-This report was prepared with AI assistance and is being treated as
-public under Documentation/process/security-bugs.rst.  A tested source
-reproducer, logs, configuration, and proposed patch are available to the
-maintainers on request; the reproducer is intentionally not attached to
-this public report.
-
-Assisted-by: LLM
-
-Regards,
-sungbyeongchan
-
+-- 
+  Kiryl Shutsemau / Kirill A. Shutemov
