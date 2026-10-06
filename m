@@ -1,124 +1,225 @@
-Received: from sender6-op-o11.zoho.com (sender6-op-o11.zoho.com [165.173.180.11])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com [209.85.128.48])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5D7804582EB
-	for <linux-kernel@vger.kernel.org>; Tue,  6 Oct 2026 16:46:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=165.173.180.11
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791305164; cv=pass; b=u2Xx8kho4kKOJV15HhosDctWfyAmrSG10qt33x8YzXqlYUP6iD4Ffbjg8StqrAU2t3hEU0JN6g6X7s4RMK4aWuaf0H99zewUwWjHCXUoiYubpfRv6sAXAlNP4dR7mBoNiEG7nIUIGB9FoRSJbZvfZGl8iqIksLSeDkcaIk0yY6k=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791305164; c=relaxed/simple;
-	bh=Yns9KY08bSgPGCUVI3bZ4Lr0smenU/gzuYmrSov/zf0=;
-	h=MIME-Version:Content-Type:Subject:From:To:Cc:In-Reply-To:
-	 References:Date:Message-Id; b=TWgAglBblKKRJ/+J9tUGDYheyz9+ftpIqf/jjzw/WCNe3wO2daCTjsGnBC9UnLm1a7bRbpFIrLnj8i6l+TtTBtj0GQUZhCcZrrh7TFpxfgX+aSDFIsfSf9SSsWfQPJWy7kV16Bo+GQyUL5Fh/ZGP+ypGF1JZzTILnWgW11QXfQg=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (1024-bit key) header.d=collabora.com header.i=adrian.larumbe@collabora.com header.b=arwN/oC+; arc=pass smtp.client-ip=165.173.180.11
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DDE7647209F
+	for <linux-kernel@vger.kernel.org>; Tue,  6 Oct 2026 16:46:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.48
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791305191; cv=none; b=RqZ/PkW07MyCtZDEVce/br8J8GqJqUqujTNC5MYWftK13zM5NyUFCiu1UVn2xSeOG6mMj+KRC8mSYcbqty+T8hBCUU6abK6magzCPrpYtcnHiU5zb8TzP+UuKU/iUbsl/bpeZD8Oz1EcQZgKUPul2BeuTaA6lsszukuAeaDLrnU=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791305191; c=relaxed/simple;
+	bh=PmY2/2+YeeJVj0sv07/vs1Hu1NyaLYs5j1MFToQCEf4=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Ok3V8tFsrCt5tqxq+48GQrkZCzYtlHfFIr4aY+ApPfDcuqFRgP21lTj0oCv3pM02uZ9pvplKMLS+p2MDd6ZYEO34zyWbQKwM0jyxBf+//0x679khK9adcwhrXoc2kjtSLqvyu8TCa17WyLMXXbTv1m69ebRIoYs3yZgtCnt7USI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=V1srn5IR; arc=none smtp.client-ip=209.85.128.48
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=collabora.com header.i=adrian.larumbe@collabora.com header.b="arwN/oC+"
-ARC-Seal: i=1; a=rsa-sha256; t=1791305125; cv=none; 
-	d=zohomail.com; s=zohoarc; 
-	b=c2TC4PTqZRH323aHI0dILtKzGqO85wRWEiI8lkK3pP18nPVFk/mdOn1yiKvAU5YwQBgaiUW00bbf6mPp35mxGMHLavMaAYCSpanMwVHz35UD15RG2xyVleKvtflGsNsEluMiU69pUnGRcUw1hQW1RCm7goYfrZYnAlmIXm+i6YY=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1791305125; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=l2zvtehZljeKvFWWgwouDexzIcgFx4N1aUEmLfSWmKI=; 
-	b=ayvTMeyf68nYVT/YQHOn/ndd4A425vahnWiKBettw5HeWDPSgUn1Oiu+0nIQN01R3M2CKmWsDgOpw3xx6N/y3dq8/6q7MRlORn1QQi827Pr5mf+Sxa5liFMTnDb41V41kwTrNFAfO9IZT5EhsoNMbiPaNLVWv87G6txzBZXJjs0=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
-	dkim=pass  header.i=collabora.com;
-	spf=pass  smtp.mailfrom=adrian.larumbe@collabora.com;
-	dmarc=pass header.from=<adrian.larumbe@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1791305125;
-	s=zohomail; d=collabora.com; i=adrian.larumbe@collabora.com;
-	h=MIME-Version:Content-Type:Content-Transfer-Encoding:Subject:Subject:From:From:To:To:Cc:Cc:In-Reply-To:Date:Date:Message-Id:Message-Id:Reply-To;
-	bh=l2zvtehZljeKvFWWgwouDexzIcgFx4N1aUEmLfSWmKI=;
-	b=arwN/oC+UzNN+yr7pnPYYaytEg2sNHRtlGBTW8yWuB4kke2CQeF20QaRQWeaksZq
-	42RIrVvw6fzLzEV7k3kkrftgSZExTgsdtiv1hLkzo0d+6FHOlwOh/wtTeZhkN6+2Eak
-	2IAjYDaD/f7yl7SVt9rG/rS9szm6v2wtUJUALLIU=
-Received: by smtp.zohomail.com with SMTPS id 1791305124824693.0308961866801;
-	Tue, 6 Oct 2026 09:45:24 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="V1srn5IR"
+Received: by mail-wm1-f48.google.com with SMTP id 5b1f17b1804b1-4a02718da81so8745745e9.1
+        for <linux-kernel@vger.kernel.org>; Tue, 06 Oct 2026 09:46:29 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791305188; x=1791909988; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=nYsDsdPup8U8QMnz4nrwKqf/8/44Yd6sLmVcGYR6ZYI=;
+        b=V1srn5IRbjf9sTfmIZ6zvrdhHliJxZ2bl9oxVWTd39QEEc6kwI3btIbeh0X5R2KSeu
+         WsRfORieSgr0um4K6SHd9+odrtI6H229qQYE1uj1DOoxD0waanuCyU/qHKFGPohCdhjF
+         BhxlsmV3mAF2yPnUDu6ClkV5aFQg4kNBwimWbNa5lXkZpvZPuh3M8POzJO905sL7Dvd3
+         zNQoS1nlhzPMVjS84xyqUqjS91GaQWrGQU2R5n1K9G9YXFml1CF2E3kQ8BdpZLiZMqBT
+         gkxWTpB9iiq0Ows3xxrhiqSsvGJRQ0ihckicnwmjEXWRQFFqYv47T9FCSJxFD17FXw2D
+         +0Sw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791305188; x=1791909988;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=nYsDsdPup8U8QMnz4nrwKqf/8/44Yd6sLmVcGYR6ZYI=;
+        b=yReRa2es9n0Rsj7JUbNp/6ET0yqTLTRN4bee/ze3K4jXN6b8veXS3HEyVuV+sijc1B
+         JeyJcuFyOa7XQCm5Y3pg29tbnTVcXq/Pmn53Ba1TltI9QHrVtOxEz3hOxkyMVS/cdC7y
+         5xSOOJotGs0vo/y7PhPB0KEODrxDn5k8IqV2HgkiMfVkJoinZPr0EYIqBLJu9RFsK6jy
+         TXHlRTevLzUNa3X+UkHhBjCm3g3FEhl4lBwgRmik612VEaIrzUJuTDRdrnHotTOfjh2W
+         sZ2Z/taAXo22GYNXg+YgmJv6EOb0RiSgfZuHfFO7cVLSyMut0FNcCE8b3wXeI2SHJJ8m
+         Z5hA==
+X-Forwarded-Encrypted: i=1; AKwUvBwmPti11boVA1UczYWgvleOSZ0I83YvkYJys+wtuQ08WSw1qlyfZyQPOuilgnqEIrfCwIrjVw+i72r3eWc=@vger.kernel.org
+X-Gm-Message-State: AFuF++kZZMI0aawoq048HD8i+habaslWpsfbDFfD5BYVnYm57wfqVqA8
+	CHEKmex19ny7TWuu1nnlbx/hoxpNTMD8H/GX6QgdaM8uFwZ/4Aqn9XII
+X-Gm-Gg: AYBFou1xX6ciTmhzKv0LoY3tsr7LEEJ4K0KGhBSYPDDycAOnY/UNwAZignaA1PzSFIw
+	0bIjqrQIzksPe/dotc+ZeC2vLILPg0AEEhn/DitOnHP7eaWC0Hzm8/LVbMA/XSMr9T6epARUJGO
+	p+kf/wRM9mPBL19xP0fJpv1n2yDFBsoTRIp6oihszxNNFtBltDSf0EjrHXqbIZlGFTqesuX5SDs
+	Z3FlzYQCCFbLEQws0zTSKYuy7blfdKV8tytb+TbNUWeDT7waJLTXJyvgGOcNvtfhNXXhRE+Vd6N
+	UvPisWrscH8hFLg/g9TCsCKvZRG4Y/2IzQqa0JNe+XMpw5zgI0rmUKefRSl2I8HP2sZGfm8Srhb
+	pBuwvLhN/AbyZKrS81d+U2SgrD9P1Cz6Ltx5IQBYPepi+9bicFECMHRo3Dfjy6cQuGOyKU1nhZM
+	2E+kGuLJ5T5UVqmtHPsJy9sfPUMasUTW1ZlHVgBfOblaEGQ5lJDTpfEHlvpMLOcLdx2CronHnp/
+	Uakoms0
+X-Received: by 2002:a05:600c:3516:b0:4a0:1efa:c74a with SMTP id 5b1f17b1804b1-4a17b53c6e9mr29983675e9.20.1791305188032;
+        Tue, 06 Oct 2026 09:46:28 -0700 (PDT)
+Received: from fedora.domain.name ([217.218.153.210])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a178db8c6dsm134197405e9.14.2026.10.06.09.46.24
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 06 Oct 2026 09:46:27 -0700 (PDT)
+From: Muhammad Mahdi Amirpour <ampr.mhd@gmail.com>
+To: tgraf@suug.ch
+Cc: herbert@gondor.apana.org.au,
+	akpm@linux-foundation.org,
+	linux-crypto@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Muhammad Mahdi Amirpour <ampr.mhd@gmail.com>
+Subject: [PATCH] rhashtable: move init kernel-doc to header
+Date: Tue,  6 Oct 2026 20:16:19 +0330
+Message-ID: <20261006164619.342010-1-ampr.mhd@gmail.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Subject: Re: [PATCH v12 12/15] drm/panfrost: Skip cache flush/invalidate
- when enabling perfcnt
-From: =?utf-8?q?Adri=C3=A1n_Larumbe?= <adrian.larumbe@collabora.com>
-To: Steven Price <steven.price@arm.com>
-Cc: =?utf-8?q?Adri=C3=A1n_Larumbe?= <adrian.larumbe@collabora.com>, 
- Boris Brezillon <boris.brezillon@collabora.com>, 
- Rob Herring <robh@kernel.org>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Faith Ekstrand <faith.ekstrand@collabora.com>, 
- "Marty E. Plummer" <hanetzer@startmail.com>, 
- Tomeu Vizoso <tomeu@tomeuvizoso.net>, Eric Anholt <eric@anholt.net>, 
- Robin Murphy <robin.murphy@arm.com>, Philipp Zabel <p.zabel@pengutronix.de>, 
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
- Collabora Kernel Team <kernel@collabora.com>, 
- Neil Armstrong <neil.armstrong@linaro.org>
-In-Reply-To: <95174a67-0eee-4bf7-b883-9f1138c74a6f@arm.com>
-References: <20260929-claude-fixes-v12-0-62beb08de207@collabora.com>
- <20260929-claude-fixes-v12-12-62beb08de207@collabora.com>
- <95174a67-0eee-4bf7-b883-9f1138c74a6f@arm.com>
-Date: Tue, 06 Oct 2026 17:45:19 +0100
-Message-Id: <179130511905.1018806.3717655233851799587.b4-reply@b4>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1722;
- i=adrian.larumbe@collabora.com; h=from:subject:message-id;
- bh=Yns9KY08bSgPGCUVI3bZ4Lr0smenU/gzuYmrSov/zf0=;
- b=owEB7QES/pANAwAKAQ4mfkzuU0M9AcsmYgBqxSWfd2mmenSoSaECoG2tgSFSTNRtwF2PHrVwn
- DGkLRHFqhmJAbMEAAEKAB0WIQQyQDDowAUXXfk3B6QOJn5M7lNDPQUCasUlnwAKCRAOJn5M7lND
- PdIEC/9ajqyvZeVMQj8DPD9wjIgwf0/cM+AFNwWR197XHiCbZszIxfkJS6eFq/NoeNCZJgBasBt
- 9fFk6bFT2ImGVhefcZVLrdrqHOPWjGcgR6dfGbaWmv8yidyt39TbPUByIPl87RGqzAa66rpZN1H
- ucnMvKpF7gZRJzq4RALrQG0BYRAIYfXjfW/xu17+clps5jkKEzUvd0amX8LrPWOA/4eiqyp08eV
- WtCG7C+zUxWI4Efm3zCKLpRdKYxOInYTuwhL1xPGb/EZ3/utfEFyQJNf/1QDKgk6XaJ+CFPlqzy
- Yqm1Pq2nlNvpG1EQizCAF4Rs43rs8UCyQNy17o5+93Kmx1fS4a3mbiEawG9OED4oyXSpHsTuTUx
- 2OAYegvF7IMNaWR1RTY3WDTmz2bdWqOZBcyB+2ppdu4N3O7yWWO9H0VfDFqv52GP9jGFtmSoPR1
- VT1T20LkB9n91NfhFUKzJ4R/XzsbHy5/argdPM0LnrrDIdje0xSkssfKX+4GqrdmdjpEM=
-X-Developer-Key: i=adrian.larumbe@collabora.com; a=openpgp;
- fpr=324030E8C005175DF93707A40E267E4CEE53433D
 
-On 2026-10-02 16:14:38+01:00, Steven Price wrote:
-> On 29/09/2026 04:44, Adrián Larumbe wrote:
-> 
-> > The GPU cache flush/invalidate operation is unnecessary. First off, the
-> > GPU doesn't read off the perfcnt sample buffer, only writes into it, so
-> 
-> I don't think this is entirely true. The GPU performance counter unit
-> only writes the counters that are enabled, counters that share a cache
-> line but are not enabled are not written by the performance counter
-> unit, but if the L2 contains that cache line then the write can hit in
-> the L2 and dirty the entire line including stale data where the
-> unwritten cache line is.
+Signed-off-by: Muhammad Mahdi Amirpour <ampr.mhd@gmail.com>
+---
+ include/linux/rhashtable-types.h | 51 ++++++++++++++++++++++++++++++++
+ lib/rhashtable.c                 | 51 --------------------------------
+ 2 files changed, 51 insertions(+), 51 deletions(-)
 
-From the perspective of UM, is it bad if offsets into the perfcnt buffer
-that stand for counters they did not enable contain undefined values?
-
-> The upshot is that if the CPU has cleared a block of memory which the
-> GPU happens to have cached, then the "unused" counters may end up
-> showing the old data before the CPU cleared it (if they share a cache
-> line with an active counter).
-> 
-> I have to admit it's probably somewhat academic given that Panfrost
-> doesn't expose the ability to control which counters are enabled...
-> 
-> Is there a good reason for this patch (i.e. have you seen a performance
-> problem with doing the invalidate)? Otherwise I'd prefer we keep to the
-> safe route rather than trying to over optimise cache maintenance.
-
-Like Boris said in a later reply, it was mostly about simplifying error handling
-in the perfcnt enable path. We saw this initial clean being done and thought it
-wasn't necessary.
-
-> Obviously in the fully coherent case the invalidate could be skipped (as
-> in the next patch).
-> 
-> Thanks,
-> Steve
-
+diff --git a/include/linux/rhashtable-types.h b/include/linux/rhashtable-types.h
+index 57c11ec9d..b35ad6ff1 100644
+--- a/include/linux/rhashtable-types.h
++++ b/include/linux/rhashtable-types.h
+@@ -145,6 +145,48 @@ int __rhashtable_init_noprof(struct rhashtable *ht,
+ 									\
+ 	__rhashtable_init_noprof(ht, params, &__key);			\
+ })
++/**
++ * rhashtable_init - initialize a new hash table
++ * @ht:		hash table to be initialized
++ * @params:	configuration parameters
++ *
++ * Initializes a new hash table based on the provided configuration
++ * parameters. A table can be configured either with a variable or
++ * fixed length key:
++ *
++ * Configuration Example 1: Fixed length keys
++ * struct test_obj {
++ *	int			key;
++ *	void *			my_member;
++ *	struct rhash_head	node;
++ * };
++ *
++ * struct rhashtable_params params = {
++ *	.head_offset = offsetof(struct test_obj, node),
++ *	.key_offset = offsetof(struct test_obj, key),
++ *	.key_len = sizeof(int),
++ *	.hashfn = jhash,
++ * };
++ *
++ * Configuration Example 2: Variable length keys
++ * struct test_obj {
++ *	[...]
++ *	struct rhash_head	node;
++ * };
++ *
++ * u32 my_hash_fn(const void *data, u32 len, u32 seed)
++ * {
++ *	struct test_obj *obj = data;
++ *
++ *	return [... hash ...];
++ * }
++ *
++ * struct rhashtable_params params = {
++ *	.head_offset = offsetof(struct test_obj, node),
++ *	.hashfn = jhash,
++ *	.obj_hashfn = my_hash_fn,
++ * };
++ */
+ #define rhashtable_init(...)	alloc_hooks(rhashtable_init_noprof(__VA_ARGS__))
+ 
+ int __rhltable_init_noprof(struct rhltable *hlt,
+@@ -156,6 +198,15 @@ int __rhltable_init_noprof(struct rhltable *hlt,
+ 									\
+ 	__rhltable_init_noprof(hlt, params, &__key);			\
+ })
++/**
++ * rhltable_init - initialize a new hash list table
++ * @hlt:	hash list table to be initialized
++ * @params:	configuration parameters
++ *
++ * Initializes a new hash list table.
++ *
++ * See documentation for rhashtable_init.
++ */
+ #define rhltable_init(...)	alloc_hooks(rhltable_init_noprof(__VA_ARGS__))
+ 
+ #endif /* _LINUX_RHASHTABLE_TYPES_H */
+diff --git a/lib/rhashtable.c b/lib/rhashtable.c
+index 6362896e4..5f53b4c71 100644
+--- a/lib/rhashtable.c
++++ b/lib/rhashtable.c
+@@ -1120,48 +1120,6 @@ static u32 rhashtable_jhash2(const void *key, u32 length, u32 seed)
+ 	return jhash2(key, length, seed);
+ }
+ 
+-/**
+- * rhashtable_init - initialize a new hash table
+- * @ht:		hash table to be initialized
+- * @params:	configuration parameters
+- *
+- * Initializes a new hash table based on the provided configuration
+- * parameters. A table can be configured either with a variable or
+- * fixed length key:
+- *
+- * Configuration Example 1: Fixed length keys
+- * struct test_obj {
+- *	int			key;
+- *	void *			my_member;
+- *	struct rhash_head	node;
+- * };
+- *
+- * struct rhashtable_params params = {
+- *	.head_offset = offsetof(struct test_obj, node),
+- *	.key_offset = offsetof(struct test_obj, key),
+- *	.key_len = sizeof(int),
+- *	.hashfn = jhash,
+- * };
+- *
+- * Configuration Example 2: Variable length keys
+- * struct test_obj {
+- *	[...]
+- *	struct rhash_head	node;
+- * };
+- *
+- * u32 my_hash_fn(const void *data, u32 len, u32 seed)
+- * {
+- *	struct test_obj *obj = data;
+- *
+- *	return [... hash ...];
+- * }
+- *
+- * struct rhashtable_params params = {
+- *	.head_offset = offsetof(struct test_obj, node),
+- *	.hashfn = jhash,
+- *	.obj_hashfn = my_hash_fn,
+- * };
+- */
+ int __rhashtable_init_noprof(struct rhashtable *ht,
+ 		    const struct rhashtable_params *params,
+ 		    struct lock_class_key *key)
+@@ -1228,15 +1186,6 @@ int __rhashtable_init_noprof(struct rhashtable *ht,
+ }
+ EXPORT_SYMBOL_GPL(__rhashtable_init_noprof);
+ 
+-/**
+- * rhltable_init - initialize a new hash list table
+- * @hlt:	hash list table to be initialized
+- * @params:	configuration parameters
+- *
+- * Initializes a new hash list table.
+- *
+- * See documentation for rhashtable_init.
+- */
+ int __rhltable_init_noprof(struct rhltable *hlt,
+ 			   const struct rhashtable_params *params,
+ 			   struct lock_class_key *key)
+-- 
+2.55.0
 
