@@ -1,171 +1,166 @@
-Received: from mail-oo1-f44.google.com (mail-oo1-f44.google.com [209.85.161.44])
+Received: from mail-wm1-f43.google.com (mail-wm1-f43.google.com [209.85.128.43])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0AD1F3E5EDB
-	for <linux-kernel@vger.kernel.org>; Tue,  6 Oct 2026 20:25:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.161.44
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2F40941A928
+	for <linux-kernel@vger.kernel.org>; Tue,  6 Oct 2026 20:26:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.43
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791318352; cv=none; b=uxnzJ8ligrSxHVjqiufdXHua+nV+6zfZ6BWOT77AN9ZIgjn88fdJZWzQhtGf6uldR7f8eXvpV8eT/5QnNXG9gCc3Cc0IpPFrY180HbYxXJdcVM87ozuRJoG2E+lT82PRXyz54fz5KPWa4s72ot1/4Zg1ncjW8igvXDtRE5NpzNY=
+	t=1791318384; cv=none; b=pLeuIBewemWOrc2z5Bwyf7fw9OwQr4d7U1NhjcG/S9/VvFwXpbBhCfcF5cbZa38kxy7zz3GN1CRX8ijjQSBYeq/RWgtWnES3mywI/Ia/U0RZYz7bfjAJyqi/N437qcx9I/WYOA3xB+0zLyrmd+VjU1QnnLWv+Hvy5oe4PTX93Oo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791318352; c=relaxed/simple;
-	bh=EOMVP3YQwkcIyqlWrQGFAqi7cRnWf4pYZmNhfVKctYk=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=cTsF0VSgMe3a/eaZl8KTIX4RGvUG3jHkodiw4xC2F12XBEWxh6zDzcoZNPUAx1FyLqKFxIdPKzLWbNXTRuxw2SmsB6dLieMCKLjJLUEKEbLaZHK3JPwVE0jaGYIIU+C4ExsnJRLpuyYQmDkiiitofOBSXaf0e8LMkbePg05Rudg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=Zoi0P0Nz; arc=none smtp.client-ip=209.85.161.44
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
+	s=arc-20240116; t=1791318384; c=relaxed/simple;
+	bh=/HuvMcI81Zsd8Wc7EmFxlJdMGFhy1DHGBcuwjZ5cShk=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=bLaa1qssE3ewKnp+RlKIfo7XzNLtoqLx1994Al1G+WDE+K5SoCfvm8wtbmYisxaKYKCnpJZENlAq2AL/l2uiDiY6ofzLmvf/mrlC1Hu1FkJzdQghkiUjs+XfAHonYRgxBJfRbSN+pys0762XdlnSB6aufadh0DDZw8nqIZhx8T0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=PU/RoUcS; arc=none smtp.client-ip=209.85.128.43
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="Zoi0P0Nz"
-Received: by mail-oo1-f44.google.com with SMTP id 006d021491bc7-6cf995766a3so824955eaf.2
-        for <linux-kernel@vger.kernel.org>; Tue, 06 Oct 2026 13:25:50 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="PU/RoUcS"
+Received: by mail-wm1-f43.google.com with SMTP id 5b1f17b1804b1-49e73611928so8037985e9.1
+        for <linux-kernel@vger.kernel.org>; Tue, 06 Oct 2026 13:26:22 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=baylibre.com; s=google; t=1791318350; x=1791923150; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=R+ILfk0/yu3AcCYfzlStmh4VnAqvAHjplZrGY6KB/T8=;
-        b=Zoi0P0NzQI7obJSl8NJ8k3Urh4mofmZ//Wtl3y+BW+defDjgNGAa902sOUS6v81pR9
-         RfxJvwD75zAsl95XF7WbHHa6Ai4wJP783tHpsomiiFH1gbdC7MHN0licp81jniNziCmU
-         Szofe8L75M/KxFMnnZQW1NKIM4nln8nWM3ks5x1y3+V2gk4hVIG4LbpN3E7sYE5JC3wY
-         tVLiOSyeZVroM0JTBJOc/zbAOinK8HeYBZZB+g7g6TrFvfjeeiBY1kA+YuqHXNJcOglA
-         f6s6WwAm6g+3/R0ts4gdVGQzlXW7CwdGdHyevk8q6+LVA/Q5Ir5i/2KuTUD4g3pTVbPR
-         TEMA==
+        d=gmail.com; s=20251104; t=1791318381; x=1791923181; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=JBu+DzZZbbueC/8QmlJUcOPlzBwqeEdGhoe14aARaOU=;
+        b=PU/RoUcSq56DawPrtRBkIpcFnZIoYnRapgYAbAVp/dyzQcpei6TB123M4o/wOM7h76
+         NlUkp5K7fic5xmNJoPn8t0hxBC64yedh7s19PGNV79jIPsF0Ri3Ep9ONkQiqI1DRBhWf
+         U8RHr5YVRnxUtCXu+5rq+SW51/Sgyfxd20afUojOCT34eljaTxQH1uBsb+BIAW+XsQGf
+         uTy4b9ZAMQrLZOQcwBhvqesEXYp5wreZd4mxHBrJCCMTwMFbNTJ5IefLKnhsyNMgDLFZ
+         PavAcJpRZIZJoaTNb9KSI43dFYZx40b7JShc8mB65dzT6MwVTLJSngcvQTBBYcBvQwQY
+         FAWA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791318350; x=1791923150;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=R+ILfk0/yu3AcCYfzlStmh4VnAqvAHjplZrGY6KB/T8=;
-        b=pqIgt3yWS+JZt3KRuJ8h9v4+pRocK6LQHZr2SUGk7IGbmuY8fXxx+ZeyITJunfCruQ
-         yJlIV6JQEFO980Zs0K9b4Ip91qiWonfrm5reXnc+z6tdNssSXa+UCP20doOSPEjW5R1+
-         JUgJmyRpf5M98lSfr8G+OggmKYrT0bHJLuZ0hwmowNKCzsCIkP207FyYulpB3rO3GMyS
-         bA+Z02PhqgbXEnep6UNVSchQhxsz/a8/FDSM1ghNPV8ZBcgptVhHaP54NCbJKP51MXuU
-         WNZasqWEeuA5w/z99BZdGbRhtq/52dwmORkI9I/n5Q+FKrgdQA1vghnLOV+Pp28YmZP8
-         /lqg==
-X-Forwarded-Encrypted: i=1; AKwUvBwyWGC92v1s/SOveNQNJVXr1b6ijS+6GfYuxQNBYIih80lAN7rCQHJZNBubmTBjvyShlnPKI0o6qbB0a7I=@vger.kernel.org
-X-Gm-Message-State: AFuF++m3nsjebfQaYtynZ/DwzzFwYclO3hPnHY4XRU3OL8c8og6Le7W8
-	7lX3ArzaCubYG+/6GBjXFqaiMFXapimxxf0Wk2StygevNLUhhSlbejDeDTsuClyoJkg=
-X-Gm-Gg: AYBFou2nUIcJ90TtLgEURwAjMXYZpIhN/sgXXqH8l8hl30BYH0FdJ1AmlzsJZ+NDXDE
-	fFvlv5rxiofFj6CBtWzkIgmwGAqo8D1URJpUdKt2jYK3ijkiD0y6MSv/3IzhtV3BcnKLqN9KRV9
-	nhvNafbaglMHn6R8RO0bMf+RDhVNxqNt3XnusFgMUa2GuqbwtVdOJayVjc5dtTsz7Jkt0tZ/a2K
-	ZCT1PdrxQ3weQEmSZrpr3VnRcXkbmOXhEM0cfcflusUItSjEXZi6AUMBiOFXts5st0/s8lUAwq1
-	XvLxLFNfcCujvm6XpNdgqrSG7htGOxy9LTKQH9avEiDTP/Jiga6B3UUHT2yLTy6B7YodjUP4OxG
-	drziGS4JOyvza6XVXxy1fXI9HawbC5Rx9soQyprbX4V+LpHuyDaR7E5ZxnmCqk0QjJJSWEZN+0E
-	Jo1Iy+xewGzO1cfsep5bC3aswbd9GJ7rIb7b1D2cJYf7qu7Tw/tEHnn5BD1mu2ca066alsAAXcL
-	g==
-X-Received: by 2002:a05:6820:4c07:b0:6d7:c2d2:3bb6 with SMTP id 006d021491bc7-6e7a825d4a2mr306044eaf.74.1791318349916;
-        Tue, 06 Oct 2026 13:25:49 -0700 (PDT)
-Received: from [127.0.1.1] ([2600:8803:e7e4:500:372:3180:ce34:1fe7])
-        by smtp.gmail.com with ESMTPSA id 006d021491bc7-6e793f68bf6sm463442eaf.8.2026.10.06.13.25.47
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 06 Oct 2026 13:25:48 -0700 (PDT)
-From: David Lechner <dlechner@baylibre.com>
-Date: Tue, 06 Oct 2026 15:25:04 -0500
-Subject: [PATCH 4/4] arm64: dts: mediatek: mt8395-genio-common: fix the
- panel supplies
+        d=1e100.net; s=20260707; t=1791318381; x=1791923181;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=JBu+DzZZbbueC/8QmlJUcOPlzBwqeEdGhoe14aARaOU=;
+        b=lph1ibGh5uSVk8Fl7WPK9TD3d/lgOkv5xZKUWaXLwGT57hmWSBwsZzM72F3+Q7jeGX
+         9ri6RtArKrxYYHE2RYc6aVRyx/Dd7O73TNOGGjjcVKsavo1LPAUtbOqMUCS9MwiXfQqm
+         rggM45+rIQAQNgJVjfMs9o5w26CfQjoxZPuPEW5nWNHwxHeC58lgukFoWsKWfwdJYAKm
+         5UMhXboefY4oIvnA16B/rhUEjscQPTiJxgcFmsGhwwDhup+mT/oPqO2nv+md83Oa9XjM
+         wuZA/UhzAMXoa3UsaqDADN8ktIn5Eem/iPSOCLRWaePnm+ZO6yQ7R0qqpNAtm1lT8xcU
+         CQAg==
+X-Forwarded-Encrypted: i=1; AKwUvBzsBtu9RuyxPT2aJjHgKC6mVZws/QOu+yx5vymxuDDuYPQgBcKNS0hk7B4BqVJ0x0+M9bMjJyjlmzK+sDo=@vger.kernel.org
+X-Gm-Message-State: AFuF++ltTD7altniZ/BxLuvqHLz9Cf+MsboqYVGQYW+o2Kju2+ROgft4
+	GhF56Wfn6doo8BtpmMYmGgepgSDJeYFlo+IcC9FA82CS8snp8sQTeHY=
+X-Gm-Gg: AYBFou340k6zDQ6XQlQn3W+tPhOzqUdPpisE9TpSAsO9tkyAZDQBY2VhUmZfqEWulXl
+	NK9Ik+2MZT7vIRzts4D/V1A19WsfRWpJfF4zYduPxcOskAVb8nrQfWaJXQODhlOFgNELJZ0ONsT
+	9dNB82xdiZGvhJ+FCOPuygge95HlNy7/7AqNa4f9WEvUQa04hrF4VuyiE4ayb14O6IVjNJNGMia
+	Iy2QJSC9oxFybMenCWIN9WOMJ8CYtiehrzmH617GTKGXHWwOuqSO3ja6AfMY+lTXs4ZGhaOxIJ9
+	lK1oyJSdlk8epU6KRcnNnb8rAmTjHcvcHxv8jM3cjWtMq/tzjMpoUxbYNONBWP1X4KqqeGtJoWl
+	Y/dLJMPkrh4poSfr9WvigmXGxHzkFBIW/9PEqLhCt90RFKJmqKz3+nX+vS2rBjUD9UsUqJ1k9Z1
+	ozimGiiuUvKOhUEZE86cnEBdnsXdzZx21Z/OqH4azIG62hiq0DwYgqpqpFEZW9TBDhrys2JjJPs
+	ptues/QxIZzZ9M7mqcuId/Csl9mLDCyAeF4QU674c1rTMaGeULAzQ==
+X-Received: by 2002:a05:600c:348d:b0:4a0:1ef1:b62b with SMTP id 5b1f17b1804b1-4a18043b443mr114185e9.10.1791318381123;
+        Tue, 06 Oct 2026 13:26:21 -0700 (PDT)
+Received: from localhost ([2a02:810d:4a94:b300:d1f6:bf6:35f2:f07c])
+        by smtp.gmail.com with UTF8SMTPSA id 5b1f17b1804b1-4a17f5510desm9065205e9.7.2026.10.06.13.26.20
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 06 Oct 2026 13:26:20 -0700 (PDT)
+From: Florian Fuchs <fuchsfl@gmail.com>
+To: Rich Felker <dalias@libc.org>,
+	John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>,
+	linux-sh@vger.kernel.org
+Cc: Geert Uytterhoeven <geert+renesas@glider.be>,
+	Florian Fuchs <fuchsfl@gmail.com>,
+	yoshinori.sato@nifty.com,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v2] sh: lib: Restore r4 in shift helpers
+Date: Tue,  6 Oct 2026 22:25:42 +0200
+Message-ID: <20261006202542.777358-1-fuchsfl@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261006-panel-himax-hx8279-vddp-v1-4-50d884b42aae@baylibre.com>
-References: <20261006-panel-himax-hx8279-vddp-v1-0-50d884b42aae@baylibre.com>
-In-Reply-To: <20261006-panel-himax-hx8279-vddp-v1-0-50d884b42aae@baylibre.com>
-To: Neil Armstrong <neil.armstrong@linaro.org>, 
- Jessica Zhang <jesszhan0024@gmail.com>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, 
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, 
- Matthias Brugger <matthias.bgg@gmail.com>
-Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
- linux-mediatek@lists.infradead.org, David Lechner <dlechner@baylibre.com>
-X-Mailer: b4 0.17-dev
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2385; i=dlechner@baylibre.com;
- h=from:subject:message-id; bh=EOMVP3YQwkcIyqlWrQGFAqi7cRnWf4pYZmNhfVKctYk=;
- b=owEBbQGS/pANAwAKAcLMIAH/AY/AAcsmYgBqxVk6xsdsb38h2XMoZmyUXwDh+TV2jSd63sKWb
- LEAsaeGN0yJATMEAAEKAB0WIQTsGNmeYg6D1pzYaJjCzCAB/wGPwAUCasVZOgAKCRDCzCAB/wGP
- wOTwB/9qpjbVdEYGrVDi0toIg94lEZMC2rKuCDdP4g4DkG41TRMX0aSRt+zR3KkDxJ79JtVyIeK
- S+MIMyG8ojRbQ0JtT2MpPwX99fFJ44xH9o102h6vWagCYrVTTW/foDhJcKWL1r/LSZ3R2e+hdZF
- GWoHtZXRpEuqx1H8Du8FXvgPvATmIBKjVn1zNuKGT8xczC5l7VctkvrZ1m+TgdrzpvIVbWkCYV0
- i7jqtJ1kRXwdmsfY8j22vgm4OSBFZnW7fTwIpWgyiFu3ZpRg6n4ROXFI6k7A36VAL/MH9B7txNx
- pmagYP8bpZRWIwZGRsYixjEAafiGDg+mkOSiHsMiIg9lXTLf
-X-Developer-Key: i=dlechner@baylibre.com; a=openpgp;
- fpr=8A73D82A6A1F509907F373881F8AF88C82F77C03
+Content-Transfer-Encoding: 8bit
 
-Point each supply of the Startek KD070FHFID078 panel at the rail that
-feeds it on the Genio 1200 EVK, and add the vddp-supply that the
-himax,hx8279 binding now requires.
+Commit 940d4113f330 ("sh: New gcc support") reuses r4 as scratch for
+the jump table offset and pops the saved value into r0 in the jmp
+delay slot, so the helpers return with r4 still holding the table
+byte. GCC can keep a live value in r4 across the call, which leads to
+runtime data corruption.
 
-The Genio 1200 EVK is wired as follows:
-- VDD (backlight LED power) comes from VSYS through a switch enabled by
-  GPIO47. That is the regulator previously described as lcm0_iovcc, so
-  rename it to lcm0_vdd and feed it from VSYS.
-- IOVCC comes directly from MT6360 LDO2.
-- VDDP comes directly from MT6360 LDO1. The lcm0_vddp regulator only
-  passed LDO1 through, so drop it.
+GCC calls __ashlsi3, __ashrsi3 and __lshrsi3 with a special convention:
+value in r4, result in r0, and only r0 and T clobbered.
 
-The previous description pointed vdd-supply at the VDDP rail and used
-the VDD switch as the IOVCC regulator. It worked only because the driver
-enables all the supplies together.
+Pop the saved value back into r4 before the jmp and copy it to r0 in
+the delay slot. The shift sequences only operate on r0, so r4 is now
+preserved across the whole call.
 
-Signed-off-by: David Lechner <dlechner@baylibre.com>
+Fixes: 940d4113f330 ("sh: New gcc support")
+Signed-off-by: Florian Fuchs <fuchsfl@gmail.com>
 ---
- .../boot/dts/mediatek/mt8395-genio-common.dtsi      | 21 ++++++++-------------
- 1 file changed, 8 insertions(+), 13 deletions(-)
+v1->v2: Make commit message more accurate
 
-diff --git a/arch/arm64/boot/dts/mediatek/mt8395-genio-common.dtsi b/arch/arm64/boot/dts/mediatek/mt8395-genio-common.dtsi
-index aef908df530e..f415b6f71653 100644
---- a/arch/arm64/boot/dts/mediatek/mt8395-genio-common.dtsi
-+++ b/arch/arm64/boot/dts/mediatek/mt8395-genio-common.dtsi
-@@ -175,22 +175,16 @@ button-volume-up {
- 		};
- 	};
- 
--	lcm0_iovcc: regulator-vio18-lcm0 {
-+	lcm0_vdd: regulator-vsys-lcm0 {
- 		compatible = "regulator-fixed";
--		regulator-name = "vio18_lcm0";
-+		regulator-name = "vsys_lcm0";
-+		regulator-min-microvolt = <4200000>;
-+		regulator-max-microvolt = <4200000>;
- 		enable-active-high;
- 		gpio = <&pio 47 GPIO_ACTIVE_HIGH>;
- 		pinctrl-names = "default";
- 		pinctrl-0 = <&dsi0_vreg_en_pins>;
--		vin-supply = <&mt6360_ldo2>;
--	};
--
--	lcm0_vddp: regulator-vsys-lcm0 {
--		compatible = "regulator-fixed";
--		regulator-name = "vsys_lcm0";
--		regulator-always-on;
--		regulator-boot-on;
--		vin-supply = <&mt6360_ldo1>;
-+		vin-supply = <&reg_vsys>;
- 	};
- 
- 	wifi_fixed_3v3: regulator-2 {
-@@ -303,8 +297,9 @@ panel@0 {
- 		backlight = <&backlight_lcm0>;
- 		enable-gpios = <&pio 48 GPIO_ACTIVE_HIGH>;
- 		reset-gpios = <&pio 108 GPIO_ACTIVE_HIGH>;
--		iovcc-supply = <&lcm0_iovcc>;
--		vdd-supply = <&lcm0_vddp>;
-+		iovcc-supply = <&mt6360_ldo2>;
-+		vdd-supply = <&lcm0_vdd>;
-+		vddp-supply = <&mt6360_ldo1>;
- 		pinctrl-names = "default";
- 		pinctrl-0 = <&panel_default_pins>;
- 
+v1: https://lore.kernel.org/linux-sh/20260714104147.2016549-1-fuchsfl@gmail.com/
 
+Without the patch, the early boot on e.g J2 gets a kernel BUG at
+mm/percpu.c:2604 / "can't handle more than one group."
+        PCPU_SETUP_BUG_ON(pcpu_verify_alloc_info(ai) < 0);
+As the static condition in mm/percpu-km.c wasn't true:
+        ai->nr_groups != 1
+nr_groups contained 60 - the clobbered value from the shift helper.
+
+This change was tested on the J2 core on the Mimas v2 board. It can
+theoretically also target other SH2 devices, but I don't have any other
+than J2 sadly.
+
+The flow of operations matches now the state in the libgcc, see also
+in gcc: libgcc/config/sh/lib1funcs.S
+
+ arch/sh/lib/ashlsi3.S | 3 ++-
+ arch/sh/lib/ashrsi3.S | 3 ++-
+ arch/sh/lib/lshrsi3.S | 3 ++-
+ 3 files changed, 6 insertions(+), 3 deletions(-)
+
+diff --git a/arch/sh/lib/ashlsi3.S b/arch/sh/lib/ashlsi3.S
+index 4df4401cdf31..73a9d709b169 100644
+--- a/arch/sh/lib/ashlsi3.S
++++ b/arch/sh/lib/ashlsi3.S
+@@ -63,8 +63,9 @@ __ashlsi3_r0:
+ 	mova	ashlsi3_table,r0
+ 	mov.b	@(r0,r4),r4
+ 	add	r4,r0
++	mov.l	@r15+,r4
+ 	jmp	@r0
+-	mov.l	@r15+,r0
++	mov	r4,r0
+ 
+ 	.align	2
+ ashlsi3_table:
+diff --git a/arch/sh/lib/ashrsi3.S b/arch/sh/lib/ashrsi3.S
+index bf3c4e03e6ff..9962d7c587df 100644
+--- a/arch/sh/lib/ashrsi3.S
++++ b/arch/sh/lib/ashrsi3.S
+@@ -62,8 +62,9 @@ __ashrsi3_r0:
+ 	mova	ashrsi3_table,r0
+ 	mov.b	@(r0,r4),r4
+ 	add	r4,r0
++	mov.l	@r15+,r4
+ 	jmp	@r0
+-	mov.l	@r15+,r0
++	mov	r4,r0
+ 
+ 	.align	2
+ ashrsi3_table:
+diff --git a/arch/sh/lib/lshrsi3.S b/arch/sh/lib/lshrsi3.S
+index b79b8170061f..9218f0bad1cc 100644
+--- a/arch/sh/lib/lshrsi3.S
++++ b/arch/sh/lib/lshrsi3.S
+@@ -62,8 +62,9 @@ __lshrsi3_r0:
+ 	mova	lshrsi3_table,r0
+ 	mov.b	@(r0,r4),r4
+ 	add	r4,r0
++	mov.l	@r15+,r4
+ 	jmp	@r0
+-	mov.l	@r15+,r0
++	mov	r4,r0
+ 
+ 	.align	2
+ lshrsi3_table:
 -- 
-2.53.0
+2.43.0
 
