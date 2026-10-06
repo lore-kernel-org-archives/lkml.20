@@ -1,87 +1,88 @@
 Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 46693261B8D
-	for <linux-kernel@vger.kernel.org>; Tue,  6 Oct 2026 00:40:03 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9AE042BCF46
+	for <linux-kernel@vger.kernel.org>; Tue,  6 Oct 2026 00:39:59 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791247205; cv=none; b=FpvXk/rKO6Gdyj4smrmFvnOdMjoxc2K3k3QrBMxHGY42WdvuH/YSVDlQ/dHv4gEiUdSSwXnKH3v9lx47KKUX9OvnbvQ7fAXaPCGI8D9yPo2MEVGQGOKry0KGhC04oYYtlRvLsG83WK8hrzjPVmJFUW9Nc4gl2tji3gi8zILQj9s=
+	t=1791247203; cv=none; b=HZa7KnYrLS75Kg8nCSGA/FG7T0csR8noUNw1rstX0uO7yduFWcSJwe9+D74bI0voqqLriZIJS7/aQI0ezyfk6BQF89bkFF6QtOz/1ob7WLtHPWgt1DqCEdWTUSCJCEihiRjMwPmHPaMnWAG6oyyQaYfcmSu//XA/FPxvcBAQSAw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791247205; c=relaxed/simple;
-	bh=cZPXtLBEO+nIR8AdAKN0AqSZ1s75QgRTXt/bK7/dtYY=;
+	s=arc-20240116; t=1791247203; c=relaxed/simple;
+	bh=OE/yRcGXCtHATVpI7pgA3DOFU3yEnek96YChndvXjkk=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=dMtFX/FA+vNPe45p0m32Ai6wsfse5RCXQtnEMpJhIXBv45RxkzePFG5zG3coA9H45LFxRdHUEVH3/bxK0bOZy1QZgIcN9rvqyyLsFMW4EOe6A8EkvCAwvryW6WWxLr5eM1O0PJPl78nAFFWaDhBGOZ6+K/5HiNGqFfq6hui6nCM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=I/t6oz47; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=D1cpFNFp; arc=none smtp.client-ip=205.220.180.131
+	 In-Reply-To:To:Cc; b=gy/+Qv0kCqIqST97est3v7kgmi8x7334hloOQAxZbDLK8WkjRsRPANeL+YP50AGIcV6zsp6NQer1194xzVjCiOCvKfmzbsT+i0bXtuUnB9SaAa8+ISdP9uA1Xj+fhGm0z6lCdo9z8jpP/Itc5npR1fkGHG2MC6odGegAimfkfUc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=AfmGA7zr; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=Bekp3GQZ; arc=none smtp.client-ip=205.220.180.131
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="I/t6oz47";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="D1cpFNFp"
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="AfmGA7zr";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="Bekp3GQZ"
 Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 695KN0DS3299820
-	for <linux-kernel@vger.kernel.org>; Tue, 6 Oct 2026 00:40:02 GMT
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 695KMxpb3299796
+	for <linux-kernel@vger.kernel.org>; Tue, 6 Oct 2026 00:39:58 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
 	cc:content-transfer-encoding:content-type:date:from:in-reply-to
 	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	aPry6s0/eZtpQh6W3xcXutov9SeCo8ZKZHlB3Z0ToE0=; b=I/t6oz47z/G8fqAC
-	8RNzbOdJNfGxeU3HWlRFL7iYn+FoSZ0qLqZzyxhL3nxL/xQckIYUPOqMBm8EBwaM
-	+DJK/O/rWzc31923V/F8rCDMOEQB2LuWu5PymJKNtzlY7QQytugyYtB/fQ9rnRN3
-	WH0OHaOV/8+kn/DhrDOhgLrSqtX6TgTcZdwyj359W21cNG1s3I/LKiWMVytxi5R7
-	7jzPPAwrpHFrzSeONhSYJexcx5lwVYkUDbamTseuakvdRRBSM4OR/YPlBlGbpZiT
-	AGADfHWbxutC9pcKX21B/OIqZ7Azm1yUxizXJhTJA0hRm3kzxCthXWD4tSjqKrL+
-	IWu2rg==
-Received: from mail-dy1-f199.google.com (mail-dy1-f199.google.com [74.125.82.199])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h4bhg2rb4-1
+	t/G+BdCHb9AmTwF4f0cc3fJ+PH9Z9jLI2u90PJPqZOY=; b=AfmGA7zrnn8I/Yil
+	CyOjwhoPMdwCF/d+YIl1Iu5NAMriWtFW7AH4nEXpXtO+fjwHFt1BV8hkAwN2IC98
+	lEMU0GR+l13NIT7CdWh6w17IBgsGmGVsGSdKGoTCtvqqeLQmPlMj2zdJ7ljawicd
+	HI+uOubgHr+d9vu4+nvIXwnOhSyqi7wF4IfLUArnIv/npkDv2GA/0lLvzN/vFifQ
+	PL2zCrctTfKvvI15VJjs/UvXy6j9WUFNOTYLVLeHtFG+jjNs7NjFfF+gis1m6cJ/
+	lpoOdMpzJ7racXf/HSvhlLSuCdfexgsgDc4aqlFpV9iDhIa/QIJnQI0qarSedEe/
+	LR3qCw==
+Received: from mail-dy1-f197.google.com (mail-dy1-f197.google.com [74.125.82.197])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h4bhg2rak-1
 	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Tue, 06 Oct 2026 00:40:01 +0000 (GMT)
-Received: by mail-dy1-f199.google.com with SMTP id 5a478bee46e88-313d1015161so6797160eec.1
-        for <linux-kernel@vger.kernel.org>; Mon, 05 Oct 2026 17:40:01 -0700 (PDT)
+	for <linux-kernel@vger.kernel.org>; Tue, 06 Oct 2026 00:39:58 +0000 (GMT)
+Received: by mail-dy1-f197.google.com with SMTP id 5a478bee46e88-34bbf2e3c5cso779526eec.0
+        for <linux-kernel@vger.kernel.org>; Mon, 05 Oct 2026 17:39:58 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1791247201; x=1791852001; darn=vger.kernel.org;
+        d=oss.qualcomm.com; s=google; t=1791247197; x=1791851997; darn=vger.kernel.org;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=aPry6s0/eZtpQh6W3xcXutov9SeCo8ZKZHlB3Z0ToE0=;
-        b=D1cpFNFpKzQ3wmxbaAAE0UEtLlxxyWmNqcW+Bh4tXdALiOgomnovF53T///wHGTP5w
-         5JkQqCmn9PYl5+Qbt3/1OYoTMNMrI0g1aSnsqZG/psTHMbhAcMXi3Fz4hHKntfyvaTro
-         v/FUf/BE7bt1avnxX/LlBJOQ7rqI1J8FuiVZ3WqwXvbk61HuPwWCp30KRHNRasQ+/sOz
-         k9lvXj/4uviEQsKtg3lqpQgp9RVrXcfGrfcQUOVJtu/+RnyYx4mAIBMnWIbGpD/WsbDH
-         soKrqQiTYeb2ob4pUnyndtumKoJy9PjL+gq1MLeKQPjjSFBVQate0bjJmGp3WBhQK3IX
-         q1AA==
+        bh=t/G+BdCHb9AmTwF4f0cc3fJ+PH9Z9jLI2u90PJPqZOY=;
+        b=Bekp3GQZGicc1VsnlVoJQ4V1L6gYmr3AQKVm3+2b2Tj2kgwveBKI6yyLdld4kRU+A2
+         +F6N8iSmJmtSzXnNg3B3iyDfNkRZed35Fxfb9ZEqt1t9KjUzmpVRBpsC6WJFKz6W6O7V
+         QVqA0j/oGOrOCX3fn/2oG/68NGrPsUYru2rgGXiWWQ1Q8GNXCAyHJi2N4FUOzzBsSFUj
+         CcsubaU8vkRn6HEcudzU58h61Ft3Fhh7W2D9p0r103H+G50P9+tKNxaxswjM7HJFVKOf
+         unv3H+5bM6usOAaWbc0V2gsRq9nCxE0Cg5KKvbmCqoVvNKOkhVzyRq9kLXNnOISWTTOl
+         8ojg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791247201; x=1791852001;
+        d=1e100.net; s=20260707; t=1791247197; x=1791851997;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=aPry6s0/eZtpQh6W3xcXutov9SeCo8ZKZHlB3Z0ToE0=;
-        b=e+Dvs110fE3qH9nnil1WShvnQL0bUCyfdjMAZM0RlCqbabr48ovXbwRgKZCZ/K9S/E
-         hWsBN2mD9+gPAXPjGCYCkoeF3QjbzsUdwkaSctZgRPR+OAxgvP6KeUTKOI0HX9REmJ89
-         WCyyFVF18IeuSDbywl3HKvf1+pyg005+9wNAJvhCENxh3P0/EUpolOSahOjl1qaZ0X7P
-         fneDvJuCeqIghGd6GCqTc2rtfJKBg9om9sAeUFMYtVyHbCM/rM1xJ2ndGCNam4nWMWV4
-         /zoZgSpi8tWXW3MZ8QJgywDd45BWYBUnq1AI2wsgYkJZqYV9cH1ZejeAY8h4s1rq7QX6
-         OsUA==
-X-Forwarded-Encrypted: i=1; AKwUvBwdEjyjipKJ86x3+3Id6LjNKVB/T7XlSXEJ/RxSx/i3z/nTEPtAaWWeLmnR7fckF8IkqlsIM+4cDUJHhWo=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJRxtmdo7IJIJSvZkQskLzkYCJXOgThZ35e6nmy/YVFxIt8YlM8
-	Ic3pci5YUczT8MRVwqjc5z+3kPn6sRA8vkD6mMERNV61LemssSuqA5u84ePcas1qZUZo7ej08+c
-	hfGPq1hihZnk9YltC4lpsX9s04j4RtsQgsLJf6tnYGs+KjtHjDruBHbkbgc28wT3z+g==
-X-Gm-Gg: AYBFou3KGPVf+XRnfU+6IlGns7vjT/nvGBzLX5dZzI4AYNG9UnIyp4xr6EvdrYijNDF
-	eNSe1hNUjZgARPKpJOQHuz9TFYPcvvaaQ4zvDeDouLm6Fh1mbpU4G/QtAr5LRUPT2IMGWMq4XhU
-	K9gk+jjdqGxuMzgIdnzOg1/qVt7TduyO16VeoZzWrj7XSUUihKCCvrdkTHDmS8ZZ0IL3Ajw9gG1
-	o60bMGopx0W0AreNnJpkj34EWsYl4pdmaENtMc7eJ9sexGM6lHn3csCsHLCkXqfkleO07DRaiZG
-	CNpFWR46btCUDmQ5QygBW149nzaszl2QH2dpiTz53gQOLuN4fGIc+KS9EnE9udrBf3i4XgOSzFK
-	k9LG9X2LvOt17ebd2QLhNtYqAeMGwo34ijOH6I3OW5fLXbvSMHnGR1tHEng==
-X-Received: by 2002:a05:693c:3881:b0:34c:bc38:e2ee with SMTP id 5a478bee46e88-34f15066431mr15179407eec.8.1791247200677;
-        Mon, 05 Oct 2026 17:40:00 -0700 (PDT)
-X-Received: by 2002:a05:693c:3881:b0:34c:bc38:e2ee with SMTP id 5a478bee46e88-34f15066431mr15179369eec.8.1791247199931;
-        Mon, 05 Oct 2026 17:39:59 -0700 (PDT)
+        bh=t/G+BdCHb9AmTwF4f0cc3fJ+PH9Z9jLI2u90PJPqZOY=;
+        b=iIaAto+Z+6cZYPUpTBvsjEKPR5qL4dOWIYmeEBPI+yRTXMhR3lGq8brxiVwSMbF+dT
+         4QcsvhaqIbj5sXxS4r5tTpt0vnz8QwJj20w/WfTBho8MssRnTXS5+HbpMesgb2dhfOVh
+         ZxEZTT3K5cBx4J9aKKs0+rdFE56Q14djJI2Ul7k0BSau715vqM+hklj3D8LyIiKtG8JU
+         VKTEqxigJOwjYuMBNJmYOjp7fC041v1wrFnmquTVlUauW6WK7tg7PLa/Wt9e3EYPqXDo
+         CEiei4BYivj2hAr1OaG76fbwD956I8iIzZrR1ndKj+NAPR/0Z22S3Rq9eDAzZ5aEDjHL
+         IpgQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzodnjx2xHuPcpAP0impxoPDJeh6hGbSr/bHWxRK92oHiWQCl+C5Ie9P0wt2XtsMkrxrG50FPJcQ1pYQ1U=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKoifrxUEV7zUPA1WhA1L42oif1vzaDiA/yINtHEChaiU1PF+K8
+	NTh7TulOKteDeQk4egaZ9HGjQKXWYLiJLT8VrYfBu0XIIjvWVFKONgpDPedR1hycHO79J0CW7C5
+	fL2mIhjtPR4Z2IHoOfpP3t/N95qVou87GH98fjrv3kWZn7sJzzDXFN3+7sVIzQSzeQg==
+X-Gm-Gg: AYBFou3L+4sC8FZ0QhIpiFfpHI6GoX1eVX1b1gF12ilCkgW9gnvX4RueWLO9j3Sdh9v
+	j49iv72R01W41ln30/qBmMk70XKTQ/WJ/Gcg0+yz/yMCrqXoeZmYmE12Rfx6q9tQMEOdGlqsis/
+	zeuRdQC5suSlvWZTBu5MMRBIhwADCfirrv7YxGunXs4VATT3RDRHNFfX06+Yi5NqE5o35/KqQrb
+	nYgw8n7CWx5DE2NSh7v/OXGy79MKIgKryRkk6rAr/e9i9SKYtqgswGH8xzfCIrU6jy5tXJpVpwk
+	Gks8CyCUgqA4BcEFPLgelQOrvYf/AcIzShZc3EKzZEoxuCIpLpB7qtLUw/1lzsNuAK5DPxmWAOf
+	2KpLrPlPjxJsU3qjJ4+0m4Nm+oYIuSPDCDwpTnq3s8yubQBrPB7qsX9HhRQ==
+X-Received: by 2002:a05:7301:1890:b0:351:2b62:924f with SMTP id 5a478bee46e88-3512b62997cmr6537276eec.30.1791247197067;
+        Mon, 05 Oct 2026 17:39:57 -0700 (PDT)
+X-Received: by 2002:a05:7301:1890:b0:351:2b62:924f with SMTP id 5a478bee46e88-3512b62997cmr6537250eec.30.1791247196491;
+        Mon, 05 Oct 2026 17:39:56 -0700 (PDT)
 Received: from hu-azarrabi-lv.qualcomm.com (Global_NAT1.qualcomm.com. [129.46.96.20])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-35146ac078fsm2108874eec.22.2026.10.05.17.39.58
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-35146ac078fsm2108874eec.22.2026.10.05.17.39.55
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 05 Oct 2026 17:39:59 -0700 (PDT)
+        Mon, 05 Oct 2026 17:39:56 -0700 (PDT)
 From: Amirreza Zarrabi <amirreza.zarrabi@oss.qualcomm.com>
-Date: Mon, 05 Oct 2026 17:39:50 -0700
-Subject: [PATCH RFC v2 6/8] tee: optee: execute yielding RPMI calls
+Date: Mon, 05 Oct 2026 17:39:47 -0700
+Subject: [PATCH RFC v2 3/8] tee: optee: add RPMI shared-memory and
+ parameter support
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -90,7 +91,7 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261005-rpmi-tee-service-grp-dev-v2-6-72f222e23ec1@oss.qualcomm.com>
+Message-Id: <20261005-rpmi-tee-service-grp-dev-v2-3-72f222e23ec1@oss.qualcomm.com>
 References: <20261005-rpmi-tee-service-grp-dev-v2-0-72f222e23ec1@oss.qualcomm.com>
 In-Reply-To: <20261005-rpmi-tee-service-grp-dev-v2-0-72f222e23ec1@oss.qualcomm.com>
 To: Jens Wiklander <jenswi@kernel.org>, Sumit Garg <sumit.garg@kernel.org>,
@@ -106,25 +107,25 @@ Cc: linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
         devicetree@vger.kernel.org,
         Amirreza Zarrabi <amirreza.zarrabi@oss.qualcomm.com>
 X-Mailer: b4 0.13.0
-X-Proofpoint-ORIG-GUID: 9XZcqklKDALByxgo_iNO6fbmNFghrdKh
-X-Authority-Analysis: v=2.4 cv=GMGdgeNK c=1 sm=1 tr=0 ts=6ac44362 cx=c_pps
- a=cFYjgdjTJScbgFmBucgdfQ==:117 a=ouPCqIW2jiPt+lZRy3xVPw==:17
+X-Proofpoint-ORIG-GUID: -t5afqqP42Tkw_pmfSJNghz7Fm9KwrfC
+X-Authority-Analysis: v=2.4 cv=GMGdgeNK c=1 sm=1 tr=0 ts=6ac4435e cx=c_pps
+ a=Uww141gWH0fZj/3QKPojxA==:117 a=ouPCqIW2jiPt+lZRy3xVPw==:17
  a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
  a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_glEPmIy2e8OvE2BGh3C:22
- a=EUspDBNiAAAA:8 a=aLZfyF7oQ8oiUT2OKIMA:9 a=QEXdDO2ut3YA:10
- a=scEy_gLbYbu1JhEsrz4S:22
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDA2MDAwMSBTYWx0ZWRfXyKAtobItYXnE
- H+B89DQvsNNQ9nvshSFJeMOeuyALx7JRwPF3FxaUlpiREHI42u16P8wpctj1E6PyvZrY2njvalm
- iCu6rMElcP9R1uMgWorhukdSFLcb+IA=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDA2MDAwMSBTYWx0ZWRfX2Gevq/7VtOJK
- D4RiqH3LViRdiB86jJpWJEs9YVoYMYY+dN0HQR4vA/gv1CTbBsZQyXMxFv8U3aCl2F+K2ytJNBn
- 83wk+UhuhZIheCDpAy0/Hv9xzYgYbtqytRa3e2v3BgYHIVFiEHb7g/zvyF0Bkb6ro6Z0+9mxIVw
- cR8z/FTHlwZoN/ZTYgnjPHOhO9JXp9iT8tRLzUkeKs2cdswofBgeqn71WWVsR3osY20c8ByOtvM
- UQda6yGI9fTWVEGA9PZy6fcJIPoA9AmDfD7DrXyHwOwbUSwEy7A4eCanGu9RLKP0azjYbRzMVLl
- f9HB3YrWQFS4VyzhmVSEA0uD4vTjuUmLyBK5iIHoW9hDYVcygyZhzvTR6HMJunAaKxlZjMS3c87
- itRTWGQonwlecNaXkNl8KcM25EapI1pzjEUtcnY4M8Gj74OOetazmri2QLoOCpr3aDrWIW1/y5O
- aSICDjX7fYhAz/0g1pw==
-X-Proofpoint-GUID: 9XZcqklKDALByxgo_iNO6fbmNFghrdKh
+ a=EUspDBNiAAAA:8 a=flfQTkwBAcW7AZ__dyIA:9 a=QEXdDO2ut3YA:10
+ a=PxkB5W3o20Ba91AHUih5:22
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDA2MDAwMSBTYWx0ZWRfX7IPjGkH423t2
+ zO3hyCCxIHCksXbfzSjO7XEbGRN3Cb3ZGqgG4NZFo3k4A0ECnHtcoZ+gaGI+AKlrL8JIaNcgOIk
+ +jj8pWiMgjLGiQiBWxi62CxOuxhCgLA=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDA2MDAwMSBTYWx0ZWRfX9IGIWaxWR/Kx
+ yXRFr3YP4asDS7VCPuP7wQ8G3ADxFEDKr1bAIONfiEw5s6BX5DpwGt9UZ6zFrBBnYM4r/XYMmJO
+ FnlyrYDaS8Di5Yi4yntfO/6wjs2bpo5xNH7eJVFH07DBt8PGlJKtho6kgmJYB9nu/RGbg0Ku/Z4
+ 3c+jZxhKLq3MfVwaBW0z9K2Vf8f0T7oYyN/fAwwhKULuylu1lRp3jwYnfSvwZjI0+FWoiMCvc3O
+ bVK3pbSYHNvHgyrPB7VEasNdZJFbkTY7P7xCVJeHE0cEbFgsiqKsQr+GxBDotTK2x+JAqYLgbys
+ AGsrfSsomk+/7KSZvzDCEV5i864LUjwp66KAW4mHFcVWErtfx5Kw86peJnGJ+JWXbo+I3zP3ru2
+ iswV2uS7zYMz23R2eVhF5IkydgBFH3XEKQITiKQChNlJxa7pmppQrkvDYUSij9wLU2sAlNBSEqa
+ L+YiCnwRLcmem63cWXw==
+X-Proofpoint-GUID: -t5afqqP42Tkw_pmfSJNghz7Fm9KwrfC
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
  definitions=2026-10-05_05,2026-10-05_01,2025-10-01_01
@@ -135,164 +136,518 @@ X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
  route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2609040000
  definitions=main-2610060001
 
-OP-TEE commands can span multiple exchanges with normal world. A call
-may yield to request an RPC service or allow interrupt processing
-before continuing execution in secure world.
+OP-TEE commands and RPCs need shared memory that secure world can
+identify through RPMI parcels.
 
-Add the RPMI yielding-call path used by the common OP-TEE session
-operations. Submit the command and RPC argument buffers as ranges
-within a shared memory parcel.
+Register normal-world pages as read-write parcels shared with the
+OP-TEE endpoint. Track each parcel ID and nonce in a hash table and
+store the combined identity in tee_shm.sec_world_id. Use a fixed
+nonzero nonce to distinguish registered memory from NULL references.
 
-Handle RPC requests while the call is suspended and resume execution
-using the token returned by OP-TEE until the command completes.
+Add conversions between TEE parameters and parcel memory references.
 
-Use the common OP-TEE call queue to wait when an initial request is
-rejected with RPMI_ERR_BUSY, allowing another active call to complete
-before retrying.
+On client memory unregistration, ask OP-TEE to release its mapping
+before reclaiming the parcel. Supplicant memory has already been
+released by OP-TEE through its SHM_FREE RPC and only needs reclaiming.
 
 Signed-off-by: Amirreza Zarrabi <amirreza.zarrabi@oss.qualcomm.com>
 ---
- drivers/tee/optee/rpmi_abi.c | 124 +++++++++++++++++++++++++++++++++++++++++++
- 1 file changed, 124 insertions(+)
+ drivers/tee/optee/Makefile        |   1 +
+ drivers/tee/optee/optee_private.h |  27 +++
+ drivers/tee/optee/rpmi_abi.c      | 417 ++++++++++++++++++++++++++++++++++++++
+ 3 files changed, 445 insertions(+)
 
-diff --git a/drivers/tee/optee/rpmi_abi.c b/drivers/tee/optee/rpmi_abi.c
-index 58d82678be98..6e76316794c1 100644
---- a/drivers/tee/optee/rpmi_abi.c
-+++ b/drivers/tee/optee/rpmi_abi.c
-@@ -9,6 +9,7 @@
- #include <linux/mailbox/riscv-rpmi-message.h>
- #include <linux/overflow.h>
- #include <linux/rpmi_tee.h>
-+#include <linux/sched.h>
- #include <linux/slab.h>
- #include <linux/unaligned.h>
- #include "optee_private.h"
-@@ -560,3 +561,126 @@ static void optee_rpmi_handle_rpc_cmd(struct tee_context *ctx,
- 		optee_rpc_cmd(ctx, optee, arg);
- 	}
- }
+diff --git a/drivers/tee/optee/Makefile b/drivers/tee/optee/Makefile
+index 183cdde1ac04..8576cc73a922 100644
+--- a/drivers/tee/optee/Makefile
++++ b/drivers/tee/optee/Makefile
+@@ -9,6 +9,7 @@ optee-objs += supp.o
+ optee-objs += device.o
+ optee-$(CONFIG_HAVE_ARM_SMCCC) += smc_abi.o
+ optee-$(CONFIG_ARM_FFA_TRANSPORT) += ffa_abi.o
++optee-$(CONFIG_RISCV_RPMI_TEE_TRANSPORT) += rpmi_abi.o
+ 
+ # for tracing framework to find optee_trace.h
+ CFLAGS_smc_abi.o := -I$(src)
+diff --git a/drivers/tee/optee/optee_private.h b/drivers/tee/optee/optee_private.h
+index 02d6f79df407..2422caf3c883 100644
+--- a/drivers/tee/optee/optee_private.h
++++ b/drivers/tee/optee/optee_private.h
+@@ -180,6 +180,28 @@ struct optee_ffa {
+ };
+ #endif
+ 
++#if IS_REACHABLE(CONFIG_RISCV_RPMI_TEE_TRANSPORT)
++struct rpmi_tee_device;
 +
-+/* Handle RPC command or interrupt returns from a yielding call. */
-+static void optee_rpmi_handle_rpc(struct tee_context *ctx, struct optee *optee,
-+				  u32 result, struct optee_msg_arg *arg)
++/**
++ * struct optee_rpmi - RPMI shared-memory identity state
++ * @rdev: owning RPMI service device
++ * @shm_rht_lock: protects parcel lookup, insertion, removal and publication
++ * @shm_rht: lookup by the host-endian parcel ID and nonce pair
++ *
++ * Callers keep their tee_shm alive while using its registration. Lookup
++ * returns a raw pointer; the mutex does not protect its lifetime after
++ * unlocking. Never hold @shm_rht_lock across a transport operation, RPC or
++ * thread-availability wait.
++ */
++struct optee_rpmi {
++	struct rpmi_tee_device *rdev;
++	/* Protects parcel lookup, insertion, removal and publication. */
++	struct mutex shm_rht_lock;
++	struct rhashtable shm_rht;
++};
++#endif
++
+ struct optee;
+ 
+ /**
+@@ -240,6 +262,7 @@ struct optee_ops {
+  * @ctx:			driver internal TEE context
+  * @smc:			specific to SMC ABI
+  * @ffa:			specific to FF-A ABI
++ * @rpmi:			specific to RPMI ABI
+  * @shm_arg_cache:		shared memory cache argument
+  * @call_queue:			queue of threads waiting to call @invoke_fn
+  * @notif:			notification synchronization struct
+@@ -271,6 +294,9 @@ struct optee {
+ #endif
+ #if IS_REACHABLE(CONFIG_ARM_FFA_TRANSPORT)
+ 		struct optee_ffa ffa;
++#endif
++#if IS_REACHABLE(CONFIG_RISCV_RPMI_TEE_TRANSPORT)
++		struct optee_rpmi rpmi;
+ #endif
+ 	};
+ 	struct optee_shm_arg_cache shm_arg_cache;
+@@ -464,4 +490,5 @@ static inline void optee_ffa_abi_unregister(void)
+ }
+ #endif
+ 
++
+ #endif /*OPTEE_PRIVATE_H*/
+diff --git a/drivers/tee/optee/rpmi_abi.c b/drivers/tee/optee/rpmi_abi.c
+new file mode 100644
+index 000000000000..e7fc853cfb15
+--- /dev/null
++++ b/drivers/tee/optee/rpmi_abi.c
+@@ -0,0 +1,417 @@
++// SPDX-License-Identifier: GPL-2.0-only
++/*
++ * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
++ */
++
++#define pr_fmt(fmt) KBUILD_MODNAME ": " fmt
++
++#include <linux/cleanup.h>
++#include <linux/mailbox/riscv-rpmi-message.h>
++#include <linux/overflow.h>
++#include <linux/rpmi_tee.h>
++#include <linux/slab.h>
++#include <linux/unaligned.h>
++#include "optee_private.h"
++#include "optee_rpmi.h"
++
++/* Nonzero nonce keeps parcel ID zero distinct from a null reference. */
++#define OPTEE_RPMI_SHM_NONCE	1
++
++struct optee_rpmi_parcel_key {
++	u32 parcel_id;
++	u32 nonce;
++};
++
++struct optee_rpmi_shm_rht_entry {
++	struct rhash_head node;
++	struct optee_rpmi_parcel_key key;
++	struct tee_shm *shm;
++};
++
++static const struct rhashtable_params optee_rpmi_shm_rht_params = {
++	.head_offset = offsetof(struct optee_rpmi_shm_rht_entry, node),
++	.key_offset = offsetof(struct optee_rpmi_shm_rht_entry, key),
++	.key_len = sizeof(struct optee_rpmi_parcel_key),
++	.automatic_shrinking = true,
++};
++
++/* Keep transport errors separate from the control status in a response. */
++static int optee_rpmi_call_with_status(struct optee *optee,
++				       const void *req, size_t req_len,
++				       void *resp, size_t resp_size,
++				       s32 *status)
 +{
-+	switch (result) {
-+	case OPTEE_RPMI_YIELDING_CALL_RETURN_RPC_CMD:
-+		optee_rpmi_handle_rpc_cmd(ctx, optee, arg);
-+		break;
-+	case OPTEE_RPMI_YIELDING_CALL_RETURN_INTERRUPT:
-+		break;
-+	default:
-+		pr_warn("Unknown RPC func 0x%x\n", result);
-+		break;
-+	}
++	struct rpmi_tee_device *rdev = optee->rpmi.rdev;
++	size_t received = resp_size;
++	int ret;
++
++	ret = rdev->ops->msg_ops->call(rdev, req, req_len, resp, &received);
++	if (ret)
++		return ret;
++
++	if (received != resp_size)
++		return -EPROTO;
++
++	*status = get_unaligned_le32(resp);
++
++	return 0;
 +}
 +
 +/**
-+ * optee_rpmi_yielding_call() - submit and resume a yielding RPMI command
-+ * @ctx: calling context
-+ * @req: initial command request
-+ * @rpc_arg: shared RPC argument buffer
-+ * @system_thread: caller requests TEE system thread support
++ * optee_rpmi_call - Send a control request and decode its RPMI status
++ * @optee: OP-TEE instance.
++ * @req: Control request, including the operation number.
++ * @req_len: Request size in bytes.
++ * @resp: Response buffer, beginning with a little-endian RPMI status.
++ * @resp_size: Exact expected response size, including the status field.
 + *
-+ * Only RPMI_ERR_BUSY rejection of the initial command permits retry.
-+ *
-+ * Return: zero on completion, or a negative error.
++ * Return: 0 on success, a transport error, -EPROTO for an unexpected response
++ * size, or the control status converted to a Linux error code.
 + */
-+static int optee_rpmi_yielding_call(struct tee_context *ctx,
-+				    const struct optee_rpmi_call_req *req,
-+				    struct optee_msg_arg *rpc_arg,
-+				    bool system_thread)
++static int optee_rpmi_call(struct optee *optee, const void *req, size_t req_len,
++			   void *resp, size_t resp_size)
 +{
-+	struct optee *optee = tee_get_drvdata(ctx->teedev);
-+	struct optee_rpmi_resume_req resume = {
-+		.op = cpu_to_le32(OPTEE_RPMI_YIELDING_CALL_RESUME),
-+		/* resume_token is nonzero after OP-TEE suspends the call. */
-+		.resume_token = 0,
-+	};
-+	struct optee_rpmi_call_resp resp;
-+	struct optee_call_waiter waiter;
-+	u32 result;
 +	s32 status;
 +	int ret;
 +
-+	optee_cq_wait_init(&optee->call_queue, &waiter, system_thread);
-+	while (true) {
-+		if (resume.resume_token)
-+			ret = optee_rpmi_call_with_status(optee, &resume,
-+							  sizeof(resume), &resp,
-+							  sizeof(resp), &status);
-+		else
-+			ret = optee_rpmi_call_with_status(optee, req, sizeof(*req),
-+							  &resp, sizeof(resp),
-+							  &status);
-+		if (ret)
-+			goto done;
++	ret = optee_rpmi_call_with_status(optee, req, req_len, resp, resp_size,
++					  &status);
++	if (ret)
++		return ret;
 +
-+		switch (status) {
-+		case RPMI_SUCCESS:
-+			break;
-+		case RPMI_ERR_BUSY:
-+			if (!resume.resume_token) {
-+				optee_cq_wait_for_completion(&optee->call_queue,
-+							     &waiter);
-+				continue;
-+			}
++	return rpmi_to_linux_error(status);
++}
 +
-+			fallthrough;
-+		default:
-+			ret = rpmi_to_linux_error(status);
-+			goto done;
-+		}
++static int optee_rpmi_shm_rht_init(struct optee *optee)
++{
++	int ret;
 +
-+		result = get_unaligned_le32(&resp.result);
-+		if (result == OPTEE_RPMI_YIELDING_CALL_RETURN_DONE)
-+			goto done;
-+
-+		cond_resched();
-+		optee_rpmi_handle_rpc(ctx, optee, result, rpc_arg);
-+
-+		resume.resume_token = resp.resume_token;
-+	}
-+done:
-+	optee_cq_wait_final(&optee->call_queue, &waiter);
++	mutex_init(&optee->rpmi.shm_rht_lock);
++	ret = rhashtable_init(&optee->rpmi.shm_rht, &optee_rpmi_shm_rht_params);
++	if (ret)
++		mutex_destroy(&optee->rpmi.shm_rht_lock);
 +
 +	return ret;
 +}
 +
-+/* The caller supplies SHM with room for command and RPC args. */
-+static int optee_rpmi_do_call_with_arg(struct tee_context *ctx,
-+				       struct tee_shm *shm, u_int offs,
-+				       bool system_thread)
++static void optee_rpmi_shm_rht_free(void *ptr, void *arg)
++{
++	kfree(ptr);
++}
++
++static void optee_rpmi_shm_rht_uninit(struct optee *optee)
++{
++	rhashtable_free_and_destroy(&optee->rpmi.shm_rht,
++				    optee_rpmi_shm_rht_free, NULL);
++	mutex_destroy(&optee->rpmi.shm_rht_lock);
++}
++
++/* Allocate and publish a parcel-to-SHM mapping. */
++static int optee_rpmi_shm_rht_add(struct optee *optee, struct tee_shm *shm,
++				  u32 parcel_id, u32 nonce)
++{
++	struct optee_rpmi_shm_rht_entry *entry;
++	int ret;
++
++	entry = kzalloc_obj(*entry);
++	if (!entry)
++		return -ENOMEM;
++
++	entry->shm = shm;
++	entry->key.parcel_id = parcel_id;
++	entry->key.nonce = nonce;
++
++	scoped_guard(mutex, &optee->rpmi.shm_rht_lock)
++		ret = rhashtable_lookup_insert_fast(&optee->rpmi.shm_rht,
++						    &entry->node,
++						    optee_rpmi_shm_rht_params);
++	if (ret)
++		kfree(entry);
++
++	return ret;
++}
++
++/* Remove and free a parcel-to-SHM mapping. */
++static int optee_rpmi_shm_rht_rm(struct optee *optee, u32 parcel_id, u32 nonce)
++{
++	struct optee_rpmi_shm_rht_entry *entry;
++	struct optee_rpmi_parcel_key key = {
++		.parcel_id = parcel_id,
++		.nonce = nonce,
++	};
++	int ret = -ENOENT;
++
++	scoped_guard(mutex, &optee->rpmi.shm_rht_lock) {
++		entry = rhashtable_lookup_fast(&optee->rpmi.shm_rht, &key,
++					       optee_rpmi_shm_rht_params);
++		if (entry)
++			ret = rhashtable_remove_fast(&optee->rpmi.shm_rht,
++						     &entry->node,
++						     optee_rpmi_shm_rht_params);
++	}
++
++	if (!ret)
++		kfree(entry);
++
++	return ret;
++}
++
++/* Return a raw pointer; the surrounding call or RPC owns the SHM lifetime. */
++static struct tee_shm *
++optee_rpmi_get_shm_for_parcel(struct optee *optee, u32 parcel_id, u32 nonce)
++{
++	struct optee_rpmi_shm_rht_entry *entry;
++	struct optee_rpmi_parcel_key key = {
++		.parcel_id = parcel_id,
++		.nonce = nonce,
++	};
++
++	guard(mutex)(&optee->rpmi.shm_rht_lock);
++	entry = rhashtable_lookup_fast(&optee->rpmi.shm_rht, &key,
++				       optee_rpmi_shm_rht_params);
++
++	return entry ? entry->shm : NULL;
++}
++
++/* Extract the parcel ID and nonce stored in the SHM identity. */
++static void optee_rpmi_shm_get_identity(const struct tee_shm *shm,
++					u32 *parcel_id, u32 *nonce)
++{
++	*parcel_id = lower_32_bits(shm->sec_world_id);
++	*nonce = upper_32_bits(shm->sec_world_id);
++}
++
++static int optee_rpmi_shm_register(struct tee_context *ctx, struct tee_shm *shm,
++				   struct page **pages, size_t num_pages,
++				   unsigned long start)
 +{
 +	struct optee *optee = tee_get_drvdata(ctx->teedev);
-+	struct optee_msg_arg *arg, *rpc_arg;
-+	struct optee_rpmi_call_req req;
-+	size_t arg_size, rpc_size, rpc_offset;
++	struct rpmi_tee_device *rdev = optee->rpmi.rdev;
++	struct rpmi_tee_mem_receiver receiver = {
++		.endpoint_id = rdev->endpoint_id,
++		.access = RPMI_TEE_MEM_ACCESS_READ | RPMI_TEE_MEM_ACCESS_WRITE,
++	};
++	struct rpmi_tee_mem_args args = {
++		.nonce = OPTEE_RPMI_SHM_NONCE,
++		.receivers = &receiver,
++		.receiver_count = 1,
++		.creator_access = RPMI_TEE_MEM_ACCESS_READ |
++				  RPMI_TEE_MEM_ACCESS_WRITE,
++	};
++	struct sg_table sgt;
++	int ret;
++
++	ret = optee_check_mem_type(start, num_pages);
++	if (ret)
++		return ret;
++
++	ret = sg_alloc_table_from_pages(&sgt, pages, num_pages, 0,
++					num_pages * PAGE_SIZE, GFP_KERNEL);
++	if (ret)
++		return ret;
++
++	args.sg = sgt.sgl;
++	ret = rdev->ops->mem_ops->memory_share(rdev, &args);
++	sg_free_table(&sgt);
++	if (ret)
++		return ret;
++
++	ret = optee_rpmi_shm_rht_add(optee, shm, args.parcel_id, args.nonce);
++	if (ret) {
++		int reclaim_ret;
++
++		reclaim_ret = rdev->ops->mem_ops->memory_reclaim(rdev, args.parcel_id);
++		if (reclaim_ret)
++			dev_err(&rdev->dev, "reclaim parcel %#x failed: %d\n",
++				args.parcel_id, reclaim_ret);
++		return ret;
++	}
++
++	shm->sec_world_id = ((u64)args.nonce << 32) | args.parcel_id;
++
++	return 0;
++}
++
++static int optee_rpmi_shm_unregister(struct tee_context *ctx,
++				     struct tee_shm *shm)
++{
++	struct optee *optee = tee_get_drvdata(ctx->teedev);
++	struct rpmi_tee_device *rdev = optee->rpmi.rdev;
++	struct optee_rpmi_unregister_req req;
++	struct optee_rpmi_status_resp resp;
 +	u32 parcel_id, nonce;
-+
-+	arg = tee_shm_get_va(shm, offs);
-+	if (IS_ERR(arg))
-+		return PTR_ERR(arg);
-+
-+	arg_size = OPTEE_MSG_GET_ARG_SIZE(arg->num_params);
-+	rpc_size = OPTEE_MSG_GET_ARG_SIZE(optee->rpc_param_count);
-+	rpc_offset = offs + arg_size;
-+	rpc_arg = tee_shm_get_va(shm, rpc_offset);
-+	if (IS_ERR(rpc_arg))
-+		return PTR_ERR(rpc_arg);
++	int ret;
 +
 +	optee_rpmi_shm_get_identity(shm, &parcel_id, &nonce);
++	optee_rpmi_shm_rht_rm(optee, parcel_id, nonce);
++	shm->sec_world_id = 0;
 +
-+	req.op = cpu_to_le32(OPTEE_RPMI_YIELDING_CALL_WITH_ARG);
++	req.op = cpu_to_le32(OPTEE_RPMI_UNREGISTER_SHM);
 +	req.parcel_id = cpu_to_le32(parcel_id);
 +	req.nonce = cpu_to_le32(nonce);
-+	req.arg_offset = cpu_to_le64((u64)shm->offset + offs);
-+	req.rpc_offset = cpu_to_le64((u64)shm->offset + rpc_offset);
-+	req.arg_size = cpu_to_le32(arg_size);
-+	req.rpc_size = cpu_to_le32(rpc_size);
++	ret = optee_rpmi_call(optee, &req, sizeof(req), &resp, sizeof(resp));
++	if (ret)
++		dev_err(&rdev->dev, "unregister parcel %#x failed: %d\n",
++			parcel_id, ret);
 +
-+	return optee_rpmi_yielding_call(ctx, &req, rpc_arg, system_thread);
++	ret = rdev->ops->mem_ops->memory_reclaim(rdev, parcel_id);
++	if (ret)
++		dev_err(&rdev->dev, "reclaim parcel %#x failed: %d\n",
++			parcel_id, ret);
++
++	return ret;
++}
++
++static int optee_rpmi_shm_unregister_supp(struct tee_context *ctx,
++					  struct tee_shm *shm)
++{
++	struct optee *optee = tee_get_drvdata(ctx->teedev);
++	struct rpmi_tee_device *rdev = optee->rpmi.rdev;
++	u32 parcel_id, nonce;
++	int ret;
++
++	optee_rpmi_shm_get_identity(shm, &parcel_id, &nonce);
++	optee_rpmi_shm_rht_rm(optee, parcel_id, nonce);
++	shm->sec_world_id = 0;
++	/* OP-TEE has already retired the parcel through SHM_FREE RPC. */
++	ret = rdev->ops->mem_ops->memory_reclaim(rdev, parcel_id);
++	if (ret)
++		dev_err(&rdev->dev, "reclaim parcel %#x failed: %d\n",
++			parcel_id, ret);
++
++	return ret;
++}
++
++/* Convert a memory reference to an OP-TEE RPMI parcel reference. */
++static int to_msg_param_rpmi_mem(struct optee_msg_param *mp,
++				 const struct tee_param *p)
++{
++	struct tee_shm *shm = p->u.memref.shm;
++
++	mp->attr = OPTEE_MSG_ATTR_TYPE_PMEM_INPUT + p->attr -
++		   TEE_IOCTL_PARAM_ATTR_TYPE_MEMREF_INPUT;
++	memset(&mp->u, 0, sizeof(mp->u));
++	/* For !shm, return parcel_id = 0 and nonce = 0 to represent NULL. */
++	if (shm) {
++		if (check_add_overflow((u64)shm->offset,
++				       (u64)p->u.memref.shm_offs,
++				       &mp->u.pmem.offs))
++			return -EINVAL;
++
++		optee_rpmi_shm_get_identity(shm, &mp->u.pmem.parcel_id,
++					    &mp->u.pmem.nonce);
++	}
++
++	mp->u.pmem.size = p->u.memref.size;
++
++	return 0;
++}
++
++static int optee_rpmi_to_msg_param(struct optee *optee,
++				   struct optee_msg_param *msg_params,
++				   size_t num_params,
++				   const struct tee_param *params)
++{
++	size_t n;
++
++	for (n = 0; n < num_params; n++) {
++		const struct tee_param *p = params + n;
++		struct optee_msg_param *mp = msg_params + n;
++		switch (p->attr) {
++		case TEE_IOCTL_PARAM_ATTR_TYPE_NONE:
++			mp->attr = OPTEE_MSG_ATTR_TYPE_NONE;
++			memset(&mp->u, 0, sizeof(mp->u));
++			break;
++		case TEE_IOCTL_PARAM_ATTR_TYPE_VALUE_INPUT:
++		case TEE_IOCTL_PARAM_ATTR_TYPE_VALUE_OUTPUT:
++		case TEE_IOCTL_PARAM_ATTR_TYPE_VALUE_INOUT:
++			optee_to_msg_param_value(mp, p);
++			break;
++		case TEE_IOCTL_PARAM_ATTR_TYPE_MEMREF_INPUT:
++		case TEE_IOCTL_PARAM_ATTR_TYPE_MEMREF_OUTPUT:
++		case TEE_IOCTL_PARAM_ATTR_TYPE_MEMREF_INOUT:
++			if (to_msg_param_rpmi_mem(mp, p))
++				return -EINVAL;
++			break;
++		default:
++			return -EINVAL;
++		}
++	}
++
++	return 0;
++}
++
++/* Convert an RPMI parcel reference to a memref; callers own SHM lifetime. */
++static int from_msg_param_rpmi_mem(struct optee *optee, struct tee_param *p,
++				   u32 attr, const struct optee_msg_param *mp)
++{
++	struct tee_shm *shm;
++	u64 offset;
++
++	p->attr = TEE_IOCTL_PARAM_ATTR_TYPE_MEMREF_INPUT + attr -
++		  OPTEE_MSG_ATTR_TYPE_PMEM_INPUT;
++
++	if (mp->u.pmem.size > SIZE_MAX)
++		return -EOVERFLOW;
++	p->u.memref.size = mp->u.pmem.size;
++
++	if (!mp->u.pmem.nonce) {
++		/* Return NULL shm. */
++		if (mp->u.pmem.offs || mp->u.pmem.parcel_id)
++			return -EINVAL;
++		p->u.memref.shm = NULL;
++		p->u.memref.shm_offs = 0;
++		return 0;
++	}
++
++	shm = optee_rpmi_get_shm_for_parcel(optee, mp->u.pmem.parcel_id,
++					    mp->u.pmem.nonce);
++	if (!shm || mp->u.pmem.offs < shm->offset)
++		return -EINVAL;
++
++	offset = mp->u.pmem.offs - shm->offset;
++	if (offset > SIZE_MAX)
++		return -EOVERFLOW;
++
++	p->u.memref.shm = shm;
++	p->u.memref.shm_offs = offset;
++
++	return 0;
++}
++
++static int optee_rpmi_from_msg_param(struct optee *optee,
++				     struct tee_param *params,
++				     size_t num_params,
++				     const struct optee_msg_param *msg_params)
++{
++	size_t n;
++
++	for (n = 0; n < num_params; n++) {
++		const struct optee_msg_param *mp = msg_params + n;
++		struct tee_param *p = params + n;
++		u32 attr = mp->attr & OPTEE_MSG_ATTR_TYPE_MASK;
++		int ret;
++
++		switch (attr) {
++		case OPTEE_MSG_ATTR_TYPE_NONE:
++			p->attr = TEE_IOCTL_PARAM_ATTR_TYPE_NONE;
++			memset(&p->u, 0, sizeof(p->u));
++			break;
++		case OPTEE_MSG_ATTR_TYPE_VALUE_INPUT:
++		case OPTEE_MSG_ATTR_TYPE_VALUE_OUTPUT:
++		case OPTEE_MSG_ATTR_TYPE_VALUE_INOUT:
++			optee_from_msg_param_value(p, attr, mp);
++			break;
++		case OPTEE_MSG_ATTR_TYPE_PMEM_INPUT:
++		case OPTEE_MSG_ATTR_TYPE_PMEM_OUTPUT:
++		case OPTEE_MSG_ATTR_TYPE_PMEM_INOUT:
++			ret = from_msg_param_rpmi_mem(optee, p, attr, mp);
++			if (ret)
++				return ret;
++			break;
++		default:
++			return -EINVAL;
++		}
++	}
++	return 0;
 +}
 
 -- 
