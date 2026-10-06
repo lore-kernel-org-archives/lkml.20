@@ -1,152 +1,74 @@
-Received: from fhigh-b4-smtp.messagingengine.com (fhigh-b4-smtp.messagingengine.com [202.12.124.155])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from rtits2.realtek.com.tw (rtits2.realtek.com [211.75.126.72])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 212AC481B1
-	for <linux-kernel@vger.kernel.org>; Tue,  6 Oct 2026 00:41:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.12.124.155
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E5E401A3172;
+	Tue,  6 Oct 2026 00:47:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=211.75.126.72
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791247302; cv=none; b=Ccqwf4r6L2Wi0gNV8tIKZCfuHrwevBSJ6sbugHRbEpe9xWBfJtx9IE8aL+kuZ3UR7r4pZLxAnEva3MMX+JFbZfWYwEDRXX6+WHDxk0g9Xksbsxb7hPqUObLG8zp2UMKmJH6vT0+q3O8HLRcgzfMvL66AYhUONu4cl6vXr3Hll4E=
+	t=1791247651; cv=none; b=bE3R7KY/VzpcUadoat17q11EVAmSV5fEvr5wWBF6/AtHTLfBsI7QC4RWEVMCju6R3NjDqi5kdI+tin2Pt0G38+nHlUUXQyTttyE3cFt37ZAisgipSaDCmL1kKA0Gu76LU0jO0s8MImYM/MIfPnRevwVXsmNfNxN84PBDM94fpiw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791247302; c=relaxed/simple;
-	bh=/JKKG9OWHsEXY2DgUq3Osook2NoOxoMNSVYoBMcJ0Us=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=PmaPM2YZZyyIxXK8DtRfhvMD2l4o+fvLuOHeMeLCh37wPG1J4UFzGg1lCkhsOhbEa3AIf5DDl1RMwHeTsVkLXf7S1wwWpPF/tzkqt84gXkAhCXzluliTR7RGYkZHV474eoQ9OZ3inoh0xX4pXa8GGvX7tnr3p3oOPT04AmgAxIk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=invisiblethingslab.com; spf=pass smtp.mailfrom=invisiblethingslab.com; dkim=pass (2048-bit key) header.d=invisiblethingslab.com header.i=@invisiblethingslab.com header.b=xHoS5FoX; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=aIMEQInV; arc=none smtp.client-ip=202.12.124.155
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=invisiblethingslab.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=invisiblethingslab.com
+	s=arc-20240116; t=1791247651; c=relaxed/simple;
+	bh=dixaRa9R2qQYCzjdHfCFPOmvH2DhXbAl10qtxCLIwQc=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:MIME-Version; b=cpSOeegRUsrfxYy06tl9mbttLcf89E+HvYFXDMyhrVbDs/knh8OmGsaKAQgjwqndrav4mtSDJkAkadV3a415wt7fpUDgUlikIgYU/lLHc4Ovcbl7Dr0KHxTUNJJNntuK5qGl28EEBYw7iSeKX53F5y3BaiPskzgd6Jq46u0XBI0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=realtek.com; spf=pass smtp.mailfrom=realtek.com; dkim=pass (2048-bit key) header.d=realtek.com header.i=@realtek.com header.b=BO4OMFuy; arc=none smtp.client-ip=211.75.126.72
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=realtek.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=realtek.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=invisiblethingslab.com header.i=@invisiblethingslab.com header.b="xHoS5FoX";
-	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="aIMEQInV"
-Received: from phl-compute-06.internal (phl-compute-06.internal [10.202.2.46])
-	by mailfhigh.stl.internal (Postfix) with ESMTP id 4FA817A0119
-	for <linux-kernel@vger.kernel.org>; Mon,  5 Oct 2026 20:41:40 -0400 (EDT)
-Received: from phl-frontend-03 ([10.202.2.162])
-  by phl-compute-06.internal (MEProxy); Mon, 05 Oct 2026 20:41:40 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	invisiblethingslab.com; h=cc:cc:content-transfer-encoding
-	:content-type:date:date:from:from:in-reply-to:message-id
-	:mime-version:reply-to:subject:subject:to:to; s=fm1; t=
-	1791247298; x=1791333698; bh=qUjwN6cVWimq4YGkDnD9OApHHc6tso2lhN6
-	DEzPEgHk=; b=xHoS5FoX4e3YYYobIQQN2o8oCyjJ4ojXWcayRZh1tPsjZ3VmzmW
-	i1GoceGKdzy67LzbU1C4bXEVODLYHIHSMZeCOc8ObW6EppXgqDX7QYOdHBKqNsGz
-	ku2wpqm8VsKAONnyOcQxrLoSDMM6glWfXCsQx6l6MLXEPpuDLA4PdTGuipsMseQG
-	+b9mVgWu36ZQxZXg3AlJX4ok9yCH1ehMoA7qtnUbm3UccrPLnNahtlBLR0Fc47Mk
-	uj+aOEFS7+JhdbmRDGZQQ3hPBfBjRWqM1CThv5CPfPRyn0Nr8ZxmLCADUpebUlaH
-	7XFybN1qHlbyUkmTRYKcDL0Sd0F+4Tgy1Yw==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:date:date:feedback-id:feedback-id:from:from
-	:in-reply-to:message-id:mime-version:reply-to:subject:subject:to
-	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=
-	1791247298; x=1791333698; bh=qUjwN6cVWimq4YGkDnD9OApHHc6tso2lhN6
-	DEzPEgHk=; b=aIMEQInVSQVHFj5VHejKIc/XmKqx+XqIAOqpT9+9kpk+q9w5i8B
-	XzBzexpF6wx9o9zBH9+PbhtLylzxQQjF2yajYI3G9cKsi8cmdkp56Jz0yYnGXe4P
-	4PWVlaETNc9MCjr0UJkiMdNF5n5FrlGXvi1CKC3Znz7Ev1bNa3KN+Kwq+NeKmY9M
-	MwkLnbLcOgBXg7avs65jKlTCIH83p0zw93XIF8pdH1UKXiNp8uaB2rj0YW+IYbMG
-	KJmjfkM4qGnyulzvLt/nErPEgoi6PFpMdJWBaU/+ugS7EJPdmTSQowSaAuK3YPEm
-	xwRJWV4Ubvy+cmIrEplfEOoJCrBqzaz4XlA==
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
-	repo=github.com/dkim2wg/interop; date=2026-10-04; sw=lmtpprox;
-	action=sign d=invisiblethingslab.com a=rsa-sha256;
-DKIM2-Signature: i=1; m=1; t=1791247298; d=invisiblethingslab.com;
-	mf=PHZhbEBpbnZpc2libGV0aGluZ3NsYWIuY29tPg==;
-	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
-	s=fm1:rsa-sha256:dEDu3KK3qxaBytUpBe32KTsJ9hXiY+V38SbRQYMM5Vy9Po/
-	O+sbhhwL79whwfu80vZIVAsCV+cjm7B5JBt06pmr/3T+qBNHjYZJCkFK012EIlTb
-	i8ZXfP94xOqlJU0ZEkFHHd4DbJIikI98wbo1bMU4PgOxcDJ5ID9hc+VPL0RAaB1C
-	ZAB6EJdGgO4OoUdjhepzEUdOEdWdP8bDMtCZKTgxjHV28lxESQJOqFH/HjzUZ0qr
-	KVKiD1lqA7ibIBIiiEQZlsaUcHDyjqHWlSZQPEXiQ5qihCfTBOldVDOA7N+Zs1Gj
-	FEQmS01w0A67S/sUOTyupoUiWgpdSxWq+bpIEpw==;
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
-	repo=github.com/dkim2wg/interop; date=2026-10-04; sw=lmtpprox;
-	action=mi-m=1; hc=9;
-	hn=cc,content-transfer-encoding,date,feedback-id,from,
-	message-id,mime-version,subject,to;
-Message-Instance: m=1; h=sha256:VXGmOAcHE+COIr+Ugk47dsMGRRfa4TSxLqKmM5gRJlg=:/JKKG9OWHsEXY2DgUq3Osook2NoOxoMNSVYoBMcJ0Us=;
-X-ME-Sender: <xms:wUPEakJPHm4tN2jJLC1tSYxAFsy_-9WFuBhcDardYcd-H2-q3Q8jSQ>
-    <xme:wUPEagiL1auyRq8Ray9OJ2T9uInjW3YEQs-rIVytXsWiOQjMnfG_r2KJqDTZdaIPF
-    mJG9uSIoZj6lP1coM71QHpLkxQ-ygDX6leJ-AMNSd9z6sVcbg>
-X-ME-Received: <xmr:wUPEapLz8GKfYXNweGhHuFJRluUtsiSQMhKtvEtJ8bTpJvvALHdVMRZu_serq6jCvQOvTSGjRIOvkdZ1D_e4xVxkbu4kaDijLn0Qn8L9Yj8XOi55JHmVY2TsK9__gA>
-X-ME-Proxy-Cause: dmFkZTEghPExglsMQAefHWpXnSoQaFUzwamSACfKtu18jVVn7YsaobEf1oB3Cblr20uVmj
-    Rbcy7X1THMQvdvnO+0a74l/r04m00V8rlcpN2nFCpsY8rtnwVOcT42yEhbNomVHAyzwQla
-    IZp8Tjnc7lGuUBZYF+2zK7/nex4iWmeJr3ZBkDYa6MxmN7gWHV2YZGrELddNoZdkxS250L
-    67TYwR6yXz0D4jgR8ukTX0AQlE5F3dpvSlLp2CXWCkvC1O68uR5blx6j7df6Q7fQyTtNK/
-    EWM6j/dSzW9HSzHIhdcnJiIvhwV6N5ZZKp3y49k9omvdX7jfwS/6m6QaVZ+lEmW/GuUBVj
-    Sh624997kl7RH+d0txrybDPHg6SV0VQQl+Zy3re6pgq/QMzlNMdscinCEEAgh2rtZR5zLE
-    0bd9YpfNdv1S2DL5jZ5meFAuxswrCBbBXA9ydQE22p6AUj6eForvyPmlVw5a3D84SKL9JC
-    Bk2TkhVG0oMYlrcc8Mj+AmQhq8xlhYt7rIRUn0FCk74lhJ9E4CCbMzEB/t790vM4FKmPSg
-    paohVATps/zukDW6/uj1+UnMnl8aplA/MuZeTB6BPKk2N2jASx2zXDOCXyn6MIiGvmU7dB
-    cWLTU0Ipzfci9cjJr4oW1BHugm+Z8WIYvDAO2WCRtzplfluM99i6YE2Jvztw
-X-ME-Proxy: <xmx:wUPEavj1OUl9MiHPGg9qoQio3sskCMnRZGTxVGX54Go7cdWwaNzbdg>
-    <xmx:wUPEan0qEb7KZXH6GgeViKeVXI4LdoHkXD0QxojTo94tx1z3zzCluQ>
-    <xmx:wUPEaliJHgY0tk844L-FAGA5OE6f-bOwKolwlrnGolGAZyZr_9CQjQ>
-    <xmx:wUPEao-PsItpWjuuazUdeqwaASS8819v9QjdbUrHubfORPQxHpb-Yg>
-    <xmx:wkPEauJ6_g0_uducp_PemI5u4-SVAKWM8Hv89N51XC6GU5Qxa3QrTxoB>
-Feedback-ID: i001e48d0:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Mon,
- 5 Oct 2026 20:41:34 -0400 (EDT)
-From: Val Packett <val@invisiblethingslab.com>
-To: David Airlie <airlied@redhat.com>,
-	Gerd Hoffmann <kraxel@redhat.com>,
-	Dmitry Osipenko <dmitry.osipenko@collabora.com>,
-	Gurchetan Singh <gurchetansingh@chromium.org>,
-	Chia-I Wu <olvaffe@gmail.com>,
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-	Maxime Ripard <mripard@kernel.org>,
-	Thomas Zimmermann <tzimmermann@suse.de>,
-	Simona Vetter <simona@ffwll.ch>,
-	Sergio Lopez <slp@redhat.com>
-Cc: Val Packett <val@invisiblethingslab.com>,
-	dri-devel@lists.freedesktop.org,
-	virtualization@lists.linux.dev,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH] drm/virtio: do not enforce blob_alignment in cross-domain contexts
-Date: Mon,  5 Oct 2026 21:34:09 -0300
-Message-ID: <20261006004044.2242154-1-val@invisiblethingslab.com>
-X-Mailer: git-send-email 2.55.0
+	dkim=pass (2048-bit key) header.d=realtek.com header.i=@realtek.com header.b="BO4OMFuy"
+X-SpamFilter-By: ArmorX SpamTrap 5.80 with qID 6960lEQI12408484, This message is accepted by code: ctloc85258
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=realtek.com; s=dkim;
+	t=1791247634; bh=dixaRa9R2qQYCzjdHfCFPOmvH2DhXbAl10qtxCLIwQc=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:MIME-Version;
+	b=BO4OMFuydIBw18L33KLjd1IcobEr+T2jYHEzwLjOdQlvIt/zoJoYBj/6g+zWhH8eO
+	 tt/yX7d7TR01ZEHr6+Lb5Vut4sKwuxvoWtZX/mwL7Mc6vMNwtfeu+gJG8cley37Nc4
+	 xw71yXXLGtTSgOCK1WF6/EyaU7tmM40+k4WSu0H/DDUj0bqjcTtwcNjYKx7ccy4QX5
+	 T6XKWr3FMVNkyRR982aNP+fGVYOjMCGEqQMFx1mgUTKH0VfHpPHr+GB54V+Tp8WKDK
+	 N97SPBW9+Q0YLQ3UEtbZimQJlIHzWiYEYB/+AaI9aJbzVLbtXmawJknJ58e0vn/bxR
+	 FA1DFLVMhTgAg==
+Received: from mail.realtek.com (rtkexhmbs03.realtek.com.tw[10.21.1.53])
+	by rtits2.realtek.com.tw (8.15.2/3.29/5.94) with ESMTPS id 6960lEQI12408484
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
+	Tue, 6 Oct 2026 08:47:14 +0800
+Received: from RTKEXHMBS06.realtek.com.tw (10.21.1.56) by
+ RTKEXHMBS03.realtek.com.tw (10.21.1.53) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.49; Tue, 6 Oct 2026 08:47:14 +0800
+Received: from RTKEXHMBS06.realtek.com.tw ([::1]) by
+ RTKEXHMBS06.realtek.com.tw ([fe80::b3cc:c263:b82d:e87c%10]) with mapi id
+ 15.02.2562.049; Tue, 6 Oct 2026 08:47:14 +0800
+From: Ping-Ke Shih <pkshih@realtek.com>
+To: Mehmet Fide <mehmet.fide@gmail.com>
+CC: Luka Gejak <luka.gejak@linux.dev>, Bitterblue Smith
+	<rtl8821cerfe2@gmail.com>, "linux-wireless@vger.kernel.org"
+	<linux-wireless@vger.kernel.org>, "linux-kernel@vger.kernel.org"
+	<linux-kernel@vger.kernel.org>, "mehmet.fide@screeningeagle.com"
+	<mehmet.fide@screeningeagle.com>
+Subject: RE: [PATCH rtw-next v3 0/2] wifi: rtw88: channel switch in AP mode
+Thread-Topic: [PATCH rtw-next v3 0/2] wifi: rtw88: channel switch in AP mode
+Thread-Index: AQHdVNZ4ts6N6Jh3bEeUdjVzehzxzLbvrnEA
+Date: Tue, 6 Oct 2026 00:47:14 +0000
+Message-ID: <b6c8d3f63f7e40fa8b515352cba19541@realtek.com>
+References: <20261005143313.129670-1-mehmet.fide@gmail.com>
+In-Reply-To: <20261005143313.129670-1-mehmet.fide@gmail.com>
+Accept-Language: en-US, zh-TW
+Content-Language: zh-TW
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-VIRTIO_GPU_F_BLOB_ALIGNMENT is designed for GPU rendering context types,
-however VIRTIO_GPU_CAPSET_CROSS_DOMAIN is not one of those. Resources
-created under cross-domain contexts are arbitrary shared system memory
-files, which includes unusual things like Wayland keymaps received
-from the host compositor. Do not enforce alignment requirements there.
+Mehmet Fide <mehmet.fide@gmail.com> wrote:
+> v3:
+> - 1/2: the beacon out-pointer is initialised in the caller (Luka)
 
-Fixes: 47248e0d8264 ("drm/virtio: honor blob_alignment requirements")
-Signed-off-by: Val Packett <val@invisiblethingslab.com>
----
+If you have something changed, you should not carry my acked-by.
+Or, point out the reason you can.=20
 
-That took its time to be discovered since devices didn't start offering
-blob_alignment until now e.g. https://github.com/libkrun/libkrun/pull/886
-
-It would also be fine to just revert 47248e0d8264 but I guess this way
-no one would question why "there's an alignment and we aren't enforcing it"..
-
-Thanks,
-~val
-
----
- drivers/gpu/drm/virtio/virtgpu_ioctl.c | 2 ++
- 1 file changed, 2 insertions(+)
-
-diff --git a/drivers/gpu/drm/virtio/virtgpu_ioctl.c b/drivers/gpu/drm/virtio/virtgpu_ioctl.c
-index 01a5f17cb22b..d493f04b9993 100644
---- a/drivers/gpu/drm/virtio/virtgpu_ioctl.c
-+++ b/drivers/gpu/drm/virtio/virtgpu_ioctl.c
-@@ -551,6 +551,8 @@ static int verify_blob(struct virtio_gpu_device *vgdev,
- 	params->blob_hints = rc_blob->blob_hints;
- 
- 	if (vgdev->has_blob_alignment &&
-+	    (vfpriv->context_init & VIRTIO_GPU_CONTEXT_INIT_CAPSET_ID_MASK) !=
-+	    VIRTIO_GPU_CAPSET_CROSS_DOMAIN &&
- 	    !IS_ALIGNED(params->size, vgdev->blob_alignment))
- 		return -EINVAL;
- 
--- 
-2.55.0
+Ping-Ke
 
