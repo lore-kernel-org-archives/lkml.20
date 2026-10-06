@@ -1,87 +1,60 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 037AB3C9EF6
-	for <linux-kernel@vger.kernel.org>; Tue,  6 Oct 2026 08:22:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A42F2374A0C;
+	Tue,  6 Oct 2026 08:25:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.156.1
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791274980; cv=none; b=ATb4Hh26IEcHeM2GNqXLdQwsrLQC5iLl3tN//t6IouK8wqr9Ywvtp4zjrBERyUj+7Om1eeGzYreZtmaQWMacoSG9XgjuKQFYYSb2R7jArfkRbstY9zSSgB3tr/3aA2BEhHrXH2WmSJGUgmpzsYedH4Ur3EV+hGdmT4iDzfCWqwA=
+	t=1791275104; cv=none; b=KntS79UgpYJ0ZsmtZDzR7rtYtW2SgNWDJ1yNyfVGo8gako4bNLJIZQ44AZIznSQie9MhvFVgM1DoME84Or2E9xZeIZwdRxrQ7PMJQ31c5Ps/feSFDTzAapljOeDXasjgrISkKeC1lH8FligcheFrHy9nzfG5sItS+fx/BFSqvdY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791274980; c=relaxed/simple;
-	bh=ZIjNAmXtHmu4yN5iNA/Dw9g2gQ4eUYJ4OJCKIskmRoY=;
+	s=arc-20240116; t=1791275104; c=relaxed/simple;
+	bh=uYflY0zTm4HHZEDfbPhb/Td3FHDbqL8HyVV2T8gizGY=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=J16wIQnTwLf2umiO4WJSi85mXEOD9I4cHUZ0K3Q9m39CpUvCzjteBfe9j5pTKk/7kXhUR223PwYOiTpS7sOAxBXYZqKoiSemGSF0X3drhhmkqnfbDLdWS+yF9XKFktndPQaFF3h6tH4hTfGCkTYuLeuxQpOe/ZPw2TwADt/emHk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=Xo7E3WU4; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=eauhiq8Q; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	 In-Reply-To:Content-Type; b=lnXEnz8nCGIFa9HV0LGpiPhz58rsfqsU+x0TgiiiqWsu9tz+dloO1V+8dmzKP1tHkJIhlqz0AOjlUG4hhhB6a0KuEFWx6DGFi5NecEKQr3ugIKXLnLkIaXhCMiPAZEtniypE89YDGaBLQ3EEhCwyxANw/R3+te72615kpsRuSdw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=iWLhMMJX; arc=none smtp.client-ip=148.163.156.1
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="Xo7E3WU4";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="eauhiq8Q"
-Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6966gs7v1046211
-	for <linux-kernel@vger.kernel.org>; Tue, 6 Oct 2026 08:22:58 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	V4CxaEk1X/vxfIRRtAsFl33lTcdSoULtVCTw5xYmesg=; b=Xo7E3WU4WuuuakRK
-	TICHn4V55wQUPUsbBQdIGvKeHmy5h7FTEB5Dt2PdD0rck0qgcRNXDEvfoZIFJC9h
-	eZ/H+1HuDlqquGC0lSQ3CFCW1N/NFrQYf83vFlJ8sSUTxenpLST76/oxbgJV0r6d
-	ijsejg1BYyYppDRbjTNNUa0NWGmMxe+iR9mP4/JSSlLoPgU95NkIM6sOZJYOEaN+
-	QSX3zePSgGzRfSBCMomIG0zx8Z+9zeICybuLoB658dB/f69dllA3qjFLRFwKl5RE
-	9lG4cmFaxHvKi2RHsGUPJwDep5TwM+tGyqZ7THR45N/xVHZlPi4+8kkgLEB1hrzq
-	HR2a7Q==
-Received: from mail-pj1-f69.google.com (mail-pj1-f69.google.com [209.85.216.69])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h4uy4gbev-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Tue, 06 Oct 2026 08:22:58 +0000 (GMT)
-Received: by mail-pj1-f69.google.com with SMTP id 98e67ed59e1d1-3a7ab1ca9f4so2369112a91.2
-        for <linux-kernel@vger.kernel.org>; Tue, 06 Oct 2026 01:22:58 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1791274977; x=1791879777; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=V4CxaEk1X/vxfIRRtAsFl33lTcdSoULtVCTw5xYmesg=;
-        b=eauhiq8QnQlmzl5zW4cdGzUvckz4AFS7WAPIrEe64Zsa0vKmsOxTuIS6D/q3+Y+eiu
-         yRnbKjqv9NVj+cCr0Blw2vF/VdcqP3M9yK+AVfmkG5e2NX1w6ACD23xvZAzOp5ENtgfm
-         TBAxSmUc7Vl9i5uXs7YsJ/2PMj25AcEpFneAIa06uIqZIYWYsTf2fjwaKCnRtQpJdOwa
-         rbZq3R0zprfbE/wthKGlZuYGflv3zReZLNy4sK8AlmsXG0H9CTe2GkE0Ffki34sM/8ct
-         0f0hj1C32dWikrm79dVC+C2l8e2doLFk2G3uhRgzI9yBaiKsG5gkgDjStrcYaI368kRM
-         VKmw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791274977; x=1791879777;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=V4CxaEk1X/vxfIRRtAsFl33lTcdSoULtVCTw5xYmesg=;
-        b=zaMnex12TEeB+GikW1OVBQiFMUUHuMBJtatm8mGK7q9/S589Di/B+XHyAyj34qh5eP
-         +8fRXYx8OCHf1dF7a5sINo/AIyHyvVf6N0ayRfR8FuavQh/t/xFAQXNTLX+kg4vTXQbe
-         H1GwceLUCoToRMVvDNpC+pV8oFFeZwxogMgOe58pZ0u4aVd5PCQuv8bWXi9bJyjEZrJ5
-         XVZZNykl+3RtEiJThLWSzR1mdJmUrhixirYOZPb+QcFXUjtAPioiVoLf7bXVmZP27QJt
-         YTp6modHWgtIJdQGMvsS6AAnPlKzML3mBXyswwretUgLsohXKO02uNpLTpjnHcyJCHqh
-         z0jQ==
-X-Forwarded-Encrypted: i=1; AKwUvBx5QkllFCoZADTa7egDOOYbWvBOEGmrnttBmgt8QvVpIo/rovt2RRHMe/ntNx/o6zhnDigd24VKg5ovNAo=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJEepNzHNdnxr+aPj5X32bBhdcxtWmx6AbPe54ZXXzfe6hTZ6Sw
-	RESRIVklvnjh10UKXmMMEYius+RoCTBoHON3vg+rTeqaD3Uci1lgm767NJwc22mwHDfPLeInpiB
-	9ZZCe11ReWOEZ3yZkajiDVjxRrVwc0SjbxK8cRxuezLOi5l3JXzNFj8X2ilIKGE0T/NQ=
-X-Gm-Gg: AYBFou3hLebr6hFErC/JmzUXzkDlEBOGl4sfhaisc0USzuvNgLMcyYY4L2+JGeDEbjM
-	PNO23+zWPJXs0BclSC8I5+Wg2ksvyfJG+PYotAEM1+QPY1Xe3VyLnfNJbPR7lA3ZbxmofkLRiCI
-	BOMP8iuvU+0xHaLnaiuGDFhwhpGAjKN8RHtFFSYmOoSJEXAT9syeuZukJCd+d3cAIgD1ZxcqVwV
-	er5g8xENxcXzchGtQ+Ef5H0GNmvWtoa/FhKsahP0uZUZfupe0lu3OvNt7elTtirhCWHcRQDMQ01
-	XRIpG3cRSO7yUjJto5iSuBLfN0PHgHlkSr3qiqKhnplBGDPLaWcQMFKWaoEoqt/HuO+zdkPlI3Q
-	vNywcZtWLBZL9hw0l/ph71Ps+xYsXUzsjHJJ2Gydk/lU+s44BcOm0lfDVxNO8rdKOo0qrHCO6
-X-Received: by 2002:a17:90b:3810:b0:3a5:25e:85fc with SMTP id 98e67ed59e1d1-3a873750b3cmr493695a91.63.1791274977368;
-        Tue, 06 Oct 2026 01:22:57 -0700 (PDT)
-X-Received: by 2002:a17:90b:3810:b0:3a5:25e:85fc with SMTP id 98e67ed59e1d1-3a873750b3cmr493674a91.63.1791274976695;
-        Tue, 06 Oct 2026 01:22:56 -0700 (PDT)
-Received: from [10.133.33.116] (tpe-colo-wan-fw-bordernet.qualcomm.com. [103.229.16.4])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a853c88aa7sm3667676a91.5.2026.10.06.01.22.52
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 06 Oct 2026 01:22:56 -0700 (PDT)
-Message-ID: <c2d93d95-e623-4910-8d92-b3e16738703c@oss.qualcomm.com>
-Date: Tue, 6 Oct 2026 16:22:49 +0800
+	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="iWLhMMJX"
+Received: from pps.filterd (m0360083.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6966bOt62992197;
+	Tue, 6 Oct 2026 08:24:56 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+	:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=pp1; bh=ZWD/WR
+	vhpCPJ/98ouav+E3pNAVjar6vP/Z7l6ZC3FV4=; b=iWLhMMJXV/+bPkyM6TWvfE
+	Vj95aiePodXchzA3caduOGBVtZLfPxAZeQfbIe3+fWN4RHRoxbYyONRDQjAhWhd0
+	gbkgLD8qlugs1raacWR8kLS8FxqdeA9FvQC1sPgZ1Jtsd2cy+GEmE10RxSEYQDFf
+	J67ueUFo/jlzFN2S0iaHYj+mzxUGrPI3Hx/pg1Fjxmn0aH753iHsBs/T20eyMT3N
+	Q7FWxO2Qr6T3XBSIbNzoPc1uDcycNPDORb+zP+IdcM117XVvPWvWTMdnEkL4DUn0
+	jm1s8TqVosyFvWcqZmMJVtCXpcfstjBAOuXEcfE+7evZwrxv4i41KSjY2brYLUcA
+	==
+Received: from ppma12.dal12v.mail.ibm.com (dc.9e.1632.ip4.static.sl-reverse.com [50.22.158.220])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4h2s74pxr8-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Tue, 06 Oct 2026 08:24:56 +0000 (GMT)
+Received: from pps.filterd (ppma12.dal12v.mail.ibm.com [127.0.0.1])
+	by ppma12.dal12v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 6966lYRR4106906;
+	Tue, 6 Oct 2026 08:24:55 GMT
+Received: from smtprelay07.wdc07v.mail.ibm.com ([172.16.1.74])
+	by ppma12.dal12v.mail.ibm.com (PPS) with ESMTPS id 4h3c1ps9c6-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Tue, 06 Oct 2026 08:24:55 +0000 (GMT)
+Received: from smtpav06.wdc07v.mail.ibm.com (smtpav06.wdc07v.mail.ibm.com [10.39.53.233])
+	by smtprelay07.wdc07v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 6968OtPQ26739440
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Tue, 6 Oct 2026 08:24:55 GMT
+Received: from smtpav06.wdc07v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 0419658060;
+	Tue,  6 Oct 2026 08:24:55 +0000 (GMT)
+Received: from smtpav06.wdc07v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 5B01858054;
+	Tue,  6 Oct 2026 08:24:53 +0000 (GMT)
+Received: from [9.224.94.162] (unknown [9.224.94.162])
+	by smtpav06.wdc07v.mail.ibm.com (Postfix) with ESMTP;
+	Tue,  6 Oct 2026 08:24:53 +0000 (GMT)
+Message-ID: <a5937a0d-7951-46ff-87cc-aa47c9478169@linux.ibm.com>
+Date: Tue, 6 Oct 2026 10:24:21 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -89,117 +62,73 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] cpufreq: schedutil: Serialize start against rate limit
- updates
-To: Hui Su <sh_def@163.com>, "Rafael J . Wysocki" <rafael@kernel.org>,
-        Viresh Kumar <viresh.kumar@linaro.org>
-Cc: Ingo Molnar <mingo@redhat.com>, Peter Zijlstra <peterz@infradead.org>,
-        Juri Lelli <juri.lelli@redhat.com>,
-        Vincent Guittot <vincent.guittot@linaro.org>,
-        Dietmar Eggemann <dietmar.eggemann@arm.com>,
-        Steven Rostedt <rostedt@goodmis.org>, Ben Segall <bsegall@google.com>,
-        Mel Gorman <mgorman@suse.de>, Valentin Schneider <vschneid@redhat.com>,
-        K Prateek Nayak <kprateek.nayak@amd.com>, linux-pm@vger.kernel.org,
-        linux-kernel@vger.kernel.org, zhongqiu.han@oss.qualcomm.com
-References: <20260929103635.3780346-1-sh_def@163.com>
+Subject: Re: [PATCH 0/2] kbuild: GCOV cleanups following the prefer-atomic fix
+To: Konstantin Khorenko <khorenko@virtuozzo.com>,
+        Nathan Chancellor <nathan@kernel.org>, Nicolas Schier <nsc@kernel.org>,
+        Andrew Morton <akpm@linux-foundation.org>
+Cc: Masahiro Yamada <masahiroy@kernel.org>, Arnd Bergmann <arnd@arndb.de>,
+        Mikhail Zaslonko <zaslonko@linux.ibm.com>,
+        linux-kbuild@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20261001-b4-prep-gcov-v1-0-794792e06f24@virtuozzo.com>
+From: Peter Oberparleiter <oberpar@linux.ibm.com>
 Content-Language: en-US
-From: Zhongqiu Han <zhongqiu.han@oss.qualcomm.com>
-In-Reply-To: <20260929103635.3780346-1-sh_def@163.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+In-Reply-To: <20261001-b4-prep-gcov-v1-0-794792e06f24@virtuozzo.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDA2MDAzMyBTYWx0ZWRfX9wz794a1si/E
- q2bTqSLsA857fKb1tEfNdGEkrqpkLIRHDvsbUzcLC2ry4OVsaCinSx6Gv02a8JP1dI0MzBEsp3Z
- 1tUG42mPdJMKccJSK2KVTyR0DSmm55ffGcHSBpA6dzfT1m723hXRvMl/WwxwEN3M5ZBT0Nm5ddp
- MOJCdpw10KhCr7OrzAqxZTwOelfwkcTsjHHgpCq0CU0JUhSdn/TDtxGHpWxv3X5Jc9vXFneB1g6
- WCBV9XUeHjVJ8rrEKCzfYSCBBmaxlzR1iEPhgwQnK7WBX9W1uZttbBRDkEZuJxW8JJBKi6X8fRs
- 7QVUUS6/8Qcly1PQlLUxo/uozmLCcgFQwjPANaW456ECdK8y4cKxvQk50i/nAjMgqZZFhsAlGR/
- etxz3e+jd7q5oTHIHUyhdNinZ83yuSuXQFvC7hMNMLRDAulESnzQC3Sr2/zAaR3D+9lQ1t631IY
- go58TrJuhBJmhet1/kQ==
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDA2MDAzMyBTYWx0ZWRfXxETXsfHGwA9i
- Imge5AOhbz6+VFQQYAY4Jd+4QPqROWc8hw3nPHkYSfJOGekM4EOk/BnSlpe0DUJsH3n0lzkJ8E8
- wCZph7T/gPtuG8tLRu5YTzw7gA+cCbI=
-X-Authority-Analysis: v=2.4 cv=F97C5ahN c=1 sm=1 tr=0 ts=6ac4afe2 cx=c_pps
- a=vVfyC5vLCtgYJKYeQD43oA==:117 a=nuhDOHQX5FNHPW3J6Bj6AA==:17
- a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=Um2Pa8k9VHT-vaBCBUpS:22
- a=Byx-y9mGAAAA:8 a=EUspDBNiAAAA:8 a=WbzL4V9Atknj4SyEsUoA:9 a=QEXdDO2ut3YA:10
- a=rl5im9kqc5Lf4LNbBjHf:22
-X-Proofpoint-ORIG-GUID: 7WmY_zQq1hFN7zhob38Suk6EzZkrj0MY
-X-Proofpoint-GUID: 7WmY_zQq1hFN7zhob38Suk6EzZkrj0MY
+X-TM-AS-GCONF: 00
+X-Proofpoint-ORIG-GUID: MBub8jOiPsl6_0RAkHolSTrdRE6GZlmT
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDA2MDAzMiBTYWx0ZWRfX7rHiK/Lp5EiA
+ iaiQDxyjDURWe+kb/K2wk2zmdcszIhu7AblsRLCKqlHhlAO8bz9l/g/k/l3Xq5Me665EQfABut2
+ XZmzKlWCaZOI2KIF2Bva6Njype8XF60=
+X-Proofpoint-GUID: MBub8jOiPsl6_0RAkHolSTrdRE6GZlmT
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDA2MDAzMiBTYWx0ZWRfX6ahQB7e7W3Oz
+ xTuKeLJxbMXT6qt/UqcArcy/7idWjw8LE0dvFhVNNAI18lDgIuycnumpFSRn+w1KyYoPZyQ4S0b
+ pU5Hk9LLdvlOtMvLKrBMmTjS6v6LKEKSeaaagOTOnEIq+6UQ03kwYyQg5pfnsCE2qwha6lDVvIm
+ sLVuqAzE1jAz2Ilc40/gYDymXYSQDmp14Ee2lQC0+R/LNPrHrMyLX+MLTg47L5QP/Oh9+h8QFm9
+ Pq7KV04FYhntqJ1Y7sqa5qmkhPpZVT0rt8FPYqre6VSHJzyHC3ijvFSt4yj2KhliBGdO/XjGCXb
+ rfqSPh00RnOjtVl833s29ZTmtO54cDX6cItO1txRT93saTfmsU4sH4GneYaetHAwES2y+zvYieK
+ G503kmHvVXZnh1L9E6UQaYiM9RCWFgL407KpAn8XdJoN+vXlQfBi5nFPhvHCfJdvb+TxM17RfOc
+ jC907F6Y+m1lAsTRGZQ==
+X-Authority-Analysis: v=2.4 cv=fM2sTpae c=1 sm=1 tr=0 ts=6ac4b058 cx=c_pps
+ a=bLidbwmWQ0KltjZqbj+ezA==:117 a=bLidbwmWQ0KltjZqbj+ezA==:17
+ a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=RnoormkPH1_aCDwRdu11:22 a=iQ6ETzBq9ecOQQE5vZCe:22 a=VwQbUJbxAAAA:8
+ a=VnNF1IyMAAAA:8 a=TYBLyS7eAAAA:8 a=7PMU586lhponhzwrbjQA:9 a=QEXdDO2ut3YA:10
+ a=zvYvwCWiE4KgVXXeO06c:22
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
  definitions=2026-10-06_02,2026-10-05_01,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- suspectscore=0 phishscore=0 clxscore=1015 impostorscore=0 malwarescore=0
- bulkscore=0 priorityscore=1501 lowpriorityscore=0 adultscore=0 spamscore=0
+ impostorscore=0 bulkscore=0 priorityscore=1501 spamscore=0 lowpriorityscore=0
+ phishscore=0 adultscore=0 malwarescore=0 clxscore=1011 suspectscore=0
  classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2610060033
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2610060032
 
-On 9/29/2026 6:36 PM, Hui Su wrote:
-> rate_limit_us_store() is called with the governor attribute set
-> update_lock held, but sugov_start() updates freq_update_delay_ns from
-> the same tunable without taking that lock.
+On 01.10.2026 18:57, Konstantin Khorenko wrote:
+> Two cleanups Peter Oberparleiter suggested while reviewing
+> commit 56cb9b7d96b2 ("gcov: use atomic counter updates to fix
+> concurrent access crashes"):
 > 
-> This allows the two paths to interleave as follows:
+> https://lore.kernel.org/e1b6e768-51af-468b-a729-0ed3fceef2f1@linux.ibm.com
 > 
->          sugov_start()             rate_limit_us_store()
+> Patch 1 makes the prefer-atomic try-run test reuse $(CFLAGS_GCOV)
+> instead of spelling the flags out again, so the test compiles with the
+> exact GCOV flags, -fno-tree-loop-im included.
 > 
->          read old rate_limit_us
->                                    write new rate_limit_us
->                                    publish the new delay
->          publish the old delay
+> Patch 2 moves the CFLAGS_GCOV block into scripts/Makefile.gcov,
+> included via include-$(CONFIG_GCOV_KERNEL) like the other
+> instrumentation makefiles. The try-run also stops running on builds
+> without GCOV.
 > 
-> The sysfs tunable then contains the new value while
-> freq_update_delay_ns contains the old one. Unlike a transient torn
-> read, the stale delay remains in effect until another rate limit update
-> or governor restart.
-> 
-> Serialize sugov_start() against sysfs stores by taking the existing
-> governor attribute set update_lock around sugov_update_rate_limit_us().
-> This keeps the fix off the scheduler hot path.
-> 
-> Fixes: 9bdcb44e391d ("cpufreq: schedutil: New governor based on scheduler utilization data")
+> Signed-off-by: Konstantin Khorenko <khorenko@virtuozzo.com>
 
-The Fixes tag is accurate, but the patch cannot be cleanly backported
-because the code has since been refactored.
+Looks great, thanks for following up on this!
 
-> Signed-off-by: Hui Su <sh_def@163.com>
+For both patches:
 
-Reviewed-by: Zhongqiu Han <zhongqiu.han@oss.qualcomm.com>
-
-> ---
-> kernel/sched/cpufreq_schedutil.c | 4 ++++
->   1 file changed, 4 insertions(+)
-> 
-> diff --git a/kernel/sched/cpufreq_schedutil.c b/kernel/sched/cpufreq_schedutil.c
-> index 49ccd6f1c185..e759f09be638 100644
-> --- a/kernel/sched/cpufreq_schedutil.c
-> +++ b/kernel/sched/cpufreq_schedutil.c
-> @@ -861,7 +861,11 @@ static int sugov_start(struct cpufreq_policy *policy)
->   	void (*uu)(struct update_util_data *data, u64 time, unsigned int flags);
->   	unsigned int cpu;
->   
-> +	/* Serialize against rate_limit_us_store(), which holds this lock. */
-> +	mutex_lock(&sg_policy->tunables->attr_set.update_lock);
-
-Nit: Better to wrap this in a helper, e.g.gov_attr_set_lock().
-
-Besides, When I started reviewing this patch, I initially considered
-removing the freq_update_delay_ns cache for a lockless design. However,
-since it is on a hot path, doing the multiplication every time could
-hurt performance.
-
->   	sugov_update_rate_limit_us(sg_policy);
-> +	mutex_unlock(&sg_policy->tunables->attr_set.update_lock);
-> +
->   	sg_policy->last_freq_update_time	= 0;
->   	sg_policy->next_freq			= 0;
->   	sg_policy->work_in_progress		= false;
-> 
-> base-commit: 63de2367f6d280904a9c5e5bbc7c75bb91c5b3d8
-> 
-
+Reviewed-by: Peter Oberparleiter <oberpar@linux.ibm.com>
+Tested-by: Peter Oberparleiter <oberpar@linux.ibm.com>
 
 -- 
-Thx and BRs,
-Zhongqiu Han
+Peter Oberparleiter
+Linux on IBM Z Development - IBM Germany R&D
