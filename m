@@ -1,72 +1,101 @@
-Received: from mail-oo1-f69.google.com (mail-oo1-f69.google.com [209.85.161.69])
+Received: from mail-wr1-f41.google.com (mail-wr1-f41.google.com [209.85.221.41])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3649430ACE3
-	for <linux-kernel@vger.kernel.org>; Tue,  6 Oct 2026 15:40:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.161.69
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0D19C49DBB6
+	for <linux-kernel@vger.kernel.org>; Tue,  6 Oct 2026 15:40:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.41
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791301206; cv=none; b=uRyxR2DbRbHEqFKx3rH93HhjJESeDSviFAjHR1yoxsAcTH5842cLJb6xEPLqIkK5X7vnBWqV/gLWAo37cDSK84yWE2PST84uhoGKDgKPWdHSmCOjVfVcDs5R3RcUdGe4drLUgJlfnCuzukRCzl9/CdD84/qd5cdQPCOlBSBFB/4=
+	t=1791301221; cv=none; b=U8SXHyGi2uAMhTt9i8dRnwY31VRFbtKE3WpPPiohMIeYgr78IV0aVZDgklI6z7Ucuph2ZOVk9XBfKksjflJP9fZTlecaZDipQHgOgtvZMw4D5dMQRcvz6h6C/LETAZStQC6KbgUbXFeUlU6zVGsxAmW44qjpS7ojpQhaFgEmjrg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791301206; c=relaxed/simple;
-	bh=r2AL6wjk3RwgrKLo6judA9PLvSprPDm35T5iWmiEjhQ=;
-	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:
-	 Content-Type; b=BfJaz0z74ngjKRQ78hKgp8emeiyjzZaIQyFFSUpDl8bfxfjkH5XKg/4dB5MM8z82cH448hjWArTJ6kDjpF1fcM1d6dG+DnC0p8Ki3y6/XEg/M9IvbzmwVaKfMUnfXPztgZpI4ZgpKMdJFJFYbBqBL5Wze4eLvL21h0+eVoIlVQg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.161.69
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oo1-f69.google.com with SMTP id 006d021491bc7-6df64724e48so1984705eaf.2
-        for <linux-kernel@vger.kernel.org>; Tue, 06 Oct 2026 08:40:03 -0700 (PDT)
+	s=arc-20240116; t=1791301221; c=relaxed/simple;
+	bh=REHjVogXIa6GL1Vv2G0GiJeIjII4qa/ZkiuDbr4SalE=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=D8p0owb4SCYPL2fCZSGrdElDuFGFuWK78rFQ2DtL3UZ5yrhX9RXeZnIIosgiLNCbBew0iLLvT8ClIidveBm1Z88cga2oOogoa6TDYRfx4fvdduFktJHDGU+qMtOxrUom3DARLbkjNkdr7zatIRjDzwn5ikUbX+pq4pOCjogeWQ4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=sIpgrC6N; arc=none smtp.client-ip=209.85.221.41
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="sIpgrC6N"
+Received: by mail-wr1-f41.google.com with SMTP id ffacd0b85a97d-48b9d8055dfso2531575f8f.3
+        for <linux-kernel@vger.kernel.org>; Tue, 06 Oct 2026 08:40:16 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791301214; x=1791906014; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=m1zrwm7WEKGaGG+VaSydSHUeojXXWf2d+Tt9lDJlBnw=;
+        b=sIpgrC6N/AHXodolYCeuBOSaYuVjg7/lsNrbiLq1K58Lu0cpcJNgDs6xdOLdJLrNiO
+         IDNE6OI5M3aZ5EZQf788GYDWH7ixuRbaGtTwaapXdXHfQQaNpFGsWxiJMZfqv2edOx4s
+         OUNvROQyN40Dj4k8brWPIQztbho6tUrG3GvXkmtQb+UHXevKPV10q1/GRUyVY8enfW+S
+         785o6xRUFpMJ2sTRiN79uXKwcSQ707tBhwhPcYT/gVr7Z3pbClXTYTBzbgoG4ctSRYZU
+         8ZvVGs5xuGrEVc8mRh4JhTQjZO9l+E4VxGCqbqL3o2zyzdXRRgKFzdUZTrO0/tDAPpWi
+         MGPw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791301203; x=1791906003;
-        h=content-type:to:from:subject:message-id:in-reply-to:date
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=GPNJ9FOaWXVJFCFEMBWWao3of9jOMjQwFlM3DIqtHEU=;
-        b=gnh6hWdaixwxijqckSl48zOApOzND2j+7wMy5xFyw+shBWe2vOOjchL5lq8hX6gfPz
-         4Oc2cl45U7y83CE8mr/YSlBZhLaiPlT8PMdhywA/zMIqUpZ0gGduWxclmeuzAF5xrbCz
-         KNvTYMwjqe0cAlKjc25a5mJ1XnyDeWr/SR1lFzXWriCEUksc5gLWvidHjmuvEfA1DuaK
-         pHeNneUai5zqd/BWCg/MJeLjw/PcBXUxRQqRyba+6ugJxEPF+3C4hZhyOEHb11M74t1I
-         ZjE0QoblZigbYKH37fykVxr3U4PXQ3xT//2pEpFGM789QShwe7pei6voHrfiYFag0Nvf
-         Pj1w==
-X-Forwarded-Encrypted: i=1; AKwUvBw5c+p8DpAWOh2OgJUVoQ00RbEO6VqEHBWHY6jwRo31Xi0MEU3X6sNhmp+4pEAU8fikCOhL4qCU5ZP9AXM=@vger.kernel.org
-X-Gm-Message-State: AFuF++kgvGvt2d2vCu1DKUfJ2fr8FaXyRUnce2UGk39iwNs8Gn0wZ6MZ
-	Obb4hQ7ds0z+caMGgg7YNqKB88RW4nQYWfUUXQWcONA/hhKgt2uUH6qxq/JttPKQhojNEVlvq5e
-	tRtBgXlZyHQyt4yBcHs6cF6pEOLfh70TuydGfghiby4w83xNSrOVXIVmy4Po=
+        d=1e100.net; s=20260707; t=1791301214; x=1791906014;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=m1zrwm7WEKGaGG+VaSydSHUeojXXWf2d+Tt9lDJlBnw=;
+        b=q2TqaeEu3X1/CMajDGPuFrMjhse6qqwcQ6rohb1VruvVEq8vypOcVV7Dlmg89N0Mul
+         vs7ZbzaKvPfr4jQ/nTkj8tkOVBwT5XTVjnEGnXNlmMmlRLvLRwGlnZGJHY9svatYD2Yl
+         zqbgRr924Cli+ni9yEVWN9gvNHP5RJfUEWVwRSVIijbgUXIyk40I1174RzPrbBfdobvY
+         wY2yFgxZheUb8EHpiAjfA0IJclUHXaAy4+nq1v+ucNeHUEopHdXYy8ALlnEu12p9W6qM
+         kQFXXFLDcywbvsB0lfxishhsiPZBlIXaa9hVkciCWZKyw5rM5oeef2hkp7htM4bIm3oA
+         46ng==
+X-Forwarded-Encrypted: i=1; AKwUvByB9xn1ErGR4TmPKMoUZmoiuHj9AfArDp0/HfMZcyp28huhPwjHfqSGIBotiIFYrUZIM5v2KWhuW/WeEX0=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKwCMCoSuSSJl7H4OnPDXImO2lZ3QxvfSKE2fcHMzJyyX4PPmkb
+	Ymdana088MUGPyXGRAdL2UOHYQmMa6gIEYXYifD6p7hUJScupIClHPV2
+X-Gm-Gg: AYBFou2uMYCfgBehDfAFLguXfzYwYFkgZYjbViWv2ZxPNfa4v3fZWvlEAWtsl1FdY/x
+	7y6JraCeePjrne8TKchDWtqNyQVDyp/QTOXoeXky6fmBgVir/Rbw3Zmx0RXd3pDxEiC+88yxDj6
+	PIM0U1qA+0SNI4B20pubuSA3iVPKhQUR/9KonQR59VxmAQnW2ZnqnzcN0rFItH5NL2125V+RIPD
+	CyKd+1Wrot33FxufOdKRgGSAVtVD7tVbsohrRLW4XeZ0rBWkehRYe2lPDbU0GohnTlqAir3Qc6F
+	OVqzrUFh53cJjjzjOpt+6y5htkO3kCuJUAGBmvb8MT/mC2YVt7rUKES58VFZIS1FzALc2p93rJw
+	5QXyqWXb4KVlCJG/Z2TsWxfCSEyg7WRecUwEmFMt7+PuVVsMjBRy4oQSDyJxCkAGxTphHNpyiTg
+	m1lJyPwrmJraDq0BYBC4eQTb7PvpReD3/hZF2mJD7CNquWvCI5PJm/Cd/Zzh8gDNfT/xT7wgHSG
+	AThiZMLxz5z1yZrF6U=
+X-Received: by 2002:a05:6000:4b1b:b0:488:8ab9:f73e with SMTP id ffacd0b85a97d-48c47ff6561mr18053798f8f.24.1791301214146;
+        Tue, 06 Oct 2026 08:40:14 -0700 (PDT)
+Received: from fedora.domain.name ([217.218.153.210])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48c71d1fec3sm293660f8f.37.2026.10.06.08.40.11
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 06 Oct 2026 08:40:13 -0700 (PDT)
+From: Muhammad Mahdi Amirpour <ampr.mhd@gmail.com>
+To: Christian Brauner <brauner@kernel.org>
+Cc: "Darrick J . Wong" <djwong@kernel.org>,
+	linux-xfs@vger.kernel.org,
+	linux-fsdevel@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Muhammad Mahdi Amirpour <ampr.mhd@gmail.com>
+Subject: [PATCH] fs/iomap: document ret parameter of iomap_iter_continue
+Date: Tue,  6 Oct 2026 19:10:05 +0330
+Message-ID: <20261006154005.232338-1-ampr.mhd@gmail.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Received: by 2002:a05:6820:60b:b0:6e2:a665:4eaa with SMTP id
- 006d021491bc7-6e55356a271mr1461067eaf.27.1791301202967; Tue, 06 Oct 2026
- 08:40:02 -0700 (PDT)
-Date: Tue, 06 Oct 2026 08:40:02 -0700
-In-Reply-To: <20261006103451.5210-2-jakovnovak30@gmail.com>
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6ac51652.9ad129c8.3ce5b3.0003.GAE@google.com>
-Subject: Re: [syzbot] [media?] [usb?] WARNING in smsusb_term_device (2)
-From: syzbot <syzbot+d627b1495de0e851be32@syzkaller.appspotmail.com>
-To: jakovnovak30@gmail.com, linux-kernel@vger.kernel.org, 
-	syzkaller-bugs@googlegroups.com
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 
-Hello,
+Document the ret parameter of iomap_iter_continue to avoid a
+kernel-doc warning.
 
-syzbot has tested the proposed patch and the reproducer did not trigger any issue:
+Signed-off-by: Muhammad Mahdi Amirpour <ampr.mhd@gmail.com>
+---
+ fs/iomap/iter.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-Reported-by: syzbot+d627b1495de0e851be32@syzkaller.appspotmail.com
-Tested-by: syzbot+d627b1495de0e851be32@syzkaller.appspotmail.com
+diff --git a/fs/iomap/iter.c b/fs/iomap/iter.c
+index c445a38b6..fd8791c49 100644
+--- a/fs/iomap/iter.c
++++ b/fs/iomap/iter.c
+@@ -51,6 +51,7 @@ static inline void iomap_iter_done(struct iomap_iter *iter)
+  * @iter: iteration structure
+  * @iomap: the mapping that was just processed
+  * @srcmap: the source mapping that was just processed
++ * @ret: return value from the previous mapping's ->end() callback
+  *
+  * Helper normally called via iomap_iter_next(). Called after the previous
+  * mapping has been finished to determine whether there is more of the file
+-- 
+2.55.0
 
-Tested on:
-
-commit:         22430ae5 Merge tag 'printk-for-7.3-rc7' of git://git.k..
-git tree:       upstream
-console output: https://syzkaller.appspot.com/x/log.txt?x=1080eff5580000
-kernel config:  https://syzkaller.appspot.com/x/.config?x=341a98f91c13ec9
-dashboard link: https://syzkaller.appspot.com/bug?extid=d627b1495de0e851be32
-compiler:       Debian clang version 22.1.8 (++20260613092233+e80beda6e255-1~exp1~20260613092250.77), Debian LLD 22.1.8
-patch:          https://syzkaller.appspot.com/x/patch.diff?x=10b36f25580000
-
-Note: testing is done by a robot and is best-effort only.
