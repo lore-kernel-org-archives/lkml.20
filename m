@@ -1,333 +1,274 @@
-Received: from mail-pj1-f50.google.com (mail-pj1-f50.google.com [209.85.216.50])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DD5E74570F9
-	for <linux-kernel@vger.kernel.org>; Tue,  6 Oct 2026 13:17:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.50
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 82EA43E5594;
+	Tue,  6 Oct 2026 13:18:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791292668; cv=none; b=fUFCSdCDnEY6DigKjY+SntjybCIBViX1UG+ekYza8LEClWWb7+up+Bw4qTAVuy+KUN7IdPrewWFg9OZBEs1tVqFcIbNbM/QZZEsJ3R3FOAsUhWjx4V1GO+zqELBptBnE9UurdyVhJ+Nq4ogI10uFONwrhTWgsNFDZfo3g2q4Y4E=
+	t=1791292696; cv=none; b=SzRaiJNrLN+2AsDKmRMVygMSeF/MvRzjYxFeX35KljOIFzzI9ErHvcY5ozDPiPgd7aqPzqf43G4lBERXb6J2v6RV6MR4/v+wZqDvP1uLoKPUxYydLMErqRh0gGEPmsCFiwk2Ag1IPRudIhgPJ/bbzSDMVGwuJ6MKQuErYppZliE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791292668; c=relaxed/simple;
-	bh=5MBdw2qFdXU/rSttiuzhfhM4WM65xuOHSkPq1R9UjCw=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type:Content-Disposition; b=MU7KSLLRtVatfaR2R6/G55TFaRJSIwEI+79XUr4GRocfaueR43mpA3exxORoYYFUOIF+R4n05VEV8OBB0wp5m0GtJCBYsriDVvWz4hBzR3xL1coLv2ooU4a9V9f8Lkoj5hoO4e0NIvcP0TXZACMYeTb4l/H6FLrQ0Yx1+YM5sH8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=oYyn2PWL; arc=none smtp.client-ip=209.85.216.50
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1791292696; c=relaxed/simple;
+	bh=Q6hr1e//NWP3w9MThugtcJDfN/0Qb8J9ZQvzVy5bgLo=;
+	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=XWbxghj3mC882P7KMEvIAieEPvAg6nqpgasM5F3dbfRVnrS/+AQ/p2MIBrrQ3uATvgZ8k7h2NGtP03b4hBBeK3tHQfLIa96SBGV3+uEUKdQAT36a7zRdzlZ6cWqwMg/mEILrfStg8TOkS1+G+BqqgHh//1uhDgWwocFSckyDcco=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LJGjF317; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="oYyn2PWL"
-Received: by mail-pj1-f50.google.com with SMTP id 98e67ed59e1d1-38e42560ebcso1600523a91.1
-        for <linux-kernel@vger.kernel.org>; Tue, 06 Oct 2026 06:17:46 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791292666; x=1791897466; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-disposition:content-type
-         :mime-version:mail-followup-to:references:in-reply-to:message-id
-         :date:subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=HwSVzV9/NQkclbEISh7Vv0SoPGQums46C1TZ0hc0x8M=;
-        b=oYyn2PWLi2mG/Gxb/Z3PxStp1xK7fKjq75LjD0UtUw0vg/cDMgLyIvQ0/NbAZ+WpsQ
-         n+7kS3KzxL35UIB3H0tVGy+pzjW1wj+v7HgUlT/EAZvKdt7bpFrfTREfvObtw90e65/7
-         8QD2RXP4/3XDxWpzsO19sP1fFtXP8lq5AW/+H2JKLcNlRYA2Jh97aCMhnttXHVuaYbIH
-         6LJsDsCUMhY4bjJChTI3XvjaCmJmqE2lR8F+TEtUyLHKK+D52SzReGySh2r3pniQwWTj
-         vsQRpaZyKMf17zYp6IggRZC+qiie+OUX6qUIaO5Dh6jtFiFSZNDr0S5PiOHpNfbVXPpi
-         Z33Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791292666; x=1791897466;
-        h=content-transfer-encoding:content-disposition:content-type
-         :mime-version:mail-followup-to:references:in-reply-to:message-id
-         :date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=HwSVzV9/NQkclbEISh7Vv0SoPGQums46C1TZ0hc0x8M=;
-        b=xFTytbZdUEK2b5ecOCUWTKUJ82oGaCaFI12V6sZFjgqlvifGAD25B7mK2hAU7wrton
-         GclYhRY1XMaSSUz3bmDnCL6vWnJFd7kkR019U05ZwMMqz6N7baOwmRk6e+gk79Geig32
-         LYWYazNrUeHJnZ4HDfF/EgM8Gmdj+01NgrspzkbcjbqVeONfcLuIaO7vmU15mulzZYoV
-         gGnwLay8FaTV3AX0K0feUML4D2NMI0VD7ds9XLzxX9OiXtQRRp+WuLRRgR5oX3mqqFyw
-         RTJT8HXMcznfbiYsQJPsyzSrPK5BHqpANfcUHsYotDGEdvCZPzr4z0UYbqZz5Hg4N3KP
-         UxQQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxtI7BxsdS+u9flr//ULI2Qw0DGq0hiMjH07JWGvEHGLbaKmoWbsTWKnkL9abdMxMFywcgmXV15xbnsLKc=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIG8djffoOmkRPZFqDACybKHNWaNwgicC9NwXh2ISl9nGZ/LI0N
-	iEuKJAMB7ABwU3GdcaalQ4Rp5ioIv7p2LuL5wjAUz3vyhasRoAOy0fLA
-X-Gm-Gg: AYBFou2CNihhQPPqNF8RfRXdIdIE8P8xDZN/ja0FSWH/qaDK94LmPhfQIcqBwVLNqCr
-	LfiMuWgKWalYY99Rern6Kvn8fFO+8F115UsNwgNq8hJ7+9S+MyF+LivUqcNF1WGYolHC8LA7tdj
-	fLeThXNoAP3oCvrbqvIg5v5FELcIW7wVi3T6ibiLqepwCILFiIEUOnP//4Yw5GjT2gM8dZJl1W/
-	MvGo/h6z/KOoDc9C8/tesR1S326537Bdw12igNWHSOtYRZLBDSvaeGUa5sHcqT9ewwUvgWfXujf
-	sTYIPN1aPc1wbLncfOxHp7d90DkTaPrlzRzAzISEFxPB0MQtHFiHV9l/sMyi5MklR8IjCvqfLiW
-	dnE/B4G6a81AOyAsBbB16ir42O1rG3UHQFh5s86nd+oHrYYzOEuzFqVdl6AqMD1sivjFSe9YGTq
-	XyDnaI12rA7R65BwAhjC2Rbyd+/6NPAEOqgeCpq6jQFhyUxqsdSAK+B4Lus32q38SDUdX2Yaa5A
-	jnsNdnDwA==
-X-Received: by 2002:a17:90b:388b:b0:3a0:903b:f253 with SMTP id 98e67ed59e1d1-3a78717daaemr9010866a91.18.1791292665848;
-        Tue, 06 Oct 2026 06:17:45 -0700 (PDT)
-Received: from localhost.localdomain ([8.139.245.4])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a853e66d7fsm4892810a91.5.2026.10.06.06.17.41
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 06 Oct 2026 06:17:45 -0700 (PDT)
-From: Cunlong Li <shenxiaogll@gmail.com>
-To: Joel Fernandes <joelagnelf@nvidia.com>
-Cc: Jonathan Corbet <corbet@lwn.net>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Randy Dunlap <rdunlap@infradead.org>,
-	"Paul E. McKenney" <paulmck@kernel.org>,
-	Frederic Weisbecker <frederic@kernel.org>,
-	Neeraj Upadhyay <neeraj.upadhyay@kernel.org>,
-	Josh Triplett <josh@joshtriplett.org>,
-	Boqun Feng <boqun@kernel.org>,
-	Uladzislau Rezki <urezki@gmail.com>,
-	Steven Rostedt <rostedt@goodmis.org>,
-	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
-	Lai Jiangshan <jiangshanlai@gmail.com>,
-	Zqiang <qiang.zhang@linux.dev>,
-	"linux-doc@vger.kernel.org" <linux-doc@vger.kernel.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
-	"rcu@vger.kernel.org" <rcu@vger.kernel.org>
-Subject: Re: [PATCH] rcu: Enable runtime reset of the RCU stall panic count
-Date: Tue,  6 Oct 2026 21:17:37 +0800
-Message-ID: <asT08QHOiIJrfIIZ@63b45mr6s164qmn>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <A522703D-CBCE-4F3A-9CA2-968BA382166C@nvidia.com>
-References: <20261004-rcu-v1-1-3799a44367f1@gmail.com> <00F6D386-FE41-42E3-9B89-07381A49E061@nvidia.com> <asThhHxoFP2L25Nc@63b45mr6s164qmn> <A522703D-CBCE-4F3A-9CA2-968BA382166C@nvidia.com>
-Mail-Followup-To: Cunlong Li <shenxiaogll@gmail.com>, Joel Fernandes <joelagnelf@nvidia.com>, Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>, Randy Dunlap <rdunlap@infradead.org>, "Paul E. McKenney" <paulmck@kernel.org>, Frederic Weisbecker <frederic@kernel.org>, Neeraj Upadhyay <neeraj.upadhyay@kernel.org>, Josh Triplett <josh@joshtriplett.org>, Boqun Feng <boqun@kernel.org>, Uladzislau Rezki <urezki@gmail.com>, Steven Rostedt <rostedt@goodmis.org>, Mathieu Desnoyers <mathieu.desnoyers@efficios.com>, Lai Jiangshan <jiangshanlai@gmail.com>, Zqiang <qiang.zhang@linux.dev>, "linux-doc@vger.kernel.org" <linux-doc@vger.kernel.org>, "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, "rcu@vger.kernel.org" <rcu@vger.kernel.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LJGjF317"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 635E41F00893;
+	Tue,  6 Oct 2026 13:18:14 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791292695;
+	bh=CQWkEbyFeoypLgC86ETxzKIKgUjEbxY7Sx+JR0+C0oQ=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=LJGjF317k7V3P6G9GplpyL92/8Yh5NVHAvmwHiShqwcJnbSgL9Zo1AcWkxT+C45CH
+	 zVppVIv7hLKBscwcjrlYdKn18pzizZ2fof7AzTDPz3OvHYlYXFnddprKUNx1a62/Th
+	 ipbou2J36b4KHjKsd7G4HCgJ1+H423MLKC2Ac94h1GfPvPGyO9OdOGZfqPBs2J70OG
+	 nn8hFsR8rxAtWPzLDL6VL5PcOtJ69gg8yqj2on5B9MiV+v6J97t8o02R4fsJe6zoAu
+	 aHwI7CAsQjsZDe1b4ijautavlG8wD9cXYvqsSH2GOTiTrgW1V1T7I6hCDbyoHsL5aC
+	 rtCz0eVNyF3ZA==
+Subject: Re: [PATCH net v3 1/2] eth: fbnic: Preserve channels across resume
+From: netdev-bot+sashiko@kernel.org
+To: bjorn@kernel.org
+Cc: alexanderduyck@fb.com, kuba@kernel.org, kernel-team@meta.com,
+ andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@kernel.org,
+ pabeni@redhat.com, linux@armlinux.org.uk, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org, mike.marciniszyn@gmail.com,
+ almasrymina@google.com, netdev-bot+sashiko@kernel.org
+Date: Tue, 06 Oct 2026 13:18:13 +0000
+Message-ID: <179129269393.434549.14053731707723183539@kernel.org>
+In-Reply-To: <20261002125617.409447-2-bjorn@kernel.org>
+References: <20261002125617.409447-2-bjorn@kernel.org>
+X-sashiko-severity: High
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
 
-Hi Joel,
+Thank you for your contribution! Sashiko AI review found 2 potential
+issue(s) to consider.
 
-Thanks for the quick reply!
+Critical: 0 · High: 2 · Medium: 0 (2) · Low: 0
 
-On Tue, Oct 06, 2026 at 12:39:17PM +0000, Joel Fernandes wrote:
-> 
-> 
-> > On Oct 6, 2026, at 7:55 AM, Cunlong Li <shenxiaogll@gmail.com> wrote:
-> > 
-> > ﻿Hi Joel, thanks for the review!
-> > 
-> >> On Mon, Oct 05, 2026 at 12:56:30PM +0000, Joel Fernandes wrote:
-> >> 
-> >> 
-> >>>> On Oct 3, 2026, at 9:14 PM, Cunlong Li <shenxiaogll@gmail.com> wrote:
-> >>> 
-> >>> ﻿The kernel.panic_on_rcu_stall and kernel.max_rcu_stall_to_panic sysctls
-> >>> count RCU CPU stalls since system boot, and invoke panic() once
-> >>> max_rcu_stall_to_panic stalls have elapsed.  This count is never reset,
-> >>> so stalls caused by transient incidents keep consuming the budget of a
-> >>> long-running system, and a later unrelated stall can
-> >> 
-> >> Please provide examples of specific transient events you ran into, and recovered from?
-> >> 
-> >>> immediately
-> >>> trigger panic() instead of allowing the intended fresh window of
-> >>> stalls.
-> >>> 
-> >>> This commit therefore introduces the kernel.rcu_stall_panic_count
-> >>> sysctl.  Reading this file reports the number of stalls counted so far,
-> >>> and writing 0 to it resets the count.  This allows the cumulative stall
-> >>> history to be cleared after an incident has been resolved, and also
-> >>> allows userspace to clear the count periodically, so that panic() is
-> >>> only triggered by a burst of stalls occurring within a short period.
-> >> 
-> >> Could you provide details of such an incident that got resolved without requiring a reboot?
-> > 
-> > The motivation comes from our customer systems running codex on Ubuntu
-> > 24.04, with a memory limit of ~8G and zram enabled for swap.  When the
-> > agent's memory footprint grows, the box spends long stretches in direct
-> > reclaim (zram makes reclaim CPU-heavy), and we get a continuous stream
-> > of RCU stall warnings.  In the incidents we have seen so far, the
-> > warnings kept coming and the systems stayed hung, so we would like to
-> > enable panic_on_rcu_stall so that the box reboots and the service
-> > recovers automatically.  However, we do not actually know whether some
-> > of those stalls were transient, i.e. whether the systems would have
-> > recovered on their own once the memory pressure subsided.  If they
-> > were, a panic would kill an otherwise recoverable system, which is
-> > what we would like to avoid.
-> 
-> Wait, so does that not mean that if the stalls were legitimately non transient, you prevent killing the system too?
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
 
-All the incidents we have seen so far appeared to be non-transient:
-in one case a VM stayed hung for over 30 hours with repeated RCU stall
-warnings on the console, and was finally recovered only by a forced
-reset.  This is precisely why we want panic_on_rcu_stall, and the
-reset does not stand in its way.
+- [High] This patch makes resume fail outright when fewer MSI-X vectors
+  come back than before suspend, and the commit message describes that…
+- [High] After one failed resume, num_napi stays 0 for good, and the next
+  open divides by zero and oopses.
 
-Our plan is to have userspace clear the count once an hour.  With a
-non-transient stall, the warnings keep coming, so the count still
-reaches max_rcu_stall_to_panic well within the hour, and the system
-panics and reboots as intended.
+Pre-existing issues:
+- [Medium] This problem wasn't introduced by this patch, but
+  __fbnic_pm_attach() calls fbnic_up() without holding rtnl or the…
+- [Medium] This problem wasn't introduced by this patch, but
+  fbnic_service_task_stop() uses cancel_delayed_work(), which does not…
 
-> 
-> It sounds like you do know that it is likely transient - but based on this description and the below, it sounds like you have not yet found a use of this patch.
-> 
-> 
+--
 
-To be precise, we worry that some of the stalls were transient, so a
-panic reboot would affect the users.  But we have no hard evidence
-either way: every incident ended in a forced reset, and the dmesg was
-lost.  Going forward, we plan to enable the NMI and kdump to keep
-investigating the cause of the RCU stalls. We will also monitor dmesg
-to confirm whether transient RCU stalls actually occur.
+eth: fbnic: Preserve channels across resume
 
-> > 
-> > We have not yet been able to reproduce this in the lab.
-> 
-> So you are not using this patch or made use of it?
+This patch keeps fbn->num_napi across suspend instead of clearing it. It
+also drops the fbnic_reset_queues() call from __fbnic_pm_resume(), so the
+pre-suspend channel layout is reused on resume. fbnic_stop() gets a new
+early return for when the NAPI vectors have already been freed.
 
-Not in production yet.  We have exercised it with rcutorture's CPU
-stall testing and verified that the counting and reset behave as
-expected.
+> diff --git a/drivers/net/ethernet/meta/fbnic/fbnic_pci.c b/drivers/net/ethernet/meta/fbnic/fbnic_pci.c
+> index c6698e3002a13..ec916c9f7faa4 100644
+> --- a/drivers/net/ethernet/meta/fbnic/fbnic_pci.c
+> +++ b/drivers/net/ethernet/meta/fbnic/fbnic_pci.c
 
-> 
-> I am starting to doubt if we want this patch so please make your case properly :-)
-> 
+[ ... ]
 
-From my point of view, max_rcu_stall_to_panic needs improvement: as
-implemented, it triggers panic() on the Nth stall since boot.  Given
-the background of its introduction -- that some stalls are transient
-and the system fully recovers from them -- what it should provide is
-N consecutive stalls, or N stalls accumulated within a short period.
-The resettable count is the minimal change that provides this.
+> @@ -442,16 +441,11 @@ static int fbnic_pm_suspend(struct device *dev)
+>  	rtnl_lock();
+>  	netdev_lock(netdev);
+>  
+> -	fbn = netdev_priv(netdev);
+> -
+>  	netif_device_detach(netdev);
+>  
+>  	if (netif_running(netdev))
+>  		netdev->netdev_ops->ndo_stop(netdev);
 
-Thanks,
-Cunlong
+[Severity: Medium]
+This is a pre-existing issue, but should fbnic_service_task_stop() use
+cancel_delayed_work_sync() here?
 
-> Thanks,
-> 
-> Joel
-> 
-> >  But transient,
-> > self-recovering stalls are not a hypothetical: the commit that
-> > introduced max_rcu_stall_to_panic, dfe564045c65 ("rcu: Panic after
-> > fixed number of stalls"), states the premise outright:
-> > 
-> >    Some stalls are transient, so that system fully recovers.  This
-> >    commit therefore allows users to configure the number of stalls
-> >    that must happen in order to trigger kernel panic.
-> > 
-> > As described in the commit message, since the counter is never reset,
-> > stalls caused by transient incidents keep consuming the budget of
-> > max_rcu_stall_to_panic, and a later unrelated stall can immediately
-> > trigger panic() instead of allowing the intended fresh window of
-> > stalls.  This is what motivated the patch.
-> > 
-> >> 
-> >> 
-> >>> 
-> >>> Signed-off-by: Cunlong Li <shenxiaogll@gmail.com>
-> >> 
-> >> If the commit is AI assisted, please add an assisted tag.
-> > 
-> > Yes, it is AI-assisted, and I will state that in the v2 commit
-> > message.
-> > 
-> > Thanks,
-> > Cunlong
-> > 
-> >> 
-> >> Thanks,
-> >> 
-> >> Joel
-> >> 
-> >>> ---
-> >>> Documentation/admin-guide/sysctl/kernel.rst | 15 ++++++++++++++-
-> >>> kernel/rcu/tree_stall.h                     | 28 ++++++++++++++++++++++++++--
-> >>> 2 files changed, 40 insertions(+), 3 deletions(-)
-> >>> 
-> >>> diff --git a/Documentation/admin-guide/sysctl/kernel.rst b/Documentation/admin-guide/sysctl/kernel.rst
-> >>> index ffea61d448eb..64fe2985e358 100644
-> >>> --- a/Documentation/admin-guide/sysctl/kernel.rst
-> >>> +++ b/Documentation/admin-guide/sysctl/kernel.rst
-> >>> @@ -959,7 +959,20 @@ max_rcu_stall_to_panic
-> >>> When ``panic_on_rcu_stall`` is set to 1, this value determines the
-> >>> number of times that RCU can stall before panic() is called.
-> >>> 
-> >>> -When ``panic_on_rcu_stall`` is set to 0, this value is has no effect.
-> >>> +When ``panic_on_rcu_stall`` is set to 0, this value has no effect.
-> >>> +
-> >>> +rcu_stall_panic_count
-> >>> +=====================
-> >>> +
-> >>> +Indicates the number of RCU CPU stalls that have been counted since
-> >>> +system boot or since the counter was reset. When ``panic_on_rcu_stall``
-> >>> +is set to 1, this count is compared against ``max_rcu_stall_to_panic``
-> >>> +to decide whether panic() should be called.
-> >>> +
-> >>> +Writing 0 to this file resets the counter to zero, which restarts the
-> >>> +``max_rcu_stall_to_panic`` window of stalls. This allows system
-> >>> +administrators to clear the cumulative stall count after an incident
-> >>> +has been resolved, without requiring a system restart.
-> >>> 
-> >>> perf_cpu_time_max_percent
-> >>> =========================
-> >>> diff --git a/kernel/rcu/tree_stall.h b/kernel/rcu/tree_stall.h
-> >>> index 091e7850ab6e..a80f03e1c7ea 100644
-> >>> --- a/kernel/rcu/tree_stall.h
-> >>> +++ b/kernel/rcu/tree_stall.h
-> >>> @@ -19,6 +19,20 @@
-> >>> /* panic() on RCU Stall sysctl. */
-> >>> static int sysctl_panic_on_rcu_stall __read_mostly;
-> >>> static int sysctl_max_rcu_stall_to_panic __read_mostly;
-> >>> +static unsigned long sysctl_rcu_stall_panic_count;
-> >>> +
-> >>> +/* Reset the RCU stall panic count when written to. */
-> >>> +static int proc_do_rcu_stall_panic_count(const struct ctl_table *table, int write,
-> >>> +                     void *buffer, size_t *lenp, loff_t *ppos)
-> >>> +{
-> >>> +    if (!write)
-> >>> +        return proc_doulongvec_minmax(table, write, buffer, lenp, ppos);
-> >>> +
-> >>> +    WRITE_ONCE(sysctl_rcu_stall_panic_count, 0);
-> >>> +    *ppos += *lenp;
-> >>> +
-> >>> +    return 0;
-> >>> +}
-> >>> 
-> >>> static const struct ctl_table rcu_stall_sysctl_table[] = {
-> >>>   {
-> >>> @@ -39,6 +53,13 @@ static const struct ctl_table rcu_stall_sysctl_table[] = {
-> >>>       .extra1        = SYSCTL_ONE,
-> >>>       .extra2        = SYSCTL_INT_MAX,
-> >>>   },
-> >>> +    {
-> >>> +        .procname    = "rcu_stall_panic_count",
-> >>> +        .data        = &sysctl_rcu_stall_panic_count,
-> >>> +        .maxlen        = sizeof(sysctl_rcu_stall_panic_count),
-> >>> +        .mode        = 0644,
-> >>> +        .proc_handler    = proc_do_rcu_stall_panic_count,
-> >>> +    },
-> >>> };
-> >>> 
-> >>> static int __init init_rcu_stall_sysctl(void)
-> >>> @@ -161,7 +182,7 @@ early_initcall(check_cpu_stall_init);
-> >>> /* If so specified via sysctl, panic, yielding cleaner stall-warning output. */
-> >>> static void panic_on_rcu_stall(const struct cpumask *stalled_mask)
-> >>> {
-> >>> -    static int cpu_stall;
-> >>> +    unsigned long count;
-> >>> 
-> >>>   /*
-> >>>    * Attempt to kick out the BPF scheduler if it's installed and defer
-> >>> @@ -170,7 +191,10 @@ static void panic_on_rcu_stall(const struct cpumask *stalled_mask)
-> >>>   if (scx_rcu_cpu_stall(stalled_mask))
-> >>>       return;
-> >>> 
-> >>> -    if (++cpu_stall < sysctl_max_rcu_stall_to_panic)
-> >>> +    /* A lost RMW update only delays the panic by one stall. */
-> >>> +    count = READ_ONCE(sysctl_rcu_stall_panic_count) + 1;
-> >>> +    WRITE_ONCE(sysctl_rcu_stall_panic_count, count);
-> >>> +    if (count < (unsigned long)READ_ONCE(sysctl_max_rcu_stall_to_panic))
-> >>>       return;
-> >>> 
-> >>>   if (sysctl_panic_on_rcu_stall)
-> >>> 
-> >>> ---
-> >>> base-commit: ce1e0223d8ad4211275c82a17ed6d43ab81e13d9
-> >>> change-id: 20261003-rcu-375496d7704e
-> >>> 
-> >>> Best regards,
-> >>> --
-> >>> Cunlong Li <shenxiaogll@gmail.com>
-> >>> 
+drivers/net/ethernet/meta/fbnic/fbnic_pci.c:fbnic_service_task_stop() {
+	...
+	cancel_delayed_work(&fbd->service_task);
+}
+
+fbnic_service_task() takes rtnl_lock(), and at the end it re-arms itself:
+
+	if (netif_running(netdev))
+		schedule_delayed_work(&fbd->service_task, HZ);
+
+fbnic_pm_suspend() calls ndo_stop directly, so __LINK_STATE_START stays
+set. Suppose an instance is already running and blocked on rtnl_lock()
+while suspend holds rtnl. The cancel on this path does not wait for it:
+
+fbnic_stop()->fbnic_down()->fbnic_down_noidle()->fbnic_service_task_stop()
+
+Suspend then drops rtnl and goes on to fbnic_fw_free_mbx(),
+fbnic_free_irqs() and clearing uc_addr0/uc_addr4. Can the service task
+then run fbnic_get_hw_stats32(), fbnic_fw_check_heartbeat() and
+fbnic_health_check() against hardware that is being torn down? After that
+it would re-arm every HZ while the device is suspended.
+
+The MMIO accessors and the mailbox TX path have their own guards, so no
+concrete crash has been shown. With this patch num_napi now stays
+non-zero while napi[] is NULL. fbnic_napi_depletion_check() only runs
+when netif_carrier_ok(), and phylink_suspend() turns the carrier off, so
+that walk does not seem to be reached.
+
+>  
+> -	/* The IRQs are about to be freed, so drop the napi vector count */
+> -	fbn->num_napi = 0;
+> -
+>  	netdev_unlock(netdev);
+>  	rtnl_unlock();
+>  
+> @@ -519,9 +513,6 @@ static int __fbnic_pm_resume(struct device *dev)
+>  
+>  	fbn = netdev_priv(netdev);
+>  
+> -	/* Reset the queues if needed */
+> -	fbnic_reset_queues(fbn, fbn->num_tx_queues, fbn->num_rx_queues);
+> -
+
+[Severity: High]
+Wasn't this call the only place where the channel layout was clamped to
+the MSI-X vectors actually granted on resume?
+
+Earlier in __fbnic_pm_resume(), fbnic_alloc_irqs() renegotiates
+fbd->num_irqs from the current online CPU count. It accepts as few as
+FBNIC_NON_NAPI_VECTORS + 1:
+
+	wanted_irqs += min_t(unsigned int, num_online_cpus(), FBNIC_MAX_RXQS);
+	num_irqs = pci_alloc_irq_vectors(pdev, FBNIC_NON_NAPI_VECTORS + 1,
+					 wanted_irqs, PCI_IRQ_MSIX);
+	...
+	fbd->num_irqs = num_irqs;
+
+Before this patch, fbnic_reset_queues() clamped tx/rx to max_napis =
+fbd->num_irqs - FBNIC_NON_NAPI_VECTORS and set num_napi = max(tx, rx).
+The interface came back with fewer queues but still worked.
+
+Fewer vectors can come back if CPUs went offline after probe or the
+MSI-X grant is smaller. With this call removed, num_napi can then be
+larger than num_irqs - FBNIC_NON_NAPI_VECTORS, which breaks the bound
+fbnic_set_channels() enforces. In that case:
+
+__fbnic_open()
+  fbnic_alloc_napi_vectors()
+    fbnic_alloc_napi_vector()
+      fbnic_napi_request_irq()
+        fbnic_request_irq()
+          pci_irq_vector()   <- -EINVAL for an unallocated MSI-X index
+
+__fbnic_open() then fails, and __fbnic_pm_resume() unwinds through
+err_free_mbx. netif_device_attach() is never called, so the NIC stays
+unusable until the driver is reloaded.
+
+The AER path also goes through __fbnic_pm_resume(). There,
+fbnic_err_slot_reset() now returns PCI_ERS_RESULT_DISCONNECT where it
+used to return PCI_ERS_RESULT_RECOVERED.
+
+The commit message says:
+
+    If fewer IRQs return, reopening still fails. Handle that separately.
+
+Is that accurate for the code before this patch? The removed
+fbnic_reset_queues() call seems to have handled exactly this case, so
+this failure looks like it comes from this patch. The follow-up "eth:
+fbnic: Publish real queue counts" does not touch the resume path, so the
+problem is still present at the end of the series.
+
+>  	if (netif_running(netdev)) {
+>  		err = __fbnic_open(fbn);
+>  		/* On failure the vectors are freed, so drop the count */
+
+[Severity: High]
+With fbnic_reset_queues() gone from resume, what restores num_napi after
+this failure path?
+
+Right below this comment, the error path still does:
+
+		if (err)
+			fbn->num_napi = 0;
+
+Before this patch, the fbnic_reset_queues() call on the next resume
+rebuilt num_napi from num_tx_queues/num_rx_queues. fbnic_reset_queues()
+is now static and only called from fbnic_netdev_alloc(). So num_napi
+stays 0 while the queue counts stay non-zero and netif_running() stays
+set. ethtool can't repair it either, because the device is detached.
+
+On the next suspend, the new guard in fbnic_stop() returns early:
+
+	if (!fbn->napi[0])
+		return 0;
+
+On the next resume, num_napi == 0 does not match num_tx + num_rx, so
+fbnic_alloc_napi_vectors() skips the 1:1 branch and reaches:
+
+	while (num_rx | num_tx) {
+		int tqpv = DIV_ROUND_UP(num_tx, num_napi - txq_idx);
+
+Here num_napi == 0 and txq_idx == 0. Can this divide by zero while
+rtnl_lock and the netdev instance lock are held?
+
+There is also a second path. After the failed resume, run ip link set
+down: fbnic_stop() takes the early return. A later suspend/resume then
+succeeds and re-attaches the device. Then ip link set up calls
+fbnic_open()->__fbnic_open() with num_napi still 0.
+
+The first failure doesn't need fewer MSI-X vectors (see above). It can
+also come from -ENOMEM in fbnic_alloc_resources(), a FW ownership message
+failure, a heartbeat init failure, or a fbnic_mac_request_irq() failure.
+
+This also seems to contradict the new comment in fbnic_stop(), which says
+suspend "keeps num_napi for resume". fbnic_get_channels() would also
+derive its combined/standalone split from num_napi == 0, not from what
+the user configured.
+
+[Severity: Medium]
+This isn't a bug introduced by this patch, but on the same resume path,
+__fbnic_pm_attach() calls fbnic_up() without rtnl or the netdev instance
+lock:
+
+	rtnl_lock();
+	fbnic_reset_hw_stats(fbd);
+	rtnl_unlock();
+	...
+	if (netif_running(netdev))
+		fbnic_up(fbn);
+
+fbnic_up()->fbnic_napi_enable() walks fbn->napi[0..num_napi) and calls
+napi_enable_locked(). Everywhere else (ndo_open, set_channels) this runs
+under rtnl + netdev_lock.
+
+During AER recovery the two halves are separate callbacks.
+fbnic_err_slot_reset()->__fbnic_pm_resume() allocates the NAPI vectors
+under rtnl + netdev_lock and then drops both locks.
+fbnic_err_resume()->__fbnic_pm_attach() runs later. Userspace is not
+frozen in between.
+
+Could an ip link set down in that window reach
+fbnic_stop()->fbnic_down()->fbnic_napi_disable() on NAPIs that were never
+enabled? NAPI_STATE_SCHED is still set from netif_napi_add(), so
+napi_disable_locked() would keep looping in its usleep_range() wait with
+rtnl held.
+
+And if the close overlaps fbnic_up() instead, can fbnic_free_napi_vectors()
+free fbn->napi[i] while fbnic_up() is still using it?
+
+-- 
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261002125617.409447-1-bjorn%40kernel.org
