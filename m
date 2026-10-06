@@ -1,194 +1,200 @@
-Received: from cvsmtppost11.nm.naver.com (cvsmtppost11.nm.naver.com [114.111.35.155])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.11])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C5DC83BE620
-	for <linux-kernel@vger.kernel.org>; Tue,  6 Oct 2026 18:24:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=114.111.35.155
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1AADD367F58;
+	Tue,  6 Oct 2026 18:30:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.11
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791311061; cv=none; b=ka8cHnSHp3mXtlrieR23htpLaJLyBP2iokA6hXZ3fMVuOC130zx2aVXqFYipllav6pZ9FHA4xIU4NRWj2xEnGaOt3Hf/YsZdR7AiET/xD4S94Fkn1yvupBvtiqsA2/G6Ww3+2hNzNtTbQOUKcrwrduCoxNJ0hfNJI20XQd0qfj8=
+	t=1791311457; cv=none; b=I6KUmGt/qIFdHmrnkxv6Qwl8kRj48/cy+nceoNpVD4Yo75WlTbm2SUeOEyiLMu9DzDIz2PELJ33IYiEafusZC2PcEkPR5pekECE10RDF+SCpnfiLl7oIRB/bbQOVvSxYya8iMcpcFVYeFK0KFKqBOpzgT4MCJagABrIinqXmZpQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791311061; c=relaxed/simple;
-	bh=wqqL1PwifQP6F0DbX5AnTlT3bL5yGbWuuRMWRY1NtHs=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=IGiiWAAV1HqxGbcXCBkQqBs4H9dn910eoCeDHYro3fbS+/A1azD8u/x2QNo3BbDnWCEW78qktQPmZoT+siI0iPLSgJKVjaxEtC/SBsBgkPyXF/fG87zJ/xvo1IVCEydZ0eT1/GWf+OQQ49h1NV/TCEFmdrSP+go5wzPvQPqBb04=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=naver.com; spf=pass smtp.mailfrom=naver.com; dkim=pass (2048-bit key) header.d=naver.com header.i=@naver.com header.b=VlRE/gsI; arc=none smtp.client-ip=114.111.35.155
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=naver.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=naver.com
+	s=arc-20240116; t=1791311457; c=relaxed/simple;
+	bh=REslVd8WGOo+Lzm/9YD1yYd7zbn853Trsw0TSQLWZHw=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=DwfYTHKJxIOjNvGldzNw3r8ZDgQcZXiyuEcoACY7kvMgXrFEHKrqfPnia9HxFklIW+ByHbwPtt8pp5SZUOaBsGobkAOaOrjyrftX1PZYhT1p1gNNmqjAxw7UmtLhQMP2KNR7T+CVxKf7SDLYk2xOd7E5g+SF8/1uExCVQM46Zq8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=bVdd/WqG; arc=none smtp.client-ip=192.198.163.11
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=naver.com header.i=@naver.com header.b="VlRE/gsI"
-Received: from cvsendbo017.nm ([10.112.18.57])
-  by cvsmtppost11.nm.naver.com with ESMTP id bVl4h5ELSWO71VIN7HHXBQ
-  for <linux-kernel@vger.kernel.org>;
-  Tue, 06 Oct 2026 18:24:17 -0000
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=naver.com; s=s20171208;
-	t=1791311057; bh=wqqL1PwifQP6F0DbX5AnTlT3bL5yGbWuuRMWRY1NtHs=;
-	h=From:To:Subject:Date:Message-ID:From:Subject:Feedback-ID:
-	 X-Works-Security;
-	b=VlRE/gsItxVY+Zl0tiaw4+9lc5xtFuPyqW0WbiwTtUQep+Ac5hUDiTmmOV0o9QnPd
-	 hUAyRP0Y30Zoqg7DQHhUfw/S0xQAHWx95rVG89huoe7dkoUIZv4qkn3TWlR6KxNghk
-	 m72ggszf21dYaJh6pZoMKPfXv2BXvFA07Q0otBfl/dvPF01eHA8Fg6A+he3PcXBCK4
-	 fx+vDzYnHgrWGcyHEoNBxTThd7cAlVYdm99LB8o3LIkkqOUnN90Uu9Nfk3YgjIQZRQ
-	 FiWi29MsGQJRqgapxrKtcgNo5T6TKOcOJDluDqyZWSX5rdnrhYuWlvFFkZDPNMwHEp
-	 brOf/Li2JpGBQ==
-X-Session-ID: 4ca3zSTOSIW6-bXMuvuUsw
-X-Works-Send-Opt: O9ewpzGdjHmdKHFOMr39Ko3YKHmwKNmwFAbrFxKrKqEmjJkaBd9YKBmm
-X-Works-Smtp-Source: s9nXKoulFqJZ+HmXFxM/+6E=
-Received: from localhost.localdomain ([115.136.205.4])
-  by cvnsmtp006.nm.naver.com with ESMTP id 4ca3zSTOSIW6-bXMuvuUsw
-  for <multiple recipients>
-  (version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384);
-  Tue, 06 Oct 2026 18:24:17 -0000
-From: sungbyeongchan <tjdqudcks0424@naver.com>
-To: German Maglione <gmaglione@redhat.com>,
-	Vivek Goyal <vgoyal@redhat.com>,
-	Stefan Hajnoczi <stefanha@redhat.com>,
-	Miklos Szeredi <miklos@szeredi.hu>
-Cc: =?UTF-8?q?Eugenio=20P=C3=A9rez?= <eperezma@redhat.com>,
-	"Michael S . Tsirkin" <mst@redhat.com>,
-	virtualization@lists.linux.dev,
-	fuse-devel@lists.linux.dev,
-	linux-fsdevel@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Subject: [PATCH v2] virtiofs: validate fixed-output response length
-Date: Wed,  7 Oct 2026 03:24:08 +0900
-Message-ID: <20261006182408.1301152-1-tjdqudcks0424@naver.com>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="bVdd/WqG"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1791311455; x=1822847455;
+  h=from:to:cc:subject:date:message-id:mime-version:
+   content-transfer-encoding;
+  bh=REslVd8WGOo+Lzm/9YD1yYd7zbn853Trsw0TSQLWZHw=;
+  b=bVdd/WqGaGloEExNXKo7Uvak3lqOtEIPdn2oNtadp5zr+/MAX2+Et5+P
+   cCFr4bIyKeGvKHtTGco53o6okc2pIouvMUA71+D2LlAfBWavhLUvmE4gJ
+   JslP2NrfPgzukABZv1iFD3iz+daiNf2J4j/vLXK2GLzECHEjUmV014e3A
+   +2jT+glyuWmzSDnwbCAX9P+QnWTN/XRR6R8ZwW4Mdv7trx/57U0wgL/Jm
+   fW5XwSL87cuaY//EyrgKfD4obGR8IiOW+1ulyMyxFkV2r3SfqQGbtZLpB
+   rczvz927K8wckjyebkvBTWk8E5kROvfAiVmjWQIz8/AXl7wrhrJy9k9oe
+   w==;
+X-CSE-ConnectionGUID: VN7zbsNeRnO592/Ym8aDhg==
+X-CSE-MsgGUID: PD+2db8kQUmjXLg1est+0g==
+X-IronPort-AV: E=McAfee;i="6800,10657,11927"; a="102591584"
+X-IronPort-AV: E=Sophos;i="6.27,143,1787036400"; 
+   d="scan'208";a="102591584"
+Received: from fmviesa002.fm.intel.com ([10.60.135.142])
+  by fmvoesa105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 06 Oct 2026 11:30:54 -0700
+X-CSE-ConnectionGUID: Zz35dRvSSNqWRfENGKNtAQ==
+X-CSE-MsgGUID: +P2LACYCTpGbQ9BRT77+tw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,143,1787036400"; 
+   d="scan'208";a="303500243"
+Received: from skuppusw-desk2.jf.intel.com ([10.165.154.101])
+  by fmviesa002-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 06 Oct 2026 11:30:54 -0700
+From: Kuppuswamy Sathyanarayanan <sathyanarayanan.kuppuswamy@linux.intel.com>
+To: Srinivas Pandruvada <srinivas.pandruvada@linux.intel.com>,
+	Hans de Goede <hansg@kernel.org>,
+	=?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
+	David E Box <david.e.box@linux.intel.com>
+Cc: Andy Shevchenko <andriy.shevchenko@intel.com>,
+	platform-driver-x86@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v4 00/20] Decouple PCI and auxbus details from Intel TPMI driver
+Date: Tue,  6 Oct 2026 11:30:17 -0700
+Message-ID: <20261006183037.1507007-1-sathyanarayanan.kuppuswamy@linux.intel.com>
 X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261004123405.586168-1-tjdqudcks0424@naver.com>
-References: <20261004123405.586168-1-tjdqudcks0424@naver.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-A short successful virtiofs response can leave the fixed-output
-portion of the request argument buffer unwritten. The completion path
-nevertheless copies the full declared output to the request destination,
-allowing stale allocator contents to reach callers such as
-fuse_statfs().
+Hi All,
 
-Require successful fixed-output responses to contain their complete
-declared output. Continue to permit a shorter final argument only for
-out_argvar requests. Reject positive and internal restart error values,
-require valid error replies to be header-only, and do not copy output
-arguments from error replies.
+This series is a no functional change refactor of the TPMI driver
+(vsec_tpmi.c). It separates the code that does not care how TPMI was
+discovered from the code that does.
 
-A header-only FUSE_STATFS success returned stale fields in nine of
-nine calls across three boots. The fixed kernel rejected the short
-response and preserved complete replies, valid error replies, and
-variable-output controls.
+TPMI is discovered today through a PCIe VSEC capability, with the PFS
+table address computed relative to a PCI BAR. BARs are relocatable at
+runtime by resource rebalancing, hot plug or error recovery, which ties
+a platform wide register window to the lifecycle of one PCI function
+and to an address an untrusted VMM can influence. That is a concern in
+secure VM environments like TDX.
 
-Fixes: a62a8ef9d97d ("virtio-fs: add virtiofs filesystem")
-Cc: stable@vger.kernel.org
-Assisted-by: LLM
-Signed-off-by: sungbyeongchan <tjdqudcks0424@naver.com>
----
-Changes in v2:
-- Reject positive and internal restart error values.
-- Require error replies to be header-only.
-- Rate-limit malformed-response warnings.
-- Rely on the existing FUSE pr_fmt prefix.
-- Add Cc: stable@vger.kernel.org.
-- Use the reporter identity consistently.
+Newer Intel platforms will support ACPI table based TPMI enumeration.
+The related ACPI spec is not public yet, so this series prepares the
+driver ahead of it. Several places in vsec_tpmi.c assume the
+enumerating device is a PCI device, or reach through a struct
+intel_vsec_device just to get at a struct device, and neither holds
+for an ACPI backend.
 
- fs/fuse/virtio_fs.c | 43 ++++++++++++++++++++++++++++++++++++++-----
- 1 file changed, 38 insertions(+), 5 deletions(-)
+The series comes in four parts.
 
-diff --git a/fs/fuse/virtio_fs.c b/fs/fuse/virtio_fs.c
-index f15e516ebcb5c..fffbe08d9114a 100644
---- a/fs/fuse/virtio_fs.c
-+++ b/fs/fuse/virtio_fs.c
-@@ -4,6 +4,8 @@
-  * Copyright (C) 2018 Red Hat, Inc.
-  */
- 
-+#include "fuse_i.h"
-+
- #include <linux/fs.h>
- #include <linux/dax.h>
- #include <linux/pci.h>
-@@ -20,7 +22,6 @@
- #include <linux/cleanup.h>
- #include <linux/uio.h>
- #include "dev.h"
--#include "fuse_i.h"
- #include "fuse_dev_i.h"
- 
- /* Used to help calculate the FUSE connection's max_pages limit for a request's
-@@ -730,6 +731,10 @@ static void copy_args_from_argbuf(struct fuse_args *args, struct fuse_req *req)
- 	unsigned int num_out;
- 	unsigned int i;
- 
-+	/* Error replies contain only the output header. */
-+	if (req->out.h.error)
-+		goto out;
-+
- 	remaining = req->out.h.len - sizeof(req->out.h);
- 	num_in = args->in_numargs - args->in_pages;
- 	num_out = args->out_numargs - args->out_pages;
-@@ -755,6 +760,7 @@ static void copy_args_from_argbuf(struct fuse_args *args, struct fuse_req *req)
- 	if (args->out_argvar)
- 		args->out_args[args->out_numargs - 1].size = remaining;
- 
-+out:
- 	kfree(req->argbuf);
- 	req->argbuf = NULL;
- }
-@@ -762,19 +768,46 @@ static void copy_args_from_argbuf(struct fuse_args *args, struct fuse_req *req)
- /* Verify that the server properly follows the FUSE protocol */
- static bool virtio_fs_verify_response(struct fuse_req *req, unsigned int len)
- {
-+	struct fuse_args *args = req->args;
- 	struct fuse_out_header *oh = &req->out.h;
-+	unsigned int expected;
- 
- 	if (len < sizeof(*oh)) {
--		pr_warn("virtio-fs: response too short (%u)\n", len);
-+		pr_warn_ratelimited("response too short (%u)\n", len);
- 		return false;
- 	}
- 	if (oh->len != len) {
--		pr_warn("virtio-fs: oh.len mismatch (%u != %u)\n", oh->len, len);
-+		pr_warn_ratelimited("oh.len mismatch (%u != %u)\n",
-+				    oh->len, len);
- 		return false;
- 	}
- 	if (oh->unique != req->in.h.unique) {
--		pr_warn("virtio-fs: oh.unique mismatch (%llu != %llu)\n",
--			oh->unique, req->in.h.unique);
-+		pr_warn_ratelimited("oh.unique mismatch (%llu != %llu)\n",
-+				    oh->unique, req->in.h.unique);
-+		return false;
-+	}
-+	if (oh->error <= -ERESTARTSYS || oh->error > 0) {
-+		pr_warn_ratelimited("invalid error value (%d)\n", oh->error);
-+		return false;
-+	}
-+
-+	if (oh->error) {
-+		if (len != sizeof(*oh)) {
-+			pr_warn_ratelimited("error response too long (%u)\n",
-+					    len);
-+			return false;
-+		}
-+		return true;
-+	}
-+
-+	expected = sizeof(*oh) +
-+		   fuse_len_args(args->out_numargs, args->out_args);
-+	if (len > expected ||
-+	    (len < expected &&
-+	     (!args->out_argvar ||
-+	      expected - len > args->out_args[args->out_numargs - 1].size))) {
-+		pr_warn_ratelimited("invalid response length (%u, expected %u)\n",
-+				    len, expected);
- 		return false;
- 	}
- 	return true;
+Patch 1 is a standalone cleanup. The feature device name was built in an
+on-stack buffer and handed to the auxiliary bus, which stores the
+pointer without copying the string.
+
+Patches 2 to 8 each remove one PCI or intel_vsec_device dependency and
+leave the code in place, so they are small and can be read on their own.
+
+Patches 9 and 10 do the split. tpmi_probe() and tpmi_remove() become
+intel_tpmi_init() and intel_tpmi_deinit(), which is the interface an
+enumeration backend implements against, and the enumeration independent
+code moves to a new intel-tpmi_common module. That leaves vsec_tpmi.c
+with just the auxiliary driver binding to the "intel_vsec.tpmi" device
+created by the Intel VSEC driver.
+
+Patches 11 to 20 are code improvements to tpmi_common.c. Some of them
+come from Ilpo's review of v1. Others were suggested by Andy in an
+internal review of this series, and since they touch the same code I
+have included them here as well. Each patch carries a Suggested-by tag
+for whoever suggested it.
+
+They are separate patches on top of the move in patch 10, as Ilpo asked,
+so that patch 10 stays a pure code move and can still be reviewed with a
+diff-of-diffs against the original vsec_tpmi.c. Each of them does one
+thing to tpmi_common.c and nothing else.
+
+Tested on a GNR platform. TPMI feature enumeration, the debugfs
+interface and the client drivers behave as before.
+
+Changes since v3:
+ - Collected Reviewed-by tags from Andy on patches 12, 14, 18 and 19.
+ - Patch 19: use post-increment in all the loops, as Andy suggested.
+ - v3: https://lore.kernel.org/all/20260930172918.743656-1-sathyanarayanan.kuppuswamy@linux.intel.com/
+
+Changes since v2:
+ - Collected Reviewed-by tags from Andy on patches 11, 13, 15, 16 and 20.
+ - New patch 18: use DEFINE_RES_MEM() for the feature resources in
+   tpmi_create_device(), as Andy asked in his review of v2 patch 18.
+ - Patch 19 (v2 patch 18): rebased on top of the new patch 18, so the
+   resource loop now assigns res[i] = DEFINE_RES_MEM(...).
+ - Patch 20 is v2 patch 19, unchanged.
+ - v2: https://lore.kernel.org/all/20260924182342.212709-1-sathyanarayanan.kuppuswamy@linux.intel.com/
+
+Changes since v1:
+ - Added patches 11 to 19, from Ilpo's review of v1 and Andy's internal
+   review. Patches 1 to 10 are unchanged and carry the Reviewed-by tags
+   they collected.
+ - Patch 11: include the headers tpmi_common.c uses directly instead of
+   relying on other headers to pull them in, drop the redundant io.h and
+   sort the block.
+ - Patch 12: turn TPMI_GET_SINGLE_ENTRY_SIZE() into a function, so the
+   u32 to byte conversion reads as a multiply by sizeof(u32), the
+   statement expression goes away and the argument is evaluated once.
+ - Patch 13: take tpmi_dev_lock with guard() in
+   tpmi_read_feature_status() and drop the unlock label.
+ - Patch 14: use __free(kfree) and guard() in tpmi_mem_dump_show() so the
+   ioremap() failure can return from the loop.
+ - Patch 15: build each TPMI control mailbox word in one expression.
+ - Patch 16: use DEFINE_SHOW_STORE_ATTRIBUTE() for the mem_write debugfs
+   file.
+ - Patch 17: scnprintf() instead of snprintf().
+ - Patch 18: declare the loop counters in their loops.
+ - Patch 19: make the device creation policy a comment on
+   tpmi_create_devices() and split the condition it described.
+
+This series is based on v7.3-rc1.
+
+Kuppuswamy Sathyanarayanan (20):
+  platform/x86/intel/tpmi: Use static strings for the feature device
+    names
+  platform/x86/intel/vsec: Pass a struct device to
+    intel_vsec_set_mapping()
+  platform/x86/intel/tpmi: Remove unused vsec_dev from
+    intel_tpmi_pm_feature
+  platform/x86/intel/tpmi: Get tpmi_info directly from the parent device
+  platform/x86/intel/tpmi: Keep the feature resources in intel_tpmi_info
+  platform/x86/intel/tpmi: Describe a TPMI instance by its two devices
+  platform/x86/intel/tpmi: Drop unused arg from tpmi_set_control_base()
+  platform/x86/intel/tpmi: Do not assume TPMI is enumerated from PCI
+  platform/x86/intel/tpmi: Split out enumeration independent init and
+    exit
+  platform/x86/intel/tpmi: Split off the PCI VSEC enumeration
+  platform/x86/intel/tpmi: Include the headers tpmi_common.c relies on
+  platform/x86/intel/tpmi: Turn TPMI_GET_SINGLE_ENTRY_SIZE() into a
+    function
+  platform/x86/intel/tpmi: Use guard() for tpmi_dev_lock in the status
+    read
+  platform/x86/intel/tpmi: Use scope based cleanup in the memory dump
+  platform/x86/intel/tpmi: Build the TPMI control words in one
+    expression
+  platform/x86/intel/tpmi: Use DEFINE_SHOW_STORE_ATTRIBUTE() for
+    mem_write
+  platform/x86/intel/tpmi: Use scnprintf() to build the debugfs names
+  platform/x86/intel/tpmi: Use DEFINE_RES_MEM() for the feature
+    resources
+  platform/x86/intel/tpmi: Declare the loop counters in their loops
+  platform/x86/intel/tpmi: Describe the device creation policy on the
+    function
+
+ MAINTAINERS                              |   1 +
+ drivers/platform/x86/intel/Kconfig       |   4 +
+ drivers/platform/x86/intel/Makefile      |   1 +
+ drivers/platform/x86/intel/tpmi_common.c | 822 +++++++++++++++++++++++
+ drivers/platform/x86/intel/tpmi_common.h |  52 ++
+ drivers/platform/x86/intel/vsec.c        |   7 +-
+ drivers/platform/x86/intel/vsec_tpmi.c   | 822 +----------------------
+ include/linux/intel_vsec.h               |   5 +-
+ 8 files changed, 898 insertions(+), 816 deletions(-)
+ create mode 100644 drivers/platform/x86/intel/tpmi_common.c
+ create mode 100644 drivers/platform/x86/intel/tpmi_common.h
+
 -- 
 2.43.0
 
