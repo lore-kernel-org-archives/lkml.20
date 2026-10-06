@@ -1,140 +1,128 @@
 Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E93D73E49DE
-	for <linux-kernel@vger.kernel.org>; Tue,  6 Oct 2026 11:34:11 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4463C3B5850
+	for <linux-kernel@vger.kernel.org>; Tue,  6 Oct 2026 11:34:16 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791286453; cv=none; b=uv1db3M7BpfUETf+DpySyZ0FpTB+zFH4yVzJqgUOXFIs4WhjvKw80YFYMGMX4bBEJTupjNRU6fLfAZcEBM119qaC15aI6GuWpZ7uVcqoB6lA9Uf0eFgIdvvLknkLvcLU7T8rv+0kO9wamB7rXmgCIpYlhDRLElagsTIPIiBkJlc=
+	t=1791286458; cv=none; b=pJ1wrmu6vGAiSsggnv8GlDD5MvXmTv6o9hJtDzG8zCyFOE2cHrfR2VIIfRvy2DQ6SmxEV9/BDeME/JZ9U8UoNtlYNj3JNwRWqrGQvV44zomrz2GIJHZshWZDsq819/5oNejrTMXl8Wx+FJ3q/X77zlyim+eeZbXa0rngY/4Rkxs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791286453; c=relaxed/simple;
-	bh=Rpbjn0YNacV1Aifz97E1Ai2mwQ/oNPnx/tZLiOWYIw0=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=fflrWjHTmoSZpaXkWjmrOPdMNni84OWKmszKKLdwQFVC7YWcx0tFow5XXGsO8//K/+CArs6ufgzpuTkqScZtozilS5JozF3lPFAO6SX1HbsgMzOoppebOCR/tYVlZNb7ESaP/X763NLiokbHdMKqg4H2g/kT940GIpVIImqa3HU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=hqK/WKgw; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=PTa6uGRz; arc=none smtp.client-ip=205.220.180.131
+	s=arc-20240116; t=1791286458; c=relaxed/simple;
+	bh=OMizlvS6AN612+3zia7ESwP/oovdwK/rnIQP2XW5tNc=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=YCTeKIFNN6EaSulO+vUGfJlUlD7U8Te4PYYXCH7V51qaaX9XujyrtuM0RJoJdnuAySRwdwzmy8MWI6LBsEEl49ncsBXzTFtaN4jYYzUeK2koS9Fv2HjhFONpfdJs0cba+onKPNQDuUM3bZxJTcaF9WgHfj30G4s+WM2y8c0iCtw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=gH1jQuzp; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=MkiQpjJi; arc=none smtp.client-ip=205.220.180.131
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="hqK/WKgw";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="PTa6uGRz"
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="gH1jQuzp";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="MkiQpjJi"
 Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 696BPMRZ3890606
-	for <linux-kernel@vger.kernel.org>; Tue, 6 Oct 2026 11:34:10 GMT
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 696BPVBS3890695
+	for <linux-kernel@vger.kernel.org>; Tue, 6 Oct 2026 11:34:15 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
 	cc:content-transfer-encoding:content-type:date:from:in-reply-to
 	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	KBx7DSS4OAVf2q7wVxZqqxHfDSq45aHtmPOJDnt8KdU=; b=hqK/WKgwFi8KBCv6
-	i/2IQxUsEpV0EFxkTsQYoaxtDJCTEZU4VvBibb5yzRF6nF1Ue4KckPYTmDsE0dTa
-	+j2dENYUcE3d0e12Flazw10Z6xVCblwgyK1lryFTtfjkynbCH7MdJ0zO9BnmkVYX
-	qNP84mVCcZZpvpT8UOjbOi/yRv8Uq1pWzeiWOSpkRKdQ4vSXzNwdU6uS09Hl/LlG
-	1RCZx2lcaGw/7fhjvh3QahNJg06bGtDYuPzUZTqkzd1n1xpR9/q2MdnX1Y1yxF/O
-	Lq4GYCSt96w6XHMEX6uKIDUc2yr4U0gxQKwCGnMos8m3l3uYYDoaucRmCSpUz/K3
-	ewM0Zw==
-Received: from mail-pj1-f72.google.com (mail-pj1-f72.google.com [209.85.216.72])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h4fkukp0h-1
+	rKW0WKWDRVXBCGUqhbtra2Jo2FAHskgbTqhypYncQ+A=; b=gH1jQuzpjR+16cVm
+	/4bilY9eYkJ5x/dr6DRnhBSEPDt6PZ2tnl0Hid4sIjqI24bacczwxX2J2BZMWhm2
+	UiVii8dILvH/t+vXkVbdhohjc/O09EYwjXDaU975rJpqiIwm7CIZQj5mvQGruNPA
+	+frKfc8Ykid8o5xCMtUbyMdgowoyG3iDoWWMzyyclbQmF1OFQzg+3mQKcDevy+Yd
+	r3pMgMDJNzDe2o+f68MkUSlk/IrzlJsBH5ovNx8EDCqH8vbHQ/ZT/oQ0MJpdrqZZ
+	cOVXd7Fsqf8pfXM5Vk7/eI3fKKrjwZisYzWkzZig8agkkVTdXq1JD5QjXQGFa7QY
+	NP4EPg==
+Received: from mail-pl1-f198.google.com (mail-pl1-f198.google.com [209.85.214.198])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h4fkukp0t-1
 	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Tue, 06 Oct 2026 11:34:10 +0000 (GMT)
-Received: by mail-pj1-f72.google.com with SMTP id 98e67ed59e1d1-3a7fa5e0442so2873725a91.0
-        for <linux-kernel@vger.kernel.org>; Tue, 06 Oct 2026 04:34:10 -0700 (PDT)
+	for <linux-kernel@vger.kernel.org>; Tue, 06 Oct 2026 11:34:15 +0000 (GMT)
+Received: by mail-pl1-f198.google.com with SMTP id d9443c01a7336-2e305755a01so40431205ad.0
+        for <linux-kernel@vger.kernel.org>; Tue, 06 Oct 2026 04:34:14 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1791286450; x=1791891250; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=KBx7DSS4OAVf2q7wVxZqqxHfDSq45aHtmPOJDnt8KdU=;
-        b=PTa6uGRzXIJ1X/uIfP2SaUPEG/4ZIuSE7B84Ucg2bUYB5Lw445rJW4SE9d4uKX1Ie0
-         vLzUHYNqvT4Ruo3a2ByzDxyDsc0qkcJoXsKCnBxY9eWfFlenosTzJVH2SCUSMJlkqTHW
-         lELCY00xqjrgiZyBE+qKWqk2onqQ480bFrbAyLpXsXIu3iwiYE23hYuEDMO/+KttItc9
-         Gh4mqFBba9IddgNMKEfCMB8C7a4+OzrWUhCgS7+HrgEZBizwaEStzyNzaNgQQwmjakry
-         WIUHG00+ZOr1i9amxj7dTEGgXKCS6Y3Wc+l+mhEp63NgJvREqSWAxJn3Rual+f+cG2Y9
-         QGyw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791286450; x=1791891250;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+        d=oss.qualcomm.com; s=google; t=1791286454; x=1791891254; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=KBx7DSS4OAVf2q7wVxZqqxHfDSq45aHtmPOJDnt8KdU=;
-        b=jCDzw7DJBjFhnbZQ76twJ+wd2pCg96BNl02iLicqpEJqzwAnKTjRs/gGlkcCOwYgeJ
-         rwLyEKq0Aw2dhaFH965nnjXMDaGVkG/1TsSsHBid9BEwQuWC9vCzqZMolTLpHYb0hkqA
-         0CIKtxsKg+QlCNxOJF6QRG+3ZaXmcFs2cGYtxti0zHMWQO0Mw/HIxGQqNKXbwGLvrOdf
-         QgJOkH4z7dcbY2hQHFkCFlm4ZbpfAIitQ5N7NwnfR/BjXAV8PlkB3yS9ayxM2plkOD9D
-         o7sXwhU5uvYvzLTCCRYpSFxPZLCziTbgllt+/0yuE50q+VGtYMHp66bsyID2wTyV5cjj
-         bE5Q==
-X-Forwarded-Encrypted: i=1; AKwUvBwk32SKDo27j0fBwAyXwGRvx6LU7aEgJNj6Yb7LWODxvUYJTOn/dmSNiHSBIgo9z7LqgdAFQqBAWpcgyP0=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLxiEi9iuUeUX0gv3aIe74NZkMUw2N9miDbhofZ0xuMcLp9T/XR
-	HwssyWHcljYNG7cSUcO8gt4pd6folH1xjIWIDQNRNTRuu78VTqRBmzmszwoIArWn0NtI0tfhuXw
-	3ooyy7rsipsK1Rb3OqYh4dmBvJVWvHCfSQihhey6jhlKfDeZlO81Fv82376OV1kGsLns=
-X-Gm-Gg: AYBFou1vdsGDrImxdqhyuKOVKtPSg227PKpcCztP9CmY/NoODb9h7lPgo19LWShWifz
-	B9ngUFFj8j9BBqLf/UnL4/bO6vHKcF9WSXyfjLrvraFEXQK3Zel9+IDT/xJL+OMW2Dc5pFx1r3U
-	ZCEDmN4EduP4RblWA5+8ODC/D2RMwl9MHlIh4utT1bEyxYCdanEIWHYtEITDYHUKmifM0ijn4lt
-	itB9nwK4vla9yzVYaNg72m7hghzUVnD6AP+29IJOdyflmdXj9ws/Rt+sbUIOI7dg/UKDnHo/iJb
-	9fRU3e5k889qejtn4JiG5O1SFhnP4bloXMhpW/VDyvtAw90ofUOemg364/9KrqMaxJqsm0h5dNI
-	DetdvC6qXUV4JKQ2r5Cs3cT92
-X-Received: by 2002:a17:90b:3e82:b0:39d:f4a8:75ef with SMTP id 98e67ed59e1d1-3a872ade7ccmr899941a91.1.1791286449444;
-        Tue, 06 Oct 2026 04:34:09 -0700 (PDT)
-X-Received: by 2002:a17:90b:3e82:b0:39d:f4a8:75ef with SMTP id 98e67ed59e1d1-3a872ade7ccmr899925a91.1.1791286448939;
-        Tue, 06 Oct 2026 04:34:08 -0700 (PDT)
-Received: from hu-hdev-hyd.qualcomm.com ([202.46.22.19])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a709a4e80bsm9330092a91.4.2026.10.06.04.34.03
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 06 Oct 2026 04:34:08 -0700 (PDT)
-From: Harshal Dev <harshal.dev@oss.qualcomm.com>
-Date: Tue, 06 Oct 2026 17:03:23 +0530
-Subject: [PATCH v4 2/7] tee: Add kernel client object invoke helper
+        bh=rKW0WKWDRVXBCGUqhbtra2Jo2FAHskgbTqhypYncQ+A=;
+        b=MkiQpjJiVqZX6fxTAk7Tde4rvBvhPdfdbXQBoaZWigrfOsinU4qPfWw//RI4/ZxxlW
+         cIdC1ene4IMRWMT8mDPBcu1ehS9aZ71BdgZSyKhUUX1YDGXjpNqZEly7p0LOPA5s7ZfI
+         GGtHS3PHnUaCHxKikSVRIJSAfL3IlFKPD6Sx+Mz5FryqcNhpwZ3aMM2q0TcrrMF8bz7z
+         Qg/ZmTG8fAs9g2LaR5PKfLoUDCBljShbZwkcRcDQTJxIq+zrPe2/bZIvIaBg5jnT/5rG
+         TXhQq4rv11Yk4ObbluhIvKhcrDhRvib0CyXs8+74OpqAqbbSYVHAIHmd0c2OAxuaqO9H
+         lMHQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791286454; x=1791891254;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=rKW0WKWDRVXBCGUqhbtra2Jo2FAHskgbTqhypYncQ+A=;
+        b=iizITC9yB3f7kj8sw7JrKyvBY/srqgurcHVszsgbw+75amtt6kAJ57C4jKr/Tq8RyN
+         4hBErid7ffefiqGsX2InfSMQaQougiBEyWln0Kl/ZUtC6Z+PpP8fIVfCz/Rgh2EpYYuU
+         ri4y8Z/V01ygVoVMXM6osd0DWk6yBh1J3BKf516WqmE4wbgpR3WIt2gg25oFxzx6x0zS
+         2L4HKTwZgAM/2Av2HuXLSne8x4xlPZmGqE4il0xTfwyTic23veCH16NjLg2tcWzMYMey
+         mkdFrE8Uw2GVYXozmeq67t1WEG5AbSpIrOa5cymN/vSBpjg5J05Eom+4hVmEHIPMbp1C
+         B6uA==
+X-Gm-Message-State: AFq9FYLheoyy7WBnjI9N2YJOW8G/lsuzkTIz9o2S4VwzSvBV3nqbcarT
+	0swB2L5tQBvRYeB72pvRT5HMJLlwVD1WaAI4OTnVdiMHyNMKo3fRGB3d3jGUsUpSM2fMjLrkRms
+	EoKGL+AfhZ4fmxPtqWLmiuOkGCeghzJz8m+MfR+Rp6z3e6nfL5eGluFyjvqUegOvRD7k=
+X-Gm-Gg: AYBFou2oFU/h1lmvxOnmYrW+1B2zlAI2Y8mRHfJptaIGXxq5NiEf3ljvVnqCymatrnq
+	0ZZXj4u3KgbFh3Mbw5zzIRoUYvJr8B/ur4Cr/Y8FNKm/tHpk8G0LxAEk7rDsNKnFTeCzmAVD/aB
+	40yH/1nMh3EfCxF1XzilGPP5yo1qK8ADPwil/pO/IpFqbiogG4WSrbDBv4CC3y5SdrolbIxn9Sb
+	9UhmWV8q+VJ9zErkSAwegeUPjVUrNUrhSeEVmb8jh42Wivyvhop2qOHcKwPP9VtIs/IxRIoUB8v
+	D3Fr68/HpTS1EPrfxMVaoC8oclon7YyuR493o3w3Bejx0skOpzBYcjs4bwL248uK0uJsLOFxCjt
+	QCyTfo8kV59bAiIWMtDkXVvQCFMsdpvzx8A==
+X-Received: by 2002:a17:903:2309:b0:2dd:c100:3133 with SMTP id d9443c01a7336-2e510613551mr89871715ad.47.1791286454128;
+        Tue, 06 Oct 2026 04:34:14 -0700 (PDT)
+X-Received: by 2002:a17:903:2309:b0:2dd:c100:3133 with SMTP id d9443c01a7336-2e510613551mr89871515ad.47.1791286453626;
+        Tue, 06 Oct 2026 04:34:13 -0700 (PDT)
+Received: from [10.219.49.187] ([202.46.23.19])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2e5a5cae104sm20366095ad.21.2026.10.06.04.34.09
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 06 Oct 2026 04:34:12 -0700 (PDT)
+Message-ID: <d819705c-2d7b-41de-a4c8-2772ee6eedaa@oss.qualcomm.com>
+Date: Tue, 6 Oct 2026 17:04:07 +0530
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261006-qcom_uefisecapp_migrate_qcomtee-v4-2-bf1c8e2a64ab@oss.qualcomm.com>
-References: <20261006-qcom_uefisecapp_migrate_qcomtee-v4-0-bf1c8e2a64ab@oss.qualcomm.com>
-In-Reply-To: <20261006-qcom_uefisecapp_migrate_qcomtee-v4-0-bf1c8e2a64ab@oss.qualcomm.com>
-To: Jens Wiklander <jens.wiklander@oss.qualcomm.com>,
-        Sumit Garg <sumit.garg@kernel.org>,
-        Amirreza Zarrabi <amirreza.zarrabi@oss.qualcomm.com>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>,
-        Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
-        Krzysztof Kozlowski <krzk@kernel.org>
-Cc: Kuldeep Singh <kuldeep.singh@oss.qualcomm.com>,
-        Basant Kumar <basantk@qti.qualcomm.com>,
-        Apurupa Pattapu <apurupa@qti.qualcomm.com>,
-        Arun Kumar Neelakantam <aneelaka@qti.qualcomm.com>,
-        op-tee@lists.trustedfirmware.org, linux-kernel@vger.kernel.org,
-        linux-arm-msm@vger.kernel.org,
-        Harshal Dev <harshal.dev@oss.qualcomm.com>,
-        Sumit Garg <sumit.garg@oss.qualcomm.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1791286430; l=2638;
- i=harshal.dev@oss.qualcomm.com; s=20251124; h=from:subject:message-id;
- bh=Quti/9VlUblrcTksx7XZhJmH9kVP/PDp+rrGqRHsdVw=;
- b=J9ElpovhGgPaipJFN0RwR9Shmw8hecBUpv/Wb0IGyeRE8PiDgfKGEMqTMkuxmhTrMSxW2xOXH
- 5RfTpEUkC4tBmdXXaWItMlBxonu7im7mtgsRyLAyUtT+2ARzd2/76/v
-X-Developer-Key: i=harshal.dev@oss.qualcomm.com; a=ed25519;
- pk=SHJ8K4SglF5t7KmfMKXl6Mby40WczSeLs4Qus7yFO7c=
-X-Authority-Analysis: v=2.4 cv=HtPjiETS c=1 sm=1 tr=0 ts=6ac4dcb2 cx=c_pps
- a=RP+M6JBNLl+fLTcSJhASfg==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v1 1/3] ASoC: codecs: wsa885x: Reset registers on teardown
+ for B2B playback
+To: Ajay Kumar Nandam <ajay.nandam@oss.qualcomm.com>,
+        Srinivas Kandagatla <srini@kernel.org>,
+        Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
+        Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>
+Cc: linux-kernel@vger.kernel.org, linux-sound@vger.kernel.org,
+        linux-arm-msm@vger.kernel.org
+References: <20261006053717.3455143-1-prasad.kumpatla@oss.qualcomm.com>
+ <20261006053717.3455143-2-prasad.kumpatla@oss.qualcomm.com>
+ <47a42c54-d3b8-44ec-8017-cdc34b474798@oss.qualcomm.com>
+Content-Language: en-US
+From: Prasad Kumpatla <prasad.kumpatla@oss.qualcomm.com>
+In-Reply-To: <47a42c54-d3b8-44ec-8017-cdc34b474798@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-Authority-Analysis: v=2.4 cv=HtPjiETS c=1 sm=1 tr=0 ts=6ac4dcb7 cx=c_pps
+ a=MTSHoo12Qbhz2p7MsH1ifg==:117 a=j4ogTh8yFefVWWEFDRgCtg==:17
  a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
  a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yx91gb_oNiZeI1HMLzn7:22
- a=EUspDBNiAAAA:8 a=kr-ihz5DC76VLKRVsLUA:9 a=QEXdDO2ut3YA:10
- a=iS9zxrgQBfv6-_F4QbHw:22
-X-Proofpoint-GUID: 4lMagV6YyyR2urhSHIL9uWUecLHbWoqD
-X-Proofpoint-ORIG-GUID: 4lMagV6YyyR2urhSHIL9uWUecLHbWoqD
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDA2MDA0NSBTYWx0ZWRfXyuPRFitmSlSi
- DB3oRz+KgWJ8R0jp2Gnxwz3nrzLc/kX7PfOf+Xv71FZ8o8XAmEpxv6+AoDe8dSx5jkiK7zxl2yU
- D/dfvpkcXU3rKRhr7DT375FjxdGnhfA=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDA2MDA0NSBTYWx0ZWRfX+RvhdNdPo8UY
- fI4zGIvWcKmWN2zoIwKj5kLj2/H4mBTz8M18NpWdnJwmEn2Z9Rhv6yIEJHWgqYO8RMOtE0MWIuF
- CC2MIHBHrq8TEN/wiY4nwQKCaTYR+c0lNDu3Dz8IFw6orS6rqUZSgvZkwvbls3lULrrFSUAjcIA
- +uePoLdH+5bHlT4ZVrn6OYYXvNpHF7wW+3Miz+sruPF7ALuUZSpTRc/KwGMHyZBOALD8QKw6Ven
- Os9+Uqvcjsxwx1pMPxzKZHsRTcHHeCpNLZBJywjs16Vdl/VwoG0/1UrPiX90TfxXviB+zmiwFxc
- LZQMXLLHybr5u2X733PSzKSGJHzF+SFf0fRgEJca9lQwtFWDI1jioicf0f498i7+B1jzGQf/0m6
- H7jEUUlo/21VrKc8lkort4iGkJX+/oz7oJ2IQQYktzNBKebHawvSoQbL85EadG8OZRFIF2as76L
- 9p4DUaZtS9gYhVOLvQQ==
+ a=EUspDBNiAAAA:8 a=6LP0HPHEwNRfjc6drA8A:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
+ a=GvdueXVYPmCkWapjIL-Q:22
+X-Proofpoint-GUID: ssUquJjBviD23vcD9z4G6l4idk3cgf0e
+X-Proofpoint-ORIG-GUID: ssUquJjBviD23vcD9z4G6l4idk3cgf0e
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDA2MDA0NSBTYWx0ZWRfXylTOFs9P0kLL
+ 4XX+aODVpvar0ZHteBRplZxWVEOqUwmyjAb2+0mOsrc+Yxim88hVxJJGm3UQUMU+TTiyElezDWk
+ PmZ5jDNXD8R7JMjfkzfFh/jiPy9ugq4=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDA2MDA0NSBTYWx0ZWRfX2C3xPsFBd/Z+
+ Ju2xK6T1CCiDa5tu9fRruOOXlnEdT1GwIgfw71qAvxy1wx+6xNk0sDrhufwZfduUFAGVsfEL0SF
+ YI7X2tyi+/221JQtoL73JYgaYjG6pZ2DZs2jf5SAoV2tHkULJ54VtdZ3bzMapLDEOwa+IW1pdcG
+ bx7RdbkOKg3Fbc0ZBEZwuYCxNpC2V11Hw7PrBhI/wiIj47Zo4AG43/f3wlT4PeigLbS9RarVZmO
+ HIWPK9lmRko5SEc1DP7H/k6/9L2KfhK9jtvkbs4ernSN2B1gRZ0hiRNVlQyfiTPd+xrwWxzHjt1
+ Qb/5HbWFnI3OEoquI7185xTlYUoXpG2IEccgV+IctvRa/c3XBfWcwdh0ALFS9sO3/oZ1kDMc/8X
+ xexBJ/6/jC+1Aam+6pOEyRIqc0Fet4IMx2yg/Jgc31WxZyjYPiTVH5lu8HsyLeJe1wLKkDd3sho
+ 3loSce6AKEI89gEXjsQ==
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
  definitions=2026-10-06_03,2026-10-06_01,2025-10-01_01
@@ -144,75 +132,83 @@ X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
  classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
  reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2610060045
 
-From: Amirreza Zarrabi <amirreza.zarrabi@oss.qualcomm.com>
 
-Kernel clients can open a TEE context and invoke regular TA commands
-through tee_client_invoke_func(). However, there is currently no
-equivalent helper for invoking TEE objects.
+On 10/6/2026 2:03 PM, Ajay Kumar Nandam wrote:
+>
+>
+> On 10/6/2026 11:07 AM, Prasad Kumpatla wrote:
+>> During back-to-back speaker playback the PA sometimes fails to enable
+>> because a few I2S/TDM and clock source registers retain their previous
+>> state and are not reprogrammed on the next stream.
+>>
+>> Reset the relevant I2S/TDM, clock source and bandgap override registers
+>> in hw_free() so the codec is torn down cleanly and the speaker amplifier
+>> comes up reliably on back-to-back use cases. Move the bandgap override
+>> reset out of set_sysclk() into the teardown path where it belongs.
+>>
+>> Signed-off-by: Prasad Kumpatla <prasad.kumpatla@oss.qualcomm.com>
+>> ---
+>>   sound/soc/codecs/wsa885x.c | 11 ++++++++++-
+>>   1 file changed, 10 insertions(+), 1 deletion(-)
+>>
+>> diff --git a/sound/soc/codecs/wsa885x.c b/sound/soc/codecs/wsa885x.c
+>> index 1faa8541a872..5ffbf9e89fd9 100644
+>> --- a/sound/soc/codecs/wsa885x.c
+>> +++ b/sound/soc/codecs/wsa885x.c
+>> @@ -896,7 +896,6 @@ static int wsa885x_codec_set_sysclk(struct 
+>> snd_soc_dai *dai, int clk_id,
+>>         regmap_write(wsa885x->regmap, WSA885X_DIG_CTRL0_SYS_CLK_SEL, 
+>> 0x00);
+>>       regmap_write(wsa885x->regmap, WSA885X_DIG_CTRL0_POWER_FSM_CTL1, 
+>> 0x01);
+>> -    regmap_write(wsa885x->regmap, WSA885X_ANA_TOP_BG_TVP_OVRD_CTL, 
+>> 0x00);
+>>         return 0;
+>>   }
+>> @@ -1006,6 +1005,16 @@ static int wsa885x_codec_hw_free(struct 
+>> snd_pcm_substream *substream,
+>>                    struct snd_soc_dai *dai)
+>>   {
+>>       static const struct reg_sequence regs[] = {
+>> +        { WSA885X_DIG_CTRL1_I2S_RESET_CTL, 0x00 },
+>> +        { WSA885X_DIG_CTRL1_I2S_CFG0_TDM_TX, 0x00 },
+>> +        { WSA885X_DIG_CTRL1_I2S_CFG1_TDM_TX, 0x00 },
+>> +        { WSA885X_DIG_CTRL1_I2S_TDM_CTL1, 0x05 },
+>> +        { WSA885X_DIG_CTRL1_I2S_TDM_CTL0, 0x00 },
+>> +        { WSA885X_DIG_CTRL1_I2S_TDM_CH_TX, 0x00 },
+>> +        { WSA885X_DIG_CTRL1_I2S_CTL0, 0x06 },
+>> +        { WSA885X_DIG_CTRL1_I2S_TDM_CH_RX, 0x08 },
+>> +        { WSA885X_DIG_CTRL0_CLK_SOURCE_ENABLE, 0x00 },
+>> +        { WSA885X_ANA_TOP_BG_TVP_OVRD_CTL, 0x00 },
+>
+>
+> This moves the BG_TVP override clear from immediately after a 
+> successful PLL lock to hw_free(), so WSA885X_ANA_TOP_BG_TVP_OVRD_CTL 
+> appears to remain at 0x03 for the lifetime of the active stream.
+>
+> Is that intentional for the back-to-back playback fix? If the override 
+> is only needed during PLL programming/lock, keeping the old immediate 
+> clear and also resetting it during hw_free() would preserve the 
+> existing active-stream behavior while still cleaning up the teardown 
+> path.
 
-Add tee_client_object_invoke_func() as a kernel client API for issuing
-object invocation requests. The helper checks that the backend provides
-object_invoke_func() before forwarding the request by setting the origin
-as TEE_OBJECT_INVOKE_KERNEL. This allows TEE backends to support
-privileged object-based calls from the kernel-space.
 
-Co-developed-by: Harshal Dev <harshal.dev@oss.qualcomm.com>
-Signed-off-by: Harshal Dev <harshal.dev@oss.qualcomm.com>
-Reviewed-by: Sumit Garg <sumit.garg@oss.qualcomm.com>
-Signed-off-by: Amirreza Zarrabi <amirreza.zarrabi@oss.qualcomm.com>
----
- drivers/tee/tee_core.c  | 12 ++++++++++++
- include/linux/tee_drv.h | 13 +++++++++++++
- 2 files changed, 25 insertions(+)
+The override remaining at 0x03 during the active stream is intentional. 
+The teardown sequence requires clearing |BG_TVP_OVRD_CTL| only after the 
+PLL is disabled and the device has entered PS3. Doing this earlier in 
+set_sysclk() violates that sequence and causes the
+back-to-back playback issue. Since mute_stream() already transitions the 
+device to PS3,hw_free() is the first safe point for this cleanup.
 
-diff --git a/drivers/tee/tee_core.c b/drivers/tee/tee_core.c
-index 30901390149c..a03a3d645dd1 100644
---- a/drivers/tee/tee_core.c
-+++ b/drivers/tee/tee_core.c
-@@ -1404,6 +1404,18 @@ int tee_client_invoke_func(struct tee_context *ctx,
- }
- EXPORT_SYMBOL_GPL(tee_client_invoke_func);
- 
-+int tee_client_object_invoke_func(struct tee_context *ctx,
-+				  struct tee_ioctl_object_invoke_arg *arg,
-+				  struct tee_param *param)
-+{
-+	if (!ctx->teedev->desc->ops->object_invoke_func)
-+		return -EINVAL;
-+
-+	return ctx->teedev->desc->ops->object_invoke_func(ctx, arg, param,
-+							  TEE_OBJECT_INVOKE_KERNEL);
-+}
-+EXPORT_SYMBOL_GPL(tee_client_object_invoke_func);
-+
- int tee_client_cancel_req(struct tee_context *ctx,
- 			  struct tee_ioctl_cancel_arg *arg)
- {
-diff --git a/include/linux/tee_drv.h b/include/linux/tee_drv.h
-index f3c5e106d853..369c87ad0205 100644
---- a/include/linux/tee_drv.h
-+++ b/include/linux/tee_drv.h
-@@ -283,6 +283,19 @@ int tee_client_invoke_func(struct tee_context *ctx,
- 			   struct tee_ioctl_invoke_arg *arg,
- 			   struct tee_param *param);
- 
-+/**
-+ * tee_client_object_invoke_func() - Invoke a TEE object from kernel space
-+ * @ctx:    TEE Context
-+ * @arg:    Invoke arguments, see description of
-+ *          struct tee_ioctl_object_invoke_arg
-+ * @param:  Parameters for the object invocation
-+ *
-+ * Return: On success, returns 0; on failure, returns < 0.
-+ */
-+int tee_client_object_invoke_func(struct tee_context *ctx,
-+				  struct tee_ioctl_object_invoke_arg *arg,
-+				  struct tee_param *param);
-+
- /**
-  * tee_client_cancel_req() - Request cancellation of the previous open-session
-  * or invoke-command operations in a Trusted Application
+Thanks,
+Prasad
 
--- 
-2.34.1
-
+>
+> Thanks
+> Ajay Kumar Nandam
+>
+>
+>>           { WSA885X_DIG_CTRL0_PA_FSM_CTL, 0x00 },
+>>       };
+>>       struct wsa885x_priv *wsa885x;
+>
