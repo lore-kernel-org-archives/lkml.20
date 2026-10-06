@@ -1,85 +1,80 @@
-Received: from mail-dl1-f45.google.com (mail-dl1-f45.google.com [74.125.82.45])
+Received: from mail-ed1-f44.google.com (mail-ed1-f44.google.com [209.85.208.44])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9FBE73C1088
-	for <linux-kernel@vger.kernel.org>; Tue,  6 Oct 2026 11:33:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.45
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 06FD3387375
+	for <linux-kernel@vger.kernel.org>; Tue,  6 Oct 2026 11:33:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.44
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791286405; cv=none; b=LxJ8TwN/mE7zEbW5+V5zoLNLxwvNsQW0ksLLuqDcJhQ9GNZG1rrMohbyW6qYW8/x2oDTXHow19PfZhiP3hECucuTNKXS+tm+Ftf4jSfT58ofDLc0dDU8BUvYSNZGU1xLZRzMQah1ZB90s+i6ERJATeS8m9q9LWtbyBBxFbhF/v8=
+	t=1791286427; cv=none; b=Xbey85FZIfCD1zUcV9dkwFDbsC1ob84bJ2qeu0VL3288USdE5qdajElp+l87lmJzdteq40xlc+80B8VCmvXeqEfoZcLGn1kzORmd/vqpVX1Sp0Qj28En0q5QsdnpLgOsJDKePvGs+uN+/UOyUcLjap02K0oan+rlLtLGv7ZbohE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791286405; c=relaxed/simple;
-	bh=K+paxjzoi7IzgH+mfHtxQm46Je8LqMNkCno24z5At/s=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Rduf/Bu+6BFwmBYvp9Ogn6OvUli7HxAuBHKoCSlYNn4mQDZXR6K2ynOJsCRxsBIci3hE0TIJXlYRT4Nk+coDKtRJqT8B0LchhEtRWhulXZxCL19Wq+ToYyVyTYgvCPu61xnbanKI0h6ePXry2JAUf1Bs0TM9HzxQ4Yw6sAL0TVo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=NgaHlvkD; arc=none smtp.client-ip=74.125.82.45
+	s=arc-20240116; t=1791286427; c=relaxed/simple;
+	bh=rbvt+tFZXxO5cFLINWgZ71k4YVwvsng5rl3cw2NGZ6w=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=tHeS3aY9lY1mcqZW+3M7R01wCND3tu3kcFmc5uGUSWGH8CCAjrLuBJyZ6N2HActuKLmvWJtyfDqH8kafDoAVPrPskgQdphzc4g8CZb4w3MPEMijR8bp/8BEN+0JT3HieSKygTpx+TFlM+XOn278BpVtF/juSz75S9yXtji0rQyI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ou9jdrN5; arc=none smtp.client-ip=209.85.208.44
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="NgaHlvkD"
-Received: by mail-dl1-f45.google.com with SMTP id a92af1059eb24-14fc585291cso557556c88.1
-        for <linux-kernel@vger.kernel.org>; Tue, 06 Oct 2026 04:33:22 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ou9jdrN5"
+Received: by mail-ed1-f44.google.com with SMTP id 4fb4d7f45d1cf-6a9a20a5e72so653551a12.0
+        for <linux-kernel@vger.kernel.org>; Tue, 06 Oct 2026 04:33:45 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791286402; x=1791891202; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=K+paxjzoi7IzgH+mfHtxQm46Je8LqMNkCno24z5At/s=;
-        b=NgaHlvkDNAkww7NGIAOc+OIqWnvDBKwZRrMILo3SuDyqe/P6pWzo+t/bevBC3FOIOp
-         r04ToZrjLpOiHlPKEDIqGyem785r3fr/hVD1KF4hFIrjC7pyY9vjd5N6GX6+MGgK+yyD
-         TglHiLSgbkv+29sNFrS/qG+KmO3LWlmmPs2neDzAu3AuGajFM7GJiWVTIOXdlxzMQt8I
-         pMtWlSbuXwdoD8jZPM/yhnMJs4uqLRcbuISbDGUfcMeIqv4hSZbixuYKu93X+PYEZ7gj
-         DxACO3WuXe8C/Imo58DZrpn/d5GQ9R5ArXvu6Al+SMgOtZJLnOrKr0pMA618DmYtmcdO
-         JeTg==
+        d=gmail.com; s=20251104; t=1791286424; x=1791891224; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=kcAdRzVf/u8zZAu+qB0ABmtM1m8Lw721MraQWUZf5XE=;
+        b=ou9jdrN5E8suovejcv4mQx+crgmUN3BqXNrUiyYEK/04W/n7XeADOkHb03lSrOWrrr
+         /4I770nVYiV1cuCd9t1Y7p3uRLtVTniUCS8y2Wu3+GSR868Xho1wjFxsVojn8lemrcdL
+         uHw6ZHyRUQ+idtG6QnyBGbFjye1FLn7+BT3ED1u+bNjBzhtZf5iuU030HoAjf5wF1CUp
+         KIGTD2wk5HWPUPFbJnQcpif2/9HfiCjqcmKfmAUvZ/zrq4tJ3A2VdnqdlTFx/AzcQ/KT
+         Dw2VVb7KugaeYRO7DBBiY9Usx8higPnoIBmTS6uww1lFYSMGvTVG98sVUmVGomg0czh6
+         iFuQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791286402; x=1791891202;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=K+paxjzoi7IzgH+mfHtxQm46Je8LqMNkCno24z5At/s=;
-        b=daml7SGF45n4fUWbh/7Qdpt2eXtl+NDwIklU2NP2h4oCHCJUVACITOVsZ5JrHkoxzg
-         uayU9V64A/Uno5/eDDHRiHUywnVYbE+I6Ho7h0c680/lH8FvPNXuTfd3EGRrrB81h5b9
-         vPbVPg/TBwdBUYejJzoRlqRGwTPDBK1gRHIaaPjFfXdNziuohL4qnu7wqbAus1TzVMR6
-         yUqNBf5o8lgPx5FoXEfcGsNTregS8CLVoqmRwPgz1DIaEpopN91XD0y6AyKLmX0B0/M/
-         WjTzUF9Rf4KI9A6q9vfpdtIIxlys5R96shwRD7/DLHcg4G7Le7jU7KGEemU+xF0PuHRw
-         UsRg==
-X-Forwarded-Encrypted: i=1; AKwUvBwp7vMGOanxk6aAwdYeYXT1WaEXOV4xzJzhY9s6obRpUp4T7lC9M4G3xm9vJSo+7xSJch4b0+68w1zKPYs=@vger.kernel.org
-X-Gm-Message-State: AFuF++mev2C6gMi2JjG3IXddlrSf0W+FV0LPsV8PbQP2fX1NvSgTdyuo
-	+yehPZiQaEwHVIlqxIFR/q3gCEqqtgF1r43kxLdd8oNi3U4RFEu9o7ya
-X-Gm-Gg: AYBFou0SnHWAyIGUHBxwaocUrefGKs/H/cs1ZPIUytCfrYhirbuyap5iWAF9vDh0LO2
-	jfFxjZRCzH3PQ2paKEZ2cj+qVMBMCGBm0oFa0UGDTLkRmchJxDajiAj2WJxWrDRe6W5Prkxb+pX
-	2WTqTkmbxLq8W1hNkpLph+HTU3wXWpQo4TKscLPdubce13oMt4dN8GHrBQoZlaXSLBAPFyR4Q5G
-	F8+P9Bi4J2gL3SBprdK+mibMklW+AwRav4XEuzNOolcc7HUtBK0/NQe3aEfq05Ck1vPS4czzHRM
-	D2g+Jt0RPVtsHPWiw1kjTrK9Xylr4NlwH7u+WfsDYr9gwI0f1YoQ2KwR+wBWRHXoFOGZ4n1DOP/
-	lfWfkgWFRvf+bDkZ2zJ/HheibXyus5rSjbQ9Er69DkMlmMXH7FPDdeO1Nucp03G4VheXTKaL81v
-	yLgGvJ/t73qUOaxToO8fjrZ+cCa2E2DKI6MWu63HP5RshLGBWCTtmsCIjSuoaNTuzwoy4yjKx7F
-	jmWGx7rdOu62F0Xk8qiUmZIFS4UaWo33dya9Hjjd3q3WNbnTJKJ5uMCBIw8ouC8NQgTckU+69Rj
-	DX0NNQ==
-X-Received: by 2002:a05:701b:458c:b0:148:bbae:ad2b with SMTP id a92af1059eb24-151c2b16e87mr13424090c88.11.1791286401479;
-        Tue, 06 Oct 2026 04:33:21 -0700 (PDT)
-Received: from MaquinaLab.. ([179.179.237.181])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-15d7234c2a2sm10735006c88.0.2026.10.06.04.33.17
+        d=1e100.net; s=20260707; t=1791286424; x=1791891224;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=kcAdRzVf/u8zZAu+qB0ABmtM1m8Lw721MraQWUZf5XE=;
+        b=q0u+fmKcf7MY1JqR60XelL5QR0KFXS39WvRC/Gt2yB5HevYvfEnVRxVurdMv3EX6yh
+         MktSvzqSNCmnko26fpqcjy6isMgL+BBi8iCwmILsU0Ws76Umq+fwXhtYBCh60W/bjYgN
+         xP50iVskzvVmB3rdrSofh43PkPcX471NZljArvAQBTwuYrpHdrODpDe9n+V7U21MGacH
+         PpzGTwt9py1dl/E3MFHspkYT6BC0+ifkktXuH5k607xxcUh1HCdOm7BJhErZQna6MB3g
+         0UJ9bru6ePw2pUiykRo4dVepEkjTZKb8w5XTW940Vxa9Z8ef2gdErQhi4/lPma/BtNbi
+         XKJw==
+X-Forwarded-Encrypted: i=1; AKwUvBywpN4F8COKqZXhJM0eH0aXpIcUV+fkfHKcOaMzY2E3y92JxiInLhNKKYpEfEMtpW62lUsP3Ts3wuDJSoc=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKdzl4mVnn7NBNuQUa1AgPycO1+9j54BwCLDwJCC0FLUA9p/eyo
+	zYkSPY57HTOsINviiDCd6XlRrQ12s2aqKSRDX3hm+Rbxe0fcTVLK5sW6
+X-Gm-Gg: AYBFou1pKeNHtFsLp0BvgRGdImw6OMqAigsTXAbkoeOqRgK2H2oJc+LAI2/3AgBfmp4
+	ApwEcDnwp7vT3XBEWnOWSqqK1Ndzq70CipFs+oYObAQB51qvx3bkuB7BJY6Pv4ozVA61q1KpVXH
+	uAtcJhOPWX7W/qR5dLB/oSDTP2fBlBYydi0DiEIpj6fBFrSBAERKTaHTLymPQSwx931maEP7zgD
+	9/6lNcVAvZeyYGQPaUaq9AYO0s93iokHFB0a9LiFp5kPM6/34ttkW/H5bacdNT9ItLL6jDD12Oq
+	FavYSyuV/XfLLZcDsLsB00WzK1rdcNK2wjYj3dhzCjyc4iGB4ufUZIyHA7KfjhHbIKjsAuIdZH2
+	qqVDGrYFAt90g/cdtJ7N6qCM5UwObV2H/T57EOkfTPCCFjmd0r8gOKBjxV+RQV05o05auEJY4FI
+	3w0+sMRg0TZDJDI3OklEvg1K0LY5oWU21DthhhKJiBcMvfMGLC1dtCiEbgC4hGi5JnNdWcSbUfB
+	rYzasg5pdziqBGvBPMiq1CCxz3rvYmOUpf1pbJ+wHe53+ar2r2zAT2XaXdQ2uZT0nkueV7vrODW
+	UzQSRhf87YULgHd82MvxWCoeBhQb6FLkEPj3zuJiNH8HN6o4iG8DoA7wHQhRUNZ7e5OQvJFetlQ
+	pgWLiUWx1hEeuuf8OCcgyjj+dCf7k
+X-Received: by 2002:a05:6402:4512:b0:6ac:8b71:fd91 with SMTP id 4fb4d7f45d1cf-6afe2959a75mr1292168a12.3.1791286423860;
+        Tue, 06 Oct 2026 04:33:43 -0700 (PDT)
+Received: from Ubuntu.ts.net (87-205-15-91.static.ip.netia.com.pl. [87.205.15.91])
+        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6afb01e5937sm4465468a12.11.2026.10.06.04.33.42
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 06 Oct 2026 04:33:20 -0700 (PDT)
-From: Vinicius Pedrosa <vinicius.eduardo.pedrosa@gmail.com>
-To: Andre Przywara <andre.przywara@arm.com>,
-	linux-serial@vger.kernel.org
-Cc: gregkh@linuxfoundation.org,
-	jirislaby@kernel.org,
-	robh@kernel.org,
-	krzk+dt@kernel.org,
-	conor+dt@kernel.org,
-	andriy.shevchenko@linux.intel.com,
-	ilpo.jarvinen@linux.intel.com,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-sunxi@lists.linux.dev,
-	Enzo Adriano <enzo.adriano.code@gmail.com>
-Subject: Re: [PATCH 3/3] serial: 8250_dw: Add Allwinner A733 UART
-Date: Tue,  6 Oct 2026 08:33:06 -0300
-Message-ID: <20261006113307.86417-1-vinicius.eduardo.pedrosa@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <db561de8-cef7-4945-93ee-b0d434eb806b@arm.com>
-References: <20261005172538.398522-1-vinicius.eduardo.pedrosa@gmail.com> <20261005172538.398522-4-vinicius.eduardo.pedrosa@gmail.com> <db561de8-cef7-4945-93ee-b0d434eb806b@arm.com>
+        Tue, 06 Oct 2026 04:33:43 -0700 (PDT)
+From: Krystian Kaniewski <krystianmkaniewski@gmail.com>
+To: Vinicius Costa Gomes <vinicius.gomes@intel.com>,
+	Jamal Hadi Salim <jhs@mojatatu.com>,
+	Jiri Pirko <jiri@resnulli.us>,
+	"David S . Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>
+Cc: Simon Horman <horms@kernel.org>,
+	Vladimir Oltean <vladimir.oltean@nxp.com>,
+	netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH net 0/2] net/sched: taprio: fix RCU stall from replayed schedule entries
+Date: Tue,  6 Oct 2026 13:33:33 +0200
+Message-ID: <20261006113335.241564-1-krystianmkaniewski@gmail.com>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -88,27 +83,30 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Hi Andre,
+syzbot reported an RCU stall with a software taprio schedule made of a
+single 127 ns entry. When advance_sched() falls behind, it replays every
+missed entry inside the timer interrupt and the backlog only grows.
+Patch 2 makes it continue from the entry in progress instead.
 
-On 10/6/26 11:46, Andre Przywara wrote:
-> So I was wondering if we should refine the DLF detection instead? Only
-> when the readback from 0xc0 returns some 2^n-1 value we assume DLF is
-> implemented?
+Patch 2 then checks for an admin schedule handover once after catching
+up. That requires the cycle_time_extension comparison to be monotonic,
+so the sum now saturates instead of wrapping. As a result a large
+extension can hand over to an admin schedule whose start time leaves no
+room for the timestamps derived from it. Initializing such a schedule
+already overflows today, and a carefully chosen extension can already
+reach it. Patch 1 rejects these schedules at configuration time and
+comes first, so the series never hands over to one.
 
-Thanks, that's better than a per-SoC quirk. On the A7Z, writing all ones
-to 0xc0 reads back 0x19f, so the same family as your 0x9f with bit 8 on
-top. A 2^n - 1 check rejects it.
+Krystian Kaniewski (2):
+  net/sched: taprio: reject software schedules that overflow their
+    timestamps
+  net/sched: taprio: do not replay missed entries in advance_sched()
 
-With the check on the board, dlf_size is 0 and 0xc0 is still 0 after the
-termios stress loop. Without it, 0xc0 reads 0xb after boot. I don't have
-a UART with a real DLF to try.
+ net/sched/sch_taprio.c | 171 +++++++++++++++++++++++++++++++++++------
+ 1 file changed, 149 insertions(+), 22 deletions(-)
 
-v2 puts the check in its own patch and keeps the fallback, with the A733
-compatible only selecting SKIP_SET_RATE. On the fallback alone the same
-loop leaves 28 garbage bytes in 3000 lines.
 
-The probe itself still writes all ones to 0xc0 before restoring it. Would
-you rather skip that with a DT property, or leave it?
+base-commit: af39eb111ce6b5eba9c08513b62c4868eb7e7fd5
+-- 
+2.53.0
 
-Thanks,
-Vinicius
