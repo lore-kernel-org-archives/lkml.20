@@ -1,266 +1,215 @@
-Received: from mail-qk1-f227.google.com (mail-qk1-f227.google.com [209.85.222.227])
+Received: from mail-vs2-f38.google.com (mail-vs2-f38.google.com [74.125.227.38])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C06F7383320
-	for <linux-kernel@vger.kernel.org>; Tue,  6 Oct 2026 21:21:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.227
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7153C381E9A
+	for <linux-kernel@vger.kernel.org>; Tue,  6 Oct 2026 21:21:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.38
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791321683; cv=none; b=jKAQj530Yfkxhg4QD9evVE7j7ROVygnrRlSZwNKPSPbHd3BmrsRXZ0jMxyTV0ByoUTkQ1Zy33DY75wuZY32MZWeDGKdWM7Am1uvfIhl9Krxq3Nr/HEKbR1brf3OSs7eIxNrKj9V6kiJapbqFX0EXKusjJzA5M5CQAplgB0jt77Q=
+	t=1791321721; cv=none; b=MtGPb0JSu4f5dk2Na8Rnp8JRmPxyfrGALUffbUJcpYnApMZDtX2B8cuCID/UViqVM48q2ofUVjc6mTxyDviFAI2dvpMWR6QJEhTpsb1NSgg3i1JvJdIMuU5WHfBd5s4O2PW/dbP+Lty8jCpvCZKZFzVGAAfnpwyJGQ5HORlqXg8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791321683; c=relaxed/simple;
-	bh=c0npU9j0jw2gLlCjVb+kR1taANZH0aEUXhdPQWdtQCI=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=Mk5hZuGP3xDSU8JsBwsbmwgoa5p9+mF14mPOtMoohb5Li+FxXlsjAWlysFNQuzDSsxxhdchICzjNuYWsmAZ3iKZcGqpMQVVQm0c8uLLCttTP8TuY78dde0ZJ3+xNBbh48i6uiLf4pUEdi7BbNSlUDLF4LmBGjwnbSHODUSEU6Fs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com; spf=fail smtp.mailfrom=broadcom.com; dkim=pass (1024-bit key) header.d=broadcom.com header.i=@broadcom.com header.b=b9skhlkR; arc=none smtp.client-ip=209.85.222.227
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=broadcom.com
+	s=arc-20240116; t=1791321721; c=relaxed/simple;
+	bh=byMrUcuXizhXLYsEYCDdvLYPqWlJmUU28xIbnW2zRWM=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=pHD+qqoriSWya4+1oWOiUZmMCUX5ueth+hbMxWCXrPlqRk45mlUT82wLNRckt4PIEGLvIvZyo4o8JhCCwEsOoIg8CwCOkReagrc0w87yD2YhD2eclvG75aGpKRhF3z/WHlcOC8pEKwxAfXPXiVIjPw1GrAM0t5v+gmVp3s+HdZ8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=N5SbWeym; arc=none smtp.client-ip=74.125.227.38
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=broadcom.com header.i=@broadcom.com header.b="b9skhlkR"
-Received: by mail-qk1-f227.google.com with SMTP id af79cd13be357-93e50170ba7so255053785a.3
-        for <linux-kernel@vger.kernel.org>; Tue, 06 Oct 2026 14:21:21 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791321680; x=1791926480;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:dkim-signature:x-gm-gg:x-gm-message-state
-         :from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=c+s8wDkFJjmUsGyNSfck13snpsgrI2xWNmikr55Ve2o=;
-        b=aM7DGdNsJLUGem/RTu3vHbjjw+TPAanBneComhuYv4r2jANxL57Wu7wANZXHIuKCAP
-         DpyliVXmWeMu6a7vcQvtkkxm8zRAY4G1LBVBZuMBzuSHfsj3raQTZaNNOPc4vkK4eEda
-         B4llgA1Nrhk3w2awI+f6iXnVWBQtjC/7c7zoZjATwF0lBSC0ZLgYPqIfCthmy3Uzboii
-         qZRT8d+zjnUPIB18Jdbxj2Y3Y+wj8YlafFHYTDIAcpC1Qzy4jqMp7emGpmfbGQeo0/aU
-         h0p2jf+R+ubjnjKo9dYkR0pYmfRwp3afkcMcZVkp3MWbF7Nq+0aj1oBvdvw2ckDb36E9
-         +ZFg==
-X-Forwarded-Encrypted: i=1; AKwUvByaaUUjHKTRoniLlmWl0vr0rkUMmTqCsAykruUIm1q7+WYKrblzmiErqkEuflNtaAfpBI0ev5kBHl019B8=@vger.kernel.org
-X-Gm-Message-State: AFuF++lLpMamctb73GAs8964iM6uYFo03pMfLuXqdH+q6sV9jD2AQ1S4
-	tqK4btnbnbor4qc85YDetZR8OcqBlqNjuKC1W7RVWa2TkFsbcGR/q8IlD+DUlkFEnn5dp/ltIDh
-	+FSFASn8QUMDN+RMpR9qAJ3Qo7NeM0+JUP+dxlMvDL2OscQKiGV8WnRDHhujYJifse7IaxWD6fx
-	fIDSC1z+xt6HtO888R8QjNK07VCGuNPK8lzMhFC4WkyZXtcL6lWHvNxDlc3FH6EVQw0EriWz9hb
-	PVX7hffRCkmdQ==
-X-Gm-Gg: AYBFou1KHYFVcTi9czT2xr8WMUbQEWutuhYNj6FE94SCGvhXtf2BNOC4nayOQgsIOQU
-	itbofn0bQ1litRdE7u0eAEniQlGSSuzEPqGiDFXHvGqdbPXBEwDIk/CsFRWlnGBv/GNs6Rbxsbw
-	RZNUtwDoTLryZEphosNJX52VCpqT+SsHnk8Ce/jXjzJ1GYOwVcxEzmg2VgzHhHwGMk3o9L4mqMG
-	H+r3h2HYrAZfiQSaIy6ftly72YBCv/xFQHk6zWzVk7WUELSRn2sCXROCtqiJj57mgzlESRANDiv
-	QMwgtuVu6eFfLhXLApjXz/g9fCDXiRAFkJ+QJpEx2PaYk/mfsjpiO1kczOSysNQCbhglPNqKCSS
-	QOhzDdnauQpU3UttZRasU5eEqHTEthOlmA8AAJbTMoe5CIapJMVt6CN0GroL0LP5yk374GATM3t
-	2utFiEpeuGdtCBDwSYcU/mu5xJ6JX7ewer
-X-Received: by 2002:a05:620a:254b:b0:93b:d7a3:45d4 with SMTP id af79cd13be357-93e9b84acfemr36969185a.61.1791321680569;
-        Tue, 06 Oct 2026 14:21:20 -0700 (PDT)
-Received: from smtp-us-east1-p01-i01-si01.dlp.protect.broadcom.com (address-144-49-247-124.dlp.protect.broadcom.com. [144.49.247.124])
-        by smtp-relay.gmail.com with ESMTPS id af79cd13be357-93e9912449asm19072685a.10.2026.10.06.14.21.20
-        for <linux-kernel@vger.kernel.org>
-        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
-        Tue, 06 Oct 2026 14:21:20 -0700 (PDT)
-X-Relaying-Domain: broadcom.com
-X-CFilter-Loop: Reflected
-Received: by mail-yx1-f71.google.com with SMTP id 956f58d0204a3-677c2db10b1so7080946d50.1
-        for <linux-kernel@vger.kernel.org>; Tue, 06 Oct 2026 14:21:20 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="N5SbWeym"
+Received: by mail-vs2-f38.google.com with SMTP id 71dfb90a1353d-5d96ea3f87dso91310e0c.0
+        for <linux-kernel@vger.kernel.org>; Tue, 06 Oct 2026 14:21:59 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=broadcom.com; s=google; t=1791321680; x=1791926480; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=c+s8wDkFJjmUsGyNSfck13snpsgrI2xWNmikr55Ve2o=;
-        b=b9skhlkRGI4y/sX4XXTGbTI4u0qmJnxAeIkqkANi/bbrpzCylX2r0VnqdRPGV1iY5o
-         nCLLisU+JTcnoDZJe9TCyVnpsSrt1NukRIqzugSvi/EfbU9/xi465SZg70CAAOakEO0q
-         L+P9o5qVU/qXsGiL0skaMX08yyPUS/84NcLBE=
-X-Forwarded-Encrypted: i=1; AKwUvBx1VvkjUSuDpnqS+rRuanPmEyyb5zS+IvpQGJynEHrV+SybJ2k0zdwig/5vJE4QABQvX8NsdvJPsUwFJtY=@vger.kernel.org
-X-Received: by 2002:a05:690e:bc1:b0:675:37b1:931a with SMTP id 956f58d0204a3-6790a0c3183mr204473d50.12.1791321679909;
-        Tue, 06 Oct 2026 14:21:19 -0700 (PDT)
-X-Received: by 2002:a05:690e:bc1:b0:675:37b1:931a with SMTP id
- 956f58d0204a3-6790a0c3183mr204450d50.12.1791321679271; Tue, 06 Oct 2026
- 14:21:19 -0700 (PDT)
+        d=gmail.com; s=20251104; t=1791321718; x=1791926518; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=747DO8pMObmlt2LsNi5++qG5AkL16Gja5YdprxdZyOE=;
+        b=N5SbWeymhIJPW7gJF7IGfNblh8dyfx5CpXEXaZE+k1WKu/ghWUzoyAtK6ZPhtbQiJ0
+         lzxZN37SelSoYzbS9p4NkIp32yIE8nC/W0HHIC6Ne9aG22xpKmmcdfSMLd35l04JFHKE
+         Wexzp2Pr8RVvzBmEMPtZ9t4X3zqBWj26XtZ3zUbdJetkrii94bb6Wo4DHlSCzacbpaSZ
+         njXWZidGTEhpbsuzX+mmwXkXpsFR3cq0z/rCCZTskYhebE5u63pkWjCUNQOPjOICPbG2
+         vmBcFuNjagE1jRnEi0sM0L/mPyoXAbApz9FOMn4mi1Zxjlm67TAu03E7OuAs5iX/nf/u
+         74ng==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791321718; x=1791926518;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=747DO8pMObmlt2LsNi5++qG5AkL16Gja5YdprxdZyOE=;
+        b=pTQkwzKKaB0ETVesDXcwKwzcl423Fn/Z3PdHluXiskzgOON9FvsNbX/9GZVxZ9j5JJ
+         Mj3cOEvbl260nxsT/yw8VBJzT73eM7WvXEz8I0hfHuKPzcrCPJpj0O0bkFmMBC+LIwvh
+         l96li+xnuhXc9viFpLOAmfRpqM8kTQZbzIVrsyPkIQgpAaNcCUeqWSDZKEdroxuzKq+J
+         iOLvHBxfpgGC48kVpYOCkBUBmw9rdatSE4khukvmVhvWGyUdPLhbQvn/T1fhtfULnwtR
+         ZRAjoBgZNDA7J4wRDoFrRNdurhIwY678JbdpCVEux5TTpzWoi6Oq9jTEfiHSnpWtE2dF
+         XvMA==
+X-Forwarded-Encrypted: i=1; AKwUvBxgLAajlqAJjWr1VEgJviGzqkOq9Jfi0DmVc06W6+6Roso5+Xp98f9oprfiIaJOVVwcjr91cwItN1r58cA=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJH2cQk6tX6PxYL/rbD9ZR8vP1MrljvccUeKWuMfX+buUxJwuEG
+	K3ekTdXrB9FFKzP7QUR99aseWriUkIpQ7B+2OX2oB7jxP8XjfkWD82dL
+X-Gm-Gg: AYBFou1Wq4EiZa4WxsnbkQWfw0cTs95sMpZREu47ZPNxCj+kgVHFNhk5BfazHQFn/Co
+	ONmDllMGey+cV1Yo5k0yVS9WP4ixJ4gEm3GMjbAnGpiWd574B8zrWDGiR6F/y+NWnXzjBYu09q5
+	zknpX5EEood8QPyf5JIYrOz8IvY1bY1V/fqNp59biaSK0TZO1gbEcTaUgrOqV54MfxK0v9eWs9f
+	Nqlr4JL08m1VrkqNHUh0zaj+ggppGiZU8nDRJSVSks3fPV548wgjxuQ4F+Av45a2C+lyp/lRGhl
+	oeMbznk7/sWydnhduvwiFye96UjZcAOQpO7m9lh4U2z1xVDk7vQiH/io3xSYhxWdy6A77lAMPUD
+	3Vs1tafXhMlndVbsBKurM4LLUJhjPARq6Yd5BVYi1cyF1fInd0kr2OBWaqmIuCaqJT+Cqmjqf/U
+	nP1O09zsdfHHObP7eAKhFzC7Wd8f5SuyAp97Y529K26zyxxaFTbqQ9SxDbAY62bf1NKPgCSlxyH
+	mosD5bWjWrtA94cnaB0vOZuYWpyc0uRJUb36KiM
+X-Received: by 2002:a05:6102:5087:b0:7bc:a347:2058 with SMTP id ada2fe7eead31-7ca38917256mr23051137.2.1791321718012;
+        Tue, 06 Oct 2026 14:21:58 -0700 (PDT)
+Received: from hitalo (190-33-161-131.in-addr.arpa.host.souuni.com. [131.161.33.190])
+        by smtp.gmail.com with ESMTPSA id a1e0cc1a2514c-98e399296casm512258241.0.2026.10.06.14.21.55
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 06 Oct 2026 14:21:57 -0700 (PDT)
+From: Hitalo Souza <enghitalo@gmail.com>
+To: linux-bluetooth@vger.kernel.org
+Cc: marcel@holtmann.org,
+	luiz.dentz@gmail.com,
+	linux-kernel@vger.kernel.org,
+	michael.bommarito@gmail.com,
+	Hitalo Souza <enghitalo@gmail.com>
+Subject: [PATCH] Bluetooth: Add missing newline to bt_dev_{err,warn}_ratelimited()
+Date: Tue,  6 Oct 2026 17:21:42 -0400
+Message-ID: <20261006212142.2168838-1-enghitalo@gmail.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260917144758.2157707-1-vulab@iscas.ac.cn> <CAEQnVQnWk2ADAvLEVCrgNE=dtf3D4DJ-UcosUQgGDj8=AMnA2A@mail.gmail.com>
-In-Reply-To: <CAEQnVQnWk2ADAvLEVCrgNE=dtf3D4DJ-UcosUQgGDj8=AMnA2A@mail.gmail.com>
-From: Paul Ely <paul.ely@broadcom.com>
-Date: Tue, 6 Oct 2026 17:21:07 -0400
-X-Gm-Features: AclHuK9ZSfOlyGbY5h0Kfvrv-muwnCR6dEPA3TUbGjoEl17TCh4tSpsHX0vjPvA
-Message-ID: <CAEQnVQn7fpgpm5zY=8ne0G5M_KXWg4qjecMK6smk-q+_0j1PEw@mail.gmail.com>
-Subject: Re: [PATCH] scsi: lpfc: Fix ndlp reference leak in lpfc_release_rpi()
-To: Wentao Liang <vulab@iscas.ac.cn>
-Cc: James.Bottomley@hansenpartnership.com, james.smart@broadcom.com, 
-	linux-kernel@vger.kernel.org, linux-scsi@vger.kernel.org, 
-	martin.petersen@oracle.com, stable@vger.kernel.org, 
-	Nigel Kirkland <nigel.kirkland@broadcom.com>
-X-DetectorID-Processed: b00c1d49-9d2e-4205-b15f-d015386d3d5e
-Content-Type: multipart/signed; protocol="application/pkcs7-signature"; micalg=sha-256;
-	boundary="0000000000006cc0b6065d3294de"
+Content-Transfer-Encoding: 8bit
 
---0000000000006cc0b6065d3294de
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+bt_dev_err_ratelimited() and bt_dev_warn_ratelimited() pass the format
+string to bt_err_ratelimited()/bt_warn_ratelimited() without appending
+a newline, unlike bt_dev_err() and bt_dev_warn(), which go through
+BT_ERR()/BT_WARN() and add one. Only 2 of the 22 in-tree callers (both
+in virtio_bt) put the newline in their own format string.
 
-Since you are fixing up the return values, could you also fix the -EIO
-in lpfc_sli_issue_mbox_s4 to return MBXERR_ERROR?  The patch will work
-in case of -EIO return but clearly lpfc_release_rpi isn't looking for
-a negative MBX return status.
+A printk record without a trailing newline is stored with prb_commit()
+instead of prb_final_commit(), and readers of the log buffer (/dev/kmsg,
+syslog) do not see it until it is finalized, which only happens when the
+next record is reserved. These messages therefore stay invisible until
+some unrelated message is printed, and journald, which timestamps a
+record when it reads it, logs them with the time of that later message.
 
-Thanks
+This was observed with a MediaTek MT7921 controller (USB 04ca:3802):
+when an eSCO link is closed, the host still receives a few SCO packets
+for the handle after Disconnection Complete, so hci_scodata_packet()
+logs "SCO packet for unknown connection handle". Comparing the record's
+kernel timestamp (_SOURCE_MONOTONIC_TIMESTAMP) with the time journald
+received it, over one capture:
 
+  emitted       logged        delay
+  15:36:52.896  15:37:00.214    7.3 s
+  15:37:03.410  15:39:05.574  122.2 s
+  15:39:05.574  15:39:12.506    6.9 s
+  15:39:19.791  15:40:54.109   94.3 s
+  15:41:22.021  15:41:24.647    2.6 s
 
+Each message showed up together with the next kernel message; the 94 s
+one looked as if it had been logged in the middle of a later, healthy
+eSCO connection.
 
-On Thu, Sep 17, 2026 at 3:35=E2=80=AFPM Paul Ely <paul.ely@broadcom.com> wr=
-ote:
->
-> Thanks Wentao,
-> I need some time to read this one and test it.
->
-> Thanks
->
-> On Thu, Sep 17, 2026 at 10:48=E2=80=AFAM Wentao Liang <vulab@iscas.ac.cn>=
- wrote:
-> >
-> > lpfc_release_rpi() only drops the node reference and frees the mailbox
-> > memory it took when lpfc_sli_issue_mbox() returns MBX_NOT_FINISHED.  Th=
-e
-> > SLI-4 issue path can also return -EIO without submitting the command, i=
-n
-> > which case the completion handler never runs and both are leaked.
-> >
-> > Clean up whenever the command was not handed to the port.
-> >
-> > Fixes: 4430f7fd09ec ("scsi: lpfc: Rework locations of ndlp reference ta=
-king")
-> > Cc: stable@vger.kernel.org
-> > Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
-> > ---
-> >  drivers/scsi/lpfc/lpfc_nportdisc.c | 8 +++++++-
-> >  1 file changed, 7 insertions(+), 1 deletion(-)
-> >
-> > diff --git a/drivers/scsi/lpfc/lpfc_nportdisc.c b/drivers/scsi/lpfc/lpf=
-c_nportdisc.c
-> > index 9c449055a55e..055f44ec7b94 100644
-> > --- a/drivers/scsi/lpfc/lpfc_nportdisc.c
-> > +++ b/drivers/scsi/lpfc/lpfc_nportdisc.c
-> > @@ -1142,7 +1142,13 @@ lpfc_release_rpi(struct lpfc_hba *phba, struct l=
-pfc_vport *vport,
-> >                                  ndlp->nlp_rpi, ndlp->nlp_DID, ndlp->nl=
-p_flag);
-> >
-> >                 rc =3D lpfc_sli_issue_mbox(phba, pmb, MBX_NOWAIT);
-> > -               if (rc =3D=3D MBX_NOT_FINISHED) {
-> > +
-> > +               /* Only a queued or completed command is handed to the
-> > +                * port; other results, such as the -EIO returned by th=
-e
-> > +                * SLI-4 path when it cannot submit a non-polled comman=
-d,
-> > +                * leave the mailbox and the node reference to the call=
-er.
-> > +                */
-> > +               if (rc !=3D MBX_SUCCESS && rc !=3D MBX_BUSY) {
-> >                         lpfc_nlp_put(ndlp);
-> >                         mempool_free(pmb, phba->mbox_mem_pool);
-> >                 }
-> > --
-> > 2.34.1
-> >
+bt_dev_err_ratelimited() lost its newline in commit 657cc646475b
+("Bluetooth: Remove usage of BT_ERR_RATELIMITED macro"), which replaced
+BT_ERR_RATELIMITED(), the variant that appended "\n", with a direct call
+to bt_err_ratelimited(). bt_dev_warn_ratelimited() never had one.
 
---0000000000006cc0b6065d3294de
-Content-Type: application/pkcs7-signature; name="smime.p7s"
-Content-Transfer-Encoding: base64
-Content-Disposition: attachment; filename="smime.p7s"
-Content-Description: S/MIME Cryptographic Signature
+Append the newline in both macros, as BT_ERR() and BT_WARN() do, and
+drop it from the two virtio_bt format strings so that their messages do
+not gain an empty line.
 
-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
-iId6lRoDnFAsEvnaOMvg29iSc9gZaFsMAV8NLrmVgatBLqETEHgQ4n1BrE2+pRoymE80Zf+Qe5W6
-GF5zYMjxe2smznZoexz/BISo+5QDZaKZKtmoZ3ApyLjKz1G5Q2hUhmZWHvMu/eGSXP59UaUUmelW
-ZlVs3E0h345YpaGuBNlquYm35nQ3ehYjm2jqaIh7F7K0+eF5TPjcMLpqnpak12xIx6BCxmFi8Oqu
-Gb9+KrrAD+KPgqzjyZZxdVcCAwEAAaOCAdkwggHVMA4GA1UdDwEB/wQEAwIFoDAMBgNVHRMBAf8E
-AjAAMIGTBggrBgEFBQcBAQSBhjCBgzBGBggrBgEFBQcwAoY6aHR0cDovL3NlY3VyZS5nbG9iYWxz
-aWduLmNvbS9jYWNlcnQvZ3NnY2NyNnNtaW1lY2EyMDIzLmNydDA5BggrBgEFBQcwAYYtaHR0cDov
-L29jc3AuZ2xvYmFsc2lnbi5jb20vZ3NnY2NyNnNtaW1lY2EyMDIzMGUGA1UdIAReMFwwCQYHZ4EM
-AQUDAzALBgkrBgEEAaAyASgwQgYKKwYBBAGgMgoDAjA0MDIGCCsGAQUFBwIBFiZodHRwczovL3d3
-dy5nbG9iYWxzaWduLmNvbS9yZXBvc2l0b3J5LzBBBgNVHR8EOjA4MDagNKAyhjBodHRwOi8vY3Js
-Lmdsb2JhbHNpZ24uY29tL2dzZ2NjcjZzbWltZWNhMjAyMy5jcmwwIAYDVR0RBBkwF4EVcGF1bC5l
-bHlAYnJvYWRjb20uY29tMBMGA1UdJQQMMAoGCCsGAQUFBwMEMB8GA1UdIwQYMBaAFAApNp5ceroP
-ry1QLdugI4UYsKCSMB0GA1UdDgQWBBTc34vK15RY7h33segpWeDeAloTGDANBgkqhkiG9w0BAQsF
-AAOCAgEAb0hABkNonbsXXPrDOwB9B9lRtVhdRszakaT0zWubTTtHAV/XTebY1b4caUC2iX9AJvr0
-XTJrFAiLtJ6eeP6yQOjD+rBprWauwPUzydJWEftECpX/lbPgZLBSHx22euCSnIm8HNj8o0bMi+Ii
-plCW6kU56G1krQY0jrqDJCFgH4Wmp1TrKi36iVTIXyYLDtPOcSXe9hLmeUlQuL4nAoB8EsI45w4a
-5Wi/xS7vGQLXzXAQ2SY6Yuseqhh+QcXvzeb0uVB54edC4HFrVX9DtFzHXoyB9s0C29MZm2zpFPNS
-DgwnsmTsvpPuLELuuaJvIKnSHHR9FKrmQZbmz/i6KyBt0enmjNk7I7vAKQa8IqZxSrjvR6tYExiq
-BP9ZuiXJnuqoPujFE7kphkUjmK76yv8904eZNflTvcEDpthD1boifOzT78iQ3fbuytR8LKx7tzGV
-Ga9+dcLBcR/eP85Vmc9NW1frtO3dRd26+DHs1lXX96Em5AAlvBgDw8b1GfyEvfimBkxTIWxR3mBB
-jAMkNKrfvV7NxS9AfcFu4fvxuBJc+t2FN1zBc8VyVyn9ZBeJ2DYS9uQ2x00QPXMHqVlAT5fBanmS
-n1fgcSTdHEy1fzVZIAtM1XMIWy03bJKNBwUebgxHKHSUCZ7VSMHE4jyERMCqkvTxU6h4JJ7YzRrU
-jhXYo8oxggJXMIICUwIBATBiMFIxCzAJBgNVBAYTAkJFMRkwFwYDVQQKExBHbG9iYWxTaWduIG52
-LXNhMSgwJgYDVQQDEx9HbG9iYWxTaWduIEdDQyBSNiBTTUlNRSBDQSAyMDIzAgx9OiWw8dVRSIkn
-L+YwDQYJYIZIAWUDBAIBBQCggccwLwYJKoZIhvcNAQkEMSIEIHANuGyVmHVOHyCjuIiMjdOiGnkT
-z5wZCibE7zZ3gFVPMBgGCSqGSIb3DQEJAzELBgkqhkiG9w0BBwEwHAYJKoZIhvcNAQkFMQ8XDTI2
-MTAwNjIxMjEyMFowXAYJKoZIhvcNAQkPMU8wTTALBglghkgBZQMEASowCwYJYIZIAWUDBAEWMAsG
-CWCGSAFlAwQBAjAKBggqhkiG9w0DBzALBgkqhkiG9w0BAQcwCwYJYIZIAWUDBAIBMA0GCSqGSIb3
-DQEBAQUABIIBAINMDkgm/zyuoNNATN4GjTHWzq31u8uBw498sWEYQoFeFdgctlGgZ/vjVRF/Jm6z
-35X/6r0vi5tEdamZQi/5LZUIYvlCgAHOKD+KzDWTIWXj1HqDg8fBpP34RJXsLS+bIaM6fZcpGCrg
-f2I/KSJc424gvlfmwf2uK1veK/uZHQkhURMUnWZ1u6OD3UkAQBK4wiVgjJbEaaLaYeDxXtHP5vjW
-iJGijF+GNxxrqQ7vaMRiIGOm1AUVyqMx+0MzGzuEtQZsxbP845ujdtVPrvFKueEuTpgkNhbrXQvx
-6625bV5s5J564bHcR3mLJAM6kQU3MKbqAk2hamGx+LqnSAkYxw0=
---0000000000006cc0b6065d3294de--
+Fixes: 36278a5d4d35 ("Bluetooth: Adding a bt_dev_warn_ratelimited macro.")
+Fixes: 657cc646475b ("Bluetooth: Remove usage of BT_ERR_RATELIMITED macro")
+Assisted-by: Claude:claude-opus-5-5
+Signed-off-by: Hitalo Souza <enghitalo@gmail.com>
+---
+Testing:
+
+- Booted bluetooth-next (base c85976511aa9) with and without this patch
+  in QEMU/KVM (x86_64 defconfig + kvm_guest.config, BT=y, BT_HCIVHCI=y).
+  A small userspace program emulates a BR/EDR controller over hci_vhci,
+  brings it up with HCIDEVUP and injects one SCO packet for handle
+  0x0123, which has no connection, so hci_scodata_packet() logs through
+  bt_dev_err_ratelimited(). /dev/kmsg is then read 1 s and 10 s later,
+  and once more after writing another record to /dev/kmsg:
+
+                         without patch   with patch
+    after 1 s            not visible     visible
+    after 10 s           not visible     visible
+    after next printk    visible         visible
+
+  Without the patch the record (seq 411, 5.730471) only became readable
+  together with the next one (seq 412, 15.733219).
+
+- Same result on 7.1.13 (Manjaro) on real hardware, with a throwaway
+  module that calls bt_dev_err_ratelimited(NULL, ...) and the same macro
+  with "\n" appended.
+
+- GCC 16.2.1, W=1, net/bluetooth/ and drivers/bluetooth/: x86_64
+  defconfig + BT, BT_HCIBTUSB{,_MTK,_QCOM}, BT_VIRTIO; x86_64
+  allmodconfig (WERROR=y); i386 defconfig + the same options. No
+  warnings (the x86_64 defconfig build was also clean without the
+  patch). allnoconfig vmlinux builds (Bluetooth is off there; two
+  unrelated W=1 warnings in arch/x86/mm/pgtable.c and
+  fs/proc/proc_sysctl.c). Checked in the objects that all 22 format
+  strings end with exactly one newline.
+
+- LLVM 22.1.8 (LLVM=1), W=1, same directories and options: arm64
+  defconfig, arm multi_v7_defconfig, riscv defconfig and powerpc
+  ppc64_defconfig (big-endian). No warnings.
+
+- sparse v0.6.5-rc1 on the same directories: the same 16 reports before
+  and after, none on the lines touched here.
+
+The change, this changelog and the test harness were prepared with an
+AI assistant (Claude, see Assisted-by) while debugging HFP problems with
+an MT7921 adapter: it noticed the delayed log lines by comparing
+journald's receive time with the kernel timestamps, traced them to the
+missing newline, wrote the patch and the reproducers and ran the checks
+above.
+
+ drivers/bluetooth/virtio_bt.c     | 4 ++--
+ include/net/bluetooth/bluetooth.h | 4 ++--
+ 2 files changed, 4 insertions(+), 4 deletions(-)
+
+diff --git a/drivers/bluetooth/virtio_bt.c b/drivers/bluetooth/virtio_bt.c
+index 8c55b538d..638140406 100644
+--- a/drivers/bluetooth/virtio_bt.c
++++ b/drivers/bluetooth/virtio_bt.c
+@@ -228,7 +228,7 @@ static void virtbt_rx_handle(struct virtio_bluetooth *vbt, struct sk_buff *skb)
+ 
+ 	if (skb->len < min_hdr) {
+ 		bt_dev_err_ratelimited(vbt->hdev,
+-				       "rx pkt_type 0x%02x payload %u < hdr %zu\n",
++				       "rx pkt_type 0x%02x payload %u < hdr %zu",
+ 				       pkt_type, skb->len, min_hdr);
+ 		kfree_skb(skb);
+ 		return;
+@@ -251,7 +251,7 @@ static void virtbt_rx_work(struct work_struct *work)
+ 
+ 	if (!len || len > VIRTBT_RX_BUF_SIZE) {
+ 		bt_dev_err_ratelimited(vbt->hdev,
+-				       "rx reply len %u outside [1, %u]\n",
++				       "rx reply len %u outside [1, %u]",
+ 				       len, VIRTBT_RX_BUF_SIZE);
+ 		kfree_skb(skb);
+ 	} else {
+diff --git a/include/net/bluetooth/bluetooth.h b/include/net/bluetooth/bluetooth.h
+index b624da502..cd9189244 100644
+--- a/include/net/bluetooth/bluetooth.h
++++ b/include/net/bluetooth/bluetooth.h
+@@ -296,9 +296,9 @@ void bt_err_ratelimited(const char *fmt, ...);
+ 	BT_DBG("%s: " fmt, bt_dev_name(hdev), ##__VA_ARGS__)
+ 
+ #define bt_dev_warn_ratelimited(hdev, fmt, ...)			\
+-	bt_warn_ratelimited("%s: " fmt, bt_dev_name(hdev), ##__VA_ARGS__)
++	bt_warn_ratelimited("%s: " fmt "\n", bt_dev_name(hdev), ##__VA_ARGS__)
+ #define bt_dev_err_ratelimited(hdev, fmt, ...)			\
+-	bt_err_ratelimited("%s: " fmt, bt_dev_name(hdev), ##__VA_ARGS__)
++	bt_err_ratelimited("%s: " fmt "\n", bt_dev_name(hdev), ##__VA_ARGS__)
+ 
+ /* Connection and socket states */
+ enum bt_sock_state {
+
+base-commit: c85976511aa95b5ba68b57b0b3c87c67f3cedcce
+-- 
+2.55.0
+
