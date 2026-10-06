@@ -1,210 +1,165 @@
-Received: from mail-oi1-f197.google.com (mail-oi1-f197.google.com [209.85.167.197])
+Received: from mail-pf1-f174.google.com (mail-pf1-f174.google.com [209.85.210.174])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 513AE1D432D
-	for <linux-kernel@vger.kernel.org>; Tue,  6 Oct 2026 05:53:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.197
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 142DD37C91E
+	for <linux-kernel@vger.kernel.org>; Tue,  6 Oct 2026 05:53:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.174
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791266010; cv=none; b=FPdyPPPoHl8sMa3uotGq0TO8c37QNnrqBGX8ffvkueY3KJsuCTPOiHLus7SKrjVK8Ye3AywHOcQWyjZ4oci4igm3xI3kphzJBTt5jwBKl7Ao4WEXs4KBM73VatILr725iOEZeLdCqEgWxf2qOL0FONUDPmqd0oldG4qrdisV5mo=
+	t=1791266020; cv=none; b=qYG6R366BIw7c6Au0b7aL3un5QIM/7z5LCgA4P5BjHWAO8ToX25+93Xsf0zl8FxjLcVDY9KSZMS9Z1QEUs3U0EW9qmpT1/MjZamV/lCOJP9+yr+sIkyehklOstvQ9ZOBia7dxpOdbyrq9YN0RL9vYyVZDHZDpZHNS1xw92pQ488=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791266010; c=relaxed/simple;
-	bh=lwGJsG4SCCQHllElMPk5NoYYAVbyAS72V/SXvW8JmC4=;
-	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:
-	 Content-Type; b=SPqr5XGsMZqRiW8BAMX/B6gWQvT47MMbX6zbfQWmkCKKm8wFMLbcnDXDvWKY6C/RDTjCAeJcPaHb/FfUQAjJBEfyxkTpTEcetSsW5ke4x3ioclr6EATNaGpWMZOmuZTl4MBsgfBUzXh14mssJc0L2rnc5oxfpxXgeWpv0bSRHW8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.167.197
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oi1-f197.google.com with SMTP id 5614622812f47-4f9b643ae53so1224231b6e.3
-        for <linux-kernel@vger.kernel.org>; Mon, 05 Oct 2026 22:53:28 -0700 (PDT)
+	s=arc-20240116; t=1791266020; c=relaxed/simple;
+	bh=My/fORUKZgbhPcKtFojcsvPV7jhgh3rAkw1XdxaJxA4=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=DIp1vkfkr/lUMQVf0EXTq0nfxNYLbpizF39y756H6rGiN6g+N2R1oUTmCPsJKk17EjvB9rWnLZIUB39bOX+6OAYJNXTvT+HwVMMWhF/o5hw8+KhvUYbCL+HT/Y3f8L1VrziIdazmRRtNSCa9gLFG576PiIh7ht0mqRzmgFW8EpE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=PZt8sXrf; arc=none smtp.client-ip=209.85.210.174
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="PZt8sXrf"
+Received: by mail-pf1-f174.google.com with SMTP id d2e1a72fcca58-887fb6c0ad1so755497b3a.0
+        for <linux-kernel@vger.kernel.org>; Mon, 05 Oct 2026 22:53:38 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791266018; x=1791870818; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=aW12SFpvFc1iSA1EJus8VaKRrWk8UTqkcWWYajxdsok=;
+        b=PZt8sXrfKcJp5umO4oD75QermyAgOciQgyEumVCI4VuBQnS9CMjR0kN3fkZuQaVify
+         sIfGdqhrl+NoYhAr+pqbnI1Qk8E1CDgjsxKGBFe/8OrBc9Pq8H25U17MUa8RsEc9wTUr
+         9+a6SNyLlW2cA8HXKkvualrZ/k57E+Ebj8Q6A8PsN43yOAR4xg/E3e94CSNOIf4PMbt0
+         HiARI04fTNEHjhwVcQiNovVYrVgYYbjN02BD3zguMN2NjPf/z1CbsyoTHgl0WKBrZUXu
+         yQKyBlMmz9BGmtDLKCLzZo5Key2cVQmlwX3MQ33hquaQo5WvZQf9GvE31tzRkERLNrDz
+         wagA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791266008; x=1791870808;
-        h=content-type:to:from:subject:message-id:in-reply-to:date
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=G76ARqNBaPfC2OkFC8GL2aH2VtAkLidpGbUlbXNthR0=;
-        b=S1OrRGsIvj6auQWpoeuMAp2/behghQnf/ObgBAtzMpQi0/rIX/wBM+2/zl9YAPhhRQ
-         wyYbLngqu+qOfxmzSB55cGU0pYCCawwZk/ZJVeiWNb3/LqLFzqtoEhtJknc5V6o4Q8cH
-         LzEfi3R82KzCMS+uzGnWAHhe7JaF6WdyEghwEjCrGf8tiz/BSCGWEGRQOHBEhbugYLf/
-         mD+0Pcv9gdSdZ4xLZRl7yVpdxTiPNLguSuqBtWwM7bgRiAszwwBP/HA/tb/FcryvJ2sZ
-         IjRrIs7Ltl3QJggCOW9QUoq6fCelve+j1UT4Sqy1fTeVKijd0+aU4BWsWolli9mPx+Vt
-         HPhQ==
-X-Gm-Message-State: AFuF++kXPoonnky2rq5Lx3YlDM8X7kescelRR7tmcszUeq4eHilmlxl0
-	gixO+vJWV0k+WOTZGsXnhw0/m+HPWEkv5IYUTnm2b9ZZvjgr4oAo4DhWUeVtWtxYqGakNgVgLwm
-	an4VidTbdZ00s4yYqi+oCKs2BJMthRROk1TKvWgkPx6Te4+Ev3Kq1ZwxfroQ=
+        d=1e100.net; s=20260707; t=1791266018; x=1791870818;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=aW12SFpvFc1iSA1EJus8VaKRrWk8UTqkcWWYajxdsok=;
+        b=bANQet+jxcxdOz3ht6q08a83OKeeTkciN1xuwGjAEeWs90hF8TU4Ghif/HW/bMREej
+         h4Ppn8DqmZm/IN7EZSU+4dZOqswLTuYKuUgNIGnGBcdW9AURGx/Cp+ukVwnPtpY142Gl
+         787ta1sgK8+xuo9Q3jhUKUADjfbKqWMe+YZ7zmMGKYnS/raKH92M0KrTjGowVvlryoGQ
+         Aee/5yjCYAO3owjJ6Hzdysd4mPuf04WZLNkMdm2dv4MpI2XbCr9H+M0KvwPfRXeWct5m
+         0qee0BulBAJGoaZzes7JLCxus/3IJo70MXRFZv/xcgrgjMbI1M8m9CoZ7/h1InNgYJrG
+         phKQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzia7F8he83B9Tykrgs39r02yYgfjaUqarxwabgMbbjj/cdadQi5WBOifFGzLQMzVWltneUTxXl/n2iqiU=@vger.kernel.org
+X-Gm-Message-State: AFuF++kvK6wgDYCiz3cMkxz4z9qyO9FazjuVhGhZgnKjChsymDy5rlzg
+	Nl4ES+M7qtIe6MI2NxTwsMWCOgp14RhaNkFWZAlFAYzJpkYD5jWkG87K
+X-Gm-Gg: AYBFou3wMbjg639fi/xtOI8E51jXQ3wxNf75FTbdrQi5x4C450Dyn+mXWc0JzNfbYQo
+	KzkyP2b8izF4S3CoogkGDAKJOB/Fq37Wy47VrPojJ4txBooXuV6AqApsGD6suLi3UigdAEeKcgR
+	tRH8j9HdZSVhH28zhkgMEycGHk+eFdc+WhPn0Ib6QP80YtpQ4Mmfp+UHV219HJGH25h0HnWYPKJ
+	qpQlx/t7Od/DTi9rYD1L0hTt4v5r+Yv8JDKZXJSK9/3G3DNVA8QWcqSKuiowfoaDI0ObE7qLWAb
+	ByoxSpIeoIcXXBLZ4OV+1ioiFQWZ4lzFpC6BYC0nuPXiczIxvnRQc9FUN+1ZVjeM6DgPxweX3f6
+	1Lm0M0zKo0LXLfsbxarpt5KZBYpjJ8hWGiavbXE+5N4nSXQUzrR6DWtuNMWiS7oHkRxw9DYcBO1
+	kEoVrJWSUBGWYlT0Vxz50yioOQdGeL0t3zxWIli9tZAs7JDeRsN9h1aR8vYR7XZmdpt4MAG7M=
+X-Received: by 2002:a05:6a00:2d8b:b0:882:94ab:20f6 with SMTP id d2e1a72fcca58-890dba87bd6mr367008b3a.1.1791266018130;
+        Mon, 05 Oct 2026 22:53:38 -0700 (PDT)
+Received: from localhost ([27.122.242.71])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-88b0cb76185sm4247213b3a.46.2026.10.05.22.53.36
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 05 Oct 2026 22:53:37 -0700 (PDT)
+Date: Tue, 6 Oct 2026 14:53:32 +0900
+From: Hyunchul Lee <hyc.lee@gmail.com>
+To: Hongling Zeng <zenghongling@kylinos.cn>
+Cc: linkinjeon@kernel.org, ntfs@lists.linux.dev,
+	linux-kernel@vger.kernel.org, zhongling0719@126.com
+Subject: Re: [PATCH] ntfs: handle a failed size rollback in the write error
+ path
+Message-ID: <asSM3LZyQymjjuj8@hyunchul-PC02>
+References: <20261004024822.640574-1-zenghongling@kylinos.cn>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Received: by 2002:a05:6808:15a9:b0:4f5:eaac:5151 with SMTP id
- 5614622812f47-4fb417c7e89mr449010b6e.39.1791266007824; Mon, 05 Oct 2026
- 22:53:27 -0700 (PDT)
-Date: Mon, 05 Oct 2026 22:53:27 -0700
-In-Reply-To: <6ac3be67.34119e79.2f92f3.0035.GAE@google.com>
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6ac48cd7.ae2c267a.265a6c.000e.GAE@google.com>
-Subject: Forwarded: [PATCH] jfs: fix slab-out-of-bounds write in jfs_readdir()
- with multibyte names
-From: syzbot <syzbot+a2748ba908c108e7e525@syzkaller.appspotmail.com>
-To: linux-kernel@vger.kernel.org, syzkaller-bugs@googlegroups.com
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20261004024822.640574-1-zenghongling@kylinos.cn>
 
-For archival purposes, forwarding an incoming command email to
-linux-kernel@vger.kernel.org, syzkaller-bugs@googlegroups.com.
+On Sun, Oct 04, 2026 at 10:48:22AM +0800, Hongling Zeng wrote:
+> ntfs_file_write_iter() extends the data and initialized sizes before
+> it copies the user data and restores them when the write then fails.
+> The restoration is best-effort: both results are discarded, even
+> though the extension is already recorded in the dirty MFT record.
+> When the restoration fails too, the extended sizes reach the disk
+> while the VFS inode keeps reporting the old ones: after a remount the
+> file appears grown again, with an uninitialized tail where the failed
+> write never put any data, and nothing records the failure.
+> 
+> Keep both undo results: on failure, set NVolSetErrors(), which the next
+> persistence point persists as VOLUME_IS_DIRTY, and log a message for
+> the errors= policy.
+> 
+> Fixes: 9c87959601e8 ("ntfs: update file operations")
+> Signed-off-by: Hongling Zeng <zenghongling@kylinos.cn>
+> ---
+>  fs/ntfs/file.c | 29 +++++++++++++++++++++++++++--
+>  1 file changed, 27 insertions(+), 2 deletions(-)
+> 
+> diff --git a/fs/ntfs/file.c b/fs/ntfs/file.c
+> index 3ec82715a588..b5b30e44ac51 100644
+> --- a/fs/ntfs/file.c
+> +++ b/fs/ntfs/file.c
+> @@ -678,14 +678,39 @@ static ssize_t ntfs_file_write_iter(struct kiocb *iocb, struct iov_iter *from)
+>  				&ntfs_iomap_folio_ops, NULL);
+>  out:
+>  	if (ret < 0 && ret != -EIOCBQUEUED) {
+> +		int undo_err = 0;
+> +
+>  		if (ni->initialized_size != old_init_size) {
+> +			int init_err;
+> +
+>  			mutex_lock(&ni->mrec_lock);
+> -			ntfs_attr_set_initialized_size(ni, old_init_size);
+> +			init_err = ntfs_attr_set_initialized_size(ni,
+> +					old_init_size);
 
-***
-
-Subject: [PATCH] jfs: fix slab-out-of-bounds write in jfs_readdir() with multibyte names
-Author: kartikey406@gmail.com
-
-#syz test: git://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git master
+I think the rollback needs to distinguish resident and compressed
+attributes.
+If the data attribute is still resident,
+ntfs_attr_set_initialized_size() always return -EINVAL.
 
 
-syzbot reported a KASAN slab-out-of-bounds write in utf32_to_utf8(),
-reached via jfs_strfromUCS_le() from jfs_readdir() while handling
-getdents64() on a crafted JFS image.
+>  			mutex_unlock(&ni->mrec_lock);
+> +			if (init_err && !undo_err)
+> +				undo_err = init_err;
+>  		}
+>  		if (ni->data_size != old_data_size) {
+> +			int data_err;
+> +
+>  			truncate_setsize(vi, old_data_size);
+> -			ntfs_attr_truncate(ni, old_data_size);
 
-jfs_readdir() converts on-disk UTF-16 directory entry names into
-dirent_buf, a PAGE_SIZE buffer. Before converting an entry, it checks
-that the name fits by assuming one output byte per UTF-16 unit:
+> +			data_err = ntfs_attr_truncate(ni, old_data_size);
 
-    jfs_dirent + d->namlen + 1 > dirent_buf + PAGE_SIZE
+And ntfs_attr_truncate() always return -EOPNOTSUPP for a compressed
+attribute.
 
-With iocharset=utf8 a single UTF-16 unit can expand to up to three
-bytes, so a name can be approved for space it does not have.
+> +			if (data_err && !undo_err)
+> +				undo_err = data_err;
+> +		}
+> +		if (undo_err) {
+> +			/*
+> +			 * The extension is recorded in the dirty MFT
+> +			 * record already, so a failed rollback leaves the
+> +			 * new sizes on disk while the VFS inode keeps
+> +			 * reporting the old ones.  Record the error: the
+> +			 * next persistence point persists it as
+> +			 * VOLUME_IS_DIRTY.  Run chkdsk.
+> +			 */
+> +			NVolSetErrors(vol);
+> +			ntfs_error(vi->i_sb,
+> +				   "Failed to roll back the size update: %d",
+> +				   undo_err);
+>  		}
+>  	}
+>  out_lock:
+> -- 
+> 2.25.1
+> 
 
-jfs_strfromUCS_le() makes this worse: it has no destination size and
-always passes NLS_MAX_CHARSET_SIZE as the output bound to uni2char(),
-so the converter believes it has room regardless of how much of the
-buffer is actually left. The conversion then writes past the end of
-dirent_buf, and the trailing NUL can land one byte out of bounds too.
-
-Fix this in two places:
-
- - In jfs_readdir(), reserve the worst case of NLS_MAX_CHARSET_SIZE
-   bytes per UTF-16 unit when checking whether an entry fits.
-
- - Give jfs_strfromUCS_le() a destination size (tolen) and pass the
-   real remaining space to uni2char() instead of the constant, keeping
-   one byte for the terminating NUL. Clamp the length in the
-   non-codepage path in the same way. Callers pass the distance to the
-   end of dirent_buf.
-
-Reported-by: syzbot+a2748ba908c108e7e525@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=a2748ba908c108e7e525
-Signed-off-by: Deepanshu Kartikey <kartikey406@gmail.com>
----
- fs/jfs/jfs_dtree.c   |  8 +++++---
- fs/jfs/jfs_unicode.c | 15 ++++++++++++---
- fs/jfs/jfs_unicode.h |  2 +-
- 3 files changed, 18 insertions(+), 7 deletions(-)
-
-diff --git a/fs/jfs/jfs_dtree.c b/fs/jfs/jfs_dtree.c
-index 8ce6e4458cc2..5ccc90e3c068 100644
---- a/fs/jfs/jfs_dtree.c
-+++ b/fs/jfs/jfs_dtree.c
-@@ -2738,6 +2738,7 @@ int jfs_readdir(struct file *file, struct dir_context *ctx)
- 	int jfs_dirents;
- 	int overflow, fix_page, page_fixed = 0;
- 	static int unique_pos = 2;	/* If we can't fix broken index */
-+	char *buf_end;
- 
- 	if (ctx->pos == DIREND)
- 		return 0;
-@@ -2892,6 +2893,7 @@ int jfs_readdir(struct file *file, struct dir_context *ctx)
- 		return -ENOMEM;
- 	}
- 
-+	buf_end = (char *)dirent_buf + PAGE_SIZE;
- 	while (1) {
- 		jfs_dirent = dirent_buf;
- 		jfs_dirents = 0;
-@@ -2910,7 +2912,7 @@ int jfs_readdir(struct file *file, struct dir_context *ctx)
- 
- 			d = (struct ldtentry *) & p->slot[stbl[i]];
- 
--			if (((long) jfs_dirent + d->namlen + 1) >
-+			if (((long) jfs_dirent + (long)d->namlen * NLS_MAX_CHARSET_SIZE + 1) >
- 			    ((long)dirent_buf + PAGE_SIZE)) {
- 				/* DBCS codepages could overrun dirent_buf */
- 				index = i;
-@@ -2961,7 +2963,7 @@ int jfs_readdir(struct file *file, struct dir_context *ctx)
- 			}
- 
- 			/* copy the name of head/only segment */
--			outlen = jfs_strfromUCS_le(name_ptr, d->name, len,
-+			outlen = jfs_strfromUCS_le(name_ptr, buf_end - name_ptr, d->name, len,
- 						   codepage);
- 			jfs_dirent->name_len = outlen;
- 
-@@ -2981,7 +2983,7 @@ int jfs_readdir(struct file *file, struct dir_context *ctx)
- 					goto skip_one;
- 				}
- 				len = min(d_namleft, DTSLOTDATALEN);
--				outlen = jfs_strfromUCS_le(name_ptr, t->name,
-+				outlen = jfs_strfromUCS_le(name_ptr, buf_end - name_ptr , t->name,
- 							   len, codepage);
- 				jfs_dirent->name_len += outlen;
- 
-diff --git a/fs/jfs/jfs_unicode.c b/fs/jfs/jfs_unicode.c
-index 0c1e9027245a..bcff7e0031b2 100644
---- a/fs/jfs/jfs_unicode.c
-+++ b/fs/jfs/jfs_unicode.c
-@@ -16,27 +16,36 @@
-  * FUNCTION:	Convert little-endian unicode string to character string
-  *
-  */
--int jfs_strfromUCS_le(char *to, const __le16 * from,
-+int jfs_strfromUCS_le(char *to, int tolen, const __le16 * from,
- 		      int len, struct nls_table *codepage)
- {
--	int i;
-+	int i, room;
- 	int outlen = 0;
- 	static int warn_again = 5;	/* Only warn up to 5 times total */
- 	int warn = !!warn_again;	/* once per string */
- 
-+	if(tolen <= 0)
-+		return 0;
-+
- 	if (codepage) {
- 		for (i = 0; (i < len) && from[i]; i++) {
- 			int charlen;
-+			room = tolen - outlen - 1;
-+			if(room <= 0)
-+				break;
- 			charlen =
- 			    codepage->uni2char(le16_to_cpu(from[i]),
- 					       &to[outlen],
--					       NLS_MAX_CHARSET_SIZE);
-+					       room);
- 			if (charlen > 0)
- 				outlen += charlen;
- 			else
- 				to[outlen++] = '?';
- 		}
- 	} else {
-+		if(len > tolen -1)
-+			len = tolen - 1;
-+
- 		for (i = 0; (i < len) && from[i]; i++) {
- 			if (unlikely(le16_to_cpu(from[i]) & 0xff00)) {
- 				to[i] = '?';
-diff --git a/fs/jfs/jfs_unicode.h b/fs/jfs/jfs_unicode.h
-index b6a78d4aef1b..ea03dd5a0e0c 100644
---- a/fs/jfs/jfs_unicode.h
-+++ b/fs/jfs/jfs_unicode.h
-@@ -12,7 +12,7 @@
- #include "jfs_types.h"
- 
- extern int get_UCSname(struct component_name *, struct dentry *);
--extern int jfs_strfromUCS_le(char *, const __le16 *, int, struct nls_table *);
-+extern int jfs_strfromUCS_le(char *, int, const __le16 *, int, struct nls_table *);
- 
- #define free_UCSname(COMP) kfree((COMP)->name)
- 
 -- 
-2.43.0
-
+Thanks,
+Hyunchul
