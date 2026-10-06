@@ -1,68 +1,243 @@
-Received: from relay.hostedemail.com (smtprelay0013.hostedemail.com [216.40.44.13])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ot1-f42.google.com (mail-ot1-f42.google.com [209.85.210.42])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8C01A45563B;
-	Tue,  6 Oct 2026 14:14:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=216.40.44.13
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E773346C826
+	for <linux-kernel@vger.kernel.org>; Tue,  6 Oct 2026 14:15:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.42
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791296085; cv=none; b=dQegfYFX1Pv3TDPxOOTLGxP+v3NDJfUC0D9A4ACC4KKctqlWbngm6eYTLNsvWn3qlcu91F5gN4RXiP40kMinsszAYckic2rty8LtEdFPDcJLnyDTMRe69lw7IuUwgKlbLArau1zwF4vjx/MZHm0ijSKzRzdXc6DkTIfNhky+HbM=
+	t=1791296104; cv=none; b=cnLGgORw5hrogoOwLCwItWOveLSMLhehTfqUl8TN5TCfFkN3DF1nsFlihLzEyZzO+BBQ0siu8IlKaaWehmpm5M3TglEd4WD53mk+nlA6AREWTQqh6mlfBmTBdZ9nrrFH2J3MA3TGxDG/Ep9FO1ceqzf8mT87FWspCF/TXmNmeB8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791296085; c=relaxed/simple;
-	bh=Wnkvw/PmiSIEwtzxymhqfsRqVQBcv77PR0tcXIczR4w=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=YwPdQLGR8O/D5TqfznZBmfxrzuTYxHLizqME48sts5FR1+C2CNQt5Lpnwv6Ngp8AtHD7FnC/Kdn5XdmdRwA6DZlncudGnLf2UDdT/fYnl7JQo8xTakBeXSU3DCH6z3WGwz7dt6insii8u1V2bTTuEHXTA5/535rKV0iaj39FvRQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=goodmis.org; spf=pass smtp.mailfrom=goodmis.org; dkim=pass (1024-bit key) header.d=goodmis.org header.i=@goodmis.org header.b=i+5yQQjq; arc=none smtp.client-ip=216.40.44.13
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=goodmis.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=goodmis.org
+	s=arc-20240116; t=1791296104; c=relaxed/simple;
+	bh=Nt8VaQlj73La3K/WOXPeZWp5Egiw8ElYDzr2tV/tnAY=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=VV2usZ/NBdi/lolRb75FBqpeKDJxiWeB1F4kp4bp9Poxp8P2/NpzT7O+b8GlgWkmffmJK8IDfJhTSzekbMQ1E/BnWOdUdiFlx/NOjrKib2tdP1E+wazyR/Owl5CUfBsp+36zI9c0QqFFU5/lzN44YY0Dm6e0DAnyk7YaDjSt5DQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=C0fr23E8; arc=none smtp.client-ip=209.85.210.42
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=goodmis.org header.i=@goodmis.org header.b="i+5yQQjq"
-Received: from omf01.hostedemail.com (lb01a-stub [10.200.18.249])
-	by unirelay05.hostedemail.com (Postfix) with ESMTP id 34F2940127;
-	Tue,  6 Oct 2026 14:14:35 +0000 (UTC)
-Received: from [HIDDEN] (Authenticated sender: rostedt@goodmis.org) by omf01.hostedemail.com (Postfix) with ESMTPA id 39A786000C;
-	Tue,  6 Oct 2026 14:14:32 +0000 (UTC)
-Date: Tue, 6 Oct 2026 10:14:27 -0400
-From: Steven Rostedt <rostedt@goodmis.org>
-To: Jeff Barnes <jeffbarnes@linux.microsoft.com>
-Cc: Beau Belgrave <beaub@linux.microsoft.com>,
- "linux-trace-kernel@vger.kernel.org" <linux-trace-kernel@vger.kernel.org>,
- "mhiramat@kernel.org" <mhiramat@kernel.org>,
- "mathieu.desnoyers@efficios.com" <mathieu.desnoyers@efficios.com>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- "akpm@linux-foundation.org" <akpm@linux-foundation.org>, "kees@kernel.org"
- <kees@kernel.org>
-Subject: Re: [PATCH] tracing/user_events: Fail fork when event state
- duplication fails
-Message-ID: <20261006101427.25e0f8f7@fedora>
-In-Reply-To: <0499A842-AA79-49A7-AAB5-47003DD799BE@getmailspring.com>
-References: <20261006083825.2bbeaef2@fedora>
-	<0499A842-AA79-49A7-AAB5-47003DD799BE@getmailspring.com>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="C0fr23E8"
+Received: by mail-ot1-f42.google.com with SMTP id 46e09a7af769-81ae6aefdceso2760495a34.0
+        for <linux-kernel@vger.kernel.org>; Tue, 06 Oct 2026 07:15:02 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791296101; x=1791900901; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=iyocPZgXU+y/fKJyewKMKQMG8bpfMm3V+MoJuTgAH+Q=;
+        b=C0fr23E8OkKiRLmpkJ8gBXyQ3l9t1BuX+90uFkhhPKSw8OOXKAGvU5s4IRpyg6yOyX
+         VK3n5Ux1dxLZBviRlBO011IFfOhNPCHypcjCsNQUfTjvwZQRbOpehQOSjmWIGoFK1loz
+         NEcyu7noCvoD9gsP4yrIgaNIVQTzeHOi5q4i33uTZvo53tud5x+Ki7DQFrrR/izyO076
+         4vhMfFFu4FfBdQW6aC6laVF4pCHesds0SvAWxALMl3iZgVAsc77xAmLYBFbNkMdG6tN+
+         GuzsJTiHmrrbnqU1aRgapNiCDSsMEKBRJAAHJGpWZBUQqqOJ4GqfAsRzvEWJra9aIGng
+         Co0w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791296101; x=1791900901;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=iyocPZgXU+y/fKJyewKMKQMG8bpfMm3V+MoJuTgAH+Q=;
+        b=0PW76BHXe4LoYbXDoioRZ6TObQAtskbzbbw/CDGW2LFsfwhK89IxTZVZfoZ+56V+wG
+         H7JUrBfnnom+r8DIJO9t34P2RlgJR6sznn3KiotBXL4UDNeyFdezq+YG3IS9b3rv26VD
+         O/G8dFv0ySP/eWxIC8MsTusQxkD+qhImC0nfjHabHE+H6fyN11ZHwpggDtdkriVQ+0F3
+         YMgWWl86LiVviuSxRonDyaKiNMMVzJ3SVDGBvzmTyWOpYJh48owWiNTQn5c5ozqd+tZq
+         hshCgfPLxKeUS+941JF1CHp079sV4lZgVaB0bmY1A7jPQmgNBmvXfo5FMwtEy6osZcL6
+         T8cg==
+X-Forwarded-Encrypted: i=1; AKwUvBxD9F5pTiuXmyZ49aaSKnv70lm4ghB39s0d4rR/nQJ+rmNJd63F0ashgm4U+TAfrRT4maU/wawWf9Gs5vQ=@vger.kernel.org
+X-Gm-Message-State: AFuF++npH4xTzHJ9QhTZVSFxcrR5HphMJRaDHcnQ1PCA4T2KewkkMoeE
+	G4k/ROK3ClGKEyTklJRyb/YJxBuRof8J5megRLb5UaDG3zNVYy52tcwN
+X-Gm-Gg: AYBFou0P6aNAtqJbppuugd2k2GyoqTJ6cSEi/GiULgcArzTGVESdSu8FCT9P2ZBY55E
+	uZrHEo+mRlCP1VL73sd0IK5zzw9vqyPO2Df/ohTZ2aCtvkLc5bJ30Rs+v3X9oflaK81cB87LKJC
+	UR5RrmH5N20EEZ+JIGgHou2pXzCR8n2bDR+sAxrMGs0Keg3iMVLo61R7wj9p83uKYkL46uwHTqN
+	hk0gXrjMWg37+s6udhYxPcXhVADw4tqEUZCqfK5usk1mSKwni/AY5frtqWcIWvlJVmx6cXiPtHQ
+	P7kN8lCSj148oR/VJQueyUAAT3viyVDMdfsh8pLWDf4CU+DWcBDWwpJ1PCVoUr2TS1d8N0igD21
+	icEnqpdmbjxKrYrcbIHoKV7RCoAgGA1grHrnVeAxvGrxcmuv36es385SzgMK2mbUgi288Uy/hKu
+	YEZwyzivRKwQqsR602aXudKsFUxEujcUw9XGibV7Wr1lMPjbyeM5QtYmw0Hz7+15tj4J5mOkahu
+	Ph0JeQUFw5ceDTbUcDPNDzWvO9aSmy2wmSYVBg7uY7Gmw/kOA61HZJVAWMpQ7Nzri4g7gPCkOmd
+	xR5zya6EqOxsLQ==
+X-Received: by 2002:a05:6830:349b:b0:81d:8057:9b7f with SMTP id 46e09a7af769-828a30409b5mr1482854a34.28.1791296101506;
+        Tue, 06 Oct 2026 07:15:01 -0700 (PDT)
+Received: from fedora-laptop ([172.245.82.59])
+        by smtp.gmail.com with ESMTPSA id 46e09a7af769-8281acf807csm2432876a34.0.2026.10.06.07.14.57
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 06 Oct 2026 07:15:00 -0700 (PDT)
+Date: Tue, 6 Oct 2026 09:14:50 -0500
+From: Ming Lei <tom.leiming@gmail.com>
+To: Josef Bacik <josef@toxicpanda.com>
+Cc: Jens Axboe <axboe@kernel.dk>,
+	Caleb Sander Mateos <csander@purestorage.com>,
+	linux-block@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linux-doc@vger.kernel.org
+Subject: Re: [PATCH] ublk: refuse to go live after an io command was canceled
+Message-ID: <asUCWjKXMxXFwBNQ@fedora-laptop>
+References: <20261001125422.1364260-1-tom.leiming@gmail.com>
+ <9b876f2c061abc401ec4b9b3c2529eda.josef@toxicpanda.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
-X-Rspamd-Server: rspamout06
-X-Stat-Signature: zxy5jkdnrzk4iyeo8by5p6yxpmcjamm5
-X-Rspamd-Queue-Id: 39A786000C
-X-Session-Marker: 726F737465647440676F6F646D69732E6F7267
-X-Session-ID: U2FsdGVkX19RhyJBrzcgp3fOfNPHDS4vRtVcqaJAIqk=
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=goodmis.org; h=date:from:to:cc:subject:message-id:in-reply-to:references:mime-version:content-type:content-transfer-encoding; s=dkim1; bh=Wnkvw/PmiSIEwtzxymhqfsRqVQBcv77PR0tcXIczR4w=; b=i+5yQQjq4bxzYZwILnKSz/M1zCsjL5q3ec51XWWVQdS4I7SacvWtPjIdEVvwjAfUjYgC3DUktamU5j/vPSGm3if+SRKUTcOuJsuhOtfbE687aY0oTHPN/KCtEK9t2uIQR7r9q0CybkOu8crsMm3IkOJWXs0tQhrLgc8L2aPu6/I=
-X-HE-Tag: 1791296072-18580
-X-HE-Meta: U2FsdGVkX19qUYQ6JN7VyyT+ZigEhsnsqklDh2EP7CuUa1xaZiM0VdTBb24qabXRQ68hAsfk7gdv8NE3mSj/cUkX1ToGfehlVfjVXvOj0wnv786x07Sp8bcKHRkcYkU0kwb/7BE7sWaM6nCDz3nVZqffhuhyTYPm1idjxA+zImUYC3QxesSEy22yEh2qHE6v40OR4aD3++IIO8KlAROMFoNSlNVbU0aGwLzoA4SzKkIPBYPKzgqcjQWAeyiRapv5DkjWXb95L2287zlLEJ7PjA6f/Bp00JNqQjMxO62OjHtjH86SaFlnxxD5hTB1zX4dFkbpxmfDRYYzuxHFTtqxVnXSbkz5IzN3
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <9b876f2c061abc401ec4b9b3c2529eda.josef@toxicpanda.com>
 
-On Tue, 6 Oct 2026 09:42:39 -0400
-Jeff Barnes <jeffbarnes@linux.microsoft.com> wrote:
+On Mon, Oct 05, 2026 at 04:23:51PM +0000, Josef Bacik wrote:
+> Since commit "ublk: keep a canceled FETCH round canceling until the
+> server is gone", a device whose FETCH round saw a cancel keeps its
+> queues canceling until the server goes away, but START_DEV and
+> END_USER_RECOVERY still bring it up. Without UBLK_F_USER_RECOVERY, or
+> with UBLK_F_USER_RECOVERY_FAIL_IO, every request of the new disk fails.
+> With UBLK_F_USER_RECOVERY, requests are requeued and never kicked: after
+> START_DEV the partition scan hangs under disk->open_mutex, and after
+> END_USER_RECOVERY every read parks while the command returned 0. The
+> server cannot fetch the canceled commands again, so the device can't
+> serve I/O until it restarts anyway.
+> 
+> Return -ENODEV from START_DEV and END_USER_RECOVERY while ub->canceling
+> is set. In ublk_ctrl_start_dev() check it and publish ub->ub_disk in one
+> cancel_mutex section, and have ublk_start_cancel() read the disk in its
+> cancel_mutex section. Today ublk_start_cancel() samples the disk before
+> taking the mutex, so a server dying during its own START_DEV can mark
+> the queues without quiescing a disk START_DEV published in between, with
+> its first I/O past the canceling check. Now either START_DEV sees the
+> cancel, or the cancel sees the disk and quiesces it before marking. The
+> END_USER_RECOVERY check is best effort: the disk exists there, and a
+> cancel after it is the ordinary death of the new server, which
+> ublk_start_cancel() handles by quiescing and marking.
+> 
+> Assisted-by: LLM
+> Signed-off-by: Josef Bacik <josef@toxicpanda.com>
+> ---
+> This applies on top of Ming's "[PATCH 0/8] ublk: don't dispatch to
+> canceled io commands" and needs patch 1 of it for ub->canceling to stay
+> set for the whole FETCH round. generic_18 still passes with it.
+> 
+>  Documentation/block/ublk.rst | 10 ++++++++--
+>  drivers/block/ublk_drv.c     | 38 ++++++++++++++++++++++++++++++++++--
+>  2 files changed, 44 insertions(+), 4 deletions(-)
+> 
+> diff --git a/Documentation/block/ublk.rst b/Documentation/block/ublk.rst
+> index 28300fee22bf..b7875a3cf3fc 100644
+> --- a/Documentation/block/ublk.rst
+> +++ b/Documentation/block/ublk.rst
+> @@ -118,7 +118,11 @@ managing and controlling ublk devices with help of several control commands:
+>    After the server prepares userspace resources (such as creating I/O handler
+>    threads & io_uring for handling ublk IO), this command is sent to the
+>    driver for allocating & exposing ``/dev/ublkb*``. Parameters set via
+> -  ``UBLK_CMD_SET_PARAMS`` are applied for creating the device.
+> +  ``UBLK_CMD_SET_PARAMS`` are applied for creating the device. The command
+> +  fails with ``-ENODEV`` if an I/O command fetched by the current server
+> +  was canceled, because its io_uring is gone. The server can't fetch it
+> +  again, and the device can be started again once the server has closed
+> +  ``/dev/ublkc*``.
+>  
+>  - ``UBLK_CMD_STOP_DEV``
+>  
+> @@ -195,7 +199,9 @@ managing and controlling ublk devices with help of several control commands:
+>    command is accepted after ublk device is quiesced and a new process has
+>    opened ``/dev/ublkc*`` and get all ublk queues be ready. When this command
+>    returns, ublk device is unquiesced and new I/O requests are passed to the
+> -  new process.
+> +  new process. It fails with ``-ENODEV`` if an I/O command of the new
+> +  process was canceled already. The recovery can be started over once the
+> +  new process has closed ``/dev/ublkc*``.
+>  
+>  - user recovery feature description
+>  
+> diff --git a/drivers/block/ublk_drv.c b/drivers/block/ublk_drv.c
+> index f57d544c1da2..39eb7775a351 100644
+> --- a/drivers/block/ublk_drv.c
+> +++ b/drivers/block/ublk_drv.c
+> @@ -2759,9 +2759,11 @@ static void ublk_abort_queue(struct ublk_device *ub, struct ublk_queue *ubq)
+>  
+>  static void ublk_start_cancel(struct ublk_device *ub)
+>  {
+> -	struct gendisk *disk = ublk_get_disk(ub);
+> +	struct gendisk *disk;
+>  
+> +	/* sync with ublk_ctrl_start_dev() publishing the disk */
+>  	mutex_lock(&ub->cancel_mutex);
+> +	disk = ublk_get_disk(ub);
+>  	if (ub->canceling)
+>  		goto out;
+>  
+> @@ -4575,6 +4577,7 @@ static int ublk_ctrl_start_dev(struct ublk_device *ub,
+>  		.dma_alignment		= 3,
+>  	};
+>  	struct gendisk *disk;
+> +	bool canceled;
+>  	int ret = -EINVAL;
+>  
+>  	if (ublksrv_pid <= 0)
+> @@ -4665,8 +4668,24 @@ static int ublk_ctrl_start_dev(struct ublk_device *ub,
+>  	disk->fops = &ub_fops;
+>  	disk->private_data = ub;
+>  
+> +	/*
+> +	 * A command of this FETCH round was canceled and can't be fetched
+> +	 * again, don't bring up a disk over it.  Check and publish the disk
+> +	 * in one cancel_mutex section: either this sees ub->canceling, or
+> +	 * ublk_start_cancel() sees the disk and quiesces it before marking
+> +	 * the queues.
+> +	 */
+> +	mutex_lock(&ub->cancel_mutex);
+> +	canceled = ub->canceling;
+> +	if (!canceled)
+> +		ub->ub_disk = disk;
+> +	mutex_unlock(&ub->cancel_mutex);
+> +	if (canceled) {
+> +		put_disk(disk);
+> +		ret = -ENODEV;
+> +		goto out_unlock;
+> +	}
+>  	ub->dev_info.ublksrv_pid = ub->ublksrv_tgid;
+> -	ub->ub_disk = disk;
+>  
+>  	ublk_apply_params(ub);
+>  
+> @@ -5238,6 +5257,7 @@ static int ublk_ctrl_end_recovery(struct ublk_device *ub,
+>  		const struct ublksrv_ctrl_cmd *header)
+>  {
+>  	int ublksrv_pid = (int)header->data[0];
+> +	bool canceled;
+>  	int ret = -EINVAL;
+>  
+>  	pr_devel("%s: Waiting for all FETCH_REQs, dev id %d...\n", __func__,
+> @@ -5261,6 +5281,20 @@ static int ublk_ctrl_end_recovery(struct ublk_device *ub,
+>  		ret = -EBUSY;
+>  		goto out_unlock;
+>  	}
+> +
+> +	/*
+> +	 * As in ublk_ctrl_start_dev(), a canceled command can't be fetched
+> +	 * again.  Best effort: the disk exists here, and a cancel after this
+> +	 * check is the ordinary death of the new server, which
+> +	 * ublk_start_cancel() handles by quiescing and marking.
+> +	 */
+> +	mutex_lock(&ub->cancel_mutex);
+> +	canceled = ub->canceling;
+> +	mutex_unlock(&ub->cancel_mutex);
+> +	if (canceled) {
+> +		ret = -ENODEV;
+> +		goto out_unlock;
+> +	}
+>  	ub->dev_info.ublksrv_pid = ub->ublksrv_tgid;
+>  	ub->dev_info.state = UBLK_S_DEV_LIVE;
+>  	pr_devel("%s: new ublksrv_pid %d, dev id %d\n",
 
-> So in this case the state being duplicated during fork() is state that
-> the application itself established. That's why I think propagating the
-> allocation failure back through fork() is preferable to silently
-> allowing the child to lose that state.
+Hi Josef,
 
-I agree.
+Thanks for the follow-up. The check and the cancel_mutex ordering
+look right to me, but I'd suggest -EBUSY instead of -ENODEV.
 
--- Steve
+-ENODEV means the ublk device is gone, and it isn't true in the
+START_DEV/END_RECOVERY cases.
+
+With -EBUSY:
+
+Reviewed-by: Ming Lei <tom.leiming@gmail.com>
+
+
+thanks,
+Ming
