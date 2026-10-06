@@ -1,143 +1,61 @@
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4B5784A0907;
-	Tue,  6 Oct 2026 16:30:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.130
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DE2DA448CE0;
+	Tue,  6 Oct 2026 16:31:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791304233; cv=none; b=APca00id3+CJDy6K7xMOX9gcasCVouMGVHI4p1Dr6RTMh6YTFzUHADrvcltPZzBX9VaGRfMv40toXx863HnNm4UZ50gXu/zERE0ubhuW6O97J4YAnIjC8cvgy1uJGT/1vGnP0cyvTHtQFLn2fMzsx358PXvnbNqexlIJo1UJahQ=
+	t=1791304263; cv=none; b=gC/sLkCF9WDvIO9uwHCbzYquRSI+FeJ0ZvLJXGIsCkGEl0F8cOu0yb/qPZmEJE+tEEQd9YKcbBTlmyH8x5o9oNvgWuSWWHvvUy3xocklCBmAfq7v40vXV3/F7MGTb7qgjK2gtvsOvXKOcK+PGSL6zG8OkoovzxSEttzVIoDEAPU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791304233; c=relaxed/simple;
-	bh=J4+Y31h09RyR9dQoIdtiw0yUptjPlghY5+Cr7fTgizo=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=WV18atjzkPJvQV8dlom/SoWxGf9kEFlIAa+MCNU02RdabTfjsSE58cG9orjLBA3FgDQiLtzEOqz0IeH6anif2mKh0m6vsDWR5YmEZbXcwY0O9JgzX3ktd9Y3r2r3nbkcNELK6mHH00Fcyd+t1EWSSm+UejTPhWAcV+gb67KxrGg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=aQeMFmYe; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=Ed8pIcmq; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=0qNLvcfB; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=qKpbNtGm; arc=none smtp.client-ip=195.135.223.130
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
+	s=arc-20240116; t=1791304263; c=relaxed/simple;
+	bh=f/+xtJjwgh/KO8pEVNU6Dra5VomeS9TP+drph0+Qyyc=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=RE3C14H72HTn4AHadhu6wY0TnOksjITvIp83Fti6+sVy0VwzMh1UllZd9tAsOBbIKqLWT1ebiYek3Q8QzPHvKUoRF9F57Gbu8R7/T46FnEZTlTJwr2B1grxSPTchaDpcWhx5I15iqiMlmgYlPghOjHDJxmVLcHBiCTPYfPS+x60=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=ZOIamDdt; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="aQeMFmYe";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="Ed8pIcmq";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="0qNLvcfB";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="qKpbNtGm"
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id EE26121F75;
-	Tue,  6 Oct 2026 16:30:21 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1791304226; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=twFRnoRdRiOMUZTL6tZdobvcNatlGDj+lN0+eQllDyk=;
-	b=aQeMFmYeMpGKXQDUu/xTqXLKZMFO/w5AiMrmCGwJ3yGGmeZOV2r9ibrv/A2Vtjf/5sMfC9
-	7OfGrHCdaXISTZ+kc0xaqTT77mXCO1AZaDmqeJqc4JhVIGykKqvpG9GT6C0UjmRyEltCFB
-	6BaPJra9LmdqNEsYIPzSRLZgVX5gVmY=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1791304226;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=twFRnoRdRiOMUZTL6tZdobvcNatlGDj+lN0+eQllDyk=;
-	b=Ed8pIcmqbtFKbUTPGG82Po+WY48Lc3iyRaKRrfxciBnsPZozHnCqKNa60G3t4102gHrf3y
-	vWHb8iHDfTh57PDg==
-Authentication-Results: smtp-out1.suse.de;
-	dkim=pass header.d=suse.de header.s=susede2_rsa header.b=0qNLvcfB;
-	dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=qKpbNtGm
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1791304221; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=twFRnoRdRiOMUZTL6tZdobvcNatlGDj+lN0+eQllDyk=;
-	b=0qNLvcfBQ9ogeHDuwMCImhmti9DIs+gNHV/te7mQ+lEgHIHMzDMoYmliam+61KWfoxgf2s
-	yKIEvbOMOm99U+JdH70JBo5paTeAjixirmZsBr2AvmXCkJdBheUbyZ4Rlvr73YJhpIJdye
-	NlokiBw2RTqOYFpsJd/iQlAwuOgWbb0=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1791304221;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=twFRnoRdRiOMUZTL6tZdobvcNatlGDj+lN0+eQllDyk=;
-	b=qKpbNtGmraLtDeUhDCNRTv2S0nOfNPWLSXQbOTAV6lRlPJ8nBIh/1mPQ+VcVt/wlSWdHXZ
-	t1sVug76Dyf6a6Cg==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 4641F13B75;
-	Tue,  6 Oct 2026 16:30:21 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id lCAYBx0ixWoxLwAAD6G6ig
-	(envelope-from <fmancera@suse.de>); Tue, 06 Oct 2026 16:30:21 +0000
-Message-ID: <f9180016-cf04-4452-b1d9-5c650c997d4d@suse.de>
-Date: Tue, 6 Oct 2026 18:29:26 +0200
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="ZOIamDdt"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D7A1D1F0089C;
+	Tue,  6 Oct 2026 16:31:00 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1791304261;
+	bh=IBecjwPeJwaxoKEg2gZX/H231yNJpJCqbcnNTJfUOxM=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=ZOIamDdtVy7mDbaM8L1tfFChNZqDAMyBEi+NzUlVY+6mJZ99z1hUj3dV+3Vs2xZoR
+	 9yLWroQNZSX1aysuZHa68OP/VZlWhkqiWmz6a7WwkasfK1/kENSMbAs7FodIRLetaa
+	 tm9kQxp8hQkNaXL1wKMdbj2C0gkTvi19kg831jcM=
+Date: Tue, 6 Oct 2026 18:30:57 +0200
+From: Greg KH <gregkh@linuxfoundation.org>
+To: Raiden Lumine <2557597107@qq.com>
+Cc: robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linux-staging@lists.linux.dev, ovidiu.panait.oss@gmail.com,
+	jacobsfeder@gmail.com
+Subject: Re: [PATCH 2/2] staging: axis-fifo: remove obsolete text binding
+Message-ID: <2026100632-washtub-active-0952@gregkh>
+References: <20261006112955.208744-1-2557597107@qq.com>
+ <tencent_DB7D53C376BBFA9CB0F63ED6E7FE56C6B906@qq.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH net-next] bonding: 3ad: remove unused TX state
-To: Timur Stukan <timur.stukan.linux@gmail.com>, jv@jvosburgh.net,
- andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@kernel.org,
- kuba@kernel.org, pabeni@redhat.com
-Cc: horms@kernel.org, netdev@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20261006103207.68974-1-timur.stukan.linux@gmail.com>
-Content-Language: en-US
-From: Fernando Fernandez Mancera <fmancera@suse.de>
-In-Reply-To: <20261006103207.68974-1-timur.stukan.linux@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Spamd-Result: default: False [-3.01 / 50.00];
-	BAYES_HAM(-3.00)[99.99%];
-	SUSPICIOUS_RECIPS(1.50)[];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	MX_GOOD(-0.01)[];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	FREEMAIL_TO(0.00)[gmail.com,jvosburgh.net,lunn.ch,davemloft.net,kernel.org,redhat.com];
-	ARC_NA(0.00)[];
-	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	TO_DN_SOME(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	FREEMAIL_ENVRCPT(0.00)[gmail.com];
-	DKIM_TRACE(0.00)[suse.de:+];
-	SPAMHAUS_XBL(0.00)[2a07:de40:b281:104:10:150:64:97:from];
-	RCVD_COUNT_TWO(0.00)[2];
-	FROM_EQ_ENVFROM(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	RCVD_TLS_ALL(0.00)[];
-	MID_RHS_MATCH_FROM(0.00)[];
-	DWL_DNSWL_BLOCKED(0.00)[suse.de:dkim];
-	RCPT_COUNT_SEVEN(0.00)[10];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	TAGGED_RCPT(0.00)[netdev];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:dkim,suse.de:email,suse.de:mid,imap1.dmz-prg2.suse.org:helo,imap1.dmz-prg2.suse.org:rdns]
-X-Spam-Score: -3.01
-X-Spam-Level: 
-X-Rspamd-Action: no action
-X-Rspamd-Queue-Id: EE26121F75
-X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
-X-Spam-Flag: NO
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <tencent_DB7D53C376BBFA9CB0F63ED6E7FE56C6B906@qq.com>
 
-On 10/6/26 12:32 PM, Timur Stukan wrote:
-> The sm_tx_state field of struct port and tx_states_t enum
-> were introduced in the initial 802.3ad implementation but
-> have never had any users.
-> The TX machine uses ntt and sm_tx_timer_counter instead.
+On Tue, Oct 06, 2026 at 07:29:55PM +0800, Raiden Lumine wrote:
+> The binding is now documented in
+> Documentation/devicetree/bindings/misc/xlnx,axi-fifo-mm-s.yaml, so the
+> free-form text version in the driver directory is no longer needed.
 > 
-> Remove them.
-> 
-> Signed-off-by: Timur Stukan <timur.stukan.linux@gmail.com>
+> Signed-off-by: Raiden Lumine <2557597107@qq.com>
+> ---
+>  drivers/staging/axis-fifo/axis-fifo.txt | 96 -------------------------
 
-Reviewed-by: Fernando Fernandez Mancera <fmancera@suse.de>
+Staging drivers should be self-contained, please don't move this out of
+drivers/staging/ as has been discussed many times in the past.
 
-Thanks!
+thanks,
+
+greg k-h
