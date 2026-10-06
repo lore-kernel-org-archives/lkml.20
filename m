@@ -1,228 +1,225 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from CY7PR03CU001.outbound.protection.outlook.com (mail-westcentralusazon11010021.outbound.protection.outlook.com [40.93.198.21])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 192CB362130;
-	Tue,  6 Oct 2026 04:19:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791260392; cv=none; b=gHpYxI9IgHbnqDjO2u/PcCw+tjVIVrD24pvGScaW9aG6MKAGrf0ES27POR3qiM6upLF5N1g06AjZ+PZ2XIZN6hG8wqnptvI2aj5ribU/L0J/cNjcS7QwbCZ9BTjxxuQB6cJgs0bd3vefojM00b4I11yC+3bJNx6zgZnFu3+aoXo=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791260392; c=relaxed/simple;
-	bh=DBgULKQJRxSISWiQkZsLSXKXrSoFjjW8kTUeon4KlS0=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=oKTvtlIqObzJK9JOglSQu/FHKf57AOLhp+JhWXn6TpITS5BPkaPnfwJNcGZlwjkMgIaD14T3XlEWoYSw5RiWQfYw2dseVaf0t4Msfqs4H8ovSvC4q8pPhCVVoC46XA3/jQsXVQIg7K8FT6KBNlE2GnaaHCPKQNmuESGLYxJ0U28=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bINWofTo; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 04F38255F28
+	for <linux-kernel@vger.kernel.org>; Tue,  6 Oct 2026 04:22:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.198.21
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791260573; cv=fail; b=VEkvSA39UeJ/bJVESkbCV3D5ApnknsUZgKOmWfNJxoJsjCELQMBy0r/oI61VBPVtSMPsAWTQh7Kd3ORPO/UdFqZ0NFF8RVc1aovlXFcOFMKakIAulAZ70hs+VB32IcOyVOTDDiLOPQLSAhT3uJPXAD8Kd2Vp79tJ0qPocOkVso8=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791260573; c=relaxed/simple;
+	bh=h3hxfnyCZgJnFHyaMSfxpk4XC1Y6JQfRX/ExuUi3KNs=;
+	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=HWRmipiOq8XDSR1BSc1AF/VtCaYBsXyGZo5gBHCsAykz1+lG/Pu+w0fAK01oJYqm8gtHb6ETz94W41OuyDqpHEASPEJ/JfiOuLBeJlc+iFco84fgsg1FmBbP+fl4ZEdc9V/IrheshsYUibP/sQmnIkqr19yTVN1CWKwmBcl5SXU=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=eCqciN8B; arc=fail smtp.client-ip=40.93.198.21
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bINWofTo"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 931321F000FF;
-	Tue,  6 Oct 2026 04:19:48 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791260390;
-	bh=wyQ5nTXXeJyN1ADu2l0tdNd+THbSAN4zI6DtA9zLwKM=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=bINWofTolj4c6Wcl4yYtrzA4UuVSNSS6oEstWOcYeWEebbLQ+VK8+WyY10Gkyo5NS
-	 EDGJQo0NVjyyvbXDY3KHIMhi9X2JNQmER3QSfSyym+HLTBCKsplq/bFUV8kkcQZdFH
-	 nk4jHtDS51Hq3V1/XTKDqHyDeB3qlrnQD3CtsLyptjFUW2mxmbvsYRDj/Si/keLIxk
-	 D4UIWKyyhGIfpzQTh01uHTWxZpus2sOI/F6FWeAWn01bRXylGwIakHluX8406jiPzx
-	 pAW+OSGl8QwY/+tooKKbzL+z5cIgu6JgKdYBnPamIVf6jGgSLe6OlVblrCJu8ackQZ
-	 WaqJaFi5v4xYQ==
-Date: Tue, 6 Oct 2026 15:19:41 +1100
-From: Dave Chinner <dgc@kernel.org>
-To: Brian Foster <bfoster@redhat.com>
-Cc: MingTao Huang <1037827920@qq.com>, Carlos Maiolino <cem@kernel.org>,
-	Dave Chinner <dchinner@redhat.com>,
-	"Darrick J . Wong" <djwong@kernel.org>,
-	Chandan Babu R <chandanbabu@kernel.org>, linux-xfs@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	MingTao Huang <mintaohuang@tencent.com>
-Subject: Re: [PATCH] xfs: fix skipped flushing items not counted in
- xfsaild_push()
-Message-ID: <asR23Qk3uXtTSTKr@dread>
-References: <tencent_F801A9436DFB447AAFEC63D3E615B8052405@qq.com>
- <arL9Xrmf5Q7wd3T4@dread>
- <arPXwKnDMVMj-oMK@bfoster>
- <arRv-SRK0nHHGBxM@dread>
- <arq3MsiNwf1R1QCL@bfoster>
- <arse0L6mA00ybLvf@dread>
- <ar0VBbwULCzAQW2u@bfoster>
+	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="eCqciN8B"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=mFmUH6VeBKXsKxp3CH3DaIFmIryLcIHpJyBY5Da4Yj+dJruTMC79nbaufPI2N2Y4aagjPQeZeIRs98kjCZgYQlfni0pwn748AHIiiU19c+YV7/bRqaSBGyBHYWjB1QgRRGMyHBlIEOBQozxEmRmxpInHqQy2rTzn8dxwSQuwcKWQQ4+2PpsALQ6wkAJm0HGmVwvBXk6RYWS2pP9gO6Urkv3Pyanwx2i8F/tFgC8l/c4OXdDpwkzAfsPTeRqHd5GRvarAntLAaACWrq1d9Izaysd0NDyMZpdcaliUFoZy8P/0H0s3KZXPYSCAssi6cVLq4sBhSBesIKofPk5XzI5txA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=NnaBkrgtjPlPioPfICR0yA90Tn+DzgqS5hgoGxurvCc=;
+ b=DWV9nMYWYieREGvUiOjC0wvihu1VhMGD/5/1D27Go6/jjWn9CWQ34tCskYcfp7+7J+x2H8TJWXcEVHoaroGVcByiwtX1O2Ck8NnUc/xn/UE1o8wJGk97hvgCRbEGvRVADNn/pW6XOBr8EYi9zv3UDEYLPJidDL1aCSQ+n/Avxj/M5k3fYTnckjEpGwD1+gSMfGmeIGrI7lAtZRS0iBdsCyRv+suSDgUb7ZkPnFdib0dqdLteSMysMW0qKH5ADyFEZzvBewGspLpb2XYBw49o5jmRntmMZmh7aYDIAOrk+5VPafqJ8axbmwpdixTmuWnTULjNjXwWzhZx1TIojAvffA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=quicinc.com smtp.mailfrom=amd.com;
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=NnaBkrgtjPlPioPfICR0yA90Tn+DzgqS5hgoGxurvCc=;
+ b=eCqciN8BR7hRBqV4V/50wQcRLzNIWr6vtHuCvm7ZxnEcgoDeeomPBBcgsvYDYbC3bbxAAhab9JfjILttyRUnOeAMwkLvf08+oJma9/FrdmiTu4I9iXWkLJxRMFN4+Gz/TTfjLmWqZ80WfU+bsFTrPhoBX69GyagUDusljKdcFEI=
+Received: from BN0PR04CA0153.namprd04.prod.outlook.com (2603:10b6:408:eb::8)
+ by SA0PR12MB7075.namprd12.prod.outlook.com (2603:10b6:806:2d5::14) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.19; Tue, 6 Oct
+ 2026 04:22:47 +0000
+Received: from BN2PEPF000044A0.namprd02.prod.outlook.com
+ (2603:10b6:408:eb:cafe::a5) by BN0PR04CA0153.outlook.office365.com
+ (2603:10b6:408:eb::8) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.472.20 via Frontend Transport; Tue, 6
+ Oct 2026 04:22:46 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 165.204.84.17) smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
+Received: from satlexmb08.amd.com (165.204.84.17) by
+ BN2PEPF000044A0.mail.protection.outlook.com (10.167.243.151) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.496.14 via Frontend Transport; Tue, 6 Oct 2026 04:22:46 +0000
+Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Mon, 5 Oct
+ 2026 23:22:46 -0500
+Received: from xsjdavidzha51.xilinx.com (10.180.168.240) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server id 15.2.2562.49 via Frontend
+ Transport; Mon, 5 Oct 2026 23:22:45 -0500
+From: David Zhang <yidong.zhang@amd.com>
+To: <quic_jhugo@quicinc.com>, <karol.wachowski@linux.intel.com>,
+	<max.zhen@amd.com>, <lizhi.hou@amd.com>, <ogabbay@kernel.org>,
+	<dri-devel@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>
+CC: David Zhang <yidong.zhang@amd.com>, <sonal.santan@amd.com>,
+	<mario.limonciello@amd.com>
+Subject: [PATCH V2 00/20] accel/amdxdna: Kernel submission and PM for AIE4
+Date: Mon, 5 Oct 2026 21:22:10 -0700
+Message-ID: <20261006042230.547807-1-yidong.zhang@amd.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <yidong.zhang@amd.com>
+References: <yidong.zhang@amd.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <ar0VBbwULCzAQW2u@bfoster>
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BN2PEPF000044A0:EE_|SA0PR12MB7075:EE_
+X-MS-Office365-Filtering-Correlation-Id: 3e5cc9e7-d828-4247-960d-08df23617994
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|36860700016|23010399003|82310400026|376014|1800799024|11063799006|56012099006|10067099003|3023799007|6133799003|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info:
+	e7MPBOaNa7BlV0ouSDelNh6IDGyfeeTqxnAeAlSfXgMtabZwmugT1C/70gHXhf7r9jdZUhkUooMkxm/EWnp7QMKSQ0fWHfuN2WQmwgMEJpFGs6gSyYJQFjeTxvi8H5XWWYiiTDb4kMrpW17nRCmaL1D0u95TXKxR14aufm2GpomnpOnIzhZc/j9BQzhGez5/nynhu2y1gCA2YTCOKLFlhGKky1kG4ukQRMpE2LjrMK9PGT0zr01FpilX7boy1QHbxtLno8rzQDiseLEZQq4iKKvYee51ZFCaonkQ8GihKO+MW1PDOWXy+ypfNNldFliB2xP8P5pBzalmIbL0pAQEkHXvQ/Cv9d5h5Qu6MqsrD1piSYyrAQfSXnIXsiCkOWuWIwRgrQXcrO3aufeG9GttQDlzj/lSjQZ+vB1zH/F3yNUqxrNdGqWxxEkJdioDNq1ETAyRIZqOhYXKRFPdHwZYwdCFJ1f2JAHmaxHb0ulvzsnn3Jyd/GhppyIWxTtPTRsAngiVc0dc0KaXR2g4OZFs23Czt7WVG2u1OFo4Bxrx5sTD+F5cP2QddTe2yvaBS8io56M9SMG4vTdDzVGt/e0z2+agp4aoENUsJmggWlJVR2mcqDK96piCkXk3poeG4niRW/ck4YK4NtDqBE6NC3SpGC4b+l0VUsT6Ox2qxZ1MqOch4QC+5cQkoC6Mov73fgAjLtGEO9MTccHcc2V39S6PUg==
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb08.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(36860700016)(23010399003)(82310400026)(376014)(1800799024)(11063799006)(56012099006)(10067099003)(3023799007)(6133799003)(22082099003)(18002099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	gLvWbQOGuC1THJyp6UoAXl8Pj2Ik4f3OI9JE1d1jkvrnqJDiBVF76RHhkPz6rK+0EAirmVcuLpeFq7+LWJqngMB4ymPQhhm5Aq4nHLsdba0srE6ArO5QB51uQcnf+X2wj0sS+1GyKhsaEH31BXWUcKx0mNCnN3un8RqZh9LEQ7wBtqJ6SN2N1Njr0fhnWOpX5ptFuUCnelj0xFsBXlhCh+8LgyM1LNoNt62bI5yfrSOqNGYko0os1TwtImMZCHECNU0PlxhvqIHJM3IkxTfzdrOIQ0Ywm1mYKR/1M/Uazn4MmGh3UESXLQSrxUfu/HNi/RaXisCIVPFJzm3PxhaQ/wCJclTfzfahw8KxZ+PKHSXvR7JZ0g/nEJgnJOARw+9jEaXXGUoIjp3fUqbDv6aXX4dIv49oB9mFRcUhxv6RoCBY7G6HeJRD18GHiGzio8JV
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Oct 2026 04:22:46.8058
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 3e5cc9e7-d828-4247-960d-08df23617994
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb08.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	BN2PEPF000044A0.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA0PR12MB7075
 
-On Wed, Sep 30, 2026 at 09:56:21AM -0400, Brian Foster wrote:
-> On Tue, Sep 29, 2026 at 12:13:36PM +1000, Dave Chinner wrote:
-> > > > Hence, from the POV of the AIL control loop, this latter
-> > > > ITEM_FLUSHING metric is pure noise. We did not queue new IO, we did
-> > > > not update a buffer already queued for IO, and we do not know if the
-> > > > item has been recently modified, yet we still accounted it as
-> > > > "flushing".
-> > > 
-> > > This all makes sense, but I wonder if it would be simpler to just let
-> > > the case of "new inode flushed to pre-queued cluster buffer" return
-> > > ITEM_SUCCESS instead of ITEM_FLUSHING.
-> > 
-> > That means we lose the 'this inode cluster is being actively
-> > modified' signal from the feedback loop. That makes it behave
-> > differently to buffer items, and so now we have confused and
-> > unbalanced signals being fed to the backoff control decision again.
-> 
-> What do we do (or not do) with this signal?
+This patch series extends the amdxdna accelerator driver to support
+AMD AIE4 (NPU3) platforms, including classic and PF/VF for SR-IOV with
+kernel-mode command submission (KMQ), and system and runtime power
+management.
 
-That triggers a larger backoff - the "flushing" part of the
-"if (stuck + flushing > count * 0.9)" of the check. If we get lots
-of newly dirtied inodes pushed to already queued inode buffers,
-then we backoff for 20ms because it implies we are reaching the
-active head of the AIL where journal commits are inserting newly
-committed dirty items.
+Changes in v2:
+- Drop the redundant cert_feature_table configuration.
+- Call aie4_partition_fini() when aie4_restore_power_mode() fails, so
+  the partition is not leaked on hardware start failure.
+- Return -ETIME from best-effort firmware configuration steps, so a
+  mailbox timeout fails the probe instead of letting it succeed with
+  unresponsive firmware.
+- Fix a synchronize_srcu() deadlock in context teardown by stopping
+  the hardware context and waking all waiters before destroying it.
+- Use READ_ONCE() for read_index and for fields read from user-shared
+  command buffers, so checked values cannot change after validation.
+- Keep the last valid read_index cache lockless and document why a
+  stale value can only delay, never falsely report, a completion.
+- Check that cert_comp is still linked in all command wait paths, so
+  -EAGAIN is only returned on a real disconnect.
+- Check that trace buffer addresses fit within 48 bits, as required by
+  the current CERT design, instead of silently truncating them.
+- Hold references to chained sub-command BOs until job release, so
+  userspace cannot free a BO while hardware may still access it.
+- Document that job fences are signaled when submission fails or the
+  hardware context is stopped, destroyed or suspended, and that job
+  timeout detection and recovery (TDR) will follow in a separate
+  change to guarantee the fence signaling in finite time.
+- Address use-after-free comments on fence dev_name().
+- Abort hardware contexts when resume fails to start the hardware,
+  so submitters waiting for a context to reconnect fail instead of
+  blocking forever.
+- Document that VF driver rebind requires re-enabling SR-IOV via
+  sriov_numvfs, which recreates the PF/VF PM device links.
+- Add pm_ptr() wrapper to fix the build with CONFIG_PM=n.
+- Remove hwctx_config for AIE4; use-after-free cases in the debug
+  buffer handling need more work.
+- Detect VF passthrough by comparing against the PF driver instead of
+  the module owner, which is NULL for built-in drivers.
 
-This is very similar to when LOCKED starts to show up - the only
-difference between FLUSHING and LOCKED in this situation is that
-FLUSHING means the inode buffer is still queued for IO, whilst
-LOCKED means one of two things:
+Changes in v1:
+- Firmware version 6.0: return IOMMU_PASID_INVALID from aie4_msg_pasid().
+- Power mode: consolidate cached power mode override restoration on
+  hardware start directly into the power mode introduction patch, and
+  respect user buffer size.
+- Transport hooks: fix header include to use <drm/amdxdna_accel.h>.
+- Command submission & fencing: fold fence timeline naming and unique
+  timeline context allocation into the command submission patch.
 
-1. It is being actively accessed and maybe modified (i.e. locked in
-a transaction), and so it is about to be relogged and pinned, in
-which case we can't flush it. It is likely "stuck" until some time
-passes.
+Series structure:
+The patch layout is unchanged since v0; see the v0 cover letter for a
+per-patch overview.
 
-2. it is locked and under writeback IO. In this case, it was likely
-pushed on the previous AIL push iteration. i.e. we are iterating
-recently pushed items that are still under IO. If we get lots of
-locked items, then we are likely 'stuck' needing them to complete IO
-for progress to be made. Hence we need to back off.
+Testing:
+- Tested on AMD AIE4/NPU3 hardware in both classic and SR-IOV (PF/VF)
+  modes.
+- Verified kernel-mode command submission with direct and indirect
+  execution packets under concurrent workloads.
+- Verified system suspend/resume (S2idle/S3) and runtime autosuspend
+  cycles during idle and active command submission.
+- Verified SR-IOV VF binding, execution, and PM dependency sequencing.
+- Confirmed no regression on existing AIE2 devices (NPU1/NPU4).
 
-PINNED is very similar LOCKED case 1, only it has been relogged and
-is dirty in the CIL.
 
-Hence there is a simlar relationship between pinned, locked and
-flushing - the only difference between them is where in the
-'recently modified and/or submitted for IO' cycle the objects are
-in.
+David Zhang (20):
+  accel/amdxdna: Rename NPU3 firmware files
+  accel/amdxdna: Remove mmap for doorbell
+  accel/amdxdna: Add CERT firmware version support
+  accel/amdxdna: Upgrade firmware version to 6.0
+  accel/amdxdna: Add NPU3 classic device support
+  accel/amdxdna: Add AIE version query to aie4_get_info
+  accel/amdxdna: Add get and set power_mode for AIE4
+  accel/amdxdna: Add clock, DPM frequency, and resource info queries for
+    AIE4
+  accel/amdxdna: Add context switch hysteresis with debugfs control
+  accel/amdxdna: Refactor AIE4 hardware initialization sequence
+  accel/amdxdna: Decouple AIE4 doorbell and MSI-X notify transport hooks
+  accel/amdxdna: Implement AIE4 kernel queue lifecycle and memory layout
+  accel/amdxdna: Prepare for AIE4 command submission
+  accel/amdxdna: Implement AIE4 command packet building and submission
+  accel/amdxdna: Make hmm_invalidate common for AIE2 and AIE4
+  accel/amdxdna: Finalize runtime PM before acquiring dev_lock on
+    removal
+  accel/amdxdna: Implement AIE4 suspend and resume
+  accel/amdxdna: Link SR-IOV VFs for power management sequencing
+  accel/amdxdna: Implement runtime suspend and resume support
+  accel/amdxdna: Enable AIE4 firmware logging to DRAM
 
-These all indicate we have push vs access/modification contention on
-the log items, and we give the active modifications processing
-preference by backing off. i.e. we prioritise relogging over
-pushing because it avoids unnecessary writeback IO, and to do that
-we need pushing to back off when contention signals are detected.
+ drivers/accel/amdxdna/aie.c             |  63 +-
+ drivers/accel/amdxdna/aie.h             |  47 +-
+ drivers/accel/amdxdna/aie2_ctx.c        |  15 -
+ drivers/accel/amdxdna/aie2_message.c    |   4 +-
+ drivers/accel/amdxdna/aie2_pci.c        |  67 +-
+ drivers/accel/amdxdna/aie2_pci.h        |  40 +-
+ drivers/accel/amdxdna/aie2_pm.c         |  10 +-
+ drivers/accel/amdxdna/aie4_ctx.c        | 995 ++++++++++++++++++++++--
+ drivers/accel/amdxdna/aie4_host_queue.h |  72 +-
+ drivers/accel/amdxdna/aie4_message.c    | 244 ++++++
+ drivers/accel/amdxdna/aie4_msg_priv.h   | 149 +++-
+ drivers/accel/amdxdna/aie4_pci.c        | 836 +++++++++++++++++++-
+ drivers/accel/amdxdna/aie4_pci.h        | 125 ++-
+ drivers/accel/amdxdna/aie4_sriov.c      | 118 ++-
+ drivers/accel/amdxdna/amdxdna_ctx.c     |  25 +-
+ drivers/accel/amdxdna/amdxdna_ctx.h     |  28 +-
+ drivers/accel/amdxdna/amdxdna_debugfs.c |   3 +
+ drivers/accel/amdxdna/amdxdna_pci_drv.c |  63 +-
+ drivers/accel/amdxdna/amdxdna_pci_drv.h |  19 +-
+ drivers/accel/amdxdna/amdxdna_pm.c      |  35 +
+ drivers/accel/amdxdna/amdxdna_pm.h      |   4 +-
+ drivers/accel/amdxdna/amdxdna_sysfs.c   |   2 +-
+ drivers/accel/amdxdna/npu1_regs.c       |  19 +-
+ drivers/accel/amdxdna/npu3_regs.c       | 105 ++-
+ drivers/accel/amdxdna/npu4_regs.c       |  30 +-
+ 25 files changed, 2804 insertions(+), 314 deletions(-)
 
-> ITEM_* implies state of the log item, so I don't see that as
-> inconsistent. They behave differently because they are different items.
-> What's the expectation for the push interface? If we flush an ili/dquot
-> and the buffer is already queued, did we push the item "successfully" or
-> was the item "flushing?"
-
-It's an indication that there is active modification occurring on
-the inodes/dquots on the cluster buffer, and so we have to make a
-decision to push immediately or back off to allow further
-aggregation.
-
-push immediately (i.e ignore flushing signal) means the inode
-cluster gets submitted for IO, and the next inode we modify on that
-cluster blocks waiting for cluster IO to finish. If we get the
-timing wrong, we end up doing lots of individual inode pushes and
-repeated cluster buffer IO, instead of aggregating them all into a
-single IO. the "flushing" signal is a sign of the push algorithm to
-back off to allow  modification to continue unhindered and hance
-allow the next push of a item on that cluster buffer to sweep all
-the modifications in one go.
-
-i.e. the decision is "push immediately and repeatedly" or "backoff
-on modification contention and push once". Doing it once is more CPU
-and IO efficient, push immediately causes modification latency
-issues in xfs_inode_item_precommit() locking the cluster
-buffer...
-
-> > That is, we can have tens of thousands of inodes on the same LSN in
-> > the AIL. A CIL checkpoint on a large log is closed off at ~32MB in
-> > size, and an inode core takes up about 300 bytes in the journal. If
-> > we are logging nothing but inode cores (e.g. 'chown -R <somedir>'
-> > over millions of files) then a single checkpoint can contain up to
-> > ~100,000 inode log items. These are all inserted into the AIL at the
-> > same LSN.  Hence it is very common for there to be tens of thousands
-> > of inode in the FLUSHING state on the same LSN in the AIL.
-> > 
-> 
-> So in the current code what prevents from adding that many cluster
-> buffers to the delwri queue? The current count > 1000 logic only breaks
-> across an LSN change, so ISTM queue length is subject to the level of
-> cluster overlap in the dataset.
-
-<looks closer>
-
-Ok, that's probably a real bug. I think it should be an || not an
-&&. i.e. I'd intended it to submit the buffer list when we completed
-flushing a checkpoint (i.e. the LSN changes) or if we'd gathered
-enough items on the buffer list for submission (count > 1000).
-
-This points out the difference between "knowing the intent" and
-"reading the code". One cannot tell the difference between bug and
-intended behaviour from reading the code....
-
-As it is, this could result in longer buffer submission lists, but
-that makes it even less likely to trigger a hangcheck timer. i.e.
-submission to the request queue is typically faster than hardware IO
-completion, hence the more we have to submit, the more likely we are
-to block on a full request queue.
-
-> > inodes doesn't actually move the LSN for the next loop forwards.
-> > We start the next loop at the same LSN in this case, and the only
-> > reason we didn't tend to process the same flushing items a second
-> > time is the backoff allows IO completion to remove the items from
-> > the AIL.
-> > 
-> 
-> I get that the LSN bookmark is not granular, but the old algorithm only
-> broke the loop if we were stuck or hit the target. It resets the
-> bookmark if the 90% stuck+flushing threshold is met or we hit the
-> target. So the example described above sounds like one where we'd reset
-> the LSN pushed bookmark anyways, or otherwise we are stuck and intend to
-> repush locked/pinned items.
-> 
-> That said, I can see how accounting the flushing state for cluster
-> flushed inodes in the same push cycle inflates this metric into backing
-> off/restarting, which seems like a flaw/inefficiency in the old code.
-
-It's not just the backoff, it's all the extra code that has to be
-executed to get to the point of realising the inode has already been
-flushed to the cluster buffer. THis change made it a single bit
-check in the outer loop, vs going into ->iop_push and taking a cache
-miss to pull the buffer from the ILI, then another to pull the inode
-and i_flags from the ILI, then another to pull the pincount from the
-inode, then another to pull the pin count from the buffer,
-
-IOWs, the LI_FLUSHING check runs hot in cache, whilst iop_push()
-takes multiple dependent cacheline misses for every inode it checks
-for STALE/pinned/flushing....
-
-<snip>
-
-> > Besides, if the problem really is "we are walking too many
-> > LI_FLUSHING items repeatedly because the LSN is not changing", then
-> > I'm pretty sure there's a relatively straight forward fix for that.
-> > i.e. we need fine grained tracking of the item we are up to across
-> > loop iterations where the AIL lock is not held and the AIL can
-> > change. We already do this within the processing loop itself...
-> 
-> I'm curious what you're referring to here, if not the last lsn thing..
-> a cursor enhancement perhaps?
-
-Yeah, get rid of last_pushed_lsn, and keep the cursor active across
-push iterations. The only reason for last_pushed_lsn existing is to
-re-seed the cursor on the next iteration. It's a bit of a wart, and
-it's quite inefficient because we have to walk the entire list from
-the head or tail to find the LSN we need to start at.
-
-To replace last_push_lsn, we can store a lsn in the cursor on item
-deletion to act as a reseed value for the next iteration instead of
-starting from the [still valid] item in the cursor...
-
--Dave.
 -- 
-Dave Chinner
-dgc@kernel.org
+2.34.1
+
