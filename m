@@ -1,165 +1,95 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.16])
+Received: from cvsmtppost20.nm.naver.com (cvsmtppost20.nm.naver.com [114.111.35.236])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BFDBC3D9DB1;
-	Tue,  6 Oct 2026 10:19:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.16
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1E75E3D9525
+	for <linux-kernel@vger.kernel.org>; Tue,  6 Oct 2026 10:21:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=114.111.35.236
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791281953; cv=none; b=ScK7RoHGXESGhFn21aco6twga69gJYpWQzKCt2mRfq1qniQqeUTa91aaTtLYT3/Z6eGWfhGJLhuPALJY6sm+XxO+VU3CKcejvBO5CuN9OLL4cAtpU5kfgeKWmCy20uwcdC8k7/QFuaYiIM5Gj+Ryma06ivua8/W44GS3CP9WJXQ=
+	t=1791282091; cv=none; b=FTJ6s/sEFUxgRMULoNuCIQ7jXnANaA9L+m/Arr5R3hswTyFDqQMj/ti3dDmOO049B8cwO88RAxw2XGOZXJBNK3Gx0hLvMbA/j3WeCKqeFweusEOlW7x9HDp35xsawi+XyRPay0UFESVV9Nnxw+N3qYS+Mv/CIxUh/Jgjs+dZXdk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791281953; c=relaxed/simple;
-	bh=OaNAldnz+9ckvaaYLOdUyTKTxlfPsmmT7rxhIfzTZfI=;
-	h=From:Date:To:cc:Subject:In-Reply-To:Message-ID:References:
-	 MIME-Version:Content-Type; b=FVXLD0yDIP3eudbvVCzR+VQoZgcbg3eeyKq7MU2HRoCJcEOapilS3CzVX/Tdsgw4GHHUfpJg+2IihXGhpzsfvnlgxF/wB4RD/1eo57Bikhs7xRoeIOJZ4hL6g/WwjRTnCfoLFhtC9NFPaSP1pSBFXgIxjDVTSvKsWAvFfQVhcKM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=CUHzSEhs; arc=none smtp.client-ip=192.198.163.16
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	s=arc-20240116; t=1791282091; c=relaxed/simple;
+	bh=QqulCsapT2Fj83sxvE+DQ+IFCCV3oHDYRXWdlknJDXM=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Iwuz/nO202rD+8ck/f7Aww6TLSNL7BhMKeVttbtqcvi90pUgc0cl1f4qp44oZM4duW2UOKQvc+FiN4xW2x+tPYWcO+IGpuowjYRqYPFOe/XsPsr3y+xRiZ7pvKexF7zdX9Qv0IwXH1qU/h8R1EjNZzVsCJH4dPq7JxAWkSx6Ny8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=naver.com; spf=pass smtp.mailfrom=naver.com; dkim=pass (2048-bit key) header.d=naver.com header.i=@naver.com header.b=NZtZY2bG; arc=none smtp.client-ip=114.111.35.236
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=naver.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=naver.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="CUHzSEhs"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1791281950; x=1822817950;
-  h=from:date:to:cc:subject:in-reply-to:message-id:
-   references:mime-version;
-  bh=OaNAldnz+9ckvaaYLOdUyTKTxlfPsmmT7rxhIfzTZfI=;
-  b=CUHzSEhs/pI0coPsrwaTaEvUuOU5oOorbcKG6Vv2UIHs/z5v3r1+L1Dn
-   yFOAHE55MN8fS4noTF6Yg8r8kHaA8ejsol8yLmySQJoN4aveR2mBqOvnG
-   Xr6Td5qTxq31VlycU9D6JI/bQKQ0559C5RpYOrJF3baFLGlrTA71qnTHx
-   9NYs7m6R/XFwfG6uioq+NLa8zWNHTPz54nuO9/sus+Z0GJRAq60EXOKqI
-   9kDTMOlTVFawbFaV4TPGTAd1FxiWcqhvYfeNNjOuJ1LTX6jnuIXQCkz6K
-   nkubXhgCilbDLtChBhk79iAzXmEuwprQ/IqpKb2xC/e8c+qtzD4Bexzoi
-   Q==;
-X-CSE-ConnectionGUID: woGwG97VRlOtgBLAQm+GmA==
-X-CSE-MsgGUID: uK8qBbD9TduxudWM4LreOw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11926"; a="18262"
-X-IronPort-AV: E=Sophos;i="6.27,143,1787036400"; 
-   d="scan'208";a="18262"
-Received: from fmviesa007.fm.intel.com ([10.60.135.147])
-  by fmvoesa110.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 06 Oct 2026 03:19:08 -0700
-X-CSE-ConnectionGUID: QUQMRA4IRUOXSw9Jo2tKew==
-X-CSE-MsgGUID: QBBKzDfhTF+AyiqrjBbPsg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,143,1787036400"; 
-   d="scan'208";a="276620896"
-Received: from ijarvine-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.244.106])
-  by fmviesa007-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 06 Oct 2026 03:19:05 -0700
-From: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
-Date: Tue, 6 Oct 2026 13:19:02 +0300 (EEST)
-To: Vinicius Pedrosa <vinicius.eduardo.pedrosa@gmail.com>
-cc: linux-serial <linux-serial@vger.kernel.org>, 
-    Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
-    Jiri Slaby <jirislaby@kernel.org>, robh@kernel.org, krzk+dt@kernel.org, 
-    conor+dt@kernel.org, Andy Shevchenko <andriy.shevchenko@linux.intel.com>, 
-    devicetree@vger.kernel.org, LKML <linux-kernel@vger.kernel.org>, 
-    linux-sunxi@lists.linux.dev, Enzo Adriano <enzo.adriano.code@gmail.com>, 
-    stable@vger.kernel.org
-Subject: Re: [PATCH 1/3] serial: 8250_dw: Keep the BUSY-safe divisor hook
- when DLF is present
-In-Reply-To: <20261005172538.398522-2-vinicius.eduardo.pedrosa@gmail.com>
-Message-ID: <e9538164-3565-a702-c26b-bdc0b8cb1c6c@linux.intel.com>
-References: <20261005172538.398522-1-vinicius.eduardo.pedrosa@gmail.com> <20261005172538.398522-2-vinicius.eduardo.pedrosa@gmail.com>
+	dkim=pass (2048-bit key) header.d=naver.com header.i=@naver.com header.b="NZtZY2bG"
+Received: from cvsendbo002.nm ([10.112.20.42])
+  by cvsmtppost20.nm.naver.com with ESMTP id yUuaxYN3Q9e6BcSTwm4CVg
+  for <linux-kernel@vger.kernel.org>;
+  Tue, 06 Oct 2026 10:21:21 -0000
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=naver.com; s=s20171208;
+	t=1791282081; bh=QqulCsapT2Fj83sxvE+DQ+IFCCV3oHDYRXWdlknJDXM=;
+	h=From:To:Subject:Date:Message-ID:From:Subject:Feedback-ID:
+	 X-Works-Security;
+	b=NZtZY2bGJESDcPACv4Klb5akAQJeAaikUNp5jak0dFfbWw6G2J/Eugrn6O1/AV7D4
+	 MP9o3ZPLVMPo8Y2Bh2sOzsUOoki0FYyEqxCwI4A85zEL4FtMtKrdadR4XDQy7s4T5n
+	 k+UHXO/hMQ+bUM3VgR50+wGB90JR9gf1P5J8eiE4rhKMgy3sz29virUJ0RqdCouXws
+	 yYW+GqDsL7hy7rwjAJeKjJghhrlqM8T2IgNoXUYxmcpNd1DqA1rWvx0jzxykHNSYFC
+	 flIklu9PJkcBRqabYa6zTKCFjASu3oDKXl946crAh2dRfxQJWEVMUdyZi65JHqF9GU
+	 RIM5o0lNgBjjg==
+X-Session-ID: ye+qwul7SeqKFDwcQXNVyg
+X-Works-Send-Opt: OPewpzGdjHmdKHFOMr39Ko3YKBmrjAudFqM9KqMqFxIYkEljxBmwjAg=
+X-Works-Smtp-Source: /dYdKoulFqJZ+HmmaAMl+6E=
+Received: from localhost.localdomain ([115.136.205.4])
+  by cvnsmtp003.nm.naver.com with ESMTP id ye+qwul7SeqKFDwcQXNVyg
+  for <multiple recipients>
+  (version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384);
+  Tue, 06 Oct 2026 10:21:20 -0000
+From: sungbyeongchan <tjdqudcks0424@naver.com>
+To: "Michael S . Tsirkin" <mst@redhat.com>,
+	Jason Wang <jasowangio@gmail.com>,
+	=?UTF-8?q?Eugenio=20P=C3=A9rez?= <eperezma@redhat.com>,
+	Xuan Zhuo <xuanzhuo@linux.alibaba.com>
+Cc: virtualization@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	sungbyeongchan <tjdqudcks0424@naver.com>
+Subject: [PATCH v2] virtio_ring: use shadow flags when detaching split descriptors
+Date: Tue,  6 Oct 2026 19:21:12 +0900
+Message-ID: <20261006102112.847280-1-tjdqudcks0424@naver.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 8bit
 
-On Mon, 5 Oct 2026, Vinicius Pedrosa wrote:
+Fixes: 72b5e8958738 ("virtio-ring: store DMA metadata in desc_extra for split virtqueue")
+Acked-by: Michael S. Tsirkin <mst@redhat.com>
+Assisted-by: LLM
+Signed-off-by: sungbyeongchan <tjdqudcks0424@naver.com>
+---
+Changes in v2:
+- Drop the commit message paragraphs as requested by Michael S. Tsirkin.
+- Add Michael's Acked-by.
 
-> dw8250_probe() installs dw8250_set_divisor(), which brackets the
-> DLAB/DLL/DLH sequence with dw8250_idle_enter()/dw8250_idle_exit() so that
-> a BUSY UART cannot drop the divisor LCR write. dw8250_setup_port() runs
-> afterwards and replaces that hook with the dwlib one whenever it detects
-> a DLF register. The dwlib hook programs the divisor through
-> serial8250_do_set_divisor() without entering idle.
+ drivers/virtio/virtio_ring.c | 3 +--
+ 1 file changed, 1 insertion(+), 2 deletions(-)
 
-Yeah, non-dwlib code should own the hook if it sets one.
-
-> When termios changes while the UART is transmitting, the LCR|DLAB write
-> is ignored and dw8250_check_lcr() retries it between
-> dw8250_idle_enter() and dw8250_idle_exit(). dw8250_idle_exit() restores
-> IER while DLAB is still set, so the value lands in DLH. The real IER
-> keeps the zero written by dw8250_idle_enter(), and the port gets no
-> further TX or RX interrupts while up->ier says they're enabled.
-> 
-> Program DLF from dw8250_set_divisor() inside the idle section and keep
-> that hook after dw8250_setup_port().
-> 
-> Observed on an Allwinner A733 (Radxa Cubie A7Z): the first interactive
-> tcsetattr() during console output left hardware IER at 0 and up->ier at
-> 0x07. The shell never printed its prompt or read input. With this change
-> alone the same boot reached the prompt and echoed input, and hardware
-> IER matched up->ier afterwards.
-> 
-> Fixes: a7b9ce39fbe4 ("serial: 8250_dw: Ensure BUSY is deasserted")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Vinicius Pedrosa <vinicius.eduardo.pedrosa@gmail.com>
-> ---
-> The A733 has no real DLF. Offset 0xc0 is an RS485 control register that
-> dw8250_setup_port() mistakes for one (patch 3), which is how this path
-> was reached. The new DLF write hasn't been tested on a UART with a real
-> DLF register.
-> 
->  drivers/tty/serial/8250/8250_dw.c | 12 +++++++++++-
->  1 file changed, 11 insertions(+), 1 deletion(-)
-> 
-> diff --git a/drivers/tty/serial/8250/8250_dw.c b/drivers/tty/serial/8250/8250_dw.c
-> index 0ab558230370..ba414306c98a 100644
-> --- a/drivers/tty/serial/8250/8250_dw.c
-> +++ b/drivers/tty/serial/8250/8250_dw.c
-> @@ -189,6 +189,7 @@ static int dw8250_idle_enter(struct uart_port *p)
->  static void dw8250_set_divisor(struct uart_port *p, unsigned int baud,
->  			       unsigned int quot, unsigned int quot_frac)
->  {
-> +	struct dw8250_data *d = to_dw8250_data(p->private_data);
->  	struct uart_8250_port *up = up_to_u8250p(p);
->  	int ret;
->  
-> @@ -196,6 +197,9 @@ static void dw8250_set_divisor(struct uart_port *p, unsigned int baud,
->  	if (ret < 0)
->  		return;
->  
-> +	if (d->data.dlf_size)
-> +		dw8250_writel_ext(p, DW_UART_DLF, quot_frac);
-
-It might be better to add __dw8250_set_divisor() to dwlib to keep the DLF 
-setting code in one place. If the dwlib side does d->data.dlf_size check, 
-8250_dw side doesn't need to care about DLF stuff but can just 
-unconditionally call __dw8250_set_divisor().
-
-> +
->  	serial_port_out(p, UART_LCR, up->lcr | UART_LCR_DLAB);
->  	if (!(serial_port_in(p, UART_LCR) & UART_LCR_DLAB))
->  		goto idle_failed;
-> @@ -650,7 +654,6 @@ static int dw8250_probe(struct platform_device *pdev)
->  
->  	p->set_ldisc	= dw8250_set_ldisc;
->  	p->set_termios	= dw8250_set_termios;
-> -	p->set_divisor	= dw8250_set_divisor;
->  
->  	data = devm_kzalloc(dev, sizeof(*data), GFP_KERNEL);
->  	if (!data)
-> @@ -767,6 +770,13 @@ static int dw8250_probe(struct platform_device *pdev)
->  	if (!data->skip_autocfg)
->  		dw8250_setup_port(p);
->  
-> +	/*
-> +	 * dw8250_setup_port() installs the library divisor hook when it finds
-> +	 * DLF. Keep the BUSY-safe hook instead: it also programs DLF, and it
-> +	 * must own DLAB so that a BUSY UART never drops the divisor LCR write.
-> +	 */
-> +	p->set_divisor = dw8250_set_divisor;
-> +
->  	/* If we have a valid fifosize, try hooking up DMA */
->  	if (p->fifosize) {
->  		data->data.dma.rxconf.src_maxburst = p->fifosize / 4;
-> 
-
-It might be safer approach to NULL check .set_divisor in dwlib before 
-setting it as ordering requirements like this are easy to miss.
-
+diff --git a/drivers/virtio/virtio_ring.c b/drivers/virtio/virtio_ring.c
+index db678f5a80e03..b4cb433df1dec 100644
+--- a/drivers/virtio/virtio_ring.c
++++ b/drivers/virtio/virtio_ring.c
+@@ -905,7 +905,6 @@ static unsigned detach_buf_split_in_order(struct vring_virtqueue *vq,
+ {
+ 	struct vring_desc_extra *extra;
+ 	unsigned int i;
+-	__virtio16 nextflag = cpu_to_virtio16(vq->vq.vdev, VRING_DESC_F_NEXT);
+ 
+ 	/* Clear data ptr. */
+ 	vq->split.desc_state[head].data = NULL;
+@@ -915,7 +914,7 @@ static unsigned detach_buf_split_in_order(struct vring_virtqueue *vq,
+ 	/* Put back on free list: unmap first-level descriptors and find end */
+ 	i = head;
+ 
+-	while (vq->split.vring.desc[i].flags & nextflag) {
++	while (extra[i].flags & VRING_DESC_F_NEXT) {
+ 		i = vring_unmap_one_split(vq, &extra[i]);
+ 		vq->vq.num_free++;
+ 	}
 -- 
- i.
+2.43.0
 
