@@ -1,204 +1,112 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5ABAA45C70E;
-	Tue,  6 Oct 2026 15:08:32 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6B9BA49C4BE;
+	Tue,  6 Oct 2026 15:09:12 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791299313; cv=none; b=C4cYrPvQ8gsP6ZtVfUA7EQnl+s4jgoTyuFPKN6jRym2u0FF3g3p7WdhPRTCxmO0UBCuH5Z1soDpzLsZuAB6VGSkXFrDWiAtj0qnZ+Y8XlprR+NfwHwGnk7Jam03tKj5EHFsWTpmuZLjYNFyyFlykGyMMBIIGyzUj0SUPgGZTPks=
+	t=1791299353; cv=none; b=VBj92SIpJpWcVizsD+nLtoclfc65DujxFK5qLjdu1oGjoJnObBTRy01/68yTYu82oQ4iDkcRSi7ujmWo1pBiwXKK31bynOj4ich+x1iZrNW1mBiemaFh0XiCr1AzByQd6A7fA6Tg3CU0p5eF4yHE62C6CB4fvnLyHyMRVxSnEDc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791299313; c=relaxed/simple;
-	bh=N0p1f1wDqREWYPMGsm7f6Hg8B90UwV4X9gsX1ydmNGg=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Li23YK7dKukRkWAhz60YDAqesnZk71odDejenkHNf17i0mts4kySlO6UuZ/bDRuluIbyjPK9W+003LAVfB5gPa7vQLiXN6zHHt0rPjl8hjlhY7VMPBhWMOQHBm05Rppd0w9FF8kRN38IaTP38IFPeUJyPogZC44dF+oonG+/fmY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=FetpF4dL; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791299353; c=relaxed/simple;
+	bh=I9bhbYltPkS0lWeeqq7JSwvOPSvncjDBaQk3HRw1u34=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=R9M13bB/rU/WVMIN0Y2hzkoSWH5Qt9OLQjEuoj9b0JEAXMBe9tcxshz4//L9Qse0IJB6vORVD/+hQMfAZIV66IB3ibXIF7a47R/IkN6GJFCx5rGxy6nJ6E12WPht0sGCE3Gxk/qQ8aMLsxAE3Jn8NknZiSw2zLCNpi+CpAXmUaY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=oeD9QMK/; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="FetpF4dL"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D13531F0089B;
-	Tue,  6 Oct 2026 15:08:31 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="oeD9QMK/"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 38C4F1F0089B;
+	Tue,  6 Oct 2026 15:09:09 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791299312;
-	bh=2W3RNEnVYCGzFPqg63OJywzypc/QTiWR/0QRs92Quq4=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=FetpF4dLDjLQPjYWIVDdyp6sJOWTAW8m2d/wqsHRGmqDX6p5TVSaj81wLhLBnM4xR
-	 C6CV/F0olerJaRm5EwL0lsjmZoHRScNEjx5M8bajzrP668cyrXPbZuC0J2b0iXsksg
-	 bhATh99T9yZiSC7Ubi+0TwM+OKjiXpaOM3Hb19x5qEjc/b2xJDyYxmyVIijZPtViFu
-	 xigb9BdusvPjV+qF6VwVCVInG7XjL0iuNwas8ds+V7rXn1djd5G+f+7k37cFODbkDy
-	 G+pkkfR8tER0znlKB3bPjMmtWGR85uvKErwC/hDhJoyTG4KMOyHqafrd46BtGsZisV
-	 Suqwun02c/jhA==
-Date: Tue, 6 Oct 2026 10:08:31 -0500
-From: Rob Herring <robh@kernel.org>
-To: Coia Prant <coiaprant@gmail.com>
-Cc: Jakub Kicinski <kuba@kernel.org>, Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S . Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Heiko Stuebner <heiko@sntech.de>,
-	Maxime Chevallier <maxime.chevallier@bootlin.com>,
-	Heiner Kallweit <hkallweit1@gmail.com>,
-	Russell King <linux@armlinux.org.uk>,
-	David Wu <david.wu@rock-chips.com>, netdev@vger.kernel.org,
-	linux-rockchip@lists.infradead.org, devicetree@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH net-next v10 1/6] dt-bindings: net: pcs: add
- rockchip,rk3568-xpcs support
-Message-ID: <20261006150831.GC2194299-robh@kernel.org>
-References: <20261005223011.1124347-1-coiaprant@gmail.com>
- <20261005223011.1124347-2-coiaprant@gmail.com>
- <20261006132428.GA1659963-robh@kernel.org>
- <96FA84EA-3C0E-4FAC-963F-2A8165538748@gmail.com>
+	s=k20260515; t=1791299352;
+	bh=TXACSYhLXtVOS9sONVQPPWY9uQYglM+Zmt4FkOCBx3E=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=oeD9QMK/tXxY4ZxQ0+Gmxg5aPRwX8W4X1AsK0sM2/mcxH5WLbLIqfNtfXKgb//leF
+	 XSP48glRRhnj3pQa1VCq6PUqbetMprs1Ae1hsidFDVuXLj8C5jyU+QvHptSuSxkQfE
+	 OLjdV7BpPGqd7FFkWefViFpHPP966uaE8UsT1h3MUaiHorajeVhPBIeWZQmBY2K+cl
+	 OsoIa3GrOv8mEummzhMcMh6UXe19qhig9gh4u0Z0tqjxFK3uuzBls/sZGPruZopO6V
+	 gZab5ew9dzEGQqga0VIjn5fWAV8Olsicn1jGw5NFyHA+7kLvJVBwxbRdYKVdchrNiA
+	 4DV5zTUQMDIKA==
+Message-ID: <2639e56d-1fcd-4f20-b065-0066a6d841a4@kernel.org>
+Date: Tue, 6 Oct 2026 17:09:06 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <96FA84EA-3C0E-4FAC-963F-2A8165538748@gmail.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 1/5] dt-bindings: soc: rockchip: add boot ROM download
+ boot mode
+To: Alexey Charkov <alchark@flipper.net>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Heiko Stuebner <heiko@sntech.de>,
+ Sebastian Reichel <sre@kernel.org>
+Cc: devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org,
+ linux-pm@vger.kernel.org, Shawn Lin <shawn.lin@rock-chips.com>
+References: <20260929-b4-rk3576-reboot-mode-v2-0-5a34ca72065a@flipper.net>
+ <20260929-b4-rk3576-reboot-mode-v2-1-5a34ca72065a@flipper.net>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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
+In-Reply-To: <20260929-b4-rk3576-reboot-mode-v2-1-5a34ca72065a@flipper.net>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Tue, Oct 06, 2026 at 09:59:49PM +0800, Coia Prant wrote:
-> On October 6, 2026 9:24:28 PM GMT+08:00, Rob Herring <robh@kernel.org> wrote:
-> >On Tue, Oct 06, 2026 at 06:30:03AM +0800, Coia Prant wrote:
-> >> Add device tree binding documentation for the Synopsys DesignWare
-> >> XPCS integrated on the Rockchip RK3568 SoC.
-> >> 
-> >> The XPCS is accessed over the APB3 bus and internally connected to
-> >> a Naneng Combo SerDes PHY.  It supports 1000BASE-X, SGMII, and
-> >> QSGMII modes, with four MII ports.
-> >> 
-> >> The four MII ports are described as ethernet-pcs-mii@N child nodes,
-> >> consumed by the Rockchip XPCS glue driver later in this series.
-> >> 
-> >> phys and phy-names are required because dtbs_check only validates
-> >> required properties for enabled nodes. The SerDes link is a board-level
-> >> design choice (combphy1 on some boards, combphy2 on others), so these
-> >> properties must be provided by the board device tree, not the SoC dtsi.
-> >> 
-> >> The CRU reset lines (SRST_XPCS*) are intentionally not described: no
-> >> in-tree user requests them, and bring-up relies on the PD_PIPE power
-> >> domain, the SerDes PHY and the in-IP soft reset. They can be added
-> >> later as optional without breaking ABI.
-> >> 
-> >> Signed-off-by: Coia Prant <coiaprant@gmail.com>
-> >> ---
-> >>  .../net/pcs/rockchip,rk3568-xpcs.yaml         | 110 ++++++++++++++++++
-> >>  1 file changed, 110 insertions(+)
-> >>  create mode 100644 Documentation/devicetree/bindings/net/pcs/rockchip,rk3568-xpcs.yaml
-> >> 
-> >> diff --git a/Documentation/devicetree/bindings/net/pcs/rockchip,rk3568-xpcs.yaml b/Documentation/devicetree/bindings/net/pcs/rockchip,rk3568-xpcs.yaml
-> >> new file mode 100644
-> >> index 0000000000000..703fcff0e3f70
-> >> --- /dev/null
-> >> +++ b/Documentation/devicetree/bindings/net/pcs/rockchip,rk3568-xpcs.yaml
-> >> @@ -0,0 +1,110 @@
-> >> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-> >> +%YAML 1.2
-> >> +---
-> >> +$id: http://devicetree.org/schemas/net/pcs/rockchip,rk3568-xpcs.yaml#
-> >> +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> >> +
-> >> +title: Rockchip RK3568 Synopsys DesignWare Ethernet PCS
-> >> +
-> >> +maintainers:
-> >> +  - Coia Prant <coiaprant@gmail.com>
-> >> +
-> >> +description: |
-> >> +  Rockchip RK3568 SoC integrates a Synopsys DesignWare Ethernet Physical
-> >> +  Coding Sublayer (XPCS).
-> >> +  The PCS provides an interface between the Media Access Control (MAC)
-> >> +  and the Physical Medium Attachment (PMA) sublayer through a Media
-> >> +  Independent Interface (GMII).
-> >> +
-> >> +  The XPCS is accessed over the APB3 bus and internally connected to a
-> >> +  Naneng Combo SerDes PHY.
-> >> +  It supports 1000BASE-X, SGMII and QSGMII modes.
-> >> +
-> >> +  The block contains four MII ports that can be individually enabled and
-> >> +  routed to one of the Ethernet GMAC controllers via the pcs-handle
-> >> +  property in the MAC device tree node.
-> >> +
-> >> +properties:
-> >> +  compatible:
-> >> +    const: rockchip,rk3568-xpcs
-> >> +
-> >> +  reg:
-> >> +    maxItems: 1
-> >> +
-> >> +  "#address-cells":
-> >> +    const: 1
-> >> +
-> >> +  "#size-cells":
-> >> +    const: 0
-> >> +
-> >> +  clocks:
-> >> +    items:
-> >> +      - description: APB3 bus interface clock (clk_csr_i), required for register access
-> >> +      - description: EEE clock (clk_eee_i), required for Energy Efficient Ethernet operation
-> >> +
-> >> +  clock-names:
-> >> +    items:
-> >> +      - const: csr
-> >> +      - const: eee
-> >> +
-> >> +  phys:
-> >> +    maxItems: 1
-> >> +
-> >> +  phy-names:
-> >> +    const: serdes
-> >
-> >You don't really need phy-names if there is only 1 entry.
-> >
-> >> +
-> >> +  power-domains:
-> >> +    maxItems: 1
-> >> +
-> >> +patternProperties:
-> >> +  "^ethernet-pcs-mii@[0-3]$":
-> >> +    type: object
-> >> +    description:
-> >> +      One of the four MII ports of the XPCS. The port is linked to an
-> >> +      Ethernet MAC controller via the pcs-handle property in the MAC's
-> >> +      device tree node.
-> >> +
-> >> +    properties:
-> >> +      reg:
-> >> +        description: MII port number.
-> >> +        enum: [0, 1, 2, 3]
-> >> +
-> >> +    required:
-> >> +      - reg
-> >
-> >Why the child nodes? They don't contain anything.
-> >
-> >Perhaps that's due to pcs-handle not supporting arg cells to pass the 
-> >port number? That's about to change[1].
-> >
-> >Rob
-> >
-> >[1] https://github.com/devicetree-org/dt-schema/pull/198
+On 29/09/2026 12:28, Alexey Charkov wrote:
+> Rockchip boot ROMs enter USB download mode, commonly known as maskrom,
+> when they find 0xef08a53c in the register they take the boot mode from.
+> Add the magic under the name U-Boot already uses for it, so that boards
+> able to request it can do so symbolically.
 > 
-> Hi Rob,
-> 
-> Both points make sense.
-> 
-> 1. I'll drop phy-names since there's only a single entry.
-> 
-> 2. For the ethernet-pcs-mii child nodes: you're right that they only
->    contain 'reg'. The reason I used child nodes is because pcs-handle
->    arg cells are not available yet -- PR #198 is still open and in
->    RFC/change-request state.
-> 
->    The RZN1 MII converter binding does the same thing: it declares
->    MII ports as subnodes and references the PCS via pcs-handle, until
->    arg cells land.
-> 
->    So I'd like to keep the child nodes as a temporary workaround, and
->    I'll add a note in the binding that this can be simplified once
->    PR #198 is merged.
+> Tested-by: Shawn Lin <shawn.lin@rock-chips.com>
 
-Bindings are an ABI. You can't merge the binding then change it. Please 
-comment on the PR that you all need it.
+This is a fake test, you cannot test bindings how we understand Linux
+kernel testing. Please drop such blanket-fake test tags from all patches
+where this is not relevant.
 
-Rob
+
+Best regards,
+Krzysztof
