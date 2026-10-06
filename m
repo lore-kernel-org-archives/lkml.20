@@ -1,229 +1,171 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2646E2E7162;
-	Tue,  6 Oct 2026 04:48:08 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 000952DF3F2
+	for <linux-kernel@vger.kernel.org>; Tue,  6 Oct 2026 04:48:26 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791262090; cv=none; b=b1yw+mT7ry8vFMPCDLXEmiFs30iLFT0WLK5fyw8lpbFTOV7LaoZys2Kgz5skKAnO+st7Gh392gL8z3rFcUxcddFT4Osp0bU8juBlAeil2fldynN7qq56UXRQrL95LkTiF5UIziFHsuFSj+TeZXcmlb9tTbqtJ1adMt17cSYLha0=
+	t=1791262108; cv=none; b=O7C6rs7QGSbIqwx0skYjQEW8v0xhpIHX3DPF4Gg5iImpdH2KVda/0cjCxzSna8Qw3rjKuqmF8x+ZnfndNybbeMQpmTcMmzWXu967lv0SQ3xK8wqgDU1ggmus/6+hJoyZKC3Fs2tUrc9Qj0k0P2pOnrN23Glww0N3auDCR7og8tE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791262090; c=relaxed/simple;
-	bh=ES1mMtTZdGK8xFhtNdrhuMbWFvc9o0sjfQ9tF5U073U=;
-	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=sAR4GZzaNN1mWqdBnH8LlIiaOwq3887inFQR362A7T6XY0g+srX9hegGDqJJJSepTCrqBJZ9e0fq+f1QzlCyibSK94K5S50owEJWvIIhy1C8norD+wKW3odGhTVNA0YiBEB4+dO0clBFynyOZ52SKXktwYHXfaxiLv8JrwW5sZs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=QwPTStiD; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791262108; c=relaxed/simple;
+	bh=91c4EcvSfzG2VlGe48Rs80Mw+ZN+aS6psCSIQbjYE5U=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=baUvKoRinqEZKsMCQ/Y1lpsHpRcAM7xB0FmodzI6wi13zX66um9YJi+166BnZhsASvpMw1c89qnnTUbqiP3gBmQuWUdZWTgXZoTo1I8ItlGse/9ouG/I2dR5Yoe75Bgl5FlY0+o7ht06bbYKp7lHyluxKz2OC4aSTBOkzPp4V4g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=OsEA5ZIq; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="QwPTStiD"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3DEC91F000FF;
-	Tue,  6 Oct 2026 04:48:08 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="OsEA5ZIq"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1ED441F000FF;
+	Tue,  6 Oct 2026 04:48:18 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791262088;
-	bh=jpMdpPz3UFTGrvQw6HHtAR4usszUupWqUCkddaJWEWs=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=QwPTStiDmmZwaJl30JvBXLYoSXbVxrTancywoeFnjEpYHl7fsZXDxYXDD2DxFfaO8
-	 3q9E0SgYn8ggerN8388n9EqEeGS4X7SjL1MvaCzM5Kstvr7JyiI4wI0c0GxQ8CHvcs
-	 EUng3fVr5tkRK2MZuFRUSs/l/FM4IuLl3f5vBXSLqAWj5jmADrGYZUkXGYJ7MUKMT2
-	 fhD+1fGgxWaVNoOPIXC5o0CE9b8/d81o3PC64zt9iwESitmX6ZcgNLRY3dtHHnNzdQ
-	 8JNV41/t6d2jQiXGaRF2k+pdEgixOZDWPvNJhkI7sF5Uusj+pvfEle125iQ74tIycr
-	 vjfRFFARaeYDw==
-Subject: Re: [PATCH net v2] net: stmmac: mask the MAC interrupt while resume
- resets the MAC
-From: netdev-bot+sashiko@kernel.org
-To: iav@iav.lv
-Cc: maxime.chevallier@bootlin.com, andrew+netdev@lunn.ch, davem@davemloft.net,
- edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com,
- linux@armlinux.org.uk, netdev@vger.kernel.org, linux-kernel@vger.kernel.org
-Date: Tue, 06 Oct 2026 04:48:07 +0000
-Message-ID: <179126208779.434549.13501536895517522673@kernel.org>
-In-Reply-To: <20261002043558.1302590-1-iav@iav.lv>
-References: <20261002043558.1302590-1-iav@iav.lv>
-X-sashiko-severity: Medium
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	s=k20260515; t=1791262106;
+	bh=tUGgZYKffjWTe3V1ODHloSUeuNia8mWQRgDKRJsPR88=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=OsEA5ZIqc/mPpRuhVowK4aw5jZ8eghvG7y0Pp/YXBR799iq/5qLtwCKODGdbYAjzM
+	 mMXUwyZf8+0AyuHCOc9vOWN9viyle94GLCVlRkWzUvi4zF21a9PSK3aJ30kTwgcLoL
+	 ZZhZfsMaHYTn+Ck7xOGxLqIF4KxoC54rxa/LhhG/yTxa1XWlKlSf37XVww0D+W5SUA
+	 D+VqK62OHKXSYn7pfH1ldc0KsdhaMoM+FG6g1vW1gUX1JDaH/VXzVKDeLpCG6xqUPz
+	 TibpvnDRZdCfT7m93htEvTZBXn4mc1H9WcjWwqJozM8WDuSjmZi2c9RZzrGvx8TGAX
+	 ggrfME3ZVs2Qw==
+Message-ID: <3d358c88-e0a9-47c5-a7a9-74edcf5e4cfb@kernel.org>
+Date: Tue, 6 Oct 2026 06:48:05 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v8 09/14] powerpc: move has_transparent_hugepage() out of
+ THP guard
+To: Luiz Capitulino <luizcap@redhat.com>,
+ "David Hildenbrand (Arm)" <david@kernel.org>, linux-kernel@vger.kernel.org,
+ linux-mm@kvack.org, baolin.wang@linux.alibaba.com, ziy@nvidia.com,
+ lance.yang@linux.dev,
+ "linuxppc-dev@lists.ozlabs.org" <linuxppc-dev@lists.ozlabs.org>
+Cc: corbet@lwn.net, tsbogend@alpha.franken.de, maddy@linux.ibm.com,
+ mpe@ellerman.id.au, agordeev@linux.ibm.com, gerald.schaefer@linux.ibm.com,
+ hca@linux.ibm.com, gor@linux.ibm.com, x86@kernel.org, tglx@kernel.org,
+ mingo@redhat.com, bp@alien8.de, hughd@google.com,
+ dave.hansen@linux.intel.com, djbw@kernel.org, vishal.l.verma@intel.com,
+ dave.jiang@intel.com, akpm@linux-foundation.org, yintirui@huawei.com,
+ dev.jain@arm.com, usama.arif@linux.dev
+References: <cover.1789695931.git.luizcap@redhat.com>
+ <05a71b6011a6eab7b096f262485fcb8b4987976f.1789695931.git.luizcap@redhat.com>
+ <f54d5d75-5cc1-488b-b640-76163419cf4d@kernel.org>
+ <25bb02df-a795-4e48-9de6-99f1ca799176@redhat.com>
+ <802564f8-1376-451e-8308-6f98d1efb099@kernel.org>
+ <9adb6aaf-6e50-4ab0-a021-2529807dff02@redhat.com>
+Content-Language: fr-FR
+From: "Christophe Leroy (CS GROUP)" <chleroy@kernel.org>
+In-Reply-To: <9adb6aaf-6e50-4ab0-a021-2529807dff02@redhat.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-Thank you for your contribution! Sashiko AI review found 3 potential
-issue(s) to consider.
 
-Critical: 0 · High: 0 · Medium: 3 · Low: 0
 
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
+Le 05/10/2026 à 22:40, Luiz Capitulino a écrit :
+> 
+> 
+> On 10/5/26 12:52 AM, Christophe Leroy (CS GROUP) wrote:
+>> Hi,
+>>
+>> Don't forget <linuxppc-dev@lists.ozlabs.org> when you address powerpc 
+>> architecture.
+> 
+> Will do.
+> 
+>>
+>> Le 03/10/2026 à 17:44, Luiz Capitulino a écrit :
+>>>
+>>>
+>>> On 10/2/26 3:28 PM, David Hildenbrand (Arm) wrote:
+>>>> On 9/18/26 03:45, Luiz Capitulino wrote:
+>>>>> A future commit will introduce a kernel API to allow for checking 
+>>>>> if the
+>>>>> CPU supports PMD-sized pages. This API will be based on the
+>>>>> has_transparent_hugepage() implementation but will be orthogonal to 
+>>>>> THP
+>>>>> and therefore must work when CONFIG_TRANSPARENT_HUGEPAGE=n.
+>>>>>
+>>>>> Move its definition out of the THP guard.
+>>>>>
+>>>>> Signed-off-by: Luiz Capitulino <luizcap@redhat.com>
+>>>>> ---
+>>>>>   arch/powerpc/include/asm/book3s/64/hash-4k.h  |  2 +-
+>>>>>   arch/powerpc/include/asm/book3s/64/hash-64k.h |  2 +-
+>>>>>   arch/powerpc/include/asm/book3s/64/pgtable.h  | 18 ++++++++ 
+>>>>> +---------
+>>>>>   arch/powerpc/include/asm/book3s/64/radix.h    | 14 +++++++-------
+>>>>>   arch/powerpc/mm/book3s64/hash_pgtable.c       |  4 ++--
+>>>>>   5 files changed, 20 insertions(+), 20 deletions(-)
+>>>>>
+>>>>> diff --git a/arch/powerpc/include/asm/book3s/64/hash-4k.h b/arch/ 
+>>>>> powerpc/include/asm/book3s/64/hash-4k.h
+>>>>> index 8e5bd9902bed..79511e6abfca 100644
+>>>>> --- a/arch/powerpc/include/asm/book3s/64/hash-4k.h
+>>>>> +++ b/arch/powerpc/include/asm/book3s/64/hash-4k.h
+>>>>> @@ -165,9 +165,9 @@ extern void 
+>>>>> hash__pgtable_trans_huge_deposit(struct mm_struct *mm, pmd_t *pmdp,
+>>>>>   extern pgtable_t hash__pgtable_trans_huge_withdraw(struct 
+>>>>> mm_struct *mm, pmd_t *pmdp);
+>>>>>   extern pmd_t hash__pmdp_huge_get_and_clear(struct mm_struct *mm,
+>>>>>                          unsigned long addr, pmd_t *pmdp);
+>>>>> -extern int hash__has_transparent_hugepage(void);
+>>>>>   #endif
+>>>>> +extern int hash__has_transparent_hugepage(void);
+>>>>>   #endif /* !__ASSEMBLER__ */
+>>>>>   #endif /* _ASM_POWERPC_BOOK3S_64_HASH_4K_H */
+>>>>> diff --git a/arch/powerpc/include/asm/book3s/64/hash-64k.h b/arch/ 
+>>>>> powerpc/include/asm/book3s/64/hash-64k.h
+>>>>> index 7deb3a66890b..a4a44a112ff9 100644
+>>>>> --- a/arch/powerpc/include/asm/book3s/64/hash-64k.h
+>>>>> +++ b/arch/powerpc/include/asm/book3s/64/hash-64k.h
+>>>>> @@ -278,9 +278,9 @@ extern void 
+>>>>> hash__pgtable_trans_huge_deposit(struct mm_struct *mm, pmd_t *pmdp,
+>>>>>   extern pgtable_t hash__pgtable_trans_huge_withdraw(struct 
+>>>>> mm_struct *mm, pmd_t *pmdp);
+>>>>>   extern pmd_t hash__pmdp_huge_get_and_clear(struct mm_struct *mm,
+>>>>>                          unsigned long addr, pmd_t *pmdp);
+>>>>> -extern int hash__has_transparent_hugepage(void);
+>>>>
+>>>> Without some of these helpers in place, I assume actually using PMD 
+>>>> leafs
+>>>> without THP would require some more work. (which is not the goal of 
+>>>> this series,
+>>>> just asking).
+>>>
+>>> Yes, you're right.
+>>>
+>>>> I do wonder whether the architecture should instead simply say "not 
+>>>> supported"
+>>>> if !CONFIG_TRANSPARENT_HUGEPAGE?
+>>>>
+>>>> That should still enable your series: using mTHP without PMD support.
+>>>
+>>> Yes, it would. However, I think this introduces an inconsistency.
+>>
+>> powerpc has two types of MMU (HASH and RADIX) with different page 
+>> layout. MMU type is selected at boottime based on the capabilities of 
+>> the CPU. For transparent page you have:
+>>
+>> static inline int has_transparent_hugepage(void)
+>> {
+>>      if (radix_enabled())
+>>          return radix__has_transparent_hugepage();
+>>      return hash__has_transparent_hugepage();
+>> }
+> 
+> Right and, unless I'm misunderstanding your comment, this supports my
+> position that the new arch_has_pmd_leaves() API is all about reporting a
+> hardware capability and not tied to THP support.
 
-- [Medium] If stmmac_hw_setup() fails because stmmac_reset() times out in
-  stmmac_init_dma_engine() ("Failed to reset the dma"),…
-- [Medium] stmmac_resume() disables ndev->irq at the very top and re-
-  enables it only after netif_device_attach().
-- [Medium] The disable_irq()/enable_irq() pair in stmmac_resume() is not
-  serialized against stmmac_reset_subtask().
+Yes my comment was in reaction of comment below, I wanted to say that 
+CONFIG_TRANSPARENT_HUGEPAGE is not always enough to tell if a powerpc 
+actually has transparent hugepages or not.
 
---
+ >>>> I do wonder whether the architecture should instead simply say "not
+ >>>> supported"
+ >>>> if !CONFIG_TRANSPARENT_HUGEPAGE?
+ >>>>
+ >>>> That should still enable your series: using mTHP without PMD support.
 
-net: stmmac: mask the MAC interrupt while resume resets the MAC
-
-This patch disables ndev->irq for all of stmmac_resume() when the
-interface is running, and re-enables it on every exit path. The goal is
-to stop an RGSMIIIS status that is already pending from storming the line
-between the MAC reset in stmmac_hw_setup() and the GMAC_INT_MASK write in
-dwmac1000_core_init().
-
-> diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-> index ec62fa7418f41..b275b6234b557 100644
-> --- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-> +++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-> @@ -8313,15 +8313,25 @@ int stmmac_resume(struct device *dev)
->  	struct net_device *ndev = dev_get_drvdata(dev);
->  	struct stmmac_priv *priv = netdev_priv(ndev);
->  	int ret;
-> +	bool irq_off;
-> +
-> +	/* Resume resets the MAC, leaving every core interrupt unmasked until
-> +	 * the mask is written again: a status bit already pending would storm.
-> +	 */
-> +	irq_off = netif_running(ndev);
-> +	if (irq_off)
-> +		disable_irq(ndev->irq);
-
-[Severity: Medium]
-In single-IRQ mode the line is requested as shared:
-
-stmmac_request_irq_single() {
-	ret = request_irq(dev->irq, stmmac_interrupt,
-			  IRQF_SHARED, dev->name, dev);
-}
-
-disable_irq() masks the descriptor for every action on that line. The
-commit message uses the same sharing argument to leave the line enabled
-during suspend.
-
-Is it intended that resume keeps the line masked for every sharer through
-priv->plat->resume(), stmmac_mdio_reset(), stmmac_legacy_serdes_power_up(),
-rtnl_lock(), mutex_lock(&priv->lock), phylink_prepare_resume(), the DMA
-SWR poll (up to 200 ms) and phylink_resume()?
-
-The window that needs protection seems to run only from the SWR in
-stmmac_init_dma_engine() to stmmac_core_init(), and both are inside
-stmmac_hw_setup().
-
-Could another device on the line that resumes at the same time (for
-example an async-resumed PCI function on the same INTx line with
-stmmac_pci, or the Loongson glue without MSI) have its completion
-interrupts held off long enough to time out?
-
-The masked window also covers blocking on rtnl_lock(). Could a sharer
-that holds rtnl and waits for its own interrupt on this line with no
-timeout deadlock here? Lockdep cannot see that dependency.
-
->  
->  	if (priv->plat->resume) {
->  		ret = priv->plat->resume(dev, priv->plat->bsp_priv);
-
-[ ... ]
-
-> @@ -8367,7 +8377,7 @@ int stmmac_resume(struct device *dev)
->  		stmmac_legacy_serdes_power_down(priv);
->  		mutex_unlock(&priv->lock);
->  		rtnl_unlock();
-> -		return ret;
-> +		goto out;
->  	}
-
-[Severity: Medium]
-If stmmac_hw_setup() fails because stmmac_reset() times out, can this
-path turn the line back on while the core interrupts are still unmasked?
-
-stmmac_hw_setup()
-  stmmac_init_dma_engine()
-    stmmac_reset()        <- SWR asserted, poll times out
-    netdev_err(priv->dev, "Failed to reset the dma\n");
-    return ret;
-  return ret;             <- before stmmac_core_init()
-
-On this path, stmmac_core_init()->dwmac1000_core_init() is the only code
-that writes GMAC_INT_DEFAULT_MASK back to GMAC_INT_MASK, so the mask is
-never restored. The goto out then calls enable_irq(ndev->irq)
-unconditionally.
-
-Suppose the mask has already returned to its reset value of 0, or the
-reset finishes late after the 200 ms poll in dwmac_dma_reset() has given
-up. Then the latched RGSMIIIS bit reaches a live line.
-stmmac_interrupt() never clears that source and still returns
-IRQ_HANDLED. Wouldn't that be the same storm this patch is meant to
-prevent?
-
-The comment in stmmac_hw_setup() says clk_rx_i must be running for the
-reset to complete, and a stopped clk_rx_i is the known cause of SWR
-timeouts.
-
-This path behaved the same way before the patch, because the line was
-always live. It is still a resume exit that the fix does not cover.
-Would re-masking the core interrupts, or acknowledging the source, on
-this failure path close it?
-
->  
->  	stmmac_init_timestamping(priv);
-
-[ ... ]
-
-> @@ -8393,7 +8403,12 @@ int stmmac_resume(struct device *dev)
->  
->  	netif_device_attach(ndev);
->  
-> -	return 0;
-> +	ret = 0;
-> +out:
-> +	if (irq_off)
-> +		enable_irq(ndev->irq);
-
-[Severity: Medium]
-Can this enable_irq() become unbalanced if stmmac_reset_subtask() runs
-between rtnl_unlock() and here?
-
-priv->wq comes from create_singlethread_workqueue() and is not
-freezable. stmmac_suspend() does not cancel or flush the reset work
-either.
-
-A reset can be requested around resume, for example from
-stmmac_safety_interrupt() on a separate sfty_irq line, which resume does
-not disable. That goes through stmmac_global_err() ->
-stmmac_service_event_schedule(), and STMMAC_DOWN is not set across
-suspend/resume.
-
-The worker blocks on rtnl while resume holds it, then:
-
-stmmac_resume()                    stmmac_reset_subtask()
-  disable_irq(ndev->irq)
-  ...
-  rtnl_unlock()
-  netif_device_attach()
-  <preempted>
-                                     dev_close()
-                                       stmmac_release()
-                                         free_irq()
-                                     dev_open()
-                                       request_irq()
-                                         irq_startup()
-                                           desc->depth = 0
-  enable_irq(ndev->irq)
-    __enable_irq() with depth 0
-
-Wouldn't this trigger the "Unbalanced enable for IRQ %d" WARN, which
-becomes a panic with panic_on_warn? The line itself ends up enabled,
-because request_irq() already started it. Nothing serializes the window
-between rtnl_unlock() and this enable_irq() against the worker.
-
-> +
-> +	return ret;
->  }
->  EXPORT_SYMBOL_GPL(stmmac_resume);
-
--- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261002043558.1302590-1-iav%40iav.lv
