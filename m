@@ -1,215 +1,182 @@
-Received: from mail-ua1-f48.google.com (mail-ua1-f48.google.com [209.85.222.48])
+Received: from rtits2.realtek.com.tw (rtits2.realtek.com [211.75.126.72])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3FD5D3B47DD
-	for <linux-kernel@vger.kernel.org>; Tue,  6 Oct 2026 09:23:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.222.48
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791278616; cv=pass; b=nNdOhRa596LlPY0Ojqu1Mr/0BY9Jdx/0ytlw7/qrnIAy/zdZ61HuwBjPHg0rspjK2Tugzkm5I+4otO9k8tH8IboJ4Zw9MSOAU5rGhlxnRlB2tbpmHoNF0T6+udkDLVgoGVnJo86j6keaOmxsHquyQbn6V6emPXNLXcZyeCTgEHM=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791278616; c=relaxed/simple;
-	bh=XrDbxp9D5a6x31fsBexXhmb5Tdb4LYGgG402LfoyXuY=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=Fb5sE1i9XzBlyYEHw55b0OapBd4f1MUx+Gk5vkoMPoAiU0jMK2qY4ib/BZNpc7oZefg4vPNtYXMpt5NQnqSEj0UbXKAc4P/lJ5rRErdeVpJlYVe9ZKDP9ZnU8sKex/uf+ibNluGruqfPNW82APKWRH3y3HWvRwA9hF6wYq+hfVA=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=a0SwVZYH; arc=pass smtp.client-ip=209.85.222.48
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AA63A20E023;
+	Tue,  6 Oct 2026 09:23:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=211.75.126.72
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791278626; cv=none; b=P/408mi1bQkSfq9uiFTis+CelkYY4SU7BuxHNrQMy+tuDcR2BWVmACFbHRrM87S0Kefa6RBqApFY5HXJqUJFFMAqoeGLtoJ3sdCPiJUUFCn9duqAzgbheo3665ClqAmqpb5cEfXc4/LGaaUFuVMObYHsh1cCOVh2KKnSR+Y9/tM=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791278626; c=relaxed/simple;
+	bh=yGXXMeKiOZ+KVCka5I2kJRDPS1o/PlK18aTBWnQLGmc=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:MIME-Version; b=dfz5F681oWTtmJmj2RrWGanKgjy7cEDCF1iU8GelcM+zCqgjtktdM6oimt/LjyfFCeFibW0AcHwIP7mtXkJk+rJCPExKrCl7bRn/jSnmJ81mB5MLJ7sdEgTb57yQ03xcMdhok9asVDu/RETmQrcBQ2LhZSe+rWLS0O2+sUBJO+o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=realtek.com; spf=pass smtp.mailfrom=realtek.com; dkim=pass (2048-bit key) header.d=realtek.com header.i=@realtek.com header.b=c9s502SB; arc=none smtp.client-ip=211.75.126.72
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=realtek.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=realtek.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="a0SwVZYH"
-Received: by mail-ua1-f48.google.com with SMTP id a1e0cc1a2514c-9809ce25a29so1174768241.1
-        for <linux-kernel@vger.kernel.org>; Tue, 06 Oct 2026 02:23:35 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1791278614; cv=none;
-        d=google.com; s=arc-20260327;
-        b=jndHcYlWKjBn58KtFdLWm5DSJ5lWXET4goD0JwElT5wLGSHqbTGPtl6QRh0IsCKXKS
-         cGMp64j8KQwaKDaOCjeRTeE8u4EPEtUX1GMCffyov+PmuT6qjl3t9ulP0VQFkLpNlFrI
-         qB9KiODZveys8/WgFWa9s/+OIP5WCezFV62XzKmpE0Vzj9IwidsaZrPFKpbGi27n+g1O
-         aiY3a3WJveCutmRbiF9tyvqZMw0WdQkzZnW76F3s4/DQehj8CTvQsYiU0QQDLjjEVTt+
-         RdkRPUhyZChF2/ktVDomV0272HufXKzJ2jaYaFk6ZhRewlcU1PaIRuNNW9EwWy+snxhE
-         9TnA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=m9BaGNIm8DyjVQqQtGOe52rBvNqGEalGiaaxbuRoj4Q=;
-        fh=ZO2SOS0D90DJrgRECby+Q310eaty6NMCSJdc6uT9ejA=;
-        b=qinEOMwwfOB7Lcx6fc25YEfU5UQxJjLNQ2qtNj8JuyHsFNLjZKugBHfFfjQwXtei+a
-         43FNNwLcQSpdoXZwO3mPKVGOmoBF9uw8XrORd0PnQIk62SHdEgSdBENK/+fjgdjBQtja
-         qyFTmIpldr+uMmDKNqrwzT1p2S0nt5EF+TkIriXjmZ4RbPGUKU4fw6IgvqlBouzr5+M+
-         +EtjbOB3Vilv5QftR7LiLqA60ebSgUKJDJMTfs7JtlTD+QYaO1o1K2PrUMX2h0O1jJmJ
-         jioQbP5qD+ZEe7nqGr9P9snrhUPiucac87oMbiIvsa8jz+ogWH4qlHKXQiKympbe42a7
-         cdlg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1791278614; x=1791883414; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=m9BaGNIm8DyjVQqQtGOe52rBvNqGEalGiaaxbuRoj4Q=;
-        b=a0SwVZYHRf4wWvqrliLx2fgblB7TG0OQQnfFZgvYrxKBN6E/QbEfAYQacdFmwlJq2O
-         25qp2j4n1WDwCR9ENtS/l6Xy85HtKNvC9k0QzwEnNYc1x4o/gODQvBtLnFb5vArII3i1
-         J0f419d0FxO9FjmeDdY+rE5emlK/kvYBl8TFlAeimHs//fwa0dGAqddw+U7NGvZPx99k
-         SXog1OqtOKVwdPP3yl+VGMU7VXVvb217I+LZFd9LJ5O63p4pI1qO6a5f2RegJl3vMcT7
-         yz856PrU0LKS+TFZgy+rMGJNkYTBuR/lIZGfFUJYrWVY53z+Y+R2yosjQDGpiiQ9F09u
-         nynA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791278614; x=1791883414;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=m9BaGNIm8DyjVQqQtGOe52rBvNqGEalGiaaxbuRoj4Q=;
-        b=NnQuWbxID1CkxgkhlCWMKgjLOCdHkLa5HcFC3GsXRkEOpgjdImd1aJBlpju/8GLulE
-         FxH9b7nV3J/C2ixrJvJk7KmAtJrgw1/zx1CZ6Y08iBjSi/YFIbnHQXrEzbMZLbCjKc6f
-         CEFsy7P2UeN5p7h9kbgZYd9kJKJ1QCM2Te+mSLmVVIlQXfAanUxr1Z6Vqe5tDOpupOdm
-         qddf0NZzWdcVpO3KNFmS0VqxeUpPgUGFZ5UHQHdecnGy96HZN6zu5rp/FrQfemcRWhek
-         /+YBRP0p6bwEav0sgukk0pLU/6JeDjpH7krAw7hMPvMhB3sEY1TH9Ht4LK/xrxUlvLGg
-         e4ew==
-X-Forwarded-Encrypted: i=1; AKwUvBw7OCpAsb71Qr+7AmQ7TNCifenx8rZ/YHnl3R12Y9zC8iCVykxNJIQRJc98DTzwmVp+vuQWPWZ/1a2z+FE=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJTgKakx23wLbfiDoXf2n6ZVsDJLStkJXBW+TfcNVQ2aSZDiUyx
-	dBNNJzFdDbsa43pFXVj51DxW95fD/WXLCCgGFZVJBdpnO2rK+SpCc/a+kbb9MVHySzbttM1EpJI
-	i41J2bRRW2umBfLCdj3xm/asfmiCEux2JLpgXOgI=
-X-Gm-Gg: AYBFou1Msab/fXM8ct/IoZt13Ucn+ejysZ9Nrd533DbLMvrH1MK1yZDcpZ0CNAzOp2/
-	OH0sMWgpKBxoWg9sAgXZAZdNdLxi9em1yC4X2oBLxvw4WIqeeT8BwoFUi/tmIAGRybOKcrf4HaQ
-	M7CR1q/5crn/03mqkj3Cf/MR5V376u8SONJ054VJdSAe3tzJehW8eLbzlLiMYxSvdW9Dlf3gx6p
-	qYCdn8Z4KohEJhi30R1JuGSXcVLU6k/r2zYTLMUbsERiEDRU6wuv9ObEVAE0F1YbPTUkdAWt7/f
-	S1l77W8+uqRsqCwCgCnUiHsqxeRli/jYm9tuK4U5CBQ9fPphO7cZPWjANceq2n1Z1o46EH/sIbj
-	OO+9K73mtP2QJkHhw4GFFAt89wMtg7Dg=
-X-Received: by 2002:a05:6102:a54:b0:79d:a035:b6e6 with SMTP id
- ada2fe7eead31-7c87a0038c6mr115746137.3.1791278613354; Tue, 06 Oct 2026
- 02:23:33 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=realtek.com header.i=@realtek.com header.b="c9s502SB"
+X-SpamFilter-By: ArmorX SpamTrap 5.80 with qID 6969NJML02776296, This message is accepted by code: ctloc85258
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=realtek.com; s=dkim;
+	t=1791278599; bh=yGXXMeKiOZ+KVCka5I2kJRDPS1o/PlK18aTBWnQLGmc=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:MIME-Version;
+	b=c9s502SBxauUhDLHE6r+QTKGpsOUirCyP+JktLjQma6rny31nAS/5q5xDEw6S9aib
+	 LsiEOI3BWCOdJl96fGABQTXbTnA+rSRX/Xst3imWORvp1r4o9fl2MRjWAiRsqLZct5
+	 gIPU/lk+IQ0u4DIZYvA/uB8MjvMuMgaGG5kfKnU96OlU6Ikd+69ucxd2L58MA0I/Fa
+	 IYegLXOJACX/zz/vbZxTyzaDeRJOMnk4Zy2OBzPOkoA0iunS6F7aXV342LTS78AklU
+	 nIhMfW90H2xN3sblHxpsZyP0dqtRC68h50Sv9fn679jadWVzE7nRlnFGVK81WtCzL+
+	 Pq09yWBRx2Fsg==
+Received: from mail.realtek.com (rtkexhmbs04.realtek.com.tw[10.21.1.54])
+	by rtits2.realtek.com.tw (8.15.2/3.29/5.94) with ESMTPS id 6969NJML02776296
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
+	Tue, 6 Oct 2026 17:23:19 +0800
+Received: from RTKEXHMBS06.realtek.com.tw (10.21.1.56) by
+ RTKEXHMBS04.realtek.com.tw (10.21.1.54) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.49; Tue, 6 Oct 2026 17:23:19 +0800
+Received: from RTKEXHMBS06.realtek.com.tw (10.21.1.56) by
+ RTKEXHMBS06.realtek.com.tw (10.21.1.56) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.49; Tue, 6 Oct 2026 17:23:08 +0800
+Received: from RTKEXHMBS06.realtek.com.tw ([::1]) by
+ RTKEXHMBS06.realtek.com.tw ([fe80::b3cc:c263:b82d:e87c%10]) with mapi id
+ 15.02.2562.049; Tue, 6 Oct 2026 17:23:08 +0800
+From: Chih Kai Hsu <hsu.chih.kai@realtek.com>
+To: "netdev-bot+sashiko@kernel.org" <netdev-bot+sashiko@kernel.org>
+CC: "davem@davemloft.net" <davem@davemloft.net>, "kuba@kernel.org"
+	<kuba@kernel.org>, "netdev@vger.kernel.org" <netdev@vger.kernel.org>,
+	nic_swsd <nic_swsd@realtek.com>, "linux-kernel@vger.kernel.org"
+	<linux-kernel@vger.kernel.org>, "linux-usb@vger.kernel.org"
+	<linux-usb@vger.kernel.org>, "edumazet@google.com" <edumazet@google.com>,
+	"bjorn@mork.no" <bjorn@mork.no>, "pabeni@redhat.com" <pabeni@redhat.com>,
+	"andrew+netdev@lunn.ch" <andrew+netdev@lunn.ch>
+Subject: RE: [PATCH net-next v5 2/9] r8152: split RTL_VER_17 into QFN68 and
+ QFN100 package variants
+Thread-Topic: [PATCH net-next v5 2/9] r8152: split RTL_VER_17 into QFN68 and
+ QFN100 package variants
+Thread-Index: AQHdUYTjAkeImQ24PkiPdemOkktlFLbuNqwAgAINqMA=
+Date: Tue, 6 Oct 2026 09:23:07 +0000
+Message-ID: <b3471b4acf7047169eb92258d710e6f5@realtek.com>
+References: <20261001091144.28191-3-nic_swsd@realtek.com>
+ <179119424050.434549.6174729043039044928@kernel.org>
+In-Reply-To: <179119424050.434549.6174729043039044928@kernel.org>
+Accept-Language: zh-TW, en-US
+Content-Language: zh-TW
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20261005102518.2400984-1-morbo@google.com> <20261005192052.2589382-1-morbo@google.com>
- <3176a197-baf8-4e5f-96a0-8c79d32a168c@app.fastmail.com> <CAFhGd8q3Hs9r6ezCA5bFATcZcq7AZyC7Cai8muk5o-AwOMLW7w@mail.gmail.com>
- <e9e04143-22ff-4396-9b33-333231366f64@app.fastmail.com>
-In-Reply-To: <e9e04143-22ff-4396-9b33-333231366f64@app.fastmail.com>
-From: Bill Wendling <morbo@google.com>
-Date: Tue, 6 Oct 2026 02:23:17 -0700
-X-Gm-Features: AclHuK9qkbH2EI0TJCoQEjGmE8OJ4mfVOULY_WNEwFYu4N8Ri6mQFkkdEf41th4
-Message-ID: <CAGG=3QXsdkEEQcfU-QyTW4VA6TsJTScMkidcekrtDtU6H3ubOA@mail.gmail.com>
-Subject: Re: [PATCH v3] compiler_types: Allow opting out of __counted_by and __counted_by_ptr
-To: Ard Biesheuvel <ardb@kernel.org>
-Cc: Justin Stitt <justinstitt@google.com>, Kees Cook <kees@kernel.org>, 
-	"Gustavo A. R. Silva" <gustavoars@kernel.org>, Nathan Chancellor <nathan@kernel.org>, 
-	Nick Desaulniers <ndesaulniers@google.com>, Mark Brown <broonie@kernel.org>, 
-	Marco Elver <elver@google.com>, alan.maguire@oracle.com, namjain@linux.microsoft.com, 
-	Peter Zijlstra <peterz@infradead.org>, linux-kernel@vger.kernel.org, 
-	linux-hardening@vger.kernel.org, llvm@lists.linux.dev
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
 
-On Tue, Oct 6, 2026 at 1:08=E2=80=AFAM Ard Biesheuvel <ardb@kernel.org> wro=
-te:
-> On Tue, 6 Oct 2026, at 09:30, Justin Stitt wrote:
-> > Hi,
-> >
-> > On Mon, Oct 5, 2026 at 2:25=E2=80=AFPM Ard Biesheuvel <ardb@kernel.org>=
- wrote:
-> >>
-> >>
-> >>
-> >> On Mon, 5 Oct 2026, at 21:20, Bill Wendling wrote:
-> >> > Code that runs outside the kernel proper, such as the EFI stub, gets
-> >> > nothing out of the counted_by annotations: the bounds checks they fe=
-ed
-> >> > (FORTIFY_SOURCE, UBSAN_BOUNDS) are already disabled there.
-> >> >
-> >> > The annotations can also break the build. A __counted_by_ptr() that
-> >> > names a member declared after the pointer needs Clang's
-> >> > '-fexperimental-late-parse-attributes', which the top-level Makefile
-> >> > adds to 'KBUILD_CFLAGS'. The x86 EFI stub builds its own cflags and =
-does
-> >> > not get that flag, so it fails as soon as such a struct is pulled in
-> >> > through a common header.
-> >> >
-> >> > Overriding the __counted_by_ptr macro from a Makefile doesn't work:
-> >> > 'compiler_types.h' is pulled in with '-include', which is processed
-> >> > after all -D/-U options, so it re-establishes the definitions. Follo=
-w
-> >> > the '__NO_FORTIFY' precedent instead: let a build define
-> >> > '__NO_COUNTED_BY_PTR' to turn the corresponding annotation into a no=
--op.
-> >> >
-> >> > Assisted-by: LLM
-> >> > Signed-off-by: Bill Wendling <morbo@google.com>
-> >> > ---
-> >> > v2: Only specify __NO_COUNTED_BY_PTR. Leave __NO_COUNTED_BY until we=
- need it.
-> >> > v3: Add the version to the Subject line.
-> >> > ---
-> >> >  include/linux/compiler_types.h | 7 ++++++-
-> >> >  1 file changed, 6 insertions(+), 1 deletion(-)
-> >> >
-> >> > diff --git a/include/linux/compiler_types.h
-> >> > b/include/linux/compiler_types.h
-> >> > index c5921f139007..8bde6798b4ec 100644
-> >> > --- a/include/linux/compiler_types.h
-> >> > +++ b/include/linux/compiler_types.h
-> >> > @@ -387,8 +387,13 @@ struct ftrace_likely_data {
-> >> >   *
-> >> >   *   gcc:
-> >> > https://gcc.gnu.org/pipermail/gcc-patches/2025-April/681727.html
-> >> >   * clang:
-> >> > https://clang.llvm.org/docs/AttributeReference.html#counted-by-count=
-ed-by-or-null-sized-by-sized-by-or-null
-> >> > + *
-> >> > + * Code that runs outside the kernel proper (e.g. the EFI stub) can
-> >> > define
-> >> > + * __NO_COUNTED_BY_PTR to drop the annotation. Such code may also l=
-ack
-> >> > the flag
-> >> > + * Clang needs to parse a reference to a later-declared member
-> >> > + * (-fexperimental-late-parse-attributes).
-> >> >   */
-> >> > -#ifdef CONFIG_CC_HAS_COUNTED_BY_PTR
-> >> > +#if defined(CONFIG_CC_HAS_COUNTED_BY_PTR) &&
-> >> > !defined(__NO_COUNTED_BY_PTR)
-> >> >  #define
-> >> > __counted_by_ptr(member)      __attribute__((__counted_by__(member))=
-)
-> >> >  #else
-> >> >  #define __counted_by_ptr(member)
-> >>
-> >> Apologies, I may have been unclear.
-> >>
-> >> What I would like to see here is something like
-> >>
-> >> #ifndef __NO_COUNTED_BY
-> >> #define __counted_by(member)  __attribute__((....))
-> >> #define __counted_by_ptr(member)  __attribute__((....))
-> >> #else
-> >> #define __counted_by(member)
-> >> #define __counted_by_ptr(member)
-> >> #endif
-> >
-> > FWIW, Bill's original patch had this explanation
-> >
-> > "The two are kept separate but parallel so they
-> > can be folded together once all supported compilers handle
-> > '__counted_by' on pointers."
-> >
->
-> When opting out of this, whether or not the compiler supports
-> all variants of counted_by() is irrelevant. The same #define
-> should just opt out of all of them.
->
-> If the need arises to be more granular here, we can always add
-> that later but I don't want to have to add
->
-> -D__NO_COUNTED_BY -D__NO_COUNTED_BY_PTR
->
-> everywhere today, and go back and remove the second part once
-> all compilers have caught up.
->
-It would reduce churn in the code base once we no longer need a
-separate '__counted_by_ptr' macro. However, we should specify that
-__NO_COUNTED_BY should be used sparingly, as there are other, better
-ways to "opt out" of the __counted_by family of attributes. Basically,
-it should only be used if the Makefile doesn't inherit its KCFLAGS
-from the root Makefile.
-
--bw
+PiBUaGFuayB5b3UgZm9yIHlvdXIgY29udHJpYnV0aW9uISBTYXNoaWtvIEFJIHJldmlldyBmb3Vu
+ZCAyIHBvdGVudGlhbA0KPiBpc3N1ZShzKSB0byBjb25zaWRlci4NCj4gDQo+IENyaXRpY2FsOiAw
+IMK3IEhpZ2g6IDAgwrcgTWVkaXVtOiAyICgxKSDCtyBMb3c6IDANCj4gDQo+IElmIHlvdSBiZWxp
+ZXZlIG5vbmUgb2YgdGhlIGlzc3VlcyBhcmUgbGVnaXRpbWF0ZSwgcGxlYXNlIHJlcGx5IHRvIGVh
+Y2ggaXNzdWUgb2YNCj4gTWVkaXVtIHNldmVyaXR5IG9yIGhpZ2hlciBhbmQgZXhwbGFpbiB3aHkg
+dGhlIEFJIGlzIHdyb25nLg0KPiBJZiBhbnkgb2YgdGhlbSBhcmUgbGVnaXRpbWF0ZSBhbmQgeW91
+IHBsYW4gdG8gcmVzcGluLCBwbGVhc2UgbGV0IHBhdGNod29yayBrbm93DQo+IGJ5IGluY2x1ZGlu
+ZyAicHctYm90OiBjciIgYXMgYSBzZXBhcmF0ZSBsaW5lIGF0IHRoZSBlbmQgb2YgeW91ciByZXBs
+eSAob25lIHN1Y2gNCj4gcmVwbHkgcGVyIHNlcmllcyBpcyBlbm91Z2gpLg0KPiANCj4gLSBbTWVk
+aXVtXSBUaGUgY29tbWl0IG1lc3NhZ2Ugc2F5cyB0aGUgc3BsaXQgaXMgbmVlZGVkIGJlY2F1c2Ug
+UUZONjggYW5kDQo+ICAgUUZOMTAwICJuZWVkIGRpZmZlcmVudCBmaXJtd2FyZSBhbmQgYSBwYWNr
+YWdlLXNwZWNpZmljIHUycGh5IGJhY2t1cC3igKYNCj4gLSBbTWVkaXVtXSBJbiBfX3J0bF9nZXRf
+cGtnX2RldCgpIChkcml2ZXJzL25ldC91c2IvcjgxNTIuYyksIHRoZSByZXRyeQ0KPiAgIGxvb3Ag
+YGZvciAoaSA9IDAsIHJldCA9IDA7IGkgPCAzICYmIHJldCAhPSA0OyBpKyspIHJldCA94oCmDQo+
+IA0KPiBQcmUtZXhpc3RpbmcgaXNzdWVzOg0KPiAtIFtNZWRpdW1dIFRoaXMgcHJvYmxlbSB3YXNu
+J3QgaW50cm9kdWNlZCBieSB0aGlzIHBhdGNoLCBidXQgaW4NCj4gICBfX3J0bF9nZXRfaHdfdmVy
+KCkgKGRyaXZlcnMvbmV0L3VzYi9yODE1Mi5jKSB0aGUgYnVmZmVyIGB0bXBgIGlz4oCmDQo+IA0K
+PiAtLQ0KPiANCj4gcjgxNTI6IHNwbGl0IFJUTF9WRVJfMTcgaW50byBRRk42OCBhbmQgUUZOMTAw
+IHBhY2thZ2UgdmFyaWFudHMNCj4gDQo+IFRoaXMgY29tbWl0IHNwbGl0cyBSVExfVkVSXzE3IGlu
+dG8gUlRMX1ZFUl8xN19RRk42OCBhbmQNCj4gUlRMX1ZFUl8xN19RRk4xMDAuDQo+IFRoZSBwYWNr
+YWdlIGlzIGRldGVjdGVkIGJ5IGEgbmV3IF9fcnRsX2dldF9wa2dfZGV0KCkgaGVscGVyIHRoYXQg
+cmVhZHMNCj4gUExBX1BLR19ERVQuIEV2ZXJ5IFJUTF9WRVJfMTcgc3dpdGNoIGNhc2Ugbm93IGhh
+bmRsZXMgYm90aCB2YXJpYW50cywgYW5kDQo+IHI4MTU5X2luaXQoKSBnYWlucyBhIHUycGh5IGJh
+Y2t1cCByZXN0b3JlIHdyaXRlIHRoYXQgb25seSBhcHBsaWVzIHRvIFFGTjY4Lg0KPiANCj4gPiBk
+aWZmIC0tZ2l0IGEvZHJpdmVycy9uZXQvdXNiL3I4MTUyLmMgYi9kcml2ZXJzL25ldC91c2Ivcjgx
+NTIuYyBpbmRleA0KPiA+IDRkOGYwODE1ZDc5ZDEuLjMwYWY2ZWQzYTYzOGYgMTAwNjQ0DQo+ID4g
+LS0tIGEvZHJpdmVycy9uZXQvdXNiL3I4MTUyLmMNCj4gPiArKysgYi9kcml2ZXJzL25ldC91c2Iv
+cjgxNTIuYw0KPiANCj4gWyAuLi4gXQ0KPiANCj4gPiBAQCAtMTAxNzIsNyArMTAxOTQsOCBAQCBz
+dGF0aWMgaW50IHJ0bF9md19pbml0KHN0cnVjdCByODE1MiAqdHApDQo+ID4gICAgICAgY2FzZSBS
+VExfVkVSXzE2Og0KPiA+ICAgICAgICAgICAgICAgcnRsX2Z3LT5md19uYW1lICAgICAgICAgPSBG
+SVJNV0FSRV84MTU3XzE7DQo+ID4gICAgICAgICAgICAgICBicmVhazsNCj4gPiAtICAgICBjYXNl
+IFJUTF9WRVJfMTc6DQo+ID4gKyAgICAgY2FzZSBSVExfVkVSXzE3X1FGTjY4Og0KPiA+ICsgICAg
+IGNhc2UgUlRMX1ZFUl8xN19RRk4xMDA6DQo+ID4gICAgICAgICAgICAgICBydGxfZnctPmZ3X25h
+bWUgICAgICAgICA9IEZJUk1XQVJFXzgxNTlfMTsNCj4gDQo+IFtTZXZlcml0eTogTWVkaXVtXQ0K
+PiBUaGUgY29tbWl0IG1lc3NhZ2Ugc2F5cyB0aGUgdHdvIHBhY2thZ2VzICJuZWVkIGRpZmZlcmVu
+dCBmaXJtd2FyZSBhbmQgYQ0KPiBwYWNrYWdlLXNwZWNpZmljIHUycGh5IGJhY2t1cC1yZXN0b3Jl
+IHBhdGNoIi4gSG93ZXZlciwgcnRsX2Z3X2luaXQoKSBzdGlsbCBnaXZlcw0KPiBib3RoIFJUTF9W
+RVJfMTdfUUZONjggYW5kIFJUTF9WRVJfMTdfUUZOMTAwIHRoZSBzYW1lIGZpcm13YXJlLA0KPiBG
+SVJNV0FSRV84MTU5XzEgKCJydGxfbmljL3J0bDgxNTktMS5mdyIpLg0KPiANCj4gVGhlIGRyaXZl
+ciBzdGlsbCBoYXMgb25seSBvbmUgODE1OSBmaXJtd2FyZSBkZWZpbmUgYW5kIG9uZQ0KPiBNT0RV
+TEVfRklSTVdBUkUoRklSTVdBUkVfODE1OV8xKS4gVGhlIGxhdGVyIHBhdGNoZXMgaW4gdGhlIHNl
+cmllcywgdXANCj4gdG8NCj4gInI4MTUyOiBlbmFibGUgVVBTIGZvciBSVEw4MTU3IGFuZCBSVEw4
+MTU5IFFGTjY4IiwgZG8gbm90IGNoYW5nZSB0aGlzDQo+IGVpdGhlci4NCj4gDQo+IElzIHBlci1w
+YWNrYWdlIGZpcm13YXJlIHNlbGVjdGlvbiBtaXNzaW5nIGZyb20gdGhpcyBwYXRjaD8gT3Igc2hv
+dWxkIHRoZQ0KPiBjb21taXQgbWVzc2FnZSBkcm9wIHRoZSBjbGFpbSBhYm91dCBkaWZmZXJlbnQg
+ZmlybXdhcmU/DQoNCkkgd2lsbCByZXdvcmQgdGhlIGNvbW1pdCBtZXNzYWdlIHRvIGRyb3AgdGhl
+IGNsYWltLg0KDQo+IA0KPiA+ICAgICAgICAgICAgICAgYnJlYWs7DQo+ID4gICAgICAgZGVmYXVs
+dDoNCj4gPiBAQCAtMTAxODIsOSArMTAyMDUsMzggQEAgc3RhdGljIGludCBydGxfZndfaW5pdChz
+dHJ1Y3QgcjgxNTIgKnRwKQ0KPiA+ICAgICAgIHJldHVybiAwOw0KPiA+ICB9DQo+ID4NCj4gPiAr
+c3RhdGljIHUzMiBfX3J0bF9nZXRfcGtnX2RldChzdHJ1Y3QgdXNiX2RldmljZSAqdWRldikgew0K
+PiA+ICsgICAgIHUzMiBwa2dfZGV0ID0gMDsNCj4gPiArICAgICBfX2xlMzIgKnRtcDsNCj4gPiAr
+ICAgICBpbnQgcmV0LCBpOw0KPiA+ICsNCj4gPiArICAgICB0bXAgPSBrbWFsbG9jX29iaigqdG1w
+KTsNCj4gPiArICAgICBpZiAoIXRtcCkNCj4gPiArICAgICAgICAgICAgIHJldHVybiAwOw0KPiA+
+ICsNCj4gPiArICAgICBmb3IgKGkgPSAwLCByZXQgPSAwOyBpIDwgMyAmJiByZXQgIT0gNDsgaSsr
+KQ0KPiA+ICsgICAgICAgICAgICAgcmV0ID0gdXNiX2NvbnRyb2xfbXNnKHVkZXYsIHVzYl9yY3Zj
+dHJscGlwZSh1ZGV2LCAwKSwNCj4gPiArICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICBSVEw4MTUyX1JFUV9HRVRfUkVHUywNCj4gUlRMODE1Ml9SRVFUX1JFQUQsDQo+ID4gKyAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgUExBX1BLR19ERVQsIE1DVV9UWVBFX1BMQSwN
+Cj4gdG1wLA0KPiA+ICsgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHNpemVvZigq
+dG1wKSwNCj4gPiArIFVTQl9DVFJMX0dFVF9USU1FT1VUKTsNCj4gPiArDQo+ID4gKyAgICAgaWYg
+KHJldCA9PSBzaXplb2YoKnRtcCkpIHsNCj4gPiArICAgICAgICAgICAgIGlmIChpICE9IDApDQo+
+ID4gKyAgICAgICAgICAgICAgICAgICAgIGRldl93YXJuKCZ1ZGV2LT5kZXYsDQo+ID4gKyAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICJOZWVkZWQgJWQgcmV0cmllcyB0byByZWFkDQo+IHBh
+Y2thZ2VcbiIsDQo+ID4gKyBpKTsNCj4gDQo+IFtTZXZlcml0eTogTWVkaXVtXQ0KPiBXb24ndCB0
+aGlzIHdhcm5pbmcgZmlyZSBvbiBldmVyeSBzdWNjZXNzZnVsIHJlYWQ/IFRoZSBsb29wIGluY3Jl
+bWVudHMgaSBhZnRlcg0KPiB0aGUgaXRlcmF0aW9uIHRoYXQgc3VjY2VlZHMuIElmIHRoZSBmaXJz
+dCB1c2JfY29udHJvbF9tc2coKSByZXR1cm5zIDQsIGkgaXMgYWxyZWFkeQ0KPiAxIHdoZW4gdGhl
+IGxvb3AgZXhpdHMsIHNvIHRoZSBpICE9IDAgY2hlY2sgaXMgYWx3YXlzIHRydWUuDQoNCkFjdHVh
+bGx5LCBJIHdpbGwgZml4IGl0Lg0KDQo+IA0KPiBUaGUgcHJpbnRlZCBjb3VudCBpcyBhbHNvIG9u
+ZSB0b28gaGlnaDogMSBmb3IgYSBmaXJzdC10cnkgc3VjY2VzcywgMyBmb3IgYSBzdWNjZXNzDQo+
+IG9uIHRoZSB0aGlyZCBhdHRlbXB0Lg0KPiANCj4gVGhlIHZlcnNpb24gcmVhZCBsb29wIGluIF9f
+cnRsX2dldF9od192ZXIoKSBhdm9pZHMgdGhpcyBieSBicmVha2luZyBvdXQgb24NCj4gc3VjY2Vz
+czoNCj4gDQo+ICAgICAgICAgZm9yIChpID0gMDsgaSA8IDM7IGkrKykgew0KPiAgICAgICAgICAg
+ICAgICAgcmV0ID0gdXNiX2NvbnRyb2xfbXNnKC4uLik7DQo+ICAgICAgICAgICAgICAgICBpZiAo
+cmV0ID4gMCkgew0KPiAgICAgICAgICAgICAgICAgICAgICAgICBvY3BfZGF0YSA9IChfX2xlMzJf
+dG9fY3B1KCp0bXApID4+IDE2KSAmDQo+IFZFUlNJT05fTUFTSzsNCj4gICAgICAgICAgICAgICAg
+ICAgICAgICAgYnJlYWs7DQo+ICAgICAgICAgICAgICAgICB9DQo+ICAgICAgICAgfQ0KPiANCj4g
+ICAgICAgICBpZiAoaSAhPSAwICYmIHJldCA+IDApDQo+ICAgICAgICAgICAgICAgICBkZXZfd2Fy
+bigmdWRldi0+ZGV2LCAiTmVlZGVkICVkIHJldHJpZXMgdG8gcmVhZA0KPiB2ZXJzaW9uXG4iLCBp
+KTsNCj4gDQo+IF9fcnRsX2dldF9od192ZXIoKSBydW5zIGZyb20gYm90aCB0aGUgY2Znc2VsZWN0
+b3IgYW5kIHRoZSBwcm9iZSBwYXRocywgc28gdGhlDQo+IGZhbHNlIHdhcm5pbmcgY2FuIGFwcGVh
+ciBtb3JlIHRoYW4gb25jZSBwZXIgUlRMODE1OSBwbHVnLWluLiBUaGUgY29kZSBpcyBzdGlsbA0K
+PiB0aGUgc2FtZSBhdCB0aGUgZW5kIG9mIHRoZSBzZXJpZXMuDQo+IA0KPiA+ICsNCj4gPiArICAg
+ICAgICAgICAgIHBrZ19kZXQgPSBfX2xlMzJfdG9fY3B1KCp0bXApICYgUEtHX01BU0s7DQo+ID4g
+KyAgICAgfQ0KPiA+ICsNCj4gPiArICAgICBrZnJlZSh0bXApOw0KPiA+ICsgICAgIHJldHVybiBw
+a2dfZGV0Ow0KPiA+ICt9DQo+ID4gKw0KPiA+ICBzdGF0aWMgdTggX19ydGxfZ2V0X2h3X3Zlcihz
+dHJ1Y3QgdXNiX2RldmljZSAqdWRldikgIHsNCj4gPiAgICAgICB1MzIgb2NwX2RhdGEgPSAwOw0K
+PiA+ICsgICAgIHUzMiBwa2dfZGV0ID0gMDsNCj4gPiAgICAgICBfX2xlMzIgKnRtcDsNCj4gPiAg
+ICAgICB1OCB2ZXJzaW9uOw0KPiA+ICAgICAgIGludCByZXQ7DQo+IA0KPiBbU2V2ZXJpdHk6IE1l
+ZGl1bV0NCj4gVGhpcyBpc24ndCBhIGJ1ZyBpbnRyb2R1Y2VkIGJ5IHRoaXMgcGF0Y2gsIGJ1dCB0
+aGUgUExBX1RDUjAgcmVhZCBpbg0KPiBfX3J0bF9nZXRfaHdfdmVyKCkgYWNjZXB0cyBhIHJlcGx5
+IG9mIGFueSBwb3NpdGl2ZSBsZW5ndGg6DQo+IA0KPiAgICAgICAgIHRtcCA9IGttYWxsb2Nfb2Jq
+KCp0bXApOw0KPiAgICAgICAgIC4uLg0KPiAgICAgICAgICAgICAgICAgaWYgKHJldCA+IDApIHsN
+Cj4gICAgICAgICAgICAgICAgICAgICAgICAgb2NwX2RhdGEgPSAoX19sZTMyX3RvX2NwdSgqdG1w
+KSA+PiAxNikgJg0KPiBWRVJTSU9OX01BU0s7DQo+ICAgICAgICAgICAgICAgICAgICAgICAgIGJy
+ZWFrOw0KPiAgICAgICAgICAgICAgICAgfQ0KPiANCj4ga21hbGxvY19vYmooKSBkb2VzIG5vdCB6
+ZXJvIHRoZSBidWZmZXIuIElmIGEgZmF1bHR5IG9yIG1hbGljaW91cyBkZXZpY2Ugc2VuZHMNCj4g
+b25seSAxIHRvIDMgYnl0ZXMsIGNhbiB0aGUgdXBwZXIgYnl0ZXMgb2YgKnRtcCBzdGlsbCBob2xk
+IGxlZnRvdmVyIGhlYXAgZGF0YSB0aGF0DQo+IHRoZW4gZ2V0cyBkZWNvZGVkIGFzIHRoZSBjaGlw
+IHZlcnNpb24/DQo+IA0KPiBUaGF0IGNvdWxkIG1pc2lkZW50aWZ5IHRoZSBjaGlwLCBvciBsZWFr
+IHVuaW5pdGlhbGl6ZWQgaGVhcCBieXRlcyB0byBkbWVzZw0KPiB0aHJvdWdoIHRoZSAiVW5rbm93
+biB2ZXJzaW9uIDB4JTA0eCIgbWVzc2FnZS4NCj4gDQo+IFRoZSBuZXcgX19ydGxfZ2V0X3BrZ19k
+ZXQoKSBoZWxwZXIgYWxyZWFkeSByZXF1aXJlcyByZXQgPT0gc2l6ZW9mKCp0bXApLg0KPiBXb3Vs
+ZCB0aGUgc2FtZSBjaGVjayBtYWtlIHNlbnNlIGhlcmU/DQo+IA0KPiBbIC4uLiBdDQo+IA0KPiAt
+LQ0KPiBTYXNoaWtvIEFJIHJldmlldyDCtw0KPiBodHRwczovL25ldGRldi1haS5ib3RzLmxpbnV4
+LmRldi9zYXNoaWtvLyMvcGF0Y2hzZXQvMjAyNjEwMDEwOTExNDQuMjgxOTEtMQ0KPiAtbmljX3N3
+c2QlNDByZWFsdGVrLmNvbQ0KDQpCZXN0IFJlZ2FyZHMsDQpDaGloLUthaQ0KDQotLS0NCnB3LWJv
+dDogY3INCg==
