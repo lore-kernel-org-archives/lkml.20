@@ -1,87 +1,153 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0DA4445C6F7;
-	Tue,  6 Oct 2026 13:44:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2CDAD3E5594;
+	Tue,  6 Oct 2026 13:44:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.130
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791294256; cv=none; b=J0b5Zg5eMX+b5w1hrjjdpGSESQ7wToVHx3+ZrhZD7CnDd0J2OxRw60wQ6uI8qX0g1nZvvT0sKmhGodXNLkk8KXfYyDFFwK0HfvBveSncPkL/Bujh2U02r7gb/gjQHVJ6jpvXQvfS1uv7/LeEn7i/iceNW/4Z2V5VBfv6fFfqwj0=
+	t=1791294263; cv=none; b=jVaNFUN8t/+LlWeYv9pLALNe/vFJd8aq08xfwUHgOCw+hEhIkJNlefNQtqelzxFlrB1GNslqRFM7QmJ11ke9EaVAVBfFPD310gjOJ4Pmp5+m80jEteJ3Smq6N7rSA8HiQ+jENVQOQpi+5BG3E0w00BfEOS5loQfdMuwq4RkQe7k=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791294256; c=relaxed/simple;
-	bh=Zt0bdOBPA8dmWgU5ONDLL8zAtEPO24VrWMtL0RB7Wls=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=dVwMHad7i9wlVx54dW051lQ6oMZYajFalcGb4QVfH4li16S52XLbvDV9P6MkSGRNZWQIDDdQRYiz0UGpJju3Hds/ITSp5p2JsLwtmvxD/U0S+1V0IQYvHODQxyBs3rj6vfezAXl+xtfxlm8EfZ+FxQnTahwJ6vQ0Dlkuf5WZjn8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=WDpj8AgR; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791294263; c=relaxed/simple;
+	bh=OBIxQmRg7OrKKlyFGrvm/xICNovZ5BVEtgvAoYv/WFw=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=rrBQbZW5Ylje34+Im+C7HpfzeuBDaFXIPjEjevfzOK8Tbuy5rP9qZBhjAp7d9zVGyLMgvC9td2bS5hVK9fffmCblsLWFHN7mMmGZx1yKukMrVO7Ks61P+lrMfD5tzt2767+cYdV4Eg/JDIyzefw+dojt+suvGPPL5lDEwWWI4AI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=kxow4c+2; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=j1zeHV2P; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=djxkJvmW; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=ezzNTzAk; arc=none smtp.client-ip=195.135.223.130
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="WDpj8AgR"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0FFCB1F000FF;
-	Tue,  6 Oct 2026 13:44:13 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791294254;
-	bh=vdrdHKe5zrnvY3ZqJBJ6V4F335WxUSRWLrLw5yayRaA=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=WDpj8AgRB2zANACesdtZzXafOdX8uIhPkGdWe5JU/72r740QlFrfPKU9i52v1sFok
-	 q4RX8NodFrKBDvZ/PhRJGQSiXXJYVFFuVb2F9Ti0uS6jhoP9MZsecUuWVEy3Fc9jif
-	 C7ZmwIpSbtVz8S93cPdm7AiVJa0UaO3RKspFnPfqxZY7GWx6MyG5g2tAzTUn4vOOpj
-	 1UknckZAwoA84iWs4GNXvoXZkxEMCu7ibYWk6GUFwMOB6lrijlthPAGx1iX8JpvThU
-	 bB/CdjWSGbdjhKy4IJGKhfAtvanahy6j35VkcL7w5VX5ZMpntVPMos14wgS7n8HEHE
-	 +FoB6evTDjI6Q==
-Date: Tue, 6 Oct 2026 15:44:11 +0200
-From: Andi Shyti <andi.shyti@kernel.org>
-To: prinn.dev@pm.me
-Cc: Mika Westerberg <westeri@kernel.org>, linux-i2c@vger.kernel.org, 
-	linux-acpi@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] i2c: acpi: Force ASUE140D touchpads to 100 kHz
-Message-ID: <asT6nqQMz13beDyW@zenone.zhora.eu>
-References: <20261004-i2c-acpi-asue140d-100khz-v1-1-cc2dbad00470@pm.me>
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="kxow4c+2";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="j1zeHV2P";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="djxkJvmW";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="ezzNTzAk"
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out1.suse.de (Postfix) with ESMTPS id C42C7220A5;
+	Tue,  6 Oct 2026 13:44:11 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1791294255; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:  content-transfer-encoding:content-transfer-encoding;
+	bh=HT8/PDhTgIlYlFktH6fw4m4BmPnl0zVq3igguRM1jqQ=;
+	b=kxow4c+2ejrOfwltVqqhCDKJcMhQ6uyqLBkVdRYv4Sx/Un1qfuyLC6ksbfHz5IkuTts4Pu
+	d99Q1ebpAnJotHubb2GEJXe0c4NyTilx/Y/rE/nG9m6z6sGXLIhVVNaNxuHuRmBfEuHhuK
+	wsf+skxLpkAQFi9ZIPL89QsaX6lDhvE=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1791294255;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:  content-transfer-encoding:content-transfer-encoding;
+	bh=HT8/PDhTgIlYlFktH6fw4m4BmPnl0zVq3igguRM1jqQ=;
+	b=j1zeHV2PXgJ6gJtcy50YprLpZ4uCyzSj1dsK5W6gE8GHUdtSn7zhrbuiPHyk1xQJvC3PDp
+	jlhIlJYTpcaSLiAg==
+Authentication-Results: smtp-out1.suse.de;
+	dkim=pass header.d=suse.de header.s=susede2_rsa header.b=djxkJvmW;
+	dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=ezzNTzAk
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1791294251; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:  content-transfer-encoding:content-transfer-encoding;
+	bh=HT8/PDhTgIlYlFktH6fw4m4BmPnl0zVq3igguRM1jqQ=;
+	b=djxkJvmWlQawU2TcG3jGMa6KulIdCwRaqgbh7tRy89s0vL+AGX26fN7iKPTz1vMCa9Sr5g
+	DpshcLZfcAbV78p9EPr2qxnB4+c40B1Pn5ZrAvznkbrpcPz5QXilL2VGgsuAjrr4GbsT2Q
+	d1TstGFZp2KEiZ8x7bmYZlnm75FpWaE=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1791294251;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:  content-transfer-encoding:content-transfer-encoding;
+	bh=HT8/PDhTgIlYlFktH6fw4m4BmPnl0zVq3igguRM1jqQ=;
+	b=ezzNTzAkWeZHYgqUa3GnifFyw8JBYRfYtVi5vd9/jF4d4G7pHF2Wr7NVWMsDDS44wIZdHH
+	AZesm13GV4ZanKDQ==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 8B3181368D;
+	Tue,  6 Oct 2026 13:44:11 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id ZKdNGSv7xGqjdAAAD6G6ig
+	(envelope-from <tiwai@suse.de>); Tue, 06 Oct 2026 13:44:11 +0000
+From: Takashi Iwai <tiwai@suse.de>
+To: linux-sound@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org
+Subject: [PATCH] ALSA: caiaq: Allow zero-length packet handling for EP1
+Date: Tue,  6 Oct 2026 15:44:04 +0200
+Message-ID: <20261006134405.479603-1-tiwai@suse.de>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261004-i2c-acpi-asue140d-100khz-v1-1-cc2dbad00470@pm.me>
+Content-Transfer-Encoding: 8bit
+X-Spamd-Result: default: False [-3.01 / 50.00];
+	BAYES_HAM(-3.00)[99.99%];
+	MID_CONTAINS_FROM(1.00)[];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	R_MISSING_CHARSET(0.50)[];
+	R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	NEURAL_HAM_SHORT(-0.20)[-0.999];
+	MIME_GOOD(-0.10)[text/plain];
+	MX_GOOD(-0.01)[];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	FROM_EQ_ENVFROM(0.00)[];
+	ARC_NA(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	FROM_HAS_DN(0.00)[];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	TO_DN_NONE(0.00)[];
+	RCVD_TLS_ALL(0.00)[];
+	RCVD_COUNT_TWO(0.00)[2];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:dkim,suse.de:email,suse.de:mid,imap1.dmz-prg2.suse.org:helo,imap1.dmz-prg2.suse.org:rdns];
+	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	RCPT_COUNT_TWO(0.00)[2];
+	SPAMHAUS_XBL(0.00)[2a07:de40:b281:104:10:150:64:97:from];
+	DKIM_TRACE(0.00)[suse.de:+]
+X-Spam-Score: -3.01
+X-Spam-Level: 
+X-Rspamd-Action: no action
+X-Rspamd-Queue-Id: C42C7220A5
+X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
+X-Spam-Flag: NO
 
-Hi Harinn,
+The recent fix to avoid OOB access for malformed packets added a
+packet length check and returns immediately if it's too short.
+However, this can be lead to a regression because the completion
+handler doesn't resubmit the packet, while a zero-length packet itself
+is valid, per se.
 
-next time, please...
+For addressing the potential regression above, change the handling for
+a zero-length packet to just resubmit without processing the incoming
+contents.
 
-On Sun, Oct 04, 2026 at 05:59:53PM +0700, Harinn via B4 Relay wrote:
-> From: Harinn <prinn.dev@pm.me>
-> 
-> The ASUE140D touchpad on the ASUS Zenbook UX3404VC (BIOS UX3404VC.303)
-> starts lagging shortly after boot when the bus runs at the 400 kHz the
-> DSDT asks for, and only recovers after rebinding i2c-hid. Forcing
-> 100 kHz fixes it.
-> 
-> Signed-off-by: Harinn <prinn.dev@pm.me>
+Fixes: aba30af07d4f ("ALSA: usb-audio: caiaq: validate EP1 reply lengths")
+Signed-off-by: Takashi Iwai <tiwai@suse.de>
+---
+resubmitted due to a typo in the address, sorry for inconvenience!
 
-... try to use your full name and ...
+ sound/usb/caiaq/device.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-> ---
->  drivers/i2c/i2c-core-acpi.c | 1 +
->  1 file changed, 1 insertion(+)
-> 
-> diff --git a/drivers/i2c/i2c-core-acpi.c b/drivers/i2c/i2c-core-acpi.c
-> index 8f3bdd50186e..e5b27375af31 100644
-> --- a/drivers/i2c/i2c-core-acpi.c
-> +++ b/drivers/i2c/i2c-core-acpi.c
-> @@ -371,6 +371,7 @@ static const struct acpi_device_id i2c_acpi_force_100khz_device_ids[] = {
->  	 * the device works without issues on Windows at what is expected to be
->  	 * a 400KHz frequency. The root cause of the issue is not known.
->  	 */
-> +	{ "ASUE140D", 0 },
+diff --git a/sound/usb/caiaq/device.c b/sound/usb/caiaq/device.c
+index dea3a68ca896..a596f5f763b8 100644
+--- a/sound/usb/caiaq/device.c
++++ b/sound/usb/caiaq/device.c
+@@ -143,7 +143,7 @@ static void usb_ep1_command_reply_dispatch (struct urb* urb)
+ 		return;
+ 	}
+ 	if (urb->actual_length < 1)
+-		return;
++		goto resubmit;
+ 
+ 	payload_len = urb->actual_length - 1;
+ 
+@@ -193,6 +193,7 @@ static void usb_ep1_command_reply_dispatch (struct urb* urb)
+ 		break;
+ 	}
+ 
++ resubmit:
+ 	cdev->ep1_in_urb->actual_length = 0;
+ 	ret = usb_submit_urb(cdev->ep1_in_urb, GFP_ATOMIC);
+ 	if (ret < 0)
+-- 
+2.55.0
 
-... develop your patches on top of the -next branch or i2c/i2c.
-Your patch has a little conflict I had to fix.
-
-I pushed your patch in i2c/i2c.
-
-Thanks,
-Andi
-
->  	{ "DLL0945", 0 },
->  	{ "ELAN0678", 0 },
->  	{ "ELAN06FA", 0 },
