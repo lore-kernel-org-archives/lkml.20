@@ -1,210 +1,113 @@
-Received: from mail-dy1-f171.google.com (mail-dy1-f171.google.com [74.125.82.171])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0B3D951C065
-	for <linux-kernel@vger.kernel.org>; Tue,  6 Oct 2026 23:20:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.171
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id F3D3C3BBA01;
+	Tue,  6 Oct 2026 23:23:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791328856; cv=none; b=raB+tduZvds8NOXbBz9ssNoQ7i/lqCTtjwithiI3HpqA7ara9CEjDwIZjdPglQVWx3wh7eW+GTBVt9fYxSXVThF7+uY/LepNpAAWYPU3q2Ua2TbYhhei6vnQgajScuulyldLuB/Y4AvIis8Y7fKfMYSh2F2dcg7/S9Qxbc1K4Wc=
+	t=1791329035; cv=none; b=dlHM1R5RtzXiMiR5ZTfD6deWv9iKH9SnlCwPEaLHCLZfkRmD3LdxWMvThNsEPS1HsXam/r3AlazB8+BB94KIzPUhQ4LJwG4/4urJItOZgS6rZetljSNf6/bkRSYcoIRdI1/4GSJ4Sm9XxSyjdwIw4TB8FA6RObhno2JDDLiongk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791328856; c=relaxed/simple;
-	bh=WA7PuvtbUthLvcW/Lb0HQQwhnWNVFVTphdPk0OJcCfY=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=XUmIXdSMRs/IDR/Oh94npbAtoeCqm6Mi4x1zVSZXD9fqtUZdHjOy7q9ELOMRVx1PNYF1ajuBXRbS+uTAvV6FLMM1/YE+NEd3jD3jkVW8drbQ1jv9EgVGDBJ6dfJM3/0AKyn/VEaSW1Q+irm4SjlCtmyHKD+en8yvoCH2gl+oTzY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=ZA9esMEL; arc=none smtp.client-ip=74.125.82.171
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
+	s=arc-20240116; t=1791329035; c=relaxed/simple;
+	bh=aCf+ecADbpzZJB4b2Abbl4SbvxENP8Hj3uwHBY5Y/2g=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=EI+VxtiMO2uuj0M8oV4YwgYO6ifrUi3XF9wK2vb/dDHgiawTkrEpxsGHG8SANYsodBIK1DbM4JvvehF89zUovDjjX2hIjesVFdiMnijr8KbaBu7uXR8394P2OohMA88C+tOCAo06g5k9m316TDHhmbwMoNISaz3kxJyfncEUCrw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=pvSidUC1; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="ZA9esMEL"
-Received: by mail-dy1-f171.google.com with SMTP id 5a478bee46e88-3514b90bb89so1823313eec.1
-        for <linux-kernel@vger.kernel.org>; Tue, 06 Oct 2026 16:20:30 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=chromium.org; s=google; t=1791328830; x=1791933630; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=s1IGI0iM7+36zwsjin4BRCszBFYYHuuKMw3/Hy9I2ks=;
-        b=ZA9esMELG5GiLmJHD5/3J8S2U7vjcXdDHdTC2pi1zzQKESxslAFD1ef8SDqHbI+85J
-         q8XXTLgvXbW+jp+JD4Ejcaoh4qp3iTjhaZLiutzdXwZG9+Tgac0YVwAVPjLZmQhw0vVC
-         QGs9ZRKAaGgHIWLsx5hqL57+4AfE8ZxqctKpU=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791328830; x=1791933630;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=s1IGI0iM7+36zwsjin4BRCszBFYYHuuKMw3/Hy9I2ks=;
-        b=H9j7IQEUDoHDTJQpj/UU7F3ZqsiMxft54SuVW5+atMc5/xBuEFwMzFvyu1sscgJjCQ
-         rZRAu/FCxHe6ITjGHOECQ1Az/d8ga93NAc3DH22cU0/HHrE0yEhYRh9fizYSE1QOc4te
-         9p4ce5J+p1KPjYM+ofWEpfhS8kkJ5azuCpr6ApIKfQhSg7wA9+wGR4vMeMslUSk0A1nS
-         azC/g4I5ipuy2y+SqEOZaLwYB8GjXLEXXGkPhoKOBauBYVHtd/3w60q6sgj782LA3RUu
-         H+KCcz8dgcc8+sj1qPvzXkyzEpPFhLkx1avlxchkUjOhfj5kO9ZqrigzkfrAeW8s6hjU
-         XgGg==
-X-Forwarded-Encrypted: i=1; AKwUvBxtNP08tD3wzET01cEPy6Hot1FWVgJmqaQu62l3oUltLenX1rkyogfN95LBCuQ0W+HbnKmlEn6GRSDuawU=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKpdaUsPbT7bP2SGNWp7/3LvBo+nqVF99aQHkqfY42q8RpEYUBo
-	GmQpddF5zEa0MTbh9FspEV3KUoQfobfUxDKbTeaeeBoUro+Rupw9ZRqk6eCPzOzQDw==
-X-Gm-Gg: AYBFou2cUEptkTu2shYp3bpsArsMDSJ9BS50bU4xBogOcB+78VmWRaCOsb1Jv1EyqZk
-	mlzGpjiqrx65EgwZXMYE7QznQkeXH8Pfnl1ekyK/SPPlA8Ta796D+ydrt+Nwjx1qXGNwtiRGiHJ
-	3S2icbQOdtJqgi/UK4xwv2LqIJtwwT+CSlV/HWWGvbF8y0Ji+4n/5OPihcfbHj/afZF58UHkQhe
-	bpzp5PLOCFBojdXGv3FeysRYBSwjBHCPX0blfvahVLi/cajKy+8iGDRYK++MEWWIcvHtd0RK4od
-	njrQy7bxcqoBLg/DQtt45Omwge47ucXCQEPkXePCouJgiAZL7tOBkr34wkG1TWxYKrOQLrtITBF
-	w2xCQAEFWkENgCtJzM30fd5NkLZm1daGut7JD1HRNP3VNtn/C3QrT/wvGirJGJSZl+a+jbe1K9l
-	tnGPdNuPWWImhcrYNWdxASTxijgbqSYp1LdhK4ewiXRmg23ntb883LyThfVb7kLl1ydNocFfscc
-	lG9vqYFXh7RwjGSIo9WOLMXhfGDgdOfVm6EZg==
-X-Received: by 2002:a05:693c:65d2:b0:34e:f644:9083 with SMTP id 5a478bee46e88-3515ddad0a3mr331617eec.23.1791328829695;
-        Tue, 06 Oct 2026 16:20:29 -0700 (PDT)
-Received: from localhost ([2a00:79e0:2e7c:8:63eb:e7f9:1d47:7d47])
-        by smtp.gmail.com with UTF8SMTPSA id 5a478bee46e88-3515aeb6013sm1701105eec.5.2026.10.06.16.20.28
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 06 Oct 2026 16:20:29 -0700 (PDT)
-From: Brian Norris <briannorris@chromium.org>
-To: "Rafael J. Wysocki" <rafael@kernel.org>
-Cc: linux-pm@vger.kernel.org,
-	Ulf Hansson <ulfh@kernel.org>,
-	linux-kernel@vger.kernel.org,
-	Brian Norris <briannorris@chromium.org>
-Subject: [PATCH 13/13] PM: runtime: Drop pm_request_{idle,autosuspend}() return codes
-Date: Tue,  6 Oct 2026 16:13:41 -0700
-Message-ID: <20261006161337.13.If024833d8fe53aa824fa29ebd6959702ec7062e0@changeid>
-X-Mailer: git-send-email 2.56.0.360.g66cac248cb-goog
-In-Reply-To: <20261006231900.3230373-1-briannorris@chromium.org>
-References: <20261006231900.3230373-1-briannorris@chromium.org>
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="pvSidUC1"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 9DC63152B;
+	Tue,  6 Oct 2026 16:23:39 -0700 (PDT)
+Received: from ryzen.lan (usa-sjc-mx-foss1.foss.arm.com [172.31.20.19])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 00D1B3F763;
+	Tue,  6 Oct 2026 16:23:40 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1791329022; bh=aCf+ecADbpzZJB4b2Abbl4SbvxENP8Hj3uwHBY5Y/2g=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
+	b=pvSidUC1OjgIh52WAADE1kQvxGBSINL9WVgf6mcIrbC1OnU0w/KAbTE2G8jnpcQq6
+	 XqBPHRzVa6qVBjNd071DFriJEpI+r0sDcZg8lNcslFrPmSzcQolMjEzLLCpF7uC4z+
+	 ZuZ0ShU4AHBNWB9AiZcps9b0WFIECbmsoDSO9oSA=
+Date: Wed, 7 Oct 2026 01:23:37 +0200
+From: Andre Przywara <andre.przywara@arm.com>
+To: Pablo Mazzini <pmazzini@gmail.com>
+Cc: Linus Walleij <linusw@kernel.org>, Chen-Yu Tsai <wens@kernel.org>,
+ Jernej Skrabec <jernej.skrabec@gmail.com>, Samuel Holland
+ <samuel@sholland.org>, linux-gpio@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-sunxi@lists.linux.dev,
+ linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] pinctrl: sunxi: dt: do not accumulate npins across
+ probe attempts
+Message-ID: <20261007012337.6765eae7@ryzen.lan>
+In-Reply-To: <20261006210313.43163-1-pmazzini@gmail.com>
+References: <20261006210313.43163-1-pmazzini@gmail.com>
+Organization: Arm Ltd.
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.31; x86_64-slackware-linux-gnu)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-No in-tree callers (outside of KUnit tests) use the return values of
-pm_request_idle() or pm_request_autosuspend().
+On Tue,  6 Oct 2026 22:03:13 +0100
+Pablo Mazzini <pmazzini@gmail.com> wrote:
 
-As with pm_runtime_put() and pm_runtime_put_autosuspend(), these
-functions asynchronously queue up a timer or work item to check whether
-or not the device can be suspended, which is not guaranteed to succeed
-and may return a negative error code in many valid situations (for
-example, when user space has written "on" to the device's runtime PM
-"control" file in sysfs, or when the device's usage counter is
-non-zero).
+Hi Pablo,
 
-Accordingly, change the return types of pm_request_idle() and
-pm_request_autosuspend() to void, similar to commit 3afd8df02433 ("PM:
-runtime: Change pm_runtime_put() return type to void").
+> init_pins_table() adds to npins in the driver's static descriptor, so
+> after a probe deferral the count doubles and the next probe fails with
+> "pin 0 already registered". Count into a local instead.
 
-Signed-off-by: Brian Norris <briannorris@chromium.org>
----
-This patch is independent of the rest and could be applied on its own. I
-put in this series because it has the same justification as the more
-noisy one, "PM: runtime: Drop pm_runtime_put_autosuspend() return code"
+Can't we just initialise desc->npins to 0, at the beginning of
+init_pins_table? I think Sashiko suggested that even...
 
- drivers/base/power/runtime-test.c |  8 --------
- include/linux/pm_runtime.h        | 31 ++++---------------------------
- 2 files changed, 4 insertions(+), 35 deletions(-)
+Cheers,
+Andre
 
-diff --git a/drivers/base/power/runtime-test.c b/drivers/base/power/runtime-test.c
-index 24865ce844fc..ac3d7277e0c5 100644
---- a/drivers/base/power/runtime-test.c
-+++ b/drivers/base/power/runtime-test.c
-@@ -43,7 +43,6 @@ static void pm_runtime_already_suspended_test(struct kunit *test)
- 
- 	KUNIT_EXPECT_EQ(test, 1, pm_runtime_suspend(dev));
- 	KUNIT_EXPECT_EQ(test, 1, pm_runtime_autosuspend(dev));
--	KUNIT_EXPECT_EQ(test, 1, pm_request_autosuspend(dev));
- 
- 	pm_runtime_get_noresume(dev);
- 	KUNIT_EXPECT_EQ(test, 1, pm_runtime_put_sync_autosuspend(dev));
-@@ -81,7 +80,6 @@ static void pm_runtime_idle_test(struct kunit *test)
- 	KUNIT_EXPECT_EQ(test, 0, pm_runtime_idle(dev));
- 	KUNIT_EXPECT_TRUE(test, pm_runtime_suspended(dev));
- 	KUNIT_EXPECT_EQ(test, -EAGAIN, pm_runtime_idle(dev));
--	KUNIT_EXPECT_EQ(test, -EAGAIN, pm_request_idle(dev));
- }
- 
- static void pm_runtime_disabled_test(struct kunit *test)
-@@ -112,9 +110,7 @@ static void pm_runtime_disabled_test(struct kunit *test)
- 
- 	KUNIT_EXPECT_EQ(test, -EACCES, pm_runtime_resume_and_get(dev));
- 	KUNIT_EXPECT_EQ(test, -EACCES, pm_runtime_idle(dev));
--	KUNIT_EXPECT_EQ(test, -EACCES, pm_request_idle(dev));
- 	KUNIT_EXPECT_EQ(test, -EACCES, pm_request_resume(dev));
--	KUNIT_EXPECT_EQ(test, -EACCES, pm_request_autosuspend(dev));
- 	KUNIT_EXPECT_EQ(test, -EACCES, pm_runtime_suspend(dev));
- 	KUNIT_EXPECT_EQ(test, -EACCES, pm_runtime_resume(dev));
- 	KUNIT_EXPECT_EQ(test, -EACCES, pm_runtime_autosuspend(dev));
-@@ -154,9 +150,7 @@ static void pm_runtime_error_test(struct kunit *test)
- 
- 	KUNIT_EXPECT_EQ(test, -EINVAL, pm_runtime_resume_and_get(dev));
- 	KUNIT_EXPECT_EQ(test, -EINVAL, pm_runtime_idle(dev));
--	KUNIT_EXPECT_EQ(test, -EINVAL, pm_request_idle(dev));
- 	KUNIT_EXPECT_EQ(test, -EINVAL, pm_request_resume(dev));
--	KUNIT_EXPECT_EQ(test, -EINVAL, pm_request_autosuspend(dev));
- 	KUNIT_EXPECT_EQ(test, -EINVAL, pm_runtime_suspend(dev));
- 	KUNIT_EXPECT_EQ(test, -EINVAL, pm_runtime_resume(dev));
- 	KUNIT_EXPECT_EQ(test, -EINVAL, pm_runtime_autosuspend(dev));
-@@ -189,9 +183,7 @@ static void pm_runtime_error_test(struct kunit *test)
- 	 * (already resumed).
- 	 */
- 	KUNIT_EXPECT_EQ(test, -EAGAIN, pm_runtime_idle(dev));
--	KUNIT_EXPECT_EQ(test, -EAGAIN, pm_request_idle(dev));
- 	KUNIT_EXPECT_EQ(test, 1, pm_request_resume(dev));
--	KUNIT_EXPECT_EQ(test, -EAGAIN, pm_request_autosuspend(dev));
- 	KUNIT_EXPECT_EQ(test, -EAGAIN, pm_runtime_suspend(dev));
- 	KUNIT_EXPECT_EQ(test, 1, pm_runtime_resume(dev));
- 	KUNIT_EXPECT_EQ(test, -EAGAIN, pm_runtime_autosuspend(dev));
-diff --git a/include/linux/pm_runtime.h b/include/linux/pm_runtime.h
-index b0e7dfb3805f..418a51319a62 100644
---- a/include/linux/pm_runtime.h
-+++ b/include/linux/pm_runtime.h
-@@ -447,21 +447,10 @@ static inline int pm_runtime_resume(struct device *dev)
-  *
-  * Asynchronously request the PM core to evaluate whether @dev can be idled
-  * or suspended, invoking its ->runtime_idle() callback if provided.
-- *
-- * Return:
-- * * %0: Success.
-- * * %-EINVAL: Runtime PM error.
-- * * %-EACCES: Runtime PM disabled.
-- * * %-EAGAIN: Runtime PM usage counter non-zero, Runtime PM status change
-- *   ongoing or device not in %RPM_ACTIVE state.
-- * * %-EBUSY: Runtime PM child_count non-zero.
-- * * %-EPERM: Device PM QoS resume latency 0.
-- * * %-EINPROGRESS: Suspend already in progress.
-- * * %-ENOSYS: %CONFIG_PM not enabled.
-  */
--static inline int pm_request_idle(struct device *dev)
-+static inline void pm_request_idle(struct device *dev)
- {
--	return __pm_runtime_idle(dev, RPM_ASYNC);
-+	__pm_runtime_idle(dev, RPM_ASYNC);
- }
- 
- /**
-@@ -487,23 +476,11 @@ static inline int pm_request_resume(struct device *dev)
-  *
-  * Update the last access time of @dev and asynchronously request the PM core
-  * to suspend it after the autosuspend delay has elapsed.
-- *
-- * Return:
-- * * %1: Success; device was already suspended.
-- * * %0: Success.
-- * * %-EINVAL: Runtime PM error.
-- * * %-EACCES: Runtime PM disabled.
-- * * %-EAGAIN: Runtime PM usage counter non-zero or Runtime PM status change
-- *   ongoing.
-- * * %-EBUSY: Runtime PM child_count non-zero.
-- * * %-EPERM: Device PM QoS resume latency 0.
-- * * %-EINPROGRESS: Suspend already in progress.
-- * * %-ENOSYS: %CONFIG_PM not enabled.
-  */
--static inline int pm_request_autosuspend(struct device *dev)
-+static inline void pm_request_autosuspend(struct device *dev)
- {
- 	pm_runtime_mark_last_busy(dev);
--	return __pm_runtime_suspend(dev, RPM_ASYNC | RPM_AUTO);
-+	__pm_runtime_suspend(dev, RPM_ASYNC | RPM_AUTO);
- }
- 
- /**
--- 
-2.56.0.360.g66cac248cb-goog
+> 
+> Signed-off-by: Pablo Mazzini <pmazzini@gmail.com>
+> ---
+>  drivers/pinctrl/sunxi/pinctrl-sunxi-dt.c | 10 ++++++----
+>  1 file changed, 6 insertions(+), 4 deletions(-)
+> 
+> diff --git a/drivers/pinctrl/sunxi/pinctrl-sunxi-dt.c b/drivers/pinctrl/sunxi/pinctrl-sunxi-dt.c
+> index 50a16f3bd131..1c1888394cf1 100644
+> --- a/drivers/pinctrl/sunxi/pinctrl-sunxi-dt.c
+> +++ b/drivers/pinctrl/sunxi/pinctrl-sunxi-dt.c
+> @@ -75,7 +75,7 @@ static struct sunxi_desc_pin *init_pins_table(struct device *dev,
+>  					      struct sunxi_pinctrl_desc *desc)
+>  {
+>  	struct sunxi_desc_pin *pins, *cur_pin;
+> -	int name_size = 0;
+> +	int name_size = 0, npins = 0;
+>  	int port_base = desc->pin_base / PINS_PER_BANK;
+>  	char *pin_names, *cur_name;
+>  	int i, j;
+> @@ -85,7 +85,7 @@ static struct sunxi_desc_pin *init_pins_table(struct device *dev,
+>  	 * Also work out how much memory we need to store all the pin names.
+>  	 */
+>  	for (i = 0; i < SUNXI_PINCTRL_MAX_BANKS; i++) {
+> -		desc->npins += pins_per_bank[i];
+> +		npins += pins_per_bank[i];
+>  		if (pins_per_bank[i] < 10) {
+>  			/* 4 bytes for "PXy\0" */
+>  			name_size += pins_per_bank[i] * 4;
+> @@ -98,12 +98,14 @@ static struct sunxi_desc_pin *init_pins_table(struct device *dev,
+>  		}
+>  	}
+>  
+> -	if (desc->npins == 0) {
+> +	if (npins == 0) {
+>  		dev_err(dev, "no ports defined\n");
+>  		return ERR_PTR(-EINVAL);
+>  	}
+>  
+> -	pins = devm_kcalloc(dev, desc->npins, sizeof(*pins), GFP_KERNEL);
+> +	desc->npins = npins;
+> +
+> +	pins = devm_kcalloc(dev, npins, sizeof(*pins), GFP_KERNEL);
+>  	if (!pins)
+>  		return ERR_PTR(-ENOMEM);
+>  
 
