@@ -1,140 +1,109 @@
-Received: from mail-wm1-f43.google.com (mail-wm1-f43.google.com [209.85.128.43])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 98327199947
-	for <linux-kernel@vger.kernel.org>; Tue,  6 Oct 2026 05:24:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.43
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 94DE5199947;
+	Tue,  6 Oct 2026 05:26:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791264280; cv=none; b=g6X1DUJNc8rzz2Mkm8XG9R7QJ1j0Zz5c3SKQc20w7GRHlw2z/YIKfGjc8HaJCAWU9IuAX42RVPNYN81tumoI2mNv8NUSRdvWgPVpdgVWONVeeFS+AQ01ForQdQvR29BFEb3JgZuNzApFuBA2I3/r4S3z/YmsWgI8ziR2ykainug=
+	t=1791264364; cv=none; b=KBck3+qy4F6Vdld/Vp2gLo+NjX73lKga5kJ5+ZJkwJqJ3pbEWVLxQl0b7Je+dg+p1ugbaGGrYtHcOON4T+HQZeAlPHyK1XiVc7ry/D9E9L1e4qXZHuBWOQKJOWDGYcqWRN/QmLBKa9UiflasdfcBBvFdIbeKXSVqVSqk6nZCJUU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791264280; c=relaxed/simple;
-	bh=6nCQGEsj64aWvh9p7XW/W1wxJwkiiOsIfmFLjBKD5tw=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=M1fuXdVB6t6oli/bLhPQ/y8ZwMKYpTtDQ/IMK+c1CIitnhSezpxfpmaKlgpfHkYiuQVtf7uxf6EmrQLZWmwCNTezvPoJYDGo1D+KYJov41IRTVTq+mi4oQ9KUX4NVy1bV0xBTVed/UoYCnaYemHrckzw2+WuxJkGtVMvFClBaaA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Ruh89yc1; arc=none smtp.client-ip=209.85.128.43
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1791264364; c=relaxed/simple;
+	bh=T27n/CS63jvcAJPIpOTMHb6o5n0o35jyMs3J5GrsRf0=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=LCI+w3NFhg2NHEUcArtvhfT5PQHUO4ULWXTkuscPnxfmstUQ/OOChb2xk/XJkiGzwRiGS6MkMbFNiBFCzUybyDRO/3RqgrMfEn4gp2rK3ryoPAkKrLuLcUKAIYH0MUGXGU4LbD0G3l4RFWHzrT8u6enf/kKuKPiSAf8Mp9B2grQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=ZOHKzYey; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Ruh89yc1"
-Received: by mail-wm1-f43.google.com with SMTP id 5b1f17b1804b1-4995b0343c1so7586125e9.3
-        for <linux-kernel@vger.kernel.org>; Mon, 05 Oct 2026 22:24:38 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791264277; x=1791869077; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=cfYZkc6ArC987rS4AttSeO7Kv6gfqCbmHLs230dlHBs=;
-        b=Ruh89yc1cPRGPSt9+yYJwo4IcvB7ki//4zkEJ8LMA/eGBllzx5DNOk34bIOfVIxHIm
-         wUbLYIwhmU2dwcNeNu06OOLgUfQ/nxt57L+dbW1JJ9meFJGQkHFKCxo9q1HM/rdQXaz8
-         lZ6YupKBf4Fz0Mam/XYafdCFjm20VTHxf9wLL34/4XeG8kF1z6M+q3eI2EMP0wioUwnW
-         VdZWFI0ennmrlWH9OwLiAKio00qVFoT0t/nb8d2SvicnX/ZdQJvIp6PhtxtW9zSFEBaj
-         A8nLq6Cyp3NPio0Dn6h0s9mI7qPGTeQWWB9IRwZtU0ZrcMhnkSBtRdMk1FImiAvc0sGK
-         opzw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791264277; x=1791869077;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=cfYZkc6ArC987rS4AttSeO7Kv6gfqCbmHLs230dlHBs=;
-        b=07D7VH8yYmpV5k9Ryq6hi3bpFHVXh5m1sczukRDP0xy5bgprcMT+yOnem5r2+kAoIZ
-         xBnVUfJOGlZ65D8KOnJqCfuGLC9J1yJ0ym6OJQVaW6bEoi8ETSnNun/bAXaaafpGrTd/
-         0SJtgu8oHahziDdiiOCjj7I2Xr6s1hMnD4tobzknjIqpwzX0VNqNcffkMbiX43HzYzLA
-         Lq6K9bdclZiTmgEVVQ6ceM9f3ZjyPfF7yr/Bc9rsJAa3RozHqG19RBFEECnIjQb8klcz
-         H23KzvJg40sDtOcaMPReExNb9doFi2fbrq8ui0hsgxT9jafRaBWDc9w4oAlCSf58fWhQ
-         nOvA==
-X-Forwarded-Encrypted: i=1; AKwUvBzeVJQRsnPumcsM4Yhf1HxRMXZ6kFL52pQzgear8mdaBfOjyl59dNuJOiIahcXVBPsFueu4tW0nKcedHpA=@vger.kernel.org
-X-Gm-Message-State: AFuF++kXkjVBDy919yFcyC+u0Jakd2kKy5gDhO97a/LpMJW5ZZqKZNpK
-	oFkZy1/CYGedZVfuqL1hjWQtDo+dn6YUFU2bDEpSEgLyO+xjBLngwvYM
-X-Gm-Gg: AYBFou1Nte7WH3Xanraw7IzLPECvXJ42Tl4Uvp046x180XhqLDTAdkIcOz4G9dYJmoo
-	TNjFuJRH6irMHpMwf9s/eRPjinwM2X96EABrVAzeVVyN1jLw5ljMQCrZRKQwPBCXEGHwFJIIvJc
-	XRZjn3aGY8FJlF+K66CVJtkqm6zyrvUjj8KQSTeD/JhSpRq0oAZp2SsTDCmRonnmPk1TdtbVht1
-	nRNBwLL6y6wUqyhO28WRVah6VgncKmZCi/5qZh5AOYx2soEzMFqTsB1eBkaL78UThvHkO8vpPFU
-	7koukLKOhc3T6MM/Y7NjTyHQ+xsJca8W5W5D/psGidT2T/vGvNysBxzDag0607h8NIhJjqwTVOM
-	y2aMlmY4GUpMNc8STbdQwisgTWHMq6BZVT7jb+yj/Pbkl6V6uBh6uR6c5Vq5BXZw0JlX8anUvwc
-	BRnqysvwI+2YoJKEFWy6On2+ABxiQLAAahlC+YTkO2FAjNLMyeLAcymVoQRIC+QMtDJJ2yUFnOf
-	Jlj48FjsLJf+YRpOBMGrZiA9d+LCCZ7VAPqgfN+xZWAh+jG309AgK8Bdc9k8SKpVu1AEzy9tJjo
-	Y63YnWe1hh1lQBfA
-X-Received: by 2002:a05:600c:4f54:b0:4a1:7701:f863 with SMTP id 5b1f17b1804b1-4a17b548f39mr4656065e9.15.1791264276693;
-        Mon, 05 Oct 2026 22:24:36 -0700 (PDT)
-Received: from center.jhjvjihww5qejoy14qwv1cc4td.frax.internal.cloudapp.net ([131.189.143.225])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a178c40a28sm45104075e9.7.2026.10.05.22.24.35
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 05 Oct 2026 22:24:36 -0700 (PDT)
-From: Orgad Shaneh <orgads@gmail.com>
-To: miquel.raynal@bootlin.com,
-	richard@nod.at,
-	vigneshr@ti.com
-Cc: linux-mtd@lists.infradead.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH] mtd: cfi_cmdset_0002: also clamp the write buffer of an x16 part strapped to x8
-Date: Tue,  6 Oct 2026 05:24:35 +0000
-Message-ID: <20261006052435.319751-1-orgads@gmail.com>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20260916162731.307959-1-orgads@gmail.com>
-References: <20260916162731.307959-1-orgads@gmail.com>
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="ZOHKzYey"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 9664C143D;
+	Mon,  5 Oct 2026 22:25:59 -0700 (PDT)
+Received: from [10.57.10.233] (unknown [10.57.10.233])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 047533F763;
+	Mon,  5 Oct 2026 22:25:58 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1791264363; bh=T27n/CS63jvcAJPIpOTMHb6o5n0o35jyMs3J5GrsRf0=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=ZOHKzYeyr5pX4PXgwPjbv5swyyCShOtBM3F7PorhIUACLRNa6afD1gd34KGVUSMvH
+	 yLeH9ABhsdHbazhWnOJyZOKqaqIJpYxADcWkcM6mFFw8TPBJCbMKFzVVINsbqd8vR9
+	 rV+VBMmlOlhIWlwrbiUTNkzXXfJkUZ5+22UDGmVk=
+Message-ID: <32f0b0f6-bea4-49b1-a735-f9786cfc6e52@arm.com>
+Date: Tue, 6 Oct 2026 07:25:57 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v22 13/23] KVM: arm64: Abstract out memory abort handling
+Content-Language: en-GB
+To: Gavin Shan <gshan@redhat.com>, kvm@vger.kernel.org, kvmarm@lists.linux.dev
+Cc: maz@kernel.org, will@kernel.org, catalin.marinas@arm.com,
+ linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ steven.price@arm.com, aneesh.kumar@kernel.org, oupton@kernel.org,
+ joey.gouly@arm.com, tabba@google.com, yuzenghui@huawei.com,
+ linux-coco@lists.linux.dev, gankulkarni@os.amperecomputing.com,
+ sdonthineni@nvidia.com, alpergun@google.com, fj0570is@fujitsu.com,
+ WeiLin.Chang@arm.com, lpieralisi@kernel.org, enju.kohei@fujitsu.com,
+ sudeep.holla@arm.com, jonathan.cameron@oss.qualcomm.com
+References: <20261005090754.2140522-1-suzuki.poulose@arm.com>
+ <20261005090754.2140522-14-suzuki.poulose@arm.com>
+ <d8bdfcaf-3b4f-4ab1-9b73-597c60bbb60b@redhat.com>
+From: Suzuki K Poulose <suzuki.poulose@arm.com>
+In-Reply-To: <d8bdfcaf-3b4f-4ab1-9b73-597c60bbb60b@redhat.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 
-Commit cfc5ebc9540e ("mtd: cfi_cmdset_0002: cap the write-buffer chunk
-at 256 bytes on an x8 device") limits a Write to Buffer to 256 bytes
-when cfi->device_type is CFI_DEVICETYPE_X8, because do_write_buffer()
-sends the word count as a single bus word and an 8-bit data lane
-truncates it.
+On 06/10/2026 04:07, Gavin Shan wrote:
+> On 10/5/26 7:07 PM, Suzuki K Poulose wrote:
+>> Move the memory abort handling under VM specific s2 operation.
+>>
+>> Tested-by: Gavin Shan <gshan@redhat.com>
+>> Signed-off-by: Suzuki K Poulose <suzuki.poulose@arm.com>
+>> ---
+>> Changes since v21:
+>>   - Rename protected_vm_mem_abort => protected_pkvm_mem_abort for 
+>> consistency
+>>     with the other callbacks.
+>> ---
+>>   arch/arm64/include/asm/kvm_host.h |  2 ++
+>>   arch/arm64/kvm/mmu.c              | 33 ++++++++++++++++++-------------
+>>   2 files changed, 21 insertions(+), 14 deletions(-)
+>>
+> 
+> One nitpick below. In either way:
+> 
+> Reviewed-by: Gavin Shan <gshan@redhat.com>
 
-The M29EW that commit was written for is an x16 part strapped to x8.
-The probe reports it as
+Thanks Gavin !
 
-  phys_mapped_flash: Found 1 x16 devices at 0x0 in 8-bit bank.
-  Manufacturer ID 0x000089 Chip ID 0x00007e
+...
 
-so its device_type is CFI_DEVICETYPE_X16, the clamp does not apply, and
-every full 512-byte chunk still times out:
+>> +static int kvm_vm_mem_abort(const struct kvm_s2_fault_desc *s2fd)
+>> +{
+>> +    struct kvm_vcpu *vcpu = s2fd->vcpu;
+>> +
+>> +    VM_WARN_ON_ONCE(kvm_vcpu_trap_is_permission_fault(vcpu) &&
+>> +            !kvm_is_write_fault(vcpu) &&
+>> +            !kvm_vcpu_trap_is_exec_fault(vcpu));
+>> +
+>> +    if (kvm_slot_has_gmem(s2fd->memslot))
+>> +        return gmem_abort(s2fd);
+>> +    else
+>> +        return user_mem_abort(s2fd);
+>> +}
+> 
+> The "if...else" block is moved from kvm_handle_guest_abort(), but it 
+> might be
+> clearer if we have:
+> 
+>      if (kvm_slot_has_gmem(s2fd->memslot))
+>          return gmem_abort(s2fd);
+> 
+>      return user_mem_abort(s2fd);
 
-  MTD do_write_buffer_wait(): software timeout, address:0x002203ff.
+This was chosen based on another review comment. So, lets stick with 
+this now.
 
-What limits the count is the width of each device's data lane, not the
-part's type. Test that instead: map_bankwidth(map) / cfi_interleave(cfi)
-is 1 for an x8 part, for x8 parts interleaved on a wider bus, and for an
-x16 part in an 8-bit bank.
-
-On the board (Octeon CN6335, the same M29EW) writes of 1, 2, 32, 64 and
-256 bytes to an erased partition read back correctly and 512, 1024,
-2048 and 4096 failed with the timeout above; with this patch every size
-up to 64 KiB reads back correctly and the u-boot environment can be
-saved from Linux again.
-
-Fixes: cfc5ebc9540e ("mtd: cfi_cmdset_0002: cap the write-buffer chunk at 256 bytes on an x8 device")
-Assisted-by: Claude:claude-opus-5
-Signed-off-by: Orgad Shaneh <orgads@gmail.com>
----
-diff --git a/drivers/mtd/chips/cfi_cmdset_0002.c b/drivers/mtd/chips/cfi_cmdset_0002.c
---- a/drivers/mtd/chips/cfi_cmdset_0002.c
-+++ b/drivers/mtd/chips/cfi_cmdset_0002.c
-@@ -286,13 +286,14 @@ static void fixup_use_write_buffers(struct mtd_info *mtd)
- 
- 	/*
- 	 * The word count of the Write to Buffer command is a single bus
--	 * word per device, so an x8 device can be told to program at most
--	 * 256 bytes however large a buffer it advertises - including when
--	 * several of them are interleaved on a wider bus, where CMD()
--	 * replicates the count into each device's lane and it is truncated
--	 * there.
-+	 * word per device, so a device on an 8-bit data lane can be told
-+	 * to program at most 256 bytes however large a buffer it
-+	 * advertises: an x8 part, x8 parts interleaved on a wider bus
-+	 * (CMD() replicates the count into each device's lane and it is
-+	 * truncated there), and an x16 part strapped to x8, which the
-+	 * probe reports as an x16 device in an 8-bit bank.
- 	 */
--	if (cfi->device_type == CFI_DEVICETYPE_X8 &&
-+	if (map_bankwidth(map) / cfi_interleave(cfi) == 1 &&
- 	    cfi->cfiq->MaxBufWriteSize > 8) {
- 		cfi->cfiq->MaxBufWriteSize = 8;
- 		mtd->writebufsize = cfi_interleave(cfi) <<
--- 
-2.47.0
+Cheers
+Suzuki
