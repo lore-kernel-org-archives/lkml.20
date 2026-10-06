@@ -1,43 +1,82 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr2-f33.google.com (mail-wr2-f33.google.com [74.125.225.97])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3CE4B3CB557;
-	Tue,  6 Oct 2026 21:11:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6BFE44503B
+	for <linux-kernel@vger.kernel.org>; Tue,  6 Oct 2026 21:15:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.97
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791321080; cv=none; b=nbjxRoKeraeBqaL2GpnCu3E6WseOFmJzR2cTiJCtcTWI63AtbbyExvLBLMZe7uk1OummsVEf2cAhgLhfVH28SLGpR4DmFqQ7+v+LR4CG5zBsFOtBtYybu4MvQ1QI4T3/oPvTiqBfyxzck54zwgTYeGYjk+2DaXveRLFDMDq/pY8=
+	t=1791321353; cv=none; b=E7BRox8JRVdXFAxBcax73Kq+LT6S9BlnpfAAQ3qDl52dqOUcj0Bxhq5zJw0gdruQ4bnL68F3QIWj20UKmH/wo4kGbK+fvVU09cROK51oLRTHYvLn1ICKj4VEeAqRkE+mnXclh77zelpGJJw3dM0Xf45Jv/j5aO8JJRPiaQXJdQ4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791321080; c=relaxed/simple;
-	bh=eJqOm82J5R97HC3hp/za/6cr1vYqL7mkBxRsrF7MZYs=;
+	s=arc-20240116; t=1791321353; c=relaxed/simple;
+	bh=c/XsDhRFsQWooaZjD0jb1/gdnDss++ucVvL/9R3V+Iw=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=NlLxoROw5C9YGAr6kPcZimm2vpSSHA6jMeSa5vBa3YtbNZnFCe4vN6AtzypA6uoof2NnH6pyBET7QQO42sGDjwhbR3HV9m5uIb4e7+YEVdpwgSM1sj9wLMJxepWJK2io0o47B+2ldfxw6iGjwjQYqAxHQi6TKUj3nA2iJjz9txM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=WFY9ILpc; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=A2RQaHgae8Vq+fcz3mjx0WM4BIAg25tpa95Uks6MEhxc7JiQuKWgwhEmCW2Zphb62n3kDbdkepF7V4OzvyJMO3SM+RGvhMFqq3pjCtpBx+OGLMT5YSdoNG6HP/wPCcIu7h8tbmCp9gULHUDS0HWl4ody2xtjuMsavd0RcKzhNiY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=qi0rWY/s; arc=none smtp.client-ip=74.125.225.97
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="WFY9ILpc"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 39E0E1F0089B;
-	Tue,  6 Oct 2026 21:11:18 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1791321078;
-	bh=s67wcmLdvo6Va5riA42IT5CjgvqjWz2QO0DX2E+Vc6I=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=WFY9ILpcu8vuCmq1IJ7t1QwNcC+ULQTEEUJwfMx8idPGp3hYtsaAzaxVjHnVIr1gQ
-	 nTyAZD+nOMdbQ1Nop+D+FBqdvvfVGNXAE52ckG1ANs772zaWoRM4MEb52ldaXY0XOn
-	 gfI+jV8IDmDa1ASaQGfBjaX9oVUHsc5eW1JTotlM=
-Date: Tue, 6 Oct 2026 23:11:14 +0200
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: sungbyeongchan <tjdqudcks0424@naver.com>
-Cc: German Maglione <gmaglione@redhat.com>, Vivek Goyal <vgoyal@redhat.com>,
-	Stefan Hajnoczi <stefanha@redhat.com>,
-	Miklos Szeredi <miklos@szeredi.hu>,
-	Eugenio =?iso-8859-1?Q?P=E9rez?= <eperezma@redhat.com>,
-	"Michael S . Tsirkin" <mst@redhat.com>,
-	virtualization@lists.linux.dev, fuse-devel@lists.linux.dev,
-	linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH v2] virtiofs: validate fixed-output response length
-Message-ID: <2026100633-roping-stardust-a6ab@gregkh>
-References: <20261004123405.586168-1-tjdqudcks0424@naver.com>
- <20261006182408.1301152-1-tjdqudcks0424@naver.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="qi0rWY/s"
+Received: by mail-wr2-f33.google.com with SMTP id ffacd0b85a97d-48b0f534161so378998f8f.3
+        for <linux-kernel@vger.kernel.org>; Tue, 06 Oct 2026 14:15:52 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791321350; x=1791926150; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=09pu2jwScTlH0IXCcu3YnB3jHWMTRjZZnpTwRHLnhOU=;
+        b=qi0rWY/sFigZuIS/nadWzH6ul0OelOTcW8TDvbokrQzQeiIt913SZ28PKVEnTR9FFt
+         NJWhGiEyq8OPmZRiaR0gdY98qk6WOm/Sg42oIDd7LRIfraX6C/VEjMsP7S385hXcPoJF
+         DXE1sliIdiwMtrmltM9QKRz2yO0Qs2nar0DKf1+Nr7TfyDloj4Zz+McPROxeEzVyjoYJ
+         +QtlhlphA8pO2BGhOJjANMZgcFmmFTjmJ9IGd3knOaB5p2JoAMfnkalW8u/uCCqGjw7A
+         WchicPPIZ+81lxIW1sfh9wV403FFRuHk9UzaqoA76MPI/eGNvZLi8PDQSMCzjLNJgjyk
+         w2rw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791321350; x=1791926150;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=09pu2jwScTlH0IXCcu3YnB3jHWMTRjZZnpTwRHLnhOU=;
+        b=YSSav9hH3fSRYXdsiC/JbWE5voGWlQWqlvtRwRfFtk1tcTzbsjLGanSIflILuvCOtU
+         zZ/gyBR5uANmx+5b0mRnrJrJszpJtGx0vFC2NVPJu1mKDsMfCKw78lWYo7mDQc3I/7jF
+         rCvxQH9iiu2ygLO5IGyEGJZRuqLsweUdGD0WI1RMzBe0FsAnivEdAB3Cf7H2kwlivZuo
+         hYk4BEFszZZ/sr1HXrVHjU25BE76upBRp+6EoBGa4DefYkM3Rf5Ylyn75eephbk9KEos
+         9/9buw4r5GEdXuBVeii/AT7PRzIk1XoIQzYHuYUhCUHQV2W+/Mype4WUS3gr8N/B+QOi
+         boFQ==
+X-Forwarded-Encrypted: i=1; AKwUvBx4JS1TSQBCUicgiXv+L4xa4WDguX0lM8cX6kntg3p9quktnWf6r9hq/2XcGjqSSMK/kK2ZUZcUlJqvlRc=@vger.kernel.org
+X-Gm-Message-State: AFuF++nAhm8603hrQENIZ5nyc0YIA9XKGfDfwZh45etc10Y1tMtXwi4/
+	6fq7hFEO4wxuavQrkqWHIa0By7nEoTWug8bRucsi0V5t0DhQpEOuunt3
+X-Gm-Gg: AYBFou3UCLFBjc+ymGu4InYuIX2DXU+k3FApdOZfuS52T/b+xak0O0NagBkK0q3yw6q
+	0qDUPYWGIyc/YPpoR5IpMMBwm1KWtvCP69TdYG/Jz2Hy4bPmRogkoz+BmZhJDlXL4hiQSECSg1s
+	AnmUyEeEaaikycZDWKEAacBJ+qpm/hZSB7DXCIgLf5qMrekN9MxJzAF5PW6qmDWNFMghY6u8aPQ
+	YDGrsZ9Byba0q7NZL+0Ng5nI1ac1OqXQplrNxJU1bzbkBrCSrDx95dRX76FHZ+D+nYmBrU9Se8G
+	8TFVXpZr6ovQeQa2dpLDGPcvxe6HWb8tJ3Li0m/joYP2hYMs96m7GUi1FA+jryOose0SQif9Y1x
+	vfi4mslK86Gy3x4IWOUhwldRMldIEztDZeeTZoUhLrpxnB1Jev2e60XR1bfNj+O1foI7dyMrYmF
+	uOC4EoosrfGYo2S7DtWYkwxXBU8SjTObnTng0tBKmnMx/BzZreHLguoIxeoHi4A0w=
+X-Received: by 2002:a05:600c:3c89:b0:49f:c432:885 with SMTP id 5b1f17b1804b1-4a18041afbbmr1800205e9.2.1791321350648;
+        Tue, 06 Oct 2026 14:15:50 -0700 (PDT)
+Received: from skbuf ([2a02:2f04:d006:ef01:92f9:f192:2805:c29a])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48c71d2e2dcsm1837566f8f.42.2026.10.06.14.15.49
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 06 Oct 2026 14:15:49 -0700 (PDT)
+Date: Wed, 7 Oct 2026 00:15:47 +0300
+From: Vladimir Oltean <olteanv@gmail.com>
+To: Vinod Koul <vkoul@kernel.org>
+Cc: Inochi Amaoto <inochiama@gmail.com>,
+	Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+	Jonathan Corbet <corbet@lwn.net>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Randy Dunlap <rdunlap@infradead.org>,
+	Neil Armstrong <neil.armstrong@linaro.org>,
+	Manivannan Sadhasivam <mani@kernel.org>,
+	Rhys Tumelty <rhys@tumelty.co.uk>, linux-doc@vger.kernel.org,
+	linux-kernel@vger.kernel.org, linux-phy@lists.infradead.org,
+	Yixun Lan <dlan@gentoo.org>, Longbin Li <looong.bin@gmail.com>
+Subject: Re: [PATCH v4 3/5] phy: core: Add phy bulk data helper functions
+Message-ID: <20261006211547.lfrhgdkixbbbyiju@skbuf>
+References: <20260929085235.469515-1-inochiama@gmail.com>
+ <20260929085235.469515-4-inochiama@gmail.com>
+ <asN4I1cpVb5HLNu7@parshuram>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -46,88 +85,77 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261006182408.1301152-1-tjdqudcks0424@naver.com>
+In-Reply-To: <asN4I1cpVb5HLNu7@parshuram>
 
-On Wed, Oct 07, 2026 at 03:24:08AM +0900, sungbyeongchan wrote:
-> A short successful virtiofs response can leave the fixed-output
-> portion of the request argument buffer unwritten. The completion path
-> nevertheless copies the full declared output to the request destination,
-> allowing stale allocator contents to reach callers such as
-> fuse_statfs().
+On Mon, Oct 05, 2026 at 12:12:51PM +0200, Vinod Koul wrote:
+> On 29-09-26, 16:52, Inochi Amaoto wrote:
+> > Add several helper functions that allow drivers to get several phy
+> > consumers in one operation. If any of the phy cannot be acquired then
+> > any phys that were got will be put before returning to the caller.
 > 
-> Require successful fixed-output responses to contain their complete
-> declared output. Continue to permit a shorter final argument only for
-> out_argvar requests. Reject positive and internal restart error values,
-> require valid error replies to be header-only, and do not copy output
-> arguments from error replies.
-> 
-> A header-only FUSE_STATFS success returned stale fields in nine of
-> nine calls across three boots. The fixed kernel rejected the short
-> response and preserved complete replies, valid error replies, and
-> variable-output controls.
-> 
-> Fixes: a62a8ef9d97d ("virtio-fs: add virtiofs filesystem")
-> Cc: stable@vger.kernel.org
-> Assisted-by: LLM
-> Signed-off-by: sungbyeongchan <tjdqudcks0424@naver.com>
+> Do we have many such examples? Phy is not a many resource like
+> clock/regulators... Do we really need this. How many in kernel users
+> will benefit from this API?
 
-Real name please.
+I have another case for more than 1 PHY. On some NXP boards, retimers
+like phy-ds125df111.c are used for networking, but not in the way you'd
+expect, i.e. not like this:
 
-> ---
-> Changes in v2:
-> - Reject positive and internal restart error values.
-> - Require error replies to be header-only.
-> - Rate-limit malformed-response warnings.
-> - Rely on the existing FUSE pr_fmt prefix.
-> - Add Cc: stable@vger.kernel.org.
-> - Use the reporter identity consistently.
-> 
->  fs/fuse/virtio_fs.c | 43 ++++++++++++++++++++++++++++++++++++++-----
->  1 file changed, 38 insertions(+), 5 deletions(-)
-> 
-> diff --git a/fs/fuse/virtio_fs.c b/fs/fuse/virtio_fs.c
-> index f15e516ebcb5c..fffbe08d9114a 100644
-> --- a/fs/fuse/virtio_fs.c
-> +++ b/fs/fuse/virtio_fs.c
-> @@ -4,6 +4,8 @@
->   * Copyright (C) 2018 Red Hat, Inc.
->   */
->  
-> +#include "fuse_i.h"
-> +
+ SerDes      SerDes
+ Lane A      Lane B
+ RX   TX     RX   TX
+  ^   |       ^   |
+  |   |       |   |
+  |   v       |   v
+Retimer C   Retimer D
+ch0  ch1    ch0  ch1
+  ^   |       ^   |
+  |   |       |   |
+  |   |       |   |
+  |   |       |   |
+  |   v       |   v
 
-Why is this moved?
+but like this:
+
+SerDes  SerDes       SerDes  SerDes
+Lane A  Lane B       Lane A  Lane B
+RX      RX           TX      TX
+ ^      ^             |      |
+ |      |             |      |
+ |      |             v      v
+Retimer C            Retimer D
+ch0  ch1             ch0  ch1
+ ^      ^             |      |
+ |      |             |      |
+ |      |             |      |
+ |      |             |      |
+ |      |             v      v
+
+Since the retimer channels are bidirectional and not hardcoded for RX/TX
+function (unlike the SerDes differential pairs), this is not a problem.
+
+Since one SerDes lane is one struct phy, its RX side and its TX side
+need to configure the channels of physically different retimer devices.
+
+The retimer driver was modeled to permit this configuration, and it
+exposes each channel as a separate struct phy. The implication is that
+any consumer of this retimer needs two 'phys' phandles to have both RX
+and TX retimed.
 
 
+Actually I'm interested in this series too, specifically due to retimers/
+repeaters. I believe they should gain core PHY support, because the
+current support is very sporadic and not homogenous.
 
->  #include <linux/fs.h>
->  #include <linux/dax.h>
->  #include <linux/pci.h>
-> @@ -20,7 +22,6 @@
->  #include <linux/cleanup.h>
->  #include <linux/uio.h>
->  #include "dev.h"
-> -#include "fuse_i.h"
->  #include "fuse_dev_i.h"
->  
->  /* Used to help calculate the FUSE connection's max_pages limit for a request's
-> @@ -730,6 +731,10 @@ static void copy_args_from_argbuf(struct fuse_args *args, struct fuse_req *req)
->  	unsigned int num_out;
->  	unsigned int i;
->  
-> +	/* Error replies contain only the output header. */
-> +	if (req->out.h.error)
-> +		goto out;
+Today all SerDes PHYs capable of supporting repeaters/retimers need to
+manually acquire their phy->repeater using phy_get(), and forward all
+ops from their consumer to the repeater as well. But this creates the
+odd situation where maybe the SerDes PHY doesn't need to do anything on,
+say, phy_init(), yet it needs to implement it anyway, just to call
+phy_init(phy->repeater). The existence of downstream repeaters can be
+made very transparent to the top-level struct phy (the one that the
+consumer interacts with).
 
-But no error is returned?
-
->  	if (len < sizeof(*oh)) {
-> -		pr_warn("virtio-fs: response too short (%u)\n", len);
-> +		pr_warn_ratelimited("response too short (%u)\n", len);
-
-Isn't these ratelimited() changes separate from the original issue here?
-That should be a separate patch.
-
-thanks,
-
-greg k-h
+And because in general, there could be >1 repeater in the signal path,
+I was thinking the bulk API could be a good candidate for managing the
+list of repeaters of a PHY.
