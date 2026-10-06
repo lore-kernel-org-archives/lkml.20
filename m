@@ -1,593 +1,338 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C3E924E3EE8
-	for <linux-kernel@vger.kernel.org>; Tue,  6 Oct 2026 23:51:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 770D938759C;
+	Tue,  6 Oct 2026 23:52:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791330702; cv=none; b=G0CePgzTAwc7TaKaqUTu/YXVF8v51qlJi5mStUSg87Zu0YYKsu0EMKUmt1SrJyOZ4dWL+U8gVKiXX39WBy+nwG+68TRhnMf7OcF9nTQpGi2ZrB5orRN+yM31VqIgdKdrSOhviHmnzDKewCVgs0QiCYl8jKBNlAdmmSy1K+q/FLY=
+	t=1791330754; cv=none; b=qQ+H9PEox368XJ9qmwnBUfSXSlWZnEJ3vTiZ95WkTkoj+64v0UoXEDIAlIRTXIphAbzo6ckPtGuo3KLpuDncDGRj1LsZOAJwfRsw1HVzV7V4uzXjrcD2nhqTX1H8RaxM5nB/+BqE9AseYxIplvC++Oq5QdbWF4a6/4PTtJDO10s=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791330702; c=relaxed/simple;
-	bh=JRCWWvoeBkR1EqOOI850qAIqGo3i2IaJrNESPB1OpRk=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=MFb9PuOPBL98Pk6TdYSmO7amYccz9a1OTynaxNGiZnIECy5DenC/xy+Y+rsbhNGb9uiF8eDwAdovi4QSCmafkNSeSRDT5JH5CC8jsYdw+9rYHJsi9nH9lP3quy2goN1fbNyBzmouzI1RavLaFqAVHfu+3ghhY6iSzlAfwb3XHSw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=Gvm3Wh4I; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=jIKWk2g1; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1791330754; c=relaxed/simple;
+	bh=kYaJffDJSL6bZqHpdRnq76CSoS1L0JWPoKE5+np6XRE=;
+	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=R0PFqnObuK9dPDZ1zkB3tA2cDfkmOTuuDVDo2avvqFAgzifb3y2QgzCZRz0JT+LJ6g3llI/oqir8cPicSt7jxhAgJj9amAOx1jMxi6vNAr/ZAlGPdZB8YDQGXzibxT4ej+W/5AD0qTmdGw3YurjKdDtpUS8WYGQnPw+d9hkWPRc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=l5nZbeSR; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="Gvm3Wh4I";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="jIKWk2g1"
-Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 696LeetI2049953
-	for <linux-kernel@vger.kernel.org>; Tue, 6 Oct 2026 23:51:40 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	KUOCSJmnYcO+ianQu42+sOwe7Nnzm0XvP5PxD1AQSYQ=; b=Gvm3Wh4IBfUa8CF7
-	ctTQuhUcJTj5ODzVdPUrGnvBj0CRjrP2WSad9T43bUWFJbHJscamICTTXwZUNGwA
-	YxoAaZTnDf3v70C7sgc65RoZFVsLEKwXbmmZEww1u/HyeBF58Roy15DkglSispP1
-	sUT+mkjjB3qaTHcC3lbqw5W2RNgIXk+UG6JnDmKidEeZmjqWOgQA2NOA+nT5XoVJ
-	I3D+L7/KH/V2lX1DePxbxhiKOuqZwRf46SP8VuMMJd4Uiswt6ex11xrj1pvxWrCl
-	M9jlOLXRCFhEWWewlEnHpKymmgU9BHZMnqteN60GEjEK68QUm7P1vyvMUWrPEfYb
-	r1r2hw==
-Received: from mail-dy1-f199.google.com (mail-dy1-f199.google.com [74.125.82.199])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h54621pu9-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Tue, 06 Oct 2026 23:51:39 +0000 (GMT)
-Received: by mail-dy1-f199.google.com with SMTP id 5a478bee46e88-3515d2fc5ebso736030eec.1
-        for <linux-kernel@vger.kernel.org>; Tue, 06 Oct 2026 16:51:39 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1791330699; x=1791935499; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=KUOCSJmnYcO+ianQu42+sOwe7Nnzm0XvP5PxD1AQSYQ=;
-        b=jIKWk2g1ysV28jsV0Ttry8xg/DwdAmr11RZuQRYXDjAxBjuKM4+1L6Bay786laFPcx
-         DxZbc+BzC2fu5r39fkpSPtxwT6mZrsaHNlyIob1k1J5BKcnsrhfG6e1ZUumWRzR3Tddc
-         Ghq9Bgx1bTbjuK49GRGFJoeYVeqC+Fm+VT+dgmXQZE504t5HifDD9nK7vtIHDl1P6vaN
-         EDomY3/eaYDEX6bVe6XNbHRymWL7sKtrD91eEihG/N4pP2NsbECfo1mUyROpNHCT4MSq
-         aQjrLLKOnFZgAYLFH44jCaF+LCg0DeuiIlTOFJ4YFxVkJl7SsPwbxnycCJUdD1ZArFjT
-         bMWA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791330699; x=1791935499;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=KUOCSJmnYcO+ianQu42+sOwe7Nnzm0XvP5PxD1AQSYQ=;
-        b=xJFNECtzsCOSo2UYRAZdAXqbjwNNRdRUopREpdFRcfboFNFfK2uf6nsqNjvekM2srh
-         IAdZi0BMFUeoaOz8VN/mJPGWv9wQzLNQIMOQDAncJdSP5PQ34nQgZUJzX39zDDWTjgEA
-         X8OzreQly7nXkRI10TOvwuRzUMT1hwbGxtBZBTA40CK0KJg92o8o0AjY86O6od3pVUz/
-         JDVj5eg9DqF8etVPAclAp8MReJP375gu+leLe3OBcMSbsS2f0gLt72w3qoB9/Is+hqBE
-         7zl5env1lprYPv3eUBNuX/ZjDY93qBT5tr2DsEo1veED/ADfRqfgbya+N0z9RWfa9fKq
-         Sm1A==
-X-Forwarded-Encrypted: i=1; AKwUvBzdXxUlbD7tBh5ctUPC6EqdpJ/yJrrmMRMbyORKE4WQ87YQeSlhanN+KPDps/7MP3EIkHjRyhZKnsJgRyI=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKLwLbPIFfzkDnggmUS2gCNe6IlEGthTPxg5N4gOfaUMORm8BUl
-	thRoBTPDAGOoD1q8OnmmjDUplKRkQd+kNEdkr08y98wYm78IQK1xb7EaN67I6Go1tA6LgYfnBvb
-	JGSSVCp3xa4DX+r7JmD8c3oGQ0iq4DLUs/KGRjmYvyWnbfxariNFCpvSFuzJwSFGO8Fw=
-X-Gm-Gg: AYBFou0kf/1XAp3R9lnppMZC+4CvHZLIZ2XZdhcHCBEQXE70xfobqfHT9Thd9mhRIPG
-	8GvHu/oK2oKNfX/TVMb30IDxmsAUNUST05q6kONo5aTdHefmuZEZaLxs02F27tpfT0ADEtpqvFr
-	/1RBJcsROD41iUVnF0owphL5J7+BqZVLY/ZkRvg5NClH0hV3qgTTbMSge5NINdM4TbbFWogngZ/
-	CxIQqEyC59rtBPQ8hoYA5kEBHtSToxMAjYWA0JSgYUWFouJMHRJAeBtObbRPWYiFuC6D3SWuBRr
-	ZWJc7roMSRx6x5IsSrDFCe58VCLarE9ZAqqQRaQZXzLVPvGG8TTOcahq5j84buPtPpDNHEk6qtG
-	p7wrGCtKm/vT2iFx0NwLWk55FzvvBbIjsLbf4tnmoe4r/3aoFm47/tVuXXSQ93vso
-X-Received: by 2002:a05:7300:559c:b0:351:1e3f:810f with SMTP id 5a478bee46e88-3515de5f36cmr362645eec.28.1791330699113;
-        Tue, 06 Oct 2026 16:51:39 -0700 (PDT)
-X-Received: by 2002:a05:7300:559c:b0:351:1e3f:810f with SMTP id 5a478bee46e88-3515de5f36cmr362613eec.28.1791330698181;
-        Tue, 06 Oct 2026 16:51:38 -0700 (PDT)
-Received: from [10.71.184.34] (i-global254.qualcomm.com. [199.106.103.254])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3515affdc9bsm1796252eec.25.2026.10.06.16.51.37
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 06 Oct 2026 16:51:37 -0700 (PDT)
-Message-ID: <fed665c5-3062-462b-928d-ab60976ce839@oss.qualcomm.com>
-Date: Tue, 6 Oct 2026 16:51:36 -0700
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="l5nZbeSR"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 88C141F0089B;
+	Tue,  6 Oct 2026 23:52:32 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791330753;
+	bh=VVVTL9TnjojHdLNO45G7TSwXPo64BAyexoRfRfxBu5Q=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=l5nZbeSRezoFGkMjGpuUQ4N5OoZqfl7QB4Ul6dTisRuZqdtjhUjG6+EeoZ72Vpvql
+	 FI8Z86604pZXV+1jHrTul6zDcLj5C7X/S/7OtqT6aeq+wNg/6OafdDQEB5oi9w1iiu
+	 Fl3ybB/bhUFowDMxYvwwu0CIBgBOAg6UO/yGx5/ttBgpBf9i8HXomdLboTrmLyKqdi
+	 DXTvI144ZzGGWCgNJzO7nEl1WYKTC7t2If7ESIpDrMaEBI0tetJvPnn00/r5f+Dof4
+	 bxqfCNhPTK0wdNamAy/qGHiM/MqpLhfretCqlAi5R1J9Ls61k/OXmDadn7L3OPhuCb
+	 COIkSpxmueenw==
+Subject: Re: [PATCH RFC 1/2] can: rx-offload:
+ can_rx_offload_threaded_irq_flush(): add newfunction to be called from within
+ loop of threaded interrupt handlers
+From: netdev-bot+sashiko@kernel.org
+To: mkl@pengutronix.de
+Cc: ciprianmarian.costea@oss.nxp.com, mailhol@kernel.org, mani@kernel.org,
+ thomas.kopp@microchip.com, kernel@pengutronix.de, linux-can@vger.kernel.org,
+ linux-kernel@vger.kernel.org, kuba@kernel.org
+Date: Tue, 06 Oct 2026 23:52:32 +0000
+Message-ID: <179133075200.1406898.16219878816979050518@kernel.org>
+In-Reply-To: =?utf-8?q?=3C20261005-upstream-can-rx-offload-batching-alternat?=
+ =?utf-8?q?ive-v1-1-4c08ccb516ec=40pengutronix=2Ede=3E?=
+References: =?utf-8?q?=3C20261005-upstream-can-rx-offload-batching-alternati?=
+ =?utf-8?q?ve-v1-1-4c08ccb516ec=40pengutronix=2Ede=3E?=
+X-sashiko-severity: High
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/6] soc: qcom: qpace: Add Qualcomm Page Compression
- Engine driver
-To: Krzysztof Kozlowski <krzk@kernel.org>,
-        Georgi Djakov <georgi.djakov@oss.qualcomm.com>
-Cc: andersson@kernel.org, konradybcio@kernel.org, abelvesa@kernel.org,
-        robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
-        minchan@kernel.org, senozhatsky@chromium.org, axboe@kernel.dk,
-        rostedt@goodmis.org, mhiramat@kernel.org,
-        mathieu.desnoyers@efficios.com, linux-arm-msm@vger.kernel.org,
-        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-        linux-block@vger.kernel.org, linux-trace-kernel@vger.kernel.org,
-        djakov@kernel.org
-References: <20260930145215.3380977-1-georgi.djakov@oss.qualcomm.com>
- <20260930145215.3380977-3-georgi.djakov@oss.qualcomm.com>
- <20261001-hopping-belligerent-spider-876e7b@quoll>
-Content-Language: en-US
-From: Oreoluwa Babatunde <oreoluwa.babatunde@oss.qualcomm.com>
-In-Reply-To: <20261001-hopping-belligerent-spider-876e7b@quoll>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-GUID: VI1U-k05UhI0QJQuOdMLymJoBlp4DCe9
-X-Authority-Analysis: v=2.4 cv=ZZiIpcVA c=1 sm=1 tr=0 ts=6ac5898c cx=c_pps
- a=cFYjgdjTJScbgFmBucgdfQ==:117 a=JYp8KDb2vCoCEuGobkYCKw==:17
- a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22
- a=EUspDBNiAAAA:8 a=xgJ8PqIMSwnDUBfTh2kA:9 a=QEXdDO2ut3YA:10
- a=scEy_gLbYbu1JhEsrz4S:22
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDA2MDA5NSBTYWx0ZWRfXzTp+m5h0K+u0
- Do6Bm7M0bVUvavw7Z1IQDl2MuBzHc5YXjb7cMlUDcX+xNxowE275smk6Ngvo12Bdbh0itUVpMcK
- dJcGyZ/opDIwkRTO6E2rupRuOnFMNjw=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDA2MDA5NSBTYWx0ZWRfXyhxc619WlMKH
- 0EWMUR6PvhktV1P7HqKe1Pr1wNWV9bbSn5VWUvBnzZ+oZX3oSHGWvoRVxdOOeFonky8Egcnh1DK
- p/yiOBfpcezrjnXBZ6FnsamkZIH9hymkWlxzcfdVl0+zYd0KEGRN8b3SN8oYk00cDvKYM3h1KRh
- m9IEUxko8/XoIE1IL/QxdtGhgyp5DOxjt+UjYry7KYwJuIBmfxNhbx2O3KmOkHBOA7387VueZwN
- nzfIe31hgOdMurdUh9aMkIA12VEGKAWluToprnn/Cm8+kuBGiI6+CyipGiuGsckva6OM61ULMnP
- rHH9GKX1JlDm2+hvw49RLwiuPz8em7zwrb7Jr09aQdiHgL2MrBrIfUVhLChcnml+79RPjKtjbBg
- KvyPMwVCdFPFF1stjHb3xwO3dhGgPoR/5i7X8FLOwnKRuVWIHGfaMZBphHYzDHjBq3zyGU1RYCp
- q/exuDuCN0ZSrWzBG3g==
-X-Proofpoint-ORIG-GUID: VI1U-k05UhI0QJQuOdMLymJoBlp4DCe9
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-10-06_05,2026-10-06_03,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- malwarescore=0 spamscore=0 priorityscore=1501 impostorscore=0 bulkscore=0
- phishscore=0 lowpriorityscore=0 suspectscore=0 clxscore=1011 adultscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2610060095
 
-On 10/1/2026 1:50 AM, Krzysztof Kozlowski wrote:
-> On Wed, Sep 30, 2026 at 07:52:11AM -0700, Georgi Djakov wrote:
->> Add a platform driver for the Qualcomm Page Compression Engine (QPaCE), a
->> hardware block that accelerates compression and decompression of memory
->> pages.
->>
->> Provide the urgent command path for synchronous single-page compression and
->> decompression. This exposes the low-latency operations needed by
->> compressed-memory users such as zram, especially for page decompression on
->> the read path.
->>
->> Signed-off-by: Georgi Djakov <georgi.djakov@oss.qualcomm.com>
->> ---
->>   drivers/soc/qcom/Kconfig          |  14 +
->>   drivers/soc/qcom/Makefile         |   1 +
->>   drivers/soc/qcom/qpace.c          | 764 ++++++++++++++++++++++++++++++
->>   drivers/soc/qcom/qpace_internal.h |  84 ++++
->>   include/linux/soc/qcom/qpace.h    | 154 ++++++
->>   5 files changed, 1017 insertions(+)
->>   create mode 100644 drivers/soc/qcom/qpace.c
->>   create mode 100644 drivers/soc/qcom/qpace_internal.h
->>   create mode 100644 include/linux/soc/qcom/qpace.h
->>
->> diff --git a/drivers/soc/qcom/Kconfig b/drivers/soc/qcom/Kconfig
->> index 535c8619197b..6bcb86dcd726 100644
->> --- a/drivers/soc/qcom/Kconfig
-> 
-> Sorry, but no. Soc is not a dumping ground. This has clear function of
-> compression offload, so it should have some dedicated maintainers like
-> other offload engines.
+Thank you for your contribution! Sashiko AI review found 5 potential
+issue(s) to consider.
 
-The reason for putting this in soc/qcom is because this is a qcom HW 
-block driver. As per your comments below we will check and see if we can 
-make use of existing crypto framework and respond back on this.
+Critical: 0 · High: 2 · Medium: 1 · Low: 2
 
->> +++ b/drivers/soc/qcom/Kconfig
->> @@ -288,6 +288,20 @@ config QCOM_PBS
->>   	  This module provides the APIs to the client drivers that wants to send the
->>   	  PBS trigger event to the PBS RAM.
->>   
->> +config QCOM_PAGE_COMPRESSION_ENGINE
->> +	tristate "Qualcomm Page Compression Engine (QPaCE)"
->> +	depends on ARM64
-> 
-> Why this can't be built on other archs? This is really odd and I do not
-> see any asm headers included.
-ACK. We will remove this so that it can be built on other architectures.
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
 
-> 
->> +	depends on ARCH_QCOM || COMPILE_TEST
->> +	depends on OF
->> +	depends on INTERCONNECT
->> +	help
->> +	  Enable support for the Qualcomm Page Compression Engine (QPaCE),
->> +	  a hardware accelerator that provides high-throughput page compression,
->> +	  decompression, and DMA copy operations.
->> +
->> +	  The engine is used as a hardware backend for compressed-memory
->> +	  subsystems such as zram. If unsure, say N.
->> +
-> 
-> ...
-> 
-> 
->> +	ret = FIELD_GET(URG_CMD_0_ED_STAT_SIZE, stat_reg);
->> +out:
->> +	return ret;
->> +}
->> +EXPORT_SYMBOL_GPL(qpace_urgent_compress);
->> +
->> +int qpace_urgent_decompress(dma_addr_t input_addr,
->> +			    dma_addr_t output_addr,
->> +			    size_t input_size,
->> +			    struct qpace_algorithm *algo)
-> 
-> You need kerneldoc for every export.
+- [High] The unbounded skb_irq_queue growth that this commit sets out to
+  stop can still happen at the end of the series, so the fix is…
+- [High] can_rx_offload_threaded_irq_flush() corrupts the qlen counters
+  when frames are sorted in ahead of the saved marker.
+- [Medium] The kernel-doc for can_rx_offload_threaded_irq_flush() says
+  that when skb_irq_queue 'exceeds 3/4' of the max, the function will…
+- [Low] The kernel-doc for the new static helper __skb_cut_position() in
+  drivers/net/can/dev/rx-offload.c says '@entry: an entry within head,…
+- [Low] In can_rx_offload_threaded_irq_flush(), queue_len is declared as
+  u32 (line 404) but printed with "%s: queue_len=%d\n" in netdev_dbg()…
 
-ACK
+--
 
->> +{
->> +	int urg_reg_num;
->> +	int stat_reg;
->> +	u32 stat_reg_val;
->> +	int ret;
->> +
->> +	ret = qpace_get();
->> +	if (ret)
->> +		goto out;
->> +
->> +	urg_reg_num = get_cpu() % NUM_TRS_ERS_URG_CMD_REGS;
->> +	qpace_write_urg_cmd_ctx(qpace_priv, QPACE_URG_CMD_0_CFG_CNTXT_SIZE_n_OFFSET,
->> +				urg_reg_num, algo->urg_decomp_cntxt,
->> +				FIELD_PREP(URG_CMD_0_CFG_CNTXT_SIZE_SIZE, input_size));
->> +	stat_reg = qpace_urgent_command_trigger(input_addr, output_addr, urg_reg_num,
->> +						algo->urg_decomp_cntxt);
->> +	put_cpu();
->> +
->> +	qpace_put();
->> +
->> +	if (stat_reg < 0) {
->> +		ret = stat_reg;
->> +		goto out;
->> +	}
->> +
->> +	stat_reg_val = FIELD_GET(URG_CMD_0_ED_STAT_COMP_CODE, stat_reg);
->> +	if (stat_reg_val != OP_OK) {
->> +		pr_err("%s: register %d failed with %u\n",
->> +		       __func__, urg_reg_num, stat_reg_val);
->> +		ret = -EINVAL;
->> +		goto out;
->> +	}
->> +
->> +	ret = FIELD_GET(URG_CMD_0_ED_STAT_SIZE, stat_reg);
->> +out:
->> +	return ret;
->> +}
->> +EXPORT_SYMBOL_GPL(qpace_urgent_decompress);
->> +
-> 
-> So singleton? For what reason exactly? Random drivers will be getting
-> the reference to compress something? If so, aren't you duplicating
-> existing infrastructure/API for in-kernel hardware offloaded
-> compression (e.g. drivers/crypto/)?
-> 
+can: rx-offload: can_rx_offload_threaded_irq_flush(): add newfunction to be called from within loop of threaded interrupt handlers
 
-We will check and see if we can use existing crypto framework and 
-respond back on this.
+This adds can_rx_offload_threaded_irq_flush(), which is meant to be called
+from inside the loop of a threaded IRQ handler. When skb_irq_queue reaches
+1/2 of skb_queue_len_max, it saves the current tail. When the queue reaches
+3/4, it moves everything up to that saved skb into skb_queue and schedules
+NAPI, so the newest entries stay behind for later reordering.
 
-> You miss proper comments (see checkpatch --strict) explaining lock
-> usage.
+> diff --git a/drivers/net/can/dev/rx-offload.c b/drivers/net/can/dev/rx-offload.c
+> index 46e7b6db4a1ef..9f494ab7561ef 100644
+> --- a/drivers/net/can/dev/rx-offload.c
+> +++ b/drivers/net/can/dev/rx-offload.c
 
-ACK
+[ ... ]
 
-> 
-> 
->> +static DEFINE_MUTEX(qpace_ref_lock);
->> +
->> +static void _get_qpace(void)
->> +{
->> +	lockdep_assert_held(&qpace_ref_lock);
->> +	if (!qpace_priv->active_rings) {
->> +		reinit_completion(&qpace_priv->no_active_refs);
->> +		pm_stay_awake(qpace_priv->dev);
->> +		cpu_latency_qos_update_request(&qpace_priv->qos_req, 300);
->> +		program_urg_command_contexts_v2();
->> +		program_decomp_core_cfg();
->> +	}
->> +	qpace_priv->active_rings++;
->> +}
->> +
->> +static void _put_qpace(void)
->> +{
->> +	lockdep_assert_held(&qpace_ref_lock);
->> +	if (!--qpace_priv->active_rings) {
->> +		cpu_latency_qos_update_request(&qpace_priv->qos_req, PM_QOS_DEFAULT_VALUE);
->> +		pm_relax(qpace_priv->dev);
->> +		complete(&qpace_priv->no_active_refs);
->> +	}
->> +}
->> +
->> +int qpace_get(void)
->> +{
->> +	int ret = 0;
->> +
->> +	mutex_lock(&qpace_ref_lock);
->> +	if (qpace_priv->suspended || READ_ONCE(qpace_priv->broken))
->> +		ret = -EBUSY;
->> +	else
->> +		_get_qpace();
->> +	mutex_unlock(&qpace_ref_lock);
->> +	return ret;
->> +}
->> +EXPORT_SYMBOL_GPL(qpace_get);
->> +
->> +void qpace_put(void)
->> +{
->> +	mutex_lock(&qpace_ref_lock);
->> +	_put_qpace();
->> +	mutex_unlock(&qpace_ref_lock);
->> +}
->> +EXPORT_SYMBOL_GPL(qpace_put);
->> +
->> +static irqreturn_t urgent_interrupt_handler(int irq, void *unused)
->> +{
->> +	pr_debug("Urgent interrupt handled\n");
->> +	return IRQ_HANDLED;
->> +}
->> +
->> +static int qpace_hw_init(void)
->> +{
->> +	u32 reg_val;
->> +
->> +	/* Select CPU SCID for our system cache slice. */
->> +	reg_val = qpace_read_gen(qpace_priv, QPACE_CORE_QNS4_CFG_OFFSET);
->> +	reg_val = u32_replace_bits(reg_val, 0x1, CORE_QNS4_CFG_CACHEINDEX);
->> +	qpace_write_gen(qpace_priv, QPACE_CORE_QNS4_CFG_OFFSET, reg_val);
->> +
->> +	/* QMB2 register configurations. */
->> +	reg_val = qpace_read_gen(qpace_priv, QPACE_CORE_GEN_CFG_OFFSET);
->> +	reg_val = u32_replace_bits(reg_val, 0x48, CORE_GEN_CFG_QMB2_MAX_RD_OUTST_LIMIT);
->> +	reg_val = u32_replace_bits(reg_val, 0x48, CORE_GEN_CFG_QMB2_MAX_WR_OUTST_LIMIT);
->> +	qpace_write_gen(qpace_priv, QPACE_CORE_GEN_CFG_OFFSET, reg_val);
->> +
->> +	/* DECOMP_CORE_CFG init steps. */
->> +	program_decomp_core_cfg();
->> +
->> +	/* Below settings help save power since all decomp cores are set to sync. */
->> +	reg_val = qpace_read_gen_core(qpace_priv, QPACE_CORE_OPER_CFG_OFFSET);
->> +	reg_val |= CORE_OPER_CFG_COMP_MEM_PWR_DWN_1;
->> +	qpace_write_gen_core(qpace_priv, QPACE_CORE_OPER_CFG_OFFSET, reg_val);
->> +
->> +	reg_val = qpace_read_comp_core(qpace_priv, QPACE_COMP_CORE_CFG_OFFSET);
->> +	reg_val = u32_replace_bits(reg_val, 0x8, COMP_CORE_CFG_DMA_RD_MAX_OT);
->> +	reg_val = u32_replace_bits(reg_val, 0x8, COMP_CORE_CFG_DMA_WR_MAX_OT);
->> +	qpace_write_comp_core(qpace_priv, QPACE_COMP_CORE_CFG_OFFSET, reg_val);
->> +
->> +	/* Set all COMP engines to bulk mode. */
->> +	reg_val = qpace_read_comp_core(qpace_priv, QPACE_COMP_CORE_BULK_MODE_OFFSET);
->> +	reg_val |= COMP_CORE_BULK_MODE_ALL_CORES;
->> +	qpace_write_comp_core(qpace_priv, QPACE_COMP_CORE_BULK_MODE_OFFSET, reg_val);
->> +
->> +	/* URG CMD register configurations. */
->> +	program_urg_command_contexts_v2();
->> +
->> +	return 0;
->> +}
->> +
->> +enum qpace_interrupts {
->> +	QPACE_IRQ_URGENT
->> +};
->> +
->> +static int qpace_register_interrupts(struct platform_device *pdev)
->> +{
->> +	struct device *dev = &pdev->dev;
->> +	int irq, ret;
->> +
->> +	irq = platform_get_irq(pdev, QPACE_IRQ_URGENT);
->> +	if (irq < 0)
->> +		return irq;
->> +
->> +	ret = devm_request_irq(dev, irq, urgent_interrupt_handler,
->> +			       0, "qpace-urgent-irq", NULL);
->> +	if (ret)
->> +		dev_err(dev, "failed to request urgent interrupt\n");
->> +
->> +	return ret;
->> +}
->> +
->> +static inline bool _qpace_power_on(void)
->> +{
->> +	u32 ready_status;
->> +
->> +	qpace_write_gen_core(qpace_priv, QPACE_CORE_OPER_CORE_RUN_STOP_OFFSET, QPACE_RUN);
->> +
->> +	if (readl_poll_timeout(qpace_priv->gen_core_regs +
->> +			       QPACE_CORE_OPER_CORE_READY_OFFSET,
->> +			       ready_status, ready_status,
->> +			       1000, 5 * QPACE_STATE_CHANGE_TIMEOUT_US)) {
->> +		pr_err("Timeout in waiting for QPaCE to turn on\n");
->> +		return false;
->> +	}
->> +
->> +	return true;
->> +}
->> +
->> +static int qpace_power_on(struct device *dev)
->> +{
->> +	int ret, ret2;
->> +
->> +	qpace_priv->interconnect = devm_of_icc_get(dev, "qpace-mem");
->> +	if (IS_ERR_OR_NULL(qpace_priv->interconnect)) {
->> +		ret = PTR_ERR_OR_ZERO(qpace_priv->interconnect);
->> +		pr_err("%s: devm_of_icc_get() failed with %d\n", __func__, ret);
-> 
-> use dev_err, not pr_err
+> @@ -349,6 +351,90 @@ void can_rx_offload_threaded_irq_finish(struct can_rx_offload *offload)
+>  }
+>  EXPORT_SYMBOL_GPL(can_rx_offload_threaded_irq_finish);
+>  
+> +/**
+> + * __skb_cut_position - cut a skb list into two
+> + * @list: a new list to add all removed entries
+> + * @head: a list with entries
+> + * @entry: an entry within head, could be the head itself
+> + *	and if so we won't cut the list
 
-ACK.
+[Severity: Low]
+Does this helper actually handle entry == head? This text seems to be copied
+from list_cut_position(), where the wrapper has the checks that make the
+statement true:
 
-> 
->> +		return qpace_priv->interconnect ? ret : -EINVAL;
->> +	}
->> +
->> +	ret = device_init_wakeup(dev, true);
->> +	if (ret) {
->> +		pr_err("%s: device_init_wakeup() failed with %d\n", __func__, ret);
->> +		return ret;
->> +	}
->> +
->> +	cpu_latency_qos_add_request(&qpace_priv->qos_req, PM_QOS_DEFAULT_VALUE);
->> +
->> +	icc_set_tag(qpace_priv->interconnect, QCOM_ICC_TAG_ACTIVE_ONLY);
->> +
->> +	ret = icc_set_bw(qpace_priv->interconnect, 0, 1);
->> +	if (ret) {
->> +		pr_err("Failed to turn on QPaCE VCD: %d\n", ret);
->> +		goto rm_qos;
->> +	}
->> +
->> +	if (!_qpace_power_on()) {
->> +		pr_err("Failed to start QPaCE\n");
->> +		ret = -EINVAL;
->> +		goto rm_bw;
->> +	}
->> +
->> +	return 0;
->> +
->> +rm_bw:
->> +	ret2 = icc_set_bw(qpace_priv->interconnect, 0, 0);
->> +	if (ret2)
->> +		pr_err("Failed to remove QPaCE VCD vote: %d\n", ret2);
->> +rm_qos:
->> +	cpu_latency_qos_remove_request(&qpace_priv->qos_req);
->> +	device_init_wakeup(dev, false);
->> +
->> +	return ret;
->> +}
->> +
->> +static inline bool _qpace_power_off(void)
->> +{
->> +	u32 ready_status;
->> +
->> +	qpace_write_gen_core(qpace_priv, QPACE_CORE_OPER_CORE_RUN_STOP_OFFSET, QPACE_STOP);
->> +
->> +	if (readl_poll_timeout(qpace_priv->gen_core_regs +
->> +			       QPACE_CORE_OPER_CORE_READY_OFFSET,
->> +			       ready_status, !ready_status,
->> +			       1000, 5 * QPACE_STATE_CHANGE_TIMEOUT_US)) {
->> +		pr_err("Timeout in waiting for QPaCE to turn off\n");
->> +		return false;
->> +	}
->> +
->> +	return true;
->> +}
->> +
->> +static void qpace_power_off(struct device *dev)
->> +{
->> +	int ret;
->> +
->> +	/* If this fails we can still remove our vote for the VCD to turn QPaCE off */
->> +	if (!_qpace_power_off())
->> +		pr_err("Failed to stop QPaCE\n");
->> +
->> +	ret = icc_set_bw(qpace_priv->interconnect, 0, 0);
->> +	if (ret)
->> +		pr_err("Failed to turn off QPaCE VCD: %d\n", ret);
->> +
->> +	cpu_latency_qos_remove_request(&qpace_priv->qos_req);
->> +
->> +	device_init_wakeup(dev, false);
->> +}
->> +
->> +static inline int qpace_register_ioremap(struct platform_device *pdev)
->> +{
->> +	qpace_priv->gen_regs = devm_platform_ioremap_resource(pdev, 0);
->> +	if (IS_ERR(qpace_priv->gen_regs))
->> +		return PTR_ERR(qpace_priv->gen_regs);
->> +
->> +	qpace_priv->gen_core_regs = qpace_priv->gen_regs + QPACE_GEN_CORE_REGS_OFFSET;
->> +	qpace_priv->comp_core_regs = qpace_priv->gen_regs + QPACE_COMP_CORE_REGS_OFFSET;
->> +	qpace_priv->decomp_core_regs = qpace_priv->gen_regs + QPACE_DECOMP_CORE_REGS_OFFSET;
->> +	qpace_priv->urg_regs = qpace_priv->gen_regs + QPACE_URG_REGS_OFFSET;
->> +
->> +	return 0;
->> +}
->> +
->> +bool qpace_is_dev_available(void)
->> +{
->> +	return static_branch_likely(&qpace_drv_probed) &&
->> +	       !READ_ONCE(qpace_priv->broken);
->> +}
->> +EXPORT_SYMBOL_GPL(qpace_is_dev_available);
->> +
->> +struct device *qpace_get_dma_dev(void)
->> +{
->> +	return qpace_priv->dev;
->> +}
->> +EXPORT_SYMBOL_GPL(qpace_get_dma_dev);
->> +
->> +static int qpace_probe(struct platform_device *pdev)
->> +{
->> +	struct device *dev = &pdev->dev;
->> +	struct qpace_priv *priv;
->> +	int ret;
->> +
->> +	priv = devm_kzalloc(dev, sizeof(*priv), GFP_KERNEL);
->> +	if (!priv)
->> +		return -ENOMEM;
->> +
->> +	priv->dev = dev;
->> +	/* Starts already complete since active_rings == 0 at init. */
->> +	init_completion(&priv->no_active_refs);
->> +	complete(&priv->no_active_refs);
->> +	INIT_WORK(&priv->disable_work, qpace_disable_work_fn);
->> +	qpace_priv = priv;
->> +	platform_set_drvdata(pdev, priv);
->> +
->> +	ret = dma_set_mask_and_coherent(dev, DMA_BIT_MASK(64));
->> +	if (ret)
->> +		return dev_err_probe(dev, ret, "failed to set DMA mask\n");
->> +
->> +	ret = qpace_register_ioremap(pdev);
->> +	if (ret)
->> +		return dev_err_probe(dev, ret, "failed to map QPaCE registers\n");
->> +
->> +	ret = qpace_power_on(dev);
->> +	if (ret)
->> +		return dev_err_probe(dev, ret, "failed to power on QPaCE\n");
->> +
->> +	/* Get QPaCE HW version. */
->> +	qpace_priv->hw_version = qpace_read_gen(qpace_priv, QPACE_CORE_HW_VERSION_OFFSET);
->> +	if (qpace_priv->hw_version != QPACE_HW_VERSION_V2) {
->> +		dev_err(dev, "Unsupported QPaCE HW version returned: 0x%x\n",
->> +			qpace_priv->hw_version);
->> +		ret = -EINVAL;
->> +		goto power_off;
->> +	}
->> +
->> +	ret = qpace_hw_init();
->> +	if (ret) {
-> 
-> How is this possible?
+include/linux/list.h:list_cut_position() {
+	if (list_empty(head))
+		return;
+	if (list_is_singular(head) && !list_is_head(entry, head) && (entry != head->next))
+		return;
+	if (list_is_head(entry, head))
+		INIT_LIST_HEAD(list);
+	else
+		__list_cut_position(list, head, entry);
+}
 
-ACK. This can be removed.
+__skb_cut_position() has none of these checks. It always does the cut and
+adjusts both qlen values. If entry is the head, or head is empty, both lists
+come out malformed.
 
-> 
->> +		dev_err(dev, "init failed: (%d)\n", ret);
->> +		goto power_off;
->> +	}
->> +
->> +	ret = qpace_register_interrupts(pdev);
->> +	if (ret) {
->> +		dev_err(dev, "failed to register interrupts\n");
-> 
-> Do not print same error multiple times.
+The only caller passes the result of skb_peek_tail(), so this path is not
+reachable today. Could the comment be corrected, though?
 
-ACK.
+This isn't a bug, but the __skb_ prefix makes a private CAN helper look like
+a core skbuff API, and it could clash with a future core helper of the same
+name.
 
-> 
->> +		goto power_off;
->> +	}
->> +
->> +	static_branch_enable(&qpace_drv_probed);
->> +
->> +	return ret;
->> +
->> +power_off:
->> +	qpace_power_off(dev);
->> +
->> +	return ret;
->> +}
-> 
-> Best regards,
-> Krzysztof
+> + * @qlen: length up to @entry in @head
+> + *
+> + * This helper moves the initial part of @head, up to and including
+> + * @entry, from @head to @list. You should pass on @entry an element
+> + * you know is on @head and @qlen being the position of that element
+> + * on @head. @list should be an empty list or a list you do not care
+> + * about losing its data.
+> + *
+> + */
+> +static inline void __skb_cut_position(struct sk_buff_head *list,
+> +				      struct sk_buff_head *head,
+> +				      struct sk_buff *entry,
+> +				      __u32 qlen)
+> +{
+> +	struct sk_buff *new_first = entry->next;
+> +	struct sk_buff *first = head->next;
+> +
+> +	WRITE_ONCE(list->next, first);
+> +	WRITE_ONCE(list->next->prev, (struct sk_buff *)list);
+> +	WRITE_ONCE(list->prev, entry);
+> +	WRITE_ONCE(entry->next, (struct sk_buff *)list);
+> +	list->qlen = qlen;
+> +
+> +	WRITE_ONCE(head->next, new_first);
+> +	WRITE_ONCE(new_first->prev, (struct sk_buff *)head);
+> +	head->qlen -= qlen;
+> +}
+> +
+> +/**
+> + * can_rx_offload_threaded_irq_flush() - partially flush the rx_offload queue
+> + * @offload: pointer to rx_offload context
+> + *
+> + * If can_rx_offload->skb_irq_queue exceeds 3/4 of the maximal queue
+> + * length (can_rx_offload->skb_queue_len_max) flush about 1/2 of the
+> + * maximal queue length to NAPI.
+> + *
+> + * This function is intended to be called within the loop of threaded
+> + * IRQ handlers, which run until all IRQs have been served.
 
+[Severity: High]
+Can skb_irq_queue still grow without bound once the series is applied?
+
+This patch adds no caller. The follow-up commit "can: mcp251xfd:
+mcp251xfd_irq(): add call to can_rx_offload_threaded_irq_flush()" adds one,
+but only in the main intf loop of mcp251xfd_irq().
+
+mcp251xfd_irq() also has an rx_int GPIO fast-path loop, and that loop never
+calls the new helper:
+
+drivers/net/can/spi/mcp251xfd/mcp251xfd-core.c:mcp251xfd_irq() {
+	if (priv->rx_int)
+		do {
+			int rx_pending;
+
+			rx_pending = gpiod_get_value_cansleep(priv->rx_int);
+			if (!rx_pending)
+				break;
+			...
+			err = mcp251xfd_handle(priv, rxif);
+			...
+		} while (priv->rx_ring_num == 1);
+	...
+}
+
+Each frame read in that loop goes through can_rx_offload_queue_timestamp().
+That function only compares skb_queue, not skb_irq_queue, against
+skb_queue_len_max. NAPI is not scheduled until
+can_rx_offload_threaded_irq_finish() runs.
+
+With microchip,rx-int-gpios and a single RX ring, wouldn't the case the
+commit message describes ("the threaded IRQ handler will not exit the while
+loop") still leave skb_irq_queue growing without limit?
+
+> + *
+> + */
+> +void can_rx_offload_threaded_irq_flush(struct can_rx_offload *offload)
+> +{
+> +	struct sk_buff_head tmp_queue;
+> +	unsigned long flags;
+> +	u32 irq_queue_len, queue_len;
+> +
+> +	irq_queue_len = skb_queue_len(&offload->skb_irq_queue);
+> +	if (irq_queue_len < offload->skb_queue_len_max / 2)
+> +		return;
+> +
+> +	if (!offload->flush_skb) {
+> +		offload->flush_skb = skb_peek_tail(&offload->skb_irq_queue);
+> +		offload->flush_len = irq_queue_len;
+> +	}
+> +
+> +	if (irq_queue_len < offload->skb_queue_len_max * 3 / 4)
+> +		return;
+
+[Severity: Medium]
+What happens when flush_skb is NULL and irq_queue_len is already at or above
+3/4 of skb_queue_len_max on the first call?
+
+In that case, the same call sets flush_skb to the current tail and
+flush_len to the full queue length. It then skips this return and cuts the
+entire skb_irq_queue.
+
+That doesn't match the kernel-doc above ("flush about 1/2 of the maximal
+queue length") or the commit message ("leave about 1/4 of the maximum queue
+length in offload->skb_irq_queue").
+
+This looks reachable in mcp251xfd. The rx_int loop in mcp251xfd_irq() fills
+skb_irq_queue without calling the helper, so the first call from the main
+loop can already see 384 or more entries (weight 32, max 512). Older frames
+read afterwards from another RX ring or the TEF would then be delivered
+after newer ones.
+
+Should saving the marker be kept separate from making the cut?
+
+As a minor point, the doc says "exceeds", but the early returns use <. That
+means the code triggers at exactly 1/2 and exactly 3/4.
+
+> +
+> +	__skb_cut_position(&tmp_queue, &offload->skb_irq_queue,
+> +			   offload->flush_skb, offload->flush_len);
+
+[Severity: High]
+Is offload->flush_len still the position of flush_skb at this point?
+
+flush_len is saved once, when the queue reaches 1/2. After that, the IRQ
+loop keeps adding frames through __skb_queue_add_sort(), which walks
+backwards from the tail and inserts by timestamp:
+
+drivers/net/can/dev/rx-offload.c:__skb_queue_add_sort() {
+	skb_queue_reverse_walk(head, pos) {
+		...
+		if (compare(pos, new) < 0)
+			continue;
+		insert = pos;
+		break;
+	}
+	...
+}
+
+Any frame older than flush_skb is therefore inserted in front of it. In
+mcp251xfd, this can be a TEF echo skb queued with
+can_rx_offload_get_echo_skb_queue_timestamp(), or a frame from another RX
+ring. That is the late, older-frame case the commit message describes.
+
+If N such frames were inserted, the cut moves flush_len + N skbs, but
+__skb_cut_position() does:
+
+	list->qlen = qlen;
+	...
+	head->qlen -= qlen;
+
+As a result, skb_queue.qlen ends up N too low and skb_irq_queue.qlen ends up
+N too high.
+
+Once NAPI drains skb_queue, __skb_unlink() decrements qlen once per real
+skb. skb_queue.qlen (a u32) then wraps to about 2^32 - N. After that, this
+check always fires:
+
+drivers/net/can/dev/rx-offload.c:can_rx_offload_queue_timestamp() {
+	if (skb_queue_len(&offload->skb_queue) >
+	    offload->skb_queue_len_max) {
+		dev_kfree_skb_any(skb);
+		return -ENOBUFS;
+	}
+	...
+}
+
+can_rx_offload_queue_tail() and can_rx_offload_offload_one() have the same
+check. Every RX frame and every TX echo skb would then be dropped.
+
+If no frame was queued after flush_skb, the cut leaves skb_irq_queue
+physically empty with qlen == N. can_rx_offload_threaded_irq_finish() then
+returns early on skb_queue_empty_lockless() and never splices the counts
+back. New frames are dropped before they reach skb_irq_queue.
+
+Could RX then stay dead until the driver is unbound? mcp251xfd only calls
+can_rx_offload_del() in remove.
+
+There may also be a NULL dereference. If skb_irq_queue is empty but its qlen
+is at or above 3/4 of the max, skb_peek_tail() returns NULL, and
+__skb_cut_position() would then dereference entry->next on that NULL
+flush_skb.
+
+> +
+> +	spin_lock_irqsave(&offload->skb_queue.lock, flags);
+> +	skb_queue_splice_tail_init(&tmp_queue, &offload->skb_queue);
+> +	spin_unlock_irqrestore(&offload->skb_queue.lock, flags);
+> +
+> +	offload->flush_skb = NULL;
+> +
+> +	queue_len = skb_queue_len(&offload->skb_queue);
+> +	if (queue_len > offload->skb_queue_len_max / 8)
+> +		netdev_dbg(offload->dev, "%s: queue_len=%d\n",
+> +			   __func__, queue_len);
+
+[Severity: Low]
+This isn't a bug, but queue_len is a u32 here, while the copy in
+can_rx_offload_threaded_irq_finish() is an int. Should this use %u?
+
+> +
+> +	local_bh_disable();
+> +	napi_schedule(&offload->napi);
+> +	local_bh_enable();
+> +}
+> +EXPORT_SYMBOL_GPL(can_rx_offload_threaded_irq_flush);
+
+[ ... ]
+
+-- 
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261005-upstream-can-rx-offload-batching-alternative-v1-0-4c08ccb516ec%40pengutronix.de
