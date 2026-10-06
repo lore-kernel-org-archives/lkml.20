@@ -1,110 +1,154 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 329AF456E12;
-	Tue,  6 Oct 2026 14:12:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2FBDC217723;
+	Tue,  6 Oct 2026 14:12:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.130
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791295929; cv=none; b=VQxHzkxcbDQvf/0qsZCv0TF8qx9svBVycOsSn1gKr8OnEBXkzIX57kKVxEwLRNrpUXpCb4T+ijJ0WOYSgMYxACpcg/MS6D6c8GSBmkuOd+83jzJ70iDcmDF9+Q/lyIw8UuUWtJtiKpXAEcG+JSUaweDMSEN7aPyiw8/55m0Mk1g=
+	t=1791295971; cv=none; b=Y1U2MxgNljQomQpVE/0iT9LwmAK5soSBpTGSBtbHN5Asrdqa+vUxaFvys+CRltT0tMveLMbzQDBNR1Ocx8hQA32pT7Ggs3FToJJoEeGLYOtdjOLHGHL1UQh6AUQIdeBIYRsm5DnMkwI3vdC0pvCtk6q3+RAmrpYjPLZTr+3tqhs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791295929; c=relaxed/simple;
-	bh=6btDlvHwBwnl8QJVoMY0bmEA6MybxcPQW3nb9CbBxJA=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=G/XjbRehIRay9VtucMS4WjR7s+3F5/NifVrFSEzfdsbPrZ6PkhMQg/kos0hQdR/pUzFnUOnKYxy2DYBh4S2MqwYv8QEd3vSPfQSbmiVcLCb9/JSB09Ii+tfnZkoGP1xG3XTqno/SaeF42JgouAFAsserIQbNJH6BqpUup9ZpRKc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JBfzHk1F; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791295971; c=relaxed/simple;
+	bh=qdO7Mhq09bWIq9YgrxP0DPSw7OU9qBoagiXzBeavfO8=;
+	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=n/abKxLtHDRq702gyuVg492kDYK6PwXCZCnYxGij2v2jYsBPsxWJeWWkxdUGrvWo8XI0j7oRiLvUoUHG9HtWIueIxuQuMBg1sUg5No/IW8LcgUmqy1oUYlZ0y1xmt2rKndbYXtucVuuvmP9Dl6mr4bfKpsLmYgyDMb1aX+tTLUM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=SIcQQxUQ; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=XHkj1ufn; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=BOGjlPyR; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=pdeFS0Xf; arc=none smtp.client-ip=195.135.223.130
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JBfzHk1F"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C67601F000FF;
-	Tue,  6 Oct 2026 14:12:07 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791295927;
-	bh=zUsVfvyVtNgk99RyjipDDevgTZGzhtwz6DXLUIWe1a4=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=JBfzHk1FBxuCViejFOyT24cYGpJeOHIzE4MIEH9K1OGLtGcG82viVKe9eGY3wb039
-	 Ah7Zanax6gmVKPPaYcC6dYe0v53Wt0zcKDOFc7kfBLTZZXLJsHc1aiNbWVwF76+8F0
-	 v9Xe3NY3hZ7hxX9R06KzDsOiwNVkJmqKeK0VOnrBhFil0HT/FPS0GNWzH1NWUvGeke
-	 SngQO8ZEwwf82d6mM/l4iZRJN1p29hdWgJR0chSoOPhUeLDNe76dpXM7u1n+YP2qBO
-	 WbkMtrsWE4ldGpiyBWiC4XU4W6eobSykslgdV4ggSiBnZBaI+2KuD+5kKI6fFqVstA
-	 HBSDEpT9s2x3A==
-Date: Tue, 6 Oct 2026 07:12:07 -0700
-From: Kees Cook <kees@kernel.org>
-To: ardb@kernel.org, nathan@kernel.org, Bill Wendling <morbo@google.com>
-Cc: gustavoars@kernel.org, ndesaulniers@google.com, justinstitt@google.com,
-	broonie@kernel.org, elver@google.com, alan.maguire@oracle.com,
-	namjain@linux.microsoft.com, peterz@infradead.org,
-	linux-kernel@vger.kernel.org, linux-hardening@vger.kernel.org,
-	llvm@lists.linux.dev
-Subject: Re: [PATCH v4] compiler_types: Allow opting out of __counted_by and
- __counted_by_ptr
-Message-ID: <202610060642.7C4125F@keescook>
-References: <20261005102518.2400984-1-morbo@google.com>
- <20261006094358.2948476-1-morbo@google.com>
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="SIcQQxUQ";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="XHkj1ufn";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="BOGjlPyR";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="pdeFS0Xf"
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out1.suse.de (Postfix) with ESMTPS id D8F9B21FEA;
+	Tue,  6 Oct 2026 14:12:39 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1791295964; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=uraFhfuuTVKiYFnDxsHsVcA5DvRI7vQxkFKFI35Ui9g=;
+	b=SIcQQxUQJfI8Z/2dW9neT02lR8VHHV+57O2xSRfXKhfqHiWr1Eco4CwqSHhhDwfCUckZbG
+	kk98Ns6/riwPuBVTcxpkym7aWY8QzBojVoRaxObA8INQfPfaLUugMn/DqhUQHyp+t+pyLf
+	wpitBlIxSc5pMtbaZx/qtzzMas8/bg4=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1791295964;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=uraFhfuuTVKiYFnDxsHsVcA5DvRI7vQxkFKFI35Ui9g=;
+	b=XHkj1ufnORJf3k4Duhj7Tv+cCfDOl5wvTSBgdcLZPEce18PBuvPYjj0E5tFiyHv3JX2/ca
+	pjNncZtafAF/ZkDA==
+Authentication-Results: smtp-out1.suse.de;
+	dkim=pass header.d=suse.de header.s=susede2_rsa header.b=BOGjlPyR;
+	dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=pdeFS0Xf
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1791295959; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=uraFhfuuTVKiYFnDxsHsVcA5DvRI7vQxkFKFI35Ui9g=;
+	b=BOGjlPyRFLpN0bYhjfHVtQOR82Uq/CzPuiHQE/tAunqPhual8BA2Yi34r5EyarX4Ygsl1F
+	u84WGspol1kYkIfh67iEtKk19MVBBKDF5lnFYGN7CGlqBdiiSqZFR3xWPA1a51iH6bM6/r
+	cRvC0b3iBpMkTYeH+2f66ut9Vu0hPho=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1791295959;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=uraFhfuuTVKiYFnDxsHsVcA5DvRI7vQxkFKFI35Ui9g=;
+	b=pdeFS0XfuLQvzPcQdDsBL/1vfAJ1tkjACyTZCcwJgESZJDTZHZpUu1LOMbjbsfGl4gd7g8
+	twRep0f6+GRwG6AQ==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 83A1713A95;
+	Tue,  6 Oct 2026 14:12:39 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id H4MEGNcBxWoLFgAAD6G6ig
+	(envelope-from <tiwai@suse.de>); Tue, 06 Oct 2026 14:12:39 +0000
+Date: Tue, 06 Oct 2026 16:12:39 +0200
+Message-ID: <87ld8aq5ns.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Denis Yakovlev <mfthesun@vivaldi.net>
+Cc: tiwai@suse.com,
+	perex@perex.cz,
+	linux-sound@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] ALSA: hda/realtek: Drop unneeded DAC override for HONOR MagicBook Pro 16 2024
+In-Reply-To: <20261005203836.11074-1-mfthesun@vivaldi.net>
+References: <20261005203836.11074-1-mfthesun@vivaldi.net>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/30.2 Mule/6.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261006094358.2948476-1-morbo@google.com>
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
+X-Rspamd-Queue-Id: D8F9B21FEA
+X-Rspamd-Action: no action
+X-Spamd-Result: default: False [-3.51 / 50.00];
+	BAYES_HAM(-3.00)[99.99%];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	MID_CONTAINS_FROM(1.00)[];
+	R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	MX_GOOD(-0.01)[];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	SPAMHAUS_XBL(0.00)[2a07:de40:b281:104:10:150:64:97:from];
+	TO_DN_SOME(0.00)[];
+	ARC_NA(0.00)[];
+	RCVD_TLS_ALL(0.00)[];
+	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	FROM_EQ_ENVFROM(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	RCPT_COUNT_FIVE(0.00)[5];
+	RCVD_COUNT_TWO(0.00)[2];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:mid,suse.de:dkim,imap1.dmz-prg2.suse.org:helo,imap1.dmz-prg2.suse.org:rdns];
+	DKIM_TRACE(0.00)[suse.de:+]
+X-Spam-Flag: NO
+X-Spam-Score: -3.51
+X-Spam-Level: 
 
-On Tue, Oct 06, 2026 at 09:43:58AM +0000, Bill Wendling wrote:
-> Code that runs outside the kernel proper, such as the EFI stub, gets
-> nothing out of the counted_by annotations: the bounds checks they feed
-> (FORTIFY_SOURCE, UBSAN_BOUNDS) are already disabled there.
+On Mon, 05 Oct 2026 22:38:36 +0200,
+Denis Yakovlev wrote:
 > 
-> The annotations can also break the build. A __counted_by_ptr() that
-> names a member declared after the pointer needs Clang's
-> '-fexperimental-late-parse-attributes', which the top-level Makefile
-> adds to 'KBUILD_CFLAGS'. The x86 EFI stub builds its own cflags and does
-> not get that flag, so it fails as soon as such a struct is pulled in
-> through a common header.
+> Commit 1e3e378d63be ("ALSA: hda/realtek: Enable bass speakers on HONOR
+> MagicBook Pro 16 2024") restricted the speaker pin 0x1b to DAC 0x02, on
+> the assumption that the second speaker pair would otherwise end up on
+> DAC 0x03, as channels 3/4 that a stereo stream never reaches. That
+> assumption was wrong: without the override, pin 0x1b is still connected
+> to DAC 0x02, the only DAC that pin 0x14 can use, so the override changes
+> nothing. With and without it the codec routing is identical and the
+> speakers behave the same with nothing plugged in, with headphones and
+> with a CTIA headset inserted; without it they also keep working after
+> suspend/resume.
+> 
+> That commit also got the speaker roles the wrong way round. Pin 0x1b,
+> which the BIOS does configure, drives the bottom speakers, which carry
+> the low and mid frequencies; pin 0x14 drives the tweeters next to the
+> keyboard, and those are the speakers that stay silent without the quirk.
+> Measured with the internal microphones, enabling one pin at a time: at
+> 1 kHz the 0x14 pair alone is more than 30 dB below the 0x1b pair alone,
+> while at 6 kHz the two are within 10 dB of each other.
+> 
+> Drop the DAC override and correct the pin comment, so the quirk only
+> sets pin configurations, like the one for the sibling M1020 board
+> (HONOR MRB-XXX).
+> 
+> Fixes: 1e3e378d63be ("ALSA: hda/realtek: Enable bass speakers on HONOR MagicBook Pro 16 2024")
+> Assisted-by: LLM
+> Signed-off-by: Denis Yakovlev <mfthesun@vivaldi.net>
 
-We have a distinction between parsing and output (instrumentation,
-linkage, etc). FORTIFY_SOURCE and UBSAN_BOUNDS (and lots of other
-things) control output (e.g. fortify alternative linkages, ubsan
-instrumentation). We don't normally have parsing issues, as that kind
-of thing is usually controlled by compiler flag options (like here). For
-example, if a transparent struct ever leaked into a header that libstub
-includes, we would explode as well, due to x86's resulting lack of
--fms-extensions.
+Applied to for-next branch.  Thanks.
 
-So, I this should _not_ be managed with a NO_* flag, as that has been
-traditionally about suppressing output. I don't think we want to mix
-that idiom with parsing issues.
 
-And other architectures solve this problem by not wiping KBUILD_CFLAGS in
-the first place. :P So if we want to continue to accept the x86 exception
-(which I would argue is the actual problem), we likely need to, instead,
-construct an explicit export that is used to collect parsing control
-options so that it can be re-included here. Today, I can think of
--fms-extensions besides -fexperimental-late-parse-attributes.
-
-KBUILD_PARSE_CFLAGS += -fms-extensions
-...
-KBUILD_PARSE_CFLAGS += -fexperimental-late-parse-attributes
-...
-export KBUILD_PARSE_CFLAGS
-KBUILD_CFLAGS += $(KBUILD_PARSE_CFLAGS)
-...
-
-We already do something like this for CLANG_FLAGS, which, given
--fexperimental-late-parse-attributes being Clang-specific, perhaps we
-ignore my -fms-extensions future-proofing, and just add it there, but
-it doesn't look like that is how scripts/Makefile.clang was intended to
-be used.
-
-But, again, I think the problem is x86's wipe of the flags. In fact, I
-see an explicit problem with that today, which is the loss of
--fauto-trivial-var-init, which all the other arch's stub gain (it's an
-output flag, but it happens to neither change linkage nor create hooked
-instrumentation). So x86 efi stub lacks stack var zeroing but all the
-other archs have it.
-
-Can we just fix x86 correctly to use filter-out, etc, there?
-
--Kees
-
--- 
-Kees Cook
+Takashi
