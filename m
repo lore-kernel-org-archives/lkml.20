@@ -1,72 +1,87 @@
-Received: from mail-pg1-f173.google.com (mail-pg1-f173.google.com [209.85.215.173])
+Received: from mail-dl1-f45.google.com (mail-dl1-f45.google.com [74.125.82.45])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4BE9B3812E9
-	for <linux-kernel@vger.kernel.org>; Tue,  6 Oct 2026 09:03:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.173
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7A736381E8B
+	for <linux-kernel@vger.kernel.org>; Tue,  6 Oct 2026 09:03:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.45
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791277397; cv=none; b=j/kqqZKHNhZA4TlG6eaMoV/ersjk9tICL3q3duEK38egqM86sOBJoqmTmXCO7jdp2X8U3ZeUKphfi0EEZ/Hm+loAnsJ7Ti66p1nzvnlLK4kd9CUgykFrt+gM4C+PDoUT/fA2alVEasYU+Vk2PolRX9YSoA/VtkW2QWj4trBVAU0=
+	t=1791277415; cv=none; b=C074IYDAkWMSi4z+dc5GbZrT6dxJvIPjtBHNIOSmYEBws25j26U7FQvuB10EPrPjHYxYHAWYlYCt/LZAhTyzFq81DLabdanRTbDLn1bhGmHObj2PcTvxQ+IMS7DLvnKo6eTzfxGnx+DdTpKS6rDydqcNlODU7Yjchm7wCebyG/c=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791277397; c=relaxed/simple;
-	bh=o4BW5J8ceg7xnt3NcTJKNGXIbgaQotqUIkiMmP02YGM=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=UaaHKIdMfn2kQGrI0Q/XkQGB0eSHAwFkptWnrVSxUEPnGe5qrZlS6Gd4xyVS8J7Y7RW3L6RXtVaxXw7OLg+3R1Y95710McGygPghqlkjJ0U0dCIqJtgjXMGinrhaDxShy7YE/bxwDYEkeqerflTZcm5m6KwZbls1X8863JPaJEE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Q7DVpSwu; arc=none smtp.client-ip=209.85.215.173
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1791277415; c=relaxed/simple;
+	bh=e+QKcLiLR9aQM1GsNc5nTTQt3/CAZ42yLj3LSmwDoJg=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=FyqmGLc3gQB3+0XvcKXdQN8xAhZsBFpMXQtF9wL0Sv4S8y5wLDu41/4bqodPTBhVrc7P39YWMCGowzYHLy9jqmJcVoygrsaTF+OIfjI7b+UIuVZFoVYphqCsWnFaBLIsepQZ2/4DBiY9sNZ+dA6Zy8vjFbFpVHe0YxoXJN/62Q8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=sifive.com; spf=pass smtp.mailfrom=sifive.com; dkim=pass (2048-bit key) header.d=sifive.com header.i=@sifive.com header.b=Qb5hYuzJ; arc=none smtp.client-ip=74.125.82.45
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=sifive.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sifive.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Q7DVpSwu"
-Received: by mail-pg1-f173.google.com with SMTP id 41be03b00d2f7-cc4dbcf2b85so1185264a12.3
-        for <linux-kernel@vger.kernel.org>; Tue, 06 Oct 2026 02:03:16 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=sifive.com header.i=@sifive.com header.b="Qb5hYuzJ"
+Received: by mail-dl1-f45.google.com with SMTP id a92af1059eb24-1438d9363fbso690017c88.0
+        for <linux-kernel@vger.kernel.org>; Tue, 06 Oct 2026 02:03:33 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791277396; x=1791882196; darn=vger.kernel.org;
+        d=sifive.com; s=google; t=1791277412; x=1791882212; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=jv16xH89Xx9NsAEAWDIJw2mIwcZ7SQIk9fF3fRGYISI=;
-        b=Q7DVpSwucr+NQyy80F8lbsiZji+oroqlxoiSjzeqRsBPuBrDqbEq7nYyGYB9LM2InW
-         v+ODk0Dn43QMmODHMWk68sk1BVdW5qif3uLCtRd98e4E4BzGxBIO89UvhQ2sKhgzRy2v
-         cy4D195EVEkAZhi6YdbiFN8TWXlBy4rVnoQ3NtQD/kQVGLoTt+h+0Li9QAOJqQGNBvKs
-         cfXkMR5JWJ/HjRYmcByQkOvMmgFpDeh3agvaiECNt/CBHT+tK0IHlXV3oJTxtkn9GCL1
-         Rn370bVh+eXvgeFuLPxbPIER4CyV/2/5snol551gJnaBkUG2erZtg7YhQPDsqUT5Jt+L
-         ShXg==
+        bh=9sHs8q4lscucI4vPZxD+59Nx1PieeXin2JvWxO3G7Kw=;
+        b=Qb5hYuzJvHLDrfJNHrBIs4NczhM6EH00WvERr7v1cOB2GYnHcuA5DeAuJWR/TsIYVp
+         uKi799INBOgXYe0APG3lpjmoUBb0hEnD1aOyF7UT9IKnXo7BRxvYn5iTlU7TKiOpgqkh
+         0LcKKGMxHvtUMgy6lQaQ6QdAPv6CLV4U9CiHVckIDzm3yTLECd4hOWShDU2LCTdlPJ2r
+         IFlLxXnzgvu7f9bF/oS2jA3HRmNiXIxLf47uu1y3+5cgb/QQMKuS+OkO49q3OVRe6etv
+         dS2Tr92WfsqLa3uyOeRcSrK+rwmjloRliTPiuKPO4zNetIO9i8/BjMm+SgX5c/OfWfWG
+         1X2A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791277396; x=1791882196;
+        d=1e100.net; s=20260707; t=1791277412; x=1791882212;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=jv16xH89Xx9NsAEAWDIJw2mIwcZ7SQIk9fF3fRGYISI=;
-        b=1I7nAbkAjVqdeOeRkMIn4hoCqWkv6Z7YN9t5QCY8NxorxDIJNQ9b7wdPTovXawsDmz
-         SGbwqrjlH+m+a5ySi7goP6vhQM/Phc9KpE3ABlddVnLaRVCJxJ3LgwppS91JryiYUojH
-         7hsuNSwvBsN4KPvMuPuA53SXrra6nRDb3PYxioT0iNcjU+sfbq2NrS91WOPJ76ZvGi2I
-         1CUuxnyLKsHzXyWROHsri1YFA1iFSIXEjux1lPknh/4tzk9PDaJdmrpPqxyp5M8YqSJr
-         hj21TaSkS3JgpSfhoRifcchwJKRIhWmr6JTUmZuZJAS1Q/c1xddNEymNgPL7P0VuLS/G
-         fYcQ==
-X-Forwarded-Encrypted: i=1; AKwUvBz0L0lm6uwL29TglHT3nJ71OK4fPkhFeAfF1FAzPqjSXelEHzxIVe/qcFjk0Tqn24+/VRU+w+lbpPAgvgM=@vger.kernel.org
-X-Gm-Message-State: AFuF++lymHxpihi8h4A5yujFPSBG5Aseyr90iCdG3/QtPGLycK2cbzNu
-	NZuwmidtaMr87/Y2FJAILWj/MmxZC3QMW3hamGZkmAQvS4bZua8qdDRe
-X-Gm-Gg: AYBFou0dvWVJikdcNR9RpJVLATh1AATKhrtfnON6cMR3vS+A1Lk9uThFeteE2hOD81t
-	DCq6Q7XGNER4SXQ5/Bkj6JcamEC5Zm7gmV6KwOA8LE+1wWsLCHY/mlgzq/cz4KcXGja7+wZ3uFe
-	+4VOuwTAAiIU+lZVesd6L2+2OVnoCFYhCNI8XFfhn447TUNgx9aDnVdLZ4q0lK7LBwS9RTRs45q
-	8evvwBUiz+34pPBHxTOY0O6zBcoo2JA1WWcX7ZrhOBJOTc8ZKIO8JKFygi8bbZAIX6GrZ0NgJp5
-	c1jcfYtkq0uRevMNOjCe2a+zOJsHk2NDMH9xSMVEnVDBzAUOlLBdUwmHNKHB9sLng5Z0rJriVB6
-	7X6TaInrT+PwDB7SMOnn2dS5Nt1o1D1ihrAHcYwdVXwQDqLeZB5RK53CE7+DuGJyn6cpLhsWgsH
-	+XCg5iPQRK0qbP4229SoOYe+lEW8FzkRaqoNzNu1+MMr29R0mUhvf6ElRGw5ad9z/sDlcuT7tOf
-	s0YspktDt6KDBhxQ6qrcbL2pQYBoZcv4b0/q6e25mZJKA7B3rxQ
-X-Received: by 2002:a05:6a21:7303:b0:3dd:85aa:d266 with SMTP id adf61e73a8af0-3e124848916mr665141637.30.1791277395654;
-        Tue, 06 Oct 2026 02:03:15 -0700 (PDT)
-Received: from carrot.taila25129.ts.net (madb688455.ap.nuro.jp. [219.104.132.85])
-        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cce6dce5548sm2105081a12.20.2026.10.06.02.03.13
+        bh=9sHs8q4lscucI4vPZxD+59Nx1PieeXin2JvWxO3G7Kw=;
+        b=fpQ52cEZYDQ7lbhGXWTQiWUK8Pf6YXw2Lw18amc2BqKbSb09991EPcLoIUYwDd95YP
+         /RfKwsPZfKMTWoMeH5R2QBIiodCLhpnij7+EmXqQoOfJZ50EN2aKqtiCPa30wNWEqdAt
+         lotMhyREhq8AprCfPw9e/kedkhXhOdtKeGIssr7tjb1C02inxpksWksHcR6GB1LwCrxw
+         FknPO1kZZOMktDWNrYSddrDSyTbvgCbBpHH0qpW2nK5rMWzJEWhCBnrkKpFWJcNlosgj
+         t859yA4xIAkpkrjTnlCza0nElkmbvgr1w+kE6QY5WNAwLSHPKZFPGB6tXsoG66edPE1Z
+         Qo0g==
+X-Forwarded-Encrypted: i=1; AKwUvByCmIvLY5yf8a2XdWG4WcxajR7AbYsUrABTdn6BkLFyQP0/RXUrPf4fgI49uuQwQR1XRP5arhN+inQACK8=@vger.kernel.org
+X-Gm-Message-State: AFuF++mll87XwBgsqFSCEdHOq2W5eq75z8RAOm9gaXkzt176iWqM99hz
+	+QVcBn+5vibjsz6LFCiyKHBbr2vqhP0xPN0aAJhU2M+HefVfw3yIekvex/xh0PA27es=
+X-Gm-Gg: AYBFou3vWC+p7vol5wfXMmw3kTDTTKnICEpOGjWux01pD3TL6r+Y00WwtReLFF/Ol0p
+	ytYofBXZHP61KO0eQMMY33fm1h5ZF1ijOTibLpeFPizsB6VzI+LKj5Tr2PjW0lCyR6k3RF2/gSq
+	wAs341WrCQJYNDd+p9/RRsvvHwX2yuSdK3pdRyezKDG0LuHUDWbOV69eQUj4c6yy2UMCd5iT1Yb
+	BwYaq2ag0dYmP+HqbE+Hrc5MWRAC6lUutC3Y4MzRwdmuyOzz6FF9FqWtrg2xJ4y/xYTk1OXaFXD
+	ng8DOBUiHC1EmA+/T/N8yuZNgrdBRdT8BXlaAqa7yKDTFBoX7rOlnpfyA7WrzTzDuMew/G8FLH0
+	7K2nZJy5ud7cZBWscCw7s2k0uB2hVIlVIUEHOFV+x7pzle0yr5AQ2apjT7cmeeoNxi31T55Xmh6
+	cubdHBYXokVyHGnYggMGqF/fdYuJFm9sEwK3lO3lqWHI9bRqIIMQrw+oDbm2k4mxg6Btl8I5GFE
+	QeKeElzcms=
+X-Received: by 2002:a05:7022:4086:b0:151:7831:e403 with SMTP id a92af1059eb24-15ec7727b08mr1026954c88.13.1791277412387;
+        Tue, 06 Oct 2026 02:03:32 -0700 (PDT)
+Received: from sw04.internal.sifive.com ([4.53.31.132])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-15d82d04c31sm5891353c88.7.2026.10.06.02.03.31
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 06 Oct 2026 02:03:14 -0700 (PDT)
-From: Ryusuke Konishi <konishi.ryusuke@gmail.com>
-To: Viacheslav Dubeyko <slava@dubeyko.com>
-Cc: linux-nilfs <linux-nilfs@vger.kernel.org>,
-	LKML <linux-kernel@vger.kernel.org>,
-	syzbot+c388db0347b7fc88fa7a@syzkaller.appspotmail.com,
-	syzkaller-bugs@googlegroups.com
-Subject: [PATCH] nilfs2: fix link count underflow when removing corrupted directory
-Date: Tue,  6 Oct 2026 17:48:25 +0900
-Message-ID: <20261006090311.47123-1-konishi.ryusuke@gmail.com>
-X-Mailer: git-send-email 2.53.0
+        Tue, 06 Oct 2026 02:03:31 -0700 (PDT)
+From: Zong Li <zong.li@sifive.com>
+To: tomasz.jeznach@linux.dev,
+	joro@8bytes.org,
+	will@kernel.org,
+	robin.murphy@arm.com,
+	pjw@kernel.org,
+	palmer@dabbelt.com,
+	aou@eecs.berkeley.edu,
+	alex@ghiti.fr,
+	mark.rutland@arm.com,
+	andrew.jones@oss.qualcomm.com,
+	guoren@kernel.org,
+	david.laight.linux@gmail.com,
+	zhangzhanpeng.jasper@bytedance.com,
+	yang.yicong@picoheart.com,
+	nutty.liu@hotmail.com,
+	iommu@lists.linux.dev,
+	linux-riscv@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	linux-perf-users@vger.kernel.org
+Cc: Zong Li <zong.li@sifive.com>
+Subject: [PATCH v16 0/2] RISC-V IOMMU HPM support
+Date: Tue,  6 Oct 2026 02:03:23 -0700
+Message-ID: <20261006090327.309550-1-zong.li@sifive.com>
+X-Mailer: git-send-email @GIT_VERSION@
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -75,57 +90,170 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-When removing an empty directory with a corrupted link count (e.g.,
-i_nlink is 1 due to filesystem corruption), nilfs_rmdir() calls
-drop_nlink() via nilfs_do_unlink() and then calls drop_nlink() again
-on the directory inode.  This second call causes an underflow of
-i_nlink, triggering a kernel WARNING in drop_nlink().
+This series implements support for the RISC-V IOMMU hardware performance
+monitor.
 
-Fix this issue by using clear_nlink() instead of drop_nlink() to
-finalize the link count reset for the target directory in nilfs_rmdir().
-Additionally, log a warning message when i_nlink is not 2 before
-removing an empty directory to notify about the link count inconsistency.
+The RISC-V IOMMU PMU driver is implemented as an auxiliary device driver
+created by the parent RISC-V IOMMU driver. Therefore, the child driver
+can obtain resources and information from the parent device, such as
+the MMIO base address and IRQ number.
 
-Reported-by: syzbot+c388db0347b7fc88fa7a@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=c388db0347b7fc88fa7a
-Fixes: d25006523d0b ("nilfs2: pathname operations")
-Signed-off-by: Ryusuke Konishi <konishi.ryusuke@gmail.com>
----
-Hi Viacheslav,
+It seems sashiko-bot is giving conflicting advice about whether to add
+a lock to ->read(). No matter if we add it or not, the sashiko-bot always
+suggests the opposite. Looking at no lock case again, sashiko-bot
+concerns about a BPF program calling bpf_perf_event_read() from NMI
+context and self-deadlocking against the IRQ handler, but that scenario
+cannot occur here:
 
-Please apply this for the next cycle.
+  - bpf_perf_event_read() goes through perf_event_read_local(), which
+    refuses to call ->read() unless event_cpu == smp_processor_id()
+    (kernel/events/core.c). All events on this PMU are CPU-bound and
+    non-task-bound (->event_init() forces event->cpu = pmu->on_cpu and
+    rejects sampling events), so PERF_ATTACH_TASK is never set.
+  - More fundamentally, perf overflow interrupts are not NMIs on RISC-V,
+    and every pmu->lock critical section in this driver is held under
+    raw_spin_lock_irqsave(). There is no context that can interrupt them
+    and re-enter ->read().
 
-This fixes a link count underflow during rmdir on a directory with a
-corrupted link count (an issue recently reported by syzbot).
+No other driver under drivers/perf/ uses a trylock or in_nmi() check in
+its ->read() callback, so dropping it also brings this driver in line
+with the rest.
 
-Thanks,
-Ryusuke Konishi
+sashiko-bot also reported that migration calling trigger a NULL pointer
+dereference. I don't think this can happen on current mainline.
+perf_pmu_migrate_context() does not touch pmu->cpu_pmu_context unless it
+actually finds events to migrate. This used to be a real hazard: before
+commit bd2756811766 ("perf: Rewrite core context handling", v6.2-rc1)
+the first two lines were per_cpu_ptr(pmu->pmu_cpu_context, ...), which
+did dereference a pmu-owned pointer unconditionally. That is also why
+several in-tree drivers pre-seed thier ->cpu field with a real CPU number
+rather than a sentinel, and so do call perf_pmu_migrate_context() in
+this window, without any reported oops.
 
- fs/nilfs2/namei.c | 8 +++++++-
- 1 file changed, 7 insertions(+), 1 deletion(-)
+Changed in v15:
+- Rebasd onto v7.3-rc6
+- Use devm_add_action() instead of devm_add_action_or_reset() for pmu
+  unregister. Reported by sashiko-bot
+- Move local64_set() before riscv_iommu_pmu_set_counter() in
+  set_period(). Reported by sashiko-bot
 
-diff --git a/fs/nilfs2/namei.c b/fs/nilfs2/namei.c
-index e037e0c6e31a..d326bb1acb11 100644
---- a/fs/nilfs2/namei.c
-+++ b/fs/nilfs2/namei.c
-@@ -341,10 +341,16 @@ static int nilfs_rmdir(struct inode *dir, struct dentry *dentry)
- 
- 	err = -ENOTEMPTY;
- 	if (nilfs_empty_dir(inode)) {
-+		if (unlikely(inode->i_nlink != 2))
-+			nilfs_warn(dir->i_sb,
-+				"inconsistent empty directory link count %u (ino=%llu)",
-+				inode->i_nlink,
-+				(unsigned long long)inode->i_ino);
-+
- 		err = nilfs_do_unlink(dir, dentry);
- 		if (!err) {
- 			inode->i_size = 0;
--			drop_nlink(inode);
-+			clear_nlink(inode);
- 			nilfs_mark_inode_dirty(inode);
- 			drop_nlink(dir);
- 			nilfs_mark_inode_dirty(dir);
+Changed in v14:
+- Rebased onto v7.3-rc5
+- Support sparse counters and the different width of each counter
+- Accecpt custom event ranges
+- Verify IDT supported in event
+- Add warning message if riscv_iommu_hpm_enable is failure
+- Remove raw_spin_lock for ->read() flow
+
+Changed in v13:
+- Reorder the registration of cpuhp action
+
+Changed in v12:
+- Rebased onto v7.3-rc4
+- Add raw_spin_trylock_irqsave for ->read() flow
+
+Changed in v11:
+- Rebased onto v7.3-rc3
+- Add riscv_iommu_hpm_disaable to destroy aux dev before MSI is freed
+- Fix CPU hotplug race risks reported by sashiko-bot as follows
+- Re-validate pre_count after reading hw counter
+- Move hwc-state into atomic critical section (pmu->lock)
+
+Changed in v10:
+- Optimize hi-lo-hi by do while for hypervisor case
+- Add raw spinlock for cpu hotplug race and IRQCHIP_MOVE_DEFERRED
+- Remove irq work mechanism for IRQCHIP_MOVE_DEFERRED
+
+Changed in v9:
+- Clear PMIP in irq handler on wrong CPU for re-triggering IRQ
+- Add a lock in offline_cpu to avoid cpu hotplug race condition
+
+Changed in v8:
+- Rebased onto v7.3-rc2
+- Add irq work mechanism for IRQCHIP_MOVE_DEFERRED case
+- Filter multiple cycle event case
+
+Changed in v7:
+- Rebased onto the v7.3-rc1
+- Remove raw spinlock
+- Check CPU matching at the beginning of irq handler
+- Add PERF_HES_STOPPED check before overflow handling
+
+Changed in v6:
+- Rebased onto the latest v7.3-rc
+- Use sysfs_emit instead of cpumap_print_to_pagebuf
+- Set up on_cpu and irq affinity by cpuhp callbacks
+- Change type of on_cpu from unsigned int to int
+- Reject filter operands of cycle event in event_init
+- Check return value of counter number and  masks in probe
+- Add raw spinlock for race condition (third commit)
+
+Changed in v5:
+- Pick up suggestions from sashiko-bot as follows
+- Fix event group validation for sw event
+- Bind IRQ to aux PMU dev instead of parent IOMMU dev
+- Clear OF bit when event is NULL
+- Improve hi-lo-hi patten
+- Add back IRQF_SHARED flag due to mismatch
+- Manage cpuhp and pmu register by devre
+
+Changed in v4:
+- Rebased onto v7.3-rc
+- Use is_sampling_event() instead of accessing vairable directly
+- Rename the matching name from "iommu.pmu" to "riscv-iommu.pmu"
+- Change the naming of PMU device for avoid ":" in PCIe case
+- Add suppress_bind_attrs attribute
+- Remove IRQF_SHARED flag
+- Set irq affinity to local CPU of IOMMU
+- Allocate ID by IDA for auxiliary device
+- Pick up suggestions from sashiko-bot
+
+Changed in v3:
+- Rebased onto v7.2-rc3
+- Use hi_lo_writeq/readq to access register
+- Pick comments from sashiko-bot as follows
+- Set IRQ CPU affinity
+- Remove IRQF_ONESHOT flag when request irq
+- Adjust cycle event check by checking event_id field only
+- Fix bug for group events verificaiton
+- Fix KASAN issue about casting 32-bit variable to unsigned long pointer
+- Clear IPSR pending bit before starting counter
+- Clear OF bit in event selector register in irq handler
+- Release irq by devm instead of explicit free_irq
+
+Changed in v2:
+- Rebased onto v7.2-rc1
+- Use hi-lo-hi mechanism to read counter.
+  Suggested by Guo Ren and David Laight
+
+Changed in v1:
+- Rebased onto v6.19-rc8
+- Pick all suggestions and feedbacks from v1 series
+- Add cpu hotplug implementation to avoid race enablement
+- Move PMU-related definition from header to c file
+- Change PMU driver to auxiliary device driver
+
+Changed in RFC:
+- Rebase onto v6.13-rc7
+- Clear interrupt pending before handling interrupt
+- Fix the counter value issue caused by OF bit in the cycle counter.
+- Invoke riscv_iommu_hpm_disable() instead of riscv_iommu_pmu_uninit()
+  in riscv_iommu_remove()
+
+Zong Li (2):
+  drivers/perf: riscv-iommu: add risc-v iommu pmu driver
+  iommu/riscv: create a auxiliary device for HPM
+
+ drivers/iommu/riscv/Kconfig      |    1 +
+ drivers/iommu/riscv/iommu-bits.h |   61 --
+ drivers/iommu/riscv/iommu.c      |   58 ++
+ drivers/iommu/riscv/iommu.h      |    4 +
+ drivers/perf/Kconfig             |   12 +
+ drivers/perf/Makefile            |    1 +
+ drivers/perf/riscv_iommu_pmu.c   | 1102 ++++++++++++++++++++++++++++++
+ 7 files changed, 1178 insertions(+), 61 deletions(-)
+ create mode 100644 drivers/perf/riscv_iommu_pmu.c
+
 -- 
-2.53.0
+2.43.7
 
