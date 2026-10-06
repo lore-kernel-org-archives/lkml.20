@@ -1,266 +1,308 @@
-Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com [148.163.158.5])
+Received: from mx0b-0002e601.pphosted.com (mx0b-0002e601.pphosted.com [148.163.154.28])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6261F2BE034;
-	Tue,  6 Oct 2026 08:49:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.158.5
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791276576; cv=none; b=WNLq2WT1Zvrcjaarej6AwDxJE64E7EE8s4oQiUPTfA+pjS3UZP1/LXhyRlvAuOGxgYWqUvS8ceKqFc8x/57JdQmg01mw2NsabvZ7sZVLhglZzlKx2BfzlPefxdEXeEdbSCez3T54iU4UQ0RrtZX9u71W6pYp1RypWdxzcA7Ke/0=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791276576; c=relaxed/simple;
-	bh=gsMc6bwMrW1xxHD2QpX1n/Pf4rhgitFhBYj65CWCDAw=;
-	h=Message-ID:Subject:From:To:Cc:In-Reply-To:References:Content-Type:
-	 Date:MIME-Version; b=EQNgHh2vMvsNCuZpJK7zJ2iY6CzWEfMy5v3I2ubMX/GwgDr9D65e0bxJaxqiskaaGvSln+gZDRqqGIBgzZdikCbYBqw3tdqTyVfoR06LSahSHWZ7HFO/Yfk3ub3Mty5IaJYydppPZOMaiXwj0ZoerpOosbGHMQWa8Jkq90TU5TQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=Pw7fr5VX; arc=none smtp.client-ip=148.163.158.5
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A00AD2931CB
+	for <linux-kernel@vger.kernel.org>; Tue,  6 Oct 2026 08:50:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=148.163.154.28
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791276635; cv=fail; b=EDIaa2K8QlSUrNqDDalw+YBHXZKwgN+9u+EPH5hQ7X6DG4JTrpsrnCBbNku+9lt9zIKDWYLsE4OnX6LEZP+jkjOazGEw0wisA2PpEQGvyVv8YsiREppJhrbB7VBJB9JAet4bln6LeXAHq0cI1AUD+TCDxbE+UXe1j71sMjCGAmY=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791276635; c=relaxed/simple;
+	bh=gsJqnSTFrPWNPjfu6Y6UXeyaJKcUm6N+SQn8lSv8mNk=;
+	h=Message-ID:Date:MIME-Version:Subject:To:CC:References:From:
+	 In-Reply-To:Content-Type; b=dTAVHX8dUO9+ES9z2pozhWMlBtwjJzC47+gR+vWmPwtZJ0Vd1icBaYF+URS6ieAQDQfBO8wGsxiucEayJ1jb62ibaM8iHzKjx79gaAqSc5wvmBnmNx7MNJ0cUyO3dxCgzGRWejnzHK3l8nflOyrjnGOyzi+jULCdTtxpeZUqyec=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com; spf=pass smtp.mailfrom=ti.com; dkim=pass (2048-bit key) header.d=ti.com header.i=@ti.com header.b=Yx5+jvOq; dkim=pass (1024-bit key) header.d=ticloud.onmicrosoft.com header.i=@ticloud.onmicrosoft.com header.b=kCtgNH1f; arc=fail smtp.client-ip=148.163.154.28
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ti.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="Pw7fr5VX"
-Received: from pps.filterd (m0360072.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6966brSx2929762;
-	Tue, 6 Oct 2026 08:49:31 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+	dkim=pass (2048-bit key) header.d=ti.com header.i=@ti.com header.b="Yx5+jvOq";
+	dkim=pass (1024-bit key) header.d=ticloud.onmicrosoft.com header.i=@ticloud.onmicrosoft.com header.b="kCtgNH1f"
+Received: from pps.filterd (m0374955.ppops.net [127.0.0.1])
+	by mx0b-0002e601.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69685qcv2222995;
+	Tue, 6 Oct 2026 03:50:06 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com; h=cc
 	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=pp1; bh=4q2CKe
-	WyxxdnW6T+E5REDnkhZzMhrY3UHgmN+i9Viqc=; b=Pw7fr5VXRSlwiCz1FHDyLw
-	sNvnJtnnMKeziQIpYPCTSpxnb0h3oHzskDPlM8KbySdoRs+AXYbo3wGW/3IOiFBh
-	vf4kLcvzy9rYGlDw91lwF5OeJMpNRA/27lf6pVViap5aSe/qQe1GCSzw39snnAnN
-	KOwf2bWitpWJtkyVdHlf/2OS0kdLyDPS5btjcaUZUWG9PtAF756UjFF1OQXLrnOD
-	zLD0VnccGjFu7NeT8hqY/4IKfYN38fZ+hJRaHo6K17bQMM5q1XNK41718XE3V9Ly
-	oCaKqkp2r2xWFNw/TECMLl84I6Fb6rM+MsZepZUvgyzlgqRm0Uuh/mu1rdfIXyxQ
-	==
-Received: from ppma22.wdc07v.mail.ibm.com (5c.69.3da9.ip4.static.sl-reverse.com [169.61.105.92])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4h2sbv615c-1
+	:message-id:mime-version:references:subject:to; s=
+	proofpoint-05-2026; bh=40r6pv02Z6VgWo6IPTJKaSMJvSBMoh8+WGsq6gGH7
+	Vw=; b=Yx5+jvOqV3E+acbjr9mjqdKNPFJiYBoH34AjVX8pydoo6r+ch3nsyJptg
+	1e7StEw0Q5HTR5WetaRNk1RhbTr+2qZy7fGhEag2MtiF0yYu4Gc9GKqdIypIMAOC
+	i/aaXejiVrXAATY19IlyE0/6ueLhCykefjLaoowB//XoFmOuCpUm/WQadMgUSF5c
+	xCIVXgL2/7JyuwoK8U2XZkuAhy0LjkRMMAPRHJxKgDrrpF7xxgxR7Jx3uvzb6XNV
+	ZS4O3xfLDhzVuya8J7XBM3BIhE+y75K0KRtGWy9eVw7pXaDuU8LLCLOuCUHYjyIU
+	8z/odxupVl86p0ga1wdYCOJ1xGjDA==
+Received: from cy7pr03cu001.outbound.protection.outlook.com (mail-westcentralusazon11010019.outbound.protection.outlook.com [40.93.198.19])
+	by mx0b-0002e601.pphosted.com (PPS) with ESMTPS id 4h4w6786v4-1
 	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Tue, 06 Oct 2026 08:49:31 +0000 (GMT)
-Received: from pps.filterd (ppma22.wdc07v.mail.ibm.com [127.0.0.1])
-	by ppma22.wdc07v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 69672SR04103016;
-	Tue, 6 Oct 2026 08:49:30 GMT
-Received: from smtprelay02.wdc07v.mail.ibm.com ([172.16.1.69])
-	by ppma22.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4h3cdvs8rk-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Tue, 06 Oct 2026 08:49:30 +0000 (GMT)
-Received: from smtpav05.dal12v.mail.ibm.com (smtpav05.dal12v.mail.ibm.com [10.241.53.104])
-	by smtprelay02.wdc07v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 6968nTrZ14811840
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Tue, 6 Oct 2026 08:49:29 GMT
-Received: from smtpav05.dal12v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 10B7258056;
-	Tue,  6 Oct 2026 08:49:29 +0000 (GMT)
-Received: from smtpav05.dal12v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 2C66A58052;
-	Tue,  6 Oct 2026 08:49:26 +0000 (GMT)
-Received: from [9.87.140.229] (unknown [9.87.140.229])
-	by smtpav05.dal12v.mail.ibm.com (Postfix) with ESMTP;
-	Tue,  6 Oct 2026 08:49:25 +0000 (GMT)
-Message-ID: <a24337bd66864dd70ae61e28d86590052ac0fc5d.camel@linux.ibm.com>
-Subject: Re: [PATCH v8 2/4] s390/pci: Reuse FMB buffer and preserve state
- in device re-enablement
-From: Niklas Schnelle <schnelle@linux.ibm.com>
-To: Omar Elghoul <oelghoul@linux.ibm.com>, linux-s390@vger.kernel.org,
-        linux-kernel@vger.kernel.org, kvm@vger.kernel.org
-Cc: hca@linux.ibm.com, gor@linux.ibm.com, agordeev@linux.ibm.com,
-        borntraeger@linux.ibm.com, svens@linux.ibm.com, mjrosato@linux.ibm.com,
-        alifm@linux.ibm.com, farman@linux.ibm.com, gbayer@linux.ibm.com,
-        pasic@linux.ibm.com, alex@shazbot.org, frankja@linux.ibm.com,
-        imbrenda@linux.ibm.com
-In-Reply-To: <a6d35b06-694e-45da-ab3d-12279cacdc8c@linux.ibm.com>
-References: <20261005154557.57801-1-oelghoul@linux.ibm.com>
-	 <20261005154557.57801-3-oelghoul@linux.ibm.com>
-	 <023ed9db17d9c7d785dad387fc18dff6bed862d8.camel@linux.ibm.com>
-	 <a6d35b06-694e-45da-ab3d-12279cacdc8c@linux.ibm.com>
-Autocrypt: addr=schnelle@linux.ibm.com; prefer-encrypt=mutual;
- keydata=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
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 06 Oct 2026 10:48:25 +0200
+	Tue, 06 Oct 2026 03:50:05 -0500 (CDT)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=rMpHWUHLKxRMfS3OvJv6QS8/qHWTGUhdlPQTyLWWlzOwiv5MCd4MMNUmyNqb0Jkl9wChhjGsrBpEWc9JDUKkLCTmoFB9VkwupixBlqBJdG48+iADkzafa2ro+c+HmkVfYu/8XFJsckcipMIEksx6DiILmKJ6Fq3gtBldw4Hgu2dnwRFTTown+ngfeUPtnR036YhY6BLBd/JAlDfqcE5ZUNgNZOtzn9bUOuWmbNDVrbL/C0pT5i/Oto7eJ1eOwi9kpdX+BuXvUDNGwGK9qmMtljxZ1WhAnyLtHTDlBqT+cYTOiE5dm7g5AXkVgdPJbCtIcm9VV55pbGaEW1mmTi/ULA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=40r6pv02Z6VgWo6IPTJKaSMJvSBMoh8+WGsq6gGH7Vw=;
+ b=IyIF3B/KjkGZ9b463F2hQSRu7s+tlEg00/WoMCYOFEC7pMRg57nohYiDfn593Qn7w9JYtYVtgHmomP70ia7LncqXREwqlcaZRuK4ipq4zV6iVpYrGRmyXppGHP9NKpFWJEpB5Y9HuR1wYhM9TFZgY1oS2fX4ccIRP6dYgBseQP5epG2WLnsSnPHDRSZLY0TlHsEEtu14HK+OBHtNXMefrCQEguZx8dwPZatWdYcTaCB/rSVxy/Ao46FS7I/bU7dQcXSr2o5yo2lEHjqO9t4hoRf42fZhQKDAn1fDbhfyvV3xtiha5TcG3AkEpU529P2coUEzcwJr44t2MLfb1wwOsQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 198.47.21.195) smtp.rcpttodomain=cadence.com smtp.mailfrom=ti.com; dmarc=pass
+ (p=quarantine sp=none pct=100) action=none header.from=ti.com; dkim=none
+ (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=ticloud.onmicrosoft.com; s=selector1-ticloud-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=40r6pv02Z6VgWo6IPTJKaSMJvSBMoh8+WGsq6gGH7Vw=;
+ b=kCtgNH1fw3MO1SWoGCVGlrkq7gwTBPli7qC8a8+xWjLIPwrqSlV0P0XmoqywLgRO8NoZUmEkaMETc/AeMah501j4eTQOazLJTjKOBdrebz1Pzq8T2OD7EWvf5n1pyzsP/9N9xEmBEC4vUG7Ci6rRmzRPxld08PxcOd4ZhGG6eiE=
+Received: from CY5P220CA0003.NAMP220.PROD.OUTLOOK.COM (2603:10b6:930:ed::10)
+ by PH0PR10MB4406.namprd10.prod.outlook.com (2603:10b6:510:34::13) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.496.14; Tue, 6 Oct
+ 2026 08:50:02 +0000
+Received: from SN1PEPF00036F41.namprd05.prod.outlook.com
+ (2603:10b6:930:ed:cafe::5e) by CY5P220CA0003.outlook.office365.com
+ (2603:10b6:930:ed::10) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.472.20 via Frontend Transport; Tue, 6
+ Oct 2026 08:50:02 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 198.47.21.195) smtp.mailfrom=ti.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=ti.com;
+Received-SPF: Pass (protection.outlook.com: domain of ti.com designates
+ 198.47.21.195 as permitted sender) receiver=protection.outlook.com;
+ client-ip=198.47.21.195; helo=flwvzet201.ext.ti.com; pr=C
+Received: from flwvzet201.ext.ti.com (198.47.21.195) by
+ SN1PEPF00036F41.mail.protection.outlook.com (10.167.248.25) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.496.14 via Frontend Transport; Tue, 6 Oct 2026 08:50:00 +0000
+Received: from DFLE202.ent.ti.com (10.64.6.60) by flwvzet201.ext.ti.com
+ (10.248.192.32) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Tue, 6 Oct
+ 2026 03:49:26 -0500
+Received: from DFLE205.ent.ti.com (10.64.6.63) by DFLE202.ent.ti.com
+ (10.64.6.60) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Tue, 6 Oct
+ 2026 03:49:26 -0500
+Received: from lelvem-mr06.itg.ti.com (10.180.75.8) by DFLE205.ent.ti.com
+ (10.64.6.63) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45 via Frontend
+ Transport; Tue, 6 Oct 2026 03:49:26 -0500
+Received: from [172.24.19.94] (ltpw0ewr2k.dhcp.ti.com [172.24.19.94])
+	by lelvem-mr06.itg.ti.com (8.18.1/8.18.1) with ESMTP id 6968nKNf1927510;
+	Tue, 6 Oct 2026 03:49:21 -0500
+Message-ID: <f1089720-2a8e-4f0f-b995-fc7ef0836da0@ti.com>
+Date: Tue, 6 Oct 2026 14:19:20 +0530
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Evolution 3.60.2 (3.60.2-2.fc44) 
-X-TM-AS-GCONF: 00
-X-Proofpoint-ORIG-GUID: I0poJ0vnMF20fSzYtm1fmsIU5aK8OKsW
-X-Authority-Analysis: v=2.4 cv=KJHPn1Fo c=1 sm=1 tr=0 ts=6ac4b61b cx=c_pps
- a=5BHTudwdYE3Te8bg5FgnPg==:117 a=5BHTudwdYE3Te8bg5FgnPg==:17
- a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=VkNPw1HP01LnGYTKEx00:22
- a=RnoormkPH1_aCDwRdu11:22 a=RzCfie-kr_QcCd8fBx8p:22 a=hSiswbDSEv_IIy351AMA:9
- a=QEXdDO2ut3YA:10 a=O8hF6Hzn-FEA:10
-X-Proofpoint-GUID: I0poJ0vnMF20fSzYtm1fmsIU5aK8OKsW
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDA2MDAzNCBTYWx0ZWRfX1v1+QWtEgfr+
- 4a5r7fwoPKROceWa1I4DsC+mIVL0nYew/GMSvhXJJtc4I5O5KyoVW6NPjtIzb8n92a8MLpoXjGa
- ofI2Q91R3Zl/x+0l5BJ5iKlmqpj+LqO78PxC+k72Nj4ZuJMdCY57GYnVSaPzBJMpGa3LuwM9cOD
- NVXIbY/1YVr4g8RgvOhKCWlPffyTthX7RJ+kegCX6841ePALOdGwCelTPXhiz2mihZ6AjOBssa+
- xH8jObELaqNFQd+XPg4MzQirzLeywH0kOqR0q+P1FQibrBKcOTZVaLND4kdMh3ZVZASdwIS/cTB
- i4woOsWhXVveVEDnwMreh7h2/KjzoNxHCHYz3+zehuO6T5FEd9wmDbOJHzIul220Kt6YSpxcbIM
- ssaJSMyQYDmJyrq66DqyjHPQ8i9keemfYI4Ua14BZQ6Uhzq+kCBdgF1RZSKnERef0puEJ+EafWT
- 2qoTitG4ZMCtQA5dPww==
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDA2MDAzNCBTYWx0ZWRfX5myYGKQeZTBo
- dGjRYtu961kqfMmmPcrNFw6ck8LG/3nnBVolE6eopD9we/vAKPvnLQL6R5BBE8Uay72psgGTloe
- FL+PXxSY4MP1hI3TM+/AEMoUCuTh27U=
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3] drm/bridge: cdns-mhdp8546: Add suspend resume support
+ to the bridge driver
+To: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
+CC: <linux-kernel@vger.kernel.org>, <dri-devel@lists.freedesktop.org>,
+        <Laurent.pinchart@ideasonboard.com>, <jonas@kwiboo.se>,
+        <jernej.skrabec@gmail.com>, <s-jain1@ti.com>, <y-d@ti.com>,
+        <andrzej.hajda@intel.com>, <neil.armstrong@linaro.org>,
+        <rfoss@kernel.org>, <mripard@kernel.org>, <tzimmermann@suse.de>,
+        <airlied@gmail.com>, <simona@ffwll.ch>, <devarsht@ti.com>,
+        <u-kumar1@ti.com>, <sjakhade@cadence.com>
+References: <20260601095041.3042950-1-a-kumar2@ti.com>
+ <3dbf5a77-c314-4511-ab63-1b1ecd2e16c1@ideasonboard.com>
+ <1c8dfc23-c03c-4c98-ae52-c66ffea244e6@ti.com>
+ <982ffabf-4709-427a-b2b6-481eb074f2d0@ideasonboard.com>
+Content-Language: en-US
+From: "Kumar, Abhash" <a-kumar2@ti.com>
+In-Reply-To: <982ffabf-4709-427a-b2b6-481eb074f2d0@ideasonboard.com>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 8bit
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SN1PEPF00036F41:EE_|PH0PR10MB4406:EE_
+X-MS-Office365-Filtering-Correlation-Id: 78fbe623-d687-4639-24cf-08df2386ce9e
+X-LD-Processed: e5b49634-450b-4709-8abb-1e2b19b982b7,ExtAddr
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|36860700016|376014|82310400026|7416014|23010399003|4143699003|56012099006|10067099003|22082099003|18002099003|6133799003;
+X-Microsoft-Antispam-Message-Info:
+	5Wha6Tx/62YyBl0RAsG+DTJCvc853ECHxzz5X/wEBturHk7HItX6QUHrieHl1v2dZfoOzNACSprJ/ZqPfVX/+IyHnMhaRxPldd/KwNhbwYmMoXMhajKwFbtZFTf2oGRxAr64sCCIpruTWUmsCAiT9mX0moiCm1qu4FRMavBxNWsJ8Ui8bLJ07TbXmD21m/037SIIV1MMIwoBX+3ainTWDV4HNrOyUmdWrUqvDAgYWY9U3AghkfTtWIHjD+utOHpBLpnyaTPthp8SliBn3CmKaxZd54q/ePmkPbCIERfdZPD4pAAm4k6MHRJv1zm9Wa13n8T1JuxhcRWz8frzVJSvLGPPTl/PP66FSK7WnxA4tb5U/IA1R1iiifWJ5TRK/LjL1bnFKoqAJtfYKgGQNTWMK1TINwGfJ/3xP+5xzwmdAHT+38imNYiLN/nyFbtMSbli7SiWvhQn/bBiG6nlxqM9gG0TC/p1YaUd0xY/kYewuerElJgvwR6gyeQYf9uTha84078Ap1B36bKSm36uGK5lJYomj41GwH3uXYx++XA1VbohuSOt/mU4T7p0zyWBlFOeqI6aXpx4YCoyaEHTvRxp7Qm7rD9yWp6ZJ9xn9WluV8h7GxOUHjHw55HJADG8M0VdhiCv99vpcr7hIaUhDJ7HiQALtjwlzmGZB5VUvoCzhUOTXGAEHKIYlZ0maS6XlTl8gBpLOio/NAFApeiTGWJziA==
+X-Forefront-Antispam-Report:
+	CIP:198.47.21.195;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:flwvzet201.ext.ti.com;PTR:ErrorRetry;CAT:NONE;SFS:(13230040)(1800799024)(36860700016)(376014)(82310400026)(7416014)(23010399003)(4143699003)(56012099006)(10067099003)(22082099003)(18002099003)(6133799003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	EVd2PFRq7LdkapldAu4CP9PzdTfbj796fKKSIGtP90idQtCeV2hqSLFNCXua1YnpWHvr5bjM9fk5ajzBt+pZ1PTAIyvuCSIQ7LtzMiDrBx5l4KLVzimWDRnQXKNGyPfX55rBlnMaV8G1z+qDopIDfhAHufFF/gMTjtZAb9Vbx4fQc8CiBDPUsZM5I71mPzPYTX9k7H8d/5W8QZwjLxeddkiL3oTR6ldeAbapTMku9VZYX8mPhaMylX64qLYxVXcpjcsvlUzw9Tfw6SjEQyZH2eHjlWJRxo3FNFxDgzwd2f2iTctl68YRdu3Gv8UcypkeDLr0qbXWqJ87Zgm03obbXz0RO8MCYtGpUREAH9qijkV2g4erxYhyZeaer9X8uYo3kwFRRelzIF5TxSMYp33Hn66tGrBvutByY+L/iX8N1INwU5g22nNAsVe5Ii7zIldP
+X-Exchange-RoutingPolicyChecked:
+	SLnbexNkMkmMenqfZ4vT2WsyXyU0QhbfeSL7GGG2j5lDtHNh+WXRjnvwFc5K2NkoNLK9OnJmQz9Sg0flhXzoLrLUFj47kpFhFJWM9wAIDPR7Qyhf2OwqcoO8UgYyz30gffTXqVGmj8I2+kN2S/7tgNRM4xxpCiVK1mckCJTtYqpIxhW9NZYy7RxSLse7CaCXVLynT86oVhuYguW8qshRR6+w1Lmf4NkyASvrcXm72T3QRSi5C5VdCBGXXd0+dWB+Hopw24E81IsUeHAalOVYclU/zSoc1LFWxdH41jKsqZoAUR7p/FMbNqL5kvqPt14oQ8nZc+k8r9vz/BRHVPCzcw==
+X-OriginatorOrg: ti.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Oct 2026 08:50:00.8222
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 78fbe623-d687-4639-24cf-08df2386ce9e
+X-MS-Exchange-CrossTenant-Id: e5b49634-450b-4709-8abb-1e2b19b982b7
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=e5b49634-450b-4709-8abb-1e2b19b982b7;Ip=[198.47.21.195];Helo=[flwvzet201.ext.ti.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	SN1PEPF00036F41.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH0PR10MB4406
+X-Proofpoint-ORIG-GUID: xP7iC-udUbb0beCl9q4_ZS4mkNHg66hi
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDA2MDAzNCBTYWx0ZWRfX6tLDSRX1cIjF
+ GeKdg0zDIC1juspmIL5iq8a30nDweRHP1ymRJnSPoHsrKGXUs1Tjg9NEiqcNFqNYFxJ12GCtAN8
+ Hx6xWvX7d3zNRmvucM05gUc4P1iQxZSLkbDbNAYislDwvLwlS/RajYWGmJKrGQmLhmhK600ZRa6
+ TdwnmDysD+atGFqce2MmvK00n7KjUgerZvPsOJ0nx0vUNkUw9ePmg1wt5dtJUzcO6piPmRkMzAV
+ ojVkFy18lFOTx5jqs3uERbvN+P0MPNnWlzVhph8V5nc/GgxqWajgJLHD8K1296te46ZF4eNEC+E
+ epm/u9Fmv6BiHY4sDBoPfqhEgZpjYyYWS5PGNY1Ye5nfPtqT6PD0lGD/+IUoC6hW50iAJQjgZqy
+ GZWugLKae2H2O1i3WGDy/NTI08fI3kuqnku3hEulXUfCKwfK8cctjV3vD0OLRY2mHOs+EhlOuEe
+ 6ltkm/kFp8IpyYoTkWg==
+X-Authority-Analysis: v=2.4 cv=GP6dgeNK c=1 sm=1 tr=0 ts=6ac4b63d cx=c_pps
+ a=xx7W88v/Jz1hHwbI4fXbew==:117 a=tJyPKKxUohctrY4NYmUjkA==:17
+ a=6eWqkTHjU83fiwn7nKZWdM+Sl24=:19 a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10
+ a=AlMIdn_sM9wA:10 a=VkNPw1HP01LnGYTKEx00:22 a=Z8NIEmU8O1QQgoT56wFK:22
+ a=fPAWb5peG099m5CrUpKH:22 a=96uSKnNO3C851FKM0vEA:9 a=3ZKOabzyN94A:10
+ a=QEXdDO2ut3YA:10
+X-Proofpoint-GUID: xP7iC-udUbb0beCl9q4_ZS4mkNHg66hi
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDA2MDAzNCBTYWx0ZWRfXz8a4ecpHBoyl
+ DpD2uoeWVMYGX9CQkWYSYxxwX7vRe5O7V01UPrk/DWub22p7IFfqudFX6HOIqSrqDeh6D7KvovU
+ 4oGhr90Bvi+/gi8LTRnu/YoO0AbeEkQ=
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
  definitions=2026-10-06_02,2026-10-05_01,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- suspectscore=0 malwarescore=0 spamscore=0 lowpriorityscore=0
- priorityscore=1501 phishscore=0 impostorscore=0 adultscore=0 clxscore=1015
- bulkscore=0 classifier=typeunknown authscore=0 authtc= authcc= route=outbound
- adjust=0 reason=mlx scancount=1 engine=8.22.0-2609040000
- definitions=main-2610060034
+ impostorscore=0 suspectscore=0 lowpriorityscore=0 spamscore=0 adultscore=0
+ malwarescore=0 clxscore=1011 bulkscore=0 phishscore=0 priorityscore=1501
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2610060034
 
-On Mon, 2026-10-05 at 18:05 -0400, Omar Elghoul wrote:
-> On 10/5/26 3:53 PM, Niklas Schnelle wrote:
-> > On Mon, 2026-10-05 at 11:45 -0400, Omar Elghoul wrote:
-> > > Don't free the FMB buffer when disabling measurement in
-> > > zpci_fmb_disable_device(). Instead, make the buffer persistent for th=
-e
-> > > lifetime of the device and reuse it across enable/disable cycles. Def=
-er
-> > > freeing the buffer until teardown in zpci_release_device().
-> > >=20
-> > > To support the persistent buffers, add the fmb_enabled bool to struct
-> > > zpci_dev to decouple whether FMB is enabled from whether the buffer h=
-as
-> > > been allocated. Audit the only consumer of zdev->fmb as a liveness ch=
-eck
-> > > and update it to reflect this change.
-> > >=20
-> > > Introduce the function zpci_fmb_reenable_device() to ensure that the =
-FMB
-> > > is enabled. If it was already enabled, disable it, zero the counters,
-> > > and re-enable it. This allows the function to be used in both first-t=
-ime
-> > > enabling and re-enabling measurement. Call it in zpci_reenable_device=
-()
-> > > to preserve the FMB enablement if it had been implicitly disabled by
-> > > firmware in zpci_disable_device().
-> >=20
-> > I think this causes a sequencing error in zpci_hot_reset_device().
-> > First the device gets disabled via zpci_disable_device(). This
-> > implicitly disables the FMB but keeps zdev->fmb_enabled set. Then we
-> > call zpci_fmb_reenable_device() in zpci_reenable_device(). Since zdev-
-> > > fmb_enabled is set we don't first enable the FMB and instead go
-> > directly to disabling it but that is wrong since the FMB is already
-> > disabled as a side effect of the CLP Set PCI Function (Disable) in
-> > zpci_disable_device().
-> >=20
-> > Also, and I think Gerd mentioned this before, there is a disconnect in
-> > semantics between zpci_fmb_reenable_device() and zpci_reenable_device()
-> > that is quite confusing. While zpci_reenable_device() re-enables the
-> > device with existing interrupts and I/O address translations, after it
-> > was disabled, zpci_fmb_reenable_device() on the other hand does a
-> > disable and then enable cycle.
-> >=20
-> > I think the idea here is that zdev->fmb_enabled tries to track whether
-> > the FMB is supposed to be enabled rather than if it is enabled.  This
-> > makes some sense since the FMB can get disabled by the device entering
-> > the error state or a zpci_disable_device() and we want to know if we
-> > need to re-enable it at the re-enable of the device.
-> >=20
-> > Importantly, unlike the disablement of a device we always initiate the
-> > enablement. But then we can't try to disable the FMB without knowing if
-> > it was already disabled. I think a possible solution for this would be
-> > to have zpci_fmb_reenable_device() mean that we know that the FMB is
-> > disabled but should be enabled, which we know when we re-enable the
-> > device and zdev->fmb_enabled is set. Of course then it doesn't do a
-> > disable but only an enable despite zdev->fmb_enabled already being set,
-> > Then zpci_fmb_enable_device() on the other hand sets the flag initially
-> > and then uses zpci_fmb_reenable_device() or a shared helper. Of course
-> > we would then have to properly document zdev->fmb_enabled as being a
-> > the target rather than current state.
->=20
-> I agree with your insight and I'd be happy to follow this approach, but
-> I think this can cause FMB consumers to read stale snapshots (e.g. if
-> the device was disabled due to an error state or similar but fmb_enabled
-> is true).=C2=A0
->=20
+Hi,
 
-I'm not sure reading stale data is really an issue. When this happens
-the device is disabled and won't see updates anyway. Also there is a
-timestamp in the FMB so it's transparent how old the data is. And just
-based on the interface the same FMB can be re-read between updates so
-if you don't want duplicate data you'd need to check for changed
-timestamp anyway.
+On 10/1/2026 1:10 PM, Tomi Valkeinen wrote:
+> Hi,
+>
+> On 29/06/2026 13:32, abhash wrote:
+>>
+>> Hi Tomi,
+>>
+>> Thanks for the review.
+>>
+>> On 18/06/26 14:19, Tomi Valkeinen wrote:
+>>> Hi,
+>>>
+>>> On 01/06/2026 12:50, Abhash Kumar Jha wrote:
+>>>> Add system suspend and resume hooks to the cdns-mhdp8546 bridge 
+>>>> driver.
+>>>>
+>>>> While resuming we either load the firmware or activate it. Firmware
+>>>> is loaded only when resuming from a successful suspend-resume cycle.
+>>>
+>>> It's not clear from the patch if this is a fix or improvement. It 
+>>> sounds a bit like a fix, but it doesn't mention any kind of issue in 
+>>> the driver. So, why is this patch needed?
+>>
+>> The driver lacked support for suspend-resume as stated in the todo on 
+>> the driver, So the patch adds this improvement.
+>
+> The patch doesn't remove any todo lines. Was that just a miss, or is 
+> there more to add wrt. PM?
+Yeah, i will remove the TODO in the next revision.
+>
+> What does it mean it didn't support PM? Does the driver not work after 
+> suspend-resume cycle? Or does the driver prevent a proper suspend? 
 
-> What would you think of leaving fmb_enabled as-is to indicate
-> whether FMB is actually enabled, and then introducing a second bool,
-> maybe something like fmb_needed, to track the user's intent and whether
-> we should call zpci_fmb_reenable_device() from zpci_reenable_device()?
->=20
-> This way, a successful zpci_fmb_enable_device() sets both flags, and
-> zpci_fmb_disable_device() clears both. zpci_disable_device() should
-> only clear fmb_enabled and leave fmb_needed as-is, allowing us to track
-> the implicit disablement by the firmware. This will make fmb_enabled
-> represent the actual firmware truth, and it becomes a reliable liveness
-> check for the FMB consumers (debugfs and vfio, for now.)
->=20
-> As for zpci_reenable_device(), it would check fmb_needed and if set,
-> call zpci_fmb_reenable_device(), since we'd already know by that point
-> that the FMB was implicitly disabled by firmware.
+When we resume, the cdns_mhdp_link_up function fails.
 
-This feels like an overcomplication to me and "fewer stale FMB reads"
-doesn't seem worth it. Even if zpci_disable_device() clears fmb_enabled
-I think it wouldn't be the true state because the plaform might have
-disabled it e.g. in an error event and then we would have to litter
-those places with clearing the flag too instead of just using the
-existing zpci_device_reenable() which gets called when we get out of a
-platform disable. I do like the fmb_needed name though or maybe even
-better fmb_requested.
+Failure log at resume:
+
+[  55.329452] tidss 4a00000.dss: PM: calling tidss_resume [tidss] @ 
+1053, parent: bus@100000
+
+[ 183.381228] cdns-mhdp8546 a000000.bridge: Failed to read receiver 
+capabilities
+
+[ 191.391548] cdns-mhdp8546 a000000.bridge: get block[0] edid failed: -110
+
+[ 193.392713] cdns-mhdp8546 a000000.bridge: Failed to read register
+
+[ 261.415544] cdns-mhdp8546 a000000.bridge: Failed to read register
+
+[ 263.946153] tidss 4a00000.dss: Timeout waiting for framedone on crtc 0
+
+[ 391.991358] cdns-mhdp8546 a000000.bridge: Failed to read receiver 
+capabilities
+
+[ 392.026847] tidss 4a00000.dss: PM: tidss_resume [tidss] returned 0 
+after 336689133 usecs
+
+I guess it is fair to say that the driver does not work after 
+suspend-resume cycle.
+
+>>>> If resuming due to an aborted suspend, loading the firmware is not
+>>>> possible because the uCPU's IMEM is only accessible after a reset 
+>>>> and the
+>>>> bridge has not gone through a reset in this case. Hence, Activate the
+>>>> firmware that is already loaded.
+>>>>
+>>>> Use genpd_notifier to get the power domain status of the bridge and
+>>>> accordingly load the firmware.
+>>>>
+>>>> Additionally, introduce phy_power_off/on to control the power to 
+>>>> the phy.
+>>>
+>>> If you write "also" or "additionally" or such in a commit desc, you 
+>>> should stop and think if that part should actually be a separate 
+>>> patch. Also, why is that change needed? 
+>>
+>> The phy device could be powered off while resuming. So we are 
+>> explicitly powering it on.
+>>
+>> The phy driver api also recommends to always call phy_init() first 
+>> followed by a phy_power_on().
+>>
+>> "Some PHY drivers may not implement `phy_init` or `phy_power_on`, but 
+>> controllers should always call these functions to be compatible with 
+>> other PHYs"
+>
+> It still sounds like a separate patch to me: the current driver is 
+> missing phy_power_on/off from the probe/remove functions.
+>
+I will add that as a separate patch
+>>> Overall, this sounds fragile/hacky to me.
+>>>
+>>> The first thing is that usually you shouldn't use system suspend/ 
+>>> resume in a bridge driver. When a system suspend happend, the 
+>>> display pipeline will be disabled, so this driver will get an 
+>>> atomic_disable() call, and enable when resuming. You can use runtime 
+>>> PM hooks if you need resume/suspend hooks.
+>>>
+>> Thanks for the suggestion, I will use the runtime PM instead.
+>>
+>>> The second thing is the PD notifier. Is there really no way we can 
+>>> see the state from the MDHP IP registers? 
+>>
+>> The other way that i found was to read the MHDP KEEP_ALIVE_p register 
+>> twice to know if the firmware is incrementing the counter.
+>>
+>> Based on that we can decide if the bridge is active or not. Do you 
+>> think this approach would be okay over the PD notifier?
+> I think it would be best to be able somehow to ask this from the HW to 
+> find the true state, instead of guessing it second hand from the PD 
+> notifier (which also doesn't tell us the initial HW state at probe).
+>
+> KEEP_ALIVE_p sounds fine. Or what does the mdhp IP do if you send a 
+> message to the firmware when it's not up? Say, if you always do 
+> cdns_mhdp_set_firmware_active, what happens if the FW has not been 
+> loaded? I would guess that there's a timeout, and that could be used 
+> to find out the FW is not up.
+>
+Yes, there is a 2 second timeout if we send a message and the firmware 
+is not up. I would prefer the KEEP_ALIVE_p method, as that is a better 
+indication of the
+
+firmware being active.
+
+> Also, if the IMEM is not accessible and you load the FW, what happens?
+
+If IMEM is not accessible and we load the FW, the kernel crashes due to 
+S-error.
+
 
 Thanks,
-Niklas
+
+Abhash
+
