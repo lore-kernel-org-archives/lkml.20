@@ -1,50 +1,46 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 818E745198B;
-	Tue,  6 Oct 2026 15:53:35 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7519E48BD26;
+	Tue,  6 Oct 2026 15:54:26 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791302017; cv=none; b=glkxq7wZLrKOrsGpmdY2HJeLr3JXvpSMy/ha4AkjBuV9S7RIZXcS/F+c2YT2cxprhEtyv/ldsqwa2TP4PZXhoXIZwrkjloSVElXok+N46VzpkrCmpGwehblvu8HGBXwd7EEvNNOWe45R7SF5jtmjb1QvfsFudl65lKmOWwa/JuQ=
+	t=1791302067; cv=none; b=i1xiKgrGs5p5A1Ejft4oa3LsL+6xqlmWPx50rNjwc7/eJIUVtJkB26T+i7Rpe+8cnLKsrrq35ZYg1AWM34iJyA36HIxNjoJzRBHh/7yPgwblYg950jaGwylfZCPlfWs2bJmf7OtyXt+vr2O1YEsqiHwNLNG1jXAejkJnc3dwJuU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791302017; c=relaxed/simple;
-	bh=UpHlpaEz7c9J14TIOn+9SWXopjAdk8m8s1n7KIqHFQ8=;
+	s=arc-20240116; t=1791302067; c=relaxed/simple;
+	bh=gpbU9KT+IdZlGPX4RCLuK3AQW9b99N3rxx+gJf4h5ic=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=i985xbPiBS/ojrk2muIcktsRBH03OHrtyBk8iHuOO+DR+lS2Ddj8VsoJVoIenNhOFZhVgtwYyZ3UVZZFtBnJHHWyyZwt3NWfSHbDoC9vSIJaLubf87IvV2q8HC/zpClL3ZZWpmuJvxdJC1gXyw+V6YxiKaChssgBpjbB/rxccl0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=muOxX6LI; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=XahFGdkBnEfGI63MuspQSY606G9cU8I0nFD4KoGAEJ20cDZ/xtQpdFw0GNle6PZUX2w0CkYRKnIeDgmSoC05olHY7jeua82xdIDtgQPfqIaYcjpSpoUUXOvamuax9078DKUKxParGIENG5H86W0FdHqOIV9CMhd8ERtk4NFxksA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Q7smEW0F; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="muOxX6LI"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 03C5B1F0089B;
-	Tue,  6 Oct 2026 15:53:34 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Q7smEW0F"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F11231F0089B;
+	Tue,  6 Oct 2026 15:54:25 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791302015;
-	bh=HaA0ZhKYqnepgQtkpomdXZL3h1QMBDZj0RAHb4oXqFU=;
+	s=k20260515; t=1791302066;
+	bh=7MsXsLm8OFANJgdwJHK+NmEW42JdGgPpe+gMX0f0fKM=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=muOxX6LIg6lMO0wM9+b50Ou98q+xGy/oQTNxD9FEn8ToH1U+HrgzBGnDldh4vinM9
-	 7fbaQn41WMaJ0XvghBygx0A5OYtO+GT0fb0t0SPbl1SqWDG60zxfMvoracylQXfbQn
-	 9VAesHgFCXxGmKwRaln5BtPygeM0t8aCUGcQ0M58B+rZsKhjfNLpniTQAdeeYltbPy
-	 6kC79FkjqB7P6Uzc7R55hNIHBr7xOnw88FikCt0ZS0VNP0uOTbc/nRcursa4HBMz67
-	 sqPSDkJrS3RwbVhabTZov2D1pTmWF8zQ9m19kIAeAqH6tMOiG4KmENTelHY+lciVFp
-	 oQ7qibFOD7aag==
-Date: Tue, 6 Oct 2026 10:53:34 -0500
+	b=Q7smEW0FedT+RH5T4aeZFrsCzyOBDV03gBwkAOSNVoFs2oPGObMLwlo/QrnLFtB4D
+	 HD9IzQSYpKOD7hdlXbONHiRdlXB+iFZ304GvyVZXMeoVhz3lFwMybNZijNXkwdk0eu
+	 tdxi4ux2UtZyIUjsfi52Jmv47XxriOgU68ZmThaFfYEQGNX0nnf9UkBWWPwgmvwJ3t
+	 K/IcP+5F1CnE/EB/J3cYVShIuUbXuf4OCBy21t4b4D8TLA6cry5lnteW4sDEM1Dsg/
+	 MIKzSIDDu8DZXUKnVe4pkMwEO0laIeeWbRxPvBH2CljKn/JOSv2BvhOfuaArVZnBro
+	 5f/9UrITmfZ/Q==
+Date: Tue, 6 Oct 2026 10:54:25 -0500
 From: "Rob Herring (Arm)" <robh@kernel.org>
-To: Paul Louvel <paul.louvel@bootlin.com>
-Cc: linux-kernel@vger.kernel.org, Borislav Petkov <bp@alien8.de>,
+To: Stanislav Zaikin <zstaseg@gmail.com>
+Cc: Konrad Dybcio <konradybcio@kernel.org>,
+	Bjorn Andersson <andersson@kernel.org>,
+	linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Geert Uytterhoeven <geert+renesas@glider.be>,
-	linux-renesas-soc@vger.kernel.org,
-	Miquel Raynal <miquel.raynal@bootlin.com>,
-	Herve Codina <herve.codina@bootlin.com>,
-	Wolfram Sang <wsa+renesas@sang-engineering.com>,
-	linux-edac@vger.kernel.org, Tony Luck <tony.luck@intel.com>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
-	Magnus Damm <magnus.damm@gmail.com>, devicetree@vger.kernel.org
-Subject: Re: [PATCH v5 1/3] dt-bindings: edac: cdns,ddr-edac: add Cadence DDR
- EDAC
-Message-ID: <179130201388.2400941.10837422268871185940.robh@kernel.org>
-References: <20261005-paul-v7-3-rc1-edac-v5-0-140a0f124bc0@bootlin.com>
- <20261005-paul-v7-3-rc1-edac-v5-1-140a0f124bc0@bootlin.com>
+	Sebastian Reichel <sre@kernel.org>, linux-pm@vger.kernel.org,
+	Conor Dooley <conor+dt@kernel.org>
+Subject: Re: [PATCH v5 1/3] dt-bindings: soc: qcom: qcom,pmic-glink: Document
+ Xiaomi taoyao compatible
+Message-ID: <179130206491.2403428.17338630173408456137.robh@kernel.org>
+References: <20261005164303.1208127-1-zstaseg@gmail.com>
+ <20261005164303.1208127-2-zstaseg@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -53,21 +49,22 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261005-paul-v7-3-rc1-edac-v5-1-140a0f124bc0@bootlin.com>
+In-Reply-To: <20261005164303.1208127-2-zstaseg@gmail.com>
 
 
-On Mon, 05 Oct 2026 14:49:22 +0200, Paul Louvel wrote:
-> Add the Cadence EDAC dt binding.
-> The memory controller optionally supports ECC SECDED with DDR2/DDR3
-> memory.
+On Mon, 05 Oct 2026 18:43:01 +0200, Stanislav Zaikin wrote:
+> The taoyao is the device compatible with the QCM6490 platform (apart
+> from battmgr). The device also requires both UCSI_NO_PARTNER_PDOS &
+> UCSI_DELAY_DEVICE_PDOS quirks.
 > 
-> Reviewed-by: Wolfram Sang <wsa+renesas@sang-engineering.com>
-> Signed-off-by: Paul Louvel (Schneider Electric) <paul.louvel@bootlin.com>
+> Document the PMIC GLINK firmware interface on the taoyao by using the
+> QCM6490 bindings as fallback.
+> 
+> Signed-off-by: Stanislav Zaikin <zstaseg@gmail.com>
 > ---
->  .../devicetree/bindings/edac/cdns,ddr-edac.yaml    | 61 ++++++++++++++++++++++
->  MAINTAINERS                                        |  6 +++
->  2 files changed, 67 insertions(+)
+>  Documentation/devicetree/bindings/soc/qcom/qcom,pmic-glink.yaml | 1 +
+>  1 file changed, 1 insertion(+)
 > 
 
-Reviewed-by: Rob Herring (Arm) <robh@kernel.org>
+Acked-by: Rob Herring (Arm) <robh@kernel.org>
 
