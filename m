@@ -1,180 +1,322 @@
-Received: from sonic302-21.consmr.mail.gq1.yahoo.com (sonic302-21.consmr.mail.gq1.yahoo.com [98.137.68.147])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from esa.microchip.iphmx.com (esa.microchip.iphmx.com [68.232.153.233])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AF09C3F164C
-	for <linux-kernel@vger.kernel.org>; Tue,  6 Oct 2026 12:30:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=98.137.68.147
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 216093B71A7;
+	Tue,  6 Oct 2026 12:31:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=68.232.153.233
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791289825; cv=none; b=LCCP+u2vAlqiULB1om1t8t4HxxJxZ96B7hgQwPiT6+uT4DuWMACGpyUU1k01A2/V2xTtZpZ8a+P0QRogrd/jfCUFMNxoU9qU5ayW5ADUFLaGfkxAZOSCil99XO+ff/VvdFocAbp2EyKfPw8pY9QDd2L2A+sGtzZt981a/qnHJVY=
+	t=1791289894; cv=none; b=UkKaD3Vm3RRH8H4Cdo/rTR6DnOr//Ah702IcNOu3YVKzp34xuDIFhpR6ybF2ccewdNT0UoQBTwoKiMUsRD3Jh1odws0veE67eNOI3FOO7CH2O+Gqe2cW2NY/mQD6/HEz1G1RFkHFHSMBBaci3uNTGTJESSHl0DF6hBGPHWkmfsQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791289825; c=relaxed/simple;
-	bh=yoO0QkVAjTrl/s/spjOnaaWyQ282GZ4hTb7vTinJtec=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=YLM0NVk0HIXXtEhaDQXV9kGf3ZolMLDoTSXikVImUOEuyoZMLphJDAGDX1y/by5e4UoB8eVF19PeIODWPl5exoHtgXzKApdTH80OYZsYaF+QoGk98DWsGpRCCTpvCxoGJavbr2N+f28EPiRAaX+u61RLegdXephws2qWXalEBlE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=aol.com; spf=pass smtp.mailfrom=aol.com; dkim=pass (2048-bit key) header.d=aol.com header.i=@aol.com header.b=OpyJbs+k; arc=none smtp.client-ip=98.137.68.147
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=aol.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=aol.com
+	s=arc-20240116; t=1791289894; c=relaxed/simple;
+	bh=jTJv4LN6YeQb4G6P58S4hw/dap7MGFciSdG861ysXr4=;
+	h=Message-ID:Subject:From:To:CC:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=ZcKwbq03/9lonMe89wJ+I4Cq3qLO0ZTeaUcxuUhq5XGEB8ju6XpamhN59rYPOg1Z4qcayGKWYxNnPqJUpfk6lEkWIDmILxZ1tPamKwgy20iu6DjNrT8BEwCLYojKlJcZ6c6/aYyD7oEzUfBzLsFE0V0At/Z09psEFME+PEn+Jw0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com; spf=pass smtp.mailfrom=microchip.com; dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com header.b=ze5Sw48d; arc=none smtp.client-ip=68.232.153.233
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=microchip.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=aol.com header.i=@aol.com header.b="OpyJbs+k"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=aol.com; s=a2048; t=1791289822; bh=VsaSHlXqrmr/etCWdlCTiPDjrmJy0QmLkERhO8rj0bE=; h=Subject:From:To:Cc:Date:In-Reply-To:References:From:Subject:Reply-To; b=OpyJbs+k6RoEkn/cFKrZlzZih0OdW+u51VSdEHxA9QTJkhxf0oQO5Bax+iNPT5cyoWM+dqnBozieZc9sp/IHMOJV67jpfAt0FE+FhR87Q8AyKNssdGyKx0uKX+AMmLZHuYOE60so/zKZkyA1X6mwtRGYjlQe6x6px/hxqdoEWgsjU56AxZit1FMSn34j3tO87G/0uX2nVln7CEPRIDlo42PP9uzcMk7sib3fp7UZE5O8X4Fzkbo0hrQ8BR4SjcBaTE3jZIRs/31U4q713JW76XM035EL/j6ez8J14oH4iacz+cgIwP1tJnc9ckLHSoOnj7jd8gtOpos4f6HZh7TsRQ==
-X-SONIC-DKIM-SIGN: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048; t=1791289822; bh=i52vTSYUBOqql39U/wQCqSJICSni08yYTzwTqt5PXJ/=; h=X-Sonic-MF:Subject:From:To:Date:From:Subject; b=rCHcDghbRx7yvKJTsmJFnojnVJ3Xwp6kfdQ+booJH+aLA/tofNg9e0Zv0wXlr/NjE9cVBPac+mnL0ks2iVHWLgi2k5q0einCUG59hgo3YQemlHomOYSF2OwCbSCTqKo//Fb3B67zy6NLMnzdMVxbs/6FFhhgc1jmGkDHBBmXz6iVqkupwiHDev+Xtc0A35zceDC1cC+io/nKNCxKAy95GJP5m4bdg3aCQkph1Zg8DT9+o6/jTrDV1Iku9ho5werPacvB7xH1huFEzKc5kJ09sFoVmJe3XtpyHO3MQKrrq0UK1AQf+xs0HgiJJG0TLK6U5lSTV//wKWgGfOPd2nW8vw==
-X-YMail-OSG: kXZSJhQVM1l4cnthdPQvdKfRMdzfcWIKI9mzt.AlUusrsu6yFByIDERgVGIqf5b
- .ZpnmN48l0KV8HBNP0tsehOi79SaEq5fr6T93DYPacwgD5eJgVOjbddK86v9djpFKPdUGIk4PzIX
- yFDhX12Ugh7ElnVZVKFhaGtlrZdCVHWUagHIQEn2LQE6uJ8IyvbCqTZQhcNMCK1uGxcDTwAOXaDO
- bdRg10St3dzYynnD8KNQqEI2I5RpBxxD1W5UiNwMS9JDBveix9lysluM0AJ3yZPhzS_xr2ezLkFo
- 4JG5rtL2X.SrlcQlIqS1uFwuEhlbtd8czom..RhAd9jmN_jAJiWSrgsnO3H_Dy9E1E1gD5tRuRnO
- PwCgbFb10I8CED97l5QtY_7xu3dj0sdpY5fMejx1f8Ldk6m6C8kT1XXyM4QNxf7ci5ZM..3H6fww
- ny43jnGL6.TBNXK62r0SJ5bPv0uRTsl3jMrdhrfhMe4.ym_w9nazLaqt9DLbEAu7Jo7Bmu3vcDbb
- d0LBqpLSlt9CYpS14TUaldyE4_7hS1MDvCgWgwHfEdzCtFroLD76UT00rxC63.KTY8wQC.M.bynL
- EsDsggYqK3Wxdc6xJG1QdKT061NDTRL0q0.DDhE12_gt7bx50vmEYtvJBUoOFcnW14pM3_qp.JNT
- lf2e5bjanCGsA_opzcV9G52kCUWO_bBNHOrGAgU0UIQut_KIzQkc1epXDju6fHgQ9e3_rca0OcTx
- 0F9AcC_ZGNYUGottr_mK2phE8bWvgKlw2dLnrAowdxOsnRaEFd55m2nbbxUHSOicqo1KmsvTI0sR
- iIYDQOTdx_eYZdF21lUDKaoKBHo.zuWw11_xWhTWE60QlP6Y7OPt3ttPc4z1MkCmZfcEXdw8lCd4
- sc0nmS15MaM8XZdq13PnHtcSpPWMJzLbR3EXAqneD3XpZ6nM6Xrw9v8ekesv0vfnp_mB6nafGq4k
- xy7mrDkmZnOzKoJwtKvhayC6OFhLJd_lfSGJfLrMA0VRqUUT4hpKZPks1nmpBKJ7L0P47kCXrd0H
- Wu85ed.B19K861B8B7ki8vRC1WMkutBqRmipMtbbaTihdEuKhalxRW_1enqZbAttu2VhbZma0BRw
- 6eWfErzRohn0ty0lm.Bp_5iJPx0vIan.RSzwd05DMxOO9ByW_Xw1yopBznJiaHNgCfPILcsO.UVo
- XRc6kfEzIbpcCjJdKsWh71Z1yN1ijggTUDDMgUf5ZnO51tzd4BMDcMAoIXgRm7SKnvsM9vk2nxCL
- vgYWSdHoFmzeLj9b.uOr83GXATj2ZYCMzcZHYYXE4Gbkntz7fL.syGy1tgf.UxlM4CvdJMbcvj8x
- 59afHAxHQj4uDo853_6DI8IsE9U9qjrjWDMOhhGFqGDcYPlTWpiFrgp7ldSQzyPyr4cMQEv7Pqok
- a6mxg4ZaWWLtm4_qJJNeEGvYcbEp6XuGQWag1ozgJ1GjBYiyRcL3RrGnMyGQBiG20Q4ZDwN55ZlL
- xdWAL3gtFh355wtApU.dpnKhIb9wHYy6h2zUpFOZQ.bfTahLLOu6dfs3goEoMEQio7CM5L60c_TI
- qXWqm0iawfu5p5xp_XE0Ief6qoHtULPdhPBFPQ2clO_c6jGq1PZt6Z06pivwP_FXPmi2_UHkzlxn
- 18gE2oRc_0QUAdWBfxzy0MXI2RVCpgCp7vvxnvfYLD3ulpiVpQS1owAMncm4aO1E_1pdugqVaiBS
- .bNnvpOBchYI3739JVpcXE20.nRFa2rX9Jlj1_Hrz3tUjSX7J40iPdHXHg5.2IxwP.KSBLMe6vG8
- Tpe7Lo0JJrljRjKpE1j5VbhooZT1uaBAu6SOMVabhctJ1h6ZoLRsHxGyBdWqZn1jdK4sWgmdLhZH
- rRqzU18NXJDLB9f8vIKv025q0oLplZc2dBOug_dghM85gzAvhLBkORA7.KQJHewg0.txpF49.4ic
- hKi8YZYXk47caGPZKQN8.MDyQjV8y7MsfiukQ3YL3q50AjxEPIUoLQOj9IZrhaqr47jhBhf7Z_oX
- 5mdfzGmvHBVsEi8g.BDk6SCfze9shDuN1ONJT8WwgKJBrOQVGSdUq3mr9nmGaW5wwpBsWKem32oM
- 6LYuFqZFE.nbR64SVn4RERlQRWSb1NC.KWJ1h4UGmMVwPwgQItm_pLXPCJ0eZB5l6o4v5RRGSkw_
- IB0oEib1C30A4CJpLM16qPXquFguNCxS0DfUt.wvUVoC5NdQLFZ3YR4FanMw_3Qm_ocM.gMO6sV2
- okzaxldWYVTjh53GH7rJLRVIIE9bILq1UaEP8.Gk3ybiaAcY3HKkYvcxetAE5
-X-Sonic-MF: <rubenru09@aol.com>
-X-Sonic-ID: 3f2ca717-a9ce-414e-8118-5766e604d46f
-Received: from sonic.gate.mail.ne1.yahoo.com by sonic302.consmr.mail.gq1.yahoo.com with HTTP; Tue, 6 Oct 2026 12:30:22 +0000
-Received: by hermes--production-ir2-5dd9bf4598-vvk7z (Yahoo Inc. Hermes SMTP Server) with ESMTPA ID e59c3c356c4555e72f269c6939591e4a;
-          Tue, 06 Oct 2026 12:20:04 +0000 (UTC)
-Message-ID: <23f062e2e497a58821003115176d71183f5c06b0.camel@aol.com>
-Subject: Re: [PATCH] drm/gud: don't keep a connector without a CRTC as
- connector_state
-From: Ruben Wauters <rubenru09@aol.com>
-To: Sajal Gupta <sajal2005gupta@gmail.com>
-Cc: maarten.lankhorst@linux.intel.com, mripard@kernel.org,
- tzimmermann@suse.de, 	airlied@gmail.com, simona@ffwll.ch,
- noralf@tronnes.org, 	dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, Sashiko	 <sashiko-bot@kernel.org>
-Date: Tue, 06 Oct 2026 13:20:01 +0100
-In-Reply-To: <20260922084026.15481-1-sajal2005gupta@gmail.com>
-References: <20260922084026.15481-1-sajal2005gupta@gmail.com>
-Autocrypt: addr=rubenru09@aol.com; prefer-encrypt=mutual;
- keydata=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
- eIvzsqg==
-Content-Type: multipart/signed; micalg="pgp-sha256";
-	protocol="application/pgp-signature"; boundary="=-7lZk0vyErrpYnufwA6aj"
-User-Agent: Evolution 3.60.2 
+	dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com header.b="ze5Sw48d"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=microchip.com; i=@microchip.com; q=dns/txt; s=mchp;
+  t=1791289893; x=1822825893;
+  h=message-id:subject:from:to:cc:date:in-reply-to:
+   references:content-transfer-encoding:mime-version;
+  bh=jTJv4LN6YeQb4G6P58S4hw/dap7MGFciSdG861ysXr4=;
+  b=ze5Sw48dcuVObN8Bq81R35CyswYbkrslCv5YM4mblRUf5K8DFg0kTkRO
+   Ev3cA9SnoOcqog++kEcUfEmuuwkob/CNbfFRvcbR8Ek8SAvf5rXqhkI5i
+   0i9A7/c/nF9M7DAFl1pVpMwBuy40Y92Aq3jgWkBVh3hr4d5l6Lay8ERpe
+   P40OCkRWnfE8Ry8zA0ndVKAGZc3IUpr2gHvq0IKvexOKXpsfo3ey7lmiP
+   bUs6EBcYMm26DwqfjZIEHRHSgmiwodGbUVIEurynzL3uDjpJ8ZTkxeqKY
+   NkH/KevwzUuzQtm+cQpNDxuGUq6opDh+hQcwQjhqXA10tEcad3BeDg/jc
+   g==;
+X-CSE-ConnectionGUID: z6W3zX7rStW6KFyEWPS2YQ==
+X-CSE-MsgGUID: 16TG9y/xRwWZdFV6pCxZJg==
+X-IronPort-AV: E=Sophos;i="6.27,143,1787036400"; 
+   d="scan'208";a="74909272"
+X-Amp-Result: SKIPPED(no attachment in message)
+Received: from unknown (HELO email.microchip.com) ([170.129.1.10])
+  by esa1.microchip.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 06 Oct 2026 05:31:25 -0700
+Received: from chn-vm-ex04.mchp-main.com (10.10.87.151) by
+ chn-vm-ex2.mchp-main.com (10.10.87.31) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.2.2562.49; Tue, 6 Oct 2026 05:31:25 -0700
+Received: from DEN-DL-M77643.microsemi.net (10.10.85.11) by
+ chn-vm-ex04.mchp-main.com (10.10.85.152) with Microsoft SMTP Server id
+ 15.1.2507.58 via Frontend Transport; Tue, 6 Oct 2026 05:31:21 -0700
+Message-ID: <72ceab96dccc7d09a19d773ab0eda05df4382d52.camel@microchip.com>
+Subject: Re: [PATCH net-next v13 5/9] net: dsa: lan9645x: add vlan support
+From: Jens Emil Schulz Ostergaard <jensemil.schulzostergaard@microchip.com>
+To: <netdev-bot+sashiko@kernel.org>
+CC: <UNGLinuxDriver@microchip.com>, <andrew@lunn.ch>, <olteanv@gmail.com>,
+	<davem@davemloft.net>, <edumazet@google.com>, <kuba@kernel.org>,
+	<pabeni@redhat.com>, <horms@kernel.org>, <robh@kernel.org>,
+	<krzk+dt@kernel.org>, <conor+dt@kernel.org>, <woojung.huh@microchip.com>,
+	<linux@armlinux.org.uk>, <Steen.Hegelund@microchip.com>,
+	<daniel.machon@microchip.com>, <geert+renesas@glider.be>,
+	<magnus.damm@gmail.com>, <linux-kernel@vger.kernel.org>,
+	<netdev@vger.kernel.org>, <devicetree@vger.kernel.org>,
+	<linux-renesas-soc@vger.kernel.org>
+Date: Tue, 6 Oct 2026 14:31:21 +0200
+In-Reply-To: <179097565993.434549.16648659214046712507@kernel.org>
+References: <20260929-dsa_lan9645x_switch_driver_base-v13-5-827c2d3617f2@microchip.com>
+	 <179097565993.434549.16648659214046712507@kernel.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.44.4-0ubuntu2.1 
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Mailer: WebService/1.1.26668 mail.backend.jedi.jws.acl:role.jedi.acl.token.atz.jws.hermes.aol
 
-
---=-7lZk0vyErrpYnufwA6aj
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-On Tue, 2026-09-22 at 14:10 +0530, Sajal Gupta wrote:
-> If the 'for_each_new_connector_in_state()' loop finishes without
-> hitting the break, connector_state is left pointing at the last
-> connector visited, which has no CRTC, instead of
-> staying NULL.
+On Fri, 2026-10-02 at 21:14 +0000, netdev-bot+sashiko@kernel.org wrote:
+> EXTERNAL EMAIL: Do not click links or open attachments unless you know th=
+e content is safe
 >=20
-> That skips the "if (!connector_state)" fallback below the loop, which
-> looks up the active connector when the state contains none. The
-> function then carries on with a connector that is not driven.
+> Thank you for your contribution! Sashiko AI review found 4 potential
+> issue(s) to consider.
 >=20
-> Fix by resetting connector_state to NULL for each connector visited that
-> has no CRTC, so that it is NULL when none was found and the fallback runs=
-.
+> Critical: 0 =C2=B7 High: 0 =C2=B7 Medium: 2 =C2=B7 Low: 2
 >=20
-> Fixes: 40e1a70b4aed ("drm: Add GUD USB Display driver")
-> Reported-by: Sashiko <sashiko-bot@kernel.org>
-> Link: https://sashiko.dev/#/patchset/20260902123254.36987-1-sajal2005gupt=
-a@gmail.com?part=3D1
-> Signed-off-by: Sajal Gupta <sajal2005gupta@gmail.com>
-Acked-by: Ruben Wauters <rubenru09@aol.com>
-> ---
->  drivers/gpu/drm/gud/gud_pipe.c | 1 +
->  1 file changed, 1 insertion(+)
+> If you believe none of the issues are legitimate, please reply to each
+> issue of Medium severity or higher and explain why the AI is wrong.
+> If any of them are legitimate and you plan to respin, please let patchwor=
+k
+> know by including "pw-bot: cr" as a separate line at the end of your repl=
+y
+> (one such reply per series is enough).
 >=20
-> diff --git a/drivers/gpu/drm/gud/gud_pipe.c b/drivers/gpu/drm/gud/gud_pip=
-e.c
-> index aa7792966287..5aa5ac2f3727 100644
-> --- a/drivers/gpu/drm/gud/gud_pipe.c
-> +++ b/drivers/gpu/drm/gud/gud_pipe.c
-> @@ -507,6 +507,7 @@ int gud_plane_atomic_check(struct drm_plane *plane,
->  	for_each_new_connector_in_state(state, connector, connector_state, i) {
->  		if (connector_state->crtc)
->  			break;
-> +		connector_state =3D NULL;
->  	}
+> - [Medium] On a VLAN-aware bridged port, frames the host sends without a
+>   tag can leave the switch tagged, sometimes with the wrong VID.
+> - [Medium] On VLAN-aware ports, lan9645x_vlan_port_apply_ingress() sets
+>   ANA_VLAN_CFG_VLAN_POP_CNT=3D1, so the hardware removes the outer VLAN=
+=E2=80=A6
+> - [Low] The commit message says the patch adds "VLAN support for VLAN-
+>   aware and VLAN-unaware bridges", but none of the bridged code paths=E2=
+=80=A6
+> - [Low] Errors from VLAN table programming are not passed back to
+>   callers.
 >=20
->  	/*
 > --
-> 2.55.0
+>=20
+> net: dsa: lan9645x: add vlan support
+>=20
+> This commit adds VLAN table management to the lan9645x DSA driver. It
+> configures ports for VLAN-aware and VLAN-unaware bridges, and reserves
+> HOST_PVID (4095) for standalone ports. It also registers the
+> port_vlan_filtering, port_vlan_add and port_vlan_del ops, all serialized
+> by a new fwd_domain_lock.
+>=20
+> > Add VLAN support for VLAN-aware and VLAN-unaware bridges.
+>=20
+> [Severity: Low]
+> Does this description match what the commit does on its own?
+>=20
+> At this point in the series nothing writes lan9645x->bridge_mask, and
+> lan9645x_switch_ops has no .port_bridge_join. That means
+> lan9645x_port_is_bridged() always returns false:
+>=20
+> static inline bool lan9645x_port_is_bridged(struct lan9645x_port *p)
+> {
+>         return p->lan9645x->bridge_mask & BIT(p->chip_port);
+> }
+>=20
+> It also means DSA never offloads a bridge, so .port_vlan_filtering,
+> .port_vlan_add and .port_vlan_del are never called for user ports. The
+> only thing that takes effect here is the standalone HOST_PVID setup done
+> from .port_setup.
+>=20
+> Bridge offload, and clearing HOST_PVID membership on bridge join, arrive
+> with the later "net: dsa: lan9645x: add bridge support" patch. That
+> ordering is only explained in the v12 changelog below the "---", and git
+> am drops that part.
+>=20
+> Could the commit message say that the bridged paths only become
+> reachable once the bridge support patch is applied?
+>=20
+> > diff --git a/drivers/net/dsa/microchip/lan9645x/lan9645x_vlan.c b/drive=
+rs/net/dsa/microchip/lan9645x/lan9645x_vlan.c
+> > new file mode 100644
+> > index 0000000000000..6d28a7cf1442b
+> > --- /dev/null
+> > +++ b/drivers/net/dsa/microchip/lan9645x/lan9645x_vlan.c
+> > @@ -0,0 +1,402 @@
+>=20
+> [ ... ]
+>=20
+> > +static void
+> > +lan9645x_vlan_port_apply_egress(struct lan9645x_port *p,
+> > +                             struct lan9645x_vlan_port_info *info)
+> > +{
+> > +     struct lan9645x *lan9645x =3D p->lan9645x;
+> > +     enum lan9645x_vlan_port_tag tag_cfg;
+> > +     u16 port_vid =3D UNAWARE_PVID;
+> > +
+> > +     if (!lan9645x_port_is_bridged(p)) {
+> > +             tag_cfg =3D LAN9645X_TAG_NO_PVID_NO_UNAWARE;
+> > +             port_vid =3D HOST_PVID;
+> > +     } else if (p->vlan_aware) {
+>=20
+> [ ... ]
+>=20
+> > +             if (info->untagged =3D=3D 1 && info->tagged) {
+> > +                     tag_cfg =3D LAN9645X_TAG_NO_PVID_NO_UNAWARE;
+> > +                     port_vid =3D info->untagged_vid;
+> > +             } else if (info->untagged) {
+> > +                     tag_cfg =3D LAN9645X_TAG_DISABLED;
+> > +             } else {
+> > +                     tag_cfg =3D LAN9645X_TAG_ALL;
+> > +             }
+>=20
+> [Severity: Medium]
+> Can untagged frames from the host leave a VLAN-aware bridged port tagged,
+> and with the wrong VID?
+>=20
+> For an untagged host frame on a VLAN-filtering bridge,
+> lan9645x_xmit_get_vlan_info() in net/dsa/tag_lan9645x.c puts the bridge
+> device's pvid into the IFH:
+>=20
+>         } else {
+>                 rcu_read_lock();
+>                 br_vlan_get_pvid_rcu(br, &tci);
+>                 rcu_read_unlock();
+>                 *vlan_tci =3D tci;
+>         }
+>=20
+> The rewriter mode here, however, is chosen from the port's own untagged
+> VID:
+>=20
+> - With one untagged VLAN X plus tagged VLANs, TAG_NO_PVID_NO_UNAWARE with
+>   PORT_VID=3DX leaves only VID X or VID 0 untagged.
+> - With no untagged VLANs, TAG_ALL tags every frame, including VID 0.
+>=20
+> The two sides only agree when br0's pvid equals the port's untagged VID.
+> Two examples where they don't:
+>=20
+> (a) swp0 has "vid 10 pvid untagged" plus tagged vid 20, and br0 self
+> pvid is 1. br_handle_vlan() strips host traffic on br0.10 for egress on
+> swp0, and the same happens to VLAN 10 traffic forwarded in software from
+> a foreign bridge port. The tagger then puts VID 1 in the IFH, so the
+> frame goes out tagged with VID 1 instead of untagged in VLAN 10.
+>=20
+> (b) On a trunk port with no untagged VLANs, untagged frames go out tagged
+> with br0's pvid. If br0 has no pvid, they go out priority-tagged with
+> VID 0. STP BPDUs from br_send_bpdu() and LLDP sent on swp0 are examples.
+>=20
+> This depends on the rewriter using IFH.TCI as the classified VID when
+> BYPASS=3D1, and on the TAG_CFG semantics described in the
+> lan9645x_vlan_port_tag comment. I could not check either against the
+> datasheet. ocelot and tag_ocelot use a similar pairing, so this may be a
+> known limitation.
+>=20
+> The code becomes reachable once the bridge support patch lands, and it
+> is unchanged at the end of the series. Also, LAN9645X_TAG_NO_UNAWARE is
+> defined but never used.
+>=20
 
---=-7lZk0vyErrpYnufwA6aj
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: This is a digitally signed message part
+Correct, this is the same issue as the one raised on the tag driver
+patch, and the rewriter does use IFH.TCI as the classified VID with
+BYPASS set. v14 fixes both sides: the tag driver no longer uses the
+bridge pvid, and ports with only tagged VLANs use TAG_NO_UNAWARE instead
+of TAG_ALL.
 
------BEGIN PGP SIGNATURE-----
 
-iQJPBAABCAA5FiEE3obNNdPQ9V5CQi2Y0n5QwFCuDOEFAmrE53EbFIAAAAAABAAO
-bWFudTIsMi41KzEuMTIsMiwyAAoJENJ+UMBQrgzhYAwQALRHQCEzAJLWrKgQ6OVr
-UoemwL5sHR9PHETv9Ic/YJ2J81b9p8A30QsGkn6c+4m/rXt0nj595b/8V0uxajca
-CD4YvWsH/19aoFEvCYznKM4nNiLPkf0jOuI7RPy5o/akBfAjSrRzSWJ7YkXN9rJL
-E3C3lfZAxXJOR0yK78Jkpog2Ledj2nxBNDG8CCrSzrVsi/SfHAczjM/l4o8a6+8u
-ggyqwPi0N40iebdxyVWiQbs55ibMUw6b0lg469DjiFlrfi4Bf6M2OvM460k1zIfg
-HmCBgiKv5+Mg/kLUtvHJHy+CWqFPuDMCToS6gXlMl2w/lW/MhuOYd88LXPqpyvaE
-0QfgsROW4jC7LeKOlePoag88S4ZFRIE+wYUN+VSe+sLQjUbyzdH70cX+3RqZo7JL
-JdZqzV6V7Kn1k+QeqLhI5WC6OoZ1HUarl+tbIQYYuJL/l8ohGIyIH/JK3TeVYAfe
-JzYgEwp0pJlMUYXJouJ19Cp3zNg88ThS/uzKxqZzDBudJOS+c7oxTsEGXFwdFl42
-+Fk6Ws0jW4C9hQVZidQJmipZGkGmaX9lLesR1kbtPucf0c3SuTyTyTKb88coBdQ/
-N+3VTN/HYynRIg7NgG7QMw+fvXMK/Hk9HYNckVG1hiNgPc1rjertsSjh1HtZere4
-x3N4TAcELiYxYbJrfPhT+iSq
-=gwXS
------END PGP SIGNATURE-----
+> > +     } else {
+> > +             tag_cfg =3D LAN9645X_TAG_DISABLED;
+> > +     }
+>=20
+> [ ... ]
+>=20
+> > +static void lan9645x_vlan_port_apply_ingress(struct lan9645x_port *p)
+> > +{
+>=20
+> [ ... ]
+>=20
+> > +     val =3D ANA_VLAN_CFG_VLAN_VID_SET(pvid) |
+> > +           ANA_VLAN_CFG_VLAN_TAG_TYPE_SET(0);
+> > +     if (p->vlan_aware)
+> > +             val |=3D ANA_VLAN_CFG_VLAN_AWARE_ENA_SET(1) |
+> > +                    ANA_VLAN_CFG_VLAN_POP_CNT_SET(1);
+>=20
+> [Severity: Medium]
+> Does popping the outer tag here conflict with the pvid check in
+> lan9645x_rcv()?
+>=20
+> With VLAN_POP_CNT=3D1 on VLAN-aware ports, the classified VID survives
+> only in the IFH. lan9645x_rcv() in net/dsa/tag_lan9645x.c skips
+> restoring it when it equals the port pvid:
+>=20
+>                 if ((vlan_tci & VLAN_VID_MASK) !=3D port_pvid)
+>                         __vlan_hwaccel_put_tag(skb, htons(ETH_P_8021Q),
+>                                                vlan_tci);
+>=20
+> That is fine for untagged frames. Consider a double-tagged frame
+> [0x8100 VID 100][0x8100 VID 200] that arrives on a VLAN-aware port with
+> pvid 100 and is sent to the CPU (broadcast, host flood or trap). The
+> hardware classifies it to VID 100 and pops the outer tag. IFH TCI is
+> 100, which equals the pvid, so no hwaccel tag is set.
+>=20
+> The software bridge then finds the inner tag 200 in the payload and puts
+> the frame in VLAN 200, while the hardware forwarded it in VLAN 100.
+>=20
+> Could this cause local delivery (for example to br0.200), or software
+> forwarding in a different VLAN than the hardware used?
+> br_allowed_ingress() still restricts this to VIDs the port is a member
+> of.
+>=20
 
---=-7lZk0vyErrpYnufwA6aj--
+Correct, same issue as on the tag driver patch. v14 restores the classified=
+ VID
+as a hwaccel tag whenever a tag was popped, so in the example the
+inner tag 200 stays in the payload and the bridge classifies the frame
+to VLAN 100, as the hardware did. This also preserves the PCP of
+priority tagged frames and of frames tagged with the pvid.
+
+> [ ... ]
+>=20
+> > +int lan9645x_vlan_port_add_vlan(struct lan9645x_port *p, u16 vid, bool=
+ pvid,
+> > +                             bool untagged, struct netlink_ext_ack *ex=
+tack)
+> > +{
+>=20
+> [ ... ]
+>=20
+> > +     lan9645x_vlan_hw_wr(lan9645x, vid);
+> > +     lan9645x_vlan_port_apply_ingress(p);
+> > +     lan9645x_vlan_port_apply_egress(p, &info);
+> > +
+> > +     return 0;
+> > +}
+>=20
+> [Severity: Low]
+> Should the return value of lan9645x_vlan_hw_wr() be checked here, before
+> the software state is committed?
+>=20
+> This path updates lan9645x->vlans[] and p->pvid, reprograms the port
+> ingress and egress configuration, and returns 0 even when the table
+> write failed. lan9645x_vlan_port_del_vlan(), lan9645x_vlan_cpu_add(),
+> lan9645x_vlan_cpu_del() and lan9645x_vlan_set_hostmode() do the same.
+>=20
+> Inside lan9645x_vlan_hw_wr(), the ANA_VLANTIDX, ANA_VLAN_PORT_MASK and
+> ANA_VLANACCESS writes go through lan_wr(), which only does WARN_ON_ONCE()
+> on a regmap error. The engine is also not checked for IDLE before a new
+> command is issued.
+>=20
+> When this fails, the shadow table and the hardware can diverge while
+> switchdev believes the change succeeded. For the CPU port, DSA caches the
+> VID as installed, so later adds of the same VID only bump a refcount and
+> never restore the missing membership.
+>=20
+> The comment in lan9645x_vlan_hw_wr() says a timeout most likely means
+> the register bus is dead, which limits the practical impact. lan_wr()
+> swallowing errors also predates this patch.
+>=20
+> [ ... ]
+>=20
+> --
+> Sashiko AI review =C2=B7 https://netdev-ai.bots.linux.dev/sashiko/#/patch=
+set/20260929-dsa_lan9645x_switch_driver_base-v13-0-827c2d3617f2%40microchip=
+.com
+
