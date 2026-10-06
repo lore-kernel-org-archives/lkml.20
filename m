@@ -1,135 +1,144 @@
-Received: from sender6-op-o11.zoho.com (sender6-op-o11.zoho.com [165.173.180.11])
+Received: from fout-b8-smtp.messagingengine.com (fout-b8-smtp.messagingengine.com [202.12.124.151])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D06A326E71E
-	for <linux-kernel@vger.kernel.org>; Tue,  6 Oct 2026 00:51:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=165.173.180.11
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791247885; cv=pass; b=YnaNFWrqGNkHSxJXqOXgekpDMeX7lESbtIndHSFlokDK9jdSu4SIW0c9k2+vsdxagu0wYrrvdVVVwzsRDF5iEPFq5MGGT1RSKaJc+n9Kl+BU/94M2/HksF4KDD8SWKxitni9ZwMnrqikaXB3EwV2vQ7r1q18QwyoeVl5GkQklWQ=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791247885; c=relaxed/simple;
-	bh=n1KJjRw87lG1pDc10+5L7QJjt3rvVLAj/Fx8iESoCDA=;
-	h=MIME-Version:Content-Type:Subject:From:To:Cc:In-Reply-To:
-	 References:Date:Message-Id; b=UMstzn1qDyLocUiHRvfw/z8P4NuL2AZHotGgmCCt/xv9lNodyJjiIG6KBKDGeT7T6M8CBBdFAt6XFP1GP96YZOugd+Tw/KEZ4759GmjudFsCmJ+DwPz5H5khngstfNPp1XdMHdPmvMLbwaLw5JN5Of8v8Sd3WzPwdg1q4c3+SFM=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (1024-bit key) header.d=collabora.com header.i=adrian.larumbe@collabora.com header.b=R7MKzo8w; arc=pass smtp.client-ip=165.173.180.11
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8E2C7261B9E
+	for <linux-kernel@vger.kernel.org>; Tue,  6 Oct 2026 00:51:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.12.124.151
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791247884; cv=none; b=UvT/KpwAEG03Mgaq4Cox20ymxcjOe11joPkROmHFHN/wD0wkdxCtsRqFhMDoow5YDy5VAr4QwWLBM1Ig+H6MhwAoZw4/WsB72JNvDJaj6c7cmqmqEJzctVqlcl+2HIzVSNq3f1Q8bZ4+trIDC8a6trZtVk7+BVaT3T0WOn5oMBs=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791247884; c=relaxed/simple;
+	bh=DbE2ljPHR9RLBxRiQC0D1Il93+Qii2jUhAcHu4S2aWA=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Kua7sjtAGr8drcLCQtEle/8Arv7Nly50fbcGq0kTOvaNDdqqQYk9upegqcLBHwi/YDPlGIHWhgq2rrXcX3A2SBUk75x6vrgiWtSPGkEGf1nFb10MhGYRpSB9PJOnt+4ZiHvIxJow9p1ZA5EE1736nXCDVd8PkT3aG/wsWCBQil4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=invisiblethingslab.com; spf=pass smtp.mailfrom=invisiblethingslab.com; dkim=pass (2048-bit key) header.d=invisiblethingslab.com header.i=@invisiblethingslab.com header.b=OxLZv8Tz; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=PM4JXWyL; arc=none smtp.client-ip=202.12.124.151
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=invisiblethingslab.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=invisiblethingslab.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=collabora.com header.i=adrian.larumbe@collabora.com header.b="R7MKzo8w"
-ARC-Seal: i=1; a=rsa-sha256; t=1791247843; cv=none; 
-	d=zohomail.com; s=zohoarc; 
-	b=DUfs9VhUulxGNrli5hvMdWtiUVQGoeS0jMvqNoz2Xhe+SryXlPnO40uT8LqpZ5kIUiO5AkxOJLddGe/dnVBO2b+7twtJIcrSfBUqc33SoFaRcBJflry6ZLKhNVh9zbb83aPtoA5psvhIhh01f99cVBWnV20p06ZgdMyKOo1LrxE=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1791247843; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=v6NslssOJv8k7P+fxyeLKDx9iI1Cxv9dxkN6Y+YwHDE=; 
-	b=Fx4ndkX+rJVEXBv/eU2X9cZPMyfjzNOpkYuaIzXiL+ok38jQ9+r4Tk4VdW9hmqOBNkGpxHKXEE8tAZmxB/aV1xXE7sN7LsqrO2oMu0e2nKfZMmHcTwHAtugfJkR1Bl5IopgfNfaoX444oIBhZzsKHn0fowhl8GVSjmvWTg6DX2I=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
-	dkim=pass  header.i=collabora.com;
-	spf=pass  smtp.mailfrom=adrian.larumbe@collabora.com;
-	dmarc=pass header.from=<adrian.larumbe@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1791247843;
-	s=zohomail; d=collabora.com; i=adrian.larumbe@collabora.com;
-	h=MIME-Version:Content-Type:Content-Transfer-Encoding:Subject:Subject:From:From:To:To:Cc:Cc:In-Reply-To:Date:Date:Message-Id:Message-Id:Reply-To;
-	bh=v6NslssOJv8k7P+fxyeLKDx9iI1Cxv9dxkN6Y+YwHDE=;
-	b=R7MKzo8wGdk5hL9HYsM/YzYJKLKefrrGo08Dv+fwKMp0T/+HIQxH0xBBtyWu5X3D
-	cUj6UcqUkDKXwBEG/pLZUcxIY+JUAJ1X0DyAiVcj0uO2ZC+RWcs1L+p7Dbm6LOooZhM
-	/TGTc0hZ7GlSabS+lIjz2TVkYxhk0RjLFY3A4qRI=
-Received: by smtp.zohomail.com with SMTPS id 1791247842722359.9365337907491;
-	Mon, 5 Oct 2026 17:50:42 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=invisiblethingslab.com header.i=@invisiblethingslab.com header.b="OxLZv8Tz";
+	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="PM4JXWyL"
+Received: from phl-compute-02.internal (phl-compute-02.internal [10.202.2.42])
+	by mailfout.stl.internal (Postfix) with ESMTP id E9C341D00097
+	for <linux-kernel@vger.kernel.org>; Mon,  5 Oct 2026 20:51:21 -0400 (EDT)
+Received: from phl-frontend-04 ([10.202.2.163])
+  by phl-compute-02.internal (MEProxy); Mon, 05 Oct 2026 20:51:21 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	invisiblethingslab.com; h=cc:cc:content-transfer-encoding
+	:content-type:date:date:from:from:in-reply-to:message-id
+	:mime-version:reply-to:subject:subject:to:to; s=fm1; t=
+	1791247880; x=1791334280; bh=tRmGBPddwRXIEIkuPN35f35fGROq9M41+zS
+	XYOhRKVM=; b=OxLZv8TzQnJsApYqfcRLiFoDtaZz7z3fuC4g0PvVjV0PXoeUa37
+	lGccsQdmpd/IrAb/8Cc8w0Oi5tG8NPPQQQdSrh2O/NexetpRZLGf/T4Ueg2+xlpa
+	SesEjf48ilsGa5ggjjniRNq3boeJa8l803Ff5TTLnxoGNzRfRCsuGyFf2tGG30zM
+	jUwsBjq5EXBGGzB2wTy2oBZfFc5UBd/XC1o0jug6LqjydDFWrSsgVJXSTytWPcoI
+	IvTStnK/IVXJhXiiplee8uiu/70qj7bwqi/B/UrDrqHxkmWbBmeEakojZJn8z0m0
+	Q+LvvUtr7rzdA3sZ5YPlyRxPKFrfIuJ53vQ==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:date:date:feedback-id:feedback-id:from:from
+	:in-reply-to:message-id:mime-version:reply-to:subject:subject:to
+	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=
+	1791247880; x=1791334280; bh=tRmGBPddwRXIEIkuPN35f35fGROq9M41+zS
+	XYOhRKVM=; b=PM4JXWyLOgavv4Ys8VgoNmdCyNG8yv99fshlaCPDiDwsyPTzQqC
+	TxwsqY8XkUUYYFrWYIDZ26nvhM5TD1dw2o2dd4zdNoGf6xZkr1f8RclAV+8Lyeqa
+	rEH+5bbnw3Bb8/rpgqbn1ZkehX9JNonU67hPrRnSJXQytJORHjwc2m/SvVMk920e
+	1rEl0CnPPufiV8CE47UUo6md9tHlJVbiB1YVVIrGizUlyjOJdKn7Nc+uHOr92IQh
+	Uo5Wt62TEoJpHRGmw+8VphYrVZVV8qbOhldGNy6Q+CGmqXGsI9V0rZY+jYdci0m6
+	4HTBiYHYx4/pNkQ2GJyRF8Hsnl3KY/1Eldw==
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
+	repo=github.com/dkim2wg/interop; date=2026-09-30; sw=lmtpprox;
+	action=sign d=invisiblethingslab.com a=rsa-sha256;
+DKIM2-Signature: i=1; m=1; t=1791247880; d=invisiblethingslab.com;
+	mf=PHZhbEBpbnZpc2libGV0aGluZ3NsYWIuY29tPg==;
+	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
+	s=fm1:rsa-sha256:So3m5pat1M53SmCIQVtFO/J/qByHSIsLNsBkqfLvlsyMU9q
+	PiE8/zdvqLtYx657LK/vosBFSGpAdlOJ+aLmwLRcnEkNfrpdyddAC6er6Tg0xkJM
+	Y1r19atzn2SOlod3Sm5zeHMMz3RzpFSbKBWaGHzYuh95Kvk0f3T1AdpE7r9dENTX
+	W3oPNboq+2fFm43GFZrCUpAWYmP9G5tOBs/SCwzWy+GdwWk2fxL/mYKfFi52VceD
+	zj+jCs5qf7i2pbJxXei6WQ/QwZCS4vZMjXAMXmGIFdEwOH4+gq8TWcpDuF3o6Urj
+	/O1dpgATJvSgXXR1gFxg0JAg85ogm9NWYnP62fQ==;
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
+	repo=github.com/dkim2wg/interop; date=2026-09-30; sw=lmtpprox;
+	action=mi-m=1; hc=9;
+	hn=cc,content-transfer-encoding,date,feedback-id,from,
+	message-id,mime-version,subject,to;
+Message-Instance: m=1; h=sha256:2bupfxoc7c/W78shAkUTwaYLOwOELTJM7wttvyVs7wM=:DbE2ljPHR9RLBxRiQC0D1Il93+Qii2jUhAcHu4S2aWA=;
+X-ME-Sender: <xms:B0bEauEqVdfeXFKs-e7g2ZZTYSriScAMcJyzvfpHWU-iWAAbb4tOMg>
+    <xme:B0bEanh4p5sOf8R3qsLUSmoIShXj8yn2hqaYeI6ywrB3v4N3ZTuD0AG6z_Zl2CYtn
+    pspJtAV2Xl4lUyHouNxKHmVXObB1-nIxO6OVfzm5ss8LnlmBvo>
+X-ME-Received: <xmr:B0bEajvdpGScqynbwxTWB59fUXCdzLuViDx2h-uHl-HXS5iCkS7rDbs-D75_EjDzVpgHrqw22BAYuFwwLU_JRcqsCZ21RMA14uOQbHN6YnicziOgT8UYPyQrQdDKkw>
+X-ME-Proxy-Cause: dmFkZTGDeGecfuOBqBR+BQhzcXn/vNYPPEmBB26O+qh7FZR7AUWqdQtYPjhC6dsLaDuBea
+    IeTTQ8cmgK80NNnBDqKATqjtVF4/aX3CSonUXyU8NmWyhcyIhTs/9zvqYDF0sB+7+ZIQdM
+    9BowT4dTsQLooVUdU9xViDIHD23gTeHkjfPMGpOvGX4nslU+OWiL1aI8E3CWpnfnx3JzSv
+    2Mfm2NUZXTHi96BFZEOZzjtluW7L83Db8YedS+pGUpiqrYrNSUgOfmbo7kLzifDvFwePml
+    3SyuoIORcUukCr/0RuDX7tj9pdkGzDL4n/3wFyh0IdxaaedWq8etqdwyR9PF8lKHDgYuP0
+    JqX6/erQXDHZNY28l0+SxIWThsa633lKoUdWDbeHfliIx4PBhJX553VLMcZ6QjnySIWH9f
+    MCctceavToVfBDwR80C7wEAbrqgadx4IShdfXGfXppcC7rsUE/caKhn8OD4fa7LLwMPKxV
+    cPGtmqHqosDZw4eaBKVIjyYhxJE3YniwbA9HJcsZcOrUPwYph25aVe0K7qEDZzF4l2RoMP
+    c/NMssbwZInDhFt38or4vj7DMByUMWp4m/lsO8flGPn8JAC+I7U/fcc/pF5zUqgJS5AnfK
+    5bOV+BI5cxaEor1igM/TmaO5VNjIA61w/g2QIlboIVeR6vdR6cswUpgKyd0A
+X-ME-Proxy: <xmx:B0bEaiu60XcoIr3amhSs1wBVqPsOwV5CYC8qOQLlWx5WK4EYc01q-g>
+    <xmx:B0bEagEqgVLC9LGHWjWOsSaLJZbg7e_ka-dzkSP1qPS7nKUGQCAWXA>
+    <xmx:B0bEalObjLpfT5Oo3e6Id77xmP9zZQUhaM2htVp07bN_osf6r5G74w>
+    <xmx:B0bEanLPubuPUz9h6iTkBRPP4Q0IzP4ltDPuVkbvCuKE_s12tWf0Cw>
+    <xmx:CEbEal7VrXbZHnEm8MDnRY7wWC0yzRqgQKL2ebMONKeDyx3ffT82Mg03>
+Feedback-ID: i001e48d0:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Mon,
+ 5 Oct 2026 20:51:17 -0400 (EDT)
+From: Val Packett <val@invisiblethingslab.com>
+To: Gerd Hoffmann <kraxel@redhat.com>,
+	Vivek Kasireddy <vivek.kasireddy@intel.com>,
+	Sumit Semwal <sumit.semwal@linaro.org>,
+	=?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+	Philipp Stanner <phasta@kernel.org>
+Cc: Val Packett <val@invisiblethingslab.com>,
+	dri-devel@lists.freedesktop.org,
+	linux-media@vger.kernel.org,
+	linaro-mm-sig@lists.linaro.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH] udmabuf: Disable the list length limit by default
+Date: Mon,  5 Oct 2026 21:48:53 -0300
+Message-ID: <20261006005053.2245156-1-val@invisiblethingslab.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Subject: Re: [PATCH v12 03/15] drm/panfrost: Move debugfs initialisation to
- relevant subsystems
-From: =?utf-8?q?Adri=C3=A1n_Larumbe?= <adrian.larumbe@collabora.com>
-To: Steven Price <steven.price@arm.com>
-Cc: =?utf-8?q?Adri=C3=A1n_Larumbe?= <adrian.larumbe@collabora.com>, 
- Boris Brezillon <boris.brezillon@collabora.com>, 
- Rob Herring <robh@kernel.org>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Faith Ekstrand <faith.ekstrand@collabora.com>, 
- "Marty E. Plummer" <hanetzer@startmail.com>, 
- Tomeu Vizoso <tomeu@tomeuvizoso.net>, Eric Anholt <eric@anholt.net>, 
- Robin Murphy <robin.murphy@arm.com>, Philipp Zabel <p.zabel@pengutronix.de>, 
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
- Collabora Kernel Team <kernel@collabora.com>, 
- Neil Armstrong <neil.armstrong@linaro.org>
-In-Reply-To: <0d1ce769-3371-44c5-a6d9-e9a27d9e7cee@arm.com>
-References: <20260929-claude-fixes-v12-0-62beb08de207@collabora.com>
- <20260929-claude-fixes-v12-3-62beb08de207@collabora.com>
- <0d1ce769-3371-44c5-a6d9-e9a27d9e7cee@arm.com>
-Date: Tue, 06 Oct 2026 01:50:36 +0100
-Message-Id: <179124783676.1018806.9234646464163859519.b4-reply@b4>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2318;
- i=adrian.larumbe@collabora.com; h=from:subject:message-id;
- bh=n1KJjRw87lG1pDc10+5L7QJjt3rvVLAj/Fx8iESoCDA=;
- b=owEB7QES/pANAwAKAQ4mfkzuU0M9AcsmYgBqxEXcYajdbpd7dU0NPiyy/pUNJgtLHckn7+aia
- 3MVQjXmg7mJAbMEAAEKAB0WIQQyQDDowAUXXfk3B6QOJn5M7lNDPQUCasRF3AAKCRAOJn5M7lND
- PdCQC/9MYYWMBekLUwR5bh+h/dntrDLNAK5x2BVyJr+JX81ab1ER6lqflNYBK10bhcNE9l9W82o
- 95zPxeibQiveYHcqHgtmiJYW6ghMa2mkhotcQWCKY33IVJ6V/tAqLxs3yJuuehSAG9wAXYhdiv6
- 9LNdPJupaZwhDQvLmDFJJsG1ARLlE4xB1Ejn9k8kZeK9CzVeIHjrSyKkmZLVNU/F/FupvObl5ri
- JRWVBzDLhxc5bfK0tQOHG2mcQi5GmdUqm3O4AVzgHtPklNIyHq4NVakoAGca04kM642JLSRWiHU
- iQA3SvmwawaUkebhxgZnjIJ3yDS/HCXIu/ISVncf68O0Db/YDKn28nmcafJP6mZ7FkxXjylXS+Z
- dUloGaCB5N1ezehuGlEILuMKygbN1JgyuFY4B9cc7pjj4O7Ln+Oge+AfKxA9rhrdjmSD8Y5G61M
- Gxbm/8Wf+eNgn8pgOPs5kpJl0qGvcygB9Kii5MJiXexHyrnK3Pf9u9BY5u3b6NJfdLp4w=
-X-Developer-Key: i=adrian.larumbe@collabora.com; a=openpgp;
- fpr=324030E8C005175DF93707A40E267E4CEE53433D
 
-On 2026-10-02 15:10:07+01:00, Steven Price wrote:
-> On 29/09/2026 04:44, Adrián Larumbe wrote:
-> 
-> > Because debugfs knobs are a device interface, and also the different knobs
-> > deal with specific subsystems, it's best to move their initialisations away
-> > from panfrost_drv.c and into the subsystem they provide information about.
-> > 
-> > Reviewed-by: Boris Brezillon <boris.brezillon@collabora.com>
-> > Signed-off-by: Adrián Larumbe <adrian.larumbe@collabora.com>
-> > ---
-> >  drivers/gpu/drm/panfrost/panfrost_device.c |   8 ++
-> >  drivers/gpu/drm/panfrost/panfrost_device.h |   4 +
-> >  drivers/gpu/drm/panfrost/panfrost_drv.c    | 129 +----------------------------
-> >  drivers/gpu/drm/panfrost/panfrost_gem.c    |  29 ++++++-
-> >  drivers/gpu/drm/panfrost/panfrost_gem.h    |   3 +-
-> >  drivers/gpu/drm/panfrost/panfrost_job.c    |  99 ++++++++++++++++++++++
-> >  drivers/gpu/drm/panfrost/panfrost_job.h    |   4 +
-> >  7 files changed, 144 insertions(+), 132 deletions(-)
-> > 
-> > diff --git a/drivers/gpu/drm/panfrost/panfrost_device.c b/drivers/gpu/drm/panfrost/panfrost_device.c
-> > index c1a2e93a2b9b..5bf528f41278 100644
-> > --- a/drivers/gpu/drm/panfrost/panfrost_device.c
-> > +++ b/drivers/gpu/drm/panfrost/panfrost_device.c
-> > @@ -561,3 +561,11 @@ EXPORT_GPL_DEV_PM_OPS(panfrost_pm_ops) = {
-> >  	RUNTIME_PM_OPS(panfrost_device_runtime_suspend, panfrost_device_runtime_resume, NULL)
-> >  	SYSTEM_SLEEP_PM_OPS(panfrost_device_suspend, panfrost_device_resume)
-> >  };
-> > +
-> > +#ifdef CONFIG_DEBUG_FS
-> > +void panfrost_device_debugfs_init(struct drm_minor *minor)
-> > +{
-> > +	panfrost_gem_debugfs_init(minor);
-> > +	panfrost_sched_debugfs_init(minor);
-> > +}
-> > +#endif // CONFIG_DEBUG_FS
-> 
-> NIT: I'd usually try to avoid #ifdefs like this by making the header
-> files define a no-op dummy inline function when !CONFIG_DEBUG_FS. It
-> saves polluting the code with a potentially large number of #ifdefs.
-> 
-> But I have to admit this isn't too bad and a definite improvement, so
-> it's up to you - either way:
-> 
-> Reviewed-by: Steven Price <steven.price@arm.com>
-> 
-> Thanks,
-> Steve
+Shared memory buffers for software-rendered GUI applications are often
+large and highly fragmented in memory. To get a shareable handle to such
+a buffer from a guest VM, a virtio-gpu device backend can use the
+UDMABUF_CREATE_LIST ioctl with the memfds backing guest RAM and the list
+of guest physical pages sent by the guest driver. That list reaches 80K
+entries for a maximized window on a 4K display!
 
-I see most libraries doing this and agree it would help at removing some clutter.
-However, I think I'd rather take care of this in a future patch series.
+Like 44e9eb5a7621 ("dma-buf/udmabuf: Disable the size limit by default")
+did for the size limit, change the default to INT_MAX since the amount
+of protection provided by this limit seems dubious.
+
+Signed-off-by: Val Packett <val@invisiblethingslab.com>
+---
+ drivers/dma-buf/udmabuf.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/dma-buf/udmabuf.c b/drivers/dma-buf/udmabuf.c
+index df6dd0046242..589031133588 100644
+--- a/drivers/dma-buf/udmabuf.c
++++ b/drivers/dma-buf/udmabuf.c
+@@ -16,9 +16,9 @@
+ #include <linux/vmalloc.h>
+ #include <linux/iosys-map.h>
+ 
+-static int list_limit = 1024;
++static int list_limit = INT_MAX;
+ module_param(list_limit, int, 0644);
+-MODULE_PARM_DESC(list_limit, "udmabuf_create_list->count limit. Default is 1024.");
++MODULE_PARM_DESC(list_limit, "udmabuf_create_list->count limit. Default is INT_MAX.");
+ 
+ static int size_limit_mb = INT_MAX;
+ module_param(size_limit_mb, int, 0644);
+-- 
+2.55.0
+
