@@ -1,56 +1,56 @@
-Received: from mail-pg1-f199.google.com (mail-pg1-f199.google.com [209.85.215.199])
+Received: from mail-pl1-f197.google.com (mail-pl1-f197.google.com [209.85.214.197])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E8C894E4315
-	for <linux-kernel@vger.kernel.org>; Tue,  6 Oct 2026 23:33:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.199
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8FEC53BBFC5
+	for <linux-kernel@vger.kernel.org>; Tue,  6 Oct 2026 23:33:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.197
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791329595; cv=none; b=K1/oaOY9UkEgekjR0rPz6vo7wENU13BoGS4z4/NaSsB8YoXEJ16t+HGR7Zmn4wvhODkOAcYKgRKnZCfmm0cGY6xsmxWe0qGJK2eJJNuG0vEBL1YC+OPpmdIldlnKuH+2sXzZx3cpljYo7NBZI6u7XwHqAfJRJ8TihLmL+AYJYYI=
+	t=1791329599; cv=none; b=j9j5nWAjMzmKM0bLeSd0/gpXdS+lsmHo+3/XIJ/INFJhigIlY3VoUQ1cfvuCpoKTnIc2nSamPSVjha+NdMOvJZWHy7Ah4Sl74vGet0rK9c8JBTZNfmyhrsMghZM4Cchb49BWGVfjqSWv1Y42gNRniksz1r7xylj5kEWaYhM1j5A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791329595; c=relaxed/simple;
-	bh=0qjvB8OdXfnw5dOGUw3YkdBEmSXrOae8HI2nVPtSxvc=;
+	s=arc-20240116; t=1791329599; c=relaxed/simple;
+	bh=cmAVV5Tebt0KiKcFh+louzfAxig5TzIduxgkDUtTwzE=;
 	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
-	 To:Cc:Content-Type; b=Uj0MIoLxWDw52+GTSLjF+TQGWq57ZJrg0JO8WCROSWXc/FEaVbHXKAHfcH3cLqKH8i5bf+uCY+AhsZXyVo6Te7cfgkdFCYgNHZVhtVSNzIFRSuaIQrXwN/zV6oaYtmwYYGs6QLR3BeHE4OadHszRa1NT1P3WrBj7ESUX895adAU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--praan.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=UxwH3VsE; arc=none smtp.client-ip=209.85.215.199
+	 To:Cc:Content-Type; b=bxl6p129/chZxKmSHhk1eljDhcmz5+GjC6ZKc3kvRfaa6roiGmB9nk0bj6SufCYKF3B/+3Z6h3S9QD9JOisCHtPYk9xZLSOuYjXbNFVh0p3UlYhYBtvbOV05toW403QoiXdX8Db0aOznxk4gagBlkl9WfRR6Si8bmcH7L8H0fSo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--praan.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=bhx3fQ+a; arc=none smtp.client-ip=209.85.214.197
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--praan.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="UxwH3VsE"
-Received: by mail-pg1-f199.google.com with SMTP id 41be03b00d2f7-cd0cf3b1c70so155695a12.3
-        for <linux-kernel@vger.kernel.org>; Tue, 06 Oct 2026 16:33:13 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="bhx3fQ+a"
+Received: by mail-pl1-f197.google.com with SMTP id d9443c01a7336-2d55d8cd938so50688545ad.1
+        for <linux-kernel@vger.kernel.org>; Tue, 06 Oct 2026 16:33:16 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1791329593; x=1791934393; darn=vger.kernel.org;
+        d=google.com; s=20251104; t=1791329596; x=1791934396; darn=vger.kernel.org;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=Em2Xu7zpFNZOw/PR0iHa6bG/S6aI6uTipNSUQ/VAeRI=;
-        b=UxwH3VsEMrPeoqLzAb/AWVZ2YqCdDLmtrQw0snxOBhdnACAY00GYYBF/X/JcLz3Ij4
-         DwRcdRcL5nWPqRK8X9dy4Xq6tevdjcqO/GLXXZdYfabld/pENtQjBMDYDvb8P/xnM5xW
-         DCLBRwwL8Esp6blMKhqFu4RFstpp8R1pfzMKZIUXpJhEVpLgLABqBNpLDw5Nawzbi28H
-         Tc/jCCTjKX9sAj5V6OvP9sXafYkPbX4OYkCHEowzaJMN6eHSYWpMrHVzDkS/EK94WL9D
-         1+0heEI1si7UQ9+feeCw6XXU8GEADdknaTDO8neeT+WJdJuWGF3m1c8qz8LrHJSIEW/W
-         L+SQ==
+        bh=oXfVAUbw2uFyka/hBHAtN/UFycLnfdN6bRNMp+GlmjI=;
+        b=bhx3fQ+aNiyNqBd2k/5JX0P84iK/QOJY5ydyydqPmluL43niR3NIhot+aFHthnDDi7
+         FrJijqWNDnc0lES1VL+rxqE4+YSq2UAWphKvaGF9K9uS9C64pdqtEqeGMof2yaYXNIlC
+         9nojeQ+/RV6nMlLqzdvZCFlQhMO4cL1aJx9EY+wnJeu8i6XYF07SD8NwQjowQ5TZZ0+h
+         neuov25Wela8s1zn5HpJRZYOBSCGmazqKp9tTuLPMFAPdXB9hzrxGwcnYd0aUp6c68Nf
+         ZKk/rc1aWmv3HTvVxKW3Gi4EYI2ILs71dYPs6a3GcWJmEYLt1fOJIfIsaEHi44gAFY1U
+         eQpQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791329593; x=1791934393;
+        d=1e100.net; s=20260707; t=1791329596; x=1791934396;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=Em2Xu7zpFNZOw/PR0iHa6bG/S6aI6uTipNSUQ/VAeRI=;
-        b=K8Frh5cgXlV0EdxINjsK2nSllXzaqS0HbPGHKI7/dgIMfELWBG4UjkwuMmaMfju3F/
-         M+x41AAiGr0VoywGBhTMoomz5E+JeWZxXBnOw/zgoX9hTAsRhYP4lz9atd34S/YdDkA2
-         14Le/xciKZOc57DbCU8UD5fx8ntGmykVXeEw3lCk8ZkR2rFVkHyp0I0tWcjWMI99ATfe
-         1CTiTZRfxglhAm+C0bQ0hlZSPSYDZrVwAgWl/EQOSWA7HNOp39kBvla14QvSM3bhZd0J
-         vR4m+6raBAXbsoRPZnvl50ExTXClcewXeEx0UJfyqsJFA4325Zy020v0FPQhSIX+USyz
-         M5vA==
-X-Forwarded-Encrypted: i=1; AKwUvBxTPIo96WRewQri810iIpW7fkNZg1Gz/FzXGavGAyfAf5eCdJyzhnBGmUMG16PNJ7TFjaaLyS62xQHC/zY=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIWX+84Lp4giueYudzbNq7AuV7RZu+4zjTmqaZ114yrs7xvRwWu
-	K+Ab6B98sIFu3hvyxDLNWdrf8erxcYxNYBANN7tpPGVDsfSo5t2xR2egBiave6wqHhQYWvYKzG0
-	Bsg==
-X-Received: from pgkc15.prod.google.com ([2002:a63:ef4f:0:b0:ccc:5e44:a6cc])
- (user=praan job=prod-delivery.src-stubby-dispatcher) by 2002:a17:90a:da87:b0:3a8:80f4:98a7
- with SMTP id 98e67ed59e1d1-3a8a1bd661fmr445058a91.24.1791329593068; Tue, 06
- Oct 2026 16:33:13 -0700 (PDT)
-Date: Tue,  6 Oct 2026 23:32:47 +0000
+        bh=oXfVAUbw2uFyka/hBHAtN/UFycLnfdN6bRNMp+GlmjI=;
+        b=aTm5nX8o1yi56gTvnw7xg4YOhKLkKej3xsPh4OWAQ4LIGfnZOedkemQuBgORPuWr9B
+         5pMzbyNXJLtfEB0wRCcYm2grfOUZruFZNAl8MjAk3XSa5l0DD9T8K+c2ov2Q9XWTjQjD
+         dZbr+zhYXrHFbY7uTal/ehnYIrkdRYvDYcqkTExr0MJmaHi2Nrrus7Vy1QM3EGIgBgxr
+         uc2M/nZRLDW3Lnb3aYC0SNl5RJV6ML5rGPB+Nglk5d6gd+dgxQencH6v7wXjEaV7EvYh
+         3KU7b5VcpBuKxdoEuH1bbb9UyD+vnyJs6D0wCtC+OgkbnBlCVBpzlrqfi8cak4TUi39m
+         4fWQ==
+X-Forwarded-Encrypted: i=1; AKwUvByJlp6qVtqIcrGe9tzfyFv7XeDqJ/4kFW+508zaDv0DKEKiel8Wbct3SK+buxdeGbPcTTzO++865guquS0=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKeXvZleIlyGByaQq36KOzAzshKrBXQH1ha8+3chHSZ/Isacoam
+	Z+pX8/6LgLl1ZZchSvs3UjQGbeUCFCrhVCTsee6GJKXI4Xq6JVXgEyk/ZvR3tDVR2ney1drp4G3
+	E1A==
+X-Received: from plhb7.prod.google.com ([2002:a17:903:2287:b0:2e5:9453:2404])
+ (user=praan job=prod-delivery.src-stubby-dispatcher) by 2002:a17:902:e885:b0:2dd:7646:35cd
+ with SMTP id d9443c01a7336-2e5ff85264dmr7379155ad.0.1791329595650; Tue, 06
+ Oct 2026 16:33:15 -0700 (PDT)
+Date: Tue,  6 Oct 2026 23:32:48 +0000
 In-Reply-To: <20261006233248.705086-1-praan@google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -60,9 +60,8 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 Mime-Version: 1.0
 References: <20261006233248.705086-1-praan@google.com>
 X-Mailer: git-send-email 2.56.0.rc1.315.gc6ed9934b7-goog
-Message-ID: <20261006233248.705086-8-praan@google.com>
-Subject: [RFC PATCH v1 7/8] nfs: allow LOCALIO for P2PDMA pages only as
- aligned direct I/O
+Message-ID: <20261006233248.705086-9-praan@google.com>
+Subject: [RFC PATCH v1 8/8] nfs: allow P2PDMA pages for O_DIRECT on RDMA mounts
 From: Pranjal Shrivastava <praan@google.com>
 To: linux-nfs@vger.kernel.org, Trond Myklebust <trondmy@kernel.org>, 
 	Anna Schumaker <anna@kernel.org>
@@ -74,141 +73,46 @@ Cc: Chuck Lever <cel@kernel.org>, Jeff Layton <jlayton@kernel.org>, linux-kernel
 	Pranjal Shrivastava <praan@google.com>
 Content-Type: text/plain; charset="UTF-8"
 
-LOCALIO hands READs and WRITEs to the local filesystem, which can take
-P2PDMA pages only if its disk can DMA to them. Use LOCALIO for such I/O
-only if the filesystem's block device supports P2PDMA. Otherwise send a
-regular READ or WRITE RPC, as if LOCALIO were off.
+Pass ITER_ALLOW_P2PDMA when extracting O_DIRECT pages on mounts that
+use the RDMA transport and not pNFS. The RDMA transport moves such pages
+only by DMA, and fails the RPC with -EREMOTEIO if the device cannot
+reach them.
 
-When the I/O is not a single DIO-aligned segment, LOCALIO falls back to
-buffered I/O, which copies the payload through the page cache via CPU
-accesses. Fail such I/O with -EINVAL instead.
+On other mounts, extracting P2PDMA pages still fails with -EREMOTEIO.
 
 Signed-off-by: Pranjal Shrivastava <praan@google.com>
 ---
- fs/nfs/internal.h |  8 ++++++++
- fs/nfs/localio.c  | 40 ++++++++++++++++++++++++++++++++++++++++
- fs/nfs/pagelist.c |  3 +++
- 3 files changed, 51 insertions(+)
+ fs/nfs/direct.c | 10 +++++++++-
+ 1 file changed, 9 insertions(+), 1 deletion(-)
 
-diff --git a/fs/nfs/internal.h b/fs/nfs/internal.h
-index d6ea41a3f9b4..9338b5e0896a 100644
---- a/fs/nfs/internal.h
-+++ b/fs/nfs/internal.h
-@@ -476,6 +476,7 @@ extern struct nfsd_file *nfs_local_open_fh(struct nfs_client *,
- 					   struct nfs_fh *,
- 					   struct nfs_file_localio *,
- 					   const fmode_t);
-+struct nfsd_file *nfs_local_p2pdma_check(struct nfsd_file *localio);
- extern int nfs_local_doio(struct nfs_client *,
- 			  struct nfsd_file *,
- 			  struct nfs_pgio_header *,
-@@ -495,6 +496,13 @@ nfs_local_open_fh(struct nfs_client *clp, const struct cred *cred,
+diff --git a/fs/nfs/direct.c b/fs/nfs/direct.c
+index a3c6e8f4ea06..dbeb4f8274e3 100644
+--- a/fs/nfs/direct.c
++++ b/fs/nfs/direct.c
+@@ -157,14 +157,22 @@ static ssize_t nfs_direct_extract_pages(struct nfs_direct_req *dreq,
+ 					size_t size, loff_t *pos,
+ 					struct list_head *list)
  {
- 	return NULL;
- }
-+
-+static inline struct nfsd_file *
-+nfs_local_p2pdma_check(struct nfsd_file *localio)
-+{
-+	return NULL;
-+}
-+
- static inline int nfs_local_doio(struct nfs_client *clp,
- 				 struct nfsd_file *localio,
- 				 struct nfs_pgio_header *hdr,
-diff --git a/fs/nfs/localio.c b/fs/nfs/localio.c
-index f42b6112a613..6c8f2d393c35 100644
---- a/fs/nfs/localio.c
-+++ b/fs/nfs/localio.c
-@@ -19,6 +19,7 @@
- #include <linux/nfs_common.h>
- #include <linux/nfslocalio.h>
- #include <linux/bvec.h>
-+#include <linux/blkdev.h>
++	struct nfs_server *server = NFS_SERVER(dreq->inode);
+ 	bool pinned = iov_iter_extract_will_pin(iter);
++	iov_iter_extraction_t flags = 0;
+ 	struct page **pagevec = NULL;
+ 	ssize_t result, bytes = 0;
+ 	int err = 0;
+ 	unsigned int npages, i;
+ 	size_t pgbase;
  
- #include <linux/nfs.h>
- #include <linux/nfs_fs.h>
-@@ -290,6 +291,22 @@ nfs_local_open_fh(struct nfs_client *clp, const struct cred *cred,
- }
- EXPORT_SYMBOL_GPL(nfs_local_open_fh);
- 
-+/*
-+ * LOCALIO moves P2PDMA pages only by DMA to and from the local disk.
-+ * If that disk cannot do P2PDMA, put @localio and return NULL so the
-+ * I/O is sent as a regular RPC instead.
-+ */
-+struct nfsd_file *nfs_local_p2pdma_check(struct nfsd_file *localio)
-+{
-+	struct file *file = nfs_to->nfsd_file_file(localio);
-+	struct block_device *bdev = file_inode(file)->i_sb->s_bdev;
+-	result = iov_iter_extract_pages(iter, &pagevec, size, ~0U, 0, &pgbase);
++	/* Allow P2PDMA pages only on RDMA mounts that do not use pNFS */
++	if (server->nfs_client->cl_proto == XPRT_TRANSPORT_RDMA &&
++	    !pnfs_enabled_sb(server))
++		flags = ITER_ALLOW_P2PDMA;
 +
-+	if (bdev && blk_queue_pci_p2pdma(bdev_get_queue(bdev)))
-+		return localio;
-+	nfs_local_file_put(localio);
-+	return NULL;
-+}
-+
- /*
-  * Ensure all page cache allocations are done from GFP_NOFS context to
-  * prevent direct reclaim recursion back into NFS via nfs_writepages.
-@@ -511,6 +528,17 @@ nfs_local_iters_init(struct nfs_local_kiocb *iocb, int rw)
- 	iov_iter_bvec(&iocb->iters[0], rw, iocb->bvec, v, len);
- }
++	result = iov_iter_extract_pages(iter, &pagevec, size, ~0U, flags,
++					&pgbase);
+ 	if (result <= 0)
+ 		return result;
  
-+/*
-+ * P2PDMA payloads move only by DMA, never through the page cache, so the
-+ * whole I/O must be a single DIO-aligned segment.
-+ */
-+static bool nfs_local_p2pdma_misaligned(struct nfs_local_kiocb *iocb)
-+{
-+	return iocb->hdr->args.p2pdma &&
-+	       (atomic_read(&iocb->n_iters) != 1 ||
-+		!iocb->iter_is_dio_aligned[0]);
-+}
-+
- static void
- nfs_local_hdr_release(struct nfs_pgio_header *hdr,
- 		const struct rpc_call_ops *call_ops)
-@@ -732,6 +760,12 @@ static void nfs_local_do_read(struct nfs_local_kiocb *iocb,
- 	nfs_local_pgio_init(hdr, call_ops);
- 	hdr->res.eof = false;
- 
-+	if (nfs_local_p2pdma_misaligned(iocb)) {
-+		nfs_local_pgio_done(iocb, -EINVAL);
-+		nfs_local_pgio_release(iocb);
-+		return;
-+	}
-+
- 	INIT_WORK(&iocb->work, nfs_local_call_read);
- 	if (nfs_local_defer_io())
- 		queue_work(nfslocaliod_workqueue, &iocb->work);
-@@ -953,6 +987,12 @@ static void nfs_local_do_write(struct nfs_local_kiocb *iocb,
- 
- 	nfs_set_local_verifier(hdr->inode, hdr->res.verf, hdr->args.stable);
- 
-+	if (nfs_local_p2pdma_misaligned(iocb)) {
-+		nfs_local_pgio_done(iocb, -EINVAL);
-+		nfs_local_pgio_release(iocb);
-+		return;
-+	}
-+
- 	INIT_WORK(&iocb->work, nfs_local_call_write);
- 	if (nfs_local_defer_io())
- 		queue_work(nfslocaliod_workqueue, &iocb->work);
-diff --git a/fs/nfs/pagelist.c b/fs/nfs/pagelist.c
-index ec535ed3051d..2d1d07c460fd 100644
---- a/fs/nfs/pagelist.c
-+++ b/fs/nfs/pagelist.c
-@@ -1023,6 +1023,9 @@ static int nfs_generic_pg_pgios(struct nfs_pageio_descriptor *desc)
- 					  &hdr->args.context->nfl,
- 					  hdr->args.context->mode);
- 
-+		if (localio && hdr->args.p2pdma)
-+			localio = nfs_local_p2pdma_check(localio);
-+
- 		if (NFS_SERVER(hdr->inode)->nfs_client->cl_minorversion)
- 			task_flags = RPC_TASK_MOVEABLE;
- 		ret = nfs_initiate_pgio(NFS_CLIENT(hdr->inode),
 -- 
 2.56.0.rc1.315.gc6ed9934b7-goog
 
