@@ -1,215 +1,156 @@
-Received: from mx07-00376f01.pphosted.com (mx07-00376f01.pphosted.com [185.132.180.163])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qv1-f54.google.com (mail-qv1-f54.google.com [209.85.219.54])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 832183E3160
-	for <linux-kernel@vger.kernel.org>; Tue,  6 Oct 2026 11:07:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.132.180.163
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791284836; cv=none; b=XO52vruh/Xm5y+5GVUFKpzpk+4Z4y7qy1JVyWjUGMLY08WQx7uuqew/L6CVJ70Sy34aJOKvBL3VYCLzrqDERA4kgKAj4jcJ1VcYQX2MXYuo/5YEsmZujhI0J56ww2H/C+pSYtyT5Q93UEhPwRBkY2iE0zqPFF1Vt5SPxmFAvQYg=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791284836; c=relaxed/simple;
-	bh=4sgJry/QQHs4jyTSXxdIDrgEAIUEVZCTNNj25giXh5o=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-ID:References:
-	 In-Reply-To:To:CC; b=cVTbFsneYK9STPUbpfcGwfPjlER8PgNQWpi3dYqBxW5BKNPAdEZHdkJdjclMN0w+cxnL7O/N85pCuOk6kRwUMC9uOXY2IE6giNmE5M8swJg2to2tHzDHKkzugzx9AdWHsrBgnxsBkjwyznednyqNe3sA/jwCsueMNTd3x5Ssvy4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=imgtec.com; spf=pass smtp.mailfrom=imgtec.com; dkim=pass (2048-bit key) header.d=imgtec.com header.i=@imgtec.com header.b=mcqmA4rb; arc=none smtp.client-ip=185.132.180.163
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=imgtec.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=imgtec.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BD8E43E6DEC
+	for <linux-kernel@vger.kernel.org>; Tue,  6 Oct 2026 11:07:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.219.54
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791284848; cv=pass; b=auvMhLCqGvQlH2ar2MFxle2hArxrTYR3PCGrNTNri2Sxm2ZHxvUI1Z8j7hccyv0nzzj0XBM6QDvby5G9aQWLQPxwbPqIm503Kcqo7zSXoBWj9nRpNGUQYfyX3H9kNPMdO3HsV0P/5kZNUTUm6/b8PqKzgjoANkjhwK309FBcsP0=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791284848; c=relaxed/simple;
+	bh=qSS/SQDaAJD+8TrXRRUdYlnKCJd8RHVXLPrkfyVyE1w=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=IUg4Yt/SFAm7AG99HeyX1CcYr4aISAyRC8csiV+N8LCdbCsLCCXXKiCmodSqIuQXD/RRiFBrTK0i46Ay87wz7lcdmk2sgUklbdqIcBnquldtdGPDEBfhTObOMEBA4h2WotYFLjvprWimeiYOEhzs0Rb0xVPfOYVpmTTI7r5cbA8=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=q/EMXAj5; arc=pass smtp.client-ip=209.85.219.54
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=imgtec.com header.i=@imgtec.com header.b="mcqmA4rb"
-Received: from pps.filterd (m0168889.ppops.net [127.0.0.1])
-	by mx07-00376f01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 696A6eXU1790091;
-	Tue, 6 Oct 2026 12:06:54 +0100
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=imgtec.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=dk201812; bh=v
-	gTTFKevrVAkjO9I5ivRvfHK3WPX4M8LG/KLEVIhoNI=; b=mcqmA4rbc+ktqwM8t
-	U66wE7lygGiwGpsAB+KTBBB8ZkRfFMjgB7IIrgNkupo/rMHT0y7NdW3zsQ8vTnrU
-	2dKSy695kzMvriWO/RJyFskpe5F63dKBqdGnqBSjoV5WR7YuXVGVVCwOT1fEWgqu
-	JitI70+Z6hNhz1LmBNoEBOrr1p3BA3TUrtTmH9ecOOzjxdgUa9ie9GMZ+dh+OarD
-	S2yAmps4ysc8XSEcb3Qdk3FA4YE+FvuU1gFkFxnAKEIzdj75idTJcQw6Moe6pvn7
-	Ci82w1eU2AG8TyxsVTDjEDd/EQwoq9LZXmorjLDCICxhesXqQRCqKkHetEzmrIek
-	caiiA==
-Received: from hhmail01.hh.imgtec.org (83-244-153-141.cust-83.exponential-e.net [83.244.153.141])
-	by mx07-00376f01.pphosted.com (PPS) with ESMTPS id 4h4brugugr-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Tue, 06 Oct 2026 12:06:54 +0100 (BST)
-Received: from [127.0.1.1] (172.25.5.23) by HHMAIL01.hh.imgtec.org
- (10.100.10.19) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Tue, 6 Oct
- 2026 12:06:47 +0100
-From: Alexandru Dadu <alexandru.dadu@imgtec.com>
-Date: Tue, 6 Oct 2026 14:06:38 +0300
-Subject: [PATCH 2/2] drm/imagination: Add utility function to write and
- read back register
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="q/EMXAj5"
+Received: by mail-qv1-f54.google.com with SMTP id 6a1803df08f44-91957ec418cso12190726d6.2
+        for <linux-kernel@vger.kernel.org>; Tue, 06 Oct 2026 04:07:25 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1791284844; cv=none;
+        d=google.com; s=arc-20260327;
+        b=k1IihujCtI7Io/sDzSyjQF/Dbg11yLNGRJCbALetIO8gWc7lExHrxBo8xi5ymJ9yUk
+         CA6vFb6pJjuFi84xU7TBS0fRYlEaRHpRPiV801Oq8RmGX/FYoALu5MKL38mrlxB+uQYJ
+         ZmAEzFCXPePFJyZZcO5yjsCaXCVfV4dU/zdjHe9UMfBALhTDrTNV4wvUzHcejbjm9P0w
+         5IgwjboN3Fk1cpqB0lQXOwu6CRAki2VuWzqAMMnqkVEl7e4avDTuRa9sOwZrSD3ZIbUX
+         ZYy3jpMkyBM8/EEzC1wtlX2zQuz8fvkKzV0H+BGM9UCsWTWyfDk1UmCx6q57e1pnlcG7
+         5QZw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=st0WdGm0HQhoVPJqkSZGig8FXS+yxZLP3K54PTCRXrQ=;
+        fh=IvPOWi9yucqZ78IWJ8H2eVPvKlr7uNDVoOXZTXbGZ2Q=;
+        b=pXgXy4kLvJI+LD2tWWBJMT4aoz/R+zVYvkWP5ClyWKToA2q2Mzom135eb2UiLflHew
+         UYRvSufV3MiqLtphMfEX3rH6a9H7Ym5TnEsEiOMUGTeH2ZNZyMt52r/J6GS+8gw/W6HV
+         VHkvyDIPmyQEBezxwo0o9AGf9vmzb/k8jTAChXmlQ68q4fOtkrEf2b0/8SVhDlzxdF0T
+         zFI50Ps9LKEy344Nq5YaEgKQ9vYDnZ3E4GVN1DRanMuk2c7Cau3DJhljBS6Zb+CPPMTq
+         YrQ3gR0HL1EpkmVqQ3yGx1iqIQvv5Mhx3UlsNskpApbG/Umsy/4Q5ZTUc6nbla7Qm2pf
+         V7LQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791284844; x=1791889644; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=st0WdGm0HQhoVPJqkSZGig8FXS+yxZLP3K54PTCRXrQ=;
+        b=q/EMXAj58oXFBNWWRtOLXcyeBBO90ETnY2BHR6HODfxlA9IHy74LVCO8VTqPXZQ/pE
+         nyG1fUStUMb0w875dj+GxKu/HPIEx8sOJw8Xvo4ODTraXkKRaCR9GX1JfYEOJLGIOqYD
+         BHmdQZd5vAMsjiFpJv9h08ms6pFetTnIUyIb60/N3z+pSjqZElpf13ExW2ALNFAZLtC3
+         CwXVmbGGRrB23xa9u+3Wlq5b4vSbOtr88EDBnO+GvoWczmm9Se9YdjS94QUrpUDZMuRP
+         VF3cg3KnqQSQeacZOqMNtIkcs25GWyXIon8F/aAJHFvrbP9Epod/IN/uL804GdV1swEp
+         WQ3w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791284844; x=1791889644;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=st0WdGm0HQhoVPJqkSZGig8FXS+yxZLP3K54PTCRXrQ=;
+        b=OfS6g1aypZgx+KnvN0NUPqf3IZiBr+VSQ5yfmZKw4CeNvyaPAooyJmnOWfmORCreDS
+         bphZpM8lFtYIot7xSLpsQk0qo2BLgypaBND+P19Epy2Nk60xE7pKVV5qmHMTCpZhbFqf
+         TlVPtOY/OAuV+Rae3ZVGz0nfP/N4OQJeb4dGXmZSVUVrXF8FUxLDjFLALONZ+XrfQ3NU
+         9I7UohPoN0qsyoRDozaHxFKln+OnnVwl2bTkWmQGeu2xF51k0SlwmDfTL3fBTxj9qXZd
+         89ZPSVPXfDe6f1JanRyyr3J3+gUT9/TNKk1OOY6v1IgFLpP1rXYRK+OnE6n92bBXDyeC
+         3nyw==
+X-Forwarded-Encrypted: i=1; AKwUvByV1MfTJOtNDJIHw8NqDWRPDXgrrwkn/ySkV0apt9Zovc5fdNKgCo733URylgGeCUhMYYeIiyJ8WpoJFp0=@vger.kernel.org
+X-Gm-Message-State: AFuF++nVBayMgxWCDcoEoRxD62J4ZfZrzwfgxwKGe0sz5O9CT+6nbDyM
+	JDAqww023nekK9S3tsSJFJI3c+RbZSWBy4z+nvJeVjKg1AK8SAedzlQqdua8ZXEHvnO8llo0SEv
+	Dn+GVNHDiGLlvhKWVb4irElK3ULQimUE=
+X-Gm-Gg: AYBFou25DO72nEhRpqu9hgWj5dZ12ei+CkFoLW2IEK5LGz0AW1YDUzEQ3ITuxmcipAl
+	4XV49bu5moYHyyFgyhkChNnffXCdIHTh0q0ZXzYiBu6iMxhEJsR9/oe7gx9HF5mZm5kSH7aDGnq
+	9W+W1w5vD68T2POe5kTCUnJPEIgyZ3KAEUlG9jNc5R8h7xP1rhmIq581Tks9XAtMj5zpHEjiI1h
+	+KgTQ0vOIuL7Qyq+rVWVKeQU5oRQUU8lAiXHNksj2p1ChdMYzqUNx+W/kZXStp2LBbYuwzTG1ti
+	ehvJ27k3SSk///0eqG0LbNlLDuJMbj4YHSSPXUJOftR+fBUX5sAdMm/cOJHjq0aIlnb3ayxOQK/
+	w6SQ7lpzf
+X-Received: by 2002:a05:6214:310a:b0:919:5a24:d77c with SMTP id
+ 6a1803df08f44-9198b7bec34mr20040386d6.31.1791284844396; Tue, 06 Oct 2026
+ 04:07:24 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-ID: <20261006-b4-utility-function-to-rw-regs-v1-2-a9faca685c4c@imgtec.com>
-References: <20261006-b4-utility-function-to-rw-regs-v1-0-a9faca685c4c@imgtec.com>
-In-Reply-To: <20261006-b4-utility-function-to-rw-regs-v1-0-a9faca685c4c@imgtec.com>
-To: Alessio Belle <alessio.belle@imgtec.com>,
-        Luigi Santivetti
-	<luigi.santivetti@imgtec.com>,
-        Maarten Lankhorst
-	<maarten.lankhorst@linux.intel.com>,
-        Maxime Ripard <mripard@kernel.org>,
-        Thomas Zimmermann <tzimmermann@suse.de>,
-        David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
-        Sarah Walker <sarah.walker@imgtec.com>,
-        Donald Robson <donald.robson@imgtec.com>
-CC: <imagination@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>,
-        <linux-kernel@vger.kernel.org>,
-        Alexandru Dadu <alexandru.dadu@imgtec.com>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1791284810; l=4840;
- i=alexandru.dadu@imgtec.com; s=20260304; h=from:subject:message-id;
- bh=QJQ3JLtReACHU8Nq8bSp8snKZThuBwcSu1XjWsOFZpo=;
- b=cU1gUrd4sG7gzLN9PT94zsXRV9VB1xss7vCGw3OkR7O9mT8eWF7VfcajT8SYfMQt/2i0KQLCe
- U0wOEnt+uldCUuR1mq2K2+0lcvbof3f086b816tDKAI/g0PBKd4HumH
-X-Developer-Key: i=alexandru.dadu@imgtec.com; a=ed25519;
- pk=FU07SyNrYGwhahqSxbWEuzyXlUh47xBXvLvOR7UA6+U=
-X-Authority-Analysis: v=2.4 cv=FNOOVOos c=1 sm=1 tr=0 ts=6ac4d64e cx=c_pps
- a=AKOq//PuzOIrVTIF9yBwbA==:117 a=AKOq//PuzOIrVTIF9yBwbA==:17
- a=Vfs-8JXWiL0A:10 a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10
- a=VkNPw1HP01LnGYTKEx00:22 a=kQ-hrUj2-E3RCbRHssb7:22 a=7RYWX5rxfSByPNLylY2M:22
- a=r_1tXGB3AAAA:8 a=RihMtEClj2EdTCFu1X4A:9 a=QEXdDO2ut3YA:10
- a=t8nPyN_e6usw4ciXM-Pk:22
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDA2MDA0NCBTYWx0ZWRfX2jav+18pl11Y
- IeG2zsw/6g67+DHSMxhBtywKJMHU5DNQK7ZQ70goapLA3nEvwC19x9JsnY1Nx5eKh3hwcABCIFq
- WNUBtR3uPi2L0TeUbE1eepokOWntre8=
-X-Proofpoint-ORIG-GUID: wDMN0YJXyvfk_uhiIa5VXbPXKLajWEMo
-X-Proofpoint-GUID: wDMN0YJXyvfk_uhiIa5VXbPXKLajWEMo
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDA2MDA0NCBTYWx0ZWRfX8AF+GJadNsLG
- WbOu2LOvzisJ1M3F9tRzsF3jw7i/BLCrZinkLcXlTjiwfZx1Rc5uAImYqGBpWXfICtJgBcXe6qN
- z3MdICe52QBQ2f202dmr7kXIV7p79rDKlQ8oUkTcU14ahN1OWvP3IuelHjOYifHrRWnEdAVYSfJ
- PZ37uf1Wc8Lau5aGMpHqlvkWx3fDbOrU4wuKT8rmqUg4e7qgjNGYxTESHuN9lnA0xgrYGuv8Aq9
- 6KxgvoJsW92J3diN27Q+IXsep65Jx6ykRDt8zx9fofHrWYD32A+dD91SDCId4KJ77EOxTHOVuj0
- 1+nxAeyCf+q+XJdi1Bz1g7YeuI5UHN3HEg/IpTJIWdkFVxMj8svTKYQHSlqtzTyc4N6MnpePO9M
- 77syTA/OnAsZ9JVwLeN/6dFFvYmcsGRgAO/s9ChLJvnf3rBhxPyPCJXvZoIC8TGlZ27J9Bo81/h
- 4i9D7Tp1LiyFRi8JZAw==
+References: <20261006102937.10972-1-ansuelsmth@gmail.com> <asTRQ6d0-NYOeHqX@parshuram>
+ <CA+_ehUw8fQHGef_L7YPQEf-wwuzP9km=G64Ty3+AkvM=fkNJ4Q@mail.gmail.com> <asTVqsqOLb29LY08@parshuram>
+In-Reply-To: <asTVqsqOLb29LY08@parshuram>
+From: "Christian Marangi (Ansuel)" <ansuelsmth@gmail.com>
+Date: Tue, 6 Oct 2026 13:07:10 +0200
+X-Gm-Features: AclHuK__1dmQcUVRwrNQOlxQllKfZWHAwvmEnEZJ6X7sEUc-dLa0jeCfKreo69E
+Message-ID: <CA+_ehUxra53C2N8a0t73nLpS4DkaNSzE3STfhU7j3ZoQ9becyg@mail.gmail.com>
+Subject: Re: [PATCH v14 0/3] airoha: an7581: USB support
+To: Vinod Koul <vkoul@kernel.org>
+Cc: Neil Armstrong <neil.armstrong@linaro.org>, Manivannan Sadhasivam <mani@kernel.org>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Lorenzo Bianconi <lorenzo@kernel.org>, linux-arm-kernel@lists.infradead.org, 
+	linux-phy@lists.infradead.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-From: Alessio Belle <alessio.belle@imgtec.com>
+Il giorno mar 6 ott 2026 alle ore 13:04 Vinod Koul <vkoul@kernel.org>
+ha scritto:
+>
+> On 06-10-26, 12:47, Christian Marangi (Ansuel) wrote:
+> > Il giorno mar 6 ott 2026 alle ore 12:45 Vinod Koul <vkoul@kernel.org>
+> > ha scritto:
+> > >
+> > > On 06-10-26, 12:29, Christian Marangi wrote:
+> > > > This is a major rework of the old v2 series.
+> > > >
+> > > > The SoC always support USB 2.0 but for USB 3.0 it needs additional
+> > > > configuration for the Serdes port. Such port can be either configured
+> > > > for USB usage or for PCIe lines or HSGMII and these are configured
+> > > > in the SCU space.
+> > > >
+> > > > The previous implementation of a dedicated SSR driver was too
+> > > > complex and fragile for the simple task of configuring a register
+> > > > hence it was dropped and the handling is entirely in the PHY driver.
+> > > >
+> > > > Everything was reducted to the dt-bindings to describe the Serdes line.
+> > > >
+> > > > Also the property for the PHY are renamed to a more suitable name and
+> > > > everything is now mandatory to simplify the implementation.
+> > > > (the PHY are always present and active on the SoC)
+> > >
+> > > I get build failure:
+> > >
+> > > drivers/phy/airoha/phy-an7581-usb.c:7:10: fatal error: dt-bindings/soc/airoha,scu-ssr.h: No such file or directory
+> > >     7 | #include <dt-bindings/soc/airoha,scu-ssr.h>
+> > >       |          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+> > >
+> >
+> > This header is present in linux-next
+> >
+> > https://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git/tree/include/dt-bindings/soc/airoha,scu-ssr.h
+> > https://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git/commit/include/dt-bindings/soc/airoha,scu-ssr.h?id=11952173d8a180ac05641775f80bd6946327478f
+> >
+> > Introduced by a clk series.
+>
+> Okay so we have a cross tree dependency. I would like my tree to be
+> buildable and not depend on next.
+>
+> I can
+> a) get a signed tag for this from clk tree with the required patch,
+> merge and then apply this series
+> b) postpone to rc1
+>
+> Either works for me
+>
 
-Used to avoid repeating the same pattern multiple times.
+Maybe "a" is better for other phy driver? The pcie move patch is blocking
+other airoha drivers currently.
 
-Signed-off-by: Alessio Belle <alessio.belle@imgtec.com>
-Signed-off-by: Alexandru Dadu <alexandru.dadu@imgtec.com>
----
- drivers/gpu/drm/imagination/pvr_device.h       | 28 ++++++++++++++++++++++++++
- drivers/gpu/drm/imagination/pvr_fw_meta.c      |  5 ++---
- drivers/gpu/drm/imagination/pvr_fw_startstop.c | 21 ++++++-------------
- 3 files changed, 36 insertions(+), 18 deletions(-)
+What is the procedure? In theory just the dt patch is needed, nothing else.
 
-diff --git a/drivers/gpu/drm/imagination/pvr_device.h b/drivers/gpu/drm/imagination/pvr_device.h
-index d51c57cf9332..c246122b4caf 100644
---- a/drivers/gpu/drm/imagination/pvr_device.h
-+++ b/drivers/gpu/drm/imagination/pvr_device.h
-@@ -606,6 +606,34 @@ pvr_cr_write64(struct pvr_device *pvr_dev, u32 reg, u64 val)
- 	iowrite64(val, pvr_dev->regs + reg);
- }
- 
-+/**
-+ * pvr_cr_write_fenced32() - Write to a 32-bit register in a PowerVR device and fence the write
-+ * @pvr_dev: Target PowerVR device.
-+ * @reg: Target register.
-+ * @val: Value to write.
-+ */
-+static __always_inline void
-+pvr_cr_write_fenced32(struct pvr_device *pvr_dev, u32 reg, u32 val)
-+{
-+	pvr_cr_write32(pvr_dev, reg, val);
-+	/* Read back register to fence previous write in order to clear the SOCIF pipeline */
-+	(void)pvr_cr_read32(pvr_dev, reg);
-+}
-+
-+/**
-+ * pvr_cr_write_fenced64() - Write to a 64-bit register in a PowerVR device and fence the write
-+ * @pvr_dev: Target PowerVR device.
-+ * @reg: Target register.
-+ * @val: Value to write.
-+ */
-+static __always_inline void
-+pvr_cr_write_fenced64(struct pvr_device *pvr_dev, u32 reg, u64 val)
-+{
-+	pvr_cr_write64(pvr_dev, reg, val);
-+	/* Read back register to fence previous write in order to clear the SOCIF pipeline */
-+	(void)pvr_cr_read64(pvr_dev, reg);
-+}
-+
- /**
-  * pvr_cr_poll_reg32() - Wait for a 32-bit register to match a given value by
-  *                       polling
-diff --git a/drivers/gpu/drm/imagination/pvr_fw_meta.c b/drivers/gpu/drm/imagination/pvr_fw_meta.c
-index 84f568b5510f..38a91dcb66cb 100644
---- a/drivers/gpu/drm/imagination/pvr_fw_meta.c
-+++ b/drivers/gpu/drm/imagination/pvr_fw_meta.c
-@@ -48,9 +48,8 @@ pvr_meta_cr_read32(struct pvr_device *pvr_dev, u32 reg_addr, u32 *reg_value_out)
- 		return err;
- 
- 	/* Issue a Read. */
--	pvr_cr_write32(pvr_dev, ROGUE_CR_META_SP_MSLVCTRL0,
--		       reg_addr | ROGUE_CR_META_SP_MSLVCTRL0_RD_EN);
--	(void)pvr_cr_read32(pvr_dev, ROGUE_CR_META_SP_MSLVCTRL0); /* Fence write. */
-+	pvr_cr_write_fenced32(pvr_dev, ROGUE_CR_META_SP_MSLVCTRL0,
-+			      reg_addr | ROGUE_CR_META_SP_MSLVCTRL0_RD_EN);
- 
- 	/* Wait for Slave Port to be Ready. */
- 	err = pvr_cr_poll_reg32(pvr_dev, ROGUE_CR_META_SP_MSLVCTRL1,
-diff --git a/drivers/gpu/drm/imagination/pvr_fw_startstop.c b/drivers/gpu/drm/imagination/pvr_fw_startstop.c
-index 34c757267a22..7db7f16e62fd 100644
---- a/drivers/gpu/drm/imagination/pvr_fw_startstop.c
-+++ b/drivers/gpu/drm/imagination/pvr_fw_startstop.c
-@@ -126,29 +126,21 @@ pvr_fw_start(struct pvr_device *pvr_dev)
- 		 * Disable the default sys_bus_secure protection to perform
- 		 * minimal setup.
- 		 */
--		pvr_cr_write32(pvr_dev, ROGUE_CR_SYS_BUS_SECURE, 0);
--		(void)pvr_cr_read32(pvr_dev, ROGUE_CR_SYS_BUS_SECURE); /* Fence write */
-+		pvr_cr_write_fenced32(pvr_dev, ROGUE_CR_SYS_BUS_SECURE, 0);
- 	}
- 
- 	if (pvr_dev->fw_dev.processor_type == PVR_FW_PROCESSOR_TYPE_RISCV)
- 		pvr_cr_write32(pvr_dev, ROGUE_CR_FWCORE_BOOT, 0);
- 
- 	/* Set Rogue in soft-reset. */
--	pvr_cr_write64(pvr_dev, ROGUE_CR_SOFT_RESET, soft_reset_mask);
--
--	/* Read soft-reset to fence previous write in order to clear the SOCIF pipeline. */
--	(void)pvr_cr_read64(pvr_dev, ROGUE_CR_SOFT_RESET);
-+	pvr_cr_write_fenced64(pvr_dev, ROGUE_CR_SOFT_RESET, soft_reset_mask);
- 
- 	/* Take Rascal and Dust out of reset. */
--	pvr_cr_write64(pvr_dev, ROGUE_CR_SOFT_RESET,
--		       soft_reset_mask ^ ROGUE_CR_SOFT_RESET_RASCALDUSTS_EN);
--
--	(void)pvr_cr_read64(pvr_dev, ROGUE_CR_SOFT_RESET);
-+	pvr_cr_write_fenced64(pvr_dev, ROGUE_CR_SOFT_RESET,
-+			      soft_reset_mask ^ ROGUE_CR_SOFT_RESET_RASCALDUSTS_EN);
- 
- 	/* Take everything out of reset but the FW processor. */
--	pvr_cr_write64(pvr_dev, ROGUE_CR_SOFT_RESET, ROGUE_CR_SOFT_RESET_GARTEN_EN);
--
--	(void)pvr_cr_read64(pvr_dev, ROGUE_CR_SOFT_RESET);
-+	pvr_cr_write_fenced64(pvr_dev, ROGUE_CR_SOFT_RESET, ROGUE_CR_SOFT_RESET_GARTEN_EN);
- 
- 	err = rogue_slc_init(pvr_dev);
- 	if (err)
-@@ -168,8 +160,7 @@ pvr_fw_start(struct pvr_device *pvr_dev)
- 	/* Need to wait for at least 16 cycles before taking the FW processor out of reset ... */
- 	udelay(3);
- 
--	pvr_cr_write64(pvr_dev, ROGUE_CR_SOFT_RESET, 0x0);
--	(void)pvr_cr_read64(pvr_dev, ROGUE_CR_SOFT_RESET);
-+	pvr_cr_write_fenced64(pvr_dev, ROGUE_CR_SOFT_RESET, 0x0);
- 
- 	/* ... and afterwards. */
- 	udelay(3);
-
--- 
-2.43.0
-
+Thanks a lot for helping in this.
