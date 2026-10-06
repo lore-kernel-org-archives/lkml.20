@@ -1,284 +1,242 @@
-Received: from mail-wr1-f50.google.com (mail-wr1-f50.google.com [209.85.221.50])
+Received: from mail-qk1-f169.google.com (mail-qk1-f169.google.com [209.85.222.169])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5A91C49EC53
-	for <linux-kernel@vger.kernel.org>; Tue,  6 Oct 2026 15:44:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.50
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D70074A0153
+	for <linux-kernel@vger.kernel.org>; Tue,  6 Oct 2026 15:44:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.169
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791301493; cv=none; b=tmjuja7p0HMfF90Cnf1mN+6POH6klNfWl3tv1oaHgRW6zQ3a+yei9+H1oTExEePa+vYMig39Zj/n4KoPSsMc6LnXGMrCCFa8fORhc4DOhG0iErpz2tSjWyNTxj2heyAXKbV1D/xdLUM+NboPxi/dsDPpd/0oZb3utRL4AH0UxTI=
+	t=1791301497; cv=none; b=kEyHBnXxhG0ZJWglwdjtxilwNisuy134gN0XzAFPfoV4vxGK/8kJ8pEMd8wdfxiwAfFdZ11SJ+3KdqAgbwWIIv98ejXZWmkwJTOZDI5sGXhLcCDVxND+gG4+tpAGaX8zP6SKtkeA9iEfbOzOPqqK2teTjrmj+e6pmwbih4+jxRw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791301493; c=relaxed/simple;
-	bh=IilKprHN+dkOEjDRUlnznoimt/1NPDWwCTswIfyM704=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=XZI3vqo3gnZ1Y97d2rNBGos/nx+jK8j72vv8slXfNBsszt2plK3ZmyMm1YAZPYNj5UTnU1+fK874WL5aTE+Usw/jHQmBl6iFhV2qypoxkSdzqMYFlXKk6s/JOYax/Olvs7savwoD/34n/FI9pCQaggShQA3xiDOzl9uPcnQt2yY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=n26Qk0P4; arc=none smtp.client-ip=209.85.221.50
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1791301497; c=relaxed/simple;
+	bh=8vkzyF59g32RtfmPZXkdpM3bmDGASCtX3QXPvfTT0t0=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=WxjmrFmjXmJHQhpuHyT226JF7Su6DhgWpqcEO68byscx1E3sP0pman0EwiD7q+LYbYxsn//WAFR/COCFBFMv2bRHZR8/7lfV1f4/f+gAKk7ssxr0dCAYwaiB0vhWBYY7EXlGVxVAbSVwRgKKcUzZoa5zUlwLSht5+zwryTTys0E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=toxicpanda.com; spf=pass smtp.mailfrom=toxicpanda.com; dkim=pass (2048-bit key) header.d=toxicpanda.com header.i=@toxicpanda.com header.b=OS/v21t2; arc=none smtp.client-ip=209.85.222.169
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=toxicpanda.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=toxicpanda.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="n26Qk0P4"
-Received: by mail-wr1-f50.google.com with SMTP id ffacd0b85a97d-48b042c0759so755897f8f.2
-        for <linux-kernel@vger.kernel.org>; Tue, 06 Oct 2026 08:44:49 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=toxicpanda.com header.i=@toxicpanda.com header.b="OS/v21t2"
+Received: by mail-qk1-f169.google.com with SMTP id af79cd13be357-93e762768f3so58986285a.0
+        for <linux-kernel@vger.kernel.org>; Tue, 06 Oct 2026 08:44:53 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791301488; x=1791906288; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+        d=toxicpanda.com; s=google; t=1791301492; x=1791906292; darn=vger.kernel.org;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=bEOhgVr/F+JRU2d8CsY4syExbw/P/EYoR8Pl4QIjlT8=;
-        b=n26Qk0P4oKn4LubVE37xXeLcDaQSEjJxd5X+mrrBGWp+kNC/ONMVn5l7aoL9DoVzq5
-         jJJNuwn2meyGDDAuuLHBVQ6/zxL2mT2sW+XHdekSC17arsPXJFULtD6hAI6f+76tdUxx
-         hVnS7GOYOOBIErcKYhmdNadCwVrqL3Ebe+XC8HIVbGrLgzpmGkpKTKQPIWCn8tB27gbv
-         tVkZcuYDoOZsQXLp+vFG8FJEVWODCizLS+1Z7+/orRvr4jIh/Dlitk4v+hrk7kYBKSwo
-         aHoGjIGmcqOAIpgemZ8ibM++TYvbwc1sdT5X6j7gnZfyufiIv2fNLMD9aU+VdDbfkeuK
-         iV6w==
+        bh=/k5W5gRBGKOnv0GDUCR5h+EZBe1kD+dGC7pkS9kRVb8=;
+        b=OS/v21t25O6jQ72j2LBDZjZ8jz044uYh7yz3bYrMBeyNcGKFYyn9gWledD6gwEXQkt
+         MSsaLHB3Ugl7MWDi+OQ6YF8F2UYeB47TDLpaZtGiVEXh26OHWJhV9cypO4aEbp1+JDzN
+         BN/uUSjV6oRreqABPwygMn2LoJaXl3TXWTn27gurXiDMKjihDxFXLn9Cd0DqOhIp273T
+         DPdDz3vkEXjU7rFSujovkgNKGzOrBNnf3WnexeseBx2+X8Lf5N7TvJklAPeBk0uAqEby
+         Pu1phf3ec6qz3woHq0B1cjItldyGstAAboyuyU6iHAcDut1HCWtrlQwy/sOchQXAoSJm
+         jZ9A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791301488; x=1791906288;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=bEOhgVr/F+JRU2d8CsY4syExbw/P/EYoR8Pl4QIjlT8=;
-        b=fD93S2BdQmcpwWEtRiNLNw/L36557uqT8UYc08mMLMaJcONYJIs5N5pkxJEz6/evXb
-         uWRV/tkA96cMIipCM5GVuQrPV/RcQ/iTbjXzjke/3xq8+dpPNuia97v1ThWE9ZzWW4mb
-         ARjaBMVjwAdwED9e6P9OKeEq3fxECCGRgaRaMQ7kIPZJo/aXbpmIQUwx5cQwwzbCg5A8
-         DQWx4EKxF1QStdd/b8Qe9e9tc9cT35SCvJIYqrG5zmRkQP4TDgxtguCK2g03+1J5+kmw
-         UYeyT3cbF9qIUjD3vs9vm4JUls2OQjDKBB9hbgAwGyv9Go/l5n2yvRZtrRIDqGiS3mjB
-         KEUw==
-X-Gm-Message-State: AFq9FYKOjtPVET7rPDnKXLIRyJ40PvPcqnD50aDf1SiDGMlwQQaHS9vG
-	Yd0UDLHu2k+rdkd2hQNyU8cI9nSWpvxn48JPeUmNxGbgRCMoMhEIE+lZ
-X-Gm-Gg: AYBFou0aTspATuJV34fIj3/GAdF2/kl8afFQnOtcnAXcCR1VCZU5ZyPGLciM26jKscX
-	3Q5WVaj9LfleqxOm1dLzFVcI9+ZigxP8RNTBeJx1+WGSqoIkGw6n0ZuR4EDL8ZRqQvodPXFjsit
-	WNcWZMCsINdHK/OmeFyIamodaY4hlrU3CYyhjaufEjURO4S50vPrVo0vKz9IjDcgZuWaWm5Dydz
-	s9ySjpg1U7UzOmeP1vYETsgqEKVikHfPb3Db3icbvSgS7C85SKUhT5aRQEpqFly9395Nz93/YfL
-	2ntuW6naIuwY7p1qdWb0XQQjYtR7ZtEwtuU+wiAty8hQz5aJvivwXsen8b0N82t4Ym0kNdA7Ryw
-	MiA4HwXy8i0PzV9HbF/Ihp2GizzQgOTXH1vUnPHZ0ku3mq9Mc3fyHRseaZb9l7XIjJ01kFkKxtc
-	yTdBAX8HYz7FM0ayC1Qt8DfgKms6PQLGKbkvkeSfupd3R/L5LGg1cP0VM9BfKHv3WuM+ai4EYMT
-	JTQGEBG1BFJLRuqDl/AVWB5/Ms1fw==
-X-Received: by 2002:a05:6000:1acf:b0:48b:e54:84a1 with SMTP id ffacd0b85a97d-48c6d1b4cd1mr3391952f8f.55.1791301486877;
-        Tue, 06 Oct 2026 08:44:46 -0700 (PDT)
-Received: from xeon ([188.163.112.76])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48c71c0b6e6sm327615f8f.14.2026.10.06.08.44.45
+        d=1e100.net; s=20260707; t=1791301492; x=1791906292;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=/k5W5gRBGKOnv0GDUCR5h+EZBe1kD+dGC7pkS9kRVb8=;
+        b=K4hE4RTL6qV8OojAkocIGTCzlYTbhpmy+8ltziBAQb+tINdQHKazvCSqLUsdD03l4E
+         7rvti2ibyeknzVjr11bdvFZWBksF0fENlDZ3p2h7/psffnzBxasPrdFZwXXIuP/e1sp0
+         zct3/NSh0+FvZN18cZlJ4jx2K4EgrJT1fzwX67b6+exs28/n/KahezQUXcg69JEfyZty
+         c/Pji95lybFoBBfS3L5kEb4wSpUskV3YH+PIWSFpVErMG88LZ1YfEA2OXG8zGizRcGFf
+         y9lSqUg0l/eCjl3hDIsyPNYiiPCi5Mn3mQchbsrL5rzazIzGN+aQHdZhqe1v9YSjHdIf
+         HvzA==
+X-Forwarded-Encrypted: i=1; AKwUvByckKR9y3jw5YQekRAS17Sh9OInxZeeX92fPNXROVzRcV60sBGaByLE1zVApuAGcdolEvAU6hiB5sFjzS8=@vger.kernel.org
+X-Gm-Message-State: AFuF++lkGQOP4j5OWHKpUeWU9iX57S69DMe5WoCVVsdFxSXllJeUNokH
+	+BYAUAGa5Hvq8rRtscxG8fDz5VZRDzuExVP98BK4fZzCfP3UGSMBZXx9waGGGCRmjdPgNSWlT3y
+	874vg
+X-Gm-Gg: AYBFou3ZKvPUgwh+wa9/LyXBt6No2dCIIPR3u53A7ROHE3be76Xjzh/IzhxuMG/eT0D
+	Gfb59Li2A0hCxmJG15NHZ4Q/INX9qDxGOE/dVpohPsGNa79qQwO+OZXbwcl0ptgnXnjarfAKrqp
+	7vmWTIUROKX/6JG4km9Da6/hzaCTSQgXnNmVKlw6zxN5sNU7cyCxJbct7sDlCQOmJZChfGYNGcT
+	JKjrQ9v7bNVuoIGFBuRAyVwcvXziOrzDPK641nzuujK1ZHZY6GlT07rypNSedeYXhiXGzqqBF+j
+	jDmo9hPDpbT2vC1kVCtzfKfrGYCiHPg2ZNs97hrElPzdOF7lj2KQ5+kr9lhdb6JzM/aqGYeWx3E
+	rVO/8zZshzVkMmPD0e9AAA2ALdjBpxOvYZr6Anr4VHfAgkSlF63Qm9lf6F8s/3jDUPkKrf4AVLC
+	Z6eLujr9Q4smOt7KZ1rA77EK7W7zjZshW+q+UHMY+uypLGu90N08uztBePXq4NIVZVVPfYV5cY/
+	onXFQlDL4QvhOY=
+X-Received: by 2002:a05:620a:1786:b0:93e:54d2:2285 with SMTP id af79cd13be357-93e8f37a03dmr301921185a.33.1791301491617;
+        Tue, 06 Oct 2026 08:44:51 -0700 (PDT)
+Received: from toxicpanda.com ([153.61.196.240])
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-93cca1a7a40sm1142936285a.7.2026.10.06.08.44.50
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 06 Oct 2026 08:44:46 -0700 (PDT)
-From: Svyatoslav Ryhel <clamor95@gmail.com>
-To: Liam Girdwood <lgirdwood@gmail.com>,
-	Mark Brown <broonie@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Svyatoslav Ryhel <clamor95@gmail.com>
-Cc: linux-kernel@vger.kernel.org,
-	devicetree@vger.kernel.org
-Subject: [PATCH v1 4/7] regulator: lp872x: Remove redundant regmap wrappers
-Date: Tue,  6 Oct 2026 18:44:28 +0300
-Message-ID: <20261006154431.318936-5-clamor95@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261006154431.318936-1-clamor95@gmail.com>
-References: <20261006154431.318936-1-clamor95@gmail.com>
+        Tue, 06 Oct 2026 08:44:51 -0700 (PDT)
+From: Josef Bacik <josef@toxicpanda.com>
+Date: Tue, 06 Oct 2026 15:44:21 +0000
+Subject: [PATCH 5/5] capabilities: don't let ptrace borrow CAP_SETFCAP
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261006-b4-setfcap-userns-v1-5-f47e7ed66072@toxicpanda.com>
+References: <20261006-b4-setfcap-userns-v1-0-f47e7ed66072@toxicpanda.com>
+In-Reply-To: <20261006-b4-setfcap-userns-v1-0-f47e7ed66072@toxicpanda.com>
+To: Serge Hallyn <serge@hallyn.com>, Paul Moore <paul@paul-moore.com>, 
+ Christian Brauner <brauner@kernel.org>
+Cc: James Morris <jmorris@namei.org>, David Howells <dhowells@redhat.com>, 
+ Jarkko Sakkinen <jarkko@kernel.org>, "Andrew G. Morgan" <morgan@kernel.org>, 
+ Serge Hallyn <sergeh@kernel.org>, linux-security-module@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, keyrings@vger.kernel.org, 
+ linux-fsdevel@vger.kernel.org, Josef Bacik <josef@toxicpanda.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=openssh-sha256; t=1791301478; l=6195;
+ i=josef@toxicpanda.com; h=from:subject:message-id;
+ bh=8vkzyF59g32RtfmPZXkdpM3bmDGASCtX3QXPvfTT0t0=;
+ b=U1NIU0lHAAAAAQAAADMAAAALc3NoLWVkMjU1MTkAAAAgUBr36M/n0nWN0DNbnxwzIiCZez6MG
+ JiruuNaSCI/zXsAAAAGcGF0YXR0AAAAAAAAAAZzaGE1MTIAAABTAAAAC3NzaC1lZDI1NTE5AAAA
+ QHNGGw1vUwvXcplc29Z3TsCoIHmp/GbPMb9KUsV94Rc3EGWtTYg/cXaPnamHbE91Nwb4n74qJXR
+ 0+AE3tg1rkwU=
+X-Developer-Key: i=josef@toxicpanda.com; a=openssh;
+ fpr=SHA256:C8kOX2QUJCMqnCX+KEeoqRAjLo9L+ELOSH2NSAJHqGA
 
-Remove lp872x_read_byte(), lp872x_write_byte(), and lp872x_update_bits()
-helpers which are just wrappers around the same regmap helpers.
+A task that entered a user namespace while it held CAP_SETFCAP outside may
+map uid 0 of the parent and write file capabilities that are honoured
+there.  That is the one privilege it keeps outside of its namespace, and
+the ptrace checks don't know about it: for a target in another user
+namespace cap_ptrace_access_check() is satisfied with CAP_SYS_PTRACE over
+the target's namespace, which the owner rule hands to any task with the
+right euid, and inside the namespace everybody has a full set.
 
-Signed-off-by: Svyatoslav Ryhel <clamor95@gmail.com>
+  task A: uid 0, full caps          task B: uid 0, no CAP_SETFCAP
+  unshare(CLONE_NEWUSER)
+                                    ptrace(PTRACE_ATTACH, A)
+                                      uids match, euid == ns->owner
+                                    make A write "0 0 1" to its uid_map,
+                                    or set file capabilities
+                                      A is entitled -> allowed
+
+The same goes for /proc/<pid>/mem, process_vm_writev() and pidfd_getfd().
+
+Require for PTRACE_MODE_ATTACH and PTRACE_TRACEME that CAP_SETFCAP of the
+tracer reaches as far up as the target can make use of: to the topmost
+ancestor, within the target's setfcap_level, whose root user is mapped
+into the target's namespace, or can still be mapped because the namespace
+has no uid map yet.  CAP_SYS_PTRACE over that ancestor is accepted too,
+since it gives control of tasks there that have CAP_SETFCAP anyway.
+
+Targets in the initial namespace, in namespaces that were entered without
+CAP_SETFCAP (what unprivileged users create) and in namespaces that don't
+map the root user of an ancestor (the usual container) are not affected.
+What remains is a tracer that gave up CAP_SETFCAP and CAP_SYS_PTRACE and a
+target that didn't, in a namespace that shares its root user with the
+tracer's.  PTRACE_MODE_READ is unchanged.
+
+Fixes: db2e718a4798 ("capabilities: require CAP_SETFCAP to map uid 0")
+Assisted-by: LLM
+Signed-off-by: Josef Bacik <josef@toxicpanda.com>
 ---
- drivers/regulator/lp872x.c | 66 ++++++++++++--------------------------
- 1 file changed, 20 insertions(+), 46 deletions(-)
+ security/commoncap.c | 56 ++++++++++++++++++++++++++++++++++++++++++++++++----
+ 1 file changed, 52 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/regulator/lp872x.c b/drivers/regulator/lp872x.c
-index 13dce4dcdbe14..1e16d7e8361a0 100644
---- a/drivers/regulator/lp872x.c
-+++ b/drivers/regulator/lp872x.c
-@@ -204,36 +204,10 @@ static const unsigned int lp8725_buck_uA[] = {
- 	460000, 780000, 1050000, 1370000,
- };
- 
--static int lp872x_read_byte(struct lp872x *lp, u8 addr, u8 *data)
--{
--	int ret;
--	unsigned int val;
--
--	ret = regmap_read(lp->regmap, addr, &val);
--	if (ret < 0) {
--		dev_err(lp->dev, "failed to read 0x%.2x\n", addr);
--		return ret;
--	}
--
--	*data = (u8)val;
--	return 0;
--}
--
--static inline int lp872x_write_byte(struct lp872x *lp, u8 addr, u8 data)
--{
--	return regmap_write(lp->regmap, addr, data);
--}
--
--static inline int lp872x_update_bits(struct lp872x *lp, u8 addr,
--				unsigned int mask, u8 data)
--{
--	return regmap_update_bits(lp->regmap, addr, mask, data);
--}
--
- static int lp872x_get_timestep_usec(struct lp872x *lp)
- {
- 	enum lp872x_id chip = lp->chipid;
--	u8 val, mask, shift;
-+	u32 val, mask, shift;
- 	int *time_usec, size, ret;
- 	int lp8720_time_usec[] = { 25, 50 };
- 	int lp8725_time_usec[] = { 32, 64, 128, 256 };
-@@ -255,7 +229,7 @@ static int lp872x_get_timestep_usec(struct lp872x *lp)
- 		return -EINVAL;
- 	}
- 
--	ret = lp872x_read_byte(lp, LP872X_GENERAL_CFG, &val);
-+	ret = regmap_read(lp->regmap, LP872X_GENERAL_CFG, &val);
- 	if (ret)
- 		return ret;
- 
-@@ -272,7 +246,7 @@ static int lp872x_regulator_enable_time(struct regulator_dev *rdev)
- 	enum lp872x_regulator_id rid = rdev_get_id(rdev);
- 	int time_step_us = lp872x_get_timestep_usec(lp);
- 	int ret;
--	u8 addr, val;
-+	u32 addr, val;
- 
- 	if (time_step_us < 0)
- 		return time_step_us;
-@@ -291,7 +265,7 @@ static int lp872x_regulator_enable_time(struct regulator_dev *rdev)
- 		return -EINVAL;
- 	}
- 
--	ret = lp872x_read_byte(lp, addr, &val);
-+	ret = regmap_read(lp->regmap, addr, &val);
- 	if (ret)
- 		return ret;
- 
-@@ -313,9 +287,9 @@ static void lp872x_set_dvs(struct lp872x *lp, enum lp872x_dvs_sel dvs_sel,
- static u8 lp872x_select_buck_vout_addr(struct lp872x *lp,
- 				enum lp872x_regulator_id buck)
- {
--	u8 val, addr;
-+	u32 val, addr;
- 
--	if (lp872x_read_byte(lp, LP872X_GENERAL_CFG, &val))
-+	if (regmap_read(lp->regmap, LP872X_GENERAL_CFG, &val))
- 		return 0;
- 
- 	switch (buck) {
-@@ -324,7 +298,7 @@ static u8 lp872x_select_buck_vout_addr(struct lp872x *lp,
- 			addr = (lp->dvs_pin == GPIOD_OUT_HIGH) ?
- 				LP8720_BUCK_VOUT1 : LP8720_BUCK_VOUT2;
- 		} else {
--			if (lp872x_read_byte(lp, LP8720_ENABLE, &val))
-+			if (regmap_read(lp->regmap, LP8720_ENABLE, &val))
- 				return 0;
- 
- 			addr = val & LP8720_DVS_SEL_M ?
-@@ -369,7 +343,7 @@ static int lp872x_buck_set_voltage_sel(struct regulator_dev *rdev,
- {
- 	struct lp872x *lp = rdev_get_drvdata(rdev);
- 	enum lp872x_regulator_id buck = rdev_get_id(rdev);
--	u8 addr, mask = LP872X_VOUT_M;
-+	u32 addr, mask = LP872X_VOUT_M;
- 	struct lp872x_dvs *dvs = lp->pdata ? lp->pdata->dvs : NULL;
- 
- 	if (dvs && dvs->gpio)
-@@ -379,21 +353,21 @@ static int lp872x_buck_set_voltage_sel(struct regulator_dev *rdev,
- 	if (!lp872x_is_valid_buck_addr(addr))
- 		return -EINVAL;
- 
--	return lp872x_update_bits(lp, addr, mask, selector);
-+	return regmap_update_bits(lp->regmap, addr, mask, selector);
- }
- 
- static int lp872x_buck_get_voltage_sel(struct regulator_dev *rdev)
- {
- 	struct lp872x *lp = rdev_get_drvdata(rdev);
- 	enum lp872x_regulator_id buck = rdev_get_id(rdev);
--	u8 addr, val;
-+	u32 addr, val;
- 	int ret;
- 
- 	addr = lp872x_select_buck_vout_addr(lp, buck);
- 	if (!lp872x_is_valid_buck_addr(addr))
- 		return -EINVAL;
- 
--	ret = lp872x_read_byte(lp, addr, &val);
-+	ret = regmap_read(lp->regmap, addr, &val);
- 	if (ret)
- 		return ret;
- 
-@@ -404,7 +378,7 @@ static int lp872x_buck_set_mode(struct regulator_dev *rdev, unsigned int mode)
- {
- 	struct lp872x *lp = rdev_get_drvdata(rdev);
- 	enum lp872x_regulator_id buck = rdev_get_id(rdev);
--	u8 addr, mask, shift, val;
-+	u32 addr, mask, shift, val;
- 
- 	switch (buck) {
- 	case LP8720_ID_BUCK:
-@@ -433,14 +407,14 @@ static int lp872x_buck_set_mode(struct regulator_dev *rdev, unsigned int mode)
- 	else
- 		return -EINVAL;
- 
--	return lp872x_update_bits(lp, addr, mask, val);
-+	return regmap_update_bits(lp->regmap, addr, mask, val);
- }
- 
- static unsigned int lp872x_buck_get_mode(struct regulator_dev *rdev)
- {
- 	struct lp872x *lp = rdev_get_drvdata(rdev);
- 	enum lp872x_regulator_id buck = rdev_get_id(rdev);
--	u8 addr, mask, val;
-+	u32 addr, mask, val;
- 	int ret;
- 
- 	switch (buck) {
-@@ -460,7 +434,7 @@ static unsigned int lp872x_buck_get_mode(struct regulator_dev *rdev)
- 		return -EINVAL;
- 	}
- 
--	ret = lp872x_read_byte(lp, addr, &val);
-+	ret = regmap_read(lp->regmap, addr, &val);
- 	if (ret)
- 		return ret;
- 
-@@ -728,8 +702,8 @@ static int lp872x_init_dvs(struct lp872x *lp)
- {
- 	struct lp872x_dvs *dvs = lp->pdata ? lp->pdata->dvs : NULL;
- 	enum gpiod_flags pinstate;
--	u8 mask[] = { LP8720_EXT_DVS_M, LP8725_DVS1_M | LP8725_DVS2_M };
--	u8 default_dvs_mode[] = { LP8720_DEFAULT_DVS, LP8725_DEFAULT_DVS };
-+	u32 mask[] = { LP8720_EXT_DVS_M, LP8725_DVS1_M | LP8725_DVS2_M };
-+	u32 default_dvs_mode[] = { LP8720_DEFAULT_DVS, LP8725_DEFAULT_DVS };
- 
- 	if (!dvs)
- 		goto set_default_dvs_mode;
-@@ -750,8 +724,8 @@ static int lp872x_init_dvs(struct lp872x *lp)
+diff --git a/security/commoncap.c b/security/commoncap.c
+index 26798d62e6b1..7263c78b6397 100644
+--- a/security/commoncap.c
++++ b/security/commoncap.c
+@@ -195,14 +195,52 @@ int cap_settime(const struct timespec64 *ts, const struct timezone *tz)
  	return 0;
- 
- set_default_dvs_mode:
--	return lp872x_update_bits(lp, LP872X_GENERAL_CFG, mask[lp->chipid],
--				default_dvs_mode[lp->chipid]);
-+	return regmap_update_bits(lp->regmap, LP872X_GENERAL_CFG, mask[lp->chipid],
-+				  default_dvs_mode[lp->chipid]);
  }
  
- static int lp872x_hw_enable(struct lp872x *lp)
-@@ -786,7 +760,7 @@ static int lp872x_config(struct lp872x *lp)
- 	if (!pdata || !pdata->update_config)
- 		goto init_dvs;
- 
--	ret = lp872x_write_byte(lp, LP872X_GENERAL_CFG, pdata->general_config);
-+	ret = regmap_write(lp->regmap, LP872X_GENERAL_CFG, pdata->general_config);
- 	if (ret)
- 		return ret;
- 
++/*
++ * CAP_SETFCAP of a task can count in ancestors of its user namespace, see
++ * cap_setfcap_level().  That is a privilege outside of the namespace, so
++ * capabilities over the namespace are not enough to take control of the task.
++ */
++static bool cap_covers_setfcap(const struct cred *cred,
++			       const struct cred *child_cred)
++{
++	struct user_namespace *ns = child_cred->user_ns, *seen, *p, *top = NULL;
++
++	if (child_cred->setfcap_level >= ns->level)
++		return true;
++
++	/*
++	 * It is of use only for root users that are mapped into the namespace,
++	 * or that can still be because there is no map yet.
++	 */
++	seen = READ_ONCE(ns->uid_map.nr_extents) ? ns : ns->parent;
++	for (p = ns->parent; p; p = p->parent) {
++		if (p->level < child_cred->setfcap_level)
++			break;
++		if (kuid_has_mapping(seen, make_kuid(p, 0)))
++			top = p;
++	}
++	if (!top)
++		return true;
++
++	if (cred->user_ns == ns)
++		return cred->setfcap_level <= top->level;
++
++	/* CAP_SYS_PTRACE up there gives control of tasks with CAP_SETFCAP. */
++	return cap_setfcap_level(cred, ns->parent) <= top->level ||
++	       !cap_capable(cred, top, CAP_SYS_PTRACE, CAP_OPT_NOAUDIT);
++}
++
+ /**
+  * cap_ptrace_access_check - Determine whether the current process may access
+  *			   another
+  * @child: The process to be accessed
+  * @mode: The mode of attachment.
+  *
+- * If we are in the same or an ancestor user_ns and have all the target
+- * task's capabilities, then ptrace access is allowed.
++ * For PTRACE_MODE_ATTACH, if the target task may make use of CAP_SETFCAP in
++ * an ancestor of its user_ns that our CAP_SETFCAP or CAP_SYS_PTRACE doesn't
++ * reach, then ptrace access is denied.
++ * Otherwise, if we are in the same or an ancestor user_ns and have all the
++ * target task's capabilities, then ptrace access is allowed.
+  * If we have the ptrace capability to the target user_ns, then ptrace
+  * access is allowed.
+  * Else denied.
+@@ -223,11 +261,15 @@ int cap_ptrace_access_check(struct task_struct *child, unsigned int mode)
+ 		caller_caps = &cred->cap_effective;
+ 	else
+ 		caller_caps = &cred->cap_permitted;
++	if ((mode & PTRACE_MODE_ATTACH) &&
++	    !cap_covers_setfcap(cred, child_cred))
++		goto deny;
+ 	if (cred->user_ns == child_cred->user_ns &&
+ 	    cap_issubset(child_cred->cap_permitted, *caller_caps))
+ 		goto out;
+ 	if (ns_capable(child_cred->user_ns, CAP_SYS_PTRACE))
+ 		goto out;
++deny:
+ 	ret = -EPERM;
+ out:
+ 	rcu_read_unlock();
+@@ -238,8 +280,11 @@ int cap_ptrace_access_check(struct task_struct *child, unsigned int mode)
+  * cap_ptrace_traceme - Determine whether another process may trace the current
+  * @parent: The task proposed to be the tracer
+  *
+- * If parent is in the same or an ancestor user_ns and has all current's
+- * capabilities, then ptrace access is allowed.
++ * If current may make use of CAP_SETFCAP in an ancestor of its user_ns that
++ * parent's CAP_SETFCAP or CAP_SYS_PTRACE doesn't reach, then ptrace access
++ * is denied.
++ * Otherwise, if parent is in the same or an ancestor user_ns and has all
++ * current's capabilities, then ptrace access is allowed.
+  * If parent has the ptrace capability to current's user_ns, then ptrace
+  * access is allowed.
+  * Else denied.
+@@ -255,11 +300,14 @@ int cap_ptrace_traceme(struct task_struct *parent)
+ 	rcu_read_lock();
+ 	cred = __task_cred(parent);
+ 	child_cred = current_cred();
++	if (!cap_covers_setfcap(cred, child_cred))
++		goto deny;
+ 	if (cred->user_ns == child_cred->user_ns &&
+ 	    cap_issubset(child_cred->cap_permitted, cred->cap_permitted))
+ 		goto out;
+ 	if (has_ns_capability(parent, child_cred->user_ns, CAP_SYS_PTRACE))
+ 		goto out;
++deny:
+ 	ret = -EPERM;
+ out:
+ 	rcu_read_unlock();
+
 -- 
-2.53.0
+2.55.0
 
