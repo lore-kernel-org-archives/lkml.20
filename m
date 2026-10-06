@@ -1,267 +1,127 @@
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx01.omp.ru (mx01.omp.ru [90.154.21.10])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 450813B47D2;
-	Tue,  6 Oct 2026 16:08:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9D21D3E40EF;
+	Tue,  6 Oct 2026 16:08:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=90.154.21.10
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791302892; cv=none; b=DObfBq7EfEWCrEWK19O3yPUhp3ZBSCmMBb7+/LnqJwdP6ZuG3TRFsqpZn53WXKeE4Flklhhwu21nmYDZvesDCxdzNhoz/I17Dbj5lW/76rbz+ijIXg0SrhqJgLTwwT+HQOKbaW+0Xkt5SwXLRzlwWmVA3TpWAPK5KEjeP8UJYT4=
+	t=1791302940; cv=none; b=na9kzQio63jF8HJ5kt0XDllfYm17BcKcWZQZVCbt8shceUVRGuPdVlUXE8TToJrF19T4Ez9aujJbAWjlFhRbbCZRJc+bGvAZcUrou9PbFfDC48mzD8bCsP5+xipCE9UFt7uhik+BwNYmKRiVLKVe3nU4n6nWNH1+LLa+yPXv8ZM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791302892; c=relaxed/simple;
-	bh=ZMbfy5T1L22ciFYreqBQEiV5PiUklSJsjaGzDALj2yk=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=lDyeYh6pCAly8obAzEscv08By24ivQBzspIFg8vwBHm7LGMPc7PlyLJyrfTFngFTussFC+uBqE2pEPU6WeGc3+t2XFSr4T3P7+b+i3bmCe4gxBflDI5XKnAlNwIPTcIbRXVcxRFgV0zqaFnAivpO8CGqpR+kU84kF9i7sZBdmJI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz; spf=pass smtp.mailfrom=suse.cz; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=tI9mxjP+; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=oHbEE9Rm; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=bNMoP48F; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=ZB5Aq7VM; arc=none smtp.client-ip=195.135.223.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.cz
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="tI9mxjP+";
-	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="oHbEE9Rm";
-	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="bNMoP48F";
-	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="ZB5Aq7VM"
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id AB9361F7E7;
-	Tue,  6 Oct 2026 16:07:59 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
-	t=1791302883; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=vpz0lypCKncyT6u1lIVJMRv1p/Y8ZdSjusZqENW2IY4=;
-	b=tI9mxjP+BcEAcaXMpM5yIQeIKtl2erhMgGxZMBaoNbLiAn/ralilVAYvRMSCg83oXE2Dul
-	/rcQNYaUhlbQ2OqlYInBK/GKI9uScry26MaNAsQbOkq6fu5BxXGkz5ykD86m7XzIXzB1ed
-	H4OhtrUwfi1O5q/t+oAWMPVGAIQ6At4=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
-	s=susede2_ed25519; t=1791302883;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=vpz0lypCKncyT6u1lIVJMRv1p/Y8ZdSjusZqENW2IY4=;
-	b=oHbEE9RmexxR05ENl2aqtxKfdPBNl48y3O1UYrNERHHiSqZIYvi7aocxjVBrhvSsXdA50u
-	1dcuaoWl4xbYd9Bg==
-Authentication-Results: smtp-out2.suse.de;
-	dkim=pass header.d=suse.cz header.s=susede2_rsa header.b=bNMoP48F;
-	dkim=pass header.d=suse.cz header.s=susede2_ed25519 header.b=ZB5Aq7VM
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
-	t=1791302879; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=vpz0lypCKncyT6u1lIVJMRv1p/Y8ZdSjusZqENW2IY4=;
-	b=bNMoP48FmyYjm+tRRP/ZrF6wQdg14oh71FKhGIH9VaXPBPzjmewgeEJJweNXm868z2ePhn
-	yHatpZLA5mOsjwLz4v725ezar9rWeNV6gUgnZepvfKF4cmkC25B0vdNcMCCU/vOj/AGV8f
-	3LMWV8zBfkNkazPT0BK7b+c1AsxGQPQ=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
-	s=susede2_ed25519; t=1791302879;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=vpz0lypCKncyT6u1lIVJMRv1p/Y8ZdSjusZqENW2IY4=;
-	b=ZB5Aq7VMhp+yxN0eSppGIRjCN3+irL+38c17gGGufLxFRp8acBv45111meZrEjBGmPdNAH
-	exF56cVrA3O3oZAw==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 7A024133CF;
-	Tue,  6 Oct 2026 16:07:59 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id NIufFd8cxWrNFwAAD6G6ig
-	(envelope-from <jack@suse.cz>); Tue, 06 Oct 2026 16:07:59 +0000
-Received: by quack3.suse.cz (Postfix, from userid 1000)
-	id DD43BA13FA; Tue, 06 Oct 2026 18:07:58 +0200 (CEST)
-Date: Tue, 6 Oct 2026 18:07:58 +0200
-From: Jan Kara <jack@suse.cz>
-To: Hsiu-Hsien Lee <swinds24@gmail.com>
-Cc: Theodore Ts'o <tytso@mit.edu>, linux-ext4@vger.kernel.org, 
-	Andreas Dilger <adilger.kernel@dilger.ca>, Jan Kara <jack@suse.cz>, 
-	Harshad Shirwadkar <harshadshirwadkar@gmail.com>, Baokun Li <libaokun@linux.alibaba.com>, 
-	Ojaswin Mujoo <ojaswin@linux.ibm.com>, Ritesh Harjani <ritesh.list@gmail.com>, 
-	Zhang Yi <yi.zhang@huawei.com>, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] ext4: don't fail journal recovery on an incomplete fast
- commit
-Message-ID: <s3rlm3edtb4hfcggiqkqotywfhobjnwmc2v373nwvkwihitstg@66kypvunlqqm>
-References: <20261006070005.1209234-1-swinds24@gmail.com>
+	s=arc-20240116; t=1791302940; c=relaxed/simple;
+	bh=a+jfnn4EpxUTdTpHVi2Jp0n2tIf21E2mpQIDZSU7dVk=;
+	h=Message-ID:Date:MIME-Version:Subject:To:CC:References:From:
+	 In-Reply-To:Content-Type; b=lFgSNy3ZcIydZb4UHuCKLdB4jPYyiderNvlB2Q9Funfm5G6g42oI0q2WehQzUFkdt4Dsq/dm/HpCh0heZqvHLE65lnV/qBzj0CsF0juZhWP2VEpbwCIIBhai6G7iKIlwnBM1iMGBqnESympWMrlZWAAqiM35vIwGZR76hJAO55g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=omp.ru; spf=pass smtp.mailfrom=omp.ru; arc=none smtp.client-ip=90.154.21.10
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=omp.ru
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=omp.ru
+Received: from [192.168.2.104] (91.79.33.31) by msexch01.omp.ru (10.188.4.12)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384) id 15.2.1258.12; Tue, 6 Oct
+ 2026 19:08:34 +0300
+Message-ID: <01c2f59d-8e22-434a-9f5b-b69608c3eae2@omp.ru>
+Date: Tue, 6 Oct 2026 19:08:33 +0300
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261006070005.1209234-1-swinds24@gmail.com>
-X-Spamd-Result: default: False [-2.51 / 50.00];
-	BAYES_HAM(-3.00)[100.00%];
-	SUSPICIOUS_RECIPS(1.50)[];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	MID_RHS_NOT_FQDN(0.50)[];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	R_DKIM_ALLOW(-0.20)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
-	MIME_GOOD(-0.10)[text/plain];
-	MX_GOOD(-0.01)[];
-	TO_DN_SOME(0.00)[];
-	RCVD_TLS_LAST(0.00)[];
-	FREEMAIL_TO(0.00)[gmail.com];
-	MIME_TRACE(0.00)[0:+];
-	DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
-	RCVD_COUNT_THREE(0.00)[3];
-	ARC_NA(0.00)[];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	FREEMAIL_ENVRCPT(0.00)[gmail.com];
-	FREEMAIL_CC(0.00)[mit.edu,vger.kernel.org,dilger.ca,suse.cz,gmail.com,linux.alibaba.com,linux.ibm.com,huawei.com];
-	DNSWL_BLOCKED(0.00)[2a07:de40:b281:104:10:150:64:97:from,2a07:de40:b281:106:10:150:64:167:received];
-	FROM_EQ_ENVFROM(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	SPAMHAUS_XBL(0.00)[2a07:de40:b281:104:10:150:64:97:from];
-	RCPT_COUNT_SEVEN(0.00)[11];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	TAGGED_RCPT(0.00)[];
-	DKIM_TRACE(0.00)[suse.cz:+];
-	MISSING_XM_UA(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,imap1.dmz-prg2.suse.org:rdns,suse.cz:dkim,suse.com:email]
-X-Spam-Score: -2.51
-X-Spam-Level: 
-X-Rspamd-Action: no action
-X-Rspamd-Queue-Id: AB9361F7E7
-X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
-X-Spam-Flag: NO
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 6/7] net: ravb: fix resource teardown ordering
+To: jiale yao <19888972804@163.com>
+CC: =?UTF-8?Q?Niklas_S=C3=B6derlund?= <niklas.soderlund@ragnatech.se>, Paul
+ Barker <paul@pbarker.dev>, Andrew Lunn <andrew+netdev@lunn.ch>, "David S.
+ Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, Jakub
+ Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Mitsuhiro Kimura
+	<mitsuhiro.kimura.kc@renesas.com>, Claudiu Beznea
+	<claudiu.beznea.uj@bp.renesas.com>, <netdev@vger.kernel.org>,
+	<linux-renesas-soc@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
+	<stable@vger.kernel.org>
+References: <20260927144741.1320558-1-yaojiale02@163.com>
+ <20260927144741.1320558-7-yaojiale02@163.com>
+ <3b43b4fb-8479-4eb2-be58-1df6f0f747b9@omp.ru>
+ <12190bf2.18c1.1a0f004c539.Coremail.19888972804@163.com>
+ <b85d8dc9-b787-40e0-bbaf-027df2c3bf49@omp.ru>
+ <222db01f.1264.1a101087434.Coremail.19888972804@163.com>
+Content-Language: en-US
+From: Sergey Shtylyov <s.shtylyov@omp.ru>
+Organization: Open Mobile Platform
+In-Reply-To: <222db01f.1264.1a101087434.Coremail.19888972804@163.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: msexch01.omp.ru (10.188.4.12) To msexch01.omp.ru
+ (10.188.4.12)
+X-KSE-ServerInfo: msexch01.omp.ru, 9
+X-KSE-AntiSpam-Interceptor-Info: scan successful
+X-KSE-AntiSpam-Version: 6.1.1, Database issued on: 10/06/2026 15:56:59
+X-KSE-AntiSpam-Status: KAS_STATUS_NOT_DETECTED
+X-KSE-AntiSpam-Method: none
+X-KSE-AntiSpam-Rate: 19
+X-KSE-AntiSpam-Info: Lua profiles 206480 [Oct 06 2026]
+X-KSE-AntiSpam-Info: Version: 6.1.1.27
+X-KSE-AntiSpam-Info: Envelope from: s.shtylyov@omp.ru
+X-KSE-AntiSpam-Info: LuaCore: 127 0.3.127
+ 0884f7b061fa529b810563f359267cd65d2ec05c
+X-KSE-AntiSpam-Info: {rep_avail}
+X-KSE-AntiSpam-Info: {diag_burst_silent}
+X-KSE-AntiSpam-Info: {Tracking_uf_ne_domains}
+X-KSE-AntiSpam-Info: {Tracking_from_domain_doesnt_match_to}
+X-KSE-AntiSpam-Info: {SMTP from is not routable}
+X-KSE-AntiSpam-Info: {Found in DNSBL: 91.79.33.31 in (user)
+ b.barracudacentral.org}
+X-KSE-AntiSpam-Info:
+	d41d8cd98f00b204e9800998ecf8427e.com:7.1.1;lore.kernel.org:7.1.1;127.0.0.199:7.1.2;omp.ru:7.1.1
+X-KSE-AntiSpam-Info: {Tracking_ip_hunter}
+X-KSE-AntiSpam-Info: FromAlignment: s
+X-KSE-AntiSpam-Info: ApMailHostAddress: 91.79.33.31
+X-KSE-AntiSpam-Info: {DNS response errors}
+X-KSE-AntiSpam-Info: Rate: 19
+X-KSE-AntiSpam-Info: Status: not_detected
+X-KSE-AntiSpam-Info: Method: none
+X-KSE-AntiSpam-Info: Auth:dmarc=temperror header.from=omp.ru;spf=temperror
+ smtp.mailfrom=omp.ru;dkim=none
+X-KSE-Antiphishing-Info: Clean
+X-KSE-Antiphishing-ScanningType: Heuristic
+X-KSE-Antiphishing-Method: None
+X-KSE-Antiphishing-Bases: 10/06/2026 15:58:00
+X-KSE-Antivirus-Interceptor-Info: scan successful
+X-KSE-Antivirus-Info: Clean, bases: 10/6/2026 3:38:00 PM
+X-KSE-Attachment-Filter-Triggered-Rules: Clean
+X-KSE-Attachment-Filter-Triggered-Filters: Clean
+X-KSE-BulkMessagesFiltering-Scan-Result: InTheLimit
 
-On Tue 06-10-26 15:00:05, Hsiu-Hsien Lee wrote:
-> If the system crashes while the first fast commit after a full commit is
-> being written, the fast commit area can hold the head of that fast
-> commit without a valid tail.  ext4_fc_replay_scan() treats this as an
-> error as long as no valid tail has been seen: an invalid tag length or
-> an unknown tag returns -ECANCELED, a tail with a wrong tid or checksum
-> returns -EFSBADCRC.  jbd2_journal_recover() then fails, the file system
-> can be mounted neither read-write nor read-only, and the regular journal
-> transactions committed before the fast commit are not replayed either:
-> 
->   JBD2: journal recovery failed
->   EXT4-fs (sdb): error loading journal
-> 
-> The tail is written last and fsync() does not return before it has
-> completed, so an incomplete fast commit was never reported as durable.
-> Handle it like jbd2 handles a transaction without a valid commit block:
-> stop the scan and replay what is valid.  This is already what happens
-> when an earlier fast commit in the area has a valid tail.  Log a
-> warning so that the dropped fast commit is visible.
-> 
-> Reproducer, with the power cut emulated by copying the device while it
-> is mounted:
-> 
->   mkfs.ext4 -O fast_commit /dev/sdb
->   mount /dev/sdb /mnt; mkdir /mnt/d
->   create 20 files in /mnt/d; sync
->   write a fragmented file and modify the 20 files, fsync one file
->       (one fast commit spanning several blocks)
->   copy /dev/sdb while still mounted, then zero the block holding the
->   fast commit tail in the copy
->   mount the copy
-> 
-> Without this patch the mount fails as above.  With it, the mount
-> succeeds, the state after sync is recovered and e2fsck finds no errors.
-> The same holds when a full commit precedes the torn fast commit, in
-> which case the full commit is now replayed as well.
-> 
-> Fixes: 8016e29f4362 ("ext4: fast commit recovery path")
-> Assisted-by: Claude Opus 5.5
-> Signed-off-by: Hsiu-Hsien Lee <swinds24@gmail.com>
-> ---
->  fs/ext4/fast_commit.c | 36 +++++++++++++++++++++++++++++-------
->  1 file changed, 29 insertions(+), 7 deletions(-)
-> 
-> diff --git a/fs/ext4/fast_commit.c b/fs/ext4/fast_commit.c
-> index 0cac890cf370..5649447b9524 100644
-> --- a/fs/ext4/fast_commit.c
-> +++ b/fs/ext4/fast_commit.c
-> @@ -2427,6 +2427,26 @@ static bool ext4_fc_value_len_isvalid(struct ext4_sb_info *sbi,
->  	return false;
->  }
->  
-> +/*
-> + * The fast commit area ends with an invalid tag or a tail that does not
-> + * match.  This is how a fast commit that was only partially written before
-> + * a crash looks like: its tail is written last and fsync() only returns
-> + * after the tail write has completed, so nobody was told that this fast
-> + * commit is durable and it can simply be dropped, the same way jbd2 drops
-> + * a transaction without a valid commit block.  Everything up to the last
-> + * valid tail is still replayed.
-> + */
-> +static int ext4_fc_replay_scan_end(struct super_block *sb,
-> +				   struct ext4_fc_replay_state *state,
-> +				   int off, const char *reason)
-> +{
-> +	if (!state->fc_replay_num_tags)
-> +		ext4_msg(sb, KERN_WARNING,
-> +			 "ignoring incomplete fast commit at block %d: %s",
-> +			 off, reason);
+On 10/3/26 12:11 PM, jiale yao wrote:
 
-I don't think there's need to print any message when discovering incomplete
-fast commit. As you mention, it is a perfectly normal situation (similarly
-as incomplete normal transaction we spot in a journal). I'd perhaps just
-print ext4_debug() message (and I don't think conditioning on
-fc_replay_num_tags makes sense in that case. So probably just drop the
-helper function and print the debug message and set the return value
-inline...
+[...]
 
-								Honza
-
-> +	return JBD2_FC_REPLAY_STOP;
-> +}
-> +
->  /*
->   * Recovery Scan phase handler
->   *
-> @@ -2440,7 +2460,9 @@ static bool ext4_fc_value_len_isvalid(struct ext4_sb_info *sbi,
->   * This function returns JBD2_FC_REPLAY_CONTINUE to indicate that SCAN is
->   * incomplete and JBD2 should send more blocks. It returns JBD2_FC_REPLAY_STOP
->   * to indicate that scan has finished and JBD2 can now start replay phase.
-> - * It returns a negative error to indicate that there was an error. At the end
-> + * It returns a negative error to indicate that there was an error. An invalid
-> + * or incomplete fast commit at the end of the area is not an error, see
-> + * ext4_fc_replay_scan_end(). At the end
->   * of a successful scan phase, sbi->s_fc_replay_state.fc_replay_num_tags is set
->   * to indicate the number of tags that need to replayed during the replay phase.
->   */
-> @@ -2489,8 +2511,8 @@ static int ext4_fc_replay_scan(journal_t *journal,
->  		val = cur + EXT4_FC_TAG_BASE_LEN;
->  		if (tl.fc_len > end - val ||
->  		    !ext4_fc_value_len_isvalid(sbi, tl.fc_tag, tl.fc_len)) {
-> -			ret = state->fc_replay_num_tags ?
-> -				JBD2_FC_REPLAY_STOP : -ECANCELED;
-> +			ret = ext4_fc_replay_scan_end(sb, state, off,
-> +						      "invalid tag length");
->  			goto out_err;
->  		}
->  		ext4_debug("Scan phase, tag:%s, blk %lld\n",
-> @@ -2530,8 +2552,8 @@ static int ext4_fc_replay_scan(journal_t *journal,
->  				state->fc_regions_valid =
->  					state->fc_regions_used;
->  			} else {
-> -				ret = state->fc_replay_num_tags ?
-> -					JBD2_FC_REPLAY_STOP : -EFSBADCRC;
-> +				ret = ext4_fc_replay_scan_end(sb, state, off,
-> +							      "invalid tail");
->  			}
->  			state->fc_crc = 0;
->  			break;
-> @@ -2551,8 +2573,8 @@ static int ext4_fc_replay_scan(journal_t *journal,
->  				EXT4_FC_TAG_BASE_LEN + tl.fc_len);
->  			break;
->  		default:
-> -			ret = state->fc_replay_num_tags ?
-> -				JBD2_FC_REPLAY_STOP : -ECANCELED;
-> +			ret = ext4_fc_replay_scan_end(sb, state, off,
-> +						      "unknown tag");
->  		}
->  		if (ret < 0 || ret == JBD2_FC_REPLAY_STOP)
->  			break;
-> -- 
-> 2.43.0
+>> On 9/30/26 4:53 AM, jiale yao wrote:
+>>
+>> [...]
+>>
+>>> Thanks for your review.
+>>
+>>   Top-posting on the kernel MLs is a bad idea... :-)
+>>
+>>> You're right — I'll split this into two patches:
+>>> One patch for the IRQ/netdev ordering issue.
+>>> One patch for the runtime PM resume failure handling.
+>>> I'll use --no-git-fallback next time, sorry for this.
 > 
--- 
-Jan Kara <jack@suse.com>
-SUSE Labs, CR
+> v3 in https://lore.kernel.org/all/20261003085940.493951-7-yaojiale02@163.com/
+> It only addresses the IRQ/netdev teardown ordering issue. The runtime
+> PM resume failure handling has been left unchanged.
+
+   Too bad you forgot to address Niklas' comment this time... :-)
+
+> I plan to submit the runtime PM fix separately after the patch above
+> has been applied, to avoid conflicts between the two changes, or any
+> other suggestion?
+
+   Yeah, it seems a good idea to address the broken commits in the
+chronological order... However, the fixes seem pretty much orthogonal
+to each other?
+
+[...]
+
+MBR, Sergey
+
