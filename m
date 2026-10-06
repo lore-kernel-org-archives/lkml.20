@@ -1,185 +1,96 @@
-Received: from mail-qt1-f175.google.com (mail-qt1-f175.google.com [209.85.160.175])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6A9C63B8124
-	for <linux-kernel@vger.kernel.org>; Tue,  6 Oct 2026 21:05:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.175
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5EBD03B14C9;
+	Tue,  6 Oct 2026 21:06:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791320740; cv=none; b=OJKp2xPFhQ79XElN0xeDrQeqRM68+I4BxoVCaqJzV8DlGt3QnDkRVMHeC9fMLyJgp+dofSlqTTRY3WLW+xCLDzrj8V7AiOA7nYq6bJnf/fWalj2aI7ChjwdjEdbdMxeq8quYH2H1LFl4xrmGSzxsVufUT8tevWCKZm0BixQII6Y=
+	t=1791320761; cv=none; b=RNlY/vNQxPsS8sdYt94vxvckf6w3j/vkZo2YOCmSKNehASTJhkumOt43oWrCiuKBbxTKqYVxSU7bcfcxO53idtbZkHOXCN2qK9rdfIkA2eY3czCUV+xWndSmS6uTJgYUokbqxbu/alKrDZwsJbZNg398zps9Lr/L9TiZ3XNaOME=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791320740; c=relaxed/simple;
-	bh=+F0+ycc+xbb/1CkSZnHs7maND8qCtOZY/lTKM/XfP9Y=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=GgEmJi+WY/R/ch8OLMAZ1cOoftPcfWAbJkzE17BPtNkyu3WucuQ3IjHuxsEb7wgmbBUKRY2gUkvefiqfCV+FSVk+z6riBptKZhmUWOR0TwugxefYF7S4SFmjkqqQRihJv1zZEnq7ck0rPLAx2sZ4CosqpQHFncLHEbm9gQOlSVg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=VnikeRBx; arc=none smtp.client-ip=209.85.160.175
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1791320761; c=relaxed/simple;
+	bh=NmR5gVwQWWIOGR3hR7QqW06E90iGHrFFAS1pw2E5OOY=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=mJhpSkzjH92styFpRVpoG7Rzy241cyVR19LMWpd/rlkM54sdGDUZptAF6Y4UkA9V6mOKjBQkLsQmD2YC+3CB0T312zpX07NUrIL18CrAua3zM2E5gmtnDrhHFPvM3MeUU13p+3pl2rNJrZg5kRUvqsPvGrm4spT79PELlu2a5IU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=ybqbQ8JM; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="VnikeRBx"
-Received: by mail-qt1-f175.google.com with SMTP id d75a77b69052e-53512cd2f85so9993421cf.1
-        for <linux-kernel@vger.kernel.org>; Tue, 06 Oct 2026 14:05:38 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791320737; x=1791925537; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=mDB2cI4J8xwjSaPq9adlxmBRHUe++IzDkzyJihE7Ky4=;
-        b=VnikeRBxmfAsSxStveIR1o5xUJrerr8MvIsz7C42egaU36MR/EJaT25qGm0Bwy+C4x
-         QEWlfKeMLkCUzZDnfBqe3LnUqMGmXPxykVGK4dgtM2gg2gv4zQmlkdFwBuOq3IEyTX7d
-         w92s8H28qANxW3zubbHc14mOvQRgXpst2mch2Is/fm0QVpZh2sffSyvy9NfwU1weKaDH
-         bg2XsmClAaGCy79kfLG+atU1bqO90dG0uvv4eZRnQLQZSXOtlSqoFUqB6EElhD5+/bLC
-         srPwRG2fvyteNi7WlNTKBRVl3qtgNQRkAA99vuyr4S0Mb/pk6oK87fyYVdbD+3TDWIJO
-         Uy9Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791320737; x=1791925537;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=mDB2cI4J8xwjSaPq9adlxmBRHUe++IzDkzyJihE7Ky4=;
-        b=Adg/ej/W3Hx6OkkhehBBPmMbk6N3WDJZEy3s3tcUOINgqw9NY36SfG+4fzQ0LP1UHu
-         mfnGNo9qUEiB4lBVGwk+vW2LLj5uNF6TEnoEprQhl8fgEl0SATSKo16zOyradY49etJM
-         PsfScT5YmCTKtfI4Us1O29ynmIaFSByhjYB+3yTdyRMOrDB0c0HTMVAjIb4jNGL4tyen
-         2tUe+BTpsYp3Cx7lCE74Z3IUqg8KOxfEI6jfTy0vF9ospHQzV48F4FAZ4ehSrjagWx68
-         yQEazWbvMNFVjRg6lU2J3wFCBCy6zn9iWYnJO9e+vsm2qSKKb1MTAxEmaRsHPdGxzb7F
-         nMlA==
-X-Forwarded-Encrypted: i=1; AKwUvBw3WWZrENk8Bzgl/+gGuI0x8GIvKfIET/SH1FKgpDUeE5fCdfk8gDJXYMKD/rSL9tBoU699TM2BIsLlLEk=@vger.kernel.org
-X-Gm-Message-State: AFuF++nMz71usiPv/oHwnexFaF9ZLgMHqrd55Sp43GZ0rmQXZZWdzPVB
-	UfA26736XuecOnU0FdAy0rZiyxGWS1kCOLV5TAPqw1cCkf2ZN5naYT+c
-X-Gm-Gg: AYBFou1qvUyqtaov0OL2eBVq87gF19/v2K8ymsP7D4jWR+m1e+ehJX3p8RrIyPQGM0B
-	81xI/ngCpBZ5hfl+X6Gp0DurkBZeyN5vHu4jcDes4C0qU9zdvf6Xk2U0DRr6sKl5RfRtqSLrt45
-	rG61iKu21n+if+QjRalqjWkejRA1t5ks0N+vlVFqVeG4FfY9P/Y7zYsyD5/7G8NRQ8Oub9TjpRe
-	Gr7BFhswiXki7Lj4q3F7zMkvz475+U3P58aagM0uEKXa0SDbbsOF9mGmRVAUDj0CEL5mlESdP0q
-	pvB1mi4ZuygXkFjCVq3orbMJ6Qs83CYTnShE/KYUhJA5xxR2yxbJLr9I0FgkjgQurJFAfVYY5jW
-	moOe8kHow7kYcZgiYCqJazUGN/MjTEPvilB6+vzAeoWC1XYnxjt+YXohIiq4/DTf35bi7FPf6pN
-	62kc3GJ2XpkqBFEhFKWVcJ0aedBpGyc426IeaogOvIf8D1zMmJf5MywpWpwZBab8we0N9ETNIt8
-	TXGxrD/8mu+nhBwQlVL+kr2gfkmKezP6KO50jIFHxMl8Fy+CRSANwfxpO8r+P6NPZ4YYe3dgxL0
-	sbAFkHQe/S/THoyzRsIIrp2fR63+8ogKXmg4MngWZzCMMtaQy4K2c7rA1s9gG19Um7JbklF/epF
-	fKK22ZuOz8Fbj315zumNULER/I0FztCWyt8x3QteGsx8ueN2k
-X-Received: by 2002:a05:622a:a58b:b0:533:9825:a713 with SMTP id d75a77b69052e-5357512bb50mr1810231cf.4.1791320737088;
-        Tue, 06 Oct 2026 14:05:37 -0700 (PDT)
-Received: from node0.quickhttpnode15.cloudfaas-pg0.wisc.cloudlab.us ([128.105.144.50])
-        by smtp.gmail.com with ESMTPSA id d75a77b69052e-535720e71d2sm4789271cf.11.2026.10.06.14.05.35
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 06 Oct 2026 14:05:36 -0700 (PDT)
-From: Mohammad Mosafer <mohsafer@gmail.com>
-To: linux-usb@vger.kernel.org
-Cc: gregkh@linuxfoundation.org,
-	linux-kernel@vger.kernel.org,
-	syzbot+6227549bd2c8a1ec8ba0@syzkaller.appspotmail.com
-Subject: [PATCH] usb: gadget: f_fs: fix use-after-free in ffs_closed() on umount
-Date: Tue,  6 Oct 2026 16:05:23 -0500
-Message-Id: <20261006210523.150724-1-mohsafer@gmail.com>
-X-Mailer: git-send-email 2.34.1
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="ybqbQ8JM"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 857911F0089B;
+	Tue,  6 Oct 2026 21:05:59 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1791320760;
+	bh=xP2soKYKKhSMkNsQ+lXVD4yz/+XexG96nmsjcAz3RPE=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=ybqbQ8JMEJo44oCRMnqyS+Ti2HmbRmWDpsazKuY8f6oLk4xisqEvtuFdpktS0yQR5
+	 7fvDNiboTFuIdOg2dooaVpjYK1+uxMG7EhneSrHGfznY/Kr27lBlEFeRFFw8EvVjZP
+	 xYQxiACcrjSMI1tZczHRYZ2XcFhpVf9vmF3oEm5Y=
+Date: Tue, 6 Oct 2026 23:05:56 +0200
+From: Greg KH <gregkh@linuxfoundation.org>
+To: Muhammad Mahdi Amirpour <ampr.mhd@gmail.com>
+Cc: linux-staging@lists.linux.dev, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] staging: rtl8723bs: use u8 instead of unsigned char in
+ NDIS typedefs
+Message-ID: <2026100639-yin-headache-cdbe@gregkh>
+References: <20261006200622.41856-1-ampr.mhd@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261006200622.41856-1-ampr.mhd@gmail.com>
 
-ffs_free_inst() releases the ffs_dev with ffs_release_dev() and only
-then re-acquires ffs_dev_lock to free it with _ffs_free_dev().  In
-between, the dev is still linked on the ffs_devices list while already
-marked unmounted, so a concurrent mount(2) of functionfs finds it by
-name in ffs_acquire_dev() and links a fresh ffs_data to the doomed dev
-(ffs_data->private_data = dev).  _ffs_free_dev() then kfrees the dev,
-and when that mount is torn down, ffs_closed() dereferences the stale
-ffs->private_data:
+On Tue, Oct 06, 2026 at 11:36:22PM +0330, Muhammad Mahdi Amirpour wrote:
+> Signed-off-by: Muhammad Mahdi Amirpour <ampr.mhd@gmail.com>
+> ---
+>  drivers/staging/rtl8723bs/include/wlan_bssdef.h | 4 ++--
+>  1 file changed, 2 insertions(+), 2 deletions(-)
+> 
+> diff --git a/drivers/staging/rtl8723bs/include/wlan_bssdef.h b/drivers/staging/rtl8723bs/include/wlan_bssdef.h
+> index f4c1456f1..df541e956 100644
+> --- a/drivers/staging/rtl8723bs/include/wlan_bssdef.h
+> +++ b/drivers/staging/rtl8723bs/include/wlan_bssdef.h
+> @@ -15,8 +15,8 @@
+>  #define NDIS_802_11_LENGTH_RATES        8
+>  #define NDIS_802_11_LENGTH_RATES_EX     16
+>  
+> -typedef unsigned char   NDIS_802_11_RATES[NDIS_802_11_LENGTH_RATES];        /*  Set of 8 data rates */
+> -typedef unsigned char   NDIS_802_11_RATES_EX[NDIS_802_11_LENGTH_RATES_EX];  /*  Set of 16 data rates */
+> +typedef u8 NDIS_802_11_RATES[NDIS_802_11_LENGTH_RATES];        /*  Set of 8 data rates */
+> +typedef u8 NDIS_802_11_RATES_EX[NDIS_802_11_LENGTH_RATES_EX];  /*  Set of 16 data rates */
+>  
+>  struct ndis_802_11_ssid {
+>  	u32 ssid_length;
+> -- 
+> 2.55.0
+> 
+> 
 
-  BUG: KASAN: slab-use-after-free in ffs_data_clear+0x438/0x530
-  Write of size 1 at addr ffff88810594664a by task repro/116
-    ffs_data_clear+0x438/0x530
-    ffs_fs_kill_sb+0x7b/0x510
-    deactivate_locked_super+0xa9/0x200
-    cleanup_mnt+0x255/0x380
-    ... reached via umount(2)
-  Freed by task 112:
-    kfree+0x127/0x3b0
-    ffs_free_inst+0x10c/0x1a0
-    usb_put_function_instance+0x8a/0xc0
-    configfs_rmdir+0x773/0x9c0
-  Allocated by task 113:
-    ffs_alloc_inst+0x109/0x360
-    function_make+0x138/0x330
-    configfs_mkdir+0x48b/0x1090
+Hi,
 
-Hold ffs_dev_lock across the release and the free so that a released
-dev is never findable, splitting ffs_release_dev() into a lock-assuming
-_ffs_release_dev() (matching the _ffs_* convention in this file) plus a
-locking wrapper for the remaining callers.
+This is the friendly patch-bot of Greg Kroah-Hartman.  You have sent him
+a patch that has triggered this response.  He used to manually respond
+to these common problems, but in order to save his sanity (he kept
+writing the same thing over and over, yet to different people), I was
+created.  Hopefully you will not take offence and will fix the problem
+in your patch and resubmit it so that it can be accepted into the Linux
+kernel tree.
 
-The race was reproduced with a multi-threaded harness racing configfs
-mkdir/rmdir of the ffs instance against mount/umount of functionfs on
-a KASAN kernel: the unpatched kernel reports the use-after-free
-reliably (2/2 runs), the patched kernel survives an extended soak with
-identical churn (2/2 runs clean).
+You are receiving this message because of the following common error(s)
+as indicated below:
 
-Reported-by: syzbot+6227549bd2c8a1ec8ba0@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=6227549bd2c8a1ec8ba0
-Fixes: 5920cda627688c ("usb: gadget: FunctionFS: convert to new function interface with backward compatibility")
-Signed-off-by: Mohammad Mosafer <mohsafer@gmail.com>
----
- drivers/usb/gadget/function/f_fs.c | 24 ++++++++++++++++++++----
- 1 file changed, 20 insertions(+), 4 deletions(-)
+- You did not specify a description of why the patch is needed, or
+  possibly, any description at all, in the email body.  Please read the
+  section entitled "The canonical patch format" in the kernel file,
+  Documentation/process/submitting-patches.rst for what is needed in
+  order to properly describe the change.
 
-diff --git a/drivers/usb/gadget/function/f_fs.c b/drivers/usb/gadget/function/f_fs.c
-index c64a268e98a4..5e7179b4250e 100644
---- a/drivers/usb/gadget/function/f_fs.c
-+++ b/drivers/usb/gadget/function/f_fs.c
-@@ -288,6 +288,7 @@ static struct ffs_dev *_ffs_find_dev(const char *name);
- static struct ffs_dev *_ffs_alloc_dev(void);
- static void _ffs_free_dev(struct ffs_dev *dev);
- static int ffs_acquire_dev(const char *dev_name, struct ffs_data *ffs_data);
-+static void _ffs_release_dev(struct ffs_dev *ffs_dev);
- static void ffs_release_dev(struct ffs_dev *ffs_dev);
- static int ffs_ready(struct ffs_data *ffs);
- static void ffs_closed(struct ffs_data *ffs);
-@@ -4147,8 +4148,17 @@ static void ffs_free_inst(struct usb_function_instance *f)
- 	struct f_fs_opts *opts;
- 
- 	opts = to_f_fs_opts(f);
--	ffs_release_dev(opts->dev);
-+
-+	/*
-+	 * Release and free the dev under a single ffs_dev_lock critical
-+	 * section. Between ffs_release_dev() and _ffs_free_dev() the dev
-+	 * would still be on the ffs_devices list while already unmounted,
-+	 * so a concurrent ffs_acquire_dev() could link a fresh ffs_data to
-+	 * the doomed dev, leaving it with a dangling ->private_data that is
-+	 * dereferenced in ffs_closed() when that mount is torn down.
-+	 */
- 	ffs_dev_lock();
-+	_ffs_release_dev(opts->dev);
- 	_ffs_free_dev(opts->dev);
- 	ffs_dev_unlock();
- 	kfree(opts);
-@@ -4363,10 +4373,11 @@ static int ffs_acquire_dev(const char *dev_name, struct ffs_data *ffs_data)
- 	return ret;
- }
- 
--static void ffs_release_dev(struct ffs_dev *ffs_dev)
-+/*
-+ * ffs_dev_lock must be taken by the caller
-+ */
-+static void _ffs_release_dev(struct ffs_dev *ffs_dev)
- {
--	ffs_dev_lock();
--
- 	if (ffs_dev && ffs_dev->mounted) {
- 		ffs_dev->mounted = false;
- 		if (ffs_dev->ffs_data) {
-@@ -4377,7 +4388,12 @@ static void ffs_release_dev(struct ffs_dev *ffs_dev)
- 		if (ffs_dev->ffs_release_dev_callback)
- 			ffs_dev->ffs_release_dev_callback(ffs_dev);
- 	}
-+}
- 
-+static void ffs_release_dev(struct ffs_dev *ffs_dev)
-+{
-+	ffs_dev_lock();
-+	_ffs_release_dev(ffs_dev);
- 	ffs_dev_unlock();
- }
- 
--- 
-2.34.1
+If you wish to discuss this problem further, or you have questions about
+how to resolve this issue, please feel free to respond to this email and
+Greg will reply once he has dug out from the pending patches received
+from other developers.
 
+thanks,
+
+greg k-h's patch email bot
