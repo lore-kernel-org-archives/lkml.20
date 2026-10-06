@@ -1,134 +1,133 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pf1-f178.google.com (mail-pf1-f178.google.com [209.85.210.178])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 16420332621;
-	Tue,  6 Oct 2026 10:09:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4F9513B27E7
+	for <linux-kernel@vger.kernel.org>; Tue,  6 Oct 2026 10:10:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.178
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791281344; cv=none; b=fWKe2TmFHl2vCK3BRngJokGG0UHMTQ9UAIPkTXEp46kSD58Oycx+PiAEwmtFde+5ivDQpW5bEdURLGOuo3JLsY57EUndeNA/p8dhtmjC0MiooebIScPhZsKlUcdpqy2pcnIV1VS3zga8tXs6Q4EJBoXnmCVVdC0LeQPeo3ztg1o=
+	t=1791281402; cv=none; b=QPyTwkYPCMqwLJ4NcTbjCEcwPteFWGcJkdnDRgD5M04teo3eKd3wwflHnSAxbv1cjLEMBL3kuOTSZ8S9eIK1u5dZlIvDKWVtHGMIg43laLcOX3HRuyWQO/QofW+OImkTQ/8AGZ7b96LyZVjyKC6gKb0+AWvkbj/kW6QMw7zfixg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791281344; c=relaxed/simple;
-	bh=ZjNZoI+rGqLRyY3RwMj8Agbv0dAl9XH/ttIPMSUr+3U=;
-	h=MIME-Version:Date:From:To:Cc:Message-Id:In-Reply-To:References:
-	 Subject:Content-Type; b=a51nTZf8BsW3jQZBgXlCVSx9mxT8+3EgLqQI5D/vkUmTO9sA1Y9YFw4Qv1CXMUHkAI/SJJY0PbEAW/7GsH6RaqDsS706UuMKU4JjAq296mHgtvJxk2USiMyunRB2MgDygIh2/LgNqCTi2U4dLBBpjTsUXYusxQcgr8wie6NKAw4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=U4sEPz/L; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791281402; c=relaxed/simple;
+	bh=6YM5dOs2Pa7yUNeFsnmXwCOmE6Ns3r7eTdFiVyrvPY8=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=ZX3HznomVKByNdNXWkT1y3GewD0YPBF9HD7fxvEliJcM5qIkUu87JAcaY9CfljDaNZVDe0kYMYyQiB7EG8Z3NmrP4q7BHQm6B8fJV5Intvs/coVGIQnOSpO8RpVr/jl0DyNKSOqLtfoECjpiMjhEs3tdJ7KOOvbQH26jaBFmbvg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=KmjqhzHz; arc=none smtp.client-ip=209.85.210.178
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="U4sEPz/L"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EA55B1F00893;
-	Tue,  6 Oct 2026 10:09:01 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791281343;
-	bh=Pit7TIoPf8Hm7UQIvsoa+f0tkbDqlmehivHW56Xafno=;
-	h=Date:From:To:Cc:In-Reply-To:References:Subject;
-	b=U4sEPz/LFbpwFIR9JgSy46s60mOk8INEwamr/dyEPnSI2g9WWuP2JxSnBusC6db+V
-	 ZfxKeCJLOn539Q7jhHABn9dyuU0x2RJWZybBv/4KFwUHuUOyG6yD87mKpssftB2MEi
-	 FJ5e1OcpCt576g/dLc8aKBwYzHEs6bBlZg4+FdRoaqLJ4g3JWNd9A0bteeNnRrKg2G
-	 7AU6lQF0IH4TJ3+wwtTHCNbTvl7kTB+oe6SIgPTDU23IgGHPpMdoGbJm9+8xMeynd0
-	 9SNmrKUzkE0sGwa4nenY++I7i1tF2GO2qAlZvVIfr+CMBv7Fsnldxegs7D/CyeB3Mj
-	 YfmzfQWSGZR4w==
-Received: from ams-compute-01.internal (ams-compute-01.internal [10.64.2.61])
-	by mailfauth.ams.internal (Postfix) with ESMTP id 73F85198003A;
-	Tue,  6 Oct 2026 06:09:00 -0400 (EDT)
-Received: from ams-imap-11 ([10.64.2.31])
-  by ams-compute-01.internal (MEProxy); Tue, 06 Oct 2026 06:09:00 -0400
-X-ME-Sender: <xms:ucjEatjqd2KS91mJP5iD5kxjg-gpMH9w0v3P22wgNsKtK1yS5phLuQ>
-    <xme:ucjEavblStUXJdfFXfKLdNOwsWnIbBbvrW1dTfUnwYNl7FA8kdPEuWbESeApZWHv5
-    PAWcO1XVKLJ_lSFpLx_C9g28zXxowJAqWMkji7JH66lBpg96SHksmIpIw>
-X-ME-Proxy-Cause: dmFkZTGGdtQL4KJ/yz/XyXqolrCqNbVBG5rtYaAIwxjM//tDvJw7IYP8SBY86Dv6h0AeE8
-    cMAUKKarzN4jJmXnPMvjjV7ugSWLOJ57BNtImrwfyweOa0WN51y47SRkhwI2TTH1BXH/Cr
-    WPBWNud37nt/wKLse1XgIZEusaWLWsJ5eCVOYJNygOdkz7bSGyyna8NWrslB2ig9d71KP9
-    0mXpNZttPZ0jbit2kpkzcdx6gavXdzg5v3F+Z9rG5TSHTsxZWTJaOAtfyCXEwKW3VbsAo+
-    ldWach8O0DMUW402p6KWBxg9FQkrWxVr2PB9OnVQ5QQympaJ7Ko6uPZGNY2V0rwrCFQDX+
-    6K8kRC1TEddxdt75CjCL91Z9DftHH+fvGrkrncUqWD4PDa8+2YWMMdAymeGS9o9s7eGnzR
-    KT3aiYPNF+CU9RuMvpObtoGhwq5HUu6QI7CzIubmFKpE1zAg4/FysN1ajmZxrglqXwyRmU
-    wrBgNUFT5chMAd5yov4cM6OZAslX53512y5Aff6oI8unZ++VoR3Kg4+oILb+hojA234mnv
-    tugCXpuVzwP1HNF/1su5jI+Je0Ee6Lylbx0dNLsXdW7AAuPbfAXz08U78hbtG+CEUTjHmg
-    MFMaYsst55MNRJIiQ7nG8An5i7FrHm+H/9Hub5rzVPBWCnPggN+6IxKdtfAA
-X-ME-Proxy: <xmx:vMjEag9lEAboEdhlMfS6Yui2Ysben86piXFlGHTIkux5IirEJhOGbA>
-    <xmx:vMjEaqYc9w6ObkeGqBwKeexe6KiDTa9JIPBUyJh2dqg82MgzjwMpXA>
-    <xmx:vMjEapcH-7zKecoK52ed5RAnRiuaiEmC1VRGl0A-usqiXsA0b8w4ww>
-    <xmx:vMjEagTbVkon90cJEvsOXTA9T5OkhO0W01ZTJxgNBqYBZ9qNkB8nXg>
-    <xmx:vMjEark13RO5Y6MI_CWEln_yJSiZVO21InO5r0_kDXzHwmbf42B5tsaT>
-Feedback-ID: ice86485a:Fastmail
-Received: by mailuser.ams.internal (Postfix, from userid 501)
-	id E31EEF80090; Tue,  6 Oct 2026 06:08:57 -0400 (EDT)
-X-Mailer: MessagingEngine.com Webmail Interface
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="KmjqhzHz"
+Received: by mail-pf1-f178.google.com with SMTP id d2e1a72fcca58-88bc25fcd0eso2286800b3a.2
+        for <linux-kernel@vger.kernel.org>; Tue, 06 Oct 2026 03:10:01 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791281401; x=1791886201; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=QH7NYDc+Yp9RWvv4A2NBCx8EZXAjVS1e6vOPWVaVpKU=;
+        b=KmjqhzHzjz2gaQvXJtt4xACWGymOsdN4FCrS23pBQM3EWS0ZzdgutNj+Ut6p+HV0dp
+         Jx9QbTN7GlL5rI99Yja90Cuf57APhG2UmOAPqDtysPVrp2YQP3JjDg3NZKbICbkDqWoU
+         UJr0Y/A+T/3REA3m69b+LKJ4qtpuuiRUQhSz4AwARBtUflwHylbJvgJe36A7SylHpCo/
+         DbfPn73pjzJkUcnH7FpwNJifRw50gdbXQBi1ZnBYD9Oj+789laBk20WrJ4oB2qpYuw3L
+         Q2dlF6mUhP82ynL+buPRMNzZ8bhXf92/9lIw031fplo+qldSD2nGrWlyFiiKqn7dRqBG
+         OnUA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791281401; x=1791886201;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=QH7NYDc+Yp9RWvv4A2NBCx8EZXAjVS1e6vOPWVaVpKU=;
+        b=rCFSXrdBZgwe2NkpYcOxYUVIGZEeNKCBO+++lKJSNDWMsoS3TLYfFEx5d6Yrh0Dm7v
+         I9buPEH//+7E3DynExVn/R2Xf7uXTsEPAYPUqukL3m2wMYGhjoA9LkkqITHXrE+OqpH3
+         I1ypGeej22Qsso1cf4K7hxEjdyxXrzemBRmNK+usfWZ4AI+aDRd0cP3SWVaBz2zjxlNz
+         d+m7n3ztA0zg3QmOduKW9BE2ROZ7KZkjRn776dNYPFU0Xttu6EmWM/VU0ckTiz6ieF4C
+         xFvfpYkk/5DPGI0v9jdc8ywPE+WWan401gZCQXvn9kME3ACLI1v4qOBoEwJWUtgHJ5Bp
+         Tf8g==
+X-Forwarded-Encrypted: i=1; AKwUvBzWRW9pifm2XQgqnRNECYKBVfQC+82aud+aXfS9GJmZY+8pu6V/EXuSYOmjf2GE0ifZyA7+DfplZitvAkc=@vger.kernel.org
+X-Gm-Message-State: AFuF++kb2QNAjwTDNCmTgHEsg9JIEGQDNOCXm3mQAmWofEIljhJ4gj1k
+	X72bmA1UcUIUoIOxyuHONFSEkNo0ezEKZHhPKSjDNgwGCa4IW9tO3hye
+X-Gm-Gg: AYBFou3Jh/moRnZ9msDuAxvo+VeTCAsj3Zfc97Ur9HubgF783E21SBLlrdVCydZ3iVt
+	cP/Q+VmJOAInjRffQ060eqjQ/gjU392060GURR8fl9ZlEkZ4uct6oViLkT75RRF38DPS8WTkQng
+	2FpcyGe/O1rdhK1EF0v1JDSg31DIN3xN91lW9HYMp/tNxR7RYPFLBE/1oXTclcv0/B/cSczs1Gp
+	RxQU8FrE9aWYI2oQ88/kKm1gsTPLvOsFZIBiufFnyRAqgfqaBbQIZgSeOOiDRgxXgkAO6OWEHLo
+	RL9wkBtYo8NUePjeajLN3xvoPRSDObKNH8YvPzGEUE7xUgCoG8A8H5U5FCHEiZcAwdVkMDWfdYN
+	kP2yLvqvyU4a8XSK6Qa4jDdhAPjM+9wKLeCWsrSiD3tGnVxxVWbJjVHn8ZcS5x1SQSO05lYF7n5
+	sCtsFHLUuGl2ASEyfzUfQhf/yn5YirMi0H/Vfiu0EGCb6E7nhLgtrXivhBQ+X0gIAW/XenTSsRO
+	KClPWcesvz/ht4B7/I=
+X-Received: by 2002:a05:6a00:4197:b0:881:4b67:ffd with SMTP id d2e1a72fcca58-88c6398f00amr10813068b3a.26.1791281400579;
+        Tue, 06 Oct 2026 03:10:00 -0700 (PDT)
+Received: from l (ec2-56-155-114-54.ap-northeast-3.compute.amazonaws.com. [56.155.114.54])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-88b0b8f7198sm4592961b3a.9.2026.10.06.03.09.56
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 06 Oct 2026 03:10:00 -0700 (PDT)
+From: Liu Yufei <lyf98405@gmail.com>
+X-Google-Original-From: Liu Yufei <lyf98405@gmail.com
+To: Jonathan Cameron <jic23@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>
+Cc: David Lechner <dlechner@baylibre.com>,
+	=?UTF-8?q?Nuno=20S=C3=A1?= <nuno.sa@analog.com>,
+	Andy Shevchenko <andy@kernel.org>,
+	linux-iio@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Liu Yufei <lyf98405@gmail.com>
+Subject: [PATCH v2 0/2] iio: proximity: Add Vishay VCNL36829 driver
+Date: Tue,  6 Oct 2026 18:09:41 +0800
+Message-ID: <20261006100943.78971-1-lyf98405@gmail.com>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Date: Tue, 06 Oct 2026 12:08:35 +0200
-From: "Ard Biesheuvel" <ardb@kernel.org>
-To: "Bill Wendling" <morbo@google.com>, "Kees Cook" <kees@kernel.org>
-Cc: "Gustavo A. R. Silva" <gustavoars@kernel.org>,
- "Nathan Chancellor" <nathan@kernel.org>,
- "Nick Desaulniers" <ndesaulniers@google.com>,
- "Justin Stitt" <justinstitt@google.com>, "Mark Brown" <broonie@kernel.org>,
- "Marco Elver" <elver@google.com>, alan.maguire@oracle.com,
- namjain@linux.microsoft.com, "Peter Zijlstra" <peterz@infradead.org>,
- linux-kernel@vger.kernel.org, linux-hardening@vger.kernel.org,
- llvm@lists.linux.dev
-Message-Id: <3cd11b18-30da-4dc1-9585-1112778aba38@app.fastmail.com>
-In-Reply-To: <20261006094358.2948476-1-morbo@google.com>
-References: <20261005102518.2400984-1-morbo@google.com>
- <20261006094358.2948476-1-morbo@google.com>
-Subject: Re: [PATCH v4] compiler_types: Allow opting out of __counted_by and
- __counted_by_ptr
-Content-Type: text/plain
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+
+From: Liu Yufei <lyf98405@gmail.com>
+
+This series adds support for the Vishay VCNL36829, an I2C proximity
+sensor with an integrated VCSEL emitter.
+
+Patch 1 adds the devicetree binding.
+Patch 2 adds the IIO driver, which exposes the proximity reading and
+a configurable integration time.
+
+Tested on Orange Pi Zero 2W.
+
+Changes in v2:
+- dt-bindings: Collect Reviewed-by from Krzysztof.
+- driver: Address review comments from Andy:
+  - Use a Datasheet: tag in the commit message.
+  - Drop mod_devicetable.h, sort the includes and include what is used.
+  - Drop the i2c_client pointer from the private data and use
+    regmap_get_device() instead.
+  - Drop the unused i2c_set_clientdata().
+  - Enable a maple regmap cache, mark PS_DATA and DEV_ID volatile.
+  - Rework the integration time validation in write_raw().
+  - Use reverse xmas tree order for local variables.
+  - Document the power-up delay and use 3 * USEC_PER_MSEC.
+  - Warn and continue on an unknown device ID instead of failing.
+  - Join lines that fit within 100 columns.
+  - Simplify the Assisted-by tag.
+- driver: Drop the i2c_check_functionality() call, as
+  devm_regmap_init_i2c() already checks the adapter capabilities.
+
+Link to v1: https://lore.kernel.org/linux-iio/20261003050453.413700-1-lyf98405@gmail.com/
+
+Liu Yufei (2):
+  dt-bindings: iio: proximity: Add Vishay VCNL36829
+  iio: proximity: Add driver for Vishay VCNL36829
+
+ .../iio/proximity/vishay,vcnl36829.yaml       |  55 ++++
+ MAINTAINERS                                   |   6 +
+ drivers/iio/proximity/Kconfig                 |  11 +
+ drivers/iio/proximity/Makefile                |   1 +
+ drivers/iio/proximity/vcnl36829.c             | 298 ++++++++++++++++++
+ 5 files changed, 371 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/iio/proximity/vishay,vcnl36829.yaml
+ create mode 100644 drivers/iio/proximity/vcnl36829.c
 
 
-
-On Tue, 6 Oct 2026, at 11:43, Bill Wendling wrote:
-> Code that runs outside the kernel proper, such as the EFI stub, gets
-> nothing out of the counted_by annotations: the bounds checks they feed
-> (FORTIFY_SOURCE, UBSAN_BOUNDS) are already disabled there.
->
-> The annotations can also break the build. A __counted_by_ptr() that
-> names a member declared after the pointer needs Clang's
-> '-fexperimental-late-parse-attributes', which the top-level Makefile
-> adds to 'KBUILD_CFLAGS'. The x86 EFI stub builds its own cflags and does
-> not get that flag, so it fails as soon as such a struct is pulled in
-> through a common header.
->
-> Overriding the macros from a Makefile doesn't work:
-> 'compiler_types.h' is pulled in with '-include', which is processed
-> after all -D/-U options, so it re-establishes the definitions. Follow
-> the '__NO_FORTIFY' precedent instead: let a build define
-> '__NO_COUNTED_BY' to turn the corresponding annotation into a no-op.
->
-> Assisted-by: LLM
-> Signed-off-by: Bill Wendling <morbo@google.com>
-> ---
-> v2: Only specify __NO_COUNTED_BY_PTR. Leave __NO_COUNTED_BY until we need it.
-> v3: Add the version to the Subject line.
-> v4: Use __NO_COUNTED_BY to reduce churn later on.
-> ---
->  include/linux/compiler_types.h | 7 ++++++-
->  1 file changed, 6 insertions(+), 1 deletion(-)
->
-> diff --git a/include/linux/compiler_types.h b/include/linux/compiler_types.h
-> index c5921f139007..05e2b637f1cd 100644
-> --- a/include/linux/compiler_types.h
-> +++ b/include/linux/compiler_types.h
-> @@ -371,8 +371,13 @@ struct ftrace_likely_data {
->   *
->   * __bdos on clang < 19.1.3 can be off by 4:
->   * https://github.com/llvm/llvm-project/pull/112636
-> + *
-> + * Code that runs outside the kernel proper (e.g. the EFI stub) can define
-> + * __NO_COUNTED_BY to drop the annotation, since it gains nothing from the
-> + * bounds checks. __NO_COUNTED_BY should be used sparingly, because there are
-> + * better options for opting out of bounds checking.
->   */
-> -#ifdef CONFIG_CC_HAS_COUNTED_BY
-> +#if defined(CONFIG_CC_HAS_COUNTED_BY) && !defined(__NO_COUNTED_BY)
->  # define __counted_by(member)		__attribute__((__counted_by__(member)))
->  #else
->  # define __counted_by(member)
-
-
-What happened to counted_by_ptr() now? __NO_COUNTED_BY should disable that too.
+base-commit: 52c36105f76e96b638152a42e735f2e7767ed946
+-- 
+2.53.0
 
