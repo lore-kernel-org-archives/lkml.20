@@ -1,170 +1,217 @@
-Received: from rtits2.realtek.com.tw (rtits2.realtek.com [211.75.126.72])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A737439FCCC;
-	Tue,  6 Oct 2026 09:43:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=211.75.126.72
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CD6403BFE26;
+	Tue,  6 Oct 2026 09:43:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.156.1
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791279818; cv=none; b=r14HyiUqB1f+1feFGKoK6SpaSiY2DQ35S/TgkZLXpxCI6t5dSwG5ciGviOUTam4QcAi+NAoTZCluwq4h/0ZyCzDvDoCS7zf/8zsOv3tHNKsrI6ZGxnmg2TgAI6sF149CNG9NgOC3dwrJtLHHFqRmmsNN8snjO4mZ0FG1GjBMQEM=
+	t=1791279841; cv=none; b=DL4FAdPcvQifPv8LwSrY0gxydbqk3RNl7hh4PsCTuJraSGXovgoV/yHrq0NQQMLSqFzfe1+GHTBA5v+bktztM9gSr4vZlvJzemSzKM48dIApphW+FYvHLgPcUeKvtcIq/vVopsKd4asnHUa/reXJ528mOby103xBIkBpvoRYNGg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791279818; c=relaxed/simple;
-	bh=aau/GwHhdsiX0vAbvGuKzpxkR/zsMOAmyEurRnPe4h8=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:MIME-Version; b=ncBElTtU92nxhWDRX9Q6fwQOyXe3n42P/97UhZa/UZR9kTihKIQc3nBym04RxuRl2Sl0H+J0sbHa7kN0YpSoh5qCscF8EDdU1F8vi5BDBh1+kF1v8haarR59TKszdmtpoO2n3je31a3NTAGO76hAur3H2znSB2MarXF3rf3Nepk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=realtek.com; spf=pass smtp.mailfrom=realtek.com; dkim=pass (2048-bit key) header.d=realtek.com header.i=@realtek.com header.b=txvTsti1; arc=none smtp.client-ip=211.75.126.72
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=realtek.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=realtek.com
+	s=arc-20240116; t=1791279841; c=relaxed/simple;
+	bh=SjI/uGsF/wKgBhDTWBjGz3ZJOg+/kVkKbRS3mBiemIU=;
+	h=Message-ID:Subject:From:To:Cc:In-Reply-To:References:Content-Type:
+	 Date:MIME-Version; b=CRqD6XYgTSuVr8WfssX9av7cKL50C1qReeq9wMbGwdpctcT5S8I4mshmepNV4Qo5wwHRcsOxyY1z50MDFd/2xSfhvPY8v58RMLovf67XOyACPAjqzw0KAdaun4pmtnomewCDI/+sFXiMLRl52Dt6uXlU+ZYQ77oFo4e/9Ojx5d4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=CE5rawJ0; arc=none smtp.client-ip=148.163.156.1
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=realtek.com header.i=@realtek.com header.b="txvTsti1"
-X-SpamFilter-By: ArmorX SpamTrap 5.80 with qID 6969hCffD2782625, This message is accepted by code: ctloc85258
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=realtek.com; s=dkim;
-	t=1791279793; bh=aau/GwHhdsiX0vAbvGuKzpxkR/zsMOAmyEurRnPe4h8=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:MIME-Version;
-	b=txvTsti1urXVw+cVE4g/1BVaThABFitasx0XwCJDTGNIqOjJk2C7ftXiBb7AUteDu
-	 5qenVsluna2V7BHBG7dO6uoz+7ZeTxB1HjtjG7ySMoPPMcuPmr0qU4Q1pKow0OhKWh
-	 6ucJJXde9jXwUVe6DR2ZHjpIItjJ2v7W6+iQXqZktsUVegwHnqil2NmdrZfTIPJJ9M
-	 oXO9VeLJGHgUEPdk78KL10t1gOey/m5OyBiJtMnbKjaiXjjsXm6yikwbAon0uVNmHm
-	 TbR7KdLKLSQ1fdweBfV1RLNHlAIa86U7nOUt71FHclIkW74xOrM4PBVhPXZFdOO+Tj
-	 opqANjwpKPK+Q==
-Received: from mail.realtek.com (rtkexhmbs02.realtek.com.tw[172.21.6.41])
-	by rtits2.realtek.com.tw (8.15.2/3.29/5.94) with ESMTPS id 6969hCffD2782625
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
-	Tue, 6 Oct 2026 17:43:12 +0800
-Received: from RTKEXHMBS06.realtek.com.tw (10.21.1.56) by
- RTKEXHMBS02.realtek.com.tw (172.21.6.41) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.49; Tue, 6 Oct 2026 17:43:11 +0800
-Received: from RTKEXHMBS06.realtek.com.tw ([::1]) by
- RTKEXHMBS06.realtek.com.tw ([fe80::b3cc:c263:b82d:e87c%10]) with mapi id
- 15.02.2562.049; Tue, 6 Oct 2026 17:43:11 +0800
-From: Chih Kai Hsu <hsu.chih.kai@realtek.com>
-To: "netdev-bot+sashiko@kernel.org" <netdev-bot+sashiko@kernel.org>
-CC: "davem@davemloft.net" <davem@davemloft.net>, "kuba@kernel.org"
-	<kuba@kernel.org>, "netdev@vger.kernel.org" <netdev@vger.kernel.org>,
-	nic_swsd <nic_swsd@realtek.com>, "linux-kernel@vger.kernel.org"
-	<linux-kernel@vger.kernel.org>, "linux-usb@vger.kernel.org"
-	<linux-usb@vger.kernel.org>, "edumazet@google.com" <edumazet@google.com>,
-	"bjorn@mork.no" <bjorn@mork.no>, "pabeni@redhat.com" <pabeni@redhat.com>,
-	"andrew+netdev@lunn.ch" <andrew+netdev@lunn.ch>
-Subject: RE: [PATCH net-next v5 9/9] r8152: enable UPS for RTL8157 and RTL8159
- QFN68
-Thread-Topic: [PATCH net-next v5 9/9] r8152: enable UPS for RTL8157 and
- RTL8159 QFN68
-Thread-Index: AQHdUYTlPlF1HOXxukyGZkrKxpp2sLbuNrMAgAIUHCA=
-Date: Tue, 6 Oct 2026 09:43:11 +0000
-Message-ID: <22d88f4f58a84f60ad8597b18202f048@realtek.com>
-References: <20261001091144.28191-10-nic_swsd@realtek.com>
- <179119424653.434549.3037572645986849314@kernel.org>
-In-Reply-To: <179119424653.434549.3037572645986849314@kernel.org>
-Accept-Language: zh-TW, en-US
-Content-Language: zh-TW
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="CE5rawJ0"
+Received: from pps.filterd (m0353729.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6966bNSL1116129;
+	Tue, 6 Oct 2026 09:43:59 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+	:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=pp1; bh=CnFoNL
+	jobdoUEux6Up91+BrpoLdjvsKwP2iwzlQ6xs0=; b=CE5rawJ0tAeWf1jXHp2Oax
+	3WWMd8BpGT/4Dql7jCc8cXARXKGKi0aBs5kFykuyuZh4EE/q+gdLUCVT+CODlFEV
+	UFdGKojP66wUd+GCiCBCJwudH8sf4mUqs1/zcBCv+rtiOPxrdEACy4M4q1QqRWUU
+	/COiH4K0tLg/X3P13MieDQlxbYCaztYgSDYDO3/zVbIhxbfq9KzRaSNha4DhcLcz
+	ZBOQehJDrrozYKjFnBpLHiiO1yu1uW8dU5WVpeeXzxD2ea6ErFEpGKeup2pcPEEn
+	Q+S+dizMRxK/WcqP8tjp6TSSZ9AhIlwP+mtKH77MZ3xoH0ooZ8kpE8Q8OEEigYeA
+	==
+Received: from ppma21.wdc07v.mail.ibm.com (5b.69.3da9.ip4.static.sl-reverse.com [169.61.105.91])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4h2scrf6y1-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Tue, 06 Oct 2026 09:43:58 +0000 (GMT)
+Received: from pps.filterd (ppma21.wdc07v.mail.ibm.com [127.0.0.1])
+	by ppma21.wdc07v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 6966llXG4086098;
+	Tue, 6 Oct 2026 09:43:58 GMT
+Received: from smtprelay06.wdc07v.mail.ibm.com ([172.16.1.73])
+	by ppma21.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4h3d1jsabp-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Tue, 06 Oct 2026 09:43:58 +0000 (GMT)
+Received: from smtpav03.dal12v.mail.ibm.com (smtpav03.dal12v.mail.ibm.com [10.241.53.102])
+	by smtprelay06.wdc07v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 6969hulQ61276454
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Tue, 6 Oct 2026 09:43:56 GMT
+Received: from smtpav03.dal12v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 6E2B858060;
+	Tue,  6 Oct 2026 09:43:56 +0000 (GMT)
+Received: from smtpav03.dal12v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 3560B5805A;
+	Tue,  6 Oct 2026 09:43:54 +0000 (GMT)
+Received: from [9.87.140.229] (unknown [9.87.140.229])
+	by smtpav03.dal12v.mail.ibm.com (Postfix) with ESMTP;
+	Tue,  6 Oct 2026 09:43:54 +0000 (GMT)
+Message-ID: <bc8b6453b1f4ce65a16108f6f940e286c139ad0c.camel@linux.ibm.com>
+Subject: Re: [PATCH v2 1/7] s390/pci: Fix double-free and NULL deref in
+ zpci MSI domain cleanup
+From: Niklas Schnelle <schnelle@linux.ibm.com>
+To: Tobias Schumacher <ts@linux.ibm.com>, Gerd Bayer
+ <gbayer@linux.ibm.com>,
+        Julian Ruess <julianr@linux.ibm.com>,
+        Farhan Ali
+ <alifm@linux.ibm.com>,
+        Christian Borntraeger	 <borntraeger@linux.ibm.com>,
+        Halil Pasic <pasic@linux.ibm.com>,
+        Matthew Rosato	 <mjrosato@linux.ibm.com>
+Cc: Heiko Carstens <hca@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>,
+        Alexander Gordeev <agordeev@linux.ibm.com>,
+        Sven Schnelle
+ <svens@linux.ibm.com>, linux-s390@vger.kernel.org,
+        linux-kernel@vger.kernel.org
+In-Reply-To: <20261005-s390_irq_domain_fixes-v2-1-d45b824874c0@linux.ibm.com>
+References: <20261005-s390_irq_domain_fixes-v2-0-d45b824874c0@linux.ibm.com>
+	 <20261005-s390_irq_domain_fixes-v2-1-d45b824874c0@linux.ibm.com>
+Autocrypt: addr=schnelle@linux.ibm.com; prefer-encrypt=mutual;
+ keydata=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
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 06 Oct 2026 11:42:53 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Evolution 3.60.2 (3.60.2-2.fc44) 
+X-TM-AS-GCONF: 00
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDA2MDAzOCBTYWx0ZWRfXzkCbSBaGiocQ
+ pGVaH+dGrHbKMkDRsxe5BzdJDh6MGRRQgZYMzA1+q/qTPQDuE8+m6DpE58fGtaQPgMfoq8VftL9
+ iMsmidHNFLv4VHP7ywVNBr0iVk1g/hs=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDA2MDAzOCBTYWx0ZWRfX2STfmORCS6rk
+ 2DyIAkZwQtm5dq6x6BGcTPHJdqtJLpCyu5JdmzgsYCprKCb6XC99yKu5BxVKgMAZ4PnJ/OBrXi/
+ tCSD29raTtcm6gtto1wDm/RT1Um5LWZ7uZFlDyJ9XG5vq5p644sw+Cp3u2XodkJShz/JyiuNiKq
+ d0UyfdPLygaJCyLRHjuWsVloReL+P9/ZWU/IV8TKru+wuFylAk8HdInL/+Rk20w7Bt/45WUOam8
+ bKVovZq+OYDFFsxNGZe+Z4mSouPrNLflOnqhiFIeSGI4h1ztkvQef8+YArQOWoMjArrPRjzim9C
+ hHSjZ5cVhWvllaMKtbCqD1m3klfRZ5RAXZcBe8FY/TX3f8heNujxwpFo0m6YHJpw+ELl7oX2fAr
+ aPp+GrwSOB9swe6Pr94h3J5e47o1w0/EUK+mCauLJS8TEvCRuFm8CwsZRqEgMRPU/kU4VCWT9+3
+ z+VJFEy1F+tKFY/KqRQ==
+X-Proofpoint-GUID: jH5HVTfQwjedH28ylRgdibiObhbACjcD
+X-Proofpoint-ORIG-GUID: jH5HVTfQwjedH28ylRgdibiObhbACjcD
+X-Authority-Analysis: v=2.4 cv=B7osQ+tM c=1 sm=1 tr=0 ts=6ac4c2de cx=c_pps
+ a=GFwsV6G8L6GxiO2Y/PsHdQ==:117 a=GFwsV6G8L6GxiO2Y/PsHdQ==:17
+ a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=RnoormkPH1_aCDwRdu11:22 a=uAbxVGIbfxUO_5tXvNgY:22 a=VwQbUJbxAAAA:8
+ a=VnNF1IyMAAAA:8 a=BV9IYL0s2zopdLYC_xAA:9 a=QEXdDO2ut3YA:10
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-06_02,2026-10-05_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501 bulkscore=0 malwarescore=0 impostorscore=0 phishscore=0
+ clxscore=1015 spamscore=0 adultscore=0 lowpriorityscore=0 suspectscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2610060038
 
-PiBUaGFuayB5b3UgZm9yIHlvdXIgY29udHJpYnV0aW9uISBTYXNoaWtvIEFJIHJldmlldyBmb3Vu
-ZCAxIHBvdGVudGlhbA0KPiBpc3N1ZShzKSB0byBjb25zaWRlci4NCj4gDQo+IENyaXRpY2FsOiAw
-IMK3IEhpZ2g6IDAgwrcgTWVkaXVtOiAxIMK3IExvdzogMA0KPiANCj4gSWYgeW91IGJlbGlldmUg
-bm9uZSBvZiB0aGUgaXNzdWVzIGFyZSBsZWdpdGltYXRlLCBwbGVhc2UgcmVwbHkgdG8gZWFjaCBp
-c3N1ZSBvZg0KPiBNZWRpdW0gc2V2ZXJpdHkgb3IgaGlnaGVyIGFuZCBleHBsYWluIHdoeSB0aGUg
-QUkgaXMgd3JvbmcuDQo+IElmIGFueSBvZiB0aGVtIGFyZSBsZWdpdGltYXRlIGFuZCB5b3UgcGxh
-biB0byByZXNwaW4sIHBsZWFzZSBsZXQgcGF0Y2h3b3JrIGtub3cNCj4gYnkgaW5jbHVkaW5nICJw
-dy1ib3Q6IGNyIiBhcyBhIHNlcGFyYXRlIGxpbmUgYXQgdGhlIGVuZCBvZiB5b3VyIHJlcGx5IChv
-bmUgc3VjaA0KPiByZXBseSBwZXIgc2VyaWVzIGlzIGVub3VnaCkuDQo+IA0KPiAtIFtNZWRpdW1d
-IElmIHRoZSBuZXcgYmFja3VwLXJlc3RvcmUgcG9sbCBpbiByODE1N191cHNfZW4odHAsIGZhbHNl
-KQ0KPiAgIHRpbWVzIG91dCBkdXJpbmcgcnVudGltZSByZXN1bWUgb24gUlRMX1ZFUl8xNiBvciBS
-VExfVkVSXzE3X1FGTjY4LA0KPiB0aGXigKYNCj4gDQo+IC0tDQo+IA0KPiByODE1MjogZW5hYmxl
-IFVQUyBmb3IgUlRMODE1NyBhbmQgUlRMODE1OSBRRk42OA0KPiANCj4gVGhpcyBwYXRjaCBhZGRz
-IHI4MTU3X3Vwc19lbigpIGFuZCBjYWxscyBpdCBmcm9tIHJ0bDgxNTdfcnVudGltZV9lbmFibGUo
-KSBmb3INCj4gUlRMX1ZFUl8xNiBhbmQgUlRMX1ZFUl8xN19RRk42OC4gV2hlbiBVUFMgaXMgZGlz
-YWJsZWQgYW5kIFBDVVRfU1RBVFVTDQo+IGlzIHNldCwgdGhlIG5ldyBkaXNhYmxlIHBhdGggcG9s
-bHMgZm9yIGJhY2t1cC1yZXN0b3JlIHRvIGZpbmlzaC4gSXQgYWxzbyBleHRlbmRzDQo+IHI4MTU2
-X3Vwc19mbGFncygpIHdpdGggcGVyLXNwZWVkIEVFRSBmbGFncyBhbmQgdGhlIDVHLzEwRyBzcGVl
-ZCBlbmNvZGluZ3MuDQo+IA0KPiA+IGRpZmYgLS1naXQgYS9kcml2ZXJzL25ldC91c2IvcjgxNTIu
-YyBiL2RyaXZlcnMvbmV0L3VzYi9yODE1Mi5jIGluZGV4DQo+ID4gYjJlNGIwNzFkODRmMC4uYmFh
-Yzk2NGZlYTgwZiAxMDA2NDQNCj4gPiAtLS0gYS9kcml2ZXJzL25ldC91c2IvcjgxNTIuYw0KPiA+
-ICsrKyBiL2RyaXZlcnMvbmV0L3VzYi9yODE1Mi5jDQo+IA0KPiBbIC4uLiBdDQo+IA0KPiA+IEBA
-IC00NDg2LDYgKzQ1MjQsNDkgQEAgc3RhdGljIHZvaWQgcjgxNTZfdXBzX2VuKHN0cnVjdCByODE1
-MiAqdHAsIGJvb2wNCj4gZW5hYmxlKQ0KPiA+ICAgICAgIH0NCj4gPiAgfQ0KPiA+DQo+ID4gK3N0
-YXRpYyB2b2lkIHI4MTU3X3Vwc19lbihzdHJ1Y3QgcjgxNTIgKnRwLCBib29sIGVuYWJsZSkgew0K
-PiA+ICsgICAgIGlmIChlbmFibGUpIHsNCj4gPiArICAgICAgICAgICAgIHI4MTU2X3Vwc19mbGFn
-cyh0cCk7DQo+ID4gKw0KPiA+ICsgICAgICAgICAgICAgb2NwX2J5dGVfc2V0X2JpdHModHAsIE1D
-VV9UWVBFX1VTQiwgVVNCX1BPV0VSX0NVVCwNCj4gPiArICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgIFVQU19FTiB8IFVTUF9QUkVXQUtFIHwNCj4gUEhBU0UyX0VOKTsNCj4gPiArDQo+ID4g
-KyAgICAgICAgICAgICBvY3BfYnl0ZV9zZXRfYml0cyh0cCwgTUNVX1RZUEVfVVNCLCBVU0JfTUlT
-Q18yLA0KPiA+ICsgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgVVBTX0ZPUkNFX1BXUl9E
-T1dOKTsNCj4gPiArICAgICB9IGVsc2Ugew0KPiA+ICsgICAgICAgICAgICAgb2NwX2J5dGVfY2xy
-X2JpdHModHAsIE1DVV9UWVBFX1VTQiwgVVNCX1BPV0VSX0NVVCwNCj4gPiArICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgIFVQU19FTiB8IFVTUF9QUkVXQUtFKTsNCj4gPiArDQo+ID4gKyAg
-ICAgICAgICAgICBvY3BfYnl0ZV9jbHJfYml0cyh0cCwgTUNVX1RZUEVfVVNCLCBVU0JfTUlTQ18y
-LA0KPiA+ICsgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgVVBTX0ZPUkNFX1BXUl9ET1dO
-KTsNCj4gPiArDQo+ID4gKyAgICAgICAgICAgICBpZiAob2NwX3JlYWRfd29yZCh0cCwgTUNVX1RZ
-UEVfVVNCLCBVU0JfTUlTQ18wKSAmDQo+IFBDVVRfU1RBVFVTKSB7DQo+ID4gKyAgICAgICAgICAg
-ICAgICAgICAgIHUzMiBvY3BfZGF0YTsNCj4gPiArICAgICAgICAgICAgICAgICAgICAgaW50IHJl
-dDsNCj4gPiArDQo+ID4gKyAgICAgICAgICAgICAgICAgICAgIHJldCA9IHJlYWRfcG9sbF90aW1l
-b3V0KG9jcF9yZWFkX3dvcmQsDQo+IG9jcF9kYXRhLA0KPiA+ICsgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICBvY3BfZGF0YSAmDQo+IEJBQ0tVUF9SRVNUUk9SRSwg
-MjAwLA0KPiA+ICsgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAy
-MDAwMCwgZmFsc2UsIHRwLA0KPiBNQ1VfVFlQRV9VU0IsDQo+ID4gKyAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgIFVTQl9HUEhZX0NUUkwpOw0KPiA+ICsgICAgICAg
-ICAgICAgICAgICAgICBpZiAocmV0KSB7DQo+ID4gKyAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgcnRsX3NldF9pbmFjY2Vzc2libGUodHApOw0KPiA+ICsgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgIGRldl9lcnIoJnRwLT5pbnRmLT5kZXYsDQo+ID4gKyAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAiYmFja3VwLXJlc3RvcmUgdGltZWQgb3V0XG4iKTsNCj4gPiArICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICByZXR1cm47DQo+ID4gKyAgICAgICAgICAgICAgICAg
-ICAgIH0NCj4gDQo+IFtTZXZlcml0eTogTWVkaXVtXQ0KPiBJZiB0aGlzIHJlYWRfcG9sbF90aW1l
-b3V0KCkgdGltZXMgb3V0IGR1cmluZyBhIHJ1bnRpbWUgcmVzdW1lIG9uDQo+IFJUTF9WRVJfMTYg
-b3IgUlRMX1ZFUl8xN19RRk42OCwgZG9lcyBhbnl0aGluZyByZWNvdmVyIHRoZSBkZXZpY2U/DQo+
-IA0KPiBUaGUgcGF0aCBsb29rcyBsaWtlIHRoaXM6DQo+IA0KPiBydGw4MTUyX3Jlc3VtZSgpDQo+
-ICAgcnRsODE1Ml9ydW50aW1lX3Jlc3VtZSgpDQo+ICAgICB0cC0+cnRsX29wcy5hdXRvc3VzcGVu
-ZF9lbih0cCwgZmFsc2UpDQo+ICAgICAgIHJ0bDgxNTdfcnVudGltZV9lbmFibGUodHAsIGZhbHNl
-KQ0KPiAgICAgICAgIHI4MTU3X3Vwc19lbih0cCwgZmFsc2UpDQo+ICAgICAgICAgICBydGxfc2V0
-X2luYWNjZXNzaWJsZSh0cCkNCj4gDQo+IHI4MTU3X3Vwc19lbigpIHJldHVybnMgdm9pZCwgc28g
-cnRsODE1Ml9ydW50aW1lX3Jlc3VtZSgpIGtlZXBzIGdvaW5nIGFuZA0KPiByZXR1cm5zIDAuIFRo
-ZSByZXNldCBmYWxsYmFjayBpbiBydGw4MTUyX3Jlc3VtZSgpIHNraXBzIHRoZSBydW50aW1lIGNh
-c2U6DQo+IA0KPiAgICAgICAgIGlmICghcnVudGltZV9yZXN1bWUgJiYgdGVzdF9iaXQoUlRMODE1
-Ml9JTkFDQ0VTU0lCTEUsICZ0cC0+ZmxhZ3MpKQ0KPiAgICAgICAgICAgICAgICAgdXNiX3Jlc2V0
-X2RldmljZSh0cC0+dWRldik7DQo+IA0KPiBUaGUgcmVnaXN0ZXIgcmVhZHMgaW4gdGhlIHBvbGwg
-c3VjY2VlZGVkLCBzbyByODE1Ml9jb250cm9sX21zZygpIG5ldmVyIHF1ZXVlZA0KPiBhIHJlc2V0
-LiBBZnRlciB0aGF0LCBldmVyeSBhY2Nlc3MgcmV0dXJucyBlYXJseSBiZWZvcmUNCj4gcjgxNTJf
-Y29udHJvbF9tc2coKSBnZXRzIHRvIGl0cyByZXNldCBsb2dpYzoNCj4gDQo+ICAgICAgICAgaWYg
-KHRlc3RfYml0KFJUTDgxNTJfSU5BQ0NFU1NJQkxFLCAmdHAtPmZsYWdzKSkNCj4gICAgICAgICAg
-ICAgICAgIHJldHVybiAtRU5PREVWOw0KPiANCj4gcjgxNTJfc3VibWl0X3J4KCksIHRoZSBpbnRl
-cnJ1cHQgY2FsbGJhY2sgYW5kIGJvdHRvbV9oYWxmKCkgYWxzbyByZXR1cm4gZWFybHkNCj4gd2hp
-bGUgdGhlIGZsYWcgaXMgc2V0Lg0KPiANCj4gV291bGQgdGhlIGludGVyZmFjZSB0aGVuIHN0YXkg
-dW51c2FibGUgdW50aWwgc29tZSB1bnJlbGF0ZWQgcmVzZXQsIHN1Y2ggYXMNCj4gcnRsODE1Ml90
-eF90aW1lb3V0KCkgd2hlbiBUWCB0cmFmZmljIHN0YWxscywgb3IgYSByZXBsdWc/IEFuIGlkbGUg
-aW50ZXJmYWNlIHdvdWxkDQo+IGdldCBuZWl0aGVyLg0KPiANCj4gQmVmb3JlIHRoaXMgcGF0Y2gg
-dGhlc2UgY2hpcHMgbmV2ZXIgZW50ZXJlZCBVUFMgb24gcnVudGltZSBzdXNwZW5kLCBzbyB0aGlz
-DQo+IHJlc3VtZSBmYWlsdXJlIGxvb2tzIG5ldy4NCj4gDQo+IENvdWxkIHRoaXMgcGF0aCBxdWV1
-ZSBhIHJlc2V0LCBvciBvdGhlcndpc2UgcGFzcyB0aGUgZXJyb3IgYmFjaywgaW4gdGhlIHJ1bnRp
-bWUNCj4gcmVzdW1lIGNhc2U/DQoNCldpbGwgZG8uDQoNCj4gDQo+ID4gKw0KPiA+ICsgICAgICAg
-ICAgICAgICAgICAgICAvKiBjbGVhciBVU0IgZndfdmVyX3JlZyAqLw0KPiA+ICsgICAgICAgICAg
-ICAgICAgICAgICBvY3Bfd3JpdGVfYnl0ZSh0cCwgTUNVX1RZUEVfVVNCLA0KPiBVU0JfRldfVVNC
-X1ZFUiwNCj4gPiArIDApOw0KPiA+ICsNCj4gPiArICAgICAgICAgICAgICAgICAgICAgdHAtPnJ0
-bF9vcHMuaHdfcGh5X2NmZyh0cCk7DQo+ID4gKw0KPiA+ICsgICAgICAgICAgICAgICAgICAgICBy
-dGw4MTUyX3NldF9zcGVlZCh0cCwgdHAtPmF1dG9uZWcsIHRwLT5zcGVlZCwNCj4gPiArICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgdHAtPmR1cGxleCwgdHAtPmFkdmVydGlz
-aW5nKTsNCj4gPiArICAgICAgICAgICAgIH0NCj4gPiArICAgICB9DQo+ID4gK30NCj4gDQo+IFsg
-Li4uIF0NCj4gDQo+ID4gQEAgLTQ2NDQsOSArNDcyNSwyOCBAQCBzdGF0aWMgdm9pZCBydGw4MTU3
-X3J1bnRpbWVfZW5hYmxlKHN0cnVjdCByODE1Mg0KPiA+ICp0cCwgYm9vbCBlbmFibGUpDQo+IA0K
-PiBbIC4uLiBdDQo+IA0KPiA+ICAgICAgIH0gZWxzZSB7DQo+ID4gICAgICAgICAgICAgICByODE1
-M19xdWV1ZV93YWtlKHRwLCBmYWxzZSk7DQo+ID4gICAgICAgICAgICAgICBydGxfcnVudGltZV9z
-dXNwZW5kX2VuYWJsZSh0cCwgZmFsc2UpOw0KPiA+ICsNCj4gPiArICAgICAgICAgICAgIHN3aXRj
-aCAodHAtPnZlcnNpb24pIHsNCj4gPiArICAgICAgICAgICAgIGNhc2UgUlRMX1ZFUl8xNjoNCj4g
-PiArICAgICAgICAgICAgIGNhc2UgUlRMX1ZFUl8xN19RRk42ODoNCj4gPiArICAgICAgICAgICAg
-ICAgICAgICAgcjgxNTdfdXBzX2VuKHRwLCBmYWxzZSk7DQo+ID4gKyAgICAgICAgICAgICAgICAg
-ICAgIGJyZWFrOw0KPiA+ICsgICAgICAgICAgICAgZGVmYXVsdDoNCj4gPiArICAgICAgICAgICAg
-ICAgICAgICAgYnJlYWs7DQo+ID4gKyAgICAgICAgICAgICB9DQo+ID4gKw0KPiA+ICAgICAgICAg
-ICAgICAgcjgxNTdfdTJwM2VuKHRwLCB0cnVlKTsNCj4gPiAgICAgICAgICAgICAgIGlmICh0cC0+
-dWRldi0+c3BlZWQgPj0gVVNCX1NQRUVEX1NVUEVSKQ0KPiA+ICAgICAgICAgICAgICAgICAgICAg
-ICByODE1M2JfdTF1MmVuKHRwLCB0cnVlKTsNCj4gPiAgICAgICB9DQo+IA0KPiBbIC4uLiBdDQo+
-IA0KPiAtLQ0KPiBTYXNoaWtvIEFJIHJldmlldyDCtw0KPiBodHRwczovL25ldGRldi1haS5ib3Rz
-LmxpbnV4LmRldi9zYXNoaWtvLyMvcGF0Y2hzZXQvMjAyNjEwMDEwOTExNDQuMjgxOTEtMS0NCj4g
-bmljX3N3c2QlNDByZWFsdGVrLmNvbQ0KDQpCZXN0IFJlZ2FyZHMsDQpDaGloLUthaQ0K
+On Mon, 2026-10-05 at 14:03 +0200, Tobias Schumacher wrote:
+> zpci_remove_parent_msi_domain() dereferences zbus->msi_parent_domain
+> unconditionally and does not clear it afterwards.
+>=20
+> zpci_bus_create_pci_bus() removes the domain when pci_create_root_bus()
+> fails, then zpci_bus_release() removes it again on the last kref_put(),
+> reading ->fwnode from the freed irq_domain and freeing it twice.
+>=20
+> If zpci_alloc_domain() or zpci_create_parent_msi_domain() fails, no domai=
+n
+> is created at all; zbus is kzalloc'd, so the same release path dereferenc=
+es
+> NULL.
+>=20
+> Return early when there is no domain, and clear the pointer after removin=
+g
+> one.
+>=20
+> Fixes: f770950a4709 ("s390/pci: Migrate s390 IRQ logic to IRQ domain API"=
+)
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Tobias Schumacher <ts@linux.ibm.com>
+> ---
+>  arch/s390/pci/pci_irq.c | 4 ++++
+>  1 file changed, 4 insertions(+)
+>=20
+> diff --git a/arch/s390/pci/pci_irq.c b/arch/s390/pci/pci_irq.c
+> index 9c9ed3d8d959..c9520a16ca75 100644
+> --- a/arch/s390/pci/pci_irq.c
+> +++ b/arch/s390/pci/pci_irq.c
+> @@ -533,9 +533,13 @@ void zpci_remove_parent_msi_domain(struct zpci_bus *=
+zbus)
+>  {
+>  	struct fwnode_handle *fn;
+> =20
+> +	if (!zbus->msi_parent_domain)
+> +		return;
+> +
+>  	fn =3D zbus->msi_parent_domain->fwnode;
+>  	irq_domain_remove(zbus->msi_parent_domain);
+>  	irq_domain_free_fwnode(fn);
+> +	zbus->msi_parent_domain =3D NULL;
+>  }
+> =20
+>  static void __init cpu_enable_directed_irq(void *unused)
+
+Thanks for the fix!
+
+Reviewed-by: Niklas Schnelle <schnelle@linux.ibm.com>
