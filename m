@@ -1,32 +1,33 @@
-Received: from mta0.migadu.com (out-124.mta0.migadu.com [91.218.175.124])
+Received: from mta0.migadu.com (out-127.mta0.migadu.com [91.218.175.127])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F39D245D91C
-	for <linux-kernel@vger.kernel.org>; Tue,  6 Oct 2026 13:07:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9645145C6E1
+	for <linux-kernel@vger.kernel.org>; Tue,  6 Oct 2026 13:07:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.127
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791292042; cv=none; b=IxO9xT8WT5GzxM3/hMpXGR8gaHFyTPydhJoR962XJnWlfJCSUw7GFJaDnDAsJ0OvDlNuJl3DIQqXZl0TxHzzBKKy3JCwkbwr/MM8Wss3keVDdiWJNN2BwR3CtTKzdp5ibAxiwGZsuCrbDyZqrxUpFQxih57la8FH07D6+DEF/8g=
+	t=1791292045; cv=none; b=tPNAAIeMZT9uaC2DPxvo7/cShLXDe2Ues+RtEEjxwMdAi26T7nCI1dkCP35sr3S1oqOtidDu8Sv0EvWUuRhfTfPaatzUqk9jfasgOQJW21OOwsiK9c6O7Uzpqx1pRnYuD2++Q52P04fWkJ+u18y5sBF8/T5olMTE0cngdH9a60Y=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791292042; c=relaxed/simple;
-	bh=7Y/+QLl7tirWKLiNc+HxZHMViLq32FyDcLhKzBg9vj8=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Hf53xyiT2Zt2opdlBA28+OvKWituv0us47IBGX6u/BIGjVO2KIgbDpYX3Hw85LAdp/HAQ+MhtIK7/tSc/LPpxi+wgVYyczohDglGahexjVzJ60xv00LvTwnxfb2mSp68iRGgs4X+cIjUwQnL7CATzDjtx5624nximyYU1uoof1k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=Zmrk00vO; arc=none smtp.client-ip=91.218.175.124
+	s=arc-20240116; t=1791292045; c=relaxed/simple;
+	bh=gXFTUY5EleGj19niqXAHP97huAcyAjf4cpDHqJ38rwo=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=TeZ5sivkSe/VxOywzdG/lhlvePyXo95ynVnSSgIqVU/3iyOJZuYo28R8a/XSm2uAqg/Mqe/G9qzJNblyj5b3KUazvSdUvP2VzjzgbGUG1gWsYtdEQlng9uz+ZjuzIxY5HvKe5uFDtylMUqZAoorgHRak1Gq+nYhqU3FxSxYHdCc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=gMYFu/HC; arc=none smtp.client-ip=91.218.175.127
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="Zmrk00vO"
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="gMYFu/HC"
 X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=7Y/+QLl7tirWKLiNc+HxZHMViLq32FyDcLhKzBg9vj8=;
+DKIM-Signature: a=rsa-sha256; bh=gXFTUY5EleGj19niqXAHP97huAcyAjf4cpDHqJ38rwo=;
  c=simple/simple; d=linux.dev;
  h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1791292038; v=1; x=1791896838;
- b=Zmrk00vOwMgrYcRcgi30V5EO1bb+TekrP/G3cONZXDCDFggYSj29UrtiG0QVkpvIFQejkWlO
- lKvp+PlKh7+oMtmJj3PogPbKgMonwbu1S66S0PLHPwJsKt5as7+17ZIYLDalDXqMixKi8VHuUP7
- add3YcGulSxKGgfGA1vAHlCg=
+ t=1791292041; v=1; x=1791896841;
+ b=gMYFu/HCUhSexqdcle5TA62/NLOWiZh6OhtPxsHdAgyzxytFBsPZiTI44OGi4sweNA3YLw4O
+ 8WsmYNpK1Sr/huEN8muRcfTJcbmIgJYzOJTzt6SJUHXHWwQVkxMJpm8di2qcXL/16qg1QxYPp3Q
+ rqhGNxnO7iSgsA8GKzp5IIDI=
 X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 8bc8c4593f0d8f00;
-	Tue, 06 Oct 2026 13:07:08 +0000
-X-Mizu-Trace-ID: 8bc8c4593f0d8f00
+Received: by smtp.migadu.com with ESMTPS id 5b2f4d58ac618a56;
+	Tue, 06 Oct 2026 13:07:21 +0000
+X-Mizu-Trace-ID: 5b2f4d58ac618a56
 X-Migadu-Flow: FLOW_OUT
 From: Luka Gejak <luka.gejak@linux.dev>
 To: Ping-Ke Shih <pkshih@realtek.com>
@@ -36,10 +37,12 @@ Cc: linux-wireless@vger.kernel.org,
 	Peter Robinson <pbrobinson@gmail.com>,
 	Bitterblue Smith <rtl8821cerfe2@gmail.com>,
 	Luka Gejak <luka.gejak@linux.dev>
-Subject: [PATCH rtw-next v8 0/7] wifi: rtw88: add RTL8723B/RTL8723BS support
-Date: Tue,  6 Oct 2026 15:06:54 +0200
-Message-ID: <20261006130701.120460-1-luka.gejak@linux.dev>
+Subject: [PATCH rtw-next v8 4/7] wifi: rtw88: move the shared 8723x definitions to rtw8723x.h
+Date: Tue,  6 Oct 2026 15:06:58 +0200
+Message-ID: <20261006130701.120460-5-luka.gejak@linux.dev>
 X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20261006130701.120460-1-luka.gejak@linux.dev>
+References: <20261006130701.120460-1-luka.gejak@linux.dev>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -48,130 +51,232 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-This is the second of two series adding support for the Realtek RTL8723B
-802.11n chipset and its RTL8723BS SDIO variant to rtw88. The preparation
-series has landed in rtw-next, so this series carries the chip register
-definitions, the BB/RF/AGC tables, the chip driver, the SDIO bind and the
-build glue.
+The RTL8723B driver needs the receive PHY status layout, the SDIO
+aggregation burst fields and four baseband registers, which currently
+live in rtw8703b.h. Move them to rtw8723x.h, the header for the
+definitions shared within the family, and rename struct phy_status_8703b
+to struct phy_status_8723x. The layout is called phy_status_rpt_8192cd in
+the vendor driver. This is not a logical change.
 
-The first and fourth patches are the shared-core changes. The first moves
-the CCK power detect setter out of rtw88xxa.c into phy.c as
-rtw_phy_cck_pd_set(), so this chip can use it without pulling in
-rtw88_88xxa. The fourth moves the definitions RTL8723B shares with RTL8703B
-into rtw8723x.h. The five chip patches apply on top and can be read on
-their own.
+Signed-off-by: Luka Gejak <luka.gejak@linux.dev>
+---
+ drivers/net/wireless/realtek/rtw88/rtw8703b.c |  4 +-
+ drivers/net/wireless/realtek/rtw88/rtw8703b.h | 63 -------------------
+ drivers/net/wireless/realtek/rtw88/rtw8723x.h | 60 ++++++++++++++++++
+ 3 files changed, 62 insertions(+), 65 deletions(-)
 
-The driver supports:
-
-  - RTL8723B / RTL8723BS, SDIO only
-  - 2.4 GHz 802.11n, HT20 and HT40
-  - one spatial stream
-  - station mode
-
-Only station mode has been validated. The common rtw88 core advertises AP
-and IBSS for all chips, so those modes are advertised for RTL8723BS as
-well, but neither has been tested. An out-of-tree tester has reported AP
-mode associating without DHCP completing. The five additional SDIO IDs are
-included for parity with the existing staging driver, and only the 0xb723
-device has been exercised.
-
-The chip driver requests:
-
-  rtw88/rtw8723b_fw.bin
-
-This is the version 41 firmware extracted from the Realtek rtl8723bs
-vendor driver. It was submitted separately to linux-firmware with its
-extraction provenance and carries Ping-Ke Shih's Reviewed-by. There is no
-known native rtw88 RTL8723B firmware.
-
-The implementation is based on the initial RTL8723B work by Michael
-Straube:
-
-  https://github.com/mistraube/rtw88/tree/rtl8723bs
-
-Michael's Co-developed-by and Signed-off-by tags are present on the three
-chip-code patches containing code derived from that work.
-
-The known limitations are unchanged. Bluetooth coexistence depends on the
-BT firmware's status reports. During A2DP streaming those reports identify
-a connected link but do not expose the active profile, so the WiFi
-coexistence logic cannot make a correct traffic-aware decision. WiFi
-throughput can fall sharply while audio remains smooth. This is documented
-rather than guessed around in the WiFi driver. The intermittent RTL8723BS
-firmware failure to leave LPS also remains, and instrumentation shows a
-firmware stall rather than a polling timeout that a longer budget would
-fix.
-
-Testing
-=======
-
-The exact seven-commit branch builds with W=1, with no new warnings, and
-links all rtw88 modules with real modpost. Sparse and smatch were run over
-the rtw88 directory. Sparse is clean. Smatch reports nothing in the 8723B
-files, and its only output is an existing container_of static assertion
-from include/net/neighbour.h while checking usb.c. checkpatch --strict is
-clean apart from the complex-macro report on TRANS_SEQ_END, which is an
-initializer macro that rtw8703b.c already defines in the same way, and the
-"does MAINTAINERS need updating" reminder on the file-adding patches, which
-the existing REALTEK WIRELESS DRIVER (rtw88) entry already answers with its
-F: line. git diff --check is clean and all seven commits are GPG-signed.
-
-Hardware validation covered module identity, boot, scan,
-authentication, association, WPA2 key negotiation and DHCP, TCP and UDP
-traffic in both directions, ten scans while connected, and twenty module
-reload and reassociate cycles. dmesg is clean, with no warnings, no errors
-and no TX-report, H2C or leave-LPS messages. The extended soak added six 30
-second TCP runs, UDP saturation in both access categories with no loss, a
-2000 packet ping run with no loss, and three idle power save periods with a
-clean wake. The test machine provides only s2idle, so suspend and resume
-are not covered.
-
-Changes in v8:
-  - a new patch moves the receive PHY status layout, the SDIO aggregation
-    burst fields and four baseband registers out of rtw8703b.h into
-    rtw8723x.h, and renames struct phy_status_8703b to struct
-    phy_status_8723x. The chip driver no longer includes the header of a
-    sibling chip. It is a pure move, rtw8703b.c only follows the new struct
-    name;
-  - the vendor driver's name for that layout, phy_status_rpt_8192cd, is in
-    the commit message rather than in the source;
-  - dropped the long comment above the CCK swing table;
-  - the two receive PHY status helpers take void *phy_raw and read the CCK
-    LNA and VGA fields with u8_get_bits().
-
-Luka Gejak (7):
-  wifi: rtw88: move the 88xxa CCK power detect setter to phy.c
-  wifi: rtw88: 8723b: add the RTL8723B register definitions
-  wifi: rtw88: 8723b: add the RTL8723B BB, RF and AGC tables
-  wifi: rtw88: move the shared 8723x definitions to rtw8723x.h
-  wifi: rtw88: 8723b: add the RTL8723B chip driver
-  wifi: rtw88: 8723bs: add the RTL8723BS SDIO bind
-  wifi: rtw88: 8723bs: enable building the RTL8723BS driver
-
- drivers/net/wireless/realtek/rtw88/Kconfig    |   18 +
- drivers/net/wireless/realtek/rtw88/Makefile   |    6 +
- drivers/net/wireless/realtek/rtw88/phy.c      |   39 +
- drivers/net/wireless/realtek/rtw88/phy.h      |    1 +
- drivers/net/wireless/realtek/rtw88/reg.h      |   34 +
- drivers/net/wireless/realtek/rtw88/rtw8703b.c |    4 +-
- drivers/net/wireless/realtek/rtw88/rtw8703b.h |   63 -
- drivers/net/wireless/realtek/rtw88/rtw8723b.c | 2534 +++++++++++++++++
- drivers/net/wireless/realtek/rtw88/rtw8723b.h |   14 +
- .../wireless/realtek/rtw88/rtw8723b_table.c   |  861 ++++++
- .../wireless/realtek/rtw88/rtw8723b_table.h   |   17 +
- .../net/wireless/realtek/rtw88/rtw8723bs.c    |   59 +
- drivers/net/wireless/realtek/rtw88/rtw8723x.h |   60 +
- drivers/net/wireless/realtek/rtw88/rtw8812a.c |    2 +-
- drivers/net/wireless/realtek/rtw88/rtw8821a.c |    2 +-
- drivers/net/wireless/realtek/rtw88/rtw88xxa.c |   38 -
- drivers/net/wireless/realtek/rtw88/rtw88xxa.h |    1 -
- 17 files changed, 3647 insertions(+), 106 deletions(-)
- create mode 100644 drivers/net/wireless/realtek/rtw88/rtw8723b.c
- create mode 100644 drivers/net/wireless/realtek/rtw88/rtw8723b.h
- create mode 100644 drivers/net/wireless/realtek/rtw88/rtw8723b_table.c
- create mode 100644 drivers/net/wireless/realtek/rtw88/rtw8723b_table.h
- create mode 100644 drivers/net/wireless/realtek/rtw88/rtw8723bs.c
-
+diff --git a/drivers/net/wireless/realtek/rtw88/rtw8703b.c b/drivers/net/wireless/realtek/rtw88/rtw8703b.c
+index 42cfc8e62db8..25456f0367b2 100644
+--- a/drivers/net/wireless/realtek/rtw88/rtw8703b.c
++++ b/drivers/net/wireless/realtek/rtw88/rtw8703b.c
+@@ -930,7 +930,7 @@ static s8 get_cck_rx_pwr(struct rtw_dev *rtwdev, u8 lna_idx, u8 vga_idx)
+ static void query_phy_status_cck(struct rtw_dev *rtwdev, u8 *phy_raw,
+ 				 struct rtw_rx_pkt_stat *pkt_stat)
+ {
+-	struct phy_status_8703b *phy_status = (struct phy_status_8703b *)phy_raw;
++	struct phy_status_8723x *phy_status = (struct phy_status_8723x *)phy_raw;
+ 	u8 vga_idx = phy_status->cck_agc_rpt_ofdm_cfosho_a & VGA_BITS;
+ 	u8 lna_idx = phy_status->cck_agc_rpt_ofdm_cfosho_a & LNA_L_BITS;
+ 	s8 rx_power;
+@@ -952,7 +952,7 @@ static void query_phy_status_cck(struct rtw_dev *rtwdev, u8 *phy_raw,
+ static void query_phy_status_ofdm(struct rtw_dev *rtwdev, u8 *phy_raw,
+ 				  struct rtw_rx_pkt_stat *pkt_stat)
+ {
+-	struct phy_status_8703b *phy_status = (struct phy_status_8703b *)phy_raw;
++	struct phy_status_8723x *phy_status = (struct phy_status_8723x *)phy_raw;
+ 	struct rtw_dm_info *dm_info = &rtwdev->dm_info;
+ 	s8 val_s8;
+ 
+diff --git a/drivers/net/wireless/realtek/rtw88/rtw8703b.h b/drivers/net/wireless/realtek/rtw88/rtw8703b.h
+index 3e2da2e6739d..51e9038e7c1e 100644
+--- a/drivers/net/wireless/realtek/rtw88/rtw8703b.h
++++ b/drivers/net/wireless/realtek/rtw88/rtw8703b.h
+@@ -16,62 +16,7 @@ extern const struct rtw_chip_info rtw8703b_hw_spec;
+ #define BIT_LNA_H_MASK BIT(3)
+ #define BIT_LNA_L_MASK GENMASK(2, 0)
+ 
+-struct phy_rx_agc_info {
+-#ifdef __LITTLE_ENDIAN
+-	u8 gain: 7;
+-	u8 trsw: 1;
+-#else
+-	u8 trsw: 1;
+-	u8 gain: 7;
+-#endif
+-} __packed;
+-
+-/* This struct is called phy_status_rpt_8192cd in the vendor driver,
+- * there might be potential to share it with drivers for other chips
+- * of the same generation.
+- */
+-struct phy_status_8703b {
+-	struct phy_rx_agc_info path_agc[2];
+-	u8 ch_corr[2];
+-	u8 cck_sig_qual_ofdm_pwdb_all;
+-	/* for CCK: bits 0:4: VGA index, bits 5:7: LNA index (low) */
+-	u8 cck_agc_rpt_ofdm_cfosho_a;
+-	/* for CCK: bit 7 is high bit of LNA index if long report type */
+-	u8 cck_rpt_b_ofdm_cfosho_b;
+-	u8 reserved_1;
+-	u8 noise_power_db_msb;
+-	s8 path_cfotail[2];
+-	u8 pcts_mask[2];
+-	s8 stream_rxevm[2];
+-	u8 path_rxsnr[2];
+-	u8 noise_power_db_lsb;
+-	u8 reserved_2[3];
+-	u8 stream_csi[2];
+-	u8 stream_target_csi[2];
+-	s8 sig_evm;
+-	u8 reserved_3;
+-
+-#ifdef __LITTLE_ENDIAN
+-	u8 antsel_rx_keep_2: 1;
+-	u8 sgi_en: 1;
+-	u8 rxsc: 2;
+-	u8 idle_long: 1;
+-	u8 r_ant_train_en: 1;
+-	u8 ant_sel_b: 1;
+-	u8 ant_sel: 1;
+-#else /* __BIG_ENDIAN */
+-	u8 ant_sel: 1;
+-	u8 ant_sel_b: 1;
+-	u8 r_ant_train_en: 1;
+-	u8 idle_long: 1;
+-	u8 rxsc: 2;
+-	u8 sgi_en: 1;
+-	u8 antsel_rx_keep_2: 1;
+-#endif
+-} __packed;
+-
+ /* Baseband registers */
+-#define REG_BB_PWR_SAV5_11N 0x0818
+ /* BIT(11) should be 1 for 8703B *and* 8723D, which means LNA uses 4
+  * bit for CCK rates in report, not 3. Vendor driver logs a warning if
+  * it's 0, but handles the case.
+@@ -87,16 +32,8 @@ struct phy_status_8703b {
+ #define REG_CCK_TXSF2 0x0a24  /* CCK TX filter 2 */
+ #define REG_CCK_DBG 0x0a28  /* debug port */
+ #define REG_OFDM0_A_TX_AFE 0x0c84
+-#define REG_TXIQK_MATRIXB_LSB2_11N 0x0c9c
+-#define REG_OFDM0_TX_PSD_NOISE 0x0ce4  /* TX pseudo noise weighting */
+-#define REG_IQK_RDY 0x0e90  /* is != 0 when IQK is done */
+ 
+ /* RF registers */
+ #define RF_RCK1 0x1E
+ 
+-#define AGG_BURST_NUM 3
+-#define AGG_BURST_SIZE 0 /* 1K */
+-#define BIT_MASK_AGG_BURST_NUM (GENMASK(3, 2))
+-#define BIT_MASK_AGG_BURST_SIZE (GENMASK(5, 4))
+-
+ #endif /* __RTW8703B_H__ */
+diff --git a/drivers/net/wireless/realtek/rtw88/rtw8723x.h b/drivers/net/wireless/realtek/rtw88/rtw8723x.h
+index 0fc70dfdfc8b..e07b6ca99b3d 100644
+--- a/drivers/net/wireless/realtek/rtw88/rtw8723x.h
++++ b/drivers/net/wireless/realtek/rtw88/rtw8723x.h
+@@ -162,6 +162,57 @@ struct rtw8723x_common {
+ 
+ extern const struct rtw8723x_common rtw8723x_common;
+ 
++struct phy_rx_agc_info {
++#ifdef __LITTLE_ENDIAN
++	u8 gain: 7;
++	u8 trsw: 1;
++#else
++	u8 trsw: 1;
++	u8 gain: 7;
++#endif
++} __packed;
++
++/* Receive PHY status layout, shared by the 8723x chips. */
++struct phy_status_8723x {
++	struct phy_rx_agc_info path_agc[2];
++	u8 ch_corr[2];
++	u8 cck_sig_qual_ofdm_pwdb_all;
++	/* for CCK: bits 0:4: VGA index, bits 5:7: LNA index (low) */
++	u8 cck_agc_rpt_ofdm_cfosho_a;
++	/* for CCK: bit 7 is high bit of LNA index if long report type */
++	u8 cck_rpt_b_ofdm_cfosho_b;
++	u8 reserved_1;
++	u8 noise_power_db_msb;
++	s8 path_cfotail[2];
++	u8 pcts_mask[2];
++	s8 stream_rxevm[2];
++	u8 path_rxsnr[2];
++	u8 noise_power_db_lsb;
++	u8 reserved_2[3];
++	u8 stream_csi[2];
++	u8 stream_target_csi[2];
++	s8 sig_evm;
++	u8 reserved_3;
++
++#ifdef __LITTLE_ENDIAN
++	u8 antsel_rx_keep_2: 1;
++	u8 sgi_en: 1;
++	u8 rxsc: 2;
++	u8 idle_long: 1;
++	u8 r_ant_train_en: 1;
++	u8 ant_sel_b: 1;
++	u8 ant_sel: 1;
++#else /* __BIG_ENDIAN */
++	u8 ant_sel: 1;
++	u8 ant_sel_b: 1;
++	u8 r_ant_train_en: 1;
++	u8 idle_long: 1;
++	u8 rxsc: 2;
++	u8 sgi_en: 1;
++	u8 antsel_rx_keep_2: 1;
++#endif
++} __packed;
++
+ #define PATH_IQK_RETRY	2
+ #define MAX_TOLERANCE	5
+ #define IQK_TX_X_ERR	0x142
+@@ -176,6 +227,11 @@ extern const struct rtw8723x_common rtw8723x_common;
+ 
+ #define WLAN_TXQ_RPT_EN		0x1F
+ 
++#define AGG_BURST_NUM		3
++#define AGG_BURST_SIZE		0 /* 1K */
++#define BIT_MASK_AGG_BURST_NUM	(GENMASK(3, 2))
++#define BIT_MASK_AGG_BURST_SIZE	(GENMASK(5, 4))
++
+ #define SPUR_THRES		0x16
+ #define DIS_3WIRE		0xccf000c0
+ #define EN_3WIRE		0xccc000c0
+@@ -201,6 +257,7 @@ extern const struct rtw8723x_common rtw8723x_common;
+ #define REG_LTECOEX_WRITE_DATA	0x07c4
+ #define REG_LTECOEX_READ_DATA	0x07c8
+ #define REG_PSDFN		0x0808
++#define REG_BB_PWR_SAV5_11N	0x0818
+ #define REG_BB_PWR_SAV1_11N	0x0874
+ #define REG_ANA_PARAM1		0x0880
+ #define REG_ANALOG_P4		0x088c
+@@ -261,6 +318,7 @@ extern const struct rtw8723x_common rtw8723x_common;
+ #define BIT_MASK_TXIQ_ELM_D	GENMASK(31, 22)
+ #define REG_TXIQK_MATRIXA_LSB2_11N	0x0c94
+ #define BIT_SET_TXIQ_ELM_C1(c)	(((c) & 0x000003C0) >> 6)
++#define REG_TXIQK_MATRIXB_LSB2_11N	0x0c9c
+ #define REG_RXIQK_MATRIX_LSB_11N	0x0ca0
+ #define BIT_MASK_RXIQ_S1_Y2	0xF0000000
+ #define BIT_SET_RXIQ_S1_Y2(y)	(((y) >> 6) & 0xF)
+@@ -276,6 +334,7 @@ extern const struct rtw8723x_common rtw8723x_common;
+ #define REG_RXIQ_AB_S0		0x0cd8
+ #define BIT_MASK_RXIQ_X_S0	0x000003FF
+ #define BIT_MASK_RXIQ_Y_S0	0x003FF000
++#define REG_OFDM0_TX_PSD_NOISE	0x0ce4	/* TX pseudo noise weighting */
+ #define REG_OFDM_FA_TYPE1_11N	0x0cf0
+ #define BIT_MASK_OFDM_FF_CNT	GENMASK(15, 0)
+ #define BIT_MASK_OFDM_SF_CNT	GENMASK(31, 16)
+@@ -315,6 +374,7 @@ extern const struct rtw8723x_common rtw8723x_common;
+ #define REG_RX_IQK_TONE_B	0x0e54
+ #define REG_TXIQK_PI_B		0x0e58
+ #define REG_RXIQK_PI_B		0x0e5c
++#define REG_IQK_RDY		0x0e90	/* is != 0 when IQK is done */
+ #define REG_IQK_RES_TX		0x0e94
+ #define BIT_MASK_RES_TX		GENMASK(25, 16)
+ #define REG_IQK_RES_TY		0x0e9c
 -- 
 2.55.0
 
