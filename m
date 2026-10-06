@@ -1,50 +1,51 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D33EC49E14B;
-	Tue,  6 Oct 2026 16:10:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E710A49E5CF;
+	Tue,  6 Oct 2026 16:10:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=156.67.10.101
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791303042; cv=none; b=oFfPrX7q8KZ2G6jQbGFfhOX7KA3q9j/1IySwCsLkHJ+lxZ2AcOES9s55+EkE4TjzbpTAxmhzyN6XKQjrSdCifryAhlFPVPa+qOBHMB3oooGFh/Fmv7glastQTSzEQyvXbUkkCHOPG0dc2RPzh8AgiOga7KAixK7dEwP4wZMnOG8=
+	t=1791303044; cv=none; b=hvxXnnyzNWw4mbY5hWuzMz+8KGo9xeOvRKUcm7lMBfkvxZr7LGroSN7sYwl8PMaVHew6dVynIfH606iqtBgfDQx8/igZaLFoDJoCWEL0v2++Qn9xCyK73Y19jUBl5D85j7oFsopJU7wKm1O4FBxdcb2cxT7lmayNKJbn9jFlhfw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791303042; c=relaxed/simple;
-	bh=rFfIvmCe1uMzcdh7HiJnyXC2h8CwibsjHm3hTC3KYO8=;
+	s=arc-20240116; t=1791303044; c=relaxed/simple;
+	bh=aNbsDvFZRK/+AHPuUdCwt746G0BRQlKOX+mNN+HHJ/Y=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=ZzRVQWgZrZEgDzUUkT0nyD6mDiAfeWqM1WiRQZ880muC3t1tRMpJyVeSKV96cOABzf8AKKZB/cW6JL0QsYlrrZiBqsfXnHh4kAINxQR/79uppR1y5WEE0QpEPxuQioVqe4l4H5mAlmn8gJQhIp1sMgHpiwJsU3P6TX6QyKm4NZk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=L8mkYQm8; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=CZhWKBrImiF570AEk4bwdSxHJkTC8Ixi+vdNabrYJKrbf4Rhf2UNFalVnFy4s0vordu/X3Fxp98UcAGE7qGKEZTmk6wrwrwHdr11oHjQjZaHphI+wK4CuMafSUEe2Nm3X/MHMC3yla5MDbN2Xk9bjsWG5/ed0daMueTE9aJtGAY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch; spf=pass smtp.mailfrom=lunn.ch; dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b=hq5dKJJS; arc=none smtp.client-ip=156.67.10.101
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="L8mkYQm8"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7A1351F0089B;
-	Tue,  6 Oct 2026 16:10:40 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791303040;
-	bh=jBSzgIQiDKIdVOouse9O8m70fhpFq8FSj2RNSA5L8gs=;
-	h=Date:From:To:Cc:Subject:Reply-To:References:In-Reply-To;
-	b=L8mkYQm8HadJV+3ESPCmb38t2MS7PpXmG+eqKLh0tBoKyKdGrSKaks+z2LlaL0ySf
-	 JeV6+mgYbYs6DBVjLKqm7YsJpXdasafgurVt4Pqj8c2AqHWwL9/yI60Lljo/+Y34Fe
-	 1/lcnIUOSxTpUCcHmDeXkdIscPi/fKzMX46n7UjSrwEdUMnFl4Iv7eIhrUB/fNIcwI
-	 T/u629DnJw9/gsXD8xcRx+FeBv2KiD/+KC6OdMcJTg5l0M+YCkiiXvSLmWD4jeRHil
-	 BqniKelmHekkQLbOJO+Iwu4eSQMwmiIuzkfErh6TkEw0LFvW89LnhUoQbiD6ovswcD
-	 CNFqgVkH7wfiw==
-Received: by paulmck-ThinkPad-P17-Gen-1.home (Postfix, from userid 1000)
-	id 1CB85CE3A08; Tue,  6 Oct 2026 09:10:40 -0700 (PDT)
-Date: Tue, 6 Oct 2026 09:10:40 -0700
-From: "Paul E. McKenney" <paulmck@kernel.org>
-To: Bradley Morgan <brads@mainlining.org>
-Cc: kernel test robot <lkp@intel.com>, akpm@linux-foundation.org,
-	vgupta@kernel.org, guoren@kernel.org, chris@zankel.net,
-	jcmvbkbc@gmail.com, oe-kbuild-all@lists.linux.dev, arnd@arndb.de,
-	david.laight.linux@gmail.com, glaubitz@physik.fu-berlin.de,
-	ysato@users.sourceforge.jp, dalias@libc.org,
-	linux-snps-arc@lists.infradead.org, linux-csky@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v5 3/3] xtensa: Emulate two-byte cmpxchg
-Message-ID: <fde35b55-8916-47fe-a505-ef6db296e4bb@paulmck-laptop>
-Reply-To: paulmck@kernel.org
-References: <20261005120700.383058-4-brads@mainlining.org>
- <202610061704.rvbolgPy-lkp@intel.com>
- <82aad69a-603c-41cd-876d-09772a1a7e6a@paulmck-laptop>
- <543B9D97-52F8-4D12-8118-9698F6908668@mainlining.org>
+	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b="hq5dKJJS"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
+	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
+	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
+	bh=qgSV4GBVU0LvkZzpXKbXapalbfhpM7Y/2Dcz6KnjfDY=; b=hq5dKJJSTWfsJZPMZaSK26cWO/
+	yfadGeI9oklQ6q7+pvHMzZaPf836s9BHy65lTR59H9gL2A30ygoxo0M6EndUZ209nXpMG/5zM/4zf
+	lWxaAPa55KpGyIdTTkR7WLG+AjXWAa8vPjbDmdDzg9gCPsqh/JGHuwXsl0pn9VolQ0q4=;
+Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
+	(envelope-from <andrew@lunn.ch>)
+	id 1xE7k1-009IFD-Kc; Tue, 06 Oct 2026 18:10:09 +0200
+Date: Tue, 6 Oct 2026 18:10:09 +0200
+From: Andrew Lunn <andrew@lunn.ch>
+To: Hayes Wang <hayeswang@realtek.com>
+Cc: Linmao Li <lilinmao@kylinos.cn>, Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S . Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	Chih Kai Hsu <hsu.chih.kai@realtek.com>,
+	nic_swsd <nic_swsd@realtek.com>,
+	Birger Koblitz <mail@birger-koblitz.de>,
+	Xiangqian Zhang <zhangxiangqian@kylinos.cn>,
+	"linux-usb@vger.kernel.org" <linux-usb@vger.kernel.org>,
+	"netdev@vger.kernel.org" <netdev@vger.kernel.org>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+	"stable@vger.kernel.org" <stable@vger.kernel.org>
+Subject: Re: [PATCH net v2] r8152: Use BMSR to detect the link state
+Message-ID: <7a8d21bd-3484-4120-abd6-f7290f919b7d@lunn.ch>
+References: <20261005105249.1281648-1-lilinmao@kylinos.cn>
+ <fd3bff0e63304681b9e5f35f2f57e50e@realtek.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -53,116 +54,44 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <543B9D97-52F8-4D12-8118-9698F6908668@mainlining.org>
+In-Reply-To: <fd3bff0e63304681b9e5f35f2f57e50e@realtek.com>
 
-On Tue, Oct 06, 2026 at 04:46:22PM +0100, Bradley Morgan wrote:
-> On 6 October 2026 16:44:13 BST, "Paul E. McKenney" <paulmck@kernel.org>
-> wrote:
-> >On Tue, Oct 06, 2026 at 05:54:53PM +0800, kernel test robot wrote:
-> >> Hi Bradley,
-> >> 
-> >> kernel test robot noticed the following build errors:
-> >> 
-> >> [auto build test ERROR on akpm-mm/mm-everything]
-> >> [also build test ERROR on vgupta-arc/for-curr
-> >jcmvbkbc-xtensa/xtensa-for-next linus/master v7.3-rc6 next-20261005]
-> >> [cannot apply to vgupta-arc/for-next]
-> >> [If your patch is applied to the wrong git tree, kindly drop us a note.
-> >> And when submitting patch, we suggest to use '--base' as documented in
-> >> https://git-scm.com/docs/git-format-patch#_base_tree_information]
-> >> 
-> >> url:   
-> >https://github.com/intel-lab-lkp/linux/commits/Bradley-Morgan/ARC-Emulate-two-byte-cmpxchg/20261005-120658
-> >> base:   https://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm.git
-> >mm-everything
-> >> patch link:   
-> >https://lore.kernel.org/r/20261005120700.383058-4-brads%40mainlining.org
-> >> patch subject: [PATCH v5 3/3] xtensa: Emulate two-byte cmpxchg
-> >> config: xtensa-allyesconfig
-> >(https://download.01.org/0day-ci/archive/20261006/202610061704.rvbolgPy-lkp@intel.com/config)
-> >> compiler: xtensa-linux-gcc (GCC) 16.1.0
-> >> reproduce (this is a W=1 build):
-> >(https://download.01.org/0day-ci/archive/20261006/202610061704.rvbolgPy-lkp@intel.com/reproduce)
-> >> 
-> >> If you fix the issue in a separate patch/commit (i.e. not just a new
-> >version of
-> >> the same patch/commit), kindly add following tags
-> >> | Reported-by: kernel test robot <lkp@intel.com>
-> >> | Closes:
-> >https://lore.kernel.org/oe-kbuild-all/202610061704.rvbolgPy-lkp@intel.com/
-> >> 
-> >> All errors (new ones prefixed by >>):
-> >
-> >These patches need to be applied on top of my -rcu tree's "dev" branch,
-> >which supplies cmpxchg_emu_u16().
-> >
-> >Nevertheless, thank you for your testing efforts!
+On Tue, Oct 06, 2026 at 08:28:21AM +0000, Hayes Wang wrote:
+> Linmao Li <lilinmao@kylinos.cn>
+> > Sent: Monday, October 5, 2026 6:53 PM
+> [...]
+> > r8152 detects carrier from PLA_PHYSTATUS without reading BMSR, so
+> > BMSR_LSTATUS can still be latched low when the carrier comes up.
+> > Since commit f6f2e946aa4d ("net: mii: Fix the Speed display when the network
+> > cable is not connected"), the first speed query after link up can then report
+> > SPEED_UNKNOWN, leaving NetworkManager at 0 Mb/s until the next carrier
+> > change.
+> > 
+> > Use BMSR_LSTATUS in set_carrier() and rtl8152_runtime_resume(), so the
+> > driver consumes the latched link down itself. If the first read still reports link
+> > down, the next link-up notification triggers another read and brings the carrier
+> > up.
+> > 
+> > Tested on an RTL8153B with a 6.6-based kernel. In 5 rebinds and 6 cable
+> > replugs, the first read returned LSTATUS=0, a second link-up notification came
+> > about 32 ms later, the second read returned
+> > LSTATUS=1 and the carrier went up; NetworkManager reported 1000 Mb/s.
+> > Runtime suspend/resume with the link up did not change the carrier.
 > 
-> Do you reckon they are fine to you? The patches?
+> I think this patch may introduce a new issue.
 > 
-> Arch maintainers may be busy unfortunately :(, I've done testing on all
-> the arches, 
+> Our newer ICs do not generate periodic link-status notifications. They generate a
+> notification only when the link status changes. Therefore, with your patch, BMSR
+> will not be read a second time until the next link-status change.
 
-I have queued the one that is already acked by the SH maintainer, so we
-get at least something into the upcoming merge window.  I plan to try your
-patches out later today, Pacific Time, and queue them if they are ready.
+But the link status in BMSR does change.
 
-If the architecture maintainers ack them in time, I send a pull request
-for them in the upcoming merge window.  If some of the do not yet have
-acks, I keep those unacked ones for the next merge window.  If they
-are still being ignored at that point, I send the pull request anyway.
-Maybe Linus takes it, maybe not.  If not, I figure things out from that
-point.
+You read it once and get the latched value. That clears the latch, so
+the link status changes to the current version.
 
-Hey, it is a lot faster than some other communities that I am involved
-with, where the timeframes are years and even decades rather than
-mere weeks and months.  ;-)
+Now, 802.3 C22 has no support for interrupts, that is a vendor
+extension. But if you are not generating an interrupt when BMSR
+changes, i would say that is broken.
 
-							Thanx, Paul
+	 Andrew
 
-> >>    In file included from arch/xtensa/include/asm/atomic.h:19,
-> >>                     from include/linux/atomic.h:7,
-> >>                     from include/asm-generic/bitops/atomic.h:5,
-> >>                     from arch/xtensa/include/asm/bitops.h:192,
-> >>                     from include/linux/bitops.h:67,
-> >>                     from include/linux/log2.h:12,
-> >>                     from kernel/bounds.c:14:
-> >>    arch/xtensa/include/asm/cmpxchg.h: In function '__cmpxchg':
-> >> >> arch/xtensa/include/asm/cmpxchg.h:79:25: error: implicit declaration
-> >of function 'cmpxchg_emu_u16'; did you mean 'cmpxchg_emu_u8'?
-> >[-Wimplicit-function-declaration]
-> >>       79 |         case 2:  return cmpxchg_emu_u16(ptr, old, new);
-> >>          |                         ^~~~~~~~~~~~~~~
-> >>          |                         cmpxchg_emu_u8
-> >>    make[3]: *** [scripts/Makefile.build:185: kernel/bounds.s] Error 1
-> >>    make[3]: Target 'prepare' not remade because of errors.
-> >>    make[2]: *** [Makefile:1405: prepare0] Error 2
-> >>    make[2]: Target 'prepare' not remade because of errors.
-> >>    make[1]: *** [Makefile:248: __sub-make] Error 2
-> >>    make[1]: Target 'prepare' not remade because of errors.
-> >>    make: *** [Makefile:248: __sub-make] Error 2
-> >>    make: Target 'prepare' not remade because of errors.
-> >> 
-> >> 
-> >> vim +79 arch/xtensa/include/asm/cmpxchg.h
-> >> 
-> >>     73	
-> >>     74	static __inline__ unsigned long
-> >>     75	__cmpxchg(volatile void *ptr, unsigned long old, unsigned long new, int size)
-> >>     76	{
-> >>     77		switch (size) {
-> >>     78		case 1:  return cmpxchg_emu_u8(ptr, old, new);
-> >>   > 79		case 2:  return cmpxchg_emu_u16(ptr, old, new);
-> >>     80		case 4:  return __cmpxchg_u32(ptr, old, new);
-> >>     81		default: __cmpxchg_called_with_bad_pointer();
-> >>     82			 return old;
-> >>     83		}
-> >>     84	}
-> >>     85	
-> >> 
-> >> --
-> >> 0-DAY CI Kernel Test Service
-> >> https://github.com/intel/lkp-tests/wiki
-> 
-> --- Thanks!
-> "I'm not a very positive person" - Linus torvalds
