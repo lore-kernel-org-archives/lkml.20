@@ -1,83 +1,140 @@
-Received: from mail-oa1-f71.google.com (mail-oa1-f71.google.com [209.85.160.71])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from fout-a6-smtp.messagingengine.com (fout-a6-smtp.messagingengine.com [103.168.172.149])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 29D663F9278
-	for <linux-kernel@vger.kernel.org>; Tue,  6 Oct 2026 12:33:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.71
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 784A93FFAD7
+	for <linux-kernel@vger.kernel.org>; Tue,  6 Oct 2026 12:33:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=103.168.172.149
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791290009; cv=none; b=Em3y8HjcYUXllf1JjukFPa5zmOXRSOUkZ3M419FzuVIcweOjOx8kpe4/Hkq3wdxxFEEUBv2XOMPFCJB1resmqWDMOV+1B1gBOqiCXCtrKtj5gj5LRzXpB2u4rYYy+fqjpqgLc4uIWQqOGSGox3KX981jyjENUJMjYqeB5AvEGKo=
+	t=1791290025; cv=none; b=NATr3Ys/JqruLdhf4lxaxgtYTZQuppVLVZfQ/ZtMiCqsdi+kZdQhKNUnzuVXYVefsFTg8RuBDcVdWfHCyfiwico7/SBXwIF93tgZ9MQCGX5vGiwybn/Qhqt7Bk47r70qOMJR7ovulBETAaa5vhYjgORShlZy63FyJJiweiDVtzs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791290009; c=relaxed/simple;
-	bh=gQosrtPtvytr9wc1yWoK2klRudvyFFPAoYA7KexG8ow=;
-	h=MIME-Version:Date:Message-ID:Subject:From:To:Content-Type; b=GeCyuEm/2VAZBkYMWOx0snBXfsQkCP1bEZWQ6NFAlQWdK9FhxZVJlyV1Zi03vdUKKRJm7TIxi/P8OsqmIB01o90u6cYMFJgN2Sf1F1ImdT/h72RKkM/NTn9evDT3xPOKrCvh28XwTEE7ajsH5FYFKJBhqz1oWsz094sGXo3A0i8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.160.71
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oa1-f71.google.com with SMTP id 586e51a60fabf-46509ab0149so3150370fac.2
-        for <linux-kernel@vger.kernel.org>; Tue, 06 Oct 2026 05:33:26 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791290004; x=1791894804;
-        h=content-type:to:from:subject:message-id:date:mime-version
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=3t2EV8Jn2FTe8KWesl4g3H/3Hy0HLjmdnR3PyL2l/Y8=;
-        b=Q9ChcT5di1SenawXyFVflWhYF533jFutuIUNlr8wuYVCLzHexhv2XpPYkdJX4qwYuE
-         AxbMUO6H1+bLaAp6Phuq+LjVA+aQ8cNC4p5k3HchW0x/CrX8QdiTkyXjtf9z6qfMFmc6
-         FSIARd1sFJmw3j4lKktDcTHcmtHBpIV+Vd7RNKlPrH9bdw1uwHNctpvzdWqAG1uatSW8
-         eGhmXm3qgSupmVXqTom5NQ5K6LCW9N4F/7L38DSc090Bpqau1StsWtz9ueAgzfiwAU1t
-         +OvtpfT2Zzs6wJsFURpTVzVqv+IbyhErRuyrdOlj6/sS4NpOy8qmTu6XAg/mNFUgfZ1z
-         YaaA==
-X-Forwarded-Encrypted: i=1; AKwUvBxyz8raYIQTFgkS6XPnR7/pSo8tkIMZbuOLs16HH091Xvm0Dq1yyAL14HbQLYOAnsPfGUdPqsYz+FJNqOU=@vger.kernel.org
-X-Gm-Message-State: AFuF++nkGtVrFcYQ995PDiFsMaYnRSvo90it87PbNbw9edtiGSEEQZ37
-	LrawcS1WHkDYAJEV/QqQ8ARJFoDlHh+9jhunkn/RA9GmNlFLer8ieGqF/VnMxZGPA3mySJesfck
-	PwNZS04HlrNZ+spPnL6t/JHIGZcwg31NzS519DhG6eMk45JjfUuaBL/Yx+BA=
+	s=arc-20240116; t=1791290025; c=relaxed/simple;
+	bh=HtuoH4nLhViLCTxk/zYA5H48p9f+Dz0K+ScnypVPmDk=;
+	h=MIME-Version:Date:From:To:Cc:Message-Id:In-Reply-To:References:
+	 Subject:Content-Type; b=gZbzmHdULRH7VOvxzWwJXvDuBpgJiZDP4/oFLT4ffDDqpApPg5TxJkteF5oP72s0ath82yZaEWfz9u4g1oE6y0uwiMw+Jpky20pbkb0DN7uGO5ZMtmIBTKqNl4b+xtyh69nByq8FUw3QKYEuqt1jzH4fcuysv81dVErc+gt1GrI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=squebb.ca; spf=pass smtp.mailfrom=squebb.ca; dkim=pass (2048-bit key) header.d=squebb.ca header.i=@squebb.ca header.b=TFrdvrGF; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=QmnwCI54; arc=none smtp.client-ip=103.168.172.149
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=squebb.ca
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=squebb.ca
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=squebb.ca header.i=@squebb.ca header.b="TFrdvrGF";
+	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="QmnwCI54"
+Received: from stl-compute-04.internal (stl-compute-04.internal [10.204.2.64])
+	by mailfout.phl.internal (Postfix) with ESMTP id 6B5F1EC08E0
+	for <linux-kernel@vger.kernel.org>; Tue,  6 Oct 2026 08:33:37 -0400 (EDT)
+Received: from stl-imap-02 ([10.204.2.93])
+  by stl-compute-04.internal (MEProxy); Tue, 06 Oct 2026 08:33:37 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=squebb.ca; h=cc
+	:cc:content-transfer-encoding:content-type:content-type:date
+	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to; s=fm3; t=1791290016;
+	 x=1791376416; bh=mqtSCuR4+N3cGYr+9gY00mnCttCgXqN2cooZ0FKTPJc=; b=
+	TFrdvrGFcpWIDtzGADSxAdB2NNiNYLR9xHf5PRKOar2x5hem7JlGBz4DBMN90v0Z
+	N0mCZftL6zsc/4dCQ6qcQkCNXhYDAbME52weVU5d6Usk+4vosVoMaTY02DZcnwoA
+	FUnUTJi6GII1oL0T9rwFyTcoLE1/qNw2wAULN4qdBb2324hd0zE1L5G9NGsV2uRI
+	CM06CVQ9YQmPciKL+dLarCV9VuGG16ZYkIas+9GiQnOXqnRVARWocbwaFGCoBB5I
+	eaRLNcSvUAjR/v9w2FXq+TgPLvFKEtgC5P/FZvOWApJepyzKyAMLnnAEfAjFZQfu
+	xKfVf+pGjgLQKVSgyolOTQ==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:content-type:date:date:feedback-id:feedback-id
+	:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to:x-me-proxy
+	:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=1791290016; x=
+	1791376416; bh=mqtSCuR4+N3cGYr+9gY00mnCttCgXqN2cooZ0FKTPJc=; b=Q
+	mnwCI54csOjnh+QzN8TLMg3wxyYTQ6J96mVLNkaVitJ9QzYuzz2uZPQQsBFXV4Wz
+	/AzL9STyfuuanhv/ZM/9pmBmXNL2gL9VYplJSsKeqfr7hndgY4eYcKPnKpnx9ZyY
+	CLjq0ePTP+nrb6kRmbBCQ6FYGGJEe8tzlrtUbLgGNsHnFNDCG4vrXRRgdyFziune
+	BF7LjVV3nX+0WnNaJOTZyUfSEWRcULnGM5U9FwnyrTvYRErAZS677lHcz6Sel+g8
+	fEHDKF5+oBrwGrcjsT5DunlxBOkG7d1RQa/CoE3VbWlYpFZl3JEkeD86tzaR4zOs
+	otJDSdxPDxZgBAkk8zLEA==
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
+	repo=github.com/dkim2wg/interop; date=2026-10-04; sw=lmtpprox;
+	action=sign d=squebb.ca a=rsa-sha256;
+DKIM2-Signature: i=1; m=1; t=1791290016; d=squebb.ca;
+	mf=PG1wZWFyc29uLWxlbm92b0BzcXVlYmIuY2E+;
+	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
+	s=fm3:rsa-sha256:CzhujmLFEKQFs/2pkZjwVlLvui3GwnoJh8JTsUNIUwrhgqC
+	flimla9RqHpdV1KNI4XBc6TVidiZE0wHFIfR1Pfa/lT7hv63IEM/YFssjLBwl8bS
+	yPQijhNKbCD2v/jXpq9VuNyPFEr8J49Q2Xk3bQk0d0rhyHU86+dB8FRYXrTARiB1
+	NMWMI/XDjCAD+Zl0SKyOPI5FMXVj03Vxy7XOKuFxYG9T0k2yr2f0JuY4mZkIwykz
+	IbE45+eUmsA6GQI08sBsakceo6eUur+NYBxVXYfBIUZWqRsjveCE1IGewgFyaa/o
+	ieLDB0J2G/E1sSt8boKWpasp+vCrUGizpe5OAKA==;
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
+	repo=github.com/dkim2wg/interop; date=2026-10-04; sw=lmtpprox;
+	action=mi-m=1; hc=12;
+	hn=cc,content-transfer-encoding,content-type,date,feedback-id,
+	from,in-reply-to,message-id,mime-version,references,subject,to;
+Message-Instance: m=1; h=sha256:nUKjUpXHvFCG9h3aDv3cLpLItSa0jhWZvx1CNNBd5w0=:HtuoH4nLhViLCTxk/zYA5H48p9f+Dz0K+ScnypVPmDk=;
+X-ME-Sender: <xms:n-rEalvd81RrzVp_vor4N6DTyZ9cANASTOPWi1NnuNu8n5XS_2HZQQ>
+    <xme:n-rEapTVJxpVjf2AKgmZ7Gk5xkg8LdzM5G_naxoR0ycNU3xA8hmKAw-NqZplJ_Jj4
+    QtmQpvJhL1DOJ_JiV07us7gQa35xRosIvn-jT2cs9j0jHnKs0CdNXg>
+X-ME-Proxy-Cause: dmFkZTFHuLQoIEluWIDZy0toML7qjE6ifqILcXEDmfcfpM5Rb7zTAcwieZg7xWv3sUh7mN
+    yX/MohPTiv9v/NCoF+dyYzZcT06VUkXHqLkQAPE6DFDHE4OSTfo9SEaWhgijgpgtOU33ba
+    vtnzqohr3qoCe0ulgFFm2+GINSAoJePlJDJOrERdiiBe9/4DPhKLTp7gYC71uqqeTWi0Of
+    QYRpXM+EAP5tQ/afDERPsyoslsXlz33bzz+CuUqn8y4S5+TwxI/TGbk1KhMV1V8iwikFRA
+    ZwxYhqhJklL4S/v+vGU7me0+yIUFykuueIb+GwNqSmORRRLKkIfsZ2q6Impxwogkglgqlv
+    Obzxp41E7/TCP0U0LxXzq1A+/2mXYgkRfUp3owBnFXJvVyRWTByAC+61QLYBfsrU/S1fT1
+    uYEHro+LvFpBqH7Ax5z3PsqiUY4fWt8dIYe0gNbTUYeWSASUOGSnPInSBzJNdb/dajUZT2
+    yt5Shl3UgNtvvYqpn1Vi6mUHW9iR5vcFekWOH59aCtbRsnvPy9JHoAJrH/YUFp9EIhjLho
+    0fA+izi17Yw8V2zlxBDWKiFL3iiRbivwKHTgui/+tcEH3XBD+ScbCeXs9qkSFgMMu2rH20
+    lNmiEFkkrX3duvrNfoA/J7b/quEXnxYKPtqxGaTv5+Tnmsis8p6sQtAQKx8Q
+X-ME-Proxy: <xmx:n-rEar8X2fJTtiwXxoNdSdHVPE5TmurRRijcQ_VWHWmYyO06U8moAA>
+    <xmx:n-rEaoJsegnIap0MluVjCotyMvZRFpSYug65u6zlZZ63i9MKLJFQAQ>
+    <xmx:n-rEapv7e5O82zYOYkCtIWtbaxvzemU1avVZzcgUp2fKu_lQeevnLw>
+    <xmx:n-rEavBJhwS4Wc8Z_tX3CIHhYAPfYuPzsje4lMaZpCf8wI_btYc6LA>
+    <xmx:oOrEagxLnGWPJ7eAUQrvhclz19vwpqXs4PI3AoB-n5ToQy_JDSdCxCsj>
+Feedback-ID: ibe194615:Fastmail
+Received: by mailuser.stl.internal (Postfix, from userid 501)
+	id 5A40F2C00076; Tue,  6 Oct 2026 08:33:35 -0400 (EDT)
+X-Mailer: MessagingEngine.com Webmail Interface
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Received: by 2002:a05:6808:23c8:b0:4b9:e65b:8c2c with SMTP id
- 5614622812f47-4f67a5119d4mr11798603b6e.26.1791290004508; Tue, 06 Oct 2026
- 05:33:24 -0700 (PDT)
-Date: Tue, 06 Oct 2026 05:33:24 -0700
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6ac4ea94.fe639fcc.32b100.0002.GAE@google.com>
-Subject: [syzbot] Monthly ecryptfs report (Oct 2026)
-From: syzbot <syzbot+listdd30f0a7f7bd0ad0e229@syzkaller.appspotmail.com>
-To: code@tyhicks.com, ecryptfs@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	syzkaller-bugs@googlegroups.com
-Content-Type: text/plain; charset="UTF-8"
+X-ThreadId: An8UdCR2lhW-
+Date: Tue, 06 Oct 2026 08:33:15 -0400
+From: "Mark Pearson" <mpearson-lenovo@squebb.ca>
+To: "Thorsten Blum" <blum@kernel.org>,
+ "Derek J . Clark" <derekjohn.clark@gmail.com>,
+ "Henrique de Moraes Holschuh" <hmh@hmh.eng.br>,
+ "Hans de Goede" <hansg@kernel.org>,
+ =?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
+Cc: ibm-acpi-devel@lists.sourceforge.net,
+ "platform-driver-x86@vger.kernel.org" <platform-driver-x86@vger.kernel.org>,
+ linux-kernel@vger.kernel.org
+Message-Id: <98bcf262-d1c6-422f-a1de-d41d41a98e97@app.fastmail.com>
+In-Reply-To: <20261005163130.20375-2-blum@kernel.org>
+References: <20261005163130.20375-2-blum@kernel.org>
+Subject: Re: [PATCH] platform/x86: thinkpad_acpi: Use bool for local is_thinkpad
+ variable
+Content-Type: text/plain
+Content-Transfer-Encoding: 7bit
 
-Hello ecryptfs maintainers/developers,
+On Mon, Oct 5, 2026, at 12:31 PM, Thorsten Blum wrote:
+> Use bool for the local is_thinkpad variable because it only stores a
+> boolean value.
+>
+> Signed-off-by: Thorsten Blum <blum@kernel.org>
+> ---
+>  drivers/platform/x86/lenovo/thinkpad_acpi.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+>
+> diff --git a/drivers/platform/x86/lenovo/thinkpad_acpi.c 
+> b/drivers/platform/x86/lenovo/thinkpad_acpi.c
+> index 1661f070c571..1082c36ae723 100644
+> --- a/drivers/platform/x86/lenovo/thinkpad_acpi.c
+> +++ b/drivers/platform/x86/lenovo/thinkpad_acpi.c
+> @@ -11925,7 +11925,7 @@ static int __must_check __init 
+> get_thinkpad_model_data(
+> 
+>  static int __init probe_for_thinkpad(void)
+>  {
+> -	int is_thinkpad;
+> +	bool is_thinkpad;
+> 
+>  	if (acpi_disabled)
+>  		return -ENODEV;
 
-This is a 31-day syzbot report for the ecryptfs subsystem.
-All related reports/information can be found at:
-https://syzkaller.appspot.com/upstream/s/ecryptfs
-
-During the period, 5 new issues were detected and 0 were fixed.
-In total, 5 issues are still open.
-
-Some of the still happening issues:
-
-Ref Crashes Repro Title
-<1> 130     Yes   KASAN: slab-out-of-bounds Read in ecryptfs_write_tag_70_packet
-                  https://syzkaller.appspot.com/bug?extid=e4391e0d6e7c89b8c84e
-<2> 77      Yes   KASAN: slab-out-of-bounds Read in ecryptfs_verify_auth_tok_from_key
-                  https://syzkaller.appspot.com/bug?extid=b9529ebe6a9394ddf825
-<3> 7       Yes   KASAN: slab-use-after-free Read in ecryptfs_destroy_mount_crypt_stat
-                  https://syzkaller.appspot.com/bug?extid=baa24e4b7e349e388442
-
----
-This report is generated by a bot. It may contain errors.
-See https://goo.gl/tpsmEJ for more information about syzbot.
-syzbot engineers can be reached at syzkaller@googlegroups.com.
-
-To disable reminders for individual bugs, reply with the following command:
-#syz set <Ref> no-reminders
-
-To change bug's subsystems, reply with:
-#syz set <Ref> subsystems: new-subsystem
-
-You may send multiple commands in a single email message.
+Reviewed-by: Mark Pearson <mpearson-lenovo@squebb.ca>
+Mark
