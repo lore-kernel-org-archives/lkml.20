@@ -1,72 +1,105 @@
-Received: from mail-oi1-f198.google.com (mail-oi1-f198.google.com [209.85.167.198])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 23DFC36B92D
-	for <linux-kernel@vger.kernel.org>; Tue,  6 Oct 2026 20:10:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.198
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1CC9525B0BD;
+	Tue,  6 Oct 2026 20:10:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791317406; cv=none; b=QA/JmUKC3TzgUYYJgYCiVJwlhChd1TWdsnmrCHioe+MKVUlHTtDfos6x/QL0oaVnZle+UOjEwXh6Tci8U28OPQyHWb92SJUD8J9Edz++Aory4ahpbg+0olsWAa/ZlwHBFItiSkDuKbGfjYYhfFZvWPDAHQV/hTDtQIm0vgGitCU=
+	t=1791317458; cv=none; b=bGzIDiiHfjU1HqdeZgKq9w2V0ufTuGG0xohWmKZ4gl9+QifXdxOjtozllnc6o9+d8NZY6tThV+DuhqmJJQ97QT2ffaBWdDVPd5ZKp4LrG2jNGJaaVs2NwthO87KcX/0EBMh30fHTRw11lu7DdJulsicEHI1sJAUJHyu8Lz01c+8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791317406; c=relaxed/simple;
-	bh=24N0HjdQRbnRFb6gWB57MrVNz0s6bunkbsaTBGnBmIw=;
-	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:
-	 Content-Type; b=ZtcGayjhsE42boppRPyDWTUTMpYuOpQdhGdVo0r3WgQuwL0h5KoTs0yWsTqr0WU21/gXnbwxJaGNEYzpuAcfHFE8Fg8boa4qh89ksZiUkQCaSCzA96Qs8N96DOwMdybPhH0e0WxMUxP9LhUbFB1uXIxLeaGY54+gx2S0juOHNnw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.167.198
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oi1-f198.google.com with SMTP id 5614622812f47-4cc89e86e4dso1825277b6e.2
-        for <linux-kernel@vger.kernel.org>; Tue, 06 Oct 2026 13:10:04 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791317404; x=1791922204;
-        h=content-type:to:from:subject:message-id:in-reply-to:date
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=2rNUwwQpmDtmJz1qAdQLSEQ4GBC91Yoxo3ntgug7ap8=;
-        b=tZQ6Soj7WmdqYPfIZEKQv6tjdLVoYO36ZwfP9n1zCJp6+r1WNzHRas84iYr2U+pVSC
-         1ewncgWeWdUlf43FK8+QFZX1hU9sv+ztL0drXeLmHh6Isq5D8wCBYFryncy88rC5tM5G
-         Gvm/5m/wmNR9FZjKZlKfcjyizOUEhQIjrtcRJpG7xGUeFHrEIpTcnqQCb0s7/RM6zmLP
-         MFWYIEe9UcnqT/wh8DYaMiX0nK+cHGpnhzRNXOUVoq0rSIOftwjrVL1QP7M5z9bRDca5
-         GTgCMAvQImoOsmkUODBZ9YfvPIxxkFc1DUaFndsRhNF5YxzBH4VUwU+XCAq2hcwMAN7q
-         vb7Q==
-X-Forwarded-Encrypted: i=1; AKwUvBwmvCGTRl9VkOi7HbyqyCipuPL+vjDfRPXh1RDTl9AIfcfhZk9KdmZyX6pDMUwkVEB4nIUOAn54OuvC/Os=@vger.kernel.org
-X-Gm-Message-State: AFuF++lYJtgP/couJPu7U05ZoMe55JTxb7S7I0SAJq7BbT4QQiWhPG0m
-	vYBbgQJRERVCDepI81N6jk2X6saO5NbIL5agg6Aq8CuN5UglMDfqSLe4Fb8EFEWECPpOYjzkFgI
-	d9+djnaVE8jxTMNf41E/Q/U7eXVGdptftAvvt7FUjCGt0bWbbuUyozqnWNv8=
+	s=arc-20240116; t=1791317458; c=relaxed/simple;
+	bh=GqkcFvKSxmTJPCxIHSz0DpN2SuZXYND18GZHDjy+wAI=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Z9pl3x50L9mrgqHnx80t8xzlrQCNdxJ6c36gcWuZWtfLpkkPCXcw+Ti0cjw18JPAGOlV1G5X3G9qlWqp57nMRA2CRLop/Ml5kpRmh6Df+XSFDv1YtI7u7DX64dlkjtxqqPkTuQsevYEiuvuPyJau784yRwMIgXI8LgY4ntmtfZ8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ol1TvbVt; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ol1TvbVt"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A0A461F0089B;
+	Tue,  6 Oct 2026 20:10:56 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791317457;
+	bh=ag95j01BNY2rZLOMIWsMOFuuXKgvHlB3iL5p3eAlY/0=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=ol1TvbVt+OLq1pn5LrVUXZY0z3OCNVHfUlV3eW8uEe4gvNSw/V4Eb4zeVd60F+aYy
+	 IbHDvuxGlY/HepaRyOH3LOrvbn4W0PyicjM5LAG1V1kh2dHHIEDfYWAp68gacsZyOP
+	 C0BGbwCZE3+FczQXDJ8nobg1KEYf2zAg+u6iYhbYbFYqMdyD/Yep5LSWvXdsCuND00
+	 OBWt4T5OZHUPRzEK3++LuVLDxStmRhCa9utZNVlRTjsDs8I9j2bXlHizHEkvArBl9C
+	 0MBE2/7jx39AZfJTH4wr0lPU6+fdMKHxE3nGhvprePjzO8GglX3YHWX5vlQ7Pasop6
+	 7AEsIhKORjuwg==
+Date: Tue, 6 Oct 2026 13:10:55 -0700
+From: Namhyung Kim <namhyung@kernel.org>
+To: Michal Pluta <michalpl2003@gmail.com>
+Cc: acme@kernel.org, Peter Zijlstra <peterz@infradead.org>,
+	Ingo Molnar <mingo@redhat.com>, Mark Rutland <mark.rutland@arm.com>,
+	Alexander Shishkin <alexander.shishkin@linux.intel.com>,
+	Jiri Olsa <jolsa@kernel.org>, Ian Rogers <irogers@google.com>,
+	Adrian Hunter <adrian.hunter@intel.com>,
+	James Clark <james.clark@linaro.org>,
+	linux-perf-users@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 0/5] perf symbol: Speed up demangling of long Rust symbols
+Message-ID: <asVVzyLvtkAnILEr@google.com>
+References: <20260928010227.1903673-1-michalpl2003@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Received: by 2002:a05:6808:2e43:b0:4e6:6079:c33d with SMTP id
- 5614622812f47-4fc45d5e78dmr292803b6e.10.1791317403890; Tue, 06 Oct 2026
- 13:10:03 -0700 (PDT)
-Date: Tue, 06 Oct 2026 13:10:03 -0700
-In-Reply-To: <asT5m8OClUbYT8ZX@google.com>
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6ac5559b.9ad129c8.3ce5b3.000a.GAE@google.com>
-Subject: Re: [syzbot] [kvm?] WARNING in kvm_vcpu_pre_fault_memory
-From: syzbot <syzbot+db7bd0f41c2a7e82d4ba@syzkaller.appspotmail.com>
-To: kvm@vger.kernel.org, linux-kernel@vger.kernel.org, pbonzini@redhat.com, 
-	seanjc@google.com, syzkaller-bugs@googlegroups.com
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20260928010227.1903673-1-michalpl2003@gmail.com>
 
-Hello,
+On Mon, Sep 28, 2026 at 02:02:22AM +0100, Michal Pluta wrote:
+> dso__demangle_sym() demangles Rust v0 symbols itself instead of using
+> a helper like the other demanglers. When a demangled name doesn't fit
+> the buffer, it grows the buffer by a fixed 32 bytes and reformats the
+> whole name from scratch. The number of attempts grows with the name's
+> length, so the total work is quadratic. Rust programs with deeply
+> nested generics can have very long demangled names, and I noticed this
+> as real time spent in perf report on perf.data recorded from launching
+> Bevy and Typst.
+> 
+> Patch 3 is the actual optimisation, doubling the size of the buffer
+> instead.  Patch 5 moves the Rust-specific logic into its own function,
+> matching how the other demanglers are called.  I think the cleanup is
+> worthwhile but I understand it comes down to personal taste and the
+> patch can be skipped if maintainers would rather keep
+> dso__demangle_sym() as is.
+> 
+> I used an LLM to review my patches and find the issues with the
+> demangle tests and the unterminated buffer bug.
+> 
+> Testing:
+> - 'perf test' passes, including the demangle Java, OCaml and Rust
+>   suites (patch 3 adds a case for a symbol that exceeds the buffer
+>   limit).
+> - 'perf report' output is unchanged before and after this series on
+>   every Rust binary I tried it on.
+> - Built and tested on x86-64 with a 7.0 kernel.
+> 
+> The series is based on perf-tools-next, commit 0ae6fc78c5ce ("perf
+> timechart: Remove the unused use_old_power_events variable").
+> 
+> Michal Pluta (5):
+>   perf test demangle: Fail when demangling fails
+>   perf symbol: Don't return an unterminated Rust demangle buffer
+>   perf symbol: Grow the Rust demangle buffer geometrically
+>   perf symbol: Shrink the demangled Rust buffer to fit
+>   perf symbol: Move Rust demangling into its own function
 
-syzbot has tested the proposed patch and the reproducer did not trigger any issue:
+Reviewed-by: Namhyung Kim <namhyung@kernel.org>
 
-Reported-by: syzbot+db7bd0f41c2a7e82d4ba@syzkaller.appspotmail.com
-Tested-by: syzbot+db7bd0f41c2a7e82d4ba@syzkaller.appspotmail.com
+Thanks,
+Namhyung
 
-Tested on:
-
-commit:         69f80fef Merge tag 'ata-7.3-rc7' of git://git.kernel.o..
-git tree:       upstream
-console output: https://syzkaller.appspot.com/x/log.txt?x=13eca715580000
-kernel config:  https://syzkaller.appspot.com/x/.config?x=23e5acac5c98285f
-dashboard link: https://syzkaller.appspot.com/bug?extid=db7bd0f41c2a7e82d4ba
-compiler:       Debian clang version 22.1.8 (++20260613092233+e80beda6e255-1~exp1~20260613092250.77), Debian LLD 22.1.8
-patch:          https://syzkaller.appspot.com/x/patch.diff?x=12169ff5580000
-
-Note: testing is done by a robot and is best-effort only.
+> 
+>  tools/perf/tests/demangle-java-test.c    |  1 +
+>  tools/perf/tests/demangle-rust-v0-test.c | 13 +++++
+>  tools/perf/util/symbol.c                 | 60 +++++++++++++++---------
+>  3 files changed, 52 insertions(+), 22 deletions(-)
+> 
+> 
+> base-commit: 0ae6fc78c5ce0dfd18d8712a50f0fd4602eff103
+> -- 
+> 2.43.0
+> 
