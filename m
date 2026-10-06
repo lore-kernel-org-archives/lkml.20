@@ -1,177 +1,133 @@
-Received: from mail-wm1-f44.google.com (mail-wm1-f44.google.com [209.85.128.44])
+Received: from mail-ua1-f41.google.com (mail-ua1-f41.google.com [209.85.222.41])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 73C4137757C
-	for <linux-kernel@vger.kernel.org>; Tue,  6 Oct 2026 04:39:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.44
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791261584; cv=none; b=Qh3BW8KBrOuq5Vr10AUngXcfYRf8pUqVqIXFtv9dF7sBftJ8L7uKuizmHj0RGOtZKS94OQKT9n5Y+lxyRnTBzy48m0JIEnotwQgpXt+tz1eRK1USPsspQiK698IRopvDkusRN2TvSUVMoTwJLLXzhcJotD4PlR+yFHVqIxXcMMA=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791261584; c=relaxed/simple;
-	bh=RCnWkqLEl9N57ql9V/Xk7Pcb/7984IZaCMasgW9VyEw=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=j23ZPwRWuJdfoETSdmAtjZ1udeolnIZ3P6O/6hloL8demvETTiVgapNPwRWlQ48EbAuBigrrHzI7GCIQgH1SRfbNyoJBBiVpAI+wKF3TGkA5qx7aQSl9ZumN/2u+wQA29qH7Kv00WTDptdateRvwZSCE61anYbwE4D9Sy/bU05o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Cr1ERm19; arc=none smtp.client-ip=209.85.128.44
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CD8382F6188
+	for <linux-kernel@vger.kernel.org>; Tue,  6 Oct 2026 04:41:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.222.41
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791261673; cv=pass; b=cQmMzXabzbY5RwZ8GrTXSHWb03f95d6aI0h/Hg7qkRTCSbmK7ROtQfBmfZVC7MFIXfuYc0X7DAerruDgiOJzTp7l1zx3e9kjIuNF3Yh7GHmy/TBg+0v8u9ubvhQ5pqn/MqrmPKGdrT1Gzzop4oRGigUMsALObMDkpgu9rNaVmYA=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791261673; c=relaxed/simple;
+	bh=b7Z5T0RYaPEqkn9QTY/5fDqqrHYQwuj5GrYZQPJTzwk=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=UjJviqgLrX+I6gY6wO63AMW5quECmYb0nJaFQQW26/SdYv8sW6Wi8Y7kHNoO2cPTTzy8xdPHr2dRI1jC8QqcruG2tGObkF8x1AEXew+ODDiP7g70Cq9+4Wi1b+LLM7R6l34/j+DYVrScdY+ZbA3AxkM3xEm3gyxFTLlRlNshi90=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Z16Oa2g1; arc=pass smtp.client-ip=209.85.222.41
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Cr1ERm19"
-Received: by mail-wm1-f44.google.com with SMTP id 5b1f17b1804b1-4a018792ab3so3245305e9.0
-        for <linux-kernel@vger.kernel.org>; Mon, 05 Oct 2026 21:39:42 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Z16Oa2g1"
+Received: by mail-ua1-f41.google.com with SMTP id a1e0cc1a2514c-980c4258105so94442241.2
+        for <linux-kernel@vger.kernel.org>; Mon, 05 Oct 2026 21:41:11 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1791261671; cv=none;
+        d=google.com; s=arc-20260327;
+        b=Rmpgkv/aY7Fd+RB1P3HoeFqfnJJJxJfZI7HbLux7tZLfQlquz1eJFkGD1XOKyLvDnN
+         FH4SS9y01TSl6EeJoP5BXg5uwcroZo7rRueviZN0xD0K95AnNc/+lNof15ROgcSomuz9
+         kyGeVSSMRtLzvc5E+61ZO3b6jVz6JQsNMS7hosvQQ12bKY1bbdS+czOAjo0w5K8lwJEU
+         ja9xMPgnp1/uzRwWmj1HbZhxt5+JLEBfGsG/vtPEzuHpCcOXMxNjz+iwdnxEAzTdlYDm
+         YH5kCWNL+LcXFIxgqenUkM2cfgSfdTQlDfQVIiO8sq9qfSSHEY9neE/iB3kPG6Rw68TY
+         rYLg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=IeoDfgNYT8jj1Kan4Wt1vjpXxW0oyYjZlRqiRlFzh3I=;
+        fh=x7bv+20g5rrs5NMDlE33pkN9OOBauQQVI2eiN0BUdf0=;
+        b=HrYJ+ODjvsUJDqnwlNg99rDboCcISd1vFgcA4U5Ti5oj/j67Hn0rUhGO8vQDOJNZY6
+         dIIbLNjsjCir3fBarskDsFjHustQ1mahkCUS7vfFZzwmdANn/dLMjDo5p4YlK4+uqSIC
+         +s3Rg1QiS+X3LXXCZeunRVrDAqb1uwJ085bZqqIV2K2V8975pRftdi+E/3zJaBh6mF2u
+         JP2I4vMTDEboUIIkS0b7PwZWsC4cGRcsBFJd67J+0nlTzrIzbH8uGmaU0FhupXLPChKs
+         xy1Ghmjy7ZxB/75gmXZJm/SDL/Fb59NXzgOeRE0iai5qOYTS9BMXG6VoiLcpgWOaxSad
+         nQZw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791261581; x=1791866381; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=YQFJVOeQWH/dUEdqrozbevZ9AdUQ52aXCjTZt8hK/iI=;
-        b=Cr1ERm19TyysU/3QJBL+8syvzAzytI6jIYwILz2+NnHI8/XXqsLd4EOJPMN0kR3gct
-         B949AgPgumD63zZGQBXqMtE03ESfoxO8aQuSxhaEyoZC0mXoO5A7UyYax8d3dbE3101N
-         OkhdkGlK0gkmwhog+V567bvvcQOvkbhY4xBzwGvaBBXQ84UbAjdpqejD3aVREcKdO7WD
-         yISA1ioPWuNhpnIbnTRkHB4hlVlQOWxoBgas1H7jhKrPELwTn04o8DEB0gF0A9UnDmYT
-         fKB+HoHAZTUyQshH1HkNymtXZ/ShzjEd6sEIlNlwVB1NmzabOztAFzcyDUvlSwv4GqLI
-         hFSw==
+        d=gmail.com; s=20251104; t=1791261671; x=1791866471; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=IeoDfgNYT8jj1Kan4Wt1vjpXxW0oyYjZlRqiRlFzh3I=;
+        b=Z16Oa2g1osFjBzc2qC3urSvZc6+Uaa8DAcwU4TKQANtJqYJScrPwzX6pkXiQsM6hKc
+         FKG6p8WxQZojb1NLuwfpj7ANA4pmyG0dVCvW4mwc4e4fZ/eJlwmK5wq9OYwi1+z7wozY
+         nM6daDgl0utNL33UnXv9wiJLUVBssfK4r5VrJKRaIyey5lu8DEM3tskBa5yLEOKvmsbO
+         6YXF1kvM0j55ZI5DsWf99He0S6n+fbMg75Dkc+RMvM7Mv3abaCNkxvLHFNt2/4BpURI6
+         yP/WtjQDUwUWv9DidILwr0xWR4lmC6l7YEmvcZT7IfTmxsixxM3tb26Ev1y9SmZd7Rr2
+         YW9w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791261581; x=1791866381;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=YQFJVOeQWH/dUEdqrozbevZ9AdUQ52aXCjTZt8hK/iI=;
-        b=Z7Up+5z9G3FjlDrxF3FpX7OhbHksiy3HtDe3/X1GbVsPjxWKVQFquv9rkLeNNZD1pA
-         2Vc3teO7wdvac1QTETYk4ulbBwZHGWqKUIy4SUpxUIv6Bix7kwga0FJUE40Xkq1a2CCE
-         mi4jcX+JAAE1XVD+JlH9nmMVv8vkCLIcfMIoGa4e+oVaqLhpoYN6EB1KciEYL7RjM49D
-         Bl+ZNVjUXcqmi4ZjzIRov5krD+p+pK21L3uFWSEAmhzvRYvCHjlEZWmHfQ+INPqFXQs6
-         rNzXhaQ1B9So3pYRVOpHGkFeY0+09eEZqIZ5QLy9zV2veQeZPC+56f6WY9hTB8Lruiwj
-         FB6g==
-X-Forwarded-Encrypted: i=1; AKwUvBwltxNleN38SiaNWfzv8Blk3JJ215xxzdyAKsib8cpJpFgBDkIM0jwyEc2YEE9MaM/kRNE4HSW/WzTAVsA=@vger.kernel.org
-X-Gm-Message-State: AFuF++lcvVRH0v2UAfvjWu6wxK1j0c2Iim6k9I2S1O04wyzIp37briA5
-	B4UcJRwOJ8NEJgBSu8tsXbTyVywLO1VMF8MOWnAM8VqBFEOuXael7SM8
-X-Gm-Gg: AYBFou2m3/wXDlOYZF/EPk5ZEWTCpMtGs3YhvOH7AzHVztcBomXptscc2rMqTyc3TII
-	4ARVGVZfo4eqjY94kUszey2hNm3AqcJ/n4fwuQQ+PTBo0WSAcTyNauLD8KdtydhiejimBbm9pE6
-	Qa4FNyNGVYvEm7jxCBO5QOSxLMfMKAWHOk26qk0o6NWfkHYqQ1srTDtg9NgdfhtrHmAP+H05Joh
-	CI6VO7aPz8Rr7HXL+7QCO0QoKcJmS6hml0c2tbGHcG432skjfywffAsvQvPMzsePn024Jp1SCwG
-	zf9e0DYHntqzkoOMHsoJM1fv8XaAGqcb60cKFORkecESvCiwpwNXXfGQ2b8c0SmNs8Xp7qKGwZ0
-	0SyirtXlFrsoReFLp0fbFLlyMaJ05nRdCmNy2KI9B2jCP8eEMisNKKPUqSJSLHHkGYBSA341yn5
-	/QAnh7WD8MeJxKITfl80dhXhbqZwvD7R78mwCQC0Igon2gEK3VkJFSBfWaJn38CJcEGGiDaX/V6
-	4O+9ziw37fPzOJbhp0/FXV0J0VKdJEi+3uzYN/X0VAGlwQdRFt7ZAf4623ZJ1HfkBUovRRDLSc4
-	J72qAdQL5AZtlRq3x7QxOKgTv7WKHh83uHo=
-X-Received: by 2002:a05:600c:1c08:b0:4a1:70ed:882b with SMTP id 5b1f17b1804b1-4a17b536678mr3932625e9.8.1791261580590;
-        Mon, 05 Oct 2026 21:39:40 -0700 (PDT)
-Received: from localhost.localdomain (dynamic-095-117-040-097.95.117.pool.telefonica.de. [95.117.40.97])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a178db8c6dsm62744995e9.14.2026.10.05.21.39.39
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Mon, 05 Oct 2026 21:39:40 -0700 (PDT)
-From: Karl Mehltretter <kmehltretter@gmail.com>
-To: Namjae Jeon <linkinjeon@kernel.org>
-Cc: Karl Mehltretter <kmehltretter@gmail.com>,
-	Hyunchul Lee <hyc.lee@gmail.com>,
-	ntfs@lists.linux.dev,
-	stable@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH 2/2] ntfs: map each LogFile page once in ntfs_check_logfile()
-Date: Tue,  6 Oct 2026 06:38:10 +0200
-Message-Id: <20261006043810.5393-4-kmehltretter@gmail.com>
-X-Mailer: git-send-email 2.39.5 (Apple Git-154)
-In-Reply-To: <20261006043810.5393-1-kmehltretter@gmail.com>
-References: <20261006043810.5393-1-kmehltretter@gmail.com>
+        d=1e100.net; s=20260707; t=1791261671; x=1791866471;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=IeoDfgNYT8jj1Kan4Wt1vjpXxW0oyYjZlRqiRlFzh3I=;
+        b=Nv0ewQmUseHXbMaSo4ZrcT5CfePqzQv93AyVCkztboLcpZfYip2SlPLnKOTiHJdP7K
+         VI5hImTBGVwoZxvP9gEO301gRdP9fz/JfKjv3SEOwagmHTEOZZH0adcmFvpF/gnzoJIN
+         5isADQY1D4/6QrzHSRKlZ+QWHlMtJrVY4xlKo9xF+Td6J3Hnnr1O2bcHi+FrghyniiqV
+         I35QlyBDhwWlU20B0lx2LjaIu1a0nJvMdo3Z3by/yoiRXJC3W8OaiRsCg5sHVEJqEBaT
+         gsfnB2igQoCkz2fVn3Ht9dhb+vE1551GZMTnIpUy3K8DzVSen/p+mc6WvfP9GaHyZaC5
+         Mw4w==
+X-Forwarded-Encrypted: i=1; AKwUvBx6f+SH+iYR6x8dUuM0I62okWypmXWq9ox6GFcCgYM/6T/vaZLUwMT598NT+KB7issGCNKEkVb5X8AtdAU=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIrTCWQMn1pGZnLvB/dm3fdGQsRrF1cve/r//R0VgL9ZxwaDKvN
+	QgdPQ0aWzHRSqx81X212hcvUTZEqs8DkeMRcxZslrEdLEazYKMyYuEBev3dEEPpdwoJySK+qOzj
+	Bnw+MErSCDsnhi7hc8y2nta2tPKThQ54=
+X-Gm-Gg: AYBFou3Dci7Y9Z2KxrLCcHMDXlbti2q6EpEs5nD7wCljzLGZa6YeXC9ZxzDdkDPg0Ad
+	wdOcx6Ams+nVAFqkf6HlQdbPR8OGuwY+yyIMKJ2F08xtuLSKVCrqwIsfWFYGUWOqcp386ZTo4/7
+	Xz8UY+Onf69n13WWDozWFCykaIuk6Nt6Yd8vMDqRo1bPXykNEoLsEFTn+mJa1aKUTdEuTgCfCXC
+	YsCqwQvxFK4tXKjfyVEk9uyF0g/o+9XZ1NsgoSfh0Yp3ZXJtczWcuCdqrQeLvmQPmIblOhPQU4e
+	7n1omuIV6y6fPUEr1EFymC1Y9LZ5H+nU36m5KONqVx/owA7yu/ty84C8+WcI1qolaapA5f2gU7a
+	ChM6kouj/kTm5ZPtW7FAnPZHpYza2R0NELvo0XzSbATFSdtrEbNo0bgpdVU4utuauNHiF80kPtm
+	7SWvPdgFUUVEtGKCiXadebVaamVM10p8Y1YAeogGACi59I
+X-Received: by 2002:a05:6102:54a9:b0:7b4:879c:bb76 with SMTP id
+ ada2fe7eead31-7c87a21822bmr29412137.21.1791261670633; Mon, 05 Oct 2026
+ 21:41:10 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20260930-ptp-vclock-sampling-v1-1-c11bc16691ae@gmail.com> <179083314427.31693.1407407420445848454@kernel.org>
+In-Reply-To: <179083314427.31693.1407407420445848454@kernel.org>
+From: James Hilliard <james.hilliard1@gmail.com>
+Date: Mon, 5 Oct 2026 22:40:59 -0600
+X-Gm-Features: AclHuK9zKgof2n6jvYIhDW6Tw2zSN3edePIn9-NkWw6URrUfpM32rFePJ-dC4fs
+Message-ID: <CADvTj4psWkDPe8F-Fz6E2aovuL-TnxO3WzVS9scutc6GizmH9Q@mail.gmail.com>
+Subject: Re: [PATCH net] ptp: vclock: reject failed physical clock samples
+To: netdev-bot+sinfo@kernel.org
+Cc: netdev@vger.kernel.org, Paolo Abeni <pabeni@redhat.com>, 
+	Jakub Kicinski <kuba@kernel.org>, Richard Cochran <richardcochran@gmail.com>, 
+	Andrew Lunn <andrew+netdev@lunn.ch>, Yangbo Lu <yangbo.lu@nxp.com>, 
+	Eric Dumazet <edumazet@kernel.org>, "David S. Miller" <davem@davemloft.net>, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-ntfs_check_logfile() calls kmap_local_folio() on every iteration of its
-search loop but calls kunmap_local() only when it moves on to the next
-folio. With 4 KiB pages the positions 0, 512, 1024 and 2048 are all in
-the first page, so every mount leaves three entries on the kmap_local
-stack of the mounting task.
+On Wed, Sep 30, 2026 at 11:39=E2=80=AFPM <netdev-bot+sinfo@kernel.org> wrot=
+e:
+>
+> Hi!
+>
+> This is an automated message. This series looks like a fix, but its
+> commit messages seem to be missing some information:
+>
+>  - How the issue was discovered, e.g. hit in production, hit during
+>    development, syzbot report, manual code inspection, LLM or static
+>    analysis tool scan.
 
-64-bit kernels do not notice, kmap_local_folio() does not touch the
-stack there. 32-bit kernels with HIGHMEM return from mount(2) with the
-mappings in place. With the generic entry code that is a warning:
+Found by tracing PHC read-error handling while working on the larger
+stmmac MTU/resume recovery series. Related cleanup issues were found
+during follow-up review.
 
-  DEBUG_LOCKS_WARN_ON(current->kmap_ctrl.idx)
-  WARNING: include/linux/highmem-internal.h:17 at __do_fast_syscall_32+0x21e/0x550
+>  - Whether the issue was actually triggered, or is only theoretical
+>    (e.g. found by code inspection). If it was triggered please include
+>    the symptoms, like the stack trace or error messages.
 
-The stack has 16 slots, so a process that mounts ntfs volumes five
-times hits the BUG_ON() in kmap_local_idx_push() during the fifth
-mount:
+The failure handling was checked in host tests, including reproduction
+of the partial-registration cleanup problem. I have not reproduced a
+clock jump or teardown hang with a real PHC in a running kernel.
 
-  kernel BUG at mm/highmem.c:480!
-
-Map each page once, when it is read, and unmap that address.
-
-Fixes: 5218cd102aec ("ntfs: update misc operations")
-Cc: stable@vger.kernel.org
-Assisted-by: LLM
-Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
----
-Tested on top of patch 1 in QEMU with a fresh mkntfs volume and a small
-program that calls mount(2) and umount(2) eight times in one process:
-- 32-bit ARM (multi_v7_defconfig plus KCOV, virt, 1 GiB RAM, 256 MiB
-  highmem) and x86-32 (i386_defconfig plus HIGHMEM4G, 2 GiB RAM): without
-  this patch mounts one to four succeed and the fifth hits the BUG_ON()
-  in kmap_local_idx_push() on both. With it all eight complete.
-- x86-32 no longer warns when mount(2) returns. Three mounts in a row
-  with mount(8) are clean on both.
-The other kmap_local_folio() loops in fs/ntfs (lcnalloc.c, mft.c,
-bitmap.c, compress.c) unmap on every path before they map again.
-
- fs/ntfs/logfile.c | 11 ++++++-----
- 1 file changed, 6 insertions(+), 5 deletions(-)
-
-diff --git a/fs/ntfs/logfile.c b/fs/ntfs/logfile.c
-index 1404664dacc0..ce38ce87f8fc 100644
---- a/fs/ntfs/logfile.c
-+++ b/fs/ntfs/logfile.c
-@@ -457,7 +457,7 @@ bool ntfs_check_logfile(struct inode *log_vi, struct restart_page_header **rp)
- 	struct ntfs_volume *vol = NTFS_SB(log_vi->i_sb);
- 	struct address_space *mapping = log_vi->i_mapping;
- 	struct folio *folio = NULL;
--	u8 *kaddr = NULL;
-+	u8 *kaddr = NULL, *kbase = NULL;
- 	struct restart_page_header *rstr1_ph = NULL;
- 	struct restart_page_header *rstr2_ph = NULL;
- 	int log_page_size, err;
-@@ -511,7 +511,7 @@ bool ntfs_check_logfile(struct inode *log_vi, struct restart_page_header **rp)
- 
- 		if (!folio || folio->index != idx) {
- 			if (folio) {
--				kunmap_local(kaddr);
-+				kunmap_local(kbase);
- 				folio_put(folio);
- 			}
- 			folio = read_mapping_folio(mapping, idx, NULL);
-@@ -520,8 +520,9 @@ bool ntfs_check_logfile(struct inode *log_vi, struct restart_page_header **rp)
- 						idx);
- 				goto err_out;
- 			}
-+			kbase = kmap_local_folio(folio, 0);
- 		}
--		kaddr = (u8 *)kmap_local_folio(folio, 0) + (pos & ~PAGE_MASK);
-+		kaddr = kbase + (pos & ~PAGE_MASK);
- 		/*
- 		 * A non-empty block means the logfile is not empty while an
- 		 * empty block after a non-empty block has been encountered
-@@ -574,7 +575,7 @@ bool ntfs_check_logfile(struct inode *log_vi, struct restart_page_header **rp)
- 		 * find a valid one further in the file.
- 		 */
- 		if (err != -EINVAL) {
--			kunmap_local(kaddr);
-+			kunmap_local(kbase);
- 			folio_put(folio);
- 			goto err_out;
- 		}
-@@ -583,7 +584,7 @@ bool ntfs_check_logfile(struct inode *log_vi, struct restart_page_header **rp)
- 			pos = NTFS_BLOCK_SIZE >> 1;
- 	}
- 	if (folio) {
--		kunmap_local(kaddr);
-+		kunmap_local(kbase);
- 		folio_put(folio);
- 	}
- 	if (logfile_is_empty) {
--- 
-2.53.0
-
+> Please do not repost the series just to address the above. Instead,
+> reply to this email with the missing information, so that reviewers
+> can take it into account. If the series needs another revision for
+> other reasons, please include the information in the commit messages
+> then.
+>
+> The evaluation is done by an LLM so it may be wrong, if you think
+> that is the case please reply and explain.
