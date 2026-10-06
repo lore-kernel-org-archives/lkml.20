@@ -1,171 +1,72 @@
-Received: from mail-wm1-f44.google.com (mail-wm1-f44.google.com [209.85.128.44])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DC6AC283FC4
-	for <linux-kernel@vger.kernel.org>; Tue,  6 Oct 2026 11:44:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.44
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 06CC42F84F;
+	Tue,  6 Oct 2026 11:45:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791287090; cv=none; b=r+EEWoz6hWRg3fLe2RENCRahryOuQc7yD41TYNMiEQ3u++OSNIicucMcJ2DMSAQNxCf+CpWSMG/wFTVRAIIe+V2e39QSW0f8JD6sBWzO1hu5O1vjNwm/FffIEKxdy60elpdf/wSo4STIahOBbLFnEjVHmFEOYuSb0wBfLst7mfA=
+	t=1791287151; cv=none; b=G4tEjmlPaGvbeOjZHY8mt7LIoJF/+nWNVMXtSkCMjlDuovobHs023GMNYeWnOTUOOegpiZnsJjCkDnXO6MpJ5+ggpU3jYaUmieRVycU1li89+j7N4gRE9vybAqn9me8lNfEHhScV3xjxDVNHhjEhLKpQGTE/UCcuwdoTQQwlEeI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791287090; c=relaxed/simple;
-	bh=wmkZFvkKj0Cb7oXf/na4MzUt3wLDgMZFlXMmUmW46n8=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=ddNxqfh8uUbI0kGXTVlnHmzDunthCupUkqhw7dBSRZV1iDmg2/3xy/4KhY2NRRA79CJzbz6Znbw4Kn0Eg4KHxSeHCbR2uah/9kbFfrDfOZJzye+N9Uo7NKP5m7xg63yDgM51iAfBPHzsWA+q2KMPBrbfLe44Ym5nRBcDIAWfD4o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=pcpBpZf/; arc=none smtp.client-ip=209.85.128.44
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1791287151; c=relaxed/simple;
+	bh=7XY1Vu2jNjoaRkJvi1niK2qRVCbEy6UUgTYddR9QZgU=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=mqaq13ItJmaMAboN513T2/WlCRG4EqokWL7qd8PltVrmVMa2IZLJi2AyOzbdLsvflCTyjVuLa6gaWEE2sK4R6XUYxLO14mW0Mr3xE84gobRBxRGwb0SBTwvcyP+bTc3LL9ynSqMSEDprsmMNmCPMpgSOl5M+cI/iGoEGa7Dd/3Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=h7kDSKvA; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="pcpBpZf/"
-Received: by mail-wm1-f44.google.com with SMTP id 5b1f17b1804b1-4a0286c981dso25061545e9.2
-        for <linux-kernel@vger.kernel.org>; Tue, 06 Oct 2026 04:44:48 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791287087; x=1791891887; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=nIH9oNewGm+iiK+DqVLwv9vwseXKMTyaRTgq2ccesyI=;
-        b=pcpBpZf/3lMRRRlr2JD5m+ozqtjCowNvaWXgytkfdY5AR7DPo/8lS7HktyDefe3kCp
-         hpBRSa7x4jDPDcO7kO6SNSZ8GjTeUGo7GhFyCJxfTEYzCs77pBU3POfmiQ1UqAU/+ZCJ
-         1NnkPXp5+QkZd25aFL6wJKhzoytsSdpL71j3XzSXBueG2/YPECYuMWpNCyRxH05YQo/J
-         nOGb7AUeD+oOOfbMx7uJCnK5JTOIuzpcmpWDZOiEOJCjfj9N7740nQNm6HNHrEIhG9qk
-         QlL8Kz4fCZM2U8HGjU5ZEcDtgq/L3/R1OGg5o2S+YtFuhuQDKWFtw81mdDPjLqrAhIoP
-         F/QA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791287087; x=1791891887;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=nIH9oNewGm+iiK+DqVLwv9vwseXKMTyaRTgq2ccesyI=;
-        b=dx0ex66PPC0618Cd3MqCjDwTQphtoqHM1RWfb4TSp7W8oFyQx/3C/hzZ2v0Ao7iLJq
-         WSaQmeXcsLTPlTe4FDSLPO+g6fwiyaJnnf4DV0tYTt37xjLD+GXR49lndOjKW/2DnAiT
-         i+x7GrnjOwdDty8cdUjF/WOcESL4/i1dWlYygtwktMfxHLgyAEOemm0b8YyvN+YbD09g
-         s6JEmA1/g6i1az+LaSiQAHNmX7wDGrz0dNaEhIZyWzL78AxyPk1CpSxV5TxmMEE3ug1+
-         cIM+4HYR2V4HZZ8ZwqVV3f4imKevEiNzx+gigMjQmyM7dVd/I0FgxvxgVS38aYA1qG07
-         ZmTw==
-X-Forwarded-Encrypted: i=1; AKwUvBy7Wehgi48bgasZrGnO/9YWYRQte3G8MT91YwNiRk9RVNxEP91VfZ3x5F6sRwfThkHHQG8k9PVKmiYIOpg=@vger.kernel.org
-X-Gm-Message-State: AFuF++mgJOAiSI16pJ96MszBtwX+xlrexkc/x6qJvNemWR1ScAUCOy3/
-	hDGguLKbvYUVp3nuFL8S3xg7mOIOPqH5rKJb7odhsH9fpX7A5oANWeis
-X-Gm-Gg: AYBFou1DQtRfJDHWiSMjGA20oERWJKhHMyp3hPaxKkMrt3B8AOZO0715rKeDv3dFRGA
-	vYWNd/ISb/z2uehDD/GyWiPhVO48XbIYbsYcN7ETk01JwEINqEW/2iWLAQShKyUhKr+pPnttm0f
-	Dx73z1+w6s/3wO7p/hcTNLW1cBkmBllnRubq1prkFHweEnI6CPK5CgBVUPmaed3xbibPztuzXfV
-	arwEfX2STj32fIDypW1nJ1tZS9mLoKgH50oAHEGFf8yEQgurV+CLh6coPqLJqUCGIndxiztfWcG
-	9od3+NJyEks45xAIC6Wb44Y3rH2qFAqXAZG8crMjBKLLdHPPD7hOxwhiSV/YnD1m0Lfm/4luH6z
-	EQeBBQZKm8I+3qW7MIkmkFZYiKsiayUsQMxr8sFLqZavPAeQ+LmLQFIr8sHN8K4BtzR0ZmCRXMU
-	LFrL8RtJcEzogBgM1NiLOSMuc/UhZXpWeW+IUg7sw4DplUIBLJYPqrTvxm7wY3f2Eb1rx2nJE7Q
-	TyR1VDZUeUEWYygaOV6RMqjOXFwOAAMV53EoSIk0wwa/4RX2zjqEhBSo222rSYVpjNebiltqcQL
-	7jP+usK2M9EQJxP0Ev2/CLb1YDVlx21zNF9YkDB54TVlLiOxSt8t/CCS7zhr15PzP8HaMLDRJ9q
-	utbgoyPI8N8XZwTbTmR5Inh3QnBr9+vpbcD3kpRBdLMMzKwbmgpd8gJoJVUGnUfSreHB/MtJCPP
-	3DEWbv
-X-Received: by 2002:a05:600c:1c16:b0:4a1:7832:dfd6 with SMTP id 5b1f17b1804b1-4a17b5340c8mr22006265e9.5.1791287086922;
-        Tue, 06 Oct 2026 04:44:46 -0700 (PDT)
-Received: from localhost (90-182-112-124.rcp.o2.cz. [90.182.112.124])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a17c7b7f00sm19805495e9.13.2026.10.06.04.44.45
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 06 Oct 2026 04:44:46 -0700 (PDT)
-Date: Tue, 6 Oct 2026 13:44:43 +0200
-From: Joshua Crofts <joshua.crofts1@gmail.com>
-To: Liu Yufei <lyf98405@gmail.com>
-Cc: Jonathan Cameron <jic23@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, David Lechner <dlechner@baylibre.com>, Nuno
- =?ISO-8859-1?Q?S=E1?= <nuno.sa@analog.com>, Andy Shevchenko
- <andy@kernel.org>, linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 2/2] iio: proximity: Add driver for Vishay VCNL36829
-Message-ID: <20261006134443.00000bc9@gmail.com>
-In-Reply-To: <20261006100943.78971-3-lyf98405@gmail.com>
-References: <20261006100943.78971-1-lyf98405@gmail.com>
-	<20261006100943.78971-3-lyf98405@gmail.com>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.51; x86_64-w64-mingw32)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="h7kDSKvA"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 07D0F1F000FF;
+	Tue,  6 Oct 2026 11:45:48 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791287149;
+	bh=AHb+aEEMDegJdLzwVyM5oFwWM9z38LtHJ12r7De4yxQ=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=h7kDSKvALCG2R70YxmgV1qFZe78g22cHn9sQQEur/eiWJmqB47/9RuoQ2iEmQNssL
+	 DkFOmEGC3zazj0rtHo9cvEGty0ZaXaU7VtmTDT13JKtqyBS//XYMcQMcNePuR/2j/j
+	 R/WPqE9g+zduWIWrsfAqFawskuYwXIJwkSKKInihix7UlbXE7O/lRDUNC6EZuo7FjR
+	 6U0sA2ed20WJFXBQJcrcU1v2jGh8G5FE40QZkUEQvMCsFCytOWKql62jqNcUjuCTUj
+	 ZdF5lAapzfUvssZqTzsKj/whaPo7AZVCDdzhgrfsDeyAFrq/PIRlcjbFBfdsGiyH4f
+	 ZSDSZ1D47fenA==
+Date: Tue, 6 Oct 2026 11:45:47 +0000
+From: Yixun Lan <dlan@kernel.org>
+To: Chukun Pan <amadeus@jmu.edu.cn>
+Cc: Rob Herring <robh@kernel.org>, Paul Walmsley <pjw@kernel.org>,
+	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
+	Palmer Dabbelt <palmer@dabbelt.com>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	linux-riscv@lists.infradead.org, linux-kernel@vger.kernel.org,
+	devicetree@vger.kernel.org, spacemit@lists.linux.dev
+Subject: Re: [PATCH v2 1/1] riscv: dts: spacemit: set ETH MAC from eeprom for
+ OrangePi
+Message-ID: <20261006114547-GKC2079@kernel.org>
+References: <20261006100000.548264-1-amadeus@jmu.edu.cn>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20261006100000.548264-1-amadeus@jmu.edu.cn>
 
-On Tue,  6 Oct 2026 18:09:43 +0800
-Liu Yufei <lyf98405@gmail.com> wrote:
+Hi Chukun,
 
-> From: Liu Yufei <lyf98405@gmail.com>
+On 18:00 Tue 06 Oct     , Chukun Pan wrote:
+> The EEPROM on the OrangePi R2S and RV2 stores the MAC address.
+> Assign it to Ethernet, with ethernet1 having a MAC offset of 1.
 > 
-> Add an IIO driver for the Vishay VCNL36829 proximity sensor with
-> integrated VCSEL, connected over I2C.
-> 
-> At probe the driver enables the vdd and vddio supplies, waits for the
-> sensor to power up, checks the device ID, configures the VCSEL current
-> and photodiodes, and turns the proximity engine on. The sensor is put
-> back into shutdown when the device is removed.
-> 
-> The following attributes are exposed:
->   - in_proximity0_raw
->   - in_proximity_integration_time
->   - in_proximity_integration_time_available
-> 
-> Datasheet: https://www.vishay.com/docs/80580/vcnl36829um.pdf
-> Assisted-by: LLM
-> Signed-off-by: Liu Yufei <lyf98405@gmail.com>
+> Signed-off-by: Chukun Pan <amadeus@jmu.edu.cn>
 > ---
+> Changes in v2:
+>   Remove Ethernet alias changes.
+> ---
+>  arch/riscv/boot/dts/spacemit/k1-orangepi-r2s.dts | 6 +++++-
+>  arch/riscv/boot/dts/spacemit/k1-orangepi-rv2.dts | 6 +++++-
+>  2 files changed, 10 insertions(+), 2 deletions(-)
+> 
 
-...
-
-> +static int vcnl36829_probe(struct i2c_client *client)
-> +{
-> +	struct device *dev = &client->dev;
-> +	struct vcnl36829_data *data;
-> +	struct iio_dev *indio_dev;
-> +	struct regmap *regmap;
-> +	unsigned int reg;
-> +	int ret;
-> +
-> +	indio_dev = devm_iio_device_alloc(dev, sizeof(*data));
-> +	if (!indio_dev)
-> +		return -ENOMEM;
-> +
-> +	regmap = devm_regmap_init_i2c(client, &vcnl36829_regmap_config);
-> +	if (IS_ERR(regmap))
-> +		return dev_err_probe(dev, PTR_ERR(regmap), "Regmap setup failed\n");
-> +
-> +	data = iio_priv(indio_dev);
-> +	data->regmap = regmap;
-> +
-> +	indio_dev->name = "vcnl36829";
-> +	indio_dev->info = &vcnl36829_info;
-> +	indio_dev->channels = vcnl36829_channels;
-> +	indio_dev->num_channels = ARRAY_SIZE(vcnl36829_channels);
-> +	indio_dev->modes = INDIO_DIRECT_MODE;
-> +
-> +	ret = devm_regulator_get_enable(dev, "vdd");
-> +	if (ret)
-> +		return dev_err_probe(dev, ret, "failed to enable vdd\n");
-> +
-> +	ret = devm_regulator_get_enable(dev, "vddio");
-> +	if (ret)
-> +		return dev_err_probe(dev, ret, "failed to enable vddio\n");
-> +
-> +	/*
-> +	 * The datasheet does not specify a power-up settling time.
-> +	 * Wait 3 ms after enabling the supplies before accessing the
-> +	 * device, as a conservative value.
-> +	 */
-> +	fsleep(3 * USEC_PER_MSEC);
-> +
-> +	ret = regmap_read(regmap, VCNL36829_DEV_ID, &reg);
-> +	if (ret)
-> +		return dev_err_probe(dev, ret, "Failed to read device ID\n");
-> +	if ((reg & 0xFF) != VCNL36829_DEV_ID_VAL)
-> +		dev_warn(dev, "Unknown device ID 0x%x\n", reg & 0xFF);
-
-I'd rather be soft and do dev_info() instead (perhaps this could
-be tweaked when applying).
-
-Otherwise this looks good to me!
-
-Reviewed-by: Joshua Crofts <joshua.crofts1@gmail.com>
+Reviewed-by: Yixun Lan <dlan@kernel.org>
 
 -- 
-Kind regards,
-Joshua Crofts
+Yixun Lan (dlan)
