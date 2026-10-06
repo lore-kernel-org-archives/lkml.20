@@ -1,192 +1,170 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+Received: from BN8PR05CU002.outbound.protection.outlook.com (mail-eastus2azon11011050.outbound.protection.outlook.com [52.101.57.50])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3774F3D1CD7
-	for <linux-kernel@vger.kernel.org>; Tue,  6 Oct 2026 21:27:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791322061; cv=none; b=W5WOFTmfeZpWsAPeNYNc/xwBn8CE4PcsDu0BGortrKeOjg1W+ajmTFLxjH7awtNW09gXHCYJhMUxaIw8WacUk1+aqQ592xYZLYhSME0NPGv5l8PGa9u3p41NUKW4v9hc1sPublJ0YoxyUroVRDjm/GKt/nkTC7daeCVaVPbd+aw=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791322061; c=relaxed/simple;
-	bh=J518TeBei26VEQXbPGvt3y4HnC5DH/HWj48vtTb4u5k=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=fRyGpPyTbiVe/fVwROV6i80mIZrJwTi6X+EvkMMxBrwDmaDF72zDimoSEJNXdGjYLfl/hmZRQRB/bHg355tQVUtTMRivN4ilWfOjZZEavgNb4NwvRxqR34eE2zYezDYDZcYum1K64/XJ996wTjFUW03WIzeC1HWgYALKBiMVXjA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=BsznIeAj; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=bbfH83Ds; arc=none smtp.client-ip=170.10.133.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CA3473D1CD7;
+	Tue,  6 Oct 2026 21:27:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.57.50
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791322079; cv=fail; b=GSd2OPzCtG8ZtVAJxmY2K5OF06pKDu+owngRYvIkpQX6oMkOmFlL4MRXaNOw5o+wutyC10yDaPiQwwYrDh3ZTN6hsROXx83sHbAqe6SwvRBgNLM0x7u64d8IzkqonLh0QDKrWkH+z0ZkOvR9BBx8g8h6zc8YI54DAWCmN7s/fuQ=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791322079; c=relaxed/simple;
+	bh=LaHoQ7zj3AI6b1l/hCPyQdvNPZLhnFBzgiyZ7hKbr+0=;
+	h=Message-ID:Date:Subject:To:References:From:In-Reply-To:
+	 Content-Type:MIME-Version; b=Kvmv3ZMmHzM/p6MyYXhrDxr18hNB2+QK7RNuoz4fzfuGB4ovw6hiaEpgbQWq4jB7iw/8yZ3+FNpXdYwj+QG+zRHNQ1hyUNcRUJx4x3wylNZzallYgunF5/Lvp6zb9z1IhUaYMGEA+XnUkbyasnFIdUhHKA922Y1fhKzwidFlrOA=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=M+MgsBZn; arc=fail smtp.client-ip=52.101.57.50
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="BsznIeAj";
-	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="bbfH83Ds"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1791322058;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=ZLYqLTXYL+33FHGPoAQIFrwweKpAyRzDOJvC/lVBZus=;
-	b=BsznIeAjSR3qjDG49YUmAnzW302ftg/0ULYsp3Mcp4/zF5A+j0jTngxhAINTR6LMbTEdIK
-	j2R74Ax5mze/+00eh8XMWfhtaihip9PBJSw4PYSXVIBm+nzqkEGnXrP3hb4fowQgNQYL3M
-	Hh2vQGCleIBwpB6n/YpvjYTKCtHGv3I=
-Received: from mail-wm1-f71.google.com (mail-wm1-f71.google.com
- [209.85.128.71]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-652-LNXwlo8IO6CqipeFUvqVwg-1; Tue, 06 Oct 2026 17:27:37 -0400
-X-MC-Unique: LNXwlo8IO6CqipeFUvqVwg-1
-X-Mimecast-MFC-AGG-ID: LNXwlo8IO6CqipeFUvqVwg_1791322056
-Received: by mail-wm1-f71.google.com with SMTP id 5b1f17b1804b1-4a17ec7a49cso2786335e9.2
-        for <linux-kernel@vger.kernel.org>; Tue, 06 Oct 2026 14:27:36 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1791322056; x=1791926856; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=ZLYqLTXYL+33FHGPoAQIFrwweKpAyRzDOJvC/lVBZus=;
-        b=bbfH83DsMbvkrurd4IHtSqzHwuMuwH+9d9V/tpHhSuoO5gW1W6EMud5slqeO/t3WMg
-         v4zgYCAyrwlOYvZZQBbfGBWFODk66KAl+Y3oWte1So3j4XvZ6XPUmsefCDvc1+O8uy0D
-         ayv5PlhKw14L0qCkouu45Qd/lHxB22FAxLMv/a/9Ynew/dz0o8Mdj9BKngpcGM3V2817
-         2KWxyDUgZnRcGn9sjJWKvih0Zk6ic7WUiKOWCWJfaBn+gLN5Zgvtw4i0WYEvQoEpzGUI
-         NSH3v/tYgPv4rqk7DnAMZe6/ksbeCeulNT2uvo1Mq/zSvz9aQTlBmWzzKc3Sew7j+i3c
-         bIBA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791322056; x=1791926856;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=ZLYqLTXYL+33FHGPoAQIFrwweKpAyRzDOJvC/lVBZus=;
-        b=bo3sOqLzwpGQ2ZLeAXvSZJYukOUReaZkgnwYZG4zt2ztTLhAjw6o/b3XtACxdn+wlo
-         qp4Zc0vTGYFWPnGI741PVxwIHeSS77wg1nE6wBGb0ndJON6T0Rl7VizjHL2JLKfFVxBo
-         VSgEL5mq7ikKUx+x/24Q4DNzSaEVUCY66lL6dKcYRU7XpEvH2qzGq0AZEBd/5Iyq45Fu
-         3yK/RPgyQKpi+pSfX0Bxhs0X+QQvk/BZf0LLtt2QDqBIr+ulc2kWGwJN7AqaAKoP9yUb
-         Sh9i6m2CKaR68WnCDjg18Ul34Qwo0X6boqQ0DuWas6ZFIhz3w+vFEfmvHpr+7Xl6hIUf
-         WX9g==
-X-Forwarded-Encrypted: i=1; AKwUvBxx8N0FCWMmG+p8SvH5SpmOUFQdYBu4MBPAatt9JOr0khtDPfnN2Eul+jJI3Kgqk7aYSEturhr4A5ye0R8=@vger.kernel.org
-X-Gm-Message-State: AFuF++lJyuJ1Jhtp4nYXg+BBlAPN3HksXyNu0ybC6XwuHTkaj2rX//YX
-	QXwy5myEhaYMRpNAuBmOBWVTqG0oDGCJiUug2q/vTZFsSG/ydM+YvYOg6tn9nkoEzuvZrhsrcTP
-	q7JhaluNiKKlymQHnvTz2T1G3X9HrVVUi0LjqgTae0z77WrJ0Lz2XcszV9JZ1CW9QbA==
-X-Gm-Gg: AYBFou1l7hWoLzAiX9dqkyBsSCwiq+rHJyEDwtsJxKMlqEES/hlYzkTIW/4QIHt9wkm
-	4qfSxmUYQksPXT5ZV6rqaVPhaIXdCClvlP7i1Zze4W1VdqT5k29qVAVWojyDqPhqp6HZaiw4xeQ
-	1edWyzs2HbVRWNgIN4LX0xfPiIdjFM5sO3wwxIwZapfvS4sCng/tksW5b+THv8wnCIp0xS5H3P1
-	s5WImvuc4iGdBFeU5Qikim+wxwn47kWStbLj6GcMT6TVfMV+ALBDq0SZdY4yXwL0tRLXtRpxZ5I
-	sT2q5lGGRV6zSJSbL2WNzHOjjB0O93YF9qLS8mz5MUwcrJNJRZ4/hbmJSQ0vR2qgmSzWcAs=
-X-Received: by 2002:a05:600c:468f:b0:49f:ce78:356d with SMTP id 5b1f17b1804b1-4a1806508edmr1608045e9.30.1791322055545;
-        Tue, 06 Oct 2026 14:27:35 -0700 (PDT)
-X-Received: by 2002:a05:600c:468f:b0:49f:ce78:356d with SMTP id 5b1f17b1804b1-4a1806508edmr1607885e9.30.1791322055050;
-        Tue, 06 Oct 2026 14:27:35 -0700 (PDT)
-Received: from redhat.com ([2a0d:6fc0:3fd7:5300:3d6b:52a4:a23f:9d0b])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a17f51beffsm14516105e9.2.2026.10.06.14.27.33
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 06 Oct 2026 14:27:34 -0700 (PDT)
-Date: Tue, 6 Oct 2026 17:27:31 -0400
-From: "Michael S. Tsirkin" <mst@redhat.com>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: sungbyeongchan <tjdqudcks0424@naver.com>,
-	German Maglione <gmaglione@redhat.com>,
-	Vivek Goyal <vgoyal@redhat.com>,
-	Stefan Hajnoczi <stefanha@redhat.com>,
-	Miklos Szeredi <miklos@szeredi.hu>,
-	Eugenio =?iso-8859-1?Q?P=E9rez?= <eperezma@redhat.com>,
-	virtualization@lists.linux.dev, fuse-devel@lists.linux.dev,
-	linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH v2] virtiofs: validate fixed-output response length
-Message-ID: <20261006172721-mutt-send-email-mst@kernel.org>
-References: <20261004123405.586168-1-tjdqudcks0424@naver.com>
- <20261006182408.1301152-1-tjdqudcks0424@naver.com>
- <2026100633-roping-stardust-a6ab@gregkh>
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="M+MgsBZn"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=QqfYXmgEfUcKalXR0Xx55aWOOX/OZVvB8UB23Zp6HzWd9paCIF8n4nswdLplyEriWff7ykn2I406IA6cQNvWaPy4ql1mOcuf9LENkMGpVAutY5E1pcS0uuCZ7c0wizFmhQTZySZcUmRMq7f5dfpu3OpYgAAfa/BrUsVPFRSpvWbqvIxgqLIeJc7MXaw3jE0UBzV9rERSZzyPvX49wK5t6Vrnda+nDpLqe+25sF3T5G72qcoFLHwN4jqb+GyBA7v+Ma+TmvbOrS84yqkNKiagdEgSBf04yRvkLao+Aveuhel92IdVpN43UxMZq1yiKx6JBr5X4VmNmrhaoGboe9hT6Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=1FlBTRiOpYN0yzmQgMRKnim5X+iO3GqxWNfiua75n0U=;
+ b=ZgsJPvKLjD3pRvqHvQk5QUId8vLc7TLRjGzppzV3tdvO4rrViGF8O2VP1Fp5DergjrUNLrvKzMMXYkPpEpLt6Nfokg2OMOniG7+YAdvTQDPuJX+q2EhLWfugbiDKj0DZjX05XVsbkfA23zc+MS8kf5Ipnj5k57A26DHKpWYMBDAVL/pIYMkPtMUrhyPiOKf0XhuldZ6HETkuQ7agccXBKus4qn5QmDqt93iEf5dimW0mgos5AHRl+y8h6Z7Zd/Al9rSkOmaHuTcYl1i267hUYZRrhEMQ8FhGDTutdCbc3e09sg10gn2ShwkZvCMPheV64cuQPJA9/4zECogAxvsmrg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=1FlBTRiOpYN0yzmQgMRKnim5X+iO3GqxWNfiua75n0U=;
+ b=M+MgsBZnRwMrXKg25E9Y9aJeNMSv1gZPLqnoiJk9SO3KsVRS+yXLaHVQmB6mAmeGSElxlKeS0jr+dfhZ2f1FbDruzwNiqm2ML5OgzW1I61JcbRl6mOHSwJX1GaeKTRxccmIexJhYB9t0P7WJi+1L++R5uxiAF1IXfwI3GKuB01enfdQ5c4WtbURvsx2uVhe7KQQiir1+/frffL8da9Zc4W6502sNNcqMNj9Rh2LQ26nGekmINTzpp+e7D95xTEFE+SwwzDztBffowc8V2O1PwtlKKXDnNqLteCmmwgfLKjZFoWTswZHAQrMbyqvg4eG2j3R5VzwLIoCey30uMIJNHA==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from DS0PR12MB6487.namprd12.prod.outlook.com (2603:10b6:8:c4::18) by
+ SA3PR12MB7974.namprd12.prod.outlook.com (2603:10b6:806:307::17) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.472.18; Tue, 6 Oct
+ 2026 21:27:53 +0000
+Received: from DS0PR12MB6487.namprd12.prod.outlook.com
+ ([fe80::f923:10b2:e6d8:d47a]) by DS0PR12MB6487.namprd12.prod.outlook.com
+ ([fe80::f923:10b2:e6d8:d47a%6]) with mapi id 15.21.0472.016; Tue, 6 Oct 2026
+ 21:27:53 +0000
+Message-ID: <53383f19-3d54-405b-85af-f597b69befe6@nvidia.com>
+Date: Tue, 6 Oct 2026 17:27:51 -0400
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] rcu: Enable runtime reset of the RCU stall panic count
+To: Cunlong Li <shenxiaogll@gmail.com>, Jonathan Corbet <corbet@lwn.net>,
+ Shuah Khan <skhan@linuxfoundation.org>, Randy Dunlap
+ <rdunlap@infradead.org>, "Paul E. McKenney" <paulmck@kernel.org>,
+ Frederic Weisbecker <frederic@kernel.org>,
+ Neeraj Upadhyay <neeraj.upadhyay@kernel.org>,
+ Josh Triplett <josh@joshtriplett.org>, Boqun Feng <boqun@kernel.org>,
+ Uladzislau Rezki <urezki@gmail.com>, Steven Rostedt <rostedt@goodmis.org>,
+ Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
+ Lai Jiangshan <jiangshanlai@gmail.com>, Zqiang <qiang.zhang@linux.dev>,
+ "linux-doc@vger.kernel.org" <linux-doc@vger.kernel.org>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ "rcu@vger.kernel.org" <rcu@vger.kernel.org>
+References: <20261004-rcu-v1-1-3799a44367f1@gmail.com>
+ <00F6D386-FE41-42E3-9B89-07381A49E061@nvidia.com>
+ <asThhHxoFP2L25Nc@63b45mr6s164qmn>
+ <A522703D-CBCE-4F3A-9CA2-968BA382166C@nvidia.com>
+ <asT08QHOiIJrfIIZ@63b45mr6s164qmn>
+Content-Language: en-US
+From: Joel Fernandes <joelagnelf@nvidia.com>
+In-Reply-To: <asT08QHOiIJrfIIZ@63b45mr6s164qmn>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: MN2PR14CA0018.namprd14.prod.outlook.com
+ (2603:10b6:208:23e::23) To DS0PR12MB6487.namprd12.prod.outlook.com
+ (2603:10b6:8:c4::18)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <2026100633-roping-stardust-a6ab@gregkh>
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DS0PR12MB6487:EE_|SA3PR12MB7974:EE_
+X-MS-Office365-Filtering-Correlation-Id: 6edeb3d0-ccee-44b1-d1f4-08df23f0ae45
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|366016|7416014|1800799024|376014|23010399003|11063799006|921020|4143699003|18002099003|22082099003|6133799003|10067099003|56012099006;
+X-Microsoft-Antispam-Message-Info:
+	B87AjezygC34GLxR1kjoo2icQGpSuh2m9/s+sWI+N4qHHB/6wHk5qusPUjyUoKdvNcmFYMVp5RqcsxKStW6kqwlmEtFg54+ndhRCHNDG1xehE4n/rZRXEej5DnJiuIxSpAiydMKBNcmd4bq/6dz4fnIZPPZbP70rs/54gPP4CV68RcVIJhfYCbLPd6gjqV+XReD+ZEnWmjMjLz0DevuRkMb3g2pkML5TWHnKUFgyUcbBn5ktiJk1JXs/qg4apDQwk4N7YXTiirGRA3+VFUTm/OqWRVNekozmkKR7HvhHssUm1VpJPn6TmEQQ9J2K8NgsQmISAfjraq0MSzW3K4LfJMAYnmjQpyO5rNp0Hi89tUHoDiPs6q96dM/S/eyD+LbqflKcpYF0sAgnVQplA8hS4H3D6rW6s/jzraOh1WLLN3OWRNPJaHRqXogNMQ4QwHRi0Djafm80zfH6v/nunfy/fYGxURSkCBzggFhEKJ/mZeMYQNENd9jokbbuj/UzaVmywhQihXve6+pGyBOOUEuRixrC0R+kj/sccD6XvgXGGbV5x0LGI71SDAQE/AxOrrX5+BnPMyYZRESLOoKm8QGtByH5ZVqa1yyJmqLzCLoi+5byWhokfQrEebJ87KyfOviXn6SuRDcH8VmHMwNaMTTO89bfESHmMbkY60AwvfxLNLuRq3MY2mYAicQYGxkbhmUoK+u/NUfxvb1bDpYkaUpMNQ==
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DS0PR12MB6487.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(7416014)(1800799024)(376014)(23010399003)(11063799006)(921020)(4143699003)(18002099003)(22082099003)(6133799003)(10067099003)(56012099006);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?UGoxWXA5Ri9hTUhqUkxFSGMyQkNadXkzZlQ1NUU1WGRpQktoYW05QlNkd2lM?=
+ =?utf-8?B?TWh3MVlKY0xGY3pIdGJwc3ZMK3BJVUNEVW9QN3RodkRnTTlTUFU1MnZsYmJT?=
+ =?utf-8?B?eEtzQ1VaQXFsbWlHRjgwTGc4cWJma01RbDJwYkZlb0pTSlB2djQ0YlEybWVQ?=
+ =?utf-8?B?QjdKTEpYaXE0UWVWWVJuQm5pYXRlYi9OcVdERkxPcXFucENqM0ljSVFidzBq?=
+ =?utf-8?B?RWQ4clBzUjZCM0FuRHlFejdUa2tWdVpjdnEvR1hudzVDNEhYcklvUVp1cGdx?=
+ =?utf-8?B?MDJPdEZobndqRHVXZk5MWXBiZlVJSGJZSktpWG9DVDRwT0FTRVVveG1QZytW?=
+ =?utf-8?B?RnZMR1kvdkJNY1FFVis4ZDl4aTA0ZHNKWXJLOHFyZ1RGQktDZUZkYndpSnJJ?=
+ =?utf-8?B?ZHp6NVBManZUcjVHZmQyeHp2cXVseCtZSTN2QlZDU1czeDdXR3E3S2c0cENq?=
+ =?utf-8?B?QzhOOUl1QW9HbzZ4TWpPQ2FxT3dPanJOK2FyN3UwMy94YWxidFFXSHlNL1FG?=
+ =?utf-8?B?TVpKUnVnZGVYR1lYUExNcHdVRFJDUS91dExoK1h5YnJzR2poZTlvSDdIWDUx?=
+ =?utf-8?B?TjVXejV3clRkOWduRjJoSFZWMmwwODRLYXZTeTh4cFVxSWJsMnNpMFJnb1kv?=
+ =?utf-8?B?WmtEZldqRWFFbFpTMGZ6WXNqRjcrc2dWT2Flb08wRDRpeTJTQWl6UnJOMGpm?=
+ =?utf-8?B?aGthc1YxTy9uMG5rT0V1cFhUODh0WFZnU1ZMcGwxQXVwZkJaTGVTaVB3b21F?=
+ =?utf-8?B?VklydzZkdjByNVM5OEVkazZmUTJCT1BlV2VVa2VrTkRFYkU2eFk5YlpHS2pT?=
+ =?utf-8?B?YURrZW9GTWVMbkY3aDBCT0FKUDZZb2hzR3RBMDRLelp2dGdDenBNQzBHOVo1?=
+ =?utf-8?B?YzVDOFh4eE9MUE5JZi9wd3hsbGFIVlFzTVFQNS91QWFlWFp4VE1NR0RRV1RF?=
+ =?utf-8?B?aUg3SGJRb1gyUVFmODlzY25DZWV1RmJjZjhMNENSYWpYeFdWOGJmdzNBVFhK?=
+ =?utf-8?B?eHZIODRzUlRoTzVVaVpBUVFyYy90WWtNOVlqV2FqMTZMcHExM2VpU3JIQ0xx?=
+ =?utf-8?B?MkQ3aWN6N2VEbUlvc01lMlNkUSsxdUMvY3V0YUl3RkMxQUc0Qmtxcm4wello?=
+ =?utf-8?B?b2xrUTRjZldGVTZrTzhlTUZ4TS9vL1JvTHNBYU9MSDlaWkFwUjQyRHRCNk45?=
+ =?utf-8?B?OVdDNVpObzMwQi9CM0dFNzJwbzJZcVBrbUR1L0xBMTFGVGxPYmVYdzc0L0xV?=
+ =?utf-8?B?c0x4cnVjbC84aG9aeWZRS25OUWt3SjE3VUxuckJMRWVsRkluKzUxaFQ3Y2hN?=
+ =?utf-8?B?TGdmT2YxSHdwcGlFSktqSW1BOFoyNmZJc0pUMXB2eFdWUVQxa1RCTG9mcUJx?=
+ =?utf-8?B?WGU3dDdSbnpuU0tGL29OMWZsaWtjZk9TZUpyNHRTR3AwelI3ZUVYYWpPd2p4?=
+ =?utf-8?B?aE1kcUptbkdQb1V0cjNLT0dLWkRVMHd6Qk4rK1hxenpmeGo5UWl3bVJHajRN?=
+ =?utf-8?B?YXZsakJwV3dyYWdHZVF4SUdYRXJKQ2FVc0dtSVU2OXhtc29EUEx1SXFSaElh?=
+ =?utf-8?B?a3lJaDVsRk1VZENXSVpGUlhHYkowVlNkYmFaQmRIN1J6QTkvWXRyNXRWQ2x5?=
+ =?utf-8?B?UVlhVzRhVXZZOXo0cXRmREN0b1NsaG1QbmxBd2FjYlZDVnplSGRobjB0MVFu?=
+ =?utf-8?B?elMrTGhVMkFTQzBlVDlxeHlXNitTTU9NRkw2aUJ3eXlTUXZSa0YwNjlQS201?=
+ =?utf-8?B?MVBuWU1odU1wOGFFbmcxNnlFN1dOdDZjOXMzNVlKMVVVbE83R3U4S3RTUmpN?=
+ =?utf-8?B?a0dqTFBPK2Y4eUw5TUg2ZktkYWVlaVNVeStkWTZXTTNVdlhUbVkrTysxSGRJ?=
+ =?utf-8?B?RkF3S0sxdlZ4MGtYSldIaXlQUWRyOEtGT3JsckxSbHNVek4wR0Y5bDMyYnVx?=
+ =?utf-8?B?c0s1Zm42U0xzVTVNWTAwcnlVRjVUTlhnUWtFOUNEVk1aOXRlYmJWekU0RzRW?=
+ =?utf-8?B?SStaU011a3JFanNpZ011Z2luZCtJdVZxTktxaW5tQWZWZGlGOTZsaUt4Z0xJ?=
+ =?utf-8?B?eHFmOEZDdkJwYWl4MGM5cURvbUlxc3d2bFB1bjBYL3oxVHgvaHQ1T0UrdDJa?=
+ =?utf-8?B?MDhna0tzbG56bkVHbU1odUttamQ1NkJrOXhrUHdsODdXNWNOdytzV2xHSnhD?=
+ =?utf-8?B?L0ttemFTVHNueXNuWktzdFNwc1hBUUpoVUhYL0R3U0o1QmdZbXAyVWxUY2Ny?=
+ =?utf-8?B?ellWODQxa3FPdEw4RnJZRnNUTWl5OHVIaXh2WXFZd3NYRVFMdTEvdDhhcFNn?=
+ =?utf-8?B?enViNUlmbTNCeWdjdk4rNFVLK1BpajVRZzRqY2x2ckV2NmdMeWZUdz09?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 6edeb3d0-ccee-44b1-d1f4-08df23f0ae45
+X-MS-Exchange-CrossTenant-AuthSource: DS0PR12MB6487.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Oct 2026 21:27:53.5034
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: h6NbMntJ6QfETWtHPzketpqD4s/t94HDSvgjB3yq6sBNuHl/FzRaR6pwOmG8SMWn8tG7U/TZIQ1gRQ+mqefRsQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA3PR12MB7974
 
-On Tue, Oct 06, 2026 at 11:11:14PM +0200, Greg Kroah-Hartman wrote:
-> On Wed, Oct 07, 2026 at 03:24:08AM +0900, sungbyeongchan wrote:
-> > A short successful virtiofs response can leave the fixed-output
-> > portion of the request argument buffer unwritten. The completion path
-> > nevertheless copies the full declared output to the request destination,
-> > allowing stale allocator contents to reach callers such as
-> > fuse_statfs().
-> > 
-> > Require successful fixed-output responses to contain their complete
-> > declared output. Continue to permit a shorter final argument only for
-> > out_argvar requests. Reject positive and internal restart error values,
-> > require valid error replies to be header-only, and do not copy output
-> > arguments from error replies.
-> > 
-> > A header-only FUSE_STATFS success returned stale fields in nine of
-> > nine calls across three boots. The fixed kernel rejected the short
-> > response and preserved complete replies, valid error replies, and
-> > variable-output controls.
-> > 
-> > Fixes: a62a8ef9d97d ("virtio-fs: add virtiofs filesystem")
-> > Cc: stable@vger.kernel.org
-> > Assisted-by: LLM
-> > Signed-off-by: sungbyeongchan <tjdqudcks0424@naver.com>
-> 
-> Real name please.
 
-a missing space I guess?
 
-> > ---
-> > Changes in v2:
-> > - Reject positive and internal restart error values.
-> > - Require error replies to be header-only.
-> > - Rate-limit malformed-response warnings.
-> > - Rely on the existing FUSE pr_fmt prefix.
-> > - Add Cc: stable@vger.kernel.org.
-> > - Use the reporter identity consistently.
-> > 
-> >  fs/fuse/virtio_fs.c | 43 ++++++++++++++++++++++++++++++++++++++-----
-> >  1 file changed, 38 insertions(+), 5 deletions(-)
-> > 
-> > diff --git a/fs/fuse/virtio_fs.c b/fs/fuse/virtio_fs.c
-> > index f15e516ebcb5c..fffbe08d9114a 100644
-> > --- a/fs/fuse/virtio_fs.c
-> > +++ b/fs/fuse/virtio_fs.c
-> > @@ -4,6 +4,8 @@
-> >   * Copyright (C) 2018 Red Hat, Inc.
-> >   */
-> >  
-> > +#include "fuse_i.h"
-> > +
-> 
-> Why is this moved?
-> 
-> 
-> 
-> >  #include <linux/fs.h>
-> >  #include <linux/dax.h>
-> >  #include <linux/pci.h>
-> > @@ -20,7 +22,6 @@
-> >  #include <linux/cleanup.h>
-> >  #include <linux/uio.h>
-> >  #include "dev.h"
-> > -#include "fuse_i.h"
-> >  #include "fuse_dev_i.h"
-> >  
-> >  /* Used to help calculate the FUSE connection's max_pages limit for a request's
-> > @@ -730,6 +731,10 @@ static void copy_args_from_argbuf(struct fuse_args *args, struct fuse_req *req)
-> >  	unsigned int num_out;
-> >  	unsigned int i;
-> >  
-> > +	/* Error replies contain only the output header. */
-> > +	if (req->out.h.error)
-> > +		goto out;
-> 
-> But no error is returned?
-> 
-> >  	if (len < sizeof(*oh)) {
-> > -		pr_warn("virtio-fs: response too short (%u)\n", len);
-> > +		pr_warn_ratelimited("response too short (%u)\n", len);
-> 
-> Isn't these ratelimited() changes separate from the original issue here?
-> That should be a separate patch.
-> 
-> thanks,
-> 
-> greg k-h
+On 10/6/2026 9:17 AM, Cunlong Li wrote:
+>> It sounds like you do know that it is likely transient - but based on this description and the below, it sounds like you have not yet found a use of this patch.
+>>
+>>
+> To be precise, we worry that some of the stalls were transient, so a
+> panic reboot would affect the users.  But we have no hard evidence
+> either way: every incident ended in a forced reset, and the dmesg was
+> lost.  Going forward, we plan to enable the NMI and kdump to keep
+> investigating the cause of the RCU stalls. We will also monitor dmesg
+> to confirm whether transient RCU stalls actually occur.
+
+
+Right, I just worry that if you're not seeing recoverable/transient stalls and
+you start using this patch, then you might be causing side-effects that don't
+really help your problem and might be masking the real issue. It would be good
+to debug this further, and fix the right way IMO.
+
+If you show that this patch indeed helps your problem, we can consider it for
+7.5, but there's little bit of time. :-)
+
+Thanks,
+
+Joel Fernandes
+
 
