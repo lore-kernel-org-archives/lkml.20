@@ -1,413 +1,145 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f43.google.com (mail-wm1-f43.google.com [209.85.128.43])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 47FB1339399
-	for <linux-kernel@vger.kernel.org>; Tue,  6 Oct 2026 03:42:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 299F2311C36
+	for <linux-kernel@vger.kernel.org>; Tue,  6 Oct 2026 03:43:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.43
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791258175; cv=none; b=L8h4CTT38Xjy76uTAyCjt3kw5+oijJJGI81aVtpuXF4TVhquhGJFEtSHFl7BrX9Fm3UVZlrfHiTqEmb+uw/ohgACJRrpxsgthbz2HGjWLi+nWcafkyqTS7cw59SiFyPM+LrReisz5FIeqy3bx+8zE/KH0JihYdgCsPC3MJPQpc8=
+	t=1791258195; cv=none; b=fb80Kx0O8KUdM+eZ1vk1gTDjJ511RdmdEXmYqt6K/ecQnzc+DbbSnSNIBo6bm8RPXJ6I+hgXNLJz8QI1PDxtow/j2j9tzlaK7orlFiPA4C/48nUhjeP06i+lTEQiWu44c+9k7UHnRi0UjSgAhbAgO47QojKQrRlz6Um/FjetO90=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791258175; c=relaxed/simple;
-	bh=ewL6r4+WUG3zvSaf1v33KUoNnFiMKovzld70FKrMj7E=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=hdznNq4bIMY7f6isLHvGcRioTpgLC36HfFUceq0h8M1AFLfEawelxvZVbrBoNenlGHw7Nd4epAckDAZRGpS98QA4KIGY5QXpCmwbaPkfoFIxxKRoW1ztOB2mRQS5yjuB3Lmd1ELApwhWL8HOTIH48SJEvhkoGur4k2jXOQ9DUU4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=SzSL4ZVt; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=l/NTFriw; arc=none smtp.client-ip=170.10.133.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	s=arc-20240116; t=1791258195; c=relaxed/simple;
+	bh=/DEx2L2Q4OAtXo9RI0PfN3L8+9G2YV8tvNAqt24DU8U=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=iCi6oTWQhDtdruMPYBuwBNLxZDsU9QFU7/AD3N3u9WACGpRmJdc0a2SrvZVl/Id3Ti5ZXXAULB0iDw226mxVQMfwirsN8MVJf4DWa3b6+sBFOFnHFxjTusIVoydzzMIGuzU11z6edfi3OaI3gUwpSaJdWzzX63NPpHe7FT3vW2A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=fccsQiWT; arc=none smtp.client-ip=209.85.128.43
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="SzSL4ZVt";
-	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="l/NTFriw"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1791258172;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=6ciyrU+oMiPwGK5aZ+ysyOdFUKDXGXj8SaQGvfUaxVI=;
-	b=SzSL4ZVtnOgWxgW+Sc8lI62BiquJcdntraIk3q9uipWIi34VW7vRyMReJCU8dCG8aSmqzk
-	tY46IQbhQvZwkzx/TgSO8wSAn460BlQEnqxrxXtHwf1jHoSMF/L7VClKwXMD489RkJwZHO
-	BhO5d2puaTfidFgHmOMUmwmkI19aRAk=
-Received: from mail-pj1-f72.google.com (mail-pj1-f72.google.com
- [209.85.216.72]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-32-JdUiGnynM3eFcQCxpE8Rmw-1; Mon, 05 Oct 2026 23:42:50 -0400
-X-MC-Unique: JdUiGnynM3eFcQCxpE8Rmw-1
-X-Mimecast-MFC-AGG-ID: JdUiGnynM3eFcQCxpE8Rmw_1791258170
-Received: by mail-pj1-f72.google.com with SMTP id 98e67ed59e1d1-39512608fb1so4814150a91.1
-        for <linux-kernel@vger.kernel.org>; Mon, 05 Oct 2026 20:42:50 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="fccsQiWT"
+Received: by mail-wm1-f43.google.com with SMTP id 5b1f17b1804b1-4a16aaf2067so25838215e9.0
+        for <linux-kernel@vger.kernel.org>; Mon, 05 Oct 2026 20:43:13 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1791258170; x=1791862970; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=6ciyrU+oMiPwGK5aZ+ysyOdFUKDXGXj8SaQGvfUaxVI=;
-        b=l/NTFriwGYNqvbzSsEhrRb5pT92oYAe8m38nGoUynJ3SxlOc44z7k8eiUyippkEIIK
-         eXDElz3kIK9f6yCKQpIHdhU1nY31QRO3M4E6zTlbS+FQ0E8JUmAcDzuw1zlExnrPx/2Q
-         EZep/wv6uSm/Ogs4lOJGvYd1awH/QchBy2SfCIGWkLE75sXIzi27XAQsK9QcJ5077F/w
-         pBabnIcUWh3MjvuPrNV/Sa47pXRis8YGh3nb7UCtOc4x/0LXEXYYXKhKBONk77toVzeR
-         wp2SFc5QBvvIE4X4q/9uq+B2q90oT2PMY9fwWTwTGtsxH6CEr2+dDJdNOYaR9zCffROq
-         7+aA==
+        d=gmail.com; s=20251104; t=1791258192; x=1791862992; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=w/8UFuYlqsJ3dGViD78Fjh+k40ZO86xrNe819xNRZ6c=;
+        b=fccsQiWToUhBpa11fM2xTC0kbFLlfzqkiDenYtjmm+PsNyAmzJ/ZHMxDCjf3RxrH5G
+         fsldWxzIG18PvpyeteATxGTQws2aMN/CcsbwcyC/ssbG/EZ58DnnjZXswWNiFYarO5dt
+         2BUjla/Bs6vY5TeIWD7d9r+S60LbZ7yeWo76wABJnGJMV3iI84uUqCgLsRmJ0oAinjwh
+         QsRFs1pUIc/85JbsLP02H2OJh5hTNAIwjA3shMMTgdFVyd1bMPnviXh+ZeMzitVLI7ze
+         +0QmQJGZr8HNOuayIQ6E12UUG/ei9qXOiIxr/6E9WjFdVsRAqu+JVEHHqgr/6JyIt8zZ
+         VmFg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791258170; x=1791862970;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=1e100.net; s=20260707; t=1791258192; x=1791862992;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=6ciyrU+oMiPwGK5aZ+ysyOdFUKDXGXj8SaQGvfUaxVI=;
-        b=gGjSMkd7s5WyzsLDFLc3REJMjhXXbCuUjOYGNithsa7QNLBUqrstOy4G1arwmv86/w
-         F0DCMDJU/kMibno6YqlFurOUP0kP8dnWOgpCDwnVgaEfD7RzZRdEkai+QpFAW2cglo67
-         5GYIOKBKO51cAi0Qfy/fmYpzTmPcdH8FbhwI0xHwHcn5fn43SEuPP04ev4fmK7MRzDu3
-         6b3Cc4YA9ai8bQ0uhOcdrCvtHdR9o2l0Fx10OO90aGzQLxdUUCYYAoAdGzzScSyA8DWW
-         q0lMtYZL+61Jl3ZddFh2d8+jmpKQtgsX2RDQXSdyqRNbqA7D+xb9tomx4xNavNPbEixs
-         olXg==
-X-Forwarded-Encrypted: i=1; AKwUvBx31Htm8reYGmLYQ38dHWJ+0mRaKDbbpzE1nlCddMQRHANUQ3ExflxW6nXBkIYqFqDzD1kYMQMMGdQTM4c=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLPZMyHNWjkgtuQYZtH15S1tKYu7rWAegRLEpSudybeWciwmgTN
-	fEx7MqH1jfZMWin2tlSKp8PsJNbLXMIvVx9+RGvg4PZG8K5s0u3ix3q0GwlYy1fh+rTtdVCIaFG
-	xzOrDViNk9eDcwTTYjLMBWX+KHOFaHN/CWnUqpm1KGPxK3hTVsaKVWnaVPyCBcD4KcA==
-X-Gm-Gg: AYBFou3/SiIAajno//MNqG+s+jbARJN0c5yeZ0nXgeLDxYvLrqswN2dWSBdbyF39DIS
-	xpICD3cw3lr+EbYetxd9OdL5J81/nvTVC0+2u0CZWQ/3B4k5tAiHGAgLxBG3H6A/3z3a/5CbKCF
-	ZFYVW8Py63239dVF9zII7Wb7iX2dvEod9vZ/r1e/mLWGaOB1wRZaHg5Y2JTjcB6tkgZXISmIALf
-	YB9ZF+pVWh7DXEhW34WRw/mFt7uAsvbHXJxPobv7mxIjCtJc2OonrahIEGVqBBQsabOqt8VdeeO
-	7ilHZwIaOC38/2MvASyAWVHW/jmI3dagKB3rT0bL9CM4lr7vKHQ/n4maMGMfl3Ff13sj7UdU/4M
-	m/2FDjppmJuhLn5/gMuMAkkZatv/7l+Lkb/z3SgvnSA==
-X-Received: by 2002:a17:90b:2886:b0:3a8:2c7e:8986 with SMTP id 98e67ed59e1d1-3a82c7e90c0mr3024688a91.17.1791258169453;
-        Mon, 05 Oct 2026 20:42:49 -0700 (PDT)
-X-Received: by 2002:a17:90b:2886:b0:3a8:2c7e:8986 with SMTP id 98e67ed59e1d1-3a82c7e90c0mr3024671a91.17.1791258168948;
-        Mon, 05 Oct 2026 20:42:48 -0700 (PDT)
-Received: from [192.168.68.52] (n175-34-8-244.mrk21.qld.optusnet.com.au. [175.34.8.244])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a7e4b00de6sm5567281a91.1.2026.10.05.20.42.40
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 05 Oct 2026 20:42:47 -0700 (PDT)
-Message-ID: <9bbb3b3c-522f-4deb-9f32-0fcf731dd0bb@redhat.com>
-Date: Tue, 6 Oct 2026 13:42:38 +1000
+        bh=w/8UFuYlqsJ3dGViD78Fjh+k40ZO86xrNe819xNRZ6c=;
+        b=Z+3pQFMMPN9jyjoQf5IAiOj8WHSmwPc1cmPzuVZiF6m+2xi6t/Hy4U55b6HjhdJNRI
+         QTMD7Ye+5bH49LJYtlSnMIU8FLHc8Vku6IEausOqlv4O6ZAo7Sg+YspSc0ppdd4ud7DG
+         BLt+DDMTlle+tnbrVAOPokK9iTDK6vfIyz+ryPtZ9f6+seUwJsZVgxvmRDkgUS669o/l
+         J+ebssanDFRfTPZVdmNahsrY63zhvvydLEwUlwIDd+Ce9YPxCjdp00ZTLUG90R+Z/akl
+         kJFnSk7qxALuExqeJHwYZou5rDNiaxT4wqsc0t7+knxSscEFR+jGWwmoLn/SR47JfmDW
+         2SpQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxlap1JpTXRTpVFitoGdmn5Yx7JvSN1lUbn9kU6WVvf7wzj6CkN8E2r62qPmGxp3RiDaZDS2uuMfhaY4B8=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKTPiBSajmMhMioK8x99KqN+fea9IfdkhJP1daMAtfmRdVBU1gW
+	ItvoOeulLGdkZzv5jKzFnZI1gd3UcrfL/a+el8gPTsy1WMaFUbpoU/ic
+X-Gm-Gg: AYBFou3i72OgFSubOxU3Tc0+cONufC3e/ThXNDjC7ZrvutSRg5tdD7sm9jBGVaYI3Sj
+	E+Dttfq/MpTZmDbvfi6x8C2JAdDq197OeqBkDsgOC1UbQKAz/bpp4X0tKnDPQKb4bHE+UmrNyOx
+	dpq/uFKd/1jkuiLebrOcrP2DEoe/JZp9wDQHCnTq5lSohLWznMm/JobnLjw6E9Bh65n/6EjbfYy
+	r9LyCFLy6BYn7WEfzLiGTWNg7CRfU2VkSB1oGsxY0Vcs9YI3W5zT220GrvxUfX/+IUT6oyuFvZh
+	Fm+lj5xdoHC5879GNOeGW89Iy0Bc431XVNIS+v4pc0HfjIHjUi5f735DuDJRVyHeIBKqolPVCPd
+	GtmfWkcsgBF0X1ZQnuEsWEc+GtpjogUvkBNA0KHnDrmsObi+xtgXGtoeBRgZ+hYhpeeO3fK1YGg
+	PtdnEX6zauNU9VueuvcMJ8CTgCKT2YbmGXGFN/yNeEBTjT8kDBoKpHBB3iSqASdBvbjQO5x/6Ny
+	aDj2S0NwohxNOBBwSaEu4DRvds63SO/notvPaTV3Y3EhRaYUeQOIqoFnJM7SOwXLGEJsmKxGgEy
+	bxAUCdbSowIYRPlvF85vfCdbkGa2lS7DiC8=
+X-Received: by 2002:a05:600c:c10f:b0:4a0:1fe2:d4c8 with SMTP id 5b1f17b1804b1-4a1680dd3f4mr101835215e9.5.1791258192149;
+        Mon, 05 Oct 2026 20:43:12 -0700 (PDT)
+Received: from localhost.localdomain (dynamic-095-117-040-097.95.117.pool.telefonica.de. [95.117.40.97])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a178c5d8dfsm38419705e9.14.2026.10.05.20.43.10
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Mon, 05 Oct 2026 20:43:11 -0700 (PDT)
+From: Karl Mehltretter <kmehltretter@gmail.com>
+To: Jonathan Cameron <jic23@kernel.org>
+Cc: Karl Mehltretter <kmehltretter@gmail.com>,
+	David Lechner <dlechner@baylibre.com>,
+	=?UTF-8?q?Nuno=20S=C3=A1?= <nuno.sa@analog.com>,
+	Andy Shevchenko <andy@kernel.org>,
+	Leonard Crestez <cdleonard@gmail.com>,
+	linux-iio@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: [PATCH] iio: trigger: Return an error when the trigger has no free irq
+Date: Tue,  6 Oct 2026 05:41:47 +0200
+Message-Id: <20261006034147.2370-1-kmehltretter@gmail.com>
+X-Mailer: git-send-email 2.39.5 (Apple Git-154)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v22 18/23] KVM: arm64: CCA: Introduce Realms
-To: Suzuki K Poulose <suzuki.poulose@arm.com>, kvm@vger.kernel.org,
- kvmarm@lists.linux.dev
-Cc: maz@kernel.org, will@kernel.org, catalin.marinas@arm.com,
- linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- steven.price@arm.com, aneesh.kumar@kernel.org, oupton@kernel.org,
- joey.gouly@arm.com, tabba@google.com, yuzenghui@huawei.com,
- linux-coco@lists.linux.dev, gankulkarni@os.amperecomputing.com,
- sdonthineni@nvidia.com, alpergun@google.com, fj0570is@fujitsu.com,
- WeiLin.Chang@arm.com, lpieralisi@kernel.org, enju.kohei@fujitsu.com,
- sudeep.holla@arm.com, jonathan.cameron@oss.qualcomm.com
-References: <20261005090754.2140522-1-suzuki.poulose@arm.com>
- <20261005090754.2140522-19-suzuki.poulose@arm.com>
-Content-Language: en-US
-From: Gavin Shan <gshan@redhat.com>
-In-Reply-To: <20261005090754.2140522-19-suzuki.poulose@arm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 10/5/26 7:07 PM, Suzuki K Poulose wrote:
-> From: Steven Price <steven.price@arm.com>
-> 
-> Add foundational work for supporting Realms.
->   - Add a new VM flavor.
->   - At KVM init, check if the KVM can support Realms (though not functional
->     yet) and will be advertised by static key kvm_rmi_is_available. This
->     will be turned on in a later patches, once we have all the bits and
->     pieces ready. For now check if we are blessed with KVM_MODE_RMM.
->   - Add realm specific tracking in kvm_arch. Since Realm and protected pKVM
->     states are mutually exclusive, move them into a union.
-> 
-> Please note that we cannot create Realm VMs yet. This requires further
-> changes to the UABI and core RMI driver support, which will come later.
-> 
-> Reviewed-by: Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
-> Signed-off-by: Steven Price <steven.price@arm.com>
-> Co-developed-by: Suzuki K Poulose <suzuki.poulose@arm.com>
-> Signed-off-by: Suzuki K Poulose <suzuki.poulose@arm.com>
-> ---
->   arch/arm64/include/asm/kvm_emulate.h | 16 ++++++++
->   arch/arm64/include/asm/kvm_host.h    | 19 ++++++---
->   arch/arm64/include/asm/kvm_rmi.h     | 61 ++++++++++++++++++++++++++++
->   arch/arm64/include/asm/virt.h        |  1 +
->   arch/arm64/kvm/Makefile              |  2 +-
->   arch/arm64/kvm/arm.c                 |  6 +++
->   arch/arm64/kvm/mmu.c                 |  1 +
->   arch/arm64/kvm/rmi.c                 | 18 ++++++++
->   8 files changed, 118 insertions(+), 6 deletions(-)
->   create mode 100644 arch/arm64/include/asm/kvm_rmi.h
->   create mode 100644 arch/arm64/kvm/rmi.c
-> 
-> diff --git a/arch/arm64/include/asm/kvm_emulate.h b/arch/arm64/include/asm/kvm_emulate.h
-> index a3c1928bdf743..d360a8b05b8bf 100644
-> --- a/arch/arm64/include/asm/kvm_emulate.h
-> +++ b/arch/arm64/include/asm/kvm_emulate.h
-> @@ -793,4 +793,20 @@ static inline void kvm_reset_vcpu_psci(struct kvm_vcpu *vcpu,
->   	vcpu_set_reg(vcpu, 0, reset_state->r0);
->   }
->   
-> +static inline enum realm_state kvm_realm_state(struct kvm *kvm)
-> +{
-> +	return READ_ONCE(kvm->arch.realm.state);
-> +}
-> +
-> +static inline void kvm_set_realm_state(struct kvm *kvm,
-> +				       enum realm_state new_state)
-> +{
-> +	WRITE_ONCE(kvm->arch.realm.state, new_state);
-> +}
-> +
-> +static inline bool kvm_realm_is_created(struct kvm *kvm)
-> +{
-> +	return kvm_vm_is_realm(kvm) && kvm_realm_state(kvm) != REALM_STATE_NONE;
-> +}
-> +
->   #endif /* __ARM64_KVM_EMULATE_H__ */
-> diff --git a/arch/arm64/include/asm/kvm_host.h b/arch/arm64/include/asm/kvm_host.h
-> index dfa9d4ec61a76..3debffef638a4 100644
-> --- a/arch/arm64/include/asm/kvm_host.h
-> +++ b/arch/arm64/include/asm/kvm_host.h
-> @@ -27,6 +27,7 @@
->   #include <asm/fpsimd.h>
->   #include <asm/kvm.h>
->   #include <asm/kvm_asm.h>
-> +#include <asm/kvm_rmi.h>
->   #include <asm/vncr_mapping.h>
->   
->   #define __KVM_HAVE_ARCH_INTC_INITIALIZED
-> @@ -334,6 +335,7 @@ enum kvm_arm_vm_flavor {
->   	VM_PKVM,		/* Normal guests on pKVM */
->   	MARKER(__VM_PROTECTED),
->   	VM_PROTECTED_PKVM,	/* Protected VM */
-> +	VM_REALM,		/* CCA */
->   	VM_FLAVOR_MAX
->   };
->   
-> @@ -450,11 +452,14 @@ struct kvm_arch {
->   	/* Count the number of VNCR_EL2 TLBs */
->   	atomic_t vncr_tlb_count;
->   
-> -	/*
-> -	 * For an untrusted host VM, 'pkvm.handle' is used to lookup
-> -	 * the associated pKVM instance in the hypervisor.
-> -	 */
-> -	struct kvm_protected_vm pkvm;
-> +	union {
-> +		/*
-> +		 * For an untrusted host VM, 'pkvm.handle' is used to lookup
-> +		 * the associated pKVM instance in the hypervisor.
-> +		 */
-> +		struct kvm_protected_vm pkvm;
-> +		struct realm realm;
-> +	};
->   
->   #ifdef CONFIG_PTDUMP_STAGE2_DEBUGFS
->   	/* Nested virtualization info */
-> @@ -1565,6 +1570,10 @@ struct kvm *kvm_arch_alloc_vm(void);
->   		(__kvm && kvm_vm_is_protected_pkvm(__kvm));		\
->   	})
->   
-> +
-> +#define kvm_vm_is_realm(kvm)		((kvm)->arch.vm_flavor == VM_REALM)
-> +#define vcpu_is_rec(vcpu)		kvm_vm_is_realm((vcpu)->kvm)
-> +
+iio_trigger_attach_poll_func() prints an error when all
+CONFIG_IIO_CONSUMERS_PER_TRIGGER irqs of the trigger are in use, but
+returns 0. The buffer of the extra consumer is enabled without a poll
+function.
 
-vcpu_is_rec() isn't safely called in nVHE hyp stub. So do we need add something
-similiar to what we had for vcpu_is_protected(vcpu) in PATCH[05]?
+Disabling that buffer calls clear_bit() with a negative bit number and
+drops a module reference for the second time. On arm and arm64 the
+clear_bit() goes about 512 MB past the pool bitmap. That is an oops if
+the address is not mapped, and a bit cleared in unrelated memory if it
+is.
 
-#ifdef __KVM_NVHE_HYPERVISOR__
-/* vcpu_is_rec() isn't expected to called in nVHE hyp stub */
-#define vcpu_is_rec(vcpu)	BUILD_BUG_ON(1)
-#else
-#define vcpu_is_rec(vcpu)	kvm_vm_is_realm((vcpu)->kvm)
-#endif
+Return the error from iio_trigger_get_irq().
 
+Fixes: 995438233579 ("iio: Fix error handling in iio_trigger_attach_poll_func")
+Cc: stable@vger.kernel.org
+Assisted-by: LLM
+Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
+---
+Found with an experimental clang warning for a function that returns 0
+right after it reports a failure.
 
->   #define kvm_vm_hyp_is_distrusting(kvm)	((kvm)->arch.vm_flavor >= __VM_DISTRUSTING_HYP)
->   
->   int kvm_arm_vcpu_finalize(struct kvm_vcpu *vcpu, int feature);
-> diff --git a/arch/arm64/include/asm/kvm_rmi.h b/arch/arm64/include/asm/kvm_rmi.h
-> new file mode 100644
-> index 0000000000000..44f5c75a27b5b
-> --- /dev/null
-> +++ b/arch/arm64/include/asm/kvm_rmi.h
-> @@ -0,0 +1,61 @@
-> +/* SPDX-License-Identifier: GPL-2.0 */
-> +/*
-> + * Copyright (C) 2023-2026 ARM Ltd.
-> + */
-> +
-> +#ifndef __ASM_KVM_RMI_H
-> +#define __ASM_KVM_RMI_H
-> +
-> +/**
-> + * enum realm_state - State of a Realm
-> + *
-> + * Mirrors the RMM's Realm lifecycle states where they are meaningful to KVM,
-> + * with REALM_STATE_DYING being a KVM-internal state used to prevent further
-> + * requests while teardown is in progress. KVM does not track REALM_SYSTEM_OFF
-> + * or REALM_ZOMBIE separately as they naturally lead to teardown.
-> + */
-> +enum realm_state {
-> +	/**
-> +	 * @REALM_STATE_NONE:
-> +	 *      Realm has not yet been created. rmi_realm_create() has not
-> +	 *      yet been called.
-> +	 */
-> +	REALM_STATE_NONE,
-> +	/**
-> +	 * @REALM_STATE_NEW:
-> +	 *      Realm is under construction, rmi_realm_create() has been
-> +	 *      called, but it is not yet activated. Pages may be populated.
-                                                      ^^^^^
-Granule instead of page is the term applicable to RMM. Lets use a generic
-term 'memory' here. Also, lets mention the name of the function used to
-populate the memory (granules), which is consistent to the comments for
-REALM_STATE_ACTIVE.
+Tested in QEMU with three consumers on one hrtimer trigger and
+CONFIG_IIO_CONSUMERS_PER_TRIGGER=2. Without the patch the third write to
+buffer/enable returns 0. With it the write fails with -ENOMEM and the
+buffers are disabled without a message.
 
-	Memory may be populated by rmi_rtt_data_map_init().
+Disabling the buffers without the patch:
 
+arm, vexpress-a9, st_magn on three emulated LSM303DLHC:
 
-> +	 */
-> +	REALM_STATE_NEW,
-> +	/**
-> +	 * @REALM_STATE_ACTIVE:
-> +	 *      Realm has been created and is eligible for execution with
-> +	 *      rmi_rec_enter(). Pages may no longer be populated with
-> +	 *      rmi_data_create().
-> +	 */
-> +	REALM_STATE_ACTIVE,
+  Unable to handle kernel paging request at virtual address a1a2e690 when read
+  PC is at _clear_bit+0x20/0x38
+  LR is at iio_trigger_detach_poll_func+0x88/0xdc
 
-rmi_data_create() is an invalid function name.
+arm64, virt with 256 MB, iio dummy devices:
 
-	Memory can't longer be populated using rmi_rtt_data_map_init().
+  Unable to handle kernel paging request at virtual address ffff000020b94348
+  pc : iio_trigger_put_irq+0x4c/0x74
+  iio_trigger_detach_poll_func+0x4c/0x90
 
-> +	/**
-> +	 * @REALM_STATE_DYING:
-> +	 *      Realm is in the process of being destroyed or has already been
-> +	 *      destroyed.
-> +	 */
-> +	REALM_STATE_DYING,
-> +	/**
-> +	 * @REALM_STATE_DEAD:
-> +	 *      Realm has been destroyed.
-> +	 */
-> +	REALM_STATE_DEAD
-> +};
-> +
-> +/**
-> + * struct realm - Additional per VM data for a Realm
-> + *
-> + * @state: The lifetime state machine for the realm
-> + */
-> +struct realm {
-> +	enum realm_state state;
-> +};
-> +
-> +void kvm_init_rmi(void);
-> +
-> +#endif /* __ASM_KVM_RMI_H */
-> diff --git a/arch/arm64/include/asm/virt.h b/arch/arm64/include/asm/virt.h
-> index b546703c3ab9a..92cec42952f42 100644
-> --- a/arch/arm64/include/asm/virt.h
-> +++ b/arch/arm64/include/asm/virt.h
-> @@ -87,6 +87,7 @@ void __hyp_reset_vectors(void);
->   bool is_kvm_arm_initialised(void);
->   
->   DECLARE_STATIC_KEY_FALSE(kvm_protected_mode_initialized);
-> +DECLARE_STATIC_KEY_FALSE(kvm_rmi_is_available);
->   
->   static inline bool is_pkvm_initialized(void)
->   {
-> diff --git a/arch/arm64/kvm/Makefile b/arch/arm64/kvm/Makefile
-> index 59612d2f277c1..ed3cf30eb06e7 100644
-> --- a/arch/arm64/kvm/Makefile
-> +++ b/arch/arm64/kvm/Makefile
-> @@ -16,7 +16,7 @@ CFLAGS_handle_exit.o += -Wno-override-init
->   kvm-y += arm.o mmu.o mmio.o psci.o hypercalls.o pvtime.o \
->   	 inject_fault.o va_layout.o handle_exit.o config.o \
->   	 guest.o debug.o reset.o sys_regs.o stacktrace.o \
-> -	 vgic-sys-reg-v3.o fpsimd.o pkvm.o \
-> +	 vgic-sys-reg-v3.o fpsimd.o pkvm.o rmi.o \
->   	 arch_timer.o trng.o vmid.o emulate-nested.o nested.o at.o \
->   	 vgic/vgic.o vgic/vgic-init.o \
->   	 vgic/vgic-irqfd.o vgic/vgic-v2.o \
-> diff --git a/arch/arm64/kvm/arm.c b/arch/arm64/kvm/arm.c
-> index 294cea4cc8271..37ef2ba4e43e2 100644
-> --- a/arch/arm64/kvm/arm.c
-> +++ b/arch/arm64/kvm/arm.c
-> @@ -42,6 +42,7 @@
->   #include <asm/kvm_nested.h>
->   #include <asm/kvm_pkvm.h>
->   #include <asm/kvm_ptrauth.h>
-> +#include <asm/kvm_rmi.h>
->   #include <asm/sections.h>
->   #include <asm/stacktrace/nvhe.h>
->   
-> @@ -112,6 +113,8 @@ long kvm_get_cap_for_kvm_ioctl(unsigned int ioctl, long *ext)
->   	return -EINVAL;
->   }
->   
-> +DEFINE_STATIC_KEY_FALSE(kvm_rmi_is_available);
-> +
->   DECLARE_KVM_HYP_PER_CPU(unsigned long, kvm_hyp_vector);
->   
->   DEFINE_PER_CPU(unsigned long, kvm_arm_hyp_stack_base);
-> @@ -2239,6 +2242,7 @@ static const struct kvm_vcpu_ops *arm64_vcpu_ops[] = {
->   	KVM_VCPU_OPS(VM_VHE, vhe_vcpu_ops),
->   	KVM_VCPU_OPS(VM_PKVM, pkvm_vcpu_ops),
->   	KVM_VCPU_OPS(VM_PROTECTED_PKVM, pkvm_vcpu_ops),
-> +	KVM_VCPU_OPS(VM_REALM, realm_vcpu_ops),
->   };
->   
->   static void kvm_init_vcpu_ops(struct kvm_vcpu *vcpu)
-> @@ -3192,6 +3196,8 @@ static __init int kvm_arm_init(void)
->   
->   	in_hyp_mode = is_kernel_in_hyp_mode();
->   
-> +	kvm_init_rmi();
-> +
->   	if (cpus_have_final_cap(ARM64_WORKAROUND_DEVICE_LOAD_ACQUIRE) ||
->   	    cpus_have_final_cap(ARM64_WORKAROUND_1508412))
->   		kvm_info("Guests without required CPU erratum workarounds can deadlock system!\n" \
-> diff --git a/arch/arm64/kvm/mmu.c b/arch/arm64/kvm/mmu.c
-> index 58bc6a85f48b4..697f1ba6667a9 100644
-> --- a/arch/arm64/kvm/mmu.c
-> +++ b/arch/arm64/kvm/mmu.c
-> @@ -2927,6 +2927,7 @@ static const struct kvm_vm_s2_ops *arm64_vm_s2_ops[] = {
->   	KVM_VM_S2_OPS(VM_NVHE, kvm_default_vm_s2_ops),
->   	KVM_VM_S2_OPS(VM_PKVM, pkvm_vm_s2_ops),
->   	KVM_VM_S2_OPS(VM_PROTECTED_PKVM, protected_pkvm_vm_s2_ops),
-> +	KVM_VM_S2_OPS(VM_REALM, realm_vm_s2_ops),
->   };
->   
->   static int kvm_vm_init_vm_s2_ops(struct kvm *kvm)
-> diff --git a/arch/arm64/kvm/rmi.c b/arch/arm64/kvm/rmi.c
-> new file mode 100644
-> index 0000000000000..5ecc8b3498698
-> --- /dev/null
-> +++ b/arch/arm64/kvm/rmi.c
-> @@ -0,0 +1,18 @@
-> +// SPDX-License-Identifier: GPL-2.0
-> +/*
-> + * Copyright (C) 2023-2026 ARM Ltd.
-> + */
-> +
-> +#include <linux/kvm_host.h>
-> +
-> +#include <asm/virt.h>
-> +
-> +void kvm_init_rmi(void)
-> +{
-> +	if (kvm_get_mode() != KVM_MODE_RMM)
-> +		return;
-> +
-> +	/* TODO: Check if the RMI is available */
-> +
-> +	/* Future patch will enable static branch kvm_rmi_is_available */
-> +}
+arm64 with 2 GB and x86_64 show no message. On x86_64 the reference
+count of the dummy driver module drops by one per round.
 
-Thanks,
-Gavin
+ drivers/iio/industrialio-trigger.c | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/drivers/iio/industrialio-trigger.c b/drivers/iio/industrialio-trigger.c
+index 17781c12bc85..09d3dfc9d812 100644
+--- a/drivers/iio/industrialio-trigger.c
++++ b/drivers/iio/industrialio-trigger.c
+@@ -293,6 +293,7 @@ int iio_trigger_attach_poll_func(struct iio_trigger *trig,
+ 	if (pf->irq < 0) {
+ 		pr_err("Could not find an available irq for trigger %s, CONFIG_IIO_CONSUMERS_PER_TRIGGER=%d limit might be exceeded\n",
+ 			trig->name, CONFIG_IIO_CONSUMERS_PER_TRIGGER);
++		ret = pf->irq;
+ 		goto out_put_module;
+ 	}
+ 
+
+base-commit: e767a4ea70a3992c37ed604157d32f0dfbf9b1e3
+-- 
+2.53.0
 
