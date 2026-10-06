@@ -1,203 +1,100 @@
-Received: from mail-pj1-f54.google.com (mail-pj1-f54.google.com [209.85.216.54])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.17])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B8B613BE16E
-	for <linux-kernel@vger.kernel.org>; Tue,  6 Oct 2026 07:35:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.54
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1804D3BD22F;
+	Tue,  6 Oct 2026 07:36:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.17
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791272135; cv=none; b=Pt5g1rqYh0QGx2coZ7X7bGJv6U/n+UFOl/0fgGFnyPTNZgcHgOA+Sjbws6Ro4dYtv7upRNtiyIrEY0yoCiRPitB+zfHLpGV9Gs/Nlnxrf8BQhmBospVGngrV+AMxgAvR7tvdhvY4JwtZAOzalvqcoqY97qZ7qqaRXinWgera13c=
+	t=1791272190; cv=none; b=Ggnb0jo1W4Be8dEG0mdD72ZS3KdriL/PQ6x/vYraCJX7remiWNqFhCNWHm6TY1kzqeVmAwMalaI1UB536I/z4oY1yP+DijHdnybpJ2E9TMpVliz3skxUcyzjUfpyfAKEH4r/DOUQ9EtgafNCb6NA2+MVYh1AJoY6hEIshb+272Q=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791272135; c=relaxed/simple;
-	bh=do1dMayp7U7ifv/lWJTLCMSukgZtOZVBd757AhYFjzQ=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version:Content-Type; b=VsF9TMIMzumFNPlWGXMgirtOTQ0LLnWaaUlxeSHYSBCZZGEIDwQzxRRVVkR5a5IAGDmRFjJliiFfYXLU0NQvc01n7dGalmyAMuN40tEAV+pLdLhL4/Ec5l6q74EfIPAsc7jVu4Ro6c50NzsH9OQcqOTo9aJF2lfPN5cDfX01yks=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=FlA1lkSi; arc=none smtp.client-ip=209.85.216.54
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1791272190; c=relaxed/simple;
+	bh=yeWaKhrm+WR9bLBovNZ3j0cg/B3ktN5heCYTCG/FzqU=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Yw8TJ07TvRa2BxlJ2GbG2yATnqpeGnn7CPUvrOQl66HiaTQsaJT7Z0jBdfxI5CQzhSN8WCzRbNpTBGNWbFtvVyeewrg7kcj9sT3AQLNIsI3TPiV/A+a0M82FiomyXQzPEN02MadQOxJXI1k6aQ5TT0yiCxbz8XQ1l9Z0L5+I2Gk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=IrBTefDs; arc=none smtp.client-ip=192.198.163.17
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="FlA1lkSi"
-Received: by mail-pj1-f54.google.com with SMTP id 98e67ed59e1d1-383b4a3755fso1824469a91.3
-        for <linux-kernel@vger.kernel.org>; Tue, 06 Oct 2026 00:35:32 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791272131; x=1791876931; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=b4BrqLwRac07pdPdRF0B1ATcS+C3c1Au4CQIaLL2DKM=;
-        b=FlA1lkSixPOSeKNrplUUjjeGn0PLFKvHIj0sxzwz9PfCNlBuOLam5UbwHudBXwUYEx
-         4WA+B1VWplmtyQU81OO3rQbNofkfQcNX8HpjxH3Qp4hxe8giTstrlNTWTbjzfEnbszbR
-         co53rjmns7n3UzZPfvz7Wf0hdUe7KuWqmMpuIw6VQrc3q6e6/LPvJZhf81zm1dnJJJF0
-         nbHzElvL74YL64jCvM2lIoWBF9UEtIEkPBgsAYcx3r0A+LCA1sMxOq3OM7Tj/MWp/uEE
-         n79k6iCRo6NRJHjepn0XCLzX/6E1t1Ns47Sm1kv+DjsBHSuVAHUdTDjiOLEgDR4frQbK
-         QxsA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791272131; x=1791876931;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=b4BrqLwRac07pdPdRF0B1ATcS+C3c1Au4CQIaLL2DKM=;
-        b=aggQnxnPOiM2KTg/cwxx4Vm7bXiWC/TbV43zLAkFwVQKihNYHXAAuetfjlZos4D9nb
-         q+4dDs4qIBo6M9PCwlfzmzWHBAKp1Xp5ocVnIykPr5RG6Acny1dE9QwERX9Sz0J6KtPu
-         EjDz620z1LRHDDtlUwgnLz7OV/iOTdmVbYD0n2w/J4MTA0IDB9wsalJt+VFqCvslbZfj
-         TeS5sNeBHxkSWNwMH/4Z4CNVxNQhj5Nw319u1JXJvUPp8CLy4pISOUIhMe2cQFUnPJiv
-         2WGCWMe7sg5Vh7/yW8ZZrCRCHFlGHqbtrejEpTyzkt1kOafMOmleELDOsn8F1lTkOhqg
-         8duA==
-X-Forwarded-Encrypted: i=1; AKwUvBxKX5/wgfBrC5G5NINR/3DT53phGvMgLLZ+sSQFb43v5ZKyMg4prp26govJyg7fKhgvEm9Ak1meRvt2/WM=@vger.kernel.org
-X-Gm-Message-State: AFq9FYK6GMbQWQUO27P+Q9AjGuC4XjGEFgvc1s1F7lkkcdOwILqb+t2X
-	3oTq98hJfh/ZOloZSsIZ7mIi8+lYvmanrBSs2tl4cNs/SC81+pqiej+N
-X-Gm-Gg: AYBFou1jZsFYfbCXmjvdC8MqmtEIcOV931WLPow6z2DrZkyVNYAoDpF1w6o5DIQAKBt
-	E7o0BgvYA9b3M5OxXPumhJPBHm2awtiXcOAdjQ0FLbyGYG1Yq2UVHeTNnMB2mWxs6wfT93cbitC
-	S4H+++dLzvtITsoo+aWGN1NY1HJC6LooWjNJXS0pU2cONEJZ2W4HKDYJkG9T1bmueJirT8AMcjD
-	QC4qoidH4J2vZZH3bPCMlrvhJflEksOe+HlrBKy9NiGZZm8oBWSib9FaJaAZm0W9eiL7FLnw4Ak
-	35KLvhqokRhmSUOYAClEl28FAPk5S3/jjtsKJ6Y/AubRdWPjwhvmCnu7Fg6wyMEpkEMcovk+8jl
-	f6lBdkWEqYu9jpdtEXBx8Go+6bqXsIUpEHO/yjRBeKVk9HzmPmZJIssdGrp05ywV/7B1CuaLzSn
-	gaT9uRt6Sjic2TujlILLgasRqkhf/Zrtr3dO77XA14NVLhOqHCwcPl+58N2AL5slNlyzSV6SONH
-	Mv5SQ==
-X-Received: by 2002:a17:90b:2e48:b0:3a8:599b:2499 with SMTP id 98e67ed59e1d1-3a8599b2775mr1489621a91.10.1791272130560;
-        Tue, 06 Oct 2026 00:35:30 -0700 (PDT)
-Received: from localhost ([111.228.63.84])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a8533abe0asm3530707a91.1.2026.10.06.00.35.25
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 06 Oct 2026 00:35:29 -0700 (PDT)
-From: Cen Zhang <zzzccc427@gmail.com>
-To: marcel@holtmann.org,
-	luiz.dentz@gmail.com
-Cc: linux-bluetooth@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	baijiaju1990@gmail.com,
-	jjzuming@gmail.com,
-	zzzccc427@gmail.com
-Subject: [PATCH] Bluetooth: 6LoWPAN: Use RCU-safe device list removal
-Date: Tue,  6 Oct 2026 15:35:23 +0800
-Message-Id: <pm-bluetooth-objects-candidate-0231-v5-32295fa35099b0d50b92@gmail.com>
-X-Mailer: git-send-email 2.34.1
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="IrBTefDs"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1791272186; x=1822808186;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:content-transfer-encoding:in-reply-to;
+  bh=yeWaKhrm+WR9bLBovNZ3j0cg/B3ktN5heCYTCG/FzqU=;
+  b=IrBTefDsyd76w6JZGswrHSc2LISTKP6Dn2jfcPKWzPa/hKPQoFzd8cm5
+   Ji9NdyM8s1YwLsxrOHPDBCY5EpfGVljFvfWuTk9WD0IqVEc+3w653Znxh
+   KpP8r0MBg4TNhl8JfzfKVTIf5fmMq4F+SuVAg3NQSk0Uk+3+qHyNaryOX
+   GVuE2f6q1vfw9QYnUwB3n8dJ8wQRhpY0psvCk6xWYhZghXkQAGZavIr3l
+   kU+CABV54fB9CtnySJxifXPBU+TfrqJe9yNUJOdG80EUQ2eBcigjBJ/8f
+   WmaKttD2fWEXOtx6gTtflTvlkRlqaI6AUOZpFJIdfv0sTYuA5jJXKyXRL
+   g==;
+X-CSE-ConnectionGUID: GGl7k1lMTKWp+f50kLTs/A==
+X-CSE-MsgGUID: Lm6SlYnNQkWdiAZmaG5vug==
+X-IronPort-AV: E=McAfee;i="6800,10657,11926"; a="8866"
+X-IronPort-AV: E=Sophos;i="6.27,143,1787036400"; 
+   d="scan'208";a="8866"
+Received: from fmviesa013.fm.intel.com ([10.60.135.153])
+  by fmvoesa111.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 06 Oct 2026 00:36:23 -0700
+X-CSE-ConnectionGUID: fvjocqIcQz2EJtYqpGak0w==
+X-CSE-MsgGUID: nRfyIxf3T8C0XksoKhGq4g==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,143,1787036400"; 
+   d="scan'208";a="1105882"
+Received: from pgcooper-mobl3.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.244.66])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 06 Oct 2026 00:36:19 -0700
+Received: from kekkonen.localdomain (localhost [IPv6:::1])
+	by kekkonen.fi.intel.com (Postfix) with ESMTP id 5D586121BCD;
+	Tue, 06 Oct 2026 10:36:20 +0300 (EEST)
+Date: Tue, 6 Oct 2026 10:36:20 +0300
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
+From: Sakari Ailus <sakari.ailus@linux.intel.com>
+To: Mirela Rabulea <mirela.rabulea@nxp.com>
+Cc: Rishikesh Donadkar <r-donadkar@ti.com>, linux-media@vger.kernel.org,
+	linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	tomi.valkeinen@ideasonboard.com, mchehab@kernel.org,
+	robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, nm@ti.com,
+	vigneshr@ti.com, kristo@kernel.org, mripard@kernel.org,
+	jai.luthra@linux.dev, jai.luthra@ideasonboard.com, devarsht@ti.com,
+	y-abhilashchandra@ti.com, laurent.pinchart@ideasonboard.com
+Subject: Re: [RFC PATCH 6/8] media: i2c: ov2312: add Omnivison OV2312 driver
+Message-ID: <asSk9KW-lzuiUJa3@kekkonen.localdomain>
+References: <20260925133001.2780868-1-r-donadkar@ti.com>
+ <20260925133001.2780868-7-r-donadkar@ti.com>
+ <e469d168-39f9-448c-a7ab-5d02b79d8cb8@nxp.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <e469d168-39f9-448c-a7ab-5d02b79d8cb8@nxp.com>
 
-RCU readers of bt_6lowpan_devices must be able to follow an adapter's
-forward link until their read-side critical section ends. The entries
-are published with list_add_rcu(), but device_event() removes an entry
-on NETDEV_UNREGISTER with list_del(), poisoning that link.
+Hi Mirela,
 
-When an adapter is being unregistered and 6LoWPAN is enabled, a
-6lowpan_control debugfs write with an existing LE L2CAP connection can
-enter lookup_peer() after unregister's first synchronize_net(). If the
-connection has no peer on that adapter, the reader must advance to the
-next list entry. Neither RTNL nor devices_lock excludes this RCU reader.
+On Fri, Oct 02, 2026 at 07:16:11PM +0300, Mirela Rabulea wrote:
+> Laurent, Hans, Sakari,
+> 
+> did you encounter similar situations? Any comments or proposals? The concern
+> here, to summarize, is: v4l2 control cannot be committed to sensor registers
+> right away (even when streaming) and we are also unsure when the right
+> moment to perform the register access may come.
 
-The last peer's chan_close_cb() schedules delete_netdev(), which reaches
-unregister_netdevice_many_notify() through unregister_dev() and
-lowpan_unregister_netdev(). The following ordering is possible:
+In practice there's little the kernel overall can do about this: the timing
+of everything is handled by the userspace. Drivers that aren't directly in
+control of the data path don't even have frame timing information and even
+if we did pass that to drivers, I²C writes always have some uncertainty
+(system scheduling, I²C access failures etc.), so one needs to be prepared
+to failing to do the writes in time, which would further complicate the
+UAPI.
 
-  Unregister worker                 Control writer
-  -----------------                 --------------
-  synchronize_net() returns
-                                    lowpan_control_write()
-                                    lookup_peer(): rcu_read_lock()
-                                    reach adapter; no matching peer
-  device_event(): devices_lock
-  list_del(&entry->list)
-  spin_unlock(&devices_lock)
-                                    follow poisoned next link
-                                    read invalid adapter address
-  post-notifier synchronize_net()
-    waits for the reader
+Do you have libcamera in userspace or something else?
 
-This invalid pointer access can fault in lookup_peer(). The first grace
-period drains existing readers but permits new ones to start, and the
-later grace period cannot prevent the intervening poisoned-link access.
+-- 
+Kind regards,
 
-Use list_del_rcu() under the existing devices_lock to preserve the
-forward link for readers that already reached the adapter. The existing
-post-notifier synchronize_net() waits for those readers before netdevice
-teardown frees the private storage containing lowpan_btle_dev.
-
-KASAN report as below:
-
-    [...]
-    [   45.867526] Oops: general protection fault, probably for non-canonical address 0xfbd59c0000000023: 0000 [#1] SMP KASAN NOPTI
-    [   45.869489] KASAN: maybe wild-memory-access in range [0xdead000000000118-0xdead00000000011f]
-    [   45.870981] CPU: 1 UID: 0 PID: 646 Comm: sh Not tainted 7.2.0-rc6-pmb-bt-functional-v1+ #4 PREEMPT(lazy) 
-    [   45.872609] Hardware name: QEMU Ubuntu 24.04 PC v2 (i440FX + PIIX, arch_caps fix, 1996), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
-    [   45.874380] RIP: 0010:lookup_peer+0x1ba/0x320
-    [   45.875067] Code: 48 89 d9 ba 04 00 00 00 4c 89 fe bf a0 06 00 00 e8 2b e8 ad fb e9 56 ff ff ff e8 01 1e c3 fb 49 8d 7f 18 48 89 f8 48 c1 e8 03 <80> 3c 28 00 0f 85 4a 01 00 00 4d 8b 47 18 4c 89 f1 ba 04 00 00 00
-    [   45.878206] RSP: 0018:ffff888114d67b90 EFLAGS: 00010212
-    [   45.879106] RAX: 1bd5a00000000023 RBX: 0000000000000000 RCX: ffffffff85c1d19f
-    [   45.880334] RDX: ffff88810dc35700 RSI: 0000000000000000 RDI: dead000000000118
-    [   45.881455] RBP: dffffc0000000000 R08: 0000000000000001 R09: 0000000000000001
-    [   45.882546] R10: ffffffff893d3057 R11: ffff88810dc35700 R12: ffff88810a690000
-    [   45.883839] R13: ffff888115451038 R14: ffff88810a690000 R15: dead000000000100
-    [   45.885186] FS:  00007fa889bac780(0000) GS:ffff8881fd852000(0000) knlGS:0000000000000000
-    [   45.886539] CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-    [   45.887527] CR2: 00007ffe304f2f80 CR3: 0000000104f64005 CR4: 0000000000770ef0
-    [   45.888687] PKRU: 55555554
-    [   45.889183] Call Trace:
-    [   45.889666]  <TASK>
-    [   45.890061]  lowpan_control_write+0x445/0x9e0
-    [   45.890854]  ? __pfx_lowpan_control_write+0x10/0x10
-    [   45.891738]  ? srso_alias_return_thunk+0x5/0xfbef5
-    [   45.892603]  ? srso_alias_return_thunk+0x5/0xfbef5
-    [   45.893383]  ? __debugfs_file_get+0x1bd/0x7f0
-    [   45.894057]  ? srso_alias_return_thunk+0x5/0xfbef5
-    [   45.894902]  ? lock_acquire+0x17b/0x2f0
-    [   45.895593]  ? ksys_write+0x111/0x200
-    [   45.896290]  full_proxy_write+0x11f/0x180
-    [   45.896991]  vfs_write+0x25a/0x1010
-    [   45.897642]  ? __pfx_full_proxy_write+0x10/0x10
-    [   45.898440]  ? __pfx_vfs_write+0x10/0x10
-    [   45.899178]  ? lock_release+0x11f/0x280
-    [   45.899855]  ksys_write+0x111/0x200
-    [   45.900435]  ? __pfx_ksys_write+0x10/0x10
-    [   45.901074]  ? irqentry_exit+0xbe/0x820
-    [   45.901722]  ? srso_alias_return_thunk+0x5/0xfbef5
-    [   45.902489]  do_syscall_64+0x115/0x6a0
-    [   45.903064]  entry_SYSCALL_64_after_hwframe+0x77/0x7f
-    [   45.903813] RIP: 0033:0x7fa889c3e687
-    [   45.904359] Code: 48 89 fa 4c 89 df e8 58 b3 00 00 8b 93 08 03 00 00 59 5e 48 83 f8 fc 74 1a 5b c3 0f 1f 84 00 00 00 00 00 48 8b 44 24 10 0f 05 <5b> c3 0f 1f 80 00 00 00 00 83 e2 39 83 fa 08 75 de e8 23 ff ff ff
-    [   45.906981] RSP: 002b:00007ffd7651b960 EFLAGS: 00000202 ORIG_RAX: 0000000000000001
-    [   45.908070] RAX: ffffffffffffffda RBX: 00007fa889bac780 RCX: 00007fa889c3e687
-    [   45.909102] RDX: 000000000000001c RSI: 00005570f25e8d10 RDI: 0000000000000001
-    [   45.910133] RBP: 00005570f25e8d10 R08: 0000000000000000 R09: 0000000000000000
-    [   45.911162] R10: 0000000000000000 R11: 0000000000000202 R12: 0000000000000001
-    [   45.912190] R13: 000000000000001c R14: 0000000000000000 R15: 00005570f25e8a78
-    [   45.913208]  </TASK>
-    [   45.913530] Modules linked in:
-    [   45.914022] ---[ end trace 0000000000000000 ]---
-    [   45.914709] RIP: 0010:lookup_peer+0x1ba/0x320
-    [   45.915436] Code: 48 89 d9 ba 04 00 00 00 4c 89 fe bf a0 06 00 00 e8 2b e8 ad fb e9 56 ff ff ff e8 01 1e c3 fb 49 8d 7f 18 48 89 f8 48 c1 e8 03 <80> 3c 28 00 0f 85 4a 01 00 00 4d 8b 47 18 4c 89 f1 ba 04 00 00 00
-    [   45.919191] RSP: 0018:ffff888114d67b90 EFLAGS: 00010212
-    [   45.920046] RAX: 1bd5a00000000023 RBX: 0000000000000000 RCX: ffffffff85c1d19f
-    [   45.921129] RDX: ffff88810dc35700 RSI: 0000000000000000 RDI: dead000000000118
-    [   45.922553] RBP: dffffc0000000000 R08: 0000000000000001 R09: 0000000000000001
-    [   45.923653] R10: ffffffff893d3057 R11: ffff88810dc35700 R12: ffff88810a690000
-    [   45.925119] R13: ffff888115451038 R14: ffff88810a690000 R15: dead000000000100
-    [   45.926180] FS:  00007fa889bac780(0000) GS:ffff8881fd852000(0000) knlGS:0000000000000000
-    [   45.927817] CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-    [   45.928726] CR2: 00007ffe304f2f80 CR3: 0000000104f64005 CR4: 0000000000770ef0
-    [   45.930069] PKRU: 55555554
-    [   45.930456] Kernel panic - not syncing: Fatal exception
-    [   45.931542] Kernel Offset: disabled
-    [   45.932040] Rebooting in 1 seconds..
-
-Fixes: 90305829635d ("Bluetooth: 6lowpan: Converting rwlocks to use RCU")
-Assisted-by: LLM
-Signed-off-by: Cen Zhang <zzzccc427@gmail.com>
----
-diff --git a/net/bluetooth/6lowpan.c b/net/bluetooth/6lowpan.c
-index 836add41f5..4b05409929 100644
---- a/net/bluetooth/6lowpan.c
-+++ b/net/bluetooth/6lowpan.c
-@@ -1274,7 +1274,7 @@ static int device_event(struct notifier_block *unused,
- 			if (entry->netdev == netdev) {
- 				BT_DBG("Unregistered netdev %s %p",
- 				       netdev->name, netdev);
--				list_del(&entry->list);
-+				list_del_rcu(&entry->list);
- 				break;
- 			}
- 		}
+Sakari Ailus
