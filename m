@@ -1,88 +1,272 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj1-f54.google.com (mail-pj1-f54.google.com [209.85.216.54])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 447003AA510;
-	Tue,  6 Oct 2026 11:53:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C5D573E4115
+	for <linux-kernel@vger.kernel.org>; Tue,  6 Oct 2026 11:54:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.54
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791287637; cv=none; b=s3xLFRqsQ507ajeTzgy37sJIey03hcvcjSuN0xPqtxoDEY/pMFKoyWi9fhaelzZWgw3sADAv+Kv6exwArvbm+GFcagurvftH2Y/ZZyUznXmYbqVTLPo+jhsBOLIce6mopkTx29ffNzueH4+0dajqP8hs3mVDwv+nFVYrA8p9Txo=
+	t=1791287694; cv=none; b=k+72fJbD+6jmRN9xvhj+rR84lTAxQ8SNJfrRFu7WaEtmv8M5+642YRhrrSjeQcGreCIBhnRo989aSVF1bx246Ofk2yY0QGMqp4JHxV+E72WGzV5RGuKTs1uyymxNy7kKWJ/bFfn7xC30TmqRWh7TgOzt5jC/+GBNCkoVWNpseXU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791287637; c=relaxed/simple;
-	bh=VetweA1aMKnwvp/z6U6ngiU40fTiotUsT0isaYLH2nU=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=gAB/Ok341+iMCUkE4uVJEo0vZ1nMSgBxFefWCbt+FNt5Q4JtpZ7/U6myNYL6EaNXOd20upMY/qg6iUENjryFEfVq/bUUWIQaHgKFOpNET1k4Yhm5jMeTZTXF7rK+Xav35e73jHpytiQvrN3EztCp/XgJqZDZd2Tuph2GlpNmhB8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LNqUMrpZ; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791287694; c=relaxed/simple;
+	bh=ec5S30qPeZpFcFjUgJJIOgR9OI8o4nySH5I+NYVFb+w=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type:Content-Disposition; b=ogDRysIpMmUsWm4nqi/FwcbTvO70JKuOz1XigGlCDK3g8LIekzosnEogAMrpTZ4dfqqNXTCOhZ6qfxLe+NgPYciyMo44IaaiRRrkAs1BYmAh5GMoX1FpS37bhdV+bkwvYNHnA5XwYG3H1+V+JJJHZw4qOqxJNmzu6u9n1UrPg8M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=JWpRIsl5; arc=none smtp.client-ip=209.85.216.54
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LNqUMrpZ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EB03D1F000FF;
-	Tue,  6 Oct 2026 11:53:52 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791287635;
-	bh=pm06+NkcSQVhTckq2o+B0jIj5R0QdwE0Dppd+dgufN8=;
-	h=From:To:Cc:Subject:Date;
-	b=LNqUMrpZgBVOLJSZ/W/MvA4gaS5eLGfbM29hyELkMy+C5gL5fIj5/sPuiqbsz8aih
-	 9qgYrjPfyC56shoPoNkk9g2LjskPA9VsvwCaA06BAMQ2Wq4tCxRRxFa/lmGSP79d40
-	 KZG2pz9bEKE9qjcnB8tiHaUiRsT3kFM0DoTrIqM16un8ROE/XYT9+QSkekALTXLSPb
-	 S+9ZPun9DMuNdGc2pbrEwyqXU4KKAIvkSd3QG89YJCnjpuIijhArElc5rKbsHpNZrV
-	 ZT5kfam8A7V2HNBUDeBv1gcrCX8MUtK+lO8bPjkP4hWPrtM1qM+goOMZAAaPEXtStX
-	 n8tb3ZBR1R83g==
-From: Thorsten Blum <blum@kernel.org>
-To: Danilo Krummrich <dakr@kernel.org>,
-	Alice Ryhl <aliceryhl@google.com>,
-	Alexandre Courbot <acourbot@nvidia.com>,
-	David Airlie <airlied@gmail.com>,
-	Simona Vetter <simona@ffwll.ch>,
-	Eliot Courtney <ecourtney@nvidia.com>,
-	Gary Guo <gary@garyguo.net>
-Cc: Thorsten Blum <blum@kernel.org>,
-	nova-gpu@lists.linux.dev,
-	dri-devel@lists.freedesktop.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH] gpu: nova-core: gsp: use KVVec::zeroed() for payload buffers
-Date: Tue,  6 Oct 2026 13:53:06 +0200
-Message-ID: <20261006115311.92873-3-blum@kernel.org>
-X-Mailer: git-send-email 2.55.0
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="JWpRIsl5"
+Received: by mail-pj1-f54.google.com with SMTP id 98e67ed59e1d1-38759bcd877so728370a91.2
+        for <linux-kernel@vger.kernel.org>; Tue, 06 Oct 2026 04:54:52 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791287692; x=1791892492; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-disposition:content-type
+         :mime-version:mail-followup-to:references:in-reply-to:message-id
+         :date:subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=InkVEEPwk9G9xH08bG50UczMC9CsJoX2e/6UdOdqPB4=;
+        b=JWpRIsl5lQTj901UMmC7UoTNdnc0WAWSknAiCHrYA360VWcaUyfwO4VsEbp0VdshSz
+         AQ1fXSa3kx3h/pOnWyflf7pCzwtzTkD4KitG8PYoGUHiGbxcyyfz8PrGQ33ijLETKKXy
+         DIoKz53ZA+MdseUep3NPvzI5lr2fbirgILb2kUp4XpUOXY93YyQmj2bYtj86SO1LYEPu
+         Sn+irnfeoWMjdumcFphuv5Ho1bcEzylGZirobfOE3XgsDET89UPFKvCcxBJEfNh7klrk
+         iVAX3Zd+bEzw3cnIoIVnW2K0vK5y4oOCFKfBWPEvBYbxu52f4u6Q/Q9raiOuoh4uVDNz
+         eApA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791287692; x=1791892492;
+        h=content-transfer-encoding:content-disposition:content-type
+         :mime-version:mail-followup-to:references:in-reply-to:message-id
+         :date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=InkVEEPwk9G9xH08bG50UczMC9CsJoX2e/6UdOdqPB4=;
+        b=ou2+xkkP4XFgu8bZaUO2uEqFQ2U7xZogU2/bZvRV4cPpyuZlEpaRZZnTcC/N1Zuzr+
+         hnv7kQR4TXI3QxuNc9oerSG/yvegmvA7ILORtsPly0fFgDqkCkKLUx2RcucjTxwJlqF7
+         71J2kyEIVvhT/kRznuwhWq97ilLZhJHn0Y4YhCVyI0W1cphSDnlBx5VnGH/4hIlLmNe2
+         6bUeTa1bwZHLOF1Eo1GWrZRed5Um2uUkM16io5MZZu9MK5wwveEZkkjiJOvQSH7dFWA4
+         lXbeyAxOlYY8fB9/jq2hVK7ERrVKjNdc2V82fMkAyrsP3si/KYHSdU0hK+Vwn/h47sDa
+         CC+A==
+X-Forwarded-Encrypted: i=1; AKwUvByDCcdQthaqsYOd0UU6Ba9jkdEh3rfca4MLcANNKFT0lHcoegIBOluo8QxcvAuVr+SkYZFm56KQlUPq+TQ=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIW+fNNgn4fWuPYtRDANG4CxfF7uZ27x9ECagwf6JzggdcnDZD2
+	1513APumFyyE6cWbdEb3GFGNIuGv51FFkt+PXByfk6T1ufDNX30oAU6Y
+X-Gm-Gg: AYBFou2jKNQcYu+wLaBXCpsNBUhAto66cfRsKIBwocoNGSM3w6TUKatqWFDRVvqQGPl
+	esM+WN7wSqyjhOhThbNdkrxuhdgkmBmBaASqmFu54aRWk3T/KvbL0tKBONRvixmTS/rBUnbR80o
+	hFIEzdRaicJk6+nzEvKmpLEo+7QeW3Ec1/9pvMeOMkn2kzaGGecLN18VeMfnwfqv3T34vrOt70h
+	+G1EDRZD3LgCpz8CcwV+2n8ciCk6lKNraimKny9ySx5N/PppFTuPZxf3xdCDzHHp037y63v8/29
+	Zqlp+oCSGaa1plW/L6b3NHvNifI7eEcDltiFnc1a39x917tBSqpINaRcqccKLaz+i7IQyh5ppxC
+	thNssgSD2ZkTPFZr8honTzCiu46mz631vJYsDSG91HMaRpaA1Uu2a++p35nPoVk3S4bpCUfWL/s
+	Nmq/5Yh1/QNUXs9iN897GHMrXCI3DHhAHNMbsf1jRl6rwSGmJ60cZVyYyOfeO9PzUi4sQ4Z0My9
+	t8cdZMdAIA=
+X-Received: by 2002:a17:90b:4c8b:b0:3a7:a42:c364 with SMTP id 98e67ed59e1d1-3a87379dcb3mr692290a91.51.1791287691963;
+        Tue, 06 Oct 2026 04:54:51 -0700 (PDT)
+Received: from localhost.localdomain ([8.139.245.4])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a8543b0c1fsm5749910a91.14.2026.10.06.04.54.48
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 06 Oct 2026 04:54:51 -0700 (PDT)
+From: Cunlong Li <shenxiaogll@gmail.com>
+To: Joel Fernandes <joelagnelf@nvidia.com>
+Cc: Jonathan Corbet <corbet@lwn.net>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Randy Dunlap <rdunlap@infradead.org>,
+	"Paul E. McKenney" <paulmck@kernel.org>,
+	Frederic Weisbecker <frederic@kernel.org>,
+	Neeraj Upadhyay <neeraj.upadhyay@kernel.org>,
+	Josh Triplett <josh@joshtriplett.org>,
+	Boqun Feng <boqun@kernel.org>,
+	Uladzislau Rezki <urezki@gmail.com>,
+	Steven Rostedt <rostedt@goodmis.org>,
+	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
+	Lai Jiangshan <jiangshanlai@gmail.com>,
+	Zqiang <qiang.zhang@linux.dev>,
+	"linux-doc@vger.kernel.org" <linux-doc@vger.kernel.org>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+	"rcu@vger.kernel.org" <rcu@vger.kernel.org>
+Subject: Re: [PATCH] rcu: Enable runtime reset of the RCU stall panic count
+Date: Tue,  6 Oct 2026 19:54:44 +0800
+Message-ID: <asThhHxoFP2L25Nc@63b45mr6s164qmn>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <00F6D386-FE41-42E3-9B89-07381A49E061@nvidia.com>
+References: <20261004-rcu-v1-1-3799a44367f1@gmail.com> <00F6D386-FE41-42E3-9B89-07381A49E061@nvidia.com>
+Mail-Followup-To: Cunlong Li <shenxiaogll@gmail.com>, Joel Fernandes <joelagnelf@nvidia.com>, Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>, Randy Dunlap <rdunlap@infradead.org>, "Paul E. McKenney" <paulmck@kernel.org>, Frederic Weisbecker <frederic@kernel.org>, Neeraj Upadhyay <neeraj.upadhyay@kernel.org>, Josh Triplett <josh@joshtriplett.org>, Boqun Feng <boqun@kernel.org>, Uladzislau Rezki <urezki@gmail.com>, Steven Rostedt <rostedt@goodmis.org>, Mathieu Desnoyers <mathieu.desnoyers@efficios.com>, Lai Jiangshan <jiangshanlai@gmail.com>, Zqiang <qiang.zhang@linux.dev>, "linux-doc@vger.kernel.org" <linux-doc@vger.kernel.org>, "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, "rcu@vger.kernel.org" <rcu@vger.kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1795; i=blum@kernel.org; h=from:subject; bh=VetweA1aMKnwvp/z6U6ngiU40fTiotUsT0isaYLH2nU=; b=owGbwMvMwCUWt7pQ4caZUj3G02pJDFlHHqpfm9o2s1SW41RCvNtzc4OZK9ed9M3b7zqP06r87 tW1ByKndZSyMIhxMciKKbI8mPVjhm9pTeUmk4idMHNYmUCGMHBxCsBEntsyMryLCCg+cU22NvP3 /SN7Li282nR136Q5XhvuBvzeorBkyqMljAwX5jv53jeXUeh3NdnItW/miuMLok6XW/NaK82Os5E sf8UNAA==
-X-Developer-Key: i=blum@kernel.org; a=openpgp; fpr=1D60735E8AEF3BE473B69D84733678FD8DFEEAD4
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
 
-Use KVVec::zeroed() instead of KVVec::from_elem() to allocate and
-zero-initialize the command and continuation payload buffers.
+Hi Joel, thanks for the review!
 
-Also use KVVec::zeroed() in the test helper read_payload().
+On Mon, Oct 05, 2026 at 12:56:30PM +0000, Joel Fernandes wrote:
+> 
+> 
+> > On Oct 3, 2026, at 9:14 PM, Cunlong Li <shenxiaogll@gmail.com> wrote:
+> > 
+> > ﻿The kernel.panic_on_rcu_stall and kernel.max_rcu_stall_to_panic sysctls
+> > count RCU CPU stalls since system boot, and invoke panic() once
+> > max_rcu_stall_to_panic stalls have elapsed.  This count is never reset,
+> > so stalls caused by transient incidents keep consuming the budget of a
+> > long-running system, and a later unrelated stall can
+> 
+> Please provide examples of specific transient events you ran into, and recovered from?
+> 
+> > immediately
+> > trigger panic() instead of allowing the intended fresh window of
+> > stalls.
+> > 
+> > This commit therefore introduces the kernel.rcu_stall_panic_count
+> > sysctl.  Reading this file reports the number of stalls counted so far,
+> > and writing 0 to it resets the count.  This allows the cumulative stall
+> > history to be cleared after an incident has been resolved, and also
+> > allows userspace to clear the count periodically, so that panic() is
+> > only triggered by a burst of stalls occurring within a short period.
+> 
+> Could you provide details of such an incident that got resolved without requiring a reboot?
 
-Signed-off-by: Thorsten Blum <blum@kernel.org>
----
- drivers/gpu/nova-core/gsp/cmdq/continuation.rs | 6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
+The motivation comes from our customer systems running codex on Ubuntu
+24.04, with a memory limit of ~8G and zram enabled for swap.  When the
+agent's memory footprint grows, the box spends long stretches in direct
+reclaim (zram makes reclaim CPU-heavy), and we get a continuous stream
+of RCU stall warnings.  In the incidents we have seen so far, the
+warnings kept coming and the systems stayed hung, so we would like to
+enable panic_on_rcu_stall so that the box reboots and the service
+recovers automatically.  However, we do not actually know whether some
+of those stalls were transient, i.e. whether the systems would have
+recovered on their own once the memory pressure subsided.  If they
+were, a panic would kill an otherwise recoverable system, which is
+what we would like to avoid.
 
-diff --git a/drivers/gpu/nova-core/gsp/cmdq/continuation.rs b/drivers/gpu/nova-core/gsp/cmdq/continuation.rs
-index 05e904f18097..9ef19f28de97 100644
---- a/drivers/gpu/nova-core/gsp/cmdq/continuation.rs
-+++ b/drivers/gpu/nova-core/gsp/cmdq/continuation.rs
-@@ -106,9 +106,9 @@ pub(super) fn new(command: C) -> Result<Self> {
- 
-         if command.size() > MAX_CMD_SIZE {
-             let mut command_payload =
--                KVVec::<u8>::from_elem(0u8, payload_len.min(Self::MAX_FIRST_PAYLOAD), GFP_KERNEL)?;
-+                KVVec::zeroed(payload_len.min(Self::MAX_FIRST_PAYLOAD), GFP_KERNEL)?;
-             let mut continuation_payload =
--                KVVec::<u8>::from_elem(0u8, payload_len - command_payload.len(), GFP_KERNEL)?;
-+                KVVec::zeroed(payload_len - command_payload.len(), GFP_KERNEL)?;
-             let mut sbuffer = SBufferIter::new_writer([
-                 command_payload.as_mut_slice(),
-                 continuation_payload.as_mut_slice(),
-@@ -235,7 +235,7 @@ fn init_variable_payload(
- 
-     fn read_payload(cmd: impl CommandToGsp) -> Result<KVVec<u8>> {
-         let len = cmd.variable_payload_len();
--        let mut buf = KVVec::from_elem(0u8, len, GFP_KERNEL)?;
-+        let mut buf = KVVec::zeroed(len, GFP_KERNEL)?;
-         let mut sbuf = SBufferIter::new_writer([buf.as_mut_slice(), &mut []]);
-         cmd.init_variable_payload(&mut sbuf)?;
-         drop(sbuf);
+We have not yet been able to reproduce this in the lab.  But transient,
+self-recovering stalls are not a hypothetical: the commit that
+introduced max_rcu_stall_to_panic, dfe564045c65 ("rcu: Panic after
+fixed number of stalls"), states the premise outright:
+
+    Some stalls are transient, so that system fully recovers.  This
+    commit therefore allows users to configure the number of stalls
+    that must happen in order to trigger kernel panic.
+
+As described in the commit message, since the counter is never reset,
+stalls caused by transient incidents keep consuming the budget of
+max_rcu_stall_to_panic, and a later unrelated stall can immediately
+trigger panic() instead of allowing the intended fresh window of
+stalls.  This is what motivated the patch.
+
+> 
+> 
+> > 
+> > Signed-off-by: Cunlong Li <shenxiaogll@gmail.com>
+> 
+> If the commit is AI assisted, please add an assisted tag.
+
+Yes, it is AI-assisted, and I will state that in the v2 commit
+message.
+
+Thanks,
+Cunlong
+
+> 
+> Thanks,
+> 
+> Joel
+> 
+> > ---
+> > Documentation/admin-guide/sysctl/kernel.rst | 15 ++++++++++++++-
+> > kernel/rcu/tree_stall.h                     | 28 ++++++++++++++++++++++++++--
+> > 2 files changed, 40 insertions(+), 3 deletions(-)
+> > 
+> > diff --git a/Documentation/admin-guide/sysctl/kernel.rst b/Documentation/admin-guide/sysctl/kernel.rst
+> > index ffea61d448eb..64fe2985e358 100644
+> > --- a/Documentation/admin-guide/sysctl/kernel.rst
+> > +++ b/Documentation/admin-guide/sysctl/kernel.rst
+> > @@ -959,7 +959,20 @@ max_rcu_stall_to_panic
+> > When ``panic_on_rcu_stall`` is set to 1, this value determines the
+> > number of times that RCU can stall before panic() is called.
+> > 
+> > -When ``panic_on_rcu_stall`` is set to 0, this value is has no effect.
+> > +When ``panic_on_rcu_stall`` is set to 0, this value has no effect.
+> > +
+> > +rcu_stall_panic_count
+> > +=====================
+> > +
+> > +Indicates the number of RCU CPU stalls that have been counted since
+> > +system boot or since the counter was reset. When ``panic_on_rcu_stall``
+> > +is set to 1, this count is compared against ``max_rcu_stall_to_panic``
+> > +to decide whether panic() should be called.
+> > +
+> > +Writing 0 to this file resets the counter to zero, which restarts the
+> > +``max_rcu_stall_to_panic`` window of stalls. This allows system
+> > +administrators to clear the cumulative stall count after an incident
+> > +has been resolved, without requiring a system restart.
+> > 
+> > perf_cpu_time_max_percent
+> > =========================
+> > diff --git a/kernel/rcu/tree_stall.h b/kernel/rcu/tree_stall.h
+> > index 091e7850ab6e..a80f03e1c7ea 100644
+> > --- a/kernel/rcu/tree_stall.h
+> > +++ b/kernel/rcu/tree_stall.h
+> > @@ -19,6 +19,20 @@
+> > /* panic() on RCU Stall sysctl. */
+> > static int sysctl_panic_on_rcu_stall __read_mostly;
+> > static int sysctl_max_rcu_stall_to_panic __read_mostly;
+> > +static unsigned long sysctl_rcu_stall_panic_count;
+> > +
+> > +/* Reset the RCU stall panic count when written to. */
+> > +static int proc_do_rcu_stall_panic_count(const struct ctl_table *table, int write,
+> > +                     void *buffer, size_t *lenp, loff_t *ppos)
+> > +{
+> > +    if (!write)
+> > +        return proc_doulongvec_minmax(table, write, buffer, lenp, ppos);
+> > +
+> > +    WRITE_ONCE(sysctl_rcu_stall_panic_count, 0);
+> > +    *ppos += *lenp;
+> > +
+> > +    return 0;
+> > +}
+> > 
+> > static const struct ctl_table rcu_stall_sysctl_table[] = {
+> >    {
+> > @@ -39,6 +53,13 @@ static const struct ctl_table rcu_stall_sysctl_table[] = {
+> >        .extra1        = SYSCTL_ONE,
+> >        .extra2        = SYSCTL_INT_MAX,
+> >    },
+> > +    {
+> > +        .procname    = "rcu_stall_panic_count",
+> > +        .data        = &sysctl_rcu_stall_panic_count,
+> > +        .maxlen        = sizeof(sysctl_rcu_stall_panic_count),
+> > +        .mode        = 0644,
+> > +        .proc_handler    = proc_do_rcu_stall_panic_count,
+> > +    },
+> > };
+> > 
+> > static int __init init_rcu_stall_sysctl(void)
+> > @@ -161,7 +182,7 @@ early_initcall(check_cpu_stall_init);
+> > /* If so specified via sysctl, panic, yielding cleaner stall-warning output. */
+> > static void panic_on_rcu_stall(const struct cpumask *stalled_mask)
+> > {
+> > -    static int cpu_stall;
+> > +    unsigned long count;
+> > 
+> >    /*
+> >     * Attempt to kick out the BPF scheduler if it's installed and defer
+> > @@ -170,7 +191,10 @@ static void panic_on_rcu_stall(const struct cpumask *stalled_mask)
+> >    if (scx_rcu_cpu_stall(stalled_mask))
+> >        return;
+> > 
+> > -    if (++cpu_stall < sysctl_max_rcu_stall_to_panic)
+> > +    /* A lost RMW update only delays the panic by one stall. */
+> > +    count = READ_ONCE(sysctl_rcu_stall_panic_count) + 1;
+> > +    WRITE_ONCE(sysctl_rcu_stall_panic_count, count);
+> > +    if (count < (unsigned long)READ_ONCE(sysctl_max_rcu_stall_to_panic))
+> >        return;
+> > 
+> >    if (sysctl_panic_on_rcu_stall)
+> > 
+> > ---
+> > base-commit: ce1e0223d8ad4211275c82a17ed6d43ab81e13d9
+> > change-id: 20261003-rcu-375496d7704e
+> > 
+> > Best regards,
+> > --
+> > Cunlong Li <shenxiaogll@gmail.com>
+> > 
