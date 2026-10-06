@@ -1,89 +1,134 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mailout2.samsung.com (mailout2.samsung.com [203.254.224.25])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1C143360EF2;
-	Wed,  7 Oct 2026 02:30:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B1AAB22157B
+	for <linux-kernel@vger.kernel.org>; Wed,  7 Oct 2026 02:33:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=203.254.224.25
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791340257; cv=none; b=A5L8l5fjQ4SrDCYojLmxUlPXxQ/IqZhdEJjh8pLNRxiJ+fbl2DPMFFNp13FWgw7E+uTuBT0hlyKPQLrLANJ+XBSq7GjEUcpj62QBdsDkcuy6K0GHNIro3fEkH2H8RcNL9iLkaUindZcehenNvP2avVJVV86UXLgG6Nf4rys2cOM=
+	t=1791340392; cv=none; b=CBqwO23N7agjNZV5YxI6BIyDC/tc/4mSQ/oFiE4428wYRQPnanbOS1JBUfORtFPec4v/RjJgFp/UrNNZWzFZXf11E5vEzC6EH0gaV5vW+stu09epb3tpUwa2rutH8vl9mdEJxwIWF8w3OZf/jrz2RYygbmZuFUbEMy889NuN3OU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791340257; c=relaxed/simple;
-	bh=8tVV+/gTeRhfiqd4sBW3kFM6n9rW/QNFT1XXavd2IfQ=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:Content-Type:
-	 MIME-Version:Message-Id; b=ror171Ca+MQLf3IjEdxApymB0IQ3bMvx54mFwN/00eEHrzUTVgT9fwd9jfW7Zje52c4MMzeMcRngxiip5WmRdS9a6M+DMsHzXTPJgZai/SlfzBVYkjNVoZJ3vL42aoVM/bNhh5MYEz+wTLxEvEyLrGkV2FXgL0GDCQd9riXYoPs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=J9Fpa3Lc; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791340392; c=relaxed/simple;
+	bh=Jseu3J9Z9LRdwBu6sFpBltuwRbn0Jpwrpc/YutIarhY=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version:Content-Type:
+	 References; b=VuaTfGG5vaXS/A0kiyGKTrSXH5DxQpkhyGymRIzznlgGAMv9Hneq13JvY3X9UFUNsBWUuswIkX60fHkCto4WHU35n1AnzX9gYxDFPJfLdrNdGFIBk6K/ufRqTYa+3dhOeqL7PqSJJm8hH6gQjV4Qu8eumd1DQryZLydqnPiDLAg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com; spf=pass smtp.mailfrom=samsung.com; dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.b=GXGd1Q3e; arc=none smtp.client-ip=203.254.224.25
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=samsung.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="J9Fpa3Lc"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 04BD71F0089B;
-	Wed,  7 Oct 2026 02:30:44 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791340255;
-	bh=u9Jzggo5Sk1RIZ8WfB+NnbFsVZN8V/kovGtc4d+jfE4=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=J9Fpa3LcaeRJJ0NN9pOs90uK8L5DfSIm6mAjBw3gmroRxWWWbxFb2QBY7xicSVbTY
-	 kbT+6EbbrPeXqPTzIZSl5/gq1BAb/eOayV7XE6ey3RwmBfWTB/v8VEyyTyoAPPCrA0
-	 cri8dcOXQ4A0qnYtSKy+NgeB4uPoFvN8orlfSO6E0eSFWRtrdwF2a402XVtWbKvh06
-	 lRSjh3VEzncBxVqPnfDnS6lW0nafLoHm9hnGRK/TzY+qZEDFBRoQzJvP8LcOcuGEQ4
-	 hQFNwpwttAKu5D3ATtRtUDpP6pXX3rhBtplR2oet7NU6iXQYKvGbkYwoqZeZiWZCOd
-	 Nvx4c87Puw11A==
-From: Masami Hiramatsu (Google) <mhiramat@kernel.org>
-To: chuck@wolber.net
-Cc: Marco Elver <elver@google.com>, kasan-dev@googlegroups.com,
- nathan@kernel.org, akpm@linux-foundation.org, anton.ivanov@cambridgegreys.com,
- oberpar@linux.ibm.com, ardb@kernel.org, arnd@arndb.de, bhelgaas@google.com,
- bp@alien8.de, dave.hansen@linux.intel.com, dvyukov@google.com, hpa@zytor.com,
- jinghao7@illinois.edu, johannes@sipsolutions.net, jpoimboe@kernel.org,
- justinstitt@google.com, kees@kernel.org, kent.overstreet@linux.dev,
- linux-arch@vger.kernel.org, linux-efi@vger.kernel.org,
- linux-kbuild@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-trace-kernel@vger.kernel.org, linux-um@lists.infradead.org,
- llvm@lists.linux.dev, luto@kernel.org, marinov@illinois.edu,
- masahiroy@kernel.org, maskray@google.com, mathieu.desnoyers@efficios.com,
- mhiramat@kernel.org, mingo@redhat.com, morbo@google.com,
- Nick Desaulniers <ndesaulniers@google.com>,
- "Paul E. McKenney" <paulmck@kernel.org>, richard@nod.at,
- Steven Rostedt <rostedt@goodmis.org>, samitolvanen@google.com,
- tglx@linutronix.de, tingxur@illinois.edu, tyxu@illinois.edu,
- wentaoz5@illinois.edu, x86@kernel.org, peterz@infradead.org,
- Sasha Levin <sashal@kernel.org>, Aleksandr Nogikh <nogikh@google.com>,
- Taras Madan <tarasmadan@google.com>, Alexander Potapenko <glider@google.com>
-Subject: Re: [PROPOSAL] Replace gcov and kcov with llvm-cov
-Date: Wed, 07 Oct 2026 02:30:42 +0000
-In-Reply-To: <41913a77-5c57-4967-8166-765dd5dde1bf@app.fastmail.com>
-References: 00ed0b57-ad05-4c5d-b152-7c81df94b23a@app.fastmail.com
- CANpmjNOaykC4McAj=gZghqPSQc9aGBP_CjgKmp3n2yjeJTxDSA@mail.gmail.com
- <41913a77-5c57-4967-8166-765dd5dde1bf@app.fastmail.com>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.b="GXGd1Q3e"
+Received: from epcas5p1.samsung.com (unknown [182.195.41.39])
+	by mailout2.samsung.com (KnoxPortal) with ESMTP id 20261007023303epoutp0202f889438f75a5b42f24dacec0f93d75~cHpZsTZwL2676926769epoutp02X
+	for <linux-kernel@vger.kernel.org>; Wed,  7 Oct 2026 02:33:03 +0000 (GMT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 mailout2.samsung.com 20261007023303epoutp0202f889438f75a5b42f24dacec0f93d75~cHpZsTZwL2676926769epoutp02X
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
+	s=mail20170921; t=1791340383;
+	bh=jKwNwCkEkgSOYRtI1B18gjkqbvozWg4m6K9i9c8GMtw=;
+	h=From:To:Cc:Subject:Date:References:From;
+	b=GXGd1Q3eFS+alBTzo3UWIjnjVaN6Ok6F65AP4JsoW6l+54dmT62BdB3Tk3GebbtPT
+	 aE+sZT66vaX6cwRPqBtlovvhbc4JUlJ98aSZptv8NF1zLHKzGU+v2S9rch+NXEuS0u
+	 gKc57y2bSeDewGJkdDGgdvPmbbhP1/v7kf64RALA=
+Received: from epsnrtp02.localdomain (unknown [182.195.42.154]) by
+	epcas5p1.samsung.com (KnoxPortal) with ESMTPS id
+	20261007023302epcas5p149f10e5761d0b750c53f480729b0b0ee~cHpYt-8Bx2398723987epcas5p1O;
+	Wed,  7 Oct 2026 02:33:02 +0000 (GMT)
+Received: from epcpadp2new (unknown [182.195.40.142]) by
+	epsnrtp02.localdomain (Postfix) with ESMTP id 4hzxxV0mqlz2SSKZ; Wed,  7 Oct
+	2026 02:33:02 +0000 (GMT)
+Received: from epsmtip2.samsung.com (unknown [182.195.34.31]) by
+	epcas5p3.samsung.com (KnoxPortal) with ESMTPA id
+	20261006160157epcas5p37b8a0053c489b051dfb415c9b72ba178~b-CYauej62920029200epcas5p3v;
+	Tue,  6 Oct 2026 16:01:57 +0000 (GMT)
+Received: from bose.samsungds.net (unknown [107.108.83.9]) by
+	epsmtip2.samsung.com (KnoxPortal) with ESMTPA id
+	20261006160155epsmtip20867d11cb4070342c00cb9349c74d4f4~b-CWcOjBR1675416754epsmtip2Y;
+	Tue,  6 Oct 2026 16:01:55 +0000 (GMT)
+From: Alim Akhtar <alim.akhtar@samsung.com>
+To: krzk@kernel.org, peter.griffin@linaro.org, robh@kernel.org,
+	conor+dt@kernel.org, linusw@kernel.org
+Cc: linux-samsung-soc@vger.kernel.org, linux-kernel@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-watchdog@vger.kernel.org,
+	linux@roeck-us.net, hajun.sung@samsung.com, wim@linux-watchdog.org, Alim
+	Akhtar <alim.akhtar@samsung.com>, Krzysztof Kozlowski
+	<krzysztof.kozlowski@oss.qualcomm.com>
+Subject: [PATCH v3 1/2] dt-bindings: watchdog: Add Exynos8855 watchdog
+ compatible string
+Date: Tue,  6 Oct 2026 21:50:03 +0530
+Message-Id: <360067785.01791340382096.JavaMail.epsvc@epcpadp2new>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Message-Id: <20261007023045.04BD71F0089B@smtp.kernel.org>
+Content-Transfer-Encoding: 8bit
+X-CMS-MailID: 20261006160157epcas5p37b8a0053c489b051dfb415c9b72ba178
+X-Msg-Generator: CA
+Content-Type: text/plain; charset="utf-8"
+CMS-TYPE: 105P
+X-CPGSPASS: Y
+X-Hop-Count: 3
+X-CMS-RootMailID: 20261006160157epcas5p37b8a0053c489b051dfb415c9b72ba178
+References: <CGME20261006160157epcas5p37b8a0053c489b051dfb415c9b72ba178@epcas5p3.samsung.com>
 
-On Tue, 06 Oct 2026 16:27:11 +0000, Chuck Wolber <chuck@wolber.net> wrote:
-> On Tue, Oct 6, 2026, at 4:10 PM, Marco Elver wrote:
-> > On Tue, 6 Oct 2026 at 17:14, Chuck Wolber <chuck@wolber.net> wrote:
+Add the 'samsung,exynos8855-wdt' compatible string to the Samsung
+watchdog device tree binding documentation. The Exynos8855 watchdog
+nodes use two clocks (bus clock and source clock), require
+samsung,cluster-index and samsung,syscon-phandle properties, similar
+to Exynos850 watchdog implementation.
 
-> >> If there is a desire to take this in pieces or implement other
-> >> intermediate steps, let me know. Otherwise I can generate a
-> >> monolithic set all at once.
-> >>
-> >> [1] https://lore.kernel.org/lkml/20240905043245.1389509-1-wentaoz5@illinois.edu/
-> >
-> > llvm-cov is generally useful to have; llvm-cov is closest to gcov, so
-> > that might make sense to replace.
->
-> Swapping llvm-cov for gcov to start with is pretty straightforward, so I
-> can aim my initial patch set there.
+Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Signed-off-by: Alim Akhtar <alim.akhtar@samsung.com>
+---
+* Changes in V3:
+ - Removed comment "for exynos8855" as recommended by Krzysztof
+ - Added Reviewed-by tag
 
-Hmm, is it necessary to remove gcov? Would it be difficult to simply add
-support for llvm-cov and enable (make kconfig selectable) one or the other
-depending on the compiler?
+* Changes in V2:
+ - Fixed Sashiko review comment
+	- [Low] dt-bindings: watchdog: missing comma in samsung,syscon-phandle description 
+ Documentation/devicetree/bindings/watchdog/samsung-wdt.yaml | 6 ++++--
+ 1 file changed, 4 insertions(+), 2 deletions(-)
 
-Thanks,
+diff --git a/Documentation/devicetree/bindings/watchdog/samsung-wdt.yaml b/Documentation/devicetree/bindings/watchdog/samsung-wdt.yaml
+index a32c47831577..37d9fc9b68f4 100644
+--- a/Documentation/devicetree/bindings/watchdog/samsung-wdt.yaml
++++ b/Documentation/devicetree/bindings/watchdog/samsung-wdt.yaml
+@@ -25,6 +25,7 @@ properties:
+           - samsung,exynos5515-wdt
+           - samsung,exynos7-wdt                   # for Exynos7
+           - samsung,exynos850-wdt                 # for Exynos850
++          - samsung,exynos8855-wdt
+           - samsung,exynos990-wdt                 # for Exynos990
+           - samsung,exynosautov9-wdt              # for Exynosautov9
+           - samsung,exynosautov920-wdt            # for Exynosautov920
+@@ -52,13 +53,13 @@ properties:
+     enum: [0, 1, 2]
+     description:
+       Index of CPU cluster on which watchdog is running (in case of Exynos850,
+-      Exynos990 or Google gs101).
++      Exynos8855, Exynos990 or Google gs101).
+ 
+   samsung,syscon-phandle:
+     $ref: /schemas/types.yaml#/definitions/phandle
+     description:
+       Phandle to the PMU system controller node (in case of Exynos5250,
+-      Exynos5420, Exynos5515, Exynos7, Exynos850, Exynos990 and gs101).
++      Exynos5420, Exynos5515, Exynos7, Exynos850, Exynos8855, Exynos990 and gs101).
+ 
+ required:
+   - compatible
+@@ -76,6 +77,7 @@ allOf:
+             enum:
+               - google,gs101-wdt
+               - samsung,exynos850-wdt
++              - samsung,exynos8855-wdt
+               - samsung,exynosautov9-wdt
+               - samsung,exynosautov920-wdt
+     then:
 
+base-commit: bf1ee2bd5c2da8992f33c8950ef194aaff74ed6c
 -- 
-Masami Hiramatsu (Google) <mhiramat@kernel.org>
+2.34.1
+
+
