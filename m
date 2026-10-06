@@ -1,76 +1,76 @@
-Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com [209.85.128.46])
+Received: from mail-wr1-f46.google.com (mail-wr1-f46.google.com [209.85.221.46])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7BB2836EABE
-	for <linux-kernel@vger.kernel.org>; Tue,  6 Oct 2026 07:46:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.46
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 12CC63B637A
+	for <linux-kernel@vger.kernel.org>; Tue,  6 Oct 2026 07:46:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.46
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791272793; cv=none; b=LKSDZUbDWyCxUZCx0FTRNwHCuL4/TcM1xa7PsPLBv/WfEMKVfm6goee3dL9P2pYqZMzjy/q0XaGX3y14EaypG/3zOfufJayxfTs6qmy7sz0Aawbsam1BWFVA3baZG1qSIOn/llmV4u7ebcHi7of10XKouWk+A342nHcAbcJeG3U=
+	t=1791272798; cv=none; b=WSoALMkTjm8F6OhHcQ/0TtOWwn0rkByFx1rii/w6gn7hdFCzY71CLJHqiyhvmZuzXzWSftutW2UQ2dwgttVfq1730vFqZW7YPYRuhE4cCeQ6/RlqEHmOqoO8waAsca4BLgN3V4MFOD4xrPjXIaaVQdcpjVKtd9XzEHH0V1Ghq4A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791272793; c=relaxed/simple;
-	bh=jojZgS/siqNz1VrOC7A5IgdOx6uFms2WqJVnwwZP/jc=;
+	s=arc-20240116; t=1791272798; c=relaxed/simple;
+	bh=D3gB1XP2QGK8Z9e+6oRiVNsyyn/P+mt36J/dj2dEDzs=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=fS05ggXTo5Lfbs1kpuyhEed9m0o3gTCwvMRE5cLlUpKyyUlvQkKsM89rJsQL+BfAL6nRu77q/2wxzkjq6Jj+P5JS0kOGKxC1pGsYrKeMURxcOLTJ6VLRk4IyIi7B90XvKV15gOoCQTZnZgiWLusiG02h3PAvBu/ye1uMXg5S1Uw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ghH0/HPa; arc=none smtp.client-ip=209.85.128.46
+	 MIME-Version; b=FF3ow2R95krcx5eqph7AzvxBQztcL2/ziHIKwSmWuYjQh05KAZGMBAxM3j6CbzvycDnRNHxmegkz33wR8h5ozRef0/C23qjUxO1hHXxMYQw0aJz8D+KiJ7fnoAKDY3XnOefgRRnvx0ToVVhdVmeQMC8CNgW0xmE13Uf4QKvZyqQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=S132A0wB; arc=none smtp.client-ip=209.85.221.46
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ghH0/HPa"
-Received: by mail-wm1-f46.google.com with SMTP id 5b1f17b1804b1-4a16c1608faso4626605e9.0
-        for <linux-kernel@vger.kernel.org>; Tue, 06 Oct 2026 00:46:32 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="S132A0wB"
+Received: by mail-wr1-f46.google.com with SMTP id ffacd0b85a97d-48b03f23305so2232649f8f.1
+        for <linux-kernel@vger.kernel.org>; Tue, 06 Oct 2026 00:46:33 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791272791; x=1791877591; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1791272792; x=1791877592; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=jojZgS/siqNz1VrOC7A5IgdOx6uFms2WqJVnwwZP/jc=;
-        b=ghH0/HPaGpSykhL0sAs5emx7jiItsNqFBUZv1WIHa9RfkG6VTN6gEgQBviA+v8qCHO
-         5+1J8tBT83Lu0OoYNTxSwEfmg9ahS6x4Q/cYaFULKGeGMBwPXRf8bCLPqSQpJlMvhZnu
-         CRhkvbtH0vcb4DgR4VtNWD7WXyL1s6q+RXj4Ck7LRngP+/EAUVou8Vf0wQq4O49P8VPA
-         SNcIBeM8+fCve+UoYdvAb0ilGWro7XgcK7dReG4ehb0HgSzyzgLSZXamyh3zGeqDwpRY
-         wTph4PFYmzaBO64eOyZcTCqcVOz2ZhzZ4gcN/0Gzym4Y559Eb3ZU4DiyvAZrcxKRMB0u
-         0DvA==
+        bh=D3gB1XP2QGK8Z9e+6oRiVNsyyn/P+mt36J/dj2dEDzs=;
+        b=S132A0wBCgnBBXjwr9TelgxWqG3KZNr1RhGW5O/cN5BS3WcaYPgsn35iFk2rZtGaju
+         1wyLpwIoOvyRmOOMLwaEqgl9P1UmmH2pn07mgTTIjeFC8tHeodBeWwSty7Mta/T216Zk
+         WC+q+kakRxo0xybUwhynUrdGJK1iMOpr4k1kw0mEk4rhkHaWadNAfZTGSBbvTVfRId2m
+         13xGJGY1xFJK5/bPxykMypRxj1qDR5s5D8EzmkVbNXoGFk9y/q0MBjFHq6drvPeqWepr
+         D/woN7lvCtJjOgyfW2FK8e6oQYb6wJxwDnTudxjFM25FQnxyGNB/kJIMgpQvr/ZRHQPb
+         nSdg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791272791; x=1791877591;
+        d=1e100.net; s=20260707; t=1791272792; x=1791877592;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=jojZgS/siqNz1VrOC7A5IgdOx6uFms2WqJVnwwZP/jc=;
-        b=TnMw7vFv2XvXDFZtDCksD971xyHrWGuR2mz2An355Kr7CnEe/NLerYXE9by1LbYjcP
-         R9Yr+AHzEjpl1d0/Doc+qXjdzUNINGT15YDy31OdxGC65313z+Zy5k6b2pD/dWwd5ero
-         oRjWuolu1z2d8T9+t1CEdE0L66DbnNPV3/N0jifzeyZmyj1I+VSEyIqwwne2Meqk1ZNK
-         lCP0CLHcFpszudHt697XukHaEba23veNXttclGLkBfsKpAlX9o+0KwvOP0TktfTZOy8D
-         g/VVNS+3R+8mQ5yAShyodPjVJ/fyg3ZfjsrJPn7ZCCM53TBdWzfcRKu1wBS+kpTfUCZ+
-         7UBg==
-X-Forwarded-Encrypted: i=1; AKwUvByev5Ksa0pOmV2Ju6ywsCmbqXBxVhvvSER9/k+CVhNWUz5cF57sKO39/ZCudetqaPQb5O6MpXFLazOVCeY=@vger.kernel.org
-X-Gm-Message-State: AFuF++mIHJCHu3Ppq7KekPAaptMmuUQUoalU+9uNsni5JQnuhIrpgPxV
-	ynxno3dJ2TWhRs3bg8J98KuaHDfFRqZ16tAPYwtqkdZ+IX3p/EprZTwQ
-X-Gm-Gg: AYBFou0srWv8xGrgsnhB5RmfEkaIhnpnxSMIvhmKK4ZP0XDJjBdlLxOWt5muurwW9Vf
-	PWKAupXtGodQkTlOF23eqhy6VALGVFTz3Y20WtpefpRoAirtmk8FmdbjPSZMgVqwfRdX8O2qDZr
-	5PVhNkXANNsrQrPHe5y/Dp2bZNMnK97YkegApcgzd8xQgV36KiZJeFTLUOGw/siMARbc9uyqhrH
-	QP/o8B4wuiPnT8Z4mnLLpj3N7NksXr/8THH5KrZ7WqErfjIJToUU4g9tMilrqIUmrvlMThQXbZ2
-	DGlCN4xpD1sLH41PmNzucl0rZY1C9w4Jn/VsVxKmYe+lJvCfRyvGHjJNgcLkIdBXSKag8NQarZp
-	auaLUyc60KkkpmyfG/9o+LQtz25rmRXZ0SrfJYrIyaACa9dCkNRDaDk51SutjCots7IPTWystZE
-	uj/nNHlxT4D5TeQWjW8wto3QKiTLYW0ahksvK1cGl3AS+NatdTgN2F1Flhgc/b29488AO3HC9PL
-	dC7
-X-Received: by 2002:a05:600c:1388:b0:49f:c5aa:9ef4 with SMTP id 5b1f17b1804b1-4a17b53a52fmr11049415e9.8.1791272790704;
-        Tue, 06 Oct 2026 00:46:30 -0700 (PDT)
+        bh=D3gB1XP2QGK8Z9e+6oRiVNsyyn/P+mt36J/dj2dEDzs=;
+        b=IjbIc1Hxw57pb73NA5zSr7ENcTrECJb9rSD8u/RhbppUxs8RSlYVkJP3tnj39Xw5Cw
+         K7vTT3VkjAQTjv+YLQpjaN1FxboBeH0xf1hM6NACnmVmWxJAHYolkJFqsp+rh6TIQKxf
+         CuyqH5rN9U8M1Ss4fbv+qO6zWvqs1MloVlVSyUyqC80vf0QUFcnuQjDhgGMKtrjBCURg
+         GuyZXnHX8j9/N24dGdfZWfaqHd/6bhdM7VpEfCAogVfMjLZ4/DrC2ww60N+sXmc7MHzf
+         8dsZGzVc8R4rPxaLFVV216iADkb3rvMg4/rO3QFm6k2i69KB6T95Z0S+AjD/rE5aWrKB
+         fAng==
+X-Forwarded-Encrypted: i=1; AKwUvBxe05+ztaGL9Vhv2fCPzWjEfqAyqsWuGRTQbOFSiwY82PpwbALssVaIwbM/CGTUSq7OlYw2LYVk8DhvgFU=@vger.kernel.org
+X-Gm-Message-State: AFq9FYImWdW6I91UOMx2f/gW+E8XEuKuK1kqO0ysHMtpzP04I/CfRxrP
+	8BpH3ITg6IAOOIV1cR+WB3jeZZrjmuxHg4CG+HnreXPwfx0DKDL33Gd+
+X-Gm-Gg: AYBFou3r1O1xzrfY5e/SCHYmzlTqoQrK6ZBCuefgoqeOWZ83Oo5/zDMwmD6BCjezozQ
+	r5yh61ASmRfA9iuCPMcHm4+nVGz41dsvEJH0+ogLsjWTM2ei2b9C2b9Udb1fzscvt4mi8weH+qV
+	57YExnKW73xT6JhXytcw8Nw9hEHfXpNHUbVBbUbzUk5OGwUEuE6QTRlyye07YgNb0mnCBgf+XpI
+	t7fIf78bjGpYLfYQldP7/DRO5puz/40MmJ3Pd7EvNu0GggMMfqvR3thS9iYUWj70nZ1Awj0uN4l
+	+zBUhyfSZLaeTAWqyIg7mzSGIpiCoQt0RKR8/+bZ5pR5YQ+8XtAfCnFKAXCaGnh4a0/C82uKfCQ
+	MESwcOLHCLTP3lm6QPwBpl3S8f3EtNmD1Bqkpb4l9b8fx2WbNUt+tURl7Om946PmMuA9QJpZ4jV
+	yFl1gcTD3dtak1jylNwZNE2UR/QkLefhG7X7RImsJKXtda+y6id+yDIa+xpUKaFwOO6qyAyOuji
+	T7xvR8cD8IdYQ4=
+X-Received: by 2002:a05:6000:144c:b0:48b:180:b900 with SMTP id ffacd0b85a97d-48c47fe7564mr17336900f8f.16.1791272792189;
+        Tue, 06 Oct 2026 00:46:32 -0700 (PDT)
 Received: from deb05.proceq.com ([213.160.61.66])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a178db0929sm52237855e9.12.2026.10.06.00.46.29
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48c6f3a36dfsm166254f8f.19.2026.10.06.00.46.31
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 06 Oct 2026 00:46:30 -0700 (PDT)
+        Tue, 06 Oct 2026 00:46:31 -0700 (PDT)
 From: Mehmet Fide <mehmet.fide@gmail.com>
-To: Ping-Ke Shih <pkshih@realtek.com>
-Cc: Luka Gejak <luka.gejak@linux.dev>,
+To: Luka Gejak <luka.gejak@linux.dev>
+Cc: Ping-Ke Shih <pkshih@realtek.com>,
 	Bitterblue Smith <rtl8821cerfe2@gmail.com>,
 	linux-wireless@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	mehmet.fide@screeningeagle.com
-Subject: Re: [PATCH rtw-next v3 0/2] wifi: rtw88: channel switch in AP mode
-Date: Tue,  6 Oct 2026 09:46:29 +0200
-Message-ID: <20261006074629.372782-1-mehmet.fide@gmail.com>
+Subject: Re: [PATCH rtw-next v3 2/2] wifi: rtw88: support channel switch in AP mode
+Date: Tue,  6 Oct 2026 09:46:30 +0200
+Message-ID: <20261006074630.372808-1-mehmet.fide@gmail.com>
 X-Mailer: git-send-email 2.55.0
-In-Reply-To: <b6c8d3f63f7e40fa8b515352cba19541@realtek.com>
+In-Reply-To: <20261005173326.2306-1-luka.gejak@linux.dev>
 References: 
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -80,14 +80,30 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Hi Ping-Ke,
+Hi Luka,
 
-On 2026-10-06 Ping-Ke Shih wrote:
-> If you have something changed, you should not carry my acked-by.
-> Or, point out the reason you can.
+On 2026-10-05 Luka Gejak wrote:
+> so an association during the countdown moves the count a second time in
+> the same interval. Can this download skip the page while a switch is
+> announced, the way set_key does?
 
-You are right, sorry. v4 drops it; the only change since the version
-you acked is the initialisation of the beacon pointer in the caller.
+Yes. v4 skips the download and the H2C on association while a switch is
+announced; the next countdown download carries the pages of the new
+station. Of the remaining callers, the WoWLAN ones run after the
+countdown work is cancelled and the beacon change is the countdown
+itself.
+
+> so the AP leaves the channel during the countdown anyway. Can the check
+> move above the feature test?
+
+Yes, v4 takes the mutex first and refuses the scan before the offload
+test and the scanning flag, so firmware without scan offload gets -EBUSY
+as well instead of a software scan.
+
+Both verified on an RTL8821CU, whose firmware has no scan offload: a
+scan during a countdown returned 32 BSSs with v3 and -EBUSY with v4,
+and an association that completes inside a count-2 countdown hits the
+mac80211 warning about the counter reaching 0 with v3, not with v4.
 
 Best regards,
 Mehmet
