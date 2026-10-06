@@ -1,225 +1,412 @@
-Received: from mail-qt1-f176.google.com (mail-qt1-f176.google.com [209.85.160.176])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3F9344195C8
-	for <linux-kernel@vger.kernel.org>; Tue,  6 Oct 2026 17:20:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.176
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6C2F03DD84C
+	for <linux-kernel@vger.kernel.org>; Tue,  6 Oct 2026 17:23:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791307215; cv=none; b=AlMtreu55UC6SvLsddzIJjxfA7XZ3+BZ2Bijg+snRD75dL4Uln9Vbw454PlW/BUAKPNY3Yb86nduKeF1jyLQWg1oukIIux7rqf7y9cac45L/2PyhkH2pq0/A5g3mS+KPndzyettukUoqC2NKCUJRW8QxFZRksVRD0aTWaEA/llw=
+	t=1791307383; cv=none; b=oe0Htj9x2Qjarbmty7zmhfZ95Oebcqkv/N0vIwoJ3IPDyJ42eezI/VJ8V4r8BycXvhD16lqTLzTWRhWcWTgIBmjizcrxyzZyFXNkEJ7iuMWbiBu/oiRQ6ahdok1BhBhpbZB3vT+rdCtG+kPxtGwfNe/bE2s1dGtmlCq0bszCn2Q=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791307215; c=relaxed/simple;
-	bh=8UrfGrgp42qNQU1NimZqWk+yfFirL0kYvAJnchl0BIc=;
-	h=Message-ID:In-Reply-To:References:From:Date:Subject:To:Cc; b=UV0U9IdxFm/8gVhE9GupK9kkdGzRoK5zyzbe8EFblk29u+J+IEWhoX0653SxZHTWApApVeQK6T8YOhL3YsVqAremmJL7FN80RCEx1Oy4L5Zws7ybJq97BpA3422RPizi6JRg3iHablUdbW8lx8BLcUkcTzdZL4gpjL3u24QBWUM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=toxicpanda.com; spf=pass smtp.mailfrom=toxicpanda.com; dkim=pass (2048-bit key) header.d=toxicpanda.com header.i=@toxicpanda.com header.b=MjSgsyiF; arc=none smtp.client-ip=209.85.160.176
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=toxicpanda.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=toxicpanda.com
+	s=arc-20240116; t=1791307383; c=relaxed/simple;
+	bh=wu6fdnjbK9k7Pi0YENtdvnMtzrIT712VDbV+fC/IWRo=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=beb6/viQGqofILDXiLt0DeAkdMDJ0uIUiTirwjSd3zgCx6me19V5SvdogpDI5igFp5qWrheBOya8xUaipQ9V6tehI7HxRIiAs5hYQ+sCYv8g5+dA+ub5wlu3JQOuLD35AKM2OPReG06l+Grj5dyzBQM/K+/rSW2ErJcCWKYtYJQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=XJ2cj31b; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=kI9TAYX0; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=toxicpanda.com header.i=@toxicpanda.com header.b="MjSgsyiF"
-Received: by mail-qt1-f176.google.com with SMTP id d75a77b69052e-5356b6a7fe5so5601081cf.1
-        for <linux-kernel@vger.kernel.org>; Tue, 06 Oct 2026 10:20:10 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="XJ2cj31b";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="kI9TAYX0"
+Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 696HCZcK2470210
+	for <linux-kernel@vger.kernel.org>; Tue, 6 Oct 2026 17:23:00 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:date:from:in-reply-to:message-id
+	:mime-version:references:subject:to; s=qcppdkim1; bh=n9VnUuNRyTG
+	HYfH/xsFiU180Yv9tzt71MWo6T9NkaZE=; b=XJ2cj31bkZHCZop/Pfrht/u8F9H
+	v3yxCF2i4Js4O7qteoxzgc2wI0GQdBb8gKUjeHoawAu3zDKXfW5498h74pAbxvzh
+	d4CuppTvP8W0y0IkQvNLcesA5r/OFAc+Krd8nf+mdvD3uFzxJxHXaw+Ox3VGa3PV
+	VYcW1Q1cQV7+nQdiC1cVUpl++BvTrGx2cXhNBb8/zWHSEjgYMWavbd80GSLsIk42
+	glX9FU9mADt1G2nl7XG7VB7fXfXgpC8k3djaj/aU9OVqga65MNoBEc3fPM9tU09G
+	wqXxOBHzxMoCg2XeXx+MHxxAmwLemUYLvekBrx9llLSUm5noKZLm3IVXGIw==
+Received: from mail-pl1-f199.google.com (mail-pl1-f199.google.com [209.85.214.199])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h4xc51vb7-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Tue, 06 Oct 2026 17:23:00 +0000 (GMT)
+Received: by mail-pl1-f199.google.com with SMTP id d9443c01a7336-2e594a90232so32142135ad.2
+        for <linux-kernel@vger.kernel.org>; Tue, 06 Oct 2026 10:23:00 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=toxicpanda.com; s=google; t=1791307208; x=1791912008; darn=vger.kernel.org;
-        h=cc:to:subject:date:from:references:in-reply-to:message-id:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=ulDmc4vWLYDEpDWER1pNlz3EcN+6UD7sdaSKpKBxXwg=;
-        b=MjSgsyiFDYLLapM0B1YiwaXDUoZaA9fOvwLnqULqbFG2kK8KRpl+dR81ryRWm2datN
-         Bm37feEsvoD28MdGM1ZT3FpHwsyetP7E+5J6z4itOhla8kvCOFedTGmHPCtQA/qudLqD
-         gDZBGS1CDB5Bktp2Pn6gGHhw5Mh89SG497icuMYugF7Qi53vNrsOOCFvmQpePAU4mZSh
-         1oE2IcPqAxpSe8FQ7dfoO+0IvdQ2RqXe8KdQ3asAlDn+npU3+nQTF+pzd0WIFksmiKWV
-         AfaAmsLHxd33Cp5lpELgw0L1fFTRCTk2k546XqTmdFjjq3o6noym57QXn5AlK074aPL7
-         7Ubg==
+        d=oss.qualcomm.com; s=google; t=1791307380; x=1791912180; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=n9VnUuNRyTGHYfH/xsFiU180Yv9tzt71MWo6T9NkaZE=;
+        b=kI9TAYX0PIjWzaUXKHAZI9N7Lub/AHrK+5nFtSYgsmMqzCAlLzB0TWOFBfAcYuuRXZ
+         9nbE3mFsXGlg33DIS6R+NEoS31Q7FKs1cP7wsxqUCOgC7YMCFVn1G/3zZn4f4ItdRmlC
+         TUvw7G71LKdPOTZZDs4rbklNlzM/jx+cryty2TN7u3+A0jkKIEYbtbjIbBc1EkcSId1L
+         WNC1iCLPkrkawnzFT8ef2nOgfWM+hd61AStAZ5yVh7Wa7rnBHXrbBY026TzdJUq0FX/i
+         c77uKIJ1KIh+NeAERVmP/xn87z/hgHRHZi4o7Kb8nfqlcu3Rtv7QMl6+iZphAfYHrRb1
+         LNFA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791307208; x=1791912008;
-        h=cc:to:subject:date:from:references:in-reply-to:message-id:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=ulDmc4vWLYDEpDWER1pNlz3EcN+6UD7sdaSKpKBxXwg=;
-        b=dqYJHYarR7EaGVVT5WmqScT+aZ785/HaULIUcq51fSkPLzQS5j5mdjxnPcEmINsiFL
-         hd1rrhzwoAjpV+CuyVX9EZYTEzlByrM5DHfrycMdEtAO/zU7CS26C7wUVSNEQ6duyWX4
-         nMHEtqIiZ1UO/tOV2LWVyV6NZOS9+G92w+fHyer/vWzbUBnNCk7Eh08RSv1U+qcsYiPx
-         8GtPs8p5WuTrNwdIKJnUBPX02MOoVgkCezKj/XU4gtQ0wb71sqVBBZbOfbKefcjnN02J
-         8UterMxIgkCg9aTBph3PNIpHq9t8gMKLaSMrZxmEiqkUkP/d035MINOTOyeHzlb7QJf9
-         IIyw==
-X-Forwarded-Encrypted: i=1; AKwUvBw08FQeEUVQ/CJH56YsDyHxXjhTs5bwNEUpiYzWDOOX/KrsgrHoqdlVokOyDl3mPlR5GR2CaMGvojTc3wE=@vger.kernel.org
-X-Gm-Message-State: AFuF++lC+mNvlqPVUv/2572BUbQImEn788QLFNRv9FkYl9AUsZ31YLsB
-	RCgnBu8FQXcyVEJIkpVt6o7b9Wip5Oy8han2qR1kPnunBrHI1quL2DlnYzDUXneSK1w=
-X-Gm-Gg: AYBFou0RhxLePFtyACMVS3EfaoIXwxy+k0edGRy/2fn8uAodlX6k64/sA8KVeXrU1Ix
-	BZEEk85xT2czgeXDNUksXmJIJbGULDY2jHUZdIHwIUkH1yRNvQZCQVVMi3YoHxkhOlwcjdUEfXd
-	JBGWl+kkFEGl1tRWIHEXPAgAdSAKcqhyXKhW+R6HLmFHvrwEN6bBZC6Y+MW7oZ3boMzJyUpKatJ
-	TLZE8EqA8L3DZ3zFeWzzGO6I3o2CVBXdwkTg/LlFd1dc1UZhvCBjOlkZzSyv/exVhG7VqOqi939
-	DrHPrSM7uBvyYgMr3ZJBg0Sx0oI7aTF1OtXMCGsxqXmyU5l/2Oax1Wkr6N1doWLwyJqfvRzLvmV
-	71oqLlHEEkx9k9iUPJe/r7TVJkEuY+rwELhsn6tU0AeTCOmv6EKVBS6EHYbDgzJ0Bbb7Mzu5FaF
-	dbe4DfKpV41jarkbjn5N6qI9DAPZirIjiEIQoij+37qQa4/o7fYsVNrfIP+N3nEEiG4Zqjdv3W8
-	sPtNA7Tf0iezWY=
-X-Received: by 2002:a05:622a:11c3:b0:535:e77:e37c with SMTP id d75a77b69052e-535671e2e35mr35390061cf.57.1791307208137;
-        Tue, 06 Oct 2026 10:20:08 -0700 (PDT)
-Received: from toxicpanda.com ([153.61.196.248])
-        by smtp.gmail.com with ESMTPSA id d75a77b69052e-53571f162e7sm762851cf.1.2026.10.06.10.20.06
+        d=1e100.net; s=20260707; t=1791307380; x=1791912180;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=n9VnUuNRyTGHYfH/xsFiU180Yv9tzt71MWo6T9NkaZE=;
+        b=N1NEV6o57dFeIGGWm1TWLH9GSY/sRaDCk9qxUYxTA6R1qAVseXNE0pT/LIN3fh/dcj
+         VgLIKUPmgTRtJYXNnL9AMg+vj32x/PYMVybWV/moo69pHOAankpuJQr2FnHmOVw0QGmD
+         QBehtJExI8+s+1rgmoiZjd10jRJr2nI69bOCsiB1NhlX+HVUy5IauxRP4jrAkg2A2GYG
+         sazYc1O03nlstEWZpAc8n3jz4HFcZta6QiMMXSLgDOIdBpFmdI7mwqkHTFGz1TPTOpj4
+         zwaMT5+FC2fJn+l/KHm8GdB3ovhHnySk5CzbgIamJhe8Q1OKza4zw/sFzYZIkMBVgM+K
+         5vVQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwq9/7R2/9ztda+8EAS98jJbWPWOjJaYkS2HinAsSaEqWRc8PSQDb6kpRA04DoGxcfP/R91u1eHIJo0Zzo=@vger.kernel.org
+X-Gm-Message-State: AFq9FYItynMKYCpD5XLj1GOQ4IfZSokRHMXi5C+DewhxONqoubHfP3km
+	uvGxiz12mPxEvf5Y9/GyrZtN9d8ygj9Xkp55UnO9QsOL0tR/8XYnZPuxdzxIfkZ/MPoELItRxKa
+	c31O/W3fFDoa3H+yf57RrvvCiGXMSPCKw6gLNRSPd4Ea9+w77Q/KojMuFicawR86qSqs=
+X-Gm-Gg: AYBFou0LXrGcXJ84rGfD9QTgNq6lqRVWZYdDIFjdlmRmGaRq3l+++B9r8YuoFgK6dVQ
+	8mgo/PPNQ5XNdcmM2E3SLG0DPOF706qpokq5FQai2ZmUL4CSdw64ALK4EzW98UR5d32rvTJsEIc
+	usG/OaWWBlTecdaLhS+TrkyYySfflay15KOnYQ455NyHGqUywLdLiAgoOzpoe/FMtdJv1SLBH2u
+	p2r/HGWZsaZpHQMNqnb7q/eoUkSNwF9CFPcUMFJ8z8VVDaDNYRoPYPVa3C/uOVjaWXXLVM4caLJ
+	FB/nbL5XfYEkLWw+SdTqY6CxHcXCNhBo5rsOHNSkWI6As5rUtJiIWGPPPyeS0tob4ndGbYfy9Ja
+	pxZ6S0lytxqMTkpFxyJJCExdZbfyAKJEm
+X-Received: by 2002:a17:903:19c3:b0:2dd:ad74:ac7f with SMTP id d9443c01a7336-2e6003c02fdmr911165ad.26.1791307379667;
+        Tue, 06 Oct 2026 10:22:59 -0700 (PDT)
+X-Received: by 2002:a17:903:19c3:b0:2dd:ad74:ac7f with SMTP id d9443c01a7336-2e6003c02fdmr910895ad.26.1791307379090;
+        Tue, 06 Oct 2026 10:22:59 -0700 (PDT)
+Received: from hu-faisalh-hyd.qualcomm.com ([202.46.23.25])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2e5ff5dcc90sm1114485ad.23.2026.10.06.10.22.56
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 06 Oct 2026 10:20:06 -0700 (PDT)
-Message-ID: <fa008e794e050059f67469ddf006298ea028ce24.1791307183.git.josef@toxicpanda.com>
-In-Reply-To: <asUCWjKXMxXFwBNQ@fedora-laptop>
-References: <asUCWjKXMxXFwBNQ@fedora-laptop>
-From: Josef Bacik <josef@toxicpanda.com>
-Date: Mon, 5 Oct 2026 16:23:51 +0000
-Subject: [PATCH v2] ublk: refuse to go live after an io command was canceled
-To: Ming Lei <tom.leiming@gmail.com>,
-    Jens Axboe <axboe@kernel.dk>
-Cc: Caleb Sander Mateos <csander@purestorage.com>,
-    linux-block@vger.kernel.org,
-    linux-kernel@vger.kernel.org,
-    linux-doc@vger.kernel.org
+        Tue, 06 Oct 2026 10:22:58 -0700 (PDT)
+From: Faisal Hassan <faisal.hassan@oss.qualcomm.com>
+To: Thinh Nguyen <Thinh.Nguyen@synopsys.com>,
+        Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: Felipe Balbi <balbi@ti.com>, linux-usb@vger.kernel.org,
+        linux-kernel@vger.kernel.org, faisal.hassan@oss.qualcomm.com
+Subject: [PATCH v2] usb: dwc3: gadget: linearize SG requests that exceed the TRB cache
+Date: Tue,  6 Oct 2026 22:52:54 +0530
+Message-Id: <20261006172254.1058992-1-faisal.hassan@oss.qualcomm.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20261004031445.1450196-1-faisal.hassan@oss.qualcomm.com>
+References: <20261004031445.1450196-1-faisal.hassan@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+X-Authority-Analysis: v=2.4 cv=X5THu2Te c=1 sm=1 tr=0 ts=6ac52e74 cx=c_pps
+ a=JL+w9abYAAE89/QcEU+0QA==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
+ a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=eoimf2acIAo5FJnRuUoq:22 a=VwQbUJbxAAAA:8
+ a=EUspDBNiAAAA:8 a=3n27Y_Pxg6K5dMmys6IA:9 a=324X-CrmTo6CU4MGRt3R:22
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDA2MDA2OSBTYWx0ZWRfX45PBHaCTk3WY
+ 2BUrxdmJlk5SUw4k+0lZlVjhLac3DMo5fpVXHJ+3I7P1ILqB9Dj8P/X7YD+fWgJtgMnUIdD1wuy
+ N8eeur46ODCaaHan/MmFx/vAh9VTVLg=
+X-Proofpoint-GUID: 5AJfTOdbl86MPTJgbb-iPgrIP472upAi
+X-Proofpoint-ORIG-GUID: 5AJfTOdbl86MPTJgbb-iPgrIP472upAi
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDA2MDA2OSBTYWx0ZWRfXx/Xf3ZfjCbl4
+ Voz2z+8QKBLDorAvQeNudR1V8UdBFVnSyKs208+4lGNwJkA05iirkn71T9LGsxUf9HkrZOCbL7r
+ 7Tvx5QdYmvYywpqrpW4ufUIT/3aAHFlTs0/97dSat2v7M/gAlWmN4qJOJkpVCLf5o9ocpv8wIQu
+ J55voehKFZXHn0NVIMzaKpR5eYvw7o+JHjU/DrkfYqLIcJFJg5Xlf2WWfjWr7P13lXlDrMEn7p/
+ SD7L1D1y3Xe4fj8Qz7hKEALyn7NqVu+yZkV73zMG+ISBENQrZQcDoItgtzzasH5HF05/ERxmXmd
+ JNsEuOFRggXllokZsKJFrKHxuIh9J3DmaHO930L/A/NMuMcuYjssMrb/TEmSUsXQbAKlxm9GcvI
+ Q0tQHX9s9BTsorIwJUZff9RpQa6TCK9V5APw089Y9narqetmbXfJXvu93qATRzZZi0P6FOvTkvj
+ MsSnVDasM3kMfLzVKhw==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-06_05,2026-10-06_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ bulkscore=0 adultscore=0 malwarescore=0 clxscore=1015 phishscore=0
+ priorityscore=1501 suspectscore=0 impostorscore=0 spamscore=0
+ lowpriorityscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2609040000
+ definitions=main-2610060069
 
-Since commit "ublk: keep a canceled FETCH round canceling until the
-server is gone", a device whose FETCH round saw a cancel keeps its
-queues canceling until the server goes away, but START_DEV and
-END_USER_RECOVERY still bring it up. Without UBLK_F_USER_RECOVERY, or
-with UBLK_F_USER_RECOVERY_FAIL_IO, every request of the new disk fails.
-With UBLK_F_USER_RECOVERY, requests are requeued and never kicked: after
-START_DEV the partition scan hangs under disk->open_mutex, and after
-END_USER_RECOVERY every read parks while the command returned 0. The
-server cannot fetch the canceled commands again, so the device can't
-serve I/O until it restarts anyway.
+The controller prefetches the TRBs of a transfer into an internal cache
+that holds DWC_USB3_CACHE_TRBS_PER_TRANSFER entries. Databook 4.2.3.3
+requires that the number of chained TRBs needed to construct a single
+packet never exceeds (DWC_USB3_CACHE_TRBS_PER_TRANSFER - 1), where the
+-1 accounts for the one Link TRB that may be part of the chain when a
+transfer wraps the TRB ring. The cache never holds more than 15 TRBs
+however the core was configured, so the usable budget is
+min(GHWPARAMS4[5:0] - 1, 15) data TRBs per packet.
 
-Return -EBUSY from START_DEV and END_USER_RECOVERY while ub->canceling
-is set. In ublk_ctrl_start_dev() check it and publish ub->ub_disk in one
-cancel_mutex section, and have ublk_start_cancel() read the disk in its
-cancel_mutex section. Today ublk_start_cancel() samples the disk before
-taking the mutex, so a server dying during its own START_DEV can mark
-the queues without quiescing a disk START_DEV published in between, with
-its first I/O past the canceling check. Now either START_DEV sees the
-cancel, or the cancel sees the disk and quiesces it before marking. The
-END_USER_RECOVERY check is best effort: the disk exists there, and a
-cancel after it is the ordinary death of the new server, which
-ublk_start_cancel() handles by quiescing and marking.
+Each scatter-gather entry of a request is queued as one TRB, so a gadget
+function driver that hands down an IN request whose entries are smaller
+than MaxPacketSize can exceed that budget with no way of knowing it. On
+a SuperSpeed bulk IN endpoint, a 1024-byte request scattered across 16
+pages of 64 bytes needs 16 chained TRBs for its single packet, one more
+than the controller can cache: the controller never assembles the
+packet, the endpoint keeps responding NRDY and the request never
+completes. The same request runs fine at High-Speed, where the 512-byte
+MaxPacketSize splits it into two packets of 8 TRBs each.
 
-Assisted-by: LLM
-Reviewed-by: Ming Lei <tom.leiming@gmail.com>
-Signed-off-by: Josef Bacik <josef@toxicpanda.com>
+Walk the scatter-gather list of IN requests when they are queued,
+counting the TRBs each packet would be built from, and copy the request
+into a single contiguous buffer when a packet would exceed the budget.
+Doing it at queue time lets a failed allocation or a scatter-gather list
+shorter than the request length be returned to the function driver from
+usb_ep_queue(), instead of leaving a request on the pending list that can
+never be started. The original usb_request fields are restored on
+completion, so function drivers stay independent of the controller
+limitation.
+
+The host side already applies the equivalent workaround unconditionally
+for every dwc3 instance through XHCI_SG_TRB_CACHE_SIZE_QUIRK. A request
+that trips this check cannot be transferred at all, so applying the
+workaround unconditionally can only turn a stalled endpoint into one
+extra copy. That copy is a GFP_ATOMIC allocation of the request length,
+which reaches order-4 for a 64 KiB request, but it is only reached by
+requests that would otherwise never complete.
+
+Fixes: eeb720fb21d6 ("usb: dwc3: gadget: add support for SG lists")
+Cc: stable@vger.kernel.org
+Signed-off-by: Faisal Hassan <faisal.hassan@oss.qualcomm.com>
 ---
-v2: -EBUSY instead of -ENODEV, the device isn't gone (Ming)
+Changes in v2:
+- Linearize at queue time in __dwc3_gadget_ep_queue() rather than in
+  dwc3_prepare_trbs(), so an allocation failure or a scatter-gather list
+  shorter than the request length is returned from usb_ep_queue()
+  instead of leaving the request stuck on the pending list.
+- Unmap a linearized request on giveback even if it never got a TRB,
+  so the bounce buffer is not freed while still DMA-mapped.
+- Add __GFP_NOWARN to the bounce buffer allocation, the failure is
+  reported to the caller.
+- Link to v1: https://lore.kernel.org/all/20261004031445.1450196-1-faisal.hassan@oss.qualcomm.com/
 
-This applies on top of Ming's "[PATCH 0/8] ublk: don't dispatch to
-canceled io commands" and needs patch 1 of it for ub->canceling to stay
-set for the whole FETCH round.
+ drivers/usb/dwc3/core.h   |  15 +++++
+ drivers/usb/dwc3/gadget.c | 133 +++++++++++++++++++++++++++++++++++++-
+ 2 files changed, 147 insertions(+), 1 deletion(-)
 
- Documentation/block/ublk.rst | 10 ++++++++--
- drivers/block/ublk_drv.c     | 38 ++++++++++++++++++++++++++++++++++--
- 2 files changed, 44 insertions(+), 4 deletions(-)
-
-diff --git a/Documentation/block/ublk.rst b/Documentation/block/ublk.rst
-index 28300fee22bf..6c5536ebd987 100644
---- a/Documentation/block/ublk.rst
-+++ b/Documentation/block/ublk.rst
-@@ -118,7 +118,11 @@ managing and controlling ublk devices with help of several control commands:
-   After the server prepares userspace resources (such as creating I/O handler
-   threads & io_uring for handling ublk IO), this command is sent to the
-   driver for allocating & exposing ``/dev/ublkb*``. Parameters set via
--  ``UBLK_CMD_SET_PARAMS`` are applied for creating the device.
-+  ``UBLK_CMD_SET_PARAMS`` are applied for creating the device. The command
-+  fails with ``-EBUSY`` if an I/O command fetched by the current server
-+  was canceled, because its io_uring is gone. The server can't fetch it
-+  again, and the device can be started again once the server has closed
-+  ``/dev/ublkc*``.
+diff --git a/drivers/usb/dwc3/core.h b/drivers/usb/dwc3/core.h
+index 608daeb7ef10..af71abaac8ed 100644
+--- a/drivers/usb/dwc3/core.h
++++ b/drivers/usb/dwc3/core.h
+@@ -386,6 +386,7 @@
+ #define DWC3_GHWPARAMS3_FSPHY_IFC_ENA		1
  
- - ``UBLK_CMD_STOP_DEV``
+ /* Global HWPARAMS4 Register */
++#define DWC3_GHWPARAMS4_CACHE_TRBS_PER_TRANSFER(n)	((n) & GENMASK(5, 0))
+ #define DWC3_GHWPARAMS4_HIBER_SCRATCHBUFS(n)	(((n) & (0x0f << 13)) >> 13)
+ #define DWC3_MAX_HIBER_SCRATCHBUFS		15
  
-@@ -195,7 +199,9 @@ managing and controlling ublk devices with help of several control commands:
-   command is accepted after ublk device is quiesced and a new process has
-   opened ``/dev/ublkc*`` and get all ublk queues be ready. When this command
-   returns, ublk device is unquiesced and new I/O requests are passed to the
--  new process.
-+  new process. It fails with ``-EBUSY`` if an I/O command of the new
-+  process was canceled already. The recovery can be started over once the
-+  new process has closed ``/dev/ublkc*``.
+@@ -714,6 +715,7 @@ struct dwc3_event_buffer {
+ #define DWC3_EP_DIRECTION_RX	false
  
- - user recovery feature description
+ #define DWC3_TRB_NUM		256
++#define DWC3_TRB_CACHE_MAX	15
  
-diff --git a/drivers/block/ublk_drv.c b/drivers/block/ublk_drv.c
-index f57d544c1da2..015aff07703c 100644
---- a/drivers/block/ublk_drv.c
-+++ b/drivers/block/ublk_drv.c
-@@ -2759,9 +2759,11 @@ static void ublk_abort_queue(struct ublk_device *ub, struct ublk_queue *ubq)
+ /**
+  * struct dwc3_ep - device side endpoint representation
+@@ -951,8 +953,15 @@ struct dwc3_hwparams {
+  * @trb: pointer to struct dwc3_trb
+  * @trb_dma: DMA address of @trb
+  * @num_trbs: number of TRBs used by this request
++ * @sg_trb_cache_buf: temporary linear buffer the scatter-gather list is
++ *			copied into when it exceeds the TRB cache budget
++ * @sg_trb_cache_sg: scatter-gather list replaced by @sg_trb_cache_buf
++ * @sg_trb_cache_num_sgs: number of entries in @sg_trb_cache_sg
++ * @sg_trb_cache_orig_buf: request buffer replaced by @sg_trb_cache_buf
+  * @direction: IN or OUT direction flag
+  * @mapped: true when request has been dma-mapped
++ * @sg_trb_cache_bounced: true while this request is queued through
++ *			@sg_trb_cache_buf instead of its scatter-gather list
+  */
+ struct dwc3_request {
+ 	struct usb_request	request;
+@@ -978,8 +987,14 @@ struct dwc3_request {
  
- static void ublk_start_cancel(struct ublk_device *ub)
+ 	unsigned int		num_trbs;
+ 
++	void			*sg_trb_cache_buf;
++	struct scatterlist	*sg_trb_cache_sg;
++	unsigned int		sg_trb_cache_num_sgs;
++	void			*sg_trb_cache_orig_buf;
++
+ 	unsigned int		direction:1;
+ 	unsigned int		mapped:1;
++	unsigned int		sg_trb_cache_bounced:1;
+ };
+ 
+ /*
+diff --git a/drivers/usb/dwc3/gadget.c b/drivers/usb/dwc3/gadget.c
+index f245e66cd13d..7417d3c32dbf 100644
+--- a/drivers/usb/dwc3/gadget.c
++++ b/drivers/usb/dwc3/gadget.c
+@@ -190,6 +190,22 @@ static void dwc3_ep_inc_deq(struct dwc3_ep *dep)
+ 	dwc3_ep_inc_trb(&dep->trb_dequeue);
+ }
+ 
++static void dwc3_gadget_restore_sg_trb_cache_buf(struct dwc3_request *req)
++{
++	if (!req->sg_trb_cache_bounced)
++		return;
++
++	req->request.buf = req->sg_trb_cache_orig_buf;
++	req->request.sg = req->sg_trb_cache_sg;
++	req->request.num_sgs = req->sg_trb_cache_num_sgs;
++	kfree(req->sg_trb_cache_buf);
++	req->sg_trb_cache_buf = NULL;
++	req->sg_trb_cache_sg = NULL;
++	req->sg_trb_cache_num_sgs = 0;
++	req->sg_trb_cache_orig_buf = NULL;
++	req->sg_trb_cache_bounced = false;
++}
++
+ static void dwc3_gadget_del_and_unmap_request(struct dwc3_ep *dep,
+ 		struct dwc3_request *req, int status)
  {
--	struct gendisk *disk = ublk_get_disk(ub);
-+	struct gendisk *disk;
+@@ -202,10 +218,16 @@ static void dwc3_gadget_del_and_unmap_request(struct dwc3_ep *dep,
+ 	if (req->request.status == -EINPROGRESS)
+ 		req->request.status = status;
  
-+	/* sync with ublk_ctrl_start_dev() publishing the disk */
- 	mutex_lock(&ub->cancel_mutex);
-+	disk = ublk_get_disk(ub);
- 	if (ub->canceling)
- 		goto out;
- 
-@@ -4575,6 +4577,7 @@ static int ublk_ctrl_start_dev(struct ublk_device *ub,
- 		.dma_alignment		= 3,
- 	};
- 	struct gendisk *disk;
-+	bool canceled;
- 	int ret = -EINVAL;
- 
- 	if (ublksrv_pid <= 0)
-@@ -4665,8 +4668,24 @@ static int ublk_ctrl_start_dev(struct ublk_device *ub,
- 	disk->fops = &ub_fops;
- 	disk->private_data = ub;
- 
+-	if (req->trb)
 +	/*
-+	 * A command of this FETCH round was canceled and can't be fetched
-+	 * again, don't bring up a disk over it.  Check and publish the disk
-+	 * in one cancel_mutex section: either this sees ub->canceling, or
-+	 * ublk_start_cancel() sees the disk and quiesces it before marking
-+	 * the queues.
++	 * A linearized request may have been mapped without getting a TRB, so
++	 * unmap it before its buffer is freed.
 +	 */
-+	mutex_lock(&ub->cancel_mutex);
-+	canceled = ub->canceling;
-+	if (!canceled)
-+		ub->ub_disk = disk;
-+	mutex_unlock(&ub->cancel_mutex);
-+	if (canceled) {
-+		put_disk(disk);
-+		ret = -EBUSY;
-+		goto out_unlock;
-+	}
- 	ub->dev_info.ublksrv_pid = ub->ublksrv_tgid;
--	ub->ub_disk = disk;
++	if (req->trb || req->sg_trb_cache_bounced)
+ 		usb_gadget_unmap_request_by_dev(dwc->sysdev,
+ 				&req->request, req->direction);
  
- 	ublk_apply_params(ub);
++	dwc3_gadget_restore_sg_trb_cache_buf(req);
++
+ 	req->trb = NULL;
+ 	trace_dwc3_gadget_giveback(req);
  
-@@ -5238,6 +5257,7 @@ static int ublk_ctrl_end_recovery(struct ublk_device *ub,
- 		const struct ublksrv_ctrl_cmd *header)
- {
- 	int ublksrv_pid = (int)header->data[0];
-+	bool canceled;
- 	int ret = -EINVAL;
+@@ -1474,6 +1496,110 @@ static int dwc3_prepare_last_sg(struct dwc3_ep *dep,
+ 	return num_trbs;
+ }
  
- 	pr_devel("%s: Waiting for all FETCH_REQs, dev id %d...\n", __func__,
-@@ -5261,6 +5281,20 @@ static int ublk_ctrl_end_recovery(struct ublk_device *ub,
- 		ret = -EBUSY;
- 		goto out_unlock;
- 	}
++/*
++ * Each scatter-gather entry is queued as one TRB, so an IN request backed by
++ * entries smaller than MaxPacketSize can need more chained TRBs to construct a
++ * single packet than the controller is able to cache. Databook 4.2.3.3 limits
++ * the chained TRBs a single packet may be built from to
++ * (DWC_USB3_CACHE_TRBS_PER_TRANSFER - 1), where the -1 accounts for the single
++ * Link TRB the controller walks as part of the chain when a transfer wraps the
++ * TRB ring. The cache itself never holds more than DWC3_TRB_CACHE_MAX TRBs, so
++ * clamp the limit for cores built with a larger parameter.
++ *
++ * Walk the scatter-gather list counting the TRBs each packet would be built
++ * from, and report the requests that exceed that budget.
++ */
++static bool dwc3_gadget_sg_trb_cache_limit(struct dwc3_ep *dep,
++		struct dwc3_request *req)
++{
++	struct dwc3 *dwc = dep->dwc;
++	struct scatterlist *sg;
++	unsigned int cache_depth;
++	unsigned int max_trbs;
++	unsigned int maxp;
++	unsigned int fill = 0;
++	unsigned int trbs = 0;
++	int i;
++
++	if (!req->direction || !req->request.num_sgs)
++		return false;
++
++	if (req->request.sg_was_mapped || req->request.length == 0)
++		return false;
++
++	cache_depth = DWC3_GHWPARAMS4_CACHE_TRBS_PER_TRANSFER(dwc->hwparams.hwparams4);
++	if (cache_depth < 2)
++		return false;
++
++	max_trbs = min_t(unsigned int, cache_depth - 1, DWC3_TRB_CACHE_MAX);
 +
 +	/*
-+	 * As in ublk_ctrl_start_dev(), a canceled command can't be fetched
-+	 * again.  Best effort: the disk exists here, and a cancel after this
-+	 * check is the ordinary death of the new server, which
-+	 * ublk_start_cancel() handles by quiescing and marking.
++	 * A list no longer than the budget cannot exceed it, whatever the
++	 * individual entry sizes are.
 +	 */
-+	mutex_lock(&ub->cancel_mutex);
-+	canceled = ub->canceling;
-+	mutex_unlock(&ub->cancel_mutex);
-+	if (canceled) {
-+		ret = -EBUSY;
-+		goto out_unlock;
++	if (req->request.num_sgs <= max_trbs)
++		return false;
++
++	maxp = usb_endpoint_maxp(dep->endpoint.desc);
++
++	for_each_sg(req->request.sg, sg, req->request.num_sgs, i) {
++		unsigned int len = sg->length;
++
++		trbs++;
++
++		while (fill + len >= maxp) {
++			len -= maxp - fill;
++			if (trbs > max_trbs)
++				return true;
++
++			fill = 0;
++			trbs = len ? 1 : 0;
++		}
++
++		fill += len;
 +	}
- 	ub->dev_info.ublksrv_pid = ub->ublksrv_tgid;
- 	ub->dev_info.state = UBLK_S_DEV_LIVE;
- 	pr_devel("%s: new ublksrv_pid %d, dev id %d\n",
++
++	/* The transfer may end with a short packet. */
++	return fill && trbs > max_trbs;
++}
++
++static int dwc3_gadget_linearize_sg_request(struct dwc3_ep *dep,
++		struct dwc3_request *req)
++{
++	void *buf;
++	size_t copied;
++
++	if (!dwc3_gadget_sg_trb_cache_limit(dep, req))
++		return 0;
++
++	buf = kmalloc(req->request.length, GFP_ATOMIC | __GFP_NOWARN);
++	if (!buf)
++		return -ENOMEM;
++
++	copied = sg_pcopy_to_buffer(req->request.sg, req->request.num_sgs,
++			buf, req->request.length, 0);
++	if (copied != req->request.length) {
++		kfree(buf);
++		return -EINVAL;
++	}
++
++	dev_dbg(dep->dwc->dev,
++		"%s: linearize SG request len=%u num_sgs=%u exceeding TRB cache\n",
++		dep->name, req->request.length, req->request.num_sgs);
++
++	req->sg_trb_cache_buf = buf;
++	req->sg_trb_cache_sg = req->request.sg;
++	req->sg_trb_cache_num_sgs = req->request.num_sgs;
++	req->sg_trb_cache_orig_buf = req->request.buf;
++	req->sg_trb_cache_bounced = true;
++
++	req->request.buf = buf;
++	req->request.sg = NULL;
++	req->request.num_sgs = 0;
++
++	return 0;
++}
++
+ static int dwc3_prepare_trbs_sg(struct dwc3_ep *dep,
+ 		struct dwc3_request *req)
+ {
+@@ -1985,6 +2111,7 @@ static int __dwc3_gadget_start_isoc(struct dwc3_ep *dep)
+ static int __dwc3_gadget_ep_queue(struct dwc3_ep *dep, struct dwc3_request *req)
+ {
+ 	struct dwc3		*dwc = dep->dwc;
++	int			ret;
+ 
+ 	if (!dep->endpoint.desc || !dwc->pullups_connected || !dwc->connected) {
+ 		dev_dbg(dwc->dev, "%s: can't queue to disabled endpoint\n",
+@@ -2001,6 +2128,10 @@ static int __dwc3_gadget_ep_queue(struct dwc3_ep *dep, struct dwc3_request *req)
+ 				dep->name, &req->request))
+ 		return -EINVAL;
+ 
++	ret = dwc3_gadget_linearize_sg_request(dep, req);
++	if (ret)
++		return ret;
++
+ 	pm_runtime_get(dwc->dev);
+ 
+ 	req->request.actual	= 0;
+
+base-commit: 639df5d23876a548b86fe6526bed8b97edf64d96
 -- 
-2.55.0
+2.34.1
 
