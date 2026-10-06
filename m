@@ -1,94 +1,94 @@
-Received: from mail-dl1-f49.google.com (mail-dl1-f49.google.com [74.125.82.49])
+Received: from mail-dl1-f48.google.com (mail-dl1-f48.google.com [74.125.82.48])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B7B924A484D
-	for <linux-kernel@vger.kernel.org>; Tue,  6 Oct 2026 18:42:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.82.49
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 61CBE339364
+	for <linux-kernel@vger.kernel.org>; Tue,  6 Oct 2026 18:42:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.82.48
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791312124; cv=pass; b=Ux+IiNw8/IeYr7GDTu0EP3FUSj+XfuQmohWGTZJdU81i/UJyWJgnPuUJ9y2kDFl/HytBMAcL18S1yi5HOOjY/rFbuKtGRChDBDXyR9HOdg+MVSRzLAM2d3L9q1VOk8ZwrGku70VmeH0NBp+RTBVCHkoKh5HMJro/p2RY7hkgi4o=
+	t=1791312155; cv=pass; b=eP2qURIBV4+y1OkfYDbmQXHVW67sZiJPrGmPPQEjTdJV8p2m+zpxQpZLCuxKvkv2NbrHMZfcmqWun2qNorpghc13HWwUY2a/1k3IKtxKvL3uzxqDCI8j6zHK8CagMbmMZp63RjYBaYU0aFsUgfAHO9xDTl7WnxtoRl4H5FW3ip4=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791312124; c=relaxed/simple;
-	bh=VsySStT+bTHVUZ7K5MQkKgFZxIMQ6ua4cfuOsS0U3mo=;
+	s=arc-20240116; t=1791312155; c=relaxed/simple;
+	bh=lqvNoiYS5Y69wvqY92SOyBc105nfusymGn5er7L23A4=;
 	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=upRvglNH/RFS84TZMdDElc1OLwB0Z8xtdENiNSAkUyIk8FiVsjycU1CfnNJ7ELWPv0i5hWhmB9mMW6g+FK8fGFCzlTZP3SbIhjeUO4QRbCjuPc6yj/IyPN6nS+ey5CGDG4wj3unfMjRIHlarFet61XXKSDfOsmU0mw+/4mAFrXs=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=MVGZiPbl; arc=pass smtp.client-ip=74.125.82.49
+	 To:Cc:Content-Type; b=qieCnCb0e/q53n1tzv4udL1O4sCXOpfgYYo1bo7QQfNtSgEA+26ljt6yJL8jkhO8KiNah06x5CqhBNDPIQ1+zeIP7flMw0i2P8R3RHbcGWUUNIoI/PEMG+CzQT95j/zuCuiM7Hgub6cUoXPJKivdBtmoGqCxPHKvaJW9NaVmJiE=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=qRuhekSJ; arc=pass smtp.client-ip=74.125.82.48
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="MVGZiPbl"
-Received: by mail-dl1-f49.google.com with SMTP id a92af1059eb24-144e1b6d52cso1232c88.1
-        for <linux-kernel@vger.kernel.org>; Tue, 06 Oct 2026 11:41:59 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1791312117; cv=none;
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="qRuhekSJ"
+Received: by mail-dl1-f48.google.com with SMTP id a92af1059eb24-143941c2aebso1236c88.0
+        for <linux-kernel@vger.kernel.org>; Tue, 06 Oct 2026 11:42:32 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1791312150; cv=none;
         d=google.com; s=arc-20260327;
-        b=CJ6wRBQa/qy5afm548oVQjDUCBIqZoYRF5oTPZEihaNsGM16LIAUE4hIFkIGDnVj2n
-         1+P+Fqj5VT5wqXmOLwd9LlFa+iVvZwB2U0212z4O9QnE0k1XTrJcsvkBzCq4iy+RDTx+
-         JleCUJy+++wfOfKtWAZbKKhRIw0Np+YnUY+9XTb/yLMxqp3aXw62NusSriYgUoXgY6RZ
-         7AtnLeZ8UgHQl6eRplHmZOMizhcu+fUbqt6eCKDWIwZjn13xtDTEgJVC7AMJBy58RJip
-         S/T4TIANCQBiREpJhjl1K/z9qrrfDrp11Ps2E5tyT9RUqzyUwMZ02YXb2NwKOUN5dMiG
-         yPgw==
+        b=Y2TQ7B2axArWSl+vJvc+2fbPahck5Xvr3s9jUJ9CO9ixBim5KxPfRp7+jzWYeMy+2c
+         w2PqFoO2RcU4f6ll1AJnnk7EAhq+C14WmLp2ttma1sd/vcevWfrhXMkBxSYfn9ngPcsF
+         PSU6zTaQMs+TaM5DOZKx5cA8EOUU2MJXEMcWXCaJknCprZ/+3rc5nGrOQVilOE/kyhxX
+         SkzofNoqXCdRJ58dHuyRk178heNERxMz1I4M7dJ4sSzVlVoRj/noH9dQDSTftljTnUTy
+         7c8Cxoq7g3REbyPEp+CPRVO0TZ4+BTzT9DzIX6tVDvX3M+EXZCgyHvF+aZle9H0PcLFL
+         zqKw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
         h=cc:to:subject:message-id:date:from:in-reply-to:references
          :mime-version:dkim-signature;
-        bh=VsySStT+bTHVUZ7K5MQkKgFZxIMQ6ua4cfuOsS0U3mo=;
-        fh=vRiog0hUJWO0wWpfzukEuhnxK8fJc3CZpr5ADkWFu8Q=;
-        b=bFpQeyKCBVYtjKEBlsgKoKJ4JGvFULD/MNs/ocTpe68nYkRqrHowm0swhuDBAybFs8
-         qRTZFn2Xx6z1JEGfS9WgCo/8m+ga3X5UN4kjbTPFXK1YAGbO6PvLvpxGv7qhqXup1Cra
-         U5GDsqIWqFAKmenfI6jMnQAN3/9TMJ/Ujt896hXyr8LOJbi1ylv1KEnHSd9UotZM5V32
-         A7En7ujuof+L8kM3J8o0Zh976EmwjPVS421rr8JlcRGa1Cgv/GMqZ7ZSJNjTq72cferm
-         3S43KYptMSaAZXzfhkuuYFR884XOMML77vtXSvGMChOg7hsliZ9dK38Bz1wMDDzwKg13
-         vCgg==;
+        bh=lqvNoiYS5Y69wvqY92SOyBc105nfusymGn5er7L23A4=;
+        fh=vSlWBCZ/Meqb47JYqzdfy1rVSOGIsugsD7KBpI1qB/o=;
+        b=ogbTk1Wz1bndIFjzYvR7LywYPTjGuGtOQh9cA69pBML+58Y5SX8+HmhbMt1D/H0sZt
+         rIt/+U0kojGQBRTaKtI5i66pX6cgcAhgPrQAGxQYTmFq9DM2jQiOxAisNGbg4S3Xr3K4
+         vHtdsFudK1zkS2ZBBijtOHBXVy1Mquj/DrbwbY4f7XuF610vJG9sJfGN2+vtOFjzu2Y2
+         9OPmmJzd1vqD+5Py5Oqqxt6jsHlyl/0LtA9Kpzk52EAuev4ZXACdcseqEMcXh9BRj3uI
+         aqMF9ALAOoDHR0zK91Rd5V8LKJ2KqSIdxrxUYbRb4kF7uoBx1AG88NI4m3SGZfTkh5tx
+         JdCg==;
         darn=vger.kernel.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1791312117; x=1791916917; darn=vger.kernel.org;
+        d=google.com; s=20251104; t=1791312150; x=1791916950; darn=vger.kernel.org;
         h=content-type:cc:to:subject:message-id:date:from:in-reply-to
          :references:mime-version:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=VsySStT+bTHVUZ7K5MQkKgFZxIMQ6ua4cfuOsS0U3mo=;
-        b=MVGZiPblrW2Iq1U9q2FPT1NPM5mJXtwHxtlLB5hLlrZvXSoxgYzAVvjagFeEGIHaCy
-         W77CZythHwNcpuWQKrq2z/oQu4N0iJTSMUU2TsP8G2l2N3xdUc+rKNUqtj3dd9iR9p18
-         jlRmAQBw+hgJKyXwjxkzyOybBhLQPy/hpxvUdO2GZyda2NXw5h3X170k/kQ/82pryEmu
-         auTENj6np1yGJAKJnB/sClzPcao2Gx7Yzv9V/FltqmAN1qgDwdTtIagnz7ZVyDsEGoQu
-         moIHFEJPaauE1wYvzgVvDg85LRpradPn1Ds9PUqYWIZmrLsCUHffYTRjpO2h0y/zturj
-         j3bg==
+        bh=lqvNoiYS5Y69wvqY92SOyBc105nfusymGn5er7L23A4=;
+        b=qRuhekSJzdk8i+DAJXACJem5G3rR0qUhP89PkDKWJHgX/bjYseCW4NnsYaO2PqXJ7x
+         Dw+DFfO4QxlsV5WnfGSWIFKlOmxJ2h/z4rb75merTJtFFF9nkYAOW3S9rprOsOzzR1TB
+         uNCQ++6SHFcQDZ6o/zzqPS724Ia+x6F6PNK1cq8socjV/T9zTxFqzjI56UBIj5aInwS2
+         MsiGXBi7FhIApDWuN5ajoadp5vG+lkOxtduprNLFVYzPB9DaJ9vWZYQOzs2WWgRo03ML
+         N+4UGeQHmQ+2RbC+/G1uhXJHN8zFufwgwzMYrFdG9r+dqoUBizU/IhLyf0CWCLqu3yht
+         NPQw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791312117; x=1791916917;
+        d=1e100.net; s=20260707; t=1791312150; x=1791916950;
         h=content-type:cc:to:subject:message-id:date:from:in-reply-to
          :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to:content-type;
-        bh=VsySStT+bTHVUZ7K5MQkKgFZxIMQ6ua4cfuOsS0U3mo=;
-        b=xMOurUERrntW6EenY92NjXkzLJJpuoo3sHTcFYVLCNl4WN3e6A+RCA825qkEAdOsjV
-         xxQga5fWjsnMlCm1oxEuyab5FCcgJBoiK/9dIW7jATPlTwank7Ev+xugW8ZudfktW/6+
-         bfHtiS+Ilz1bLm/+qS/hPOoRuC6OGLmtvzNDyMow8VAd6RjLyOckFNcihhIuE7LICtrb
-         41bse1pFRXeVjrhPfhBxTX3gwEZ+xX+yNrZ0hm+56jHRLFZ8la6PgDOKMBzoujL1jxr1
-         YCAxQEHE5OnfH6Ytbyr7nNtgyJdbEG6BfFFjRNMfiyfKuD1fxWsaO1n3AgBfR5ZkCge/
-         NqGw==
-X-Forwarded-Encrypted: i=1; AKwUvByhkh2UTRxfWYvmI+zy6w3zEkm8hYsFA9arAtvwGV/CseA0V7MWb4bShrzTOMSn2aFf7dM7CR3m7/Vfnos=@vger.kernel.org
-X-Gm-Message-State: AFuF++mvaroi0D34XfcliBGzNbGXWpW0b41zjVng/H8QruKnejpCJOax
-	GGArc9wrlmgmWBFBLkps2LTilokSa7NauAHDh4yj/4Q7stzJkHdI5hMtCX+4kEpNort0055aSVV
-	HsHUKcpL7qllDqFK7K6LVrxqp9m46v6cshDbmeyE=
-X-Gm-Gg: AYBFou2hJ9eC0913JYDf8szCKF13iLYvYi4YHJk5ysBmYCIYgWGDvxVBIPE87Zo0GOo
-	LU6XSzxqDLQK9HVuZ2+rLYgkylc1exJk/PhSS4ioCiG8UZ/3NVDvtHQZk6YyOdk/0TSpvExCYrS
-	0/y115is5VnWIqEntOIRapllaXsE6T3k6tAsesBugtBdzIL2U9KlCfbxVuJUyS42nmBX492Pvrz
-	yx8qng9dY/RRE3UthQuReX0W/x8n/rEvBIsC14IDQNw4yxb6GsWZfIoP6U1qUclj04s+Jrj5a7q
-	2SI+TN+mRCNzSdxYToCzhlht0hhMoR9cyC3Ww4ywHjiUYJF/uFh1STL90L8dQuESXyMgIzj79Ut
-	s3SRqjr6Ic4ZuQmgfKhWgRAU5oi9Zjf3mTsfjnwCEofFr3XM=
-X-Received: by 2002:a05:701b:42c7:20b0:151:5aef:b375 with SMTP id
- a92af1059eb24-15df6a22909mr440182c88.15.1791312116126; Tue, 06 Oct 2026
- 11:41:56 -0700 (PDT)
+        bh=lqvNoiYS5Y69wvqY92SOyBc105nfusymGn5er7L23A4=;
+        b=Qdr56Yzl5oUKTYLtmBgk8nOAfaRUMRTulkADVxoVe32+FJZVHALZH63Go8J2Zul+bt
+         4Z6QAwtJ1MgP1heFAE7l7eiEsWg88IuqGOoc2KXV9gNr0YRDPZAStmz85kh4dpgCpjXC
+         ylMxZn+xx5jbdsY/+ITxSiK7Q8iOL5iiHwViONFFYiG5kmOf3CRJIXh9UM1GObP958yo
+         Srg1v9WDZSCMx3aue+WMwlkWvW9fdVAkr6VFor/Nud8lU0Auc07STaSnGRcJtulF4/cI
+         8miX0ZiWrhzxu54f2/LGbl86UPyUuyE5LPteTFjNU5L6j6TMGfRCyxCGVEpZkLaII0jv
+         pM1w==
+X-Forwarded-Encrypted: i=1; AKwUvByEK/JWm3lpdvjBIkktfGlC5BTnHTiPhM+Qc7SHQ5R9K3ZFFaW0Uk031qsov8GIdAmgLnEO+vHRFuqbX1I=@vger.kernel.org
+X-Gm-Message-State: AFuF++mLfM45SkrVFP6rIdif/rPiQpPaRBbGstQ6uUu4vYLANRW0QG93
+	qimuxfYqiPc6zMlGdIXQpf3cGhLLJEcWYFhVvEsNpZizJd1mMyBgpwiZ5v+ecWo4zye3MrFPG2U
+	ydsRYPYC6KH51dC+UMut8o1dRU0MTc4mretX/GPk=
+X-Gm-Gg: AYBFou3ycIJaTBQxfBiusxylXRLULz3uN3YyNH6REm5qdeQvpcbyorRRv2LHSOvBb7X
+	+LWGLumYEX7Av3rBl0QFP2Jifm1rJrOSNzrqzuH25C/Q9uwphpsUWX5nFT9YiDj30oXkMt/qwFr
+	AUtzjWFtUBeuLmafkOICGnrGY5RblRi3/yFbzXddWD4nmoBS74h7ZYaHwZ1rLyuuOYeYUOZN3PI
+	LpGlJ9RKchH0hGYK+u82Vn+P4eR3/rnBAfkbzuH899rKx4l9jDJwscciWFD41GzrXEjEX7lmCxv
+	OEGFev7FJDoaPiZGvZ3uNby9Ejm7IMG0+N3D7BsnezWgcohQIL16oRc/M72mAnJ6eqQPX4bMrwo
+	hPJDyJgYwfLGbubXHTQJVX1RVsh1lhchjWhrD
+X-Received: by 2002:a05:7022:ea86:b0:149:8916:defc with SMTP id
+ a92af1059eb24-15d6b02a69amr459793c88.0.1791312149393; Tue, 06 Oct 2026
+ 11:42:29 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260924173501.856380-1-dmatlack@google.com> <20260924173501.856380-8-dmatlack@google.com>
-In-Reply-To: <20260924173501.856380-8-dmatlack@google.com>
+References: <20260924173501.856380-1-dmatlack@google.com> <20260924173501.856380-15-dmatlack@google.com>
+In-Reply-To: <20260924173501.856380-15-dmatlack@google.com>
 From: Josh Hilke <jrhilke@google.com>
-Date: Tue, 6 Oct 2026 11:41:44 -0700
-X-Gm-Features: AclHuK9XxyGsPYngcwP1eLyAaqdgOZtLG2-uiexY-er63NSOcNYsX4saqv5yQk8
-Message-ID: <CAAdrzjs_T6PV1j-9n9vZFHLaORZQ8Py=g-Ms8F1hQq-NwPq9Uw@mail.gmail.com>
-Subject: Re: [PATCH 07/15] PCI/ASPM: Save L1SS state in the saved capability store
+Date: Tue, 6 Oct 2026 11:42:17 -0700
+X-Gm-Features: AclHuK8FvAbBzT1AuW5uRxJ-kZYYZwS_oOXm66BR8cKM-gGDFIVe-GGMjbHDU-s
+Message-ID: <CAAdrzjsQ1v1LRCcikErDSy67=SNDiP5qvNTr8W=qjzXy_wUWag@mail.gmail.com>
+Subject: Re: [PATCH 14/15] PCI: Save reserved capability registers in a single pass
 To: David Matlack <dmatlack@google.com>, linux-kernel@vger.kernel.org, 
 	linux-pci@vger.kernel.org, linuxppc-dev@lists.ozlabs.org
 Cc: Alex Williamson <alex@shazbot.org>, Bjorn Helgaas <bhelgaas@google.com>, 
@@ -98,22 +98,13 @@ Cc: Alex Williamson <alex@shazbot.org>, Bjorn Helgaas <bhelgaas@google.com>,
 	Samiullah Khawaja <skhawaja@google.com>, Vipin Sharma <vipinsh@google.com>
 Content-Type: text/plain; charset="UTF-8"
 
-On Thu, Sep 24, 2026 at 10:34 AM David Matlack <dmatlack@google.com> wrote:
+On Thu, Sep 24, 2026 at 10:35 AM David Matlack <dmatlack@google.com> wrote:
 >
-> Reserve PCI_L1SS_CTL1 and PCI_L1SS_CTL2 with a single request, since
-> they are adjacent DWORDs, just as the old code allocated one two-DWORD
-> buffer for both. Skip the reservation entirely for devices without the
-> capability, which the previous code could not do because it allocated
-> the buffer through pci_add_ext_cap_save_buffer() before looking at
-> pdev->l1ss.
+> The PCIe capability is the one place where this is not a pure refactor.
 
-The last sentence needs rephrasing. The previous code didn't allocate a
-buffer for devices without L1SS either: _pci_add_cap_save_buffer() did
-its own pci_find_ext_capability() and returned 0 when the capability was
-absent. The explicit "if (!pdev->l1ss) return;" in this patch is
-required because pci_reserve_saved_cap() takes an offset, and
-l1ss + PCI_L1SS_CTL1 with l1ss == 0 would hit the WARN_ON for offsets
-below PCI_STD_HEADER_SIZEOF.
-
+Please add L1SS on Downstream Ports to this sentence because it isn't a pure
+refactor either: before this patch, only the child wrote a Downstream
+Port's L1SS slots, in pci_save_aspm_l1ss_state(). Now pci_save_caps()
+also writes them whenever the port itself is saved.
 
 - Josh Hilke
