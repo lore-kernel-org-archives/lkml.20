@@ -1,110 +1,155 @@
-Received: from mail-pl1-f173.google.com (mail-pl1-f173.google.com [209.85.214.173])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx07-00376f01.pphosted.com (mx07-00376f01.pphosted.com [185.132.180.163])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1B7013B9618
-	for <linux-kernel@vger.kernel.org>; Tue,  6 Oct 2026 11:48:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.214.173
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791287334; cv=pass; b=t5qeJAL6Uy4ZfEzvaAltBwpG7qNl/cfBSrfgW7nMzKM7CKshiKo81wltUhv1NmYBU49ehvAQVNF85nzxD4J0ZUBCBRXus5bldQN4tcRsuGWfd1Fia3/pmHe8hrTEY/5Rfd6kF/5AUA7vOqicr7IYJlT66OPK1an8TOmBDl5zw94=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791287334; c=relaxed/simple;
-	bh=jYJ3IdQnPrGlZkney67DWpSuVjwOBnDlJr0yOA4BAXA=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=j6NdOuqswBrFMfcKrVTLhM+rGpeT/Wb5oiixQpFPE0ah1gkKsVAhdHa0SDr0XGySKmT5JXJnv7AcGbB+oCayqPaWZjbF22iqBpeqZCz5Svw3RC0XohDdJX+BDJe0Lo1NjQITUwSn3ERtSEYI6Og6bz9MSk1ocDH6uede5sfQJ3w=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=S/S3AV4W; arc=pass smtp.client-ip=209.85.214.173
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C89FC3AA510
+	for <linux-kernel@vger.kernel.org>; Tue,  6 Oct 2026 11:51:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.132.180.163
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791287495; cv=none; b=VZCsOq/HfdY4GtQC44v1aoRhJIdckLx/F+ojEaXxqFMsTtopkPfb8g29H7AUKdhiz+Mr1tlBXdtNvVtvI6/Qrd6SFs5QYr1yRApeiJxlmN9fPWCUBobUeYK+qAM9dZL8fl2Kc69cZExo4aSWy5y8MnST9K6e94n1VQitgxBtms4=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791287495; c=relaxed/simple;
+	bh=pappcOcMLYOBK7Bqn1bgLDS9nqJMGllr5k7CaXxOuCw=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-ID:To:CC; b=RMnJtxhYAsS0YFt/aEglIBpEC7+C4qFP5lYMxgmkEbqOSd0Z5dsSUvKGbB6UNM6p1DhEmIFF5fJKzn3mR3EnW7EWjoYl6xHLaOxq5zXII3AszK7OSRWkSK03mLJ1v4r3bEEzo1SGKPlrApQvsdE54h7JhYkEMCe/seHfR5JywP4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=imgtec.com; spf=pass smtp.mailfrom=imgtec.com; dkim=pass (2048-bit key) header.d=imgtec.com header.i=@imgtec.com header.b=sGEQF8Dt; arc=none smtp.client-ip=185.132.180.163
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=imgtec.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=imgtec.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="S/S3AV4W"
-Received: by mail-pl1-f173.google.com with SMTP id d9443c01a7336-2dd9cbb661bso5016305ad.3
-        for <linux-kernel@vger.kernel.org>; Tue, 06 Oct 2026 04:48:52 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1791287332; cv=none;
-        d=google.com; s=arc-20260327;
-        b=kLo+pfnhosj/rRORnSMxZnUNArJVG0Lc877m4VDuhA88uDLLEHeNV+Pi9DihQdRyOW
-         SYlDUgaauIVPf5PnLLZ0im6sAjFf0RfZzc3U5zBCVYmFNIlltehJbEY+kVB00vvE7Fb9
-         dNKgy2PCq0noXqbM61wIMyi8JihFhS4tdxWrlnSLhbl8IDWfbd77fzdcJs3liLNkBFxU
-         FwitPX8SVyjHEpYY5E/Y0VqBtXbCoLLXnzwH5nl53IcpTzFg839uY1s7aODHDe9nkTQa
-         U7LUFuOpZ5oR3OGM4+sKBrulrdmsLXkDadCWPmqqfJqSlEShWqnB3vQDpGrzIOCK3cb3
-         IPKw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=jYJ3IdQnPrGlZkney67DWpSuVjwOBnDlJr0yOA4BAXA=;
-        fh=4w4GpGO0/CSIepGtFTHlb0NcF8IYhZzxmnnaCcyPjak=;
-        b=EKNazVUp1pGdv4BrKn/6BGBP/G7UNn6uRrvS5phaFLekz5ymchCaiRsEgd76fJV/zs
-         8ToKm4Pphq6pDI4V2QSaU6XDPFSNjwVNAEO+7b+6cs8B3o3N5JuGBZ+t1cFBfLqy5Yop
-         9sgr9VrO8SGSgnbtJA/ggiQ5fgkMBLFOHueg5QSAbiOxyy74He2z3ePlEUTumk2wJzzw
-         5vOyO8pRA+3zPZL4GtTrWyD2pkBvusauPDUpVBUDZh4rJoeVq/Jfepg5wUxFFeehNgdG
-         Mo2ekalAUmGsIJFk8jvC20hvcinESaS7vFgXVlzFSu3h6Pb+CbcRvcn8VVqBkilUC9tP
-         HAVg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791287332; x=1791892132; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=jYJ3IdQnPrGlZkney67DWpSuVjwOBnDlJr0yOA4BAXA=;
-        b=S/S3AV4Wb/6L+uQ1KRumjH7w+tNlWIs3J7jc0gd7dz2RltFveeFx8NA0NC2mY5+7iC
-         zOPdBQc/1qMLLZe0ER1yWSC9jCOT6xVztDvYRhjZmiadCkMRBZks6v3psAxctwDy2CUD
-         oI8bWhLLSerOQ4BZEV+BNP53sYCUKpFru1OWrboVFzY4DQaTX5KGLmGCltZ2YaiE49zo
-         KEkU1sODQh7Sr9QxWRaeEuKiUkrx2wA9VmLljpc+ujVKgxfYMPy6AIsQ3D8V2qIb823H
-         DqlahuOJu+GhhrCR+LG5zd0/YBXCUC/bKHoOXoFcqRCCqn/M1B0nChNRT9BvsR81o7qd
-         ux5g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791287332; x=1791892132;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=jYJ3IdQnPrGlZkney67DWpSuVjwOBnDlJr0yOA4BAXA=;
-        b=X2MlCTx1kYEsYhdgXBTmNsgk4wZ19xCLp5NZgertwLAB7pj2C2mIdWzqL7dairtLN8
-         QsADac7RrnBfYDgGiZc+bL4WRozGPGi+fwccRnuo/4mFVhKEUOrpgFDxJGD7jUYQeGCH
-         k83Fjo80bZdogUqiH78t2cj4RbVUMSG2cEbFW/NrBlwkpFHIqWuv3Kvm256gm3sDw5Ff
-         mHMwkSxsZ6tFX7GHk6cUta2/BUCiLmglhV1/bO30C6rrdRs0VWCgyyx2DnENMlnBSr4k
-         vdzpkl9GmwO1t2A/BnbeIA0cmFFEolqT53SypUghASn+OzQN29R3viW209SaVh+FFwAc
-         Wqqw==
-X-Forwarded-Encrypted: i=1; AKwUvBw5G7VblzpE1CKLRuEbFxcERBhpOLTPVgBubTPZopCYSyuNZuPXBTfykint89GtPRVTNZab8Uz1nyGMDao=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIfg5HieS2E8sgdTW2In3SThj0qm8b4o5FhRnyZBNtMj/7Uetho
-	o/BxkKQ3qkLyvQub7vUqRU6WyAy+LQeXfoh7OqjzC9AnR9sQFLgF5wUkuE7RX5SEb9i1Awbpd1q
-	YVm+jGG1qK4um9tB3lO/1kMDi9gKM+YrtV2VVHTQ=
-X-Gm-Gg: AYBFou3/httjdu5HVs6GY+RU97Fh8iBAmF1s5698B187haZ9H5SFsmKOoB98uI7Yh4P
-	Gk5IV9dY0LTLnuJoHKr5AGQCZVnsSg7wvZTHxhZTrQlmmFLLH8sFCfNvWwwhAVO4ShiPlwDO9H2
-	j+aiYgly5ypOmfzQI3W96/CmWSs6WgnrTyogWrHqbWh1D4YLaFvtGBj5ZC1Q7QaITVj4oGfAwsa
-	AiNfTOPd3IHQnyO/EqP9v+JDeeYAKv0qWxYp6NSG5fF/R6h7Cdv4PxWtMOyeZQhWixNobihu33K
-	H9zGbU+HlreeSJ+ezFKwG78lNNzMrqwvmR5cCAzo0TWcjEvmlTLifgWiATuHCxwTdgWwZaJY9bg
-	F6mSbxpEeIg2eVnEZPIo=
-X-Received: by 2002:a17:903:244e:b0:2dd:ad74:ac7f with SMTP id
- d9443c01a7336-2e5dcda375bmr8786655ad.26.1791287332318; Tue, 06 Oct 2026
- 04:48:52 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=imgtec.com header.i=@imgtec.com header.b="sGEQF8Dt"
+Received: from pps.filterd (m0168889.ppops.net [127.0.0.1])
+	by mx07-00376f01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 696BQsQF1936503;
+	Tue, 6 Oct 2026 12:51:17 +0100
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=imgtec.com; h=cc
+	:content-transfer-encoding:content-type:date:from:message-id
+	:mime-version:subject:to; s=dk201812; bh=Xtq7rNOsnQVJuGcn4YaQ5/F
+	L2iPdFssMf3hg7JFNf8c=; b=sGEQF8DtDikyjhZsjjg7DYT0O6Tzkc5nqVoJCy+
+	Fxif5cU6SKwz8bbDsRZCXh/7d2ZgrLH89PPs7vyEdvrb8KqCXaxRWjp865oJRLVB
+	5MzKBo4LuMjRBjk0qIJL8aptB8hB2n0+0MSoPF6rBp+DL+xLrF+ZhpsoLbcaNZXt
+	uunWqJaG7NF9+GK7bHUbhUtlcLrEB9gkDfLypBrokbRdT63BfjgQSDKWgninbusd
+	KWY4Df12Hk9gnavEyvDUDMQvypQGfcCZFEOqM+ZVGURASomYS6QzxgPnUJze4g1s
+	trtNirIXMU5bj/M9Klbyn63IrCaGb5YiUT5qTvn4dZjlJLQ==
+Received: from hhmail01.hh.imgtec.org (83-244-153-141.cust-83.exponential-e.net [83.244.153.141])
+	by mx07-00376f01.pphosted.com (PPS) with ESMTPS id 4h4brugve4-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Tue, 06 Oct 2026 12:51:17 +0100 (BST)
+Received: from [127.0.1.1] (172.25.5.23) by HHMAIL01.hh.imgtec.org
+ (10.100.10.19) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Tue, 6 Oct
+ 2026 12:51:09 +0100
+From: Alexandru Dadu <alexandru.dadu@imgtec.com>
+Date: Tue, 6 Oct 2026 14:51:07 +0300
+Subject: [PATCH] drm/imagination: Improve logging of unknown freelist IDs
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20261004-asus-ec-x570e-cpu-opt-v1-1-d9ea371c30d5@gmail.com>
-In-Reply-To: <20261004-asus-ec-x570e-cpu-opt-v1-1-d9ea371c30d5@gmail.com>
-From: Eugene Shalygin <eugene.shalygin@gmail.com>
-Date: Tue, 6 Oct 2026 13:48:40 +0200
-X-Gm-Features: AclHuK8vZ3ZZc1eQpcjpnegkwDCbrJBuk7gokOoEYOfEz1Xn_OmcqrH8tPcCuB8
-Message-ID: <CAB95QASjtm0sUOSjr70+SNi2qGsCSMJKFh3D1intNKdmK5UHcw@mail.gmail.com>
-Subject: Re: [PATCH] hwmon: (asus-ec-sensors) add CPU_Opt fan for ROG STRIX
- X570-E GAMING
-To: mdlayher@gmail.com
-Cc: Guenter Roeck <linux@roeck-us.net>, linux-hwmon@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-ID: <20261006-b4-improve-logging-of-unknown-freelist-ids-v1-1-96ebcb132b80@imgtec.com>
+X-B4-Tracking: v=1; b=H4sIAKvgxGoC/yXNSw7CMAxF0a1UHmMpqaoE2Api0I8TDMWp4rYgV
+ d07AYZn8N7dQCkzKZyrDTKtrJykwB4q6G+tREIeiqE2tbPGOOwa5OeU00o4phhZIqaAizwkvQR
+ DJhpZ57JSPLbu5L0Pg7ME5XDKFPj9i12uf+vS3amfvwXY9w+93TJ5jgAAAA==
+X-Change-ID: 20261006-b4-improve-logging-of-unknown-freelist-ids-8a69777fd61e
+To: Alessio Belle <alessio.belle@imgtec.com>,
+        Luigi Santivetti
+	<luigi.santivetti@imgtec.com>,
+        Maarten Lankhorst
+	<maarten.lankhorst@linux.intel.com>,
+        Maxime Ripard <mripard@kernel.org>,
+        Thomas Zimmermann <tzimmermann@suse.de>,
+        David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
+CC: <imagination@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>,
+        <linux-kernel@vger.kernel.org>,
+        Alexandru Dadu <alexandru.dadu@imgtec.com>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1791287475; l=2033;
+ i=alexandru.dadu@imgtec.com; s=20260304; h=from:subject:message-id;
+ bh=YoXn7ZGSK0nHT6KyXFNCQpqvyMqan3bSYYtygPWdxBw=;
+ b=n9fdRkY6R3nXEDNxhcQY78Xs6j9KEiedIzb898PybGR7WslezPvMi1SMjvmhJ0oLjczqE07cZ
+ 1iEtYUJ4pElCMlkOeoU3PkpCBM3Ecp911cbLWzMGwXyUnre0MsgjYC4
+X-Developer-Key: i=alexandru.dadu@imgtec.com; a=ed25519;
+ pk=FU07SyNrYGwhahqSxbWEuzyXlUh47xBXvLvOR7UA6+U=
+X-Authority-Analysis: v=2.4 cv=FNOOVOos c=1 sm=1 tr=0 ts=6ac4e0b5 cx=c_pps
+ a=AKOq//PuzOIrVTIF9yBwbA==:117 a=AKOq//PuzOIrVTIF9yBwbA==:17
+ a=Vfs-8JXWiL0A:10 a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=kQ-hrUj2-E3RCbRHssb7:22 a=7RYWX5rxfSByPNLylY2M:22
+ a=r_1tXGB3AAAA:8 a=x1D3FuINM0scMlP-4QwA:9 a=QEXdDO2ut3YA:10
+ a=t8nPyN_e6usw4ciXM-Pk:22
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDA2MDA0NyBTYWx0ZWRfX00Z0UM/mEmg9
+ fG7QmUa+zn1pZCR4XA8IlkRYt182NtvXKaoBBX6uAZvbzajzZqx4WRQGQGZBeByjvTqPhjFuJIW
+ hF3Ulw0MullnpnM6tDYPf1S/oXkDuqQ=
+X-Proofpoint-ORIG-GUID: I5mwjz5g5xGXkq9lVarr1X8Odn7EfOhL
+X-Proofpoint-GUID: I5mwjz5g5xGXkq9lVarr1X8Odn7EfOhL
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDA2MDA0NyBTYWx0ZWRfXzDn+2E79jP77
+ qRpIA2Nv7Qt0vpjTexqfdCgwIvrVAhmTX6g0/lxiKFLADIQJpib0XTu4mTjuGfq2mme9B8ZuGnL
+ 9zqKKUjok22MyiEsofv6I21L/lU9hnsJ6oMXGecabgeWmb57+w9jP0R7J/eTjo732oC73V+hSjW
+ Qehwmtnofw3HhVfrSP4v8YiZ6/ppxPRvkRnbcg1K2LqRc7RTbHbU3wNm+xiIZUPDkxKCd/Mfbg3
+ pdMqsJ5tBXqhagm/8QzZEqc/oprrZ9ximcATo0L3BGhDivNNJ5KCB9QMMmidXmozHt64hUxToye
+ fI0XzWrtY0b6xpRjcxJoSttqJuFmnhbz+cEe+m2RCjI0975UxzVtlQExtS3vWRcqgX/n0spaV3o
+ iHeLz00jxWQ6LPG/15IJlxB2hsxtVi4rPBWKCUN3zL4vzhLZi4DYT6Iw21a2jtraAatrjR7aYC1
+ yBSwup527rV2qglQQmA==
 
-Hi Matt,
+From: Alessio Belle <alessio.belle@imgtec.com>
 
-On Sun, 4 Oct 2026 at 16:26, Matt Layher via B4 Relay
-<devnull+mdlayher.gmail.com@kernel.org> wrote:
->
-> From: Matt Layher <mdlayher@gmail.com>
->
-> Enable the CPU_Opt fan sensor for ROG STRIX X570-E GAMING.
+Log freelist IDs not recognised by the driver when processing freelist
+grow or reconstruction requests from the firmware.
 
-Can we have a laconic description for this more or less trivial change, please?
+In the freelist grow request path, remove a WARN_ON() which is not
+particularly useful since it is known where the request came from.
 
-Cheers,
-Eugene
+Signed-off-by: Alessio Belle <alessio.belle@imgtec.com>
+Signed-off-by: Alexandru Dadu <alexandru.dadu@imgtec.com>
+---
+ drivers/gpu/drm/imagination/pvr_free_list.c | 13 +++++++++++--
+ 1 file changed, 11 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/gpu/drm/imagination/pvr_free_list.c b/drivers/gpu/drm/imagination/pvr_free_list.c
+index e85cac83834c..f8a333649933 100644
+--- a/drivers/gpu/drm/imagination/pvr_free_list.c
++++ b/drivers/gpu/drm/imagination/pvr_free_list.c
+@@ -8,6 +8,7 @@
+ #include "pvr_vm.h"
+ 
+ #include <drm/drm_gem.h>
++#include <drm/drm_print.h>
+ #include <linux/slab.h>
+ #include <linux/xarray.h>
+ #include <uapi/drm/pvr_drm.h>
+@@ -367,8 +368,12 @@ void pvr_free_list_process_grow_req(struct pvr_device *pvr_dev,
+ 	u32 grow_pages = 0;
+ 
+ 	/* If we don't have a freelist registered for this ID, we can't do much. */
+-	if (WARN_ON(!free_list))
++	if (!free_list) {
++		drm_warn(from_pvr_device(pvr_dev),
++			 "Received freelist grow request for unknown ID 0x%x\n",
++			 req->freelist_id);
+ 		return;
++	}
+ 
+ 	/* Since the FW made the request, it has already consumed the ready pages,
+ 	 * update the host struct.
+@@ -564,8 +569,12 @@ pvr_free_list_reconstruct(struct pvr_device *pvr_dev, u32 freelist_id)
+ 	struct rogue_fwif_freelist *fw_data;
+ 	struct pvr_hwrt_data *hwrt_data;
+ 
+-	if (!free_list)
++	if (!free_list) {
++		drm_warn(from_pvr_device(pvr_dev),
++			 "Received freelist reconstruction request for unknown ID 0x%x\n",
++			 freelist_id);
+ 		return;
++	}
+ 
+ 	mutex_lock(&free_list->lock);
+ 
+
+---
+base-commit: 6e375de99d0c420169481fcd36064177ab55b09d
+change-id: 20261006-b4-improve-logging-of-unknown-freelist-ids-8a69777fd61e
+
+Best regards,
+--  
+Alexandru Dadu <alexandru.dadu@imgtec.com>
+
