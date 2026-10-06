@@ -1,46 +1,41 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7519E48BD26;
-	Tue,  6 Oct 2026 15:54:26 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 27C5E49C4DF;
+	Tue,  6 Oct 2026 15:54:47 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791302067; cv=none; b=i1xiKgrGs5p5A1Ejft4oa3LsL+6xqlmWPx50rNjwc7/eJIUVtJkB26T+i7Rpe+8cnLKsrrq35ZYg1AWM34iJyA36HIxNjoJzRBHh/7yPgwblYg950jaGwylfZCPlfWs2bJmf7OtyXt+vr2O1YEsqiHwNLNG1jXAejkJnc3dwJuU=
+	t=1791302089; cv=none; b=VKwDAUZ6l27V1yXuwjQ/g3zdySXILyU8bUCVdi3lRvzRH0SpaNesAxfsftgZ0L60jLTklOOqlal9Ud26T7D6LGQ28NyrxTUateysQOAF7IvC9pePJNNGPNugHGeQdS9tUMAelKVYLL7J4YC6xHQSotdchz8jGHPpGBwhp0Ux5Hk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791302067; c=relaxed/simple;
-	bh=gpbU9KT+IdZlGPX4RCLuK3AQW9b99N3rxx+gJf4h5ic=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=XahFGdkBnEfGI63MuspQSY606G9cU8I0nFD4KoGAEJ20cDZ/xtQpdFw0GNle6PZUX2w0CkYRKnIeDgmSoC05olHY7jeua82xdIDtgQPfqIaYcjpSpoUUXOvamuax9078DKUKxParGIENG5H86W0FdHqOIV9CMhd8ERtk4NFxksA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Q7smEW0F; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791302089; c=relaxed/simple;
+	bh=vYDzEwXZ1IV+3fpCFqnbA405TlaexK4ROIl/0m07UgM=;
+	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To; b=fGAuwgqS3Y2gbQm4zYVjEB4JDQ4iKfx39ycxmZDE6nHvrf7d6XCzZvDzpSphYSem1kNfj30zl3/H6dbt42bWUhb6P7StuHEgqptoT6OLp5W1sfD3EnH3OFsjh+6m+YGalxSTd+ZFMK5A4cU3P1NgmYu7fKGFRvMhCPiHB3aJcvQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kmnqSnp8; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Q7smEW0F"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F11231F0089B;
-	Tue,  6 Oct 2026 15:54:25 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kmnqSnp8"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 832FE1F0089B;
+	Tue,  6 Oct 2026 15:54:47 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791302066;
-	bh=7MsXsLm8OFANJgdwJHK+NmEW42JdGgPpe+gMX0f0fKM=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=Q7smEW0FedT+RH5T4aeZFrsCzyOBDV03gBwkAOSNVoFs2oPGObMLwlo/QrnLFtB4D
-	 HD9IzQSYpKOD7hdlXbONHiRdlXB+iFZ304GvyVZXMeoVhz3lFwMybNZijNXkwdk0eu
-	 tdxi4ux2UtZyIUjsfi52Jmv47XxriOgU68ZmThaFfYEQGNX0nnf9UkBWWPwgmvwJ3t
-	 K/IcP+5F1CnE/EB/J3cYVShIuUbXuf4OCBy21t4b4D8TLA6cry5lnteW4sDEM1Dsg/
-	 MIKzSIDDu8DZXUKnVe4pkMwEO0laIeeWbRxPvBH2CljKn/JOSv2BvhOfuaArVZnBro
-	 5f/9UrITmfZ/Q==
-Date: Tue, 6 Oct 2026 10:54:25 -0500
-From: "Rob Herring (Arm)" <robh@kernel.org>
-To: Stanislav Zaikin <zstaseg@gmail.com>
-Cc: Konrad Dybcio <konradybcio@kernel.org>,
-	Bjorn Andersson <andersson@kernel.org>,
-	linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Sebastian Reichel <sre@kernel.org>, linux-pm@vger.kernel.org,
-	Conor Dooley <conor+dt@kernel.org>
-Subject: Re: [PATCH v5 1/3] dt-bindings: soc: qcom: qcom,pmic-glink: Document
- Xiaomi taoyao compatible
-Message-ID: <179130206491.2403428.17338630173408456137.robh@kernel.org>
-References: <20261005164303.1208127-1-zstaseg@gmail.com>
- <20261005164303.1208127-2-zstaseg@gmail.com>
+	s=k20260515; t=1791302087;
+	bh=clRq7rLolI7UK6CY7Y84Un2wUkXIEjH+9LwAXBd+654=;
+	h=Date:From:To:Cc:Subject:In-Reply-To;
+	b=kmnqSnp8AQWKgKdWrXoR3wDP+wjZUfn0pa14Qbsbq0r/YRFOUxfueCxsdsEknVCXS
+	 t7PP0lZ60nZVeVas9F+t2Vfv5o2EPyNvh2FhdIqQilg6Zh2lHGXbDkPTowRhjGmder
+	 z8oDV+mQ8xqoyLn7+5SUpvn6xTr/npXpvaWIPXEJeOMumGmQV4CNCbJWcj74piLf2t
+	 iKdg4RCQQPts16smNQbEtxsGsVa0akn/c0KWEkXDHjMetIynK0hp6K/npScVIlNyKo
+	 mwc97d3hDfTvfazgVZx+atdqMV2MlxNiB1/Xf4caiVOm7ghajAcl3q/Y4e3VJD+Ct8
+	 ClVrQlwJl7IhQ==
+Date: Tue, 6 Oct 2026 10:54:46 -0500
+From: Bjorn Helgaas <helgaas@kernel.org>
+To: Yehyeong Lee <yhlee@isslab.korea.ac.kr>
+Cc: jgross@suse.com, sstabellini@kernel.org, oleksandr_tyshchenko@epam.com,
+	bhelgaas@google.com, jbeulich@suse.com, konrad.wilk@oracle.com,
+	xen-devel@lists.xenproject.org, linux-pci@vger.kernel.org,
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH v2] xen/pcifront: check that an AER callback exists
+ before calling it
+Message-ID: <20261006155446.GA684274@bhelgaas>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -49,22 +44,72 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261005164303.1208127-2-zstaseg@gmail.com>
+In-Reply-To: <20261006023443.338194-1-yhlee@isslab.korea.ac.kr>
 
+On Tue, Oct 06, 2026 at 11:34:43AM +0900, Yehyeong Lee wrote:
+> pcifront_common_process() handles an AER request from the backend by
+> dispatching on aer_op.cmd to the bound driver's PCI error handler.  It
+> only checks that err_handler and err_handler->error_detected are present,
+> then for the mmio_enabled, slot_reset and resume commands it calls the
+> corresponding callback unconditionally.  Those three callbacks are
+> optional -- the PCI core NULL-checks each of them individually before
+> use -- and many drivers (for example igb, igc, ice and ixgbevf) install
+> error_detected without all of them.
+> 
+> aer_op.cmd comes from the shared ring, so a malicious or buggy backend
+> can send XEN_PCI_OP_aer_mmio (or _slotreset/_resume) for a device whose
+> driver leaves that callback NULL and make the frontend call through a
+> NULL pointer, crashing the guest.
+> 
+> Check each callback before calling it.  When mmio_enabled or slot_reset is
+> absent, return PCI_ERS_RESULT_RECOVERED so recovery proceeds, as the PCI
+> core does for a missing callback; returning PCI_ERS_RESULT_NONE would
+> instead make xen-pciback tear the guest domain down.
+> 
+> Fixes: 956a9202cd12 ("xen-pcifront: Xen PCI frontend driver.")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Yehyeong Lee <yhlee@isslab.korea.ac.kr>
 
-On Mon, 05 Oct 2026 18:43:01 +0200, Stanislav Zaikin wrote:
-> The taoyao is the device compatible with the QCM6490 platform (apart
-> from battmgr). The device also requires both UCSI_NO_PARTNER_PDOS &
-> UCSI_DELAY_DEVICE_PDOS quirks.
-> 
-> Document the PMIC GLINK firmware interface on the taoyao by using the
-> QCM6490 bindings as fallback.
-> 
-> Signed-off-by: Stanislav Zaikin <zstaseg@gmail.com>
+Acked-by: Bjorn Helgaas <bhelgaas@google.com>
+
 > ---
->  Documentation/devicetree/bindings/soc/qcom/qcom,pmic-glink.yaml | 1 +
->  1 file changed, 1 insertion(+)
+> v2: return PCI_ERS_RESULT_RECOVERED for an absent mmio_enabled/slot_reset
+>     instead of PCI_ERS_RESULT_NONE, which xen-pciback treats as fatal and
+>     uses to tear the domain down.  (Bjorn acked v1; the ack is dropped here
+>     because v2 changes the value returned for an absent callback.)
+> v1: https://lore.kernel.org/all/20261005133019.284053-1-yhlee@isslab.korea.ac.kr/
 > 
-
-Acked-by: Rob Herring (Arm) <robh@kernel.org>
-
+> There is an in-flight fix for a refcount leak in this same function
+> ("xen/pcifront: Fix PCI device reference leak in AER handling"); this
+> change is orthogonal and applies in either order.
+> 
+>  drivers/pci/xen-pcifront.c | 11 ++++++++---
+>  1 file changed, 8 insertions(+), 3 deletions(-)
+> 
+> diff --git a/drivers/pci/xen-pcifront.c b/drivers/pci/xen-pcifront.c
+> index cffc32d660327..5c6f7796d204a 100644
+> --- a/drivers/pci/xen-pcifront.c
+> +++ b/drivers/pci/xen-pcifront.c
+> @@ -599,11 +599,16 @@ static pci_ers_result_t pcifront_common_process(int cmd,
+>  		case XEN_PCI_OP_aer_detected:
+>  			return pdrv->err_handler->error_detected(pcidev, state);
+>  		case XEN_PCI_OP_aer_mmio:
+> -			return pdrv->err_handler->mmio_enabled(pcidev);
+> +			if (pdrv->err_handler->mmio_enabled)
+> +				return pdrv->err_handler->mmio_enabled(pcidev);
+> +			return PCI_ERS_RESULT_RECOVERED;
+>  		case XEN_PCI_OP_aer_slotreset:
+> -			return pdrv->err_handler->slot_reset(pcidev);
+> +			if (pdrv->err_handler->slot_reset)
+> +				return pdrv->err_handler->slot_reset(pcidev);
+> +			return PCI_ERS_RESULT_RECOVERED;
+>  		case XEN_PCI_OP_aer_resume:
+> -			pdrv->err_handler->resume(pcidev);
+> +			if (pdrv->err_handler->resume)
+> +				pdrv->err_handler->resume(pcidev);
+>  			return PCI_ERS_RESULT_NONE;
+>  		default:
+>  			dev_err(&pdev->xdev->dev,
+> -- 
+> 2.43.0
+> 
