@@ -1,82 +1,73 @@
-Received: from mail-qk1-f181.google.com (mail-qk1-f181.google.com [209.85.222.181])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from BN1PR04CU002.outbound.protection.outlook.com (mail-eastus2azon11010051.outbound.protection.outlook.com [52.101.56.51])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2795D20E023
-	for <linux-kernel@vger.kernel.org>; Tue,  6 Oct 2026 14:02:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.181
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791295338; cv=none; b=EcHquQPaGwdXCUx82GiRBiHnDtaCr4YH6lTGZqeGJAGSJvHf1JORWRDcXlLw2Sx37tZwYTZqWPj0kRuFB4O9VlZDNBlVNOK+ZQ3PvUMZkoNugURgt/24RApgivQUywQE8A7EzWrekgNNMvIAvw8ZoKKgQsiCw9UYPLsTm7IdofI=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791295338; c=relaxed/simple;
-	bh=7a/r0c22USbKub7O9zDQbjz1OA+PpCzhZQ4bovs1osY=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=nRPmj3U759agzrXxTJaatE3L3gulfsei5yxjHWWqdG7IcufgsnD8jkoI7SyF247jRphuIw5udXcNcl0zMCzCpiOsBxAloQgMQL9MaNjGwoNtV4mRTFjtQRjAnF6rxftx5n9BrfPawP8zKqNv1dLUrg/F//E4n3yoDdRZU4vVxMg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=m69zvNik; arc=none smtp.client-ip=209.85.222.181
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 211F246C4BE
+	for <linux-kernel@vger.kernel.org>; Tue,  6 Oct 2026 14:02:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.56.51
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791295376; cv=fail; b=g1dasD9sIzsvjcJXA9zxC/025hckSOCL6c28oYxur3DOUdGG3hI60rjrxfWaDxgX6gyGXFGAgYNNAGCL6X7leZMWoElI5L3X8/Y6RShcJE41v/VrTjB2AYMcOopRa/dczfW+Bre34zyNKuGOgbYy/sZ4SMXrBmvFpeWDhAhxpwM=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791295376; c=relaxed/simple;
+	bh=IfqpWZ1wf5ind0fplozxsq9e0ZtFlETPdnqAjefuhGk=;
+	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=I+Ud57YG3dy/YvWB4xwYxqaKPcGiY0XHRryqG7ecdzB5tJSBeKdv4DgB/cuUmRw2EmG8CF9RZzsOSXhVIaDW25Rez21X1cGKu/dfboMQGIYQWw/ItdtPP8RMUd31i42wmKoW12ZsUTsKSc+kheCZscbonPZ6RcQDhQz7RVearGs=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=BXRUpDlx; arc=fail smtp.client-ip=52.101.56.51
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="m69zvNik"
-Received: by mail-qk1-f181.google.com with SMTP id af79cd13be357-93e4c00d71aso44246985a.3
-        for <linux-kernel@vger.kernel.org>; Tue, 06 Oct 2026 07:02:16 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791295336; x=1791900136; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=CPvl7PbyU/2kfsD+JpTBP33aFuEJTpqh+wQCTs8+mrY=;
-        b=m69zvNik5YVUvTfQ0uhiG8LZpmLKfmTHekzbYzXBppQ6UM7XSASAqO1rKNMTTlSXdt
-         4hCkCYQCUy/vTeUiT2MsruwCC5Z58zv9zJbMctOUI7b4Gso1Iy4B8mhPmSrjjjyyRlM2
-         Viu5WRjLX33rofQcJsfVR76OclD5TA5WKGXbd69n4z7Yk+o99Gt8woeAs1yixpAk0rWS
-         kkreXRI5J2XNMB2oW7x/yW34OZCJWDscvjisqtCnfZPeZ3LHYEisHm87e+RKlBvoSGwd
-         3W8qekX35wRvDYmq4LGczy5E0iH9Z7hCiX08ptX7nZmcyHy65M7WPqJj4Gfm1Ti/LPbH
-         REZQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791295336; x=1791900136;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=CPvl7PbyU/2kfsD+JpTBP33aFuEJTpqh+wQCTs8+mrY=;
-        b=UVY1eep3QPcDu/6AwNPecimtlCtasN1ywCL154Me+Ynu5l26uWIy4PGahcvnzUYn+S
-         wt5bdOxH2pQGKo3DnBGVwWxsBpGt4OiDQGHZIk+3PYPxyiwErtSqTq8Eu4maAFc5sZaM
-         VOuXQECueRs/35T8sRhlD9rhSUroI1DqD9/y/qVpkiP3BZbZnL0Ref5ARKW366oqc1Xj
-         Y4tZzkR432Rw12AiR7oTGHfaZwOF0p2LYkuGUZR3nsvzgLKrFyQOg/jQ/m4iJbD51CiR
-         sPPYE3M39QE6ulsT779bl71OFRRtEdux2FxJ2eSbJ+Arf9UXsGRefNXl3t59Jjg438w7
-         F8bA==
-X-Forwarded-Encrypted: i=1; AKwUvBwPtnaA1rpxzBU1Fbb56/FL5NgfyjAA/jZcPrN8OAuI3gWSuM/+bqFWS2KKgH5a4Qnp+Gn8y5s35LwvZgY=@vger.kernel.org
-X-Gm-Message-State: AFuF++m1U8acqV+TV+Ull37Ve4nNmRoFTB/7RyoXUhDMw3d0jB915B/I
-	aPYiQMOYQ7z0LWpNUVH61ih4Rq7E1+wv5GMZ22Rquf/++5OFVOa3YMyB
-X-Gm-Gg: AYBFou1cBCvf0uDBM5bqqSGzYktMGCbwlLI5MpUq1jNKxjnqL6PEp3T8244hS8ohv1o
-	gDcNS9SDGQvV1B/AzPMH1ObCBySiv+CEEis4O8+kbdPV1+LcELZywhdstAWeWn9ZyywRD8tcOHc
-	2Ix0cKFCn6iwCSr+uBL9ouLSoBOdiCbILD5Bzi2V37SKC6WFdGUkmrxoHNWMjqjkxUMpREaZI0j
-	OZLxBySdsIZauIKNim/AlVMVWELJb7v6ygm4NuIK1Usmr4njuq7Hx9uPbgQ+Elnoco/UE4gIgsq
-	GquuMxwHsM77Tnc/I3CPW8oo0IAX7wfguRqs8lGTJkEZr3TOSivuuEY7rtWtmSzbPb57zTNRZXa
-	hxAn9teioHOT6PfYSChAgzz/8g5suVTZcNq3ZuGQVfAO7mfmFdbUHc+9sCr/u5zC7B/+eC1/jna
-	qOeKmwUrIDk0fUt/oo4h1bHNzErejw30F6aWXHIVe5CpRS8zGszdlCO3NC054UBwMHklG31kaQl
-	ppogKXB1yGe2r6yBvbOj1baIXRpkpNf/lLk6fJdDPr/77WUp7UiHzCdn0z2DaN49PWsB0BB0Yf3
-	aRslSxNu
-X-Received: by 2002:a05:620a:4101:b0:93e:4bbf:cc11 with SMTP id af79cd13be357-93e8f35972dmr280007185a.30.1791295335737;
-        Tue, 06 Oct 2026 07:02:15 -0700 (PDT)
-Received: from security.cs.northwestern.edu (security.cs.northwestern.edu. [165.124.184.136])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-93cc9d80ae3sm1138742185a.0.2026.10.06.07.02.14
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 06 Oct 2026 07:02:15 -0700 (PDT)
-From: Ziyi Guo <guoziyi114@gmail.com>
-To: palmer@dabbelt.com,
-	pjw@kernel.org,
-	aou@eecs.berkeley.edu,
-	alex@ghiti.fr
-Cc: samuel.holland@sifive.com,
-	thecharlesjenkins@gmail.com,
-	linux-riscv@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Ziyi Guo <guoziyi114@gmail.com>
-Subject: [PATCH v2] riscv: futex: untag the user pointer before the atomic access
-Date: Tue,  6 Oct 2026 14:02:00 +0000
-Message-Id: <20261006140200.877263-1-guoziyi114@gmail.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20261001184355.2395068-1-guoziyi114@gmail.com>
-References: <20261001184355.2395068-1-guoziyi114@gmail.com>
+	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="BXRUpDlx"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=hB/Nz5ekQpv8kMee66f6EbI0akPFJ1/e+gxQJgmfocsFAk3pzIBwx84Gs8JF+z4+3qP2hS5YZHJw1CNYeyRyC12tU5hC7FmOK+yQj20ntKDRWDwpitz35/KWrdsTDHwumKSmpYX26gw8VBI+V1BPG9VJayibPpdWaEbl3oZd/VuLCO+K3O4ILbvr4KvvJEg8XaKo9A+VKTWqhKymjGiUXq7zOKnIsn2gzTmDE92jYMHyKfxAYhYWivfGuCUY33UC/1/enA6w0IkDwX2nZJfYZ2s15jDr7mn2gg74ACLk7gGs6UhaPC+3OEnd4OYDsVBLkKIIXNGySZ2yN+FQo6GzEA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=Gnc1DXH3z+94CkqZ0Vgycit0j0yjvcjP4WFvDeMMum4=;
+ b=qKhG5YH9LnWcqlWo+lQo0UG/sJ2wzinuf3XmWGPVynUc3ESa32fhdneVlt6Rk1kG+KrVjKnnZVEOR2WOZU5Clgl4mFuuy3aLijZjVSg5uEqsY35LUEwSWC9/Ru+rlqLmipzaqr9RX/3hHJC5A1ownpgRQXGP1vLn/MH86W2P/8cqh+yH8bolv9aQsZhWbknyHR5Brp3GWLbrkokgFyHNMPbWInaJyr4bPK0hwCQC8YrovkpdPrqwix1ueGtKi69a9Rg7bYCSz7SDpYC9JUm7RS/w4NhaLszaoGDEygMyNBZ3+ZuGBbeHOKeHVnufWTafCeX6K26/h3N28/AI4JX6Kg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=linux.dev smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=Gnc1DXH3z+94CkqZ0Vgycit0j0yjvcjP4WFvDeMMum4=;
+ b=BXRUpDlxEYoFpNo7PU48O8g7hBorBB/KLqxb/BkOV8noDzbsm6OsDvkG45WIkdCh1e8NFOo/gKU6O+M+lEF7BzNetkuiBRCeVh+33ytrY38hAJ3nHuR6UVwF6EKS3fcr813ovOcYmF4oUmnYEgogycgaNlOMbpK5BDz0czrf1gI=
+Received: from BN9PR03CA0875.namprd03.prod.outlook.com (2603:10b6:408:13c::10)
+ by PH7PR12MB6441.namprd12.prod.outlook.com (2603:10b6:510:1fb::10) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.472.20; Tue, 6 Oct
+ 2026 14:02:49 +0000
+Received: from BN1PEPF00004689.namprd05.prod.outlook.com
+ (2603:10b6:408:13c:cafe::45) by BN9PR03CA0875.outlook.office365.com
+ (2603:10b6:408:13c::10) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.472.20 via Frontend Transport; Tue, 6
+ Oct 2026 14:02:48 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 165.204.84.17) smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
+Received: from satlexmb08.amd.com (165.204.84.17) by
+ BN1PEPF00004689.mail.protection.outlook.com (10.167.243.134) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.496.14 via Frontend Transport; Tue, 6 Oct 2026 14:02:48 +0000
+Received: from Satlexmb09.amd.com (10.181.42.218) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Tue, 6 Oct
+ 2026 09:02:47 -0500
+Received: from BLRDHSRIVAS.amd.com (10.180.168.240) by satlexmb09.amd.com
+ (10.181.42.218) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Tue, 6 Oct
+ 2026 09:02:41 -0500
+From: Dheeraj Kumar Srivastava <dheerajkumar.srivastava@amd.com>
+To: <muchun.song@linux.dev>, <osalvador@suse.de>, <david@kernel.org>,
+	<akpm@linux-foundation.org>, <davidlohr@hp.com>, <linux-mm@kvack.org>,
+	<linux-kernel@vger.kernel.org>
+CC: <dheerajkumar.srivastava@amd.com>, <Vasant.Hegde@amd.com>,
+	<bharata@amd.com>
+Subject: [PATCH] mm/hugetlb: use kvmalloc_array for hugetlb_fault_mutex_table
+Date: Tue, 6 Oct 2026 19:32:26 +0530
+Message-ID: <20261006140226.11684-1-dheerajkumar.srivastava@amd.com>
+X-Mailer: git-send-email 2.25.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -84,63 +75,70 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: satlexmb07.amd.com (10.181.42.216) To satlexmb09.amd.com
+ (10.181.42.218)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BN1PEPF00004689:EE_|PH7PR12MB6441:EE_
+X-MS-Office365-Filtering-Correlation-Id: 8291b661-ca3c-45aa-f590-08df23b28122
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|36860700016|376014|82310400026|23010399003|1800799024|56012099006|10067099003|11063799006|18002099003;
+X-Microsoft-Antispam-Message-Info:
+	4MseebFX7g7hJ9zrRuv4HMshSYKCbok06F3AdhIrK5MmdHHQcheV5hrpUfFxsU5tcbmvgJKLjRqSa35KYoAdKmNskJdT2Bz/dh1wg+3wjKnn3PnG6uSLautJ1Ne3nBKqejMHPwZPHKx9YUiWZzZRePebHL3hrNzfW7Uhn0lhRxW0PSaH9H7X/P2lp7Eh+jE/2LtBTtgdA21aCN3gk4CszxFed3o42wk1AN5XnbrEqR0dDRZjm6MdPY4L93KGnnIbWGg1DbxRy5qvpzSMZIpg+7NSt0Jk1n1gIMPe7zH7sDlKqG86GDgnbSeYa0b6xcaSpzgQQHa7L16Ruc99mmnzfI/Hs249Yrm7YtnVJxKzx+YOqe/1lA+E1+C4ahin1V7wkkXHdVOTPI5NDybNf0VVGwdyujQvLJFU0PEkC33Dp5cTLSeTZZKRzewVGt315Bk3M6KAzjzJgX5EseIDRVlRN4IGI2hVadOvCJQegrL2MF9nLUaMUFXELJGCF0jUG3WJ/P1X9oFykcB98WYRY0IppsSPzTNYutGwz9shtGDBDRzuKdvYKUB3R8s0frI6BRuFaO8h20Q8UaBwrYjTyC1l268aMF9oDt88ZjCpAutUOPWHGa0ujvz1YEnolwIbnslTFrfnq5M+hjKYmvxHJm0i8E0T4HArqXrjCkQahX+AFbgSSwLxznfMjwt2Z1Nmg5mscBl3mkqAGuGG9OaD+7O+uw==
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb08.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(36860700016)(376014)(82310400026)(23010399003)(1800799024)(56012099006)(10067099003)(11063799006)(18002099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	gBDMMVQb6gY24cj77fcs8teYLmSaWIKgWBVjCIEWsgWTsJbVQUuv3EboAjaMoHKiSfPOEOy1elDBYLdcK/KysXmcpPIREyi1TiKMDkJLgureAiuKcc/yMd59heNx7DpFs3+5STycCA+BwPp6f66/1cV0My0RZusmX/7ppeYRmCLWoksvpYi6K2Bz/SqRRh7xGkOU7v7thVw0cvNsDG8eUg0lNp+WHFhCNEKPbqwfNKVMxeHF3L8QNxsSuEfugw9PRy8nzlZbajnzVh2K3Zw7jAexWB3yBhTp6BTg0ojmAhTTPK21TJ6AWYaro8X3hIH0P7dACcQrVyH4qXc60oJxdCyfRFADcOMilJlMa0zJC6DKTXBeO8m2X7LOaXj7TP5J8hhYz+0FlBCLZflMXf5C6ThDF2G2SpxkUnFEmPO9cGMETwLs7QMBO+sD9g6XwpIN
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Oct 2026 14:02:48.7132
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 8291b661-ca3c-45aa-f590-08df23b28122
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb08.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	BN1PEPF00004689.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB6441
 
-access_ok() checks untagged_addr(uaddr), but arch_futex_atomic_op_inuser()
-and futex_atomic_cmpxchg_inatomic() hand the raw uaddr to the inline asm
-amoswap/amoadd/.../lr.w+sc.w through the "+m" (*uaddr) operand.  When the
-tagged address ABI is enabled (CONFIG_RISCV_ISA_SUPM, prctl
-PR_SET_TAGGED_ADDR_CTRL with PMLEN != 0), those two addresses differ: a
-user pointer whose top PMLEN bits hold a tag passes access_ok() after
-untagging, but the atomic is then performed on the still-tagged raw
-address.
+On systems/VMs with a large number of CPUs (e.g. 4096), hugetlb_init()
+computes num_fault_mutexes = roundup_pow_of_two(8 * num_possible_cpus())
+= 32768.  The subsequent kmalloc for the mutex table can exceed
+MAX_PAGE_ORDER when struct mutex is enlarged by debug options like
+CONFIG_DEBUG_MUTEXES and CONFIG_DEBUG_LOCK_ALLOC, resulting in:
 
-Supervisor-mode data accesses are not subject to the U-mode pointer
-masking (that is governed by menvcfg.PMM, which the kernel does not set),
-so hardware does not strip the tag for the kernel's own access.  With
-Sv57 and PMLEN=16 the tag bits overlap the canonical-address bits, so a
-tagged pointer can name a canonical kernel virtual address (e.g. in the
-linear map) whose untagged form is a valid user address.  An unprivileged
-process can thus make FUTEX_WAKE_OP perform an atomic read-modify-write on
-an arbitrary kernel address, with the matching FUTEX_OP_CMP_* result
-serving as a read oracle.
+  WARNING: at __alloc_frozen_pages_noprof (order > MAX_PAGE_ORDER)
+  kernel BUG at mm/hugetlb.c (BUG_ON(!hugetlb_fault_mutex_table))
+  Kernel panic - not syncing: Fatal exception
 
-get_user()/put_user()/raw_copy_{to,from}_user() already untag the pointer
-after the access_ok() check; do the same in the futex helpers so the
-atomic operates on the address that was actually validated.
+Switch to kvmalloc_array() so the allocation falls back to vmalloc when
+the contiguous physical allocation is too large.  The table is only
+accessed by index, so virtual contiguity is sufficient.
 
-Fixes: 2e1743085887 ("riscv: Add support for the tagged address ABI")
-Reviewed-by: Samuel Holland <samuel.holland@sifive.com>
-Signed-off-by: Ziyi Guo <guoziyi114@gmail.com>
+Fixes: 8382d914ebf7 ("mm, hugetlb: improve page-fault scalability")
+Signed-off-by: Dheeraj Kumar Srivastava <dheerajkumar.srivastava@amd.com>
 ---
-Changes in v2:
-- Drop the inline comments (Samuel Holland)
-- Add Samuel's Reviewed-by
+ mm/hugetlb.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-v1: https://lore.kernel.org/all/20261001184355.2395068-1-guoziyi114@gmail.com/
-
- arch/riscv/include/asm/futex.h | 2 ++
- 1 file changed, 2 insertions(+)
-
-diff --git a/arch/riscv/include/asm/futex.h b/arch/riscv/include/asm/futex.h
-index 90c86b115e00..6f3bc9bdb85e 100644
---- a/arch/riscv/include/asm/futex.h
-+++ b/arch/riscv/include/asm/futex.h
-@@ -40,6 +40,7 @@ arch_futex_atomic_op_inuser(int op, int oparg, int *oval, u32 __user *uaddr)
+diff --git a/mm/hugetlb.c b/mm/hugetlb.c
+index cea25773a6c9..f1b982595151 100644
+--- a/mm/hugetlb.c
++++ b/mm/hugetlb.c
+@@ -4177,7 +4177,8 @@ static int __init hugetlb_init(void)
+ 	num_fault_mutexes = 1;
+ #endif
+ 	hugetlb_fault_mutex_table =
+-		kmalloc_objs(struct mutex, num_fault_mutexes);
++		kvmalloc_array(num_fault_mutexes,
++			       sizeof(*hugetlb_fault_mutex_table), GFP_KERNEL);
+ 	BUG_ON(!hugetlb_fault_mutex_table);
  
- 	if (!access_ok(uaddr, sizeof(u32)))
- 		return -EFAULT;
-+	uaddr = untagged_addr(uaddr);
- 
- 	switch (op) {
- 	case FUTEX_OP_SET:
-@@ -82,6 +83,7 @@ futex_atomic_cmpxchg_inatomic(u32 *uval, u32 __user *uaddr,
- 
- 	if (!access_ok(uaddr, sizeof(u32)))
- 		return -EFAULT;
-+	uaddr = untagged_addr(uaddr);
- 
- 	__enable_user_access();
- 	__asm__ __volatile__ (
+ 	for (i = 0; i < num_fault_mutexes; i++)
 -- 
-2.34.1
+2.25.1
 
