@@ -1,128 +1,134 @@
-Received: from linux.microsoft.com (linux.microsoft.com [13.77.154.182])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 5D05F3B27E7;
-	Tue,  6 Oct 2026 10:08:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=13.77.154.182
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 16420332621;
+	Tue,  6 Oct 2026 10:09:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791281315; cv=none; b=eA/4EBfejiZMqo7rMllTiexUuSmkXOH41GvSmWN+Epm2udOOIvL9uNzeh9NiAyl/Vb7/fNnoAAfTppSAL60lNzaUHfmGi+PUH54McCxZ0Oa/B7suR/YWdLKZriPHcWJTzLr3aqPuASjboqxaeHhZRo1II3j4uzoNiAYXXG8uA30=
+	t=1791281344; cv=none; b=fWKe2TmFHl2vCK3BRngJokGG0UHMTQ9UAIPkTXEp46kSD58Oycx+PiAEwmtFde+5ivDQpW5bEdURLGOuo3JLsY57EUndeNA/p8dhtmjC0MiooebIScPhZsKlUcdpqy2pcnIV1VS3zga8tXs6Q4EJBoXnmCVVdC0LeQPeo3ztg1o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791281315; c=relaxed/simple;
-	bh=gnp8MSjVsj2xCAhK7jar17DLHCZrDPkcKPJcGmYENxY=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=RrLc/aAyX9CmU8A1zv5amPcYxFhyCWlibVA6e2tCudZqPDtX/l7r3Aiivo1TXe8AdAz3qiXlG5s9acAXxO8F1II2tGnLxU51Tf3VQ806jMg7CwHD6kVw6vlKW/YsuCwYsUkCJDtu8LzmS7s6bzA8M8bgjO8NrKCWL3sEJ1ySzCU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com; spf=pass smtp.mailfrom=linux.microsoft.com; dkim=pass (1024-bit key) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.b=qvjOFXrC; arc=none smtp.client-ip=13.77.154.182
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.microsoft.com
+	s=arc-20240116; t=1791281344; c=relaxed/simple;
+	bh=ZjNZoI+rGqLRyY3RwMj8Agbv0dAl9XH/ttIPMSUr+3U=;
+	h=MIME-Version:Date:From:To:Cc:Message-Id:In-Reply-To:References:
+	 Subject:Content-Type; b=a51nTZf8BsW3jQZBgXlCVSx9mxT8+3EgLqQI5D/vkUmTO9sA1Y9YFw4Qv1CXMUHkAI/SJJY0PbEAW/7GsH6RaqDsS706UuMKU4JjAq296mHgtvJxk2USiMyunRB2MgDygIh2/LgNqCTi2U4dLBBpjTsUXYusxQcgr8wie6NKAw4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=U4sEPz/L; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.b="qvjOFXrC"
-Received: from [10.95.66.108] (unknown [52.172.102.222])
-	by linux.microsoft.com (Postfix) with ESMTPSA id 7A7A720B7166;
-	Tue,  6 Oct 2026 03:07:31 -0700 (PDT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com 7A7A720B7166
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.microsoft.com;
-	s=default; t=1791281257;
-	bh=Gt1lp+Gdyr+I3+ep/fgfelXAWkuyT6J0SUoT/mWxGK4=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=qvjOFXrCl2Fm7UpQpdxBBERC1/pwNW9LxDDp3yH1tH7KYtGcXxKtDlsJpfibq4Vxk
-	 Bfi9nnVAY5937ciu1VKyQMFEYjye25C0BExY/t+G8WcJcHJSN6M88oNg75ZsdQb1qQ
-	 r6E4hq1xVBJAJYQEspNRjH1QwGQ0La7JWOgo7buE=
-Message-ID: <6c1752b6-d09b-4d64-ac33-ab401df266fd@linux.microsoft.com>
-Date: Tue, 6 Oct 2026 15:38:23 +0530
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="U4sEPz/L"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EA55B1F00893;
+	Tue,  6 Oct 2026 10:09:01 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791281343;
+	bh=Pit7TIoPf8Hm7UQIvsoa+f0tkbDqlmehivHW56Xafno=;
+	h=Date:From:To:Cc:In-Reply-To:References:Subject;
+	b=U4sEPz/LFbpwFIR9JgSy46s60mOk8INEwamr/dyEPnSI2g9WWuP2JxSnBusC6db+V
+	 ZfxKeCJLOn539Q7jhHABn9dyuU0x2RJWZybBv/4KFwUHuUOyG6yD87mKpssftB2MEi
+	 FJ5e1OcpCt576g/dLc8aKBwYzHEs6bBlZg4+FdRoaqLJ4g3JWNd9A0bteeNnRrKg2G
+	 7AU6lQF0IH4TJ3+wwtTHCNbTvl7kTB+oe6SIgPTDU23IgGHPpMdoGbJm9+8xMeynd0
+	 9SNmrKUzkE0sGwa4nenY++I7i1tF2GO2qAlZvVIfr+CMBv7Fsnldxegs7D/CyeB3Mj
+	 YfmzfQWSGZR4w==
+Received: from ams-compute-01.internal (ams-compute-01.internal [10.64.2.61])
+	by mailfauth.ams.internal (Postfix) with ESMTP id 73F85198003A;
+	Tue,  6 Oct 2026 06:09:00 -0400 (EDT)
+Received: from ams-imap-11 ([10.64.2.31])
+  by ams-compute-01.internal (MEProxy); Tue, 06 Oct 2026 06:09:00 -0400
+X-ME-Sender: <xms:ucjEatjqd2KS91mJP5iD5kxjg-gpMH9w0v3P22wgNsKtK1yS5phLuQ>
+    <xme:ucjEavblStUXJdfFXfKLdNOwsWnIbBbvrW1dTfUnwYNl7FA8kdPEuWbESeApZWHv5
+    PAWcO1XVKLJ_lSFpLx_C9g28zXxowJAqWMkji7JH66lBpg96SHksmIpIw>
+X-ME-Proxy-Cause: dmFkZTGGdtQL4KJ/yz/XyXqolrCqNbVBG5rtYaAIwxjM//tDvJw7IYP8SBY86Dv6h0AeE8
+    cMAUKKarzN4jJmXnPMvjjV7ugSWLOJ57BNtImrwfyweOa0WN51y47SRkhwI2TTH1BXH/Cr
+    WPBWNud37nt/wKLse1XgIZEusaWLWsJ5eCVOYJNygOdkz7bSGyyna8NWrslB2ig9d71KP9
+    0mXpNZttPZ0jbit2kpkzcdx6gavXdzg5v3F+Z9rG5TSHTsxZWTJaOAtfyCXEwKW3VbsAo+
+    ldWach8O0DMUW402p6KWBxg9FQkrWxVr2PB9OnVQ5QQympaJ7Ko6uPZGNY2V0rwrCFQDX+
+    6K8kRC1TEddxdt75CjCL91Z9DftHH+fvGrkrncUqWD4PDa8+2YWMMdAymeGS9o9s7eGnzR
+    KT3aiYPNF+CU9RuMvpObtoGhwq5HUu6QI7CzIubmFKpE1zAg4/FysN1ajmZxrglqXwyRmU
+    wrBgNUFT5chMAd5yov4cM6OZAslX53512y5Aff6oI8unZ++VoR3Kg4+oILb+hojA234mnv
+    tugCXpuVzwP1HNF/1su5jI+Je0Ee6Lylbx0dNLsXdW7AAuPbfAXz08U78hbtG+CEUTjHmg
+    MFMaYsst55MNRJIiQ7nG8An5i7FrHm+H/9Hub5rzVPBWCnPggN+6IxKdtfAA
+X-ME-Proxy: <xmx:vMjEag9lEAboEdhlMfS6Yui2Ysben86piXFlGHTIkux5IirEJhOGbA>
+    <xmx:vMjEaqYc9w6ObkeGqBwKeexe6KiDTa9JIPBUyJh2dqg82MgzjwMpXA>
+    <xmx:vMjEapcH-7zKecoK52ed5RAnRiuaiEmC1VRGl0A-usqiXsA0b8w4ww>
+    <xmx:vMjEagTbVkon90cJEvsOXTA9T5OkhO0W01ZTJxgNBqYBZ9qNkB8nXg>
+    <xmx:vMjEark13RO5Y6MI_CWEln_yJSiZVO21InO5r0_kDXzHwmbf42B5tsaT>
+Feedback-ID: ice86485a:Fastmail
+Received: by mailuser.ams.internal (Postfix, from userid 501)
+	id E31EEF80090; Tue,  6 Oct 2026 06:08:57 -0400 (EDT)
+X-Mailer: MessagingEngine.com Webmail Interface
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 0/2] hyperv: Run VMBus kexec cleanup from syscore
- shutdown
-To: Shradha Gupta <shradhagupta@linux.microsoft.com>,
- Michael Kelley <mhklinux@outlook.com>, Wei Liu <wei.liu@kernel.org>,
- Catalin Marinas <catalin.marinas@arm.com>, Baoquan He <baoquan.he@linux.dev>
-Cc: Will Deacon <will@kernel.org>, "K . Y . Srinivasan" <kys@microsoft.com>,
- Haiyang Zhang <haiyangz@microsoft.com>, Dexuan Cui <decui@microsoft.com>,
- Long Li <longli@microsoft.com>, Andrew Morton <akpm@linux-foundation.org>,
- Mike Rapoport <rppt@kernel.org>, Pasha Tatashin <pasha.tatashin@soleen.com>,
- Pratyush Yadav <pratyush@kernel.org>, Thomas Gleixner <tglx@kernel.org>,
- Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>,
- Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
- Arnd Bergmann <arnd@arndb.de>, linux-hyperv@vger.kernel.org,
- kexec@lists.infradead.org, linux-arm-kernel@lists.infradead.org,
- linux-kernel@vger.kernel.org, linux-arch@vger.kernel.org
-References: <20261001132128.1703511-1-shradhagupta@linux.microsoft.com>
-Content-Language: en-US
-From: Naman Jain <namjain@linux.microsoft.com>
-In-Reply-To: <20261001132128.1703511-1-shradhagupta@linux.microsoft.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Date: Tue, 06 Oct 2026 12:08:35 +0200
+From: "Ard Biesheuvel" <ardb@kernel.org>
+To: "Bill Wendling" <morbo@google.com>, "Kees Cook" <kees@kernel.org>
+Cc: "Gustavo A. R. Silva" <gustavoars@kernel.org>,
+ "Nathan Chancellor" <nathan@kernel.org>,
+ "Nick Desaulniers" <ndesaulniers@google.com>,
+ "Justin Stitt" <justinstitt@google.com>, "Mark Brown" <broonie@kernel.org>,
+ "Marco Elver" <elver@google.com>, alan.maguire@oracle.com,
+ namjain@linux.microsoft.com, "Peter Zijlstra" <peterz@infradead.org>,
+ linux-kernel@vger.kernel.org, linux-hardening@vger.kernel.org,
+ llvm@lists.linux.dev
+Message-Id: <3cd11b18-30da-4dc1-9585-1112778aba38@app.fastmail.com>
+In-Reply-To: <20261006094358.2948476-1-morbo@google.com>
+References: <20261005102518.2400984-1-morbo@google.com>
+ <20261006094358.2948476-1-morbo@google.com>
+Subject: Re: [PATCH v4] compiler_types: Allow opting out of __counted_by and
+ __counted_by_ptr
+Content-Type: text/plain
 Content-Transfer-Encoding: 7bit
 
 
 
-On 10/1/2026 6:51 PM, Shradha Gupta wrote:
-> Kexec reboot fails on ARM64 Hyper-V guests because the VMBus
-> connection and SynIC CPU hotplug state are not torn down before the
-> secondary CPUs are stopped. The kexec kernel consequently starts with
-> the previous kernel's VMBus state still active.
-> 
-> The previous version added an ARM64-specific syscore shutdown
-> implementation. This version follows Michael Kelley's review and moves
-> the cleanup into the existing architecture-independent VMBus syscore
-> operations. This removes the separate x86 handler dispatch and gives
-> x86 and ARM64 the same ordering:
-> 
->    device_shutdown()
->    syscore_shutdown()
->      VMBus UNLOAD and SynIC CPU hotplug teardown
->    machine_shutdown()
-> 
-> On x86, VMBus teardown now runs before hv_stimer_global_cleanup().
-> This ordering is safe after commit be0cfab740e5 ("clocksource: hyper-v:
-> Remove support for stimer interrupts in message mode") removed the
-> VMBus dependency from synthetic timer handling.
-> 
-> Patch 1 adds a read-only helper that reports whether a kexec reboot is
-> in progress. The helper is exported because HYPERV_VMBUS is tristate
-> and the common syscore callback must also link when VMBus is a module.
-> Patch 2 moves the cleanup into the common callback and removes the
-> obsolete architecture-specific setup/remove interface.
-> 
-> For stable kernels that still support message-mode stimers, an
-> ARM64-specific backport will be needed to preserve the existing x86
-> ordering.
-> 
-> Changes in v3:
->    - Use the existing common VMBus syscore operations on all
->      architectures, as suggested by Michael.
->    - Remove the x86 handler pointer and the weak setup/remove interface.
->    - Add an exported read-only helper for modular VMBus builds.
->    - Correct the Fixes tag to the commit that enabled Hyper-V on ARM64.
-> 
-> Changes in v2:
->    - Use syscore shutdown instead of an ARM64 machine_shutdown() hook, as
->      suggested by Catalin.
-> 
-> Shradha Gupta (2):
->    kexec: Add helper to report an active kexec reboot
->    Drivers: hv: Run VMBus kexec cleanup from syscore shutdown
-> 
->   arch/x86/kernel/cpu/mshyperv.c | 17 +----------------
->   drivers/hv/hv_common.c         | 10 ----------
->   drivers/hv/vmbus_drv.c         | 22 ++++++++++++++--------
->   include/asm-generic/mshyperv.h |  2 --
->   include/linux/kexec.h          |  2 ++
->   kernel/kexec_core.c            |  7 +++++++
->   6 files changed, 24 insertions(+), 36 deletions(-)
-> 
-> 
-> base-commit: be0cfab740e58b70047ef6e7e3d578f00ed5d258
-
-Since the approach changed in this version and previously reviewed-by 
-tags were not applicable, sharing them again for the series.
-
-Reviewed-by: Naman Jain <namjain@linux.microsoft.com>
-
-Regards,
-Naman
+On Tue, 6 Oct 2026, at 11:43, Bill Wendling wrote:
+> Code that runs outside the kernel proper, such as the EFI stub, gets
+> nothing out of the counted_by annotations: the bounds checks they feed
+> (FORTIFY_SOURCE, UBSAN_BOUNDS) are already disabled there.
+>
+> The annotations can also break the build. A __counted_by_ptr() that
+> names a member declared after the pointer needs Clang's
+> '-fexperimental-late-parse-attributes', which the top-level Makefile
+> adds to 'KBUILD_CFLAGS'. The x86 EFI stub builds its own cflags and does
+> not get that flag, so it fails as soon as such a struct is pulled in
+> through a common header.
+>
+> Overriding the macros from a Makefile doesn't work:
+> 'compiler_types.h' is pulled in with '-include', which is processed
+> after all -D/-U options, so it re-establishes the definitions. Follow
+> the '__NO_FORTIFY' precedent instead: let a build define
+> '__NO_COUNTED_BY' to turn the corresponding annotation into a no-op.
+>
+> Assisted-by: LLM
+> Signed-off-by: Bill Wendling <morbo@google.com>
+> ---
+> v2: Only specify __NO_COUNTED_BY_PTR. Leave __NO_COUNTED_BY until we need it.
+> v3: Add the version to the Subject line.
+> v4: Use __NO_COUNTED_BY to reduce churn later on.
+> ---
+>  include/linux/compiler_types.h | 7 ++++++-
+>  1 file changed, 6 insertions(+), 1 deletion(-)
+>
+> diff --git a/include/linux/compiler_types.h b/include/linux/compiler_types.h
+> index c5921f139007..05e2b637f1cd 100644
+> --- a/include/linux/compiler_types.h
+> +++ b/include/linux/compiler_types.h
+> @@ -371,8 +371,13 @@ struct ftrace_likely_data {
+>   *
+>   * __bdos on clang < 19.1.3 can be off by 4:
+>   * https://github.com/llvm/llvm-project/pull/112636
+> + *
+> + * Code that runs outside the kernel proper (e.g. the EFI stub) can define
+> + * __NO_COUNTED_BY to drop the annotation, since it gains nothing from the
+> + * bounds checks. __NO_COUNTED_BY should be used sparingly, because there are
+> + * better options for opting out of bounds checking.
+>   */
+> -#ifdef CONFIG_CC_HAS_COUNTED_BY
+> +#if defined(CONFIG_CC_HAS_COUNTED_BY) && !defined(__NO_COUNTED_BY)
+>  # define __counted_by(member)		__attribute__((__counted_by__(member)))
+>  #else
+>  # define __counted_by(member)
 
 
+What happened to counted_by_ptr() now? __NO_COUNTED_BY should disable that too.
 
