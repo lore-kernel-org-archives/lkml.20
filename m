@@ -1,237 +1,325 @@
-Received: from DU2PR03CU002.outbound.protection.outlook.com (mail-northeuropeazon11011017.outbound.protection.outlook.com [52.101.65.17])
+Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 745514078F4;
-	Tue,  6 Oct 2026 12:48:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.65.17
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791290906; cv=fail; b=m7u3iGFvq1cDGpgrIbsWLpaC6BzjeW6fL/hlLbpAzdmQZkMXde/9cgzkslTaDcvn2HEl1Sbmu1oITOixnqWeQFtmOnvkZdIDGy+At9mo8TB5H06/+P+P4HGMPCBzNTsOYtBwrgPG/U23YVE4BnpZB1aXG9rr35EzJ9FgC2ufzPk=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791290906; c=relaxed/simple;
-	bh=3vRC99mP09O+5WuMbnYULwrfSyNqP+uQwocUDOQd70s=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
-	 Content-Disposition:In-Reply-To:MIME-Version; b=CLoAuXtHPJDHaMp/IGyKz3IjdiJwjjgCnP6TMS6J4mEPq6lyEOd8OZKLDzPIevkKslls4JA3E3rEfOQf8I8AhHOUAqDnrPb18svcJ4uEWUKVI7TTESGy93qoCFXdrJPvNAtgC5YoUjhaL4odbfOViVwh9EPXpS4fIDDlgvIrDD0=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=QfNrfvrI; arc=fail smtp.client-ip=52.101.65.17
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 73FFD42CAE0;
+	Tue,  6 Oct 2026 12:48:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=156.67.10.101
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791290948; cv=none; b=MsfC31GX2nDSlcoztUGR+yJ4mXbSv1DQwzMD+gjSHlUM3vB4F4G5+pCkPemjQa6xGgz9e6prtwTIr4tRkh27DCBS7Eax/VWlPNtMflnH4zTm9WEo5WUJ55ET34FrLA2raZL35weCbMEk1XGWOGJ9MqkZMHo9PCCVDJ4UbT0nZHA=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791290948; c=relaxed/simple;
+	bh=bt2Kyyd45F3UQpAxqVewFKugC8GodJpfuF+rBuT+ioc=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=dRAScBen7QYTHZAk+8zU2coOx/mzoi8S1GI07lLVvyr6jI53i07j7SlxNaBGGel4InBSs4Hfs74PU3nrCscHx+pU0L2oV63MGVFQuzPn7ySiIOBfUqH/ymX6ytyzuwbZNjX1Q0SBZMX9CBkZzg0Ila6PtJo41poNUXbf6FJn2t0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch; spf=pass smtp.mailfrom=lunn.ch; dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b=o2urgcrk; arc=none smtp.client-ip=156.67.10.101
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="QfNrfvrI"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=ovSGcKmUJyI9XdoEDXy/M1G8oIQNPy3R+VvYZPFc8Wo3dWY5xShQhuOizcheI+vxQe/OJwLqPedamUhX1Ti/uPpYqKpNFqLnsD2XHcGNAm8g7umBCmujxefeHI83Ur5mDI9GnS70j74uE/aFBxpNwFz3I6IXEUpopnnWb9pt4aebrx0xcOWkbOYyePZM/3FaP+/50W0rskBSId8U/MYM4n7BBdR/xkZxxfJhVGopntdBnVgz+B6/xEXtIVf3ZZDvzO6onT+PuCYss2EVxPsX1+vhrQQ4pSX2+WowB3tikrm6bYN2SPXBVaiqLZgUxR9irEKc5JUaZvJNKrsINNUKnA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=uj8o6HC3AwzR1Ak/ZrTdXDzWyx3IS3PV8qhJ9+6bhdo=;
- b=siK0JIUdGaKxWp1oI1izzYQIpZbRi96n46NErENZ21bD2HKmlHjEQK1fO8OBhUcG1HhOvJbh2Ypa6yZxK59Cq1eSJeQ4KzK+sqykz9sR4p+s9YBQ891VszFEI+y4I8mUxsh/UYYpL+a+w0m6JSQMcdzUwYCBHG0o/bX6y92eDNZwfUgGDFG43ikn0u8KG+qk6yaa2BNItLJA3O4qr3aSyjZFFSlpgWajWk5SlIOCeAfUARAmn7Y5qC9dvgelQsro8/xkAggEWI7put+ULznk268fKJi2mSP6hohONDgzMEr1IbXZ+1PkWlRzcCX40pj2gYq3TwByztLSI5TbthufkQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
- s=selector1-NXP1-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=uj8o6HC3AwzR1Ak/ZrTdXDzWyx3IS3PV8qhJ9+6bhdo=;
- b=QfNrfvrI1Ktrzf88AGz5GUJMBHQiBzqadQ5RxAJV5TXMrtdePwH2ljzzsMT94mK//yP4CIXNxIi6UU5tIJcZdGI4xtGZj79vPBhVU0xAHmstZkebSJCVRuQuj04SSaOtTnRLs9KygqPaRkbVE9HYDPGFs/miPaSFfjNfUHo8wv16o4pRj45lPWgJUZvWvNgDVNdrySZUrN/8Glx+Wr2F6D6NZHhfd6ze3s1H50mtgcRPZ2lRBskm+IlVUIEN95Y4PoZe4lIEwuz4i0ELMORcPzQVOv8+SLQUfTj15wNBZedHylmvbCIHDUQb3iPYt5VroU69nlF14Vc8YlDhGHMWOQ==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from AM8PR04MB7874.eurprd04.prod.outlook.com (2603:10a6:20b:24d::9)
- by AS1PR04MB9700.eurprd04.prod.outlook.com (2603:10a6:20b:473::10) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.472.18; Tue, 6 Oct
- 2026 12:48:08 +0000
-Received: from AM8PR04MB7874.eurprd04.prod.outlook.com
- ([fe80::ac38:1699:6f18:c5d9]) by AM8PR04MB7874.eurprd04.prod.outlook.com
- ([fe80::ac38:1699:6f18:c5d9%6]) with mapi id 15.21.0451.022; Tue, 6 Oct 2026
- 12:48:08 +0000
-Date: Tue, 6 Oct 2026 20:52:38 +0800
-From: Peng Fan <peng.fan@oss.nxp.com>
-To: Andy Shevchenko <andy.shevchenko@gmail.com>
-Cc: Linus Walleij <linusw@kernel.org>,
-	Bartosz Golaszewski <brgl@kernel.org>, Frank Li <Frank.Li@nxp.com>,
-	Sascha Hauer <s.hauer@pengutronix.de>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Fabio Estevam <festevam@gmail.com>,
-	Shenwei Wang <shenwei.wang@nxp.com>, linux-gpio@vger.kernel.org,
-	imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org, Peng Fan <peng.fan@nxp.com>
-Subject: Re: [PATCH v2 2/9] gpio: mxc: fix wakeup_pads bit operations
-Message-ID: <asTvFjwJ3f1FbnJ0@shlinux89>
-References: <20261005-gpio-mxc-cleanup-v2-0-bdc3afbb35e2@nxp.com>
- <20261005-gpio-mxc-cleanup-v2-2-bdc3afbb35e2@nxp.com>
- <CAHp75Ve+p6TMr7MwQw0orGdjxLgNBN8gfTw2SY+EKBBgCyYXgA@mail.gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <CAHp75Ve+p6TMr7MwQw0orGdjxLgNBN8gfTw2SY+EKBBgCyYXgA@mail.gmail.com>
-X-ClientProxiedBy: MA0PR01CA0085.INDPRD01.PROD.OUTLOOK.COM
- (2603:1096:a01:ae::6) To AM8PR04MB7874.eurprd04.prod.outlook.com
- (2603:10a6:20b:24d::9)
+	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b="o2urgcrk"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
+	s=20171124; h=In-Reply-To:Content-Transfer-Encoding:Content-Disposition:
+	Content-Type:MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:From:
+	Sender:Reply-To:Subject:Date:Message-ID:To:Cc:MIME-Version:Content-Type:
+	Content-Transfer-Encoding:Content-ID:Content-Description:Content-Disposition:
+	In-Reply-To:References; bh=5YiNPITWqK30Kiy9ZsIp5HIBNcsrtx+hz6EOp6QsdvI=; b=o2
+	urgcrkxx98UQ4nvGw1KmJDCALdhVySQncwHuegOxmEvSHVZp2JbT70ymGZ3iSA72fMPmYyQczCI8m
+	W/KzUS8RSVrcDIMaWmEcWIou6zBjVS973Tnk2no4U3NT+jk/XYNAt+e6LULlUVTycf8zF7Jyax9WV
+	Ow+saoE4kPd4Mm4=;
+Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
+	(envelope-from <andrew@lunn.ch>)
+	id 1xE4ax-009GK2-Gj; Tue, 06 Oct 2026 14:48:35 +0200
+Date: Tue, 6 Oct 2026 14:48:35 +0200
+From: Andrew Lunn <andrew@lunn.ch>
+To: Selvamani.Rajagopal@onsemi.com
+Cc: Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Piergiorgio Beruto <pier.beruto@onsemi.com>,
+	Parthiban Veerasooran <parthiban.veerasooran@microchip.com>,
+	Simon Horman <horms@kernel.org>, Jonathan Corbet <corbet@lwn.net>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Randy Dunlap <rdunlap@infradead.org>,
+	Richard Cochran <richardcochran@gmail.com>,
+	Heiner Kallweit <hkallweit1@gmail.com>,
+	Russell King <linux@armlinux.org.uk>, netdev@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linux-doc@vger.kernel.org, Jerry Ray <jerry.ray@microchip.com>
+Subject: Re: [PATCH net-next v8 05/11] net: ethernet: oa_tc6: Support for
+ hardware timestamp
+Message-ID: <89dadff0-d78a-4d4d-8ac2-be299e00ae9b@lunn.ch>
+References: <20260928-s2500-mac-phy-support-v8-0-7e011aacc309@onsemi.com>
+ <20260928-s2500-mac-phy-support-v8-5-7e011aacc309@onsemi.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: AM8PR04MB7874:EE_|AS1PR04MB9700:EE_
-X-MS-Office365-Filtering-Correlation-Id: 3b7f2e1e-bc10-4ea2-9808-08df23a812a3
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|7416014|1800799024|19092799006|366016|23010399003|376014|4143699003|11063799006|56012099006|10067099003|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info:
-	QKieAmyuHdMSXXPVKCciPFDIjpvARfRnpYQeFayqyi25B5Pe6mC0A+p5qvzB6fHNelBaURj1UE65ER/s0DkX4tXhtkyX4H45RmFOiiUK80vwcKlfIwkOcsnCcT9Z6Pk/on9xZRm7yNYCzWkXSn3q5tvcET1mUqhyOFsAKsovX2WLvWK9LCCzzYdMEzeu5fOmqE/qUD2/3lQyTGdgDGhW1bG0UiVCPoxpZiX0bm/2p1Ay0bfsAq4C0J73GX9AJHyWkcvkUctAE6dkQ/HycDRVZM9k16HiteQWtctVvmnvGgbrqeGzGS+48xgfDEQtp4du9XksD/t0QJpEEXbFxLNg+Jd+HE5zZd1degV+eNnQEms38zHB8V82dZ8bbly2uvSe3JvFKvfH8Z6vk8hipEfarN+M8BwOUSKp+lO9u2QkbRUC+ul+RZ/umXzkdUibQC2YwVF+NZI4gHqAlsmEXl4NYDrNK+eCiogkmYwyCY0rgPhj2IEPlAmOupzhvrq6xuP0M03P4QU847Z3pQ60ECoDJ2sDicw9Nh0NdlzyUKo9kC27nEXPePWTBCME1ZIAhASwooFf3LQTz0YAp5C8ULPV2Esg/NRlhBHnQpOlqvotF1MEQx0yjXUpogWPYB8N/ICpskq8PtF7vwcKWP0vNsJoyupdBaaHRUuH//1pnBRlIkU=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AM8PR04MB7874.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(7416014)(1800799024)(19092799006)(366016)(23010399003)(376014)(4143699003)(11063799006)(56012099006)(10067099003)(18002099003)(22082099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?Y2M2QU9kalBmem5ldmd1SUVsWWNDMlpGenhRSmRrTmV6N3BsZTkxVFh3K2J0?=
- =?utf-8?B?VFRkYzVTTmNLTHJpL3ArUm9PcUZFRmZJUWVhUy9SVTArMTNGL2hYelRHSUVV?=
- =?utf-8?B?M1AvcjNrQjJyUHdGbThqUFhDK0xwTko1a3lYR3JCRjVRSDA4TWEwLzk1QVAr?=
- =?utf-8?B?S2FSWnhpc3NsejVjQ0t3ZE9mbEp5R3p0R3kyY2FYQUVuTnJta25oT2o5ZXF3?=
- =?utf-8?B?SWttQ01iMG1Ibm1vQUZRSHB2V2lnU1IxUVRTQmxCRHhUU1JqME84VFJUZCs0?=
- =?utf-8?B?TWxaVzBsbGxwZEhsa2Zia0lkUGwrU1J4dmI5ZmNtYTJYdnAyMklUSUNxMEc4?=
- =?utf-8?B?RmhCcVJwVlc4TmwxNm9lclBPQXc3YWdnVk1JWFZNeGN0OWhlV1FmdUV0b0JL?=
- =?utf-8?B?TjJ0Nm0yVVVaclkxQzE2RHBlR3pkV2JjMXZ6QzRBRmZtM0J5dXZvVlBGTDZw?=
- =?utf-8?B?VmJrNmliVVhCNlowTW42NXFEK1EzamNmRGViUk9tOS9kWWh3RnJhRXV1VzZK?=
- =?utf-8?B?UDkweXJSUXJNT2l2MnZuamVTZkZ6Ym8xVWNJaFdYV3ZCZEF5Z2xpUHZsbHow?=
- =?utf-8?B?MDVJeTJtU0RNdm1PZXQyTnk4aGlJb2h3QU9oN1ZTZDJSeS9EaG5hdjJBa1hQ?=
- =?utf-8?B?OU1KS2tkY2d1V01QOFRJYjhmc0lUd0x6RHZzZW9GUCtSbnBldFZMWHo2bGlH?=
- =?utf-8?B?L25Wa2RKRGl6NWxFVmIwU25vcnR3eFlkQnFPVGp6Titid1hOVkpMNnFWQW00?=
- =?utf-8?B?dWlSNkN3Yk9tdE83d211OVdqdlk2cDJpRGtXSFZJekNNYStwNzJhUThaTUZq?=
- =?utf-8?B?NStrRzdZdG0vbWZvT0RJSThaVjIxQ1JzcWxPZXhhak1IRkhFOXEycGZYc3NB?=
- =?utf-8?B?VnFOQ1dQYzZsbjdXUmhBMWlVdWRNeEoycjk1blRpamFGOFhDWlMxQmtka2Z6?=
- =?utf-8?B?NHo2ZUJRRGVBSzFhdGNoUWdwRFdpcjA5cVQwUFc3bnRqS045RnlFM2pxSmY4?=
- =?utf-8?B?R3BKM3pkbmFvOVBRTS9NV3o5c2ZJNWpwdUxDV1IvZWNFdUZXR0NPY3hyQmNq?=
- =?utf-8?B?RW1IY1FmZ1pxT1VzV21OTmxnR25kUDRKQ3lWVVp2RFhKdU51YVpuUEhMZGZX?=
- =?utf-8?B?cEN2ZVlFekVacm5ud1hHaHA3SVd5VEpDS0piT2JnQWx5ZGFUSk1QMGd2MExH?=
- =?utf-8?B?N0tOL0F1MGVFdTFVMStXUTFQTDljV3NYRXpDTDdSL0FVTTl4WjRPMXR2aXFw?=
- =?utf-8?B?dk1oc2NyOVQzdWJtbXFKQkZLbW9tSkN5YzNCNGRpT3ZrUkRHUWUrRGt0NXd3?=
- =?utf-8?B?NFpiRG41S0RJZ0xkaFg2VkFyaTZRcTN0UmczSE1kSklNeWl4aDFyVmtrWkVV?=
- =?utf-8?B?UUtBT3NhTWlzNFhTMTdpNGR5RGhXall1OCtKY2QzV1NtZ3JpNTRUNEhxUXpJ?=
- =?utf-8?B?QXByQWtzYzRDazRKZk03VmpEK1ZIaEhOOGZiVCsyYVFwbm84cnA1a29uTlhp?=
- =?utf-8?B?TjkxWFFiZHJtOXduUXRHa0psUDZPK3llVnAzWi9MU21HbVpNK29zNHZhSjZB?=
- =?utf-8?B?NzhJTGNHNTFZZU9WNHlrRnN3eXZmeG0zVURBSmNDVHoxRndTUndOVEpHSjQy?=
- =?utf-8?B?TmRjdy93SkRKQVdGaThqZExGZys5QUJmbTY1dVdhL2FaWWorelRvZksyYjRy?=
- =?utf-8?B?YStjNW1mU00rK3l1YkVmU0h2RjJSRkNSemxwZDAzMHIzYlMzd21NK2IwMmJI?=
- =?utf-8?B?Z3MyeFJMa3FQczMramVoVHZVTnRidkYzWExvZncrNW1JU0duYmVOUXM1ODJp?=
- =?utf-8?B?SnpFU1hVTFVwYTRZa1V5U09rdWhlcFhXZlFmWndpMEhNcGZhWk1sTTEyajU1?=
- =?utf-8?B?N1hDL3FPTGtoUUdoeThPMVlTcjlmWFNjNWlKU3JCZVpWK1NNQndoUU81SjYx?=
- =?utf-8?B?a1dvZGZyV09nNlZmdEk1NjQwd3ZRRHpUUlNXTkU3bkJqdjBoZFRjSko2ay9a?=
- =?utf-8?B?Y2JZbHJJMjUwRHBiYUVlbG5ZbFlwa1E5ZDQ5MXdOUmRHSVZrRVhKUENwV2g1?=
- =?utf-8?B?YjFzMjByT1hpc1JhM1hqWm5QWVJ2aVJkRE9sZTN1TUhDR2VVTytkSzNHWHZF?=
- =?utf-8?B?M2pZU21oOHUzQVZjMVcyclo5L2VUSjRmTXdRSFY3T0JudkFidkxiT2xXQ2JV?=
- =?utf-8?B?TXAzczJORTJ5RUV5UktNclozWlFNbGZWRVZVdk1YaDJBcEZKRXh4QlBlODJo?=
- =?utf-8?B?cHJCcnNNaDJZZDNZbktjbS8yS1Y2NExHY0dzTkZ5UEZXdDArVmRyaHpiaHhG?=
- =?utf-8?B?N2JFdldsSEtrTzYrcHJuM2I0WkE4WXhtc0l4cGdLT1piT3ZMSnlKOGlpbXp6?=
- =?utf-8?Q?o7h6QiBoXa9zYBxqIVuabDXRc7N/4Va3oTr53?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 3b7f2e1e-bc10-4ea2-9808-08df23a812a3
-X-MS-Exchange-CrossTenant-AuthSource: AM8PR04MB7874.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Oct 2026 12:48:08.6271
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 2VZudObtC8vpcRSr7Fbsm4JuJv1RAkorAt1vQYmkDFlR2YkJxkVMj78nO7EYXXIBFuj0rBboUSTT69HeTMUgVLLr5RtfnOihGxkK2gTHq8b1KCdap3cutlJ33dflBGUo
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS1PR04MB9700
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260928-s2500-mac-phy-support-v8-5-7e011aacc309@onsemi.com>
 
-Hi Andy,
-On Tue, Oct 06, 2026 at 11:36:15AM +0300, Andy Shevchenko wrote:
->On Mon, Oct 5, 2026 at 5:24 PM Peng Fan (OSS) <peng.fan@oss.nxp.com> wrote:
->>
->> From: Peng Fan <peng.fan@nxp.com>
->>
->> gpio_set_wake_irq() can be called concurrently for different pins on
->> the same port, so need to use atomic bitops when modifying wakeup_pads.
->
->so we need
->
->> Since wakeup_pads is u32 but assign_bit() operate on unsigned long
->
->operates
->
->> pointers.
->
->This sentence doesn't sound like it's finished.
->
->> On 64-bit platforms this causes an 8-byte read-modify-write
->> on a 4-byte field, corrupting the adjacent is_pad_wakeup member.
->> Change wakeup_pads to unsigned long and reorder to avoid the overlap.
+> +static bool oa_tc6_req_tx_hwtstamp(struct oa_tc6 *tc6, struct sk_buff *skb)
+> +{
+> +	bool drop = false;
+> +	u8 tsc;
+> +	u8 i;
+> +
+> +	lockdep_assert_held(&tc6->tx_skb_lock);
+> +
+> +	if (!skb || !(skb_shinfo(skb)->tx_flags & SKBTX_HW_TSTAMP))
+> +		return drop;
+> +
+> +	if (!tc6->hw_tstamp_enabled)
+> +		goto out;
+> +	if (tc6->ts_config.tx_type != HWTSTAMP_TX_ON) {
+> +		tc6->tx_hwtstamp_lost++;
+> +		goto out;
+> +	}
+> +
+> +	tsc = tc6->ttsc_current_id;
+> +	for (i = 0; i < OA_TC6_TTSCC_REG_ID; i++) {
+> +		if (!(tc6->ts_ttsc_pending & BIT(tsc -
+> +		    OA_TC6_TTSCA_REG_ID)))
+> +			goto slot_found;
 
-wakeup_pads is a u32, while assign_bit() operates on unsigned long
-pointers. On 64-bit platforms, this causes an 8-byte read-modify-write
-on a 4-byte field, corrupting the adjacent is_pad_wakeup member.
-So change wakeup_pads to unsigned long and reorder to avoid the overlap.
+The indentation is a bit off. Generally the whole of BIT(...) would be
+on the next line.
 
->>
->> And the enable/disable path unconditionally sets/clears the wakeup_pads
->> bit even when enable_irq_wake()/disable_irq_wake() fails. Only update
->> the bit on success.
->>
->> While at here, simplify the logic by consolidating into a single
->> irq_set_irq_wake() call based on the enable parameter.
->
->...
->
->> +       if (port->irq_high && (gpio_idx >= 16))
->> +               ret = irq_set_irq_wake(port->irq_high, enable);
->> +       else
->> +               ret = irq_set_irq_wake(port->irq, enable);
->>
->
->This blank line may be removed.
+> +		tsc = oa_tc6_next_tsc(tsc);
+> +	}
+> +
+> +	/* All the three slots are waiting for its event. This skb
+> +	 * can't request timestamp. Marking it to be dropped.
+> +	 */
+> +	tc6->tx_hwtstamp_lost++;
+> +	drop = true;
+> +	goto out;
+> +
+> +slot_found:
+> +	tc6->ts_ttsc_pending |= BIT(tsc - OA_TC6_TTSCA_REG_ID);
+> +	tc6->ttsc_current_id = oa_tc6_next_tsc(tsc);
+> +	oa_tc6_tsinfo_tx(skb)->tsc = tsc;
+> +	skb_shinfo(skb)->tx_flags |= SKBTX_IN_PROGRESS;
+> +out:
+> +	return drop;
 
-sure.
+The goto's here are a bit spaghetti code like. Since all out: does is
+return, maybe just use "return true" above.
 
->
->> -       return ret;
->> +       if (ret)
->> +               return ret;
->
->...
->
->> -       for (i = 0; i < 32; i++) {
->> -               if ((port->wakeup_pads & (1 << i))) {
->> -                       type = port->pad_type[i];
->> -                       if (enable)
->> -                               config = pad_type_map[type];
->> -                       else
->> -                               config = IMX_SCU_WAKEUP_OFF;
->> -
->> -                       if (is_imx8qm && config == IMX_SCU_WAKEUP_FALL_EDGE) {
->> -                               dev_warn_once(port->dev,
->> -                                             "No falling-edge support for wakeup on i.MX8QM\n");
->> -                               config = IMX_SCU_WAKEUP_OFF;
->> -                       }
->> +       for_each_set_bit(i, &port->wakeup_pads, 32) {
->
->This change can be done later, can it?
->(I mean in a separate patch)
+>  static int oa_tc6_process_extended_status(struct oa_tc6 *tc6)
+>  {
+> +	u32 regs[OA_TC6_STATUS0_TTSC_REG_COUNT];
+> +	bool ts_valid = !!tc6->ptp_clock;
+>  	u32 value;
+>  	int ret;
+>  
+> -	ret = oa_tc6_read_register(tc6, OA_TC6_REG_STATUS0, &value);
+> +	/* When timestamp is disabled, there is no behavior change
+> +	 * as it reads only STATUS0 register. When enabled,
+> +	 * TTSCA_HIGH..TTSCC_LOW are fetched together with STATUS0
+> +	 * to avoid having to make second SPI transaction. Reading few
+> +	 * extra registers, even it may not be needed every time this
+> +	 * function is called, it is more efficient than making second
+> +	 * SPI transaction, when needed.
+> +	 */
+> +	ret = oa_tc6_read_registers(tc6, OA_TC6_REG_STATUS0, regs,
+> +				    ts_valid ?
+> +				    OA_TC6_STATUS0_TTSC_REG_COUNT : 1);
+>  	if (ret) {
+>  		netdev_err(tc6->netdev, "STATUS0 register read failed: %d\n",
+>  			   ret);
+>  		return ret;
+>  	}
+> +	value = regs[0];
 
-ok to use a separate patch for switching to use for_each_set_bit.
+I assume there is a #define for register 0? It would be more readable
+to use the name.
 
-Thanks
-Peng
+> +int oa_tc6_ptp_register(struct oa_tc6 *tc6, struct ptp_clock_info *info)
+> +{
+> +	int ret = 0;
+> +
+> +	/* Not supporting hardware timestamp isn't an error */
+> +	if (!tc6->hw_tstamp_supported)
+> +		return ret;
+> +
+> +	snprintf(info->name, sizeof(info->name), "%s",
+> +		 "OA TC6 PTP clock");
 
->
->> +               type = port->pad_type[i];
->> +               if (enable)
->> +                       config = pad_type_map[type];
->> +               else
->> +                       config = IMX_SCU_WAKEUP_OFF;
->>
->> -                       ret |= mxc_gpio_generic_config(port, i, config);
->> +               if (is_imx8qm && config == IMX_SCU_WAKEUP_FALL_EDGE) {
->> +                       dev_warn_once(port->dev,
->> +                                     "No falling-edge support for wakeup on i.MX8QM\n");
->> +                       config = IMX_SCU_WAKEUP_OFF;
->>                 }
->> +
->> +               ret |= mxc_gpio_generic_config(port, i, config);
->>         }
->
->-- 
->With Best Regards,
->Andy Shevchenko
->
+Are names meant to be unique? Have you tested this on a board with
+multiple devices?
+
+
+> +	tc6->ptp_clock = ptp_clock_register(info, &tc6->spi->dev);
+> +	if (IS_ERR(tc6->ptp_clock)) {
+> +		ret = PTR_ERR(tc6->ptp_clock);
+> +		tc6->ptp_clock = NULL;
+> +		dev_err(&tc6->spi->dev, "Registration of %s failed\n",
+> +			info->name);
+> +	}
+> +
+> +	if (tc6->ptp_clock)
+> +		dev_info(&tc6->spi->dev, "%s registered. index %d\n",
+> +			 info->name, ptp_clock_index(tc6->ptp_clock));
+> +	return ret;
+> +}
+> +EXPORT_SYMBOL_GPL(oa_tc6_ptp_register);
+> +
+> +/**
+> + * oa_tc6_ptp_unregister - Unregisters clock related callbacks
+> + * @tc6: oa_tc6 struct.
+> + */
+> +void oa_tc6_ptp_unregister(struct oa_tc6 *tc6)
+> +{
+> +	if (tc6->ptp_clock) {
+> +		ptp_clock_unregister(tc6->ptp_clock);
+> +		tc6->ptp_clock = NULL;
+> +	}
+> +}
+> +EXPORT_SYMBOL_GPL(oa_tc6_ptp_unregister);
+> diff --git a/drivers/net/ethernet/oa_tc6/oa_tc6_std_def.h b/drivers/net/ethernet/oa_tc6/oa_tc6_std_def.h
+> index 403a9c22b5f1..06fe88f1ed7c 100644
+> --- a/drivers/net/ethernet/oa_tc6/oa_tc6_std_def.h
+> +++ b/drivers/net/ethernet/oa_tc6/oa_tc6_std_def.h
+> @@ -18,6 +18,9 @@
+>  #include <linux/wait.h>
+>  #include <linux/phy.h>
+>  
+> +/* Tx timestamp capture register A (high) */
+> +#define OA_TC6_REG_TTSCA_HIGH			(0x10)
+> +
+>  /* Control command header */
+>  #define OA_TC6_CTRL_HEADER_DATA_NOT_CTRL	BIT(31)
+>  #define OA_TC6_CTRL_HEADER_WRITE_NOT_READ	BIT(29)
+> @@ -33,6 +36,7 @@
+>  #define OA_TC6_DATA_HEADER_START_WORD_OFFSET	GENMASK(19, 16)
+>  #define OA_TC6_DATA_HEADER_END_VALID		BIT(14)
+>  #define OA_TC6_DATA_HEADER_END_BYTE_OFFSET	GENMASK(13, 8)
+> +#define OA_TC6_DATA_HEADER_TSC_OFFSET		GENMASK(7, 6)
+>  #define OA_TC6_DATA_HEADER_PARITY		BIT(0)
+>  
+>  /* Data footer */
+> @@ -44,6 +48,8 @@
+>  #define OA_TC6_DATA_FOOTER_START_VALID		BIT(20)
+>  #define OA_TC6_DATA_FOOTER_START_WORD_OFFSET	GENMASK(19, 16)
+>  #define OA_TC6_DATA_FOOTER_END_VALID		BIT(14)
+> +#define OA_TC6_DATA_FOOTER_RTSA_VALID		BIT(7)
+> +#define OA_TC6_DATA_FOOTER_RTSP_VALID		BIT(6)
+>  #define OA_TC6_DATA_FOOTER_END_BYTE_OFFSET	GENMASK(13, 8)
+>  #define OA_TC6_DATA_FOOTER_TX_CREDITS		GENMASK(5, 1)
+>  
+> @@ -70,6 +76,22 @@
+>  
+>  #define OA_TC6_REG_MMS_MASK		GENMASK(19, 16)
+>  
+> +#define OA_TC6_TSTAMP_SZ			8
+> +
+> +#define OA_TC6_TTSCA_REG_ID			1
+> +#define OA_TC6_TTSCB_REG_ID			2
+> +#define OA_TC6_TTSCC_REG_ID			3
+> +
+> +/* STATUS0 and the TTSCA/B/C capture registers are contiguous in MMS 0, so
+> + * they are fetched with a single control transaction while timestamping is
+> + * available.
+> + */
+> +#define OA_TC6_TTSC_REG_OFFSET		(OA_TC6_REG_TTSCA_HIGH - \
+> +					 OA_TC6_REG_STATUS0)
+> +#define OA_TC6_TTSC_REG_COUNT		(2 * OA_TC6_TTSCC_REG_ID)
+> +#define OA_TC6_STATUS0_TTSC_REG_COUNT	(OA_TC6_TTSC_REG_OFFSET + \
+> +					 OA_TC6_TTSC_REG_COUNT)
+> +
+>  /* Internal structure for MAC-PHY drivers */
+>  struct oa_tc6 {
+>  	struct net_device *netdev;
+> @@ -95,6 +117,16 @@ struct oa_tc6 {
+>  	bool prot_ctrl;
+>  	enum oa_tc6_quirk_flag quirk_flags;
+>  	struct gpio_desc *reset_gpio;
+> +	struct hwtstamp_config ts_config;
+> +	struct list_head tx_ts_skb_q;
+> +	struct ptp_clock *ptp_clock;
+> +	bool hw_tstamp_supported;
+> +	bool hw_tstamp_enabled;
+> +	u64 tx_hwtstamp_pkts;
+> +	u64 tx_hwtstamp_lost;
+> +	u64 tx_hwtstamp_err;
+> +	u8 ts_ttsc_pending;
+> +	u8 ttsc_current_id;
+>  };
+>  
+>  enum oa_tc6_header_type {
+> @@ -121,5 +153,8 @@ enum oa_tc6_data_end_valid_info {
+>  	OA_TC6_DATA_END_INVALID,
+>  	OA_TC6_DATA_END_VALID,
+>  };
+> +
+> +void oa_tc6_cleanup_tx_tstamp_skbs(struct oa_tc6 *tc6);
+> +
+>  #endif /* OA_TC6_STD_DEF_H */
+>  
+> diff --git a/drivers/net/ethernet/oa_tc6/oa_tc6_tstamp.c b/drivers/net/ethernet/oa_tc6/oa_tc6_tstamp.c
+> new file mode 100644
+> index 000000000000..d83f6ad9373a
+> --- /dev/null
+> +++ b/drivers/net/ethernet/oa_tc6/oa_tc6_tstamp.c
+> @@ -0,0 +1,224 @@
+> +// SPDX-License-Identifier: GPL-2.0+
+> +/*
+> + * OPEN Alliance 10BASE‑T1x MAC‑PHY Serial Interface framework
+> + *
+> + * Author: Selva Rajagopal <selvamani.rajagopal@onsemi.com>
+> + */
+> +
+> +#include <linux/bitfield.h>
+> +#include <linux/iopoll.h>
+> +#include <linux/mdio.h>
+> +#include <linux/phy.h>
+> +#include <linux/oa_tc6.h>
+> +
+> +#include "oa_tc6_std_def.h"
+> +
+> +static int oa_tc6_set_hwtstamp_settings(struct oa_tc6 *tc6,
+> +					const struct hwtstamp_config *ts_cfg)
+> +{
+> +	u32 regs[OA_TC6_REG_INT_MASK0 - OA_TC6_REG_CONFIG0 + 1];
+> +	u32 cfg0, irqm, status0;
+> +	bool disabled;
+> +	int ret;
+> +
+> +	if (tc6->ts_config.flags == ts_cfg->flags &&
+> +	    tc6->ts_config.tx_type == ts_cfg->tx_type &&
+> +	    tc6->ts_config.rx_filter == ts_cfg->rx_filter)
+> +		return 0;
+> +
+> +	spin_lock_bh(&tc6->tx_skb_lock);
+> +	disabled = tc6->disable_traffic;
+> +	spin_unlock_bh(&tc6->tx_skb_lock);
+> +	if (disabled)
+> +		return -EIO;
+> +
+> +	/* CONFIG0, STATUS0 and INT_MASK0 span one register block, so a
+> +	 * single control transaction covers all three.
+> +	 */
+> +	ret = oa_tc6_read_registers(tc6, OA_TC6_REG_CONFIG0, regs,
+> +				    ARRAY_SIZE(regs));
+> +	if (ret) {
+> +		dev_err(&tc6->spi->dev, "Failed to read CFG0 block\n");
+> +		goto out;
+> +	}
+> +
+> +	cfg0 = regs[0];
+
+OA_TC6_REG_CONFIG0 - OA_TC6_REG_CONFIG0?
+
+> +	status0 = regs[OA_TC6_REG_STATUS0 - OA_TC6_REG_CONFIG0];
+> +	irqm = regs[OA_TC6_REG_INT_MASK0 - OA_TC6_REG_CONFIG0];
+
+It then follow the pattern?
+
+   Andrew
