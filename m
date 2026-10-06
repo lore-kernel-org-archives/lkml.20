@@ -1,149 +1,100 @@
-Received: from mail-wr1-f41.google.com (mail-wr1-f41.google.com [209.85.221.41])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A29433D525F
-	for <linux-kernel@vger.kernel.org>; Tue,  6 Oct 2026 23:39:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.41
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5D1222264AB;
+	Tue,  6 Oct 2026 23:40:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791329954; cv=none; b=GVnja+IohjcqUVTnkJxGj2NjI1nIXSU17kxxzUVWOS6nbVRarsMGWYcb3WGgLSoDGzzvjnULysLF1hGU+CbdYlQIaig2ZKxsxQwINteR61TG6kY7P4S4jEVZbfS4h5uKg+YXzhtGrn/7kFdWFSCEkUwMKpatYSPBBxExoUNYyQw=
+	t=1791330029; cv=none; b=JUn6u1leTWwJV/xQMcIo8MYa7tK+91ZnTDNpbKPa8Ed/1ydRpGzFyhJA1J/AozQWu0jJFxsX18fp7uEraz0gsEWHWJBAg987fYImnEn5LPV61tpOgTWBnGeRsKC+nrWl3griQXA/5JjV4ZtBT4PDiZFFXY0f3UBPPAI69Udth6g=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791329954; c=relaxed/simple;
-	bh=BWQi6+OUEp/tu9l1mkI7xW4X2+ly+BWbFk1Zcp5roxc=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=VWoK/9karQzEyizPAE3oSV4ZG/S1Q/tYoo/zHnaIlZvioK6szUbUqvP+kHV5PuAoQpMj7mcge21xrfAqGGH0hsCXGd+CdAQT6soL8di4jVlBNeo0Da2JbZisEv1jvVYJazc9to2OcKSuomXaqsSU6J2q6rDNkKq1Pfyh+r/tXgs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=PiofVYFT; arc=none smtp.client-ip=209.85.221.41
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1791330029; c=relaxed/simple;
+	bh=Ng2c8hVROoYWoNchJMFJzak2mYULwuEmntVEYkvgI/E=;
+	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
+	 Content-Disposition; b=YOg0/f9pOeX+xSRrbDub4AeiENRe4UEIYWeDJHnNHujGMUDnFEkLG7xs6WH6RoahPpCyunQcwWF4Za9JH0cGYTuKIvABZi5bCzXg2s/sr5jcZLFzFNwwkB8GylJy038TYpYsif/fkOoKNJJ0TOWf3Z7HOYG09yfzNrLKg/VF5RA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LMvWQyTo; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="PiofVYFT"
-Received: by mail-wr1-f41.google.com with SMTP id ffacd0b85a97d-486e70f2457so1556319f8f.2
-        for <linux-kernel@vger.kernel.org>; Tue, 06 Oct 2026 16:39:12 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791329951; x=1791934751; darn=vger.kernel.org;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=p6vQUbClVDpSCeEbk4enL4LsUUIDighbOrvskTUgMlI=;
-        b=PiofVYFTKU/KAwZeWrVD8/JjW97PY4XEAEDQqplcTZMzg+UCIe1Bvjty8JCErVZ4Hf
-         lKauDFOt/0tjSicNXJeQJ43YZjpP0QDzw6tWnP2Qtm5o7PTRgZ4+NxzcvDMpJJycyS7G
-         cnUkvHz97paXvS+niBBtJPIFOy6Wp9q9elKcDTSi5eF2ZlJbtuatcPPmZp2gtr0rs+rO
-         +r6yA27HI2xH4pf2P2FFsosgMCziKvX5w7bQms8pbFzi8piIvpZie28ad23v2wA7cJw2
-         rT9GrXkVmW69e0IMRjgbjcYVXiLmTL9lY9rK2tXeqqXiYjYmV3WWTXEp5MscgGnGpf65
-         c9iQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791329951; x=1791934751;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=p6vQUbClVDpSCeEbk4enL4LsUUIDighbOrvskTUgMlI=;
-        b=pBoJPG9M+RCFWWSTSPV7tR6RHl5NaZjiO70UMRulrgowYqJiJDZInJVSfSASWA1gA7
-         L3nz6BDMacw71+gvHvEoBKNXv6Bj0FxRy/81DmOEH4zlva24Ovcvokl6v6v561IDVXvc
-         +Zr/7z3ZlUrpULNni5ijKXkNpobS1WaqySxrdYFO3O4q/BEdI24ItKtj6mNtctdm6CqQ
-         7XeXwjCfShSzHhujk2JvtueWVP0z/wcyJvZunMnYecKNBsC4ogQa4j4rCn5fQtNeRLRI
-         jNXuWEscIDpQDDXcjlx7WEL6WpsPyrqSHkc+xp/OCp6zRSSs1a0Ylpzu8c2qdJFVanjP
-         GLCg==
-X-Forwarded-Encrypted: i=1; AKwUvByuXFEV/sVf++15rqqNjocYFt7BuNxmk6U5cbv4bxl9yLE9swkAtfDKc18n33x9dMBWKPzlxpvbKpVr4ag=@vger.kernel.org
-X-Gm-Message-State: AFq9FYK75fZ8rRrfJMsLVPM3uYFnmII7ou7mrp3c0cENj9VHOjOWJTdC
-	vOF8HFeuH8wFhfSsFeBeS2blj9jlhGv/Vr6gEuvlEfd7sKXHz7es9ccH
-X-Gm-Gg: AYBFou1U1b3mmJJlBQeCrU4r7Un40FvOGAvi58iIqzsMIj8+MqNZmLvcECnGzF1bi0G
-	YlEe6lX9zoV63vQ1cVY8k2yQFcwfFTiutR3wPbTHZ44Vdjo7N4zLAJkdijq/Ec9PSNfDHerM+PV
-	1ogBwlhcsAgTgmYZuPmbeQQfSdxWqBH18kYkYZJ1KqFM/0YICSJyYJ8BlcP8tjK+ryWBwZuIbBr
-	gpan1WnPfhc8JHWtE10bmVMESHqR2/7sgwzJkWY1blvC2iy2HTEW0a+HAg3V85Iu2jxajxqMN5W
-	LEYCYS78IZegOA2WShidR0yX/E04jM7cJsw/zOGoYsyJ4ymTHqR7Qh7wEZ9j6xPexefyFcxRYJs
-	2YJmogYTCWWx9/n2V3MbuD3VN/vZOFRwdZXt/OsqIYfMO1IVJT3Q+tbGwAW0SkLwL595cTLsbYs
-	YMgZcQ0F0mfMLUSJpaljmzr9yop0HsQwkpAPtFs/ZLnSyBRk3g07WydkWS38tMdamqOvjVLCoxu
-	YcRkJYWlPntMvh3K5CHcGuUmUEHrVNRIpwm7J6sX4OUDPrlMUNLV4zu
-X-Received: by 2002:a05:6000:2585:b0:48a:f8fb:cd49 with SMTP id ffacd0b85a97d-48c72889ca6mr1289357f8f.22.1791329950735;
-        Tue, 06 Oct 2026 16:39:10 -0700 (PDT)
-Received: from [192.168.221.223] ([81.0.216.212])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48c71d10216sm1881368f8f.20.2026.10.06.16.39.09
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 06 Oct 2026 16:39:10 -0700 (PDT)
-From: Charlie Jenkins <thecharlesjenkins@gmail.com>
-Date: Tue, 06 Oct 2026 16:39:03 -0700
-Subject: [PATCH] riscv: KVM: Fix compilation when CONFIG_RISCV_ISA_V=n
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LMvWQyTo"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 02DF21F0089B;
+	Tue,  6 Oct 2026 23:40:28 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791330028;
+	bh=JA5qZeRZjxBKgrhAgdN67aWKQ4BLjX80WKLhiuAVuBc=;
+	h=Date:From:To:Cc:Subject:Reply-To;
+	b=LMvWQyTokqSgYU81H9BZXaNt5XIP0VTS/PqhtlKmYnFA6JzyLqCc3u0Rn3KXskeoG
+	 Ng15ctU8wX9Rgpy84ec56ot/orn79+/o0e/1KctVwhXGZF3oXuU3jlIo7Qm5QSkY0Y
+	 n107w4RkuT4Apdk1zw3iEAdKsNARzLLRl3gKQGWrI8dt/V1D/8G9UMBRNFakdsd7ei
+	 AM8WYAkEOYkfXogeR3zKmis4tlv2cuW+7/cfygxcTOO+l7l+Jj2/A3N2f4VSogkNG1
+	 ZZzJGfRXN4AKJo6EWrTaJX2kxBVS8JNJDWnkbjR5TAmPfb7Ed+goz5UPS9OslNDUhM
+	 7et7G4R1+MUEQ==
+Received: by paulmck-ThinkPad-P17-Gen-1.home (Postfix, from userid 1000)
+	id B1E2FCE3A08; Tue,  6 Oct 2026 16:40:27 -0700 (PDT)
+Date: Tue, 6 Oct 2026 16:40:27 -0700
+From: "Paul E. McKenney" <paulmck@kernel.org>
+To: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
+Cc: Boqun Feng <boqun@kernel.org>, Kunwu Chan <kunwu.chan@gmail.com>,
+	Wang Lian <lianux.mm@gmail.com>, Zqiang <qiang.zhang@linux.dev>,
+	Bradley Morgan <brads@mainlining.org>, rcu@vger.kernel.org,
+	lkmm@lists.linux.dev, linux-kernel@vger.kernel.org,
+	Joel Fernandes <joelagnelf@nvidia.com>
+Subject: [BUG] Splat during modest hazptrtorture run
+Message-ID: <1f885062-4905-4d9c-9293-615c145d2d6b@paulmck-laptop>
+Reply-To: paulmck@kernel.org
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261006-vector_off_fix-v1-1-9e48e654d445@gmail.com>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yWM0QpAMBRAf0X32WqjFn5FEtsd14NpYyn5dxeP5
- 9Q5F0QMhBGa7IKAiSL5lUHlGZh5WCcUZJmhkIVWUmqR0Ow+9N653tEp6rKyWo3K1VIDR1tA1t+
- w7X6Ox7hw9F7gvh+hxdj4cgAAAA==
-X-Change-ID: 20261006-vector_off_fix-938d61b1f906
-To: Anup Patel <anup@brainfault.org>, Atish Patra <atish.patra@linux.dev>, 
- Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, 
- Andy Chiu <tchiu@tenstorrent.com>, 
- Yong-Xuan Wang <yongxuan.wang@sifive.com>, 
- =?utf-8?q?Radim_Kr=C4=8Dm=C3=A1=C5=99?= <radim.krcmar@oss.qualcomm.com>
-Cc: kvm@vger.kernel.org, kvm-riscv@lists.infradead.org, 
- linux-riscv@lists.infradead.org, linux-kernel@vger.kernel.org, 
- Charlie Jenkins <thecharlesjenkins@gmail.com>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1791329949; l=1885;
- i=thecharlesjenkins@gmail.com; s=20260605; h=from:subject:message-id;
- bh=BWQi6+OUEp/tu9l1mkI7xW4X2+ly+BWbFk1Zcp5roxc=;
- b=fIJD49rfeAewk1vKo3AGACkBEa31o13TCmZF61L5MsBbstc43N/TbELEyoRMR0rhStTq2fWGD
- hT5PT2sRkL+B6oSNnlTW2Mo4/PGgShIdVRbZ3Yn5vuC3tmu1dzV+Rzw
-X-Developer-Key: i=thecharlesjenkins@gmail.com; a=ed25519;
- pk=ajnnRQ98PIdwKp4HeMkq9U32okYbnh6Zb4G3o5XXvkg=
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-Fix the KVM code to use stubbed out versions of vector functions when
-vector is not enabled instead of failing to compile. An alternative
-approach would be to ifdef out the vector code but since a handful of
-the vector code already just uses stubbed functions to tell the compiler
-to drop the implementation, follow the same pattern.
+Hello!
 
-Fixes: b5060a4aa33d ("RISC-V: KVM: fix vcpu vector context handling for kernel-mode vector")
-Signed-off-by: Charlie Jenkins <thecharlesjenkins@gmail.com>
----
-I was reviewing [1] and noticed that when I disabled FPU and tried to
-compile that vector got disabled and the kernel failed to compile.
+This is all new code, so the bug could be anywhere.  So you all need
+to know.  ;-)
 
-[1] https://lore.kernel.org/all/20261006075303.205216-1-radim.krcmar@oss.qualcomm.com/
----
- arch/riscv/include/asm/kvm_vcpu_vector.h | 10 +++++++++-
- 1 file changed, 9 insertions(+), 1 deletion(-)
+I got this from the NOPREEMPT variant of hazptr during a nominal
+"--duration 60" run of torture.sh on x86 with the guest OS split across
+two NUMA nodes:
 
-diff --git a/arch/riscv/include/asm/kvm_vcpu_vector.h b/arch/riscv/include/asm/kvm_vcpu_vector.h
-index 6371d5ea5392..1c9efc6048bb 100644
---- a/arch/riscv/include/asm/kvm_vcpu_vector.h
-+++ b/arch/riscv/include/asm/kvm_vcpu_vector.h
-@@ -11,9 +11,9 @@
- #define __KVM_VCPU_RISCV_VECTOR_H
- 
- #include <linux/types.h>
-+#include <asm/vector.h>
- 
- #ifdef CONFIG_RISCV_ISA_V
--#include <asm/vector.h>
- #include <asm/kvm_host.h>
- 
- static __always_inline void __kvm_riscv_vector_save(struct kvm_cpu_context *context)
-@@ -55,6 +55,14 @@ static inline void kvm_riscv_v_exit(void)
- 
- struct kvm_cpu_context;
- 
-+static __always_inline void __kvm_riscv_vector_save(struct kvm_cpu_context *context)
-+{
-+}
-+
-+static __always_inline void __kvm_riscv_vector_restore(struct kvm_cpu_context *context)
-+{
-+}
-+
- static inline void kvm_riscv_vcpu_vector_reset(struct kvm_vcpu *vcpu)
- {
- }
+[  137.765104] WARNING: kernel/rcu/hazptrtorture.c:658 at hazptr_torture_stats_print+0x25b/0x4f0, CPU#1: hazptr_torture_/136
+[  137.768647] Modules linked in:
+[  137.768891] CPU: 1 UID: 0 PID: 136 Comm: hazptr_torture_ Not tainted 7.3.0-rc5-00661-ga1f1e4890d1d-dirty #193 PREEMPTLAZY
+[  137.769683] Hardware name: QEMU Standard PC (Q35 + ICH9, 2009), BIOS 1.16.3-6.el9 11/05/2023
+[  137.770319] RIP: 0010:hazptr_torture_stats_print+0x25b/0x4f0
+[  137.770735] Code: 48 83 c4 20 e8 86 44 fe ff 41 83 fd 01 7e 23 48 c7 c6 6e 85 17 b0 48 c7 c7 db 27 17 b0 e8 6d 44 fe ff f0 ff 05 76 6e 0a 02 90 <0f> 0b 90 4c 8b 64 24 70 48 c7 c7 73 85 17 b0 e8 51 44 fe ff 48 8b
+[  137.772061] RSP: 0018:ffffa738004ffdf0 EFLAGS: 00010202
+[  137.772435] RAX: 0000000000000004 RBX: ffffa738004ffe08 RCX: 0000000000000027
+[  137.772950] RDX: 0000000000000000 RSI: 0000000000000000 RDI: 0000000000000001
+[  137.773455] RBP: ffffa738004ffe60 R08: 4000000000001236 R09: ffffffffb01727df
+[  137.773980] R10: 0000000020212121 R11: 0000000020212121 R12: 0000000000000000
+[  137.774479] R13: 0000000000000002 R14: 000000000002ffd6 R15: 0000000000034f03
+[  137.775000] FS:  0000000000000000(0000) GS:ffff999c2e502000(0000) knlGS:0000000000000000
+[  137.775578] CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+[  137.776001] CR2: 0000000000000000 CR3: 0000000008830000 CR4: 00000000000006f0
+[  137.776512] Call Trace:
+[  137.776700]  <TASK>
+[  137.776863]  ? __pfx_hazptr_torture_stats+0x10/0x10
+[  137.777207]  hazptr_torture_stats+0x25/0x70
+[  137.777508]  kthread+0xd9/0x110
+[  137.777751]  ? __pfx_kthread+0x10/0x10
+[  137.778017]  ret_from_fork+0x1bd/0x220
+[  137.778285]  ? __pfx_kthread+0x10/0x10
+[  137.778560]  ret_from_fork_asm+0x1a/0x30
+[  137.778849]  </TASK>
+[  137.779007] ---[ end trace 0000000000000000 ]---
 
----
-base-commit: a90ee4305c4a5df72c11b31dacfdc76e00fcf78a
-change-id: 20261006-vector_off_fix-938d61b1f906
+I have not yet seen this during a PREEMPT run.  Line 658 of
+hazptrtorture.c is the WARN_ON_ONCE() below:
 
-Best regards,
---  
-- Charlie
+	if (i > 1) {
+		pr_cont("%s", "!!! ");
+		atomic_inc(&n_hazptr_torture_error);
+		WARN_ON_ONCE(i > 1); // Too-short grace period
+	}
 
+Any thoughts on what might be causing this?
+
+For that matter, can anyone else reproduce this?
+
+								Thanx, Paul
