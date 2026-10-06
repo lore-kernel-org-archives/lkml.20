@@ -1,128 +1,153 @@
-Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com [209.85.128.45])
+Received: from mail-oa1-f46.google.com (mail-oa1-f46.google.com [209.85.160.46])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6721933D51A
-	for <linux-kernel@vger.kernel.org>; Tue,  6 Oct 2026 22:39:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.45
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 57E3933D51A
+	for <linux-kernel@vger.kernel.org>; Tue,  6 Oct 2026 22:40:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.46
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791326397; cv=none; b=sB4a8Oypg/TCNnRigCckQ5Zwctvq0sXyfOL+B5Y4IHsIRfpxPbCUszPEIwjJtWjVu5KdqGMXTfShQyh5rMVeozI2WTY1bNOmCB90W6wg6wpl0F0gle7ZsZBsPUEbfuXZ2pXV31UsxAqvIu618ybZSJnNgg6X6UXCmVg8FTBLgYI=
+	t=1791326411; cv=none; b=XO3AjUrpMf64dVQEk2tuO6BNzGBKknSF5V5WXgg33z2BE9FM+Lu8dSlPJSSkrVDy6GOkCp7xSGSHdQnAoel3GrmMQoq6GWrhWt7oHazP+vcVWcYeIzcDp4nFEPLrGXACfJLOFBPnEjuH7iCev6DHgB5AAinKfpXId78o3DaOyjA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791326397; c=relaxed/simple;
-	bh=AdxL2XdONYmbRXYyv/1A1S77fovnRsIOafIkjtja1Ys=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=KJVZsCqN+/9Is/iUrFGJnrrN/bpNfHxNq/hnpuk0Zwty8h1O0cqoxl4QMo2L3sjcvm5GeUW+znw16nMMKtROAbAq6Leb5Vj9OSKk3e+wGAmtDdKmjykBigSwKm4Xhj+/pw/c/gmNxk+sZssI53N678FGwU5L0pi1lhuOaiGij/o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=n5OmXMUO; arc=none smtp.client-ip=209.85.128.45
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
+	s=arc-20240116; t=1791326411; c=relaxed/simple;
+	bh=hPOUmV/xGE5eS0kZpd5MJCVPYwrNotNiv1TTrk+TckI=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=bamR7VQifGHOU+SwWmmv7F1GmCxZGAU4Cp18tGl8CMr3R8b9yy/4DEDDT3CCg7p+XsaVmTNsuL9Zfhs1fKfvJTbrwD070Pkeczf3sE/DfA3jewzeiKwDLkFCxUPHuTReVUNRW1NFCsnihnDaIMFJKSewRkWiLu2VgBo/S5t8J4w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=openai.com; spf=pass smtp.mailfrom=openai.com; dkim=pass (1024-bit key) header.d=openai.com header.i=@openai.com header.b=AJx39qsk; arc=none smtp.client-ip=209.85.160.46
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=openai.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=openai.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="n5OmXMUO"
-Received: by mail-wm1-f45.google.com with SMTP id 5b1f17b1804b1-4a0286c981dso30837525e9.2
-        for <linux-kernel@vger.kernel.org>; Tue, 06 Oct 2026 15:39:55 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=openai.com header.i=@openai.com header.b="AJx39qsk"
+Received: by mail-oa1-f46.google.com with SMTP id 586e51a60fabf-455ca262ccbso858278fac.1
+        for <linux-kernel@vger.kernel.org>; Tue, 06 Oct 2026 15:40:10 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=baylibre.com; s=google; t=1791326393; x=1791931193; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=AdxL2XdONYmbRXYyv/1A1S77fovnRsIOafIkjtja1Ys=;
-        b=n5OmXMUOpMTFQlR8q3KqD9qIFriQA1h9DTmkOzzYO7hQmcJYog+2Xz/YLh/lMD0U7I
-         8JA/WkVRDtvn7j3YrkXhNXdbTuMpFWQEyC9SoP0pmw8jVM0wKZ10YoIqcN5d6WCL0VVA
-         Ua4qV/9qTdMGcI9Y0t3MZzQv3sbAe4n+rifzmbMvoPNqdLAbobzkQfeQoBhUPZqBlnJ/
-         lFK30J+C99o+NF5rPyGven1uzQWyNd5YNaXWGHPTzmAnVkjYqLLs1lHn7P4+/iN86eHW
-         I4NmQenpYW7RRgAc0ywyKXE0dDCtvPGjjoQfJCMefpwPu1BfBDaf6tJMyAnJac3DLQ2+
-         utvg==
+        d=openai.com; s=google; t=1791326409; x=1791931209; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=bMDhGYH4rM/hZGPUiF2V3RD2josdEfJ5uDI1Xaf78dg=;
+        b=AJx39qskExIGcEEPyA1S7gUovLD1/9lvzGRuxxNGEQCvkP4boMxmhU/DcwqJkX9NGD
+         J3WVyGeqh3EBpMLNczl6mJFHsel61um7gppKrwGleCcaRLWgkfZBpG4mMPrfd5dfeB/V
+         yBzuutgPa9qLtUR2P7Nm0bCr+H5dOEucSLzCo=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791326393; x=1791931193;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=AdxL2XdONYmbRXYyv/1A1S77fovnRsIOafIkjtja1Ys=;
-        b=haKz8iqG4QjJGnpjyNTZBeNFB3B93L4VuLeryik/IQFw+1QEAzFSqVuMY90zKUi891
-         FVcdrfzX6DuKjKb7OuhTS7ZkF2PSz10Pzlf+JFovIj6Gp6BBrZpQoZ6JIGs/OFLYZg8s
-         4c2CysPG7MpIN/YardRi5z4Ar3pXO0SEbelHq5Cg1gOOSG+VWAinlGICltKS2ODTUHfn
-         SIKGMi5uvrZ37F0f632ZK7eltViWHqXShsCwoJ/J88ZGbk0H7zqzcrnCXRR57tR6Bjih
-         DGqPHFELhnhPT1iTHuWSPs5kJ+SfUmkJOlNopHKyXu5YvhHw/DqSiLXlU7ev4JWJ7qyP
-         uHow==
-X-Forwarded-Encrypted: i=1; AKwUvBxNCBaQ44V3TMPxAKoY+81rrjy8Gx3c548jfaV9Tb2HsGpB78hxSMs46UHXg6WKrVduVCMYZxmYtnaBV4U=@vger.kernel.org
-X-Gm-Message-State: AFuF++mUrw1s1YXHkxHbA5kuSCg+SXxJ9VRz1PYbxQ4XkVIie9uiK0EA
-	4IpaMGgTZfxsI6S8o/HrwGO4XKKjbKWt26ulIhHdZkw94UTe7AKiZOkt1rq0261fty8=
-X-Gm-Gg: AYBFou1wWlRkBh0MaedcrJ456Bch/kkiOucjzBDqTi9ISK/bzLKWc8Pc2PvLWQoqpYf
-	zlE+aO/JSQDxZOKyF9938uvfISGshOnY8Y/ObA6c9Watz7QRTjyMqOPIyH67edaalIaBjzlYqzY
-	00DxZ9Nu4U47HtehhbLyeANLQz3kfkAgoGaIac8tJNABcAlr5Ci6ZLfjv/BfnSRYnDWA30TRWRh
-	Q1ZeZJTG1sygTrTfcFV13xR4H+HTl4r5bawKR5I1eML23v15wR2M5cKbgk7cHjVZP60/7UR6lfG
-	U63PWqy+reWl6G6ZfzqKk1HfFrdsnIInPAgmLCF+ik8yqaAOnnhF6hUHxq8HUyOIiSZG/AjZmcQ
-	L+7lqH+IrwlmS74zUG/aT6uGNm/mHoIxvZNrh1lw5a2D4s1u+F1T3E90E3gtcY6whhjErNOFjf1
-	HH9gdCnROgpI0+duU07XWjUohESFPg8eg9RmJuP2AmtPVN6YBsWqkCVNK2reS/SENNP0VIpA==
-X-Received: by 2002:a05:600c:3b9e:b0:4a1:742e:3 with SMTP id 5b1f17b1804b1-4a180660fd4mr3921435e9.27.1791326393614;
-        Tue, 06 Oct 2026 15:39:53 -0700 (PDT)
-Received: from localhost ([213.151.81.74])
-        by smtp.gmail.com with UTF8SMTPSA id 5b1f17b1804b1-4a18044c970sm4177245e9.4.2026.10.06.15.39.51
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 06 Oct 2026 15:39:52 -0700 (PDT)
-Date: Wed, 7 Oct 2026 00:39:49 +0200
-From: Uwe =?utf-8?Q?Kleine-K=C3=B6nig_=28The_Capable_Hub=29?= <u.kleine-koenig@baylibre.com>
-To: Nathan Chancellor <nathan@kernel.org>
-Cc: Tianrui Zhao <zhaotianrui@loongson.cn>, Bibo Mao <maobibo@loongson.cn>, 
-	Huacai Chen <chenhuacai@kernel.org>, Nicolas Schier <nsc@kernel.org>, 
-	Geert Uytterhoeven <geert@linux-m68k.org>, Takashi Sakamoto <o-takashi@sakamocchi.jp>, 
-	Raag Jadav <raag.jadav@intel.com>, "Martin K. Petersen" <mkp@kernel.org>, 
-	Heiner Kallweit <hkallweit1@gmail.com>, Dave Hansen <dave.hansen@linux.intel.com>, 
-	Ingo Molnar <mingo@kernel.org>, Josh Poimboeuf <jpoimboe@kernel.org>, 
-	Jorge Sanjuan Garcia <dev-jorge.sanjuangarcia@duagon.com>, 
-	Jose Javier Rodriguez Barbarin <dev-josejavier.rodriguez@duagon.com>, Ilpo =?utf-8?B?SsOkcnZpbmVu?= <ilpo.jarvinen@linux.intel.com>, 
-	Alexey Gladkov <legion@kernel.org>, Hasan Basbunar <basbunarhasan@gmail.com>, 
-	Hugh Dickins <hughd@google.com>, Armin Wolf <W_Armin@gmx.de>, WANG Xuerui <kernel@xen0n.name>, 
-	kvm@vger.kernel.org, loongarch@lists.linux.dev, linux-kernel@vger.kernel.org, 
-	linux-kbuild@vger.kernel.org, Sudeep Holla <sudeep.holla@kernel.org>
-Subject: Re: [PATCH v1 0/3] <linux/mod_devicetable.h> deprecation continues
-Message-ID: <asV4UKTFRPv4gCUx@monoceros>
-References: <cover.1789988540.git.u.kleine-koenig@baylibre.com>
- <179121379654.1159753.4410832336442519712.b4-review@b4>
+        d=1e100.net; s=20260707; t=1791326409; x=1791931209;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=bMDhGYH4rM/hZGPUiF2V3RD2josdEfJ5uDI1Xaf78dg=;
+        b=v1qRqiytO+M5M20dZgB/kSbuknrwP0FBQJzORFEpD/clPNxx+wvchlJxr3vu8Ldb2Y
+         ZcNLVhZAF9miBEMTQeV4gcYILVtrERXmNK2CvCfVALslYST9eUUCV/IlDUzafex53XD7
+         n5VVZsBRV3xDkQAbYwsCfIi7wfQuX4kbj4NutZBGKzD3NBAT5iZcQQI73I+lJ1kjcTMm
+         UZDOF5O040vIhmGosGJLljn05jgefpxy3GJ1u38GrT2w3c6Z4V95BWDFUJxW7dn0c+U4
+         wOS3pMknMYfq8vwSd7lplv1HG9wV/Pg2YrIRm9fGV90U3Y4nEnuubOnB0DHPWcCS1Q6j
+         Lb8Q==
+X-Gm-Message-State: AFuF++mkOLyoz4MeXoiQnd+dZVSZvHLfgmcdPQHk7kBH3UuIeg2k/D6Z
+	w3jubuaZjJde2lcBBrLlLepL0wAPXAzRFRjsjBlPGisnEYrnMJ83tSJ3cRtaSQCZ1mg=
+X-Gm-Gg: AYBFou00EEWUmqyLLh0RMtEIJy0/qR4eTS2XejQgQCIaLv2LEyDwttccdTU1+SmXXcK
+	eQ1roEUFZjVTTrj+kssUip1u58T1gTOFZs9FjXOAuALUz+7xCTQ45Dt1Y2bn62zos1yE3FzyrmS
+	dYmxgaShwk2FqxjKd3aCyoAMz9YL3XTB7BL+//to117h+xEzPWgSP/b4Y87/GJ/6vpLyAxfxKX6
+	v0abv2wYIyJ7tQiQ/xqGRtBViHa50hjFNGeI7hyjdbZswRs/KD8aql8qrafCQ3u+wiQZGXaxEeN
+	1emZT/bOOMW0DJmK1awkr97hSsmMzmeKP17ej8bXBbr9zmeVEpzZHzPIJjC3Y8lbtvC1Mcxg1PM
+	N4XdTlA7zhXsZv2ijRUL2IEKFudrDeawPiE3d3wJg4rvXgEaNGCjeB/zUcq5FWIPKBfqwrQAiu1
+	MzCWlEt7B7P1uslFUGGa7GUE5tX201K++TYTsuDKR/Pwi8yKPqpnpOA8hR9s4hXiHLRPkE0i5dg
+	6/emXMnXJ+Bq6D+cNIAXwoteP1fKxcK15c62TneiyIoQHueD8YtoC5/SoJd239rRJ9vaVo/peM=
+X-Received: by 2002:a05:6870:6128:b0:494:b0db:4e0d with SMTP id 586e51a60fabf-4a259148369mr477880fac.7.1791326409160;
+        Tue, 06 Oct 2026 15:40:09 -0700 (PDT)
+Received: from com-75606.corp.openai.org ([199.47.143.7])
+        by smtp.gmail.com with ESMTPSA id 586e51a60fabf-4a25701702esm689475fac.6.2026.10.06.15.40.08
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Tue, 06 Oct 2026 15:40:08 -0700 (PDT)
+From: Kyle Zeng <kylebot@openai.com>
+To: linux-trace-kernel@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org,
+	rostedt@goodmis.org,
+	mhiramat@kernel.org,
+	outbounddisclosures@openai.com,
+	Kyle Zeng <kylebot@openai.com>
+Subject: [PATCH] tracing: Restrict perf filters that read kernel strings
+Date: Tue,  6 Oct 2026 15:40:05 -0700
+Message-ID: <20261006224005.49636-1-kylebot@openai.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="c7j23svchiupmb33"
-Content-Disposition: inline
-In-Reply-To: <179121379654.1159753.4410832336442519712.b4-review@b4>
+Content-Transfer-Encoding: 8bit
 
+A task-bound, counting-only syscall tracepoint can be opened without
+permission to read raw kernel tracepoint data. Setting exclude_kernel
+does not prevent its filter from running: perf_syscall_enter() submits
+the saved user-mode registers.
 
---c7j23svchiupmb33
-Content-Type: text/plain; protected-headers=v1; charset=us-ascii
-Content-Disposition: inline
-Subject: Re: [PATCH v1 0/3] <linux/mod_devicetable.h> deprecation continues
-MIME-Version: 1.0
+Pointer-string filters use FILTER_PRED_FN_PCHAR by default, which reads
+through strncpy_from_kernel_nofault(). For sys_enter_openat, for example,
+the filename field comes directly from a syscall argument. An
+unprivileged caller can pass a kernel address, install a filter such as
+'filename ~ "Linux version*"', and use the event count to test the
+contents of kernel memory, even with perf_event_paranoid=2.
 
-Hello Nathan,
+Check the compiled filter before installing it and require the same
+kernel and raw-tracepoint permissions as access to raw kernel tracepoint
+data for FILTER_PRED_FN_PCHAR. Inspect every predicate so that other
+events, operators, and boolean expressions cannot bypass the check.
+Return the permission error through the existing cleanup path before
+publishing the filter.
 
-On Mon, Oct 05, 2026 at 05:23:16PM +0200, Nathan Chancellor wrote:
-> If you would like this in 7.4-rc1, I am not opposed to sticking your v2
-> into -next now but I plan to finalize the Kbuild tree for 7.4 around
-> October 15, so we'd only get a week or so of build coverage. If that
-> feels like too little, we should defer this until after 7.4-rc1 is out.
+Keep user-pointer (.ustring) and record-local predicates available under
+the existing policy. This leaves tracefs filtering and authorized kernel
+string filtering unchanged.
 
-I'll look into your build regressions and then I'm happy to get it into
-next for 7.5-rc1.
+Fixes: 5967bd5c4239 ("tracing: Let filter_assign_type() detect FILTER_PTR_STRING")
+Assisted-by: Codex:gpt-6-astra
+Signed-off-by: Kyle Zeng <kylebot@openai.com>
+---
+ kernel/trace/trace_events_filter.c | 26 ++++++++++++++++++++++++++
+ 1 file changed, 26 insertions(+)
 
-Thanks
-Uwe
+diff --git a/kernel/trace/trace_events_filter.c b/kernel/trace/trace_events_filter.c
+index 2b46ca536045..76aca560491b 100644
+--- a/kernel/trace/trace_events_filter.c
++++ b/kernel/trace/trace_events_filter.c
+@@ -2704,6 +2704,28 @@ static int ftrace_function_set_filter(struct perf_event *event,
+ }
+ #endif /* CONFIG_FUNCTION_TRACER */
+ 
++static int ftrace_profile_filter_perm(struct event_filter *filter)
++{
++	struct prog_entry *prog = rcu_dereference_protected(filter->prog,
++						lockdep_is_held(&event_mutex));
++	int i, err;
++
++	for (i = 0; prog[i].pred; i++) {
++		if (prog[i].pred->fn_num != FILTER_PRED_FN_PCHAR)
++			continue;
++
++		/*
++		 * Even a counting filter can reveal kernel string data.
++		 * Require the same access as raw kernel tracepoints.
++		 */
++		err = perf_allow_kernel();
++		if (err)
++			return err;
++		return perf_allow_tracepoint();
++	}
++	return 0;
++}
++
+ int ftrace_profile_set_filter(struct perf_event *event, int event_id,
+ 			      char *filter_str)
+ {
+@@ -2725,6 +2747,10 @@ int ftrace_profile_set_filter(struct perf_event *event, int event_id,
+ 	if (err)
+ 		goto free_filter;
+ 
++	err = ftrace_profile_filter_perm(filter);
++	if (err)
++		goto free_filter;
++
+ 	if (ftrace_event_is_function(call))
+ 		err = ftrace_function_set_filter(event, filter);
+ 	else
 
---c7j23svchiupmb33
-Content-Type: application/pgp-signature; name="signature.asc"
+base-commit: fd179f8a05be3ccae366b9b96e176b51fbe54aab
+-- 
+2.53.0
 
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEP4GsaTp6HlmJrf7Tj4D7WH0S/k4FAmrFeLMACgkQj4D7WH0S
-/k75zQf/Z9M3Qv+MzXCE+/ArZCIjcf7D1SB/7qYHmlMpHOhpIQCpv43i8PqY8WOv
-ulcwbwStLe9f4pjnBVM0/Rm9nby9VZo3bK79LWBMwnwkZORonA2EqgQdsoZdfRp+
-rAETMDcFUQ9GUGhN7DAcWMA4xZhjUtso0mWGwtF7ExTFgEpE33GWQUBdTInG2TNI
-0u2gVDxfb010LE6jzbHBJLoFNE/8LEPyCVyCCWsoCz+xslpavz8+KA5j3Frpl3Iz
-ier5fkw0XOws8piZfouheZOaXqDZ/HcdrhFTBW9mXVnvMLiUaiH05aCOv9h33Etu
-n9pm75LVifFbz4hIGjjZonFwBzkLug==
-=5U0C
------END PGP SIGNATURE-----
-
---c7j23svchiupmb33--
