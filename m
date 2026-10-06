@@ -1,33 +1,33 @@
 Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2DCD249F108;
-	Tue,  6 Oct 2026 16:21:35 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A3B0E4A0148;
+	Tue,  6 Oct 2026 16:22:38 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=156.67.10.101
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791303696; cv=none; b=FM4t7MFABLnwl2n+JsNw7lIgEolyAa5L+C543Dy7Xh5zcrl5HDz/iouLobzhD/cNdpqmFahp7Og3J75PFftoK0XdwYQ6Pv6WVgAh15FePXDjx/PCuQjzNVkae2HZ31C4JLZeZ4njRboIxa/XJgSXWCxiI4bSJLdYtN0zAERp4kQ=
+	t=1791303761; cv=none; b=dXGcvLY7TNpEZ0Ke9eAGykFCtGgFN1kcebyj/rbOZTIaCcgOQJDuC4IF1C+jNMtrJjKJ7O+3mQECWRfEs57wGZqhLjlBGZ3CUcWOYtSWnk0e5/8vcF7ZyUHJ3vJZRQxCQxBnUoP4/guEYuPJmCnGG4KOCqq9ObFTrVacc33GMLs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791303696; c=relaxed/simple;
-	bh=693IUDjndX7GadnO/aWlphRFDyDRsPymk/xPj55qnRQ=;
+	s=arc-20240116; t=1791303761; c=relaxed/simple;
+	bh=zwdlM9mYLWiXKgxdorfU2tvLt76yOgS9pj6Z1fc2K8I=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=k7btBhIgpGjawUp5hAnPrFVTbf+4Q9dnSc3NA8de9Sy7/pq30SqlXwOX1Z3JmLYEWeLXEAXONpT+T07tNoFZ+9PB1n8GImXf/3LrIBky1Ck1dVitQ7ePTRJI7hLnWJG5iK31ZJWawJTSbUqeLBEUrXv82boQE9Z1onlsaRTEtiU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch; spf=pass smtp.mailfrom=lunn.ch; dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b=6PbOla8K; arc=none smtp.client-ip=156.67.10.101
+	 Content-Type:Content-Disposition:In-Reply-To; b=BVwvW9Ga34/vghhrVx1nhiRcz5QRL8jpPzmRLNxVovz8biq/DboVv9/EebjCxyapA8G4YgiV3WvxGtf6Y164CxKCOIlkuLBSVey5+X7v0uNzPbnuJ449YnJ1hiOB0yq0g5d1zP+liXm2S/ybj610CDKbcFq9TbotLQmhYQjNdsA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch; spf=pass smtp.mailfrom=lunn.ch; dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b=io5Vrcex; arc=none smtp.client-ip=156.67.10.101
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b="6PbOla8K"
+	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b="io5Vrcex"
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
 	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
 	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
 	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
 	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
-	bh=i6XgGqmN5Ywv64aPQ9FLT+RpZTN2SKS+BV5irIYdTTs=; b=6PbOla8KS71IKYNruIDEIfOVHK
-	v/uN+9JznO5/xGGmZGnumC5P8CTOaaz6IRDQNpvIzb3Pj3Vp13tA4jg2m/yxK9XLUmASWDofP4zKe
-	EKyrTOqFbv/0kcZYxRMrQp9ww/r2PLdPyVoq4oUkDBD9k5FqLhguMow66Id0C5VgOBD0=;
+	bh=iVpjNVuw6yuuQV0ozXPyk2bja1hxYcxxeaUxuVF7gGA=; b=io5VrcexvaWR6jAz7EK/6PJihX
+	iGIEAwpoRo1q/EzgVoL138wGBViP5WuL0+LKR0dbqmKgk+yi9rhfe+iYmZc+wpcEMiYbnxCsrFEv3
+	8oxohb/HB6BAgI6V9oMnECn616PJ5d+nFLL+tIKQc1DpGR7yoHBd83IgI7KbdZIWGD9I=;
 Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
 	(envelope-from <andrew@lunn.ch>)
-	id 1xE7um-009IP6-Ug; Tue, 06 Oct 2026 18:21:16 +0200
-Date: Tue, 6 Oct 2026 18:21:16 +0200
+	id 1xE7vv-009IRC-Pv; Tue, 06 Oct 2026 18:22:27 +0200
+Date: Tue, 6 Oct 2026 18:22:27 +0200
 From: Andrew Lunn <andrew@lunn.ch>
 To: Jacky Chou <jacky_chou@aspeedtech.com>
 Cc: Andrew Lunn <andrew+netdev@lunn.ch>,
@@ -41,11 +41,11 @@ Cc: Andrew Lunn <andrew+netdev@lunn.ch>,
 	Heiner Kallweit <hkallweit1@gmail.com>,
 	Russell King <linux@armlinux.org.uk>, netdev@vger.kernel.org,
 	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH net-next v2 4/6] net: ftgmac100: Require phy-mode for
- AST2700
-Message-ID: <3e296889-3a08-4511-8a91-26e86a7ea500@lunn.ch>
+Subject: Re: [PATCH net-next v2 2/6] net: ftgmac100: Add AST2700 compatible
+ support
+Message-ID: <68425269-7e99-47a0-82a9-f12bf8835def@lunn.ch>
 References: <20261006-support_ast2700-v2-0-36de51fb8066@aspeedtech.com>
- <20261006-support_ast2700-v2-4-36de51fb8066@aspeedtech.com>
+ <20261006-support_ast2700-v2-2-36de51fb8066@aspeedtech.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -54,20 +54,15 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261006-support_ast2700-v2-4-36de51fb8066@aspeedtech.com>
+In-Reply-To: <20261006-support_ast2700-v2-2-36de51fb8066@aspeedtech.com>
 
-On Tue, Oct 06, 2026 at 03:20:42PM +0800, Jacky Chou wrote:
-> The driver currently defaults to RGMII when the "phy-mode" property
-> is missing from the device tree. This default is no longer valid for
-> AST2700, which also supports RMII via FTGMAC100_QUIRK_RMII_ENABLE.
+On Tue, Oct 06, 2026 at 03:20:40PM +0800, Jacky Chou wrote:
+> Add match data for the Aspeed AST2700 FTGMAC100 controller and wire
+> its compatible string into the OF match table. This lets AST2700 device
+> tree nodes bind to the ftgmac100 driver.
 > 
-> Make "phy-mode" a required property for AST2700 and fail probe with
-> an error message if it is not specified, instead of silently
-> defaulting to RGMII.
+> Signed-off-by: Jacky Chou <jacky_chou@aspeedtech.com>
 
-You need to update the DT binding, mark it as required for ast2700.
+Reviewed-by: Andrew Lunn <andrew@lunn.ch>
 
     Andrew
-
----
-pw-bot: cr
