@@ -1,97 +1,136 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ej1-f47.google.com (mail-ej1-f47.google.com [209.85.218.47])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2388A81724
-	for <linux-kernel@vger.kernel.org>; Tue,  6 Oct 2026 10:32:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 552A281724
+	for <linux-kernel@vger.kernel.org>; Tue,  6 Oct 2026 10:32:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.47
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791282743; cv=none; b=TLSpbqC6n5A05wjtuP7Le0J1jsYDeK/TybMIDYFwFEpEG8Lm8BS2xhBunamM+n30M+EFytATxDrAduy0sLcXEFBqIPHDKXj0o/DSzha6RacdfBjha/JmTZjYZm6U2kP5b5DO0yAr7itJp5ajXORY03x/+GUS4Sr3K5COENMZkIg=
+	t=1791282747; cv=none; b=axXkgwqAMXQt7B/Qnwu78cCWNwReWm9sxi/iVVYzEGQztP/BzMzZW7QfU2VkDKyL4+wJlg8c3E7aj7eEEsfGFjKtFmDb+7sEZXmwck7nn89ICFKMLt93dqFQFHhE6qxtjQ6bxJqBgvlmsoohJNCIP/iJjsg7yQYPDxLPsktGTPk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791282743; c=relaxed/simple;
-	bh=3mYh92seikXtUvt3y+ZqIQGGSNX/WiLcPh6JuuTEkkM=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=tSbVJfVNtAE67HgV+iRJ602ECa/ELYfWNKHohsnktoxHFK1bZV2XtGjf69eTFK6XZmMHXphc6ojoVAVXEhmXXsRzHfKXBYscNEK0oZJOjHsq+YHSpCvzQTTugKZZlUlsvDN0VvQdpe1eiG1YSMPXWDYQcU3OVI33N/QMouv2Duc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=H66jlRVm; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791282747; c=relaxed/simple;
+	bh=/z1mtYFosWYDl4G9Goeh4fvMR59E9gra0185EpZWKTw=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=c6/1GFcFSj0kbua1AmCpx4D/ku7erUuZPLDt2I+hltql+0NZ/AKQMpEPfzWj/0aAMjIKZxvPLGyHNvl/PWLV5Dv837zfEJwPE757WML4whDwVkDaCz930gKzlRv0oBwYwQ7fSogpMC8ycl1HwYm7BGetfN0CVGbaCX2T2a/jA8A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=lMKHfZfk; arc=none smtp.client-ip=209.85.218.47
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="H66jlRVm"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EE8C71F008A2
-	for <linux-kernel@vger.kernel.org>; Tue,  6 Oct 2026 10:32:21 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791282742;
-	bh=vE01EV1zSfpVuJeSfikynDyyaUOUSSRxYC7VKoLHOYs=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=H66jlRVmxbLAvCWY7wio83N91RBhaB+Fb/3/3PqyHazJQpe69u4eTmABkVeN50KIq
-	 HoUQKqSRDDJwsxkhN7ZWehR2OoeWLENhJTFBkQX0YdeYTeLiwDZqq8YBaSUQf0QYbL
-	 H8K23KqJp/N/KVbFTCXqWb1SpZiuR1FDQnJGUXyEksHIwfDFt8M6+8zQXLndkioLtn
-	 FseRdXTAlEF5xbuvzZN1jmKV+mqZIkLpBYsBK72cVIoqnVVzaxdqjmX8TjMIVQl2Wr
-	 T/s0JeXCD/kpoDa9sRJkMxHXWz0HwV5UxWTQ6rQrip1LKG7bleiPhG3BZWsx1o+gJT
-	 OYVcivpcUTc3w==
-Received: by mail-lj1-f171.google.com with SMTP id 38308e7fff4ca-3a4a82aa383so22300741fa.3
-        for <linux-kernel@vger.kernel.org>; Tue, 06 Oct 2026 03:32:21 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBxAsh2XiZ+4c0daaWekTW+vhTVu2eXuEvyP1dJ998eXeqQDs1g8OEGfZftkZqctiH6Zs1yJNNDp5DIa35Q=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIHAcObi2w2x8q2+BstecSxu51dYQWLJe+llJCMs2z/oD7fMYGs
-	VCcYhAmLu/Be7WBRF80/RIlXCptw+QksSJThMWiY46fwYf4T31hQMlDR6MLMtEQq1JjMuoRQXfe
-	xtsb/LTwgrPgrvZXye9HoWE7kuLk25XI=
-X-Received: by 2002:a2e:be1b:0:b0:3a6:636b:63c5 with SMTP id
- 38308e7fff4ca-3a99af27150mr2412711fa.16.1791282740735; Tue, 06 Oct 2026
- 03:32:20 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="lMKHfZfk"
+Received: by mail-ej1-f47.google.com with SMTP id a640c23a62f3a-c2e5f8fe879so58538866b.3
+        for <linux-kernel@vger.kernel.org>; Tue, 06 Oct 2026 03:32:26 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791282744; x=1791887544; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=wClIytfBTMwnkpSGNyg13HyUgwUOhd8DTwIiBhpaeSI=;
+        b=lMKHfZfkBSaB5SJ9L9F+g5+cBPDlkwOUjdhGTTRxDWe4L0OVg9BfLA1SIiWtjQK0wl
+         ceeJ8JOlVkML6sc0zLrMrqH9swCPckqdmCif0BZzyqE2qyL9WdKThmDoDD6gko5qXvOD
+         aSHe1nZDLnOCuvFJrYlxz2YOI+JKnc/l+VxLTzzpol+7WIrcxFvwKoJ0U4bHpgpb1o00
+         VxQUcktz6cBYxrmet3XMRO5XUDHjnSf0g39qIIpEKRQbDPtiKNb94YhyDx5S+YeRbpRu
+         KXhP2x9ia3SgKYs6dqzzdFb7k2b4FVG5i9RG3LcSj/8NMZrqWy1OaYyGlpJ3o1yKH+Hy
+         mTOw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791282744; x=1791887544;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=wClIytfBTMwnkpSGNyg13HyUgwUOhd8DTwIiBhpaeSI=;
+        b=Sea5ogOUdkA3Hl2SCPctPJ9Q9qc+yB7Iqi151Mcic/vw6P9ZcWSd8FZxPtG3Q2vEM+
+         nWf8uFu39i70ftkcNPBGQCd1yPaOOwtRVBvdwjVtb1w/WX+Su2WF83VfN1I/NqTn/x4T
+         k0yP3Xvg/6zAC+1wk4T72KvOx42EZ1MSVfFiCxEn/ElnoWMldzwN7ADCS4I0UuFoCq9q
+         DHJDufXo+fHdBzUVv2PK/dXUveIkjvFEGALyJo7VIIQtOTemMUvfh+u2J9XhUOnVa6pC
+         +oAgkFWozHmbcodsm27/3kBBuNyvJTKBczmuJ27ZFV6rgT69maffZF/EhOl3vUUR+6bv
+         cyZw==
+X-Forwarded-Encrypted: i=1; AKwUvByikeknaCOTodIpaQCG6U17+vKVbAXfsiB+sZRjgAVtSACLMAgGmRa2N+CgET1nsNU0A/yMwcBUYn4rV9w=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKDNuyAsA+I30JmJLvWCy8+2caDJhRic2I30vGio8pWr4W4Kpi3
+	CIGn4tO68joS4TvARs2esNaq/cclAryxFqqrDJMfFhKOgPTHsbIMJVnx
+X-Gm-Gg: AYBFou2ZYGHZgyCXRgqRXBVSEdSWHx2ZwXXN1teBItAOTmbVv7FCTDKoDuvkaAcwnVZ
+	saB9J9gMD7xwalrdFv7yKcrWOmwTXWqo7MyecbHwD+UCvEpKfmALuKmA+KeHJDyCTWlQ/e7/Hl9
+	qUg3w6qYsrAzCXXlJaWZ1uw+e7OdR9vNGtq3Wk4lDZX4G4qXHFBry7HW36dVaAhUWzb5KspTlqj
+	hla66Jji72TYOcpyIXr14wU0t5w8SXqCTCCQJ81KAxeDFa7VbdgFOLk6R3iXfqR5EZewlVmeBnK
+	DIX30NNqT1gLa6FErVw+3gghgUPf/85KRmma/E+CO01K8VKFLggVglKdUj1L8s5AnQdQ3lalusQ
+	lB1n6V/O6VSQpypGBoRQaCRcJogS3mJMuFy+LqovrIqEX8xHJX7pm1z0v87f1B32OEz4iUL3XEn
+	j6FNnt4XRWOrcje7Rnae045mEPA/mFdOc+mV7W4oXH97Zr/o/omH5N0e29jnL535RGbbuGEflyZ
+	jvZYh20wb7jMA==
+X-Received: by 2002:a17:906:7951:b0:c2a:6bee:77c9 with SMTP id a640c23a62f3a-c3169cecc1fmr119190866b.4.1791282744269;
+        Tue, 06 Oct 2026 03:32:24 -0700 (PDT)
+Received: from stukan.bbrouter ([46.201.91.224])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c3156332f28sm191575266b.58.2026.10.06.03.32.21
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 06 Oct 2026 03:32:23 -0700 (PDT)
+From: Timur Stukan <timur.stukan.linux@gmail.com>
+To: jv@jvosburgh.net,
+	andrew+netdev@lunn.ch,
+	davem@davemloft.net,
+	edumazet@kernel.org,
+	kuba@kernel.org,
+	pabeni@redhat.com
+Cc: horms@kernel.org,
+	netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	fmancera@suse.de,
+	Timur Stukan <timur.stukan.linux@gmail.com>
+Subject: [PATCH net-next] bonding: 3ad: remove unused TX state
+Date: Tue,  6 Oct 2026 13:32:07 +0300
+Message-ID: <20261006103207.68974-1-timur.stukan.linux@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20261003093827.77857-1-kmehltretter@gmail.com> <20261003093827.77857-2-kmehltretter@gmail.com>
-In-Reply-To: <20261003093827.77857-2-kmehltretter@gmail.com>
-From: Linus Walleij <linusw@kernel.org>
-Date: Tue, 6 Oct 2026 12:32:07 +0200
-X-Gmail-Original-Message-ID: <CAD++jLk=+WSou4RFoho3JvWxV+ok-0ZnNZWhwdOVK_J7R7AM3A@mail.gmail.com>
-X-Gm-Features: AclHuK8rkOnk1u1TfAFFALwn8ajDSse-J3apTnHTi28eDx-XnKGt_saLuoLvA5w
-Message-ID: <CAD++jLk=+WSou4RFoho3JvWxV+ok-0ZnNZWhwdOVK_J7R7AM3A@mail.gmail.com>
-Subject: Re: [PATCH 1/2] ARM: cmpxchg: support 2-byte xchg() on pre-ARMv6 CPUs
-To: Karl Mehltretter <kmehltretter@gmail.com>
-Cc: Russell King <linux@armlinux.org.uk>, Miguel Ojeda <ojeda@kernel.org>, 
-	Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>, 
-	=?UTF-8?Q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
-	Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, 
-	Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>, 
-	Danilo Krummrich <dakr@kernel.org>, Daniel Almeida <daniel.almeida@collabora.com>, 
-	Tamir Duberstein <tamird@kernel.org>, Alexandre Courbot <acourbot@nvidia.com>, 
-	=?UTF-8?Q?Onur_=C3=96zkan?= <work@onurozkan.dev>, 
-	Arnd Bergmann <arnd@arndb.de>, Christian Schrefl <chrisi.schrefl@gmail.com>, 
-	Bradley Morgan <brads@mainlining.org>, "Paul E . McKenney" <paulmck@kernel.org>, 
-	Nathan Chancellor <nathan@kernel.org>, Nick Desaulniers <ndesaulniers@google.com>, 
-	Bill Wendling <morbo@google.com>, Justin Stitt <justinstitt@google.com>, 
-	linux-arm-kernel@lists.infradead.org, rust-for-linux@vger.kernel.org, 
-	llvm@lists.linux.dev, linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On Sat, Oct 3, 2026 at 11:38=E2=80=AFAM Karl Mehltretter <kmehltretter@gmai=
-l.com> wrote:
+The sm_tx_state field of struct port and tx_states_t enum
+were introduced in the initial 802.3ad implementation but
+have never had any users.
+The TX machine uses ntt and sm_tx_timer_counter instead.
 
-> Pre-ARMv6 CPUs have no halfword swp, so __arch_xchg() only handles 1-
-> and 4-byte exchanges there and turns any other size into a link error
-> via __bad_xchg().
->
-> No C code needs a 16-bit xchg() on these CPUs, but the Rust atomic
-> helpers in rust/helpers/atomic_ext.c provide xchg() for Atomic<i16>
-> unconditionally, so building with CONFIG_RUST=3Dy for ARMv5 fails:
->
->   ld.lld: error: undefined symbol: __bad_xchg
->   >>> referenced by helpers.c
->   >>>               rust/helpers/helpers.o:(rust_helper_atomic_i16_xchg)
->
-> Implement the 2-byte case with interrupts disabled, as the pre-ARMv6
-> atomic_t operations already do. This is safe because SMP requires
-> ARMv6K or later.
->
-> Assisted-by: LLM
-> Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
+Remove them.
 
-All right this looks fair.
+Signed-off-by: Timur Stukan <timur.stukan.linux@gmail.com>
+---
+ drivers/net/bonding/bond_3ad.c | 1 -
+ include/net/bond_3ad.h         | 7 -------
+ 2 files changed, 8 deletions(-)
 
-Reviewed-by: Linus Walleij <linusw@kernel.org>
+diff --git a/drivers/net/bonding/bond_3ad.c b/drivers/net/bonding/bond_3ad.c
+index b8e4b4d68dd6..d91533b80996 100644
+--- a/drivers/net/bonding/bond_3ad.c
++++ b/drivers/net/bonding/bond_3ad.c
+@@ -2071,7 +2071,6 @@ static void ad_initialize_port(struct port *port, const struct bond_params *bond
+ 		port->sm_periodic_timer_counter = 0;
+ 		port->sm_mux_state = 0;
+ 		port->sm_mux_timer_counter = 0;
+-		port->sm_tx_state = 0;
+ 		port->aggregator = NULL;
+ 		port->next_port_in_aggregator = NULL;
+ 		port->transaction_id = 0;
+diff --git a/include/net/bond_3ad.h b/include/net/bond_3ad.h
+index ef667dff2972..9e548d3dca21 100644
+--- a/include/net/bond_3ad.h
++++ b/include/net/bond_3ad.h
+@@ -60,12 +60,6 @@ typedef enum {
+ 	AD_MUX_COLLECTING_DISTRIBUTING	/* mux machine */
+ } mux_states_t;
+ 
+-/* tx machine states(43.4.15 in the 802.3ad standard) */
+-typedef enum {
+-	AD_TX_DUMMY,
+-	AD_TRANSMIT		/* tx Machine */
+-} tx_states_t;
+-
+ /* churn machine states(43.4.17 in the 802.3ad standard) */
+ typedef enum {
+ 	 AD_CHURN_MONITOR, /* monitoring for churn */
+@@ -231,7 +225,6 @@ typedef struct port {
+ 	u16 sm_periodic_timer_counter;	/* state machine periodic timer counter */
+ 	mux_states_t sm_mux_state;	/* state machine mux state */
+ 	u16 sm_mux_timer_counter;	/* state machine mux timer counter */
+-	tx_states_t sm_tx_state;	/* state machine tx state */
+ 	u16 sm_tx_timer_counter;	/* state machine tx timer counter
+ 					 * (always on - enter to transmit
+ 					 *  state 3 time per second)
+-- 
+2.43.0
 
-Yours,
-Linus Walleij
