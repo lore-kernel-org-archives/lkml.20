@@ -1,48 +1,49 @@
-Received: from out162-62-57-210.mail.qq.com (out162-62-57-210.mail.qq.com [162.62.57.210])
+Received: from out203-205-221-231.mail.qq.com (out203-205-221-231.mail.qq.com [203.205.221.231])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4D8BD37F8CC;
-	Tue,  6 Oct 2026 11:30:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=162.62.57.210
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F36193B8D4A;
+	Tue,  6 Oct 2026 11:30:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=203.205.221.231
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791286229; cv=none; b=NM34CE0jU1rLbTBjXezRy3eZCyml+G1Pziv3LMJbJ9ngrYmKhqNxF9/RhPVz7iTqGmBshPFBLfiYlGz4Se+GQawikzPU7LqbtBdABlk+Fq6Yk1R1XUbfJS6V1NuQxzFXWDspIEcm5dvZK7+ncHvp0okorfgo+QnEWBbS67X5mho=
+	t=1791286230; cv=none; b=OOKZ5cQvqOQP6RmcrIvgA3VqZ7luUwxreHU10xmA7UKLU4noTi8fH+I0OuQqnkuduTvdArcgc/4qXzOCxyve0MLa/eU1s7zXALlWMOLPudfLoo+vdRLigZrgUVjFsL7oDFtduhi7D3e9xHjTmFZkDmYsi/m3HI38KxahvITrUdw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791286229; c=relaxed/simple;
-	bh=gsk756PD5iiFHjv6OgXjw/zZXrZkYYMAKYON480JaU8=;
-	h=Message-ID:From:To:Cc:Subject:Date:MIME-Version; b=Cn3lGyjrz056ZNLNsbUd5kR6U6SkpJ+DRkf+ZOf4fWHsHL288t0U8Z/LjoyOyMs3RXXCXbzH3wiE6HC2/Qm6+oxq/KibQdGmuK3X4SKMd8hvUZDR5XiHjLuenJRV6VruW2xfT1PahnzaZBQhyvgLy5DSeXF5xtN/c5caUKmYWCA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com; spf=pass smtp.mailfrom=qq.com; dkim=pass (1024-bit key) header.d=qq.com header.i=@qq.com header.b=cA6NFb0o; arc=none smtp.client-ip=162.62.57.210
+	s=arc-20240116; t=1791286230; c=relaxed/simple;
+	bh=clw/mYYJ7/5ar0llSvUgRQ7lTfF95zJMRXRTEOGtP0Y=;
+	h=Message-ID:From:To:Cc:Subject:Date:In-Reply-To:References:
+	 MIME-Version; b=A5fCYYMfkbY+QPh1gBRu5c+gpPb6THZxdL8ytrW1C/VmpI2xsEI/KHOj+f4zEcMfc0Nw+mD02rGEM9ULfwyzYYzm/oHtA4ezp5TiTbEWbyM3Ekz9aDpA6GdioWEvKUF/k1z3bTJETmp14X0og5N7TLeZlmGg859q37uaymWoWbc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com; spf=pass smtp.mailfrom=qq.com; dkim=pass (1024-bit key) header.d=qq.com header.i=@qq.com header.b=mdfH7h30; arc=none smtp.client-ip=203.205.221.231
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qq.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=qq.com header.i=@qq.com header.b="cA6NFb0o"
+	dkim=pass (1024-bit key) header.d=qq.com header.i=@qq.com header.b="mdfH7h30"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
-	t=1791286215; bh=Kz5rBo4U6MoZRl3APwJ61VsjEfXQCYma3Aw/pcfN+Io=;
-	h=From:To:Cc:Subject:Date;
-	b=cA6NFb0owje5Fl4Vc5Qld9s3PxB8B+SZg3R9SljrPK8BunKc5iHfZQCwCHBuEaNLk
-	 2/CaPfGb5AEwrYP1RGEbL0UAVkUn0cyoVH7VgsHk7yAjKTuFDon34b+KUe3t69hhf1
-	 etDsPNo+VLke2jJ6ZQt6wwYnZOjbM9Rea5V5sVyA=
+	t=1791286219; bh=kVx5sCTnm96q47gYQvIJ4STQnqWmYPoS80LM3gm9rdk=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=mdfH7h300ksdAnss6igKM+nC2EzDc0zyX4PnN74PIyZsUkVfCKiD5Pdn9ou7Rcqyh
+	 BCO8EJ4s+qY3zyY8wINcTdBJsLcBLleyLdCvrUsIGYFtqf7fFetbRx4atCTuka1LvV
+	 hu1xfKLsEmTijAH34++aBvoRjz7cZPYSevM12SKY=
 Received: from Amphoreus ([219.130.186.218])
 	by newxmesmtplogicsvrsza63-0.qq.com (NewEsmtp) with SMTP
 	id 788B9EBB; Tue, 06 Oct 2026 19:30:08 +0800
-X-QQ-mid: xmsmtpt1791286208tkrdig0d6
-Message-ID: <tencent_517661DA7DB5CFD22DE073FD269BED407507@qq.com>
-X-QQ-XMAILINFO: OTDiW3m6JtSJqOFJCQNegP9oyU6tW+KpbNt7Dlep0Th0j3FylZ8G4925G2LVGF
-	 SxGtEElc0AtPAoiguaDpRDtgKCnbrE2cuVqZTy6O4glMIvcGEWPw4ebD1Hw82Q6d83Egi8w/6+Wj
-	 RJ9e/BvWOxVHCOEwnTZbphQICc5GY8BLQ99KAZtdJDGjy945u2Hly8gPKxZszr4iN5TmyaL/a7sm
-	 O6g8P4YSgSwqNHbiWJqH4LWd1ZUdblV4+IDACJu3VXiUR9cwSZD6L0hfOeJZb2doURlkbe63xZwd
-	 tvGzILHqq74u++kg0ATjFFG2d34nJeYM+zIl/LwPG65Dn/z0seAh5da0g8R+oNdgQL9vnrtBoUMI
-	 +8rkGv8eJcDD5jU0LzwPGnZYMla+OZQ+QtkgVNaNlrCM+nSiMLCQKO9c4QzRs2qqEQal3radluf1
-	 g8Di+S/w/oUHBKyvv+8qg2SMOGlVk6lIJF8RDt/4lbj2M27PsYIu1u5bKrH2wR7gvacC/tI0yGRP
-	 MuMMOXkTFu5RGVF9OZArPLynVYKa9bRplQRMs7kkRzAZohY8oOOevKSJN+2KjzQi2LiwaZ25L1Eb
-	 RhZq9qzignevCDDKddLF8gu2WDVDTuLRgasx4w+4MYJMZKlg4pbLd00B8Jg1qG6aul2jGi3iov8N
-	 rLH/g+y5Mrrb2GHXDAg8ttfF7B6RBflTk8wHFtyJscHPi2aw+r/vtp1WQvq59gpgmX2eOose8q5q
-	 6X0Tv3c5jeNb5Lzb/Il5To18zWNK+xwWMYhPNuClPP7imrlxYrrKe6I45oHmkvaPZio3MTRzQZFs
-	 5O/6NnbwiVg+kv5+08WbhvUh+HzUwuTnk0h+i89f+qnLoojlv7tGMM74bgh7n28mqUsabYBLH1VV
-	 nAvOjxir5lFpIf/60rBxjLyHW9g2k70VJvV5Uj0BkhkgeTLnXmsDj01UJ2r4C5ZHcdJb1/rikWMB
-	 YsrlnfiyGZ9DCuW+rtaC30ww6trIIzDSXZZTp1nyOxGes/eqbIbDsy2fonMxz1r6H1sZvBMk+cIR
-	 N5d3OnAjOoH4Ic4I1LxDiFiVUSqJ7ol3tU2LLTWo2BMs2466ZhQTdEzp98b0pne03JmpOe5YsN4f
-	 kdw8MV
-X-QQ-XMRINFO: NyFYKkN4Ny6FuXrnB5Ye7Aabb3ujjtK+gg==
+X-QQ-mid: xmsmtpt1791286214tefm4xbz0
+Message-ID: <tencent_DB7D53C376BBFA9CB0F63ED6E7FE56C6B906@qq.com>
+X-QQ-XMAILINFO: MapnONytPuzikYTQTd48/EiaR1yFSBj41nAQLZnkA57MyKsugoWmjXlU9IAgAX
+	 xUhy8hUouw6SHp2jodpoxsfCFcBBzYzPuiupKev6kcwW2GQCv9vFf3UdUsapxPO9MXL5yxWBYHrW
+	 c1D1vHbo3aZ0KL29yiMgdz7jcvMPbyiwxhpIHaXHcstAeTbRQA/3egWQFzdlB1GXoECzZZuGsEst
+	 YhpOC+PCJN1T4QL//8Gzk/3VJvnUNCXAGkbMOFpgs6G6EuoHdxpoUwychU44GzK1vTu05ujnMnja
+	 cH+DI28PED7/YtEFCEJ43Ug5RF5I0xIGwu2ZUQdqzCcx7iSoXGuXdQVcua7vTmRXnJJPy41BJZ4V
+	 Oep+rF86mIZnCb7hmOzaVLy0SR8dPgdtDzEZwbP2WmCCbWuCALpbRtB/TAtU6OtAZrrHuUuLES5d
+	 8G7LCzp93eHFUTTseaEQuTWtLnRTaDprTgQkwNabTN3WnoiD19cchWIZQqwrckfdAQ/xcXFjWSL5
+	 xGT3TdfRw4yfMshWwH5VNmUwWkuOyfs8wuXgbfM1TPKM/eTKRC8uf8faKF/cOboC3yVK/m6lBJK+
+	 dnTxDmHZO8MVTO38NqeXluyHu+3IjXPNZGRs3jrnEiDvzTteMXq9xFKphK50EOapzGqHiaULepA0
+	 4aHEixM7mcqAHH3TmRXm3dGaVO+UZb0YRs/iVbElOabkGaMgrkhwreq2lYNk/qR9AelGNbhHjVS9
+	 Y1rQ4TbRn4SAM472P8cSPk1KRHGZvF/Sb1nxj7ZqAAwWBE3ylekeqamiG+sarDxQ+OpF7cwjPO9N
+	 OlVflQRxCTKrnWxlA71dqMgHAzMn50KQps9HuZ5xgrDWOlVCNBOH/tJwEXDWVY/ITS2rmF+cHGgH
+	 CziGN2vfjP4nxTNexFydiD7aYFDyM+sbJe8IuVSkJfNVRLuXN9OZFbs9lFDc8phP9OQpOVZXqbtY
+	 rktOZ0YR5sQCkURn32HMPT6Ecslv3aog9baHJUOszULzv2wvmcpYuCJV6qJHRpI/rq77bAYWSpLf
+	 QXw1Ceyg6r4HzosjvMSxEkeW112Ku1ShGAEaJy/SwhmM8RzZkKtTTZKXXfJF/WQdH+HXTT1KWQGA
+	 iwMUhi
+X-QQ-XMRINFO: MSVp+SPm3vtSI1QTLgDHQqIV1w2oNKDqfg==
 From: Raiden Lumine <2557597107@qq.com>
 To: robh@kernel.org,
 	krzk+dt@kernel.org,
@@ -54,10 +55,12 @@ Cc: devicetree@vger.kernel.org,
 	ovidiu.panait.oss@gmail.com,
 	jacobsfeder@gmail.com,
 	Raiden Lumine <2557597107@qq.com>
-Subject: [PATCH 1/2] dt-bindings: misc: add binding for Xilinx AXI-Stream FIFO
-Date: Tue,  6 Oct 2026 19:29:54 +0800
-X-OQ-MSGID: <20261006112955.208744-1-2557597107@qq.com>
+Subject: [PATCH 2/2] staging: axis-fifo: remove obsolete text binding
+Date: Tue,  6 Oct 2026 19:29:55 +0800
+X-OQ-MSGID: <20261006112955.208744-2-2557597107@qq.com>
 X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20261006112955.208744-1-2557597107@qq.com>
+References: <20261006112955.208744-1-2557597107@qq.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -66,214 +69,118 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The axis-fifo driver's compatible strings were undocumented, flagged
-by checkpatch.pl as UNDOCUMENTED_DT_STRING. Add a devicetree binding
-document for drivers/staging/axis-fifo, derived from the properties
-the driver reads via of_property_read_u32() in axis_fifo_parse_dt().
+The binding is now documented in
+Documentation/devicetree/bindings/misc/xlnx,axi-fifo-mm-s.yaml, so the
+free-form text version in the driver directory is no longer needed.
 
 Signed-off-by: Raiden Lumine <2557597107@qq.com>
 ---
- .../bindings/misc/xlnx,axi-fifo-mm-s.yaml     | 191 ++++++++++++++++++
- 1 file changed, 191 insertions(+)
- create mode 100644 Documentation/devicetree/bindings/misc/xlnx,axi-fifo-mm-s.yaml
+ drivers/staging/axis-fifo/axis-fifo.txt | 96 -------------------------
+ 1 file changed, 96 deletions(-)
+ delete mode 100644 drivers/staging/axis-fifo/axis-fifo.txt
 
-diff --git a/Documentation/devicetree/bindings/misc/xlnx,axi-fifo-mm-s.yaml b/Documentation/devicetree/bindings/misc/xlnx,axi-fifo-mm-s.yaml
-new file mode 100644
-index 000000000000..219a7de223cc
---- /dev/null
-+++ b/Documentation/devicetree/bindings/misc/xlnx,axi-fifo-mm-s.yaml
-@@ -0,0 +1,191 @@
-+# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/misc/xlnx,axi-fifo-mm-s.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
-+
-+$defs:
-+  xlnx-uint32-zero:
-+    $ref: /schemas/types.yaml#/definitions/uint32
-+    const: 0
-+    description: Must be 0, this feature isn't supported.
-+
-+title: Xilinx AXI-Stream FIFO v4.1 IP core
-+
-+maintainers:
-+  - Jacob Feder <jacobsfeder@gmail.com>
-+
-+description: |
-+  This IP core has read and write AXI-Stream FIFOs, the contents of which can
-+  be accessed from the AXI4 memory-mapped interface. This is useful for
-+  transferring data from a processor into the FPGA fabric. The driver creates
-+  a character device that can be read/written to with standard
-+  open/read/write/close.
-+
-+  See Xilinx PG080 document for IP details.
-+
-+  Currently supports only store-forward mode with a 32-bit
-+  AXI4-Lite interface. DOES NOT support:
-+    - cut-through mode
-+    - AXI4 (non-lite)
-+
-+properties:
-+  compatible:
-+    enum:
-+      - xlnx,axi-fifo-mm-s-4.1
-+      - xlnx,axi-fifo-mm-s-4.2
-+      - xlnx,axi-fifo-mm-s-4.3
-+
-+  reg:
-+    maxItems: 1
-+
-+  interrupts:
-+    maxItems: 1
-+
-+  interrupt-names:
-+    const: interrupt
-+
-+  xlnx,axi-str-rxd-tdata-width:
-+    $ref: /schemas/types.yaml#/definitions/uint32
-+    const: 32
-+    description: AXI-Stream RX data width, must be 32.
-+
-+  xlnx,axi-str-txd-tdata-width:
-+    $ref: /schemas/types.yaml#/definitions/uint32
-+    const: 32
-+    description: AXI-Stream TX data width, must be 32.
-+
-+  xlnx,rx-fifo-depth:
-+    $ref: /schemas/types.yaml#/definitions/uint32
-+    description: Depth of RX FIFO in words.
-+
-+  xlnx,tx-fifo-depth:
-+    $ref: /schemas/types.yaml#/definitions/uint32
-+    description: Depth of TX FIFO in words.
-+
-+  xlnx,use-rx-data:
-+    $ref: /schemas/types.yaml#/definitions/uint32
-+    enum: [0, 1]
-+    description: Set to 1 if RX FIFO is enabled, 0 otherwise.
-+
-+  xlnx,use-tx-data:
-+    $ref: /schemas/types.yaml#/definitions/uint32
-+    enum: [0, 1]
-+    description: Set to 1 if TX FIFO is enabled, 0 otherwise.
-+
-+  xlnx,axi-str-rxd-protocol:
-+    $ref: /schemas/types.yaml#/definitions/string
-+    description: Ignored by the driver.
-+
-+  xlnx,axi-str-txc-protocol:
-+    $ref: /schemas/types.yaml#/definitions/string
-+    description: Ignored by the driver.
-+
-+  xlnx,axi-str-txd-protocol:
-+    $ref: /schemas/types.yaml#/definitions/string
-+    description: Ignored by the driver.
-+
-+  xlnx,axi-str-txc-tdata-width:
-+    $ref: /schemas/types.yaml#/definitions/uint32
-+    description: Ignored by the driver.
-+
-+  xlnx,axis-tdest-width:
-+    $ref: /schemas/types.yaml#/definitions/uint32
-+    description: Ignored by the driver.
-+
-+  xlnx,axis-tid-width:
-+    $ref: /schemas/types.yaml#/definitions/uint32
-+    description: Ignored by the driver.
-+
-+  xlnx,axis-tuser-width:
-+    $ref: /schemas/types.yaml#/definitions/uint32
-+    description: Ignored by the driver.
-+
-+  xlnx,data-interface-type:
-+    $ref: /schemas/types.yaml#/definitions/uint32
-+    description: Ignored by the driver.
-+
-+  xlnx,has-axis-tdest:
-+    $ref: '#/$defs/xlnx-uint32-zero'
-+
-+  xlnx,has-axis-tid:
-+    $ref: '#/$defs/xlnx-uint32-zero'
-+
-+  xlnx,has-axis-tkeep:
-+    $ref: '#/$defs/xlnx-uint32-zero'
-+
-+  xlnx,has-axis-tstrb:
-+    $ref: '#/$defs/xlnx-uint32-zero'
-+
-+  xlnx,has-axis-tuser:
-+    $ref: '#/$defs/xlnx-uint32-zero'
-+
-+  xlnx,rx-fifo-pe-threshold:
-+    $ref: /schemas/types.yaml#/definitions/uint32
-+    description: Ignored by the driver.
-+
-+  xlnx,rx-fifo-pf-threshold:
-+    $ref: /schemas/types.yaml#/definitions/uint32
-+    description: Ignored by the driver.
-+
-+  xlnx,s-axi-id-width:
-+    $ref: /schemas/types.yaml#/definitions/uint32
-+    description: Ignored by the driver.
-+
-+  xlnx,s-axi4-data-width:
-+    $ref: /schemas/types.yaml#/definitions/uint32
-+    description: Ignored by the driver.
-+
-+  xlnx,select-xpm:
-+    $ref: /schemas/types.yaml#/definitions/uint32
-+    description: Ignored by the driver.
-+
-+  xlnx,tx-fifo-pe-threshold:
-+    $ref: /schemas/types.yaml#/definitions/uint32
-+    description: Ignored by the driver.
-+
-+  xlnx,tx-fifo-pf-threshold:
-+    $ref: /schemas/types.yaml#/definitions/uint32
-+    description: Ignored by the driver.
-+
-+  xlnx,use-rx-cut-through:
-+    $ref: '#/$defs/xlnx-uint32-zero'
-+
-+  xlnx,use-tx-ctrl:
-+    $ref: '#/$defs/xlnx-uint32-zero'
-+
-+  xlnx,use-tx-cut-through:
-+    $ref: '#/$defs/xlnx-uint32-zero'
-+
-+required:
-+  - compatible
-+  - reg
-+  - interrupts
-+  - xlnx,axi-str-rxd-tdata-width
-+  - xlnx,axi-str-txd-tdata-width
-+  - xlnx,rx-fifo-depth
-+  - xlnx,tx-fifo-depth
-+  - xlnx,use-rx-data
-+  - xlnx,use-tx-data
-+
-+additionalProperties: false
-+
-+examples:
-+  - |
-+    axi_fifo_mm_s_0: axi-fifo-mm-s@43c00000 {
-+        compatible = "xlnx,axi-fifo-mm-s-4.1";
-+        interrupt-parent = <&intc>;
-+        interrupts = <0 29 4>;
-+        reg = <0x43c00000 0x10000>;
-+        xlnx,axi-str-rxd-protocol = "XIL_AXI_STREAM_ETH_DATA";
-+        xlnx,axi-str-rxd-tdata-width = <0x20>;
-+        xlnx,axi-str-txc-protocol = "XIL_AXI_STREAM_ETH_CTRL";
-+        xlnx,axi-str-txc-tdata-width = <0x20>;
-+        xlnx,axi-str-txd-protocol = "XIL_AXI_STREAM_ETH_DATA";
-+        xlnx,axi-str-txd-tdata-width = <0x20>;
-+        xlnx,rx-fifo-depth = <0x200>;
-+        xlnx,tx-fifo-depth = <0x8000>;
-+        xlnx,use-rx-data = <0x0>;
-+        xlnx,use-tx-data = <0x1>;
-+    };
-+...
+diff --git a/drivers/staging/axis-fifo/axis-fifo.txt b/drivers/staging/axis-fifo/axis-fifo.txt
+deleted file mode 100644
+index 413b81a53202..000000000000
+--- a/drivers/staging/axis-fifo/axis-fifo.txt
++++ /dev/null
+@@ -1,96 +0,0 @@
+-Xilinx AXI-Stream FIFO v4.1 IP core
+-
+-This IP core has read and write AXI-Stream FIFOs, the contents of which can
+-be accessed from the AXI4 memory-mapped interface. This is useful for
+-transferring data from a processor into the FPGA fabric. The driver creates
+-a character device that can be read/written to with standard
+-open/read/write/close.
+-
+-See Xilinx PG080 document for IP details.
+-
+-Currently supports only store-forward mode with a 32-bit
+-AXI4-Lite interface. DOES NOT support:
+-	- cut-through mode
+-	- AXI4 (non-lite)
+-
+-Required properties:
+-- compatible: Should be one of:
+-    "xlnx,axi-fifo-mm-s-4.1"
+-    "xlnx,axi-fifo-mm-s-4.2"
+-    "xlnx,axi-fifo-mm-s-4.3"
+-- interrupt-names: Should be "interrupt"
+-- interrupt-parent: Should be <&intc>
+-- interrupts: Should contain interrupts lines.
+-- reg: Should contain registers location and length.
+-- xlnx,axi-str-rxd-protocol: Should be "XIL_AXI_STREAM_ETH_DATA"
+-- xlnx,axi-str-rxd-tdata-width: Should be <0x20>
+-- xlnx,axi-str-txc-protocol: Should be "XIL_AXI_STREAM_ETH_CTRL"
+-- xlnx,axi-str-txc-tdata-width: Should be <0x20>
+-- xlnx,axi-str-txd-protocol: Should be "XIL_AXI_STREAM_ETH_DATA"
+-- xlnx,axi-str-txd-tdata-width: Should be <0x20>
+-- xlnx,axis-tdest-width: AXI-Stream TDEST width (ignored by the driver)
+-- xlnx,axis-tid-width: AXI-Stream TID width (ignored by the driver)
+-- xlnx,axis-tuser-width: AXI-Stream TUSER width (ignored by the driver)
+-- xlnx,data-interface-type: Should be <0x0> (ignored by the driver)
+-- xlnx,has-axis-tdest: Should be <0x0> (this feature isn't supported)
+-- xlnx,has-axis-tid: Should be <0x0> (this feature isn't supported)
+-- xlnx,has-axis-tkeep: Should be <0x0> (this feature isn't supported)
+-- xlnx,has-axis-tstrb: Should be <0x0> (this feature isn't supported)
+-- xlnx,has-axis-tuser: Should be <0x0> (this feature isn't supported)
+-- xlnx,rx-fifo-depth: Depth of RX FIFO in words
+-- xlnx,rx-fifo-pe-threshold: RX programmable empty interrupt threshold
+-	(ignored by the driver)
+-- xlnx,rx-fifo-pf-threshold: RX programmable full interrupt threshold
+-	(ignored by the driver)
+-- xlnx,s-axi-id-width: Should be <0x4> (ignored by the driver)
+-- xlnx,s-axi4-data-width: Should be <0x20> (ignored by the driver)
+-- xlnx,select-xpm: Should be <0x0> (ignored by the driver)
+-- xlnx,tx-fifo-depth: Depth of TX FIFO in words
+-- xlnx,tx-fifo-pe-threshold: TX programmable empty interrupt threshold
+-	(ignored by the driver)
+-- xlnx,tx-fifo-pf-threshold: TX programmable full interrupt threshold
+-	(ignored by the driver)
+-- xlnx,use-rx-cut-through: Should be <0x0> (this feature isn't supported)
+-- xlnx,use-rx-data: <0x1> if RX FIFO is enabled, <0x0> otherwise
+-- xlnx,use-tx-ctrl: Should be <0x0> (this feature isn't supported)
+-- xlnx,use-tx-cut-through: Should be <0x0> (this feature isn't supported)
+-- xlnx,use-tx-data: <0x1> if TX FIFO is enabled, <0x0> otherwise
+-
+-Example:
+-
+-axi_fifo_mm_s_0: axi_fifo_mm_s@43c00000 {
+-	compatible = "xlnx,axi-fifo-mm-s-4.1";
+-	interrupt-names = "interrupt";
+-	interrupt-parent = <&intc>;
+-	interrupts = <0 29 4>;
+-	reg = <0x43c00000 0x10000>;
+-	xlnx,axi-str-rxd-protocol = "XIL_AXI_STREAM_ETH_DATA";
+-	xlnx,axi-str-rxd-tdata-width = <0x20>;
+-	xlnx,axi-str-txc-protocol = "XIL_AXI_STREAM_ETH_CTRL";
+-	xlnx,axi-str-txc-tdata-width = <0x20>;
+-	xlnx,axi-str-txd-protocol = "XIL_AXI_STREAM_ETH_DATA";
+-	xlnx,axi-str-txd-tdata-width = <0x20>;
+-	xlnx,axis-tdest-width = <0x4>;
+-	xlnx,axis-tid-width = <0x4>;
+-	xlnx,axis-tuser-width = <0x4>;
+-	xlnx,data-interface-type = <0x0>;
+-	xlnx,has-axis-tdest = <0x0>;
+-	xlnx,has-axis-tid = <0x0>;
+-	xlnx,has-axis-tkeep = <0x0>;
+-	xlnx,has-axis-tstrb = <0x0>;
+-	xlnx,has-axis-tuser = <0x0>;
+-	xlnx,rx-fifo-depth = <0x200>;
+-	xlnx,rx-fifo-pe-threshold = <0x2>;
+-	xlnx,rx-fifo-pf-threshold = <0x1fb>;
+-	xlnx,s-axi-id-width = <0x4>;
+-	xlnx,s-axi4-data-width = <0x20>;
+-	xlnx,select-xpm = <0x0>;
+-	xlnx,tx-fifo-depth = <0x8000>;
+-	xlnx,tx-fifo-pe-threshold = <0x200>;
+-	xlnx,tx-fifo-pf-threshold = <0x7ffb>;
+-	xlnx,use-rx-cut-through = <0x0>;
+-	xlnx,use-rx-data = <0x0>;
+-	xlnx,use-tx-ctrl = <0x0>;
+-	xlnx,use-tx-cut-through = <0x0>;
+-	xlnx,use-tx-data = <0x1>;
+-};
 -- 
 2.55.0
 
