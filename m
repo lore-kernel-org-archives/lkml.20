@@ -1,80 +1,79 @@
-Received: from mail-dl1-f49.google.com (mail-dl1-f49.google.com [74.125.82.49])
+Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com [209.85.128.46])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 68E0D37FF46
-	for <linux-kernel@vger.kernel.org>; Tue,  6 Oct 2026 10:29:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.49
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 24A523E4112
+	for <linux-kernel@vger.kernel.org>; Tue,  6 Oct 2026 10:29:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.46
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791282585; cv=none; b=RANrNM1mjDnVCiR2VRPewVgY2GbWW/ome1twn1JwqwqHCOBk+ApxzSNnoP/frHFdcClMiw4ELFjVl4/Xl7C+RZ9P1xNfmn6OkGEt/O4zqwMqzCXMhwufkhivBQNy/qwN2EkZY06/GZvXF+80Gr4BCUPs12UZfF0lzuPacAsxfNg=
+	t=1791282588; cv=none; b=mrQs5Tp/VWrLySwA1J7QNGb2m6VBupZNB8/5wtl6NbV9NZmQ6w7MHgxshCZ4RxBvVK5HPmsKNpJ+9cqDD6hw1V/Y/i50QicPp+j7U22BhhjilamrM7a4S7xRhauKGsAnCVAlIdiQXFp0hqecrzcGL35sS8xDtfxxdv/zEOX+uXY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791282585; c=relaxed/simple;
-	bh=ksFLCcuv6cLlI8/Pp3Sn4sZLXXzFXHsqqr3tWb5XSsU=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=EnWkHT+A9Mr9Hhz8COcRu0aH47Ct9ikHCND4SEj8zH7M5xtTeINQ9cJSMIJqfg1mQ4/jdFkL6dACoebkfsnbH9jESqhP6XCA3oX5ueKNspliOYS8JZz4+CRmL87VcKobU2H+YFaNTyeQEmc6y5MWLzYV/BIGZfloCt2novJzI9w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=gmxvxY6z; arc=none smtp.client-ip=74.125.82.49
+	s=arc-20240116; t=1791282588; c=relaxed/simple;
+	bh=fCCMGsIdCATwcrMTmFVjngOswQXf7xCGLQnCBjdJHk0=;
+	h=From:To:Subject:Date:Message-ID:MIME-Version; b=NV580HPO+BW9f3kgBjj+L1Cac87rFMUDfvcLHhu2xwPpqWL/JPlqdzLssrN94AaZd3Zzev6gx++/uxrcuvcZ/qI0LpV/KKOixQgpFFsZW2tr/7fzPE236ItNLgTcr2WtKvmqDyCV05oswVkR5sUW1/jTf/o1R10qVTKDgJv3aQo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=oxTrjAHh; arc=none smtp.client-ip=209.85.128.46
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="gmxvxY6z"
-Received: by mail-dl1-f49.google.com with SMTP id a92af1059eb24-15354aa70e8so6940351c88.1
-        for <linux-kernel@vger.kernel.org>; Tue, 06 Oct 2026 03:29:44 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="oxTrjAHh"
+Received: by mail-wm1-f46.google.com with SMTP id 5b1f17b1804b1-4a01933b584so4828105e9.0
+        for <linux-kernel@vger.kernel.org>; Tue, 06 Oct 2026 03:29:46 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791282583; x=1791887383; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=05GXKUT/YWkG/6TjV8sM9LD7ngJ6Vk2E269NPbqlb5Q=;
-        b=gmxvxY6zTBgu/Chs60AJUff7f2ci+ppxzx6+2ner5jxnFrEnaMRuDkxsD/xkF57Zf2
-         2k/thaUR51BmnvuOnh2WUcXc/itd0+weTP0FIyDhwHooTnwTKKE9iL7lRPLBWMty/6Cv
-         bQYMiiINuF8ZYNr78D5aZ8kfZkJCG9siqqRPc1fuH5e272FfmKvG4qfmZvYz51WMZ7E9
-         mwQc/k2HuYrWZeP/f00t2RtnjLGNXrky1G5631P5vsWQ6sv4xMDI4TLMaZ36YGStRLOd
-         p8z/LfX28G1p2d+C3597NcRUJhGeUFUcGHCp649o+V3BRR+21d3Av7S3OAA1OQsM/Ku6
-         /oWA==
+        d=gmail.com; s=20251104; t=1791282585; x=1791887385; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:to
+         :from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=TysRoX6VmeGROus3Z8XTTK5G2wbRE4tAp4KLkmbW3DI=;
+        b=oxTrjAHhjVRdUWRoSiCqIrTW/wPvu3F7WXupXYzfAvFvWxGussb9Q2bCQDSkvEG2jy
+         9nJJj6emxXubY03Jt/6c13kitxJUmP5vpc8lAEQdcZBT2cEbzUYNbDM/a1+OcfbbLStK
+         To/Lxsk4/raAd8xPPl2bDyRFnz1JDEoNXBqaPFPbaoGL64l5W9I2RscWf+gTUdwimzG4
+         hFeb3ikRDOo7z3KuqYQBCvJV4vP+OhOaA7gyrSxO21crQWWI9bpsdi/ZQQOnrwqbOAls
+         cAt+K3TxXHlVgj+L9nCQAacxaEKAqggV2HkDvnvN28+X9/v76zEvB3A7BZqJYDWjb6fd
+         unFw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791282583; x=1791887383;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=05GXKUT/YWkG/6TjV8sM9LD7ngJ6Vk2E269NPbqlb5Q=;
-        b=CSYnZqbsukH10gt8C57aJorvLI50Lswt7K+w+ROJo5WALYZQzLo2XVJ0Fxs7faq7Z5
-         WazdOEvbhawrU/pFfghInGIiU4kEy5xquYkn6z0i8HaCjh/ccTGHG6HitfSzyYnpAZaB
-         AJR0oFG8xQE5QcfVUHuUBoMcgIy8Bt/BeHz0tM/SpMAJrfaB/Q3ogD2QY1K4xVX+g2WS
-         x2UNuKHyiJB21lImfw2sXWqAkU8v3oERBGlz2y2JaTUNcCYoPb9/NtQs9NU6dy6L2qOY
-         97VVWCa7bqmWCNJ4d7+2n5gxSUMmSLxjara8pxtEwBbma8+ggJo30tirHuvtZ/vNtpxW
-         8CyA==
-X-Forwarded-Encrypted: i=1; AKwUvBzeQCVC+ICamCgRz8lbBnZltZWlnOC0eWiA4vaCfKcKG+psgVEeA2VSA1FhCO3OxQcvk7AWC4wsr1tHrc8=@vger.kernel.org
-X-Gm-Message-State: AFuF++muQFYWV2obH8qc0nJTIBQw0nFo5OsYY9okG4hFzSOEluNG/I6Z
-	J9AZLcgjb+0CpSomhOfHrKGgl4LXwc20Z/NwalN/CEnmsX2vUQwc/RlT
-X-Gm-Gg: AYBFou0VQwKz9xZkoYIiWXQyUd5hI0DQ7CQxa5DUjO1T/MZfw07Uk2DoPBo/2pYdmjZ
-	gJeVpjm9KBYMAis9hqjA1BBsNkfgWKCoTmAGJ3lOmX31RdWcndbro/Yv1/P1JDHRL0K+2HZ+PxD
-	dMeQoUSJ4QwTeFCfwIMnNNmi3BiBJuc849u6Df8vWP8xG5M3eBQDtc/Xk2F72Ouo0jm9siFBKUu
-	7+MiBXG9KKBpLKk6psBLpU6ukNnLIkd6oxZFL/FJlkfi15kT1Yip/Y//Qk5YtS93u3db+mXq5Ts
-	AcyIbQdyUvcjhFUXW5ogvBf+45CrPjCKuun1pna0X4h+zUkTkbDYUL3YrsAXhfNguwkPmV7Y06r
-	mJoVb7k2pOlUNPvBQrwH2MSX4wxbIYNmsfn8o2SVAKvFOCuMtCZpiTZbtYxpG5AE+pBGKYW0x6P
-	PWdtc5lwnuLAfdxeVaIerTeYlstnzQ24kQp+Fuu1aVGAUqhe4bnsge+VNkkIAC5E4jsEshArtPW
-	V5Czjpvwq2X5Ybmpgv0Yylf4pq/Pv7szJmZBkBwQwfqBhZRnFBt7Ms/s5LF
-X-Received: by 2002:a05:7022:5f07:b0:14e:906f:9c8e with SMTP id a92af1059eb24-151c3a9ebf3mr12917648c88.20.1791282583240;
-        Tue, 06 Oct 2026 03:29:43 -0700 (PDT)
-Received: from pve-server.rlab ([49.205.216.49])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-351469fa189sm7443970eec.6.2026.10.06.03.29.38
+        d=1e100.net; s=20260707; t=1791282585; x=1791887385;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:to
+         :from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=TysRoX6VmeGROus3Z8XTTK5G2wbRE4tAp4KLkmbW3DI=;
+        b=AlQQZHfPswoUicQfngrlIAPjSJ9fY4pARHxG0yMM3hd0INhH3fCmWTJs/Cdo6+/6kA
+         YrKJJQxbf0GD/hSZOu+giEtZ4tCQzhJvqxv/eZffiPQ3NTPdAFFP6BQt+6Xv74zYgjVj
+         foZ10C89eKRJOKEhFd+ujN/4wd62h8mi2wuIq64ZsqVwWwpXf3BadqiEj1soPHMBAWKR
+         MCckdtuAGovrdgUFtn2aUuU6VazlLUpxd8U99IxAF/esbwqvLIy+ozkDAHH86GuxTGOO
+         LKeb2AqD2wXqMyQ5k7iXg/uChaWFQZKtYCibGhpaMBrJogJjgeyHxUnj4/3TI42ZEFtG
+         LiYA==
+X-Forwarded-Encrypted: i=1; AKwUvBy6YKtoncs3t5aC1FqIYfoMNRHXpVahcQ10+21qD61HYCe84vxLv0OTYsfgrkUL1nGzMquDYkUW7HLR9vI=@vger.kernel.org
+X-Gm-Message-State: AFuF++mtmnpv9CsJKvyXM09TNQL9byKScVxIo76O3sKs9DZrss3vG8op
+	FUjxxKV28hcx+i15ecnCHDijpagOhYqDWD4kOD144I/GPEdK1XAYORN0
+X-Gm-Gg: AYBFou398gT1V7adk5vyEM/LFOLA1d6t8PRxUYNRV+DXk7wGogqk5+cdp4hnCyNmhn1
+	nx0gqOCSesC2qy6cozSZOvKch+sXwFwe0qRik2+6/9XQ5gRwVaRMFQ2+QJGh3gO+z8U2JRiRinF
+	LPKtlbVRX5kmao/myOofMGptqDqBRiG+svL5W2Z65eQ1E4Jy/qQUVR9iJEUg8tuQ/bbpdQAT2tL
+	XhFPwCVxRwNxvtYJdeJr1n3rk/Ed14vB9zbKn7/foiAHnLAZg2oyQAP/NxAqD3RiM6Re9l8O0Z+
+	iJdyXfsuy3M3UBTAx5UCMivAdegitsaJFkoTazzWSeKuRRmi75Hyyk7d6nIBepWsCKWrm3oNR2u
+	xkJuWN8ThThcWzvcbZXr0smdYNZ5HtogJ9MB22Dnd7uewQ+bgKfsH/t0d0WTLPbMoGs/xCv1fz2
+	qOqXkl4Tsvwtnps4eylc81/KnBk3BnERB1Epfb/RhVbC1yswm5yDLfTIDbDjMZ3+cirzojLrldg
+	vYQ1goIaDi+0ZPRXDbFs+purkLqtygqfNW4ddBIIk6tSvQKJdek7rpjEixj
+X-Received: by 2002:a05:600d:8499:20b0:49f:ce78:3567 with SMTP id 5b1f17b1804b1-4a17b5526e6mr13173735e9.24.1791282584897;
+        Tue, 06 Oct 2026 03:29:44 -0700 (PDT)
+Received: from Ansuel-XPS24.localdomain (host-87-20-252-14.retail.telecomitalia.it. [87.20.252.14])
+        by smtp.googlemail.com with ESMTPSA id 5b1f17b1804b1-4a178c33091sm63427485e9.4.2026.10.06.03.29.43
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 06 Oct 2026 03:29:42 -0700 (PDT)
-From: "Ritesh Harjani (IBM)" <ritesh.list@gmail.com>
-To: kvm@vger.kernel.org,
-	Sean Christopherson <seanjc@google.com>
-Cc: Paolo Bonzini <pbonzini@redhat.com>,
-	linuxppc-dev@lists.ozlabs.org,
-	Michael Ellerman <mpe@ellerman.id.au>,
-	Christophe Leroy <chleroy@kernel.org>,
-	Anushree Mathur <anushree.mathur@linux.ibm.com>,
-	Venkat Rao Bagalkote <venkat88@linux.ibm.com>,
-	Harsh Prateek Bora <harshpb@linux.ibm.com>,
-	Madhavan Srinivasan <maddy@linux.ibm.com>,
-	Shrikanth Hegde <sshegde@linux.ibm.com>,
-	linux-kernel@vger.kernel.org,
-	"Ritesh Harjani (IBM)" <ritesh.list@gmail.com>
-Subject: [PATCH v7 0/8] KVM: selftests: add powerpc support
-Date: Tue,  6 Oct 2026 15:58:34 +0530
-Message-Id: <cover.1791280439.git.ritesh.list@gmail.com>
-X-Mailer: git-send-email 2.39.5
+        Tue, 06 Oct 2026 03:29:44 -0700 (PDT)
+From: Christian Marangi <ansuelsmth@gmail.com>
+To: Christian Marangi <ansuelsmth@gmail.com>,
+	Vinod Koul <vkoul@kernel.org>,
+	Neil Armstrong <neil.armstrong@linaro.org>,
+	Manivannan Sadhasivam <mani@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Lorenzo Bianconi <lorenzo@kernel.org>,
+	linux-arm-kernel@lists.infradead.org,
+	linux-phy@lists.infradead.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v14 0/3] airoha: an7581: USB support
+Date: Tue,  6 Oct 2026 12:29:32 +0200
+Message-ID: <20261006102937.10972-1-ansuelsmth@gmail.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -83,108 +82,118 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Patch v5 -> v7:
-================
-(Suggestions from Sean):
-1. Added kvm_is_ppc_pseries_lpar() helper in kvm_util.h to avoid sprinkling
-   multiple #ifdef __powerpc64__ checks.
-2. Enable all tests via TEST_GEN_PROGS_COMMON for powerpc
-3. Enable hardware_disable_test and skip when running on powerpc pseries LPAR
-   (nested).
-4. Re-arranged the fixes in appropriate order.
+This is a major rework of the old v2 series.
 
-This is based off v2 of Sean PPC pre-enablement series [1].
-[1]: https://lore.kernel.org/kvm/20260902164123.2546762-1-seanjc@google.com/
+The SoC always support USB 2.0 but for USB 3.0 it needs additional
+configuration for the Serdes port. Such port can be either configured
+for USB usage or for PCIe lines or HSGMII and these are configured
+in the SCU space.
 
-Patch v4 -> v5:
-==============
-- Fixed the issues reported by Anushree while running on kvm on powervm
-  (nested).
-- Fixed memslot_perf_test on powerpc.
+The previous implementation of a dedicated SSR driver was too
+complex and fragile for the simple task of configuring a register
+hence it was dropped and the handling is entirely in the PHY driver.
 
-PATCH v3 -> PATCH v4:
-==================
-- Rebased on top of Sean's new page allocator patch series v2 [1]
-  This allowed to drop and patch-2 since it will now come from Sean's
-  v2.
-- Addressed review comments from Sean - squashed patches 6-10 in patch-1 of
-  this.
-- Dropped patch-5 to print vcpu_id when KVM_CREATE_VCPU ioctl fails.
-- Added additional patch-3 to this series to allow dirty_log_test to run on all
-  big-endian machines.
+Everything was reducted to the dt-bindings to describe the Serdes line.
 
-[1]: https://lore.kernel.org/kvm/20260902164123.2546762-1-seanjc@google.com/
-[v3]: https://lore.kernel.org/linuxppc-dev/2d2c46be7f051c7f1c645afaec67f57067d37a81.1781093720.git.ritesh.list@gmail.com/
+Also the property for the PHY are renamed to a more suitable name and
+everything is now mandatory to simplify the implementation.
+(the PHY are always present and active on the SoC)
 
-Testing updates:
-================
-I have done some fair amount of testing of the selftests both on real HW and
-using various combinations on qemu (powernv+LE (default), pseries+cap-nested-hv,
-pseries+cap-nested-papr, powernv+BE). There were few powerpc kvm kernel fixes
-which were identified as part of this work. I will send those patches separately
-as those anyway needs to go in separately.
+Also other unrelated patch are dropped from this series.
 
-<pasted snippet of cover letter from previous versions>
-=======================================================
+Changes v14:
+- Drop blank lines at EOF for DT patch
+- Fix SPDX tag for move patch
 
-Hi All,
+Changes v13:
+- Rebase on top of phy next
 
-This series primarly adds KVM selftests support for powerpc (64-bit, BookS,
-radix MMU).
+Changes v12:
+- Rebase on top of linux-next now that clk patch got merged
 
-This patch series is originally Nick's work. I have mainly only rebased it on
-the latest upstream tree. Since the rebase required few changes to all the four
-patches (Patch 1-4), I have dropped the earlier Acked-by from Michael Ellerman.
+Changes v11:
+- Remove clk patch and move to dedicated series
 
-Since the last series was posted three years ago [1], I am resetting the version
-to RFC. This rebase was done as part of a larger effort to improve the selftests
-infrastructure for Linux on PowerPC tree. Thanks to Harsh and Maddy for their
-help on this.
+Changes v10:
+- Rebase on top of linux-next
+- Add review tag for DT patch
 
+Changes v9:
+- Add spinlock init
+- Add ack tag
+- Add review tag
+- Add additional comments for phys on USB 3.0
+- Add extra logic to make phys optional for USB 3.0
 
-Nicholas Piggin (1):
-  KVM: PPC: selftests: add support for powerpc
+Changes v8:
+- Squash header to clk Documentation patch
+- Address comments from AI Bot
+  Link: https://lore.kernel.org/all/20260520150912.11614-1-ansuelsmth@gmail.com/
 
-Ritesh Harjani (IBM) (7):
-  KVM: selftests: Don't limit LE dirty-bitmap bitops to s390x
-  KVM: selftests: Move memslot_perf_test off the 256M ELF load address
-  KVM: selftests: Skip the max vCPU ID test when KVM_CAP_PPC_SMT is set
-  KVM: selftests: Add helper for checking if running on powerpc pseries LPAR
-  KVM: selftests: Skip kvm_create_max_vcpus on powerpc pseries LPAR
-  KVM: selftests: Only warn for idle-page checks on powerpc pseries LPAR
-  KVM: selftests: Skip hardware_disable_test on powerpc pseries LPAR
+Changes v7:
+- Rework to double PHY implementation
+  (suggested by Rob)
+  Now the clk driver expose a PHY for Serdes port
+  USB PHY driver selects it
+- Rebase on top of linux-next
+  Link: https://lore.kernel.org/all/20260519220813.28468-1-ansuelsmth@gmail.com/
 
- MAINTAINERS                                   |   2 +
- tools/testing/selftests/kvm/Makefile          |   2 +-
- tools/testing/selftests/kvm/Makefile.kvm      |   9 +
- .../selftests/kvm/access_tracking_perf_test.c |  10 +
- tools/testing/selftests/kvm/dirty_log_test.c  |  12 +-
- .../selftests/kvm/hardware_disable_test.c     |   3 +
- .../testing/selftests/kvm/include/kvm_util.h  |  26 +
- .../selftests/kvm/include/powerpc/hcall.h     |  17 +
- .../kvm/include/powerpc/kvm_util_arch.h       |  22 +
- .../selftests/kvm/include/powerpc/ppc_asm.h   |  32 ++
- .../selftests/kvm/include/powerpc/processor.h |  39 ++
- .../selftests/kvm/include/powerpc/ucall.h     |  21 +
- .../selftests/kvm/kvm_create_max_vcpus.c      |  14 +-
- tools/testing/selftests/kvm/lib/guest_modes.c |  20 +-
- tools/testing/selftests/kvm/lib/kvm_util.c    |   8 +
- .../selftests/kvm/lib/powerpc/handlers.S      |  93 ++++
- .../testing/selftests/kvm/lib/powerpc/hcall.c |  45 ++
- .../selftests/kvm/lib/powerpc/processor.c     | 512 ++++++++++++++++++
- .../testing/selftests/kvm/lib/powerpc/ucall.c |  22 +
- .../testing/selftests/kvm/memslot_perf_test.c |   2 +-
- 20 files changed, 898 insertions(+), 13 deletions(-)
- create mode 100644 tools/testing/selftests/kvm/include/powerpc/hcall.h
- create mode 100644 tools/testing/selftests/kvm/include/powerpc/kvm_util_arch.h
- create mode 100644 tools/testing/selftests/kvm/include/powerpc/ppc_asm.h
- create mode 100644 tools/testing/selftests/kvm/include/powerpc/processor.h
- create mode 100644 tools/testing/selftests/kvm/include/powerpc/ucall.h
- create mode 100644 tools/testing/selftests/kvm/lib/powerpc/handlers.S
- create mode 100644 tools/testing/selftests/kvm/lib/powerpc/hcall.c
- create mode 100644 tools/testing/selftests/kvm/lib/powerpc/processor.c
- create mode 100644 tools/testing/selftests/kvm/lib/powerpc/ucall.c
+Changes v6:
+- Fix kernel test robot (sparse warning)
+  Link: https://lore.kernel.org/all/20260306190156.22297-1-ansuelsmth@gmail.com/
 
---
-2.39.5
+Changes v5:
+- Add Ack and Review tag from Connor
+- Implement Ethernet support in the USB driver
+  (testing support for this Serdes on a special reference board)
+- Use an7581 prefix for USB PHY driver
+  Link: https://lore.kernel.org/all/20251107160251.2307088-1-ansuelsmth@gmail.com/
+
+Changes v4:
+- Rename PCIe and USB PHY to AN7581
+- Drop airoha,scu (handled directly in driver)
+- Drop dt-bindings for monitor clock in favor of raw values
+- Better describe the usage of airoha,usb3-serdes
+- Simplify values of dt-bindings SSR SERDES
+  Link: https://lore.kernel.org/all/20251107160251.2307088-1-ansuelsmth@gmail.com/
+
+Changes v3:
+- Drop clk changes
+- Drop SSR driver
+- Rename property in Documentation
+- Simplify PHY handling
+- Move SSR handling inside the PHY driver
+  Link: https://lore.kernel.org/all/20251029173713.7670-1-ansuelsmth@gmail.com/
+
+Changes v2:
+- Drop changes for simple-mfd
+- Rework PHY node structure to single node
+- Drop port-id property in favor of serdes-port and
+  usb2-monitor-clock-sel
+- Make the SSR driver probe from the clock driver
+
+Christian Marangi (3):
+  dt-bindings: phy: Add documentation for Airoha AN7581 USB PHY
+  phy: move and rename Airoha PCIe PHY driver to dedicated directory
+  phy: airoha: Add support for Airoha AN7581 USB PHY
+
+ .../bindings/phy/airoha,an7581-usb-phy.yaml   |  61 ++
+ MAINTAINERS                                   |  11 +-
+ drivers/phy/Kconfig                           |  11 +-
+ drivers/phy/Makefile                          |   4 +-
+ drivers/phy/airoha/Kconfig                    |  24 +
+ drivers/phy/airoha/Makefile                   |   4 +
+ .../phy-an7581-pcie-regs.h}                   |   0
+ .../phy-an7581-pcie.c}                        |   6 +-
+ drivers/phy/airoha/phy-an7581-usb.c           | 559 ++++++++++++++++++
+ 9 files changed, 663 insertions(+), 17 deletions(-)
+ create mode 100644 Documentation/devicetree/bindings/phy/airoha,an7581-usb-phy.yaml
+ create mode 100644 drivers/phy/airoha/Kconfig
+ create mode 100644 drivers/phy/airoha/Makefile
+ rename drivers/phy/{phy-airoha-pcie-regs.h => airoha/phy-an7581-pcie-regs.h} (100%)
+ rename drivers/phy/{phy-airoha-pcie.c => airoha/phy-an7581-pcie.c} (99%)
+ create mode 100644 drivers/phy/airoha/phy-an7581-usb.c
+
+-- 
+2.55.0
 
