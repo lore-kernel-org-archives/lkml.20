@@ -1,108 +1,179 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pf1-f176.google.com (mail-pf1-f176.google.com [209.85.210.176])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BEBA03B5850;
-	Tue,  6 Oct 2026 12:29:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 62D4F38E126
+	for <linux-kernel@vger.kernel.org>; Tue,  6 Oct 2026 12:29:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.176
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791289752; cv=none; b=Ba8sXfKV4i8JE+Csn4ycuOAZDW4I8wfof38Bcc16papvTk5UhPHY1RiRTPxpEUGRdyw0kIzhiiv+Hj6JyZZwMfqvQtRF/0JcGg1mFh+qEax+LwfLg8X2xGLMTOQBOR4lGVjog32X/hHMI+BcbrKV/pxHiFRXt2IS1kG9kj9oxPQ=
+	t=1791289764; cv=none; b=H8hRh9J4eTPLxCteefuKamFL5GE90Oy3fandePAYT4S8XdU2XteColydl5A28oU3wsK7QlQsZnvU90DWhuXCgpyVHuGYgCrlnakmMDS1AbhBcFltUY103KS9f2OTNo/URwfk3a7KbJFqurKVuMrODuFf0u/dtY/WNFxPPVR++6g=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791289752; c=relaxed/simple;
-	bh=gj3NxmZHjDwiRBo1gCBkegd9299QtKG/nffQXaTG/zo=;
-	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
-	 Content-Disposition; b=Z0VhInDrvjjBN4yVa3ISHgH7q9UGJJ/1VLKbYGkXxJbdlNdjPcc1/nmOOvMTRiLF5Pq8uQXe2gPmPoBl3+dTVaT4q+lcOzNRxwpYSjspnIzN/laV0vPZh+At0tBLrmftf12McvZHMX7WoJsvOPUj2mUk7r5DbzI5RxOR7znoN5I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bKv5vXpR; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791289764; c=relaxed/simple;
+	bh=lthPC1Aid3RzMwkXHABVJupMtn6Oz9nfXWocpfXLG6E=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=MPE14NmqfQlEvjgqTfzLZ72Yzoc0ijPrdQ0OEzw4HX5ZzQYSXyvHO71xeozNno+zSr7/VH8ZNHAMHTgCSodd58HAeAu86youSbtynImayo3QLlRZAEa6xv/Csg6jD9RkFKCBNr/F3+Zg+W2b+EjKdRlGgs8qqsTlIZDdpIcR33k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=dLmfm469; arc=none smtp.client-ip=209.85.210.176
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bKv5vXpR"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 31E961F000FF;
-	Tue,  6 Oct 2026 12:29:11 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791289751;
-	bh=cABm+NKr39RIMHuTzOyXzmITRSTpNt+vqDt2bbKzFXc=;
-	h=Date:From:To:Cc:Subject;
-	b=bKv5vXpRKUzmKdemxS9yNAEgsingVsWpqIn2wTe+ouHlPeSKV9FSXNVzJYnO13gPB
-	 KU5hcSM1l7nSCwf4DNBS9OYq35Z67DSrciIts5IzuVLJsbioWycQBu0LC2KyG9SR4s
-	 VgBtuS9uHsa+i91xMbzD7fF4gvaMDkulre75pxqRO4CBJA+nw45hhV4L4Z7kx9silf
-	 sBgH6IYMLRjRjplybYvGk52SmRuY4mmWYUH8dlOwgczo8hu+ldKzD1gjaC5FdTAdgp
-	 zyHf1C24Nm3PJUZ9rMeExHrGatXhHusEGilCS6Y2ynkEM8pedca1UYtAJjfn09uTHf
-	 UlI7RsmE0CewA==
-Received: by finisterre.sirena.org.uk (Postfix, from userid 1000)
-	id 450291AC57CE; Tue, 06 Oct 2026 13:29:09 +0100 (BST)
-Date: Tue, 6 Oct 2026 14:29:09 +0200
-From: Mark Brown <broonie@kernel.org>
-To: Linux Next Mailing List <linux-next@vger.kernel.org>
-Cc: Linux Kernel Mailing List <linux-kernel@vger.kernel.org>
-Subject: linux-next: Tree for Oct 6
-Message-ID: <asTplUW9_SlDG3LY@sirena.co.uk>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="dLmfm469"
+Received: by mail-pf1-f176.google.com with SMTP id d2e1a72fcca58-85377c8bc96so365758b3a.3
+        for <linux-kernel@vger.kernel.org>; Tue, 06 Oct 2026 05:29:23 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791289763; x=1791894563; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=UBXDjxHdeZnn0EE9oAZG0kH7xmYbT9bOqu8043JSOZo=;
+        b=dLmfm469wfkY2FSQWsUOZQhiEeKazJlefm23rKBSNdpucKHj+mL8yieV/v1s8tbFOX
+         O0baBUY1QjIEi9LhWYZY7YWjty4rBjuxL+buE30zmdcUf8R9hB1QH4lTWkQeomnRPmMD
+         Vjz6Ax0Nd8j7OE7Z4l60nYKXC1sxG5crZ8pyuQsgtV8XlBgFMnGlC+5nMORgfkXzbo7h
+         vNEHw3sizjmxQ2BWc09viMSKxVRfLEUNpH7e0Hqky5BVn90E9K0UV9EbppgPyffDfmpT
+         vLfFS4gQA7ZuDW1fXkjr/zGLzfbSHk454IljA2lUcwHaSDjFJJcBDwwzgVx9sEI1uRJb
+         mJew==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791289763; x=1791894563;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=UBXDjxHdeZnn0EE9oAZG0kH7xmYbT9bOqu8043JSOZo=;
+        b=rdrRokR6RzkigU2oq6u84gcSJgyF2hHiEttjgYMFV+YH3ZL9/4tqarZ1klfn1jWrNy
+         VubN1IRcdp7J2n7a6xWVgyB0sD9qP+S0XySQ1KLnMTga0IyjinAweSArd6rJQoDwEZcl
+         MzzWQODxrI8lctr6wWia9mFgbxqdimI1PQkxqJN7ICmooAD70YXEfHREVCRXTkfHl1XJ
+         5bAxhpNeAsWEjqy6iWVgRPfYBsQjR5dpnLcDObL8RM2PHWpIoxK6e3hld/IgFAB1e8Ut
+         SCHJ9WtAPgpsNjXAtGIupBFL+zHoVQ641/wThCVzc8elNiEOhkS4sQpAHz6d1ZL+ES55
+         PRmQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzyY4v/XPqnwHu2gzESXCX6Mw/repURBkSEzynij+cpmlcTAB39RHBqrrsEN+KR/kiekE4akts0jAHgwJ0=@vger.kernel.org
+X-Gm-Message-State: AFuF++nNCIg9hmHv7jTuO8y2643P2BSS6UAuI6La0jB6yGWRgtj15iwg
+	5gp+k+uWBD968vclpLDXnOs/XxlB2ZWlAMUXfVrtX3R7XGSTjIt0dyea
+X-Gm-Gg: AYBFou1mMhNwJjqvBMcG2B9hiSH0/vgwb9rcDKJzN3aAQDTb624Tg9uDjO3ZicqUGM+
+	MuDM953pi0wc6pQKw335/4cT2N/8b3z3dSvCXzi3HJgilfLLSxTe+ckUYjPcb8t9ox8nVyfexhS
+	e0E+rWq3SP4GAFVwDDckD5dZ1M45E3RlGqmpMPaqDEnKnGpW8SPb875TJFewVBMf8KAHZAN5C8X
+	2eY8N7kARo08ly6+YR15gi/pUF2fAGfcBecCRXugO8Di517y8Llf66UXd9m3G/hqUCHfp4hqngK
+	P58ap3osG4Z3ZQrherVA/wUnwPfdT1yRYxvIGb5IM9zS4C63dCDhKzjYkGFbNjvEsaG6QMIBbN+
+	RxpzjLHUNQ8cfxxqCGpMKB+n8DZgR8sljbIpA1hUkQCGED2vgQn9y6iJGpRVSYYfJaNYnmkCLl9
+	//dDzm5G10sPugVPiZCZaJknutdZDjWai2UhvWtYFOb0yCnJarC60vRZ7kOZKCNnalVzs+ye5rT
+	OggfYv/hdz2tJ+J
+X-Received: by 2002:a05:6a00:1792:b0:869:9298:ba59 with SMTP id d2e1a72fcca58-890d8a4ec77mr1125260b3a.0.1791289762603;
+        Tue, 06 Oct 2026 05:29:22 -0700 (PDT)
+Received: from LAPTOP-450UDG4J ([2401:4900:6310:b8da:d139:f8fd:7043:7eb2])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-88b0c88a815sm4679332b3a.42.2026.10.06.05.29.15
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 06 Oct 2026 05:29:21 -0700 (PDT)
+From: Yogesh Gaur <yogeshgaur.83@gmail.com>
+To: Song Liu <song@kernel.org>,
+	Yu Kuai <yukuai@fygo.io>
+Cc: linux-raid@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Li Nan <magiclinan@didiglobal.com>,
+	Xiao Ni <xiao@kernel.org>,
+	Christoph Hellwig <hch@lst.de>,
+	Hannes Reinecke <hare@suse.de>,
+	Logan Gunthorpe <logang@deltatee.com>,
+	Yogesh Gaur <yogeshgaur.83@gmail.com>,
+	syzbot+95eeb4ada2349a2170ea@syzkaller.appspotmail.com,
+	stable@vger.kernel.org
+Subject: [PATCH v2] md: don't hand out the array before md_alloc() has added mddev->kobj
+Date: Tue,  6 Oct 2026 17:59:04 +0530
+Message-ID: <20261006122904.1538-1-yogeshgaur.83@gmail.com>
+X-Mailer: git-send-email 2.55.0.windows.5
+In-Reply-To: <20261004055712.1293-1-yogeshgaur.83@gmail.com/>
+References: <20261004055712.1293-1-yogeshgaur.83@gmail.com/>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="+cgGpk8sXZxTUs62"
-Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
 
+md_alloc() publishes the gendisk before it is done setting the mddev up:
 
---+cgGpk8sXZxTUs62
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+	disk->private_data = mddev;
+	...
+	error = add_disk(disk);
+	if (error)
+		goto out_put_disk;
 
-Hi all,
+	kobject_init(&mddev->kobj, &md_ktype);
+	error = kobject_add(&mddev->kobj, &disk_to_dev(disk)->kobj, "%s", "md");
 
-Note that I will be travelling to LPC from 2nd-9th October, as a
-result -next releases will be at best spotty during that time.
+add_disk() makes /dev/mdN openable.  mddev comes from mddev_alloc() and
+is zeroed, so anything that gets in between add_disk() and kobject_add()
+sees an mddev->kobj that has never been through kobject_init() - no
+ktype, no kref, state_initialized clear.
 
-Changes since 20261005:
+syzbot opens the array in that window and issues ADD_NEW_DISK:
 
-The vfs-brauner tree lost it's build failure.
+  kobject: '(null)' (ffff8880120640f0): is not initialized, yet kobject_get() is being called.
+  WARNING: lib/kobject.c:642 at kobject_add_internal+0xea/0xcd0 lib/kobject.c:225
+   kobject_add_varg lib/kobject.c:374 [inline]
+   kobject_add+0x163/0x240 lib/kobject.c:426
+   bind_rdev_to_array+0x80c/0xdd0 drivers/md/md.c:2621
+   md_add_new_disk+0xe3b/0x1850 drivers/md/md.c:7684
+   md_ioctl+0x200a/0x2610 drivers/md/md.c:8499
 
-The sound tree acquired a conflict with the mm-nonmm-unstable tree.
+bind_rdev_to_array() is not the only way in.  md_run() calls
+sysfs_create_group(&mddev->kobj, &md_redundancy_group), and
+internal_create_group() has its own WARN_ON(!kobj->sd), so RUN_ARRAY in
+the same window warns too.
 
-Non-merge commits (relative to Linus' tree): 13446
- 13616 files changed, 891788 insertions(+), 332231 deletions(-)
+Every ioctl that can reach mddev->kobj runs under reconfig_mutex, so
+hold it across add_disk() and kobject_add().  An ioctl issued in the
+window now waits for md_alloc() to finish instead of seeing a
+half-built mddev, and opening the array still succeeds.  The ioctls
+md_ioctl() serves without the mutex only read array state and return
+-ENODEV on an array with no disks.
 
-----------------------------------------------------------------------------
+Hoisting kobject_init() above add_disk() is not an option: commit
+ca39f7502425 ("md: fix mddev->kobj lifetime") moved it below add_disk()
+so that md_alloc()'s error paths, which free the mddev directly, never
+see an initialised kobject.
 
-I have created today's linux-next tree at
-https://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git
-(patches at https://www.kernel.org/pub/linux/kernel/next/ ).  If you
-are tracking the linux-next tree using git, you should not use "git pull"
-to do so as that will try to merge the new linux-next release with the
-old one.  You should use "git fetch" and checkout or reset to the new
-master.
+Fixes: ca39f7502425 ("md: fix mddev->kobj lifetime")
+Reported-by: syzbot+95eeb4ada2349a2170ea@syzkaller.appspotmail.com
+Suggested-by: Yu Kuai <yukuai@fygo.io>
+Cc: stable@vger.kernel.org
+Assisted-by: LLM
+Signed-off-by: Yogesh Gaur <yogeshgaur.83@gmail.com>
+---
+v2: Hold reconfig_mutex across add_disk() and kobject_add() instead of
+    refusing the open in md_open(), per Yu Kuai's review: v1 made an
+    open that raced with md_alloc() fail.
+v1: https://lore.kernel.org/all/20261004055712.1293-1-yogeshgaur.83@gmail.com/
 
-You can see which trees have been included by looking in the Next/Trees
-file in the source.  There is also the merge.log file in the Next
-directory.  Between each merge, the tree was built with a defconfig
-for arm64, an allmodconfig for x86_64, a multi_v7_defconfig for arm,
-an arm64 build of various kselftests, a KUnit build and run on arm64,
-and a native build of tools/perf.  After the final fixups (if any), I do
-an x86_64 modules_install followed by builds for x86_64 allnoconfig,
-arm64 allyesconfig, powerpc allnoconfig (32 and 64 bit),
-ppc44x_defconfig and pseries_le_defconfig and i386, s390, sparc and
-sparc64 defconfig and htmldocs.
+Built with W=1 only, fix has not been runtime-tested.
 
-Below is a summary of the state of the merge.
+ drivers/md/md.c | 12 +++++++++++-
+ 1 file changed, 11 insertions(+), 1 deletion(-)
 
-I am currently merging 433 trees (counting Linus' and 135 trees of bug
-fix patches pending for the current release).
+diff --git a/drivers/md/md.c b/drivers/md/md.c
+index 67108c397c5a..85439f27d943 100644
+--- a/drivers/md/md.c
++++ b/drivers/md/md.c
+@@ -5906,12 +5906,22 @@ struct mddev *md_alloc(dev_t dev, char *name)
+ 
+ 	disk->events |= DISK_EVENT_MEDIA_CHANGE;
+ 	mddev->gendisk = disk;
++
++	/*
++	 * add_disk() makes the array openable before mddev->kobj exists.
++	 * Hold reconfig_mutex until kobject_add() is done so that ioctls
++	 * issued in between wait instead of using an uninitialised kobj.
++	 */
++	mddev_lock_nointr(mddev);
+ 	error = add_disk(disk);
+-	if (error)
++	if (error) {
++		mddev_unlock(mddev);
+ 		goto out_put_disk;
++	}
+ 
+ 	kobject_init(&mddev->kobj, &md_ktype);
+ 	error = kobject_add(&mddev->kobj, &disk_to_dev(disk)->kobj, "%s", "md");
++	mddev_unlock(mddev);
+ 	if (error) {
+ 		/*
+ 		 * The disk is already live at this point.  Clear the hold flag
+-- 
+2.55.0.windows.5
 
-Stats about the size of the tree over time can be seen at
-http://neuling.org/linux-next-size.html .
-
-Thanks to Paul Gortmaker for triage and bug fixes.
-
---+cgGpk8sXZxTUs62
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iHUEABYKAB0WIQReagvpf3TrrA7BoYYv73Ows9A4iQUCasTphwAKCRAv73Ows9A4
-iVLDAQC9Fg8uLX8KDQMAY12ZN1QzmurxqAk1BpKgIZAO2krKcQD9FJepZrHMqIXb
-fZl46+Hl8ngQylanVLLjgEzmqSvU2wI=
-=jQw1
------END PGP SIGNATURE-----
-
---+cgGpk8sXZxTUs62--
