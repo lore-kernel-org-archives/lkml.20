@@ -1,284 +1,350 @@
-Received: from mail-ed1-f42.google.com (mail-ed1-f42.google.com [209.85.208.42])
+Received: from sonic305-20.consmr.mail.gq1.yahoo.com (sonic305-20.consmr.mail.gq1.yahoo.com [98.137.64.83])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 51C543AB288
-	for <linux-kernel@vger.kernel.org>; Tue,  6 Oct 2026 13:33:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.42
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791293618; cv=pass; b=RQD64jR6DV8DEI/e0+t3K8nvo7AJfGdG8F84BFgt6U5FwtjK8/qYkFOoLEJF9T+0oZ8I95mp34W4YqP7Q/nVfYx0Wjfw0VWvJmasEAthnIYR4lSziJSsK4Nj91IrmgAiJdjx2jYjG3tTQlmQuW0Wt5hos5aprU358S67eMWxK9o=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791293618; c=relaxed/simple;
-	bh=9iCX0iESeq4yIFskD/OkV+PlJHYmhgLyDj7X3xayXVA=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=ZDJI5wp9G8fO/mz6m6mJ6tHQzNRgo9A25otU7JFEP7ZPaPVEE1Y+LO7eIXTGXSe+sAsbkoXgwxtiogJUg+qVNQrm1NvWxiRQgi86YZRcUM72qja15xJIS6pqnvVyHRmEYaTD8pq+k/0UY/qaORAXYdG0Ap64hzEawvvtYdOgVA4=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=m/aju/yO; arc=pass smtp.client-ip=209.85.208.42
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 527C33DD522
+	for <linux-kernel@vger.kernel.org>; Tue,  6 Oct 2026 13:33:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=98.137.64.83
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791293630; cv=none; b=KiK9BfQDW7uL3W2s/6S1QcDszQxUjSWorYkV914zfVNpMbhcQpBtD9/3jKISfN5ZRjc6ptfro4XdeKTf0W54se14wON3iwoIZdsTd08GMsVU7ITliQd3rUII/kcUB9dimIjk+TZtnL24FVWmd+ZSLvzGVr7/qqpClPeK6SZNp5s=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791293630; c=relaxed/simple;
+	bh=SBSa6/f+x51BTX2YNvk6aGtBLZqSYj38LJWLB7jjx/8=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=jEO8OPfyv8JbHVBeQNPrPiA2yHcShdoxMr9PcpmiXAKHVIw9YzhPmcQ5VN40kwThEg8NXt14wqY5/uxf8qTbqIGGQEJ4TVvf7a6dI62YeOF/YgkbgOUKTun8mSxGTyBDPHX9Oa9hW8DyiWqNTk1iWIcNmhlzDSBUHyqecZGpe4M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=aol.com; spf=pass smtp.mailfrom=aol.com; dkim=pass (2048-bit key) header.d=aol.com header.i=@aol.com header.b=MRySnO9h; arc=none smtp.client-ip=98.137.64.83
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=aol.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=aol.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="m/aju/yO"
-Received: by mail-ed1-f42.google.com with SMTP id 4fb4d7f45d1cf-6aa97d1cbffso1152323a12.1
-        for <linux-kernel@vger.kernel.org>; Tue, 06 Oct 2026 06:33:36 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1791293614; cv=none;
-        d=google.com; s=arc-20260327;
-        b=Nrvkr9mTRH8rnIaKCNOor+Ti9InNGosg76JpKaBpQ4XGEuhU16JfNW/6cv91yZkpRe
-         /m6SjwUOMHF2YK2H+NgSxxej6sInN3yhKGqfLhc4aExCWl8MD7pbhoKW7ZaDOz8hdyGf
-         zUea+kAF72r5L5p8Iyq3DnfymaMGv8xyLA8NJEtMUIsn7Z9uDqR4Eb5vmHGntl0RSbBi
-         rxAxWOwtJ0KAX2Z6uJX1APU08B2VVFjcgmXQEobaVWt9zQcWDPbAeY96rKWtpl5hSEl/
-         1j6DB+lnUdFCFVb0QMsL+yE0eWl5dceSQguIkJ9ONNLYDJgvDiYM2+oHRjxx0svkVxl8
-         Pqwg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=52wtJLVFhPlj2ORv9xjDobplkPWMGiz+egb/LVNn8JM=;
-        fh=azH5V4wseIHZoY8o6dgpdgRJ7EoCpwRj3WVi/AVhcm0=;
-        b=Oy6SAq2EMH0Yqhr6Sc/DABHNmbXDRZY8mp4lrtkEloT/8dUmfgSliBG5+UiukSqilD
-         +dgddsYbeEVS3d7YBFyC3SafQJ3WgaQWVjeTTYWQFihsEug3ggekm6cuzayEqVX+xJGt
-         aoV4XZSrtVwkoYlD0JKGnTlPvSItFspR7/Bl+DznooJ4Y8AaYHzpBhrkw/W3x0m7Tqj8
-         8Sqa4sViUN6rXWGt+tTcSCZ0lytjxzxnpYYfJTrSqDHc1FeUqeCjl30o8CzRB2JhOHPV
-         TVPa04hJgYXbXXvxCJVtrEeWTtlYOPysQJcAXzQIhe3/r90UsJOpXnYSZesBo2Qr1E1q
-         GHCg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791293614; x=1791898414; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=52wtJLVFhPlj2ORv9xjDobplkPWMGiz+egb/LVNn8JM=;
-        b=m/aju/yOy2pnhJIf5AGdwGQLfsrCItSEDLmn+HeCfremAy3qo2ShAvo2j0B/DloDTX
-         Wdq1O5Uc0ubfmDuWjWJ2OYxl0GXz4BrbHhTLC5JLmmWD8ETq9jkgm92YPewzp6MFlhnk
-         9gLb2mQT1gKVnftxqu1Hgxr7N8OqDSiQjhzmb/NQhmHFaqohzoCZ+7MOlNWA4LkSN29H
-         d/Z/pt5224wsOKLV8nfyYBNlW11rHcDeFSCmWeV6zLJf3wDT2XPfUQpomEi1ECAO3eV8
-         8Ng70SbcR0BAJowBD3LpMHmpCSqpRmi06vHiTVzAQU4khVUfjH3s2konawFEfcYLLzJ+
-         i8tw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791293614; x=1791898414;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=52wtJLVFhPlj2ORv9xjDobplkPWMGiz+egb/LVNn8JM=;
-        b=Tk44CuLh8L2nFEalLcqaLi4qCG02hUEeNydFzgDN63l7xE+Rg/C0C8N+kQxfQfrnmz
-         A90Fedk8qsxAr39lOU2pd/vIckXW2m5iCZ8rxzna5L7dztAE8cAlCCgt2EaCC5c89c6x
-         kLSVtTgrDEO25c4PjRQbKyz7IJ8LKtmgO78WwhbLcv/zuXMJ12pezzaCLX3353LTJO24
-         jtDqsLen9Q3DgW0SHN0Kz2H8UfTI/vUN1UXt2VZNkApJOowGraY7Y2zGbgUuVdtmubkp
-         3j5VLuKDiU0EtJMVhQrG91qBOPH2aoVp4Y8bpUWO4HhsD4PLAfKEVdwAdKKwk2S5XeK7
-         /SMQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxsZfCIN4T9N1F7mKlCUghRpKW8guu+fJY/IrWFOrNuOaMpKK5dJNDXwl1DeJt9cjgQ2BmmBplZ2ZoPmXA=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIqEuC9UgQz7vxh/z37WjdqDAlW+qNzyTLw+q/rzXVQYzxKNE1D
-	HSMSxzNM0Gfu1DQrjoNeyZlGqbNFZpxXTHDfkbWjfkUSpj0ZpmlUzjahvqSrKTgIGATixtqi2hD
-	8PLz1lFusa4pfib0GuAuO9eFZ9RoZNqtTY7CIf94iZg==
-X-Gm-Gg: AYBFou1Y6OVRF5u7QDY9Xqq3QDdIGQEX7yQSNFfy8lyL0fthO+EoqiBzNyEGIW0b0pj
-	NJqDDALdjIHWlaBNwkmudw6mYkw14VKAVxQjaZCot19K/NHKF/oY8kNSxBTEV+jYfqpxj5GtSHC
-	3k16y/yIVnTprWT9v2Nf92AvqYcpwL9CZi+JhsHM1pjVN8TCQcE9+GEM3W3LuxgppSxq2Yk2GUH
-	4kr1UNk05dIvLaIokFwUiWFdf3CERnD9pwdm7NHk94cK+crxrZH/YX1obyqiY3Ek3i5kmufvEeI
-	GWlzUXAZU91m0HkK6DghAAKffn0YuFqNgODHmueZu2qg1II1AVC08Q==
-X-Received: by 2002:a05:6402:21c2:b0:6ac:8de4:2804 with SMTP id
- 4fb4d7f45d1cf-6afe290573amr1300386a12.1.1791293614005; Tue, 06 Oct 2026
- 06:33:34 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=aol.com header.i=@aol.com header.b="MRySnO9h"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=aol.com; s=a2048; t=1791293628; bh=9E3OCWXprX0RJaktFxM/8n6uIVZDAaRTP/3rY7uLJ9I=; h=Subject:From:To:Cc:Date:In-Reply-To:References:From:Subject:Reply-To; b=MRySnO9hVED8BIx0W4vK0nOajiw5sUdzFYLEf5+kVY7wPu6qX/BOnG5owDqdbRiw8n3BDiBjua2Rmyo96suPRH2pYUNwFmoZBrnyS2zK/rZoqm/8cweG5H83KXBdkp3um418kw2ZaZoOzq+hN5mIyx+Z+XDDZ6ok+W/GEfl2IumHxOQrWg6cb4n6D5wP1hLYkHulozxyr7v+K+noWXVwVkjmI5YHFKvaXNGgSkvczLcN1YWjXghf0RCZHepmJCrDjlbiHaBTHzDPCSoKPQkOzgUF2YeWSU0BraRG6IIk8qq7iPSNH17S/u9K56hKNR2fRxb/3Aqvktp1lT7hRxXqlA==
+X-SONIC-DKIM-SIGN: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048; t=1791293628; bh=ZroKlQB4hd+y8xui/znb1fnMJZF5RH8lDBUDsEnGUqA=; h=X-Sonic-MF:Subject:From:To:Date:From:Subject; b=f9t+m2QGedOMokiqPBux4so2++qxswMO7jqWvbaI+npBGFs2djRYN1+A4+VRbmoPDJKTzkoe2Yrkio01IEN6RWMdllC5bIYkKhyZFtMTDSIrQtl0lAZkx2YJ9NgSZJFZwx48coZdmzF+edP0VduPVXJEekvKwCingE72YoLV+C1kZU6wOqYZZ7mG6kfmmkIv4Z8HMikbodg0DCXUPhWTDjSzt8h3DnuLuCU4EP/NGRuOcK42preRXMQq6rVehK3aHJV2EXYNZqsrunDPBBg/s2uTpQIoX/C9LmDbv4Ea+qLw4YEQp1hA1bFmxptY5OAWC/jfFGBTchcGkEPLb/cccw==
+X-YMail-OSG: ccu42_4VM1mIvNDPR3peCwxwHT0RzwS0PuunkhaK_liYGkqzU2dIPw1SaINJElN
+ eimk9CmHTQ7MM3B2DWE8O2f2MuWM_pRaJwIKiIxhrhSDGMm2enzDagMBgTKoyfh4PHGVSXJOwNVB
+ 4ee9P_ZVTOsTwrA4pipn4Bvzy_BZmIMTrWnzJwZ2oS5DK_db2qukKstPuvGe.x7xjZqmQABcZDpL
+ 6f9uP44jOi1u7UwY104t_PLEBu4.EY1VRX5oLKUSri856v9hZR7ShDtkVurURZFwIce.GC5S5rvH
+ th0NDS8shVv1amhq9PsMHVsVn4v6fgkGUjKWVVBH2jCQTD9D.76nqVWIyMWwOzgUc0xs8o3ccXxO
+ MdNEoDl5Y4KsruYFMxoo__ohGs7Fp9.RHmX8Uu4JMhmIdSk8PfQ.AA8kgVfLQ6qdLa5XWtHM0stp
+ v__.y.65_9z75_vGsRJPytilbP0ESPOGYaXQXLxP8pSzaLmJ4lQBA8F9NNwM8wxNdRIcbdmeCmti
+ 4kSehuNU6mpRk5WiXaMCiF4.8ScRTHqiai9WVeLwJjuujkLaZ0D5dLmAYi988ChPWt0WlglH5fTw
+ 8B6Lu97RKLNDRW7ns2qv8MXCpIFAd5b4HIfS4tacB0WNivoqpZA_HUt8fND9IskrkwGEsGxpn_Vg
+ lNpv4WvX7nHFrYtlHak8mYGMtlyOWNdSLCk1odyaSDaHxbB645cOXodP.h3k_BieylIvnPk.wxQ9
+ pn7dQ5S01UlizdYktl6VNAguReSapnsVExIHr0o9LTPVx6V.3nFNmczaKPg24LagkfFSFROgrOwb
+ g.jFXNGUXHxDoefzUcH6PiQdIpsOXnoccmLH_wZ_DEbLxLkGNuieoIF.VDMR5hrlLvPrPtHqpVZ4
+ QgzFSwtdTCca1cH1qkgrxSopbO1qtOJx4IKxU27Dn.8k5mEtx94LowcLZwq77EPZWXFshH2m5WAX
+ YlIWFS7tCwj49oZp.QMG1wmmNO1L5wZCzIasyhlKy8MPs4Xcpu6iybwLBhBlXaOY.ht7M0H_CqMz
+ gG1CN_ElhCuseHjeD8huGHllyjHhOnnjNxRScRWap70Akwxejnush1u1BejN5nRVLSvTQ1LuknfW
+ cZ4cCtqvYPLxsdHx786dgJ6CL2ZZPHAldpGrldyJ12BV2O3XtW.pilMCuM4_GdWyWB334MY35pdh
+ gUQUnM1M_gStuGJG.WvG1.tCZOxTnPpzmb4EswN7BzD3JbdXENU2jEog6ulFTwlT28PzguwWzlzw
+ WvXRRLQlmrXRraP8ruO0bkTuuw6jRdNRJfWCHQp1uJhSW3LCDuzUzaqvYxsFLvuxkiCXM95S7G15
+ _vwGUXxlxz7FBot.Wp81xoL9DwMRD1YMMJqN3qMpUSCWkDgFtNXjUDns_N_6F897dt4FKSC2XrZo
+ f83UlotehmdwwS1E6ujja0oWqNnkR302_iAfC7K5xkWlqcIdKiP1N9yv51XCWJ5cuNLp8.JnKAgv
+ 6DQt6Gfbn6YWwYeakpU1fjlqt8VarycYvEt5ZmIFDEN1AlV7rwGTMkRNpFfnbeIVaFNf_5NztfAL
+ QjTBa0RfkPdOtEpursDA60jPxv4HQI6dwrgZkRf8Xvaq6pZyyPwx9jPxu4OK1FQbSBD6KcsCLIhW
+ wr4pgGe59JDA9dbCkIb7XR30.frfdgRdiB56ENYw4aoXok2DtARr1JEZqPK9HsRQDLd82RjX7w2Y
+ OjalCU6YjMPyN9Ow5p8YLFPYAMssqesOxBxDmn8S.H34LYBEoltOCbxNaDejWVwefFtYwA4NYNls
+ vEgwfhjACAeim5E_FHsygF01bIAHGB3JRozNMzzsHX5h9fyL0hazsFbPeedwwL2YEomSINhE6QMJ
+ _YO_mIsVZqCoPkDpMTbrfcIu_AzI16Djz556YltyptZLDcQxKiZMHT5aaLV4evGAUflOQJT9z5Ye
+ fJ4peUVAsg95PL.qxa19a1O8Vadt34JpJtmgl_74ExkbjEe22jvegpUUgZtOETCBb1ptsp.wd5DI
+ SFS.54GtO2PG_VWrQwWHpthGG4IHG5FcZkgNY1tFHrBdmhu9s5n9yAMos6ijMhUfAHyqW_76.dYn
+ 0hO0tgBA2lXyjIjv_KKREHHibxtEdOlnITXz8k7hL2yn0tJzu41TcJTPajcv7D8wnHsMiT2Dxdj7
+ pbRmx9jbmhpU6oGb3r4Q9fO9.DwaVtelQB4_wggEZYLjg8AL6Liai6v.ESrBtctPyXA96Yn3th_Y
+ 5GrO.RaqoalYOA3DqIiS_uiP52CB7hErPsjeqVUV7mtv6J5c0Q3Nm2TUZfCueBkDSDVKsivDNKyQ
+ e
+X-Sonic-MF: <rubenru09@aol.com>
+X-Sonic-ID: 4a8950ea-8a68-4480-a32d-903fbcca4f86
+Received: from sonic.gate.mail.ne1.yahoo.com by sonic305.consmr.mail.gq1.yahoo.com with HTTP; Tue, 6 Oct 2026 13:33:48 +0000
+Received: by hermes--production-ir2-5dd9bf4598-hrqwh (Yahoo Inc. Hermes SMTP Server) with ESMTPA ID e54da0c57641f9e2d2552a0febb4bdc0;
+          Tue, 06 Oct 2026 13:02:27 +0000 (UTC)
+Message-ID: <714216ad03c9189426d92646d28b1872301d83b1.camel@aol.com>
+Subject: Re: [PATCH] drm/gud: fix bulk_len divide-by-zero, connector bitmap
+ OOB, and short USB reads
+From: Ruben Wauters <rubenru09@aol.com>
+To: Hui Peng <benquike@gmail.com>, tzimmermann@suse.de, simona@ffwll.ch, 
+	airlied@redhat.com
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Date: Tue, 06 Oct 2026 14:02:24 +0100
+In-Reply-To: <20260919223510.3888975-1-benquike@gmail.com>
+References: <20260919223510.3888975-1-benquike@gmail.com>
+Autocrypt: addr=rubenru09@aol.com; prefer-encrypt=mutual;
+ keydata=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
+ eIvzsqg==
+Content-Type: multipart/signed; micalg="pgp-sha256";
+	protocol="application/pgp-signature"; boundary="=-gNRPWEAJ3y4bweuDeAF6"
+User-Agent: Evolution 3.60.2 
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260926020851.2938961-1-matthias.goergens@gmail.com>
-In-Reply-To: <20260926020851.2938961-1-matthias.goergens@gmail.com>
-From: Amir Goldstein <amir73il@gmail.com>
-Date: Tue, 6 Oct 2026 15:33:20 +0200
-X-Gm-Features: AclHuK_lVje2P1E1oSdROdbL85T36D8Zc-5aAZmEzAoJQF8V4-NDYpS4_O0SpXA
-Message-ID: <CAOQ4uxhxDOy1-vTSXGfA2c16e4iop_5M5goOih0pgSCZRvDrfw@mail.gmail.com>
-Subject: Re: [PATCH] fanotify: report names longer than NAME_MAX
-To: Matthias Goergens <matthias.goergens@gmail.com>
-Cc: jack@suse.cz, repnop@google.com, linux-fsdevel@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
+X-Mailer: WebService/1.1.26668 mail.backend.jedi.jws.acl:role.jedi.acl.token.atz.jws.hermes.aol
+
+
+--=-gNRPWEAJ3y4bweuDeAF6
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-On Sat, Sep 26, 2026 at 4:08=E2=80=AFAM Matthias Goergens
-<matthias.goergens@gmail.com> wrote:
->
-> fanotify keeps the length of a reported name in a u8, so it drops any
-> name longer than NAME_MAX and warns:
->
->   WARNING: fs/notify/fanotify/fanotify.h:217 at fanotify_handle_event+0x2=
-e82/0x39f0
->
-> Such names are legitimate on some filesystems.  vfat mounted with utf8
-> takes up to 255 UTF-16 characters, which are up to 765 bytes of UTF-8,
-> and FUSE accepts names up to PATH_MAX - 1.  readdir() and inotify report
-> them in full.  fanotify sends the event without the name, and for
-> FAN_RENAME it trips a second warning in copy_fid_info_to_user(), after
-> which read() fails with EFAULT and the event is lost.
->
-> When syzbot hit this, Jan suggested accommodating names up to PATH_MAX
-> [1], the limit readdir() already applies to a name
-> (verify_dirent_name()).  Store the name lengths as u16, which keeps
-> struct fanotify_info at 8 bytes, and drop without a warning only names
-> of PATH_MAX bytes or more, which no path can refer to.  An event with
-> such a name can exceed a page, so allocate name events with kvmalloc(),
-> as Jan also suggested.  Names up to NAME_MAX are reported exactly as
-> before, and the record format is unchanged: an event with a long name is
-> just longer.
->
-> Link: https://lore.kernel.org/all/20241112115059.ecvomkalee5m4i4i@quack3/=
- [1]
-> Fixes: 2d9374f09513 ("fanotify: use macros to get the offset to fanotify_=
-info buffer")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Matthias Goergens <matthias.goergens@gmail.com>
+On Sat, 2026-09-19 at 22:35 +0000, Hui Peng wrote:
+> In drivers/gpu/drm/gud/ (gud_drv.c, gud_pipe.c, gud_connector.c), ensure
+> gdrm->bulk_len >=3D max_pitch so lines =3D bulk_len / pitch cannot be 0 i=
+n
+> gud_flush_damage(), cap num_connectors to GUD_CONNECTORS_MAX, and reject
+> short USB control transfers in gud_usb_get().
+>=20
+> Fixes: 40e1a70b4aed ("drm: Add GUD USB Display driver")
+> Assisted-by: LLM
+> Signed-off-by: Hui Peng <benquike@gmail.com>
 > ---
->
-> Tested in a VM with KASAN, lockdep and kmemleak: on vfat (utf8), names
-> of 258 to 765 bytes now arrive with their name, including FAN_RENAME,
-> for root and for an unprivileged watcher; FUSE names up to 4095 bytes
-> likewise, also a FAN_RENAME between two of them.  With kvmalloc()'s
-> kmalloc() attempt forced to fail, the events arrive intact from vmalloc.
-> No warnings.  The LTP fanotify and inotify tests give the same results
-> as before (fanotify20 skipped in both).
->
-> 5.15.y fails the same way (the same warnings and EFAULT on 5.15.221),
-> and the patch applies there and fixes it.
->
-> Honza, on the msdos report [2] you pointed at the filesystem, and msdos
-> now rejects such names (9d7ed813ee5f).  vfat cannot do the same without
-> making files that other systems wrote unreachable, and FUSE allows them
-> by design.
->
-> [2] https://lore.kernel.org/all/3kzvlb3wpzbg6k6ttzp6rh2cfmz3hmmmlisgxjn5u=
-4xmaaqibm@qkre7flkhejl/
->
->  fs/notify/fanotify/fanotify.c |  4 ++--
->  fs/notify/fanotify/fanotify.h | 20 +++++++++++++-------
->  2 files changed, 15 insertions(+), 9 deletions(-)
->
-> diff --git a/fs/notify/fanotify/fanotify.c b/fs/notify/fanotify/fanotify.=
+> diff --git a/drivers/gpu/drm/gud/gud_connector.c b/drivers/gpu/drm/gud/gu=
+d_connector.c
+> index 8141c3a1e30a..1bf0495bf43f 100644
+> --- a/drivers/gpu/drm/gud/gud_connector.c
+> +++ b/drivers/gpu/drm/gud/gud_connector.c
+> @@ -569,7 +569,7 @@ static int gud_connector_add_properties(struct gud_de=
+vice *gdrm, struct gud_conn
+>  			continue; /* not a DRM property */
+> =20
+>  		property =3D gud_connector_property_lookup(connector, prop);
+> -		if (drm_WARN_ON(drm, IS_ERR(property)))
+> +		if (drm_WARN_ON(drm, IS_ERR_OR_NULL(property)))
+>  			continue;
+> =20
+>  		state_val =3D gud_connector_tv_state_val(prop, &gconn->initial_tv_stat=
+e);
+> diff --git a/drivers/gpu/drm/gud/gud_drv.c b/drivers/gpu/drm/gud/gud_drv.=
 c
-> index a208a7ec1692..c8289aa8a70a 100644
-> --- a/fs/notify/fanotify/fanotify.c
-> +++ b/fs/notify/fanotify/fanotify.c
-> @@ -656,7 +656,7 @@ static struct fanotify_event *fanotify_alloc_name_eve=
-nt(struct inode *dir,
->                 size +=3D FANOTIFY_FH_HDR_LEN + dir2_fh_len;
->         if (child_fh_len)
->                 size +=3D FANOTIFY_FH_HDR_LEN + child_fh_len;
-> -       fne =3D kmalloc(size, gfp);
-> +       fne =3D kvmalloc(size, gfp);
->         if (!fne)
->                 return NULL;
->
-> @@ -1050,7 +1050,7 @@ static void fanotify_free_fid_event(struct fanotify=
-_event *event)
->
->  static void fanotify_free_name_event(struct fanotify_event *event)
+> index 3a1b9e2a2eaa..f69b0e6e2ee0 100644
+> --- a/drivers/gpu/drm/gud/gud_drv.c
+> +++ b/drivers/gpu/drm/gud/gud_drv.c
+> @@ -328,7 +328,7 @@ static int gud_stats_debugfs(struct seq_file *m, void=
+ *data)
+>  		seq_puts(m, " none");
+>  	seq_puts(m, "\n");
+> =20
+> -	if (gdrm->compression) {
+> +	if (gdrm->compression && gdrm->stats_actual_length) {
+>  		u64 remainder;
+>  		u64 ratio =3D div64_u64_rem(gdrm->stats_length, gdrm->stats_actual_len=
+gth,
+>  					  &remainder);
+> @@ -427,6 +427,8 @@ static void gud_free_buffers_and_mutex(void *data)
 >  {
-> -       kfree(FANOTIFY_NE(event));
-> +       kvfree(FANOTIFY_NE(event));
->  }
->
->  static void fanotify_free_error_event(struct fsnotify_group *group,
-> diff --git a/fs/notify/fanotify/fanotify.h b/fs/notify/fanotify/fanotify.=
-h
-> index 3710543dbf82..4aad60d2aaf5 100644
-> --- a/fs/notify/fanotify/fanotify.h
-> +++ b/fs/notify/fanotify/fanotify.h
-> @@ -43,9 +43,16 @@ struct fanotify_info {
->         u8 dir_fh_totlen;
->         u8 dir2_fh_totlen;
->         u8 file_fh_totlen;
-> -       u8 name_len;
-> -       u8 name2_len;
-> -       u8 pad[3];
-> +       u8 pad;
-> +       /*
-> +        * Deliberately not limited to NAME_MAX: some filesystems return =
-longer
-> +        * names (vfat up to 255 UTF-16 characters, as Windows allows, wh=
-ich is
-> +        * up to 765 bytes of UTF-8; FUSE up to PATH_MAX - 1), and readdi=
-r() and
-> +        * inotify report them in full. Only names of PATH_MAX bytes or m=
-ore,
-> +        * which no path can refer to, are dropped.
-> +        */
-> +       u16 name_len;
-> +       u16 name2_len;
->         unsigned char buf[];
->         /*
->          * (struct fanotify_fh) dir_fh starts at buf[0]
-> @@ -168,7 +175,7 @@ static inline char *fanotify_info_name2(struct fanoti=
-fy_info *info)
->  static inline void fanotify_info_init(struct fanotify_info *info)
+>  	struct gud_device *gdrm =3D data;
+> =20
+> +	vfree(gdrm->shadow_buf);
+> +	gdrm->shadow_buf =3D NULL;
+>  	vfree(gdrm->compress_buf);
+>  	gdrm->compress_buf =3D NULL;
+>  	sg_free_table(&gdrm->bulk_sgt);
+> @@ -443,7 +445,7 @@ static int gud_probe(struct usb_interface *intf, cons=
+t struct usb_device_id *id)
+>  	struct usb_endpoint_descriptor *bulk_out;
+>  	struct gud_display_descriptor_req desc;
+>  	struct device *dev =3D &intf->dev;
+> -	size_t max_buffer_size =3D 0;
+> +	size_t max_buffer_size =3D 0, max_pitch =3D 0;
+>  	struct gud_device *gdrm;
+>  	struct drm_device *drm;
+>  	struct device *dma_dev;
+> @@ -495,6 +497,10 @@ static int gud_probe(struct usb_interface *intf, con=
+st struct usb_device_id *id)
+>  		put_device(dma_dev);
+>  	} else {
+>  		dev_warn(dev, "buffer sharing not supported"); /* not an error */
+> +	if (!drm->mode_config.min_width || !drm->mode_config.min_height ||
+> +	    drm->mode_config.max_width < drm->mode_config.min_width ||
+> +	    drm->mode_config.max_height < drm->mode_config.min_height)
+> +		return -EINVAL;
+>  	}
+> =20
+>  	/* Mode config init */
+> @@ -523,7 +529,7 @@ static int gud_probe(struct usb_interface *intf, cons=
+t struct usb_device_id *id)
+>  	num_formats_dev =3D ret;
+>  	for (i =3D 0; i < num_formats_dev; i++) {
+>  		const struct drm_format_info *info;
+> -		size_t fmt_buf_size;
+> +		size_t fmt_buf_size, fmt_pitch;
+>  		u32 format;
+> =20
+>  		format =3D gud_to_fourcc(formats_dev[i]);
+> @@ -562,8 +568,9 @@ static int gud_probe(struct usb_interface *intf, cons=
+t struct usb_device_id *id)
+>  			break;
+>  		}
+> =20
+> -		fmt_buf_size =3D drm_format_info_min_pitch(info, 0, drm->mode_config.m=
+ax_width) *
+> -			       drm->mode_config.max_height;
+> +		fmt_pitch =3D drm_format_info_min_pitch(info, 0, drm->mode_config.max_=
+width);
+> +		fmt_buf_size =3D fmt_pitch * drm->mode_config.max_height;
+> +		max_pitch =3D max(max_pitch, fmt_pitch);
+>  		max_buffer_size =3D max(max_buffer_size, fmt_buf_size);
+> =20
+>  		if (format =3D=3D GUD_DRM_FORMAT_R1 || format =3D=3D GUD_DRM_FORMAT_XR=
+GB1111)
+> @@ -588,9 +595,13 @@ static int gud_probe(struct usb_interface *intf, con=
+st struct usb_device_id *id)
+> =20
+>  	if (desc.max_buffer_size)
+>  		max_buffer_size =3D le32_to_cpu(desc.max_buffer_size);
+> +	if (max_buffer_size < max_pitch)
+> +		max_buffer_size =3D max_pitch;
+>  	/* Prevent a misbehaving device from allocating loads of RAM. 4096x4096=
+@XRGB8888 =3D 64 MB */
+>  	if (max_buffer_size > SZ_64M)
+>  		max_buffer_size =3D SZ_64M;
+> +	if (max_buffer_size < max_pitch)
+> +		return -EINVAL;
+This feels like it can just be changed to a check for max_pitch >
+SZ_64M || max_buffer_size > SZ_64M? Comparing max_buffer_size against
+max_pitch twice seems... odd
+> =20
+>  	gdrm->bulk_pipe =3D usb_sndbulkpipe(interface_to_usbdev(intf), usb_endp=
+oint_num(bulk_out));
+>  	gdrm->bulk_len =3D max_buffer_size;
+> diff --git a/drivers/gpu/drm/gud/gud_pipe.c b/drivers/gpu/drm/gud/gud_pip=
+e.c
+> index 5ef887d8485a..1f08226b23b2 100644
+> --- a/drivers/gpu/drm/gud/gud_pipe.c
+> +++ b/drivers/gpu/drm/gud/gud_pipe.c
+> @@ -156,10 +156,14 @@ static int gud_prep_flush(struct gud_device *gdrm, =
+struct drm_framebuffer *fb,
+>  			  struct drm_format_conv_state *fmtcnv_state)
 >  {
->         BUILD_BUG_ON(FANOTIFY_FH_HDR_LEN + MAX_HANDLE_SZ > U8_MAX);
-> -       BUILD_BUG_ON(NAME_MAX > U8_MAX);
-> +       BUILD_BUG_ON(PATH_MAX > U16_MAX);
->
->         info->dir_fh_totlen =3D 0;
->         info->dir2_fh_totlen =3D 0;
-> @@ -214,8 +221,7 @@ static inline void fanotify_info_set_file_fh(struct f=
-anotify_info *info,
->  static inline void fanotify_info_copy_name(struct fanotify_info *info,
->                                            const struct qstr *name)
+>  	u8 compression =3D gdrm->compression;
+> +	unsigned int block_width =3D drm_format_info_block_width(format, 0);
+>  	struct iosys_map dst;
+>  	void *vaddr, *buf;
+>  	size_t pitch, len;
+> =20
+> +	if (block_width > 1)
+> +		rect->x1 =3D ALIGN_DOWN(rect->x1, block_width);
+> +
+>  	pitch =3D drm_format_info_min_pitch(format, 0, drm_rect_width(rect));
+>  	len =3D pitch * drm_rect_height(rect);
+>  	if (len > gdrm->bulk_len)
+> @@ -327,7 +331,7 @@ static void gud_flush_damage(struct gud_device *gdrm,=
+ struct drm_framebuffer *fb
 >  {
-> -       if (WARN_ON_ONCE(name->len > NAME_MAX) ||
-> -           WARN_ON_ONCE(info->name2_len > 0))
-> +       if (name->len >=3D PATH_MAX || WARN_ON_ONCE(info->name2_len > 0))
->                 return;
->
->         info->name_len =3D name->len;
-> @@ -225,7 +231,7 @@ static inline void fanotify_info_copy_name(struct fan=
-otify_info *info,
->  static inline void fanotify_info_copy_name2(struct fanotify_info *info,
->                                             const struct qstr *name)
->  {
-> -       if (WARN_ON_ONCE(name->len > NAME_MAX))
-> +       if (name->len >=3D PATH_MAX)
->                 return;
->
->         info->name2_len =3D name->len;
->
-> base-commit: 165768bb70265b5c38cf0b73fafd75be235f8b14
-> --
-> 2.55.0
->
+>  	struct drm_format_conv_state fmtcnv_state =3D DRM_FORMAT_CONV_STATE_INI=
+T;
+>  	const struct drm_format_info *format;
+> -	unsigned int i, lines;
+> +	unsigned int i, lines, block_width;
+>  	size_t pitch;
+>  	int ret;
+> =20
+> @@ -335,12 +339,21 @@ static void gud_flush_damage(struct gud_device *gdr=
+m, struct drm_framebuffer *fb
+>  	if (format->format =3D=3D DRM_FORMAT_XRGB8888 && gdrm->xrgb8888_emulati=
+on_format)
+>  		format =3D gdrm->xrgb8888_emulation_format;
+> =20
+> +	block_width =3D drm_format_info_block_width(format, 0);
+> +	if (block_width > 1)
+> +		damage->x1 =3D ALIGN_DOWN(damage->x1, block_width);
+> +
+>  	/* Split update if it's too big */
+>  	pitch =3D drm_format_info_min_pitch(format, 0, drm_rect_width(damage));
+>  	lines =3D drm_rect_height(damage);
+> =20
+> +	if (!pitch || !lines)
+> +		return;
+> +
+>  	if (gdrm->bulk_len < lines * pitch)
+>  		lines =3D gdrm->bulk_len / pitch;
+> +	if (!lines)
+> +		return;
+This also feels a bit odd, checking !lines twice, it shouldn't be
+possible at this point for pitch < gdrm->bulk_len due to your changes
+to max_pitch above, given that max_pitch should always be at least
+min_pitch for all the formats.
+> =20
+>  	for (i =3D 0; i < DIV_ROUND_UP(drm_rect_height(damage), lines); i++) {
+>  		struct drm_rect rect =3D *damage;
+> @@ -399,6 +412,13 @@ static int gud_fb_queue_damage(struct gud_device *gd=
+rm, struct drm_framebuffer *
+> =20
+>  	mutex_lock(&gdrm->damage_lock);
+> =20
+> +	if (gdrm->shadow_buf && gdrm->fb &&
+> +	    (fb->pitches[0] !=3D gdrm->fb->pitches[0] || fb->height !=3D gdrm->=
+fb->height)) {
+> +		vfree(gdrm->shadow_buf);
+> +		gdrm->shadow_buf =3D NULL;
+> +		gud_clear_damage(gdrm);
+> +	}
+> +
+>  	if (!gdrm->shadow_buf) {
+>  		gdrm->shadow_buf =3D vcalloc(fb->pitches[0], fb->height);
+>  		if (!gdrm->shadow_buf) {
+> @@ -562,8 +582,8 @@ int gud_plane_atomic_check(struct drm_plane *plane,
+>  			goto out;
+>  		}
+> =20
+> -		req->properties[num_properties + i].prop =3D cpu_to_le16(prop);
+> -		req->properties[num_properties + i].val =3D cpu_to_le64(val);
+> +		req->properties[num_properties].prop =3D cpu_to_le16(prop);
+> +		req->properties[num_properties].val =3D cpu_to_le64(val);
+Please rebase your patch, this has already been fixed upstream
 
-Hi Matthias,
+Ruben
+>  		num_properties++;
+>  	}
+> =20
 
-The fix for name_len < PATH_MAX looks good, but since you dealt with the
-the unexpected case of name_len > PATH_MAX more gracefully on event record
-time (empty name) I would rather that we treat it gracefully only on read()=
- time
-and just report the event with no name instead of potentially breaking
-the read()
-of other events in the queue.
+--=-gNRPWEAJ3y4bweuDeAF6
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: This is a digitally signed message part
 
-Something like this:
+-----BEGIN PGP SIGNATURE-----
 
---- a/fs/notify/fanotify/fanotify_user.c
-+++ b/fs/notify/fanotify/fanotify_user.c
-@@ -579,11 +579,17 @@ static int copy_fid_info_to_user(__kernel_fsid_t
-*fsid, struct fanotify_fh *fh,
-                        return -EFAULT;
-                break;
-        case FAN_EVENT_INFO_TYPE_DFID_NAME:
--       case FAN_EVENT_INFO_TYPE_OLD_DFID_NAME:
--       case FAN_EVENT_INFO_TYPE_NEW_DFID_NAME:
-                if (WARN_ON_ONCE(!name || !name_len))
-                        return -EFAULT;
-                break;
-+       case FAN_EVENT_INFO_TYPE_OLD_DFID_NAME:
-+       case FAN_EVENT_INFO_TYPE_NEW_DFID_NAME:
-+               /*
-+                * FAN_RENAME uses these types so userspace can tell old fr=
-om
-+                * new parent. The name may be absent if it could not be
-+                * recorded (e.g. >=3D PATH_MAX); emit fid-only like DFID.
-+                */
-+               break;
-        default:
-                return -EFAULT;
-        }
+iQJPBAABCAA5FiEE3obNNdPQ9V5CQi2Y0n5QwFCuDOEFAmrE8WAbFIAAAAAABAAO
+bWFudTIsMi41KzEuMTIsMiwyAAoJENJ+UMBQrgzha9kQAKnqmimlz9QU+TualnIu
+Ct71/9CNST7ptTA5gaPomV/jQOGP3sOW+YtgQy1eavkcktDddk9vyH5EECcetTEM
+BWCqWHSRtonDTPBhJCUY6fdTVPLDRU6XzIlfsDk8/fyzvBDrV44AYSFDROINkjJK
+NLYKGWAJ7FhU5aYW3jJ7bE9bBRmtow4Nv1Et8yeRPrvPuHvkqAk1yCOLVkBLb5aP
+NEi0bkcS8iYllEM36moh48eE1FJ7w3xZzKzlzBHOBUYedsQNNtEP9PdRKKWqfQmy
+e4beuMSoNl/fauxVouZFOT+i18YYBH8FYGB+SbmAyeJFl5hKqO8pzg9okucPsW9g
+OqAHUZn7uHNEfwXlP/QF6Z+o2fD+uqPn8Qy9sM0PmeZKo+uOXD1sfSkzewdXkaIv
+ZoHvtcIfFopM8mx9CMyT8Z3rpiD81bzRBJnnGlSdffzNTtSORiPX7aC429YL5A7O
+lLUck4x41Bat8UzStl9pHY+PpMECFmvSVcHc+bNG1KThr/rAQcf6GqxJP1nHQYAr
+MER0ni11JYyrdiG/g7HsQzXrj9dH/bIb4uU6ObalpkQwzoG3X18c8JucWEvDUNqu
+XRqFMIKqSFPKGh9ACcBCiLAq7IoW3+ba5ik1X3Za60SZJUBOYjJN0LSPZJVCnMwC
+1ljKwwuw9i2e08zHc/75qARx
+=cbxp
+-----END PGP SIGNATURE-----
 
-Thanks,
-Amir.
+--=-gNRPWEAJ3y4bweuDeAF6--
