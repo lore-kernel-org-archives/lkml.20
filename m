@@ -1,108 +1,67 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CDE9D455628;
-	Tue,  6 Oct 2026 13:35:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 732CA191F91;
+	Tue,  6 Oct 2026 13:35:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791293704; cv=none; b=XkmCfQNwJYpU9cMHAou29rwmP8m0HQFZLNSfnoJo872UrxOKyxbGzvAcNZrMhC4wId8ZP6RDvmRUJ5SRIKH44ig3hLwsyp3esmCUYNyfwVy/dU9IWw1LKeuPNwDntXk9O182RCNoo2DR2DARFXb+7DvtWOoLMi3q4c3KyUoL9ag=
+	t=1791293745; cv=none; b=EqSati5F8NC6dAol0dw0a45c28aiLQy4Nk/HuXeIUf5ddFyzjcSPOg5mKPGkwo1mgbrau5d9xKUVlqmrPr8A6XAXNb0apboqGAt/gII289AV4yUBgne0vUJbTSeFAK7/GcMuBs3ILJyvwZHe+SHs0eWUaK/CMLSnXVkD4NdS4lY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791293704; c=relaxed/simple;
-	bh=MXjHLJMZdTweVhX18r17oAYLlBuq3FbHiuiq03q3ZVk=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=fG7pv/AGuUyDVvscLUPHOLCmlwSzIFy6hZKIgXFGD7hpdOuwtlB1gxg+VPLdjFS0SmCzGUj7u9N3z/GxDOcVKrW+cYIjrYjTfcJ7vFlqShB0LRzBqFhM7rEGjldBumlQ5CYqNHpW1A6Lmb2zApI5R4GbX0DR3TOrWxBqwYqhuHY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kcaxHcLW; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1791293745; c=relaxed/simple;
+	bh=T80pmibn7aSi6N9hDzJvCBDoLXDCN4HDH9fhrQVJ60g=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=AWK4WXx5WtgSZ2r7Vdze6COnMcv0xfNMEcHWv1YRr0ZUO1jv6SSWzl4grZ/Wf8cAn8jrsfk9LJObWPLsg6glrDg5YRZrmXBPYvEYonVIwHLJZL2Y8//GdLfpJlN3E3jXcsANaIzkejCjI0415xL6v1kKjV9KNBVN9VCiPWBDL30=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=MkXPzmBm; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kcaxHcLW"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 954D9C4AF63;
-	Tue,  6 Oct 2026 13:35:04 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1791293704;
-	bh=MXjHLJMZdTweVhX18r17oAYLlBuq3FbHiuiq03q3ZVk=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=kcaxHcLWW/AUAAMW6Ok/D4L1rQBhXGu1GGB9iRtf6/B9iCyIi1OQVbvJrwm0gw+Ax
-	 jhm4geBuaXl+Rev4oMtXxe3QxBcxBNxQzmRwmX4VJDz1WatHBB8crSu1P+0WvCujDH
-	 sUbfwA/+P9C4BMRsI/aG/S5CDYxdlXx3kMgv14KDVkJ2Bp+OXOpyK0Tm2Ng9WpaHBz
-	 KwlM55FgCsGW8BsZNDex/4yLoTuZE9odHOSOPSgOZMIaGc8oiW/0ZxjlzBxwfOv6a9
-	 AOEQk5nbMBXxLEJeTqpBcaZl9taj694dNO/7lLQjrsGh3X/J7o0AAluUpWQjMCy44r
-	 kEpt4KdaE1QgA==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 75836CA6002;
-	Tue,  6 Oct 2026 13:35:04 +0000 (UTC)
-From: Vincent Jardin via B4 Relay <devnull+vjardin.free.fr@kernel.org>
-Date: Tue, 06 Oct 2026 15:34:52 +0200
-Subject: [PATCH net 3/3] ptp: qoriq: fix support for PTP_EXTTS_REQUEST2
- ioctl
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="MkXPzmBm"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 88F9E1F000FF;
+	Tue,  6 Oct 2026 13:35:43 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791293744;
+	bh=ZCAoLYZlSrLohEk+mBrzJi43HvKosm2TxiN/tMhp9/s=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=MkXPzmBm+Z/97ibzGKKISNMdyCrgkRyOS1mMO0o9+3ZyjTonFhxC4Ogmb0RkLktXX
+	 K2FD2/Hl+g4UyooXclyXwo7Pi05vdginuWJlrWTtfBwNZaAI1ErPdNoIPjlmR+a6Bn
+	 eAOD8yQL9TYV2hWgVwtdE2VaF3j5tCJntQcbofzFz4CAfvkO2qnMIbzAf6sY9KqZwb
+	 LTpWjZYSVoUR53XRk+zbV85eB7s7wAfO3ssnZnGQAhYhM39HNRbETKJEAHu/Zp6bF7
+	 YWRzFncOhuq+5//lRTY9meuZPpmkVVoZTsX9zPKwAhZOenLvA98VHqvnoKqZZpqbx2
+	 Ogi5OThoP9msA==
+From: netdev-bot+sinfo@kernel.org
+To: David Howells <dhowells@redhat.com>
+Cc: netdev@vger.kernel.org, Marc Dionne <marc.dionne@auristor.com>,
+ Jakub Kicinski <kuba@kernel.org>, "David S. Miller" <davem@davemloft.net>,
+ Eric Dumazet <edumazet@google.com>, Paolo Abeni <pabeni@redhat.com>,
+ Simon Horman <horms@kernel.org>, linux-afs@lists.infradead.org,
+ linux-kernel@vger.kernel.org
+Subject: Re: [PATCH net v12 00/15] rxrpc: Miscellaneous fixes
+Date: Tue, 06 Oct 2026 13:35:43 +0000
+Message-ID: <179129374309.2231598.633452204540998363@kernel.org>
+In-Reply-To: <20261006133011.531806-1-dhowells@redhat.com>
+References: <20261006133011.531806-1-dhowells@redhat.com>
+Auto-Submitted: auto-generated
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261006-for-upstream-qoriq-ptp-extts-flags-v1-3-b4a161b92832@free.fr>
-References: <20261006-for-upstream-qoriq-ptp-extts-flags-v1-0-b4a161b92832@free.fr>
-In-Reply-To: <20261006-for-upstream-qoriq-ptp-extts-flags-v1-0-b4a161b92832@free.fr>
-To: Yangbo Lu <yangbo.lu@nxp.com>, Andrew Lunn <andrew+netdev@lunn.ch>, 
- "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, 
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
- Richard Cochran <richardcochran@gmail.com>, 
- Jacob Keller <jacob.e.keller@intel.com>, 
- Kory Maincent <kory.maincent@bootlin.com>, 
- Claudiu Manoil <claudiu.manoil@nxp.com>, 
- Vladimir Oltean <vladimir.oltean@nxp.com>, Wei Fang <wei.fang@nxp.com>, 
- Clark Wang <xiaoning.wang@nxp.com>
-Cc: netdev@vger.kernel.org, linux-kernel@vger.kernel.org, 
- imx@lists.linux.dev, Ioana Ciornei <ioana.ciornei@nxp.com>, 
- Vincent Jardin <vjardin@free.fr>
-X-Mailer: b4 0.13.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1791293703; l=1341;
- i=vjardin@free.fr; s=20260525; h=from:subject:message-id;
- bh=bI02Z3k7XT254gwi64zNOv+zUT6wunV7tGvU62lzDZo=;
- b=z/FaeWp4UPCP8KJOLLZEahYoJuYfBopSJnSUbYl8Q479lSWpuToWVzswUuSd3zxahwBvO8kMN
- xuhPw3+AoFKCltg4/nvgeCGCtiZAXa2l4b+g/sRf/h+BmQmLIAEyr4m
-X-Developer-Key: i=vjardin@free.fr; a=ed25519;
- pk=hppgLeFpGpKOi7LNwGEZ4jOYofJCoGd4Jf1ltAabiLw=
-X-Endpoint-Received: by B4 Relay for vjardin@free.fr/20260525 with
- auth_id=871
-X-Original-From: Vincent Jardin <vjardin@free.fr>
-Reply-To: vjardin@free.fr
 
-From: Vincent Jardin <vjardin@free.fr>
+Hi!
 
-Commit 7c571ac57d9d ("net: ptp: introduce .supported_extts_flags to
-ptp_clock_info") moved the validation of the external timestamp request
-flags into the PTP core. A driver that does not set
-.supported_extts_flags still accepts the legacy PTP_EXTTS_REQUEST ioctl,
-but every PTP_EXTTS_REQUEST2 request is rejected with -EOPNOTSUPP, since
-the core always adds PTP_STRICT_FLAGS to it
+This is an automated message. This series looks like a fix, but its
+commit messages seem to be missing some information:
 
-ptp_qoriq_init() programs TMR_CTRL with ETEP1 and ETEP2 cleared, so the
-timer timestamps the rising edge of its external trigger inputs. Declare
-that, with PTP_STRICT_FLAGS, so that a falling edge request is rejected
-instead of being timestamped on the rising edge.
+ - Whether the issue was actually triggered, or is only theoretical
+   (e.g. found by code inspection). If it was triggered please include
+   the symptoms, like the stack trace or error messages.
 
-Fixes: 7c571ac57d9d ("net: ptp: introduce .supported_extts_flags to ptp_clock_info")
-Signed-off-by: Vincent Jardin <vjardin@free.fr>
----
- drivers/ptp/ptp_qoriq.c | 1 +
- 1 file changed, 1 insertion(+)
+Please do not repost the series just to address the above. Instead,
+reply to this email with the missing information, so that reviewers
+can take it into account. If the series needs another revision for
+other reasons, please include the information in the commit messages
+then.
 
-diff --git a/drivers/ptp/ptp_qoriq.c b/drivers/ptp/ptp_qoriq.c
-index 76272e5ac5b8..bcd29104effe 100644
---- a/drivers/ptp/ptp_qoriq.c
-+++ b/drivers/ptp/ptp_qoriq.c
-@@ -355,6 +355,7 @@ static const struct ptp_clock_info ptp_qoriq_caps = {
- 	.n_per_out	= 0,
- 	.n_pins		= 0,
- 	.pps		= 1,
-+	.supported_extts_flags = PTP_RISING_EDGE | PTP_STRICT_FLAGS,
- 	.adjfine	= ptp_qoriq_adjfine,
- 	.adjtime	= ptp_qoriq_adjtime,
- 	.gettime64	= ptp_qoriq_gettime,
-
--- 
-2.43.0
-
-
+The evaluation is done by an LLM so it may be wrong, if you think
+that is the case please reply and explain.
