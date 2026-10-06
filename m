@@ -1,172 +1,144 @@
-Received: from sender6-op-o11.zoho.com (sender6-op-o11.zoho.com [165.173.180.11])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com [209.85.128.47])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0F74D497B6D
-	for <linux-kernel@vger.kernel.org>; Tue,  6 Oct 2026 15:10:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=165.173.180.11
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791299423; cv=pass; b=PD1w22X5vvg+UO6vkuyEk02NDQh+wm2Q6LiUsjkw5igdGP943wNMuFezUBRKymj63IXE6WjBop1KITbLuttow4S12f/5R0Nl59EggLJdeHf7k/DoLrFKjnUDvve38/foZCg1BSdhlPVDbzjVR/fQmw6bITmfxl846pnw2RTjgQc=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791299423; c=relaxed/simple;
-	bh=/359jzaga1q2flPdc665gmmTDhhWSRi9NJm4hn7GQNw=;
-	h=MIME-Version:Content-Type:Subject:From:To:Cc:In-Reply-To:
-	 References:Date:Message-Id; b=nnNi1HaSy6zgXnn1uu7PogHCfqRjb4CbNIEMYpkQhVjRHROdfCgvngPEEKsRGRVooEJnFeg0XQEm19o90BjcqQ15aF8FrKL7Py5A55Sh/imEmJ1xeUxHnZnWLO2Gv4wbyZuDz66lLc7dkJhnGFjKHqPF5cqQb2O8CmVDOh9+0IQ=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (1024-bit key) header.d=collabora.com header.i=adrian.larumbe@collabora.com header.b=AUq3R75T; arc=pass smtp.client-ip=165.173.180.11
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8B37237FF46
+	for <linux-kernel@vger.kernel.org>; Tue,  6 Oct 2026 15:10:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.47
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791299449; cv=none; b=FNvmAjrUgscgJsolxpzoQg4nnBxNRz0Tk5vQ5CO2gkRckzPt7j8yfo8vblX14QTPSzLXrI4SeRcceoehHHvjFNVQPZm6v3uJzeBV6VjSmKiantD6oApd+57eQ3zJrB8Zu5xgS2a21/tFhcyr0IK1X7r7MrNdJ0JAZc1w8eBps+M=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791299449; c=relaxed/simple;
+	bh=CZzQYMQ0CaouLEUN3WcNvt6IGP+hlIKiFum7Ja+K3MM=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=DLzm0mfK3jx4EYjZrz1Ey2Hwv08axjfbRHM96wsAyjxCRGwR4DVvDZORfDkmvPtKM1I+7yZMEvJtldUGFH+PaefanT8/TkSA0KREOTgdV+1aY5eZr4OlolJhRHgsD6/y9SJdrbcpZgSZv7mBsPKLuNtu4Qo4rIpY3T5Fapm75k8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=F8A09YOU; arc=none smtp.client-ip=209.85.128.47
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=collabora.com header.i=adrian.larumbe@collabora.com header.b="AUq3R75T"
-ARC-Seal: i=1; a=rsa-sha256; t=1791299387; cv=none; 
-	d=zohomail.com; s=zohoarc; 
-	b=hfl6Pb9TWg96s3MNFkW7Oln/piZmXE6HLkwTFINszKTxjtyj2HSO+Sayn4yOh61urndhE07WjRuHy+1x9ZVz7VOgZzR4vO6AVAKYQ9Be38WvAi5tHi6Z1ZV/4K1/gDvqQT/2uTbld70kaQ/1oIeBIpETP0z2fQ4IiMuAUIQaHW4=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1791299387; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=vchKlw0oPu4/T9op3iicQOsXwyXtZm1YnhCzMrpelZ8=; 
-	b=hHhjbZKq3Kgd4G3dWMDaWD/3LRTc+YX3GCqYtq9KZecTn58JgFqbkt1o2SZb14r4MWx6j5zrO8OlX7L2VeLkMmbibqKEfnc3XnREQCFbyaC/UJ9CFnQXMUH9UMsOzmIPWC5b6wiHbaKK0BMcPGaY883g1KC4pjOZcosdl26uxsw=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
-	dkim=pass  header.i=collabora.com;
-	spf=pass  smtp.mailfrom=adrian.larumbe@collabora.com;
-	dmarc=pass header.from=<adrian.larumbe@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1791299387;
-	s=zohomail; d=collabora.com; i=adrian.larumbe@collabora.com;
-	h=MIME-Version:Content-Type:Content-Transfer-Encoding:Subject:Subject:From:From:To:To:Cc:Cc:In-Reply-To:Date:Date:Message-Id:Message-Id:Reply-To;
-	bh=vchKlw0oPu4/T9op3iicQOsXwyXtZm1YnhCzMrpelZ8=;
-	b=AUq3R75TpcJXek13rBy6pg7JQmbMn1X7+Juae6ZdxUXMCjfmLC0BpW8c6s5M3Oq/
-	LEZL68TC2zBicALp6CzSHz2AcG2tahNSGd3YUCwC+UF7HEXAe+B48eK/Y/o+rq7SRlx
-	zatgsZ73vm0agFg3m4hvhD7/c+vLmOcfcffHFfxE=
-Received: by smtp.zohomail.com with SMTPS id 1791299386430341.413130039174;
-	Tue, 6 Oct 2026 08:09:46 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="F8A09YOU"
+Received: by mail-wm1-f47.google.com with SMTP id 5b1f17b1804b1-4a17b4c6133so8153625e9.1
+        for <linux-kernel@vger.kernel.org>; Tue, 06 Oct 2026 08:10:47 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791299446; x=1791904246; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=nmOy8UDU42FfjcKIpdai+HCHqrBu8cVwJxEwsCYIUb8=;
+        b=F8A09YOUdJS3+xdCV4vMlZ1womBpEg4R8hGmqtE0R0cfop78coMnxfdtbtSA6xpqPq
+         /Gw/yWqliMFDMnjPqKBGSUyyYpsWZd60PoQRKriIg4PZcZBef+Dr+COx9+OwgYr6PtVg
+         I8W2PTe6ZDfR+WTFqa++BRjmR/rXTMtDP3mBd0NUOOUfBOCFCQyZtA7qITLmQVEhVJwZ
+         k1PNXFBBEKPb2PptrGAeWMntInGNVq+02e67hSfMlXEtwHSJUn6mP7dNyQmdokbDQ82z
+         98wNOHTneS2TM/v1N27aZP1pS0l+cxy1FSV6ivFkIkcMgL+rPh9dVxOUcAlMfU062yJq
+         QLaA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791299446; x=1791904246;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=nmOy8UDU42FfjcKIpdai+HCHqrBu8cVwJxEwsCYIUb8=;
+        b=zVuxWfiIn1EjvafVo89bCLrI1GwzyCL5sw2x+Qa2zuVEF2OvK5BzHA6diHceio+OXe
+         UWDyljCjZjQyOplCcjo9ILcXXDFGnIG0cbUangR3itUd8yIPRvhdg+aXH5hjq5HOHEZ8
+         M7a/hw5EU3ILdoR1EIPJQPPhr5YIbU1l/5w5XKhOMWT7tteg3BRjmj0IQlSLFvUIfD+5
+         UGVUlFsl5pZ169pmPzhBZtfCxhEbWORMk5c6J9/RWWn1cPVN6FHD2siz3NRerFLTLkyu
+         spvVU9bvRj7R2Dy4/XI3U+tnq630t+Lh/XX0C3Bisoswz5UyElKREjWdk4+5uY3ZB8Dp
+         7qbg==
+X-Forwarded-Encrypted: i=1; AKwUvBw2F0ny9TkXXFw129VAZAmIvOksH/oEbr/lrE9lCh+LVyQkkDFkzWWPaExA9Qywa/O/3QCcVf44nwTkZX4=@vger.kernel.org
+X-Gm-Message-State: AFuF++lc06nl11EAZAi5MsRosBxmNSsDvds//iqnhKt0y6oLacd6/5p4
+	hakfVe5Q70BhyC3kGt1h5mwIwLc1ZCf5q6jU5hdlUOQa8RuzsPBs9B78
+X-Gm-Gg: AYBFou3mI2sx0VW+yrx8B8GkHhzRckGDRU0uFUzWI2B4K0m5a2JCUA5jW6+Oii1DkQV
+	XmfYzV3hdg6UzzdQ8kbIl6OADXq21ei9IFYBVpVpmz4CdVP22xcUkm/sUwjqp472V7xIQkLJJaA
+	95LC6ZlG1SMfmumFU5K26Y9zr0PAGe4FkwWgmUfd+c+sROGPpPMxmnVSdNqVBlgRK/tY0ny7Yzq
+	q7rbHyt+WSVrifMWM65n4xawdd9xFjHMcfggGv0ProwZfBiawGwhzgx77nJXE7b1YaQSMurICf9
+	j8epKISPZJc9cci4AESw1a3OHFQcIu5qtHB9/DZIKTByWTbIyMLTtOvriZSFahEG6ouEnQUX+iP
+	n8yOIb6CWzD0IB+GX54OtiaVPLKTwyFsLCR1WxFduyCjY00SyULV7BgH0nYLizpduuRwgO9QygG
+	6QonSUda9bsM3Qk1qNn+d5y1y5ElKggUHzyhbJDlXSoq/wJjaKp/HnXuLBrGwhbkFHNIeCG0L25
+	jS1C75XnKWCrkcYGur/e0mF+T0xGDYZXwb37vEOeBcO5VW0j9nt4H7XDOEeDGLLIfLzp8NFkZWX
+	bUIxOPRmaPsfoHq6LC2MvFXqshaUs0XKzi5oiN2ZeWsUexhW5m069x7vQvX+MM5NGT9RES+pf8+
+	OJOixdwJV2COwLIRhk4wjRh+v3DU8XsydIm0zy2R2O1MLtFXin++LBjIuauENOZXy3yL221W7+G
+	Bn3o4ddROnO6zY2II=
+X-Received: by 2002:a05:600c:4e11:b0:49f:bd3c:bc24 with SMTP id 5b1f17b1804b1-4a17b554d8dmr27260815e9.31.1791299445565;
+        Tue, 06 Oct 2026 08:10:45 -0700 (PDT)
+Received: from localhost (90-182-112-124.rcp.o2.cz. [90.182.112.124])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a17a0fc2e4sm73243025e9.3.2026.10.06.08.10.38
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 06 Oct 2026 08:10:40 -0700 (PDT)
+Date: Tue, 6 Oct 2026 17:10:35 +0200
+From: Joshua Crofts <joshua.crofts1@gmail.com>
+To: Abdelnasser Hussein <abdelnasserhussein11@gmail.com>
+Cc: Nuno =?ISO-8859-1?Q?S=E1?= <nuno.sa@analog.com>, Michael Hennerich
+ <Michael.Hennerich@analog.com>, Jonathan Cameron <jic23@kernel.org>, Greg
+ Kroah-Hartman <gregkh@linuxfoundation.org>, David Lechner
+ <dlechner@baylibre.com>, Andy Shevchenko <andy@kernel.org>,
+ linux@analog.com, linux-iio@vger.kernel.org, linux-staging@lists.linux.dev,
+ linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] staging: iio: adt7316: use kstrtobool() for sysfs
+ boolean parsing
+Message-ID: <20261006171035.00001ce2@gmail.com>
+In-Reply-To: <20261006103350.32853-1-abdelnasserhussein11@gmail.com>
+References: <20261006103350.32853-1-abdelnasserhussein11@gmail.com>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.51; x86_64-w64-mingw32)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-Subject: Re: [PATCH v12 09/15] drm/panfrost: Add warning messages to fatal
- error conditions
-From: =?utf-8?q?Adri=C3=A1n_Larumbe?= <adrian.larumbe@collabora.com>
-To: Steven Price <steven.price@arm.com>
-Cc: =?utf-8?q?Adri=C3=A1n_Larumbe?= <adrian.larumbe@collabora.com>, 
- Boris Brezillon <boris.brezillon@collabora.com>, 
- Rob Herring <robh@kernel.org>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Faith Ekstrand <faith.ekstrand@collabora.com>, 
- "Marty E. Plummer" <hanetzer@startmail.com>, 
- Tomeu Vizoso <tomeu@tomeuvizoso.net>, Eric Anholt <eric@anholt.net>, 
- Robin Murphy <robin.murphy@arm.com>, Philipp Zabel <p.zabel@pengutronix.de>, 
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
- Collabora Kernel Team <kernel@collabora.com>, 
- Neil Armstrong <neil.armstrong@linaro.org>
-In-Reply-To: <2ea16821-fcd8-4f35-b371-7c7e57f76e7c@arm.com>
-References: <20260929-claude-fixes-v12-0-62beb08de207@collabora.com>
- <20260929-claude-fixes-v12-9-62beb08de207@collabora.com>
- <2ea16821-fcd8-4f35-b371-7c7e57f76e7c@arm.com>
-Date: Tue, 06 Oct 2026 16:09:40 +0100
-Message-Id: <179129938072.1018806.14660127756555690690.b4-reply@b4>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=4034;
- i=adrian.larumbe@collabora.com; h=from:subject:message-id;
- bh=/359jzaga1q2flPdc665gmmTDhhWSRi9NJm4hn7GQNw=;
- b=owEB7QES/pANAwAKAQ4mfkzuU0M9AcsmYgBqxQ80W+6riWXlL7Lnulw1qR5GZHk/R7c0H2cXo
- siCVo85wi+JAbMEAAEKAB0WIQQyQDDowAUXXfk3B6QOJn5M7lNDPQUCasUPNAAKCRAOJn5M7lND
- PaiWDACV+IKNA/V2NgbdzN1Dj41QFt7Dt9Gq5KjmnFRbTcHti2H664QF7XtZPiRq7vNWtUuycWL
- wlgklToVdjW5wmK68j/dEcrf2UK146Mo+xhRtJa4ezJRTMz7uRtAC0ZLrIDPV1q2yuZQdn+Qd3p
- hLyaRUAqpdJ1e5lOcYDzOGB+1C8jbA4L491qiauxQCrhlPZ32zLB+PkFgqXNfsdW22Gan+v26zT
- EigAmdfwfLPboDxCNjspLo5orU1WJEG2tso4sK3PXLO/7iCXGa6qop5Zpp+kRgi4Se4/o0enxUa
- eCz+/V9UaTfMH5qIeImO7AcyvCkYyUBjH2HNMSEgMZTCJxXtpZXtpBBqsErvHw/enQdBCxMyEXj
- ZEFeY/yKJVN8Num529CNzXSrz1R69oJDc+dojJ0wqzbE+LO7rTr2uDn+oIkRUsnMgWItoOFD9SA
- 7Ued9iw/MKLPNuPTj5woQ4WWNWS7bWbty3d55jWn030gmQSuSCOnJYJeM8WM7s4Lo/hb8=
-X-Developer-Key: i=adrian.larumbe@collabora.com; a=openpgp;
- fpr=324030E8C005175DF93707A40E267E4CEE53433D
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-On 2026-10-02 15:59:20+01:00, Steven Price wrote:
-> On 29/09/2026 04:44, Adrián Larumbe wrote:
+On Tue,  6 Oct 2026 13:33:50 +0300
+Abdelnasser Hussein <abdelnasserhussein11@gmail.com> wrote:
+
+> Replace manual and unsafe character checks (e.g., buf[0] == '1') with the
+> standard kstrtobool() API in sysfs store functions. This ensures proper
+> handling of standard boolean inputs, fixes potential safety issues, and
+> adheres to the Linux kernel coding style.
 > 
-> > Rather than just failing silently, let's warn the user of device remove not
-> > being able to take an PM reference or the PM suspend path still reporting
-> > inflight jobs. Neither situation should ever happen.
-> > 
-> > Reviewed-by: Boris Brezillon <boris.brezillon@collabora.com>
-> > Signed-off-by: Adrián Larumbe <adrian.larumbe@collabora.com>
-> > ---
-> >  drivers/gpu/drm/panfrost/panfrost_device.c | 5 +++--
-> >  1 file changed, 3 insertions(+), 2 deletions(-)
-> > 
-> > diff --git a/drivers/gpu/drm/panfrost/panfrost_device.c b/drivers/gpu/drm/panfrost/panfrost_device.c
-> > index c6bf3d0663df..09a5752a3f40 100644
-> > --- a/drivers/gpu/drm/panfrost/panfrost_device.c
-> > +++ b/drivers/gpu/drm/panfrost/panfrost_device.c
-> > @@ -9,6 +9,7 @@
-> >  #include <linux/pm_runtime.h>
-> >  #include <linux/regulator/consumer.h>
-> >  #include <drm/drm_drv.h>
-> > +#include <drm/drm_print.h>
-> >  
-> >  #include "panfrost_device.h"
-> >  #include "panfrost_devfreq.h"
-> > @@ -357,7 +358,7 @@ int panfrost_device_init(struct panfrost_device *pfdev)
-> >  
-> >  void panfrost_device_fini(struct panfrost_device *pfdev)
-> >  {
-> > -	pm_runtime_get_sync(pfdev->base.dev);
-> > +	drm_WARN_ON(&pfdev->base, pm_runtime_get_sync(pfdev->base.dev) < 0);
+> Signed-off-by: Abdelnasser Hussein <abdelnasserhussein11@gmail.com>
+> ---
+>  drivers/staging/iio/addac/adt7316.c | 94 +++++++++++++++++++++++------
+>  1 file changed, 77 insertions(+), 17 deletions(-)
 > 
-> This seems fine.
-> 
-> >  	pm_runtime_dont_use_autosuspend(pfdev->base.dev);
-> >  	pm_runtime_disable(pfdev->base.dev);
-> > @@ -516,7 +517,7 @@ static int panfrost_device_runtime_suspend(struct device *dev)
-> >  {
-> >  	struct panfrost_device *pfdev = dev_get_drvdata(dev);
-> >  
-> > -	if (!panfrost_jm_is_idle(pfdev))
-> > +	if (drm_WARN_ON(&pfdev->base, !panfrost_jm_is_idle(pfdev)))
-> 
-> I'm a bit wary that this might be something that user space can trigger.
-> My AI says:
-> 
-> The runtime-suspend WARN can be reached by ordinary userspace job
-> submissions. The DRM scheduler increments credit_count before calling
-> Panfrost’s job runner (drivers/gpu/drm/scheduler/sched_main.c:1044).
-> Panfrost takes the job’s PM reference later in hardware submission
-> (drivers/gpu/drm/panfrost/panfrost_job.c:213). If autosuspend runs in
-> that interval, the new WARN
-> (drivers/gpu/drm/panfrost/panfrost_device.c:525) sees the credit and
-> fires, even though this is a timing race rather than a broken job.
-> Repeated submissions near the autosuspend boundary could therefore
-> produce repeated stack traces. The PM core treats the resulting -EBUSY
-> as a transient failure.
-> 
-> Now I have to admit I don't trust it that much - but I'd want a
-> convincing argument on why panfrost_jm_is_idle() will never be false here.
+> diff --git a/drivers/staging/iio/addac/adt7316.c b/drivers/staging/iio/addac/adt7316.c
+> index 20f6052cc7fb..21a1b811a142 100644
+> --- a/drivers/staging/iio/addac/adt7316.c
+> +++ b/drivers/staging/iio/addac/adt7316.c
+> @@ -246,12 +246,12 @@ static ssize_t adt7316_store_enabled(struct device *dev,
+>  {
 
-You're right. I was in the belief that autosuspend kicking in was proof of no
-inflight or pending jobs present in the scheduler queues, so I came to treat
-this check as things having gone awry.
+Please also include linux/kstrtox.h.
 
-I guess its value lies in the ability of the PM runtime suspend handler
-to cancel itself at an autosuspend event, like you said.
+>  	struct iio_dev *dev_info = dev_to_iio_dev(dev);
+>  	struct adt7316_chip_info *chip = iio_priv(dev_info);
+> -	int enable;
+> +	bool enable;
+> +	int ret;
+>  
+> -	if (buf[0] == '1')
+> -		enable = 1;
+> -	else
+> -		enable = 0;
+> +	ret = kstrtobool(buf, &enable);
+> +	if (ret)
+> +		return ret;
+>  
+>  	if (_adt7316_store_enabled(chip, enable) < 0)
+>  		return -EIO;
+> @@ -285,13 +285,18 @@ static ssize_t adt7316_store_select_ex_temp(struct device *dev,
+>  	struct iio_dev *dev_info = dev_to_iio_dev(dev);
+>  	struct adt7316_chip_info *chip = iio_priv(dev_info);
+>  	u8 config1;
+> +	bool req;
 
-However, it just made me wonder: what would happen in the event that autosuspend
-kicks in and runs panfrost_device_runtime_suspend() right at the same time that
-a scheduler job is picked up by drm_sched_run_job_work(), but hasn't yet reached
-the statement where it does an atomic increment on the credit_count? I guess
-nothing, because panfrost_job_hw_submit() is getting a PM reference before
-accessing any HW registers, and that should take care of dealing with any
-ongoing autosuspend events.
+Hmmm, req is a pretty vague name in my opinion. Ideally you shouldn't
+use super short variable names unless they are self explanatory/common
+(like ret or inx). What does req mean? Could be request or required...
 
-In that case I'll just delete that warning. However, I'd say it's bad practice
-to have DRM drivers access the internal state of the DRM scheduler. At present,
-only Panfrost and Etnaviv poke it in their RPM suspend handlers, and I've been
-wondering whether we should get rid of this check altogether, or else maybe ask
-the scheduler maintainers whether it makes sense to have a non-racy way to
-query the presence of pending jobs in their queues?
+(Perhaps I'm just nitpicking).
 
-> Thanks,
-> Steve
+Otherwise LGTM.
 
-
+-- 
+Kind regards,
+Joshua Crofts
