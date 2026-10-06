@@ -1,148 +1,125 @@
-Received: from mail.mainlining.org (mail.mainlining.org [5.75.144.95])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4F75A4A3D3D;
-	Tue,  6 Oct 2026 18:21:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=5.75.144.95
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 281594A43FE
+	for <linux-kernel@vger.kernel.org>; Tue,  6 Oct 2026 18:22:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791310888; cv=none; b=qsmR7X1Ce4J5YGGhthIWnzqEGzcmXhMilIjRIdXmBnevZqMLv9wcFi04/5yHKiP/FpcKsPuPrZ4UJbFfyxEritxpoVwEoKLbOBCR6sccgjRQJ1qmt+KTStDXSUW4RaBVt/96p+x+8sCGsT8dwRe4xu21ZBXxnlNMn1Y81oNAgsg=
+	t=1791310953; cv=none; b=YL06H4tzwyMRL03GBLS2vInQCQVm07Fz4Aksnwq7/ORyvEI3Zo2A8KE4fA4/4/so2/Qakm5uD52OjfmKQFHUwoZfA2Ill2w/OBjOzGRXDNzwTOfAwNyZHB2EsvwKKNNDNDwudDxb5wviBBUYyxiCyZe9LcQSvt9UeesBqmK8zg0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791310888; c=relaxed/simple;
-	bh=yvEowojj7lTWt336vh/tC/kyz8qXTbPbPQ9eaqjKYWQ=;
-	h=MIME-Version:Date:From:To:Cc:Subject:In-Reply-To:References:
-	 Message-ID:Content-Type; b=AREqOh3CCUz4NfXwpEH+Zzybk/tg8HK+FOXEPSRKRCa/hsQypZsJ4fHwBnJuN/iXC+lByWb9kwDmMNwVylqtU2W8GACYme97bIw6QRpGps3X7pvGZ1ThAHHjNVDKlrOi5E6ELfb65Uvd1NdKIL6da2Nt0L93q2uy6xGZoaCgq1Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org; spf=pass smtp.mailfrom=mainlining.org; dkim=pass (2048-bit key) header.d=mainlining.org header.i=@mainlining.org header.b=pF6YMycd; dkim=permerror (0-bit key) header.d=mainlining.org header.i=@mainlining.org header.b=2BpKq7No; arc=none smtp.client-ip=5.75.144.95
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mainlining.org
+	s=arc-20240116; t=1791310953; c=relaxed/simple;
+	bh=EPgKzaoJgstcSFA4vVpNd50KL37zoeGTt4wYgKNHB8U=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=YBTkod4sJPWl3vezviZQrv2iiX/mEKKHu8hJ6kNhJdUug4tyMwCO/ksD7mXiow0DHmZbbtr4oZPj4TqeaL14en7V0uHTmbRuIv37B5uuL8P1sSpkMezGJrbCKLQtRUi6qllvYK+SICWq55kk9xFClA8uqbMQx01Qv5uNbfxYQMQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=pyLovpcI; arc=none smtp.client-ip=74.125.225.141
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=mainlining.org header.i=@mainlining.org header.b="pF6YMycd";
-	dkim=permerror (0-bit key) header.d=mainlining.org header.i=@mainlining.org header.b="2BpKq7No"
-DKIM-Signature: v=1; a=rsa-sha256; s=202507r; d=mainlining.org; c=relaxed/relaxed;
-	h=Message-ID:Subject:To:From:Date; t=1791310875; bh=hsmk0xUQOeuU61kOIu34tRH
-	SVUNEeNow5kkjB0uZ+9g=; b=pF6YMycdqjwNjEKoQ2HhTUkccc1ie0LzKTbc8VH1ENWUlajLTN
-	eLNWV3QYSZ2ffFEEIpUeX8V7ZDDaduBJ4D4Ia8n2Mb0oY4t53asrd8+2qxf7PBOtEgfdfwks848
-	K8s7TvXv88IYrmMUZaRvCid4EinhdkpIH5BRezL0ykl1F300tLsBbCsl/RMDw/Rz723Ly+lZR6K
-	B6qhp53xsepukvp/iMnNyufHPMubDexkc6pA89jT/ioE1V0zM+z3kOej49C4lOjxpfxcpvDy2lZ
-	3/qL02wrlon6i0xtoz9I9f4vJllfWer0w2rQwD4cDCuknRHWkZeyYxkBm97hdfmQDcA==;
-DKIM-Signature: v=1; a=ed25519-sha256; s=202507e; d=mainlining.org; c=relaxed/relaxed;
-	h=Message-ID:Subject:To:From:Date; t=1791310875; bh=hsmk0xUQOeuU61kOIu34tRH
-	SVUNEeNow5kkjB0uZ+9g=; b=2BpKq7Nox97rfTEWiyv6Gr2GUGWcJos/PFfvxRVuoP8vflWNNw
-	JlENeUSVpEOU6GQweHpKoRsfCm3qWpjlrPBQ==;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="pyLovpcI"
+Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49fbc3db5fbso1790475e9.2
+        for <linux-kernel@vger.kernel.org>; Tue, 06 Oct 2026 11:22:30 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791310949; x=1791915749; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=9u9L32THq/S3e/dlOZfHwPUcMWY4OrkYhCdcRMC2Rs0=;
+        b=pyLovpcIa+ToAq7K55Z1buUg8qfrxyASYf9uxX95+d3cy9+MUYhO1HIeBB1JrmaqjA
+         uDtFz/XGdC8jrRBTgGUz/QEzINFIMtUR/A3K7xt1iT19hB29S8kTaQOZphQJQ1yCECch
+         CSKqdPCh2h4WJedUngsVWzLYqnoOnjGt6vF3TxyMngmAhMi6UUAbC2OnW8z5g/U6+v9d
+         I2VLWn3FTa6UJc0FlLRDpwMN5qCBBo8KbazKPvLuK/8uVwA1iSoddPakg9FGrDUmrHJi
+         KciD+7zhRGy2fiLl+aDpDbJcObSgSkBsrLSyfDXrCxk6SaCASj/nsIxGk4t7+4NdT1Vz
+         VwAg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791310949; x=1791915749;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=9u9L32THq/S3e/dlOZfHwPUcMWY4OrkYhCdcRMC2Rs0=;
+        b=bVkNYWR/JZFEy3vmE3RVeJSLs7bhLIe5COUSQVRwmW/FBSWQGETKoOsZFwLzljbUI2
+         B+vQ3tYO5nE3WeonZEnUXqE4iO4DIecsXY0VMgSX1w0qw/YOnioBu0ok601YOHf356uS
+         X3i5QgOcGOUfARQc2S5zxNTTbLyrFTYq2mL81zBtKzPMXKt+Q5h4M4bgO7fnxbqwB6tH
+         fVxMs4hQ4vS5MtVTj/UDchiqA9R36kd8gpuOoCwAcE7evD0LA/Bj9N5TPFiZSG84WGhJ
+         ByDpq3yQd3F4Jkdf+B0Y2UjuFW0Tacwg7v3QwnTnDMFoHXw9qvReOJRzEwskrb9IZPaU
+         /1ww==
+X-Forwarded-Encrypted: i=1; AKwUvBwgpUp5xqBsL8+1PY7sgsyGBNANnylJQJ9a1Pe/bnKzTCH5DL2lp6spYaaA5xjZaBEJGVzsXIKR2TsF5oU=@vger.kernel.org
+X-Gm-Message-State: AFuF++mCn9GmII47MaUgILcAqCWi5AK392XQNOJm+XFOSfSdltvdJRzu
+	IYQvYDY8uVzUYl8anBLla7wX+jahUQPSeFnPJmgjQxy1kK6XtgJ46aNJKeoE/sSxb74OTw==
+X-Gm-Gg: AYBFou22vPTc7KtbX1aXWwyYFW4hM5RgEVG2JeVheBS4a7KEvztzJgYPXUKvUqkUsd7
+	DI/3Is1FP/Pixk1gQNKH2gnRmR8ZA1u4ceHpzuqVKpd4Q5zslkamwpz40gTsgPjcEgLXFq8rwn6
+	iuE13GJtRpCc+SbGpu3zx5hFEEGIKppawoIsgdWo6D6dLaIrFy6qkfiBdCVwaAZtP++GFBOJQ6t
+	fdXcFMn8yjDRo8z77gTzXM/7lSFOGzK5p4n2aB52sFiPlvhbDdomXjvvPkEYWV8QbQLvXzGccSd
+	E5GKeVzhDuwJEwCIfIfEz6wXrL4L2hGf2s/BlwEjw3GPgUUtbtj4tc6ZP4BH05TjHVlvQUNwGIu
+	fCKSNxV/+qN48WOdNdoHcLe4tGxdr6p0x/+X83y0LPwU+TXZE0Y3nsNFK74BKIJtTnIR8GG5KUb
+	tX2bCG1AVH3UgesKfKJO6/hoa/7t1dv0xuKJxJ8ZtDHFS4YRn3XtlB
+X-Received: by 2002:a05:600c:6217:b0:4a0:1f9e:5f78 with SMTP id 5b1f17b1804b1-4a027452677mr236959715e9.0.1791310948864;
+        Tue, 06 Oct 2026 11:22:28 -0700 (PDT)
+Received: from localhost ([2620:10d:c092:500::4:4701])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a17f4882d3sm4005345e9.4.2026.10.06.11.22.28
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 06 Oct 2026 11:22:28 -0700 (PDT)
+From: Gustavo Luiz Duarte <gustavold@gmail.com>
+Subject: [PATCH net v2 0/2] netconsole: fix target enable race and configfs
+ read locking
+Date: Tue, 06 Oct 2026 19:21:24 +0100
+Message-Id: <20261006-netcons-fixes-v2-0-ca652d55fd4a@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Date: Tue, 06 Oct 2026 20:21:15 +0200
-From: =?UTF-8?Q?Barnab=C3=A1s_Cz=C3=A9m=C3=A1n?=
- <barnabas.czeman@mainlining.org>
-To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
- Mathieu Poirier <mathieu.poirier@linaro.org>, Konrad Dybcio
- <konradybcio@kernel.org>, Stephan Gerhold <stephan@gerhold.net>, Ulf Hansson
- <ulfh@kernel.org>, Abel Vesa <abelvesa@kernel.org>,
- linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-pm@vger.kernel.org,
- linux-remoteproc@vger.kernel.org
-Subject: Re: [PATCH v3 3/7] pmdomain: qcom: rpmpd: Split SDM632 pm domains
- from MSM8953
-In-Reply-To: <i4zm6zil2qyfdrclkxf6sifgup4phi6dlggspxrd7khlvbqv4e@yxotc3cslqss>
-References: <20261002-sdm632-rpmpd-v3-0-95c47d0f26cf@mainlining.org>
- <20261002-sdm632-rpmpd-v3-3-95c47d0f26cf@mainlining.org>
- <i4zm6zil2qyfdrclkxf6sifgup4phi6dlggspxrd7khlvbqv4e@yxotc3cslqss>
-Message-ID: <d514f6ad8c8d56dfb395f92ac100623b@mainlining.org>
-X-Sender: barnabas.czeman@mainlining.org
-Content-Type: text/plain; charset=UTF-8;
- format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/12NQQ6CMBBFr0JmbQ0US8CV9zAs2jrAGGlJpxIN4
+ e4WdOXy/3l/3gKMgZDhnC0QcCYm71KQhwzsoF2Pgm4pg8xllTdSCYfReseioxeyaEpdYnEqZWU
+ UpM0UcD+kyRUSCu235Ke5o43bpw0biKMP7906Fzv8E9R/grkQuTBGdR0qrJpaX/pR0+No/Qjtu
+ q4fOkmi1MEAAAA=
+X-Change-ID: 20260925-netcons-fixes-93a3e14326b5
+To: Breno Leitao <leitao@debian.org>, Andrew Lunn <andrew+netdev@lunn.ch>, 
+ "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, 
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
+ Stephen Hemminger <stephen@networkplumber.org>
+Cc: Gustavo Luiz Duarte <gustavold@gmail.com>, netdev@vger.kernel.org, 
+ linux-kernel@vger.kernel.org
+X-Mailer: b4 0.15.2
 
-On 2026-10-05 09:04, Dmitry Baryshkov wrote:
-> On Fri, Oct 02, 2026 at 12:38:31AM +0200, Barnabás Czémán wrote:
->> Remove modem related pm domains from MSM8953 rpmpd because MSM8953 MSS
->> is using mss-supply as regulator.
->> Split SDM632 rpmpd from MSM8953 because SDM632 MSS is using mss-supply
->> as pm domain.
->> 
->> Signed-off-by: Barnabás Czémán <barnabas.czeman@mainlining.org>
->> ---
->>  drivers/pmdomain/qcom/rpmpd.c | 29 ++++++++++++++++-------------
->>  1 file changed, 16 insertions(+), 13 deletions(-)
->> 
->> diff --git a/drivers/pmdomain/qcom/rpmpd.c 
->> b/drivers/pmdomain/qcom/rpmpd.c
->> index 5f55fc791131..c37a79d6bc43 100644
->> --- a/drivers/pmdomain/qcom/rpmpd.c
->> +++ b/drivers/pmdomain/qcom/rpmpd.c
->> @@ -503,19 +503,8 @@ static struct rpmpd md_s1a_corner_ao = {
->>  	.key = KEY_CORNER,
->>  };
->> 
->> -static struct rpmpd md_s1a_lvl_ao;
-> 
-> I'd rather see #define RPMPD_VDDMD_AO unless you have a good reason to
-> drop it.
-There is no AO defined here: 
-https://git.codelinaro.org/clo/la/kernel/msm-4.9/-/blob/LA.UM.10.6.2.c26-01500-89xx.0/arch/arm64/boot/dts/qcom/msm8953-regulator.dtsi#L19
-https://git.codelinaro.org/clo/la/kernel/msm-4.9/-/blob/LA.UM.10.6.2.c26-01500-89xx.0/arch/arm64/boot/dts/qcom/sdm439-regulator.dtsi#L19
-> 
->>  static struct rpmpd md_s1a_lvl = {
->>  	.pd = { .name = "md", },
->> -	.peer = &md_s1a_lvl_ao,
->> -	.res_type = RPMPD_SMPA,
->> -	.res_id = 1,
->> -	.key = KEY_LEVEL,
->> -};
->> -
->> -static struct rpmpd md_s1a_lvl_ao = {
->> -	.pd = { .name = "md_ao", },
->> -	.peer = &md_s1a_lvl,
->> -	.active_only = true,
->>  	.res_type = RPMPD_SMPA,
->>  	.res_id = 1,
->>  	.key = KEY_LEVEL,
->> @@ -703,8 +692,6 @@ static const struct rpmpd_desc msm8917_desc = {
->>  };
->> 
->>  static struct rpmpd *msm8953_rpmpds[] = {
->> -	[MSM8953_VDDMD] =	&md_s1a_lvl,
->> -	[MSM8953_VDDMD_AO] =	&md_s1a_lvl_ao,
->>  	[MSM8953_VDDCX] =	&cx_s2a_lvl,
->>  	[MSM8953_VDDCX_AO] =	&cx_s2a_lvl_ao,
->>  	[MSM8953_VDDCX_VFL] =	&cx_s2a_vfl,
->> @@ -844,6 +831,21 @@ static const struct rpmpd_desc qm215_desc = {
->>  	.max_state = RPM_SMD_LEVEL_TURBO,
->>  };
->> 
->> +static struct rpmpd *sdm632_rpmpds[] = {
->> +	[RPMPD_VDDMD] =		&md_s1a_lvl,
->> +	[RPMPD_VDDCX] =		&cx_s2a_lvl,
->> +	[RPMPD_VDDCX_AO] =	&cx_s2a_lvl_ao,
->> +	[RPMPD_VDDCX_VFL] =	&cx_s2a_vfl,
->> +	[RPMPD_VDDMX] =		&mx_s7a_lvl,
->> +	[RPMPD_VDDMX_AO] =	&mx_s7a_lvl_ao,
->> +};
->> +
->> +static const struct rpmpd_desc sdm632_desc = {
->> +	.rpmpds = sdm632_rpmpds,
->> +	.num_pds = ARRAY_SIZE(sdm632_rpmpds),
->> +	.max_state = RPM_SMD_LEVEL_TURBO,
->> +};
->> +
->>  static struct rpmpd *sdm660_rpmpds[] = {
->>  	[RPMPD_VDDCX] =		&cx_rwcx0_lvl,
->>  	[RPMPD_VDDCX_AO] =	&cx_rwcx0_lvl_ao,
->> @@ -954,6 +956,7 @@ static const struct of_device_id 
->> rpmpd_match_table[] = {
->>  	{ .compatible = "qcom,qcm2290-rpmpd", .data = &qcm2290_desc },
->>  	{ .compatible = "qcom,qcs404-rpmpd", .data = &qcs404_desc },
->>  	{ .compatible = "qcom,qm215-rpmpd", .data = &qm215_desc },
->> +	{ .compatible = "qcom,sdm632-rpmpd", .data = &sdm632_desc },
->>  	{ .compatible = "qcom,sdm660-rpmpd", .data = &sdm660_desc },
->>  	{ .compatible = "qcom,shikra-rpmpd", .data = &shikra_desc },
->>  	{ .compatible = "qcom,sm6115-rpmpd", .data = &sm6115_desc },
->> 
->> --
->> 2.56.0
->> 
+While looking into the sashiko report about local_ip_show() and
+remote_ip_show() missing proper locking [1], I noticed a couple other
+places that need locking: patch 1/2 fixes a null-ptr-deref when enabling
+a target races against a NETDEV_UNREGISTER event, and patch 2/2 fixes a
+use-after-free when the local_mac_show() callback races against a
+NETDEV_UNREGISTER event.
+
+[1] https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260814-netcons_ipv6-v3-7-bc0915e8c75f@gmail.com
+
+Signed-off-by: Gustavo Luiz Duarte <gustavold@gmail.com>
+---
+Changes in v2:
+- Resending for the 'net' tree.
+- Link to v1: https://patch.msgid.link/20260928-netcons-fixes-v1-0-bb5ffe5e698a@gmail.com
+
+To: Breno Leitao <leitao@debian.org>
+To: Andrew Lunn <andrew+netdev@lunn.ch>
+To: "David S. Miller" <davem@davemloft.net>
+To: Eric Dumazet <edumazet@kernel.org>
+To: Jakub Kicinski <kuba@kernel.org>
+To: Paolo Abeni <pabeni@redhat.com>
+To: Stephen Hemminger <stephen@networkplumber.org>
+Cc: netdev@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org
+
+---
+Gustavo Luiz Duarte (2):
+      netconsole: finish enabling the target before releasing RTNL
+      netconsole: read np.dev under the RTNL in local_mac_show()
+
+ drivers/net/netconsole.c | 22 ++++++++++++++--------
+ 1 file changed, 14 insertions(+), 8 deletions(-)
+---
+base-commit: d5a007b9b457c915ab1a53227e8939e4018aa97a
+change-id: 20260925-netcons-fixes-93a3e14326b5
+
+Best regards,
+--  
+Gustavo Luiz Duarte <gustavold@gmail.com>
+
