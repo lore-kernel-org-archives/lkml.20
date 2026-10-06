@@ -1,179 +1,142 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6ABDB231829;
-	Tue,  6 Oct 2026 09:38:53 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 83CA7288C2D;
+	Tue,  6 Oct 2026 09:39:00 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791279534; cv=none; b=u0FxHGlEyXoCATgV4WZsPtAwWc7frHkWOTHBW9eBEVaCM04zfFJRd0gqSZ8C5l0BDty1yGyqOR9+Ce1HBpuUHU1BnhpjVo6o/dpucBTr3CjC1IKJQ1ZWlEJTMeTRz8nx54Dw/I+g9ZmZ0SnSCZy0mNndWKFe6s+hwDVsoiLVe4o=
+	t=1791279542; cv=none; b=BOsWhnbEIcX3Nm9sBjHgjNzvNI8AdJAp4+5SO+9yHunk6Yk/pfnqCVpse0F0Vti9aZYCJg9+FQc9mj6xBBCnS4fu4/mW+X25hLotGj1arSUSlLgDwlTo/7C8uAU+3okl4jBhSaraQj/tMx+dWtYvX44hcAk0Y550Y5N7ZKSv4CA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791279534; c=relaxed/simple;
-	bh=xvI7QxA0zzWmWCU7jrxfVAAC95rQjrMUUSlHuT+vlTk=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=G/VFWKRaRyrCZOAVLrxWTc+OMY0AR1L3ULS3LTKQcMbjG7bORD4g/hGESmcFBD17h1MUzubMGsTZ/JFif8kxgyCQ2zhKG88aamcOcc7HUceqX1pKBNqAtu4vwyjyv4FbKulqFg+wXL5OI6HM/2q86G4oi1NlIRO4FksjZAYITLI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=eUS/FOXD; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791279542; c=relaxed/simple;
+	bh=xHIKDl1YOdzR9stjV+DQinnaatuz7Z0o6g8GMagiQtg=;
+	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=HXm+JE5lgA6LoUG9g+05c2CLOCkAzMyUh+QfCpLBwnvy6WsxvABTotllRUikzbc4mkk/mJq3wnwClkUwL5WhBqNUgipLnlRKSjm8C8a98bBLbommn62ITEZ5QpKSRnWu5X84v9tuPSJunNVDakAMChuRRc1QKgS4kbEZr7S9irk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kDru/Ioz; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="eUS/FOXD"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6AB921F000FF;
-	Tue,  6 Oct 2026 09:38:50 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kDru/Ioz"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D2C6F1F000FF;
+	Tue,  6 Oct 2026 09:39:00 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791279533;
-	bh=gk2x8xTXFyS7Damzh5pMSZEky6AcMORsKpJ/0CVQZcI=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=eUS/FOXDO2qaZ0BoiqDrFJLnetqgEHuH4FDypKy7omS9ZHpfG67TTGqoXLXzQlYsr
-	 xQ+AA9YteCuEzOwlrK/8JQOQtin7iWFP07VzDONUispB7bVIF1vOpK+KAEw2H1ZGP6
-	 GTv3DhegYPF4ByutaQTnLEcZ2vg490zxVp+NLDdXTazuiWs1rIDtFhnUvCdWS7PD+7
-	 4EcBkbjTiy19KDPBOWRpDRLiQjcVASDdSCSwvpbcfzVdSfo2wraXuJn1jfaDS9zL09
-	 Zq1fodG3VoCJlP1AHVwp9Sn9eC1l8V7aWOX4PbuFGaytJf7pfooYqrlla343QezvxH
-	 qscIL4gbm9wkg==
-Date: Tue, 6 Oct 2026 10:38:47 +0100
-From: Daniel Thompson <danielt@kernel.org>
-To: Svyatoslav Ryhel <clamor95@gmail.com>
-Cc: Lee Jones <lee@kernel.org>, Pavel Machek <pavel@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Liam Girdwood <lgirdwood@gmail.com>,
-	Mark Brown <broonie@kernel.org>, Jingoo Han <jingoohan1@gmail.com>,
-	linux-leds@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org, mfd@lists.linux.dev,
-	dri-devel@lists.freedesktop.org
-Subject: Re: [PATCH v2 2/3] mfd: aat2870: Convert to use OF bindings
-Message-ID: <asTBp2RPPvsD4AsU@aspen.lan>
-References: <20261004164121.193514-1-clamor95@gmail.com>
- <20261004164121.193514-3-clamor95@gmail.com>
- <asPVmbvyslGgEsjk@aspen.lan>
- <CAPVz0n29+1yOO0i057RdpUAu+z85hhnm9GGaHkqgf5XW1SPfeQ@mail.gmail.com>
+	s=k20260515; t=1791279540;
+	bh=O9HJH+uXkT13MNQK1cMIvKlsgzXLnzAXDk7pgKiWtZY=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=kDru/Ioz3ij+3dRZx740U4Gb2cGeu3UNTE4DQltvVbtA/ea6TUMkTYu/uB5G+yg9E
+	 3ZUXnlLTdBiCb6+KKvAJwkpdlI1udbxgfiacsddel5nbrfh1hr6XPp9RpRgQaxgLul
+	 HnwJHiRPtKNGE9DPC7ZfgIJy8AjOA56x36cOTH5nAdemdgkimQIyOm8HLxeMFijXiM
+	 4QTvldbbnaN3eGZiN6zodlweXqAdhtJzDumYFFt+C6NV3iCqG1scgCmxxNpOfjnDTQ
+	 8FM/zKBxkZ1rZjhEy2RDgXxRpj2kwvkFCC5tR0JgxnTS6Z4gz1NUhVY9FPCblWyUxI
+	 H0h68H5qx2qPw==
+Received: from sofa.misterjones.org ([185.219.108.64] helo=lobster-girl.misterjones.org)
+	by disco-boy.misterjones.org with esmtpsa  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+	(Exim 4.98.2)
+	(envelope-from <maz@kernel.org>)
+	id 1xE1dS-0000000HMXc-1zsb;
+	Tue, 06 Oct 2026 09:38:58 +0000
+Date: Tue, 06 Oct 2026 10:42:06 +0100
+Message-ID: <878q4b2mj5.wl-maz@kernel.org>
+From: Marc Zyngier <maz@kernel.org>
+To: Kohei Enju <enju.kohei@fujitsu.com>
+Cc: Tomohiro Misono <misono.tomohiro@fujitsu.com>,
+	Catalin Marinas <catalin.marinas@arm.com>,
+	Will Deacon <will@kernel.org>,
+	Mark Rutland <mark.rutland@arm.com>,
+	Jonathan Corbet <corbet@lwn.net>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Randy Dunlap <rdunlap@infradead.org>,
+	Thomas Gleixner <tglx@kernel.org>,
+	Radu Rendec <radu@rendec.net>,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	linux-doc@vger.kernel.org,
+	linux-perf-users@vger.kernel.org
+Subject: Re: [PATCH 4/4] irqchip/gicv3: Add workaround for FUJITSU-MONAKA erratum E#030003
+In-Reply-To: <asS5r0WNCQpMIo4p@FCCLS0092175.localdomain>
+References: <20261002-monaka-fix-for-upstream-v1-0-4aec0b0cbe34@fujitsu.com>
+	<20261002-monaka-fix-for-upstream-v1-4-4aec0b0cbe34@fujitsu.com>
+	<86tsn42sqr.wl-maz@kernel.org>
+	<asS5r0WNCQpMIo4p@FCCLS0092175.localdomain>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI-EPG/1.14.7 (Harue)
+ FLIM-LB/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL-LB/10.8 EasyPG/1.0.0 Emacs/30.1
+ (aarch64-unknown-linux-gnu) MULE/6.0 (HANACHIRUSATO)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <CAPVz0n29+1yOO0i057RdpUAu+z85hhnm9GGaHkqgf5XW1SPfeQ@mail.gmail.com>
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+X-SA-Exim-Connect-IP: 185.219.108.64
+X-SA-Exim-Rcpt-To: enju.kohei@fujitsu.com, misono.tomohiro@fujitsu.com, catalin.marinas@arm.com, will@kernel.org, mark.rutland@arm.com, corbet@lwn.net, skhan@linuxfoundation.org, rdunlap@infradead.org, tglx@kernel.org, radu@rendec.net, linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org, linux-perf-users@vger.kernel.org
+X-SA-Exim-Mail-From: maz@kernel.org
+X-SA-Exim-Scanned: No (on disco-boy.misterjones.org); SAEximRunCond expanded to false
 
-On Mon, Oct 05, 2026 at 08:18:31PM +0300, Svyatoslav Ryhel wrote:
-> пн, 5 жовт. 2026 р. о 19:51 Daniel Thompson <danielt@kernel.org> пише:
-> >
-> > On Sun, Oct 04, 2026 at 07:41:20PM +0300, Svyatoslav Ryhel wrote:
-> > > Conversion of the AAT2870 driver to use OF bindings requires a few complex
-> > > changes that should be done simultaneously.
+On Tue, 06 Oct 2026 10:08:19 +0100,
+Kohei Enju <enju.kohei@fujitsu.com> wrote:
+> 
+> On 10/02 13:26, Marc Zyngier wrote:
+> > On Fri, 02 Oct 2026 11:26:52 +0100,
+> > Tomohiro Misono <misono.tomohiro@fujitsu.com> wrote:
+> > > 
+> > > From: Kohei Enju <enju.kohei@fujitsu.com>
+> > > 
+> > > On affected FUJITSU-MONAKA CPUs, an SGI generated by writing to
+> > > ICC_SGI0R_EL1, ICC_SGI1R_EL1, or ICC_ASGI1R_EL1 may be lost if the
+> > > operation races with CPU interface processing triggered by the arrival
+> > > of a higher-priority interrupt, an update to a pending interrupt, or a
+> > > transition of the PE to the Sleep state. When this occurs, the system
+> > > register write does not complete, causing the issuing core to hang.
 > > >
-> > > The AAT2870 essentially provides two functions via child devices:
-> > > backlight and regulators. Both functions are fairly self-sufficient and
-> > > may not be populated on the final board. Consequently, the MFD
-> > > registration API was replaced with of_platform_populate(), and each
-> > > sub-device was given its own compatible string.
-> > >
-> > > Additionally, aat2870-core utilizes an enable GPIO. Obtaining this GPIO
-> > > was converted to use modern gpiod/OF helpers, allowing the redundant
-> > > aat2870_enable() and aat2870_disable() helpers to be removed.
-> > >
-> > > The aat2870-regulator driver was updated to register each of the four LDOs
-> > > from a dedicated OF node.
-> > >
-> > > The aat2870-backlight driver was changed to populate all required
-> > > properties from a dedicated Device Tree node. Its channel map was updated
-> > > to use u8 instead of int. Furthermore, because the maximum current is now
-> > > parsed as an absolute value rather than an enum entry, the calculation and
-> > > application of the maximum current were updated accordingly.
-> > >
-> > > All of the changes above allow platform data to be removed entirely.
-> > >
-> > > Signed-off-by: Svyatoslav Ryhel <clamor95@gmail.com>
-> > > ---
-> > >  drivers/mfd/aat2870-core.c            | 115 ++++++--------------------
-> > >  drivers/regulator/aat2870-regulator.c |  76 ++++++++++++-----
-> > >  drivers/video/backlight/aat2870_bl.c  |  55 ++++++------
-> > >  include/linux/mfd/aat2870.h           |  95 +--------------------
-> > >  4 files changed, 111 insertions(+), 230 deletions(-)
-> > >
-> > > [snip]
-> > >
-> > > diff --git a/drivers/video/backlight/aat2870_bl.c b/drivers/video/backlight/aat2870_bl.c
-> > > index 8b790df1e842b..933a8f728f66a 100644
-> > > --- a/drivers/video/backlight/aat2870_bl.c
-> > > +++ b/drivers/video/backlight/aat2870_bl.c
-> > > @@ -15,11 +15,19 @@
-> > >  #include <linux/backlight.h>
-> > >  #include <linux/mfd/aat2870.h>
-> > >
-> > > +/* Backlight has 8 channels, each bit represents one channel */
-> > > +#define AAT2870_BL_CH_ALL    0xff
+> > 
+> > Is the SGI lost? Or is the sender core hanging?
+> 
+> Both: the SGI is lost, and the sysreg write does not complete, causing
+> the sending core to hang.
+
+I don't think the two are distinguishable. You might want to simplify
+the commit message to simply say that the CPU hangs.
+
+[...]
+
+> > > +		 */
+> > > +		for_each_cpu(cpu, mask)
+> > > +			gic_send_sgi_via_rdist(cpu, d->hwirq);
 > > > +
-> > > +/* Backlight current magnitude (uA), 450uA current is eq to 0 */
-> > > +#define AAT2870_CURRENT_MIN  450
-> > > +#define AAT2870_CURRENT_MAX  27900
-> > > +#define AAT2870_CURRENT_STEP 900
-> > > +
-> > >  struct aat2870_bl_driver_data {
-> > >       struct platform_device *pdev;
-> > >       struct backlight_device *bd;
-> > >
-> > > -     int channels;
-> > > +     u8 channels;
-> > >       int max_current;
-> > >       int brightness; /* current brightness */
-> > >  };
-> > > @@ -30,7 +38,7 @@ static inline int aat2870_brightness(struct aat2870_bl_driver_data *aat2870_bl,
-> > >       struct backlight_device *bd = aat2870_bl->bd;
-> > >       int val;
-> > >
-> > > -     val = brightness * (aat2870_bl->max_current - 1);
-> > > +     val = brightness * aat2870_bl->max_current;
-> > >       val /= bd->props.max_brightness;
-> >
-> > What is the purpose of max_brightness?
-> >
-> > Normally it is used to limit brightness but max_current is already doing
-> > that. Is it just being used to reduce the number of steps in the
-> > brightness scale (and if so, why is that useful)?
-> >
+> > > +		/* Force the above writes to GICR_ISPENDR0 to be executed */
+> > > +		dsb(st);
+> > 
+> > This doesn't force things to be executed. This is about completion of
+> > the access, and with an nGnRE mapping, it doesn't enforce that the
+> > stores actually reach the RDs, only an arbitrary point in the memory
+> > subsystem.  The only way to guarantee this is to perform a read-back.
+> 
+> Understood.
+> 
+> I hadn't considered this when writing v1, but on further reflection, I
+> don't think gic_ipi_send_mask() needs to wait for the target CPUs to
+> handle the IPIs.
+
+It's not about the target CPU handling the IPI, that'd be crazy. It is
+about making sure that the IPI request has been observed by the HW and
+that it is not going to race with something else.
+
+> Given that the GICv2 driver does not wait for MMIO
+> write completion either, I don't think we need to ensure completion of
+> these writes before returning.
+
+GICv2 has different architectural requirements (i.e. none). GICv3 is a
+bit clearer, see the requirements at the end of 12.1.3 in IHI0069H.b.
+
+> 
+> If my understanding is correct, I'll remove the dsb(st) in v2.
 >
-> This is the original driver behavior; I did not modify it.
 
-I can see that but the parameters for these (rather dubious) previous
-behaviours are now being copied into the devicetree bindings where they
-become stable ABI.
+As indicated in the spec, you either need nGnRnE+DSB, or a read-back.
+Given that Linux uses nGnRE for all device mappings, read-back is the
+only option here.
 
+Thanks,
 
-> The AAT2870 backlight intensity is regulated by the Main Backlight
-> Current Magnitude register. It has 31 steps from 450uA (0) to 27.9mA
-> (31), so even setting max_current to 0 will not disable the backlight.
-> The max current value may be limited for some configurations, which is
-> why this property exists.
->
-> The max_brightness property determines the maximum number of steps the
-> backlight can have and is mapped to the available current range
-> provided by the hardware. The backlight is controlled in steps, not in
-> uA.
+	M.
 
-This behaviour does not match the devicetree bindings documentation for
-max-brightness:
-
-  Normally the maximum brightness is determined by the hardware and this
-  property is not required. This property is used to put a software limit
-  on the brightness apart from what the driver says, as it could happen
-  that a LED can be made so bright that it gets damaged or causes damage
-  due to restrictions in a specific system, such as mounting conditions.
-
-Hence the question, why is the current behaviour useful?
-
-If I understand your summary correctly the hardware has 32 steps
-including 0) and the effect of max_current is to ban all brightness
-values greater than max_current / AAT2870_CURRENT_STEP.
-
-If that is the case then max_brightness if fundamentally broken because
-it's default value offers more steps than exists in the hardware.
-bd->props.max_brightness should be set to max_current /
-AAT2870_CURRENT_STEP and the whole of aat2870_brightness() should be
-removed (use backlight_get_brightness() instead).
-
-IMHO the patchset will be cleaner if the weird max_brightness logic is
-removed in a separate before doing the DT changes.
-
-
-Daniel.
+-- 
+Jazz isn't dead. It just smells funny.
