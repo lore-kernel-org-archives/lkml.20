@@ -1,51 +1,35 @@
-Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3BE334A1DF3;
-	Tue,  6 Oct 2026 16:31:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=156.67.10.101
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B1FEB455194;
+	Tue,  6 Oct 2026 16:31:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791304313; cv=none; b=nQ92FK/j6KQRkMbDsNtox+iuNtrD1/fx65w4vdhrRtUFYxtcQWFCT3yKZNg9cLLo3D6pUT3g0rsDsosSrcRvZ/14EktwUUTo1KttITF38d2aKozqWwdIUxOUGxmlttvPCsn/pn7diIqtPLJA9+DC5OyMZuhBmhoHQpvtdLfcyHE=
+	t=1791304320; cv=none; b=stQyy6vcWwjpaHAGbqh5mv2ZCLZwDoSD2FcvFY6aiTcfvTwYKD1bXuLUJI+PkuVpCO1DGsroybR1B118gpASRERk52SV967/80ldNbEMyjxNXRok7ETlnx0wEgbMS5Htt5MAd2d68LGSIY0XNVxFoi2iVzrJttzmAj9918NAukQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791304313; c=relaxed/simple;
-	bh=lynKH9J1r+yLEq18u3SeYGVfPmGE2YqBxMHTxUGRN2M=;
+	s=arc-20240116; t=1791304320; c=relaxed/simple;
+	bh=N8q9/f3c0mTcbNDp1IbBY8Dlo4+CnJsx95R3Mu6kD5U=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Xx7BeGe/kRiOi3+wLo7US2/oRThRhxZ5TB1gmjGqxkEVRnCGM/YxKeo2eUydth8fWpZsFy5xfIl+4qUtxhg+ZQBEmEYmJcmoyX8zrQ2puDa+MDsP02sZQkoq8pCXrpkR/B+Aj1jxXUEamWJudn0+7JLY0LBhE9wt3R7J6RWH4KI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch; spf=pass smtp.mailfrom=lunn.ch; dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b=L6t/cpFw; arc=none smtp.client-ip=156.67.10.101
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
+	 Content-Type:Content-Disposition:In-Reply-To; b=QO5CXUtLVJUnwOSAq2JPFIDC14U0C49ug68AiHcu1SVFr9QIGQ8CyGbEWhAmfsuDdxRi7k1/5DOJS3Hlx0O572k3NNHMp3wBrcJpztMeUq4hNMGFQUP27jEHJQAh3abJKhMn5g+NYHZUBsys3Iy2oSWHDO6QHzPZRARJHQ1DykI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=HnJfDcyI; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b="L6t/cpFw"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
-	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
-	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
-	bh=B6T2ShZYF6QLE9lOD1rDDU/G79U+U5EjdXOIJBHeE2E=; b=L6t/cpFwZOrA0RajbFQgQrDkOI
-	1svUCk2SuKgWi4r0me2/5fn1eC5bKe7W1i/35cXV4b21p9kSVKVYTRq1IWDNLQ7el4mWgJ9h7wwlF
-	hq0PD6lkxEb7RiK+rXgbINDZAnmToaXUC52nqcRs2vsbmjMy8/n6rTzOD2L7JpyQZK1w=;
-Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
-	(envelope-from <andrew@lunn.ch>)
-	id 1xE84q-009IZy-VG; Tue, 06 Oct 2026 18:31:40 +0200
-Date: Tue, 6 Oct 2026 18:31:40 +0200
-From: Andrew Lunn <andrew@lunn.ch>
-To: Jacky Chou <jacky_chou@aspeedtech.com>
-Cc: Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S. Miller" <davem@davemloft.net>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Po-Yu Chuang <ratbert@faraday-tech.com>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Heiner Kallweit <hkallweit1@gmail.com>,
-	Russell King <linux@armlinux.org.uk>, netdev@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH net-next v2 3/6] net: ftgmac100: Enable AST2700 RMII
- support
-Message-ID: <268b6bc5-40a5-47b4-99a2-68d9f56b359a@lunn.ch>
-References: <20261006-support_ast2700-v2-0-36de51fb8066@aspeedtech.com>
- <20261006-support_ast2700-v2-3-36de51fb8066@aspeedtech.com>
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="HnJfDcyI"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B3E731F0089B;
+	Tue,  6 Oct 2026 16:31:58 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1791304319;
+	bh=GODFXfGbLJie88amhF5JaPRNzvesDOYc0AkH8pBpCnU=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=HnJfDcyI1QT9qc7oBsdUTNfG9kVQZjx4ueB7z6ZdjdeyTG623JjMggDgWquhBgfok
+	 z+xziduJZ6oKbOyQsUVUByR8OMFNSj0ROP7bmNBxT06OmGUQVvdkaqbd8pR+yryDrV
+	 hB3/Am8zPZjRHH7W8LZXMadtC0pdzJ5yY8UCP97Y=
+Date: Tue, 6 Oct 2026 18:31:56 +0200
+From: Greg KH <gregkh@linuxfoundation.org>
+To: Pranav Desai <contact.pranavdesai@gmail.com>
+Cc: linux-staging@lists.linux.dev, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] staging: rtl8723bs: replace uint with unsigned int
+Message-ID: <2026100619-putt-splinter-674d@gregkh>
+References: <20261006102846.170825-1-contact.pranavdesai@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -54,16 +38,19 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261006-support_ast2700-v2-3-36de51fb8066@aspeedtech.com>
+In-Reply-To: <20261006102846.170825-1-contact.pranavdesai@gmail.com>
 
->  static void ftgmac100_start_hw(struct ftgmac100 *priv)
->  {
->  	u32 maccr = ioread32(priv->base + FTGMAC100_OFFSET_MACCR);
-> +	struct phy_device *phydev = priv->netdev->phydev;
+On Tue, Oct 06, 2026 at 03:58:46PM +0530, Pranav Desai wrote:
+> The Linux kernel coding style prefers the use of standard
+> types like 'unsigned int' instead of the non-standard 'uint'.
+> 
+> Replace all occurrences of 'uint' with 'unsigned int' throughout
+> the rtl8723bs driver to adhere to the coding style.
 
-Is it safe to assume there is a phydev? The AI is better at this sort
-of logic, but looking at ftgmac100_probe_dt() is think it is possible
-to not have a phydev. And ftgmac100_phy_disconnect() does guard
-against not having one.
+Shouldn't you pick the "real" variable instead?  Look at what these are
+used for and only then if it really should be "unsigned int" can you
+replace them, otherwise make it explicit like u8, u16, etc.
 
-	Andrew
+thanks,
+
+greg k-h
