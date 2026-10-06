@@ -1,144 +1,86 @@
-Received: from mail-oa1-f52.google.com (mail-oa1-f52.google.com [209.85.160.52])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2AB5238AC65
-	for <linux-kernel@vger.kernel.org>; Tue,  6 Oct 2026 22:24:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.52
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 747D438B133;
+	Tue,  6 Oct 2026 22:25:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791325498; cv=none; b=JGjuFp8vNDrFvIhdwAKS6zgR8ESnks7hXHK7jOBOxLPwNEBLDUFe6XztIU+nZUhtBZSZGRytMLpIqyPkpVvNx13I72fwQcWGLmaawgBOs58fywn1L26XQRGZDUpf5jZebnTk1cFEgPZK+D2thdqcGGYtgsXqsuQ/8U6/iHMR4EM=
+	t=1791325510; cv=none; b=u8R9qzmw38KMyQl6PnBk8xF4oQlgKKcQKCIWRgQhdfC76ZL+GlY5e+8nFH1XOkjw2W0+mdMXNqI4V7POAq8SJRP3LLI396PG31R3M8Lgp1+tG6OJtHmzf5p+BUSN3hhsP22Uo36RKCmELfT+8Ry20ABdt4bMOhk2nt/EDWOKvck=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791325498; c=relaxed/simple;
-	bh=C/wjBB6ODndbUHD9ckG0IP7OsNMrq0W3o6908fW2L50=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=SkyakA0g0lISppkNS+xWbWsTnrUVk9dbCOjFADXjn4jDVsWyuKy14hD1+3g7wthZQyfNmZTyElgqkp0Q0kLP38BLE6Yr+MwkYTfhn4gQXPTsDiK9TyscOnBmAgh71XEE6j437BL2AHNrKsqbJuFeKpUz4908xaCyvD0qbifDvt0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=openai.com; spf=pass smtp.mailfrom=openai.com; dkim=pass (1024-bit key) header.d=openai.com header.i=@openai.com header.b=HQnFtNIa; arc=none smtp.client-ip=209.85.160.52
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=openai.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=openai.com
+	s=arc-20240116; t=1791325510; c=relaxed/simple;
+	bh=b7iWX7b8ZjSGe2dGw8tye9ATb81SP+mmfnV7tOyaSwQ=;
+	h=Date:From:To:Cc:Subject:Message-Id:In-Reply-To:References:
+	 Mime-Version:Content-Type; b=UoijdIgS9VP4Ojv14LnPgtBcJkvXs5sVi2nqcNmetjQLRalgnhhy2aG2kkqN9M1YTUpG2jslPCxFfid+pmUCIzaJSYtJRH2wMzEDt4F4hQhCZbGDp1zN+b+2cTRLwg9gKvIEOf475wP8uvCutpwB9OdezNbG+ZoYcNyw5Wh6vL0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=2j/Z6j05; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=openai.com header.i=@openai.com header.b="HQnFtNIa"
-Received: by mail-oa1-f52.google.com with SMTP id 586e51a60fabf-48e94879f02so483889fac.0
-        for <linux-kernel@vger.kernel.org>; Tue, 06 Oct 2026 15:24:56 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="2j/Z6j05"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AA75C1F0089B;
+	Tue,  6 Oct 2026 22:25:08 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=openai.com; s=google; t=1791325496; x=1791930296; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=NRmWs1MEMIQ0AZDf8upgCfJOi1tx4WylAjm9X23MxPc=;
-        b=HQnFtNIaajFZYK80ldSYTSAAMUKUysYyH6MipFGMpjBRzEVqOQqTsAx1T+JdpSNzwK
-         jBOkSJ4kt6CXvtE4QjDQGBJFkAytnjfzzL+FAwzf0usU+gmqUQmFmgh7oTNJOnn34JHk
-         cPseTxtiRe/0jlUYAVccbL0dP9ZswtZGGKyjE=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791325496; x=1791930296;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=NRmWs1MEMIQ0AZDf8upgCfJOi1tx4WylAjm9X23MxPc=;
-        b=unFBz7TOZffp0Hw7k6SSUTFIA6IIxNS241YZNLMCs6SY/fEMDsMknDKru4dqUxibO5
-         H+PPv7wfsJnq276dGNgPw9cqzV/bnqAPufDpOve1UAfIdP91AXPE1SvARAX3DE/v4gcg
-         3RM+4yM8O/+NtEFZzaw4MaSm7iEu9sq06po5Jg5i7FCvCC7/3bFASWxBbaesGUOz+jqs
-         p40NxIWmB0FugWNCWnpptCZQZPACs/7vr0tb5QSF65F+qkhZ55RpntSGHiVHyl78LpzH
-         T/SWo+pf+PYqiHk0+sEqyH0gu3hvTzegrsNGvXxR2UCwZDdoVveRApLC1+3b0heE9Eov
-         ccmQ==
-X-Gm-Message-State: AFuF++lZX/3NvyrQlq6bgIkZYP4cuEvxyra+0YrpvCMyeydvbw8/7D8V
-	RYFIkCd6275YsFizHYuYwKPvNNbT5RpS00p2QopuYS9vuV+vBqJJLiGjRjatBnLX+ZWedCqCot+
-	FBupXFKQ=
-X-Gm-Gg: AYBFou2ggvNZUDPPSUiSNTqnImKwyfncXV6ajFNNkmd9cFiahM87zST/GHbL3vK/OYD
-	PUMD2Q8m/GOV4s7TeG6o8NPINOaEf6Dqv8RMvS1gJOckXSuxaex3U+HITyO1GI5R+AE43lj4Ba6
-	IQpwinQMvk7rGXvvpMg0IKeWbDcck91ee4ZplGCjO700zpqGINgGMvukIZnswRZFxzCKAY8J8X/
-	479py/bJUzzAGa0JqG9XAPiskJmYJngAKk9xjM335+hH+ZHUvIoNz5nGprJ6geiz7Tw4lZzjKgx
-	ZfFeD7q9igaoD7JP8fKpG4FmkYyB1arK66SQo+esjroRQNhqpi7lMKSCJisKn8TpwF6TOl0eKeO
-	ohjopLlxIHxyACQMmhKPjgvkZTqfL9dSIR8kS8yAGgI5Q1iPWfEq0iT/VkvdRyyQUETHG2hx7QL
-	Yku2ThymTvyOwfLAwAK9benik4HtRlZP4vw1s5+7+iBi/1zkNEDHH+4/amuvpFC8j9d4keJmATu
-	n4H9vRQDG0ZebngoG19VK2yHcoFTg4WVa2g1FqQBN7zwkIlwHQ+RE3GxM6Jz9TSnS8Bd8zoQWw=
-X-Received: by 2002:a05:6870:c248:b0:449:bccf:bb6e with SMTP id 586e51a60fabf-4a2591dc120mr415992fac.7.1791325495841;
-        Tue, 06 Oct 2026 15:24:55 -0700 (PDT)
-Received: from com-75606.corp.openai.org ([199.47.143.7])
-        by smtp.gmail.com with ESMTPSA id 586e51a60fabf-4a25716e1f5sm578773fac.9.2026.10.06.15.24.53
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Tue, 06 Oct 2026 15:24:55 -0700 (PDT)
-From: Kyle Zeng <kylebot@openai.com>
-To: linux-kernel@vger.kernel.org
-Cc: tglx@kernel.org,
-	mingo@redhat.com,
-	outbounddisclosures@openai.com,
-	Kyle Zeng <kylebot@openai.com>
-Subject: [PATCH] futex: Use a keyed hash for global futex buckets
-Date: Tue,  6 Oct 2026 15:24:50 -0700
-Message-ID: <20261006222450.42518-1-kylebot@openai.com>
-X-Mailer: git-send-email 2.55.0
+	d=linux-foundation.org; s=korg; t=1791325508;
+	bh=7Jk7PLs4H0c6txoot5IcBFv812i6Hp1MuAA5BEaXSLs=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=2j/Z6j05P5TpKNA0tiEvdKOrWERNLzOVj8gMp+a91yu/vEy79GW9LlVJwfEykZkor
+	 Q7+x2TrdV51p3YlkUMFOaAMGK+sn1AHvMN1BCyCor9QUt22RQVi7WxKF+KTQQ4jiMP
+	 4Eb2F8m+9rDKDl5wmnM51EnnnCWctsjEsi5NxDrQ=
+Date: Tue, 6 Oct 2026 15:25:08 -0700
+From: Andrew Morton <akpm@linux-foundation.org>
+To: Kyle Zeng <kylebot@openai.com>
+Cc: linux-kernel@vger.kernel.org, stable@vger.kernel.org, David Howells
+ <dhowells@redhat.com>
+Subject: Re: [PATCH] assoc_array: Preserve full words when splitting
+ shortcuts
+Message-Id: <20261006152508.ba7f3c7a6661daed4767a18a@linux-foundation.org>
+In-Reply-To: <20261006220638.32195-1-kylebot@openai.com>
+References: <20261006220638.32195-1-kylebot@openai.com>
+X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Mime-Version: 1.0
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-The global futex hash is a public jhash2 of the key, which for private
-and shared-anonymous futexes includes an mm_struct pointer. A task can
-populate a bucket with futex_waitv() and time nonmatching wakes to learn
-which chosen user addresses collide. Shared-file keys have predictable
-inode sequence numbers, so the task can also identify the bucket and
-turn those timings into constraints on current->mm.
+On Tue,  6 Oct 2026 15:06:38 -0700 Kyle Zeng <kylebot@openai.com> wrote:
 
-The per-mm private hash does not prevent this: a task can disable it
-through PR_FUTEX_HASH. NUMA-routed private futexes and shared-anonymous
-keys also use the global hash.
+> assoc_array_insert_mid_shortcut() copies enough index-key words for the
+> new pre-shortcut, then masks off the unused bits in its last word.  If
+> diff is word-aligned, the shift is zero and the mask clears that entire
+> word, even though all of it belongs to the required prefix.  The new
+> shortcut no longer matches the objects behind it, so lookups can fail
+> for both the existing objects and the new one.
+> 
+> For example, inserting a user key with a different description length
+> into a keyring containing enough full-hash collisions can split a
+> shortcut at bit 64 and erase its hash word.  The resulting search
+> failure can also expose the pointer-dependent keyring hash as a KASLR
+> oracle.
+> 
+> Only trim the last word when diff ends inside it.  This mirrors
+> commit bb2ba2d75a2d ("assoc_array: Fix shortcut creation"), which fixed
+> the terminal-node case, and leaves non-word-aligned splits unchanged.
 
-Use SipHash-2-4 with a boot-time random key for global bucket selection.
-Hash the three identity fields individually, without padding or the
-separately handled NUMA node. Keep the original futex keys and equality
-checks, and leave the per-mm hash, which only hashes userspace addresses
-and offsets, unchanged. Initialize the secret before the global tables
-are made available and keep it fixed for their lifetime.
+Thanks.
 
-Assisted-by: Codex:gpt-6-astra
-Signed-off-by: Kyle Zeng <kylebot@openai.com>
----
- kernel/futex/core.c | 13 +++++++++++--
- 1 file changed, 11 insertions(+), 2 deletions(-)
+When fixing a bug please clearly describe the userspace-visible runtime
+effects of that bug.  Including how-to-hit-it, reproducer, user reports, etc.
 
-diff --git a/kernel/futex/core.c b/kernel/futex/core.c
-index a061f54b606d..941713b62ee1 100644
---- a/kernel/futex/core.c
-+++ b/kernel/futex/core.c
-@@ -42,7 +42,9 @@
- #include <linux/pagemap.h>
- #include <linux/plist.h>
- #include <linux/prctl.h>
-+#include <linux/random.h>
- #include <linux/rseq.h>
-+#include <linux/siphash.h>
- #include <linux/slab.h>
- #include <linux/vmalloc.h>
- #include <linux/kmemleak.h>
-@@ -58,6 +60,7 @@
- static u32 __futex_mask __ro_after_init;
- static u32 __futex_shift __ro_after_init;
- static struct futex_hash_bucket **__futex_queues __ro_after_init;
-+static siphash_key_t futex_hash_key __ro_after_init;
- 
- static __always_inline struct futex_hash_bucket **futex_queues(void)
- {
-@@ -386,8 +389,12 @@ __futex_hash(union futex_key *key, struct futex_private_hash *fph, struct futex_
- 	}
- #endif
- 
--	hash = jhash2((u32 *)key, offsetof(typeof(*key), both.offset) / sizeof(u32),
--		      key->both.offset);
-+	/*
-+	 * Global bucket collisions are observable through futex operations.
-+	 * Use a keyed hash so they do not disclose the mm pointer in the key.
-+	 */
-+	hash = siphash_3u64(key->both.ptr, key->both.word, key->both.offset,
-+			    &futex_hash_key);
- 
- 	if (node == FUTEX_NO_NODE) {
- 		/*
-@@ -2090,6 +2097,8 @@ static int __init futex_init(void)
- 	unsigned int order, n;
- 	unsigned long size;
- 
-+	get_random_bytes(&futex_hash_key, sizeof(futex_hash_key));
-+
- #ifdef CONFIG_BASE_SMALL
- 	hashsize = 16;
- #else
+> Fixes: 3cb989501c26 ("Add a generic associative array implementation.")
+> Cc: stable@vger.kernel.org
+
+Especially when proposing a backport. 
+Documentation/process/stable-kernel-rules.rst provides guidelines.
+
+> Assisted-by: Codex:gpt-6-astra
+> Signed-off-by: Kyle Zeng <kylebot@openai.com>
+> ---
+>  lib/assoc_array.c | 8 +++++---
+
+get_maintainer coverage is poor.  Please use git-show also:
+hp2:/usr/src/mm> git show -s --format="%an <%ae> - %s" 3cb989501c26
+David Howells <dhowells@redhat.com> - Add a generic associative array implementation.
+
+Also, as this affects keyrings, grep -i keyrings MAINTAINERS shows the
+mailing list.
