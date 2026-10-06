@@ -1,79 +1,84 @@
-Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com [209.85.128.46])
+Received: from mail-dy1-f173.google.com (mail-dy1-f173.google.com [74.125.82.173])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 24A523E4112
-	for <linux-kernel@vger.kernel.org>; Tue,  6 Oct 2026 10:29:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.46
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D199F3E49D2
+	for <linux-kernel@vger.kernel.org>; Tue,  6 Oct 2026 10:29:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.173
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791282588; cv=none; b=mrQs5Tp/VWrLySwA1J7QNGb2m6VBupZNB8/5wtl6NbV9NZmQ6w7MHgxshCZ4RxBvVK5HPmsKNpJ+9cqDD6hw1V/Y/i50QicPp+j7U22BhhjilamrM7a4S7xRhauKGsAnCVAlIdiQXFp0hqecrzcGL35sS8xDtfxxdv/zEOX+uXY=
+	t=1791282592; cv=none; b=YSnMdfVbyFKZEj8Gg/mgb5jaIcyfUnGsqRDBKMve/SWYzht3mYTEplc6ZLM2UKRp62Ia3M4VXaHQvk1SBBmzOxghl6VKlL6wBglXcHCn9qsKnPu07M6xsP/0Y88SchZcl8M7b8IHOCtAnFlyvx7YZPn4ViGM18HBKGwBUVTlcgc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791282588; c=relaxed/simple;
-	bh=fCCMGsIdCATwcrMTmFVjngOswQXf7xCGLQnCBjdJHk0=;
-	h=From:To:Subject:Date:Message-ID:MIME-Version; b=NV580HPO+BW9f3kgBjj+L1Cac87rFMUDfvcLHhu2xwPpqWL/JPlqdzLssrN94AaZd3Zzev6gx++/uxrcuvcZ/qI0LpV/KKOixQgpFFsZW2tr/7fzPE236ItNLgTcr2WtKvmqDyCV05oswVkR5sUW1/jTf/o1R10qVTKDgJv3aQo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=oxTrjAHh; arc=none smtp.client-ip=209.85.128.46
+	s=arc-20240116; t=1791282592; c=relaxed/simple;
+	bh=rpq9jJOwYIlsQansIvZOVW9bA4KM5MDP/BqvMbCL50I=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=u0lX4vFMqh3UUl+dIDVXU/JVeT3QVjlmoN1QGFgfq0CQhQ+R/2oZCsKh0inkQZvw3udIFrccmYnJuHN6zSQl8nM75c//FpTibqEupgp6S398lWr+eTRF21/5RmbgQ2vaaU1gmN/AOyUnhwEBPbpm8V0OZwcasa/HDG+67pOk4P0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=sIeGsmtX; arc=none smtp.client-ip=74.125.82.173
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="oxTrjAHh"
-Received: by mail-wm1-f46.google.com with SMTP id 5b1f17b1804b1-4a01933b584so4828105e9.0
-        for <linux-kernel@vger.kernel.org>; Tue, 06 Oct 2026 03:29:46 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="sIeGsmtX"
+Received: by mail-dy1-f173.google.com with SMTP id 5a478bee46e88-31490970b97so646776eec.0
+        for <linux-kernel@vger.kernel.org>; Tue, 06 Oct 2026 03:29:49 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791282585; x=1791887385; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:to
-         :from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=TysRoX6VmeGROus3Z8XTTK5G2wbRE4tAp4KLkmbW3DI=;
-        b=oxTrjAHhjVRdUWRoSiCqIrTW/wPvu3F7WXupXYzfAvFvWxGussb9Q2bCQDSkvEG2jy
-         9nJJj6emxXubY03Jt/6c13kitxJUmP5vpc8lAEQdcZBT2cEbzUYNbDM/a1+OcfbbLStK
-         To/Lxsk4/raAd8xPPl2bDyRFnz1JDEoNXBqaPFPbaoGL64l5W9I2RscWf+gTUdwimzG4
-         hFeb3ikRDOo7z3KuqYQBCvJV4vP+OhOaA7gyrSxO21crQWWI9bpsdi/ZQQOnrwqbOAls
-         cAt+K3TxXHlVgj+L9nCQAacxaEKAqggV2HkDvnvN28+X9/v76zEvB3A7BZqJYDWjb6fd
-         unFw==
+        d=gmail.com; s=20251104; t=1791282588; x=1791887388; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=bEjXEmlCAVQzsXstKVYkWam80HXGnlDzJrE3eDAdOhc=;
+        b=sIeGsmtXUvxHs1u+w3g3vR64vajFExGKqdXCHqjHi8j6c3l/b9KjuhOxc7+AGT8QZW
+         aGz7a4jcZ83G43gjxQ/ubqRWLa860eCzTDxrPzJl9cNhJvK6hrSDJNZbgBkug+ki3JLK
+         hs9u5sFn5O8/sprasqErHG2EVNCImoFHEo77Vs914I1gMSk0e2G+jV8EvEddXXtBJobY
+         RDoQ/SH96NlubiJrmEF6abRuQprFlBfP7fKfkjz1mM9hcTr3fJF+W2GrAvWPn4b5rgYh
+         xD7qhSivzFVyRPH3Msg5BiNbQR2JjvZjIuO4zGj4WK9v2aTApvQZNczlIP1vV0UOcfJI
+         dv8Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791282585; x=1791887385;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:to
-         :from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=TysRoX6VmeGROus3Z8XTTK5G2wbRE4tAp4KLkmbW3DI=;
-        b=AlQQZHfPswoUicQfngrlIAPjSJ9fY4pARHxG0yMM3hd0INhH3fCmWTJs/Cdo6+/6kA
-         YrKJJQxbf0GD/hSZOu+giEtZ4tCQzhJvqxv/eZffiPQ3NTPdAFFP6BQt+6Xv74zYgjVj
-         foZ10C89eKRJOKEhFd+ujN/4wd62h8mi2wuIq64ZsqVwWwpXf3BadqiEj1soPHMBAWKR
-         MCckdtuAGovrdgUFtn2aUuU6VazlLUpxd8U99IxAF/esbwqvLIy+ozkDAHH86GuxTGOO
-         LKeb2AqD2wXqMyQ5k7iXg/uChaWFQZKtYCibGhpaMBrJogJjgeyHxUnj4/3TI42ZEFtG
-         LiYA==
-X-Forwarded-Encrypted: i=1; AKwUvBy6YKtoncs3t5aC1FqIYfoMNRHXpVahcQ10+21qD61HYCe84vxLv0OTYsfgrkUL1nGzMquDYkUW7HLR9vI=@vger.kernel.org
-X-Gm-Message-State: AFuF++mtmnpv9CsJKvyXM09TNQL9byKScVxIo76O3sKs9DZrss3vG8op
-	FUjxxKV28hcx+i15ecnCHDijpagOhYqDWD4kOD144I/GPEdK1XAYORN0
-X-Gm-Gg: AYBFou398gT1V7adk5vyEM/LFOLA1d6t8PRxUYNRV+DXk7wGogqk5+cdp4hnCyNmhn1
-	nx0gqOCSesC2qy6cozSZOvKch+sXwFwe0qRik2+6/9XQ5gRwVaRMFQ2+QJGh3gO+z8U2JRiRinF
-	LPKtlbVRX5kmao/myOofMGptqDqBRiG+svL5W2Z65eQ1E4Jy/qQUVR9iJEUg8tuQ/bbpdQAT2tL
-	XhFPwCVxRwNxvtYJdeJr1n3rk/Ed14vB9zbKn7/foiAHnLAZg2oyQAP/NxAqD3RiM6Re9l8O0Z+
-	iJdyXfsuy3M3UBTAx5UCMivAdegitsaJFkoTazzWSeKuRRmi75Hyyk7d6nIBepWsCKWrm3oNR2u
-	xkJuWN8ThThcWzvcbZXr0smdYNZ5HtogJ9MB22Dnd7uewQ+bgKfsH/t0d0WTLPbMoGs/xCv1fz2
-	qOqXkl4Tsvwtnps4eylc81/KnBk3BnERB1Epfb/RhVbC1yswm5yDLfTIDbDjMZ3+cirzojLrldg
-	vYQ1goIaDi+0ZPRXDbFs+purkLqtygqfNW4ddBIIk6tSvQKJdek7rpjEixj
-X-Received: by 2002:a05:600d:8499:20b0:49f:ce78:3567 with SMTP id 5b1f17b1804b1-4a17b5526e6mr13173735e9.24.1791282584897;
-        Tue, 06 Oct 2026 03:29:44 -0700 (PDT)
-Received: from Ansuel-XPS24.localdomain (host-87-20-252-14.retail.telecomitalia.it. [87.20.252.14])
-        by smtp.googlemail.com with ESMTPSA id 5b1f17b1804b1-4a178c33091sm63427485e9.4.2026.10.06.03.29.43
+        d=1e100.net; s=20260707; t=1791282588; x=1791887388;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=bEjXEmlCAVQzsXstKVYkWam80HXGnlDzJrE3eDAdOhc=;
+        b=q6Z14bWxy3ZnSYifr4Nume050sx3ThYBjtOh7tPkkRD7xx0jaSTPyrw9aKGnx7oJB7
+         JBgNhGgJpS3pTmY6zRo/k9uO1YiYzY8iN4GsQXsKH5qKQ6E0xpEHOWQ8wyynk3cPWQHw
+         d7ugjWy69I3woZ0Hv+Ez7siMG/3WY5owWyq1TrEWWwrwlkvc/S66jrGwCtJEPAkDJd1O
+         m0p1qM4YgDThaTwPcl9sVyzBn631OSDsIfgxlm4nfTli/OF4vp/Bs+1Or4JeuNAhvjtN
+         F9R+vgCLoRb6ToOtdxBLEOjvkFy9BmzH4YXGm1CZaUMzeuTiUtQEkmGjljSb/CfN1r/I
+         UxYA==
+X-Forwarded-Encrypted: i=1; AKwUvByN0DfI0UVD4Bu29R+ztxGEaFUqI6yaCPHKXHaUHDWQylsTk/bets2FkFLjncAtzleTdPX2RSpW+SSe490=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLUMFGQl2JTMxnQRrhgp2NuGCoitRH21Ruz3m63KDp2HvZISmas
+	qC1mz6nRx3iLmetlahz4VH8EYDDfmjiDisJVta+QuXaprdl2jNHLlOyr
+X-Gm-Gg: AYBFou1aykcPASHACXN8IKE0XYAbKQit3ElOrgSm3C/h085QRnau84vy+9c0+UAehDw
+	afNcdDiG6fuEinv9yBGF7gxDJj3MUXgIQlacEDZ1VaMLkAWafRnCoa6q5Bs3CS/AT1dFaABr/z7
+	YsS/pH0s1jNkvfhTEAUNZVNUraiF1mpC1FPYvDvt1OJLVrhoYS36VXegnRE18hxtY689wimko36
+	00wVuwpdRdtRGM7E3v2cXOmOWXFTt7jVBnjUwkDtd2GEyUKpUWgXXmJHD6nMuwAZ78Zco4j5cTs
+	PVjF/m57s969Kdc087+01UmypwamiUbKwPctzkjr82oiAJgZVRm3h5WuJGUUHvy1zUJzcnQSMkZ
+	tVmCMEdkCQ6iPdNgk8+IlSQ2A8UMLaFm4iliis4Yckpu+5VLzAE0hIzRoIXrZDc0sO71jYPvV5S
+	id7utGf0FfRUxOovtY+Uz8w1rC4HJUPBWG/I0j+39JNALgpWaP3T5almbvulK6QsmrRFIIXOg61
+	/TEMBCxC802VuB5esfdtvQ0TSZQsL7OltAwkdg8XumVXBbgdHNHqXC/Juuk
+X-Received: by 2002:a05:7300:ec97:b0:351:1f66:469b with SMTP id 5a478bee46e88-3514dcbd7e7mr1038255eec.2.1791282588308;
+        Tue, 06 Oct 2026 03:29:48 -0700 (PDT)
+Received: from pve-server.rlab ([49.205.216.49])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-351469fa189sm7443970eec.6.2026.10.06.03.29.43
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 06 Oct 2026 03:29:44 -0700 (PDT)
-From: Christian Marangi <ansuelsmth@gmail.com>
-To: Christian Marangi <ansuelsmth@gmail.com>,
-	Vinod Koul <vkoul@kernel.org>,
-	Neil Armstrong <neil.armstrong@linaro.org>,
-	Manivannan Sadhasivam <mani@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Lorenzo Bianconi <lorenzo@kernel.org>,
-	linux-arm-kernel@lists.infradead.org,
-	linux-phy@lists.infradead.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v14 0/3] airoha: an7581: USB support
-Date: Tue,  6 Oct 2026 12:29:32 +0200
-Message-ID: <20261006102937.10972-1-ansuelsmth@gmail.com>
-X-Mailer: git-send-email 2.55.0
+        Tue, 06 Oct 2026 03:29:47 -0700 (PDT)
+From: "Ritesh Harjani (IBM)" <ritesh.list@gmail.com>
+To: kvm@vger.kernel.org,
+	Sean Christopherson <seanjc@google.com>
+Cc: Paolo Bonzini <pbonzini@redhat.com>,
+	linuxppc-dev@lists.ozlabs.org,
+	Michael Ellerman <mpe@ellerman.id.au>,
+	Christophe Leroy <chleroy@kernel.org>,
+	Anushree Mathur <anushree.mathur@linux.ibm.com>,
+	Venkat Rao Bagalkote <venkat88@linux.ibm.com>,
+	Harsh Prateek Bora <harshpb@linux.ibm.com>,
+	Madhavan Srinivasan <maddy@linux.ibm.com>,
+	Shrikanth Hegde <sshegde@linux.ibm.com>,
+	linux-kernel@vger.kernel.org,
+	"Ritesh Harjani (IBM)" <ritesh.list@gmail.com>
+Subject: [PATCH v7 1/8] KVM: selftests: Don't limit LE dirty-bitmap bitops to s390x
+Date: Tue,  6 Oct 2026 15:58:35 +0530
+Message-Id: <63c900860b5f7e49cfa7258602e94b58b3de73b3.1791280439.git.ritesh.list@gmail.com>
+X-Mailer: git-send-email 2.39.5
+In-Reply-To: <cover.1791280439.git.ritesh.list@gmail.com>
+References: <cover.1791280439.git.ritesh.list@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -82,118 +87,54 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-This is a major rework of the old v2 series.
+dirty_log_test already has BITOP_LE_SWIZZLE helpers, but they were
+compiled in only for s390x, so every other big-endian host used native
+test_bit().
 
-The SoC always support USB 2.0 but for USB 3.0 it needs additional
-configuration for the Serdes port. Such port can be either configured
-for USB usage or for PCIe lines or HSGMII and these are configured
-in the SCU space.
+The test fails on big-endian powerpc because it treated dirty host pages
+as clean (because of the endianness issue)
 
-The previous implementation of a dedicated SSR driver was too
-complex and fragile for the simple task of configuring a register
-hence it was dropped and the handling is entirely in the PHY driver.
+w/o the fix the test fails with:
+  Clear page 1 value (1) >= iteration (1)
 
-Everything was reducted to the dt-bindings to describe the Serdes line.
+Fixes: a049a377164c ("KVM: selftests: Enable dirty_log_test on s390x")
+Tested-by: Anushree Mathur <anushree.mathur@linux.ibm.com>
+Signed-off-by: Ritesh Harjani (IBM) <ritesh.list@gmail.com>
+---
+ tools/testing/selftests/kvm/dirty_log_test.c | 12 ++++--------
+ 1 file changed, 4 insertions(+), 8 deletions(-)
 
-Also the property for the PHY are renamed to a more suitable name and
-everything is now mandatory to simplify the implementation.
-(the PHY are always present and active on the SoC)
-
-Also other unrelated patch are dropped from this series.
-
-Changes v14:
-- Drop blank lines at EOF for DT patch
-- Fix SPDX tag for move patch
-
-Changes v13:
-- Rebase on top of phy next
-
-Changes v12:
-- Rebase on top of linux-next now that clk patch got merged
-
-Changes v11:
-- Remove clk patch and move to dedicated series
-
-Changes v10:
-- Rebase on top of linux-next
-- Add review tag for DT patch
-
-Changes v9:
-- Add spinlock init
-- Add ack tag
-- Add review tag
-- Add additional comments for phys on USB 3.0
-- Add extra logic to make phys optional for USB 3.0
-
-Changes v8:
-- Squash header to clk Documentation patch
-- Address comments from AI Bot
-  Link: https://lore.kernel.org/all/20260520150912.11614-1-ansuelsmth@gmail.com/
-
-Changes v7:
-- Rework to double PHY implementation
-  (suggested by Rob)
-  Now the clk driver expose a PHY for Serdes port
-  USB PHY driver selects it
-- Rebase on top of linux-next
-  Link: https://lore.kernel.org/all/20260519220813.28468-1-ansuelsmth@gmail.com/
-
-Changes v6:
-- Fix kernel test robot (sparse warning)
-  Link: https://lore.kernel.org/all/20260306190156.22297-1-ansuelsmth@gmail.com/
-
-Changes v5:
-- Add Ack and Review tag from Connor
-- Implement Ethernet support in the USB driver
-  (testing support for this Serdes on a special reference board)
-- Use an7581 prefix for USB PHY driver
-  Link: https://lore.kernel.org/all/20251107160251.2307088-1-ansuelsmth@gmail.com/
-
-Changes v4:
-- Rename PCIe and USB PHY to AN7581
-- Drop airoha,scu (handled directly in driver)
-- Drop dt-bindings for monitor clock in favor of raw values
-- Better describe the usage of airoha,usb3-serdes
-- Simplify values of dt-bindings SSR SERDES
-  Link: https://lore.kernel.org/all/20251107160251.2307088-1-ansuelsmth@gmail.com/
-
-Changes v3:
-- Drop clk changes
-- Drop SSR driver
-- Rename property in Documentation
-- Simplify PHY handling
-- Move SSR handling inside the PHY driver
-  Link: https://lore.kernel.org/all/20251029173713.7670-1-ansuelsmth@gmail.com/
-
-Changes v2:
-- Drop changes for simple-mfd
-- Rework PHY node structure to single node
-- Drop port-id property in favor of serdes-port and
-  usb2-monitor-clock-sel
-- Make the SSR driver probe from the clock driver
-
-Christian Marangi (3):
-  dt-bindings: phy: Add documentation for Airoha AN7581 USB PHY
-  phy: move and rename Airoha PCIe PHY driver to dedicated directory
-  phy: airoha: Add support for Airoha AN7581 USB PHY
-
- .../bindings/phy/airoha,an7581-usb-phy.yaml   |  61 ++
- MAINTAINERS                                   |  11 +-
- drivers/phy/Kconfig                           |  11 +-
- drivers/phy/Makefile                          |   4 +-
- drivers/phy/airoha/Kconfig                    |  24 +
- drivers/phy/airoha/Makefile                   |   4 +
- .../phy-an7581-pcie-regs.h}                   |   0
- .../phy-an7581-pcie.c}                        |   6 +-
- drivers/phy/airoha/phy-an7581-usb.c           | 559 ++++++++++++++++++
- 9 files changed, 663 insertions(+), 17 deletions(-)
- create mode 100644 Documentation/devicetree/bindings/phy/airoha,an7581-usb-phy.yaml
- create mode 100644 drivers/phy/airoha/Kconfig
- create mode 100644 drivers/phy/airoha/Makefile
- rename drivers/phy/{phy-airoha-pcie-regs.h => airoha/phy-an7581-pcie-regs.h} (100%)
- rename drivers/phy/{phy-airoha-pcie.c => airoha/phy-an7581-pcie.c} (99%)
- create mode 100644 drivers/phy/airoha/phy-an7581-usb.c
-
+diff --git a/tools/testing/selftests/kvm/dirty_log_test.c b/tools/testing/selftests/kvm/dirty_log_test.c
+index af5eb0334a74..8189eaac713c 100644
+--- a/tools/testing/selftests/kvm/dirty_log_test.c
++++ b/tools/testing/selftests/kvm/dirty_log_test.c
+@@ -44,8 +44,11 @@
+ #define TEST_MIN_WRITES_PER_ITERATION	0x100
+ 
+ /* Dirty bitmaps are always little endian, so we need to swap on big endian */
+-#if defined(__s390x__)
++#if __BYTE_ORDER__ == __ORDER_BIG_ENDIAN__
+ # define BITOP_LE_SWIZZLE	((BITS_PER_LONG-1) & ~0x7)
++#else
++# define BITOP_LE_SWIZZLE	0
++#endif
+ # define test_bit_le(nr, addr) \
+ 	test_bit((nr) ^ BITOP_LE_SWIZZLE, addr)
+ # define __set_bit_le(nr, addr) \
+@@ -56,13 +59,6 @@
+ 	__test_and_set_bit((nr) ^ BITOP_LE_SWIZZLE, addr)
+ # define __test_and_clear_bit_le(nr, addr) \
+ 	__test_and_clear_bit((nr) ^ BITOP_LE_SWIZZLE, addr)
+-#else
+-# define test_bit_le			test_bit
+-# define __set_bit_le			__set_bit
+-# define __clear_bit_le			__clear_bit
+-# define __test_and_set_bit_le		__test_and_set_bit
+-# define __test_and_clear_bit_le	__test_and_clear_bit
+-#endif
+ 
+ #define TEST_DIRTY_RING_COUNT		65536
+ 
 -- 
-2.55.0
+2.39.5
 
