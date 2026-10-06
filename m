@@ -1,184 +1,125 @@
-Received: from mail-oo1-f49.google.com (mail-oo1-f49.google.com [209.85.161.49])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1B4C449C4A5
-	for <linux-kernel@vger.kernel.org>; Tue,  6 Oct 2026 15:07:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.161.49
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791299253; cv=pass; b=nonJQ1/geXziWRaTW/mJC4aSRbLp71BOVv3ken5NHlg7LX1Gmq+5QNtr76lTeUgSM2s/0p3KGsOSlXl5vfO0vzMQCIICgOcIdOW4yrP8eGgyDWvrzTTobbpsgiERGmSiDdlKFi6GLe+HGEPu4qmHFAvQcyVbvAGVDnmR4jeBIOw=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791299253; c=relaxed/simple;
-	bh=mvR8e6XwLGU4EOXD7ls+rbR/5w5VBav0d8Qk+350o88=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=H0Cp/ggDEaQinjasAf95lqKQZEwJv8ltV3kXEBuGUzkup2oFnngwvrXBekcKExz95wtfdw57fVWy4vl9URbdzcNYF68X2B2UYcBTX7k/hkKklrPP1Mv9nQK53t9Lc5OOnzLOVrY8UVNjaeup2p3OX9gy533WJ5C9xp5v+Un7MOk=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=mIOMtZXN; arc=pass smtp.client-ip=209.85.161.49
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0D58F49A3A9;
+	Tue,  6 Oct 2026 15:07:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791299265; cv=none; b=I/ryrRRJL9ubRChk1VSN70pYC66Nx1YzIkFmtW0hSf3TF43iSkvE2lb7wJCsUFoMRvXB3kpnnjozp+SyjQsRdIRZVIDf8LMmPl2uuQ4Zzr+GPmgaJyGkzNzRy8iI1rg518purdoCA2UKyYWPmjSNJWbuuZVeLQZviWUBvzr/fBA=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791299265; c=relaxed/simple;
+	bh=Mu0l+SUlsRUVlSKFEMWbDB8rqATQHy+rTSDBCFcHIbw=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=deEtac9BQ+Goj0qu6MUOw4UMz54Zn7nafvZt8cj+t0VoLVl96a0M3d3wjzvwSC+z843WM7AeoPWwcsO+20zoWWb4QSc5A98WeXYBlXe8KRdCumhKhN062Pbpm881CrlA7WTPmuuIZH4A1dKzs4phr0TGJkLPlFv17nx5ofM6DBw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=V7aCCt9S; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="mIOMtZXN"
-Received: by mail-oo1-f49.google.com with SMTP id 006d021491bc7-6b8e2d8df4fso478890eaf.1
-        for <linux-kernel@vger.kernel.org>; Tue, 06 Oct 2026 08:07:30 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1791299250; cv=none;
-        d=google.com; s=arc-20260327;
-        b=MjC+n2sl8v6LmDKqT3I2zHeG1ObuHIUAzqQEjHl3ugWjDpMQONN2HEkkVKsIx+DyjP
-         EwAX5ruTAFCPNeqc9xom3S9ln1wOIEpr2nEkl435PEnODjmhLFBDzKq2kbtgu4M30Jqi
-         wgZVsUI/kqXgE+NsFV9IyDZA6AZljd1ic9+IFYVW3rm5e68fDap6zRBV32GtZCH2tmd/
-         wFzTeIJtDbUhH1xmrfgDniEAeHHyvUFj+aY4AdkIaELVpY4wcr5Ca3+YonU6W8RSnuAs
-         HdEC8FXVXigau++dCV8p0voUB3RdVVJwPklhwRn1ZvsFlgQSqOwCmNdG6L7OHjyyCiYJ
-         Ls1Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=hunAm3sfdDLBt2CtfN5QW1dy32vmczfmYId9wuMqDN0=;
-        fh=Ybao7zbLyuqpI1HPEkmu+RkDKY9CCZ6447nkXEdZAME=;
-        b=eyRUfg4dLTtaxmCDa01ePnbI/UiqbWKaLWjOHKYhdGX0iGhebbcRRGF4ACDmUbnAiL
-         A23izqM8SSdDZzldiUh1B8GHLfaXMYJzScj64tN7Ifbg/kwMm1iZ+0tzNDTzTSemm6z7
-         iRpV7seuUFKirun49loFqJf4jLO4n2CJ2qCn2XZdRiuetNY6FaTxiYjrDf6rTMJEatIx
-         kR0EhTZf8A97f7CvaPIon3arVgOKGBqcBBZJ1QHSEmaZ8UFI5IPtLRullE0grBztbSv3
-         LWsOhEKmugYZkUtjQV86VisqPThJvUAsqu8zzel3adM6MT/op/pvEW3rrQC0SHQyyU3r
-         s+NA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791299250; x=1791904050; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=hunAm3sfdDLBt2CtfN5QW1dy32vmczfmYId9wuMqDN0=;
-        b=mIOMtZXNM4pVrPd/UT+YaCQnBBua9FMRL33Td9UWmuqz4jG/quOPv8lxNZB/mBb0kc
-         V1MP/oTv2jmCKwGxaNpusCNHvbJfK2qnwUJgRubTveetXlBPA1RkF6fiNr6QTcL07Cwt
-         fyubf4M19PNewX38Xt89bNFGrWE3F7ToIsJt6VAjL+T58Cw0gT7uOkO3BzcsgjICFKy+
-         OMbqWabzzXE8W7hDVah1oYUZMlmoYL2FitvbU4Auu6uRA0f+LWhmBIuZYC+H1NLxjJdq
-         KhzfpuXIvhKRRtciwHH/PoNSQj+eHd32rJZ18CO8uu7BXtyUmdnE8jEXuajdhrn9TgNZ
-         D5bw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791299250; x=1791904050;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=hunAm3sfdDLBt2CtfN5QW1dy32vmczfmYId9wuMqDN0=;
-        b=MxgViN/BjR4crlEXcaWdREvxS7lQ2//t3louaFzV7DYLuIYUQv9GRNDvFmg2QomjDc
-         HUrEbcGlkgKSP+matj3K/Uu1/Yl71r2HQaHSLPOtuYTlo2HW6FnTHJkfzXBWtR2dyCW0
-         /YqUFTUALemmvNYko1Rpta+s3mhhKRtGF0WyrEX21Ln88e18B4dESm3LyRaKeQOUj1RN
-         0yTjmvBSc6NIUVQ296Q36KgcpfoLggcwIqsm/1emCOjc4c2hIcG9E9wKoRW8qP+6/BC4
-         M/xYvoYjLJZbnFNAgCC3VifNs5gqpNppIcGm1h+ane5MU2h/WJWZ0TFIr/E3xB1lL696
-         kEjg==
-X-Forwarded-Encrypted: i=1; AKwUvByrfzrqxwPc/LsCzM95uafaCEg3WSEDAPN8Yc6pnVuRT6rF9O29veD7XNbmILEl/OsU5A9pfAfeU+o53K4=@vger.kernel.org
-X-Gm-Message-State: AFuF++kBJ44TCahwtV+pQoCtf0xI1E1+WkjPsSmiv8AVt3/bOnbXzlGf
-	/2w8M1hAAckkKNolLx9wpNqkM3+zRmUp7dmbyHcpAFjlXcAu7mNq22Km8z0SeRiCfOhMGLR7DS+
-	MQLueMRUj9wwh4m3szK4+feITzlGeaCE=
-X-Gm-Gg: AYBFou2i3g4bkcOnskL/51DMV0ZiYhprmUXnw7wUKp7r0KG2iSDhTFk7MaylguaoZNw
-	N6fKuw+ZfpHXwWwPUsckmWoLBZx6K6u+zCJiAOgCBm8i2PWUM2OV8Q+tDkRcCtfb9gsDk/KR4mN
-	DJ+D3o00DW5NSozJjGasbOqxH687hs+XVVDA6TZIyB4doElkZXA6SpDvJsUwPIccK7Rh2mZHNMM
-	Gvcvwd2ucTQvzAc0ODc5hw8OIfkhdinlNR+j2DUFk7wcBmZ+tEdpMD44J1gUC/a7fxRYM7DfDaS
-	F6DORIpLV1N2+seV38sLTSYO2D0aHYxkPZldcMgJ/ZgZLVxPQQL3PZKLgEqMuQ3bbtmxqUJZ4Br
-	8+FUBp3Q9WNzc6A==
-X-Received: by 2002:a05:6820:81c9:b0:6b7:46fa:169a with SMTP id
- 006d021491bc7-6e5552968bcmr1134418eaf.47.1791299249802; Tue, 06 Oct 2026
- 08:07:29 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="V7aCCt9S"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DDC851F0089B;
+	Tue,  6 Oct 2026 15:07:38 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791299263;
+	bh=3t5fyjcu9jt8udNnpaVavo8D/lr6s+BSeBi73L5XHOE=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=V7aCCt9SE6o2AWpQb99cC+NOeSsXlWmw4Zrri1RcMNuMURBoMdNe+R/hXUa+Q5gTd
+	 CDRdh8cZM8y7QBnmjyRFJTgtDyquTT5erY4x9OuNN82WEjvN4wWBRTBpatxPCTcuUa
+	 DmN7sLd50UIECqDAxGVxHjsDqDST24mirojq5QK7FM/WoO+mdehze+8UytDHkwBkL+
+	 mbKUc0urfHs928bPrO4hG07IBgL6yXvta10Jykbif7s3xvMnMMOwxEYHcjRhnE6N6Q
+	 Fb2bbktmQlb6dtEWxLq6wgLrvokl33ho9JjMrLk14LSHu4JZ2VJOoy6+v+5yA1mxki
+	 RbQAQgTsqHPsA==
+Message-ID: <340729c9-1cef-4060-874e-43b6d3bdeb04@kernel.org>
+Date: Tue, 6 Oct 2026 17:07:37 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260908203157.1271219-1-georgeandrout13@gmail.com>
-In-Reply-To: <20260908203157.1271219-1-georgeandrout13@gmail.com>
-From: Georgios Androutsopoulos <georgeandrout13@gmail.com>
-Date: Tue, 6 Oct 2026 11:07:19 -0400
-X-Gm-Features: AclHuK_IJugFu9Uj9xCurjumWQdLggd0Ix3vurHFpmzAMJYObMwl7ozds_jSXoI
-Message-ID: <CAESH5ofXxViFgEUOw8c3wLurgj1dzdA=j-5KaabdF1Uxzx=EuA@mail.gmail.com>
-Subject: Re: [PATCH v2] rust: id_pool: document panics in `find_unused_id` and `release_id`
-To: Alice Ryhl <aliceryhl@google.com>, Burak Emir <burak.emir@gmail.com>, 
-	Miguel Ojeda <ojeda@kernel.org>, Yury Norov <yury.norov@gmail.com>
-Cc: Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>, 
-	=?UTF-8?Q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
-	Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, 
-	Trevor Gross <tmgross@umich.edu>, Danilo Krummrich <dakr@kernel.org>, 
-	Daniel Almeida <daniel.almeida@collabora.com>, Tamir Duberstein <tamird@kernel.org>, 
-	Alexandre Courbot <acourbot@nvidia.com>, =?UTF-8?Q?Onur_=C3=96zkan?= <work@onurozkan.dev>, 
-	Eliot Courtney <ecourtney@nvidia.com>, rust-for-linux@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v18 11/23] dt-bindings: media: i2c: max96714: add support
+ for MAX96714R
+To: dumitru.ceclan@analog.com,
+ Tomi Valkeinen <tomi.valkeinen+renesas@ideasonboard.com>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>,
+ Sakari Ailus <sakari.ailus@linux.intel.com>,
+ Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
+ Julien Massot <julien.massot@collabora.com>, Rob Herring <robh@kernel.org>,
+ =?UTF-8?Q?Niklas_S=C3=B6derlund?= <niklas.soderlund@ragnatech.se>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>,
+ mitrutzceclan@gmail.com, linux-media@vger.kernel.org,
+ linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-staging@lists.linux.dev, linux-gpio@vger.kernel.org,
+ =?UTF-8?Q?Niklas_S=C3=B6derlund?= <niklas.soderlund+renesas@ragnatech.se>,
+ Martin Hecht <Martin.Hecht@avnet.eu>, Andrian Suciu
+ <Adrian.Suciu@analog.com>, Cosmin Tanislav <demonsingur@gmail.com>,
+ Martin Hecht <mhecht73@gmail.com>
+References: <20260930-gmsl2-3_serdes-v18-0-43117818f499@analog.com>
+ <20260930-gmsl2-3_serdes-v18-11-43117818f499@analog.com>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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
+In-Reply-To: <20260930-gmsl2-3_serdes-v18-11-43117818f499@analog.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Tue, Sep 8, 2026 at 4:32=E2=80=AFPM Georgios Androutsopoulos
-<georgeandrout13@gmail.com> wrote:
->
-> `find_unused_id()` calls `Bitmap::next_zero_bit()` and `release_id()`
-> calls `Bitmap::clear_bit()`, both of which panic when
-> `CONFIG_RUST_BITMAP_HARDENED` is enabled and the index is out of
-> bounds. Neither `IdPool` method documents this.
->
-> Add the missing `# Panics` sections and state the bounds requirement
-> on `offset` and `id`.
->
-> Fixes: 2cdae413cd3e ("rust: add dynamic ID pool abstraction for bitmap")
-> Reviewed-by: Alexandre Courbot <acourbot@nvidia.com>
-> Signed-off-by: Georgios Androutsopoulos <georgeandrout13@gmail.com>
-> ---
-> Changes in v2:
-> - Use "within bounds" instead of "in bounds", following feedback from
->   Alexandre Courbot.
-> - Add Fixes:, treating the documentation hole as a bug [1].
-> - Link to v1: https://lore.kernel.org/rust-for-linux/20260829153442.20799=
--1-georgeandrout13@gmail.com/
->
-> [1] https://lore.kernel.org/rust-for-linux/CANiq72mgZg-QBy4gwzHmD4gJm4wSc=
-ktfpdDtyZt3Zijk83h2CA@mail.gmail.com/
-> ---
->  rust/kernel/id_pool.rs | 15 ++++++++++++++-
->  1 file changed, 14 insertions(+), 1 deletion(-)
->
-> diff --git a/rust/kernel/id_pool.rs b/rust/kernel/id_pool.rs
-> index 384753fe0e44..ae6960d7f638 100644
-> --- a/rust/kernel/id_pool.rs
-> +++ b/rust/kernel/id_pool.rs
-> @@ -224,7 +224,13 @@ pub fn grow(&mut self, mut resizer: PoolResizer) {
->      /// Finds an unused ID in the bitmap.
->      ///
->      /// Upon success, returns its index. Otherwise, returns [`None`]
-> -    /// to indicate that a [`Self::grow_request`] is needed.
-> +    /// to indicate that a [`Self::grow_request`] is needed. `offset` mu=
-st be
-> +    /// within bounds.
-> +    ///
-> +    /// # Panics
-> +    ///
-> +    /// Panics if `CONFIG_RUST_BITMAP_HARDENED` is enabled and `offset` =
-is out
-> +    /// of bounds.
->      #[inline]
->      #[must_use]
->      pub fn find_unused_id(&mut self, offset: usize) -> Option<UnusedId<'=
-_>> {
-> @@ -236,6 +242,13 @@ pub fn find_unused_id(&mut self, offset: usize) -> O=
-ption<UnusedId<'_>> {
->      }
->
->      /// Releases an ID.
-> +    ///
-> +    /// The `id` must be within bounds.
-> +    ///
-> +    /// # Panics
-> +    ///
-> +    /// Panics if `CONFIG_RUST_BITMAP_HARDENED` is enabled and `id` is o=
-ut of
-> +    /// bounds.
->      #[inline]
->      pub fn release_id(&mut self, id: usize) {
->          self.map.clear_bit(id);
->
-> base-commit: 73e3f0710014fe6d4ed98cfc02292f6121db7558
-> --
-> 2.47.3
->
+On 30/09/2026 00:41, Dumitru Ceclan via B4 Relay wrote:
+> From: Cosmin Tanislav <demonsingur@gmail.com>
+> 
+> MAX96714R is a lower capability variant of the MAX96714 which only
+> supports a fixed rate of 3Gbps in the forward direction.
+> 
+> Signed-off-by: Cosmin Tanislav <demonsingur@gmail.com>
+> Acked-by: Rob Herring (Arm) <robh@kernel.org>
+> Tested-by: Martin Hecht <mhecht73@gmail.com>
 
-Hi,
+This is a fake test, you cannot test bindings how we understand Linux
+kernel testing. Please drop such blanket-fake test tags from all patches
+where this is not relevant.
 
-Just checking if there are any remaining concerns with this patch, or if
-it can be picked up.
+In the future, please do not apply blindly blanket tags, but actually
+verify what they mean.
 
-Thanks,
-Georgios
+Best regards,
+Krzysztof
