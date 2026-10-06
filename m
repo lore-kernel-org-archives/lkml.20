@@ -1,222 +1,140 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f43.google.com (mail-wm1-f43.google.com [209.85.128.43])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 886D1367F58
-	for <linux-kernel@vger.kernel.org>; Tue,  6 Oct 2026 05:23:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 98327199947
+	for <linux-kernel@vger.kernel.org>; Tue,  6 Oct 2026 05:24:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.43
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791264221; cv=none; b=H+70ma2xh7H97OUvmRXFjgyVBPz5p132bH1amX9zd0I4V8UnF4qZ9KfHvl9cLBUCGeP0SnHqGQX/J7vcJnmls8iSmyzKNjcK7/W+O5r3eFHXb7mCahlpPXPZYt0v3L2FQceV2PyLyTWNbb01Y/eeN5oXJZuNmnt53f4pub8NcL4=
+	t=1791264280; cv=none; b=g6X1DUJNc8rzz2Mkm8XG9R7QJ1j0Zz5c3SKQc20w7GRHlw2z/YIKfGjc8HaJCAWU9IuAX42RVPNYN81tumoI2mNv8NUSRdvWgPVpdgVWONVeeFS+AQ01ForQdQvR29BFEb3JgZuNzApFuBA2I3/r4S3z/YmsWgI8ziR2ykainug=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791264221; c=relaxed/simple;
-	bh=E28nbQgqNT6eAZqQjPNHdMAXt5n2H4GPJAEe9+d1Zuo=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=d3lGn2IxlPHG2HCuUsd5AZi0r8jbeFUQc1JQ9Nb6QuNGPr5LAFl67gZdIaMLLzDfZCU+c3o98+tGjpMtnxaQ3viyEFnJF5xtoSK48KCSowvp16eWwI2mwF+fFXncaJPIdCEEs9t8+bSvIAMj2JWk+OgD/CUcMq77JyNu57F1YKY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=Gyz4MFDU; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=He98gYv4; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1791264280; c=relaxed/simple;
+	bh=6nCQGEsj64aWvh9p7XW/W1wxJwkiiOsIfmFLjBKD5tw=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=M1fuXdVB6t6oli/bLhPQ/y8ZwMKYpTtDQ/IMK+c1CIitnhSezpxfpmaKlgpfHkYiuQVtf7uxf6EmrQLZWmwCNTezvPoJYDGo1D+KYJov41IRTVTq+mi4oQ9KUX4NVy1bV0xBTVed/UoYCnaYemHrckzw2+WuxJkGtVMvFClBaaA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Ruh89yc1; arc=none smtp.client-ip=209.85.128.43
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="Gyz4MFDU";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="He98gYv4"
-Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6963AUnC3210540
-	for <linux-kernel@vger.kernel.org>; Tue, 6 Oct 2026 05:23:38 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	aZcIf55e7eBViEOkoMT+Tua7zi6iA4F2rHSQekpq7+8=; b=Gyz4MFDUXrYL7UGE
-	QihzcOMNKWfDEVjm6a1p4ZPA+5hS605aNf7jUKlkhOYeFao8V1WJ5TDm3FzH5ACP
-	gX5xDrl4DFk2g56BoXCs/o/TXj7rHaF9tI3PsrwqIWo6YxBbpIoLi0HgjTUe99Yw
-	vG9QaYqGPt6EJA7cNwuk8p1DaYZ4ygT1Tsy8O9jn5hwAuGUKhvrJzpzrZLCwP75L
-	LXPon8W6NZg2oqG8PW6H5He0B83d3wJf4OYJBGdqlTzzPsP/x2ac7th/jjI3CV6p
-	u3KDQxFer63n44xFILRwNTh4bpln2Rw4zJQXXPdeGkFPSsVla42JxQY7WtpkCal3
-	RyFXPA==
-Received: from mail-pl1-f197.google.com (mail-pl1-f197.google.com [209.85.214.197])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h4j1nsrjt-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Tue, 06 Oct 2026 05:23:38 +0000 (GMT)
-Received: by mail-pl1-f197.google.com with SMTP id d9443c01a7336-2dfb24dfedfso23287995ad.2
-        for <linux-kernel@vger.kernel.org>; Mon, 05 Oct 2026 22:23:38 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Ruh89yc1"
+Received: by mail-wm1-f43.google.com with SMTP id 5b1f17b1804b1-4995b0343c1so7586125e9.3
+        for <linux-kernel@vger.kernel.org>; Mon, 05 Oct 2026 22:24:38 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1791264218; x=1791869018; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:organization
-         :from:content-language:references:cc:to:subject:user-agent
-         :mime-version:date:message-id:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=aZcIf55e7eBViEOkoMT+Tua7zi6iA4F2rHSQekpq7+8=;
-        b=He98gYv4oMiqd8AG0La0EDzchaC4R2Eef1NNGJ5YkLLffaTISNlVDX1fYTKTWO5GdR
-         /Tt6yIdLIJOVwkxkkpNS60bcPYmqx3ydYwADqXexCnsVWaMBGMB1UCKarcPJHEMYaaUg
-         kPuu4zyKEtdjXYnKV7wW9JCEMtojwiVXqfldrRY/cyOv7huKlwYnK+hRCo4VXxiwa3Kk
-         gbfsQ4GCDTm7DDP17XpPst95RtvQHAo5Rw1ZMO/gzBr1PW/pJlJ6XIb6zqQdiuk6BpB2
-         Nyxr4vrIPxysCkBiQRvVVRXN+rEEk1jTn1ONh2c6QKZGexrgnZkkWjh4diBL8FD3urX/
-         EPPw==
+        d=gmail.com; s=20251104; t=1791264277; x=1791869077; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=cfYZkc6ArC987rS4AttSeO7Kv6gfqCbmHLs230dlHBs=;
+        b=Ruh89yc1cPRGPSt9+yYJwo4IcvB7ki//4zkEJ8LMA/eGBllzx5DNOk34bIOfVIxHIm
+         wUbLYIwhmU2dwcNeNu06OOLgUfQ/nxt57L+dbW1JJ9meFJGQkHFKCxo9q1HM/rdQXaz8
+         lZ6YupKBf4Fz0Mam/XYafdCFjm20VTHxf9wLL34/4XeG8kF1z6M+q3eI2EMP0wioUwnW
+         VdZWFI0ennmrlWH9OwLiAKio00qVFoT0t/nb8d2SvicnX/ZdQJvIp6PhtxtW9zSFEBaj
+         A8nLq6Cyp3NPio0Dn6h0s9mI7qPGTeQWWB9IRwZtU0ZrcMhnkSBtRdMk1FImiAvc0sGK
+         opzw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791264218; x=1791869018;
-        h=content-transfer-encoding:content-type:in-reply-to:organization
-         :from:content-language:references:cc:to:subject:user-agent
-         :mime-version:date:message-id:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=aZcIf55e7eBViEOkoMT+Tua7zi6iA4F2rHSQekpq7+8=;
-        b=Vi+y7kE70g5QEYTw5E/hq61uSgQruDAPhFvcn6Q2dqQwuac8jQyFmGY2QaV57C+g0H
-         GhB6/gw78cYkp664UXHI4TEBYaC+VbkySN7LlkiOocSHN5wqdUDLmqYJxAl4AXd+RuuA
-         fwnsFZ4ttfXPJmJLQppBSMOajqBa1EJnXuhELs31hsib/7fUGTB6ORkU30ngegJoBCjD
-         8+xFzO3PIttPicLNTIQB0JB5qnDPywvyFTAZPypuqoY38hD/u3UB5o4E9F5tIsrixKOj
-         7wTdWPqK5FbGxORkzfekCtN/7JAFIBfCnwGZfVtvZAgDZ7Nal9e0TbEzMWVJFMdsFJv+
-         hA9Q==
-X-Forwarded-Encrypted: i=1; AKwUvBwvso7srWUZ2xt0A2Yl92T7yqjD+wm/sb8g+N5QuRYuPJjlEX4MgXUl/DpIm6fSU7CxZWNhW4ykvCC78FU=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJLmKekl34obSUZKlsgEDkNtz0Qh0/JaG8DlaZBYnLPoxAqXRoL
-	rh4K6PzgtQ4PUupvKpWYyKQzAkPY6AaIJnSAWl5cBu53CqFSL3JgdPcdS9cpxGbhYXYFifafri8
-	2R86v3qfcXBvFqTh8TODJb1eVGZXBgVoNY+AOgsgSeAbnPlHN+F1PhvVi0TeJzYrQC3k=
-X-Gm-Gg: AYBFou04d96Iz9OkWpRJSj6NgHtHhUnFzEnjQyIeKYQQ3BfdkzdZiV48fW47yKJE130
-	T8zs5bryS+oRqYACl+IiToWVgOsdAhEdLJkiqQU6XajxEcAlriUg0ZwgGt2LXFdtkUQ4LWTiNq5
-	2Emd+FocZP9oAhy8AtQv53u4+LSh/XHoUzZHVy1Wc5WnjaMw0xfaa6ugvGkuTQbHt6ZgROEwqce
-	+vNQYW2lPsIGzNgTq++2z3MkBvV9TuDXWiGqo29UoBnExJuL0Bv4rLdObB+Spo0ZIQPWCk+ateN
-	himRvlC6poryv7cPh+yUbC02mESKGjR3m5eekP+IPQ4PvwroeXLeoKNvPzDH21KqO94pNdIEe1G
-	9JYDIhf5sadawK04nPOOoAY3TXA==
-X-Received: by 2002:a17:903:41c8:b0:2db:3b35:1ac6 with SMTP id d9443c01a7336-2e5dccf67aamr3862735ad.5.1791264217877;
-        Mon, 05 Oct 2026 22:23:37 -0700 (PDT)
-X-Received: by 2002:a17:903:41c8:b0:2db:3b35:1ac6 with SMTP id d9443c01a7336-2e5dccf67aamr3862655ad.5.1791264217355;
-        Mon, 05 Oct 2026 22:23:37 -0700 (PDT)
-Received: from [10.218.26.96] ([202.46.22.19])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2e5a55b6310sm16451195ad.3.2026.10.05.22.23.33
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 05 Oct 2026 22:23:36 -0700 (PDT)
-Message-ID: <2204cc64-d110-41f0-85be-7e6e1db79a1d@oss.qualcomm.com>
-Date: Tue, 6 Oct 2026 10:53:31 +0530
+        d=1e100.net; s=20260707; t=1791264277; x=1791869077;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=cfYZkc6ArC987rS4AttSeO7Kv6gfqCbmHLs230dlHBs=;
+        b=07D7VH8yYmpV5k9Ryq6hi3bpFHVXh5m1sczukRDP0xy5bgprcMT+yOnem5r2+kAoIZ
+         xBnVUfJOGlZ65D8KOnJqCfuGLC9J1yJ0ym6OJQVaW6bEoi8ETSnNun/bAXaaafpGrTd/
+         0SJtgu8oHahziDdiiOCjj7I2Xr6s1hMnD4tobzknjIqpwzX0VNqNcffkMbiX43HzYzLA
+         Lq6K9bdclZiTmgEVVQ6ceM9f3ZjyPfF7yr/Bc9rsJAa3RozHqG19RBFEECnIjQb8klcz
+         H23KzvJg40sDtOcaMPReExNb9doFi2fbrq8ui0hsgxT9jafRaBWDc9w4oAlCSf58fWhQ
+         nOvA==
+X-Forwarded-Encrypted: i=1; AKwUvBzeVJQRsnPumcsM4Yhf1HxRMXZ6kFL52pQzgear8mdaBfOjyl59dNuJOiIahcXVBPsFueu4tW0nKcedHpA=@vger.kernel.org
+X-Gm-Message-State: AFuF++kXkjVBDy919yFcyC+u0Jakd2kKy5gDhO97a/LpMJW5ZZqKZNpK
+	oFkZy1/CYGedZVfuqL1hjWQtDo+dn6YUFU2bDEpSEgLyO+xjBLngwvYM
+X-Gm-Gg: AYBFou1Nte7WH3Xanraw7IzLPECvXJ42Tl4Uvp046x180XhqLDTAdkIcOz4G9dYJmoo
+	TNjFuJRH6irMHpMwf9s/eRPjinwM2X96EABrVAzeVVyN1jLw5ljMQCrZRKQwPBCXEGHwFJIIvJc
+	XRZjn3aGY8FJlF+K66CVJtkqm6zyrvUjj8KQSTeD/JhSpRq0oAZp2SsTDCmRonnmPk1TdtbVht1
+	nRNBwLL6y6wUqyhO28WRVah6VgncKmZCi/5qZh5AOYx2soEzMFqTsB1eBkaL78UThvHkO8vpPFU
+	7koukLKOhc3T6MM/Y7NjTyHQ+xsJca8W5W5D/psGidT2T/vGvNysBxzDag0607h8NIhJjqwTVOM
+	y2aMlmY4GUpMNc8STbdQwisgTWHMq6BZVT7jb+yj/Pbkl6V6uBh6uR6c5Vq5BXZw0JlX8anUvwc
+	BRnqysvwI+2YoJKEFWy6On2+ABxiQLAAahlC+YTkO2FAjNLMyeLAcymVoQRIC+QMtDJJ2yUFnOf
+	Jlj48FjsLJf+YRpOBMGrZiA9d+LCCZ7VAPqgfN+xZWAh+jG309AgK8Bdc9k8SKpVu1AEzy9tJjo
+	Y63YnWe1hh1lQBfA
+X-Received: by 2002:a05:600c:4f54:b0:4a1:7701:f863 with SMTP id 5b1f17b1804b1-4a17b548f39mr4656065e9.15.1791264276693;
+        Mon, 05 Oct 2026 22:24:36 -0700 (PDT)
+Received: from center.jhjvjihww5qejoy14qwv1cc4td.frax.internal.cloudapp.net ([131.189.143.225])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a178c40a28sm45104075e9.7.2026.10.05.22.24.35
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 05 Oct 2026 22:24:36 -0700 (PDT)
+From: Orgad Shaneh <orgads@gmail.com>
+To: miquel.raynal@bootlin.com,
+	richard@nod.at,
+	vigneshr@ti.com
+Cc: linux-mtd@lists.infradead.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH] mtd: cfi_cmdset_0002: also clamp the write buffer of an x16 part strapped to x8
+Date: Tue,  6 Oct 2026 05:24:35 +0000
+Message-ID: <20261006052435.319751-1-orgads@gmail.com>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20260916162731.307959-1-orgads@gmail.com>
+References: <20260916162731.307959-1-orgads@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] remoteproc: qcom: pas: pass no resource table when the
- firmware has none
-To: Jorge Ramirez <jorge.ramirez@oss.qualcomm.com>,
-        Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>
-Cc: andersson@kernel.org, mathieu.poirier@linaro.org,
-        konrad.dybcio@oss.qualcomm.com, sumit.garg@kernel.org,
-        linux-arm-msm@vger.kernel.org, linux-remoteproc@vger.kernel.org,
-        linux-kernel@vger.kernel.org
-References: <20261005125411.2151326-1-jorge.ramirez@oss.qualcomm.com>
- <20261005161224.umj6zzov57tifv7v@hu-mojha-hyd.qualcomm.com>
- <asQQJNOd_p9acgT1@RAMIREZO.na.qualcomm.com>
-Content-Language: en-US
-From: Harshal Dev <harshal.dev@oss.qualcomm.com>
-Organization: Qualcomm
-In-Reply-To: <asQQJNOd_p9acgT1@RAMIREZO.na.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDA2MDAyMSBTYWx0ZWRfX0eFwYlKkm7lA
- VHg18i/1k1Yiv58ZxC4VKlEmUJJSedMc6fVFzQRiBcgDHje5sA3AqCLg3AQNg7m9NH8efTa0Opp
- Wk2uoe60KLGTRVk7L59iMjtpv6Fwds0=
-X-Proofpoint-ORIG-GUID: 6s0QAFsLpc7BOA0ISml_zosoUwwoo15j
-X-Proofpoint-GUID: 6s0QAFsLpc7BOA0ISml_zosoUwwoo15j
-X-Authority-Analysis: v=2.4 cv=F4fC5ahN c=1 sm=1 tr=0 ts=6ac485da cx=c_pps
- a=cmESyDAEBpBGqyK7t0alAg==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
- a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_K5XuSEh1TEqbUxoQ0s3:22
- a=P-IC7800AAAA:8 a=EUspDBNiAAAA:8 a=aG4ZktMyB6JXbPI0YBQA:9 a=QEXdDO2ut3YA:10
- a=1OuFwYUASf3TG4hYMiVC:22 a=d3PnA9EDa4IxuAV0gXij:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDA2MDAyMSBTYWx0ZWRfXzMSy4mCc2bPe
- pK5q1gRQFXfj8c+NEgiAyoyJYhYfLmRy+NfAgC0whpZc1/6xRaPBHu9XVGc7yzoVg91fHTrluVq
- 7fLgLkzA8eRtKAndMCOtHwAcKF9MuPwUQwBs5pDAZWXX4qMNnWQiYDjJpCrZ+6bFwnQS2wbqEUo
- 9SNTRDERywOTD5l0j90qH9PFgKkHCkxBoaq1MvH5fovid4fyC5mvymXB4zPzChhMc0lIvtMXgMk
- egfUc258ou3N8MyTRlqh/g2Zaps7teWLM/xVj6I6vKo0uHsXnK7SrYroYusp1bJS00qWZ+TSQdD
- KRl0rK3hnTXG9+ZnR5CymEYv+OEYMHPOAOLqJnSgs/G1yZjU+vYi3fhgYGfL1/Cjzu3L+NHvzYU
- 08kTODgCDOmhHjsMFRTOjhLXfO979jUZHimkgQD7Zspd8gNvVfPvPXxEkwcZ+y44FE49JDSULGW
- t0rdhws4SaCFqWSVwaQ==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-10-06_01,2026-10-05_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- adultscore=0 bulkscore=0 priorityscore=1501 malwarescore=0 spamscore=0
- phishscore=0 clxscore=1015 suspectscore=0 lowpriorityscore=0 impostorscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2610060021
+Content-Transfer-Encoding: 8bit
 
-Hi Jorge,
+Commit cfc5ebc9540e ("mtd: cfi_cmdset_0002: cap the write-buffer chunk
+at 256 bytes on an x8 device") limits a Write to Buffer to 256 bytes
+when cfi->device_type is CFI_DEVICETYPE_X8, because do_write_buffer()
+sends the word count as a single bus word and an 8-bit data lane
+truncates it.
 
-On 06-10-2026 02:31 am, Jorge Ramirez wrote:
-> On 05/10/26 21:42:24, Mukesh Ojha wrote:
->> On Mon, Oct 05, 2026 at 02:54:00PM +0200, Jorge Ramirez-Ortiz wrote:
->>> The firmware resource table is passed to the PAS backend even when the
->>> firmware carries none. This only works on the first boot, while the
->>> cached pointer and its size are both zero.
->>>
->>> Stopping the remote processor, or failing to start it, frees the cached
->>> table and clears the pointer but leaves the size set. The next start
->>> then pairs a NULL table with a non-zero size.
->>>
->>> The SCM backend substitutes an empty table and hides the problem. The
->>> TEE backend copies from the NULL pointer:
->>>
->>>   remoteproc remoteproc2: powering up cdsp
->>>   pc : __pi_memcpy_generic+0x110/0x22c
->>>   lr : qcom_pas_tee_get_rsc_table+0xf4/0x25c
->>>   Call trace:
->>>    __pi_memcpy_generic+0x110/0x22c (P)
->>>    qcom_pas_get_rsc_table+0x38/0x60
->>>    qcom_pas_parse_firmware+0xa0/0x100
->>>    rproc_boot+0x2d4/0x380
->>>    state_store+0x40/0x100
->>>
->>> Fixes: a4584bff63c8 ("remoteproc: pas: Extend parse_fw callback to fetch resources via SMC call")
->>> Signed-off-by: Jorge Ramirez-Ortiz <jorge.ramirez@oss.qualcomm.com>
+The M29EW that commit was written for is an x16 part strapped to x8.
+The probe reports it as
 
-Thanks for this patch, I was about to send one myself since I observed
-this on IQ10 as well.
+  phys_mapped_flash: Found 1 x16 devices at 0x0 in 8-bit bank.
+  Manufacturer ID 0x000089 Chip ID 0x00007e
 
->>> ---
->>>  drivers/remoteproc/qcom_q6v5_pas.c | 11 ++++++-----
->>>  1 file changed, 6 insertions(+), 5 deletions(-)
->>>
->>> diff --git a/drivers/remoteproc/qcom_q6v5_pas.c b/drivers/remoteproc/qcom_q6v5_pas.c
->>> index a005546c265d..e871e03ba794 100644
->>> --- a/drivers/remoteproc/qcom_q6v5_pas.c
->>> +++ b/drivers/remoteproc/qcom_q6v5_pas.c
->>> @@ -463,7 +463,7 @@ static int qcom_pas_parse_firmware(struct rproc *rproc, const struct firmware *f
->>>  	struct resource_table *table = NULL;
->>>  	size_t output_rt_size;
->>>  	void *output_rt;
->>> -	size_t table_sz;
->>> +	size_t table_sz = 0;
->>>  	int ret;
->>>  
->>>  	ret = qcom_register_dump_segments(rproc, fw);
->>> @@ -476,11 +476,12 @@ static int qcom_pas_parse_firmware(struct rproc *rproc, const struct firmware *f
->>>  		return 0;
->>>  
->>>  	ret = rproc_elf_load_rsc_table(rproc, fw);
->>> -	if (ret)
->>> +	if (ret) {
->>>  		dev_dbg(&rproc->dev, "Failed to load resource table from firmware\n");
->>> -
->>> -	table = rproc->table_ptr;
->>> -	table_sz = rproc->table_sz;
->>> +	} else {
->>> +		table = rproc->table_ptr;
->>> +		table_sz = rproc->table_sz;
->>> +	}
->>
->>
->> Earlier code was intentional please read the comment below.. /**...*/
->>
-> 
-> AFAICS the comments say that the call might pass NULL and zero as input
-> resources. And this patch does exactly that - it doesnt allow NULL and
-> non-zero.
->
+so its device_type is CFI_DEVICETYPE_X16, the clamp does not apply, and
+every full 512-byte chunk still times out:
 
-I agree with this fix, it was strange to see a NULL pointer paired with non-zero table size.
-As the comment itself says, a NULL pointer + 0 size should be passed when the firmware binary
-does not have a resource table. This is also documented here in a separate comment:
-https://elixir.bootlin.com/linux/v7.3-rc5/source/drivers/firmware/qcom/qcom_pas.c#L131
+  MTD do_write_buffer_wait(): software timeout, address:0x002203ff.
 
-I am validating this fix for Nord, expect a Tested-by tag from me today.
+What limits the count is the width of each device's data lane, not the
+part's type. Test that instead: map_bankwidth(map) / cfi_interleave(cfi)
+is 1 for an x8 part, for x8 parts interleaved on a wider bus, and for an
+x16 part in an 8-bit bank.
 
-Regards,
-Harshal 
-> did I miss something?
+On the board (Octeon CN6335, the same M29EW) writes of 1, 2, 32, 64 and
+256 bytes to an erased partition read back correctly and 512, 1024,
+2048 and 4096 failed with the timeout above; with this patch every size
+up to 64 KiB reads back correctly and the u-boot environment can be
+saved from Linux again.
 
-
-
+Fixes: cfc5ebc9540e ("mtd: cfi_cmdset_0002: cap the write-buffer chunk at 256 bytes on an x8 device")
+Assisted-by: Claude:claude-opus-5
+Signed-off-by: Orgad Shaneh <orgads@gmail.com>
+---
+diff --git a/drivers/mtd/chips/cfi_cmdset_0002.c b/drivers/mtd/chips/cfi_cmdset_0002.c
+--- a/drivers/mtd/chips/cfi_cmdset_0002.c
++++ b/drivers/mtd/chips/cfi_cmdset_0002.c
+@@ -286,13 +286,14 @@ static void fixup_use_write_buffers(struct mtd_info *mtd)
+ 
+ 	/*
+ 	 * The word count of the Write to Buffer command is a single bus
+-	 * word per device, so an x8 device can be told to program at most
+-	 * 256 bytes however large a buffer it advertises - including when
+-	 * several of them are interleaved on a wider bus, where CMD()
+-	 * replicates the count into each device's lane and it is truncated
+-	 * there.
++	 * word per device, so a device on an 8-bit data lane can be told
++	 * to program at most 256 bytes however large a buffer it
++	 * advertises: an x8 part, x8 parts interleaved on a wider bus
++	 * (CMD() replicates the count into each device's lane and it is
++	 * truncated there), and an x16 part strapped to x8, which the
++	 * probe reports as an x16 device in an 8-bit bank.
+ 	 */
+-	if (cfi->device_type == CFI_DEVICETYPE_X8 &&
++	if (map_bankwidth(map) / cfi_interleave(cfi) == 1 &&
+ 	    cfi->cfiq->MaxBufWriteSize > 8) {
+ 		cfi->cfiq->MaxBufWriteSize = 8;
+ 		mtd->writebufsize = cfi_interleave(cfi) <<
+-- 
+2.47.0
