@@ -1,92 +1,155 @@
-Received: from mail-wr1-f44.google.com (mail-wr1-f44.google.com [209.85.221.44])
+Received: from mail-dy1-f180.google.com (mail-dy1-f180.google.com [74.125.82.180])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 33E7B360745
-	for <linux-kernel@vger.kernel.org>; Tue,  6 Oct 2026 04:50:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.44
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EC0FF2E7162
+	for <linux-kernel@vger.kernel.org>; Tue,  6 Oct 2026 04:52:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.180
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791262245; cv=none; b=fIvTDCm2pFtH/Jtq3JpDEO03IREH0QajTRHDESYs8tUixDuXlGnU+/O00GD5MX4FdZ+IAa7YDSH6NBrm7CsYWjj1SSfNOYtaLqjvtOVu+6cpMUIqskac4ae4+Zwt7UeHTjBf9zsqZPUcJYJPVgw2rydlQF2XJN7zVciuCwViOaA=
+	t=1791262323; cv=none; b=CBltVaJVmSV3DxyNK8aS+6HtjyJipoeQ6iLBd7otSzwsCEKnX2tawWEf0IWDg2z8PhVRDU1kzRhpJZYlev0f9fQyGDZ3oJ82PsKxD6EoRDTlw1DtJZ/6BHZCmwo2jZNK18R70rINrlcy7+uhqqhsfFVDtJwJD0JcCylNABQsyBM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791262245; c=relaxed/simple;
-	bh=N2dqD9oDAslSmVXglflxtsPusgZbGIROFq0AkRcGJuQ=;
+	s=arc-20240116; t=1791262323; c=relaxed/simple;
+	bh=tNa2lptrWw3cyveg0myvYrhG1Z8itS2A43/mqGtb36Y=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=obaZ93mDz0jJunPpKcR7EnKPuXvBwypWBeiDIpl96RYJSg7kqOaUpwRvrRgBjbWZiT2t3F3ZBSczfw8FxtFFHSQSL3uulSv37DP4DnfobnBwCxuYKUkN/XNOEkthpOYnuZ2KAQDFXyCq+JrrJozc/kW/II2R4UuZXJxXXHNGje4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=AA6l4r8w; arc=none smtp.client-ip=209.85.221.44
+	 Content-Type:Content-Disposition:In-Reply-To; b=bTTYOTbPgoRlR3V//gR7NzePk2kKKqu3aIsxbk6LAz3+FL88s7jHwtIdpJwK69wIIbT8HdGSm5qWSaNDjnfXHrWYGczaAt6yl2fZSOEzolhaC7HbVMztN51qOfMDlPUw8Jqjo943eXYxJexIGhcNf0jXOEVHxUXLRJg8a1gmtx0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=KmRuDczq; arc=none smtp.client-ip=74.125.82.180
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="AA6l4r8w"
-Received: by mail-wr1-f44.google.com with SMTP id ffacd0b85a97d-48c4be28b82so138229f8f.2
-        for <linux-kernel@vger.kernel.org>; Mon, 05 Oct 2026 21:50:44 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="KmRuDczq"
+Received: by mail-dy1-f180.google.com with SMTP id 5a478bee46e88-34ef8f66a6bso171297eec.1
+        for <linux-kernel@vger.kernel.org>; Mon, 05 Oct 2026 21:52:01 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791262242; x=1791867042; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1791262321; x=1791867121; darn=vger.kernel.org;
         h=in-reply-to:content-disposition:content-type:mime-version
          :references:message-id:subject:cc:to:from:date:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=AZTcEpNIkmijk+TrbdyJk/7ltqjN6rjFrhnfuYd+A6c=;
-        b=AA6l4r8wXhwIjavrQUNOvEdhUriQ3HJa8lH5kzOLkJxVjyh4IFqdK18xpOVM4XMJS/
-         2D7CyrZ5Z8aeih+FIAvzeg5PvBh2QBTHc4D1fV4bLUIxK2LvThCCtq3eCkgYqHM7qjo5
-         ojAhir7ri1vsTxHRScFbuC3/B5/y743im6YNJqq2wFORQ3b8K6BMgHQfmNtg1vuliM4+
-         u8mvexLpSpupxTdmqUSqN9O2EsK4qcDvq9HJLAKTxAXS4FZOrKrKM3mX/qNFp9NAY4/r
-         B17XqR3KBdq/lCQJz+EdnnELRWDpb9BRjaZhSI/nqzPeZHlpWZdSy21mhe3/DBHJsLUI
-         2M4g==
+        bh=26jPmwk/kB3l2dhl5l0yo+wFBC7eHrahpCgj50b3t24=;
+        b=KmRuDczqkpXYzb6l7VRv32J+WGiKJJTWkJ1MhhF39XNdHeyrIL5zTNVzdKxzrMbrU0
+         a57Bnphl8Sjy5i7FoFPATyP32NIHbQ2Lgf3hRKtXmOk+4IDTbsSsxQE4AM4mF4CT7qB9
+         aQVwGdDRWZn08aPSho2xog/rf+rDlS9Tdy8L9yGoR1AO5xZB4T6idhiF/Uv99rk+7FiV
+         7V5Shc5/2bVvF4Ppwjp91FR/xZvkEgPpy+YscCZLFgO+/AHJdKR//+QEmUh/5tHZx3fU
+         FL+TDqMQA2heX+5tXrwkkVQvPb0RgDlfH1PVF97WQAO7yxKE58TZNFwz/Hy8FmgwGfyE
+         ycFw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791262242; x=1791867042;
+        d=1e100.net; s=20260707; t=1791262321; x=1791867121;
         h=in-reply-to:content-disposition:content-type:mime-version
          :references:message-id:subject:cc:to:from:date:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=AZTcEpNIkmijk+TrbdyJk/7ltqjN6rjFrhnfuYd+A6c=;
-        b=YswcVHVVoRqXLKrW/LHzLXGB7C3oLfvL37NGPxSRKvEB3jBwr1FiINcYZiqur7bKKD
-         0lNZi6yRDJ3SwXYOe3YxZ/WSApVlM2DB0IwtfBYErYnwni9XN1HGjSHBoiun/0cxH6UJ
-         2N3bkKjklUm/BPajyBy4ECpn9zVs/HVmmTUjzwWJunccvjx/yABVLXBNvs2dj4hhej+m
-         3PoFV1hw+aWOpUG3ZRcgZmQ2eIuvXfxlMks/G1mOxgBkwBI1PWddwYlp0N8YiOSI95tH
-         wWD6k+3h5JKPRBF43SS2BIYWRmaA9oVi/8YaLf0wPOK5mWYrtB8bjx+XKizpeLMRduvN
-         Vzfg==
-X-Forwarded-Encrypted: i=1; AKwUvBwcPJyDPfLh8jR/7S2WODVr9FVXcqwxihmVNyPLfkueUqXPmr8gdjwuVEP1gu4c6MZc566lpIWZUOB/qjk=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLSfqDG9chXf0nKwW7cCxoDPnahOGmxi25rHa9AHSFxK6x9Cqie
-	Do/CLvA7zQWHwavA98qM2gocTv8SQujl2wynvTrgLwJAdFHi2SOdL2uqpil3jeb/
-X-Gm-Gg: AYBFou2Z/w7WWoJkQedInzS5kizOx9emljIGHgIfncHpm9RHe1Ap1QxaGpVYN0vnGV8
-	07GU9Qc043wCWoKQLj4av9YjeClbIt/2BSm7a01vUxALFKcfD0pVoqHU+0f/AcfGSvC15DyWh3B
-	j9nU25zSpKOO2b2UTqk/8f2s9GtKW5JbAElYAF5RTpB9aADOKskzVZwC++XdZU+dp83aK1jYIvT
-	SXZH1m42refLzoKPImAE76KiAGTuaBqTAh3CrHeIAbev0pduy3qxWbYN13jstomz9mZpQGkJVzt
-	eGeCq/SS2HR0tyyG1Op74rTIohU25/i4jaEpOw0aLSDKOedXt2sC8FJPi+gDnmQPhs0ypWO7yqp
-	67vQBYdSx1YJ7zXJ/mpZbp/h8q8xFGELIm6kYC3KsLqVxfEEc3L6XaKYOIG1TDMGhQ2WluLbm0d
-	lR5OYA580ABYYaVjxUn2yTU/6CqEyv0/dxR/En/X7RfbHHjm/6CkdOeRljZNz+7Fcuv36Gws5ZC
-	VhsYrgE59e1FNw8S23wXHjAwOQ/Oe7hPm6IKoMShZNQlFdJFs7DXNR15EhMPFPdxeaLXHPYp//K
-	34Xgg86ypsZhkh3kVJweauaVjhaHfmzC
-X-Received: by 2002:a05:6000:40da:b0:487:88b:4681 with SMTP id ffacd0b85a97d-48c6d16d91fmr350123f8f.10.1791262242252;
-        Mon, 05 Oct 2026 21:50:42 -0700 (PDT)
-Received: from unknown748F3CBA5068 (dynamic-095-117-040-097.95.117.pool.telefonica.de. [95.117.40.97])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48c622704a5sm18265831f8f.15.2026.10.05.21.50.40
+        bh=26jPmwk/kB3l2dhl5l0yo+wFBC7eHrahpCgj50b3t24=;
+        b=amkV2VcfjLpJug/6wgn4GUTa0rfLAZK12miWduDfUKRmQ0AaItBX7qp94WbwQ+YHpA
+         oNKeoq2TAWlSVzCJ9HxDkSNl8jKTPlwEu0Kd0ejY3dDT9OfDk4xVRQMZZ1k+4Jm2Bxef
+         92xN4D6VzbsDU++LJMcf32YxoKKMnt9MmbTbqlMiawOHZzt+M3B+Bpd0ZJGs9I1UQxos
+         5URsxRLE7RLwhABJIul9fWU1GvtQHzRRVqdNU26cChjn6o5f68uTWUR/eBiiZ2UutpzR
+         T2RYEGOqT7Aq6IGdlyaL8JhHDVPkFUJCM0pqI9M+eKbHie21jzLnZz1olXcR9OUmvfdm
+         xpUw==
+X-Forwarded-Encrypted: i=1; AKwUvBzlVGfxnDTg50n2M/aLGSJNdl64lbJSSrhDQ48eqD2W6OT98MzkmeEAQXW3AwKlepNSqvwJOf7DHlIpLxU=@vger.kernel.org
+X-Gm-Message-State: AFuF++mNT+wubQenKrQD1WAeQn7Xl+QpGTiNX/KV0kYbuv2XcT01bYja
+	lslzoPQs10ZfMIksUGfI9OX30InzUBPiLWHOYQVPc3GHpooAVqyE09Kq
+X-Gm-Gg: AYBFou1mU7kAfsEEqAtfF1Vp+p4FP4NqyRARj+up/SecN2DRAOvL3e/QYGaoSMtQmV0
+	qs0Xu711VtAN83z90juWc7y2J28lIUPP3T8jfUXI6ZCeVIuZBT17iRvxvD0kXuCdV2pZrVcl4xe
+	ZVJZzVKZCv261aRNyygxf+0M2Mn30eMPAObcOOPls/TQXdnP29GUbrBTGYnIbGH4pVqhi2Z3ISS
+	59EGdOA6LOcFpgIhHzfO6yUwtlH1+3BZGQdLsLsbc6DzlBzrfZK7KWNLIF9ABvS8CIJBPGzdZba
+	WpIEIXvHHYfmoDmg2BrKMgyZkXrduC1OoLD/cPszI9mJx9LpAZ8MbzgQkgW0nVQjAW4ai6oQ1lj
+	D+A+LA/Vkr6ydW+//iJGmrDRFSkHoG21BDJeeGPgZuv+PqPI/6jXw7T1sTwmg1N3A2g0EADlQEH
+	jDn2mtk/VjHMErr/p1nTpZCFDLoufTViiyXvyARbpJE883olrUdCMi9CQJk5/9yOXduU553bEgK
+	r/+PA2SRi7o28X81lNhrnVBfBvQXcFtazRmGmaxT/F0U70aITz2DlTWreu8ofTVLKo=
+X-Received: by 2002:a05:7300:a98e:b0:351:4648:3611 with SMTP id 5a478bee46e88-3514e334d5emr262924eec.26.1791262320917;
+        Mon, 05 Oct 2026 21:52:00 -0700 (PDT)
+Received: from archlinux ([2405:201:1b:20ef:de2d:6e5b:74df:ad41])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-15d83d6af11sm3550227c88.10.2026.10.05.21.51.58
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 05 Oct 2026 21:50:41 -0700 (PDT)
-Date: Tue, 6 Oct 2026 06:50:10 +0200
-From: Karl Mehltretter <kmehltretter@gmail.com>
-To: Namjae Jeon <linkinjeon@kernel.org>
-Cc: Hyunchul Lee <hyc.lee@gmail.com>, ntfs@lists.linux.dev, 
-	stable@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 0/2] ntfs: fix two kmap_local bugs on 32-bit kernels
-Message-ID: <asR9jHZMwy6Atpmz@gmail.com>
-References: <20261006043810.5393-1-kmehltretter@gmail.com>
+        Mon, 05 Oct 2026 21:52:00 -0700 (PDT)
+Date: Tue, 6 Oct 2026 10:21:56 +0530
+From: Krishna Chomal <krishna.chomal108@gmail.com>
+To: Ciro Pedrini <ciro.pedrini@gmail.com>
+Cc: Hans de Goede <hansg@kernel.org>, 
+	Ilpo =?utf-8?B?SsOkcnZpbmVu?= <ilpo.jarvinen@linux.intel.com>, platform-driver-x86@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH] platform/x86: hp-wmi: Add OMEN board 8A17 thermal
+ profile support
+Message-ID: <asR-FLwLfpyT8uOz@archlinux>
+References: <20260925205226.883724-1-ciro.pedrini@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=utf-8; format=flowed
 Content-Disposition: inline
-In-Reply-To: <20261006043810.5393-1-kmehltretter@gmail.com>
+In-Reply-To: <20260925205226.883724-1-ciro.pedrini@gmail.com>
 
-On Tue, Oct 06, 2026 at 06:38:07AM +0100, Karl Mehltretter wrote:
-> Karl Mehltretter (2):
->   ntfs: fix kunmap_local() of advanced pointers in check_mft_mirror()
->   ntfs: fix kmap_local leak in ntfs_check_logfile()
-> 
+On Fri, Sep 25, 2026 at 05:52:26PM -0300, Ciro Pedrini wrote:
+>The HP OMEN 17-ck1xxx (board 8A17) isn't in omen_thermal_profile_boards,
+>so hp-wmi uses the generic thermal profile query. The firmware only
+>stores that value and never acts on it, so the EC stays in its default
+>mode and the CPU is held at 45 W whatever profile is selected.
+>
+>The board uses the OMEN interface (mode byte at EC 0x95, thermal policy
+>v1) and also needs the timed profile quirk: without it, the EC drops
+>back to the default mode about two minutes after each profile change.
+>
+>Add 8A17 to omen_thermal_profile_boards and
+>omen_timed_thermal_profile_boards.
+>
+>With this, all three profiles work and sustained package power under
+>load goes from 45 W to 56-79 W.
 
-Oops I sent patch 2 with an old draft version too. I will send a v2
-without that. Sorry for the noise.
+Hi Ciro Pedrini,
 
-Thanks
-Karl
+I was working a patch[1] involving omen_timed_thermal_profile_boards[]
+and needed some diagostic info. Would you mind attaching the acpidump
+for your board 8A17?
+
+Thanks!
+
+[1]: https://lore.kernel.org/platform-driver-x86/asPy5Q5wNYaMzTqJ@archlinux/#m922ff6cf9a68285d2b0f64e578fd6d2d6fa573f4
+
+>Cc: stable@vger.kernel.org
+>Assisted-by: Claude:claude-opus-5-5
+>Signed-off-by: Ciro Pedrini <ciro.pedrini@gmail.com>
+>---
+>
+>Notes:
+>    Tested on 7.2.7, whose OMEN profile code matches for-next. Without the
+>    timed quirk, EC 0x63 counts down from about 120 after each profile
+>    write, and at zero the EC resets 0x95 to 0x30.
+>
+>    8A13, 8A14, 8A16 and 8A18 appear in the same DSDT. 8A18 is in the OMEN
+>    list but not the timed one, so it may have the same two-minute
+>    fallback. I can't test it.
+>
+>    I used an AI assistant (Claude) for the ACPI analysis and to draft this
+>    message. I tested the change on my machine and reviewed everything.
+>
+> drivers/platform/x86/hp/hp-wmi.c | 4 ++--
+> 1 file changed, 2 insertions(+), 2 deletions(-)
+>
+>diff --git a/drivers/platform/x86/hp/hp-wmi.c b/drivers/platform/x86/hp/hp-wmi.c
+>index 7ab81ce5f..76f489d5d 100644
+>--- a/drivers/platform/x86/hp/hp-wmi.c
+>+++ b/drivers/platform/x86/hp/hp-wmi.c
+>@@ -207,7 +207,7 @@ static const char * const omen_thermal_profile_boards[] = {
+> 	"886B", "886C", "88C8", "88CB", "88D1", "88D2", "88F4", "88F5", "88F6",
+> 	"88F7", "88FD", "88FE", "88FF",
+> 	"8900", "8901", "8902", "8912", "8917", "8918", "8949", "894A", "89EB",
+>-	"8A15", "8A18", "8A42", "8A43",
+>+	"8A15", "8A17", "8A18", "8A42", "8A43",
+> 	"8BAD",
+> 	"8E41",
+> };
+>@@ -226,7 +226,7 @@ static const char * const omen_thermal_profile_force_v0_boards[] = {
+>  * "balanced" when reaching zero.
+>  */
+> static const char * const omen_timed_thermal_profile_boards[] = {
+>-	"8A15", "8A42",
+>+	"8A15", "8A17", "8A42",
+> 	"8BAD",
+> };
+>
+>
+>base-commit: f475845eaf3d749114a63270bf2efea459e14dd2
+>-- 
+>2.55.0
+>
