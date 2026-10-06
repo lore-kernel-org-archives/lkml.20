@@ -1,110 +1,132 @@
-Received: from mta1.migadu.com (out-116.mta1.migadu.com [95.215.58.116])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 79D3435957
-	for <linux-kernel@vger.kernel.org>; Tue,  6 Oct 2026 14:11:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.116
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9F24533939C;
+	Tue,  6 Oct 2026 14:11:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.85.4
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791295880; cv=none; b=PNLDpEr4xZUbSbFLscpGIeZKJLx9FqVFr6+NAD8IG2KQ2n4F2Y3JrtVQLkjmnMtMwJ+BfHbrmuDU6Js8fqkvVMxWdBuLuvfLxGyayo4lk44Tum87USOZxyrAcRfEGYtwl3f+a55nbEBwsVQUhBOvWGCj9ktWw6PRtC9+8wtFP84=
+	t=1791295900; cv=none; b=L9ypSKBVuZosAUy6w9hdd4mhgXJQn+767m1v37d60HlE/Tasxtyg5krUZbt+da3XxoyXuWbQnyjwJ02udwjamK4DeV9lePXOLgmZzmwLvK959ujALnTyUwsidsV8YmxHHf1Y+AXmpv7MDZ+e+3vOV8sUdZGS7aKrqs4y1rpEKTk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791295880; c=relaxed/simple;
-	bh=fjCunfX9sDKQD5QYOaP2NzWehuR0nrD8qG2e5t5JFzI=;
-	h=Content-Type:Mime-Version:Subject:From:In-Reply-To:Date:Cc:
-	 Message-Id:References:To; b=MW24+J9yqClfM/quPGq+Zmws9mgcEFFAn4H2ZqUmflMJhPT6ZVuwBQtJrcsXRrAdhv6dT+A9FIseNK+A2XZeD3MR0rMCqeYKgrnfMLaIbqp9mcZeX0hAFdCzo3ilCKX1P4vDl+JhTSbK4xoNgw/X8V4cudu39VQ2R8/p6bGZIE0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=ufa5h43O; arc=none smtp.client-ip=95.215.58.116
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1791295900; c=relaxed/simple;
+	bh=ROFYvkuwW07+yq8vCE0lVwJZstbLU/tF5UKPz+tIxeU=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=WntHnU7z7XopDdtC4lX1EOwHXYx4SSa3m0vhs1gWhDd5eICjUjlSpKWEXuQ/0oAeH60zJ/Jn3PxWBsu/Di1oYVp32PLVyYCfjrARpqlpZVXmMpHqX+qEXfl9NijexRDnG2OjBZK35dFTJhXA4b5SB2w1Y2vwjDh+SUjPto6o8bM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=TkecgpkP; arc=none smtp.client-ip=185.246.85.4
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="ufa5h43O"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=fjCunfX9sDKQD5QYOaP2NzWehuR0nrD8qG2e5t5JFzI=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1791295876; v=1; x=1791900676;
- b=ufa5h43Or4Em8nOnSMkm4YHB0+B2tPUYvA7iur82l6PnQeLzYX2UaOXmmwCgoNTrWSDNJRB+
- AwUHPaO/ct0AN04kppAzwct/co3koYF4S1DhUaJYWT7aWtnhrGaafLsNl80jPpX7A7DMquvebMG
- YDQgLhzG9lzilB5YMktod5bM=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 23a085b5514e6df1;
-	Tue, 06 Oct 2026 14:11:16 +0000
-X-Mizu-Trace-ID: 23a085b5514e6df1
-X-Migadu-Flow: FLOW_OUT
-Content-Type: text/plain;
-	charset=us-ascii
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="TkecgpkP"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-03.galae.net (Postfix) with ESMTPS id EECD44E4115B;
+	Tue,  6 Oct 2026 14:11:36 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id C10D560553;
+	Tue,  6 Oct 2026 14:11:36 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 4609C1033047C;
+	Tue,  6 Oct 2026 16:11:26 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1791295891; h=from:subject:date:message-id:to:cc:mime-version:
+	 content-transfer-encoding; bh=p1MYdMRCfnV24LWWZd53dgkkASgGPs7NImyG0veQl1c=;
+	b=TkecgpkP+pbT5w3pjBaTJRCBM3dRARMZZjSfzpbBaQZKLd0BUJWMWgFYu2UD/GY+X4g2db
+	cGYSqs7pU5zfulC1xxj6t/aayJVhKL88Zhxh2Exo1iv2IjM2p94tFEEUJZsWFCplvGTHjd
+	vjs704dCxQq0YbaUpwTKb/JqF2gz2MtlPWT20FVCrN1acVCZMUXugDBhFjqpQUqwmxBUcj
+	e87co0notG+sW8tAn29zHpjgPNhEnMJcdLy6FnCro6C7KAdk2DnvUbXn6c/igEuFidPq9S
+	5YJLroC3YSnWY0pvERKFKfJHRznZUHA8VJoXvoNa4CbOmEWm5y4rGG85/5Px9w==
+From: Maxime Chevallier <maxime.chevallier@bootlin.com>
+To: Andrew Lunn <andrew+netdev@lunn.ch>,
+	Jakub Kicinski <kuba@kernel.org>,
+	davem@davemloft.net,
+	Eric Dumazet <edumazet@google.com>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>,
+	Russell King <linux@armlinux.org.uk>,
+	Kuniyuki Iwashima <kuniyu@google.com>,
+	Stanislav Fomichev <sdf.kernel@gmail.com>
+Cc: Maxime Chevallier <maxime.chevallier@bootlin.com>,
+	thomas.petazzoni@bootlin.com,
+	=?UTF-8?q?Alexis=20Lothor=C3=A9?= <alexis.lothore@bootlin.com>,
+	netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH net v2] net: Don't allow disabling napi kthread mode while napi instances are disabled
+Date: Tue,  6 Oct 2026 16:11:18 +0200
+Message-ID: <20261006141119.85562-1-maxime.chevallier@bootlin.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3901.100.1.1.12\))
-Subject: Re: [PATCH] mm/hugetlb: use kvmalloc_array for
- hugetlb_fault_mutex_table
-From: Muchun Song <muchun.song@linux.dev>
-In-Reply-To: <20261006140226.11684-1-dheerajkumar.srivastava@amd.com>
-Date: Tue, 6 Oct 2026 16:11:01 +0200
-Cc: osalvador@suse.de,
- david@kernel.org,
- akpm@linux-foundation.org,
- davidlohr@hp.com,
- linux-mm@kvack.org,
- linux-kernel@vger.kernel.org,
- Vasant.Hegde@amd.com,
- bharata@amd.com
-Content-Transfer-Encoding: quoted-printable
-Message-Id: <FB1A3722-E7F2-4E54-A0E4-940BEB15EBC9@linux.dev>
-References: <20261006140226.11684-1-dheerajkumar.srivastava@amd.com>
-To: Dheeraj Kumar Srivastava <dheerajkumar.srivastava@amd.com>
-X-Mailer: Apple Mail (2.3901.100.1.1.12)
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+X-Last-TLS-Session-Version: TLSv1.3
 
+Trying to disable the napi threaded state while the napi instance is
+disabled will hang forever in napi_stop_kthread(), as it waits for
+NAPIF_STATE_SCHED_THREADED to clear.
 
+This won't happen until the next ____napi_schedule() call, which won't
+happen as it's disabled.
 
-> On Oct 6, 2026, at 16:02, Dheeraj Kumar Srivastava =
-<dheerajkumar.srivastava@amd.com> wrote:
->=20
-> On systems/VMs with a large number of CPUs (e.g. 4096), hugetlb_init()
-> computes num_fault_mutexes =3D roundup_pow_of_two(8 * =
-num_possible_cpus())
-> =3D 32768.  The subsequent kmalloc for the mutex table can exceed
-> MAX_PAGE_ORDER when struct mutex is enlarged by debug options like
-> CONFIG_DEBUG_MUTEXES and CONFIG_DEBUG_LOCK_ALLOC, resulting in:
->=20
->  WARNING: at __alloc_frozen_pages_noprof (order > MAX_PAGE_ORDER)
->  kernel BUG at mm/hugetlb.c (BUG_ON(!hugetlb_fault_mutex_table))
->  Kernel panic - not syncing: Fatal exception
->=20
-> Switch to kvmalloc_array() so the allocation falls back to vmalloc =
-when
-> the contiguous physical allocation is too large.  The table is only
-> accessed by index, so virtual contiguity is sufficient.
->=20
-> Fixes: 8382d914ebf7 ("mm, hugetlb: improve page-fault scalability")
-> Signed-off-by: Dheeraj Kumar Srivastava =
-<dheerajkumar.srivastava@amd.com>
-> ---
-> mm/hugetlb.c | 3 ++-
-> 1 file changed, 2 insertions(+), 1 deletion(-)
->=20
-> diff --git a/mm/hugetlb.c b/mm/hugetlb.c
-> index cea25773a6c9..f1b982595151 100644
-> --- a/mm/hugetlb.c
-> +++ b/mm/hugetlb.c
-> @@ -4177,7 +4177,8 @@ static int __init hugetlb_init(void)
-> 	num_fault_mutexes =3D 1;
-> #endif
-> 	hugetlb_fault_mutex_table =3D
-> - 		kmalloc_objs(struct mutex, num_fault_mutexes);
-> + 		kvmalloc_array(num_fault_mutexes,
-> +			       sizeof(*hugetlb_fault_mutex_table), =
-GFP_KERNEL);
+This happens in 2 instances :
 
-Why not use kvmalloc_objs instead? A little simple.
+ - Drivers that create but don't use napi instances (stmmac's rxtx napi
+   for AF_XDP for example), here it's a driver bug
 
-Thanks
+ - Drivers that create their napi instances in .probe(). Here, setting
+   threaded off while the interface is down will hang :
 
-> 	BUG_ON(!hugetlb_fault_mutex_table);
->=20
-> 	for (i =3D 0; i < num_fault_mutexes; i++)
-> --=20
-> 2.25.1
->=20
+   ip link set eth0 down
+   echo 1 > /sys/class/net/eth0/threaded
+   echo 0 > /sys/class/net/eth0/threaded
+   -> hang
+
+Checking on netif_running() isn't enough, as napi instances may be
+transiently disabled when changing the MTU for example, so let's check
+the NAPIF_STATE_NPSVC flag instead, that's clear when the napi instance
+is enabled.
+
+This fix only addresses the second case. For the first case where
+drivers have unused napi instances, the "threaded" mode can't be
+switched off once enabled, these drivers will need fixing. As this
+hasn't been seen before on said drivers, I guess it's OK as it used to
+just freeze the system.
+
+This was tested on mvpp2 (probe-time napi_add) and stmmac.
+
+Fixes: 689883de94dd ("net: stop napi kthreads when THREADED napi is disabled")
+Signed-off-by: Maxime Chevallier <maxime.chevallier@bootlin.com>
+---
+V2:
+ - Different approach as per Jakub's review, just don't allow setting
+   the napi threaded mode while interface is down.
+
+   I'm unsure about the correctness of this, to me it seems that the
+   NAPI_STATE_NPSVC flag indicates the condition we're interested in (is
+   napi instance enabled or not ?), but I may be missing something
+   obvious :(
+
+V1:
+https://lore.kernel.org/r/20260926194714.648819-1-maxime.chevallier@bootlin.com
+
+ net/core/dev.c | 6 ++++++
+ 1 file changed, 6 insertions(+)
+
+diff --git a/net/core/dev.c b/net/core/dev.c
+index f660fccfc0db..fcf18c9eedb8 100644
+--- a/net/core/dev.c
++++ b/net/core/dev.c
+@@ -7315,6 +7315,12 @@ int netif_set_threaded(struct net_device *dev,
+ 				}
+ 			}
+ 		}
++	} else {
++		list_for_each_entry(napi, &dev->napi_list, dev_list) {
++			if (napi->thread &&
++			    test_bit(NAPI_STATE_NPSVC, &napi->state))
++				return -EBUSY;
++		}
+ 	}
+ 
+ 	WRITE_ONCE(dev->threaded, threaded);
+-- 
+2.55.0
 
