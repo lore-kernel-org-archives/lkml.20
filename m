@@ -1,26 +1,26 @@
 Received: from CHN02-SH0-obe.outbound.protection.partner.outlook.cn (mail-sh0chn02on2122.outbound.protection.partner.outlook.cn [139.219.146.122])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C38193CEBBA;
-	Tue,  6 Oct 2026 08:34:09 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 60CF13DDAE4;
+	Tue,  6 Oct 2026 08:34:13 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=139.219.146.122
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791275653; cv=fail; b=Q5fm8JbYERuCQhg5YtbD224XUUsCW2/u5WgBeudVFjLHseyG6wwerA5Yu5KMGmCgQxGHkB6EkIn6BA8nhp1j7YnqB4SCqPJ5KDPZzNSV055KCr2loHihmmk0nIYDIKancj9DTSqEpDy7gHKr9weguOPCJsHjUM+rqB55wElOEgg=
+	t=1791275656; cv=fail; b=cVwGAZ8fwcwUddY/D3YEj37L34FntXOQruBqXgffhxHYVDRALcU1s96swNtgMBwE4jo8xOG9ZowcyW/rA9o0Hegt9LAS7mju0UuIzHf5sFtEnYLgwkN3PcfI6ixIsroi5RcJyp6sNYmv1zZU4Cn/TKhvjnKqqInDAxy/cGwT2AY=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791275653; c=relaxed/simple;
-	bh=Wz1poXpKYWeraqOdb0t1t7uxXyI2X8j8NqhwrrPoU4M=;
+	s=arc-20240116; t=1791275656; c=relaxed/simple;
+	bh=zaj+N8nUW8+SbM76ISMB4vMjWcnDunt7dGqGx94d/WE=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=uy5XefpcYWuSll37RtyGf8W3HiMeo2axlcPLzLl4tqJaWelJBOBnp5/VLddMbQeJaK2CSeroNwEeYuE1O8wZpRpRcIl/RJSEDygdIEcoOKvpRf47MpxwNHYPLti505wn5EKwQ52TLd49BcTkWjmvzoAP63APJPTirpDrbctgUsc=
+	 Content-Type:MIME-Version; b=bqElTWYYdcmyIFA9BSWpIhInbL/YfUfTEkefgJ+tQzcd/UKURNeTviE9FeROqG6GDyFXco56UjxWN2xK/+k8zdun6hfT3T5oQbQLR5xINxu3GToLxCbE0noY3yfqylZ2Gh8vvxGmbw972SWJ2JBihUpQ43QJ1hiMQFoUuoOMRsA=
 ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=starfivetech.com; spf=pass smtp.mailfrom=starfivetech.com; arc=fail smtp.client-ip=139.219.146.122
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=starfivetech.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=starfivetech.com
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=fEmIoF90glGsNdQhEfsgABTNuMYCQPGumCQ3Qauwt6IzHG4K/U6p/rnZUNCKRVzYNmGloIkRk/0bY2vssOKfjsCHafNX6QBe9OZvlTJrTydzy1woRcQ9n/kDyPT7dzQtnNFFkN4Ft4G+CjnvQyf35poeGMMAVM5zG5VFof40vBhHIHn9Zmd1Fo+f/DD3SAEUXQ0zRbyWPwnVtiIRt7CSe9CeeVJosifnvnBVcOXggv91RF50g+VEuMoq25VQV1PHJbn32P1Kf5uQHCFQI5pjGIQVVux1Y4icgHJsiNN2UfvzQZL8dDxbFffNBrCZsP35tJzmDEgJS/egZCdWfe3rFQ==
+ b=Aj9vH2vl3imsXziBnvtnH6UBMzBn0bWC4tuRvwHKNz2ao2oDFay142jMXyZS5lMdOBc2cOrDF/egEDb0RN+FtTfqqlZF09jp2k+yWvEHBkzF9vOUn+cwpXSPREf70XuZwZu+LZowOEi6c6F5INu0GFFwiI3xYpyPa+m75mhqKu7EXHFbpObNhrsXichQTcjGM8ECghd4qE8XCUy2WgE35MSZHFHUHwUJeaEOV9eeGULMGo/Xz0ub7gNrnDJtdHAq5R5hmaytST64qcWINf/Hw9AQg5xHWCZtCfAZ5odBzgwooxNrNcKz22hDPUHPncRGyOBy5SSjBhmt4MWTOJjUYA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=HJFLH82PBhDkqVgw2g+ZvkZCtL9yop02dvvhIGa/7BE=;
- b=ivxiKq6Arcq6+YuFSnzgoOWer5HnvsSsJUs0Yhq0LFngzfN4+m7ab0SNalo4RbNHi3efl3tGR/RBq+26vxq1bhrPfrAIsGaVwUN8SNggHzrTAAhoSHscPytvYGQe3RzZ9l0Zk3opLYk3LUhEn3nwa/9mf5JexttFtSqRi1ba6nj4pCTLNtVtBO2BVRogD+y4oz0mzxao6VznP3UJ98ZnxT9rYeGxs9aF+0TuQLVl6ANOjnSNvFAMmBAjuPm7gvlXmsWGNXrXL33KKbsm3g3SEnhv60rvph7yPAW/PWCMYyoc8Pw371Uy0LsJzG/WQ26BHo4qkoeA6mixsdGIuaz0QQ==
+ bh=F4tBROoNbYZwJuwg+4In2D8tgD7M0jDlYUkiMP5tq94=;
+ b=bjRI1yTtWw09VStPCJU0+tyWIPSFeN+yZI7icMh6pkGZApGtsM0t2FDEWx8FiE/0UqxDKDGtjVM7sxhY3HazlWf5ouYTqyP5xgZEwPKRk6+CNL4Yt9VDrb+W43w47Aoa4OExPoyHZRXczXMycch6w9nweOxiWSHgszoRddz9cUsLFzB7KEaA3ZwTXCX+TxecnxW2bPWBNOyqJGzuFUgyXxs/Obo0GusH21cfMZXTAfzFLqmn+sXn8LRlSuty4UWWbaoxiM34H31Yu6GJFl/XUWlEjqCPcY23q5P7RUbw6MMRym8Re+iZihcb90NQ2Yre/Cm1zyRPtSdz/NAILJ+uDw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=starfivetech.com; dmarc=pass action=none
  header.from=starfivetech.com; dkim=pass header.d=starfivetech.com; arc=none
@@ -30,11 +30,11 @@ Received: from SH0PR01MB0841.CHNPR01.prod.partner.outlook.cn
  (2406:e500:c311:20::14) by SH0PR01MB0556.CHNPR01.prod.partner.outlook.cn
  (2406:e500:c311:8::23) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.472.20; Tue, 6 Oct
- 2026 08:34:00 +0000
+ 2026 08:34:11 +0000
 Received: from SH0PR01MB0841.CHNPR01.prod.partner.outlook.cn
  ([fe80::435e:52b5:c524:459c]) by
  SH0PR01MB0841.CHNPR01.prod.partner.outlook.cn ([fe80::435e:52b5:c524:459c%3])
- with mapi id 15.21.0472.016; Tue, 6 Oct 2026 08:34:00 +0000
+ with mapi id 15.21.0472.016; Tue, 6 Oct 2026 08:34:11 +0000
 From: Joshua Yeong <joshua.yeong@starfivetech.com>
 To: broonie@kernel.org,
 	lgirdwood@gmail.com,
@@ -52,9 +52,9 @@ Cc: alex@ghiti.fr,
 	linux-riscv@lists.infradead.org,
 	devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH v3 1/3] dt-bindings: regulator: Add RPMI voltage service bindings
-Date: Tue,  6 Oct 2026 16:32:57 +0800
-Message-ID: <20261006083259.2206001-2-joshua.yeong@starfivetech.com>
+Subject: [PATCH v3 2/3] regulator: Add RPMI voltage service
+Date: Tue,  6 Oct 2026 16:32:58 +0800
+Message-ID: <20261006083259.2206001-3-joshua.yeong@starfivetech.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20261006083259.2206001-1-joshua.yeong@starfivetech.com>
 References: <20261006083259.2206001-1-joshua.yeong@starfivetech.com>
@@ -71,62 +71,65 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
 X-MS-TrafficTypeDiagnostic: SH0PR01MB0841:EE_|SH0PR01MB0556:EE_
-X-MS-Office365-Filtering-Correlation-Id: e5b1ab79-7794-424d-fec3-08df2384913a
+X-MS-Office365-Filtering-Correlation-Id: e80ddf59-509d-4d61-1500-08df238496e2
 X-MS-Exchange-SenderADCheck: 1
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|52116014|7416014|1800799024|23010399003|366016|6133799003|22082099003|18002099003|10067099003|3023799007|13003099007|921020|56012099006|38350700014;
+	BCL:0;ARA:13230040|376014|52116014|7416014|1800799024|23010399003|366016|6133799003|22082099003|18002099003|10067099003|3023799007|921020|56012099006|38350700014|5023799004;
 X-Microsoft-Antispam-Message-Info:
-	axpTJ6FEsZM1kQbAEmrlAz80AvMDmcxrrJc+3WD4ke/6yC9X+77/15U7nQOiJSvj3OrNDRnV9PAMCDrBVmvY3B5T1vZ8jt9HDDjs/YIR4kcXsQGk/lXnxMkOvrngD7qbPA3mRGRVrW1gDv4JX6hNVd71MUjXIW/OawvMJVKjqja5inLhsd+UPnuTk8ZGFuMDanmYulARxkY0kJg+kTpjtkzX7vkGSDnQaAuxk/sLf4d6uLT61GWJ6bqlkCEkUrgNKYtzEjn6r1DYd4/NtMcIrDZXNxEZVK/wcRYmnLvPUMLoN01vBBDlq3cfiVO7vk8bDMU2KpDfs7Rcnmvp+VtiozT8Y6VaVzsztJGyfb65N5i3W/aQZBx799lQ5mVG0HOIfT1THRIXZoRJT74ruK9HRI1YETnwLo9mUFxt+PZufPWBlrugSyar2h74exwAiOlzLPQ5Zh1mcgOnGwI8c4qnnjs2EaLN1JVGMOvs7o9D/DDKHiLMcdDRappsXQoQuZrDzguprcEyJApJM0jMLcPSxcwT7fjFahRa4Qy7CoHGDV3JYW7cIYYeJ268v/OY73L0S8zK8xVWTkduke6bzbZDfA==
+	A+kODuzHesCivEmBALu8myFysbN8hxsv55XEDApU0BaLwXbUIG8uqB4W/Y39iaiO09Wo5h1invE36wVsozEqmtWmo6Zc/0Ll76EDbImV2qSsEvSCJTpEshtBvGYG18p7BsbVEANMYOCTpnitxZro0N7hGsR3tYWsX2ZV7hnr3QstZ/C97JT+2fKIcgzy7Hif9PcIQkOtLbJuJ5WOiULx7EzBo4NIBKUKwMIFAwCtkhFoIlNU93Jv6gWIvhYXa5xYh+Kz58Eg44M6Pm6HKT5EdLmE1PEIrTdARXNXdGKEenkJyBcLfLOq389SY/8Iv/j5XSk1D8ndAvLpsolEkWLa35Ydt/YZ2eJMBtOTkqWWsFBgp6yYyNHOgy0pZ33XEQVA49HhqA0U3Q4SX5WnkJUWAfsyh/nQ5S6FY6gNYFm6MqtdFAxrNO1SF2dy7sje1kHDcd+knQAGnQXWC9UZnpHHr3PuHqhpwl/8DqlxutrogoqZrMqFvaQ1ieoJn/YY1k+qoZQ/v0BmYd729vw7o1G36IERpX7t3sCjZhjn4Begduxban3Chvji7+Zrs+XR5h87ngQTjVDc/gutX3gJY3thOQ==
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SH0PR01MB0841.CHNPR01.prod.partner.outlook.cn;PTR:;CAT:NONE;SFS:(13230040)(376014)(52116014)(7416014)(1800799024)(23010399003)(366016)(6133799003)(22082099003)(18002099003)(10067099003)(3023799007)(13003099007)(921020)(56012099006)(38350700014);DIR:OUT;SFP:1102;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SH0PR01MB0841.CHNPR01.prod.partner.outlook.cn;PTR:;CAT:NONE;SFS:(13230040)(376014)(52116014)(7416014)(1800799024)(23010399003)(366016)(6133799003)(22082099003)(18002099003)(10067099003)(3023799007)(921020)(56012099006)(38350700014)(5023799004);DIR:OUT;SFP:1102;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?6MsvH3ItW3n7mFPmHhbWQxdxXjKZW60q/ibD20y5bEkCrqiu/AmhwCve5tjS?=
- =?us-ascii?Q?b0JmxkNRhvZyOxxfmngL9yMnTQeDdboahTyAiaTjGVb9diaYmygDG96me1p4?=
- =?us-ascii?Q?Bi8zTEq+HSLVMaGzsM4RHTyiE3F0I66Wf9pVtVvQj3aSkxk1rEqKFqqwAHmT?=
- =?us-ascii?Q?HyxGbl7+lkDMFl3lPVsXn1UwdURVjAGZlFw1DStq2njgtBV3BICeTayWnoQP?=
- =?us-ascii?Q?jmzKzfeUf3EvWI4x9FDjM8Cdr9E6r0rv4GbWR6Vi3JjgZ+yqjw863LysuBCp?=
- =?us-ascii?Q?P9QUQlt3jsdX8F8bNPJSYLToOgQBQVvRE4IJGhNP0Qj+auyFL0wAageRydlz?=
- =?us-ascii?Q?6RhfgYkvIOEoYaE0XfIi/GRwiBuV/F/P0NJTEExTq/veZ9FyNz80Pv/9dsC/?=
- =?us-ascii?Q?/l8+Qug++eqNZ/xwMxuw5MGMXORzWx7jjHFUm3c13WEZy6RtapInQdqyo8P/?=
- =?us-ascii?Q?7clev4XJl7/o82Nr0qKVR4z5psxbq/6Pd++mBYeTSh0Nu9hRNHgtMwSH/H2w?=
- =?us-ascii?Q?1kEaW14t9TRUHGRy5K+ZOBXHsRJ8y0jnufTEgE/IihaQE8ApSSeIPaqYugmR?=
- =?us-ascii?Q?0XZQlzASRc6pc66n0zpvamhrNg7bXfoix0NHf3mZI0qSwNG6jcJYvvG15HJI?=
- =?us-ascii?Q?XZd089yflHAvGAKqlW7ykW/h9opK01XUYOqSheKEUjjAV8PLoxI7f1EER9Ox?=
- =?us-ascii?Q?RFNK49WdfqzTvB/fBOe0P1JqnAJD6xLZ3B5gql24tp94TFzMKYFHLF8T0tsw?=
- =?us-ascii?Q?+/z3VXVdUdBlyajnNWlTTFqkO1hpCR7ZMYBxv/MXj58OJbvvNwFPOahWF+ga?=
- =?us-ascii?Q?e5cIf3UCt2AMjiFQdkAZb7me1yTmQJHBtmd7g3RY/yUKifXwzPcR0kd54jsY?=
- =?us-ascii?Q?eLGjQhp45QEVA3jlAAIUt66/uoRb2Zy51EctAJYeP1SZ6SjadefQZY9ccYdP?=
- =?us-ascii?Q?71xvGPtBAeUFM4iWsXTUVh1cg1+kVQ3bXjDfgo/XkJZQTEYUZOkh0WSZhAla?=
- =?us-ascii?Q?K/qcNacnpqnO29Sc8zQ1ZAKlcN473EVddTQMOPKi11nZtpinfi+KbKPvoKqy?=
- =?us-ascii?Q?owqyFn/UhNHtN31wFRwNEQXTkDBOo4AfF3rhvUgnPahMjUQrRQUdD5nCdABC?=
- =?us-ascii?Q?ofEY4VJbgFY2H3ulmgHvj6P5EsCkXyy9dCVz00iixcZ/YmPahPEDrBesVvGs?=
- =?us-ascii?Q?qaixqt4XyW2rXPxSLQxPYKnIE575Pg1NhH1VuE3jX1nqbItlwnw2tS0MYFB9?=
- =?us-ascii?Q?pDf6f4u8nByrQR+on1n/PFEg3B3n5NfiiSCFP/DQmAMmcpZwlzZpZtlMvz+I?=
- =?us-ascii?Q?P3n4mXlPiHLmIKdaUQN/VhoHRpTGNVsSCh6TkvJNjMQyFBq9s9vPAQKQfqF4?=
- =?us-ascii?Q?MAhDIX5ISKI0NkENRzR21wAjjkxoz2E2LkrNqpvrxuEJaN06CdJUBCFbBbJa?=
- =?us-ascii?Q?3ODreHFxsX++/CtU1eymhUgn4tjTahgh3Xm8PcAxiFobhkgi5SEedvgKUWDl?=
- =?us-ascii?Q?xv74+GajeX9tZs0AC+xmzM1l5tft/0xfrwedW0bmu91b8EEnTFRVJVXYt/sL?=
- =?us-ascii?Q?xnpkLQfzY99Iry7+hKU18Pg6IIg/riCRw2R+nE2zguYBRaNlumxh1mUe/xgB?=
- =?us-ascii?Q?LgzA9Bmp23sm4NMxTsqWVf8LAU++16CiGzVKd8O2BCko/P1t6K/AFRvjBGGK?=
- =?us-ascii?Q?1Y2tfedvMDsunZZt0mpe8nam4MqXY4aj2GSMsQ/D3ck/SjmNB1RApMZ9rLVV?=
- =?us-ascii?Q?U8d6hsXHshz3XZ1L39DrTKjIwYaZaww=3D?=
+	=?us-ascii?Q?lg3UJPBr1LzReKspiFnVIpe6LmlF2IAzutfGzzta5q7d9KPSJKT3kMSYWU0q?=
+ =?us-ascii?Q?hSPY1YuFCoaXZbfG3TD/eGvJ/sxn6szYFsi6G3dGEPab0kcX5u197BTJeyQc?=
+ =?us-ascii?Q?rB9/Y7Zfi3PuzySCdnxydJqZv44A4nUjaTFKdXyqToG5cL117MX7+opNtNtg?=
+ =?us-ascii?Q?95NKGiy9PKpCeAOwdNPbD4dNO3ml8eiCJ2ESEhwFzRp/drz4/53VwgJLeCLW?=
+ =?us-ascii?Q?3LLQloNpUuWrj+BeZ3TwGoMbx0IQg/5+Ff0GIC3SbteYeo3+0REsCz1GVXs0?=
+ =?us-ascii?Q?ZQChdn87U+nWGc9WezeOtLWBsTWLlP4UPeK64EtgDP6vqlcWcd+jfcCcrhtC?=
+ =?us-ascii?Q?Ms5pwVN6aJmf4Uuuq9/4ZucvfeIYFe0UvZeRT3M8mIUKOcbjOQ/bgV2YfznG?=
+ =?us-ascii?Q?vuDfGfqDgSyBs93avh9pJ6FgdIIFKuBN8oiVZrrETZq1ARn8HpNSHORiGGo7?=
+ =?us-ascii?Q?arjA3nP7B9V61s7KR3Wz9aBAuOkdaSNJouRRsPAPqgl1JosT5iUaZnyvlH14?=
+ =?us-ascii?Q?I7qXyr0wvHnuU6J0m/KLpBuiN7t//d/imXQjb4E3Vxw/iUTfwYMW420I+C3C?=
+ =?us-ascii?Q?DsyzleqppwyFHMmfH8pTTrUcTv9loKyvwRkp5HG5+Ta+X42bxOkiWnplzX6Q?=
+ =?us-ascii?Q?9lMJhbp2s5FADWiol9GldjHb0aDAATPOWa0HSYmhJFH5ppFE/ViU3cAhkqN8?=
+ =?us-ascii?Q?2AHzYH01gnoB8tvQOSkHju/G2PDY9BGrC/LdmhWbe//rZJMe4u496UsyvYKW?=
+ =?us-ascii?Q?CmQRnNQNoqVcNdqmT9EWZRKoEuWky5Aw87x3ib0Jz0ebpsXRliBB3xvCaQUq?=
+ =?us-ascii?Q?85s8PD9KzMhWShJxY5YgVcNcva/ZsT+MM/2C7F7k6/pS0TsvWkKkydfKlq7V?=
+ =?us-ascii?Q?Bs6mDm4aHTufckJ5vGe2lk918RESrbgejNtfj6/3knBGDUXuelEseAjADES4?=
+ =?us-ascii?Q?oSUhh8RBnGpRUG7qxlJYOOK4b8pLYnxPR6L2SSEAKi2saoBmbbtnNwld7WoH?=
+ =?us-ascii?Q?0Lzh5AFAb0aHwKuRGvA2CmaCvSJoGreSe4L+MklSrN+GU+N35/SxqO3+zc8N?=
+ =?us-ascii?Q?Kbl6CdTiROL0kALM1pnJjTTez47G7ApD6mHODiHyC8nJcDpj+1HxPjtPUQAV?=
+ =?us-ascii?Q?pqKLRgHOUm6QCfvDh6dy1wwVqFdYvJAJqhgHyhQayoH8O3prT0R4O9AygkiG?=
+ =?us-ascii?Q?nIqXjFglAVch6WV5uVAtG8eTT3wQX6c4U7DbBmCMOTwt2i/TuWQWrN9Vg02z?=
+ =?us-ascii?Q?hC/5uQPzYG5VtWyL2/lzedHhd9poiZ6vHrt2ibXZ/j6i8/4QnMZoDoBpJyqT?=
+ =?us-ascii?Q?DyvDymSL4jWafyaranvAtm8Cyhy6TrCBlISFmyIrbVNhvNjVAkdYwo+MY4SW?=
+ =?us-ascii?Q?pzpNpdXequ+kIjIvdMKemPRLsE4oz8+9igDSQ6SNYR7uHmB8OCLp1EsRZggQ?=
+ =?us-ascii?Q?X4zqJQY4NhIQKM3fiD4Uyi/XtlNpZV1mjX3cfdMnroS6H+u0+x6D8t1gEPMG?=
+ =?us-ascii?Q?ZjED/eANCTDR34YabqT/gQDmp0Qg1HoBY/QuDGGOD+aMKpIfp9Z5B52ComhL?=
+ =?us-ascii?Q?qComGSnzC9vYQClKZWOkTBTT3B5a750XOb1aSlcDvJDuPIaqeTrIrtFfTw4T?=
+ =?us-ascii?Q?Lb6xgVvzCAjvXNotXUQeMFcA4zb23yWfBcGEZw/V4r5TCIu1LPeJbphI/5sw?=
+ =?us-ascii?Q?5xmLZmH/qtvB/22X3LW9r5LsrFH0h5IeMoOdKmKnZOqVxO7mjx8SDrl76r12?=
+ =?us-ascii?Q?KuQNvTXm2pohBiSVYMt5fzgoPW4NE7w=3D?=
 X-OriginatorOrg: starfivetech.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: e5b1ab79-7794-424d-fec3-08df2384913a
+X-MS-Exchange-CrossTenant-Network-Message-Id: e80ddf59-509d-4d61-1500-08df238496e2
 X-MS-Exchange-CrossTenant-AuthSource: SH0PR01MB0841.CHNPR01.prod.partner.outlook.cn
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Oct 2026 08:34:00.1097
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Oct 2026 08:34:10.9700
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 06fe3fa3-1221-43d3-861b-5a4ee687a85c
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: QIaqVCbrYt3ZcCxNEJ1N3IbHVrLwYDKk1VfqQd8HJwLxHWxJDKQgtgrFXu1571S2kJzwsPdYfES9GsmSPt/x6ouGceFBm7/V9E9e+DrHrM0=
+X-MS-Exchange-CrossTenant-UserPrincipalName: mPmdB4nii1c3kAMlwvmERuIdRCxE5/+9+coa0pYECDbn32Doai0CpU9DXecDQU2qdzyuNDXZHvRWYjVTyyKoIAV6T+AIoivM/7KNroGKAy8=
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: SH0PR01MB0556
 
-Add device tree bindings for the RISC-V Platform Management Interface
-(RPMI) voltage service group, both for the supervisor-facing regulator
-controller and for the SBI MPXY channel which the SBI implementation
-uses to expose the service group.
+The RPMI specification defines a voltage service group which can be
+accessed via SBI MPXY extension or dedicated S-mode RPMI transport.
+
+Add a mailbox client based regulator driver for the RISC-V RPMI voltage
+service group. The driver enumerates the voltage domains advertised by
+the platform microcontroller, reads their supported voltage levels and
+registers each of them as a regulator.
 
 Signed-off-by: Joshua Yeong <joshua.yeong@starfivetech.com>
 ---
@@ -134,219 +137,977 @@ Based on the RPMI device power series ("Add RISC-V RPMI device power
 service support"), which has been applied for next. The cover letter
 links the mail saying so.
 
- .../regulator/riscv,rpmi-mpxy-voltage.yaml    |  65 +++++++++
- .../regulator/riscv,rpmi-voltage.yaml         | 130 ++++++++++++++++++
- 2 files changed, 195 insertions(+)
- create mode 100644 Documentation/devicetree/bindings/regulator/riscv,rpmi-mpxy-voltage.yaml
- create mode 100644 Documentation/devicetree/bindings/regulator/riscv,rpmi-voltage.yaml
+ drivers/regulator/Kconfig                  |  14 +
+ drivers/regulator/Makefile                 |   1 +
+ drivers/regulator/riscv-rpmi-regulator.c   | 893 +++++++++++++++++++++
+ include/linux/mailbox/riscv-rpmi-message.h |  14 +
+ 4 files changed, 922 insertions(+)
+ create mode 100644 drivers/regulator/riscv-rpmi-regulator.c
 
-diff --git a/Documentation/devicetree/bindings/regulator/riscv,rpmi-mpxy-voltage.yaml b/Documentation/devicetree/bindings/regulator/riscv,rpmi-mpxy-voltage.yaml
+diff --git a/drivers/regulator/Kconfig b/drivers/regulator/Kconfig
+index 89789ac7a786..56c4f884c7d0 100644
+--- a/drivers/regulator/Kconfig
++++ b/drivers/regulator/Kconfig
+@@ -1255,6 +1255,20 @@ config REGULATOR_RC5T583
+ 	  through regulator interface. The device supports multiple DCDC/LDO
+ 	  outputs which can be controlled by i2c communication.
+ 
++config REGULATOR_RISCV_RPMI
++	tristate "RISC-V RPMI based regulator driver"
++	depends on RISCV || COMPILE_TEST
++	depends on MAILBOX
++	default RISCV
++	help
++	  Support for regulators based on the voltage service group defined
++	  by the RISC-V platform management interface (RPMI) specification.
++	  The voltage domains advertised by the platform microcontroller are
++	  registered as regulators.
++
++	  To compile this driver as a module, choose M here: the
++	  module will be called riscv-rpmi-regulator.
++
+ config REGULATOR_RK808
+ 	tristate "Rockchip RK805/RK808/RK809/RK817/RK818 Power regulators"
+ 	depends on MFD_RK8XX
+diff --git a/drivers/regulator/Makefile b/drivers/regulator/Makefile
+index 5a764cec8df8..e4ca6cef1996 100644
+--- a/drivers/regulator/Makefile
++++ b/drivers/regulator/Makefile
+@@ -146,6 +146,7 @@ obj-$(CONFIG_REGULATOR_RAA215300) += raa215300.o
+ obj-$(CONFIG_REGULATOR_RASPBERRYPI_TOUCHSCREEN_ATTINY)  += rpi-panel-attiny-regulator.o
+ obj-$(CONFIG_REGULATOR_RASPBERRYPI_TOUCHSCREEN_V2)  += rpi-panel-v2-regulator.o
+ obj-$(CONFIG_REGULATOR_RC5T583)  += rc5t583-regulator.o
++obj-$(CONFIG_REGULATOR_RISCV_RPMI) += riscv-rpmi-regulator.o
+ obj-$(CONFIG_REGULATOR_RK808)   += rk808-regulator.o
+ obj-$(CONFIG_REGULATOR_RN5T618) += rn5t618-regulator.o
+ obj-$(CONFIG_REGULATOR_ROHM)	+= rohm-regulator.o
+diff --git a/drivers/regulator/riscv-rpmi-regulator.c b/drivers/regulator/riscv-rpmi-regulator.c
 new file mode 100644
-index 000000000000..8cc53879cdf9
+index 000000000000..ea230bcb6a47
 --- /dev/null
-+++ b/Documentation/devicetree/bindings/regulator/riscv,rpmi-mpxy-voltage.yaml
-@@ -0,0 +1,65 @@
-+# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/regulator/riscv,rpmi-mpxy-voltage.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
++++ b/drivers/regulator/riscv-rpmi-regulator.c
+@@ -0,0 +1,893 @@
++// SPDX-License-Identifier: GPL-2.0-or-later
++/*
++ * RISC-V RPMI Based Regulator Driver through SBI MPXY
++ *
++ * Copyright (C) 2026 Shanghai StarFive Technology Co., Ltd.
++ *
++ * Implements a regulator driver on top of SBI RPMI Message Proxy Extension (MPXY)
++ *
++ * Each SBI MPXY regulator instance is associated, through the means of a proper DT
++ * entry description, to a specific Transport ID.
++ */
 +
-+title: RISC-V RPMI voltage service group based message proxy
++#define pr_fmt(fmt) "riscv-rpmi-regulator: " fmt
 +
-+maintainers:
-+  - Joshua Yeong <joshua.yeong@starfivetech.com>
++#include <linux/bitfield.h>
++#include <linux/cleanup.h>
++#include <linux/mailbox/riscv-rpmi-message.h>
++#include <linux/of.h>
++#include <linux/platform_device.h>
++#include <linux/regulator/driver.h>
++#include <linux/regulator/machine.h>
++#include <linux/regulator/of_regulator.h>
 +
-+description: |
-+  The RISC-V Platform Management Interface (RPMI) [1] defines a
-+  messaging protocol which is modular and extensible. The supervisor
-+  software can send/receive RPMI messages via SBI MPXY extension [2]
-+  or some dedicated supervisor-mode RPMI transport.
++#define RPMI_REG_DOMAIN_NAME_LEN	16
 +
-+  The RPMI specification [1] defines voltage service group for accessing
-+  and controlling the voltage domains managed by a platform
-+  microcontroller. The SBI implementation (machine mode firmware or
-+  hypervisor) can implement an SBI MPXY channel to allow RPMI voltage
-+  service group access to the supervisor software.
++/* VOLT_GET_ATTRIBUTES FLAGS */
++#define VOLTAGE_FORMAT_MASK		GENMASK(3, 1)
++#define ALWAYS_ON_MASK			BIT(0)
 +
-+  ===========================================
-+  References
-+  ===========================================
++struct rpmi_ctx {
++	struct mbox_chan *chan;
++	struct mbox_client client;
++	u32 max_msg_size;
++};
 +
-+  [1] RISC-V Platform Management Interface (RPMI) v1.0 (or higher)
-+      https://github.com/riscv-non-isa/riscv-rpmi/releases
++struct rpmi_reg_level_discrete {
++	u32 uvolt;
++};
 +
-+  [2] RISC-V Supervisor Binary Interface (SBI) v3.0 (or higher)
-+      https://github.com/riscv-non-isa/riscv-sbi-doc/releases
++struct rpmi_reg_level_linear {
++	u32 uvolt_min;
++	u32 uvolt_max;
++	u32 uvolt_step;
++};
 +
-+properties:
-+  compatible:
-+    description:
-+      Intended for use by the SBI implementation.
-+    const: riscv,rpmi-mpxy-voltage
++struct rpmi_reg_domain {
++	u32 id;
++	struct rpmi_ctx *rpmi_ctx;
++	struct device *dev;
++	struct regulator_desc desc;
++	struct regulator_init_data init_data;
++	u32 voltage_format;
++	u32 always_on:1;
++	u32 num_levels;
++	u32 transition_latency;
++	u32 *level;
++	char name[RPMI_REG_DOMAIN_NAME_LEN];
++};
 +
-+  mboxes:
-+    maxItems: 1
-+    description:
-+      Mailbox channel of the underlying RPMI transport.
++/* Service ID: RPMI_VOLTAGE_SRV_GET_NUM_DOMAINS */
++struct rpmi_get_num_domain_rx {
++	__le32 status;
++	__le32 num_domains;
++};
 +
-+  riscv,sbi-mpxy-channel-id:
-+    $ref: /schemas/types.yaml#/definitions/uint32
-+    description:
-+      The SBI MPXY channel id to be used for providing RPMI access to
-+      the supervisor software.
++/* Service ID: RPMI_VOLTAGE_SRV_GET_ATTRIBUTES */
++struct rpmi_get_domain_attrs_tx {
++	__le32 domain_id;
++};
 +
-+required:
-+  - compatible
-+  - mboxes
-+  - riscv,sbi-mpxy-channel-id
++/* Service ID: RPMI_VOLTAGE_SRV_GET_SUPPORTED_LEVELS */
++struct rpmi_get_supp_levels_tx {
++	__le32 domain_id;
++	__le32 level_index;
++};
 +
-+additionalProperties: false
++struct rpmi_get_supp_levels_rx {
++	__le32 status;
++	__le32 flags;
++	__le32 remaining_items;
++	__le32 returned_items;
++	__le32 level[];
++};
 +
-+examples:
-+  - |
-+    voltage-service {
-+        compatible = "riscv,rpmi-mpxy-voltage";
-+        mboxes = <&rpmi_shmem_mbox 0x7>;
-+        riscv,sbi-mpxy-channel-id = <0x1004>;
-+    };
-+...
-diff --git a/Documentation/devicetree/bindings/regulator/riscv,rpmi-voltage.yaml b/Documentation/devicetree/bindings/regulator/riscv,rpmi-voltage.yaml
-new file mode 100644
-index 000000000000..3be47703af5b
---- /dev/null
-+++ b/Documentation/devicetree/bindings/regulator/riscv,rpmi-voltage.yaml
-@@ -0,0 +1,130 @@
-+# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/regulator/riscv,rpmi-voltage.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
++/* Service ID: RPMI_VOLTAGE_SRV_SET_CONFIG */
++struct rpmi_set_config_tx {
++	__le32 domain_id;
++	__le32 config;
++};
 +
-+title: RISC-V RPMI voltage service group based regulator controller
++struct rpmi_set_config_rx {
++	__le32 status;
++};
 +
-+maintainers:
-+  - Joshua Yeong <joshua.yeong@starfivetech.com>
++/* Service ID: RPMI_VOLTAGE_SRV_GET_CONFIG */
++struct rpmi_get_config_tx {
++	__le32 domain_id;
++};
 +
-+description: |
-+  The RISC-V Platform Management Interface (RPMI) [1] defines a
-+  messaging protocol which is modular and extensible. The supervisor
-+  software can send/receive RPMI messages via SBI MPXY extension [2]
-+  or some dedicated supervisor-mode RPMI transport.
++struct rpmi_get_config_rx {
++	__le32 status;
++	__le32 config;
++};
 +
-+  The RPMI specification [1] defines voltage service group for accessing
-+  and controlling the voltage domains managed by a platform
-+  microcontroller. The supervisor software can access RPMI voltage
-+  service group via SBI MPXY channel or some dedicated supervisor-mode
-+  RPMI transport.
++/* Service ID: RPMI_VOLTAGE_SRV_SET_LEVEL */
++struct rpmi_set_level_tx {
++	__le32 domain_id;
++	__le32 level;
++};
 +
-+  The voltage domains are discovered at runtime from the platform
-+  microcontroller, which reports the name, the level format, the supported
-+  levels and the always-on capability of each one, so none of that is
-+  described here.
++struct rpmi_set_level_rx {
++	__le32 status;
++};
 +
-+  A consumer names a domain through a "<name>-supply" phandle to a child of
-+  the optional "regulators" container, whose "reg" is the domain's RPMI
-+  DOMAIN_ID. A domain without such a child is still registered, but has no
-+  node for a consumer to point at:
++/* Service ID: RPMI_VOLTAGE_SRV_GET_LEVEL */
++struct rpmi_get_level_tx {
++	__le32 domain_id;
++};
 +
-+    codec {
-+            compatible = "vendor,codec";
-+            vdd-supply = <&volt2_reg>;
-+    };
++struct rpmi_get_level_rx {
++	__le32 status;
++	__le32 level;
++};
 +
-+  A child may also say what the board permits the rail to supply, which the
-+  platform microcontroller has no way to express. A child that gives no
-+  voltage constraint leaves the rail free to move within the levels the
-+  domain advertises.
++/* regulator control */
++enum rpmi_domain_config {
++	RPMI_VOLT_DISABLE = 0,
++	RPMI_VOLT_ENABLE = 1,
++};
 +
-+  ===========================================
-+  References
-+  ===========================================
++struct rpmi_get_domain_attrs_rx {
++	__le32 status;
++	__le32 flags;
++#define REG_VOLTAGE_FORMAT(f)	(FIELD_GET(VOLTAGE_FORMAT_MASK, (f)))
++#define REG_FORMAT_DISCRETE	0
++#define REG_FORMAT_LINEAR	1
++#define REG_ALWAYS_ON(f)	(FIELD_GET(ALWAYS_ON_MASK, (f)))
++	__le32 num_levels;
++	__le32 transition_latency;
++	char name[RPMI_REG_DOMAIN_NAME_LEN];
++};
 +
-+  [1] RISC-V Platform Management Interface (RPMI) v1.0 (or higher)
-+      https://github.com/riscv-non-isa/riscv-rpmi/releases
++static int rpmi_reg_get_num_domains(struct rpmi_ctx *mpxy_ctx, u32 *domain)
++{
++	struct rpmi_get_num_domain_rx rx = { };
++	struct rpmi_mbox_message msg;
++	int ret;
 +
-+  [2] RISC-V Supervisor Binary Interface (SBI) v3.0 (or higher)
-+      https://github.com/riscv-non-isa/riscv-sbi-doc/releases
++	rpmi_mbox_init_send_with_response(&msg, RPMI_VOLT_SRV_GET_NUM_DOMAINS,
++					  NULL, 0, &rx, sizeof(rx));
 +
-+properties:
-+  compatible:
-+    description:
-+      Intended for use by the supervisor software.
-+    const: riscv,rpmi-voltage
++	ret = rpmi_mbox_send_message(mpxy_ctx->chan, &msg);
++	if (ret)
++		return ret;
 +
-+  mboxes:
-+    maxItems: 1
-+    description:
-+      Mailbox channel of the underlying RPMI transport or SBI message proxy channel.
++	if (rx.status)
++		return rpmi_to_linux_error(le32_to_cpu(rx.status));
 +
-+  regulators:
-+    type: object
-+    additionalProperties: false
-+    description:
-+      Optional container giving discovered domains a node of their own, for
-+      consumers to reference and for board level constraints.
++	if (msg.data.out_response_len < sizeof(rx))
++		return -EPROTO;
 +
-+    properties:
-+      "#address-cells":
-+        const: 1
++	*domain = le32_to_cpu(rx.num_domains);
 +
-+      "#size-cells":
-+        const: 0
++	return 0;
++}
 +
-+    patternProperties:
-+      "^regulator@[0-9a-f]+$":
-+        type: object
-+        $ref: regulator.yaml#
-+        unevaluatedProperties: false
++static int rpmi_reg_get_attrs(struct rpmi_reg_domain *mpxy_reg)
++{
++	struct rpmi_get_domain_attrs_tx tx;
++	struct rpmi_get_domain_attrs_rx rx = { };
++	struct rpmi_mbox_message msg;
++	u32 flags, format;
++	size_t level_size;
++	int ret;
 +
-+        properties:
-+          reg:
-+            maxItems: 1
-+            description:
-+              RPMI DOMAIN_ID of the voltage domain this node describes.
++	tx.domain_id = cpu_to_le32(mpxy_reg->id);
 +
-+        required:
-+          - reg
++	rpmi_mbox_init_send_with_response(&msg, RPMI_VOLT_SRV_GET_ATTRIBUTES,
++					  &tx, sizeof(tx), &rx, sizeof(rx));
 +
-+    required:
-+      - "#address-cells"
-+      - "#size-cells"
++	ret = rpmi_mbox_send_message(mpxy_reg->rpmi_ctx->chan, &msg);
++	if (ret)
++		return ret;
 +
-+required:
-+  - compatible
-+  - mboxes
++	if (rx.status)
++		return rpmi_to_linux_error(le32_to_cpu(rx.status));
 +
-+additionalProperties: false
++	if (msg.data.out_response_len < sizeof(rx))
++		return -EPROTO;
 +
-+examples:
-+  - |
-+    rpmi-voltage {
-+        compatible = "riscv,rpmi-voltage";
-+        mboxes = <&mpxy_mbox 0x1004 0x0>;
++	flags = le32_to_cpu(rx.flags);
++	format = REG_VOLTAGE_FORMAT(flags);
 +
-+        regulators {
-+            #address-cells = <1>;
-+            #size-cells = <0>;
++	mpxy_reg->num_levels = le32_to_cpu(rx.num_levels);
++	mpxy_reg->transition_latency = le32_to_cpu(rx.transition_latency);
++	strscpy(mpxy_reg->name, rx.name, RPMI_REG_DOMAIN_NAME_LEN);
 +
-+            // A node only so that a consumer can name the domain with a
-+            // "<name>-supply". Its voltage stays free to move within the
-+            // advertised levels.
-+            volt1_reg: regulator@1 {
-+                reg = <1>;
-+            };
++	switch (format) {
++	case REG_FORMAT_DISCRETE:
++		level_size = sizeof(struct rpmi_reg_level_discrete);
++		break;
++	case REG_FORMAT_LINEAR:
++		level_size = sizeof(struct rpmi_reg_level_linear);
++		break;
++	default:
++		dev_err(mpxy_reg->dev, "voltage domain %u: unknown voltage format %u\n",
++			mpxy_reg->id, format);
++		return -EINVAL;
++	}
 +
-+            // A board level constraint. Equal bounds pin the rail, so the
-+            // supervisor applies 1.8V and refuses to move it afterwards.
-+            volt2_reg: regulator@2 {
-+                reg = <2>;
-+                regulator-min-microvolt = <1800000>;
-+                regulator-max-microvolt = <1800000>;
-+            };
-+        };
-+    };
-+...
++	mpxy_reg->voltage_format = format;
++	mpxy_reg->always_on = REG_ALWAYS_ON(flags);
++
++	mpxy_reg->level = devm_kcalloc(mpxy_reg->dev, mpxy_reg->num_levels,
++				       level_size, GFP_KERNEL);
++	if (!mpxy_reg->level)
++		return -ENOMEM;
++
++	return 0;
++}
++
++static int rpmi_reg_get_supported_levels(struct rpmi_reg_domain *mpxy_reg)
++{
++	u32 max_msg_size = mpxy_reg->rpmi_ctx->max_msg_size;
++	u32 index = 0, remaining, returned, words, i;
++	struct rpmi_get_supp_levels_tx tx;
++	struct rpmi_get_supp_levels_rx *rx;
++	struct rpmi_mbox_message msg;
++	u32 *level = mpxy_reg->level;
++	int ret = 0;
++
++	switch (mpxy_reg->voltage_format) {
++	case REG_FORMAT_DISCRETE:
++		words = sizeof(struct rpmi_reg_level_discrete) / sizeof(u32);
++		break;
++	case REG_FORMAT_LINEAR:
++		words = sizeof(struct rpmi_reg_level_linear) / sizeof(u32);
++		break;
++	default:
++		return -EINVAL;
++	}
++
++	rx = kzalloc(max_msg_size, GFP_KERNEL);
++	if (!rx)
++		return -ENOMEM;
++
++	tx.domain_id = cpu_to_le32(mpxy_reg->id);
++
++	while (index < mpxy_reg->num_levels) {
++		tx.level_index = cpu_to_le32(index);
++
++		rpmi_mbox_init_send_with_response(&msg, RPMI_VOLT_SRV_GET_SUPPORTED_LEVELS,
++						  &tx, sizeof(tx), rx, max_msg_size);
++
++		ret = rpmi_mbox_send_message(mpxy_reg->rpmi_ctx->chan, &msg);
++		if (ret)
++			break;
++
++		if (rx->status) {
++			ret = rpmi_to_linux_error(le32_to_cpu(rx->status));
++			break;
++		}
++
++		if (msg.data.out_response_len < sizeof(*rx)) {
++			ret = -EPROTO;
++			break;
++		}
++
++		remaining = le32_to_cpu(rx->remaining_items);
++		returned = le32_to_cpu(rx->returned_items);
++
++		if (!returned || returned > mpxy_reg->num_levels - index ||
++		    returned > (msg.data.out_response_len - sizeof(*rx)) /
++			       (words * sizeof(u32)) ||
++		    remaining != mpxy_reg->num_levels - index - returned) {
++			dev_err(mpxy_reg->dev,
++				"voltage domain %u: invalid supported levels reply\n",
++				mpxy_reg->id);
++			ret = -EPROTO;
++			break;
++		}
++
++		for (i = 0; i < returned * words; i++)
++			*level++ = le32_to_cpu(rx->level[i]);
++
++		index += returned;
++	}
++
++	kfree(rx);
++
++	return ret;
++}
++
++static int rpmi_reg_set_config(struct rpmi_reg_domain *mpxy_reg, u32 config)
++{
++	struct rpmi_set_config_tx tx;
++	struct rpmi_set_config_rx rx = { };
++	struct rpmi_mbox_message msg;
++	int ret;
++
++	tx.domain_id = cpu_to_le32(mpxy_reg->id);
++	tx.config = cpu_to_le32(config);
++
++	rpmi_mbox_init_send_with_response(&msg, RPMI_VOLT_SRV_SET_CONFIG,
++					  &tx, sizeof(tx), &rx, sizeof(rx));
++
++	ret = rpmi_mbox_send_message(mpxy_reg->rpmi_ctx->chan, &msg);
++	if (ret)
++		return ret;
++
++	if (rx.status)
++		return rpmi_to_linux_error(le32_to_cpu(rx.status));
++
++	if (msg.data.out_response_len < sizeof(rx))
++		return -EPROTO;
++
++	return 0;
++}
++
++static int mpxy_reg_enable(struct regulator_dev *rdev)
++{
++	struct rpmi_reg_domain *mpxy_reg = rdev_get_drvdata(rdev);
++
++	/*
++	 * An always-on domain cannot be switched and is already supplying, so
++	 * enabling it is a no-op rather than an error. Failing here would also
++	 * fail registration of any domain constrained as always-on.
++	 */
++	if (mpxy_reg->always_on)
++		return 0;
++
++	return rpmi_reg_set_config(mpxy_reg, RPMI_VOLT_ENABLE);
++}
++
++static int mpxy_reg_disable(struct regulator_dev *rdev)
++{
++	struct rpmi_reg_domain *mpxy_reg = rdev_get_drvdata(rdev);
++
++	if (mpxy_reg->always_on)
++		return -EPERM;
++
++	return rpmi_reg_set_config(mpxy_reg, RPMI_VOLT_DISABLE);
++}
++
++static int mpxy_reg_is_enabled(struct regulator_dev *rdev)
++{
++	struct rpmi_reg_domain *mpxy_reg = rdev_get_drvdata(rdev);
++	struct rpmi_get_config_tx tx;
++	struct rpmi_get_config_rx rx = { };
++	struct rpmi_mbox_message msg;
++	int ret;
++
++	/* An always-on domain is supplying whatever its config reports. */
++	if (mpxy_reg->always_on)
++		return 1;
++
++	tx.domain_id = cpu_to_le32(mpxy_reg->id);
++
++	rpmi_mbox_init_send_with_response(&msg, RPMI_VOLT_SRV_GET_CONFIG,
++					  &tx, sizeof(tx), &rx, sizeof(rx));
++
++	ret = rpmi_mbox_send_message(mpxy_reg->rpmi_ctx->chan, &msg);
++	if (ret)
++		return ret;
++
++	if (rx.status)
++		return rpmi_to_linux_error(le32_to_cpu(rx.status));
++
++	if (msg.data.out_response_len < sizeof(rx))
++		return -EPROTO;
++
++	return !!(le32_to_cpu(rx.config) & RPMI_VOLT_ENABLE);
++}
++
++static int mpxy_reg_set_voltage_sel(struct regulator_dev *rdev, unsigned int selector)
++{
++	struct rpmi_reg_domain *mpxy_reg = rdev_get_drvdata(rdev);
++	struct rpmi_set_level_tx tx;
++	struct rpmi_set_level_rx rx = { };
++	struct rpmi_mbox_message msg;
++	s32 volt_uV;
++	int ret;
++
++	volt_uV = mpxy_reg->desc.ops->list_voltage(rdev, selector);
++	if (volt_uV <= 0)
++		return -EINVAL;
++
++	tx.domain_id = cpu_to_le32(mpxy_reg->id);
++	tx.level = cpu_to_le32(volt_uV);
++
++	rpmi_mbox_init_send_with_response(&msg, RPMI_VOLT_SRV_SET_LEVEL,
++					  &tx, sizeof(tx), &rx, sizeof(rx));
++
++	ret = rpmi_mbox_send_message(mpxy_reg->rpmi_ctx->chan, &msg);
++	if (ret)
++		return ret;
++
++	if (rx.status)
++		return rpmi_to_linux_error(le32_to_cpu(rx.status));
++
++	if (msg.data.out_response_len < sizeof(rx))
++		return -EPROTO;
++
++	return 0;
++}
++
++static int mpxy_reg_get_voltage_sel(struct regulator_dev *rdev)
++{
++	struct rpmi_reg_domain *mpxy_reg = rdev_get_drvdata(rdev);
++	struct rpmi_get_level_tx tx;
++	struct rpmi_get_level_rx rx = { };
++	struct rpmi_mbox_message msg;
++	s32 volt_uV;
++	int ret;
++
++	tx.domain_id = cpu_to_le32(mpxy_reg->id);
++
++	rpmi_mbox_init_send_with_response(&msg, RPMI_VOLT_SRV_GET_LEVEL,
++					  &tx, sizeof(tx), &rx, sizeof(rx));
++
++	ret = rpmi_mbox_send_message(mpxy_reg->rpmi_ctx->chan, &msg);
++	if (ret)
++		return ret;
++
++	if (rx.status)
++		return rpmi_to_linux_error(le32_to_cpu(rx.status));
++
++	if (msg.data.out_response_len < sizeof(rx))
++		return -EPROTO;
++
++	volt_uV = le32_to_cpu(rx.level);
++
++	return mpxy_reg->desc.ops->map_voltage(rdev, volt_uV, volt_uV);
++}
++
++static const struct regulator_ops mpxy_reg_discrete_ops = {
++	.enable = mpxy_reg_enable,
++	.disable = mpxy_reg_disable,
++	.is_enabled = mpxy_reg_is_enabled,
++	.set_voltage_sel = mpxy_reg_set_voltage_sel,
++	.get_voltage_sel = mpxy_reg_get_voltage_sel,
++	.list_voltage = regulator_list_voltage_table,
++	.map_voltage = regulator_map_voltage_iterate,
++};
++
++static const struct regulator_ops mpxy_reg_multi_linear_ops = {
++	.enable = mpxy_reg_enable,
++	.disable = mpxy_reg_disable,
++	.is_enabled = mpxy_reg_is_enabled,
++	.set_voltage_sel = mpxy_reg_set_voltage_sel,
++	.get_voltage_sel = mpxy_reg_get_voltage_sel,
++	.list_voltage = regulator_list_voltage_linear_range,
++	.map_voltage = regulator_map_voltage_linear_range,
++};
++
++static int rpmi_reg_setup(struct rpmi_reg_domain *mpxy_reg)
++{
++	struct regulation_constraints *constraints = &mpxy_reg->init_data.constraints;
++	struct rpmi_reg_level_linear *linear_level;
++	struct linear_range *linear_ranges;
++	u32 i, linear_index, n_step, top;
++	u32 min_uV = U32_MAX, max_uV = 0;
++
++	mpxy_reg->desc.name = devm_kasprintf(mpxy_reg->dev, GFP_KERNEL, "%s", mpxy_reg->name);
++	if (!mpxy_reg->desc.name)
++		return -ENOMEM;
++
++	mpxy_reg->desc.id = mpxy_reg->id;
++	mpxy_reg->desc.type = REGULATOR_VOLTAGE;
++	mpxy_reg->desc.owner = THIS_MODULE;
++
++	switch (mpxy_reg->voltage_format) {
++	case REG_FORMAT_DISCRETE:
++		mpxy_reg->desc.n_voltages = mpxy_reg->num_levels;
++		mpxy_reg->desc.volt_table = (const unsigned int *)mpxy_reg->level;
++		mpxy_reg->desc.ops = &mpxy_reg_discrete_ops;
++
++		for (i = 0; i < mpxy_reg->num_levels; i++) {
++			/*
++			 * The specification lists discrete levels in strictly
++			 * ascending order, and VOLT_SET_LEVEL carries a level
++			 * as an int32, so one above that cannot be set at all.
++			 */
++			if (mpxy_reg->level[i] > INT_MAX ||
++			    (i && mpxy_reg->level[i] <= mpxy_reg->level[i - 1]))
++				return -EINVAL;
++
++			min_uV = min(min_uV, mpxy_reg->level[i]);
++			max_uV = max(max_uV, mpxy_reg->level[i]);
++		}
++		break;
++
++	case REG_FORMAT_LINEAR:
++		linear_level = (struct rpmi_reg_level_linear *)mpxy_reg->level;
++
++		linear_ranges = devm_kcalloc(mpxy_reg->dev, mpxy_reg->num_levels,
++					     sizeof(struct linear_range), GFP_KERNEL);
++		if (!linear_ranges)
++			return -ENOMEM;
++
++		for (i = 0, linear_index = 0; i < mpxy_reg->num_levels; i++) {
++			/*
++			 * The RPMI specification defines a linear range as
++			 * having a constant step size, so a zero step is
++			 * malformed and would divide by zero below.
++			 */
++			if (!linear_level[i].uvolt_step)
++				return -EINVAL;
++
++			if (linear_level[i].uvolt_min > linear_level[i].uvolt_max ||
++			    linear_level[i].uvolt_max > INT_MAX ||
++			    (i && linear_level[i].uvolt_min <= linear_level[i - 1].uvolt_max))
++				return -EINVAL;
++
++			n_step = (linear_level[i].uvolt_max - linear_level[i].uvolt_min) /
++				 linear_level[i].uvolt_step;
++
++			linear_ranges[i].min = linear_level[i].uvolt_min;
++			linear_ranges[i].min_sel = linear_index;
++			linear_ranges[i].max_sel = linear_index + n_step;
++			linear_ranges[i].step = linear_level[i].uvolt_step;
++
++			/*
++			 * max_sel is inclusive, so a range spans n_step + 1
++			 * selectors and the next range starts past the end of
++			 * this one.
++			 */
++			linear_index += n_step + 1;
++
++			/*
++			 * Only levels that land on a step are selectable, so
++			 * the top of the range is the last step at or below
++			 * uvolt_max, not uvolt_max itself.
++			 */
++			top = linear_level[i].uvolt_min + n_step * linear_level[i].uvolt_step;
++			min_uV = min(min_uV, linear_level[i].uvolt_min);
++			max_uV = max(max_uV, top);
++		}
++
++		/*
++		 * A linear range only permits the levels that fall on its
++		 * steps, so it is enumerated through selectors. Leaving
++		 * continuous_voltage_range clear is what keeps the core from
++		 * treating every voltage in between as selectable.
++		 */
++		mpxy_reg->desc.linear_ranges = linear_ranges;
++		mpxy_reg->desc.n_linear_ranges = mpxy_reg->num_levels;
++		mpxy_reg->desc.n_voltages = linear_index;
++		mpxy_reg->desc.ops = &mpxy_reg_multi_linear_ops;
++
++		break;
++	}
++
++	if (min_uV > max_uV)
++		return -EINVAL;
++
++	/*
++	 * Everything a regulator constraint would describe is already known:
++	 * the levels come from VOLT_GET_SUPPORTED_LEVELS and the always-on
++	 * capability from the VOLT_GET_ATTRIBUTES flags. Build the constraints
++	 * from that rather than from a device tree node, which would only be a
++	 * second copy of the same facts. Without them the core leaves
++	 * REGULATOR_CHANGE_VOLTAGE clear and refuses every set_voltage().
++	 */
++	constraints->name = mpxy_reg->desc.name;
++	constraints->min_uV = min_uV;
++	constraints->max_uV = max_uV;
++	constraints->always_on = mpxy_reg->always_on;
++	constraints->valid_ops_mask = REGULATOR_CHANGE_VOLTAGE;
++	constraints->settling_time = mpxy_reg->transition_latency;
++	if (!mpxy_reg->always_on)
++		constraints->valid_ops_mask |= REGULATOR_CHANGE_STATUS;
++
++	return 0;
++}
++
++static int rpmi_reg_attr_setup(struct device *dev, struct rpmi_ctx *mpxy_ctx)
++{
++	struct rpmi_mbox_message msg;
++	int ret;
++
++	/* Validate RPMI specification version */
++	rpmi_mbox_init_get_attribute(&msg, RPMI_MBOX_ATTR_SPEC_VERSION);
++	ret = rpmi_mbox_send_message(mpxy_ctx->chan, &msg);
++	if (ret) {
++		dev_err(dev, "Failed to get spec version\n");
++		return ret;
++	}
++
++	if (msg.attr.value < RPMI_MKVER(1, 0)) {
++		dev_err(dev,
++			"msg protocol version mismatch, expected 0x%x, found 0x%x\n",
++			RPMI_MKVER(1, 0), msg.attr.value);
++		return -EINVAL;
++	}
++
++	/* Validate voltage service group ID */
++	rpmi_mbox_init_get_attribute(&msg, RPMI_MBOX_ATTR_SERVICEGROUP_ID);
++	ret = rpmi_mbox_send_message(mpxy_ctx->chan, &msg);
++	if (ret) {
++		dev_err(dev, "Failed to get service group ID\n");
++		return ret;
++	}
++
++	if (msg.attr.value != RPMI_SRVGRP_VOLTAGE) {
++		dev_err(dev,
++			"service group match failed, expected 0x%x, found 0x%x\n",
++			RPMI_SRVGRP_VOLTAGE, msg.attr.value);
++		return -EINVAL;
++	}
++
++	/* Validate voltage service group version */
++	rpmi_mbox_init_get_attribute(&msg, RPMI_MBOX_ATTR_SERVICEGROUP_VERSION);
++	ret = rpmi_mbox_send_message(mpxy_ctx->chan, &msg);
++	if (ret) {
++		dev_err(dev, "Failed to get service group version\n");
++		return ret;
++	}
++
++	if (msg.attr.value < RPMI_MKVER(1, 0)) {
++		dev_err(dev,
++			"service group version failed, expected 0x%x, found 0x%x\n",
++			RPMI_MKVER(1, 0), msg.attr.value);
++		return -EINVAL;
++	}
++
++	/* Get max message size */
++	rpmi_mbox_init_get_attribute(&msg, RPMI_MBOX_ATTR_MAX_MSG_DATA_SIZE);
++	ret = rpmi_mbox_send_message(mpxy_ctx->chan, &msg);
++	if (ret) {
++		dev_err(dev, "Failed to get max message data size\n");
++		return ret;
++	}
++
++	if (msg.attr.value < sizeof(struct rpmi_get_supp_levels_rx) +
++			     sizeof(struct rpmi_reg_level_linear)) {
++		dev_err(dev, "max message data size %u too small\n",
++			msg.attr.value);
++		return -EINVAL;
++	}
++	mpxy_ctx->max_msg_size = msg.attr.value;
++
++	return 0;
++}
++
++static void rpmi_reg_mbox_chan_release(void *data)
++{
++	mbox_free_channel((struct mbox_chan *)data);
++}
++
++/*
++ * The child of the "regulators" container describing domain @id, if any.
++ *
++ * Children are tied to domains by "reg", the RPMI DOMAIN_ID, the way SCMI
++ * voltage domains are. The DOMAIN_ID is unique by definition; the name a
++ * domain reports is neither guaranteed unique nor stable, and is truncated to
++ * RPMI_REG_DOMAIN_NAME_LEN, so it cannot be relied on to find the child.
++ */
++static struct device_node *rpmi_reg_find_child(struct device_node *regulators,
++					       u32 id)
++{
++	u32 reg;
++
++	for_each_available_child_of_node_scoped(regulators, child) {
++		if (!of_property_read_u32(child, "reg", &reg) && reg == id)
++			return of_node_get(child);
++	}
++
++	return NULL;
++}
++
++/*
++ * Fold a board level constraint from the device tree into the constraints
++ * built from what the domain reported.
++ *
++ * Each domain may have a child in the optional "regulators" container, the
++ * way SCMI voltage domains do. The child is what a consumer's "<name>-supply"
++ * points at, and it is also the one place a board can say what it permits the
++ * rail to supply, which RPMI has no way to express.
++ *
++ * Unlike SCMI, a child that says nothing about voltage does not freeze the
++ * rail: whatever it leaves out is taken from the levels the domain advertised,
++ * so that describing a domain for its phandle does not mean restating its
++ * range. What it does give narrows that range, and a minimum equal to a
++ * maximum pins the rail to one voltage.
++ *
++ * The child is parsed here rather than through desc.of_match, because the
++ * core would then use the device tree constraints in place of the discovered
++ * ones instead of on top of them.
++ */
++static int rpmi_reg_apply_dt(struct rpmi_reg_domain *mpxy_reg,
++			     struct device_node *np)
++{
++	struct regulation_constraints *c = &mpxy_reg->init_data.constraints;
++	struct regulator_init_data *dt;
++	int min_uV = c->min_uV, max_uV = c->max_uV;
++	unsigned int settling_time = c->settling_time;
++	bool always_on = c->always_on;
++
++	dt = of_get_regulator_init_data(mpxy_reg->dev, np, &mpxy_reg->desc);
++	if (!dt)
++		return -EINVAL;
++
++	*c = dt->constraints;
++
++	if (!c->name)
++		c->name = mpxy_reg->desc.name;
++
++	/*
++	 * A bound the child sets replaces the discovered one, so the child can
++	 * only narrow the range if it stays inside it. The core clamps both to
++	 * the selectable levels when the regulator is registered, and rejects
++	 * a minimum above the maximum.
++	 */
++	if (dt->constraints.min_uV)
++		min_uV = dt->constraints.min_uV;
++	if (dt->constraints.max_uV)
++		max_uV = dt->constraints.max_uV;
++	c->min_uV = min_uV;
++	c->max_uV = max_uV;
++
++	/*
++	 * Bring the rail inside a range the device tree gave, even when it gave
++	 * only one bound. The core only does that with both, and a discovered
++	 * bound on its own never needs it.
++	 */
++	c->apply_uV = dt->constraints.min_uV || dt->constraints.max_uV;
++
++	/* A domain the microcontroller keeps on stays on whatever the child says. */
++	c->always_on = always_on || dt->constraints.always_on;
++
++	if (!c->ramp_delay && !c->settling_time &&
++	    !c->settling_time_up && !c->settling_time_down)
++		c->settling_time = settling_time;
++
++	c->valid_ops_mask &= ~(REGULATOR_CHANGE_VOLTAGE | REGULATOR_CHANGE_STATUS);
++	if (c->min_uV != c->max_uV)
++		c->valid_ops_mask |= REGULATOR_CHANGE_VOLTAGE;
++	if (!c->always_on)
++		c->valid_ops_mask |= REGULATOR_CHANGE_STATUS;
++
++	return 0;
++}
++
++static int rpmi_reg_probe(struct platform_device *pdev)
++{
++	struct device_node *regulators __free(device_node) = NULL;
++	struct regulator_config config = {};
++	struct rpmi_reg_domain *rpmi_reg;
++	struct device *dev = &pdev->dev;
++	struct regulator_dev *rdev;
++	struct rpmi_ctx *mpxy_ctx;
++	u32 num_domains = 0;
++	u32 registered = 0;
++	int ret;
++	u32 i;
++
++	mpxy_ctx = devm_kzalloc(&pdev->dev, sizeof(*mpxy_ctx), GFP_KERNEL);
++	if (!mpxy_ctx)
++		return -ENOMEM;
++
++	/* Setup mailbox client */
++	mpxy_ctx->client.dev		= dev;
++	mpxy_ctx->client.rx_callback	= NULL;
++	mpxy_ctx->client.tx_block	= false;
++	mpxy_ctx->client.knows_txdone	= true;
++	mpxy_ctx->client.tx_tout	= 0;
++
++	/* Request mailbox channel */
++	mpxy_ctx->chan = mbox_request_channel(&mpxy_ctx->client, 0);
++	if (IS_ERR(mpxy_ctx->chan))
++		return PTR_ERR(mpxy_ctx->chan);
++
++	ret = devm_add_action_or_reset(dev, rpmi_reg_mbox_chan_release,
++				       mpxy_ctx->chan);
++	if (ret)
++		return dev_err_probe(dev, ret,
++				     "failed to add rpmi mbox channel cleanup\n");
++
++	ret = rpmi_reg_attr_setup(dev, mpxy_ctx);
++	if (ret)
++		return dev_err_probe(dev, ret,
++				     "failed to verify RPMI attribute\n");
++
++	/* Get number of voltage domain */
++	ret = rpmi_reg_get_num_domains(mpxy_ctx, &num_domains);
++	if (ret)
++		return dev_err_probe(dev, ret,
++				     "failed to get number of voltage domains\n");
++
++	if (!num_domains)
++		return dev_err_probe(dev, -EINVAL, "No voltage domains found!\n");
++
++	dev_dbg(dev, "%u MPXY voltage domains are found\n", num_domains);
++
++	rpmi_reg = devm_kcalloc(dev, num_domains, sizeof(*rpmi_reg), GFP_KERNEL);
++	if (!rpmi_reg)
++		return -ENOMEM;
++
++	regulators = of_get_child_by_name(dev_of_node(dev), "regulators");
++
++	for (i = 0; i < num_domains; i++, rpmi_reg++) {
++		struct device_node *np __free(device_node) = NULL;
++
++		rpmi_reg->rpmi_ctx = mpxy_ctx;
++		rpmi_reg->dev = dev;
++		rpmi_reg->id = i;
++
++		ret = rpmi_reg_get_attrs(rpmi_reg);
++		if (ret) {
++			dev_warn(rpmi_reg->dev,
++				 "voltage domain %d initialization failed\n",
++				 rpmi_reg->id);
++			continue;
++		}
++
++		ret = rpmi_reg_get_supported_levels(rpmi_reg);
++		if (ret) {
++			dev_warn(rpmi_reg->dev,
++				 "voltage domain %d initialization failed\n",
++				 rpmi_reg->id);
++			continue;
++		}
++
++		ret = rpmi_reg_setup(rpmi_reg);
++		if (ret) {
++			dev_warn(rpmi_reg->dev,
++				 "voltage domain %d initialization failed\n",
++				 rpmi_reg->id);
++			continue;
++		}
++
++		if (regulators)
++			np = rpmi_reg_find_child(regulators, rpmi_reg->id);
++
++		if (np) {
++			ret = rpmi_reg_apply_dt(rpmi_reg, np);
++			if (ret) {
++				dev_warn(dev, "voltage domain %s: bad constraints in %pOF\n",
++					 rpmi_reg->desc.name, np);
++				continue;
++			}
++		}
++
++		config.dev = rpmi_reg->dev;
++		config.driver_data = rpmi_reg;
++		config.init_data = &rpmi_reg->init_data;
++		/*
++		 * A domain without a child gets no node rather than sharing the
++		 * provider's: of_find_regulator_by_node() would otherwise resolve
++		 * a phandle to the provider to whichever domain registered first.
++		 */
++		config.of_node = np;
++
++		rdev = devm_regulator_register(rpmi_reg->dev, &rpmi_reg->desc, &config);
++		if (IS_ERR(rdev)) {
++			dev_err(dev, "failed to register RPMI voltage domain %d: %pe\n",
++				i, rdev);
++			continue;
++		}
++
++		registered++;
++	}
++
++	/*
++	 * One line for the lot. A domain that did not make it has already said
++	 * so above, so naming each one that did only buys a count.
++	 */
++	dev_info(dev, "%u MPXY voltage domains registered\n", registered);
++
++	return 0;
++}
++
++static const struct of_device_id rpmi_reg_of_match[] = {
++	{ .compatible = "riscv,rpmi-voltage" },
++	{ },
++};
++
++MODULE_DEVICE_TABLE(of, rpmi_reg_of_match);
++
++static struct platform_driver rpmi_reg_platdrv = {
++	.driver = {
++		.name = "riscv-rpmi-regulator",
++		.of_match_table = rpmi_reg_of_match,
++	},
++	.probe = rpmi_reg_probe,
++};
++
++module_platform_driver(rpmi_reg_platdrv);
++
++MODULE_AUTHOR("Joshua Yeong <joshua.yeong@starfivetech.com>");
++MODULE_DESCRIPTION("Regulator Driver based on SBI MPXY extension");
++MODULE_LICENSE("GPL");
+diff --git a/include/linux/mailbox/riscv-rpmi-message.h b/include/linux/mailbox/riscv-rpmi-message.h
+index d5362b5821f9..f96ba08a56bd 100644
+--- a/include/linux/mailbox/riscv-rpmi-message.h
++++ b/include/linux/mailbox/riscv-rpmi-message.h
+@@ -92,9 +92,23 @@ static inline int rpmi_to_linux_error(int rpmi_error)
+ 
+ /* RPMI service group IDs */
+ #define RPMI_SRVGRP_SYSTEM_MSI		0x00002
++#define RPMI_SRVGRP_VOLTAGE		0x00007
+ #define RPMI_SRVGRP_CLOCK		0x00008
+ #define RPMI_SRVGRP_DEVICE_POWER	0x00009
+ 
++/* RPMI Voltage Service IDs */
++enum rpmi_voltage_service_id {
++	RPMI_VOLT_SRV_ENABLE_NOTIFICATION = 0x01,
++	RPMI_VOLT_SRV_GET_NUM_DOMAINS = 0x02,
++	RPMI_VOLT_SRV_GET_ATTRIBUTES = 0x03,
++	RPMI_VOLT_SRV_GET_SUPPORTED_LEVELS = 0x04,
++	RPMI_VOLT_SRV_SET_CONFIG = 0x05,
++	RPMI_VOLT_SRV_GET_CONFIG = 0x06,
++	RPMI_VOLT_SRV_SET_LEVEL = 0x07,
++	RPMI_VOLT_SRV_GET_LEVEL = 0x08,
++	RPMI_VOLT_SRV_ID_MAX_COUNT,
++};
++
+ /* RPMI clock service IDs */
+ enum rpmi_clock_service_id {
+ 	RPMI_CLK_SRV_ENABLE_NOTIFICATION = 0x01,
 -- 
 2.43.0
 
