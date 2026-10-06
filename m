@@ -1,282 +1,128 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj1-f72.google.com (mail-pj1-f72.google.com [209.85.216.72])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C9F1845563B;
-	Tue,  6 Oct 2026 21:08:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BA6923DDB04
+	for <linux-kernel@vger.kernel.org>; Tue,  6 Oct 2026 21:09:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.72
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791320933; cv=none; b=sBemznu8pfn5XVndMP6Zr7XFkibLE+r4hmZtLVYFZsQiNhlsVvKdP+fPzzZVp9S/xkJx12dfRsyGZ6MiPU8hA7AecP+e3aCWZ2yP/eyqfUBGmXnn4gikg0XufzguTB7g9PwrFUpCx/bR95wM88ip//ldgFI4Rt4ydRH+6mfsTUc=
+	t=1791320958; cv=none; b=hThVlvHQ3v5N5mmhBePCvbFw/P4OjfZOoY+3O7QSHD/8YGCKzykonR90SUBa0Y+Pr1AbabA5Hddwq/H8Z9YwTU5802PriF1niIrWxpwHsFTpXlCtHSs5NoJndwpOIIDsWboIaTNNU0JszWP2n1UVY62fp0lC9GLuFKRVjwcSyU0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791320933; c=relaxed/simple;
-	bh=A5NMQcG6KYExAZ+R0eAkPUOERfHBJAtudPnbnuIDu6A=;
-	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To; b=rMpckxsJoMbI9Wa2uA2rqk4Ql2KNJtB2z6pRGQ1xZoy4F8giFBfKRpnemQIDpFIKD+nmkb9kYanPJcdgBskqfAfOazUCAuHjJoc+8jwwxhLA8tmz/OECdPIa0oUypTq+tcdcVw0QO711HqVCy4yV3L93FNxvoLmN32z9P08HwqA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=WmHdlxOu; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791320958; c=relaxed/simple;
+	bh=IqqcV0PdW4B7ApPkpQo3qGEBUmFx4ZSSdd3D5Z7kQWo=;
+	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
+	 To:Cc:Content-Type; b=ZxbOkDX0EziEs+AnzfW9JPBiPMdIKpyEeC9yTg3tFcaw5AZR0Jj0LaX+jBF6tJapWjl3DsGXpFVDWitfJykD5WVaEBRkahAaWSxq/WhxAOcs0YWcf7ZnLhVKhILwXlN7+4ZYc5AdnflLzw9n8acxxWn1hdgV1Ody3g83XuxX21Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--shansinha.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=PRl1spq7; arc=none smtp.client-ip=209.85.216.72
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--shansinha.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="WmHdlxOu"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B18851F0089B;
-	Tue,  6 Oct 2026 21:08:49 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791320929;
-	bh=0UqLDiL9RBkK//dPGDGUk1znlzLzG8ly7edRErfMKFM=;
-	h=Date:From:To:Cc:Subject:In-Reply-To;
-	b=WmHdlxOuibxg1xAOVGsQJ6dxM6DrmLSPVOc4NwXwKFtxvoOgwjEJBo/oNNx0XEA4E
-	 lW6BljbKtN6nFNu13HXz5jqwIl0+QgCxh6m5bPWWEpM5FjGxWahFvHFeWjD5fKSJeo
-	 SCGA/bg7h43Xfm2Hx0QNbnuEhug5nM7Xhr/ZVCVjkwqDkFu0/4Ujm2F8pOitqaJFEp
-	 f76WX+5ehGkRSlOk/skcKRW4xFegkBg7xE9fpcFikucDzXj1qaTHOb9knHCoC5RyvS
-	 7ULExcFAoZrWg7RDqKj06x43NSe9OroGjuvH8oESAQELfEuKZ6vcBvS3vPqBgINOTf
-	 SD5kRhJhkiXWg==
-Date: Tue, 6 Oct 2026 16:08:48 -0500
-From: Bjorn Helgaas <helgaas@kernel.org>
-To: Leon Romanovsky <leon@kernel.org>
-Cc: Bjorn Helgaas <bhelgaas@google.com>,
-	Logan Gunthorpe <logang@deltatee.com>,
-	Jason Gunthorpe <jgg@ziepe.ca>,
-	"Joerg Roedel (AMD)" <joro@8bytes.org>,
-	Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>,
-	Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>,
-	Thomas =?utf-8?Q?Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
-	linux-pci@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linux-doc@vger.kernel.org, iommu@lists.linux.dev,
-	Tushar Dave <tdave@nvidia.com>, linux-media@vger.kernel.org,
-	dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org,
-	linux-rdma@vger.kernel.org, kvm@vger.kernel.org,
-	Chaitanya Kulkarni <kch@nvidia.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Jens Axboe <axboe@kernel.dk>, Alex Williamson <alex@shazbot.org>,
-	Ankit Agrawal <ankita@nvidia.com>, Jonathan Corbet <corbet@lwn.net>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Randy Dunlap <rdunlap@infradead.org>,
-	Sumit Semwal <sumit.semwal@linaro.org>
-Subject: Re: [PATCH v9 04/18] PCI/P2PDMA: Evaluate ACS controls at the path
- divergence
-Message-ID: <20261006210848.GA712422@bhelgaas>
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="PRl1spq7"
+Received: by mail-pj1-f72.google.com with SMTP id 98e67ed59e1d1-3a4a053dcadso3086411a91.0
+        for <linux-kernel@vger.kernel.org>; Tue, 06 Oct 2026 14:09:16 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1791320955; x=1791925755; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=0wbyToYEPWxDXDtMyT8pdC2lUf9GpIF5kjZmHiyIlig=;
+        b=PRl1spq7RJZKPt801SLJiWliUrRwxea4u+CQ/PDzwupfVQwcyv9QWmFx+SZKG04OBt
+         srvDcdwOZdQRFYC5ygaiv4cO/ALMK/4M3SCPjmNGcUbqkU1FAHT65ULifBVXJ42K+UvE
+         cQstZgtX2qwLLqFFcr4odl8789rNLnOveHMRaAvrFPLgUToiL2++PBTorcqrPuDEqiNm
+         n0A7NskzUB46jSvaMNxwwwlKQxGqQOHy6WTMPZy8OD6TzukGzBNU2jIcNHnbC0gahlVi
+         uZpuJ3WlI0hw+A9tE0DVs2N34M+8dvJGnIyWnoejX21aZ8qpm6HoqovCKlar3tJ+6/uh
+         SIRA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791320955; x=1791925755;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=0wbyToYEPWxDXDtMyT8pdC2lUf9GpIF5kjZmHiyIlig=;
+        b=m88N5+bDkheuqPct6u8QLGNW7T7dwu32VJrYY+0dni/2GWnA+yYcyK+QSWrpJ/KPns
+         x0TsrR77lWehKivoaRervX9g8fyTuNiGvQy5CfkxQEEGAzKb6Vp5spMQw9hOlLBe7DfN
+         jFsjzHzr9KNtIo0xJlmsz6UHpfANcvi3ogHJJ/8bkP/hhPxEFDLRshsQi4tgZhTOyUWi
+         wq5WnjEHYDw9HILrCe0uNPydjevC3QWGujj+ssuuMFHJZqj9ed8QvZ5E3U/zCS7r9+KE
+         tb87eD9tMQbTs0O1u66UKmlCyOsX6hzdr0KPBtI/HdzEiUlMzN2k6eyH85zfBln/cmOL
+         BgCg==
+X-Forwarded-Encrypted: i=1; AKwUvByWC9f4YA9LI4KwhaLsoEACq+GQp+2KjA1YD/U058FahtVmA1J6hyzVsK9Da7WhixjWwcH4I1HjGogxoRw=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIVB33ad8klnROAXHhGWu1WLNxUMvvwDhe1lCTyQtMMntrl6njl
+	OpID6HzeFGNyi7wOvEg0XkAxvbp8h6LAcn4imsMtkxNgF0DwZAZ9zrSnym+r7029wbjEedBz1W7
+	UWZs/G7QzQIqyIWjG0w==
+X-Received: from pjber5.prod.google.com ([2002:a17:90a:f6c5:b0:3a7:ee5b:a8df])
+ (user=shansinha job=prod-delivery.src-stubby-dispatcher) by
+ 2002:a17:90b:4c47:b0:3a8:5fb7:669b with SMTP id 98e67ed59e1d1-3a8a13d7f45mr286698a91.61.1791320954996;
+ Tue, 06 Oct 2026 14:09:14 -0700 (PDT)
+Date: Tue,  6 Oct 2026 21:09:14 +0000
+In-Reply-To: <c3384e1e-6fa4-4b3b-aaa5-a325bffcd10d@amd.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261001-fix-p2p-acs-v4-0-v9-4-1a8e0f50ddd9@nvidia.com>
+Mime-Version: 1.0
+References: <c3384e1e-6fa4-4b3b-aaa5-a325bffcd10d@amd.com>
+X-Mailer: git-send-email 2.56.0.rc1.315.gc6ed9934b7-goog
+Message-ID: <20261006210914.2708183-1-shansinha@google.com>
+Subject: Re: [Patch v3 7/7] crypto/ccp: Implement SNP Download Firmware EX
+From: Shantanu Sinha <shansinha@google.com>
+To: prsampat@amd.com, thomas.lendacky@amd.com
+Cc: mcgrof@kernel.org, russ.weight@linux.dev, dakr@kernel.org, 
+	ashish.kalra@amd.com, herbert@gondor.apana.org.au, davem@davemloft.net, 
+	linux-crypto@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	gregkh@linuxfoundation.org, rafael@kernel.org, chao.gao@intel.com, 
+	aik@amd.com, tycho@kernel.org, nikunj@amd.com, michael.roth@amd.com
+Content-Type: text/plain; charset="UTF-8"
 
-On Thu, Oct 01, 2026 at 02:55:12PM +0300, Leon Romanovsky wrote:
-> From: Leon Romanovsky <leonro@nvidia.com>
-> 
-> ACS redirect controls choose between peer and upstream routes only at the
-> path divergence. Applying them below that point rejects valid nested
-> topologies because traffic already has only an upstream route.
+On 10/6/26 12:55 PM, Pratik R. Sampat wrote:
+> On 10/6/26 12:32 PM, Tom Lendacky wrote:
+>> On 10/6/26 11:41, Pratik R. Sampat wrote:
+>>> However, a fresh allocation with SNP initialized just goes through
+>>> rmp_mark_pages_firmware(), so my understanding of what the new firmware needs
+>>> is the reclaim -> make shared -> mark firmware cycle, not necessarily new
+>>> memory.
+>>
+>> Sounds like some good info to have as a comment above the call then.
 
-I guess the point here is that prior to this patch,
-calc_map_type_and_dist() returned PCI_P2PDMA_MAP_NOT_SUPPORTED in a
-case where it didn't need to?  Can you include an example to make this
-concrete?
+I had looked at cycling briefly, but it gets tricky. If we reclaim the
+pages in sev_fw_upload_shutdown_platform() and re-init gets skipped
+because of RESTORE_REQUIRED or a dead PSP, the buffers are still
+allocated but aren't marked as firmware pages, so all subsequent paths
+need to be aware of that.
 
-It looks like in v7.3, we only return PCI_P2PDMA_MAP_NOT_SUPPORTED if
-a TLP has to go through a host bridge.  Do we mistakenly assume that
-if a bridge has PCI_ACS_RR set, a Request must go all the way to the
-host bridge, even if a bridge closer to the root does not have
-PCI_ACS_RR set?
+Reclaiming after the update avoids that, but relies on the new image
+accepting a reclaim of pages the old image's INIT left behind, which I'm
+not sure works, though I haven't tested it.
 
-> Evaluate Request controls on the client-side divergence port and Completion
-> Redirect on the provider-side port and reject an unreadable ACS Control
-> register.
-> 
-> Fixes: 52916982af48 ("PCI/P2PDMA: Support peer-to-peer memory")
-> Reviewed-by: Logan Gunthorpe <logang@deltatee.com>
-> Tested-by: Tushar Dave <tdave@nvidia.com>
-> Signed-off-by: Leon Romanovsky <leonro@nvidia.com>
-> ---
->  drivers/pci/p2pdma.c       | 101 +++++++++++++++++++++++++++++----------------
->  include/linux/pci-p2pdma.h |   8 ++--
->  2 files changed, 70 insertions(+), 39 deletions(-)
-> 
-> diff --git a/drivers/pci/p2pdma.c b/drivers/pci/p2pdma.c
-> index 12612b82d80d..550e6c7346ef 100644
-> --- a/drivers/pci/p2pdma.c
-> +++ b/drivers/pci/p2pdma.c
-> @@ -493,6 +493,7 @@ static struct pci_dev *find_parent_pci_dev(struct device *dev)
->  }
->  
->  enum pci_acs_p2pdma_state {
-> +	PCI_ACS_P2PDMA_NOT_SUPPORTED,
->  	PCI_ACS_P2PDMA_DIRECT,
->  	PCI_ACS_P2PDMA_REDIRECT,
->  };
-> @@ -730,13 +731,13 @@ static unsigned long map_types_idx(struct pci_dev *client)
->   * then to Device B. The mapping type returned depends on the ACS
->   * redirection setting of the ports along the path.
->   *
-> - * The client initiates Requests to provider memory. Check Request Redirect
-> - * on the client path and Completion Redirect for read Completions on the
-> - * provider path.
-> + * The client initiates Requests to provider memory. At the path divergence,
-> + * check Request Redirect and Egress Control on the client-side port, and
-> + * Completion Redirect for read Completions on the provider-side port.
->   *
-> - * If ACS redirect is set on any port in the path, traffic between the
-> - * devices will go through the host bridge, so return
-> - * PCI_P2PDMA_MAP_THRU_HOST_BRIDGE; otherwise return
-> + * If ACS redirects traffic at either divergence port, return
-> + * PCI_P2PDMA_MAP_THRU_HOST_BRIDGE. If the ACS Control register cannot be
-> + * read, return PCI_P2PDMA_MAP_NOT_SUPPORTED. Otherwise, return
->   * PCI_P2PDMA_MAP_BUS_ADDR.
->   *
->   * Any two devices that have a data path that goes through the host bridge
-> @@ -750,10 +751,13 @@ calc_map_type_and_dist(struct pci_dev *provider, struct pci_dev *client,
->  		int *dist, bool verbose)
->  {
->  	enum pci_p2pdma_map_type map_type = PCI_P2PDMA_MAP_THRU_HOST_BRIDGE;
-> +	enum pci_acs_p2pdma_state state = PCI_ACS_P2PDMA_NOT_SUPPORTED;
->  	struct pci_dev *a = provider, *b = client, *bb;
-> +	struct pci_dev *a_child = NULL, *b_child = NULL;
-> +	struct pci_dev *acs_unreadable = NULL;
->  	struct pci_p2pdma *p2pdma;
->  	struct seq_buf acs_list;
-> -	int acs_cnt = 0;
-> +	int acs_redirect_cnt = 0;
->  	int dist_a = 0;
->  	int dist_b = 0;
->  	char buf[128];
-> @@ -768,51 +772,67 @@ calc_map_type_and_dist(struct pci_dev *provider, struct pci_dev *client,
->  	 */
->  	while (a) {
->  		dist_b = 0;
-> -
-> -		if (!pci_acs_p2pdma_ctrl(a, &ctrl) ||
-> -		    pci_acs_p2pdma_completion(ctrl) ==
-> -			    PCI_ACS_P2PDMA_REDIRECT) {
-> -			seq_buf_print_bus_devfn(&acs_list, a);
-> -			acs_cnt++;
-> -		}
-> -
-> +		b_child = NULL;
->  		bb = b;
->  
->  		while (bb) {
->  			if (a == bb)
-> -				goto check_b_path_acs;
-> +				goto check_paths_acs;
->  
-> +			b_child = bb;
->  			bb = pci_upstream_bridge(bb);
->  			dist_b++;
->  		}
->  
-> +		a_child = a;
->  		a = pci_upstream_bridge(a);
->  		dist_a++;
->  	}
->  
-> +	/*
-> +	 * The paths share no upstream bridge, so there is no direct path for
-> +	 * ACS to gate: PCI_P2PDMA_MAP_BUS_ADDR is not reachable here and the
-> +	 * request can only get to the peer through the host bridge.
-> +	 */
->  	*dist = dist_a + dist_b;
->  	goto map_through_host_bridge;
->  
-> -check_b_path_acs:
-> -	bb = b;
-> -
-> -	while (bb) {
-> -		if (a == bb)
-> -			break;
-> +check_paths_acs:
-> +	*dist = dist_a + dist_b;
->  
-> -		if (!pci_acs_p2pdma_ctrl(bb, &ctrl) ||
-> -		    pci_acs_p2pdma_request(ctrl) ==
-> -			    PCI_ACS_P2PDMA_REDIRECT) {
-> -			seq_buf_print_bus_devfn(&acs_list, bb);
-> -			acs_cnt++;
-> +	/*
-> +	 * ACS P2P routing controls apply where a TLP can route toward the peer
-> +	 * or upstream. Below that divergence, its only route toward the other
-> +	 * branch is upstream, so redirect controls do not affect the path.
-> +	 */
-> +	if (a_child && b_child) {
-> +		if (pci_acs_p2pdma_ctrl(a_child, &ctrl))
-> +			state = pci_acs_p2pdma_completion(ctrl);
-> +		if (state != PCI_ACS_P2PDMA_DIRECT) {
-> +			seq_buf_print_bus_devfn(&acs_list, a_child);
-> +			if (state == PCI_ACS_P2PDMA_REDIRECT)
-> +				acs_redirect_cnt++;
-> +			else if (!acs_unreadable)
-> +				acs_unreadable = a_child;
->  		}
->  
-> -		bb = pci_upstream_bridge(bb);
-> +		state = PCI_ACS_P2PDMA_NOT_SUPPORTED;
-> +		if (pci_acs_p2pdma_ctrl(b_child, &ctrl))
-> +			state = pci_acs_p2pdma_request(ctrl);
-> +		if (state != PCI_ACS_P2PDMA_DIRECT) {
-> +			seq_buf_print_bus_devfn(&acs_list, b_child);
-> +			if (state == PCI_ACS_P2PDMA_REDIRECT)
-> +				acs_redirect_cnt++;
-> +			else if (!acs_unreadable)
-> +				acs_unreadable = b_child;
-> +		}
->  	}
->  
-> -	*dist = dist_a + dist_b;
-> -
-> -	if (!acs_cnt) {
-> +	/*
-> +	 * Below a shared upstream bridge, a path whose divergence ports do not
-> +	 * redirect routes the request directly.
-> +	 */
-> +	if (!acs_unreadable && !acs_redirect_cnt) {
->  		map_type = PCI_P2PDMA_MAP_BUS_ADDR;
->  		goto done;
->  	}
-> @@ -821,10 +841,21 @@ calc_map_type_and_dist(struct pci_dev *provider, struct pci_dev *client,
->  		/* Drop the final semicolon; the list is not empty here. */
->  		if (!seq_buf_has_overflowed(&acs_list))
->  			acs_list.buffer[acs_list.len - 1] = '\0';
-> -		pci_warn(client, "ACS redirect is set between the client and provider (%s)\n",
-> -			 pci_name(provider));
-> -		pci_warn(client, "to disable ACS redirect for this path, add the kernel parameter: pci=disable_acs_redir=%s\n",
-> -			 seq_buf_str(&acs_list));
-> +		if (acs_unreadable)
-> +			pci_warn(client, "ACS Control is unreadable for provider %s at %s\n",
-> +				 pci_name(provider), pci_name(acs_unreadable));
-> +		else {
-> +			pci_warn(client, "ACS redirect is set between the client and provider (%s)\n",
-> +				 pci_name(provider));
-> +			pci_warn(client, "to disable ACS controls for this path, add the kernel parameter: pci=disable_acs_redir=%s\n",
-> +				 seq_buf_str(&acs_list));
-> +		}
-> +	}
-> +
-> +	/* An unreadable control does not establish an upstream redirect. */
-> +	if (acs_unreadable) {
-> +		map_type = PCI_P2PDMA_MAP_NOT_SUPPORTED;
-> +		goto done;
->  	}
->  
->  map_through_host_bridge:
-> diff --git a/include/linux/pci-p2pdma.h b/include/linux/pci-p2pdma.h
-> index 873de20a2247..dd17501ba1b6 100644
-> --- a/include/linux/pci-p2pdma.h
-> +++ b/include/linux/pci-p2pdma.h
-> @@ -42,10 +42,10 @@ enum pci_p2pdma_map_type {
->  	PCI_P2PDMA_MAP_NONE,
->  
->  	/*
-> -	 * PCI_P2PDMA_MAP_NOT_SUPPORTED: Indicates the transaction will
-> -	 * traverse the host bridge and the host bridge is not in the
-> -	 * allowlist. DMA Mapping routines should return an error when
-> -	 * this is returned.
-> +	 * PCI_P2PDMA_MAP_NOT_SUPPORTED: Indicates no safe mapping is available,
-> +	 * for example because ACS blocks the direct path or the required host
-> +	 * bridge is not in the allowlist. DMA Mapping routines should return an
-> +	 * error when this is returned.
->  	 */
->  	PCI_P2PDMA_MAP_NOT_SUPPORTED,
->  
-> 
-> -- 
-> 2.55.0
-> 
+In either case, failure handling also seemed tricky, and the fallback
+would just be free and re-allocate anyway.
+
+The only issue I see with freeing is that the TMR is a 2M buffer that
+needs to be contiguous. If the new allocation fails, INIT carries on
+without a TMR and without any error (it's only logged in dmesg), even
+though SEV-ES is now disabled. It should be very rare (since we did
+just free the TMR and can probably get the same block back), but it
+seems worth mentioning in a comment.
+
+>> The memory holding the firmware on the call to the ASP has to be
+>> contiguous, so you're likely to fail on the alloc_pages() if the image
+>> is too large. Up to you if you want to keep it.
+
+I think it's better to keep the explicit check and error message. If the
+size check falls through to the alloc_pages() failure, userspace sees
+device-busy, which doesn't communicate the right intent.
+
+One other small thing. If the platform data refresh in
+sev_fw_upload_write() fails after DLFW_EX has succeeded, it returns
+hw-error even when the PSP is still alive and the new image is running.
+I may be missing a reason for that, but would something like this make
+sense?
+
+ 	if (sev_get_api_version()) {
+-		dev_err(sev->dev, "SNP platform data refresh after firmware update failed\n");
+-		return FW_UPLOAD_ERR_HW_ERROR;
++		dev_warn(sev->dev, "SNP platform data refresh after firmware update failed\n");
++		return psp_dead ? FW_UPLOAD_ERR_HW_ERROR : FW_UPLOAD_ERR_NONE;
+ 	}
+
+Apart from these, everything else I tested in v3 works on Milan.
+
+Thanks,
+Shantanu
