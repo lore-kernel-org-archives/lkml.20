@@ -1,52 +1,54 @@
-Received: from cvsmtppost32.nm.naver.com (cvsmtppost32.nm.naver.com [114.111.35.241])
+Received: from cvsmtppost02.nm.naver.com (cvsmtppost02.nm.naver.com [114.111.35.100])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C4FE83A9619
-	for <linux-kernel@vger.kernel.org>; Tue,  6 Oct 2026 09:21:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=114.111.35.241
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C2DA9381E8B
+	for <linux-kernel@vger.kernel.org>; Tue,  6 Oct 2026 09:21:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=114.111.35.100
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791278485; cv=none; b=LKxSpknDhsat25k4OJpowGzgltQdoVxQTGcRMaB7Gw0T8T43wzA4mQwyt23DOsmc86zLD5i/t0ufoUsDJY3Ggi5IHV8LcVJMIMnGrtOlNVGYIK+gfCTWSBdUaredE9nZkqShXTDPHcfu2RqZojOUZ6TguqJSgbQAaNQwu+fg7Hc=
+	t=1791278516; cv=none; b=j0KJt+ZOgK3IMrS6QOCB/GP3nXYg9VDSeAtSql7c5iX4QuhD+2wA7UsCJuA/jgM6Tu3m7ZzK6oUPkK6eGy38Q2FaNhmPJU+m/v136pHs1mUZWx71tS0jVOSQoylmVH9MLDYf18LY5ofvqWXcrVydM0sX//Fbg5rP+H7V6snAHFA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791278485; c=relaxed/simple;
-	bh=vSNHTD+dPCv2xEtQ52r2jcGC3tPg7oclUecwXiN2h0I=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=JWcJc2Diz7mAMiQxdwM6PBIpGvVdXl67nuBRAjyAKB3iToaojCjvui+nLGATzjHhka00r1WUtZlIZv/x1bSjVfanfySY+Xz940h4QZe+Kap8kN9IY7R3iLjgcEIMSnlM3K0NeMpSz0b1kgTZkFCZo0qoAJxRB+BbMtIUTTQBFmo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=naver.com; spf=pass smtp.mailfrom=naver.com; dkim=pass (2048-bit key) header.d=naver.com header.i=@naver.com header.b=URdv7Jlo; arc=none smtp.client-ip=114.111.35.241
+	s=arc-20240116; t=1791278516; c=relaxed/simple;
+	bh=r7GWK6joItOg6Ntv0ykmRQ+Tls4D1qhGwDu9d9IJOXQ=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=IWz/9beevNgQDpdANHqMy2YYF1qEGvvZlTcWomvYpT86rftEPby0F25GfbZuhN7uvKPykvy+yFRTjh3+8K7kNDlOxzXhmOJDgrA5dioYre6Rid6Jc3B4lkCZV94rsOC+M1LrJBmulL2y5JqcYMhajlBX0js+kpteaumIgfLYeOw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=naver.com; spf=pass smtp.mailfrom=naver.com; dkim=pass (2048-bit key) header.d=naver.com header.i=@naver.com header.b=UXs19Q9L; arc=none smtp.client-ip=114.111.35.100
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=naver.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=naver.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=naver.com header.i=@naver.com header.b="URdv7Jlo"
-Received: from cvsendbo022.nm ([10.112.20.47])
-  by cvsmtppost32.nm.naver.com with ESMTP id T0xsqPa2TcGgJDLlsOj7dQ
+	dkim=pass (2048-bit key) header.d=naver.com header.i=@naver.com header.b="UXs19Q9L"
+Received: from cvsendbo010.nm ([10.112.20.44])
+  by cvsmtppost02.nm.naver.com with ESMTP id BuJjhwdYTdixSP05zdL08Q
   for <linux-kernel@vger.kernel.org>;
-  Tue, 06 Oct 2026 09:11:13 -0000
+  Tue, 06 Oct 2026 09:11:46 -0000
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=naver.com; s=s20171208;
-	t=1791277873; bh=vSNHTD+dPCv2xEtQ52r2jcGC3tPg7oclUecwXiN2h0I=;
+	t=1791277906; bh=r7GWK6joItOg6Ntv0ykmRQ+Tls4D1qhGwDu9d9IJOXQ=;
 	h=From:To:Subject:Date:Message-ID:From:Subject:Feedback-ID:
 	 X-Works-Security;
-	b=URdv7JloOPNt2oadQ/LZtIGB0SfvrFOjEJyy+Ol5cFSm7dO/MO5bqp4Igt3eUh53e
-	 S6lUiO9EsxRFGkeNpgfaFtAQ2SCCFUZNurAd3GiBwVagNZHYlXja69YqDbB1rxSF7f
-	 nldhriPYIXI/RDjst0L9wlfifP6FqUbtZ/+6wlRXPzOz3ne7bqT3DvFL9F3rpNzmO+
-	 5Bbr9ppJIiz0/P8jZ4ImB7wwpVjKsxr6NcLaKtxzG/Ghu39GutHwRqktk7GFPpGU4r
-	 3PvZkO2h5tV7nL6St2WyZQlS7indxsyyaIn36QWSc+TJLWA32ffL3WRSQalZYOZNJO
-	 ilu2t8XWt/qwg==
-X-Session-ID: t2sidC+JSpuZ+jfPGS3U9w
-X-Works-Send-Opt: OPRwpzGdjHmdKHFOMr39Ko3YKHmrjAudFqM9KqMqFxIYkEljxBmwjAg=
-X-Works-Smtp-Source: /qndKoulFqJZ+HmZFqt9+6E=
+	b=UXs19Q9LeU67sqtFr98u1XjzOHd7hJhaxuWAUXcktjfC71RbcufPON5kEvOsyfPhw
+	 xt4weK6zXKUAEA606ZAJ+6oDqDwSvGhnAcuvxErqDv9rnzP+LqGxrISa0RXUerbIfG
+	 VBWX7hyuLuKbiURRsYRkJQX94WpxTnaDEEH2jY3G1TyVwRMOIOaIPDLiA4KJmApSVK
+	 gkD54DnJYLcybZJTW2lVQwMS5LcYdOtG4u9dMmyy9LQGy/W1of41pi//+hVqzOxXGV
+	 wpCeGPDUSzW6szUCB1rExEENWpC0ht09gXtzwM/EtzIaFPOWJtsL7Q00VIPFRO9bAe
+	 oxkbldF7Pl+dw==
+X-Session-ID: kaYUNaXsSC24pT6O6xNBew
+X-Works-Send-Opt: OsFwpzGdjHmdKHFOMr39Ko3YKHm/jAudFqM9KqMqFxIYkEljxBmwjAg=
+X-Works-Smtp-Source: /ZYdKoulFqJZ+Hm9KAE9+6E=
 Received: from localhost.localdomain ([115.136.205.4])
-  by cvnsmtp002.nm.naver.com with ESMTP id t2sidC+JSpuZ+jfPGS3U9w
+  by cvnsmtp008.nm.naver.com with ESMTP id kaYUNaXsSC24pT6O6xNBew
   for <multiple recipients>
   (version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384);
-  Tue, 06 Oct 2026 09:11:12 -0000
+  Tue, 06 Oct 2026 09:11:45 -0000
 From: sungbyeongchan <tjdqudcks0424@naver.com>
-To: Zhu Yanjun <zyjzyj2000@gmail.com>,
-	Jason Gunthorpe <jgg@ziepe.ca>,
-	Leon Romanovsky <leon@kernel.org>
-Cc: linux-rdma@vger.kernel.org,
+To: "James E . J . Bottomley" <James.Bottomley@HansenPartnership.com>,
+	"Martin K . Petersen" <mkp@kernel.org>,
+	"Michael S . Tsirkin" <mst@redhat.com>,
+	Jason Wang <jasowangio@gmail.com>
+Cc: linux-scsi@vger.kernel.org,
+	virtualization@lists.linux.dev,
 	linux-kernel@vger.kernel.org,
 	security@kernel.org
-Subject: [BUG] RDMA/rxe: MW rkey authorizes accesses outside the bound range
-Date: Tue,  6 Oct 2026 18:11:03 +0900
-Message-ID: <20261006091105.827719-1-tjdqudcks0424@naver.com>
+Subject: [BUG] scsi: short virtio-scsi VPD response exposes stale heap data
+Date: Tue,  6 Oct 2026 18:11:36 +0900
+Message-ID: <20261006091138.827988-1-tjdqudcks0424@naver.com>
 X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -58,48 +60,45 @@ Content-Transfer-Encoding: 8bit
 
 Hello,
 
-I found a memory-window range authorization bug in the RXE responder.
+I found a stale heap information disclosure in the SCSI VPD cache path
+when a virtio-scsi backend completes a short data-in response as
+successful.
 
-A peer with a valid type-2 MW rkey can issue RDMA READ or WRITE outside
-the interval authorized by the MW bind, provided the request remains
-inside the wider backing MR.  rxe_lookup_mw() validates the key, PD, QP,
-access rights, state, and nonzero length, but check_rkey() checks the
-request address only against the backing MR.  It never checks the full
-request extent against mw->addr and mw->length.
+The backend first declares a 256-byte VPD page, then writes only the
+four-byte VPD header.  virtscsi_vq_done() obtains the used length from
+virtqueue_get_buf(), but that length is not propagated to
+virtscsi_complete_cmd().  With good status and resid=0, the SCSI core
+accepts the device-declared page size.  scsi_get_vpd_buf() allocates the
+cache with kmalloc(), and the mode-0444 vpd_pg80 sysfs attribute later
+copies the unwritten tail to an unprivileged reader.
 
 I reproduced this twice on commit
-ff47652a4b66c067c765a7ad464d930b5a9367cc.  A 64-byte type-2 MW at
-offset 1024 in a 4096-byte MR allowed a valid connected peer to read an
-eight-byte sentinel at offset 2048 and replace it with peer-selected
-bytes.  In-window READ and WRITE succeeded, while a request crossing the
-backing-MR end was rejected.
+ff47652a4b66c067c765a7ad464d930b5a9367cc with a local
+vhost-user-scsi backend.  In both runs, uid 65534 read 252 stale bytes
+from a reused same-size heap object after the four valid VPD bytes.  A
+normal full response returned only its valid data.  Reporting the short
+transfer through resid prevented the stale marker from being returned.
 
-The demonstrated impact is disclosure and modification of registered
-userspace memory outside the delegated MW.  I did not demonstrate kernel
-memory access, a kernel crash, code execution, or privilege escalation.
+The demonstrated impact is a bounded guest-kernel heap disclosure to an
+unprivileged sysfs reader.  I did not demonstrate arbitrary read/write,
+code execution, host compromise, guest escape, or privilege escalation.
 
-The affected path is:
+As a minimal disclosure mitigation I tested changing the cached VPD
+allocation to kzalloc().  The malicious fixed A/B returned a zero tail,
+and the normal VPD control was unchanged.  This mitigation prevents the
+disclosure but does not make virtio-scsi reject every inconsistent
+used-length/residual pair; maintainers may prefer to propagate and
+validate the actual transfer length instead.
 
-  rxe_responder()
-    -> check_rkey()
-      -> rxe_lookup_mw()
-      -> mr_check_range() against only the backing MR
-
-I tested an overflow-safe MW interval check immediately after MW lookup.
-With that change, outside-window READ and WRITE return a remote-access
-error, while valid in-window operations continue to work.  Fixed A/B
-testing passed with the same kernel configuration.
-
-I performed a best-effort public duplicate search through 2026-10-06.
-The public RXE MW/MR lifetime-race series addresses reference and object
-lifetime races, not this missing MW range check; I found no exact public
-report of this range bypass.
+I performed a best-effort public duplicate search through 2026-10-06
+and found no exact public report for this short virtio-scsi VPD response
+and sysfs disclosure path.
 
 This report was prepared with AI assistance and is being treated as
 public under Documentation/process/security-bugs.rst.  A tested source
-reproducer, logs, configuration, and proposed patch are available to the
-maintainers on request; the reproducer is intentionally not attached to
-this public report.
+reproducer, backend, logs, configuration, and proposed mitigation are
+available to the maintainers on request; the reproducer is intentionally
+not attached to this public report.
 
 Assisted-by: LLM
 
