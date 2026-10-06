@@ -1,112 +1,108 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from www537.your-server.de (www537.your-server.de [188.40.3.216])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9AB353D891F;
-	Tue,  6 Oct 2026 10:11:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 41A033DD87B;
+	Tue,  6 Oct 2026 10:14:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=188.40.3.216
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791281476; cv=none; b=B2eyD90+wyODS6zLGdUTVylr2kUBkRkFjzAfgUs3EU8Q8kCuIzCIQYWW2IWfOQZv/Xvi1Ab8lD4L3aSJxPjCa7ecTeSX3HpG9uVHFtAcLar4dXcmbKKlGsS28LrNvaUckXhPmuXgdGINajAdQex7Ou8HaApXTS98BltUcZYD2KE=
+	t=1791281649; cv=none; b=aLjDKTtn9MgSqiHeOjOJv2PHSBZaPYjqyhrrxERkR7aPYWmL0jwU4TS1AGzYcAWjUbSjIn3+8GVzmiPF1g0jJvNc8VNo1ubxrPkcFNcFMpVP3erYbGQL+ylLtb/wCK+QO8PfIJTqI5XXE77nyvgFqz99vJ5DgunnZva5pYwPOjU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791281476; c=relaxed/simple;
-	bh=B7XGyvRTkNcB0MQQMCK3c46Gz7azMTsYH8/wU+on+sU=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=PS4oJuvbDpKZg2LHJrSrtRVfhPcK3eQpIL2isjNMlFxcQLxa6wENVoOtalH01UJaoXApMAC6bWnrITZx9E94+R5l+WF94eMlZ8nHzx2KFqtYKspUo2448/i1eKxXNwoseP1LFweeaW+L2SW8Yla8M5z8C6/wnPSMCW2cqqIxcVA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZKEcanmB; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791281649; c=relaxed/simple;
+	bh=bCv6PrGwJg+1PlPAniwOQwGoXEd1Tel27j+s5lck5IE=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=HKCrUhPh5IYJLvHHboyzQXbI7GWS+ydftEUv7H324WRNlQYbHB5w+a0qjxVDFHl80DGQxEZcRA7xCXXxuSqJK6+vkT+rH79HDNBkNjX7aoArucyCE0uYEblU3LJdDRCHmIHrmC2yXFZyXfn82bt1gipn3JjfRA4G7nB9pvtrSiA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ew.tq-group.com; spf=pass smtp.mailfrom=ew.tq-group.com; dkim=pass (2048-bit key) header.d=ew.tq-group.com header.i=@ew.tq-group.com header.b=o2XngMi4; arc=none smtp.client-ip=188.40.3.216
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ew.tq-group.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ew.tq-group.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZKEcanmB"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 06A141F000FF;
-	Tue,  6 Oct 2026 10:11:14 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791281475;
-	bh=5BhNgeoas0N8hx7hHpxllY+wWjO41dA2PctbScKkY4U=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=ZKEcanmBqihsHRek9n2Iv4Oto0hnk68gr9gXVk0g1JarX2zejFNvY5L8HI2P3H/qZ
-	 G+igblKHC30qKRHbjbdj95B5gFJMIDnWefWR1gC87zAXS6j4or8xtKoxzCIFLvB1SE
-	 gaWpFyX3GdmcQGoWoIJ6wVU0iD8CZcZKN0ETSHvMGoC8LKs5yIcNcUegnzyAl1njFd
-	 FwlQjbYVjmVpnBy3WQ8GAzjgdkC/rKb58+82cEQFapuB9ifK+5cQPAP1KUp5aC4nnE
-	 u5nhTBVQf5vkdt357jYI/8DkIDcbCa+GSPuehUA9f/+qWPD6XBsFRBcg9zm3bGfzHo
-	 Fn8I1N6cYQhiQ==
-Date: Tue, 6 Oct 2026 12:11:12 +0200
-From: Frederic Weisbecker <frederic@kernel.org>
-To: Stian Halseth <stian@itx.no>
-Cc: Thomas Gleixner <tglx@kernel.org>,
-	Anna-Maria Behnsen <anna-maria@linutronix.de>,
-	Ingo Molnar <mingo@redhat.com>,
-	Peter Zijlstra <peterz@infradead.org>,
-	Shrikanth Hegde <sshegde@linux.ibm.com>,
-	regressions@lists.linux.dev, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2] sched/cputime: Don't account idle time twice after
- dyntick-idle
-Message-ID: <asTJQHcGzJmB9u33@localhost.localdomain>
-References: <20261005194010.168299-1-stian@itx.no>
+	dkim=pass (2048-bit key) header.d=ew.tq-group.com header.i=@ew.tq-group.com header.b="o2XngMi4"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=ew.tq-group.com; s=default2602; h=Content-Transfer-Encoding:MIME-Version:
+	References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Sender:Reply-To:
+	Content-Type:Content-ID:Content-Description:Resent-Date:Resent-From:
+	Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID;
+	bh=y4dDThd5ZpwLx+nX8cPrB+1Z2henTpAL9SGQAqbGbYw=; b=o2XngMi4PJ1y3IvQPrb3T7BwVH
+	p11DBlSeHQkaATfZdNlorgiMpTeGABbHMYDN9ty5YUkQLSye5OrIh8IyLNaf1jRHBhuOsg1pCn3By
+	OLpuiLNTcUbnhn3BKk5gfZrxyTyRXlsrYhUz7oHX4elL8LqgUaiZ54RNJB+U0+yHrseGmDMyiS7j9
+	3zH7VVF/qVYsPVGA/Qb2XsQRIm4daT7vCJaeyslNv0qgrRnEfRAC/JTOQnUL5JUj91Gm++eOiU5qd
+	ou4ojZSq8F8NIKpCil0Bt1zVggC2iRumPEFu3bThsc92yuWvHGYXrMF/lgWO3PiIQrj2b7WM2eUOJ
+	xouK24Iw==;
+Received: from sslproxy08.your-server.de ([78.47.166.52])
+	by www537.your-server.de with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
+	(Exim 4.96.2)
+	(envelope-from <alexander.stein@ew.tq-group.com>)
+	id 1xE2BQ-000Eyx-2z;
+	Tue, 06 Oct 2026 12:14:05 +0200
+Received: from localhost ([127.0.0.1])
+	by sslproxy08.your-server.de with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
+	(Exim 4.96)
+	(envelope-from <alexander.stein@ew.tq-group.com>)
+	id 1xE2As-000Bni-31;
+	Tue, 06 Oct 2026 12:14:04 +0200
+From: Alexander Stein <alexander.stein@ew.tq-group.com>
+To: Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Frank Li <Frank.Li@nxp.com>,
+	Sascha Hauer <s.hauer@pengutronix.de>,
+	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Fabio Estevam <festevam@gmail.com>,
+	Shawn Guo <shawnguo@kernel.org>,
+	Alexander Stein <alexander.stein@ew.tq-group.com>,
+	Markus Niebel <Markus.Niebel@ew.tq-group.com>,
+	Martin Schmiedel <Martin.Schmiedel@tq-group.com>,
+	Andrew Lunn <andrew@lunn.ch>
+Cc: linux@ew.tq-group.com,
+	devicetree@vger.kernel.org,
+	imx@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH 3/6] arm64: dts: imx93-tqma9352-mba91xxca: remove pullup from CAN pins
+Date: Tue,  6 Oct 2026 12:13:47 +0200
+Message-ID: <20261006101358.2189639-3-alexander.stein@ew.tq-group.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20261006101358.2189639-1-alexander.stein@ew.tq-group.com>
+References: <20261006101358.2189639-1-alexander.stein@ew.tq-group.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <20261005194010.168299-1-stian@itx.no>
+X-Virus-Scanned: Clear (ClamAV 1.4.3/28145/Tue Oct  6 08:26:12 2026)
 
-Le Mon, Oct 05, 2026 at 09:40:10PM +0200, Stian Halseth a écrit :
-> On idle exit the dyntick-idle accounting accounts the time up to now,
-> then the tick is restarted on its old period. The first tick accounts a
-> whole TICK_NSEC to whatever runs, although the part of that period
-> before the idle exit has just been accounted as idle time, or with
-> IRQ_TIME_ACCOUNTING as IRQ time. That is up to a full tick per idle
-> exit, and /proc/stat reports more idle time than wall time.
-> 
-> Record how much of the current tick period dyntick-idle has accounted,
-> and leave it out of the tick that ends the period.
-> 
-> Fixes: cf6444c3e1bb7 ("tick/sched: Unify idle cputime accounting")
-> Link: https://lore.kernel.org/all/20261004142724.3896396-1-stian@itx.no/
-> Signed-off-by: Stian Halseth <stian@itx.no>
-> ---
-> v2:
-> - Keep the overlap per tick period, so that a second dyntick-idle
->   period before the tick adds to it instead of replacing it (Frederic)
-> - Read it through a helper in the NO_HZ_COMMON block, with a stub in
->   its #else, like kcpustat_field_dyntick(). IS_ENABLED() does not build,
->   as the field only exists with NO_HZ_COMMON. The helper is static
->   inline, as there is no user with VIRT_CPU_ACCOUNTING_NATIVE.
-> 
-> Frederic's case does not happen in my tests on its own. Since
-> f4c31b07b136 ("sched: idle: Consolidate the handling of two special
-> cases"), without a cpuidle driver or with a single state, the tick is
-> only stopped after it woke up the idle loop, and that tick takes the
-> overlap first. With a test-only change that stops the tick on every
-> idle entry, as a governor may, the guest added to a pending overlap
-> about 900 times a second under a pipe ping-pong between two CPUs.
-> 
-> So it is not what is left with steal time. That is the same with v2,
-> +0.7% to +1.4%, and only shows when the task also spins for 1 ms after
-> each wakeup.
-> 
-> Total CPU time per wall second on the loaded CPU, v2:
-> 
->   SPARC T7-1, HZ=100, busiest CPU*       1.0001
->   SPARC T7-1, HZ=100, 3.7 ms sleeps      1.0000
->   SPARC T7-1, HZ=100, 25 ms sleeps       0.9998
->   SPARC T7-1, HZ=100, pipe ping-pong     1.0000
->   x86_64 KVM guest, HZ=250, 3.7 ms       0.997  (1.505 before)
->   same guest, pipe ping-pong             1.000  (1.152 before)
->   same guest, 9 ms sleeps                0.985
-> 
->   * under its normal load, about 90 tick stops/s
-> 
-> The guest was tested as for v1, with and without IRQ_TIME_ACCOUNTING,
-> with highres=off, with steal time and with the forced restart path. The
-> -1.5% with 9 ms sleeps is the late tick delivery described in v1.
+From: Markus Niebel <Markus.Niebel@ew.tq-group.com>
 
-IIUC, there is still an excess of cputime accounted here sometimes, right?
-And that never happened before the patchset that rewrote the cputime idle
-accounting. Am I understanding correctly?
+Board has external PU, so internal PU are not needed.
 
-Thanks.
+Fixes: e5bc07026f94 ("arm64: add initial device tree for TQMa93xx/MBa91xxCA")
 
+Signed-off-by: Markus Niebel <Markus.Niebel@ew.tq-group.com>
+Signed-off-by: Alexander Stein <alexander.stein@ew.tq-group.com>
+---
+ .../arm64/boot/dts/freescale/imx93-tqma9352-mba91xxca.dts | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
+
+diff --git a/arch/arm64/boot/dts/freescale/imx93-tqma9352-mba91xxca.dts b/arch/arm64/boot/dts/freescale/imx93-tqma9352-mba91xxca.dts
+index 737326ba1b2a7..f8e4c9cea53f5 100644
+--- a/arch/arm64/boot/dts/freescale/imx93-tqma9352-mba91xxca.dts
++++ b/arch/arm64/boot/dts/freescale/imx93-tqma9352-mba91xxca.dts
+@@ -635,10 +635,10 @@ pinctrl_fec_phy: fecphygrp {
+ 	};
+ 
+ 	pinctrl_flexcan1: flexcan1grp {
+-		fsl,pins = /* HYS | PU | FSEL_0 | DSE no drive */
+-			   <MX93_PAD_PDM_BIT_STREAM0__CAN1_RX		0x1200>,
+-			   /* PU | FSEL_3 | DSE X4 */
+-			   <MX93_PAD_PDM_CLK__CAN1_TX			0x039e>;
++		fsl,pins = /* HYS | FSEL_0 | DSE no drive */
++			   <MX93_PAD_PDM_BIT_STREAM0__CAN1_RX		0x1000>,
++			   /* FSEL_3 | DSE X4 */
++			   <MX93_PAD_PDM_CLK__CAN1_TX			0x019e>;
+ 	};
+ 
+ 	pinctrl_jtag: jtaggrp {
 -- 
-Frederic Weisbecker
-SUSE Labs
+2.55.0
+
