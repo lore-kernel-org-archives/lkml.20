@@ -1,166 +1,301 @@
-Received: from fhigh-b8-smtp.messagingengine.com (fhigh-b8-smtp.messagingengine.com [202.12.124.159])
+Received: from esa12.hc1455-7.c3s2.iphmx.com (esa12.hc1455-7.c3s2.iphmx.com [139.138.37.100])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4DB10382F25
-	for <linux-kernel@vger.kernel.org>; Tue,  6 Oct 2026 09:06:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.12.124.159
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C0FDB3839BD;
+	Tue,  6 Oct 2026 09:08:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=139.138.37.100
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791277619; cv=none; b=VBrV80OCDi8l5VBfj3WMz/AU1lIGt606T5fxgfhGbOf45PNuPWbjKaM281DYdkvqknU1355y5HlmspCdzHTMwF69dlq07oV0wvXSj3nORMNHSmM/QKV6Np+1YyvTK1xEU9yNu1dZN/z+9+Mj/q+VHACyQjlaRFqozsEedpCtbLw=
+	t=1791277718; cv=none; b=PcAMNSFK7oWSVAAaTSTfXFHbvElvhCbdy7Mw/Rjr2lexlzXCS+kOBHN0U3arC5nE5TgodifJAM21ouNH8CwwvrsrjCDLafOkBeg6me6lAc54C2rM/1/rzyj6xvl3RQqCx9F8kSETnYVaEiwILa0AzNkkB1GORU+4IVcge5r4sBs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791277619; c=relaxed/simple;
-	bh=1bvDS9fHDJTL5ME2XlLK2KRX7HjHcbnJDvoYJnlcOl8=;
-	h=MIME-Version:Date:From:To:Cc:Message-Id:In-Reply-To:References:
-	 Subject:Content-Type; b=aTmtDbY1VlSl2ENfC/ahIxY4o4FahVrrjFraf7sug+p6TrJ603507ATPLBJqX+YMpCPtiV+sOmchi1eYuOdk3FYSkoH7afkTJ+jWgSH2Iu5mcjyjniLd0gxEbfHioav3t+81h8zu+qBP7W7McnJIiY1lVIyAsW6qPznHWDunJ80=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arndb.de; spf=pass smtp.mailfrom=arndb.de; dkim=pass (2048-bit key) header.d=arndb.de header.i=@arndb.de header.b=Og0sykee; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=DoKzgbX6; arc=none smtp.client-ip=202.12.124.159
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arndb.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arndb.de
+	s=arc-20240116; t=1791277718; c=relaxed/simple;
+	bh=F4/2ziFaQ+14aJz8mQUHdsabipvtJe9Jxq46ZQmJerg=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=qUOZYCkwBsVuGcS8l+ykHtITxXNJyMwG5nSWsPThJewqy8JyFEmIy48VJDYPiLh9Jyc/05rsTm2XCTrwFEebkCkMvn52tpjIzkeyZB4BqYyZqP60hn15fnFG77UryzzKLlX3yYwV+czRXnmeUzcE4QEdDadj6+ssFsFpa7x/750=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=fujitsu.com; spf=pass smtp.mailfrom=fujitsu.com; dkim=pass (2048-bit key) header.d=fujitsu.com header.i=@fujitsu.com header.b=grF1s9SQ; arc=none smtp.client-ip=139.138.37.100
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=fujitsu.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fujitsu.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=arndb.de header.i=@arndb.de header.b="Og0sykee";
-	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="DoKzgbX6"
-Received: from ams-compute-02.internal (ams-compute-02.internal [10.64.2.62])
-	by mailfhigh.stl.internal (Postfix) with ESMTP id 0A2B07A0023
-	for <linux-kernel@vger.kernel.org>; Tue,  6 Oct 2026 05:06:55 -0400 (EDT)
-Received: from ams-imap-03 ([10.64.2.23])
-  by ams-compute-02.internal (MEProxy); Tue, 06 Oct 2026 05:06:56 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arndb.de; h=cc
-	:cc:content-transfer-encoding:content-type:content-type:date
-	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to; s=fm1; t=1791277613;
-	 x=1791364013; bh=75mYoqO7XTZPDFCrG1UYJermMjb5BcnwengTra+DTqY=; b=
-	Og0sykee5JkbnTUUlaWG8c6h66zPhcFNn1l6Fyi2axwrG5ch3EJToRI6gi74O3oY
-	K9lwIEkZJ12blMqR37W5XwXKvf1g3k0H4/zAMaAU98Im7mYKP4csUXNMjdvi+PG9
-	gUSTvhQpH129paHqKHlqNlVBRbtDIjykxf8QfaLyiv9mXiuVhqxk+g8rUQFu7+Qc
-	JYCB3NmK5rl5rDjajfI8Y4g1G1biq1KId/6f5V5/fScJxXRtWfgMqb921cNIwBlT
-	cn8LBvb0VDAHMs/URrWsYoH+XOjPIMCslimH8aOKW7+cPEy5TlNsKLZX1gEuh2Uh
-	55L30Qm7aSROiIa7oR3P1g==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:content-type:date:date:feedback-id:feedback-id
-	:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to:x-me-proxy
-	:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=1791277613; x=
-	1791364013; bh=75mYoqO7XTZPDFCrG1UYJermMjb5BcnwengTra+DTqY=; b=D
-	oKzgbX6el4e7Uf7LGDwW9kROhDp1sSw2u3EC2LPOQGCgPN3fUm4QEYvwItL+hFMm
-	IMi3KXezHkwqCz5b2kV1b+S/8/DW+9h+bCuKXVRMVp1mIoCa8NeHDUhjDU4O4SIf
-	IfGfI5hA5GxWyc976VMcStoeQVgR0fhFdLtvee+AtrrbjaQxNZCLuC9/q+v7ndJe
-	jt4NpMC7uAqM1z4TfL/ScyH+xYA2iI5os9N5avoJ+HvE44+3DwO6SY9P93BvpPOZ
-	jxQNUPczu1Bqr63KD+WU9eAx3NqKxFqaf/dxuEBaMClE1xtV9XTVUTuzpU/7wAG1
-	b7yjkZ9p0aN5KY4fm7kFQ==
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
-	repo=github.com/dkim2wg/interop; date=2026-10-04; sw=lmtpprox;
-	action=sign d=arndb.de a=rsa-sha256;
-DKIM2-Signature: i=1; m=1; t=1791277613; d=arndb.de;
-	mf=PGFybmRAYXJuZGIuZGU+;
-	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
-	s=fm1:rsa-sha256:OPFYpUCAUzIGmzhxJm2B4HN1hoUrNgFRZr5bByWqtF+Re+e
-	KodhbTOs96bE+ZpyxSD0SA4DM8+x3IUsW5APwsUBS9IWGHRuDqG4Ofed8zjtUAOk
-	R+wDjtjegIvh9XgfOK/Y6x7gKyV99GD6DbyfD8V5nJLQcNjEoSIozkEtwifbQDAP
-	ktLXQKtAjdPwE5xzkf0EaWcK//u763yTT2CBItCgF4UobPBs3alNqN5gZx8Yzkcf
-	mAQqEWpOn0h+Qlvb5ikNJ2IuFs+dZHyPR07Adna48Wwx4LD0IAsloZCcplcc8MyX
-	cNKyPikNvLwueCM9Es0YsyqzQ7QiAplsVomhPVQ==;
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
-	repo=github.com/dkim2wg/interop; date=2026-10-04; sw=lmtpprox;
-	action=mi-m=1; hc=12;
-	hn=cc,content-transfer-encoding,content-type,date,feedback-id,
-	from,in-reply-to,message-id,mime-version,references,subject,to;
-Message-Instance: m=1; h=sha256:kfiOc7mNBEKN8npdJqjsfHKxTRdaDx6XhmllkuqgXAE=:1bvDS9fHDJTL5ME2XlLK2KRX7HjHcbnJDvoYJnlcOl8=;
-X-ME-Sender: <xms:KbrEaihIc2eUV7hVAceMaCTWhTfcIFv6FAK0iySGdSd2aTT_1BrkjA>
-    <xme:KbrEat18WK-jCMUaNKqXA2Qi_errmWRsjFwJczDKUSwA-wKDpa6v2ytCGTKUvfQ7W
-    rUk_KJ34qNaeoueuT2Hzepm9pvuyvh49XyQGvYYNADDxPx8bBkipxmB>
-X-ME-Proxy-Cause: dmFkZTFrrhbwtUy0L2w/r2xQ+i+KheQroFIeLxX3YbJhFKS5iiH3ieg418s5r0uFyK4Rgy
-    IG3wvbppnJD0mjzMKqgUxAoRRNPdqEf0zIr6qeOhyd9bwJsLtTnXuJU0iUa2LWtbaBMO0q
-    TKTAgcuCeJ0h+ujOH3bk3tc2v2kcoGzjqmro+OFNsxlrtqb/MlgSbGFFcEU/5lyR/nOcgF
-    zwwxw9DNXH1XIPQgAi0jNkW+6bovyA7XUrttc05zk+9orEwO9NAC7mUCx27hMjj9cXy3Ld
-    nWUS+733Mn+Efb4gcywFQ5eGeOzrwT8gbH9WI9MSTKJLe92slk8HcGJGhJfUfyyoFPamN7
-    xawYOM7peLUb8/+x6qvi8f5hW8UbOpWlb6q8g0+9wzWNR/doEMod8rOA84I4COId780SF6
-    VK/HsNtNZKb395yz34yFbobjp4MLjlHC+932y1FkBQT4sCMMds+xEC1lcWm+wQ3TsIwNbi
-    KJqy8zVQDmFMKctTFSsVCsx9AzU2G6NPkDkjyMnna//msyAa2ijP5498U6RSIkq6hc/qTv
-    8EM6LU2fyu/QzryvMZLr3qH2A7Y5ST+dQ13VQdn4ufMHQ8xMmgPfYsj4wB24UiVT4OhpNJ
-    NK1LYqdmDhxob9HzNZbsu4f3UhR1K7qzq/53opHxkf5ZS5Idru56HEqJj5pQ
-X-ME-Proxy: <xmx:KrrEagU22bzlpUVgxVZtG4ztIY9xQODjUwDzV597Wco36cIVnnniSQ>
-    <xmx:KrrEaoS_EamPfyn7KykR7hqvF3MSfos_6wh4BjitlpnI350K1_MUuw>
-    <xmx:KrrEauN9Ej1mDMHTLToLGpgatDRb9tsk6t2IfVY5keMFyzx1H6yw5Q>
-    <xmx:KrrEamT7KmnQ2RzzHOpRHtcmnexu5QFko9rnPpLU1u6ARfKN2amS3g>
-    <xmx:LbrEaq7z9OJG1s4JiC22g-0SP65ujSiJtJBU5dIf6nFfeGQKZhkyQ7_B>
-Feedback-ID: i56a14606:Fastmail
-Received: by mailuser.ams.internal (Postfix, from userid 501)
-	id 6D6D432A0096; Tue,  6 Oct 2026 05:06:49 -0400 (EDT)
-X-Mailer: MessagingEngine.com Webmail Interface
+	dkim=pass (2048-bit key) header.d=fujitsu.com header.i=@fujitsu.com header.b="grF1s9SQ"
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+  d=fujitsu.com; i=@fujitsu.com; q=dns/txt; s=fj2;
+  t=1791277716; x=1822813716;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=F4/2ziFaQ+14aJz8mQUHdsabipvtJe9Jxq46ZQmJerg=;
+  b=grF1s9SQ7r3HIj/kGSsPKaYkNqh/r8qXA5DcXClNqSfkxOneG79+swiA
+   xQy8FUwYi8LjNRl/5kpRupvRvmi1GIbPDvqruaC9UvnnH0iAZtnDtTQA/
+   yX473h4uKIZlEPyGSTiUGtHkwGgFFmzs37u5K3/tH1AqIG5o0r1N7G7Fs
+   vkMY3VDaYA9ZLyyOk//KQr/w7vwQdrYLJLCzEUqnQ6xbflqAqeN+RLc2t
+   /neJOT5zRzFTWhqivky3r/dX6WW8VdqaRVnOrJUXCgHvhAalyeNrZu1cZ
+   8e+IGUfia4zTry4+6HxF6D4jo5jAfinH1MB/odkV65yGTJCPubg5MEjz/
+   Q==;
+X-CSE-ConnectionGUID: CyrKHvuWToK1ES1DJ8nzXQ==
+X-CSE-MsgGUID: RkJRpu/eQWeJO87xh4O9xw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11926"; a="235074054"
+X-IronPort-AV: E=Sophos;i="6.27,143,1786978800"; 
+   d="scan'208";a="235074054"
+Received: from gmgwnl01.global.fujitsu.com ([52.143.17.124])
+  by esa12.hc1455-7.c3s2.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 06 Oct 2026 18:08:28 +0900
+Received: from az2nlsmgm3.fujitsu.com (unknown [10.150.26.205])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by gmgwnl01.global.fujitsu.com (Postfix) with ESMTPS id EEC28406126;
+	Tue,  6 Oct 2026 09:08:27 +0000 (UTC)
+Received: from az2nlsmom4.fujitsu.com (unknown [10.150.26.201])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by az2nlsmgm3.fujitsu.com (Postfix) with ESMTPS id 9E8571800336;
+	Tue,  6 Oct 2026 09:08:27 +0000 (UTC)
+Received: from FCCLS0092175.localdomain (unknown [10.10.34.24])
+	by az2nlsmom4.fujitsu.com (Postfix) with SMTP id 0228720002A7;
+	Tue,  6 Oct 2026 09:08:21 +0000 (UTC)
+Date: Tue, 6 Oct 2026 18:08:19 +0900
+From: Kohei Enju <enju.kohei@fujitsu.com>
+To: Marc Zyngier <maz@kernel.org>
+Cc: Tomohiro Misono <misono.tomohiro@fujitsu.com>, 
+	Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>, 
+	Mark Rutland <mark.rutland@arm.com>, Jonathan Corbet <corbet@lwn.net>, 
+	Shuah Khan <skhan@linuxfoundation.org>, Randy Dunlap <rdunlap@infradead.org>, 
+	Thomas Gleixner <tglx@kernel.org>, Radu Rendec <radu@rendec.net>, 
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org, 
+	linux-perf-users@vger.kernel.org
+Subject: Re: [PATCH 4/4] irqchip/gicv3: Add workaround for FUJITSU-MONAKA
+ erratum E#030003
+Message-ID: <asS5r0WNCQpMIo4p@FCCLS0092175.localdomain>
+References: <20261002-monaka-fix-for-upstream-v1-0-4aec0b0cbe34@fujitsu.com>
+ <20261002-monaka-fix-for-upstream-v1-4-4aec0b0cbe34@fujitsu.com>
+ <86tsn42sqr.wl-maz@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-ThreadId: AAFP4Q54jfPg
-Date: Tue, 06 Oct 2026 11:06:29 +0200
-From: "Arnd Bergmann" <arnd@arndb.de>
-To: "Karl Mehltretter" <kmehltretter@gmail.com>,
- "Russell King" <linux@armlinux.org.uk>
-Cc: "Linus Walleij" <linusw@kernel.org>, linux-arm-kernel@lists.infradead.org,
- linux-kernel@vger.kernel.org
-Message-Id: <dcc948ad-a718-4ee2-87d7-f4dc7536b4bc@app.fastmail.com>
-In-Reply-To: <20261006055223.9299-1-kmehltretter@gmail.com>
-References: <20261006055223.9299-1-kmehltretter@gmail.com>
-Subject: Re: [PATCH] ARM: mm: compare ARM926 cache range sizes as unsigned
-Content-Type: text/plain
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <86tsn42sqr.wl-maz@kernel.org>
 
-On Tue, Oct 6, 2026, at 07:52, Karl Mehltretter wrote:
-> arm926_flush_user_cache_range() uses BGT to compare end - start
-> with CACHE_DLIMIT. Sizes of 2 GiB or more are treated as negative
-> and take the cache-line loop instead of the whole-cache path.
->
-> Use BHI for an unsigned comparison, keeping the line-by-line path
-> at exactly CACHE_DLIMIT.
->
-> With the default 3G/1G split, unmapping an untouched 2 GiB
-> PROT_NONE mapping flushes the range through tlb_start_vma().
-> On a SAM9X75 Curiosity board, munmap() took about 1.3 seconds
-> unpatched and 20 ms patched.
+On 10/02 13:26, Marc Zyngier wrote:
+> On Fri, 02 Oct 2026 11:26:52 +0100,
+> Tomohiro Misono <misono.tomohiro@fujitsu.com> wrote:
+> > 
+> > From: Kohei Enju <enju.kohei@fujitsu.com>
+> > 
+> > On affected FUJITSU-MONAKA CPUs, an SGI generated by writing to
+> > ICC_SGI0R_EL1, ICC_SGI1R_EL1, or ICC_ASGI1R_EL1 may be lost if the
+> > operation races with CPU interface processing triggered by the arrival
+> > of a higher-priority interrupt, an update to a pending interrupt, or a
+> > transition of the PE to the Sleep state. When this occurs, the system
+> > register write does not complete, causing the issuing core to hang.
+> >
+> 
+> Is the SGI lost? Or is the sender core hanging?
 
-Good catch!
+Both: the SGI is lost, and the sysreg write does not complete, causing
+the sending core to hang.
 
-> Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
-> Assisted-by: LLM
-> Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
+> 
+> I expect that virtualised accesses to these registers are not
+> affected, since they trap, but it'd be good to document this.
 
-Acked-by: Arnd Bergmann <arnd@arndb.de>
-CC: stable@vger.kernel.org
+You're right. I'll document it in v2.
 
-> ---
-> Based on v7.3-rc6. Tested on a Microchip EV31H43A SAM9X75 Curiosity
-> LAN Kit with two kernels built from Linux4Microchip revision
-> 8f2c610093aa3d5a7bd50a8d0597be4f0b7a3eda. The vendor function matches
-> mainline.
->
-> Both builds used Clang/LLD 22.1.3, the same DTB and an
-> at91_dt_defconfig-derived config: ARM926T, MMU, CPU_CACHE_VIVT,
-> VMSPLIT_3G, CPU_DCACHE_WRITETHROUGH=n. proc-arm926.o differs
-> by one byte, the branch condition.
->
-> An unprivileged test timed munmap() of untouched mappings made with
-> mmap(PROT_NONE, MAP_PRIVATE | MAP_ANONYMOUS). Boot order was
-> original, patched, original. Each cell is one munmap() call:
->
-> Range              Original A1     Patched B     Original A2
-> 16 KiB               0.0840 ms      0.0852 ms       0.0844 ms
-> 20 KiB               0.0656 ms      0.0636 ms       0.0632 ms
-> 1 GiB                9.7688 ms      9.7702 ms       9.7716 ms
-> 2 GiB - 4 KiB       19.4054 ms     19.3928 ms      19.4066 ms
-> 2 GiB             1323.2802 ms     19.6478 ms    1331.8680 ms
-> 2 GiB + 4 KiB     1322.2016 ms     19.3972 ms    1322.2146 ms
+> 
+> > Work around the erratum by writing 1 to the bit corresponding to the
+> > target SGI INTID in GICR_ISPENDR0 of each target PE's GIC Redistributor,
+> > instead of writing to the affected system registers.
+> > 
+> > The affinity topology of affected systems has Aff0 == 0 for every PE,
+> > with PEs distinguished by higher affinity levels. Consequently, an
+> > ICC_SGI1R_EL1 write can target only one PE, so the workaround does not
+> > increase the number of writes required to send an SGI to multiple PEs.
+> >
+> > Accessing a target PE's GICR_ISPENDR0 requires its Redistributor base to
+> > have been discovered. Affected platforms conform to SBBR, which requires
+> > PSCI for secondary CPU boot. They therefore do not use the ACPI Parking
+> > protocol, which sends an IPI before the secondary CPU has initialized
+> > its Redistributor. With PSCI, a secondary CPU discovers its
+> > Redistributor before becoming an IPI target.
+> > 
+> > Signed-off-by: Kohei Enju <enju.kohei@fujitsu.com>
+> > ---
+> >  Documentation/arch/arm64/silicon-errata.rst |  2 ++
+> >  drivers/irqchip/irq-gic-v3.c                | 48 +++++++++++++++++++++++++++++
+> >  2 files changed, 50 insertions(+)
+> > 
+> > diff --git a/Documentation/arch/arm64/silicon-errata.rst b/Documentation/arch/arm64/silicon-errata.rst
+> > index 429bdf9a3d9d..13328a30df59 100644
+> > --- a/Documentation/arch/arm64/silicon-errata.rst
+> > +++ b/Documentation/arch/arm64/silicon-errata.rst
+> > @@ -377,6 +377,8 @@ stable kernels.
+> >  +----------------+-----------------+-----------------+-----------------------------+
+> >  | Fujitsu        | MONAKA          | E#030002        | FUJITSU_ERRATUM_030002      |
+> >  +----------------+-----------------+-----------------+-----------------------------+
+> > +| Fujitsu        | MONAKA GICv3/v4 | E#030003        | N/A                         |
+> > ++----------------+-----------------+-----------------+-----------------------------+
+> >  +----------------+-----------------+-----------------+-----------------------------+
+> >  | ASR            | ASR8601         | #8601001        | N/A                         |
+> >  +----------------+-----------------+-----------------+-----------------------------+
+> > diff --git a/drivers/irqchip/irq-gic-v3.c b/drivers/irqchip/irq-gic-v3.c
+> > index 6e1fa5b247fc..e73fea8a0e27 100644
+> > --- a/drivers/irqchip/irq-gic-v3.c
+> > +++ b/drivers/irqchip/irq-gic-v3.c
+> > @@ -80,6 +80,8 @@ static DEFINE_STATIC_KEY_FALSE(gic_nvidia_t241_erratum);
+> >  
+> >  static DEFINE_STATIC_KEY_FALSE(gic_arm64_2941627_erratum);
+> >  
+> > +static DEFINE_STATIC_KEY_FALSE(gic_fujitsu_030003_erratum);
+> > +
+> >  static struct gic_chip_data gic_data __read_mostly;
+> >  static DEFINE_STATIC_KEY_TRUE(supports_deactivate_key);
+> >  
+> > @@ -238,6 +240,9 @@ static DEFINE_PER_CPU(bool, has_rss);
+> >  #define gic_data_rdist()		(this_cpu_ptr(gic_data.rdists.rdist))
+> >  #define gic_data_rdist_rd_base()	(gic_data_rdist()->rd_base)
+> >  #define gic_data_rdist_sgi_base()	(gic_data_rdist_rd_base() + SZ_64K)
+> > +#define gic_data_rdist_cpu(cpu)		(per_cpu_ptr(gic_data.rdists.rdist, cpu))
+> > +#define gic_data_rdist_rd_base_cpu(cpu)	(gic_data_rdist_cpu(cpu)->rd_base)
+> > +#define gic_data_rdist_sgi_base_cpu(cpu)	(gic_data_rdist_rd_base_cpu(cpu) + SZ_64K)
+> >  
+> >  /* Our default, arbitrary priority value. Linux only uses one anyway. */
+> >  #define DEFAULT_PMR_VALUE	0xf0
+> > @@ -1373,6 +1378,13 @@ static void gic_send_sgi(u64 cluster_id, u16 tlist, unsigned int irq)
+> >  	gic_write_sgi1r(val);
+> >  }
+> >  
+> > +static void gic_send_sgi_via_rdist(int cpu, unsigned int irq)
+> > +{
+> > +	void __iomem *base = gic_data_rdist_sgi_base_cpu(cpu);
+> > +
+> > +	writel_relaxed(BIT(irq), base + GICR_ISPENDR0);
+> > +}
+> > +
+> 
+> I don't think there is any need for a helper, given that there is a
+> single caller.
 
-I would suggest moving the extra text into the actual changelog,
-as this seems useful information.
+Ack.
 
-> ARM925, Feroceon and Mohawk have the same BGT but were not tested.
-> Their fixes are left for a separate patch.
+> 
+> >  static void gic_ipi_send_mask(struct irq_data *d, const struct cpumask *mask)
+> >  {
+> >  	int cpu;
+> > @@ -1386,6 +1398,22 @@ static void gic_ipi_send_mask(struct irq_data *d, const struct cpumask *mask)
+> >  	 */
+> >  	dsb(ishst);
+> >  
+> > +	if (static_branch_unlikely(&gic_fujitsu_030003_erratum)) {
+> > +		/*
+> > +		 * The affinity topology of affected systems has Aff0 == 0 for
+> > +		 * every PE; PEs are distinguished by higher affinity levels.
+> > +		 * ICC_SGI1R_EL1 therefore targets only one PE per write, so
+> > +		 * using GICR_ISPENDR0 does not increase the number of writes
+> > +		 * required to send an SGI to multiple PEs.
+> 
+> This is not about the number of writes, but the cost of individual
+> writes. A sysreg access is almost free (at least it is on decent
+> implementations), while an MMIO access is probably one of the worst
+> offenders. Therefore implying that there is no extra overhead is
+> likely to be misleading. The commit message has the same problem.
+> 
+> In any case, I don't think you need to justify anything here, as the
+> choice between costly SGIs and a dead CPU is pretty moot.
 
-My feeling here would be that a single patch for all four
-is best, since you have conclusively shown the solution to
-be correct for one of them and it easily translates to the
-others. I don't object to separate patches either, it just
-seems more work for everyone.
+Ack. I'll remove the comment and the corresponding explanation from the
+commit message.
 
-       Arnd
+For context, on this implementation, we do not expect a significant
+latency difference between the MMIO and system register accesses, as
+both ultimately reach the same hardware block.
+
+> 
+> > +		 */
+> > +		for_each_cpu(cpu, mask)
+> > +			gic_send_sgi_via_rdist(cpu, d->hwirq);
+> > +
+> > +		/* Force the above writes to GICR_ISPENDR0 to be executed */
+> > +		dsb(st);
+> 
+> This doesn't force things to be executed. This is about completion of
+> the access, and with an nGnRE mapping, it doesn't enforce that the
+> stores actually reach the RDs, only an arbitrary point in the memory
+> subsystem.  The only way to guarantee this is to perform a read-back.
+
+Understood.
+
+I hadn't considered this when writing v1, but on further reflection, I
+don't think gic_ipi_send_mask() needs to wait for the target CPUs to
+handle the IPIs. Given that the GICv2 driver does not wait for MMIO
+write completion either, I don't think we need to ensure completion of
+these writes before returning. 
+
+If my understanding is correct, I'll remove the dsb(st) in v2.
+
+> 
+> If this is relying on some additional properties that are
+> implementation specific, then this requires to be documented (for
+> example, if the implementation treats nGnRE as nGnRnE).
+> 
+> > +		return;
+> > +	}
+> > +
+> >  	for_each_cpu(cpu, mask) {
+> >  		u64 cluster_id = MPIDR_TO_SGI_CLUSTER_ID(gic_cpu_to_affinity(cpu));
+> >  		u16 tlist;
+> > @@ -1871,6 +1899,20 @@ static bool gic_enable_quirk_rk3399(void *data)
+> >  	return false;
+> >  }
+> >  
+> > +#define SMCCC_SOC_ID_FUJITSU_MONAKA	0x00040003
+> > +
+> > +static bool gic_enable_quirk_fujitsu_030003(void *data)
+> > +{
+> > +	s32 soc_id = arm_smccc_get_soc_id_version();
+> > +
+> > +	/* Check JEP106 code for FUJITSU-MONAKA chip (0004:0003) */
+> > +	if (soc_id != SMCCC_SOC_ID_FUJITSU_MONAKA)
+> > +		return false;
+> 
+> Why is this keyed on some firmware interface, while it is the CPU
+> interface that is at fault? I'd expect that looking at the MIDR would
+> be more reliable.
+
+Ack.
+
+> 
+> > +
+> > +	static_branch_enable(&gic_fujitsu_030003_erratum);
+> > +	return true;
+> > +}
+> > +
+> >  static bool rd_set_non_coherent(void *data)
+> >  {
+> >  	struct gic_chip_data *d = data;
+> > @@ -1951,6 +1993,12 @@ static const struct gic_quirk gic_quirks[] = {
+> >  		.mask	= 0xff000fff,
+> >  		.init	= gic_enable_quirk_rk3399,
+> >  	},
+> > +	{
+> > +		.desc	= "GICv3: Fujitsu erratum 030003",
+> > +		.iidr	= 0x0403043b,
+> > +		.mask	= 0xffffffff,
+> > +		.init	= gic_enable_quirk_fujitsu_030003,
+> 
+> Same problem. This is looking that the distributor instead of the CPU.
+> It's OK to use it as a proxy for further filtering, but the final
+> decision should probably rest on the MIDR.
+
+Ack. I'll use the MIDR instead of the SoC ID.
+
+Thanks,
+Kohei
+
+> 
+> Thanks,
+> 
+> 	M.
+> 
+> -- 
+> Without deviation from the norm, progress is not possible.
