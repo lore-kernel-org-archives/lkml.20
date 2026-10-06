@@ -1,62 +1,61 @@
-Received: from mail-dy1-f177.google.com (mail-dy1-f177.google.com [74.125.82.177])
+Received: from mail-dy1-f171.google.com (mail-dy1-f171.google.com [74.125.82.171])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DFDC4503BD3
-	for <linux-kernel@vger.kernel.org>; Tue,  6 Oct 2026 23:20:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.177
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B26B551AFC1
+	for <linux-kernel@vger.kernel.org>; Tue,  6 Oct 2026 23:20:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.171
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791328846; cv=none; b=l0qYM7lQgB85uWJiYU5HAmAcWBinMAmz51JD351bOGivU9K3pp8gyxxcNvgLWJCB+gkt5tV3Dt0yrNGPqvWVlq378/zqRCUqM9tvFSDQz2uTJtRV1DxFP6etLS8+OisOzyu4KqksNxJRphuVIP2E7/auYAqNoa9PSiZmHCFBpl8=
+	t=1791328850; cv=none; b=Tc/RQ+4WUw5PxjdbrjwktZORHl5MpJtanUBKAKruXBT9hyaf+K0o+mnPRKhrbfpnW7pb9v2NJkzUkVHFktMOcd3I4uUl6pUdfEjLhMzu6uE0zYtxkh46AVuECt+hv/qTAW87oCNABqP+nj0QN2Swch0uInkG8XwLmmRf0573Qr8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791328846; c=relaxed/simple;
-	bh=IMKT3YbYLEQIaeZRPQ0W0c7b8FlnqPjbay1YpcxYqko=;
+	s=arc-20240116; t=1791328850; c=relaxed/simple;
+	bh=CTerUSH9LQfA2XtEGuqOy5Es4RXD9p0qFPYTOjjvblc=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=tBQExNu4F6sBrOkEw/cQGn31zS2nlkIlxmG9xJOLeOv+bpQ6jWPHXRviXh8m7ARhqLJGZjFpiauN74dU9B0PYf0JNP4Dqo56ArCKR589cIM5vYGuJ/chOt9N87JKJBFWnpT9Iq9KhLyLL6mjIBXaGiwzy7i/qdTvjbu9KgH2r48=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=aSWEmxo2; arc=none smtp.client-ip=74.125.82.177
+	 MIME-Version; b=kOmjcwLiREvokFaFI9//s0QAgmAOjg0DXA13tOGamzBrtTF0z4XMYn7Zw0SItcEjG7ZFP+RylgLmWss2Jo4VF6lVTCOslCgLyurmN6jiXVSsHZx5LLdqUDd4eNYysIKe9gu+33cm4SjBRlzjHnb0KQC0qccj0myvxDRmT63K/78=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=TNjL9HZz; arc=none smtp.client-ip=74.125.82.171
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="aSWEmxo2"
-Received: by mail-dy1-f177.google.com with SMTP id 5a478bee46e88-31490970b97so2053053eec.0
-        for <linux-kernel@vger.kernel.org>; Tue, 06 Oct 2026 16:20:23 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="TNjL9HZz"
+Received: by mail-dy1-f171.google.com with SMTP id 5a478bee46e88-3515f9a5d25so99663eec.0
+        for <linux-kernel@vger.kernel.org>; Tue, 06 Oct 2026 16:20:26 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=chromium.org; s=google; t=1791328823; x=1791933623; darn=vger.kernel.org;
+        d=chromium.org; s=google; t=1791328825; x=1791933625; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=/iTXW3RRmMd+aIED+k8R/Mf/E9JCnchJwCHuj4DeazA=;
-        b=aSWEmxo20oPuJJVneo66x1d2edoe09jTY0IGUwqwCHj/Ugsyn7b551MRBXtTLnLQSP
-         aY3aDRGdnJn0L7kpgSsY1+MyDnP0HwoxxIdijhU9jGfzo6j351YwwnF1AuLGjDPI0xCq
-         ZI0iQ/ChA7lO5YTADSa3HaBG6leS2Fm38N9IM=
+        bh=WZAE9NSsGVCNDJfkFk+D3J312SzagpTg6rFyuPqGum8=;
+        b=TNjL9HZzZpu5z/SjIRgpH+HCSOmkxC1Oke/1kAW8HHvdr930o5tHgkByUcLDyjAotr
+         ldrsMMRBChk+2pG4XuDOqHWYF+4zaoxuMgHk4u2hf7x4UJ0VBPuWkoKuOLJ7YTVNbeLl
+         9LoSBschgNUR4RYPPK+eiIY3bTedGS1RvKId0=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791328823; x=1791933623;
+        d=1e100.net; s=20260707; t=1791328825; x=1791933625;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=/iTXW3RRmMd+aIED+k8R/Mf/E9JCnchJwCHuj4DeazA=;
-        b=NLHsGDT0kUiFpSqijAaFl0yTcYoHe5WiWPRCgyBzRTR9AgSLU+EGcilW4kXVXgL5wR
-         cLkpArZbWCN90TymP1Thkr2iq4WJjrjHtxeqolVho3mJ6t0ftmKbK73BkQ4pK8jQkpBm
-         wt54+Q6h1kTRBEeyOW1Bt02cZGA7FROJvdTvs71rL4YIj7fYybkn7XqurkNY7CFSO+GD
-         K0RmNog1rDAs3XIwbYiS2KdE8BxMihyDGPSPBGe+IEGBtswmtGoFnPlm3wrSWCyYKWOi
-         qw07Gvrcwvaw+kyMhQeMxFZI1CIMV/On0F0iRY/1xL/5Rg4765G+yvuZMwXwLqSC1uPV
-         UkTw==
-X-Forwarded-Encrypted: i=1; AKwUvBz1ISS91iLxZGy5peTAe6PH6tk1aDusVHWezJfMw6zZ18407j4iNEI1NapPus24x5odup+lvPkyf7WNq30=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLnQSpnNSzWBv2Cduo37AH3iR73j+bGR2tNbjVqRwOmvZFZFLoK
-	HeHxys5Q3B80Od2ml2AOtE1FlANz7AAeOH9hJ4mID+9iTfP/Wo/bCu/YgkAz+u/gUmjXQc4tZkw
-	JL4Jvow==
-X-Gm-Gg: AYBFou2RQexzCF3w3dFmbIJ1cHARmxiWSuuSxWHaZ8sbmVsGgMsZStjlAICrLo8TSoP
-	zx+IAowriaBqFPGSFaUYx9qy5wu0HB50YpvdQI4cs7OMD4A+X2sXIVsKVD+k8WE/R3MifYizTz8
-	7xgCE9ybbQEE6TwGLlLaNwbUvhX9lEERHMwjoM8ZrcaExF2+4UmtHCIXxe2h37hfzZEMrUo2Cd9
-	4WgrDMCRV1VIy2SDdpodwpdTSfA4QWRP7QxigJPk9s4JtDDVUSRFtGy4m5YDgly7Z8naN/K6RSs
-	l7rBclwVprBfjfI6TsPvSFEMHUBwe5S7scwf+Ganv+kRx0v91MONY5aRXkoVAWx+bnNz4hgVMDV
-	zrQ/DXKL5zlkzYRjMOm7PQBdUuknp1iAi7KmkNxq03Vcn9Jwxc15i5xYMhlRjOStz5fFHm6aAxS
-	NYLsg5PO58RginSUF1wcqHNuWazuTNwAXcLFOdFfP1wecgrokw4j7HwyRWHRkrzayVnlrNHOt4i
-	60GK3ADHXCIVKAG96Ixotb5Gn+kl1FiDZU87g==
-X-Received: by 2002:a05:7301:3d0e:b0:351:3c34:9bfa with SMTP id 5a478bee46e88-3515deddeebmr346793eec.31.1791328822885;
-        Tue, 06 Oct 2026 16:20:22 -0700 (PDT)
+        bh=WZAE9NSsGVCNDJfkFk+D3J312SzagpTg6rFyuPqGum8=;
+        b=1hYT/HLeVno7PKzwrcXsn14X5KSnCYCsDU4VHZHqUDqmPXUtQ/8cpDNZ3DKLPEkIg7
+         RACsQFvmz8OM3Hc7XUVPyjysONZbr8ZonLgLo8Nly4pOHqtuivfJllWGvWM4E6lfuA08
+         9fMRdcVXC2kz5Xn7iH1wTWiq1ZPoVZsAaM9vDuxFgRu7htJZZF2eTyoBliypQrW7G6OH
+         2++z5W7oyMriOB8ghPM+QcjuLS3DVdrK+hkQbrcpJAZqgFj7MOJPxQ6piCe1gpNxaAP5
+         d7fuga+yJHuZAJTZuRAxqArmqNPIdP4NivcOYCVqyeoYvShP11Ga8xs7pWW4A4I2Wbzn
+         YEDg==
+X-Forwarded-Encrypted: i=1; AKwUvBxo7e/1ORwBiEZwX2pKwrmUjG6m9bwgUdj0wCIWi1lyuNXkMBDP1XQzar74GI7DZ1HHxaXTbnZt1gKHPXU=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKqVRlzppFeounHwBC0IOk0I2+8hplWaAsgV7PSLZQf1fdgY4vY
+	lVusW9buQLRoy41P6UpGUl2ni6tdD92q197C7W9vgZz14Kp2c3FuuGzGhoRBTM72Ig==
+X-Gm-Gg: AYBFou2oOzUZhLpGYBecTz1CtBe9FGVJtfpZdEYXsBRJq50LSVukWtnJhS2yLVRXC7j
+	j8lKqh2T1wmFgJcKRj69GydnXKYcNd7XQ1CS+bdcn4TA4U0eZBfGimCUy3saoUP9UVyIY+c+ewR
+	9qMGVy1/aSG6KmriGMwBA4rPyR5Q83QuygYY8r1dhar0ih54SMuABAmw+3DbthMHwGRhHUnGoDd
+	/wTXJ+DmH5pTpie8mmJn1PMDC6EHIXPo9upANo2dM8ec7o7HWyt/D/VZlxXPYlRVjrALTltCvK5
+	G2KbFtKAMbJ0qvAX78O0pk8L6TiFwl7Uo5pnbUXwr2so9tj1g/LR2cZJbaFXy2OYDuqU0eWOdnT
+	qUFvLq9DcFoIylu2kxvBLnH9kn0tJ76e8mlgnNcNropuW5MEGqbrwFvm9am5cXOdYJ53rU88WbM
+	macFonnV0HqUM8nwoN57CyGg+TuUzky/AAh2pPmjUnSnFtj0yFI19ZkPygohPxfsKbcFPvKBIjW
+	8xqLPBVsok74ar+X9yYHz9zvbePVTtpgCQbGA==
+X-Received: by 2002:a05:7301:488e:b0:34b:529d:6263 with SMTP id 5a478bee46e88-3515de84167mr350155eec.33.1791328825471;
+        Tue, 06 Oct 2026 16:20:25 -0700 (PDT)
 Received: from localhost ([2a00:79e0:2e7c:8:63eb:e7f9:1d47:7d47])
-        by smtp.gmail.com with UTF8SMTPSA id 5a478bee46e88-3515abb67e5sm1729507eec.4.2026.10.06.16.20.21
+        by smtp.gmail.com with UTF8SMTPSA id 5a478bee46e88-3515af67000sm1727136eec.17.2026.10.06.16.20.23
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 06 Oct 2026 16:20:22 -0700 (PDT)
+        Tue, 06 Oct 2026 16:20:24 -0700 (PDT)
 From: Brian Norris <briannorris@chromium.org>
 To: "Rafael J. Wysocki" <rafael@kernel.org>
 Cc: linux-pm@vger.kernel.org,
@@ -64,18 +63,20 @@ Cc: linux-pm@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	Brian Norris <briannorris@chromium.org>,
 	Bard Liao <yung-chuan.liao@linux.intel.com>,
-	Cezary Rojewski <cezary.rojewski@intel.com>,
+	Daniel Baluta <daniel.baluta@nxp.com>,
 	Jaroslav Kysela <perex@perex.cz>,
 	Kai Vehmanen <kai.vehmanen@linux.intel.com>,
-	Liam Girdwood <liam.r.girdwood@linux.intel.com>,
+	Liam Girdwood <lgirdwood@gmail.com>,
 	Mark Brown <broonie@kernel.org>,
 	Peter Ujfalusi <peter.ujfalusi@linux.intel.com>,
 	Pierre-Louis Bossart <pierre-louis.bossart@linux.dev>,
 	Takashi Iwai <tiwai@suse.com>,
-	linux-sound@vger.kernel.org
-Subject: [PATCH 10/13] ASoC: intel: atom: Discard pm_runtime_put_autosuspend() return value
-Date: Tue,  6 Oct 2026 16:13:38 -0700
-Message-ID: <20261006161337.10.Ia8792ce5d04a55522d84afc8e71cc879721a5f49@changeid>
+	Vijendar Mukunda <Vijendar.Mukunda@amd.com>,
+	linux-sound@vger.kernel.org,
+	sound-open-firmware@alsa-project.org
+Subject: [PATCH 11/13] ASoC: SOF: Discard pm_runtime_put_autosuspend() return values
+Date: Tue,  6 Oct 2026 16:13:39 -0700
+Message-ID: <20261006161337.11.I90762189ee6537c5deb0725ede365d641607377e@changeid>
 X-Mailer: git-send-email 2.56.0.360.g66cac248cb-goog
 In-Reply-To: <20261006231900.3230373-1-briannorris@chromium.org>
 References: <20261006231900.3230373-1-briannorris@chromium.org>
@@ -87,8 +88,8 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Propagating the pm_runtime_put_autosuspend() return value to callers is
-not particularly useful.
+Printing error messages on pm_runtime_put_autosuspend() returning
+negative values is not particularly useful.
 
 Returning an error code from pm_runtime_put_autosuspend() merely means
 that it has not queued up a timer or work item to check whether or not
@@ -96,15 +97,8 @@ the device can be suspended and there are many perfectly valid
 situations in which that can happen, like after writing "on" to the
 device's runtime PM "control" attribute in sysfs for one example.
 
-Modify sst_pm_runtime_put() to discard the pm_runtime_put_autosuspend()
-return value, change its return type to void, and update its callers in
-sst_power_control() accordingly.
-
-Note that in one error path for sst_power_control(), we would previously
-overwrite one error code (from "FW download fail") with the return code
-from pm_runtime_put_autosuspend(). This was probably an unexpected
-behavior, which is now changed to propagate the sst_load_fw() error
-code.
+Accordingly, update the SOF driver to simply discard the return value of
+pm_runtime_put_autosuspend().
 
 This will facilitate a planned change of the
 pm_runtime_put_autosuspend() return type to void in the future, similar
@@ -117,65 +111,163 @@ This patch is independent of the rest of the series, except for the end
 (changing the return type). I expect it can be applied by individual
 maintainers, and we pick up the end once the dust is settled.
 
- sound/soc/intel/atom/sst/sst.h               | 2 +-
- sound/soc/intel/atom/sst/sst_drv_interface.c | 4 ++--
- sound/soc/intel/atom/sst/sst_pvt.c           | 9 ++-------
- 3 files changed, 5 insertions(+), 10 deletions(-)
+ sound/soc/sof/control.c                        |  6 ++----
+ sound/soc/sof/sof-client-ipc-flood-test.c      |  5 +----
+ sound/soc/sof/sof-client-ipc-kernel-injector.c |  4 +---
+ sound/soc/sof/sof-client-ipc-msg-injector.c    |  6 ++----
+ sound/soc/sof/sof-client-probes.c              | 18 ++++++------------
+ 5 files changed, 12 insertions(+), 27 deletions(-)
 
-diff --git a/sound/soc/intel/atom/sst/sst.h b/sound/soc/intel/atom/sst/sst.h
-index c43946c5ecee..518b2b53510d 100644
---- a/sound/soc/intel/atom/sst/sst.h
-+++ b/sound/soc/intel/atom/sst/sst.h
-@@ -497,7 +497,7 @@ int get_stream_id_mrfld(struct intel_sst_drv *sst_drv_ctx,
- u32 relocate_imr_addr_mrfld(u32 base_addr);
- void sst_add_to_dispatch_list_and_post(struct intel_sst_drv *sst,
- 					struct ipc_post *msg);
--int sst_pm_runtime_put(struct intel_sst_drv *sst_drv);
-+void sst_pm_runtime_put(struct intel_sst_drv *sst_drv);
- int sst_shim_write(void __iomem *addr, int offset, int value);
- u32 sst_shim_read(void __iomem *addr, int offset);
- u64 sst_reg_read64(void __iomem *addr, int offset);
-diff --git a/sound/soc/intel/atom/sst/sst_drv_interface.c b/sound/soc/intel/atom/sst/sst_drv_interface.c
-index 2646c4632ca1..c99697b975d8 100644
---- a/sound/soc/intel/atom/sst/sst_drv_interface.c
-+++ b/sound/soc/intel/atom/sst/sst_drv_interface.c
-@@ -135,13 +135,13 @@ static int sst_power_control(struct device *dev, bool state)
- 			if (ret) {
- 				dev_err(dev, "FW download fail %d\n", ret);
- 				sst_set_fw_state_locked(ctx, SST_RESET);
--				ret = sst_pm_runtime_put(ctx);
-+				sst_pm_runtime_put(ctx);
- 			}
- 		}
- 	} else {
- 		usage_count = GET_USAGE_COUNT(dev);
- 		dev_dbg(ctx->dev, "Disable: pm usage count: %d\n", usage_count);
--		return sst_pm_runtime_put(ctx);
-+		sst_pm_runtime_put(ctx);
- 	}
- 	return ret;
- }
-diff --git a/sound/soc/intel/atom/sst/sst_pvt.c b/sound/soc/intel/atom/sst/sst_pvt.c
-index 0b0cfd70efbc..913e232bf6ed 100644
---- a/sound/soc/intel/atom/sst/sst_pvt.c
-+++ b/sound/soc/intel/atom/sst/sst_pvt.c
-@@ -255,14 +255,9 @@ int sst_prepare_and_post_msg(struct intel_sst_drv *sst,
- 	return ret;
- }
+diff --git a/sound/soc/sof/control.c b/sound/soc/sof/control.c
+index 74d997a4f620..8718c293c5b9 100644
+--- a/sound/soc/sof/control.c
++++ b/sound/soc/sof/control.c
+@@ -185,7 +185,7 @@ int snd_sof_bytes_ext_volatile_get(struct snd_kcontrol *kcontrol, unsigned int _
+ 	struct snd_soc_component *scomp = scontrol->scomp;
+ 	struct snd_sof_dev *sdev = snd_soc_component_get_drvdata(scomp);
+ 	const struct sof_ipc_tplg_ops *tplg_ops = sof_ipc_get_ops(sdev, tplg);
+-	int ret, err;
++	int ret;
  
--int sst_pm_runtime_put(struct intel_sst_drv *sst_drv)
-+void sst_pm_runtime_put(struct intel_sst_drv *sst_drv)
- {
--	int ret;
--
--	ret = pm_runtime_put_autosuspend(sst_drv->dev);
+ 	/* ignore the ext_volatile_get call if the callbacks are not provided */
+ 	if (!tplg_ops || !tplg_ops->control ||
+@@ -205,9 +205,7 @@ int snd_sof_bytes_ext_volatile_get(struct snd_kcontrol *kcontrol, unsigned int _
+ 								binary_data,
+ 								size);
+ 
+-	err = pm_runtime_put_autosuspend(scomp->dev);
+-	if (err < 0)
+-		dev_err_ratelimited(scomp->dev, "%s: failed to idle %d\n", __func__, err);
++	pm_runtime_put_autosuspend(scomp->dev);
+ 
+ 	return ret;
+ }
+diff --git a/sound/soc/sof/sof-client-ipc-flood-test.c b/sound/soc/sof/sof-client-ipc-flood-test.c
+index 2396cc35489a..a86dd5630790 100644
+--- a/sound/soc/sof/sof-client-ipc-flood-test.c
++++ b/sound/soc/sof/sof-client-ipc-flood-test.c
+@@ -157,7 +157,6 @@ static ssize_t sof_ipc_flood_dfs_write(struct file *file, const char __user *buf
+ 	unsigned long ipc_duration_ms = 0;
+ 	bool flood_duration_test = false;
+ 	unsigned long ipc_count = 0;
+-	int err;
+ 	char *string;
+ 	int ret;
+ 
+@@ -223,9 +222,7 @@ static ssize_t sof_ipc_flood_dfs_write(struct file *file, const char __user *buf
+ 		ret = sof_debug_ipc_flood_test(cdev, flood_duration_test,
+ 					       ipc_duration_ms, ipc_count);
+ 
+-	err = pm_runtime_put_autosuspend(dev);
+-	if (err < 0)
+-		dev_err_ratelimited(dev, "debugfs write failed to idle %d\n", err);
++	pm_runtime_put_autosuspend(dev);
+ 
+ 	/* return count if test is successful */
+ 	if (ret >= 0)
+diff --git a/sound/soc/sof/sof-client-ipc-kernel-injector.c b/sound/soc/sof/sof-client-ipc-kernel-injector.c
+index 02d0d97ad1a0..751d6a0bef79 100644
+--- a/sound/soc/sof/sof-client-ipc-kernel-injector.c
++++ b/sound/soc/sof/sof-client-ipc-kernel-injector.c
+@@ -66,9 +66,7 @@ static ssize_t sof_kernel_msg_inject_dfs_write(struct file *file, const char __u
+ 	if (!ret)
+ 		sof_client_ipc_rx_message(cdev, hdr, priv->kernel_buffer);
+ 
+-	ret = pm_runtime_put_autosuspend(dev);
 -	if (ret < 0)
--		return ret;
--	return 0;
-+	pm_runtime_put_autosuspend(sst_drv->dev);
- }
+-		dev_err_ratelimited(dev, "debugfs write failed to idle %d\n", ret);
++	pm_runtime_put_autosuspend(dev);
  
- void sst_fill_header_mrfld(union ipc_header_mrfld *header,
+ 	return count;
+ };
+diff --git a/sound/soc/sof/sof-client-ipc-msg-injector.c b/sound/soc/sof/sof-client-ipc-msg-injector.c
+index 932ab459c079..2eaec52ab439 100644
+--- a/sound/soc/sof/sof-client-ipc-msg-injector.c
++++ b/sound/soc/sof/sof-client-ipc-msg-injector.c
+@@ -122,7 +122,7 @@ static int sof_msg_inject_send_message(struct sof_client_dev *cdev)
+ {
+ 	struct sof_msg_inject_priv *priv = cdev->data;
+ 	struct device *dev = &cdev->auxdev.dev;
+-	int ret, err;
++	int ret;
+ 
+ 	ret = pm_runtime_resume_and_get(dev);
+ 	if (ret < 0 && ret != -EACCES) {
+@@ -140,9 +140,7 @@ static int sof_msg_inject_send_message(struct sof_client_dev *cdev)
+ 			dev_err(dev, "IPC message send failed: %d\n", ret);
+ 	}
+ 
+-	err = pm_runtime_put_autosuspend(dev);
+-	if (err < 0)
+-		dev_err_ratelimited(dev, "debugfs write failed to idle %d\n", err);
++	pm_runtime_put_autosuspend(dev);
+ 
+ 	return ret;
+ }
+diff --git a/sound/soc/sof/sof-client-probes.c b/sound/soc/sof/sof-client-probes.c
+index 124f55508159..32e31d6aa9bb 100644
+--- a/sound/soc/sof/sof-client-probes.c
++++ b/sound/soc/sof/sof-client-probes.c
+@@ -211,7 +211,7 @@ static ssize_t sof_probes_dfs_points_read(struct file *file, char __user *to,
+ 	int remaining, offset;
+ 	size_t num_desc;
+ 	char *buf;
+-	int i, ret, err;
++	int i, ret;
+ 
+ 	if (priv->extractor_stream_tag == SOF_PROBES_INVALID_NODE_ID) {
+ 		dev_warn(dev, "no extractor stream running\n");
+@@ -258,9 +258,7 @@ static ssize_t sof_probes_dfs_points_read(struct file *file, char __user *to,
+ 	kfree(desc);
+ 
+ pm_error:
+-	err = pm_runtime_put_autosuspend(dev);
+-	if (err < 0)
+-		dev_err_ratelimited(dev, "debugfs read failed to idle %d\n", err);
++	pm_runtime_put_autosuspend(dev);
+ 
+ exit:
+ 	kfree(buf);
+@@ -294,7 +292,7 @@ sof_probes_dfs_points_write(struct file *file, const char __user *from,
+ 	struct sof_probe_point_desc *desc;
+ 	u32 num_elems, *array;
+ 	size_t bytes;
+-	int ret, err;
++	int ret;
+ 
+ 	if (priv->extractor_stream_tag == SOF_PROBES_INVALID_NODE_ID) {
+ 		dev_warn(dev, "no extractor stream running\n");
+@@ -327,9 +325,7 @@ sof_probes_dfs_points_write(struct file *file, const char __user *from,
+ 			ret = count;
+ 	}
+ 
+-	err = pm_runtime_put_autosuspend(dev);
+-	if (err < 0)
+-		dev_err_ratelimited(dev, "debugfs write failed to idle %d\n", err);
++	pm_runtime_put_autosuspend(dev);
+ exit:
+ 	kfree(array);
+ 	return ret;
+@@ -360,7 +356,7 @@ sof_probes_dfs_points_remove_write(struct file *file, const char __user *from,
+ 	struct sof_probes_priv *priv = cdev->data;
+ 	const struct sof_probes_ipc_ops *ipc = priv->ipc_ops;
+ 	struct device *dev = &cdev->auxdev.dev;
+-	int ret, err;
++	int ret;
+ 	u32 *array;
+ 
+ 	if (priv->extractor_stream_tag == SOF_PROBES_INVALID_NODE_ID) {
+@@ -385,9 +381,7 @@ sof_probes_dfs_points_remove_write(struct file *file, const char __user *from,
+ 			ret = count;
+ 	}
+ 
+-	err = pm_runtime_put_autosuspend(dev);
+-	if (err < 0)
+-		dev_err_ratelimited(dev, "debugfs write failed to idle %d\n", err);
++	pm_runtime_put_autosuspend(dev);
+ exit:
+ 	kfree(array);
+ 	return ret;
 -- 
 2.56.0.360.g66cac248cb-goog
 
